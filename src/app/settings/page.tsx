@@ -47,7 +47,9 @@ export default async function SettingsPage() {
           <h2 className="font-serif text-lg text-ink mb-2">Configured sources ({FEEDS.length})</h2>
           <ul className="text-slate-700 space-y-1 text-xs">
             {FEEDS.map((f) => (
-              <li key={f.firmName} className="break-all"><span className="font-semibold">{f.firmName}</span> — {f.feedUrl}</li>
+              <li key={f.firmName} className="break-all">
+                <span className="font-semibold">{f.firmName}</span> — {f.feedUrls.length} candidate URL{f.feedUrls.length === 1 ? "" : "s"}
+              </li>
             ))}
           </ul>
         </section>
