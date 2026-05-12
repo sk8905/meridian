@@ -1,8 +1,8 @@
-// Law firm and aggregator RSS/Atom feed sources.
+// Law firm, regulator and aggregator RSS/Atom feed sources.
 //
 // Each entry can list multiple candidate URLs. The fetcher tries them in order
 // and uses the first one that returns items. This makes the app resilient to
-// firms tweaking their URL paths.
+// sources tweaking their URL paths.
 
 export type FirmFeed = {
   firmName: string;
@@ -13,173 +13,213 @@ export type FirmFeed = {
 
 const UK_HINTS = ["UK", "United Kingdom", "England", "English law", "London", "FCA", "PRA", "HMRC", "HMT", "Companies Act"];
 
+// Helper for GOV.UK Atom feeds (documented at https://www.gov.uk/help/feeds).
+const gov = (slug: string) => `https://www.gov.uk/government/organisations/${slug}.atom`;
+
 export const FEEDS: FirmFeed[] = [
-  // ---------- Magic Circle (direct) ----------
+  // ====================================================================
+  // TIER 1 — UK regulators, government & courts (authoritative)
+  // ====================================================================
+
+  // HMRC — tax
+  { firmName: "HMRC", feedUrls: [gov("hm-revenue-customs")] },
+
+  // HM Treasury — financial regulation & tax
+  { firmName: "HM Treasury", feedUrls: [gov("hm-treasury")] },
+
+  // Companies House — corporate filings rules
+  { firmName: "Companies House", feedUrls: [gov("companies-house")] },
+
+  // Insolvency Service — R&I
+  { firmName: "Insolvency Service", feedUrls: [gov("insolvency-service")] },
+
+  // Department for Business & Trade — corporate, NSIA, governance
+  { firmName: "Department for Business & Trade", feedUrls: [gov("department-for-business-and-trade")] },
+
+  // Bank of England — banking, monetary policy, PRA-side supervision
+  {
+    firmName: "Bank of England",
+    feedUrls: [
+      "https://www.bankofengland.co.uk/news/rss",
+      "https://www.bankofengland.co.uk/rss/news",
+      "https://www.bankofengland.co.uk/news/news.rss",
+    ],
+  },
+
+  // Bank of England — PRA Statements of Policy / Supervisory Statements
+  {
+    firmName: "PRA / BoE supervision",
+    feedUrls: [
+      "https://www.bankofengland.co.uk/prudential-regulation/publication/rss",
+      "https://www.bankofengland.co.uk/rss/prudential-regulation",
+    ],
+  },
+
+  // FCA — banking, funds reg, market conduct
+  {
+    firmName: "FCA",
+    feedUrls: [
+      "https://www.fca.org.uk/news/rss.xml",
+      "https://www.fca.org.uk/news/feed",
+      "https://www.fca.org.uk/news.rss",
+    ],
+  },
+
+  // The Takeover Panel — UK Takeover Code
+  {
+    firmName: "Takeover Panel",
+    feedUrls: [
+      "https://www.thetakeoverpanel.org.uk/rss",
+      "https://www.thetakeoverpanel.org.uk/feed",
+      "https://www.thetakeoverpanel.org.uk/disclosures/feed",
+    ],
+  },
+
+  // Financial Reporting Council — corporate governance, audit, reporting
+  {
+    firmName: "FRC",
+    feedUrls: [
+      "https://www.frc.org.uk/news/feed",
+      "https://www.frc.org.uk/feed",
+      "https://www.frc.org.uk/news/rss",
+    ],
+  },
+
+  // BAILII — UK case law
+  {
+    firmName: "BAILII — UK Supreme Court",
+    feedUrls: [
+      "http://www.bailii.org/uk/cases/UKSC/feed.rss",
+      "http://www.bailii.org/cgi-bin/feed.cgi?path=/uk/cases/UKSC/",
+      "http://www.bailii.org/uk/cases/UKSC/rss.xml",
+    ],
+  },
+  {
+    firmName: "BAILII — Court of Appeal (Civil)",
+    feedUrls: [
+      "http://www.bailii.org/ew/cases/EWCA/Civ/feed.rss",
+      "http://www.bailii.org/cgi-bin/feed.cgi?path=/ew/cases/EWCA/Civ/",
+    ],
+  },
+  {
+    firmName: "BAILII — High Court (Chancery)",
+    feedUrls: [
+      "http://www.bailii.org/ew/cases/EWHC/Ch/feed.rss",
+      "http://www.bailii.org/cgi-bin/feed.cgi?path=/ew/cases/EWHC/Ch/",
+    ],
+  },
+  {
+    firmName: "BAILII — High Court (Commercial)",
+    feedUrls: [
+      "http://www.bailii.org/ew/cases/EWHC/Comm/feed.rss",
+      "http://www.bailii.org/cgi-bin/feed.cgi?path=/ew/cases/EWHC/Comm/",
+    ],
+  },
+
+  // ====================================================================
+  // TIER 2 — Industry bodies & commentary
+  // ====================================================================
+
+  // AIMA — alternative investment / hedge funds
+  {
+    firmName: "AIMA",
+    feedUrls: ["https://www.aima.org/feed", "https://www.aima.org/news/feed", "https://www.aima.org/rss"],
+  },
+
+  // BVCA — UK private equity & venture capital
+  {
+    firmName: "BVCA",
+    feedUrls: ["https://www.bvca.co.uk/feed", "https://www.bvca.co.uk/news/feed", "https://www.bvca.co.uk/rss"],
+  },
+
+  // The Investment Association — UK asset management
+  {
+    firmName: "The Investment Association",
+    feedUrls: ["https://www.theia.org/feed", "https://www.theia.org/news/feed", "https://www.theia.org/rss"],
+  },
+
+  // R3 — UK insolvency body
+  {
+    firmName: "R3",
+    feedUrls: ["https://www.r3.org.uk/feed", "https://www.r3.org.uk/news/feed", "https://www.r3.org.uk/rss"],
+  },
+
+  // South Square — restructuring barristers' chambers
+  {
+    firmName: "South Square",
+    feedUrls: ["https://southsquare.com/feed", "https://southsquare.com/feed/", "https://southsquare.com/rss"],
+  },
+
+  // Out-Law (Pinsent Masons) — multi-area firm publication
+  {
+    firmName: "Out-Law (Pinsent Masons)",
+    feedUrls: [
+      "https://www.pinsentmasons.com/out-law/feed",
+      "https://www.pinsentmasons.com/out-law/rss",
+      "https://www.pinsentmasons.com/out-law.rss",
+    ],
+  },
+
+  // Loan Market Association — banking & syndicated lending
+  {
+    firmName: "Loan Market Association",
+    feedUrls: ["https://www.lma.eu.com/feed", "https://www.lma.eu.com/news/feed", "https://www.lma.eu.com/rss"],
+  },
+
+  // Law Society Gazette — UK legal news
+  {
+    firmName: "Law Society Gazette",
+    feedUrls: ["https://www.lawgazette.co.uk/feed", "https://www.lawgazette.co.uk/rss"],
+  },
+
+  // ====================================================================
+  // TIER 3 — Specialist commentary
+  // ====================================================================
+
+  // Oxford Business Law Blog — corporate, funds reg, M&A commentary
+  {
+    firmName: "Oxford Business Law Blog",
+    feedUrls: [
+      "https://blogs.law.ox.ac.uk/business-law-blog/feed",
+      "https://blogs.law.ox.ac.uk/business-law-blog/rss",
+      "https://blogs.law.ox.ac.uk/business-law-blog/feed.xml",
+    ],
+  },
+
+  // EU Law Analysis blog — retained EU law / cross-border
+  {
+    firmName: "EU Law Analysis",
+    feedUrls: ["https://eulawanalysis.blogspot.com/feeds/posts/default", "https://eulawanalysis.blogspot.com/feeds/posts/default?alt=rss"],
+  },
+
+  // ESMA — relevant for UK fund managers active in EU
+  {
+    firmName: "ESMA",
+    feedUrls: [
+      "https://www.esma.europa.eu/press-news/esma-news/rss.xml",
+      "https://www.esma.europa.eu/news/feed",
+      "https://www.esma.europa.eu/rss",
+    ],
+    englandHints: UK_HINTS,
+  },
+
+  // CIOT — Chartered Institute of Taxation
+  {
+    firmName: "CIOT",
+    feedUrls: ["https://www.tax.org.uk/feed", "https://www.tax.org.uk/rss"],
+  },
+
+  // ====================================================================
+  // PREVIOUSLY-CONFIRMED FIRM FEEDS (keep what works)
+  // ====================================================================
+
   {
     firmName: "A&O Shearman",
-    feedUrls: [
-      "https://www.aoshearman.com/insights/rss",
-      "https://www.aoshearman.com/en/insights/rss",
-      "https://www.aoshearman.com/feed",
-      "https://www.aoshearman.com/rss",
-    ],
-  },
-  {
-    firmName: "Clifford Chance",
-    feedUrls: [
-      "https://www.cliffordchance.com/insights/rss",
-      "https://www.cliffordchance.com/feed",
-      "https://www.cliffordchance.com/rss",
-      "https://www.cliffordchance.com/content/cliffordchance/global/en/insights.rss.xml",
-    ],
-  },
-  {
-    firmName: "Freshfields",
-    feedUrls: [
-      "https://www.freshfields.com/insights/rss",
-      "https://www.freshfields.com/en-gb/our-thinking/feed",
-      "https://www.freshfields.com/feed",
-      "https://www.freshfields.com/rss",
-    ],
-  },
-  {
-    firmName: "Linklaters",
-    feedUrls: [
-      "https://www.linklaters.com/insights/rss",
-      "https://www.linklaters.com/en/rss/insights",
-      "https://www.linklaters.com/feed",
-      "https://www.linklaters.com/rss",
-    ],
+    feedUrls: ["https://www.aoshearman.com/insights/rss"],
+    englandHints: UK_HINTS,
   },
   {
     firmName: "Slaughter and May",
-    feedUrls: [
-      "https://www.slaughterandmay.com/insights/rss",
-    ],
-  },
-
-  // ---------- US Big Law with strong London / English-law practices (direct) ----------
-  {
-    firmName: "Latham & Watkins",
-    feedUrls: ["https://www.lw.com/en/rss/insights", "https://www.lw.com/feeds/insights", "https://www.lw.com/feed"],
-    englandHints: UK_HINTS,
-  },
-  {
-    firmName: "Kirkland & Ellis",
-    feedUrls: ["https://www.kirkland.com/feeds/publications", "https://www.kirkland.com/publications/rss", "https://www.kirkland.com/feed"],
-    englandHints: UK_HINTS,
-  },
-  {
-    firmName: "White & Case",
-    feedUrls: ["https://www.whitecase.com/feeds/insights", "https://www.whitecase.com/insight-rss", "https://www.whitecase.com/feed"],
-    englandHints: UK_HINTS,
-  },
-  {
-    firmName: "Weil Gotshal",
-    feedUrls: ["https://www.weil.com/feeds/articles", "https://www.weil.com/feed/articles", "https://www.weil.com/articles/rss"],
-    englandHints: UK_HINTS,
-  },
-  {
-    firmName: "Skadden",
-    feedUrls: ["https://www.skadden.com/feeds/insights"],
-    englandHints: UK_HINTS,
-  },
-  {
-    firmName: "Sidley Austin",
-    feedUrls: ["https://www.sidley.com/en/insights/feed", "https://www.sidley.com/feeds/insights", "https://www.sidley.com/feed"],
-    englandHints: UK_HINTS,
-  },
-  {
-    firmName: "Davis Polk",
-    feedUrls: ["https://www.davispolk.com/feeds/insights", "https://www.davispolk.com/feed/insights", "https://www.davispolk.com/insights/rss"],
-    englandHints: UK_HINTS,
-  },
-  {
-    firmName: "Sullivan & Cromwell",
-    feedUrls: ["https://www.sullcrom.com/feeds/publications", "https://www.sullcrom.com/rss/publications", "https://www.sullcrom.com/publications/rss"],
-    englandHints: UK_HINTS,
-  },
-  {
-    firmName: "Simpson Thacher",
-    feedUrls: ["https://www.stblaw.com/feeds/publications", "https://www.stblaw.com/rss/publications"],
-    englandHints: UK_HINTS,
-  },
-  {
-    firmName: "Paul Weiss",
-    feedUrls: ["https://www.paulweiss.com/feeds/publications", "https://www.paulweiss.com/rss/publications"],
-    englandHints: UK_HINTS,
-  },
-  {
-    firmName: "Milbank",
-    feedUrls: ["https://www.milbank.com/feeds/insights", "https://www.milbank.com/en/news/feed", "https://www.milbank.com/feed"],
-    englandHints: UK_HINTS,
-  },
-  {
-    firmName: "Cleary Gottlieb",
-    feedUrls: ["https://www.clearygottlieb.com/feeds/insights", "https://www.clearygottlieb.com/news-and-insights/feed", "https://www.clearygottlieb.com/feed"],
-    englandHints: UK_HINTS,
-  },
-  {
-    firmName: "Hogan Lovells",
-    feedUrls: ["https://www.hoganlovells.com/feeds/insights", "https://www.hoganlovells.com/en/feed/publications", "https://www.hoganlovells.com/insights/rss"],
-    englandHints: UK_HINTS,
-  },
-  {
-    firmName: "Norton Rose Fulbright",
-    feedUrls: ["https://www.nortonrosefulbright.com/en-gb/knowledge/feed", "https://www.nortonrosefulbright.com/feeds/knowledge", "https://www.nortonrosefulbright.com/insights/rss"],
-  },
-
-  // ---------- Silver Circle / UK specialists (direct) ----------
-  {
-    firmName: "Macfarlanes",
-    feedUrls: ["https://www.macfarlanes.com/what-we-think/in-depth/rss", "https://www.macfarlanes.com/feeds/insights", "https://www.macfarlanes.com/insights/rss", "https://www.macfarlanes.com/feed"],
-  },
-  {
-    firmName: "Travers Smith",
-    feedUrls: ["https://www.traverssmith.com/knowledge/rss", "https://www.traverssmith.com/insights/rss", "https://www.traverssmith.com/feed"],
-  },
-  {
-    firmName: "Ashurst",
-    feedUrls: ["https://www.ashurst.com/en/insights/feed", "https://www.ashurst.com/insights/rss", "https://www.ashurst.com/feed"],
-  },
-
-  // ---------- Aggregator feeds (backstop coverage) ----------
-  // JD Supra: free aggregator that republishes law-firm alerts. Public topic feeds.
-  {
-    firmName: "JD Supra — Banking & Finance",
-    feedUrls: ["https://www.jdsupra.com/topics/banking-financial-services/rss/", "https://www.jdsupra.com/topics/banking/rss/"],
-    englandHints: UK_HINTS,
-  },
-  {
-    firmName: "JD Supra — Bankruptcy & Restructuring",
-    feedUrls: ["https://www.jdsupra.com/topics/bankruptcy/rss/", "https://www.jdsupra.com/topics/restructuring/rss/"],
-    englandHints: UK_HINTS,
-  },
-  {
-    firmName: "JD Supra — M&A / Corporate",
-    feedUrls: ["https://www.jdsupra.com/topics/mergers-acquisitions/rss/", "https://www.jdsupra.com/topics/corporate-governance/rss/"],
-    englandHints: UK_HINTS,
-  },
-  {
-    firmName: "JD Supra — Investment Funds",
-    feedUrls: ["https://www.jdsupra.com/topics/investment-funds/rss/", "https://www.jdsupra.com/topics/private-equity/rss/"],
-    englandHints: UK_HINTS,
-  },
-  {
-    firmName: "JD Supra — Tax",
-    feedUrls: ["https://www.jdsupra.com/topics/tax/rss/", "https://www.jdsupra.com/topics/international-tax/rss/"],
-    englandHints: UK_HINTS,
-  },
-
-  // Lexology: subscription product but has some public RSS endpoints.
-  {
-    firmName: "Lexology — UK",
-    feedUrls: ["https://www.lexology.com/jurisdictions/united-kingdom/rss", "https://www.lexology.com/library/feed.aspx?j=united-kingdom"],
-  },
-
-  // Mondaq: free aggregator of firm articles with public RSS.
-  {
-    firmName: "Mondaq — UK",
-    feedUrls: ["https://www.mondaq.com/UK/Article/RSS", "https://www.mondaq.com/uk/rss", "https://www.mondaq.com/UK/RSS"],
+    feedUrls: ["https://www.slaughterandmay.com/insights/rss"],
   },
 ];

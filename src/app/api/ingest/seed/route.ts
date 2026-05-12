@@ -12,6 +12,6 @@ export async function GET(req: Request) {
   const secret = url.searchParams.get("secret");
   if (!expected || secret !== expected) return NextResponse.json({ error: "unauthorised" }, { status: 401 });
   const days = Number(url.searchParams.get("days") || 30);
-  const result = await runIngest({ sinceDays: days, perFeedLimit: 50 });
+  const result = await runIngest({ sinceDays: days, perFeedLimit: 10 });
   return NextResponse.json(result);
 }
