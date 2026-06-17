@@ -244,3 +244,25 @@ each manager name on the Funds table links to its profile.
   badge/note for when such an event is publicly confirmed.
 - Invalid fund statuses normalised to the four canonical states; "100% invested" is
   recorded as deployment in the description, not as a lifecycle event.
+
+## Capital Sought chart + actual investor lists (2026-06-17)
+
+- **Capital sought by strategy** (dashboard): sums disclosed `targetSize` of funds
+  actively raising (Open / First Close / Pre-marketing; evergreen excluded — no
+  fixed target). Only ~15 in-market funds disclose a target, so the chart reflects
+  disclosed targets only.
+- **Actual investors (item):** added a per-fund `investors` field. 8 agents
+  researched publicly-disclosed LPs for all 161 final-close/evergreen funds from
+  public sources only (manager/insurer press releases, public-pension board papers
+  & ACFRs, EIF/EC, UK Gazette, listed-vehicle disclosures), excluding the banned
+  aggregators AND PitchBook-only names. Result: **39 funds** have ≥1 verifiable LP
+  (56 entries, all source-linked); the other ~122 correctly show the honest
+  empty-state (most private funds never name LPs). Two map to our LP universe
+  (CalPERS→ACE V, Allianz→APDS I & Guggenheim MM); the rest (EIF, PSERS, NJ DOI,
+  Brunel, MainePERS, TCDRS, ARA, CNP, Admiral, NN Group, Florida SBA, etc.) are
+  named with sources but sit outside the 23-LP set.
+- Fund detail logic: Open/First Close/Pre-marketing → "Potential investor fit"
+  (indicative, not commitments); Final Close → "Investors" (actual, sourced);
+  Evergreen → both. A still-raising fund also surfaces actual investors if any are
+  publicly disclosed. Predecessor-fund or different-vehicle (SMA) attributions were
+  reassigned to the correct fund or dropped to avoid misattribution.

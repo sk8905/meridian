@@ -351,8 +351,10 @@ function viewFund(id) {
   // While raising (open/first close/pre-marketing) or evergreen → indicative fit.
   // At final close (and for evergreen) → actual disclosed investor list.
   const showPotential = x.evergreen || x.status === "Open" || x.status === "First Close" || x.status === "Pre-marketing";
+  const hasActualInvestors = investorsForFund(x).length > 0;
   const investorCard = showPotential ? potentialFitCard(x) : actualInvestorsCard(x);
-  const extraInvestorCard = (x.evergreen && (x.status === "Final Close" || x.evergreen)) ? actualInvestorsCard(x) : "";
+  // Evergreen funds show both; a still-raising fund also shows actual investors if any are disclosed.
+  const extraInvestorCard = (x.evergreen || (showPotential && hasActualInvestors)) ? actualInvestorsCard(x) : "";
 
   app.innerHTML = `
     ${breadcrumb([["#/funds", "Funds"], [null, x.name]])}
