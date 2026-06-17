@@ -282,3 +282,19 @@ types validated against the enums; two items dropped for quality (EQT
 Infrastructure VI — equity infra, off-scope; an Azimut GP-stake deal sourced only
 to a homepage). All manager attributions verified to exist and match the firm in
 the headline.
+
+## Continuation vehicles in the Deals feed (2026-06-17)
+
+Added a "Continuation Vehicle" deal type (own chip + filter). Re-tagged the 4
+continuation funds already in the data and researched all other PRIVATE CREDIT
+continuation vehicles announced in the past 10 years across our managers (4
+agents, public sources only, excl. banned aggregators + Tracxn). Net result: 11
+continuation-vehicle deals, each with a source link to the original materials:
+Eurazeo/Pantheon, AEA/AlpInvest, BSP/Coller, AlpInvest-TJC (existing); plus new:
+Ares (Coller-led US DL CV), Crescent/Pantheon CCS VII ($3.2bn), Arcmont/Ares
+($2.5bn), Antares/Ares ($1.2bn & $1.7bn), TPG Twin Brook/Coller ($3bn), Blue
+Owl/Veld (€355m). Note: credit continuation vehicles are a recent market — the
+earliest verifiable ones date to 2024 — so all genuine credit CVs fall in
+2024-2026 (no fabricated older ones). Dropped a BlackRock CV that could only be
+attributed to BlackRock's equity (not credit) entity in our universe.
+The Deals tab has no date cutoff, so it displays the full available history.
