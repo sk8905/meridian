@@ -266,3 +266,19 @@ each manager name on the Funds table links to its profile.
   Evergreen → both. A still-raising fund also surfaces actual investors if any are
   publicly disclosed. Predecessor-fund or different-vehicle (SMA) attributions were
   reassigned to the correct fund or dropped to avoid misattribution.
+
+## Intelligence & Deals expansion from newswires + industry press (2026-06-17)
+
+Six agents researched recent (2024–2026) European private credit news from PR
+Newswire, Business Wire, GlobeNewswire and industry publications (Private Debt
+Investor, Alternative Credit Investor, Private Equity Wire, Infrastructure
+Investor, IPE / IPE Real Assets, manager & law-firm releases). Added **62
+intelligence items** (48→110) and **39 deals** (64→103), each with a real source
+URL, attributed to the correct managerId and (where named) auto-linked to a fund.
+
+Controls: every item deduped against existing feeds by source URL and headline
+(15 already-present items skipped); banned aggregators plus Tracxn excluded; item
+types validated against the enums; two items dropped for quality (EQT
+Infrastructure VI — equity infra, off-scope; an Azimut GP-stake deal sourced only
+to a homepage). All manager attributions verified to exist and match the firm in
+the headline.
