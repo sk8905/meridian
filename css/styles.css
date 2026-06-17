@@ -238,7 +238,8 @@ h3.sub:first-of-type { margin-top: .2rem; }
 /* ---------- intelligence rows ---------- */
 .intel-row { display: flex; gap: 1rem; padding: .8rem 0; border-bottom: 1px solid var(--border); }
 .intel-row:last-child { border-bottom: none; }
-.intel-meta { display: flex; flex-direction: column; align-items: flex-start; gap: .3rem; min-width: 110px; flex-shrink: 0; }
+.intel-meta { display: flex; flex-direction: column; align-items: flex-start; gap: .3rem; width: 10rem; flex-shrink: 0; }
+.intel-meta .chip { margin: 0; }
 .intel-head { font-weight: 600; color: var(--ink); display: inline-block; margin-bottom: .15rem; }
 a.intel-head:hover { color: var(--primary); }
 .intel-body p { margin: .15rem 0 .35rem; }
