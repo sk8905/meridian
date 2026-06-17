@@ -273,6 +273,11 @@ a.intel-head:hover { color: var(--primary); }
 .chart-legend { display: flex; gap: 1.4rem; justify-content: center; margin: 0 0 .4rem; font-size: .8rem; color: var(--muted); }
 /* Secondary heading stacked inside a card (e.g. a second chart below the first). */
 .card-subhead { margin-top: 1.4rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+/* Quarterly-trend range sliders (From / To). */
+.trend-controls { display: flex; gap: 1.75rem; flex-wrap: wrap; margin: .35rem 0 .9rem; }
+.trend-range { display: flex; flex-direction: column; gap: .3rem; font-size: .78rem; color: var(--muted); }
+.trend-range strong { color: var(--primary-ink); font-size: .85rem; }
+.trend-range input[type="range"] { width: 260px; max-width: 100%; accent-color: var(--primary); cursor: pointer; }
 
 /* ---------- footer ---------- */
 .footer { border-top: 1px solid var(--border); background: #fff; padding: 1.25rem 1.5rem; }

@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260617-26";
+} from "./data.js?v=20260617-27";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260617-26";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260617-27";
 
 const app = document.getElementById("app");
 
@@ -205,6 +205,10 @@ const filterState = {
   deals: { q: "", type: "" },
 };
 
+// Dashboard quarterly-trend window (indices into the 40-quarter range). null =>
+// default to the last 8 quarters (2 years). Persists across re-renders.
+const trendState = { start: null, end: null };
+
 // --------------------------- column-header sorting -------------------------
 // Per-view accessor maps: column key -> { type, get(row) }. `type:"num"` sorts
 // numerically (nulls last), otherwise alphabetical via localeCompare.
@@ -332,10 +336,20 @@ function viewDashboard() {
   let dy = nowD.getFullYear(), dqr = Math.floor(nowD.getMonth() / 3) + 1;
   const dQuarters = [];
   for (let i = 0; i < 40; i++) { dQuarters.unshift(`${dy}-Q${dqr}`); dqr--; if (dqr < 1) { dqr = 4; dy--; } }
-  const dealTrend = dQuarters.map((q) => ({ label: q.endsWith("Q1") ? "'" + q.slice(2, 4) : "", value: dq[q] || 0, nav: { jump: "deals" } }));
-  // fund closes (first + final) per quarter over the same 10-year window, to
-  // overlay fundraising activity on the deal-activity trend (qCounts built above).
-  const closeTrend = dQuarters.map((q) => ({ label: q.endsWith("Q1") ? "'" + q.slice(2, 4) : "", value: qCounts[q] || 0 }));
+  // Windowed quarterly series for the combined chart. A "From"/"To" slider picks
+  // any sub-range of the 40 quarters; default is the last 8 quarters (2 years).
+  const NQ = dQuarters.length;
+  const buildTrend = (a, b) => {
+    const win = dQuarters.slice(a, b + 1);
+    // label every quarter for short windows; only Q1 (year) for long ones
+    const lab = win.length <= 16 ? (q) => "'" + q.slice(2) : (q) => (q.endsWith("Q1") ? "'" + q.slice(2, 4) : "");
+    return [
+      { name: "Deals", color: "#2563eb", points: win.map((q) => ({ label: lab(q), value: dq[q] || 0, nav: { jump: "deals" } })) },
+      { name: "Fund closes", color: "#f97316", points: win.map((q) => ({ label: lab(q), value: qCounts[q] || 0 })) },
+    ];
+  };
+  const tStart = Math.min(Math.max(0, trendState.start ?? (NQ - 8)), NQ - 1);
+  const tEnd = Math.min(Math.max(tStart, trendState.end ?? (NQ - 1)), NQ - 1);
 
   // Primary KPIs lead with deal-flow; fundraising is represented but secondary.
   const kpis = [
@@ -361,12 +375,15 @@ function viewDashboard() {
       <div class="card-foot">${link("#/deals", "View all deal activity →")}</div>
     </section>
     <section class="card">
-      <h2>Deal &amp; fundraising activity by quarter <span class="muted">(past 10 years)</span></h2>
-      <p class="muted small">Deal transactions vs. fund closes (first + final) per quarter. Click any quarter to open the full deal feed.</p>
-      ${multiLineChart([
-        { name: "Deals", color: "#2563eb", points: dealTrend },
-        { name: "Fund closes", color: "#f97316", points: closeTrend },
-      ], { width: 1120, height: 240 })}
+      <h2>Deal &amp; fundraising activity by quarter</h2>
+      <p class="muted small">Deal transactions vs. fund closes (first + final) per quarter. Drag the sliders to set the date range (up to 10 years); click any quarter to open the full deal feed.</p>
+      <div class="trend-controls">
+        <label class="trend-range">From <strong id="trend-start-lbl">${esc(dQuarters[tStart])}</strong>
+          <input type="range" id="trend-start" min="0" max="${NQ - 1}" value="${tStart}" aria-label="Range start quarter"></label>
+        <label class="trend-range">To <strong id="trend-end-lbl">${esc(dQuarters[tEnd])}</strong>
+          <input type="range" id="trend-end" min="0" max="${NQ - 1}" value="${tEnd}" aria-label="Range end quarter"></label>
+      </div>
+      <div id="trend-chart">${multiLineChart(buildTrend(tStart, tEnd), { width: 1120, height: 240 })}</div>
     </section>
     <div class="grid-2">
       <section class="card"><h2>Deals by type</h2>${byDealType.length ? donutChart(byDealType) : '<p class="muted small">No deals tracked.</p>'}
@@ -394,6 +411,22 @@ function viewDashboard() {
       <p class="muted small">Click any quarter to see the funds that reached a first or final close in it.</p>
       ${lineChart(trend, { width: 1120, height: 240 })}
     </section>`;
+
+  // Wire the quarterly-trend range sliders: re-render only the chart on drag,
+  // keep the two handles from crossing, and persist the window in trendState.
+  const sEl = document.getElementById("trend-start");
+  const eEl = document.getElementById("trend-end");
+  if (sEl && eEl) {
+    const rerender = () => {
+      const a = +sEl.value, b = +eEl.value;
+      trendState.start = a; trendState.end = b;
+      document.getElementById("trend-start-lbl").textContent = dQuarters[a];
+      document.getElementById("trend-end-lbl").textContent = dQuarters[b];
+      document.getElementById("trend-chart").innerHTML = multiLineChart(buildTrend(a, b), { width: 1120, height: 240 });
+    };
+    sEl.addEventListener("input", () => { if (+sEl.value > +eEl.value) sEl.value = eEl.value; rerender(); });
+    eEl.addEventListener("input", () => { if (+eEl.value < +sEl.value) eEl.value = sEl.value; rerender(); });
+  }
 }
 
 // ================================== FUNDS ===================================
