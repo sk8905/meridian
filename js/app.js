@@ -315,13 +315,13 @@ function viewDashboard() {
 
   // deals by type — donut, segments link to the Deals feed filtered by type
   const byDealType = DEAL_TYPES.map((t) => ({ label: t, value: deals.filter((d) => d.type === t).length, nav: { jump: "deals", dtype: t } })).filter((d) => d.value > 0).sort((a, b) => b.value - a.value);
-  // deal activity per quarter over the past 4 years (16 quarters), clickable → Deals
+  // deal activity per quarter over the past 10 years (40 quarters), clickable → Deals
   const dq = {};
   deals.forEach((d) => { const q = quarterOf(d.date); if (q) dq[q] = (dq[q] || 0) + 1; });
   let dy = nowD.getFullYear(), dqr = Math.floor(nowD.getMonth() / 3) + 1;
   const dQuarters = [];
-  for (let i = 0; i < 16; i++) { dQuarters.unshift(`${dy}-Q${dqr}`); dqr--; if (dqr < 1) { dqr = 4; dy--; } }
-  const dealTrend = dQuarters.map((q) => ({ label: "'" + q.slice(2), value: dq[q] || 0, nav: { jump: "deals" } }));
+  for (let i = 0; i < 40; i++) { dQuarters.unshift(`${dy}-Q${dqr}`); dqr--; if (dqr < 1) { dqr = 4; dy--; } }
+  const dealTrend = dQuarters.map((q) => ({ label: q.endsWith("Q1") ? "'" + q.slice(2, 4) : "", value: dq[q] || 0, nav: { jump: "deals" } }));
 
   // Primary KPIs lead with deal-flow; fundraising is represented but secondary.
   const kpis = [
@@ -346,20 +346,20 @@ function viewDashboard() {
       ${deals.length ? dealsByDate.slice(0, 8).map(dealRow).join("") : '<p class="muted small">No deal activity yet.</p>'}
       <div class="card-foot">${link("#/deals", "View all deal activity →")}</div>
     </section>
+    <section class="card">
+      <h2>Deal activity by quarter <span class="muted">(past 10 years)</span></h2>
+      <p class="muted small">Click any quarter to open the full deal feed.</p>
+      ${lineChart(dealTrend, { width: 1120, height: 240 })}
+    </section>
     <div class="grid-2">
       <section class="card"><h2>Deals by type</h2>${byDealType.length ? donutChart(byDealType) : '<p class="muted small">No deals tracked.</p>'}</section>
       <section class="card">
-        <h2>Deal activity by quarter <span class="muted">(past 4 years)</span></h2>
-        <p class="muted small">Click any quarter to open the full deal feed.</p>
-        ${lineChart(dealTrend, { width: 540, height: 220 })}
+        <h2>Latest intelligence</h2>
+        <p class="muted small">Fund launches, first/final closes, LP mandates, senior personnel and strategy moves.</p>
+        ${intelByDate.slice(0, 6).map(intelRow).join("")}
+        <div class="card-foot">${link("#/intel", "View full intelligence feed →")}</div>
       </section>
     </div>
-    <section class="card">
-      <h2>Latest intelligence</h2>
-      <p class="muted small">Fund launches, first/final closes, LP mandates, senior personnel and strategy moves.</p>
-      ${intelByDate.slice(0, 6).map(intelRow).join("")}
-      <div class="card-foot">${link("#/intel", "View full intelligence feed →")}</div>
-    </section>
 
     <div class="section-divider"><span>Fundraising intelligence</span></div>
     <p class="muted small section-intro">Secondary view — European private credit capital formation: ${open.length} funds in market, ${eur(totalRaised)} raised across tracked funds, ${finalClosesYTD} final closes in 2025–26.</p>
