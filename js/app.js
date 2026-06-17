@@ -301,7 +301,7 @@ function viewFunds() {
     (!f.status || (f.status === "in-market" ? inMarket(x) : fundCategory(x) === f.status)) &&
     (!f.geo || x.geoFocus === f.geo) &&
     (!f.period || (isClose(x) && fundQuarter(x) === f.period))
-  ).sort((a, b) => (b.raised || 0) - (a.raised || 0));
+  ).sort((a, b) => a.name.localeCompare(b.name));
 
   // Group by category: Open / First Close / Final Close / Evergreen / Pre-marketing.
   // Evergreen funds are open-ended, so they sit in their own category, not "Open".
@@ -425,7 +425,7 @@ function viewManagers() {
   const rows = managers.filter((m) =>
     (!f.q || m.name.toLowerCase().includes(f.q.toLowerCase()) || m.hq.toLowerCase().includes(f.q.toLowerCase())) &&
     (!f.strategy || m.strategies.includes(f.strategy))
-  ).sort((a, b) => b.aum - a.aum);
+  ).sort((a, b) => a.name.localeCompare(b.name));
 
   app.innerHTML = `
     <div class="page-head"><h1>Managers</h1><p class="muted">${rows.length} of ${managers.length} GPs</p></div>
@@ -540,7 +540,7 @@ function viewLps() {
     (!f.q || l.name.toLowerCase().includes(f.q.toLowerCase()) || l.hq.toLowerCase().includes(f.q.toLowerCase())) &&
     (!f.type || l.type === f.type) &&
     (!f.strategy || l.strategies.includes(f.strategy))
-  ).sort((a, b) => b.aum - a.aum);
+  ).sort((a, b) => a.name.localeCompare(b.name));
 
   app.innerHTML = `
     <div class="page-head"><h1>Investors / Allocators</h1><p class="muted">${rows.length} of ${lps.length} LPs</p></div>
@@ -623,7 +623,7 @@ function viewIntel() {
   const rows = intel.filter((i) =>
     (!f.q || (i.headline + i.summary).toLowerCase().includes(f.q.toLowerCase())) &&
     (!f.type || i.type === f.type)
-  ); // already in reverse-chronological order
+  ).sort((a, b) => String(b.date).localeCompare(String(a.date))); // newest first
 
   app.innerHTML = `
     <div class="page-head"><h1>Fundraising Intelligence</h1><p class="muted">${rows.length} of ${intel.length} items</p></div>
@@ -660,7 +660,7 @@ function viewDeals() {
   const rows = deals.filter((d) =>
     (!f.q || (d.headline + d.summary + (managerById[d.managerId] ? managerById[d.managerId].name : "")).toLowerCase().includes(f.q.toLowerCase())) &&
     (!f.type || d.type === f.type)
-  );
+  ).sort((a, b) => String(b.date).localeCompare(String(a.date))); // newest first
   app.innerHTML = `
     <div class="page-head"><h1>Deal Activity</h1><p class="muted">${rows.length} of ${deals.length} transactions · investments, exits, refinancings, restructurings &amp; distress</p></div>
     <div class="filters">
@@ -675,7 +675,8 @@ function viewDeals() {
 
 // =============================== MANDATES ==================================
 function viewMandates() {
-  const board = intel.filter((i) => i.type === "Mandate" || i.type === "Launch");
+  const board = intel.filter((i) => i.type === "Mandate" || i.type === "Launch")
+    .sort((a, b) => String(b.date).localeCompare(String(a.date))); // newest first
   app.innerHTML = `
     <div class="page-head"><h1>Mandates &amp; Searches</h1><p class="muted">Live LP mandates, RFPs and new-fund launches · ${board.length} items</p></div>
     <section class="card">
