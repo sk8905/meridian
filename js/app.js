@@ -321,24 +321,60 @@ function viewManagers() {
       <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Name or HQ…" value="${esc(f.q)}"></label>
       ${selectFilter("strategy", "Strategy", STRATEGIES, f.strategy)}
     </div>
-    <div class="card-grid">
-      ${rows.map((m) => {
-        const fs = fundsByManager(m.id);
-        const live = fs.filter((x) => x.status !== "Final Close").length;
-        return `<div class="manager-card clickable" data-href="#/manager/${m.id}">
-          <div class="manager-card-head"><h3>${followBtn("manager", m.id)} ${esc(m.name)}</h3><span class="muted small">${esc(m.hq)}</span></div>
-          <p class="muted small">${esc(m.description)}</p>
-          <div class="manager-stats">
-            <div><strong class="card-aum">${m.aumText ? esc(m.aumText) : "€" + m.aum + "bn"}</strong><span class="muted small">AUM</span></div>
-            <div><strong>${fs.length}</strong><span class="muted small">funds</span></div>
-            <div><strong>${live}</strong><span class="muted small">in market</span></div>
-          </div>
-          <div>${m.strategies.map((s) => chip(s)).join(" ")}</div>
-        </div>`;
-      }).join("")}
-      ${rows.length === 0 ? '<p class="empty">No managers match these filters.</p>' : ""}
-    </div>`;
+    <div class="table-wrap"><table class="data-table">
+      <thead><tr><th>Manager</th><th>HQ</th><th>AUM</th><th>Strategies</th><th>Funds</th><th>In&nbsp;mkt</th></tr></thead>
+      <tbody>
+        ${rows.map((m) => {
+          const fs = fundsByManager(m.id);
+          const live = fs.filter((x) => x.status !== "Final Close").length;
+          const strat = m.strategies.slice(0, 2).map((s) => chip(s)).join(" ") + (m.strategies.length > 2 ? ` <span class="muted small">+${m.strategies.length - 2}</span>` : "") || '<span class="muted small">—</span>';
+          return `<tr class="clickable" data-href="#/manager/${m.id}">
+            <td>${followBtn("manager", m.id)} <strong>${esc(m.name)}</strong></td>
+            <td class="muted small">${esc(m.hq)}</td>
+            <td>${m.aumText ? esc(m.aumText) : "€" + m.aum + "bn"}</td>
+            <td>${strat}</td>
+            <td>${fs.length}</td>
+            <td>${live}</td>
+          </tr>`;
+        }).join("")}
+        ${rows.length === 0 ? '<tr><td colspan="6" class="empty">No managers match these filters.</td></tr>' : ""}
+      </tbody>
+    </table></div>`;
   wireFilters("managers");
+}
+
+// Ownership, financials, headcount and regulatory/account filings (last 2 yrs).
+function ownersFilingsBlock(m) {
+  const owners = (m.owners && m.owners.length)
+    ? `<dl class="facts">${m.owners.map((o) => `<div><dt>${esc(o.name)}</dt><dd>${esc(o.stake)}</dd></div>`).join("")}</dl>`
+    : `<p class="muted small">Ownership not separately disclosed in public sources.</p>`;
+  const fin = m.financials
+    ? `<p>${esc(m.financials.summary)}${m.financials.asOf ? ` <span class="muted small">(as of ${esc(m.financials.asOf)})</span>` : ""}</p>`
+    : `<p class="muted small">Financials not yet compiled / not publicly disclosed (most private managers do not publish accounts beyond regulatory filings).</p>`;
+  const hc = m.headcount
+    ? `<div class="deploy-stats"><span><strong>${m.headcount.investment ?? "—"}</strong> investment professionals</span><span><strong>${m.headcount.other ?? "—"}</strong> other professionals</span><span><strong>${m.headcount.total ?? "—"}</strong> total</span></div>${m.headcount.asOf ? `<p class="muted small">as of ${esc(m.headcount.asOf)}</p>` : ""}`
+    : `<p class="muted small">Headcount split not yet compiled / not publicly broken out.</p>`;
+  const fil = (m.filings && m.filings.length)
+    ? `<ul class="link-list">${m.filings.map((x) => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.label)}</a>${x.date ? ` <span class="muted small">· ${esc(x.date)}</span>` : ""}</li>`).join("")}</ul>`
+    : `<p class="muted small">No regulatory/account filings compiled yet (UK LLPs file at Companies House; US advisers file SEC Form ADV; listed parents file annual reports).</p>`;
+  return `<section class="card">
+    <h2>Ownership, financials &amp; filings</h2>
+    <h3 class="sub">Owners</h3>${owners}
+    <h3 class="sub">Finances</h3>${fin}
+    <h3 class="sub">Headcount</h3>${hc}
+    <h3 class="sub">Recent regulatory &amp; account filings (last 2 years)</h3>${fil}
+    ${m.regSources ? sources({ sources: m.regSources }) : ""}
+  </section>`;
+}
+
+function newsBlock(m) {
+  const n = m.news;
+  return `<section class="card">
+    <h2>In the news</h2>
+    ${(n && n.length)
+      ? n.map((x) => `<div class="intel-row"><div class="intel-meta"><span class="muted small">${esc(x.outlet || "")}</span><span class="muted small">${esc(x.date || "")}</span></div><div class="intel-body"><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a></div></div>`).join("")
+      : '<p class="muted small">No curated news yet for this manager. (When populated, items are drawn from the Financial Times, Bloomberg, Wall Street Journal, Yahoo Finance and other reputable outlets.)'}
+  </section>`;
 }
 
 function viewManager(id) {
@@ -377,6 +413,8 @@ function viewManager(id) {
     </section>
     ${dealsForManager(m.id).length ? `<section class="card"><h2>Deal activity <span class="muted">(${dealsForManager(m.id).length})</span></h2>${dealsForManager(m.id).map(dealRow).join("")}</section>` : ""}
     ${commitmentsForManager(m.id).length ? `<section class="card"><h2>Known investors <span class="muted">(${commitmentsForManager(m.id).length})</span></h2><ul class="link-list">${commitmentsForManager(m.id).map((c) => `<li>${link(`#/lp/${c.lpId}`, lpById[c.lpId].name)} <span class="muted small">${esc(c.note)}</span></li>`).join("")}</ul></section>` : ""}
+    ${ownersFilingsBlock(m)}
+    ${newsBlock(m)}
     <section class="card">
       <h2>Intelligence</h2>
       ${news.length ? news.map(intelRow).join("") : '<p class="muted">No intelligence items for this manager yet.</p>'}

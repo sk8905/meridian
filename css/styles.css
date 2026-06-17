@@ -97,6 +97,9 @@ h3 { font-size: 1rem; margin: 0; }
 .dt-acq{ background:#f3e8ff; color:#6b21a8; }
 .dt-npl{ background:#ffe4e6; color:#9f1239; }
 
+h3.sub { font-size: .82rem; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin: .9rem 0 .35rem; }
+h3.sub:first-of-type { margin-top: .2rem; }
+
 /* ---------- fund status sections ---------- */
 .fund-section { margin-bottom: 1.4rem; }
 .section-head { font-size: 1.05rem; margin: 1.1rem 0 .6rem; display: flex; align-items: center; gap: .5rem; }
