@@ -185,3 +185,28 @@ All verified via public sources; AUM figures are estimates (firm sites blocked d
 
 ## Intelligence / news
 _(pending news agent)_
+
+## Manager profile build-out — final long-tail tranche (2026-06-17)
+
+Populated ownership / financials / headcount / filings / news for the **remaining 48
+managers** that previously had no profile sections (m19, m33–36, m41–47, m51–55,
+m57–62, m64, m67–68, m75–80, m94–97, m99–104, m106–110, m112). All from PUBLIC
+sources only (company releases, regulatory/results filings, Companies House, SEC
+EDGAR, listed-parent reports, reputable trade press). No subscription aggregators
+(With Intelligence / Preqin / PitchBook / Debtwire). Estimates flagged `[est]`;
+undisclosed fields left null/empty rather than invented. Result: 0/112 managers
+fully unpopulated (owners 101/112, financials 108/112, news 107/112; the rest are
+genuinely private firms with nothing public to compile).
+
+Notable corrections made during this pass:
+- **Equitix (m108)** is NOT Tikehau-owned (the prior description was wrong). It is
+  majority-owned by **Tetragon Financial Group**, with **Hunter Point Capital**
+  holding a 16.1% minority (sale closed Oct 2025); a full sale of Tetragon's stake
+  was in process during 2025. Description corrected.
+- **ESR / Venn (m106)**: the USS majority-stake acquisition (ESR's full exit) was
+  announced in **2026** (expected to close Q2 2026), not 2025. Description corrected.
+- **Baupost (m68)**: dropped a stale 1995 SEC 13F link that an automated search
+  surfaced; kept only current public sources.
+- Bank desks / origination partnerships (DB DPG m57, DB Capital Solutions m58,
+  Barclays/AGL m59, Wells Fargo/Overland m60, Bank Leumi m61) carry group/parent-
+  level figures with the scope noted, since no standalone unit accounts are public.
