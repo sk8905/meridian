@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260617-29";
+} from "./data.js?v=20260617-30";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260617-29";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260617-30";
 
 const app = document.getElementById("app");
 
@@ -186,6 +186,18 @@ function toggleFollow(type, id) {
   saveFollows();
 }
 function followCount() { return FOLLOW_TYPES.reduce((n, t) => n + followList(t).length, 0); }
+// Fill the persistent topbar identity area once we know the signed-in user.
+// Hidden when not behind Access (device-local mode).
+function renderAccountNav() {
+  const el = document.getElementById("account-nav");
+  if (!el) return;
+  if (cloudSync && account) {
+    el.innerHTML = `signed in as <strong>${esc(account)}</strong> · <a href="/cdn-cgi/access/logout">Sign out</a>`;
+    el.hidden = false;
+  } else {
+    el.hidden = true;
+  }
+}
 // Pull the cloud watchlist on startup. Server is the source of truth across
 // devices; if the server is empty but this device has items, migrate them up.
 async function initWatchlistSync() {
@@ -196,6 +208,7 @@ async function initWatchlistSync() {
   let d; try { d = await r.json(); } catch { return; }
   cloudSync = true;
   account = d.email || null;
+  renderAccountNav();
   const sv = d.watchlist || {};
   const svCount = FOLLOW_TYPES.reduce((n, t) => n + ((sv[t] || []).length), 0);
   if (svCount > 0) {
