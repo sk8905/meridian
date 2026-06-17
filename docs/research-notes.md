@@ -210,3 +210,37 @@ Notable corrections made during this pass:
 - Bank desks / origination partnerships (DB DPG m57, DB Capital Solutions m58,
   Barclays/AGL m59, Wells Fargo/Overland m60, Bank Leumi m61) carry group/parent-
   level figures with the scope noted, since no standalone unit accounts are public.
+
+## Fund coverage — 10-year lookback, notable investments & evergreen reclassification (2026-06-17)
+
+Expanded fund coverage from 103 to **210 funds** by adding **107 predecessor/parallel
+vintages (vintage 2016+)** for the 93 managers that run funds, so each manager's
+franchise is captured over a trailing 10-year window. Researched by 8 self-contained
+agents from PUBLIC sources only (manager/press releases, regulatory & results filings,
+SEC/Companies House, EIF/EC, reputable trade press). All figures approximate EUR
+(USD/GBP conversions flagged `[est]`); undisclosed sizes left null.
+
+**High-profile investments (item 2):** compiled per fund where publicly attributable —
+**64 funds** now carry a sourced "Notable investments" list. Many distressed/credit
+managers only disclose at strategy level, so those entries are explicitly tagged
+"manager-level; fund attribution not public" rather than inventing a fund link.
+
+**Evergreen reclassification (item 4):** the 16 evergreen funds are now shown in their
+own "Evergreen" category and excluded from "open for fundraising" counts (Funds page,
+dashboard donut/KPIs, manager "in market" tallies). **Manager hyperlinks (item 3):**
+each manager name on the Funds table links to its profile.
+
+**Anti-fabrication controls (item 5):**
+- Excluded subscription aggregators (With Intelligence / Preqin / PitchBook / Debtwire)
+  AND dropped weak secondary aggregators (Crunchbase, Mergr, GuruFocus, CapEdge) from
+  all citations. 0 such URLs remain anywhere in the dataset.
+- Any new fund left without a verifiable non-aggregator source was DROPPED (e.g.
+  Centerbridge Special Credit Partners IV; Bain Special Situations Europe I/II, which
+  were PitchBook-only).
+- **Wound-down/liquidated funds:** no fund could be confirmed wound down/liquidated/
+  fully realised from public sources. Candidate "fully realised" flags that agents
+  themselves described as *inferred* (e.g. Värde/AlbaCore 2020 dislocation vehicles,
+  Rivage REDI "100% invested" ≠ realised) were NOT applied. The UI supports a lifecycle
+  badge/note for when such an event is publicly confirmed.
+- Invalid fund statuses normalised to the four canonical states; "100% invested" is
+  recorded as deployment in the description, not as a lifecycle event.
