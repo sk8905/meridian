@@ -25,6 +25,10 @@ const fundQuarter = (f) => {
   return m ? `${m[1]}-Q${Math.floor((+m[2] - 1) / 3) + 1}` : null;
 };
 const isClose = (f) => f.status === "Final Close" || f.status === "First Close";
+// Some tracked managers run equity strategies, not credit. Their funds/news are
+// included but clearly flagged, and kept out of the credit-specific aggregates.
+const isEquity = (x) => x.assetClass === "Equity";
+const equityBadge = (x) => isEquity(x) ? '<span class="chip eq-badge" title="Equity strategy — not private credit">Equity · not credit</span>' : "";
 
 // Indicative NET target IRR ranges by strategy — market-typical conventions, NOT
 // a specific fund's disclosed target. Used only where a fund discloses no target.
@@ -255,9 +259,12 @@ function sortTh(view, key, label, extraClass = "") {
 
 // ================================ DASHBOARD =================================
 function viewDashboard() {
-  const open = funds.filter((f) => !f.evergreen && (f.status === "Open" || f.status === "First Close"));
-  const totalRaised = funds.reduce((s, f) => s + (f.raised || 0), 0);
-  const finalClosesYTD = funds.filter((f) => f.status === "Final Close" && f.vintage >= 2025).length;
+  // Credit-only universe for the headline aggregates (equity-strategy funds are
+  // tracked and listed elsewhere but excluded from private-credit market stats).
+  const creditFunds = funds.filter((f) => !isEquity(f));
+  const open = creditFunds.filter((f) => !f.evergreen && (f.status === "Open" || f.status === "First Close"));
+  const totalRaised = creditFunds.reduce((s, f) => s + (f.raised || 0), 0);
+  const finalClosesYTD = creditFunds.filter((f) => f.status === "Final Close" && f.vintage >= 2025).length;
   const trackedRaise = intel.filter((i) => i.type === "Final Close" || i.type === "First Close").length;
 
   // helper: capital raised in approximate €bn (one decimal) for chart readability
@@ -265,7 +272,7 @@ function viewDashboard() {
 
   // capital raised by strategy (€bn) — bars link to Funds filtered by strategy
   const byStrategy = STRATEGIES.map((s) => ({
-    label: s, value: bnRaised(funds.filter((f) => f.strategy === s)), nav: { jump: "funds", strategy: s },
+    label: s, value: bnRaised(creditFunds.filter((f) => f.strategy === s)), nav: { jump: "funds", strategy: s },
   })).filter((d) => d.value > 0).sort((a, b) => b.value - a.value);
 
   // capital SOUGHT by strategy (€bn) — disclosed target sizes of funds actively
@@ -273,22 +280,22 @@ function viewDashboard() {
   const seekingCapital = (f) => !f.evergreen && !f.lifecycle && (f.status === "Open" || f.status === "First Close" || f.status === "Pre-marketing");
   const bnTarget = (list) => Math.round(list.reduce((a, f) => a + (f.targetSize || 0), 0) / 100) / 10;
   const bySought = STRATEGIES.map((s) => ({
-    label: s, value: bnTarget(funds.filter((f) => seekingCapital(f) && f.strategy === s)), nav: { jump: "funds", strategy: s, status: "in-market" },
+    label: s, value: bnTarget(creditFunds.filter((f) => seekingCapital(f) && f.strategy === s)), nav: { jump: "funds", strategy: s, status: "in-market" },
   })).filter((d) => d.value > 0).sort((a, b) => b.value - a.value);
 
   // funds by category — segments/legend link to Funds filtered by category
   // (Evergreen funds counted separately rather than under "Open").
-  const byStatus = FUND_CATEGORIES.map((s) => ({ label: s, value: funds.filter((f) => fundCategory(f) === s).length, nav: { jump: "funds", status: s } })).filter((d) => d.value > 0);
+  const byStatus = FUND_CATEGORIES.map((s) => ({ label: s, value: creditFunds.filter((f) => fundCategory(f) === s).length, nav: { jump: "funds", status: s } })).filter((d) => d.value > 0);
 
   // capital by geography (€bn) — bars link to Funds filtered by geography
   const byGeo = GEOS.map((g) => ({
-    label: g, value: bnRaised(funds.filter((f) => f.geoFocus === g)), nav: { jump: "funds", geo: g },
+    label: g, value: bnRaised(creditFunds.filter((f) => f.geoFocus === g)), nav: { jump: "funds", geo: g },
   })).filter((d) => d.value > 0).sort((a, b) => b.value - a.value);
 
   // fundraising momentum — fund closes (first + final) per quarter over the past
   // 5 years (20 quarters). Each quarter is clickable → Funds closing that quarter.
   const qCounts = {};
-  funds.filter(isClose).forEach((f) => { const q = fundQuarter(f); if (q) qCounts[q] = (qCounts[q] || 0) + 1; });
+  creditFunds.filter(isClose).forEach((f) => { const q = fundQuarter(f); if (q) qCounts[q] = (qCounts[q] || 0) + 1; });
   const nowD = new Date();
   let cy = nowD.getFullYear(), cq = Math.floor(nowD.getMonth() / 3) + 1;
   const quarters = [];
@@ -356,7 +363,7 @@ function fundTable(rows) {
           <td>${link(`#/manager/${x.managerId}`, managerById[x.managerId].name)}</td>
           <td>${chip(x.strategy)}</td>
           <td>${esc(x.geoFocus)}</td>
-          <td>${fundStatusChip(x)} ${lifecycleBadge(x)}</td>
+          <td>${fundStatusChip(x)} ${lifecycleBadge(x)} ${equityBadge(x)}</td>
           <td>${x.evergreen ? "—" : eur(x.targetSize)}</td>
           <td class="prog-col">${raiseDisplay(x)}</td>
         </tr>`).join("")}
@@ -476,7 +483,7 @@ function viewFund(id) {
       <div>
         <h1>${followBtn("fund", x.id)} ${esc(x.name)}</h1>
         <p class="muted">${link(`#/manager/${m.id}`, m.name)} · ${esc(x.domicile)} · Vintage ${x.vintage}</p>
-        <div>${chip(x.strategy)} ${fundStatusChip(x)} ${lifecycleBadge(x)} ${chip(x.geoFocus)}</div>
+        <div>${chip(x.strategy)} ${fundStatusChip(x)} ${lifecycleBadge(x)} ${equityBadge(x)} ${chip(x.geoFocus)}</div>
       </div>
     </div>
     <p class="lead">${esc(x.description)}</p>
@@ -613,7 +620,7 @@ function viewManager(id) {
         <thead><tr><th>Fund</th><th>Strategy</th><th>Geography</th><th>Vintage</th><th>Status</th><th>Target</th><th class="prog-col">Progress</th></tr></thead>
         <tbody>${fs.map((x) => `<tr class="clickable" data-href="#/fund/${x.id}">
           <td>${followBtn("fund", x.id)} <strong>${esc(x.name)}</strong></td><td>${chip(x.strategy)}</td><td>${esc(x.geoFocus)}</td><td>${x.vintage}</td>
-          <td>${fundStatusChip(x)} ${lifecycleBadge(x)}</td><td>${x.evergreen ? "—" : eur(x.targetSize)}</td>
+          <td>${fundStatusChip(x)} ${lifecycleBadge(x)} ${equityBadge(x)}</td><td>${x.evergreen ? "—" : eur(x.targetSize)}</td>
           <td class="prog-col">${raiseDisplay(x)}</td>
         </tr>`).join("")}</tbody>
       </table></div>`
