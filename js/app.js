@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260618-8";
+} from "./data.js?v=20260618-9";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260618-8";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260618-9";
 
 const app = document.getElementById("app");
 
@@ -949,21 +949,23 @@ function viewDeals() {
 
   app.innerHTML = `
     <div class="page-head"><h1>Deal Activity</h1><p class="muted">${rows.length} of ${deals.length} transactions · investments, exits, refinancings, restructurings &amp; distress</p></div>
-    <section class="card">
-      <h2>Deal activity by quarter</h2>
-      <p class="muted small">Deal transactions per quarter. Drag either handle to set the date range (up to 10 years); click any quarter to filter the feed.</p>
-      <div class="trend-controls">
-        <div class="range-readout"><strong id="trend-start-lbl">${esc(dQuarters[tStart])}</strong> <span class="muted">→</span> <strong id="trend-end-lbl">${esc(dQuarters[tEnd])}</strong></div>
-        <div class="range-slider">
-          <div class="range-track"></div>
-          <div class="range-fill" id="trend-fill" style="left:${(tStart / (NQ - 1)) * 100}%; width:${((tEnd - tStart) / (NQ - 1)) * 100}%"></div>
-          <input type="range" id="trend-start" min="0" max="${NQ - 1}" value="${tStart}" aria-label="Range start quarter">
-          <input type="range" id="trend-end" min="0" max="${NQ - 1}" value="${tEnd}" aria-label="Range end quarter">
+    <div class="grid-2">
+      <section class="card">
+        <h2>Deal activity by quarter</h2>
+        <p class="muted small">Deal transactions per quarter. Drag either handle to set the date range (up to 10 years); click any quarter to filter the feed.</p>
+        <div class="trend-controls">
+          <div class="range-readout"><strong id="trend-start-lbl">${esc(dQuarters[tStart])}</strong> <span class="muted">→</span> <strong id="trend-end-lbl">${esc(dQuarters[tEnd])}</strong></div>
+          <div class="range-slider">
+            <div class="range-track"></div>
+            <div class="range-fill" id="trend-fill" style="left:${(tStart / (NQ - 1)) * 100}%; width:${((tEnd - tStart) / (NQ - 1)) * 100}%"></div>
+            <input type="range" id="trend-start" min="0" max="${NQ - 1}" value="${tStart}" aria-label="Range start quarter">
+            <input type="range" id="trend-end" min="0" max="${NQ - 1}" value="${tEnd}" aria-label="Range end quarter">
+          </div>
         </div>
-      </div>
-      <div id="trend-chart">${lineChart(buildTrend(tStart, tEnd), { width: 1120, height: 240 })}</div>
-    </section>
-    <section class="card"><h2>Most active managers <span class="muted">(by deal count)</span></h2>${byDealManager.length ? barChart(byDealManager, { width: 540 }) : '<p class="muted small">No deals tracked.</p>'}</section>
+        <div id="trend-chart">${lineChart(buildTrend(tStart, tEnd), { width: 560, height: 300 })}</div>
+      </section>
+      <section class="card"><h2>Most active managers <span class="muted">(by deal count)</span></h2>${byDealManager.length ? barChart(byDealManager, { width: 560 }) : '<p class="muted small">No deals tracked.</p>'}</section>
+    </div>
     <div class="filters">
       <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Company, manager…" value="${esc(f.q)}"></label>
       ${multiFilter("deals:type", "Type", [...new Set(deals.map((d) => d.type))].sort(), f.type)}
@@ -984,7 +986,7 @@ function viewDeals() {
       document.getElementById("trend-start-lbl").textContent = dQuarters[a];
       document.getElementById("trend-end-lbl").textContent = dQuarters[b];
       if (fill) { fill.style.left = (a / (NQ - 1)) * 100 + "%"; fill.style.width = ((b - a) / (NQ - 1)) * 100 + "%"; }
-      document.getElementById("trend-chart").innerHTML = lineChart(buildTrend(a, b), { width: 1120, height: 240 });
+      document.getElementById("trend-chart").innerHTML = lineChart(buildTrend(a, b), { width: 560, height: 300 });
     };
     sEl.addEventListener("input", () => { if (+sEl.value > +eEl.value) sEl.value = eEl.value; sEl.style.zIndex = 5; eEl.style.zIndex = 4; rerender(); });
     eEl.addEventListener("input", () => { if (+eEl.value < +sEl.value) eEl.value = sEl.value; eEl.style.zIndex = 5; sEl.style.zIndex = 4; rerender(); });
