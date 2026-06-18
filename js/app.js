@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260618-18";
+} from "./data.js?v=20260618-19";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260618-18";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260618-19";
 
 const app = document.getElementById("app");
 
@@ -277,9 +277,12 @@ const filterState = {
   funds: { q: "", strategy: [], status: [], geo: [], period: "", sort: { key: "name", dir: "asc" } },
   managers: { q: "", strategy: [], sort: { key: "name", dir: "asc" } },
   lps: { q: "", type: [], strategy: [], sort: { key: "name", dir: "asc" } },
-  intel: { q: "", type: [] },
-  deals: { q: "", type: [] },
+  intel: { q: "", type: [], year: [] },
+  deals: { q: "", type: [], year: [] },
 };
+
+// Calendar year (string) from an item's date; "" if none.
+const yearOf = (d) => (String(d).match(/^(\d{4})/) || [])[1] || "";
 
 // Which multi-select popover (if any) is open — kept open across re-renders.
 let openMs = null;
@@ -909,7 +912,8 @@ function viewIntel() {
   const f = filterState.intel;
   const rows = intel.filter((i) =>
     (!f.q || (i.headline + i.summary).toLowerCase().includes(f.q.toLowerCase())) &&
-    (!f.type.length || f.type.includes(i.type))
+    (!f.type.length || f.type.includes(i.type)) &&
+    (!f.year.length || f.year.includes(yearOf(i.date)))
   ).sort((a, b) => String(b.date).localeCompare(String(a.date))); // newest first
 
   // ---- fundraising charts (moved here from the dashboard) ----
@@ -939,6 +943,7 @@ function viewIntel() {
     <div class="filters">
       <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Keyword…" value="${esc(f.q)}"></label>
       ${multiFilter("intel:type", "Type", [...new Set(intel.map((i) => i.type))].sort(), f.type)}
+      ${multiFilter("intel:year", "Year", [...new Set(intel.map((i) => yearOf(i.date)).filter(Boolean))].sort((a, b) => b.localeCompare(a)), f.year)}
     </div>
     <section class="card">
       ${rows.length ? byYear(rows, intelRow) : '<p class="empty">No intelligence items match these filters.</p>'}
@@ -970,7 +975,8 @@ function viewDeals() {
   const f = filterState.deals;
   const rows = deals.filter((d) =>
     (!f.q || (d.headline + d.summary + (managerById[d.managerId] ? managerById[d.managerId].name : "")).toLowerCase().includes(f.q.toLowerCase())) &&
-    (!f.type.length || f.type.includes(d.type))
+    (!f.type.length || f.type.includes(d.type)) &&
+    (!f.year.length || f.year.includes(yearOf(d.date)))
   ).sort((a, b) => String(b.date).localeCompare(String(a.date))); // newest first
 
   // ---- deal charts (moved here from the dashboard) ----
@@ -1241,9 +1247,9 @@ app.addEventListener("click", (e) => {
         sort: filterState.funds.sort || { key: "name", dir: "asc" },
       };
     } else if (route === "deals") {
-      filterState.deals = { q: "", type: arr(jump.getAttribute("data-dtype")) };
+      filterState.deals = { q: "", type: arr(jump.getAttribute("data-dtype")), year: [] };
     } else if (route === "intel") {
-      filterState.intel = { q: "", type: arr(jump.getAttribute("data-itype")) };
+      filterState.intel = { q: "", type: arr(jump.getAttribute("data-itype")), year: [] };
     }
     location.hash = "#/" + route;
     return;
