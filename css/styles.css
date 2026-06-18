@@ -30,7 +30,7 @@ h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
 h3 { font-size: 1rem; margin: 0; }
 .muted { color: var(--muted); }
 .small { font-size: .8rem; }
-.lead { font-size: .98rem; color: #334155; max-width: 70ch; }
+.lead { font-size: .98rem; color: #334155; }
 
 /* ---------- top bar ---------- */
 .topbar {
