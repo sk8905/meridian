@@ -482,3 +482,16 @@ Reuters, Alternative Credit Investor, Private Debt Investor (headline), Creditfl
 GlobalCapital and law-firm announcements. A handful of managers (e.g. Fidera,
 some allocator items) had findings only behind paywalls or on excluded domains
 and were therefore not added, preserving the verifiable-public-source rule.
+
+---
+
+## Round update — 2026-06-18: senior legal counsel per manager
+
+Added a `legal` array to manager records: General Counsel / senior legal counsel
+with name, role, base city and LinkedIn URL, sourced from each firm's own
+website and LinkedIn. Coverage: 88 of 112 managers, 107 people (100 with a
+LinkedIn profile link). Smaller managers and bank divisions without a publicly
+named GC are intentionally left blank (the UI shows a "not yet compiled" note).
+LinkedIn blocks automated fetching, so profile URLs were located via search and
+should be treated as best-effort; a few people in transition (e.g. incoming GCs,
+group-level vs business-unit GCs) are noted in their titles.
