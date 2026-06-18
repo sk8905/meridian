@@ -739,7 +739,7 @@ function byYear(items, rowFn) {
 }
 
 function newsItemRow(x) {
-  return `<div class="intel-row"><div class="intel-meta"><span class="muted small">${esc(x.outlet || "")}</span><span class="muted small">${esc(x.date || "")}</span></div><div class="intel-body"><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a></div></div>`;
+  return `<div class="intel-row"><div class="intel-meta"><span class="muted small">${esc(x.outlet || "")}</span><span class="muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span></div><div class="intel-body"><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a></div></div>`;
 }
 
 function newsBlock(m) {

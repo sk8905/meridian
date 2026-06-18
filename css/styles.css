@@ -15,7 +15,8 @@
   font-synthesis: none;
 }
 * { box-sizing: border-box; }
-html, body { margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+html, body { margin: 0; padding: 0; overflow-x: clip; max-width: 100%; }
 body {
   background: var(--bg);
   color: var(--ink);
@@ -249,7 +250,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .facts { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem 1.5rem; margin: .75rem 0 0; }
 .facts div { display: flex; justify-content: space-between; gap: 1rem; padding: .35rem 0; border-bottom: 1px dashed var(--border); }
 .facts dt { color: var(--muted); }
-.facts dd { margin: 0; font-weight: 600; text-align: right; }
+.facts dd { margin: 0; font-weight: 600; text-align: right; overflow-wrap: anywhere; min-width: 0; }
 .link-list { list-style: none; margin: .25rem 0 0; padding: 0; }
 .link-list li { padding: .45rem 0; border-bottom: 1px solid var(--border); }
 .link-list li:last-child { border-bottom: none; }
@@ -259,7 +260,8 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .intel-row:last-child { border-bottom: none; }
 .intel-meta { display: flex; flex-direction: column; align-items: flex-start; gap: .3rem; width: 10rem; flex-shrink: 0; }
 .intel-meta .chip { margin: 0; }
-.intel-head { font-weight: 600; color: var(--ink); display: inline-block; margin-bottom: .15rem; }
+.intel-body { min-width: 0; }
+.intel-head { font-weight: 600; color: var(--ink); display: inline-block; margin-bottom: .15rem; overflow-wrap: anywhere; }
 a.intel-head:hover { color: var(--primary); }
 .intel-body p { margin: .15rem 0 .35rem; }
 
@@ -403,7 +405,7 @@ a.intel-head:hover { color: var(--primary); }
 .compact-list { list-style: none; margin: .25rem 0 0; padding: 0; }
 .compact-item { padding: .5rem 0; border-bottom: 1px solid var(--border); }
 .compact-item:last-child { border-bottom: none; }
-.compact-head { font-weight: 600; color: var(--ink); }
+.compact-head { font-weight: 600; color: var(--ink); overflow-wrap: anywhere; }
 a.compact-head:hover { color: var(--primary); }
 .compact-meta { margin-top: .15rem; }
 
