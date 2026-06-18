@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260618-16";
+} from "./data.js?v=20260618-17";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260618-16";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260618-17";
 
 const app = document.getElementById("app");
 
@@ -740,7 +740,16 @@ function newsItemRow(x) {
 }
 
 function newsBlock(m) {
-  const n = m.news || [];
+  // Combine curated news with the manager's own website announcements (webNews),
+  // de-duplicated by URL then title.
+  const all = [...(m.news || []), ...(m.webNews || [])];
+  const seen = new Set();
+  const n = all.filter((x) => {
+    const k = (x.url || x.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/$/, "");
+    if (!k || seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  });
   return `<section class="card">
     <h2>In the news</h2>
     ${n.length
