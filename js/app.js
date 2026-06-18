@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260618-17";
+} from "./data.js?v=20260618-18";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260618-17";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260618-18";
 
 const app = document.getElementById("app");
 
@@ -941,7 +941,7 @@ function viewIntel() {
       ${multiFilter("intel:type", "Type", [...new Set(intel.map((i) => i.type))].sort(), f.type)}
     </div>
     <section class="card">
-      ${rows.length ? rows.map(intelRow).join("") : '<p class="empty">No intelligence items match these filters.</p>'}
+      ${rows.length ? byYear(rows, intelRow) : '<p class="empty">No intelligence items match these filters.</p>'}
     </section>`;
   wireFilters("intel");
   applyPendingFocus("intel");
@@ -1021,7 +1021,7 @@ function viewDeals() {
       ${multiFilter("deals:type", "Type", [...new Set(deals.map((d) => d.type))].sort(), f.type)}
     </div>
     <section class="card">
-      ${rows.length ? rows.map(dealRow).join("") : '<p class="empty">No deal items match these filters.</p>'}
+      ${rows.length ? byYear(rows, dealRow) : '<p class="empty">No deal items match these filters.</p>'}
     </section>`;
   wireFilters("deals");
 
