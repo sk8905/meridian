@@ -1,10 +1,9 @@
 // =============================================================================
 // Meridian Credit Intelligence — REAL sample dataset (European private credit)
 // -----------------------------------------------------------------------------
-// Compiled 2026-06-16 from PUBLIC sources only (manager & investor press
-// releases, regulatory/results disclosures, and trade press). This is NOT
-// affiliated with, and contains no data from, any subscription database
-// (e.g. With Intelligence, Preqin, PitchBook, Debtwire).
+// Compiled from manager & investor press releases, regulatory/results
+// disclosures and trade press. Not affiliated with any data provider; each
+// record carries the public source URL(s) it was drawn from.
 //
 // IMPORTANT — read before relying on any figure:
 //  • Figures are shown in EUR for consistency; several were originally reported
@@ -782,6 +781,8 @@ export const intel = [
   {"id":"i316","date":"2024-01-22","type":"Strategy","headline":"Palmer Square Capital BDC (PSBD) completes ~$89.7m NYSE IPO","managerId":"m54","summary":"Palmer Square's BDC listed on the NYSE (PSBD), raising ~$89.7m, investing in broadly syndicated loans and large-cap direct lending off its 46-CLO platform (~$20bn CLO AUM).","sourceUrl":"https://www.prnewswire.com/news-releases/palmer-square-capital-bdc-inc-prices-initial-public-offering-302037563.html"},
   {"id":"i317","date":"2025-09-01","type":"Personnel","headline":"LBO France reorganises Mid Market team as co-founders Boulman and Guez depart","managerId":"m88","summary":"LBO France reorganised its mid-market business — under which the SCOR Mid Market Loans private-debt fund was sourced — with strategy founders Thomas Boulman and Jérôme Guez (since 2000) leaving at year-end. [date approximate]","sourceUrl":"https://www.lbofrance.com/en/lbo-france-reorganizes-its-mid-market-team/"},
   {"id":"i318","date":"2025-10-22","type":"Equity / PE","headline":"LBO France lists evergreen FCPR 'LBO France Sélection' on Generali platforms","managerId":"m88","equity":true,"summary":"LBO France listed its perpetual FCPR (LBO France Sélection) on Generali Vie/Retraite, entering the evergreen retail format with bi-monthly liquidity after a five-year lock-up. [Equity / PE — not credit] [Equity strategy — not credit.]","sourceUrl":"https://www.lbofrance.com/en/lbo-france-takes-a-new-step-with-the-listing-of-its-first-evergreen-fcpr-fund-by-generali-france/"},
+  {"id":"i319","date":"2024-05-01","type":"Strategy","headline":"Kimmik Capital launches in London targeting a £300–500m opportunistic evergreen credit fund","managerId":"m102","summary":"Kimmik Capital was founded in May 2024 by Julien Farre (ex-Angelo Gordon European distressed/special-situations MD, ~11 years) to raise a debut evergreen fund of £300–500m (~€355–595m [est]) across liquid and illiquid European credit, including opportunistic and distressed situations. [date approximate]","sourceUrl":"https://www.withintelligence.com/insights/private-credit-emerging-managers-to-watch-2025/"},
+  {"id":"i320","date":"2024-09-01","type":"Personnel","headline":"Kimmik Capital hires ex-Goldman COO Karen Ives and ex-Credit Suisse partner Sheenal Thaker","managerId":"m102","summary":"Ahead of its planned launch, Kimmik appointed Karen Ives (20+ years at Goldman Sachs) as COO and Sheenal Thaker (ex-Credit Suisse) as Partner, building out the London opportunistic-credit manager's operating and investment team. [date approximate]","sourceUrl":"https://www.withintelligence.com/insights/private-credit-emerging-managers-to-watch-2025-where-are-they-now/"},
 ];
 
 // ---------------------------------------------------------------------------
@@ -1093,6 +1094,7 @@ export const deals = [
   {"id":"d255","date":"2024-05-29","type":"Financing","managerId":"m53","fundId":null,"headline":"400 Capital and Builder Capital provide ~$412m land-banking facility to Dream Finders Homes","summary":"Builder Capital and 400 Capital closed a ~$412m land-banking arrangement with NYSE-listed homebuilder Dream Finders Homes, backing 4,000+ home sites across the US Southeast — part of 400 Capital's homebuilder-finance ABF strategy.","sourceUrl":"https://www.businesswire.com/news/home/20240529391384/en/Builder-Capital-and-400-Capital-Management-Close-$400mm-Land-Banking-Arrangement-with-Dream-Finders-Homes"},
   {"id":"d256","date":"2024-04-30","type":"Structured Credit","managerId":"m54","fundId":null,"headline":"Palmer Square prices $400.5m BDC CLO 1 — first CLO from a newly public BDC","summary":"Palmer Square priced Palmer Square BDC CLO 1 ($400.5m, BofA-arranged) backed by broadly syndicated loans held by PSBD, the first CLO issued from a newly listed NYSE BDC; closed 23 May 2024.","sourceUrl":"https://www.businesswire.com/news/home/20240430992520/en/Palmer-Square-Prices-First-CLO-Issued-From-its-Newly-Public-BDC-%E2%80%9CPSBD%E2%80%9D"},
   {"id":"d257","date":"2025-09-23","type":"Financing","managerId":"m50","fundId":null,"headline":"Highbridge provides additional CHF 10m convertible bond to Santhera Pharmaceuticals","summary":"Highbridge committed a further CHF 10m (~€10.7m) three-year convertible to Swiss biotech Santhera (exchanging its prior CHF 7m bond at parity), funding the global rollout of AGAMREE for Duchenne muscular dystrophy.","sourceUrl":"https://www.bakermckenzie.com/en/newsroom/2025/09/highbridge-invests-in-santhera"},
+
 ];
 
 // Keep both feeds strictly newest-first regardless of insertion order.
