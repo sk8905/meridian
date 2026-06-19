@@ -143,8 +143,9 @@ function caseRow(c) {
 // Credit's dashboard feeds.
 function itemCompact(it) {
   const firm = firmById[it.firm] || { name: it.firm, insightsUrl: "" };
-  const src = firm.insightsUrl
-    ? ` · <a href="${esc(firm.insightsUrl)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : "";
+  const href = it.url || firm.insightsUrl; // prefer the item's own article link
+  const src = href
+    ? ` · <a href="${esc(href)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : "";
   return `<li class="compact-item">
     <a class="compact-head" href="#/item/${esc(it.id)}">${esc(it.title)}</a>
     <div class="compact-meta muted small">${fmtDate(it.date)} · ${esc(firm.name)}${src}</div>
@@ -272,10 +273,6 @@ function viewList() {
         <div class="filters-top">
           <button id="clear-filters" class="link-btn" type="button">Clear all</button>
         </div>
-        <label class="check toggle">
-          <input type="checkbox" id="saved-only" ${filterState.saved ? "checked" : ""}/>
-          <span>Saved only ★</span>
-        </label>
         ${checkboxGroup("Practice area", "areas", practiceAreas.map((a) => ({ id: a.id, name: a.name })))}
         ${checkboxGroup("Year", "years", years.map((y) => ({ id: y, name: y })))}
         ${checkboxGroup("Source tier", "tiers", tiers)}
@@ -301,8 +298,6 @@ function viewList() {
       renderResults();
     });
   });
-  const savedOnly = app.querySelector("#saved-only");
-  savedOnly.addEventListener("change", () => { filterState.saved = savedOnly.checked; renderResults(); });
   const search = app.querySelector("#search");
   search.addEventListener("input", () => { filterState.q = search.value; renderResults(); });
   app.querySelector("#clear-filters").addEventListener("click", () => {
@@ -493,9 +488,11 @@ function viewItem(id) {
 
       <div class="source-box">
         <span class="lbl">Source</span>
-        <a href="${esc(firm.insightsUrl)}" target="_blank" rel="noopener noreferrer">
-          ${esc(firm.name)} — insights / know-how ↗</a>
-        <p class="source-note">Links to the firm's public landing page. This summary is written for
+        <a href="${esc(it.url || firm.insightsUrl)}" target="_blank" rel="noopener noreferrer">
+          ${esc(firm.name)} — ${it.url ? "read the article" : "insights / know-how"} ↗</a>
+        <p class="source-note">${it.url
+          ? "Links to the cited publication."
+          : "Links to the firm's public landing page."} This summary is written for
           this prototype and is not legal advice — confirm against the firm's actual publication.</p>
       </div>
     </article>

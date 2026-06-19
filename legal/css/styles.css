@@ -221,6 +221,7 @@ a.compact-head:hover { color: var(--primary); }
 .tier-magic { background: #ede9fe; color: #6d28d9; border-color: #ddd6fe; }
 .tier-silver { background: #e2e8f0; color: #475569; border-color: #cbd5e1; }
 .tier-us-elite { background: #fef3c7; color: #92400e; border-color: #fde68a; }
+.tier-chambers { background: #ffe4e6; color: #9f1239; border-color: #fecdd2; }
 .cite { color: var(--muted); font-style: italic; }
 .save-btn {
   margin: 0 1.1rem 1rem; align-self: flex-start; background: #f1f5f9; border: 1px solid var(--line);
