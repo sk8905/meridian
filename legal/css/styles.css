@@ -188,10 +188,19 @@ a.feed-title:hover { color: var(--primary); }
 /* ---- Cards grid ---- */
 .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
 .card {
-  position: relative; background: var(--surface); border: 1px solid var(--line);
-  border-radius: var(--radius); box-shadow: var(--shadow); display: flex; flex-direction: column;
+  background: var(--surface); border: 1px solid var(--line);
+  border-radius: var(--radius); padding: 1.1rem 1.25rem; box-shadow: var(--shadow); overflow: hidden;
 }
-.card:hover { box-shadow: var(--shadow-lg); }
+.feature-card { border-top: 3px solid var(--accent); }
+.card-foot { margin-top: .75rem; padding-top: .6rem; border-top: 1px solid var(--line); font-size: .85rem; font-weight: 600; }
+.small { font-size: .8rem; }
+.compact-list { list-style: none; margin: .4rem 0 0; padding: 0; }
+.compact-item { padding: .5rem 0; border-bottom: 1px solid var(--line); }
+.compact-item:last-child { border-bottom: none; }
+.compact-head { font-weight: 600; color: var(--ink); overflow-wrap: anywhere; text-decoration: none; }
+a.compact-head:hover { color: var(--primary); }
+.compact-meta { margin-top: .15rem; }
+.compact-meta .small { color: var(--muted); }
 .card-link { display: block; padding: 1rem 1.1rem 0; text-decoration: none; color: inherit; flex: 1; }
 .card-link:hover { text-decoration: none; }
 .card-top { display: flex; justify-content: space-between; align-items: flex-start; gap: .5rem; margin-bottom: .5rem; }

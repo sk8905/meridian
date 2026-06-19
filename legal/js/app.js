@@ -124,6 +124,24 @@ function caseRow(c) {
   </div>`;
 }
 
+// Compact dashboard rows — headline + "date · source" line, matching Meridian
+// Credit's dashboard feeds.
+function itemCompact(it) {
+  const firm = firmById[it.firm] || { name: it.firm, insightsUrl: "" };
+  const src = firm.insightsUrl
+    ? ` · <a href="${esc(firm.insightsUrl)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : "";
+  return `<li class="compact-item">
+    <a class="compact-head" href="#/item/${esc(it.id)}">${esc(it.title)}</a>
+    <div class="compact-meta muted small">${fmtDate(it.date)} · ${esc(firm.name)}${src}</div>
+  </li>`;
+}
+function caseCompact(c) {
+  return `<li class="compact-item">
+    <a class="compact-head" href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">${esc(c.name)} ↗</a>
+    <div class="compact-meta muted small">${fmtDate(c.date)} · ${esc(c.court)} · ${esc(c.citation)}</div>
+  </li>`;
+}
+
 // =============================================================================
 // VIEW: Dashboard (#/)
 // =============================================================================
@@ -143,8 +161,8 @@ function viewDashboard() {
   }).join("");
 
   // Dashboard lists: law-firm alerts (left) and recent BAILII cases (right).
-  const firmList = [...items].sort(byDateDesc).slice(0, 8).map(itemRow).join("");
-  const caseListHtml = [...cases].sort(byDateDesc).slice(0, 8).map(caseRow).join("");
+  const firmList = [...items].sort(byDateDesc).slice(0, 10).map(itemCompact).join("");
+  const caseListHtml = [...cases].sort(byDateDesc).slice(0, 10).map(caseCompact).join("");
 
   // Supporting charts: by source tier + by month.
   const tierData = tiers.map((t) => ({
@@ -170,17 +188,18 @@ function viewDashboard() {
 
     <section class="kpis kpis-5" aria-label="Alerts this year by practice area">${tiles}</section>
 
-    <div class="dash-cols">
-      <section class="card feed-card">
-        <div class="feed-head"><h2>Law-firm alerts</h2><a class="see-all" href="#/list">See all →</a></div>
-        <p class="feed-intro">Latest legal updates &amp; client alerts from the firms.</p>
-        <div class="feed">${firmList}</div>
+    <div class="grid-2">
+      <section class="card feature-card">
+        <h2>Law-firm alerts</h2>
+        <p class="muted small">Latest legal updates &amp; client alerts from UK Magic Circle, Silver Circle and US-elite London firms. Click a headline to open it.</p>
+        <ul class="compact-list">${firmList}</ul>
+        <div class="card-foot"><a href="#/list">View all alerts →</a></div>
       </section>
-      <section class="card feed-card">
-        <div class="feed-head"><h2>Recent cases on BAILII</h2>
-          <a class="see-all" href="https://www.bailii.org/recent-decisions-ew.html" target="_blank" rel="noopener noreferrer">Browse BAILII ↗</a></div>
-        <p class="feed-intro">Latest English-law judgments, linked to bailii.org.</p>
-        <div class="feed">${caseListHtml}</div>
+      <section class="card feature-card">
+        <h2>Recent cases on BAILII</h2>
+        <p class="muted small">Latest English-law judgments, linked to bailii.org.</p>
+        <ul class="compact-list">${caseListHtml}</ul>
+        <div class="card-foot"><a href="https://www.bailii.org/recent-decisions-ew.html" target="_blank" rel="noopener noreferrer">Browse all on BAILII ↗</a></div>
       </section>
     </div>
 
