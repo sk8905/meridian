@@ -36,6 +36,19 @@ function ym(iso) { return iso.slice(0, 7); } // "2025-03"
 
 const byDateDesc = (a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0);
 
+// Group rows into year sections with a year heading (like Meridian Credit).
+function byYear(list, rowFn) {
+  const groups = {};
+  [...list].sort(byDateDesc).forEach((x) => {
+    const y = (x.date || "").slice(0, 4) || "Undated";
+    (groups[y] ||= []).push(x);
+  });
+  return Object.keys(groups)
+    .sort((a, b) => (a === "Undated") - (b === "Undated") || b.localeCompare(a))
+    .map((y) => `<div class="year-group"><h3 class="year-head">${esc(y)}</h3>${groups[y].map(rowFn).join("")}</div>`)
+    .join("");
+}
+
 // ---- Saved state (localStorage) ---------------------------------------------
 const SAVED_KEY = "lexalert.saved";
 const VISIT_KEY = "lexalert.lastVisit";
@@ -322,7 +335,7 @@ function renderResults() {
   const matched = items.filter(matchesFilters).sort(byDateDesc);
   countEl.textContent = `${matched.length} update${matched.length === 1 ? "" : "s"}`;
   results.innerHTML = matched.length
-    ? matched.map(itemRow).join("")
+    ? byYear(matched, itemRow)
     : `<div class="empty">No updates match these filters.${filterState.saved ? " Save some updates with the ☆ button." : ""}</div>`;
 }
 
@@ -412,7 +425,7 @@ function renderCaseResults() {
     return true;
   }).sort(byDateDesc);
   countEl.textContent = `${matched.length} case${matched.length === 1 ? "" : "s"}`;
-  el.innerHTML = matched.length ? matched.map(caseRow).join("") : `<div class="empty">No cases match these filters.</div>`;
+  el.innerHTML = matched.length ? byYear(matched, caseRow) : `<div class="empty">No cases match these filters.</div>`;
 }
 
 // =============================================================================
