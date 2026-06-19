@@ -983,6 +983,15 @@ export const items = [
     points: ["Concealment from the board breached the s.172 duty.", "Breach can ground unfair-prejudice relief.", "Honesty with the board is central to the duty."],
     tags: ["directors' duties", "s172", "unfair prejudice"],
   },
+  {
+    id: "u128", title: "FCA enforcement? All eyes on supervision",
+    area: "fundsreg", areas: ["fundsreg", "banking"], type: "insight", firm: "linklaters",
+    date: "2026-06-18", jurisdiction: "United Kingdom",
+    summary: "Following the 2024 BlueCrest Court of Appeal decision, the FCA can require redress through supervisory tools — OIREQs, Section 166 reviews and business restrictions — without proving breach, causation or loss. Sara Cody of Linklaters argues that the regulator's pivot from formal enforcement to supervisory interventions means asset managers and other regulated firms may face substantial operational burdens without the transparency of published enforcement decisions. The absence of a formal enforcement outcome is no longer a reliable indicator of regulatory approval.",
+    points: ["FCA increasingly deploys supervisory tools in place of formal enforcement action.", "Post-BlueCrest, OIREQs allow the FCA to require redress without proving breach or causation.", "Section 166 reviews impose enforcement-level burden on firms without public transparency.", "Low enforcement-outcome counts should not be read as regulatory satisfaction."],
+    tags: ["FCA", "enforcement", "supervision", "BlueCrest", "OIREQ", "asset management"],
+    url: "https://financialregulation.linklaters.com/post/102n4np/fca-enforcement-all-eyes-on-supervision",
+  },
 ];
 
 // ---- Recent cases published on BAILII -------------------------------------
@@ -1093,6 +1102,9 @@ export const cases = [
   { id: "c35", name: "Byers v Saudi National Bank", citation: "[2023] UKSC 51", court: "Supreme Court",
     date: "2023-12-20", area: "banking", url: "https://www.bailii.org/uk/cases/UKSC/2023/51.html",
     summary: "No liability in knowing receipt where the claimant's equitable proprietary interest was extinguished on transfer of the shares under the governing (Saudi) law." },
+  { id: "c36", name: "Dexia SA v Comune di Torino", citation: "[2026] EWHC 1401 (Comm)", court: "High Court (Comm)",
+    date: "2026-06-18", area: "banking", url: "https://www.bailii.org/ew/cases/EWHC/Comm/2026/1401.html",
+    summary: "Commercial Court upholds €400m interest rate swap portfolio with the City of Turin, rejecting Italian-law validity challenges at a trial the municipality chose not to attend; confirms ISDA Master Agreement protections and English-court primacy in cross-border swap disputes." },
 ];
 
 // ---- Lightweight lookups ----------------------------------------------------
@@ -1140,4 +1152,5 @@ export const caseSummaries = {
   c33: "A Chinese property developer used an English restructuring plan to compromise debt governed partly by Hong Kong law. The court sanctioned the plan and applied the cross-class cram down where over 75% of a class had approved and liquidation was the relevant alternative. The case illustrates the plan's cross-border reach.",
   c34: "A 2026 restructuring-plan sanction in the energy-production sector. The court applied the post-Petrofac fairness framework, scrutinising the allocation of the restructuring surplus and the treatment of dissenting creditors before sanctioning the plan. A recent example of plan practice after the Court of Appeal's fairness guidance.",
   c35: "Shares held on trust were transferred in breach of trust to a Saudi bank, and the beneficiaries sued for knowing receipt. The Supreme Court held there was no liability because the claimant's equitable proprietary interest was extinguished on the transfer under the governing (Saudi) law. A leading authority on knowing receipt and cross-border property.",
+  c36: "Between 2001 and 2006 Dexia entered into 11 interest rate swap transactions with the City of Turin totalling around €400m, hedging the municipality's variable-rate bond obligations. When interest rates fell for over a decade Turin sought to invalidate the swaps in Italian proceedings, arguing non-disclosure of mark-to-market values and implicit costs under the Cattolica doctrine, and constitutional and civil-code defects. Mr Justice Andrew Baker rejected each argument in full and granted Dexia comprehensive declaratory relief at a trial Turin chose not to attend. He held that Turin's swaps were straightforward hedges — not complex aleatory contracts requiring Cattolica-style disclosure — that express ISDA Master Agreement language ruling out an advisory role protected the bank, and that Turin as a professional investor could not invoke retail-client protections; Turin's non-attendance generated a substantial costs liability and final declarations deployable in Italian enforcement.",
 };
