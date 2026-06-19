@@ -23,7 +23,7 @@ export function barChart(data, { width = 520 } = {}) {
   const rows = data.map((d, i) => {
     const y = gap + i * (rowH + gap);
     const w = Math.max(2, (d.value / max) * barW);
-    const color = d.color || "#2563eb";
+    const color = d.color || "#0d9488";
     const inner = `
       <text x="${left - 10}" y="${y + rowH / 2 + 4}" text-anchor="end" class="chart-label">${esc(d.label)}</text>
       <rect x="${left}" y="${y}" width="${w}" height="${rowH}" rx="4" fill="${color}"><title>${esc(d.label)}: ${d.value}</title></rect>
@@ -40,7 +40,7 @@ export function donutChart(data, { size = 200 } = {}) {
   const total = data.reduce((s, d) => s + d.value, 0) || 1;
   const cx = size / 2, cy = size / 2, r = size / 2 - 6, inner = r * 0.62;
   let angle = -Math.PI / 2;
-  const palette = ["#2563eb", "#8b5cf6", "#14b8a6", "#f97316", "#ef4444", "#0ea5e9"];
+  const palette = ["#0f766e", "#14b8a6", "#5eead4", "#0d9488", "#2dd4bf", "#99f6e4"];
   const arcs = data.map((d, i) => {
     const frac = d.value / total;
     const a0 = angle, a1 = angle + frac * Math.PI * 2;
@@ -82,7 +82,7 @@ export function columnChart(data, { width = 560, height = 200 } = {}) {
     const h = (d.value / max) * plotH;
     const x = left + i * slot + (slot - barW) / 2;
     const y = top + plotH - h;
-    return `<g><rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(1, h).toFixed(1)}" rx="3" fill="#2563eb"><title>${esc(d.label)}: ${d.value}</title></rect>
+    return `<g><rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(1, h).toFixed(1)}" rx="3" fill="#0d9488"><title>${esc(d.label)}: ${d.value}</title></rect>
       <text x="${(x + barW / 2).toFixed(1)}" y="${height - 9}" text-anchor="middle" class="chart-axis">${esc(d.label)}</text></g>`;
   }).join("");
   return `<svg viewBox="0 0 ${width} ${height}" class="chart" role="img" aria-label="Alerts over time">${gridY}${cols}</svg>`;
