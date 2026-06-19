@@ -1,16 +1,18 @@
 # Auto-refresh routine instructions (Claude Routines)
 
-These are the instruction prompts pasted into the two Claude Routines that keep
-the Credit dataset current. They run a Claude Code session against this repo.
-Keep this file in sync with the Routines UI — it is the source of truth for the
-prompts.
+These are the instruction prompts pasted into the Claude Routines that keep the
+datasets current. They run a Claude Code session against this repo. Keep this
+file in sync with the Routines UI — it is the source of truth for the prompts.
 
-> **Repo structure note.** The Meridian **Credit** app now lives in the
-> **`credit/`** folder (after the repo was split into a root sign-in landing
-> page + `credit/` + `legal/`). All Credit data and assets are under `credit/`,
-> and the site deploys from the **`main`** branch (Cloudflare redeploys on every
-> push to `main`). The routines below target `credit/…` paths. The `legal/`
-> (Lexalert) app has no refresh routine yet.
+There are three routines: **Credit daily** (deals), **Credit weekly** (full
+refresh), and **Legal daily** (full refresh).
+
+> **Repo structure note.** The repo is split into a root sign-in landing page +
+> **`credit/`** (Meridian Credit) + **`legal/`** (Meridian Legal / Lexalert).
+> Each app keeps all its data and assets under its own folder, and the site
+> deploys from the **`main`** branch (Cloudflare redeploys on every push to
+> `main`). The Credit routines target `credit/…` paths; the Legal routine
+> targets `legal/…` paths.
 
 Shared invariants (both routines):
 
@@ -103,6 +105,67 @@ Shared invariants (both routines):
 
 ---
 
+## Legal (Lexalert) — daily full refresh (every morning)
+
+Self-contained (the Credit invariants above are credit-specific). Note the Legal
+app uses **`LAST_REVIEWED`** (not `DATA_UPDATED`), its main feed is the **`items`**
+array, and it tracks publications from a fixed set of **19 firms** only.
+
+> Daily full refresh of my Meridian LEGAL platform (Lexalert) — new English-law
+> legal developments, client alerts, case notes and insights from the tracked law
+> firms, plus any significant new judgments — and publish it live. The Legal app
+> lives in the `legal/` folder and deploys from `main` (Cloudflare redeploys on
+> every push to `main`).
+>
+> 1. SYNC: run `git fetch origin`, then base your work on the latest main:
+>    `git checkout -B claude/affectionate-einstein-9hhzga origin/main`. Do all
+>    work on this branch.
+> 2. SEARCH for English-law legal developments published in roughly the last 36
+>    hours across the five practice areas: Banking & Finance (`banking`),
+>    Restructuring & Insolvency (`ri`), Corporate / M&A (`corporate`), Funds
+>    Regulatory (`fundsreg`) and Fund Tax (`fundtax`). Cover the tracked firms'
+>    own insights / client-alert pages, plus primary sources: BAILII and
+>    caselaw.nationalarchives.gov.uk (judgments), gov.uk, the FCA, HM Treasury,
+>    HMRC, and reputable legal press (Law Society Gazette, Lexology, Practical
+>    Law). Most firm sites block automated fetching, so enumerate new article
+>    URLs with `site:<domain>` web searches and verify each publication date.
+>    Never invent a URL, date or quote; verify each item's EXACT date from the
+>    source. Skip paywalled items you can't confirm.
+> 3. For each genuinely new item, append an object to the `items` array in
+>    `legal/js/data.js` with: `id` = next sequential `u<n>` (current max is u127,
+>    so next is u128); `title`; `area` = one of banking/ri/corporate/fundsreg/
+>    fundtax; `areas` = array of the relevant area id(s); `type` = one of
+>    case/update/alert/insight/knowhow; `firm` = the publishing firm's id, which
+>    MUST be one of: aoshearman, cliffordchance, freshfields, linklaters,
+>    slaughtermay, ashurst, hsf, macfarlanes, traverssmith, simmons, latham,
+>    kirkland, whitecase, weil, sidley, cleary, ropesgray, simpsonthacher,
+>    davispolk (skip the item if it isn't from one of these firms); `date`
+>    (YYYY-MM-DD); `jurisdiction` (e.g. "England & Wales"); `court` and `citation`
+>    for case notes; `summary` (2–4 sentences); `points` (array of 2–4 short
+>    bullets); `tags` (array of keywords); and the source `url`. Dedupe each
+>    candidate by URL and normalised title against the existing `items`.
+> 4. Only for a genuinely landmark new judgment, also add it to the `cases` array
+>    (`id` = next sequential `c<n>`, current max c35 so next c36; fields: id,
+>    name, citation, court, date, area, url, summary) AND a matching longer entry
+>    in the `caseSummaries` map keyed by the same id. Routine firm updates go in
+>    `items`, not `cases`.
+> 5. If nothing qualifies, make no change, do not commit, and reply "no new
+>    items". Otherwise set `LAST_REVIEWED` in `legal/js/data.js` to today's date.
+> 6. Bump the cache-buster so the change goes live — there are FOUR `?v=YYYYMMDD-N`
+>    tokens; set ALL FOUR to the SAME today's-date + sequence value (they have
+>    drifted out of sync, so unifying them also fixes that): (a) css/styles.css?v=
+>    in legal/index.html, (b) js/app.js?v= in legal/index.html, (c) the
+>    ./data.js?v= import in legal/js/app.js, (d) the ./charts.js?v= import in
+>    legal/js/app.js. e.g. v=20260620-1, incrementing on repeat runs the same day.
+> 7. Validate: `node --check legal/js/data.js`.
+> 8. Commit with a message ending with these two trailers exactly:
+>    `Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>` and
+>    `Claude-Session: <this session's URL>`. Then fast-forward-merge
+>    `claude/affectionate-einstein-9hhzga` into `main` and push BOTH branches.
+> 9. Reply with a short summary: counts of new items (and any new cases) by area.
+
+---
+
 ### Notes
 
 - The `legal` field (general counsel per manager) changes rarely and is not part
@@ -110,6 +173,6 @@ Shared invariants (both routines):
 - New `deals`/`intel` `type` values that aren't in `dealTypeClass` /
   `intelTypeClass` (in `credit/js/app.js`) still render, just with default chip
   styling — reuse existing type strings where possible, or add the class.
-- The `legal/` (Lexalert) app currently has no refresh routine. If one is added,
-  give it its own prompt targeting `legal/js/data.js` and the four `legal/`
-  cache-busters.
+- The Legal app's `area`, `type` and `firm` values must reuse the existing ids
+  (in `practiceAreas`/`updateTypes`/`firms`) — the views look records up by those
+  ids, so an unknown value won't render correctly.
