@@ -15,7 +15,7 @@
 // `LAST_REVIEWED` whenever you refresh the data.
 // =============================================================================
 
-export const LAST_REVIEWED = "2026-06-19";
+export const LAST_REVIEWED = "2026-06-20";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -992,6 +992,20 @@ export const items = [
     tags: ["FCA", "enforcement", "supervision", "BlueCrest", "OIREQ", "asset management"],
     url: "https://financialregulation.linklaters.com/post/102n4np/fca-enforcement-all-eyes-on-supervision",
   },
+  {
+    id: "u132", title: "FCA proposes raising minimum market-abuse penalty to £150,000; EU derivatives trading obligation suspended",
+    area: "fundsreg", areas: ["fundsreg", "banking"], type: "update", firm: "slaughtermay",
+    date: "2026-06-18", jurisdiction: "United Kingdom",
+    summary: "The FCA published Consultation Paper CP26/19 (15 June 2026) proposing to raise the minimum disciplinary penalty for serious market abuse by individuals from £100,000 to £150,000, with automatic biennial CPI-linked increases and an updated financial hardship threshold; responses close 10 August 2026. The same bulletin covers EU Regulation 2026/1288, which suspended the MiFIR derivatives trading obligation for certain financial counterparties on UK-based trading venues and entered into force on 18 June 2026. HM Treasury published terms of reference for the new Wholesale Digital Markets Champion, charged with coordinating DLT/tokenisation adoption across UK wholesale markets over an 18-month mandate. The EBA launched a consultation on a simplified 2027 EU-wide stress test that reduces data requirements by ~55% and, for the first time, integrates climate risk through transition and physical risk shocks.",
+    points: [
+      "FCA CP26/19 proposes raising the minimum individual penalty for serious market abuse from £100,000 to £150,000, with automatic biennial CPI adjustments; consultation closes 10 August 2026.",
+      "EU 2026/1288 suspending the MiFIR derivatives trading obligation for certain financial counterparties on UK-based venues entered into force on 18 June 2026.",
+      "Wholesale Digital Markets Champion terms of reference published; will coordinate DLT/tokenisation adoption in UK wholesale markets with an initial report due July 2026.",
+      "EBA consultation on a simplified 2027 EU-wide stress test cuts data requirements by ~55% and integrates climate-risk modules for the first time.",
+    ],
+    tags: ["FCA", "market abuse", "penalties", "CP26/19", "derivatives", "MiFIR", "trading obligation", "tokenisation", "EBA", "stress test"],
+    url: "https://www.slaughterandmay.com/insights/financial-regulation-weekly-bulletin/financial-regulation-weekly-bulletin-18-june-2026/",
+  },
 ];
 
 // ---- Recent cases published on BAILII -------------------------------------
@@ -1105,6 +1119,9 @@ export const cases = [
   { id: "c36", name: "Dexia SA v Comune di Torino", citation: "[2026] EWHC 1401 (Comm)", court: "High Court (Comm)",
     date: "2026-06-18", area: "banking", url: "https://www.bailii.org/ew/cases/EWHC/Comm/2026/1401.html",
     summary: "Commercial Court upholds €400m interest rate swap portfolio with the City of Turin, rejecting Italian-law validity challenges at a trial the municipality chose not to attend; confirms ISDA Master Agreement protections and English-court primacy in cross-border swap disputes." },
+  { id: "c37", name: "Iconic Sports Eagle Investment, LLC v John Textor", citation: "[2026] EWHC 1498 (Comm)", court: "High Court (Comm)",
+    date: "2026-06-19", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/1498",
+    summary: "Commercial Court applies the Snell Equity principle that a party seeking specific performance of a put option for shares need only demonstrate readiness and willingness to perform at the date of the order — not at the contractual completion date — where the defendant has repudiated the contract." },
 ];
 
 // ---- Lightweight lookups ----------------------------------------------------
@@ -1153,4 +1170,5 @@ export const caseSummaries = {
   c34: "A 2026 restructuring-plan sanction in the energy-production sector. The court applied the post-Petrofac fairness framework, scrutinising the allocation of the restructuring surplus and the treatment of dissenting creditors before sanctioning the plan. A recent example of plan practice after the Court of Appeal's fairness guidance.",
   c35: "Shares held on trust were transferred in breach of trust to a Saudi bank, and the beneficiaries sued for knowing receipt. The Supreme Court held there was no liability because the claimant's equitable proprietary interest was extinguished on the transfer under the governing (Saudi) law. A leading authority on knowing receipt and cross-border property.",
   c36: "Between 2001 and 2006 Dexia entered into 11 interest rate swap transactions with the City of Turin totalling around €400m, hedging the municipality's variable-rate bond obligations. When interest rates fell for over a decade Turin sought to invalidate the swaps in Italian proceedings, arguing non-disclosure of mark-to-market values and implicit costs under the Cattolica doctrine, and constitutional and civil-code defects. Mr Justice Andrew Baker rejected each argument in full and granted Dexia comprehensive declaratory relief at a trial Turin chose not to attend. He held that Turin's swaps were straightforward hedges — not complex aleatory contracts requiring Cattolica-style disclosure — that express ISDA Master Agreement language ruling out an advisory role protected the bank, and that Turin as a professional investor could not invoke retail-client protections; Turin's non-attendance generated a substantial costs liability and final declarations deployable in Italian enforcement.",
+  c37: "Iconic Sports Eagle Investment LLC held a put option over a substantial minority stake (aggregate value exceeding US$100 million) in Eagle Football Holdings Limited, which owns stakes in Olympique Lyonnais and Botafogo FR. After the defendant Textor repudiated the put option agreement, Iconic brought a claim for specific performance and the case raised two issues remitted by the Court of Appeal: whether Iconic was barred from advancing the 'Snell Point' (that a party need only show readiness and willingness to perform at the date of the specific performance order) and whether that point was correct in law. Deputy Judge Anderson KC held that Iconic was not estopped from advancing the argument and that the principle in Snell's Equity — permitting a claimant to demonstrate readiness at the judgment date rather than the contractual completion date when the counterparty has repudiated — correctly states English law. The decision provides practical authority for M&A and private equity practitioners whose clients face repudiation of share option or SPA obligations, confirming that inability to complete on the original timetable does not defeat a specific performance claim where the defendant caused the default.",
 };
