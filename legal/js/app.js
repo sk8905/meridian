@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes,
   firmById, areaById, typeById, tierById, LAST_REVIEWED,
-} from "./data.js?v=20260622-10";
-import { donutChart, columnChart } from "./charts.js?v=20260622-10";
+} from "./data.js?v=20260622-11";
+import { donutChart, columnChart } from "./charts.js?v=20260622-11";
 
 const app = document.getElementById("app");
 
@@ -90,6 +90,37 @@ function areaChip(areaId) {
   return `<span class="chip area" style="--c:${a.color}">${esc(a.short)}</span>`;
 }
 function tierLabel(tierId) { return (tierById[tierId] || {}).name || tierId; }
+
+// Collapsible (folded) multi-select filter group — a disclosure dropdown with the
+// same checkboxes inside, to save sidebar space. `selected` is the array of
+// currently-selected ids; the group auto-opens when something is selected and
+// shows a live count badge. Used by both the alerts and case-law sidebars.
+function foldGroup(legend, name, opts, selected) {
+  const sel = selected || [];
+  return `
+    <details class="filter-group filter-fold"${sel.length ? " open" : ""}>
+      <summary>${esc(legend)}${sel.length ? ` <span class="fg-badge">${sel.length}</span>` : ""}</summary>
+      <div class="fold-body">
+        ${opts.map((o) => `
+          <label class="check">
+            <input type="checkbox" name="${name}" value="${esc(o.id)}" ${sel.includes(o.id) ? "checked" : ""}/>
+            <span>${esc(o.name)}</span>
+          </label>`).join("")}
+      </div>
+    </details>`;
+}
+// Keep a folded group's summary count badge in sync with its checkboxes.
+function refreshFoldBadge(cb) {
+  const details = cb.closest("details.filter-fold");
+  if (!details) return;
+  const summary = details.querySelector("summary");
+  const count = details.querySelectorAll('input[type="checkbox"]:checked').length;
+  let badge = summary.querySelector(".fg-badge");
+  if (count) {
+    if (!badge) { badge = document.createElement("span"); badge.className = "fg-badge"; summary.appendChild(badge); }
+    badge.textContent = count;
+  } else if (badge) { badge.remove(); }
+}
 
 // A firm-alert as a list row — Meridian Credit style: colored chip + date in the
 // meta column, bold headline, full muted summary, then a single muted footer line.
@@ -253,35 +284,6 @@ function viewList() {
   const monthOpts = [...new Set(items.map((i) => ym(i.date)))].sort((a, b) => b.localeCompare(a))
     .map((m) => ({ id: m, name: MONTHS[Number(m.slice(5, 7)) - 1] + " " + m.slice(0, 4) }));
 
-  const checkboxGroup = (legend, name, opts) => `
-    <fieldset class="filter-group">
-      <legend>${esc(legend)}</legend>
-      ${opts.map((o) => `
-        <label class="check">
-          <input type="checkbox" name="${name}" value="${esc(o.id)}"
-            ${filterState[name].includes(o.id) ? "checked" : ""}/>
-          <span>${esc(o.name)}</span>
-        </label>`).join("")}
-    </fieldset>`;
-
-  // Collapsible (folded) variant — same multi-select checkboxes inside a
-  // disclosure dropdown, to save sidebar space. Auto-opens if any are selected.
-  const foldGroup = (legend, name, opts) => {
-    const sel = filterState[name] || [];
-    return `
-    <details class="filter-group filter-fold"${sel.length ? " open" : ""}>
-      <summary>${esc(legend)}${sel.length ? ` <span class="fg-badge">${sel.length}</span>` : ""}</summary>
-      <div class="fold-body">
-        ${opts.map((o) => `
-          <label class="check">
-            <input type="checkbox" name="${name}" value="${esc(o.id)}"
-              ${sel.includes(o.id) ? "checked" : ""}/>
-            <span>${esc(o.name)}</span>
-          </label>`).join("")}
-      </div>
-    </details>`;
-  };
-
   app.innerHTML = `
     <div class="list-head">
       <h1>${filterState.saved ? "Saved alerts" : "Legal alerts"}</h1>
@@ -292,12 +294,12 @@ function viewList() {
         <div class="filters-top">
           <button id="clear-filters" class="link-btn" type="button">Clear all</button>
         </div>
-        ${checkboxGroup("Practice area", "areas", practiceAreas.map((a) => ({ id: a.id, name: a.name })))}
-        ${foldGroup("Year", "years", years.map((y) => ({ id: y, name: y })))}
-        ${foldGroup("Month", "months", monthOpts)}
-        ${checkboxGroup("Source tier", "tiers", tiers)}
-        ${checkboxGroup("Type", "types", updateTypes)}
-        ${checkboxGroup("Firm", "firms", firms.map((f) => ({ id: f.id, name: f.name })))}
+        ${foldGroup("Practice area", "areas", practiceAreas.map((a) => ({ id: a.id, name: a.name })), filterState.areas)}
+        ${foldGroup("Year", "years", years.map((y) => ({ id: y, name: y })), filterState.years)}
+        ${foldGroup("Month", "months", monthOpts, filterState.months)}
+        ${foldGroup("Source tier", "tiers", tiers, filterState.tiers)}
+        ${foldGroup("Type", "types", updateTypes, filterState.types)}
+        ${foldGroup("Firm", "firms", firms.map((f) => ({ id: f.id, name: f.name })), filterState.firms)}
       </aside>
       <section class="results-wrap">
         <div class="searchbar">
@@ -309,19 +311,6 @@ function viewList() {
       </section>
     </div>
   `;
-
-  // Keep a folded group's summary count badge in sync with its checkboxes.
-  const refreshFoldBadge = (cb) => {
-    const details = cb.closest("details.filter-fold");
-    if (!details) return;
-    const summary = details.querySelector("summary");
-    const count = details.querySelectorAll('input[type="checkbox"]:checked').length;
-    let badge = summary.querySelector(".fg-badge");
-    if (count) {
-      if (!badge) { badge = document.createElement("span"); badge.className = "fg-badge"; summary.appendChild(badge); }
-      badge.textContent = count;
-    } else if (badge) { badge.remove(); }
-  };
 
   // Wire up listeners (panel rendered once; only #results re-renders).
   app.querySelectorAll('input[type="checkbox"][name]').forEach((cb) => {
@@ -394,17 +383,6 @@ function viewCases() {
   const courts = COURT_ORDER.filter((ct) => cases.some((c) => c.court === ct));
   const years = [...new Set(cases.map((c) => c.date.slice(0, 4)))].sort((a, b) => b.localeCompare(a));
 
-  const checkboxGroup = (legend, name, opts) => `
-    <fieldset class="filter-group">
-      <legend>${esc(legend)}</legend>
-      ${opts.map((o) => `
-        <label class="check">
-          <input type="checkbox" name="${name}" value="${esc(o.id)}"
-            ${caseFilter[name].includes(o.id) ? "checked" : ""}/>
-          <span>${esc(o.name)}</span>
-        </label>`).join("")}
-    </fieldset>`;
-
   app.innerHTML = `
     <div class="list-head">
       <h1>Case law</h1>
@@ -416,9 +394,9 @@ function viewCases() {
         <div class="filters-top">
           <button id="clear-filters" class="link-btn" type="button">Clear all</button>
         </div>
-        ${checkboxGroup("Practice area", "areas", practiceAreas.map((a) => ({ id: a.id, name: a.name })))}
-        ${checkboxGroup("Year", "years", years.map((y) => ({ id: y, name: y })))}
-        ${checkboxGroup("Court", "courts", courts.map((ct) => ({ id: ct, name: ct })))}
+        ${foldGroup("Practice area", "areas", practiceAreas.map((a) => ({ id: a.id, name: a.name })), caseFilter.areas)}
+        ${foldGroup("Year", "years", years.map((y) => ({ id: y, name: y })), caseFilter.years)}
+        ${foldGroup("Court", "courts", courts.map((ct) => ({ id: ct, name: ct })), caseFilter.courts)}
       </aside>
       <section class="results-wrap">
         <div class="searchbar">
@@ -434,6 +412,7 @@ function viewCases() {
   app.querySelectorAll('input[type="checkbox"][name]').forEach((cb) => {
     cb.addEventListener("change", () => {
       caseFilter[cb.name] = [...app.querySelectorAll(`input[name="${cb.name}"]:checked`)].map((x) => x.value);
+      refreshFoldBadge(cb);
       renderCaseResults();
     });
   });
@@ -442,6 +421,7 @@ function viewCases() {
   app.querySelector("#clear-filters").addEventListener("click", () => {
     caseFilter.areas = []; caseFilter.courts = []; caseFilter.years = []; caseFilter.q = "";
     app.querySelectorAll('input[type="checkbox"]').forEach((c) => (c.checked = false));
+    app.querySelectorAll(".fg-badge").forEach((b) => b.remove());
     search.value = "";
     renderCaseResults();
   });
