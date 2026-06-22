@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes,
   firmById, areaById, typeById, tierById, LAST_REVIEWED,
-} from "./data.js?v=20260622-3";
-import { donutChart, columnChart } from "./charts.js?v=20260622-3";
+} from "./data.js?v=20260622-4";
+import { donutChart, columnChart } from "./charts.js?v=20260622-4";
 
 const app = document.getElementById("app");
 
@@ -91,26 +91,25 @@ function areaChip(areaId) {
 }
 function tierLabel(tierId) { return (tierById[tierId] || {}).name || tierId; }
 
-// A firm-alert as a list row (Meridian-style: meta column + body).
+// A firm-alert as a list row — Meridian Credit style: colored chip + date in the
+// meta column, bold headline, full muted summary, then a single muted footer line.
 function itemRow(it) {
   const firm = firmById[it.firm] || { name: it.firm, tier: "" };
   const type = (typeById[it.type] || {}).name || it.type;
   const saved = getSaved().has(it.id);
   const areasHtml = (it.areas || [it.area]).map(areaChip).join("");
-  return `<div class="feed-row">
+  const tierTxt = tierLabel(firm.tier);
+  const src = it.url || firm.insightsUrl;
+  return `<div class="feed-row" id="row-${esc(it.id)}">
     <div class="feed-meta">
       <div class="chips">${areasHtml}</div>
-      <span class="feed-type">${esc(type)}</span>
-      <time class="feed-date" datetime="${esc(it.date)}">${fmtDate(it.date)}</time>
-      ${isNew(it) ? '<span class="chip new">New</span>' : ""}
+      <span class="feed-date">${fmtDate(it.date)}</span>
     </div>
     <div class="feed-body">
       <a class="feed-title" href="#/item/${esc(it.id)}">${esc(it.title)}</a>
-      <p class="feed-summary">${esc(it.summary).slice(0, 170)}${it.summary.length > 170 ? "…" : ""}</p>
+      <p class="feed-summary">${esc(it.summary)}</p>
       <div class="feed-foot">
-        <span class="firm">${esc(firm.name)}</span>
-        <span class="tier tier-${esc(firm.tier)}">${esc(tierLabel(firm.tier))}</span>
-        ${it.citation ? `<span class="cite">${esc(it.citation)}</span>` : ""}
+        <span>${esc(type)}</span> · <span class="firm">${esc(firm.name)}</span>${tierTxt ? ` · ${esc(tierTxt)}` : ""}${it.citation ? ` · <span class="cite">${esc(it.citation)}</span>` : ""}${src ? ` · <a href="${esc(src)}" target="_blank" rel="noopener noreferrer">source ↗</a>` : ""}${isNew(it) ? ' · <span class="chip new">New</span>' : ""}
         <button class="save-btn ${saved ? "is-saved" : ""}" data-save="${esc(it.id)}"
           aria-pressed="${saved}" title="${saved ? "Remove from saved" : "Save this update"}">${saved ? "★ Saved" : "☆ Save"}</button>
       </div>
@@ -118,22 +117,20 @@ function itemRow(it) {
   </div>`;
 }
 
-// A BAILII judgment as a list row (same format as the alert rows), carrying the
-// AI-generated summary and linking out to bailii.org.
+// A BAILII judgment as a list row — same Credit-style layout, AI summary inline,
+// linking out to bailii.org.
 function caseRow(c) {
   const summary = caseSummaries[c.id] || c.summary || "";
-  return `<div class="feed-row">
+  return `<div class="feed-row" id="row-${esc(c.id)}">
     <div class="feed-meta">
       <div class="chips">${areaChip(c.area)}</div>
-      <span class="feed-type">${esc(c.court)}</span>
-      <time class="feed-date" datetime="${esc(c.date)}">${fmtDate(c.date)}</time>
+      <span class="feed-date">${fmtDate(c.date)}</span>
     </div>
     <div class="feed-body">
       <a class="feed-title" href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">${esc(c.name)} ↗</a>
-      <p class="feed-summary"><span class="ai-tag">✦ AI summary</span> ${esc(summary).slice(0, 170)}${summary.length > 170 ? "…" : ""}</p>
+      <p class="feed-summary"><span class="ai-tag">✦ AI summary</span> ${esc(summary)}</p>
       <div class="feed-foot">
-        <span class="cite">${esc(c.citation)}</span>
-        <span class="src-tag">BAILII</span>
+        <span>${esc(c.court)}</span> · <span class="cite">${esc(c.citation)}</span> · <span class="src-tag">BAILII</span>
       </div>
     </div>
   </div>`;
