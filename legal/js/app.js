@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes,
   firmById, areaById, typeById, tierById, LAST_REVIEWED,
-} from "./data.js?v=20260622-11";
-import { donutChart, columnChart } from "./charts.js?v=20260622-11";
+} from "./data.js?v=20260622-12";
+import { donutChart, columnChart } from "./charts.js?v=20260622-12";
 
 const app = document.getElementById("app");
 
@@ -152,6 +152,7 @@ function itemRow(it) {
 // linking out to bailii.org.
 function caseRow(c) {
   const summary = caseSummaries[c.id] || c.summary || "";
+  const saved = getSaved().has(c.id);
   return `<div class="feed-row" id="row-${esc(c.id)}">
     <div class="feed-meta">
       <div class="chips">${areaChip(c.area)}</div>
@@ -162,6 +163,8 @@ function caseRow(c) {
       <p class="feed-summary"><span class="ai-tag">✦ AI summary</span> ${esc(summary)}</p>
       <div class="feed-foot">
         <span>${esc(c.court)}</span> · <span class="cite">${esc(c.citation)}</span> · <a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">View judgment on BAILII ↗</a>
+        <button class="save-btn ${saved ? "is-saved" : ""}" data-save="${esc(c.id)}"
+          aria-pressed="${saved}" title="${saved ? "Remove from saved" : "Save this case"}">${saved ? "★ Saved" : "☆ Save"}</button>
       </div>
     </div>
   </div>`;

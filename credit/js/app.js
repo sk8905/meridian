@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260622-4";
+} from "./data.js?v=20260622-5";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260622-4";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260622-5";
 
 const app = document.getElementById("app");
 
@@ -196,10 +196,7 @@ function renderDataStatus() {
   if (!el) return;
   const t = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
   const latest = LATEST_ITEM ? ` · latest item ${esc(fmtDate(LATEST_ITEM))}` : "";
-  el.innerHTML = `<span class="ds-text" title="View last refreshed at ${t}">Updated ${esc(fmtDate(DATA_UPDATED))}${latest}</span>` +
-    ` <button type="button" class="refresh-btn" id="refresh-btn" title="Reload to fetch the latest data and re-sync your watchlist" aria-label="Refresh data">↻</button>`;
-  const btn = document.getElementById("refresh-btn");
-  if (btn) btn.addEventListener("click", () => location.reload());
+  el.innerHTML = `<span class="ds-text" title="Data last refreshed ${t}">Updated ${esc(fmtDate(DATA_UPDATED))}${latest}</span>`;
 }
 // Fill the persistent topbar identity area once we know the signed-in user.
 // Hidden when not behind Access (device-local mode).
