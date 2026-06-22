@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes,
   firmById, areaById, typeById, tierById, LAST_REVIEWED,
-} from "./data.js?v=20260622-9";
-import { donutChart, columnChart } from "./charts.js?v=20260622-9";
+} from "./data.js?v=20260622-10";
+import { donutChart, columnChart } from "./charts.js?v=20260622-10";
 
 const app = document.getElementById("app");
 
@@ -264,6 +264,24 @@ function viewList() {
         </label>`).join("")}
     </fieldset>`;
 
+  // Collapsible (folded) variant — same multi-select checkboxes inside a
+  // disclosure dropdown, to save sidebar space. Auto-opens if any are selected.
+  const foldGroup = (legend, name, opts) => {
+    const sel = filterState[name] || [];
+    return `
+    <details class="filter-group filter-fold"${sel.length ? " open" : ""}>
+      <summary>${esc(legend)}${sel.length ? ` <span class="fg-badge">${sel.length}</span>` : ""}</summary>
+      <div class="fold-body">
+        ${opts.map((o) => `
+          <label class="check">
+            <input type="checkbox" name="${name}" value="${esc(o.id)}"
+              ${sel.includes(o.id) ? "checked" : ""}/>
+            <span>${esc(o.name)}</span>
+          </label>`).join("")}
+      </div>
+    </details>`;
+  };
+
   app.innerHTML = `
     <div class="list-head">
       <h1>${filterState.saved ? "Saved alerts" : "Legal alerts"}</h1>
@@ -275,8 +293,8 @@ function viewList() {
           <button id="clear-filters" class="link-btn" type="button">Clear all</button>
         </div>
         ${checkboxGroup("Practice area", "areas", practiceAreas.map((a) => ({ id: a.id, name: a.name })))}
-        ${checkboxGroup("Year", "years", years.map((y) => ({ id: y, name: y })))}
-        ${checkboxGroup("Month", "months", monthOpts)}
+        ${foldGroup("Year", "years", years.map((y) => ({ id: y, name: y })))}
+        ${foldGroup("Month", "months", monthOpts)}
         ${checkboxGroup("Source tier", "tiers", tiers)}
         ${checkboxGroup("Type", "types", updateTypes)}
         ${checkboxGroup("Firm", "firms", firms.map((f) => ({ id: f.id, name: f.name })))}
@@ -292,11 +310,25 @@ function viewList() {
     </div>
   `;
 
+  // Keep a folded group's summary count badge in sync with its checkboxes.
+  const refreshFoldBadge = (cb) => {
+    const details = cb.closest("details.filter-fold");
+    if (!details) return;
+    const summary = details.querySelector("summary");
+    const count = details.querySelectorAll('input[type="checkbox"]:checked').length;
+    let badge = summary.querySelector(".fg-badge");
+    if (count) {
+      if (!badge) { badge = document.createElement("span"); badge.className = "fg-badge"; summary.appendChild(badge); }
+      badge.textContent = count;
+    } else if (badge) { badge.remove(); }
+  };
+
   // Wire up listeners (panel rendered once; only #results re-renders).
   app.querySelectorAll('input[type="checkbox"][name]').forEach((cb) => {
     cb.addEventListener("change", () => {
       const name = cb.name;
       filterState[name] = [...app.querySelectorAll(`input[name="${name}"]:checked`)].map((x) => x.value);
+      refreshFoldBadge(cb);
       renderResults();
     });
   });
@@ -306,6 +338,7 @@ function viewList() {
     filterState.areas = []; filterState.tiers = []; filterState.types = []; filterState.firms = [];
     filterState.years = []; filterState.months = []; filterState.saved = false; filterState.q = "";
     app.querySelectorAll('input[type="checkbox"]').forEach((c) => (c.checked = false));
+    app.querySelectorAll(".fg-badge").forEach((b) => b.remove());
     search.value = "";
     renderResults();
   });

@@ -286,6 +286,18 @@ a.compact-head:hover { color: var(--primary); }
 .link-btn { background: none; border: 0; color: var(--primary); cursor: pointer; font-size: .82rem; font-weight: 600; padding: 0; }
 .filter-group { border: 0; border-top: 1px solid var(--line); margin: 0; padding: .8rem 0 .2rem; }
 .filter-group legend { font-weight: 700; font-size: .74rem; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); padding: 0; margin-bottom: .4rem; }
+/* Collapsible (folded) filter group — disclosure dropdown to save space. */
+.filter-fold { padding: .55rem 0 .35rem; }
+.filter-fold > summary {
+  display: flex; align-items: center; gap: .4rem; cursor: pointer; list-style: none;
+  font-weight: 700; font-size: .74rem; text-transform: uppercase; letter-spacing: .5px; color: var(--muted);
+  padding: .1rem 0;
+}
+.filter-fold > summary::-webkit-details-marker { display: none; }
+.filter-fold > summary::after { content: "▾"; margin-left: auto; font-size: .7rem; transition: transform .15s; }
+.filter-fold[open] > summary::after { transform: rotate(180deg); }
+.fg-badge { background: var(--primary); color: #fff; border-radius: 999px; padding: 0 .4rem; font-size: .62rem; font-weight: 700; line-height: 1.5; text-transform: none; letter-spacing: 0; }
+.fold-body { margin-top: .35rem; max-height: 220px; overflow-y: auto; }
 .check { display: flex; align-items: center; gap: .5rem; font-size: .85rem; padding: .2rem 0; cursor: pointer; }
 .check input { width: 16px; height: 16px; accent-color: var(--primary); flex: 0 0 auto; }
 .check.toggle { font-weight: 600; padding: .4rem 0; }
