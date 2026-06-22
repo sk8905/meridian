@@ -45,6 +45,11 @@ h3 { font-size: 1rem; margin: 0; }
 .brand-sub { font-size: .7rem; color: #93c5fd; text-transform: uppercase; letter-spacing: 1px; }
 .logo { color: var(--accent); font-size: 1.3rem; }
 .mainnav { display: flex; gap: .25rem; flex: 0 0 auto; justify-content: center; }
+/* Credit <-> Legal platform switcher */
+.platform-switch { display: inline-flex; align-items: center; gap: 2px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.22); border-radius: 8px; padding: 2px; margin-right: .6rem; flex: 0 0 auto; }
+.ps-btn { padding: .3rem .6rem; border-radius: 6px; font-size: .8rem; font-weight: 700; color: #cbd5e1; text-decoration: none; white-space: nowrap; }
+.ps-btn:hover { color: #fff; text-decoration: none; background: rgba(255,255,255,.1); }
+.ps-btn.is-active, .ps-btn.is-active:hover { background: #fff; color: #0b1f44; }
 .nav-link {
   color: #cbd5e1; padding: .5rem .85rem; border-radius: 6px; font-weight: 500;
 }
