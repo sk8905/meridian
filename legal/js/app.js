@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes,
   firmById, areaById, typeById, tierById, LAST_REVIEWED,
-} from "./data.js?v=20260622-8";
-import { donutChart, columnChart } from "./charts.js?v=20260622-8";
+} from "./data.js?v=20260622-9";
+import { donutChart, columnChart } from "./charts.js?v=20260622-9";
 
 const app = document.getElementById("app");
 
@@ -376,8 +376,7 @@ function viewCases() {
     <div class="list-head">
       <h1>Case law</h1>
       <p class="muted">English-law judgments from the Supreme Court, Court of Appeal (Civil Division) and the
-        High Court (Chancery, Commercial &amp; King's/Queen's Bench), newest first. Each carries an
-        AI-generated summary for orientation — always read the judgment on BAILII before relying on it.</p>
+        High Court (Chancery, Commercial &amp; King's/Queen's Bench).</p>
     </div>
     <div class="list-layout">
       <aside class="filters" aria-label="Filters">
