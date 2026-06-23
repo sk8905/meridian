@@ -1,4 +1,4 @@
-# Little Steps — baby development tracker
+# Baby Tracker — development & guidance
 
 A **private, offline-first, zero-build** single-page app to track a baby's
 development, sleep, feeding, milk, weaning/allergens, growth, vaccinations,
