@@ -20,7 +20,7 @@ How it fits together:
 
 1. Go to <https://dash.cloudflare.com> → sign up / log in (free).
 2. **Workers & Pages → Create → Pages → Connect to Git**.
-3. Authorise GitHub and pick the **`sk8905/SK-Default-Repo`** repository.
+3. Authorise GitHub and pick the **`sk8905/meridian`** repository.
 4. Build settings:
    - **Production branch:** `claude/affectionate-einstein-9hhzga` (or merge to
      `main` and use that — your choice).
