@@ -4,8 +4,9 @@
 **06:00** and one at **12:00** (Claude Routines runs a single schedule per routine,
 so create two routines that both use the prompt below). Each does a **full refresh
 of both apps** — Credit (deals, fundraising, mandates/launches, manager website
-news) and Legal (legal alerts and case law). Together they replace the previous
-separate Credit-daily, Credit-weekly and Legal-daily routines.
+news, **fund-record reconciliation, new managers/funds, and rotating manager-profile
+re-verification**) and Legal (legal alerts and case law). Together they replace the
+previous separate Credit-daily, Credit-weekly and Legal-daily routines.
 
 Keep this file in sync with the routine prompt pasted into the Routines UI — it is
 the source of truth for the prompt.
@@ -25,9 +26,16 @@ the source of truth for the prompt.
   source; never invent a URL, date, figure or quote. Dedupe every candidate by URL
   and normalised headline/citation against the data already in the file.
 - **IDs.** For every array, COMPUTE the current maximum id in the file and use the
-  next integer — never trust a number quoted here. (As at 2026-06-23: Credit deals
-  → next d260, Credit intel → next i325; Legal items → next u135, Legal cases →
+  next integer — never trust a number quoted here. Applies to all id series:
+  Credit `deals` (d…), `intel` (i…), `managers` (m…), `funds` (f…); Legal `items`
+  (u…), `cases` (c…). (As at 2026-06-23: Credit deals → next d260, intel → next
+  i325, managers → next m113, funds → next f230; Legal items → next u135, cases →
   next c38.)
+- **Editing existing records & adding entities.** Only add a manager/fund or edit a
+  fund status/`raised` or a manager's AUM/profile when backed by a verifiable
+  public source. Never fabricate: set unknown fields to `null`, mark estimates with
+  `estimated: true`, and keep each new/edited record's `sources` pointing to real
+  URLs. Reuse existing field names exactly (see a neighbouring record as a template).
 - **Sourcing.** Prefer primary/verifiable public sources. Most firm/manager sites
   block automated fetching, so enumerate new article URLs with `site:<domain>` web
   searches and verify dates. Skip data-aggregators (GuruFocus, Tracxn, ZoomInfo,
@@ -88,7 +96,28 @@ the source of truth for the prompt.
 >      new announcements to that manager's `webNews` array ({date, outlet, title,
 >      url}), deduped against their existing `news` + `webNews`; prefer the
 >      manager's own press-release URL.
->    - If Credit's data changed, set `DATA_UPDATED` to today.
+>    - **Reconcile fund records** → when a first/final close (or material fund
+>      raise) is found, also update the matching fund in the `funds` array: set
+>      `status` (Open → "First Close" → "Final Close"), update `raised` (and
+>      `hardCap`/`targetSize` if newly disclosed), and refresh its `asOf`. Match the
+>      fund by name + managerId; if it doesn't exist yet, add it (next bullet).
+>    - **Add new managers / funds** → if a deal or raise involves a manager or fund
+>      not yet tracked, add it (only with a verifiable public source; never
+>      fabricate — set unknown fields to `null`, mark estimates with
+>      `estimated: true`):
+>      - New manager → append to `managers` (id `m<next>`): name, hq, founded, aum
+>        (€bn number) + aumText, strategies (array), description, asOf, owners,
+>        financials, headcount, news: [], sources (≥1 real URL).
+>      - New fund → append to `funds` (id `f<next>`): name, managerId, strategy,
+>        vintage, targetSize, hardCap, raised, status, domicile, geoFocus,
+>        sectorFocus, description, asOf, sources (≥1 real URL).
+>    - **Re-verify manager profiles (rotating)** → each run, take the ~3 managers
+>      with the OLDEST `asOf`, check their public AUM / headcount / financials /
+>      description against a current public source, update any that changed, and set
+>      their `asOf` to today (even if unchanged, so the rotation advances). This
+>      keeps the slow-moving profile data fresh without re-checking all of them
+>      every run.
+>    - If Credit's data changed (any of the above), set `DATA_UPDATED` to today.
 >
 > 3. LEGAL — `legal/js/data.js` (English law). Cover the five practice areas only:
 >    banking, ri, corporate, fundsreg, fundtax.
