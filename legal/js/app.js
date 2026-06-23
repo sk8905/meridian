@@ -15,9 +15,9 @@
 
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes,
-  firmById, areaById, typeById, tierById, LAST_REVIEWED,
-} from "./data.js?v=20260623-1";
-import { donutChart, columnChart } from "./charts.js?v=20260623-1";
+  firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED,
+} from "./data.js?v=20260623-2";
+import { donutChart, columnChart } from "./charts.js?v=20260623-2";
 
 const app = document.getElementById("app");
 
@@ -677,8 +677,9 @@ function initChrome() {
   const status = document.getElementById("data-status");
   if (status) {
     const latest = [...items].sort(byDateDesc)[0];
-    status.textContent = `Updated ${fmtDate(LAST_REVIEWED)}`
+    status.textContent = `Last refresh ${fmtDate(LAST_CHECKED)}`
       + (latest ? ` · latest update ${fmtDate(latest.date)}` : "");
+    status.title = `Routine last ran ${fmtDate(LAST_CHECKED)}; data last changed ${fmtDate(LAST_REVIEWED)}`;
   }
   // Same pattern as the Meridian app / landing page: behind Cloudflare Access
   // this returns the verified email; otherwise we leave the slot empty.

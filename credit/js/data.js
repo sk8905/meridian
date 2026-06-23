@@ -17,8 +17,11 @@
 //  See docs/research-notes.md for the fuller sourcing trail and caveats.
 // =============================================================================
 
-// When the dataset was last compiled/updated (shown in the UI "last updated").
+// When the dataset was last compiled/updated (i.e. the last time data actually changed).
 export const DATA_UPDATED = "2026-06-22";
+// When the refresh routine last ran (even if it found nothing new) — shown in the
+// topbar as "Last refresh" so a run can be confirmed regardless of data changes.
+export const LAST_CHECKED = "2026-06-23";
 
 export const STRATEGIES = [
   "Senior Direct Lending",

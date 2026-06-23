@@ -37,17 +37,21 @@ the source of truth for the prompt.
   - Credit: `css/styles.css?v=` & `js/app.js?v=` in `credit/index.html`; the
     `./data.js?v=` & `./charts.js?v=` imports in `credit/js/app.js`.
   - Legal: the same four under `legal/`.
-  Bump only an app's four tokens if you changed that app, to today's date with the
-  next sequence (if they already show today's date, increment; else start at 1).
-  The two apps keep independent sequence numbers.
-- **Freshness scalars.** Set `DATA_UPDATED` in `credit/js/data.js` and
-  `LAST_REVIEWED` in `legal/js/data.js` to today when that app changes.
+  Bump BOTH apps' four tokens on EVERY run (since `LAST_CHECKED` always changes —
+  see below), to today's date with the next sequence (if they already show today's
+  date, increment; else start at 1). The two apps keep independent sequence numbers.
+- **Freshness scalars.**
+  - Always set `LAST_CHECKED` in BOTH `credit/js/data.js` and `legal/js/data.js`
+    to today on EVERY run — this is the "Last refresh" date shown in each topbar,
+    so a run is visible even when nothing new was found.
+  - Only set `DATA_UPDATED` (credit) / `LAST_REVIEWED` (legal) to today when that
+    app's actual data changed (new deal/intel/webNews or alert/case).
 - **Validate** before committing: `node --check credit/js/data.js` and
   `node --check legal/js/data.js`.
-- **Publish.** Commit (message trailers below), then push to `main` AND the
+- **Publish on every run.** Because `LAST_CHECKED` is bumped each run, every run
+  produces a commit (even a "nothing new" run, which just advances `LAST_CHECKED`
+  + cache-busters). Commit (message trailers below), then push to `main` AND the
   development branch — pushing to `main` triggers the live redeploy.
-- If a platform has nothing new, leave it untouched (don't bump its cache-busters);
-  if neither has anything new, make no commit and report "no new items".
 - **Commit message** ends with:
   ```
   Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
@@ -84,8 +88,7 @@ the source of truth for the prompt.
 >      new announcements to that manager's `webNews` array ({date, outlet, title,
 >      url}), deduped against their existing `news` + `webNews`; prefer the
 >      manager's own press-release URL.
->    - If anything changed: set `DATA_UPDATED` to today and bump Credit's four
->      cache-busters.
+>    - If Credit's data changed, set `DATA_UPDATED` to today.
 >
 > 3. LEGAL — `legal/js/data.js` (English law). Cover the five practice areas only:
 >    banking, ri, corporate, fundsreg, fundtax.
@@ -105,18 +108,22 @@ the source of truth for the prompt.
 >      `c<next>`): id, name, citation, court (exactly one tracked label), date,
 >      area, url (prefer the BAILII/National Archives URL), summary — AND add a
 >      matching 3–4 sentence entry to the `caseSummaries` map keyed by the same id.
->    - If anything changed: set `LAST_REVIEWED` to today and bump Legal's four
->      cache-busters.
+>    - If Legal's data changed, set `LAST_REVIEWED` to today.
 >
-> 4. VALIDATE: `node --check credit/js/data.js` and `node --check legal/js/data.js`.
+> 4. ALWAYS set `LAST_CHECKED` to today in BOTH `credit/js/data.js` and
+>    `legal/js/data.js` (this is the "Last refresh" date in each topbar — it must
+>    advance every run so a run is visible even when nothing was added). Then bump
+>    BOTH apps' four cache-buster tokens to today's date with the next sequence.
 >
-> 5. PUBLISH: if nothing qualified in either app, make no commit and reply "no new
->    items". Otherwise commit (message ending with the two required trailers),
->    fast-forward-merge `claude/affectionate-einstein-9hhzga` into `main`, and push
->    BOTH branches. Pushing to `main` triggers the live redeploy.
+> 5. VALIDATE: `node --check credit/js/data.js` and `node --check legal/js/data.js`.
 >
-> 6. Reply with a short summary: counts of new Credit deals / intel / webNews and
->    Legal alerts / cases.
+> 6. PUBLISH (every run, even if nothing new): commit — message ending with the two
+>    required trailers — then fast-forward-merge
+>    `claude/affectionate-einstein-9hhzga` into `main` and push BOTH branches.
+>    Pushing to `main` triggers the live redeploy.
+>
+> 7. Reply with a short summary: counts of new Credit deals / intel / webNews and
+>    Legal alerts / cases (or "no new items — refresh timestamp updated").
 
 ---
 

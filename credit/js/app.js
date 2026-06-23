@@ -4,16 +4,16 @@
 // =============================================================================
 
 import {
-  STRATEGIES, FUND_STATUS, GEOS, LP_TYPES, DEAL_TYPES, DATA_UPDATED,
+  STRATEGIES, FUND_STATUS, GEOS, LP_TYPES, DEAL_TYPES, DATA_UPDATED, LAST_CHECKED,
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260622-5";
+} from "./data.js?v=20260623-1";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260622-5";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260623-1";
 
 const app = document.getElementById("app");
 
@@ -196,7 +196,7 @@ function renderDataStatus() {
   if (!el) return;
   const t = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
   const latest = LATEST_ITEM ? ` · latest item ${esc(fmtDate(LATEST_ITEM))}` : "";
-  el.innerHTML = `<span class="ds-text" title="Data last refreshed ${t}">Updated ${esc(fmtDate(DATA_UPDATED))}${latest}</span>`;
+  el.innerHTML = `<span class="ds-text" title="Routine last ran ${esc(fmtDate(LAST_CHECKED))}; data last changed ${esc(fmtDate(DATA_UPDATED))}">Last refresh ${esc(fmtDate(LAST_CHECKED))}${latest}</span>`;
 }
 // Fill the persistent topbar identity area once we know the signed-in user.
 // Hidden when not behind Access (device-local mode).

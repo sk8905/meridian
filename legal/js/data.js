@@ -16,6 +16,8 @@
 // =============================================================================
 
 export const LAST_REVIEWED = "2026-06-23";
+// When the refresh routine last ran (even if nothing new) — shown as "Last refresh".
+export const LAST_CHECKED = "2026-06-23";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
