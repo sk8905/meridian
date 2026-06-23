@@ -65,6 +65,24 @@ the source of truth for the prompt.
   produces a commit (even a "nothing new" run, which just advances `LAST_CHECKED`
   + cache-busters). Commit (message trailers below), then push to `main` AND the
   development branch — pushing to `main` triggers the live redeploy.
+- **If the push to `main` fails (`HTTP 503` / "remote end hung up") — API
+  fallback.** The static site only redeploys when `main` advances, so a failed
+  `main` push means the run did not go live. Pushes to the dev branch can succeed
+  while `main` fails (seen after the repo was renamed mid-session, when a session's
+  proxy allowlist went stale). Do NOT retry indefinitely — after ~2 attempts with
+  backoff, publish to `main` through the **GitHub API** instead (it bypasses the
+  git proxy):
+  - Push the commit to the dev branch first (that path keeps working).
+  - For each file changed this run, call the GitHub MCP `create_or_update_file`
+    tool on branch `main` (owner `sk8905`, repo `sk-default-repo` — the API
+    follows the rename redirect to `meridian`): supply the file's current blob
+    `sha` from `get_file_contents` (ref `refs/heads/main`), the full new content,
+    and the same commit message + trailers. A single run usually touches only
+    `credit/js/data.js` + `credit/index.html` + `credit/js/app.js` and/or the
+    legal equivalents, so this is a handful of calls.
+  - Then locally `git fetch origin && git branch -f main origin/main` to resync.
+  - Note in the run summary that the API fallback was used (so the stale-allowlist
+    session can be flagged/restarted against `sk8905/meridian`).
 - **Commit message** ends with:
   ```
   Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
@@ -154,7 +172,11 @@ the source of truth for the prompt.
 > 6. PUBLISH (every run, even if nothing new): commit — message ending with the two
 >    required trailers — then fast-forward-merge
 >    `claude/affectionate-einstein-9hhzga` into `main` and push BOTH branches.
->    Pushing to `main` triggers the live redeploy.
+>    Pushing to `main` triggers the live redeploy. **If the `main` push fails with
+>    `HTTP 503` / "remote end hung up" after ~2 backoff retries, fall back to the
+>    GitHub API** (push the dev branch as normal, then use the `create_or_update_file`
+>    MCP tool to commit each changed file to `main` — see "API fallback" in the
+>    invariants above) and say so in the summary.
 >
 > 7. Reply with a short summary: counts of new Credit deals / intel / webNews and
 >    Legal alerts / cases (or "no new items — refresh timestamp updated").
