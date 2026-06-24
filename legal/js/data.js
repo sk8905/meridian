@@ -87,8 +87,8 @@ export const updateTypes = [
 // area: primary practice-area id. areas: all relevant practice-area ids.
 // For case notes, court/citation are populated.
 export const items = [
-  // ---------------- South Square (chambers) ----------------
   {
+    url: "https://southsquare.com/south-square-acts-in-first-restructuring-plan-of-nasdaq-listed-company-and-first-crypto-related-plan/",
     id: "u128", title: "South Square acts in first restructuring plan of a Nasdaq-listed company (Argo Blockchain)",
     area: "ri", areas: ["ri"], type: "update", firm: "southsquare",
     date: "2025-12-10", jurisdiction: "England & Wales",
@@ -100,8 +100,9 @@ export const items = [
       "Illustrates the cross-border reach of the English plan for US-listed groups.",
     ],
     tags: ["restructuring plan", "Part 26A", "cross-border", "crypto"],
-  },
+  }
   {
+    url: "https://southsquare.com/south-square-secures-first-restructuring-plan-indemnity-costs-order-against-opposing-creditor/",
     id: "u129", title: "South Square secures first restructuring plan indemnity costs order against an opposing creditor (Madagascar Oil)",
     area: "ri", areas: ["ri"], type: "update", firm: "southsquare",
     date: "2025-11-07", jurisdiction: "England & Wales",
@@ -113,8 +114,9 @@ export const items = [
       "Richard Smith J, Companies Court.",
     ],
     tags: ["restructuring plan", "costs", "indemnity costs", "Part 26A"],
-  },
+  }
   {
+    url: "https://southsquare.com/prezzo-restructuring-plan-sanctioned/",
     id: "u130", title: "Prezzo's restructuring plan sanctioned; HMRC challenge dismissed",
     area: "ri", areas: ["ri"], type: "update", firm: "southsquare",
     date: "2023-07-05", jurisdiction: "England & Wales",
@@ -126,9 +128,9 @@ export const items = [
       "No requirement to give value to 'out of the money' creditors.",
     ],
     tags: ["restructuring plan", "Part 26A", "HMRC", "cram down"],
-  },
-  // ---------------- Banking & Finance ----------------
+  }
   {
+    url: "https://www.slaughterandmay.com/insights/importedcontent/supreme-court-clarifies-scope-of-the-quincecare-duty-of-care/",
     id: "u001", title: "Supreme Court reframes the Quincecare duty in APP-fraud claims",
     area: "banking", areas: ["banking"], type: "case", firm: "slaughtermay",
     date: "2023-07-12", jurisdiction: "England & Wales",
@@ -140,20 +142,9 @@ export const items = [
       "APP-fraud reimbursement now driven by the PSR mandatory regime, not the common law.",
     ],
     tags: ["fraud", "payments", "duty of care", "PSR"],
-  },
+  }
   {
-    id: "u002", title: "Electronic Trade Documents Act 2023 in force — digital bills of lading now possible",
-    area: "banking", areas: ["banking"], type: "update", firm: "aoshearman",
-    date: "2023-09-20", jurisdiction: "United Kingdom",
-    summary: "The Electronic Trade Documents Act 2023 came into force on 20 September 2023, allowing electronic versions of trade documents (bills of lading, bills of exchange, promissory notes, warehouse receipts) to be 'possessed' and so to have the same legal effect as paper. This unlocks digitalisation across trade and receivables finance, provided the document is held in a reliable system meeting the Act's gateway criteria.",
-    points: [
-      "Possession of intangible trade documents now recognised in English law.",
-      "Reliable-system requirement is the key diligence point for financiers.",
-      "Enables MLETR-aligned platforms for trade-finance documentation.",
-    ],
-    tags: ["trade finance", "digitalisation", "receivables"],
-  },
-  {
+    url: "https://www.ashurst.com/en/insights/fca-confirms-availability-of-synthetic-usd-libor-until-october-2024/",
     id: "u003", title: "Synthetic sterling and US-dollar LIBOR cease — final stage of benchmark transition",
     area: "banking", areas: ["banking"], type: "update", firm: "ashurst",
     date: "2024-09-30", jurisdiction: "United Kingdom",
@@ -164,47 +155,9 @@ export const items = [
       "LMA exposure-draft RFR wording is now market standard.",
     ],
     tags: ["LIBOR", "SONIA", "Term SOFR", "LMA"],
-  },
+  }
   {
-    id: "u004", title: "Consumer Duty now applies to closed products and services",
-    area: "banking", areas: ["banking", "fundsreg"], type: "update", firm: "linklaters",
-    date: "2024-07-31", jurisdiction: "United Kingdom",
-    summary: "From 31 July 2024 the FCA's Consumer Duty (PRIN 2A) extended to closed products and services, completing the roll-out that began with open products in July 2023. Firms must evidence good outcomes across products & services, price & value, consumer understanding and consumer support, including for legacy back-books — a significant data and governance exercise for retail banks and lenders.",
-    points: [
-      "Closed-book products now in scope; board champion and annual report required.",
-      "Fair-value assessments must cover legacy pricing.",
-      "Sits alongside the FCA's wider focus on treatment of borrowers in difficulty.",
-    ],
-    tags: ["FCA", "Consumer Duty", "conduct", "retail"],
-  },
-  {
-    id: "u005", title: "PRA near-final Basel 3.1 rules — implementation pushed to January 2027",
-    area: "banking", areas: ["banking"], type: "insight", firm: "latham",
-    date: "2025-01-17", jurisdiction: "United Kingdom",
-    summary: "The PRA confirmed UK implementation of the Basel 3.1 capital standards will start on 1 January 2027, with a transitional phase-in to 2030. Near-final rules cover credit risk, the output floor, market risk and operational risk, with UK-specific adjustments (notably on SME and infrastructure lending) intended to preserve lending capacity. Banks should refresh capital-planning and pricing models against the revised risk weights.",
-    points: [
-      "Go-live aligned closer to the US timetable.",
-      "Output floor phased in to 72.5% by 2030.",
-      "Lending pricing and RWA models need re-calibration.",
-    ],
-    tags: ["PRA", "Basel 3.1", "capital", "prudential"],
-  },
-  {
-    id: "u006", title: "Court of Appeal on the scope of the contractual duty of good faith in finance documents",
-    area: "banking", areas: ["banking"], type: "case", firm: "cliffordchance",
-    date: "2025-03-05", jurisdiction: "England & Wales",
-    court: "Court of Appeal", citation: "[2025] EWCA Civ (illustrative)",
-    summary: "Continuing the line from Braganza and Unwin/UBS, the court reiterated that discretions in loan documentation (e.g. determinations of 'material adverse effect' or valuation) must be exercised rationally and in good faith, but declined to imply a general duty of good faith into a detailed, professionally drafted facility agreement. A useful restatement for lenders exercising contractual discretions and acceleration rights.",
-    points: [
-      "No general 'relational contract' good-faith term in syndicated facilities.",
-      "Braganza rationality still constrains lender discretions.",
-      "Document express standards for MAE and valuation determinations.",
-    ],
-    tags: ["good faith", "Braganza", "discretion", "MAE"],
-  },
-
-  // ---------------- Restructuring & Insolvency ----------------
-  {
+    url: "https://www.freshfields.com/en/our-thinking/blogs/transactions/supreme-court-holds-that-a-creditors-interest-duty-exists-what-its-content-is-a-102hylg",
     id: "u010", title: "Sequana: directors' duty to consider creditors is triggered by insolvency risk",
     area: "ri", areas: ["ri", "corporate"], type: "case", firm: "freshfields",
     date: "2022-10-05", jurisdiction: "England & Wales",
@@ -216,8 +169,9 @@ export const items = [
       "Board minutes should record creditor-interest considerations in the zone of insolvency.",
     ],
     tags: ["directors' duties", "creditor duty", "s172"],
-  },
+  }
   {
+    url: "https://www.kirkland.com/publications/kirkland-alert/2024/01/adler-english-court-of-appeal-overturns-restructuring-plan",
     id: "u011", title: "Adler: Court of Appeal sets the framework for cramming down dissenting classes",
     area: "ri", areas: ["ri"], type: "case", firm: "kirkland",
     date: "2024-01-23", jurisdiction: "England & Wales",
@@ -229,33 +183,9 @@ export const items = [
       "Robust evidence of the 'relevant alternative' is essential.",
     ],
     tags: ["restructuring plan", "Part 26A", "cram down", "Adler"],
-  },
+  }
   {
-    id: "u012", title: "Thames Water restructuring plan sanctioned — super-senior financing under Part 26A",
-    area: "ri", areas: ["ri", "banking"], type: "case", firm: "linklaters",
-    date: "2025-02-18", jurisdiction: "England & Wales",
-    court: "High Court (Companies Court)", citation: "[2025] EWHC (illustrative)",
-    summary: "The court sanctioned a Part 26A plan providing Thames Water with new super-senior liquidity, applying Adler to assess whether dissenting creditors were any worse off than in the relevant alternative (special administration). The decision addresses how to value the relevant alternative for a regulated monopoly utility and the limits of challenging the cost of rescue financing.",
-    points: [
-      "Special administration treated as the relevant alternative for a regulated utility.",
-      "Court will not second-guess commercially negotiated rescue-finance pricing absent unfairness.",
-      "Illustrates Adler applied at first instance.",
-    ],
-    tags: ["restructuring plan", "Part 26A", "utilities", "rescue finance"],
-  },
-  {
-    id: "u013", title: "Restructuring plans for SMEs and mid-market — lessons from recent sanctions",
-    area: "ri", areas: ["ri"], type: "insight", firm: "weil",
-    date: "2025-04-09", jurisdiction: "England & Wales",
-    summary: "A briefing on the growing use of Part 26A plans by smaller and mid-market companies (following Prezzo, Houst and others), weighing cost and complexity against the cram-down advantage over schemes and CVAs. It covers convening/sanction sequencing, class composition, and the evidential burden of the relevant alternative for companies without listed debt.",
-    points: [
-      "Plans are migrating down-market but remain costly versus CVAs.",
-      "Class construction is the principal battleground.",
-      "Relevant-alternative evidence is heavier without traded debt prices.",
-    ],
-    tags: ["restructuring plan", "mid-market", "CVA"],
-  },
-  {
+    url: "https://www.hsfkramer.com/insights/2021-02/cross-border-insolvencies-in-the-uk-and-eu-%E2%80%93-a-post-brexit-guide",
     id: "u014", title: "Cross-border recognition after Brexit: Gibbs rule and the model law",
     area: "ri", areas: ["ri"], type: "knowhow", firm: "hsf",
     date: "2024-11-12", jurisdiction: "England & Wales",
@@ -266,10 +196,9 @@ export const items = [
       "Model Law recognition aids procedural relief, not debt discharge.",
     ],
     tags: ["cross-border", "Gibbs", "Model Law", "recognition"],
-  },
-
-  // ---------------- Corporate / M&A ----------------
+  }
   {
+    url: "https://www.freshfields.com/en/our-thinking/blogs/risk-and-compliance/time-is-ticking-for-the-failure-to-prevent-fraud-offence-coming-into-force-102jnm6",
     id: "u020", title: "Economic Crime and Corporate Transparency Act — failure to prevent fraud offence live",
     area: "corporate", areas: ["corporate", "banking"], type: "update", firm: "freshfields",
     date: "2025-09-01", jurisdiction: "United Kingdom",
@@ -280,8 +209,9 @@ export const items = [
       "Pairs with reform of the identification doctrine for senior-manager attribution.",
     ],
     tags: ["ECCTA", "failure to prevent fraud", "compliance"],
-  },
+  }
   {
+    url: "https://www.macfarlanes.com/what-we-think/102eli5/new-powers-for-companies-house-102j1ri/",
     id: "u021", title: "Companies House reform: identity verification and the new transparency regime",
     area: "corporate", areas: ["corporate"], type: "update", firm: "macfarlanes",
     date: "2025-11-10", jurisdiction: "United Kingdom",
@@ -292,8 +222,9 @@ export const items = [
       "Failure to verify can disqualify a director from acting.",
     ],
     tags: ["Companies House", "ECCTA", "verification", "PSC"],
-  },
+  }
   {
+    url: "https://www.lw.com/en/insights/2024/07/FCA-Publishes-Final-Rules-for-Reformed-Listing-Regime",
     id: "u022", title: "New UK Listing Rules: single equity category replaces premium/standard",
     area: "corporate", areas: ["corporate", "fundsreg"], type: "update", firm: "latham",
     date: "2024-07-29", jurisdiction: "United Kingdom",
@@ -304,44 +235,9 @@ export const items = [
       "Enhanced-voting dual-class shares permitted with sunset flexibility.",
     ],
     tags: ["UKLR", "listing", "ECM", "FCA"],
-  },
+  }
   {
-    id: "u023", title: "National Security and Investment Act: scope refinements and call-in trends",
-    area: "corporate", areas: ["corporate"], type: "insight", firm: "slaughtermay",
-    date: "2025-05-20", jurisdiction: "United Kingdom",
-    summary: "The annual report and the updated section-6 notifiable-acquisition regulations refine the 17 mandatory-notification sectors, narrowing some definitions (e.g. AI, advanced materials) and clarifying others. The briefing reviews call-in trends, average review timelines and conditions imposed, and the diligence implications for cross-border M&A and minority investments.",
-    points: [
-      "17 mandatory sectors refined; several definitions narrowed.",
-      "Most deals cleared within the initial review period.",
-      "Build NSIA conditionality and timetable into SPAs.",
-    ],
-    tags: ["NSIA", "foreign investment", "M&A", "screening"],
-  },
-  {
-    id: "u024", title: "Register of Overseas Entities: enforcement and the second-anniversary update cycle",
-    area: "corporate", areas: ["corporate"], type: "update", firm: "cliffordchance",
-    date: "2024-08-01", jurisdiction: "United Kingdom",
-    summary: "Overseas entities owning UK real estate must be registered on the Register of Overseas Entities and file annual updates disclosing beneficial owners; a registered overseas entity cannot validly deal with (sell, charge, lease) its UK property without an OE ID. The note covers verification by a UK-supervised agent, trust-information disclosure and the penalties for non-compliance now being enforced.",
-    points: [
-      "OE ID is a precondition to registrable land dispositions.",
-      "Annual update statement required even if nothing has changed.",
-      "Enforcement and financial penalties now active.",
-    ],
-    tags: ["ROE", "beneficial ownership", "real estate"],
-  },
-  {
-    id: "u025", title: "Takeover Code narrowed: which companies are now subject to the Code",
-    area: "corporate", areas: ["corporate"], type: "update", firm: "cleary",
-    date: "2025-02-03", jurisdiction: "United Kingdom",
-    summary: "Following its consultation, the Takeover Panel amended the Code so that it applies principally to companies whose registered office is in the UK, Channel Islands or Isle of Man and that are admitted to trading on a UK regulated market or multilateral trading facility (or were within the previous two years). A transitional period applies for companies losing Code protection. Relevant to de-SPAC, delisting and take-private planning.",
-    points: [
-      "Code focus shifts to UK-listed/recently-listed registered companies.",
-      "Three-year transition for companies dropping out of scope.",
-      "Check Code status early in any take-private or delisting.",
-    ],
-    tags: ["Takeover Code", "public M&A", "Panel"],
-  },
-  {
+    url: "https://www.hsfkramer.com/notes/litigation/2024-07/former-directors-of-bhs-liable-for-wrongful-trading-and-misfeasance",
     id: "u026", title: "BHS wrongful trading: quantifying directors' liability for continued trading",
     area: "corporate", areas: ["corporate", "ri"], type: "case", firm: "hsf",
     date: "2024-06-11", jurisdiction: "England & Wales",
@@ -353,10 +249,9 @@ export const items = [
       "Reinforces the need for contemporaneous solvency assessments.",
     ],
     tags: ["wrongful trading", "directors' duties", "BHS"],
-  },
-
-  // ---------------- Funds Regulatory ----------------
+  }
   {
+    url: "https://www.cliffordchance.com/content/dam/cliffordchance/briefings/2025/01/eu-aifmd2-impact-and-implementation.pdf",
     id: "u030", title: "AIFMD II published — loan-originating funds, delegation and liquidity tools",
     area: "fundsreg", areas: ["fundsreg"], type: "update", firm: "cliffordchance",
     date: "2024-04-16", jurisdiction: "European Union",
@@ -367,20 +262,9 @@ export const items = [
       "Relevant to UK managers via NPPR and EU-domiciled vehicles.",
     ],
     tags: ["AIFMD II", "private credit", "liquidity", "delegation"],
-  },
+  }
   {
-    id: "u031", title: "Reserved Investor Fund: the new UK unauthorised contractual scheme",
-    area: "fundsreg", areas: ["fundsreg", "fundtax"], type: "update", firm: "traverssmith",
-    date: "2025-03-19", jurisdiction: "United Kingdom",
-    summary: "The Reserved Investor Fund (Contractual Scheme) Regulations 2024 created the RIF — an unauthorised, professional/large-investor co-ownership fund designed to complement the authorised CoACS and to onshore vehicles that might otherwise be Luxembourg/Irish. The note covers eligibility conditions, the FCA notification process and the structuring sweet-spot for UK real estate and private-market strategies.",
-    points: [
-      "Unauthorised contractual scheme for professional / large investors.",
-      "Onshoring alternative to overseas co-ownership vehicles.",
-      "Tax treatment is the principal attraction (see fund-tax note).",
-    ],
-    tags: ["RIF", "fund structuring", "onshoring"],
-  },
-  {
+    url: "https://www.simmons-simmons.com/en/publications/clvqtn3h800luug3s5cbbuob4/sdr-and-investment-labels-how-we-can-help",
     id: "u032", title: "SDR and investment labels: anti-greenwashing rule and naming/marketing rules live",
     area: "fundsreg", areas: ["fundsreg"], type: "update", firm: "simmons",
     date: "2024-12-02", jurisdiction: "United Kingdom",
@@ -391,20 +275,9 @@ export const items = [
       "Map against SFDR for dual-marketed funds.",
     ],
     tags: ["SDR", "ESG", "greenwashing", "FCA"],
-  },
+  }
   {
-    id: "u033", title: "Overseas Funds Regime opens — gateway for EEA UCITS into the UK",
-    area: "fundsreg", areas: ["fundsreg"], type: "update", firm: "traverssmith",
-    date: "2024-09-30", jurisdiction: "United Kingdom",
-    summary: "The Overseas Funds Regime (OFR) provides a streamlined recognition gateway for funds from equivalent jurisdictions; following the Government's equivalence determination for EEA UCITS, the FCA's landing-slot application process opened in phases from late 2024. The note explains the transition from the Temporary Marketing Permissions Regime (TMPR) and the additional UK disclosure (including SDR considerations) for recognised funds.",
-    points: [
-      "Equivalence granted for EEA UCITS (excluding MMFs initially).",
-      "Phased landing slots replace the TMPR.",
-      "Recognised funds still face UK-specific disclosure overlays.",
-    ],
-    tags: ["OFR", "UCITS", "marketing", "equivalence"],
-  },
-  {
+    url: "https://www.macfarlanes.com/insights/102iig5/ltaf-now-accessible-to-retail-investors/",
     id: "u034", title: "Long-Term Asset Fund: widening retail and DC-pension access to private markets",
     area: "fundsreg", areas: ["fundsreg"], type: "insight", firm: "macfarlanes",
     date: "2024-05-14", jurisdiction: "United Kingdom",
@@ -415,22 +288,9 @@ export const items = [
       "Central to the 'productive finance' / pensions-investment policy push.",
     ],
     tags: ["LTAF", "private markets", "DC pensions", "illiquids"],
-  },
+  }
   {
-    id: "u035", title: "Smarter Regulatory Framework: FCA rebuild of the UK asset-management regime",
-    area: "fundsreg", areas: ["fundsreg"], type: "insight", firm: "ashurst",
-    date: "2025-01-28", jurisdiction: "United Kingdom",
-    summary: "As retained EU law is repealed under the Financial Services and Markets Act 2023, the FCA is rebuilding the UK funds rulebook (AIFMD, UCITS, MiFID overlays) into FCA rules — including a possible recalibration of the AIFM full/sub-threshold boundary and reporting. The briefing tracks the discussion papers and what divergence from the EU baseline could mean for dual-registered managers.",
-    points: [
-      "Retained EU funds law being onshored into the FCA Handbook.",
-      "Potential reform of the AIFM thresholds and reporting.",
-      "Watch for UK/EU divergence affecting cross-border managers.",
-    ],
-    tags: ["FSMA 2023", "smarter regulatory framework", "AIFMD"],
-  },
-
-  // ---------------- Fund Tax ----------------
-  {
+    url: "https://www.macfarlanes.com/what-we-think/102eli5/carried-interest-tax-reform-next-steps-102kglp/",
     id: "u040", title: "Carried interest moves into the income-tax framework from April 2026",
     area: "fundtax", areas: ["fundtax"], type: "update", firm: "macfarlanes",
     date: "2025-10-30", jurisdiction: "United Kingdom",
@@ -441,8 +301,9 @@ export const items = [
       "Revisit executive incentive and co-invest structuring now.",
     ],
     tags: ["carried interest", "income tax", "executive tax"],
-  },
+  }
   {
+    url: "https://www.macfarlanes.com/insights/uk-non-dom-reforms/",
     id: "u041", title: "Abolition of the non-dom regime: the new foreign income and gains (FIG) regime",
     area: "fundtax", areas: ["fundtax"], type: "update", firm: "macfarlanes",
     date: "2025-04-06", jurisdiction: "United Kingdom",
@@ -453,474 +314,234 @@ export const items = [
       "IHT moves to a residence basis — affects trusts and estate planning.",
     ],
     tags: ["non-dom", "FIG regime", "remittance", "IHT"],
-  },
+  }
   {
-    id: "u042", title: "Reserved Investor Fund: the tax design that makes the vehicle work",
-    area: "fundtax", areas: ["fundtax", "fundsreg"], type: "knowhow", firm: "traverssmith",
-    date: "2025-03-19", jurisdiction: "United Kingdom",
-    summary: "A companion know-how note on the RIF's tax treatment: transparency for income, exemption for capital gains at fund level, a bespoke regime for UK-property-rich RIFs (akin to the CoACS/PAIF interactions and non-resident CGT), and SDLT seeding relief. Explains when a RIF beats a Jersey Property Unit Trust or Luxembourg vehicle for UK real estate and private-market funds.",
-    points: [
-      "Income-transparent, gains-exempt at fund level.",
-      "Property-rich RIFs face specific NRCGT-style rules.",
-      "SDLT seeding relief supports onshoring of property funds.",
-    ],
-    tags: ["RIF", "real estate tax", "SDLT", "transparency"],
-  },
-  {
-    id: "u043", title: "Pillar Two in force: Multinational Top-up Tax and fund-structure carve-outs",
-    area: "fundtax", areas: ["fundtax"], type: "insight", firm: "cliffordchance",
-    date: "2024-04-01", jurisdiction: "United Kingdom",
-    summary: "The UK's Multinational Top-up Tax and Domestic Top-up Tax (implementing the OECD Pillar Two 15% global minimum) apply for accounting periods from 31 December 2023. For fund groups the key questions are the investment-entity and excluded-entity definitions, the treatment of holding structures and joint ventures, and whether portfolio companies are caught. The briefing maps the analysis for typical PE/credit fund chains.",
-    points: [
-      "15% effective-rate floor via MTT/DTT from end-2023.",
-      "Investment-entity and excluded-entity carve-outs are critical.",
-      "Assess at portfolio-company as well as fund level.",
-    ],
-    tags: ["Pillar Two", "global minimum tax", "OECD"],
-  },
-  {
-    id: "u044", title: "QAHC regime: refinements and the two-year scorecard for fund holding companies",
-    area: "fundtax", areas: ["fundtax"], type: "insight", firm: "kirkland",
-    date: "2024-10-08", jurisdiction: "United Kingdom",
-    summary: "The Qualifying Asset Holding Company (QAHC) regime (FA 2022) continues to be refined to broaden access — including adjustments to the ownership-condition and the treatment of certain securitisation and multi-vehicle structures. The note reviews eligibility (70% institutional ownership, investment-strategy condition), the core exemptions (gains on shares/overseas property, deductibility of profit-dependent interest) and uptake versus Luxembourg.",
-    points: [
-      "Ownership and eligibility conditions progressively eased.",
-      "Key reliefs: gains exemption and profit-participating-loan deductibility.",
-      "A genuine onshoring option versus Lux holdcos.",
-    ],
-    tags: ["QAHC", "holding company", "asset holding"],
-  },
-  {
-    id: "u045", title: "VAT on fund management: scope of the management exemption after recent cases",
-    area: "fundtax", areas: ["fundtax"], type: "knowhow", firm: "freshfields",
-    date: "2024-07-22", jurisdiction: "United Kingdom",
-    summary: "A know-how note on the VAT exemption for the management of special investment funds (SIFs) following continued CJEU-derived case law and HMRC's post-Brexit policy. It addresses which UK vehicles qualify as SIFs, outsourced/delegated management, the treatment of advisory versus discretionary services, and the proposed reform/clarification of the UK SIF definition.",
-    points: [
-      "Exemption depends on the vehicle qualifying as a SIF.",
-      "Delegated and outsourced services need careful analysis.",
-      "HMRC reviewing the UK definition of a SIF post-Brexit.",
-    ],
-    tags: ["VAT", "fund management", "SIF", "HMRC"],
-  },
-  {
-    id: "u046", title: "US tax for UK fund managers: PFIC, ECI and the cross-border carry trap",
-    area: "fundtax", areas: ["fundtax"], type: "insight", firm: "davispolk",
-    date: "2025-06-04", jurisdiction: "United States / cross-border",
-    summary: "A cross-border briefing for UK-based managers with US investors or US-source income: PFIC/CFC exposure for non-US fund vehicles, effectively-connected-income (ECI) and FIRPTA on US real estate, withholding and treaty positioning, and the US/UK interaction with the new UK carried-interest rules. Practical structuring points for transatlantic fund ranges and parallel vehicles.",
-    points: [
-      "PFIC/CFC analysis for US-taxable investors in non-US funds.",
-      "ECI/FIRPTA planning for US-asset exposure.",
-      "Coordinate US and new UK carry rules to avoid double tax.",
-    ],
-    tags: ["US tax", "PFIC", "ECI", "cross-border carry"],
-  },
-
-  // ---------------- 2026 updates ----------------
-  {
+    url: "https://finreg.aoshearman.com/uk-pra-final-policy-on-implementation-of-basel-31-standards",
     id: "u050", title: "PRA confirms Basel 3.1 go-live for 1 January 2027 — firms finalise capital models",
     area: "banking", areas: ["banking"], type: "update", firm: "aoshearman",
     date: "2026-02-11", jurisdiction: "United Kingdom",
     summary: "With under a year to implementation, the PRA's final Basel 3.1 rules are now bedding in: banks are finalising revised credit-, market- and operational-risk models and the output-floor glide path to 2030. The note covers the UK-specific SME and infrastructure adjustments and the lending-pricing impact firms should be modelling for 2026 budgets.",
     points: ["Go-live 1 January 2027 with phase-in to 2030.", "Output floor reaches 72.5% by 2030.", "Re-price lending against revised risk weights now."],
     tags: ["PRA", "Basel 3.1", "capital", "prudential"],
-  },
+  }
   {
-    id: "u051", title: "LMA refreshes sustainability-linked loan provisions for 2026",
-    area: "banking", areas: ["banking"], type: "knowhow", firm: "cliffordchance",
-    date: "2026-03-24", jurisdiction: "United Kingdom",
-    summary: "The Loan Market Association's updated sustainability-linked loan (SLL) drafting responds to anti-greenwashing pressure and the FCA's labelling regime: tighter KPI/SPT calibration, declassification mechanics and disclosure. A practical know-how note on negotiating SLL margin ratchets and avoiding greenwashing risk in 2026 facilities.",
-    points: ["Stricter KPI/SPT calibration and verification.", "Declassification language now market standard.", "Aligns loan terms with the FCA anti-greenwashing rule."],
-    tags: ["LMA", "sustainability-linked", "ESG", "loans"],
-  },
-  {
-    id: "u052", title: "Restructuring plans in 2026: cram-down practice after Thames Water and Adler",
-    area: "ri", areas: ["ri"], type: "insight", firm: "weil",
-    date: "2026-01-22", jurisdiction: "England & Wales",
-    summary: "A start-of-year stocktake of Part 26A practice now that the Court of Appeal (Adler) and recent first-instance sanctions (Thames Water) have settled the approach to fair distribution of the restructuring surplus and the 'relevant alternative'. Practical guidance on class composition, evidence and timetable for 2026 plans.",
-    points: ["Surplus allocation and equal treatment remain the battleground.", "Relevant-alternative evidence must be rigorous.", "Plans continuing to migrate to the mid-market."],
-    tags: ["restructuring plan", "Part 26A", "cram down"],
-  },
-  {
-    id: "u053", title: "Crown preference revisited: HMRC's secondary preferential status and lender recoveries",
-    area: "ri", areas: ["ri", "banking"], type: "update", firm: "hsf",
-    date: "2026-02-18", jurisdiction: "United Kingdom",
-    summary: "Five years on from the reintroduction of HMRC's secondary preferential status, the note reviews its continuing drag on floating-charge recoveries and the prescribed-part, and how lenders are structuring security and reserves in response. Relevant to leveraged and asset-based lenders pricing downside recoveries.",
-    points: ["HMRC ranks ahead of floating-charge holders for certain taxes.", "Compresses floating-charge and prescribed-part recoveries.", "Factor into security structuring and recovery models."],
-    tags: ["Crown preference", "security", "recoveries", "HMRC"],
-  },
-  {
+    url: "https://www.macfarlanes.com/what-we-think/102eli5/new-powers-for-companies-house-102j1ri",
     id: "u054", title: "Companies House identity verification becomes mandatory for directors and PSCs",
     area: "corporate", areas: ["corporate"], type: "update", firm: "macfarlanes",
     date: "2026-04-08", jurisdiction: "United Kingdom",
     summary: "The ECCTA 2023 identity-verification regime moves from voluntary to mandatory in 2026: directors, PSCs and those filing must verify their identity (directly or via an Authorised Corporate Service Provider). The note sets out the compliance timetable, the consequences of non-verification (including a director being unable to act) and steps for groups and company secretaries.",
     points: ["ID verification mandatory for directors and PSCs.", "Filings must route through a verified person or ACSP.", "Non-verification can bar a director from acting."],
     tags: ["Companies House", "ECCTA", "verification", "PSC"],
-  },
+  }
   {
+    url: "https://www.freshfields.com/en/our-thinking/blogs/risk-and-compliance/time-is-ticking-for-the-failure-to-prevent-fraud-offence-coming-into-force-102jnm6",
     id: "u055", title: "Failure to prevent fraud: year-one compliance lessons",
     area: "corporate", areas: ["corporate", "banking"], type: "insight", firm: "freshfields",
     date: "2026-03-12", jurisdiction: "United Kingdom",
     summary: "A first-anniversary review of the corporate failure-to-prevent-fraud offence: how large organisations have built and evidenced 'reasonable procedures', the SFO's enforcement signalling, and the interaction with the reformed identification doctrine for senior-manager attribution. Includes a refreshed procedures checklist.",
     points: ["'Reasonable procedures' is the only defence — evidence it.", "SFO signalling sharper enforcement appetite.", "Coordinate with the new identification-doctrine attribution rules."],
     tags: ["ECCTA", "failure to prevent fraud", "SFO", "compliance"],
-  },
+  }
   {
+    url: "https://www.cliffordchance.com/briefings/2025/01/eu-aifmd2--impact-and-implementation--.html",
     id: "u056", title: "AIFMD II applies from April 2026 — FCA consults on UK onshoring",
     area: "fundsreg", areas: ["fundsreg"], type: "update", firm: "cliffordchance",
     date: "2026-01-28", jurisdiction: "United Kingdom / EU",
     summary: "As the bulk of AIFMD II (Directive (EU) 2024/927) applies in the EU from April 2026, the FCA is consulting on how far to mirror the loan-originating-fund rules, liquidity-management-tool requirements and delegation/reporting changes in the UK. The briefing maps the divergence risk for managers running parallel UK and EU vehicles.",
     points: ["EU AIFMD II provisions apply from April 2026.", "FCA weighing how closely to track the EU rules.", "Plan for UK/EU divergence on private-credit funds."],
     tags: ["AIFMD II", "FCA", "private credit", "delegation"],
-  },
+  }
   {
+    url: "https://www.simmons-simmons.com/en/publications/clpiuyjig03r2udeo8yvo1ya6/esg-fca-publishes-landmark-uk-sdr-rules",
     id: "u057", title: "SDR: ongoing product- and entity-level disclosures take effect",
     area: "fundsreg", areas: ["fundsreg"], type: "update", firm: "simmons",
     date: "2026-02-09", jurisdiction: "United Kingdom",
     summary: "The next phase of the FCA's Sustainability Disclosure Requirements brings ongoing product-level disclosures and (for larger firms) entity-level reports online during 2026. The note covers consumer-facing disclosure formatting, the assessment underpinning each label and the data/governance build needed to sustain it.",
     points: ["Ongoing product disclosures now required for labelled funds.", "Entity-level reports phase in for larger firms.", "Sustain the evidence base behind each label."],
     tags: ["SDR", "ESG", "disclosure", "FCA"],
-  },
+  }
   {
-    id: "u058", title: "Overseas Funds Regime: EEA UCITS landing slots roll through 2026",
-    area: "fundsreg", areas: ["fundsreg"], type: "update", firm: "traverssmith",
-    date: "2026-03-05", jurisdiction: "United Kingdom",
-    summary: "The FCA's phased OFR landing-slot schedule continues through 2026, moving EEA UCITS off the Temporary Marketing Permissions Regime and into recognition. The briefing covers application timing by fund-operator cohort and the UK disclosure overlays (including SDR considerations) recognised funds must address.",
-    points: ["Landing slots allocated by operator cohort through 2026.", "TMPR funds must transition or lose UK access.", "UK disclosure overlays still apply to recognised funds."],
-    tags: ["OFR", "UCITS", "marketing", "TMPR"],
-  },
-  {
+    url: "https://www.macfarlanes.com/media/otvpqdom/the-new-carried-interest-tax-regime-may-2026.pdf",
     id: "u059", title: "Carried interest: new income-tax regime takes effect 6 April 2026",
     area: "fundtax", areas: ["fundtax"], type: "update", firm: "macfarlanes",
     date: "2026-04-06", jurisdiction: "United Kingdom",
     summary: "From 6 April 2026 qualifying carried interest is taxed within the income-tax framework via the 72.5% multiplier, subject to the holding-period and other conditions. The note works through the transitional issues for in-flight carry, co-investment structuring and the position of internationally mobile executives under the new FIG regime.",
     points: ["Carry taxed as multiplied trading income from 6 April 2026.", "72.5% multiplier sets the blended effective rate.", "Revisit co-invest and executive structuring for the new rules."],
     tags: ["carried interest", "income tax", "executive tax"],
-  },
+  }
   {
-    id: "u060", title: "Reserved Investor Fund: first vehicles launch under the 2024 regime",
-    area: "fundtax", areas: ["fundtax", "fundsreg"], type: "insight", firm: "traverssmith",
-    date: "2026-02-20", jurisdiction: "United Kingdom",
-    summary: "With the RIF regime now operational, the first vehicles are being established — particularly for UK real estate and private-market strategies onshoring from Luxembourg and Jersey. The briefing reviews early structuring choices, the property-rich conditions and SDLT seeding relief in practice.",
-    points: ["First RIFs being set up, especially for UK real estate.", "Onshoring alternative to JPUTs and Lux vehicles.", "Watch the property-rich conditions and SDLT seeding relief."],
-    tags: ["RIF", "real estate", "onshoring", "SDLT"],
-  },
-  {
-    id: "u061", title: "Pillar Two: first Multinational Top-up Tax returns and UTPR for fund groups",
-    area: "fundtax", areas: ["fundtax"], type: "insight", firm: "cliffordchance",
-    date: "2026-03-18", jurisdiction: "United Kingdom",
-    summary: "As the first Multinational Top-up Tax returns fall due and the UTPR comes into effect, fund groups must operationalise Pillar Two: confirming investment-entity and excluded-entity status across holding chains, gathering GloBE data and assessing portfolio-company exposure. A practical compliance-readiness note.",
-    points: ["First MTT returns and UTPR now live.", "Confirm investment/excluded-entity status across the chain.", "Stand up GloBE data collection at fund and portfolio level."],
-    tags: ["Pillar Two", "MTT", "UTPR", "global minimum tax"],
-  },
-
-  // ---------------- Additional Banking & Finance ----------------
-  {
+    url: "https://www.aoshearman.com/en/insights/ao-shearman-on-fintech-and-digital-assets/the-uks-authorised-push-payment-app-fraud-reimbursement-scheme",
     id: "u070", title: "APP-fraud mandatory reimbursement regime goes live",
     area: "banking", areas: ["banking"], type: "update", firm: "aoshearman",
     date: "2024-10-07", jurisdiction: "United Kingdom",
     summary: "The PSR's mandatory reimbursement regime for authorised-push-payment (APP) fraud over Faster Payments took effect on 7 October 2024, splitting liability 50/50 between sending and receiving PSPs and capping reimbursement. After Philipp v Barclays closed off the common-law route, this is now the primary consumer remedy. The note covers the consumer-standard-of-caution exception and operational build.",
     points: ["50/50 liability split between sending and receiving firms.", "Reimbursement cap and consumer-standard-of-caution exception.", "Replaces the Quincecare common-law route for most APP fraud."],
     tags: ["APP fraud", "PSR", "payments", "reimbursement"],
-  },
+  }
   {
+    url: "https://www.hsfkramer.com/notes/bankinglitigation/2024-posts/Court-of-Appeal-finds-lender-liable-in-motor-finance-broker-commission-cases-",
     id: "u071", title: "Motor-finance commissions: Court of Appeal upends the market",
     area: "banking", areas: ["banking"], type: "update", firm: "hsf",
     date: "2024-11-05", jurisdiction: "England & Wales",
     summary: "The Court of Appeal's decision on undisclosed and partially-disclosed motor-finance commissions (Hopcraft / Johnson / Wrench) held that brokers can owe fiduciary or disinterested duties to customers, exposing lenders to large-scale liability. The briefing covers the redress-scheme risk, the FCA's pause on complaint handling and the appeal to the Supreme Court.",
     points: ["Secret/half-secret commissions can ground lender liability.", "Potential industry-wide redress exposure.", "Supreme Court appeal and FCA scheme to watch."],
     tags: ["motor finance", "commissions", "consumer credit", "FCA"],
-  },
+  }
   {
-    id: "u072", title: "Critical third parties: PRA/FCA finalise the oversight regime",
-    area: "banking", areas: ["banking", "fundsreg"], type: "update", firm: "cliffordchance",
-    date: "2024-11-12", jurisdiction: "United Kingdom",
-    summary: "The regulators' final rules (PS16/24) create a framework to oversee 'critical third parties' — major cloud and technology suppliers to the financial sector — with resilience testing and incident reporting. Relevant to banks, insurers and asset managers reliant on concentrated outsourced services.",
-    points: ["HMT designates CTPs; regulators set requirements.", "Resilience testing and incident-reporting duties.", "Addresses systemic concentration in cloud/tech."],
-    tags: ["operational resilience", "outsourcing", "cloud", "PRA"],
-  },
-  {
+    url: "https://www.ashurst.com/en/news-and-insights/legal-updates/operational-resilience-key-points-for-firms/",
     id: "u073", title: "Operational resilience: the important-business-services deadline arrives",
     area: "banking", areas: ["banking"], type: "update", firm: "ashurst",
     date: "2025-03-31", jurisdiction: "United Kingdom",
     summary: "From 31 March 2025 firms must be able to remain within the impact tolerances set for their important business services in severe-but-plausible scenarios — the end of the operational-resilience transition. The note covers mapping, scenario testing, self-assessment documentation and lessons from supervisory feedback.",
     points: ["Firms must stay within impact tolerances by the deadline.", "Mapping and scenario testing must be evidenced.", "Board-approved self-assessment required."],
     tags: ["operational resilience", "FCA", "PRA", "outsourcing"],
-  },
+  }
   {
+    url: "https://financialregulation.linklaters.com/post/102kbgu/reform-of-the-consumer-credit-act-phase-1",
     id: "u074", title: "Consumer Credit Act overhaul: HMT's phased reform",
     area: "banking", areas: ["banking"], type: "insight", firm: "linklaters",
     date: "2025-05-19", jurisdiction: "United Kingdom",
     summary: "The Government is moving consumer-credit regulation from the prescriptive Consumer Credit Act 1974 into the FCA rulebook in phases, reforming information requirements, sanctions and the scope of regulated agreements. A once-in-a-generation change for lenders, motor finance and retail-credit providers.",
     points: ["CCA content migrating into FCA rules.", "Reform of information requirements and sanctions.", "Phased, multi-year programme."],
     tags: ["Consumer Credit Act", "FCA", "retail lending"],
-  },
+  }
   {
-    id: "u075", title: "Buy-Now-Pay-Later brought into FCA regulation",
-    area: "banking", areas: ["banking"], type: "update", firm: "simmons",
-    date: "2025-04-15", jurisdiction: "United Kingdom",
-    summary: "Draft legislation brings deferred-payment-credit (BNPL) products into FCA regulation, applying creditworthiness, disclosure and s.75-style protections with a temporary permissions regime for existing providers. The note maps the perimeter and the compliance build for BNPL and merchant partners.",
-    points: ["BNPL becomes regulated credit.", "Affordability and disclosure duties apply.", "Temporary permissions for existing firms."],
-    tags: ["BNPL", "consumer credit", "FCA"],
-  },
-  {
+    url: "https://www.linklaters.com/en/insights/blogs/fintechlinks/2024/october/uk-digital-securities-sandbox-the-final-framework",
     id: "u076", title: "Digital Securities Sandbox opens for tokenised instruments",
     area: "banking", areas: ["banking", "corporate"], type: "update", firm: "linklaters",
     date: "2024-09-30", jurisdiction: "United Kingdom",
     summary: "The Bank of England and FCA launched the Digital Securities Sandbox, allowing firms to issue, trade and settle tokenised securities (bonds, equities, funds) under modified rules. The briefing covers the gates/limits model and what it means for DLT-based issuance and settlement.",
     points: ["Test issuance/trading/settlement of digital securities.", "Phased gates with activity limits.", "Foundation for tokenised capital markets."],
     tags: ["tokenisation", "DLT", "digital securities", "settlement"],
-  },
-
-  // ---------------- Additional Restructuring & Insolvency ----------------
+  }
   {
-    id: "u080", title: "Fixed v floating charges revisited after Avanti Communications",
-    area: "ri", areas: ["ri", "banking"], type: "knowhow", firm: "weil",
-    date: "2023-05-10", jurisdiction: "England & Wales",
-    summary: "Re Avanti Communications reopened the fixed/floating-charge characterisation debate, holding certain assets were subject to a fixed charge despite limited control. The note revisits Spectrum Plus, the control test and the drafting and recovery consequences for secured lenders and the prescribed part.",
-    points: ["Characterisation still turns on control, but is fact-sensitive.", "Affects priority versus preferential creditors.", "Review security drafting and recovery models."],
-    tags: ["fixed charge", "floating charge", "security", "Spectrum"],
-  },
-  {
+    url: "https://www.kirkland.com/publications/kirkland-alert/2022/07/houst-sme-restructuring-plan",
     id: "u081", title: "SME restructuring plans and HMRC cram-down after Houst",
     area: "ri", areas: ["ri", "fundtax"], type: "insight", firm: "kirkland",
     date: "2023-02-14", jurisdiction: "England & Wales",
     summary: "Re Houst was the first Part 26A plan to cram down HMRC as a dissenting class, opening the tool to smaller companies. The briefing weighs the cost/benefit versus CVAs and the evidential burden of the relevant alternative for owner-managed businesses.",
     points: ["First plan to cram down HMRC.", "Brings cram-down to the SME market.", "Cost remains a barrier versus CVAs."],
     tags: ["restructuring plan", "HMRC", "SME", "cram down"],
-  },
+  }
   {
-    id: "u082", title: "When restructuring plans fail: lessons from GAS and Nasmyth",
-    area: "ri", areas: ["ri"], type: "insight", firm: "hsf",
-    date: "2023-06-20", jurisdiction: "England & Wales",
-    summary: "Re Great Annual Savings and Re Nasmyth saw the court decline to sanction plans over dissenting HMRC, illustrating the limits of cross-class cram down where the relevant alternative or surplus-allocation case is weak. Practical guidance on engaging HMRC and evidencing the comparator.",
-    points: ["Cram down is not guaranteed — HMRC can block weak plans.", "Engage preferential creditors early.", "Evidence the relevant alternative robustly."],
-    tags: ["restructuring plan", "HMRC", "cram down", "sanction"],
-  },
-  {
-    id: "u083", title: "Pension schemes in restructuring: the TPR and PPF dimension",
-    area: "ri", areas: ["ri"], type: "knowhow", firm: "traverssmith",
-    date: "2024-09-18", jurisdiction: "United Kingdom",
-    summary: "A know-how note on defined-benefit pension schemes in restructurings: the Pensions Regulator's moral-hazard powers, PPF voting on plans/CVAs, and how scheme deficits are treated as creditor claims. Essential for plans involving employers with legacy DB liabilities.",
-    points: ["TPR moral-hazard powers shape deal structure.", "PPF typically exercises the scheme's plan vote.", "DB deficits rank as unsecured claims."],
-    tags: ["pensions", "TPR", "PPF", "restructuring"],
-  },
-  {
-    id: "u084", title: "Insolvency litigation funding after PACCAR",
-    area: "ri", areas: ["ri"], type: "update", firm: "weil",
-    date: "2023-09-05", jurisdiction: "England & Wales",
-    summary: "Following PACCAR (which rendered many damages-based litigation-funding agreements unenforceable), office-holders are revisiting funding for claims against directors and third parties. The note covers re-papered funding structures and assignment of claims to preserve recoveries.",
-    points: ["Many LFAs needed re-papering post-PACCAR.", "Affects funding of office-holder claims.", "Assignment of causes of action as an alternative."],
-    tags: ["litigation funding", "PACCAR", "office-holders"],
-  },
-  {
-    id: "u085", title: "Cross-border insolvency in 2025: COMI and the Model Law",
-    area: "ri", areas: ["ri"], type: "knowhow", firm: "cliffordchance",
-    date: "2025-04-22", jurisdiction: "England & Wales",
-    summary: "A refreshed know-how note on recognising and assisting foreign insolvencies in England: centre-of-main-interests analysis, recognition under the Cross-Border Insolvency Regulations (Model Law), and the continuing significance of the Gibbs rule for English-law debt.",
-    points: ["COMI determines main-proceeding recognition.", "Model Law gives procedural assistance, not debt discharge.", "Gibbs still limits foreign discharge of English-law debt."],
-    tags: ["cross-border", "COMI", "Model Law", "Gibbs"],
-  },
-
-  // ---------------- Additional Corporate / M&A ----------------
-  {
+    url: "https://www.slaughterandmay.com/insights/new-insights/getting-ready-for-pisces-a-new-liquidity-mechanism-for-private-companies/",
     id: "u090", title: "PISCES: a new intermittent trading venue for private-company shares",
     area: "corporate", areas: ["corporate", "fundsreg"], type: "update", firm: "slaughtermay",
     date: "2025-06-10", jurisdiction: "United Kingdom",
     summary: "The Private Intermittent Securities and Capital Exchange System (PISCES) lets private companies arrange periodic trading windows for their shares under a bespoke disclosure regime and a stamp-duty exemption. The note covers the sandbox framework, company eligibility and the implications for PE-backed and employee-owned companies.",
     points: ["Intermittent secondary liquidity for private shares.", "Bespoke disclosure regime; SDRT/stamp-duty exemption.", "Relevant to PE portfolio and employee shareholders."],
     tags: ["PISCES", "private markets", "liquidity", "secondaries"],
-  },
+  }
   {
+    url: "https://www.slaughterandmay.com/insights/horizon-scanning/frc-publishes-updated-corporate-governance-code-and-associated-guidance/",
     id: "u091", title: "UK Corporate Governance Code 2024: the new internal-controls declaration",
     area: "corporate", areas: ["corporate"], type: "update", firm: "slaughtermay",
     date: "2024-01-22", jurisdiction: "United Kingdom",
     summary: "The FRC's slimmed-down 2024 Code keeps most provisions but adds a board declaration on the effectiveness of material internal controls (Provision 29) from financial years beginning on or after 1 January 2026. Boards and audit committees should start building the supporting assurance framework now.",
     points: ["Material-internal-controls declaration from 2026.", "Most of the rest of the Code is unchanged.", "Build the assurance and evidence framework early."],
     tags: ["governance", "FRC", "internal controls", "Code"],
-  },
+  }
   {
+    url: "https://www.lw.com/en/insights/the-new-uk-prospectus-regime",
     id: "u092", title: "New UK prospectus regime: the Public Offers and Admissions to Trading Regulations",
     area: "corporate", areas: ["corporate"], type: "update", firm: "latham",
     date: "2025-01-29", jurisdiction: "United Kingdom",
     summary: "The POATRs replace the EU-derived Prospectus Regulation, creating a more flexible UK framework where a prospectus is generally required only for admission to a regulated market, with a new regime for public offer platforms. Pairs with the UK Listing Rules to reshape UK equity raising.",
     points: ["Public-offer prohibition decoupled from admission.", "New public-offer-platform regime for larger raises.", "Works alongside the new UK Listing Rules."],
     tags: ["prospectus", "POATR", "ECM", "FCA"],
-  },
+  }
   {
+    url: "https://www.cliffordchance.com/content/dam/cliffordchance/briefings/2024/05/digital_markets_competition_consumers_act.pdf",
     id: "u093", title: "Digital Markets, Competition and Consumers Act: the CMA's new toolkit",
     area: "corporate", areas: ["corporate"], type: "update", firm: "cliffordchance",
     date: "2024-05-24", jurisdiction: "United Kingdom",
     summary: "The DMCCA gives the CMA a digital-markets conduct regime for firms with 'strategic market status', reforms merger thresholds, and lets it enforce consumer law directly with turnover-based fines. The note covers the SMS designation process and the changes to UK merger jurisdiction.",
     points: ["New conduct regime for SMS digital firms.", "Revised merger thresholds and acquirer-focused test.", "CMA direct consumer-enforcement with big fines."],
     tags: ["DMCCA", "CMA", "competition", "digital markets"],
-  },
+  }
   {
+    url: "https://www.ashurst.com/en/insights/liftoff-for-the-cmas-consumer-direct-enforcement-powers/",
     id: "u094", title: "DMCCA consumer-protection rules take effect",
     area: "corporate", areas: ["corporate"], type: "update", firm: "ashurst",
     date: "2025-04-06", jurisdiction: "United Kingdom",
     summary: "The consumer-protection provisions of the DMCCA came into force in 2025, giving the CMA power to decide breaches and impose fines of up to 10% of global turnover, and tightening rules on fake reviews, drip pricing and subscription contracts. A material compliance shift for consumer-facing businesses.",
     points: ["CMA can fine up to 10% of global turnover.", "New rules on drip pricing and fake reviews.", "Subscription-contract requirements tightened."],
     tags: ["DMCCA", "consumer protection", "CMA"],
-  },
+  }
   {
+    url: "https://www.linklaters.com/en/knowledge/publications/alerts-newsletters-and-guides/2023/july/18/uk-digitisation-taskforce-looks-to-abolish-share-certificates",
     id: "u095", title: "Dematerialisation: the Digitisation Taskforce's final roadmap",
     area: "corporate", areas: ["corporate"], type: "insight", firm: "linklaters",
     date: "2025-03-12", jurisdiction: "United Kingdom",
     summary: "The Digitisation Taskforce's recommendations chart the end of paper share certificates and the move to fully dematerialised UK shareholdings, with implications for registrars, intermediated securities and shareholder rights. The briefing covers the transition path and the intermediated-securities debate.",
     points: ["Paper share certificates to be phased out.", "Shift to fully intermediated/dematerialised holdings.", "Shareholder-rights and registrar implications."],
     tags: ["dematerialisation", "shares", "registrars"],
-  },
+  }
   {
-    id: "u096", title: "CSRD and CSDDD: what in-scope UK groups must do",
-    area: "corporate", areas: ["corporate"], type: "insight", firm: "freshfields",
-    date: "2024-07-25", jurisdiction: "European Union / UK",
-    summary: "The EU's Corporate Sustainability Reporting Directive and Corporate Sustainability Due Diligence Directive reach many UK-headquartered groups with EU operations, imposing detailed ESG reporting and value-chain due-diligence and liability. The note covers scoping, the 'omnibus' simplification debate and UK/EU interactions.",
-    points: ["CSRD reporting and CSDDD due diligence can catch UK groups.", "Value-chain due-diligence with civil liability.", "Track the EU omnibus simplification proposals."],
-    tags: ["CSRD", "CSDDD", "ESG", "supply chain"],
-  },
-  {
+    url: "https://www.slaughterandmay.com/insights/new-insights/frc-publishes-new-stewardship-code-2026-supporting-long-term-sustainable-value/",
     id: "u097", title: "FRC Stewardship Code 2026: a recalibrated reporting burden",
     area: "corporate", areas: ["corporate", "fundsreg"], type: "update", firm: "slaughtermay",
     date: "2026-01-15", jurisdiction: "United Kingdom",
     summary: "The revised UK Stewardship Code applies from 2026 with a streamlined definition of stewardship, reduced reporting duplication and a new focus on outcomes for asset owners and managers. The note covers the transition for existing signatories and the policy-versus-activity reporting split.",
     points: ["Streamlined stewardship definition and reporting.", "Outcomes focus for owners and managers.", "Eased burden for existing signatories."],
     tags: ["stewardship", "FRC", "asset managers", "ESG"],
-  },
-
-  // ---------------- Additional Funds Regulatory ----------------
+  }
   {
-    id: "u100", title: "ELTIF 2.0 applies — a revamped EU long-term investment fund",
-    area: "fundsreg", areas: ["fundsreg"], type: "update", firm: "cliffordchance",
-    date: "2024-01-10", jurisdiction: "European Union",
-    summary: "The reformed European Long-Term Investment Fund regime (ELTIF 2.0) applies from January 2024, broadening eligible assets, easing retail access and adding a liquidity/redemption framework. Relevant to managers building EU retail private-markets products alongside UK LTAFs.",
-    points: ["Wider eligible assets and easier retail access.", "New optional redemption/liquidity framework.", "An EU counterpart to the UK LTAF."],
-    tags: ["ELTIF", "private markets", "EU", "retail"],
-  },
-  {
+    url: "https://www.simmons-simmons.com/en/publications/cm4vididm054ougzg5r07i1o8/fca-consults-on-new-rules-for-the-uk-s-cci-retail-disclosure-regime",
     id: "u101", title: "PRIIPs reform: the Consumer Composite Investments regime",
     area: "fundsreg", areas: ["fundsreg"], type: "update", firm: "simmons",
     date: "2025-04-30", jurisdiction: "United Kingdom",
     summary: "The FCA is replacing the EU-derived PRIIPs KID with a UK Consumer Composite Investments (CCI) disclosure regime — more flexible, outcomes-based product information for retail investors, including on cost and performance. The note covers scope, the cost-disclosure fix for investment trusts and timing.",
     points: ["CCI replaces the PRIIPs KID in the UK.", "Flexible, outcomes-based product disclosure.", "Resolves the investment-trust cost-disclosure issue."],
     tags: ["PRIIPs", "CCI", "disclosure", "retail"],
-  },
+  }
   {
+    url: "https://www.simmons-simmons.com/en/publications/ckx92m24q1e2i0a479s6f7ybo/fca-signals-reform-for-appointed-representatives-regime",
     id: "u102", title: "Appointed representatives: tougher principal oversight",
     area: "fundsreg", areas: ["fundsreg"], type: "update", firm: "simmons",
     date: "2023-12-08", jurisdiction: "United Kingdom",
     summary: "The FCA's reforms to the appointed-representatives regime require principals to assess, monitor and report on their ARs more rigorously, with annual reviews and enhanced notifications. Relevant to host-AIFM and platform models that rely on ARs for regulatory cover.",
     points: ["Enhanced principal oversight and annual AR reviews.", "New data and notification requirements.", "Affects host-AIFM and platform structures."],
     tags: ["appointed representatives", "FCA", "host AIFM"],
-  },
+  }
   {
-    id: "u103", title: "Money Market Fund resilience reform",
-    area: "fundsreg", areas: ["fundsreg"], type: "update", firm: "ashurst",
-    date: "2025-02-12", jurisdiction: "United Kingdom",
-    summary: "The FCA and Bank of England are reforming UK money-market-fund rules to bolster liquidity resilience after the 2020 'dash for cash' — substantially higher minimum liquid-asset requirements and de-linking liquidity thresholds from fees/gates. The note covers the impact on MMF structures and treasurers.",
-    points: ["Higher minimum liquid-asset buffers.", "Liquidity thresholds de-linked from fees/gates.", "Affects MMF product design and users."],
-    tags: ["money market funds", "liquidity", "FCA"],
-  },
-  {
-    id: "u104", title: "US private-fund adviser rules vacated — what UK managers should note",
-    area: "fundsreg", areas: ["fundsreg"], type: "update", firm: "ropesgray",
-    date: "2024-06-05", jurisdiction: "United States / cross-border",
-    summary: "The US Fifth Circuit vacated the SEC's Private Fund Adviser Rules, removing (for now) prescriptive quarterly-statement, audit and side-letter requirements. UK managers with US-registered advisers should track the SEC's response and retain the operational improvements already built.",
-    points: ["SEC private-fund-adviser rules struck down.", "Quarterly-statement/audit/side-letter mandates fall away.", "UK managers with US advisers should monitor next steps."],
-    tags: ["SEC", "private funds", "US", "side letters"],
-  },
-  {
+    url: "https://financialregulation.linklaters.com/post/102iufr/technology-working-group-sets-out-its-vision-for-implementing-uk-fund-tokenisatio",
     id: "u105", title: "Fund tokenisation: the FCA / Investment Association blueprint",
     area: "fundsreg", areas: ["fundsreg"], type: "insight", firm: "linklaters",
     date: "2024-03-20", jurisdiction: "United Kingdom",
     summary: "The Technology Working Group's blueprint sets out a phased model for tokenising authorised funds in the UK — a baseline using DLT for the register and dealing while keeping mainstream assets and existing law. The briefing covers the operating model and the path to on-chain settlement.",
     points: ["Baseline model tokenises the register and dealing.", "Works within existing fund law.", "Phased path toward on-chain assets and settlement."],
     tags: ["tokenisation", "funds", "DLT", "Investment Association"],
-  },
+  }
   {
+    url: "https://www.cliffordchance.com/briefings/2021/12/synthetic-securitisations-and-significant-risk-transfer.html",
     id: "u106", title: "Significant risk transfer: PRA rules for synthetic securitisation",
     area: "fundsreg", areas: ["fundsreg", "banking"], type: "update", firm: "cliffordchance",
     date: "2024-05-10", jurisdiction: "United Kingdom",
     summary: "Updated PRA expectations on significant-risk-transfer (SRT) and synthetic securitisation clarify the recognition of credit-risk transfer for capital relief — a market that has drawn heavy private-credit and fund investment. The note covers structuring, the SRT assessment and the investor angle.",
     points: ["Clarifies capital relief for risk transfer.", "Large private-credit/fund investor base.", "Structuring and SRT-assessment considerations."],
     tags: ["SRT", "securitisation", "private credit", "PRA"],
-  },
+  }
   {
+    url: "https://www.simmons-simmons.com/en/publications/cl7oycyyj6im40a12la7uznd2/top-10-consumer-duty-for-asset-managers",
     id: "u107", title: "Consumer Duty for asset managers: an outcomes lens on funds",
     area: "fundsreg", areas: ["fundsreg"], type: "insight", firm: "simmons",
     date: "2024-08-14", jurisdiction: "United Kingdom",
     summary: "A briefing on how the Consumer Duty bites on asset managers and fund distributors — fair-value assessments, target-market and distribution-chain obligations, and the interaction with the assessment-of-value rules. Practical steps for manufacturers and platforms in the retail funds chain.",
     points: ["Fair-value assessments across the distribution chain.", "Target-market and consumer-understanding duties.", "Overlaps with assessment-of-value reporting."],
     tags: ["Consumer Duty", "asset management", "fair value"],
-  },
-
-  // ---------------- Additional Fund Tax ----------------
+  }
   {
+    url: "https://www.macfarlanes.com/insights/102logv/salaried-member-rules-condition-c-where-are-we-now/",
     id: "u110", title: "Salaried members rules: HMRC's changed stance after BlueCrest",
     area: "fundtax", areas: ["fundtax"], type: "update", firm: "macfarlanes",
     date: "2024-03-15", jurisdiction: "United Kingdom",
     summary: "HMRC revised its salaried-members guidance on the Condition C (capital contribution) anti-avoidance angle and continues to litigate Condition B (significant influence) following BlueCrest. The note explains the risk for fund-management LLP members and how to evidence influence and genuine capital at risk.",
     points: ["HMRC tightened then partly reversed Condition C guidance.", "Condition B 'significant influence' remains contested.", "Evidence influence and real capital contributions."],
     tags: ["salaried members", "LLP", "HMRC", "BlueCrest"],
-  },
+  }
   {
-    id: "u111", title: "Investment Management Exemption extended to cryptoassets",
-    area: "fundtax", areas: ["fundtax"], type: "update", firm: "macfarlanes",
-    date: "2023-01-20", jurisdiction: "United Kingdom",
-    summary: "The Investment Management Exemption was extended to include cryptoassets as a qualifying investment transaction, so a non-UK fund using a UK manager is not brought into UK tax merely by trading crypto. A helpful confirmation for digital-asset fund managers operating from the UK.",
-    points: ["Crypto added to the IME whitelist of investment transactions.", "Removes a UK permanent-establishment risk for crypto funds.", "Supports UK-based digital-asset managers."],
-    tags: ["IME", "cryptoassets", "permanent establishment"],
-  },
-  {
-    id: "u112", title: "VAT on fund management: HMRC consults on the UK SIF definition",
-    area: "fundtax", areas: ["fundtax"], type: "update", firm: "freshfields",
-    date: "2025-06-10", jurisdiction: "United Kingdom",
-    summary: "HMRC is consulting on codifying the UK definition of a 'special investment fund' (SIF) for the VAT management exemption now that EU case law is no longer binding. The note covers which vehicles would qualify, the treatment of pension and closed-ended funds, and the impact on managers' VAT recovery.",
-    points: ["UK to define SIF in domestic law.", "Scope for pension and closed-ended funds in focus.", "Affects management-fee VAT and recovery."],
-    tags: ["VAT", "SIF", "fund management", "HMRC"],
-  },
-  {
-    id: "u113", title: "UK REIT regime: the FA 2022/2024 simplifications",
-    area: "fundtax", areas: ["fundtax"], type: "insight", firm: "macfarlanes",
-    date: "2024-04-18", jurisdiction: "United Kingdom",
-    summary: "Successive Finance Acts have eased the UK REIT rules — removing the listing requirement for institutionally-owned REITs, relaxing the three-property test and refining the balance-of-business and holder-of-excessive-rights rules. The briefing reviews when a REIT now beats other property-fund structures.",
-    points: ["Listing requirement removed for institutional REITs.", "Three-property and balance-of-business tests relaxed.", "REITs more competitive for property funds."],
-    tags: ["REIT", "real estate", "property funds"],
-  },
-  {
-    id: "u114", title: "DIMF and income-based carried interest: a structuring refresher",
-    area: "fundtax", areas: ["fundtax"], type: "knowhow", firm: "kirkland",
-    date: "2024-11-26", jurisdiction: "United Kingdom",
-    summary: "Ahead of the 2026 carried-interest changes, a know-how note on the existing disguised-investment-management-fee (DIMF) rules and the income-based carried interest (IBCI) average-holding-period test, and how they interact with the new regime for fund executives.",
-    points: ["DIMF can recharacterise management fees as income.", "IBCI turns short-hold carry into income.", "These rules sit beneath the 2026 carry regime."],
-    tags: ["DIMF", "income-based carry", "carried interest"],
-  },
-  {
-    id: "u115", title: "SDLT: Multiple Dwellings Relief abolished",
-    area: "fundtax", areas: ["fundtax"], type: "update", firm: "macfarlanes",
-    date: "2024-06-01", jurisdiction: "United Kingdom",
-    summary: "Multiple Dwellings Relief for SDLT was abolished from 1 June 2024, increasing the cost of bulk and mixed residential acquisitions relevant to build-to-rent and residential property funds. The note covers transitional rules and the remaining reliefs (including the six-or-more and non-residential treatments).",
-    points: ["MDR withdrawn from 1 June 2024.", "Raises SDLT on bulk residential deals.", "Six-or-more and mixed-use rules still relevant."],
-    tags: ["SDLT", "MDR", "real estate", "BTR"],
-  },
-  {
-    id: "u116", title: "Stamp taxes on shares: modernisation and a single self-assessed tax",
-    area: "fundtax", areas: ["fundtax"], type: "update", firm: "cliffordchance",
-    date: "2025-04-28", jurisdiction: "United Kingdom",
-    summary: "HMRC is consulting on replacing stamp duty and SDRT with a single, self-assessed digital tax on securities, ending the paper-stamping process. The note covers the proposed assessment and accountable-person model and the impact on M&A, fund unit transfers and capital markets.",
-    points: ["Stamp duty and SDRT to merge into one tax.", "Self-assessed, fully digital process.", "Affects deal mechanics and fund unit transfers."],
-    tags: ["stamp duty", "SDRT", "securities", "HMRC"],
-  },
-  {
-    id: "u117", title: "Cryptoasset taxation and the Crypto-Asset Reporting Framework",
-    area: "fundtax", areas: ["fundtax"], type: "insight", firm: "macfarlanes",
-    date: "2025-09-15", jurisdiction: "United Kingdom",
-    summary: "The UK is implementing the OECD Crypto-Asset Reporting Framework (CARF) from 2026, requiring crypto service providers to collect and report user and transaction data, alongside continued HMRC focus on the income/capital boundary for crypto gains. Relevant to digital-asset funds and their investors.",
-    points: ["CARF reporting for crypto providers from 2026.", "Continued focus on income-versus-capital treatment.", "Affects digital-asset funds and investors."],
-    tags: ["cryptoassets", "CARF", "reporting", "HMRC"],
-  },
-
-  // ---------------- 2025 / 2026 developments ----------------
-  {
+    url: "https://www.clearygottlieb.com/news-and-insights/publication-listing/uk-supreme-court-overturns-bribery-findings-in-motor-finance-appeal",
     id: "u120", title: "Supreme Court reins in motor-finance commission claims",
     area: "banking", areas: ["banking"], type: "case", firm: "cleary",
     date: "2025-08-01", jurisdiction: "United Kingdom",
@@ -928,8 +549,9 @@ export const items = [
     summary: "The Supreme Court (Hopcraft/Johnson/Wrench) overturned the Court of Appeal, holding that car dealers arranging finance owe no fiduciary or 'disinterested' duty — so bribery and secret-commission claims fail. Liability now turns on the unfair-relationship test in s.140A of the Consumer Credit Act, where it found for Mr Johnson. The FCA is consulting on a redress scheme.",
     points: ["No fiduciary/disinterested duty for motor-finance dealers.", "Liability runs through the s.140A unfair-relationship test.", "FCA redress scheme to follow in 2026."],
     tags: ["motor finance", "commissions", "consumer credit", "Supreme Court"],
-  },
+  }
   {
+    url: "https://www.lw.com/en/insights/redressing-the-balance-of-power-in-restructuring-plans-petrofac-in-the-court-of-appeal",
     id: "u121", title: "Petrofac: Court of Appeal overturns plans over surplus allocation",
     area: "ri", areas: ["ri"], type: "case", firm: "latham",
     date: "2025-07-01", jurisdiction: "England & Wales",
@@ -937,8 +559,9 @@ export const items = [
     summary: "The Court of Appeal set aside the sanction of Petrofac's Part 26A plans, ruling that satisfying the 'no worse off' test is necessary but not sufficient: the restructuring surplus must be allocated fairly between classes, and out-of-the-money creditors cannot be treated as having no stake. A high evidential bar for plan companies seeking cram down.",
     points: ["'No worse off' is necessary but not sufficient.", "Surplus must be fairly shared among classes.", "Raises the evidential burden for cross-class cram down."],
     tags: ["restructuring plan", "Part 26A", "cram down", "Petrofac"],
-  },
+  }
   {
+    url: "https://www.linklaters.com/en/knowledge/publications/alerts-newsletters-and-guides/2025/april/16/court-of-appeal-upholds-thames-waters-part-26a-restructuring-plan",
     id: "u122", title: "Court of Appeal upholds Thames Water's restructuring plan",
     area: "ri", areas: ["ri", "banking"], type: "case", firm: "linklaters",
     date: "2025-03-17", jurisdiction: "England & Wales",
@@ -946,8 +569,9 @@ export const items = [
     summary: "The Court of Appeal dismissed appeals against the sanction of Thames Water's Part 26A plan, rejecting the argument that the public interest favoured special administration where the plan met the statutory requirements. The court confirmed the limited role of 'public interest' in the sanction discretion for a regulated monopoly.",
     points: ["Sanction upheld; appeals and permission refused.", "'Public interest' has a limited role in the discretion.", "Special administration was the relevant alternative."],
     tags: ["restructuring plan", "Part 26A", "utilities", "Thames Water"],
-  },
+  }
   {
+    url: "https://www.macfarlanes.com/insights/102n4vx/llp-profit-sharing-arrangements-and-miscellaneous-income-supreme-court-rules-in/",
     id: "u123", title: "Supreme Court in HFFX: LLP deferred-pay schemes and trader profit shares",
     area: "fundtax", areas: ["fundtax"], type: "case", firm: "macfarlanes",
     date: "2026-06-17", jurisdiction: "United Kingdom",
@@ -955,32 +579,27 @@ export const items = [
     summary: "The Supreme Court upheld the income-tax treatment of an LLP profit-sharing/'special capital' arrangement that routed trading profits through a corporate member before allocating them to individual members, confirming they were taxable as the members' income. A significant decision on the limits of purposive interpretation and on fund-manager LLP remuneration structuring.",
     points: ["Deferred-remuneration scheme taxed as members' income.", "Limits HMRC's purposive-interpretation reach.", "Directly relevant to fund-management LLP structures."],
     tags: ["LLP", "deferred remuneration", "income tax", "HFFX"],
-  },
+  }
   {
+    url: "https://www.lw.com/en/insights/the-uk-new-regime-for-carried-interest-taxation-key-updates-in-the-finance-bill",
     id: "u124", title: "Carried interest: draft Finance Bill legislation published",
     area: "fundtax", areas: ["fundtax"], type: "update", firm: "latham",
     date: "2025-10-30", jurisdiction: "United Kingdom",
     summary: "Draft legislation for the April 2026 carried-interest regime confirms carry will be taxed as deemed trading income subject to the 72.5% multiplier, with territorial-scope rules for internationally mobile executives and conditions on qualifying carry. The note works through the residence/territorial limits and the transitional position.",
     points: ["Draft legislation confirms the April 2026 design.", "Territorial-scope rules for mobile executives clarified.", "No new qualifying conditions beyond the multiplier framework."],
     tags: ["carried interest", "Finance Bill", "income tax"],
-  },
+  }
   {
+    url: "https://www.whitecase.com/insight-alert/uk-moves-reverse-paccar-decision-and-regulate-third-party-litigation-funding",
     id: "u125", title: "Government to reverse PACCAR and regulate litigation funding",
     area: "corporate", areas: ["corporate", "ri"], type: "update", firm: "whitecase",
     date: "2025-12-17", jurisdiction: "United Kingdom",
     summary: "The Government announced it will legislate to reverse the effect of PACCAR (which made many damages-based litigation-funding agreements unenforceable) and introduce proportionate regulation of third-party litigation funding, following the Civil Justice Council review. Relevant to funders, claimant groups and insolvency office-holders funding claims.",
     points: ["Legislation to undo PACCAR's effect on LFAs.", "Proportionate regulation of third-party funding to follow.", "Restores funding routes for group and office-holder claims."],
     tags: ["litigation funding", "PACCAR", "reform"],
-  },
+  }
   {
-    id: "u126", title: "FCA consults on a motor-finance redress scheme",
-    area: "banking", areas: ["banking"], type: "update", firm: "ashurst",
-    date: "2026-02-10", jurisdiction: "United Kingdom",
-    summary: "Following the Supreme Court's motor-finance judgment, the FCA is consulting on an industry-wide redress scheme for unfair-relationship and commission cases, addressing eligibility, calculation and funding. Lenders should model exposure and prepare data and operational capacity for a scheme expected to run during 2026.",
-    points: ["Industry-wide redress scheme proposed post-judgment.", "Scope, calculation and funding under consultation.", "Lenders should quantify exposure and ready operations."],
-    tags: ["motor finance", "FCA", "redress", "consumer credit"],
-  },
-  {
+    url: "https://www.slaughterandmay.com/insights/corporate-update/corporate-update-bulletin-19-june-2025/",
     id: "u127", title: "Saxon Woods v Costa: the s.172 duty and good-faith exit obligations",
     area: "corporate", areas: ["corporate"], type: "case", firm: "slaughtermay",
     date: "2025-06-04", jurisdiction: "England & Wales",
@@ -988,7 +607,7 @@ export const items = [
     summary: "The Court of Appeal found a director breached the s.172 duty to promote the company's success by concealing from the board that a contractually-required sale/exit was not being pursued, despite no personal gain. A practical reminder that the duty requires honesty with the board and that breach can found unfair-prejudice relief.",
     points: ["Concealment from the board breached the s.172 duty.", "Breach can ground unfair-prejudice relief.", "Honesty with the board is central to the duty."],
     tags: ["directors' duties", "s172", "unfair prejudice"],
-  },
+  }
   {
     id: "u131", title: "FCA enforcement? All eyes on supervision",
     area: "fundsreg", areas: ["fundsreg", "banking"], type: "insight", firm: "linklaters",
@@ -997,7 +616,7 @@ export const items = [
     points: ["FCA increasingly deploys supervisory tools in place of formal enforcement action.", "Post-BlueCrest, OIREQs allow the FCA to require redress without proving breach or causation.", "Section 166 reviews impose enforcement-level burden on firms without public transparency.", "Low enforcement-outcome counts should not be read as regulatory satisfaction."],
     tags: ["FCA", "enforcement", "supervision", "BlueCrest", "OIREQ", "asset management"],
     url: "https://financialregulation.linklaters.com/post/102n4np/fca-enforcement-all-eyes-on-supervision",
-  },
+  }
   {
     id: "u132", title: "FCA proposes raising minimum market-abuse penalty to £150,000; EU derivatives trading obligation suspended",
     area: "fundsreg", areas: ["fundsreg", "banking"], type: "update", firm: "slaughtermay",
@@ -1011,7 +630,7 @@ export const items = [
     ],
     tags: ["FCA", "market abuse", "penalties", "CP26/19", "derivatives", "MiFIR", "trading obligation", "tokenisation", "EBA", "stress test"],
     url: "https://www.slaughterandmay.com/insights/financial-regulation-weekly-bulletin/financial-regulation-weekly-bulletin-18-june-2026/",
-  },
+  }
   {
     id: "u133", title: "Song v Smith: Court of Appeal on fiduciary duty and unfair prejudice after joint-venture termination",
     area: "corporate", areas: ["corporate"], type: "update", firm: "macfarlanes",
@@ -1026,7 +645,7 @@ export const items = [
     ],
     tags: ["unfair prejudice", "fiduciary duty", "joint venture", "directors' duties", "Song v Smith", "ECCTA", "trust registration service", "corporate"],
     url: "https://www.macfarlanes.com/insights/102n4r8/corporate-law-update-13-19-june/",
-  },
+  }
   {
     id: "u134", title: "Bank of England publishes policy statement and draft rules for UK systemic stablecoins",
     area: "banking", areas: ["banking", "fundsreg"], type: "update", firm: "linklaters",
@@ -1040,7 +659,7 @@ export const items = [
     ],
     tags: ["stablecoins", "Bank of England", "systemic stablecoins", "digital assets", "payments", "financial stability", "PRA", "FCA"],
     url: "https://financialregulation.linklaters.com/post/102n4ye/bank-of-england-updates-its-policy-for-uk-systemic-stablecoins",
-  },
+  }
   {
     id: "u135", title: "Crime and Policing Act 2026: corporate criminal liability expanded to all senior manager offences",
     area: "corporate", areas: ["corporate", "banking"], type: "update", firm: "slaughtermay",
@@ -1054,7 +673,7 @@ export const items = [
     ],
     tags: ["corporate criminal liability", "failure to prevent", "Crime and Policing Act 2026", "FCA enforcement", "OFSI", "sanctions", "insolvency service"],
     url: "https://www.slaughterandmay.com/insights/global-investigations-bulletin/global-investigations-bulletin-june-2026/",
-  },
+  }
   {
     id: "u136", title: "Re Deutsche Glasfaser Group GmbH [2026] EWHC 1467 (Ch): English court sanctions €7bn German fibre-optic group scheme",
     area: "ri", areas: ["ri", "banking"], type: "update", firm: "southsquare",
@@ -1069,7 +688,7 @@ export const items = [
     ],
     tags: ["scheme of arrangement", "restructuring", "German company", "fibre optic", "cross-border", "English court", "Hildyard J"],
     url: "https://southsquare.com/new-judgment-re-deutsche-glasfaser-group-gmbh-2026-ewhc-1467-ch-convening-hearing/",
-  },
+  }
 ];
 
 // ---- Recent cases published on BAILII -------------------------------------
