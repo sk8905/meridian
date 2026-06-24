@@ -5,7 +5,8 @@
 so create two routines that both use the prompt below). Each does a **full refresh
 of both apps** — Credit (deals, fundraising, mandates/launches, manager website
 news, **fund-record reconciliation, new managers/funds, and rotating manager-profile
-re-verification**) and Legal (legal alerts and case law). Together they replace the
+re-verification**) and Legal (legal alerts, case law, **and restructuring schemes &
+plans**). Together they replace the
 previous separate Credit-daily, Credit-weekly and Legal-daily routines.
 
 Keep this file in sync with the routine prompt pasted into the Routines UI — it is
@@ -36,9 +37,9 @@ the source of truth for the prompt.
 - **IDs.** For every array, COMPUTE the current maximum id in the file and use the
   next integer — never trust a number quoted here. Applies to all id series:
   Credit `deals` (d…), `intel` (i…), `managers` (m…), `funds` (f…); Legal `items`
-  (u…), `cases` (c…). (As at 2026-06-23: Credit deals → next d260, intel → next
-  i325, managers → next m113, funds → next f230; Legal items → next u135, cases →
-  next c38.)
+  (u…), `cases` (c…), `restructurings` (rx…). (As at 2026-06-24: Credit deals →
+  next d288, intel → next i349, managers → next m113, funds → next f231; Legal
+  items → next u563, cases → next c41, restructurings → next rx56.)
 - **Editing existing records & adding entities.** Only add a manager/fund or edit a
   fund status/`raised` or a manager's AUM/profile when backed by a verifiable
   public source. Never fabricate: set unknown fields to `null`, mark estimates with
@@ -198,6 +199,27 @@ the source of truth for the prompt.
 >      `c<next>`): id, name, citation, court (exactly one tracked label), date,
 >      area, url (prefer the BAILII/National Archives URL), summary — AND add a
 >      matching 3–4 sentence entry to the `caseSummaries` map keyed by the same id.
+>    - **Schemes & restructuring plans** → search for new English-law Part 26A
+>      restructuring plans and Part 26 (distressed) schemes of arrangement that
+>      reached the court (convening, sanction, refusal or appeal) in-window. Cover
+>      matters since 2020. Good sources: BAILII / National Archives for the
+>      judgment, plus the tracked firms' restructuring-team analyses found via
+>      `site:<firm-domain>` searches (the same firm list as Legal alerts). Append to
+>      the `restructurings` array (id `rx<next>`) using a neighbouring entry as the
+>      field template: company, type (`"plan"` or `"scheme"`), date (the hearing/
+>      judgment date, YYYY-MM-DD — REQUIRED, see below), court, citation,
+>      judgmentUrl, sector, debt, creditors (array), features (array), advisers
+>      (array — the company's own legal/financial advisers), firm (a tracked firm id
+>      whose article you link), articleUrl (that firm's analysis), outcome (reuse an
+>      existing string — e.g. `Sanctioned`, `Refused`, `Convened (meetings ordered)`,
+>      `Appeal dismissed — plan upheld`), notes. Set unknown fields to `null`/`[]`;
+>      never fabricate creditors, debt figures, advisers or URLs — leave them empty
+>      if unverified. Dedupe by company + citation against the existing array.
+>    - **Schemes/RPs auto-surface in notifications** (no mirror step needed). Unlike
+>      Credit `webNews`, the `restructurings` array already feeds BOTH the
+>      Schemes-and-RPs tab AND the notification bell (kind = Plan/Scheme). The ONE
+>      requirement: give every new entry a real `date` — that is what sorts it and
+>      drives the "new" badge; an entry with no date will not surface as new.
 >    - If Legal's data changed, set `LAST_REVIEWED` to today.
 >
 > 4. ALWAYS set `LAST_CHECKED` to today in BOTH `credit/js/data.js` and
@@ -217,7 +239,8 @@ the source of truth for the prompt.
 >    invariants above) and say so in the summary.
 >
 > 7. Reply with a short summary: counts of new Credit deals / intel / webNews and
->    Legal alerts / cases (or "no new items — refresh timestamp updated").
+>    Legal alerts / cases / schemes & plans (or "no new items — refresh timestamp
+>    updated").
 
 ---
 
