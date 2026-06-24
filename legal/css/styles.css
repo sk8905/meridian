@@ -303,11 +303,11 @@ a.compact-head:hover { color: var(--primary); }
 .check.toggle { font-weight: 600; padding: .4rem 0; }
 .results-wrap { min-width: 0; }
 .searchbar { margin-bottom: .8rem; }
-#search {
+.searchbar input[type="search"] {
   width: 100%; padding: .6rem .9rem; border: 1px solid var(--line); border-radius: 8px;
   font-size: .95rem; background: var(--surface); color: var(--ink); box-shadow: var(--shadow);
 }
-#search:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: var(--accent); }
+.searchbar input[type="search"]:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: var(--accent); }
 .result-count { color: var(--muted); font-size: .82rem; margin-bottom: .8rem; }
 /* Year section breaks in the alert / case-law lists (matching Meridian Credit) */
 .year-group + .year-group { margin-top: .5rem; }
@@ -433,10 +433,10 @@ a.compact-head:hover { color: var(--primary); }
 .rx-out-neg { background: #fee2e2; color: #991b1b; }
 .rx-out-neu { background: #fef9c3; color: #854d0e; }
 /* Detail lines inside the feed body — muted, matching .feed-summary typography. */
-.rx-line { margin: .15rem 0; font-size: .8rem; color: var(--muted); overflow-wrap: anywhere; }
-.rx-lbl { font-weight: 700; color: var(--ink-soft); text-transform: uppercase; font-size: .68rem; letter-spacing: .4px; margin-right: .25rem; }
-.rx-features { margin: .25rem 0 .15rem; padding-left: 1.1rem; }
-.rx-features li { font-size: .8rem; color: var(--muted); margin: .1rem 0; }
+.rx-line { margin: .5rem 0; font-size: .82rem; color: var(--muted); overflow-wrap: anywhere; line-height: 1.5; }
+.rx-lbl { display: block; font-weight: 700; color: var(--ink-soft); text-transform: uppercase; font-size: .68rem; letter-spacing: .4px; margin-bottom: .12rem; }
+.rx-features { margin: .5rem 0 .3rem; padding-left: 1.1rem; }
+.rx-features li { font-size: .82rem; color: var(--muted); margin: .28rem 0; line-height: 1.5; }
 /* Collapsible row — the COMPANY NAME (inside <summary>) is the expand toggle. */
 .rx-bar { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: .8rem; }
 .rx-det { margin-top: 0; }
@@ -449,5 +449,7 @@ a.compact-head:hover { color: var(--primary); }
 .rx-caret::after { content: "Show details ▾"; }
 .rx-det[open] .rx-caret::after { content: "Hide ▴"; }
 .rx-summary:hover .rx-caret { text-decoration: underline; }
-.rx-compact { display: block; font-size: .8rem; color: var(--muted); margin-top: .1rem; }
-.rx-expand { margin-top: .4rem; }
+.rx-compact { display: block; font-size: .8rem; color: var(--muted); margin-top: .25rem; }
+.rx-expand { margin-top: .7rem; padding-top: .6rem; border-top: 1px dashed var(--line); line-height: 1.5; }
+.rx-expand .feed-summary { margin: .1rem 0 .55rem; line-height: 1.55; }
+.rx-expand .feed-foot { margin-top: .7rem; }
