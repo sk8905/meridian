@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
-} from "./data.js?v=20260624-6";
-import { donutChart, columnChart } from "./charts.js?v=20260624-6";
+} from "./data.js?v=20260624-7";
+import { donutChart, columnChart } from "./charts.js?v=20260624-7";
 
 const app = document.getElementById("app");
 
@@ -33,6 +33,12 @@ function fmtDate(iso) {
   return `${d.getDate()} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`; // day-month-year
 }
 function ym(iso) { return iso.slice(0, 7); } // "2025-03"
+// Alert date for display: prefix "≈" when the date is an approximation pending
+// source verification (dateEstimated), or "undated" when we have no date yet.
+function itemDate(it) {
+  if (!it.date) return "undated";
+  return (it.dateEstimated ? "≈ " : "") + fmtDate(it.date);
+}
 
 const byDateDesc = (a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0);
 
@@ -134,7 +140,7 @@ function itemRow(it) {
   return `<div class="feed-row" id="row-${esc(it.id)}">
     <div class="feed-meta">
       <div class="chips">${areasHtml}</div>
-      <span class="feed-date">${fmtDate(it.date)}</span>
+      <span class="feed-date">${itemDate(it)}</span>
     </div>
     <div class="feed-body">
       <a class="feed-title" href="#/item/${esc(it.id)}">${esc(it.title)}</a>
@@ -179,7 +185,7 @@ function itemCompact(it) {
     ? ` · <a href="${esc(href)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : "";
   return `<li class="compact-item">
     <a class="compact-head" href="#/item/${esc(it.id)}">${esc(it.title)}</a>
-    <div class="compact-meta muted small">${fmtDate(it.date)} · ${esc(firm.name)}${src}</div>
+    <div class="compact-meta muted small">${itemDate(it)} · ${esc(firm.name)}${src}</div>
   </li>`;
 }
 function caseCompact(c) {
@@ -519,7 +525,7 @@ function viewItem(id) {
       <div class="detail-meta">
         <span class="firm-big tier-${esc(firm.tier)}">${esc(firm.name)}</span>
         <span class="tier tier-${esc(firm.tier)}">${esc(tierLabel(firm.tier))}</span>
-        <time datetime="${esc(it.date)}">${fmtDate(it.date)}</time>
+        <time datetime="${esc(it.date)}">${itemDate(it)}</time>
         ${it.jurisdiction ? `<span class="juris">${esc(it.jurisdiction)}</span>` : ""}
       </div>
 
