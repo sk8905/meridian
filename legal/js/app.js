@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
-} from "./data.js?v=20260624-11";
-import { donutChart, columnChart } from "./charts.js?v=20260624-11";
+} from "./data.js?v=20260624-12";
+import { donutChart, columnChart } from "./charts.js?v=20260624-12";
 
 const app = document.getElementById("app");
 
@@ -579,38 +579,58 @@ function rxOutcomeClass(o) {
   return "pos";
 }
 
-function rxCard(r) {
+function rxOutcomeShort(o) {
+  const t = (o || "").toLowerCase();
+  if (t.includes("overturn") || (t.includes("appeal") && t.includes("allow"))) return "Overturned on appeal";
+  if (t.includes("upheld") || (t.includes("appeal") && t.includes("dismiss"))) return "Upheld on appeal";
+  if (t.includes("refus")) return "Refused";
+  if (t.includes("conven")) return "Convening";
+  if (t.includes("withdraw")) return "Withdrawn";
+  return "Sanctioned";
+}
+
+// A restructuring matter as a feed row — same layout as the alerts/case-law
+// feeds: type chip + date in the meta column, company title (linking to the
+// judgment), key detail lines, and a muted footer with the citation and links.
+function rxRow(r) {
   const firm = r.firm ? (firmById[r.firm] || { name: r.firm }) : null;
   const saved = getSaved().has(r.id);
-  const creditors = (r.creditors || []).length ? esc(r.creditors.join("; ")) : '<span class="muted">Not disclosed</span>';
-  const advisers = (r.advisers || []).length ? esc(r.advisers.join(", ")) : '<span class="muted">Not identified</span>';
+  const typeFull = r.type === "scheme" ? "Part 26 scheme of arrangement" : "Part 26A restructuring plan";
+  const title = r.judgmentUrl
+    ? `<a class="feed-title" href="${esc(r.judgmentUrl)}" target="_blank" rel="noopener noreferrer">${esc(r.company)} ↗</a>`
+    : `<span class="feed-title">${esc(r.company)}</span>`;
   const features = (r.features || []).length
-    ? `<ul class="rx-features">${r.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>` : '<span class="muted">—</span>';
-  const links = [
+    ? `<ul class="rx-features">${r.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>` : "";
+  const lines = [
+    r.debt ? `<p class="feed-summary">${esc(r.debt)}</p>` : "",
+    (r.creditors || []).length ? `<p class="rx-line"><span class="rx-lbl">Largest creditors</span> ${esc(r.creditors.join("; "))}</p>` : "",
+    (r.advisers || []).length ? `<p class="rx-line"><span class="rx-lbl">Company advised by</span> ${esc(r.advisers.join(", "))}</p>` : "",
+    features,
+    r.notes ? `<p class="rx-line muted">${esc(r.notes)}</p>` : "",
+  ].join("");
+  const foot = [
+    r.court ? esc(r.court) : "",
+    r.citation ? `<span class="cite">${esc(r.citation)}</span>` : "",
+    r.sector ? esc(r.sector) : "",
     r.articleUrl ? `<a href="${esc(r.articleUrl)}" target="_blank" rel="noopener noreferrer">${esc(firm ? firm.name : "Firm")} analysis ↗</a>` : "",
-    r.judgmentUrl ? `<a href="${esc(r.judgmentUrl)}" target="_blank" rel="noopener noreferrer">Judgment${r.citation ? ` — ${esc(r.citation)}` : ""} ↗</a>`
-      : (r.citation ? `<span class="muted small">${esc(r.citation)}</span>` : ""),
-  ].filter(Boolean).join(' <span class="rx-dot">·</span> ');
-  return `<article class="rx-card" id="row-${esc(r.id)}">
-    <div class="rx-head">
-      <h3 class="rx-company">${esc(r.company)}</h3>
-      <div class="rx-chips">
-        <span class="chip rx-type rx-${esc(r.type)}">${esc(rxTypeLabel(r.type))}</span>
-        <span class="chip rx-out rx-out-${rxOutcomeClass(r.outcome)}">${esc(r.outcome)}</span>
-        <button class="save-btn ${saved ? "is-saved" : ""}" data-save="${esc(r.id)}" aria-pressed="${saved}"
-          title="${saved ? "Remove from saved" : "Save"}">${saved ? "★" : "☆"}</button>
+    r.judgmentUrl ? `<a href="${esc(r.judgmentUrl)}" target="_blank" rel="noopener noreferrer">Judgment ↗</a>` : "",
+  ].filter(Boolean).join(" · ");
+  return `<div class="feed-row" id="row-${esc(r.id)}">
+    <div class="feed-meta">
+      <div class="chips"><span class="chip rx-type rx-${esc(r.type)}" title="${esc(typeFull)}">${r.type === "scheme" ? "Scheme" : "Plan"}</span></div>
+      <span class="feed-date">${r.date ? esc(fmtDate(r.date)) : "undated"}</span>
+    </div>
+    <div class="feed-body">
+      ${title}
+      <span class="chip rx-out rx-out-${rxOutcomeClass(r.outcome)}" title="${esc(r.outcome)}">${esc(rxOutcomeShort(r.outcome))}</span>
+      ${lines}
+      <div class="feed-foot">
+        ${foot}
+        <button class="save-btn ${saved ? "is-saved" : ""}" data-save="${esc(r.id)}"
+          aria-pressed="${saved}" title="${saved ? "Remove from saved" : "Save this matter"}">${saved ? "★ Saved" : "☆ Save"}</button>
       </div>
     </div>
-    <div class="rx-meta muted small">${r.date ? esc(fmtDate(r.date)) : "undated"}${r.court ? ` · ${esc(r.court)}` : ""}${r.sector ? ` · ${esc(r.sector)}` : ""}</div>
-    <dl class="rx-grid">
-      <div><dt>Debt</dt><dd>${r.debt ? esc(r.debt) : '<span class="muted">Not disclosed</span>'}</dd></div>
-      <div><dt>Largest creditors</dt><dd>${creditors}</dd></div>
-      <div><dt>Company advised by</dt><dd>${advisers}</dd></div>
-      <div class="rx-feat"><dt>Key features</dt><dd>${features}</dd></div>
-    </dl>
-    ${r.notes ? `<p class="rx-notes muted small">${esc(r.notes)}</p>` : ""}
-    <div class="rx-links">${links}</div>
-  </article>`;
+  </div>`;
 }
 
 function viewRestructurings() {
@@ -625,7 +645,7 @@ function viewRestructurings() {
 
   app.innerHTML = `
     <div class="list-head">
-      <h1>Plans &amp; Schemes</h1>
+      <h1>Schemes and RPs</h1>
       <p class="muted">English-law restructuring plans (Companies Act 2006 <strong>Part 26A</strong>) and
         distressed schemes of arrangement (<strong>Part 26</strong>) before the court since 2020 — company,
         debt, largest creditors, key features, the company's advisers, a tracked-firm analysis and the judgment.</p>
@@ -644,7 +664,7 @@ function viewRestructurings() {
             value="${esc(rxFilter.q)}" aria-label="Search plans and schemes" autocomplete="off"/>
         </div>
         <div id="rx-count" class="result-count" aria-live="polite"></div>
-        <div id="rx-results"></div>
+        <section class="card"><div id="rx-results" class="feed"></div></section>
       </section>
     </div>`;
 
@@ -681,7 +701,7 @@ function renderRxResults() {
   const plans = matched.filter((r) => r.type === "plan").length;
   const schemes = matched.filter((r) => r.type === "scheme").length;
   countEl.textContent = `${matched.length} matter${matched.length !== 1 ? "s" : ""} · ${plans} plan${plans !== 1 ? "s" : ""}, ${schemes} scheme${schemes !== 1 ? "s" : ""}`;
-  el.innerHTML = matched.length ? byYear(matched, rxCard) : '<p class="empty">No matters match these filters.</p>';
+  el.innerHTML = matched.length ? byYear(matched, rxRow) : '<p class="empty">No matters match these filters.</p>';
 }
 
 // =============================================================================
