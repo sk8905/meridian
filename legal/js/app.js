@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
-} from "./data.js?v=20260624-15";
-import { donutChart, columnChart } from "./charts.js?v=20260624-15";
+} from "./data.js?v=20260624-16";
+import { donutChart, columnChart } from "./charts.js?v=20260624-16";
 
 const app = document.getElementById("app");
 
@@ -698,6 +698,19 @@ function viewRestructurings() {
     e.currentTarget.setAttribute("aria-expanded", String(anyClosed));
   });
   renderRxResults();
+
+  // Deep-link from a notification: scroll to, expand & flash the matter.
+  const focusId = q.m;
+  if (focusId) {
+    const el = document.getElementById("row-" + focusId);
+    if (el) {
+      const det = el.querySelector(".rx-det");
+      if (det) det.open = true;
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+      el.classList.add("flash");
+      setTimeout(() => el.classList.remove("flash"), 2200);
+    }
+  }
 }
 
 function renderRxResults() {
@@ -792,6 +805,7 @@ function notifItems() {
   const out = [];
   items.forEach((it) => out.push({ id: "u:" + it.id, date: it.date || "", kind: (typeById[it.type] || {}).name || it.type, title: it.title, href: "#/item/" + it.id }));
   cases.forEach((c) => out.push({ id: "c:" + c.id, date: c.date || "", kind: c.court || "Case", title: c.name, href: "#/cases?case=" + c.id }));
+  restructurings.forEach((r) => out.push({ id: "r:" + r.id, date: r.date || "", kind: r.type === "scheme" ? "Scheme" : "Plan", title: r.company, href: "#/restructurings?m=" + r.id }));
   return out.sort((a, b) => String(b.date).localeCompare(String(a.date)));
 }
 function closeNotif() {
