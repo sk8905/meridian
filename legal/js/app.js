@@ -15,9 +15,9 @@
 
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes,
-  firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED,
-} from "./data.js?v=20260624-2";
-import { donutChart, columnChart } from "./charts.js?v=20260624-2";
+  firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
+} from "./data.js?v=20260624-3";
+import { donutChart, columnChart } from "./charts.js?v=20260624-3";
 
 const app = document.getElementById("app");
 
@@ -649,7 +649,7 @@ function renderNotifications() {
       <span class="notif-ico" aria-hidden="true">🔔</span>${n ? `<span class="notif-badge">${n > 9 ? "9+" : n}</span>` : ""}
     </button>
     <div class="notif-panel" id="notif-panel" role="menu" hidden>
-      <div class="notif-head">${n ? `${n} new update${n > 1 ? "s" : ""}` : "No new updates"} <span class="muted small">· checked ${esc(fmtDate(LAST_CHECKED))}</span></div>
+      <div class="notif-head">${n ? `${n} new update${n > 1 ? "s" : ""}` : "No new updates"} <span class="muted small">· checked ${esc(fmtDate(LAST_CHECKED))}${LAST_CHECKED_TIME ? `, ${esc(LAST_CHECKED_TIME)}` : ""}</span></div>
       <ul class="notif-list">
         ${list.length ? list.map((x) => `<li class="notif-item${(n && fresh.includes(x)) ? " is-new" : ""}">
           <a href="${esc(x.href)}" ${x.ext ? 'target="_blank" rel="noopener noreferrer"' : ""} class="notif-link">${esc(x.title)}${x.ext ? " ↗" : ""}</a>
@@ -677,9 +677,9 @@ function initChrome() {
   const status = document.getElementById("data-status");
   if (status) {
     const latest = [...items].sort(byDateDesc)[0];
-    status.textContent = `Last refresh ${fmtDate(LAST_CHECKED)}`
+    status.textContent = `Last refresh ${fmtDate(LAST_CHECKED)}${LAST_CHECKED_TIME ? `, ${LAST_CHECKED_TIME}` : ""}`
       + (latest ? ` · latest item ${fmtDate(latest.date)}` : "");
-    status.title = `Routine last ran ${fmtDate(LAST_CHECKED)}; data last changed ${fmtDate(LAST_REVIEWED)}`;
+    status.title = `Routine last ran ${fmtDate(LAST_CHECKED)}${LAST_CHECKED_TIME ? ` ${LAST_CHECKED_TIME}` : ""}; data last changed ${fmtDate(LAST_REVIEWED)}`;
   }
   // Same pattern as the Meridian app / landing page: behind Cloudflare Access
   // this returns the verified email; otherwise we leave the slot empty.

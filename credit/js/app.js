@@ -4,16 +4,16 @@
 // =============================================================================
 
 import {
-  STRATEGIES, FUND_STATUS, GEOS, LP_TYPES, DEAL_TYPES, DATA_UPDATED, LAST_CHECKED,
+  STRATEGIES, FUND_STATUS, GEOS, LP_TYPES, DEAL_TYPES, DATA_UPDATED, LAST_CHECKED, LAST_CHECKED_TIME,
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260624-1";
+} from "./data.js?v=20260624-2";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260624-1";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260624-2";
 
 const app = document.getElementById("app");
 
@@ -196,7 +196,7 @@ function renderDataStatus() {
   if (!el) return;
   const t = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
   const latest = LATEST_ITEM ? ` · latest item ${esc(fmtDate(LATEST_ITEM))}` : "";
-  el.innerHTML = `<span class="ds-text" title="Routine last ran ${esc(fmtDate(LAST_CHECKED))}; data last changed ${esc(fmtDate(DATA_UPDATED))}">Last refresh ${esc(fmtDate(LAST_CHECKED))}${latest}</span>`;
+  el.innerHTML = `<span class="ds-text" title="Routine last ran ${esc(fmtDate(LAST_CHECKED))}${LAST_CHECKED_TIME ? ` ${esc(LAST_CHECKED_TIME)}` : ""}; data last changed ${esc(fmtDate(DATA_UPDATED))}">Last refresh ${esc(fmtDate(LAST_CHECKED))}${LAST_CHECKED_TIME ? `, ${esc(LAST_CHECKED_TIME)}` : ""}${latest}</span>`;
 }
 // Fill the persistent topbar identity area once we know the signed-in user.
 // Hidden when not behind Access (device-local mode).
@@ -245,7 +245,7 @@ function renderNotifications() {
       <span class="notif-ico" aria-hidden="true">🔔</span>${n ? `<span class="notif-badge">${n > 9 ? "9+" : n}</span>` : ""}
     </button>
     <div class="notif-panel" id="notif-panel" role="menu" hidden>
-      <div class="notif-head">${n ? `${n} new update${n > 1 ? "s" : ""}` : "No new updates"} <span class="muted small">· checked ${esc(fmtDate(LAST_CHECKED))}</span></div>
+      <div class="notif-head">${n ? `${n} new update${n > 1 ? "s" : ""}` : "No new updates"} <span class="muted small">· checked ${esc(fmtDate(LAST_CHECKED))}${LAST_CHECKED_TIME ? `, ${esc(LAST_CHECKED_TIME)}` : ""}</span></div>
       <ul class="notif-list">
         ${list.length ? list.map((x) => `<li class="notif-item${(n && fresh.includes(x)) ? " is-new" : ""}">
           <a href="${x.href}" ${x.goto ? `data-goto="${esc(x.goto)}"` : ""} class="notif-link">${esc(x.title)}</a>

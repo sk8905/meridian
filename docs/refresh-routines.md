@@ -65,6 +65,14 @@ the source of truth for the prompt.
   - Always set `LAST_CHECKED` in BOTH `credit/js/data.js` and `legal/js/data.js`
     to today on EVERY run — this is the "Last refresh" date shown in each topbar,
     so a run is visible even when nothing new was found.
+  - Always set `LAST_CHECKED_TIME` (BOTH apps) to the actual run time on EVERY run,
+    as a pre-formatted `"HH:MM TZ"` string with a timezone label (London, e.g.
+    `"05:22 BST"` / `"12:01 BST"`; use `GMT` in winter). It is pre-formatted (not a
+    parsed Date) so it renders identically regardless of the viewer's browser
+    timezone. Because two runs land each day (~06:00 and ~12:00), this is what
+    tells which run produced the shown data; it appears in the topbar and the
+    notification header next to `LAST_CHECKED`. Keep both apps' value identical
+    when a single run touches both.
   - Only set `DATA_UPDATED` (credit) / `LAST_REVIEWED` (legal) to today when that
     app's actual data changed (new deal/intel/webNews or alert/case).
 - **Validate** before committing: `node --check credit/js/data.js` and
