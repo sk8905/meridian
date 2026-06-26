@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-06-26";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — two runs a day (~06:00 / ~12:00).
-export const LAST_CHECKED_TIME = "05:14 BST";
+export const LAST_CHECKED_TIME = "12:21 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -4965,6 +4965,21 @@ export const items = [
       "ESMA final report on 2025 common supervisory action on compliance and audit functions of UCITS managers and AIFMs published 11 May 2026",
     ],
     tags: ["AIFMD", "FCA", "fund regulation", "authorised funds", "UCITS", "liquidity management", "investment management", "CP26/16"],
+    dateEstimated: false,
+  },
+  {
+    id: "u567", title: "The Financial Services and Markets Bill 2026–27: key reforms",
+    area: "banking", areas: ["banking", "fundsreg"], type: "update", firm: "simmons",
+    date: "2026-06-11", jurisdiction: "United Kingdom",
+    summary: "Simmons & Simmons analyses the Financial Services and Markets Bill 2026–27, introduced following the King's Speech, which proposes a package of reforms to UK financial regulation including changes to the FCA's objectives, the ringfencing regime, the senior managers and certification regime (SMCR), and the Payment Systems Regulator.",
+    points: [
+      "Bill introduced in the King's Speech; proposes reforms across banking regulation, financial services authorisation and the PSR",
+      "Proposed changes to FCA statutory objectives to add a secondary competitiveness and growth objective",
+      "Ringfencing regime reforms including possible extension to building societies and review of the £25bn threshold",
+      "SMCR review expected to reduce regulatory burden and streamline individual accountability requirements",
+    ],
+    tags: ["FSMA", "Financial Services and Markets Bill", "FCA", "ringfencing", "SMCR", "PSR", "banking regulation", "regulatory reform"],
+    sourceUrl: "https://www.simmons-simmons.com/en/publications/cmpzcp1yl008kv6xk30l6igas/the-financial-services-and-markets-bill-2026-27-key-reforms",
     dateEstimated: false,
   },
 ];
