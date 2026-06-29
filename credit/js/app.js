@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260629-11";
+} from "./data.js?v=20260629-12";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260629-11";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260629-12";
 
 const app = document.getElementById("app");
 
@@ -339,7 +339,7 @@ const filterState = {
   lps: { q: "", type: [], strategy: [], sort: { key: "name", dir: "asc" } },
   intel: { q: "", type: [], year: [] },
   deals: { q: "", type: [], year: [], period: "" },
-  clos: { q: "", kind: [], year: [] },
+  clos: { q: "", kind: [], year: [], period: "" },
 };
 
 // Calendar year (string) from an item's date; "" if none.
@@ -353,6 +353,8 @@ let pendingFocus = null;
 // Dashboard quarterly-trend window (indices into the 40-quarter range). null =>
 // default to the last 8 quarters (2 years). Persists across re-renders.
 const trendState = { start: null, end: null };
+// Independent window for the CLOs page's by-quarter chart.
+const cloTrendState = { start: null, end: null };
 
 // --------------------------- column-header sorting -------------------------
 // Per-view accessor maps: column key -> { type, get(row) }. `type:"num"` sorts
@@ -1161,21 +1163,30 @@ function viewClos() {
   const cloDeals = deals.filter((d) => d.clo).map((d) => ({ ...d, _kind: "deal" }));
   const cloIntel = intel.filter((i) => i.clo).map((i) => ({ ...i, _kind: "intel" }));
   const all = [...cloDeals, ...cloIntel];
+  const quarterOf = (d) => { const m = /^(\d{4})-(\d{2})/.exec(d || ""); return m ? `${m[1]}-Q${Math.floor((+m[2] - 1) / 3) + 1}` : null; };
   const rows = all.filter((x) =>
     (!f.q || ((x.headline || "") + (x.summary || "")).toLowerCase().includes(f.q.toLowerCase())) &&
     (!f.kind.length || f.kind.includes(x._kind === "deal" ? "Deal" : "Fundraising")) &&
-    (!f.year.length || f.year.includes(yearOf(x.date)))
+    (!f.year.length || f.year.includes(yearOf(x.date))) &&
+    (!f.period || quarterOf(x.date) === f.period)
   ).sort((a, b) => String(b.date).localeCompare(String(a.date))); // newest first
 
-  // ---- CLO charts ----
-  const quarterOf = (d) => { const m = /^(\d{4})-(\d{2})/.exec(d || ""); return m ? `${m[1]}-Q${Math.floor((+m[2] - 1) / 3) + 1}` : null; };
+  // ---- CLO activity by quarter (draggable 10-year window, like Deal Activity) ----
   const qc = {};
   all.forEach((x) => { const q = quarterOf(x.date); if (q) qc[q] = (qc[q] || 0) + 1; });
   const nowD = new Date();
-  let cy = nowD.getFullYear(), cq = Math.floor(nowD.getMonth() / 3) + 1;
-  const quarters = [];
-  for (let i = 0; i < 20; i++) { quarters.unshift(`${cy}-Q${cq}`); cq--; if (cq < 1) { cq = 4; cy--; } }
-  const trend = quarters.map((q) => ({ label: "'" + q.slice(2), value: qc[q] || 0, nav: { jump: "clos" } }));
+  let dy = nowD.getFullYear(), dqr = Math.floor(nowD.getMonth() / 3) + 1;
+  const dQuarters = [];
+  for (let i = 0; i < 40; i++) { dQuarters.unshift(`${dy}-Q${dqr}`); dqr--; if (dqr < 1) { dqr = 4; dy--; } }
+  const NQ = dQuarters.length;
+  const buildTrend = (a, b) => {
+    const win = dQuarters.slice(a, b + 1);
+    const lab = win.length <= 16 ? (q) => "'" + q.slice(2) : (q) => (q.endsWith("Q1") ? "'" + q.slice(2, 4) : "");
+    return win.map((q) => ({ label: lab(q), value: qc[q] || 0, nav: { jump: "clos", period: q } }));
+  };
+  const tStart = Math.min(Math.max(0, cloTrendState.start ?? (NQ - 8)), NQ - 1);
+  const tEnd = Math.min(Math.max(tStart, cloTrendState.end ?? (NQ - 1)), NQ - 1);
+
   const mc = {};
   all.forEach((x) => { if (x.managerId) mc[x.managerId] = (mc[x.managerId] || 0) + 1; });
   const byMgr = Object.entries(mc)
@@ -1185,11 +1196,24 @@ function viewClos() {
   const feedRow = (x) => x._kind === "deal" ? dealRow(x) : intelRow(x);
 
   app.innerHTML = `
-    <div class="page-head"><h1>CLOs</h1><p class="muted">${rows.length} of ${all.length} items · collateralised loan obligation pricings, platforms, funds, ETFs &amp; personnel — carved out of Deals &amp; Fundraising</p></div>
+    <div class="page-head"><h1>CLOs</h1><p class="muted">${rows.length} of ${all.length} items · collateralised loan obligation pricings, platforms, funds, ETFs &amp; personnel — carved out of Deals &amp; Fundraising${f.period ? ` · <strong>${esc(f.period)}</strong> <button type="button" class="link-btn" id="clear-period">clear quarter ✕</button>` : ""}</p></div>
     <div class="split-3070">
       <div class="split-left">
-        <section class="card"><h2>CLO activity by quarter <span class="muted">(pricings &amp; news)</span></h2>${lineChart(trend, { width: 540, height: 240 })}</section>
-        ${byMgr.length ? `<section class="card"><h2>Most active CLO managers</h2>${barChart(byMgr, { width: 540 })}</section>` : ""}
+        <section class="card">
+          <h2>CLO activity by quarter</h2>
+          <p class="muted small">CLO pricings &amp; news per quarter. Drag either handle to set the date range (up to 10 years); click any quarter to filter the feed.</p>
+          <div class="trend-controls">
+            <div class="range-readout"><strong id="trend-start-lbl">${esc(dQuarters[tStart])}</strong> <span class="muted">→</span> <strong id="trend-end-lbl">${esc(dQuarters[tEnd])}</strong></div>
+            <div class="range-slider">
+              <div class="range-track"></div>
+              <div class="range-fill" id="trend-fill" style="left:${(tStart / (NQ - 1)) * 100}%; width:${((tEnd - tStart) / (NQ - 1)) * 100}%"></div>
+              <input type="range" id="trend-start" min="0" max="${NQ - 1}" value="${tStart}" aria-label="Range start quarter">
+              <input type="range" id="trend-end" min="0" max="${NQ - 1}" value="${tEnd}" aria-label="Range end quarter">
+            </div>
+          </div>
+          <div id="trend-chart">${lineChart(buildTrend(tStart, tEnd), { width: 560, height: 300 })}</div>
+        </section>
+        ${byMgr.length ? `<section class="card"><h2>Most active CLO managers</h2>${barChart(byMgr, { width: 560 })}</section>` : ""}
       </div>
       <div class="split-right">
         <div class="filters">
@@ -1203,6 +1227,27 @@ function viewClos() {
       </div>
     </div>`;
   wireFilters("clos");
+
+  // Clear the active quarter filter set by clicking a column in the by-quarter chart.
+  const clearPeriod = document.getElementById("clear-period");
+  if (clearPeriod) clearPeriod.addEventListener("click", () => { filterState.clos.period = ""; router(); });
+
+  // Wire the quarterly range sliders (re-render only the chart on drag).
+  const sEl = document.getElementById("trend-start");
+  const eEl = document.getElementById("trend-end");
+  if (sEl && eEl) {
+    const fill = document.getElementById("trend-fill");
+    const rerender = () => {
+      const a = +sEl.value, b = +eEl.value;
+      cloTrendState.start = a; cloTrendState.end = b;
+      document.getElementById("trend-start-lbl").textContent = dQuarters[a];
+      document.getElementById("trend-end-lbl").textContent = dQuarters[b];
+      if (fill) { fill.style.left = (a / (NQ - 1)) * 100 + "%"; fill.style.width = ((b - a) / (NQ - 1)) * 100 + "%"; }
+      document.getElementById("trend-chart").innerHTML = lineChart(buildTrend(a, b), { width: 560, height: 300 });
+    };
+    sEl.addEventListener("input", () => { if (+sEl.value > +eEl.value) sEl.value = eEl.value; sEl.style.zIndex = 5; eEl.style.zIndex = 4; rerender(); });
+    eEl.addEventListener("input", () => { if (+eEl.value < +sEl.value) eEl.value = sEl.value; eEl.style.zIndex = 5; sEl.style.zIndex = 4; rerender(); });
+  }
   applyPendingFocus("clos");
 }
 
@@ -1439,6 +1484,9 @@ app.addEventListener("click", (e) => {
       else filterState.deals = { q: "", type: arr(jump.getAttribute("data-dtype")), year: [], period: "" };
     } else if (route === "intel") {
       filterState.intel = { q: "", type: arr(jump.getAttribute("data-itype")), year: [] };
+    } else if (route === "clos") {
+      const period = jump.getAttribute("data-period");
+      if (period) filterState.clos = { ...filterState.clos, period };
     }
     // Navigating changes the hash (→ router via hashchange); when we're already
     // on the target page the hash doesn't change, so re-render explicitly.
