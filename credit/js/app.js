@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260629-13";
+} from "./data.js?v=20260629-14";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260629-13";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260629-14";
 
 const app = document.getElementById("app");
 
@@ -340,6 +340,7 @@ const filterState = {
   intel: { q: "", type: [], year: [] },
   deals: { q: "", type: [], year: [], period: "" },
   clos: { q: "", kind: [], year: [], period: "" },
+  news: { q: "" },
 };
 
 // Calendar year (string) from an item's date; "" if none.
@@ -903,7 +904,11 @@ function viewManager(id) {
       <h2>Fundraising intelligence</h2>
       ${mgrIntel.length ? byYear(mgrIntel, intelRow) : '<p class="muted">No fundraising intelligence items for this manager yet.</p>'}
     </section>
-    ${mgrClo.length ? `<section class="card"><h2>CLO activity <span class="muted">(${mgrClo.length})</span></h2><p class="muted small">Collateralised loan obligation pricings, resets, platforms &amp; funds. <a href="#/clos">All CLO activity →</a></p>${byYear(mgrClo, (x) => (x._kind === "deal" ? dealRow(x) : intelRow(x)))}</section>` : ""}`;
+    <section class="card">
+      <h2>CLO activity <span class="muted">(${mgrClo.length})</span></h2>
+      <p class="muted small">Collateralised loan obligation pricings, resets, platforms &amp; funds. <a href="#/clos">All CLO activity →</a></p>
+      ${mgrClo.length ? byYear(mgrClo, (x) => (x._kind === "deal" ? dealRow(x) : intelRow(x))) : '<p class="muted">This manager does not manage any tracked CLOs.</p>'}
+    </section>`;
 }
 
 // ================================ INVESTORS =================================
@@ -1251,6 +1256,49 @@ function viewClos() {
   applyPendingFocus("clos");
 }
 
+// ================================== NEWS ===================================
+// Aggregated manager/investor press across the whole tracked universe — the
+// `news` + `webNews` arrays on every manager, deduped and surfaced as a feed
+// (these previously only appeared on each manager's profile and the bell).
+function viewNews() {
+  const f = filterState.news;
+  const all = [];
+  const seen = new Set();
+  managers.forEach((m) => {
+    [...(m.news || []), ...(m.webNews || [])].forEach((w) => {
+      const base = (w.url || w.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/$/, "");
+      const k = base + "|" + m.id;
+      if (base && seen.has(k)) return;
+      seen.add(k);
+      all.push({ ...w, _mid: m.id, _mname: m.name });
+    });
+  });
+  all.sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  const rows = all.filter((x) => !f.q || `${x.title || ""} ${x.outlet || ""} ${x._mname || ""}`.toLowerCase().includes(f.q.toLowerCase()));
+  // most active managers by news volume (top 10)
+  const nc = {};
+  all.forEach((x) => { nc[x._mid] = (nc[x._mid] || 0) + 1; });
+  const byMgr = Object.entries(nc)
+    .map(([id, value]) => ({ label: managerById[id] ? managerById[id].name : id, value, nav: { jump: "manager/" + id } }))
+    .sort((a, b) => b.value - a.value).slice(0, 10);
+  const newsRow = (x) => `<div class="intel-row"><div class="intel-meta"><span class="chip">News</span><span class="muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span></div><div class="intel-body">${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)} ↗</a>` : `<span class="intel-head">${esc(x.title)}</span>`}<div>${link(`#/manager/${x._mid}`, x._mname, "muted small")}${x.outlet ? ` · <span class="muted small">${esc(x.outlet)}</span>` : ""}</div></div></div>`;
+
+  app.innerHTML = `
+    <div class="page-head"><h1>News</h1><p class="muted">${rows.length} of ${all.length} items · manager &amp; investor press across the tracked universe</p></div>
+    <div class="split-3070">
+      <div class="split-left">
+        ${byMgr.length ? `<section class="card"><h2>Most active <span class="muted">(by news volume)</span></h2>${barChart(byMgr, { width: 560 })}</section>` : ""}
+      </div>
+      <div class="split-right">
+        <div class="filters">
+          <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Headline, outlet, manager…" value="${esc(f.q)}"></label>
+        </div>
+        <section class="card">${rows.length ? byYear(rows, newsRow) : '<p class="empty">No news items match your search.</p>'}</section>
+      </div>
+    </div>`;
+  wireFilters("news");
+}
+
 // =============================== MANDATES ==================================
 function viewMandates() {
   const board = intel.filter((i) => !i.clo && (i.type === "Mandate" || i.type === "Launch"))
@@ -1549,6 +1597,7 @@ function router() {
     case "manager": return viewManager(arg);
     case "lps": return viewLps();
     case "lp": return viewLp(arg);
+    case "news": return viewNews();
     case "intel": return viewIntel();
     case "deals": return viewDeals();
     case "clos": return viewClos();
@@ -1564,7 +1613,7 @@ function router() {
 // (wrapping around). Ignored on detail pages and when the gesture starts on an
 // interactive control (slider, input, dropdown, link, chart, table) or a screen
 // edge (reserved for the browser's back/forward gesture).
-const SWIPE_SECTIONS = ["#/", "#/deals", "#/intel", "#/clos", "#/managers", "#/funds", "#/lps", "#/mandates", "#/league", "#/watchlist"];
+const SWIPE_SECTIONS = ["#/", "#/news", "#/deals", "#/intel", "#/clos", "#/managers", "#/funds", "#/lps", "#/mandates", "#/league", "#/watchlist"];
 const SWIPE_IGNORE = "input, textarea, select, button, a, .range-slider, .ms, .ms-pop, .table-wrap, .data-table, svg, .donut-wrap, .chart";
 let swX = 0, swY = 0, swT = 0, swSkip = true;
 document.addEventListener("touchstart", (e) => {
