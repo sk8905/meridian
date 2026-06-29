@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
-} from "./data.js?v=20260629-6";
-import { donutChart, columnChart } from "./charts.js?v=20260629-6";
+} from "./data.js?v=20260629-7";
+import { donutChart, columnChart } from "./charts.js?v=20260629-7";
 
 const app = document.getElementById("app");
 
@@ -952,6 +952,32 @@ function initChrome() {
       .catch(() => { /* not behind Access (e.g. local preview) — leave empty */ });
   }
 }
+
+// ---- Swipe to cycle through the primary sections (touch devices) -----------
+// A horizontal swipe moves to the next/previous top-level section in nav order
+// (wrapping around): Dashboard → Legal alerts → Case law → Schemes & RPs → Saved.
+// Ignored when the gesture starts on an interactive control or a screen edge.
+const SWIPE_SECTIONS = ["#/", "#/list", "#/cases", "#/restructurings", "#/list?saved=1"];
+const SWIPE_IGNORE = "input, textarea, select, button, a, summary, .filters, svg, .donut-wrap, .chart";
+let swX = 0, swY = 0, swT = 0, swSkip = true;
+document.addEventListener("touchstart", (e) => {
+  if (e.touches.length !== 1) { swSkip = true; return; }
+  const x = e.touches[0].clientX;
+  swSkip = x < 24 || x > window.innerWidth - 24 || !!(e.target.closest && e.target.closest(SWIPE_IGNORE));
+  swX = x; swY = e.touches[0].clientY; swT = Date.now();
+}, { passive: true });
+document.addEventListener("touchend", (e) => {
+  if (swSkip) return;
+  const t = e.changedTouches[0];
+  const dx = t.clientX - swX, dy = t.clientY - swY;
+  if (Date.now() - swT > 700 || Math.abs(dx) < 70 || Math.abs(dx) < Math.abs(dy) * 1.8) return;
+  const cur = location.hash || "#/";
+  let i = SWIPE_SECTIONS.indexOf(cur);
+  if (i < 0) i = SWIPE_SECTIONS.indexOf(cur.split("?")[0]);
+  if (i < 0) return; // not on a primary section (e.g. a single-alert detail page)
+  const n = SWIPE_SECTIONS.length;
+  location.hash = SWIPE_SECTIONS[dx < 0 ? (i + 1) % n : (i - 1 + n) % n];
+}, { passive: true });
 
 window.addEventListener("hashchange", router);
 initChrome();

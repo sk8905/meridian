@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260629-12";
+} from "./data.js?v=20260629-13";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260629-12";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260629-13";
 
 const app = document.getElementById("app");
 
@@ -1558,6 +1558,33 @@ function router() {
     default: return notFound();
   }
 }
+
+// ---- Swipe to cycle through the primary sections (touch devices) -----------
+// A horizontal swipe moves to the next/previous top-level section in nav order
+// (wrapping around). Ignored on detail pages and when the gesture starts on an
+// interactive control (slider, input, dropdown, link, chart, table) or a screen
+// edge (reserved for the browser's back/forward gesture).
+const SWIPE_SECTIONS = ["#/", "#/deals", "#/intel", "#/clos", "#/managers", "#/funds", "#/lps", "#/mandates", "#/league", "#/watchlist"];
+const SWIPE_IGNORE = "input, textarea, select, button, a, .range-slider, .ms, .ms-pop, .table-wrap, .data-table, svg, .donut-wrap, .chart";
+let swX = 0, swY = 0, swT = 0, swSkip = true;
+document.addEventListener("touchstart", (e) => {
+  if (e.touches.length !== 1) { swSkip = true; return; }
+  const x = e.touches[0].clientX;
+  swSkip = x < 24 || x > window.innerWidth - 24 || !!(e.target.closest && e.target.closest(SWIPE_IGNORE));
+  swX = x; swY = e.touches[0].clientY; swT = Date.now();
+}, { passive: true });
+document.addEventListener("touchend", (e) => {
+  if (swSkip) return;
+  const t = e.changedTouches[0];
+  const dx = t.clientX - swX, dy = t.clientY - swY;
+  if (Date.now() - swT > 700 || Math.abs(dx) < 70 || Math.abs(dx) < Math.abs(dy) * 1.8) return;
+  const cur = location.hash || "#/";
+  let i = SWIPE_SECTIONS.indexOf(cur);
+  if (i < 0) i = SWIPE_SECTIONS.indexOf(cur.split("?")[0]);
+  if (i < 0) return; // not on a primary section (e.g. a manager/fund detail page)
+  const n = SWIPE_SECTIONS.length;
+  location.hash = SWIPE_SECTIONS[dx < 0 ? (i + 1) % n : (i - 1 + n) % n];
+}, { passive: true });
 
 window.addEventListener("hashchange", router);
 window.addEventListener("DOMContentLoaded", router);
