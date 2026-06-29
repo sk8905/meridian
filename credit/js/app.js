@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260629-25";
+} from "./data.js?v=20260629-26";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260629-25";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260629-26";
 
 const app = document.getElementById("app");
 
@@ -474,7 +474,7 @@ function viewDashboard() {
     </div>
 
     <section class="card feature-card news-panel">
-      <h2>Latest news <span class="muted">(${newsByDate.length})</span></h2>
+      <h2>Latest news</h2>
       <p class="muted small">Manager &amp; investor press across the tracked universe. Click a headline to open the source, or open the News tab for the full feed.</p>
       ${newsByDate.length ? `<ul class="compact-list news-cols">${newsByDate.slice(0, 12).map(newsCompact).join("")}</ul>` : '<p class="muted small">No news yet.</p>'}
       <div class="card-foot">${link("#/news", "View all news →")}</div>

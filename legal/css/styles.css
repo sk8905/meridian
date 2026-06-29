@@ -406,15 +406,24 @@ a.compact-head:hover { color: var(--primary); }
   .filters { position: static; max-height: none; overflow: visible; }
   .case-grid { grid-template-columns: 1fr; }
 
-  /* Topbar wraps; the nav becomes a full-width horizontally-scrollable strip
-     below the brand (matching Meridian Credit) — no dropdown menu. */
-  .topbar-inner { height: auto; flex-wrap: wrap; gap: .4rem 1rem; padding: .55rem .9rem; }
-  .brand { flex: 1 1 auto; order: 0; }
-  .notif { order: 1; }
-  .topbar-right { order: 2; flex-basis: 100%; width: 100%; align-items: flex-start; }
+  /* Two-column header: logo + platform toggle stack on the left, the bell +
+     sign-in/refresh stack on the right; the nav is a full-width scroll strip
+     across the bottom (matching Meridian Credit). */
+  .topbar-inner {
+    height: auto; padding: .55rem .9rem;
+    display: grid; grid-template-columns: auto 1fr; align-items: start; gap: .45rem 1rem;
+    grid-template-areas:
+      "brand  bell"
+      "toggle account"
+      "nav    nav";
+  }
+  .brand { grid-area: brand; justify-self: start; }
+  .platform-switch { grid-area: toggle; justify-self: start; }
+  .notif { grid-area: bell; justify-self: end; }
+  .topbar-right { grid-area: account; align-items: flex-end; text-align: right; }
   .account-nav, .data-status { white-space: normal; }
   .mainnav {
-    order: 3; flex-basis: 100%; width: 100%; justify-content: flex-start; gap: .15rem;
+    grid-area: nav; display: flex; justify-content: flex-start; gap: .15rem;
     overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 2px;
   }
   .mainnav::-webkit-scrollbar { display: none; }
