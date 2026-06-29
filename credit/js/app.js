@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260629-18";
+} from "./data.js?v=20260629-19";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260629-18";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260629-19";
 
 const app = document.getElementById("app");
 
@@ -1063,7 +1063,19 @@ function viewIntel() {
           ${rows.length ? byYear(rows, intelRow) : '<p class="empty">No intelligence items match these filters.</p>'}
         </section>
       </div>
-    </div>`;
+    </div>
+    <section class="card">
+      <h2>Known LP → manager commitments <span class="muted">(${commitments.length})</span></h2>
+      <p class="muted small">Publicly reported LP→manager relationships (moved here from the former Mandates tab) — click either side to explore. LP mandates &amp; RFP / fund-launch items appear in the feed above, filterable by type "Mandate" / "Launch".</p>
+      <div class="table-wrap"><table class="data-table">
+        <thead><tr><th>Investor</th><th>Manager</th><th>Detail</th></tr></thead>
+        <tbody>${commitments.map((c) => `<tr>
+          <td><strong>${link(`#/lp/${c.lpId}`, lpById[c.lpId].name)}</strong><div class="muted small">${esc(lpById[c.lpId].type)}</div></td>
+          <td>${link(`#/manager/${c.managerId}`, managerById[c.managerId].name)}${c.fundId ? `<div class="muted small">${link(`#/fund/${c.fundId}`, fundById[c.fundId].name)}</div>` : ""}</td>
+          <td class="muted small">${esc(c.note)}</td>
+        </tr>`).join("")}</tbody>
+      </table></div>
+    </section>`;
   wireFilters("intel");
   applyPendingFocus("intel");
 }
@@ -1318,48 +1330,6 @@ function viewNews() {
       </div>
     </div>`;
   wireFilters("news");
-}
-
-// =============================== MANDATES ==================================
-function viewMandates() {
-  const board = intel.filter((i) => !i.clo && (i.type === "Mandate" || i.type === "Launch"))
-    .sort((a, b) => String(b.date).localeCompare(String(a.date))); // newest first
-  app.innerHTML = `
-    <div class="page-head"><h1>Mandates &amp; Searches</h1><p class="muted">Live LP mandates, RFPs and new-fund launches · ${board.length} items</p></div>
-    <section class="card">
-      <h2>Recent mandates &amp; launches</h2>
-      ${board.length ? board.map(intelRow).join("") : '<p class="muted">No mandate items.</p>'}
-    </section>
-    <section class="card">
-      <h2>Known LP → manager commitments <span class="muted">(${commitments.length})</span></h2>
-      <p class="muted small">Publicly reported relationships powering the coverage map — click either side to explore.</p>
-      <div class="table-wrap"><table class="data-table">
-        <thead><tr><th>Investor</th><th>Manager</th><th>Detail</th></tr></thead>
-        <tbody>${commitments.map((c) => `<tr>
-          <td><strong>${link(`#/lp/${c.lpId}`, lpById[c.lpId].name)}</strong><div class="muted small">${esc(lpById[c.lpId].type)}</div></td>
-          <td>${link(`#/manager/${c.managerId}`, managerById[c.managerId].name)}${c.fundId ? `<div class="muted small">${link(`#/fund/${c.fundId}`, fundById[c.fundId].name)}</div>` : ""}</td>
-          <td class="muted small">${esc(c.note)}</td>
-        </tr>`).join("")}</tbody>
-      </table></div>
-    </section>`;
-}
-
-// ============================= LEAGUE TABLES ===============================
-function viewLeague() {
-  const mgrRaised = managers.map((m) => ({ m, total: fundsByManager(m.id).reduce((s, f) => s + (f.raised || 0), 0) }))
-    .filter((x) => x.total > 0).sort((a, b) => b.total - a.total).slice(0, 12);
-  const closes = funds.filter((f) => f.raised != null && f.status === "Final Close").sort((a, b) => b.raised - a.raised).slice(0, 12);
-  const topLps = [...lps].sort((a, b) => b.aum - a.aum).slice(0, 12);
-  const mgrActive = managers.map((m) => ({ m, n: fundsByManager(m.id).length })).filter((x) => x.n > 0).sort((a, b) => b.n - a.n).slice(0, 10);
-  const rank = (rows, cells) => `<div class="table-wrap"><table class="data-table league"><tbody>${rows.map((r, i) => `<tr><td class="rank">${i + 1}</td>${cells(r)}</tr>`).join("")}</tbody></table></div>`;
-  app.innerHTML = `
-    <div class="page-head"><h1>League Tables</h1><p class="muted">Rankings computed from tracked data · figures approximate (see methodology)</p></div>
-    <div class="grid-2">
-      <section class="card"><h2>Top managers by capital raised</h2>${rank(mgrRaised, (r) => `<td>${link(`#/manager/${r.m.id}`, r.m.name)}</td><td class="num">${eur(r.total)}</td>`)}</section>
-      <section class="card"><h2>Largest fund closes</h2>${rank(closes, (f) => `<td>${link(`#/fund/${f.id}`, f.name)}<div class="muted small">${esc(managerById[f.managerId].name)}</div></td><td class="num">${eur(f.raised)}</td>`)}</section>
-      <section class="card"><h2>Largest investors by AUM</h2>${rank(topLps, (l) => `<td>${link(`#/lp/${l.id}`, l.name)}<div class="muted small">${esc(l.type)} · ${esc(l.hq)}</div></td><td class="num">€${l.aum}bn</td>`)}</section>
-      <section class="card"><h2>Most active managers <span class="muted">(funds tracked)</span></h2>${rank(mgrActive, (r) => `<td>${link(`#/manager/${r.m.id}`, r.m.name)}</td><td class="num">${r.n}</td>`)}</section>
-    </div>`;
 }
 
 // =============================== WATCHLIST =================================
@@ -1622,8 +1592,6 @@ function router() {
     case "intel": return viewIntel();
     case "deals": return viewDeals();
     case "clos": return viewClos();
-    case "mandates": return viewMandates();
-    case "league": return viewLeague();
     case "watchlist": return viewWatchlist();
     default: return notFound();
   }
@@ -1634,7 +1602,7 @@ function router() {
 // (wrapping around). Ignored on detail pages and when the gesture starts on an
 // interactive control (slider, input, dropdown, link, chart, table) or a screen
 // edge (reserved for the browser's back/forward gesture).
-const SWIPE_SECTIONS = ["#/", "#/news", "#/deals", "#/intel", "#/clos", "#/managers", "#/funds", "#/lps", "#/mandates", "#/league", "#/watchlist"];
+const SWIPE_SECTIONS = ["#/", "#/news", "#/deals", "#/intel", "#/clos", "#/managers", "#/funds", "#/lps", "#/watchlist"];
 const SWIPE_IGNORE = "input, textarea, select, button, a, .range-slider, .ms, .ms-pop, .table-wrap, .data-table, svg, .donut-wrap, .chart";
 let swX = 0, swY = 0, swT = 0, swSkip = true;
 document.addEventListener("touchstart", (e) => {
