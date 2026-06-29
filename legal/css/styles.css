@@ -94,6 +94,8 @@ img, svg { max-width: 100%; }
 .account-nav a { color: #5eead4; font-weight: 600; }
 .account-nav a:hover { color: #fff; }
 .data-status { font-size: .68rem; color: #5eead4; white-space: nowrap; }
+/* Keep each refresh clause unbroken so it wraps as a whole line on mobile. */
+.ds-part { white-space: nowrap; }
 
 /* ---- Notifications bell ---- */
 .notif { position: relative; flex: 0 0 auto; }

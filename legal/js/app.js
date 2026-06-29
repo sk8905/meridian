@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
-} from "./data.js?v=20260629-13";
-import { donutChart, columnChart } from "./charts.js?v=20260629-13";
+} from "./data.js?v=20260629-14";
+import { donutChart, columnChart } from "./charts.js?v=20260629-14";
 
 const app = document.getElementById("app");
 
@@ -933,8 +933,8 @@ function initChrome() {
   const status = document.getElementById("data-status");
   if (status) {
     const latest = [...items].sort(byDateDesc)[0];
-    status.textContent = `Last refresh ${fmtDate(LAST_CHECKED)}${LAST_CHECKED_TIME ? `, ${LAST_CHECKED_TIME}` : ""}`
-      + (latest ? ` · latest item ${fmtDate(latest.date)}` : "");
+    status.innerHTML = `<span class="ds-part">Last refresh ${fmtDate(LAST_CHECKED)}${LAST_CHECKED_TIME ? `, ${LAST_CHECKED_TIME}` : ""}${latest ? " ·" : ""}</span>`
+      + (latest ? ` <span class="ds-part">latest item ${fmtDate(latest.date)}</span>` : "");
     status.title = `Routine last ran ${fmtDate(LAST_CHECKED)}${LAST_CHECKED_TIME ? ` ${LAST_CHECKED_TIME}` : ""}; data last changed ${fmtDate(LAST_REVIEWED)}`;
   }
   // Same pattern as the Meridian app / landing page: behind Cloudflare Access
