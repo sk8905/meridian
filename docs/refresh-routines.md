@@ -172,6 +172,18 @@ the source of truth for the prompt.
 >      thought-leadership, awards, outlooks) stays webNews-only. Audit: every recent
 >      webNews URL should also be a `sourceUrl` in deals/intel unless it is one of
 >      those PR-only categories.
+>    - **Tag CLO items (`clo: true`).** Meridian Credit has a dedicated **CLOs**
+>      section (`#/clos`) that renders ONLY `deals`/`intel` items carrying
+>      `clo: true`, and the Deals, Fundraising, Mandates and dashboard views
+>      EXCLUDE those items. So any collateralised-loan-obligation item — a CLO
+>      pricing/closing/reset/new-issue, a CLO fund or CLO-equity fund, a CLO ETF,
+>      a CLO platform launch, a CLO-team hire, or a CLO award — MUST be added with
+>      `clo: true` (CLO transactions → `deals` type `Structured Credit`; CLO
+>      platforms/funds/ETFs/personnel/awards → `intel`). Without the flag a CLO
+>      story shows in the bell and in Deals/Fundraising but NOT in the CLOs
+>      section. Do NOT flag items where CLO is merely incidental (e.g. an M&A or
+>      IPO whose target happens to run a CLO business). Detect the acronym
+>      case-sensitively (`CLO`/`CLOs`) so "close"/"closes" don't false-match.
 >    - **Reconcile fund records** → when a first/final close (or material fund
 >      raise) is found, also update the matching fund in the `funds` array: set
 >      `status` (Open → "First Close" → "Final Close"), update `raised` (and
