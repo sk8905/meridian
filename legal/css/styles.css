@@ -54,6 +54,7 @@ img, svg { max-width: 100%; }
    far-right corner. The platform switch sits just after the brand on the left;
    the nav grows to fill the middle so the right cluster stays in the corner. */
 .topbar-inner {
+  position: relative;
   display: flex; align-items: center; gap: 2rem;
   padding: 0 1.5rem; height: 60px;
 }
@@ -69,6 +70,16 @@ img, svg { max-width: 100%; }
 .ps-btn { padding: .3rem .6rem; border-radius: 6px; font-size: .8rem; font-weight: 700; color: #cbd5e1; text-decoration: none; white-space: nowrap; }
 .ps-btn:hover { color: #fff; text-decoration: none; background: rgba(255,255,255,.1); }
 .ps-btn.is-active, .ps-btn.is-active:hover { background: #fff; color: #134e4a; }
+/* On wide screens, float the switch out of flow and pin its left edge to the
+   page container's left edge so it lines up with the page heading/body text,
+   while the logo stays in the corner. The 11rem floor keeps it clear of the
+   logo on narrower desktops. */
+@media (min-width: 1101px) {
+  .topbar-inner .platform-switch {
+    position: absolute; top: 50%; transform: translateY(-50%); margin: 0;
+    left: max(11rem, calc((100% - min(100%, var(--maxw))) / 2 + 2rem));
+  }
+}
 .nav-link { color: #cbd5e1; padding: .5rem .85rem; border-radius: 6px; font-weight: 500; white-space: nowrap; }
 .nav-link:hover, .nav-link:focus-visible { color: #fff; text-decoration: none; background: rgba(255,255,255,.08); }
 .nav-link.active { color: #fff; background: rgba(255,255,255,.15); }
