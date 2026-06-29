@@ -15,13 +15,13 @@
 // `LAST_REVIEWED` whenever you refresh the data.
 // =============================================================================
 
-export const LAST_REVIEWED = "2026-06-28";
+export const LAST_REVIEWED = "2026-06-29";
 // When the refresh routine last ran (even if nothing new) — shown as "Last refresh".
-export const LAST_CHECKED = "2026-06-28";
+export const LAST_CHECKED = "2026-06-29";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — two runs a day (~06:00 / ~12:00).
-export const LAST_CHECKED_TIME = "12:02 BST";
+export const LAST_CHECKED_TIME = "05:06 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -5085,6 +5085,21 @@ export const items = [
       "Contrasted with FCA's supervisory-tools methodology: the PRA places greater emphasis on early narrative engagement by the regulated firm",
     ],
     tags: ["PRA", "enforcement", "Early Account Scheme", "candour", "penalty reduction", "banking regulation", "investigations"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://financialregulation.linklaters.com/post/102n6fm/consultation-opens-on-next-generation-of-uk-payments-infrastructure",
+    id: "u575", title: "Consultation Opens on Next Generation of UK Payments Infrastructure",
+    area: "banking", areas: ["banking"], type: "alert", firm: "linklaters",
+    date: "2026-06-28", jurisdiction: "United Kingdom",
+    summary: "Linklaters covers the Retail Payments Infrastructure Board's consultation (closing 11 September 2026) on redesigning the UK's core retail payments systems. Three consultation questions address: next-generation payment journeys (account-to-account payments at point of sale, alias-based instant payments, AI-enabled 'agentic' payments); design principles including modularity, open access, security and fraud prevention; and how core infrastructure integrates with the broader UK payments ecosystem — including stablecoins, the digital pound and cross-border payments.",
+    points: [
+      "Retail Payments Infrastructure Board consultation open until 11 September 2026; Board chaired by the Bank of England with HM Treasury, FCA and PSR",
+      "Three consultation themes: (1) next-generation payment journeys; (2) design principles (modularity, open access, cybersecurity, fraud prevention); (3) integration architecture for digital money forms",
+      "AI-enabled ('agentic') payments, digital identity integration and regulated stablecoin/digital-pound accommodation included as design requirements",
+      "Whether identity management should be utility-governed or market-competitive flagged as a critical open question",
+    ],
+    tags: ["payments", "retail payments", "Bank of England", "FCA", "stablecoins", "digital pound", "AI payments", "financial services regulation", "banking"],
     dateEstimated: false,
   },
 ];
