@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
-} from "./data.js?v=20260629-4";
-import { donutChart, columnChart } from "./charts.js?v=20260629-4";
+} from "./data.js?v=20260629-5";
+import { donutChart, columnChart } from "./charts.js?v=20260629-5";
 
 const app = document.getElementById("app");
 
@@ -388,8 +388,10 @@ function viewList() {
   const search = app.querySelector("#search");
   search.addEventListener("input", () => { filterState.q = search.value; renderResults(); });
   app.querySelector("#clear-filters").addEventListener("click", () => {
+    // Clear the facet filters only — keep the "Saved" scope so Clear all doesn't
+    // bounce the user out of the saved list back to all alerts.
     filterState.areas = []; filterState.tiers = []; filterState.types = []; filterState.firms = [];
-    filterState.years = []; filterState.months = []; filterState.saved = false; filterState.q = "";
+    filterState.years = []; filterState.months = []; filterState.q = "";
     app.querySelectorAll('input[type="checkbox"]').forEach((c) => (c.checked = false));
     app.querySelectorAll(".fg-badge").forEach((b) => b.remove());
     search.value = "";
@@ -432,22 +434,40 @@ function caseMatchesFilters(c) {
   return true;
 }
 
+// Does a restructuring matter pass the sidebar filters? Schemes/RPs have no
+// practice area / tier / type / firm, so they're hidden when those facets are
+// active (like cases); they do share year / month / search.
+function rxMatchesFilters(r) {
+  if (filterState.areas.length || filterState.tiers.length || filterState.types.length || filterState.firms.length) return false;
+  const yr = (r.date || "").slice(0, 4);
+  if (filterState.years.length && !filterState.years.includes(yr)) return false;
+  if (filterState.months.length && !filterState.months.includes((r.date || "").slice(0, 7))) return false;
+  if (filterState.q.trim()) {
+    const q = filterState.q.trim().toLowerCase();
+    const hay = [r.company, r.citation, r.court, r.sector, (r.creditors || []).join(" "), (r.advisers || []).join(" ")].join(" ").toLowerCase();
+    if (!hay.includes(q)) return false;
+  }
+  return true;
+}
+
 function renderResults() {
   const results = document.getElementById("results");
   const countEl = document.getElementById("result-count");
   if (!results) return;
   let rows = items.filter(matchesFilters).map((it) => ({ ...it, _kind: "item" }));
-  // In the "Saved" view, also surface saved case-law judgments alongside alerts.
+  // In the "Saved" view, also surface saved case-law judgments and saved
+  // restructuring matters (schemes/RPs) alongside saved alerts.
   if (filterState.saved) {
     const savedSet = getSaved();
     rows = rows.concat(cases.filter((c) => savedSet.has(c.id) && caseMatchesFilters(c)).map((c) => ({ ...c, _kind: "case" })));
+    rows = rows.concat(restructurings.filter((r) => savedSet.has(r.id) && rxMatchesFilters(r)).map((r) => ({ ...r, _kind: "rx" })));
   }
   rows.sort(byDateDesc);
   const n = rows.length;
   const noun = filterState.saved ? "saved item" : "update";
   countEl.textContent = `${n} ${noun}${n === 1 ? "" : "s"}`;
   results.innerHTML = n
-    ? byYear(rows, (x) => (x._kind === "case" ? caseRow(x) : itemRow(x)))
+    ? byYear(rows, (x) => (x._kind === "case" ? caseRow(x) : x._kind === "rx" ? rxRow(x) : itemRow(x)))
     : `<div class="empty">No ${noun}s match these filters.${filterState.saved ? " Save items with the ☆ button." : ""}</div>`;
 }
 
