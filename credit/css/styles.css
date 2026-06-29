@@ -52,6 +52,13 @@ h3 { font-size: 1rem; margin: 0; }
 .ps-btn { padding: .3rem .6rem; border-radius: 6px; font-size: .8rem; font-weight: 700; color: #cbd5e1; text-decoration: none; white-space: nowrap; }
 .ps-btn:hover { color: #fff; text-decoration: none; background: rgba(255,255,255,.1); }
 .ps-btn.is-active, .ps-btn.is-active:hover { background: #fff; color: #0b1f44; }
+/* Platform toggle relocated below the topbar, aligned to the page's left edge
+   (same width/padding as .container so it lines up with the page heading). */
+.platform-bar { max-width: 1500px; margin: 0 auto; padding: 1rem 2rem 0; }
+.platform-bar .platform-switch { margin: 0; background: var(--surface); border-color: var(--border); }
+.platform-bar .ps-btn { color: var(--muted); }
+.platform-bar .ps-btn:hover { color: var(--ink); background: rgba(15, 23, 42, .05); }
+.platform-bar .ps-btn.is-active, .platform-bar .ps-btn.is-active:hover { background: var(--primary); color: #fff; }
 .nav-link {
   color: #cbd5e1; padding: .5rem .85rem; border-radius: 6px; font-weight: 500;
 }
@@ -423,6 +430,7 @@ a.intel-head:hover { color: var(--primary); }
   .nav-sep { display: none; }
 
   .container { padding: 1rem 1rem 2.5rem; }
+  .platform-bar { padding-left: 1rem; padding-right: 1rem; }
   .card { padding: 1rem; }
   .table-wrap { -webkit-overflow-scrolling: touch; }
 
