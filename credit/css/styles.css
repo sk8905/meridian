@@ -162,7 +162,10 @@ h3 { font-size: 1rem; margin: 0; }
    toggle (native <details>); the caret flips and the body hides when closed. */
 /* Watchlist category toggles: three compact dropdowns on one line; opening one
    closes the others (native <details name> accordion). */
-.wl-cats { display: grid; grid-template-columns: repeat(3, 1fr); gap: .6rem; margin-bottom: 1rem; align-items: start; }
+.wl-cats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .6rem; margin-bottom: 1rem; align-items: start; }
+/* When one is open, stack to a single column so it spans the full page width
+   (the other two sit below as full-width collapsed bars). */
+.wl-cats:has(.wl-cat[open]) { grid-template-columns: 1fr; }
 .wl-cat { margin: 0; padding: .5rem .7rem; }
 .wl-cat-head { display: flex; align-items: center; justify-content: space-between; gap: .4rem; cursor: pointer; list-style: none; }
 .wl-cat-head::-webkit-details-marker { display: none; }
