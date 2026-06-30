@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260630-7";
+} from "./data.js?v=20260630-8";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260630-7";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260630-8";
 
 const app = document.getElementById("app");
 
@@ -1463,7 +1463,7 @@ function viewWatchlist() {
   }
   const wlSig = JSON.stringify([fm.map((x) => x.id), ff.map((x) => x.id)]);
   const listCard = (title, items, type, render) =>
-    `<details class="card wl-cat" name="wl"><summary class="wl-cat-head"><h2>${title} <span class="muted">(${items.length})</span></h2><span class="wl-caret" aria-hidden="true"></span></summary>${items.length
+    `<details class="card wl-cat"><summary class="wl-cat-head"><h2>${title} <span class="muted">(${items.length})</span></h2><span class="wl-caret" aria-hidden="true"></span></summary>${items.length
       ? `<ul class="link-list">${items.map((x) => `<li>${nameCell(type, x.id, render(x))}</li>`).join("")}</ul>`
       : '<p class="muted small">None followed.</p>'}</details>`;
   app.innerHTML = `
@@ -1476,6 +1476,15 @@ function viewWatchlist() {
     </div>
     <section class="card"><h2>News, deals &amp; fundraising <span class="muted">(${feed.length})</span></h2>${feed.length ? feedHtml(feed, "watchlist", feedRow, wlSig) : '<p class="muted small">No news, deals or fundraising yet for the managers/funds you follow.</p>'}</section>
     ${cloItems.length ? `<section class="card"><h2>CLO activity <span class="muted">(${cloItems.length})</span></h2><p class="muted small">Collateralised loan obligation activity for the managers/funds you follow. <a href="#/clos">All CLO activity →</a></p>${feedHtml(cloItems, "watchlist-clo", feedRow, wlSig)}</section>` : ""}`;
+
+  // Accordion (only one category open at a time) — mobile only. On desktop the
+  // categories open independently.
+  const cats = app.querySelectorAll(".wl-cat");
+  cats.forEach((d) => d.addEventListener("toggle", () => {
+    if (d.open && window.matchMedia(MOBILE_Q).matches) {
+      cats.forEach((o) => { if (o !== d) o.open = false; });
+    }
+  }));
 }
 
 // ============================== shared bits ================================

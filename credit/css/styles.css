@@ -160,25 +160,30 @@ h3 { font-size: 1rem; margin: 0; }
 
 /* Collapsible watchlist categories — the heading row is the expand/collapse
    toggle (native <details>); the caret flips and the body hides when closed. */
-/* Watchlist category toggles: three compact dropdowns on one line; opening one
-   closes the others (native <details name> accordion). */
-.wl-cats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .6rem; margin-bottom: 1rem; align-items: start; }
-/* When one is open, stack to a single column so it spans the full page width
-   (the other two sit below as full-width collapsed bars). */
-.wl-cats:has(.wl-cat[open]) { grid-template-columns: 1fr; }
-.wl-cat { margin: 0; padding: .5rem .7rem; }
-.wl-cat-head { display: flex; align-items: center; justify-content: space-between; gap: .4rem; cursor: pointer; list-style: none; }
+/* Watchlist category toggles. Desktop: full-size cards, 3-up stepping down to
+   2 then 1 (like .grid-3); each opens independently. */
+.wl-cats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-bottom: 1rem; align-items: start; }
+.wl-cat { margin: 0; }
+.wl-cat-head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; list-style: none; }
 .wl-cat-head::-webkit-details-marker { display: none; }
-.wl-cat-head h2 { margin: 0; font-size: .9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wl-cat-head h2 { margin: 0; }
 .wl-cat-head:hover h2 { color: var(--primary-ink); }
-.wl-caret { color: var(--primary); font-weight: 700; font-size: .78rem; line-height: 1; flex-shrink: 0; }
+.wl-caret { color: var(--primary); font-weight: 700; font-size: .85rem; line-height: 1; flex-shrink: 0; }
 .wl-caret::after { content: "▾"; }
 .wl-cat[open] .wl-caret::after { content: "▴"; }
-.wl-cat[open] .wl-cat-head { margin-bottom: .5rem; }
-@media (max-width: 480px) {
-  .wl-cats { gap: .4rem; }
-  .wl-cat { padding: .45rem .5rem; }
-  .wl-cat-head h2 { font-size: .8rem; }
+.wl-cat[open] .wl-cat-head { margin-bottom: .75rem; }
+@media (max-width: 1100px) { .wl-cats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 900px) { .wl-cats { grid-template-columns: minmax(0, 1fr); } }
+/* Mobile only: compact single-line tiles; opening one (mobile accordion, in JS)
+   expands it to the full page width with the others below as collapsed bars. */
+@media (max-width: 760px) {
+  .wl-cats { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .4rem; }
+  .wl-cats:has(.wl-cat[open]) { grid-template-columns: 1fr; }
+  .wl-cat { padding: .45rem .55rem; }
+  .wl-cat-head { gap: .4rem; }
+  .wl-cat-head h2 { font-size: .8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .wl-caret { font-size: .78rem; }
+  .wl-cat[open] .wl-cat-head { margin-bottom: .5rem; }
 }
 
 /* ---------- KPIs ---------- */
