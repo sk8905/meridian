@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260630-11";
+} from "./data.js?v=20260630-12";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260630-11";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260630-12";
 
 const app = document.getElementById("app");
 
@@ -1011,7 +1011,18 @@ function viewManager(id) {
     <section class="card">
       <h2>CLOs managed <span class="muted">(${mgrClo.length})</span></h2>
       <p class="muted small">Collateralised loan obligation vehicles managed by ${esc(m.name)} or its CLO affiliate — issuances, pricings, resets, platforms &amp; funds. <a href="#/clos">All CLO activity →</a></p>
-      ${mgrClo.length ? feedHtml(mgrClo, "mgr:" + id + ":clo", (x) => (x._kind === "deal" ? dealRow(x) : intelRow(x)), "") : '<p class="muted">This manager does not manage any tracked CLOs.</p>'}
+      ${mgrClo.length ? (() => {
+        const sorted = [...mgrClo].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+        const p = pageList(sorted, "mgr:" + id + ":clo", "");
+        return `<div class="table-wrap"><table class="data-table">
+        <thead><tr><th>CLO</th><th>Type</th><th>Date</th></tr></thead>
+        <tbody>${p.shown.map((x) => `<tr>
+          <td>${x.sourceUrl ? `<a href="${esc(x.sourceUrl)}" target="_blank" rel="noopener noreferrer"><strong>${esc(x.headline)}</strong> ↗</a>` : `<strong>${esc(x.headline)}</strong>`}</td>
+          <td>${chip(x.type)}</td>
+          <td class="muted small">${fmtDate(x.date)}</td>
+        </tr>`).join("")}</tbody>
+      </table></div>${p.more}`;
+      })() : '<p class="muted">This manager does not manage any tracked CLOs.</p>'}
     </section>
     ${commitmentsForManager(m.id).length ? `<section class="card"><h2>Known investors <span class="muted">(${commitmentsForManager(m.id).length})</span></h2><ul class="link-list">${commitmentsForManager(m.id).map((c) => `<li>${link(`#/lp/${c.lpId}`, lpById[c.lpId].name)} <span class="muted small">${esc(c.note)}</span></li>`).join("")}</ul></section>` : ""}
     ${ownersFilingsBlock(m)}
