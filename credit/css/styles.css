@@ -63,7 +63,7 @@ h3 { font-size: 1rem; margin: 0; }
    nav tabs line up with the page heading/body text. The 11rem floor keeps the
    content clear of the logo on narrower desktops. */
 @media (min-width: 1101px) {
-  .topbar-inner { padding-left: max(11rem, calc((100% - min(100%, 1500px)) / 2 + 2rem)); }
+  .topbar-inner { padding-left: max(11rem, calc((100% - min(100%, 1500px)) / 2 + 2rem)); padding-right: calc((100% - min(100%, 1500px)) / 2 + 2rem); }
   .topbar-inner .brand { position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); }
   /* Let the nav fill the row so the Watchlist tab can sit at the right margin. */
   .mainnav { flex: 1 1 auto; }

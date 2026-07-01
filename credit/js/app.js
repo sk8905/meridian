@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260701-22";
+} from "./data.js?v=20260701-23";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260701-22";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260701-23";
 
 const app = document.getElementById("app");
 
@@ -493,25 +493,20 @@ function sortTh(view, key, label, extraClass = "") {
 }
 
 // ================================ DASHBOARD =================================
-// Live rates & credit band shown at the top of the dashboard — a TradingView
-// "ticker tape" embed. Credit-relevant instruments: US/EU/UK govvies, the core
-// reference rates (SOFR/SONIA/EURIBOR), ICE BofA IG/HY option-adjusted spreads,
-// and the liquid IG/HY credit ETFs as live proxies. The script is injected after
-// innerHTML (scripts set via innerHTML don't run); if the embed can't load, the
-// band just stays empty. Any symbol TradingView can't resolve is silently
-// dropped rather than breaking the strip.
+// Key rates & credit band at the top of the dashboard — a TradingView "tickers"
+// embed (a STATIC, non-scrolling row of quote boxes). Focused on the six
+// credit-relevant series: the US 10Y, the core reference rates (SOFR / SONIA /
+// 3M EURIBOR) and the ICE BofA US IG & HY option-adjusted spreads. The script is
+// injected after innerHTML (scripts set via innerHTML don't run); if the embed
+// can't load the band just stays empty, and any symbol TradingView can't resolve
+// is dropped rather than breaking the row.
 const RATES_SYMBOLS = [
   { proName: "TVC:US10Y", title: "US 10Y" },
-  { proName: "TVC:US02Y", title: "US 2Y" },
   { proName: "FRED:SOFR", title: "SOFR" },
   { proName: "FRED:IUDSOIA", title: "SONIA" },
   { proName: "FRED:EUR3MTD156N", title: "EURIBOR 3M" },
-  { proName: "TVC:DE10Y", title: "Bund 10Y" },
-  { proName: "TVC:GB10Y", title: "Gilt 10Y" },
   { proName: "FRED:BAMLC0A0CM", title: "US IG OAS" },
   { proName: "FRED:BAMLH0A0HYM2", title: "US HY OAS" },
-  { proName: "AMEX:HYG", title: "HY ETF · HYG" },
-  { proName: "AMEX:LQD", title: "IG ETF · LQD" },
 ];
 function mountRatesTicker() {
   try {
@@ -522,12 +517,11 @@ function mountRatesTicker() {
     const s = document.createElement("script");
     s.type = "text/javascript";
     s.async = true;
-    s.src = "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js";
+    s.src = "https://s3.tradingview.com/external-embedding/embed-widget-tickers.js";
     s.textContent = JSON.stringify({
       symbols: RATES_SYMBOLS,
       showSymbolLogo: false,
       isTransparent: true,
-      displayMode: "adaptive",
       colorTheme: "light",
       locale: "en",
     });
