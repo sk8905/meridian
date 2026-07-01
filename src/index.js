@@ -100,27 +100,35 @@ function handleMe(request) {
 }
 
 // Key rates & credit spreads for the Credit dashboard. Pulled server-side (so
-// there's no CORS issue and no browser-visible key) from FRED's public, keyless
-// CSV endpoint (fredgraph.csv) — one source that carries all six series. Results
-// are edge-cached for 30 min since these are daily fixings.
+// there's no CORS issue and no browser-visible key). Five series come from FRED's
+// public keyless CSV feed; 3M EURIBOR comes from the ECB Data Portal (also
+// keyless) since FRED has no live daily EURIBOR (its EUR3MTD156N was Euro LIBOR,
+// discontinued). Results are edge-cached 30 min (these are daily fixings), but
+// only when fully populated so a transient upstream miss can't stick.
 const RATE_SERIES = [
-  { id: "DGS10", label: "US 10Y", unit: "%" },
-  { id: "SOFR", label: "SOFR", unit: "%" },
-  { id: "IUDSOIA", label: "SONIA", unit: "%" },
-  { id: "EUR3MTD156N", label: "3M EURIBOR", unit: "%" },
-  { id: "BAMLC0A0CM", label: "US IG OAS", unit: "bp" },
-  { id: "BAMLH0A0HYM2", label: "US HY OAS", unit: "bp" },
+  { label: "US 10Y", unit: "%", src: "fred", id: "DGS10" },
+  { label: "SOFR", unit: "%", src: "fred", id: "SOFR" },
+  { label: "SONIA", unit: "%", src: "fred", id: "IUDSOIA" },
+  { label: "3M EURIBOR", unit: "%", src: "ecb", key: "D.U2.EUR.RT.MM.EURIBOR3MD_.HSTA" },
+  { label: "US IG OAS", unit: "bp", src: "fred", id: "BAMLC0A0CM" },
+  { label: "US HY OAS", unit: "bp", src: "fred", id: "BAMLH0A0HYM2" },
 ];
 
-async function fredLast(id) {
-  const r = await fetch(`https://fred.stlouisfed.org/graph/fredgraph.csv?id=${id}`, {
-    cf: { cacheTtl: 1800, cacheEverything: true },
-  });
-  if (!r.ok) throw new Error("fred " + r.status);
-  const rows = (await r.text()).trim().split(/\r?\n/).slice(1)
-    .map((l) => l.split(","))
-    .filter((c) => c.length >= 2 && c[1] !== "" && c[1] !== ".");
-  const last = rows[rows.length - 1], prev = rows[rows.length - 2];
+// Fetch text with one retry; small CSVs so this is cheap.
+async function fetchText(url) {
+  for (let i = 0; i < 2; i++) {
+    try {
+      const r = await fetch(url, { cf: { cacheTtl: 1800, cacheEverything: true } });
+      if (r.ok) return await r.text();
+    } catch { /* retry */ }
+  }
+  return null;
+}
+
+// Given [date, valueStr] pairs (any order), return the latest value + day change.
+function lastTwo(pairs) {
+  pairs.sort((a, b) => (a[0] < b[0] ? -1 : 1));
+  const last = pairs[pairs.length - 1], prev = pairs[pairs.length - 2];
   const val = last ? parseFloat(last[1]) : null;
   const prevVal = prev ? parseFloat(prev[1]) : null;
   return {
@@ -130,19 +138,49 @@ async function fredLast(id) {
   };
 }
 
+async function fredSeries(id, cosd) {
+  const txt = await fetchText(`https://fred.stlouisfed.org/graph/fredgraph.csv?id=${id}&cosd=${cosd}`);
+  if (!txt) return { value: null, change: null, asOf: null };
+  const pairs = txt.trim().split(/\r?\n/).slice(1)
+    .map((l) => l.split(","))
+    .filter((c) => c.length >= 2 && c[1] !== "" && c[1] !== ".")
+    .map((c) => [c[0], c[1]]);
+  return lastTwo(pairs);
+}
+
+async function ecbSeries(key) {
+  const txt = await fetchText(`https://data-api.ecb.europa.eu/service/data/FM/${key}?lastNObservations=6&format=csvdata`);
+  if (!txt) return { value: null, change: null, asOf: null };
+  const lines = txt.trim().split(/\r?\n/);
+  const h = lines[0].split(",");
+  const ti = h.indexOf("TIME_PERIOD"), vi = h.indexOf("OBS_VALUE");
+  if (ti < 0 || vi < 0) return { value: null, change: null, asOf: null };
+  const pairs = lines.slice(1)
+    .map((l) => l.split(","))
+    .filter((c) => c[vi] !== undefined && c[vi] !== "")
+    .map((c) => [c[ti], c[vi]]);
+  return lastTwo(pairs);
+}
+
 async function handleRates(request, env, ctx) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/rates", request.url).toString());
+  // Versioned key so a previously-cached partial response is ignored.
+  const cacheKey = new Request(new URL("/api/rates?v=2", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
+  // Only the last ~60 days, so each FRED CSV is small and fast.
+  const cosd = new Date(Date.now() - 60 * 864e5).toISOString().slice(0, 10);
   const data = await Promise.all(RATE_SERIES.map(async (s) => {
-    try { return { ...s, ...(await fredLast(s.id)) }; }
-    catch { return { ...s, value: null, change: null, asOf: null }; }
+    const r = s.src === "ecb" ? await ecbSeries(s.key) : await fredSeries(s.id, cosd);
+    return { label: s.label, unit: s.unit, value: r.value, change: r.change, asOf: r.asOf };
   }));
   const resp = new Response(JSON.stringify({ rates: data }), {
     headers: { "content-type": "application/json", "cache-control": "public, max-age=1800" },
   });
-  if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+  // Only cache once every series resolved, so a transient miss doesn't stick 30 min.
+  if (ctx && ctx.waitUntil && data.every((d) => d.value != null)) {
+    ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+  }
   return resp;
 }
 
