@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260701-6";
+} from "./data.js?v=20260701-7";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260701-6";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260701-7";
 
 const app = document.getElementById("app");
 
@@ -499,19 +499,13 @@ function viewDashboard() {
   const cloByDate = [...deals.filter((d) => d.clo), ...intel.filter((i) => i.clo)]
     .sort((a, b) => String(b.date).localeCompare(String(a.date)));
   // Latest press across the tracked universe (manager news + webNews), deduped.
-  const newsByDate = (() => {
-    const out = [], seen = new Set();
-    managers.forEach((m) => {
-      [...(m.news || []), ...(m.webNews || [])].forEach((w) => {
-        const base = (w.url || w.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/$/, "");
-        if (base && seen.has(base + "|" + m.id)) return;
-        seen.add(base + "|" + m.id);
-        out.push({ ...w, _mname: m.name });
-      });
-    });
-    return out.sort((a, b) => String(b.date).localeCompare(String(a.date)));
-  })();
-  const newsCompact = (x) => `<li class="compact-item">${x.url ? `<a class="compact-head" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.title)} ↗</a>` : `<span class="compact-head">${esc(x.title)}</span>`}<div class="compact-meta muted small">${x.date ? esc(fmtDate(x.date)) : ""}${x._mname ? ` · ${esc(x._mname)}` : ""}${x.outlet ? ` · ${esc(x.outlet)}` : ""}</div></li>`;
+  const newsByDate = aggregateNews();
+  // Match the deal/fundraising sleeves: the headline opens the item in the News
+  // tab, with a link to the original source below it.
+  const newsCompact = (x) => {
+    const src = x.url ? ` · <a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : "";
+    return `<li class="compact-item"><a href="#/news" data-goto="news:${x._id}" class="compact-head">${esc(x.title)}</a><div class="compact-meta muted small">${x.date ? esc(fmtDate(x.date)) : ""}${x._mname ? ` · ${esc(x._mname)}` : ""}${x.outlet ? ` · ${esc(x.outlet)}` : ""}${src}</div></li>`;
+  };
 
   app.innerHTML = `
     <div class="page-head">
@@ -524,7 +518,7 @@ function viewDashboard() {
 
     <section class="card feature-card news-panel">
       <h2>Latest news</h2>
-      <p class="muted small">Manager &amp; investor press across the tracked universe. Click a headline to open the source, or open the News tab for the full feed.</p>
+      <p class="muted small">Manager &amp; investor press across the tracked universe. Click a headline to open it in the news feed.</p>
       ${newsByDate.length ? `<ul class="compact-list news-cols">${newsByDate.slice(0, 12).map(newsCompact).join("")}</ul>` : '<p class="muted small">No news yet.</p>'}
       <div class="card-foot">${link("#/news", "View all news →")}</div>
     </section>
@@ -578,6 +572,24 @@ function compactRow(rec, view) {
   const head = `<a href="#/${view}" data-goto="${view}:${rec.id}" class="compact-head">${esc(rec.headline)}</a>`;
   const src = rec.sourceUrl ? ` · <a href="${esc(rec.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : "";
   return `<li class="compact-item">${head}<div class="compact-meta muted small">${fmtDate(rec.date)}${src}</div></li>`;
+}
+
+// Aggregate manager/investor press (news + webNews) across the universe, deduped,
+// newest first. Each item gets a stable `_id` (its position in the deterministic
+// build order) so the dashboard and the News tab agree on it — letting a
+// dashboard headline deep-link to that item's row (#row-<_id>) in the News feed.
+function aggregateNews() {
+  const out = [], seen = new Set();
+  managers.forEach((m) => {
+    [...(m.news || []), ...(m.webNews || [])].forEach((w) => {
+      const base = (w.url || w.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/$/, "");
+      const k = base + "|" + m.id;
+      if (base && seen.has(k)) return;
+      seen.add(k);
+      out.push({ ...w, _mid: m.id, _mname: m.name, _id: "news-" + out.length });
+    });
+  });
+  return out.sort((a, b) => String(b.date).localeCompare(String(a.date)));
 }
 
 function fundTable(rows, key, sig) {
@@ -1471,20 +1483,9 @@ function viewClos() {
 // (these previously only appeared on each manager's profile and the bell).
 function viewNews() {
   const f = filterState.news;
-  const all = [];
-  const seen = new Set();
-  managers.forEach((m) => {
-    [...(m.news || []), ...(m.webNews || [])].forEach((w) => {
-      const base = (w.url || w.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/$/, "");
-      const k = base + "|" + m.id;
-      if (base && seen.has(k)) return;
-      seen.add(k);
-      all.push({ ...w, _mid: m.id, _mname: m.name });
-    });
-  });
-  all.sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  const all = aggregateNews();
   const rows = all.filter((x) => !f.q || `${x.title || ""} ${x.outlet || ""} ${x._mname || ""}`.toLowerCase().includes(f.q.toLowerCase()));
-  const newsRow = (x) => `<div class="intel-row"><div class="intel-meta"><span class="chip">News</span><span class="muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span></div><div class="intel-body">${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)} ↗</a>` : `<span class="intel-head">${esc(x.title)}</span>`}<div>${link(`#/manager/${x._mid}`, x._mname, "muted small")}${x.outlet ? ` · <span class="muted small">${esc(x.outlet)}</span>` : ""}</div></div></div>`;
+  const newsRow = (x) => `<div class="intel-row" id="row-${x._id}"><div class="intel-meta"><span class="chip">News</span><span class="muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span></div><div class="intel-body">${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)} ↗</a>` : `<span class="intel-head">${esc(x.title)}</span>`}<div>${link(`#/manager/${x._mid}`, x._mname, "muted small")}${x.outlet ? ` · <span class="muted small">${esc(x.outlet)}</span>` : ""}</div></div></div>`;
 
   app.innerHTML = `
     <div class="page-head"><h1>News</h1><p class="muted">${rows.length} of ${all.length} items · manager &amp; investor press across the tracked universe</p></div>
@@ -1493,6 +1494,7 @@ function viewNews() {
     </div>
     <section class="card">${rows.length ? feedHtml(rows, "news", newsRow, JSON.stringify(f)) : '<p class="empty">No news items match your search.</p>'}</section>`;
   wireFilters("news");
+  applyPendingFocus("news");
 }
 
 // =============================== WATCHLIST =================================
