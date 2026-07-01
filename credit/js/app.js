@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260701-7";
+} from "./data.js?v=20260701-8";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260701-7";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260701-8";
 
 const app = document.getElementById("app");
 
@@ -590,6 +590,16 @@ function aggregateNews() {
     });
   });
   return out.sort((a, b) => String(b.date).localeCompare(String(a.date)));
+}
+
+// Press items in the dataset are headline-only (no article body), so compose a
+// short attributed summary from the fields we have. Kept to ~2 lines by the
+// .news-sum clamp in CSS.
+function newsSummary(x) {
+  const t = (x.title || "").replace(/\s+/g, " ").trim();
+  if (!t) return "";
+  const s = esc(/[.!?]$/.test(t) ? t : t + ".");
+  return x.outlet ? `${esc(x.outlet)} reports: ${s}` : s;
 }
 
 function fundTable(rows, key, sig) {
@@ -1485,7 +1495,7 @@ function viewNews() {
   const f = filterState.news;
   const all = aggregateNews();
   const rows = all.filter((x) => !f.q || `${x.title || ""} ${x.outlet || ""} ${x._mname || ""}`.toLowerCase().includes(f.q.toLowerCase()));
-  const newsRow = (x) => `<div class="intel-row" id="row-${x._id}"><div class="intel-meta"><span class="chip">News</span><span class="muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span></div><div class="intel-body">${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)} ↗</a>` : `<span class="intel-head">${esc(x.title)}</span>`}<div>${link(`#/manager/${x._mid}`, x._mname, "muted small")}${x.outlet ? ` · <span class="muted small">${esc(x.outlet)}</span>` : ""}</div></div></div>`;
+  const newsRow = (x) => `<div class="intel-row" id="row-${x._id}"><div class="intel-meta"><span class="chip">News</span><span class="muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span></div><div class="intel-body">${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)} ↗</a>` : `<span class="intel-head">${esc(x.title)}</span>`}<p class="muted small news-sum">${newsSummary(x)}</p><div>${link(`#/manager/${x._mid}`, x._mname, "muted small")}${x.outlet ? ` · <span class="muted small">${esc(x.outlet)}</span>` : ""}</div></div></div>`;
 
   app.innerHTML = `
     <div class="page-head"><h1>News</h1><p class="muted">${rows.length} of ${all.length} items · manager &amp; investor press across the tracked universe</p></div>
