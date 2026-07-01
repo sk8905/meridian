@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260701-11";
+} from "./data.js?v=20260701-12";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260701-11";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260701-12";
 
 const app = document.getElementById("app");
 
@@ -401,7 +401,11 @@ document.addEventListener("click", (e) => {
 let targetFocus = false;
 try { targetFocus = localStorage.getItem("meridian.focus") === "1"; } catch { /* ignore */ }
 const inFocusAum = (aum) => aum != null && aum >= 1 && aum <= 10;
-const midInFocus = (mid) => { const m = managerById[mid]; return !!(m && inFocusAum(m.aum)); };
+// Gate on total group/parent AUM, not the (often credit-only) sleeve figure, so
+// a boutique inside a large group falls outside the €1–10bn target band.
+const focusAumOf = (m) => (m ? (m.groupAum != null ? m.groupAum : m.aum) : null);
+const mInFocus = (m) => inFocusAum(focusAumOf(m));
+const midInFocus = (mid) => mInFocus(managerById[mid]);
 function focusToggle() {
   return `<label class="focus-toggle"><input type="checkbox" class="focus-cb" ${targetFocus ? "checked" : ""} aria-label="Target focus: €1–10bn AUM managers"><span class="focus-sw" aria-hidden="true"></span><span>Target focus <span class="muted">· €1–10bn AUM</span></span></label>`;
 }
@@ -898,7 +902,7 @@ function viewManagers() {
   const f = filterState.managers;
   const LOCATIONS = [...new Set(managers.flatMap((m) => hqRegions(m.hq)))].sort();
   const rows = managers.filter((m) =>
-    (!targetFocus || inFocusAum(m.aum)) &&
+    (!targetFocus || mInFocus(m)) &&
     (!f.q || m.name.toLowerCase().includes(f.q.toLowerCase()) || m.hq.toLowerCase().includes(f.q.toLowerCase())) &&
     (!f.strategy.length || f.strategy.some((s) => m.strategies.includes(s))) &&
     (!f.location.length || hqRegions(m.hq).some((r) => f.location.includes(r)))
