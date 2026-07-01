@@ -580,13 +580,14 @@ a.intel-head:hover { color: var(--primary); }
 /* ---------- multi-select filter dropdowns ---------- */
 .ms { position: relative; }
 .ms-btn {
-  font: inherit; font-size: .8rem; text-transform: none; letter-spacing: 0;
-  background: #fff; border: 1px solid var(--border); border-radius: 6px;
-  padding: .42rem .6rem; min-width: 0; width: 100%; cursor: pointer; color: var(--ink);
-  display: flex; align-items: center; justify-content: space-between; gap: .6rem;
+  font: inherit; font-size: .85rem; text-transform: none; letter-spacing: 0;
+  background: transparent; border: none; border-radius: 0;
+  padding: .1rem 0; min-width: 0; width: fit-content; max-width: 100%; cursor: pointer;
+  color: var(--muted); font-weight: 700;
+  display: inline-flex; align-items: center; justify-content: flex-start; gap: .35rem;
 }
-.ms-btn:hover { border-color: var(--accent); }
-.ms-btn[aria-expanded="true"] { border-color: var(--accent); outline: 2px solid var(--accent); outline-offset: 0; }
+.ms-btn:hover, .ms-btn[aria-expanded="true"] { color: var(--ink); }
+.ms-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
 .ms-caret { color: var(--muted); font-size: .7rem; }
 .ms-pop {
   position: absolute; z-index: 30; top: calc(100% + 4px); left: 0;
