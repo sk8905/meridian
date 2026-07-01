@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260701-18";
+} from "./data.js?v=20260701-19";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260701-18";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260701-19";
 
 const app = document.getElementById("app");
 
@@ -965,11 +965,15 @@ function ownersFilingsBlock(m) {
   const fil = (m.filings && m.filings.length)
     ? `<ul class="link-list">${m.filings.map((x) => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.label)}</a>${x.date ? ` <span class="muted small">· ${esc(x.date)}</span>` : ""}</li>`).join("")}</ul>`
     : `<p class="muted small">No regulatory/account filings compiled yet (UK LLPs file at Companies House; US advisers file SEC Form ADV; listed parents file annual reports).</p>`;
+  const leg = (m.legal && m.legal.length)
+    ? `<ul class="link-list">${m.legal.map((p) => `<li><strong>${esc(p.name)}</strong> <span class="muted small">${esc(p.role)}${p.city ? ` · ${esc(p.city)}` : ""}</span>${p.linkedin ? ` · <a href="${esc(p.linkedin)}" target="_blank" rel="noopener noreferrer" class="muted small">LinkedIn ↗</a>` : ""}</li>`).join("")}</ul>`
+    : '<p class="muted small">Senior legal contacts not yet compiled for this manager (sourced from the firm\'s own website and LinkedIn where disclosed).</p>';
   return `<section class="card">
-    <h2>Ownership, financials &amp; filings</h2>
+    <h2>About</h2>
     <h3 class="sub">Owners</h3>${owners}
     <h3 class="sub">Finances</h3>${fin}
     <h3 class="sub">Headcount</h3>${hc}
+    <h3 class="sub">Legal &amp; senior counsel</h3>${leg}
     <h3 class="sub">Recent regulatory &amp; account filings (last 2 years)</h3>${fil}
     ${m.regSources ? sources({ sources: m.regSources }) : ""}
   </section>`;
@@ -1011,18 +1015,6 @@ function mgrFeedRow(x) {
 
 // Senior legal team — general counsel and other senior legal counsel, with the
 // city they are based in and a link to their LinkedIn profile where known.
-function legalBlock(m) {
-  const people = m.legal || [];
-  return `<section class="card">
-    <h2>Legal &amp; senior counsel</h2>
-    ${people.length
-      ? `<ul class="link-list">${people.map((p) => `<li>
-          <strong>${esc(p.name)}</strong> <span class="muted small">${esc(p.role)}${p.city ? ` · ${esc(p.city)}` : ""}</span>${p.linkedin ? ` · <a href="${esc(p.linkedin)}" target="_blank" rel="noopener noreferrer" class="muted small">LinkedIn ↗</a>` : ""}
-        </li>`).join("")}</ul>`
-      : '<p class="muted small">Senior legal contacts not yet compiled for this manager (sourced from the firm\'s own website and LinkedIn where disclosed).</p>'}
-  </section>`;
-}
-
 // Best-effort extraction of a named CLO vehicle from a headline/summary, e.g.
 // "Palmer Square CLO 2026-1", "Cordatus XXXVIII", "GLM US CLO 30",
 // "Hayfin Emerald CLO XIII". Returns null when no specific vehicle is named
@@ -1141,7 +1133,6 @@ function viewManager(id) {
     </section>
     ${commitmentsForManager(m.id).length ? `<section class="card"><h2>Known investors <span class="muted">(${commitmentsForManager(m.id).length})</span></h2><ul class="link-list">${commitmentsForManager(m.id).map((c) => `<li>${link(`#/lp/${c.lpId}`, lpById[c.lpId].name)} <span class="muted small">${esc(c.note)}</span></li>`).join("")}</ul></section>` : ""}
     ${ownersFilingsBlock(m)}
-    ${legalBlock(m)}
 
     <div class="section-divider"><span>News</span></div>
     <section class="card">
