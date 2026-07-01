@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260701-8";
+} from "./data.js?v=20260701-9";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260701-8";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260701-9";
 
 const app = document.getElementById("app");
 
@@ -1521,7 +1521,7 @@ function viewWatchlist() {
   const matches = (x) => (x.managerId && mIds.has(x.managerId)) || (x.fundId && fIds.has(x.fundId));
   const dealItems = deals.filter((d) => !d.clo && matches(d)).map((d) => ({ ...d, _kind: "deal" }));
   const intelItems = intel.filter((i) => !i.clo && matches(i)).map((i) => ({ ...i, _kind: "intel" }));
-  // CLO activity for followed managers/funds is carved into its own section.
+  // CLO activity for followed managers/funds is merged into the combined feed.
   const cloItems = [
     ...deals.filter((d) => d.clo && matches(d)).map((d) => ({ ...d, _kind: "deal" })),
     ...intel.filter((i) => i.clo && matches(i)).map((i) => ({ ...i, _kind: "intel" })),
@@ -1537,7 +1537,7 @@ function viewWatchlist() {
       newsItems.push({ ...x, _kind: "news", _mid: m.id, _mname: m.name });
     });
   });
-  const feed = [...newsItems, ...dealItems, ...intelItems];
+  const feed = [...newsItems, ...dealItems, ...intelItems, ...cloItems];
   const feedRow = (x) => x._kind === "deal" ? dealRow(x)
     : x._kind === "intel" ? intelRow(x)
     : `<div class="intel-row"><div class="intel-meta"><span class="chip">News</span><span class="muted small">${fmtDate(x.date)}</span></div><div class="intel-body"><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a><div>${link(`#/manager/${x._mid}`, x._mname, "muted small")}${x.outlet ? ` · <span class="muted small">${esc(x.outlet)}</span>` : ""}</div></div></div>`;
@@ -1567,8 +1567,7 @@ function viewWatchlist() {
       ${listCard("Investors", fl, "lp", (l) => `${link(`#/lp/${l.id}`, l.name)} <span class="muted small">${esc(l.type)}</span>`)}
     </div>
     <div id="wl-panel" class="wl-panel" hidden></div>
-    <section class="card"><h2>News, deals &amp; fundraising <span class="muted">(${feed.length})</span></h2>${feed.length ? feedHtml(feed, "watchlist", feedRow, wlSig) : '<p class="muted small">No news, deals or fundraising yet for the managers/funds you follow.</p>'}</section>
-    ${cloItems.length ? `<section class="card"><h2>CLO activity <span class="muted">(${cloItems.length})</span></h2><p class="muted small">Collateralised loan obligation activity for the managers/funds you follow. <a href="#/clos">All CLO activity →</a></p>${feedHtml(cloItems, "watchlist-clo", feedRow, wlSig)}</section>` : ""}`;
+    <section class="card"><h2>News, deals, fundraising &amp; CLOs <span class="muted">(${feed.length})</span></h2>${feed.length ? feedHtml(feed, "watchlist", feedRow, wlSig) : '<p class="muted small">No news, deals or fundraising yet for the managers/funds you follow.</p>'}</section>`;
 
   // Mobile only: the three tiles stay on one line and the open one's content is
   // rendered into the full-width panel below the row (one open at a time). On
