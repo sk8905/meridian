@@ -65,6 +65,9 @@ h3 { font-size: 1rem; margin: 0; }
 @media (min-width: 1101px) {
   .topbar-inner { padding-left: max(11rem, calc((100% - min(100%, 1500px)) / 2 + 2rem)); }
   .topbar-inner .brand { position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); }
+  /* Let the nav fill the row so the Watchlist tab can sit at the right margin. */
+  .mainnav { flex: 1 1 auto; }
+  .nav-link.nav-right { margin-left: auto; }
 }
 .nav-link {
   color: #cbd5e1; padding: .5rem .85rem; border-radius: 6px; font-weight: 500;

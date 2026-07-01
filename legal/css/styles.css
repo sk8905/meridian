@@ -77,6 +77,9 @@ img, svg { max-width: 100%; }
 @media (min-width: 1101px) {
   .topbar-inner { padding-left: max(11rem, calc((100% - min(100%, var(--maxw))) / 2 + 2rem)); }
   .topbar-inner .brand { position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); }
+  /* Let the nav fill the row so the Saved tab can sit at the right margin. */
+  .mainnav { flex: 1 1 auto; }
+  .nav-link.nav-right { margin-left: auto; }
 }
 .nav-link { color: #cbd5e1; padding: .5rem .85rem; border-radius: 6px; font-weight: 500; white-space: nowrap; }
 .nav-link:hover, .nav-link:focus-visible { color: #fff; text-decoration: none; background: rgba(255,255,255,.08); }
