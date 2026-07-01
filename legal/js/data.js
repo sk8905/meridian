@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-07-01";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — two runs a day (~06:00 / ~12:00).
-export const LAST_CHECKED_TIME = "05:16 BST";
+export const LAST_CHECKED_TIME = "06:24 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -5162,6 +5162,21 @@ export const items = [
       "Next step is the European Parliament settling its own position before trilogue discussions, expected to start late 2026",
     ],
     tags: ["SFDR", "SFDR 2.0", "sustainable finance", "AIFMD", "funds regulation", "ESG", "EU"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.traverssmith.com/knowledge/knowledge-container/crisis-management-and-investigations-circular-issue-2-june-2026/",
+    id: "u580", title: "Crisis Management and Investigations Circular – Issue 2 - June 2026",
+    area: "ri", areas: ["ri", "corporate"], type: "update", firm: "traverssmith",
+    date: "2026-06-30", jurisdiction: "United Kingdom",
+    summary: "The second edition of Travers Smith's Crisis Management and Investigations Circular covers the Crime and Policing Act 2026's expansion of corporate criminal liability, the Government's new Anti-Corruption Strategy, the SFO's 2026-27 Business Plan and first DPA in four years, the CMA's growing use of AI in enforcement, a product-recalls Q&A, and employment developments relevant to crisis teams.",
+    points: [
+      "From 29 June 2026, Crime and Policing Act 2026 s.250 extends the 'senior manager' identification doctrine for corporate criminal liability to all offences, beyond ECCTA 2023's economic-crime-only scope",
+      "Organisations should map who qualifies as a 'senior manager', speed up internal investigations, and reassess self-reporting/DPA strategy",
+      "Also covers the SFO's 2026-27 Business Plan, its first DPA in four years, and the Government's new Anti-Corruption Strategy",
+      "Notes the CMA's growing use of AI in enforcement and covers product-recall obligations and employment-law crisis-response considerations",
+    ],
+    tags: ["corporate criminal liability", "Crime and Policing Act 2026", "SFO", "DPA", "CMA enforcement", "investigations", "ECCTA"],
     dateEstimated: false,
   },
 ];
