@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260701-19";
+} from "./data.js?v=20260701-20";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260701-19";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260701-20";
 
 const app = document.getElementById("app");
 
@@ -36,10 +36,6 @@ const fundQuarter = (f) => {
   return m ? `${m[1]}-Q${Math.floor((+m[2] - 1) / 3) + 1}` : null;
 };
 const isClose = (f) => f.status === "Final Close" || f.status === "First Close";
-// Some tracked managers run equity strategies, not credit. Their funds/news are
-// included but clearly flagged, and kept out of the credit-specific aggregates.
-const isEquity = (x) => x.assetClass === "Equity";
-const equityBadge = (x) => isEquity(x) ? '<span class="chip eq-badge" title="Equity strategy — not private credit">Equity · not credit</span>' : "";
 
 // Indicative NET target IRR ranges by strategy — market-typical conventions, NOT
 // a specific fund's disclosed target. Used only where a fund discloses no target.
@@ -502,7 +498,7 @@ function viewDashboard() {
   // tracked and listed elsewhere but excluded from private-credit market stats).
   // The Target-focus toggle narrows every aggregate/feed below to managers in the
   // €1–10bn AUM band.
-  const creditFunds = funds.filter((f) => !isEquity(f) && (!targetFocus || midInFocus(f.managerId)));
+  const creditFunds = funds.filter((f) => !targetFocus || midInFocus(f.managerId));
   const nowD = new Date();
   const curQ = `${nowD.getFullYear()}-Q${Math.floor(nowD.getMonth() / 3) + 1}`;
   const quarterOf = (d) => { const m = /^(\d{4})-(\d{2})/.exec(d || ""); return m ? `${m[1]}-Q${Math.floor((+m[2] - 1) / 3) + 1}` : null; };
@@ -652,7 +648,7 @@ function fundTable(rows, key, sig) {
           <td>${link(`#/manager/${x.managerId}`, managerById[x.managerId].name)}</td>
           <td>${chip(x.strategy)}</td>
           <td>${esc(x.geoFocus)}</td>
-          <td>${fundStatusChip(x)} ${lifecycleBadge(x)} ${equityBadge(x)}</td>
+          <td>${fundStatusChip(x)} ${lifecycleBadge(x)}</td>
           <td>${x.evergreen ? "—" : eur(x.targetSize)}</td>
           <td class="prog-col">${raiseDisplay(x)}</td>
         </tr>`).join("")}
@@ -829,7 +825,7 @@ function viewFund(id) {
       <div>
         <h1>${nameCell("fund", x.id, esc(x.name))}</h1>
         <p class="muted">${link(`#/manager/${m.id}`, m.name)} · ${esc(x.domicile)} · Vintage ${x.vintage}</p>
-        <div>${chip(x.strategy)} ${fundStatusChip(x)} ${lifecycleBadge(x)} ${equityBadge(x)} ${chip(x.geoFocus)}</div>
+        <div>${chip(x.strategy)} ${fundStatusChip(x)} ${lifecycleBadge(x)} ${chip(x.geoFocus)}</div>
         <p class="muted small data-asof">Data as of ${esc(x.asOf || "—")} · ${completenessPill(x)}</p>
       </div>
     </div>
@@ -1110,7 +1106,7 @@ function viewManager(id) {
         <thead><tr><th>Fund</th><th>Strategy</th><th>Geography</th><th>Vintage</th><th>Status</th><th>Target</th><th class="prog-col">Progress</th></tr></thead>
         <tbody>${p.shown.map((x) => `<tr class="clickable" data-href="#/fund/${x.id}">
           <td>${nameCell("fund", x.id, `<strong>${esc(x.name)}</strong>`)}</td><td>${chip(x.strategy)}</td><td>${esc(x.geoFocus)}</td><td>${x.vintage}</td>
-          <td>${fundStatusChip(x)} ${lifecycleBadge(x)} ${equityBadge(x)}</td><td>${x.evergreen ? "—" : eur(x.targetSize)}</td>
+          <td>${fundStatusChip(x)} ${lifecycleBadge(x)}</td><td>${x.evergreen ? "—" : eur(x.targetSize)}</td>
           <td class="prog-col">${raiseDisplay(x)}</td>
         </tr>`).join("")}</tbody>
       </table></div>${p.more}`; })()
@@ -1266,7 +1262,7 @@ function viewIntel() {
   ).sort((a, b) => String(b.date).localeCompare(String(a.date))); // newest first
 
   // ---- fundraising charts (moved here from the dashboard) ----
-  const creditFunds = funds.filter((x) => !isEquity(x));
+  const creditFunds = funds;
   const bnRaised = (list) => Math.round(list.reduce((a, x) => a + (x.raised || 0), 0) / 100) / 10;
   const byStrategy = STRATEGIES.map((s) => ({ label: s, value: bnRaised(creditFunds.filter((x) => x.strategy === s)), nav: { jump: "funds", strategy: s } })).filter((d) => d.value > 0).sort((a, b) => b.value - a.value);
   const seeking = (x) => !x.evergreen && !x.lifecycle && (x.status === "Open" || x.status === "First Close" || x.status === "Pre-marketing");

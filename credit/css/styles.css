@@ -233,7 +233,6 @@ h3 { font-size: 1rem; margin: 0; }
 .dt-acq{ background:#f3e8ff; color:#6b21a8; }
 .dt-npl{ background:#ffe4e6; color:#9f1239; }
 .dt-cv{ background:#e0e7ff; color:#3730a3; }
-.eq-badge{ background:#fef3c7; color:#92400e; border-color:#fde68a; }
 
 h3.sub { font-size: .82rem; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin: .9rem 0 .35rem; }
 h3.sub:first-of-type { margin-top: .2rem; }
