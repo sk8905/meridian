@@ -204,20 +204,27 @@ h3 { font-size: 1rem; margin: 0; }
 }
 
 /* ---------- KPIs ---------- */
-/* Key rates & credit spreads band (static, from /api/rates over FRED). */
-.rates-band { display: flex; flex-wrap: wrap; align-items: stretch; gap: .5rem; margin: 0 0 1rem;
-  min-height: 44px; padding: .5rem .75rem; border: 1px solid var(--border); border-radius: var(--radius);
+/* Key rates & credit spreads band (static, from /api/rates over FRED + ECB).
+   A fixed grid so every tile lines up in columns — 6 across on desktop, 3 on
+   mobile — with the source line spanning the full width beneath. */
+.rates-band { display: grid; grid-template-columns: repeat(6, 1fr); align-items: stretch;
+  margin: 0 0 1rem; padding: .55rem .35rem; border: 1px solid var(--border); border-radius: var(--radius);
   background: var(--surface); box-shadow: var(--shadow); }
-.rate-tile { display: flex; flex-direction: column; gap: .05rem; padding: 0 .9rem; flex: 0 0 auto;
-  border-right: 1px solid var(--border); justify-content: center; }
-.rate-tile:last-of-type { border-right: none; }
-.rate-label { text-transform: uppercase; letter-spacing: .4px; font-size: .68rem; }
-.rate-val { font-weight: 700; font-size: .95rem; color: var(--ink); }
+.rate-tile { display: flex; flex-direction: column; gap: .12rem; padding: .1rem 1rem;
+  border-left: 1px solid var(--border); }
+.rate-tile:nth-child(6n+1) { border-left: none; }
+.rate-label { text-transform: uppercase; letter-spacing: .4px; font-size: .68rem; white-space: nowrap; }
+.rate-val { font-weight: 700; font-size: 1rem; color: var(--ink); line-height: 1.2; }
 .rate-chg { font-size: .72rem; font-weight: 600; }
 .rate-chg.up { color: #059669; }
 .rate-chg.down { color: #dc2626; }
 .rate-chg.flat { color: var(--muted); }
-.rate-src { margin-left: auto; align-self: center; }
+.rate-src { grid-column: 1 / -1; justify-self: end; margin-top: .3rem; padding: 0 1rem; }
+@media (max-width: 760px) {
+  .rates-band { grid-template-columns: repeat(3, 1fr); row-gap: .55rem; }
+  .rate-tile:nth-child(6n+1) { border-left: 1px solid var(--border); }
+  .rate-tile:nth-child(3n+1) { border-left: none; }
+}
 .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
 .kpi-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--primary);
   border-radius: var(--radius); padding: 1rem 1.1rem; box-shadow: var(--shadow); }

@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260701-26";
+} from "./data.js?v=20260701-27";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260701-26";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260701-27";
 
 const app = document.getElementById("app");
 
@@ -505,7 +505,7 @@ function fmtRate(v, unit) {
 }
 function ratesTile(x) {
   const val = fmtRate(x.value, x.unit);
-  let chg = "";
+  let chg = '<span class="rate-chg flat">·</span>';
   if (x.change != null && x.value != null) {
     const c = x.unit === "bp" ? Math.round(x.change * 100) : +x.change.toFixed(2);
     const dir = c > 0 ? "up" : c < 0 ? "down" : "flat";
@@ -518,7 +518,7 @@ function ratesTile(x) {
 }
 function renderRates(el, rows) {
   el.innerHTML = rows.map(ratesTile).join("") +
-    '<a class="rate-src muted small" href="https://fred.stlouisfed.org/" target="_blank" rel="noopener noreferrer">FRED ↗</a>';
+    '<a class="rate-src muted small" href="https://fred.stlouisfed.org/" target="_blank" rel="noopener noreferrer">Source: FRED · ECB ↗</a>';
 }
 function mountRatesBand() {
   const el = document.getElementById("rates-band");
