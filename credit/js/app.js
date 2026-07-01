@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260701-3";
+} from "./data.js?v=20260701-4";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260701-3";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260701-4";
 
 const app = document.getElementById("app");
 
@@ -335,7 +335,7 @@ function investorsForFund(f) {
 // Dropdown filters hold ARRAYS of selected values (multi-select). An empty
 // array means "All". `period` stays a single string (chart drill-down).
 const filterState = {
-  funds: { q: "", strategy: [], status: [], geo: [], period: "", sort: { key: "name", dir: "asc" } },
+  funds: { q: "", strategy: [], status: [], geo: [], period: "", sort: { key: "status", dir: "asc" } },
   managers: { q: "", strategy: [], location: [], sort: { key: "name", dir: "asc" } },
   lps: { q: "", type: [], strategy: [], sort: { key: "name", dir: "asc" } },
   intel: { q: "", type: [], year: [] },
@@ -415,7 +415,7 @@ const SORT_COLUMNS = {
     manager: { type: "txt", get: (x) => managerById[x.managerId].name },
     strategy: { type: "txt", get: (x) => x.strategy },
     geo: { type: "txt", get: (x) => x.geoFocus },
-    status: { type: "txt", get: (x) => fundCategory(x) },
+    status: { type: "num", get: (x) => FUND_CATEGORIES.indexOf(fundCategory(x)) },
     target: { type: "num", get: (x) => (x.evergreen ? null : x.targetSize) },
     progress: { type: "num", get: (x) => x.raised },
   },
@@ -611,16 +611,12 @@ function viewFunds() {
     (!f.period || (isClose(x) && fundQuarter(x) === f.period))
   ).sort((a, b) => a.name.localeCompare(b.name));
 
-  // Group by category: Open / First Close / Final Close / Evergreen / Pre-marketing.
-  // Evergreen funds are open-ended, so they sit in their own category, not "Open".
-  const sections = FUND_CATEGORIES
-    .map((st) => ({ st, items: rows.filter((x) => fundCategory(x) === st) }))
-    .filter((s) => s.items.length);
-  const body = sections.length
-    ? sections.map((s) => `<section class="fund-section">
-        <h2 class="section-head">${esc(s.st)} <span class="chip ${statusClass(s.st)}">${s.items.length}</span></h2>
-        ${fundTable(s.items, "funds:" + s.st, JSON.stringify(f))}
-      </section>`).join("")
+  // A single table (like the Managers/Investors tabs), ordered by status so the
+  // funds stay grouped by Open / First Close / Final Close / Evergreen /
+  // Pre-marketing (the Status column shows each fund's status; the Status filter
+  // narrows it) rather than being split into separate section tables.
+  const body = rows.length
+    ? fundTable(rows, "funds", JSON.stringify(f))
     : '<p class="empty">No funds match these filters.</p>';
 
   const periodBanner = f.period
@@ -870,7 +866,7 @@ function viewManagers() {
       ${multiFilter("managers:location", "Location", LOCATIONS, f.location)}
     </div>
     <div class="table-wrap"><table class="data-table">
-      <thead><tr>${sortTh("managers", "name", "Manager")}${sortTh("managers", "hq", "HQ")}${sortTh("managers", "aum", "AUM")}<th>Strategies</th>${sortTh("managers", "funds", "Funds")}${sortTh("managers", "live", "In&nbsp;mkt")}</tr></thead>
+      <thead><tr>${sortTh("managers", "name", "Manager")}${sortTh("managers", "hq", "HQ")}${sortTh("managers", "aum", "AUM")}<th>Strategies</th>${sortTh("managers", "funds", "Funds")}${sortTh("managers", "live", "In market")}</tr></thead>
       <tbody>
         ${shown.map((m) => {
           const fs = fundsByManager(m.id);

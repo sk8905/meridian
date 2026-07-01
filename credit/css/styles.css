@@ -346,6 +346,9 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .data-table tbody tr.clickable { cursor: pointer; }
 .data-table tbody tr.clickable:hover { background: #f8fafc; }
 .prog-col { min-width: 190px; }
+/* Keep the leading name column a consistent width so the Managers, Funds and
+   Investors tables read consistently while still stretching to full width. */
+.data-table th:first-child, .data-table td:first-child { width: 28%; }
 .empty { text-align: center; color: var(--muted); padding: 2rem 0; }
 
 /* ---------- progress ---------- */
