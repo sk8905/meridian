@@ -207,6 +207,25 @@ img, svg { max-width: 100%; }
 .kpi.accent { border-left-color: var(--accent); }
 .kpi.accent .kpi-num { color: var(--accent); }
 
+/* Collapsible "Key metrics" toggle — a plain text button (no card). On desktop
+   the block is rendered open (the `open` attribute is set in JS) and the summary
+   is hidden, so the tiles are always shown and can't be collapsed. On phones the
+   summary stays and the tiles collapse by default to save space. */
+.rk-toggle { margin: 0 0 1.25rem; }
+.rk-toggle > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: .45rem;
+  width: fit-content; font-weight: 700; font-size: .95rem; color: var(--muted); padding: .15rem .1rem; }
+.rk-toggle > summary::-webkit-details-marker { display: none; }
+.rk-toggle > summary:hover { text-decoration: underline; }
+.rk-caret { width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+  transform: rotate(45deg); margin-bottom: 3px; transition: transform .15s; }
+.rk-toggle[open] .rk-caret { transform: rotate(-135deg); margin-bottom: -2px; }
+.rk-toggle-body { margin-top: .8rem; }
+.rk-toggle-body .kpis { margin-bottom: 0; }
+@media (min-width: 761px) {
+  .rk-toggle > summary { display: none; }
+  .rk-toggle-body { margin-top: 0; }
+}
+
 /* ---- Dashboard two-column lists ---- */
 .dash-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
 .feed-card { display: flex; flex-direction: column; }

@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
-} from "./data.js?v=20260702-4";
-import { donutChart, columnChart } from "./charts.js?v=20260702-4";
+} from "./data.js?v=20260702-5";
+import { donutChart, columnChart } from "./charts.js?v=20260702-5";
 
 const app = document.getElementById("app");
 
@@ -337,7 +337,12 @@ function viewDashboard() {
       <p class="muted">English-law updates curated from UK Magic Circle, Silver Circle and US-elite London firms, plus recent BAILII judgments</p>
     </section>
 
-    <section class="kpis kpis-5" aria-label="Alerts this year by practice area">${tiles}</section>
+    <details class="rk-toggle"${window.matchMedia(MOBILE_Q).matches ? "" : " open"}>
+      <summary class="rk-toggle-head">Key metrics <span class="rk-caret" aria-hidden="true"></span></summary>
+      <div class="rk-toggle-body">
+        <section class="kpis kpis-5" aria-label="Alerts this year by practice area">${tiles}</section>
+      </div>
+    </details>
 
     <div class="grid-3">
       <section class="card feature-card">

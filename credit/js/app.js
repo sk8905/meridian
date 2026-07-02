@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260702-9";
+} from "./data.js?v=20260702-10";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260702-9";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260702-10";
 
 const app = document.getElementById("app");
 
@@ -588,10 +588,10 @@ function viewDashboard() {
       <p class="muted">European private credit deal flow &amp; market intelligence, with fundraising as a secondary lens · real data compiled from public sources (mid-2026)</p>
       ${focusToggle()}
     </div>
+    <div id="rates-band" class="rates-band" aria-label="Key rates &amp; credit spreads"></div>
     <details class="rk-toggle"${window.matchMedia(MOBILE_Q).matches ? "" : " open"}>
-      <summary class="rk-toggle-head">Key rates &amp; metrics <span class="rk-caret" aria-hidden="true"></span></summary>
+      <summary class="rk-toggle-head">Key metrics <span class="rk-caret" aria-hidden="true"></span></summary>
       <div class="rk-toggle-body">
-        <div id="rates-band" class="rates-band" aria-label="Key rates &amp; credit spreads"></div>
         <div class="kpi-grid">${kpis.map((k) => `<div class="kpi-card clickable" ${k.jump}><div class="kpi-value">${k.value}</div><div class="kpi-label">${k.label}</div><div class="kpi-sub muted">${k.sub}</div></div>`).join("")}</div>
       </div>
     </details>
