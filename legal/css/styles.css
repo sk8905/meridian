@@ -77,11 +77,10 @@ img, svg { max-width: 100%; }
 @media (min-width: 1101px) {
   .topbar-inner { padding-left: max(11rem, calc((100% - min(100%, var(--maxw))) / 2 + 2rem)); padding-right: calc((100% - min(100%, var(--maxw))) / 2 + 2rem); }
   .topbar-inner .brand { position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); }
-  /* Let the nav fill the row so the Saved tab can sit at the right margin.
-     The bell is pinned out of flow (below); reserve its old footprint (34px
-     button + the 2rem row gap) here so pulling it out doesn't let the nav grow
-     and nudge the Saved tab — only the bell moves, everything else stays. */
-  .mainnav { flex: 1 1 auto; margin-right: calc(2rem + 34px); }
+  /* Let the nav fill the row so the Saved tab sits at the content's right margin
+     (aligned with the page container's edge below). The bell + signed-in block
+     are pinned out of flow in the corner (below), beyond that margin. */
+  .mainnav { flex: 1 1 auto; }
   .nav-link.nav-right { margin-left: auto; }
   /* Pin the signed-in identity, refresh status and bell to the far-right corner
      (out of flow, mirroring the logo on the left) so the Saved tab can align
