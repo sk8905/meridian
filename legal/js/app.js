@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
-} from "./data.js?v=20260702-9";
-import { donutChart, columnChart } from "./charts.js?v=20260702-9";
+} from "./data.js?v=20260702-10";
+import { donutChart, columnChart } from "./charts.js?v=20260702-10";
 
 const app = document.getElementById("app");
 
@@ -803,8 +803,7 @@ function viewRestructurings() {
     <div class="list-head">
       <h1>Schemes and RPs</h1>
       <p class="muted">English-law restructuring plans (Companies Act 2006 <strong>Part 26A</strong>) and
-        distressed schemes of arrangement (<strong>Part 26</strong>) before the court since 2020 — company,
-        debt, largest creditors, key features, the company's advisers, a tracked-firm analysis and the judgment.</p>
+        distressed schemes of arrangement (<strong>Part 26</strong>) before the court since 2020.</p>
     </div>
     <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label>
     <div class="filters" aria-label="Filters">
