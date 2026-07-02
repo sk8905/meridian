@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
-} from "./data.js?v=20260702-10";
-import { donutChart, columnChart } from "./charts.js?v=20260702-10";
+} from "./data.js?v=20260702-11";
+import { donutChart, columnChart } from "./charts.js?v=20260702-11";
 
 const app = document.getElementById("app");
 
@@ -454,7 +454,6 @@ function viewList() {
       ${multiFilter("list:types", "Type", updateTypes.map((t) => ({ value: t.id, label: t.name })), filterState.types)}
       ${multiFilter("list:firms", "Firm", firms.map((f) => ({ value: f.id, label: f.name })), filterState.firms)}
     </div>
-    <div id="result-count" class="result-count" aria-live="polite"></div>
     <section class="card"><div id="results" class="feed"></div></section>
   `;
 
@@ -517,7 +516,6 @@ function rxMatchesFilters(r) {
 
 function renderResults() {
   const results = document.getElementById("results");
-  const countEl = document.getElementById("result-count");
   if (!results) return;
   let rows = items.filter(matchesFilters).map((it) => ({ ...it, _kind: "item" }));
   // In the "Saved" view, also surface saved case-law judgments and saved
@@ -530,7 +528,6 @@ function renderResults() {
   rows.sort(byDateDesc);
   const n = rows.length;
   const noun = filterState.saved ? "saved item" : "update";
-  countEl.textContent = `${n} ${noun}${n === 1 ? "" : "s"}`;
   const sig = JSON.stringify([filterState.areas, filterState.tiers, filterState.types, filterState.firms, filterState.years, filterState.months, filterState.q, filterState.saved]);
   results.innerHTML = n
     ? feedHtml(rows, "alerts", (x) => (x._kind === "case" ? caseRow(x) : x._kind === "rx" ? rxRow(x) : itemRow(x)), sig)
@@ -572,7 +569,6 @@ function viewCases() {
       ${multiFilter("cases:years", "Year", years.map((y) => ({ value: y, label: y })), caseFilter.years)}
       ${multiFilter("cases:courts", "Court", courts.map((ct) => ({ value: ct, label: ct })), caseFilter.courts)}
     </div>
-    <div id="case-count" class="result-count" aria-live="polite"></div>
     <section class="card"><div id="case-results" class="feed"></div></section>
   `;
 
@@ -604,7 +600,6 @@ function focusCaseRow(id) {
 
 function renderCaseResults() {
   const el = document.getElementById("case-results");
-  const countEl = document.getElementById("case-count");
   if (!el) return;
   const matched = cases.filter((c) => {
     if (caseFilter.areas.length && !caseFilter.areas.includes(c.area)) return false;
@@ -616,7 +611,6 @@ function renderCaseResults() {
     }
     return true;
   }).sort(byDateDesc);
-  countEl.textContent = `${matched.length} case${matched.length === 1 ? "" : "s"}`;
   el.innerHTML = matched.length ? feedHtml(matched, "cases", caseRow, JSON.stringify(caseFilter)) : `<div class="empty">No cases match these filters.</div>`;
 }
 
@@ -815,7 +809,6 @@ function viewRestructurings() {
       ${multiFilter("rx:outcomes", "Outcome", outcomes.map((o) => ({ value: o, label: o })), rxFilter.outcomes)}
       ${multiFilter("rx:years", "Year", years.map((y) => ({ value: y, label: y })), rxFilter.years)}
     </div>
-    <div id="rx-count" class="result-count" aria-live="polite"></div>
     <section class="card"><div id="rx-results" class="feed"></div></section>`;
 
   const search = app.querySelector("#rx-search");
@@ -830,7 +823,6 @@ function viewRestructurings() {
 
 function renderRxResults() {
   const el = document.getElementById("rx-results");
-  const countEl = document.getElementById("rx-count");
   if (!el) return;
   const matched = restructurings.filter((r) => {
     if (rxFilter.types.length && !rxFilter.types.includes(r.type)) return false;
@@ -843,9 +835,6 @@ function renderRxResults() {
     }
     return true;
   }).sort(byDateDesc);
-  const plans = matched.filter((r) => r.type === "plan").length;
-  const schemes = matched.filter((r) => r.type === "scheme").length;
-  countEl.textContent = `${matched.length} matter${matched.length !== 1 ? "s" : ""} · ${plans} plan${plans !== 1 ? "s" : ""}, ${schemes} scheme${schemes !== 1 ? "s" : ""}`;
   el.innerHTML = matched.length ? feedHtml(matched, "rx", rxRow, JSON.stringify(rxFilter)) : '<p class="empty">No matters match these filters.</p>';
 }
 

@@ -318,7 +318,17 @@ export default {
       const dest = to.startsWith("/") ? to : "/";
       return Response.redirect(new URL(dest, url.origin).toString(), 302);
     }
-    // Everything else: serve the static site.
-    return env.ASSETS.fetch(request);
+    // Everything else: serve the static site. Force HTML documents to always
+    // revalidate (ETag-based, so unchanged HTML is a cheap 304) so a fresh
+    // deploy's index.html — and the bumped ?v= asset references it carries — is
+    // picked up immediately, without waiting on a stale browser/edge HTML cache.
+    // Fingerprinted JS/CSS/data keep their own long cache via the ?v= tokens.
+    const res = await env.ASSETS.fetch(request);
+    if ((res.headers.get("content-type") || "").includes("text/html")) {
+      const headers = new Headers(res.headers);
+      headers.set("cache-control", "public, max-age=0, must-revalidate");
+      return new Response(res.body, { status: res.status, statusText: res.statusText, headers });
+    }
+    return res;
   },
 };
