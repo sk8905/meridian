@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260702-12";
+} from "./data.js?v=20260702-13";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260702-12";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260702-13";
 
 const app = document.getElementById("app");
 
@@ -1431,7 +1431,7 @@ function quarterTrend(id, title, desc, counts, state, jump) {
   let y = nowD.getFullYear(), qr = Math.floor(nowD.getMonth() / 3) + 1;
   const quarters = [];
   for (let i = 0; i < 40; i++) { quarters.unshift(`${y}-Q${qr}`); qr--; if (qr < 1) { qr = 4; y--; } }
-  const NQ = quarters.length, W = 640, H = 240;
+  const NQ = quarters.length, W = 1140, H = 260;
   const build = (a, b) => {
     const win = quarters.slice(a, b + 1);
     const lab = win.length <= 16 ? (q) => "'" + q.slice(2) : (q) => (q.endsWith("Q1") ? "'" + q.slice(2, 4) : "");
@@ -1524,7 +1524,7 @@ function viewTrends() {
       <h2 class="trend-cat">Deals</h2>
       ${dealTrend.html}
       <div class="trend-grid">
-        <section class="card"><h2>Most active managers <span class="muted">(by deal count)</span></h2>${byDealManager.length ? barChart(byDealManager, { width: 520 }) : '<p class="muted small">No deals tracked.</p>'}</section>
+        <section class="card"><h2>Most active managers <span class="muted">(by deal count)</span></h2>${byDealManager.length ? barChart(byDealManager, { width: 560 }) : '<p class="muted small">No deals tracked.</p>'}</section>
         <section class="card"><h2>Deals by type</h2>${byDealType.length ? donutChart(byDealType) : '<p class="muted small">No deals tracked.</p>'}</section>
       </div>
     </section>
@@ -1532,19 +1532,19 @@ function viewTrends() {
     <section class="trend-section">
       <h2 class="trend-cat">Fundraising</h2>
       <div class="trend-grid">
-        <section class="card"><h2>Capital raised by strategy <span class="muted">(€bn)</span></h2>${byStrategy.length ? barChart(byStrategy, { unit: "€", width: 520 }) : '<p class="muted small">No data.</p>'}</section>
-        <section class="card"><h2>Capital sought by strategy <span class="muted">(€bn · disclosed targets, funds in market)</span></h2>${bySought.length ? barChart(bySought, { unit: "€", width: 520 }) : '<p class="muted small">No disclosed target sizes for funds currently in market.</p>'}</section>
-        <section class="card"><h2>Capital raised by geography <span class="muted">(€bn)</span></h2>${byGeo.length ? barChart(byGeo, { unit: "€", width: 520 }) : '<p class="muted small">No data.</p>'}</section>
+        <section class="card"><h2>Capital raised by strategy <span class="muted">(€bn)</span></h2>${byStrategy.length ? barChart(byStrategy, { unit: "€", width: 560 }) : '<p class="muted small">No data.</p>'}</section>
+        <section class="card"><h2>Capital sought by strategy <span class="muted">(€bn · disclosed targets, funds in market)</span></h2>${bySought.length ? barChart(bySought, { unit: "€", width: 560 }) : '<p class="muted small">No disclosed target sizes for funds currently in market.</p>'}</section>
+        <section class="card"><h2>Capital raised by geography <span class="muted">(€bn)</span></h2>${byGeo.length ? barChart(byGeo, { unit: "€", width: 560 }) : '<p class="muted small">No data.</p>'}</section>
         <section class="card"><h2>Funds by status</h2>${donutChart(byStatus)}</section>
       </div>
-      <section class="card trend-wide"><h2>Fundraising momentum <span class="muted">(closes / quarter · past 5 years)</span></h2><p class="muted small">Click a quarter to see the funds that reached a first/final close in it.</p>${lineChart(fundTrend, { width: 640, height: 220 })}</section>
+      <section class="card trend-wide"><h2>Fundraising momentum <span class="muted">(closes / quarter · past 5 years)</span></h2><p class="muted small">Click a quarter to see the funds that reached a first/final close in it.</p>${lineChart(fundTrend, { width: 1140, height: 260 })}</section>
     </section>
 
     <section class="trend-section">
       <h2 class="trend-cat">CLOs</h2>
       ${cloTrend.html}
       <div class="trend-grid">
-        ${byCloMgr.length ? `<section class="card"><h2>Most active CLO managers</h2>${barChart(byCloMgr, { width: 520 })}</section>` : ""}
+        ${byCloMgr.length ? `<section class="card"><h2>Most active CLO managers</h2>${barChart(byCloMgr, { width: 560 })}</section>` : ""}
       </div>
     </section>`;
 

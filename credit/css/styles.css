@@ -476,10 +476,12 @@ a.intel-head:hover { color: var(--primary); }
 /* ---------- Trends page ---------- */
 .trend-section { margin: 0 0 2.25rem; }
 .trend-cat { font-size: 1.15rem; margin: 0 0 .85rem; padding-bottom: .4rem; border-bottom: 2px solid var(--border); color: var(--ink); }
-.trend-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 1rem; margin-bottom: 1rem; align-items: start; }
-/* Keep bar charts readable — don't let a chart alone in a full-width row blow up. */
-.trend-grid .card .chart { max-width: 620px; }
+/* Fixed two-up grid so every card is the same width — bar charts then scale by
+   the same factor as the full-width line charts (whose viewBox is ~2× a bar's),
+   keeping label/value text a consistent size across the whole page. */
+.trend-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; align-items: start; }
 .trend-wide { margin-bottom: 1rem; }
+@media (max-width: 900px) { .trend-grid { grid-template-columns: 1fr; } }
 .chart-axis { font-size: 10px; fill: var(--muted); }
 .chart-grid { stroke: #eef2f7; stroke-width: 1; }
 .donut-wrap { display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap; }
