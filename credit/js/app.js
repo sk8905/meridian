@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260702-10";
+} from "./data.js?v=20260702-11";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260702-10";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260702-11";
 
 const app = document.getElementById("app");
 
@@ -1639,7 +1639,7 @@ function viewWatchlist() {
   }
   const wlSig = JSON.stringify([fm.map((x) => x.id), ff.map((x) => x.id)]);
   const listCard = (title, items, type, render) =>
-    `<details class="card wl-cat"><summary class="wl-cat-head"><h2>${title} <span class="muted">(${items.length})</span></h2><span class="wl-caret" aria-hidden="true"></span></summary><div class="wl-body">${items.length
+    `<details class="wl-cat"><summary class="wl-cat-head"><h2>${title} <span class="muted">(${items.length})</span></h2><span class="wl-caret" aria-hidden="true"></span></summary><div class="wl-body">${items.length
       ? `<ul class="link-list">${items.map((x) => `<li>${nameCell(type, x.id, render(x))}</li>`).join("")}</ul>`
       : '<p class="muted small">None followed.</p>'}</div></details>`;
   app.innerHTML = `
@@ -1652,21 +1652,20 @@ function viewWatchlist() {
     <div id="wl-panel" class="wl-panel" hidden></div>
     <section class="card"><h2>News, deals, fundraising &amp; CLOs <span class="muted">(${feed.length})</span></h2>${feed.length ? feedHtml(feed, "watchlist", feedRow, wlSig) : '<p class="muted small">No news, deals or fundraising yet for the managers/funds you follow.</p>'}</section>`;
 
-  // Mobile only: the three tiles stay on one line and the open one's content is
-  // rendered into the full-width panel below the row (one open at a time). On
-  // desktop the categories open independently in their own card (panel unused).
+  // Accordion (all viewports): only one category open at a time; the open one's
+  // followed names render into the full-width panel below the toggles, flowing
+  // across the available width. The in-cell body is hidden (see CSS).
   const cats = app.querySelectorAll(".wl-cat");
   const panel = document.getElementById("wl-panel");
-  const isMobile = () => window.matchMedia(MOBILE_Q).matches;
   const syncPanel = () => {
     if (!panel) return;
-    const open = isMobile() ? app.querySelector(".wl-cat[open]") : null;
+    const open = app.querySelector(".wl-cat[open]");
     const body = open && open.querySelector(".wl-body");
     if (body) { panel.innerHTML = body.innerHTML; panel.hidden = false; }
     else { panel.innerHTML = ""; panel.hidden = true; }
   };
   cats.forEach((d) => d.addEventListener("toggle", () => {
-    if (d.open && isMobile()) cats.forEach((o) => { if (o !== d) o.open = false; });
+    if (d.open) cats.forEach((o) => { if (o !== d) o.open = false; });
     syncPanel();
   }));
   syncPanel();
