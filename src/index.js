@@ -198,18 +198,33 @@ async function handleRates(request, env, ctx) {
   // Only the last ~60 days, so each FRED CSV is small and fast.
   const cosd = new Date(Date.now() - 60 * 864e5).toISOString().slice(0, 10);
 
-  // /api/rates?debug=1 — probe each upstream directly and report the HTTP status
-  // and a short response snippet, so an upstream block (e.g. FRED 403) is visible
-  // without guessing. Not cached; safe to leave in (no secrets, read-only).
-  if (url.searchParams.get("debug") === "1") {
-    const probes = await Promise.all(RATE_SERIES.map(async (s) => {
-      const u = seriesUrl(s, cosd);
+  // /api/rates?debug=1 — probe candidate upstream hosts directly and report the
+  // HTTP status + a short response snippet, so we can see which sources this Worker
+  // can actually reach (FRED's site returns Cloudflare 520 to Workers). Not cached;
+  // read-only, no secrets. ?debug=2 additionally probes no-key alternative sources.
+  if (url.searchParams.get("debug")) {
+    const y = cosd.slice(0, 4);
+    const probeUrls = [
+      ["ecb M EURIBOR", `https://data-api.ecb.europa.eu/service/data/FM/M.U2.EUR.RT.MM.EURIBOR3MD_.HSTA?lastNObservations=3&format=csvdata`],
+      ["FRED csv DGS10", `https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10&cosd=${cosd}`],
+    ];
+    if (url.searchParams.get("debug") === "2") {
+      probeUrls.push(
+        ["FRED api DGS10 (no key)", `https://api.stlouisfed.org/fred/series/observations?series_id=DGS10&file_type=json&sort_order=desc&limit=2`],
+        ["DBnomics A DGS10", `https://api.db.nomics.world/v22/series/FRED/DGS10?observations=1`],
+        ["DBnomics B DGS10", `https://api.db.nomics.world/v22/series?series_ids=FRED/DGS10&observations=1`],
+        ["DBnomics HY-OAS", `https://api.db.nomics.world/v22/series?series_ids=FRED/BAMLH0A0HYM2&observations=1`],
+        ["NYFed SOFR", `https://markets.newyorkfed.org/api/rates/secured/sofr/last/2.json`],
+        ["Treasury 10Y", `https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/${y}/all?type=daily_treasury_yield_curve&_format=csv`],
+      );
+    }
+    const probes = await Promise.all(probeUrls.map(async ([label, u]) => {
       try {
         const r = await fetch(u, { headers: fetchHeaders(u) });
         const body = await r.text();
-        return { label: s.label, src: s.src, status: r.status, ok: r.ok, len: body.length, snippet: body.slice(0, 180) };
+        return { label, status: r.status, ok: r.ok, len: body.length, snippet: body.slice(0, 200) };
       } catch (e) {
-        return { label: s.label, src: s.src, error: String(e && e.message || e) };
+        return { label, error: String(e && e.message || e) };
       }
     }));
     return new Response(JSON.stringify({ cosd, probes }, null, 2), {
