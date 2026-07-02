@@ -4,10 +4,15 @@
 // the prototype runs offline with no build step or CDN.
 // =============================================================================
 
+// Categorical palette — validated (CVD-safe, fixed order) for the few genuinely
+// categorical charts (donut slices). Bars/lines are single-series magnitude, so
+// they use ONE brand hue, not a per-item colour.
 const PALETTE = [
-  "#2563eb", "#0ea5e9", "#14b8a6", "#22c55e", "#84cc16",
-  "#eab308", "#f97316", "#ef4444", "#ec4899", "#8b5cf6",
+  "#2a78d6", "#1baf7a", "#eda100", "#008300",
+  "#4a3aa7", "#e34948", "#e87ba4", "#eb6834",
 ];
+const BRAND = "#2a78d6";     // single hue for bars & lines
+const OTHER = "#b4b2aa";     // neutral for a folded "Other" slice
 
 function esc(s) {
   return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -22,19 +27,19 @@ function navAttrs(nav) {
 
 // Horizontal bar chart. data: [{label, value, nav?}]
 export function barChart(data, { unit = "", width = 520 } = {}) {
-  const rowH = 30, gap = 10, left = 200, right = 70;
+  const rowH = 22, gap = 14, left = 200, right = 74;
   const max = Math.max(1, ...data.map((d) => d.value));
   const barW = width - left - right;
   const height = data.length * (rowH + gap) + gap;
   const rows = data.map((d, i) => {
     const y = gap + i * (rowH + gap);
-    const w = Math.max(2, (d.value / max) * barW);
-    const color = PALETTE[i % PALETTE.length];
+    const w = Math.max(3, (d.value / max) * barW);
     const inner = `
       <rect x="0" y="${y}" width="${width}" height="${rowH}" fill="transparent"/>
-      <text x="${left - 10}" y="${y + rowH / 2 + 4}" text-anchor="end" class="chart-label">${esc(d.label)}</text>
-      <rect x="${left}" y="${y}" width="${w}" height="${rowH}" rx="4" fill="${color}"><title>${esc(d.label)}: ${unit}${d.value.toLocaleString()}</title></rect>
-      <text x="${left + w + 8}" y="${y + rowH / 2 + 4}" class="chart-value">${unit}${d.value.toLocaleString()}</text>`;
+      <text x="${left - 12}" y="${y + rowH / 2 + 4}" text-anchor="end" class="chart-label">${esc(d.label)}</text>
+      <rect x="${left}" y="${y}" width="${barW}" height="${rowH}" rx="4" class="bar-track"/>
+      <rect x="${left}" y="${y}" width="${w}" height="${rowH}" rx="4" fill="${BRAND}"><title>${esc(d.label)}: ${unit}${d.value.toLocaleString()}</title></rect>
+      <text x="${left + w + 10}" y="${y + rowH / 2 + 4}" class="chart-value">${unit}${d.value.toLocaleString()}</text>`;
     return d.nav ? `<g class="bar-row clickable" ${navAttrs(d.nav)}>${inner}</g>` : `<g>${inner}</g>`;
   }).join("");
   return `<svg viewBox="0 0 ${width} ${height}" class="chart" role="img">${rows}</svg>`;
@@ -55,12 +60,12 @@ export function donutChart(data, { size = 220 } = {}) {
     const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
     const xi1 = cx + inner * Math.cos(a1), yi1 = cy + inner * Math.sin(a1);
     const xi0 = cx + inner * Math.cos(a0), yi0 = cy + inner * Math.sin(a0);
-    const color = PALETTE[i % PALETTE.length];
+    const color = /^other$/i.test(d.label) ? OTHER : PALETTE[i % PALETTE.length];
     const cls = d.nav ? ' class="clickable"' : "";
-    return `<path${cls} ${navAttrs(d.nav)} d="M ${x0} ${y0} A ${r} ${r} 0 ${large} 1 ${x1} ${y1} L ${xi1} ${yi1} A ${inner} ${inner} 0 ${large} 0 ${xi0} ${yi0} Z" fill="${color}"><title>${esc(d.label)}: ${d.value} (${Math.round(frac * 100)}%)</title></path>`;
+    return `<path${cls} ${navAttrs(d.nav)} d="M ${x0} ${y0} A ${r} ${r} 0 ${large} 1 ${x1} ${y1} L ${xi1} ${yi1} A ${inner} ${inner} 0 ${large} 0 ${xi0} ${yi0} Z" fill="${color}" stroke="#fff" stroke-width="2" stroke-linejoin="round"><title>${esc(d.label)}: ${d.value} (${Math.round(frac * 100)}%)</title></path>`;
   }).join("");
   const legend = data.map((d, i) =>
-    `<div class="legend-item ${d.nav ? "clickable" : ""}" ${navAttrs(d.nav)}><span class="legend-swatch" style="background:${PALETTE[i % PALETTE.length]}"></span>${esc(d.label)} <strong>${d.value}</strong></div>`
+    `<div class="legend-item ${d.nav ? "clickable" : ""}" ${navAttrs(d.nav)}><span class="legend-swatch" style="background:${/^other$/i.test(d.label) ? OTHER : PALETTE[i % PALETTE.length]}"></span>${esc(d.label)} <strong>${d.value}</strong></div>`
   ).join("");
   return `<div class="donut-wrap">
     <svg viewBox="0 0 ${size} ${size}" class="donut" role="img">${arcs}
@@ -89,7 +94,7 @@ export function lineChart(data, { unit = "", width = 560, height = 220 } = {}) {
   // (transparent full-height hit area + dot + x-label) for drill-down.
   const hitW = stepX > 0 ? stepX : plotW;
   const dots = pts.map((p) => {
-    const dot = `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4" fill="#2563eb"></circle>`;
+    const dot = `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4" fill="${BRAND}" stroke="#fff" stroke-width="1.5"></circle>`;
     const lbl = `<text x="${p.x.toFixed(1)}" y="${height - 8}" text-anchor="middle" class="chart-axis">${esc(p.d.label)}</text>`;
     const tip = `<title>${esc(p.d.label)}: ${unit}${p.d.value.toLocaleString()}</title>`;
     if (!p.d.nav) return `<g>${dot}${lbl}${tip}</g>`;
@@ -106,8 +111,8 @@ export function lineChart(data, { unit = "", width = 560, height = 220 } = {}) {
   }).join("");
   return `<svg viewBox="0 0 ${width} ${height}" class="chart" role="img">
     ${gridY}
-    <path d="${area}" fill="rgba(37,99,235,0.12)"/>
-    <path d="${path}" fill="none" stroke="#2563eb" stroke-width="2.5"/>
+    <path d="${area}" fill="rgba(42,120,214,0.10)"/>
+    <path d="${path}" fill="none" stroke="${BRAND}" stroke-width="2"/>
     ${dots}${xlabels}
   </svg>`;
 }

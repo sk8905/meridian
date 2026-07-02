@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260702-13";
+} from "./data.js?v=20260702-14";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260702-13";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260702-14";
 
 const app = document.getElementById("app");
 
@@ -1483,9 +1483,13 @@ function viewTrends() {
   const byDealManager = Object.entries(dealMgrCounts)
     .map(([id, value]) => ({ label: managerById[id] ? managerById[id].name : id, value, nav: { jump: "manager/" + id } }))
     .sort((a, b) => b.value - a.value).slice(0, 10);
-  const byDealType = [...new Set(dealsBase.map((d) => d.type))]
+  const dealTypeAll = [...new Set(dealsBase.map((d) => d.type))]
     .map((t) => ({ label: t, value: dealsBase.filter((d) => d.type === t).length, nav: { jump: "deals", dtype: t } }))
     .filter((d) => d.value > 0).sort((a, b) => b.value - a.value);
+  // Keep the donut legible — top 7 by count, the long tail folded into "Other".
+  const byDealType = dealTypeAll.length > 8
+    ? [...dealTypeAll.slice(0, 7), { label: "Other", value: dealTypeAll.slice(7).reduce((s, d) => s + d.value, 0) }]
+    : dealTypeAll;
 
   // ---- Fundraising ----
   const bnRaised = (list) => Math.round(list.reduce((a, x) => a + (x.raised || 0), 0) / 100) / 10;
