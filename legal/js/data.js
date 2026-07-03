@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-07-03";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — two runs a day (~06:00 / ~12:00).
-export const LAST_CHECKED_TIME = "05:25 BST";
+export const LAST_CHECKED_TIME = "12:14 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -5386,6 +5386,36 @@ export const items = [
     tags: ["FCA", "UK sanctions", "financial sanctions", "trade sanctions", "OTSI", "OFSI", "sanctions compliance"],
     dateEstimated: false,
   },
+  {
+    url: "https://www.traverssmith.com/knowledge/knowledge-container/a-lot-of-changes-not-a-lot-of-change-the-fcas-proposals-to-clarify-the-consumer-duty/",
+    id: "u595", title: "A lot of changes, not a lot of change: the FCA's proposals to clarify the Consumer Duty",
+    area: "banking", areas: ["banking", "funds"], type: "update", firm: "traverssmith",
+    date: "2026-07-03", jurisdiction: "United Kingdom",
+    summary: "Travers Smith analyses the FCA's 29 June 2026 consultation paper (CP26/23) proposing to narrow and clarify the scope of the Consumer Duty for wholesale and internationally active firms, including new primary/secondary manufacturer concepts.",
+    points: [
+      "CP26/23 proposes the Consumer Duty apply only to retail customers ordinarily resident in the UK",
+      "New exclusions proposed for merchant acquiring, market making, ESG rating provision and safeguarding/custody-depositary services",
+      "Replaces 'co-manufacturing' with a primary/secondary manufacturer framework",
+      "Consultation open until 18 September 2026, with final rules expected Q1 2027",
+    ],
+    tags: ["FCA", "Consumer Duty", "CP26/23", "wholesale markets", "financial services regulation"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.simmons-simmons.com/en/publications/cmr3fhjct008qtl9smhznlb7d/ai-m-a-navigating-unique-risks-and-challenges-in-deals",
+    id: "u596", title: "AI M&A: beyond the playbook",
+    area: "corporate", areas: ["corporate"], type: "insight", firm: "simmons",
+    date: "2026-07-02", jurisdiction: "United Kingdom",
+    summary: "Simmons & Simmons sets out five themes for AI-focused M&A dealmakers, covering how to locate value in data, models, talent and infrastructure, AI-specific diligence and pricing metrics, regulatory-approval handling, and tailored buyer protections.",
+    points: [
+      "Value in AI targets sits across data, models, talent and infrastructure, requiring tailored diligence for each",
+      "Specialised IP and regulatory diligence is needed given fast-moving AI regulation",
+      "AI-specific pricing metrics are emerging alongside traditional revenue/EBITDA multiples",
+      "Buyers are negotiating extended warranty periods and bespoke protections for AI-specific risks",
+    ],
+    tags: ["AI", "M&A", "technology", "due diligence", "warranties"],
+    dateEstimated: false,
+  },
 ];
 
 // ---- Recent cases published on BAILII -------------------------------------
@@ -5550,6 +5580,9 @@ export const cases = [
   { id: "c53", name: "Culina Group Limited & Ors v Thomas Van Mourik & Ors", citation: "[2026] EWHC 1661 (Comm)", court: "High Court (Comm)",
     date: "2026-07-01", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/1661",
     summary: "In a case management conference in litigation brought by Culina Group against former chief executive Thomas van Mourik and other former directors/executives, Andrew Baker J ruled on contested pleading amendments, refusing to found fiduciary duties on a service company but permitting amendments alleging liability to account for an increase in shareholding value as an unsettled point of law for trial." },
+  { id: "c54", name: "Gable Insurance AG v William Dewsall & Ors", citation: "[2026] EWCA Civ 851", court: "Court of Appeal",
+    date: "2026-07-03", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewca/civ/2026/851",
+    summary: "The Court of Appeal dismissed an insurer (in liquidation)'s appeal against a finding that its former CEO/director's admitted breaches of duty in authorising payments were negligent rather than dishonest, holding the trial judge was entitled to draw a rational distinction between payments diverted from trust accounts (dishonest) and other payments made in the belief they were board-authorised and disclosed to the auditor (not dishonest)." },
 ];
 
 // ---- Lightweight lookups ----------------------------------------------------
@@ -5615,6 +5648,7 @@ export const caseSummaries = {
   c52: "London Credit Limited had lent £1.881m to residential-property borrowers at a default interest rate of 4% per month following breach of the facility's loan-to-value covenant. The borrowers argued that their without-prejudice settlement offers amounted to a valid tender that should have stopped interest accruing, and separately that the 4%-per-month default rate was penal and unenforceable following Cavendish Square Holding v Talal El Makdessi. The Court of Appeal (Lewison, Newey and Arnold LJJ) held that an offer contingent on resolving a separate dispute over quantum, and unsupported by funds immediately available for payment, cannot constitute a valid tender, and that the elevated default rate was not a penalty because it protected the lender's legitimate interest in the increased refinancing risk created by the covenant breach. The decision reaffirms the post-Cavendish approach to penalty clauses in secured real-estate lending and tightens the law of tender for borrowers seeking to stop interest running by way of a conditional settlement offer, of particular interest to specialist and bridging lenders drafting default-interest provisions.",
   c49: "More than 5,000 individual claimants who financed vehicle purchases brought unfair-relationship claims under sections 140A-B of the Consumer Credit Act 1974 against eight motor finance companies, alleging undisclosed discretionary commission arrangements with dealers in breach of FCA CONC rules. The procedural question was whether such mass claims could properly be brought and managed via single multi-claimant claim forms per defendant under CPR 7.3's 'convenient disposal' test, or whether they needed to be split into individual actions. Lord Justice Coulson, applying and extending the Court of Appeal's approach in Morris v Williams, upheld the High Court's case-management decision permitting the consolidated claim forms, holding that convenient disposal can encompass lead-case and common-issue management even though ultimate unfairness findings remain fact-specific to each claimant. The decision is highly significant for the ongoing wave of motor finance discretionary commission litigation following the FCA's redress scheme, confirming that mass claims of this kind can proceed efficiently through consolidated case management rather than requiring thousands of separate claims.",
   c53: "Culina Group and related companies sued former chief executive Thomas van Mourik and other former directors and executives (including William Stobart and David Meir) for breach of duty in connection with their time running the group. At a case management conference, the claimants sought permission to amend their pleadings to add further bases of liability. Andrew Baker J refused an amendment that sought to found fiduciary duties on a service company merely because it supplied a professional to perform an executive role, holding that supplying personnel does not by itself create a fiduciary relationship. He permitted a separate amendment alleging liability to account for an increase in the value of a shareholding, treating whether such liability can arise as an unsettled point of law better resolved at trial than struck out summarily. Directions were given for a trial listed for 28 February 2028, with extended disclosure and evidence timetabled through 2027, keeping live substantial fiduciary-duty and accounting claims against the former Culina/Stobart group executives.",
+  c54: "Gable Insurance AG, an Austrian insurer in liquidation, sued its former CEO and director William Dewsall for breach of duty over payments he authorised during his tenure, totalling £4,957,788.52 for which the trial judge found him liable. The trial judge distinguished between payments diverted from trust accounts, which were found dishonest, and other payments made directly by the company (including to a party called Hogarth), which the judge found were negligent breaches but not dishonest because Dewsall believed the payments were authorised by the relevant boards and disclosed to the auditor. On appeal, Gable Insurance argued this distinction was irrational and that all the payments should have been treated as dishonest. The Court of Appeal dismissed the appeal, holding the trial judge was entitled to draw a rational distinction between the two categories of payment based on Dewsall's state of mind and the surrounding governance context, so the finding of negligence rather than dishonesty for the non-trust payments stood.",
 };
 
 export const restructurings = [
