@@ -36,14 +36,17 @@ const keyFor = (email) => "wl:" + email;
 // under a distinct prefix in the same KV namespace so it never collides with a
 // watchlist. Per-user isolation comes from the verified Access email, exactly
 // like the watchlist, so saved items sync across that user's devices.
-const savedKeyFor = (email) => "lsv:" + email;
+// Two distinct saved-items stores share this handler via different key prefixes
+// so the Legal and Credit apps never overwrite each other's saved sets.
+const savedKeyFor = (email) => "lsv:" + email;         // Meridian Legal
+const savedCreditKeyFor = (email) => "csv:" + email;   // Meridian Credit
 
-async function handleSaved(request, env) {
+async function handleSaved(request, env, keyFor) {
   const email = identity(request);
   if (!email) return json({ error: "unauthenticated" }, 401);
 
   if (request.method === "GET") {
-    const raw = await env.WATCHLIST.get(savedKeyFor(email));
+    const raw = await env.WATCHLIST.get(keyFor(email));
     let saved = [];
     if (raw) { try { const p = JSON.parse(raw); if (Array.isArray(p)) saved = p; } catch { /* keep default */ } }
     return json({ email, saved });
@@ -55,7 +58,7 @@ async function handleSaved(request, env) {
     const saved = Array.isArray(body.saved)
       ? body.saved.filter((x) => typeof x === "string" && x.length <= 24).slice(0, 10000)
       : [];
-    await env.WATCHLIST.put(savedKeyFor(email), JSON.stringify(saved));
+    await env.WATCHLIST.put(keyFor(email), JSON.stringify(saved));
     return json({ ok: true });
   }
 
@@ -309,7 +312,8 @@ export default {
     const url = new URL(request.url);
     if (url.pathname === "/api/rates") return handleRates(request, env, ctx);
     if (url.pathname === "/api/watchlist") return handleWatchlist(request, env);
-    if (url.pathname === "/api/saved") return handleSaved(request, env);
+    if (url.pathname === "/api/saved") return handleSaved(request, env, savedKeyFor);
+    if (url.pathname === "/api/saved-credit") return handleSaved(request, env, savedCreditKeyFor);
     if (url.pathname === "/api/me") return handleMe(request);
     // Sign-in helper: hitting this behind Access triggers the Access login,
     // then bounces the user to `to` (default the landing page).

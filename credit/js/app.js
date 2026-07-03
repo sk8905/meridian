@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260703-1";
+} from "./data.js?v=20260703-2";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260703-1";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260703-2";
 
 const app = document.getElementById("app");
 
@@ -189,6 +189,57 @@ function toggleFollow(type, id) {
   saveFollows();
 }
 function followCount() { return FOLLOW_TYPES.reduce((n, t) => n + followList(t).length, 0); }
+
+// --------------------------- saved items (cloud sync + localStorage) --------
+// Individually saved news / deal / fundraising / CLO items — distinct from the
+// follow-based watchlist. Persists to a per-user KV store via /api/saved-credit
+// (its OWN prefix, so it never collides with Meridian Legal's saved items) with
+// localStorage as an instant cache / offline fallback. Mirrors the Legal app.
+const SAVEDC_KEY = "meridian.credit.saved";
+const SAVEDC_API = "/api/saved-credit";
+let savedCloud = false;
+let savedPushTimer = null;
+function getSavedC() { try { return new Set(JSON.parse(localStorage.getItem(SAVEDC_KEY) || "[]")); } catch { return new Set(); } }
+function setSavedC(set) { try { localStorage.setItem(SAVEDC_KEY, JSON.stringify([...set])); } catch { /* ignore */ } pushSavedC(); }
+function toggleSavedC(id) { const s = getSavedC(); s.has(id) ? s.delete(id) : s.add(id); setSavedC(s); return s.has(id); }
+// Debounced push to the cloud (no-op when not signed in / not on Cloudflare).
+function pushSavedC() {
+  if (!savedCloud) return;
+  clearTimeout(savedPushTimer);
+  savedPushTimer = setTimeout(() => {
+    fetch(SAVEDC_API, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ saved: [...getSavedC()] }) }).catch(() => {});
+  }, 400);
+}
+// On load, UNION this device's saved set with the per-user cloud copy (saving is
+// additive), persist locally and push back so devices converge. No-op off-cloud.
+async function initSavedSync() {
+  let r;
+  try { r = await fetch(SAVEDC_API, { headers: { accept: "application/json" } }); }
+  catch { return; }
+  if (!r || !r.ok) return;
+  let d; try { d = await r.json(); } catch { return; }
+  savedCloud = true;
+  const server = Array.isArray(d.saved) ? d.saved : [];
+  const local = [...getSavedC()];
+  const union = new Set([...local, ...server]);
+  try { localStorage.setItem(SAVEDC_KEY, JSON.stringify([...union])); } catch { /* ignore */ }
+  if (union.size !== server.length || server.some((id) => !union.has(id))) pushSavedC();
+  router();
+}
+// Stable content-derived id for a news item — a short hash of its normalised URL
+// (or title) + manager, so a saved news story keeps pointing at the same item
+// across data refreshes (unlike the aggregation index used for row anchors).
+function newsSaveId(x) {
+  const base = (x.url || x.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, "");
+  const s = base + "|" + (x._mid || x.managerId || "");
+  let h = 0; for (let i = 0; i < s.length; i++) h = (Math.imul(h, 31) + s.charCodeAt(i)) | 0;
+  return "n" + (h >>> 0).toString(36);
+}
+// Save/unsave button — Meridian Legal style. `id` is the item's stable save id.
+function saveBtn(id) {
+  const on = getSavedC().has(id);
+  return `<button type="button" class="save-btn ${on ? "is-saved" : ""}" data-save="${esc(id)}" aria-pressed="${on}" title="${on ? "Remove from saved" : "Save this item"}">${on ? "★ Saved" : "☆ Save"}</button>`;
+}
 // Topbar data-freshness line: dataset "last updated" date + the time this view
 // was last loaded/refreshed, plus a manual Refresh button that reloads to pull
 // the latest deployed data and re-sync the watchlist.
@@ -1285,7 +1336,7 @@ function intelRow(i) {
   const head = ftarget ? link(ftarget, i.headline, "intel-head") : `<span class="intel-head">${esc(i.headline)}</span>`;
   return `<div class="intel-row" id="row-${i.id}">
     <div class="intel-meta"><span class="chip ${intelTypeClass(i.type)}">${esc(i.type)}</span><span class="muted small">${fmtDate(i.date)}</span></div>
-    <div class="intel-body">${head}<p class="muted small">${esc(i.summary)}</p><div>${tag}${i.sourceUrl ? ` · <a href="${esc(i.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : ""}</div></div>
+    <div class="intel-body"><div class="intel-title-line">${head}${saveBtn(i.id)}</div><p class="muted small">${esc(i.summary)}</p><div>${tag}${i.sourceUrl ? ` · <a href="${esc(i.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : ""}</div></div>
   </div>`;
 }
 
@@ -1341,7 +1392,7 @@ function dealRow(d) {
   const head = tgt ? link(tgt, d.headline, "intel-head") : `<span class="intel-head">${esc(d.headline)}</span>`;
   return `<div class="intel-row" id="row-${d.id}">
     <div class="intel-meta"><span class="chip ${dealTypeClass(d.type)}">${esc(d.type)}</span><span class="muted small">${fmtDate(d.date)}</span></div>
-    <div class="intel-body">${head}<p class="muted small">${esc(d.summary)}</p><div>${tag}${d.sourceUrl ? ` · <a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : ""}</div></div>
+    <div class="intel-body"><div class="intel-title-line">${head}${saveBtn(d.id)}</div><p class="muted small">${esc(d.summary)}</p><div>${tag}${d.sourceUrl ? ` · <a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : ""}</div></div>
   </div>`;
 }
 
@@ -1560,11 +1611,23 @@ function viewTrends() {
 // Aggregated manager/investor press across the whole tracked universe — the
 // `news` + `webNews` arrays on every manager, deduped and surfaced as a feed
 // (these previously only appeared on each manager's profile and the bell).
+// One News-feed row: chip + date, headline (links out), summary, manager +
+// outlet, with a Save button top-right (Legal style; stable content-derived id).
+function newsRowFull(x) {
+  const sid = newsSaveId(x);
+  const head = x.url
+    ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)} ↗</a>`
+    : `<span class="intel-head">${esc(x.title)}</span>`;
+  return `<div class="intel-row" id="row-${esc(x._id || sid)}">
+    <div class="intel-meta"><span class="chip">News</span><span class="muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span></div>
+    <div class="intel-body"><div class="intel-title-line">${head}${saveBtn(sid)}</div><p class="muted small news-sum">${newsSummary(x)}</p><div>${link(`#/manager/${x._mid}`, x._mname, "muted small")}${x.outlet ? ` · <span class="muted small">${esc(x.outlet)}</span>` : ""}</div></div>
+  </div>`;
+}
+
 function viewNews() {
   const f = filterState.news;
   const all = aggregateNews().filter((x) => !targetFocus || midInFocus(x._mid));
   const rows = all.filter((x) => !f.q || `${x.title || ""} ${x.outlet || ""} ${x._mname || ""}`.toLowerCase().includes(f.q.toLowerCase()));
-  const newsRow = (x) => `<div class="intel-row" id="row-${x._id}"><div class="intel-meta"><span class="chip">News</span><span class="muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span></div><div class="intel-body">${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)} ↗</a>` : `<span class="intel-head">${esc(x.title)}</span>`}<p class="muted small news-sum">${newsSummary(x)}</p><div>${link(`#/manager/${x._mid}`, x._mname, "muted small")}${x.outlet ? ` · <span class="muted small">${esc(x.outlet)}</span>` : ""}</div></div></div>`;
 
   app.innerHTML = `
     <div class="page-head"><h1>News</h1><p class="muted">${rows.length} of ${all.length} items · manager &amp; investor press across the tracked universe</p></div>
@@ -1572,12 +1635,33 @@ function viewNews() {
     <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label><div class="filters">
       <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Headline, outlet, manager…" value="${esc(f.q)}"></label>
     </div>
-    <section class="card">${rows.length ? feedHtml(rows, "news", newsRow, JSON.stringify(f)) : '<p class="empty">No news items match your search.</p>'}</section>`;
+    <section class="card">${rows.length ? feedHtml(rows, "news", newsRowFull, JSON.stringify(f)) : '<p class="empty">No news items match your search.</p>'}</section>`;
   wireFilters("news");
   applyPendingFocus("news");
 }
 
 // =============================== WATCHLIST =================================
+// The "Saved items" section — resolves the saved id set back to news / deal /
+// fundraising / CLO items (newest first), rendered with the same rows (so each
+// carries its ★ Saved / ☆ Save button) and paged at 25 with a Load-more button.
+function savedSectionHtml() {
+  const dById = {}; deals.forEach((d) => (dById[d.id] = d));
+  const iById = {}; intel.forEach((i) => (iById[i.id] = i));
+  const nById = {}; aggregateNews().forEach((x) => (nById[newsSaveId(x)] = x));
+  const items = [];
+  getSavedC().forEach((id) => {
+    if (dById[id]) items.push({ ...dById[id], _kind: "deal" });
+    else if (iById[id]) items.push({ ...iById[id], _kind: "intel" });
+    else if (nById[id]) items.push({ ...nById[id], _kind: "news" });
+  });
+  items.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+  const row = (x) => x._kind === "deal" ? dealRow(x) : x._kind === "intel" ? intelRow(x) : newsRowFull(x);
+  const sig = JSON.stringify([...getSavedC()].sort());
+  return `<section class="card" id="saved-section"><h2>Saved items <span class="muted">(${items.length})</span></h2>${items.length
+    ? feedHtml(items, "saved", row, sig)
+    : '<p class="muted small">No saved items yet — click <strong>☆ Save</strong> on any news, deal, fundraising or CLO item to keep it here.</p>'}</section>`;
+}
+
 function viewWatchlist() {
   const byName = (a, b) => a.name.localeCompare(b.name);
   const fm = followList("manager").map((id) => managerById[id]).filter(Boolean).sort(byName);
@@ -1618,7 +1702,8 @@ function viewWatchlist() {
 
   if (fm.length + ff.length + fl.length === 0) {
     app.innerHTML = `<div class="page-head"><h1>My Watchlist</h1></div>
-      <section class="card"><p class="muted">You're not following anything yet. Click the ☆ star on any manager, fund or investor to add it here — your watchlist builds a personalised intelligence feed${cloudSync ? " and syncs across your devices" : ""}.</p></section>`;
+      <section class="card"><p class="muted">You're not following anything yet. Click the ☆ star on any manager, fund or investor to add it here — your watchlist builds a personalised intelligence feed${cloudSync ? " and syncs across your devices" : ""}.</p></section>
+      ${savedSectionHtml()}`;
     return;
   }
   const wlSig = JSON.stringify([fm.map((x) => x.id), ff.map((x) => x.id)]);
@@ -1634,7 +1719,8 @@ function viewWatchlist() {
       ${listCard("Investors", fl, "lp", (l) => `${link(`#/lp/${l.id}`, l.name)} <span class="muted small">${esc(l.type)}</span>`)}
     </div>
     <div id="wl-panel" class="wl-panel" hidden></div>
-    <section class="card"><h2>News, deals, fundraising &amp; CLOs <span class="muted">(${feed.length})</span></h2>${feed.length ? feedHtml(feed, "watchlist", feedRow, wlSig) : '<p class="muted small">No news, deals or fundraising yet for the managers/funds you follow.</p>'}</section>`;
+    <section class="card"><h2>News, deals, fundraising &amp; CLOs <span class="muted">(${feed.length})</span></h2>${feed.length ? feedHtml(feed, "watchlist", feedRow, wlSig) : '<p class="muted small">No news, deals or fundraising yet for the managers/funds you follow.</p>'}</section>
+    ${savedSectionHtml()}`;
 
   // Accordion (all viewports): only one category open at a time; the open one's
   // followed names render into the full-width panel below the toggles, flowing
@@ -1723,6 +1809,22 @@ app.addEventListener("click", (e) => {
     toggleFollow(type, id);
     router();
     window.scrollTo(0, y); // keep position; don't jump to top on a star toggle
+    return;
+  }
+  // Save / unsave an individual news/deal/fundraising/CLO item.
+  const sb = e.target.closest("[data-save]");
+  if (sb) {
+    e.stopPropagation();
+    const id = sb.getAttribute("data-save");
+    const nowSaved = toggleSavedC(id);
+    sb.classList.toggle("is-saved", nowSaved);
+    sb.setAttribute("aria-pressed", String(nowSaved));
+    sb.textContent = nowSaved ? "★ Saved" : "☆ Save";
+    // On the watchlist, re-render so the Saved section (and an unsaved item
+    // dropping out of it) stays in sync; elsewhere just update the button.
+    if (document.getElementById("saved-section")) {
+      const y = window.scrollY; router(); window.scrollTo(0, y);
+    }
     return;
   }
   // Multi-select dropdown: toggle its popover.
@@ -1902,3 +2004,4 @@ router();
 renderDataStatus();
 renderNotifications();
 initWatchlistSync();
+initSavedSync();
