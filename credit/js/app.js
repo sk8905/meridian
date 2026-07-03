@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260703-3";
+} from "./data.js?v=20260703-4";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260703-3";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260703-4";
 
 const app = document.getElementById("app");
 
@@ -1098,7 +1098,7 @@ function byYear(items, rowFn) {
 }
 
 function newsItemRow(x) {
-  return `<div class="intel-row"><div class="intel-meta"><span class="muted small">${esc(x.outlet || "")}</span><span class="muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span></div><div class="intel-body"><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a></div></div>`;
+  return `<div class="intel-row"><div class="intel-meta"><span class="muted small">${esc(x.outlet || "")}</span><span class="muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span></div><div class="intel-body"><div class="intel-title-line"><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a>${saveBtn(newsSaveId(x))}</div></div></div>`;
 }
 
 // Dedup key for a manager's combined news feed: a specific source URL when one
@@ -1185,7 +1185,7 @@ function viewManager(id) {
     const items = [
       ...deals.filter(belongs).map((d) => ({ ...d, _kind: "deal" })),
       ...intel.filter(belongs).map((i) => ({ ...i, _kind: "intel" })),
-      ...[...(m.news || []), ...(m.webNews || [])].map((x) => ({ ...x, _kind: "news" })),
+      ...[...(m.news || []), ...(m.webNews || [])].map((x) => ({ ...x, _kind: "news", _mid: m.id, _mname: m.name })),
     ];
     const seen = new Set();
     return items
@@ -1717,7 +1717,7 @@ function viewWatchlist() {
     .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
   const feedRow = (x) => x._kind === "deal" ? dealRow(x)
     : x._kind === "intel" ? intelRow(x)
-    : `<div class="intel-row"><div class="intel-meta"><span class="chip">News</span><span class="muted small">${fmtDate(x.date)}</span></div><div class="intel-body"><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a><div>${link(`#/manager/${x._mid}`, x._mname, "muted small")}${x.outlet ? ` · <span class="muted small">${esc(x.outlet)}</span>` : ""}</div></div></div>`;
+    : `<div class="intel-row"><div class="intel-meta"><span class="chip">News</span><span class="muted small">${fmtDate(x.date)}</span></div><div class="intel-body"><div class="intel-title-line"><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a>${saveBtn(newsSaveId(x))}</div><div>${link(`#/manager/${x._mid}`, x._mname, "muted small")}${x.outlet ? ` · <span class="muted small">${esc(x.outlet)}</span>` : ""}</div></div></div>`;
 
   if (fm.length + ff.length + fl.length === 0) {
     app.innerHTML = `<div class="page-head"><h1>My Watchlist</h1></div>
