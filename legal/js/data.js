@@ -15,13 +15,13 @@
 // `LAST_REVIEWED` whenever you refresh the data.
 // =============================================================================
 
-export const LAST_REVIEWED = "2026-07-02";
+export const LAST_REVIEWED = "2026-07-03";
 // When the refresh routine last ran (even if nothing new) — shown as "Last refresh".
-export const LAST_CHECKED = "2026-07-02";
+export const LAST_CHECKED = "2026-07-03";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — two runs a day (~06:00 / ~12:00).
-export const LAST_CHECKED_TIME = "15:26 BST";
+export const LAST_CHECKED_TIME = "05:25 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -5235,6 +5235,157 @@ export const items = [
     tags: ["cryptoassets", "stablecoins", "FCA", "fintech", "financial services regulation"],
     dateEstimated: false,
   },
+  {
+    url: "https://www.slaughterandmay.com/recent-work/tg-jones-on-its-successful-restructuring/",
+    id: "u585", title: "Slaughter and May advises TG Jones on its successful restructuring",
+    area: "ri", areas: ["ri"], type: "case", firm: "slaughtermay",
+    date: "2026-07-01", jurisdiction: "England & Wales",
+    summary: "Slaughter and May advised TG Jones Retail Holdings Limited and TG Jones High Street Limited on inter-conditional Part 26A restructuring plans, sanctioned by Hildyard J on 1 July 2026 after initial landlord opposition was withdrawn.",
+    points: [
+      "Restructuring implemented via Companies Act 2006 Part 26A restructuring plans",
+      "Involved amendment/extension of debt facilities and restructuring of the leasehold estate and supplier arrangements",
+      "Certain landlords initially opposed the plans at the convening hearing but withdrew opposition after negotiated improvements",
+      "Plans formally sanctioned by the High Court (Hildyard J) on 1 July 2026",
+    ],
+    tags: ["restructuring plan", "Part 26A", "Companies Act 2006", "retail insolvency", "landlord opposition", "court sanction"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.slaughterandmay.com/recent-work/rolls-royce-on-the-re-establishment-of-its-emtn-programme-and-inaugural-issuance/",
+    id: "u586", title: "Slaughter and May advises Rolls-Royce on the re-establishment of its EMTN programme and inaugural issuance",
+    area: "banking", areas: ["banking"], type: "case", firm: "slaughtermay",
+    date: "2026-07-01", jurisdiction: "United Kingdom",
+    summary: "Slaughter and May advised Rolls-Royce Holdings plc on re-establishing its £5bn Guaranteed Euro Medium Term Note programme and its inaugural issuance of EUR 1bn of notes under the programme, admitted to trading on the London Stock Exchange's International Securities Market.",
+    points: [
+      "Re-establishment of a £5bn EMTN programme for Rolls-Royce Holdings plc, guaranteed by Rolls-Royce plc",
+      "Inaugural issuance comprised EUR 500m 3.375% notes due 2031 and EUR 500m 3.875% notes due 2036",
+      "Notes rated A- (Fitch) and A3 (Moody's) and admitted to trading on the LSE International Securities Market",
+      "Joint lead managers included BNP Paribas, Santander, Credit Agricole CIB, Goldman Sachs International, Lloyds, Societe Generale, SEB and SMBC Bank International",
+    ],
+    tags: ["EMTN programme", "debt capital markets", "bond issuance", "London Stock Exchange", "corporate treasury"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.freshfields.com/en/our-thinking/blogs/transactions/reforming-uk-taxation-of-distributions-code-102n7mk",
+    id: "u587", title: "Reforming UK taxation of distributions code",
+    area: "corporate", areas: ["corporate"], type: "update", firm: "freshfields",
+    date: "2026-07-01", jurisdiction: "United Kingdom",
+    summary: "HMRC launched a consultation on 1 July 2026 proposing the most significant reform of the UK's corporate distributions rules since 1965, affecting demergers, share buybacks and shareholder returns.",
+    points: [
+      "Proposals include freezing capital contributions where holding companies are inserted into a structure",
+      "Liberalisation of statutory demerger rules and extension of distribution treatment to non-UK companies",
+      "Expansion of the loans-to-participators regime and tightening of share buyback requirements",
+      "Described as the most significant UK distributions reform since the introduction of corporation tax in 1965",
+    ],
+    tags: ["UK tax reform", "distributions", "demergers", "share buybacks", "HMRC consultation", "corporate restructuring"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.macfarlanes.com/insights/102n7p3/macfarlanes-advises-ares-in-takeover-of-eagle-football-group-by-michele-kang/",
+    id: "u588", title: "Macfarlanes advises Ares in takeover of Eagle Football Group by Michele Kang",
+    area: "ri", areas: ["ri", "corporate", "banking"], type: "update", firm: "macfarlanes",
+    date: "2026-07-01", jurisdiction: "England & Wales",
+    summary: "Macfarlanes advised Ares Credit funds in connection with the takeover of Eagle Football Group S.A. (owner of Olympique Lyonnais) by Michele Kang via Olympe Bidco SAS, following an English administration process and a concurrent restructuring of the OL Group's debt.",
+    points: [
+      "Olympe Bidco SAS acquired Eagle Bidco's entire 87.78% stake in Eagle Football for $30m",
+      "Buyer committed up to €71m of new funding to the OL Group over the next two football seasons, with an initial €31m instalment at completion",
+      "Deal followed an English administration process and included refinancing of existing RCF/TL and FCT credit facilities",
+      "OL Group liabilities to Eagle Football affiliates were released as part of the restructuring",
+    ],
+    tags: ["restructuring", "administration", "private credit", "M&A", "debt refinancing"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.davispolk.com/insights/client-update/impact-uk-employment-rights-act-uk-transactions",
+    id: "u589", title: "Impact of the UK Employment Rights Act on UK transactions",
+    area: "corporate", areas: ["corporate"], type: "alert", firm: "davispolk",
+    date: "2026-07-02", jurisdiction: "United Kingdom",
+    summary: "Davis Polk analyses how the phased implementation of the UK Employment Rights Act 2025 is reshaping employment-related risk and deal execution in UK corporate transactions, particularly private equity deals.",
+    points: [
+      "Statutory cap on unfair dismissal compensation is being eliminated, effective 1 January 2027, increasing exposure for highly-compensated executives",
+      "Qualifying period for unfair dismissal claims is cut from two years to six months, requiring faster performance management and structured probation",
+      "Employment tribunal claim deadlines are extended from three to six months, prolonging litigation risk windows",
+      "Private equity sponsors face heightened employment due diligence, restructuring complexity and greater indemnity demands in deal documentation",
+    ],
+    tags: ["UK employment law", "Employment Rights Act 2025", "M&A", "private equity", "due diligence", "corporate transactions"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.lw.com/en/insights/the-uks-salaried-member-rules-supreme-court-affirms-court-of-appeals-decision-in-bluecrest",
+    id: "u590", title: "The UK's \"Salaried Member\" Rules: Supreme Court Affirms Court of Appeal's Decision in BlueCrest",
+    area: "funds", areas: ["funds"], type: "case", firm: "latham",
+    date: "2026-07-02", jurisdiction: "United Kingdom",
+    summary: "The UK Supreme Court upheld the Court of Appeal's ruling in HMRC v BlueCrest Capital Management (UK) LLP on how the 'salaried member' rules under the LLP tax regime apply to fund manager portfolio managers/traders.",
+    points: [
+      "Salaried member rules apply unless Condition B (sufficient 'significant influence' over the LLP's affairs) is met, alongside Conditions A and C",
+      "'Significant influence' for Condition B must derive from legally enforceable rights in the LLP agreement/statutory framework, not de facto influence",
+      "In BlueCrest, individual members held one vote each versus 100 votes for corporate members, with limited information rights, supporting a finding of no significant influence",
+      "Misclassification exposes employers to employer National Insurance contributions (15%), the Growth and Skills Levy (0.5%), penalties and interest",
+    ],
+    tags: ["salaried member rules", "LLP taxation", "Supreme Court", "BlueCrest", "fund managers", "HMRC", "employment tax"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.traverssmith.com/knowledge/knowledge-container/bluecrest-supreme-court-confirms-narrow-interpretation-of-significant-influence-exclusion-from-salaried-members-rules/",
+    id: "u591", title: "BlueCrest: Supreme Court confirms narrow interpretation of \"significant influence\" exclusion from salaried members rules",
+    area: "funds", areas: ["funds"], type: "case", firm: "traverssmith",
+    date: "2026-07-02", jurisdiction: "United Kingdom",
+    summary: "Travers Smith analyses the Supreme Court's decision in HMRC v BlueCrest Capital Management (UK) LLP upholding a narrow interpretation of 'significant influence' under Condition B of the LLP salaried members rules.",
+    points: [
+      "Qualifying influence must derive from legal rights and duties and must be strategic influence over the LLP's affairs generally, not just a specific role or fund",
+      "Influence need not be expressly set out in the LLP agreement if traceable to it, e.g. via delegated authority or role appointment",
+      "Veto or reserved powers held by founders/corporate members do not automatically bar other members from having significant influence",
+      "Discretionary pay tied to individual portfolio performance (rather than overall partnership profits) was found to constitute 'disguised salary' under Condition A",
+      "Firms failing Condition B should revisit LLP agreements and payroll processes given the 15% employer NICs cost of salaried member status",
+    ],
+    tags: ["salaried members rules", "LLP taxation", "HMRC", "Supreme Court", "asset management", "Condition B", "tax structuring"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.whitecase.com/insight-alert/unfair-dismissal-reform-considerations-sponsors",
+    id: "u592", title: "Unfair dismissal reform: Considerations for sponsors",
+    area: "corporate", areas: ["corporate", "funds"], type: "alert", firm: "whitecase",
+    date: "2026-07-02", jurisdiction: "England & Wales",
+    summary: "White & Case London partners analyse how the Employment Rights Act 2025's removal of the unfair dismissal compensation cap and reduction of the qualifying period to six months will affect PE sponsors and portfolio companies, particularly around senior executive exits.",
+    points: [
+      "The £123,543 statutory cap on unfair dismissal compensation is being abolished, exposing employers to potentially unlimited liability",
+      "The qualifying period for unfair dismissal claims is being shortened from two years to six months, effective 1 January 2027",
+      "Senior executive departures involving equity or carried interest pose the greatest financial exposure for sponsors",
+      "Recommended responses include strengthening procedural fairness, using legal limiting principles (causation, mitigation, Polkey), and restructuring management incentive plan leaver provisions",
+    ],
+    tags: ["employment law", "unfair dismissal", "private equity", "management incentive plans", "Employment Rights Act 2025"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://tax.weil.com/insights/vat-on-servicing-fees-for-debt-originators-uk-eu-divergence/",
+    id: "u593", title: "VAT on servicing fees for debt originators: UK-EU divergence?",
+    area: "banking", areas: ["banking", "funds"], type: "insight", firm: "weil",
+    date: "2026-07-02", jurisdiction: "United Kingdom",
+    summary: "Weil tax partners analyse whether the EU General Court's decision in A Oy (Case T-184/25), which found that debt servicing by an original lender for a new loan owner is not VAT-exempt 'management of credit', should change the VAT treatment of servicing fees in typical UK securitisation structures.",
+    points: [
+      "EU General Court in A Oy held the VAT credit-management exemption applies only within the original credit relationship, not once a loan has been transferred to a new owner",
+      "UK VAT legislation contains materially identical exemption wording to the EU provision at issue",
+      "HMRC guidance treats the exemption as available where an originator continues to service a loan after transferring beneficial (but not legal) ownership to a securitisation vehicle",
+      "The authors argue the Finnish case is distinguishable because it involved a full transfer of 'all rights and obligations', unlike standard UK structures where the originator retains legal title",
+    ],
+    tags: ["VAT", "UK tax", "securitization", "debt servicing", "structured finance", "HMRC", "funds tax"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.ropesgray.com/en/insights/viewpoints/2026/07/102n7pw/fca-sanctions-review-progress-is-evident-but-the-supervisory-bar-is-rising",
+    id: "u594", title: "FCA Sanctions Review: Progress Is Evident, but the Supervisory Bar Is Rising",
+    area: "banking", areas: ["banking", "funds"], type: "insight", firm: "ropesgray",
+    date: "2026-07-01", jurisdiction: "United Kingdom",
+    summary: "Ropes & Gray analyses the UK FCA's 28 May 2026 report on a supervisory review of sanctions systems and controls at over 150 FCA-regulated firms, which found continued improvement since 2022 but flagged persistent weaknesses, alongside a new FCA-OTSI Memorandum of Understanding.",
+    points: [
+      "FCA reviewed sanctions controls at 150+ regulated firms, building on its September 2023 post-Russia-invasion review",
+      "Recurring breach causes were due diligence/monitoring gaps, inconsistent governance and screening-alert escalation, and frozen-asset administration failures",
+      "UK frozen assets rose from £24.4bn (2023-24) to £37bn (2024-25), with a growing share of breach reports now linked to Libya, Iran and North Korea",
+      "FCA signed a new MoU with the Office of Trade Sanctions Implementation (OTSI), complementing its existing MoU with OFSI",
+    ],
+    tags: ["FCA", "UK sanctions", "financial sanctions", "trade sanctions", "OTSI", "OFSI", "sanctions compliance"],
+    dateEstimated: false,
+  },
 ];
 
 // ---- Recent cases published on BAILII -------------------------------------
@@ -5396,6 +5547,9 @@ export const cases = [
   { id: "c52", name: "Houssein & Ors v London Credit Ltd & Anor", citation: "[2026] EWCA Civ 830", court: "Court of Appeal",
     date: "2026-07-01", area: "banking", url: "https://caselaw.nationalarchives.gov.uk/ewca/civ/2026/830",
     summary: "The Court of Appeal dismissed an appeal by borrowers against secured lender London Credit Limited arising from a £1.881m loan secured on residential property, holding that the borrowers' settlement offers did not amount to valid tenders capable of stopping interest running, and that the lender's 4%-per-month default interest rate was not an unenforceable penalty given the lender's legitimate refinancing-risk interest." },
+  { id: "c53", name: "Culina Group Limited & Ors v Thomas Van Mourik & Ors", citation: "[2026] EWHC 1661 (Comm)", court: "High Court (Comm)",
+    date: "2026-07-01", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/1661",
+    summary: "In a case management conference in litigation brought by Culina Group against former chief executive Thomas van Mourik and other former directors/executives, Andrew Baker J ruled on contested pleading amendments, refusing to found fiduciary duties on a service company but permitting amendments alleging liability to account for an increase in shareholding value as an unsettled point of law for trial." },
 ];
 
 // ---- Lightweight lookups ----------------------------------------------------
@@ -5460,6 +5614,7 @@ export const caseSummaries = {
   c51: "Part of the long-running 'cum-ex' litigation, this appeal concerned whether a 2022 fraud claim brought by SKAT (the Danish tax authority) against a financial brokerage (over tax vouchers used to support withholding-tax refund applications, 2012-2015) was barred by issue estoppel following the dismissal of an earlier 2018 negligence claim on Revenue Rule grounds (which bars English courts from enforcing foreign tax laws). The legal question was whether the dismissal of the negligence claim gave rise to issue estoppel preventing the later fraud claim from proceeding, given both concerned the same underlying vouchers. The Supreme Court held that issue estoppel only attaches to determinations 'necessary and fundamental' to the earlier decision, and since fraud and negligence involve distinct factual and legal bases, no estoppel arose from the 2018 judgment. The decision is significant for the wider cum-ex/withholding-tax fraud litigation ecosystem, confirming that an adverse ruling on one cause of action will not automatically shut down a parallel fraud claim arising from the same facts.",
   c52: "London Credit Limited had lent £1.881m to residential-property borrowers at a default interest rate of 4% per month following breach of the facility's loan-to-value covenant. The borrowers argued that their without-prejudice settlement offers amounted to a valid tender that should have stopped interest accruing, and separately that the 4%-per-month default rate was penal and unenforceable following Cavendish Square Holding v Talal El Makdessi. The Court of Appeal (Lewison, Newey and Arnold LJJ) held that an offer contingent on resolving a separate dispute over quantum, and unsupported by funds immediately available for payment, cannot constitute a valid tender, and that the elevated default rate was not a penalty because it protected the lender's legitimate interest in the increased refinancing risk created by the covenant breach. The decision reaffirms the post-Cavendish approach to penalty clauses in secured real-estate lending and tightens the law of tender for borrowers seeking to stop interest running by way of a conditional settlement offer, of particular interest to specialist and bridging lenders drafting default-interest provisions.",
   c49: "More than 5,000 individual claimants who financed vehicle purchases brought unfair-relationship claims under sections 140A-B of the Consumer Credit Act 1974 against eight motor finance companies, alleging undisclosed discretionary commission arrangements with dealers in breach of FCA CONC rules. The procedural question was whether such mass claims could properly be brought and managed via single multi-claimant claim forms per defendant under CPR 7.3's 'convenient disposal' test, or whether they needed to be split into individual actions. Lord Justice Coulson, applying and extending the Court of Appeal's approach in Morris v Williams, upheld the High Court's case-management decision permitting the consolidated claim forms, holding that convenient disposal can encompass lead-case and common-issue management even though ultimate unfairness findings remain fact-specific to each claimant. The decision is highly significant for the ongoing wave of motor finance discretionary commission litigation following the FCA's redress scheme, confirming that mass claims of this kind can proceed efficiently through consolidated case management rather than requiring thousands of separate claims.",
+  c53: "Culina Group and related companies sued former chief executive Thomas van Mourik and other former directors and executives (including William Stobart and David Meir) for breach of duty in connection with their time running the group. At a case management conference, the claimants sought permission to amend their pleadings to add further bases of liability. Andrew Baker J refused an amendment that sought to found fiduciary duties on a service company merely because it supplied a professional to perform an executive role, holding that supplying personnel does not by itself create a fiduciary relationship. He permitted a separate amendment alleging liability to account for an increase in the value of a shareholding, treating whether such liability can arise as an unsettled point of law better resolved at trial than struck out summarily. Directions were given for a trial listed for 28 February 2028, with extended disclosure and evidence timetabled through 2027, keeping live substantial fiduciary-duty and accounting claims against the former Culina/Stobart group executives.",
 };
 
 export const restructurings = [
