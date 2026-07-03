@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260703-2";
+} from "./data.js?v=20260703-3";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260703-2";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260703-3";
 
 const app = document.getElementById("app");
 
@@ -628,6 +628,25 @@ function viewDashboard() {
     const src = x.url ? ` · <a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : "";
     return `<li class="compact-item"><a href="#/news" data-goto="news:${x._id}" class="compact-head">${esc(x.title)}</a><div class="compact-meta muted small">${x.date ? esc(fmtDate(x.date)) : ""}${x._mname ? ` · ${esc(x._mname)}` : ""}${x.outlet ? ` · ${esc(x.outlet)}` : ""}${src}</div></li>`;
   };
+  // ---- combined "Latest activity" feed: manager press + deals + fundraising +
+  // CLO items, newest first. An event captured BOTH as press and as a structured
+  // deal/intel record (same source URL) collapses to one row: the structured
+  // records are added first so they win the dedup and link to their categorised
+  // feed; genuinely press-only items (results, commentary, events) still appear.
+  const activity = [];
+  const seenAct = new Set();
+  const pushAct = (item, kind, view) => {
+    const k = feedDedupKey(item);
+    if (seenAct.has(k)) return;
+    seenAct.add(k);
+    activity.push({ item, kind, view });
+  };
+  dealsByDate.forEach((d) => pushAct(d, "deal", "deals"));
+  intelByDate.forEach((i) => pushAct(i, "intel", "intel"));
+  cloByDate.forEach((c) => pushAct(c, "clo", "clos"));
+  newsByDate.forEach((x) => pushAct(x, "news", "news"));
+  activity.sort((a, b) => String(b.item.date || "").localeCompare(String(a.item.date || "")));
+  const activityCompact = (a) => a.kind === "news" ? newsCompact(a.item) : compactRow(a.item, a.view);
 
   app.innerHTML = `
     <div class="page-head">
@@ -644,9 +663,9 @@ function viewDashboard() {
     </details>
 
     <section class="card feature-card news-panel">
-      <h2>Latest news</h2>
-      <p class="muted small">Manager &amp; investor press across the tracked universe. Click a headline to open it in the news feed.</p>
-      ${newsByDate.length ? `<ul class="compact-list news-cols">${newsByDate.slice(0, 12).map(newsCompact).join("")}</ul>` : '<p class="muted small">No news yet.</p>'}
+      <h2>Latest activity</h2>
+      <p class="muted small">Manager &amp; investor press, deals, fundraising and CLO activity across the tracked universe, newest first. Click a headline to open it in its feed.</p>
+      ${activity.length ? `<ul class="compact-list news-cols">${activity.slice(0, 12).map(activityCompact).join("")}</ul>` : '<p class="muted small">No activity yet.</p>'}
       <div class="card-foot">${link("#/news", "View all news →")}</div>
     </section>
 
