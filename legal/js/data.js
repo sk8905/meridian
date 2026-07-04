@@ -15,13 +15,13 @@
 // `LAST_REVIEWED` whenever you refresh the data.
 // =============================================================================
 
-export const LAST_REVIEWED = "2026-07-03";
+export const LAST_REVIEWED = "2026-07-04";
 // When the refresh routine last ran (even if nothing new) — shown as "Last refresh".
-export const LAST_CHECKED = "2026-07-03";
+export const LAST_CHECKED = "2026-07-04";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — two runs a day (~06:00 / ~12:00).
-export const LAST_CHECKED_TIME = "12:14 BST";
+export const LAST_CHECKED_TIME = "05:27 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -5414,6 +5414,81 @@ export const items = [
       "Buyers are negotiating extended warranty periods and bespoke protections for AI-specific risks",
     ],
     tags: ["AI", "M&A", "technology", "due diligence", "warranties"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.macfarlanes.com/insights/102n7sw/macfarlanes-advises-hayfin-on-the-15bn-close-of-its-direct-lending-fund-v/",
+    id: "u597", title: "Macfarlanes advises Hayfin on the €15bn close of its Direct Lending Fund V",
+    area: "funds", areas: ["funds"], type: "update", firm: "macfarlanes",
+    date: "2026-07-02", jurisdiction: "United Kingdom",
+    summary: "Macfarlanes advised Hayfin on the final close of its Direct Lending Fund V at over €15bn, more than double the ~€6bn raised for its predecessor, targeting senior-secured financing for mid-market and upper-mid-market European companies.",
+    points: [
+      "Direct Lending Fund V closed at over €15bn, more than double its predecessor fund",
+      "Strategy: senior-secured direct lending to European mid-/upper-mid-market companies",
+      "Multidisciplinary Macfarlanes team covered fund formation, tax and financing workstreams",
+      "Continues a 15+ year advisory relationship between Macfarlanes and Hayfin, dating to the manager's 2009 founding",
+    ],
+    tags: ["private credit", "direct lending", "fund formation", "fundraising", "European private funds"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.macfarlanes.com/insights/102n7w8/supreme-court-decides-the-llp-salaried-member-rules-but-sends-bluecrest-back-to/",
+    id: "u598", title: "Supreme Court decides the LLP salaried member rules - but sends BlueCrest back to the First-tier Tax Tribunal",
+    area: "funds", areas: ["funds"], type: "case", firm: "macfarlanes",
+    date: "2026-07-03", jurisdiction: "United Kingdom",
+    summary: "Macfarlanes analyses the Supreme Court's decision in HMRC v BlueCrest Capital Management (UK) LLP, which dismissed BlueCrest's appeal, refined the 'significant influence' test under the salaried member rules, and remitted the case to the First-tier Tax Tribunal.",
+    points: [
+      "Supreme Court dismisses BlueCrest's appeal, upholding HMRC on both Condition A and Condition B of the salaried member rules",
+      "On Condition A, a profit-based backstop cap alone does not amount to a link to overall firm profitability",
+      "On Condition B, the Court broadens permissible sources of 'significant influence' (implied terms, common law rights, delegated authority) while excluding de facto influence from seniority or reputation",
+      "Case remitted to the First-tier Tax Tribunal for reconsideration; asset managers should review LLP governance and membership terms",
+    ],
+    tags: ["LLP salaried member rules", "fund/asset manager tax", "BlueCrest", "HMRC", "Supreme Court", "partnership taxation"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://financialregulation.linklaters.com/post/102n7wz/esmas-final-report-proposes-annual-net-cost-savings-of-up-to-eur-1-billion-throu",
+    id: "u599", title: "ESMA's final report proposes annual net cost savings of up to EUR 1 billion through simplification of financial transaction reporting",
+    area: "banking", areas: ["banking"], type: "update", firm: "linklaters",
+    date: "2026-07-03", jurisdiction: "European Union",
+    summary: "Linklaters analyses ESMA's final report responding to a Call for Evidence on simplifying financial transaction reporting across the MiFIR, EMIR and SFTR regimes, proposing a two-track approach of near-term interim measures and a longer-term integrated 'report once' framework.",
+    points: [
+      "Targets annual net cost savings of EUR 250 million to EUR 1 billion for reporting firms",
+      "Two-track strategy: long-term integrated framework (targeted for ~mid-2031) plus faster interim fixes",
+      "Interim measures include cutting back-reporting from five years to three, and SFTR settlement-failure exclusions",
+      "Implementation staged: Level 1 changes by mid-2028, Level 2 templates by mid-2029, IT deployment by mid-2030",
+    ],
+    tags: ["MiFIR", "EMIR", "SFTR", "transaction reporting", "ESMA", "EU financial regulation", "regulatory simplification"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://financialregulation.linklaters.com/post/102n7wl/fca-to-simplify-investment-disclosure-regime-cp-26-24",
+    id: "u600", title: "FCA to simplify investment disclosure regime: CP 26/24",
+    area: "banking", areas: ["banking", "funds"], type: "alert", firm: "linklaters",
+    date: "2026-07-03", jurisdiction: "United Kingdom",
+    summary: "Linklaters analyses FCA Consultation Paper CP26/24 (published 2 July 2026), which proposes to simplify pre-sale and ongoing cost-disclosure requirements for investment products under the Consumer Composite Investments/Consumer Duty regime.",
+    points: [
+      "CP26/24 published by the FCA on 2 July 2026; consultation closes 21 August 2026, with a Policy Statement expected by year-end 2026",
+      "Proposes replacing the cumulative charges illustration with periodic post-sale cost-impact reporting",
+      "Permits use of CCI cost categories while retaining pound-sterling cost totals",
+      "Introduces express rules against 'double dipping' on cash interest and fees; streamlines disclosure for professional clients",
+    ],
+    tags: ["FCA", "UK financial regulation", "Consumer Duty", "investment disclosure", "cost transparency", "CP26/24"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.slaughterandmay.com/insights/financial-regulation-weekly-bulletin/financial-regulation-weekly-bulletin-2-july-2026/",
+    id: "u601", title: "Financial Regulation Weekly Bulletin – 2 July 2026",
+    area: "banking", areas: ["banking", "funds"], type: "update", firm: "slaughtermay",
+    date: "2026-07-02", jurisdiction: "United Kingdom",
+    summary: "Slaughter and May's weekly financial regulation bulletin of 2 July 2026 covers the UK's finalised cryptoasset regulatory framework, a joint Bank of England/FCA approach to regulating systemic stablecoin issuers, FCA proposals to strengthen investment fund conflict-of-interest protections, and the partial suspension of the FCA's motor finance redress scheme pending Upper Tribunal review.",
+    points: [
+      "EBA published revised SREP guidelines, effective 1 January 2027, consolidating supervisory review procedures for banks",
+      "FCA confirmed final rules for the UK cryptoasset regime, with an authorisation deadline of 25 October 2027",
+      "FCA proposed strengthening investment fund conflict-of-interest protections (consultation deadline 14 August 2026)",
+      "FCA's motor finance redress scheme partially suspended pending an Upper Tribunal review",
+    ],
+    tags: ["UK financial regulation", "PRA", "FCA", "banking supervision", "stablecoins", "cryptoassets", "asset management", "motor finance redress", "SREP"],
     dateEstimated: false,
   },
 ];
