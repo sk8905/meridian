@@ -15,13 +15,13 @@
 // `LAST_REVIEWED` whenever you refresh the data.
 // =============================================================================
 
-export const LAST_REVIEWED = "2026-07-04";
+export const LAST_REVIEWED = "2026-07-05";
 // When the refresh routine last ran (even if nothing new) — shown as "Last refresh".
-export const LAST_CHECKED = "2026-07-04";
+export const LAST_CHECKED = "2026-07-05";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — two runs a day (~06:00 / ~12:00).
-export const LAST_CHECKED_TIME = "12:18 BST";
+export const LAST_CHECKED_TIME = "05:21 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -5489,6 +5489,20 @@ export const items = [
       "FCA's motor finance redress scheme partially suspended pending an Upper Tribunal review",
     ],
     tags: ["UK financial regulation", "PRA", "FCA", "banking supervision", "stablecoins", "cryptoassets", "asset management", "motor finance redress", "SREP"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.macfarlanes.com/insights/102n7tk/corporate-law-update-27-june-3-july/",
+    id: "u602", title: "Corporate law update: 27 June – 3 July",
+    area: "corporate", areas: ["corporate", "funds"], type: "update", firm: "macfarlanes",
+    date: "2026-07-03", jurisdiction: "United Kingdom",
+    summary: "Macfarlanes' weekly corporate law update covering the FCA's consultation (CP26/21) on UK Listing Rule changes for closed-ended investment funds, and its Policy Statement (PS26/9) establishing a new market-abuse and disclosure regime for cryptoasset trading platforms.",
+    points: [
+      "FCA opened consultation (CP26/21) on UK Listing Rule changes for investment trusts: board independence for 'proposed' investment managers, substantial-shareholder voting restrictions on strategy changes, and investment-manager fee protections",
+      "CP26/21 consultation closes 14 August 2026, with a policy statement expected by end of 2026",
+      "FCA published Policy Statement PS26/9 establishing a market-abuse and disclosure regime for cryptoasset trading platforms",
+    ],
+    tags: ["FCA", "UK Listing Rules", "investment trusts", "closed-ended funds", "cryptoassets", "CP26/21", "PS26/9"],
     dateEstimated: false,
   },
 ];
