@@ -17,11 +17,11 @@
 
 export const LAST_REVIEWED = "2026-07-05";
 // When the refresh routine last ran (even if nothing new) — shown as "Last refresh".
-export const LAST_CHECKED = "2026-07-05";
+export const LAST_CHECKED = "2026-07-06";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — two runs a day (~06:00 / ~12:00).
-export const LAST_CHECKED_TIME = "20:05 BST";
+export const LAST_CHECKED_TIME = "05:22 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
