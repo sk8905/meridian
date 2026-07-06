@@ -15,13 +15,13 @@
 // `LAST_REVIEWED` whenever you refresh the data.
 // =============================================================================
 
-export const LAST_REVIEWED = "2026-07-05";
+export const LAST_REVIEWED = "2026-07-06";
 // When the refresh routine last ran (even if nothing new) — shown as "Last refresh".
 export const LAST_CHECKED = "2026-07-06";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — two runs a day (~06:00 / ~12:00).
-export const LAST_CHECKED_TIME = "05:22 BST";
+export const LAST_CHECKED_TIME = "12:25 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -5505,6 +5505,206 @@ export const items = [
     tags: ["FCA", "UK Listing Rules", "investment trusts", "closed-ended funds", "cryptoassets", "CP26/21", "PS26/9"],
     dateEstimated: false,
   },
+  {
+    url: "https://www.whitecase.com/insight-our-thinking/foreign-subsidies-regulation-quarterly-fsrq-q2-2026",
+    id: "u603", title: "Foreign Subsidies Regulation Quarterly (FSRQ) Q2 2026",
+    area: "corporate", areas: ["corporate"], type: "update", firm: "whitecase",
+    date: "2026-07-02", jurisdiction: "European Union",
+    summary: "White & Case's quarterly newsletter on the EU Foreign Subsidies Regulation covers the Commission's first in-depth FSR merger investigation (JD.com's bid for CECONOMY AG), General Court challenges to Commission information requests, the first FSR procurement investigation resolved via remedial commitments, and new Commission data-protection rules for FSR investigations.",
+    points: [
+      "Commission opened an in-depth FSR merger probe into JD.com's €4.60/share bid for CECONOMY AG on 28 May 2026, decision due 2 October 2026",
+      "Goldwind and Nuctech are challenging Commission FSR information requests before the EU General Court",
+      "Commission closed its first FSR procurement investigation via commitments in a Lisbon metro consortium bid, requiring replacement of a Chinese subsidiary",
+      "New Commission rules (adopted 30 June 2026) govern personal data processing and restrict data-subject rights during FSR investigations",
+    ],
+    tags: ["Foreign Subsidies Regulation", "EU merger control", "M&A", "China outbound investment", "public procurement"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://finreg.aoshearman.com/uk-expands-frcc-remit-to-fca-supervision-under-mlrs",
+    id: "u604", title: "UK expands FRCC remit to FCA supervision under MLRs",
+    area: "banking", areas: ["banking"], type: "update", firm: "aoshearman",
+    date: "2026-07-02", jurisdiction: "United Kingdom",
+    summary: "A&O Shearman's FinReg blog reports on the Financial Services Act 2012 (Relevant Functions in relation to Complaints Scheme) (Amendment) Order 2026, extending the Financial Regulators Complaints Commissioner's remit to complaints about the FCA's supervision under the Money Laundering Regulations 2017, effective 23 July 2026.",
+    points: [
+      "Closes a gap left by the original 2014 order that prevented FRCC investigating MLR supervisory complaints",
+      "Paired with amendments creating information-sharing gateways between the FCA and the FRCC",
+      "New order takes effect 23 July 2026",
+    ],
+    tags: ["FCA", "AML", "FRCC", "financial regulation", "complaints"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://finreg.aoshearman.com/esma-final-report-on-the-simplification-of-financial-transaction-reporting",
+    id: "u605", title: "ESMA final report on the simplification of financial transaction reporting",
+    area: "banking", areas: ["banking", "funds"], type: "update", firm: "aoshearman",
+    date: "2026-07-02", jurisdiction: "European Union",
+    summary: "ESMA published a final report setting out a phased approach to simplifying financial transaction reporting under MiFIR, EMIR and SFTR, aiming ultimately at a 'report once' model, with near-term measures including streamlined intragroup exemptions and fewer reporting fields.",
+    points: [
+      "Phased reform: near-term burden reduction plus a long-term structural 'report once' model targeted for H2 2031",
+      "Single-sided reporting transition not retained, to preserve data-quality assessment",
+      "Implementation will require EU legislative amendments and common reporting standards",
+    ],
+    tags: ["ESMA", "MiFIR", "EMIR", "SFTR", "transaction reporting"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://finreg.aoshearman.com/eba-peer-review-report-on-pillar-3-disclosures",
+    id: "u606", title: "EBA peer review report on Pillar 3 disclosures",
+    area: "banking", areas: ["banking"], type: "update", firm: "aoshearman",
+    date: "2026-07-02", jurisdiction: "European Union",
+    summary: "The EBA published a peer review assessing how EU competent authorities supervised compliance with Pillar 3 disclosure requirements under CRR and BRRD between June 2023 and June 2025, finding strong overall convergence but some jurisdictional inconsistencies.",
+    points: [
+      "High degree of supervisory convergence found across the EU generally",
+      "One authority rated only partially compliant; another lacked formal assessment methodologies",
+      "EBA sets out follow-up measures and best practices for identified deficiencies",
+    ],
+    tags: ["EBA", "Pillar 3", "disclosure", "CRR", "BRRD", "prudential supervision"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://finreg.aoshearman.com/uk-lays-draft-si-for-overseas-prudential-requirements-regime",
+    id: "u607", title: "UK lays draft SI for overseas prudential requirements regime",
+    area: "banking", areas: ["banking"], type: "update", firm: "aoshearman",
+    date: "2026-07-02", jurisdiction: "United Kingdom",
+    summary: "HM Treasury published draft regulations establishing a new Overseas Prudential Requirements Regime, consolidating existing UK CRR equivalence provisions into a single framework consistent with the FSMA 2000 model, taking effect 1 January 2027.",
+    points: [
+      "Restates UK CRR equivalence provisions into one overseas prudential requirements regime",
+      "Covers overseas credit institutions, investment firms, exchanges, covered bonds, central banks and regional governments",
+      "Future designations require a statutory instrument and parliamentary approval; regime effective 1 January 2027",
+    ],
+    tags: ["prudential regulation", "HM Treasury", "CRR", "equivalence", "banking"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://finreg.aoshearman.com/uk-fca-consults-on-simplifying-consumer-investment-disclosures",
+    id: "u608", title: "UK FCA consults on simplifying consumer investment disclosures",
+    area: "banking", areas: ["banking", "funds"], type: "update", firm: "aoshearman",
+    date: "2026-07-02", jurisdiction: "United Kingdom",
+    summary: "The FCA published CP26/24, proposing to streamline consumer investment cost-disclosure rules to align with the new Consumer Composite Investments regime, including removing cumulative cost illustrations and banning 'double dipping' on cash interest and fees.",
+    points: [
+      "Aligns COBS disclosure rules with the CCI regime via a duty-driven approach",
+      "Removes cumulative-effect illustrations in favour of post-sale cost/return reporting",
+      "Prohibits firms simultaneously charging fees and retaining client cash interest",
+      "Comments due 21 August 2026; CCI regime takes effect 8 June 2027",
+    ],
+    tags: ["FCA", "consumer investments", "disclosure", "CCI regime", "consultation"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://finreg.aoshearman.com/uk-fca-motor-finance-redress-scheme-partially-suspended",
+    id: "u609", title: "UK FCA motor finance redress scheme partially suspended",
+    area: "banking", areas: ["banking"], type: "update", firm: "aoshearman",
+    date: "2026-07-02", jurisdiction: "United Kingdom",
+    summary: "The Upper Tribunal temporarily suspended parts of the FCA's motor finance redress scheme pending legal challenges, though firms must still identify complaints and gather data; hearings are scheduled for December 2026 or February 2027.",
+    points: [
+      "Suspension is partial; obligations to identify complaints, gather data and notify ineligible complainants continue",
+      "Legal hearings set for 14-18 December 2026 or 16-26 February 2027",
+      "FCA expects firms to plan contingencies in case the scheme is overturned",
+    ],
+    tags: ["FCA", "motor finance", "redress", "consumer credit", "Upper Tribunal"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://finreg.aoshearman.com/uk-fca-final-regulated-fees-and-levies-for-202627",
+    id: "u610", title: "UK FCA final regulated fees and levies for 2026/27",
+    area: "banking", areas: ["banking"], type: "update", firm: "aoshearman",
+    date: "2026-07-02", jurisdiction: "United Kingdom",
+    summary: "The FCA confirmed its final fees and levies for 2026/27: firms will pay £716.5m after retained penalty income is offset against a £788.9m total funding requirement, with a 1% rise to application, transaction and notification fees.",
+    points: [
+      "Annual FCA funding requirement of £788.9m; £716.5m payable by firms (0.7% year-on-year increase)",
+      "1% increase to application, transaction and notification fees",
+      "FOS compulsory jurisdiction levy set at £86m; cryptoasset application fees addressed separately in a September Handbook Notice",
+    ],
+    tags: ["FCA", "fees and levies", "regulatory funding", "FOS"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://finreg.aoshearman.com/uk-pvdc-policy-paper-on-the-roles-and-responsibilities-in-the-future-retail-payments-ecosystem",
+    id: "u611", title: "UK PVDC policy paper on the roles and responsibilities in the future retail payments ecosystem",
+    area: "banking", areas: ["banking"], type: "update", firm: "aoshearman",
+    date: "2026-07-02", jurisdiction: "United Kingdom",
+    summary: "The Payments Vision Delivery Committee (HM Treasury, Bank of England, FCA and PSR) published a policy paper proposing a framework for participants' roles in the UK's future retail payments ecosystem, covering central infrastructure, product-level arrangements and governance.",
+    points: [
+      "Defines roles for central infrastructure, product arrangements, and commercial/governance structures",
+      "Prioritises innovation, competition, interoperability and broad access",
+      "Supports the Retail Payments Infrastructure Board's parallel infrastructure-design consultation",
+    ],
+    tags: ["payments", "PVDC", "FCA", "Bank of England", "retail payments"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://finreg.aoshearman.com/amla-draft-its-on-common-format-for-reporting-suspicions-under-amlr",
+    id: "u612", title: "AMLA draft ITS on common format for reporting suspicions under AMLR",
+    area: "banking", areas: ["banking"], type: "update", firm: "aoshearman",
+    date: "2026-07-02", jurisdiction: "European Union",
+    summary: "The EU's new Anti-Money Laundering Authority opened consultation on draft Implementing Technical Standards for a common EU-wide format for reporting suspicious transactions and activities, aiming to harmonise reporting across member states.",
+    points: [
+      "Establishes standardised data points and reporting templates for obliged entities",
+      "Addresses current fragmentation in how suspicions/transactions are reported across the EU",
+      "Consultation deadline 20 September 2026; public hearing scheduled 9 September 2026",
+    ],
+    tags: ["AMLA", "AML", "suspicious transaction reporting", "EU", "financial crime"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.freshfields.com/en/our-thinking/blogs/transactions/the-2027-edition-of-panoramic-merger-control-is-now-available-102n7td",
+    id: "u613", title: "The 2027 Edition of Panoramic Merger Control Is Now Available",
+    area: "corporate", areas: ["corporate"], type: "knowhow", firm: "freshfields",
+    date: "2026-07-02", jurisdiction: "Global",
+    summary: "Freshfields announces the 2027 edition of 'Panoramic Merger Control', its international guide to merger-control regulation across 55 leading jurisdictions worldwide, including England & Wales, aimed at helping dealmakers navigate multi-jurisdictional transaction requirements.",
+    points: [
+      "Covers merger regulation regimes across 55 jurisdictions globally",
+      "Addresses enforcement trends, including geopolitical considerations",
+      "Covers foreign investment review frameworks relevant to deal design and timing",
+    ],
+    tags: ["merger control", "M&A", "antitrust", "cross-border deals", "foreign investment review"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.freshfields.com/en/our-thinking/blogs/transactions/inside-infrastructure-infrastructure-fundraising-new-channels-new-pathways-to-102n7t8",
+    id: "u614", title: "Inside Infrastructure: Infrastructure fundraising - new channels, new pathways to navigate",
+    area: "funds", areas: ["funds"], type: "insight", firm: "freshfields",
+    date: "2026-07-02", jurisdiction: "United Kingdom / European Union",
+    summary: "Freshfields examines three trends reshaping infrastructure fundraising: the recovery of the asset class, the expansion of evergreen/semi-liquid structures (LTAFs in the UK, ELTIFs in the EU) widening retail and private-wealth access, and the growth of the infrastructure secondaries market, particularly GP-led continuation vehicles.",
+    points: [
+      "LTAFs (UK) and ELTIFs (EU) are expanding retail and private-wealth investor access to illiquid infrastructure assets",
+      "Infrastructure secondaries, especially GP-led continuation vehicles, deployed over £7bn in 2025",
+      "Raises liquidity management, fee architecture and fiduciary duty conflict issues in continuation vehicles",
+      "Notes evolving regulatory frameworks including AIFMD II affecting fund structuring",
+    ],
+    tags: ["infrastructure funds", "LTAF", "ELTIF", "fund secondaries", "continuation vehicles", "AIFMD II"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://sustainablefutures.linklaters.com/post/102n7wv/eu-eba-finalises-its-guidelines-on-product-oversight-and-governance-to-address-g",
+    id: "u615", title: "EU: EBA finalises its guidelines on product oversight and governance to address greenwashing risks in ESG retail banking products",
+    area: "banking", areas: ["banking"], type: "update", firm: "linklaters",
+    date: "2026-07-03", jurisdiction: "European Union",
+    summary: "The EBA finalised amended Guidelines on product oversight and governance for retail banking products with ESG features, sharpening greenwashing-prevention obligations and postponing implementation from December 2026 to 11 January 2027 to align with the timeline for small and non-complex institutions.",
+    points: [
+      "Scope refined to respect Member State discretion in transposing consumer credit rules",
+      "Internal control processes must explicitly 'identify and prevent' greenwashing, not just monitor it",
+      "Proposed chapter on third-party arrangements dropped in favour of a cross-reference to outsourcing guidelines",
+      "Implementation deadline pushed back to 11 January 2027",
+    ],
+    tags: ["EBA", "greenwashing", "product oversight", "retail banking", "ESG", "guidelines"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.traverssmith.com/knowledge/knowledge-container/private-equity-in-sports-planning-the-perfect-exit/",
+    id: "u616", title: "Private Equity in Sports – planning the perfect Exit",
+    area: "corporate", areas: ["corporate", "funds"], type: "insight", firm: "traverssmith",
+    date: "2026-07-06", jurisdiction: "United Kingdom / International",
+    summary: "Travers Smith explores exit routes for private equity investors in the sports sector, noting most sports investments have not yet reached maturity but early exits (secondary buyouts, trade sales, HNW buyers, IPOs) show attractive potential, with third-party/league approvals extending required holding periods.",
+    points: [
+      "Exit routes highlighted: secondary PE buyout, trade sale, high-net-worth individual purchaser, or IPO",
+      "Regulatory/commercial complexity (third-party approvals, rights cycles) can extend required holding periods versus traditional PE assets",
+      "New commercial value drivers — streaming rights, direct-to-fan subscriptions, gamified fan experiences, global sponsorship — are reshaping both revenue and exit angles",
+    ],
+    tags: ["private equity", "sports investment", "exits", "financial sponsors", "M&A"],
+    dateEstimated: false,
+  },
 ];
 
 // ---- Recent cases published on BAILII -------------------------------------
@@ -5675,6 +5875,9 @@ export const cases = [
   { id: "c55", name: "The Wine Enterprises Investments Scheme Limited (in liquidation) v Crowe U.K. LLP", citation: "[2026] EWHC 1662 (Ch)", court: "High Court (Ch)",
     date: "2026-07-03", area: "ri", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1662",
     summary: "Consequential costs judgment following the liquidators' professional-negligence claim against the company's former auditors, in which they recovered only ~£102,000 (1.6%) of their £8.4m claim; the court held the auditors were nonetheless the successful party and awarded them 85% of pre-offer costs and full post-offer costs on the standard basis, refusing indemnity costs." },
+  { id: "c56", name: "Philip Henry Cole v Scott William Masterton", citation: "[2026] EWHC 1615 (Comm)", court: "High Court (Comm)",
+    date: "2026-07-01", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/1615",
+    summary: "Hancock J refused to lift a debarring order against a defendant who had persistently failed to engage with proceedings and, proceeding on the documentary evidence alone, upheld the claimant's claim for £10m under a share purchase agreement the defendant alleged was a sham." },
 ];
 
 // ---- Lightweight lookups ----------------------------------------------------
@@ -5742,6 +5945,7 @@ export const caseSummaries = {
   c53: "Culina Group and related companies sued former chief executive Thomas van Mourik and other former directors and executives (including William Stobart and David Meir) for breach of duty in connection with their time running the group. At a case management conference, the claimants sought permission to amend their pleadings to add further bases of liability. Andrew Baker J refused an amendment that sought to found fiduciary duties on a service company merely because it supplied a professional to perform an executive role, holding that supplying personnel does not by itself create a fiduciary relationship. He permitted a separate amendment alleging liability to account for an increase in the value of a shareholding, treating whether such liability can arise as an unsettled point of law better resolved at trial than struck out summarily. Directions were given for a trial listed for 28 February 2028, with extended disclosure and evidence timetabled through 2027, keeping live substantial fiduciary-duty and accounting claims against the former Culina/Stobart group executives.",
   c54: "Gable Insurance AG, an Austrian insurer in liquidation, sued its former CEO and director William Dewsall for breach of duty over payments he authorised during his tenure, totalling £4,957,788.52 for which the trial judge found him liable. The trial judge distinguished between payments diverted from trust accounts, which were found dishonest, and other payments made directly by the company (including to a party called Hogarth), which the judge found were negligent breaches but not dishonest because Dewsall believed the payments were authorised by the relevant boards and disclosed to the auditor. On appeal, Gable Insurance argued this distinction was irrational and that all the payments should have been treated as dishonest. The Court of Appeal dismissed the appeal, holding the trial judge was entitled to draw a rational distinction between the two categories of payment based on Dewsall's state of mind and the surrounding governance context, so the finding of negligence rather than dishonesty for the non-trust payments stood.",
   c55: "The liquidators of The Wine Enterprises Investments Scheme Limited brought a professional-negligence claim against its former auditors, Crowe U.K. LLP, alleging Crowe failed over seven audit years (2012-2018) to detect fraud by the company's directors. The main judgment (27 March 2026) found Crowe liable but awarded only about £102,000 — roughly 1.6% of the £8.4m claimed. In this consequential costs judgment, the court held that Crowe was nonetheless the 'successful party' under the established costs test, awarding Crowe 85% of its costs up to the expiry of its Part 36 offer and the whole of its costs thereafter (plus interest), on the standard rather than indemnity basis. The decision is a reminder to liquidators and other claimants that a nominal or heavily discounted damages recovery can still translate into a substantial adverse costs order if it falls short of a defendant's settlement offer.",
+  c56: "Philip Cole and Scott Masterton co-founded E-Technologies Global Limited, and in September 2021 executed a Share Purchase Agreement under which Masterton agreed to buy Cole's shares for £10m, contingent on anticipated third-party investment that never materialised. Masterton repeatedly failed to comply with court orders and engage with the litigation, leading to a debarring order preventing him from advancing a defence; he sought relief from sanctions under the Denton v White framework, citing dyslexia and unrelated criminal proceedings, which the court found unsupported by evidence and insufficient to excuse serious, repeated breaches. Applying CPR 3.9, Hancock J maintained the debarring order but still considered the merits on the available documentary record, since Masterton could not positively advance his sham-agreement defence. The court found the SPA was a genuine, binding agreement breached by Masterton's failure to pay the agreed £10m by the completion date.",
 };
 
 export const restructurings = [
