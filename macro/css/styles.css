@@ -33,7 +33,11 @@ h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
    narrower desktops. */
 .topbar-inner { position: relative; display: flex; align-items: center; gap: 2rem; padding: 0 1.5rem; height: 60px; }
 @media (min-width: 1101px) {
-  .topbar-inner { padding-left: max(11rem, calc((100% - min(100%, 1500px)) / 2 + 2rem)); padding-right: calc((100% - min(100%, 1500px)) / 2 + 2rem); }
+  /* Left padding aligns the tabs to the page content's left edge; the right side
+     is a small inset so the flow (nav → Chart → signed-in identity → bell)
+     reaches the actual viewport corner, not the 1500px content edge (which left
+     empty margin beyond the account block on ultra-wide screens). */
+  .topbar-inner { padding-left: max(11rem, calc((100% - min(100%, 1500px)) / 2 + 2rem)); padding-right: 1.5rem; }
   .topbar-inner .brand { position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); }
   /* The nav fills the row (two-class selector so it beats the later base
      `.mainnav { flex: 0 1 auto }` at equal specificity) and the right-aligned
