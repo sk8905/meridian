@@ -32,21 +32,16 @@ h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
    page content's left edge. The 11rem floor keeps the toggle clear of the logo on
    narrower desktops. */
 .topbar-inner { position: relative; display: flex; align-items: center; gap: 2rem; padding: 0 1.5rem; height: 60px; }
+/* Identical to Credit/Legal: the brand pins to the far-left corner and the
+   signed-in identity + bell to the far-right corner (out of flow); the nav
+   fills the row so the right-aligned Chart tab lands at the page content's
+   right edge — the same place Credit's Watchlist sits. */
 @media (min-width: 1101px) {
-  /* Left padding aligns the tabs to the page content's left edge; the right side
-     is a small inset so the flow (nav → Chart → signed-in identity → bell)
-     reaches the actual viewport corner, not the 1500px content edge (which left
-     empty margin beyond the account block on ultra-wide screens). */
-  .topbar-inner { padding-left: max(11rem, calc((100% - min(100%, 1500px)) / 2 + 2rem)); padding-right: 1.5rem; }
+  .topbar-inner { padding-left: max(11rem, calc((100% - min(100%, 1500px)) / 2 + 2rem)); padding-right: calc((100% - min(100%, 1500px)) / 2 + 2rem); }
   .topbar-inner .brand { position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); }
-  /* The nav fills the row (two-class selector so it beats the later base
-     `.mainnav { flex: 0 1 auto }` at equal specificity), so the right-aligned
-     Chart tab reaches the nav's right edge and the signed-in identity + bell
-     follow it in flow at the far-right corner (no overlap, since they are not
-     absolutely pinned). */
   .topbar-inner .mainnav { flex: 1 1 auto; }
-  .topbar-inner .topbar-right { flex: 0 0 auto; margin-left: 0; }
-  .topbar-inner .notif { flex: 0 0 auto; }
+  .topbar-inner .topbar-right { position: absolute; right: 4rem; top: 50%; transform: translateY(-50%); }
+  .topbar-inner .notif { position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); }
 }
 .brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: #fff; flex: 0 0 auto; }
 .brand:hover { text-decoration: none; }
