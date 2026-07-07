@@ -398,7 +398,9 @@ const MACRO_SERIES = [
   { country: "US", key: "core_cpi", label: "Core inflation", unit: "%", sub: "Core CPI · YoY", src: "fred", id: "CPILFESL", tf: "yoy", href: "https://fred.stlouisfed.org/series/CPILFESL", source: "FRED / BLS" },
   { country: "US", key: "wages", label: "Wage growth", unit: "%", sub: "Avg hourly earnings · YoY", src: "fred", id: "CES0500000003", tf: "yoy", href: "https://fred.stlouisfed.org/series/CES0500000003", source: "FRED / BLS" },
   { country: "US", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "UNRATE", tf: "level", href: "https://fred.stlouisfed.org/series/UNRATE", source: "FRED / BLS" },
-  { country: "US", key: "services_pmi", label: "Services PMI", unit: "", sub: "ISM Services PMI", src: "dbnomics", id: "ISM/nm-pmi/pm", tf: "level", href: "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-report-on-business/services/", source: "ISM (via DBnomics)" },
+  // DBnomics' ISM mirror lags (~Aug 2025); recent months curated from ISM's own
+  // monthly releases keep it current (merged onto the real history).
+  { country: "US", key: "services_pmi", label: "Services PMI", unit: "", sub: "ISM Services PMI", src: "dbnomics", id: "ISM/nm-pmi/pm", curated: [["2025-09", 50.0], ["2025-10", 52.4], ["2026-02", 56.1], ["2026-03", 54.0], ["2026-04", 53.6], ["2026-05", 54.5], ["2026-06", 54.0]], tf: "level", href: "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-report-on-business/services/", source: "ISM" },
   { country: "US", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y Treasury", src: "fred", id: "DGS2", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/DGS2", source: "FRED / U.S. Treasury" },
   // UK macro: official-source-first — the ONS time-series API returns the
   // headline annual-rate/level directly (CDID/DATASET).
@@ -407,16 +409,24 @@ const MACRO_SERIES = [
   { country: "UK", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "ons", id: "MGSX/LMS", tf: "level", href: "https://www.ons.gov.uk/employmentandlabourmarket/peopleandwork/unemployment/timeseries/mgsx/lms", source: "ONS" },
   // S&P Global/CIPS PMI is proprietary (not on FRED/DBnomics); seed the latest
   // verifiable value and finalise history/source with the user.
-  { country: "UK", key: "services_pmi", label: "Services PMI", unit: "", sub: "S&P Global/CIPS Services PMI", src: "curated", curated: [["2026-05", 49.3], ["2026-06", 48.8]], tf: "level", href: "https://www.pmi.spglobal.com/Public/Home/PressRelease", source: "S&P Global/CIPS" },
+  // S&P Global/CIPS is proprietary (no free API); curated from its releases.
+  { country: "UK", key: "services_pmi", label: "Services PMI", unit: "", sub: "S&P Global/CIPS Services PMI", src: "curated", curated: [["2025-11", 51.3], ["2025-12", 51.4], ["2026-04", 52.7], ["2026-05", 49.3], ["2026-06", 48.8]], tf: "level", href: "https://www.pmi.spglobal.com/Public/Home/PressRelease", source: "S&P Global/CIPS" },
   { country: "UK", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y gilt", src: "boe", id: "IUDSNPY", tf: "level", href: "https://www.bankofengland.co.uk/boeapps/database/fromshowcolumns.asp?SeriesCodes=IUDSNPY", source: "Bank of England" },
 ];
 
 async function macroSeriesPairs(s, env) {
-  const raw = s.src === "fred" ? await fredMonthly(s.id, env, s.agg)
+  let raw = s.src === "fred" ? await fredMonthly(s.id, env, s.agg)
     : s.src === "dbnomics" ? await dbnomicsMonthly(s.id)
     : s.src === "boe" ? await boeMonthly(s.id)
     : s.src === "ons" ? await onsMonthly(s.id)
     : s.src === "curated" ? (s.curated || []) : [];
+  // A `curated` list on a LIVE source extends it: source-verified recent months
+  // override/append to a mirror that lags (e.g. DBnomics' ISM stops ~Aug 2025).
+  if (s.curated && s.src !== "curated") {
+    const map = new Map(raw);
+    for (const [d, v] of s.curated) map.set(d, v);
+    raw = [...map.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+  }
   const t = s.tf === "yoy" ? toYoY(raw) : raw;
   return t.slice(-60); // last 5 years of monthly points
 }
@@ -434,7 +444,7 @@ async function handleMacro(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/macro?v=2", request.url).toString());
+  const cacheKey = new Request(new URL("/api/macro?v=3", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const series = await Promise.all(MACRO_SERIES.map(async (s) => {
