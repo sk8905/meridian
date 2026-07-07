@@ -22,3 +22,7 @@
   Cache-Control: no-cache
 /legal/index.html
   Cache-Control: no-cache
+/macro/
+  Cache-Control: no-cache
+/macro/index.html
+  Cache-Control: no-cache
