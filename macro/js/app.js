@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS } from "./content.js?v=20260707-20";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS } from "./content.js?v=20260707-21";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -558,7 +558,7 @@ async function initMe() {
     if (!r.ok) return;
     const d = await r.json();
     const el = document.getElementById("account-nav");
-    if (el && d.email) { el.innerHTML = `Signed in as <strong>${esc(d.email)}</strong> · <a href="/cdn-cgi/access/logout">Sign out</a>`; el.hidden = false; }
+    if (el && d.email) { el.innerHTML = `<span class="si-prefix">Signed in as </span><strong>${esc(d.email)}</strong> · <a href="/cdn-cgi/access/logout">Sign out</a>`; el.hidden = false; }
   } catch { /* not behind Access */ }
 }
 

@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
-} from "./data.js?v=20260707-7";
-import { donutChart, columnChart } from "./charts.js?v=20260707-7";
+} from "./data.js?v=20260707-8";
+import { donutChart, columnChart } from "./charts.js?v=20260707-8";
 
 const app = document.getElementById("app");
 
@@ -986,7 +986,7 @@ function initChrome() {
       .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
       .then((d) => {
         if (d && d.email) {
-          acct.innerHTML = `Signed in as <strong>${esc(d.email)}</strong>`
+          acct.innerHTML = `<span class="si-prefix">Signed in as </span><strong>${esc(d.email)}</strong>`
             + ` · <a href="/cdn-cgi/access/logout">Sign out</a>`;
         }
       })

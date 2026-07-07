@@ -506,8 +506,8 @@ a.compact-head:hover { color: var(--primary); }
   .notif { grid-area: bell; justify-self: end; align-self: center; }
   .notif-bell { width: 30px; height: 30px; font-size: .9rem; }
   .topbar-right { grid-area: account; align-items: flex-end; text-align: right; margin-left: 0; }
-  .account-nav, .data-status { white-space: normal; font-size: .66rem; }
-  .account-nav a, .account-nav strong { white-space: nowrap; }
+  .account-nav, .data-status { white-space: nowrap; font-size: .66rem; }
+  .account-nav .si-prefix { display: none; }
   .mainnav {
     grid-area: nav; display: flex; justify-content: flex-start; gap: .15rem;
     overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 2px;
