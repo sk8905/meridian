@@ -81,7 +81,7 @@ async function initMe() {
 app.innerHTML = `
   <div class="page-head">
     <h1>Macro</h1>
-    <p class="muted">Key US &amp; UK economic indicators — core inflation, wage growth, unemployment, services PMI and the 2-year yield — each with 5-year history and a link to its public source.</p>
+    <p class="muted">Key US &amp; UK economic indicators — central-bank base rates, core inflation, wage growth, unemployment, services PMI and the 2-year yield — each with 5-year history and a link to its public source.</p>
   </div>
   <div id="macro-body" class="macro-body"><section class="card"><p class="muted">Loading macro data…</p></section></div>`;
 loadMacro();
