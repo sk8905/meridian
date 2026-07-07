@@ -371,6 +371,22 @@ function toYoY(pairs) {
   }
   return out;
 }
+// ONS time-series API → monthly [YYYY-MM, value]. `spec` is "CDID/DATASET"
+// (e.g. "MGSX/LMS"); the API returns the annual-rate/level directly.
+const ONS_MM = { JAN: "01", FEB: "02", MAR: "03", APR: "04", MAY: "05", JUN: "06", JUL: "07", AUG: "08", SEP: "09", OCT: "10", NOV: "11", DEC: "12" };
+async function onsMonthly(spec) {
+  const [cdid, dataset] = String(spec).split("/");
+  const txt = await fetchText(`https://api.ons.gov.uk/timeseries/${cdid.toLowerCase()}/dataset/${dataset.toLowerCase()}/data`);
+  if (!txt) return [];
+  try {
+    const months = (JSON.parse(txt).months) || [];
+    return months.map((m) => {
+      const g = String(m.date || "").toUpperCase().match(/(\d{4})\s+([A-Z]{3})/);
+      const v = parseFloat(m.value);
+      return (g && ONS_MM[g[2]] && Number.isFinite(v)) ? [`${g[1]}-${ONS_MM[g[2]]}`, v] : null;
+    }).filter(Boolean);
+  } catch { return []; }
+}
 
 const MACRO_SERIES = [
   { country: "US", key: "core_cpi", label: "Core inflation", unit: "%", sub: "Core CPI · YoY", src: "fred", id: "CPILFESL", tf: "yoy", href: "https://fred.stlouisfed.org/series/CPILFESL", source: "FRED / BLS" },
@@ -378,9 +394,11 @@ const MACRO_SERIES = [
   { country: "US", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "UNRATE", tf: "level", href: "https://fred.stlouisfed.org/series/UNRATE", source: "FRED / BLS" },
   { country: "US", key: "services_pmi", label: "Services PMI", unit: "", sub: "ISM Services PMI", src: "dbnomics", id: "ISM/nm-pmi/pm", tf: "level", href: "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-report-on-business/services/", source: "ISM (via DBnomics)" },
   { country: "US", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y Treasury", src: "fred", id: "DGS2", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/DGS2", source: "FRED / U.S. Treasury" },
-  { country: "UK", key: "core_cpi", label: "Core inflation", unit: "%", sub: "Core CPI · YoY", src: "fred", id: "GBRCPICORMINMEI", tf: "yoy", href: "https://fred.stlouisfed.org/series/GBRCPICORMINMEI", source: "FRED / OECD / ONS" },
-  { country: "UK", key: "wages", label: "Wage growth", unit: "%", sub: "Regular pay (AWE) · YoY", src: "dbnomics", id: "ONS/EMP/KAI9", tf: "level", href: "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/timeseries/kai9/lms", source: "ONS (via DBnomics)" },
-  { country: "UK", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTGBM156S", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTGBM156S", source: "FRED / OECD / ONS" },
+  // UK macro: official-source-first — the ONS time-series API returns the
+  // headline annual-rate/level directly (CDID/DATASET).
+  { country: "UK", key: "core_cpi", label: "Core inflation", unit: "%", sub: "Core CPI · YoY", src: "ons", id: "L55O/MM23", tf: "level", href: "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l55o/mm23", source: "ONS" },
+  { country: "UK", key: "wages", label: "Wage growth", unit: "%", sub: "Regular pay (AWE) · YoY", src: "ons", id: "KAI9/LMS", tf: "level", href: "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/timeseries/kai9/lms", source: "ONS" },
+  { country: "UK", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "ons", id: "MGSX/LMS", tf: "level", href: "https://www.ons.gov.uk/employmentandlabourmarket/peopleandwork/unemployment/timeseries/mgsx/lms", source: "ONS" },
   // S&P Global/CIPS PMI is proprietary (not on FRED/DBnomics); seed the latest
   // verifiable value and finalise history/source with the user.
   { country: "UK", key: "services_pmi", label: "Services PMI", unit: "", sub: "S&P Global/CIPS Services PMI", src: "curated", curated: [["2026-05", 49.3], ["2026-06", 48.8]], tf: "level", href: "https://www.pmi.spglobal.com/Public/Home/PressRelease", source: "S&P Global/CIPS" },
@@ -391,6 +409,7 @@ async function macroSeriesPairs(s, env) {
   const raw = s.src === "fred" ? await fredMonthly(s.id, env, s.agg)
     : s.src === "dbnomics" ? await dbnomicsMonthly(s.id)
     : s.src === "boe" ? await boeMonthly(s.id)
+    : s.src === "ons" ? await onsMonthly(s.id)
     : s.src === "curated" ? (s.curated || []) : [];
   const t = s.tf === "yoy" ? toYoY(raw) : raw;
   return t.slice(-60); // last 5 years of monthly points
