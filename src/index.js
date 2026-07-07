@@ -412,7 +412,10 @@ const MACRO_SERIES = [
   // verifiable value and finalise history/source with the user.
   // S&P Global/CIPS is proprietary (no free API); curated from its releases.
   { country: "UK", key: "services_pmi", label: "Services PMI", unit: "", sub: "S&P Global/CIPS Services PMI", src: "curated", curated: [["2025-11", 51.3], ["2025-12", 51.4], ["2026-04", 52.7], ["2026-05", 49.3], ["2026-06", 48.8]], tf: "level", href: "https://www.pmi.spglobal.com/Public/Home/PressRelease", source: "S&P Global/CIPS" },
-  { country: "UK", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y gilt", src: "boe", id: "IUDSNPY", tf: "level", href: "https://www.bankofengland.co.uk/boeapps/database/fromshowcolumns.asp?SeriesCodes=IUDSNPY", source: "Bank of England" },
+  // No free live API for the 2y constant-maturity gilt: BoE's IADB benchmarks are
+  // 5/10/20y (no 2y point) and bankofengland.co.uk blocks the Worker. Curated from
+  // the BoE nominal yield curve; the tile links there for verification.
+  { country: "UK", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y gilt", src: "curated", curated: [["2025-07", 3.87], ["2026-06", 4.38], ["2026-07", 4.13]], tf: "level", href: "https://www.bankofengland.co.uk/statistics/yield-curves", source: "Bank of England" },
 ];
 
 async function macroSeriesPairs(s, env) {
@@ -445,7 +448,7 @@ async function handleMacro(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/macro?v=5", request.url).toString());
+  const cacheKey = new Request(new URL("/api/macro?v=6", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const series = await Promise.all(MACRO_SERIES.map(async (s) => {
