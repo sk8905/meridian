@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, OUTLOOK, CYCLE, SUMMARY, ALERTS } from "./content.js?v=20260707-7";
+import { UPDATED, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS } from "./content.js?v=20260707-8";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -72,6 +72,7 @@ function summaryCards() {
   return `<section class="macro-summary">
     ${card("◷", "Rate outlook", "#/commentary", "Read the commentary", SUMMARY.outlook.us, SUMMARY.outlook.uk)}
     ${card("◑", "Where we are in the cycle", "#/cycle", "See the cycle view", SUMMARY.cycle.us, SUMMARY.cycle.uk)}
+    ${card("◎", "Bubble risk", "#/bubble", "See the bubble view", SUMMARY.bubble.us, SUMMARY.bubble.uk)}
   </section>`;
 }
 
@@ -85,11 +86,14 @@ function renderMacro(data) {
   return grids + summaryCards();
 }
 
-// ---- Cycle gauge (stylised 0 early → 100 crisis) ---------------------------
-function cycleGauge(items) {
+// ---- Horizontal 0–100 gauge (used by Cycle and Bubble) ---------------------
+// zones: [[pos,label], …] printed under the track; items: [{label,pos}, …]
+// markers on the track. gradId must be unique per gauge on the page.
+let gaugeSeq = 0;
+function trackGauge(zones, items, aria) {
   const W = 340, H = 104, x0 = 14, x1 = 326, trackY = 56, trackH = 12;
+  const gradId = `gaugeGrad${gaugeSeq++}`;
   const X = (p) => x0 + (Math.max(0, Math.min(100, p)) / 100) * (x1 - x0);
-  const zones = [[6, "Early"], [31, "Leveraging"], [56, "Late cycle"], [81, "Bubble / top"], [98, "Crisis"]];
   const zoneText = zones.map(([p, t]) => `<text x="${X(p).toFixed(1)}" y="${trackY + trackH + 15}" class="gauge-zone" text-anchor="middle">${esc(t)}</text>`).join("");
   const marks = items.map((it, i) => {
     const x = X(it.pos).toFixed(1);
@@ -100,13 +104,24 @@ function cycleGauge(items) {
       <text x="${x}" y="${ly}" class="gauge-mark" text-anchor="middle">${esc(it.label)} · ${it.pos}</text>
     </g>`;
   }).join("");
-  return `<svg viewBox="0 0 ${W} ${H}" class="gauge" role="img" aria-label="Long-term debt cycle position, 0 early to 100 crisis">
-    <defs><linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="0">
+  return `<svg viewBox="0 0 ${W} ${H}" class="gauge" role="img" aria-label="${esc(aria || "")}">
+    <defs><linearGradient id="${gradId}" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="#ece8f6"/><stop offset="1" stop-color="${MACRO_INK}"/>
     </linearGradient></defs>
-    <rect x="${x0}" y="${trackY}" width="${x1 - x0}" height="${trackH}" rx="6" fill="url(#gaugeGrad)"/>
+    <rect x="${x0}" y="${trackY}" width="${x1 - x0}" height="${trackH}" rx="6" fill="url(#${gradId})"/>
     ${zoneText}${marks}
   </svg>`;
+}
+const CYCLE_ZONES = [[6, "Early"], [31, "Leveraging"], [56, "Late cycle"], [81, "Bubble / top"], [98, "Crisis"]];
+const BUBBLE_ZONES = [[7, "Low"], [30, "Moderate"], [52, "Elevated"], [75, "High"], [96, "Extreme"]];
+// Composite bubble score = weighted average of the dimension sub-scores.
+function bubbleComposite() {
+  const d = BUBBLE.dimensions;
+  const wsum = d.reduce((s, x) => s + x.weight, 0) || 1;
+  return Math.round(d.reduce((s, x) => s + x.score * x.weight, 0) / wsum);
+}
+function bubbleBand(score) {
+  return score < 20 ? "Low" : score < 40 ? "Moderate" : score < 65 ? "Elevated" : score < 82 ? "High" : "Extreme";
 }
 
 // ---- Views -----------------------------------------------------------------
@@ -120,7 +135,7 @@ function viewDashboard() {
   return `
     <div class="page-head">
       <h1>Macro Intelligence</h1>
-      <p class="muted">Key US &amp; UK economic indicators — central-bank base rates, the 2-year yield, core inflation, services PMI, wage growth and unemployment — each with 5-year history and a link to its public source. Plus the policy-rate outlook and where we sit in the credit cycle.</p>
+      <p class="muted">Key US &amp; UK economic indicators plus the policy-rate outlook and where we sit in the credit cycle.</p>
     </div>
     <div id="macro-body" class="macro-body"><section class="card"><p class="muted">Loading macro data…</p></section></div>`;
 }
@@ -166,7 +181,7 @@ function viewCycle() {
     <section class="card macro-gauge-card">
       <h2 class="macro-country">Long-term debt-cycle position</h2>
       <div class="macro-gauge-wrap">
-        ${cycleGauge([{ label: "US", pos: CYCLE.us.pos }, { label: "UK", pos: CYCLE.uk.pos }])}
+        ${trackGauge(CYCLE_ZONES, [{ label: "US", pos: CYCLE.us.pos }, { label: "UK", pos: CYCLE.uk.pos }], "Long-term debt cycle position, 0 early to 100 crisis")}
         <div class="macro-framework">
           ${CYCLE.framework.map((p) => `<p class="macro-para">${p}</p>`).join("")}
         </div>
@@ -180,11 +195,52 @@ function viewCycle() {
     ${sourceList(CYCLE.sources)}`;
 }
 
+function viewBubble() {
+  const composite = bubbleComposite();
+  const band = bubbleBand(composite);
+  const dim = (d) => `
+    <section class="card macro-note">
+      <div class="macro-dim-head">
+        <h2 class="macro-country">${esc(d.label)}</h2>
+        <span class="macro-score" title="dimension sub-score (0–100)">${d.score}<span class="macro-score-max">/100</span></span>
+      </div>
+      <div class="macro-scorebar" aria-hidden="true"><span style="width:${d.score}%"></span></div>
+      <table class="macro-metrics">
+        ${d.metrics.map(([n, v, ctx]) => `<tr><th>${esc(n)}</th><td class="macro-metric-val">${esc(v)}</td></tr><tr class="macro-metric-ctx"><td colspan="2" class="muted small">${esc(ctx)}</td></tr>`).join("")}
+      </table>
+      <p class="macro-para macro-dim-note">${esc(d.note)}</p>
+    </section>`;
+  return `
+    <div class="page-head">
+      <h1>Bubble risk — ${esc(BUBBLE.market)}</h1>
+      <p class="muted">A composite read on US stock-market bubble risk across the three workhorse dimensions — valuation, credit &amp; leverage, and breadth &amp; speculation. As of ${esc(UPDATED)}. Educational only — not investment advice.</p>
+    </div>
+    <section class="card macro-gauge-card">
+      <div class="macro-dim-head">
+        <h2 class="macro-country">Composite bubble-risk score</h2>
+        <span class="macro-verdict macro-verdict-${band.toLowerCase()}">${composite}/100 · ${esc(band)}</span>
+      </div>
+      <div class="macro-gauge-wrap">
+        ${trackGauge(BUBBLE_ZONES, [{ label: band, pos: composite }], "US equity bubble-risk score, 0 low to 100 extreme")}
+        <div class="macro-framework">
+          ${BUBBLE.summary.map((p) => `<p class="macro-para">${p}</p>`).join("")}
+        </div>
+      </div>
+      <p class="muted small macro-gauge-note">${esc(BUBBLE.note)}</p>
+    </section>
+    <div class="macro-cols macro-cols-3">
+      ${BUBBLE.dimensions.map(dim).join("")}
+    </div>
+    <p class="macro-para macro-uknote"><strong>UK.</strong> ${esc(BUBBLE.ukNote)}</p>
+    ${sourceList(BUBBLE.sources)}`;
+}
+
 // ---- Tab routing -----------------------------------------------------------
 const TABS = [
   ["dashboard", "Dashboard"],
   ["commentary", "Commentary"],
   ["cycle", "Cycle"],
+  ["bubble", "Bubble"],
 ];
 function currentTab() {
   const h = (location.hash || "").replace(/^#\/?/, "");
@@ -307,7 +363,7 @@ window.addEventListener("hashchange", closeNotif);
 
 function render() {
   const tab = currentTab();
-  const body = tab === "commentary" ? viewCommentary() : tab === "cycle" ? viewCycle() : viewDashboard();
+  const body = tab === "commentary" ? viewCommentary() : tab === "cycle" ? viewCycle() : tab === "bubble" ? viewBubble() : viewDashboard();
   app.innerHTML = body;
   syncNav(tab);
   if (tab === "dashboard") loadMacro();

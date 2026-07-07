@@ -79,6 +79,56 @@ export const CYCLE = {
   ],
 };
 
+// ---- Stock-market bubble risk (Bubble tab) ---------------------------------
+// Three workhorse dimensions — valuation, credit/leverage/policy, and
+// breadth/speculation. Sub-scores (0 = no signal, 100 = extreme) are Meridian
+// synthesis; the composite is their weighted average (computed in app.js).
+export const BUBBLE = {
+  market: "US equities (S&P 500)",
+  summary: [
+    "By mid-2026 US equities show classic late-cycle bubble characteristics: a Shiller CAPE near 40 and a Buffett Indicator above 230% — near or above the 1929, 2000 and 2021 extremes — alongside record margin debt, top-10 concentration around 40%, and a record retail-options and IPO frenzy centred on AI.",
+    "The main mitigant is monetary. A positive real policy rate and a Fed biased toward hikes — not the free money that amplified prior bubbles — keep the read at <strong>High rather than Extreme</strong>. With leadership this narrow, the risk is heavily tied to a handful of AI mega-caps.",
+  ],
+  dimensions: [
+    {
+      key: "valuation", label: "Valuation", weight: 0.45, score: 90,
+      metrics: [
+        ["Shiller CAPE", "~39–42×", "long-run mean ≈17; 2nd-highest in ~140 years — behind only the 2000 peak (~44), above 1929 (~32) and 2021 (~38)"],
+        ["Buffett Indicator", "~235% of GDP", "long-run average ≈85%; far above the ~140% dot-com high and Buffett's ~120% “overvalued” line"],
+      ],
+      note: "Both marquee gauges sit near or above every prior bubble peak — the strongest single signal.",
+    },
+    {
+      key: "credit", label: "Credit, leverage & policy", weight: 0.25, score: 60,
+      metrics: [
+        ["Margin debt", "record ~$1.42tn", "~4.1% of GDP vs a ~1.5% long-run median; +36% YoY (FINRA, May 2026)"],
+        ["Real fed funds", "≈ 0 to slightly positive", "3.50–3.75% less ~3.6% inflation; at the 2000 and 2021 peaks real rates were near zero or negative"],
+      ],
+      note: "Leverage is at genuine extremes, but positive real rates and a hawkish Fed are a real brake.",
+    },
+    {
+      key: "breadth", label: "Breadth & speculation", weight: 0.30, score: 80,
+      metrics: [
+        ["Concentration", "top-10 ≈ 40% of the S&P 500", "vs a ~24% long-run average; the “Magnificent Seven” alone are ~33% — narrowest breadth since the dot-com era"],
+        ["Speculation", "record options & IPO frenzy", "0DTE ≈ half of all S&P options; H1-2026 M&A >$900bn and IPOs ~$250bn — near the 2021 record, AI-driven"],
+      ],
+      note: "A handful of mega-caps drive the index while most stocks lag — a textbook late-cycle tell.",
+    },
+  ],
+  note: "Sub-scores and the composite are Meridian synthesis on a 0–100 scale, not published figures. Weighting: valuation 45%, breadth & speculation 30%, credit & policy 25%. Educational only — not investment advice.",
+  ukNote: "The FTSE 100 is far cheaper — CAPE ~20 vs ~39 for the US, trailing P/E ~15 and near its own fair value — so UK equities are not similarly stretched.",
+  sources: [
+    ["Shiller CAPE (multpl.com)", "https://www.multpl.com/shiller-pe"],
+    ["Shiller CAPE (GuruFocus)", "https://www.gurufocus.com/economic_indicators/56/sp-500-shiller-cape-ratio"],
+    ["Buffett Indicator (Current Market Valuation)", "https://www.currentmarketvaluation.com/models/buffett-indicator.php"],
+    ["FINRA margin debt (Advisor Perspectives)", "https://www.advisorperspectives.com/dshort/updates/2026/06/24/margin-debt-finra"],
+    ["S&P 500 concentration (Forbes)", "https://www.forbes.com/sites/investor-hub/article/sp-500-weight-mag-7-stocks-diversification-risk/"],
+    ["Retail options frenzy (Sherwood)", "https://sherwood.news/markets/2026-charts-to-watch-retail-traders-call-option-volumes-speculative-stocks/"],
+    ["The IPO wave (J.P. Morgan)", "https://www.jpmorgan.com/insights/markets-and-economy/top-market-takeaways/tmt-the-ipo-wave-is-historic-so-is-todays-market"],
+    ["FTSE 100 CAPE (Siblis Research)", "https://siblisresearch.com/data/ftse-100-cape-pe-yield/"],
+  ],
+};
+
 // ---- Guidance alerts surfaced in the notifications bell --------------------
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
@@ -87,6 +137,7 @@ export const ALERTS = [
   { id: "g-boe-2026-06", kind: "Rate guidance", title: "BoE held Bank Rate at 3.75% on a 7–2 vote, with two members seeking a hike.", href: "#/commentary", date: "2026-06-18" },
   { id: "g-cycle-us-2026-07", kind: "Cycle", title: "US placed late in the Big Debt Cycle (~72/100) — record debt and interest burden.", href: "#/cycle", date: "2026-07-07" },
   { id: "g-cycle-uk-2026-07", kind: "Cycle", title: "UK at ~58/100 — elevated debt and real gilt stress, but less advanced than the US.", href: "#/cycle", date: "2026-07-07" },
+  { id: "g-bubble-us-2026-07", kind: "Bubble risk", title: "US equity bubble risk High (~80/100) — extreme valuations, record margin debt and narrow breadth, tempered by restrictive policy.", href: "#/bubble", date: "2026-07-07" },
 ];
 
 // ---- One-line conclusions surfaced on the Dashboard ------------------------
@@ -98,5 +149,9 @@ export const SUMMARY = {
   cycle: {
     us: "Late Big Debt Cycle — record debt (~101% GDP) and interest burden. Gauge ~72/100.",
     uk: "Elevated debt and real gilt stress, but less advanced than the US. Gauge ~58/100.",
+  },
+  bubble: {
+    us: "US equity bubble risk High (~80/100) — extreme valuations and narrow breadth, tempered by restrictive policy.",
+    uk: "UK (FTSE) far cheaper (CAPE ~20) — not in bubble territory.",
   },
 };
