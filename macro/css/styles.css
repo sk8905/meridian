@@ -218,26 +218,28 @@ a.macro-tile:hover .macro-src { color: var(--macro); text-decoration: underline;
   .macro-gauge-wrap { grid-template-columns: 1fr; gap: 1rem; }
   .macro-sources ul { grid-template-columns: repeat(2, 1fr); }
 }
-/* Phones (matches Credit/Legal): the header becomes a grid — brand top-left,
-   signed-in identity top-right, the platform toggle on its own row below, and the
-   view nav (Dashboard/Commentary/Cycle) scrolling on its own full-width row. */
+/* Phones: stack the header so nothing overflows on a ~390px screen — brand +
+   bell on the top row, the signed-in identity on its own full-width row (so the
+   email + "Last refresh" line never get clipped), then the platform toggle, then
+   the view nav scrolling on its own full-width row. */
 @media (max-width: 760px) {
   .topbar-inner {
-    height: auto; padding: .55rem .9rem;
-    display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .4rem 1rem;
+    height: auto; padding: .5rem .9rem;
+    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .3rem .8rem;
     grid-template-areas:
-      "brand  account bell"
-      "toggle account bell"
-      "nav    nav     nav";
+      "brand   bell"
+      "account account"
+      "toggle  toggle"
+      "nav     nav";
   }
   .brand { grid-area: brand; justify-self: start; }
-  .platform-switch { grid-area: toggle; justify-self: start; }
+  .notif { grid-area: bell; justify-self: end; align-self: center; }
+  .topbar-right { grid-area: account; align-items: flex-start; text-align: left; margin-left: 0; }
+  .account-nav, .data-status { white-space: normal; font-size: .7rem; }
+  .platform-switch { grid-area: toggle; justify-self: start; margin-top: .15rem; }
   .mainnav { grid-area: nav; justify-self: stretch; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
   .mainnav::-webkit-scrollbar { display: none; }
   .nav-link { padding: .4rem .6rem; flex: 0 0 auto; }
-  .topbar-right { grid-area: account; align-items: flex-end; text-align: right; margin-left: 0; }
-  .notif { grid-area: bell; justify-self: end; align-self: center; }
-  .account-nav, .data-status { white-space: normal; font-size: .66rem; }
   .container { padding: 1rem 1rem 2.5rem; }
   .macro-grid { grid-template-columns: repeat(2, 1fr); gap: .7rem; }
   .macro-tile { padding: .8rem .85rem .9rem; }

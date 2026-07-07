@@ -551,22 +551,24 @@ a.intel-head:hover { color: var(--primary); }
   .kpi-grid { grid-template-columns: repeat(2, 1fr); }
   .card-grid { grid-template-columns: 1fr; }
 
-  /* Two-column header: logo + platform toggle stack on the left, the bell +
-     sign-in/refresh stack on the right; the nav is a full-width scroll strip
-     across the bottom. */
+  /* Stacked header so nothing overflows on a ~390px screen: brand + bell on the
+     top row, the sign-in/refresh block on its own full-width row (so the email +
+     "Last refresh" line never clip), then the platform toggle, then the nav as a
+     full-width scroll strip across the bottom. */
   .topbar-inner {
-    height: auto; padding: .55rem .9rem;
-    display: grid; grid-template-columns: auto 1fr; align-items: start; gap: .45rem 1rem;
+    height: auto; padding: .5rem .9rem;
+    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .3rem .8rem;
     grid-template-areas:
-      "brand  bell"
-      "toggle account"
-      "nav    nav";
+      "brand   bell"
+      "account account"
+      "toggle  toggle"
+      "nav     nav";
   }
   .brand { grid-area: brand; justify-self: start; }
-  .platform-switch { grid-area: toggle; justify-self: start; }
-  .notif { grid-area: bell; justify-self: end; }
-  .topbar-right { grid-area: account; align-items: flex-end; text-align: right; }
-  .account-nav, .data-status { white-space: normal; font-size: .66rem; }
+  .platform-switch { grid-area: toggle; justify-self: start; margin-top: .15rem; }
+  .notif { grid-area: bell; justify-self: end; align-self: center; }
+  .topbar-right { grid-area: account; align-items: flex-start; text-align: left; margin-left: 0; }
+  .account-nav, .data-status { white-space: normal; font-size: .7rem; }
   .mainnav {
     grid-area: nav; display: flex;
     justify-content: flex-start; gap: .15rem;
