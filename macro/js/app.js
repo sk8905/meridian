@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, OUTLOOK, CYCLE, SUMMARY } from "./content.js?v=20260707-6";
+import { UPDATED, OUTLOOK, CYCLE, SUMMARY, ALERTS } from "./content.js?v=20260707-7";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -82,7 +82,7 @@ function renderMacro(data) {
     const tiles = series.filter((s) => s.country === c).map(macroTile).join("");
     return tiles ? `<section class="macro-group"><h2 class="macro-country">${esc(name)}</h2><div class="macro-grid">${tiles}</div></section>` : "";
   }).join("");
-  return summaryCards() + grids;
+  return grids + summaryCards();
 }
 
 // ---- Cycle gauge (stylised 0 early → 100 crisis) ---------------------------
@@ -127,7 +127,7 @@ function viewDashboard() {
 
 function viewCommentary() {
   const country = (name, o) => `
-    <section class="macro-group">
+    <section class="card macro-note">
       <h2 class="macro-country">${esc(name)}</h2>
       <div class="macro-note-head">
         <span class="macro-pill">${esc(o.rate)}</span>
@@ -141,14 +141,16 @@ function viewCommentary() {
       <h1>Market commentary — policy-rate outlook</h1>
       <p class="muted">Compiled analyst and market views on whether the US Federal Reserve and Bank of England are likely to change their policy rates. As of ${esc(UPDATED)}. Educational only — not investment advice; market pricing shifts daily.</p>
     </div>
-    ${country("United States", OUTLOOK.us)}
-    ${country("United Kingdom", OUTLOOK.uk)}
+    <div class="macro-cols">
+      ${country("United States", OUTLOOK.us)}
+      ${country("United Kingdom", OUTLOOK.uk)}
+    </div>
     ${sourceList(OUTLOOK.sources)}`;
 }
 
 function viewCycle() {
   const country = (name, c) => `
-    <section class="macro-group">
+    <section class="card macro-note">
       <h2 class="macro-country">${esc(name)}</h2>
       <div class="macro-note-head">
         <span class="macro-pill">${esc(c.shortStage)}</span>
@@ -163,15 +165,18 @@ function viewCycle() {
     </div>
     <section class="card macro-gauge-card">
       <h2 class="macro-country">Long-term debt-cycle position</h2>
-      ${cycleGauge([{ label: "US", pos: CYCLE.us.pos }, { label: "UK", pos: CYCLE.uk.pos }])}
+      <div class="macro-gauge-wrap">
+        ${cycleGauge([{ label: "US", pos: CYCLE.us.pos }, { label: "UK", pos: CYCLE.uk.pos }])}
+        <div class="macro-framework">
+          ${CYCLE.framework.map((p) => `<p class="macro-para">${p}</p>`).join("")}
+        </div>
+      </div>
       <p class="muted small macro-gauge-note">${esc(CYCLE.note)}</p>
     </section>
-    <section class="macro-group">
-      <h2 class="macro-country">Dalio's framework</h2>
-      ${CYCLE.framework.map((p) => `<p class="macro-para">${p}</p>`).join("")}
-    </section>
-    ${country("United States", CYCLE.us)}
-    ${country("United Kingdom", CYCLE.uk)}
+    <div class="macro-cols">
+      ${country("United States", CYCLE.us)}
+      ${country("United Kingdom", CYCLE.uk)}
+    </div>
     ${sourceList(CYCLE.sources)}`;
 }
 
@@ -185,23 +190,126 @@ function currentTab() {
   const h = (location.hash || "").replace(/^#\/?/, "");
   return TABS.some(([k]) => k === h) ? h : "dashboard";
 }
-function tabBar(active) {
-  return `<nav class="macro-tabs" aria-label="Views">${
-    TABS.map(([k, label]) => `<a href="#/${k}" class="mtab${k === active ? " is-active" : ""}"${k === active ? ' aria-current="page"' : ""}>${esc(label)}</a>`).join("")
-  }</nav>`;
+// The view nav lives in the top bar (matches Credit/Legal); toggle its active
+// state to the current tab.
+function syncNav(active) {
+  document.querySelectorAll(".mainnav .nav-link").forEach((a) => {
+    a.classList.toggle("active", a.getAttribute("href") === `#/${active}`);
+  });
 }
 
+// Fetch the live macro data once and reuse it for both the dashboard and the
+// notifications bell (so the bell is populated on any tab).
+let MACRO_DATA = null, MACRO_PROMISE = null;
+function fetchMacro() {
+  if (!MACRO_PROMISE) MACRO_PROMISE = (async () => {
+    let data = { series: [] };
+    try { const r = await fetch("/api/macro", { headers: { accept: "application/json" } }); if (r.ok) data = await r.json(); } catch { /* offline */ }
+    MACRO_DATA = data;
+    return data;
+  })();
+  return MACRO_PROMISE;
+}
 async function loadMacro() {
-  let data = { series: [] };
-  try { const r = await fetch("/api/macro", { headers: { accept: "application/json" } }); if (r.ok) data = await r.json(); } catch { /* offline */ }
+  const data = await fetchMacro();
   const el = document.getElementById("macro-body");
   if (el) el.innerHTML = renderMacro(data);
 }
 
+// ---- Topbar: last-refresh line (matches Credit/Legal) ----------------------
+const MONTHS_ABBR = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+function fmtDate(d) {
+  const p = String(d || "").split("-");
+  if (p.length < 2) return String(d || "");
+  const day = p[2] ? `${(+p[2])} ` : "";
+  return `${day}${MONTHS_ABBR[+p[1]] || ""} ${p[0]}`;
+}
+function renderDataStatus() {
+  const el = document.getElementById("data-status");
+  if (!el) return;
+  const now = new Date();
+  const date = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", day: "2-digit", month: "short", year: "numeric" }).format(now);
+  const time = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", hour: "2-digit", minute: "2-digit" }).format(now);
+  let zone = "";
+  try { zone = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", timeZoneName: "short" }).formatToParts(now).find((x) => x.type === "timeZoneName")?.value || ""; } catch { /* */ }
+  el.innerHTML = `<span class="ds-text" title="Live indicators fetched from /api/macro; guidance as of ${esc(UPDATED)}"><span class="ds-part">Last refresh ${esc(date)}, ${esc(time)}${zone ? " " + esc(zone) : ""}</span></span>`;
+}
+
+// ---- Notifications bell: economic-data prints + guidance changes -----------
+const NOTIF_KEY = "meridian.macro.notifSeen";
+function dataAlerts(series) {
+  return (series || []).filter((s) => s.value != null).map((s) => {
+    const pct = s.unit === "%";
+    const val = `${(+s.value).toFixed(2)}${pct ? "%" : ""}`;
+    const country = s.country === "US" ? "US" : "UK";
+    let chg = "";
+    if (s.change != null && s.change !== 0) chg = ` · ${s.change > 0 ? "▲" : "▼"} ${Math.abs(s.change).toFixed(2)}${pct ? " pp" : ""} MoM`;
+    else if (s.change === 0) chg = " · unchanged MoM";
+    const flag = (s.key === "services_pmi" && +s.value < 50) ? " — below 50 (contraction)" : "";
+    return {
+      id: `d:${s.country}:${s.key}:${s.asOf}:${(+s.value).toFixed(2)}`,
+      kind: "Economic data",
+      title: `${country} · ${s.label}: ${val}${flag}${chg}`,
+      href: "#/dashboard",
+      date: s.asOf ? `${s.asOf}-01` : "",
+    };
+  });
+}
+function notifItems() {
+  const data = dataAlerts((MACRO_DATA && MACRO_DATA.series) || []);
+  const guidance = ALERTS.map((a) => ({ ...a }));
+  return [...guidance, ...data].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+}
+function closeNotif() {
+  const p = document.getElementById("notif-panel"), b = document.getElementById("notif-bell");
+  if (p) p.setAttribute("hidden", "");
+  if (b) b.setAttribute("aria-expanded", "false");
+}
+function renderNotifications() {
+  const wrap = document.getElementById("notif");
+  if (!wrap) return;
+  const all = notifItems();
+  const allIds = all.map((x) => x.id);
+  let seen;
+  try { seen = JSON.parse(localStorage.getItem(NOTIF_KEY) || "null"); } catch { seen = null; }
+  const firstVisit = !Array.isArray(seen);
+  const seenSet = new Set(firstVisit ? allIds : seen);
+  if (firstVisit) { try { localStorage.setItem(NOTIF_KEY, JSON.stringify(allIds)); } catch { /* */ } }
+  const fresh = firstVisit ? [] : all.filter((x) => !seenSet.has(x.id));
+  const n = fresh.length;
+  const list = (n ? fresh : all).slice(0, 14);
+  wrap.innerHTML = `
+    <button type="button" class="notif-bell" id="notif-bell" aria-haspopup="true" aria-expanded="false" aria-label="Notifications${n ? ` — ${n} new` : ""}">
+      <span class="notif-ico" aria-hidden="true">🔔</span>${n ? `<span class="notif-badge">${n > 9 ? "9+" : n}</span>` : ""}
+    </button>
+    <div class="notif-panel" id="notif-panel" role="menu" hidden>
+      <div class="notif-head">${n ? `${n} new update${n > 1 ? "s" : ""}` : "No new updates"} <span class="muted small">· data &amp; guidance</span></div>
+      <ul class="notif-list">
+        ${list.length ? list.map((x) => `<li class="notif-item${(n && fresh.includes(x)) ? " is-new" : ""}">
+          <a href="${x.href}" class="notif-link">${esc(x.title)}</a>
+          <div class="notif-meta muted small">${esc(x.kind)}${x.date ? ` · ${esc(fmtDate(x.date))}` : ""}</div>
+        </li>`).join("") : '<li class="notif-empty muted small">Nothing yet.</li>'}
+      </ul>
+    </div>`;
+  const bell = document.getElementById("notif-bell");
+  const panel = document.getElementById("notif-panel");
+  bell.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (panel.hasAttribute("hidden")) {
+      panel.removeAttribute("hidden"); bell.setAttribute("aria-expanded", "true");
+      try { localStorage.setItem(NOTIF_KEY, JSON.stringify(allIds)); } catch { /* */ }
+      const badge = bell.querySelector(".notif-badge"); if (badge) badge.remove();
+    } else { closeNotif(); }
+  });
+}
+document.addEventListener("click", (e) => { if (!e.target.closest("#notif")) closeNotif(); });
+window.addEventListener("hashchange", closeNotif);
+
 function render() {
   const tab = currentTab();
   const body = tab === "commentary" ? viewCommentary() : tab === "cycle" ? viewCycle() : viewDashboard();
-  app.innerHTML = tabBar(tab) + body;
+  app.innerHTML = body;
+  syncNav(tab);
   if (tab === "dashboard") loadMacro();
   window.scrollTo(0, 0);
 }
@@ -220,3 +328,5 @@ async function initMe() {
 window.addEventListener("hashchange", render);
 render();
 initMe();
+renderDataStatus();
+fetchMacro().then(renderNotifications);

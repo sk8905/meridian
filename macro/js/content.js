@@ -79,6 +79,16 @@ export const CYCLE = {
   ],
 };
 
+// ---- Guidance alerts surfaced in the notifications bell --------------------
+// Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
+// id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
+export const ALERTS = [
+  { id: "g-fed-2026-06", kind: "Rate guidance", title: "Fed held at 3.50–3.75% and turned hawkish — the dot plot now implies about one hike by year-end.", href: "#/commentary", date: "2026-06-17" },
+  { id: "g-boe-2026-06", kind: "Rate guidance", title: "BoE held Bank Rate at 3.75% on a 7–2 vote, with two members seeking a hike.", href: "#/commentary", date: "2026-06-18" },
+  { id: "g-cycle-us-2026-07", kind: "Cycle", title: "US placed late in the Big Debt Cycle (~72/100) — record debt and interest burden.", href: "#/cycle", date: "2026-07-07" },
+  { id: "g-cycle-uk-2026-07", kind: "Cycle", title: "UK at ~58/100 — elevated debt and real gilt stress, but less advanced than the US.", href: "#/cycle", date: "2026-07-07" },
+];
+
 // ---- One-line conclusions surfaced on the Dashboard ------------------------
 export const SUMMARY = {
   outlook: {
