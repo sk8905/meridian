@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS } from "./content.js?v=20260707-8";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS } from "./content.js?v=20260707-9";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -280,15 +280,13 @@ function fmtDate(d) {
   const day = p[2] ? `${(+p[2])} ` : "";
   return `${day}${MONTHS_ABBR[+p[1]] || ""} ${p[0]}`;
 }
+function refreshStamp() {
+  return `${fmtDate(META.lastChecked)}${META.lastCheckedTime ? `, ${META.lastCheckedTime}` : ""}`;
+}
 function renderDataStatus() {
   const el = document.getElementById("data-status");
   if (!el) return;
-  const now = new Date();
-  const date = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", day: "2-digit", month: "short", year: "numeric" }).format(now);
-  const time = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", hour: "2-digit", minute: "2-digit" }).format(now);
-  let zone = "";
-  try { zone = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", timeZoneName: "short" }).formatToParts(now).find((x) => x.type === "timeZoneName")?.value || ""; } catch { /* */ }
-  el.innerHTML = `<span class="ds-text" title="Live indicators fetched from /api/macro; guidance as of ${esc(UPDATED)}"><span class="ds-part">Last refresh ${esc(date)}, ${esc(time)}${zone ? " " + esc(zone) : ""}</span></span>`;
+  el.innerHTML = `<span class="ds-text" title="Indicators are refreshed by the twice-daily routine (06:00 & 12:00 London) and fetched live from /api/macro; guidance as of ${esc(UPDATED)}"><span class="ds-part">Last refresh ${esc(refreshStamp())}</span></span>`;
 }
 
 // ---- Notifications bell: economic-data prints + guidance changes -----------
@@ -339,7 +337,7 @@ function renderNotifications() {
       <span class="notif-ico" aria-hidden="true">🔔</span>${n ? `<span class="notif-badge">${n > 9 ? "9+" : n}</span>` : ""}
     </button>
     <div class="notif-panel" id="notif-panel" role="menu" hidden>
-      <div class="notif-head">${n ? `${n} new update${n > 1 ? "s" : ""}` : "No new updates"} <span class="muted small">· data &amp; guidance</span></div>
+      <div class="notif-head">${n ? `${n} new update${n > 1 ? "s" : ""}` : "No new updates"} <span class="muted small">· checked ${esc(refreshStamp())}</span></div>
       <ul class="notif-list">
         ${list.length ? list.map((x) => `<li class="notif-item${(n && fresh.includes(x)) ? " is-new" : ""}">
           <a href="${x.href}" class="notif-link">${esc(x.title)}</a>

@@ -7,6 +7,15 @@
 
 export const UPDATED = "7 July 2026";
 
+// ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
+// LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
+// is a pre-formatted "HH:MM TZ" London string so it renders the same in any
+// viewer timezone. The twice-daily refresh routine advances both on every run.
+export const META = {
+  lastChecked: "2026-07-07",
+  lastCheckedTime: "17:05 BST",
+};
+
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
 export const OUTLOOK = {
   us: {

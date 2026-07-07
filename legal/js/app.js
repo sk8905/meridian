@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
-} from "./data.js?v=20260707-4";
-import { donutChart, columnChart } from "./charts.js?v=20260707-4";
+} from "./data.js?v=20260707-5";
+import { donutChart, columnChart } from "./charts.js?v=20260707-5";
 
 const app = document.getElementById("app");
 
@@ -291,7 +291,7 @@ function caseRow(c) {
         <button class="save-btn rx-save ${saved ? "is-saved" : ""}" data-save="${esc(c.id)}"
           aria-pressed="${saved}" title="${saved ? "Remove from saved" : "Save this case"}">${saved ? "★ Saved" : "☆ Save"}</button>
       </div>
-      <p class="feed-summary"><span class="ai-tag">✦ AI summary</span> ${esc(summary)}</p>
+      <p class="feed-summary">${esc(summary)}</p>
       <div class="feed-foot">
         <span>${esc(c.court)}</span>${c.citation ? ` · <span class="cite">${esc(c.citation)}</span>` : ""} · <a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">View judgment on BAILII ↗</a>
       </div>
@@ -749,7 +749,7 @@ function rxRow(r) {
   const features = (r.features || []).length
     ? `<ul class="rx-features">${r.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>` : "";
   const lines = [
-    `<p class="feed-summary"><span class="ai-tag">✦ AI summary</span> ${esc(rxSummary(r))}</p>`,
+    `<p class="feed-summary">${esc(rxSummary(r))}</p>`,
     (r.creditors || []).length ? `<p class="rx-line"><span class="rx-lbl">Largest creditors</span> ${esc(r.creditors.join("; "))}</p>` : "",
     (r.advisers || []).length ? `<p class="rx-line"><span class="rx-lbl">Company advised by</span> ${esc(r.advisers.join(", "))}</p>` : "",
     features,

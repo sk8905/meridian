@@ -1,28 +1,34 @@
 # Auto-refresh routine (Claude Routines)
 
-**Two identical routines** keep both Meridian platforms current — one scheduled at
-**06:00** and one at **12:00** (Claude Routines runs a single schedule per routine,
+**Two identical routines** keep all three Meridian platforms current — one scheduled
+at **06:00** and one at **12:00** (Claude Routines runs a single schedule per routine,
 so create two routines that both use the prompt below). Each does a **full refresh
-of both apps** — Credit (deals, fundraising, mandates/launches, manager website
+of all three apps** — Credit (deals, fundraising, mandates/launches, manager website
 news, **fund-record reconciliation, new managers/funds, and rotating manager-profile
-re-verification**) and Legal (legal alerts, case law, **and restructuring schemes &
-plans**). Together they replace the
-previous separate Credit-daily, Credit-weekly and Legal-daily routines.
+re-verification**), Legal (legal alerts, case law, **and restructuring schemes &
+plans**) and Macro (**refresh the live-indicator cache, update curated recent prints
+and central-bank rates, and review the Commentary/Cycle/Bubble guidance**). Together
+they replace the previous separate Credit-daily, Credit-weekly and Legal-daily
+routines.
 
 Keep this file in sync with the routine prompt pasted into the Routines UI — it is
 the source of truth for the prompt.
 
 > **Repo structure.** The repo is split into a root sign-in landing page +
-> **`credit/`** (Meridian Credit) + **`legal/`** (Meridian Legal). Each app keeps
-> its data and assets under its own folder and the site deploys from the **`main`**
-> branch (Cloudflare redeploys on every push to `main`).
+> **`credit/`** (Meridian Credit) + **`legal/`** (Meridian Legal) + **`macro/`**
+> (Meridian Macro). Credit and Legal keep their data in `js/data.js`; Macro's live
+> indicators are fetched server-side by the Worker (`src/index.js`, the `/api/macro`
+> endpoint), with a few curated series and all editorial guidance in
+> `macro/js/content.js`. The site deploys from the **`main`** branch (Cloudflare
+> redeploys on every push to `main`).
 
 ## Invariants
 
 - **Sync first.** Always start from the latest `main`: `git fetch origin`, then
   `git checkout -B claude/affectionate-einstein-9hhzga origin/main`.
 - **Preflight staleness check.** After syncing, read the current `LAST_CHECKED` /
-  `LAST_CHECKED_TIME` in both `data.js` files. If the previous run looks MISSING —
+  `LAST_CHECKED_TIME` in both `data.js` files and `META` in `macro/js/content.js`.
+  If the previous run looks MISSING —
   the last stamp is roughly a full cadence stale (>~8h given the 6h cadence), or a
   prior same-day run that should exist is absent — call it out at the top of the run
   summary. This turns a silently-dropped earlier run (e.g. one that lost the publish
@@ -70,19 +76,26 @@ the source of truth for the prompt.
   block automated fetching, so enumerate new article URLs with `site:<domain>` web
   searches and verify dates. Skip data-aggregators (GuruFocus, Tracxn, ZoomInfo,
   Crunchbase, PitchBook, SimplyWall, MarketBeat).
-- **Cache-busters.** Each app has FOUR `?v=YYYYMMDD-N` tokens that MUST move in
+- **Cache-busters.** Each app has `?v=YYYYMMDD-N` tokens that MUST move in
   lockstep or the browser serves a stale `app.js`:
-  - Credit: `css/styles.css?v=` & `js/app.js?v=` in `credit/index.html`; the
+  - Credit (FOUR): `css/styles.css?v=` & `js/app.js?v=` in `credit/index.html`; the
     `./data.js?v=` & `./charts.js?v=` imports in `credit/js/app.js`.
-  - Legal: the same four under `legal/`.
-  **RULE: whenever you change an app's `data.js` at all, you MUST advance that app's
-  four tokens to a value not already present in its files (increment the sequence if
-  it already shows today's date, else start the day at -1).** Leaving them unchanged
+  - Legal (FOUR): the same four under `legal/`.
+  - Macro (THREE): `css/styles.css?v=` & `js/app.js?v=` in `macro/index.html`; the
+    `./content.js?v=` import in `macro/js/app.js`. Macro has no `data.js`/`charts.js`.
+  **RULE: whenever you change an app's data (`data.js`, or for Macro its
+  `content.js`/`src/index.js` curated series) at all, you MUST advance that app's
+  tokens to a value not already present in its files (increment the sequence if it
+  already shows today's date, else start the day at -1).** Leaving them unchanged
   ships a data change that never goes live (a real bug seen on 2026-06-23 run 2,
-  where a credit webNews was added but credit's tokens stayed at -2). Because
-  `LAST_CHECKED` changes every run, BOTH apps' tokens move on every run. Before
+  where a credit webNews was added but credit's tokens stayed at -2). Because the
+  refresh stamp changes every run, ALL three apps' tokens move on every run. Before
   committing, `git diff --stat` MUST show `index.html` and `js/app.js` changed for
-  every app whose `data.js` changed. The two apps keep independent sequence numbers.
+  every app whose data changed. The three apps keep independent sequence numbers.
+- **Macro edge cache.** Macro's `/api/macro` endpoint is cached at the edge under a
+  key `"/api/macro?v=N"` in `src/index.js`. Bump `N` on every run so the redeploy
+  serves a freshly-pulled set of live indicators (and any curated-series edit takes
+  effect), rather than the previous cached payload.
 - **Freshness scalars.**
   - Always set `LAST_CHECKED` in BOTH `credit/js/data.js` and `legal/js/data.js`
     to today on EVERY run — this is the "Last refresh" date shown in each topbar,
@@ -111,6 +124,10 @@ the source of truth for the prompt.
       time — do not title a 15:41 run "06:00 BST refresh".
   - Only set `DATA_UPDATED` (credit) / `LAST_REVIEWED` (legal) to today when that
     app's actual data changed (new deal/intel/webNews or alert/case).
+  - **Macro** carries the same stamp in `macro/js/content.js` `META`: set
+    `META.lastChecked` to today and `META.lastCheckedTime` to the derived London
+    `"HH:MM TZ"` on EVERY run (this is Macro's "Last refresh" line and bell header).
+    The same "derive from the clock, never regress, never mislabel" rules apply.
 - **Validate** before committing — and validate as an **ES module**, because the
   apps load `data.js` via `<script type="module">`. Plain `node --check file.js`
   parses in script mode and can PASS on module-only errors (e.g. a missing comma
@@ -146,8 +163,9 @@ the source of truth for the prompt.
   retry:
   1. `git fetch origin main`.
   2. Rebase this run's commit onto it (from the dev branch): `git rebase origin/main`.
-     A refresh only touches `*/js/data.js`, `*/index.html`, `*/js/app.js`, so this is
-     virtually always a clean rebase against dev work on other files. If it DOES
+     A refresh only touches `*/js/data.js`, `macro/js/content.js`, `src/index.js`,
+     `*/index.html`, `*/js/app.js`, so this is virtually always a clean rebase
+     against dev work on other files. If it DOES
      conflict (a dev session also edited a `data.js` or bumped the same cache token),
      resolve by **keeping BOTH data changes and taking the HIGHER cache token**, then
      `git rebase --continue`.
@@ -317,17 +335,46 @@ the source of truth for the prompt.
 >      drives the "new" badge; an entry with no date will not surface as new.
 >    - If Legal's data changed, set `LAST_REVIEWED` to today.
 >
-> 4. ALWAYS set `LAST_CHECKED` to today in BOTH `credit/js/data.js` and
->    `legal/js/data.js` (this is the "Last refresh" date in each topbar — it must
->    advance every run so a run is visible even when nothing was added). Then bump
->    BOTH apps' four cache-buster tokens to today's date with the next sequence.
+> 4. MACRO — Meridian Macro (US & UK indicators + rate outlook, cycle & bubble
+>    views). Macro's headline indicators are fetched LIVE by the Worker on each
+>    request (FRED / ONS / DBnomics), so they refresh automatically — this step keeps
+>    the CURATED series, the editorial guidance and the refresh stamp current:
+>    - **Force-refresh the live cache** → bump the edge-cache key `"/api/macro?v=N"`
+>      in `src/index.js` (increment `N`) so the redeploy serves a freshly-pulled set
+>      of indicators, not the previously cached payload.
+>    - **Curated series in `src/index.js` `MACRO_SERIES`** (these have no free live
+>      feed) → when a new monthly print or a central-bank decision has landed
+>      in-window, append it to the relevant `curated: [...]` array, verified from the
+>      source: US ISM Services PMI (`services_pmi`), UK S&P Global/CIPS Services PMI,
+>      UK 2-year gilt, UK Bank Rate step function and — if the Fed/BoE changed rates —
+>      the US/UK `base_rate`. Keep months in `YYYY-MM` order; never invent a figure.
+>    - **Editorial guidance in `macro/js/content.js`** → review against current
+>      sources and update only when materially changed (e.g. after an FOMC/MPC
+>      decision, a major data surprise, or a notable market move):
+>      `OUTLOOK` (Fed/BoE rate outlook), `CYCLE` (Dalio positions), `BUBBLE`
+>      (valuation/credit/breadth readings & composite), the `SUMMARY` one-liners and
+>      the `ALERTS` bell items (bump an alert's `id` when its guidance changes so it
+>      re-flags). Bump `UPDATED` to today when guidance changed. Keep every claim
+>      tied to a real source URL; educational-only framing stays.
+>    - **Always** set `META.lastChecked` / `META.lastCheckedTime` in
+>      `macro/js/content.js` (Macro's "Last refresh" stamp) and advance Macro's three
+>      cache tokens — every run, even when nothing else changed.
 >
-> 5. VALIDATE as an ES module (plain `node --check` misses module-only errors and
+> 5. ALWAYS set `LAST_CHECKED` to today in BOTH `credit/js/data.js` and
+>    `legal/js/data.js`, and `META.lastChecked`/`META.lastCheckedTime` in
+>    `macro/js/content.js` (these are the "Last refresh" stamps in each topbar — they
+>    must advance every run so a run is visible even when nothing was added). Then
+>    bump all three apps' cache-buster tokens (Credit/Legal four each, Macro three)
+>    to today's date with the next sequence, plus the `/api/macro?v=N` edge key.
+>
+> 6. VALIDATE as an ES module (plain `node --check` misses module-only errors and
 >    array holes — see the "Validate" invariant):
->    `node --input-type=module -e "import('./credit/js/data.js').then(m=>console.log(m.deals.length))"`
->    and the legal equivalent.
+>    `node --input-type=module -e "import('./credit/js/data.js').then(m=>console.log(m.deals.length))"`,
+>    the legal equivalent, and Macro:
+>    `node --input-type=module -e "import('./macro/js/content.js').then(m=>console.log(m.META.lastChecked, m.BUBBLE.dimensions.length))"`
+>    plus `node --check src/index.js`.
 >
-> 6. PUBLISH (every run, even if nothing new): commit — message ending with the two
+> 7. PUBLISH (every run, even if nothing new): commit — message ending with the two
 >    required trailers — then publish to `main` AND the dev branch. `main` has other
 >    writers (dev sessions), so publish by **rebasing onto the latest `main` and
 >    retrying**, NOT a bare fast-forward: `git fetch origin main` → `git rebase
@@ -339,10 +386,11 @@ the source of truth for the prompt.
 >    **GitHub API** (`create_or_update_file` per changed file — see "API fallback")
 >    and say so in the summary.
 >
-> 7. Reply with a short summary: counts of new Credit deals / intel / webNews and
->    Legal alerts / cases / schemes & plans (or "no new items — refresh timestamp
->    updated"). If the preflight staleness check flagged a missing prior run, or
->    egress was blocked so nothing could be verified, say so at the top.
+> 8. Reply with a short summary: counts of new Credit deals / intel / webNews,
+>    Legal alerts / cases / schemes & plans, and Macro curated prints / guidance
+>    updates (or "no new items — refresh timestamp updated"). If the preflight
+>    staleness check flagged a missing prior run, or egress was blocked so nothing
+>    could be verified, say so at the top.
 
 ---
 
