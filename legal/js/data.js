@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-07-07";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — two runs a day (~06:00 / ~12:00).
-export const LAST_CHECKED_TIME = "05:25 BST";
+export const LAST_CHECKED_TIME = "12:20 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -5796,6 +5796,184 @@ export const items = [
     tags: ["investment treaties", "cross-border investment", "political risk", "regulatory risk", "investor protection"],
     dateEstimated: false,
   },
+  {
+    url: "https://www.freshfields.com/en/our-thinking/blogs/transactions/re-nfe-global-holdings-limited-english-court-sanctions-us9-6-billion-restructur-102n83q",
+    id: "u623", title: "Re NFE Global Holdings Limited: English court sanctions US$9.6bn restructuring plan for New Fortress Energy group",
+    area: "ri", areas: ["ri"], type: "case", firm: "freshfields",
+    date: "2026-07-06", jurisdiction: "England and Wales",
+    summary: "Freshfields examines the High Court's sanction of dual Part 26A restructuring plans for the New Fortress Energy group, extinguishing around US$9.6bn of debt and bifurcating the business into a creditor-owned 'BrazilCo' and a continuing 'New NFE'. The case confirms English restructuring plans remain available to non-UK, US-listed groups and applies full cross-class cram-down analysis even where creditor support is overwhelming.",
+    points: [
+      "All seven creditor classes voted in favour (six unanimously, one at 99.84%), so cram-down was largely unnecessary, but the court still tested the plan against the relevant alternative",
+      "Existing shareholders retained 35% of equity notwithstanding the debt writedown, confirming absolute priority does not strictly apply under Part 26A",
+      "Court signalled caution about artificially engineered 'ricochet claims' used to justify third-party releases",
+      "Reaffirms English courts' willingness to take jurisdiction over large, non-UK corporate groups via a Part 26A plan",
+    ],
+    tags: ["restructuring plan", "Part 26A", "cross-class cram-down", "New Fortress Energy", "cross-border insolvency"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.cliffordchance.com/briefings/2026/07/international-regulatory-update-29-june---3-july-2026.html",
+    id: "u624", title: "International Regulatory Update: 29 June – 3 July 2026",
+    area: "banking", areas: ["banking", "funds"], type: "update", firm: "cliffordchance",
+    date: "2026-07-07", jurisdiction: "United Kingdom",
+    summary: "Clifford Chance's weekly regulatory digest covers a new SRB fast-track procedure for early redemption of MREL instruments, EBA revised product-oversight guidelines targeting greenwashing in ESG-linked retail banking products, the FCA's final cryptoasset regime package alongside a joint BoE/FCA approach to systemic stablecoin issuers, ESMA's final report simplifying MiFIR/EMIR/SFTR transaction reporting, and an MAS update on disclosure practice for retail ESG funds.",
+    points: [
+      "SRB introduces a fast-track procedure, from 1 July 2026, for early redemption of MREL instruments",
+      "EBA publishes revised product oversight and governance guidelines addressing greenwashing in ESG-linked retail banking products, applying from 11 January 2027",
+      "FCA publishes its final cryptoasset regime package (PS26/9–PS26/13) and a joint BoE/FCA approach to systemic stablecoin issuers, live from 25 October 2027",
+      "ESMA recommends a long-term 'report once' model for MiFIR/EMIR/SFTR transaction reporting",
+      "MAS updates its information paper on disclosure practice for retail ESG funds",
+    ],
+    tags: ["MREL", "Basel", "cryptoassets", "stablecoins", "ESG", "transaction reporting", "MiFIR"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://finreg.aoshearman.com/esma-final-report-on-the-simplification-of-financial-transaction-reporting",
+    id: "u625", title: "ESMA final report on the simplification of financial transaction reporting",
+    area: "banking", areas: ["banking"], type: "update", firm: "aoshearman",
+    date: "2026-07-02", jurisdiction: "European Union",
+    summary: "A&O Shearman reports on ESMA's final report, following its 2025 call for evidence, recommending a 'report once' model across MiFIR, EMIR and SFTR to cut duplicative transaction-reporting costs for banks and investment firms, alongside near-term relief measures pending legislative change.",
+    points: [
+      "Near-term measures include fewer back-reports and streamlined exemptions",
+      "Long-term proposal is a unified 'report once' reporting framework across MiFIR, EMIR and SFTR",
+      "Requires legislative change at EU level to implement fully",
+    ],
+    tags: ["MiFIR", "EMIR", "SFTR", "transaction reporting", "ESMA"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://financialregulation.linklaters.com/post/102n7wz/esmas-final-report-proposes-annual-net-cost-savings-of-up-to-eur-1-billion-throu",
+    id: "u626", title: "ESMA's final report proposes annual net cost savings of up to EUR 1 billion through simplification of transaction reporting",
+    area: "banking", areas: ["banking"], type: "update", firm: "linklaters",
+    date: "2026-07-03", jurisdiction: "European Union",
+    summary: "Linklaters analyses ESMA's final report on simplifying MiFIR/EMIR/SFTR transaction reporting, quantifying savings of up to EUR 1bn a year (a 22-24% cost reduction) and an estimated EUR 1.2-4.9bn ten-year discounted cumulative benefit, and sets out ESMA's phased implementation timeline running to the second half of 2031.",
+    points: [
+      "Estimated annual net cost savings of up to EUR 1bn, a 22-24% reduction in reporting costs",
+      "Ten-year discounted cumulative benefit estimated at EUR 1.2-4.9bn",
+      "Three centralisation models proposed: decentralised, hybrid, and fully centralised reporting",
+      "Level 1 legislative change targeted for mid-2028, with phased implementation to H2 2031",
+    ],
+    tags: ["MiFIR", "EMIR", "SFTR", "transaction reporting", "ESMA"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.slaughterandmay.com/insights/financial-regulation-weekly-bulletin/financial-regulation-weekly-bulletin-2-july-2026/",
+    id: "u627", title: "Financial Regulation Weekly Bulletin – 2 July 2026",
+    area: "banking", areas: ["banking", "funds"], type: "update", firm: "slaughtermay",
+    date: "2026-07-02", jurisdiction: "United Kingdom",
+    summary: "Slaughter and May's weekly regulatory round-up covers the EBA's revised SREP guidelines integrating ESG risk and operational resilience into supervisory review, the FCA's finalised UK cryptoasset regime and joint approach with the Bank of England to systemic stablecoin issuers, and an FCA consultation on strengthening conflict-of-interest protection in closed-ended investment funds.",
+    points: [
+      "EBA's revised SREP guidelines, effective 1 January 2027, integrate ESG risk and operational resilience into supervisory review",
+      "FCA finalises its UK cryptoasset regime, live from 25 October 2027, with a joint BoE/FCA approach to systemic stablecoin issuers",
+      "FCA consults on strengthening conflict-of-interest protection in closed-ended funds (investment trusts) and on simplifying consumer investment disclosure",
+      "PSR reviews APP scam reimbursement outcomes; motor finance redress scheme partially suspended pending a tribunal hearing",
+    ],
+    tags: ["SREP", "cryptoassets", "stablecoins", "closed-ended funds", "FCA"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.freshfields.com/en/our-thinking/blogs/transactions/inside-infrastructure-infrastructure-fundraising-new-channels-new-pathways-to-102n7t8",
+    id: "u628", title: "Inside Infrastructure: infrastructure fundraising – new channels, new pathways to navigate",
+    area: "funds", areas: ["funds"], type: "insight", firm: "freshfields",
+    date: "2026-07-02", jurisdiction: "United Kingdom",
+    summary: "Freshfields looks at the institutionalisation of infrastructure fundraising, the rise of evergreen and semi-liquid vehicles, and maturing infrastructure secondaries, against the backdrop of the UK Long-Term Asset Fund regime, EU ELTIF 2.0 and AIFMD II.",
+    points: [
+      "UK Long-Term Asset Funds (LTAFs) have been permitted within stocks and shares ISAs since April 2026",
+      "ELTIF 2.0 lowered minimum investment thresholds and eased diversification and distribution rules",
+      "AIFMD II introduces tighter liquidity management, delegation, depositary and disclosure requirements",
+      "GP-led continuation vehicle governance and fiduciary conflicts are drawing increased attention as infrastructure secondaries mature",
+    ],
+    tags: ["infrastructure funds", "LTAF", "ELTIF 2.0", "AIFMD II", "secondaries"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.whitecase.com/insight-alert/synthetic-securitisations-credit-risk-management-tool-banks-and-non-bank-financial",
+    id: "u629", title: "Synthetic securitisations as a credit risk management tool for banks and non-bank financial institutions in the UAE",
+    area: "banking", areas: ["banking"], type: "alert", firm: "whitecase",
+    date: "2026-07-03", jurisdiction: "United Arab Emirates",
+    summary: "White & Case examines synthetic securitisation as a capital-management tool for UAE banks and non-bank financial institutions, noting the market is currently nascent — with no reported transactions to date — but interest is rising amid strong loan growth and capital-buffer pressures.",
+    points: [
+      "UAE market for synthetic securitisation is nascent, with no completed transactions reported yet but growing interest",
+      "Benefits cited: regulatory capital relief, credit risk management, client relationship preservation, administrative efficiency",
+      "Three structural approaches discussed: funded direct issuance, funded indirect issuance via SPV, and unfunded direct structures",
+      "UAE's legal and regulatory framework is described as supportive of these structures",
+    ],
+    tags: ["synthetic securitisation", "UAE banking", "credit risk transfer", "capital relief"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.whitecase.com/insight-alert/white-case-advises-ik-partners-financing-investment-selatek",
+    id: "u630", title: "White & Case advises IK Partners on financing of investment in Selatek",
+    area: "banking", areas: ["banking", "corporate"], type: "alert", firm: "whitecase",
+    date: "2026-07-03", jurisdiction: "Sweden",
+    summary: "White & Case advised IK Partners on the debt financing for its investment in SELATEK Holding AB, a Swedish technical installation company (security, electrical, automation) with over 30 locations and around 900 employees, as part of IK Partners' Nordic expansion strategy.",
+    points: [
+      "Debt financing for IK Partners' acquisition of Selatek, a Swedish technical-installation group",
+      "Selatek operates 30+ locations with around 900 employees and roughly 6,000 customers",
+      "Deal led by White & Case partner Oscar Liljeson",
+    ],
+    tags: ["private equity finance", "Nordic M&A", "debt financing", "IK Partners"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.clearygottlieb.com/news-and-insights/publication-listing/sec-modernizes-debt-tender-offer-rules-with-new-exemptive-order",
+    id: "u631", title: "SEC modernizes debt tender offer rules with new exemptive order",
+    area: "corporate", areas: ["corporate"], type: "alert", firm: "cleary",
+    date: "2026-07-02", jurisdiction: "United States",
+    summary: "Cleary Gottlieb covers the SEC's 30 June 2026 exemptive order modernizing debt tender offer rules, permitting abbreviated five-business-day offering periods for non-convertible debt securities (versus the standard 20-business-day minimum), superseding the 2015 no-action letter framework.",
+    points: [
+      "Supersedes the 2015 no-action letter regime and permits partial tender offers rather than only 'any and all' offers",
+      "Allows exchange offers without mandatory retail cash alternatives, plus concurrent consent solicitations with simple-majority thresholds",
+      "Eliminates weighted-average-life and financing restrictions, and drops guaranteed delivery procedures",
+      "Introduces a new 10-business-day cooling-off period around extraordinary transactions",
+    ],
+    tags: ["SEC", "tender offers", "debt securities", "capital markets", "exemptive order"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.stblaw.com/about-us/publications/view/2026/07/02/sec-expands-exemptive-relief-for-tender-offers-and-exchange-offers-for-non-convertible-debt-securities",
+    id: "u632", title: "SEC expands exemptive relief for tender offers and exchange offers for non-convertible debt securities",
+    area: "corporate", areas: ["corporate"], type: "alert", firm: "simpsonthacher",
+    date: "2026-07-02", jurisdiction: "United States",
+    summary: "Simpson Thacher's client alert on the SEC's 30 June 2026 exemptive order (under Rules 14e-1(a)/(b)) expanding relief for tender and exchange offers in non-convertible debt securities, a topic that drew near-simultaneous client alerts from several firms this week.",
+    points: [
+      "'Any and all' requirement eliminated; partial offers now allowed with pro-rata provisions",
+      "Concurrent consent solicitations permitted for simple-majority amendments",
+      "Senior indebtedness financing restrictions and the weighted-average-life-to-maturity requirement removed",
+      "Notice periods shortened; guaranteed delivery and the 8-K filing requirement eliminated",
+    ],
+    tags: ["SEC", "tender offers", "debt securities", "capital markets", "exemptive order"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.davispolk.com/insights/client-update/fdic-proposes-major-revamp-csi-regulations",
+    id: "u633", title: "FDIC proposes major revamp of CSI regulations",
+    area: "banking", areas: ["banking"], type: "update", firm: "davispolk",
+    date: "2026-07-06", jurisdiction: "United States",
+    summary: "Davis Polk covers the FDIC's proposed overhaul of its confidential supervisory information (CSI) regulations, which would significantly expand insured depository institutions' ability to share supervisory information with certain third parties — including in M&A contexts — without prior FDIC approval, benchmarked against the Federal Reserve and OCC frameworks.",
+    points: [
+      "Broadens CSI-sharing without prior FDIC sign-off in defined circumstances",
+      "Compares the FDIC's proposed approach to existing Federal Reserve and OCC CSI regimes",
+      "Relevant to bank M&A diligence and confidentiality practice",
+    ],
+    tags: ["FDIC", "banking regulation", "confidential supervisory information", "bank M&A"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.ashurstperkinscoie.com/en/insights/sec-exemptive-order-permits-five-business-day-nonconvertible-debt-tender-and-exchange-offers/",
+    id: "u634", title: "SEC exemptive order permits five-business-day nonconvertible debt tender and exchange offers",
+    area: "banking", areas: ["banking", "corporate"], type: "alert", firm: "ashurst",
+    date: "2026-07-06", jurisdiction: "United States",
+    summary: "Ashurst covers the SEC Division of Corporation Finance's 30 June 2026 exemptive order permitting nonconvertible debt tender and exchange offers on a shortened five-business-day minimum, versus the standard 20-business-day period under Exchange Act Rule 14e-1(a), mirroring an April 2026 order for equity tender offers.",
+    points: [
+      "Relief is available only to issuers, wholly-owned subsidiaries, or 100%-owning parents",
+      "Consideration is limited to cash or 'Qualified Debt Securities'",
+      "Cannot be combined with consent solicitations, default/bankruptcy situations, or major corporate transactions",
+      "Launch notices must go out by 10:00am ET; material changes by 9:00am ET",
+    ],
+    tags: ["debt tender offers", "SEC", "capital markets", "liability management"],
+    dateEstimated: false,
+  },
 ];
 
 // ---- Recent cases published on BAILII -------------------------------------
@@ -5972,6 +6150,9 @@ export const cases = [
   { id: "c57", name: "Frontiers Capital I Limited Partnership v Thomas Flohr", citation: "[2026] EWHC 1656 (Ch)", court: "High Court (Ch)",
     date: "2026-07-06", area: "funds", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1656",
     summary: "Master Brightwell granted a non-party costs order under s.51 Senior Courts Act 1981 against Timothy Horlick, liquidator of a dissolved venture capital fund's general partner, holding he was the 'real party' who controlled and funded revived litigation against Thomas Flohr for his own benefit." },
+  { id: "c58", name: "Stor RB One Ltd v Kanthasamy", citation: "[2026] EWHC 1696 (Comm)", court: "High Court (Comm)",
+    date: "2026-07-07", area: "banking", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/1696",
+    summary: "Judge Kramer KC declined to strike out a defendant's claim that a personal-guarantee judgment against him should be set aside for fraud (a forged guarantee deed and a fabricated legal-advice certificate produced by a co-defendant relative), finding a real issue for trial, but adjourned the harder question of whether fraud by a co-defendant (rather than the judgment creditor) can unravel a judgment pending Court of Appeal guidance in Lindsay's Estate v Outlook Finance Ltd." },
 ];
 
 // ---- Lightweight lookups ----------------------------------------------------
@@ -6041,6 +6222,7 @@ export const caseSummaries = {
   c55: "The liquidators of The Wine Enterprises Investments Scheme Limited brought a professional-negligence claim against its former auditors, Crowe U.K. LLP, alleging Crowe failed over seven audit years (2012-2018) to detect fraud by the company's directors. The main judgment (27 March 2026) found Crowe liable but awarded only about £102,000 — roughly 1.6% of the £8.4m claimed. In this consequential costs judgment, the court held that Crowe was nonetheless the 'successful party' under the established costs test, awarding Crowe 85% of its costs up to the expiry of its Part 36 offer and the whole of its costs thereafter (plus interest), on the standard rather than indemnity basis. The decision is a reminder to liquidators and other claimants that a nominal or heavily discounted damages recovery can still translate into a substantial adverse costs order if it falls short of a defendant's settlement offer.",
   c56: "Philip Cole and Scott Masterton co-founded E-Technologies Global Limited, and in September 2021 executed a Share Purchase Agreement under which Masterton agreed to buy Cole's shares for £10m, contingent on anticipated third-party investment that never materialised. Masterton repeatedly failed to comply with court orders and engage with the litigation, leading to a debarring order preventing him from advancing a defence; he sought relief from sanctions under the Denton v White framework, citing dyslexia and unrelated criminal proceedings, which the court found unsupported by evidence and insufficient to excuse serious, repeated breaches. Applying CPR 3.9, Hancock J maintained the debarring order but still considered the merits on the available documentary record, since Masterton could not positively advance his sham-agreement defence. The court found the SPA was a genuine, binding agreement breached by Masterton's failure to pay the agreed £10m by the completion date.",
   c57: "Frontiers Capital I Limited Partnership (FCILP), a pre-2009 venture capital fund that ceased business in 2010, had sued Thomas Flohr for breach of a 2002 Subscription and Shareholders' Agreement and breach of fiduciary duty, alleging he improperly used competing 'Comprendium' companies to acquire subsidiaries of the bankrupt Comdisco Inc for his own profit. After FCILP and its dissolved Guernsey general partner (FCGPL) were restored, Timothy Horlick — a former indirect investor holding a 24% stake — became FCGPL's director/liquidator, funded the revived claim via his own company Milo Investments Limited, and stood to receive 90% of any recovery. Flohr applied for a non-party costs order against Horlick personally. The court found Horlick was the true party in interest, having pursued the litigation for personal gain without proper consultation of the limited partners and without candour about the funding arrangement, and ordered costs against him.",
+  c58: "Stor RB One had obtained summary judgment in 2023 against Mr Kanthasamy for over £541,000 on a personal guarantee he gave in support of a receivables purchase facility extended to a company run by a relative. Kanthasamy later alleged the guarantee deed was forged and that the earlier proceedings were tainted by a fabricated defence admission and a false solicitor's certificate of independent legal advice, produced by the relative rather than by Stor itself, and sought to set the judgment aside for fraud. Judge Kramer KC refused to strike out the fraud case, finding a real triable issue on forgery, but declined to resolve whether the 'fraud unravels all' principle extends to a co-defendant's fraud (rather than the judgment creditor's), adjourning that novel point pending the Court of Appeal's decision in Lindsay's Estate v Outlook Finance Ltd. The case is of practical significance for lenders relying on personal guarantees where the alleged fraud is perpetrated by someone other than the borrower or creditor.",
 };
 
 export const restructurings = [
@@ -6100,7 +6282,7 @@ export const restructurings = [
   {"company": "Virgin Atlantic Airways Limited", "type": "plan", "date": "2020-09-02", "court": "High Court (Ch)", "citation": "[2020] EWHC 2376 (Ch)", "judgmentUrl": "https://www.bailii.org/ew/cases/EWHC/Ch/2020/2376.html", "sector": "Aviation", "debt": "c.£1.2bn solvent recapitalisation (incl. £170m new secured debt + $30m and £200m shareholder support); deferral/compromise of liabilities owed to creditors and trade suppliers", "creditors": ["Bondholders/secured creditors", "Aircraft lessors", "Trade creditors"], "features": ["first ever Part 26A restructuring plan", "four creditor classes", "relevant alternative = administration", "part of a wider solvent recapitalisation"], "advisers": ["Allen & Overy"], "firm": "kirkland", "articleUrl": "https://www.kirkland.com/publications/article/2020/11/the-first-uk-restructuring-plan", "outcome": "Sanctioned", "notes": "Convening judgment [2020] EWHC 2191 (Ch) (Trower J, 4 Aug 2020); sanction [2020] EWHC 2376 (Ch) (Snowden J). Recognised under Chapter 15 in the US. Kirkland advised the UK Civil Aviation Authority.", "id": "rx54"},
   {"company": "Swissport Fuelling Limited", "type": "scheme", "date": "2020-06-09", "court": "High Court (Ch)", "citation": "[2020] EWHC 1499 (Ch)", "judgmentUrl": "https://www.bailii.org/ew/cases/EWHC/Ch/2020/1499.html", "sector": "Aviation services (ground/cargo handling)", "debt": "New money facility of up to £380m and amendment/extension of existing senior facilities; guarantor scheme", "creditors": ["Senior secured lenders"], "features": ["COVID-19 liquidity rescue financing", "scheme proposed by a UK guarantor (not the primary borrower) using a deed of contribution / ricochet claim", "EU Insolvency Regulation / jurisdiction discussion"], "advisers": ["Kirkland & Ellis"], "firm": null, "articleUrl": null, "outcome": "Sanctioned", "notes": "Re Swissport Fuelling Ltd [2020] EWHC 1499 (Ch), Trower J. Part 26 scheme used for COVID rescue financing. (A separate Swissport restructuring followed later via other means.)", "id": "rx55"},
   {"company": "Deutsche Glasfaser Group GmbH", "type": "scheme", "date": "2026-06-24", "court": "High Court (Ch)", "citation": "[2026] EWHC 1563 (Ch)", "judgmentUrl": "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1563", "sector": "Telecoms / Digital Infrastructure", "debt": "~€7bn", "creditors": ["Senior secured creditors", "EQT (equity sponsor)", "OMERS (equity sponsor)"], "features": ["Bifurcation of debt into opco/holdco tranches", "€400m super-senior capital injection", "Unanimous creditor support (100% by value)", "English scheme jurisdiction confirmed for German-domiciled group"], "advisers": ["Freshfields Bruckhaus Deringer (company)", "Linklaters (ad hoc creditor committee)"], "firm": null, "articleUrl": null, "outcome": "Sanctioned", "notes": "Mr Justice Adam Johnson. Companion convening judgment [2026] EWHC 1467 (Ch) (22 June 2026). Confirms English court jurisdiction for large cross-border German restructurings via Part 26 scheme.", "id": "rx56"},
-  {"company": "NFE Global Holdings Limited and NFE Brazil Newco Limited (New Fortress Energy)", "type": "plan", "date": "2026-06-18", "court": "High Court (Ch)", "citation": null, "judgmentUrl": null, "sector": "Energy / LNG (US liquefied natural gas company)", "debt": ">$9bn", "creditors": ["Seven creditor classes (six voted unanimously; one voted 99.84% in favour)"], "features": ["Part 26A restructuring plan — largest consensual restructuring by value under Part 26A to date", "Bifurcation into 'BrazilCo' (Brazil assets, creditor-owned) and 'New NFE' (remaining listed entity)", "Seven creditor classes; 99% of plan creditors in favour", "Sanctioned by Mr Justice Cawson on 18 June 2026"], "advisers": [], "firm": null, "articleUrl": "https://ir.newfortressenergy.com/news-releases/news-release-details/new-fortress-energy-inc-announces-approval-uk-restructuring-plan", "outcome": "Sanctioned", "notes": "Sanction hearing 18 June 2026, Mr Justice Cawson. Largest Part 26A restructuring by value at time of sanction (>$9bn). Company bifurcated: Brazil assets transferred to 'BrazilCo' (wholly owned by plan creditors); remaining group listed as 'New NFE'. EWHC neutral citation not yet confirmed in public record.", "id": "rx57"},
+  {"company": "NFE Global Holdings Limited and NFE Brazil Newco Limited (New Fortress Energy)", "type": "plan", "date": "2026-06-18", "court": "High Court (Ch)", "citation": null, "judgmentUrl": null, "sector": "Energy / LNG (US liquefied natural gas company)", "debt": ">$9bn", "creditors": ["Seven creditor classes (six voted unanimously; one voted 99.84% in favour)"], "features": ["Part 26A restructuring plan — largest consensual restructuring by value under Part 26A to date", "Bifurcation into 'BrazilCo' (Brazil assets, creditor-owned) and 'New NFE' (remaining listed entity)", "Seven creditor classes; 99% of plan creditors in favour", "Sanctioned by Mr Justice Cawson on 18 June 2026"], "advisers": [], "firm": "freshfields", "articleUrl": "https://www.freshfields.com/en/our-thinking/blogs/transactions/re-nfe-global-holdings-limited-english-court-sanctions-us9-6-billion-restructur-102n83q", "outcome": "Sanctioned", "notes": "Sanction hearing 18 June 2026, Mr Justice Cawson. Largest Part 26A restructuring by value at time of sanction (>$9bn). Company bifurcated: Brazil assets transferred to 'BrazilCo' (wholly owned by plan creditors); remaining group listed as 'New NFE'. EWHC neutral citation not yet confirmed in public record. Freshfields published a case note on the sanction (6 July 2026): all seven creditor classes voted in favour (six unanimously, one at 99.84%); existing shareholders retained 35% of equity despite the debt writedown.", "id": "rx57"},
   {"company": "Big Table Group (Las Iguanas Holdings Ltd)", "type": "plan", "date": "2026-06-10", "court": "High Court (Ch)", "citation": null, "judgmentUrl": null, "sector": "Hospitality / Casual Dining (Las Iguanas, Bella Italia, Café Rouge)", "debt": "c.£37m loan note debt written off; landlord lease renegotiations across 44 sites", "creditors": ["Loan note creditors", "Landlords (44 sites)"], "features": ["Part 26A restructuring plan", "Write-off of c.£37m loan note debt", "Landlord lease renegotiations and site exits", "£3m capital injection from Big Table Group parent", "First plan under the 2026 Practice Statement (effective 1 January 2026)"], "advisers": [], "firm": "macfarlanes", "articleUrl": "https://www.macfarlanes.com/insights/102n1fe/macfarlanes-advises-iguanas-holdings-limited-on-restructuring-plan/", "outcome": "Sanctioned", "notes": "Sanctioned by the High Court on 10 June 2026 (date corrected from initial trade-press report of 5 June). Epiris-backed Big Table Group operator of Las Iguanas, Bella Italia and Café Rouge brands. Macfarlanes (Paul Keddie, Tim Bromley-White) advised Big Table Group — its fourth Part 26A sanction since 2020, and the first plan sanctioned under the revised 2026 Practice Statement. EWHC neutral citation not yet confirmed in public record.", "id": "rx58"},
   {"company": "SCUR-Alpha 1092 GmbH (Schleich Group)", "type": "plan", "date": "2026-06-10", "court": "High Court (Ch)", "citation": "[2026] EWHC 1414 (Ch)", "judgmentUrl": "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1414", "sector": "Toy manufacturing (Schleich figurines)", "debt": "~€189m debt restructuring (€175m first-lien term loan and €40m RCF maturing 2026)", "creditors": ["First-lien term loan lenders", "RCF lenders"], "features": ["Part 26A restructuring plan", "Convening judgment rejected a challenge by a dissenting lender contesting its exclusion from the process", "Proposed structured sale process with a €5m new-money capital injection"], "advisers": [], "firm": null, "articleUrl": null, "outcome": "Convened (meetings ordered)", "notes": "Convening judgment handed down 10 June 2026 (Case No. CR-2025-008964); sanction hearing outcome not yet reported. Schleich Group (German toy/figurine maker) is owned by Partners Group.", "id": "rx59"},
   {"company": "TG Jones Retail Holdings Limited", "type": "plan", "date": "2026-07-01", "court": "High Court (Ch)", "citation": null, "judgmentUrl": null, "sector": "General retail (high-street stores, formerly WH Smith's high-street business)", "debt": "Rent reductions across the store estate; £15m fresh cash injection from Modella Capital; landlord profit-share above £40m generated over 3 years", "creditors": ["Landlords (multiple classes, incl. British Land, Landsec, M&G, NewRiver)", "Secured lenders", "Suppliers"], "features": ["Part 26A restructuring plan", "Cross-class cram-down of dissenting landlord classes", "Convening hearing (3 June 2026) rejected British Land's adjournment application", "Closure of c.100-150 stores; zero rent for 3 years at 120+ sites"], "advisers": ["Slaughter and May (legal adviser to Modella Capital)", "Teneo (financial adviser)"], "firm": "slaughtermay", "articleUrl": "https://www.slaughterandmay.com/recent-work/tg-jones-on-its-successful-restructuring/", "outcome": "Sanctioned", "notes": "Acquired from WH Smith Plc by Modella Capital in 2025 (~450 stores, ~5,000 employees). Sanctioned 1 July 2026 per press reporting (Bloomberg); neutral citation and judgment URL not yet indexed as of this refresh. Slaughter and May published an own-domain recent-work note confirming it advised sponsor/secured lender Modella Capital; Teneo acted as financial adviser per trade press.", "id": "rx60"},
