@@ -35,11 +35,14 @@ h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
 @media (min-width: 1101px) {
   .topbar-inner { padding-left: max(11rem, calc((100% - min(100%, 1500px)) / 2 + 2rem)); padding-right: calc((100% - min(100%, 1500px)) / 2 + 2rem); }
   .topbar-inner .brand { position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); }
-  .mainnav { flex: 1 1 auto; }
-  /* Signed-in identity + refresh line pinned to the far-right corner (out of
-     flow, mirroring the logo), with the bell just inside it. */
-  .topbar-inner .topbar-right { position: absolute; right: 4rem; top: 50%; transform: translateY(-50%); }
-  .topbar-inner .notif { position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); }
+  /* The nav fills the row (two-class selector so it beats the later base
+     `.mainnav { flex: 0 1 auto }` at equal specificity) and the right-aligned
+     Explorer tab is pushed to the nav's right edge; the signed-in identity and
+     bell then follow it in normal flow at the far-right corner, so nothing
+     overlaps (unlike absolutely pinning them into the same corner). */
+  .topbar-inner .mainnav { flex: 1 1 auto; }
+  .topbar-inner .topbar-right { flex: 0 0 auto; margin-left: 0; }
+  .topbar-inner .notif { flex: 0 0 auto; }
 }
 .brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: #fff; flex: 0 0 auto; }
 .brand:hover { text-decoration: none; }
