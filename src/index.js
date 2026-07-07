@@ -313,7 +313,10 @@ async function handleRates(request, env, ctx) {
 // FRED (keyed); Services PMI comes from DBnomics (free JSON, re-hosts ISM); the
 // UK 2y gilt comes from the Bank of England database. Every series carries an
 // `href` to its public source so each figure is independently verifiable.
-const MACRO_START = () => new Date(Date.now() - 5.3 * 365 * 864e5).toISOString().slice(0, 10);
+// ~6.5 years back: YoY series (tf "yoy") drop their first 12 months to the
+// year-over-year calc, so the extra lead-in keeps them reaching back a full 5
+// years (to 2021) after toYoY + slice(-60); level series just slice to 5 years.
+const MACRO_START = () => new Date(Date.now() - 6.5 * 365 * 864e5).toISOString().slice(0, 10);
 
 // FRED monthly observations → [YYYY-MM, value] ascending. `agg` averages a daily
 // series (e.g. a yield) to a monthly figure.
@@ -455,7 +458,7 @@ async function handleMacro(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/macro?v=10", request.url).toString());
+  const cacheKey = new Request(new URL("/api/macro?v=11", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const series = await Promise.all(MACRO_SERIES.map(async (s) => {
