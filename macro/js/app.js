@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS } from "./content.js?v=20260707-12";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS } from "./content.js?v=20260707-13";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -235,7 +235,7 @@ function viewBubble() {
     ${sourceList(BUBBLE.sources)}`;
 }
 
-// ---- Explorer: multi-indicator overlay chart -------------------------------
+// ---- Chart: multi-indicator overlay chart ----------------------------------
 // Categorical colour BY INDICATOR (fixed, validated 6-hue set); country is the
 // secondary encoding (solid = US, dashed = UK). Series are each min–max scaled to
 // 0–100 so differently-measured indicators share one axis (no dual-axis); the
@@ -279,7 +279,7 @@ function viewChart() {
   const chips = CHART_EVENTS.map((e, i) => `<button type="button" class="chart-evt${chartEvents.has(e.id) ? " is-on" : ""}" data-evt="${e.id}"><span class="evt-num">${CIRC[i]}</span> ${esc(e.label)}</button>`).join("");
   return `
     <div class="page-head">
-      <h1>Explorer</h1>
+      <h1>Chart</h1>
       <p class="muted">Overlay up to ${CHART_MAX} of the dashboard indicators (US &amp; UK) across the past five years and toggle key events. Each series is scaled to its own 0–100 range so differently-measured indicators share one axis — hover for the actual values.</p>
     </div>
     <section class="card chart-ctrls">
@@ -407,7 +407,7 @@ const TABS = [
   ["commentary", "Commentary"],
   ["cycle", "Cycle"],
   ["bubble", "Bubble"],
-  ["explorer", "Explorer"],
+  ["chart", "Chart"],
 ];
 function currentTab() {
   const h = (location.hash || "").replace(/^#\/?/, "");
@@ -528,11 +528,11 @@ window.addEventListener("hashchange", closeNotif);
 
 function render() {
   const tab = currentTab();
-  const body = tab === "commentary" ? viewCommentary() : tab === "cycle" ? viewCycle() : tab === "bubble" ? viewBubble() : tab === "explorer" ? viewChart() : viewDashboard();
+  const body = tab === "commentary" ? viewCommentary() : tab === "cycle" ? viewCycle() : tab === "bubble" ? viewBubble() : tab === "chart" ? viewChart() : viewDashboard();
   app.innerHTML = body;
   syncNav(tab);
   if (tab === "dashboard") loadMacro();
-  if (tab === "explorer") fetchMacro().then(() => { if (currentTab() === "explorer") drawChart(); });
+  if (tab === "chart") fetchMacro().then(() => { if (currentTab() === "chart") drawChart(); });
   window.scrollTo(0, 0);
 }
 

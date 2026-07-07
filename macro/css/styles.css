@@ -37,7 +37,7 @@ h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
   .topbar-inner .brand { position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); }
   /* The nav fills the row (two-class selector so it beats the later base
      `.mainnav { flex: 0 1 auto }` at equal specificity) and the right-aligned
-     Explorer tab is pushed to the nav's right edge; the signed-in identity and
+     Chart tab is pushed to the nav's right edge; the signed-in identity and
      bell then follow it in normal flow at the far-right corner, so nothing
      overlaps (unlike absolutely pinning them into the same corner). */
   .topbar-inner .mainnav { flex: 1 1 auto; }
@@ -173,7 +173,7 @@ a.macro-tile:hover .macro-src { color: var(--macro); text-decoration: underline;
 .macro-verdict-extreme { background: #b91c1c; }
 .macro-uknote { margin-top: 1rem; padding: .7rem .9rem; border-radius: 10px; background: #f3f1fa; border: 1px solid rgba(139,126,200,.3); }
 
-/* ---------- explorer chart ---------- */
+/* ---------- chart tab ---------- */
 .nav-link.nav-right { margin-left: auto; }
 .chart-ctrls { margin-bottom: 1.2rem; display: grid; gap: 1.1rem; }
 .chart-ctrl-h { font-weight: 700; color: var(--ink); margin-bottom: .55rem; font-size: .92rem; }
