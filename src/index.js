@@ -377,12 +377,13 @@ function toYoY(pairs) {
   }
   return out;
 }
-// ONS time-series API → monthly [YYYY-MM, value]. `spec` is "CDID/DATASET"
-// (e.g. "MGSX/LMS"); the API returns the annual-rate/level directly.
+// ONS time series → monthly [YYYY-MM, value]. The website's own timeseries page
+// serves the data as JSON at `<page-url>/data` (the api.ons.gov.uk developer API
+// is retired). `pageUrl` is the full www.ons.gov.uk timeseries URL; the `months`
+// array carries the headline annual-rate/level directly.
 const ONS_MM = { JAN: "01", FEB: "02", MAR: "03", APR: "04", MAY: "05", JUN: "06", JUL: "07", AUG: "08", SEP: "09", OCT: "10", NOV: "11", DEC: "12" };
-async function onsMonthly(spec) {
-  const [cdid, dataset] = String(spec).split("/");
-  const txt = await fetchText(`https://api.ons.gov.uk/timeseries/${cdid.toLowerCase()}/dataset/${dataset.toLowerCase()}/data`);
+async function onsMonthly(pageUrl) {
+  const txt = await fetchText(String(pageUrl).replace(/\/+$/, "") + "/data");
   if (!txt) return [];
   try {
     const months = (JSON.parse(txt).months) || [];
@@ -404,9 +405,9 @@ const MACRO_SERIES = [
   { country: "US", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y Treasury", src: "fred", id: "DGS2", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/DGS2", source: "FRED / U.S. Treasury" },
   // UK macro: official-source-first — the ONS time-series API returns the
   // headline annual-rate/level directly (CDID/DATASET).
-  { country: "UK", key: "core_cpi", label: "Core inflation", unit: "%", sub: "Core CPI · YoY", src: "ons", id: "L55O/MM23", tf: "level", href: "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/l55o/mm23", source: "ONS" },
+  { country: "UK", key: "core_cpi", label: "Core inflation", unit: "%", sub: "Core CPI · YoY", src: "ons", id: "DKO8/MM23", tf: "level", href: "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/dko8/mm23", source: "ONS" },
   { country: "UK", key: "wages", label: "Wage growth", unit: "%", sub: "Regular pay (AWE) · YoY", src: "ons", id: "KAI9/LMS", tf: "level", href: "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/timeseries/kai9/lms", source: "ONS" },
-  { country: "UK", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "ons", id: "MGSX/LMS", tf: "level", href: "https://www.ons.gov.uk/employmentandlabourmarket/peopleandwork/unemployment/timeseries/mgsx/lms", source: "ONS" },
+  { country: "UK", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "ons", id: "MGSX/LMS", tf: "level", href: "https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/unemployment/timeseries/mgsx/lms", source: "ONS" },
   // S&P Global/CIPS PMI is proprietary (not on FRED/DBnomics); seed the latest
   // verifiable value and finalise history/source with the user.
   // S&P Global/CIPS is proprietary (no free API); curated from its releases.
@@ -418,7 +419,7 @@ async function macroSeriesPairs(s, env) {
   let raw = s.src === "fred" ? await fredMonthly(s.id, env, s.agg)
     : s.src === "dbnomics" ? await dbnomicsMonthly(s.id)
     : s.src === "boe" ? await boeMonthly(s.id)
-    : s.src === "ons" ? await onsMonthly(s.id)
+    : s.src === "ons" ? await onsMonthly(s.href)
     : s.src === "curated" ? (s.curated || []) : [];
   // A `curated` list on a LIVE source extends it: source-verified recent months
   // override/append to a mirror that lags (e.g. DBnomics' ISM stops ~Aug 2025).
@@ -444,7 +445,7 @@ async function handleMacro(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/macro?v=4", request.url).toString());
+  const cacheKey = new Request(new URL("/api/macro?v=5", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const series = await Promise.all(MACRO_SERIES.map(async (s) => {
