@@ -40,10 +40,9 @@ h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
   .topbar-inner { padding-left: max(11rem, calc((100% - min(100%, 1500px)) / 2 + 2rem)); padding-right: 1.5rem; }
   .topbar-inner .brand { position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); }
   /* The nav fills the row (two-class selector so it beats the later base
-     `.mainnav { flex: 0 1 auto }` at equal specificity) and the right-aligned
-     Chart tab is pushed to the nav's right edge; the signed-in identity and
-     bell then follow it in normal flow at the far-right corner, so nothing
-     overlaps (unlike absolutely pinning them into the same corner). */
+     `.mainnav { flex: 0 1 auto }` at equal specificity), so the signed-in
+     identity and bell get pushed to the far-right corner in normal flow while
+     the tabs stay grouped on the left. */
   .topbar-inner .mainnav { flex: 1 1 auto; }
   .topbar-inner .topbar-right { flex: 0 0 auto; margin-left: 0; }
   .topbar-inner .notif { flex: 0 0 auto; }
@@ -178,7 +177,6 @@ a.macro-tile:hover .macro-src { color: var(--macro); text-decoration: underline;
 .macro-uknote { margin-top: 1rem; padding: .7rem .9rem; border-radius: 10px; background: #f3f1fa; border: 1px solid rgba(139,126,200,.3); }
 
 /* ---------- chart tab ---------- */
-.nav-link.nav-right { margin-left: auto; }
 .chart-ctrls { margin-bottom: 1.2rem; display: grid; gap: 1.1rem; }
 .chart-ctrl-h { font-weight: 700; color: var(--ink); margin-bottom: .55rem; font-size: .92rem; }
 .chart-ind-cols { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem 2rem; }
