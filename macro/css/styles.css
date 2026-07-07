@@ -8,8 +8,8 @@
   --ink: #0f172a;
   --muted: #64748b;
   --border: #e2e8f0;
-  --macro: #6941c6;         /* violet accent — the Macro platform's colour */
-  --macro-ink: #2e1065;     /* deep violet — top bar */
+  --macro: #9b2242;         /* wine red — the Macro platform's colour */
+  --macro-ink: #4a1020;     /* deep wine — top bar */
   --shadow: 0 1px 2px rgba(15,23,42,.06), 0 4px 12px rgba(15,23,42,.04);
   font-synthesis: none;
 }
@@ -31,8 +31,8 @@ h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
 .brand:hover { text-decoration: none; }
 .brand-text { display: flex; flex-direction: column; }
 .brand-text strong { font-size: 1.05rem; letter-spacing: .3px; }
-.brand-sub { font-size: .7rem; color: #c4b5fd; text-transform: uppercase; letter-spacing: 1px; }
-.logo { color: #a78bfa; font-size: 1.3rem; line-height: 1; }
+.brand-sub { font-size: .7rem; color: #eab3c1; text-transform: uppercase; letter-spacing: 1px; }
+.logo { color: #e59ab0; font-size: 1.3rem; line-height: 1; }
 .platform-switch { display: inline-flex; align-items: center; gap: 2px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.22); border-radius: 8px; padding: 2px; flex: 0 0 auto; }
 .ps-btn { padding: .3rem .6rem; border-radius: 6px; font-size: .8rem; font-weight: 700; color: #cbd5e1; text-decoration: none; white-space: nowrap; }
 .ps-btn:hover { color: #fff; text-decoration: none; background: rgba(255,255,255,.1); }
@@ -40,7 +40,7 @@ h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
 .topbar-right { margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: .2rem; }
 .account-nav { font-size: .72rem; color: #cbd5e1; white-space: nowrap; }
 .account-nav strong { color: #fff; font-weight: 600; }
-.account-nav a { color: #c4b5fd; font-weight: 600; }
+.account-nav a { color: #eab3c1; font-weight: 600; }
 .account-nav a:hover { color: #fff; }
 
 /* ---------- layout ---------- */
@@ -69,9 +69,27 @@ h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
 .macro-foot a:hover { color: var(--macro); text-decoration: underline; }
 
 @media (max-width: 1100px) { .macro-grid { grid-template-columns: repeat(3, 1fr); } }
+/* Phones (matches Credit/Legal): the header becomes a grid — brand top-left,
+   signed-in identity top-right, the platform toggle on its own row below. */
 @media (max-width: 760px) {
-  .topbar-inner { gap: .75rem; padding: 0 1rem; }
-  .container { padding: 1.25rem 1rem 2.5rem; }
-  .macro-grid { grid-template-columns: repeat(2, 1fr); }
+  .topbar-inner {
+    height: auto; padding: .55rem .9rem;
+    display: grid; grid-template-columns: auto 1fr; align-items: center; gap: .4rem 1rem;
+    grid-template-areas:
+      "brand  account"
+      "toggle account";
+  }
+  .brand { grid-area: brand; justify-self: start; }
+  .platform-switch { grid-area: toggle; justify-self: start; }
+  .topbar-right { grid-area: account; align-items: flex-end; text-align: right; margin-left: 0; }
+  .account-nav { white-space: normal; font-size: .66rem; }
+  .container { padding: 1rem 1rem 2.5rem; }
+  .macro-grid { grid-template-columns: repeat(2, 1fr); gap: .7rem; }
+  .macro-tile { padding: .8rem .85rem .9rem; }
   .macro-tile-head { min-height: 0; }
+  .macro-val { font-size: 1.5rem; }
+}
+@media (max-width: 480px) {
+  h1 { font-size: 1.35rem; }
+  .macro-val { font-size: 1.4rem; }
 }
