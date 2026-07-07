@@ -15,13 +15,13 @@
 // `LAST_REVIEWED` whenever you refresh the data.
 // =============================================================================
 
-export const LAST_REVIEWED = "2026-07-06";
+export const LAST_REVIEWED = "2026-07-07";
 // When the refresh routine last ran (even if nothing new) — shown as "Last refresh".
-export const LAST_CHECKED = "2026-07-06";
+export const LAST_CHECKED = "2026-07-07";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — two runs a day (~06:00 / ~12:00).
-export const LAST_CHECKED_TIME = "12:25 BST";
+export const LAST_CHECKED_TIME = "05:25 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -5705,6 +5705,97 @@ export const items = [
     tags: ["private equity", "sports investment", "exits", "financial sponsors", "M&A"],
     dateEstimated: false,
   },
+  {
+    url: "https://sustainablefutures.linklaters.com/post/102n88y/eu-esma-issues-statement-on-publication-or-distribution-of-esg-ratings-by-third",
+    id: "u617", title: "EU: ESMA issues statement on publication or distribution of ESG ratings by third parties pending authorisation",
+    area: "banking", areas: ["banking", "funds"], type: "update", firm: "linklaters",
+    date: "2026-07-06", jurisdiction: "European Union",
+    summary: "ESMA issued guidance on transitional arrangements under the EU ESG Ratings Regulation (in force since 2 July 2026), setting out notification and authorisation deadlines for ESG rating providers and rules on how third parties may distribute ratings from as-yet-unauthorised providers.",
+    points: [
+      "Non-small ESG rating providers must notify ESMA of their authorisation intent by 2 August 2026, with formal applications due by 2 November 2026",
+      "Small ESG rating providers have until 2 November 2026 to notify ESMA of eligibility for the temporary regime",
+      "Third parties may continue distributing ratings from unauthorised providers until ESMA rules on their applications",
+      "ESMA will maintain a public registry of providers intending to continue EU operations",
+    ],
+    tags: ["ESG ratings", "ESMA", "ESG Ratings Regulation", "sustainable finance", "EU regulation"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://sustainablefutures.linklaters.com/post/102n88s/iso-consults-on-draft-international-net-zero-standard",
+    id: "u618", title: "ISO consults on draft international net zero standard",
+    area: "corporate", areas: ["corporate"], type: "update", firm: "linklaters",
+    date: "2026-07-06", jurisdiction: "International",
+    summary: "Linklaters reports on ISO's 12-week public consultation on ISO/DIS 14060, a draft standard converting its existing Net Zero Guidelines into a verifiable international standard for corporate net zero claims aligned with the Paris Agreement.",
+    points: [
+      "Consultation launched 17 June 2026 and closes in early September 2026",
+      "Organisations must align with recognised net-zero pathways consistent with limiting warming to 1.5°C, with flexibility for emerging economies",
+      "Net zero claims progress through four stages from 'aspiration' to 'achievement', each requiring independent validation and verification",
+      "High-quality carbon removals/credits may only offset unavoidable residual emissions under specified pathway requirements",
+    ],
+    tags: ["ISO", "net zero", "ESG", "climate", "corporate sustainability"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://sustainablefutures.linklaters.com/post/102n88n/uk-government-to-introduce-mandatory-due-diligence-regime-targeting-deforestation",
+    id: "u619", title: "UK government to introduce mandatory due diligence regime targeting deforestation in supply chains",
+    area: "corporate", areas: ["corporate"], type: "update", firm: "linklaters",
+    date: "2026-07-06", jurisdiction: "England and Wales",
+    summary: "The UK government announced plans for a Forest Risk Commodities Scheme requiring businesses operating in Great Britain with turnover above £1 million to conduct due diligence on commodities such as cattle, cocoa, coffee, palm oil, rubber, soy and wood.",
+    points: [
+      "Scheme applies to GB businesses with turnover over £1m sourcing named forest-risk commodities and derived products",
+      "Businesses must collect supply-chain and geolocation data to verify product origin",
+      "Initial focus is on legality (compliance with local law) rather than the EU Deforestation Regulation's stricter 'deforestation-free' standard",
+      "Northern Ireland remains subject to EU rules; the UK government may adopt stricter standards in future",
+      "Consultation expected in late 2026, with legislation anticipated in 2027",
+    ],
+    tags: ["deforestation", "supply chain due diligence", "ESG", "UK regulation", "sustainability"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://sustainablefutures.linklaters.com/post/102n88h/eu-csrd-commission-adopts-revised-esrs-and-voluntary-reporting-standard",
+    id: "u620", title: "EU CSRD: Commission adopts revised ESRS and voluntary reporting standard",
+    area: "corporate", areas: ["corporate", "banking", "funds"], type: "update", firm: "linklaters",
+    date: "2026-07-06", jurisdiction: "European Union",
+    summary: "The European Commission adopted two delegated acts on 3 July 2026 under the Corporate Sustainability Reporting Directive: simplified revised European Sustainability Reporting Standards and a new voluntary reporting standard for smaller companies.",
+    points: [
+      "Revised ESRS must be applied by mandatory reporters for financial years beginning 1 January 2027 (reporting in 2028); early adoption from 2027 is permitted",
+      "New voluntary standard supports smaller companies and caps the sustainability information large companies can demand from suppliers in their value chain",
+      "The voluntary standard is usable immediately by smaller businesses but only affects value-chain requests from 2027",
+      "Both delegated acts face a two-month Council/European Parliament scrutiny period before formal publication",
+    ],
+    tags: ["CSRD", "ESRS", "sustainability reporting", "EU regulation", "corporate reporting"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.ashurstperkinscoie.com/en/insights/capital-allowances-on-pre-development-costs/",
+    id: "u621", title: "Capital allowances on pre-development costs",
+    area: "corporate", areas: ["corporate"], type: "case", firm: "ashurst",
+    date: "2026-07-06", jurisdiction: "England and Wales",
+    court: "Supreme Court", citation: "[2026] UKSC 12",
+    summary: "Ashurst examines the UK Supreme Court's decision in Orsted West of Duddon Sands (UK) Ltd v HMRC [2026] UKSC 12, which held that survey and study costs incurred during pre-development planning of offshore windfarms fall outside the scope of capital allowances for plant and machinery, narrowing relief for infrastructure and energy projects.",
+    points: [
+      "The Supreme Court held that a close connection is required between expenditure and the asset itself for plant and machinery allowances to apply",
+      "Survey and advisory costs informing plant design fall outside allowable expenditure, even where essential to project viability (arising from ~£48m of offshore windfarm pre-development spend)",
+      "The interpretation applies retrospectively to all open matters, including live HMRC enquiries, stayed appeals and unsettled claims",
+      "Businesses should review existing capital allowance claims for defensibility against the narrower Orsted standard",
+    ],
+    tags: ["capital allowances", "tax", "Supreme Court", "energy", "infrastructure", "plant and machinery"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://european-disputes-blog.weil.com/england-uk/cross-border-investments-investment-treaty-protections/",
+    id: "u622", title: "Cross-border investments: investment treaty protections",
+    area: "corporate", areas: ["corporate"], type: "insight", firm: "weil",
+    date: "2026-07-06", jurisdiction: "England and Wales",
+    summary: "Weil's London disputes team, writing in PLC Magazine's July 2026 issue, examines how investment treaties can protect investors in cross-border transactions by mitigating political, regulatory and legal risk across jurisdictions.",
+    points: [
+      "Investment treaties can serve as a risk-mitigation tool for investors structuring cross-border transactions",
+      "Treaty protections can guard against adverse political and regulatory action by host states",
+      "The piece is aimed at dealmakers/investors needing to assess legal risk when investing across multiple jurisdictions",
+    ],
+    tags: ["investment treaties", "cross-border investment", "political risk", "regulatory risk", "investor protection"],
+    dateEstimated: false,
+  },
 ];
 
 // ---- Recent cases published on BAILII -------------------------------------
@@ -5878,6 +5969,9 @@ export const cases = [
   { id: "c56", name: "Philip Henry Cole v Scott William Masterton", citation: "[2026] EWHC 1615 (Comm)", court: "High Court (Comm)",
     date: "2026-07-01", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/1615",
     summary: "Hancock J refused to lift a debarring order against a defendant who had persistently failed to engage with proceedings and, proceeding on the documentary evidence alone, upheld the claimant's claim for £10m under a share purchase agreement the defendant alleged was a sham." },
+  { id: "c57", name: "Frontiers Capital I Limited Partnership v Thomas Flohr", citation: "[2026] EWHC 1656 (Ch)", court: "High Court (Ch)",
+    date: "2026-07-06", area: "funds", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1656",
+    summary: "Master Brightwell granted a non-party costs order under s.51 Senior Courts Act 1981 against Timothy Horlick, liquidator of a dissolved venture capital fund's general partner, holding he was the 'real party' who controlled and funded revived litigation against Thomas Flohr for his own benefit." },
 ];
 
 // ---- Lightweight lookups ----------------------------------------------------
@@ -5946,6 +6040,7 @@ export const caseSummaries = {
   c54: "Gable Insurance AG, an Austrian insurer in liquidation, sued its former CEO and director William Dewsall for breach of duty over payments he authorised during his tenure, totalling £4,957,788.52 for which the trial judge found him liable. The trial judge distinguished between payments diverted from trust accounts, which were found dishonest, and other payments made directly by the company (including to a party called Hogarth), which the judge found were negligent breaches but not dishonest because Dewsall believed the payments were authorised by the relevant boards and disclosed to the auditor. On appeal, Gable Insurance argued this distinction was irrational and that all the payments should have been treated as dishonest. The Court of Appeal dismissed the appeal, holding the trial judge was entitled to draw a rational distinction between the two categories of payment based on Dewsall's state of mind and the surrounding governance context, so the finding of negligence rather than dishonesty for the non-trust payments stood.",
   c55: "The liquidators of The Wine Enterprises Investments Scheme Limited brought a professional-negligence claim against its former auditors, Crowe U.K. LLP, alleging Crowe failed over seven audit years (2012-2018) to detect fraud by the company's directors. The main judgment (27 March 2026) found Crowe liable but awarded only about £102,000 — roughly 1.6% of the £8.4m claimed. In this consequential costs judgment, the court held that Crowe was nonetheless the 'successful party' under the established costs test, awarding Crowe 85% of its costs up to the expiry of its Part 36 offer and the whole of its costs thereafter (plus interest), on the standard rather than indemnity basis. The decision is a reminder to liquidators and other claimants that a nominal or heavily discounted damages recovery can still translate into a substantial adverse costs order if it falls short of a defendant's settlement offer.",
   c56: "Philip Cole and Scott Masterton co-founded E-Technologies Global Limited, and in September 2021 executed a Share Purchase Agreement under which Masterton agreed to buy Cole's shares for £10m, contingent on anticipated third-party investment that never materialised. Masterton repeatedly failed to comply with court orders and engage with the litigation, leading to a debarring order preventing him from advancing a defence; he sought relief from sanctions under the Denton v White framework, citing dyslexia and unrelated criminal proceedings, which the court found unsupported by evidence and insufficient to excuse serious, repeated breaches. Applying CPR 3.9, Hancock J maintained the debarring order but still considered the merits on the available documentary record, since Masterton could not positively advance his sham-agreement defence. The court found the SPA was a genuine, binding agreement breached by Masterton's failure to pay the agreed £10m by the completion date.",
+  c57: "Frontiers Capital I Limited Partnership (FCILP), a pre-2009 venture capital fund that ceased business in 2010, had sued Thomas Flohr for breach of a 2002 Subscription and Shareholders' Agreement and breach of fiduciary duty, alleging he improperly used competing 'Comprendium' companies to acquire subsidiaries of the bankrupt Comdisco Inc for his own profit. After FCILP and its dissolved Guernsey general partner (FCGPL) were restored, Timothy Horlick — a former indirect investor holding a 24% stake — became FCGPL's director/liquidator, funded the revived claim via his own company Milo Investments Limited, and stood to receive 90% of any recovery. Flohr applied for a non-party costs order against Horlick personally. The court found Horlick was the true party in interest, having pursued the litigation for personal gain without proper consultation of the limited partners and without candour about the funding arrangement, and ordered costs against him.",
 };
 
 export const restructurings = [
