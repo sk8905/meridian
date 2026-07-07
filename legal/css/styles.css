@@ -490,25 +490,30 @@ a.compact-head:hover { color: var(--primary); }
      "Last refresh" line never clip), then the platform toggle, then the nav as a
      full-width scroll strip across the bottom (matching Meridian Credit). */
   .topbar-inner {
-    height: auto; padding: .5rem .9rem;
-    display: grid; grid-template-columns: 1fr auto; align-items: center; gap: .3rem .8rem;
+    height: auto; padding: .45rem .85rem;
+    display: grid; grid-template-columns: auto 1fr; align-items: center; gap: .3rem .7rem;
     grid-template-areas:
       "brand   bell"
-      "account account"
-      "toggle  toggle"
+      "toggle  account"
       "nav     nav";
   }
   .brand { grid-area: brand; justify-self: start; }
-  .platform-switch { grid-area: toggle; justify-self: start; margin-top: .15rem; }
+  .brand-text strong { font-size: .95rem; }
+  .brand-sub { font-size: .58rem; }
+  .logo { font-size: 1.1rem; }
+  .platform-switch { grid-area: toggle; justify-self: start; align-self: center; }
+  .ps-btn { padding: .24rem .5rem; font-size: .74rem; }
   .notif { grid-area: bell; justify-self: end; align-self: center; }
-  .topbar-right { grid-area: account; align-items: flex-start; text-align: left; margin-left: 0; }
-  .account-nav, .data-status { white-space: normal; font-size: .7rem; }
+  .notif-bell { width: 30px; height: 30px; font-size: .9rem; }
+  .topbar-right { grid-area: account; align-items: flex-end; text-align: right; margin-left: 0; }
+  .account-nav, .data-status { white-space: normal; font-size: .66rem; }
+  .account-nav a, .account-nav strong { white-space: nowrap; }
   .mainnav {
     grid-area: nav; display: flex; justify-content: flex-start; gap: .15rem;
     overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 2px;
   }
   .mainnav::-webkit-scrollbar { display: none; }
-  .nav-link { padding: .4rem .6rem; white-space: nowrap; flex: 0 0 auto; }
+  .nav-link { padding: .3rem .5rem; font-size: .86rem; white-space: nowrap; flex: 0 0 auto; }
 }
 @media (max-width: 720px) {
   .cards { grid-template-columns: 1fr; }
