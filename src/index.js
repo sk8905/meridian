@@ -444,7 +444,7 @@ async function handleMacro(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/macro?v=3", request.url).toString());
+  const cacheKey = new Request(new URL("/api/macro?v=4", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const series = await Promise.all(MACRO_SERIES.map(async (s) => {
@@ -460,7 +460,7 @@ async function handleMacro(request, env, ctx) {
       history: pairs.map(([d, v]) => ({ label: d, value: v })),
     };
   }));
-  const resp = new Response(JSON.stringify({ series }), { headers: { "content-type": "application/json", "cache-control": "public, max-age=3600" } });
+  const resp = new Response(JSON.stringify({ series }), { headers: { "content-type": "application/json", "cache-control": "public, max-age=600" } });
   // Cache 6h once a solid majority of series resolved (so a transient miss on one
   // source doesn't cache a mostly-empty payload).
   if (ctx && ctx.waitUntil && series.filter((x) => x.value != null).length >= 7) {
