@@ -92,3 +92,27 @@ export function columnChart(data, { width = 560, height = 200 } = {}) {
   }).join("");
   return `<svg viewBox="0 0 ${width} ${height}" class="chart" role="img" aria-label="Alerts over time">${gridY}${cols}</svg>`;
 }
+
+// Compact sparkline — area + line + last-point dot, first/last year labels, no
+// axes/grid. For the Macro mini-charts (≈5y monthly points). data: [{label,value}].
+export function sparkline(data, { width = 300, height = 88, color = "#6941c6" } = {}) {
+  if (!data || data.length < 2) return `<svg viewBox="0 0 ${width} ${height}" class="spark" role="img"></svg>`;
+  const padX = 4, top = 8, bottom = 16;
+  const vals = data.map((d) => d.value);
+  const min = Math.min(...vals), max = Math.max(...vals), span = (max - min) || 1;
+  const plotW = width - padX * 2, plotH = height - top - bottom;
+  const X = (i) => padX + (i / (data.length - 1)) * plotW;
+  const Y = (v) => top + plotH - ((v - min) / span) * plotH;
+  const pts = data.map((d, i) => [X(i), Y(d.value)]);
+  const path = pts.map((p, i) => `${i ? "L" : "M"} ${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(" ");
+  const last = pts[pts.length - 1];
+  const area = `${path} L ${last[0].toFixed(1)} ${top + plotH} L ${pts[0][0].toFixed(1)} ${top + plotH} Z`;
+  const yr = (l) => String(l).slice(0, 4);
+  return `<svg viewBox="0 0 ${width} ${height}" class="spark" role="img">
+    <path d="${area}" fill="${color}" fill-opacity="0.10"/>
+    <path d="${path}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
+    <circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="3.2" fill="${color}"/>
+    <text x="${padX}" y="${height - 3}" class="spark-x">${esc(yr(data[0].label))}</text>
+    <text x="${width - padX}" y="${height - 3}" text-anchor="end" class="spark-x">${esc(yr(data[data.length - 1].label))}</text>
+  </svg>`;
+}

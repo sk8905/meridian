@@ -14,6 +14,7 @@
   --primary: #0d9488;       /* soft teal */
   --primary-ink: #115e59;
   --accent: #14b8a6;
+  --macro: #6941c6;
   --radius: 10px;
   --shadow: 0 1px 2px rgba(15,23,42,.06), 0 4px 12px rgba(15,23,42,.04);
   --shadow-lg: 0 8px 24px rgba(15,23,42,.10);
@@ -565,3 +566,23 @@ a.compact-head:hover { color: var(--primary); }
 .rx-expand { margin-top: .7rem; padding-top: .6rem; border-top: 1px dashed var(--line); line-height: 1.5; }
 .rx-expand .feed-summary { margin: .1rem 0 .55rem; line-height: 1.55; }
 .rx-expand .feed-foot { margin-top: .7rem; }
+
+/* ---------- Macro dashboard ---------- */
+.macro-group { margin-bottom: 1.6rem; }
+.macro-country { font-size: 1.02rem; font-weight: 700; color: var(--ink); margin: 0 0 .7rem; padding-bottom: .4rem; border-bottom: 2px solid var(--macro); display: inline-block; }
+.macro-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; }
+.macro-tile { border: 1px solid var(--line); border-radius: 12px; padding: .95rem 1rem 1.05rem; background: var(--surface); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: .55rem; }
+.macro-tile-head { display: flex; flex-direction: column; gap: .1rem; min-height: 2.5rem; }
+.macro-label { font-weight: 700; color: var(--ink); font-size: .92rem; }
+.macro-sub { line-height: 1.25; }
+.macro-valrow { display: flex; align-items: baseline; gap: .5rem; }
+.macro-val { font-size: 1.7rem; font-weight: 800; color: var(--macro); letter-spacing: -0.02em; line-height: 1; }
+.macro-chg { font-size: .74rem; font-weight: 600; color: var(--muted); white-space: nowrap; }
+.macro-chart { margin: .1rem 0 .15rem; min-height: 40px; }
+.spark { width: 100%; height: auto; display: block; }
+.spark-x { fill: var(--muted); font-size: 9px; }
+.spark-empty { padding: 1.1rem 0; text-align: center; }
+.macro-foot a { color: var(--muted); text-decoration: none; }
+.macro-foot a:hover { color: var(--macro); text-decoration: underline; }
+@media (max-width: 1100px) { .macro-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 720px) { .macro-grid { grid-template-columns: repeat(2, 1fr); } .macro-tile-head { min-height: 0; } }

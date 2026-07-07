@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260707-3";
+} from "./data.js?v=20260707-4";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260707-3";
+import { barChart, donutChart, lineChart, multiLineChart, sparkline } from "./charts.js?v=20260707-4";
 
 const app = document.getElementById("app");
 
@@ -1659,6 +1659,55 @@ function viewNews() {
   applyPendingFocus("news");
 }
 
+// ================================== MACRO ==================================
+// Key US & UK economic indicators with 5-year history, fetched from the Worker's
+// /api/macro endpoint (FRED / DBnomics / Bank of England / ONS / S&P Global).
+// Uses a distinct violet accent so it reads as its own dashboard.
+const MACRO_COLOR = "#6941c6";
+let macroCache = null;
+const MACRO_MONTHS = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+function macroMonth(ym) { const p = String(ym || "").split("-"); return p.length === 2 ? `${MACRO_MONTHS[+p[1]] || ""} ${p[0]}` : ""; }
+
+function viewMacro() {
+  app.innerHTML = `
+    <div class="page-head"><h1>Macro</h1><p class="muted">Key US &amp; UK economic indicators — core inflation, wage growth, unemployment, services PMI and the 2-year yield — each with 5-year history and a link to its public source.</p></div>
+    <div id="macro-body" class="macro-body">${macroCache ? renderMacro(macroCache) : '<section class="card"><p class="muted">Loading macro data…</p></section>'}</div>`;
+  if (!macroCache) loadMacro();
+}
+async function loadMacro() {
+  try {
+    const r = await fetch("/api/macro", { headers: { accept: "application/json" } });
+    macroCache = r.ok ? await r.json() : { series: [] };
+  } catch { macroCache = { series: [] }; }
+  const el = document.getElementById("macro-body");
+  if (el) el.innerHTML = renderMacro(macroCache);
+}
+function renderMacro(data) {
+  const series = (data && data.series) || [];
+  if (!series.length) return '<section class="card"><p class="muted">Macro data is temporarily unavailable — each indicator is sourced live from FRED, the Bank of England, ONS, DBnomics and S&amp;P Global. Please try again shortly.</p></section>';
+  return [["US", "United States"], ["UK", "United Kingdom"]].map(([c, name]) => {
+    const tiles = series.filter((s) => s.country === c).map(macroTile).join("");
+    return tiles ? `<section class="macro-group"><h2 class="macro-country">${name}</h2><div class="macro-grid">${tiles}</div></section>` : "";
+  }).join("");
+}
+function macroTile(s) {
+  const pct = s.unit === "%";
+  const val = s.value == null ? "—" : `${(+s.value).toFixed(1)}${pct ? "%" : ""}`;
+  const ch = s.change;
+  const chHtml = (ch == null || s.value == null) ? "" :
+    `<span class="macro-chg" title="change vs previous month">${ch > 0 ? "▲" : ch < 0 ? "▼" : "•"} ${Math.abs(ch).toFixed(pct ? 2 : 1)}${pct ? " pp" : ""}</span>`;
+  const chart = (s.history && s.history.length > 1)
+    ? sparkline(s.history, { unit: s.unit, color: MACRO_COLOR })
+    : '<div class="spark-empty muted small">5-year history unavailable</div>';
+  const asOf = s.asOf ? macroMonth(s.asOf) : "";
+  return `<div class="macro-tile">
+    <div class="macro-tile-head"><span class="macro-label">${esc(s.label)}</span><span class="macro-sub muted small">${esc(s.sub || "")}</span></div>
+    <div class="macro-valrow"><span class="macro-val">${val}</span>${chHtml}</div>
+    <div class="macro-chart">${chart}</div>
+    <div class="macro-foot muted small">${asOf ? esc(asOf) + " · " : ""}<a href="${esc(s.href)}" target="_blank" rel="noopener noreferrer">${esc(s.source)} ↗</a></div>
+  </div>`;
+}
+
 // =============================== WATCHLIST =================================
 // The "Saved items" section — resolves the saved id set back to news / deal /
 // fundraising / CLO items (newest first), rendered with the same rows (so each
@@ -1985,6 +2034,7 @@ function router() {
     case "deals": return viewDeals();
     case "clos": return viewClos();
     case "trends": return viewTrends();
+    case "macro": return viewMacro();
     case "watchlist": return viewWatchlist();
     default: return notFound();
   }
@@ -1995,7 +2045,7 @@ function router() {
 // (wrapping around). Ignored on detail pages and when the gesture starts on an
 // interactive control (slider, input, dropdown, link, chart, table) or a screen
 // edge (reserved for the browser's back/forward gesture).
-const SWIPE_SECTIONS = ["#/", "#/news", "#/deals", "#/intel", "#/clos", "#/trends", "#/managers", "#/funds", "#/lps", "#/watchlist"];
+const SWIPE_SECTIONS = ["#/", "#/news", "#/deals", "#/intel", "#/clos", "#/trends", "#/macro", "#/managers", "#/funds", "#/lps", "#/watchlist"];
 const SWIPE_IGNORE = "input, textarea, select, button, a, .range-slider, .ms, .ms-pop, .table-wrap, .data-table, svg, .donut-wrap, .chart";
 let swX = 0, swY = 0, swT = 0, swSkip = true;
 document.addEventListener("touchstart", (e) => {

@@ -307,10 +307,138 @@ async function handleRates(request, env, ctx) {
   return resp;
 }
 
+// ============================ MACRO DASHBOARD ==============================
+// Key economic indicators (US + UK) with ~5y monthly history, fetched server-
+// side so there's no CORS issue or browser-visible key. Most series come from
+// FRED (keyed); Services PMI comes from DBnomics (free JSON, re-hosts ISM); the
+// UK 2y gilt comes from the Bank of England database. Every series carries an
+// `href` to its public source so each figure is independently verifiable.
+const MACRO_START = () => new Date(Date.now() - 5.3 * 365 * 864e5).toISOString().slice(0, 10);
+
+// FRED monthly observations → [YYYY-MM, value] ascending. `agg` averages a daily
+// series (e.g. a yield) to a monthly figure.
+async function fredMonthly(id, env, agg) {
+  if (!env || !env.FRED_API_KEY) return [];
+  const u = `https://api.stlouisfed.org/fred/series/observations?series_id=${id}&api_key=${env.FRED_API_KEY}&file_type=json&observation_start=${MACRO_START()}&sort_order=asc&frequency=m${agg ? "&aggregation_method=avg" : ""}`;
+  const txt = await fetchText(u);
+  if (!txt) return [];
+  try {
+    return (JSON.parse(txt).observations || [])
+      .filter((o) => o.value !== "." && o.value !== "")
+      .map((o) => [o.date.slice(0, 7), parseFloat(o.value)])
+      .filter((p) => Number.isFinite(p[1]));
+  } catch { return []; }
+}
+// DBnomics series (path like "ISM/nm-pmi/pm") → [YYYY-MM, value] ascending.
+async function dbnomicsMonthly(path) {
+  const txt = await fetchText(`https://api.db.nomics.world/v22/series/${path}?observations=1`);
+  if (!txt) return [];
+  try {
+    const docs = (((JSON.parse(txt) || {}).series) || {}).docs || [];
+    if (!docs.length) return [];
+    const periods = docs[0].period || [], values = docs[0].value || [];
+    const out = [];
+    for (let i = 0; i < periods.length; i++) {
+      const v = values[i];
+      if (v != null && v !== "NA" && Number.isFinite(+v)) out.push([String(periods[i]).slice(0, 7), +v]);
+    }
+    return out;
+  } catch { return []; }
+}
+// Bank of England IADB CSV → monthly [YYYY-MM, value] (last obs per month).
+async function boeMonthly(code) {
+  const y = MACRO_START().slice(0, 4);
+  const u = `https://www.bankofengland.co.uk/boeapps/database/_iadb-FromShowColumns.asp?csv.x=yes&Datefrom=01/Jan/${y}&Dateto=01/Jan/2040&SeriesCodes=${code}&CSVF=CN&UsingCodes=Y&VPD=Y&VFD=N`;
+  const txt = await fetchText(u);
+  if (!txt) return [];
+  const MM = { Jan: "01", Feb: "02", Mar: "03", Apr: "04", May: "05", Jun: "06", Jul: "07", Aug: "08", Sep: "09", Oct: "10", Nov: "11", Dec: "12" };
+  const byMonth = new Map();
+  for (const line of txt.trim().split(/\r?\n/).slice(1)) {
+    const c = line.split(",");
+    const m = (c[0] || "").replace(/^"|"$/g, "").trim().match(/(\d{1,2})\s+(\w{3})\s+(\d{4})/);
+    const v = parseFloat((c[1] || "").trim());
+    if (!m || !MM[m[2]] || !Number.isFinite(v)) continue;
+    byMonth.set(`${m[3]}-${MM[m[2]]}`, v);
+  }
+  return [...byMonth.entries()].sort((a, b) => a[0].localeCompare(b[0]));
+}
+// Monthly index series → year-on-year % change series.
+function toYoY(pairs) {
+  const out = [];
+  for (let i = 12; i < pairs.length; i++) {
+    const cur = pairs[i][1], prev = pairs[i - 12][1];
+    if (Number.isFinite(cur) && Number.isFinite(prev) && prev !== 0) out.push([pairs[i][0], +(((cur / prev) - 1) * 100).toFixed(2)]);
+  }
+  return out;
+}
+
+const MACRO_SERIES = [
+  { country: "US", key: "core_cpi", label: "Core inflation", unit: "%", sub: "Core CPI · YoY", src: "fred", id: "CPILFESL", tf: "yoy", href: "https://fred.stlouisfed.org/series/CPILFESL", source: "FRED / BLS" },
+  { country: "US", key: "wages", label: "Wage growth", unit: "%", sub: "Avg hourly earnings · YoY", src: "fred", id: "CES0500000003", tf: "yoy", href: "https://fred.stlouisfed.org/series/CES0500000003", source: "FRED / BLS" },
+  { country: "US", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "UNRATE", tf: "level", href: "https://fred.stlouisfed.org/series/UNRATE", source: "FRED / BLS" },
+  { country: "US", key: "services_pmi", label: "Services PMI", unit: "", sub: "ISM Services PMI", src: "dbnomics", id: "ISM/nm-pmi/pm", tf: "level", href: "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-report-on-business/services/", source: "ISM (via DBnomics)" },
+  { country: "US", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y Treasury", src: "fred", id: "DGS2", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/DGS2", source: "FRED / U.S. Treasury" },
+  { country: "UK", key: "core_cpi", label: "Core inflation", unit: "%", sub: "Core CPI · YoY", src: "fred", id: "GBRCPICORMINMEI", tf: "yoy", href: "https://fred.stlouisfed.org/series/GBRCPICORMINMEI", source: "FRED / OECD / ONS" },
+  { country: "UK", key: "wages", label: "Wage growth", unit: "%", sub: "Regular pay (AWE) · YoY", src: "dbnomics", id: "ONS/EMP/KAI9", tf: "level", href: "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/timeseries/kai9/lms", source: "ONS (via DBnomics)" },
+  { country: "UK", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTGBM156S", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTGBM156S", source: "FRED / OECD / ONS" },
+  // S&P Global/CIPS PMI is proprietary (not on FRED/DBnomics); seed the latest
+  // verifiable value and finalise history/source with the user.
+  { country: "UK", key: "services_pmi", label: "Services PMI", unit: "", sub: "S&P Global/CIPS Services PMI", src: "curated", curated: [["2026-05", 49.3], ["2026-06", 48.8]], tf: "level", href: "https://www.pmi.spglobal.com/Public/Home/PressRelease", source: "S&P Global/CIPS" },
+  { country: "UK", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y gilt", src: "boe", id: "IUDSNPY", tf: "level", href: "https://www.bankofengland.co.uk/boeapps/database/fromshowcolumns.asp?SeriesCodes=IUDSNPY", source: "Bank of England" },
+];
+
+async function macroSeriesPairs(s, env) {
+  const raw = s.src === "fred" ? await fredMonthly(s.id, env, s.agg)
+    : s.src === "dbnomics" ? await dbnomicsMonthly(s.id)
+    : s.src === "boe" ? await boeMonthly(s.id)
+    : s.src === "curated" ? (s.curated || []) : [];
+  const t = s.tf === "yoy" ? toYoY(raw) : raw;
+  return t.slice(-60); // last 5 years of monthly points
+}
+
+async function handleMacro(request, env, ctx) {
+  const url = new URL(request.url);
+  // ?debug — probe each series and report point counts so codes can be finalised.
+  if (url.searchParams.get("debug")) {
+    const probes = await Promise.all(MACRO_SERIES.map(async (s) => {
+      try {
+        const p = await macroSeriesPairs(s, env);
+        return { key: s.country + ":" + s.key, src: s.src, id: s.id, points: p.length, last: p[p.length - 1] || null };
+      } catch (e) { return { key: s.country + ":" + s.key, src: s.src, id: s.id, error: String((e && e.message) || e) }; }
+    }));
+    return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
+  }
+  const cache = caches.default;
+  const cacheKey = new Request(new URL("/api/macro?v=1", request.url).toString());
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+  const series = await Promise.all(MACRO_SERIES.map(async (s) => {
+    let pairs = [];
+    try { pairs = await macroSeriesPairs(s, env); } catch { pairs = []; }
+    const last = pairs[pairs.length - 1], prev = pairs[pairs.length - 2];
+    return {
+      country: s.country, key: s.key, label: s.label, unit: s.unit, sub: s.sub,
+      source: s.source, href: s.href,
+      value: last ? last[1] : null,
+      change: (last && prev) ? +(last[1] - prev[1]).toFixed(2) : null,
+      asOf: last ? last[0] : null,
+      history: pairs.map(([d, v]) => ({ label: d, value: v })),
+    };
+  }));
+  const resp = new Response(JSON.stringify({ series }), { headers: { "content-type": "application/json", "cache-control": "public, max-age=3600" } });
+  // Cache 6h once a solid majority of series resolved (so a transient miss on one
+  // source doesn't cache a mostly-empty payload).
+  if (ctx && ctx.waitUntil && series.filter((x) => x.value != null).length >= 7) {
+    ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+  }
+  return resp;
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (url.pathname === "/api/rates") return handleRates(request, env, ctx);
+    if (url.pathname === "/api/macro") return handleMacro(request, env, ctx);
     if (url.pathname === "/api/watchlist") return handleWatchlist(request, env);
     if (url.pathname === "/api/saved") return handleSaved(request, env, savedKeyFor);
     if (url.pathname === "/api/saved-credit") return handleSaved(request, env, savedCreditKeyFor);

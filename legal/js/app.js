@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
-} from "./data.js?v=20260707-2";
-import { donutChart, columnChart } from "./charts.js?v=20260707-2";
+} from "./data.js?v=20260707-3";
+import { donutChart, columnChart, sparkline } from "./charts.js?v=20260707-3";
 
 const app = document.getElementById("app");
 
@@ -856,6 +856,55 @@ function focusRxMatter(id) {
 // =============================================================================
 // Router + global click delegation
 // =============================================================================
+// ================================== MACRO ==================================
+// Key US & UK economic indicators with 5-year history, from the shared Worker
+// /api/macro endpoint (FRED / DBnomics / Bank of England / ONS / S&P Global).
+// A distinct violet accent marks it as its own dashboard.
+const MACRO_COLOR = "#6941c6";
+let macroCache = null;
+const MACRO_MONTHS = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+function macroMonth(ym) { const p = String(ym || "").split("-"); return p.length === 2 ? `${MACRO_MONTHS[+p[1]] || ""} ${p[0]}` : ""; }
+
+function viewMacro() {
+  app.innerHTML = `
+    <div class="list-head"><h1>Macro</h1><p class="muted">Key US &amp; UK economic indicators — core inflation, wage growth, unemployment, services PMI and the 2-year yield — each with 5-year history and a link to its public source.</p></div>
+    <div id="macro-body" class="macro-body">${macroCache ? renderMacro(macroCache) : '<section class="card"><p class="muted">Loading macro data…</p></section>'}</div>`;
+  if (!macroCache) loadMacro();
+}
+async function loadMacro() {
+  try {
+    const r = await fetch("/api/macro", { headers: { accept: "application/json" } });
+    macroCache = r.ok ? await r.json() : { series: [] };
+  } catch { macroCache = { series: [] }; }
+  const el = document.getElementById("macro-body");
+  if (el) el.innerHTML = renderMacro(macroCache);
+}
+function renderMacro(data) {
+  const series = (data && data.series) || [];
+  if (!series.length) return '<section class="card"><p class="muted">Macro data is temporarily unavailable — each indicator is sourced live from FRED, the Bank of England, ONS, DBnomics and S&amp;P Global. Please try again shortly.</p></section>';
+  return [["US", "United States"], ["UK", "United Kingdom"]].map(([c, name]) => {
+    const tiles = series.filter((s) => s.country === c).map(macroTile).join("");
+    return tiles ? `<section class="macro-group"><h2 class="macro-country">${esc(name)}</h2><div class="macro-grid">${tiles}</div></section>` : "";
+  }).join("");
+}
+function macroTile(s) {
+  const pct = s.unit === "%";
+  const val = s.value == null ? "—" : `${(+s.value).toFixed(1)}${pct ? "%" : ""}`;
+  const ch = s.change;
+  const chHtml = (ch == null || s.value == null) ? "" :
+    `<span class="macro-chg" title="change vs previous month">${ch > 0 ? "▲" : ch < 0 ? "▼" : "•"} ${Math.abs(ch).toFixed(pct ? 2 : 1)}${pct ? " pp" : ""}</span>`;
+  const chart = (s.history && s.history.length > 1)
+    ? sparkline(s.history, { color: MACRO_COLOR })
+    : '<div class="spark-empty muted small">5-year history unavailable</div>';
+  const asOf = s.asOf ? macroMonth(s.asOf) : "";
+  return `<div class="macro-tile">
+    <div class="macro-tile-head"><span class="macro-label">${esc(s.label)}</span><span class="macro-sub muted small">${esc(s.sub || "")}</span></div>
+    <div class="macro-valrow"><span class="macro-val">${val}</span>${chHtml}</div>
+    <div class="macro-chart">${chart}</div>
+    <div class="macro-foot muted small">${asOf ? esc(asOf) + " · " : ""}<a href="${esc(s.href)}" target="_blank" rel="noopener noreferrer">${esc(s.source)} ↗</a></div>
+  </div>`;
+}
+
 function router() {
   const hash = location.hash || "#/";
   const path = hash.slice(1).split("?")[0]; // strip query
@@ -865,6 +914,7 @@ function router() {
   else if (path === "/list") viewList();
   else if (path === "/cases") viewCases();
   else if (path === "/restructurings") viewRestructurings();
+  else if (path === "/macro") viewMacro();
   else if (path.startsWith("/item/")) viewItem(decodeURIComponent(path.slice("/item/".length)));
   else viewDashboard();
 
