@@ -26,7 +26,17 @@ h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
 
 /* ---------- top bar ---------- */
 .topbar { background: var(--macro-ink); color: #fff; position: sticky; top: 0; z-index: 10; }
-.topbar-inner { display: flex; align-items: center; gap: 1.5rem; max-width: 1500px; margin: 0 auto; padding: 0 2rem; height: 60px; }
+/* Full-bleed row aligned to the page container (matches Credit/Legal): on wide
+   screens the brand is pinned to the far-left corner and the signed-in identity
+   to the far-right corner, out of flow, while the platform toggle aligns with the
+   page content's left edge. The 11rem floor keeps the toggle clear of the logo on
+   narrower desktops. */
+.topbar-inner { position: relative; display: flex; align-items: center; gap: 2rem; padding: 0 1.5rem; height: 60px; }
+@media (min-width: 1101px) {
+  .topbar-inner { padding-left: max(11rem, calc((100% - min(100%, 1500px)) / 2 + 2rem)); padding-right: calc((100% - min(100%, 1500px)) / 2 + 2rem); }
+  .topbar-inner .brand { position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); }
+  .topbar-inner .topbar-right { position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); }
+}
 .brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: #fff; flex: 0 0 auto; }
 .brand:hover { text-decoration: none; }
 .brand-text { display: flex; flex-direction: column; }
