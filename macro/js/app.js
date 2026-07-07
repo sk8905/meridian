@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS } from "./content.js?v=20260707-10";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS } from "./content.js?v=20260707-11";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -235,12 +235,179 @@ function viewBubble() {
     ${sourceList(BUBBLE.sources)}`;
 }
 
+// ---- Explorer: multi-indicator overlay chart -------------------------------
+// Categorical colour BY INDICATOR (fixed, validated 6-hue set); country is the
+// secondary encoding (solid = US, dashed = UK). Series are each min–max scaled to
+// 0–100 so differently-measured indicators share one axis (no dual-axis); the
+// hover tooltip shows the real values.
+const IND_COLOR = {
+  base_rate: "#2563eb", two_year: "#0891b2", core_cpi: "#dc2626",
+  services_pmi: "#d97706", wages: "#7c3aed", unemployment: "#db2777",
+};
+const INDICATORS = [
+  ["base_rate", "Base rate"], ["two_year", "2-year yield"], ["core_cpi", "Core inflation"],
+  ["services_pmi", "Services PMI"], ["wages", "Wage growth"], ["unemployment", "Unemployment"],
+];
+const CIRC = ["①", "②", "③", "④", "⑤", "⑥"];
+const CHART_EVENTS = [
+  { id: "omicron", date: "2021-12", label: "COVID Omicron wave" },
+  { id: "ukraine", date: "2022-02", label: "Russia invades Ukraine" },
+  { id: "truss", date: "2022-09", label: "Truss mini-budget" },
+  { id: "svb", date: "2023-03", label: "SVB / banking stress" },
+  { id: "trump", date: "2024-11", label: "Trump re-election" },
+  { id: "iran", date: "2026-05", label: "Middle East / Iran conflict" },
+];
+const CHART_MAX = 10;
+let chartSel = new Set(["US:base_rate", "US:core_cpi", "UK:base_rate", "UK:core_cpi"]);
+let chartEvents = new Set(["truss", "trump"]);
+
+const MI = (ym) => { const p = String(ym).split("-"); return (+p[0]) * 12 + (+p[1] - 1); };
+const miLabel = (mi) => `${Math.floor(mi / 12)}-${String((mi % 12) + 1).padStart(2, "0")}`;
+function chartSeriesAll() {
+  return ((MACRO_DATA && MACRO_DATA.series) || [])
+    .filter((x) => x.history && x.history.length > 1)
+    .map((x) => ({ ...x, selKey: `${x.country}:${x.key}` }));
+}
+
+function indBox(country) {
+  return INDICATORS.map(([k, l]) => {
+    const sk = `${country}:${k}`;
+    return `<label class="chart-ind"><input type="checkbox" class="chart-ind-cb" data-sel="${sk}"${chartSel.has(sk) ? " checked" : ""}/><span class="chart-ind-sw" style="--c:${IND_COLOR[k]}"></span>${esc(l)}</label>`;
+  }).join("");
+}
+function viewChart() {
+  const chips = CHART_EVENTS.map((e, i) => `<button type="button" class="chart-evt${chartEvents.has(e.id) ? " is-on" : ""}" data-evt="${e.id}"><span class="evt-num">${CIRC[i]}</span> ${esc(e.label)}</button>`).join("");
+  return `
+    <div class="page-head">
+      <h1>Explorer</h1>
+      <p class="muted">Overlay up to ${CHART_MAX} of the dashboard indicators (US &amp; UK) across the past five years and toggle key events. Each series is scaled to its own 0–100 range so differently-measured indicators share one axis — hover for the actual values.</p>
+    </div>
+    <section class="card chart-ctrls">
+      <div class="chart-ctrl-grp">
+        <div class="chart-ctrl-h">Indicators <span class="muted small">(up to ${CHART_MAX} · <span id="chart-count">${chartSel.size}</span> selected)</span></div>
+        <div class="chart-ind-cols">
+          <div><div class="chart-ind-country">United States <span class="chart-line-key">— solid</span></div>${indBox("US")}</div>
+          <div><div class="chart-ind-country">United Kingdom <span class="chart-line-key">- - dashed</span></div>${indBox("UK")}</div>
+        </div>
+      </div>
+      <div class="chart-ctrl-grp">
+        <div class="chart-ctrl-h">Events</div>
+        <div class="chart-evts">${chips}</div>
+      </div>
+    </section>
+    <section class="card"><div id="chart-canvas"><p class="muted">Loading macro data…</p></div></section>`;
+}
+
+function drawChart() {
+  const canvas = document.getElementById("chart-canvas");
+  if (!canvas) return;
+  const all = chartSeriesAll();
+  if (!all.length) { canvas.innerHTML = '<p class="muted">Macro data is temporarily unavailable — please try again shortly.</p>'; return; }
+  const sel = all.filter((s) => chartSel.has(s.selKey));
+  const W = 980, H = 470, plotL = 40, plotR = W - 14, plotT = 30, plotB = H - 34;
+  const plotW = plotR - plotL, plotH = plotB - plotT;
+  let m0 = Infinity, m1 = -Infinity;
+  all.forEach((s) => s.history.forEach((p) => { const mi = MI(p.label); if (mi < m0) m0 = mi; if (mi > m1) m1 = mi; }));
+  const span = (m1 - m0) || 1;
+  const xFor = (mi) => plotL + ((mi - m0) / span) * plotW;
+  const yFor = (n) => plotB - (Math.max(0, Math.min(100, n)) / 100) * plotH;
+
+  const grid = [0, 25, 50, 75, 100].map((t) => `<line x1="${plotL}" y1="${yFor(t).toFixed(1)}" x2="${plotR}" y2="${yFor(t).toFixed(1)}" class="chart-grid"/><text x="${plotL - 6}" y="${(yFor(t) + 3).toFixed(1)}" class="chart-ylab" text-anchor="end">${t}</text>`).join("");
+  let xticks = "";
+  for (let y = Math.ceil(m0 / 12); y <= Math.floor(m1 / 12); y++) {
+    const mi = y * 12; if (mi < m0 || mi > m1) continue;
+    const x = xFor(mi);
+    xticks += `<line x1="${x.toFixed(1)}" y1="${plotT}" x2="${x.toFixed(1)}" y2="${plotB}" class="chart-grid"/><text x="${x.toFixed(1)}" y="${plotB + 16}" class="chart-xlab" text-anchor="middle">${y}</text>`;
+  }
+  let ev = "";
+  CHART_EVENTS.forEach((e, i) => {
+    if (!chartEvents.has(e.id)) return;
+    const mi = MI(e.date); if (mi < m0 || mi > m1) return;
+    const x = xFor(mi);
+    ev += `<line x1="${x.toFixed(1)}" y1="${plotT}" x2="${x.toFixed(1)}" y2="${plotB}" class="chart-evline"/><text x="${x.toFixed(1)}" y="${(plotT - 6).toFixed(1)}" class="chart-evnum" text-anchor="middle">${CIRC[i]}</text>`;
+  });
+  const norm = (s) => { const v = s.history.map((p) => p.value); const mn = Math.min(...v), mx = Math.max(...v); return { mn, sp: (mx - mn) || 1 }; };
+  const lines = sel.map((s) => {
+    const { mn, sp } = norm(s);
+    const pts = s.history.map((p) => [xFor(MI(p.label)), yFor(((p.value - mn) / sp) * 100)]);
+    const d = pts.map((p, i) => `${i ? "L" : "M"} ${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(" ");
+    return `<path d="${d}" fill="none" stroke="${IND_COLOR[s.key]}" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round"${s.country === "UK" ? ' stroke-dasharray="6 4"' : ""}/>`;
+  }).join("");
+
+  const legend = sel.map((s) => {
+    const last = s.history[s.history.length - 1];
+    const pct = s.unit === "%";
+    const v = last ? `${(+last.value).toFixed(2)}${pct ? "%" : ""}` : "—";
+    return `<span class="chart-leg"><span class="chart-swatch${s.country === "UK" ? " dash" : ""}" style="--c:${IND_COLOR[s.key]}"></span>${esc(s.country)} · ${esc(s.label)} <b>${v}</b></span>`;
+  }).join("");
+
+  const svg = `<svg viewBox="0 0 ${W} ${H}" class="chart-svg" id="chart-svg" role="img" aria-label="Selected macro indicators over five years, each scaled 0 to 100">
+    ${grid}${xticks}${ev}${lines}
+    <line id="chart-cross" class="chart-cross" y1="${plotT}" y2="${plotB}" style="display:none"/>
+    <g id="chart-hoverdots"></g>
+    <rect x="${plotL}" y="${plotT}" width="${plotW}" height="${plotH}" fill="transparent" id="chart-hit"/>
+  </svg>`;
+  canvas.innerHTML = `<div class="chart-main">${svg}<div id="chart-tip" class="chart-tip" hidden></div></div>
+    <div class="chart-legend">${sel.length ? legend : '<span class="muted">Select one or more indicators to plot.</span>'}</div>
+    <p class="muted small chart-note">Each series is scaled to its own five-year min–max (0–100), so indicators on different scales (a 3.75% rate vs a 48 PMI) share one axis; hover for the real values. Line style: <b>solid = US</b>, <b>dashed = UK</b>.</p>`;
+
+  if (!sel.length) return;
+  const svgEl = document.getElementById("chart-svg"), hit = document.getElementById("chart-hit");
+  const cross = document.getElementById("chart-cross"), dots = document.getElementById("chart-hoverdots");
+  const tip = document.getElementById("chart-tip"), main = canvas.querySelector(".chart-main");
+  const nearest = (hist, mi) => hist.reduce((b, p) => (Math.abs(MI(p.label) - mi) < Math.abs(MI(b.label) - mi) ? p : b), hist[0]);
+  hit.addEventListener("mousemove", (e) => {
+    const r = svgEl.getBoundingClientRect();
+    const sx = (e.clientX - r.left) / r.width * W;
+    let mi = Math.round(m0 + ((sx - plotL) / plotW) * span);
+    mi = Math.max(m0, Math.min(m1, mi));
+    const x = xFor(mi);
+    cross.setAttribute("x1", x); cross.setAttribute("x2", x); cross.style.display = "";
+    let dd = "", rows = "";
+    sel.forEach((s) => {
+      const pt = s.history.find((p) => MI(p.label) === mi) || nearest(s.history, mi);
+      if (!pt) return;
+      const { mn, sp } = norm(s);
+      dd += `<circle cx="${xFor(MI(pt.label)).toFixed(1)}" cy="${yFor(((pt.value - mn) / sp) * 100).toFixed(1)}" r="3.5" fill="${IND_COLOR[s.key]}" stroke="#fff" stroke-width="1.5"/>`;
+      rows += `<div class="tip-row"><span class="tip-dot" style="background:${IND_COLOR[s.key]}"></span>${esc(s.country)} ${esc(s.label)}: <b>${(+pt.value).toFixed(2)}${s.unit === "%" ? "%" : ""}</b></div>`;
+    });
+    dots.innerHTML = dd;
+    tip.innerHTML = `<div class="tip-date">${esc(macroMonth(miLabel(mi)))}</div>${rows}`;
+    tip.hidden = false;
+    const mr = main.getBoundingClientRect();
+    let tx = e.clientX - mr.left + 14; const ty = e.clientY - mr.top + 8;
+    if (tx > mr.width - 190) tx = e.clientX - mr.left - 200;
+    tip.style.left = Math.max(2, tx) + "px"; tip.style.top = ty + "px";
+  });
+  hit.addEventListener("mouseleave", () => { cross.style.display = "none"; dots.innerHTML = ""; tip.hidden = true; });
+}
+
+// Chart control interactions (delegated; added once at module load).
+document.addEventListener("change", (e) => {
+  const cb = e.target.closest(".chart-ind-cb"); if (!cb) return;
+  const key = cb.getAttribute("data-sel");
+  if (cb.checked) {
+    if (chartSel.size >= CHART_MAX) { cb.checked = false; const c = document.getElementById("chart-count"); if (c) { c.classList.add("is-max"); setTimeout(() => c.classList.remove("is-max"), 800); } return; }
+    chartSel.add(key);
+  } else chartSel.delete(key);
+  const c = document.getElementById("chart-count"); if (c) c.textContent = chartSel.size;
+  drawChart();
+});
+document.addEventListener("click", (e) => {
+  const chip = e.target.closest(".chart-evt"); if (!chip) return;
+  const id = chip.getAttribute("data-evt");
+  if (chartEvents.has(id)) chartEvents.delete(id); else chartEvents.add(id);
+  chip.classList.toggle("is-on");
+  drawChart();
+});
+
 // ---- Tab routing -----------------------------------------------------------
 const TABS = [
   ["dashboard", "Dashboard"],
   ["commentary", "Commentary"],
   ["cycle", "Cycle"],
   ["bubble", "Bubble"],
+  ["explorer", "Explorer"],
 ];
 function currentTab() {
   const h = (location.hash || "").replace(/^#\/?/, "");
@@ -361,10 +528,11 @@ window.addEventListener("hashchange", closeNotif);
 
 function render() {
   const tab = currentTab();
-  const body = tab === "commentary" ? viewCommentary() : tab === "cycle" ? viewCycle() : tab === "bubble" ? viewBubble() : viewDashboard();
+  const body = tab === "commentary" ? viewCommentary() : tab === "cycle" ? viewCycle() : tab === "bubble" ? viewBubble() : tab === "explorer" ? viewChart() : viewDashboard();
   app.innerHTML = body;
   syncNav(tab);
   if (tab === "dashboard") loadMacro();
+  if (tab === "explorer") fetchMacro().then(() => { if (currentTab() === "explorer") drawChart(); });
   window.scrollTo(0, 0);
 }
 
