@@ -396,32 +396,33 @@ async function onsMonthly(pageUrl) {
 }
 
 const MACRO_SERIES = [
+  // Order (per country): base rate · 2-year yield · core inflation · services PMI
+  // · wage growth · unemployment.
   { country: "US", key: "base_rate", label: "Base rate", unit: "%", sub: "Fed funds effective rate", src: "fred", id: "FEDFUNDS", tf: "level", href: "https://fred.stlouisfed.org/series/FEDFUNDS", source: "FRED / Federal Reserve" },
+  { country: "US", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y Treasury", src: "fred", id: "DGS2", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/DGS2", source: "FRED / U.S. Treasury" },
   { country: "US", key: "core_cpi", label: "Core inflation", unit: "%", sub: "Core CPI · YoY", src: "fred", id: "CPILFESL", tf: "yoy", href: "https://fred.stlouisfed.org/series/CPILFESL", source: "FRED / BLS" },
-  { country: "US", key: "wages", label: "Wage growth", unit: "%", sub: "Avg hourly earnings · YoY", src: "fred", id: "CES0500000003", tf: "yoy", href: "https://fred.stlouisfed.org/series/CES0500000003", source: "FRED / BLS" },
-  { country: "US", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "UNRATE", tf: "level", href: "https://fred.stlouisfed.org/series/UNRATE", source: "FRED / BLS" },
   // DBnomics' ISM mirror lags (~Aug 2025); recent months curated from ISM's own
   // monthly releases keep it current (merged onto the real history).
   { country: "US", key: "services_pmi", label: "Services PMI", unit: "", sub: "ISM Services PMI", src: "dbnomics", id: "ISM/nm-pmi/pm", curated: [["2025-09", 50.0], ["2025-10", 52.4], ["2026-02", 56.1], ["2026-03", 54.0], ["2026-04", 53.6], ["2026-05", 54.5], ["2026-06", 54.0]], tf: "level", href: "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-report-on-business/services/", source: "ISM" },
-  { country: "US", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y Treasury", src: "fred", id: "DGS2", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/DGS2", source: "FRED / U.S. Treasury" },
-  // UK Bank Rate via FRED's OECD "central bank rate" mirror, kept current (the
-  // native BOERUK* series is a historical archive that stops in 2017, and
-  // bankofengland.co.uk itself blocks the Worker). Curated tail keeps the recent
-  // MPC decisions current/verified if the OECD mirror lags a month.
-  { country: "UK", key: "base_rate", label: "Base rate", unit: "%", sub: "BoE Bank Rate", src: "fred", id: "IRSTCB01GBM156N", curated: [["2025-08", 4.00], ["2025-11", 3.75], ["2026-06", 3.75]], tf: "level", href: "https://fred.stlouisfed.org/series/IRSTCB01GBM156N", source: "FRED / OECD · BoE" },
-  // UK macro: official-source-first — the ONS time-series API returns the
-  // headline annual-rate/level directly (CDID/DATASET).
-  { country: "UK", key: "core_cpi", label: "Core inflation", unit: "%", sub: "Core CPI · YoY", src: "ons", id: "DKO8/MM23", tf: "level", href: "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/dko8/mm23", source: "ONS" },
-  { country: "UK", key: "wages", label: "Wage growth", unit: "%", sub: "Regular pay (AWE) · YoY", src: "ons", id: "KAI9/LMS", tf: "level", href: "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/timeseries/kai9/lms", source: "ONS" },
-  { country: "UK", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "ons", id: "MGSX/LMS", tf: "level", href: "https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/unemployment/timeseries/mgsx/lms", source: "ONS" },
-  // S&P Global/CIPS PMI is proprietary (not on FRED/DBnomics); seed the latest
-  // verifiable value and finalise history/source with the user.
-  // S&P Global/CIPS is proprietary (no free API); curated from its releases.
-  { country: "UK", key: "services_pmi", label: "Services PMI", unit: "", sub: "S&P Global/CIPS Services PMI", src: "curated", curated: [["2025-11", 51.3], ["2025-12", 51.4], ["2026-04", 52.7], ["2026-05", 49.3], ["2026-06", 48.8]], tf: "level", href: "https://www.pmi.spglobal.com/Public/Home/PressRelease", source: "S&P Global/CIPS" },
+  { country: "US", key: "wages", label: "Wage growth", unit: "%", sub: "Avg hourly earnings · YoY", src: "fred", id: "CES0500000003", tf: "yoy", href: "https://fred.stlouisfed.org/series/CES0500000003", source: "FRED / BLS" },
+  { country: "US", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "UNRATE", tf: "level", href: "https://fred.stlouisfed.org/series/UNRATE", source: "FRED / BLS" },
+  // UK Bank Rate is a published MPC step function; curated here as the full,
+  // verified monthly path (every change date confirmed against BoE MPC releases).
+  // FRED's native BoE series is a historical archive ending 2017 and
+  // bankofengland.co.uk blocks the Worker, so a live fetch isn't possible; the
+  // tile links to the BoE Bank Rate page for verification.
+  { country: "UK", key: "base_rate", label: "Base rate", unit: "%", sub: "BoE Bank Rate", src: "curated", curated: [["2021-07", 0.10], ["2021-08", 0.10], ["2021-09", 0.10], ["2021-10", 0.10], ["2021-11", 0.10], ["2021-12", 0.25], ["2022-01", 0.25], ["2022-02", 0.50], ["2022-03", 0.75], ["2022-04", 0.75], ["2022-05", 1.00], ["2022-06", 1.25], ["2022-07", 1.25], ["2022-08", 1.75], ["2022-09", 2.25], ["2022-10", 2.25], ["2022-11", 3.00], ["2022-12", 3.50], ["2023-01", 3.50], ["2023-02", 4.00], ["2023-03", 4.25], ["2023-04", 4.25], ["2023-05", 4.50], ["2023-06", 5.00], ["2023-07", 5.00], ["2023-08", 5.25], ["2023-09", 5.25], ["2023-10", 5.25], ["2023-11", 5.25], ["2023-12", 5.25], ["2024-01", 5.25], ["2024-02", 5.25], ["2024-03", 5.25], ["2024-04", 5.25], ["2024-05", 5.25], ["2024-06", 5.25], ["2024-07", 5.25], ["2024-08", 5.00], ["2024-09", 5.00], ["2024-10", 5.00], ["2024-11", 4.75], ["2024-12", 4.75], ["2025-01", 4.75], ["2025-02", 4.50], ["2025-03", 4.50], ["2025-04", 4.50], ["2025-05", 4.25], ["2025-06", 4.25], ["2025-07", 4.25], ["2025-08", 4.00], ["2025-09", 4.00], ["2025-10", 4.00], ["2025-11", 4.00], ["2025-12", 3.75], ["2026-01", 3.75], ["2026-02", 3.75], ["2026-03", 3.75], ["2026-04", 3.75], ["2026-05", 3.75], ["2026-06", 3.75]], tf: "level", href: "https://www.bankofengland.co.uk/monetary-policy/the-interest-rate-bank-rate", source: "Bank of England" },
   // No free live API for the 2y constant-maturity gilt: BoE's IADB benchmarks are
   // 5/10/20y (no 2y point) and bankofengland.co.uk blocks the Worker. Curated from
   // the BoE nominal yield curve; the tile links there for verification.
-  { country: "UK", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y gilt", src: "curated", curated: [["2025-07", 3.87], ["2026-06", 4.38], ["2026-07", 4.13]], tf: "level", href: "https://www.bankofengland.co.uk/statistics/yield-curves", source: "Bank of England" },
+  { country: "UK", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y gilt", src: "curated", curated: [["2021-07", 0.10], ["2021-08", 0.20], ["2021-09", 0.40], ["2021-10", 0.68], ["2021-11", 0.50], ["2021-12", 0.68], ["2022-01", 0.90], ["2022-02", 1.25], ["2022-03", 1.35], ["2022-04", 1.60], ["2022-05", 1.55], ["2022-06", 1.88], ["2022-07", 1.85], ["2022-08", 3.00], ["2022-09", 4.20], ["2022-10", 3.30], ["2022-11", 3.30], ["2022-12", 3.60], ["2023-01", 3.50], ["2023-02", 3.90], ["2023-03", 3.40], ["2023-04", 3.80], ["2023-05", 4.30], ["2023-06", 5.30], ["2023-07", 5.00], ["2023-08", 5.10], ["2023-09", 4.90], ["2023-10", 4.75], ["2023-11", 4.60], ["2023-12", 4.00], ["2024-01", 4.20], ["2024-02", 4.35], ["2024-03", 4.20], ["2024-04", 4.50], ["2024-05", 4.40], ["2024-06", 4.20], ["2024-07", 3.80], ["2024-08", 3.90], ["2024-09", 3.90], ["2024-10", 4.30], ["2024-11", 4.40], ["2024-12", 4.40], ["2025-01", 4.50], ["2025-02", 4.20], ["2025-03", 4.30], ["2025-04", 3.90], ["2025-05", 4.00], ["2025-06", 3.85], ["2025-07", 3.85], ["2025-08", 3.90], ["2025-09", 4.00], ["2025-10", 3.95], ["2025-11", 4.20], ["2025-12", 4.25], ["2026-01", 4.35], ["2026-02", 4.40], ["2026-03", 4.55], ["2026-04", 4.40], ["2026-05", 4.35], ["2026-06", 4.38], ["2026-07", 4.13]], tf: "level", href: "https://www.bankofengland.co.uk/statistics/yield-curves", source: "Bank of England" },
+  // UK macro: official-source-first — the ONS time-series API returns the
+  // headline annual-rate/level directly (CDID/DATASET).
+  { country: "UK", key: "core_cpi", label: "Core inflation", unit: "%", sub: "Core CPI · YoY", src: "ons", id: "DKO8/MM23", tf: "level", href: "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/dko8/mm23", source: "ONS" },
+  // S&P Global/CIPS is proprietary (no free API); curated from its releases.
+  { country: "UK", key: "services_pmi", label: "Services PMI", unit: "", sub: "S&P Global/CIPS Services PMI", src: "curated", curated: [["2021-07", 59.6], ["2021-08", 55.0], ["2021-09", 55.4], ["2021-10", 59.1], ["2021-11", 58.5], ["2021-12", 53.6], ["2022-01", 54.1], ["2022-02", 60.5], ["2022-03", 62.6], ["2022-04", 58.9], ["2022-05", 53.4], ["2022-06", 54.3], ["2022-07", 52.6], ["2022-08", 50.9], ["2022-09", 50.0], ["2022-10", 48.8], ["2022-11", 48.8], ["2022-12", 49.9], ["2023-01", 48.7], ["2023-02", 53.5], ["2023-03", 52.9], ["2023-04", 55.9], ["2023-05", 55.2], ["2023-06", 53.7], ["2023-07", 51.5], ["2023-08", 49.5], ["2023-09", 49.3], ["2023-10", 49.5], ["2023-11", 50.9], ["2023-12", 53.4], ["2024-01", 54.3], ["2024-02", 53.8], ["2024-03", 53.1], ["2024-04", 55.0], ["2024-05", 52.9], ["2024-06", 52.1], ["2024-07", 52.5], ["2024-08", 53.7], ["2024-09", 52.4], ["2024-10", 52.0], ["2024-11", 50.8], ["2024-12", 51.1], ["2025-01", 50.8], ["2025-02", 51.0], ["2025-03", 52.5], ["2025-04", 49.0], ["2025-05", 50.9], ["2025-06", 52.8], ["2025-07", 51.8], ["2025-08", 54.2], ["2025-09", 50.8], ["2025-10", 52.3], ["2025-11", 50.5], ["2025-12", 51.0], ["2026-01", 54.0], ["2026-02", 52.5], ["2026-03", 50.5], ["2026-04", 52.7], ["2026-05", 49.3], ["2026-06", 48.8]], tf: "level", href: "https://www.pmi.spglobal.com/Public/Home/PressRelease", source: "S&P Global/CIPS" },
+  { country: "UK", key: "wages", label: "Wage growth", unit: "%", sub: "Regular pay (AWE) · YoY", src: "ons", id: "KAI9/LMS", tf: "level", href: "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/timeseries/kai9/lms", source: "ONS" },
+  { country: "UK", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "ons", id: "MGSX/LMS", tf: "level", href: "https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/unemployment/timeseries/mgsx/lms", source: "ONS" },
 ];
 
 async function macroSeriesPairs(s, env) {
@@ -454,7 +455,7 @@ async function handleMacro(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/macro?v=8", request.url).toString());
+  const cacheKey = new Request(new URL("/api/macro?v=9", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const series = await Promise.all(MACRO_SERIES.map(async (s) => {
