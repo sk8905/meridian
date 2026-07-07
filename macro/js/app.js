@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS } from "./content.js?v=20260707-17";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS } from "./content.js?v=20260707-18";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -237,9 +237,10 @@ function viewBubble() {
 
 // ---- Chart: multi-indicator overlay chart ----------------------------------
 // Categorical colour BY INDICATOR (fixed, validated 6-hue set); country is the
-// secondary encoding (solid = US, dashed = UK). Series are each min–max scaled to
-// 0–100 so differently-measured indicators share one axis (no dual-axis); the
-// hover tooltip shows the real values.
+// secondary encoding (solid = US, dashed = UK). Each series is indexed to 0 at
+// its first (2021) point, so every line starts at zero and shows the change
+// since — differently-measured indicators share one axis (no dual-axis); the
+// hover tooltip shows the actual values.
 const IND_COLOR = {
   base_rate: "#2563eb", two_year: "#0891b2", core_cpi: "#dc2626",
   services_pmi: "#d97706", wages: "#7c3aed", unemployment: "#db2777",
@@ -257,7 +258,7 @@ const CHART_EVENTS = [
   { id: "trump", date: "2024-11", label: "Trump re-election" },
   { id: "iran", date: "2026-05", label: "Middle East / Iran conflict" },
 ];
-const CHART_MAX = 10;
+const CHART_MAX = 12;
 let chartSel = new Set(["US:base_rate", "US:core_cpi", "UK:base_rate", "UK:core_cpi"]);
 let chartEvents = new Set(["truss", "trump"]);
 
@@ -280,11 +281,11 @@ function viewChart() {
   return `
     <div class="page-head">
       <h1>Chart</h1>
-      <p class="muted">Overlay up to ${CHART_MAX} of the dashboard indicators (US &amp; UK) across the past five years and toggle key events. Each series is scaled to its own 0–100 range so differently-measured indicators share one axis — hover for the actual values.</p>
+      <p class="muted">Overlay any of the dashboard indicators (US &amp; UK) across the past five years and toggle key events. Every series is indexed to 0 at the start of the window (2021), so the lines show the change since then rather than the level — hover for the actual values.</p>
     </div>
     <section class="card chart-ctrls">
       <div class="chart-ctrl-grp">
-        <div class="chart-ctrl-h">Indicators <span class="muted small">(up to ${CHART_MAX} · <span id="chart-count">${chartSel.size}</span> selected)</span></div>
+        <div class="chart-ctrl-h">Indicators <span class="muted small">(<span id="chart-count">${chartSel.size}</span> of 12 selected)</span></div>
         <div class="chart-ind-cols">
           <div><div class="chart-ind-country">United States <span class="chart-line-key">— solid</span></div>${indBox("US")}</div>
           <div><div class="chart-ind-country">United Kingdom <span class="chart-line-key">- - dashed</span></div>${indBox("UK")}</div>
@@ -310,9 +311,28 @@ function drawChart() {
   all.forEach((s) => s.history.forEach((p) => { const mi = MI(p.label); if (mi < m0) m0 = mi; if (mi > m1) m1 = mi; }));
   const span = (m1 - m0) || 1;
   const xFor = (mi) => plotL + ((mi - m0) / span) * plotW;
-  const yFor = (n) => plotB - (Math.max(0, Math.min(100, n)) / 100) * plotH;
-
-  const grid = [0, 25, 50, 75, 100].map((t) => `<line x1="${plotL}" y1="${yFor(t).toFixed(1)}" x2="${plotR}" y2="${yFor(t).toFixed(1)}" class="chart-grid"/><text x="${plotL - 6}" y="${(yFor(t) + 3).toFixed(1)}" class="chart-ylab" text-anchor="end">${t}</text>`).join("");
+  // Index each series to 0 at its first (earliest) point; lines show the change since.
+  const base = (s) => s.history[0].value;
+  const ival = (s, v) => v - base(s);
+  const fmtI = (v) => (v >= 0 ? "+" : "") + v.toFixed(2);
+  let lo = 0, hi = 0;
+  sel.forEach((s) => s.history.forEach((p) => { const y = ival(s, p.value); if (y < lo) lo = y; if (y > hi) hi = y; }));
+  if (lo === hi) { lo -= 1; hi += 1; }
+  const padY = (hi - lo) * 0.08; lo -= padY; hi += padY;
+  const yFor = (v) => plotB - ((v - lo) / (hi - lo)) * plotH;
+  const niceTicks = (a, b, n) => {
+    const step0 = (b - a) / n || 1;
+    const mag = Math.pow(10, Math.floor(Math.log10(step0)));
+    const norm = step0 / mag;
+    const step = (norm < 1.5 ? 1 : norm < 3 ? 2 : norm < 7 ? 5 : 10) * mag;
+    const out = [];
+    for (let t = Math.ceil(a / step) * step; t <= b + step * 1e-6; t += step) out.push(+t.toFixed(6));
+    return out;
+  };
+  const grid = niceTicks(lo, hi, 5).map((t) => {
+    const y = yFor(t), zero = Math.abs(t) < 1e-9;
+    return `<line x1="${plotL}" y1="${y.toFixed(1)}" x2="${plotR}" y2="${y.toFixed(1)}" class="chart-grid${zero ? " chart-zero" : ""}"/><text x="${plotL - 6}" y="${(y + 3).toFixed(1)}" class="chart-ylab" text-anchor="end">${+t.toFixed(2)}</text>`;
+  }).join("");
   let xticks = "";
   for (let y = Math.ceil(m0 / 12); y <= Math.floor(m1 / 12); y++) {
     const mi = y * 12; if (mi < m0 || mi > m1) continue;
@@ -326,22 +346,18 @@ function drawChart() {
     const x = xFor(mi);
     ev += `<line x1="${x.toFixed(1)}" y1="${plotT}" x2="${x.toFixed(1)}" y2="${plotB}" class="chart-evline"/><text x="${x.toFixed(1)}" y="${(plotT - 6).toFixed(1)}" class="chart-evnum" text-anchor="middle">${CIRC[i]}</text>`;
   });
-  const norm = (s) => { const v = s.history.map((p) => p.value); const mn = Math.min(...v), mx = Math.max(...v); return { mn, sp: (mx - mn) || 1 }; };
   const lines = sel.map((s) => {
-    const { mn, sp } = norm(s);
-    const pts = s.history.map((p) => [xFor(MI(p.label)), yFor(((p.value - mn) / sp) * 100)]);
+    const pts = s.history.map((p) => [xFor(MI(p.label)), yFor(ival(s, p.value))]);
     const d = pts.map((p, i) => `${i ? "L" : "M"} ${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(" ");
     return `<path d="${d}" fill="none" stroke="${IND_COLOR[s.key]}" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round"${s.country === "UK" ? ' stroke-dasharray="6 4"' : ""}/>`;
   }).join("");
 
   const legend = sel.map((s) => {
     const last = s.history[s.history.length - 1];
-    const pct = s.unit === "%";
-    const v = last ? `${(+last.value).toFixed(2)}${pct ? "%" : ""}` : "—";
-    return `<span class="chart-leg"><span class="chart-swatch${s.country === "UK" ? " dash" : ""}" style="--c:${IND_COLOR[s.key]}"></span>${esc(s.country)} · ${esc(s.label)} <b>${v}</b></span>`;
+    return `<span class="chart-leg"><span class="chart-swatch${s.country === "UK" ? " dash" : ""}" style="--c:${IND_COLOR[s.key]}"></span>${esc(s.country)} · ${esc(s.label)} <b>${last ? fmtI(ival(s, last.value)) : "—"}</b></span>`;
   }).join("");
 
-  const svg = `<svg viewBox="0 0 ${W} ${H}" class="chart-svg" id="chart-svg" role="img" aria-label="Selected macro indicators over five years, each scaled 0 to 100">
+  const svg = `<svg viewBox="0 0 ${W} ${H}" class="chart-svg" id="chart-svg" role="img" aria-label="Selected macro indicators over five years, each indexed to 0 at its 2021 start">
     ${grid}${xticks}${ev}${lines}
     <line id="chart-cross" class="chart-cross" y1="${plotT}" y2="${plotB}" style="display:none"/>
     <g id="chart-hoverdots"></g>
@@ -349,7 +365,7 @@ function drawChart() {
   </svg>`;
   canvas.innerHTML = `<div class="chart-main">${svg}<div id="chart-tip" class="chart-tip" hidden></div></div>
     <div class="chart-legend">${sel.length ? legend : '<span class="muted">Select one or more indicators to plot.</span>'}</div>
-    <p class="muted small chart-note">Each series is scaled to its own five-year min–max (0–100), so indicators on different scales (a 3.75% rate vs a 48 PMI) share one axis; hover for the real values. Line style: <b>solid = US</b>, <b>dashed = UK</b>.</p>`;
+    <p class="muted small chart-note">Every series is indexed to <b>0 at its first month (2021)</b>, so each line shows the change since then in the indicator's own units — percentage points for rates, inflation, wages and unemployment; index points for the PMIs. Hover for the actual values. Line style: <b>solid = US</b>, <b>dashed = UK</b>.</p>`;
 
   if (!sel.length) return;
   const svgEl = document.getElementById("chart-svg"), hit = document.getElementById("chart-hit");
@@ -367,9 +383,8 @@ function drawChart() {
     sel.forEach((s) => {
       const pt = s.history.find((p) => MI(p.label) === mi) || nearest(s.history, mi);
       if (!pt) return;
-      const { mn, sp } = norm(s);
-      dd += `<circle cx="${xFor(MI(pt.label)).toFixed(1)}" cy="${yFor(((pt.value - mn) / sp) * 100).toFixed(1)}" r="3.5" fill="${IND_COLOR[s.key]}" stroke="#fff" stroke-width="1.5"/>`;
-      rows += `<div class="tip-row"><span class="tip-dot" style="background:${IND_COLOR[s.key]}"></span>${esc(s.country)} ${esc(s.label)}: <b>${(+pt.value).toFixed(2)}${s.unit === "%" ? "%" : ""}</b></div>`;
+      dd += `<circle cx="${xFor(MI(pt.label)).toFixed(1)}" cy="${yFor(ival(s, pt.value)).toFixed(1)}" r="3.5" fill="${IND_COLOR[s.key]}" stroke="#fff" stroke-width="1.5"/>`;
+      rows += `<div class="tip-row"><span class="tip-dot" style="background:${IND_COLOR[s.key]}"></span>${esc(s.country)} ${esc(s.label)}: <b>${fmtI(ival(s, pt.value))}</b> <span class="tip-real">(${(+pt.value).toFixed(2)}${s.unit === "%" ? "%" : ""})</span></div>`;
     });
     dots.innerHTML = dd;
     tip.innerHTML = `<div class="tip-date">${esc(macroMonth(miLabel(mi)))}</div>${rows}`;

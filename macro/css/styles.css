@@ -193,6 +193,8 @@ a.macro-tile:hover .macro-src { color: var(--macro); text-decoration: underline;
 .chart-main { position: relative; }
 .chart-svg { width: 100%; height: auto; display: block; }
 .chart-grid { stroke: var(--border); stroke-width: 1; }
+.chart-grid.chart-zero { stroke: #cbd0da; stroke-width: 1.5; }
+.chart-tip .tip-real { color: var(--muted); }
 .chart-ylab, .chart-xlab { fill: var(--muted); font-size: 10px; }
 .chart-evline { stroke: var(--macro-ink); stroke-width: 1.5; stroke-dasharray: 3 3; opacity: .45; }
 .chart-evnum { fill: var(--macro-ink); font-size: 12px; font-weight: 800; }
