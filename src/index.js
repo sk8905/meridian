@@ -346,17 +346,23 @@ async function dbnomicsMonthly(path) {
   } catch { return []; }
 }
 // Bank of England IADB CSV → monthly [YYYY-MM, value] (last obs per month).
+// Tabular no-titles (CSVF=TN); dates are real (not future) so the endpoint
+// returns data. Rows are "DD Mmm YYYY,<value>"; header/blank lines don't match
+// the date regex and are skipped.
+const BOE_MN = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const boeDate = (d) => `${String(d.getUTCDate()).padStart(2, "0")}/${BOE_MN[d.getUTCMonth()]}/${d.getUTCFullYear()}`;
 async function boeMonthly(code) {
-  const y = MACRO_START().slice(0, 4);
-  const u = `https://www.bankofengland.co.uk/boeapps/database/_iadb-FromShowColumns.asp?csv.x=yes&Datefrom=01/Jan/${y}&Dateto=01/Jan/2040&SeriesCodes=${code}&CSVF=CN&UsingCodes=Y&VPD=Y&VFD=N`;
+  const from = boeDate(new Date(Date.now() - 5.3 * 365 * 864e5));
+  const to = boeDate(new Date());
+  const u = `https://www.bankofengland.co.uk/boeapps/database/_iadb-FromShowColumns.asp?csv.x=yes&Datefrom=${from}&Dateto=${to}&SeriesCodes=${code}&CSVF=TN&UsingCodes=Y&VPD=Y&VFD=N`;
   const txt = await fetchText(u);
   if (!txt) return [];
   const MM = { Jan: "01", Feb: "02", Mar: "03", Apr: "04", May: "05", Jun: "06", Jul: "07", Aug: "08", Sep: "09", Oct: "10", Nov: "11", Dec: "12" };
   const byMonth = new Map();
-  for (const line of txt.trim().split(/\r?\n/).slice(1)) {
+  for (const line of txt.trim().split(/\r?\n/)) {
     const c = line.split(",");
-    const m = (c[0] || "").replace(/^"|"$/g, "").trim().match(/(\d{1,2})\s+(\w{3})\s+(\d{4})/);
-    const v = parseFloat((c[1] || "").trim());
+    const m = (c[0] || "").replace(/^"|"$/g, "").trim().match(/(\d{1,2})\s+([A-Za-z]{3})\s+(\d{4})/);
+    const v = parseFloat((c[c.length - 1] || "").trim());
     if (!m || !MM[m[2]] || !Number.isFinite(v)) continue;
     byMonth.set(`${m[3]}-${MM[m[2]]}`, v);
   }
@@ -428,7 +434,7 @@ async function handleMacro(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/macro?v=1", request.url).toString());
+  const cacheKey = new Request(new URL("/api/macro?v=2", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const series = await Promise.all(MACRO_SERIES.map(async (s) => {
