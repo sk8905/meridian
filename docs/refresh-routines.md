@@ -210,10 +210,10 @@ the source of truth for the prompt.
 
 ## The routine prompt
 
-> Do a full refresh of BOTH Meridian platforms — Credit and Legal — and publish
-> the changes live. (This routine runs twice a day, at 06:00 and 12:00.) Follow the
-> invariants in `docs/refresh-routines.md`. The repo has `credit/` and `legal/`
-> apps and deploys from `main`.
+> Do a full refresh of ALL THREE Meridian platforms — Credit, Legal and Macro —
+> and publish the changes live. (This routine runs twice a day, at 06:00 and 12:00.)
+> Follow the invariants in `docs/refresh-routines.md`. The repo has `credit/`,
+> `legal/` and `macro/` apps and deploys from `main`.
 >
 > 1. SYNC: `git fetch origin`, then
 >    `git checkout -B claude/affectionate-einstein-9hhzga origin/main`. Do all work
