@@ -126,10 +126,9 @@ a.macro-tile:hover .macro-src { color: var(--macro); text-decoration: underline;
 a.cal-tile:hover { text-decoration: none; }
 a.cal-tile:hover .cal-title, a.cal-tile:hover .cal-country { color: var(--macro); }
 a.cal-tile:focus-visible { outline: 2px solid var(--macro); outline-offset: -2px; border-radius: 4px; }
-.cal-date { display: flex; align-items: center; gap: .3rem; font-size: .66rem; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--muted); white-space: nowrap; }
+.cal-date { display: flex; align-items: center; gap: .3rem; font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .35px; color: var(--muted); white-space: nowrap; }
 .cal-country { font-weight: 800; color: var(--macro-ink); }
-.cal-title { font-size: .9rem; font-weight: 700; color: var(--ink); line-height: 1.2; }
-.cal-note { width: 100%; text-align: right; margin-top: .3rem; padding: 0 1rem; }
+.cal-title { font-size: .82rem; font-weight: 700; color: var(--ink); line-height: 1.2; }
 .cal-empty { margin: .25rem 1rem; }
 
 /* ---------- key macro headlines (Latest-activity-style, US | UK columns) ---------- */

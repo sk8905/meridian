@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES } from "./content.js?v=20260708-9";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES } from "./content.js?v=20260708-10";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -119,7 +119,6 @@ function renderReleases() {
   }).join("");
   return `<section class="macro-cal" aria-label="Upcoming economic releases">
     <div class="cal-band">${tiles}</div>
-    <div class="cal-note muted small">This week &amp; next · scheduled US &amp; UK releases</div>
   </section>`;
 }
 
