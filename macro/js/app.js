@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES } from "./content.js?v=20260708-10";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES } from "./content.js?v=20260708-11";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -146,7 +146,6 @@ function renderNews() {
   };
   return `<section class="card feature-card macro-news-panel">
     <h2>Key macro headlines</h2>
-    <p class="muted small">The most important US &amp; UK macro stories, newest first — Reuters, FT, Bloomberg, CNBC &amp; similar. Click a headline to open it.</p>
     <div class="news-cols">${col("United States", NEWS && NEWS.us)}${col("United Kingdom", NEWS && NEWS.uk)}</div>
   </section>`;
 }
