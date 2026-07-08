@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES } from "./content.js?v=20260708-11";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES } from "./content.js?v=20260708-12";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -67,8 +67,8 @@ function summaryCards() {
   const card = (icon, title, href, cta, us, uk) => `
     <a class="macro-sum" href="${href}">
       <div class="macro-sum-head"><span class="macro-sum-icon" aria-hidden="true">${icon}</span><span class="macro-sum-title">${esc(title)}</span></div>
-      <p class="macro-sum-line"><span class="macro-flag">US</span> ${us}</p>
-      <p class="macro-sum-line"><span class="macro-flag">UK</span> ${uk}</p>
+      <p class="macro-sum-line"><span class="macro-flag">US</span><span class="macro-sum-txt">${us}</span></p>
+      <p class="macro-sum-line"><span class="macro-flag">UK</span><span class="macro-sum-txt">${uk}</span></p>
       <span class="macro-sum-cta">${esc(cta)} →</span>
     </a>`;
   return `<section class="macro-summary">

@@ -150,8 +150,9 @@ a.compact-head:hover { color: var(--macro); text-decoration: underline; }
 .macro-sum-head { display: flex; align-items: center; gap: .5rem; margin-bottom: .55rem; }
 .macro-sum-icon { color: var(--macro); font-size: 1.05rem; }
 .macro-sum-title { font-weight: 700; color: var(--ink); font-size: .98rem; }
-.macro-sum-line { margin: .25rem 0; color: var(--ink); font-size: .84rem; line-height: 1.4; }
-.macro-flag { display: inline-block; min-width: 1.7rem; font-weight: 800; font-size: .68rem; color: var(--macro-ink); letter-spacing: .5px; }
+.macro-sum-line { display: flex; gap: .45rem; align-items: baseline; margin: .25rem 0; color: var(--ink); font-size: .84rem; line-height: 1.4; }
+.macro-flag { flex: 0 0 1.7rem; font-weight: 800; font-size: .68rem; color: var(--macro-ink); letter-spacing: .5px; }
+.macro-sum-txt { flex: 1 1 auto; min-width: 0; }
 .macro-sum-cta { display: inline-block; margin-top: .5rem; color: var(--macro); font-weight: 700; font-size: .82rem; }
 
 /* ---------- commentary / cycle prose ---------- */
