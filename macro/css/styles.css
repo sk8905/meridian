@@ -200,36 +200,33 @@ a.compact-head:hover { color: var(--macro); text-decoration: underline; }
 .macro-scorebar { flex: 1 1 auto; min-width: 40px; height: 6px; background: #ece8f6; border-radius: 4px; overflow: hidden; }
 .macro-scorebar span { display: block; height: 100%; background: var(--macro-ink); border-radius: 4px; }
 /* Composite card has a verdict pill instead of a bar — keep it pushed right. */
-.macro-dim-head .macro-verdict { margin-left: auto; }
 .macro-metrics { width: 100%; border-collapse: collapse; margin: .1rem 0 .7rem; }
 .macro-metrics th { text-align: left; font-weight: 700; color: var(--ink); font-size: .88rem; padding: .4rem 0 .1rem; vertical-align: baseline; }
 .macro-metric-val { text-align: right; font-weight: 800; color: var(--ink); white-space: nowrap; font-size: .9rem; padding: .4rem 0 .1rem; vertical-align: baseline; }
 .macro-metric-ctx td { padding: 0 0 .5rem; border-bottom: 1px solid var(--border); line-height: 1.4; }
 .macro-metrics tr.macro-metric-ctx:last-child td { border-bottom: none; padding-bottom: 0; }
 .macro-dim-note { margin-top: auto; color: var(--muted); }
-.macro-verdict { padding: .3rem .85rem; border-radius: 999px; font-weight: 800; font-size: .9rem; color: #fff; background: var(--macro-ink); white-space: nowrap; }
-.macro-verdict-low { background: #0d9488; }
-.macro-verdict-moderate { background: #3f9e6f; }
-.macro-verdict-elevated { background: #b7791f; }
-.macro-verdict-high { background: #c2410c; }
-.macro-verdict-extreme { background: #b91c1c; }
 .macro-uknote { margin-top: 1rem; padding: .7rem .9rem; border-radius: 10px; background: #f3f1fa; border: 1px solid rgba(139,126,200,.3); }
 
 /* ---------- chart tab ---------- */
 .chart-ctrls { margin-bottom: 1.2rem; display: grid; gap: 1.1rem; }
 .chart-ctrl-h { font-weight: 700; color: var(--ink); margin-bottom: .55rem; font-size: .92rem; }
 .chart-ind-cols { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem 2rem; }
+.chart-ind-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .05rem .7rem; }
 .chart-ind-country { font-weight: 700; color: var(--macro-ink); font-size: .78rem; margin-bottom: .35rem; text-transform: uppercase; letter-spacing: .5px; }
 .chart-line-key { font-weight: 600; color: var(--muted); text-transform: none; letter-spacing: 0; font-size: .72rem; }
 .chart-ind { display: flex; align-items: center; gap: .45rem; padding: .18rem 0; font-size: .86rem; cursor: pointer; }
 .chart-ind input { accent-color: var(--macro); }
-.chart-ind-sw { width: 15px; height: 3px; border-radius: 2px; background: var(--c); flex: 0 0 auto; }
+.chart-ind-sw { width: 16px; height: 0; border-top: 3px solid var(--c); flex: 0 0 auto; }
+.chart-ind-sw.dash { border-top-style: dashed; }
 #chart-count.is-max { color: #c2410c; font-weight: 800; }
 .chart-evts { display: flex; flex-wrap: wrap; gap: .4rem; }
-.chart-evt { font-size: .78rem; font-weight: 600; color: var(--muted); background: #eef1f6; border: 1px solid var(--border); border-radius: 999px; padding: .28rem .75rem; cursor: pointer; }
+.chart-evt { display: inline-flex; align-items: center; font-size: .78rem; font-weight: 600; color: var(--muted); background: #eef1f6; border: 1px solid var(--border); border-radius: 999px; padding: .26rem .8rem .26rem .3rem; cursor: pointer; }
 .chart-evt:hover { color: var(--macro-ink); }
 .chart-evt.is-on { background: var(--macro-ink); color: #fff; border-color: var(--macro-ink); }
-.chart-evt .evt-num { font-weight: 800; margin-right: .12rem; }
+/* Numbered badge on each event chip — matches the numbered flag on the chart. */
+.chart-evt .evt-num { display: inline-flex; align-items: center; justify-content: center; width: 1.2rem; height: 1.2rem; border-radius: 50%; background: var(--macro-ink); color: #fff; font-size: .66rem; font-weight: 800; margin-right: .45rem; flex: 0 0 auto; }
+.chart-evt.is-on .evt-num { background: #fff; color: var(--macro-ink); }
 .chart-main { position: relative; }
 .chart-svg { width: 100%; height: auto; display: block; }
 .chart-grid { stroke: var(--border); stroke-width: 1; }
@@ -237,7 +234,8 @@ a.compact-head:hover { color: var(--macro); text-decoration: underline; }
 .chart-tip .tip-real { color: var(--muted); }
 .chart-ylab, .chart-xlab { fill: var(--muted); font-size: 10px; }
 .chart-evline { stroke: var(--macro-ink); stroke-width: 1.5; stroke-dasharray: 3 3; opacity: .45; }
-.chart-evnum { fill: var(--macro-ink); font-size: 12px; font-weight: 800; }
+.chart-evdot { fill: var(--macro-ink); }
+.chart-evnum { fill: #fff; font-size: 10px; font-weight: 800; }
 .chart-cross { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; }
 #chart-hit { cursor: crosshair; }
 .chart-tip { position: absolute; z-index: 5; pointer-events: none; background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: var(--shadow); padding: .5rem .6rem; font-size: .78rem; min-width: 130px; }
@@ -252,7 +250,7 @@ a.compact-head:hover { color: var(--macro); text-decoration: underline; }
 .chart-note { margin-top: .8rem; }
 
 @media (max-width: 1100px) { .macro-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 620px) { .chart-ind-cols { grid-template-columns: 1fr; } }
+@media (max-width: 620px) { .chart-ind-cols { grid-template-columns: 1fr; } .chart-ind-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 900px) {
   .macro-cols { grid-template-columns: 1fr; }
   .macro-gauge-wrap { grid-template-columns: 1fr; gap: 1rem; }

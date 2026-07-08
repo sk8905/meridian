@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260708-19";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260708-20";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -309,7 +309,6 @@ function viewBubble() {
     <section class="card macro-gauge-card">
       <div class="macro-dim-head">
         <h2 class="macro-country">Composite bubble-risk score</h2>
-        <span class="macro-verdict macro-verdict-${band.toLowerCase()}">${composite}/100 · ${esc(band)}</span>
       </div>
       <div class="macro-gauge-wrap">
         ${trackGauge(BUBBLE_ZONES, [{ label: band, pos: composite }], "US equity bubble-risk score, 0 low to 100 extreme")}
@@ -340,13 +339,19 @@ const INDICATORS = [
   ["base_rate", "Base rate"], ["two_year", "2-year yield"], ["core_cpi", "Core inflation"],
   ["services_pmi", "Services PMI"], ["wages", "Wage growth"], ["unemployment", "Unemployment"],
 ];
-const CIRC = ["①", "②", "③", "④", "⑤", "⑥"];
 const CHART_EVENTS = [
   { id: "omicron", date: "2021-12", label: "COVID Omicron wave" },
   { id: "ukraine", date: "2022-02", label: "Russia invades Ukraine" },
+  { id: "liftoff", date: "2022-03", label: "Fed lift-off (first hike)" },
   { id: "truss", date: "2022-09", label: "Truss mini-budget" },
+  { id: "ftx", date: "2022-11", label: "FTX collapse" },
   { id: "svb", date: "2023-03", label: "SVB / banking stress" },
+  { id: "boepeak", date: "2023-08", label: "BoE Bank Rate peaks 5.25%" },
+  { id: "gaza", date: "2023-10", label: "Israel–Hamas war" },
+  { id: "ukelection", date: "2024-07", label: "UK election — Labour win" },
+  { id: "fedcut", date: "2024-09", label: "First Fed rate cut" },
   { id: "trump", date: "2024-11", label: "Trump re-election" },
+  { id: "tariffs", date: "2025-04", label: "US tariff shock" },
   { id: "iran", date: "2026-05", label: "Middle East / Iran conflict" },
 ];
 const CHART_MAX = 12;
@@ -362,13 +367,14 @@ function chartSeriesAll() {
 }
 
 function indBox(country) {
+  const dash = country === "UK" ? " dash" : "";
   return INDICATORS.map(([k, l]) => {
     const sk = `${country}:${k}`;
-    return `<label class="chart-ind"><input type="checkbox" class="chart-ind-cb" data-sel="${sk}"${chartSel.has(sk) ? " checked" : ""}/><span class="chart-ind-sw" style="--c:${IND_COLOR[k]}"></span>${esc(l)}</label>`;
+    return `<label class="chart-ind"><input type="checkbox" class="chart-ind-cb" data-sel="${sk}"${chartSel.has(sk) ? " checked" : ""}/><span class="chart-ind-sw${dash}" style="--c:${IND_COLOR[k]}"></span>${esc(l)}</label>`;
   }).join("");
 }
 function viewChart() {
-  const chips = CHART_EVENTS.map((e, i) => `<button type="button" class="chart-evt${chartEvents.has(e.id) ? " is-on" : ""}" data-evt="${e.id}"><span class="evt-num">${CIRC[i]}</span> ${esc(e.label)}</button>`).join("");
+  const chips = CHART_EVENTS.map((e, i) => `<button type="button" class="chart-evt${chartEvents.has(e.id) ? " is-on" : ""}" data-evt="${e.id}"><span class="evt-num">${i + 1}</span>${esc(e.label)}</button>`).join("");
   return `
     <div class="page-head">
       <h1>Chart</h1>
@@ -378,8 +384,8 @@ function viewChart() {
       <div class="chart-ctrl-grp">
         <div class="chart-ctrl-h">Indicators <span class="muted small">(<span id="chart-count">${chartSel.size}</span> of 12 selected)</span></div>
         <div class="chart-ind-cols">
-          <div><div class="chart-ind-country">United States <span class="chart-line-key">— solid</span></div>${indBox("US")}</div>
-          <div><div class="chart-ind-country">United Kingdom <span class="chart-line-key">- - dashed</span></div>${indBox("UK")}</div>
+          <div><div class="chart-ind-country">United States <span class="chart-line-key">— solid</span></div><div class="chart-ind-grid">${indBox("US")}</div></div>
+          <div><div class="chart-ind-country">United Kingdom <span class="chart-line-key">- - dashed</span></div><div class="chart-ind-grid">${indBox("UK")}</div></div>
         </div>
       </div>
       <div class="chart-ctrl-grp">
@@ -435,7 +441,9 @@ function drawChart() {
     if (!chartEvents.has(e.id)) return;
     const mi = MI(e.date); if (mi < m0 || mi > m1) return;
     const x = xFor(mi);
-    ev += `<line x1="${x.toFixed(1)}" y1="${plotT}" x2="${x.toFixed(1)}" y2="${plotB}" class="chart-evline"/><text x="${x.toFixed(1)}" y="${(plotT - 6).toFixed(1)}" class="chart-evnum" text-anchor="middle">${CIRC[i]}</text>`;
+    ev += `<line x1="${x.toFixed(1)}" y1="${plotT}" x2="${x.toFixed(1)}" y2="${plotB}" class="chart-evline"/>` +
+      `<circle cx="${x.toFixed(1)}" cy="${(plotT - 10).toFixed(1)}" r="8" class="chart-evdot"/>` +
+      `<text x="${x.toFixed(1)}" y="${(plotT - 10).toFixed(1)}" class="chart-evnum" text-anchor="middle" dominant-baseline="central">${i + 1}</text>`;
   });
   const lines = sel.map((s) => {
     const pts = s.history.map((p) => [xFor(MI(p.label)), yFor(ival(s, p.value))]);
