@@ -205,6 +205,15 @@ a.compact-head:hover { color: var(--macro); text-decoration: underline; }
 
 /* ---------- chart tab ---------- */
 .chart-ctrls { margin-bottom: 1.2rem; display: grid; gap: 1.1rem; }
+/* Chart toolbar: time-range segmented control + PNG export. */
+.chart-toolbar { display: flex; align-items: center; justify-content: space-between; gap: .75rem; flex-wrap: wrap; margin-bottom: .8rem; }
+.chart-range { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.chart-range-btn { border: 0; background: var(--surface); color: var(--muted); font: inherit; font-size: .8rem; font-weight: 700; padding: .35rem .8rem; cursor: pointer; border-left: 1px solid var(--border); }
+.chart-range-btn:first-child { border-left: 0; }
+.chart-range-btn:hover { color: var(--macro-ink); background: #faf9fd; }
+.chart-range-btn.is-on { background: var(--macro-ink); color: #fff; }
+.chart-export { border: 1px solid var(--border); background: var(--surface); color: var(--macro-ink); font: inherit; font-size: .8rem; font-weight: 700; padding: .35rem .8rem; border-radius: 8px; cursor: pointer; }
+.chart-export:hover { border-color: var(--macro); background: #faf9fd; }
 .chart-ctrl-h { font-weight: 700; color: var(--ink); margin-bottom: .55rem; font-size: .92rem; }
 .chart-ind-cols { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem 2rem; }
 .chart-ind-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .05rem .7rem; }

@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260708-23";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260708-24";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -362,11 +362,14 @@ const CHART_API = "/api/chart-prefs", CHART_LS = "mchart";
 function chartReadLocal() {
   try { const o = JSON.parse(localStorage.getItem(CHART_LS) || "null"); return o && Array.isArray(o.sel) && Array.isArray(o.events) ? o : null; } catch { return null; }
 }
+const CHART_RANGES = { "1y": 12, "3y": 36, "5y": 60, "max": Infinity };
+const CHART_DEFAULT_RANGE = "5y";
 const _chartLocal = chartReadLocal();
 let chartSel = new Set(_chartLocal ? _chartLocal.sel : CHART_DEFAULT_SEL);
 let chartEvents = new Set(_chartLocal ? _chartLocal.events : CHART_DEFAULT_EVT);
+let chartRange = (_chartLocal && CHART_RANGES[_chartLocal.range]) ? _chartLocal.range : CHART_DEFAULT_RANGE;
 function chartPersist() {
-  const payload = { sel: [...chartSel], events: [...chartEvents] };
+  const payload = { sel: [...chartSel], events: [...chartEvents], range: chartRange };
   try { localStorage.setItem(CHART_LS, JSON.stringify(payload)); } catch { /* ignore */ }
   try { fetch(CHART_API, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) }); } catch { /* not behind Access */ }
 }
@@ -391,7 +394,7 @@ function viewChart() {
   return `
     <div class="page-head">
       <h1>Chart</h1>
-      <p class="muted">Overlay any of the dashboard indicators (US &amp; UK) across the past five years and toggle key events. Every series is indexed to 0 at the start of the window (2021), so the lines show the change since then rather than the level — hover for the actual values.</p>
+      <p class="muted">Overlay any of the dashboard indicators (US &amp; UK) over your chosen window and toggle key events. Every series is indexed to 0 at the start of the window, so the lines show the change since then rather than the level — hover for the actual values.</p>
     </div>
     <section class="card chart-ctrls">
       <div class="chart-ctrl-grp">
@@ -406,7 +409,15 @@ function viewChart() {
         <div class="chart-evts">${chips}</div>
       </div>
     </section>
-    <section class="card"><div id="chart-canvas"><p class="muted">Loading macro data…</p></div></section>`;
+    <section class="card">
+      <div class="chart-toolbar">
+        <div class="chart-range" role="group" aria-label="Time range">
+          ${Object.keys(CHART_RANGES).map((r) => `<button type="button" class="chart-range-btn${chartRange === r ? " is-on" : ""}" data-range="${r}">${r === "max" ? "Max" : r.toUpperCase()}</button>`).join("")}
+        </div>
+        <button type="button" class="chart-export" id="chart-export" title="Download the chart as a PNG image">⤓ PNG</button>
+      </div>
+      <div id="chart-canvas"><p class="muted">Loading macro data…</p></div>
+    </section>`;
 }
 
 function drawChart() {
@@ -417,16 +428,22 @@ function drawChart() {
   const sel = all.filter((s) => chartSel.has(s.selKey));
   const W = 980, H = 470, plotL = 40, plotR = W - 14, plotT = 30, plotB = H - 34;
   const plotW = plotR - plotL, plotH = plotB - plotT;
-  let m0 = Infinity, m1 = -Infinity;
-  all.forEach((s) => s.history.forEach((p) => { const mi = MI(p.label); if (mi < m0) m0 = mi; if (mi > m1) m1 = mi; }));
+  let gMin = Infinity, gMax = -Infinity;
+  all.forEach((s) => s.history.forEach((p) => { const mi = MI(p.label); if (mi < gMin) gMin = mi; if (mi > gMax) gMax = mi; }));
+  // The visible window is the selected range, anchored to the latest data.
+  const months = CHART_RANGES[chartRange] || 60;
+  const m1 = gMax;
+  const m0 = months === Infinity ? gMin : Math.max(gMin, gMax - months + 1);
   const span = (m1 - m0) || 1;
   const xFor = (mi) => plotL + ((mi - m0) / span) * plotW;
-  // Index each series to 0 at its first (earliest) point; lines show the change since.
-  const base = (s) => s.history[0].value;
+  // Only the points inside the window; each series is indexed to 0 at the first
+  // in-window point, so the lines show the change across the chosen range.
+  const inRange = (s) => s.history.filter((p) => { const mi = MI(p.label); return mi >= m0 && mi <= m1; });
+  const base = (s) => { const r = inRange(s); return r.length ? r[0].value : (s.history[0] ? s.history[0].value : 0); };
   const ival = (s, v) => v - base(s);
   const fmtI = (v) => (v >= 0 ? "+" : "") + v.toFixed(2);
   let lo = 0, hi = 0;
-  sel.forEach((s) => s.history.forEach((p) => { const y = ival(s, p.value); if (y < lo) lo = y; if (y > hi) hi = y; }));
+  sel.forEach((s) => inRange(s).forEach((p) => { const y = ival(s, p.value); if (y < lo) lo = y; if (y > hi) hi = y; }));
   if (lo === hi) { lo -= 1; hi += 1; }
   const padY = (hi - lo) * 0.08; lo -= padY; hi += padY;
   const yFor = (v) => plotB - ((v - lo) / (hi - lo)) * plotH;
@@ -462,17 +479,18 @@ function drawChart() {
       `</g>`;
   });
   const lines = sel.map((s) => {
-    const pts = s.history.map((p) => [xFor(MI(p.label)), yFor(ival(s, p.value))]);
+    const pts = inRange(s).map((p) => [xFor(MI(p.label)), yFor(ival(s, p.value))]);
     const d = pts.map((p, i) => `${i ? "L" : "M"} ${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(" ");
     return `<path d="${d}" fill="none" stroke="${IND_COLOR[s.key]}" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round"${s.country === "UK" ? ' stroke-dasharray="6 4"' : ""}/>`;
   }).join("");
 
   const legend = sel.map((s) => {
-    const last = s.history[s.history.length - 1];
+    const r = inRange(s), last = r[r.length - 1];
     return `<span class="chart-leg"><span class="chart-swatch${s.country === "UK" ? " dash" : ""}" style="--c:${IND_COLOR[s.key]}"></span>${esc(s.country)} · ${esc(s.label)} <b>${last ? fmtI(ival(s, last.value)) : "—"}</b></span>`;
   }).join("");
 
-  const svg = `<svg viewBox="0 0 ${W} ${H}" class="chart-svg" id="chart-svg" role="img" aria-label="Selected macro indicators over five years, each indexed to 0 at its 2021 start">
+  const startYr = miLabel(m0).slice(0, 4);
+  const svg = `<svg viewBox="0 0 ${W} ${H}" class="chart-svg" id="chart-svg" role="img" aria-label="Selected macro indicators, each indexed to 0 at the start of the window">
     ${grid}${xticks}${ev}${lines}
     <line id="chart-cross" class="chart-cross" y1="${plotT}" y2="${plotB}" style="display:none"/>
     <g id="chart-hoverdots"></g>
@@ -480,7 +498,7 @@ function drawChart() {
   </svg>`;
   canvas.innerHTML = `<div class="chart-main">${svg}<div id="chart-tip" class="chart-tip" hidden></div></div>
     <div class="chart-legend">${sel.length ? legend : '<span class="muted">Select one or more indicators to plot.</span>'}</div>
-    <p class="muted small chart-note">Every series is indexed to <b>0 at its first month (2021)</b>, so each line shows the change since then in the indicator's own units — percentage points for rates, inflation, wages and unemployment; index points for the PMIs. Hover for the actual values. Line style: <b>solid = US</b>, <b>dashed = UK</b>.</p>`;
+    <p class="muted small chart-note">Every series is indexed to <b>0 at ${esc(macroMonth(miLabel(m0)))}</b> (the start of the window), so each line shows the change since then in the indicator's own units — percentage points for rates, inflation, wages and unemployment; index points for the PMIs. Hover for the actual values. Line style: <b>solid = US</b>, <b>dashed = UK</b>.</p>`;
 
   // Event markers get a hover bubble explaining the event (works even with no
   // indicators selected, so it's wired before the crosshair setup below).
@@ -551,6 +569,50 @@ document.addEventListener("click", (e) => {
   chartPersist();
   drawChart();
 });
+document.addEventListener("click", (e) => {
+  const rb = e.target.closest(".chart-range-btn"); if (!rb) return;
+  chartRange = rb.getAttribute("data-range");
+  document.querySelectorAll(".chart-range-btn").forEach((b) => b.classList.toggle("is-on", b === rb));
+  chartPersist();
+  drawChart();
+});
+document.addEventListener("click", (e) => { if (e.target.closest("#chart-export")) exportChartPng(); });
+
+// Rasterise the chart SVG to a PNG download. External CSS doesn't travel with a
+// serialised SVG, so the presentation properties are inlined onto a clone first.
+function exportChartPng() {
+  const svg = document.getElementById("chart-svg"); if (!svg) return;
+  const W = svg.viewBox.baseVal.width || 980, H = svg.viewBox.baseVal.height || 470;
+  const clone = svg.cloneNode(true);
+  const inline = (src, dst) => {
+    const cs = getComputedStyle(src);
+    ["fill", "stroke", "stroke-width", "stroke-dasharray", "stroke-linejoin", "stroke-linecap", "opacity", "font-size", "font-weight", "font-family", "text-anchor", "display"].forEach((p) => {
+      const v = cs.getPropertyValue(p); if (v) dst.style.setProperty(p, v);
+    });
+    for (let i = 0; i < src.children.length; i++) if (dst.children[i]) inline(src.children[i], dst.children[i]);
+  };
+  inline(svg, clone);
+  clone.setAttribute("xmlns", "http://www.w3.org/2000/svg");
+  const bg = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+  bg.setAttribute("x", 0); bg.setAttribute("y", 0); bg.setAttribute("width", W); bg.setAttribute("height", H); bg.setAttribute("fill", "#ffffff");
+  clone.insertBefore(bg, clone.firstChild);
+  const xml = new XMLSerializer().serializeToString(clone);
+  const url = "data:image/svg+xml;base64," + btoa(unescape(encodeURIComponent(xml)));
+  const img = new Image();
+  img.onload = () => {
+    const scale = 2, canvas = document.createElement("canvas");
+    canvas.width = W * scale; canvas.height = H * scale;
+    const ctx = canvas.getContext("2d"); ctx.scale(scale, scale); ctx.drawImage(img, 0, 0);
+    canvas.toBlob((blob) => {
+      if (!blob) return;
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob); a.download = "meridian-macro-chart.png";
+      document.body.appendChild(a); a.click(); a.remove();
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    }, "image/png");
+  };
+  img.src = url;
+}
 
 // ---- Tab routing -----------------------------------------------------------
 const TABS = [
@@ -742,7 +804,8 @@ function initChartPrefs() {
       if (d.stored && Array.isArray(d.sel) && Array.isArray(d.events)) {
         chartSel = new Set(d.sel.slice(0, CHART_MAX));
         chartEvents = new Set(d.events);
-        try { localStorage.setItem(CHART_LS, JSON.stringify({ sel: [...chartSel], events: [...chartEvents] })); } catch { /* ignore */ }
+        if (CHART_RANGES[d.range]) chartRange = d.range;
+        try { localStorage.setItem(CHART_LS, JSON.stringify({ sel: [...chartSel], events: [...chartEvents], range: chartRange })); } catch { /* ignore */ }
         if (currentTab() === "chart") render();
       } else if (_chartLocal) {
         // Server has nothing yet but this device does — seed it so other devices sync.
