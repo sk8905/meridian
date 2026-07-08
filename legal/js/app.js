@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
-} from "./data.js?v=20260708-3";
-import { donutChart, columnChart } from "./charts.js?v=20260708-3";
+} from "./data.js?v=20260708-4";
+import { donutChart, columnChart } from "./charts.js?v=20260708-4";
 
 const app = document.getElementById("app");
 
@@ -75,6 +75,15 @@ function feedHtml(rows, key, rowFn, sig) {
 }
 // "Load more" reveals the next page and re-renders the affected list in place
 // (a local re-render, so the sidebar filters keep their selected state).
+// Expand / collapse a clamped summary preview inline.
+document.addEventListener("click", (e) => {
+  const t = e.target.closest(".clamp-toggle");
+  if (!t) return;
+  const w = t.closest(".sum-clamp"); if (!w) return;
+  const open = w.classList.toggle("is-open");
+  t.textContent = open ? "less" : "more";
+  t.setAttribute("aria-expanded", open ? "true" : "false");
+});
 document.addEventListener("click", (e) => {
   const b = e.target.closest(".load-more");
   if (!b) return;
@@ -277,6 +286,22 @@ function itemRow(it) {
 // toggle; the Save button sits top-right of that line (always visible; the global
 // AI summary shown inline (same layout as the alerts rows); the title links out
 // to the BAILII judgment and the Save button sits top-right of the title line.
+// A summary preview clamped to 2 lines, with a "more" toggle (revealed only when
+// the text actually overflows — see initClamps) that expands the full text inline.
+function clampSum(text) {
+  const t = esc(text || "");
+  if (!t) return "";
+  return `<div class="sum-clamp"><p class="feed-summary clamp2">${t}</p><button type="button" class="clamp-toggle" aria-expanded="false" hidden>more</button></div>`;
+}
+// Reveal the "more" toggle only where the clamped text is actually truncated.
+// Skips already-expanded rows so a resize doesn't strip their "less" control.
+function initClamps(root) {
+  (root || document).querySelectorAll(".sum-clamp").forEach((w) => {
+    if (w.classList.contains("is-open")) return;
+    const p = w.querySelector(".feed-summary"), btn = w.querySelector(".clamp-toggle");
+    if (p && btn) btn.hidden = !(p.scrollHeight - p.clientHeight > 2);
+  });
+}
 function caseRow(c) {
   const summary = caseSummaries[c.id] || c.summary || "";
   const saved = getSaved().has(c.id);
@@ -291,7 +316,7 @@ function caseRow(c) {
         <button class="save-btn rx-save ${saved ? "is-saved" : ""}" data-save="${esc(c.id)}"
           aria-pressed="${saved}" title="${saved ? "Remove from saved" : "Save this case"}">${saved ? "★ Saved" : "☆ Save"}</button>
       </div>
-      <p class="feed-summary">${esc(summary)}</p>
+      ${clampSum(summary)}
       <div class="feed-foot">
         <span>${esc(c.court)}</span>${c.citation ? ` · <span class="cite">${esc(c.citation)}</span>` : ""} · <a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">View judgment on BAILII ↗</a>
       </div>
@@ -532,6 +557,7 @@ function renderResults() {
   results.innerHTML = n
     ? feedHtml(rows, "alerts", (x) => (x._kind === "case" ? caseRow(x) : x._kind === "rx" ? rxRow(x) : itemRow(x)), sig)
     : `<div class="empty">No ${noun}s match these filters.${filterState.saved ? " Save items with the ☆ button." : ""}</div>`;
+  initClamps(results);
 }
 
 // =============================================================================
@@ -612,6 +638,7 @@ function renderCaseResults() {
     return true;
   }).sort(byDateDesc);
   el.innerHTML = matched.length ? feedHtml(matched, "cases", caseRow, JSON.stringify(caseFilter)) : `<div class="empty">No cases match these filters.</div>`;
+  initClamps(el);
 }
 
 // =============================================================================
@@ -749,7 +776,7 @@ function rxRow(r) {
   const features = (r.features || []).length
     ? `<ul class="rx-features">${r.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>` : "";
   const lines = [
-    `<p class="feed-summary">${esc(rxSummary(r))}</p>`,
+    clampSum(rxSummary(r)),
     (r.creditors || []).length ? `<p class="rx-line"><span class="rx-lbl">Largest creditors</span> ${esc(r.creditors.join("; "))}</p>` : "",
     (r.advisers || []).length ? `<p class="rx-line"><span class="rx-lbl">Company advised by</span> ${esc(r.advisers.join(", "))}</p>` : "",
     features,
@@ -836,6 +863,7 @@ function renderRxResults() {
     return true;
   }).sort(byDateDesc);
   el.innerHTML = matched.length ? feedHtml(matched, "rx", rxRow, JSON.stringify(rxFilter)) : '<p class="empty">No matters match these filters.</p>';
+  initClamps(el);
 }
 
 // Jump to a specific matter (from a dashboard link or notification): scroll to &

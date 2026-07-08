@@ -240,13 +240,21 @@ img, svg { max-width: 100%; }
 .feed-row { display: flex; gap: 1rem; padding: .8rem 0; border-bottom: 1px solid var(--line); }
 .feed-row:last-child { border-bottom: 0; }
 .feed-meta { display: flex; flex-direction: column; align-items: flex-start; gap: .3rem; width: 10rem; flex-shrink: 0; }
-.feed-meta .chips { gap: .25rem; }
+/* Stack area labels one per line so multi-area rows read tidily in the meta column. */
+.feed-meta .chips { flex-direction: column; align-items: flex-start; gap: .25rem; }
 .feed-type { font-size: .7rem; text-transform: uppercase; letter-spacing: .4px; color: var(--muted); font-weight: 700; }
 .feed-date { font-size: .8rem; color: var(--muted); }
 .feed-body { min-width: 0; flex: 1; }
 .feed-title { font-weight: 600; color: var(--ink); display: inline-block; margin-bottom: .15rem; overflow-wrap: anywhere; }
 a.feed-title:hover { color: var(--primary); }
 .feed-summary { margin: .15rem 0 .35rem; font-size: .8rem; color: var(--muted); }
+/* 2-line preview with inline expand (case law & schemes/RPs). */
+.sum-clamp { margin: .15rem 0 .35rem; }
+.sum-clamp .feed-summary { margin: 0; }
+.sum-clamp .feed-summary.clamp2 { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.sum-clamp.is-open .feed-summary.clamp2 { -webkit-line-clamp: unset; overflow: visible; }
+.clamp-toggle { display: inline-block; margin-top: .15rem; padding: 0; background: none; border: 0; color: var(--primary); font: inherit; font-size: .78rem; font-weight: 600; cursor: pointer; }
+.clamp-toggle:hover { text-decoration: underline; }
 .feed-foot { font-size: .8rem; color: var(--muted); line-height: 1.6; }
 .feed-foot .firm { font-weight: 600; color: var(--ink-soft); }
 .feed-foot .cite { color: var(--muted); font-style: italic; }
@@ -527,6 +535,7 @@ a.compact-head:hover { color: var(--primary); }
   /* Stack the feed-row meta above the body on narrow screens */
   .feed-row { flex-direction: column; gap: .35rem; }
   .feed-meta { width: auto; flex-direction: row; align-items: center; gap: .5rem; flex-wrap: wrap; }
+  .feed-meta .chips { flex-direction: row; flex-wrap: wrap; }
 }
 
 @media (prefers-reduced-motion: reduce) {
