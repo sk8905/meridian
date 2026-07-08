@@ -166,12 +166,11 @@
     @media (max-width:520px){ .rate-spark, .rate-spark-empty { display:none; }
       .rate-tile { padding:.1rem .45rem; } .rate-label { font-size:.55rem; } .rate-val { font-size:.9rem; } }
 
-    /* Markets banner — identical tile style to the key-rates band, but four items
-       so it fills the row as four columns (two rows of two on phones). */
+    /* Markets banner — identical tile style to the key-rates band; four items in
+       a single row of four (1 × 4) at every width. */
     .markets-band { grid-template-columns:repeat(4,1fr); }
+    .markets-band .rate-tile { border-left:1px solid var(--line); }
     .markets-band .rate-tile:nth-child(4n+1) { border-left:none; }
-    @media (max-width:520px){ .markets-band { grid-template-columns:repeat(2,1fr); }
-      .markets-band .rate-tile:nth-child(2n+1) { border-left:none; } }
 
     /* ---- Cards ---- */
     .g-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.1rem; }
