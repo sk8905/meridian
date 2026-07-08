@@ -191,15 +191,10 @@ a.compact-head:hover { color: var(--macro); text-decoration: underline; }
 
 /* ---------- bubble-risk view ---------- */
 .macro-cols-3 { grid-template-columns: repeat(3, 1fr); }
-.macro-dim-head { display: flex; align-items: center; gap: .7rem; margin-bottom: .8rem; }
+.macro-dim-head { display: flex; align-items: center; justify-content: space-between; gap: .7rem; margin-bottom: .8rem; }
 .macro-dim-head .macro-country { margin: 0; flex: 0 1 auto; }
 .macro-score { font-weight: 800; color: var(--macro-ink); font-size: 1.2rem; white-space: nowrap; flex: 0 0 auto; }
 .macro-score-max { color: var(--muted); font-weight: 600; font-size: .78rem; }
-/* The dimension score bar now sits inline, to the right of the title (it grows to
-   fill the gap between the title and the score). */
-.macro-scorebar { flex: 1 1 auto; min-width: 40px; height: 6px; background: #ece8f6; border-radius: 4px; overflow: hidden; }
-.macro-scorebar span { display: block; height: 100%; background: var(--macro-ink); border-radius: 4px; }
-/* Composite card has a verdict pill instead of a bar — keep it pushed right. */
 .macro-metrics { width: 100%; border-collapse: collapse; margin: .1rem 0 .7rem; }
 .macro-metrics th { text-align: left; font-weight: 700; color: var(--ink); font-size: .88rem; padding: .4rem 0 .1rem; vertical-align: baseline; }
 .macro-metric-val { text-align: right; font-weight: 800; color: var(--ink); white-space: nowrap; font-size: .9rem; padding: .4rem 0 .1rem; vertical-align: baseline; }

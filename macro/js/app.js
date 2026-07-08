@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260708-21";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260708-22";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -293,7 +293,6 @@ function viewBubble() {
     <section class="card macro-note">
       <div class="macro-dim-head">
         <h2 class="macro-country">${esc(d.label)}</h2>
-        <div class="macro-scorebar" aria-hidden="true"><span style="width:${d.score}%"></span></div>
         <span class="macro-score" title="dimension sub-score (0–100)">${d.score}<span class="macro-score-max">/100</span></span>
       </div>
       <table class="macro-metrics">
