@@ -91,7 +91,11 @@ h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
 .macro-group { margin-bottom: 1.6rem; }
 .macro-country { font-size: 1.02rem; font-weight: 700; color: var(--ink); margin: 0 0 .7rem; padding-bottom: .4rem; border-bottom: 2px solid var(--macro); display: inline-block; }
 .macro-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; }
-.macro-tile { border: 1px solid var(--border); border-radius: 12px; padding: .95rem 1rem 1.05rem; background: var(--surface); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: .55rem; }
+.macro-tile { position: relative; border: 1px solid var(--border); border-radius: 12px; padding: .95rem 1rem 1.05rem; background: var(--surface); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: .55rem; }
+/* Corner control to open the indicator in the Chart view. */
+.macro-chartlink { position: absolute; top: .4rem; right: .45rem; font-size: .8rem; line-height: 1; opacity: .4; cursor: pointer; padding: .2rem; border-radius: 5px; filter: grayscale(.3); }
+.macro-tile:hover .macro-chartlink { opacity: .8; }
+.macro-chartlink:hover, .macro-chartlink:focus-visible { opacity: 1; filter: none; background: rgba(139,126,200,.16); outline: none; }
 /* The whole tile is a link to its source (matches Credit's key-rates tiles). */
 a.macro-tile { color: inherit; text-decoration: none; transition: box-shadow .15s ease, border-color .15s ease, transform .15s ease; }
 a.macro-tile:hover { text-decoration: none; border-color: var(--macro); box-shadow: 0 2px 4px rgba(15,23,42,.08), 0 8px 20px rgba(75,63,114,.12); transform: translateY(-2px); }

@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260708-24";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260708-25";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -52,11 +52,16 @@ function macroTile(s) {
     ? sparkline(s.history)
     : '<div class="spark-empty muted small">5-year history unavailable</div>';
   const asOf = s.asOf ? macroMonth(s.asOf) : "";
-  // Whole tile links to the source (matches the Credit key-rates tiles).
+  // Whole tile links to the source (matches the Credit key-rates tiles); a small
+  // corner control opens this indicator in the Chart view (cross-link).
   const tag = s.href ? "a" : "div";
   const attrs = s.href ? ` href="${esc(s.href)}" target="_blank" rel="noopener noreferrer"` : "";
+  const chartLink = (s.country && s.key)
+    ? `<span class="macro-chartlink" role="button" tabindex="0" data-chart="${esc(s.country)}:${esc(s.key)}" title="Open ${esc(s.label)} in the Chart" aria-label="Open ${esc(s.label)} in the Chart">📈</span>`
+    : "";
   return `<${tag} class="macro-tile"${attrs}>
     <div class="macro-tile-head"><span class="macro-label">${esc(s.label)}</span><span class="macro-sub muted small">${esc(s.sub || "")}</span></div>
+    ${chartLink}
     <div class="macro-valrow"><span class="macro-val">${val}</span>${chHtml}</div>
     <div class="macro-chart">${chart}</div>
     <div class="macro-foot muted"><span class="macro-src">${asOf ? esc(asOf) + " · " : ""}${esc(s.source)} ↗</span></div>
@@ -577,6 +582,20 @@ document.addEventListener("click", (e) => {
   drawChart();
 });
 document.addEventListener("click", (e) => { if (e.target.closest("#chart-export")) exportChartPng(); });
+// Dashboard tile → open this indicator in the Chart (stops the tile's source link).
+function openInChart(el) {
+  const k = el.getAttribute("data-chart"); if (!k) return;
+  location.hash = "#/chart?add=" + encodeURIComponent(k);
+}
+document.addEventListener("click", (e) => {
+  const cl = e.target.closest(".macro-chartlink"); if (!cl) return;
+  e.preventDefault(); e.stopPropagation(); openInChart(cl);
+});
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "Enter" && e.key !== " ") return;
+  const cl = e.target.closest && e.target.closest(".macro-chartlink"); if (!cl) return;
+  e.preventDefault(); openInChart(cl);
+});
 
 // Rasterise the chart SVG to a PNG download. External CSS doesn't travel with a
 // serialised SVG, so the presentation properties are inlined onto a clone first.
@@ -623,8 +642,15 @@ const TABS = [
   ["chart", "Chart"],
 ];
 function currentTab() {
-  const h = (location.hash || "").replace(/^#\/?/, "");
+  const h = (location.hash || "").replace(/^#\/?/, "").split("?")[0];
   return TABS.some(([k]) => k === h) ? h : "dashboard";
+}
+// Read the current hash query (e.g. #/chart?add=US:core_cpi → {add:"US:core_cpi"}).
+function hashQuery() {
+  const q = (location.hash || "").split("?")[1] || "";
+  const out = {};
+  new URLSearchParams(q).forEach((v, k) => { out[k] = v; });
+  return out;
 }
 // The view nav lives in the top bar (matches Credit/Legal); toggle its active
 // state to the current tab.
@@ -774,6 +800,15 @@ window.addEventListener("hashchange", closeNotif);
 
 function render() {
   const tab = currentTab();
+  // Deep-link from a dashboard tile: #/chart?add=US:core_cpi preselects that
+  // indicator, then the param is consumed so it doesn't re-fire on re-render.
+  if (tab === "chart") {
+    const add = hashQuery().add;
+    if (add && /^(US|UK):[a-z_]+$/.test(add)) {
+      if (!chartSel.has(add) && chartSel.size < CHART_MAX) { chartSel.add(add); chartPersist(); }
+      history.replaceState(null, "", "#/chart");
+    }
+  }
   const body = tab === "commentary" ? viewCommentary() : tab === "cycle" ? viewCycle() : tab === "bubble" ? viewBubble() : tab === "chart" ? viewChart() : viewDashboard();
   app.innerHTML = body;
   syncNav(tab);
