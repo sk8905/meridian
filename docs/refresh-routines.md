@@ -39,20 +39,22 @@ the source of truth for the prompt.
   dedup removes any overlap. Verify each item's EXACT publication date from the
   source; never invent a URL, date, figure or quote. Dedupe every candidate by URL
   and normalised headline/citation against the data already in the file.
-- **Historical depth (not just current-year).** The ~24h window only governs
-  which *newly surfaced* items a run hunts for — it is NOT a floor on an item's
-  own date. A genuine news/deal/intelligence/fund item is in-scope even when it
-  predates the current year: backfill historical items dated as far back as
-  **2016 (inclusive)** rather than discarding them for being "old" (the dataset
-  already spans many years). Never bump or round an item to a recent date to make
-  it fit — always record its real publication/event date, verified from the
-  source, and dedupe as usual.
+- **Historical depth (not just current-year) — always add what you uncover.** The
+  ~24h window only governs which *newly surfaced* items a run hunts for — it is
+  NOT a floor on an item's own date, and it is NOT a reason to discard a real
+  item. **Standing rule: whenever a search surfaces a genuine, source-verifiable
+  item that is not already in the dataset, ADD it — even if its date falls
+  outside the ~24h window (as far back as 2016 inclusive).** Never drop a verified
+  item just because it is "old" or "out of window"; the window bounds the hunting
+  effort, not eligibility. Never bump or round an item to a recent date to make it
+  fit — always record its real publication/event date, verified from the source,
+  and dedupe as usual (an item already tracked is skipped, not re-added).
 - **IDs.** For every array, COMPUTE the current maximum id in the file and use the
   next integer — never trust a number quoted here. Applies to all id series:
   Credit `deals` (d…), `intel` (i…), `managers` (m…), `funds` (f…); Legal `items`
-  (u…), `cases` (c…), `restructurings` (rx…). (As at 2026-06-24: Credit deals →
-  next d288, intel → next i349, managers → next m113, funds → next f231; Legal
-  items → next u563, cases → next c41, restructurings → next rx56.)
+  (u…), `cases` (c…), `restructurings` (rx…). (Illustrative only — as at
+  2026-07-08: Credit deals → next d519, intel → i388, managers → m127, funds →
+  f237; Legal items → u644, cases → c59, restructurings → rx61. Always recompute.)
 - **Editing existing records & adding entities.** Only add a manager/fund or edit a
   fund status/`raised` or a manager's AUM/profile when backed by a verifiable
   public source. Never fabricate: set unknown fields to `null`, mark estimates with
@@ -107,6 +109,16 @@ the source of truth for the prompt.
   key `"/api/macro?v=N"` in `src/index.js`. Bump `N` on every run so the redeploy
   serves a freshly-pulled set of live indicators (and any curated-series edit takes
   effect), rather than the previous cached payload.
+  - **The other two live endpoints self-refresh — do NOT bump them per run.**
+    `src/index.js` also serves `/api/rates` (the Glance/Credit key-rates banner,
+    cached ~300s) and `/api/markets` (the Glance markets banner — indices, ETFs,
+    commodities, Bitcoin — cached ~60s). Both carry their own short-lived cache key
+    (`"/api/rates?v=N"` / `"/api/markets?v=N"`) whose only job is edge de-duplication
+    within that TTL; they re-pull from source automatically as the TTL lapses, so a
+    routine run does **not** need to touch them. Only bump their `?v=N` when you
+    actually change that endpoint's *code* (e.g. add a series to `MARKET_SERIES` or
+    change the fetch/parse logic), to flush the old cached shape — never as routine
+    freshness maintenance.
 - **Freshness scalars.**
   - Always set `LAST_CHECKED` in BOTH `credit/js/data.js` and `legal/js/data.js`
     to today on EVERY run — this is the "Last refresh" date shown in each topbar,
@@ -228,10 +240,15 @@ the source of truth for the prompt.
 >
 > 1. SYNC: `git fetch origin`, then
 >    `git checkout -B claude/affectionate-einstein-9hhzga origin/main`. Do all work
->    on this branch. Add only items published since the last run (look back ~24h;
->    dedup removes overlap). Verify every date from the source; never invent URLs, dates,
->    figures or quotes; dedupe against what's already in each file. For every array
->    compute the current max id and use the next integer.
+>    on this branch. Hunt for items published since the last run (look back ~24h;
+>    dedup removes overlap) — but the window bounds the HUNT, not eligibility:
+>    whenever a search surfaces a genuine, source-verifiable item that is not already
+>    tracked, ADD it even if its own date falls outside that window (as far back as
+>    2016). Never drop a verified item as "too old", and never bump an item's date to
+>    fit the window — record its real publication date. Verify every date from the
+>    source; never invent URLs, dates, figures or quotes; dedupe against what's
+>    already in each file. For every array compute the current max id and use the
+>    next integer.
 >
 > 2. CREDIT — `credit/js/data.js` (European private credit):
 >    - **Deals** → append to the `deals` array (id `d<next>`): date (YYYY-MM-DD),
