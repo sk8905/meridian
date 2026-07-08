@@ -505,9 +505,12 @@ a.intel-head:hover { color: var(--primary); }
 .donut { width: 200px; height: 200px; flex: 0 0 auto; }
 .donut-total { font-size: 26px; font-weight: 700; fill: var(--primary-ink); }
 .donut-sub { font-size: 10px; fill: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
-.legend { display: flex; flex-direction: column; gap: .35rem; font-size: .82rem; }
-.legend-item { display: flex; align-items: center; gap: .5rem; }
-.legend-swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
+.legend { display: flex; flex-direction: column; gap: .4rem; font-size: .82rem; min-width: 190px; }
+.legend-item { display: flex; align-items: center; gap: .55rem; }
+.legend-swatch { width: 11px; height: 11px; border-radius: 3px; display: inline-block; flex: 0 0 auto; }
+.legend-label { flex: 1 1 auto; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.legend-item strong { font-variant-numeric: tabular-nums; }
+.legend-pct { color: var(--muted); min-width: 36px; text-align: right; font-variant-numeric: tabular-nums; }
 .chart-legend { display: flex; gap: 1.4rem; justify-content: center; margin: 0 0 .4rem; font-size: .8rem; color: var(--muted); }
 /* Secondary heading stacked inside a card (e.g. a second chart below the first). */
 .card-subhead { margin-top: 1.4rem; padding-top: 1rem; border-top: 1px solid var(--border); }

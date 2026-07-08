@@ -2,17 +2,35 @@
 // Tiny dependency-free inline-SVG chart helpers.
 // Each returns an SVG string. Kept intentionally small and self-contained so
 // the prototype runs offline with no build step or CDN.
+//
+// Design language (restrained, "one hue" house style):
+//   • Bars & single-series lines are magnitude → ONE brand blue, never a
+//     per-item colour.
+//   • Donut slices are magnitude shares of one measure → a single-hue blue
+//     ramp, darkest = largest slice (inherently colour-blind-safe: only
+//     lightness varies), with a neutral grey for a folded "Other".
+//   • Recessive grid/axes, thin marks, a 2px surface gap between donut slices,
+//     gradient area fills. No rainbow.
 // =============================================================================
 
-// Categorical palette — validated (CVD-safe, fixed order) for the few genuinely
-// categorical charts (donut slices). Bars/lines are single-series magnitude, so
-// they use ONE brand hue, not a per-item colour.
-const PALETTE = [
-  "#2a78d6", "#1baf7a", "#eda100", "#008300",
-  "#4a3aa7", "#e34948", "#e87ba4", "#eb6834",
-];
-const BRAND = "#2a78d6";     // single hue for bars & lines
-const OTHER = "#b4b2aa";     // neutral for a folded "Other" slice
+// Single brand hue for bars & lines (deep, print-safe blue).
+const BRAND = "#256abf";
+// Sequential blue ramp for donut slices — dark (largest) → light (smallest).
+// Only lightness/chroma vary, so adjacent slices stay distinguishable under any
+// colour-vision deficiency; the legend still carries identity.
+const BLUE_RAMP = ["#0d366b", "#16478a", "#1c5cab", "#2564bf", "#2f7ad6", "#4a90e2", "#6ea8ee", "#8fbef2"];
+const OTHER = "#c7ccd4";     // neutral for a folded "Other" slice
+const SURFACE = "#ffffff";   // slice-gap / marker-halo colour
+
+// Unique-id counter so multiple charts on one page don't share gradient ids.
+let _uid = 0;
+
+// Sample the ramp so N slices spread evenly across dark → light regardless of N.
+function rampColor(i, n) {
+  if (n <= 1) return BLUE_RAMP[0];
+  const idx = Math.round((i / (n - 1)) * (BLUE_RAMP.length - 1));
+  return BLUE_RAMP[Math.min(idx, BLUE_RAMP.length - 1)];
+}
 
 function esc(s) {
   return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -26,30 +44,34 @@ function navAttrs(nav) {
 }
 
 // Horizontal bar chart. data: [{label, value, nav?}]
+// Thin rounded (pill) bars on a faint track, generous row spacing.
 export function barChart(data, { unit = "", width = 520 } = {}) {
-  const rowH = 22, gap = 14, left = 200, right = 74;
+  const rowStep = 30, barH = 13, left = 190, right = 78, top = 12;
   const max = Math.max(1, ...data.map((d) => d.value));
   const barW = width - left - right;
-  const height = data.length * (rowH + gap) + gap;
+  const height = data.length * rowStep + top;
   const rows = data.map((d, i) => {
-    const y = gap + i * (rowH + gap);
-    const w = Math.max(3, (d.value / max) * barW);
+    const y = top + i * rowStep;
+    const cy = y + barH / 2;
+    const w = Math.max(4, (d.value / max) * barW);
     const inner = `
-      <rect x="0" y="${y}" width="${width}" height="${rowH}" fill="transparent"/>
-      <text x="${left - 12}" y="${y + rowH / 2 + 4}" text-anchor="end" class="chart-label">${esc(d.label)}</text>
-      <rect x="${left}" y="${y}" width="${barW}" height="${rowH}" rx="4" class="bar-track"/>
-      <rect x="${left}" y="${y}" width="${w}" height="${rowH}" rx="4" fill="${BRAND}"><title>${esc(d.label)}: ${unit}${d.value.toLocaleString()}</title></rect>
-      <text x="${left + w + 10}" y="${y + rowH / 2 + 4}" class="chart-value">${unit}${d.value.toLocaleString()}</text>`;
+      <rect x="0" y="${y - (rowStep - barH) / 2}" width="${width}" height="${rowStep}" fill="transparent"/>
+      <text x="${left - 12}" y="${cy + 4}" text-anchor="end" class="chart-label">${esc(d.label)}</text>
+      <rect x="${left}" y="${y}" width="${barW}" height="${barH}" rx="${barH / 2}" class="bar-track"/>
+      <rect x="${left}" y="${y}" width="${w}" height="${barH}" rx="${barH / 2}" fill="${BRAND}"><title>${esc(d.label)}: ${unit}${d.value.toLocaleString()}</title></rect>
+      <text x="${left + w + 10}" y="${cy + 4}" class="chart-value">${unit}${d.value.toLocaleString()}</text>`;
     return d.nav ? `<g class="bar-row clickable" ${navAttrs(d.nav)}>${inner}</g>` : `<g>${inner}</g>`;
   }).join("");
   return `<svg viewBox="0 0 ${width} ${height}" class="chart" role="img">${rows}</svg>`;
 }
 
-// Donut chart. data: [{label, value, nav?}]
+// Donut chart. data: [{label, value, nav?}] — assumed sorted by value desc.
 export function donutChart(data, { size = 220 } = {}) {
   const sum = data.reduce((s, d) => s + d.value, 0); // real total shown in the centre
   const total = sum || 1;                            // geometry divisor (avoid /0)
-  const cx = size / 2, cy = size / 2, r = size / 2 - 8, inner = r * 0.6;
+  const cx = size / 2, cy = size / 2, r = size / 2 - 6, inner = r * 0.64;
+  const n = data.length;
+  const colorOf = (d, i) => (/^other$/i.test(d.label) ? OTHER : rampColor(i, n));
   let angle = -Math.PI / 2;
   const arcs = data.map((d, i) => {
     const frac = d.value / total;
@@ -60,13 +82,13 @@ export function donutChart(data, { size = 220 } = {}) {
     const x1 = cx + r * Math.cos(a1), y1 = cy + r * Math.sin(a1);
     const xi1 = cx + inner * Math.cos(a1), yi1 = cy + inner * Math.sin(a1);
     const xi0 = cx + inner * Math.cos(a0), yi0 = cy + inner * Math.sin(a0);
-    const color = /^other$/i.test(d.label) ? OTHER : PALETTE[i % PALETTE.length];
     const cls = d.nav ? ' class="clickable"' : "";
-    return `<path${cls} ${navAttrs(d.nav)} d="M ${x0} ${y0} A ${r} ${r} 0 ${large} 1 ${x1} ${y1} L ${xi1} ${yi1} A ${inner} ${inner} 0 ${large} 0 ${xi0} ${yi0} Z" fill="${color}" stroke="#fff" stroke-width="2" stroke-linejoin="round"><title>${esc(d.label)}: ${d.value} (${Math.round(frac * 100)}%)</title></path>`;
+    return `<path${cls} ${navAttrs(d.nav)} d="M ${x0} ${y0} A ${r} ${r} 0 ${large} 1 ${x1} ${y1} L ${xi1} ${yi1} A ${inner} ${inner} 0 ${large} 0 ${xi0} ${yi0} Z" fill="${colorOf(d, i)}" stroke="${SURFACE}" stroke-width="2" stroke-linejoin="round"><title>${esc(d.label)}: ${d.value} (${Math.round(frac * 100)}%)</title></path>`;
   }).join("");
-  const legend = data.map((d, i) =>
-    `<div class="legend-item ${d.nav ? "clickable" : ""}" ${navAttrs(d.nav)}><span class="legend-swatch" style="background:${/^other$/i.test(d.label) ? OTHER : PALETTE[i % PALETTE.length]}"></span>${esc(d.label)} <strong>${d.value}</strong></div>`
-  ).join("");
+  const legend = data.map((d, i) => {
+    const pct = Math.round((d.value / total) * 100);
+    return `<div class="legend-item ${d.nav ? "clickable" : ""}" ${navAttrs(d.nav)}><span class="legend-swatch" style="background:${colorOf(d, i)}"></span><span class="legend-label">${esc(d.label)}</span><strong>${d.value}</strong><span class="legend-pct">${pct}%</span></div>`;
+  }).join("");
   return `<div class="donut-wrap">
     <svg viewBox="0 0 ${size} ${size}" class="donut" role="img">${arcs}
       <text x="${cx}" y="${cy - 4}" text-anchor="middle" class="donut-total">${sum}</text>
@@ -80,6 +102,7 @@ export function donutChart(data, { size = 220 } = {}) {
 export function lineChart(data, { unit = "", width = 560, height = 220 } = {}) {
   if (!data || !data.length) return `<svg viewBox="0 0 ${width} ${height}" class="chart" role="img"></svg>`;
   const left = 50, right = 20, top = 20, bottom = 30;
+  const gid = "cg" + (++_uid);
   const max = Math.max(1, ...data.map((d) => d.value));
   const plotW = width - left - right, plotH = height - top - bottom;
   const stepX = data.length > 1 ? plotW / (data.length - 1) : 0;
@@ -94,7 +117,7 @@ export function lineChart(data, { unit = "", width = 560, height = 220 } = {}) {
   // (transparent full-height hit area + dot + x-label) for drill-down.
   const hitW = stepX > 0 ? stepX : plotW;
   const dots = pts.map((p) => {
-    const dot = `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="4" fill="${BRAND}" stroke="#fff" stroke-width="1.5"></circle>`;
+    const dot = `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="2.8" fill="${BRAND}" stroke="${SURFACE}" stroke-width="1.5"></circle>`;
     const lbl = `<text x="${p.x.toFixed(1)}" y="${height - 8}" text-anchor="middle" class="chart-axis">${esc(p.d.label)}</text>`;
     const tip = `<title>${esc(p.d.label)}: ${unit}${p.d.value.toLocaleString()}</title>`;
     if (!p.d.nav) return `<g>${dot}${lbl}${tip}</g>`;
@@ -103,17 +126,20 @@ export function lineChart(data, { unit = "", width = 560, height = 220 } = {}) {
       `<rect x="${hx.toFixed(1)}" y="${top}" width="${hitW.toFixed(1)}" height="${plotH}" fill="transparent"/>` +
       `${dot}${lbl}</g>`;
   }).join("");
-  const xlabels = "";
   const gridY = [0, 0.5, 1].map((f) => {
     const y = top + plotH - f * plotH;
     return `<line x1="${left}" y1="${y}" x2="${width - right}" y2="${y}" class="chart-grid"/>
       <text x="${left - 8}" y="${y + 4}" text-anchor="end" class="chart-axis">${unit}${Math.round(max * f).toLocaleString()}</text>`;
   }).join("");
   return `<svg viewBox="0 0 ${width} ${height}" class="chart" role="img">
+    <defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${BRAND}" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="${BRAND}" stop-opacity="0"/>
+    </linearGradient></defs>
     ${gridY}
-    <path d="${area}" fill="rgba(42,120,214,0.10)"/>
-    <path d="${path}" fill="none" stroke="${BRAND}" stroke-width="2"/>
-    ${dots}${xlabels}
+    <path d="${area}" fill="url(#${gid})"/>
+    <path d="${path}" fill="none" stroke="${BRAND}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>
+    ${dots}
   </svg>`;
 }
 
@@ -124,6 +150,7 @@ export function lineChart(data, { unit = "", width = 560, height = 220 } = {}) {
 export function sparkline(data, { width = 300, height = 88, color = "#6941c6", unit = "" } = {}) {
   if (!data || data.length < 2) return `<svg viewBox="0 0 ${width} ${height}" class="spark" role="img"></svg>`;
   const padX = 4, top = 8, bottom = 16;
+  const gid = "sg" + (++_uid);
   const vals = data.map((d) => d.value);
   const min = Math.min(...vals), max = Math.max(...vals), span = (max - min) || 1;
   const plotW = width - padX * 2, plotH = height - top - bottom;
@@ -135,7 +162,11 @@ export function sparkline(data, { width = 300, height = 88, color = "#6941c6", u
   const area = `${path} L ${last[0].toFixed(1)} ${top + plotH} L ${pts[0][0].toFixed(1)} ${top + plotH} Z`;
   const yr = (l) => String(l).slice(0, 4);
   return `<svg viewBox="0 0 ${width} ${height}" class="spark" role="img">
-    <path d="${area}" fill="${color}" fill-opacity="0.10"/>
+    <defs><linearGradient id="${gid}" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="${color}" stop-opacity="0.16"/>
+      <stop offset="100%" stop-color="${color}" stop-opacity="0"/>
+    </linearGradient></defs>
+    <path d="${area}" fill="url(#${gid})"/>
     <path d="${path}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
     <circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="3.2" fill="${color}"/>
     <text x="${padX}" y="${height - 3}" class="spark-x">${esc(yr(data[0].label))}</text>
@@ -162,8 +193,8 @@ export function multiLineChart(series, { unit = "", width = 1120, height = 240 }
   }).join("");
   const lines = series.map((s) => {
     const path = s.points.map((p, i) => `${i === 0 ? "M" : "L"} ${X(i).toFixed(1)} ${Y(p.value).toFixed(1)}`).join(" ");
-    const dots = s.points.map((p, i) => `<circle cx="${X(i).toFixed(1)}" cy="${Y(p.value).toFixed(1)}" r="3" fill="${s.color}"><title>${esc(s.name)} — ${esc(p.label || "")}: ${unit}${p.value.toLocaleString()}</title></circle>`).join("");
-    return `<path d="${path}" fill="none" stroke="${s.color}" stroke-width="2.5"/>${dots}`;
+    const dots = s.points.map((p, i) => `<circle cx="${X(i).toFixed(1)}" cy="${Y(p.value).toFixed(1)}" r="3" fill="${s.color}" stroke="${SURFACE}" stroke-width="1.5"><title>${esc(s.name)} — ${esc(p.label || "")}: ${unit}${p.value.toLocaleString()}</title></circle>`).join("");
+    return `<path d="${path}" fill="none" stroke="${s.color}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>${dots}`;
   }).join("");
   const hitW = stepX > 0 ? stepX : plotW;
   const xaxis = base.map((p, i) => {
