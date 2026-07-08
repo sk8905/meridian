@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES } from "./content.js?v=20260708-6";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES } from "./content.js?v=20260708-7";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -102,16 +102,19 @@ function renderReleases() {
   const up = (RELEASES || [])
     .filter((r) => { const d = isoToDate(r.date); return d && d >= now && d <= end; })
     .sort((a, b) => String(a.date).localeCompare(String(b.date)));
-  const body = up.length
-    ? `<div class="cal-band">${up.map((r) => `
-        <div class="cal-tile">
-          <span class="cal-tile-top"><span class="cal-flag cal-${(r.country || "").toLowerCase()}">${esc(r.country || "")}</span><span class="cal-date">${esc(fmtWeekday(r.date))}</span></span>
-          <span class="cal-title">${esc(r.title)}</span>
-        </div>`).join("")}</div>`
-    : `<p class="cal-empty muted small">No major US or UK data releases scheduled this week or next.</p>`;
+  if (!up.length) {
+    return `<section class="macro-cal" aria-label="Upcoming economic releases">
+      <p class="cal-empty muted small">No major US or UK data releases scheduled this week or next.</p>
+    </section>`;
+  }
+  const tiles = up.map((r) => `
+    <div class="cal-tile">
+      <span class="cal-date"><span class="cal-flag cal-${(r.country || "").toLowerCase()}">${esc(r.country || "")}</span> ${esc(fmtWeekday(r.date))}</span>
+      <span class="cal-title">${esc(r.title)}</span>
+    </div>`).join("");
   return `<section class="macro-cal" aria-label="Upcoming economic releases">
-    <div class="macro-cal-head"><span class="cal-icon" aria-hidden="true">🗓</span><h2 class="cal-heading">This week &amp; next — scheduled releases</h2></div>
-    ${body}
+    <div class="cal-band">${tiles}</div>
+    <div class="cal-note muted small">This week &amp; next · scheduled US &amp; UK releases</div>
   </section>`;
 }
 

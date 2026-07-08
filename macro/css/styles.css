@@ -115,22 +115,18 @@ a.macro-tile:hover .macro-src { color: var(--macro); text-decoration: underline;
    the signed-in identity, matching Credit's Watchlist. */
 .nav-link.nav-right { margin-left: auto; }
 
-/* ---------- upcoming-releases banner (styled like Credit's key-data band) ---------- */
-.macro-cal { border: 1px solid var(--border); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); padding: .7rem .9rem .9rem; margin: 0 0 1.5rem; }
-.macro-cal-head { display: flex; align-items: center; gap: .5rem; margin: 0 0 .6rem; padding: 0 .1rem; }
-.cal-icon { font-size: 1rem; }
-.cal-heading { font-size: .9rem; font-weight: 700; color: var(--ink); margin: 0; }
-/* Hairline-divided tile grid: a 1px gap over a border-coloured backdrop draws the
-   dividers between every cell, echoing the Credit rates band and wrapping cleanly. */
-.cal-band { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
-.cal-tile { display: flex; flex-direction: column; gap: .22rem; padding: .55rem .75rem; background: var(--surface); }
-.cal-tile-top { display: flex; align-items: center; gap: .4rem; }
-.cal-date { font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--macro-ink); white-space: nowrap; }
-.cal-flag { font-size: .6rem; font-weight: 800; letter-spacing: .03em; padding: .06rem .3rem; border-radius: 4px; color: #fff; }
+/* ---------- upcoming-releases band (mirrors Credit's key-data rates band) ---------- */
+.macro-cal { display: flex; flex-wrap: wrap; align-items: stretch; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); padding: .5rem .35rem .3rem; margin: 0 0 1.5rem; }
+.cal-band { display: flex; flex-wrap: wrap; align-items: stretch; width: 100%; }
+.cal-tile { flex: 1 1 0; min-width: 150px; display: flex; flex-direction: column; gap: .12rem; padding: .18rem 1rem; border-left: 1px solid var(--border); }
+.cal-tile:first-child { border-left: none; }
+.cal-date { display: flex; align-items: center; gap: .35rem; font-size: .66rem; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--muted); white-space: nowrap; }
+.cal-flag { font-size: .56rem; font-weight: 800; letter-spacing: .03em; padding: .04rem .28rem; border-radius: 4px; color: #fff; }
 .cal-us { background: #2563eb; }
 .cal-uk { background: #7c3aed; }
-.cal-title { font-size: .82rem; font-weight: 600; color: var(--ink); line-height: 1.25; }
-.cal-empty { margin: 0; }
+.cal-title { font-size: .9rem; font-weight: 700; color: var(--ink); line-height: 1.2; }
+.cal-note { width: 100%; text-align: right; margin-top: .3rem; padding: 0 1rem; }
+.cal-empty { margin: .25rem 1rem; }
 
 /* ---------- key macro headlines (Latest-activity-style, US | UK columns) ---------- */
 .macro-news-panel { margin: 0 0 1.7rem; }
@@ -281,6 +277,8 @@ a.compact-head:hover { color: var(--macro); text-decoration: underline; }
   .macro-tile-head { min-height: 0; }
   .macro-val { font-size: 1.5rem; }
   .macro-summary { grid-template-columns: 1fr; gap: .7rem; }
+  .cal-band { row-gap: .55rem; }
+  .cal-tile { padding: .18rem .7rem; }
   .news-cols { grid-template-columns: 1fr; gap: 0; }
   .news-col + .news-col { margin-top: 1.1rem; }
   .macro-sources ul { grid-template-columns: 1fr; }
