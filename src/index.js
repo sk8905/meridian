@@ -40,6 +40,36 @@ const keyFor = (email) => "wl:" + email;
 // so the Legal and Credit apps never overwrite each other's saved sets.
 const savedKeyFor = (email) => "lsv:" + email;         // Meridian Legal
 const savedCreditKeyFor = (email) => "csv:" + email;   // Meridian Credit
+// Per-user "notifications seen" sets — the ids a user has already acknowledged in
+// each app's notification bell, so an item marked seen on one device stops
+// showing as new on that user's other devices. One prefix per app.
+const notifMacroKey = (email) => "nmac:" + email;
+const notifCreditKey = (email) => "ncre:" + email;
+const notifLegalKey = (email) => "nleg:" + email;
+
+// GET → { email, seen: [...ids] }; PUT { seen: [...ids] } stores it. Ids can be
+// long (some are URLs), so the cap is generous; the set is bounded to a user's
+// recent feed on each acknowledge.
+async function handleNotifSeen(request, env, keyFor) {
+  const email = identity(request);
+  if (!email) return json({ error: "unauthenticated" }, 401);
+  if (request.method === "GET") {
+    const raw = await env.WATCHLIST.get(keyFor(email));
+    let seen = [];
+    if (raw) { try { const p = JSON.parse(raw); if (Array.isArray(p)) seen = p; } catch { /* keep default */ } }
+    return json({ email, seen });
+  }
+  if (request.method === "PUT") {
+    let body;
+    try { body = await request.json(); } catch { return json({ error: "invalid json" }, 400); }
+    const seen = Array.isArray(body.seen)
+      ? body.seen.filter((x) => typeof x === "string" && x.length <= 400).slice(0, 4000)
+      : [];
+    await env.WATCHLIST.put(keyFor(email), JSON.stringify(seen));
+    return json({ ok: true });
+  }
+  return json({ error: "method not allowed" }, 405);
+}
 
 async function handleSaved(request, env, keyFor) {
   const email = identity(request);
@@ -491,6 +521,9 @@ export default {
     if (url.pathname === "/api/watchlist") return handleWatchlist(request, env);
     if (url.pathname === "/api/saved") return handleSaved(request, env, savedKeyFor);
     if (url.pathname === "/api/saved-credit") return handleSaved(request, env, savedCreditKeyFor);
+    if (url.pathname === "/api/notif-macro") return handleNotifSeen(request, env, notifMacroKey);
+    if (url.pathname === "/api/notif-credit") return handleNotifSeen(request, env, notifCreditKey);
+    if (url.pathname === "/api/notif-legal") return handleNotifSeen(request, env, notifLegalKey);
     if (url.pathname === "/api/me") return handleMe(request);
     // Sign-in helper: hitting this behind Access triggers the Access login,
     // then bounces the user to `to` (default the landing page).

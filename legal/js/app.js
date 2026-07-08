@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
-} from "./data.js?v=20260708-1";
-import { donutChart, columnChart } from "./charts.js?v=20260708-1";
+} from "./data.js?v=20260708-2";
+import { donutChart, columnChart } from "./charts.js?v=20260708-2";
 
 const app = document.getElementById("app");
 
@@ -917,7 +917,21 @@ document.addEventListener("keydown", (e) => {
 // ---- Notifications bell: feed items new since the bell was last opened ------
 // In the topbar (outside #app) so it persists across every tab. "New" is the set
 // of current item ids not yet acknowledged (localStorage).
+// "Seen" ids sync per-user across devices via /api/notif-legal (KV keyed on the
+// verified Access email), with localStorage as an instant cache / offline
+// fallback — so acknowledging items on one device clears them on the others.
 const NOTIF_KEY = "meridian.legal.notifSeen";
+const NOTIF_API = "/api/notif-legal";
+let notifSeen = null;    // resolved array of acknowledged ids (null until known)
+let notifCloud = false;  // true once the per-user seen-set API responds
+function notifReadLocal() {
+  try { const p = JSON.parse(localStorage.getItem(NOTIF_KEY) || "null"); return Array.isArray(p) ? p : null; } catch { return null; }
+}
+function notifPersist(ids) {
+  notifSeen = ids;
+  try { localStorage.setItem(NOTIF_KEY, JSON.stringify(ids)); } catch { /* */ }
+  if (notifCloud) fetch(NOTIF_API, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ seen: ids }) }).catch(() => {});
+}
 function notifItems() {
   const out = [];
   items.forEach((it) => out.push({ id: "u:" + it.id, date: it.date || "", kind: (typeById[it.type] || {}).name || it.type, title: it.title, href: "#/item/" + it.id }));
@@ -935,12 +949,8 @@ function renderNotifications() {
   if (!wrap) return;
   const all = notifItems();
   const allIds = all.map((x) => x.id);
-  let seen;
-  try { seen = JSON.parse(localStorage.getItem(NOTIF_KEY) || "null"); } catch { seen = null; }
-  const firstVisit = !Array.isArray(seen);
-  const seenSet = new Set(firstVisit ? allIds : seen);
-  if (firstVisit) { try { localStorage.setItem(NOTIF_KEY, JSON.stringify(allIds)); } catch {} }
-  const fresh = firstVisit ? [] : all.filter((x) => !seenSet.has(x.id));
+  const seenSet = notifSeen ? new Set(notifSeen) : null;
+  const fresh = seenSet ? all.filter((x) => !seenSet.has(x.id)) : [];
   const n = fresh.length;
   const list = (n ? fresh : all).slice(0, 12);
   wrap.innerHTML = `
@@ -962,10 +972,32 @@ function renderNotifications() {
     e.stopPropagation();
     if (panel.hasAttribute("hidden")) {
       panel.removeAttribute("hidden"); bell.setAttribute("aria-expanded", "true");
-      try { localStorage.setItem(NOTIF_KEY, JSON.stringify(allIds)); } catch {}
+      notifPersist([...new Set([...(notifSeen || []), ...allIds])]);
       const badge = bell.querySelector(".notif-badge"); if (badge) badge.remove();
     } else { closeNotif(); }
   });
+}
+// Resolve the seen-set: instant render from localStorage, then reconcile with the
+// per-user server copy so items acknowledged on another device drop off here too.
+async function initNotif() {
+  notifSeen = notifReadLocal();
+  renderNotifications();
+  let serverSeen = null;
+  try {
+    const r = await fetch(NOTIF_API, { headers: { accept: "application/json" } });
+    if (r.ok) { const d = await r.json(); serverSeen = Array.isArray(d.seen) ? d.seen : []; notifCloud = true; }
+  } catch { /* not behind Access → local-only */ }
+  const allIds = notifItems().map((x) => x.id);
+  const local = notifReadLocal() || [];
+  const baseline = ((serverSeen && serverSeen.length) || local.length)
+    ? [...new Set([...local, ...(serverSeen || [])])]
+    : allIds;
+  notifSeen = baseline;
+  try { localStorage.setItem(NOTIF_KEY, JSON.stringify(baseline)); } catch { /* */ }
+  if (notifCloud && (!serverSeen || baseline.length !== serverSeen.length)) {
+    fetch(NOTIF_API, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ seen: baseline }) }).catch(() => {});
+  }
+  renderNotifications();
 }
 document.addEventListener("click", (e) => {
   if (!e.target.closest("#notif")) closeNotif();
@@ -1022,7 +1054,7 @@ document.addEventListener("touchend", (e) => {
 
 window.addEventListener("hashchange", router);
 initChrome();
-renderNotifications();
+initNotif();
 router();
 markVisitedSoon();
 initSavedSync();   // pull + merge the per-user saved list across devices (behind Access)
