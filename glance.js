@@ -33,19 +33,15 @@ export function initGlance() {
 // ---- Highlight cards -------------------------------------------------------
 // Each platform card is broken into its natural sections, newest 3 items each.
 function renderCards() {
-  // ---- Macro: headlines, upcoming releases, rate outlook ----
-  const macroNews = (k, c) => ((NEWS && NEWS[k]) || []).map((n) => ({ ...n, c }));
-  const news = [...macroNews("us", "US"), ...macroNews("uk", "UK")].sort(byDateDesc).slice(0, 3);
+  // ---- Macro: US headlines, UK headlines, upcoming releases (3 each) ----
+  const macroNews = (k) => ((NEWS && NEWS[k]) || []).slice().sort(byDateDesc).slice(0, 3);
   const today = new Date(); today.setHours(0, 0, 0, 0);
   const releases = (RELEASES || []).filter((r) => new Date((r.date || "") + "T00:00:00") >= today)
     .sort((a, b) => String(a.date).localeCompare(String(b.date))).slice(0, 3);
-  const outlook = (SUMMARY && SUMMARY.outlook) || {};
-  sec("m", 1, "Headlines", news.map((n) => item(n.url, n.title, `${n.c} · ${fmt(n.date)} · ${n.source}`, true)));
-  sec("m", 2, "Upcoming releases", releases.map((r) => item("/macro/", r.title, `${r.country || ""} · ${fmt(r.date)}`)));
-  sec("m", 3, "Rate outlook", [
-    outlook.us ? item("/macro/#/commentary", outlook.us, "US") : "",
-    outlook.uk ? item("/macro/#/commentary", outlook.uk, "UK") : "",
-  ]);
+  const headline = (n) => item(n.url, n.title, `${fmt(n.date)}${n.source ? " · " + n.source : ""}`, true);
+  sec("m", 1, "US headlines", macroNews("us").map(headline));
+  sec("m", 2, "UK headlines", macroNews("uk").map(headline));
+  sec("m", 3, "Upcoming releases", releases.map((r) => item("/macro/", r.title, `${r.country || ""} · ${fmt(r.date)}`)));
 
   // ---- Credit: deals, fundraising, CLOs ----
   const dealsR = [...deals].filter((d) => !d.clo).sort(byDateDesc).slice(0, 3);
