@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS } from "./content.js?v=20260708-3";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES } from "./content.js?v=20260708-4";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -50,7 +50,6 @@ function macroTile(s) {
     ? sparkline(s.history)
     : '<div class="spark-empty muted small">5-year history unavailable</div>';
   const asOf = s.asOf ? macroMonth(s.asOf) : "";
-  const next = s.next ? `<div class="macro-next muted"><span class="macro-next-lbl">Next</span> ${esc(s.next)}</div>` : "";
   // Whole tile links to the source (matches the Credit key-rates tiles).
   const tag = s.href ? "a" : "div";
   const attrs = s.href ? ` href="${esc(s.href)}" target="_blank" rel="noopener noreferrer"` : "";
@@ -58,7 +57,6 @@ function macroTile(s) {
     <div class="macro-tile-head"><span class="macro-label">${esc(s.label)}</span><span class="macro-sub muted small">${esc(s.sub || "")}</span></div>
     <div class="macro-valrow"><span class="macro-val">${val}</span>${chHtml}</div>
     <div class="macro-chart">${chart}</div>
-    ${next}
     <div class="macro-foot muted"><span class="macro-src">${asOf ? esc(asOf) + " · " : ""}${esc(s.source)} ↗</span></div>
   </${tag}>`;
 }
@@ -78,28 +76,67 @@ function summaryCards() {
   </section>`;
 }
 
+// ---- Date helpers ----------------------------------------------------------
+const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const isoToDate = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ""); return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; };
+const todayMidnight = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; };
 // Full-date formatter for news items: "2026-07-01" → "1 Jul 2026".
 function fmtDay(iso) {
-  if (!iso) return "";
-  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
-  if (!m) return iso;
-  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-  return `${+m[3]} ${months[+m[2] - 1]} ${m[1]}`;
+  const d = isoToDate(iso);
+  return d ? `${d.getDate()} ${MONTHS[d.getMonth() + 1]} ${d.getFullYear()}` : (iso || "");
+}
+// Weekday + day + month for the calendar banner: "2026-07-14" → "Tue 14 Jul".
+function fmtWeekday(iso) {
+  const d = isoToDate(iso);
+  return d ? `${WEEKDAYS[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth() + 1]}` : (iso || "");
 }
 
+// ---- Upcoming-releases banner (this week & next) ---------------------------
+// Shows scheduled US/UK data releases & central-bank announcements from today
+// through the end of next calendar week, sorted soonest-first.
+function renderReleases() {
+  const now = todayMidnight();
+  const day = now.getDay();                 // 0 Sun … 6 Sat
+  const toSun = day === 0 ? 0 : 7 - day;    // days to the end of THIS week
+  const end = new Date(now); end.setDate(now.getDate() + toSun + 7); // …+ next week
+  const up = (RELEASES || [])
+    .filter((r) => { const d = isoToDate(r.date); return d && d >= now && d <= end; })
+    .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+  const body = up.length
+    ? `<ul class="cal-list">${up.map((r) => `
+        <li class="cal-item">
+          <span class="cal-date">${esc(fmtWeekday(r.date))}</span>
+          <span class="cal-flag cal-${(r.country || "").toLowerCase()}">${esc(r.country || "")}</span>
+          <span class="cal-title">${esc(r.title)}</span>
+        </li>`).join("")}</ul>`
+    : `<p class="cal-empty muted small">No major US or UK data releases scheduled this week or next.</p>`;
+  return `<section class="macro-cal" aria-label="Upcoming economic releases">
+    <div class="macro-cal-head"><span class="cal-icon" aria-hidden="true">🗓</span><h2 class="cal-heading">This week &amp; next — scheduled releases</h2></div>
+    ${body}
+  </section>`;
+}
+
+// ---- Key macro headlines (Latest-Activity-style feed) ----------------------
+// One chronological list, newest first, limited to items ≤ 3 days old.
 function renderNews() {
-  if (!NEWS || (!NEWS.us && !NEWS.uk)) return "";
-  const col = (name, items) => {
-    const list = (items || []).map((n) => `
-      <a class="news-item" href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">
-        <span class="news-title">${esc(n.title)}</span>
-        <span class="news-meta muted small">${esc(n.source)} · ${esc(fmtDay(n.date))} ↗</span>
-      </a>`).join("");
-    return `<div class="news-col"><h3 class="news-country">${esc(name)}</h3><div class="news-list">${list}</div></div>`;
-  };
-  return `<section class="macro-news">
-    <div class="macro-news-head"><h2 class="macro-country">Key macro headlines</h2><span class="muted small">Reuters, FT, Bloomberg, CNBC & similar</span></div>
-    <div class="news-cols">${col("United States", NEWS.us)}${col("United Kingdom", NEWS.uk)}</div>
+  const cutoff = todayMidnight(); cutoff.setDate(cutoff.getDate() - 3);
+  const items = [
+    ...((NEWS && NEWS.us) || []).map((n) => ({ ...n, country: "US" })),
+    ...((NEWS && NEWS.uk) || []).map((n) => ({ ...n, country: "UK" })),
+  ]
+    .filter((n) => { const d = isoToDate(n.date); return d && d >= cutoff; })
+    .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  const body = items.length
+    ? `<ul class="compact-list">${items.map((n) => `
+        <li class="compact-item">
+          <a class="compact-head" href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">${esc(n.title)}</a>
+          <div class="compact-meta muted small"><span class="news-flag news-${n.country.toLowerCase()}">${esc(n.country)}</span> ${esc(fmtDay(n.date))} · ${esc(n.source)} ↗</div>
+        </li>`).join("")}</ul>`
+    : `<p class="muted small">No major macro headlines in the last three days.</p>`;
+  return `<section class="card feature-card macro-news-panel">
+    <h2>Key macro headlines</h2>
+    <p class="muted small">The most important US &amp; UK macro stories from the past three days, newest first — Reuters, FT, Bloomberg, CNBC &amp; similar. Click a headline to open it.</p>
+    ${body}
   </section>`;
 }
 
@@ -110,7 +147,7 @@ function renderMacro(data) {
     const tiles = series.filter((s) => s.country === c).map(macroTile).join("");
     return tiles ? `<section class="macro-group"><h2 class="macro-country">${esc(name)}</h2><div class="macro-grid">${tiles}</div></section>` : "";
   }).join("");
-  return grids + renderNews() + summaryCards();
+  return renderReleases() + grids + renderNews() + summaryCards();
 }
 
 // ---- Horizontal 0–100 gauge (used by Cycle and Bubble) ---------------------

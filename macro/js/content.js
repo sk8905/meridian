@@ -168,19 +168,44 @@ export const SUMMARY = {
 };
 
 // ---- Key macro news headlines (Dashboard) ----------------------------------
-// Three US and three UK macro/monetary-policy/markets stories from reputable
-// financial-news outlets, refreshed with the twice-daily routine. Each links to
-// the published article; verify against the source before relying on it.
+// The most important US & UK macro / monetary-policy / markets stories from the
+// past few days, from reputable financial-news outlets. The dashboard renders a
+// single newest-first feed and shows only items ≤ 3 days old, so the twice-daily
+// routine REWRITES these every run. Each links to the published article; verify
+// against the source before relying on it.
 export const NEWS = {
   updated: "2026-07-08",
   us: [
-    { title: "Fed holds interest rates steady as Warsh era begins", source: "Fox Business", date: "2026-06-17", url: "https://www.foxbusiness.com/economy/federal-reserve-interest-rate-decision-june-17-2026" },
-    { title: "U.S. adds just 57,000 jobs in June as wage growth stays slow", source: "NBC News", date: "2026-07-02", url: "https://www.nbcnews.com/business/economy/june-jobs-report-stable-hiring-rcna352603" },
-    { title: "U.S. won't renew USMCA, will review trade pact with Canada and Mexico", source: "CNBC", date: "2026-07-01", url: "https://www.cnbc.com/2026/07/01/trump-usmca-canada-mexico-trade-treaty.html" },
+    { title: "Dollar near two-week lows as rate-hike bets recede", source: "CNBC", date: "2026-07-06", url: "https://www.cnbc.com/amp/2026/07/06/dollar-near-2-week-low-as-rate-hike-bets-fall-embattled-yen-in-focus.html" },
+    { title: "Services PMI at 54%: June 2026 ISM Services PMI report", source: "ISM", date: "2026-07-06", url: "https://www.morningstar.com/news/pr-newswire/20260706la97363/services-pmi-at-54-june-2026-ism-services-pmi-report" },
+    { title: "Dow posts record as S&P 500 and Nasdaq rally on revived AI optimism", source: "Yahoo Finance", date: "2026-07-06", url: "https://finance.yahoo.com/markets/stocks/live/stock-market-today-monday-july-6-nasdaq-sp-rise-225645420.html" },
   ],
   uk: [
-    { title: "Bank of England's Bailey says rate cuts are still off the table", source: "Bloomberg", date: "2026-07-01", url: "https://www.bloomberg.com/news/articles/2026-07-01/bank-of-england-s-bailey-says-rate-cuts-are-still-off-the-table" },
-    { title: "UK inflation holds steady at 2.8% in May", source: "CNBC", date: "2026-06-17", url: "https://www.cnbc.com/2026/06/17/inflation-uk-cpi-interest-rates-bank-of-england.html" },
-    { title: "UK jobs market shows signs of stabilizing ahead of BoE decision", source: "Bloomberg", date: "2026-06-18", url: "https://www.bloomberg.com/news/articles/2026-06-18/uk-jobs-market-shows-signs-of-stablizing-ahead-of-boe-decision" },
+    { title: "Rapid AI advances increasing financial stability risks, Bank of England warns", source: "Yahoo Finance UK", date: "2026-07-08", url: "https://uk.finance.yahoo.com/news/rapid-ai-advances-increasing-financial-095753760.html" },
+    { title: "UK Halifax house prices rose 0.2% in June, beating expectations", source: "InvestingLive", date: "2026-07-07", url: "https://investinglive.com/news/uk-june-halifax-house-prices-02-vs-01-mm-expected-20260707/" },
+    { title: "UK construction downturn eases slightly in June, PMI data shows", source: "Reuters", date: "2026-07-06", url: "https://www.globalbankingandfinance.com/uk-construction-downturn-eases-slightly-june-pmi-shows/" },
   ],
 };
+
+// ---- Upcoming economic releases (Dashboard banner) -------------------------
+// Scheduled US & UK data releases and central-bank announcements. The dashboard
+// banner shows only those falling in the current and following calendar week, so
+// the twice-daily routine keeps this rolling forward (dropping past items and
+// adding newly-confirmed dates). Dates verified from official release calendars.
+export const RELEASES = [
+  { date: "2026-07-08", country: "US", title: "FOMC minutes (June meeting)" },
+  { date: "2026-07-14", country: "US", title: "CPI (June)" },
+  { date: "2026-07-15", country: "US", title: "PPI (June)" },
+  { date: "2026-07-16", country: "US", title: "Retail sales (June)" },
+  { date: "2026-07-16", country: "UK", title: "GDP monthly estimate (May)" },
+  { date: "2026-07-21", country: "UK", title: "ONS labour market & average earnings" },
+  { date: "2026-07-22", country: "UK", title: "CPI inflation (June)" },
+  { date: "2026-07-24", country: "UK", title: "Retail sales (June)" },
+  { date: "2026-07-29", country: "US", title: "FOMC rate decision" },
+  { date: "2026-07-30", country: "US", title: "GDP Q2 2026 (advance estimate)" },
+  { date: "2026-07-30", country: "US", title: "PCE inflation (June)" },
+  { date: "2026-07-30", country: "UK", title: "MPC rate decision & Monetary Policy Report" },
+  { date: "2026-08-03", country: "US", title: "ISM Manufacturing PMI (July)" },
+  { date: "2026-08-05", country: "US", title: "ISM Services PMI (July)" },
+  { date: "2026-08-07", country: "US", title: "Jobs report / Nonfarm payrolls (July)" },
+];

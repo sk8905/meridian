@@ -80,6 +80,7 @@ h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
 .container { max-width: 1500px; margin: 0 auto; padding: 1.75rem 2rem 3rem; }
 .page-head { margin-bottom: 1.25rem; }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.25rem; box-shadow: var(--shadow); }
+.feature-card { border-top: 3px solid var(--macro); }
 .footer { border-top: 1px solid var(--border); padding: 1.5rem 2rem; color: var(--muted); font-size: .78rem; max-width: 1500px; margin: 0 auto; }
 .footer code { background: #eef1f5; padding: 0 .25rem; border-radius: 4px; }
 
@@ -102,8 +103,6 @@ a.macro-tile:hover .macro-src { color: var(--macro); text-decoration: underline;
 .spark { width: 100%; height: auto; display: block; }
 .spark-x { fill: var(--muted); font-size: 9px; }
 .spark-empty { padding: 1.1rem 0; text-align: center; }
-.macro-next { font-size: .72rem; line-height: 1.3; margin: .05rem 0 .2rem; color: var(--muted); }
-.macro-next-lbl { font-weight: 700; color: var(--ink); text-transform: uppercase; letter-spacing: .03em; font-size: .64rem; margin-right: .25rem; }
 .macro-foot { color: var(--muted); font-size: .68rem; }
 .macro-src { color: var(--muted); }
 
@@ -116,18 +115,32 @@ a.macro-tile:hover .macro-src { color: var(--macro); text-decoration: underline;
    the signed-in identity, matching Credit's Watchlist. */
 .nav-link.nav-right { margin-left: auto; }
 
-/* ---------- key macro headlines ---------- */
-.macro-news { margin: 0 0 1.7rem; }
-.macro-news-head { display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap; margin-bottom: .8rem; }
-.macro-news-head .macro-country { margin: 0; }
-.news-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.news-country { font-size: .82rem; font-weight: 700; color: var(--macro); text-transform: uppercase; letter-spacing: .04em; margin: 0 0 .55rem; }
-.news-list { display: flex; flex-direction: column; gap: .55rem; }
-.news-item { display: block; border: 1px solid var(--border); border-radius: 10px; padding: .65rem .8rem; background: var(--surface); box-shadow: var(--shadow); color: inherit; text-decoration: none; transition: box-shadow .15s ease, transform .15s ease, border-color .15s ease; }
-.news-item:hover { text-decoration: none; transform: translateY(-1px); border-color: var(--macro); box-shadow: 0 2px 4px rgba(15,23,42,.08), 0 6px 16px rgba(75,63,114,.10); }
-.news-title { display: block; font-weight: 600; color: var(--ink); font-size: .88rem; line-height: 1.35; }
-.news-meta { display: block; margin-top: .3rem; }
-.news-item:hover .news-meta { color: var(--macro); }
+/* ---------- upcoming-releases banner (this week & next) ---------- */
+.macro-cal { border: 1px solid var(--border); border-left: 4px solid var(--macro); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); padding: .85rem 1.1rem; margin: 0 0 1.5rem; }
+.macro-cal-head { display: flex; align-items: center; gap: .5rem; margin-bottom: .55rem; }
+.cal-icon { font-size: 1rem; }
+.cal-heading { font-size: .92rem; font-weight: 700; color: var(--ink); margin: 0; }
+.cal-list { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: .45rem .5rem; }
+.cal-item { display: inline-flex; align-items: center; gap: .5rem; border: 1px solid var(--border); border-radius: 999px; padding: .3rem .7rem; background: #faf9fd; font-size: .82rem; }
+.cal-date { font-weight: 700; color: var(--macro-ink); white-space: nowrap; }
+.cal-flag { font-size: .64rem; font-weight: 800; letter-spacing: .04em; padding: .1rem .35rem; border-radius: 4px; color: #fff; }
+.cal-us { background: #2563eb; }
+.cal-uk { background: #7c3aed; }
+.cal-title { color: var(--ink); }
+.cal-empty { margin: 0; }
+
+/* ---------- key macro headlines (Latest-activity-style feed) ---------- */
+.macro-news-panel { margin: 0 0 1.7rem; }
+.macro-news-panel h2 { font-size: 1.05rem; font-weight: 700; color: var(--ink); margin: 0 0 .2rem; }
+.compact-list { list-style: none; margin: .4rem 0 0; padding: 0; }
+.compact-item { padding: .55rem 0; border-bottom: 1px solid var(--border); }
+.compact-item:last-child { border-bottom: none; }
+.compact-head { display: block; font-weight: 600; color: var(--ink); line-height: 1.35; overflow-wrap: anywhere; }
+a.compact-head:hover { color: var(--macro); text-decoration: underline; }
+.compact-meta { margin-top: .2rem; display: flex; align-items: center; gap: .4rem; flex-wrap: wrap; }
+.news-flag { font-size: .62rem; font-weight: 800; letter-spacing: .04em; padding: .08rem .32rem; border-radius: 4px; color: #fff; }
+.news-us { background: #2563eb; }
+.news-uk { background: #7c3aed; }
 
 /* ---------- dashboard summaries ---------- */
 .macro-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 1.7rem; }
@@ -266,7 +279,8 @@ a.macro-tile:hover .macro-src { color: var(--macro); text-decoration: underline;
   .macro-tile-head { min-height: 0; }
   .macro-val { font-size: 1.5rem; }
   .macro-summary { grid-template-columns: 1fr; gap: .7rem; }
-  .news-cols { grid-template-columns: 1fr; gap: 1.1rem; }
+  .cal-list { flex-direction: column; align-items: flex-start; }
+  .cal-item { width: 100%; }
   .macro-sources ul { grid-template-columns: 1fr; }
 }
 @media (max-width: 480px) {
