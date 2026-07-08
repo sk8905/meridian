@@ -13,7 +13,7 @@ export const UPDATED = "8 July 2026";
 // viewer timezone. The twice-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-08",
-  lastCheckedTime: "05:19 BST",
+  lastCheckedTime: "12:13 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -58,10 +58,8 @@ export const COMMENTARY = {
   updated: "2026-07-08",
   us: [
     { title: "The worst of inflation is behind us — the Fed should stay in wait-and-see mode", source: "CNBC", author: "Mohamed El-Erian", date: "2026-07-07", url: "https://www.cnbc.com/video/2026/07/07/mohamed-el-erian-the-worst-of-inflation-is-behind-us-so-the-fed-should-stay-in-wait-and-see-mode.html" },
-    { title: "Warsh's pivot risks confusing the market and the Fed", source: "Bloomberg Opinion", author: "Bill Dudley", date: "2026-06-24", url: "https://www.bloomberg.com/opinion/articles/2026-06-24/warsh-s-pivot-risks-confusing-the-market-and-the-fed" },
+    { title: "Trump's Meddling Threatens Warsh's Fed Leadership", source: "Bloomberg Opinion", author: "Jonathan Levin", date: "2026-07-06", url: "https://www.bloomberg.com/opinion/articles/2026-07-06/trump-s-meddling-threatens-warsh-s-fed-leadership" },
     { title: "Bank of America sees 3 Fed hikes in 2026, inflation 'unambiguously worse'", source: "CNBC", author: "BofA — Aditya Bhave", date: "2026-06-22", url: "https://www.cnbc.com/2026/06/22/bank-of-america-sees-3-fed-hikes-in-2026-inflation-unambiguously-worse.html" },
-    { title: "J.P. Morgan pushes back on the Fed's 2026 rate-cut forecast", source: "TheStreet", author: "J.P. Morgan — Michael Feroli", date: "2026-06-19", url: "https://www.thestreet.com/fed/j-p-morgan-pushes-back-on-feds-2026-interest-rate-cut-forecast" },
-    { title: "Why the Fed is unlikely to cut rates this year", source: "Goldman Sachs", author: "David Mericle", date: "2026-06-08", url: "https://www.goldmansachs.com/insights/articles/why-the-fed-is-unlikely-to-cut-rates-this-year" },
   ],
   uk: [
     { title: "BoE forecast to hold rates 'well into 2027' as inflation tops 4%", source: "Financial Reporter", author: "Oxford Economics — Edward Allenby", date: "2026-06-30", url: "https://www.financialreporter.co.uk/bank-of-england-forecast-to-hold-interest-rates-well-into-2027-as-inflation-tops-4.html" },
@@ -198,14 +196,14 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-07-08",
   us: [
-    { title: "Dollar near two-week lows as rate-hike bets recede", source: "CNBC", date: "2026-07-06", url: "https://www.cnbc.com/amp/2026/07/06/dollar-near-2-week-low-as-rate-hike-bets-fall-embattled-yen-in-focus.html" },
-    { title: "Services PMI at 54%: June 2026 ISM Services PMI report", source: "ISM", date: "2026-07-06", url: "https://www.morningstar.com/news/pr-newswire/20260706la97363/services-pmi-at-54-june-2026-ism-services-pmi-report" },
-    { title: "Dow posts record as S&P 500 and Nasdaq rally on revived AI optimism", source: "Yahoo Finance", date: "2026-07-06", url: "https://finance.yahoo.com/markets/stocks/live/stock-market-today-monday-july-6-nasdaq-sp-rise-225645420.html" },
+    { title: "Tech weakness resumes after Samsung misses lofty AI expectations", source: "Bloomberg", date: "2026-07-07", url: "https://www.bloomberg.com/news/articles/2026-07-07/tech-weakness-resumes-after-samsung-misses-lofty-ai-expectations" },
+    { title: "Treasury yields are little changed as investors look ahead to FOMC meeting minutes", source: "CNBC", date: "2026-07-06", url: "https://www.cnbc.com/2026/07/06/us-treasury-yields-investors-look-ahead-to-fomc-meeting-minutesu.html" },
+    { title: "Jobs report shows weaker-than-expected hiring in June", source: "Axios", date: "2026-07-02", url: "https://www.axios.com/2026/07/02/jobs-june-trump-federal-reserve" },
   ],
   uk: [
     { title: "Rapid AI advances increasing financial stability risks, Bank of England warns", source: "Yahoo Finance UK", date: "2026-07-08", url: "https://uk.finance.yahoo.com/news/rapid-ai-advances-increasing-financial-095753760.html" },
     { title: "UK Halifax house prices rose 0.2% in June, beating expectations", source: "InvestingLive", date: "2026-07-07", url: "https://investinglive.com/news/uk-june-halifax-house-prices-02-vs-01-mm-expected-20260707/" },
-    { title: "UK construction downturn eases slightly in June, PMI data shows", source: "Reuters", date: "2026-07-06", url: "https://www.globalbankingandfinance.com/uk-construction-downturn-eases-slightly-june-pmi-shows/" },
+    { title: "Bank of England's Bailey Says Rate Cuts Are Still Off the Table", source: "Bloomberg", date: "2026-07-01", url: "https://www.bloomberg.com/news/articles/2026-07-01/bank-of-england-s-bailey-says-rate-cuts-are-still-off-the-table" },
   ],
 };
 
