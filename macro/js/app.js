@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260708-16";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260708-17";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -93,17 +93,15 @@ function fmtWeekday(iso) {
   return d ? `${WEEKDAYS[d.getDay()]} ${d.getDate()} ${MONTHS[d.getMonth() + 1]}` : (iso || "");
 }
 
-// ---- Upcoming-releases banner (this week & next) ---------------------------
-// Shows scheduled US/UK data releases & central-bank announcements from today
-// through the end of next calendar week, sorted soonest-first.
+// ---- Upcoming-releases banner ----------------------------------------------
+// Shows the next six scheduled US/UK data releases & central-bank announcements
+// (soonest first) — one row of 6 on desktop, a 2×3 grid on phones.
 function renderReleases() {
   const now = todayMidnight();
-  const day = now.getDay();                 // 0 Sun … 6 Sat
-  const toSun = day === 0 ? 0 : 7 - day;    // days to the end of THIS week
-  const end = new Date(now); end.setDate(now.getDate() + toSun + 7); // …+ next week
   const up = (RELEASES || [])
-    .filter((r) => { const d = isoToDate(r.date); return d && d >= now && d <= end; })
-    .sort((a, b) => String(a.date).localeCompare(String(b.date)));
+    .filter((r) => { const d = isoToDate(r.date); return d && d >= now; })
+    .sort((a, b) => String(a.date).localeCompare(String(b.date)))
+    .slice(0, 6);
   if (!up.length) {
     return `<section class="macro-cal" aria-label="Upcoming economic releases">
       <p class="cal-empty muted small">No major US or UK data releases scheduled this week or next.</p>
