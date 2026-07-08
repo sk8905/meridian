@@ -127,7 +127,7 @@ a.macro-tile:hover .macro-src { color: var(--macro); text-decoration: underline;
    draws the dividers; the card's rounded border + overflow:hidden frame it. */
 .macro-cal { border: 1px solid var(--border); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); overflow: hidden; margin: 0 0 1.5rem; }
 .cal-band { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: var(--border); width: 100%; }
-.cal-tile { display: flex; flex-direction: column; justify-content: center; gap: .3rem; padding: .7rem 1rem; background: var(--surface); color: inherit; text-decoration: none; }
+.cal-tile { display: flex; flex-direction: column; justify-content: flex-start; gap: .3rem; padding: .7rem 1rem; background: var(--surface); color: inherit; text-decoration: none; }
 a.cal-tile:hover { text-decoration: none; }
 a.cal-tile:hover .cal-title, a.cal-tile:hover .cal-country { color: var(--macro); }
 a.cal-tile:focus-visible { outline: 2px solid var(--macro); outline-offset: -2px; }
