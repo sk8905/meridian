@@ -125,12 +125,6 @@
       .g-user { font-size:.7rem; }
       .g-refresh { font-size:.6rem; }
     }
-    @media (max-width:760px){
-      .g-main { padding:1.1rem 1rem 2.5rem; }
-      .g-hello h1 { font-size:1.35rem; }
-      .g-hello p { margin-bottom:1rem; }
-      .cmdk-panel { margin:8vh 12px 0; }
-    }
     /* Smallest phones (≤360px, e.g. the compact iPhone SE): tighten the top row so
        the switch + identity still fit side by side without horizontal scroll. */
     @media (max-width:360px){
@@ -167,10 +161,12 @@
       .rate-tile:nth-child(4n+1) { border-left:none; } }
     @media (max-width:760px){ .rates-band { padding:.55rem .2rem; } .rate-tile { padding:.1rem .4rem; }
       .rate-label { font-size:.58rem; } .rate-val { font-size:.92rem; } }
-    /* On phones the 8-across strip is unreadable — drop to two columns. */
+    /* On phones the 8-across strip is unreadable — drop to two columns, and hide
+       the sparkline trendlines to keep each tile compact. */
     @media (max-width:520px){ .rates-band { grid-template-columns:repeat(2,1fr); }
       .rate-tile { padding:.1rem .7rem; } .rate-tile:nth-child(2n+1) { border-left:none; }
-      .rate-label { font-size:.62rem; } .rate-val { font-size:1rem; } }
+      .rate-label { font-size:.62rem; } .rate-val { font-size:1rem; }
+      .rate-spark, .rate-spark-empty { display:none; } }
 
     /* ---- Cards ---- */
     .g-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.1rem; }
@@ -260,6 +256,16 @@
     .cmdk-foot { border-top:1px solid var(--line); padding:.5rem .8rem; color:var(--muted); font-size:.72rem;
       display:flex; gap:1rem; }
     .cmdk-foot kbd { background:#eef2fb; border-radius:4px; padding:.05rem .3rem; font-family:inherit; font-weight:700; }
+
+    /* Mobile body-text overrides — placed last so they win over the base
+       .g-main / .g-hello / .cmdk-panel rules above. On phones the hero heading
+       was out of proportion with the rest of the (small) UI text. */
+    @media (max-width:760px){
+      .g-main { padding:1.1rem 1rem 2.5rem; }
+      .g-hello h1 { font-size:1.2rem; letter-spacing:0; line-height:1.25; }
+      .g-hello p { font-size:.86rem; margin-bottom:1rem; }
+      .cmdk-panel { margin:8vh 12px 0; }
+    }
   </style>
 </head>
 <body>
