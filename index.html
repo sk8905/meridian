@@ -114,13 +114,16 @@
           "search search";
       }
       .g-brand { grid-area:brand; justify-self:start; }
-      .g-brand-text .sub { font-size:.56rem; }
+      /* Match the app top bars' mobile brand sizing exactly. */
+      .g-logo { font-size:1.1rem; }
+      .g-brand-text strong { font-size:.95rem; }
+      .g-brand-text .sub { font-size:.58rem; }
       .g-right { display:contents; }
       .g-idblock { grid-area:idblock; justify-self:end; align-items:flex-end; }
       .g-notif { grid-area:bell; justify-self:end; }
       .g-bell { width:32px; height:32px; }
       .platform-switch { grid-area:switch; justify-self:start; }
-      .ps-btn { padding:.26rem .55rem; font-size:.76rem; }
+      .ps-btn { padding:.24rem .5rem; font-size:.74rem; }
       .g-search-btn { grid-area:search; width:100%; min-width:0; margin-left:0; }
       .g-user { font-size:.7rem; }
       .g-refresh { font-size:.6rem; }
