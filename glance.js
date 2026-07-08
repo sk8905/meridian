@@ -7,9 +7,11 @@
 // indicators and views — deep-linking into each app. Zero dependencies; loaded
 // only once the user is authenticated.
 // =============================================================================
-import { deals, intel, managers, funds } from "/credit/js/data.js";
-import { items, cases, restructurings } from "/legal/js/data.js";
-import { NEWS, RELEASES, SUMMARY } from "/macro/js/content.js";
+// Data modules are versioned (matching each app) so the live Glance busts its
+// cache with the twice-daily data refresh instead of serving a stale copy.
+import { deals, intel, managers, funds, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260708-9";
+import { items, cases, restructurings } from "/legal/js/data.js?v=20260708-8";
+import { NEWS, ALERTS, COMMENTARY } from "/macro/js/content.js?v=20260708-27";
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const byDateDesc = (a, b) => String(b.date || "").localeCompare(String(a.date || ""));
@@ -23,10 +25,15 @@ const MACRO_INDICATORS = [
 ];
 
 let _inited = false;
+const fmtRefresh = () => `${fmt(LAST_CHECKED)}${LAST_CHECKED_TIME ? `, ${LAST_CHECKED_TIME}` : ""}`;
+
 export function initGlance() {
   if (_inited) return; _inited = true;
   renderCards();
   initRates();
+  const rf = document.getElementById("g-refresh");
+  if (rf) rf.textContent = `Last refresh ${fmtRefresh()}`;
+  initNotifBell();
   wirePalette(buildIndex());
 }
 
@@ -35,13 +42,14 @@ export function initGlance() {
 function renderCards() {
   // ---- Macro: US headlines, UK headlines, upcoming releases (3 each) ----
   const macroNews = (k) => ((NEWS && NEWS[k]) || []).slice().sort(byDateDesc).slice(0, 3);
-  const today = new Date(); today.setHours(0, 0, 0, 0);
-  const releases = (RELEASES || []).filter((r) => new Date((r.date || "") + "T00:00:00") >= today)
-    .sort((a, b) => String(a.date).localeCompare(String(b.date))).slice(0, 3);
+  const commentary = [
+    ...(((COMMENTARY && COMMENTARY.us) || []).map((c) => ({ ...c, cc: "US" }))),
+    ...(((COMMENTARY && COMMENTARY.uk) || []).map((c) => ({ ...c, cc: "UK" }))),
+  ].sort(byDateDesc).slice(0, 3);
   const headline = (n) => item(n.url, n.title, `${fmt(n.date)}${n.source ? " · " + n.source : ""}`, true);
   sec("m", 1, "US headlines", macroNews("us").map(headline));
   sec("m", 2, "UK headlines", macroNews("uk").map(headline));
-  sec("m", 3, "Upcoming releases", releases.map((r) => item("/macro/", r.title, `${r.country || ""} · ${fmt(r.date)}`)));
+  sec("m", 3, "Market commentary", commentary.map((c) => item(c.url, c.title, `${c.cc} · ${fmt(c.date)}${c.source ? " · " + c.source : ""}`, true)));
 
   // ---- Credit: deals, fundraising, CLOs ----
   const dealsR = [...deals].filter((d) => !d.clo).sort(byDateDesc).slice(0, 3);
@@ -115,6 +123,118 @@ function initRates() {
         : '<span class="g-loading">Market rates unavailable right now.</span>';
     })
     .catch(() => { el.innerHTML = '<span class="g-loading">Market rates unavailable right now.</span>'; });
+}
+
+// ---- Notifications: aggregate the three apps' unread counts ----------------
+// Each app defines its own notification set + per-user "seen" ids (synced via
+// /api/notif-<app>, KV keyed on the Access email, with localStorage as cache).
+// Glance replays that model for all three and sums the unread counts on one bell.
+function creditNotif() {
+  const out = [];
+  deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, href: "/credit/" + (d.clo ? "#/clos" : "#/deals") }));
+  intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, href: "/credit/" + (i.clo ? "#/clos" : "#/intel") }));
+  managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", kind: "News", title: w.title, href: "/credit/#/manager/" + m.id })));
+  return out.sort(byDateDesc);
+}
+function legalNotif() {
+  const out = [];
+  items.forEach((it) => out.push({ id: "u:" + it.id, date: it.date || "", kind: "Alert", title: it.title, href: "/legal/#/item/" + encodeURIComponent(it.id) }));
+  cases.forEach((c) => out.push({ id: "c:" + c.id, date: c.date || "", kind: c.court || "Case", title: c.name, href: "/legal/#/cases?case=" + encodeURIComponent(c.id) }));
+  restructurings.forEach((r) => out.push({ id: "r:" + r.id, date: r.date || "", kind: r.type === "scheme" ? "Scheme" : "Plan", title: r.company, href: "/legal/#/restructurings?m=" + encodeURIComponent(r.id) }));
+  return out.sort(byDateDesc);
+}
+function macroDataAlerts(series) {
+  return (series || []).filter((s) => s.value != null).map((s) => {
+    const pct = s.unit === "%";
+    const val = `${(+s.value).toFixed(2)}${pct ? "%" : ""}`;
+    const country = s.country === "US" ? "US" : "UK";
+    let chg = "";
+    if (s.change != null && s.change !== 0) chg = ` · ${s.change > 0 ? "▲" : "▼"} ${Math.abs(s.change).toFixed(2)}${pct ? " pp" : ""} MoM`;
+    else if (s.change === 0) chg = " · unchanged MoM";
+    const flag = (s.key === "services_pmi" && +s.value < 50) ? " — below 50 (contraction)" : "";
+    return { id: `d:${s.country}:${s.key}:${s.asOf}:${(+s.value).toFixed(2)}`, kind: "Economic data",
+      title: `${country} · ${s.label}: ${val}${flag}${chg}`, href: "/macro/#/dashboard", date: s.asOf ? `${s.asOf}-01` : "" };
+  });
+}
+let _macroSeries;
+async function macroSeries() {
+  if (_macroSeries) return _macroSeries;
+  try { const r = await fetch("/api/macro", { headers: { accept: "application/json" } }); if (r.ok) { const d = await r.json(); _macroSeries = (d && d.series) || []; return _macroSeries; } } catch { /* offline */ }
+  _macroSeries = []; return _macroSeries;
+}
+async function macroNotif() {
+  const series = await macroSeries();
+  const guidance = (ALERTS || []).map((a) => ({ id: a.id, date: a.date || "", kind: a.kind || "Guidance", title: a.title, href: "/macro/" + (a.href || "#/commentary") }));
+  return [...guidance, ...macroDataAlerts(series)].sort(byDateDesc);
+}
+const NOTIF_APPS = [
+  { key: "credit", tag: "Credit", api: "/api/notif-credit", ls: "meridian.credit.notifSeen", build: creditNotif },
+  { key: "legal", tag: "Legal", api: "/api/notif-legal", ls: "meridian.legal.notifSeen", build: legalNotif },
+  { key: "macro", tag: "Macro", api: "/api/notif-macro", ls: "meridian.macro.notifSeen", build: macroNotif },
+];
+async function resolveSeen(api, ls, allIds) {
+  let local = null;
+  try { const p = JSON.parse(localStorage.getItem(ls) || "null"); local = Array.isArray(p) ? p : null; } catch { /* */ }
+  let server = null, cloud = false;
+  try { const r = await fetch(api, { headers: { accept: "application/json" } }); if (r.ok) { const d = await r.json(); server = Array.isArray(d.seen) ? d.seen : []; cloud = true; } } catch { /* not behind Access */ }
+  const hasHistory = (server && server.length) || (local && local.length);
+  const baseline = hasHistory ? [...new Set([...(local || []), ...(server || [])])] : allIds.slice();
+  return { baseline, cloud };
+}
+let _notifApps = null;
+async function initNotifBell() {
+  const wrap = document.getElementById("g-notif");
+  if (!wrap) return;
+  const apps = [];
+  for (const cfg of NOTIF_APPS) {
+    let list = [];
+    try { list = await cfg.build(); } catch { list = []; }
+    const allIds = list.map((x) => x.id);
+    const { baseline, cloud } = await resolveSeen(cfg.api, cfg.ls, allIds);
+    const set = new Set(baseline);
+    apps.push({ ...cfg, list, allIds, baseline, cloud, unread: list.filter((x) => !set.has(x.id)) });
+  }
+  _notifApps = apps;
+  renderBell();
+}
+function closeNotifPanel() {
+  const p = document.getElementById("g-notif-panel"), b = document.getElementById("g-bell");
+  if (p) p.setAttribute("hidden", "");
+  if (b) b.setAttribute("aria-expanded", "false");
+}
+function markAllSeen() {
+  (_notifApps || []).forEach((a) => {
+    const merged = [...new Set([...a.baseline, ...a.allIds])];
+    try { localStorage.setItem(a.ls, JSON.stringify(merged)); } catch { /* */ }
+    if (a.cloud) fetch(a.api, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ seen: merged }) }).catch(() => {});
+    a.baseline = merged; a.unread = [];
+  });
+  const badge = document.querySelector("#g-bell .g-badge"); if (badge) badge.remove();
+}
+function renderBell() {
+  const wrap = document.getElementById("g-notif");
+  if (!wrap || !_notifApps) return;
+  const total = _notifApps.reduce((s, a) => s + a.unread.length, 0);
+  const tagged = (a, arr) => arr.map((x) => ({ ...x, tag: a.tag, key: a.key }));
+  const unreadAll = _notifApps.flatMap((a) => tagged(a, a.unread)).sort(byDateDesc);
+  const listAll = _notifApps.flatMap((a) => tagged(a, a.list)).sort(byDateDesc);
+  const show = (total ? unreadAll : listAll).slice(0, 24);
+  const row = (x) => `<a class="g-np-item" href="${esc(x.href)}"><span class="g-np-tag ${x.key}">${esc(x.tag)}</span><span class="g-np-txt"><span class="g-np-t">${esc(x.title)}</span><span class="g-np-m">${esc(x.kind)}${x.date ? " · " + esc(fmt(x.date)) : ""}</span></span></a>`;
+  wrap.innerHTML = `
+    <button type="button" class="g-bell" id="g-bell" aria-haspopup="true" aria-expanded="false" aria-label="Notifications${total ? ` — ${total} new` : ""}">
+      <span aria-hidden="true">🔔</span>${total ? `<span class="g-badge">${total > 9 ? "9+" : total}</span>` : ""}
+    </button>
+    <div class="g-notif-panel" id="g-notif-panel" role="menu" hidden>
+      <div class="g-np-head">${total ? `${total} new update${total > 1 ? "s" : ""}` : "No new updates"} <span class="g-np-sub">· checked ${esc(fmtRefresh())}</span></div>
+      <div class="g-np-list">${show.length ? show.map(row).join("") : '<div class="g-np-empty">Nothing yet.</div>'}</div>
+    </div>`;
+  const bell = document.getElementById("g-bell"), panel = document.getElementById("g-notif-panel");
+  bell.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (panel.hasAttribute("hidden")) { panel.removeAttribute("hidden"); bell.setAttribute("aria-expanded", "true"); markAllSeen(); }
+    else { closeNotifPanel(); }
+  });
+  document.addEventListener("click", (e) => { if (!wrap.contains(e.target)) closeNotifPanel(); });
 }
 
 // ---- Unified search index --------------------------------------------------

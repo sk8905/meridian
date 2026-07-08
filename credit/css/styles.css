@@ -53,8 +53,8 @@ h3 { font-size: 1rem; margin: 0; }
 .brand:hover { text-decoration: none; }
 .brand-text { display: flex; flex-direction: column; }
 .brand-text strong { font-size: 1.05rem; letter-spacing: .3px; }
-.brand-sub { font-size: .7rem; color: #93c5fd; text-transform: uppercase; letter-spacing: 1px; }
-.logo { color: var(--accent); font-size: 1.3rem; line-height: 1; }
+.brand-sub { font-size: .7rem; color: #aab4c2; text-transform: uppercase; letter-spacing: 1px; }
+.logo { color: #c3ccd8; font-size: 1.3rem; line-height: 1; }
 .mainnav { display: flex; gap: .25rem; flex: 0 1 auto; justify-content: flex-start; }
 /* Credit <-> Legal platform switcher */
 .platform-switch { display: inline-flex; align-items: center; gap: 2px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.22); border-radius: 8px; padding: 2px; margin-right: .6rem; flex: 0 0 auto; }

@@ -49,10 +49,37 @@
     .g-search-btn .g-search-lbl { flex:1 1 auto; }
     .g-search-btn kbd { background:rgba(255,255,255,.16); border-radius:5px; padding:.02rem .42rem;
       font-family:inherit; font-size:.82rem; font-weight:700; line-height:1.5; }
-    .g-user { flex:0 0 auto; color:#c3cfea; font-size:.72rem; white-space:nowrap; }
+    /* Far-right cluster: signed-in identity + last-refresh stacked, then the bell */
+    .g-right { display:flex; align-items:center; gap:.85rem; flex:0 0 auto; }
+    .g-idblock { display:flex; flex-direction:column; align-items:flex-end; line-height:1.28; }
+    .g-user { color:#c3cfea; font-size:.72rem; white-space:nowrap; }
     .g-user strong { color:#fff; font-weight:600; }
-    .g-user a { color:#9fb3dd; margin-left:.4rem; font-weight:600; }
+    .g-user a { color:#9fb3dd; margin-left:.35rem; font-weight:600; }
     .g-user a:hover { color:#fff; text-decoration:underline; }
+    .g-refresh { color:#8fa0c4; font-size:.64rem; white-space:nowrap; }
+    .g-notif { position:relative; flex:0 0 auto; }
+    .g-bell { position:relative; width:34px; height:34px; display:grid; place-items:center; cursor:pointer;
+      border-radius:8px; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18);
+      color:#fff; font-size:.95rem; line-height:1; }
+    .g-bell:hover { background:rgba(255,255,255,.2); border-color:rgba(255,255,255,.32); }
+    .g-badge { position:absolute; top:-5px; right:-5px; min-width:16px; height:16px; padding:0 3px;
+      background:#e34948; color:#fff; font-size:.6rem; font-weight:800; border-radius:9px; display:grid; place-items:center; }
+    .g-notif-panel { position:absolute; top:calc(100% + 8px); right:0; width:340px; max-width:88vw;
+      background:#fff; color:var(--ink); border-radius:12px; box-shadow:0 22px 55px rgba(8,20,60,.35);
+      padding:.35rem; z-index:70; }
+    .g-notif-panel[hidden] { display:none; }
+    .g-np-head { font-weight:700; font-size:.82rem; color:var(--ink); padding:.45rem .55rem .5rem; border-bottom:1px solid var(--line); margin-bottom:.2rem; }
+    .g-np-sub { color:var(--muted); font-weight:500; font-size:.72rem; }
+    .g-np-list { max-height:62vh; overflow-y:auto; }
+    .g-np-item { display:flex; gap:.55rem; align-items:flex-start; padding:.5rem .55rem; border-radius:8px; }
+    .g-np-item:hover { background:#eef2fb; }
+    .g-np-tag { flex:0 0 auto; margin-top:.05rem; font-size:.58rem; font-weight:800; text-transform:uppercase;
+      letter-spacing:.03em; color:#fff; padding:.1rem .32rem; border-radius:4px; }
+    .g-np-tag.credit { background:var(--credit); } .g-np-tag.legal { background:var(--legal); } .g-np-tag.macro { background:var(--macro); }
+    .g-np-txt { min-width:0; }
+    .g-np-t { display:block; font-weight:600; font-size:.82rem; color:var(--ink); line-height:1.3; overflow-wrap:anywhere; }
+    .g-np-m { display:block; color:var(--muted); font-size:.72rem; margin-top:.1rem; }
+    .g-np-empty { color:var(--muted); font-size:.82rem; padding:.8rem .55rem; text-align:center; }
     @media (min-width:1101px){
       /* Mirror the app top bars exactly: the row is indented to the page
          container on both sides, the brand is pinned to the far-left corner and
@@ -67,8 +94,8 @@
        far-right corner so the search bar drops back to the content's right margin
        (the apps' Watchlist/Chart slot). Below this the two share the right cluster
        in normal flow, so they never collide on narrower desktops. */
-    @media (min-width:1800px){
-      .g-user { position:absolute; right:1.5rem; top:50%; transform:translateY(-50%); }
+    @media (min-width:1880px){
+      .g-right { position:absolute; right:1.5rem; top:50%; transform:translateY(-50%); }
     }
     @media (max-width:1100px){
       .g-top-inner { flex-wrap:wrap; height:auto; padding:.6rem 1rem; gap:.6rem 1rem; }
@@ -242,7 +269,13 @@
           <span class="g-search-lbl">Search everything…</span>
           <kbd>/</kbd>
         </button>
-        <span class="g-user"><strong id="email"></strong> · <a href="/cdn-cgi/access/logout">Sign out</a></span>
+        <div class="g-right">
+          <div class="g-idblock">
+            <span class="g-user"><strong id="email"></strong> · <a href="/cdn-cgi/access/logout">Sign out</a></span>
+            <span class="g-refresh" id="g-refresh"></span>
+          </div>
+          <div class="g-notif" id="g-notif"></div>
+        </div>
       </div>
     </header>
     <main class="g-main">
@@ -313,7 +346,7 @@
           show("glance");
           const h = new Date().getHours();
           document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-          import("/glance.js?v=20260708-4").then((m) => m.initGlance()).catch(() => {});
+          import("/glance.js?v=20260708-5").then((m) => m.initGlance()).catch(() => {});
         } else { show("out"); }
       })
       .catch(() => show("out"));

@@ -6,9 +6,10 @@
 // (namespaced so they never clash with the host app), and deep-links on select.
 // Import dynamically and call mountPalette() once.  Zero dependencies.
 // =============================================================================
-import { deals, intel, managers, funds } from "/credit/js/data.js";
-import { items, cases, restructurings } from "/legal/js/data.js";
-import { NEWS, RELEASES, SUMMARY } from "/macro/js/content.js";
+// Versioned imports (matching each app) so the palette busts its cache with the
+// twice-daily data refresh instead of serving a stale copy.
+import { deals, intel, managers, funds } from "/credit/js/data.js?v=20260708-9";
+import { items, cases, restructurings } from "/legal/js/data.js?v=20260708-8";
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
