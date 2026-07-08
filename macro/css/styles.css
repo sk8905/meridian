@@ -234,8 +234,13 @@ a.compact-head:hover { color: var(--macro); text-decoration: underline; }
 .chart-tip .tip-real { color: var(--muted); }
 .chart-ylab, .chart-xlab { fill: var(--muted); font-size: 10px; }
 .chart-evline { stroke: var(--macro-ink); stroke-width: 1.5; stroke-dasharray: 3 3; opacity: .45; }
-.chart-evdot { fill: var(--macro-ink); }
-.chart-evnum { fill: #fff; font-size: 10px; font-weight: 800; }
+.chart-evdot { fill: var(--macro-ink); pointer-events: all; }
+.chart-evnum { fill: #fff; font-size: 10px; font-weight: 800; pointer-events: none; }
+.chart-evmark { cursor: help; }
+.chart-evhit { pointer-events: all; }
+.chart-evmark:hover .chart-evdot { fill: var(--macro); }
+.chart-evmark:hover .chart-evline { opacity: .75; }
+.chart-tip .evtip-desc { margin-top: .3rem; color: var(--muted); font-size: .76rem; line-height: 1.45; max-width: 240px; }
 .chart-cross { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; }
 #chart-hit { cursor: crosshair; }
 .chart-tip { position: absolute; z-index: 5; pointer-events: none; background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: var(--shadow); padding: .5rem .6rem; font-size: .78rem; min-width: 130px; }

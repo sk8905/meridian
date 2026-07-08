@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260708-20";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260708-21";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -340,23 +340,37 @@ const INDICATORS = [
   ["services_pmi", "Services PMI"], ["wages", "Wage growth"], ["unemployment", "Unemployment"],
 ];
 const CHART_EVENTS = [
-  { id: "omicron", date: "2021-12", label: "COVID Omicron wave" },
-  { id: "ukraine", date: "2022-02", label: "Russia invades Ukraine" },
-  { id: "liftoff", date: "2022-03", label: "Fed lift-off (first hike)" },
-  { id: "truss", date: "2022-09", label: "Truss mini-budget" },
-  { id: "ftx", date: "2022-11", label: "FTX collapse" },
-  { id: "svb", date: "2023-03", label: "SVB / banking stress" },
-  { id: "boepeak", date: "2023-08", label: "BoE Bank Rate peaks 5.25%" },
-  { id: "gaza", date: "2023-10", label: "Israel–Hamas war" },
-  { id: "ukelection", date: "2024-07", label: "UK election — Labour win" },
-  { id: "fedcut", date: "2024-09", label: "First Fed rate cut" },
-  { id: "trump", date: "2024-11", label: "Trump re-election" },
-  { id: "tariffs", date: "2025-04", label: "US tariff shock" },
-  { id: "iran", date: "2026-05", label: "Middle East / Iran conflict" },
+  { id: "omicron", date: "2021-12", label: "COVID Omicron wave", desc: "The Omicron variant drove a record global COVID case wave over winter 2021–22, snarling supply chains and labour just as inflation was building." },
+  { id: "ukraine", date: "2022-02", label: "Russia invades Ukraine", desc: "Russia's full-scale invasion sent energy and food prices soaring, adding a huge supply-side shock to global inflation." },
+  { id: "liftoff", date: "2022-03", label: "Fed lift-off (first hike)", desc: "The Fed raised rates for the first time since 2018, opening the fastest tightening cycle in decades to fight 40-year-high inflation." },
+  { id: "truss", date: "2022-09", label: "Truss mini-budget", desc: "The UK government's unfunded tax-cut 'mini-budget' triggered a gilt-market rout and pension-fund (LDI) crisis, forcing an emergency BoE intervention." },
+  { id: "ftx", date: "2022-11", label: "FTX collapse", desc: "The sudden failure of crypto exchange FTX wiped out billions and marked the low point of the 2022 crypto crash." },
+  { id: "svb", date: "2023-03", label: "SVB / banking stress", desc: "The collapse of Silicon Valley Bank (with Signature and Credit Suisse) sparked a global banking-stress scare and fears of a credit crunch." },
+  { id: "boepeak", date: "2023-08", label: "BoE Bank Rate peaks 5.25%", desc: "The Bank of England raised Bank Rate to 5.25% — its 14th straight hike and the peak of the UK tightening cycle." },
+  { id: "gaza", date: "2023-10", label: "Israel–Hamas war", desc: "The outbreak of the Israel–Hamas war raised Middle-East tensions and renewed oil-price risk." },
+  { id: "ukelection", date: "2024-07", label: "UK election — Labour win", desc: "Labour won a landslide UK general election, ending 14 years of Conservative government and reshaping the fiscal outlook." },
+  { id: "fedcut", date: "2024-09", label: "First Fed rate cut", desc: "The Fed delivered its first cut of the cycle, pivoting away from hikes as inflation cooled toward target." },
+  { id: "trump", date: "2024-11", label: "Trump re-election", desc: "Donald Trump won the US presidential election, shifting the outlook toward tariffs, tax cuts and deregulation." },
+  { id: "tariffs", date: "2025-04", label: "US tariff shock", desc: "Sweeping new US import tariffs reignited trade-war fears and stoked concerns about a fresh goods-inflation impulse." },
+  { id: "iran", date: "2026-05", label: "Middle East / Iran conflict", desc: "Renewed Middle-East / Iran conflict spiked oil prices and revived energy-driven inflation worries." },
 ];
 const CHART_MAX = 12;
-let chartSel = new Set(["US:base_rate", "US:core_cpi", "UK:base_rate", "UK:core_cpi"]);
-let chartEvents = new Set(["truss", "trump"]);
+const CHART_DEFAULT_SEL = ["US:base_rate", "US:core_cpi", "UK:base_rate", "UK:core_cpi"];
+const CHART_DEFAULT_EVT = ["truss", "trump"];
+// Chart selection persists across devices (server KV, keyed on Access email) with
+// a localStorage cache for instant load; see chartPersist()/initChartPrefs().
+const CHART_API = "/api/chart-prefs", CHART_LS = "mchart";
+function chartReadLocal() {
+  try { const o = JSON.parse(localStorage.getItem(CHART_LS) || "null"); return o && Array.isArray(o.sel) && Array.isArray(o.events) ? o : null; } catch { return null; }
+}
+const _chartLocal = chartReadLocal();
+let chartSel = new Set(_chartLocal ? _chartLocal.sel : CHART_DEFAULT_SEL);
+let chartEvents = new Set(_chartLocal ? _chartLocal.events : CHART_DEFAULT_EVT);
+function chartPersist() {
+  const payload = { sel: [...chartSel], events: [...chartEvents] };
+  try { localStorage.setItem(CHART_LS, JSON.stringify(payload)); } catch { /* ignore */ }
+  try { fetch(CHART_API, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) }); } catch { /* not behind Access */ }
+}
 
 const MI = (ym) => { const p = String(ym).split("-"); return (+p[0]) * 12 + (+p[1] - 1); };
 const miLabel = (mi) => `${Math.floor(mi / 12)}-${String((mi % 12) + 1).padStart(2, "0")}`;
@@ -374,7 +388,7 @@ function indBox(country) {
   }).join("");
 }
 function viewChart() {
-  const chips = CHART_EVENTS.map((e, i) => `<button type="button" class="chart-evt${chartEvents.has(e.id) ? " is-on" : ""}" data-evt="${e.id}"><span class="evt-num">${i + 1}</span>${esc(e.label)}</button>`).join("");
+  const chips = CHART_EVENTS.map((e, i) => `<button type="button" class="chart-evt${chartEvents.has(e.id) ? " is-on" : ""}" data-evt="${e.id}" title="${esc(e.label)} — ${esc(e.desc)}"><span class="evt-num">${i + 1}</span>${esc(e.label)}</button>`).join("");
   return `
     <div class="page-head">
       <h1>Chart</h1>
@@ -441,9 +455,12 @@ function drawChart() {
     if (!chartEvents.has(e.id)) return;
     const mi = MI(e.date); if (mi < m0 || mi > m1) return;
     const x = xFor(mi);
-    ev += `<line x1="${x.toFixed(1)}" y1="${plotT}" x2="${x.toFixed(1)}" y2="${plotB}" class="chart-evline"/>` +
+    ev += `<g class="chart-evmark" data-evt="${e.id}">` +
+      `<line x1="${x.toFixed(1)}" y1="${plotT}" x2="${x.toFixed(1)}" y2="${plotB}" class="chart-evline"/>` +
       `<circle cx="${x.toFixed(1)}" cy="${(plotT - 10).toFixed(1)}" r="8" class="chart-evdot"/>` +
-      `<text x="${x.toFixed(1)}" y="${(plotT - 10).toFixed(1)}" class="chart-evnum" text-anchor="middle" dominant-baseline="central">${i + 1}</text>`;
+      `<text x="${x.toFixed(1)}" y="${(plotT - 10).toFixed(1)}" class="chart-evnum" text-anchor="middle" dominant-baseline="central">${i + 1}</text>` +
+      `<circle cx="${x.toFixed(1)}" cy="${(plotT - 10).toFixed(1)}" r="13" fill="transparent" class="chart-evhit"/>` +
+      `</g>`;
   });
   const lines = sel.map((s) => {
     const pts = s.history.map((p) => [xFor(MI(p.label)), yFor(ival(s, p.value))]);
@@ -465,6 +482,25 @@ function drawChart() {
   canvas.innerHTML = `<div class="chart-main">${svg}<div id="chart-tip" class="chart-tip" hidden></div></div>
     <div class="chart-legend">${sel.length ? legend : '<span class="muted">Select one or more indicators to plot.</span>'}</div>
     <p class="muted small chart-note">Every series is indexed to <b>0 at its first month (2021)</b>, so each line shows the change since then in the indicator's own units — percentage points for rates, inflation, wages and unemployment; index points for the PMIs. Hover for the actual values. Line style: <b>solid = US</b>, <b>dashed = UK</b>.</p>`;
+
+  // Event markers get a hover bubble explaining the event (works even with no
+  // indicators selected, so it's wired before the crosshair setup below).
+  const evtip = document.getElementById("chart-tip"), evmain = canvas.querySelector(".chart-main");
+  const EVBY = Object.fromEntries(CHART_EVENTS.map((e, i) => [e.id, { n: i + 1, ...e }]));
+  canvas.querySelectorAll(".chart-evmark").forEach((g) => {
+    const info = EVBY[g.getAttribute("data-evt")]; if (!info) return;
+    const show = (e) => {
+      evtip.innerHTML = `<div class="tip-date">${info.n}. ${esc(info.label)} <span class="tip-real">${esc(macroMonth(info.date))}</span></div><div class="evtip-desc">${esc(info.desc)}</div>`;
+      evtip.hidden = false;
+      const mr = evmain.getBoundingClientRect();
+      let tx = e.clientX - mr.left + 14; const ty = e.clientY - mr.top + 8;
+      if (tx > mr.width - 250) tx = e.clientX - mr.left - 260;
+      evtip.style.left = Math.max(2, tx) + "px"; evtip.style.top = Math.max(2, ty) + "px";
+    };
+    g.addEventListener("mouseenter", show);
+    g.addEventListener("mousemove", show);
+    g.addEventListener("mouseleave", () => { evtip.hidden = true; });
+  });
 
   if (!sel.length) return;
   const svgEl = document.getElementById("chart-svg"), hit = document.getElementById("chart-hit");
@@ -505,6 +541,7 @@ document.addEventListener("change", (e) => {
     chartSel.add(key);
   } else chartSel.delete(key);
   const c = document.getElementById("chart-count"); if (c) c.textContent = chartSel.size;
+  chartPersist();
   drawChart();
 });
 document.addEventListener("click", (e) => {
@@ -512,6 +549,7 @@ document.addEventListener("click", (e) => {
   const id = chip.getAttribute("data-evt");
   if (chartEvents.has(id)) chartEvents.delete(id); else chartEvents.add(id);
   chip.classList.toggle("is-on");
+  chartPersist();
   drawChart();
 });
 
@@ -694,8 +732,30 @@ async function initMe() {
   } catch { /* not behind Access */ }
 }
 
+// Load the saved chart selection from the server (cross-device). If the server
+// has a record, it wins (it's the last selection made on any device); otherwise
+// seed the server from whatever is stored locally. Re-render if on the chart tab.
+function initChartPrefs() {
+  fetch(CHART_API, { headers: { accept: "application/json" } })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((d) => {
+      if (!d) return;
+      if (d.stored && Array.isArray(d.sel) && Array.isArray(d.events)) {
+        chartSel = new Set(d.sel.slice(0, CHART_MAX));
+        chartEvents = new Set(d.events);
+        try { localStorage.setItem(CHART_LS, JSON.stringify({ sel: [...chartSel], events: [...chartEvents] })); } catch { /* ignore */ }
+        if (currentTab() === "chart") render();
+      } else if (_chartLocal) {
+        // Server has nothing yet but this device does — seed it so other devices sync.
+        chartPersist();
+      }
+    })
+    .catch(() => { /* not behind Access */ });
+}
+
 window.addEventListener("hashchange", render);
 render();
 initMe();
 renderDataStatus();
 fetchMacro().then(initNotif);
+initChartPrefs();

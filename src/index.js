@@ -46,6 +46,7 @@ const savedCreditKeyFor = (email) => "csv:" + email;   // Meridian Credit
 const notifMacroKey = (email) => "nmac:" + email;
 const notifCreditKey = (email) => "ncre:" + email;
 const notifLegalKey = (email) => "nleg:" + email;
+const chartPrefsKey = (email) => "chart:" + email;
 
 // GET → { email, seen: [...ids] }; PUT { seen: [...ids] } stores it. Ids can be
 // long (some are URLs), so the cap is generous; the set is bounded to a user's
@@ -66,6 +67,29 @@ async function handleNotifSeen(request, env, keyFor) {
       ? body.seen.filter((x) => typeof x === "string" && x.length <= 400).slice(0, 4000)
       : [];
     await env.WATCHLIST.put(keyFor(email), JSON.stringify(seen));
+    return json({ ok: true });
+  }
+  return json({ error: "method not allowed" }, 405);
+}
+
+// Per-user Chart selection (selected indicators + toggled events), synced across
+// devices via KV keyed on the verified Access email.
+async function handleChartPrefs(request, env) {
+  const email = identity(request);
+  if (!email) return json({ error: "unauthenticated" }, 401);
+  if (request.method === "GET") {
+    const raw = await env.WATCHLIST.get(chartPrefsKey(email));
+    let sel = [], events = [], stored = false;
+    if (raw) {
+      try { const p = JSON.parse(raw); if (p && Array.isArray(p.sel) && Array.isArray(p.events)) { sel = p.sel; events = p.events; stored = true; } } catch { /* keep default */ }
+    }
+    return json({ email, stored, sel, events });
+  }
+  if (request.method === "PUT") {
+    let body;
+    try { body = await request.json(); } catch { return json({ error: "invalid json" }, 400); }
+    const clean = (a) => (Array.isArray(a) ? a.filter((x) => typeof x === "string" && x.length <= 60).slice(0, 60) : []);
+    await env.WATCHLIST.put(chartPrefsKey(email), JSON.stringify({ sel: clean(body.sel), events: clean(body.events) }));
     return json({ ok: true });
   }
   return json({ error: "method not allowed" }, 405);
@@ -524,6 +548,7 @@ export default {
     if (url.pathname === "/api/notif-macro") return handleNotifSeen(request, env, notifMacroKey);
     if (url.pathname === "/api/notif-credit") return handleNotifSeen(request, env, notifCreditKey);
     if (url.pathname === "/api/notif-legal") return handleNotifSeen(request, env, notifLegalKey);
+    if (url.pathname === "/api/chart-prefs") return handleChartPrefs(request, env);
     if (url.pathname === "/api/me") return handleMe(request);
     // Sign-in helper: hitting this behind Access triggers the Access login,
     // then bounces the user to `to` (default the landing page).
