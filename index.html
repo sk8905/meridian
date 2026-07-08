@@ -161,12 +161,10 @@
       .rate-tile:nth-child(4n+1) { border-left:none; } }
     @media (max-width:760px){ .rates-band { padding:.55rem .2rem; } .rate-tile { padding:.1rem .4rem; }
       .rate-label { font-size:.58rem; } .rate-val { font-size:.92rem; } }
-    /* On phones the 8-across strip is unreadable — drop to two columns, and hide
-       the sparkline trendlines to keep each tile compact. */
-    @media (max-width:520px){ .rates-band { grid-template-columns:repeat(2,1fr); }
-      .rate-tile { padding:.1rem .7rem; } .rate-tile:nth-child(2n+1) { border-left:none; }
-      .rate-label { font-size:.62rem; } .rate-val { font-size:1rem; }
-      .rate-spark, .rate-spark-empty { display:none; } }
+    /* Phones: hide the sparkline trendlines so the 8 tiles sit compactly as two
+       rows of four (2 × 4). */
+    @media (max-width:520px){ .rate-spark, .rate-spark-empty { display:none; }
+      .rate-tile { padding:.1rem .45rem; } .rate-label { font-size:.55rem; } .rate-val { font-size:.9rem; } }
 
     /* ---- Cards ---- */
     .g-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.1rem; }
