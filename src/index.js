@@ -377,6 +377,11 @@ const MARKET_SERIES = [
   { label: "NASDAQ 100", src: "fred", id: "NASDAQ100", href: "https://fred.stlouisfed.org/series/NASDAQ100" },
   { label: "IGWD", src: "yahoo", symbol: "IGWD.L", stooq: "igwd.uk", href: "https://uk.finance.yahoo.com/quote/IGWD.L" },
   { label: "EMEE", src: "yahoo", symbol: "EMEE.L", stooq: "emee.uk", href: "https://uk.finance.yahoo.com/quote/EMEE.L" },
+  // Second row: commodity & crypto spot (daily close) — all from FRED (keyed).
+  { label: "Brent", src: "fred", id: "DCOILBRENTEU", href: "https://fred.stlouisfed.org/series/DCOILBRENTEU" },
+  { label: "WTI", src: "fred", id: "DCOILWTICO", href: "https://fred.stlouisfed.org/series/DCOILWTICO" },
+  { label: "Gold", src: "fred", id: "GOLDPMGBD228NLBM", href: "https://fred.stlouisfed.org/series/GOLDPMGBD228NLBM" },
+  { label: "Bitcoin", src: "fred", id: "CBBTCUSD", href: "https://fred.stlouisfed.org/series/CBBTCUSD" },
 ];
 
 // Latest price/level + daily change + ~1-month daily-close history from Yahoo
@@ -440,7 +445,7 @@ async function handleMarkets(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/markets?v=1", request.url).toString());
+  const cacheKey = new Request(new URL("/api/markets?v=2", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const data = await Promise.all(MARKET_SERIES.map(async (s) => {
@@ -458,8 +463,9 @@ async function handleMarkets(request, env, ctx) {
   const resp = new Response(JSON.stringify({ markets: data }), {
     headers: { "content-type": "application/json", "cache-control": "public, max-age=180" },
   });
-  // Only cache once every tile resolved, so a transient upstream miss doesn't stick.
-  if (ctx && ctx.waitUntil && data.every((d) => d.value != null)) {
+  // Cache once the reliable (FRED) tiles resolve — don't let a flaky ETF source
+  // force every request to re-hit the upstreams. The two ETFs may lag as "—".
+  if (ctx && ctx.waitUntil && data.filter((d) => d.value != null).length >= 6) {
     ctx.waitUntil(cache.put(cacheKey, resp.clone()));
   }
   return resp;

@@ -145,7 +145,7 @@ function marketTile(x) {
 function initMarkets() {
   const el = document.getElementById("g-markets");
   if (!el) return;
-  fetch("/api/markets?v=1")
+  fetch("/api/markets?v=2")
     .then((r) => (r.ok ? r.json() : Promise.reject()))
     .then((d) => {
       const rows = d.markets || [];
