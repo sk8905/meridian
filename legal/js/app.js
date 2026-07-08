@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
-} from "./data.js?v=20260708-5";
-import { donutChart, columnChart } from "./charts.js?v=20260708-5";
+} from "./data.js?v=20260708-6";
+import { donutChart, columnChart } from "./charts.js?v=20260708-6";
 
 const app = document.getElementById("app");
 
@@ -298,8 +298,13 @@ function clampSum(text) {
 function initClamps(root) {
   (root || document).querySelectorAll(".sum-clamp").forEach((w) => {
     if (w.classList.contains("is-open")) return;
-    const p = w.querySelector(".feed-summary"), btn = w.querySelector(".clamp-toggle");
-    if (p && btn) btn.hidden = !(p.scrollHeight - p.clientHeight > 2);
+    const btn = w.querySelector(".clamp-toggle");
+    if (!btn) return;
+    // Rows that hide extra detail are always expandable; summary-only rows show
+    // the toggle only when the text actually overflows two lines.
+    if (w.classList.contains("has-detail")) { btn.hidden = false; return; }
+    const p = w.querySelector(".feed-summary");
+    if (p) btn.hidden = !(p.scrollHeight - p.clientHeight > 2);
   });
 }
 function caseRow(c) {
@@ -775,13 +780,20 @@ function rxRow(r) {
   const typeFull = r.type === "scheme" ? "Part 26 scheme of arrangement" : "Part 26A restructuring plan";
   const features = (r.features || []).length
     ? `<ul class="rx-features">${r.features.map((f) => `<li>${esc(f)}</li>`).join("")}</ul>` : "";
-  const lines = [
-    clampSum(rxSummary(r)),
+  // The 2-line summary is the preview; all the structured detail below is tucked
+  // into the same expander, so a collapsed matter is genuinely just title +
+  // 2-line summary + "more".
+  const detail = [
     (r.creditors || []).length ? `<p class="rx-line"><span class="rx-lbl">Largest creditors</span> ${esc(r.creditors.join("; "))}</p>` : "",
     (r.advisers || []).length ? `<p class="rx-line"><span class="rx-lbl">Company advised by</span> ${esc(r.advisers.join(", "))}</p>` : "",
     features,
     r.notes ? `<p class="rx-line muted">${esc(r.notes)}</p>` : "",
-  ].join("");
+  ].filter(Boolean).join("");
+  const lines = `<div class="sum-clamp rx-clamp${detail ? " has-detail" : ""}">
+    <p class="feed-summary clamp2">${esc(rxSummary(r))}</p>
+    ${detail ? `<div class="rx-detail">${detail}</div>` : ""}
+    <button type="button" class="clamp-toggle" aria-expanded="false"${detail ? "" : " hidden"}>more</button>
+  </div>`;
   // Foot: court / citation / sector metadata + the firm-analysis and judgment links
   // (mirrors the alerts rows, where the source metadata sits in the footer line).
   const foot = [

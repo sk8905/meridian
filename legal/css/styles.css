@@ -255,6 +255,9 @@ a.feed-title:hover { color: var(--primary); }
 .sum-clamp.is-open .feed-summary.clamp2 { -webkit-line-clamp: unset; overflow: visible; }
 .clamp-toggle { display: inline-block; margin-top: .15rem; padding: 0; background: none; border: 0; color: var(--primary); font: inherit; font-size: .78rem; font-weight: 600; cursor: pointer; }
 .clamp-toggle:hover { text-decoration: underline; }
+/* Schemes/RPs rows tuck all their structured detail into the expander. */
+.rx-clamp .rx-detail { display: none; }
+.rx-clamp.is-open .rx-detail { display: block; margin-top: .45rem; }
 .feed-foot { font-size: .8rem; color: var(--muted); line-height: 1.6; }
 .feed-foot .firm { font-weight: 600; color: var(--ink-soft); }
 .feed-foot .cite { color: var(--muted); font-style: italic; }
