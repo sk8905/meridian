@@ -40,13 +40,15 @@
     .ps-btn:hover { color:#fff; background:rgba(255,255,255,.1); }
     .ps-btn.is-active, .ps-btn.is-active:hover { background:#fff; color:var(--navy); }
     .g-spacer { flex:1 1 auto; }
-    .g-actions { display:flex; align-items:center; gap:.9rem; flex:0 0 auto; }
-    .g-search-btn { display:inline-flex; align-items:center; gap:.6rem; background:rgba(255,255,255,.1);
-      border:1px solid rgba(255,255,255,.16); color:#dbe4f5; font:inherit; font-size:.85rem;
-      padding:.4rem .7rem; border-radius:9px; cursor:pointer; }
-    .g-search-btn:hover { background:rgba(255,255,255,.18); color:#fff; }
-    .g-search-btn kbd { background:rgba(255,255,255,.16); border-radius:4px; padding:.05rem .35rem;
-      font-family:inherit; font-size:.72rem; font-weight:700; }
+    .g-actions { display:flex; align-items:center; gap:1rem; flex:0 0 auto; }
+    .g-search-btn { display:inline-flex; align-items:center; gap:.55rem; min-width:236px;
+      background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18); color:#c8d6ef;
+      font:inherit; font-size:.85rem; padding:.42rem .7rem; border-radius:9px; cursor:pointer; text-align:left; }
+    .g-search-btn:hover { background:rgba(255,255,255,.18); color:#fff; border-color:rgba(255,255,255,.3); }
+    .g-search-btn .g-search-ico { opacity:.85; }
+    .g-search-btn .g-search-lbl { flex:1 1 auto; }
+    .g-search-btn kbd { background:rgba(255,255,255,.16); border-radius:5px; padding:.02rem .42rem;
+      font-family:inherit; font-size:.82rem; font-weight:700; line-height:1.5; }
     .g-user { color:#c3cfea; font-size:.82rem; white-space:nowrap; }
     .g-user strong { color:#fff; font-weight:600; }
     .g-user a { color:#9fb3dd; margin-left:.5rem; }
@@ -89,7 +91,18 @@
     .g-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.1rem; }
     @media (max-width:920px){ .g-grid { grid-template-columns:1fr; } }
     .g-card { background:var(--surface); border:1px solid var(--line); border-radius:16px;
-      box-shadow:var(--shadow); padding:1.15rem 1.25rem 1.25rem; border-top:3px solid var(--ac); display:flex; flex-direction:column; }
+      box-shadow:var(--shadow); padding:1.15rem 1.25rem 1.25rem; border-top:3px solid var(--ac);
+      display:grid; grid-template-columns:1fr; grid-auto-rows:min-content; }
+    /* Align the five bands (header · section 1 · 2 · 3 · footer) across all three
+       cards onto shared row tracks via subgrid, so the section headings line up
+       on the same horizontal lines. Falls back to a normal stacked card. */
+    @supports (grid-template-rows: subgrid) {
+      @media (min-width:921px) {
+        .g-grid { grid-template-rows: auto auto auto auto auto; }
+        .g-card { grid-row: 1 / span 5; grid-template-rows: subgrid; }
+      }
+    }
+    .g-card-top, .g-sec { min-width:0; }
     .g-card.credit { --ac:var(--credit); }
     .g-card.legal  { --ac:var(--legal); }
     .g-card.macro  { --ac:var(--macro); }
@@ -107,12 +120,12 @@
     a.g-item:hover .t { color:var(--ac); }
     .g-item .m { display:block; color:var(--muted); font-size:.76rem; margin-top:.2rem; }
     .g-sub-h { font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em;
-      color:var(--ac); margin:.95rem 0 .1rem; }
-    .g-card-head + .g-card-desc + .g-list .g-sub-h:first-child,
-    .g-list > .g-sub-h:first-child { margin-top:.2rem; }
+      color:var(--ac); margin:0 0 .1rem; }
+    .g-sec { padding-top:.75rem; }
+    .g-sec:first-of-type { padding-top:.35rem; }
     .g-empty { color:var(--muted); font-size:.8rem; padding:.4rem 0; }
     .g-loading { color:var(--muted); font-size:.85rem; padding:.5rem 0; }
-    .g-foot { margin-top:auto; padding-top:.9rem; }
+    .g-foot { padding-top:.9rem; }
     .g-cta { display:inline-block; margin-top:.7rem; font-size:.85rem; font-weight:700; color:var(--ac); }
     .g-cta:hover { text-decoration:underline; }
 
@@ -202,7 +215,6 @@
         <span class="g-brand-text"><strong>Meridian</strong><span class="sub">Glance</span></span>
       </a>
       <div class="platform-switch" role="group" aria-label="Switch platform">
-        <a href="/" class="ps-btn is-active" aria-current="page">Glance</a>
         <a href="/macro/" class="ps-btn">Macro</a>
         <a href="/credit/" class="ps-btn">Credit</a>
         <a href="/legal/" class="ps-btn">Legal</a>
@@ -210,9 +222,11 @@
       <span class="g-spacer"></span>
       <div class="g-actions">
         <button class="g-search-btn" id="open-cmdk" type="button" aria-label="Open search">
-          <span>Search everything</span> <kbd>⌘K</kbd>
+          <span class="g-search-ico" aria-hidden="true">🔍</span>
+          <span class="g-search-lbl">Search everything…</span>
+          <kbd>/</kbd>
         </button>
-        <span class="g-user"><strong id="email"></strong> <a href="/cdn-cgi/access/logout">Sign out</a></span>
+        <span class="g-user"><span class="si-prefix">Signed in as </span><strong id="email"></strong> · <a href="/cdn-cgi/access/logout">Sign out</a></span>
       </div>
     </header>
     <main class="g-main">
@@ -228,21 +242,33 @@
 
       <div class="g-grid">
         <section class="g-card macro">
-          <div class="g-card-head"><span class="g-card-title"><span class="dot">◆</span> Macro</span><a class="g-open" href="/macro/">Open →</a></div>
-          <p class="g-card-desc">US &amp; UK indicators, rate outlook &amp; cycle</p>
-          <div class="g-list" id="m-list"><div class="g-loading">Loading…</div></div>
+          <div class="g-card-top">
+            <div class="g-card-head"><span class="g-card-title"><span class="dot">◆</span> Macro</span><a class="g-open" href="/macro/">Open →</a></div>
+            <p class="g-card-desc">US &amp; UK indicators, rate outlook &amp; cycle</p>
+          </div>
+          <div class="g-sec" id="m-sec1"><div class="g-loading">Loading…</div></div>
+          <div class="g-sec" id="m-sec2"></div>
+          <div class="g-sec" id="m-sec3"></div>
           <div class="g-foot"><a class="g-cta" href="/macro/">Open Meridian Macro →</a></div>
         </section>
         <section class="g-card credit">
-          <div class="g-card-head"><span class="g-card-title"><span class="dot">◆</span> Credit</span><a class="g-open" href="/credit/">Open →</a></div>
-          <p class="g-card-desc">European private-credit deals &amp; fundraising</p>
-          <div class="g-list" id="c-list"><div class="g-loading">Loading…</div></div>
+          <div class="g-card-top">
+            <div class="g-card-head"><span class="g-card-title"><span class="dot">◆</span> Credit</span><a class="g-open" href="/credit/">Open →</a></div>
+            <p class="g-card-desc">European private-credit deals &amp; fundraising</p>
+          </div>
+          <div class="g-sec" id="c-sec1"><div class="g-loading">Loading…</div></div>
+          <div class="g-sec" id="c-sec2"></div>
+          <div class="g-sec" id="c-sec3"></div>
           <div class="g-foot"><a class="g-cta" href="/credit/">Open Meridian Credit →</a></div>
         </section>
         <section class="g-card legal">
-          <div class="g-card-head"><span class="g-card-title"><span class="dot">◆</span> Legal</span><a class="g-open" href="/legal/">Open →</a></div>
-          <p class="g-card-desc">English-law updates, case law &amp; restructurings</p>
-          <div class="g-list" id="l-list"><div class="g-loading">Loading…</div></div>
+          <div class="g-card-top">
+            <div class="g-card-head"><span class="g-card-title"><span class="dot">◆</span> Legal</span><a class="g-open" href="/legal/">Open →</a></div>
+            <p class="g-card-desc">English-law updates, case law &amp; restructurings</p>
+          </div>
+          <div class="g-sec" id="l-sec1"><div class="g-loading">Loading…</div></div>
+          <div class="g-sec" id="l-sec2"></div>
+          <div class="g-sec" id="l-sec3"></div>
           <div class="g-foot"><a class="g-cta" href="/legal/">Open Meridian Legal →</a></div>
         </section>
       </div>
@@ -271,7 +297,7 @@
           show("glance");
           const h = new Date().getHours();
           document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-          import("/glance.js?v=20260708-2").then((m) => m.initGlance()).catch(() => {});
+          import("/glance.js?v=20260708-3").then((m) => m.initGlance()).catch(() => {});
         } else { show("out"); }
       })
       .catch(() => show("out"));

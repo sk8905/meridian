@@ -107,8 +107,9 @@ export function mountPalette() {
     else if (ev.key === "Enter") { ev.preventDefault(); go(current[sel]); }
     else if (ev.key === "Escape") { close(); }
   });
+  const isTyping = (t) => { const tag = (t && t.tagName || "").toLowerCase(); return !!t && (t.isContentEditable || tag === "input" || tag === "textarea" || tag === "select"); };
   window.addEventListener("keydown", (ev) => {
-    if ((ev.metaKey || ev.ctrlKey) && (ev.key === "k" || ev.key === "K")) { ev.preventDefault(); ov.classList.contains("open") ? close() : open(); }
+    if (ev.key === "/" && !ev.metaKey && !ev.ctrlKey && !ev.altKey && !isTyping(ev.target) && !ov.classList.contains("open")) { ev.preventDefault(); open(); }
     else if (ev.key === "Escape" && ov.classList.contains("open")) close();
   });
 }

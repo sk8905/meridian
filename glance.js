@@ -40,33 +40,31 @@ function renderCards() {
   const releases = (RELEASES || []).filter((r) => new Date((r.date || "") + "T00:00:00") >= today)
     .sort((a, b) => String(a.date).localeCompare(String(b.date))).slice(0, 3);
   const outlook = (SUMMARY && SUMMARY.outlook) || {};
-  setHTML("m-list",
-    subHead("Headlines") + rows(news.map((n) => item(n.url, n.title, `${n.c} · ${fmt(n.date)} · ${n.source}`, true))) +
-    subHead("Upcoming releases") + rows(releases.map((r) => item("/macro/", r.title, `${r.country || ""} · ${fmt(r.date)}`))) +
-    subHead("Rate outlook") + rows([
-      outlook.us ? item("/macro/#/commentary", outlook.us, "US") : "",
-      outlook.uk ? item("/macro/#/commentary", outlook.uk, "UK") : "",
-    ]));
+  sec("m", 1, "Headlines", news.map((n) => item(n.url, n.title, `${n.c} · ${fmt(n.date)} · ${n.source}`, true)));
+  sec("m", 2, "Upcoming releases", releases.map((r) => item("/macro/", r.title, `${r.country || ""} · ${fmt(r.date)}`)));
+  sec("m", 3, "Rate outlook", [
+    outlook.us ? item("/macro/#/commentary", outlook.us, "US") : "",
+    outlook.uk ? item("/macro/#/commentary", outlook.uk, "UK") : "",
+  ]);
 
   // ---- Credit: deals, fundraising, CLOs ----
   const dealsR = [...deals].filter((d) => !d.clo).sort(byDateDesc).slice(0, 3);
   const intelR = [...intel].filter((i) => !i.clo).sort(byDateDesc).slice(0, 3);
   const cloR = [...deals.filter((d) => d.clo), ...intel.filter((i) => i.clo)].sort(byDateDesc).slice(0, 3);
   const mgrSuffix = (x) => (mgrName(x.managerId) ? " · " + mgrName(x.managerId) : "");
-  setHTML("c-list",
-    subHead("Deals") + rows(dealsR.map((d) => item("/credit/#/deals", d.headline, `${fmt(d.date)}${mgrSuffix(d)}`))) +
-    subHead("Fundraising") + rows(intelR.map((i) => item("/credit/#/intel", i.headline, `${i.type || "Fundraising"} · ${fmt(i.date)}${mgrSuffix(i)}`))) +
-    subHead("CLOs") + rows(cloR.map((c) => item("/credit/#/clos", c.headline, `${fmt(c.date)}${mgrSuffix(c)}`))));
+  sec("c", 1, "Deals", dealsR.map((d) => item("/credit/#/deals", d.headline, `${fmt(d.date)}${mgrSuffix(d)}`)));
+  sec("c", 2, "Fundraising", intelR.map((i) => item("/credit/#/intel", i.headline, `${i.type || "Fundraising"} · ${fmt(i.date)}${mgrSuffix(i)}`)));
+  sec("c", 3, "CLOs", cloR.map((c) => item("/credit/#/clos", c.headline, `${fmt(c.date)}${mgrSuffix(c)}`)));
 
   // ---- Legal: alerts, case law, schemes & RPs ----
   const alerts = [...items].filter((i) => i.date).sort(byDateDesc).slice(0, 3);
   const caseLaw = [...cases].sort(byDateDesc).slice(0, 3);
   const rx = [...restructurings].filter((r) => r.date).sort(byDateDesc).slice(0, 3);
-  setHTML("l-list",
-    subHead("Alerts") + rows(alerts.map((i) => item(`/legal/#/item/${encodeURIComponent(i.id)}`, i.title, `${fmt(i.date)}${i.firm ? " · " + i.firm : ""}`))) +
-    subHead("Case law") + rows(caseLaw.map((c) => item(`/legal/#/cases?case=${encodeURIComponent(c.id)}`, c.name, `${fmt(c.date)}${c.court ? " · " + c.court : ""}`))) +
-    subHead("Schemes & RPs") + rows(rx.map((r) => item(`/legal/#/restructurings?m=${encodeURIComponent(r.id)}`, r.company, `${r.type === "scheme" ? "Scheme" : "Restructuring plan"} · ${fmt(r.date)}`))));
+  sec("l", 1, "Alerts", alerts.map((i) => item(`/legal/#/item/${encodeURIComponent(i.id)}`, i.title, `${fmt(i.date)}${i.firm ? " · " + i.firm : ""}`)));
+  sec("l", 2, "Case law", caseLaw.map((c) => item(`/legal/#/cases?case=${encodeURIComponent(c.id)}`, c.name, `${fmt(c.date)}${c.court ? " · " + c.court : ""}`)));
+  sec("l", 3, "Schemes & RPs", rx.map((r) => item(`/legal/#/restructurings?m=${encodeURIComponent(r.id)}`, r.company, `${r.type === "scheme" ? "Scheme" : "Restructuring plan"} · ${fmt(r.date)}`)));
 }
+const sec = (key, n, title, arr) => setHTML(`${key}-sec${n}`, subHead(title) + rows(arr));
 function item(href, title, meta, ext) {
   const a = ext ? ` target="_blank" rel="noopener noreferrer"` : "";
   return `<a class="g-item" href="${esc(href)}"${a}><span class="t">${esc(title)}</span><span class="m">${esc(meta)}</span></a>`;
@@ -202,8 +200,9 @@ function wirePalette(idx) {
     else if (ev.key === "Enter") { ev.preventDefault(); go(current[sel]); }
     else if (ev.key === "Escape") { close(); }
   });
+  const isTyping = (t) => { const tag = (t && t.tagName || "").toLowerCase(); return !!t && (t.isContentEditable || tag === "input" || tag === "textarea" || tag === "select"); };
   window.addEventListener("keydown", (ev) => {
-    if ((ev.metaKey || ev.ctrlKey) && (ev.key === "k" || ev.key === "K")) { ev.preventDefault(); overlay.classList.contains("open") ? close() : open(); }
+    if (ev.key === "/" && !ev.metaKey && !ev.ctrlKey && !ev.altKey && !isTyping(ev.target) && !overlay.classList.contains("open")) { ev.preventDefault(); open(); }
     else if (ev.key === "Escape" && overlay.classList.contains("open")) { close(); }
   });
   // Arriving from an in-app ⌘K (which routes to "/#find") opens search immediately.
