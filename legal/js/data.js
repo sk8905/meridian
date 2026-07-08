@@ -15,13 +15,13 @@
 // `LAST_REVIEWED` whenever you refresh the data.
 // =============================================================================
 
-export const LAST_REVIEWED = "2026-07-07";
+export const LAST_REVIEWED = "2026-07-08";
 // When the refresh routine last ran (even if nothing new) — shown as "Last refresh".
-export const LAST_CHECKED = "2026-07-07";
+export const LAST_CHECKED = "2026-07-08";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — two runs a day (~06:00 / ~12:00).
-export const LAST_CHECKED_TIME = "12:20 BST";
+export const LAST_CHECKED_TIME = "05:19 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -5972,6 +5972,21 @@ export const items = [
       "Launch notices must go out by 10:00am ET; material changes by 9:00am ET",
     ],
     tags: ["debt tender offers", "SEC", "capital markets", "liability management"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.sidley.com/en/insights/newsupdates/2026/07/uk-eu-investment-management-update---july-2026",
+    id: "u635", title: "UK/EU Investment Management Update – July 2026",
+    area: "funds", areas: ["funds"], type: "update", firm: "sidley",
+    date: "2026-07-08", jurisdiction: "United Kingdom / EU",
+    summary: "Sidley's monthly UK/EU investment-management update covers the FCA's finalised cryptoasset regulatory regime (firm authorisation required from 25 October 2027), a proposal to raise minimum market-abuse penalties for individuals from £100,000 to £150,000, an FCA consultation to simplify product-level climate (TCFD-style) disclosure, and the 22 June 2026 launch of the UK bond consolidated tape.",
+    points: [
+      "FCA published final policy statements establishing the UK cryptoasset regulatory framework, with firm authorisation required from 25 October 2027",
+      "FCA proposed raising minimum market abuse penalties for individuals from £100,000 to £150,000, adjustable for wealth/income",
+      "FCA consulted on simplifying product-level climate (TCFD-style) disclosure requirements for asset managers",
+      "UK bond consolidated tape went live on 22 June 2026, consolidating post-trade bond transaction data",
+    ],
+    tags: ["funds regulation", "FCA", "cryptoassets", "market abuse", "climate disclosure", "investment management"],
     dateEstimated: false,
   },
 ];
