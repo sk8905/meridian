@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES } from "./content.js?v=20260708-7";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES } from "./content.js?v=20260708-8";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -107,11 +107,14 @@ function renderReleases() {
       <p class="cal-empty muted small">No major US or UK data releases scheduled this week or next.</p>
     </section>`;
   }
-  const tiles = up.map((r) => `
-    <div class="cal-tile">
-      <span class="cal-date"><span class="cal-flag cal-${(r.country || "").toLowerCase()}">${esc(r.country || "")}</span> ${esc(fmtWeekday(r.date))}</span>
+  const tiles = up.map((r) => {
+    const tag = r.url ? "a" : "div";
+    const attrs = r.url ? ` href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" title="${esc(r.title)} — open source ↗"` : "";
+    return `<${tag} class="cal-tile"${attrs}>
+      <span class="cal-date"><span class="cal-country cal-${(r.country || "").toLowerCase()}">${esc(r.country || "")}</span> ${esc(fmtWeekday(r.date))}</span>
       <span class="cal-title">${esc(r.title)}</span>
-    </div>`).join("");
+    </${tag}>`;
+  }).join("");
   return `<section class="macro-cal" aria-label="Upcoming economic releases">
     <div class="cal-band">${tiles}</div>
     <div class="cal-note muted small">This week &amp; next · scheduled US &amp; UK releases</div>

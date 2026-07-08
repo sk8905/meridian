@@ -118,12 +118,13 @@ a.macro-tile:hover .macro-src { color: var(--macro); text-decoration: underline;
 /* ---------- upcoming-releases band (mirrors Credit's key-data rates band) ---------- */
 .macro-cal { display: flex; flex-wrap: wrap; align-items: stretch; border: 1px solid var(--border); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); padding: .5rem .35rem .3rem; margin: 0 0 1.5rem; }
 .cal-band { display: flex; flex-wrap: wrap; align-items: stretch; width: 100%; }
-.cal-tile { flex: 1 1 0; min-width: 150px; display: flex; flex-direction: column; gap: .12rem; padding: .18rem 1rem; border-left: 1px solid var(--border); }
+.cal-tile { flex: 1 1 0; min-width: 150px; display: flex; flex-direction: column; gap: .12rem; padding: .18rem 1rem; border-left: 1px solid var(--border); color: inherit; text-decoration: none; }
 .cal-tile:first-child { border-left: none; }
-.cal-date { display: flex; align-items: center; gap: .35rem; font-size: .66rem; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--muted); white-space: nowrap; }
-.cal-flag { font-size: .56rem; font-weight: 800; letter-spacing: .03em; padding: .04rem .28rem; border-radius: 4px; color: #fff; }
-.cal-us { background: #2563eb; }
-.cal-uk { background: #7c3aed; }
+a.cal-tile:hover { text-decoration: none; }
+a.cal-tile:hover .cal-title, a.cal-tile:hover .cal-country { color: var(--macro); }
+a.cal-tile:focus-visible { outline: 2px solid var(--macro); outline-offset: -2px; border-radius: 4px; }
+.cal-date { display: flex; align-items: center; gap: .3rem; font-size: .66rem; font-weight: 700; text-transform: uppercase; letter-spacing: .4px; color: var(--muted); white-space: nowrap; }
+.cal-country { font-weight: 800; color: var(--macro-ink); }
 .cal-title { font-size: .9rem; font-weight: 700; color: var(--ink); line-height: 1.2; }
 .cal-note { width: 100%; text-align: right; margin-top: .3rem; padding: 0 1rem; }
 .cal-empty { margin: .25rem 1rem; }

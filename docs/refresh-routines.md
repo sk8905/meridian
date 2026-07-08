@@ -359,11 +359,13 @@ the source of truth for the prompt.
 >      decisions/minutes, CPI, PPI, PCE, GDP, retail sales, jobs report / nonfarm
 >      payrolls, ONS labour market & CPI, ISM & (where a date is confirmed) S&P
 >      Global/CIPS PMIs. Each entry is `{date:"YYYY-MM-DD", country:"US"|"UK",
->      title}`. VERIFY every date from an official release calendar (BLS/BEA/Census/
->      Fed/ISM, ONS, BoE) or a reliable economic-calendar source; never invent or
->      approximate a date — omit an item you cannot verify. Keep the list sorted by
->      date. (Omit the recurring weekly initial-jobless-claims prints — too noisy for
->      the banner.)
+>      title, url}` — the `url` is the official release-calendar / source page the
+>      banner tile links to (e.g. the BLS CPI schedule, the Fed FOMC calendar, the
+>      ONS release page, the BoE upcoming-MPC-dates page). VERIFY every date from an
+>      official release calendar (BLS/BEA/Census/Fed/ISM, ONS, BoE) or a reliable
+>      economic-calendar source; never invent or approximate a date — omit an item
+>      you cannot verify. Keep the list sorted by date. (Omit the recurring weekly
+>      initial-jobless-claims prints — too noisy for the banner.)
 >    - **Key macro news headlines in `macro/js/content.js` `NEWS`** → REWRITE every
 >      run. The dashboard renders these as ONE newest-first feed: it prefers items
 >      dated within the last 3 days, but if none are that recent it falls back to
