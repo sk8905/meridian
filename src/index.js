@@ -372,16 +372,20 @@ async function handleRates(request, env, ctx) {
 // prices). Same tile shape as the rates band: latest level/price, daily % change
 // and a ~1-month sparkline. Edge-cached briefly so it's near-live without
 // hammering the upstreams, and only cached once fully populated.
+// Primary source is Yahoo Finance's chart API (live intraday `regularMarketPrice`
+// for every instrument — indices, LSE ETFs, Brent/WTI/gold front-month futures
+// and Bitcoin). `fred`/`stooq` are daily-close FALLBACKS used only if Yahoo can't
+// be reached from the Worker, so a tile degrades to a daily print rather than "—".
 const MARKET_SERIES = [
-  { label: "S&P 500", src: "fred", id: "SP500", href: "https://fred.stlouisfed.org/series/SP500" },
-  { label: "NASDAQ 100", src: "fred", id: "NASDAQ100", href: "https://fred.stlouisfed.org/series/NASDAQ100" },
-  { label: "IGWD", src: "yahoo", symbol: "IGWD.L", stooq: "igwd.uk", href: "https://uk.finance.yahoo.com/quote/IGWD.L" },
-  { label: "EMEE", src: "yahoo", symbol: "EMEE.L", stooq: "emee.uk", href: "https://uk.finance.yahoo.com/quote/EMEE.L" },
-  // Second row: commodity & crypto spot (daily close) — all from FRED (keyed).
-  { label: "Brent", src: "fred", id: "DCOILBRENTEU", href: "https://fred.stlouisfed.org/series/DCOILBRENTEU" },
-  { label: "WTI", src: "fred", id: "DCOILWTICO", href: "https://fred.stlouisfed.org/series/DCOILWTICO" },
-  { label: "Gold", src: "fred", id: "GOLDPMGBD228NLBM", href: "https://fred.stlouisfed.org/series/GOLDPMGBD228NLBM" },
-  { label: "Bitcoin", src: "fred", id: "CBBTCUSD", href: "https://fred.stlouisfed.org/series/CBBTCUSD" },
+  { label: "S&P 500", symbol: "^GSPC", fred: "SP500", href: "https://finance.yahoo.com/quote/%5EGSPC" },
+  { label: "NASDAQ 100", symbol: "^NDX", fred: "NASDAQ100", href: "https://finance.yahoo.com/quote/%5ENDX" },
+  { label: "IGWD", symbol: "IGWD.L", stooq: "igwd.uk", href: "https://uk.finance.yahoo.com/quote/IGWD.L" },
+  { label: "EMEE", symbol: "EMEE.L", stooq: "emee.uk", href: "https://uk.finance.yahoo.com/quote/EMEE.L" },
+  // Second row: commodity & crypto spot.
+  { label: "Brent", symbol: "BZ=F", fred: "DCOILBRENTEU", href: "https://finance.yahoo.com/quote/BZ=F" },
+  { label: "WTI", symbol: "CL=F", fred: "DCOILWTICO", href: "https://finance.yahoo.com/quote/CL=F" },
+  { label: "Gold", symbol: "GC=F", fred: "GOLDPMGBD228NLBM", href: "https://finance.yahoo.com/quote/GC=F" },
+  { label: "Bitcoin", symbol: "BTC-USD", fred: "CBBTCUSD", href: "https://finance.yahoo.com/quote/BTC-USD" },
 ];
 
 // Latest price/level + daily change + ~1-month daily-close history from Yahoo
@@ -433,11 +437,12 @@ async function handleMarkets(request, env, ctx) {
   // /api/markets?debug=1 — probe Yahoo reachability from the Worker (read-only).
   if (url.searchParams.get("debug")) {
     const probes = await Promise.all([
+      ["yahoo1 ^GSPC", "https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=5d&interval=1d"],
+      ["yahoo2 ^GSPC", "https://query2.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=5d&interval=1d"],
+      ["yahoo1 BTC-USD", "https://query1.finance.yahoo.com/v8/finance/chart/BTC-USD?range=5d&interval=1d"],
+      ["yahoo1 GC=F", "https://query1.finance.yahoo.com/v8/finance/chart/GC%3DF?range=5d&interval=1d"],
       ["yahoo1 IGWD.L", "https://query1.finance.yahoo.com/v8/finance/chart/IGWD.L?range=5d&interval=1d"],
-      ["yahoo2 IGWD.L", "https://query2.finance.yahoo.com/v8/finance/chart/IGWD.L?range=5d&interval=1d"],
-      ["yahoo1 EMEE.L", "https://query1.finance.yahoo.com/v8/finance/chart/EMEE.L?range=5d&interval=1d"],
       ["stooq igwd.uk", "https://stooq.com/q/d/l/?s=igwd.uk&i=d"],
-      ["stooq emee.uk", "https://stooq.com/q/d/l/?s=emee.uk&i=d"],
     ].map(async ([label, u]) => {
       try { const r = await fetch(u, { headers: fetchHeaders(u) }); const b = await r.text(); return { label, status: r.status, len: b.length, snippet: b.slice(0, 160) }; }
       catch (e) { return { label, error: String((e && e.message) || e) }; }
@@ -445,23 +450,23 @@ async function handleMarkets(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/markets?v=2", request.url).toString());
+  const cacheKey = new Request(new URL("/api/markets?v=3", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
+  const fromFred = async (id) => {
+    const f = await fredSeries(id, cosd, env);
+    const prev = (f.value != null && f.change != null) ? f.value - f.change : null;
+    return { value: f.value, change: f.change, changePct: (f.change != null && prev) ? +((f.change / prev) * 100).toFixed(2) : null, asOf: f.asOf, history: f.history };
+  };
   const data = await Promise.all(MARKET_SERIES.map(async (s) => {
-    let r;
-    if (s.src === "fred") {
-      const f = await fredSeries(s.id, cosd, env);
-      const prev = (f.value != null && f.change != null) ? f.value - f.change : null;
-      r = { value: f.value, change: f.change, changePct: (f.change != null && prev) ? +((f.change / prev) * 100).toFixed(2) : null, asOf: f.asOf, history: f.history };
-    } else {
-      r = await yahooQuote(s.symbol);
-      if (r.value == null && s.stooq) r = await stooqQuote(s.stooq);
-    }
+    let r = await yahooQuote(s.symbol);            // live intraday (primary)
+    if (r.value == null && s.fred) r = await fromFred(s.fred);   // daily-close fallback
+    if (r.value == null && s.stooq) r = await stooqQuote(s.stooq);
     return { label: s.label, value: r.value, change: r.change, changePct: r.changePct, asOf: r.asOf, history: r.history || [], href: s.href };
   }));
   const resp = new Response(JSON.stringify({ markets: data }), {
-    headers: { "content-type": "application/json", "cache-control": "public, max-age=180" },
+    // Short cache so the live prices stay near-real-time without hammering upstreams.
+    headers: { "content-type": "application/json", "cache-control": "public, max-age=60" },
   });
   // Cache once the reliable (FRED) tiles resolve — don't let a flaky ETF source
   // force every request to re-hit the upstreams. The two ETFs may lag as "—".

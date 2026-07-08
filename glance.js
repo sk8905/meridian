@@ -128,7 +128,14 @@ function initRates() {
 
 // ---- Markets banner: equity indices + ETFs (same tile style as the rates) --
 function marketTile(x) {
-  const val = x.value != null ? Number(x.value).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "—";
+  // Thousands+ round DOWN to a whole number; smaller prices keep two decimals.
+  let val = "—";
+  if (x.value != null) {
+    const n = Number(x.value);
+    val = n >= 1000
+      ? Math.floor(n).toLocaleString("en-US", { maximumFractionDigits: 0 })
+      : n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
   let chg = '<span class="rate-chg flat">·</span>';
   if (x.changePct != null && x.value != null) {
     const c = +Number(x.changePct).toFixed(2);
@@ -145,13 +152,13 @@ function marketTile(x) {
 function initMarkets() {
   const el = document.getElementById("g-markets");
   if (!el) return;
-  fetch("/api/markets?v=2")
+  fetch("/api/markets?v=3")
     .then((r) => (r.ok ? r.json() : Promise.reject()))
     .then((d) => {
       const rows = d.markets || [];
       el.innerHTML = rows.length
         ? rows.map(marketTile).join("") +
-          '<a class="rate-src" href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer">Source: FRED · Yahoo Finance ↗</a>'
+          '<a class="rate-src" href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer">Source: Yahoo Finance · FRED ↗</a>'
         : '<span class="g-loading">Markets unavailable right now.</span>';
     })
     .catch(() => { el.innerHTML = '<span class="g-loading">Markets unavailable right now.</span>'; });
