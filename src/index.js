@@ -207,9 +207,11 @@ async function fetchText(url) {
   return null;
 }
 
-// Given [date, valueStr] pairs (any order), return the latest value + day change.
+// Given [date, valueStr] pairs (any order), return the latest value + day change
+// plus a short recent history (~1 month) for a trend sparkline.
 function lastTwo(pairs) {
   pairs.sort((a, b) => (a[0] < b[0] ? -1 : 1));
+  const nums = pairs.map((p) => parseFloat(p[1])).filter((v) => Number.isFinite(v));
   const last = pairs[pairs.length - 1], prev = pairs[pairs.length - 2];
   const val = last ? parseFloat(last[1]) : null;
   const prevVal = prev ? parseFloat(prev[1]) : null;
@@ -217,12 +219,13 @@ function lastTwo(pairs) {
     value: Number.isFinite(val) ? val : null,
     change: (Number.isFinite(val) && Number.isFinite(prevVal)) ? +(val - prevVal).toFixed(4) : null,
     asOf: last ? last[0] : null,
+    history: nums.slice(-22), // ~1 month of trading days
   };
 }
 
 // SOFR from the NY Fed's public JSON API (no key; not behind FRED's Cloudflare).
 async function nyfedSofr() {
-  const txt = await fetchText("https://markets.newyorkfed.org/api/rates/secured/sofr/last/5.json");
+  const txt = await fetchText("https://markets.newyorkfed.org/api/rates/secured/sofr/last/25.json");
   if (!txt) return { value: null, change: null, asOf: null };
   let j; try { j = JSON.parse(txt); } catch { return { value: null, change: null, asOf: null }; }
   const pairs = (j.refRates || [])
@@ -266,7 +269,7 @@ function parseFredCsv(txt) {
 // key is configured (api.stlouisfed.org is reachable); fall back to the CSV.
 async function fredSeries(id, cosd, env) {
   if (env && env.FRED_API_KEY) {
-    const txt = await fetchText(`https://api.stlouisfed.org/fred/series/observations?series_id=${id}&api_key=${env.FRED_API_KEY}&file_type=json&sort_order=desc&limit=8`);
+    const txt = await fetchText(`https://api.stlouisfed.org/fred/series/observations?series_id=${id}&api_key=${env.FRED_API_KEY}&file_type=json&sort_order=desc&limit=30`);
     if (txt) {
       try {
         const obs = (JSON.parse(txt).observations || [])
@@ -283,7 +286,7 @@ async function fredSeries(id, cosd, env) {
 
 async function ecbSeries(keys) {
   for (const key of keys) {
-    const txt = await fetchText(`https://data-api.ecb.europa.eu/service/data/FM/${key}?lastNObservations=6&format=csvdata`);
+    const txt = await fetchText(`https://data-api.ecb.europa.eu/service/data/FM/${key}?lastNObservations=30&format=csvdata`);
     if (!txt) continue;
     const lines = txt.trim().split(/\r?\n/);
     if (lines.length < 2) continue;
@@ -340,7 +343,7 @@ async function handleRates(request, env, ctx) {
 
   const cache = caches.default;
   // Versioned key so a previously-cached partial response is ignored.
-  const cacheKey = new Request(new URL("/api/rates?v=9", request.url).toString());
+  const cacheKey = new Request(new URL("/api/rates?v=10", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const data = await Promise.all(RATE_SERIES.map(async (s) => {
@@ -348,7 +351,7 @@ async function handleRates(request, env, ctx) {
       : s.src === "nyfed" ? await nyfedSofr()
       : s.src === "treasury" ? await treasurySeries(s.col)
       : await fredSeries(s.id, cosd, env);
-    return { label: s.label, unit: s.unit, value: r.value, change: r.change, asOf: r.asOf, href: s.href };
+    return { label: s.label, unit: s.unit, value: r.value, change: r.change, asOf: r.asOf, href: s.href, history: r.history || [] };
   }));
   const resp = new Response(JSON.stringify({ rates: data }), {
     // Short browser cache (band also caches in-module per load); edge does the heavy lifting.
