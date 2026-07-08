@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260708-31";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260708-32";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -852,7 +852,7 @@ function initChartPrefs() {
 
 window.addEventListener("hashchange", render);
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260708-4").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260708-5").then((m) => m.mountPalette()).catch(() => {});
 render();
 initMe();
 renderDataStatus();

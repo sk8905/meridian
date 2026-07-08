@@ -38,6 +38,11 @@ export function initGlance() {
   wirePalette(buildIndex());
 }
 
+// Deep-link a Credit deal/intel record to its exact row in the right feed tab
+// (Credit reads ?focus=<id> on load and scrolls/flashes it). CLO-tagged items
+// live in the CLOs tab regardless of which section surfaced them.
+const creditItemHref = (x, tab) => `/credit/#/${x.clo ? "clos" : tab}?focus=${encodeURIComponent(x.id)}`;
+
 // ---- Highlight cards -------------------------------------------------------
 // Each platform card is broken into its natural sections, newest 3 items each.
 function renderCards() {
@@ -57,9 +62,9 @@ function renderCards() {
   const intelR = [...intel].filter((i) => !i.clo).sort(byDateDesc).slice(0, 3);
   const cloR = [...deals.filter((d) => d.clo), ...intel.filter((i) => i.clo)].sort(byDateDesc).slice(0, 3);
   const mgrSuffix = (x) => (mgrName(x.managerId) ? " · " + mgrName(x.managerId) : "");
-  sec("c", 1, "Deals", dealsR.map((d) => item("/credit/#/deals", d.headline, `${fmt(d.date)}${mgrSuffix(d)}`)));
-  sec("c", 2, "Fundraising", intelR.map((i) => item("/credit/#/intel", i.headline, `${i.type || "Fundraising"} · ${fmt(i.date)}${mgrSuffix(i)}`)));
-  sec("c", 3, "CLOs", cloR.map((c) => item("/credit/#/clos", c.headline, `${fmt(c.date)}${mgrSuffix(c)}`)));
+  sec("c", 1, "Deals", dealsR.map((d) => item(creditItemHref(d, "deals"), d.headline, `${fmt(d.date)}${mgrSuffix(d)}`)));
+  sec("c", 2, "Fundraising", intelR.map((i) => item(creditItemHref(i, "intel"), i.headline, `${i.type || "Fundraising"} · ${fmt(i.date)}${mgrSuffix(i)}`)));
+  sec("c", 3, "CLOs", cloR.map((c) => item(creditItemHref(c, "clos"), c.headline, `${fmt(c.date)}${mgrSuffix(c)}`)));
 
   // ---- Legal: alerts, case law, schemes & RPs ----
   const alerts = [...items].filter((i) => i.date).sort(byDateDesc).slice(0, 3);
@@ -170,8 +175,8 @@ function initMarkets() {
 // Glance replays that model for all three and sums the unread counts on one bell.
 function creditNotif() {
   const out = [];
-  deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, href: "/credit/" + (d.clo ? "#/clos" : "#/deals") }));
-  intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, href: "/credit/" + (i.clo ? "#/clos" : "#/intel") }));
+  deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, href: creditItemHref(d, "deals") }));
+  intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, href: creditItemHref(i, "intel") }));
   managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", kind: "News", title: w.title, href: "/credit/#/manager/" + m.id })));
   return out.sort(byDateDesc);
 }
@@ -290,10 +295,10 @@ function buildIndex() {
   [["commentary", "Rate outlook"], ["cycle", "Cycle"], ["bubble", "Bubble risk"], ["chart", "Chart"]]
     .forEach(([k, l]) => add("macro", `Macro — ${l}`, "View", `/macro/#/${k}`, 4, ""));
 
-  managers.forEach((m) => add("credit", m.name, "Manager", "/credit/#/managers", 0, ""));
-  funds.forEach((f) => add("credit", f.name, `Fund${f.managerId && mgrName(f.managerId) ? " · " + mgrName(f.managerId) : ""}`, "/credit/#/funds", 1, ""));
-  deals.forEach((d) => add("credit", d.headline, `${d.clo ? "CLO" : "Deal"} · ${fmt(d.date)}${mgrName(d.managerId) ? " · " + mgrName(d.managerId) : ""}`, d.clo ? "/credit/#/clos" : "/credit/#/deals", d.clo ? 1 : 2, d.date));
-  intel.forEach((i) => add("credit", i.headline, `${i.clo ? "CLO · " : ""}${i.type || "Fundraising"} · ${fmt(i.date)}${mgrName(i.managerId) ? " · " + mgrName(i.managerId) : ""}`, i.clo ? "/credit/#/clos" : "/credit/#/intel", i.clo ? 1 : 2, i.date));
+  managers.forEach((m) => add("credit", m.name, "Manager", `/credit/#/manager/${encodeURIComponent(m.id)}`, 0, ""));
+  funds.forEach((f) => add("credit", f.name, `Fund${f.managerId && mgrName(f.managerId) ? " · " + mgrName(f.managerId) : ""}`, `/credit/#/fund/${encodeURIComponent(f.id)}`, 1, ""));
+  deals.forEach((d) => add("credit", d.headline, `${d.clo ? "CLO" : "Deal"} · ${fmt(d.date)}${mgrName(d.managerId) ? " · " + mgrName(d.managerId) : ""}`, creditItemHref(d, "deals"), d.clo ? 1 : 2, d.date));
+  intel.forEach((i) => add("credit", i.headline, `${i.clo ? "CLO · " : ""}${i.type || "Fundraising"} · ${fmt(i.date)}${mgrName(i.managerId) ? " · " + mgrName(i.managerId) : ""}`, creditItemHref(i, "intel"), i.clo ? 1 : 2, i.date));
 
   items.forEach((i) => add("legal", i.title, `Legal alert${i.firm ? " · " + i.firm : ""}${i.date ? " · " + fmt(i.date) : ""}`, `/legal/#/item/${encodeURIComponent(i.id)}`, 2, i.date));
   cases.forEach((c) => add("legal", c.name, `Case · ${c.court || ""}${c.citation ? " · " + c.citation : ""}`, `/legal/#/cases?case=${encodeURIComponent(c.id)}`, 2, c.date));

@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
-} from "./data.js?v=20260708-12";
-import { donutChart, columnChart } from "./charts.js?v=20260708-12";
+} from "./data.js?v=20260708-13";
+import { donutChart, columnChart } from "./charts.js?v=20260708-13";
 
 const app = document.getElementById("app");
 
@@ -252,6 +252,16 @@ document.addEventListener("change", (e) => {
   FILTER_RENDER[view] && FILTER_RENDER[view]();
 });
 
+// A firm name that links to its profile page (#/firm/<id>) when the firm is a
+// tracked entity, else plain text. Mirrors Credit's manager-profile link so a
+// Legal item always offers "source ↗ + firm profile" from its footer.
+function firmLink(id, name, cls) {
+  const c = cls || "firm";
+  return firmById[id]
+    ? `<a class="${c}" href="#/firm/${esc(id)}">${esc(name)}</a>`
+    : `<span class="${c}">${esc(name)}</span>`;
+}
+
 // A firm-alert as a list row — Meridian Credit style: colored chip + date in the
 // meta column, bold headline, full muted summary, then a single muted footer line.
 function itemRow(it) {
@@ -274,7 +284,7 @@ function itemRow(it) {
       </div>
       <p class="feed-summary">${esc(it.summary)}</p>
       <div class="feed-foot">
-        <span>${esc(type)}</span> · <span class="firm">${esc(firm.name)}</span>${tierTxt ? ` · ${esc(tierTxt)}` : ""}${it.citation ? ` · <span class="cite">${esc(it.citation)}</span>` : ""}${src ? ` · <a href="${esc(src)}" target="_blank" rel="noopener noreferrer">source ↗</a>` : ""}${isNew(it) ? ' · <span class="chip new">New</span>' : ""}
+        <span>${esc(type)}</span> · ${firmLink(it.firm, firm.name)}${tierTxt ? ` · ${esc(tierTxt)}` : ""}${it.citation ? ` · <span class="cite">${esc(it.citation)}</span>` : ""}${src ? ` · <a href="${esc(src)}" target="_blank" rel="noopener noreferrer">source ↗</a>` : ""}${isNew(it) ? ' · <span class="chip new">New</span>' : ""}
       </div>
     </div>
   </div>`;
@@ -317,7 +327,7 @@ function caseRow(c) {
     </div>
     <div class="feed-body">
       <div class="rx-title-line">
-        <a class="feed-title rx-name" href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">${esc(c.name)} ↗</a>
+        <a class="feed-title rx-name" href="#/cases?case=${esc(c.id)}">${esc(c.name)}</a>
         <button class="save-btn rx-save ${saved ? "is-saved" : ""}" data-save="${esc(c.id)}"
           aria-pressed="${saved}" title="${saved ? "Remove from saved" : "Save this case"}">${saved ? "★ Saved" : "☆ Save"}</button>
       </div>
@@ -679,7 +689,7 @@ function viewItem(id) {
       <div class="detail-chips">${areasHtml} <span class="chip type">${esc(type)}</span>${isNew(it) ? '<span class="chip new">New</span>' : ""}</div>
       <h1>${esc(it.title)}</h1>
       <div class="detail-meta">
-        <span class="firm-big tier-${esc(firm.tier)}">${esc(firm.name)}</span>
+        ${firmLink(it.firm, firm.name, `firm-big tier-${esc(firm.tier)}`)}
         <span class="tier tier-${esc(firm.tier)}">${esc(tierLabel(firm.tier))}</span>
         <time datetime="${esc(it.date)}">${itemDate(it)}</time>
         ${it.jurisdiction ? `<span class="juris">${esc(it.jurisdiction)}</span>` : ""}
@@ -716,6 +726,57 @@ function viewItem(id) {
       <div class="feed">${related}</div>
     </section>` : ""}
   `;
+}
+
+// =============================================================================
+// VIEW: Firm profile (#/firm/<id>) — the Legal analogue of Credit's manager
+// profile: firm identity + external insights link, plus every alert this firm
+// published and every restructuring matter it analysed, so an item can always
+// point to "the firm" the way a Credit deal points to its manager.
+// =============================================================================
+function viewFirm(id) {
+  const firm = firmById[id];
+  if (!firm) {
+    app.innerHTML = `<div class="empty">Firm not found. <a href="#/list">Back to all updates</a></div>`;
+    return;
+  }
+  const firmAlerts = items.filter((i) => i.firm === id).sort(byDateDesc);
+  const firmRx = restructurings.filter((r) => r.firm === id).sort(byDateDesc);
+  const tierTxt = tierLabel(firm.tier);
+
+  app.innerHTML = `
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <a href="#/">Dashboard</a> › <a href="#/list">Legal alerts</a> ›
+      <span aria-current="page">${esc(firm.name)}</span>
+    </nav>
+
+    <article class="detail firm-profile">
+      <div class="detail-chips"><span class="tier tier-${esc(firm.tier)}">${esc(tierTxt)}</span></div>
+      <h1>${esc(firm.name)}</h1>
+      <div class="source-box">
+        <span class="lbl">Insights</span>
+        <a href="${esc(firm.insightsUrl || "#")}" target="_blank" rel="noopener noreferrer">
+          ${esc(firm.name)} — insights / know-how ↗</a>
+        <p class="source-note">Links to the firm's public insights landing page. Alerts below are
+          summarised for this prototype — confirm against the firm's actual publications.</p>
+      </div>
+    </article>
+
+    ${firmAlerts.length ? `<section class="related">
+      <h2 class="section-head">Alerts from ${esc(firm.name)} (${firmAlerts.length})</h2>
+      <div class="feed">${firmAlerts.map(itemRow).join("")}</div>
+    </section>` : ""}
+
+    ${firmRx.length ? `<section class="related">
+      <h2 class="section-head">Restructuring matters analysed (${firmRx.length})</h2>
+      <div class="feed">${firmRx.map(rxRow).join("")}</div>
+    </section>` : ""}
+
+    ${(!firmAlerts.length && !firmRx.length)
+      ? `<section class="related"><p class="empty">No alerts or matters tracked from this firm yet.</p></section>`
+      : ""}
+  `;
+  initClamps(app);
 }
 
 // =============================================================================
@@ -800,7 +861,8 @@ function rxRow(r) {
     r.court ? esc(r.court) : "",
     r.citation ? `<span class="cite">${esc(r.citation)}</span>` : "",
     r.sector ? esc(r.sector) : "",
-    r.articleUrl ? `<a href="${esc(r.articleUrl)}" target="_blank" rel="noopener noreferrer">${esc(firm ? firm.name : "Firm")} analysis ↗</a>` : "",
+    firm && r.firm ? firmLink(r.firm, firm.name) : "",
+    r.articleUrl ? `<a href="${esc(r.articleUrl)}" target="_blank" rel="noopener noreferrer">analysis ↗</a>` : "",
     r.judgmentUrl ? `<a href="${esc(r.judgmentUrl)}" target="_blank" rel="noopener noreferrer">Judgment ↗</a>` : "",
   ].filter(Boolean).join(" · ");
   // AI summary + detail shown inline (same layout as the alerts rows); the outcome
@@ -812,7 +874,7 @@ function rxRow(r) {
     </div>
     <div class="feed-body">
       <div class="rx-title-line">
-        <span class="feed-title rx-name">${esc(r.company)}</span>
+        <a class="feed-title rx-name" href="#/restructurings?m=${esc(r.id)}">${esc(r.company)}</a>
         <span class="chip rx-out rx-out-${rxOutcomeClass(r.outcome)}" title="${esc(r.outcome)}">${esc(rxOutcomeShort(r.outcome))}</span>
         <button class="save-btn rx-save ${saved ? "is-saved" : ""}" data-save="${esc(r.id)}"
           aria-pressed="${saved}" title="${saved ? "Remove from saved" : "Save this matter"}">${saved ? "★ Saved" : "☆ Save"}</button>
@@ -906,6 +968,7 @@ function router() {
   else if (path === "/cases") viewCases();
   else if (path === "/restructurings") viewRestructurings();
   else if (path.startsWith("/item/")) viewItem(decodeURIComponent(path.slice("/item/".length)));
+  else if (path.startsWith("/firm/")) viewFirm(decodeURIComponent(path.slice("/firm/".length)));
   else viewDashboard();
 
   updateSavedCount();
@@ -1094,7 +1157,7 @@ document.addEventListener("touchend", (e) => {
 
 window.addEventListener("hashchange", router);
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260708-4").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260708-5").then((m) => m.mountPalette()).catch(() => {});
 initChrome();
 initNotif();
 router();

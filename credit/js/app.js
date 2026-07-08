@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260708-15";
+} from "./data.js?v=20260708-16";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260708-15";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260708-16";
 
 const app = document.getElementById("app");
 
@@ -1857,9 +1857,11 @@ function reopenMs() {
 // briefly highlight the targeted item.
 function applyPendingFocus(view) {
   if (!pendingFocus || pendingFocus.view !== view) return;
+  const windowed = !!pendingFocus.until; // URL-driven (re-apply until it lapses)
+  if (windowed && Date.now() > pendingFocus.until) { pendingFocus = null; return; }
   const el = document.getElementById("row-" + pendingFocus.id);
-  pendingFocus = null;
-  if (!el) return;
+  if (!windowed) pendingFocus = null; // click-set focus is one-shot (unchanged)
+  if (!el) return; // row not in the DOM yet (paged out) — a windowed focus retries
   el.scrollIntoView({ behavior: "smooth", block: "center" });
   el.classList.add("flash");
   setTimeout(() => el.classList.remove("flash"), 2200);
@@ -2010,8 +2012,24 @@ document.addEventListener("click", (e) => {
 
 // ================================= router ==================================
 function router() {
-  const hash = location.hash || "#/";
+  const rawHash = location.hash || "#/";
+  const qIdx = rawHash.indexOf("?");
+  const hash = qIdx >= 0 ? rawHash.slice(0, qIdx) : rawHash;
+  const query = qIdx >= 0 ? rawHash.slice(qIdx + 1) : "";
   const [, route, arg] = hash.split("/");
+  // Cross-app / cold-load deep link into a feed item, e.g. #/deals?focus=d519
+  // (from Glance or the palette). Seed pendingFocus the same way an in-app
+  // dashboard headline click does, then drop the param so later re-renders
+  // (filter changes) don't keep re-scrolling.
+  const focusId = query ? new URLSearchParams(query).get("focus") : null;
+  if (focusId) {
+    // `until` marks a URL-driven focus: keep re-applying the highlight across the
+    // re-renders that fire right after load (the startup double-run and the async
+    // account/watchlist sync each rebuild the DOM), so the flash isn't wiped. It
+    // stops re-applying once the window lapses. Click-set focus stays one-shot.
+    pendingFocus = { view: route, id: focusId, until: Date.now() + 4000 };
+    history.replaceState(null, "", hash);
+  }
   document.querySelectorAll(".nav-link").forEach((a) => {
     a.classList.toggle("active", a.getAttribute("href") === `#/${route}` || (route === "" && a.getAttribute("href") === "#/"));
   });
@@ -2067,7 +2085,7 @@ document.addEventListener("touchend", (e) => {
 window.addEventListener("hashchange", router);
 window.addEventListener("DOMContentLoaded", router);
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260708-4").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260708-5").then((m) => m.mountPalette()).catch(() => {});
 router();
 renderDataStatus();
 initNotif();

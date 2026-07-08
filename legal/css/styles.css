@@ -262,6 +262,9 @@ a.feed-title:hover { color: var(--primary); }
 .feed-foot .firm { font-weight: 600; color: var(--ink-soft); }
 .feed-foot .cite { color: var(--muted); font-style: italic; }
 .feed-foot a { color: var(--primary); }
+/* Firm-profile links (footer + detail head) are internal → no ↗; underline on hover. */
+.feed-foot a.firm { color: var(--primary); }
+a.firm:hover, a.firm-big:hover { text-decoration: underline; }
 .feed-foot .save-btn { margin: 0 0 0 .5rem; padding: .1rem .5rem; font-size: .72rem; vertical-align: middle; }
 .src-tag { font-size: .66rem; font-weight: 700; letter-spacing: .4px; color: var(--muted); border: 1px solid var(--line); border-radius: 4px; padding: .02rem .35rem; }
 
