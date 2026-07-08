@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES } from "./content.js?v=20260708-5";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES } from "./content.js?v=20260708-6";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -103,12 +103,11 @@ function renderReleases() {
     .filter((r) => { const d = isoToDate(r.date); return d && d >= now && d <= end; })
     .sort((a, b) => String(a.date).localeCompare(String(b.date)));
   const body = up.length
-    ? `<ul class="cal-list">${up.map((r) => `
-        <li class="cal-item">
-          <span class="cal-date">${esc(fmtWeekday(r.date))}</span>
-          <span class="cal-flag cal-${(r.country || "").toLowerCase()}">${esc(r.country || "")}</span>
+    ? `<div class="cal-band">${up.map((r) => `
+        <div class="cal-tile">
+          <span class="cal-tile-top"><span class="cal-flag cal-${(r.country || "").toLowerCase()}">${esc(r.country || "")}</span><span class="cal-date">${esc(fmtWeekday(r.date))}</span></span>
           <span class="cal-title">${esc(r.title)}</span>
-        </li>`).join("")}</ul>`
+        </div>`).join("")}</div>`
     : `<p class="cal-empty muted small">No major US or UK data releases scheduled this week or next.</p>`;
   return `<section class="macro-cal" aria-label="Upcoming economic releases">
     <div class="macro-cal-head"><span class="cal-icon" aria-hidden="true">🗓</span><h2 class="cal-heading">This week &amp; next — scheduled releases</h2></div>
@@ -116,28 +115,32 @@ function renderReleases() {
   </section>`;
 }
 
-// ---- Key macro headlines (Latest-Activity-style feed) ----------------------
-// One chronological list, newest first. Prefer items ≤ 3 days old, but if none
-// are that recent, fall back to the existing headlines rather than an empty feed.
+// ---- Key macro headlines (Latest-Activity-style, two columns) --------------
+// Two columns — US and UK — each newest-first. Each column prefers items ≤ 3
+// days old, but falls back to whatever headlines exist rather than an empty one.
 function renderNews() {
   const cutoff = todayMidnight(); cutoff.setDate(cutoff.getDate() - 3);
-  const all = [
-    ...((NEWS && NEWS.us) || []).map((n) => ({ ...n, country: "US" })),
-    ...((NEWS && NEWS.uk) || []).map((n) => ({ ...n, country: "UK" })),
-  ].sort((a, b) => String(b.date).localeCompare(String(a.date)));
-  const fresh = all.filter((n) => { const d = isoToDate(n.date); return d && d >= cutoff; });
-  const items = fresh.length ? fresh : all;
-  const body = items.length
-    ? `<ul class="compact-list">${items.map((n) => `
-        <li class="compact-item">
-          <a class="compact-head" href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">${esc(n.title)}</a>
-          <div class="compact-meta muted small"><span class="news-flag news-${n.country.toLowerCase()}">${esc(n.country)}</span> ${esc(fmtDay(n.date))} · ${esc(n.source)} ↗</div>
-        </li>`).join("")}</ul>`
-    : `<p class="muted small">Headlines are temporarily unavailable.</p>`;
+  const pick = (arr) => {
+    const sorted = [...(arr || [])].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    const fresh = sorted.filter((n) => { const d = isoToDate(n.date); return d && d >= cutoff; });
+    return fresh.length ? fresh : sorted;
+  };
+  const row = (n) => `
+    <li class="compact-item">
+      <a class="compact-head" href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">${esc(n.title)}</a>
+      <div class="compact-meta muted small">${esc(fmtDay(n.date))} · ${esc(n.source)} ↗</div>
+    </li>`;
+  const col = (name, arr) => {
+    const items = pick(arr);
+    const list = items.length
+      ? `<ul class="compact-list">${items.map(row).join("")}</ul>`
+      : `<p class="muted small">Headlines are temporarily unavailable.</p>`;
+    return `<div class="news-col"><h3 class="news-col-head">${esc(name)}</h3>${list}</div>`;
+  };
   return `<section class="card feature-card macro-news-panel">
     <h2>Key macro headlines</h2>
     <p class="muted small">The most important US &amp; UK macro stories, newest first — Reuters, FT, Bloomberg, CNBC &amp; similar. Click a headline to open it.</p>
-    ${body}
+    <div class="news-cols">${col("United States", NEWS && NEWS.us)}${col("United Kingdom", NEWS && NEWS.uk)}</div>
   </section>`;
 }
 
