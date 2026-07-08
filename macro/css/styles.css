@@ -16,6 +16,9 @@
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 html, body { margin: 0; padding: 0; overflow-x: clip; max-width: 100%; }
+/* Always reserve the vertical scrollbar gutter so page width is identical whether
+   or not a given view is tall enough to scroll (keeps all views the same width). */
+html { scrollbar-gutter: stable; }
 body { background: var(--bg); color: var(--ink); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 14px; line-height: 1.5; }
 a { color: var(--macro); text-decoration: none; }
 a:hover { text-decoration: underline; }
@@ -158,7 +161,7 @@ a.compact-head:hover { color: var(--macro); text-decoration: underline; }
 /* ---------- commentary / cycle prose ---------- */
 /* Two full-width country columns so the content fills the page (matches the
    dashboard's use of the whole container). */
-.macro-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; align-items: start; margin-bottom: .4rem; }
+.macro-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; align-items: stretch; margin-bottom: .4rem; }
 .macro-note { display: flex; flex-direction: column; }
 .macro-note-head { display: flex; flex-wrap: wrap; gap: .5rem; margin: 0 0 .8rem; }
 .macro-pill { display: inline-block; padding: .25rem .7rem; border-radius: 999px; background: var(--macro-ink); color: #fff; font-weight: 700; font-size: .8rem; }
@@ -185,12 +188,16 @@ a.compact-head:hover { color: var(--macro); text-decoration: underline; }
 
 /* ---------- bubble-risk view ---------- */
 .macro-cols-3 { grid-template-columns: repeat(3, 1fr); }
-.macro-dim-head { display: flex; align-items: center; justify-content: space-between; gap: .6rem; margin-bottom: .35rem; }
-.macro-dim-head .macro-country { margin: 0; }
-.macro-score { font-weight: 800; color: var(--macro-ink); font-size: 1.2rem; white-space: nowrap; }
+.macro-dim-head { display: flex; align-items: center; gap: .7rem; margin-bottom: .8rem; }
+.macro-dim-head .macro-country { margin: 0; flex: 0 1 auto; }
+.macro-score { font-weight: 800; color: var(--macro-ink); font-size: 1.2rem; white-space: nowrap; flex: 0 0 auto; }
 .macro-score-max { color: var(--muted); font-weight: 600; font-size: .78rem; }
-.macro-scorebar { height: 6px; background: #ece8f6; border-radius: 4px; overflow: hidden; margin: 0 0 .8rem; }
+/* The dimension score bar now sits inline, to the right of the title (it grows to
+   fill the gap between the title and the score). */
+.macro-scorebar { flex: 1 1 auto; min-width: 40px; height: 6px; background: #ece8f6; border-radius: 4px; overflow: hidden; }
 .macro-scorebar span { display: block; height: 100%; background: var(--macro-ink); border-radius: 4px; }
+/* Composite card has a verdict pill instead of a bar — keep it pushed right. */
+.macro-dim-head .macro-verdict { margin-left: auto; }
 .macro-metrics { width: 100%; border-collapse: collapse; margin: .1rem 0 .7rem; }
 .macro-metrics th { text-align: left; font-weight: 700; color: var(--ink); font-size: .88rem; padding: .4rem 0 .1rem; vertical-align: baseline; }
 .macro-metric-val { text-align: right; font-weight: 800; color: var(--macro); white-space: nowrap; font-size: .9rem; padding: .4rem 0 .1rem; vertical-align: baseline; }

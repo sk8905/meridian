@@ -17,6 +17,9 @@
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 html, body { margin: 0; padding: 0; overflow-x: clip; max-width: 100%; }
+/* Always reserve the vertical scrollbar gutter so page width is identical whether
+   or not a given view is tall enough to scroll (keeps all views the same width). */
+html { scrollbar-gutter: stable; }
 body {
   background: var(--bg);
   color: var(--ink);

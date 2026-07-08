@@ -22,9 +22,9 @@ export const OUTLOOK = {
     rate: "3.50–3.75%",
     stance: "Hold · hawkish",
     body: [
-      "The FOMC held its target range at <strong>3.50–3.75%</strong> on 17 June 2026 — a fourth consecutive hold, by a 12–0 vote, and the first meeting chaired by Kevin Warsh. The effective fed funds rate sits near <strong>3.63%</strong>. The June Summary of Economic Projections shifted the median year-end-2026 dot up to roughly <strong>3.8%</strong> (from 3.4% in March), with nine of nineteen participants now pencilling in at least one further <em>hike</em> this year — a hawkish pivot from the earlier easing bias.",
-      "The driver is re-accelerating inflation: <strong>core PCE hit 3.4% in May</strong>, its highest since October 2023, pushed by tariff pass-through and an energy shock tied to Middle-East tensions. Growth and the labour market remain solid, removing the case for cuts, though some economists argue tariff effects may be near their peak.",
-      "For the 28–29 July meeting, a Reuters poll (72 of 102 economists) and futures markets overwhelmingly expect a <strong>hold</strong>. Through year-end, fed funds futures price the rate drifting toward <strong>~3.8% by October and near 4% by December</strong> — about one 25bp hike. J.P. Morgan sees no move in 2026; Deutsche Bank expects two hikes (September and December).",
+      "The FOMC held its target range at <strong>3.50–3.75%</strong> on 17 June 2026 — a fourth consecutive hold (12–0), and the first meeting chaired by Kevin Warsh. The June dot plot lifted the median year-end-2026 dot to roughly <strong>3.8%</strong> (from 3.4% in March), with nine of nineteen participants now pencilling in at least one further <em>hike</em> — a hawkish pivot from the earlier easing bias.",
+      "The driver is re-accelerating inflation: <strong>core PCE hit 3.4% in May</strong>, its highest since October 2023, on tariff pass-through and a Middle-East energy shock. Solid growth and a firm labour market remove the case for cuts, though some argue tariff effects are near their peak.",
+      "For the 28–29 July meeting, a Reuters poll (72 of 102 economists) and futures overwhelmingly expect a <strong>hold</strong>. Through year-end, futures price the rate drifting toward <strong>~4% by December</strong> — about one 25bp hike; J.P. Morgan sees no move in 2026, Deutsche Bank two.",
     ],
     bottomLine: "Next move a hold on 29 July; markets price the funds rate drifting toward ~4% by December (roughly one hike), with cuts off the table for now.",
   },
@@ -47,6 +47,24 @@ export const OUTLOOK = {
     ["BoE MPC minutes, Jun 2026", "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/june-2026"],
     ["ONS — CPI, May 2026", "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/may2026"],
     ["ONS — labour market, Jun 2026", "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/uklabourmarket/june2026"],
+  ],
+};
+
+// ---- Recent market commentary from economists (Commentary tab) -------------
+// Analysis / opinion / research pieces on Fed & BoE policy from named economists
+// and reputable houses, newest first. Rendered as a two-column feed styled like
+// the dashboard's Key macro headlines; the twice-daily routine keeps it current.
+export const COMMENTARY = {
+  updated: "2026-07-08",
+  us: [
+    { title: "The worst of inflation is behind us — the Fed should stay in wait-and-see mode", source: "CNBC", author: "Mohamed El-Erian", date: "2026-07-07", url: "https://www.cnbc.com/video/2026/07/07/mohamed-el-erian-the-worst-of-inflation-is-behind-us-so-the-fed-should-stay-in-wait-and-see-mode.html" },
+    { title: "The contrarian case for Fed rate cuts: weaker payrolls, plunging inflation", source: "Fortune", author: null, date: "2026-06-27", url: "https://fortune.com/2026/06/27/fed-rate-cuts-payrolls-unemployment-inflation-gdp-oil-prices-kevin-warsh/" },
+    { title: "Warsh's pivot risks confusing the market and the Fed", source: "Bloomberg Opinion", author: "Bill Dudley", date: "2026-06-24", url: "https://www.bloomberg.com/opinion/articles/2026-06-24/warsh-s-pivot-risks-confusing-the-market-and-the-fed" },
+  ],
+  uk: [
+    { title: "Bank of England policy announcement — June 2026 review", source: "Capital Economics", author: null, date: "2026-06-18", url: "https://www.capitaleconomics.com/publications/uk-economics-rapid-response/bank-england-policy-announcement-18th-jun-2026" },
+    { title: "The macroeconomic policy outlook, Q2 2026", source: "Resolution Foundation", author: "James Smith et al.", date: "2026-04-22", url: "https://www.resolutionfoundation.org/publications/the-macroeconomic-policy-outlook-q2-2026/" },
+    { title: "Rate cuts more likely than hikes, says the BoE's former chief economist", source: "ITV News", author: "Andy Haldane", date: "2026-03-26", url: "https://www.itv.com/news/2026-03-26/interest-rate-cuts-more-likely-than-hikes-says-banks-former-chief-economist" },
   ],
 };
 

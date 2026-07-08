@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES } from "./content.js?v=20260708-12";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260708-13";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -150,6 +150,30 @@ function renderNews() {
   </section>`;
 }
 
+// ---- Recent market commentary (Commentary view) ----------------------------
+// Same two-column, newest-first feed styling as Key macro headlines, but for
+// analyst/economist opinion & research pieces (no recency cut-off — analysis
+// stays relevant longer). Meta line carries the author where named.
+function renderCommentaryFeed() {
+  const row = (n) => `
+    <li class="compact-item">
+      <a class="compact-head" href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">${esc(n.title)}</a>
+      <div class="compact-meta muted small">${esc(fmtDay(n.date))} · ${esc(n.source)}${n.author ? " · " + esc(n.author) : ""} ↗</div>
+    </li>`;
+  const col = (name, arr) => {
+    const items = [...(arr || [])].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    const list = items.length
+      ? `<ul class="compact-list">${items.map(row).join("")}</ul>`
+      : `<p class="muted small">No commentary available right now.</p>`;
+    return `<div class="news-col"><h3 class="news-col-head">${esc(name)}</h3>${list}</div>`;
+  };
+  return `<section class="card feature-card macro-news-panel">
+    <h2>Recent market commentary</h2>
+    <p class="muted small">Selected analyst &amp; economist views on the Fed and Bank of England, newest first. Click a piece to open it.</p>
+    <div class="news-cols">${col("United States", COMMENTARY && COMMENTARY.us)}${col("United Kingdom", COMMENTARY && COMMENTARY.uk)}</div>
+  </section>`;
+}
+
 function renderMacro(data) {
   const series = (data && data.series) || [];
   if (!series.length) return '<section class="card"><p class="muted">Macro data is temporarily unavailable — each indicator is sourced live from FRED, the Bank of England, ONS, DBnomics and S&amp;P Global. Please try again shortly.</p></section>';
@@ -234,6 +258,7 @@ function viewCommentary() {
       ${country("United States", OUTLOOK.us)}
       ${country("United Kingdom", OUTLOOK.uk)}
     </div>
+    ${renderCommentaryFeed()}
     ${sourceList(OUTLOOK.sources)}`;
 }
 
@@ -276,9 +301,9 @@ function viewBubble() {
     <section class="card macro-note">
       <div class="macro-dim-head">
         <h2 class="macro-country">${esc(d.label)}</h2>
+        <div class="macro-scorebar" aria-hidden="true"><span style="width:${d.score}%"></span></div>
         <span class="macro-score" title="dimension sub-score (0–100)">${d.score}<span class="macro-score-max">/100</span></span>
       </div>
-      <div class="macro-scorebar" aria-hidden="true"><span style="width:${d.score}%"></span></div>
       <table class="macro-metrics">
         ${d.metrics.map(([n, v, ctx]) => `<tr><th>${esc(n)}</th><td class="macro-metric-val">${esc(v)}</td></tr><tr class="macro-metric-ctx"><td colspan="2" class="muted small">${esc(ctx)}</td></tr>`).join("")}
       </table>

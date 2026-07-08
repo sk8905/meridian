@@ -384,6 +384,19 @@ the source of truth for the prompt.
 >      the existing `NEWS` arrays unchanged (do not invent replacements) and say so in
 >      the summary — the pre-existing headlines stay on the dashboard until the next
 >      successful run.
+>    - **Recent market commentary in `macro/js/content.js` `COMMENTARY`** → the
+>      Commentary tab renders these as a two-column (US/UK) newest-first feed styled
+>      like the dashboard headlines. Unlike `NEWS`, these are ANALYSIS/opinion/research
+>      pieces (economist columns, research-house notes, interviews) and stay relevant
+>      longer, so there is NO recency cut-off and no need to rewrite every run — but
+>      refresh them whenever notably fresher/better commentary appears (e.g. after an
+>      FOMC/MPC decision or a prominent economist piece), keeping ~three US and ~three
+>      UK, newest first. Each item is `{title, source, author, date, url}` — prefer a
+>      NAMED economist/columnist in `author` (set `null` for a research-house/house
+>      piece); use reputable outlets (FT, Bloomberg Opinion, Reuters Breakingviews,
+>      WSJ, The Economist, Project Syndicate, CNBC, Capital Economics, Resolution
+>      Foundation, NIESR, Brookings, etc.); verify every title/date/URL and never
+>      fabricate. Set `COMMENTARY.updated` to today when changed.
 >    - **Editorial guidance in `macro/js/content.js`** → review against current
 >      sources and update only when materially changed (e.g. after an FOMC/MPC
 >      decision, a major data surprise, or a notable market move):
