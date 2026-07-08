@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260708-13";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260708-14";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -169,7 +169,7 @@ function renderCommentaryFeed() {
   };
   return `<section class="card feature-card macro-news-panel">
     <h2>Recent market commentary</h2>
-    <p class="muted small">Selected analyst &amp; economist views on the Fed and Bank of England, newest first. Click a piece to open it.</p>
+    <p class="muted small">Selected bank research, analyst &amp; economist views on the Fed and Bank of England, newest first. Click a piece to open it.</p>
     <div class="news-cols">${col("United States", COMMENTARY && COMMENTARY.us)}${col("United Kingdom", COMMENTARY && COMMENTARY.uk)}</div>
   </section>`;
 }

@@ -391,12 +391,21 @@ the source of truth for the prompt.
 >      longer, so there is NO recency cut-off and no need to rewrite every run — but
 >      refresh them whenever notably fresher/better commentary appears (e.g. after an
 >      FOMC/MPC decision or a prominent economist piece), keeping ~three US and ~three
->      UK, newest first. Each item is `{title, source, author, date, url}` — prefer a
->      NAMED economist/columnist in `author` (set `null` for a research-house/house
->      piece); use reputable outlets (FT, Bloomberg Opinion, Reuters Breakingviews,
->      WSJ, The Economist, Project Syndicate, CNBC, Capital Economics, Resolution
->      Foundation, NIESR, Brookings, etc.); verify every title/date/URL and never
->      fabricate. Set `COMMENTARY.updated` to today when changed.
+>      UK, newest first. Cover a MIX of source types: (a) sell-side BANK research /
+>      analyst notes and named bank economists (Goldman Sachs, J.P. Morgan, Morgan
+>      Stanley, BofA, Citi, Wells Fargo, Deutsche Bank, Barclays, UBS, HSBC, Nomura,
+>      ING, etc. — their rate calls/forecasts), (b) research-house reports (Capital
+>      Economics, Oxford Economics, Pantheon Macroeconomics, NIESR, Resolution
+>      Foundation), and (c) named economist/columnist opinion (FT, Bloomberg Opinion,
+>      Reuters Breakingviews, WSJ, The Economist, Project Syndicate, CNBC). A bank
+>      item may be either the firm's own insights page OR a reputable article
+>      reporting its forecast. Each item is `{title, source, author, date, url}` —
+>      put the FIRM (and person where named) in `author` for bank/house pieces
+>      (e.g. "BofA — Aditya Bhave", "Goldman Sachs"), a named columnist in `author`
+>      for opinion pieces, `null` only when genuinely unattributable; verify every
+>      title/date/URL and never fabricate. Skip low-quality aggregators (GuruFocus,
+>      etc. — see the Sourcing invariant). Set `COMMENTARY.updated` to today when
+>      changed.
 >    - **Editorial guidance in `macro/js/content.js`** → review against current
 >      sources and update only when materially changed (e.g. after an FOMC/MPC
 >      decision, a major data surprise, or a notable market move):

@@ -58,13 +58,17 @@ export const COMMENTARY = {
   updated: "2026-07-08",
   us: [
     { title: "The worst of inflation is behind us — the Fed should stay in wait-and-see mode", source: "CNBC", author: "Mohamed El-Erian", date: "2026-07-07", url: "https://www.cnbc.com/video/2026/07/07/mohamed-el-erian-the-worst-of-inflation-is-behind-us-so-the-fed-should-stay-in-wait-and-see-mode.html" },
-    { title: "The contrarian case for Fed rate cuts: weaker payrolls, plunging inflation", source: "Fortune", author: null, date: "2026-06-27", url: "https://fortune.com/2026/06/27/fed-rate-cuts-payrolls-unemployment-inflation-gdp-oil-prices-kevin-warsh/" },
     { title: "Warsh's pivot risks confusing the market and the Fed", source: "Bloomberg Opinion", author: "Bill Dudley", date: "2026-06-24", url: "https://www.bloomberg.com/opinion/articles/2026-06-24/warsh-s-pivot-risks-confusing-the-market-and-the-fed" },
+    { title: "Bank of America sees 3 Fed hikes in 2026, inflation 'unambiguously worse'", source: "CNBC", author: "BofA — Aditya Bhave", date: "2026-06-22", url: "https://www.cnbc.com/2026/06/22/bank-of-america-sees-3-fed-hikes-in-2026-inflation-unambiguously-worse.html" },
+    { title: "J.P. Morgan pushes back on the Fed's 2026 rate-cut forecast", source: "TheStreet", author: "J.P. Morgan — Michael Feroli", date: "2026-06-19", url: "https://www.thestreet.com/fed/j-p-morgan-pushes-back-on-feds-2026-interest-rate-cut-forecast" },
+    { title: "Why the Fed is unlikely to cut rates this year", source: "Goldman Sachs", author: "David Mericle", date: "2026-06-08", url: "https://www.goldmansachs.com/insights/articles/why-the-fed-is-unlikely-to-cut-rates-this-year" },
   ],
   uk: [
+    { title: "BoE forecast to hold rates 'well into 2027' as inflation tops 4%", source: "Financial Reporter", author: "Oxford Economics — Edward Allenby", date: "2026-06-30", url: "https://www.financialreporter.co.uk/bank-of-england-forecast-to-hold-interest-rates-well-into-2027-as-inflation-tops-4.html" },
+    { title: "What will happen to UK interest rates in 2026?", source: "MoneyWeek", author: "Deutsche Bank — Sanjay Raja", date: "2026-06-19", url: "https://moneyweek.com/economy/uk-economy/605427/when-will-interest-rates-go-up" },
     { title: "Bank of England policy announcement — June 2026 review", source: "Capital Economics", author: null, date: "2026-06-18", url: "https://www.capitaleconomics.com/publications/uk-economics-rapid-response/bank-england-policy-announcement-18th-jun-2026" },
-    { title: "The macroeconomic policy outlook, Q2 2026", source: "Resolution Foundation", author: "James Smith et al.", date: "2026-04-22", url: "https://www.resolutionfoundation.org/publications/the-macroeconomic-policy-outlook-q2-2026/" },
-    { title: "Rate cuts more likely than hikes, says the BoE's former chief economist", source: "ITV News", author: "Andy Haldane", date: "2026-03-26", url: "https://www.itv.com/news/2026-03-26/interest-rate-cuts-more-likely-than-hikes-says-banks-former-chief-economist" },
+    { title: "Bank of England holds rates but hints at possible hikes", source: "LBC", author: "Pantheon Macroeconomics — Rob Wood", date: "2026-06-17", url: "https://www.lbc.co.uk/article/11a07a54d690400b84ef1f3e7665a04c-5HjdWYS_2/" },
+    { title: "Bank of England poised for a summer rate hike on the energy spike", source: "ING Think", author: "James Smith", date: "2026-06-11", url: "https://think.ing.com/articles/bank-of-england-poised-for-july-rate-hike-on-energy-spike/" },
   ],
 };
 
