@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260708-8";
+} from "./data.js?v=20260708-9";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260708-8";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260708-9";
 
 const app = document.getElementById("app");
 
@@ -2066,10 +2066,8 @@ document.addEventListener("touchend", (e) => {
 
 window.addEventListener("hashchange", router);
 window.addEventListener("DOMContentLoaded", router);
-// ⌘K / Ctrl-K anywhere opens the unified search on Glance (the platform home).
-window.addEventListener("keydown", (e) => {
-  if ((e.metaKey || e.ctrlKey) && (e.key === "k" || e.key === "K")) { e.preventDefault(); location.href = "/#find"; }
-});
+// Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
+import("/palette.js?v=20260708-1").then((m) => m.mountPalette()).catch(() => {});
 router();
 renderDataStatus();
 initNotif();

@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260708-26";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260708-27";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -851,10 +851,8 @@ function initChartPrefs() {
 }
 
 window.addEventListener("hashchange", render);
-// ⌘K / Ctrl-K anywhere opens the unified search on Glance (the platform home).
-window.addEventListener("keydown", (e) => {
-  if ((e.metaKey || e.ctrlKey) && (e.key === "k" || e.key === "K")) { e.preventDefault(); location.href = "/#find"; }
-});
+// Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
+import("/palette.js?v=20260708-1").then((m) => m.mountPalette()).catch(() => {});
 render();
 initMe();
 renderDataStatus();
