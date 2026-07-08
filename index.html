@@ -49,14 +49,26 @@
     .g-search-btn .g-search-lbl { flex:1 1 auto; }
     .g-search-btn kbd { background:rgba(255,255,255,.16); border-radius:5px; padding:.02rem .42rem;
       font-family:inherit; font-size:.82rem; font-weight:700; line-height:1.5; }
-    .g-user { flex:0 0 auto; color:#c3cfea; font-size:.78rem; white-space:nowrap; }
+    .g-user { flex:0 0 auto; color:#c3cfea; font-size:.72rem; white-space:nowrap; }
     .g-user strong { color:#fff; font-weight:600; }
     .g-user a { color:#9fb3dd; margin-left:.4rem; font-weight:600; }
     .g-user a:hover { color:#fff; text-decoration:underline; }
     @media (min-width:1101px){
+      /* Mirror the app top bars exactly: the row is indented to the page
+         container on both sides, the brand is pinned to the far-left corner and
+         the signed-in identity to the far-right corner (both out of flow), so the
+         search bar lands at the content's right margin — the same slot the apps
+         give the Watchlist / Chart tab. */
       .g-top-inner { padding-left: max(11rem, calc((100% - min(100%, 1500px)) / 2 + 2rem));
         padding-right: calc((100% - min(100%, 1500px)) / 2 + 2rem); }
       .g-brand { position:absolute; left:1.5rem; top:50%; transform:translateY(-50%); }
+    }
+    /* Once the page margins are wide enough to hold it, pin the identity to the
+       far-right corner so the search bar drops back to the content's right margin
+       (the apps' Watchlist/Chart slot). Below this the two share the right cluster
+       in normal flow, so they never collide on narrower desktops. */
+    @media (min-width:1800px){
+      .g-user { position:absolute; right:1.5rem; top:50%; transform:translateY(-50%); }
     }
     @media (max-width:1100px){
       .g-top-inner { flex-wrap:wrap; height:auto; padding:.6rem 1rem; gap:.6rem 1rem; }
@@ -230,7 +242,7 @@
           <span class="g-search-lbl">Search everything…</span>
           <kbd>/</kbd>
         </button>
-        <span class="g-user"><span class="si-prefix">Signed in as </span><strong id="email"></strong> · <a href="/cdn-cgi/access/logout">Sign out</a></span>
+        <span class="g-user"><strong id="email"></strong> · <a href="/cdn-cgi/access/logout">Sign out</a></span>
       </div>
     </header>
     <main class="g-main">
