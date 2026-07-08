@@ -5,88 +5,148 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-  <title>Meridian — sign in</title>
-  <meta name="description" content="Meridian intelligence platform — sign in to access the Credit and Legal platforms." />
+  <title>Meridian — Glance</title>
+  <meta name="description" content="Meridian Glance — a cross-desk briefing across the Credit, Legal and Macro intelligence platforms, with a unified search." />
   <style>
-    :root { --brand:#1e3a8a; --brand-2:#2563eb; --ink:#131a2b; --muted:#6b7488; --line:#e4e7ef; }
+    :root {
+      --navy:#102552; --brand:#1e3a8a; --brand-2:#2563eb;
+      --ink:#131a2b; --muted:#66708a; --line:#e4e7ef; --bg:#f4f6fb; --surface:#fff;
+      --credit:#2563eb; --legal:#0d9488; --macro:#6d5fae; --macro-ink:#4b3f72;
+      --shadow:0 1px 2px rgba(15,23,42,.06), 0 8px 24px rgba(15,23,42,.06);
+    }
     * { box-sizing: border-box; }
+    html, body { margin:0; padding:0; }
     body {
-      margin: 0; min-height: 100vh; overflow-x: hidden;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      color: var(--ink); line-height: 1.5;
-      background: linear-gradient(160deg, #1e3a8a 0%, #2563eb 55%, #1e40af 100%);
-      display: flex; align-items: center; justify-content: center; padding: 1.5rem;
+      min-height:100vh; background:var(--bg); color:var(--ink); line-height:1.5;
+      font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      -webkit-font-smoothing:antialiased;
     }
-    .card {
-      width: 100%; max-width: 400px; background: #fff; border-radius: 18px;
-      box-shadow: 0 20px 50px rgba(8, 20, 60, .35); padding: 2.2rem 2rem; text-align: center;
-    }
-    .logo {
-      width: 56px; height: 56px; border-radius: 15px; margin: 0 auto .9rem;
-      display: grid; place-items: center; font-size: 1.9rem; color: #fff;
-      background: linear-gradient(135deg, var(--brand), var(--brand-2));
-    }
-    .wordmark { font-size: 1.5rem; font-weight: 700; letter-spacing: .3px; }
-    .tagline { color: var(--muted); font-size: .82rem; text-transform: uppercase; letter-spacing: 1.2px; margin-bottom: 1.6rem; }
-    .state-msg { color: var(--muted); font-size: .92rem; margin: 0 0 1.3rem; }
-    .who { font-size: .92rem; margin: 0 0 .3rem; color: var(--ink); }
-    .who strong { color: var(--brand); }
-    .btn {
-      display: block; width: 100%; padding: .8rem 1rem; margin: .55rem 0; border-radius: 11px;
-      font-size: .98rem; font-weight: 600; text-decoration: none; cursor: pointer; border: 1px solid transparent;
-      text-align: center;
-    }
-    .btn.primary { background: var(--brand-2); color: #fff; }
-    .btn.primary:hover { background: #1d4ed8; }
-    .btn.secondary { background: #eef2fb; color: var(--brand); }
-    .btn.secondary:hover { background: #e2e9f8; }
-    .btn.teal { background: #0d9488; color: #fff; }
-    .btn.teal:hover { background: #0f766e; }
-    .btn.lavender { background: #4b3f72; color: #fff; }
-    .btn.lavender:hover { background: #3d3460; }
-    .btn .sub { display: block; font-weight: 400; font-size: .76rem; opacity: .85; margin-top: .15rem; }
-    .divider { border: 0; border-top: 1px solid var(--line); margin: 1.4rem 0 1rem; }
-    .signout { display: inline-block; margin-top: .4rem; color: var(--muted); font-size: .84rem; }
-    .hint { color: var(--muted); font-size: .78rem; margin-top: 1.2rem; }
-    .hint a { color: var(--brand-2); }
-    .spinner {
-      width: 26px; height: 26px; border: 3px solid #dbe4f5; border-top-color: var(--brand-2);
-      border-radius: 50%; margin: .5rem auto 0; animation: spin .8s linear infinite;
-    }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    @media (prefers-reduced-motion: reduce) { .spinner { animation: none; } }
-    .hidden { display: none; }
+    a { color:inherit; text-decoration:none; }
+    .hidden { display:none !important; }
+
+    /* ---- Top bar ---- */
+    .g-top { position:sticky; top:0; z-index:20; background:var(--navy);
+      color:#fff; display:flex; align-items:center; justify-content:space-between;
+      gap:1rem; padding:.85rem 1.5rem; }
+    .g-brand { display:flex; align-items:center; gap:.6rem; font-weight:700; letter-spacing:.2px; }
+    .g-logo { width:30px; height:30px; border-radius:8px; display:grid; place-items:center;
+      font-size:1.05rem; background:linear-gradient(135deg,#60a5fa,#2563eb); color:#fff; }
+    .g-brand .sub { color:#aab7d8; font-weight:600; font-size:.82rem; text-transform:uppercase; letter-spacing:1px; }
+    .g-actions { display:flex; align-items:center; gap:.9rem; }
+    .g-search-btn { display:inline-flex; align-items:center; gap:.6rem; background:rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,.16); color:#dbe4f5; font:inherit; font-size:.85rem;
+      padding:.4rem .7rem; border-radius:9px; cursor:pointer; }
+    .g-search-btn:hover { background:rgba(255,255,255,.18); color:#fff; }
+    .g-search-btn kbd { background:rgba(255,255,255,.16); border-radius:4px; padding:.05rem .35rem;
+      font-family:inherit; font-size:.72rem; font-weight:700; }
+    .g-user { color:#c3cfea; font-size:.82rem; white-space:nowrap; }
+    .g-user strong { color:#fff; font-weight:600; }
+    .g-user a { color:#9fb3dd; margin-left:.5rem; }
+    .g-user a:hover { color:#fff; text-decoration:underline; }
+
+    /* ---- Main ---- */
+    .g-main { max-width:1280px; margin:0 auto; padding:1.75rem 1.5rem 3rem; }
+    .g-hello h1 { font-size:1.7rem; font-weight:800; margin:0 0 .2rem; letter-spacing:-.01em; }
+    .g-hello p { color:var(--muted); margin:0 0 1.4rem; }
+    .g-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.1rem; }
+    @media (max-width:920px){ .g-grid { grid-template-columns:1fr; } }
+
+    .g-card { background:var(--surface); border:1px solid var(--line); border-radius:16px;
+      box-shadow:var(--shadow); padding:1.15rem 1.25rem 1.25rem; border-top:3px solid var(--ac); display:flex; flex-direction:column; }
+    .g-card.credit { --ac:var(--credit); }
+    .g-card.legal  { --ac:var(--legal); }
+    .g-card.macro  { --ac:var(--macro); }
+    .g-card-head { display:flex; align-items:center; justify-content:space-between; margin-bottom:.15rem; }
+    .g-card-title { font-size:1.05rem; font-weight:800; color:var(--ink); }
+    .g-card-title .dot { color:var(--ac); }
+    .g-open { font-size:.82rem; font-weight:700; color:var(--ac); white-space:nowrap; }
+    .g-open:hover { text-decoration:underline; }
+    .g-card-desc { color:var(--muted); font-size:.82rem; margin:.1rem 0 .85rem; }
+    .g-list { display:flex; flex-direction:column; }
+    .g-item { display:block; padding:.6rem 0; border-top:1px solid var(--line); }
+    .g-item:first-child { border-top:0; }
+    .g-item .t { display:block; font-weight:600; color:var(--ink); font-size:.9rem; line-height:1.35;
+      overflow-wrap:anywhere; }
+    a.g-item:hover .t { color:var(--ac); }
+    .g-item .m { display:block; color:var(--muted); font-size:.76rem; margin-top:.2rem; }
+    .g-pill { display:inline-block; font-size:.62rem; font-weight:800; letter-spacing:.03em;
+      text-transform:uppercase; padding:.08rem .38rem; border-radius:5px; color:#fff; background:var(--ac); }
+    .g-sub-h { font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em;
+      color:var(--ac); margin:.85rem 0 .1rem; }
+    .g-loading { color:var(--muted); font-size:.85rem; padding:.5rem 0; }
+    .g-foot { margin-top:auto; padding-top:.9rem; }
+    .g-cta { display:inline-block; margin-top:.7rem; font-size:.85rem; font-weight:700; color:var(--ac); }
+    .g-cta:hover { text-decoration:underline; }
+
+    /* ---- Sign-in / loading states (reuse the old centered card) ---- */
+    .g-center { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:1.5rem;
+      background:linear-gradient(160deg,#1e3a8a 0%, #2563eb 55%, #1e40af 100%); }
+    .g-authcard { width:100%; max-width:400px; background:#fff; border-radius:18px;
+      box-shadow:0 20px 50px rgba(8,20,60,.35); padding:2.2rem 2rem; text-align:center; color:var(--ink); }
+    .g-authcard .logo { width:56px; height:56px; border-radius:15px; margin:0 auto .9rem;
+      display:grid; place-items:center; font-size:1.9rem; color:#fff; background:linear-gradient(135deg,var(--brand),var(--brand-2)); }
+    .g-authcard .wordmark { font-size:1.5rem; font-weight:700; }
+    .g-authcard .tagline { color:var(--muted); font-size:.82rem; text-transform:uppercase; letter-spacing:1.2px; margin-bottom:1.5rem; }
+    .g-authcard .state-msg { color:var(--muted); font-size:.92rem; margin:0 0 1.2rem; }
+    .btn { display:block; width:100%; padding:.8rem 1rem; margin:.55rem 0; border-radius:11px;
+      font-size:.98rem; font-weight:600; border:1px solid transparent; cursor:pointer; text-align:center; }
+    .btn.primary { background:var(--brand-2); color:#fff; }
+    .btn.secondary { background:#eef2fb; color:var(--brand); }
+    .divider { border:0; border-top:1px solid var(--line); margin:1.4rem 0 1rem; }
+    .signout { display:inline-block; margin-top:.4rem; color:var(--muted); font-size:.84rem; }
+    .hint { color:var(--muted); font-size:.78rem; margin-top:1.2rem; }
+    .hint a { color:var(--brand-2); }
+    .spinner { width:26px; height:26px; border:3px solid #dbe4f5; border-top-color:var(--brand-2);
+      border-radius:50%; margin:.5rem auto 0; animation:spin .8s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+    @media (prefers-reduced-motion:reduce){ .spinner { animation:none; } }
+
+    /* ---- Command palette ---- */
+    .cmdk { position:fixed; inset:0; z-index:60; display:none; }
+    .cmdk.open { display:block; }
+    .cmdk-scrim { position:absolute; inset:0; background:rgba(9,16,38,.5); backdrop-filter:blur(2px); }
+    .cmdk-panel { position:relative; max-width:620px; margin:9vh auto 0; background:#fff; border-radius:14px;
+      box-shadow:0 24px 60px rgba(8,20,60,.4); overflow:hidden; }
+    .cmdk-input { width:100%; border:0; border-bottom:1px solid var(--line); padding:1rem 1.1rem;
+      font:inherit; font-size:1.05rem; outline:none; }
+    .cmdk-results { max-height:56vh; overflow-y:auto; padding:.35rem; }
+    .cmdk-empty { color:var(--muted); font-size:.9rem; padding:1.2rem; text-align:center; }
+    .cmdk-row { display:flex; align-items:center; gap:.7rem; padding:.55rem .7rem; border-radius:9px; cursor:pointer; }
+    .cmdk-row.sel, .cmdk-row:hover { background:#eef2fb; }
+    .cmdk-tag { flex:0 0 auto; font-size:.6rem; font-weight:800; text-transform:uppercase; letter-spacing:.04em;
+      color:#fff; padding:.12rem .4rem; border-radius:5px; width:56px; text-align:center; }
+    .cmdk-tag.credit { background:var(--credit); } .cmdk-tag.legal { background:var(--legal); }
+    .cmdk-tag.macro { background:var(--macro); } .cmdk-tag.view { background:#64748b; }
+    .cmdk-txt { min-width:0; }
+    .cmdk-t { display:block; font-weight:600; font-size:.9rem; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .cmdk-s { display:block; color:var(--muted); font-size:.75rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .cmdk-foot { border-top:1px solid var(--line); padding:.5rem .8rem; color:var(--muted); font-size:.72rem;
+      display:flex; gap:1rem; }
+    .cmdk-foot kbd { background:#eef2fb; border-radius:4px; padding:.05rem .3rem; font-family:inherit; font-weight:700; }
   </style>
 </head>
 <body>
-  <main class="card">
-    <div class="logo" aria-hidden="true">◆</div>
-    <div class="wordmark">Meridian</div>
-    <p class="tagline">Intelligence Platform</p>
-
-    <!-- Checking state -->
-    <div id="loading">
+  <!-- Loading -->
+  <div id="loading" class="g-center">
+    <div class="g-authcard">
+      <div class="logo" aria-hidden="true">◆</div>
+      <div class="wordmark">Meridian</div>
+      <p class="tagline">Intelligence Platform</p>
       <p class="state-msg">Checking your sign-in…</p>
       <div class="spinner" role="status" aria-label="Loading"></div>
     </div>
+  </div>
 
-    <!-- Signed in -->
-    <div id="in" class="hidden">
-      <p class="who">Signed in as <strong id="email"></strong></p>
-      <p class="state-msg">Choose a platform to open.</p>
-      <a class="btn primary" href="/credit/">Enter Meridian Credit<span class="sub">Private-credit deals &amp; fundraising</span></a>
-      <a class="btn teal" href="/legal/">Enter Meridian Legal<span class="sub">English-law legal &amp; case-law updates</span></a>
-      <a class="btn lavender" href="/macro/">Enter Meridian Macro<span class="sub">US &amp; UK economic indicators</span></a>
-      <hr class="divider" />
-      <a class="signout" href="/cdn-cgi/access/logout">Sign out</a>
-    </div>
-
-    <!-- Signed out -->
-    <div id="out" class="hidden">
-      <p class="state-msg">Sign in to access the Credit and Legal platforms.</p>
+  <!-- Signed out -->
+  <div id="out" class="g-center hidden">
+    <div class="g-authcard">
+      <div class="logo" aria-hidden="true">◆</div>
+      <div class="wordmark">Meridian</div>
+      <p class="tagline">Intelligence Platform</p>
+      <p class="state-msg">Sign in to open your Glance briefing across Credit, Legal and Macro.</p>
       <a class="btn primary" href="/api/login?to=/">Sign in</a>
-      <p class="hint">One sign-in unlocks both platforms. Authentication is handled by
-        Cloudflare Access. <a id="preview-toggle" href="#">Preview without signing in</a></p>
+      <p class="hint">One sign-in unlocks all platforms. Authentication is handled by Cloudflare Access.
+        <a id="preview-toggle" href="#">Preview without signing in</a></p>
       <div id="preview" class="hidden">
         <hr class="divider" />
         <a class="btn secondary" href="/credit/">Open Meridian Credit (preview)</a>
@@ -94,33 +154,76 @@
         <a class="btn secondary" href="/macro/">Open Meridian Macro (preview)</a>
       </div>
     </div>
-  </main>
+  </div>
+
+  <!-- Signed in: Glance -->
+  <div id="glance" class="hidden">
+    <header class="g-top">
+      <a class="g-brand" href="/">
+        <span class="g-logo" aria-hidden="true">◆</span>
+        <span>Meridian <span class="sub">Glance</span></span>
+      </a>
+      <div class="g-actions">
+        <button class="g-search-btn" id="open-cmdk" type="button" aria-label="Open search">
+          <span>Search everything</span> <kbd>⌘K</kbd>
+        </button>
+        <span class="g-user"><strong id="email"></strong> <a href="/cdn-cgi/access/logout">Sign out</a></span>
+      </div>
+    </header>
+    <main class="g-main">
+      <div class="g-hello">
+        <h1 id="hello">Your briefing</h1>
+        <p id="hello-sub">A cross-desk glance across Credit, Legal and Macro.</p>
+      </div>
+      <div class="g-grid">
+        <section class="g-card credit">
+          <div class="g-card-head"><span class="g-card-title"><span class="dot">◆</span> Credit</span><a class="g-open" href="/credit/">Open →</a></div>
+          <p class="g-card-desc">European private-credit deals &amp; fundraising</p>
+          <div class="g-list" id="c-list"><div class="g-loading">Loading…</div></div>
+          <div class="g-foot"><a class="g-cta" href="/credit/">Open Meridian Credit →</a></div>
+        </section>
+        <section class="g-card legal">
+          <div class="g-card-head"><span class="g-card-title"><span class="dot">◆</span> Legal</span><a class="g-open" href="/legal/">Open →</a></div>
+          <p class="g-card-desc">English-law updates, case law &amp; restructurings</p>
+          <div class="g-list" id="l-list"><div class="g-loading">Loading…</div></div>
+          <div class="g-foot"><a class="g-cta" href="/legal/">Open Meridian Legal →</a></div>
+        </section>
+        <section class="g-card macro">
+          <div class="g-card-head"><span class="g-card-title"><span class="dot">◆</span> Macro</span><a class="g-open" href="/macro/">Open →</a></div>
+          <p class="g-card-desc">US &amp; UK indicators, rate outlook &amp; cycle</p>
+          <div class="g-list" id="m-list"><div class="g-loading">Loading…</div></div>
+          <div class="g-foot"><a class="g-cta" href="/macro/">Open Meridian Macro →</a></div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Command palette -->
+    <div class="cmdk" id="cmdk" role="dialog" aria-modal="true" aria-label="Search Meridian">
+      <div class="cmdk-scrim" data-close></div>
+      <div class="cmdk-panel">
+        <input class="cmdk-input" id="cmdk-input" type="text" placeholder="Search deals, managers, cases, indicators, views…" autocomplete="off" spellcheck="false" />
+        <div class="cmdk-results" id="cmdk-results"></div>
+        <div class="cmdk-foot"><span><kbd>↑</kbd><kbd>↓</kbd> navigate</span><span><kbd>↵</kbd> open</span><span><kbd>esc</kbd> close</span></div>
+      </div>
+    </div>
+  </div>
 
   <script>
-    const show = (id) => {
-      for (const s of ["loading", "in", "out"]) {
-        document.getElementById(s).classList.toggle("hidden", s !== id);
-      }
-    };
-    // Ask the Worker who we are. Behind Cloudflare Access this returns the
-    // verified email; otherwise (not configured / local preview) it fails and
-    // we show the sign-in prompt.
+    // Auth state gate — behind Cloudflare Access /api/me returns the verified email.
+    const show = (id) => ["loading", "out", "glance"].forEach((s) => document.getElementById(s).classList.toggle("hidden", s !== id));
+    document.getElementById("preview-toggle").addEventListener("click", (e) => { e.preventDefault(); document.getElementById("preview").classList.toggle("hidden"); });
     fetch("/api/me", { headers: { accept: "application/json" } })
       .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
       .then((d) => {
         if (d && d.email) {
           document.getElementById("email").textContent = d.email;
-          show("in");
-        } else {
-          show("out");
-        }
+          show("glance");
+          const h = new Date().getHours();
+          document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
+          import("/glance.js").then((m) => m.initGlance()).catch(() => {});
+        } else { show("out"); }
       })
       .catch(() => show("out"));
-
-    document.getElementById("preview-toggle").addEventListener("click", (e) => {
-      e.preventDefault();
-      document.getElementById("preview").classList.toggle("hidden");
-    });
   </script>
 </body>
 </html>
