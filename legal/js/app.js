@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
-} from "./data.js?v=20260708-6";
-import { donutChart, columnChart } from "./charts.js?v=20260708-6";
+} from "./data.js?v=20260708-7";
+import { donutChart, columnChart } from "./charts.js?v=20260708-7";
 
 const app = document.getElementById("app");
 
@@ -1093,6 +1093,10 @@ document.addEventListener("touchend", (e) => {
 }, { passive: true });
 
 window.addEventListener("hashchange", router);
+// ⌘K / Ctrl-K anywhere opens the unified search on Glance (the platform home).
+window.addEventListener("keydown", (e) => {
+  if ((e.metaKey || e.ctrlKey) && (e.key === "k" || e.key === "K")) { e.preventDefault(); location.href = "/#find"; }
+});
 initChrome();
 initNotif();
 router();
