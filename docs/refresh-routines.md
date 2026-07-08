@@ -7,7 +7,8 @@ of all three apps** — Credit (deals, fundraising, mandates/launches, manager w
 news, **fund-record reconciliation, new managers/funds, and rotating manager-profile
 re-verification**), Legal (legal alerts, case law, **and restructuring schemes &
 plans**) and Macro (**refresh the live-indicator cache, update curated recent prints
-and central-bank rates, and review the Commentary/Cycle/Bubble guidance**). Together
+and central-bank rates, rewrite the key macro news headlines, and review the
+Commentary/Cycle/Bubble guidance**). Together
 they replace the previous separate Credit-daily, Credit-weekly and Legal-daily
 routines.
 
@@ -348,6 +349,26 @@ the source of truth for the prompt.
 >      source: US ISM Services PMI (`services_pmi`), UK S&P Global/CIPS Services PMI,
 >      UK 2-year gilt, UK Bank Rate step function and — if the Fed/BoE changed rates —
 >      the US/UK `base_rate`. Keep months in `YYYY-MM` order; never invent a figure.
+>    - **Next-release dates in `src/index.js` `MACRO_SERIES` (`next` field)** → each
+>      series carries a `next` string (e.g. `"FOMC · 29 Jul 2026"`, `"CPI · 14 Jul
+>      2026"`, `"Updated daily"`) shown on its dashboard tile. Whenever a date has
+>      PASSED (or a print/decision has landed in-window), roll it forward to the next
+>      scheduled meeting/release, verified from the official calendar (FOMC & BoE MPC
+>      schedules; BLS CPI/jobs; ONS CPI & labour-market; ISM & S&P Global/CIPS PMI).
+>      Leave the `"Updated daily"` yields as-is. Never show a `next` date in the past.
+>    - **Key macro news headlines in `macro/js/content.js` `NEWS`** → REWRITE every
+>      run. Run targeted web searches for the most important CURRENT US and UK
+>      macro / monetary-policy / markets stories (inflation, central banks, growth,
+>      jobs, rates, fiscal) from reputable financial outlets (Reuters, FT, Bloomberg,
+>      WSJ, CNBC, Briefing.com, MarketWatch and similar) and replace the arrays with
+>      the THREE most important US and THREE most important UK headlines as of now.
+>      Each item is `{title, source, date, url}` — use the exact published headline,
+>      the outlet, the verified `YYYY-MM-DD` publication date and the real article
+>      URL; never fabricate a headline, date or link. Prefer the last ~1–2 weeks,
+>      diversify outlets within each country, and favour genuine macro stories over
+>      single-company news. Set `NEWS.updated` to today. If egress is blocked so no
+>      headline can be verified this run, leave the existing `NEWS` arrays unchanged
+>      (do not invent replacements) and say so in the summary.
 >    - **Editorial guidance in `macro/js/content.js`** → review against current
 >      sources and update only when materially changed (e.g. after an FOMC/MPC
 >      decision, a major data surprise, or a notable market move):
