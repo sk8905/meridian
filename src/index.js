@@ -365,6 +365,106 @@ async function handleRates(request, env, ctx) {
   return resp;
 }
 
+// ============================ MARKETS BANNER ===============================
+// Equity indices + ETFs for the Glance dashboard (the banner above key rates).
+// The two US indices come from FRED (keyed, reliable); the two LSE-listed iShares
+// UCITS ETFs come from Yahoo Finance's keyless chart API (FRED carries no ETF
+// prices). Same tile shape as the rates band: latest level/price, daily % change
+// and a ~1-month sparkline. Edge-cached briefly so it's near-live without
+// hammering the upstreams, and only cached once fully populated.
+const MARKET_SERIES = [
+  { label: "S&P 500", src: "fred", id: "SP500", href: "https://fred.stlouisfed.org/series/SP500" },
+  { label: "NASDAQ 100", src: "fred", id: "NASDAQ100", href: "https://fred.stlouisfed.org/series/NASDAQ100" },
+  { label: "IGWD", src: "yahoo", symbol: "IGWD.L", stooq: "igwd.uk", href: "https://uk.finance.yahoo.com/quote/IGWD.L" },
+  { label: "EMEE", src: "yahoo", symbol: "EMEE.L", stooq: "emee.uk", href: "https://uk.finance.yahoo.com/quote/EMEE.L" },
+];
+
+// Latest price/level + daily change + ~1-month daily-close history from Yahoo
+// Finance's public chart API (no key). Symbols like "^GSPC" must be URL-encoded.
+async function yahooQuote(symbol) {
+  const nil = { value: null, change: null, changePct: null, asOf: null, history: [] };
+  const txt = await fetchText(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=1mo&interval=1d`);
+  if (!txt) return nil;
+  let j; try { j = JSON.parse(txt); } catch { return nil; }
+  const res = j && j.chart && j.chart.result && j.chart.result[0];
+  if (!res) return nil;
+  const meta = res.meta || {};
+  const closes = ((((res.indicators || {}).quote || [])[0] || {}).close) || [];
+  const hist = closes.filter((v) => Number.isFinite(v));
+  const value = Number.isFinite(meta.regularMarketPrice) ? meta.regularMarketPrice : (hist.length ? hist[hist.length - 1] : null);
+  const prev = Number.isFinite(meta.chartPreviousClose) ? meta.chartPreviousClose
+    : Number.isFinite(meta.previousClose) ? meta.previousClose
+    : (hist.length >= 2 ? hist[hist.length - 2] : null);
+  if (!Number.isFinite(value)) return nil;
+  const change = Number.isFinite(prev) ? +(value - prev).toFixed(2) : null;
+  const changePct = (change != null && prev) ? +((change / prev) * 100).toFixed(2) : null;
+  const asOf = meta.regularMarketTime ? new Date(meta.regularMarketTime * 1000).toISOString().slice(0, 10) : null;
+  return { value, change, changePct, asOf, history: hist.slice(-22) };
+}
+
+// Fallback ETF/index source: Stooq's keyless daily CSV (oldest→newest). LSE
+// tickers use a ".uk" suffix, indices "^spx"/"^ndq". Returns the same shape.
+async function stooqQuote(sym) {
+  const nil = { value: null, change: null, changePct: null, asOf: null, history: [] };
+  const txt = await fetchText(`https://stooq.com/q/d/l/?s=${encodeURIComponent(sym)}&i=d`);
+  if (!txt) return nil;
+  const lines = txt.trim().split(/\r?\n/);
+  if (lines.length < 2) return nil;
+  const h = lines[0].split(",");
+  const di = h.indexOf("Date"), ci = h.indexOf("Close");
+  if (ci < 0) return nil;
+  const pairs = lines.slice(1).map((l) => l.split(","))
+    .filter((c) => c[ci] && c[ci] !== "" && Number.isFinite(parseFloat(c[ci])))
+    .map((c) => [di >= 0 ? c[di] : "", c[ci]]);
+  if (!pairs.length) return nil;
+  const r = lastTwo(pairs);
+  const prev = (r.value != null && r.change != null) ? r.value - r.change : null;
+  return { value: r.value, change: r.change, changePct: (r.change != null && prev) ? +((r.change / prev) * 100).toFixed(2) : null, asOf: r.asOf, history: r.history };
+}
+
+async function handleMarkets(request, env, ctx) {
+  const url = new URL(request.url);
+  const cosd = new Date(Date.now() - 60 * 864e5).toISOString().slice(0, 10);
+  // /api/markets?debug=1 — probe Yahoo reachability from the Worker (read-only).
+  if (url.searchParams.get("debug")) {
+    const probes = await Promise.all([
+      ["yahoo1 IGWD.L", "https://query1.finance.yahoo.com/v8/finance/chart/IGWD.L?range=5d&interval=1d"],
+      ["yahoo2 IGWD.L", "https://query2.finance.yahoo.com/v8/finance/chart/IGWD.L?range=5d&interval=1d"],
+      ["yahoo1 EMEE.L", "https://query1.finance.yahoo.com/v8/finance/chart/EMEE.L?range=5d&interval=1d"],
+      ["stooq igwd.uk", "https://stooq.com/q/d/l/?s=igwd.uk&i=d"],
+      ["stooq emee.uk", "https://stooq.com/q/d/l/?s=emee.uk&i=d"],
+    ].map(async ([label, u]) => {
+      try { const r = await fetch(u, { headers: fetchHeaders(u) }); const b = await r.text(); return { label, status: r.status, len: b.length, snippet: b.slice(0, 160) }; }
+      catch (e) { return { label, error: String((e && e.message) || e) }; }
+    }));
+    return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
+  }
+  const cache = caches.default;
+  const cacheKey = new Request(new URL("/api/markets?v=1", request.url).toString());
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+  const data = await Promise.all(MARKET_SERIES.map(async (s) => {
+    let r;
+    if (s.src === "fred") {
+      const f = await fredSeries(s.id, cosd, env);
+      const prev = (f.value != null && f.change != null) ? f.value - f.change : null;
+      r = { value: f.value, change: f.change, changePct: (f.change != null && prev) ? +((f.change / prev) * 100).toFixed(2) : null, asOf: f.asOf, history: f.history };
+    } else {
+      r = await yahooQuote(s.symbol);
+      if (r.value == null && s.stooq) r = await stooqQuote(s.stooq);
+    }
+    return { label: s.label, value: r.value, change: r.change, changePct: r.changePct, asOf: r.asOf, history: r.history || [], href: s.href };
+  }));
+  const resp = new Response(JSON.stringify({ markets: data }), {
+    headers: { "content-type": "application/json", "cache-control": "public, max-age=180" },
+  });
+  // Only cache once every tile resolved, so a transient upstream miss doesn't stick.
+  if (ctx && ctx.waitUntil && data.every((d) => d.value != null)) {
+    ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+  }
+  return resp;
+}
+
 // ============================ MACRO DASHBOARD ==============================
 // Key economic indicators (US + UK) with ~5y monthly history, fetched server-
 // side so there's no CORS issue or browser-visible key. Most series come from
@@ -545,6 +645,7 @@ export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (url.pathname === "/api/rates") return handleRates(request, env, ctx);
+    if (url.pathname === "/api/markets") return handleMarkets(request, env, ctx);
     if (url.pathname === "/api/macro") return handleMacro(request, env, ctx);
     if (url.pathname === "/api/watchlist") return handleWatchlist(request, env);
     if (url.pathname === "/api/saved") return handleSaved(request, env, savedKeyFor);

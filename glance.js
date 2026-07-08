@@ -30,6 +30,7 @@ const fmtRefresh = () => `${fmt(LAST_CHECKED)}${LAST_CHECKED_TIME ? `, ${LAST_CH
 export function initGlance() {
   if (_inited) return; _inited = true;
   renderCards();
+  initMarkets();
   initRates();
   const rf = document.getElementById("g-refresh");
   if (rf) rf.textContent = `Last refresh ${fmtRefresh()}`;
@@ -123,6 +124,37 @@ function initRates() {
         : '<span class="g-loading">Market rates unavailable right now.</span>';
     })
     .catch(() => { el.innerHTML = '<span class="g-loading">Market rates unavailable right now.</span>'; });
+}
+
+// ---- Markets banner: equity indices + ETFs (same tile style as the rates) --
+function marketTile(x) {
+  const val = x.value != null ? Number(x.value).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : "—";
+  let chg = '<span class="rate-chg flat">·</span>';
+  if (x.changePct != null && x.value != null) {
+    const c = +Number(x.changePct).toFixed(2);
+    const dir = c > 0 ? "up" : c < 0 ? "down" : "flat";
+    const arrow = c > 0 ? "▲" : c < 0 ? "▼" : "·";
+    chg = `<span class="rate-chg ${dir}">${arrow} ${Math.abs(c).toFixed(2)}%</span>`;
+  }
+  const asOf = x.asOf ? ` as of ${esc(x.asOf)}` : "";
+  const title = ` title="${esc(x.label)}${asOf} — 1-month trend — open source ↗"`;
+  const tag = x.href ? "a" : "div";
+  const attrs = x.href ? ` href="${esc(x.href)}" target="_blank" rel="noopener noreferrer"` : "";
+  return `<${tag} class="rate-tile"${attrs}${title}><span class="rate-label">${esc(x.label)}</span><span class="rate-val">${val}</span>${chg}${rateSpark(x.history)}</${tag}>`;
+}
+function initMarkets() {
+  const el = document.getElementById("g-markets");
+  if (!el) return;
+  fetch("/api/markets?v=1")
+    .then((r) => (r.ok ? r.json() : Promise.reject()))
+    .then((d) => {
+      const rows = d.markets || [];
+      el.innerHTML = rows.length
+        ? rows.map(marketTile).join("") +
+          '<a class="rate-src" href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer">Source: FRED · Yahoo Finance ↗</a>'
+        : '<span class="g-loading">Markets unavailable right now.</span>';
+    })
+    .catch(() => { el.innerHTML = '<span class="g-loading">Markets unavailable right now.</span>'; });
 }
 
 // ---- Notifications: aggregate the three apps' unread counts ----------------

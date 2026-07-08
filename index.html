@@ -166,6 +166,13 @@
     @media (max-width:520px){ .rate-spark, .rate-spark-empty { display:none; }
       .rate-tile { padding:.1rem .45rem; } .rate-label { font-size:.55rem; } .rate-val { font-size:.9rem; } }
 
+    /* Markets banner — identical tile style to the key-rates band, but four items
+       so it fills the row as four columns (two rows of two on phones). */
+    .markets-band { grid-template-columns:repeat(4,1fr); }
+    .markets-band .rate-tile:nth-child(4n+1) { border-left:none; }
+    @media (max-width:520px){ .markets-band { grid-template-columns:repeat(2,1fr); }
+      .markets-band .rate-tile:nth-child(2n+1) { border-left:none; } }
+
     /* ---- Cards ---- */
     .g-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.1rem; }
     @media (max-width:920px){ .g-grid { grid-template-columns:1fr; } }
@@ -329,6 +336,11 @@
         <p id="hello-sub">A cross-desk glance across Macro, Credit and Legal.</p>
       </div>
 
+      <div class="g-rates-head">Markets</div>
+      <div id="g-markets" class="rates-band markets-band" aria-label="Equity indices and ETFs">
+        <div class="g-loading">Loading markets…</div>
+      </div>
+
       <div class="g-rates-head">Key rates &amp; credit spreads</div>
       <div id="g-rates" class="rates-band" aria-label="Key rates and credit spreads">
         <div class="g-loading">Loading market rates…</div>
@@ -391,7 +403,7 @@
           show("glance");
           const h = new Date().getHours();
           document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-          import("/glance.js?v=20260708-6").then((m) => m.initGlance()).catch(() => {});
+          import("/glance.js?v=20260708-7").then((m) => m.initGlance()).catch(() => {});
         } else { show("out"); }
       })
       .catch(() => show("out"));
