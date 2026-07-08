@@ -401,8 +401,10 @@ async function yahooQuote(symbol) {
   const closes = ((((res.indicators || {}).quote || [])[0] || {}).close) || [];
   const hist = closes.filter((v) => Number.isFinite(v));
   const value = Number.isFinite(meta.regularMarketPrice) ? meta.regularMarketPrice : (hist.length ? hist[hist.length - 1] : null);
-  const prev = Number.isFinite(meta.chartPreviousClose) ? meta.chartPreviousClose
-    : Number.isFinite(meta.previousClose) ? meta.previousClose
+  // Daily change = live price vs the PRIOR TRADING DAY's close. Use meta.previousClose
+  // (prior-session close) or the second-to-last daily close — NOT chartPreviousClose,
+  // which for a 1-month range is the close a month ago (that gave a monthly % change).
+  const prev = Number.isFinite(meta.previousClose) ? meta.previousClose
     : (hist.length >= 2 ? hist[hist.length - 2] : null);
   if (!Number.isFinite(value)) return nil;
   const changePct = (Number.isFinite(prev) && prev) ? +(((value - prev) / prev) * 100).toFixed(2) : null;
@@ -453,7 +455,7 @@ async function handleMarkets(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/markets?v=4", request.url).toString());
+  const cacheKey = new Request(new URL("/api/markets?v=5", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const fromFred = async (id) => {
