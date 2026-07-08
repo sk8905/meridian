@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS } from "./content.js?v=20260708-2";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS } from "./content.js?v=20260708-3";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -50,6 +50,7 @@ function macroTile(s) {
     ? sparkline(s.history)
     : '<div class="spark-empty muted small">5-year history unavailable</div>';
   const asOf = s.asOf ? macroMonth(s.asOf) : "";
+  const next = s.next ? `<div class="macro-next muted"><span class="macro-next-lbl">Next</span> ${esc(s.next)}</div>` : "";
   // Whole tile links to the source (matches the Credit key-rates tiles).
   const tag = s.href ? "a" : "div";
   const attrs = s.href ? ` href="${esc(s.href)}" target="_blank" rel="noopener noreferrer"` : "";
@@ -57,7 +58,8 @@ function macroTile(s) {
     <div class="macro-tile-head"><span class="macro-label">${esc(s.label)}</span><span class="macro-sub muted small">${esc(s.sub || "")}</span></div>
     <div class="macro-valrow"><span class="macro-val">${val}</span>${chHtml}</div>
     <div class="macro-chart">${chart}</div>
-    <div class="macro-foot muted small">${asOf ? esc(asOf) + " · " : ""}<span class="macro-src">${esc(s.source)} ↗</span></div>
+    ${next}
+    <div class="macro-foot muted"><span class="macro-src">${asOf ? esc(asOf) + " · " : ""}${esc(s.source)} ↗</span></div>
   </${tag}>`;
 }
 
@@ -76,6 +78,31 @@ function summaryCards() {
   </section>`;
 }
 
+// Full-date formatter for news items: "2026-07-01" → "1 Jul 2026".
+function fmtDay(iso) {
+  if (!iso) return "";
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
+  if (!m) return iso;
+  const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  return `${+m[3]} ${months[+m[2] - 1]} ${m[1]}`;
+}
+
+function renderNews() {
+  if (!NEWS || (!NEWS.us && !NEWS.uk)) return "";
+  const col = (name, items) => {
+    const list = (items || []).map((n) => `
+      <a class="news-item" href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">
+        <span class="news-title">${esc(n.title)}</span>
+        <span class="news-meta muted small">${esc(n.source)} · ${esc(fmtDay(n.date))} ↗</span>
+      </a>`).join("");
+    return `<div class="news-col"><h3 class="news-country">${esc(name)}</h3><div class="news-list">${list}</div></div>`;
+  };
+  return `<section class="macro-news">
+    <div class="macro-news-head"><h2 class="macro-country">Key macro headlines</h2><span class="muted small">Reuters, FT, Bloomberg, CNBC & similar</span></div>
+    <div class="news-cols">${col("United States", NEWS.us)}${col("United Kingdom", NEWS.uk)}</div>
+  </section>`;
+}
+
 function renderMacro(data) {
   const series = (data && data.series) || [];
   if (!series.length) return '<section class="card"><p class="muted">Macro data is temporarily unavailable — each indicator is sourced live from FRED, the Bank of England, ONS, DBnomics and S&amp;P Global. Please try again shortly.</p></section>';
@@ -83,7 +110,7 @@ function renderMacro(data) {
     const tiles = series.filter((s) => s.country === c).map(macroTile).join("");
     return tiles ? `<section class="macro-group"><h2 class="macro-country">${esc(name)}</h2><div class="macro-grid">${tiles}</div></section>` : "";
   }).join("");
-  return grids + summaryCards();
+  return grids + renderNews() + summaryCards();
 }
 
 // ---- Horizontal 0–100 gauge (used by Cycle and Bubble) ---------------------

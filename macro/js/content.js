@@ -166,3 +166,21 @@ export const SUMMARY = {
     uk: "UK (FTSE) far cheaper (CAPE ~20) — not in bubble territory.",
   },
 };
+
+// ---- Key macro news headlines (Dashboard) ----------------------------------
+// Three US and three UK macro/monetary-policy/markets stories from reputable
+// financial-news outlets, refreshed with the twice-daily routine. Each links to
+// the published article; verify against the source before relying on it.
+export const NEWS = {
+  updated: "2026-07-08",
+  us: [
+    { title: "Fed holds interest rates steady as Warsh era begins", source: "Fox Business", date: "2026-06-17", url: "https://www.foxbusiness.com/economy/federal-reserve-interest-rate-decision-june-17-2026" },
+    { title: "U.S. adds just 57,000 jobs in June as wage growth stays slow", source: "NBC News", date: "2026-07-02", url: "https://www.nbcnews.com/business/economy/june-jobs-report-stable-hiring-rcna352603" },
+    { title: "U.S. won't renew USMCA, will review trade pact with Canada and Mexico", source: "CNBC", date: "2026-07-01", url: "https://www.cnbc.com/2026/07/01/trump-usmca-canada-mexico-trade-treaty.html" },
+  ],
+  uk: [
+    { title: "Bank of England's Bailey says rate cuts are still off the table", source: "Bloomberg", date: "2026-07-01", url: "https://www.bloomberg.com/news/articles/2026-07-01/bank-of-england-s-bailey-says-rate-cuts-are-still-off-the-table" },
+    { title: "UK inflation holds steady at 2.8% in May", source: "CNBC", date: "2026-06-17", url: "https://www.cnbc.com/2026/06/17/inflation-uk-cpi-interest-rates-bank-of-england.html" },
+    { title: "UK jobs market shows signs of stabilizing ahead of BoE decision", source: "Bloomberg", date: "2026-06-18", url: "https://www.bloomberg.com/news/articles/2026-06-18/uk-jobs-market-shows-signs-of-stablizing-ahead-of-boe-decision" },
+  ],
+};
