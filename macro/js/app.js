@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260708-14";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260708-15";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -242,10 +242,7 @@ function viewCommentary() {
   const country = (name, o) => `
     <section class="card macro-note">
       <h2 class="macro-country">${esc(name)}</h2>
-      <div class="macro-note-head">
-        <span class="macro-pill">${esc(o.rate)}</span>
-        <span class="macro-pill ghost">${esc(o.stance)}</span>
-      </div>
+      <p class="macro-note-sub"><strong>${esc(o.rate)}</strong> · ${esc(o.stance)}</p>
       ${o.body.map((p) => `<p class="macro-para">${p}</p>`).join("")}
       <p class="macro-bottomline"><strong>Bottom line.</strong> ${o.bottomLine}</p>
     </section>`;
@@ -266,10 +263,7 @@ function viewCycle() {
   const country = (name, c) => `
     <section class="card macro-note">
       <h2 class="macro-country">${esc(name)}</h2>
-      <div class="macro-note-head">
-        <span class="macro-pill">${esc(c.shortStage)}</span>
-        <span class="macro-pill ghost">${esc(c.longStage)}</span>
-      </div>
+      <p class="macro-note-sub"><strong>${esc(c.shortStage)}</strong> · ${esc(c.longStage)}</p>
       ${c.body.map((p) => `<p class="macro-para">${p}</p>`).join("")}
     </section>`;
   return `
