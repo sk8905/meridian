@@ -187,7 +187,7 @@ a.compact-head:hover { color: var(--macro); text-decoration: underline; }
 .gauge { width: 100%; max-width: 640px; height: auto; display: block; margin: .4rem 0 .2rem; }
 .gauge-zone { fill: var(--muted); font-size: 8.5px; }
 .gauge-mark { fill: var(--macro-ink); font-size: 11px; font-weight: 800; }
-.macro-gauge-note { margin: .5rem 0 0; max-width: 68ch; }
+.macro-gauge-note { margin: .6rem 0 0; font-size: .74rem; line-height: 1.5; }
 
 /* ---------- bubble-risk view ---------- */
 .macro-cols-3 { grid-template-columns: repeat(3, 1fr); }
