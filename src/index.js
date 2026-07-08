@@ -405,10 +405,13 @@ async function yahooQuote(symbol) {
     : Number.isFinite(meta.previousClose) ? meta.previousClose
     : (hist.length >= 2 ? hist[hist.length - 2] : null);
   if (!Number.isFinite(value)) return nil;
-  const change = Number.isFinite(prev) ? +(value - prev).toFixed(2) : null;
-  const changePct = (change != null && prev) ? +((change / prev) * 100).toFixed(2) : null;
+  const changePct = (Number.isFinite(prev) && prev) ? +(((value - prev) / prev) * 100).toFixed(2) : null;
   const asOf = meta.regularMarketTime ? new Date(meta.regularMarketTime * 1000).toISOString().slice(0, 10) : null;
-  return { value, change, changePct, asOf, history: hist.slice(-22) };
+  // LSE instruments quote in GBp (pence): rescale to the major unit (GBP) so the
+  // tile shows a real price, not a pence figure. % change is a ratio — unchanged.
+  const scale = meta.currency === "GBp" ? 0.01 : 1;
+  const change = Number.isFinite(prev) ? +((value - prev) * scale).toFixed(4) : null;
+  return { value: +(value * scale), change, changePct, asOf, history: hist.slice(-22).map((v) => v * scale) };
 }
 
 // Fallback ETF/index source: Stooq's keyless daily CSV (oldest→newest). LSE
@@ -450,7 +453,7 @@ async function handleMarkets(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/markets?v=3", request.url).toString());
+  const cacheKey = new Request(new URL("/api/markets?v=4", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const fromFred = async (id) => {
