@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-07-08";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — two runs a day (~06:00 / ~12:00).
-export const LAST_CHECKED_TIME = "05:19 BST";
+export const LAST_CHECKED_TIME = "12:00 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -5987,6 +5987,118 @@ export const items = [
       "UK bond consolidated tape went live on 22 June 2026, consolidating post-trade bond transaction data",
     ],
     tags: ["funds regulation", "FCA", "cryptoassets", "market abuse", "climate disclosure", "investment management"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.kirkland.com/news/press-release/2026/07/kirkland-advises-altaris-on-acquisition-of-clarivates-life-sciences-healthcare-business",
+    id: "u636", title: "Kirkland advises Altaris on acquisition of Clarivate's Life Sciences & Healthcare business",
+    area: "corporate", areas: ["corporate"], type: "alert", firm: "kirkland",
+    date: "2026-07-06", jurisdiction: "United Kingdom / United States",
+    summary: "Kirkland & Ellis advised Altaris, LLC on its agreement to acquire the Life Sciences & Healthcare segment (the Cortellis and Decision Resources Group portfolios) of London-headquartered Clarivate plc for $600 million, in a transaction expected to close in the second half of 2026 subject to customary closing conditions and regulatory approvals.",
+    points: [
+      "Deal structured as $500m cash at closing, $25m deferred cash tied to a transition services agreement, and a $75m seller note",
+      "Clarivate intends to use proceeds to pay down debt",
+      "The divested business will operate as an independent company under Altaris ownership post-closing",
+    ],
+    tags: ["M&A", "divestiture", "life sciences", "private equity", "Clarivate"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.weil.com/articles/weil-advises-advent-portfolio-company-cobham-ultra-on-the-sale-of-ultra-maritime-to-lockheed-martin",
+    id: "u637", title: "Weil advises Advent portfolio company Cobham Ultra on the $3.45 billion sale of Ultra Maritime to Lockheed Martin",
+    area: "corporate", areas: ["corporate"], type: "alert", firm: "weil",
+    date: "2026-07-06", jurisdiction: "United Kingdom / United States",
+    summary: "Weil advised Cobham Ultra, an Advent International portfolio company, on the agreed USD $3.45 billion sale of Ultra Maritime — described as a leader in next-generation undersea warfare solutions — to Lockheed Martin, subject to regulatory approvals and customary closing conditions.",
+    points: [
+      "Ultra Maritime sits within the UK-rooted Cobham/Ultra Electronics defence group, majority-owned by Advent International",
+      "Transaction remains subject to customary regulatory approvals, including national-security clearances",
+      "Deal value of approximately US$3.45bn",
+    ],
+    tags: ["M&A", "defence", "private equity", "national security", "Lockheed Martin"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.weil.com/articles/weil-advises-on-400-million-privately-placed-tap-offering-by-paprec",
+    id: "u638", title: "Weil advises on €400 million privately placed tap offering by Paprec",
+    area: "banking", areas: ["banking"], type: "alert", firm: "weil",
+    date: "2026-07-02", jurisdiction: "France",
+    summary: "Weil's London and Paris high-yield teams advised on a €400 million privately placed tap offering by Paprec Holding, comprising €125 million of senior secured notes due 2030 and €275 million of senior secured notes due 2032, with proceeds earmarked for acquisition financing and repayment of existing indebtedness.",
+    points: [
+      "Tap offering split between notes due 2030 (€125m) and notes due 2032 (€275m)",
+      "Proceeds for general corporate purposes, including acquisition financing and refinancing existing debt",
+      "Advised by Weil's London-based high-yield partner Gilles Teerlinck, working with the Paris office",
+    ],
+    tags: ["high yield", "debt capital markets", "senior secured notes", "private placement"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.clearygottlieb.com/news-and-insights/news-listing/solstice-advanced-materials-in-15-billion-acquisition-of-element-solutions",
+    id: "u639", title: "Solstice Advanced Materials in $15 billion acquisition of Element Solutions",
+    area: "banking", areas: ["banking", "corporate"], type: "alert", firm: "cleary",
+    date: "2026-07-06", jurisdiction: "United States",
+    summary: "Cleary Gottlieb advised Solstice Advanced Materials on a fully committed $4.7 billion bridge financing from Goldman Sachs Bank USA backing its approximately $15 billion cash-and-stock acquisition (including assumed net debt) of specialty chemicals company Element Solutions Inc, with closing anticipated in the first half of 2027.",
+    points: [
+      "$4.7bn bridge commitment from Goldman Sachs supports the ~$15bn acquisition",
+      "Cleary previously advised Honeywell on Solstice's spin-off financing",
+      "Closing anticipated H1 2027, subject to customary conditions",
+    ],
+    tags: ["bridge financing", "M&A", "specialty chemicals", "acquisition finance"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.clearygottlieb.com/news-and-insights/news-listing/alcoa-in-4-1-billion-acquisition-of-south32s-bauxite-alumina-and-aluminum-assets",
+    id: "u640", title: "Alcoa in $4.1 billion acquisition of South32's bauxite, alumina and aluminum assets",
+    area: "banking", areas: ["banking", "corporate"], type: "alert", firm: "cleary",
+    date: "2026-07-03", jurisdiction: "United States / Australia",
+    summary: "Cleary Gottlieb advised Alcoa Corporation on a $3.1 billion committed bridge financing from Goldman Sachs supporting its approximately $4.1 billion upfront cash-and-stock acquisition of South32 Limited's bauxite mine, alumina refinery and aluminium smelter interests, expected to close in the first half of 2027 subject to shareholder approval and regulatory clearances.",
+    points: [
+      "$3.1bn bridge commitment from Goldman Sachs",
+      "Upfront consideration of approximately $4.1bn in cash-and-stock",
+      "Cleary's London-based capital markets lawyers supported the financing workstream",
+    ],
+    tags: ["bridge financing", "M&A", "mining", "acquisition finance"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.macfarlanes.com/insights/102n7sw/macfarlanes-advises-hayfin-on-the-15bn-close-of-its-direct-lending-fund-v/",
+    id: "u641", title: "Macfarlanes advises Hayfin on the €15bn close of its Direct Lending Fund V",
+    area: "funds", areas: ["funds"], type: "alert", firm: "macfarlanes",
+    date: "2026-07-02", jurisdiction: "United Kingdom / Europe",
+    summary: "Macfarlanes advised Hayfin Capital Management on the final close of its Direct Lending Fund V, a commingled European private-credit fund raising over €15 billion — more than double the €6 billion raised for Fund IV in 2023 — with Macfarlanes handling fund formation, tax structuring and leverage-facility arrangements.",
+    points: [
+      "Fund V raised over €15bn, more than double Fund IV's €6bn close in 2023",
+      "Focused on senior-secured mid-market direct lending across Europe",
+      "Macfarlanes team covered fund formation, tax and financing workstreams",
+    ],
+    tags: ["private credit", "fund formation", "direct lending", "fundraising"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.macfarlanes.com/insights/102n7w8/supreme-court-decides-the-llp-salaried-member-rules-but-sends-bluecrest-back-to/",
+    id: "u642", title: "Supreme Court decides the LLP salaried member rules — but sends BlueCrest back to the First-tier Tax Tribunal",
+    area: "funds", areas: ["funds", "banking"], type: "knowhow", firm: "macfarlanes",
+    date: "2026-07-03", jurisdiction: "United Kingdom",
+    summary: "Macfarlanes' briefing on the Supreme Court's decision in Commissioners for HMRC v BlueCrest Capital Management (UK) LLP ([2026] UKSC 18) explains the practical impact for asset managers and other LLP-structured businesses of the Court's guidance on Condition A ('disguised salary') and Condition B ('significant influence'), including the remittal of BlueCrest's own case to the First-tier Tribunal for renewed fact-finding.",
+    points: [
+      "Reviews the Supreme Court's treatment of Condition A (disguised salary) and Condition B (significant influence) under the salaried-members rules",
+      "Notes BlueCrest's Condition B position is remitted to the First-tier Tribunal for further fact-finding",
+      "Sets out immediate implications for how membership terms, governance frameworks and delegated authority are documented in LLP-structured asset managers",
+    ],
+    tags: ["salaried members rules", "LLP taxation", "asset management", "BlueCrest", "Supreme Court"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.clearygottlieb.com/news-and-insights/news-listing/ghf-fund-wins-dismissal-of-300-million-fraud-appeal-in-abraaj-collapse-case",
+    id: "u643", title: "GHF Fund wins dismissal of $300 million fraud appeal arising from Abraaj collapse",
+    area: "funds", areas: ["funds"], type: "alert", firm: "cleary",
+    date: "2026-07-06", jurisdiction: "Cayman Islands",
+    summary: "Cleary Gottlieb secured dismissal by the Cayman Islands Court of Appeal of a twelve-ground appeal brought by Abdulhameed Jafar against GHF General Partner Limited and GHF Group Limited, upholding the Grand Court's September 2025 judgment dismissing all of Jafar's roughly $300 million fraud claims arising from the 2018 collapse of the Abraaj Group, following an eight-week trial that concluded in January 2024.",
+    points: [
+      "CICA dismissed all twelve grounds of appeal on 23 June 2026, upholding the Grand Court's 938-page judgment",
+      "GHF Fund is a c.$1bn healthcare-focused investment vehicle formerly managed within the Abraaj Group structure",
+      "Cleary Gottlieb (James Norris-Jones, Naomi Tarawali) led the defence team",
+    ],
+    tags: ["fund litigation", "fraud claims", "Cayman Islands", "Abraaj", "private equity fund"],
     dateEstimated: false,
   },
 ];
