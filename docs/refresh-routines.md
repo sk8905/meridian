@@ -365,22 +365,23 @@ the source of truth for the prompt.
 >      date. (Omit the recurring weekly initial-jobless-claims prints — too noisy for
 >      the banner.)
 >    - **Key macro news headlines in `macro/js/content.js` `NEWS`** → REWRITE every
->      run. The dashboard renders these as ONE newest-first feed and shows ONLY items
->      dated within the last 3 days, so stale headlines silently vanish — you MUST
->      refresh them each run. Run targeted web searches for the most important
->      CURRENT US and UK macro / monetary-policy / markets stories (inflation, central
->      banks, growth, jobs, rates, fiscal) from reputable financial outlets (Reuters,
->      FT, Bloomberg, WSJ, CNBC, Briefing.com, MarketWatch and similar) and replace
->      the arrays with the ~three most important US and ~three most important UK
->      headlines **published in the last 3 days** (dated within 3 days of today —
->      older items will not render). Each item is `{title, source, date, url}` — use
->      the exact published headline, the outlet, the verified `YYYY-MM-DD` publication
->      date and the real article URL; never fabricate a headline, date or link.
->      Diversify outlets within each country and favour genuine macro stories over
->      single-company news. Set `NEWS.updated` to today. If egress is blocked so no
->      headline can be verified this run, leave the existing `NEWS` arrays unchanged
->      (do not invent replacements) and say so in the summary — the feed will simply
->      show nothing until the next successful run.
+>      run. The dashboard renders these as ONE newest-first feed: it prefers items
+>      dated within the last 3 days, but if none are that recent it falls back to
+>      whatever headlines are in `NEWS` (so the feed is never empty). Refresh them
+>      each run so the dashboard keeps showing genuinely current stories. Run targeted
+>      web searches for the most important CURRENT US and UK macro / monetary-policy /
+>      markets stories (inflation, central banks, growth, jobs, rates, fiscal) from
+>      reputable financial outlets (Reuters, FT, Bloomberg, WSJ, CNBC, Briefing.com,
+>      MarketWatch and similar) and replace the arrays with the ~three most important
+>      US and ~three most important UK headlines, preferring the last 3 days. Each
+>      item is `{title, source, date, url}` — use the exact published headline, the
+>      outlet, the verified `YYYY-MM-DD` publication date and the real article URL;
+>      never fabricate a headline, date or link. Diversify outlets within each country
+>      and favour genuine macro stories over single-company news. Set `NEWS.updated`
+>      to today. If egress is blocked so no headline can be verified this run, leave
+>      the existing `NEWS` arrays unchanged (do not invent replacements) and say so in
+>      the summary — the pre-existing headlines stay on the dashboard until the next
+>      successful run.
 >    - **Editorial guidance in `macro/js/content.js`** → review against current
 >      sources and update only when materially changed (e.g. after an FOMC/MPC
 >      decision, a major data surprise, or a notable market move):

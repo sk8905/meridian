@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES } from "./content.js?v=20260708-4";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES } from "./content.js?v=20260708-5";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -117,25 +117,26 @@ function renderReleases() {
 }
 
 // ---- Key macro headlines (Latest-Activity-style feed) ----------------------
-// One chronological list, newest first, limited to items ≤ 3 days old.
+// One chronological list, newest first. Prefer items ≤ 3 days old, but if none
+// are that recent, fall back to the existing headlines rather than an empty feed.
 function renderNews() {
   const cutoff = todayMidnight(); cutoff.setDate(cutoff.getDate() - 3);
-  const items = [
+  const all = [
     ...((NEWS && NEWS.us) || []).map((n) => ({ ...n, country: "US" })),
     ...((NEWS && NEWS.uk) || []).map((n) => ({ ...n, country: "UK" })),
-  ]
-    .filter((n) => { const d = isoToDate(n.date); return d && d >= cutoff; })
-    .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  ].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  const fresh = all.filter((n) => { const d = isoToDate(n.date); return d && d >= cutoff; });
+  const items = fresh.length ? fresh : all;
   const body = items.length
     ? `<ul class="compact-list">${items.map((n) => `
         <li class="compact-item">
           <a class="compact-head" href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">${esc(n.title)}</a>
           <div class="compact-meta muted small"><span class="news-flag news-${n.country.toLowerCase()}">${esc(n.country)}</span> ${esc(fmtDay(n.date))} · ${esc(n.source)} ↗</div>
         </li>`).join("")}</ul>`
-    : `<p class="muted small">No major macro headlines in the last three days.</p>`;
+    : `<p class="muted small">Headlines are temporarily unavailable.</p>`;
   return `<section class="card feature-card macro-news-panel">
     <h2>Key macro headlines</h2>
-    <p class="muted small">The most important US &amp; UK macro stories from the past three days, newest first — Reuters, FT, Bloomberg, CNBC &amp; similar. Click a headline to open it.</p>
+    <p class="muted small">The most important US &amp; UK macro stories, newest first — Reuters, FT, Bloomberg, CNBC &amp; similar. Click a headline to open it.</p>
     ${body}
   </section>`;
 }
