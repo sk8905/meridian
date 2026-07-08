@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES } from "./content.js?v=20260708-8";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES } from "./content.js?v=20260708-9";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -44,8 +44,10 @@ function macroTile(s) {
   const pct = s.unit === "%";
   const val = s.value == null ? "—" : `${(+s.value).toFixed(2)}${pct ? "%" : ""}`;
   const ch = s.change;
+  const dir = ch > 0 ? "up" : ch < 0 ? "down" : "flat";
+  const arrow = ch > 0 ? "▲" : ch < 0 ? "▼" : "·";
   const chHtml = (ch == null || s.value == null) ? "" :
-    `<span class="macro-chg" title="change vs previous month">${ch > 0 ? "▲" : ch < 0 ? "▼" : "•"} ${Math.abs(ch).toFixed(2)}${pct ? " pp" : ""}</span>`;
+    `<span class="macro-chg ${dir}" title="change vs previous month">${arrow} ${Math.abs(ch).toFixed(2)}${pct ? " pp" : ""}</span>`;
   const chart = (s.history && s.history.length > 1)
     ? sparkline(s.history)
     : '<div class="spark-empty muted small">5-year history unavailable</div>';

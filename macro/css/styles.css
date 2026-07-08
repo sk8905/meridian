@@ -99,6 +99,9 @@ a.macro-tile:hover .macro-src { color: var(--macro); text-decoration: underline;
 .macro-valrow { display: flex; align-items: baseline; gap: .5rem; }
 .macro-val { font-size: 1.7rem; font-weight: 800; color: var(--macro); letter-spacing: -0.02em; line-height: 1; }
 .macro-chg { font-size: .74rem; font-weight: 600; color: var(--muted); white-space: nowrap; }
+.macro-chg.up { color: #059669; }
+.macro-chg.down { color: #dc2626; }
+.macro-chg.flat { color: var(--muted); }
 .macro-chart { margin: .1rem 0 .15rem; min-height: 40px; }
 .spark { width: 100%; height: auto; display: block; }
 .spark-x { fill: var(--muted); font-size: 9px; }
