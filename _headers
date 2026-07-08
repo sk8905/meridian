@@ -26,3 +26,17 @@
   Cache-Control: no-cache
 /macro/index.html
   Cache-Control: no-cache
+
+# The shared data modules are also revalidated. The three apps bust these via
+# their own ?v= tokens, but the Glance landing (glance.js) and the in-app command
+# palette (palette.js) import the SAME modules and are NOT bumped by the twice-
+# daily refresh routine — so without this they would pin a stale copy and show
+# out-of-date items. no-cache keeps the cached body and revalidates (cheap 304
+# when unchanged), so a data refresh is always picked up. Keep this in sync with
+# the refresh-routines cache-buster note.
+/credit/js/data.js
+  Cache-Control: no-cache
+/legal/js/data.js
+  Cache-Control: no-cache
+/macro/js/content.js
+  Cache-Control: no-cache

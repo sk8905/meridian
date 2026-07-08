@@ -20,23 +20,25 @@ const MACRO_INDICATORS = [
   ["services_pmi", "Services PMI"], ["wages", "Wage growth"], ["unemployment", "Unemployment"],
 ];
 
+// Result priority (rank): managers first, then funds / CLOs, then dated items
+// (deals, intel, legal — newest first), then macro chart shortcuts, then views.
 function buildIndex() {
   const idx = [];
-  const add = (tag, title, sub, href) => idx.push({ tag, title, sub, href, hay: (title + " " + sub).toLowerCase() });
-  add("credit", "Credit dashboard", "Meridian Credit", "/credit/");
-  add("legal", "Legal dashboard", "Meridian Legal", "/legal/");
-  add("macro", "Macro dashboard", "Meridian Macro", "/macro/");
-  add("view", "Glance", "Cross-desk briefing", "/");
+  const add = (tag, title, sub, href, rank, date) => idx.push({ tag, title, sub, href, rank, date: date || "", hay: (title + " " + sub).toLowerCase() });
+  add("credit", "Credit dashboard", "Meridian Credit", "/credit/", 4, "");
+  add("legal", "Legal dashboard", "Meridian Legal", "/legal/", 4, "");
+  add("macro", "Macro dashboard", "Meridian Macro", "/macro/", 4, "");
+  add("view", "Glance", "Cross-desk briefing", "/", 4, "");
   [["commentary", "Rate outlook"], ["cycle", "Cycle"], ["bubble", "Bubble risk"], ["chart", "Chart"]]
-    .forEach(([k, l]) => add("macro", `Macro — ${l}`, "View", `/macro/#/${k}`));
-  deals.forEach((d) => add("credit", d.headline, `Deal · ${fmt(d.date)}${mgrName(d.managerId) ? " · " + mgrName(d.managerId) : ""}`, "/credit/#/deals"));
-  intel.forEach((i) => add("credit", i.headline, `${i.type || "Fundraising"} · ${fmt(i.date)}${mgrName(i.managerId) ? " · " + mgrName(i.managerId) : ""}`, "/credit/#/intel"));
-  managers.forEach((m) => add("credit", m.name, "Manager", "/credit/#/managers"));
-  funds.forEach((f) => add("credit", f.name, `Fund${f.managerId && mgrName(f.managerId) ? " · " + mgrName(f.managerId) : ""}`, "/credit/#/funds"));
-  items.forEach((i) => add("legal", i.title, `Legal alert${i.firm ? " · " + i.firm : ""}${i.date ? " · " + fmt(i.date) : ""}`, `/legal/#/item/${encodeURIComponent(i.id)}`));
-  cases.forEach((c) => add("legal", c.name, `Case · ${c.court || ""}${c.citation ? " · " + c.citation : ""}`, `/legal/#/cases?case=${encodeURIComponent(c.id)}`));
-  restructurings.forEach((r) => add("legal", r.company, `${r.type === "scheme" ? "Scheme" : "Restructuring plan"}${r.citation ? " · " + r.citation : ""}`, `/legal/#/restructurings?m=${encodeURIComponent(r.id)}`));
-  ["US", "UK"].forEach((c) => MACRO_INDICATORS.forEach(([k, l]) => add("macro", `${c} ${l}`, "Open in Chart", `/macro/#/chart?add=${c}:${k}`)));
+    .forEach(([k, l]) => add("macro", `Macro — ${l}`, "View", `/macro/#/${k}`, 4, ""));
+  managers.forEach((m) => add("credit", m.name, "Manager", "/credit/#/managers", 0, ""));
+  funds.forEach((f) => add("credit", f.name, `Fund${f.managerId && mgrName(f.managerId) ? " · " + mgrName(f.managerId) : ""}`, "/credit/#/funds", 1, ""));
+  deals.forEach((d) => add("credit", d.headline, `${d.clo ? "CLO" : "Deal"} · ${fmt(d.date)}${mgrName(d.managerId) ? " · " + mgrName(d.managerId) : ""}`, d.clo ? "/credit/#/clos" : "/credit/#/deals", d.clo ? 1 : 2, d.date));
+  intel.forEach((i) => add("credit", i.headline, `${i.clo ? "CLO · " : ""}${i.type || "Fundraising"} · ${fmt(i.date)}${mgrName(i.managerId) ? " · " + mgrName(i.managerId) : ""}`, i.clo ? "/credit/#/clos" : "/credit/#/intel", i.clo ? 1 : 2, i.date));
+  items.forEach((i) => add("legal", i.title, `Legal alert${i.firm ? " · " + i.firm : ""}${i.date ? " · " + fmt(i.date) : ""}`, `/legal/#/item/${encodeURIComponent(i.id)}`, 2, i.date));
+  cases.forEach((c) => add("legal", c.name, `Case · ${c.court || ""}${c.citation ? " · " + c.citation : ""}`, `/legal/#/cases?case=${encodeURIComponent(c.id)}`, 2, c.date));
+  restructurings.forEach((r) => add("legal", r.company, `${r.type === "scheme" ? "Scheme" : "Restructuring plan"}${r.citation ? " · " + r.citation : ""}`, `/legal/#/restructurings?m=${encodeURIComponent(r.id)}`, 2, r.date));
+  ["US", "UK"].forEach((c) => MACRO_INDICATORS.forEach(([k, l]) => add("macro", `${c} ${l}`, "Open in Chart", `/macro/#/chart?add=${c}:${k}`, 3, "")));
   return idx;
 }
 
@@ -86,7 +88,13 @@ export function mountPalette() {
     if (!q) return defaults;
     const toks = q.split(/\s+/);
     return idx.filter((e) => toks.every((t) => e.hay.includes(t)))
-      .map((e) => ({ e, s: score(e, q) })).sort((a, b) => a.s - b.s).slice(0, 40).map((x) => x.e);
+      .map((e) => ({ e, s: score(e, q) }))
+      .sort((a, b) =>
+        a.e.rank - b.e.rank ||
+        (a.e.rank === 2 ? String(b.e.date).localeCompare(String(a.e.date)) : 0) ||
+        a.s - b.s ||
+        a.e.title.localeCompare(b.e.title))
+      .slice(0, 40).map((x) => x.e);
   }
   function draw() {
     results.innerHTML = current.length

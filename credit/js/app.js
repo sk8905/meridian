@@ -2067,7 +2067,7 @@ document.addEventListener("touchend", (e) => {
 window.addEventListener("hashchange", router);
 window.addEventListener("DOMContentLoaded", router);
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260708-3").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260708-4").then((m) => m.mountPalette()).catch(() => {});
 router();
 renderDataStatus();
 initNotif();

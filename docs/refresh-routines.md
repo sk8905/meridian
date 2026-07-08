@@ -93,6 +93,16 @@ the source of truth for the prompt.
   refresh stamp changes every run, ALL three apps' tokens move on every run. Before
   committing, `git diff --stat` MUST show `index.html` and `js/app.js` changed for
   every app whose data changed. The three apps keep independent sequence numbers.
+  - **Glance landing + in-app palette.** The root `glance.js` (Glance briefing)
+    and `palette.js` (the `/` command palette mounted in every app) ALSO import
+    `credit/js/data.js`, `legal/js/data.js` and `macro/js/content.js`. They are
+    NOT part of the per-app token bumping above, so to stop them pinning a stale
+    copy those three data modules are served `Cache-Control: no-cache` in
+    `_headers` (they revalidate → cheap 304, always fresh). So a routine run does
+    **not** need to touch `glance.js`/`palette.js` — but if you ever stop
+    revalidating a data module in `_headers`, you must instead bump its `?v=`
+    import token inside `glance.js` and `palette.js` (and their own cache tokens)
+    on every data change, or Glance will show out-of-date items.
 - **Macro edge cache.** Macro's `/api/macro` endpoint is cached at the edge under a
   key `"/api/macro?v=N"` in `src/index.js`. Bump `N` on every run so the redeploy
   serves a freshly-pulled set of live indicators (and any curated-series edit takes
