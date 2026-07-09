@@ -13,7 +13,7 @@ export const UPDATED = "9 July 2026";
 // viewer timezone. The twice-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-09",
-  lastCheckedTime: "12:17 BST",
+  lastCheckedTime: "21:14 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -65,14 +65,12 @@ export const COMMENTARY = {
   us: [
     { title: "The worst of inflation is behind us — the Fed should stay in wait-and-see mode", source: "CNBC", author: "Mohamed El-Erian", date: "2026-07-07", url: "https://www.cnbc.com/video/2026/07/07/mohamed-el-erian-the-worst-of-inflation-is-behind-us-so-the-fed-should-stay-in-wait-and-see-mode.html" },
     { title: "Trump's Meddling Threatens Warsh's Fed Leadership", source: "Bloomberg Opinion", author: "Jonathan Levin", date: "2026-07-06", url: "https://www.bloomberg.com/opinion/articles/2026-07-06/trump-s-meddling-threatens-warsh-s-fed-leadership" },
-    { title: "Bank of America sees 3 Fed hikes in 2026, inflation 'unambiguously worse'", source: "CNBC", author: "BofA — Aditya Bhave", date: "2026-06-22", url: "https://www.cnbc.com/2026/06/22/bank-of-america-sees-3-fed-hikes-in-2026-inflation-unambiguously-worse.html" },
+    { title: "Will The Fed Hike Interest Rates In Its July Meeting? Here's What The Market Thinks", source: "Yahoo Finance", author: "Barclays", date: "2026-07-06", url: "https://finance.yahoo.com/economy/policy/articles/fed-hike-interest-rates-july-060507499.html" },
   ],
   uk: [
+    { title: "Hedge Fund Gilt Risks Are Best Managed in Markets", source: "Bloomberg Opinion", author: "Paul J. Davies", date: "2026-07-09", url: "https://www.bloomberg.com/opinion/articles/2026-07-09/hedge-fund-gilt-risks-are-best-managed-in-markets" },
     { title: "British Pound: Inflation Fears Ease, But BoE Stays Cautious", source: "exchangerates.org.uk", author: "Pantheon Macroeconomics", date: "2026-07-08", url: "https://www.exchangerates.org.uk/news/46435/2026-07-08-british-pound-inflation-fears-ease-but-boe-stays-cautious.html" },
     { title: "BoE forecast to hold rates 'well into 2027' as inflation tops 4%", source: "Financial Reporter", author: "Oxford Economics — Edward Allenby", date: "2026-06-30", url: "https://www.financialreporter.co.uk/bank-of-england-forecast-to-hold-interest-rates-well-into-2027-as-inflation-tops-4.html" },
-    { title: "What will happen to UK interest rates in 2026?", source: "MoneyWeek", author: "Deutsche Bank — Sanjay Raja", date: "2026-06-19", url: "https://moneyweek.com/economy/uk-economy/605427/when-will-interest-rates-go-up" },
-    { title: "Bank of England policy announcement — June 2026 review", source: "Capital Economics", author: null, date: "2026-06-18", url: "https://www.capitaleconomics.com/publications/uk-economics-rapid-response/bank-england-policy-announcement-18th-jun-2026" },
-    { title: "Bank of England poised for a summer rate hike on the energy spike", source: "ING Think", author: "James Smith", date: "2026-06-11", url: "https://think.ing.com/articles/bank-of-england-poised-for-july-rate-hike-on-energy-spike/" },
   ],
 };
 
@@ -202,9 +200,9 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-07-09",
   us: [
+    { title: "Stock market today: Dow, S&P 500, Nasdaq gain as chip stocks rebound, oil prices fall", source: "Yahoo Finance", date: "2026-07-09", url: "https://finance.yahoo.com/markets/live/stock-market-today-thursday-july-9-us-strikes-iran-223149196.html" },
+    { title: "The U.S. launches new airstrikes on Iran and Tehran fires back at Gulf Arab states", source: "NPR", date: "2026-07-09", url: "https://www.npr.org/2026/07/09/g-s1-132670/us-iran-strikes" },
     { title: "Fed officials were split on direction of interest rates at last meeting, minutes show", source: "CNBC", date: "2026-07-08", url: "https://www.cnbc.com/2026/07/08/fed-minutes-june-2026-.html" },
-    { title: "Oil prices surge and markets fall after Trump says Iran ceasefire is over", source: "Washington Post", date: "2026-07-08", url: "https://www.washingtonpost.com/business/2026/07/08/oil-prices-surge-markets-poised-fall-after-trump-says-iran-ceasefire-is-over/" },
-    { title: "Stock Market Today: Dow, S&P Live Updates for July 9", source: "Bloomberg", date: "2026-07-08", url: "https://www.bloomberg.com/news/articles/2026-07-08/stock-market-today-dow-s-p-live-updates" },
   ],
   uk: [
     { title: "Labour leadership contest takes Burnham closer to UK PM's office", source: "RTE News (AFP)", date: "2026-07-09", url: "https://www.rte.ie/news/2026/0709/1582521-labour-uk-burnham/" },
@@ -221,6 +219,7 @@ export const NEWS = {
 export const RELEASES = [
   { date: "2026-07-14", country: "US", title: "CPI (June)", url: "https://www.bls.gov/schedule/news_release/cpi.htm" },
   { date: "2026-07-14", country: "US", title: "Fed Chair Kevin Warsh semiannual Monetary Policy testimony, House Financial Services Committee", url: "https://www.federalreserve.gov/newsevents/testimony.htm" },
+  { date: "2026-07-15", country: "US", title: "Fed Chair Kevin Warsh semiannual Monetary Policy testimony, Senate Banking Committee", url: "https://www.banking.senate.gov/hearings" },
   { date: "2026-07-15", country: "US", title: "PPI (June)", url: "https://www.bls.gov/schedule/news_release/ppi.htm" },
   { date: "2026-07-16", country: "US", title: "Retail sales (June)", url: "https://www.census.gov/retail/release_schedule.html" },
   { date: "2026-07-16", country: "UK", title: "GDP monthly estimate (May)", url: "https://www.ons.gov.uk/economy/grossdomesticproductgdp" },

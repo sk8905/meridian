@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-07-09";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — two runs a day (~06:00 / ~12:00).
-export const LAST_CHECKED_TIME = "12:17 BST";
+export const LAST_CHECKED_TIME = "21:14 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -6174,6 +6174,50 @@ export const items = [
     tags: ["MiFID II", "passporting", "ESMA", "financial regulation"],
     dateEstimated: false,
   },
+  {
+    url: "https://www.simmons-simmons.com/en/publications/cmr9cv2iz002iu73s05q99zit/financial-markets-disputes-view-july-2026",
+    id: "u649", title: "Financial Markets Disputes View: July 2026",
+    area: "banking", areas: ["banking"], type: "update", firm: "simmons",
+    date: "2026-07-06", jurisdiction: "United Kingdom",
+    summary: "Simmons & Simmons' monthly financial-markets disputes bulletin covering the new 2-year pilot making Commercial Court/Financial List hearing documents publicly accessible, AI-hallucination concerns in court filings (Cork & Anor v Smith [2026]), FCA enforcement against a bank CEO for non-disclosure of overseas regulatory issues, proposed increases to FCA individual penalty minimums, and intensifying regulatory scrutiny of motor-finance claims-management companies.",
+    points: [
+      "Commercial Court/Financial List launch 2-year pilot for public access to hearing documents",
+      "FCA fined Carlos Fuenmayor £99,600 for failing to disclose overseas regulatory/FINRA matters — reinforces proactive-disclosure duty for Senior Managers",
+      "FCA proposes raising DEPP minimum individual disciplinary penalties from £100k to £150k with biennial CPI adjustment",
+      "FCA enforcement investigation and market study opened into motor-finance claims-management companies",
+    ],
+    tags: ["financial markets litigation", "FCA enforcement", "Senior Managers Regime", "AI in litigation"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.weil.com/articles/weil-advises-cvc-capital-partners-in-its-majority-investment-in-distrokid",
+    id: "u650", title: "Weil advises CVC Capital Partners in its majority investment in DistroKid",
+    area: "corporate", areas: ["corporate"], type: "alert", firm: "weil",
+    date: "2026-07-08", jurisdiction: "United States",
+    summary: "Weil is advising CVC Capital Partners (via CVC Capital Partners IX) on its majority investment in music-distribution platform DistroKid; existing investor Insight Partners retains a significant minority stake. Closing is expected Q3 2026 subject to customary conditions; deal value undisclosed.",
+    points: [
+      "CVC Capital Partners IX to take majority stake in DistroKid; Insight Partners retains minority position",
+      "Closing targeted for Q3 2026, subject to customary conditions",
+      "Weil deal team spans Private Equity, Entertainment/Media, Tax, Banking & Finance and Antitrust groups",
+    ],
+    tags: ["private equity", "M&A", "media", "majority investment"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.macfarlanes.com/insights/102n7w0/cutting-back-the-consumer-duty/",
+    id: "u651", title: "Cutting back the Consumer Duty",
+    area: "banking", areas: ["banking", "funds"], type: "update", firm: "macfarlanes",
+    date: "2026-07-07", jurisdiction: "United Kingdom",
+    summary: "Macfarlanes' briefing on the FCA's proposals (consultation closing 18 September 2026) to narrow Consumer Duty scope — excluding nine categories of wholesale business (including fund management, custody and market-making), limiting application to UK-resident retail customers, and replacing 'co-manufacturer' with 'principal'/'secondary manufacturer' classifications.",
+    points: [
+      "FCA proposes excluding nine wholesale-business categories (fund management, custodian roles, market making, ESG ratings) from Consumer Duty",
+      "Duty would apply only to retail customers ordinarily resident in the UK",
+      "Firms need only monitor their own conduct in a distribution chain, not other firms' compliance",
+      "'Co-manufacturing' concept replaced with primary/secondary manufacturer roles and modified obligations",
+    ],
+    tags: ["Consumer Duty", "FCA", "CP26/23", "wholesale exclusion", "fund management"],
+    dateEstimated: false,
+  },
 ];
 
 // ---- Recent cases published on BAILII -------------------------------------
@@ -6359,6 +6403,12 @@ export const cases = [
   { id: "c60", name: "THG Plc v Zedra Trust Company (Jersey) Limited", citation: "[2026] UKSC 6", court: "Supreme Court",
     date: "2026-02-25", area: "corporate", url: "https://supremecourt.uk/cases/uksc-2024-0047",
     summary: "The Supreme Court gave authoritative guidance on whether, and what, statutory limitation period applies to amendments to unfair-prejudice petitions under section 994 of the Companies Act 2006." },
+  { id: "c61", name: "DBLP Sea Cow Limited v Lars Stefensen", citation: "[2026] EWHC 1735 (Ch)", court: "High Court (Ch)",
+    date: "2026-07-09", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1735",
+    summary: "Mr Justice Mellor committed Lars Stefensen to two years' imprisonment for contempt of four court orders (a proprietary injunction, an information order, a debarring order and a post-judgment injunction) after he sold 2.5 million Rezolve AI plc shares he held on trust pending payment, without authorisation, and refused to disclose the proceeds' whereabouts." },
+  { id: "c62", name: "Hamad Al Haroun v Ahmad Al Fahad Al Ahmad Al Sabah (Kuwait Finance House PLC)", citation: "[2026] EWHC 1669 (KB)", court: "High Court (KB)",
+    date: "2026-07-08", area: "banking", url: "https://caselaw.nationalarchives.gov.uk/ewhc/kb/2026/1669",
+    summary: "David Quest KC (sitting as a Deputy High Court Judge) dismissed applications by Kuwait Finance House PLC to set aside a contempt order and default judgment, finding that although the claimant had manipulated a delivery-confirmation document, genuine service of enforcement documents on KFH had nonetheless occurred through multiple courier/postal deliveries which the bank failed to process internally." },
 ];
 
 // ---- Lightweight lookups ----------------------------------------------------
@@ -6431,6 +6481,8 @@ export const caseSummaries = {
   c58: "Stor RB One had obtained summary judgment in 2023 against Mr Kanthasamy for over £541,000 on a personal guarantee he gave in support of a receivables purchase facility extended to a company run by a relative. Kanthasamy later alleged the guarantee deed was forged and that the earlier proceedings were tainted by a fabricated defence admission and a false solicitor's certificate of independent legal advice, produced by the relative rather than by Stor itself, and sought to set the judgment aside for fraud. Judge Kramer KC refused to strike out the fraud case, finding a real triable issue on forgery, but declined to resolve whether the 'fraud unravels all' principle extends to a co-defendant's fraud (rather than the judgment creditor's), adjourning that novel point pending the Court of Appeal's decision in Lindsay's Estate v Outlook Finance Ltd. The case is of practical significance for lenders relying on personal guarantees where the alleged fraud is perpetrated by someone other than the borrower or creditor.",
   c59: "Twelve standby letters of credit, issued 2017-2020 by Sberbank and confirmed by UniCredit's London branch, secured lease obligations of Russian carriers to Irish lessors Celestial Aviation Services and two Aircastle-group entities. After UK Russia sanctions were imposed, UniCredit refused payment, and the lessors argued the leases and LCs predated the sanctions regime and so fell outside its reach. Lord Stephens, giving the judgment for a unanimous panel, held that Regulation 28(3) of the Russia (Sanctions) (EU Exit) Regulations 2019 requires only a factual connection between financial services or funds and an arrangement whose object or effect makes restricted goods available to a Russia-connected person, dismissing the lessors' appeals and allowing the bank's cross-appeal. The decision is a landmark for trade-finance and letter-of-credit practice under UK sanctions law, confirming that banks can lawfully decline payment under pre-existing instruments where a sufficient factual connection to sanctioned activity exists.",
   c60: "Zedra, a minority shareholder in THG plc, originally filed an unfair-prejudice petition under section 994 of the Companies Act 2006 in 2019 and in 2022 sought to amend it to add allegations concerning share distributions made in July 2016; THG argued the proposed amendment was time-barred. The Court of Appeal had agreed that the amendment was out of time. A five-Justice Supreme Court panel (Lord Hodge, Lord Lloyd-Jones, Lord Briggs, Lord Burrows and Lord Richards) reviewed the position and gave authoritative guidance on how, and whether, a statutory limitation period constrains amendments to section 994 unfair-prejudice petitions. The ruling is significant as one of the few Supreme Court decisions to address limitation in the context of shareholder unfair-prejudice claims, providing clarity for corporate and shareholder-dispute practitioners on when historic conduct can still be pleaded into an existing petition.",
+  c61: "Stefensen received 2.5 million shares in Rezolve AI plc under a share purchase agreement but held them on trust pending payment; he sold all the shares without authorisation and then defied four separate court orders (a proprietary injunction, an information order, a debarring order and a post-judgment injunction) requiring him to disclose what had become of the proceeds. Mr Justice Mellor found the breaches deliberate, flagrant and continuing, rejected suspension, and sentenced Stefensen to two years' imprisonment, emphasising the serious prejudice to DBLP's ability to trace the misappropriated funds. The decision illustrates the court's willingness to impose immediate custodial sentences for sustained non-compliance with disclosure orders protecting trust property in share-sale disputes.",
+  c62: "Kuwait Finance House PLC applied to set aside a contempt order and default judgment obtained against it in enforcement proceedings, arguing it had never been properly served with the relevant documents and pointing to evidence that the claimant, Hamad Al Haroun, had manipulated a delivery-confirmation record dated 23 June 2023. David Quest KC, sitting as a Deputy High Court Judge, found that document manipulation had indeed occurred but held that genuine service had nonetheless taken place on multiple occasions via courier and postal delivery, and that KFH's failure to properly process the documents internally did not undermine the validity of service. The bank's applications to set aside both the contempt order and the default judgment were accordingly dismissed. The decision is a reminder to regulated institutions that internal document-handling failures will not excuse non-compliance with validly served enforcement orders, even where a counterparty's evidence is shown to be partly unreliable.",
 };
 
 export const restructurings = [
