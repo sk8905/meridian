@@ -159,9 +159,6 @@
       letter-spacing:.06em; line-height:1.25; color:var(--muted); }
     .g-gl-v { flex:1 1 auto; }
     .g-gl-v .up { color:#0a7d3c; font-weight:600; } .g-gl-v .down { color:#c02626; font-weight:600; }
-    /* Freshness stamp for the AI market pulse (hidden when showing the fallback). */
-    .g-gl-ts { margin:.2rem 0 0; font-size:.62rem; color:var(--muted); font-style:italic; }
-    .g-gl-ts[hidden] { display:none; }
 
     /* ---- Key rates & credit spreads (ported from Credit) ---- */
     .g-rates-head { font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em;
@@ -374,7 +371,6 @@
         <div class="g-glance" id="g-glance" aria-label="At-a-glance market summary">
           <p class="g-gl"><span class="g-gl-k">Markets</span><span class="g-gl-v" id="gl-markets">Loading…</span></p>
           <p class="g-gl"><span class="g-gl-k">Rates &amp; spreads</span><span class="g-gl-v" id="gl-rates">Loading…</span></p>
-          <p class="g-gl-ts" id="gl-ts" hidden></p>
         </div>
       </div>
 
@@ -445,7 +441,7 @@
           show("glance");
           const h = new Date().getHours();
           document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-          import("/glance.js?v=20260709-12").then((m) => m.initGlance()).catch(() => {});
+          import("/glance.js?v=20260709-13").then((m) => m.initGlance()).catch(() => {});
         } else { show("out"); }
       })
       .catch(() => show("out"));

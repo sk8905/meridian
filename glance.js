@@ -379,16 +379,6 @@ function initPulse() {
       _pulse = { markets: d.markets || null, rates: d.rates || null };
       if (_pulse.markets) setGlance("gl-markets", esc(_pulse.markets));
       if (_pulse.rates) setGlance("gl-rates", esc(_pulse.rates));
-      // Freshness stamp — shown only when the AI pulse is live (its presence also
-      // tells you you're seeing the pulse, not the deterministic fallback).
-      const tsEl = document.getElementById("gl-ts");
-      if (tsEl) {
-        if (_pulse.markets && d.ts) {
-          const t = new Date(d.ts);
-          tsEl.textContent = `Market pulse · updated ${t.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" })}`;
-          tsEl.hidden = false;
-        } else { tsEl.hidden = true; }
-      }
       // First view often precedes the first background generation — retry once.
       if (!_pulse.markets && !_pulseRetried) { _pulseRetried = true; setTimeout(initPulse, 15000); }
     })
