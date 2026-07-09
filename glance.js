@@ -117,18 +117,6 @@ function fmtRate(v, unit) {
   if (v == null) return "—";
   return unit === "bp" ? `${Math.round(v * 100)} bp` : `${v.toFixed(2)}%`;
 }
-// Compact 1-month trend line, coloured by net direction over the window.
-function rateSpark(hist) {
-  if (!Array.isArray(hist) || hist.length < 2) return '<span class="rate-spark-empty" aria-hidden="true"></span>';
-  const W = 100, H = 22, pad = 2;
-  const min = Math.min(...hist), max = Math.max(...hist), span = (max - min) || 1;
-  const X = (i) => pad + (i / (hist.length - 1)) * (W - pad * 2);
-  const Y = (v) => H - pad - ((v - min) / span) * (H - pad * 2);
-  const d = hist.map((v, i) => `${i ? "L" : "M"} ${X(i).toFixed(1)} ${Y(v).toFixed(1)}`).join(" ");
-  const c = hist[hist.length - 1] >= hist[0] ? "#059669" : "#dc2626";
-  return `<svg class="rate-spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="1-month trend">` +
-    `<path d="${d}" fill="none" stroke="${c}" stroke-width="1.5" vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round"/></svg>`;
-}
 function ratesTile(x) {
   const val = fmtRate(x.value, x.unit);
   let chg = '<span class="rate-chg flat">·</span>';
@@ -140,10 +128,10 @@ function ratesTile(x) {
     chg = `<span class="rate-chg ${dir}">${arrow} ${mag}</span>`;
   }
   const asOf = x.asOf ? ` as of ${esc(x.asOf)}` : "";
-  const title = ` title="${esc(x.label)}${asOf} — 1-month trend — open source ↗"`;
+  const title = ` title="${esc(x.label)}${asOf} — open source ↗"`;
   const tag = x.href ? "a" : "div";
   const attrs = x.href ? ` href="${esc(x.href)}" target="_blank" rel="noopener noreferrer"` : "";
-  return `<${tag} class="rate-tile"${attrs}${title}><span class="rate-label">${esc(x.label)}</span><span class="rate-val">${val}</span>${chg}${rateSpark(x.history)}</${tag}>`;
+  return `<${tag} class="rate-tile"${attrs}${title}><span class="rate-label">${esc(x.label)}</span><span class="rate-val">${val}</span>${chg}</${tag}>`;
 }
 function initRates() {
   const el = document.getElementById("g-rates");
@@ -242,10 +230,10 @@ function marketTile(x) {
     chg = `<span class="rate-chg ${dir}">${arrow} ${Math.abs(c).toFixed(2)}%</span>`;
   }
   const asOf = x.asOf ? ` as of ${esc(x.asOf)}` : "";
-  const title = ` title="${esc(x.label)}${asOf} — 1-month trend — open source ↗"`;
+  const title = ` title="${esc(x.label)}${asOf} — open source ↗"`;
   const tag = x.href ? "a" : "div";
   const attrs = x.href ? ` href="${esc(x.href)}" target="_blank" rel="noopener noreferrer"` : "";
-  return `<${tag} class="rate-tile"${attrs}${title}><span class="rate-label">${esc(x.label)}${marketDot(x)}</span><span class="rate-val">${val}</span>${chg}${rateSpark(x.history)}</${tag}>`;
+  return `<${tag} class="rate-tile"${attrs}${title}><span class="rate-label">${esc(x.label)}${marketDot(x)}</span><span class="rate-val">${val}</span>${chg}</${tag}>`;
 }
 function initMarkets() {
   const el = document.getElementById("g-markets");

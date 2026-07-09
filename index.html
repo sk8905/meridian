@@ -159,24 +159,18 @@
     .mkt-dot { display:inline-block; width:.3rem; height:.3rem; border-radius:50%; vertical-align:middle; margin:0 0 .05rem .1rem; }
     .mkt-dot.open { background:#059669; box-shadow:0 0 0 1px rgba(5,150,105,.14); }
     .mkt-dot.closed { background:#dc2626; box-shadow:0 0 0 1px rgba(220,38,38,.12); }
-    .rate-spark { display:block; width:100%; height:20px; margin-top:.35rem; }
-    .rate-spark-empty { display:block; height:20px; margin-top:.35rem; }
     .rate-src { grid-column:1 / -1; justify-self:end; margin-top:.3rem; padding:0 1rem;
       font-size:.72rem; color:var(--muted); }
     @media (max-width:1100px){ .rates-band { grid-template-columns:repeat(4,1fr); row-gap:.7rem; }
       .rate-tile:nth-child(4n+1) { border-left:none; } }
     @media (max-width:760px){ .rates-band { padding:.55rem .2rem; } .rate-tile { padding:.1rem .4rem; }
       .rate-label { font-size:.58rem; } .rate-val { font-size:.92rem; } }
-    /* Phones: hide the sparkline trendlines so the 8 tiles sit compactly as two
-       rows of four (2 × 4). */
-    @media (max-width:520px){ .rate-spark, .rate-spark-empty { display:none; }
+    /* Phones: the 8 tiles sit compactly as two rows of four (2 × 4). */
+    @media (max-width:520px){
       .rate-tile { padding:.1rem .45rem; } .rate-label { font-size:.55rem; } .rate-val { font-size:.9rem; } }
 
-    /* Markets banner — identical tile style to the key-rates band; four items in
-       a single row of four (1 × 4) at every width. */
-    .markets-band { grid-template-columns:repeat(4,1fr); }
-    .markets-band .rate-tile { border-left:1px solid var(--line); }
-    .markets-band .rate-tile:nth-child(4n+1) { border-left:none; }
+    /* Markets banner — same layout as the key-rates band: a single row of 8
+       (inherits .rates-band; responsive breakpoints apply identically). */
 
     /* ---- Cards ---- */
     .g-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.1rem; }
@@ -408,7 +402,7 @@
           show("glance");
           const h = new Date().getHours();
           document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-          import("/glance.js?v=20260708-16").then((m) => m.initGlance()).catch(() => {});
+          import("/glance.js?v=20260708-17").then((m) => m.initGlance()).catch(() => {});
         } else { show("out"); }
       })
       .catch(() => show("out"));

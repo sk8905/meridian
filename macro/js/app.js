@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260709-4";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260709-5";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -394,6 +394,24 @@ function indBox(country) {
     return `<label class="chart-ind"><input type="checkbox" class="chart-ind-cb" data-sel="${sk}"${chartSel.has(sk) ? " checked" : ""}/><span class="chart-ind-sw${dash}" style="--c:${IND_COLOR[k]}"></span>${esc(l)}</label>`;
   }).join("");
 }
+// Master "select / deselect all" checkbox for one country's indicators.
+function allBox(country) {
+  const keys = INDICATORS.map(([k]) => `${country}:${k}`);
+  const all = keys.every((k) => chartSel.has(k));
+  return `<label class="chart-ind-all"><input type="checkbox" class="chart-all-cb" data-all="${country}"${all ? " checked" : ""}/> All</label>`;
+}
+// Keep each country's master checkbox in sync (checked when all selected,
+// indeterminate when only some are). Indeterminate can't be set via markup.
+function syncChartAll() {
+  ["US", "UK"].forEach((country) => {
+    const master = document.querySelector(`.chart-all-cb[data-all="${country}"]`);
+    if (!master) return;
+    const keys = INDICATORS.map(([k]) => `${country}:${k}`);
+    const n = keys.filter((k) => chartSel.has(k)).length;
+    master.checked = n === keys.length;
+    master.indeterminate = n > 0 && n < keys.length;
+  });
+}
 function viewChart() {
   const chips = CHART_EVENTS.map((e, i) => `<button type="button" class="chart-evt${chartEvents.has(e.id) ? " is-on" : ""}" data-evt="${e.id}" title="${esc(e.label)} — ${esc(e.desc)}"><span class="evt-num">${i + 1}</span>${esc(e.label)}</button>`).join("");
   return `
@@ -405,8 +423,8 @@ function viewChart() {
       <div class="chart-ctrl-grp">
         <div class="chart-ctrl-h">Indicators <span class="muted small">(<span id="chart-count">${chartSel.size}</span> of 12 selected)</span></div>
         <div class="chart-ind-cols">
-          <div><div class="chart-ind-country">United States <span class="chart-line-key">— solid</span></div><div class="chart-ind-grid">${indBox("US")}</div></div>
-          <div><div class="chart-ind-country">United Kingdom <span class="chart-line-key">- - dashed</span></div><div class="chart-ind-grid">${indBox("UK")}</div></div>
+          <div><div class="chart-ind-country">United States <span class="chart-line-key">— solid</span>${allBox("US")}</div><div class="chart-ind-grid">${indBox("US")}</div></div>
+          <div><div class="chart-ind-country">United Kingdom <span class="chart-line-key">- - dashed</span>${allBox("UK")}</div><div class="chart-ind-grid">${indBox("UK")}</div></div>
         </div>
       </div>
       <div class="chart-ctrl-grp">
@@ -563,6 +581,20 @@ document.addEventListener("change", (e) => {
     chartSel.add(key);
   } else chartSel.delete(key);
   const c = document.getElementById("chart-count"); if (c) c.textContent = chartSel.size;
+  syncChartAll();
+  chartPersist();
+  drawChart();
+});
+// Master "All" checkbox — select / deselect a whole country's indicators.
+document.addEventListener("change", (e) => {
+  const all = e.target.closest(".chart-all-cb"); if (!all) return;
+  const country = all.getAttribute("data-all");
+  const keys = INDICATORS.map(([k]) => `${country}:${k}`);
+  if (all.checked) keys.forEach((k) => { if (chartSel.size < CHART_MAX || chartSel.has(k)) chartSel.add(k); });
+  else keys.forEach((k) => chartSel.delete(k));
+  document.querySelectorAll(".chart-ind-cb").forEach((cb) => { cb.checked = chartSel.has(cb.getAttribute("data-sel")); });
+  const c = document.getElementById("chart-count"); if (c) c.textContent = chartSel.size;
+  syncChartAll();
   chartPersist();
   drawChart();
 });
@@ -816,7 +848,7 @@ function render() {
   app.innerHTML = body;
   syncNav(tab);
   if (tab === "dashboard") loadMacro();
-  if (tab === "chart") fetchMacro().then(() => { if (currentTab() === "chart") drawChart(); });
+  if (tab === "chart") { syncChartAll(); fetchMacro().then(() => { if (currentTab() === "chart") drawChart(); }); }
   window.scrollTo(0, 0);
 }
 

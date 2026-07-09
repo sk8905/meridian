@@ -223,6 +223,8 @@ a.compact-head:hover { color: var(--macro); text-decoration: underline; }
 .chart-ind-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .05rem .7rem; }
 .chart-ind-country { font-weight: 700; color: var(--macro-ink); font-size: .78rem; margin-bottom: .35rem; text-transform: uppercase; letter-spacing: .5px; }
 .chart-line-key { font-weight: 600; color: var(--muted); text-transform: none; letter-spacing: 0; font-size: .72rem; }
+.chart-ind-all { float: right; display: inline-flex; align-items: center; gap: .3rem; font-weight: 600;
+  color: var(--macro-ink); text-transform: none; letter-spacing: 0; font-size: .72rem; cursor: pointer; }
 .chart-ind { display: flex; align-items: center; gap: .45rem; padding: .18rem 0; font-size: .86rem; cursor: pointer; }
 .chart-ind input { accent-color: var(--macro); }
 .chart-ind-sw { width: 16px; height: 0; border-top: 3px solid var(--c); flex: 0 0 auto; }
