@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260709-6";
+} from "./data.js?v=20260709-7";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260709-6";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260709-7";
 
 const app = document.getElementById("app");
 
@@ -1417,7 +1417,7 @@ function intelRow(i, srcHead) {
   const src = (i.sourceUrl && !srcHead) ? ` · <a href="${esc(i.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : "";
   return `<div class="intel-row" id="row-${i.id}">
     <div class="intel-meta"><span class="chip ${intelTypeClass(i.type)}">${esc(i.type)}</span><span class="muted small">${fmtDate(i.date)}</span></div>
-    <div class="intel-body"><div class="intel-title-line">${head}${saveBtn(i.id)}</div><p class="muted small">${esc(i.summary)}</p><div>${tag}${src}</div></div>
+    <div class="intel-body"><div class="intel-title-line">${head}${srcHead && tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}${saveBtn(i.id)}</div><p class="muted small">${esc(i.summary)}</p>${srcHead ? "" : `<div>${tag}${src}</div>`}</div>
   </div>`;
 }
 
@@ -1478,7 +1478,7 @@ function dealRow(d, srcHead) {
   const src = (d.sourceUrl && !srcHead) ? ` · <a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : "";
   return `<div class="intel-row" id="row-${d.id}">
     <div class="intel-meta"><span class="chip ${dealTypeClass(d.type)}">${esc(d.type)}</span><span class="muted small">${fmtDate(d.date)}</span></div>
-    <div class="intel-body"><div class="intel-title-line">${head}${saveBtn(d.id)}</div><p class="muted small">${esc(d.summary)}</p><div>${tag}${src}</div></div>
+    <div class="intel-body"><div class="intel-title-line">${head}${srcHead && tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}${saveBtn(d.id)}</div><p class="muted small">${esc(d.summary)}</p>${srcHead ? "" : `<div>${tag}${src}</div>`}</div>
   </div>`;
 }
 

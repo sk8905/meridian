@@ -461,6 +461,7 @@ a.intel-head:hover { color: var(--primary); }
 /* Headline + Save button share a row; the button sits top-right (Legal style). */
 .intel-title-line { display: flex; align-items: flex-start; gap: .6rem; }
 .intel-title-line .save-btn { margin-left: auto; flex-shrink: 0; }
+.intel-src-inline { margin-top: .05rem; white-space: nowrap; flex-shrink: 0; }
 .save-btn {
   background: #f1f5f9; border: 1px solid var(--border); color: var(--muted);
   border-radius: 7px; padding: .2rem .6rem; font-size: .74rem; font-weight: 600;
