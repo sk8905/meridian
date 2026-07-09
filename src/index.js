@@ -706,9 +706,9 @@ const PULSE_THROTTLE_MS = 15 * 60 * 1000;   // regenerate at most every 15 min
 // Candidate Workers AI models, newest first. Models get deprecated over time, so
 // we try each until one responds — the fallback survives any single retirement.
 const PULSE_MODELS = [
-  "@cf/meta/llama-4-scout-17b-16e-instruct",
-  "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+  "@cf/meta/llama-3.3-70b-instruct-fp8-fast",     // strong prose + instruction-following
   "@cf/mistralai/mistral-small-3.1-24b-instruct",
+  "@cf/meta/llama-4-scout-17b-16e-instruct",      // known-good on this account
   "@cf/google/gemma-3-12b-it",
   "@cf/qwen/qwen2.5-14b-instruct",
   "@cf/meta/llama-3.2-3b-instruct",
@@ -733,29 +733,67 @@ async function runPulseModel(env, messages, trace) {
   return { text: "", model: null };
 }
 
-// Latest market-moving headlines from Yahoo Finance's keyless news search.
+// Strip CDATA / tags / HTML entities from an RSS or JSON title.
+function cleanHeadline(s) {
+  return String(s)
+    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
+    .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(+n))
+    .replace(/&#x([0-9a-f]+);/gi, (_, n) => String.fromCharCode(parseInt(n, 16)))
+    .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"').replace(/&#39;|&apos;|&rsquo;/g, "'").replace(/&nbsp;/g, " ")
+    .replace(/<[^>]+>/g, "")
+    .replace(/\s+/g, " ").trim();
+}
+// Latest market-MOVING headlines. Primary: markets-news RSS (CNBC + MarketWatch),
+// which carry actual "stocks fall as…/oil jumps on…" drivers. Falls back to
+// Yahoo's keyless news search only if every feed is unreachable. All feeds are
+// keyless and edge-cached (~15 min) by fetchText.
 async function fetchHeadlines() {
+  const feeds = [
+    "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=20910258",  // CNBC Markets
+    "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114", // CNBC Top News
+    "https://feeds.content.dowjones.io/public/rss/mw_topstories",                            // MarketWatch Top Stories
+    "https://feeds.content.dowjones.io/public/rss/mw_marketpulse",                           // MarketWatch MarketPulse
+  ];
   const out = [];
-  for (const q of ["stock market", "treasury yields bonds", "oil geopolitics"]) {
+  await Promise.all(feeds.map(async (u) => {
     try {
-      const txt = await fetchText(`https://query1.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(q)}&newsCount=6&quotesCount=0&enableFuzzyQuery=false`);
-      if (!txt) continue;
-      const j = JSON.parse(txt);
-      (j.news || []).forEach((n) => { if (n && n.title) out.push({ title: String(n.title), t: n.providerPublishTime || 0 }); });
-    } catch { /* skip source */ }
+      const txt = await fetchText(u);
+      if (!txt) return;
+      for (const it of txt.split(/<item[\s>]/i).slice(1, 13)) {
+        const tm = it.match(/<title>([\s\S]*?)<\/title>/i);
+        if (!tm) continue;
+        const title = cleanHeadline(tm[1]);
+        const pm = it.match(/<pubDate>([\s\S]*?)<\/pubDate>/i);
+        const t = pm ? (Date.parse(pm[1].trim()) || 0) : 0;
+        if (title && title.length > 12) out.push({ title, t });
+      }
+    } catch { /* skip feed */ }
+  }));
+  if (!out.length) { // fallback — Yahoo news search
+    for (const q of ["stock market", "oil"]) {
+      try {
+        const txt = await fetchText(`https://query1.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(q)}&newsCount=6&quotesCount=0`);
+        if (!txt) continue;
+        (JSON.parse(txt).news || []).forEach((n) => { if (n && n.title) out.push({ title: cleanHeadline(n.title), t: (n.providerPublishTime || 0) * 1000 }); });
+      } catch { /* skip */ }
+    }
   }
   const seen = new Set(), uniq = [];
   out.sort((a, b) => b.t - a.t).forEach((n) => { const k = n.title.toLowerCase(); if (!seen.has(k)) { seen.add(k); uniq.push(n); } });
-  return uniq.slice(0, 6);
+  return uniq.slice(0, 8);
 }
 // A coarse fingerprint of the inputs — day moves to 0.1% and rate changes to 1bp,
 // plus the two freshest headlines — so we only spend a model call when something
 // actually moved or the news changed.
+// Bump PULSE_VERSION whenever the prompt/model/headline logic changes so stored
+// text is treated as stale and regenerated (rather than matched by signature).
+const PULSE_VERSION = "v2";
 function pulseSig(markets, rates, headlines) {
   const m = markets.map((x) => `${x.label}:${x.changePct == null ? "-" : Math.round(x.changePct * 10) / 10}:${x.futuresPct == null ? "-" : Math.round(x.futuresPct * 10) / 10}`).join(",");
   const r = rates.map((x) => `${x.label}:${x.change == null ? "-" : Math.round(x.change * 100)}`).join(",");
   const h = (headlines[0]?.title || "") + "|" + (headlines[1]?.title || "");
-  return `${m}||${r}||${h}`;
+  return `${PULSE_VERSION}||${m}||${r}||${h}`;
 }
 function parsePulse(text) {
   if (!text) return null;
@@ -826,8 +864,15 @@ async function generatePulse(request, env, ctx) {
   const mktStr = markets.map((x) => `${x.label} ${x.value}${x.changePct != null ? ` (${x.changePct > 0 ? "+" : ""}${x.changePct}% day)` : ""}${x.futuresPct != null ? ` [fut ${x.futuresPct > 0 ? "+" : ""}${x.futuresPct}%]` : ""}`).join("; ");
   const rateStr = rates.map((x) => `${x.label} ${x.unit === "bp" ? Math.round(x.value * 100) + "bp" : x.value + "%"}${x.change != null ? ` (${x.change > 0 ? "+" : ""}${x.unit === "bp" ? Math.round(x.change * 100) + "bp" : x.change})` : ""}`).join("; ");
   const headStr = headlines.map((h, i) => `${i + 1}. ${h.title}`).join("\n") || "(none)";
-  const sys = "You are a markets desk writing two ultra-concise status lines for a dashboard. Use ONLY the data and headlines provided — never invent prices, events or facts. No hype, no advice. If a listed headline plausibly explains a move, name the driver briefly; otherwise just state the direction. Each line must be a single clause of 22 words or fewer.";
-  const user = `MARKETS: ${mktStr}\nRATES/SPREADS: ${rateStr}\nHEADLINES:\n${headStr}\n\nReturn ONLY JSON, no prose:\n{"markets":"<equities/oil/gold direction, with a driver if a headline fits>","rates":"<Treasury yields + credit spreads direction, with a driver if one fits>"}`;
+  const sys = [
+    "You are a senior markets strategist writing a two-sentence market wrap for a dashboard.",
+    "Write flowing, analytical prose — NOT a list. Never list instruments one by one (do NOT write 'S&P up; Nasdaq up; oil down').",
+    "Line 1 (markets): give ONE synthesised view of equities (e.g. 'US equities firmer, London higher'), then a brief note on oil and gold. If a provided headline plausibly explains the tone, weave that driver in with 'as/after/amid …'.",
+    "Line 2 (rates): describe Treasury yields and credit spreads together in one view, with a driver if one fits.",
+    "Rules: use ONLY the given data and headlines; never invent prices, events or facts; no hype, no advice, no numbers unless essential; each line ONE sentence of 24 words or fewer.",
+  ].join(" ");
+  const example = '{"markets":"US equities firmer and London higher as risk appetite steadies, while crude eases and gold edges up.","rates":"Treasury yields drift lower and credit spreads hold broadly steady, keeping financial conditions supportive."}';
+  const user = `DATA — markets: ${mktStr}\nDATA — rates/spreads: ${rateStr}\nRECENT HEADLINES:\n${headStr}\n\nWrite the two lines for THIS data. Return ONLY JSON in exactly this shape (no prose, no lists):\n${example}`;
   const { text } = await runPulseModel(env, [{ role: "system", content: sys }, { role: "user", content: user }]);
   const parsed = parsePulse(text);
   if (!parsed) {
@@ -841,7 +886,11 @@ async function generatePulse(request, env, ctx) {
 }
 async function handlePulse(request, env, ctx) {
   try {
-    if (new URL(request.url).searchParams.get("debug")) return await debugPulse(request, env, ctx);
+    const url = new URL(request.url);
+    if (url.searchParams.get("debug")) return await debugPulse(request, env, ctx);
+    // ?force=1 — regenerate now (bypasses the throttle + hours gate) and return
+    // the fresh text, so a new prompt/model can be verified on demand.
+    if (url.searchParams.get("force")) { await generatePulse(request, env, ctx).catch(() => {}); }
     let cur = null;
     try { const raw = await env.WATCHLIST.get(PULSE_KEY); cur = raw ? JSON.parse(raw) : null; } catch { /* ignore */ }
     // Regenerate in the background when stale — weekdays, 06:00–23:00 UTC only.
