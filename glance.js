@@ -181,7 +181,7 @@ function initRates() {
 // The clock-based schedule below is only a FALLBACK for tiles that fell back to
 // FRED/Stooq (which carry no session field), so a dot is always shown.
 const MKT_TYPE = {
-  "S&P 500": "us_equity", "NASDAQ 100": "us_equity", // NYSE/Nasdaq
+  "S&P 500": "us_equity", "NASDAQ": "us_equity", // NYSE/Nasdaq
   "IGWD": "lse_equity", "EMEE": "lse_equity",         // London Stock Exchange
   "Brent": "futures", "WTI": "futures", "Gold": "futures", // CME/ICE Globex
   "Bitcoin": "crypto",                                 // 24/7
@@ -265,8 +265,8 @@ function marketsOneLiner(rows) {
   const futOf = (l) => (by[l] && by[l].futuresPct != null ? +Number(by[l].futuresPct) : null);
   const eqClauses = [];
   // US equities — when Wall Street is shut, lead with what the futures imply.
-  const usAvg = avgOf(["S&P 500", "NASDAQ 100"].map(pct).filter((v) => v != null));
-  const usFut = avgOf(["S&P 500", "NASDAQ 100"].map(futOf).filter((v) => v != null));
+  const usAvg = avgOf(["S&P 500", "NASDAQ"].map(pct).filter((v) => v != null));
+  const usFut = avgOf(["S&P 500", "NASDAQ"].map(futOf).filter((v) => v != null));
   const usClosed = by["S&P 500"] && !isMarketOpen(by["S&P 500"]);
   if (usClosed && usFut != null) {
     eqClauses.push(`Wall Street is closed, with futures pointing ${moveWord(usFut, { up: "higher", down: "lower", flat: "flat", strongUp: "sharply higher", strongDown: "sharply lower" })}`);
@@ -350,7 +350,7 @@ function marketTile(x) {
 function initMarkets() {
   const el = document.getElementById("g-markets");
   if (!el) return;
-  fetch("/api/markets?v=7")
+  fetch("/api/markets?v=8")
     .then((r) => (r.ok ? r.json() : Promise.reject()))
     .then((d) => {
       const rows = d.markets || [];

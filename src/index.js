@@ -379,7 +379,7 @@ async function handleRates(request, env, ctx) {
 // be reached from the Worker, so a tile degrades to a daily print rather than "—".
 const MARKET_SERIES = [
   { label: "S&P 500", symbol: "^GSPC", future: "ES=F", fred: "SP500", href: "https://finance.yahoo.com/quote/%5EGSPC" },
-  { label: "NASDAQ 100", symbol: "^NDX", future: "NQ=F", fred: "NASDAQ100", href: "https://finance.yahoo.com/quote/%5ENDX" },
+  { label: "NASDAQ", symbol: "^IXIC", future: "NQ=F", fred: "NASDAQCOM", href: "https://finance.yahoo.com/quote/%5EIXIC" },
   { label: "IGWD", symbol: "IGWD.L", stooq: "igwd.uk", href: "https://uk.finance.yahoo.com/quote/IGWD.L" },
   { label: "EMEE", symbol: "EMEE.L", stooq: "emee.uk", href: "https://uk.finance.yahoo.com/quote/EMEE.L" },
   // Second row: commodity & crypto spot.
@@ -465,7 +465,7 @@ async function handleMarkets(request, env, ctx) {
     // Futures-implied-open diagnostic: for each equity index show the cash
     // session state and the future's move, plus whether the tile WOULD get a
     // futuresPct (fetched only when the cash market is not REGULAR).
-    const FUT_PAIRS = [["S&P 500", "^GSPC", "ES=F"], ["NASDAQ 100", "^NDX", "NQ=F"]];
+    const FUT_PAIRS = [["S&P 500", "^GSPC", "ES=F"], ["NASDAQ", "^IXIC", "NQ=F"]];
     const futures = await Promise.all(FUT_PAIRS.map(async ([label, cashSym, futSym]) => {
       const cash = await yahooQuote(cashSym);
       const fut = await yahooQuote(futSym);
@@ -480,7 +480,7 @@ async function handleMarkets(request, env, ctx) {
     return new Response(JSON.stringify({ nowUTC: new Date().toISOString(), probes, futures }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/markets?v=7", request.url).toString());
+  const cacheKey = new Request(new URL("/api/markets?v=8", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const fromFred = async (id) => {
