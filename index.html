@@ -151,13 +151,9 @@
        data pull. Sit to the right of the greeting on desktop, stack below on
        narrow screens. */
     .g-glance { grid-column:4 / -1; display:flex; flex-direction:column;
-      gap:.35rem; padding-left:1.25rem; border-left:3px solid var(--line); }
-    .g-gl { margin:0; font-size:.8rem; line-height:1.4; color:var(--ink); display:flex; gap:.6rem; align-items:baseline; }
-    /* Fixed-width key column so "Rates & spreads" wraps within it and both value
-       columns line up. */
-    .g-gl-k { flex:0 0 4.5rem; font-size:.62rem; font-weight:800; text-transform:uppercase;
-      letter-spacing:.06em; line-height:1.25; color:var(--muted); }
-    .g-gl-v { flex:1 1 auto; }
+      gap:.5rem; padding-left:1.25rem; border-left:3px solid var(--line); }
+    /* Labels dropped — the summary text fills the full width. */
+    .g-gl { margin:0; font-size:.85rem; line-height:1.4; color:var(--ink); }
     .g-gl-v .up { color:#0a7d3c; font-weight:600; } .g-gl-v .down { color:#c02626; font-weight:600; }
 
     /* ---- Key rates & credit spreads (ported from Credit) ---- */
@@ -369,8 +365,8 @@
           <p id="hello-sub">A cross-desk glance across Macro, Credit and Legal.</p>
         </div>
         <div class="g-glance" id="g-glance" aria-label="At-a-glance market summary">
-          <p class="g-gl"><span class="g-gl-k">Markets</span><span class="g-gl-v" id="gl-markets">Loading…</span></p>
-          <p class="g-gl"><span class="g-gl-k">Rates &amp; spreads</span><span class="g-gl-v" id="gl-rates">Loading…</span></p>
+          <p class="g-gl"><span class="g-gl-v" id="gl-markets" aria-label="Markets">Loading…</span></p>
+          <p class="g-gl"><span class="g-gl-v" id="gl-rates" aria-label="Rates and spreads">Loading…</span></p>
         </div>
       </div>
 
