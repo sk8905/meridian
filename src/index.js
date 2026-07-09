@@ -795,17 +795,17 @@ async function fetchHeadlines() {
   }
   const seen = new Set(), uniq = [];
   out.sort((a, b) => b.t - a.t).forEach((n) => { const k = n.title.toLowerCase(); if (!seen.has(k)) { seen.add(k); uniq.push(n); } });
-  // Market-relevant items first (newest-first within each group) so the model
-  // sees real drivers ahead of any lifestyle/promo items the feeds mix in.
-  const rel = uniq.filter((n) => MKT_RE.test(n.title)), rest = uniq.filter((n) => !MKT_RE.test(n.title));
-  return [...rel, ...rest].slice(0, 8);
+  // Pass ONLY clearly market-relevant items (newest first) so the model isn't
+  // tempted to build a "driver" out of a lifestyle/promo headline. If none
+  // qualify, return nothing → the wrap states direction with no driver.
+  return uniq.filter((n) => MKT_RE.test(n.title)).slice(0, 6);
 }
 // A coarse fingerprint of the inputs — day moves to 0.1% and rate changes to 1bp,
 // plus the two freshest headlines — so we only spend a model call when something
 // actually moved or the news changed.
 // Bump PULSE_VERSION whenever the prompt/model/headline logic changes so stored
 // text is treated as stale and regenerated (rather than matched by signature).
-const PULSE_VERSION = "v3";
+const PULSE_VERSION = "v4";
 function pulseSig(markets, rates, headlines) {
   const m = markets.map((x) => `${x.label}:${x.changePct == null ? "-" : Math.round(x.changePct * 10) / 10}:${x.futuresPct == null ? "-" : Math.round(x.futuresPct * 10) / 10}`).join(",");
   const r = rates.map((x) => `${x.label}:${x.change == null ? "-" : Math.round(x.change * 100)}`).join(",");
@@ -869,11 +869,12 @@ function pulseMessages(markets, rates, headlines) {
   const sys = [
     "You are a senior markets strategist writing a two-sentence market wrap for a dashboard.",
     "Write flowing, analytical prose — NOT a list. Never list instruments one by one (do NOT write 'S&P up; Nasdaq up; oil down').",
-    "Line 1 (markets): give ONE synthesised view of equities (e.g. 'US equities firmer, London higher'), then a brief note on oil and gold. If a provided headline plausibly explains the tone, weave that driver in with 'as/after/amid …'.",
-    "Line 2 (rates): describe Treasury yields and credit spreads together in one view, with a driver if one fits.",
-    "Rules: use ONLY the given data and headlines; never invent prices, events or facts; no hype, no advice, no numbers unless essential; each line ONE sentence of 24 words or fewer.",
+    "Line 1 (markets): ONE synthesised view of equities (e.g. 'US equities firmer, London higher'), then a brief note on oil and gold.",
+    "Line 2 (rates): Treasury yields and credit spreads together in one view.",
+    "DRIVERS: only name a driver when a provided headline is a CLEAR market-moving EVENT — a data release, central-bank decision, geopolitical event, tariff/trade news, or major company/sector story. Weave it in with 'as/after/amid …'. If no headline clearly qualifies, just state the direction with NO driver. NEVER invent or infer an event (e.g. do not write 'amid a labor-market report' or 'as new stocks power the market' unless a headline explicitly says so).",
+    "Rules: use ONLY the given data and headlines; no hype, no advice, no numbers unless essential; each line ONE sentence of 24 words or fewer.",
   ].join(" ");
-  const example = '{"markets":"US equities firmer and London higher as risk appetite steadies, while crude eases and gold edges up.","rates":"Treasury yields drift lower and credit spreads hold broadly steady, keeping financial conditions supportive."}';
+  const example = '{"markets":"US equities firmer and London higher, while crude eases and gold edges up.","rates":"Treasury yields drift lower and credit spreads hold broadly steady."}';
   const user = `DATA — markets: ${mktStr}\nDATA — rates/spreads: ${rateStr}\nRECENT HEADLINES:\n${headStr}\n\nWrite the two lines for THIS data. Return ONLY JSON in exactly this shape (no prose, no lists):\n${example}`;
   return [{ role: "system", content: sys }, { role: "user", content: user }];
 }
