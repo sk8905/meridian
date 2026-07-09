@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260709-9";
+} from "./data.js?v=20260709-10";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260709-9";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260709-10";
 
 const app = document.getElementById("app");
 
@@ -2102,7 +2102,7 @@ document.addEventListener("touchend", (e) => {
 window.addEventListener("hashchange", router);
 window.addEventListener("DOMContentLoaded", router);
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260708-5").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260708-6").then((m) => m.mountPalette()).catch(() => {});
 router();
 renderDataStatus();
 initNotif();

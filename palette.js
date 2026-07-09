@@ -111,6 +111,10 @@ export function mountPalette() {
   const close = () => ov.classList.remove("open");
 
   ov.querySelector("[data-close]").addEventListener("click", close);
+  // A visible nav search button (any app topbar) opens the palette on click.
+  document.addEventListener("click", (ev) => {
+    if (ev.target.closest("[data-open-search]") && !ov.classList.contains("open")) { ev.preventDefault(); open(); }
+  });
   input.addEventListener("input", refresh);
   results.addEventListener("click", (ev) => { const r = ev.target.closest(".mcmdk-row"); if (r) go(current[+r.getAttribute("data-i")]); });
   input.addEventListener("keydown", (ev) => {
