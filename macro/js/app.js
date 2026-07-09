@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260709-13";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260709-14";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -67,7 +67,7 @@ function macroTile(s) {
     ${chartLink}
     <div class="macro-valrow"><span class="macro-val">${val}</span>${chHtml}</div>
     <div class="macro-chart">${chart}</div>
-    <div class="macro-foot muted"><span class="macro-src">${asOf ? esc(asOf) + " · " : ""}${esc(s.source)} ↗</span></div>
+    <div class="macro-foot muted"><span class="macro-src">${asOf ? esc(asOf) + " · " : ""}${esc(s.source)}</span></div>
   </${tag}>`;
 }
 
@@ -117,7 +117,7 @@ function renderReleases() {
   }
   const tiles = up.map((r) => {
     const tag = r.url ? "a" : "div";
-    const attrs = r.url ? ` href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" title="${esc(r.title)} — open source ↗"` : "";
+    const attrs = r.url ? ` href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" title="${esc(r.title)} — open source"` : "";
     return `<${tag} class="cal-tile"${attrs}>
       <span class="cal-date"><span class="cal-country cal-${(r.country || "").toLowerCase()}">${esc(r.country || "")}</span> ${esc(fmtWeekday(r.date))}</span>
       <span class="cal-title">${esc(r.title)}</span>
@@ -141,7 +141,7 @@ function renderNews() {
   const row = (n) => `
     <li class="compact-item">
       <a class="compact-head" href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">${esc(n.title)}</a>
-      <div class="compact-meta muted small">${esc(fmtDay(n.date))} · ${esc(n.source)} ↗</div>
+      <div class="compact-meta muted small">${esc(fmtDay(n.date))} · ${esc(n.source)}</div>
     </li>`;
   const col = (name, arr) => {
     const items = pick(arr);
@@ -164,7 +164,7 @@ function renderCommentaryFeed() {
   const row = (n) => `
     <li class="compact-item">
       <a class="compact-head" href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">${esc(n.title)}</a>
-      <div class="compact-meta muted small">${esc(fmtDay(n.date))} · ${esc(n.source)}${n.author ? " · " + esc(n.author) : ""} ↗</div>
+      <div class="compact-meta muted small">${esc(fmtDay(n.date))} · ${esc(n.source)}${n.author ? " · " + esc(n.author) : ""}</div>
     </li>`;
   const col = (name, arr) => {
     const items = [...(arr || [])].sort((a, b) => String(b.date).localeCompare(String(a.date)));
@@ -231,7 +231,7 @@ function bubbleBand(score) {
 // ---- Views -----------------------------------------------------------------
 function sourceList(sources) {
   return `<div class="macro-sources"><span class="macro-sources-h muted small">Sources</span><ul>${
-    sources.map(([label, url]) => `<li><a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)} ↗</a></li>`).join("")
+    sources.map(([label, url]) => `<li><a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(label)}</a></li>`).join("")
   }</ul></div>`;
 }
 

@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
-} from "./data.js?v=20260709-11";
-import { donutChart, columnChart } from "./charts.js?v=20260709-11";
+} from "./data.js?v=20260709-13";
+import { donutChart, columnChart } from "./charts.js?v=20260709-13";
 
 const app = document.getElementById("app");
 
@@ -254,7 +254,7 @@ document.addEventListener("change", (e) => {
 
 // A firm name that links to its profile page (#/firm/<id>) when the firm is a
 // tracked entity, else plain text. Mirrors Credit's manager-profile link so a
-// Legal item always offers "source ↗ + firm profile" from its footer.
+// Legal item always offers "source + firm profile" from its footer.
 function firmLink(id, name, cls) {
   const c = cls || "firm";
   return firmById[id]
@@ -349,7 +349,7 @@ function itemCompact(it) {
   const firm = firmById[it.firm] || { name: it.firm, insightsUrl: "" };
   const href = it.url || firm.insightsUrl; // prefer the item's own article link
   const src = href
-    ? ` · <a href="${esc(href)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : "";
+    ? ` · <a href="${esc(href)}" target="_blank" rel="noopener noreferrer" class="muted small">source</a>` : "";
   return `<li class="compact-item">
     <a class="compact-head" href="#/item/${esc(it.id)}">${esc(it.title)}</a>
     <div class="compact-meta muted small">${itemDate(it)} · ${esc(firm.name)}${src}</div>
@@ -717,7 +717,7 @@ function viewItem(id) {
       <div class="source-box">
         <span class="lbl">Source</span>
         <a href="${esc(it.url || firm.insightsUrl)}" target="_blank" rel="noopener noreferrer">
-          ${esc(firm.name)} — ${it.url ? "read the article" : "insights / know-how"} ↗</a>
+          ${esc(firm.name)} — ${it.url ? "read the article" : "insights / know-how"}</a>
         <p class="source-note">${it.url
           ? "Links to the cited publication."
           : "Links to the firm's public landing page."} This summary is written for
@@ -760,7 +760,7 @@ function viewFirm(id) {
       <div class="source-box">
         <span class="lbl">Insights</span>
         <a href="${esc(firm.insightsUrl || "#")}" target="_blank" rel="noopener noreferrer">
-          ${esc(firm.name)} — insights / know-how ↗</a>
+          ${esc(firm.name)} — insights / know-how</a>
         <p class="source-note">Links to the firm's public insights landing page. Alerts below are
           summarised for this prototype — confirm against the firm's actual publications.</p>
       </div>
@@ -869,7 +869,7 @@ function rxRow(r) {
     r.sector ? esc(r.sector) : "",
     firm && r.firm ? firmLink(r.firm, firm.name) : "",
     // Keep the firm-analysis link only when it isn't already the title's target.
-    r.articleUrl && r.articleUrl !== srcUrl ? `<a href="${esc(r.articleUrl)}" target="_blank" rel="noopener noreferrer">analysis ↗</a>` : "",
+    r.articleUrl && r.articleUrl !== srcUrl ? `<a href="${esc(r.articleUrl)}" target="_blank" rel="noopener noreferrer">analysis</a>` : "",
   ].filter(Boolean).join(" · ");
   // AI summary + detail shown inline (same layout as the alerts rows); the outcome
   // chip and Save button sit on the title line.
@@ -1083,7 +1083,7 @@ function renderNotifications() {
       <div class="notif-head">${n ? `${n} new update${n > 1 ? "s" : ""}` : "No new updates"} <span class="muted small">· checked ${esc(fmtDate(LAST_CHECKED))}${LAST_CHECKED_TIME ? `, ${esc(LAST_CHECKED_TIME)}` : ""}</span></div>
       <ul class="notif-list">
         ${list.length ? list.map((x) => `<li class="notif-item${(n && fresh.includes(x)) ? " is-new" : ""}">
-          <a href="${esc(x.href)}" ${x.ext ? 'target="_blank" rel="noopener noreferrer"' : ""} class="notif-link">${esc(x.title)}${x.ext ? " ↗" : ""}</a>
+          <a href="${esc(x.href)}" ${x.ext ? 'target="_blank" rel="noopener noreferrer"' : ""} class="notif-link">${esc(x.title)}${x.ext ? "" : ""}</a>
           <div class="notif-meta muted small">${esc(x.kind)}${x.date ? ` · ${esc(fmtDate(x.date))}` : ""}${x.source ? ` · <span class="notif-src">${esc(x.source)}</span>` : ""}</div>
         </li>`).join("") : '<li class="notif-empty muted small">Nothing yet.</li>'}
       </ul>

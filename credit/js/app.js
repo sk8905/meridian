@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260709-17";
+} from "./data.js?v=20260709-18";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260709-17";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260709-18";
 
 const app = document.getElementById("app");
 
@@ -619,14 +619,14 @@ function ratesTile(x) {
     chg = `<span class="rate-chg ${dir}">${arrow} ${mag}</span>`;
   }
   const asOf = x.asOf ? ` as of ${esc(x.asOf)}` : "";
-  const title = ` title="${esc(x.label)}${asOf} — open source ↗"`;
+  const title = ` title="${esc(x.label)}${asOf} — open source"`;
   const tag = x.href ? "a" : "div";
   const attrs = x.href ? ` href="${esc(x.href)}" target="_blank" rel="noopener noreferrer"` : "";
   return `<${tag} class="rate-tile"${attrs}${title}><span class="rate-label muted small">${esc(x.label)}</span><span class="rate-val">${val}</span>${chg}</${tag}>`;
 }
 function renderRates(el, rows) {
   el.innerHTML = rows.map(ratesTile).join("") +
-    '<a class="rate-src muted small" href="https://fred.stlouisfed.org/" target="_blank" rel="noopener noreferrer">Source: FRED · ECB · NY Fed · US Treasury ↗</a>';
+    '<a class="rate-src muted small" href="https://fred.stlouisfed.org/" target="_blank" rel="noopener noreferrer">Source: FRED · ECB · NY Fed · US Treasury</a>';
 }
 function mountRatesBand() {
   const el = document.getElementById("rates-band");
@@ -680,7 +680,7 @@ function viewDashboard() {
   // Match the deal/fundraising sleeves: the headline opens the item in the News
   // tab, with a link to the original source below it.
   const newsCompact = (x) => {
-    const src = x.url ? ` · <a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : "";
+    const src = x.url ? ` · <a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="muted small">source</a>` : "";
     const mgr = x._mid && x._mname ? ` · ${link(`#/manager/${x._mid}`, x._mname, "compact-mgr")}` : (x._mname ? ` · ${esc(x._mname)}` : "");
     return `<li class="compact-item"><a href="#/news" data-goto="news:${x._id}" class="compact-head">${esc(x.title)}</a><div class="compact-meta muted small">${x.date ? esc(fmtDate(x.date)) : ""}${mgr}${x.outlet ? ` · ${esc(x.outlet)}` : ""}${src}</div></li>`;
   };
@@ -770,7 +770,7 @@ function compactRow(rec, view) {
   const head = `<a href="#/${view}" data-goto="${view}:${rec.id}" class="compact-head">${esc(rec.headline)}</a>`;
   const m = rec.managerId ? managerById[rec.managerId] : null;
   const mgr = m ? ` · ${link(`#/manager/${m.id}`, m.name, "compact-mgr")}` : "";
-  const src = rec.sourceUrl ? ` · <a href="${esc(rec.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : "";
+  const src = rec.sourceUrl ? ` · <a href="${esc(rec.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="muted small">source</a>` : "";
   return `<li class="compact-item">${head}<div class="compact-meta muted small">${fmtDate(rec.date)}${mgr}${src}</div></li>`;
 }
 
@@ -1128,7 +1128,7 @@ function ownersFilingsBlock(m) {
     ? `<ul class="link-list">${m.filings.map((x) => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.label)}</a>${x.date ? ` <span class="muted small">· ${esc(x.date)}</span>` : ""}</li>`).join("")}</ul>`
     : `<p class="muted small">No regulatory/account filings compiled yet (UK LLPs file at Companies House; US advisers file SEC Form ADV; listed parents file annual reports).</p>`;
   const leg = (m.legal && m.legal.length)
-    ? `<ul class="link-list">${m.legal.map((p) => `<li><strong>${esc(p.name)}</strong> <span class="muted small">${esc(p.role)}${p.city ? ` · ${esc(p.city)}` : ""}</span>${p.linkedin ? ` · <a href="${esc(p.linkedin)}" target="_blank" rel="noopener noreferrer" class="muted small">LinkedIn ↗</a>` : ""}</li>`).join("")}</ul>`
+    ? `<ul class="link-list">${m.legal.map((p) => `<li><strong>${esc(p.name)}</strong> <span class="muted small">${esc(p.role)}${p.city ? ` · ${esc(p.city)}` : ""}</span>${p.linkedin ? ` · <a href="${esc(p.linkedin)}" target="_blank" rel="noopener noreferrer" class="muted small">LinkedIn</a>` : ""}</li>`).join("")}</ul>`
     : '<p class="muted small">Senior legal contacts not yet compiled for this manager (sourced from the firm\'s own website and LinkedIn where disclosed).</p>';
   return `<section class="card">
     <h2>About</h2>
@@ -1151,7 +1151,7 @@ function byYear(items, rowFn) {
   });
   return Object.keys(groups)
     .sort((a, b) => (a === "Undated") - (b === "Undated") || b.localeCompare(a))
-    .map((y) => `<div class="year-group"><h3 class="year-head">${esc(y)}</h3>${groups[y].map(rowFn).join("")}</div>`)
+    .map((y) => `<div class="year-group"><h3 class="year-head">${esc(y)}</h3>${groups[y].map((x) => rowFn(x)).join("")}</div>`)
     .join("");
 }
 
@@ -1174,7 +1174,7 @@ function feedDedupKey(x) {
 // profile the headline should open the source directly (srcHead), matching the
 // press rows — the manager link would only point back to this same page.
 function mgrFeedRow(x) {
-  return x._kind === "deal" ? dealRow(x, true) : x._kind === "intel" ? intelRow(x, true) : newsItemRow(x);
+  return x._kind === "deal" ? dealRow(x) : x._kind === "intel" ? intelRow(x) : newsItemRow(x);
 }
 
 // Senior legal team — general counsel and other senior legal counsel, with the
@@ -1411,9 +1411,9 @@ const intelTypeClass = (t) => ({
   "Mandate": "it-mandate", "Personnel": "it-personnel", "Strategy": "it-strategy",
 }[t] || "");
 
-// The headline links straight to the source. The manager sits in the footer on
-// the feed tabs, or inline beside the headline on a manager profile (`srcHead`).
-function intelRow(i, srcHead) {
+// The headline links straight to the source; the manager sits inline beside the
+// headline (a link to its profile), consistently across every feed.
+function intelRow(i) {
   const m = i.managerId ? managerById[i.managerId] : null;
   const ftarget = i.fundId ? `#/fund/${i.fundId}` : (m ? `#/manager/${m.id}` : null);
   const tag = m ? link(`#/manager/${m.id}`, m.name, "muted small") : '<span class="muted small">Market-wide</span>';
@@ -1422,7 +1422,7 @@ function intelRow(i, srcHead) {
     : (ftarget ? link(ftarget, i.headline, "intel-head") : `<span class="intel-head">${esc(i.headline)}</span>`);
   return `<div class="intel-row" id="row-${i.id}" data-fkey="${esc(feedDedupKey(i))}">
     <div class="intel-meta"><span class="chip ${intelTypeClass(i.type)}">${esc(i.type)}</span><span class="muted small">${fmtDate(i.date)}</span></div>
-    <div class="intel-body"><div class="intel-title-line">${head}${srcHead && tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}${saveBtn(i.id)}</div><p class="muted small">${esc(i.summary)}</p>${srcHead ? "" : `<div>${tag}</div>`}</div>
+    <div class="intel-body"><div class="intel-title-line">${head}${tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}${saveBtn(i.id)}</div><p class="muted small">${esc(i.summary)}</p></div>
   </div>`;
 }
 
@@ -1471,9 +1471,9 @@ const dealTypeClass = (t) => ({
   "Unitranche": "dt-fin", "Structured Credit": "dt-invest", "NAV / Fund Finance": "dt-refi",
 }[t] || "");
 
-// The headline links straight to the source. The manager sits in the footer on
-// the feed tabs, or inline beside the headline on a manager profile (`srcHead`).
-function dealRow(d, srcHead) {
+// The headline links straight to the source; the manager sits inline beside the
+// headline (a link to its profile), consistently across every feed.
+function dealRow(d) {
   const m = d.managerId ? managerById[d.managerId] : null;
   const tgt = d.fundId ? `#/fund/${d.fundId}` : (m ? `#/manager/${m.id}` : null);
   const tag = m ? link(`#/manager/${m.id}`, m.name, "muted small") : "";
@@ -1482,7 +1482,7 @@ function dealRow(d, srcHead) {
     : (tgt ? link(tgt, d.headline, "intel-head") : `<span class="intel-head">${esc(d.headline)}</span>`);
   return `<div class="intel-row" id="row-${d.id}" data-fkey="${esc(feedDedupKey(d))}">
     <div class="intel-meta"><span class="chip ${dealTypeClass(d.type)}">${esc(d.type)}</span><span class="muted small">${fmtDate(d.date)}</span></div>
-    <div class="intel-body"><div class="intel-title-line">${head}${srcHead && tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}${saveBtn(d.id)}</div><p class="muted small">${esc(d.summary)}</p>${srcHead ? "" : (tag ? `<div>${tag}</div>` : "")}</div>
+    <div class="intel-body"><div class="intel-title-line">${head}${tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}${saveBtn(d.id)}</div><p class="muted small">${esc(d.summary)}</p></div>
   </div>`;
 }
 
@@ -1706,7 +1706,7 @@ function viewTrends() {
 function newsRowFull(x) {
   const sid = newsSaveId(x);
   const head = x.url
-    ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)} ↗</a>`
+    ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a>`
     : `<span class="intel-head">${esc(x.title)}</span>`;
   return `<div class="intel-row" id="row-${esc(x._id || sid)}">
     <div class="intel-meta"><span class="chip">News</span><span class="muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span></div>

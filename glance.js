@@ -138,7 +138,7 @@ function ratesTile(x) {
     chg = `<span class="rate-chg ${dir}">${arrow} ${mag}</span>`;
   }
   const asOf = x.asOf ? ` as of ${esc(x.asOf)}` : "";
-  const title = ` title="${esc(x.label)}${asOf} — open source ↗"`;
+  const title = ` title="${esc(x.label)}${asOf} — open source"`;
   const tag = x.href ? "a" : "div";
   const attrs = x.href ? ` href="${esc(x.href)}" target="_blank" rel="noopener noreferrer"` : "";
   return `<${tag} class="rate-tile"${attrs}${title}><span class="rate-label">${esc(x.label)}</span><span class="rate-val">${val}</span>${chg}</${tag}>`;
@@ -152,7 +152,7 @@ function initRates() {
       const rowsData = d.rates || [];
       el.innerHTML = rowsData.length
         ? rowsData.map(ratesTile).join("") +
-          '<a class="rate-src" href="https://fred.stlouisfed.org/" target="_blank" rel="noopener noreferrer">Source: FRED · ECB · NY Fed · US Treasury ↗</a>'
+          '<a class="rate-src" href="https://fred.stlouisfed.org/" target="_blank" rel="noopener noreferrer">Source: FRED · ECB · NY Fed · US Treasury</a>'
         : '<span class="g-loading">Market rates unavailable right now.</span>';
     })
     .catch(() => { el.innerHTML = '<span class="g-loading">Market rates unavailable right now.</span>'; });
@@ -240,7 +240,7 @@ function marketTile(x) {
     chg = `<span class="rate-chg ${dir}">${arrow} ${Math.abs(c).toFixed(2)}%</span>`;
   }
   const asOf = x.asOf ? ` as of ${esc(x.asOf)}` : "";
-  const title = ` title="${esc(x.label)}${asOf} — open source ↗"`;
+  const title = ` title="${esc(x.label)}${asOf} — open source"`;
   const tag = x.href ? "a" : "div";
   const attrs = x.href ? ` href="${esc(x.href)}" target="_blank" rel="noopener noreferrer"` : "";
   return `<${tag} class="rate-tile"${attrs}${title}><span class="rate-label">${esc(x.label)}${marketDot(x)}</span><span class="rate-val">${val}</span>${chg}</${tag}>`;
@@ -254,7 +254,7 @@ function initMarkets() {
       const rows = d.markets || [];
       el.innerHTML = rows.length
         ? rows.map(marketTile).join("") +
-          '<a class="rate-src" href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer">Source: Yahoo Finance · FRED ↗</a>'
+          '<a class="rate-src" href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer">Source: Yahoo Finance · FRED</a>'
         : '<span class="g-loading">Markets unavailable right now.</span>';
     })
     .catch(() => { el.innerHTML = '<span class="g-loading">Markets unavailable right now.</span>'; });
