@@ -731,15 +731,52 @@ function pulseSig(markets, rates, headlines) {
 }
 function parsePulse(text) {
   if (!text) return null;
-  const m = String(text).match(/\{[\s\S]*\}/);
-  if (!m) return null;
-  try {
-    const o = JSON.parse(m[0]);
-    if (o && typeof o.markets === "string" && typeof o.rates === "string" && o.markets.trim() && o.rates.trim()) {
-      return { markets: o.markets.trim().slice(0, 220), rates: o.rates.trim().slice(0, 220) };
-    }
-  } catch { /* not JSON */ }
+  const s = String(text);
+  const clean = (x) => x.replace(/["*`]/g, "").replace(/\s+/g, " ").trim().slice(0, 220);
+  // 1) A JSON object anywhere in the reply.
+  const m = s.match(/\{[\s\S]*\}/);
+  if (m) {
+    try {
+      const o = JSON.parse(m[0]);
+      if (o && typeof o.markets === "string" && typeof o.rates === "string" && o.markets.trim() && o.rates.trim()) {
+        return { markets: clean(o.markets), rates: clean(o.rates) };
+      }
+    } catch { /* fall through to line parsing */ }
+  }
+  // 2) Labelled lines — "Markets: …" / "Rates & spreads: …" (small models often
+  // ignore the JSON instruction and just write the two lines).
+  const mk = s.match(/market[s]?\s*[:\-–]\s*(.+)/i);
+  const rt = s.match(/rate[s]?(?:\s*(?:&|and)\s*spread[s]?)?\s*[:\-–]\s*(.+)/i);
+  if (mk && rt) {
+    const mm = clean(mk[1].split(/\n/)[0]), rr = clean(rt[1].split(/\n/)[0]);
+    if (mm && rr) return { markets: mm, rates: rr };
+  }
   return null;
+}
+// /api/pulse?debug=1 — run the generation steps inline and report what happens
+// (whether Workers AI is bound, the data/headline counts, the raw model text and
+// whether it parsed) so a null pulse can be diagnosed without Worker logs.
+async function debugPulse(request, env, ctx) {
+  const info = { hasAI: !!(env && env.AI), model: PULSE_MODEL };
+  const base = new URL(request.url);
+  let markets = [], rates = [];
+  try { markets = (await (await handleMarkets(new Request(new URL("/api/markets?v=8", base).toString()), env, ctx)).json()).markets || []; } catch (e) { info.marketsErr = String((e && e.message) || e); }
+  try { rates = (await (await handleRates(new Request(new URL("/api/rates?v=10", base).toString()), env, ctx)).json()).rates || []; } catch (e) { info.ratesErr = String((e && e.message) || e); }
+  info.marketsCount = markets.length; info.ratesCount = rates.length;
+  let headlines = [];
+  try { headlines = await fetchHeadlines(); } catch (e) { info.headErr = String((e && e.message) || e); }
+  info.headlinesCount = headlines.length; info.headlineSample = headlines.slice(0, 3).map((h) => h.title);
+  if (env && env.AI) {
+    try {
+      const res = await env.AI.run(PULSE_MODEL, { max_tokens: 220, temperature: 0.2, messages: [
+        { role: "system", content: "Reply with JSON only, no prose." },
+        { role: "user", content: 'Return exactly: {"markets":"US equities firmer","rates":"yields steady"}' },
+      ] });
+      info.aiRaw = (res && (res.response || res.result || res.output_text)) ?? JSON.stringify(res).slice(0, 400);
+      info.parsed = parsePulse(typeof info.aiRaw === "string" ? info.aiRaw : JSON.stringify(info.aiRaw));
+    } catch (e) { info.aiErr = String((e && e.message) || e); }
+  }
+  return new Response(JSON.stringify(info, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
 }
 async function generatePulse(request, env, ctx) {
   if (!env || !env.AI) return; // Workers AI not bound → leave pulse empty (client falls back)
@@ -778,6 +815,7 @@ async function generatePulse(request, env, ctx) {
   await env.WATCHLIST.put(PULSE_KEY, JSON.stringify({ markets: parsed.markets, rates: parsed.rates, ts: Date.now(), sig }));
 }
 async function handlePulse(request, env, ctx) {
+  if (new URL(request.url).searchParams.get("debug")) return debugPulse(request, env, ctx);
   let cur = null;
   try { const raw = await env.WATCHLIST.get(PULSE_KEY); cur = raw ? JSON.parse(raw) : null; } catch { /* ignore */ }
   // Regenerate in the background when stale — weekdays, 06:00–23:00 UTC only.
