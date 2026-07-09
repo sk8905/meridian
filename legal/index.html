@@ -7,7 +7,7 @@
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   <title>Meridian Legal</title>
   <meta name="description" content="Practical-Law-style legal updates and case-law alerts for English-law banking, restructuring & insolvency, corporate and funds — sourced from UK Magic Circle, Silver Circle and US-elite London firms. Zero-build static prototype." />
-  <link rel="stylesheet" href="css/styles.css?v=20260709-7" />
+  <link rel="stylesheet" href="css/styles.css?v=20260709-8" />
 </head>
 <body>
   <a class="skip-link" href="#app">Skip to content</a>
@@ -31,19 +31,17 @@
       <a href="#/list" class="nav-link nav-primary">Legal alerts</a>
       <a href="#/cases" class="nav-link nav-primary">Case law</a>
       <a href="#/restructurings" class="nav-link nav-primary">Schemes and RPs</a>
-      <a href="#/list?saved=1" class="nav-link nav-right">Saved <span id="saved-count" class="nav-badge"></span></a>
+      <a href="#/list?saved=1" class="nav-link">Saved <span id="saved-count" class="nav-badge"></span></a>
     </nav>
+    <button class="nav-search" data-open-search type="button" aria-label="Search Meridian">
+      <span class="ns-lbl">Search…</span>
+      <kbd>/</kbd>
+    </button>
     <div class="topbar-right">
       <div id="account-nav" class="account-nav"></div>
       <div id="data-status" class="data-status"></div>
     </div>
     <div id="notif" class="notif"></div>
-    </div>
-    <div class="topbar-search">
-      <button class="nav-search" data-open-search type="button" aria-label="Search Meridian">
-        <span class="ns-lbl">Search alerts, cases, firms &amp; more…</span>
-        <kbd>/</kbd>
-      </button>
     </div>
   </header>
 
@@ -58,6 +56,6 @@
       cited source before relying on anything. No data leaves your browser.</p>
   </footer>
 
-  <script type="module" src="js/app.js?v=20260709-7"></script>
+  <script type="module" src="js/app.js?v=20260709-8"></script>
 </body>
 </html>

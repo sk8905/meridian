@@ -53,17 +53,15 @@ img, svg { max-width: 100%; }
   position: sticky; top: 0; z-index: 10;
   background: var(--navy); color: #fff;
 }
-/* Search pill — mirrors Glance's nav search (same right-margin position), in a
-   slim strip under the nav row so it clears the packed right-hand cluster. */
-.topbar-search { background: var(--navy); padding: 0 1.5rem .5rem; display: flex; justify-content: flex-end; }
-.nav-search { display: inline-flex; align-items: center; gap: .6rem; min-width: 260px; justify-content: space-between;
+/* Search pill in the nav row — opens the command palette (same as "/"); its
+   margin-left:auto pushes it (and the identity + bell after it) to the right,
+   mirroring Glance's nav search. */
+.nav-search { display: inline-flex; align-items: center; gap: .55rem; margin-left: auto; flex: 0 0 auto;
   background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #c8d6ef;
-  font: inherit; font-size: .82rem; padding: .4rem .7rem; border-radius: 9px; cursor: pointer; text-align: left; }
+  font: inherit; font-size: .82rem; padding: .38rem .7rem; border-radius: 9px; cursor: pointer; white-space: nowrap; }
 .nav-search:hover { background: rgba(255,255,255,.18); color: #fff; border-color: rgba(255,255,255,.32); }
-.nav-search .ns-lbl { flex: 1 1 auto; }
+.nav-search .ns-lbl { color: inherit; }
 .nav-search kbd { background: rgba(255,255,255,.16); border-radius: 5px; padding: .02rem .42rem; font: inherit; font-size: .8rem; font-weight: 700; line-height: 1.5; }
-@media (min-width: 1101px) { .topbar-search { padding-right: calc((100% - min(100%, var(--maxw))) / 2 + 2rem); } }
-@media (max-width: 760px) { .nav-search { min-width: 0; width: 100%; } .topbar-search { padding: 0 .9rem .5rem; } }
 /* Full-bleed row: brand pinned to the far-left corner, account/bell to the
    far-right corner. The platform switch sits just after the brand on the left;
    the nav grows to fill the middle so the right cluster stays in the corner. */
@@ -91,18 +89,10 @@ img, svg { max-width: 100%; }
 @media (min-width: 1101px) {
   .topbar-inner { padding-left: max(11rem, calc((100% - min(100%, var(--maxw))) / 2 + 2rem)); padding-right: calc((100% - min(100%, var(--maxw))) / 2 + 2rem); }
   .topbar-inner .brand { position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); }
-  /* Let the nav fill the row so the Saved tab sits at the content's right margin
-     (aligned with the page container's edge below). The bell + signed-in block
-     are pinned out of flow in the corner (below), beyond that margin. */
-  .mainnav { flex: 1 1 auto; }
-  .nav-link.nav-right { margin-left: auto; }
-  /* Pin the signed-in identity, refresh status and bell to the far-right corner
-     (out of flow, mirroring the logo on the left) so the Saved tab can align
-     with the content's right margin without them trailing behind it. */
-  .topbar-inner .topbar-right { position: absolute; right: 4rem; top: 50%; transform: translateY(-50%); }
-  /* Two-class selector so it beats the later ".notif { position: relative }"
-     base rule and the bell actually pins to the far-right corner. */
-  .topbar-inner .notif { position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); }
+  /* Glance-style layout: the nav keeps its natural width and the search pill's
+     margin-left:auto pushes it — with the signed-in identity + bell flowing to
+     its right — to the content's right margin. */
+  .mainnav { flex: 0 1 auto; }
 }
 .nav-link { color: #cbd5e1; padding: .5rem .85rem; border-radius: 6px; font-weight: 500; white-space: nowrap; }
 .nav-link:hover, .nav-link:focus-visible { color: #fff; text-decoration: none; background: rgba(255,255,255,.08); }
@@ -114,7 +104,7 @@ img, svg { max-width: 100%; }
   background: var(--accent); color: #fff; border-radius: 999px;
   font-size: .68rem; font-weight: 700; line-height: 16px; text-align: center;
 }
-.topbar-right { flex: 0 0 auto; margin-left: auto; display: flex; flex-direction: column; align-items: flex-end; gap: .2rem; }
+.topbar-right { flex: 0 0 auto; margin-left: 0; display: flex; flex-direction: column; align-items: flex-end; gap: .2rem; }
 .account-nav { font-size: .72rem; color: #cbd5e1; white-space: nowrap; }
 .account-nav strong { color: #fff; font-weight: 600; }
 .account-nav a { color: #5eead4; font-weight: 600; }
@@ -527,8 +517,10 @@ a.compact-head:hover { color: var(--primary); }
     grid-template-areas:
       "brand   bell"
       "toggle  account"
+      "search  search"
       "nav     nav";
   }
+  .nav-search { grid-area: search; width: 100%; min-width: 0; margin-left: 0; justify-content: space-between; }
   .brand { grid-area: brand; justify-self: start; }
   .brand-text strong { font-size: .95rem; }
   .brand-sub { font-size: .58rem; }
