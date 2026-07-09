@@ -75,6 +75,13 @@ h3 { font-size: 1rem; margin: 0; }
      its right — to the content's right margin. */
   .mainnav { flex: 0 1 auto; }
 }
+/* Very wide screens: pin the identity + bell to the true far-right corner
+   (escaping the centred content padding) so they don't trail far from the edge —
+   exactly as Glance does. The search pill stays at the content's right margin. */
+@media (min-width: 1880px) {
+  .topbar-inner .topbar-right { position: absolute; right: 4rem; top: 50%; transform: translateY(-50%); }
+  .topbar-inner .notif { position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); }
+}
 .nav-link {
   color: #cbd5e1; padding: .5rem .85rem; border-radius: 6px; font-weight: 500;
 }

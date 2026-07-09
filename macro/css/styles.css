@@ -55,6 +55,12 @@ h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
      pushes it (with identity + bell flowing to its right) to the content margin. */
   .topbar-inner .mainnav { flex: 0 1 auto; }
 }
+/* Very wide screens: pin the identity + bell to the true far-right corner
+   (escaping the centred content padding), matching Glance. */
+@media (min-width: 1880px) {
+  .topbar-inner .topbar-right { position: absolute; right: 4rem; top: 50%; transform: translateY(-50%); }
+  .topbar-inner .notif { position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); }
+}
 .brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: #fff; flex: 0 0 auto; }
 .brand:hover { text-decoration: none; }
 .brand-text { display: flex; flex-direction: column; }
