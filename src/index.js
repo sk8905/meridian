@@ -798,14 +798,14 @@ async function fetchHeadlines() {
   // Pass ONLY clearly market-relevant items (newest first) so the model isn't
   // tempted to build a "driver" out of a lifestyle/promo headline. If none
   // qualify, return nothing → the wrap states direction with no driver.
-  return uniq.filter((n) => MKT_RE.test(n.title)).slice(0, 6);
+  return uniq.filter((n) => MKT_RE.test(n.title)).slice(0, 8);
 }
 // A coarse fingerprint of the inputs — day moves to 0.1% and rate changes to 1bp,
 // plus the two freshest headlines — so we only spend a model call when something
 // actually moved or the news changed.
 // Bump PULSE_VERSION whenever the prompt/model/headline logic changes so stored
 // text is treated as stale and regenerated (rather than matched by signature).
-const PULSE_VERSION = "v4";
+const PULSE_VERSION = "v5";
 function pulseSig(markets, rates, headlines) {
   const m = markets.map((x) => `${x.label}:${x.changePct == null ? "-" : Math.round(x.changePct * 10) / 10}:${x.futuresPct == null ? "-" : Math.round(x.futuresPct * 10) / 10}`).join(",");
   const r = rates.map((x) => `${x.label}:${x.change == null ? "-" : Math.round(x.change * 100)}`).join(",");
@@ -869,13 +869,15 @@ function pulseMessages(markets, rates, headlines) {
   const sys = [
     "You are a senior markets strategist writing a two-sentence market wrap for a dashboard.",
     "Write flowing, analytical prose — NOT a list. Never list instruments one by one (do NOT write 'S&P up; Nasdaq up; oil down').",
-    "Line 1 (markets): ONE synthesised view of equities (e.g. 'US equities firmer, London higher'), then a brief note on oil and gold.",
-    "Line 2 (rates): Treasury yields and credit spreads together in one view.",
-    "DRIVERS: only name a driver when a provided headline is a CLEAR market-moving EVENT — a data release, central-bank decision, geopolitical event, tariff/trade news, or major company/sector story. Weave it in with 'as/after/amid …'. If no headline clearly qualifies, just state the direction with NO driver. NEVER invent or infer an event (e.g. do not write 'amid a labor-market report' or 'as new stocks power the market' unless a headline explicitly says so).",
-    "Rules: use ONLY the given data and headlines; no hype, no advice, no numbers unless essential; each line ONE sentence of 24 words or fewer.",
+    "THE WHOLE POINT is the DRIVER — the 'why'. Each line MUST pair the move with the single most relevant driver drawn from the provided headlines, woven in with 'as/after/amid/on/with …' (e.g. 'as Middle-East supply fears lift crude', 'after soft jobs data', 'amid tariff relief', 'as bond investors eye Fed policy').",
+    "Line 1 (markets): ONE synthesised view of equities plus a note on oil/gold, tied to the most fitting market headline.",
+    "Line 2 (rates): Treasury yields and credit spreads together, tied to the most fitting macro/rates/geopolitics headline.",
+    "Pick the driver from the headlines that best fits each move; you may connect a headline to a plausibly-related move. Only drop the driver if NONE of the headlines are market-relevant at all.",
+    "Never fabricate: every driver must trace to a provided headline; invent no events, numbers or facts not in the inputs.",
+    "No hype, no advice, no numbers unless essential; each line ONE sentence of 26 words or fewer.",
   ].join(" ");
-  const example = '{"markets":"US equities firmer and London higher, while crude eases and gold edges up.","rates":"Treasury yields drift lower and credit spreads hold broadly steady."}';
-  const user = `DATA — markets: ${mktStr}\nDATA — rates/spreads: ${rateStr}\nRECENT HEADLINES:\n${headStr}\n\nWrite the two lines for THIS data. Return ONLY JSON in exactly this shape (no prose, no lists):\n${example}`;
+  const example = '{"markets":"US equities firmer and London higher as easing Middle-East tensions steady risk appetite, while crude slips and gold edges up.","rates":"Treasury yields drift lower and credit spreads hold steady as bond investors weigh the Fed policy outlook."}';
+  const user = `DATA — markets: ${mktStr}\nDATA — rates/spreads: ${rateStr}\nRECENT HEADLINES (use these for the drivers):\n${headStr}\n\nWrite the two lines for THIS data, each naming a driver from the headlines. Return ONLY JSON in exactly this shape (no prose, no lists):\n${example}`;
   return [{ role: "system", content: sys }, { role: "user", content: user }];
 }
 async function generatePulse(request, env, ctx) {
