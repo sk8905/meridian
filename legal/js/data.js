@@ -15,13 +15,13 @@
 // `LAST_REVIEWED` whenever you refresh the data.
 // =============================================================================
 
-export const LAST_REVIEWED = "2026-07-08";
+export const LAST_REVIEWED = "2026-07-09";
 // When the refresh routine last ran (even if nothing new) — shown as "Last refresh".
-export const LAST_CHECKED = "2026-07-08";
+export const LAST_CHECKED = "2026-07-09";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — two runs a day (~06:00 / ~12:00).
-export const LAST_CHECKED_TIME = "23:05 BST";
+export const LAST_CHECKED_TIME = "05:22 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -6101,6 +6101,50 @@ export const items = [
     tags: ["fund litigation", "fraud claims", "Cayman Islands", "Abraaj", "private equity fund"],
     dateEstimated: false,
   },
+  {
+    url: "https://financialregulation.linklaters.com/post/102n8ef/fca-tells-banks-to-improve-access-to-basic-bank-accounts",
+    id: "u644", title: "FCA tells banks to improve access to basic bank accounts",
+    area: "banking", areas: ["banking"], type: "update", firm: "linklaters",
+    date: "2026-07-07", jurisdiction: "United Kingdom",
+    summary: "Linklaters update on FCA mystery-shopping findings showing banks and building societies under-promoting and mishandling provision of basic bank accounts (BBAs), with sector-wide remediation plans agreed via UK Finance.",
+    points: [
+      "FCA found banks fail to proactively raise BBAs, poorly explain alternative ID options, and miss vulnerability indicators",
+      "Nine firms are legally mandated to offer BBAs under the Payment Accounts Regulations 2015",
+      "Individual firm improvement plans plus sector-wide UK Finance commitments, with 6- and 12-month reviews",
+    ],
+    tags: ["retail banking", "FCA", "consumer protection", "basic bank accounts"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.lw.com/en/insights/english-restructuring-plans-for-us-debtors",
+    id: "u645", title: "English Restructuring Plans for US Debtors",
+    area: "ri", areas: ["ri"], type: "insight", firm: "latham",
+    date: "2026-07-07", jurisdiction: "England and Wales / United States",
+    summary: "Latham & Watkins insight on how English Part 26A restructuring plans offer US debtor groups an alternative to Chapter 11, citing recent Fossil and New Fortress Energy cases.",
+    points: [
+      "Enables court-sanctioned creditor compromises without unanimous approval and cross-class cram-down without strict absolute priority",
+      "US debtors need an England/Wales nexus via existing obligors, English law debt, or new English subsidiaries",
+      "US Chapter 15 courts have shown willingness to recognize English RPs absent 'abusive forum shopping'",
+      "Lacks automatic stay, DIP financing and executory contract mechanisms available under Chapter 11",
+    ],
+    tags: ["restructuring plan", "Part 26A", "Chapter 15", "cross-border"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.slaughterandmay.com/insights/corporate-update/corporate-update-bulletin-9-july-2026/",
+    id: "u646", title: "Corporate Update Bulletin — 9 July 2026",
+    area: "corporate", areas: ["corporate", "funds"], type: "update", firm: "slaughtermay",
+    date: "2026-07-09", jurisdiction: "United Kingdom",
+    summary: "Slaughter and May's fortnightly corporate bulletin covering FCA Listing Rules changes for closed-ended investment funds, final crypto trading rules, UK IPO research reforms, FRC audit/governance guidance, and the UK corporate redomiciliation consultation.",
+    points: [
+      "FCA consulting on Listing Rules changes for closed-ended investment funds (board independence, conflicts)",
+      "FCA finalized rules for cryptoasset offerings/trading (CRYPTO 3 and CRYPTO 4 chapters)",
+      "Government consulting on a UK corporate redomiciliation regime for overseas companies",
+      "FRC refreshed ISA 700/701/720 auditing standards to reduce reporting burden",
+    ],
+    tags: ["corporate governance", "listing rules", "redomiciliation", "funds"],
+    dateEstimated: false,
+  },
 ];
 
 // ---- Recent cases published on BAILII -------------------------------------
@@ -6280,6 +6324,12 @@ export const cases = [
   { id: "c58", name: "Stor RB One Ltd v Kanthasamy", citation: "[2026] EWHC 1696 (Comm)", court: "High Court (Comm)",
     date: "2026-07-07", area: "banking", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/1696",
     summary: "Judge Kramer KC declined to strike out a defendant's claim that a personal-guarantee judgment against him should be set aside for fraud (a forged guarantee deed and a fabricated legal-advice certificate produced by a co-defendant relative), finding a real issue for trial, but adjourned the harder question of whether fraud by a co-defendant (rather than the judgment creditor) can unravel a judgment pending Court of Appeal guidance in Lindsay's Estate v Outlook Finance Ltd." },
+  { id: "c59", name: "UniCredit Bank GmbH, London Branch v Celestial Aviation Services Ltd", citation: "[2026] UKSC 10", court: "Supreme Court",
+    date: "2026-03-25", area: "banking", url: "https://supremecourt.uk/cases/uksc-2024-0103",
+    summary: "The Supreme Court unanimously held that UK Russia sanctions prohibited a confirming bank from paying under standby letters of credit securing aircraft leases to Russian airlines, even though the leases and LCs predated sanctions, adopting a broad 'factual connection' test for the sanctions regime's reach." },
+  { id: "c60", name: "THG Plc v Zedra Trust Company (Jersey) Limited", citation: "[2026] UKSC 6", court: "Supreme Court",
+    date: "2026-02-25", area: "corporate", url: "https://supremecourt.uk/cases/uksc-2024-0047",
+    summary: "The Supreme Court gave authoritative guidance on whether, and what, statutory limitation period applies to amendments to unfair-prejudice petitions under section 994 of the Companies Act 2006." },
 ];
 
 // ---- Lightweight lookups ----------------------------------------------------
@@ -6350,6 +6400,8 @@ export const caseSummaries = {
   c56: "Philip Cole and Scott Masterton co-founded E-Technologies Global Limited, and in September 2021 executed a Share Purchase Agreement under which Masterton agreed to buy Cole's shares for £10m, contingent on anticipated third-party investment that never materialised. Masterton repeatedly failed to comply with court orders and engage with the litigation, leading to a debarring order preventing him from advancing a defence; he sought relief from sanctions under the Denton v White framework, citing dyslexia and unrelated criminal proceedings, which the court found unsupported by evidence and insufficient to excuse serious, repeated breaches. Applying CPR 3.9, Hancock J maintained the debarring order but still considered the merits on the available documentary record, since Masterton could not positively advance his sham-agreement defence. The court found the SPA was a genuine, binding agreement breached by Masterton's failure to pay the agreed £10m by the completion date.",
   c57: "Frontiers Capital I Limited Partnership (FCILP), a pre-2009 venture capital fund that ceased business in 2010, had sued Thomas Flohr for breach of a 2002 Subscription and Shareholders' Agreement and breach of fiduciary duty, alleging he improperly used competing 'Comprendium' companies to acquire subsidiaries of the bankrupt Comdisco Inc for his own profit. After FCILP and its dissolved Guernsey general partner (FCGPL) were restored, Timothy Horlick — a former indirect investor holding a 24% stake — became FCGPL's director/liquidator, funded the revived claim via his own company Milo Investments Limited, and stood to receive 90% of any recovery. Flohr applied for a non-party costs order against Horlick personally. The court found Horlick was the true party in interest, having pursued the litigation for personal gain without proper consultation of the limited partners and without candour about the funding arrangement, and ordered costs against him.",
   c58: "Stor RB One had obtained summary judgment in 2023 against Mr Kanthasamy for over £541,000 on a personal guarantee he gave in support of a receivables purchase facility extended to a company run by a relative. Kanthasamy later alleged the guarantee deed was forged and that the earlier proceedings were tainted by a fabricated defence admission and a false solicitor's certificate of independent legal advice, produced by the relative rather than by Stor itself, and sought to set the judgment aside for fraud. Judge Kramer KC refused to strike out the fraud case, finding a real triable issue on forgery, but declined to resolve whether the 'fraud unravels all' principle extends to a co-defendant's fraud (rather than the judgment creditor's), adjourning that novel point pending the Court of Appeal's decision in Lindsay's Estate v Outlook Finance Ltd. The case is of practical significance for lenders relying on personal guarantees where the alleged fraud is perpetrated by someone other than the borrower or creditor.",
+  c59: "Twelve standby letters of credit, issued 2017-2020 by Sberbank and confirmed by UniCredit's London branch, secured lease obligations of Russian carriers to Irish lessors Celestial Aviation Services and two Aircastle-group entities. After UK Russia sanctions were imposed, UniCredit refused payment, and the lessors argued the leases and LCs predated the sanctions regime and so fell outside its reach. Lord Stephens, giving the judgment for a unanimous panel, held that Regulation 28(3) of the Russia (Sanctions) (EU Exit) Regulations 2019 requires only a factual connection between financial services or funds and an arrangement whose object or effect makes restricted goods available to a Russia-connected person, dismissing the lessors' appeals and allowing the bank's cross-appeal. The decision is a landmark for trade-finance and letter-of-credit practice under UK sanctions law, confirming that banks can lawfully decline payment under pre-existing instruments where a sufficient factual connection to sanctioned activity exists.",
+  c60: "Zedra, a minority shareholder in THG plc, originally filed an unfair-prejudice petition under section 994 of the Companies Act 2006 in 2019 and in 2022 sought to amend it to add allegations concerning share distributions made in July 2016; THG argued the proposed amendment was time-barred. The Court of Appeal had agreed that the amendment was out of time. A five-Justice Supreme Court panel (Lord Hodge, Lord Lloyd-Jones, Lord Briggs, Lord Burrows and Lord Richards) reviewed the position and gave authoritative guidance on how, and whether, a statutory limitation period constrains amendments to section 994 unfair-prejudice petitions. The ruling is significant as one of the few Supreme Court decisions to address limitation in the context of shareholder unfair-prejudice claims, providing clarity for corporate and shareholder-dispute practitioners on when historic conduct can still be pleaded into an existing petition.",
 };
 
 export const restructurings = [

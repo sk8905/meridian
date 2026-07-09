@@ -5,15 +5,15 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "8 July 2026";
+export const UPDATED = "9 July 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The twice-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-07-08",
-  lastCheckedTime: "23:05 BST",
+  lastChecked: "2026-07-09",
+  lastCheckedTime: "05:22 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -25,8 +25,9 @@ export const OUTLOOK = {
       "The FOMC held its target range at <strong>3.50–3.75%</strong> on 17 June 2026 — a fourth consecutive hold (12–0), and the first meeting chaired by Kevin Warsh. The June dot plot lifted the median year-end-2026 dot to roughly <strong>3.8%</strong> (from 3.4% in March), with nine of nineteen participants now pencilling in at least one further <em>hike</em> — a hawkish pivot from the earlier easing bias.",
       "The driver is re-accelerating inflation: <strong>core PCE hit 3.4% in May</strong>, its highest since October 2023, on tariff pass-through and a Middle-East energy shock. Solid growth and a firm labour market remove the case for cuts, though some argue tariff effects are near their peak.",
       "For the 28–29 July meeting, a Reuters poll (72 of 102 economists) and futures overwhelmingly expect a <strong>hold</strong>. Through year-end, futures price the rate drifting toward <strong>~4% by December</strong> — about one 25bp hike; J.P. Morgan sees no move in 2026, Deutsche Bank two.",
+      "Minutes of the June meeting, released 8 July 2026, showed <strong>'a few' officials already saw a case for a hike in June</strong>, with broad-based price pressures flagged across transportation, air fares, petrochemicals and agricultural inputs. The same day, President Trump said the Iran ceasefire was 'over' and threatened fresh strikes; Brent crude jumped ~5% and the 10-year Treasury yield rose to <strong>4.57%</strong> (highest since mid-May) as September-hike odds jumped to <strong>~70%</strong> from ~58%.",
     ],
-    bottomLine: "Next move a hold on 29 July; markets price the funds rate drifting toward ~4% by December (roughly one hike), with cuts off the table for now.",
+    bottomLine: "Next move a hold on 29 July; the 8 July FOMC minutes and a fresh Middle-East oil shock have pushed hike odds higher (~70% by September), with cuts off the table for now.",
   },
   uk: {
     rate: "3.75%",
@@ -35,8 +36,9 @@ export const OUTLOOK = {
       "The MPC held <strong>Bank Rate at 3.75%</strong> on 17–18 June 2026 by a 7–2 majority, with Megan Greene and Huw Pill dissenting for a 25bp <em>hike</em> to 4.00% — more hawkish than April's 8–1 hold. The Bank cited sticky services inflation and a fresh energy-price shock.",
       "<strong>Services inflation was 3.7% in May</strong> (up from 3.2%), the MPC's key persistence gauge, while headline CPI held at <strong>2.8%</strong>. Labour data is softening — regular pay (AWE ex-bonus) growth around <strong>3.4%</strong>, unemployment <strong>4.9%</strong> and a rising claimant count — pointing to gradually easing wage pressure, which tempers the hawks.",
       "Markets expect the Bank to <strong>hold at 3.75% for the rest of 2026</strong>. A Reuters poll of 65 economists found most see a year-end hold, but nearly 40% price at least one hike and only six a cut; 2026 forecasts span 3.50–4.25%. The base case for the 30 July meeting is a hold with a hawkish tilt.",
+      "The renewed Iran/oil shock of 8 July 2026 pushed the <strong>10-year gilt yield above 4.9%</strong> (highest since 10 June) as traders raised BoE hike-by-year-end odds to <strong>~76%</strong> (>50% for November); Governor Bailey reaffirmed inflation should reach 2% eventually but 'later than previously expected', ruling out imminent cuts. The BoE's July Financial Stability Report also flagged record hedge-fund leverage and noted the gilt move was amplified by hedge-fund deleveraging.",
     ],
-    bottomLine: "Next move a hold on 30 July at 3.75%; markets see rates flat through end-2026, though ~40% of economists flag a possible hike and hawkish dissents are growing.",
+    bottomLine: "Next move a hold on 30 July at 3.75%; the 8 July oil shock has lifted hike-by-year-end odds to ~76%, with hawkish dissents growing and cuts off the table.",
   },
   sources: [
     ["Fed statement, 17 Jun 2026", "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm"],
@@ -47,6 +49,10 @@ export const OUTLOOK = {
     ["BoE MPC minutes, Jun 2026", "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/june-2026"],
     ["ONS — CPI, May 2026", "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/may2026"],
     ["ONS — labour market, Jun 2026", "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/uklabourmarket/june2026"],
+    ["Bloomberg — Fed minutes show 'a few' saw case for June hike, 8 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-08/fed-minutes-show-a-few-officials-saw-case-for-june-rate-hike"],
+    ["CNBC — 10-year yield climbs to 4.57% on oil/Iran ceasefire collapse, 8 Jul 2026", "https://www.cnbc.com/2026/07/08/treasury-yields-trump-iran-ceasefire.html"],
+    ["TradingView/Trading Economics — UK gilt yields surge on oil spike, rate-hike bets, 8 Jul 2026", "https://www.tradingview.com/news/te_news:564810:0-uk-gilt-yields-surge-on-oil-spike-rate-hike-bets/"],
+    ["Bank of England — Financial Stability Report, Jul 2026", "https://www.bankofengland.co.uk/financial-stability-report/2026/july-2026"],
   ],
 };
 
@@ -164,8 +170,8 @@ export const BUBBLE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
-  { id: "g-fed-2026-06", kind: "Rate guidance", title: "Fed held at 3.50–3.75% and turned hawkish — the dot plot now implies about one hike by year-end.", href: "#/commentary", date: "2026-06-17" },
-  { id: "g-boe-2026-06", kind: "Rate guidance", title: "BoE held Bank Rate at 3.75% on a 7–2 vote, with two members seeking a hike.", href: "#/commentary", date: "2026-06-18" },
+  { id: "g-fed-2026-07-08", kind: "Rate guidance", title: "8 July FOMC minutes + Iran/oil shock lifted September hike odds to ~70%; 10-year Treasury yield jumped to 4.57%.", href: "#/commentary", date: "2026-07-08" },
+  { id: "g-boe-2026-07-08", kind: "Rate guidance", title: "Oil-driven gilt sell-off pushed BoE hike-by-year-end odds to ~76%; 10-year gilt yield topped 4.9%.", href: "#/commentary", date: "2026-07-08" },
   { id: "g-cycle-us-2026-07", kind: "Cycle", title: "US placed late in the Big Debt Cycle (~72/100) — record debt and interest burden.", href: "#/cycle", date: "2026-07-07" },
   { id: "g-cycle-uk-2026-07", kind: "Cycle", title: "UK at ~58/100 — elevated debt and real gilt stress, but less advanced than the US.", href: "#/cycle", date: "2026-07-07" },
   { id: "g-bubble-us-2026-07", kind: "Bubble risk", title: "US equity bubble risk High (~80/100) — extreme valuations, record margin debt and narrow breadth, tempered by restrictive policy.", href: "#/bubble", date: "2026-07-07" },
@@ -174,8 +180,8 @@ export const ALERTS = [
 // ---- One-line conclusions surfaced on the Dashboard ------------------------
 export const SUMMARY = {
   outlook: {
-    us: "Fed on hold at 3.50–3.75%; markets lean toward ~one hike by year-end — cuts off the table.",
-    uk: "BoE holding at 3.75% with hawkish dissents; rates seen broadly flat through 2026.",
+    us: "Fed on hold at 3.50–3.75%; an 8 July oil shock and hawkish FOMC minutes lifted September-hike odds to ~70% — cuts off the table.",
+    uk: "BoE holding at 3.75%; the same oil shock lifted hike-by-year-end odds to ~76%, with hawkish dissents growing.",
   },
   cycle: {
     us: "Late Big Debt Cycle — record debt (~101% GDP) and interest burden. Gauge ~72/100.",
@@ -194,16 +200,16 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-07-08",
+  updated: "2026-07-09",
   us: [
-    { title: "Tech weakness resumes after Samsung misses lofty AI expectations", source: "Bloomberg", date: "2026-07-07", url: "https://www.bloomberg.com/news/articles/2026-07-07/tech-weakness-resumes-after-samsung-misses-lofty-ai-expectations" },
-    { title: "Treasury yields are little changed as investors look ahead to FOMC meeting minutes", source: "CNBC", date: "2026-07-06", url: "https://www.cnbc.com/2026/07/06/us-treasury-yields-investors-look-ahead-to-fomc-meeting-minutesu.html" },
-    { title: "Jobs report shows weaker-than-expected hiring in June", source: "Axios", date: "2026-07-02", url: "https://www.axios.com/2026/07/02/jobs-june-trump-federal-reserve" },
+    { title: "Fed Minutes Show 'a Few' Officials Saw Case for June Hike", source: "Bloomberg", date: "2026-07-08", url: "https://www.bloomberg.com/news/articles/2026-07-08/fed-minutes-show-a-few-officials-saw-case-for-june-rate-hike" },
+    { title: "10-year Treasury yield climbs to 4.57% as jumping oil prices reignite inflation fears", source: "CNBC", date: "2026-07-08", url: "https://www.cnbc.com/2026/07/08/treasury-yields-trump-iran-ceasefire.html" },
+    { title: "Fed policymakers saw inflation concerns mounting at June meeting, minutes show", source: "Reuters", date: "2026-07-08", url: "https://www.investing.com/news/economy-news/fed-policymakers-saw-inflation-concerns-mounting-at-june-meeting-minutes-show-4782177" },
   ],
   uk: [
     { title: "Rapid AI advances increasing financial stability risks, Bank of England warns", source: "Yahoo Finance UK", date: "2026-07-08", url: "https://uk.finance.yahoo.com/news/rapid-ai-advances-increasing-financial-095753760.html" },
-    { title: "UK Halifax house prices rose 0.2% in June, beating expectations", source: "InvestingLive", date: "2026-07-07", url: "https://investinglive.com/news/uk-june-halifax-house-prices-02-vs-01-mm-expected-20260707/" },
-    { title: "Bank of England's Bailey Says Rate Cuts Are Still Off the Table", source: "Bloomberg", date: "2026-07-01", url: "https://www.bloomberg.com/news/articles/2026-07-01/bank-of-england-s-bailey-says-rate-cuts-are-still-off-the-table" },
+    { title: "UK Gilt Yields Surge on Oil Spike, Rate Hike Bets", source: "Trading Economics", date: "2026-07-08", url: "https://www.tradingview.com/news/te_news:564810:0-uk-gilt-yields-surge-on-oil-spike-rate-hike-bets/" },
+    { title: "Britain's bond market may limit what Burnham can do as PM", source: "Reuters", date: "2026-07-07", url: "https://uk.finance.yahoo.com/news/britains-bond-market-may-limit-050240854.html" },
   ],
 };
 
@@ -213,7 +219,6 @@ export const NEWS = {
 // the twice-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-07-08", country: "US", title: "FOMC minutes (June meeting)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-07-14", country: "US", title: "CPI (June)", url: "https://www.bls.gov/schedule/news_release/cpi.htm" },
   { date: "2026-07-15", country: "US", title: "PPI (June)", url: "https://www.bls.gov/schedule/news_release/ppi.htm" },
   { date: "2026-07-16", country: "US", title: "Retail sales (June)", url: "https://www.census.gov/retail/release_schedule.html" },
