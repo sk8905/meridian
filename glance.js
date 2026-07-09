@@ -75,6 +75,22 @@ export function initGlance() {
   if (rf) rf.textContent = `Last refresh ${fmtRefresh()}`;
   initNotifBell();
   wirePalette(buildIndex());
+  startLiveRefresh();
+}
+
+// Auto-refresh the live markets + rates bands and the two hero one-liners every
+// 5 minutes while the page is open. This is CLIENT-SIDE ONLY — it just re-hits
+// the /api/markets and /api/rates feeds (no Claude, no scheduled routine, no
+// cost of note). Everything else on the page keeps the 3×/day editorial
+// cadence. Work is skipped while the tab is hidden and caught up on return.
+const LIVE_REFRESH_MS = 5 * 60 * 1000;
+let _lastLive = Date.now();
+function refreshLive() { _lastLive = Date.now(); initMarkets(); initRates(); }
+function startLiveRefresh() {
+  setInterval(() => { if (!document.hidden) refreshLive(); }, LIVE_REFRESH_MS);
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden && Date.now() - _lastLive > LIVE_REFRESH_MS) refreshLive();
+  });
 }
 
 // Deep-link a Credit deal/intel record to its exact row in the right feed tab
