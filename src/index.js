@@ -703,7 +703,31 @@ async function handleMacro(request, env, ctx) {
 // deterministic lines if Workers AI is unavailable.
 const PULSE_KEY = "mpulse";                 // single global KV record (WATCHLIST ns)
 const PULSE_THROTTLE_MS = 15 * 60 * 1000;   // regenerate at most every 15 min
-const PULSE_MODEL = "@cf/meta/llama-3.1-8b-instruct";
+// Candidate Workers AI models, newest first. Models get deprecated over time, so
+// we try each until one responds — the fallback survives any single retirement.
+const PULSE_MODELS = [
+  "@cf/meta/llama-4-scout-17b-16e-instruct",
+  "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+  "@cf/mistralai/mistral-small-3.1-24b-instruct",
+  "@cf/google/gemma-3-12b-it",
+  "@cf/qwen/qwen2.5-14b-instruct",
+  "@cf/meta/llama-3.2-3b-instruct",
+];
+// Run the first model that answers; `trace` (optional) collects per-model outcomes
+// for the debug endpoint.
+async function runPulseModel(env, messages, trace) {
+  for (const model of PULSE_MODELS) {
+    try {
+      const res = await env.AI.run(model, { max_tokens: 220, temperature: 0.2, messages });
+      const text = (res && (res.response || res.result || res.output_text)) || "";
+      if (trace) trace.push({ model, ok: true, len: String(text).length });
+      if (text && String(text).trim()) return { text: String(text), model };
+    } catch (e) {
+      if (trace) trace.push({ model, err: String((e && e.message) || e).slice(0, 120) });
+    }
+  }
+  return { text: "", model: null };
+}
 
 // Latest market-moving headlines from Yahoo Finance's keyless news search.
 async function fetchHeadlines() {
@@ -767,14 +791,15 @@ async function debugPulse(request, env, ctx) {
   try { headlines = await fetchHeadlines(); } catch (e) { info.headErr = String((e && e.message) || e); }
   info.headlinesCount = headlines.length; info.headlineSample = headlines.slice(0, 3).map((h) => h.title);
   if (env && env.AI) {
-    try {
-      const res = await env.AI.run(PULSE_MODEL, { max_tokens: 220, temperature: 0.2, messages: [
-        { role: "system", content: "Reply with JSON only, no prose." },
-        { role: "user", content: 'Return exactly: {"markets":"US equities firmer","rates":"yields steady"}' },
-      ] });
-      info.aiRaw = (res && (res.response || res.result || res.output_text)) ?? JSON.stringify(res).slice(0, 400);
-      info.parsed = parsePulse(typeof info.aiRaw === "string" ? info.aiRaw : JSON.stringify(info.aiRaw));
-    } catch (e) { info.aiErr = String((e && e.message) || e); }
+    const trace = [];
+    const { text, model } = await runPulseModel(env, [
+      { role: "system", content: "Reply with JSON only, no prose." },
+      { role: "user", content: 'Return exactly: {"markets":"US equities firmer","rates":"yields steady"}' },
+    ], trace);
+    info.modelTried = trace;
+    info.modelUsed = model;
+    info.aiRaw = text;
+    info.parsed = parsePulse(text);
   }
   return new Response(JSON.stringify(info, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
 }
@@ -799,11 +824,7 @@ async function generatePulse(request, env, ctx) {
   const headStr = headlines.map((h, i) => `${i + 1}. ${h.title}`).join("\n") || "(none)";
   const sys = "You are a markets desk writing two ultra-concise status lines for a dashboard. Use ONLY the data and headlines provided — never invent prices, events or facts. No hype, no advice. If a listed headline plausibly explains a move, name the driver briefly; otherwise just state the direction. Each line must be a single clause of 22 words or fewer.";
   const user = `MARKETS: ${mktStr}\nRATES/SPREADS: ${rateStr}\nHEADLINES:\n${headStr}\n\nReturn ONLY JSON, no prose:\n{"markets":"<equities/oil/gold direction, with a driver if a headline fits>","rates":"<Treasury yields + credit spreads direction, with a driver if one fits>"}`;
-  let text = "";
-  try {
-    const res = await env.AI.run(PULSE_MODEL, { max_tokens: 220, temperature: 0.2, messages: [{ role: "system", content: sys }, { role: "user", content: user }] });
-    text = (res && (res.response || res.result || res.output_text)) || "";
-  } catch { /* model error → fall through and throttle the retry */ }
+  const { text } = await runPulseModel(env, [{ role: "system", content: sys }, { role: "user", content: user }]);
   const parsed = parsePulse(text);
   if (!parsed) {
     // Keep the last good text but stamp the clock so we don't retry every poll.
