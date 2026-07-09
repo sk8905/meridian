@@ -391,7 +391,7 @@ const MARKET_SERIES = [
 // Latest price/level + daily change + ~1-month daily-close history from Yahoo
 // Finance's public chart API (no key). Symbols like "^GSPC" must be URL-encoded.
 async function yahooQuote(symbol) {
-  const nil = { value: null, change: null, changePct: null, asOf: null, history: [] };
+  const nil = { value: null, change: null, changePct: null, asOf: null, history: [], marketState: null };
   const txt = await fetchText(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=1mo&interval=1d`);
   if (!txt) return nil;
   let j; try { j = JSON.parse(txt); } catch { return nil; }
@@ -413,7 +413,11 @@ async function yahooQuote(symbol) {
   // tile shows a real price, not a pence figure. % change is a ratio — unchanged.
   const scale = meta.currency === "GBp" ? 0.01 : 1;
   const change = Number.isFinite(prev) ? +((value - prev) * scale).toFixed(4) : null;
-  return { value: +(value * scale), change, changePct, asOf, history: hist.slice(-22).map((v) => v * scale) };
+  // Authoritative trading-session status from the exchange feed (REGULAR / PRE /
+  // POST / PREPRE / POSTPOST / CLOSED). This inherently accounts for holidays and
+  // half-days, so Glance uses it for the open/closed dot instead of guessing from
+  // the clock. Falls back to null for the FRED/Stooq paths (no session field).
+  return { value: +(value * scale), change, changePct, asOf, history: hist.slice(-22).map((v) => v * scale), marketState: meta.marketState || null };
 }
 
 // Fallback ETF/index source: Stooq's keyless daily CSV (oldest→newest). LSE
@@ -449,13 +453,18 @@ async function handleMarkets(request, env, ctx) {
       ["yahoo1 IGWD.L", "https://query1.finance.yahoo.com/v8/finance/chart/IGWD.L?range=5d&interval=1d"],
       ["stooq igwd.uk", "https://stooq.com/q/d/l/?s=igwd.uk&i=d"],
     ].map(async ([label, u]) => {
-      try { const r = await fetch(u, { headers: fetchHeaders(u) }); const b = await r.text(); return { label, status: r.status, len: b.length, snippet: b.slice(0, 160) }; }
-      catch (e) { return { label, error: String((e && e.message) || e) }; }
+      try {
+        const r = await fetch(u, { headers: fetchHeaders(u) }); const b = await r.text();
+        // Surface Yahoo's session status so the /api/markets dot source is verifiable.
+        let marketState;
+        try { marketState = JSON.parse(b).chart.result[0].meta.marketState; } catch { /* stooq / non-JSON */ }
+        return { label, status: r.status, len: b.length, marketState, snippet: b.slice(0, 160) };
+      } catch (e) { return { label, error: String((e && e.message) || e) }; }
     }));
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/markets?v=5", request.url).toString());
+  const cacheKey = new Request(new URL("/api/markets?v=6", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const fromFred = async (id) => {
@@ -467,7 +476,7 @@ async function handleMarkets(request, env, ctx) {
     let r = await yahooQuote(s.symbol);            // live intraday (primary)
     if (r.value == null && s.fred) r = await fromFred(s.fred);   // daily-close fallback
     if (r.value == null && s.stooq) r = await stooqQuote(s.stooq);
-    return { label: s.label, value: r.value, change: r.change, changePct: r.changePct, asOf: r.asOf, history: r.history || [], href: s.href };
+    return { label: s.label, value: r.value, change: r.change, changePct: r.changePct, asOf: r.asOf, history: r.history || [], marketState: r.marketState || null, href: s.href };
   }));
   const resp = new Response(JSON.stringify({ markets: data }), {
     // Short cache so the live prices stay near-real-time without hammering upstreams.

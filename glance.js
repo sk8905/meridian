@@ -132,10 +132,10 @@ function initRates() {
 }
 
 // ---- Market open / closed indicator ----------------------------------------
-// Each ticker's trading venue has its own schedule; "open" is a function of the
-// current wall-clock time in that venue's timezone, so it is computed live at
-// render (not baked into the cached payload). Holidays are not modelled — this
-// is a session-hours approximation (weekday + regular-session window).
+// Primary source is Yahoo's authoritative `marketState` (REGULAR = open),
+// forwarded by /api/markets — it already accounts for holidays and half-days.
+// The clock-based schedule below is only a FALLBACK for tiles that fell back to
+// FRED/Stooq (which carry no session field), so a dot is always shown.
 const MKT_TYPE = {
   "S&P 500": "us_equity", "NASDAQ 100": "us_equity", // NYSE/Nasdaq
   "IGWD": "lse_equity", "EMEE": "lse_equity",         // London Stock Exchange
@@ -174,12 +174,25 @@ function marketOpen(type) {
   }
   return true;
 }
-function marketDot(label) {
-  const type = MKT_TYPE[label];
-  if (!type) return "";
-  const open = marketOpen(type);
+// Descriptive tooltip for each Yahoo session state (dot is green only in the
+// regular session; pre/post/closed are all red but read differently on hover).
+const MKT_STATE_LABEL = {
+  REGULAR: "Market open", PRE: "Pre-market", PREPRE: "Pre-market",
+  POST: "After-hours", POSTPOST: "After-hours", CLOSED: "Market closed",
+};
+function marketDot(x) {
+  let open, tip;
+  if (x.marketState) {                       // authoritative — from Yahoo
+    open = x.marketState === "REGULAR";
+    tip = MKT_STATE_LABEL[x.marketState] || (open ? "Market open" : "Market closed");
+  } else {                                    // fallback — clock-based schedule
+    const type = MKT_TYPE[x.label];
+    if (!type) return "";
+    open = marketOpen(type);
+    tip = open ? "Market open" : "Market closed";
+  }
   const state = open ? "open" : "closed";
-  return ` <span class="mkt-dot ${state}" title="Market ${state}" aria-label="Market ${state}"></span>`;
+  return ` <span class="mkt-dot ${state}" title="${esc(tip)}" aria-label="${esc(tip)}"></span>`;
 }
 
 // ---- Markets banner: equity indices + ETFs (same tile style as the rates) --
@@ -203,12 +216,12 @@ function marketTile(x) {
   const title = ` title="${esc(x.label)}${asOf} — 1-month trend — open source ↗"`;
   const tag = x.href ? "a" : "div";
   const attrs = x.href ? ` href="${esc(x.href)}" target="_blank" rel="noopener noreferrer"` : "";
-  return `<${tag} class="rate-tile"${attrs}${title}><span class="rate-label">${esc(x.label)}${marketDot(x.label)}</span><span class="rate-val">${val}</span>${chg}${rateSpark(x.history)}</${tag}>`;
+  return `<${tag} class="rate-tile"${attrs}${title}><span class="rate-label">${esc(x.label)}${marketDot(x)}</span><span class="rate-val">${val}</span>${chg}${rateSpark(x.history)}</${tag}>`;
 }
 function initMarkets() {
   const el = document.getElementById("g-markets");
   if (!el) return;
-  fetch("/api/markets?v=5")
+  fetch("/api/markets?v=6")
     .then((r) => (r.ok ? r.json() : Promise.reject()))
     .then((d) => {
       const rows = d.markets || [];
