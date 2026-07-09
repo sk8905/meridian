@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260709-16";
+} from "./data.js?v=20260709-17";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260709-16";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260709-17";
 
 const app = document.getElementById("app");
 
@@ -681,7 +681,8 @@ function viewDashboard() {
   // tab, with a link to the original source below it.
   const newsCompact = (x) => {
     const src = x.url ? ` · <a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : "";
-    return `<li class="compact-item"><a href="#/news" data-goto="news:${x._id}" class="compact-head">${esc(x.title)}</a><div class="compact-meta muted small">${x.date ? esc(fmtDate(x.date)) : ""}${x._mname ? ` · ${esc(x._mname)}` : ""}${x.outlet ? ` · ${esc(x.outlet)}` : ""}${src}</div></li>`;
+    const mgr = x._mid && x._mname ? ` · ${link(`#/manager/${x._mid}`, x._mname, "compact-mgr")}` : (x._mname ? ` · ${esc(x._mname)}` : "");
+    return `<li class="compact-item"><a href="#/news" data-goto="news:${x._id}" class="compact-head">${esc(x.title)}</a><div class="compact-meta muted small">${x.date ? esc(fmtDate(x.date)) : ""}${mgr}${x.outlet ? ` · ${esc(x.outlet)}` : ""}${src}</div></li>`;
   };
   // ---- combined "Latest activity" feed: manager press + deals + fundraising +
   // CLO items, newest first. An event captured BOTH as press and as a structured
@@ -767,8 +768,10 @@ function multiFilter(viewKey, label, options, selected) {
 // page) + date and source only — no summary.
 function compactRow(rec, view) {
   const head = `<a href="#/${view}" data-goto="${view}:${rec.id}" class="compact-head">${esc(rec.headline)}</a>`;
+  const m = rec.managerId ? managerById[rec.managerId] : null;
+  const mgr = m ? ` · ${link(`#/manager/${m.id}`, m.name, "compact-mgr")}` : "";
   const src = rec.sourceUrl ? ` · <a href="${esc(rec.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : "";
-  return `<li class="compact-item">${head}<div class="compact-meta muted small">${fmtDate(rec.date)}${src}</div></li>`;
+  return `<li class="compact-item">${head}<div class="compact-meta muted small">${fmtDate(rec.date)}${mgr}${src}</div></li>`;
 }
 
 // Aggregate manager/investor press (news + webNews) across the universe, deduped,

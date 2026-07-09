@@ -675,6 +675,10 @@ a.intel-head:hover { color: var(--primary); }
 .compact-head { font-weight: 600; color: var(--ink); overflow-wrap: anywhere; }
 a.compact-head:hover { color: var(--primary); }
 .compact-meta { margin-top: .15rem; }
+/* Manager name in a compact-row meta line — a link to the profile, kept in the
+   muted meta colour but underlined on hover so it reads as clickable. */
+a.compact-mgr { color: inherit; }
+a.compact-mgr:hover { color: var(--primary); text-decoration: underline; }
 
 /* ---------- year section breaks (manager feeds) ---------- */
 .year-group + .year-group { margin-top: .5rem; }
