@@ -8,5 +8,9 @@
   },
   "kv_namespaces": [
     { "binding": "WATCHLIST", "id": "ab67312994a84d2cbe4ec33b850ced01" }
-  ]
+  ],
+  // Workers AI powers the Glance "market pulse" (two direction+driver one-liners).
+  // If Workers AI is disabled on the account, env.AI is simply undefined and the
+  // pulse is skipped — Glance falls back to its deterministic lines.
+  "ai": { "binding": "AI" }
 }

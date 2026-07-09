@@ -71,6 +71,7 @@ export function initGlance() {
   renderCards();
   initMarkets();
   initRates();
+  initPulse();
   const rf = document.getElementById("g-refresh");
   if (rf) rf.textContent = `Last refresh ${fmtRefresh()}`;
   initNotifBell();
@@ -85,7 +86,7 @@ export function initGlance() {
 // cadence. Work is skipped while the tab is hidden and caught up on return.
 const LIVE_REFRESH_MS = 5 * 60 * 1000;
 let _lastLive = Date.now();
-function refreshLive() { _lastLive = Date.now(); initMarkets(); initRates(); }
+function refreshLive() { _lastLive = Date.now(); initMarkets(); initRates(); initPulse(); }
 function startLiveRefresh() {
   setInterval(() => { if (!document.hidden) refreshLive(); }, LIVE_REFRESH_MS);
   document.addEventListener("visibilitychange", () => {
@@ -170,9 +171,9 @@ function initRates() {
         ? rowsData.map(ratesTile).join("") +
           '<a class="rate-src" href="https://fred.stlouisfed.org/" target="_blank" rel="noopener noreferrer">Source: FRED · ECB · NY Fed · US Treasury</a>'
         : '<span class="g-loading">Market rates unavailable right now.</span>';
-      setGlance("gl-rates", ratesOneLiner(rowsData));
+      setGlance("gl-rates", _pulse.rates ? esc(_pulse.rates) : ratesOneLiner(rowsData));
     })
-    .catch(() => { el.innerHTML = '<span class="g-loading">Market rates unavailable right now.</span>'; setGlance("gl-rates", "Rates data unavailable right now."); });
+    .catch(() => { el.innerHTML = '<span class="g-loading">Market rates unavailable right now.</span>'; if (!_pulse.rates) setGlance("gl-rates", "Rates data unavailable right now."); });
 }
 
 // ---- Market open / closed indicator ----------------------------------------
@@ -358,9 +359,30 @@ function initMarkets() {
         ? rows.map(marketTile).join("") +
           '<a class="rate-src" href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer">Source: Yahoo Finance · FRED</a>'
         : '<span class="g-loading">Markets unavailable right now.</span>';
-      setGlance("gl-markets", marketsOneLiner(rows));
+      setGlance("gl-markets", _pulse.markets ? esc(_pulse.markets) : marketsOneLiner(rows));
     })
-    .catch(() => { el.innerHTML = '<span class="g-loading">Markets unavailable right now.</span>'; setGlance("gl-markets", "Markets data unavailable right now."); });
+    .catch(() => { el.innerHTML = '<span class="g-loading">Markets unavailable right now.</span>'; if (!_pulse.markets) setGlance("gl-markets", "Markets data unavailable right now."); });
+}
+
+// The "market pulse" — two direction+driver one-liners written server-side by
+// Workers AI from the live feeds + headlines. When present it OVERRIDES the
+// deterministic lines; when absent (first load, off-hours, or AI disabled) the
+// page keeps the client-computed narrative. _pulse is consulted by initMarkets/
+// initRates too, so it wins regardless of which request resolves last.
+let _pulse = { markets: null, rates: null };
+let _pulseRetried = false;
+function initPulse() {
+  fetch("/api/pulse", { headers: { accept: "application/json" } })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((d) => {
+      if (!d) return;
+      _pulse = { markets: d.markets || null, rates: d.rates || null };
+      if (_pulse.markets) setGlance("gl-markets", esc(_pulse.markets));
+      if (_pulse.rates) setGlance("gl-rates", esc(_pulse.rates));
+      // First view often precedes the first background generation — retry once.
+      if (!_pulse.markets && !_pulseRetried) { _pulseRetried = true; setTimeout(initPulse, 15000); }
+    })
+    .catch(() => { /* keep deterministic lines */ });
 }
 
 // ---- Notifications: aggregate the three apps' unread counts ----------------

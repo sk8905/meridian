@@ -692,11 +692,111 @@ async function handleMacro(request, env, ctx) {
   return resp;
 }
 
+// ============================ MARKET PULSE =================================
+// Two short "direction + driver" one-liners for the Glance hero — a light
+// synthesis of the LIVE markets + rates feeds and the latest market headlines,
+// written by Workers AI. Generation is lazy and shared by all users: /api/pulse
+// returns the stored text immediately and, if it's gone stale (and it's a
+// weekday within active hours), kicks off a throttled background regeneration —
+// so it only runs while someone is actually viewing the page, and only when
+// something material has changed. No Claude, no cron; degrades to the client's
+// deterministic lines if Workers AI is unavailable.
+const PULSE_KEY = "mpulse";                 // single global KV record (WATCHLIST ns)
+const PULSE_THROTTLE_MS = 15 * 60 * 1000;   // regenerate at most every 15 min
+const PULSE_MODEL = "@cf/meta/llama-3.1-8b-instruct";
+
+// Latest market-moving headlines from Yahoo Finance's keyless news search.
+async function fetchHeadlines() {
+  const out = [];
+  for (const q of ["stock market", "treasury yields bonds", "oil geopolitics"]) {
+    try {
+      const txt = await fetchText(`https://query1.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(q)}&newsCount=6&quotesCount=0&enableFuzzyQuery=false`);
+      if (!txt) continue;
+      const j = JSON.parse(txt);
+      (j.news || []).forEach((n) => { if (n && n.title) out.push({ title: String(n.title), t: n.providerPublishTime || 0 }); });
+    } catch { /* skip source */ }
+  }
+  const seen = new Set(), uniq = [];
+  out.sort((a, b) => b.t - a.t).forEach((n) => { const k = n.title.toLowerCase(); if (!seen.has(k)) { seen.add(k); uniq.push(n); } });
+  return uniq.slice(0, 6);
+}
+// A coarse fingerprint of the inputs — day moves to 0.1% and rate changes to 1bp,
+// plus the two freshest headlines — so we only spend a model call when something
+// actually moved or the news changed.
+function pulseSig(markets, rates, headlines) {
+  const m = markets.map((x) => `${x.label}:${x.changePct == null ? "-" : Math.round(x.changePct * 10) / 10}:${x.futuresPct == null ? "-" : Math.round(x.futuresPct * 10) / 10}`).join(",");
+  const r = rates.map((x) => `${x.label}:${x.change == null ? "-" : Math.round(x.change * 100)}`).join(",");
+  const h = (headlines[0]?.title || "") + "|" + (headlines[1]?.title || "");
+  return `${m}||${r}||${h}`;
+}
+function parsePulse(text) {
+  if (!text) return null;
+  const m = String(text).match(/\{[\s\S]*\}/);
+  if (!m) return null;
+  try {
+    const o = JSON.parse(m[0]);
+    if (o && typeof o.markets === "string" && typeof o.rates === "string" && o.markets.trim() && o.rates.trim()) {
+      return { markets: o.markets.trim().slice(0, 220), rates: o.rates.trim().slice(0, 220) };
+    }
+  } catch { /* not JSON */ }
+  return null;
+}
+async function generatePulse(request, env, ctx) {
+  if (!env || !env.AI) return; // Workers AI not bound → leave pulse empty (client falls back)
+  const base = new URL(request.url);
+  let markets = [], rates = [];
+  try { markets = (await (await handleMarkets(new Request(new URL("/api/markets?v=8", base).toString()), env, ctx)).json()).markets || []; } catch { /* ignore */ }
+  try { rates = (await (await handleRates(new Request(new URL("/api/rates?v=10", base).toString()), env, ctx)).json()).rates || []; } catch { /* ignore */ }
+  if (!markets.length && !rates.length) return;
+  const headlines = await fetchHeadlines();
+  const sig = pulseSig(markets, rates, headlines);
+  let prev = null;
+  try { const raw = await env.WATCHLIST.get(PULSE_KEY); prev = raw ? JSON.parse(raw) : null; } catch { /* ignore */ }
+  if (prev && prev.sig === sig) { // nothing material changed — refresh the clock, skip the model
+    prev.ts = Date.now();
+    await env.WATCHLIST.put(PULSE_KEY, JSON.stringify(prev));
+    return;
+  }
+  const mktStr = markets.map((x) => `${x.label} ${x.value}${x.changePct != null ? ` (${x.changePct > 0 ? "+" : ""}${x.changePct}% day)` : ""}${x.futuresPct != null ? ` [fut ${x.futuresPct > 0 ? "+" : ""}${x.futuresPct}%]` : ""}`).join("; ");
+  const rateStr = rates.map((x) => `${x.label} ${x.unit === "bp" ? Math.round(x.value * 100) + "bp" : x.value + "%"}${x.change != null ? ` (${x.change > 0 ? "+" : ""}${x.unit === "bp" ? Math.round(x.change * 100) + "bp" : x.change})` : ""}`).join("; ");
+  const headStr = headlines.map((h, i) => `${i + 1}. ${h.title}`).join("\n") || "(none)";
+  const sys = "You are a markets desk writing two ultra-concise status lines for a dashboard. Use ONLY the data and headlines provided — never invent prices, events or facts. No hype, no advice. If a listed headline plausibly explains a move, name the driver briefly; otherwise just state the direction. Each line must be a single clause of 22 words or fewer.";
+  const user = `MARKETS: ${mktStr}\nRATES/SPREADS: ${rateStr}\nHEADLINES:\n${headStr}\n\nReturn ONLY JSON, no prose:\n{"markets":"<equities/oil/gold direction, with a driver if a headline fits>","rates":"<Treasury yields + credit spreads direction, with a driver if one fits>"}`;
+  let text = "";
+  try {
+    const res = await env.AI.run(PULSE_MODEL, { max_tokens: 220, temperature: 0.2, messages: [{ role: "system", content: sys }, { role: "user", content: user }] });
+    text = (res && (res.response || res.result || res.output_text)) || "";
+  } catch { /* model error → fall through and throttle the retry */ }
+  const parsed = parsePulse(text);
+  if (!parsed) {
+    // Keep the last good text but stamp the clock so we don't retry every poll.
+    const rec = prev || { markets: null, rates: null, sig: null };
+    rec.ts = Date.now();
+    await env.WATCHLIST.put(PULSE_KEY, JSON.stringify(rec));
+    return;
+  }
+  await env.WATCHLIST.put(PULSE_KEY, JSON.stringify({ markets: parsed.markets, rates: parsed.rates, ts: Date.now(), sig }));
+}
+async function handlePulse(request, env, ctx) {
+  let cur = null;
+  try { const raw = await env.WATCHLIST.get(PULSE_KEY); cur = raw ? JSON.parse(raw) : null; } catch { /* ignore */ }
+  // Regenerate in the background when stale — weekdays, 06:00–23:00 UTC only.
+  const d = new Date(), day = d.getUTCDay(), hr = d.getUTCHours();
+  const active = day >= 1 && day <= 5 && hr >= 6 && hr < 23;
+  if (active && (!cur || Date.now() - (cur.ts || 0) > PULSE_THROTTLE_MS) && ctx && ctx.waitUntil) {
+    ctx.waitUntil(generatePulse(request, env, ctx).catch(() => {}));
+  }
+  return new Response(JSON.stringify({ markets: (cur && cur.markets) || null, rates: (cur && cur.rates) || null, ts: (cur && cur.ts) || null }), {
+    headers: { "content-type": "application/json", "cache-control": "no-store" },
+  });
+}
+
 export default {
   async fetch(request, env, ctx) {
     const url = new URL(request.url);
     if (url.pathname === "/api/rates") return handleRates(request, env, ctx);
     if (url.pathname === "/api/markets") return handleMarkets(request, env, ctx);
+    if (url.pathname === "/api/pulse") return handlePulse(request, env, ctx);
     if (url.pathname === "/api/macro") return handleMacro(request, env, ctx);
     if (url.pathname === "/api/watchlist") return handleWatchlist(request, env);
     if (url.pathname === "/api/saved") return handleSaved(request, env, savedKeyFor);
