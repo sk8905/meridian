@@ -719,9 +719,13 @@ async function runPulseModel(env, messages, trace) {
   for (const model of PULSE_MODELS) {
     try {
       const res = await env.AI.run(model, { max_tokens: 220, temperature: 0.2, messages });
-      const text = (res && (res.response || res.result || res.output_text)) || "";
-      if (trace) trace.push({ model, ok: true, len: String(text).length });
-      if (text && String(text).trim()) return { text: String(text), model };
+      // Most models return { response: "<string>" }; some (e.g. Llama 4) return
+      // the response already parsed as an object — stringify it so the JSON is
+      // preserved for parsePulse rather than collapsing to "[object Object]".
+      let raw = res == null ? "" : (res.response != null ? res.response : (res.result != null ? res.result : (res.output_text != null ? res.output_text : res)));
+      const text = typeof raw === "string" ? raw : (raw && typeof raw === "object" ? JSON.stringify(raw) : String(raw ?? ""));
+      if (trace) trace.push({ model, ok: true, len: text.length, type: typeof raw });
+      if (text && text.trim() && text !== "[object Object]") return { text, model };
     } catch (e) {
       if (trace) trace.push({ model, err: String((e && e.message) || e).slice(0, 120) });
     }
