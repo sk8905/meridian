@@ -56,11 +56,11 @@ img, svg { max-width: 100%; }
 /* Search pill in the nav row — opens the command palette (same as "/"); its
    margin-left:auto pushes it (and the identity + bell after it) to the right,
    mirroring Glance's nav search. */
-.nav-search { display: inline-flex; align-items: center; gap: .55rem; margin-left: auto; flex: 0 0 auto;
-  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); color: #c8d6ef;
-  font: inherit; font-size: .82rem; padding: .38rem .7rem; border-radius: 9px; cursor: pointer; white-space: nowrap; }
-.nav-search:hover { background: rgba(255,255,255,.18); color: #fff; border-color: rgba(255,255,255,.32); }
-.nav-search .ns-lbl { color: inherit; }
+.nav-search { display: inline-flex; align-items: center; gap: .55rem; justify-content: space-between; margin-left: auto; flex: 0 0 auto; min-width: 236px;
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); color: #c8d6ef;
+  font: inherit; font-size: .85rem; padding: .42rem .7rem; border-radius: 9px; cursor: pointer; text-align: left; white-space: nowrap; }
+.nav-search:hover { background: rgba(255,255,255,.18); color: #fff; border-color: rgba(255,255,255,.3); }
+.nav-search .ns-lbl { flex: 1 1 auto; color: inherit; }
 .nav-search kbd { background: rgba(255,255,255,.16); border-radius: 5px; padding: .02rem .42rem; font: inherit; font-size: .8rem; font-weight: 700; line-height: 1.5; }
 /* Full-bleed row: brand pinned to the far-left corner, account/bell to the
    far-right corner. The platform switch sits just after the brand on the left;
