@@ -139,18 +139,18 @@
 
     /* ---- Main ---- */
     .g-main { max-width:1500px; margin:0 auto; padding:1.75rem 2rem 3rem; }
-    .g-hello { display:flex; align-items:flex-start; justify-content:space-between; gap:2.5rem; margin:0 0 1.3rem; }
-    .g-hello-main { flex:0 1 auto; }
+    .g-hello { display:flex; align-items:flex-start; justify-content:space-between; gap:1.5rem; margin:0 0 1.3rem; }
+    .g-hello-main { flex:0 0 auto; }
     .g-hello h1 { font-size:1.6rem; font-weight:800; margin:0 0 .2rem; letter-spacing:-.01em; }
     .g-hello p { color:var(--muted); margin:0; }
     /* At-a-glance one-liners (markets + rates), refreshed with the twice-daily
-       data pull. Sit to the right of the greeting on desktop, stack below it on
-       narrow screens. */
-    .g-glance { flex:1 1 420px; max-width:640px; align-self:center; display:flex; flex-direction:column;
-      gap:.4rem; padding-left:1.6rem; border-left:3px solid var(--line); }
-    .g-gl { margin:0; font-size:.9rem; line-height:1.4; color:var(--ink); display:flex; gap:.55rem; }
-    .g-gl-k { flex:0 0 auto; min-width:6.6rem; font-size:.66rem; font-weight:800; text-transform:uppercase;
-      letter-spacing:.06em; color:var(--muted); padding-top:.18rem; }
+       data pull. Sit to the right of the greeting on desktop, stretching to fill
+       the free space; stack below it on narrow screens. */
+    .g-glance { flex:1 1 auto; max-width:none; align-self:center; display:flex; flex-direction:column;
+      gap:.35rem; padding-left:1.5rem; border-left:3px solid var(--line); }
+    .g-gl { margin:0; font-size:.8rem; line-height:1.4; color:var(--ink); display:flex; gap:.5rem; }
+    .g-gl-k { flex:0 0 auto; min-width:6rem; font-size:.62rem; font-weight:800; text-transform:uppercase;
+      letter-spacing:.06em; color:var(--muted); padding-top:.16rem; }
     .g-gl-v { flex:1 1 auto; }
     .g-gl-v .up { color:#0a7d3c; font-weight:600; } .g-gl-v .down { color:#c02626; font-weight:600; }
 
@@ -290,7 +290,7 @@
       .g-main { padding:1.1rem 1rem 2.5rem; }
       .g-hello h1 { font-size:1.2rem; letter-spacing:0; line-height:1.25; }
       .g-hello p { font-size:.86rem; }
-      .g-gl { font-size:.84rem; }
+      .g-gl { font-size:.78rem; }
       .cmdk-panel { margin:8vh 12px 0; }
     }
   </style>
