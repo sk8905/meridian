@@ -848,19 +848,34 @@ async function debugPulse(request, env, ctx) {
   info.marketsCount = markets.length; info.ratesCount = rates.length;
   let headlines = [];
   try { headlines = await fetchHeadlines(); } catch (e) { info.headErr = String((e && e.message) || e); }
-  info.headlinesCount = headlines.length; info.headlineSample = headlines.slice(0, 3).map((h) => h.title);
+  info.headlinesCount = headlines.length; info.headlineSample = headlines.slice(0, 6).map((h) => h.title);
   if (env && env.AI) {
     const trace = [];
-    const { text, model } = await runPulseModel(env, [
-      { role: "system", content: "Reply with JSON only, no prose." },
-      { role: "user", content: 'Return exactly: {"markets":"US equities firmer","rates":"yields steady"}' },
-    ], trace);
+    // Use the REAL production prompt so this reflects what the page will show.
+    const { text, model } = await runPulseModel(env, pulseMessages(markets, rates, headlines), trace);
     info.modelTried = trace;
     info.modelUsed = model;
     info.aiRaw = text;
     info.parsed = parsePulse(text);
   }
   return new Response(JSON.stringify(info, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
+}
+// Build the chat messages for the pulse — the actual production prompt, shared by
+// generatePulse and the debug endpoint so ?debug=1 reflects the real output.
+function pulseMessages(markets, rates, headlines) {
+  const mktStr = markets.map((x) => `${x.label} ${x.value}${x.changePct != null ? ` (${x.changePct > 0 ? "+" : ""}${x.changePct}% day)` : ""}${x.futuresPct != null ? ` [fut ${x.futuresPct > 0 ? "+" : ""}${x.futuresPct}%]` : ""}`).join("; ");
+  const rateStr = rates.map((x) => `${x.label} ${x.unit === "bp" ? Math.round(x.value * 100) + "bp" : x.value + "%"}${x.change != null ? ` (${x.change > 0 ? "+" : ""}${x.unit === "bp" ? Math.round(x.change * 100) + "bp" : x.change})` : ""}`).join("; ");
+  const headStr = headlines.map((h, i) => `${i + 1}. ${h.title}`).join("\n") || "(none)";
+  const sys = [
+    "You are a senior markets strategist writing a two-sentence market wrap for a dashboard.",
+    "Write flowing, analytical prose — NOT a list. Never list instruments one by one (do NOT write 'S&P up; Nasdaq up; oil down').",
+    "Line 1 (markets): give ONE synthesised view of equities (e.g. 'US equities firmer, London higher'), then a brief note on oil and gold. If a provided headline plausibly explains the tone, weave that driver in with 'as/after/amid …'.",
+    "Line 2 (rates): describe Treasury yields and credit spreads together in one view, with a driver if one fits.",
+    "Rules: use ONLY the given data and headlines; never invent prices, events or facts; no hype, no advice, no numbers unless essential; each line ONE sentence of 24 words or fewer.",
+  ].join(" ");
+  const example = '{"markets":"US equities firmer and London higher as risk appetite steadies, while crude eases and gold edges up.","rates":"Treasury yields drift lower and credit spreads hold broadly steady, keeping financial conditions supportive."}';
+  const user = `DATA — markets: ${mktStr}\nDATA — rates/spreads: ${rateStr}\nRECENT HEADLINES:\n${headStr}\n\nWrite the two lines for THIS data. Return ONLY JSON in exactly this shape (no prose, no lists):\n${example}`;
+  return [{ role: "system", content: sys }, { role: "user", content: user }];
 }
 async function generatePulse(request, env, ctx) {
   if (!env || !env.AI) return; // Workers AI not bound → leave pulse empty (client falls back)
@@ -878,19 +893,7 @@ async function generatePulse(request, env, ctx) {
     await env.WATCHLIST.put(PULSE_KEY, JSON.stringify(prev));
     return;
   }
-  const mktStr = markets.map((x) => `${x.label} ${x.value}${x.changePct != null ? ` (${x.changePct > 0 ? "+" : ""}${x.changePct}% day)` : ""}${x.futuresPct != null ? ` [fut ${x.futuresPct > 0 ? "+" : ""}${x.futuresPct}%]` : ""}`).join("; ");
-  const rateStr = rates.map((x) => `${x.label} ${x.unit === "bp" ? Math.round(x.value * 100) + "bp" : x.value + "%"}${x.change != null ? ` (${x.change > 0 ? "+" : ""}${x.unit === "bp" ? Math.round(x.change * 100) + "bp" : x.change})` : ""}`).join("; ");
-  const headStr = headlines.map((h, i) => `${i + 1}. ${h.title}`).join("\n") || "(none)";
-  const sys = [
-    "You are a senior markets strategist writing a two-sentence market wrap for a dashboard.",
-    "Write flowing, analytical prose — NOT a list. Never list instruments one by one (do NOT write 'S&P up; Nasdaq up; oil down').",
-    "Line 1 (markets): give ONE synthesised view of equities (e.g. 'US equities firmer, London higher'), then a brief note on oil and gold. If a provided headline plausibly explains the tone, weave that driver in with 'as/after/amid …'.",
-    "Line 2 (rates): describe Treasury yields and credit spreads together in one view, with a driver if one fits.",
-    "Rules: use ONLY the given data and headlines; never invent prices, events or facts; no hype, no advice, no numbers unless essential; each line ONE sentence of 24 words or fewer.",
-  ].join(" ");
-  const example = '{"markets":"US equities firmer and London higher as risk appetite steadies, while crude eases and gold edges up.","rates":"Treasury yields drift lower and credit spreads hold broadly steady, keeping financial conditions supportive."}';
-  const user = `DATA — markets: ${mktStr}\nDATA — rates/spreads: ${rateStr}\nRECENT HEADLINES:\n${headStr}\n\nWrite the two lines for THIS data. Return ONLY JSON in exactly this shape (no prose, no lists):\n${example}`;
-  const { text } = await runPulseModel(env, [{ role: "system", content: sys }, { role: "user", content: user }]);
+  const { text } = await runPulseModel(env, pulseMessages(markets, rates, headlines));
   const parsed = parsePulse(text);
   if (!parsed) {
     // Keep the last good text but stamp the clock so we don't retry every poll.
