@@ -744,21 +744,35 @@ function cleanHeadline(s) {
     .replace(/<[^>]+>/g, "")
     .replace(/\s+/g, " ").trim();
 }
-// Latest market-MOVING headlines. Primary: markets-news RSS (CNBC + MarketWatch),
-// which carry actual "stocks fall as…/oil jumps on…" drivers. Falls back to
-// Yahoo's keyless news search only if every feed is unreachable. All feeds are
-// keyless and edge-cached (~15 min) by fetchText.
+// Fetch and decode as UTF-8 regardless of the (often mislabelled) feed charset —
+// the default text() used Latin-1, which is what produced the "â€™" mojibake.
+async function fetchUtf8(url) {
+  for (let i = 0; i < 2; i++) {
+    try {
+      const r = await fetch(url, { headers: fetchHeaders(url), cf: { cacheTtl: 900 } });
+      if (r.ok) return new TextDecoder("utf-8").decode(await r.arrayBuffer());
+    } catch { /* retry */ }
+  }
+  return "";
+}
+// Terms that mark a headline as genuinely market-moving, so those rank ahead of
+// the lifestyle/promo items the broad feeds mix in.
+const MKT_RE = /\b(stock|market|s&p|nasdaq|dow|treasur|yield|bond|spread|fed|rate|inflation|cpi|ppi|jobs|payroll|unemploy|oil|crude|opec|gold|dollar|tariff|trade|geopolit|war|sanction|earnings|gdp|recession|ecb|boe|central bank|equit|selloff|sell-off|rally|risk|hormuz|iran|ukraine|china)\b/i;
+// Latest market-MOVING headlines from markets-news RSS (CNBC Markets + MarketWatch
+// market feeds), UTF-8-decoded, de-duplicated, with clearly market-relevant items
+// ranked first. Falls back to Yahoo's keyless news search only if every feed is
+// unreachable. All keyless and edge-cached (~15 min).
 async function fetchHeadlines() {
   const feeds = [
     "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=20910258",  // CNBC Markets
-    "https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=100003114", // CNBC Top News
-    "https://feeds.content.dowjones.io/public/rss/mw_topstories",                            // MarketWatch Top Stories
     "https://feeds.content.dowjones.io/public/rss/mw_marketpulse",                           // MarketWatch MarketPulse
+    "https://feeds.content.dowjones.io/public/rss/mw_realtimeheadlines",                     // MarketWatch Real-time
+    "https://feeds.content.dowjones.io/public/rss/mw_topstories",                            // MarketWatch Top Stories
   ];
   const out = [];
   await Promise.all(feeds.map(async (u) => {
     try {
-      const txt = await fetchText(u);
+      const txt = await fetchUtf8(u);
       if (!txt) return;
       for (const it of txt.split(/<item[\s>]/i).slice(1, 13)) {
         const tm = it.match(/<title>([\s\S]*?)<\/title>/i);
@@ -773,7 +787,7 @@ async function fetchHeadlines() {
   if (!out.length) { // fallback — Yahoo news search
     for (const q of ["stock market", "oil"]) {
       try {
-        const txt = await fetchText(`https://query1.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(q)}&newsCount=6&quotesCount=0`);
+        const txt = await fetchUtf8(`https://query1.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(q)}&newsCount=6&quotesCount=0`);
         if (!txt) continue;
         (JSON.parse(txt).news || []).forEach((n) => { if (n && n.title) out.push({ title: cleanHeadline(n.title), t: (n.providerPublishTime || 0) * 1000 }); });
       } catch { /* skip */ }
@@ -781,14 +795,17 @@ async function fetchHeadlines() {
   }
   const seen = new Set(), uniq = [];
   out.sort((a, b) => b.t - a.t).forEach((n) => { const k = n.title.toLowerCase(); if (!seen.has(k)) { seen.add(k); uniq.push(n); } });
-  return uniq.slice(0, 8);
+  // Market-relevant items first (newest-first within each group) so the model
+  // sees real drivers ahead of any lifestyle/promo items the feeds mix in.
+  const rel = uniq.filter((n) => MKT_RE.test(n.title)), rest = uniq.filter((n) => !MKT_RE.test(n.title));
+  return [...rel, ...rest].slice(0, 8);
 }
 // A coarse fingerprint of the inputs — day moves to 0.1% and rate changes to 1bp,
 // plus the two freshest headlines — so we only spend a model call when something
 // actually moved or the news changed.
 // Bump PULSE_VERSION whenever the prompt/model/headline logic changes so stored
 // text is treated as stale and regenerated (rather than matched by signature).
-const PULSE_VERSION = "v2";
+const PULSE_VERSION = "v3";
 function pulseSig(markets, rates, headlines) {
   const m = markets.map((x) => `${x.label}:${x.changePct == null ? "-" : Math.round(x.changePct * 10) / 10}:${x.futuresPct == null ? "-" : Math.round(x.futuresPct * 10) / 10}`).join(",");
   const r = rates.map((x) => `${x.label}:${x.change == null ? "-" : Math.round(x.change * 100)}`).join(",");
