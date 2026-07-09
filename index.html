@@ -174,6 +174,9 @@
     .rate-val { font-weight:700; font-size:1rem; color:var(--ink); line-height:1.2; }
     .rate-chg { font-size:.72rem; font-weight:600; }
     .rate-chg.up { color:#059669; } .rate-chg.down { color:#dc2626; } .rate-chg.flat { color:var(--muted); }
+    /* Daily change + implied-open bracket share one inline row (bracket sits to
+       the right of the change, not on a new line). */
+    .rate-chg-line { display:inline-flex; align-items:baseline; flex-wrap:wrap; gap:.3rem; }
     /* Futures-implied open shown beside a closed market's (stale) daily change. */
     .mkt-fut { font-size:.66rem; font-weight:600; opacity:.85; }
     .mkt-fut.up { color:#059669; } .mkt-fut.down { color:#dc2626; } .mkt-fut.flat { color:var(--muted); }
@@ -437,7 +440,7 @@
           show("glance");
           const h = new Date().getHours();
           document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-          import("/glance.js?v=20260709-7").then((m) => m.initGlance()).catch(() => {});
+          import("/glance.js?v=20260709-8").then((m) => m.initGlance()).catch(() => {});
         } else { show("out"); }
       })
       .catch(() => show("out"));

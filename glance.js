@@ -327,7 +327,9 @@ function marketTile(x) {
   const title = ` title="${esc(x.label)}${asOf} — open source"`;
   const tag = x.href ? "a" : "div";
   const attrs = x.href ? ` href="${esc(x.href)}" target="_blank" rel="noopener noreferrer"` : "";
-  return `<${tag} class="rate-tile"${attrs}${title}><span class="rate-label">${esc(x.label)}${marketDot(x)}</span><span class="rate-val">${val}</span>${chg}</${tag}>`;
+  // Wrap the daily change + implied-open in one row so the bracket sits inline to
+  // the right of the change rather than dropping to its own line.
+  return `<${tag} class="rate-tile"${attrs}${title}><span class="rate-label">${esc(x.label)}${marketDot(x)}</span><span class="rate-val">${val}</span><span class="rate-chg-line">${chg}</span></${tag}>`;
 }
 function initMarkets() {
   const el = document.getElementById("g-markets");
