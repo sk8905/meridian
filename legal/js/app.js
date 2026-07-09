@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
-} from "./data.js?v=20260709-4";
-import { donutChart, columnChart } from "./charts.js?v=20260709-4";
+} from "./data.js?v=20260709-5";
+import { donutChart, columnChart } from "./charts.js?v=20260709-5";
 
 const app = document.getElementById("app");
 
@@ -278,13 +278,15 @@ function itemRow(it) {
     </div>
     <div class="feed-body">
       <div class="rx-title-line">
-        <a class="feed-title" href="#/item/${esc(it.id)}">${esc(it.title)}</a>
+        ${src
+          ? `<a class="feed-title" href="${esc(src)}" target="_blank" rel="noopener noreferrer">${esc(it.title)}</a>`
+          : `<a class="feed-title" href="#/item/${esc(it.id)}">${esc(it.title)}</a>`}
         <button class="save-btn rx-save ${saved ? "is-saved" : ""}" data-save="${esc(it.id)}"
           aria-pressed="${saved}" title="${saved ? "Remove from saved" : "Save this update"}">${saved ? "★ Saved" : "☆ Save"}</button>
       </div>
       <p class="feed-summary">${esc(it.summary)}</p>
       <div class="feed-foot">
-        <span>${esc(type)}</span> · ${firmLink(it.firm, firm.name)}${tierTxt ? ` · ${esc(tierTxt)}` : ""}${it.citation ? ` · <span class="cite">${esc(it.citation)}</span>` : ""}${src ? ` · <a href="${esc(src)}" target="_blank" rel="noopener noreferrer">source ↗</a>` : ""}${isNew(it) ? ' · <span class="chip new">New</span>' : ""}
+        <span>${esc(type)}</span> · ${firmLink(it.firm, firm.name)}${tierTxt ? ` · ${esc(tierTxt)}` : ""}${it.citation ? ` · <span class="cite">${esc(it.citation)}</span>` : ""}${isNew(it) ? ' · <span class="chip new">New</span>' : ""}
       </div>
     </div>
   </div>`;
@@ -327,13 +329,15 @@ function caseRow(c) {
     </div>
     <div class="feed-body">
       <div class="rx-title-line">
-        <a class="feed-title rx-name" href="#/cases?case=${esc(c.id)}">${esc(c.name)}</a>
+        ${c.url
+          ? `<a class="feed-title rx-name" href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">${esc(c.name)}</a>`
+          : `<a class="feed-title rx-name" href="#/cases?case=${esc(c.id)}">${esc(c.name)}</a>`}
         <button class="save-btn rx-save ${saved ? "is-saved" : ""}" data-save="${esc(c.id)}"
           aria-pressed="${saved}" title="${saved ? "Remove from saved" : "Save this case"}">${saved ? "★ Saved" : "☆ Save"}</button>
       </div>
       ${clampSum(summary)}
       <div class="feed-foot">
-        <span>${esc(c.court)}</span>${c.citation ? ` · <span class="cite">${esc(c.citation)}</span>` : ""} · <a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">View judgment on BAILII ↗</a>
+        <span>${esc(c.court)}</span>${c.citation ? ` · <span class="cite">${esc(c.citation)}</span>` : ""}
       </div>
     </div>
   </div>`;
@@ -857,13 +861,15 @@ function rxRow(r) {
   </div>`;
   // Foot: court / citation / sector metadata + the firm-analysis and judgment links
   // (mirrors the alerts rows, where the source metadata sits in the footer line).
+  // The title links to the primary source (the judgment, else the firm analysis).
+  const srcUrl = r.judgmentUrl || r.articleUrl || "";
   const foot = [
     r.court ? esc(r.court) : "",
     r.citation ? `<span class="cite">${esc(r.citation)}</span>` : "",
     r.sector ? esc(r.sector) : "",
     firm && r.firm ? firmLink(r.firm, firm.name) : "",
-    r.articleUrl ? `<a href="${esc(r.articleUrl)}" target="_blank" rel="noopener noreferrer">analysis ↗</a>` : "",
-    r.judgmentUrl ? `<a href="${esc(r.judgmentUrl)}" target="_blank" rel="noopener noreferrer">Judgment ↗</a>` : "",
+    // Keep the firm-analysis link only when it isn't already the title's target.
+    r.articleUrl && r.articleUrl !== srcUrl ? `<a href="${esc(r.articleUrl)}" target="_blank" rel="noopener noreferrer">analysis ↗</a>` : "",
   ].filter(Boolean).join(" · ");
   // AI summary + detail shown inline (same layout as the alerts rows); the outcome
   // chip and Save button sit on the title line.
@@ -874,7 +880,9 @@ function rxRow(r) {
     </div>
     <div class="feed-body">
       <div class="rx-title-line">
-        <a class="feed-title rx-name" href="#/restructurings?m=${esc(r.id)}">${esc(r.company)}</a>
+        ${srcUrl
+          ? `<a class="feed-title rx-name" href="${esc(srcUrl)}" target="_blank" rel="noopener noreferrer">${esc(r.company)}</a>`
+          : `<a class="feed-title rx-name" href="#/restructurings?m=${esc(r.id)}">${esc(r.company)}</a>`}
         <span class="chip rx-out rx-out-${rxOutcomeClass(r.outcome)}" title="${esc(r.outcome)}">${esc(rxOutcomeShort(r.outcome))}</span>
         <button class="save-btn rx-save ${saved ? "is-saved" : ""}" data-save="${esc(r.id)}"
           aria-pressed="${saved}" title="${saved ? "Remove from saved" : "Save this matter"}">${saved ? "★ Saved" : "☆ Save"}</button>
