@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-07-09";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — two runs a day (~06:00 / ~12:00).
-export const LAST_CHECKED_TIME = "05:22 BST";
+export const LAST_CHECKED_TIME = "12:17 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -6143,6 +6143,35 @@ export const items = [
       "FRC refreshed ISA 700/701/720 auditing standards to reduce reporting burden",
     ],
     tags: ["corporate governance", "listing rules", "redomiciliation", "funds"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.freshfields.com/en/our-thinking/blogs/risk-and-compliance/tracing-cryptoassets-in-the-english-high-court-what-wilden-means-for-recovery-cl-102n8ax",
+    id: "u647", title: "Tracing cryptoassets in the English High Court: what Wilden means for recovery claims",
+    area: "banking", areas: ["banking"], type: "insight", firm: "freshfields",
+    date: "2026-07-07", jurisdiction: "England & Wales",
+    court: "High Court (KB)", citation: "[2026] EWHC 1355 (KB)",
+    summary: "Freshfields analyses Wilden v Person Unknown and Huobi Global S.A. [2026] EWHC 1355 (KB), in which a fraud victim recovered c.€2.6m in Bitcoin via forensic blockchain (LIFO) tracing and Norwich Pharmacal relief against a crypto exchange.",
+    points: [
+      "Court granted proprietary freezing injunctions and third-party disclosure orders despite deliberate mixing of stolen crypto across exchanges",
+      "Confirms English courts will adapt traditional tracing/proprietary remedies to digital-asset fraud rather than treat mixing as a bar to recovery",
+      "Claimant awarded indemnity costs of £60,993.91; complication arose when respondent exchange Huobi/HTX was later added to the sanctions list on 26 May 2026",
+    ],
+    tags: ["crypto-asset recovery", "fraud", "tracing", "freezing injunction"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://financialregulation.linklaters.com/post/102n8ia/mifid-ii-esma-sets-out-expectations-on-triangular-passporting",
+    id: "u648", title: "MiFID II: ESMA sets out expectations on Triangular Passporting",
+    area: "banking", areas: ["banking"], type: "update", firm: "linklaters",
+    date: "2026-07-08", jurisdiction: "EU/UK",
+    summary: "Linklaters' Financial Regulation Insights team summarises an ESMA supervisory briefing on 'triangular passporting' under MiFID II, setting expectations for firms and national regulators on notifications, risk assessments, client disclosures and supervisory cooperation.",
+    points: [
+      "ESMA briefing targets cross-border use of passporting permissions across multiple EU Member States",
+      "Sets compliance expectations for both firms and national competent authorities",
+      "Relevant to UK-headquartered investment firms with EU branch/passporting structures",
+    ],
+    tags: ["MiFID II", "passporting", "ESMA", "financial regulation"],
     dateEstimated: false,
   },
 ];
