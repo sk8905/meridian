@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260709-5";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260709-6";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -337,7 +337,7 @@ function viewBubble() {
 // hover tooltip shows the actual values.
 const IND_COLOR = {
   base_rate: "#2563eb", two_year: "#0891b2", core_cpi: "#dc2626",
-  services_pmi: "#d97706", wages: "#7c3aed", unemployment: "#db2777",
+  services_pmi: "#d97706", wages: "#7c3aed", unemployment: "#6b7280",
 };
 const INDICATORS = [
   ["base_rate", "Base rate"], ["two_year", "2-year yield"], ["core_cpi", "Core inflation"],
@@ -423,8 +423,8 @@ function viewChart() {
       <div class="chart-ctrl-grp">
         <div class="chart-ctrl-h">Indicators <span class="muted small">(<span id="chart-count">${chartSel.size}</span> of 12 selected)</span></div>
         <div class="chart-ind-cols">
-          <div><div class="chart-ind-country">United States <span class="chart-line-key">— solid</span>${allBox("US")}</div><div class="chart-ind-grid">${indBox("US")}</div></div>
-          <div><div class="chart-ind-country">United Kingdom <span class="chart-line-key">- - dashed</span>${allBox("UK")}</div><div class="chart-ind-grid">${indBox("UK")}</div></div>
+          <div><div class="chart-ind-country">${allBox("US")}United States <span class="chart-line-key">— solid</span></div><div class="chart-ind-grid">${indBox("US")}</div></div>
+          <div><div class="chart-ind-country">${allBox("UK")}United Kingdom <span class="chart-line-key">- - dashed</span></div><div class="chart-ind-grid">${indBox("UK")}</div></div>
         </div>
       </div>
       <div class="chart-ctrl-grp">
