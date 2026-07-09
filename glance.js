@@ -298,16 +298,16 @@ function ratesOneLiner(rows) {
 }
 function setGlance(id, html) { const el = document.getElementById(id); if (el) el.innerHTML = html; }
 
+// Thousands+ round to a whole number; smaller prices keep two decimals.
+function fmtPrice(n) {
+  n = Number(n);
+  return n >= 1000
+    ? Math.round(n).toLocaleString("en-US", { maximumFractionDigits: 0 })
+    : n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
 // ---- Markets banner: equity indices + ETFs (same tile style as the rates) --
 function marketTile(x) {
-  // Thousands+ round DOWN to a whole number; smaller prices keep two decimals.
-  let val = "—";
-  if (x.value != null) {
-    const n = Number(x.value);
-    val = n >= 1000
-      ? Math.floor(n).toLocaleString("en-US", { maximumFractionDigits: 0 })
-      : n.toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  }
+  const val = x.value != null ? fmtPrice(x.value) : "—";
   let chg = '<span class="rate-chg flat">·</span>';
   if (x.changePct != null && x.value != null) {
     const c = +Number(x.changePct).toFixed(2);
@@ -316,12 +316,14 @@ function marketTile(x) {
     chg = `<span class="rate-chg ${dir}">${arrow} ${Math.abs(c).toFixed(2)}%</span>`;
   }
   // While the market is closed, the daily change is stale — show the index
-  // future's implied open (vs prior close) in brackets alongside it.
-  if (!isMarketOpen(x) && x.futuresPct != null) {
+  // future's implied OPEN price (prior close moved by the futures %) in
+  // brackets alongside it, hinting where it will next open.
+  if (!isMarketOpen(x) && x.futuresPct != null && x.value != null) {
     const f = +Number(x.futuresPct).toFixed(2);
     const fdir = glSign(f);
     const farrow = f > 0 ? "▲" : f < 0 ? "▼" : "·";
-    chg += ` <span class="mkt-fut ${fdir}" title="Index futures imply this open vs the prior close">(fut ${farrow} ${Math.abs(f).toFixed(2)}%)</span>`;
+    const open = fmtPrice(x.value * (1 + f / 100));
+    chg += ` <span class="mkt-fut ${fdir}" title="Futures-implied open ${open} (${farrow} ${Math.abs(f).toFixed(2)}% vs prior close)">(fut open ${open} ${farrow} ${Math.abs(f).toFixed(2)}%)</span>`;
   }
   const asOf = x.asOf ? ` as of ${esc(x.asOf)}` : "";
   const title = ` title="${esc(x.label)}${asOf} — open source"`;
