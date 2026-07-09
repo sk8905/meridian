@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260709-15";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260709-16";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -39,6 +39,13 @@ function sparkline(data, { width = 300, height = 88, color = MACRO_COLOR } = {})
   </svg>`;
 }
 
+// Dashboard sparkline window (months). Only the tile CHARTS respond to this —
+// the headline value and its change stay the latest reading. Persisted per
+// device; defaults to the full 5-year history.
+const DASH_RANGES = { "1y": 12, "3y": 36, "5y": 60 };
+let dashRange = "5y";
+try { const s = localStorage.getItem("meridian.macro.dashRange"); if (s && DASH_RANGES[s]) dashRange = s; } catch { /* ignore */ }
+
 // ---- Dashboard tiles -------------------------------------------------------
 function macroTile(s) {
   const pct = s.unit === "%";
@@ -48,9 +55,11 @@ function macroTile(s) {
   const arrow = ch > 0 ? "▲" : ch < 0 ? "▼" : "·";
   const chHtml = (ch == null || s.value == null) ? "" :
     `<span class="macro-chg ${dir}" title="change vs previous month">${arrow} ${Math.abs(ch).toFixed(2)}${pct ? " pp" : ""}</span>`;
-  const chart = (s.history && s.history.length > 1)
-    ? sparkline(s.history)
-    : '<div class="spark-empty muted small">5-year history unavailable</div>';
+  // Slice the history to the selected window for the sparkline only.
+  const hist = (s.history || []).slice(-DASH_RANGES[dashRange]);
+  const chart = (hist.length > 1)
+    ? sparkline(hist)
+    : '<div class="spark-empty muted small">History unavailable</div>';
   const asOf = s.asOf ? macroMonth(s.asOf) : "";
   // Whole tile links to the source (matches the Credit key-rates tiles); a small
   // corner control opens this indicator in the Chart view (cross-link).
@@ -192,7 +201,14 @@ function renderMacro(data) {
     const tiles = series.filter((s) => s.country === c).map(macroTile).join("");
     return tiles ? `<section class="macro-group"><h2 class="macro-country">${esc(name)}</h2><div class="macro-grid">${tiles}</div></section>` : "";
   }).join("");
-  return renderReleases() + grids + renderNews() + summaryCards();
+  // Sparkline time-range toggle (1Y/3Y/5Y), top-right above the US/UK grids —
+  // applies to every tile chart in both countries.
+  const rangeBar = `<div class="macro-range-bar">
+    <div class="chart-range" role="group" aria-label="Sparkline time range">
+      ${Object.keys(DASH_RANGES).map((r) => `<button type="button" class="chart-range-btn dash-range-btn${dashRange === r ? " is-on" : ""}" data-drange="${r}">${r.toUpperCase()}</button>`).join("")}
+    </div>
+  </div>`;
+  return renderReleases() + rangeBar + grids + renderNews() + summaryCards();
 }
 
 // ---- Horizontal 0–100 gauge (used by Cycle and Bubble) ---------------------
@@ -615,11 +631,23 @@ document.addEventListener("click", (e) => {
   drawChart();
 });
 document.addEventListener("click", (e) => {
-  const rb = e.target.closest(".chart-range-btn"); if (!rb) return;
+  const rb = e.target.closest(".chart-range-btn");
+  if (!rb || rb.classList.contains("dash-range-btn")) return; // dashboard toggle handled below
   chartRange = rb.getAttribute("data-range");
-  document.querySelectorAll(".chart-range-btn").forEach((b) => b.classList.toggle("is-on", b === rb));
+  document.querySelectorAll(".chart-range-btn:not(.dash-range-btn)").forEach((b) => b.classList.toggle("is-on", b === rb));
   chartPersist();
   drawChart();
+});
+// Dashboard sparkline range toggle (1Y/3Y/5Y): re-render the tiles from the
+// cached data with the new window — value/change readings are unaffected.
+document.addEventListener("click", (e) => {
+  const rb = e.target.closest(".dash-range-btn"); if (!rb) return;
+  const r = rb.getAttribute("data-drange");
+  if (!DASH_RANGES[r] || r === dashRange) return;
+  dashRange = r;
+  try { localStorage.setItem("meridian.macro.dashRange", dashRange); } catch { /* ignore */ }
+  const el = document.getElementById("macro-body");
+  if (el && MACRO_DATA) el.innerHTML = renderMacro(MACRO_DATA);
 });
 document.addEventListener("click", (e) => { if (e.target.closest("#chart-export")) exportChartPng(); });
 // Dashboard tile → open this indicator in the Chart (stops the tile's source link).
