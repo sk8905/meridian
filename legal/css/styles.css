@@ -311,7 +311,7 @@ a.firm:hover, a.firm-big:hover { text-decoration: underline; }
 .area-card:hover { box-shadow: var(--shadow-lg); text-decoration: none; }
 .area-card-head { display: flex; justify-content: space-between; align-items: center; gap: .5rem; }
 .area-card-head strong { font-size: 1rem; }
-.area-count { background: var(--c, var(--primary)); color: #fff; border-radius: 999px; padding: 0 .55rem; font-size: .78rem; font-weight: 700; }
+.area-count { background: color-mix(in srgb, var(--c, var(--primary)) 15%, #fff); color: color-mix(in srgb, var(--c, var(--primary)) 60%, #22263a); border-radius: 999px; padding: 0 .55rem; font-size: .78rem; font-weight: 700; }
 .area-blurb { margin: .5rem 0 .4rem; font-size: .85rem; color: var(--muted); }
 .area-recent { font-size: .8rem; color: var(--ink-soft); font-style: italic; }
 
@@ -339,9 +339,13 @@ a.compact-head:hover { color: var(--primary); }
   display: inline-block; font-size: .68rem; font-weight: 700; padding: .12rem .5rem; border-radius: 999px;
   text-transform: uppercase; letter-spacing: .3px; white-space: nowrap;
 }
-.chip.area { color: #fff; background: var(--c, var(--primary)); }
+/* Soft pastel labels: a light tint of each area's colour with darker matching
+   text and a faint border (matching the tier chips), instead of a solid pill. */
+.chip.area { background: color-mix(in srgb, var(--c, var(--primary)) 14%, #fff);
+  color: color-mix(in srgb, var(--c, var(--primary)) 64%, #22263a);
+  border: 1px solid color-mix(in srgb, var(--c, var(--primary)) 26%, #fff); }
 .chip.type { background: #ccfbf1; color: #0f766e; border: 1px solid #99f6e4; }
-.chip.new { background: var(--accent); color: #fff; }
+.chip.new { background: #e0f2fe; color: #0369a1; border: 1px solid #bae6fd; }
 .card-date { font-size: .74rem; color: var(--muted); white-space: nowrap; }
 .card-title { margin: 0 0 .5rem; font-size: 1rem; color: var(--ink); }
 .card-summary { margin: 0 0 .8rem; font-size: .86rem; color: var(--ink-soft); }
