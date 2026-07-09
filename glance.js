@@ -154,8 +154,9 @@ function initRates() {
         ? rowsData.map(ratesTile).join("") +
           '<a class="rate-src" href="https://fred.stlouisfed.org/" target="_blank" rel="noopener noreferrer">Source: FRED · ECB · NY Fed · US Treasury</a>'
         : '<span class="g-loading">Market rates unavailable right now.</span>';
+      setGlance("gl-rates", ratesOneLiner(rowsData));
     })
-    .catch(() => { el.innerHTML = '<span class="g-loading">Market rates unavailable right now.</span>'; });
+    .catch(() => { el.innerHTML = '<span class="g-loading">Market rates unavailable right now.</span>'; setGlance("gl-rates", "Rates data unavailable right now."); });
 }
 
 // ---- Market open / closed indicator ----------------------------------------
@@ -207,20 +208,95 @@ const MKT_STATE_LABEL = {
   REGULAR: "Market open", PRE: "Pre-market", PREPRE: "Pre-market",
   POST: "After-hours", POSTPOST: "After-hours", CLOSED: "Market closed",
 };
+// Is this market in its regular session? Yahoo's marketState is authoritative;
+// otherwise fall back to the clock-based schedule (returns false if neither is
+// available for the label).
+function isMarketOpen(x) {
+  if (x.marketState) return x.marketState === "REGULAR";
+  const type = MKT_TYPE[x.label];
+  return type ? marketOpen(type) : false;
+}
 function marketDot(x) {
-  let open, tip;
+  let tip;
   if (x.marketState) {                       // authoritative — from Yahoo
-    open = x.marketState === "REGULAR";
-    tip = MKT_STATE_LABEL[x.marketState] || (open ? "Market open" : "Market closed");
+    tip = MKT_STATE_LABEL[x.marketState] || (x.marketState === "REGULAR" ? "Market open" : "Market closed");
   } else {                                    // fallback — clock-based schedule
-    const type = MKT_TYPE[x.label];
-    if (!type) return "";
-    open = marketOpen(type);
-    tip = open ? "Market open" : "Market closed";
+    if (!MKT_TYPE[x.label]) return "";
+    tip = isMarketOpen(x) ? "Market open" : "Market closed";
   }
-  const state = open ? "open" : "closed";
+  const state = isMarketOpen(x) ? "open" : "closed";
   return ` <span class="mkt-dot ${state}" title="${esc(tip)}" aria-label="${esc(tip)}"></span>`;
 }
+// ---- At-a-glance one-liners (hero) -----------------------------------------
+// Two short, plain-language NARRATIVES synthesised from the same live feeds as
+// the bands below (which carry the numbers) — a qualitative read, refreshed
+// automatically on each twice-daily data pull.
+const glSign = (v) => (v > 0 ? "up" : v < 0 ? "down" : "flat");
+// Qualitative move word from a % change, using a caller-supplied vocabulary.
+function moveWord(v, w) {
+  const a = Math.abs(v);
+  if (a < 0.1) return w.flat;
+  if (v > 0) return a > 1.2 ? (w.strongUp || w.up) : w.up;
+  return a > 1.2 ? (w.strongDown || w.down) : w.down;
+}
+const avgOf = (arr) => (arr.length ? arr.reduce((a, b) => a + b, 0) / arr.length : null);
+const cap = (s) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s);
+
+function marketsOneLiner(rows) {
+  if (!rows || !rows.length) return "Markets data unavailable right now.";
+  const by = {}; rows.forEach((r) => { by[r.label] = r; });
+  const pct = (l) => (by[l] && by[l].changePct != null ? +Number(by[l].changePct) : null);
+  const futOf = (l) => (by[l] && by[l].futuresPct != null ? +Number(by[l].futuresPct) : null);
+  const eqClauses = [];
+  // US equities — when Wall Street is shut, lead with what the futures imply.
+  const usAvg = avgOf(["S&P 500", "NASDAQ 100"].map(pct).filter((v) => v != null));
+  const usFut = avgOf(["S&P 500", "NASDAQ 100"].map(futOf).filter((v) => v != null));
+  const usClosed = by["S&P 500"] && !isMarketOpen(by["S&P 500"]);
+  if (usClosed && usFut != null) {
+    eqClauses.push(`Wall Street is closed, with futures pointing ${moveWord(usFut, { up: "higher", down: "lower", flat: "flat", strongUp: "sharply higher", strongDown: "sharply lower" })}`);
+  } else if (usAvg != null) {
+    eqClauses.push(`US equities are ${moveWord(usAvg, { up: "firmer", down: "softer", flat: "little changed", strongUp: "rallying", strongDown: "selling off" })}`);
+  }
+  // London indices.
+  const lonAvg = avgOf(["IGWD", "EMEE"].map(pct).filter((v) => v != null));
+  if (lonAvg != null) {
+    const lonOpen = by["IGWD"] && isMarketOpen(by["IGWD"]);
+    eqClauses.push(`London ${lonOpen ? "is trading" : "ended"} ${moveWord(lonAvg, { up: "firmer", down: "softer", flat: "flat" })}`);
+  }
+  // Commodities.
+  const cmdty = [];
+  const oilAvg = avgOf(["Brent", "WTI"].map(pct).filter((v) => v != null));
+  if (oilAvg != null) cmdty.push(`crude oil ${moveWord(oilAvg, { up: "firmed", down: "eased", flat: "held steady", strongUp: "jumped", strongDown: "slid" })}`);
+  const gold = pct("Gold");
+  if (gold != null) cmdty.push(`gold ${moveWord(gold, { up: "advanced", down: "slipped", flat: "was flat", strongUp: "surged", strongDown: "fell" })}`);
+  let s = eqClauses.join(" while ");
+  if (cmdty.length) s += (s ? "; " : "") + cmdty.join(" and ");
+  return s ? cap(s) + "." : "Markets are quiet.";
+}
+function ratesOneLiner(rows) {
+  if (!rows || !rows.length) return "Rates data unavailable right now.";
+  const by = {}; rows.forEach((r) => { by[r.label] = r; });
+  const clauses = [];
+  const t = by["US 10Y"];
+  if (t && t.change != null) {
+    const bp = t.change * 100;
+    const w = Math.abs(bp) < 2 ? "holding steady" : bp > 0 ? (bp > 8 ? "pushing higher" : "drifting higher") : (bp < -8 ? "falling back" : "edging lower");
+    clauses.push(`Treasury yields are ${w}`);
+  } else {
+    clauses.push("Treasury yields are steady");
+  }
+  const chgs = ["US IG OAS", "US HY OAS"].map((l) => (by[l] && by[l].change != null ? by[l].change : null)).filter((v) => v != null);
+  let sprAvg = null;
+  if (chgs.length) {
+    sprAvg = avgOf(chgs);
+    const w = Math.abs(sprAvg) < 0.01 ? "broadly stable" : sprAvg < 0 ? "grinding tighter" : "leaking wider";
+    clauses.push(`credit spreads are ${w}`);
+  }
+  let s = clauses.join(" and ");
+  if (sprAvg != null) s += sprAvg < -0.005 ? ", keeping financial conditions supportive" : sprAvg > 0.005 ? ", a mildly risk-off tone" : "";
+  return cap(s) + ".";
+}
+function setGlance(id, html) { const el = document.getElementById(id); if (el) el.innerHTML = html; }
 
 // ---- Markets banner: equity indices + ETFs (same tile style as the rates) --
 function marketTile(x) {
@@ -239,6 +315,14 @@ function marketTile(x) {
     const arrow = c > 0 ? "▲" : c < 0 ? "▼" : "·";
     chg = `<span class="rate-chg ${dir}">${arrow} ${Math.abs(c).toFixed(2)}%</span>`;
   }
+  // While the market is closed, the daily change is stale — show the index
+  // future's implied open (vs prior close) in brackets alongside it.
+  if (!isMarketOpen(x) && x.futuresPct != null) {
+    const f = +Number(x.futuresPct).toFixed(2);
+    const fdir = glSign(f);
+    const farrow = f > 0 ? "▲" : f < 0 ? "▼" : "·";
+    chg += ` <span class="mkt-fut ${fdir}" title="Index futures imply this open vs the prior close">(fut ${farrow} ${Math.abs(f).toFixed(2)}%)</span>`;
+  }
   const asOf = x.asOf ? ` as of ${esc(x.asOf)}` : "";
   const title = ` title="${esc(x.label)}${asOf} — open source"`;
   const tag = x.href ? "a" : "div";
@@ -248,7 +332,7 @@ function marketTile(x) {
 function initMarkets() {
   const el = document.getElementById("g-markets");
   if (!el) return;
-  fetch("/api/markets?v=6")
+  fetch("/api/markets?v=7")
     .then((r) => (r.ok ? r.json() : Promise.reject()))
     .then((d) => {
       const rows = d.markets || [];
@@ -256,8 +340,9 @@ function initMarkets() {
         ? rows.map(marketTile).join("") +
           '<a class="rate-src" href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer">Source: Yahoo Finance · FRED</a>'
         : '<span class="g-loading">Markets unavailable right now.</span>';
+      setGlance("gl-markets", marketsOneLiner(rows));
     })
-    .catch(() => { el.innerHTML = '<span class="g-loading">Markets unavailable right now.</span>'; });
+    .catch(() => { el.innerHTML = '<span class="g-loading">Markets unavailable right now.</span>'; setGlance("gl-markets", "Markets data unavailable right now."); });
 }
 
 // ---- Notifications: aggregate the three apps' unread counts ----------------

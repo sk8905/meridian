@@ -377,8 +377,8 @@ async function handleRates(request, env, ctx) {
 // and Bitcoin). `fred`/`stooq` are daily-close FALLBACKS used only if Yahoo can't
 // be reached from the Worker, so a tile degrades to a daily print rather than "—".
 const MARKET_SERIES = [
-  { label: "S&P 500", symbol: "^GSPC", fred: "SP500", href: "https://finance.yahoo.com/quote/%5EGSPC" },
-  { label: "NASDAQ 100", symbol: "^NDX", fred: "NASDAQ100", href: "https://finance.yahoo.com/quote/%5ENDX" },
+  { label: "S&P 500", symbol: "^GSPC", future: "ES=F", fred: "SP500", href: "https://finance.yahoo.com/quote/%5EGSPC" },
+  { label: "NASDAQ 100", symbol: "^NDX", future: "NQ=F", fred: "NASDAQ100", href: "https://finance.yahoo.com/quote/%5ENDX" },
   { label: "IGWD", symbol: "IGWD.L", stooq: "igwd.uk", href: "https://uk.finance.yahoo.com/quote/IGWD.L" },
   { label: "EMEE", symbol: "EMEE.L", stooq: "emee.uk", href: "https://uk.finance.yahoo.com/quote/EMEE.L" },
   // Second row: commodity & crypto spot.
@@ -464,7 +464,7 @@ async function handleMarkets(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/markets?v=6", request.url).toString());
+  const cacheKey = new Request(new URL("/api/markets?v=7", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const fromFred = async (id) => {
@@ -476,7 +476,16 @@ async function handleMarkets(request, env, ctx) {
     let r = await yahooQuote(s.symbol);            // live intraday (primary)
     if (r.value == null && s.fred) r = await fromFred(s.fred);   // daily-close fallback
     if (r.value == null && s.stooq) r = await stooqQuote(s.stooq);
-    return { label: s.label, value: r.value, change: r.change, changePct: r.changePct, asOf: r.asOf, history: r.history || [], marketState: r.marketState || null, href: s.href };
+    // When the cash market is NOT in its regular session, the near-24h index
+    // future implies where it will next open — surface that % move (vs the
+    // future's prior settle) so the tile can show an expected open beside the
+    // now-stale daily change. Only fetched when closed, to avoid extra calls.
+    let futuresPct = null;
+    if (s.future && r.marketState && r.marketState !== "REGULAR") {
+      const f = await yahooQuote(s.future);
+      if (f.changePct != null) futuresPct = f.changePct;
+    }
+    return { label: s.label, value: r.value, change: r.change, changePct: r.changePct, asOf: r.asOf, history: r.history || [], marketState: r.marketState || null, futuresPct, href: s.href };
   }));
   const resp = new Response(JSON.stringify({ markets: data }), {
     // Short cache so the live prices stay near-real-time without hammering upstreams.
