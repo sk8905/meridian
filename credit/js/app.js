@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260709-5";
+} from "./data.js?v=20260709-6";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260709-5";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260709-6";
 
 const app = document.getElementById("app");
 
@@ -1167,9 +1167,11 @@ function feedDedupKey(x) {
   if (!generic) return "u:" + u;
   return "t:" + (x.title || x.headline || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
 }
-// Render one row of the manager's combined feed by its tagged kind.
+// Render one row of the manager's combined feed by its tagged kind. On a manager
+// profile the headline should open the source directly (srcHead), matching the
+// press rows — the manager link would only point back to this same page.
 function mgrFeedRow(x) {
-  return x._kind === "deal" ? dealRow(x) : x._kind === "intel" ? intelRow(x) : newsItemRow(x);
+  return x._kind === "deal" ? dealRow(x, true) : x._kind === "intel" ? intelRow(x, true) : newsItemRow(x);
 }
 
 // Senior legal team — general counsel and other senior legal counsel, with the
@@ -1403,14 +1405,19 @@ const intelTypeClass = (t) => ({
   "Mandate": "it-mandate", "Personnel": "it-personnel", "Strategy": "it-strategy",
 }[t] || "");
 
-function intelRow(i) {
+// `srcHead` (manager-profile feed): the headline links straight to the external
+// source instead of the fund/manager page, and the footer "source ↗" is dropped.
+function intelRow(i, srcHead) {
   const m = i.managerId ? managerById[i.managerId] : null;
   const ftarget = i.fundId ? `#/fund/${i.fundId}` : (m ? `#/manager/${m.id}` : null);
   const tag = m ? link(`#/manager/${m.id}`, m.name, "muted small") : '<span class="muted small">Market-wide</span>';
-  const head = ftarget ? link(ftarget, i.headline, "intel-head") : `<span class="intel-head">${esc(i.headline)}</span>`;
+  const head = (srcHead && i.sourceUrl)
+    ? `<a href="${esc(i.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(i.headline)}</a>`
+    : (ftarget ? link(ftarget, i.headline, "intel-head") : `<span class="intel-head">${esc(i.headline)}</span>`);
+  const src = (i.sourceUrl && !srcHead) ? ` · <a href="${esc(i.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : "";
   return `<div class="intel-row" id="row-${i.id}">
     <div class="intel-meta"><span class="chip ${intelTypeClass(i.type)}">${esc(i.type)}</span><span class="muted small">${fmtDate(i.date)}</span></div>
-    <div class="intel-body"><div class="intel-title-line">${head}${saveBtn(i.id)}</div><p class="muted small">${esc(i.summary)}</p><div>${tag}${i.sourceUrl ? ` · <a href="${esc(i.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : ""}</div></div>
+    <div class="intel-body"><div class="intel-title-line">${head}${saveBtn(i.id)}</div><p class="muted small">${esc(i.summary)}</p><div>${tag}${src}</div></div>
   </div>`;
 }
 
@@ -1459,14 +1466,19 @@ const dealTypeClass = (t) => ({
   "Unitranche": "dt-fin", "Structured Credit": "dt-invest", "NAV / Fund Finance": "dt-refi",
 }[t] || "");
 
-function dealRow(d) {
+// `srcHead` (manager-profile feed): headline links straight to the external
+// source instead of the fund/manager page, and the footer "source ↗" is dropped.
+function dealRow(d, srcHead) {
   const m = d.managerId ? managerById[d.managerId] : null;
   const tgt = d.fundId ? `#/fund/${d.fundId}` : (m ? `#/manager/${m.id}` : null);
   const tag = m ? link(`#/manager/${m.id}`, m.name, "muted small") : "";
-  const head = tgt ? link(tgt, d.headline, "intel-head") : `<span class="intel-head">${esc(d.headline)}</span>`;
+  const head = (srcHead && d.sourceUrl)
+    ? `<a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(d.headline)}</a>`
+    : (tgt ? link(tgt, d.headline, "intel-head") : `<span class="intel-head">${esc(d.headline)}</span>`);
+  const src = (d.sourceUrl && !srcHead) ? ` · <a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : "";
   return `<div class="intel-row" id="row-${d.id}">
     <div class="intel-meta"><span class="chip ${dealTypeClass(d.type)}">${esc(d.type)}</span><span class="muted small">${fmtDate(d.date)}</span></div>
-    <div class="intel-body"><div class="intel-title-line">${head}${saveBtn(d.id)}</div><p class="muted small">${esc(d.summary)}</p><div>${tag}${d.sourceUrl ? ` · <a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="muted small">source ↗</a>` : ""}</div></div>
+    <div class="intel-body"><div class="intel-title-line">${head}${saveBtn(d.id)}</div><p class="muted small">${esc(d.summary)}</p><div>${tag}${src}</div></div>
   </div>`;
 }
 
