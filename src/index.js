@@ -781,7 +781,7 @@ function parsePulse(text) {
 // (whether Workers AI is bound, the data/headline counts, the raw model text and
 // whether it parsed) so a null pulse can be diagnosed without Worker logs.
 async function debugPulse(request, env, ctx) {
-  const info = { hasAI: !!(env && env.AI), model: PULSE_MODEL };
+  const info = { hasAI: !!(env && env.AI), models: PULSE_MODELS };
   const base = new URL(request.url);
   let markets = [], rates = [];
   try { markets = (await (await handleMarkets(new Request(new URL("/api/markets?v=8", base).toString()), env, ctx)).json()).markets || []; } catch (e) { info.marketsErr = String((e && e.message) || e); }
