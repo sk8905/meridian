@@ -146,6 +146,18 @@ a.macro-tile:hover .macro-src { color: var(--macro); text-decoration: underline;
 /* Card frames a hairline-divided grid of the next six releases: one row of 6 on
    desktop, a tidy 2×3 on phones. The 1px grid gap over a border-coloured backdrop
    draws the dividers; the card's rounded border + overflow:hidden frame it. */
+/* Collapsible "Upcoming releases" — same toggle style as Credit's Key metrics,
+   collapsed by default. */
+.rk-toggle { margin: 0 0 1.5rem; }
+.rk-toggle > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: .45rem;
+  width: fit-content; font-weight: 700; font-size: .95rem; color: var(--muted); padding: .15rem .1rem; }
+.rk-toggle > summary::-webkit-details-marker { display: none; }
+.rk-toggle > summary:hover { text-decoration: underline; }
+.rk-caret { width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
+  transform: rotate(45deg); margin-bottom: 3px; transition: transform .15s; }
+.rk-toggle[open] .rk-caret { transform: rotate(-135deg); margin-bottom: -2px; }
+.rk-toggle-body { margin-top: .8rem; }
+.rk-toggle-body .macro-cal { margin-bottom: 0; }
 .macro-cal { border: 1px solid var(--border); border-radius: 12px; background: var(--surface); box-shadow: var(--shadow); overflow: hidden; margin: 0 0 1.5rem; }
 .cal-band { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1px; background: var(--border); width: 100%; }
 .cal-tile { display: flex; flex-direction: column; justify-content: flex-start; gap: .3rem; padding: .7rem 1rem; background: var(--surface); color: inherit; text-decoration: none; }

@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260709-14";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260709-15";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -110,10 +110,15 @@ function renderReleases() {
     .filter((r) => { const d = isoToDate(r.date); return d && d >= now; })
     .sort((a, b) => String(a.date).localeCompare(String(b.date)))
     .slice(0, 6);
+  // Collapsed by default behind a "Key metrics"-style toggle (matches Credit).
+  const wrap = (inner) => `<details class="rk-toggle">
+    <summary class="rk-toggle-head">Upcoming releases <span class="rk-caret" aria-hidden="true"></span></summary>
+    <div class="rk-toggle-body">${inner}</div>
+  </details>`;
   if (!up.length) {
-    return `<section class="macro-cal" aria-label="Upcoming economic releases">
+    return wrap(`<section class="macro-cal" aria-label="Upcoming economic releases">
       <p class="cal-empty muted small">No major US or UK data releases scheduled this week or next.</p>
-    </section>`;
+    </section>`);
   }
   const tiles = up.map((r) => {
     const tag = r.url ? "a" : "div";
@@ -123,9 +128,9 @@ function renderReleases() {
       <span class="cal-title">${esc(r.title)}</span>
     </${tag}>`;
   }).join("");
-  return `<section class="macro-cal" aria-label="Upcoming economic releases">
+  return wrap(`<section class="macro-cal" aria-label="Upcoming economic releases">
     <div class="cal-band">${tiles}</div>
-  </section>`;
+  </section>`);
 }
 
 // ---- Key macro headlines (Latest-Activity-style, two columns) --------------

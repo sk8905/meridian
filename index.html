@@ -4,7 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+  <meta name="apple-mobile-web-app-title" content="Meridian" />
   <title>Meridian — Glance</title>
   <meta name="description" content="Meridian Glance — a cross-desk briefing across the Credit, Legal and Macro intelligence platforms, with a unified search." />
   <style>
@@ -139,18 +140,23 @@
 
     /* ---- Main ---- */
     .g-main { max-width:1500px; margin:0 auto; padding:1.75rem 2rem 3rem; }
-    .g-hello { display:flex; align-items:flex-start; justify-content:space-between; gap:1.5rem; margin:0 0 1.3rem; }
-    .g-hello-main { flex:0 0 auto; }
+    /* Laid on the SAME 8-column grid as the markets band below, so the greeting
+       fills columns 1–3 and the one-liners start exactly at the 4th column —
+       lining their left edge up with the 4th market tile. */
+    .g-hello { display:grid; grid-template-columns:repeat(8,1fr); align-items:center; column-gap:1rem; margin:0 0 1.3rem; }
+    .g-hello-main { grid-column:1 / 4; }
     .g-hello h1 { font-size:1.6rem; font-weight:800; margin:0 0 .2rem; letter-spacing:-.01em; }
     .g-hello p { color:var(--muted); margin:0; }
     /* At-a-glance one-liners (markets + rates), refreshed with the twice-daily
-       data pull. Sit to the right of the greeting on desktop, stretching to fill
-       the free space; stack below it on narrow screens. */
-    .g-glance { flex:1 1 auto; max-width:none; align-self:center; display:flex; flex-direction:column;
-      gap:.35rem; padding-left:1.5rem; border-left:3px solid var(--line); }
-    .g-gl { margin:0; font-size:.8rem; line-height:1.4; color:var(--ink); display:flex; gap:.5rem; }
-    .g-gl-k { flex:0 0 auto; min-width:6rem; font-size:.62rem; font-weight:800; text-transform:uppercase;
-      letter-spacing:.06em; color:var(--muted); padding-top:.16rem; }
+       data pull. Sit to the right of the greeting on desktop, stack below on
+       narrow screens. */
+    .g-glance { grid-column:4 / -1; display:flex; flex-direction:column;
+      gap:.35rem; padding-left:1.25rem; border-left:3px solid var(--line); }
+    .g-gl { margin:0; font-size:.8rem; line-height:1.4; color:var(--ink); display:flex; gap:.6rem; align-items:baseline; }
+    /* Fixed-width key column so "Rates & spreads" wraps within it and both value
+       columns line up. */
+    .g-gl-k { flex:0 0 4.5rem; font-size:.62rem; font-weight:800; text-transform:uppercase;
+      letter-spacing:.06em; line-height:1.25; color:var(--muted); }
     .g-gl-v { flex:1 1 auto; }
     .g-gl-v .up { color:#0a7d3c; font-weight:600; } .g-gl-v .down { color:#c02626; font-weight:600; }
 
@@ -282,9 +288,9 @@
     @media (max-width:900px){
       /* Stack the at-a-glance lines below the greeting; swap the left rule for a
          top rule. */
-      .g-hello { flex-direction:column; gap:1rem; }
-      .g-glance { flex-basis:auto; max-width:none; align-self:stretch; padding-left:0; padding-top:1rem;
-        border-left:0; border-top:3px solid var(--line); }
+      .g-hello { display:block; }
+      .g-hello-main { margin-bottom:1rem; }
+      .g-glance { padding-left:0; padding-top:1rem; border-left:0; border-top:3px solid var(--line); }
     }
     @media (max-width:760px){
       .g-main { padding:1.1rem 1rem 2.5rem; }
@@ -431,7 +437,7 @@
           show("glance");
           const h = new Date().getHours();
           document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-          import("/glance.js?v=20260709-6").then((m) => m.initGlance()).catch(() => {});
+          import("/glance.js?v=20260709-7").then((m) => m.initGlance()).catch(() => {});
         } else { show("out"); }
       })
       .catch(() => show("out"));

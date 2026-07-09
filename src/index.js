@@ -461,7 +461,25 @@ async function handleMarkets(request, env, ctx) {
         return { label, status: r.status, len: b.length, marketState, snippet: b.slice(0, 160) };
       } catch (e) { return { label, error: String((e && e.message) || e) }; }
     }));
-    return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
+    // Futures-implied-open diagnostic: for each equity index show the cash
+    // session state and the future's move, plus whether the tile WOULD get a
+    // futuresPct (fetched only when the cash market is not REGULAR).
+    const FUT_PAIRS = [["S&P 500", "^GSPC", "ES=F"], ["NASDAQ 100", "^NDX", "NQ=F"]];
+    const futures = await Promise.all(FUT_PAIRS.map(async ([label, cashSym, futSym]) => {
+      const cash = await yahooQuote(cashSym);
+      const fut = await yahooQuote(futSym);
+      const willShow = !!(cash.marketState && cash.marketState !== "REGULAR" && fut.changePct != null);
+      return {
+        label,
+        cash: { symbol: cashSym, marketState: cash.marketState, value: cash.value, changePct: cash.changePct },
+        future: { symbol: futSym, marketState: fut.marketState, value: fut.value, changePct: fut.changePct },
+        wouldShowImpliedOpen: willShow,
+        reason: willShow ? "ok" : cash.marketState === "REGULAR" ? "cash market is OPEN (regular session) — implied open only shows when closed"
+          : !cash.marketState ? "no cash marketState (Yahoo unreachable → FRED/Stooq fallback)"
+          : fut.changePct == null ? "future changePct unavailable" : "unknown",
+      };
+    }));
+    return new Response(JSON.stringify({ nowUTC: new Date().toISOString(), probes, futures }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
   const cacheKey = new Request(new URL("/api/markets?v=7", request.url).toString());
@@ -481,7 +499,7 @@ async function handleMarkets(request, env, ctx) {
     // future's prior settle) so the tile can show an expected open beside the
     // now-stale daily change. Only fetched when closed, to avoid extra calls.
     let futuresPct = null;
-    if (s.future && r.marketState && r.marketState !== "REGULAR") {
+    if (s.future && r.marketState !== "REGULAR") {   // closed / pre / post / unknown
       const f = await yahooQuote(s.future);
       if (f.changePct != null) futuresPct = f.changePct;
     }

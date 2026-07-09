@@ -316,14 +316,12 @@ function marketTile(x) {
     chg = `<span class="rate-chg ${dir}">${arrow} ${Math.abs(c).toFixed(2)}%</span>`;
   }
   // While the market is closed, the daily change is stale — show the index
-  // future's implied OPEN price (prior close moved by the futures %) in
-  // brackets alongside it, hinting where it will next open.
-  if (!isMarketOpen(x) && x.futuresPct != null && x.value != null) {
+  // future's implied move (vs prior close) in square brackets alongside it.
+  if (!isMarketOpen(x) && x.futuresPct != null) {
     const f = +Number(x.futuresPct).toFixed(2);
     const fdir = glSign(f);
     const farrow = f > 0 ? "▲" : f < 0 ? "▼" : "·";
-    const open = fmtPrice(x.value * (1 + f / 100));
-    chg += ` <span class="mkt-fut ${fdir}" title="Futures-implied open ${open} (${farrow} ${Math.abs(f).toFixed(2)}% vs prior close)">(fut open ${open} ${farrow} ${Math.abs(f).toFixed(2)}%)</span>`;
+    chg += ` <span class="mkt-fut ${fdir}" title="Index futures imply this open vs the prior close">[${farrow} ${Math.abs(f).toFixed(2)}%]</span>`;
   }
   const asOf = x.asOf ? ` as of ${esc(x.asOf)}` : "";
   const title = ` title="${esc(x.label)}${asOf} — open source"`;
