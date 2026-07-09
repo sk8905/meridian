@@ -301,7 +301,7 @@ async function macroSeries() {
 }
 async function macroNotif() {
   const series = await macroSeries();
-  const guidance = (ALERTS || []).map((a) => ({ id: a.id, date: a.date || "", kind: a.kind || "Guidance", title: a.title, href: "/macro/" + (a.href || "#/commentary") }));
+  const guidance = (ALERTS || []).map((a) => ({ id: a.id, date: a.date || "", kind: a.kind || "Guidance", title: a.title, source: "Meridian analysis", href: "/macro/" + (a.href || "#/commentary") }));
   return [...guidance, ...macroDataAlerts(series)].sort(byDateDesc);
 }
 const NOTIF_APPS = [

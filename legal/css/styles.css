@@ -164,7 +164,6 @@ img, svg { max-width: 100%; }
 .notif-link { font-weight: 600; color: var(--ink); display: block; }
 .notif-link:hover { color: var(--primary); }
 .notif-meta { margin-top: .1rem; }
-.notif-src { font-weight: 600; color: var(--primary); }
 .notif-empty { padding: .6rem .5rem; }
 .nav-toggle {
   display: none; background: rgba(255,255,255,.1); color: #fff; border: 1px solid rgba(255,255,255,.22);

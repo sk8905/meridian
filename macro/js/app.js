@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260709-3";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260709-4";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -732,7 +732,9 @@ function dataAlerts(series) {
 }
 function notifItems() {
   const data = dataAlerts((MACRO_DATA && MACRO_DATA.series) || []);
-  const guidance = ALERTS.map((a) => ({ ...a }));
+  // Guidance alerts (rate outlook / cycle / bubble) are Meridian's own editorial
+  // synthesis — note their proprietary source; data alerts carry the provider.
+  const guidance = ALERTS.map((a) => ({ ...a, source: "Meridian analysis" }));
   return [...guidance, ...data].sort((a, b) => String(b.date).localeCompare(String(a.date)));
 }
 function closeNotif() {
