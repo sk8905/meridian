@@ -28,9 +28,6 @@ const MACRO_INDICATORS = [
 function buildIndex() {
   const idx = [];
   const add = (tag, title, sub, href, rank, date) => idx.push({ tag, title, sub, href, rank, date: date || "", hay: (title + " " + sub).toLowerCase() });
-  add("credit", "Credit dashboard", "Meridian Credit", "/credit/", 4, "");
-  add("legal", "Legal dashboard", "Meridian Legal", "/legal/", 4, "");
-  add("macro", "Macro dashboard", "Meridian Macro", "/macro/", 4, "");
   add("view", "Glance", "Cross-desk briefing", "/", 4, "");
   [["commentary", "Rate outlook"], ["cycle", "Cycle"], ["bubble", "Bubble risk"], ["chart", "Chart"]]
     .forEach(([k, l]) => add("macro", `Macro — ${l}`, "View", `/macro/#/${k}`, 4, ""));
