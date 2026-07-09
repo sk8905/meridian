@@ -131,6 +131,57 @@ function initRates() {
     .catch(() => { el.innerHTML = '<span class="g-loading">Market rates unavailable right now.</span>'; });
 }
 
+// ---- Market open / closed indicator ----------------------------------------
+// Each ticker's trading venue has its own schedule; "open" is a function of the
+// current wall-clock time in that venue's timezone, so it is computed live at
+// render (not baked into the cached payload). Holidays are not modelled — this
+// is a session-hours approximation (weekday + regular-session window).
+const MKT_TYPE = {
+  "S&P 500": "us_equity", "NASDAQ 100": "us_equity", // NYSE/Nasdaq
+  "IGWD": "lse_equity", "EMEE": "lse_equity",         // London Stock Exchange
+  "Brent": "futures", "WTI": "futures", "Gold": "futures", // CME/ICE Globex
+  "Bitcoin": "crypto",                                 // 24/7
+};
+// Current weekday (0=Sun) + hour + minute in a given IANA timezone (DST-aware).
+function zonedNow(tz) {
+  const parts = new Intl.DateTimeFormat("en-US", {
+    timeZone: tz, weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false,
+  }).formatToParts(new Date());
+  const g = (t) => (parts.find((p) => p.type === t) || {}).value;
+  const dow = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 }[g("weekday")];
+  let h = +g("hour"); if (h === 24) h = 0; // some engines emit "24" at midnight
+  return { dow, h, m: +g("minute") };
+}
+function marketOpen(type) {
+  if (type === "crypto") return true;
+  if (type === "us_equity") {
+    const { dow, h, m } = zonedNow("America/New_York");
+    if (dow === 0 || dow === 6) return false;
+    const t = h * 60 + m; return t >= 570 && t < 960; // 09:30–16:00 ET
+  }
+  if (type === "lse_equity") {
+    const { dow, h, m } = zonedNow("Europe/London");
+    if (dow === 0 || dow === 6) return false;
+    const t = h * 60 + m; return t >= 480 && t < 990; // 08:00–16:30 London
+  }
+  if (type === "futures") {
+    // CME Globex: Sun 18:00 → Fri 17:00 ET, with a daily 17:00–18:00 ET halt.
+    const { dow, h } = zonedNow("America/New_York");
+    if (dow === 6) return false;      // Saturday
+    if (dow === 0) return h >= 18;    // Sunday reopen 18:00 ET
+    if (dow === 5) return h < 17;     // Friday close 17:00 ET
+    return h !== 17;                  // Mon–Thu: closed 17:00–17:59 ET
+  }
+  return true;
+}
+function marketDot(label) {
+  const type = MKT_TYPE[label];
+  if (!type) return "";
+  const open = marketOpen(type);
+  const state = open ? "open" : "closed";
+  return ` <span class="mkt-dot ${state}" title="Market ${state}" aria-label="Market ${state}"></span>`;
+}
+
 // ---- Markets banner: equity indices + ETFs (same tile style as the rates) --
 function marketTile(x) {
   // Thousands+ round DOWN to a whole number; smaller prices keep two decimals.
@@ -152,7 +203,7 @@ function marketTile(x) {
   const title = ` title="${esc(x.label)}${asOf} — 1-month trend — open source ↗"`;
   const tag = x.href ? "a" : "div";
   const attrs = x.href ? ` href="${esc(x.href)}" target="_blank" rel="noopener noreferrer"` : "";
-  return `<${tag} class="rate-tile"${attrs}${title}><span class="rate-label">${esc(x.label)}</span><span class="rate-val">${val}</span>${chg}${rateSpark(x.history)}</${tag}>`;
+  return `<${tag} class="rate-tile"${attrs}${title}><span class="rate-label">${esc(x.label)}${marketDot(x.label)}</span><span class="rate-val">${val}</span>${chg}${rateSpark(x.history)}</${tag}>`;
 }
 function initMarkets() {
   const el = document.getElementById("g-markets");

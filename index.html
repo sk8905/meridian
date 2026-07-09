@@ -156,6 +156,9 @@
     .rate-val { font-weight:700; font-size:1rem; color:var(--ink); line-height:1.2; }
     .rate-chg { font-size:.72rem; font-weight:600; }
     .rate-chg.up { color:#059669; } .rate-chg.down { color:#dc2626; } .rate-chg.flat { color:var(--muted); }
+    .mkt-dot { display:inline-block; width:.44rem; height:.44rem; border-radius:50%; vertical-align:middle; margin-bottom:.06rem; }
+    .mkt-dot.open { background:#059669; box-shadow:0 0 0 2px rgba(5,150,105,.18); }
+    .mkt-dot.closed { background:#dc2626; box-shadow:0 0 0 2px rgba(220,38,38,.16); }
     .rate-spark { display:block; width:100%; height:20px; margin-top:.35rem; }
     .rate-spark-empty { display:block; height:20px; margin-top:.35rem; }
     .rate-src { grid-column:1 / -1; justify-self:end; margin-top:.3rem; padding:0 1rem;
@@ -405,7 +408,7 @@
           show("glance");
           const h = new Date().getHours();
           document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-          import("/glance.js?v=20260708-11").then((m) => m.initGlance()).catch(() => {});
+          import("/glance.js?v=20260708-12").then((m) => m.initGlance()).catch(() => {});
         } else { show("out"); }
       })
       .catch(() => show("out"));
