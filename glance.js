@@ -356,7 +356,7 @@ function renderBell() {
   const unreadAll = _notifApps.flatMap((a) => tagged(a, a.unread)).sort(byDateDesc);
   const listAll = _notifApps.flatMap((a) => tagged(a, a.list)).sort(byDateDesc);
   const show = (total ? unreadAll : listAll).slice(0, 24);
-  const row = (x) => `<a class="g-np-item" href="${esc(x.href)}"><span class="g-np-tag ${x.key}">${esc(x.tag)}</span><span class="g-np-txt"><span class="g-np-t">${esc(x.title)}</span>${x.source ? `<span class="g-np-src">${esc(x.source)}</span>` : ""}<span class="g-np-m">${esc(x.kind)}${x.date ? " · " + esc(fmt(x.date)) : ""}</span></span></a>`;
+  const row = (x) => `<a class="g-np-item" href="${esc(x.href)}"><span class="g-np-tag ${x.key}">${esc(x.tag)}</span><span class="g-np-txt"><span class="g-np-t">${esc(x.title)}</span><span class="g-np-m">${esc(x.kind)}${x.date ? " · " + esc(fmt(x.date)) : ""}${x.source ? ` · <span class="g-np-src">${esc(x.source)}</span>` : ""}</span></span></a>`;
   wrap.innerHTML = `
     <button type="button" class="g-bell" id="g-bell" aria-haspopup="true" aria-expanded="false" aria-label="Notifications${total ? ` — ${total} new` : ""}">
       <span aria-hidden="true">🔔</span>${total ? `<span class="g-badge">${total > 9 ? "9+" : total}</span>` : ""}

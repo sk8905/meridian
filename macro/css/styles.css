@@ -76,8 +76,8 @@ h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
 .notif-item.is-new { background: #f3f1fa; }
 .notif-link { font-weight: 600; color: var(--ink); display: block; }
 .notif-link:hover { color: var(--macro); }
-.notif-src { margin-top: .12rem; font-weight: 600; color: var(--macro); }
 .notif-meta { margin-top: .1rem; }
+.notif-src { font-weight: 600; color: var(--macro); }
 .notif-empty { padding: .6rem .5rem; }
 
 /* ---------- layout ---------- */

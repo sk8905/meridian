@@ -131,8 +131,8 @@ h3 { font-size: 1rem; margin: 0; }
 .notif-item.is-new { background: #eff6ff; }
 .notif-link { font-weight: 600; color: var(--ink); display: block; }
 .notif-link:hover { color: var(--primary); }
-.notif-src { margin-top: .12rem; font-weight: 600; color: var(--primary); }
 .notif-meta { margin-top: .1rem; }
+.notif-src { font-weight: 600; color: var(--primary); }
 .notif-empty { padding: .6rem .5rem; }
 
 /* ---------- layout ---------- */

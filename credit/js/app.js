@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260709-2";
+} from "./data.js?v=20260709-3";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260709-2";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260709-3";
 
 const app = document.getElementById("app");
 
@@ -336,8 +336,7 @@ function renderNotifications() {
       <ul class="notif-list">
         ${list.length ? list.map((x) => `<li class="notif-item${(n && fresh.includes(x)) ? " is-new" : ""}">
           <a href="${x.href}" ${x.goto ? `data-goto="${esc(x.goto)}"` : ""} class="notif-link">${esc(x.title)}</a>
-          ${x.source ? `<div class="notif-src small">${esc(x.source)}</div>` : ""}
-          <div class="notif-meta muted small">${esc(x.kind)}${x.date ? ` · ${esc(fmtDate(x.date))}` : ""}</div>
+          <div class="notif-meta muted small">${esc(x.kind)}${x.date ? ` · ${esc(fmtDate(x.date))}` : ""}${x.source ? ` · <span class="notif-src">${esc(x.source)}</span>` : ""}</div>
         </li>`).join("") : '<li class="notif-empty muted small">Nothing yet.</li>'}
       </ul>
     </div>`;
