@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260709-14";
+} from "./data.js?v=20260709-16";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260709-14";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260709-16";
 
 const app = document.getElementById("app");
 
@@ -310,7 +310,7 @@ function notifItems() {
   const out = [];
   deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, source: creditSource(d), href: d.clo ? "#/clos" : "#/deals", goto: (d.clo ? "clos:" : "deals:") + d.id }));
   intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, source: creditSource(i), href: i.clo ? "#/clos" : "#/intel", goto: (i.clo ? "clos:" : "intel:") + i.id }));
-  managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", kind: "News", title: w.title, source: w.outlet || m.name || "", href: "#/manager/" + m.id })));
+  managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", kind: "News", title: w.title, source: w.outlet || m.name || "", href: "#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey(w)) })));
   return out.sort((a, b) => String(b.date).localeCompare(String(a.date)));
 }
 function closeNotif() {
@@ -1153,7 +1153,7 @@ function byYear(items, rowFn) {
 }
 
 function newsItemRow(x) {
-  return `<div class="intel-row"><div class="intel-meta"><span class="muted small">${esc(x.outlet || "")}</span><span class="muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span></div><div class="intel-body"><div class="intel-title-line"><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a>${saveBtn(newsSaveId(x))}</div></div></div>`;
+  return `<div class="intel-row" data-fkey="${esc(feedDedupKey(x))}"><div class="intel-meta"><span class="muted small">${esc(x.outlet || "")}</span><span class="muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span></div><div class="intel-body"><div class="intel-title-line"><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a>${saveBtn(newsSaveId(x))}</div></div></div>`;
 }
 
 // Dedup key for a manager's combined news feed: a specific source URL when one
@@ -1301,6 +1301,9 @@ function viewManager(id) {
       <p class="muted small">All tracked press, deal, fundraising &amp; CLO activity for ${esc(m.name)} and its funds/CLOs, newest first.</p>
       ${mgrFeed.length ? feedHtml(mgrFeed, "mgr:" + id + ":all", mgrFeedRow, "") : '<p class="muted">No news yet for this manager.</p>'}
     </section>`;
+  // A notification / deep link to a specific story on this manager focuses that
+  // row (id="row-<newsSaveId>"), matching the deals/intel feed behaviour.
+  applyPendingFocus("manager");
 }
 
 // Drill-down from a manager's CLO roster: the news/activity for one CLO vehicle.
@@ -1414,7 +1417,7 @@ function intelRow(i, srcHead) {
   const head = i.sourceUrl
     ? `<a href="${esc(i.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(i.headline)}</a>`
     : (ftarget ? link(ftarget, i.headline, "intel-head") : `<span class="intel-head">${esc(i.headline)}</span>`);
-  return `<div class="intel-row" id="row-${i.id}">
+  return `<div class="intel-row" id="row-${i.id}" data-fkey="${esc(feedDedupKey(i))}">
     <div class="intel-meta"><span class="chip ${intelTypeClass(i.type)}">${esc(i.type)}</span><span class="muted small">${fmtDate(i.date)}</span></div>
     <div class="intel-body"><div class="intel-title-line">${head}${srcHead && tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}${saveBtn(i.id)}</div><p class="muted small">${esc(i.summary)}</p>${srcHead ? "" : `<div>${tag}</div>`}</div>
   </div>`;
@@ -1474,7 +1477,7 @@ function dealRow(d, srcHead) {
   const head = d.sourceUrl
     ? `<a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(d.headline)}</a>`
     : (tgt ? link(tgt, d.headline, "intel-head") : `<span class="intel-head">${esc(d.headline)}</span>`);
-  return `<div class="intel-row" id="row-${d.id}">
+  return `<div class="intel-row" id="row-${d.id}" data-fkey="${esc(feedDedupKey(d))}">
     <div class="intel-meta"><span class="chip ${dealTypeClass(d.type)}">${esc(d.type)}</span><span class="muted small">${fmtDate(d.date)}</span></div>
     <div class="intel-body"><div class="intel-title-line">${head}${srcHead && tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}${saveBtn(d.id)}</div><p class="muted small">${esc(d.summary)}</p>${srcHead ? "" : (tag ? `<div>${tag}</div>` : "")}</div>
   </div>`;
@@ -1877,7 +1880,11 @@ function applyPendingFocus(view) {
   if (!pendingFocus || pendingFocus.view !== view) return;
   const windowed = !!pendingFocus.until; // URL-driven (re-apply until it lapses)
   if (windowed && Date.now() > pendingFocus.until) { pendingFocus = null; return; }
-  const el = document.getElementById("row-" + pendingFocus.id);
+  // Resolve by feed dedup key (news stories, which may render as a deal/intel
+  // row) or by element id (structured deal/intel deep links).
+  const el = pendingFocus.fkey
+    ? [...document.querySelectorAll("[data-fkey]")].find((e) => e.getAttribute("data-fkey") === pendingFocus.fkey)
+    : document.getElementById("row-" + pendingFocus.id);
   if (!windowed) pendingFocus = null; // click-set focus is one-shot (unchanged)
   if (!el) return; // row not in the DOM yet (paged out) — a windowed focus retries
   el.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -2045,7 +2052,12 @@ function router() {
     // re-renders that fire right after load (the startup double-run and the async
     // account/watchlist sync each rebuild the DOM), so the flash isn't wiped. It
     // stops re-applying once the window lapses. Click-set focus stays one-shot.
-    pendingFocus = { view: route, id: focusId, until: Date.now() + 4000 };
+    // A "k:" prefix targets a row by its feed dedup key (data-fkey) rather than
+    // its element id — used for news stories, which may collapse into a deal /
+    // intel row on the manager feed, so an id would miss the surviving row.
+    pendingFocus = focusId.startsWith("k:")
+      ? { view: route, fkey: decodeURIComponent(focusId.slice(2)), until: Date.now() + 4000 }
+      : { view: route, id: focusId, until: Date.now() + 4000 };
     history.replaceState(null, "", hash);
   }
   document.querySelectorAll(".nav-link").forEach((a) => {

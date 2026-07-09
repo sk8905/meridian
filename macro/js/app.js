@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260709-12";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260709-13";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -55,7 +55,10 @@ function macroTile(s) {
   // Whole tile links to the source (matches the Credit key-rates tiles); a small
   // corner control opens this indicator in the Chart view (cross-link).
   const tag = s.href ? "a" : "div";
-  const attrs = s.href ? ` href="${esc(s.href)}" target="_blank" rel="noopener noreferrer"` : "";
+  // Stable per-indicator id so a data-alert notification can deep-link and focus
+  // the exact tile (#/dashboard?focus=<country>-<key>).
+  const tileId = (s.country && s.key) ? ` id="tile-${esc(s.country)}-${esc(s.key)}"` : "";
+  const attrs = (s.href ? ` href="${esc(s.href)}" target="_blank" rel="noopener noreferrer"` : "") + tileId;
   const chartLink = (s.country && s.key)
     ? `<span class="macro-chartlink" role="button" tabindex="0" data-chart="${esc(s.country)}:${esc(s.key)}" title="Open ${esc(s.label)} in the Chart" aria-label="Open ${esc(s.label)} in the Chart">📈</span>`
     : "";
@@ -704,10 +707,18 @@ function fetchMacro() {
   })();
   return MACRO_PROMISE;
 }
-async function loadMacro() {
+async function loadMacro(focus) {
   const data = await fetchMacro();
   const el = document.getElementById("macro-body");
-  if (el) el.innerHTML = renderMacro(data);
+  if (!el) return;
+  el.innerHTML = renderMacro(data);
+  // A data-alert notification deep-links here with ?focus=<country>-<key>; the
+  // tiles load async, so scroll to and briefly highlight the matching tile once
+  // the body is in the DOM.
+  if (focus && /^(US|UK)-[a-z_]+$/.test(focus)) {
+    const t = document.getElementById("tile-" + focus);
+    if (t) { t.scrollIntoView({ behavior: "smooth", block: "center" }); t.classList.add("flash"); setTimeout(() => t.classList.remove("flash"), 2200); }
+  }
 }
 
 // ---- Topbar: last-refresh line (matches Credit/Legal) ----------------------
@@ -757,7 +768,7 @@ function dataAlerts(series) {
       kind: "Economic data",
       title: `${country} · ${s.label}: ${val}${flag}${chg}`,
       source: s.source || "",
-      href: "#/dashboard",
+      href: `#/dashboard?focus=${s.country}-${s.key}`,
       date: s.asOf ? `${s.asOf}-01` : "",
     };
   });
@@ -844,10 +855,17 @@ function render() {
       history.replaceState(null, "", "#/chart");
     }
   }
+  // Deep-link from a data-alert notification: #/dashboard?focus=US-core_cpi
+  // scrolls to and highlights that indicator tile once the body loads.
+  let dashFocus = null;
+  if (tab === "dashboard") {
+    dashFocus = hashQuery().focus || null;
+    if (dashFocus) history.replaceState(null, "", "#/dashboard");
+  }
   const body = tab === "commentary" ? viewCommentary() : tab === "cycle" ? viewCycle() : tab === "bubble" ? viewBubble() : tab === "chart" ? viewChart() : viewDashboard();
   app.innerHTML = body;
   syncNav(tab);
-  if (tab === "dashboard") loadMacro();
+  if (tab === "dashboard") loadMacro(dashFocus);
   if (tab === "chart") { syncChartAll(); fetchMacro().then(() => { if (currentTab() === "chart") drawChart(); }); }
   window.scrollTo(0, 0);
 }

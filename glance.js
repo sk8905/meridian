@@ -47,6 +47,16 @@ function creditSource(rec) {
 }
 const firmName = (id) => (firmById[id] || {}).name || id || "";
 const judgmentSource = (url) => { const h = srcHost(url); return JUDGMENT_SOURCES[h] || "Judgment"; };
+// Mirror of credit/js/app.js feedDedupKey — the canonical identity of a feed
+// event (source URL, else title). It is stamped on every manager-feed row as
+// data-fkey, so a news notification can deep-link (#/manager/<id>?focus=k:<key>)
+// and focus the exact story even when it collapses into a deal/intel row.
+function feedDedupKey(x) {
+  const u = (x.url || x.sourceUrl || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, "");
+  const generic = !u || /^https?:\/\/[^/]+$/.test(u) || /\/(news-insights|news|press-releases|media|insights|press)$/.test(u);
+  if (!generic) return "u:" + u;
+  return "t:" + (x.title || x.headline || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+}
 
 const MACRO_INDICATORS = [
   ["base_rate", "Base rate"], ["two_year", "2-year yield"], ["core_cpi", "Core inflation"],
@@ -258,7 +268,7 @@ function creditNotif() {
   const out = [];
   deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, source: creditSource(d), href: creditItemHref(d, "deals") }));
   intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, source: creditSource(i), href: creditItemHref(i, "intel") }));
-  managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", kind: "News", title: w.title, source: w.outlet || m.name || "", href: "/credit/#/manager/" + m.id })));
+  managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", kind: "News", title: w.title, source: w.outlet || m.name || "", href: "/credit/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey(w)) })));
   return out.sort(byDateDesc);
 }
 function legalNotif() {
@@ -278,7 +288,7 @@ function macroDataAlerts(series) {
     else if (s.change === 0) chg = " · unchanged MoM";
     const flag = (s.key === "services_pmi" && +s.value < 50) ? " — below 50 (contraction)" : "";
     return { id: `d:${s.country}:${s.key}:${s.asOf}:${(+s.value).toFixed(2)}`, kind: "Economic data",
-      title: `${country} · ${s.label}: ${val}${flag}${chg}`, source: s.source || "", href: "/macro/#/dashboard", date: s.asOf ? `${s.asOf}-01` : "" };
+      title: `${country} · ${s.label}: ${val}${flag}${chg}`, source: s.source || "", href: `/macro/#/dashboard?focus=${s.country}-${s.key}`, date: s.asOf ? `${s.asOf}-01` : "" };
   });
 }
 let _macroSeries;

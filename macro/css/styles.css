@@ -107,6 +107,9 @@ h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
 .macro-country { font-size: 1.02rem; font-weight: 700; color: var(--ink); margin: 0 0 .7rem; padding-bottom: .4rem; border-bottom: 2px solid var(--macro); display: inline-block; }
 .macro-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem; }
 .macro-tile { position: relative; border: 1px solid var(--border); border-radius: 12px; padding: .95rem 1rem 1.05rem; background: var(--surface); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: .55rem; }
+/* Deep-link highlight when a data-alert notification focuses a tile. */
+.macro-tile.flash { animation: tileflash 2.2s ease-out; }
+@keyframes tileflash { 0% { background: #fef9c3; border-color: #fde68a; } 100% { background: var(--surface); border-color: var(--border); } }
 /* Corner control to open the indicator in the Chart view. */
 .macro-chartlink { position: absolute; top: .4rem; right: .45rem; font-size: .8rem; line-height: 1; opacity: .4; cursor: pointer; padding: .2rem; border-radius: 5px; filter: grayscale(.3); }
 .macro-tile:hover .macro-chartlink { opacity: .8; }
