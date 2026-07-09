@@ -16,8 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
-} from "./data.js?v=20260709-1";
-import { donutChart, columnChart } from "./charts.js?v=20260709-1";
+} from "./data.js?v=20260709-2";
+import { donutChart, columnChart } from "./charts.js?v=20260709-2";
 
 const app = document.getElementById("app");
 
@@ -1027,6 +1027,17 @@ const NOTIF_KEY = "meridian.legal.notifSeen";
 const NOTIF_API = "/api/notif-legal";
 let notifSeen = null;    // resolved array of acknowledged ids (null until known)
 let notifCloud = false;  // true once the per-user seen-set API responds
+// Source label for a case-law / restructuring judgment link (BAILII, the
+// National Archives, or the Supreme Court site). Alerts & RPs use the firm name.
+const JUDGMENT_SOURCES = {
+  "bailii.org": "BAILII", "caselaw.nationalarchives.gov.uk": "National Archives",
+  "supremecourt.uk": "Supreme Court", "judiciary.uk": "Judiciary",
+};
+function judgmentSource(url) {
+  try { const h = new URL(url).hostname.replace(/^www\./, ""); return JUDGMENT_SOURCES[h] || "Judgment"; }
+  catch { return "Judgment"; }
+}
+function firmName(id) { return (firmById[id] || {}).name || id || ""; }
 function notifReadLocal() {
   try { const p = JSON.parse(localStorage.getItem(NOTIF_KEY) || "null"); return Array.isArray(p) ? p : null; } catch { return null; }
 }
@@ -1037,9 +1048,9 @@ function notifPersist(ids) {
 }
 function notifItems() {
   const out = [];
-  items.forEach((it) => out.push({ id: "u:" + it.id, date: it.date || "", kind: (typeById[it.type] || {}).name || it.type, title: it.title, href: "#/item/" + it.id }));
-  cases.forEach((c) => out.push({ id: "c:" + c.id, date: c.date || "", kind: c.court || "Case", title: c.name, href: "#/cases?case=" + c.id }));
-  restructurings.forEach((r) => out.push({ id: "r:" + r.id, date: r.date || "", kind: r.type === "scheme" ? "Scheme" : "Plan", title: r.company, href: "#/restructurings?m=" + r.id }));
+  items.forEach((it) => out.push({ id: "u:" + it.id, date: it.date || "", kind: (typeById[it.type] || {}).name || it.type, title: it.title, source: firmName(it.firm), href: "#/item/" + it.id }));
+  cases.forEach((c) => out.push({ id: "c:" + c.id, date: c.date || "", kind: c.court || "Case", title: c.name, source: judgmentSource(c.url), href: "#/cases?case=" + c.id }));
+  restructurings.forEach((r) => out.push({ id: "r:" + r.id, date: r.date || "", kind: r.type === "scheme" ? "Scheme" : "Plan", title: r.company, source: r.firm ? firmName(r.firm) : (r.judgmentUrl ? judgmentSource(r.judgmentUrl) : ""), href: "#/restructurings?m=" + r.id }));
   return out.sort((a, b) => String(b.date).localeCompare(String(a.date)));
 }
 function closeNotif() {
@@ -1065,6 +1076,7 @@ function renderNotifications() {
       <ul class="notif-list">
         ${list.length ? list.map((x) => `<li class="notif-item${(n && fresh.includes(x)) ? " is-new" : ""}">
           <a href="${esc(x.href)}" ${x.ext ? 'target="_blank" rel="noopener noreferrer"' : ""} class="notif-link">${esc(x.title)}${x.ext ? " ↗" : ""}</a>
+          ${x.source ? `<div class="notif-src small">${esc(x.source)}</div>` : ""}
           <div class="notif-meta muted small">${esc(x.kind)}${x.date ? ` · ${esc(fmtDate(x.date))}` : ""}</div>
         </li>`).join("") : '<li class="notif-empty muted small">Nothing yet.</li>'}
       </ul>

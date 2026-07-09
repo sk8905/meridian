@@ -8,12 +8,12 @@ import {
   managers, funds, lps, intel, commitments, deals,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260709-1";
+} from "./data.js?v=20260709-2";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260709-1";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260709-2";
 
 const app = document.getElementById("app");
 
@@ -275,6 +275,29 @@ const NOTIF_KEY = "meridian.credit.notifSeen";
 const NOTIF_API = "/api/notif-credit";
 let notifSeen = null;    // resolved array of acknowledged ids (null until known)
 let notifCloud = false;  // true once the per-user seen-set API responds
+// Human-readable source (outlet / wire / manager PR) for a notification, from
+// its sourceUrl. Known wires & trade-press map to a clean label; an unmapped
+// domain is taken to be the manager's own press release (show the manager name);
+// otherwise a tidied domain. Kept in sync with Glance's copy.
+const NEWS_SOURCES = {
+  "bloomberg.com": "Bloomberg", "reuters.com": "Reuters", "ft.com": "Financial Times",
+  "wsj.com": "WSJ", "cnbc.com": "CNBC", "marketwatch.com": "MarketWatch",
+  "creditflux.com": "Creditflux", "alternativecreditinvestor.com": "Alternative Credit Investor",
+  "privatedebtinvestor.com": "Private Debt Investor", "privateequitywire.co.uk": "Private Equity Wire",
+  "privateequityinternational.com": "Private Equity International", "penews.com": "Private Equity News",
+  "pehub.com": "PE Hub", "with-intelligence.com": "With Intelligence", "fnlondon.com": "Financial News",
+  "globenewswire.com": "GlobeNewswire", "businesswire.com": "Business Wire", "prnewswire.com": "PR Newswire",
+  "finance.yahoo.com": "Yahoo Finance", "fintech.global": "FinTech Global", "citywire.com": "Citywire",
+};
+function srcHost(url) { try { return new URL(url).hostname.replace(/^www\./, ""); } catch { return ""; } }
+function tidyDomain(host) { const l = host.split(".").slice(-2, -1)[0] || host; return l ? l.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) : ""; }
+function creditSource(rec) {
+  const host = srcHost(rec.sourceUrl);
+  if (host && NEWS_SOURCES[host]) return NEWS_SOURCES[host];
+  const m = rec.managerId ? managerById[rec.managerId] : null;
+  if (m && m.name) return m.name;           // manager's own press release
+  return host ? tidyDomain(host) : "";
+}
 function notifReadLocal() {
   try { const p = JSON.parse(localStorage.getItem(NOTIF_KEY) || "null"); return Array.isArray(p) ? p : null; } catch { return null; }
 }
@@ -285,9 +308,9 @@ function notifPersist(ids) {
 }
 function notifItems() {
   const out = [];
-  deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, href: d.clo ? "#/clos" : "#/deals", goto: (d.clo ? "clos:" : "deals:") + d.id }));
-  intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, href: i.clo ? "#/clos" : "#/intel", goto: (i.clo ? "clos:" : "intel:") + i.id }));
-  managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", kind: "News", title: w.title, href: "#/manager/" + m.id })));
+  deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, source: creditSource(d), href: d.clo ? "#/clos" : "#/deals", goto: (d.clo ? "clos:" : "deals:") + d.id }));
+  intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, source: creditSource(i), href: i.clo ? "#/clos" : "#/intel", goto: (i.clo ? "clos:" : "intel:") + i.id }));
+  managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", kind: "News", title: w.title, source: w.outlet || m.name || "", href: "#/manager/" + m.id })));
   return out.sort((a, b) => String(b.date).localeCompare(String(a.date)));
 }
 function closeNotif() {
@@ -313,6 +336,7 @@ function renderNotifications() {
       <ul class="notif-list">
         ${list.length ? list.map((x) => `<li class="notif-item${(n && fresh.includes(x)) ? " is-new" : ""}">
           <a href="${x.href}" ${x.goto ? `data-goto="${esc(x.goto)}"` : ""} class="notif-link">${esc(x.title)}</a>
+          ${x.source ? `<div class="notif-src small">${esc(x.source)}</div>` : ""}
           <div class="notif-meta muted small">${esc(x.kind)}${x.date ? ` · ${esc(fmtDate(x.date))}` : ""}</div>
         </li>`).join("") : '<li class="notif-empty muted small">Nothing yet.</li>'}
       </ul>

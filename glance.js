@@ -10,7 +10,7 @@
 // Data modules are versioned (matching each app) so the live Glance busts its
 // cache with the twice-daily data refresh instead of serving a stale copy.
 import { deals, intel, managers, funds, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260708-9";
-import { items, cases, restructurings } from "/legal/js/data.js?v=20260708-8";
+import { items, cases, restructurings, firmById } from "/legal/js/data.js?v=20260708-8";
 import { NEWS, ALERTS, COMMENTARY } from "/macro/js/content.js?v=20260708-27";
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -18,6 +18,35 @@ const byDateDesc = (a, b) => String(b.date || "").localeCompare(String(a.date ||
 const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const fmt = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ""); return m ? `${+m[3]} ${MON[+m[2] - 1]} ${m[1]}` : (iso || ""); };
 const mgrName = (id) => (managers.find((m) => m.id === id) || {}).name || "";
+
+// ---- Notification source labels (kept in sync with each app's copy) --------
+// Credit: outlet/wire from sourceUrl, else the manager's own PR (manager name).
+// Legal: firm name for alerts/RPs, judgment host for cases. Macro data: series
+// source (FRED/ONS/…). Editorial macro guidance has no single external source.
+const NEWS_SOURCES = {
+  "bloomberg.com": "Bloomberg", "reuters.com": "Reuters", "ft.com": "Financial Times",
+  "wsj.com": "WSJ", "cnbc.com": "CNBC", "marketwatch.com": "MarketWatch",
+  "creditflux.com": "Creditflux", "alternativecreditinvestor.com": "Alternative Credit Investor",
+  "privatedebtinvestor.com": "Private Debt Investor", "privateequitywire.co.uk": "Private Equity Wire",
+  "privateequityinternational.com": "Private Equity International", "penews.com": "Private Equity News",
+  "pehub.com": "PE Hub", "with-intelligence.com": "With Intelligence", "fnlondon.com": "Financial News",
+  "globenewswire.com": "GlobeNewswire", "businesswire.com": "Business Wire", "prnewswire.com": "PR Newswire",
+  "finance.yahoo.com": "Yahoo Finance", "fintech.global": "FinTech Global", "citywire.com": "Citywire",
+};
+const JUDGMENT_SOURCES = {
+  "bailii.org": "BAILII", "caselaw.nationalarchives.gov.uk": "National Archives",
+  "supremecourt.uk": "Supreme Court", "judiciary.uk": "Judiciary",
+};
+const srcHost = (url) => { try { return new URL(url).hostname.replace(/^www\./, ""); } catch { return ""; } };
+const tidyDomain = (host) => { const l = host.split(".").slice(-2, -1)[0] || host; return l ? l.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) : ""; };
+function creditSource(rec) {
+  const host = srcHost(rec.sourceUrl);
+  if (host && NEWS_SOURCES[host]) return NEWS_SOURCES[host];
+  const nm = rec.managerId ? mgrName(rec.managerId) : "";
+  return nm || (host ? tidyDomain(host) : "");
+}
+const firmName = (id) => (firmById[id] || {}).name || id || "";
+const judgmentSource = (url) => { const h = srcHost(url); return JUDGMENT_SOURCES[h] || "Judgment"; };
 
 const MACRO_INDICATORS = [
   ["base_rate", "Base rate"], ["two_year", "2-year yield"], ["core_cpi", "Core inflation"],
@@ -239,16 +268,16 @@ function initMarkets() {
 // Glance replays that model for all three and sums the unread counts on one bell.
 function creditNotif() {
   const out = [];
-  deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, href: creditItemHref(d, "deals") }));
-  intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, href: creditItemHref(i, "intel") }));
-  managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", kind: "News", title: w.title, href: "/credit/#/manager/" + m.id })));
+  deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, source: creditSource(d), href: creditItemHref(d, "deals") }));
+  intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, source: creditSource(i), href: creditItemHref(i, "intel") }));
+  managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", kind: "News", title: w.title, source: w.outlet || m.name || "", href: "/credit/#/manager/" + m.id })));
   return out.sort(byDateDesc);
 }
 function legalNotif() {
   const out = [];
-  items.forEach((it) => out.push({ id: "u:" + it.id, date: it.date || "", kind: "Alert", title: it.title, href: "/legal/#/item/" + encodeURIComponent(it.id) }));
-  cases.forEach((c) => out.push({ id: "c:" + c.id, date: c.date || "", kind: c.court || "Case", title: c.name, href: "/legal/#/cases?case=" + encodeURIComponent(c.id) }));
-  restructurings.forEach((r) => out.push({ id: "r:" + r.id, date: r.date || "", kind: r.type === "scheme" ? "Scheme" : "Plan", title: r.company, href: "/legal/#/restructurings?m=" + encodeURIComponent(r.id) }));
+  items.forEach((it) => out.push({ id: "u:" + it.id, date: it.date || "", kind: "Alert", title: it.title, source: firmName(it.firm), href: "/legal/#/item/" + encodeURIComponent(it.id) }));
+  cases.forEach((c) => out.push({ id: "c:" + c.id, date: c.date || "", kind: c.court || "Case", title: c.name, source: judgmentSource(c.url), href: "/legal/#/cases?case=" + encodeURIComponent(c.id) }));
+  restructurings.forEach((r) => out.push({ id: "r:" + r.id, date: r.date || "", kind: r.type === "scheme" ? "Scheme" : "Plan", title: r.company, source: r.firm ? firmName(r.firm) : (r.judgmentUrl ? judgmentSource(r.judgmentUrl) : ""), href: "/legal/#/restructurings?m=" + encodeURIComponent(r.id) }));
   return out.sort(byDateDesc);
 }
 function macroDataAlerts(series) {
@@ -261,7 +290,7 @@ function macroDataAlerts(series) {
     else if (s.change === 0) chg = " · unchanged MoM";
     const flag = (s.key === "services_pmi" && +s.value < 50) ? " — below 50 (contraction)" : "";
     return { id: `d:${s.country}:${s.key}:${s.asOf}:${(+s.value).toFixed(2)}`, kind: "Economic data",
-      title: `${country} · ${s.label}: ${val}${flag}${chg}`, href: "/macro/#/dashboard", date: s.asOf ? `${s.asOf}-01` : "" };
+      title: `${country} · ${s.label}: ${val}${flag}${chg}`, source: s.source || "", href: "/macro/#/dashboard", date: s.asOf ? `${s.asOf}-01` : "" };
   });
 }
 let _macroSeries;
@@ -327,7 +356,7 @@ function renderBell() {
   const unreadAll = _notifApps.flatMap((a) => tagged(a, a.unread)).sort(byDateDesc);
   const listAll = _notifApps.flatMap((a) => tagged(a, a.list)).sort(byDateDesc);
   const show = (total ? unreadAll : listAll).slice(0, 24);
-  const row = (x) => `<a class="g-np-item" href="${esc(x.href)}"><span class="g-np-tag ${x.key}">${esc(x.tag)}</span><span class="g-np-txt"><span class="g-np-t">${esc(x.title)}</span><span class="g-np-m">${esc(x.kind)}${x.date ? " · " + esc(fmt(x.date)) : ""}</span></span></a>`;
+  const row = (x) => `<a class="g-np-item" href="${esc(x.href)}"><span class="g-np-tag ${x.key}">${esc(x.tag)}</span><span class="g-np-txt"><span class="g-np-t">${esc(x.title)}</span>${x.source ? `<span class="g-np-src">${esc(x.source)}</span>` : ""}<span class="g-np-m">${esc(x.kind)}${x.date ? " · " + esc(fmt(x.date)) : ""}</span></span></a>`;
   wrap.innerHTML = `
     <button type="button" class="g-bell" id="g-bell" aria-haspopup="true" aria-expanded="false" aria-label="Notifications${total ? ` — ${total} new` : ""}">
       <span aria-hidden="true">🔔</span>${total ? `<span class="g-badge">${total > 9 ? "9+" : total}</span>` : ""}

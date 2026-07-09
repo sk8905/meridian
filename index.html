@@ -78,7 +78,8 @@
     .g-np-tag.credit { background:var(--credit); } .g-np-tag.legal { background:var(--legal); } .g-np-tag.macro { background:var(--macro); }
     .g-np-txt { min-width:0; }
     .g-np-t { display:block; font-weight:600; font-size:.82rem; color:var(--ink); line-height:1.3; overflow-wrap:anywhere; }
-    .g-np-m { display:block; color:var(--muted); font-size:.72rem; margin-top:.1rem; }
+    .g-np-src { display:block; font-weight:600; font-size:.72rem; color:var(--brand-2); margin-top:.1rem; }
+    .g-np-m { display:block; color:var(--muted); font-size:.72rem; margin-top:.08rem; }
     .g-np-empty { color:var(--muted); font-size:.82rem; padding:.8rem .55rem; text-align:center; }
     @media (min-width:1101px){
       /* Mirror the app top bars exactly: the row is indented to the page
@@ -408,7 +409,7 @@
           show("glance");
           const h = new Date().getHours();
           document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-          import("/glance.js?v=20260708-13").then((m) => m.initGlance()).catch(() => {});
+          import("/glance.js?v=20260708-14").then((m) => m.initGlance()).catch(() => {});
         } else { show("out"); }
       })
       .catch(() => show("out"));
