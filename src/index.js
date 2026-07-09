@@ -836,22 +836,31 @@ async function generatePulse(request, env, ctx) {
   await env.WATCHLIST.put(PULSE_KEY, JSON.stringify({ markets: parsed.markets, rates: parsed.rates, ts: Date.now(), sig }));
 }
 async function handlePulse(request, env, ctx) {
-  if (new URL(request.url).searchParams.get("debug")) return debugPulse(request, env, ctx);
-  let cur = null;
-  try { const raw = await env.WATCHLIST.get(PULSE_KEY); cur = raw ? JSON.parse(raw) : null; } catch { /* ignore */ }
-  // Regenerate in the background when stale — weekdays, 06:00–23:00 UTC only.
-  const d = new Date(), day = d.getUTCDay(), hr = d.getUTCHours();
-  const active = day >= 1 && day <= 5 && hr >= 6 && hr < 23;
-  if (active && (!cur || Date.now() - (cur.ts || 0) > PULSE_THROTTLE_MS) && ctx && ctx.waitUntil) {
-    ctx.waitUntil(generatePulse(request, env, ctx).catch(() => {}));
+  try {
+    if (new URL(request.url).searchParams.get("debug")) return await debugPulse(request, env, ctx);
+    let cur = null;
+    try { const raw = await env.WATCHLIST.get(PULSE_KEY); cur = raw ? JSON.parse(raw) : null; } catch { /* ignore */ }
+    // Regenerate in the background when stale — weekdays, 06:00–23:00 UTC only.
+    const d = new Date(), day = d.getUTCDay(), hr = d.getUTCHours();
+    const active = day >= 1 && day <= 5 && hr >= 6 && hr < 23;
+    if (active && (!cur || Date.now() - (cur.ts || 0) > PULSE_THROTTLE_MS) && ctx && ctx.waitUntil) {
+      ctx.waitUntil(generatePulse(request, env, ctx).catch(() => {}));
+    }
+    return new Response(JSON.stringify({ markets: (cur && cur.markets) || null, rates: (cur && cur.rates) || null, ts: (cur && cur.ts) || null }), {
+      headers: { "content-type": "application/json", "cache-control": "no-store" },
+    });
+  } catch (e) {
+    // Never let the pulse take down the route — the client falls back to its
+    // deterministic lines on any non-200.
+    return new Response(JSON.stringify({ markets: null, rates: null, ts: null, error: String((e && e.message) || e) }), {
+      status: 200, headers: { "content-type": "application/json", "cache-control": "no-store" },
+    });
   }
-  return new Response(JSON.stringify({ markets: (cur && cur.markets) || null, rates: (cur && cur.rates) || null, ts: (cur && cur.ts) || null }), {
-    headers: { "content-type": "application/json", "cache-control": "no-store" },
-  });
 }
 
 export default {
   async fetch(request, env, ctx) {
+   try {
     const url = new URL(request.url);
     if (url.pathname === "/api/rates") return handleRates(request, env, ctx);
     if (url.pathname === "/api/markets") return handleMarkets(request, env, ctx);
@@ -885,5 +894,13 @@ export default {
       return new Response(res.body, { status: res.status, statusText: res.statusText, headers });
     }
     return res;
+   } catch (e) {
+    // Last-resort guard: return a clean error for /api/* (JSON) or a plain 500
+    // for anything else, so a handler bug never surfaces as a raw Cloudflare 1101.
+    const isApi = new URL(request.url).pathname.startsWith("/api/");
+    return new Response(isApi ? JSON.stringify({ error: String((e && e.message) || e) }) : "Internal error", {
+      status: 500, headers: { "content-type": isApi ? "application/json" : "text/plain", "cache-control": "no-store" },
+    });
+   }
   },
 };
