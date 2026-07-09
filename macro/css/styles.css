@@ -128,7 +128,7 @@ a.macro-tile:hover .macro-src { color: var(--macro); text-decoration: underline;
 .macro-chg.down { color: #dc2626; }
 .macro-chg.flat { color: var(--muted); }
 .macro-chart { margin: .1rem 0 .15rem; min-height: 40px; }
-.spark { width: 100%; height: auto; display: block; cursor: crosshair; }
+.spark { width: 100%; height: auto; display: block; cursor: pointer; }
 .spark-x { fill: var(--muted); font-size: 9px; }
 .spark-empty { padding: 1.1rem 0; text-align: center; }
 /* Hover tooltip shared by all tile sparklines (positioned at the cursor). */
