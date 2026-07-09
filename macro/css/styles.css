@@ -128,9 +128,14 @@ a.macro-tile:hover .macro-src { color: var(--macro); text-decoration: underline;
 .macro-chg.down { color: #dc2626; }
 .macro-chg.flat { color: var(--muted); }
 .macro-chart { margin: .1rem 0 .15rem; min-height: 40px; }
-.spark { width: 100%; height: auto; display: block; }
+.spark { width: 100%; height: auto; display: block; cursor: crosshair; }
 .spark-x { fill: var(--muted); font-size: 9px; }
 .spark-empty { padding: 1.1rem 0; text-align: center; }
+/* Hover tooltip shared by all tile sparklines (positioned at the cursor). */
+.spark-tip { position: fixed; z-index: 60; pointer-events: none; background: var(--macro-ink);
+  color: #fff; font-size: .68rem; line-height: 1.3; padding: .2rem .45rem; border-radius: 5px;
+  white-space: nowrap; box-shadow: 0 4px 14px rgba(20, 12, 40, .28); }
+.spark-tip[hidden] { display: none; }
 .macro-foot { color: var(--muted); font-size: .68rem; }
 .macro-src { color: var(--muted); }
 

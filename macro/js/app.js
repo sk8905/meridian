@@ -4,7 +4,7 @@
 // shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
 // Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260709-16";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260709-17";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -16,13 +16,18 @@ const MACRO_INK = "#4b3f72";
 const MONTHS = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 function macroMonth(ym) { const p = String(ym || "").split("-"); return p.length === 2 ? `${MONTHS[+p[1]] || ""} ${p[0]}` : ""; }
 
-// Compact sparkline — area + line + last-point dot, first/last year labels.
-function sparkline(data, { width = 300, height = 88, color = MACRO_COLOR } = {}) {
-  if (!data || data.length < 2) return `<svg viewBox="0 0 ${width} ${height}" class="spark" role="img"></svg>`;
-  const padX = 4, top = 8, bottom = 16;
+// Sparkline geometry — shared by the renderer and the hover handler so the two
+// agree on where each month sits.
+const SPARK = { W: 300, H: 88, padX: 4, top: 8, bottom: 16 };
+// Compact sparkline — area + line + last-point dot, first/last year labels, plus
+// a hidden crosshair + dot the hover handler moves to the nearest month. The raw
+// [month,value] points and the unit are embedded so hover can read them back.
+function sparkline(data, { color = MACRO_COLOR, unit = "" } = {}) {
+  const { W, H, padX, top, bottom } = SPARK;
+  if (!data || data.length < 2) return `<svg viewBox="0 0 ${W} ${H}" class="spark" role="img"></svg>`;
   const vals = data.map((d) => d.value);
   const min = Math.min(...vals), max = Math.max(...vals), span = (max - min) || 1;
-  const plotW = width - padX * 2, plotH = height - top - bottom;
+  const plotW = W - padX * 2, plotH = H - top - bottom;
   const X = (i) => padX + (i / (data.length - 1)) * plotW;
   const Y = (v) => top + plotH - ((v - min) / span) * plotH;
   const pts = data.map((d, i) => [X(i), Y(d.value)]);
@@ -30,14 +35,61 @@ function sparkline(data, { width = 300, height = 88, color = MACRO_COLOR } = {})
   const last = pts[pts.length - 1];
   const area = `${path} L ${last[0].toFixed(1)} ${top + plotH} L ${pts[0][0].toFixed(1)} ${top + plotH} Z`;
   const yr = (l) => String(l).slice(0, 4);
-  return `<svg viewBox="0 0 ${width} ${height}" class="spark" role="img">
+  const spk = data.map((d) => [d.label, +(+d.value).toFixed(2)]);
+  return `<svg viewBox="0 0 ${W} ${H}" class="spark" role="img" data-spark='${JSON.stringify(spk)}' data-unit="${esc(unit)}">
+    <rect x="0" y="0" width="${W}" height="${H}" fill="transparent"/>
     <path d="${area}" fill="${color}" fill-opacity="0.10"/>
     <path d="${path}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
     <circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="3.2" fill="${color}"/>
-    <text x="${padX}" y="${height - 3}" class="spark-x">${esc(yr(data[0].label))}</text>
-    <text x="${width - padX}" y="${height - 3}" text-anchor="end" class="spark-x">${esc(yr(data[data.length - 1].label))}</text>
+    <line class="spark-cross" y1="${top}" y2="${top + plotH}" stroke="${color}" stroke-width="1" stroke-dasharray="2 2" style="display:none"/>
+    <circle class="spark-hover" r="3" fill="${color}" stroke="#fff" stroke-width="1.5" style="display:none"/>
+    <text x="${padX}" y="${H - 3}" class="spark-x">${esc(yr(data[0].label))}</text>
+    <text x="${W - padX}" y="${H - 3}" text-anchor="end" class="spark-x">${esc(yr(data[data.length - 1].label))}</text>
   </svg>`;
 }
+// One shared tooltip for all sparklines; a delegated pointer handler drives it so
+// it survives every dashboard re-render (range toggle, cross-device sync).
+let _sparkTip = null;
+function sparkTipEl() {
+  if (_sparkTip) return _sparkTip;
+  _sparkTip = document.createElement("div");
+  _sparkTip.className = "spark-tip"; _sparkTip.hidden = true;
+  document.body.appendChild(_sparkTip);
+  return _sparkTip;
+}
+function hideSparkHover(svg) {
+  if (svg) svg.querySelectorAll(".spark-cross,.spark-hover").forEach((el) => (el.style.display = "none"));
+  if (_sparkTip) _sparkTip.hidden = true;
+}
+document.addEventListener("mousemove", (e) => {
+  const svg = e.target.closest && e.target.closest(".spark");
+  if (!svg) { if (_sparkTip && !_sparkTip.hidden) _sparkTip.hidden = true; return; }
+  let data; try { data = JSON.parse(svg.getAttribute("data-spark") || "[]"); } catch { return; }
+  if (!data || data.length < 2) return;
+  const { W, padX, top, bottom, H } = SPARK, plotW = W - padX * 2, plotH = H - top - bottom;
+  const vals = data.map((d) => d[1]); const min = Math.min(...vals), max = Math.max(...vals), span = (max - min) || 1;
+  const r = svg.getBoundingClientRect();
+  const mx = (e.clientX - r.left) / r.width * W;
+  let i = Math.round((mx - padX) / plotW * (data.length - 1));
+  i = Math.max(0, Math.min(data.length - 1, i));
+  const px = padX + (i / (data.length - 1)) * plotW;
+  const py = top + plotH - ((data[i][1] - min) / span) * plotH;
+  const cross = svg.querySelector(".spark-cross"), dot = svg.querySelector(".spark-hover");
+  if (cross) { cross.setAttribute("x1", px.toFixed(1)); cross.setAttribute("x2", px.toFixed(1)); cross.style.display = ""; }
+  if (dot) { dot.setAttribute("cx", px.toFixed(1)); dot.setAttribute("cy", py.toFixed(1)); dot.style.display = ""; }
+  const unit = svg.getAttribute("data-unit") || "";
+  const tip = sparkTipEl();
+  tip.innerHTML = `<b>${esc(macroMonth(data[i][0]))}</b> · ${data[i][1].toFixed(2)}${esc(unit)}`;
+  tip.hidden = false;
+  const near = e.clientX > window.innerWidth - 150;
+  tip.style.left = (near ? e.clientX - 12 - tip.offsetWidth : e.clientX + 12) + "px";
+  tip.style.top = (e.clientY - 8) + "px";
+});
+document.addEventListener("mouseout", (e) => {
+  const svg = e.target.closest && e.target.closest(".spark"); if (!svg) return;
+  if (e.relatedTarget && svg.contains(e.relatedTarget)) return; // still inside
+  hideSparkHover(svg);
+});
 
 // Dashboard sparkline window (months). Only the tile CHARTS respond to this —
 // the headline value and its change stay the latest reading. Persisted per
@@ -58,7 +110,7 @@ function macroTile(s) {
   // Slice the history to the selected window for the sparkline only.
   const hist = (s.history || []).slice(-DASH_RANGES[dashRange]);
   const chart = (hist.length > 1)
-    ? sparkline(hist)
+    ? sparkline(hist, { unit: pct ? "%" : "" })
     : '<div class="spark-empty muted small">History unavailable</div>';
   const asOf = s.asOf ? macroMonth(s.asOf) : "";
   // Whole tile links to the source (matches the Credit key-rates tiles); a small
@@ -398,7 +450,7 @@ let chartSel = new Set(_chartLocal ? _chartLocal.sel : CHART_DEFAULT_SEL);
 let chartEvents = new Set(_chartLocal ? _chartLocal.events : CHART_DEFAULT_EVT);
 let chartRange = (_chartLocal && CHART_RANGES[_chartLocal.range]) ? _chartLocal.range : CHART_DEFAULT_RANGE;
 function chartPersist() {
-  const payload = { sel: [...chartSel], events: [...chartEvents], range: chartRange };
+  const payload = { sel: [...chartSel], events: [...chartEvents], range: chartRange, dashRange };
   try { localStorage.setItem(CHART_LS, JSON.stringify(payload)); } catch { /* ignore */ }
   try { fetch(CHART_API, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) }); } catch { /* not behind Access */ }
 }
@@ -646,6 +698,7 @@ document.addEventListener("click", (e) => {
   if (!DASH_RANGES[r] || r === dashRange) return;
   dashRange = r;
   try { localStorage.setItem("meridian.macro.dashRange", dashRange); } catch { /* ignore */ }
+  chartPersist(); // sync across devices (stored alongside the chart prefs)
   const el = document.getElementById("macro-body");
   if (el && MACRO_DATA) el.innerHTML = renderMacro(MACRO_DATA);
 });
@@ -927,6 +980,13 @@ function initChartPrefs() {
         chartEvents = new Set(d.events);
         if (CHART_RANGES[d.range]) chartRange = d.range;
         try { localStorage.setItem(CHART_LS, JSON.stringify({ sel: [...chartSel], events: [...chartEvents], range: chartRange })); } catch { /* ignore */ }
+        // Dashboard sparkline range is stored in the same record — apply it and
+        // re-render the tiles if the dashboard is showing.
+        if (DASH_RANGES[d.dashRange] && d.dashRange !== dashRange) {
+          dashRange = d.dashRange;
+          try { localStorage.setItem("meridian.macro.dashRange", dashRange); } catch { /* ignore */ }
+          if (currentTab() === "dashboard") { const el = document.getElementById("macro-body"); if (el && MACRO_DATA) el.innerHTML = renderMacro(MACRO_DATA); }
+        }
         if (currentTab() === "chart") render();
       } else if (_chartLocal) {
         // Server has nothing yet but this device does — seed it so other devices sync.

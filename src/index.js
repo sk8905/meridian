@@ -79,18 +79,19 @@ async function handleChartPrefs(request, env) {
   if (!email) return json({ error: "unauthenticated" }, 401);
   if (request.method === "GET") {
     const raw = await env.WATCHLIST.get(chartPrefsKey(email));
-    let sel = [], events = [], range = "5y", stored = false;
+    let sel = [], events = [], range = "5y", dashRange = "5y", stored = false;
     if (raw) {
-      try { const p = JSON.parse(raw); if (p && Array.isArray(p.sel) && Array.isArray(p.events)) { sel = p.sel; events = p.events; if (typeof p.range === "string") range = p.range; stored = true; } } catch { /* keep default */ }
+      try { const p = JSON.parse(raw); if (p && Array.isArray(p.sel) && Array.isArray(p.events)) { sel = p.sel; events = p.events; if (typeof p.range === "string") range = p.range; if (typeof p.dashRange === "string") dashRange = p.dashRange; stored = true; } } catch { /* keep default */ }
     }
-    return json({ email, stored, sel, events, range });
+    return json({ email, stored, sel, events, range, dashRange });
   }
   if (request.method === "PUT") {
     let body;
     try { body = await request.json(); } catch { return json({ error: "invalid json" }, 400); }
     const clean = (a) => (Array.isArray(a) ? a.filter((x) => typeof x === "string" && x.length <= 60).slice(0, 60) : []);
     const range = (typeof body.range === "string" && body.range.length <= 8) ? body.range : "5y";
-    await env.WATCHLIST.put(chartPrefsKey(email), JSON.stringify({ sel: clean(body.sel), events: clean(body.events), range }));
+    const dashRange = (typeof body.dashRange === "string" && body.dashRange.length <= 8) ? body.dashRange : "5y";
+    await env.WATCHLIST.put(chartPrefsKey(email), JSON.stringify({ sel: clean(body.sel), events: clean(body.events), range, dashRange }));
     return json({ ok: true });
   }
   return json({ error: "method not allowed" }, 405);
