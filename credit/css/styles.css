@@ -532,20 +532,26 @@ a.intel-head:hover { color: var(--primary); }
 
 /* ---- Mobile bottom tab bar (Macro / Credit / Legal / Search) — phones only. ---- */
 .mobile-tabbar {
-  display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 45;
+  display: none; position: fixed; left: .6rem; right: .6rem; z-index: 45;
+  bottom: calc(.45rem + env(safe-area-inset-bottom, 0px));
   grid-template-columns: repeat(5, 1fr);
-  background: #2f3e52; border-top: 1px solid rgba(255,255,255,.14);
-  padding: .38rem .3rem calc(.38rem + env(safe-area-inset-bottom, 0px));
-  box-shadow: 0 -4px 16px rgba(15,23,42,.22);
+  padding: .28rem .3rem; border-radius: 24px;
+  background: rgba(248,249,252,.72);
+  -webkit-backdrop-filter: saturate(180%) blur(22px);
+  backdrop-filter: saturate(180%) blur(22px);
+  border: 1px solid rgba(255,255,255,.6);
+  box-shadow: 0 6px 24px rgba(15,23,42,.16), inset 0 1px 0 rgba(255,255,255,.5);
 }
 .mtab {
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .22rem;
-  min-height: 48px; color: #b6bccc; font-family: inherit; font-size: .82rem; font-weight: 700; letter-spacing: .01em;
-  text-decoration: none; padding: .4rem 0; background: none; border: 0; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .12rem;
+  min-height: 44px; padding: .28rem .1rem; border-radius: 15px;
+  color: #7b8494; font-family: inherit; font-size: .62rem; font-weight: 600; letter-spacing: .01em;
+  text-decoration: none; background: none; border: 0; cursor: pointer;
 }
-.mtab:hover, .mtab.is-active { color: #fff; }
-.mtab-ico { display: block; font-size: 1.7rem; line-height: 1; }
-svg.mtab-ico { width: 27px; height: 27px; }
+.mtab:hover { color: #4a5566; }
+.mtab.is-active { color: #1f2733; background: rgba(70,80,100,.12); }
+.mtab-ico { display: block; font-size: 1.3rem; line-height: 1; }
+svg.mtab-ico { width: 22px; height: 22px; }
 
 /* ---------- responsive ---------- */
 /* 3-up dashboard rows step down to 2 columns before collapsing to 1. */
@@ -627,7 +633,7 @@ svg.mtab-ico { width: 27px; height: 27px; }
   .brand-sub { font-size: .62rem; }
   .topbar-right { justify-self: end; }
   .account-nav, .data-status { font-size: .6rem; }
-  body { padding-bottom: 5.4rem; }
+  body { padding-bottom: 4.6rem; }
   .mobile-tabbar { display: grid; }
 }
 
