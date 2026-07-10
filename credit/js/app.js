@@ -1071,6 +1071,17 @@ function viewManagers() {
   wireFilters("managers");
 }
 
+// A short, strong AUM figure for the compact profile tile: pull the leading
+// currency figure out of the (often descriptive) aumText — e.g. "c. €2.5bn AUM
+// (firm website); ~€2.2bn across the funds" → "€2.5bn". Falls back to the numeric
+// aum, then a dash. Full aumText still shows on hover (title) and in Finances.
+function aumHeadline(m) {
+  const t = String(m.aumText || "");
+  const hit = t.match(/[~<>]?\s*(?:c\.\s*)?[€$£]\s*\d[\d.,]*\s*(?:tn|bn|billion|m|million)?\+?/i);
+  if (hit) return hit[0].replace(/c\.\s*/i, "").replace(/\s+/g, "").replace(/billion/i, "bn").replace(/million/i, "m");
+  return m.aum != null ? "€" + m.aum + "bn" : "—";
+}
+
 // Ownership, financials, headcount and regulatory/account filings (last 2 yrs).
 function ownersFilingsBlock(m) {
   const owners = (m.owners && m.owners.length)
@@ -1235,10 +1246,10 @@ function viewManager(id) {
     </div></div>
     <p class="lead">${esc(m.description)}</p>
     ${sources(m)}
-    <div class="kpi-grid">
-      <div class="kpi-card"><div class="kpi-value kpi-aum">${m.aumText ? esc(m.aumText) : "€" + m.aum + "bn"}</div><div class="kpi-label">Assets under management</div></div>
-      <div class="kpi-card${fs.length ? " clickable" : ""}"${fs.length ? ' data-scroll="mgr-funds"' : ""}><div class="kpi-value">${fs.length}</div><div class="kpi-label">Funds tracked</div></div>
-      <div class="kpi-card${fs.length ? " clickable" : ""}"${fs.length ? ' data-scroll="mgr-funds"' : ""}><div class="kpi-value">${liveFunds}</div><div class="kpi-label">In market now</div></div>
+    <div class="kpi-grid kpi-compact">
+      <div class="kpi-card" title="${esc(m.aumText || "")}"><div class="kpi-value kpi-aum">${esc(aumHeadline(m))}</div><div class="kpi-label">AUM</div></div>
+      <div class="kpi-card${fs.length ? " clickable" : ""}"${fs.length ? ' data-scroll="mgr-funds"' : ""}><div class="kpi-value">${fs.length}</div><div class="kpi-label">Funds</div></div>
+      <div class="kpi-card${fs.length ? " clickable" : ""}"${fs.length ? ' data-scroll="mgr-funds"' : ""}><div class="kpi-value">${liveFunds}</div><div class="kpi-label">In market</div></div>
       <div class="kpi-card"><div class="kpi-value">${m.founded}</div><div class="kpi-label">Founded</div></div>
     </div>
     <section class="card" id="mgr-funds">

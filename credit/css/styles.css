@@ -142,7 +142,7 @@ h1, h2, h3, .kpi-label { text-wrap: balance; }
 }
 .notif-panel {
   position: absolute; top: calc(100% + 6px); right: 0; width: 340px; max-width: 92vw;
-  max-height: 70vh; overflow-y: auto; background: #fff; color: var(--ink);
+  max-height: 70vh; overflow-y: auto; overscroll-behavior: contain; background: #fff; color: var(--ink);
   border: 1px solid var(--border); border-radius: 10px; box-shadow: 0 8px 24px rgba(15,23,42,.18);
   z-index: 40; padding: .5rem;
 }
@@ -584,6 +584,16 @@ svg.mtab-ico { width: 22px; height: 22px; }
   .grid-3 { grid-template-columns: 1fr; }
   .kpi-grid { grid-template-columns: repeat(2, 1fr); }
   .card-grid { grid-template-columns: 1fr; }
+  /* Compact profile stat tiles: a single slim row of 4 (AUM · Funds · In market ·
+     Founded) instead of two tall 2×2 rows. Small type + brief labels. */
+  .kpi-grid.kpi-compact { grid-template-columns: repeat(4, 1fr); gap: .4rem; }
+  .kpi-compact .kpi-card { padding: .5rem .4rem; border-left-width: 2px; }
+  .kpi-compact .kpi-value { font-size: 1rem; }
+  .kpi-compact .kpi-value.kpi-aum { font-size: .82rem; }
+  .kpi-compact .kpi-label { font-size: .58rem; margin-top: .15rem; }
+  /* Stack profile fact pairs (e.g. Owners) one per row so long names/stakes stop
+     wrapping mid-word in a cramped 2-column grid. */
+  .facts { grid-template-columns: 1fr; }
 
   /* Stacked header so nothing overflows on a ~390px screen: brand + bell on the
      top row, the sign-in/refresh block on its own full-width row (so the email +

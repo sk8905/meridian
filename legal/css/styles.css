@@ -170,7 +170,7 @@ img, svg { max-width: 100%; }
 }
 .notif-panel {
   position: absolute; top: calc(100% + 6px); right: 0; width: 340px; max-width: 92vw;
-  max-height: 70vh; overflow-y: auto; background: #fff; color: var(--ink);
+  max-height: 70vh; overflow-y: auto; overscroll-behavior: contain; background: #fff; color: var(--ink);
   border: 1px solid var(--line); border-radius: 10px; box-shadow: var(--shadow-lg);
   z-index: 40; padding: .5rem;
 }
