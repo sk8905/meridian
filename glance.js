@@ -570,7 +570,9 @@ function wirePalette(idx) {
   function refresh() { current = search(input.value); sel = 0; draw(); }
   function go(e) { if (e) window.location.href = e.href; }
 
-  function open() { overlay.classList.add("open"); input.value = ""; refresh(); setTimeout(() => input.focus(), 10); }
+  // Focus SYNCHRONOUSLY within the tap gesture so iOS Safari pops the keyboard
+  // immediately (a setTimeout would escape the gesture and suppress it).
+  function open() { overlay.classList.add("open"); input.value = ""; refresh(); input.focus({ preventScroll: true }); }
   function close() { overlay.classList.remove("open"); }
 
   document.getElementById("open-cmdk").addEventListener("click", open);

@@ -85,19 +85,19 @@
     /* ---- Mobile bottom tab bar (Macro / Credit / Legal / Search) — phones only. ---- */
     .mobile-tabbar {
       display:none; position:fixed; left:0; right:0; bottom:0; z-index:45;
-      grid-template-columns:repeat(4,1fr);
+      grid-template-columns:repeat(5,1fr);
       background:var(--navy); border-top:1px solid rgba(255,255,255,.14);
-      padding:.5rem .3rem calc(.5rem + env(safe-area-inset-bottom, 0px));
+      padding:.38rem .3rem calc(.38rem + env(safe-area-inset-bottom, 0px));
       box-shadow:0 -4px 16px rgba(15,23,42,.22);
     }
     .mtab {
       display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.22rem;
-      min-height:56px; color:#b6bccc; font-family:inherit; font-size:.82rem; font-weight:700; letter-spacing:.01em;
-      text-decoration:none; padding:.55rem 0; background:none; border:0; cursor:pointer;
+      min-height:48px; color:#b6bccc; font-family:inherit; font-size:.82rem; font-weight:700; letter-spacing:.01em;
+      text-decoration:none; padding:.4rem 0; background:none; border:0; cursor:pointer;
     }
     .mtab:hover, .mtab.is-active { color:#fff; }
     .mtab-ico { display:block; font-size:1.7rem; line-height:1; }
-    .mtab-search .mtab-ico { width:27px; height:27px; }
+    svg.mtab-ico { width:27px; height:27px; }
 
     @media (min-width:1101px){
       /* Mirror the app top bars exactly: the row is indented to the page
@@ -463,6 +463,7 @@
     </div>
 
     <nav class="mobile-tabbar" aria-label="Platforms">
+      <a class="mtab is-active" href="/" aria-current="page"><svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11 12 4l8 7"/><path d="M6 9.5V20h12V9.5"/></svg><span class="mtab-lbl">Home</span></a>
       <a class="mtab" href="/macro/"><span class="mtab-ico" aria-hidden="true" style="color:#b3a9dd">◆</span><span class="mtab-lbl">Macro</span></a>
       <a class="mtab" href="/credit/"><span class="mtab-ico" aria-hidden="true" style="color:#c3ccd8">◆</span><span class="mtab-lbl">Credit</span></a>
       <a class="mtab" href="/legal/"><span class="mtab-ico" aria-hidden="true" style="color:#5eead4">◆</span><span class="mtab-lbl">Legal</span></a>
@@ -485,7 +486,7 @@
           show("glance");
           const h = new Date().getHours();
           document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-          import("/glance.js?v=20260710-5").then((m) => m.initGlance()).catch(() => {});
+          import("/glance.js?v=20260710-6").then((m) => m.initGlance()).catch(() => {});
         } else { show("out"); }
       })
       .catch(() => show("out"));

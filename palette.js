@@ -104,7 +104,9 @@ export function mountPalette() {
   }
   const refresh = () => { current = searchIdx(input.value); sel = 0; draw(); };
   const go = (e) => { if (e) window.location.href = e.href; };
-  const open = () => { ov.classList.add("open"); input.value = ""; refresh(); setTimeout(() => input.focus(), 10); };
+  // Focus SYNCHRONOUSLY within the tap/click gesture so iOS Safari pops the
+  // keyboard immediately (a setTimeout would escape the gesture and suppress it).
+  const open = () => { ov.classList.add("open"); input.value = ""; refresh(); input.focus({ preventScroll: true }); };
   const close = () => ov.classList.remove("open");
 
   ov.querySelector("[data-close]").addEventListener("click", close);

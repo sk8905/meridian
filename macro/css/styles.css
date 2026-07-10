@@ -107,7 +107,7 @@ h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
 .macro-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem 1.75rem; align-items: start; margin-bottom: 1.6rem; }
 .macro-group { margin-bottom: 0; }
 .macro-country { font-size: 1.02rem; font-weight: 700; color: var(--ink); margin: 0 0 .7rem; padding-bottom: .4rem; border-bottom: 2px solid var(--macro); display: inline-block; }
-.macro-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .7rem; }
+.macro-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .7rem; }
 .macro-tile { position: relative; border: 1px solid var(--border); border-radius: 10px; padding: .7rem .8rem .8rem; background: var(--surface); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: .4rem; }
 /* Deep-link highlight when a data-alert notification focuses a tile. */
 .macro-tile.flash { animation: tileflash 2.2s ease-out; }
@@ -243,7 +243,7 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
 .macro-framework .macro-para:last-child { margin-bottom: 0; }
 .macro-sources { margin-top: 1.6rem; border-top: 1px solid var(--border); padding-top: 1rem; }
 .macro-sources-h { text-transform: uppercase; letter-spacing: .8px; font-weight: 700; }
-.macro-sources ul { list-style: none; margin: .5rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: .3rem 1.25rem; }
+.macro-sources ul { list-style: none; margin: .5rem 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, 1fr); gap: .3rem 1.25rem; }
 .macro-sources a { color: var(--muted); font-size: .82rem; }
 .macro-sources a:hover { color: var(--macro); }
 
@@ -255,7 +255,7 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
 .macro-gauge-note { margin: .6rem 0 0; font-size: .74rem; line-height: 1.5; }
 
 /* ---------- bubble-risk view ---------- */
-.macro-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.macro-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .macro-dim-head { display: flex; align-items: center; justify-content: space-between; gap: .7rem; margin-bottom: .8rem; }
 .macro-dim-head .macro-country { margin: 0; flex: 0 1 auto; }
 .macro-score { font-weight: 800; color: var(--macro-ink); font-size: 1.2rem; white-space: nowrap; flex: 0 0 auto; }
@@ -331,25 +331,25 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
    phones (the ≤760px block flips display to grid). ---- */
 .mobile-tabbar {
   display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 45;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   background: var(--macro-ink); border-top: 1px solid rgba(255,255,255,.14);
-  padding: .5rem .3rem calc(.5rem + env(safe-area-inset-bottom, 0px));
+  padding: .38rem .3rem calc(.38rem + env(safe-area-inset-bottom, 0px));
   box-shadow: 0 -4px 16px rgba(15,23,42,.22);
 }
 .mtab {
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .22rem;
-  min-height: 56px; color: #b6bccc; font-family: inherit; font-size: .82rem; font-weight: 700; letter-spacing: .01em;
-  text-decoration: none; padding: .55rem 0; background: none; border: 0; cursor: pointer;
+  min-height: 48px; color: #b6bccc; font-family: inherit; font-size: .82rem; font-weight: 700; letter-spacing: .01em;
+  text-decoration: none; padding: .4rem 0; background: none; border: 0; cursor: pointer;
 }
 .mtab:hover, .mtab.is-active { color: #fff; }
 .mtab-ico { display: block; font-size: 1.7rem; line-height: 1; }
-.mtab-search .mtab-ico { width: 27px; height: 27px; }
+svg.mtab-ico { width: 27px; height: 27px; }
 
 /* Below 1100px there isn't room for two 3-col grids side by side, so stack the
    US and UK groups; each then spans the full width as its own 3-col grid. */
 @media (max-width: 1100px) {
   .macro-groups { grid-template-columns: 1fr; gap: 1.4rem; }
-  .macro-grid { grid-template-columns: repeat(3, 1fr); }
+  .macro-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 620px) { .chart-ind-cols { grid-template-columns: 1fr; } .chart-ind-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 900px) {
@@ -387,13 +387,16 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
   .nav-link { padding: .3rem .5rem; font-size: .86rem; flex: 0 0 auto; }
   .container { padding: 1rem 1rem 2.5rem; }
   /* iPhone: keep each country as a compact 3-col × 2-row (2×3) block, stacked. */
-  .macro-grid { grid-template-columns: repeat(3, 1fr); gap: .45rem; }
-  .macro-tile { padding: .5rem .5rem .6rem; gap: .3rem; }
+  .macro-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .45rem; }
+  .macro-tile { padding: .5rem .5rem .6rem; gap: .3rem; min-width: 0; }
   .macro-tile-head { min-height: 0; }
-  .macro-label { font-size: .72rem; }
-  .macro-val { font-size: 1rem; }
+  .macro-label { font-size: .72rem; overflow-wrap: anywhere; }
+  .macro-sub { font-size: .66rem; }
+  /* Let the value + change wrap so a tile never forces the 3-col grid wider. */
+  .macro-valrow { flex-wrap: wrap; gap: .1rem .35rem; }
+  .macro-val { font-size: 1.05rem; }
+  .macro-chg { font-size: .66rem; }
   .macro-chartlink { top: .25rem; right: .25rem; font-size: .7rem; }
-  .macro-val { font-size: 1.25rem; }
   .macro-summary { grid-template-columns: 1fr; gap: .7rem; }
   .cal-band { grid-template-columns: repeat(2, 1fr); }
   .cal-tile { padding: .55rem .8rem; }

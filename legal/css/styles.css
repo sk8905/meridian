@@ -508,19 +508,19 @@ a.compact-head:hover { color: var(--primary); }
 /* ---- Mobile bottom tab bar (Macro / Credit / Legal / Search) — phones only. ---- */
 .mobile-tabbar {
   display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 45;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   background: var(--navy); border-top: 1px solid rgba(255,255,255,.14);
-  padding: .5rem .3rem calc(.5rem + env(safe-area-inset-bottom, 0px));
+  padding: .38rem .3rem calc(.38rem + env(safe-area-inset-bottom, 0px));
   box-shadow: 0 -4px 16px rgba(15,23,42,.22);
 }
 .mtab {
   display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .22rem;
-  min-height: 56px; color: #b6bccc; font-family: inherit; font-size: .82rem; font-weight: 700; letter-spacing: .01em;
-  text-decoration: none; padding: .55rem 0; background: none; border: 0; cursor: pointer;
+  min-height: 48px; color: #b6bccc; font-family: inherit; font-size: .82rem; font-weight: 700; letter-spacing: .01em;
+  text-decoration: none; padding: .4rem 0; background: none; border: 0; cursor: pointer;
 }
 .mtab:hover, .mtab.is-active { color: #fff; }
 .mtab-ico { display: block; font-size: 1.7rem; line-height: 1; }
-.mtab-search .mtab-ico { width: 27px; height: 27px; }
+svg.mtab-ico { width: 27px; height: 27px; }
 
 /* ---- Responsive ---- */
 @media (max-width: 980px) {
@@ -568,6 +568,9 @@ a.compact-head:hover { color: var(--primary); }
   }
   .mainnav::-webkit-scrollbar { display: none; }
   .nav-link { padding: .3rem .5rem; font-size: .86rem; white-space: nowrap; flex: 0 0 auto; }
+  /* Match Credit/Macro: reduce the side padding on mobile so the content is the
+     same width as the other apps (it was staying at the desktop 2rem). */
+  .container { padding: 1rem 1rem 2.5rem; }
 }
 /* iPhone: split the nav — the platform switch + search move to a fixed bottom tab
    bar; the top keeps a bigger logo, the bell, and the sign-in/refresh block
