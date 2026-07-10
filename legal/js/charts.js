@@ -23,7 +23,7 @@ export function barChart(data, { width = 520 } = {}) {
   const rows = data.map((d, i) => {
     const y = gap + i * (rowH + gap);
     const w = Math.max(2, (d.value / max) * barW);
-    const color = d.color || "#2563eb";
+    const color = d.color || "#2b4a7c";
     const inner = `
       <text x="${left - 10}" y="${y + rowH / 2 + 4}" text-anchor="end" class="chart-label">${esc(d.label)}</text>
       <rect x="${left}" y="${y}" width="${w}" height="${rowH}" rx="4" fill="${color}"><title>${esc(d.label)}: ${d.value}</title></rect>
@@ -41,7 +41,7 @@ export function donutChart(data, { size = 200 } = {}) {
   const total = sum || 1;                            // geometry divisor (avoid /0)
   const cx = size / 2, cy = size / 2, r = size / 2 - 6, inner = r * 0.62;
   let angle = -Math.PI / 2;
-  const palette = ["#1e40af", "#2563eb", "#60a5fa", "#1d4ed8", "#3b82f6", "#93c5fd"];
+  const palette = ["#0b1f44", "#1c3a5e", "#2b4a7c", "#3d5d8a", "#6d84a8", "#9fb0c8"];
   const arcs = data.map((d, i) => {
     const frac = d.value / total;
     const a0 = angle, a1 = angle + frac * Math.PI * 2;
@@ -83,7 +83,7 @@ export function columnChart(data, { width = 560, height = 200 } = {}) {
     const h = (d.value / max) * plotH;
     const x = left + i * slot + (slot - barW) / 2;
     const y = top + plotH - h;
-    const inner = `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(1, h).toFixed(1)}" rx="3" fill="#2563eb"><title>${esc(d.label)}: ${d.value}</title></rect>
+    const inner = `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(1, h).toFixed(1)}" rx="3" fill="#2b4a7c"><title>${esc(d.label)}: ${d.value}</title></rect>
       <text x="${(x + barW / 2).toFixed(1)}" y="${height - 9}" text-anchor="middle" class="chart-axis">${esc(d.label)}</text>`;
     if (!d.nav) return `<g>${inner}</g>`;
     // Transparent full-height hit area so the whole column is clickable.

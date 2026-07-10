@@ -13,9 +13,9 @@
   --muted: #66708a;
   --line: #e4e7ef;
   --navy: #0b1f44;          /* top bar (matches Glance) */
-  --primary: #2563eb;       /* accent — Glance blue */
-  --primary-ink: #1e3a8a;
-  --accent: #0ea5e9;
+  --primary: #2b4a7c;       /* accent — Glance blue */
+  --primary-ink: #1c3a5e;
+  --accent: #2b4a7c;
   --brand-accent: #366865;  /* Legal signature — logo + iPhone tab only */
   --brand-logo: #2dd4bf;    /* light teal for the logo glyph on the navy bar */
   --radius: 10px;
