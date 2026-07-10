@@ -12,7 +12,7 @@
     :root {
       --navy:#0b1f44; --brand:#1e3a8a; --brand-2:#2563eb; --accent:#0ea5e9;
       --ink:#131a2b; --muted:#66708a; --line:#e4e7ef; --bg:#f4f6fb; --surface:#fff;
-      --credit:#2563eb; --legal:#0d9488; --macro:#6d5fae; --macro-ink:#4b3f72;
+      --credit:#64748b; --legal:#0d9488; --macro:#6d5fae; --macro-ink:#4b3f72;
       --shadow:0 1px 2px rgba(15,23,42,.06), 0 8px 24px rgba(15,23,42,.06);
     }
     * { box-sizing: border-box; }
@@ -152,11 +152,12 @@
        narrow screens. */
     .g-glance { grid-column:4 / -1; display:flex; flex-direction:column;
       gap:.5rem; padding-left:1.25rem; border-left:3px solid var(--line); }
-    /* The summary text fills the full width, justified so both edges are flush.
-       On desktop each line carries a small uppercase heading above it (Markets /
-       Rates & spreads); the heading is hidden on narrower screens to save space. */
-    .g-gl { margin:0; font-size:.85rem; line-height:1.4; color:var(--ink); text-align:justify; text-justify:inter-word; }
-    .g-gl-l { display:block; font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); margin-bottom:.15rem; }
+    /* On desktop each line carries a small uppercase heading (Markets / Rates &
+       spreads) in a fixed-width column, so the two one-liners start at the same
+       x and align. The heading is hidden on narrower screens to save space. */
+    .g-gl { display:flex; align-items:baseline; column-gap:1rem; margin:0; font-size:.85rem; line-height:1.4; color:var(--ink); }
+    .g-gl-l { flex:0 0 7.5rem; font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); white-space:nowrap; }
+    .g-gl-v { flex:1 1 auto; min-width:0; text-align:justify; text-justify:inter-word; }
     .g-gl-v .up { color:#0a7d3c; font-weight:600; } .g-gl-v .down { color:#c02626; font-weight:600; }
 
     /* ---- Key rates & credit spreads (ported from Credit) ---- */
