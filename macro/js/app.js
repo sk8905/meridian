@@ -178,27 +178,26 @@ function renderReleases() {
     .filter((r) => { const d = isoToDate(r.date); return d && d >= now; })
     .sort((a, b) => String(a.date).localeCompare(String(b.date)))
     .slice(0, 6);
-  // Collapsed by default behind a "Key metrics"-style toggle (matches Credit).
-  const wrap = (inner) => `<details class="rk-toggle">
-    <summary class="rk-toggle-head">Upcoming releases <span class="rk-caret" aria-hidden="true"></span></summary>
-    <div class="rk-toggle-body">${inner}</div>
+  // A compact dropdown menu pinned to the top-right of the page header (rather
+  // than a full-width banner). Native <details> so it needs no extra wiring; an
+  // outside-click closes it (see the listener at module load).
+  const items = up.length
+    ? up.map((r) => {
+        const tag = r.url ? "a" : "div";
+        const attrs = r.url ? ` href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" title="${esc(r.title)} — open source"` : "";
+        return `<${tag} class="rel-item"${attrs}>
+          <span class="cal-date"><span class="cal-country cal-${(r.country || "").toLowerCase()}">${esc(r.country || "")}</span> ${esc(fmtWeekday(r.date))}</span>
+          <span class="cal-title">${esc(r.title)}</span>
+        </${tag}>`;
+      }).join("")
+    : `<p class="cal-empty muted small">No major US or UK data releases scheduled this week or next.</p>`;
+  return `<details class="rel-dd">
+    <summary class="rel-dd-btn">Upcoming releases <span class="rk-caret" aria-hidden="true"></span></summary>
+    <div class="rel-dd-panel" role="menu" aria-label="Upcoming economic releases">
+      <div class="rel-dd-head">Next US &amp; UK releases</div>
+      <div class="rel-list">${items}</div>
+    </div>
   </details>`;
-  if (!up.length) {
-    return wrap(`<section class="macro-cal" aria-label="Upcoming economic releases">
-      <p class="cal-empty muted small">No major US or UK data releases scheduled this week or next.</p>
-    </section>`);
-  }
-  const tiles = up.map((r) => {
-    const tag = r.url ? "a" : "div";
-    const attrs = r.url ? ` href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" title="${esc(r.title)} — open source"` : "";
-    return `<${tag} class="cal-tile"${attrs}>
-      <span class="cal-date"><span class="cal-country cal-${(r.country || "").toLowerCase()}">${esc(r.country || "")}</span> ${esc(fmtWeekday(r.date))}</span>
-      <span class="cal-title">${esc(r.title)}</span>
-    </${tag}>`;
-  }).join("");
-  return wrap(`<section class="macro-cal" aria-label="Upcoming economic releases">
-    <div class="cal-band">${tiles}</div>
-  </section>`);
 }
 
 // ---- Key macro headlines (Latest-Activity-style, two columns) --------------
@@ -267,7 +266,7 @@ function renderMacro(data) {
       ${Object.keys(DASH_RANGES).map((r) => `<button type="button" class="chart-range-btn dash-range-btn${dashRange === r ? " is-on" : ""}" data-drange="${r}">${r.toUpperCase()}</button>`).join("")}
     </div>
   </div>`;
-  return renderReleases() + rangeBar + `<div class="macro-groups">${grids}</div>` + renderNews() + summaryCards();
+  return rangeBar + `<div class="macro-groups">${grids}</div>` + renderNews() + summaryCards();
 }
 
 // ---- Horizontal 0–100 gauge (used by Cycle and Bubble) ---------------------
@@ -317,9 +316,12 @@ function sourceList(sources) {
 
 function viewDashboard() {
   return `
-    <div class="page-head">
-      <h1>Macro Intelligence</h1>
-      <p class="muted">Key US &amp; UK economic indicators plus the policy-rate outlook and where we sit in the credit cycle.</p>
+    <div class="page-head page-head-row">
+      <div class="page-head-main">
+        <h1>Macro Intelligence</h1>
+        <p class="muted">Key US &amp; UK economic indicators plus the policy-rate outlook and where we sit in the credit cycle.</p>
+      </div>
+      ${renderReleases()}
     </div>
     <div id="macro-body" class="macro-body"><section class="card"><p class="muted">Loading macro data…</p></section></div>`;
 }
@@ -636,18 +638,11 @@ function syncChartAll() {
   });
 }
 function viewChart() {
-  const chips = CHART_EVENTS.map((e, i) => `<button type="button" class="chart-evt${chartEvents.has(e.id) ? " is-on" : ""}" data-evt="${e.id}" title="${esc(e.label)} — ${esc(e.desc)}"><span class="evt-num">${i + 1}</span>${esc(e.label)}</button>`).join("");
   return `
     <div class="page-head">
       <h1>Chart</h1>
-      <p class="muted">Overlay any of the dashboard indicators (US &amp; UK) over your chosen window and toggle key events. Every series is indexed to 0 at the start of the window, so the lines show the change since then rather than the level — hover for the actual values.</p>
+      <p class="muted">Overlay any of the dashboard indicators (US &amp; UK) over your chosen window. The dots along the top mark key macro events — hover one for detail, click it to drop a marker line on the chart.</p>
     </div>
-    <section class="card chart-ctrls">
-      <div class="chart-ctrl-grp">
-        <div class="chart-ctrl-h">Events</div>
-        <div class="chart-evts">${chips}</div>
-      </div>
-    </section>
     <section class="card chart-stage">
       <div class="chart-stage-main">
         <div class="chart-toolbar">
@@ -741,16 +736,18 @@ function drawChart() {
     const label = isJan ? String(Math.floor(mi / 12)) : MON3[mo];
     xticks += `<line x1="${x.toFixed(1)}" y1="${plotT}" x2="${x.toFixed(1)}" y2="${plotB}" class="chart-grid${isJan ? " chart-grid-yr" : ""}"/><text x="${x.toFixed(1)}" y="${plotB + 15}" class="chart-xlab${isJan ? " chart-xlab-yr" : ""}" text-anchor="middle">${label}</text>`;
   }
+  // Every in-window event shows as a dot along the top; hovering reveals its
+  // detail and clicking drops (or removes) a marker line down the chart. Dots for
+  // events whose line is showing are rendered "on" (solid, ringed).
+  const evDotY = plotT - 12;
   let ev = "";
-  CHART_EVENTS.forEach((e, i) => {
-    if (!chartEvents.has(e.id)) return;
+  CHART_EVENTS.forEach((e) => {
     const mi = MI(e.date); if (mi < m0 || mi > m1) return;
-    const x = xFor(mi);
-    ev += `<g class="chart-evmark" data-evt="${e.id}">` +
-      `<line x1="${x.toFixed(1)}" y1="${plotT}" x2="${x.toFixed(1)}" y2="${plotB}" class="chart-evline"/>` +
-      `<circle cx="${x.toFixed(1)}" cy="${(plotT - 10).toFixed(1)}" r="8" class="chart-evdot"/>` +
-      `<text x="${x.toFixed(1)}" y="${(plotT - 10).toFixed(1)}" class="chart-evnum" text-anchor="middle" dominant-baseline="central">${i + 1}</text>` +
-      `<circle cx="${x.toFixed(1)}" cy="${(plotT - 10).toFixed(1)}" r="13" fill="transparent" class="chart-evhit"/>` +
+    const x = xFor(mi), on = chartEvents.has(e.id);
+    ev += `<g class="chart-evmark${on ? " is-on" : ""}" data-evt="${e.id}">` +
+      (on ? `<line x1="${x.toFixed(1)}" y1="${evDotY}" x2="${x.toFixed(1)}" y2="${plotB}" class="chart-evline"/>` : "") +
+      `<circle cx="${x.toFixed(1)}" cy="${evDotY}" r="5.5" class="chart-evdot"/>` +
+      `<circle cx="${x.toFixed(1)}" cy="${evDotY}" r="13" fill="transparent" class="chart-evhit"/>` +
       `</g>`;
   });
   const lines = sel.map((s) => {
@@ -801,11 +798,12 @@ function drawChart() {
   // Event markers get a hover bubble explaining the event (works even with no
   // indicators selected, so it's wired before the crosshair setup below).
   const evtip = document.getElementById("chart-tip"), evmain = canvas.querySelector(".chart-main");
-  const EVBY = Object.fromEntries(CHART_EVENTS.map((e, i) => [e.id, { n: i + 1, ...e }]));
+  const EVBY = Object.fromEntries(CHART_EVENTS.map((e) => [e.id, e]));
   canvas.querySelectorAll(".chart-evmark").forEach((g) => {
     const info = EVBY[g.getAttribute("data-evt")]; if (!info) return;
+    const on = g.classList.contains("is-on");
     const show = (e) => {
-      evtip.innerHTML = `<div class="tip-date">${info.n}. ${esc(info.label)} <span class="tip-real">${esc(macroMonth(info.date))}</span></div><div class="evtip-desc">${esc(info.desc)}</div>`;
+      evtip.innerHTML = `<div class="tip-date">${esc(info.label)} <span class="tip-real">${esc(macroMonth(info.date))}</span></div><div class="evtip-desc">${esc(info.desc)}</div><div class="evtip-hint">${on ? "Click to remove the marker line" : "Click to add a marker line"}</div>`;
       evtip.hidden = false;
       const mr = evmain.getBoundingClientRect();
       let tx = e.clientX - mr.left + 14; const ty = e.clientY - mr.top + 8;
@@ -815,6 +813,13 @@ function drawChart() {
     g.addEventListener("mouseenter", show);
     g.addEventListener("mousemove", show);
     g.addEventListener("mouseleave", () => { evtip.hidden = true; });
+    // Click the dot to add / remove its marker line down the chart.
+    g.addEventListener("click", () => {
+      const id = g.getAttribute("data-evt");
+      if (chartEvents.has(id)) chartEvents.delete(id); else chartEvents.add(id);
+      chartPersist();
+      drawChart();
+    });
   });
 
   if (!sel.length) return;
@@ -894,20 +899,16 @@ document.addEventListener("change", (e) => {
   drawChart();
 });
 document.addEventListener("click", (e) => {
-  const chip = e.target.closest(".chart-evt"); if (!chip) return;
-  const id = chip.getAttribute("data-evt");
-  if (chartEvents.has(id)) chartEvents.delete(id); else chartEvents.add(id);
-  chip.classList.toggle("is-on");
-  chartPersist();
-  drawChart();
-});
-document.addEventListener("click", (e) => {
   const rb = e.target.closest(".chart-range-btn");
   if (!rb || rb.classList.contains("dash-range-btn")) return; // dashboard toggle handled below
   chartRange = rb.getAttribute("data-range");
   document.querySelectorAll(".chart-range-btn:not(.dash-range-btn)").forEach((b) => b.classList.toggle("is-on", b === rb));
   chartPersist();
   drawChart();
+});
+// Close the upcoming-releases dropdown when clicking outside it.
+document.addEventListener("click", (e) => {
+  document.querySelectorAll("details.rel-dd[open]").forEach((d) => { if (!d.contains(e.target)) d.removeAttribute("open"); });
 });
 // Value-mode toggle: Actual level / % change / Indexed.
 document.addEventListener("click", (e) => {

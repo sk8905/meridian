@@ -101,6 +101,27 @@ h1, h2, .macro-country, .macro-label { text-wrap: balance; }
 /* ---------- layout ---------- */
 .container { max-width: 1500px; margin: 0 auto; padding: 1.75rem 2rem 3rem; }
 .page-head { margin-bottom: 1.25rem; }
+/* Dashboard header: title on the left, the upcoming-releases dropdown pinned to
+   the top-right corner in line with the title. */
+.page-head-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+.page-head-main { min-width: 0; }
+.rel-dd { position: relative; flex: 0 0 auto; }
+.rel-dd > summary { list-style: none; cursor: pointer; }
+.rel-dd > summary::-webkit-details-marker { display: none; }
+.rel-dd-btn { display: inline-flex; align-items: center; gap: .5rem; font-size: .82rem; font-weight: 700; color: var(--ink);
+  background: var(--surface); border: 1px solid var(--border); border-radius: 9px; padding: .5rem .8rem; box-shadow: var(--shadow); }
+.rel-dd-btn:hover { border-color: var(--macro); color: var(--macro-ink); }
+.rel-dd[open] .rk-caret { transform: rotate(-135deg); margin-bottom: -2px; }
+.rel-dd-panel { position: absolute; right: 0; top: calc(100% + .45rem); z-index: 30; width: 320px; max-width: 84vw;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 12px 34px rgba(15,23,42,.16);
+  padding: .5rem; }
+.rel-dd-head { font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); padding: .3rem .5rem .45rem; }
+.rel-list { display: flex; flex-direction: column; }
+.rel-item { display: flex; flex-direction: column; gap: .2rem; padding: .5rem .5rem; border-radius: 8px; color: inherit; text-decoration: none; border-top: 1px solid var(--border); }
+.rel-list .rel-item:first-child { border-top: 0; }
+a.rel-item:hover { background: #faf9fd; }
+a.rel-item:hover .cal-title, a.rel-item:hover .cal-country { color: var(--macro); }
+@media (max-width: 620px) { .rel-dd { align-self: flex-start; } .rel-dd-panel { right: auto; left: 0; } }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.25rem; box-shadow: var(--shadow); }
 .feature-card { border-top: 3px solid var(--macro); }
 .footer { border-top: 1px solid var(--border); padding: 1.5rem 2rem; color: var(--muted); font-size: .78rem; max-width: 1500px; margin: 0 auto; }
@@ -320,13 +341,6 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
 .chart-ind-sw { width: 16px; height: 0; border-top: 3px solid var(--c); flex: 0 0 auto; }
 .chart-ind-sw.dash { border-top-style: dashed; }
 #chart-count.is-max { color: #c2410c; font-weight: 800; }
-.chart-evts { display: flex; flex-wrap: wrap; gap: .4rem; }
-.chart-evt { display: inline-flex; align-items: center; font-size: .78rem; font-weight: 600; color: var(--muted); background: #eef1f6; border: 1px solid var(--border); border-radius: 999px; padding: .26rem .8rem .26rem .3rem; cursor: pointer; }
-.chart-evt:hover { color: var(--macro-ink); }
-.chart-evt.is-on { background: var(--macro-ink); color: #fff; border-color: var(--macro-ink); }
-/* Numbered badge on each event chip — matches the numbered flag on the chart. */
-.chart-evt .evt-num { display: inline-flex; align-items: center; justify-content: center; width: 1.2rem; height: 1.2rem; border-radius: 50%; background: var(--macro-ink); color: #fff; font-size: .66rem; font-weight: 800; margin-right: .45rem; flex: 0 0 auto; }
-.chart-evt.is-on .evt-num { background: #fff; color: var(--macro-ink); }
 .chart-main { position: relative; }
 .chart-svg { width: 100%; height: auto; display: block; }
 .chart-grid { stroke: var(--border); stroke-width: 1; }
@@ -345,14 +359,17 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
 /* Crosshair date tag on the bottom axis (follows the cursor). */
 .chart-datetag { fill: var(--macro-ink); }
 .chart-datetxt { fill: #fff; font-size: 10px; font-weight: 700; }
-.chart-evline { stroke: var(--macro-ink); stroke-width: 1.5; stroke-dasharray: 3 3; opacity: .45; }
-.chart-evdot { fill: var(--macro-ink); pointer-events: all; }
-.chart-evnum { fill: #fff; font-size: 10px; font-weight: 800; pointer-events: none; }
-.chart-evmark { cursor: help; }
-.chart-evhit { pointer-events: all; }
-.chart-evmark:hover .chart-evdot { fill: var(--macro); }
-.chart-evmark:hover .chart-evline { opacity: .75; }
+/* Event markers: a dot along the top per in-window event; the ones whose marker
+   line is showing render solid + ringed. Click toggles the line. */
+.chart-evline { stroke: var(--macro-ink); stroke-width: 1.5; stroke-dasharray: 3 3; opacity: .5; }
+.chart-evdot { fill: var(--macro); stroke: #fff; stroke-width: 1.5; pointer-events: all; }
+.chart-evmark { cursor: pointer; }
+.chart-evmark.is-on .chart-evdot { fill: var(--macro-ink); stroke: var(--macro); stroke-width: 2.5; }
+.chart-evhit { pointer-events: all; cursor: pointer; }
+.chart-evmark:hover .chart-evdot { fill: var(--macro-ink); }
+.chart-evmark:hover .chart-evline { opacity: .8; }
 .chart-tip .evtip-desc { margin-top: .3rem; color: var(--muted); font-size: .76rem; line-height: 1.45; max-width: 240px; }
+.chart-tip .evtip-hint { margin-top: .35rem; color: var(--macro-ink); font-size: .7rem; font-weight: 700; }
 .chart-cross { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; }
 #chart-hit { cursor: crosshair; }
 .chart-tip { position: absolute; z-index: 5; pointer-events: none; background: #fff; border: 1px solid var(--border); border-radius: 8px; box-shadow: var(--shadow); padding: .5rem .6rem; font-size: .78rem; min-width: 130px; }
