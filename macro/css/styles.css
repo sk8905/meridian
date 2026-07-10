@@ -187,25 +187,21 @@ a.compact-head:hover { color: var(--macro); text-decoration: underline; }
 .compact-meta { margin-top: .2rem; }
 
 /* ---------- commentary reading list (Commentary tab) ---------- */
-/* Same feed format/style/layout as the Credit News tab: a left meta column
-   (chip + date) and a body whose single title line carries the headline
-   (black, links out) plus the source (grey) inline, to save space. */
+/* Same feed style as the Credit News tab, condensed so every item is a single
+   line: chip · date · headline (black, links out) · source (grey). Wraps
+   gracefully when a headline is too long for one line. */
 .macro-articles-panel { padding: 1.1rem 1.25rem; }
-.intel-row { display: flex; gap: 1rem; padding: .8rem 0; border-bottom: 1px solid var(--border); }
+.intel-row { display: flex; align-items: baseline; gap: .55rem; padding: .5rem 0; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
 .intel-row:first-child { padding-top: .1rem; }
 .intel-row:last-child { border-bottom: none; padding-bottom: .1rem; }
-.intel-meta { display: flex; flex-direction: column; align-items: flex-start; gap: .3rem; width: 8rem; flex-shrink: 0; }
-.intel-meta .chip { margin: 0; }
-.intel-body { flex: 1 1 auto; min-width: 0; }
-.chip { display: inline-block; padding: .12rem .5rem; border-radius: 999px; background: #ede9fe; color: #5b21b6; font-size: .72rem; font-weight: 600; border: 1px solid #ddd6fe; white-space: nowrap; }
-.intel-title-line { display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap; }
+.chip { display: inline-block; padding: .12rem .5rem; border-radius: 999px; background: #ede9fe; color: #5b21b6; font-size: .72rem; font-weight: 600; border: 1px solid #ddd6fe; white-space: nowrap; flex-shrink: 0; }
+.intel-date { flex-shrink: 0; white-space: nowrap; }
 .intel-head { font-weight: 600; color: var(--ink); overflow-wrap: anywhere; }
 a.intel-head:hover { color: var(--macro); text-decoration: underline; }
 .intel-src-inline { white-space: nowrap; }
-@media (max-width: 640px) {
-  .intel-row { flex-direction: column; gap: .3rem; }
-  .intel-meta { width: auto; flex-direction: row; align-items: center; gap: .5rem; }
-}
+.comm-foot { padding-top: .9rem; text-align: center; }
+.load-more-btn { font: inherit; font-size: .85rem; font-weight: 600; color: var(--macro); background: none; border: 1px solid var(--border); border-radius: 8px; padding: .5rem 1.1rem; cursor: pointer; }
+.load-more-btn:hover { background: #f4f1fb; border-color: var(--macro); }
 
 /* ---------- dashboard summaries ---------- */
 .macro-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 1.7rem; }

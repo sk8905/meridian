@@ -1708,13 +1708,12 @@ function newsRowFull(x) {
   const head = x.url
     ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a>`
     : `<span class="intel-head">${esc(x.title)}</span>`;
-  // To save space, the row is a single line: headline (black, links out) + the
-  // source (grey) inline — the manager (a muted link to its profile) and the
-  // outlet where named. No summary or separate source line.
+  // To save space, the whole item is a single line: chip · date · headline
+  // (black, links out) · source (grey) — the manager (a muted profile link) and
+  // the outlet where named. No summary or separate source/date line.
   const src = `${link(`#/manager/${x._mid}`, x._mname, "muted small")}${x.outlet ? ` · <span class="muted small">${esc(x.outlet)}</span>` : ""}`;
-  return `<div class="intel-row" id="row-${esc(x._id || sid)}">
-    <div class="intel-meta"><span class="chip">News</span><span class="muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span></div>
-    <div class="intel-body"><div class="intel-title-line">${head}<span class="intel-src-inline muted small">${src}</span>${saveBtn(sid)}</div></div>
+  return `<div class="intel-row oneline" id="row-${esc(x._id || sid)}">
+    <span class="chip">News</span><span class="intel-date muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span>${head}<span class="intel-src-inline muted small">${src}</span>${saveBtn(sid)}
   </div>`;
 }
 
