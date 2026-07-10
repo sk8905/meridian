@@ -1,13 +1,13 @@
 # Auto-refresh routine (Claude Routines)
 
-**Three identical routines** keep all three Meridian platforms current — scheduled
-at **05:00**, **12:00** and **21:00** (Claude Routines runs a single schedule per
-routine, so create three routines that all use the prompt below). Each does a **full
+**Four identical routines** keep all three Meridian platforms current — scheduled
+at **05:00**, **12:00**, **17:00** and **21:00** (Claude Routines runs a single schedule per
+routine, so create four routines that all use the prompt below). Each does a **full
 refresh of all three apps** — Credit (deals, fundraising, mandates/launches, manager website
 news, **fund-record reconciliation, new managers/funds, and rotating manager-profile
 re-verification**), Legal (legal alerts, case law, **and restructuring schemes &
 plans**) and Macro (**refresh the live-indicator cache, update curated recent prints
-and central-bank rates, roll the upcoming-releases banner forward, rewrite the key
+and central-bank rates, roll the upcoming-releases dropdown forward, rewrite the key
 macro news headlines, and review the Commentary/Cycle/Bubble guidance**). Together
 they replace the previous separate Credit-daily, Credit-weekly and Legal-daily
 routines.
@@ -30,13 +30,13 @@ the source of truth for the prompt.
 - **Preflight staleness check.** After syncing, read the current `LAST_CHECKED` /
   `LAST_CHECKED_TIME` in both `data.js` files and `META` in `macro/js/content.js`.
   If the previous run looks MISSING —
-  the last stamp is roughly a full cadence stale (>~12h given the ~5–9h cadence), or a
+  the last stamp is roughly a full cadence stale (>~10h given the ~4–8h cadence), or a
   prior same-day run that should exist is absent — call it out at the top of the run
   summary. This turns a silently-dropped earlier run (e.g. one that lost the publish
   race) into something visible instead of letting it hide behind the next run.
-- **Window.** Add items published since the last run. The three runs are ~7h
-  (05:00→12:00), ~9h (12:00→21:00) and ~8h (21:00→05:00) apart, so look back ~24
-  hours to be safe — dedup removes any overlap. Verify each item's EXACT publication date from the
+- **Window.** Add items published since the last run. The four runs are ~7h
+  (05:00→12:00), ~5h (12:00→17:00), ~4h (17:00→21:00) and ~8h (21:00→05:00) apart,
+  so look back ~24 hours to be safe — dedup removes any overlap. Verify each item's EXACT publication date from the
   source; never invent a URL, date, figure or quote. Dedupe every candidate by URL
   and normalised headline/citation against the data already in the file.
 - **Historical depth (not just current-year) — always add what you uncover.** The
@@ -95,7 +95,7 @@ the source of truth for the prompt.
   refresh stamp changes every run, ALL three apps' tokens move on every run. Before
   committing, `git diff --stat` MUST show `index.html` and `js/app.js` changed for
   every app whose data changed. The three apps keep independent sequence numbers.
-  - **Glance landing + in-app palette.** The root `glance.js` (Glance briefing)
+  - **Home landing + in-app palette.** The root `glance.js` (Home briefing)
     and `palette.js` (the `/` command palette mounted in every app) ALSO import
     `credit/js/data.js`, `legal/js/data.js` and `macro/js/content.js`. They are
     NOT part of the per-app token bumping above, so to stop them pinning a stale
@@ -104,14 +104,14 @@ the source of truth for the prompt.
     **not** need to touch `glance.js`/`palette.js` — but if you ever stop
     revalidating a data module in `_headers`, you must instead bump its `?v=`
     import token inside `glance.js` and `palette.js` (and their own cache tokens)
-    on every data change, or Glance will show out-of-date items.
+    on every data change, or Home will show out-of-date items.
 - **Macro edge cache.** Macro's `/api/macro` endpoint is cached at the edge under a
   key `"/api/macro?v=N"` in `src/index.js`. Bump `N` on every run so the redeploy
   serves a freshly-pulled set of live indicators (and any curated-series edit takes
   effect), rather than the previous cached payload.
   - **The other two live endpoints self-refresh — do NOT bump them per run.**
-    `src/index.js` also serves `/api/rates` (the Glance/Credit key-rates banner,
-    cached ~300s) and `/api/markets` (the Glance markets banner — indices, ETFs,
+    `src/index.js` also serves `/api/rates` (the Home/Credit key-rates banner,
+    cached ~300s) and `/api/markets` (the Home markets banner — indices, ETFs,
     commodities, Bitcoin — cached ~60s). Both carry their own short-lived cache key
     (`"/api/rates?v=N"` / `"/api/markets?v=N"`) whose only job is edge de-duplication
     within that TTL; they re-pull from source automatically as the TTL lapses, so a
@@ -127,13 +127,13 @@ the source of truth for the prompt.
     as a pre-formatted `"HH:MM TZ"` string with a timezone label (London, e.g.
     `"05:22 BST"` / `"12:01 BST"`; use `GMT` in winter). It is pre-formatted (not a
     parsed Date) so it renders identically regardless of the viewer's browser
-    timezone. Because three runs land each day (~05:00, ~12:00 and ~21:00), this is
+    timezone. Because four runs land each day (~05:00, ~12:00, ~17:00 and ~21:00), this is
     what tells which run produced the shown data; it appears in the topbar and the
     notification header next to `LAST_CHECKED`. Keep both apps' value identical
     when a single run touches both.
     - **DERIVE it from the clock — never copy a value.** Read the real time with
       `TZ='Europe/London' date '+%H:%M %Z'` and use that. Do NOT reuse the example
-      strings above, the previous run's value, or a "05:00"/"12:00"/"21:00" schedule label:
+      strings above, the previous run's value, or a "05:00"/"12:00"/"17:00"/"21:00" schedule label:
       a manually-triggered run can fire at any time, and a routine fired at 15:41
       must stamp `"15:41 BST"`, not `"06:01 BST"`. (Real bug on 2026-06-24: a run
       executed ~15:41 wrote `LAST_CHECKED_TIME = "06:01 BST"` and titled its commit
@@ -234,7 +234,7 @@ the source of truth for the prompt.
 ## The routine prompt
 
 > Do a full refresh of ALL THREE Meridian platforms — Credit, Legal and Macro —
-> and publish the changes live. (This routine runs three times a day, at 05:00, 12:00 and 21:00.)
+> and publish the changes live. (This routine runs four times a day, at 05:00, 12:00, 17:00 and 21:00.)
 > Follow the invariants in `docs/refresh-routines.md`. The repo has `credit/`,
 > `legal/` and `macro/` apps and deploys from `main`.
 >
@@ -377,9 +377,9 @@ the source of truth for the prompt.
 >      UK 2-year gilt, UK Bank Rate step function and — if the Fed/BoE changed rates —
 >      the US/UK `base_rate`. Keep months in `YYYY-MM` order; never invent a figure.
 >    - **Upcoming-releases calendar in `macro/js/content.js` `RELEASES`** → this
->      feeds the "This week & next — scheduled releases" banner above the indicator
->      tiles (the dashboard shows only entries falling in the current + following
->      calendar week, so it must always contain the near-term future). Each run:
+>      feeds the **"Upcoming releases" dropdown** pinned to the top-right of the
+>      dashboard header (it lists the next six scheduled US/UK releases, soonest
+>      first), so the array must always contain the near-term future. Each run:
 >      DROP any entry whose date is now in the past, and ADD newly-confirmed
 >      scheduled US/UK data releases & central-bank announcements so the list runs
 >      ~4 weeks forward. Cover the significant items — FOMC & BoE MPC meetings/
@@ -402,7 +402,7 @@ the source of truth for the prompt.
 >      markets stories (inflation, central banks, growth, jobs, rates, fiscal) from
 >      reputable financial outlets (Reuters, FT, Bloomberg, WSJ, CNBC, Briefing.com,
 >      MarketWatch and similar) and replace the arrays with **exactly three** US and
->      **exactly three** UK headlines, ideally all dated the refresh day — the Glance
+>      **exactly three** UK headlines, ideally all dated the refresh day — the Home
 >      landing card shows the newest three of each ("US headlines" / "UK headlines"),
 >      so it should always surface three current (same-day) items per country. Each
 >      item is `{title, source, date, url}` — use the exact published headline, the
@@ -414,18 +414,22 @@ the source of truth for the prompt.
 >      the summary — the pre-existing headlines stay on the dashboard until the next
 >      successful run.
 >    - **Macro reading list in `macro/js/content.js` `ARTICLES`** → the Commentary
->      tab renders `ARTICLES.items` as a SINGLE newest-first reading list (each item
->      `{title, source, date, url, blurb, author?}`, `blurb` a one-line dek). These are
->      the most important GENERAL global macro-economic news & analysis stories —
->      monetary policy, growth, inflation, oil, bonds, geopolitics — from reputable
->      outlets (FT, Bloomberg, Reuters, WSJ, The Economist, The Guardian, etc.).
->      Refresh each run: prepend genuinely current stories and drop the oldest to keep
->      ~12–14, newest first; **make sure the newest three are dated the refresh day** —
->      the Glance landing card's "Market headlines" section shows the newest three of
->      `ARTICLES.items`, so those three should be current (same-day). Diversify outlets;
->      use the exact published headline, outlet, verified `YYYY-MM-DD` date and real URL
->      — never fabricate. Set `ARTICLES.updated` to today. If egress is blocked so nothing
->      can be verified, leave `ARTICLES` unchanged and say so in the summary.
+>      tab renders `ARTICLES.items` as a newest-first reading list **grouped into
+>      month sections** ("JULY 2026" etc.) and **paginated** (25 per page, with a
+>      "Show more" control and a per-item Save button), so it now carries a deeper
+>      backlog than before. Each item is `{title, source, date, url, blurb, author?}`
+>      (`blurb` a one-line dek). These are the most important GENERAL global
+>      macro-economic news & analysis stories — monetary policy, growth, inflation,
+>      oil, bonds, geopolitics — from reputable outlets (FT, Bloomberg, Reuters, WSJ,
+>      The Economist, The Guardian, etc.). Refresh each run: prepend genuinely current
+>      stories and keep roughly the **most recent ~30–40** (dropping the oldest beyond
+>      that), newest first, so the month sections stay populated a few months back;
+>      **make sure the newest three are dated the refresh day** — the Home landing
+>      card's "Market headlines" section shows the newest three of `ARTICLES.items`, so
+>      those three should be current (same-day). Diversify outlets; use the exact
+>      published headline, outlet, verified `YYYY-MM-DD` date and real URL — never
+>      fabricate. Set `ARTICLES.updated` to today. If egress is blocked so nothing can
+>      be verified, leave `ARTICLES` unchanged and say so in the summary.
 >    - **Recent market commentary in `macro/js/content.js` `COMMENTARY`** → the
 >      Policy Rate tab renders these as a two-column (US/UK) newest-first feed styled
 >      like the dashboard headlines. Unlike `NEWS`, these are ANALYSIS/opinion/research
