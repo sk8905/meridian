@@ -375,7 +375,8 @@ async function handleRates(request, env, ctx) {
 // and a ~1-month sparkline. Edge-cached briefly so it's near-live without
 // hammering the upstreams, and only cached once fully populated.
 // Primary source is Yahoo Finance's chart API (live intraday `regularMarketPrice`
-// for every instrument — indices, LSE ETFs, Brent/WTI/gold front-month futures
+// for every instrument — indices, LSE ETFs, Brent oil & gold front-month futures,
+// the ICE US Dollar Index (DXY)
 // and Bitcoin). `fred`/`stooq` are daily-close FALLBACKS used only if Yahoo can't
 // be reached from the Worker, so a tile degrades to a daily print rather than "—".
 const MARKET_SERIES = [
@@ -383,10 +384,12 @@ const MARKET_SERIES = [
   { label: "NASDAQ", symbol: "^IXIC", future: "NQ=F", fred: "NASDAQCOM", href: "https://finance.yahoo.com/quote/%5EIXIC" },
   { label: "IGWD", symbol: "IGWD.L", stooq: "igwd.uk", href: "https://uk.finance.yahoo.com/quote/IGWD.L" },
   { label: "EMEE", symbol: "EMEE.L", stooq: "emee.uk", href: "https://uk.finance.yahoo.com/quote/EMEE.L" },
-  // Second row: commodity & crypto spot.
-  { label: "Brent", symbol: "BZ=F", fred: "DCOILBRENTEU", href: "https://finance.yahoo.com/quote/BZ=F" },
-  { label: "WTI", symbol: "CL=F", fred: "DCOILWTICO", href: "https://finance.yahoo.com/quote/CL=F" },
+  // Second row: commodity, FX & crypto spot. "Oil" is Brent (the global crude
+  // benchmark) — there is no single instrument that combines Brent & WTI, so we
+  // use Brent as the headline oil price. "DXY" is the ICE US Dollar Index.
+  { label: "Oil", symbol: "BZ=F", fred: "DCOILBRENTEU", href: "https://finance.yahoo.com/quote/BZ=F" },
   { label: "Gold", symbol: "GC=F", fred: "GOLDPMGBD228NLBM", href: "https://finance.yahoo.com/quote/GC=F" },
+  { label: "DXY", symbol: "DX-Y.NYB", href: "https://finance.yahoo.com/quote/DX-Y.NYB" },
   { label: "Bitcoin", symbol: "BTC-USD", fred: "CBBTCUSD", href: "https://finance.yahoo.com/quote/BTC-USD" },
 ];
 
@@ -481,7 +484,7 @@ async function handleMarkets(request, env, ctx) {
     return new Response(JSON.stringify({ nowUTC: new Date().toISOString(), probes, futures }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/markets?v=8", request.url).toString());
+  const cacheKey = new Request(new URL("/api/markets?v=9", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const fromFred = async (id) => {
@@ -844,7 +847,7 @@ async function debugPulse(request, env, ctx) {
   const info = { hasAI: !!(env && env.AI), models: PULSE_MODELS };
   const base = new URL(request.url);
   let markets = [], rates = [];
-  try { markets = (await (await handleMarkets(new Request(new URL("/api/markets?v=8", base).toString()), env, ctx)).json()).markets || []; } catch (e) { info.marketsErr = String((e && e.message) || e); }
+  try { markets = (await (await handleMarkets(new Request(new URL("/api/markets?v=9", base).toString()), env, ctx)).json()).markets || []; } catch (e) { info.marketsErr = String((e && e.message) || e); }
   try { rates = (await (await handleRates(new Request(new URL("/api/rates?v=10", base).toString()), env, ctx)).json()).rates || []; } catch (e) { info.ratesErr = String((e && e.message) || e); }
   info.marketsCount = markets.length; info.ratesCount = rates.length;
   let headlines = [];
@@ -885,7 +888,7 @@ async function generatePulse(request, env, ctx) {
   if (!env || !env.AI) return; // Workers AI not bound → leave pulse empty (client falls back)
   const base = new URL(request.url);
   let markets = [], rates = [];
-  try { markets = (await (await handleMarkets(new Request(new URL("/api/markets?v=8", base).toString()), env, ctx)).json()).markets || []; } catch { /* ignore */ }
+  try { markets = (await (await handleMarkets(new Request(new URL("/api/markets?v=9", base).toString()), env, ctx)).json()).markets || []; } catch { /* ignore */ }
   try { rates = (await (await handleRates(new Request(new URL("/api/rates?v=10", base).toString()), env, ctx)).json()).rates || []; } catch { /* ignore */ }
   if (!markets.length && !rates.length) return;
   const headlines = await fetchHeadlines();

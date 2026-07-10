@@ -184,7 +184,7 @@ function initRates() {
 const MKT_TYPE = {
   "S&P 500": "us_equity", "NASDAQ": "us_equity", // NYSE/Nasdaq
   "IGWD": "lse_equity", "EMEE": "lse_equity",         // London Stock Exchange
-  "Brent": "futures", "WTI": "futures", "Gold": "futures", // CME/ICE Globex
+  "Oil": "futures", "Gold": "futures", "DXY": "futures", // CME/ICE Globex (~24h)
   "Bitcoin": "crypto",                                 // 24/7
 };
 // Current weekday (0=Sun) + hour + minute in a given IANA timezone (DST-aware).
@@ -282,12 +282,17 @@ function marketsOneLiner(rows) {
   }
   // Commodities.
   const cmdty = [];
-  const oilAvg = avgOf(["Brent", "WTI"].map(pct).filter((v) => v != null));
-  if (oilAvg != null) cmdty.push(`crude oil ${moveWord(oilAvg, { up: "firmed", down: "eased", flat: "held steady", strongUp: "jumped", strongDown: "slid" })}`);
+  const oil = pct("Oil");
+  if (oil != null) cmdty.push(`crude oil ${moveWord(oil, { up: "firmed", down: "eased", flat: "held steady", strongUp: "jumped", strongDown: "slid" })}`);
   const gold = pct("Gold");
   if (gold != null) cmdty.push(`gold ${moveWord(gold, { up: "advanced", down: "slipped", flat: "was flat", strongUp: "surged", strongDown: "fell" })}`);
+  const dxy = pct("DXY");
+  if (dxy != null) cmdty.push(`the dollar ${moveWord(dxy, { up: "firmed", down: "eased", flat: "was steady", strongUp: "jumped", strongDown: "slid" })}`);
   let s = eqClauses.join(" while ");
-  if (cmdty.length) s += (s ? "; " : "") + cmdty.join(" and ");
+  if (cmdty.length) {
+    const list = cmdty.length === 1 ? cmdty[0] : cmdty.slice(0, -1).join(", ") + " and " + cmdty[cmdty.length - 1];
+    s += (s ? "; " : "") + list;
+  }
   return s ? cap(s) + "." : "Markets are quiet.";
 }
 function ratesOneLiner(rows) {
