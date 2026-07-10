@@ -26,6 +26,10 @@ h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
 h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
 .muted { color: var(--muted); }
 .small { font-size: .8rem; }
+/* Neater multi-line wrapping: balance short headings; use "pretty" on feed
+   headlines & prose so a single word never wraps alone on the last line. */
+h1, h2, .macro-country, .macro-label { text-wrap: balance; }
+.intel-head, .compact-head, .macro-para, .macro-bottomline, p, .muted { text-wrap: pretty; }
 
 /* ---------- top bar ---------- */
 .topbar { background: var(--macro-ink); color: #fff; position: sticky; top: 0; z-index: 10; }

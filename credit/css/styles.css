@@ -35,6 +35,11 @@ h3 { font-size: 1rem; margin: 0; }
 .muted { color: var(--muted); }
 .small { font-size: .8rem; }
 .lead { font-size: .98rem; color: #334155; }
+/* Neater multi-line wrapping: balance short headings; use "pretty" on feed
+   headlines & prose so a single word never wraps alone on the last line.
+   Progressive enhancement — ignored where unsupported. */
+h1, h2, h3, .kpi-label { text-wrap: balance; }
+.intel-head, .compact-head, p, .muted, .lead, .card-desc { text-wrap: pretty; }
 
 /* ---------- top bar ---------- */
 .topbar {
@@ -605,7 +610,11 @@ svg.mtab-ico { width: 22px; height: 22px; }
 
   .container { padding: 1rem 1rem 2.5rem; }
   .card { padding: 1rem; }
-  .table-wrap { -webkit-overflow-scrolling: touch; }
+  /* Data tables scroll horizontally rather than squishing columns to one word
+     per line: keep each cell on a single line and let .table-wrap scroll. */
+  .table-wrap { -webkit-overflow-scrolling: touch; overflow-x: auto; }
+  .data-table th, .data-table td { white-space: nowrap; }
+  .data-table th:first-child, .data-table td:first-child { width: auto; }
 
   /* Stack intel/deal rows so the date/type column doesn't eat the width. */
   .intel-row { flex-direction: column; gap: .35rem; }

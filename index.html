@@ -25,6 +25,9 @@
     }
     a { color:inherit; text-decoration:none; }
     .hidden { display:none !important; }
+    /* Neater multi-line wrapping on phones: balance headings, avoid orphan words. */
+    h1, h2, .g-card-title { text-wrap:balance; }
+    p, .g-item .t, .g-card-desc { text-wrap:pretty; }
 
     /* ---- Top bar (mirrors the app top bars exactly: the brand is pinned to the
        far-left corner and the row is indented to the page container's left edge,
