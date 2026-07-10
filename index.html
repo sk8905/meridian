@@ -220,7 +220,7 @@
        x and align. The heading is hidden on narrower screens to save space. */
     .g-gl { display:flex; align-items:baseline; column-gap:1rem; margin:0; font-size:.85rem; line-height:1.4; color:var(--ink); }
     .g-gl-l { flex:0 0 7.5rem; font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); white-space:nowrap; }
-    .g-gl-v { flex:1 1 auto; min-width:0; text-align:justify; text-justify:inter-word; }
+    .g-gl-v { flex:1 1 auto; min-width:0; }
     .g-gl-v .up { color:#0a7d3c; font-weight:600; } .g-gl-v .down { color:#c02626; font-weight:600; }
 
     /* ---- Key rates & credit spreads (ported from Credit) ---- */
@@ -526,7 +526,7 @@
           show("glance");
           const h = new Date().getHours();
           document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-          import("/glance.js?v=20260710-7").then((m) => m.initGlance()).catch(() => {});
+          import("/glance.js?v=20260710-8").then((m) => m.initGlance()).catch(() => {});
         } else { show("out"); }
       })
       .catch(() => show("out"));

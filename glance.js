@@ -563,8 +563,6 @@ function wirePalette(idx) {
   const results = document.getElementById("cmdk-results");
   let sel = 0, current = [];
 
-  const defaults = idx.filter((e) => e.tag === "view").slice(0, 8);
-
   function score(e, q) {
     const t = e.title.toLowerCase();
     if (t === q) return 0;
@@ -574,7 +572,7 @@ function wirePalette(idx) {
   }
   function search(q) {
     q = q.trim().toLowerCase();
-    if (!q) return defaults;
+    if (!q) return [];
     const toks = q.split(/\s+/);
     return idx
       .map((e) => ({ e, s: toks.every((t) => e.hay.includes(t)) ? score(e, q) : -1 }))
@@ -588,7 +586,7 @@ function wirePalette(idx) {
       .slice(0, 40).map((x) => x.e);
   }
   function draw() {
-    if (!current.length) { results.innerHTML = `<div class="cmdk-empty">No matches.</div>`; return; }
+    if (!current.length) { results.innerHTML = input.value.trim() ? `<div class="cmdk-empty">No matches.</div>` : ""; return; }
     results.innerHTML = current.map((e, i) => `
       <div class="cmdk-row${i === sel ? " sel" : ""}" data-i="${i}">
         <span class="cmdk-tag ${e.tag}">${e.tag === "view" ? "Go" : e.tag}</span>

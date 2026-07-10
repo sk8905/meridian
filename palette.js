@@ -81,13 +81,12 @@ export function mountPalette() {
 
   const input = ov.querySelector(".mcmdk-input"), results = ov.querySelector(".mcmdk-results");
   const idx = buildIndex();
-  const defaults = idx.filter((e) => e.tag === "view" || e.sub.includes("dashboard") || /dashboard|Meridian/.test(e.sub)).slice(0, 6);
   let sel = 0, current = [];
 
   const score = (e, q) => { const t = e.title.toLowerCase(); return t === q ? 0 : t.startsWith(q) ? 1 : t.includes(q) ? 2 : e.hay.includes(q) ? 3 : 4; };
   function searchIdx(q) {
     q = q.trim().toLowerCase();
-    if (!q) return defaults;
+    if (!q) return [];
     const toks = q.split(/\s+/);
     return idx.filter((e) => toks.every((t) => e.hay.includes(t)))
       .map((e) => ({ e, s: score(e, q) }))
@@ -101,7 +100,7 @@ export function mountPalette() {
   function draw() {
     results.innerHTML = current.length
       ? current.map((e, i) => `<div class="mcmdk-row${i === sel ? " sel" : ""}" data-i="${i}"><span class="mcmdk-tag ${e.tag}">${e.tag === "view" ? "Go" : e.tag}</span><span class="mcmdk-txt"><span class="mcmdk-t">${esc(e.title)}</span><span class="mcmdk-s">${esc(e.sub)}</span></span></div>`).join("")
-      : `<div class="mcmdk-empty">No matches.</div>`;
+      : (input.value.trim() ? `<div class="mcmdk-empty">No matches.</div>` : "");
     const s = results.querySelector(".mcmdk-row.sel"); if (s) s.scrollIntoView({ block: "nearest" });
   }
   const refresh = () => { current = searchIdx(input.value); sel = 0; draw(); };

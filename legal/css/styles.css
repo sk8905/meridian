@@ -541,7 +541,9 @@ svg.mtab-ico { width: 22px; height: 22px; }
 @media (max-width: 1100px) {
   .grid-3 { grid-template-columns: 1fr 1fr; }
 }
-@media (max-width: 860px) {
+/* Stack the header + content at ≤900px, matching Meridian Credit/Macro/Glance so
+   all four top bars switch to the stacked mobile layout at the same width. */
+@media (max-width: 900px) {
   .grid-2 { grid-template-columns: 1fr; }
   .grid-3 { grid-template-columns: 1fr; }
   .list-layout { grid-template-columns: 1fr; }
@@ -604,9 +606,13 @@ svg.mtab-ico { width: 22px; height: 22px; }
   .kpis-5 { grid-template-columns: repeat(2, 1fr); }
   .kpi-num { font-size: 1.35rem; }
   /* Stack the feed-row meta above the body on narrow screens */
-  .feed-row { flex-direction: column; gap: .35rem; }
-  .feed-meta { width: auto; flex-direction: row; align-items: center; gap: .5rem; flex-wrap: wrap; }
+  .feed-row { flex-direction: column; gap: .35rem; position: relative; }
+  /* Reserve room on the right of the meta row for the Save button (below). */
+  .feed-meta { width: auto; flex-direction: row; align-items: center; gap: .5rem; flex-wrap: wrap; padding-right: 4.7rem; }
   .feed-meta .chips { flex-direction: row; flex-wrap: wrap; }
+  /* Lift Save onto the pill + date line (top-right of the box) instead of leaving
+     it floating below the title. */
+  .rx-title-line .rx-save { position: absolute; top: .7rem; right: 0; margin: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -639,12 +645,15 @@ svg.mtab-ico { width: 22px; height: 22px; }
 .rx-det { margin-top: 0; }
 .rx-summary { cursor: pointer; list-style: none; padding: .1rem 0; }
 .rx-summary::-webkit-details-marker { display: none; }
-.rx-title-line { display: flex; align-items: baseline; gap: .45rem; flex-wrap: wrap; }
+/* Title + Save on one row (no wrap): the title flexes/shrinks so the Save button
+   stays pinned to the top-right of the box, matching Meridian Credit's rows. */
+.rx-title-line { display: flex; align-items: flex-start; gap: .45rem; }
+.rx-title-line .feed-title { flex: 1 1 auto; min-width: 0; }
 .rx-name { color: var(--ink); }
 .rx-summary:hover .rx-name { color: var(--primary); }
-/* Save button lives on the summary line (replacing the old caret), pushed right.
+/* Save button lives on the title line (replacing the old caret), pinned top-right.
    It must not inherit the .save-btn block margins meant for the footer layout. */
-.rx-save { margin: 0 0 0 auto; align-self: center; flex-shrink: 0; padding: .15rem .55rem; font-size: .72rem; }
+.rx-save { margin: 0 0 0 auto; align-self: flex-start; flex-shrink: 0; padding: .15rem .55rem; font-size: .72rem; }
 .rx-compact { display: block; font-size: .8rem; color: var(--muted); margin-top: .25rem; }
 .rx-expand { margin-top: .7rem; padding-top: .6rem; border-top: 1px dashed var(--line); line-height: 1.5; }
 .rx-expand .feed-summary { margin: .1rem 0 .55rem; line-height: 1.55; }
