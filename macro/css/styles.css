@@ -106,10 +106,17 @@ h1, h2, .macro-country, .macro-label { text-wrap: balance; }
 /* ---------- layout ---------- */
 .container { max-width: 1500px; margin: 0 auto; padding: 1.75rem 2rem 3rem; }
 .page-head { margin-bottom: 1.25rem; }
-/* Dashboard header: title on the left, the upcoming-releases dropdown pinned to
-   the top-right corner in line with the title. */
-.page-head-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+/* Dashboard header: title on the left; the upcoming-releases dropdown and the
+   1Y/3Y/5Y range toggle sit together in a right-hand cluster, on the same line. */
+.page-head-row { display: flex; align-items: flex-start; justify-content: space-between; gap: .6rem 1rem; flex-wrap: wrap; }
 .page-head-main { min-width: 0; }
+.page-head-tools { display: flex; align-items: center; gap: .6rem; flex: 0 0 auto; }
+/* On phones the title takes the full first row and the tools drop to their own
+   row, spread edge-to-edge so the dropdown and the toggle stay on one line. */
+@media (max-width: 620px) {
+  .page-head-main { flex: 1 1 100%; }
+  .page-head-tools { flex: 1 1 100%; justify-content: space-between; }
+}
 .rel-dd { position: relative; flex: 0 0 auto; }
 .rel-dd > summary { list-style: none; cursor: pointer; }
 .rel-dd > summary::-webkit-details-marker { display: none; }

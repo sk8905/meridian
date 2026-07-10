@@ -259,14 +259,9 @@ function renderMacro(data) {
     const tiles = series.filter((s) => s.country === c).map(macroTile).join("");
     return tiles ? `<section class="macro-group"><h2 class="macro-country">${esc(name)}</h2><div class="macro-grid">${tiles}</div></section>` : "";
   }).join("");
-  // Sparkline time-range toggle (1Y/3Y/5Y), top-right above the US/UK grids —
-  // applies to every tile chart in both countries.
-  const rangeBar = `<div class="macro-range-bar">
-    <div class="chart-range" role="group" aria-label="Sparkline time range">
-      ${Object.keys(DASH_RANGES).map((r) => `<button type="button" class="chart-range-btn dash-range-btn${dashRange === r ? " is-on" : ""}" data-drange="${r}">${r.toUpperCase()}</button>`).join("")}
-    </div>
-  </div>`;
-  return rangeBar + `<div class="macro-groups">${grids}</div>` + renderNews() + summaryCards();
+  // The sparkline time-range toggle (1Y/3Y/5Y) now lives in the page header,
+  // aligned with the Upcoming-releases dropdown.
+  return `<div class="macro-groups">${grids}</div>` + renderNews() + summaryCards();
 }
 
 // ---- Horizontal 0–100 gauge (used by Cycle and Bubble) ---------------------
@@ -321,7 +316,12 @@ function viewDashboard() {
         <h1>Macro Intelligence</h1>
         <p class="muted">Key US &amp; UK economic indicators plus the policy-rate outlook and where we sit in the credit cycle.</p>
       </div>
-      ${renderReleases()}
+      <div class="page-head-tools">
+        ${renderReleases()}
+        <div class="chart-range" role="group" aria-label="Sparkline time range">
+          ${Object.keys(DASH_RANGES).map((r) => `<button type="button" class="chart-range-btn dash-range-btn${dashRange === r ? " is-on" : ""}" data-drange="${r}">${r.toUpperCase()}</button>`).join("")}
+        </div>
+      </div>
     </div>
     <div id="macro-body" class="macro-body"><section class="card"><p class="muted">Loading macro data…</p></section></div>`;
 }
@@ -549,9 +549,10 @@ function viewBubble() {
 // its first (2021) point, so every line starts at zero and shows the change
 // since — differently-measured indicators share one axis (no dual-axis); the
 // hover tooltip shows the actual values.
+// Series colours — a navy family (distinguishable shades), country by line style.
 const IND_COLOR = {
-  base_rate: "#2563eb", two_year: "#0891b2", core_cpi: "#dc2626",
-  services_pmi: "#d97706", wages: "#7c3aed", unemployment: "#6b7280",
+  base_rate: "#16324f", two_year: "#3f74a6", core_cpi: "#4a6fa0",
+  services_pmi: "#5f93c0", wages: "#6b6f9c", unemployment: "#93a4bd",
 };
 // Short tickers for the TradingView-style label pinned to each line's right end.
 const IND_SHORT = {
@@ -925,6 +926,7 @@ document.addEventListener("click", (e) => {
   const r = rb.getAttribute("data-drange");
   if (!DASH_RANGES[r] || r === dashRange) return;
   dashRange = r;
+  document.querySelectorAll(".dash-range-btn").forEach((b) => b.classList.toggle("is-on", b === rb));
   try { localStorage.setItem("meridian.macro.dashRange", dashRange); } catch { /* ignore */ }
   chartPersist(); // sync across devices (stored alongside the chart prefs)
   const el = document.getElementById("macro-body");

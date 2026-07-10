@@ -14,11 +14,11 @@
 // =============================================================================
 
 // Single brand hue for bars & lines (deep, print-safe blue).
-const BRAND = "#256abf";
+const BRAND = "#2b4a7c";
 // Sequential blue ramp for donut slices — dark (largest) → light (smallest).
 // Only lightness/chroma vary, so adjacent slices stay distinguishable under any
 // colour-vision deficiency; the legend still carries identity.
-const BLUE_RAMP = ["#0d366b", "#16478a", "#1c5cab", "#2564bf", "#2f7ad6", "#4a90e2", "#6ea8ee", "#8fbef2"];
+const BLUE_RAMP = ["#0b1f44", "#16324f", "#1c3a5e", "#2b4a7c", "#3d5d8a", "#5a7aa8", "#7b96b8", "#9fb0c8"];
 const OTHER = "#c7ccd4";     // neutral for a folded "Other" slice
 const SURFACE = "#ffffff";   // slice-gap / marker-halo colour
 
@@ -147,7 +147,7 @@ export function lineChart(data, { unit = "", width = 560, height = 220 } = {}) {
 // axes or grid. For the Macro mini-charts (≈5y of monthly points). Scales to its
 // container width via viewBox; the stroke stays crisp (non-scaling). data:
 // [{label, value}].
-export function sparkline(data, { width = 300, height = 88, color = "#6941c6", unit = "" } = {}) {
+export function sparkline(data, { width = 300, height = 88, color = "#2b4a7c", unit = "" } = {}) {
   if (!data || data.length < 2) return `<svg viewBox="0 0 ${width} ${height}" class="spark" role="img"></svg>`;
   const padX = 4, top = 8, bottom = 16;
   const gid = "sg" + (++_uid);
