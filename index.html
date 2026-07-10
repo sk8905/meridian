@@ -148,7 +148,7 @@
     @media (max-width:900px){
       .g-top-inner {
         height:auto; padding:.5rem .9rem; display:grid; grid-template-columns:auto 1fr;
-        align-items:center; gap:.45rem .7rem;
+        align-items:center; gap:.3rem .7rem;
         grid-template-areas:
           "brand  bell"
           "switch idblock"
@@ -183,6 +183,9 @@
       .platform-switch, .g-search-btn { display:none; }
       .g-logo { font-size:1.55rem; }
       .g-brand-text strong { font-size:1.05rem; }
+      /* Match the app top bars' mobile sub-label size so the brand column — and
+         thus the whole bar — is exactly the same height as the apps. */
+      .g-brand-text .sub { font-size:.62rem; }
       .g-idblock { justify-self:end; grid-area:idblock; }
       .g-notif { grid-area:bell; justify-self:end; }
       .g-user, .g-refresh { font-size:.6rem; }
@@ -192,7 +195,7 @@
     /* Smallest phones (≤360px, e.g. the compact iPhone SE): tighten the top row so
        the switch + identity still fit side by side without horizontal scroll. */
     @media (max-width:360px){
-      .g-top-inner { gap:.35rem .5rem; padding:.5rem .7rem; }
+      .g-top-inner { gap:.3rem .5rem; padding:.5rem .7rem; }
       .ps-btn { padding:.24rem .45rem; font-size:.72rem; }
       .g-user { font-size:.64rem; }
       .g-refresh { font-size:.56rem; }

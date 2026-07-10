@@ -578,7 +578,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
      "Last refresh" line never clip), then the platform toggle, then the nav as a
      full-width scroll strip across the bottom. */
   .topbar-inner {
-    height: auto; padding: .45rem .85rem;
+    height: auto; padding: .5rem .85rem;
     display: grid; grid-template-columns: auto 1fr; align-items: center; gap: .3rem .7rem;
     grid-template-areas:
       "brand   bell"
