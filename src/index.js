@@ -40,6 +40,7 @@ const keyFor = (email) => "wl:" + email;
 // so the Legal and Credit apps never overwrite each other's saved sets.
 const savedKeyFor = (email) => "lsv:" + email;         // Meridian Legal
 const savedCreditKeyFor = (email) => "csv:" + email;   // Meridian Credit
+const savedMacroKeyFor = (email) => "msv:" + email;    // Meridian Macro
 // Per-user "notifications seen" sets — the ids a user has already acknowledged in
 // each app's notification bell, so an item marked seen on one device stops
 // showing as new on that user's other devices. One prefix per app.
@@ -945,6 +946,7 @@ export default {
     if (url.pathname === "/api/watchlist") return handleWatchlist(request, env);
     if (url.pathname === "/api/saved") return handleSaved(request, env, savedKeyFor);
     if (url.pathname === "/api/saved-credit") return handleSaved(request, env, savedCreditKeyFor);
+    if (url.pathname === "/api/saved-macro") return handleSaved(request, env, savedMacroKeyFor);
     if (url.pathname === "/api/notif-macro") return handleNotifSeen(request, env, notifMacroKey);
     if (url.pathname === "/api/notif-credit") return handleNotifSeen(request, env, notifCreditKey);
     if (url.pathname === "/api/notif-legal") return handleNotifSeen(request, env, notifLegalKey);

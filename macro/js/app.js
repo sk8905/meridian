@@ -4,7 +4,7 @@
 // Fetches the shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P
 // Global / BoE). Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES } from "./content.js?v=20260710-3";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES } from "./content.js?v=20260710-4";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -14,6 +14,7 @@ const esc = (s) => String(s ?? "")
 const MACRO_COLOR = "#8b7ec8";
 const MACRO_INK = "#4b3f72";
 const MONTHS = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+const MONTHS_FULL = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 function macroMonth(ym) { const p = String(ym || "").split("-"); return p.length === 2 ? `${MONTHS[+p[1]] || ""} ${p[0]}` : ""; }
 
 // Sparkline geometry — shared by the renderer and the hover handler so the two
@@ -317,19 +318,80 @@ function viewDashboard() {
     <div id="macro-body" class="macro-body"><section class="card"><p class="muted">Loading macro data…</p></section></div>`;
 }
 
+// --------------------------- saved articles (cloud sync + localStorage) -----
+// Individually saved Commentary articles. Persists to a per-user Cloudflare KV
+// store via /api/saved-macro (its OWN "msv:" prefix, so it never collides with
+// Credit/Legal saved sets) with localStorage as an instant cache / offline
+// fallback. Mirrors the Credit & Legal apps.
+const SAVEDM_KEY = "meridian.macro.saved";
+const SAVEDM_API = "/api/saved-macro";
+let savedMCloud = false;
+let savedMPushTimer = null;
+function getSavedM() { try { return new Set(JSON.parse(localStorage.getItem(SAVEDM_KEY) || "[]")); } catch { return new Set(); } }
+function setSavedM(set) { try { localStorage.setItem(SAVEDM_KEY, JSON.stringify([...set])); } catch { /* ignore */ } pushSavedM(); }
+function toggleSavedM(id) { const s = getSavedM(); s.has(id) ? s.delete(id) : s.add(id); setSavedM(s); return s.has(id); }
+function pushSavedM() {
+  if (!savedMCloud) return;
+  clearTimeout(savedMPushTimer);
+  savedMPushTimer = setTimeout(() => {
+    fetch(SAVEDM_API, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ saved: [...getSavedM()] }) }).catch(() => {});
+  }, 400);
+}
+// On load, UNION this device's saved set with the per-user cloud copy (saving is
+// additive), persist locally and push back so devices converge. No-op off-cloud.
+async function initSavedMSync() {
+  let r;
+  try { r = await fetch(SAVEDM_API, { headers: { accept: "application/json" } }); }
+  catch { return; }
+  if (!r || !r.ok) return;
+  let d; try { d = await r.json(); } catch { return; }
+  savedMCloud = true;
+  const server = Array.isArray(d.saved) ? d.saved : [];
+  const local = [...getSavedM()];
+  const union = new Set([...local, ...server]);
+  try { localStorage.setItem(SAVEDM_KEY, JSON.stringify([...union])); } catch { /* ignore */ }
+  if (union.size !== server.length || server.some((id) => !union.has(id))) pushSavedM();
+  render();
+}
+// Stable content-derived id for an article — a short hash of its normalised URL
+// (or title), so a saved piece keeps pointing at the same item across refreshes.
+function articleSaveId(n) {
+  const base = (n.url || n.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, "");
+  let h = 0; for (let i = 0; i < base.length; i++) h = (Math.imul(h, 31) + base.charCodeAt(i)) | 0;
+  return "a" + (h >>> 0).toString(36);
+}
+function saveBtn(id) {
+  const on = getSavedM().has(id);
+  return `<button type="button" class="save-btn ${on ? "is-saved" : ""}" data-save="${esc(id)}" aria-pressed="${on}" title="${on ? "Remove from saved" : "Save this item"}">${on ? "★ Saved" : "☆ Save"}</button>`;
+}
+
 // Commentary tab — a curated, newest-first reading list of general macro-economic
 // news & analysis from the major financial outlets (data in content.js ARTICLES).
-// Rendered in the same feed format as the Credit News tab: a chip + date meta
-// column and a single title line carrying the headline (black, links out) plus
-// the source (grey) inline, to save space.
+// Rendered in the same feed format/style as the Credit News tab: a single line
+// per item (chip · headline · source · date · save), grouped by month.
 function commentaryRow(n) {
   const head = n.url
     ? `<a href="${esc(n.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(n.title)}</a>`
     : `<span class="intel-head">${esc(n.title)}</span>`;
   const src = `${esc(n.source)}${n.author ? " · " + esc(n.author) : ""}`;
-  return `<div class="intel-row">
-    <span class="chip">News</span><span class="intel-date muted small">${esc(fmtDay(n.date))}</span>${head}<span class="intel-src-inline muted small">${src}</span>
+  return `<div class="intel-row" data-said="${esc(articleSaveId(n))}">
+    <span class="chip">News</span>${head}<span class="intel-src-inline muted small">${src}</span><span class="intel-date muted small">${esc(fmtDay(n.date))}</span>${saveBtn(articleSaveId(n))}
   </div>`;
+}
+// Group a list of articles (newest first) into month sections: "JULY 2026" etc.
+function byMonth(items) {
+  const groups = {};
+  [...items].sort((a, b) => String(b.date).localeCompare(String(a.date))).forEach((x) => {
+    const m = /^(\d{4})-(\d{2})/.exec(String(x.date));
+    const key = m ? `${m[1]}-${m[2]}` : "undated";
+    (groups[key] ||= []).push(x);
+  });
+  return Object.keys(groups)
+    .sort((a, b) => (a === "undated") - (b === "undated") || b.localeCompare(a))
+    .map((k) => {
+      const label = k === "undated" ? "Undated" : `${MONTHS_FULL[+k.slice(5, 7)]} ${k.slice(0, 4)}`;
+      return `<div class="month-group"><h3 class="month-head">${esc(label)}</h3>${groups[k].map(commentaryRow).join("")}</div>`;
+    }).join("");
 }
 // Newest-first, paginated in pages of 25 (matches Credit's Load-more feeds).
 const COMMENTARY_PAGE = 25;
@@ -341,7 +403,7 @@ function commentaryPanelHtml() {
   const items = sortedArticles();
   if (!items.length) return `<p class="muted small">The reading list is temporarily unavailable.</p>`;
   const shown = Math.min(commentaryLimit, items.length);
-  const rows = items.slice(0, shown).map(commentaryRow).join("");
+  const rows = byMonth(items.slice(0, shown));
   const remaining = items.length - shown;
   const foot = remaining > 0
     ? `<div class="comm-foot"><button type="button" id="comm-more" class="load-more-btn">Show ${Math.min(COMMENTARY_PAGE, remaining)} more · ${remaining} remaining</button></div>`
@@ -362,9 +424,26 @@ function viewCommentary() {
   return `
     <div class="page-head">
       <h1>Commentary</h1>
-      <p class="muted">The most important global macro-economic news and analysis — monetary policy, growth, inflation, oil and bonds — from the FT, Bloomberg, Reuters, the Wall Street Journal, The Economist and other reputable outlets, newest first. As of ${esc((ARTICLES && fmtDay(ARTICLES.updated)) || UPDATED)}. Click a piece to open it at the source.</p>
+      <p class="muted">The most important global macro-economic news and analysis — monetary policy, growth, inflation, oil and bonds — from the FT, Bloomberg, Reuters, the Wall Street Journal, The Economist and other reputable outlets, newest first. As of ${esc((ARTICLES && fmtDay(ARTICLES.updated)) || UPDATED)}. Save a piece with ☆ to add it to your <a href="#/saved">Saved</a> list.</p>
     </div>
     <section class="card feature-card macro-articles-panel">${commentaryPanelHtml()}</section>`;
+}
+
+// Saved tab — the Commentary articles the user has starred, newest first, grouped
+// by month. Saved ids resolve against the current reading list; a piece that has
+// rolled off the feed no longer appears here.
+function viewSaved() {
+  const saved = getSavedM();
+  const items = sortedArticles().filter((n) => saved.has(articleSaveId(n)));
+  const body = items.length
+    ? byMonth(items)
+    : `<p class="muted">You haven't saved anything yet. On the <a href="#/commentary">Commentary</a> tab, click the ☆ Save button on any article to add it here${savedMCloud ? " — your saved list syncs across your devices" : ""}.</p>`;
+  return `
+    <div class="page-head">
+      <h1>Saved</h1>
+      <p class="muted">${items.length ? `${items.length} saved ${items.length === 1 ? "article" : "articles"} from Commentary, newest first.` : "Your saved macro articles."}</p>
+    </div>
+    <section class="card feature-card macro-articles-panel">${body}</section>`;
 }
 
 // Policy Rate tab — compiled Fed & BoE policy-rate outlook plus an analyst feed.
@@ -754,6 +833,19 @@ document.addEventListener("click", (e) => {
   if (el && MACRO_DATA) el.innerHTML = renderMacro(MACRO_DATA);
 });
 document.addEventListener("click", (e) => { if (e.target.closest("#chart-export")) exportChartPng(); });
+// Save / unsave a Commentary article. Update the clicked button in place; on the
+// Saved tab, re-render so an unsaved row drops out of the list.
+document.addEventListener("click", (e) => {
+  const sb = e.target.closest("[data-save]");
+  if (!sb) return;
+  e.preventDefault();
+  const nowSaved = toggleSavedM(sb.getAttribute("data-save"));
+  if (currentTab() === "saved") { render(); return; }
+  sb.classList.toggle("is-saved", nowSaved);
+  sb.setAttribute("aria-pressed", String(nowSaved));
+  sb.textContent = nowSaved ? "★ Saved" : "☆ Save";
+  sb.title = nowSaved ? "Remove from saved" : "Save this item";
+});
 // Dashboard tile → open this indicator in the Chart (stops the tile's source link).
 function openInChart(el) {
   const k = el.getAttribute("data-chart"); if (!k) return;
@@ -813,6 +905,7 @@ const TABS = [
   ["cycle", "Cycle"],
   ["bubble", "Bubble"],
   ["chart", "Chart"],
+  ["saved", "Saved"],
 ];
 function currentTab() {
   const h = (location.hash || "").replace(/^#\/?/, "").split("?")[0];
@@ -1002,7 +1095,7 @@ function render() {
   }
   // Fresh entry to Commentary starts at the first page of 25.
   if (tab === "commentary") commentaryLimit = COMMENTARY_PAGE;
-  const body = tab === "commentary" ? viewCommentary() : tab === "policy" ? viewPolicy() : tab === "cycle" ? viewCycle() : tab === "bubble" ? viewBubble() : tab === "chart" ? viewChart() : viewDashboard();
+  const body = tab === "commentary" ? viewCommentary() : tab === "policy" ? viewPolicy() : tab === "cycle" ? viewCycle() : tab === "bubble" ? viewBubble() : tab === "chart" ? viewChart() : tab === "saved" ? viewSaved() : viewDashboard();
   app.innerHTML = body;
   syncNav(tab);
   if (tab === "dashboard") loadMacro(dashFocus);
@@ -1053,9 +1146,10 @@ function initChartPrefs() {
 
 window.addEventListener("hashchange", render);
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260710-1").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260710-2").then((m) => m.mountPalette()).catch(() => {});
 render();
 initMe();
 renderDataStatus();
 fetchMacro().then(initNotif);
 initChartPrefs();
+initSavedMSync();
