@@ -278,6 +278,13 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
 .chart-ctrls { margin-bottom: 1.2rem; display: grid; gap: 1.1rem; }
 /* Chart toolbar: time-range segmented control + PNG export. */
 .chart-toolbar { display: flex; align-items: center; justify-content: space-between; gap: .75rem; flex-wrap: wrap; margin-bottom: .8rem; }
+.chart-toolbar-l { display: flex; align-items: center; gap: .6rem; flex-wrap: wrap; }
+/* Value-mode segmented control (Actual / % change / Indexed) — matches the range control. */
+.chart-mode { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.chart-mode-btn { border: 0; background: var(--surface); color: var(--muted); font: inherit; font-size: .8rem; font-weight: 700; padding: .35rem .8rem; cursor: pointer; border-left: 1px solid var(--border); }
+.chart-mode-btn:first-child { border-left: 0; }
+.chart-mode-btn:hover { color: var(--macro-ink); background: #faf9fd; }
+.chart-mode-btn.is-on { background: var(--macro-ink); color: #fff; }
 /* Dashboard sparkline range toggle — right-aligned above the US/UK grids. */
 .macro-range-bar { display: flex; justify-content: flex-end; margin: 0 0 .85rem; }
 .chart-range { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }

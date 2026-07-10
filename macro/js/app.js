@@ -587,12 +587,17 @@ function chartReadLocal() {
 }
 const CHART_RANGES = { "1y": 12, "3y": 36, "5y": 60, "10y": 120, "max": Infinity };
 const CHART_DEFAULT_RANGE = "5y";
+// Display mode: the actual level, % change vs the window start, or the change in
+// the indicator's own units (indexed to 0). Default keeps the indexed view.
+const CHART_MODES = { value: "Actual", pct: "% change", index: "Indexed" };
+const CHART_DEFAULT_MODE = "index";
 const _chartLocal = chartReadLocal();
 let chartSel = new Set(_chartLocal ? _chartLocal.sel : CHART_DEFAULT_SEL);
 let chartEvents = new Set(_chartLocal ? _chartLocal.events : CHART_DEFAULT_EVT);
 let chartRange = (_chartLocal && CHART_RANGES[_chartLocal.range]) ? _chartLocal.range : CHART_DEFAULT_RANGE;
+let chartMode = (_chartLocal && CHART_MODES[_chartLocal.mode]) ? _chartLocal.mode : CHART_DEFAULT_MODE;
 function chartPersist() {
-  const payload = { sel: [...chartSel], events: [...chartEvents], range: chartRange, dashRange };
+  const payload = { sel: [...chartSel], events: [...chartEvents], range: chartRange, mode: chartMode, dashRange };
   try { localStorage.setItem(CHART_LS, JSON.stringify(payload)); } catch { /* ignore */ }
   try { fetch(CHART_API, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) }); } catch { /* not behind Access */ }
 }
@@ -646,8 +651,13 @@ function viewChart() {
     <section class="card chart-stage">
       <div class="chart-stage-main">
         <div class="chart-toolbar">
-          <div class="chart-range" role="group" aria-label="Time range">
-            ${Object.keys(CHART_RANGES).map((r) => `<button type="button" class="chart-range-btn${chartRange === r ? " is-on" : ""}" data-range="${r}">${r === "max" ? "Max" : r.toUpperCase()}</button>`).join("")}
+          <div class="chart-toolbar-l">
+            <div class="chart-range" role="group" aria-label="Time range">
+              ${Object.keys(CHART_RANGES).map((r) => `<button type="button" class="chart-range-btn${chartRange === r ? " is-on" : ""}" data-range="${r}">${r === "max" ? "Max" : r.toUpperCase()}</button>`).join("")}
+            </div>
+            <div class="chart-mode" role="group" aria-label="Value mode">
+              ${Object.entries(CHART_MODES).map(([k, l]) => `<button type="button" class="chart-mode-btn${chartMode === k ? " is-on" : ""}" data-mode="${k}">${l}</button>`).join("")}
+            </div>
           </div>
           <button type="button" class="chart-export" id="chart-export" title="Download the chart as a PNG image">⤓ PNG</button>
         </div>
@@ -671,7 +681,8 @@ function drawChart() {
   const sel = all.filter((s) => chartSel.has(s.selKey));
   // TradingView-style layout: the price scale + per-line tickers live in a wide
   // right-hand gutter; the plot starts flush to the left with a detailed date axis.
-  const W = 980, H = 470, plotL = 16, plotR = W - 100, plotT = 30, plotB = H - 40;
+  // The tall canvas fills the space beside the indicator sidebar.
+  const W = 980, H = 600, plotL = 16, plotR = W - 100, plotT = 30, plotB = H - 40;
   const plotW = plotR - plotL, plotH = plotB - plotT;
   let gMin = Infinity, gMax = -Infinity;
   all.forEach((s) => s.history.forEach((p) => { const mi = MI(p.label); if (mi < gMin) gMin = mi; if (mi > gMax) gMax = mi; }));
@@ -681,14 +692,23 @@ function drawChart() {
   const m0 = months === Infinity ? gMin : Math.max(gMin, gMax - months + 1);
   const span = (m1 - m0) || 1;
   const xFor = (mi) => plotL + ((mi - m0) / span) * plotW;
-  // Only the points inside the window; each series is indexed to 0 at the first
-  // in-window point, so the lines show the change across the chosen range.
   const inRange = (s) => s.history.filter((p) => { const mi = MI(p.label); return mi >= m0 && mi <= m1; });
   const base = (s) => { const r = inRange(s); return r.length ? r[0].value : (s.history[0] ? s.history[0].value : 0); };
-  const ival = (s, v) => v - base(s);
+  // Display transform: actual level / % change vs the window start / indexed to 0
+  // (change in the indicator's own units).
+  const tf = (s, v) => chartMode === "value" ? v
+    : chartMode === "pct" ? (base(s) !== 0 ? (v - base(s)) / Math.abs(base(s)) * 100 : v - base(s))
+    : v - base(s);
   const fmtI = (v) => (v >= 0 ? "+" : "") + v.toFixed(2);
-  let lo = 0, hi = 0;
-  sel.forEach((s) => inRange(s).forEach((p) => { const y = ival(s, p.value); if (y < lo) lo = y; if (y > hi) hi = y; }));
+  // Format a transformed value for the tags/tooltip in the current mode.
+  const fmtY = (y) => chartMode === "value" ? (+y).toFixed(2)
+    : chartMode === "pct" ? (y >= 0 ? "+" : "") + y.toFixed(1) + "%"
+    : (y >= 0 ? "+" : "") + y.toFixed(2);
+  // Value mode scales to the data; the indexed/% modes keep the baseline 0 in view.
+  let lo, hi;
+  if (chartMode === "value") { lo = Infinity; hi = -Infinity; } else { lo = 0; hi = 0; }
+  sel.forEach((s) => inRange(s).forEach((p) => { const y = tf(s, p.value); if (y < lo) lo = y; if (y > hi) hi = y; }));
+  if (!isFinite(lo) || !isFinite(hi)) { lo = 0; hi = 1; }
   if (lo === hi) { lo -= 1; hi += 1; }
   const padY = (hi - lo) * 0.08; lo -= padY; hi += padY;
   const yFor = (v) => plotB - ((v - lo) / (hi - lo)) * plotH;
@@ -701,9 +721,11 @@ function drawChart() {
     for (let t = Math.ceil(a / step) * step; t <= b + step * 1e-6; t += step) out.push(+t.toFixed(6));
     return out;
   };
-  // Value scale sits in the right gutter (TradingView style); signed so it's clear
-  // each line is indexed to 0 at the window start.
-  const ylab = (t) => (Math.abs(t) < 1e-9 ? "0" : (t > 0 ? "+" : "") + (+t.toFixed(2)));
+  // Value scale sits in the right gutter (TradingView style). Actual levels are
+  // plain numbers; the indexed/% modes are signed (change from the window start).
+  const ylab = (t) => chartMode === "value" ? "" + (+t.toFixed(2))
+    : Math.abs(t) < 1e-9 ? "0"
+    : (t > 0 ? "+" : "") + (+t.toFixed(chartMode === "pct" ? 1 : 2)) + (chartMode === "pct" ? "%" : "");
   const grid = niceTicks(lo, hi, 5).map((t) => {
     const y = yFor(t), zero = Math.abs(t) < 1e-9;
     return `<line x1="${plotL}" y1="${y.toFixed(1)}" x2="${plotR}" y2="${y.toFixed(1)}" class="chart-grid${zero ? " chart-zero" : ""}"/><text x="${W - 6}" y="${(y + 3).toFixed(1)}" class="chart-ylab" text-anchor="end">${ylab(t)}</text>`;
@@ -732,15 +754,15 @@ function drawChart() {
       `</g>`;
   });
   const lines = sel.map((s) => {
-    const pts = inRange(s).map((p) => [xFor(MI(p.label)), yFor(ival(s, p.value))]);
+    const pts = inRange(s).map((p) => [xFor(MI(p.label)), yFor(tf(s, p.value))]);
     const d = pts.map((p, i) => `${i ? "L" : "M"} ${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join(" ");
     return `<path d="${d}" fill="none" stroke="${IND_COLOR[s.key]}" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round"${s.country === "UK" ? ' stroke-dasharray="6 4"' : ""}/>`;
   }).join("");
 
-  // Right-gutter divider + a ticker tag pinned to each line's right end (its final
-  // indexed value). Tags are nudged apart vertically so they never overlap.
+  // Right-gutter divider + a ticker tag pinned to each line's right end. Tags are
+  // nudged apart vertically so they never overlap.
   const axis = `<line x1="${plotR}" y1="${plotT}" x2="${plotR}" y2="${plotB}" class="chart-axis"/>`;
-  const endItems = sel.map((s) => { const r = inRange(s), last = r[r.length - 1]; return last ? { s, val: ival(s, last.value), yReal: yFor(ival(s, last.value)), y: yFor(ival(s, last.value)) } : null; }).filter(Boolean);
+  const endItems = sel.map((s) => { const r = inRange(s), last = r[r.length - 1]; const yy = last ? yFor(tf(s, last.value)) : 0; return last ? { s, yReal: yy, y: yy } : null; }).filter(Boolean);
   endItems.sort((a, b) => a.y - b.y);
   const TH = 15;
   for (let i = 1; i < endItems.length; i++) if (endItems[i].y - endItems[i - 1].y < TH) endItems[i].y = endItems[i - 1].y + TH;
@@ -755,7 +777,7 @@ function drawChart() {
 
   const legend = sel.map((s) => {
     const r = inRange(s), last = r[r.length - 1];
-    return `<span class="chart-leg"><span class="chart-swatch${s.country === "UK" ? " dash" : ""}" style="--c:${IND_COLOR[s.key]}"></span>${esc(s.country)} · ${esc(s.label)} <b>${last ? fmtI(ival(s, last.value)) : "—"}</b></span>`;
+    return `<span class="chart-leg"><span class="chart-swatch${s.country === "UK" ? " dash" : ""}" style="--c:${IND_COLOR[s.key]}"></span>${esc(s.country)} · ${esc(s.label)} <b>${last ? fmtY(tf(s, last.value)) : "—"}</b></span>`;
   }).join("");
 
   const svg = `<svg viewBox="0 0 ${W} ${H}" class="chart-svg" id="chart-svg" role="img" aria-label="Selected macro indicators, each indexed to 0 at the start of the window">
@@ -766,9 +788,15 @@ function drawChart() {
     <g id="chart-axtags"></g>
     <rect x="${plotL}" y="${plotT}" width="${plotW}" height="${plotH}" fill="transparent" id="chart-hit"/>
   </svg>`;
+  const w0 = esc(macroMonth(miLabel(m0)));
+  const note = chartMode === "value"
+    ? `Each series shows its <b>actual level</b> in its own units — % for rates, inflation, wages and unemployment; index points for the PMIs — so lines on very different scales can sit far apart. Hover for the values. Line style: <b>solid = US</b>, <b>dashed = UK</b>.`
+    : chartMode === "pct"
+    ? `Each series shows its <b>% change since ${w0}</b> (the start of the window), putting indicators on different scales on a comparable footing. Hover for the actual values. Line style: <b>solid = US</b>, <b>dashed = UK</b>.`
+    : `Every series is indexed to <b>0 at ${w0}</b> (the start of the window), so each line shows the change since then in the indicator's own units — percentage points for rates, inflation, wages and unemployment; index points for the PMIs. Hover for the actual values. Line style: <b>solid = US</b>, <b>dashed = UK</b>.`;
   canvas.innerHTML = `<div class="chart-main">${svg}<div id="chart-tip" class="chart-tip" hidden></div></div>
     <div class="chart-legend">${sel.length ? legend : '<span class="muted">Select one or more indicators to plot.</span>'}</div>
-    <p class="muted small chart-note">Every series is indexed to <b>0 at ${esc(macroMonth(miLabel(m0)))}</b> (the start of the window), so each line shows the change since then in the indicator's own units — percentage points for rates, inflation, wages and unemployment; index points for the PMIs. Hover for the actual values. Line style: <b>solid = US</b>, <b>dashed = UK</b>.</p>`;
+    <p class="muted small chart-note">${note}</p>`;
 
   // Event markers get a hover bubble explaining the event (works even with no
   // indicators selected, so it's wired before the crosshair setup below).
@@ -807,10 +835,11 @@ function drawChart() {
     sel.forEach((s) => {
       const pt = s.history.find((p) => MI(p.label) === mi) || nearest(s.history, mi);
       if (!pt) return;
-      const cy = yFor(ival(s, pt.value));
+      const cy = yFor(tf(s, pt.value));
+      const real = `${(+pt.value).toFixed(2)}${s.unit === "%" ? "%" : ""}`;
       dd += `<circle cx="${xFor(MI(pt.label)).toFixed(1)}" cy="${cy.toFixed(1)}" r="3.5" fill="${IND_COLOR[s.key]}" stroke="#fff" stroke-width="1.5"/>`;
-      vt.push({ y: cy, txt: fmtI(ival(s, pt.value)), color: IND_COLOR[s.key] });
-      rows += `<div class="tip-row"><span class="tip-dot" style="background:${IND_COLOR[s.key]}"></span>${esc(s.country)} ${esc(s.label)}: <b>${fmtI(ival(s, pt.value))}</b> <span class="tip-real">(${(+pt.value).toFixed(2)}${s.unit === "%" ? "%" : ""})</span></div>`;
+      vt.push({ y: cy, txt: fmtY(tf(s, pt.value)), color: IND_COLOR[s.key] });
+      rows += `<div class="tip-row"><span class="tip-dot" style="background:${IND_COLOR[s.key]}"></span>${esc(s.country)} ${esc(s.label)}: <b>${chartMode === "value" ? real : fmtY(tf(s, pt.value))}</b>${chartMode === "value" ? "" : ` <span class="tip-real">(${real})</span>`}</div>`;
     });
     dots.innerHTML = dd;
     // Crosshair axis tags (TradingView style): a value tag on the right scale for
@@ -877,6 +906,14 @@ document.addEventListener("click", (e) => {
   if (!rb || rb.classList.contains("dash-range-btn")) return; // dashboard toggle handled below
   chartRange = rb.getAttribute("data-range");
   document.querySelectorAll(".chart-range-btn:not(.dash-range-btn)").forEach((b) => b.classList.toggle("is-on", b === rb));
+  chartPersist();
+  drawChart();
+});
+// Value-mode toggle: Actual level / % change / Indexed.
+document.addEventListener("click", (e) => {
+  const mb = e.target.closest(".chart-mode-btn"); if (!mb) return;
+  chartMode = mb.getAttribute("data-mode");
+  document.querySelectorAll(".chart-mode-btn").forEach((b) => b.classList.toggle("is-on", b === mb));
   chartPersist();
   drawChart();
 });
