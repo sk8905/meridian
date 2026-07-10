@@ -618,7 +618,18 @@ svg.mtab-ico { width: 22px; height: 22px; }
 
   /* Stack intel/deal rows so the date/type column doesn't eat the width. */
   .intel-row { flex-direction: column; gap: .35rem; }
-  .intel-meta { width: auto; flex-direction: row; align-items: center; gap: .5rem; }
+  .intel-meta { width: auto; flex-direction: row; align-items: center; gap: .5rem; padding-right: 4.7rem; }
+  /* Multi-line rows (meta + body): lift Save onto the chip + date meta line at the
+     top-right of the box, instead of leaving it floating on the title line. */
+  .intel-row:not(.oneline) { position: relative; }
+  .intel-row:not(.oneline) .intel-title-line .save-btn { position: absolute; top: .8rem; right: 0; margin: 0; }
+  /* One-line rows: chip + date + Save share the top line; the headline and source
+     drop to their own full-width lines below (so Save is top-right of the box). */
+  .intel-row.oneline .chip { order: 1; }
+  .intel-row.oneline .intel-date { order: 2; }
+  .intel-row.oneline .save-btn { order: 3; }
+  .intel-row.oneline .intel-head { flex: 1 0 100%; order: 4; }
+  .intel-row.oneline .intel-src-inline { flex: 1 0 100%; order: 5; }
 }
 
 /* Collapse filter bars behind a "Filters" toggle on phones to save space. */

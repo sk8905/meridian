@@ -551,6 +551,12 @@ const IND_COLOR = {
   base_rate: "#2563eb", two_year: "#0891b2", core_cpi: "#dc2626",
   services_pmi: "#d97706", wages: "#7c3aed", unemployment: "#6b7280",
 };
+// Short tickers for the TradingView-style label pinned to each line's right end.
+const IND_SHORT = {
+  base_rate: "Rate", two_year: "2Y", core_cpi: "CPI",
+  services_pmi: "PMI", wages: "Wage", unemployment: "U/E",
+};
+const MON3 = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const INDICATORS = [
   ["base_rate", "Base rate"], ["two_year", "2-year yield"], ["core_cpi", "Core inflation"],
   ["services_pmi", "Services PMI"], ["wages", "Wage growth"], ["unemployment", "Unemployment"],
@@ -661,7 +667,9 @@ function drawChart() {
   const all = chartSeriesAll();
   if (!all.length) { canvas.innerHTML = '<p class="muted">Macro data is temporarily unavailable — please try again shortly.</p>'; return; }
   const sel = all.filter((s) => chartSel.has(s.selKey));
-  const W = 980, H = 470, plotL = 40, plotR = W - 14, plotT = 30, plotB = H - 34;
+  // TradingView-style layout: the price scale + per-line tickers live in a wide
+  // right-hand gutter; the plot starts flush to the left with a detailed date axis.
+  const W = 980, H = 470, plotL = 16, plotR = W - 100, plotT = 30, plotB = H - 40;
   const plotW = plotR - plotL, plotH = plotB - plotT;
   let gMin = Infinity, gMax = -Infinity;
   all.forEach((s) => s.history.forEach((p) => { const mi = MI(p.label); if (mi < gMin) gMin = mi; if (mi > gMax) gMax = mi; }));
@@ -691,15 +699,23 @@ function drawChart() {
     for (let t = Math.ceil(a / step) * step; t <= b + step * 1e-6; t += step) out.push(+t.toFixed(6));
     return out;
   };
+  // Value scale sits in the right gutter (TradingView style); signed so it's clear
+  // each line is indexed to 0 at the window start.
+  const ylab = (t) => (Math.abs(t) < 1e-9 ? "0" : (t > 0 ? "+" : "") + (+t.toFixed(2)));
   const grid = niceTicks(lo, hi, 5).map((t) => {
     const y = yFor(t), zero = Math.abs(t) < 1e-9;
-    return `<line x1="${plotL}" y1="${y.toFixed(1)}" x2="${plotR}" y2="${y.toFixed(1)}" class="chart-grid${zero ? " chart-zero" : ""}"/><text x="${plotL - 6}" y="${(y + 3).toFixed(1)}" class="chart-ylab" text-anchor="end">${+t.toFixed(2)}</text>`;
+    return `<line x1="${plotL}" y1="${y.toFixed(1)}" x2="${plotR}" y2="${y.toFixed(1)}" class="chart-grid${zero ? " chart-zero" : ""}"/><text x="${W - 6}" y="${(y + 3).toFixed(1)}" class="chart-ylab" text-anchor="end">${ylab(t)}</text>`;
   }).join("");
+  // Detailed date axis: adaptive month step so the window carries several labels —
+  // Januaries show the year (emphasised), other ticks show the month abbreviation.
+  const spanM = m1 - m0;
+  const stepM = spanM <= 8 ? 1 : spanM <= 18 ? 2 : spanM <= 30 ? 3 : spanM <= 66 ? 6 : spanM <= 132 ? 12 : 24;
   let xticks = "";
-  for (let y = Math.ceil(m0 / 12); y <= Math.floor(m1 / 12); y++) {
-    const mi = y * 12; if (mi < m0 || mi > m1) continue;
-    const x = xFor(mi);
-    xticks += `<line x1="${x.toFixed(1)}" y1="${plotT}" x2="${x.toFixed(1)}" y2="${plotB}" class="chart-grid"/><text x="${x.toFixed(1)}" y="${plotB + 16}" class="chart-xlab" text-anchor="middle">${y}</text>`;
+  for (let mi = Math.ceil(m0 / stepM) * stepM; mi <= m1; mi += stepM) {
+    if (mi < m0) continue;
+    const x = xFor(mi), mo = ((mi % 12) + 12) % 12, isJan = mo === 0;
+    const label = isJan ? String(Math.floor(mi / 12)) : MON3[mo];
+    xticks += `<line x1="${x.toFixed(1)}" y1="${plotT}" x2="${x.toFixed(1)}" y2="${plotB}" class="chart-grid${isJan ? " chart-grid-yr" : ""}"/><text x="${x.toFixed(1)}" y="${plotB + 15}" class="chart-xlab${isJan ? " chart-xlab-yr" : ""}" text-anchor="middle">${label}</text>`;
   }
   let ev = "";
   CHART_EVENTS.forEach((e, i) => {
@@ -719,14 +735,29 @@ function drawChart() {
     return `<path d="${d}" fill="none" stroke="${IND_COLOR[s.key]}" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round" stroke-linecap="round"${s.country === "UK" ? ' stroke-dasharray="6 4"' : ""}/>`;
   }).join("");
 
+  // Right-gutter divider + a ticker tag pinned to each line's right end (its final
+  // indexed value). Tags are nudged apart vertically so they never overlap.
+  const axis = `<line x1="${plotR}" y1="${plotT}" x2="${plotR}" y2="${plotB}" class="chart-axis"/>`;
+  const endItems = sel.map((s) => { const r = inRange(s), last = r[r.length - 1]; return last ? { s, val: ival(s, last.value), yReal: yFor(ival(s, last.value)), y: yFor(ival(s, last.value)) } : null; }).filter(Boolean);
+  endItems.sort((a, b) => a.y - b.y);
+  const TH = 15;
+  for (let i = 1; i < endItems.length; i++) if (endItems[i].y - endItems[i - 1].y < TH) endItems[i].y = endItems[i - 1].y + TH;
+  for (let i = endItems.length - 1; i >= 0; i--) { if (endItems[i].y > plotB) endItems[i].y = plotB; if (i < endItems.length - 1 && endItems[i + 1].y - endItems[i].y < TH) endItems[i].y = endItems[i + 1].y - TH; }
+  if (endItems.length && endItems[0].y < plotT) { endItems[0].y = plotT; for (let i = 1; i < endItems.length; i++) if (endItems[i].y - endItems[i - 1].y < TH) endItems[i].y = endItems[i - 1].y + TH; }
+  const endTags = endItems.map((it) => {
+    const txt = `${it.s.country} ${IND_SHORT[it.s.key] || it.s.label}`;
+    const w = Math.round(txt.length * 6 + 12), x = plotR + 5, y = it.y;
+    const lead = `<path d="M ${plotR} ${it.yReal.toFixed(1)} L ${x} ${y.toFixed(1)}" fill="none" stroke="${IND_COLOR[it.s.key]}" stroke-width="1" opacity=".5"/>`;
+    return `${lead}<g class="chart-endtag"><rect x="${x}" y="${(y - 8).toFixed(1)}" width="${w}" height="16" rx="3" fill="${IND_COLOR[it.s.key]}"/><text x="${(x + w / 2).toFixed(1)}" y="${(y + 3.5).toFixed(1)}" text-anchor="middle" class="chart-endtxt">${esc(txt)}</text></g>`;
+  }).join("");
+
   const legend = sel.map((s) => {
     const r = inRange(s), last = r[r.length - 1];
     return `<span class="chart-leg"><span class="chart-swatch${s.country === "UK" ? " dash" : ""}" style="--c:${IND_COLOR[s.key]}"></span>${esc(s.country)} · ${esc(s.label)} <b>${last ? fmtI(ival(s, last.value)) : "—"}</b></span>`;
   }).join("");
 
-  const startYr = miLabel(m0).slice(0, 4);
   const svg = `<svg viewBox="0 0 ${W} ${H}" class="chart-svg" id="chart-svg" role="img" aria-label="Selected macro indicators, each indexed to 0 at the start of the window">
-    ${grid}${xticks}${ev}${lines}
+    ${grid}${xticks}${axis}${ev}${lines}${endTags}
     <line id="chart-cross" class="chart-cross" y1="${plotT}" y2="${plotB}" style="display:none"/>
     <g id="chart-hoverdots"></g>
     <rect x="${plotL}" y="${plotT}" width="${plotW}" height="${plotH}" fill="transparent" id="chart-hit"/>
