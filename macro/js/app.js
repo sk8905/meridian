@@ -1173,7 +1173,11 @@ async function initNotif() {
   }
   renderNotifications();
 }
-document.addEventListener("click", (e) => { if (!e.target.closest("#notif")) closeNotif(); });
+document.addEventListener("click", (e) => {
+  const panel = document.getElementById("notif-panel");
+  const isOpen = panel && !panel.hasAttribute("hidden");
+  if (isOpen && !e.target.closest("#notif")) { e.preventDefault(); e.stopPropagation(); closeNotif(); }
+}, true);
 window.addEventListener("hashchange", closeNotif);
 
 function render() {

@@ -377,10 +377,14 @@ async function initNotif() {
   }
   renderNotifications();
 }
-// Close the panel on outside-click and on navigation.
+// Close the panel on outside-click and on navigation. When the panel is OPEN, the
+// first tap outside it should only dismiss the menu — consume it in the capture
+// phase so it doesn't also click through to a link/button on the page behind.
 document.addEventListener("click", (e) => {
-  if (!e.target.closest("#notif")) closeNotif();
-});
+  const panel = document.getElementById("notif-panel");
+  const isOpen = panel && !panel.hasAttribute("hidden");
+  if (isOpen && !e.target.closest("#notif")) { e.preventDefault(); e.stopPropagation(); closeNotif(); }
+}, true);
 window.addEventListener("hashchange", closeNotif);
 
 // devices; if the server is empty but this device has items, migrate them up.

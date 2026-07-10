@@ -527,7 +527,11 @@ function renderBell() {
     if (panel.hasAttribute("hidden")) { panel.removeAttribute("hidden"); bell.setAttribute("aria-expanded", "true"); markAllSeen(); }
     else { closeNotifPanel(); }
   });
-  document.addEventListener("click", (e) => { if (!wrap.contains(e.target)) closeNotifPanel(); });
+  document.addEventListener("click", (e) => {
+    const panel = document.getElementById("g-notif-panel");
+    const isOpen = panel && !panel.hasAttribute("hidden");
+    if (isOpen && !wrap.contains(e.target)) { e.preventDefault(); e.stopPropagation(); closeNotifPanel(); }
+  }, true);
 }
 
 // ---- Unified search index --------------------------------------------------
