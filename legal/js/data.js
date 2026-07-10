@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-07-10";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — four runs a day (~05:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "17:27 BST";
+export const LAST_CHECKED_TIME = "21:25 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -6351,6 +6351,159 @@ export const items = [
     tags: ["private equity", "M&A", "infrastructure", "exit"],
     dateEstimated: false,
   },
+  {
+    url: "https://www.aoshearman.com/en/insights/global-ma-insights/how-strategic-buyers-are-reshaping-uk-ma",
+    id: "u661", title: "How strategic buyers are reshaping UK M&A",
+    area: "corporate", areas: ["corporate"], type: "insight", firm: "aoshearman",
+    date: "2026-07-08", jurisdiction: "United Kingdom",
+    summary: "A&O Shearman's H1 2026 UK M&A review finds deal value more than doubled to $237bn despite a 22% fall in deal volume, driven by strategic (rather than private-equity) buyers and record inbound investment of $202bn into UK targets.",
+    points: [
+      "UK M&A value more than doubled year-on-year to $237bn in H1 2026 despite fewer deals",
+      "Strategic trade buyers, not private equity, drove the increase in deal value",
+      "Inbound investment into UK targets hit a record $202bn",
+    ],
+    tags: ["M&A", "UK dealmaking", "inbound investment", "strategic buyers"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://financialregulation.linklaters.com/post/102nbgo/",
+    id: "u662", title: "UK designates four tech firms as critical to financial system",
+    area: "banking", areas: ["banking"], type: "alert", firm: "linklaters",
+    date: "2026-07-10", jurisdiction: "United Kingdom",
+    summary: "HM Treasury has designated cloud and data-services entities of Microsoft, Google, Amazon and Oracle as critical third parties to the UK financial system under the Critical Third Parties regime, bringing them within the direct oversight of the Bank of England, PRA and FCA from 13 July 2026.",
+    points: [
+      "HM Treasury names Microsoft, Google, Amazon and Oracle entities as critical third parties",
+      "Designation takes effect 13 July 2026, triggering direct regulatory oversight",
+      "Builds on the Critical Third Parties regime intended to manage systemic operational-resilience risk from concentrated tech providers",
+    ],
+    tags: ["operational resilience", "critical third parties", "cloud", "FCA", "PRA"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://financialregulation.linklaters.com/post/102nbbr/",
+    id: "u663", title: "UK FCA previews its crypto application forms",
+    area: "banking", areas: ["banking", "funds"], type: "update", firm: "linklaters",
+    date: "2026-07-09", jurisdiction: "United Kingdom",
+    summary: "The FCA has published preview versions of the application forms firms will need to complete under the UK's new cryptoasset regulatory regime, giving prospective applicants early sight of the information and evidence the regulator will require.",
+    points: [
+      "FCA publishes draft/preview application forms ahead of the new UK cryptoasset regime going live",
+      "Gives firms advance visibility of the authorisation information the FCA will require",
+      "Follows the FCA's finalised cryptoasset framework rules published 30 June 2026",
+    ],
+    tags: ["cryptoassets", "FCA", "authorisation", "fintech"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://financialregulation.linklaters.com/post/102n9sk/",
+    id: "u664", title: "Consumer Duty centre stage: lessons from FCA's second Enforcement Watch",
+    area: "banking", areas: ["banking"], type: "insight", firm: "linklaters",
+    date: "2026-07-08", jurisdiction: "United Kingdom",
+    summary: "Linklaters analyses the FCA's second Enforcement Watch update, which puts Consumer Duty compliance at the centre of the regulator's enforcement priorities and draws out practical lessons for firms from recent cases and investigations.",
+    points: [
+      "FCA's second Enforcement Watch update foregrounds Consumer Duty as an enforcement priority",
+      "Firms are urged to review consumer-outcome monitoring and root-cause analysis processes",
+      "Follows a pattern of increasing FCA scrutiny of Consumer Duty embedding since its 2023 introduction",
+    ],
+    tags: ["Consumer Duty", "FCA enforcement", "conduct risk"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://financialregulation.linklaters.com/post/102nbit/",
+    id: "u665", title: "Between the Lines: FCA feedback on products and services outcome vs reform agenda",
+    area: "banking", areas: ["banking"], type: "update", firm: "linklaters",
+    date: "2026-07-10", jurisdiction: "United Kingdom",
+    summary: "Linklaters' Between the Lines bulletin examines the tension between the FCA's Consumer Duty products-and-services-outcome feedback and its parallel simplification/reform agenda for retail conduct regulation.",
+    points: [
+      "Compares FCA feedback on the Consumer Duty products and services outcome with its broader reform agenda",
+      "Highlights areas where simplification proposals may sit uneasily with existing outcome expectations",
+    ],
+    tags: ["Consumer Duty", "FCA", "regulatory reform"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.slaughterandmay.com/insights/financial-regulation-weekly-bulletin/financial-regulation-weekly-bulletin-9-july-2026/",
+    id: "u666", title: "Financial Regulation Weekly Bulletin – 9 July 2026",
+    area: "banking", areas: ["banking", "funds"], type: "update", firm: "slaughtermay",
+    date: "2026-07-09", jurisdiction: "United Kingdom / European Union",
+    summary: "Slaughter and May's weekly financial regulation round-up covers the UK's Overseas Prudential Requirements Regime Regulations 2026, the Bank of England's Financial Stability Report, and ESMA guidance on crypto and binary-options marketing.",
+    points: [
+      "Overseas Prudential Requirements Regime Regulations 2026 covered",
+      "Bank of England Financial Stability Report summarised",
+      "ESMA guidance on crypto-asset and binary-options marketing noted",
+    ],
+    tags: ["financial regulation", "prudential", "ESMA", "Bank of England"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.traverssmith.com/knowledge/knowledge-container/can-we-finally-summit-all-up-the-fcas-cryptoasset-regime-largely-emerges-from-the-clouds/",
+    id: "u667", title: "Can we finally 'summit' all up? The FCA's cryptoasset regime (largely) emerges from the clouds",
+    area: "banking", areas: ["banking", "funds"], type: "insight", firm: "traverssmith",
+    date: "2026-07-08", jurisdiction: "United Kingdom",
+    summary: "Travers Smith reviews the FCA's finalised cryptoasset regulatory framework (published 30 June 2026, implementation from 25 October 2027), assessing what is now settled and what remains to be confirmed for firms operating in the UK crypto space.",
+    points: [
+      "FCA finalised cryptoasset framework rules published 30 June 2026",
+      "Implementation date set for 25 October 2027",
+      "Identifies remaining open questions for firms preparing for authorisation",
+    ],
+    tags: ["cryptoassets", "FCA", "fintech regulation"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.traverssmith.com/knowledge/knowledge-container/travers-smiths-sustainability-insights-defence-needs-capital-and-clarity/",
+    id: "u668", title: "Sustainability Insights: Defence needs capital – and clarity",
+    area: "funds", areas: ["funds", "corporate"], type: "insight", firm: "traverssmith",
+    date: "2026-07-10", jurisdiction: "United Kingdom / European Union",
+    summary: "Travers Smith argues that procurement and commercial barriers, rather than sustainability-labelling rules, are the principal constraint on fund capital flowing into the European defence sector, and calls for greater regulatory clarity to unlock investment.",
+    points: [
+      "Procurement/commercial barriers, not ESG rules, identified as the main constraint on defence-sector fund investment",
+      "Calls for clearer regulatory guidance to help funds invest in defence",
+      "Relevant to funds assessing sustainability-framework treatment of defence exposures",
+    ],
+    tags: ["defence", "sustainable finance", "fund investment", "ESG"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.simmons-simmons.com/en/publications/cmrdnk7j300oavevwul1vkeev/smcr-view-july-2026",
+    id: "u669", title: "SMCR+ View – July 2026",
+    area: "banking", areas: ["banking", "funds"], type: "update", firm: "simmons",
+    date: "2026-07-09", jurisdiction: "United Kingdom",
+    summary: "Simmons & Simmons' monthly SMCR bulletin covers the Financial Services and Markets Bill 2026/27's proposed removal of the Certification Regime, the Phase 1 SMCR reforms effective 10 July 2026, and the planned extension of SMCR to cryptoasset firms.",
+    points: [
+      "FSM Bill 2026/27 proposes removing the Certification Regime",
+      "Phase 1 SMCR reforms took effect 10 July 2026",
+      "SMCR is being extended to cover cryptoasset firms",
+    ],
+    tags: ["SMCR", "senior managers regime", "FCA", "cryptoassets"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://tax.weil.com/insights/a-decision-of-significant-influence-the-supreme-court-decides-the-bluecrest-case-and-materially-narrows-the-defences-to-the-salaried-member-rules-on-llp-member-taxation/",
+    id: "u670", title: "A Decision of Significant Influence: The Supreme Court Decides the BlueCrest Case and Materially Narrows the Defences to the Salaried Member Rules on LLP Member Taxation",
+    area: "funds", areas: ["funds", "banking"], type: "insight", firm: "weil",
+    date: "2026-07-08", jurisdiction: "United Kingdom",
+    summary: "Weil analyses HMRC v BlueCrest Capital Management (UK) LLP [2026] UKSC 18, in which the Supreme Court significantly narrowed the defences available to LLPs seeking to avoid 'salaried member' tax treatment, holding that 'significant influence' must derive from legally enforceable governance rights rather than informal influence.",
+    points: [
+      "Supreme Court narrows the 'significant influence' defence to the salaried member rules",
+      "Qualifying influence must derive from legally enforceable rights, not de facto influence",
+      "Directly affects LLP-structured private equity, hedge fund and other asset managers",
+    ],
+    tags: ["salaried member rules", "LLP taxation", "Supreme Court", "asset managers"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.weil.com/articles/weil-advises-lone-star-funds-on-the-acquisition-of-contitech-from-continental-at-an-enterprise-value",
+    id: "u671", title: "Weil Advises Lone Star Funds on the Acquisition of ContiTech from Continental at an Enterprise Value of €4 Billion",
+    area: "corporate", areas: ["corporate", "funds"], type: "case", firm: "weil",
+    date: "2026-07-07", jurisdiction: "United Kingdom / Germany",
+    summary: "Weil advised Lone Star Funds on its agreed acquisition of ContiTech, Continental AG's engineered rubber and thermoplastics division (~22,000 employees), at an enterprise value of €4.0bn plus up to €250m in performance-based consideration; the deal team included Weil's London Corporate, Tax, Litigation, Antitrust and Private Equity practices.",
+    points: [
+      "Lone Star Funds to acquire Continental's ContiTech division for €4.0bn enterprise value plus up to €250m earn-out",
+      "London-based Weil lawyers advised across corporate, tax, litigation, antitrust and private equity",
+      "Continental will refocus on its core tyre-manufacturing business post-transaction",
+    ],
+    tags: ["private equity", "M&A", "carve-out", "cross-border"],
+    dateEstimated: false,
+  },
 ];
 
 // ---- Recent cases published on BAILII -------------------------------------
@@ -6545,6 +6698,12 @@ export const cases = [
   { id: "c63", name: "Illiquidx Limited v Altana Wealth & Ors", citation: "[2026] EWCA Civ 874", court: "Court of Appeal",
     date: "2026-07-10", area: "funds", url: "https://caselaw.nationalarchives.gov.uk/ewca/civ/2026/874",
     summary: "The Court of Appeal (Arnold, Zacaroli and Miles LJJ) dismissed an appeal against findings that Altana Wealth misused confidential information IlliquidX had disclosed under NDA about a strategy to launch a sanctions-compliant fund investing in distressed Venezuelan sovereign debt, rejecting the appellants' argument that the strategy was in the public domain." },
+  { id: "c64", name: "Loudmila Bourlakova & Ors v Semen Anufriev & Ors", citation: "[2026] EWHC 1747 (Ch)", court: "High Court (Ch)",
+    date: "2026-07-10", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1747",
+    summary: "The High Court ruled on an application to lift legal privilege under the 'iniquity exception' in a $3bn+ dispute over the late Oleg Bourlakov's business interests, a significant asset-tracing/fraud dispute involving complex corporate structures; trial is listed for October 2027." },
+  { id: "c65", name: "Tether Investments, S.A. de C.V. & Anor v Electric Solidus, Inc. (t/a Swan Bitcoin)", citation: "[2026] EWHC 1652 (Comm)", court: "High Court (Comm)",
+    date: "2026-06-26", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/1652",
+    summary: "The Commercial Court refused anti-suit relief sought to restrain a BVI derivative action, holding that a litigation-restriction clause in a shareholders' agreement does not bar derivative claims brought on behalf of the company — relevant to governance disputes in crypto/digital-asset joint ventures." },
 ];
 
 // ---- Lightweight lookups ----------------------------------------------------
@@ -6620,6 +6779,8 @@ export const caseSummaries = {
   c61: "Stefensen received 2.5 million shares in Rezolve AI plc under a share purchase agreement but held them on trust pending payment; he sold all the shares without authorisation and then defied four separate court orders (a proprietary injunction, an information order, a debarring order and a post-judgment injunction) requiring him to disclose what had become of the proceeds. Mr Justice Mellor found the breaches deliberate, flagrant and continuing, rejected suspension, and sentenced Stefensen to two years' imprisonment, emphasising the serious prejudice to DBLP's ability to trace the misappropriated funds. The decision illustrates the court's willingness to impose immediate custodial sentences for sustained non-compliance with disclosure orders protecting trust property in share-sale disputes.",
   c62: "Kuwait Finance House PLC applied to set aside a contempt order and default judgment obtained against it in enforcement proceedings, arguing it had never been properly served with the relevant documents and pointing to evidence that the claimant, Hamad Al Haroun, had manipulated a delivery-confirmation record dated 23 June 2023. David Quest KC, sitting as a Deputy High Court Judge, found that document manipulation had indeed occurred but held that genuine service had nonetheless taken place on multiple occasions via courier and postal delivery, and that KFH's failure to properly process the documents internally did not undermine the validity of service. The bank's applications to set aside both the contempt order and the default judgment were accordingly dismissed. The decision is a reminder to regulated institutions that internal document-handling failures will not excuse non-compliance with validly served enforcement orders, even where a counterparty's evidence is shown to be partly unreliable.",
   c63: "IlliquidX, an advisory boutique specialising in illiquid and distressed investments, disclosed under NDA in 2019 its strategy to establish a sanctions-compliant fund to monetise undervalued, sanctions-restricted Venezuelan sovereign debt, in connection with a proposed joint venture with Altana Wealth and Brevent Advisory (the Altana IlliquidX Canaima Fund), which subsequently collapsed. Altana went on to launch its own competing fund (ACOF) in 2020, allegedly built on the same confidential strategy. On appeal, Altana and its principals argued the strategy was in the public domain and therefore not protectable as confidential information; the Court of Appeal (Arnold, Zacaroli and Miles LJJ) rejected this, holding that 'public domain' retains its established meaning of general accessibility rather than mere absence of a confidentiality restriction, and that the appellants — who bore the burden of proof — failed to show the information was genuinely public. The decision is a useful appellate restatement of the public-domain threshold in breach-of-confidence claims, directly relevant to fund managers and advisers handling proprietary, sanctions-driven investment strategies.",
+  c64: "The claimants sought to lift legal privilege over documents and communications relating to the late Oleg Bourlakov's business interests, invoking the 'iniquity exception' which disapplies privilege where legal advice was sought or given for a fraudulent or otherwise iniquitous purpose. The dispute concerns more than $3bn in disputed business interests and involves complex, multi-jurisdictional corporate structures. The High Court's ruling on the scope of privilege in this asset-tracing context is significant for practitioners advising on fraud and asset-recovery claims involving corporate vehicles, with the substantive trial listed for October 2027.",
+  c65: "Tether Investments sought anti-suit relief in the English Commercial Court to restrain a derivative action brought in the BVI courts against Electric Solidus (trading as Swan Bitcoin), relying on a litigation-restriction clause in the parties' shareholders' agreement. The Commercial Court refused the relief, holding that such contractual restrictions on litigation do not extend to bar derivative claims brought on behalf of the company itself, as opposed to direct claims by a shareholder. The decision is relevant to governance and minority-shareholder disputes in crypto and digital-asset joint ventures structured through offshore vehicles.",
 };
 
 export const restructurings = [
