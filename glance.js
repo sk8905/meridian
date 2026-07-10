@@ -11,7 +11,7 @@
 // cache with the twice-daily data refresh instead of serving a stale copy.
 import { deals, intel, managers, funds, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260708-9";
 import { items, cases, restructurings, firmById } from "/legal/js/data.js?v=20260708-8";
-import { NEWS, ALERTS, COMMENTARY } from "/macro/js/content.js?v=20260708-27";
+import { NEWS, ALERTS, ARTICLES } from "/macro/js/content.js?v=20260710-4";
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const byDateDesc = (a, b) => String(b.date || "").localeCompare(String(a.date || ""));
@@ -102,16 +102,15 @@ const creditItemHref = (x, tab) => `/credit/#/${x.clo ? "clos" : tab}?focus=${en
 // ---- Highlight cards -------------------------------------------------------
 // Each platform card is broken into its natural sections, newest 3 items each.
 function renderCards() {
-  // ---- Macro: US headlines, UK headlines, upcoming releases (3 each) ----
+  // ---- Macro: US headlines, UK headlines, market headlines (newest 3 each) ----
+  // All three source daily-refreshed feeds (NEWS.us/uk and the ARTICLES reading
+  // list), so the routine keeps each showing three current (same-day) items.
   const macroNews = (k) => ((NEWS && NEWS[k]) || []).slice().sort(byDateDesc).slice(0, 3);
-  const commentary = [
-    ...(((COMMENTARY && COMMENTARY.us) || []).map((c) => ({ ...c, cc: "US" }))),
-    ...(((COMMENTARY && COMMENTARY.uk) || []).map((c) => ({ ...c, cc: "UK" }))),
-  ].sort(byDateDesc).slice(0, 3);
+  const marketNews = (((ARTICLES && ARTICLES.items) || []).slice()).sort(byDateDesc).slice(0, 3);
   const headline = (n) => item(n.url, n.title, `${fmt(n.date)}${n.source ? " · " + n.source : ""}`, true);
   sec("m", 1, "US headlines", macroNews("us").map(headline));
   sec("m", 2, "UK headlines", macroNews("uk").map(headline));
-  sec("m", 3, "Market commentary", commentary.map((c) => item(c.url, c.title, `${c.cc} · ${fmt(c.date)}${c.source ? " · " + c.source : ""}`, true)));
+  sec("m", 3, "Market headlines", marketNews.map(headline));
 
   // ---- Credit: deals, fundraising, CLOs ----
   const dealsR = [...deals].filter((d) => !d.clo).sort(byDateDesc).slice(0, 3);

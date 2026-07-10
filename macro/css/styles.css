@@ -369,9 +369,13 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
   .mainnav::-webkit-scrollbar { display: none; }
   .nav-link { padding: .3rem .5rem; font-size: .86rem; flex: 0 0 auto; }
   .container { padding: 1rem 1rem 2.5rem; }
-  .macro-grid { grid-template-columns: repeat(2, 1fr); gap: .7rem; }
-  .macro-tile { padding: .8rem .85rem .9rem; }
+  /* iPhone: keep each country as a compact 3-col × 2-row (2×3) block, stacked. */
+  .macro-grid { grid-template-columns: repeat(3, 1fr); gap: .45rem; }
+  .macro-tile { padding: .5rem .5rem .6rem; gap: .3rem; }
   .macro-tile-head { min-height: 0; }
+  .macro-label { font-size: .72rem; }
+  .macro-val { font-size: 1rem; }
+  .macro-chartlink { top: .25rem; right: .25rem; font-size: .7rem; }
   .macro-val { font-size: 1.25rem; }
   .macro-summary { grid-template-columns: 1fr; gap: .7rem; }
   .cal-band { grid-template-columns: repeat(2, 1fr); }

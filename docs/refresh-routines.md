@@ -401,8 +401,10 @@ the source of truth for the prompt.
 >      web searches for the most important CURRENT US and UK macro / monetary-policy /
 >      markets stories (inflation, central banks, growth, jobs, rates, fiscal) from
 >      reputable financial outlets (Reuters, FT, Bloomberg, WSJ, CNBC, Briefing.com,
->      MarketWatch and similar) and replace the arrays with the ~three most important
->      US and ~three most important UK headlines, preferring the last 3 days. Each
+>      MarketWatch and similar) and replace the arrays with **exactly three** US and
+>      **exactly three** UK headlines, ideally all dated the refresh day — the Glance
+>      landing card shows the newest three of each ("US headlines" / "UK headlines"),
+>      so it should always surface three current (same-day) items per country. Each
 >      item is `{title, source, date, url}` — use the exact published headline, the
 >      outlet, the verified `YYYY-MM-DD` publication date and the real article URL;
 >      never fabricate a headline, date or link. Diversify outlets within each country
@@ -418,10 +420,12 @@ the source of truth for the prompt.
 >      monetary policy, growth, inflation, oil, bonds, geopolitics — from reputable
 >      outlets (FT, Bloomberg, Reuters, WSJ, The Economist, The Guardian, etc.).
 >      Refresh each run: prepend genuinely current stories and drop the oldest to keep
->      ~12–14, newest first; diversify outlets; use the exact published headline, outlet,
->      verified `YYYY-MM-DD` date and real URL — never fabricate. Set `ARTICLES.updated`
->      to today. If egress is blocked so nothing can be verified, leave `ARTICLES`
->      unchanged and say so in the summary.
+>      ~12–14, newest first; **make sure the newest three are dated the refresh day** —
+>      the Glance landing card's "Market headlines" section shows the newest three of
+>      `ARTICLES.items`, so those three should be current (same-day). Diversify outlets;
+>      use the exact published headline, outlet, verified `YYYY-MM-DD` date and real URL
+>      — never fabricate. Set `ARTICLES.updated` to today. If egress is blocked so nothing
+>      can be verified, leave `ARTICLES` unchanged and say so in the summary.
 >    - **Recent market commentary in `macro/js/content.js` `COMMENTARY`** → the
 >      Policy Rate tab renders these as a two-column (US/UK) newest-first feed styled
 >      like the dashboard headlines. Unlike `NEWS`, these are ANALYSIS/opinion/research
