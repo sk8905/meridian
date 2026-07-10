@@ -89,7 +89,8 @@ h3 { font-size: 1rem; margin: 0; }
 .nav-link.active { color: #fff; background: rgba(255,255,255,.15); }
 /* Deal/intelligence are the platform's primary lens — emphasised in the nav. */
 .nav-link.nav-primary { color: #fff; font-weight: 700; }
-.nav-link.nav-primary.active { background: var(--accent, #2563eb); }
+/* Active section pill uses the logo diamond's grey (#c3ccd8), not a blue accent. */
+.nav-link.nav-primary.active { background: #c3ccd8; color: #1f2a3a; }
 .nav-sep { width: 1px; align-self: center; height: 18px; background: rgba(255,255,255,.18); margin: 0 .35rem; }
 /* Search pill — mirrors Glance's nav search (same right-margin position), in a
    opens the command palette, same as the "/" shortcut. It carries the row's
@@ -342,7 +343,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .namecell-text { display: block; min-width: 0; }
 .nav-badge {
   display: inline-block; min-width: 16px; padding: 0 5px; margin-left: .15rem;
-  background: var(--accent); color: #fff; border-radius: 999px;
+  background: #c3ccd8; color: #1f2a3a; border-radius: 999px;
   font-size: .68rem; font-weight: 700; line-height: 16px; text-align: center;
 }
 

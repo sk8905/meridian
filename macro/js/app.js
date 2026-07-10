@@ -157,6 +157,12 @@ function fmtDay(iso) {
   const d = isoToDate(iso);
   return d ? `${d.getDate()} ${MONTHS[d.getMonth() + 1]} ${d.getFullYear()}` : (iso || "");
 }
+// Zero-padded variant matching Credit's fmtDate ("09 Jul 2026") so the Commentary
+// feed uses the same date convention as the Credit News feed.
+function fmtDayGB(iso) {
+  const d = isoToDate(iso);
+  return d ? `${String(d.getDate()).padStart(2, "0")} ${MONTHS[d.getMonth() + 1]} ${d.getFullYear()}` : (iso || "");
+}
 // Weekday + day + month for the calendar banner: "2026-07-14" → "Tue 14 Jul".
 function fmtWeekday(iso) {
   const d = isoToDate(iso);
@@ -375,7 +381,7 @@ function commentaryRow(n) {
     : `<span class="intel-head">${esc(n.title)}</span>`;
   const src = `${esc(n.source)}${n.author ? " · " + esc(n.author) : ""}`;
   return `<div class="intel-row" data-said="${esc(articleSaveId(n))}">
-    <span class="chip">News</span>${head}<span class="intel-src-inline muted small">${src}</span><span class="intel-date muted small">${esc(fmtDay(n.date))}</span>${saveBtn(articleSaveId(n))}
+    <span class="chip">News</span>${head}<span class="intel-src-inline muted small">${src}</span><span class="intel-date muted small">${esc(fmtDayGB(n.date))}</span>${saveBtn(articleSaveId(n))}
   </div>`;
 }
 // Group a list of articles (newest first) into month sections: "JULY 2026" etc.

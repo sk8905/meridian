@@ -191,8 +191,8 @@ a.compact-head:hover { color: var(--macro); text-decoration: underline; }
    line: chip · date · headline (black, links out) · source (grey). Wraps
    gracefully when a headline is too long for one line. */
 .macro-articles-panel { padding: 1.1rem 1.25rem; }
-.intel-row { display: flex; align-items: baseline; gap: .55rem; padding: .5rem 0; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
-.intel-row:last-child { border-bottom: none; padding-bottom: .1rem; }
+.intel-row { display: flex; align-items: baseline; gap: .6rem; padding: .8rem 0; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+.intel-row:last-child { border-bottom: none; }
 .chip { display: inline-block; padding: .12rem .5rem; border-radius: 999px; background: #ede9fe; color: #5b21b6; font-size: .72rem; font-weight: 600; border: 1px solid #ddd6fe; white-space: nowrap; flex-shrink: 0; }
 .intel-date { flex-shrink: 0; white-space: nowrap; }
 .intel-head { font-weight: 600; color: var(--ink); overflow-wrap: anywhere; }
