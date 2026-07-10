@@ -331,7 +331,7 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
    phones (the ≤760px block flips display to grid). ---- */
 .mobile-tabbar {
   display: none; position: fixed; left: .6rem; right: .6rem; z-index: 45;
-  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  bottom: calc(1.55rem + env(safe-area-inset-bottom, 0px));
   grid-template-columns: repeat(5, 1fr);
   padding: .28rem .3rem; border-radius: 24px;
   background: rgba(248,249,252,.72);
@@ -410,7 +410,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
   .news-col + .news-col { margin-top: 1.1rem; }
   .macro-sources ul { grid-template-columns: 1fr; }
   /* Fixed bottom tab bar (phones only): platform switch + search. */
-  body { padding-bottom: 5.1rem; }
+  body { padding-bottom: 5.65rem; }
   .mobile-tabbar { display: grid; }
 }
 @media (max-width: 480px) {
