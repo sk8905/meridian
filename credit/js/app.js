@@ -1113,8 +1113,18 @@ function byYear(items, rowFn) {
     .join("");
 }
 
+// One manager-profile news row — same layout as the Fundraising (intelRow) rows:
+// a "News" pill + date in the meta column, the headline (links to source), then
+// the outlet inline after the headline, and a summary line where present.
 function newsItemRow(x) {
-  return `<div class="intel-row" data-fkey="${esc(feedDedupKey(x))}"><div class="intel-meta"><span class="muted small">${esc(x.outlet || "")}</span><span class="muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span></div><div class="intel-body"><div class="intel-title-line"><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a>${saveBtn(newsSaveId(x))}</div></div></div>`;
+  const head = x.url
+    ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a>`
+    : `<span class="intel-head">${esc(x.title)}</span>`;
+  const src = x.outlet ? `<span class="intel-src-inline muted small">${esc(x.outlet)}</span>` : "";
+  return `<div class="intel-row" data-fkey="${esc(feedDedupKey(x))}">
+    <div class="intel-meta"><span class="chip">News</span><span class="muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span></div>
+    <div class="intel-body"><div class="intel-title-line">${head}${src}${saveBtn(newsSaveId(x))}</div>${x.summary ? `<p class="muted small">${esc(x.summary)}</p>` : ""}</div>
+  </div>`;
 }
 
 // Dedup key for a manager's combined news feed: a specific source URL when one
