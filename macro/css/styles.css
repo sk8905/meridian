@@ -290,6 +290,20 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
 .chart-ctrl-h { font-weight: 700; color: var(--ink); margin-bottom: .55rem; font-size: .92rem; }
 .chart-ind-cols { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem 2rem; }
 .chart-ind-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .05rem .7rem; }
+/* Chart stage: the plot on the left, the indicator selectors in a right sidebar. */
+.chart-stage { display: flex; gap: 1.4rem; align-items: flex-start; }
+.chart-stage-main { flex: 1 1 auto; min-width: 0; }
+.chart-ind-side { flex: 0 0 12rem; border-left: 1px solid var(--border); padding-left: 1.2rem; }
+.chart-ind-side .chart-ind-grid { grid-template-columns: 1fr; gap: 0; }
+.chart-ind-side .chart-ind-block + .chart-ind-block { margin-top: 1rem; }
+/* On narrow screens the sidebar drops below the chart and the lists go multi-column. */
+@media (max-width: 760px) {
+  .chart-stage { flex-direction: column; gap: 1rem; }
+  .chart-ind-side { flex: none; width: 100%; border-left: 0; padding-left: 0; border-top: 1px solid var(--border); padding-top: 1rem; }
+  .chart-ind-side .chart-ind-side-list { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem 1.4rem; }
+  .chart-ind-side .chart-ind-block + .chart-ind-block { margin-top: 0; }
+  .chart-ind-side .chart-ind-grid { grid-template-columns: repeat(2, 1fr); }
+}
 .chart-ind-country { font-weight: 700; color: var(--macro-ink); font-size: .78rem; margin-bottom: .35rem; text-transform: uppercase; letter-spacing: .5px; }
 .chart-line-key { font-weight: 600; color: var(--muted); text-transform: none; letter-spacing: 0; font-size: .72rem; }
 .chart-ind-all { display: inline-flex; align-items: center; gap: .3rem; margin-right: .5rem; font-weight: 600;
@@ -320,6 +334,10 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
 .chart-xlab-yr { fill: var(--ink); font-weight: 700; }
 /* Ticker tag pinned to each line's right end. */
 .chart-endtxt { fill: #fff; font-size: 10px; font-weight: 700; }
+#chart-endtags { transition: opacity .12s ease; }
+/* Crosshair date tag on the bottom axis (follows the cursor). */
+.chart-datetag { fill: var(--macro-ink); }
+.chart-datetxt { fill: #fff; font-size: 10px; font-weight: 700; }
 .chart-evline { stroke: var(--macro-ink); stroke-width: 1.5; stroke-dasharray: 3 3; opacity: .45; }
 .chart-evdot { fill: var(--macro-ink); pointer-events: all; }
 .chart-evnum { fill: #fff; font-size: 10px; font-weight: 800; pointer-events: none; }

@@ -585,7 +585,7 @@ const CHART_API = "/api/chart-prefs", CHART_LS = "mchart";
 function chartReadLocal() {
   try { const o = JSON.parse(localStorage.getItem(CHART_LS) || "null"); return o && Array.isArray(o.sel) && Array.isArray(o.events) ? o : null; } catch { return null; }
 }
-const CHART_RANGES = { "1y": 12, "3y": 36, "5y": 60, "max": Infinity };
+const CHART_RANGES = { "1y": 12, "3y": 36, "5y": 60, "10y": 120, "max": Infinity };
 const CHART_DEFAULT_RANGE = "5y";
 const _chartLocal = chartReadLocal();
 let chartSel = new Set(_chartLocal ? _chartLocal.sel : CHART_DEFAULT_SEL);
@@ -639,25 +639,27 @@ function viewChart() {
     </div>
     <section class="card chart-ctrls">
       <div class="chart-ctrl-grp">
-        <div class="chart-ctrl-h">Indicators <span class="muted small">(<span id="chart-count">${chartSel.size}</span> of 12 selected)</span></div>
-        <div class="chart-ind-cols">
-          <div><div class="chart-ind-country">${allBox("US")}United States <span class="chart-line-key">— solid</span></div><div class="chart-ind-grid">${indBox("US")}</div></div>
-          <div><div class="chart-ind-country">${allBox("UK")}United Kingdom <span class="chart-line-key">- - dashed</span></div><div class="chart-ind-grid">${indBox("UK")}</div></div>
-        </div>
-      </div>
-      <div class="chart-ctrl-grp">
         <div class="chart-ctrl-h">Events</div>
         <div class="chart-evts">${chips}</div>
       </div>
     </section>
-    <section class="card">
-      <div class="chart-toolbar">
-        <div class="chart-range" role="group" aria-label="Time range">
-          ${Object.keys(CHART_RANGES).map((r) => `<button type="button" class="chart-range-btn${chartRange === r ? " is-on" : ""}" data-range="${r}">${r === "max" ? "Max" : r.toUpperCase()}</button>`).join("")}
+    <section class="card chart-stage">
+      <div class="chart-stage-main">
+        <div class="chart-toolbar">
+          <div class="chart-range" role="group" aria-label="Time range">
+            ${Object.keys(CHART_RANGES).map((r) => `<button type="button" class="chart-range-btn${chartRange === r ? " is-on" : ""}" data-range="${r}">${r === "max" ? "Max" : r.toUpperCase()}</button>`).join("")}
+          </div>
+          <button type="button" class="chart-export" id="chart-export" title="Download the chart as a PNG image">⤓ PNG</button>
         </div>
-        <button type="button" class="chart-export" id="chart-export" title="Download the chart as a PNG image">⤓ PNG</button>
+        <div id="chart-canvas"><p class="muted">Loading macro data…</p></div>
       </div>
-      <div id="chart-canvas"><p class="muted">Loading macro data…</p></div>
+      <aside class="chart-ind-side">
+        <div class="chart-ctrl-h">Indicators <span class="muted small">(<span id="chart-count">${chartSel.size}</span> of 12)</span></div>
+        <div class="chart-ind-side-list">
+          <div class="chart-ind-block"><div class="chart-ind-country">${allBox("US")}United States <span class="chart-line-key">— solid</span></div><div class="chart-ind-grid">${indBox("US")}</div></div>
+          <div class="chart-ind-block"><div class="chart-ind-country">${allBox("UK")}United Kingdom <span class="chart-line-key">- - dashed</span></div><div class="chart-ind-grid">${indBox("UK")}</div></div>
+        </div>
+      </aside>
     </section>`;
 }
 
@@ -757,9 +759,11 @@ function drawChart() {
   }).join("");
 
   const svg = `<svg viewBox="0 0 ${W} ${H}" class="chart-svg" id="chart-svg" role="img" aria-label="Selected macro indicators, each indexed to 0 at the start of the window">
-    ${grid}${xticks}${axis}${ev}${lines}${endTags}
+    ${grid}${xticks}${axis}${ev}${lines}
+    <g id="chart-endtags">${endTags}</g>
     <line id="chart-cross" class="chart-cross" y1="${plotT}" y2="${plotB}" style="display:none"/>
     <g id="chart-hoverdots"></g>
+    <g id="chart-axtags"></g>
     <rect x="${plotL}" y="${plotT}" width="${plotW}" height="${plotH}" fill="transparent" id="chart-hit"/>
   </svg>`;
   canvas.innerHTML = `<div class="chart-main">${svg}<div id="chart-tip" class="chart-tip" hidden></div></div>
@@ -788,6 +792,7 @@ function drawChart() {
   if (!sel.length) return;
   const svgEl = document.getElementById("chart-svg"), hit = document.getElementById("chart-hit");
   const cross = document.getElementById("chart-cross"), dots = document.getElementById("chart-hoverdots");
+  const endtagsG = document.getElementById("chart-endtags"), axtags = document.getElementById("chart-axtags");
   const tip = document.getElementById("chart-tip"), main = canvas.querySelector(".chart-main");
   const nearest = (hist, mi) => hist.reduce((b, p) => (Math.abs(MI(p.label) - mi) < Math.abs(MI(b.label) - mi) ? p : b), hist[0]);
   hit.addEventListener("mousemove", (e) => {
@@ -798,21 +803,39 @@ function drawChart() {
     const x = xFor(mi);
     cross.setAttribute("x1", x); cross.setAttribute("x2", x); cross.style.display = "";
     let dd = "", rows = "";
+    const vt = [];
     sel.forEach((s) => {
       const pt = s.history.find((p) => MI(p.label) === mi) || nearest(s.history, mi);
       if (!pt) return;
-      dd += `<circle cx="${xFor(MI(pt.label)).toFixed(1)}" cy="${yFor(ival(s, pt.value)).toFixed(1)}" r="3.5" fill="${IND_COLOR[s.key]}" stroke="#fff" stroke-width="1.5"/>`;
+      const cy = yFor(ival(s, pt.value));
+      dd += `<circle cx="${xFor(MI(pt.label)).toFixed(1)}" cy="${cy.toFixed(1)}" r="3.5" fill="${IND_COLOR[s.key]}" stroke="#fff" stroke-width="1.5"/>`;
+      vt.push({ y: cy, txt: fmtI(ival(s, pt.value)), color: IND_COLOR[s.key] });
       rows += `<div class="tip-row"><span class="tip-dot" style="background:${IND_COLOR[s.key]}"></span>${esc(s.country)} ${esc(s.label)}: <b>${fmtI(ival(s, pt.value))}</b> <span class="tip-real">(${(+pt.value).toFixed(2)}${s.unit === "%" ? "%" : ""})</span></div>`;
     });
     dots.innerHTML = dd;
-    tip.innerHTML = `<div class="tip-date">${esc(macroMonth(miLabel(mi)))}</div>${rows}`;
+    // Crosshair axis tags (TradingView style): a value tag on the right scale for
+    // each series (de-collided), plus a date tag on the bottom axis. The resting
+    // per-line ticker tags are hidden while hovering so the gutter stays clean.
+    vt.sort((a, b) => a.y - b.y);
+    const TH = 15;
+    for (let i = 1; i < vt.length; i++) if (vt[i].y - vt[i - 1].y < TH) vt[i].y = vt[i - 1].y + TH;
+    for (let i = vt.length - 1; i >= 0; i--) { if (vt[i].y > plotB) vt[i].y = plotB; if (i < vt.length - 1 && vt[i + 1].y - vt[i].y < TH) vt[i].y = vt[i + 1].y - TH; }
+    let ax = vt.map((v) => { const w = Math.round(v.txt.length * 6.4 + 12), xx = plotR + 5;
+      return `<rect x="${xx}" y="${(v.y - 8).toFixed(1)}" width="${w}" height="16" rx="3" fill="${v.color}"/><text x="${(xx + w / 2).toFixed(1)}" y="${(v.y + 3.5).toFixed(1)}" text-anchor="middle" class="chart-endtxt">${esc(v.txt)}</text>`;
+    }).join("");
+    const dl = macroMonth(miLabel(mi)), dw = Math.round(dl.length * 6.2 + 16);
+    let dx = Math.max(plotL, Math.min(plotR - dw, x - dw / 2));
+    ax += `<rect x="${dx.toFixed(1)}" y="${(plotB + 3).toFixed(1)}" width="${dw}" height="17" rx="3" class="chart-datetag"/><text x="${(dx + dw / 2).toFixed(1)}" y="${(plotB + 15).toFixed(1)}" text-anchor="middle" class="chart-datetxt">${esc(dl)}</text>`;
+    axtags.innerHTML = ax;
+    endtagsG.style.opacity = "0";
+    tip.innerHTML = rows;
     tip.hidden = false;
     const mr = main.getBoundingClientRect();
     let tx = e.clientX - mr.left + 14; const ty = e.clientY - mr.top + 8;
     if (tx > mr.width - 190) tx = e.clientX - mr.left - 200;
     tip.style.left = Math.max(2, tx) + "px"; tip.style.top = ty + "px";
   });
-  hit.addEventListener("mouseleave", () => { cross.style.display = "none"; dots.innerHTML = ""; tip.hidden = true; });
+  hit.addEventListener("mouseleave", () => { cross.style.display = "none"; dots.innerHTML = ""; axtags.innerHTML = ""; endtagsG.style.opacity = "1"; tip.hidden = true; });
 }
 
 // Chart control interactions (delegated; added once at module load).
