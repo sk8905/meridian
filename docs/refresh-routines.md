@@ -4,8 +4,8 @@
 at **05:00**, **12:00**, **17:00** and **21:00** (Claude Routines runs a single schedule per
 routine, so create four routines that all use the prompt below). Each does a **full
 refresh of all three apps** — Credit (deals, fundraising, mandates/launches, manager website
-news, **fund-record reconciliation, new managers/funds, and rotating manager-profile
-re-verification**), Legal (legal alerts, case law, **and restructuring schemes &
+news, **fund-record reconciliation, new managers/funds, rotating manager-profile
+re-verification, and deep-research enrichment of watchlisted names**), Legal (legal alerts, case law, **and restructuring schemes &
 plans**) and Macro (**refresh the live-indicator cache, update curated recent prints
 and central-bank rates, roll the upcoming-releases dropdown forward, rewrite the key
 macro news headlines, and review the Commentary/Cycle/Bubble guidance**). Together
@@ -22,6 +22,30 @@ the source of truth for the prompt.
 > endpoint), with a few curated series and all editorial guidance in
 > `macro/js/content.js`. The site deploys from the **`main`** branch (Cloudflare
 > redeploys on every push to `main`).
+
+## Watchlist deep-research — one-time setup
+
+The routine deep-researches the names users **follow** (star on any manager, fund or
+investor). Those follows live in per-user Cloudflare KV, so the routine reads the
+aggregate set through a small, secret-guarded Worker endpoint. Set this up once:
+
+1. **Secret.** Pick a long random string and store it as the Worker secret
+   `RESEARCH_KEY`: `npx wrangler secret put RESEARCH_KEY`. Put the SAME value in each
+   of the four Routines' environment (as `RESEARCH_KEY`) so the prompt's
+   `X-Research-Key` header matches.
+2. **Let the routine past Access.** The whole site is behind Cloudflare Access, so a
+   headless routine is blocked at the edge unless you either (a) add an Access
+   **Bypass** policy scoped to the single path `/api/research-targets` (simplest — the
+   endpoint's own `RESEARCH_KEY` check is then the only guard), or (b) issue an Access
+   **service token** and send `CF-Access-Client-Id` / `CF-Access-Client-Secret` with
+   the request. Option (a) is recommended.
+3. **Done.** `GET /api/research-targets` (with the header) returns
+   `{ users, manager:[ids], fund:[ids], lp:[ids] }` — the union of every user's
+   watchlist, never who follows what. The endpoint is read-only. If the secret is
+   unset it returns 503 and the routine simply skips the deep-research block.
+
+Until this is configured the routine still runs its normal full refresh; only the
+extra deep-research pass on watchlisted names is skipped.
 
 ## Invariants
 
@@ -318,6 +342,35 @@ the source of truth for the prompt.
 >      their `asOf` to today (even if unchanged, so the rotation advances). This
 >      keeps the slow-moving profile data fresh without re-checking all of them
 >      every run.
+>    - **Watchlist deep-research (priority names) — DO THIS EVERY RUN.** The names
+>      users follow deserve a DEEPER, more complete profile than the normal sweep
+>      above. Get the live list first: `GET https://<site>/api/research-targets` with
+>      header `X-Research-Key: <the RESEARCH_KEY secret in this routine's env>`. It
+>      returns `{ users, manager:[ids], fund:[ids], lp:[ids] }` — the union of every
+>      user's watchlist. Resolve those ids to names via `credit/js/data.js`. If the
+>      endpoint is unreachable or the secret is unset, SKIP this block and carry on
+>      with the rest of the refresh — never fail the run over it. Because the list is
+>      fetched live each run, any newly-starred name is picked up automatically next
+>      run. Pick the watchlisted entities whose `deepAsOf` is missing or oldest and
+>      deep-research **up to ~5–8 of them per run** (the rest roll to the next run so
+>      one routine stays bounded). For EACH chosen name go WIDE and go BACK:
+>      - **News (historical + new)** → backfill its `webNews` as far back as 2016,
+>        not just the last day — add every source-verifiable announcement, press
+>        release and article you can confirm that isn't already tracked, and MIRROR
+>        each transaction/capital event into `deals`/`intel` (flagging CLO items)
+>        exactly as the rules above require.
+>      - **New funds / CLOs / vehicles** → find funds, CLOs, CLO-equity vehicles,
+>        continuation funds and managed accounts run by that name that aren't yet in
+>        `funds`/`deals`, and add them (the private-credit scope test still applies).
+>      - **Investors / LPs** → capture disclosed limited partners / cornerstone
+>        investors (pension plans, insurers, sovereign funds, fund-of-funds) tied to
+>        that name's vehicles, where the platform models them.
+>      - **Profile gaps** → fill any missing manager/fund fields (AUM, owners,
+>        financials, headcount, filings, strategies) from current public sources.
+>      - **Stamp progress** → set `deepAsOf` (YYYY-MM-DD) on every entity you deep-
+>        research this run, even if nothing changed, so the rotation advances. A name
+>        with a recent `deepAsOf` only needs an incremental top-up (items since), not
+>        another full historical dig.
 >    - If Credit's data changed (any of the above), set `DATA_UPDATED` to today.
 >
 > 3. LEGAL — `legal/js/data.js` (English law). Cover the four practice areas only:

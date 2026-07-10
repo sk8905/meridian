@@ -149,6 +149,48 @@ async function handleWatchlist(request, env) {
   return json({ error: "method not allowed" }, 405);
 }
 
+// Aggregate "research targets" — the UNION of every user's watchlisted entity ids
+// (managers / funds / investors), so the scheduled refresh routine can spend its
+// deeper research budget on exactly the names people follow. It returns only the
+// set of ids to research (which the routine resolves to names via data.js) — never
+// who follows what. Guarded by a shared secret (the RESEARCH_KEY Worker secret):
+// the caller sends `X-Research-Key: <secret>` (or ?key=<secret>). Because the whole
+// site sits behind Cloudflare Access, a headless routine must also be let past the
+// edge — add an Access *Bypass* policy for this one path, or call it with an Access
+// service token. Read-only; never mutates KV.
+async function handleResearchTargets(request, env) {
+  if (request.method !== "GET") return json({ error: "method not allowed" }, 405);
+  const secret = env.RESEARCH_KEY;
+  if (!secret) return json({ error: "not configured" }, 503);
+  const url = new URL(request.url);
+  const given = request.headers.get("x-research-key") || url.searchParams.get("key") || "";
+  // Constant-ish comparison; lengths differ rarely and this is not a timing-sensitive path.
+  if (!given || given !== secret) return json({ error: "forbidden" }, 403);
+
+  const out = { manager: new Set(), fund: new Set(), lp: new Set() };
+  let users = 0, cursor;
+  try {
+    do {
+      const page = await env.WATCHLIST.list({ prefix: keyFor(""), cursor, limit: 1000 });
+      for (const k of page.keys) {
+        const raw = await env.WATCHLIST.get(k.name);
+        if (!raw) continue;
+        let wl; try { wl = JSON.parse(raw); } catch { continue; }
+        let any = false;
+        for (const t of FOLLOW_TYPES) {
+          const arr = Array.isArray(wl[t]) ? wl[t] : [];
+          for (const id of arr) { if (typeof id === "string" && id) { out[t].add(id); any = true; } }
+        }
+        if (any) users++;
+      }
+      cursor = page.list_complete ? null : page.cursor;
+    } while (cursor);
+  } catch (e) {
+    return json({ error: String((e && e.message) || e) }, 500);
+  }
+  return json({ users, manager: [...out.manager], fund: [...out.fund], lp: [...out.lp], ts: Date.now() });
+}
+
 // Return the signed-in identity (from the Access JWT) so the branded landing
 // page can greet the user and gate entry to both /credit/ and /legal/. When the
 // site is behind one Cloudflare Access application covering the whole host, a
@@ -947,6 +989,7 @@ export default {
     if (url.pathname === "/api/pulse") return handlePulse(request, env, ctx);
     if (url.pathname === "/api/macro") return handleMacro(request, env, ctx);
     if (url.pathname === "/api/watchlist") return handleWatchlist(request, env);
+    if (url.pathname === "/api/research-targets") return handleResearchTargets(request, env);
     if (url.pathname === "/api/saved") return handleSaved(request, env, savedKeyFor);
     if (url.pathname === "/api/saved-credit") return handleSaved(request, env, savedCreditKeyFor);
     if (url.pathname === "/api/saved-macro") return handleSaved(request, env, savedMacroKeyFor);
