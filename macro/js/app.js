@@ -267,7 +267,7 @@ function renderMacro(data) {
       ${Object.keys(DASH_RANGES).map((r) => `<button type="button" class="chart-range-btn dash-range-btn${dashRange === r ? " is-on" : ""}" data-drange="${r}">${r.toUpperCase()}</button>`).join("")}
     </div>
   </div>`;
-  return renderReleases() + rangeBar + grids + renderNews() + summaryCards();
+  return renderReleases() + rangeBar + `<div class="macro-groups">${grids}</div>` + renderNews() + summaryCards();
 }
 
 // ---- Horizontal 0–100 gauge (used by Cycle and Bubble) ---------------------

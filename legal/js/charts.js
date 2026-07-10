@@ -23,7 +23,7 @@ export function barChart(data, { width = 520 } = {}) {
   const rows = data.map((d, i) => {
     const y = gap + i * (rowH + gap);
     const w = Math.max(2, (d.value / max) * barW);
-    const color = d.color || "#0d9488";
+    const color = d.color || "#366865";
     const inner = `
       <text x="${left - 10}" y="${y + rowH / 2 + 4}" text-anchor="end" class="chart-label">${esc(d.label)}</text>
       <rect x="${left}" y="${y}" width="${w}" height="${rowH}" rx="4" fill="${color}"><title>${esc(d.label)}: ${d.value}</title></rect>
@@ -83,7 +83,7 @@ export function columnChart(data, { width = 560, height = 200 } = {}) {
     const h = (d.value / max) * plotH;
     const x = left + i * slot + (slot - barW) / 2;
     const y = top + plotH - h;
-    const inner = `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(1, h).toFixed(1)}" rx="3" fill="#0d9488"><title>${esc(d.label)}: ${d.value}</title></rect>
+    const inner = `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${barW.toFixed(1)}" height="${Math.max(1, h).toFixed(1)}" rx="3" fill="#366865"><title>${esc(d.label)}: ${d.value}</title></rect>
       <text x="${(x + barW / 2).toFixed(1)}" y="${height - 9}" text-anchor="middle" class="chart-axis">${esc(d.label)}</text>`;
     if (!d.nav) return `<g>${inner}</g>`;
     // Transparent full-height hit area so the whole column is clickable.
