@@ -1175,6 +1175,13 @@ document.addEventListener("touchend", (e) => {
 }, { passive: true });
 
 window.addEventListener("hashchange", router);
+// iPhone: tapping the brand logo refreshes the current page rather than jumping
+// back to Glance (the href="/" navigation is the desktop behaviour only).
+document.addEventListener("click", (e) => {
+  if (e.target.closest(".brand") && window.matchMedia("(max-width: 760px)").matches) {
+    e.preventDefault(); location.reload();
+  }
+});
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
 import("/palette.js?v=20260710-5").then((m) => m.mountPalette()).catch(() => {});
 initChrome();

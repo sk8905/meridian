@@ -516,6 +516,13 @@
   </div>
 
   <script>
+    // iPhone: tapping the brand logo refreshes the current page rather than
+    // navigating (the href="/" is the desktop behaviour only).
+    document.addEventListener("click", (e) => {
+      if (e.target.closest(".g-brand") && window.matchMedia("(max-width: 760px)").matches) {
+        e.preventDefault(); location.reload();
+      }
+    });
     // Auth state gate — behind Cloudflare Access /api/me returns the verified email.
     const show = (id) => ["loading", "out", "glance"].forEach((s) => document.getElementById(s).classList.toggle("hidden", s !== id));
     document.getElementById("preview-toggle").addEventListener("click", (e) => { e.preventDefault(); document.getElementById("preview").classList.toggle("hidden"); });
