@@ -225,6 +225,7 @@ function renderNews() {
   return `<section class="card feature-card macro-news-panel">
     <h2>Key macro headlines</h2>
     <div class="news-cols">${col("United States", NEWS && NEWS.us)}${col("United Kingdom", NEWS && NEWS.uk)}</div>
+    <a class="news-more" href="#/commentary">See the latest commentary →</a>
   </section>`;
 }
 

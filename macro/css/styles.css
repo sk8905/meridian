@@ -219,6 +219,8 @@ a.cal-tile:focus-visible { outline: 2px solid var(--macro); outline-offset: -2px
 .macro-news-panel { margin: 0 0 1.7rem; }
 .macro-news-panel h2 { font-size: 1.05rem; font-weight: 700; color: var(--ink); margin: 0 0 .2rem; }
 .news-cols { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem 1.75rem; margin-top: .7rem; }
+.news-more { display: inline-block; margin-top: .9rem; font-size: .82rem; font-weight: 600; color: var(--macro); }
+.news-more:hover { text-decoration: underline; }
 .news-col-head { font-size: .74rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--macro); margin: 0; padding-bottom: .35rem; border-bottom: 2px solid var(--macro); display: inline-block; }
 .compact-list { list-style: none; margin: .1rem 0 0; padding: 0; }
 .compact-item { padding: .55rem 0; border-bottom: 1px solid var(--border); }
