@@ -1066,7 +1066,7 @@ function refreshStamp() {
 function renderDataStatus() {
   const el = document.getElementById("data-status");
   if (!el) return;
-  el.innerHTML = `<span class="ds-text" title="Indicators are refreshed by the twice-daily routine (06:00 & 12:00 London) and fetched live from /api/macro; guidance as of ${esc(UPDATED)}"><span class="ds-part">Last refresh ${esc(refreshStamp())}</span></span>`;
+  el.innerHTML = `<span class="ds-text" title="Indicators are refreshed by the four-times-daily routine (05:00, 12:00, 17:00 &amp; 21:00 London) and fetched live from /api/macro; guidance as of ${esc(UPDATED)}"><span class="ds-part">Last refresh ${esc(refreshStamp())}</span></span>`;
 }
 
 // ---- Notifications bell: economic-data prints + guidance changes -----------

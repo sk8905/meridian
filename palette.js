@@ -7,7 +7,7 @@
 // Import dynamically and call mountPalette() once.  Zero dependencies.
 // =============================================================================
 // Versioned imports (matching each app) so the palette busts its cache with the
-// twice-daily data refresh instead of serving a stale copy.
+// four-times-daily data refresh instead of serving a stale copy.
 import { deals, intel, managers, funds } from "/credit/js/data.js?v=20260708-9";
 import { items, cases, restructurings } from "/legal/js/data.js?v=20260708-8";
 

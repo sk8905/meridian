@@ -25,7 +25,7 @@ export const LAST_CHECKED = "2026-07-10";
 // Time-of-day the routine last ran, as a pre-formatted string WITH a timezone
 // label (e.g. "05:22 BST"). Pre-formatted so it renders identically regardless of
 // the viewer's browser timezone. Set every run alongside LAST_CHECKED — there are
-// two runs a day (~06:00 and ~12:00), so the time tells which run is shown.
+// four runs a day (~05:00, ~12:00, ~17:00 and ~21:00), so the time tells which run is shown.
 export const LAST_CHECKED_TIME = "12:18 BST";
 
 export const STRATEGIES = [

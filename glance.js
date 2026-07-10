@@ -8,7 +8,7 @@
 // only once the user is authenticated.
 // =============================================================================
 // Data modules are versioned (matching each app) so the live Glance busts its
-// cache with the twice-daily data refresh instead of serving a stale copy.
+// cache with the four-times-daily data refresh instead of serving a stale copy.
 import { deals, intel, managers, funds, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260708-9";
 import { items, cases, restructurings, firmById } from "/legal/js/data.js?v=20260708-8";
 import { NEWS, ALERTS, ARTICLES } from "/macro/js/content.js?v=20260710-4";
@@ -111,7 +111,7 @@ function initJumpNav() {
 // Auto-refresh the live markets + rates bands and the two hero one-liners every
 // 5 minutes while the page is open. This is CLIENT-SIDE ONLY — it just re-hits
 // the /api/markets and /api/rates feeds (no Claude, no scheduled routine, no
-// cost of note). Everything else on the page keeps the 3×/day editorial
+// cost of note). Everything else on the page keeps the 4×/day editorial
 // cadence. Work is skipped while the tab is hidden and caught up on return.
 const LIVE_REFRESH_MS = 5 * 60 * 1000;
 let _lastLive = Date.now();
@@ -275,7 +275,7 @@ function marketDot(x) {
 // ---- At-a-glance one-liners (hero) -----------------------------------------
 // Two short, plain-language NARRATIVES synthesised from the same live feeds as
 // the bands below (which carry the numbers) — a qualitative read, refreshed
-// automatically on each twice-daily data pull.
+// automatically on each four-times-daily data pull.
 const glSign = (v) => (v > 0 ? "up" : v < 0 ? "down" : "flat");
 // Qualitative move word from a % change, using a caller-supplied vocabulary.
 function moveWord(v, w) {
