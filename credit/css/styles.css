@@ -674,8 +674,10 @@ svg.mtab-ico { width: 22px; height: 22px; }
   }
   .ff-lab::after { content: "▾"; color: var(--muted); font-size: .8rem; }
   .ff-cb:checked ~ .ff-lab::after { content: "▴"; }
-  .filters { display: none; }
-  .ff-cb:checked ~ .filters { display: flex; }
+  /* Collapsed by default: keep the search box visible, hide only the dropdown
+     filters until "Filters" is tapped. */
+  .filters { display: flex; }
+  .ff-cb:not(:checked) ~ .filters > *:not(.search) { display: none; }
 
   /* iPhone: split the nav — the platform switch + search move to a fixed bottom
      tab bar; the top bar keeps a bigger logo, bell, and the sign-in/refresh block

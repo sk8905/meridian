@@ -154,8 +154,10 @@ img, svg { max-width: 100%; }
   }
   .ff-lab::after { content: "▾"; color: var(--muted); font-size: .8rem; }
   .ff-cb:checked ~ .ff-lab::after { content: "▴"; }
-  .filters { display: none; }
-  .ff-cb:checked ~ .filters { display: flex; }
+  /* Collapsed by default: keep the search box visible, hide only the dropdown
+     filters until "Filters" is tapped. */
+  .filters { display: flex; }
+  .ff-cb:not(:checked) ~ .filters > *:not(.search) { display: none; }
 }
 
 /* ---- Notifications bell ---- */
