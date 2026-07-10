@@ -451,6 +451,9 @@ a.intel-head:hover { color: var(--primary); }
 .intel-title-line { display: flex; align-items: flex-start; gap: .6rem; }
 .intel-title-line .save-btn { margin-left: auto; flex-shrink: 0; }
 .intel-src-inline { margin-top: .05rem; white-space: nowrap; flex-shrink: 0; }
+/* Manager-profile rows put the date at the end of the headline line, after the
+   source (grey), instead of in the meta column. */
+.intel-date-end { margin-top: .05rem; white-space: nowrap; flex-shrink: 0; }
 /* One-line news rows: chip · date · headline · source, all on the same line
    (wraps only when the headline is too long), to save vertical space. */
 .intel-row.oneline { flex-direction: row; align-items: baseline; gap: .55rem; flex-wrap: wrap; }

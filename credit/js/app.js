@@ -1116,14 +1116,19 @@ function byYear(items, rowFn) {
 // One manager-profile news row — same layout as the Fundraising (intelRow) rows:
 // a "News" pill + date in the meta column, the headline (links to source), then
 // the outlet inline after the headline, and a summary line where present.
-function newsItemRow(x) {
+// On a MANAGER PROFILE (mgr=true) the row's date moves out of the meta column to
+// the end of the headline line (after the source, in grey); elsewhere the feeds
+// keep the date in the meta column beneath the chip.
+const metaDate = (d, mgr) => mgr ? "" : `<span class="muted small">${d ? esc(fmtDate(d)) : ""}</span>`;
+const endDate = (d, mgr) => (mgr && d) ? `<span class="intel-date-end muted small">${esc(fmtDate(d))}</span>` : "";
+function newsItemRow(x, mgr) {
   const head = x.url
     ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a>`
     : `<span class="intel-head">${esc(x.title)}</span>`;
   const src = x.outlet ? `<span class="intel-src-inline muted small">${esc(x.outlet)}</span>` : "";
   return `<div class="intel-row" data-fkey="${esc(feedDedupKey(x))}">
-    <div class="intel-meta"><span class="chip">News</span><span class="muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span></div>
-    <div class="intel-body"><div class="intel-title-line">${head}${src}${saveBtn(newsSaveId(x))}</div>${x.summary ? `<p class="muted small">${esc(x.summary)}</p>` : ""}</div>
+    <div class="intel-meta"><span class="chip">News</span>${metaDate(x.date, mgr)}</div>
+    <div class="intel-body"><div class="intel-title-line">${head}${src}${endDate(x.date, mgr)}${saveBtn(newsSaveId(x))}</div>${x.summary ? `<p class="muted small">${esc(x.summary)}</p>` : ""}</div>
   </div>`;
 }
 
@@ -1142,7 +1147,7 @@ function feedDedupKey(x) {
 // profile the headline should open the source directly (srcHead), matching the
 // press rows — the manager link would only point back to this same page.
 function mgrFeedRow(x) {
-  return x._kind === "deal" ? dealRow(x) : x._kind === "intel" ? intelRow(x) : newsItemRow(x);
+  return x._kind === "deal" ? dealRow(x, true) : x._kind === "intel" ? intelRow(x, true) : newsItemRow(x, true);
 }
 
 // Senior legal team — general counsel and other senior legal counsel, with the
@@ -1381,7 +1386,7 @@ const intelTypeClass = (t) => ({
 
 // The headline links straight to the source; the manager sits inline beside the
 // headline (a link to its profile), consistently across every feed.
-function intelRow(i) {
+function intelRow(i, mgr) {
   const m = i.managerId ? managerById[i.managerId] : null;
   const ftarget = i.fundId ? `#/fund/${i.fundId}` : (m ? `#/manager/${m.id}` : null);
   const tag = m ? link(`#/manager/${m.id}`, m.name, "muted small") : '<span class="muted small">Market-wide</span>';
@@ -1389,8 +1394,8 @@ function intelRow(i) {
     ? `<a href="${esc(i.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(i.headline)}</a>`
     : (ftarget ? link(ftarget, i.headline, "intel-head") : `<span class="intel-head">${esc(i.headline)}</span>`);
   return `<div class="intel-row" id="row-${i.id}" data-fkey="${esc(feedDedupKey(i))}">
-    <div class="intel-meta"><span class="chip ${intelTypeClass(i.type)}">${esc(i.type)}</span><span class="muted small">${fmtDate(i.date)}</span></div>
-    <div class="intel-body"><div class="intel-title-line">${head}${tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}${saveBtn(i.id)}</div><p class="muted small">${esc(i.summary)}</p></div>
+    <div class="intel-meta"><span class="chip ${intelTypeClass(i.type)}">${esc(i.type)}</span>${metaDate(i.date, mgr)}</div>
+    <div class="intel-body"><div class="intel-title-line">${head}${tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}${endDate(i.date, mgr)}${saveBtn(i.id)}</div><p class="muted small">${esc(i.summary)}</p></div>
   </div>`;
 }
 
@@ -1441,7 +1446,7 @@ const dealTypeClass = (t) => ({
 
 // The headline links straight to the source; the manager sits inline beside the
 // headline (a link to its profile), consistently across every feed.
-function dealRow(d) {
+function dealRow(d, mgr) {
   const m = d.managerId ? managerById[d.managerId] : null;
   const tgt = d.fundId ? `#/fund/${d.fundId}` : (m ? `#/manager/${m.id}` : null);
   const tag = m ? link(`#/manager/${m.id}`, m.name, "muted small") : "";
@@ -1449,8 +1454,8 @@ function dealRow(d) {
     ? `<a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(d.headline)}</a>`
     : (tgt ? link(tgt, d.headline, "intel-head") : `<span class="intel-head">${esc(d.headline)}</span>`);
   return `<div class="intel-row" id="row-${d.id}" data-fkey="${esc(feedDedupKey(d))}">
-    <div class="intel-meta"><span class="chip ${dealTypeClass(d.type)}">${esc(d.type)}</span><span class="muted small">${fmtDate(d.date)}</span></div>
-    <div class="intel-body"><div class="intel-title-line">${head}${tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}${saveBtn(d.id)}</div><p class="muted small">${esc(d.summary)}</p></div>
+    <div class="intel-meta"><span class="chip ${dealTypeClass(d.type)}">${esc(d.type)}</span>${metaDate(d.date, mgr)}</div>
+    <div class="intel-body"><div class="intel-title-line">${head}${tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}${endDate(d.date, mgr)}${saveBtn(d.id)}</div><p class="muted small">${esc(d.summary)}</p></div>
   </div>`;
 }
 
