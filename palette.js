@@ -28,7 +28,7 @@ const MACRO_INDICATORS = [
 function buildIndex() {
   const idx = [];
   const add = (tag, title, sub, href, rank, date) => idx.push({ tag, title, sub, href, rank, date: date || "", hay: (title + " " + sub).toLowerCase() });
-  add("view", "Glance", "Cross-desk briefing", "/", 4, "");
+  add("view", "Home", "Cross-desk briefing", "/", 4, "");
   [["commentary", "Commentary"], ["policy", "Rate outlook"], ["cycle", "Cycle"], ["bubble", "Bubble risk"], ["chart", "Chart"], ["saved", "Saved"]]
     .forEach(([k, l]) => add("macro", `Macro — ${l}`, "View", `/macro/#/${k}`, 4, ""));
   managers.forEach((m) => add("credit", m.name, "Manager", `/credit/#/manager/${encodeURIComponent(m.id)}`, 0, ""));

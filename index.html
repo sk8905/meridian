@@ -6,8 +6,8 @@
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
   <meta name="apple-mobile-web-app-title" content="Meridian" />
-  <title>Meridian — Glance</title>
-  <meta name="description" content="Meridian Glance — a cross-desk briefing across the Credit, Legal and Macro intelligence platforms, with a unified search." />
+  <title>Meridian — Home</title>
+  <meta name="description" content="Meridian Home — a cross-desk briefing across the Credit, Legal and Macro intelligence platforms, with a unified search." />
   <style>
     :root {
       --navy:#0b1f44; --brand:#1c3a5e; --brand-2:#2b4a7c; --accent:#0ea5e9;
@@ -391,7 +391,7 @@
       <div class="logo" aria-hidden="true">◆</div>
       <div class="wordmark">Meridian</div>
       <p class="tagline">Intelligence Platform</p>
-      <p class="state-msg">Sign in to open your Glance briefing across Credit, Legal and Macro.</p>
+      <p class="state-msg">Sign in to open Meridian Home — your cross-desk briefing across Credit, Legal and Macro.</p>
       <a class="btn primary" href="/api/login?to=/">Sign in</a>
       <p class="hint">One sign-in unlocks all platforms. Authentication is handled by Cloudflare Access.
         <a id="preview-toggle" href="#">Preview without signing in</a></p>
@@ -410,7 +410,7 @@
       <div class="g-top-inner">
         <a class="g-brand" href="/">
           <span class="g-logo" aria-hidden="true">◆</span>
-          <span class="g-brand-text"><strong>Meridian</strong><span class="sub">Glance</span></span>
+          <span class="g-brand-text"><strong>Meridian</strong><span class="sub">Home</span></span>
         </a>
         <div class="platform-switch" role="group" aria-label="Switch platform">
           <a href="/macro/" class="ps-btn">Macro</a>
@@ -535,7 +535,7 @@
           show("glance");
           const h = new Date().getHours();
           document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-          import("/glance.js?v=20260710-8").then((m) => m.initGlance()).catch(() => {});
+          import("/glance.js?v=20260710-9").then((m) => m.initGlance()).catch(() => {});
         } else { show("out"); }
       })
       .catch(() => show("out"));
