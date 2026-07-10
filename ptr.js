@@ -1,15 +1,15 @@
 // =============================================================================
 // Custom pull-to-refresh. iOS gives NO native pull-to-refresh in standalone
-// (home-screen) web apps, and even in a Safari tab the native behaviour + its
-// overscroll colour are inconsistent — so we roll our own. Pulling down at the
-// very top of the page reveals a navy pull zone (matching the nav bar) with a
-// spinner; releasing past the threshold reloads the page. Touch devices only;
-// a no-op on desktop. Import once and call initPullToRefresh().
+// (home-screen) web apps, so we roll our own — and make it feel like Safari's:
+// pulling down at the very top of the page drags the whole page content down
+// with your finger (rubber-band), revealing a navy zone (matching the nav bar)
+// with a spinner behind it; releasing past the threshold reloads. The fixed
+// bottom tab bar stays put. Touch devices only; a no-op on desktop. Import once
+// and call initPullToRefresh().
 // =============================================================================
 let _init = false;
 export function initPullToRefresh() {
   if (_init || typeof window === "undefined" || typeof document === "undefined") return;
-  // Touch devices only — desktop keeps its normal scroll.
   if (!("ontouchstart" in window) && !(navigator.maxTouchPoints > 0)) return;
   _init = true;
 
@@ -33,26 +33,37 @@ export function initPullToRefresh() {
   if (document.body) mount(); else document.addEventListener("DOMContentLoaded", mount);
 
   const THRESH = 70, DAMP = 0.5, MAX = 120;
-  let startY = 0, pulling = false, dist = 0, busy = false;
+  let startY = 0, pulling = false, dist = 0, busy = false, pageEls = [];
   const atTop = () => (window.scrollY || document.documentElement.scrollTop || 0) <= 0;
-  const collapse = () => { zone.style.transition = "height .2s ease"; zone.style.height = "0px"; spin.style.opacity = "0"; };
+
+  // The "page" = every direct child of <body> that isn't our zone and isn't a
+  // fixed element (so the fixed bottom tab bar and any fixed overlays stay put).
+  function gatherPage() {
+    pageEls = Array.from(document.body.children)
+      .filter((el) => el !== zone && getComputedStyle(el).position !== "fixed");
+  }
+  // Drag the page down by `h` and grow the navy zone to fill the gap it leaves.
+  function apply(h, animate) {
+    const zt = animate ? "height .22s ease" : "";
+    const pt = animate ? "transform .22s ease" : "";
+    zone.style.transition = zt; zone.style.height = h + "px";
+    for (const el of pageEls) { el.style.transition = pt; el.style.transform = h ? "translateY(" + h + "px)" : ""; }
+    spin.style.opacity = String(Math.min(h / THRESH, 1));
+  }
+  function clearPage() { for (const el of pageEls) { el.style.transition = ""; el.style.transform = ""; } }
 
   window.addEventListener("touchstart", (e) => {
     if (busy || e.touches.length !== 1 || !atTop()) { pulling = false; return; }
-    startY = e.touches[0].clientY; pulling = true; dist = 0;
+    startY = e.touches[0].clientY; pulling = true; dist = 0; gatherPage();
   }, { passive: true });
 
   window.addEventListener("touchmove", (e) => {
     if (!pulling || busy) return;
     dist = e.touches[0].clientY - startY;
     if (dist > 0 && atTop()) {
-      // Take over the gesture so the page (or native bounce) doesn't also move.
-      if (e.cancelable) e.preventDefault();
-      const h = Math.min(dist * DAMP, MAX);
-      zone.style.transition = "";
-      zone.style.height = h + "px";
-      spin.style.opacity = String(Math.min(h / THRESH, 1));
-    } else { pulling = false; collapse(); }
+      if (e.cancelable) e.preventDefault();       // take over the gesture
+      apply(Math.min(dist * DAMP, MAX), false);
+    } else { pulling = false; apply(0, true); setTimeout(clearPage, 240); }
   }, { passive: false });
 
   window.addEventListener("touchend", () => {
@@ -60,12 +71,11 @@ export function initPullToRefresh() {
     pulling = false;
     if (dist * DAMP >= THRESH && atTop()) {
       busy = true;
-      zone.style.transition = "height .15s ease";
-      zone.style.height = THRESH + "px";
+      apply(THRESH, true);
       spin.style.opacity = "1";
       spin.style.animation = "ptr-spin .6s linear infinite";
-      setTimeout(() => location.reload(), 200);
-    } else { collapse(); }
+      setTimeout(() => location.reload(), 220);
+    } else { apply(0, true); setTimeout(clearPage, 240); }
     dist = 0;
   }, { passive: true });
 }
