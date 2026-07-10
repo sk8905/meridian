@@ -635,6 +635,13 @@ svg.mtab-ico { width: 22px; height: 22px; }
      top-right of the box, instead of leaving it floating on the title line. */
   .intel-row:not(.oneline) { position: relative; }
   .intel-row:not(.oneline) .intel-title-line .save-btn { position: absolute; top: .8rem; right: 0; margin: 0; }
+  /* Reserve the Save-button column down the whole row so the headline/source/
+     summary wrap before it instead of bleeding into the space beneath the button. */
+  .intel-row:not(.oneline) .intel-body { padding-right: 4.7rem; }
+  /* Let the headline take its own full-width line with the source/date beneath it,
+     so a long headline never gets squeezed to one character per line. */
+  .intel-row:not(.oneline) .intel-title-line { flex-wrap: wrap; }
+  .intel-row:not(.oneline) .intel-title-line .intel-head { flex: 1 0 100%; }
   /* One-line rows: chip + date + Save share the top line; the headline and source
      drop to their own full-width lines below (so Save is top-right of the box). */
   .intel-row.oneline .chip { order: 1; }
