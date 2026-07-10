@@ -1,17 +1,24 @@
 // =============================================================================
-// Custom pull-to-refresh. iOS gives NO native pull-to-refresh in standalone
-// (home-screen) web apps, so we roll our own — and make it feel like Safari's:
-// pulling down at the very top of the page drags the whole page content down
-// with your finger (rubber-band), revealing a navy zone (matching the nav bar)
-// with a spinner behind it; releasing past the threshold reloads. The fixed
-// bottom tab bar stays put. Touch devices only; a no-op on desktop. Import once
-// and call initPullToRefresh().
+// Custom pull-to-refresh, tuned to feel like Safari's native gesture: pulling
+// down at the very top drags the whole page content down with your finger
+// (near 1:1, with rubber-band resistance past a point), revealing a navy zone
+// (matching the nav bar) with a spinner that winds up as you pull and spins on
+// release; letting go past the threshold reloads, otherwise it springs back.
+// The fixed bottom tab bar stays put. iOS gives no native PTR in standalone
+// (home-screen) web apps, which is why we roll our own. Touch devices only.
+// Also switches off double-tap-to-zoom (touch-action: manipulation) while
+// keeping pinch-zoom. Import once and call initPullToRefresh().
 // =============================================================================
 let _init = false;
 export function initPullToRefresh() {
   if (_init || typeof window === "undefined" || typeof document === "undefined") return;
   if (!("ontouchstart" in window) && !(navigator.maxTouchPoints > 0)) return;
   _init = true;
+
+  // Disable double-tap-to-zoom (keeps single-tap, scroll and pinch-zoom).
+  document.documentElement.style.touchAction = "manipulation";
+  const setBodyTA = () => { if (document.body) document.body.style.touchAction = "manipulation"; };
+  if (document.body) setBodyTA(); else document.addEventListener("DOMContentLoaded", setBodyTA);
 
   const navy = (getComputedStyle(document.documentElement).getPropertyValue("--navy") || "").trim() || "#0b1f44";
   const zone = document.createElement("div");
@@ -32,9 +39,11 @@ export function initPullToRefresh() {
   const mount = () => { if (!zone.isConnected && document.body) document.body.appendChild(zone); };
   if (document.body) mount(); else document.addEventListener("DOMContentLoaded", mount);
 
-  const THRESH = 70, DAMP = 0.5, MAX = 120;
+  const THRESH = 75, SOFT = 120, MAX = 220;
   let startY = 0, pulling = false, dist = 0, busy = false, pageEls = [];
   const atTop = () => (window.scrollY || document.documentElement.scrollTop || 0) <= 0;
+  // Safari-like tracking: 1:1 with the finger up to SOFT, then increasing resistance.
+  const pull = (d) => (d <= SOFT ? d : Math.min(SOFT + (d - SOFT) * 0.35, MAX));
 
   // The "page" = every direct child of <body> that isn't our zone and isn't a
   // fixed element (so the fixed bottom tab bar and any fixed overlays stay put).
@@ -42,13 +51,14 @@ export function initPullToRefresh() {
     pageEls = Array.from(document.body.children)
       .filter((el) => el !== zone && getComputedStyle(el).position !== "fixed");
   }
-  // Drag the page down by `h` and grow the navy zone to fill the gap it leaves.
   function apply(h, animate) {
     const zt = animate ? "height .22s ease" : "";
     const pt = animate ? "transform .22s ease" : "";
     zone.style.transition = zt; zone.style.height = h + "px";
     for (const el of pageEls) { el.style.transition = pt; el.style.transform = h ? "translateY(" + h + "px)" : ""; }
-    spin.style.opacity = String(Math.min(h / THRESH, 1));
+    const prog = Math.min(dist / THRESH, 1);
+    spin.style.opacity = String(prog);
+    if (!busy) { spin.style.animation = ""; spin.style.transform = "rotate(" + (prog * 270) + "deg)"; }
   }
   function clearPage() { for (const el of pageEls) { el.style.transition = ""; el.style.transform = ""; } }
 
@@ -62,19 +72,20 @@ export function initPullToRefresh() {
     dist = e.touches[0].clientY - startY;
     if (dist > 0 && atTop()) {
       if (e.cancelable) e.preventDefault();       // take over the gesture
-      apply(Math.min(dist * DAMP, MAX), false);
+      apply(pull(dist), false);
     } else { pulling = false; apply(0, true); setTimeout(clearPage, 240); }
   }, { passive: false });
 
   window.addEventListener("touchend", () => {
     if (!pulling) return;
     pulling = false;
-    if (dist * DAMP >= THRESH && atTop()) {
+    if (dist >= THRESH && atTop()) {
       busy = true;
       apply(THRESH, true);
       spin.style.opacity = "1";
+      spin.style.transform = "";
       spin.style.animation = "ptr-spin .6s linear infinite";
-      setTimeout(() => location.reload(), 220);
+      setTimeout(() => location.reload(), 240);
     } else { apply(0, true); setTimeout(clearPage, 240); }
     dist = 0;
   }, { passive: true });
