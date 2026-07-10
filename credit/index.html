@@ -8,7 +8,7 @@
   <meta name="apple-mobile-web-app-title" content="Meridian" />
   <title>Meridian Credit</title>
   <meta name="description" content="European private credit deal &amp; fundraising intelligence — prototype" />
-  <link rel="stylesheet" href="css/styles.css?v=20260710-6" />
+  <link rel="stylesheet" href="css/styles.css?v=20260710-7" />
 </head>
 <body>
   <header class="topbar">
@@ -54,6 +54,16 @@
   <footer class="footer">
     <p>Meridian Credit — demonstration prototype. Data compiled from <strong>manager &amp; investor press releases, regulatory/results disclosures and trade press</strong>. Figures are shown in € for consistency (several originally reported in USD/GBP, so are approximate), and items marked <span class="chip est">Est.</span> or noted "undisclosed" are proxies or not precisely disclosed. Verify against the cited sources before relying on any figure. See <code>docs/research-notes.md</code> for the sourcing trail.</p>
   </footer>
+
+  <nav class="mobile-tabbar" aria-label="Platforms">
+    <a class="mtab" href="/macro/"><span class="mtab-ico" aria-hidden="true" style="color:#b3a9dd">◆</span><span class="mtab-lbl">Macro</span></a>
+    <a class="mtab is-active" href="/credit/" aria-current="page"><span class="mtab-ico" aria-hidden="true" style="color:#c3ccd8">◆</span><span class="mtab-lbl">Credit</span></a>
+    <a class="mtab" href="/legal/"><span class="mtab-ico" aria-hidden="true" style="color:#5eead4">◆</span><span class="mtab-lbl">Legal</span></a>
+    <button class="mtab mtab-search" type="button" data-open-search aria-label="Search Meridian">
+      <svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.6" y1="15.6" x2="21" y2="21"/></svg>
+      <span class="mtab-lbl">Search</span>
+    </button>
+  </nav>
 
   <script type="module" src="js/app.js?v=20260710-5"></script>
 </body>

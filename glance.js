@@ -574,6 +574,8 @@ function wirePalette(idx) {
   function close() { overlay.classList.remove("open"); }
 
   document.getElementById("open-cmdk").addEventListener("click", open);
+  // Also open from the mobile bottom-bar search button (or any [data-open-search]).
+  document.addEventListener("click", (e) => { if (e.target.closest("[data-open-search]")) { e.preventDefault(); open(); } });
   overlay.querySelector("[data-close]").addEventListener("click", close);
   input.addEventListener("input", refresh);
   results.addEventListener("click", (ev) => { const r = ev.target.closest(".cmdk-row"); if (r) go(current[+r.getAttribute("data-i")]); });
