@@ -152,9 +152,11 @@
        narrow screens. */
     .g-glance { grid-column:4 / -1; display:flex; flex-direction:column;
       gap:.5rem; padding-left:1.25rem; border-left:3px solid var(--line); }
-    /* Labels dropped — the summary text fills the full width, justified so both
-       edges are flush. */
+    /* The summary text fills the full width, justified so both edges are flush.
+       On desktop each line carries a small uppercase heading above it (Markets /
+       Rates & spreads); the heading is hidden on narrower screens to save space. */
     .g-gl { margin:0; font-size:.85rem; line-height:1.4; color:var(--ink); text-align:justify; text-justify:inter-word; }
+    .g-gl-l { display:block; font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); margin-bottom:.15rem; }
     .g-gl-v .up { color:#0a7d3c; font-weight:600; } .g-gl-v .down { color:#c02626; font-weight:600; }
 
     /* ---- Key rates & credit spreads (ported from Credit) ---- */
@@ -291,6 +293,8 @@
       .g-hello { display:block; }
       .g-hello-main { margin-bottom:1rem; }
       .g-glance { padding-left:0; padding-top:1rem; border-left:0; border-top:3px solid var(--line); }
+      /* Headings are desktop-only — hide them once the hero stacks. */
+      .g-gl-l { display:none; }
     }
     @media (max-width:760px){
       .g-main { padding:1.1rem 1rem 2.5rem; }
@@ -366,8 +370,8 @@
           <p id="hello-sub">A cross-desk glance across Macro, Credit and Legal.</p>
         </div>
         <div class="g-glance" id="g-glance" aria-label="At-a-glance market summary">
-          <p class="g-gl"><span class="g-gl-v" id="gl-markets" aria-label="Markets">Loading…</span></p>
-          <p class="g-gl"><span class="g-gl-v" id="gl-rates" aria-label="Rates and spreads">Loading…</span></p>
+          <p class="g-gl"><span class="g-gl-l">Markets</span><span class="g-gl-v" id="gl-markets" aria-label="Markets">Loading…</span></p>
+          <p class="g-gl"><span class="g-gl-l">Rates &amp; spreads</span><span class="g-gl-v" id="gl-rates" aria-label="Rates and spreads">Loading…</span></p>
         </div>
       </div>
 

@@ -598,48 +598,8 @@ function sortTh(view, key, label, extraClass = "") {
 }
 
 // ================================ DASHBOARD =================================
-// Key rates & credit band at the top of the dashboard — a STATIC row of the six
-// credit-relevant series: the US 10Y, the core reference rates (SOFR / SONIA /
-// 3M EURIBOR) and the ICE BofA US IG & HY option-adjusted spreads. Values come
-// from our own /api/rates endpoint (a server-side proxy over FRED's keyless CSV
-// feed), fetched once per page load and cached in-module so re-renders reuse it.
-let ratesCache = null;
-function fmtRate(v, unit) {
-  if (v == null) return "—";
-  return unit === "bp" ? `${Math.round(v * 100)} bp` : `${v.toFixed(2)}%`;
-}
-function ratesTile(x) {
-  const val = fmtRate(x.value, x.unit);
-  let chg = '<span class="rate-chg flat">·</span>';
-  if (x.change != null && x.value != null) {
-    const c = x.unit === "bp" ? Math.round(x.change * 100) : +x.change.toFixed(2);
-    const dir = c > 0 ? "up" : c < 0 ? "down" : "flat";
-    const arrow = c > 0 ? "▲" : c < 0 ? "▼" : "·";
-    const mag = x.unit === "bp" ? `${Math.abs(c)} bp` : Math.abs(c).toFixed(2);
-    chg = `<span class="rate-chg ${dir}">${arrow} ${mag}</span>`;
-  }
-  const asOf = x.asOf ? ` as of ${esc(x.asOf)}` : "";
-  const title = ` title="${esc(x.label)}${asOf} — open source"`;
-  const tag = x.href ? "a" : "div";
-  const attrs = x.href ? ` href="${esc(x.href)}" target="_blank" rel="noopener noreferrer"` : "";
-  return `<${tag} class="rate-tile"${attrs}${title}><span class="rate-label muted small">${esc(x.label)}</span><span class="rate-val">${val}</span>${chg}</${tag}>`;
-}
-function renderRates(el, rows) {
-  el.innerHTML = rows.map(ratesTile).join("") +
-    '<a class="rate-src muted small" href="https://fred.stlouisfed.org/" target="_blank" rel="noopener noreferrer">Source: FRED · ECB · NY Fed · US Treasury</a>';
-}
-function mountRatesBand() {
-  const el = document.getElementById("rates-band");
-  if (!el) return;
-  if (ratesCache) { renderRates(el, ratesCache); return; }
-  el.innerHTML = '<span class="muted small">Loading market rates…</span>';
-  try {
-    fetch("/api/rates?v=9")
-      .then((r) => (r.ok ? r.json() : Promise.reject()))
-      .then((d) => { ratesCache = d.rates || []; const now = document.getElementById("rates-band"); if (now) renderRates(now, ratesCache); })
-      .catch(() => { const now = document.getElementById("rates-band"); if (now) now.innerHTML = '<span class="muted small">Market rates unavailable right now.</span>'; });
-  } catch { /* no fetch (e.g. render shim) — leave placeholder */ }
-}
+// The key rates & credit-spreads band was moved to the Glance landing page, so
+// the Credit dashboard opens straight into the KPI metrics and activity feeds.
 
 function viewDashboard() {
   // Credit-only universe for the headline aggregates (equity-strategy funds are
@@ -710,7 +670,6 @@ function viewDashboard() {
       <p class="muted">European private credit deal flow &amp; market intelligence, with fundraising as a secondary lens · real data compiled from public sources (mid-2026)</p>
       ${focusToggle()}
     </div>
-    <div id="rates-band" class="rates-band" aria-label="Key rates &amp; credit spreads"></div>
     <details class="rk-toggle"${window.matchMedia(MOBILE_Q).matches ? "" : " open"}>
       <summary class="rk-toggle-head">Key metrics <span class="rk-caret" aria-hidden="true"></span></summary>
       <div class="rk-toggle-body">
@@ -745,7 +704,6 @@ function viewDashboard() {
         <div class="card-foot">${link("#/clos", "View all CLO activity →")}</div>
       </section>
     </div>`;
-  mountRatesBand();
 }
 
 // ================================== FUNDS ===================================

@@ -236,41 +236,8 @@ h3 { font-size: 1rem; margin: 0; }
 .wl-panel .link-list li { border-bottom: none; padding: .3rem 0; }
 
 /* ---------- KPIs ---------- */
-/* Key rates & credit spreads band (static, from /api/rates over Treasury, NY Fed,
-   FRED & ECB). A fixed grid so every tile lines up in columns — 8 across on wide
-   desktop, 2 rows of 4 on tablet/mobile — with the source line spanning the full
-   width beneath. */
-.rates-band { display: grid; grid-template-columns: repeat(8, 1fr); align-items: stretch;
-  margin: 0 0 1rem; padding: .55rem .35rem; border: 1px solid var(--border); border-radius: var(--radius);
-  background: var(--surface); box-shadow: var(--shadow); }
-.rate-tile { display: flex; flex-direction: column; gap: .12rem; padding: .1rem 1rem;
-  border-left: 1px solid var(--border); color: inherit; text-decoration: none; }
-.rate-tile:nth-child(8n+1) { border-left: none; }
-/* Each tile links to its series' source page. */
-a.rate-tile:hover { text-decoration: none; }
-a.rate-tile:hover .rate-label, a.rate-tile:hover .rate-val { color: var(--primary); }
-a.rate-tile:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; border-radius: 4px; }
-.rate-label { text-transform: uppercase; letter-spacing: .4px; font-size: .68rem; white-space: nowrap; }
-.rate-val { font-weight: 700; font-size: 1rem; color: var(--ink); line-height: 1.2; }
-.rate-chg { font-size: .72rem; font-weight: 600; }
-.rate-chg.up { color: #059669; }
-.rate-chg.down { color: #dc2626; }
-.rate-chg.flat { color: var(--muted); }
-.rate-src { grid-column: 1 / -1; justify-self: end; margin-top: .3rem; padding: 0 1rem; }
-/* Below ~1100px, 8 tiles get cramped — drop to a tidy 2 rows of 4. */
-@media (max-width: 1100px) {
-  .rates-band { grid-template-columns: repeat(4, 1fr); row-gap: .7rem; }
-  .rate-tile:nth-child(4n+1) { border-left: none; }
-}
-/* On phones, keep the 2×4 grid but tighten padding/type so all four fit a row. */
-@media (max-width: 760px) {
-  .rates-band { padding: .55rem .2rem; }
-  .rate-tile { padding: .1rem .4rem; }
-  .rate-label { font-size: .58rem; }
-  .rate-val { font-size: .92rem; }
-}
 .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; margin-bottom: 1rem; }
-.kpi-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid var(--primary);
+.kpi-card { background: var(--surface); border: 1px solid var(--border); border-left: 3px solid #c3ccd8;
   border-radius: var(--radius); padding: 1rem 1.1rem; box-shadow: var(--shadow); }
 .kpi-value { font-size: 1.7rem; font-weight: 700; color: var(--primary-ink); line-height: 1.1; }
 .kpi-value.kpi-aum { font-size: 1.15rem; }
@@ -321,7 +288,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .section-head .chip { font-size: .72rem; }
 
 /* ---------- dashboard: deal-led layout ---------- */
-.feature-card { border-top: 3px solid var(--accent, #2563eb); }
+.feature-card { border-top: 3px solid #c3ccd8; }
 /* Divider that demotes fundraising to a clearly-secondary band on the dashboard. */
 .section-divider { display: flex; align-items: center; gap: .9rem; margin: 2rem 0 .25rem; }
 .section-divider::before, .section-divider::after { content: ""; height: 1px; background: var(--border); flex: 1; }
