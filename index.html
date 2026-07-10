@@ -535,7 +535,7 @@
           show("glance");
           const h = new Date().getHours();
           document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-          import("/glance.js?v=20260710-9").then((m) => m.initGlance()).catch(() => {});
+          import("/glance.js?v=20260710-10").then((m) => m.initGlance()).catch(() => {});
         } else { show("out"); }
       })
       .catch(() => show("out"));

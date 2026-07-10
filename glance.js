@@ -595,7 +595,7 @@ function wirePalette(idx) {
     const s = results.querySelector(".cmdk-row.sel"); if (s) s.scrollIntoView({ block: "nearest" });
   }
   function refresh() { current = search(input.value); sel = 0; draw(); }
-  function go(e) { if (e) window.location.href = e.href; }
+  function go(e) { if (e) { close(); window.location.href = e.href; } }
 
   // Focus SYNCHRONOUSLY within the tap gesture so iOS Safari pops the keyboard
   // immediately (a setTimeout would escape the gesture and suppress it).
