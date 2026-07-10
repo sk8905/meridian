@@ -1251,10 +1251,10 @@ function viewManager(id) {
     <p class="lead">${esc(m.description)}</p>
     ${sources(m)}
     <div class="kpi-grid kpi-compact">
+      <div class="kpi-card"><div class="kpi-value">${m.founded}</div><div class="kpi-label">Founded</div></div>
       <div class="kpi-card" title="${esc(m.aumText || "")}"><div class="kpi-value kpi-aum">${esc(aumHeadline(m))}</div><div class="kpi-label">AUM</div></div>
       <div class="kpi-card${fs.length ? " clickable" : ""}"${fs.length ? ' data-scroll="mgr-funds"' : ""}><div class="kpi-value">${fs.length}</div><div class="kpi-label">Funds</div></div>
       <div class="kpi-card${fs.length ? " clickable" : ""}"${fs.length ? ' data-scroll="mgr-funds"' : ""}><div class="kpi-value">${liveFunds}</div><div class="kpi-label">In market</div></div>
-      <div class="kpi-card"><div class="kpi-value">${m.founded}</div><div class="kpi-label">Founded</div></div>
     </div>
     <section class="card" id="mgr-funds">
       <h2>Funds <span class="muted">(${fs.length})</span></h2>
