@@ -430,9 +430,9 @@ function viewCommentary() {
   return `
     <div class="page-head">
       <h1>Commentary</h1>
-      <p class="muted">The most important global macro-economic news and analysis — monetary policy, growth, inflation, oil and bonds — from the FT, Bloomberg, Reuters, the Wall Street Journal, The Economist and other reputable outlets, newest first. As of ${esc((ARTICLES && fmtDay(ARTICLES.updated)) || UPDATED)}. Save a piece with ☆ to add it to your <a href="#/saved">Saved</a> list.</p>
+      <p class="muted">The most important global macro-economic news and analysis — monetary policy, growth, inflation, oil and bonds.</p>
     </div>
-    <section class="card feature-card macro-articles-panel">${commentaryPanelHtml()}</section>`;
+    <section class="card macro-articles-panel">${commentaryPanelHtml()}</section>`;
 }
 
 // Saved tab — the Commentary articles the user has starred, newest first, grouped
@@ -449,7 +449,7 @@ function viewSaved() {
       <h1>Saved</h1>
       <p class="muted">${items.length ? `${items.length} saved ${items.length === 1 ? "article" : "articles"} from Commentary, newest first.` : "Your saved macro articles."}</p>
     </div>
-    <section class="card feature-card macro-articles-panel">${body}</section>`;
+    <section class="card macro-articles-panel">${body}</section>`;
 }
 
 // Policy Rate tab — compiled Fed & BoE policy-rate outlook plus an analyst feed.
