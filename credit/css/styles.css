@@ -25,6 +25,11 @@ html, body { margin: 0; padding: 0; overflow-x: clip; max-width: 100%; }
 /* Always reserve the vertical scrollbar gutter so page width is identical whether
    or not a given view is tall enough to scroll (keeps all views the same width). */
 html { scrollbar-gutter: stable; }
+/* Navy overscroll: the top/bottom rubber-band (and iOS status-bar area) match the
+   navy top bar instead of bleeding the light page background. body keeps the light
+   surface and fills the viewport so navy only shows past the content edges. */
+html { background: var(--navy); }
+body { min-height: 100vh; }
 body {
   background: var(--bg);
   color: var(--ink);
