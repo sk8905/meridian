@@ -333,17 +333,17 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
   display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 45;
   grid-template-columns: repeat(4, 1fr);
   background: var(--macro-ink); border-top: 1px solid rgba(255,255,255,.14);
-  padding: .3rem .25rem calc(.3rem + env(safe-area-inset-bottom, 0px));
+  padding: .5rem .3rem calc(.5rem + env(safe-area-inset-bottom, 0px));
   box-shadow: 0 -4px 16px rgba(15,23,42,.22);
 }
 .mtab {
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .1rem;
-  color: #b6bccc; font-family: inherit; font-size: .64rem; font-weight: 700; letter-spacing: .01em;
-  text-decoration: none; padding: .3rem 0 .2rem; background: none; border: 0; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .22rem;
+  min-height: 56px; color: #b6bccc; font-family: inherit; font-size: .82rem; font-weight: 700; letter-spacing: .01em;
+  text-decoration: none; padding: .55rem 0; background: none; border: 0; cursor: pointer;
 }
 .mtab:hover, .mtab.is-active { color: #fff; }
-.mtab-ico { display: block; font-size: 1.05rem; line-height: 1; }
-.mtab-search .mtab-ico { width: 20px; height: 20px; }
+.mtab-ico { display: block; font-size: 1.7rem; line-height: 1; }
+.mtab-search .mtab-ico { width: 27px; height: 27px; }
 
 /* Below 1100px there isn't room for two 3-col grids side by side, so stack the
    US and UK groups; each then spans the full width as its own 3-col grid. */
@@ -364,11 +364,10 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
 @media (max-width: 760px) {
   .topbar-inner {
     height: auto; padding: .5rem .85rem;
-    display: grid; grid-template-columns: auto 1fr; align-items: center; gap: .3rem .7rem;
+    display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .3rem .6rem;
     grid-template-areas:
-      "brand   bell"
-      "account account"
-      "nav     nav";
+      "brand   account bell"
+      "nav     nav     nav";
   }
   /* The platform switch and search move to the fixed bottom tab bar on phones. */
   .platform-switch, .nav-search { display: none; }
@@ -378,8 +377,9 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
   .logo { font-size: 1.55rem; }
   .notif { grid-area: bell; justify-self: end; align-self: center; }
   .notif-bell { width: 32px; height: 32px; font-size: .95rem; }
+  /* Sign-in / refresh sits to the LEFT of the bell on the top row (saves height). */
   .topbar-right { grid-area: account; justify-self: end; align-items: flex-end; text-align: right; margin-left: 0; }
-  .account-nav, .data-status { white-space: nowrap; font-size: .66rem; }
+  .account-nav, .data-status { white-space: nowrap; font-size: .6rem; }
   .account-nav .si-prefix { display: none; }
   .ps-btn { padding: .24rem .5rem; font-size: .74rem; }
   .mainnav { grid-area: nav; justify-self: stretch; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
@@ -401,7 +401,7 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
   .news-col + .news-col { margin-top: 1.1rem; }
   .macro-sources ul { grid-template-columns: 1fr; }
   /* Fixed bottom tab bar (phones only): platform switch + search. */
-  body { padding-bottom: 4.1rem; }
+  body { padding-bottom: 5.4rem; }
   .mobile-tabbar { display: grid; }
 }
 @media (max-width: 480px) {

@@ -535,17 +535,17 @@ a.intel-head:hover { color: var(--primary); }
   display: none; position: fixed; left: 0; right: 0; bottom: 0; z-index: 45;
   grid-template-columns: repeat(4, 1fr);
   background: #2f3e52; border-top: 1px solid rgba(255,255,255,.14);
-  padding: .3rem .25rem calc(.3rem + env(safe-area-inset-bottom, 0px));
+  padding: .5rem .3rem calc(.5rem + env(safe-area-inset-bottom, 0px));
   box-shadow: 0 -4px 16px rgba(15,23,42,.22);
 }
 .mtab {
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .1rem;
-  color: #b6bccc; font-family: inherit; font-size: .64rem; font-weight: 700; letter-spacing: .01em;
-  text-decoration: none; padding: .3rem 0 .2rem; background: none; border: 0; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .22rem;
+  min-height: 56px; color: #b6bccc; font-family: inherit; font-size: .82rem; font-weight: 700; letter-spacing: .01em;
+  text-decoration: none; padding: .55rem 0; background: none; border: 0; cursor: pointer;
 }
 .mtab:hover, .mtab.is-active { color: #fff; }
-.mtab-ico { display: block; font-size: 1.05rem; line-height: 1; }
-.mtab-search .mtab-ico { width: 20px; height: 20px; }
+.mtab-ico { display: block; font-size: 1.7rem; line-height: 1; }
+.mtab-search .mtab-ico { width: 27px; height: 27px; }
 
 /* ---------- responsive ---------- */
 /* 3-up dashboard rows step down to 2 columns before collapsing to 1. */
@@ -618,15 +618,16 @@ a.intel-head:hover { color: var(--primary); }
   .ff-cb:checked ~ .filters { display: flex; }
 
   /* iPhone: split the nav — the platform switch + search move to a fixed bottom
-     tab bar; the top bar keeps a bigger logo, bell, sign-in/refresh and the
-     scrolling view nav. */
-  .topbar-inner { grid-template-areas: "brand bell" "account account" "nav nav"; }
+     tab bar; the top bar keeps a bigger logo, bell, and the sign-in/refresh block
+     alongside (to the left of) the bell, then the scrolling view nav. */
+  .topbar-inner { grid-template-columns: auto 1fr auto; grid-template-areas: "brand account bell" "nav nav nav"; }
   .platform-switch, .nav-search { display: none; }
   .logo { font-size: 1.55rem; }
   .brand-text strong { font-size: 1.05rem; }
   .brand-sub { font-size: .62rem; }
   .topbar-right { justify-self: end; }
-  body { padding-bottom: 4.1rem; }
+  .account-nav, .data-status { font-size: .6rem; }
+  body { padding-bottom: 5.4rem; }
   .mobile-tabbar { display: grid; }
 }
 
