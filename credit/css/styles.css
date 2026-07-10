@@ -411,7 +411,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .manager-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
   padding: 1.1rem; box-shadow: var(--shadow); cursor: pointer; transition: border-color .15s, transform .1s; display: flex; flex-direction: column; gap: .6rem; }
-.manager-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.manager-card:hover { border-color: var(--accent); }
 .manager-card-head { display: flex; justify-content: space-between; align-items: baseline; gap: .5rem; }
 .manager-stats { display: flex; gap: 1.25rem; padding: .5rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .manager-stats div { display: flex; flex-direction: column; }
@@ -471,7 +471,7 @@ a.intel-head:hover { color: var(--primary); }
 .chart-link.clickable { cursor: pointer; display: block; }
 .chart-link.clickable:hover { opacity: .85; }
 .kpi-card.clickable { cursor: pointer; transition: border-color .15s, transform .1s, box-shadow .15s; }
-.kpi-card.clickable:hover { border-left-color: var(--accent); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(15,23,42,.08); }
+.kpi-card.clickable:hover { border-left-color: var(--accent); box-shadow: 0 6px 16px rgba(15,23,42,.08); }
 .chart-label { font-size: 11px; fill: var(--muted); }
 .chart-value { font-size: 11px; fill: var(--ink); font-weight: 600; }
 /* Faint full-scale track behind each bar so proportions read at a glance. */
