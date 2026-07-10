@@ -1152,7 +1152,7 @@ function initChartPrefs() {
 
 window.addEventListener("hashchange", render);
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260710-3").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260710-4").then((m) => m.mountPalette()).catch(() => {});
 render();
 initMe();
 renderDataStatus();

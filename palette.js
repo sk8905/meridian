@@ -59,7 +59,9 @@ const STYLE = `
 .mcmdk-t{display:block;font-weight:600;font-size:.9rem;color:#131a2b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mcmdk-s{display:block;color:#66708a;font-size:.75rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mcmdk-foot{border-top:1px solid #e4e7ef;padding:.5rem .8rem;color:#66708a;font-size:.72rem;display:flex;gap:1rem}
-.mcmdk-foot kbd{background:#eef2fb;border-radius:4px;padding:.05rem .3rem;font-family:inherit;font-weight:700}`;
+.mcmdk-foot kbd{background:#eef2fb;border-radius:4px;padding:.05rem .3rem;font-family:inherit;font-weight:700}
+/* On touch phones the tag pill ("Go") and the keyboard-hint footer are irrelevant. */
+@media (max-width:760px){.mcmdk-tag{display:none}.mcmdk-foot{display:none}}`;
 
 let _mounted = false;
 export function mountPalette() {
