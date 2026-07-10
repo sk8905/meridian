@@ -5,15 +5,15 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "9 July 2026";
+export const UPDATED = "10 July 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The twice-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-07-09",
-  lastCheckedTime: "21:14 BST",
+  lastChecked: "2026-07-10",
+  lastCheckedTime: "05:24 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -61,14 +61,14 @@ export const OUTLOOK = {
 // and reputable houses, newest first. Rendered as a two-column feed styled like
 // the dashboard's Key macro headlines; the twice-daily routine keeps it current.
 export const COMMENTARY = {
-  updated: "2026-07-09",
+  updated: "2026-07-10",
   us: [
+    { title: "Yardeni Says Inflation, Fed Back in Play as Iran Crisis Returns", source: "Bloomberg", author: "Ed Yardeni (Yardeni Research)", date: "2026-07-08", url: "https://www.bloomberg.com/news/articles/2026-07-08/yardeni-says-inflation-fed-back-in-play-as-iran-crisis-returns" },
     { title: "The worst of inflation is behind us — the Fed should stay in wait-and-see mode", source: "CNBC", author: "Mohamed El-Erian", date: "2026-07-07", url: "https://www.cnbc.com/video/2026/07/07/mohamed-el-erian-the-worst-of-inflation-is-behind-us-so-the-fed-should-stay-in-wait-and-see-mode.html" },
     { title: "Trump's Meddling Threatens Warsh's Fed Leadership", source: "Bloomberg Opinion", author: "Jonathan Levin", date: "2026-07-06", url: "https://www.bloomberg.com/opinion/articles/2026-07-06/trump-s-meddling-threatens-warsh-s-fed-leadership" },
-    { title: "Will The Fed Hike Interest Rates In Its July Meeting? Here's What The Market Thinks", source: "Yahoo Finance", author: "Barclays", date: "2026-07-06", url: "https://finance.yahoo.com/economy/policy/articles/fed-hike-interest-rates-july-060507499.html" },
   ],
   uk: [
-    { title: "Hedge Fund Gilt Risks Are Best Managed in Markets", source: "Bloomberg Opinion", author: "Paul J. Davies", date: "2026-07-09", url: "https://www.bloomberg.com/opinion/articles/2026-07-09/hedge-fund-gilt-risks-are-best-managed-in-markets" },
+    { title: "Hedge Fund Gilt Risks Are Best Managed in Markets", source: "Bloomberg Opinion", author: "Aaron Brown", date: "2026-07-09", url: "https://www.bloomberg.com/opinion/articles/2026-07-09/hedge-fund-gilt-risks-are-best-managed-in-markets" },
     { title: "British Pound: Inflation Fears Ease, But BoE Stays Cautious", source: "exchangerates.org.uk", author: "Pantheon Macroeconomics", date: "2026-07-08", url: "https://www.exchangerates.org.uk/news/46435/2026-07-08-british-pound-inflation-fears-ease-but-boe-stays-cautious.html" },
     { title: "BoE forecast to hold rates 'well into 2027' as inflation tops 4%", source: "Financial Reporter", author: "Oxford Economics — Edward Allenby", date: "2026-06-30", url: "https://www.financialreporter.co.uk/bank-of-england-forecast-to-hold-interest-rates-well-into-2027-as-inflation-tops-4.html" },
   ],
@@ -122,6 +122,7 @@ export const BUBBLE = {
     "By mid-2026 US equities show classic late-cycle bubble characteristics: a Shiller CAPE near 40 and a Buffett Indicator above 230% — near or above the 1929, 2000 and 2021 extremes — alongside record margin debt, top-10 concentration around 40%, and a record retail-options and IPO frenzy centred on AI.",
     "The main mitigant is monetary. A positive real policy rate and a Fed biased toward hikes — not the free money that amplified prior bubbles — keep the read at <strong>High rather than Extreme</strong>. With leadership this narrow, the risk is heavily tied to a handful of AI mega-caps.",
     "That concentration risk was on display on 7 July 2026, when a chip-stock selloff hit global markets after Samsung's record Q2 profit (~$58bn operating profit, ~19x YoY) still missed elevated AI expectations, compounded by reports DeepSeek is developing its own AI chip: the Nasdaq fell 1.2%, Intel/Applied Materials/AMD each dropped 8-10%, and Korea's KOSPI fell ~4.9% — even as the S&P 500 and Dow held near record highs and the VIX stayed inside its recent range, underscoring how narrow the market's AI-led leadership is.",
+    "Markets are also shrugging off a genuine supply shock: daily vessel crossings of the Strait of Hormuz collapsed from ~130 to just 5 by 8 July 2026 as US-Iran fighting resumed, per Lloyd's List Intelligence data reported 10 July — yet the Nasdaq and S&P 500 rebounded on 9 July on chip-sector strength (Micron +4.5%, SanDisk +7.6%) even as the disruption continued, a complacency gap consistent with a narrow, AI-driven bubble read.",
   ],
   dimensions: [
     {
@@ -161,6 +162,7 @@ export const BUBBLE = {
     ["The IPO wave (J.P. Morgan)", "https://www.jpmorgan.com/insights/markets-and-economy/top-market-takeaways/tmt-the-ipo-wave-is-historic-so-is-todays-market"],
     ["FTSE 100 CAPE (Siblis Research)", "https://siblisresearch.com/data/ftse-100-cape-pe-yield/"],
     ["Bloomberg — chip weakness resumes after Samsung misses lofty AI expectations, 7 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-07/tech-weakness-resumes-after-samsung-misses-lofty-ai-expectations"],
+    ["Al Jazeera — Strait of Hormuz shipping grinds to halt as US, Iran resume fighting, 10 Jul 2026", "https://www.aljazeera.com/economy/2026/7/10/strait-of-hormuz-shipping-grinds-to-halt-as-us-iran-resume-fighting"],
   ],
 };
 
@@ -168,6 +170,7 @@ export const BUBBLE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-hormuz-2026-07-10", kind: "Markets", title: "Strait of Hormuz shipping volumes collapsed (~130/day to 5) as US-Iran fighting resumed; equities rebounded regardless, underscoring narrow AI-led market leadership.", href: "#/bubble", date: "2026-07-10" },
   { id: "g-fed-2026-07-08", kind: "Rate guidance", title: "8 July FOMC minutes + Iran/oil shock lifted September hike odds to ~70%; 10-year Treasury yield jumped to 4.57%.", href: "#/commentary", date: "2026-07-08" },
   { id: "g-boe-2026-07-08", kind: "Rate guidance", title: "Oil-driven gilt sell-off pushed BoE hike-by-year-end odds to ~76%; 10-year gilt yield topped 4.9%.", href: "#/commentary", date: "2026-07-08" },
   { id: "g-cycle-us-2026-07", kind: "Cycle", title: "US placed late in the Big Debt Cycle (~72/100) — record debt and interest burden.", href: "#/cycle", date: "2026-07-07" },
@@ -198,16 +201,16 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-07-09",
+  updated: "2026-07-10",
   us: [
+    { title: "Strait of Hormuz traffic plunges as US, Iran resume fighting", source: "Al Jazeera", date: "2026-07-10", url: "https://www.aljazeera.com/economy/2026/7/10/strait-of-hormuz-shipping-grinds-to-halt-as-us-iran-resume-fighting" },
     { title: "Stock market today: Dow, S&P 500, Nasdaq gain as chip stocks rebound, oil prices fall", source: "Yahoo Finance", date: "2026-07-09", url: "https://finance.yahoo.com/markets/live/stock-market-today-thursday-july-9-us-strikes-iran-223149196.html" },
-    { title: "The U.S. launches new airstrikes on Iran and Tehran fires back at Gulf Arab states", source: "NPR", date: "2026-07-09", url: "https://www.npr.org/2026/07/09/g-s1-132670/us-iran-strikes" },
-    { title: "Fed officials were split on direction of interest rates at last meeting, minutes show", source: "CNBC", date: "2026-07-08", url: "https://www.cnbc.com/2026/07/08/fed-minutes-june-2026-.html" },
+    { title: "Fed Minutes Show 'a Few' Officials Saw Case for June Rate Hike", source: "Bloomberg", date: "2026-07-08", url: "https://www.bloomberg.com/news/articles/2026-07-08/fed-minutes-show-a-few-officials-saw-case-for-june-rate-hike" },
   ],
   uk: [
-    { title: "Labour leadership contest takes Burnham closer to UK PM's office", source: "RTE News (AFP)", date: "2026-07-09", url: "https://www.rte.ie/news/2026/0709/1582521-labour-uk-burnham/" },
+    { title: "Bank of England's Huw Pill Signals Upcoming Interest Rate Rise", source: "Global Banking & Finance Review", date: "2026-07-09", url: "https://www.globalbankingandfinance.com/bank-englands-pill-interest-rates-rise/" },
+    { title: "Pound To Dollar Price News, Forecast: GBP Slips As Middle East Tensions Boost USD", source: "ExchangeRates.org.uk", date: "2026-07-09", url: "https://www.exchangerates.org.uk/news/46437/2026-07-09-pound-to-dollar-price-news-forecast-gbp-slips-as-middle-east-tensions-boost-usd.html" },
     { title: "UK Gilt Yields Surge on Oil Spike, Rate Hike Bets", source: "Trading Economics", date: "2026-07-08", url: "https://www.tradingview.com/news/te_news:564810:0-uk-gilt-yields-surge-on-oil-spike-rate-hike-bets/" },
-    { title: "Rapid AI advances increasing financial stability risks, Bank of England warns", source: "Yahoo Finance UK", date: "2026-07-08", url: "https://uk.finance.yahoo.com/news/rapid-ai-advances-increasing-financial-095753760.html" },
   ],
 };
 

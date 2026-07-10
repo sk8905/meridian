@@ -15,13 +15,13 @@
 // `LAST_REVIEWED` whenever you refresh the data.
 // =============================================================================
 
-export const LAST_REVIEWED = "2026-07-09";
+export const LAST_REVIEWED = "2026-07-10";
 // When the refresh routine last ran (even if nothing new) — shown as "Last refresh".
-export const LAST_CHECKED = "2026-07-09";
+export const LAST_CHECKED = "2026-07-10";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — two runs a day (~06:00 / ~12:00).
-export const LAST_CHECKED_TIME = "21:14 BST";
+export const LAST_CHECKED_TIME = "05:24 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -6216,6 +6216,21 @@ export const items = [
       "'Co-manufacturing' concept replaced with primary/secondary manufacturer roles and modified obligations",
     ],
     tags: ["Consumer Duty", "FCA", "CP26/23", "wholesale exclusion", "fund management"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.macfarlanes.com/insights/102n8ir/macfarlanes-advises-associated-british-foods-on-obtaining-cma-clearance-for-hovis/",
+    id: "u652", title: "Macfarlanes advises Associated British Foods on obtaining CMA clearance for Hovis acquisition",
+    area: "corporate", areas: ["corporate"], type: "update", firm: "macfarlanes",
+    date: "2026-07-08", jurisdiction: "United Kingdom",
+    summary: "Macfarlanes acted for Associated British Foods in securing unconditional Phase 2 CMA clearance for its acquisition of Hovis Group Limited from Endless LLP, combining two of the UK's largest pre-sliced packaged bread manufacturers after a nine-month investigation fast-tracked to Phase 2.",
+    points: [
+      "CMA granted unconditional Phase 2 clearance after a nine-month, fast-tracked investigation",
+      "Combines ABF's Allied Bakeries/Kingsmill with Hovis Group, acquired from Endless LLP",
+      "CMA accepted an 'exiting firm' counterfactual argument in relation to Allied Bakeries",
+      "Led by Macfarlanes competition partners Cameron Firth and Caja Griesenbach",
+    ],
+    tags: ["CMA", "merger control", "Phase 2", "food and drink", "M&A"],
     dateEstimated: false,
   },
 ];
