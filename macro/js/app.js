@@ -319,17 +319,24 @@ function viewDashboard() {
 
 // Commentary tab — a curated, newest-first reading list of general macro-economic
 // news & analysis from the major financial outlets (data in content.js ARTICLES).
+// Rendered in the same feed format as the Credit News tab: a chip + date meta
+// column and a single title line carrying the headline (black, links out) plus
+// the source (grey) inline, to save space.
+function commentaryRow(n) {
+  const head = n.url
+    ? `<a href="${esc(n.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(n.title)}</a>`
+    : `<span class="intel-head">${esc(n.title)}</span>`;
+  const src = `${esc(n.source)}${n.author ? " · " + esc(n.author) : ""}`;
+  return `<div class="intel-row">
+    <div class="intel-meta"><span class="chip">News</span><span class="muted small">${esc(fmtDay(n.date))}</span></div>
+    <div class="intel-body"><div class="intel-title-line">${head}<span class="intel-src-inline muted small">${src}</span></div></div>
+  </div>`;
+}
 function viewCommentary() {
   const items = [...((ARTICLES && ARTICLES.items) || [])]
     .sort((a, b) => String(b.date).localeCompare(String(a.date)));
-  const rows = items.map((n) => `
-    <li class="article-item">
-      <div class="article-meta muted small">${esc(fmtDay(n.date))} · <span class="article-src">${esc(n.source)}</span>${n.author ? " · " + esc(n.author) : ""}</div>
-      <a class="article-head" href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">${esc(n.title)}</a>
-      ${n.blurb ? `<p class="article-blurb muted">${esc(n.blurb)}</p>` : ""}
-    </li>`).join("");
-  const list = rows
-    ? `<ul class="article-list">${rows}</ul>`
+  const list = items.length
+    ? items.map(commentaryRow).join("")
     : `<p class="muted small">The reading list is temporarily unavailable.</p>`;
   return `
     <div class="page-head">
