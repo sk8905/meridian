@@ -3,13 +3,18 @@
    Branding/style matched to Meridian Credit & Legal, with a violet identity.
    =========================================================================== */
 :root {
-  --bg: #f5f7fa;
+  /* Shared Meridian (Glance) scheme: navy top bar + blue accents. The Macro
+     signature lavender is kept only for the logo and the iPhone bottom-bar tab. */
+  --bg: #f4f6fb;
   --surface: #ffffff;
-  --ink: #0f172a;
-  --muted: #64748b;
-  --border: #e2e8f0;
-  --macro: #8b7ec8;         /* soft lavender — the Macro platform's accent */
-  --macro-ink: #4b3f72;     /* deep dusty lavender — top bar */
+  --ink: #131a2b;
+  --muted: #66708a;
+  --border: #e4e7ef;
+  --navy: #0b1f44;          /* top bar (matches Glance) */
+  --macro: #2563eb;         /* accent — Glance blue (was lavender) */
+  --macro-ink: #1e3a8a;     /* deep blue for emphasis text */
+  --brand-accent: #6d5fae;  /* Macro signature — logo + iPhone tab only */
+  --brand-logo: #c4b5e8;    /* light lavender for the logo glyph on the navy bar */
   --shadow: 0 1px 2px rgba(15,23,42,.06), 0 4px 12px rgba(15,23,42,.04);
   font-synthesis: none;
 }
@@ -32,7 +37,7 @@ h1, h2, .macro-country, .macro-label { text-wrap: balance; }
 .intel-head, .compact-head, .macro-para, .macro-bottomline, p, .muted { text-wrap: pretty; }
 
 /* ---------- top bar ---------- */
-.topbar { background: var(--macro-ink); color: #fff; position: sticky; top: 0; z-index: 10; }
+.topbar { background: var(--navy); color: #fff; position: sticky; top: 0; z-index: 10; }
 /* Search pill in the nav row — opens the command palette (same as "/"); its
    margin-left:auto pushes it (and the identity + bell after it) to the right,
    mirroring Glance's nav search. */
@@ -70,7 +75,7 @@ h1, h2, .macro-country, .macro-label { text-wrap: balance; }
 .brand-text { display: flex; flex-direction: column; }
 .brand-text strong { font-size: 1.05rem; letter-spacing: .3px; }
 .brand-sub { font-size: .7rem; color: #cabfe6; text-transform: uppercase; letter-spacing: 1px; }
-.logo { color: #c4b5e8; font-size: 1.3rem; line-height: 1; }
+.logo { color: var(--brand-logo); font-size: 1.3rem; line-height: 1; }
 .platform-switch { display: inline-flex; align-items: center; gap: 2px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.22); border-radius: 8px; padding: 2px; flex: 0 0 auto; }
 .ps-btn { padding: .3rem .6rem; border-radius: 6px; font-size: .8rem; font-weight: 700; color: #cbd5e1; text-decoration: none; white-space: nowrap; }
 .ps-btn:hover { color: #fff; text-decoration: none; background: rgba(255,255,255,.1); }
@@ -92,7 +97,7 @@ h1, h2, .macro-country, .macro-label { text-wrap: balance; }
 .notif-list { list-style: none; margin: 0; padding: 0; }
 .notif-item { padding: .45rem .5rem; border-bottom: 1px solid var(--border); border-radius: 6px; }
 .notif-item:last-child { border-bottom: none; }
-.notif-item.is-new { background: #f3f1fa; }
+.notif-item.is-new { background: #eef2fb; }
 .notif-link { font-weight: 600; color: var(--ink); display: block; }
 .notif-link:hover { color: var(--macro); }
 .notif-meta { margin-top: .1rem; }
@@ -140,10 +145,10 @@ a.rel-item:hover .cal-title, a.rel-item:hover .cal-country { color: var(--macro)
 /* Corner control to open the indicator in the Chart view. */
 .macro-chartlink { position: absolute; top: .4rem; right: .45rem; font-size: .8rem; line-height: 1; opacity: .4; cursor: pointer; padding: .2rem; border-radius: 5px; filter: grayscale(.3); }
 .macro-tile:hover .macro-chartlink { opacity: .8; }
-.macro-chartlink:hover, .macro-chartlink:focus-visible { opacity: 1; filter: none; background: rgba(139,126,200,.16); outline: none; }
+.macro-chartlink:hover, .macro-chartlink:focus-visible { opacity: 1; filter: none; background: rgba(37,99,235,.16); outline: none; }
 /* The whole tile is a link to its source (matches Credit's key-rates tiles). */
 a.macro-tile { color: inherit; text-decoration: none; transition: box-shadow .15s ease, border-color .15s ease, transform .15s ease; }
-a.macro-tile:hover { text-decoration: none; border-color: var(--macro); box-shadow: 0 2px 4px rgba(15,23,42,.08), 0 8px 20px rgba(75,63,114,.12); }
+a.macro-tile:hover { text-decoration: none; border-color: var(--macro); box-shadow: 0 2px 4px rgba(15,23,42,.08), 0 8px 20px rgba(30,58,138,.12); }
 a.macro-tile:hover .macro-src { color: var(--macro); text-decoration: underline; }
 .macro-tile-head { display: flex; flex-direction: column; gap: .1rem; min-height: 2.1rem; }
 /* Tile text never wraps — it truncates with an ellipsis — so every tile keeps an
@@ -222,7 +227,7 @@ a.compact-head:hover { color: var(--macro); text-decoration: underline; }
 .macro-articles-panel { padding: 1.1rem 1.25rem; }
 .intel-row { display: flex; align-items: baseline; gap: .6rem; padding: .8rem 0; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
 .intel-row:last-child { border-bottom: none; }
-.chip { display: inline-block; padding: .12rem .5rem; border-radius: 999px; background: #ede9fe; color: #5b21b6; font-size: .72rem; font-weight: 600; border: 1px solid #ddd6fe; white-space: nowrap; flex-shrink: 0; }
+.chip { display: inline-block; padding: .12rem .5rem; border-radius: 999px; background: #dbeafe; color: #1e40af; font-size: .72rem; font-weight: 600; border: 1px solid #bfdbfe; white-space: nowrap; flex-shrink: 0; }
 .intel-date { flex-shrink: 0; white-space: nowrap; }
 .intel-head { font-weight: 600; color: var(--ink); overflow-wrap: anywhere; }
 a.intel-head:hover { color: var(--macro); text-decoration: underline; }
@@ -234,8 +239,8 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
 .month-group:first-child .month-head { margin-top: .15rem; }
 /* Save / unsave button (Credit/Legal style). */
 .save-btn { background: #f1f5f9; border: 1px solid var(--border); color: var(--muted); border-radius: 7px; padding: .2rem .6rem; font-size: .74rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
-.save-btn:hover { background: #e9e5f6; color: var(--ink); }
-.save-btn.is-saved { background: #f3f0fb; border-color: #ddd6fe; color: var(--macro-ink); }
+.save-btn:hover { background: #dbeafe; color: var(--ink); }
+.save-btn.is-saved { background: #eff6ff; border-color: #bfdbfe; color: var(--macro-ink); }
 .comm-foot { padding-top: .9rem; text-align: center; }
 .load-more-btn { font: inherit; font-size: .85rem; font-weight: 600; color: var(--macro); background: none; border: 1px solid var(--border); border-radius: 8px; padding: .5rem 1.1rem; cursor: pointer; }
 .load-more-btn:hover { background: #f4f1fb; border-color: var(--macro); }
@@ -243,7 +248,7 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
 /* ---------- dashboard summaries ---------- */
 .macro-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 1.7rem; }
 .macro-sum { display: block; border: 1px solid var(--border); border-left: 3px solid var(--macro); border-radius: 12px; padding: 1rem 1.1rem; background: var(--surface); box-shadow: var(--shadow); color: inherit; text-decoration: none; transition: box-shadow .15s ease, transform .15s ease; }
-.macro-sum:hover { text-decoration: none; box-shadow: 0 2px 4px rgba(15,23,42,.08), 0 8px 20px rgba(75,63,114,.12); }
+.macro-sum:hover { text-decoration: none; box-shadow: 0 2px 4px rgba(15,23,42,.08), 0 8px 20px rgba(30,58,138,.12); }
 .macro-sum-head { display: flex; align-items: center; gap: .5rem; margin-bottom: .55rem; }
 .macro-sum-icon { color: var(--macro); font-size: 1.05rem; }
 .macro-sum-title { font-weight: 700; color: var(--ink); font-size: .98rem; }
@@ -264,7 +269,7 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
 .macro-para { color: var(--ink); margin: 0 0 .8rem; line-height: 1.6; }
 .macro-para:last-child { margin-bottom: 0; }
 .macro-para em { color: var(--muted); }
-.macro-bottomline { margin: auto 0 0; padding: .7rem .9rem; border-radius: 10px; background: #f3f1fa; border: 1px solid rgba(139,126,200,.3); color: var(--ink); line-height: 1.55; }
+.macro-bottomline { margin: auto 0 0; padding: .7rem .9rem; border-radius: 10px; background: #f3f1fa; border: 1px solid rgba(37,99,235,.3); color: var(--ink); line-height: 1.55; }
 /* Cycle: gauge and framework text side by side, filling the card. */
 .macro-gauge-wrap { display: grid; grid-template-columns: minmax(280px, 1fr) 1.4fr; gap: 1.6rem; align-items: center; margin-top: .3rem; }
 .macro-framework .macro-para:last-child { margin-bottom: 0; }
@@ -293,7 +298,7 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
 .macro-metric-ctx td { padding: 0 0 .5rem; border-bottom: 1px solid var(--border); line-height: 1.4; }
 .macro-metrics tr.macro-metric-ctx:last-child td { border-bottom: none; padding-bottom: 0; }
 .macro-dim-note { margin-top: auto; color: var(--muted); }
-.macro-uknote { margin-top: 1rem; padding: .7rem .9rem; border-radius: 10px; background: #f3f1fa; border: 1px solid rgba(139,126,200,.3); }
+.macro-uknote { margin-top: 1rem; padding: .7rem .9rem; border-radius: 10px; background: #f3f1fa; border: 1px solid rgba(37,99,235,.3); }
 
 /* ---------- chart tab ---------- */
 .chart-ctrls { margin-bottom: 1.2rem; display: grid; gap: 1.1rem; }
@@ -403,7 +408,8 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
   text-decoration: none; background: none; border: 0; cursor: pointer;
 }
 .mtab:hover { color: #4a5566; }
-.mtab.is-active { color: #1f2733; background: rgba(70,80,100,.12); }
+/* Active tab carries the Macro signature colour (the one place besides the logo). */
+.mtab.is-active { color: var(--brand-accent); background: color-mix(in srgb, var(--brand-accent) 14%, transparent); }
 .mtab-ico { display: block; font-size: 1.3rem; line-height: 1; }
 svg.mtab-ico { width: 22px; height: 22px; }
 
