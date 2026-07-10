@@ -85,7 +85,7 @@
     /* ---- Mobile bottom tab bar (Macro / Credit / Legal / Search) — phones only. ---- */
     .mobile-tabbar {
       display:none; position:fixed; left:.6rem; right:.6rem; z-index:45;
-      bottom:calc(.45rem + env(safe-area-inset-bottom, 0px));
+      bottom:calc(1rem + env(safe-area-inset-bottom, 0px));
       grid-template-columns:repeat(5,1fr);
       padding:.28rem .3rem; border-radius:24px;
       background:rgba(248,249,252,.72);
@@ -164,7 +164,7 @@
       .g-idblock { justify-self:end; grid-area:idblock; }
       .g-notif { grid-area:bell; justify-self:end; }
       .g-user, .g-refresh { font-size:.6rem; }
-      body { padding-bottom:4.6rem; }
+      body { padding-bottom:5.1rem; }
       .mobile-tabbar { display:grid; }
     }
     /* Smallest phones (≤360px, e.g. the compact iPhone SE): tighten the top row so

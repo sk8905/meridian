@@ -533,7 +533,7 @@ a.intel-head:hover { color: var(--primary); }
 /* ---- Mobile bottom tab bar (Macro / Credit / Legal / Search) — phones only. ---- */
 .mobile-tabbar {
   display: none; position: fixed; left: .6rem; right: .6rem; z-index: 45;
-  bottom: calc(.45rem + env(safe-area-inset-bottom, 0px));
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
   grid-template-columns: repeat(5, 1fr);
   padding: .28rem .3rem; border-radius: 24px;
   background: rgba(248,249,252,.72);
@@ -633,7 +633,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
   .brand-sub { font-size: .62rem; }
   .topbar-right { justify-self: end; }
   .account-nav, .data-status { font-size: .6rem; }
-  body { padding-bottom: 4.6rem; }
+  body { padding-bottom: 5.1rem; }
   .mobile-tabbar { display: grid; }
 }
 
