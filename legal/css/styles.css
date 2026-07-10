@@ -209,13 +209,16 @@ img, svg { max-width: 100%; }
 /* ---- KPIs (Meridian: teal left border) ---- */
 .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 1.25rem; }
 .kpis-5 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+/* Soft pastel tiles that reuse the practice-area pill palette (same color-mix
+   as .chip.area): a 14% tint fill, a 26% tint border and 64% area-tinted text. */
 .kpi {
-  background: var(--surface); border: 1px solid var(--line); border-left: 3px solid var(--c, var(--primary));
+  background: color-mix(in srgb, var(--c, var(--primary)) 14%, #fff);
+  border: 1px solid color-mix(in srgb, var(--c, var(--primary)) 26%, #fff);
   border-radius: var(--radius); padding: 1rem 1.1rem; box-shadow: var(--shadow);
 }
-.kpi-link { text-decoration: none; color: inherit; display: block; transition: border-color .15s, transform .1s, box-shadow .15s; }
-.kpi-link:hover, .kpi-link:focus-visible { box-shadow: 0 6px 16px rgba(15,23,42,.08); text-decoration: none; }
-.kpi-num { display: block; font-size: 1.7rem; font-weight: 700; color: var(--primary-ink); line-height: 1.1; }
+.kpi-link { text-decoration: none; color: inherit; display: block; transition: border-color .15s, box-shadow .15s; }
+.kpi-link:hover, .kpi-link:focus-visible { box-shadow: 0 6px 16px rgba(15,23,42,.08); border-color: color-mix(in srgb, var(--c, var(--primary)) 42%, #fff); text-decoration: none; }
+.kpi-num { display: block; font-size: 1.7rem; font-weight: 700; color: color-mix(in srgb, var(--c, var(--primary)) 64%, #22263a); line-height: 1.1; }
 .kpi-label { display: block; font-size: .82rem; color: var(--ink-soft); margin-top: .2rem; }
 .kpi-sub { display: block; font-size: .72rem; color: var(--muted); margin-top: .1rem; }
 .kpi.accent { border-left-color: var(--accent); }
