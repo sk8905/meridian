@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-07-10";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — four runs a day (~05:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "12:18 BST";
+export const LAST_CHECKED_TIME = "17:27 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -6246,6 +6246,109 @@ export const items = [
       "Completion expected H2 2026",
     ],
     tags: ["debt financing", "banking syndicate", "fibre infrastructure", "Germany"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.aoshearman.com/en/insights/ecb-requires-significant-institutions-to-address-ai-enabled-cybersecurity-threats",
+    id: "u654", title: "ECB requires significant institutions to address AI-enabled cybersecurity threats",
+    area: "banking", areas: ["banking"], type: "update", firm: "aoshearman",
+    date: "2026-07-09", jurisdiction: "European Union",
+    summary: "A&O Shearman's briefing on a letter from ECB Supervisory Board Chair Claudia Buch to the CEOs of all significant institutions supervised under the Single Supervisory Mechanism, requiring comprehensive cybersecurity action plans by 31 October 2026 in response to AI-enabled threat actors now able to identify software vulnerabilities and generate functioning exploits at unprecedented speed.",
+    points: [
+      "ECB letter (7 July 2026) requires significant institutions to submit cybersecurity action plans by 31 October 2026",
+      "Short-term priorities: reduce exposed attack surface, accelerate vulnerability scanning/patching, strengthen AI-enabled monitoring and governance",
+      "Medium-term measures include defence-in-depth, legacy infrastructure modernisation and zero-trust adoption",
+      "Similar expectations anticipated for smaller institutions supervised by national authorities (e.g. BaFin)",
+    ],
+    tags: ["ECB", "cybersecurity", "AI", "prudential regulation", "SSM"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.slaughterandmay.com/insights/corporate-update/corporate-update-bulletin-9-july-2026/",
+    id: "u655", title: "Corporate Update Bulletin - 9 July 2026",
+    area: "corporate", areas: ["corporate"], type: "update", firm: "slaughtermay",
+    date: "2026-07-09", jurisdiction: "United Kingdom",
+    summary: "Slaughter and May's fortnightly corporate bulletin covers the FCA's consultation on strengthening minority-shareholder protections in closed-ended investment funds (restricting substantial shareholders' votes on related-party transactions), the FRC's refreshed audit and Provision 29 guidance, finalised cryptoasset trading rules (effective 25 October 2027), FCA encouragement of retail-shareholder voting ahead of mandatory intermediation in 2029, and the proposed UK inward/outward redomiciliation regime.",
+    points: [
+      "FCA consults on strengthening minority-shareholder protections in closed-ended investment funds",
+      "FRC clarifies auditor involvement with Provision 29 internal-controls disclosures and revises auditing standards",
+      "FCA finalises cryptoasset trading rules for UK platforms, effective 25 October 2027",
+      "Government redomiciliation regime for overseas companies re-domiciling to the UK welcomed by legal bodies, with calls for an outward route",
+    ],
+    tags: ["corporate update", "FCA", "FRC", "redomiciliation", "cryptoassets"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.freshfields.com/en/our-thinking/news/news-search/2026/07/freshfields-advises-on-300m-green-bond-issue-of-ca-immo",
+    id: "u656", title: "Freshfields advises on €300m green bond issue of CA Immo",
+    area: "banking", areas: ["banking"], type: "alert", firm: "freshfields",
+    date: "2026-07-08", jurisdiction: "Austria",
+    summary: "Freshfields advised the banking syndicate — Crédit Agricole CIB, Deutsche Bank, Erste Group and UniCredit as Joint Lead Managers — on a €300m three-year, 3.500% fixed-rate senior unsecured green bond issued by Vienna-based CA Immobilien Anlagen AG, priced 24 June 2026 and issued 7 July 2026, listed on the Vienna Stock Exchange.",
+    points: [
+      "€300m three-year senior unsecured green bond for CA Immo, priced at 3.500%",
+      "Joint Lead Managers: Crédit Agricole CIB, Deutsche Bank, Erste Group, UniCredit",
+      "Publicly offered in Austria and placed with EU institutional investors; listed on the Vienna Stock Exchange",
+    ],
+    tags: ["green bond", "debt capital markets", "real estate", "Austria"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.macfarlanes.com/insights/102mv4a/rated-note-feeders-structuring-access-to-private-capital/",
+    id: "u657", title: "Rated note feeders: structuring access to private capital",
+    area: "funds", areas: ["funds"], type: "insight", firm: "macfarlanes",
+    date: "2026-07-09", jurisdiction: "United Kingdom / International",
+    summary: "Macfarlanes' briefing on 'rated note feeders' — structures that repackage economic exposure to private capital funds into rated debt instruments, originally designed for US insurers seeking favourable regulatory capital treatment and now used more broadly (KBRA alone rated $17bn of note feeder funds in 2025) — covering single- versus multiple-note structures and the US bankruptcy-law, securitisation-classification and tax considerations relevant to their design.",
+    points: [
+      "Rated note feeders repackage private-fund exposure into rated debt instruments for regulatory-capital-sensitive investors",
+      "KBRA alone rated $17bn of note feeder funds in 2025, up sharply on prior years",
+      "Single-note structures prioritise simplicity; multiple-note structures offer pricing flexibility and capital efficiency",
+      "Key risk areas: US bankruptcy-law enforceability of capital-call debt, securitisation classification, and tax structuring",
+    ],
+    tags: ["rated note feeders", "private capital", "fund finance", "securitisation"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.clearygottlieb.com/news-and-insights/news-listing/eg-on-the-move-acquires-prax-uk-petrol-station-forecourt-business",
+    id: "u658", title: "EG On The Move Acquires Prax UK Petrol Station Forecourt Business",
+    area: "corporate", areas: ["corporate"], type: "alert", firm: "cleary",
+    date: "2026-07-07", jurisdiction: "United Kingdom",
+    summary: "Cleary Gottlieb advised EG On The Move on its acquisition of 85 Prax petrol station forecourt sites across the UK, expanding its UK network to approximately 285 sites operated under a commission-operator model, continuing a run of UK forecourt acquisitions following the 2024 purchase of EG Group's UK business, the 2025 acquisition of 98 Applegreen sites, and the April 2026 addition of MPK Garages Limited sites.",
+    points: [
+      "Acquisition of 85 Prax forecourt sites expands EG On The Move's UK network to c.285 sites",
+      "Sites to operate under a commission-operator model with individual site operators",
+      "Continues a run of UK forecourt consolidation by EG On The Move (EG Group UK, Applegreen, MPK Garages)",
+      "Planned investment in EV charging and expanded foodservice/retail offerings",
+    ],
+    tags: ["M&A", "fuel retail", "forecourts", "private equity"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.weil.com/articles/weil-advises-advent-portfolio-company-cobham-ultra-on-the-sale-of-ultra-maritime-to-lockheed-martin",
+    id: "u659", title: "Weil Advises Advent Portfolio Company Cobham Ultra on the USD $3.45 Billion Sale of Ultra Maritime to Lockheed Martin",
+    area: "corporate", areas: ["corporate"], type: "alert", firm: "weil",
+    date: "2026-07-06", jurisdiction: "United Kingdom / United States",
+    summary: "Weil advised Cobham Ultra, an Advent International portfolio company, on the agreed $3.45bn sale of Ultra Maritime — a provider of next-generation undersea-warfare solutions — to Lockheed Martin, with the transaction subject to customary regulatory clearances and closing conditions; the Weil team spanned private equity, antitrust, tax, employment and technology specialists across New York, Boston, Washington D.C. and Brussels.",
+    points: [
+      "$3.45bn sale of Ultra Maritime (undersea-warfare solutions) by Advent-backed Cobham Ultra to Lockheed Martin",
+      "Subject to customary regulatory approvals and closing conditions",
+      "Weil team drawn from New York, Boston, Washington D.C. and Brussels offices",
+    ],
+    tags: ["M&A", "defence", "private equity exit", "antitrust"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.cliffordchance.com/news/news/2026/07/clifford-chance-advises-cvc-capital-partners-on-its-agreement-to.html",
+    id: "u660", title: "Clifford Chance advises CVC Capital Partners on its agreement to sell D-Marin to InfraVia Capital Partners",
+    area: "corporate", areas: ["corporate"], type: "alert", firm: "cliffordchance",
+    date: "2026-07-09", jurisdiction: "United Kingdom / Turkey",
+    summary: "Clifford Chance advised CVC Capital Partners on the sale of D-Marin — the leading premium marina operator in the EMEA region, headquartered in Turkey with operations across Croatia, Greece, the UAE, Spain, Italy, France, Malta and Albania — to InfraVia Capital Partners, marking CVC's exit six years after acquiring D-Marin in 2020; financial terms were not disclosed.",
+    points: [
+      "CVC exits marina operator D-Marin to InfraVia Capital Partners after six years of ownership",
+      "D-Marin expanded across nine EMEA countries during CVC's ownership",
+      "Clifford Chance fielded a 13+ lawyer team across private equity, Turkish law, finance and tax from eight offices",
+      "Financial terms of the transaction were not disclosed",
+    ],
+    tags: ["private equity", "M&A", "infrastructure", "exit"],
     dateEstimated: false,
   },
 ];

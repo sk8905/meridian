@@ -13,7 +13,7 @@ export const UPDATED = "10 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-10",
-  lastCheckedTime: "12:18 BST",
+  lastCheckedTime: "17:27 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -203,14 +203,14 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-07-10",
   us: [
-    { title: "Strait of Hormuz traffic plunges as US, Iran resume fighting", source: "Al Jazeera", date: "2026-07-10", url: "https://www.aljazeera.com/economy/2026/7/10/strait-of-hormuz-shipping-grinds-to-halt-as-us-iran-resume-fighting" },
-    { title: "Stock market today: Dow, S&P 500, Nasdaq gain as chip stocks rebound, oil prices fall", source: "Yahoo Finance", date: "2026-07-09", url: "https://finance.yahoo.com/markets/live/stock-market-today-thursday-july-9-us-strikes-iran-223149196.html" },
-    { title: "Fed Minutes Show 'a Few' Officials Saw Case for June Rate Hike", source: "Bloomberg", date: "2026-07-08", url: "https://www.bloomberg.com/news/articles/2026-07-08/fed-minutes-show-a-few-officials-saw-case-for-june-rate-hike" },
+    { title: "Treasury yields little changed as investors track Middle East developments", source: "CNBC", date: "2026-07-10", url: "https://www.cnbc.com/2026/07/10/us-bond-treasury-yield-us10y-iran-war.html" },
+    { title: "Traders Hedge for FX Volatility Return as Fed Uncertainty Builds", source: "Bloomberg", date: "2026-07-10", url: "https://www.bloomberg.com/news/articles/2026-07-10/traders-hedge-for-fx-volatility-return-as-fed-uncertainty-builds" },
+    { title: "Stock Market News for July 10, 2026", source: "Yahoo Finance", date: "2026-07-10", url: "https://finance.yahoo.com/markets/stocks/articles/stock-market-news-july-10-075400187.html" },
   ],
   uk: [
-    { title: "Market Warns UK's Plan for Long-Dated Debt Needs a Rethink", source: "Bloomberg", date: "2026-07-09", url: "https://www.bloomberg.com/news/articles/2026-07-09/market-warns-uk-s-plan-for-long-dated-debt-needs-a-rethink" },
+    { title: "BoE rate hike odds rise as Sterling outperforms", source: "FXStreet", date: "2026-07-10", url: "https://www.fxstreet.com/analysis/boe-rate-hike-odds-rise-as-sterling-outperforms-202607100824" },
+    { title: "Pound To Dollar Price News, Forecast: GBP Breaks Above 1.34 Resistance", source: "ExchangeRates.org.uk", date: "2026-07-10", url: "https://www.exchangerates.org.uk/news/46459/2026-07-10-pound-to-dollar-price-news-forecast-gbp-breaks-above-1-34-resistance.html" },
     { title: "Bank of England's Huw Pill Signals Upcoming Interest Rate Rise", source: "Global Banking & Finance Review", date: "2026-07-09", url: "https://www.globalbankingandfinance.com/bank-englands-pill-interest-rates-rise/" },
-    { title: "Pound To Dollar Price News, Forecast: GBP Slips As Middle East Tensions Boost USD", source: "ExchangeRates.org.uk", date: "2026-07-09", url: "https://www.exchangerates.org.uk/news/46437/2026-07-09-pound-to-dollar-price-news-forecast-gbp-slips-as-middle-east-tensions-boost-usd.html" },
   ],
 };
 
@@ -224,16 +224,16 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-10",
   items: [
-    { title: "Oil surge threatens to reignite global inflation as Iran conflict escalates", source: "Financial Times", date: "2026-07-10", url: "https://www.ft.com/content/oil-surge-global-inflation-iran-2026", blurb: "Brent's jump past $95 as US strikes resume is rekindling fears of a fresh energy-driven inflation wave just as central banks had hoped to ease." },
-    { title: "Dollar climbs to three-month high as investors seek havens amid Middle East tensions", source: "Reuters", date: "2026-07-10", url: "https://www.reuters.com/markets/currencies/dollar-three-month-high-haven-demand-2026-07-10/", blurb: "The greenback and gold rallied as escalating conflict and higher-for-longer rate bets sent flows out of risk assets and emerging markets." },
+    { title: "Strait of Hormuz shipping grinds to halt as US, Iran resume fighting", source: "Al Jazeera", date: "2026-07-10", url: "https://www.aljazeera.com/economy/2026/7/10/strait-of-hormuz-shipping-grinds-to-halt-as-us-iran-resume-fighting", blurb: "Vessel-tracking data shows crossings via the US-coordinated route have effectively ground to a halt since Tuesday, a fresh blow to energy markets already reeling from the conflict." },
+    { title: "Traders Hedge for FX Volatility Return as Fed Uncertainty Builds", source: "Bloomberg", date: "2026-07-10", url: "https://www.bloomberg.com/news/articles/2026-07-10/traders-hedge-for-fx-volatility-return-as-fed-uncertainty-builds", blurb: "Currency traders are buying protection against bigger swings as a less predictable Fed under Kevin Warsh and elevated Middle East risk stir volatility from multi-year lows." },
+    { title: "Treasury yields little changed as investors track Middle East developments", source: "CNBC", date: "2026-07-10", url: "https://www.cnbc.com/2026/07/10/us-bond-treasury-yield-us10y-iran-war.html", blurb: "The 10-year yield held near 4.55% as traders weighed continuing US-Iran technical talks against this week's collapse of the ceasefire." },
+    { title: "World Economic Outlook Update, July 2026: Global Economy in Crosscurrents of War and Technology", source: "IMF", date: "2026-07-08", url: "https://www.imf.org/en/publications/weo/issues/2026/07/08/world-economic-outlook-update-july-2026", blurb: "The Fund trims growth forecasts for energy-importing economies hit by the war shock even as AI-driven investment lifts countries integrated into the tech supply chain." },
     { title: "Fed's Warsh signals patience as inflation risks tilt higher", source: "The Wall Street Journal", date: "2026-07-09", url: "https://www.wsj.com/economy/central-banking/fed-warsh-patience-inflation-2026", blurb: "In his first testimony as chair, Kevin Warsh played down the case for cuts, stressing that tariff and energy pass-through keep the balance of risks skewed to the upside." },
     { title: "Global bonds sell off as traders price out central-bank cuts", source: "Bloomberg", date: "2026-07-09", url: "https://www.bloomberg.com/news/articles/2026-07-09/global-bonds-sell-off-central-bank-cuts-priced-out", blurb: "Ten-year Treasury and gilt yields hit multi-week highs as an oil shock and hawkish minutes forced a repricing of the global rate path." },
     { title: "The world economy faces a new oil shock at the worst possible time", source: "The Economist", date: "2026-07-09", url: "https://www.economist.com/finance-and-economics/2026/07/09/the-world-economy-faces-a-new-oil-shock", blurb: "With inflation still above target and fiscal buffers thin, a renewed Middle East supply scare leaves policymakers with few good options." },
-    { title: "Gilt yields hit two-year high as hedge-fund deleveraging amplifies sell-off", source: "Financial Times", date: "2026-07-08", url: "https://www.ft.com/content/gilt-yields-two-year-high-hedge-fund-deleveraging-2026", blurb: "The Bank of England's Financial Stability Report flagged record hedge-fund leverage as the move in long-dated gilts turned disorderly." },
     { title: "Fed minutes reveal split as 'a few' officials saw case for a June hike", source: "Reuters", date: "2026-07-08", url: "https://www.reuters.com/markets/us/fed-minutes-june-2026-officials-split-hike-2026-07-08/", blurb: "The record of the June meeting showed broad-based price pressures and a growing hawkish minority, sending September-hike odds toward 70%." },
     { title: "Emerging markets feel the squeeze as strong dollar and high rates bite", source: "Bloomberg", date: "2026-07-08", url: "https://www.bloomberg.com/news/articles/2026-07-08/emerging-markets-squeezed-by-strong-dollar-high-rates", blurb: "Currencies from the rand to the rupiah slid as a resurgent dollar and rising US yields tightened financial conditions across the developing world." },
     { title: "Chip stocks tumble as Samsung's record profit fails to impress", source: "The Wall Street Journal", date: "2026-07-07", url: "https://www.wsj.com/tech/chip-stocks-samsung-record-profit-2026", blurb: "A record ~$58bn operating profit still missed lofty AI expectations, dragging the Nasdaq lower and exposing how narrow the market's leadership has become." },
-    { title: "IMF warns record-high equity valuations leave markets exposed to a sharp correction", source: "Financial Times", date: "2026-07-07", url: "https://www.ft.com/content/imf-equity-valuations-correction-warning-2026", blurb: "The Fund's latest stability review singled out AI-driven US megacaps and stretched credit spreads as the main channels for a disorderly repricing." },
     { title: "Rebalancing Growth: China Economic Update", source: "World Bank", date: "2026-07-07", url: "https://www.worldbank.org/en/news/press-release/2026/07/07/rebalancing-growth-china-economic-update", blurb: "The Bank projects China growth slowing to 4.4% in 2026 and 4.3% in 2027 as the property-sector adjustment continues to weigh on domestic demand." },
     { title: "China's exports beat forecasts but deflation pressures persist", source: "Reuters", date: "2026-07-06", url: "https://www.reuters.com/markets/asia/china-exports-beat-forecasts-deflation-persists-2026-07-06/", blurb: "Resilient shipments masked soft domestic demand and falling factory-gate prices, keeping pressure on Beijing to add stimulus." },
     { title: "America's fiscal path is unsustainable — and the bond market is starting to notice", source: "The Economist", date: "2026-07-03", url: "https://www.economist.com/leaders/2026/07/03/americas-fiscal-path-is-unsustainable", blurb: "With the deficit near 6% of GDP and net interest at a record, rising term premia are the market's first warning shot." },
