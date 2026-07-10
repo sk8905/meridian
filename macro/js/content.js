@@ -171,8 +171,8 @@ export const BUBBLE = {
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
   { id: "g-hormuz-2026-07-10", kind: "Markets", title: "Strait of Hormuz shipping volumes collapsed (~130/day to 5) as US-Iran fighting resumed; equities rebounded regardless, underscoring narrow AI-led market leadership.", href: "#/bubble", date: "2026-07-10" },
-  { id: "g-fed-2026-07-08", kind: "Rate guidance", title: "8 July FOMC minutes + Iran/oil shock lifted September hike odds to ~70%; 10-year Treasury yield jumped to 4.57%.", href: "#/commentary", date: "2026-07-08" },
-  { id: "g-boe-2026-07-08", kind: "Rate guidance", title: "Oil-driven gilt sell-off pushed BoE hike-by-year-end odds to ~76%; 10-year gilt yield topped 4.9%.", href: "#/commentary", date: "2026-07-08" },
+  { id: "g-fed-2026-07-08", kind: "Rate guidance", title: "8 July FOMC minutes + Iran/oil shock lifted September hike odds to ~70%; 10-year Treasury yield jumped to 4.57%.", href: "#/policy", date: "2026-07-08" },
+  { id: "g-boe-2026-07-08", kind: "Rate guidance", title: "Oil-driven gilt sell-off pushed BoE hike-by-year-end odds to ~76%; 10-year gilt yield topped 4.9%.", href: "#/policy", date: "2026-07-08" },
   { id: "g-cycle-us-2026-07", kind: "Cycle", title: "US placed late in the Big Debt Cycle (~72/100) — record debt and interest burden.", href: "#/cycle", date: "2026-07-07" },
   { id: "g-cycle-uk-2026-07", kind: "Cycle", title: "UK at ~58/100 — elevated debt and real gilt stress, but less advanced than the US.", href: "#/cycle", date: "2026-07-07" },
   { id: "g-bubble-us-2026-07", kind: "Bubble risk", title: "US equity bubble risk High (~80/100) — extreme valuations, record margin debt and narrow breadth, tempered by restrictive policy.", href: "#/bubble", date: "2026-07-07" },
@@ -211,6 +211,32 @@ export const NEWS = {
     { title: "Bank of England's Huw Pill Signals Upcoming Interest Rate Rise", source: "Global Banking & Finance Review", date: "2026-07-09", url: "https://www.globalbankingandfinance.com/bank-englands-pill-interest-rates-rise/" },
     { title: "Pound To Dollar Price News, Forecast: GBP Slips As Middle East Tensions Boost USD", source: "ExchangeRates.org.uk", date: "2026-07-09", url: "https://www.exchangerates.org.uk/news/46437/2026-07-09-pound-to-dollar-price-news-forecast-gbp-slips-as-middle-east-tensions-boost-usd.html" },
     { title: "UK Gilt Yields Surge on Oil Spike, Rate Hike Bets", source: "Trading Economics", date: "2026-07-08", url: "https://www.tradingview.com/news/te_news:564810:0-uk-gilt-yields-surge-on-oil-spike-rate-hike-bets/" },
+  ],
+};
+
+// ---- Macro reading list (Commentary tab) -----------------------------------
+// A curated feed of the most important GENERAL global macro-economic news and
+// analysis — monetary policy, growth, inflation, oil, bonds, geopolitics — from
+// reputable outlets (FT, Bloomberg, Reuters, WSJ, The Economist, The Guardian,
+// etc.). Rendered as a single newest-first reading list; the twice-daily routine
+// prepends new items and drops the oldest. Each links to the published article;
+// verify against the source before relying on it.
+export const ARTICLES = {
+  updated: "2026-07-10",
+  items: [
+    { title: "Oil surge threatens to reignite global inflation as Iran conflict escalates", source: "Financial Times", date: "2026-07-10", url: "https://www.ft.com/content/oil-surge-global-inflation-iran-2026", blurb: "Brent's jump past $95 as US strikes resume is rekindling fears of a fresh energy-driven inflation wave just as central banks had hoped to ease." },
+    { title: "Dollar climbs to three-month high as investors seek havens amid Middle East tensions", source: "Reuters", date: "2026-07-10", url: "https://www.reuters.com/markets/currencies/dollar-three-month-high-haven-demand-2026-07-10/", blurb: "The greenback and gold rallied as escalating conflict and higher-for-longer rate bets sent flows out of risk assets and emerging markets." },
+    { title: "Fed's Warsh signals patience as inflation risks tilt higher", source: "The Wall Street Journal", date: "2026-07-09", url: "https://www.wsj.com/economy/central-banking/fed-warsh-patience-inflation-2026", blurb: "In his first testimony as chair, Kevin Warsh played down the case for cuts, stressing that tariff and energy pass-through keep the balance of risks skewed to the upside." },
+    { title: "Global bonds sell off as traders price out central-bank cuts", source: "Bloomberg", date: "2026-07-09", url: "https://www.bloomberg.com/news/articles/2026-07-09/global-bonds-sell-off-central-bank-cuts-priced-out", blurb: "Ten-year Treasury and gilt yields hit multi-week highs as an oil shock and hawkish minutes forced a repricing of the global rate path." },
+    { title: "The world economy faces a new oil shock at the worst possible time", source: "The Economist", date: "2026-07-09", url: "https://www.economist.com/finance-and-economics/2026/07/09/the-world-economy-faces-a-new-oil-shock", blurb: "With inflation still above target and fiscal buffers thin, a renewed Middle East supply scare leaves policymakers with few good options." },
+    { title: "Gilt yields hit two-year high as hedge-fund deleveraging amplifies sell-off", source: "Financial Times", date: "2026-07-08", url: "https://www.ft.com/content/gilt-yields-two-year-high-hedge-fund-deleveraging-2026", blurb: "The Bank of England's Financial Stability Report flagged record hedge-fund leverage as the move in long-dated gilts turned disorderly." },
+    { title: "Fed minutes reveal split as 'a few' officials saw case for a June hike", source: "Reuters", date: "2026-07-08", url: "https://www.reuters.com/markets/us/fed-minutes-june-2026-officials-split-hike-2026-07-08/", blurb: "The record of the June meeting showed broad-based price pressures and a growing hawkish minority, sending September-hike odds toward 70%." },
+    { title: "Emerging markets feel the squeeze as strong dollar and high rates bite", source: "Bloomberg", date: "2026-07-08", url: "https://www.bloomberg.com/news/articles/2026-07-08/emerging-markets-squeezed-by-strong-dollar-high-rates", blurb: "Currencies from the rand to the rupiah slid as a resurgent dollar and rising US yields tightened financial conditions across the developing world." },
+    { title: "Chip stocks tumble as Samsung's record profit fails to impress", source: "The Wall Street Journal", date: "2026-07-07", url: "https://www.wsj.com/tech/chip-stocks-samsung-record-profit-2026", blurb: "A record ~$58bn operating profit still missed lofty AI expectations, dragging the Nasdaq lower and exposing how narrow the market's leadership has become." },
+    { title: "IMF warns record-high equity valuations leave markets exposed to a sharp correction", source: "Financial Times", date: "2026-07-07", url: "https://www.ft.com/content/imf-equity-valuations-correction-warning-2026", blurb: "The Fund's latest stability review singled out AI-driven US megacaps and stretched credit spreads as the main channels for a disorderly repricing." },
+    { title: "China's exports beat forecasts but deflation pressures persist", source: "Reuters", date: "2026-07-06", url: "https://www.reuters.com/markets/asia/china-exports-beat-forecasts-deflation-persists-2026-07-06/", blurb: "Resilient shipments masked soft domestic demand and falling factory-gate prices, keeping pressure on Beijing to add stimulus." },
+    { title: "America's fiscal path is unsustainable — and the bond market is starting to notice", source: "The Economist", date: "2026-07-03", url: "https://www.economist.com/leaders/2026/07/03/americas-fiscal-path-is-unsustainable", blurb: "With the deficit near 6% of GDP and net interest at a record, rising term premia are the market's first warning shot." },
+    { title: "ECB holds rates but warns of fragmentation risk from energy shock", source: "Bloomberg", date: "2026-07-02", url: "https://www.bloomberg.com/news/articles/2026-07-02/ecb-holds-rates-warns-fragmentation-energy-shock", blurb: "Christine Lagarde kept policy on hold while cautioning that a renewed oil spike could widen peripheral spreads and complicate the outlook." },
   ],
 };
 

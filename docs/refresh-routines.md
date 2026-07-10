@@ -411,8 +411,19 @@ the source of truth for the prompt.
 >      the existing `NEWS` arrays unchanged (do not invent replacements) and say so in
 >      the summary — the pre-existing headlines stay on the dashboard until the next
 >      successful run.
+>    - **Macro reading list in `macro/js/content.js` `ARTICLES`** → the Commentary
+>      tab renders `ARTICLES.items` as a SINGLE newest-first reading list (each item
+>      `{title, source, date, url, blurb, author?}`, `blurb` a one-line dek). These are
+>      the most important GENERAL global macro-economic news & analysis stories —
+>      monetary policy, growth, inflation, oil, bonds, geopolitics — from reputable
+>      outlets (FT, Bloomberg, Reuters, WSJ, The Economist, The Guardian, etc.).
+>      Refresh each run: prepend genuinely current stories and drop the oldest to keep
+>      ~12–14, newest first; diversify outlets; use the exact published headline, outlet,
+>      verified `YYYY-MM-DD` date and real URL — never fabricate. Set `ARTICLES.updated`
+>      to today. If egress is blocked so nothing can be verified, leave `ARTICLES`
+>      unchanged and say so in the summary.
 >    - **Recent market commentary in `macro/js/content.js` `COMMENTARY`** → the
->      Commentary tab renders these as a two-column (US/UK) newest-first feed styled
+>      Policy Rate tab renders these as a two-column (US/UK) newest-first feed styled
 >      like the dashboard headlines. Unlike `NEWS`, these are ANALYSIS/opinion/research
 >      pieces (economist columns, research-house notes, interviews) and stay relevant
 >      longer, so there is NO recency cut-off and no need to rewrite every run — but

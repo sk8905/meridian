@@ -1,10 +1,10 @@
 // =============================================================================
 // Meridian Macro — standalone dashboard of key US & UK economic indicators, with
-// a policy-rate Commentary view and a Dalio-framework Cycle view. Fetches the
-// shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P Global / BoE).
-// Zero dependencies, no build step.
+// a Commentary reading list, a Policy Rate view and a Dalio-framework Cycle view.
+// Fetches the shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P
+// Global / BoE). Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY } from "./content.js?v=20260710-1";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES } from "./content.js?v=20260710-2";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -141,7 +141,7 @@ function summaryCards() {
       <span class="macro-sum-cta">${esc(cta)} →</span>
     </a>`;
   return `<section class="macro-summary">
-    ${card("◷", "Rate outlook", "#/commentary", "Read the commentary", SUMMARY.outlook.us, SUMMARY.outlook.uk)}
+    ${card("◷", "Rate outlook", "#/policy", "See the policy-rate view", SUMMARY.outlook.us, SUMMARY.outlook.uk)}
     ${card("◑", "Where we are in the cycle", "#/cycle", "See the cycle view", SUMMARY.cycle.us, SUMMARY.cycle.uk)}
     ${card("◎", "Bubble risk", "#/bubble", "See the bubble view", SUMMARY.bubble.us, SUMMARY.bubble.uk)}
   </section>`;
@@ -317,7 +317,30 @@ function viewDashboard() {
     <div id="macro-body" class="macro-body"><section class="card"><p class="muted">Loading macro data…</p></section></div>`;
 }
 
+// Commentary tab — a curated, newest-first reading list of general macro-economic
+// news & analysis from the major financial outlets (data in content.js ARTICLES).
 function viewCommentary() {
+  const items = [...((ARTICLES && ARTICLES.items) || [])]
+    .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  const rows = items.map((n) => `
+    <li class="article-item">
+      <div class="article-meta muted small">${esc(fmtDay(n.date))} · <span class="article-src">${esc(n.source)}</span>${n.author ? " · " + esc(n.author) : ""}</div>
+      <a class="article-head" href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">${esc(n.title)}</a>
+      ${n.blurb ? `<p class="article-blurb muted">${esc(n.blurb)}</p>` : ""}
+    </li>`).join("");
+  const list = rows
+    ? `<ul class="article-list">${rows}</ul>`
+    : `<p class="muted small">The reading list is temporarily unavailable.</p>`;
+  return `
+    <div class="page-head">
+      <h1>Commentary — macro reading list</h1>
+      <p class="muted">The most important global macro-economic news and analysis — monetary policy, growth, inflation, oil and bonds — from the FT, Bloomberg, Reuters, the Wall Street Journal, The Economist and other reputable outlets, newest first. As of ${esc((ARTICLES && fmtDay(ARTICLES.updated)) || UPDATED)}. Click a piece to open it at the source.</p>
+    </div>
+    <section class="card feature-card macro-articles-panel">${list}</section>`;
+}
+
+// Policy Rate tab — compiled Fed & BoE policy-rate outlook plus an analyst feed.
+function viewPolicy() {
   const country = (name, o) => `
     <section class="card macro-note">
       <h2 class="macro-country">${esc(name)}</h2>
@@ -327,7 +350,7 @@ function viewCommentary() {
     </section>`;
   return `
     <div class="page-head">
-      <h1>Market commentary — policy-rate outlook</h1>
+      <h1>Policy rate — Fed &amp; Bank of England outlook</h1>
       <p class="muted">Compiled analyst and market views on whether the US Federal Reserve and Bank of England are likely to change their policy rates. As of ${esc(UPDATED)}. Educational only — not investment advice; market pricing shifts daily.</p>
     </div>
     <div class="macro-cols">
@@ -758,6 +781,7 @@ function exportChartPng() {
 const TABS = [
   ["dashboard", "Dashboard"],
   ["commentary", "Commentary"],
+  ["policy", "Policy Rate"],
   ["cycle", "Cycle"],
   ["bubble", "Bubble"],
   ["chart", "Chart"],
@@ -948,7 +972,7 @@ function render() {
     dashFocus = hashQuery().focus || null;
     if (dashFocus) history.replaceState(null, "", "#/dashboard");
   }
-  const body = tab === "commentary" ? viewCommentary() : tab === "cycle" ? viewCycle() : tab === "bubble" ? viewBubble() : tab === "chart" ? viewChart() : viewDashboard();
+  const body = tab === "commentary" ? viewCommentary() : tab === "policy" ? viewPolicy() : tab === "cycle" ? viewCycle() : tab === "bubble" ? viewBubble() : tab === "chart" ? viewChart() : viewDashboard();
   app.innerHTML = body;
   syncNav(tab);
   if (tab === "dashboard") loadMacro(dashFocus);
@@ -998,7 +1022,7 @@ function initChartPrefs() {
 
 window.addEventListener("hashchange", render);
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260709-1").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260710-1").then((m) => m.mountPalette()).catch(() => {});
 render();
 initMe();
 renderDataStatus();
