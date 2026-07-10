@@ -444,6 +444,11 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .intel-meta { display: flex; flex-direction: column; align-items: flex-start; gap: .3rem; width: 10rem; flex-shrink: 0; }
 .intel-meta .chip { margin: 0; }
 .intel-body { flex: 1 1 auto; min-width: 0; }
+/* Clamp each feed row's summary/description to two lines (ellipsis after). */
+.intel-body > p {
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;
+  overflow: hidden; overflow-wrap: anywhere;
+}
 .intel-head { font-weight: 600; color: var(--ink); display: inline-block; margin-bottom: .15rem; overflow-wrap: anywhere; }
 a.intel-head:hover { color: var(--primary); }
 .intel-body p { margin: .15rem 0 .35rem; }
