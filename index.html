@@ -17,7 +17,8 @@
     }
     * { box-sizing: border-box; }
     html, body { margin:0; padding:0; }
-    html { scrollbar-gutter: stable; }
+    html { scrollbar-gutter: stable; scroll-behavior: smooth; }
+    @media (prefers-reduced-motion:reduce){ html { scroll-behavior: auto; } }
     body {
       min-height:100vh; background:var(--bg); color:var(--ink); line-height:1.5;
       font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
@@ -46,6 +47,18 @@
       text-decoration:none; white-space:nowrap; }
     .ps-btn:hover { color:#fff; background:rgba(255,255,255,.1); }
     .ps-btn.is-active, .ps-btn.is-active:hover { background:#fff; color:var(--navy); }
+    /* Section jump-links — occupy the slot the app top bars give their view-nav
+       (.mainnav), so the Glance top bar matches them in size. Styled identically
+       to .nav-link; each anchor smooth-scrolls to a section of the briefing. */
+    .g-jump { display:flex; align-items:center; gap:.25rem; flex:0 1 auto; min-width:0;
+      overflow-x:auto; scrollbar-width:none; }
+    .g-jump::-webkit-scrollbar { display:none; }
+    .g-jump-link { color:#cbd5e1; padding:.5rem .85rem; border-radius:6px; font-weight:500;
+      font-size:.9rem; white-space:nowrap; cursor:pointer; }
+    .g-jump-link:hover { color:#fff; background:rgba(255,255,255,.08); }
+    .g-jump-link.active { color:#fff; background:rgba(255,255,255,.15); }
+    /* Clear the sticky top bar (60px) when an anchor is scrolled into view. */
+    .g-anchor { scroll-margin-top: 76px; }
     .g-search-btn { display:inline-flex; align-items:center; gap:.55rem; min-width:236px; margin-left:auto;
       background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18); color:#c8d6ef; flex:0 0 auto;
       font:inherit; font-size:.85rem; padding:.42rem .7rem; border-radius:9px; cursor:pointer; text-align:left; }
@@ -139,8 +152,11 @@
         grid-template-areas:
           "brand  bell"
           "switch idblock"
+          "jump   jump"
           "search search";
       }
+      .g-jump { grid-area:jump; justify-self:stretch; overflow-x:auto; scrollbar-width:none; padding-bottom:2px; }
+      .g-jump-link { padding:.3rem .5rem; font-size:.86rem; flex:0 0 auto; }
       .g-brand { grid-area:brand; justify-self:start; }
       /* Match the app top bars' mobile brand sizing exactly. */
       .g-logo { font-size:1.1rem; }
@@ -159,8 +175,11 @@
     /* iPhone: the platform switch + search move to a fixed bottom tab bar; the top
        keeps a bigger logo, bell and the sign-in/refresh block. */
     @media (max-width:760px){
-      /* Sign-in / refresh sits to the LEFT of the bell on the single top row. */
-      .g-top-inner { grid-template-columns:auto 1fr auto; grid-template-areas:"brand idblock bell"; }
+      /* Sign-in / refresh sits to the LEFT of the bell on the top row; the jump
+         links scroll on their own full-width row below — mirroring the app top
+         bars' view-nav so the Glance bar matches them in height on phones too. */
+      .g-top-inner { grid-template-columns:auto 1fr auto;
+        grid-template-areas:"brand idblock bell" "jump jump jump"; }
       .platform-switch, .g-search-btn { display:none; }
       .g-logo { font-size:1.55rem; }
       .g-brand-text strong { font-size:1.05rem; }
@@ -394,6 +413,13 @@
           <a href="/credit/" class="ps-btn">Credit</a>
           <a href="/legal/" class="ps-btn">Legal</a>
         </div>
+        <nav class="g-jump" id="g-jump" aria-label="Jump to section">
+          <a href="#jump-markets" class="g-jump-link" data-jump="jump-markets">Markets</a>
+          <a href="#jump-rates" class="g-jump-link" data-jump="jump-rates">Rates</a>
+          <a href="#jump-macro" class="g-jump-link" data-jump="jump-macro">Macro</a>
+          <a href="#jump-credit" class="g-jump-link" data-jump="jump-credit">Credit</a>
+          <a href="#jump-legal" class="g-jump-link" data-jump="jump-legal">Legal</a>
+        </nav>
         <button class="g-search-btn" id="open-cmdk" type="button" aria-label="Open search">
           <span class="g-search-lbl">Search everything…</span>
           <kbd>/</kbd>
@@ -419,18 +445,18 @@
         </div>
       </div>
 
-      <div class="g-rates-head">Markets</div>
+      <div class="g-rates-head g-anchor" id="jump-markets">Markets</div>
       <div id="g-markets" class="rates-band markets-band" aria-label="Equity indices and ETFs">
         <div class="g-loading">Loading markets…</div>
       </div>
 
-      <div class="g-rates-head">Key rates &amp; credit spreads</div>
+      <div class="g-rates-head g-anchor" id="jump-rates">Key rates &amp; credit spreads</div>
       <div id="g-rates" class="rates-band" aria-label="Key rates and credit spreads">
         <div class="g-loading">Loading market rates…</div>
       </div>
 
       <div class="g-grid">
-        <section class="g-card macro">
+        <section class="g-card macro g-anchor" id="jump-macro">
           <div class="g-card-top">
             <div class="g-card-head"><span class="g-card-title"><span class="dot">◆</span> Macro</span><a class="g-open" href="/macro/">Open →</a></div>
             <p class="g-card-desc">US &amp; UK indicators, rate outlook &amp; cycle</p>
@@ -440,7 +466,7 @@
           <div class="g-sec" id="m-sec3"></div>
           <div class="g-foot"><a class="g-cta" href="/macro/">Open Meridian Macro →</a></div>
         </section>
-        <section class="g-card credit">
+        <section class="g-card credit g-anchor" id="jump-credit">
           <div class="g-card-top">
             <div class="g-card-head"><span class="g-card-title"><span class="dot">◆</span> Credit</span><a class="g-open" href="/credit/">Open →</a></div>
             <p class="g-card-desc">European private-credit deals &amp; fundraising</p>
@@ -450,7 +476,7 @@
           <div class="g-sec" id="c-sec3"></div>
           <div class="g-foot"><a class="g-cta" href="/credit/">Open Meridian Credit →</a></div>
         </section>
-        <section class="g-card legal">
+        <section class="g-card legal g-anchor" id="jump-legal">
           <div class="g-card-top">
             <div class="g-card-head"><span class="g-card-title"><span class="dot">◆</span> Legal</span><a class="g-open" href="/legal/">Open →</a></div>
             <p class="g-card-desc">English-law updates, case law &amp; restructurings</p>
@@ -497,7 +523,7 @@
           show("glance");
           const h = new Date().getHours();
           document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-          import("/glance.js?v=20260710-6").then((m) => m.initGlance()).catch(() => {});
+          import("/glance.js?v=20260710-7").then((m) => m.initGlance()).catch(() => {});
         } else { show("out"); }
       })
       .catch(() => show("out"));

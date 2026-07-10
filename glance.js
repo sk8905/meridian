@@ -75,8 +75,37 @@ export function initGlance() {
   const rf = document.getElementById("g-refresh");
   if (rf) rf.textContent = `Last refresh ${fmtRefresh()}`;
   initNotifBell();
+  initJumpNav();
   wirePalette(buildIndex());
   startLiveRefresh();
+}
+
+// ---- Section jump-links ----------------------------------------------------
+// The top-bar strip (Markets · Rates · Macro · Credit · Legal) smooth-scrolls to
+// each briefing section (handled by CSS scroll-behavior + the anchor hrefs). An
+// IntersectionObserver here highlights whichever section is currently in view.
+function initJumpNav() {
+  const links = Array.from(document.querySelectorAll(".g-jump-link"));
+  if (!links.length || !("IntersectionObserver" in window)) return;
+  const byId = new Map(links.map((a) => [a.dataset.jump, a]));
+  const targets = links.map((a) => document.getElementById(a.dataset.jump)).filter(Boolean);
+  const visible = new Set();
+  // A recent explicit click wins over scroll-spy for a moment (on desktop the
+  // three platform cards share one row, so a jump can't distinguish them by
+  // scroll position — honour what the user tapped).
+  let holdUntil = 0;
+  const setActive = (id) => links.forEach((a) => a.classList.toggle("active", a.dataset.jump === id));
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) visible.add(e.target.id); else visible.delete(e.target.id);
+    }
+    if (Date.now() < holdUntil) return;
+    // Highlight the first section (in document order) currently on screen.
+    for (const t of targets) { if (visible.has(t.id)) { setActive(t.id); return; } }
+  }, { rootMargin: "-80px 0px -55% 0px", threshold: 0 });
+  targets.forEach((t) => io.observe(t));
+  // Clicking a link highlights it immediately and holds through the scroll.
+  links.forEach((a) => a.addEventListener("click", () => { holdUntil = Date.now() + 900; setActive(a.dataset.jump); }));
 }
 
 // Auto-refresh the live markets + rates bands and the two hero one-liners every
