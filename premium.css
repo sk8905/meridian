@@ -93,6 +93,14 @@ h2, .brand-text strong { letter-spacing: -.011em; }
   h1 { font-size: 1.2rem; line-height: 1.25; letter-spacing: 0; }
 }
 
+/* ---- Page-header description/lede text matches the Glance home summary text
+        size (.85rem). The <p class="muted"> under each app <h1> — in .page-head
+        (Credit, Macro, Legal dashboard) and .list-head (Legal list/case views) —
+        inherited the 16px body base and rendered noticeably larger than home's
+        ~13.6px summary one-liners; pin them to .85rem / 1.4 for a balanced,
+        consistent scale everywhere. ---- */
+.page-head p, .list-head p { font-size: .85rem; line-height: 1.4; }
+
 /* ---- The "Sign out" link uses the Meridian home-logo blue (#0ea5e9) at every
         point in the app — the top-bar account chip on home (.g-user a) and on
         Credit/Legal/Macro (.account-nav a). The :hover white rules are more
