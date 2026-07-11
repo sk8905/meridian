@@ -67,6 +67,24 @@ h2, .brand-text strong { letter-spacing: -.011em; }
 /* ---- Richer empty states: guidance reads as intentional, not a blank gap. ---- */
 .empty, .notif-empty { letter-spacing: .01em; line-height: 1.5; }
 
+/* ---- App notification menus conform to the Glance home menu: a soft floating
+        panel (no border, big navy-tinted shadow), items separated by whitespace
+        + hover instead of divider lines, a coloured platform tag, and a bold
+        title over a muted meta line. Mirrors the home .g-np-* styling exactly. ---- */
+.notif-panel { border: 0; border-radius: 12px; padding: .35rem; box-shadow: 0 22px 55px rgba(8,20,60,.35); }
+.notif-head { font-weight: 700; font-size: .82rem; padding: .45rem .55rem .5rem; margin-bottom: .2rem; }
+.notif-list { list-style: none; margin: 0; padding: 0; }
+.notif-item { display: flex; gap: .55rem; align-items: flex-start; padding: .5rem .55rem; border: 0; border-radius: 8px; }
+.notif-item:hover, .notif-item.is-new:hover { background: #eef2fb; }
+.notif-item.is-new { background: transparent; }   /* the home menu has no per-item highlight */
+.notif-tag { flex: 0 0 auto; margin-top: .05rem; font-size: .58rem; font-weight: 800; text-transform: uppercase; letter-spacing: .03em; color: #fff; padding: .1rem .32rem; border-radius: 4px; }
+.notif-tag.credit { background: #4a6b93; }
+.notif-tag.legal  { background: #1c3a5e; }
+.notif-tag.macro  { background: #2b4a7c; }
+.notif-txt { min-width: 0; }
+.notif-link { display: block; font-weight: 600; font-size: .82rem; line-height: 1.3; overflow-wrap: anywhere; }
+.notif-meta { color: var(--muted); font-size: .72rem; margin-top: .1rem; }
+
 /* ---- Respect the system reduced-motion preference. ---- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

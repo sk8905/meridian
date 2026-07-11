@@ -1093,8 +1093,11 @@ function renderNotifications() {
       <div class="notif-head">${n ? `${n} new update${n > 1 ? "s" : ""}` : "No new updates"} <span class="muted small">· checked ${esc(fmtDate(LAST_CHECKED))}${LAST_CHECKED_TIME ? `, ${esc(LAST_CHECKED_TIME)}` : ""}</span></div>
       <ul class="notif-list">
         ${list.length ? list.map((x) => `<li class="notif-item${(n && fresh.includes(x)) ? " is-new" : ""}">
-          <a href="${esc(x.href)}" ${x.ext ? 'target="_blank" rel="noopener noreferrer"' : ""} class="notif-link">${esc(x.title)}${x.ext ? "" : ""}</a>
-          <div class="notif-meta muted small">${esc(x.kind)}${x.date ? ` · ${esc(fmtDate(x.date))}` : ""}${x.source ? ` · <span class="notif-src">${esc(x.source)}</span>` : ""}</div>
+          <span class="notif-tag legal">Legal</span>
+          <span class="notif-txt">
+            <a href="${esc(x.href)}" ${x.ext ? 'target="_blank" rel="noopener noreferrer"' : ""} class="notif-link">${esc(x.title)}</a>
+            <div class="notif-meta">${esc(x.kind)}${x.date ? ` · ${esc(fmtDate(x.date))}` : ""}${x.source ? ` · <span class="notif-src">${esc(x.source)}</span>` : ""}</div>
+          </span>
         </li>`).join("") : '<li class="notif-empty muted small">Nothing yet.</li>'}
       </ul>
     </div>`;
