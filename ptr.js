@@ -15,10 +15,9 @@ export function initPullToRefresh() {
   if (!("ontouchstart" in window) && !(navigator.maxTouchPoints > 0)) return;
   _init = true;
 
-  // Disable double-tap-to-zoom (keeps single-tap, scroll and pinch-zoom).
-  document.documentElement.style.touchAction = "manipulation";
-  const setBodyTA = () => { if (document.body) document.body.style.touchAction = "manipulation"; };
-  if (document.body) setBodyTA(); else document.addEventListener("DOMContentLoaded", setBodyTA);
+  // Disable double-tap-to-zoom everywhere (keeps single-tap, scroll and pinch).
+  // touch-action isn't inherited, so a universal rule is needed to cover every
+  // element (e.g. the fixed bottom tab-bar buttons), not just html/body.
 
   const navy = (getComputedStyle(document.documentElement).getPropertyValue("--navy") || "").trim() || "#0b1f44";
   const zone = document.createElement("div");
@@ -33,14 +32,14 @@ export function initPullToRefresh() {
   zone.appendChild(spin);
   if (!document.getElementById("ptr-kf")) {
     const st = document.createElement("style"); st.id = "ptr-kf";
-    st.textContent = "@keyframes ptr-spin{to{transform:rotate(360deg)}}";
+    st.textContent = "@keyframes ptr-spin{to{transform:rotate(360deg)}}html *{touch-action:manipulation}";
     document.head.appendChild(st);
   }
   const mount = () => { if (!zone.isConnected && document.body) document.body.appendChild(zone); };
   if (document.body) mount(); else document.addEventListener("DOMContentLoaded", mount);
 
   const THRESH = 75, SOFT = 120, MAX = 220;
-  let startY = 0, pulling = false, dist = 0, busy = false, pageEls = [];
+  let startX = 0, startY = 0, armed = false, pulling = false, dist = 0, busy = false, pageEls = [];
   const atTop = () => (window.scrollY || document.documentElement.scrollTop || 0) <= 0;
   // Safari-like tracking: 1:1 with the finger up to SOFT, then increasing resistance.
   const pull = (d) => (d <= SOFT ? d : Math.min(SOFT + (d - SOFT) * 0.35, MAX));
@@ -77,20 +76,30 @@ export function initPullToRefresh() {
   function clearPage() { for (const el of pageEls) { el.style.transition = ""; el.style.transform = ""; } }
 
   window.addEventListener("touchstart", (e) => {
-    if (busy || e.touches.length !== 1 || !atTop() || inOverlayOrScroller(e.target)) { pulling = false; return; }
-    startY = e.touches[0].clientY; pulling = true; dist = 0; gatherPage();
+    if (busy || e.touches.length !== 1 || !atTop() || inOverlayOrScroller(e.target)) { armed = false; pulling = false; return; }
+    startX = e.touches[0].clientX; startY = e.touches[0].clientY; armed = true; pulling = false; dist = 0;
   }, { passive: true });
 
   window.addEventListener("touchmove", (e) => {
-    if (!pulling || busy) return;
-    dist = e.touches[0].clientY - startY;
+    if (!armed || busy) return;
+    const y = e.touches[0].clientY, x = e.touches[0].clientX;
+    if (!pulling) {
+      const dy = y - startY, dx = x - startX;
+      if (Math.abs(dy) < 6 && Math.abs(dx) < 6) return;      // wait past the deadzone
+      // Only a clearly-vertical downward drag arms the pull — horizontal swipes
+      // (nav-bar tabs) and upward moves fall through to normal scrolling.
+      if (dy > 0 && dy > Math.abs(dx) * 1.2 && atTop()) { pulling = true; startY = y; dist = 0; gatherPage(); return; }
+      else { armed = false; return; }
+    }
+    dist = y - startY;
     if (dist > 0 && atTop()) {
       if (e.cancelable) e.preventDefault();       // take over the gesture
       apply(pull(dist), false);
-    } else { pulling = false; apply(0, true); setTimeout(clearPage, 240); }
+    } else { pulling = false; armed = false; apply(0, true); setTimeout(clearPage, 240); }
   }, { passive: false });
 
   window.addEventListener("touchend", () => {
+    armed = false;
     if (!pulling) return;
     pulling = false;
     if (dist >= THRESH && atTop()) {
