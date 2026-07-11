@@ -408,6 +408,9 @@ async function initWatchlistSync() {
   let d; try { d = await r.json(); } catch { return; }
   cloudSync = true;
   account = d.email || null;
+  // Remember verified sign-in so the Glance home can render optimistically
+  // (skip its "Checking your sign-in…" splash) when the user navigates there.
+  if (d.email) { try { localStorage.setItem("m_signed_in", "1"); } catch { /* ignore */ } }
   renderAccountNav();
   const sv = d.watchlist || {};
   const svCount = FOLLOW_TYPES.reduce((n, t) => n + ((sv[t] || []).length), 0);
@@ -2042,6 +2045,7 @@ document.addEventListener("click", (e) => {
 });
 
 // ================================= router ==================================
+let _lastVtRoute = null;   // previous top-level section, for section-change crossfades
 function router() {
   const rawHash = location.hash || "#/";
   const qIdx = rawHash.indexOf("?");
@@ -2072,7 +2076,8 @@ function router() {
   const wl = document.getElementById("wl-count");
   if (wl) { const n = followCount(); wl.textContent = n ? n : ""; wl.style.display = n ? "" : "none"; }
   window.scrollTo(0, 0);
-  switch (route) {
+  const render = () => {
+   switch (route) {
     case "": case undefined: return viewDashboard();
     case "funds": return viewFunds();
     case "fund": return viewFund(arg);
@@ -2087,7 +2092,16 @@ function router() {
     case "clos": return viewClos();
     case "watchlist": return viewWatchlist();
     default: return notFound();
-  }
+   }
+  };
+  // Crossfade the swap only when the top-level section actually changes — not on
+  // the first render, and not on same-route filter re-renders (which restore
+  // their own scroll position and would otherwise flash).
+  const animate = typeof document.startViewTransition === "function"
+    && _lastVtRoute !== null && route !== _lastVtRoute
+    && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+  _lastVtRoute = route;
+  if (animate) document.startViewTransition(render); else render();
 }
 
 // ---- Swipe to cycle through the primary sections (touch devices) -----------

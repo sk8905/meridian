@@ -374,7 +374,7 @@
       .cmdk-panel { margin:8vh 12px 0; }
     }
   </style>
-  <link rel="stylesheet" href="/premium.css?v=20260711-3" />
+  <link rel="stylesheet" href="/premium.css?v=20260711-4" />
 </head>
 <body>
   <!-- Loading -->
@@ -529,18 +529,36 @@
     // Auth state gate — behind Cloudflare Access /api/me returns the verified email.
     const show = (id) => ["loading", "out", "glance"].forEach((s) => document.getElementById(s).classList.toggle("hidden", s !== id));
     document.getElementById("preview-toggle").addEventListener("click", (e) => { e.preventDefault(); document.getElementById("preview").classList.toggle("hidden"); });
+    // Enter the briefing: reveal it, greet, and lazy-load its logic. initGlance
+    // self-guards against running twice, so calling this once is safe.
+    const enterGlance = () => {
+      show("glance");
+      const h = new Date().getHours();
+      document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
+      import("/glance.js?v=20260711-3").then((m) => m.initGlance()).catch(() => {});
+    };
+    // Optimistic auth: if we recently verified sign-in (set here and by every
+    // app on their own /api/me), show the briefing immediately instead of
+    // flashing the full-screen "Checking your sign-in…" splash — that splash
+    // crossfading in and out is what made the landing page flicker when arriving
+    // from another page. /api/me still runs below to confirm and fill the email;
+    // a stale hint (expired session) is corrected to the signed-out view.
+    let signedInHint = false;
+    try { signedInHint = localStorage.getItem("m_signed_in") === "1"; } catch { /* ignore */ }
+    if (signedInHint) enterGlance();
     fetch("/api/me", { headers: { accept: "application/json" } })
       .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
       .then((d) => {
         if (d && d.email) {
+          try { localStorage.setItem("m_signed_in", "1"); } catch { /* ignore */ }
           document.getElementById("email").textContent = d.email;
-          show("glance");
-          const h = new Date().getHours();
-          document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-          import("/glance.js?v=20260711-3").then((m) => m.initGlance()).catch(() => {});
-        } else { show("out"); }
+          if (!signedInHint) enterGlance();
+        } else {
+          try { localStorage.removeItem("m_signed_in"); } catch { /* ignore */ }
+          show("out");
+        }
       })
-      .catch(() => show("out"));
+      .catch(() => { if (!signedInHint) show("out"); });
   </script>
 </body>
 </html>

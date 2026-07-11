@@ -1180,6 +1180,7 @@ document.addEventListener("click", (e) => {
 }, true);
 window.addEventListener("hashchange", closeNotif);
 
+let _lastVtTab = null;   // previous section (tab), for section-change crossfades
 function render() {
   const tab = currentTab();
   // Deep-link from a dashboard tile: #/chart?add=US:core_cpi preselects that
@@ -1201,12 +1202,23 @@ function render() {
   // Fresh entry to Commentary starts at the first page of 25.
   if (tab === "commentary") commentaryLimit = COMMENTARY_PAGE;
   const body = tab === "commentary" ? viewCommentary() : tab === "policy" ? viewPolicy() : tab === "cycle" ? viewCycle() : tab === "bubble" ? viewBubble() : tab === "chart" ? viewChart() : tab === "saved" ? viewSaved() : viewDashboard();
-  app.innerHTML = body;
-  syncNav(tab);
-  if (tab === "dashboard") loadMacro(dashFocus);
-  if (tab === "commentary") wireCommentary();
-  if (tab === "chart") { syncChartAll(); fetchMacro().then(() => { if (currentTab() === "chart") drawChart(); }); }
-  window.scrollTo(0, 0);
+  // All DOM work (paint + the wiring that depends on the freshly-inserted nodes)
+  // must run together inside the transition callback.
+  const paint = () => {
+    app.innerHTML = body;
+    syncNav(tab);
+    if (tab === "dashboard") loadMacro(dashFocus);
+    if (tab === "commentary") wireCommentary();
+    if (tab === "chart") { syncChartAll(); fetchMacro().then(() => { if (currentTab() === "chart") drawChart(); }); }
+    window.scrollTo(0, 0);
+  };
+  // Crossfade only when the section (tab) actually changes — not the first
+  // render, not a same-tab re-render.
+  const animate = typeof document.startViewTransition === "function"
+    && _lastVtTab !== null && tab !== _lastVtTab
+    && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+  _lastVtTab = tab;
+  if (animate) document.startViewTransition(paint); else paint();
 }
 
 // Signed-in identity chip (behind Cloudflare Access), matching Credit & Legal.
@@ -1217,6 +1229,9 @@ async function initMe() {
     const d = await r.json();
     const el = document.getElementById("account-nav");
     if (el && d.email) { el.innerHTML = `<span class="si-prefix">Signed in as </span><strong>${esc(d.email)}</strong> · <a href="/cdn-cgi/access/logout">Sign out</a>`; el.hidden = false; }
+    // Remember verified sign-in so the Glance home can render optimistically
+    // (skip its "Checking your sign-in…" splash) when the user navigates there.
+    if (d.email) { try { localStorage.setItem("m_signed_in", "1"); } catch { /* ignore */ } }
   } catch { /* not behind Access */ }
 }
 

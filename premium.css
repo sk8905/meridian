@@ -63,15 +63,6 @@ h1, h2, .brand-text strong { letter-spacing: -.011em; }
   .card:hover, .g-card:hover { box-shadow: var(--elev-2); transform: translateY(-1px); }
 }
 
-/* ---- One-time content reveal, scoped to the Glance landing page only. The app
-        views (.card / .kpi-card) rebuild on every filter/route change, so a
-        reveal there would re-fire and flicker; Glance builds once on load. ---- */
-@keyframes premium-rise { from { opacity: 0; transform: translateY(9px); } to { opacity: 1; transform: none; } }
-.g-sec, .g-card { animation: premium-rise var(--dur-2) var(--ease-out) backwards; }
-.g-sec:nth-child(2), .g-card:nth-child(2) { animation-delay: .05s; }
-.g-sec:nth-child(3), .g-card:nth-child(3) { animation-delay: .10s; }
-.g-sec:nth-child(n+4), .g-card:nth-child(n+4) { animation-delay: .15s; }
-
 /* ---- Skeleton shimmer utility (data loads synchronously today, so this is here
         for any future async/streamed content). ---- */
 @keyframes premium-shimmer { to { background-position: -200% 0; } }
@@ -87,7 +78,6 @@ h1, h2, .brand-text strong { letter-spacing: -.011em; }
 
 /* ---- Respect the system reduced-motion preference. ---- */
 @media (prefers-reduced-motion: reduce) {
-  .g-sec, .g-card { animation: none !important; }
   *, *::before, *::after {
     animation-duration: .001s !important; animation-delay: 0s !important;
     transition-duration: .001s !important;

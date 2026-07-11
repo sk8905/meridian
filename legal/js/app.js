@@ -966,18 +966,29 @@ function focusRxMatter(id) {
 // =============================================================================
 // Router + global click delegation
 // =============================================================================
+let _lastVtSection = null;   // previous top-level section, for section-change crossfades
 function router() {
   const hash = location.hash || "#/";
   const path = hash.slice(1).split("?")[0]; // strip query
   window.scrollTo(0, 0);
 
-  if (path === "/" || path === "") viewDashboard();
-  else if (path === "/list") viewList();
-  else if (path === "/cases") viewCases();
-  else if (path === "/restructurings") viewRestructurings();
-  else if (path.startsWith("/item/")) viewItem(decodeURIComponent(path.slice("/item/".length)));
-  else if (path.startsWith("/firm/")) viewFirm(decodeURIComponent(path.slice("/firm/".length)));
-  else viewDashboard();
+  const render = () => {
+    if (path === "/" || path === "") viewDashboard();
+    else if (path === "/list") viewList();
+    else if (path === "/cases") viewCases();
+    else if (path === "/restructurings") viewRestructurings();
+    else if (path.startsWith("/item/")) viewItem(decodeURIComponent(path.slice("/item/".length)));
+    else if (path.startsWith("/firm/")) viewFirm(decodeURIComponent(path.slice("/firm/".length)));
+    else viewDashboard();
+  };
+  // Crossfade only when the top-level section changes (not the first render, not
+  // a same-section re-render such as a filter toggle).
+  const section = path.split("/")[1] || "";
+  const animate = typeof document.startViewTransition === "function"
+    && _lastVtSection !== null && section !== _lastVtSection
+    && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
+  _lastVtSection = section;
+  if (animate) document.startViewTransition(render); else render();
 
   updateSavedCount();
   syncNavActive(hash);
@@ -1154,6 +1165,9 @@ function initChrome() {
         if (d && d.email) {
           acct.innerHTML = `<span class="si-prefix">Signed in as </span><strong>${esc(d.email)}</strong>`
             + ` · <a href="/cdn-cgi/access/logout">Sign out</a>`;
+          // Remember verified sign-in so the Glance home can render optimistically
+          // (skip its "Checking your sign-in…" splash) when the user navigates there.
+          try { localStorage.setItem("m_signed_in", "1"); } catch { /* ignore */ }
         }
       })
       .catch(() => { /* not behind Access (e.g. local preview) — leave empty */ });
