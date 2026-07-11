@@ -90,7 +90,7 @@ export const CYCLE = {
     longStage: "Late Big Debt Cycle — record debt & interest burden",
     pos: 72,
     body: [
-      "<strong>Short-term cycle:</strong> late, but not cleanly easing. The Fed held in June 2026 with a hawkish statement and raised its end-2026 PCE projection to 3.6%; a cooling labour market sits alongside above-target inflation — a stagflationary tilt rather than a disinflationary glide-path.",
+      "<strong>Short-term cycle:</strong> late, but not cleanly easing. The Fed held in June 2026 with a hawkish statement and raised its end-2026 PCE projection to 3.6%; a cooling labour market — June nonfarm payrolls rose just 57,000, well below the 115,000 consensus, with the unemployment rate's dip to 4.2% driven mainly by a falling participation rate — sits alongside above-target inflation, a stagflationary tilt rather than a disinflationary glide-path.",
       "<strong>Long-term debt cycle:</strong> late-stage. CBO's February 2026 outlook puts the FY2026 deficit at <strong>$1.9tn (5.8% of GDP)</strong>, debt held by the public at <strong>~101% of GDP</strong>, and net interest at a record <strong>~$1.0tn (3.3% of GDP)</strong> — the compounding interest-service and heavy issuance Dalio warns about.",
     ],
   },
@@ -112,6 +112,7 @@ export const CYCLE = {
     ["Peter G. Peterson Foundation — interest tracker", "https://www.pgpf.org/programs-and-projects/fiscal-policy/monthly-interest-tracker-national-debt/"],
     ["OBR — Economic & Fiscal Outlook, Mar 2026", "https://obr.uk/efo/economic-and-fiscal-outlook-march-2026/"],
     ["ONS — public sector finances, May 2026", "https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/bulletins/publicsectorfinances/may2026"],
+    ["BLS — Employment Situation, June 2026", "https://www.bls.gov/news.release/empsit.nr0.htm"],
   ],
 };
 
@@ -210,13 +211,13 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-07-11",
   us: [
+    { title: "Fed officials fret over inflation risk, weigh rate hikes", source: "Reuters", date: "2026-07-10", url: "https://finance.yahoo.com/economy/policy/articles/fed-officials-fret-over-inflation-101154060.html" },
     { title: "Fed's Williams Says AI Is Now His Main Inflation Concern", source: "Fortune", date: "2026-07-09", url: "https://fortune.com/2026/07/09/federal-reserve-john-williams-says-ai-is-now-his-main-inflation-concern/" },
-    { title: "Stock market news for July 10, 2026", source: "CNBC", date: "2026-07-10", url: "https://www.cnbc.com/2026/07/09/stock-market-today-live-updates.html" },
-    { title: "US Jobless Claims Little Changed Last Week Amid Low Layoffs", source: "Bloomberg", date: "2026-07-09", url: "https://www.bloomberg.com/news/articles/2026-07-09/us-jobless-claims-little-changed-last-week-as-layoffs-remain-low" },
+    { title: "Oil and gasoline prices begin to climb after Trump says ceasefire with Iran is over", source: "NPR", date: "2026-07-09", url: "https://www.npr.org/2026/07/09/nx-s1-5886168/oil-and-gasoline-prices-begin-to-climb-after-trump-says-ceasefire-with-iran-is-over" },
   ],
   uk: [
     { title: "The Number That Could Move The Pound: UK GDP Preview", source: "ExchangeRates.org.uk", date: "2026-07-10", url: "https://www.exchangerates.org.uk/news/46462/2026-07-10-the-number-that-could-move-the-pound-uk-gdp-preview.html" },
-    { title: "UK Gilt Yields Hold Above 4.9% on BoE Hike Bets", source: "TradingView / Trading Economics", date: "2026-07-09", url: "https://www.tradingview.com/news/te_news:565653:0-uk-gilt-yields-hold-above-4-9-on-boe-hike-bets/" },
+    { title: "Bank of England's Pill says interest rates will need to rise", source: "Reuters", date: "2026-07-09", url: "https://www.aol.com/articles/bank-englands-pill-says-interest-185809000.html" },
     { title: "Burnham Plans to Expand UK Prime Minister's Economic Powers, Ally Says", source: "Bloomberg", date: "2026-07-09", url: "https://www.bloomberg.com/news/articles/2026-07-09/burnham-to-beef-up-uk-premier-s-economic-powers-key-ally-says" },
   ],
 };
@@ -231,6 +232,11 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-11",
   items: [
+    { title: "Fed officials fret over inflation risk, weigh rate hikes", source: "Reuters", date: "2026-07-10", url: "https://finance.yahoo.com/economy/policy/articles/fed-officials-fret-over-inflation-101154060.html", blurb: "The sparse minutes of the June 16-17 FOMC meeting revealed a divided committee under new Chair Warsh: officials are prepared to raise rates further if June and July inflation data run hot, but would hold or cut if price pressures ease, in what one economist called a shift toward explicit scenario-based policymaking." },
+    { title: "Latest Oil Market News and Analysis for July 10", source: "Bloomberg", date: "2026-07-10", url: "https://www.bloomberg.com/news/articles/2026-07-09/latest-oil-market-news-and-analysis-for-july-10", blurb: "Oil steadied at the end of a volatile week as US-Iran talks continued despite a flare-up in fighting that cut traffic through the Strait of Hormuz; WTI settled at $71.41 a barrel and Brent at $76.01, both down slightly on the day." },
+    { title: "Stock Market Today: Dow, S&P Live Updates for July 10", source: "Bloomberg", date: "2026-07-10", url: "https://www.bloomberg.com/news/articles/2026-07-09/stock-market-today-dow-s-p-live-updates", blurb: "The S&P 500 rose 0.42% to a record 7,575.39 and the Dow gained 0.29%, led by a 4% jump in Nvidia and a 6% surge in Meta Platforms, capping a week in which the index advanced more than 1% despite renewed Middle East tensions." },
+    { title: "Bank of England's Pill says interest rates will need to rise", source: "Reuters", date: "2026-07-09", url: "https://www.aol.com/articles/bank-englands-pill-says-interest-185809000.html", blurb: "BoE chief economist Huw Pill, one of two MPC members who voted for a hike in June, told BBC's Walescast that rates will need to rise because the economy has been running \"a little bit hotter than the supply side,\" reinforcing the hawkish tilt ahead of the 30 July decision." },
+    { title: "Oil and gasoline prices begin to climb after Trump says ceasefire with Iran is over", source: "NPR", date: "2026-07-09", url: "https://www.npr.org/2026/07/09/nx-s1-5886168/oil-and-gasoline-prices-begin-to-climb-after-trump-says-ceasefire-with-iran-is-over", blurb: "Pump prices ticked up overnight after President Trump declared the Iran ceasefire over, though gasoline remains below its May peak; analysts say AI-infrastructure spending and anticipated tariff increases add further inflationary pressure alongside the energy shock." },
     { title: "Oil Market Report — July 2026", source: "IEA", date: "2026-07-10", url: "https://www.iea.org/reports/oil-market-report-july-2026", blurb: "The IEA says global oil supply rebounded 4.1m b/d in June to 98.8m b/d as flows through the Strait of Hormuz partially resumed, though supply remained 9.4m b/d below pre-war levels; the agency trimmed its 2026 demand forecast even as it flagged a large 2027 surplus." },
     { title: "Bond yields jump as surging oil prices spark renewed inflation fears", source: "Yahoo Finance", date: "2026-07-09", url: "https://finance.yahoo.com/markets/article/bond-yields-jump-as-surging-oil-prices-spark-renewed-inflation-fears-155546872.html", blurb: "The 10-year Treasury yield rose to 4.56% and the 30-year to 5.07% as crude surged above $80 a barrel on renewed US-Iran tensions, with investors weighing whether the Fed will need to tighten further to contain the resulting inflation impulse." },
     { title: "Asian stocks slip and oil prices jump as Iran and US launch fresh attacks", source: "The Washington Post", date: "2026-07-09", url: "https://www.washingtonpost.com/business/2026/07/09/stock-markets-oil-iran-ai/2a3410ae-7b51-11f1-b194-f872dd4ec5aa_story.html", blurb: "Asian equities fell and oil prices jumped after Washington and Tehran traded fresh strikes a day after President Trump declared their ceasefire over, reviving the risk premium that had briefly eased after June's truce." },
@@ -262,8 +268,6 @@ export const ARTICLES = {
     { title: "UK Firms Expect to Keep Raising Prices Even as Inflation Falls", source: "Bloomberg", date: "2026-07-03", url: "https://www.bloomberg.com/news/articles/2026-07-03/uk-firms-expect-to-keep-raising-prices-even-as-inflation-falls", blurb: "The BoE's Decision Maker Panel shows firms still planning roughly 4% price rises over the coming year, a persistence signal the MPC is watching closely." },
     { title: "China and US Target Tariff Reductions on Agricultural Products", source: "Bloomberg", date: "2026-07-02", url: "https://www.bloomberg.com/news/articles/2026-07-02/china-and-us-target-tariff-reductions-on-agricultural-products", blurb: "Beijing and Washington agreed in principle to roll back tariffs on select agricultural products as they work to preserve the trade truce reached last year." },
     { title: "Gilts Are Giving Burnham a Pass for Now, Says Aegon's Lynch", source: "Bloomberg", date: "2026-07-01", url: "https://www.bloomberg.com/news/articles/2026-07-01/gilt-market-is-giving-burnham-a-pass-for-now-says-aegon-s-lynch", blurb: "Aegon's Colin Lynch said gilt investors are for now taking a wait-and-see approach to Burnham's leadership bid, having priced in much of the fiscal risk during the spring's volatility." },
-    { title: "Bank of Japan hikes rates to 1%, highest since 1995, as yen and inflation worries take hold", source: "CNBC", date: "2026-06-16", url: "https://www.cnbc.com/2026/06/16/boj-rate-hike-historic-inflation.html", blurb: "Japan's central bank raised its policy rate a quarter point to 1% in a 7-1 vote, the highest since 1995, as a weak yen and rising inflation forced its hand." },
-    { title: "ECB hikes interest rates for first time since 2023 as Iran war ramps up energy costs", source: "CNBC", date: "2026-06-11", url: "https://www.cnbc.com/2026/06/11/ecb-hikes-interest-rates.html", blurb: "The ECB raised its three key rates by 25 basis points after the Middle East war pushed energy costs and its own inflation projections higher." },
   ],
 };
 
