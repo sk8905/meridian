@@ -1056,7 +1056,7 @@ function notifPersist(ids) {
 }
 // Only surface RECENT updates in the bell — not the whole back-catalogue (see the
 // same helper in Credit). Older items stay browsable in the feeds.
-const NOTIF_WINDOW_DAYS = 21;
+const NOTIF_WINDOW_DAYS = 7;
 function notifTime(d) { if (!d) return null; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : d; const t = Date.parse(s); return isNaN(t) ? null : t; }
 function recentNotif(list) {
   const times = list.map((x) => notifTime(x.date)).filter((t) => t != null);
@@ -1195,7 +1195,7 @@ document.addEventListener("click", (e) => {
   }
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260710-7").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260710-8").then((m) => m.mountPalette()).catch(() => {});
 import("/ptr.js?v=20260710-5").then((m) => m.initPullToRefresh()).catch(() => {});
 initChrome();
 initNotif();

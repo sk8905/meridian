@@ -10,6 +10,15 @@
 // four-times-daily data refresh instead of serving a stale copy.
 import { deals, intel, managers, funds } from "/credit/js/data.js?v=20260708-9";
 import { items, cases, restructurings } from "/legal/js/data.js?v=20260708-8";
+import { NEWS, ARTICLES, ALERTS } from "/macro/js/content.js?v=20260711-1";
+
+// Canonical identity of a manager press item (mirrors credit/js/app.js) so a news
+// search result deep-links to the exact row (#/manager/<id>?focus=k:<key>).
+function feedDedupKey(x) {
+  const u = (x.url || x.sourceUrl || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, "");
+  const generic = !u || /^https?:\/\/[^/]+$/.test(u) || /\/(news-insights|news|press-releases|media|insights|press)$/.test(u);
+  return generic ? "t:" + (x.title || x.headline || "").toLowerCase().replace(/[^a-z0-9]+/g, "") : "u:" + u;
+}
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -25,9 +34,19 @@ const MACRO_INDICATORS = [
 
 // Result priority (rank): managers first, then funds / CLOs, then dated items
 // (deals, intel, legal — newest first), then macro chart shortcuts, then views.
+// Expand central-bank abbreviations both ways ("Federal Reserve" ⇄ "Fed", etc.).
+const CB_SYN = [["fed", "federal reserve"], ["fomc", "federal open market committee"], ["boe", "bank of england"], ["ecb", "european central bank"]];
+function expandHay(s) {
+  let h = s.toLowerCase();
+  for (const [ab, full] of CB_SYN) {
+    const hasAb = new RegExp("\\b" + ab + "\\b").test(h), hasFull = h.includes(full);
+    if (hasAb && !hasFull) h += " " + full; else if (hasFull && !hasAb) h += " " + ab;
+  }
+  return h;
+}
 function buildIndex() {
   const idx = [];
-  const add = (tag, title, sub, href, rank, date) => idx.push({ tag, title, sub, href, rank, date: date || "", hay: (title + " " + sub).toLowerCase() });
+  const add = (tag, title, sub, href, rank, date) => idx.push({ tag, title, sub, href, rank, date: date || "", hay: expandHay(title + " " + sub) });
   add("view", "Home", "Cross-desk briefing", "/", 4, "");
   [["commentary", "Commentary"], ["policy", "Rate outlook"], ["cycle", "Cycle"], ["bubble", "Bubble risk"], ["chart", "Chart"], ["saved", "Saved"]]
     .forEach(([k, l]) => add("macro", `Macro — ${l}`, "View", `/macro/#/${k}`, 4, ""));
@@ -39,6 +58,24 @@ function buildIndex() {
   cases.forEach((c) => add("legal", c.name, `Case · ${c.court || ""}${c.citation ? " · " + c.citation : ""}`, `/legal/#/cases?case=${encodeURIComponent(c.id)}`, 2, c.date));
   restructurings.forEach((r) => add("legal", r.company, `${r.type === "scheme" ? "Scheme" : "Restructuring plan"}${r.citation ? " · " + r.citation : ""}`, `/legal/#/restructurings?m=${encodeURIComponent(r.id)}`, 2, r.date));
   ["US", "UK"].forEach((c) => MACRO_INDICATORS.forEach(([k, l]) => add("macro", `${c} ${l}`, "Open in Chart", `/macro/#/chart?add=${c}:${k}`, 3, "")));
+  // News items — so a search for e.g. "Federal Reserve" finds macro headlines too.
+  const seenNews = new Set();
+  const addNews = (n) => {
+    const k = (n.url || n.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, "");
+    if (k && seenNews.has(k)) return; if (k) seenNews.add(k);
+    add("macro", n.title, `Macro news${n.source ? " · " + n.source : ""}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date);
+  };
+  ["us", "uk"].forEach((c) => ((NEWS && NEWS[c]) || []).forEach(addNews));
+  ((ARTICLES && ARTICLES.items) || []).forEach(addNews);
+  (ALERTS || []).forEach((a) => add("macro", a.title, `Macro guidance${a.kind ? " · " + a.kind : ""}`, `/macro/${a.href || "#/policy"}`, 3, a.date));
+  managers.forEach((m) => {
+    const seen = new Set();
+    [...(m.news || []), ...(m.webNews || [])].forEach((w) => {
+      const k = (w.url || w.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, "");
+      if (k && seen.has(k)) return; seen.add(k);
+      add("credit", w.title, `News${m.name ? " · " + m.name : ""}${w.date ? " · " + fmt(w.date) : ""}`, `/credit/#/manager/${encodeURIComponent(m.id)}?focus=k:${encodeURIComponent(feedDedupKey(w))}`, 2, w.date);
+    });
+  });
   return idx;
 }
 
@@ -104,7 +141,7 @@ export function mountPalette() {
     const s = results.querySelector(".mcmdk-row.sel"); if (s) s.scrollIntoView({ block: "nearest" });
   }
   const refresh = () => { current = searchIdx(input.value); sel = 0; draw(); };
-  const go = (e) => { if (e) { close(); window.location.href = e.href; } };
+  const go = (e) => { if (!e) return; close(); if (/^https?:\/\//i.test(e.href)) window.open(e.href, "_blank", "noopener"); else window.location.href = e.href; };
   // Focus SYNCHRONOUSLY within the tap/click gesture so iOS Safari pops the
   // keyboard immediately (a setTimeout would escape the gesture and suppress it).
   const open = () => { ov.classList.add("open"); input.value = ""; refresh(); input.focus({ preventScroll: true }); };

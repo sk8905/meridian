@@ -426,7 +426,7 @@ function initPulse() {
 // Only surface RECENT updates (within NOTIF_WINDOW_DAYS of the latest) so the
 // historical back-catalogue doesn't flood the aggregated bell with old-dated
 // items that are buried deep in each app's feeds.
-const NOTIF_WINDOW_DAYS = 21;
+const NOTIF_WINDOW_DAYS = 7;
 function notifTime(d) { if (!d) return null; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : d; const t = Date.parse(s); return isNaN(t) ? null : t; }
 function recentNotif(list) {
   const times = list.map((x) => notifTime(x.date)).filter((t) => t != null);
@@ -549,9 +549,20 @@ function renderBell() {
 // ---- Unified search index --------------------------------------------------
 // Result priority (rank): managers first, then funds / CLOs, then dated items
 // (deals, intel, legal — newest first), then macro chart shortcuts, then views.
+// Expand common central-bank abbreviations both ways so "Federal Reserve" finds
+// "Fed" headlines and vice-versa (same for BoE / ECB).
+const CB_SYN = [["fed", "federal reserve"], ["fomc", "federal open market committee"], ["boe", "bank of england"], ["ecb", "european central bank"]];
+function expandHay(s) {
+  let h = s.toLowerCase();
+  for (const [ab, full] of CB_SYN) {
+    const hasAb = new RegExp("\\b" + ab + "\\b").test(h), hasFull = h.includes(full);
+    if (hasAb && !hasFull) h += " " + full; else if (hasFull && !hasAb) h += " " + ab;
+  }
+  return h;
+}
 function buildIndex() {
   const idx = [];
-  const add = (tag, title, sub, href, rank, date) => idx.push({ tag, title, sub, href, rank, date: date || "", hay: (title + " " + sub).toLowerCase() });
+  const add = (tag, title, sub, href, rank, date) => idx.push({ tag, title, sub, href, rank, date: date || "", hay: expandHay(title + " " + sub) });
 
   add("view", "Home", "Cross-desk briefing", "/", 4, "");
   [["commentary", "Commentary"], ["policy", "Rate outlook"], ["cycle", "Cycle"], ["bubble", "Bubble risk"], ["chart", "Chart"], ["saved", "Saved"]]
@@ -568,6 +579,30 @@ function buildIndex() {
 
   ["US", "UK"].forEach((ctry) => MACRO_INDICATORS.forEach(([k, l]) =>
     add("macro", `${ctry} ${l}`, "Open in Chart", `/macro/#/chart?add=${ctry}:${k}`, 3, "")));
+
+  // ---- News items (so a search for e.g. "Federal Reserve" finds headlines) ----
+  // Macro news headlines (US/UK) + the market reading list — link out to the
+  // source, deduped across the two feeds.
+  const seenNews = new Set();
+  const addNews = (n) => {
+    const k = (n.url || n.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, "");
+    if (k && seenNews.has(k)) return; if (k) seenNews.add(k);
+    add("macro", n.title, `Macro news${n.source ? " · " + n.source : ""}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date);
+  };
+  ["us", "uk"].forEach((c) => ((NEWS && NEWS[c]) || []).forEach(addNews));
+  ((ARTICLES && ARTICLES.items) || []).forEach(addNews);
+  // Editorial macro guidance (rate outlook / cycle / bubble).
+  (ALERTS || []).forEach((a) => add("macro", a.title, `Macro guidance${a.kind ? " · " + a.kind : ""}`, `/macro/${a.href || "#/policy"}`, 3, a.date));
+  // Credit manager press (news + webNews), deduped per manager — deep-link into the profile.
+  managers.forEach((m) => {
+    const seen = new Set();
+    [...(m.news || []), ...(m.webNews || [])].forEach((w) => {
+      const k = (w.url || w.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, "");
+      if (k && seen.has(k)) return; seen.add(k);
+      add("credit", w.title, `News${m.name ? " · " + m.name : ""}${w.date ? " · " + fmt(w.date) : ""}`,
+        `/credit/#/manager/${encodeURIComponent(m.id)}?focus=k:${encodeURIComponent(feedDedupKey(w))}`, 2, w.date);
+    });
+  });
 
   return idx;
 }
@@ -611,7 +646,7 @@ function wirePalette(idx) {
     const s = results.querySelector(".cmdk-row.sel"); if (s) s.scrollIntoView({ block: "nearest" });
   }
   function refresh() { current = search(input.value); sel = 0; draw(); }
-  function go(e) { if (e) { close(); window.location.href = e.href; } }
+  function go(e) { if (!e) return; close(); if (/^https?:\/\//i.test(e.href)) window.open(e.href, "_blank", "noopener"); else window.location.href = e.href; }
 
   // Focus SYNCHRONOUSLY within the tap gesture so iOS Safari pops the keyboard
   // immediately (a setTimeout would escape the gesture and suppress it).
