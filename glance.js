@@ -423,19 +423,30 @@ function initPulse() {
 // Each app defines its own notification set + per-user "seen" ids (synced via
 // /api/notif-<app>, KV keyed on the Access email, with localStorage as cache).
 // Glance replays that model for all three and sums the unread counts on one bell.
+// Only surface RECENT updates (within NOTIF_WINDOW_DAYS of the latest) so the
+// historical back-catalogue doesn't flood the aggregated bell with old-dated
+// items that are buried deep in each app's feeds.
+const NOTIF_WINDOW_DAYS = 21;
+function notifTime(d) { if (!d) return null; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : d; const t = Date.parse(s); return isNaN(t) ? null : t; }
+function recentNotif(list) {
+  const times = list.map((x) => notifTime(x.date)).filter((t) => t != null);
+  if (!times.length) return list;
+  const cutoff = Math.max(...times) - NOTIF_WINDOW_DAYS * 864e5;
+  return list.filter((x) => { const t = notifTime(x.date); return t != null && t >= cutoff; });
+}
 function creditNotif() {
   const out = [];
   deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, source: creditSource(d), href: creditItemHref(d, "deals") }));
   intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, source: creditSource(i), href: creditItemHref(i, "intel") }));
   managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", kind: "News", title: w.title, source: w.outlet || m.name || "", href: "/credit/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey(w)) })));
-  return out.sort(byDateDesc);
+  return recentNotif(out).sort(byDateDesc);
 }
 function legalNotif() {
   const out = [];
   items.forEach((it) => out.push({ id: "u:" + it.id, date: it.date || "", kind: "Alert", title: it.title, source: firmName(it.firm), href: "/legal/#/item/" + encodeURIComponent(it.id) }));
   cases.forEach((c) => out.push({ id: "c:" + c.id, date: c.date || "", kind: c.court || "Case", title: c.name, source: judgmentSource(c.url), href: "/legal/#/cases?case=" + encodeURIComponent(c.id) }));
   restructurings.forEach((r) => out.push({ id: "r:" + r.id, date: r.date || "", kind: r.type === "scheme" ? "Scheme" : "Plan", title: r.company, source: r.firm ? firmName(r.firm) : (r.judgmentUrl ? judgmentSource(r.judgmentUrl) : ""), href: "/legal/#/restructurings?m=" + encodeURIComponent(r.id) }));
-  return out.sort(byDateDesc);
+  return recentNotif(out).sort(byDateDesc);
 }
 function macroDataAlerts(series) {
   return (series || []).filter((s) => s.value != null).map((s) => {

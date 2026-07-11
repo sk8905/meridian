@@ -306,12 +306,24 @@ function notifPersist(ids) {
   try { localStorage.setItem(NOTIF_KEY, JSON.stringify(ids)); } catch { /* */ }
   if (notifCloud) fetch(NOTIF_API, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ seen: ids }) }).catch(() => {});
 }
+// Only surface RECENT updates in the bell — not the entire back-catalogue. Items
+// within NOTIF_WINDOW_DAYS of the most recent one qualify; older items (incl. the
+// historical backfill, which is real but old-dated) stay fully browsable in the
+// feeds but don't flood notifications with things buried far down the lists.
+const NOTIF_WINDOW_DAYS = 21;
+function notifTime(d) { if (!d) return null; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : d; const t = Date.parse(s); return isNaN(t) ? null : t; }
+function recentNotif(list) {
+  const times = list.map((x) => notifTime(x.date)).filter((t) => t != null);
+  if (!times.length) return list;
+  const cutoff = Math.max(...times) - NOTIF_WINDOW_DAYS * 864e5;
+  return list.filter((x) => { const t = notifTime(x.date); return t != null && t >= cutoff; });
+}
 function notifItems() {
   const out = [];
   deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, source: creditSource(d), href: d.clo ? "#/clos" : "#/deals", goto: (d.clo ? "clos:" : "deals:") + d.id }));
   intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, source: creditSource(i), href: i.clo ? "#/clos" : "#/intel", goto: (i.clo ? "clos:" : "intel:") + i.id }));
   managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", kind: "News", title: w.title, source: w.outlet || m.name || "", href: "#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey(w)) })));
-  return out.sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  return recentNotif(out).sort((a, b) => String(b.date).localeCompare(String(a.date)));
 }
 function closeNotif() {
   const p = document.getElementById("notif-panel"), b = document.getElementById("notif-bell");

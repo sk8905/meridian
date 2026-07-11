@@ -1054,12 +1054,22 @@ function notifPersist(ids) {
   try { localStorage.setItem(NOTIF_KEY, JSON.stringify(ids)); } catch { /* */ }
   if (notifCloud) fetch(NOTIF_API, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ seen: ids }) }).catch(() => {});
 }
+// Only surface RECENT updates in the bell — not the whole back-catalogue (see the
+// same helper in Credit). Older items stay browsable in the feeds.
+const NOTIF_WINDOW_DAYS = 21;
+function notifTime(d) { if (!d) return null; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : d; const t = Date.parse(s); return isNaN(t) ? null : t; }
+function recentNotif(list) {
+  const times = list.map((x) => notifTime(x.date)).filter((t) => t != null);
+  if (!times.length) return list;
+  const cutoff = Math.max(...times) - NOTIF_WINDOW_DAYS * 864e5;
+  return list.filter((x) => { const t = notifTime(x.date); return t != null && t >= cutoff; });
+}
 function notifItems() {
   const out = [];
   items.forEach((it) => out.push({ id: "u:" + it.id, date: it.date || "", kind: (typeById[it.type] || {}).name || it.type, title: it.title, source: firmName(it.firm), href: "#/item/" + it.id }));
   cases.forEach((c) => out.push({ id: "c:" + c.id, date: c.date || "", kind: c.court || "Case", title: c.name, source: judgmentSource(c.url), href: "#/cases?case=" + c.id }));
   restructurings.forEach((r) => out.push({ id: "r:" + r.id, date: r.date || "", kind: r.type === "scheme" ? "Scheme" : "Plan", title: r.company, source: r.firm ? firmName(r.firm) : (r.judgmentUrl ? judgmentSource(r.judgmentUrl) : ""), href: "#/restructurings?m=" + r.id }));
-  return out.sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  return recentNotif(out).sort((a, b) => String(b.date).localeCompare(String(a.date)));
 }
 function closeNotif() {
   const p = document.getElementById("notif-panel"), b = document.getElementById("notif-bell");
