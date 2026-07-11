@@ -15,21 +15,6 @@ export function initPullToRefresh() {
   if (!("ontouchstart" in window) && !(navigator.maxTouchPoints > 0)) return;
   _init = true;
 
-  // Two touch-polish behaviours that ride along with the PTR init (touch-only):
-  //  1. A no-op document touchstart listener — iOS Safari only applies :active
-  //     styling to arbitrary elements (our cards/tiles) when the document has a
-  //     touch listener; this unlocks the CSS press states in premium.css.
-  //  2. A light haptic tick on interactive taps. Web Vibration is Android-only
-  //     (iOS exposes no vibration API to web/standalone), so this is a no-op on
-  //     iPhone and simply degrades to the visual press state there.
-  document.addEventListener("touchstart", () => {}, { passive: true });
-  const HAPTIC_SEL = ".card,.kpi-card,.g-card,.g-item,.chip,.pill,.btn,.nav-link," +
-    ".load-more,.notif-link,.mobile-tabbar a,.mobile-tabbar button,[data-haptic]";
-  document.addEventListener("click", (e) => {
-    const t = e.target;
-    if (t && t.closest && t.closest(HAPTIC_SEL) && navigator.vibrate) navigator.vibrate(8);
-  }, { passive: true });
-
   // Disable double-tap-to-zoom everywhere (keeps single-tap, scroll and pinch).
   // touch-action isn't inherited, so a universal rule is needed to cover every
   // element (e.g. the fixed bottom tab-bar buttons), not just html/body.
@@ -124,7 +109,6 @@ export function initPullToRefresh() {
     pulling = false;
     if (dist >= THRESH && atTop()) {
       busy = true;
-      if (navigator.vibrate) navigator.vibrate(12);   // satisfying "engaged" tick (Android)
       apply(THRESH, true);
       spin.style.opacity = "1";
       spin.style.transform = "";
