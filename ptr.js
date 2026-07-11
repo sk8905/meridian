@@ -12,8 +12,21 @@
 let _init = false;
 export function initPullToRefresh() {
   if (_init || typeof window === "undefined" || typeof document === "undefined") return;
-  if (!("ontouchstart" in window) && !(navigator.maxTouchPoints > 0)) return;
   _init = true;
+
+  // Auto-refresh when a new build is deployed. iOS home-screen (standalone) PWAs
+  // cache the bundle aggressively and don't reliably revalidate, so edits can
+  // sit invisible until a manual refresh. This detects a fresh deploy and reloads
+  // once: the HTML entry points are no-cache, so a no-store fetch of this page
+  // always returns the live markup — compare its premium.css build token to the
+  // one THIS document loaded; if it changed, a newer build is live → reload (which
+  // pulls the new tokened CSS/JS). Runs on foreground (when the user returns) and
+  // once shortly after load, so a stale open self-heals. No reload loop: after the
+  // reload the loaded token equals the live token. Runs on every device.
+  setupAutoRefresh();
+
+  // Pull-to-refresh + double-tap-zoom handling are touch-only.
+  if (!("ontouchstart" in window) && !(navigator.maxTouchPoints > 0)) return;
 
   // Kill accidental double-tap-to-zoom. touch-action:manipulation (injected in
   // the style below) is the standard cure, but iOS standalone PWAs sometimes
@@ -134,4 +147,27 @@ export function initPullToRefresh() {
     } else { apply(0, true); setTimeout(clearPage, 240); }
     dist = 0;
   }, { passive: true });
+}
+
+// Detect a new deploy and reload once (see the note in initPullToRefresh).
+function setupAutoRefresh() {
+  const tokenOf = (s) => { const m = String(s || "").match(/premium\.css\?v=([\w.-]+)/); return m ? m[1] : ""; };
+  const link = document.querySelector('link[href*="premium.css"]');
+  const loaded = tokenOf(link && link.getAttribute("href"));
+  if (!loaded) return;                       // can't compare — bail (home/apps all link premium.css)
+  let busy = false;
+  const check = async () => {
+    if (busy || document.hidden || !navigator.onLine) return;
+    busy = true;
+    try {
+      const res = await fetch(location.pathname, { cache: "no-store" });
+      if (res.ok) {
+        const live = tokenOf(await res.text());
+        if (live && live !== loaded) { location.reload(); return; }   // new build live
+      }
+    } catch { /* offline / Access redirect — ignore */ }
+    busy = false;
+  };
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) check(); });
+  setTimeout(check, 4000);                   // self-heal a stale first open
 }

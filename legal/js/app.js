@@ -1202,7 +1202,7 @@ document.addEventListener("click", (e) => {
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
 import("/palette.js?v=20260710-9").then((m) => m.mountPalette()).catch(() => {});
-import("/ptr.js?v=20260711-5").then((m) => m.initPullToRefresh()).catch(() => {});
+import("/ptr.js?v=20260711-6").then((m) => m.initPullToRefresh()).catch(() => {});
 initChrome();
 initNotif();
 router();
