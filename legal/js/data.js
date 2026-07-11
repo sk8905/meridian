@@ -15,13 +15,13 @@
 // `LAST_REVIEWED` whenever you refresh the data.
 // =============================================================================
 
-export const LAST_REVIEWED = "2026-07-10";
+export const LAST_REVIEWED = "2026-07-11";
 // When the refresh routine last ran (even if nothing new) — shown as "Last refresh".
-export const LAST_CHECKED = "2026-07-10";
+export const LAST_CHECKED = "2026-07-11";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — four runs a day (~05:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "21:25 BST";
+export const LAST_CHECKED_TIME = "05:27 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -6502,6 +6502,77 @@ export const items = [
       "Continental will refocus on its core tyre-manufacturing business post-transaction",
     ],
     tags: ["private equity", "M&A", "carve-out", "cross-border"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.freshfields.com/en/our-thinking/news/news-search/2026/07/freshfields-advises-itv-on-sale-of-its-media--entertainment-business-to-sky-and-the-acquisition-of-love-productions",
+    id: "u672", title: "Freshfields advises ITV on sale of its Media & Entertainment business to Sky and the acquisition of Love Productions",
+    area: "corporate", areas: ["corporate"], type: "alert", firm: "freshfields",
+    date: "2026-07-06", jurisdiction: "United Kingdom",
+    summary: "Freshfields advised ITV plc on the sale of its Media & Entertainment business to Sky UK Limited alongside ITV's concurrent acquisition of Love Productions from Sky Ventures, in a transaction worth up to £1.6bn; ITV Studios will be repositioned as a pure-play global content business, while Sky becomes the UK's largest commercial broadcaster together with ITVX.",
+    points: [
+      "ITV plc sells its Media & Entertainment business to Sky UK Limited for up to £1.6bn",
+      "ITV concurrently acquires Love Productions (Great British Bake Off, The Piano) from Sky Ventures",
+      "ITV Studios repositioned as a pure-play global content business; Sky becomes UK's largest commercial broadcaster with ITVX",
+      "Completion anticipated in H2 2027, subject to regulatory approvals and business separation",
+    ],
+    tags: ["M&A", "media", "broadcasting", "public company", "divestment"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.linklaters.com/about-us/news-and-deals/deals/2026/july/linklaters-advises-renk-on-the-acquisition-of-david-brown-defence",
+    id: "u673", title: "Linklaters advises RENK on the acquisition of David Brown Defence",
+    area: "corporate", areas: ["corporate"], type: "alert", firm: "linklaters",
+    date: "2026-07-02", jurisdiction: "United Kingdom / Germany",
+    summary: "Linklaters advised German propulsion group RENK on its agreed acquisition of UK-based David Brown Defence, a specialist manufacturer of high-precision gearboxes for naval and land defence platforms, giving RENK access to major naval programmes in the UK, Canada and Australia; completion is expected in Q4 2026 subject to regulatory clearances.",
+    points: [
+      "RENK (Germany) to acquire UK-based David Brown Defence, a naval/land gearbox specialist",
+      "Deal gives RENK access to UK, Canadian and Australian naval defence programmes",
+      "Completion expected Q4 2026, subject to regulatory approvals",
+    ],
+    tags: ["M&A", "defence", "cross-border", "manufacturing"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.aoshearman.com/en/news/ao-shearman-advises-lead-arrangers-on-financing-for-warburg-pincus-acquisition-of-network-plus",
+    id: "u674", title: "A&O Shearman advises lead arrangers on financing for Warburg Pincus' acquisition of Network Plus",
+    area: "banking", areas: ["banking", "corporate"], type: "alert", firm: "aoshearman",
+    date: "2026-07-01", jurisdiction: "United Kingdom",
+    summary: "A&O Shearman's London leveraged finance team advised the mandated lead arrangers on the debt financing backing Warburg Pincus' acquisition of Network Plus, a UK utility and infrastructure services provider delivering maintenance and operational works across the water, wastewater, gas and power sectors.",
+    points: [
+      "A&O Shearman advises mandated lead arrangers on financing for Warburg Pincus' acquisition of Network Plus",
+      "Network Plus provides maintenance/operational services across UK water, wastewater, gas and power infrastructure",
+      "London leveraged finance team led by partner Shameer Shah",
+    ],
+    tags: ["leveraged finance", "private equity", "infrastructure", "acquisition financing"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.whitecase.com/news/press-release/white-case-advises-soderberg-partners-acquisition-benchmark-capital",
+    id: "u675", title: "White & Case advises Söderberg & Partners on acquisition of Benchmark Capital",
+    area: "corporate", areas: ["corporate", "funds"], type: "alert", firm: "whitecase",
+    date: "2026-07-06", jurisdiction: "United Kingdom",
+    summary: "White & Case advised Söderberg & Partners, a major European wealth manager, on its acquisition of Benchmark Capital, Schroders plc's UK integrated financial-advice business, deepening Söderberg's UK platform; the team advised on the regulatory, tax and employment considerations typical of UK financial-services M&A. Deal value was not disclosed.",
+    points: [
+      "Söderberg & Partners acquires Benchmark Capital, Schroders plc's UK financial-advice business",
+      "Deepens Söderberg's UK wealth-management platform, established in 2024",
+      "White & Case advised on FCA-regulated business considerations, tax and employment aspects",
+    ],
+    tags: ["M&A", "wealth management", "financial advice", "FCA regulated business"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.hsfkramer.com/news/2026-06/hsf-kramer-advises-wh-smith-plc-on-capital-rise",
+    id: "u676", title: "Herbert Smith Freehills Kramer advises WH Smith Plc on capital raise",
+    area: "banking", areas: ["banking", "corporate"], type: "alert", firm: "hsf",
+    date: "2026-06-10", jurisdiction: "United Kingdom",
+    summary: "HSF Kramer advised WH Smith Plc, as issuer, on a £100m equity capital raise via the issue of up to 26 million new shares to reduce group debt, with Allen Overy Shearman Sterling LLP advising the banks; the new shares were admitted to trading on the London Stock Exchange on 12 June 2026.",
+    points: [
+      "WH Smith Plc raises £100m via the issue of up to 26 million new shares to reduce debt",
+      "HSF Kramer advised the Company; Allen Overy Shearman Sterling advised the banks",
+      "New shares admitted to trading on the London Stock Exchange on 12 June 2026",
+    ],
+    tags: ["equity capital markets", "capital raise", "listed company", "debt reduction"],
     dateEstimated: false,
   },
 ];

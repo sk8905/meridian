@@ -5,15 +5,15 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "10 July 2026";
+export const UPDATED = "11 July 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-07-10",
-  lastCheckedTime: "21:25 BST",
+  lastChecked: "2026-07-11",
+  lastCheckedTime: "05:27 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -26,8 +26,9 @@ export const OUTLOOK = {
       "The driver is re-accelerating inflation: <strong>core PCE hit 3.4% in May</strong>, its highest since October 2023, on tariff pass-through and a Middle-East energy shock. Solid growth and a firm labour market remove the case for cuts, though some argue tariff effects are near their peak.",
       "For the 28–29 July meeting, a Reuters poll (72 of 102 economists) and futures overwhelmingly expect a <strong>hold</strong>. Through year-end, futures price the rate drifting toward <strong>~4% by December</strong> — about one 25bp hike; J.P. Morgan sees no move in 2026, Deutsche Bank two.",
       "Minutes of the June meeting, released 8 July 2026, showed <strong>'a few' officials already saw a case for a hike in June</strong>, with broad-based price pressures flagged across transportation, air fares, petrochemicals and agricultural inputs. The same day, President Trump said the Iran ceasefire was 'over' and threatened fresh strikes; Brent crude jumped ~5% and the 10-year Treasury yield rose to <strong>4.57%</strong> (highest since mid-May) as September-hike odds jumped to <strong>~70%</strong> from ~58%.",
+      "The Fed's semiannual Monetary Policy Report to Congress, released 10 July 2026 — the first under Chair Warsh — pledged the Fed 'will deliver price stability', describing growth as solid and the banking system as sound while acknowledging inflation has moved higher on tariffs and the Iran war. Warsh delivers his debut Humphrey-Hawkins testimony to the House Financial Services Committee on 14 July and the Senate Banking Committee on 15 July, a key test of how firmly he leans hawkish before the 29 July decision.",
     ],
-    bottomLine: "Next move a hold on 29 July; the 8 July FOMC minutes and a fresh Middle-East oil shock have pushed hike odds higher (~70% by September), with cuts off the table for now.",
+    bottomLine: "Next move a hold on 29 July; the 8 July FOMC minutes and a fresh Middle-East oil shock have pushed hike odds higher (~70% by September), with Warsh's 14–15 July congressional testimony the next catalyst and cuts off the table for now.",
   },
   uk: {
     rate: "3.75%",
@@ -53,6 +54,8 @@ export const OUTLOOK = {
     ["CNBC — 10-year yield climbs to 4.57% on oil/Iran ceasefire collapse, 8 Jul 2026", "https://www.cnbc.com/2026/07/08/treasury-yields-trump-iran-ceasefire.html"],
     ["TradingView/Trading Economics — UK gilt yields surge on oil spike, rate-hike bets, 8 Jul 2026", "https://www.tradingview.com/news/te_news:564810:0-uk-gilt-yields-surge-on-oil-spike-rate-hike-bets/"],
     ["Bank of England — Financial Stability Report, Jul 2026", "https://www.bankofengland.co.uk/financial-stability-report/2026/july-2026"],
+    ["Bloomberg — Fed vows to deliver price stability in Monetary Policy Report, 10 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-10/fed-vows-to-deliver-price-stability-in-monetary-policy-report"],
+    ["CryptoTimes — Warsh to testify before Senate Banking Committee 15 Jul 2026", "https://www.cryptotimes.io/2026/07/09/fed-chair-kevin-warsh-testifies-before-senate-july-15-what-it-means-for-crypto/"],
   ],
 };
 
@@ -123,6 +126,7 @@ export const BUBBLE = {
     "The main mitigant is monetary. A positive real policy rate and a Fed biased toward hikes — not the free money that amplified prior bubbles — keep the read at <strong>High rather than Extreme</strong>. With leadership this narrow, the risk is heavily tied to a handful of AI mega-caps.",
     "That concentration risk was on display on 7 July 2026, when a chip-stock selloff hit global markets after Samsung's record Q2 profit (~$58bn operating profit, ~19x YoY) still missed elevated AI expectations, compounded by reports DeepSeek is developing its own AI chip: the Nasdaq fell 1.2%, Intel/Applied Materials/AMD each dropped 8-10%, and Korea's KOSPI fell ~4.9% — even as the S&P 500 and Dow held near record highs and the VIX stayed inside its recent range, underscoring how narrow the market's AI-led leadership is.",
     "Markets are also shrugging off a genuine supply shock: daily vessel crossings of the Strait of Hormuz collapsed from ~130 to just 5 by 8 July 2026 as US-Iran fighting resumed, per Lloyd's List Intelligence data reported 10 July — yet the Nasdaq and S&P 500 rebounded on 9 July on chip-sector strength (Micron +4.5%, SanDisk +7.6%) even as the disruption continued, a complacency gap consistent with a narrow, AI-driven bubble read.",
+    "The AI-IPO frenzy hit a new landmark on 10 July 2026 when SK Hynix raised <strong>$26.5bn</strong> in its Nasdaq ADR debut — the largest-ever US listing by a foreign company, priced at $149 and trading up ~14% on debut on demand reportedly more than seven times the shares on offer — underscoring how much speculative capital is still chasing AI-memory and chip exposure even as the Hormuz disruption continues.",
   ],
   dimensions: [
     {
@@ -163,6 +167,7 @@ export const BUBBLE = {
     ["FTSE 100 CAPE (Siblis Research)", "https://siblisresearch.com/data/ftse-100-cape-pe-yield/"],
     ["Bloomberg — chip weakness resumes after Samsung misses lofty AI expectations, 7 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-07/tech-weakness-resumes-after-samsung-misses-lofty-ai-expectations"],
     ["Al Jazeera — Strait of Hormuz shipping grinds to halt as US, Iran resume fighting, 10 Jul 2026", "https://www.aljazeera.com/economy/2026/7/10/strait-of-hormuz-shipping-grinds-to-halt-as-us-iran-resume-fighting"],
+    ["TechCrunch — SK Hynix raises $26.5bn in the biggest foreign IPO in US history, 10 Jul 2026", "https://techcrunch.com/2026/07/10/sk-hynix-raises-26-5b-in-the-biggest-foreign-ipo-in-us-history-is-urged-to-build-new-us-fabs/"],
   ],
 };
 
@@ -170,6 +175,8 @@ export const BUBBLE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-fed-testimony-2026-07-10", kind: "Rate guidance", title: "Fed's semiannual Monetary Policy Report (10 Jul) pledged to 'deliver price stability'; Chair Warsh gives his debut Humphrey-Hawkins testimony to Congress 14–15 July, the next catalyst before the 29 July FOMC decision.", href: "#/policy", date: "2026-07-10" },
+  { id: "g-uk-politics-2026-07-09", kind: "Markets", title: "Andy Burnham secured 322 of 403 Labour MPs' backing on the first day of nominations and is on course to become UK prime minister on 20 July, with allies signalling plans to expand No.10's economic oversight.", href: "#/cycle", date: "2026-07-09" },
   { id: "g-hormuz-2026-07-10", kind: "Markets", title: "Strait of Hormuz shipping volumes collapsed (~130/day to 5) as US-Iran fighting resumed; equities rebounded regardless, underscoring narrow AI-led market leadership.", href: "#/bubble", date: "2026-07-10" },
   { id: "g-fed-2026-07-08", kind: "Rate guidance", title: "8 July FOMC minutes + Iran/oil shock lifted September hike odds to ~70%; 10-year Treasury yield jumped to 4.57%.", href: "#/policy", date: "2026-07-08" },
   { id: "g-boe-2026-07-08", kind: "Rate guidance", title: "Oil-driven gilt sell-off pushed BoE hike-by-year-end odds to ~76%; 10-year gilt yield topped 4.9%.", href: "#/policy", date: "2026-07-08" },
@@ -201,16 +208,16 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-07-10",
+  updated: "2026-07-11",
   us: [
-    { title: "Treasury yields little changed as investors track Middle East developments", source: "CNBC", date: "2026-07-10", url: "https://www.cnbc.com/2026/07/10/us-bond-treasury-yield-us10y-iran-war.html" },
-    { title: "Traders Hedge for FX Volatility Return as Fed Uncertainty Builds", source: "Bloomberg", date: "2026-07-10", url: "https://www.bloomberg.com/news/articles/2026-07-10/traders-hedge-for-fx-volatility-return-as-fed-uncertainty-builds" },
-    { title: "Stock Market News for July 10, 2026", source: "Yahoo Finance", date: "2026-07-10", url: "https://finance.yahoo.com/markets/stocks/articles/stock-market-news-july-10-075400187.html" },
+    { title: "Fed Vows to Deliver Price Stability in Monetary Policy Report", source: "Bloomberg", date: "2026-07-10", url: "https://www.bloomberg.com/news/articles/2026-07-10/fed-vows-to-deliver-price-stability-in-monetary-policy-report" },
+    { title: "SK Hynix raises $26.5B in the biggest foreign IPO in US history, is urged to build new US fabs", source: "TechCrunch", date: "2026-07-10", url: "https://techcrunch.com/2026/07/10/sk-hynix-raises-26-5b-in-the-biggest-foreign-ipo-in-us-history-is-urged-to-build-new-us-fabs/" },
+    { title: "US existing home sales fall as house prices hit record high", source: "Reuters", date: "2026-07-09", url: "https://www.spokesman.com/stories/2026/jul/09/us-existing-home-sales-fall-as-house-prices-hit-re/" },
   ],
   uk: [
-    { title: "BoE rate hike odds rise as Sterling outperforms", source: "FXStreet", date: "2026-07-10", url: "https://www.fxstreet.com/analysis/boe-rate-hike-odds-rise-as-sterling-outperforms-202607100824" },
+    { title: "Burnham Plans to Expand UK Prime Minister's Economic Powers, Ally Says", source: "Bloomberg", date: "2026-07-09", url: "https://www.bloomberg.com/news/articles/2026-07-09/burnham-to-beef-up-uk-premier-s-economic-powers-key-ally-says" },
+    { title: "UK Labour leadership nominations begin: Who's running and how it works", source: "Al Jazeera", date: "2026-07-09", url: "https://www.aljazeera.com/news/2026/7/9/uk-labour-leadership-nominations-begin-whos-running-and-how-it-works" },
     { title: "Pound To Dollar Price News, Forecast: GBP Breaks Above 1.34 Resistance", source: "ExchangeRates.org.uk", date: "2026-07-10", url: "https://www.exchangerates.org.uk/news/46459/2026-07-10-pound-to-dollar-price-news-forecast-gbp-breaks-above-1-34-resistance.html" },
-    { title: "Bank of England's Huw Pill Signals Upcoming Interest Rate Rise", source: "Global Banking & Finance Review", date: "2026-07-09", url: "https://www.globalbankingandfinance.com/bank-englands-pill-interest-rates-rise/" },
   ],
 };
 
@@ -222,13 +229,22 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-07-10",
+  updated: "2026-07-11",
   items: [
+    { title: "SK Hynix raises $26.5bn in the biggest foreign IPO in US history, is urged to build new US fabs", source: "TechCrunch", date: "2026-07-10", url: "https://techcrunch.com/2026/07/10/sk-hynix-raises-26-5b-in-the-biggest-foreign-ipo-in-us-history-is-urged-to-build-new-us-fabs/", blurb: "The South Korean memory-chip maker priced its ADRs at $149, raising $26.5bn in the largest-ever US listing by a foreign company, with demand reportedly seven times the shares on offer as AI memory demand surges." },
+    { title: "Fed Vows to Deliver Price Stability in Monetary Policy Report", source: "Bloomberg", date: "2026-07-10", url: "https://www.bloomberg.com/news/articles/2026-07-10/fed-vows-to-deliver-price-stability-in-monetary-policy-report", blurb: "The first semiannual report under Chair Kevin Warsh describes growth as solid and the banking system as sound, while acknowledging inflation has moved higher on tariffs and the Iran war, ahead of his debut congressional testimony next week." },
+    { title: "Pound To Dollar Price News, Forecast: GBP Breaks Above 1.34 Resistance", source: "ExchangeRates.org.uk", date: "2026-07-10", url: "https://www.exchangerates.org.uk/news/46459/2026-07-10-pound-to-dollar-price-news-forecast-gbp-breaks-above-1-34-resistance.html", blurb: "Sterling extended its rally to fresh one-year highs against the dollar as a softer greenback and easing UK political uncertainty offset a cautious Bank of England outlook." },
     { title: "Strait of Hormuz shipping grinds to halt as US, Iran resume fighting", source: "Al Jazeera", date: "2026-07-10", url: "https://www.aljazeera.com/economy/2026/7/10/strait-of-hormuz-shipping-grinds-to-halt-as-us-iran-resume-fighting", blurb: "Vessel-tracking data shows crossings via the US-coordinated route have effectively ground to a halt since Tuesday, a fresh blow to energy markets already reeling from the conflict." },
     { title: "Traders Hedge for FX Volatility Return as Fed Uncertainty Builds", source: "Bloomberg", date: "2026-07-10", url: "https://www.bloomberg.com/news/articles/2026-07-10/traders-hedge-for-fx-volatility-return-as-fed-uncertainty-builds", blurb: "Currency traders are buying protection against bigger swings as a less predictable Fed under Kevin Warsh and elevated Middle East risk stir volatility from multi-year lows." },
     { title: "Treasury yields little changed as investors track Middle East developments", source: "CNBC", date: "2026-07-10", url: "https://www.cnbc.com/2026/07/10/us-bond-treasury-yield-us10y-iran-war.html", blurb: "The 10-year yield held near 4.55% as traders weighed continuing US-Iran technical talks against this week's collapse of the ceasefire." },
+    { title: "US existing home sales fall as house prices hit record high", source: "Reuters", date: "2026-07-09", url: "https://www.spokesman.com/stories/2026/jul/09/us-existing-home-sales-fall-as-house-prices-hit-re/", blurb: "Sales fell 2.4% to a 4.09 million annualised rate in June, undershooting forecasts, as tight inventory pushed the median price to a record $440,600 and Middle East-driven mortgage rates kept buyers on the sidelines." },
+    { title: "Burnham Plans to Expand UK Prime Minister's Economic Powers, Ally Says", source: "Bloomberg", date: "2026-07-09", url: "https://www.bloomberg.com/news/articles/2026-07-09/burnham-to-beef-up-uk-premier-s-economic-powers-key-ally-says", blurb: "An ally of the Labour leadership front-runner said Andy Burnham wants Number 10 to have greater oversight of economic policy, even as he rules out breaking up the Treasury before the next election." },
+    { title: "UK Labour leadership nominations begin: Who's running and how it works", source: "Al Jazeera", date: "2026-07-09", url: "https://www.aljazeera.com/news/2026/7/9/uk-labour-leadership-nominations-begin-whos-running-and-how-it-works", blurb: "Andy Burnham secured backing from 322 of 403 Labour MPs on the first day of nominations, leaving him all but certain to become prime minister on 20 July." },
     { title: "China Gets Chance at Fiscal Rethink After Debt Cleanup Milestone", source: "Bloomberg", date: "2026-07-09", url: "https://www.bloomberg.com/news/articles/2026-07-09/china-gets-chance-at-fiscal-rethink-after-debt-cleanup-milestone", blurb: "Beijing's local-government debt swap nears completion, opening room for a fiscal policy shift as growth concerns mount." },
     { title: "US Jobless Claims Little Changed Last Week Amid Low Layoffs", source: "Bloomberg", date: "2026-07-09", url: "https://www.bloomberg.com/news/articles/2026-07-09/us-jobless-claims-little-changed-last-week-as-layoffs-remain-low", blurb: "Weekly claims data continues to show a labour market with few layoffs even as hiring cools." },
+    { title: "Tensions with Iran add fresh uncertainty to an already shaky global economy", source: "NPR", date: "2026-07-08", url: "https://www.npr.org/2026/07/08/nx-s1-5885946/iran-trump-oil-stock-inflation-gas-federal-reserve", blurb: "Renewed US-Iran hostilities are adding fresh uncertainty to an economy already contending with tariffs, persistent inflation and a cooling labour market, complicating the Fed's next move." },
+    { title: "Oil prices rise after attacks on tankers in Strait of Hormuz, U.S. revokes Iran sale authorization", source: "CNBC", date: "2026-07-07", url: "https://www.cnbc.com/2026/07/07/oil-prices-iran-strait-hormuz.html", blurb: "Brent and WTI jumped after Washington revoked a waiver allowing Iranian oil sales and reports emerged of attacks on tankers transiting the Strait of Hormuz." },
+    { title: "Bank Of England Flags AI, Debt And Market Risks - Pound Sterling Stays Calm", source: "ExchangeRates.org.uk", date: "2026-07-07", url: "https://www.exchangerates.org.uk/news/46431/2026-07-07-bank-of-england-flags-ai-debt-and-market-risks-pound-sterling-stays-calm.html", blurb: "The Bank's Financial Stability Report flagged stretched AI-related equity valuations, record government debt and hedge-fund leverage in the gilt market as the chief risks to UK financial stability." },
     { title: "The key global economic risks to watch in the second half of 2026", source: "Euronews", date: "2026-07-08", url: "https://www.euronews.com/business/2026/07/08/the-key-global-economic-risks-to-watch-in-the-second-half-of-2026", blurb: "An Oxford Economics briefing flags the fragile US-Iran truce as the pivotal swing factor for global growth in H2 2026." },
     { title: "World Economic Outlook Update, July 2026: Global Economy in Crosscurrents of War and Technology", source: "IMF", date: "2026-07-08", url: "https://www.imf.org/en/publications/weo/issues/2026/07/08/world-economic-outlook-update-july-2026", blurb: "The Fund trims growth forecasts for energy-importing economies hit by the war shock even as AI-driven investment lifts countries integrated into the tech supply chain." },
     { title: "Fed's Warsh signals patience as inflation risks tilt higher", source: "The Wall Street Journal", date: "2026-07-09", url: "https://www.wsj.com/economy/central-banking/fed-warsh-patience-inflation-2026", blurb: "In his first testimony as chair, Kevin Warsh played down the case for cuts, stressing that tariff and energy pass-through keep the balance of risks skewed to the upside." },
@@ -241,7 +257,10 @@ export const ARTICLES = {
     { title: "China's exports beat forecasts but deflation pressures persist", source: "Reuters", date: "2026-07-06", url: "https://www.reuters.com/markets/asia/china-exports-beat-forecasts-deflation-persists-2026-07-06/", blurb: "Resilient shipments masked soft domestic demand and falling factory-gate prices, keeping pressure on Beijing to add stimulus." },
     { title: "America's fiscal path is unsustainable — and the bond market is starting to notice", source: "The Economist", date: "2026-07-03", url: "https://www.economist.com/leaders/2026/07/03/americas-fiscal-path-is-unsustainable", blurb: "With the deficit near 6% of GDP and net interest at a record, rising term premia are the market's first warning shot." },
     { title: "UK Firms Expect to Keep Raising Prices Even as Inflation Falls", source: "Bloomberg", date: "2026-07-03", url: "https://www.bloomberg.com/news/articles/2026-07-03/uk-firms-expect-to-keep-raising-prices-even-as-inflation-falls", blurb: "The BoE's Decision Maker Panel shows firms still planning roughly 4% price rises over the coming year, a persistence signal the MPC is watching closely." },
-    { title: "ECB holds rates but warns of fragmentation risk from energy shock", source: "Bloomberg", date: "2026-07-02", url: "https://www.bloomberg.com/news/articles/2026-07-02/ecb-holds-rates-warns-fragmentation-energy-shock", blurb: "Christine Lagarde kept policy on hold while cautioning that a renewed oil spike could widen peripheral spreads and complicate the outlook." },
+    { title: "China and US Target Tariff Reductions on Agricultural Products", source: "Bloomberg", date: "2026-07-02", url: "https://www.bloomberg.com/news/articles/2026-07-02/china-and-us-target-tariff-reductions-on-agricultural-products", blurb: "Beijing and Washington agreed in principle to roll back tariffs on select agricultural products as they work to preserve the trade truce reached last year." },
+    { title: "Gilts Are Giving Burnham a Pass for Now, Says Aegon's Lynch", source: "Bloomberg", date: "2026-07-01", url: "https://www.bloomberg.com/news/articles/2026-07-01/gilt-market-is-giving-burnham-a-pass-for-now-says-aegon-s-lynch", blurb: "Aegon's Colin Lynch said gilt investors are for now taking a wait-and-see approach to Burnham's leadership bid, having priced in much of the fiscal risk during the spring's volatility." },
+    { title: "Bank of Japan hikes rates to 1%, highest since 1995, as yen and inflation worries take hold", source: "CNBC", date: "2026-06-16", url: "https://www.cnbc.com/2026/06/16/boj-rate-hike-historic-inflation.html", blurb: "Japan's central bank raised its policy rate a quarter point to 1% in a 7-1 vote, the highest since 1995, as a weak yen and rising inflation forced its hand." },
+    { title: "ECB hikes interest rates for first time since 2023 as Iran war ramps up energy costs", source: "CNBC", date: "2026-06-11", url: "https://www.cnbc.com/2026/06/11/ecb-hikes-interest-rates.html", blurb: "The ECB raised its three key rates by 25 basis points after the Middle East war pushed energy costs and its own inflation projections higher." },
   ],
 };
 
