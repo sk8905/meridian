@@ -252,6 +252,23 @@ extra deep-research pass on watchlisted names is skipped.
   Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
   Claude-Session: <this session's URL>
   ```
+- **House typography — the Glance home page is the canonical style for the whole
+  app.** Font family (system stack: `-apple-system, BlinkMacSystemFont, "Segoe UI",
+  Roboto, Helvetica, Arial, sans-serif`) and the type scale below are the single
+  source of truth; every surface (Credit, Legal, Macro) must conform to it. The
+  scale lives in `premium.css` under "CANONICAL TYPE SCALE" (all sizes are `rem`
+  off the 16px root; home reference element in brackets):
+  - page headline `h1` — **1.6rem / 800**, mobile **1.2rem** `[.g-hello h1]`
+  - card / section title — **1.05rem / 800** `[.g-card-title]`
+  - page lede / description — **.85rem** muted `[.g-gl / .g-card-desc]`
+  - feed / list item title — **.9rem / 600** `[.g-item .t]`
+  - item meta (date · source) — **.76rem** muted `[.g-item .m]`
+  - section sub-header — **.68rem / 800** uppercase `[.g-sub-h]`
+  - "Sign out" link — the home-logo blue **#0ea5e9** everywhere
+
+  When a run adds or edits any UI/markup, it must use these sizes/classes (reuse an
+  existing home/app class rather than inventing a new size). Do NOT hard-code a
+  different font-size on new content.
 
 ---
 
@@ -531,7 +548,24 @@ extra deep-research pass on watchlisted names is skipped.
 >    `node --input-type=module -e "import('./macro/js/content.js').then(m=>console.log(m.META.lastChecked, m.BUBBLE.dimensions.length))"`
 >    plus `node --check src/index.js`.
 >
-> 7. PUBLISH (every run, even if nothing new): commit — message ending with the two
+> 7. HOUSE-STYLE QC (every run). The Glance home page is the canonical style; the
+>    app must stay conformed to it (see the "House typography" invariant + the
+>    "CANONICAL TYPE SCALE" block in `premium.css`). Do a quick conformance pass:
+>    - If this run added/edited any UI or markup, confirm it uses the canonical
+>      classes/sizes (feed item title `.9rem/600`, meta `.76rem` muted, section
+>      sub-header `.68rem/800` uppercase, lede `.85rem`, headline `h1` 1.6/1.2rem,
+>      "Sign out" = `#0ea5e9`) — never a hard-coded off-scale font-size.
+>    - Grep for drift a run may have introduced or that crept in elsewhere, e.g.
+>      `grep -rnE "font-size:\s*(1[0-9]|9)px" credit/css legal/css macro/css` (raw
+>      px on body-copy) and any new `font-family` that isn't the system stack.
+>    - If you find drift, fix it in the shared `premium.css` (preferred — one place,
+>      all apps) or the specific app CSS, matching the canonical size. If a
+>      divergence is intentional / out of scope to fix safely, note it in the run
+>      summary rather than silently leaving it. Bump the touched files' cache tokens.
+>    This step never blocks publishing data — it just keeps the type system from
+>    drifting run to run.
+>
+> 8. PUBLISH (every run, even if nothing new): commit — message ending with the two
 >    required trailers — then publish to `main` AND the dev branch. `main` has other
 >    writers (dev sessions), so publish by **rebasing onto the latest `main` and
 >    retrying**, NOT a bare fast-forward: `git fetch origin main` → `git rebase
@@ -543,7 +577,7 @@ extra deep-research pass on watchlisted names is skipped.
 >    **GitHub API** (`create_or_update_file` per changed file — see "API fallback")
 >    and say so in the summary.
 >
-> 8. Reply with a short summary: counts of new Credit deals / intel / webNews,
+> 9. Reply with a short summary: counts of new Credit deals / intel / webNews,
 >    Legal alerts / cases / schemes & plans, and Macro curated prints / guidance
 >    updates (or "no new items — refresh timestamp updated"). If the preflight
 >    staleness check flagged a missing prior run, or egress was blocked so nothing

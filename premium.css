@@ -101,6 +101,25 @@ h2, .brand-text strong { letter-spacing: -.011em; }
         consistent scale everywhere. ---- */
 .page-head p, .list-head p { font-size: .85rem; line-height: 1.4; }
 
+/* =============================================================================
+   CANONICAL TYPE SCALE — the Glance home page is the single source of truth for
+   text sizing across the whole platform; every app surface conforms to it (all
+   rem, off the 16px root). New UI must use these sizes; the twice-daily refresh
+   routine has a QC step that checks for drift (docs/refresh-routines.md ›
+   "House typography"). Home reference element in brackets:
+     page headline (h1) ......... 1.6rem / 800  · mobile 1.2rem   [.g-hello h1]
+     card / section title ....... 1.05rem / 800                   [.g-card-title]
+     page lede / description .... .85rem muted                    [.g-gl / .g-card-desc]
+     feed / list item title ..... .9rem / 600                     [.g-item .t]
+     item meta (date · source) .. .76rem muted                    [.g-item .m]
+     section sub-header ......... .68rem / 800 uppercase          [.g-sub-h]
+   ============================================================================= */
+/* Feed/list item titles across Credit/Macro (.intel-head) and Legal (.feed-title)
+   inherited the 16px body base; pin them to the home item-title size. */
+.intel-head, .feed-title { font-size: .9rem; }
+/* Small / meta text (dates, sources, fine print) → home item-meta size (.76rem). */
+.small, .feed-date { font-size: .76rem; }
+
 /* ---- The "Sign out" link uses the Meridian home-logo blue (#0ea5e9) at every
         point in the app — the top-bar account chip on home (.g-user a) and on
         Credit/Legal/Macro (.account-nav a). The :hover white rules are more
