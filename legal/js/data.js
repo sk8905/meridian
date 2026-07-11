@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-07-11";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — four runs a day (~05:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "17:23 BST";
+export const LAST_CHECKED_TIME = "21:18 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -6618,6 +6618,46 @@ export const items = [
     tags: ["debt financing", "infrastructure", "plant hire", "leveraged finance", "private equity"],
     dateEstimated: false,
   },
+  {
+    id: "u680",
+    title: "What does the EU Anti-Corruption Directive change?",
+    area: "ri",
+    areas: ["ri"],
+    type: "insight",
+    firm: "cliffordchance",
+    date: "2026-07-08",
+    jurisdiction: "European Union",
+    url: "https://www.cliffordchance.com/insights/resources/blogs/regulatory-investigations-financial-crime-insights/2026/07/what-does-the-eu-anticorruption-directive-change.html",
+    summary:
+      "Clifford Chance analyses Directive (EU) 2026/1021, adopted in response to worsening EU corruption perceptions, and asks whether it will meaningfully change national anti-corruption legal frameworks for corporates across six member states (including France, Italy, Spain, Germany, Poland and the Netherlands).",
+    points: [
+      "Directive (EU) 2026/1021 aims to harmonise EU corruption offences and corporate-liability standards",
+      "Multi-office briefing maps implementation divergence across six member states",
+      "Corporates should reassess compliance programmes ahead of national transposition",
+    ],
+    tags: ["anti-corruption", "EU Directive", "compliance", "financial crime"],
+    dateEstimated: false,
+  },
+  {
+    id: "u681",
+    title: "Kirkland Advises Blue Owl on Acquisition and Financing of Spire Healthcare Portfolio",
+    area: "banking",
+    areas: ["banking", "corporate"],
+    type: "alert",
+    firm: "kirkland",
+    date: "2026-07-10",
+    jurisdiction: "United Kingdom",
+    url: "https://www.kirkland.com/news/press-release/2026/07/kirkland-advises-blue-owl-on-acquisition-and-financing-of-spire-healthcare-portfolio",
+    summary:
+      "Kirkland advised funds managed by Blue Owl Capital (with Moor Park Capital Partners) on their acquisition of a 12-hospital UK acute-care portfolio from Spire Healthcare Group plc, financed via a new secured term loan with Standard Chartered, Natixis and Crédit Agricole CIB as mandated lead arrangers; the Kirkland team spanned corporate, debt finance, tax, technology and regulatory workstreams from London and New York.",
+    points: [
+      "Blue Owl (with Moor Park Capital Partners) acquires 12 UK acute-care hospitals from Spire Healthcare",
+      "Acquisition financed via a new secured term loan led by Standard Chartered, Natixis and Crédit Agricole CIB",
+      "Kirkland advised across corporate, debt finance, tax, technology and regulatory workstreams",
+    ],
+    tags: ["healthcare real estate", "acquisition finance", "secured lending", "UK hospitals"],
+    dateEstimated: false,
+  },
 ];
 
 // ---- Recent cases published on BAILII -------------------------------------
@@ -6818,6 +6858,9 @@ export const cases = [
   { id: "c65", name: "Tether Investments, S.A. de C.V. & Anor v Electric Solidus, Inc. (t/a Swan Bitcoin)", citation: "[2026] EWHC 1652 (Comm)", court: "High Court (Comm)",
     date: "2026-06-26", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/1652",
     summary: "The Commercial Court refused anti-suit relief sought to restrain a BVI derivative action, holding that a litigation-restriction clause in a shareholders' agreement does not bar derivative claims brought on behalf of the company — relevant to governance disputes in crypto/digital-asset joint ventures." },
+  { id: "c66", name: "JJH Enterprises Ltd (t/a ValueLicensing) v Microsoft Corporation & Ors", citation: "[2026] EWCA Civ 872", court: "Court of Appeal",
+    date: "2026-07-07", area: "ri", url: "https://caselaw.nationalarchives.gov.uk/ewca/civ/2026/872",
+    summary: "The Court of Appeal dismissed Microsoft's appeal in a Competition Appeal Tribunal follow-on damages claim over the secondary market for used software licences, holding the CAT has jurisdiction to determine copyright questions arising within a competition claim, that the Software Directive's exhaustion principle extends to non-program works incidental to software, and that bulk licences can lawfully be subdivided and resold." },
 ];
 
 // ---- Lightweight lookups ----------------------------------------------------
@@ -6895,6 +6938,7 @@ export const caseSummaries = {
   c63: "IlliquidX, an advisory boutique specialising in illiquid and distressed investments, disclosed under NDA in 2019 its strategy to establish a sanctions-compliant fund to monetise undervalued, sanctions-restricted Venezuelan sovereign debt, in connection with a proposed joint venture with Altana Wealth and Brevent Advisory (the Altana IlliquidX Canaima Fund), which subsequently collapsed. Altana went on to launch its own competing fund (ACOF) in 2020, allegedly built on the same confidential strategy. On appeal, Altana and its principals argued the strategy was in the public domain and therefore not protectable as confidential information; the Court of Appeal (Arnold, Zacaroli and Miles LJJ) rejected this, holding that 'public domain' retains its established meaning of general accessibility rather than mere absence of a confidentiality restriction, and that the appellants — who bore the burden of proof — failed to show the information was genuinely public. The decision is a useful appellate restatement of the public-domain threshold in breach-of-confidence claims, directly relevant to fund managers and advisers handling proprietary, sanctions-driven investment strategies.",
   c64: "The claimants sought to lift legal privilege over documents and communications relating to the late Oleg Bourlakov's business interests, invoking the 'iniquity exception' which disapplies privilege where legal advice was sought or given for a fraudulent or otherwise iniquitous purpose. The dispute concerns more than $3bn in disputed business interests and involves complex, multi-jurisdictional corporate structures. The High Court's ruling on the scope of privilege in this asset-tracing context is significant for practitioners advising on fraud and asset-recovery claims involving corporate vehicles, with the substantive trial listed for October 2027.",
   c65: "Tether Investments sought anti-suit relief in the English Commercial Court to restrain a derivative action brought in the BVI courts against Electric Solidus (trading as Swan Bitcoin), relying on a litigation-restriction clause in the parties' shareholders' agreement. The Commercial Court refused the relief, holding that such contractual restrictions on litigation do not extend to bar derivative claims brought on behalf of the company itself, as opposed to direct claims by a shareholder. The decision is relevant to governance and minority-shareholder disputes in crypto and digital-asset joint ventures structured through offshore vehicles.",
+  c66: "JJH Enterprises (trading as ValueLicensing) brought a Competition Appeal Tribunal follow-on damages claim against Microsoft over the secondary market for used software licences, alleging Microsoft's contractual and technical restrictions unlawfully blocked resale of bulk licences. Microsoft appealed on jurisdiction and copyright-exhaustion grounds, arguing the CAT could not determine embedded copyright questions and that the Software Directive's exhaustion principle does not cover non-program works such as icons and GUI elements bundled with software, nor the subdivision and resale of bulk licences. The Court of Appeal dismissed the appeal in full, confirming the CAT's jurisdiction over copyright issues arising within a competition claim and rejecting Microsoft's narrow reading of exhaustion, distinguishing the CJEU's UsedSoft ruling on client-server arrangements. The decision is a significant precedent for competition litigators and technology-sector practices tracking the CAT's jurisdictional scope and the limits of contractual restraints on software resale.",
 };
 
 export const restructurings = [
