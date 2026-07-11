@@ -31,8 +31,11 @@
   animation-duration: .24s;
   animation-timing-function: cubic-bezier(.22, .61, .36, 1);
 }
-/* Hold the persistent bottom tab bar steady across the in-app fade. */
-.mobile-tabbar { view-transition-name: mtabbar; }
+/* NB: we deliberately do NOT give the bottom tab bar a view-transition-name.
+   Doing so permanently promotes the position:fixed bar into the view-transition
+   layer, and on WebKit/iOS that can leave it non-interactive (taps stop working).
+   Without a name it just rides along in the root crossfade, which is invisible
+   anyway since the bar looks the same before and after an in-app section swap. */
 @media (prefers-reduced-motion: reduce) {
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
 }
