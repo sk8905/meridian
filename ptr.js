@@ -15,6 +15,23 @@ export function initPullToRefresh() {
   if (!("ontouchstart" in window) && !(navigator.maxTouchPoints > 0)) return;
   _init = true;
 
+  // Kill accidental double-tap-to-zoom. touch-action:manipulation (injected in
+  // the style below) is the standard cure, but iOS standalone PWAs sometimes
+  // ignore it, so also cancel the SECOND tap of a quick, same-spot double-tap.
+  // The location check (<40px) means only a real double-tap-zoom gesture is
+  // cancelled — fast taps on different controls, single taps, scrolling and
+  // pinch-zoom are all left untouched.
+  let lastEnd = 0, lastX = 0, lastY = 0;
+  document.addEventListener("touchend", (e) => {
+    const t = e.changedTouches && e.changedTouches[0];
+    const x = t ? t.clientX : 0, y = t ? t.clientY : 0;
+    const now = Date.now();
+    if (now - lastEnd <= 300 && Math.abs(x - lastX) < 40 && Math.abs(y - lastY) < 40 && e.cancelable) {
+      e.preventDefault();
+    }
+    lastEnd = now; lastX = x; lastY = y;
+  }, { passive: false });
+
   // Disable double-tap-to-zoom everywhere (keeps single-tap, scroll and pinch).
   // touch-action isn't inherited, so a universal rule is needed to cover every
   // element (e.g. the fixed bottom tab-bar buttons), not just html/body.

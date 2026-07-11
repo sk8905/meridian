@@ -17,28 +17,12 @@
   --elev-2: 0 2px 6px rgba(11,31,68,.07), 0 14px 32px -10px rgba(11,31,68,.17);
 }
 
-/* ---- View-transition tuning. We deliberately DO NOT enable cross-document
-        (page-to-page) transitions: crossfading two separate, content-heavy
-        documents overlays their content (ghosting) and blends to grey at the
-        top, which looked worse than an instant switch. Page-to-page navigation
-        is instant instead, and the inline navy html background on every page
-        keeps it clean (no white flash). What remains here styles the IN-APP,
-        same-document section crossfades driven by document.startViewTransition
-        in each app's router — those are clean because only #app swaps under a
-        stable nav bar. ---- */
-::view-transition-old(root),
-::view-transition-new(root) {
-  animation-duration: .24s;
-  animation-timing-function: cubic-bezier(.22, .61, .36, 1);
-}
-/* NB: we deliberately do NOT give the bottom tab bar a view-transition-name.
-   Doing so permanently promotes the position:fixed bar into the view-transition
-   layer, and on WebKit/iOS that can leave it non-interactive (taps stop working).
-   Without a name it just rides along in the root crossfade, which is invisible
-   anyway since the bar looks the same before and after an in-app section swap. */
-@media (prefers-reduced-motion: reduce) {
-  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
-}
+/* ---- Navigation is deliberately instant (no view transitions). We tried both
+        cross-document and in-app crossfades: the cross-document one ghosted two
+        content-heavy pages and blended grey at the top; the in-app one added
+        per-switch latency and, via a named fixed element, broke the bottom nav
+        on iOS. Instant + the inline navy html background (which prevents any
+        white flash) proved cleaner and snappier than either. ---- */
 
 /* ---- Tabular figures: finance numbers align in columns and never re-flow
         (jitter) as their last digits change on update. ---- */

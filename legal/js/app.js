@@ -966,29 +966,18 @@ function focusRxMatter(id) {
 // =============================================================================
 // Router + global click delegation
 // =============================================================================
-let _lastVtSection = null;   // previous top-level section, for section-change crossfades
 function router() {
   const hash = location.hash || "#/";
   const path = hash.slice(1).split("?")[0]; // strip query
   window.scrollTo(0, 0);
 
-  const render = () => {
-    if (path === "/" || path === "") viewDashboard();
-    else if (path === "/list") viewList();
-    else if (path === "/cases") viewCases();
-    else if (path === "/restructurings") viewRestructurings();
-    else if (path.startsWith("/item/")) viewItem(decodeURIComponent(path.slice("/item/".length)));
-    else if (path.startsWith("/firm/")) viewFirm(decodeURIComponent(path.slice("/firm/".length)));
-    else viewDashboard();
-  };
-  // Crossfade only when the top-level section changes (not the first render, not
-  // a same-section re-render such as a filter toggle).
-  const section = path.split("/")[1] || "";
-  const animate = typeof document.startViewTransition === "function"
-    && _lastVtSection !== null && section !== _lastVtSection
-    && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
-  _lastVtSection = section;
-  if (animate) document.startViewTransition(render); else render();
+  if (path === "/" || path === "") viewDashboard();
+  else if (path === "/list") viewList();
+  else if (path === "/cases") viewCases();
+  else if (path === "/restructurings") viewRestructurings();
+  else if (path.startsWith("/item/")) viewItem(decodeURIComponent(path.slice("/item/".length)));
+  else if (path.startsWith("/firm/")) viewFirm(decodeURIComponent(path.slice("/firm/".length)));
+  else viewDashboard();
 
   updateSavedCount();
   syncNavActive(hash);
@@ -1210,7 +1199,7 @@ document.addEventListener("click", (e) => {
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
 import("/palette.js?v=20260710-9").then((m) => m.mountPalette()).catch(() => {});
-import("/ptr.js?v=20260711-3").then((m) => m.initPullToRefresh()).catch(() => {});
+import("/ptr.js?v=20260711-4").then((m) => m.initPullToRefresh()).catch(() => {});
 initChrome();
 initNotif();
 router();

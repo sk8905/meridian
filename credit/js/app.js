@@ -2045,7 +2045,6 @@ document.addEventListener("click", (e) => {
 });
 
 // ================================= router ==================================
-let _lastVtRoute = null;   // previous top-level section, for section-change crossfades
 function router() {
   const rawHash = location.hash || "#/";
   const qIdx = rawHash.indexOf("?");
@@ -2076,8 +2075,7 @@ function router() {
   const wl = document.getElementById("wl-count");
   if (wl) { const n = followCount(); wl.textContent = n ? n : ""; wl.style.display = n ? "" : "none"; }
   window.scrollTo(0, 0);
-  const render = () => {
-   switch (route) {
+  switch (route) {
     case "": case undefined: return viewDashboard();
     case "funds": return viewFunds();
     case "fund": return viewFund(arg);
@@ -2092,16 +2090,7 @@ function router() {
     case "clos": return viewClos();
     case "watchlist": return viewWatchlist();
     default: return notFound();
-   }
-  };
-  // Crossfade the swap only when the top-level section actually changes — not on
-  // the first render, and not on same-route filter re-renders (which restore
-  // their own scroll position and would otherwise flash).
-  const animate = typeof document.startViewTransition === "function"
-    && _lastVtRoute !== null && route !== _lastVtRoute
-    && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
-  _lastVtRoute = route;
-  if (animate) document.startViewTransition(render); else render();
+  }
 }
 
 // ---- Swipe to cycle through the primary sections (touch devices) -----------
@@ -2142,7 +2131,7 @@ document.addEventListener("click", (e) => {
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
 import("/palette.js?v=20260710-9").then((m) => m.mountPalette()).catch(() => {});
-import("/ptr.js?v=20260711-3").then((m) => m.initPullToRefresh()).catch(() => {});
+import("/ptr.js?v=20260711-4").then((m) => m.initPullToRefresh()).catch(() => {});
 router();
 renderDataStatus();
 initNotif();

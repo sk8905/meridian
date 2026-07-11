@@ -1180,7 +1180,6 @@ document.addEventListener("click", (e) => {
 }, true);
 window.addEventListener("hashchange", closeNotif);
 
-let _lastVtTab = null;   // previous section (tab), for section-change crossfades
 function render() {
   const tab = currentTab();
   // Deep-link from a dashboard tile: #/chart?add=US:core_cpi preselects that
@@ -1202,23 +1201,12 @@ function render() {
   // Fresh entry to Commentary starts at the first page of 25.
   if (tab === "commentary") commentaryLimit = COMMENTARY_PAGE;
   const body = tab === "commentary" ? viewCommentary() : tab === "policy" ? viewPolicy() : tab === "cycle" ? viewCycle() : tab === "bubble" ? viewBubble() : tab === "chart" ? viewChart() : tab === "saved" ? viewSaved() : viewDashboard();
-  // All DOM work (paint + the wiring that depends on the freshly-inserted nodes)
-  // must run together inside the transition callback.
-  const paint = () => {
-    app.innerHTML = body;
-    syncNav(tab);
-    if (tab === "dashboard") loadMacro(dashFocus);
-    if (tab === "commentary") wireCommentary();
-    if (tab === "chart") { syncChartAll(); fetchMacro().then(() => { if (currentTab() === "chart") drawChart(); }); }
-    window.scrollTo(0, 0);
-  };
-  // Crossfade only when the section (tab) actually changes — not the first
-  // render, not a same-tab re-render.
-  const animate = typeof document.startViewTransition === "function"
-    && _lastVtTab !== null && tab !== _lastVtTab
-    && !(window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches);
-  _lastVtTab = tab;
-  if (animate) document.startViewTransition(paint); else paint();
+  app.innerHTML = body;
+  syncNav(tab);
+  if (tab === "dashboard") loadMacro(dashFocus);
+  if (tab === "commentary") wireCommentary();
+  if (tab === "chart") { syncChartAll(); fetchMacro().then(() => { if (currentTab() === "chart") drawChart(); }); }
+  window.scrollTo(0, 0);
 }
 
 // Signed-in identity chip (behind Cloudflare Access), matching Credit & Legal.
@@ -1274,7 +1262,7 @@ document.addEventListener("click", (e) => {
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
 import("/palette.js?v=20260710-9").then((m) => m.mountPalette()).catch(() => {});
-import("/ptr.js?v=20260711-3").then((m) => m.initPullToRefresh()).catch(() => {});
+import("/ptr.js?v=20260711-4").then((m) => m.initPullToRefresh()).catch(() => {});
 render();
 initMe();
 renderDataStatus();
