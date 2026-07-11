@@ -78,7 +78,7 @@ export function initGlance() {
   initJumpNav();
   wirePalette(buildIndex());
   startLiveRefresh();
-  import("/ptr.js?v=20260711-1").then((m) => m.initPullToRefresh()).catch(() => {});
+  import("/ptr.js?v=20260711-2").then((m) => m.initPullToRefresh()).catch(() => {});
 }
 
 // ---- Section jump-links ----------------------------------------------------
