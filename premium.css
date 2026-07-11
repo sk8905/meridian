@@ -114,9 +114,11 @@ h2, .brand-text strong { letter-spacing: -.011em; }
      item meta (date · source) .. .76rem muted                    [.g-item .m]
      section sub-header ......... .68rem / 800 uppercase          [.g-sub-h]
    ============================================================================= */
-/* Feed/list item titles across Credit/Macro (.intel-head) and Legal (.feed-title)
-   inherited the 16px body base; pin them to the home item-title size. */
-.intel-head, .feed-title { font-size: .9rem; }
+/* Feed/list/dashboard item titles across the apps inherited the 16px body base;
+   pin them to the home item-title size. .intel-head = Credit/Macro feed rows,
+   .feed-title = Legal list/case views, .compact-head = every app DASHBOARD's
+   compact item lists (the "Law-firm alerts" / news lists on the home tab). */
+.intel-head, .feed-title, .compact-head { font-size: .9rem; }
 /* Small / meta text (dates, sources, fine print) → home item-meta size (.76rem). */
 .small, .feed-date { font-size: .76rem; }
 
