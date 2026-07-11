@@ -13,7 +13,7 @@ export const UPDATED = "11 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-11",
-  lastCheckedTime: "05:27 BST",
+  lastCheckedTime: "12:12 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -210,14 +210,14 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-07-11",
   us: [
-    { title: "Fed Vows to Deliver Price Stability in Monetary Policy Report", source: "Bloomberg", date: "2026-07-10", url: "https://www.bloomberg.com/news/articles/2026-07-10/fed-vows-to-deliver-price-stability-in-monetary-policy-report" },
-    { title: "SK Hynix raises $26.5B in the biggest foreign IPO in US history, is urged to build new US fabs", source: "TechCrunch", date: "2026-07-10", url: "https://techcrunch.com/2026/07/10/sk-hynix-raises-26-5b-in-the-biggest-foreign-ipo-in-us-history-is-urged-to-build-new-us-fabs/" },
-    { title: "US existing home sales fall as house prices hit record high", source: "Reuters", date: "2026-07-09", url: "https://www.spokesman.com/stories/2026/jul/09/us-existing-home-sales-fall-as-house-prices-hit-re/" },
+    { title: "Fed's Williams Says AI Is Now His Main Inflation Concern", source: "Fortune", date: "2026-07-09", url: "https://fortune.com/2026/07/09/federal-reserve-john-williams-says-ai-is-now-his-main-inflation-concern/" },
+    { title: "Stock market news for July 10, 2026", source: "CNBC", date: "2026-07-10", url: "https://www.cnbc.com/2026/07/09/stock-market-today-live-updates.html" },
+    { title: "US Jobless Claims Little Changed Last Week Amid Low Layoffs", source: "Bloomberg", date: "2026-07-09", url: "https://www.bloomberg.com/news/articles/2026-07-09/us-jobless-claims-little-changed-last-week-as-layoffs-remain-low" },
   ],
   uk: [
+    { title: "The Number That Could Move The Pound: UK GDP Preview", source: "ExchangeRates.org.uk", date: "2026-07-10", url: "https://www.exchangerates.org.uk/news/46462/2026-07-10-the-number-that-could-move-the-pound-uk-gdp-preview.html" },
+    { title: "UK Gilt Yields Hold Above 4.9% on BoE Hike Bets", source: "TradingView / Trading Economics", date: "2026-07-09", url: "https://www.tradingview.com/news/te_news:565653:0-uk-gilt-yields-hold-above-4-9-on-boe-hike-bets/" },
     { title: "Burnham Plans to Expand UK Prime Minister's Economic Powers, Ally Says", source: "Bloomberg", date: "2026-07-09", url: "https://www.bloomberg.com/news/articles/2026-07-09/burnham-to-beef-up-uk-premier-s-economic-powers-key-ally-says" },
-    { title: "UK Labour leadership nominations begin: Who's running and how it works", source: "Al Jazeera", date: "2026-07-09", url: "https://www.aljazeera.com/news/2026/7/9/uk-labour-leadership-nominations-begin-whos-running-and-how-it-works" },
-    { title: "Pound To Dollar Price News, Forecast: GBP Breaks Above 1.34 Resistance", source: "ExchangeRates.org.uk", date: "2026-07-10", url: "https://www.exchangerates.org.uk/news/46459/2026-07-10-pound-to-dollar-price-news-forecast-gbp-breaks-above-1-34-resistance.html" },
   ],
 };
 
@@ -231,6 +231,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-11",
   items: [
+    { title: "Oil Market Report — July 2026", source: "IEA", date: "2026-07-10", url: "https://www.iea.org/reports/oil-market-report-july-2026", blurb: "The IEA says global oil supply rebounded 4.1m b/d in June to 98.8m b/d as flows through the Strait of Hormuz partially resumed, though supply remained 9.4m b/d below pre-war levels; the agency trimmed its 2026 demand forecast even as it flagged a large 2027 surplus." },
+    { title: "Bond yields jump as surging oil prices spark renewed inflation fears", source: "Yahoo Finance", date: "2026-07-09", url: "https://finance.yahoo.com/markets/article/bond-yields-jump-as-surging-oil-prices-spark-renewed-inflation-fears-155546872.html", blurb: "The 10-year Treasury yield rose to 4.56% and the 30-year to 5.07% as crude surged above $80 a barrel on renewed US-Iran tensions, with investors weighing whether the Fed will need to tighten further to contain the resulting inflation impulse." },
+    { title: "Asian stocks slip and oil prices jump as Iran and US launch fresh attacks", source: "The Washington Post", date: "2026-07-09", url: "https://www.washingtonpost.com/business/2026/07/09/stock-markets-oil-iran-ai/2a3410ae-7b51-11f1-b194-f872dd4ec5aa_story.html", blurb: "Asian equities fell and oil prices jumped after Washington and Tehran traded fresh strikes a day after President Trump declared their ceasefire over, reviving the risk premium that had briefly eased after June's truce." },
     { title: "SK Hynix raises $26.5bn in the biggest foreign IPO in US history, is urged to build new US fabs", source: "TechCrunch", date: "2026-07-10", url: "https://techcrunch.com/2026/07/10/sk-hynix-raises-26-5b-in-the-biggest-foreign-ipo-in-us-history-is-urged-to-build-new-us-fabs/", blurb: "The South Korean memory-chip maker priced its ADRs at $149, raising $26.5bn in the largest-ever US listing by a foreign company, with demand reportedly seven times the shares on offer as AI memory demand surges." },
     { title: "Fed Vows to Deliver Price Stability in Monetary Policy Report", source: "Bloomberg", date: "2026-07-10", url: "https://www.bloomberg.com/news/articles/2026-07-10/fed-vows-to-deliver-price-stability-in-monetary-policy-report", blurb: "The first semiannual report under Chair Kevin Warsh describes growth as solid and the banking system as sound, while acknowledging inflation has moved higher on tariffs and the Iran war, ahead of his debut congressional testimony next week." },
     { title: "Pound To Dollar Price News, Forecast: GBP Breaks Above 1.34 Resistance", source: "ExchangeRates.org.uk", date: "2026-07-10", url: "https://www.exchangerates.org.uk/news/46459/2026-07-10-pound-to-dollar-price-news-forecast-gbp-breaks-above-1-34-resistance.html", blurb: "Sterling extended its rally to fresh one-year highs against the dollar as a softer greenback and easing UK political uncertainty offset a cautious Bank of England outlook." },
