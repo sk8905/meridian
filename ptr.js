@@ -32,7 +32,12 @@ export function initPullToRefresh() {
   zone.appendChild(spin);
   if (!document.getElementById("ptr-kf")) {
     const st = document.createElement("style"); st.id = "ptr-kf";
-    st.textContent = "@keyframes ptr-spin{to{transform:rotate(360deg)}}html *{touch-action:manipulation}";
+    st.textContent = "@keyframes ptr-spin{to{transform:rotate(360deg)}}html *{touch-action:manipulation}" +
+      // Kill the native iOS rubber-band bounce so ONLY our custom PTR moves the
+      // page. Otherwise the bounce shifts the in-flow (translated) content while
+      // the position:fixed navy zone detaches during overscroll, opening a gap
+      // that flashes the light page background (the "white band" on pull-down).
+      "html,body{overscroll-behavior-y:none}";
     document.head.appendChild(st);
   }
   const mount = () => { if (!zone.isConnected && document.body) document.body.appendChild(zone); };
