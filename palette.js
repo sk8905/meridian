@@ -86,7 +86,7 @@ const STYLE = `
 .mcmdk-scrim{position:absolute;inset:0;background:rgba(9,16,38,.5)}
 .mcmdk-panel{position:relative;max-width:620px;margin:9vh auto 0;background:#fff;border-radius:14px;box-shadow:0 24px 60px rgba(8,20,60,.4);overflow:hidden}
 .mcmdk-input{width:100%;border:0;border-bottom:1px solid #e4e7ef;padding:1rem 1.1rem;font:inherit;font-size:1.05rem;color:#131a2b;outline:none}
-.mcmdk-results{max-height:56vh;overflow-y:auto;padding:.35rem}
+.mcmdk-results{max-height:56vh;overflow-y:auto;overscroll-behavior:contain;padding:.35rem}
 .mcmdk-empty{color:#66708a;font-size:.9rem;padding:1.2rem;text-align:center}
 .mcmdk-row{display:flex;align-items:center;gap:.7rem;padding:.55rem .7rem;border-radius:9px;cursor:pointer}
 .mcmdk-row.sel,.mcmdk-row:hover{background:#eef2fb}
