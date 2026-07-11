@@ -45,6 +45,20 @@ export function initPullToRefresh() {
   // Safari-like tracking: 1:1 with the finger up to SOFT, then increasing resistance.
   const pull = (d) => (d <= SOFT ? d : Math.min(SOFT + (d - SOFT) * 0.35, MAX));
 
+  // Don't hijack the pull when the gesture starts inside a menu/overlay or any
+  // vertically-scrollable area (e.g. the notifications panel or command palette)
+  // — that content should scroll on its own instead of pulling the page.
+  function inOverlayOrScroller(node) {
+    if (node && node.closest && node.closest(".notif-panel,.g-notif-panel,.mcmdk,#cmdk,.rel-dd-panel,[data-no-ptr]")) return true;
+    let el = node;
+    while (el && el !== document.body && el.nodeType === 1) {
+      const oy = getComputedStyle(el).overflowY;
+      if ((oy === "auto" || oy === "scroll") && el.scrollHeight > el.clientHeight + 1) return true;
+      el = el.parentElement;
+    }
+    return false;
+  }
+
   // The "page" = every direct child of <body> that isn't our zone and isn't a
   // fixed element (so the fixed bottom tab bar and any fixed overlays stay put).
   function gatherPage() {
@@ -63,7 +77,7 @@ export function initPullToRefresh() {
   function clearPage() { for (const el of pageEls) { el.style.transition = ""; el.style.transform = ""; } }
 
   window.addEventListener("touchstart", (e) => {
-    if (busy || e.touches.length !== 1 || !atTop()) { pulling = false; return; }
+    if (busy || e.touches.length !== 1 || !atTop() || inOverlayOrScroller(e.target)) { pulling = false; return; }
     startY = e.touches[0].clientY; pulling = true; dist = 0; gatherPage();
   }, { passive: true });
 
