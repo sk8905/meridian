@@ -17,6 +17,25 @@
   --elev-2: 0 2px 6px rgba(11,31,68,.07), 0 14px 32px -10px rgba(11,31,68,.17);
 }
 
+/* ---- Smooth cross-page navigation (multi-page View Transitions). The apps and
+        the Glance home are separate same-origin documents, so moving between
+        them is a real page load that hard-cuts. This makes those navigations
+        crossfade instead. Both the outgoing and incoming page opt in because
+        every page loads this shared stylesheet. Browsers without support (older
+        iOS) simply ignore it and keep the instant load — no fallback needed. ---- */
+@view-transition { navigation: auto; }
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: .26s;
+  animation-timing-function: cubic-bezier(.22, .61, .36, 1);
+}
+/* Hold the persistent bottom tab bar steady across the fade (it's identical on
+   every page bar the active tab), so only the content area crossfades. */
+.mobile-tabbar { view-transition-name: mtabbar; }
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
+}
+
 /* ---- Tabular figures: finance numbers align in columns and never re-flow
         (jitter) as their last digits change on update. ---- */
 .kpi-value, .kpi-aum, .card-aum, .facts dd, .data-table td, .data-table .rank,
