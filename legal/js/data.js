@@ -6575,6 +6575,49 @@ export const items = [
     tags: ["equity capital markets", "capital raise", "listed company", "debt reduction"],
     dateEstimated: false,
   },
+  {
+    url: "https://www.macfarlanes.com/insights/102nbfd/investment-management-update-july-2026/",
+    id: "u677", title: "Investment management update - July 2026",
+    area: "funds", areas: ["funds"], type: "update", firm: "macfarlanes",
+    date: "2026-07-10", jurisdiction: "United Kingdom / EU",
+    summary: "Macfarlanes' July 2026 investment management update covers FCA proposals to permit UCITS and certain NURS funds to hold cryptoasset exchange-traded notes up to 10% of scheme property, simplification of product-level climate (TCFD-style) disclosure requirements, confirmation of new money market fund liquidity resilience requirements pending replacement legislation by end-2026, a narrowed 'high-risk third country' AML definition tied to the FATF call-for-action list, and proposals to narrow the scope of the Consumer Duty for wholesale and non-UK business.",
+    points: [
+      "FCA proposes allowing UCITS/NURS funds to hold cryptoasset ETNs up to 10% of scheme property",
+      "Product-level TCFD-style climate disclosure requirements to be replaced with fewer, targeted requirements",
+      "Money market fund reforms confirm current daily/weekly liquid asset requirements pending replacement legislation by end-2026",
+      "AML 'high-risk third country' definition narrowed to the FATF 'call for action' list only",
+    ],
+    tags: ["investment management", "FCA", "cryptoassets", "climate disclosure", "money market funds", "AML", "Consumer Duty"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.cliffordchance.com/news/news/2026/06/clifford-chance-advises-pollen-street-on-its-acquisition-of-universal-banking.html",
+    id: "u678", title: "Clifford Chance advises Pollen Street on its acquisition of Universal Banking, Finastra's core banking solution division",
+    area: "corporate", areas: ["corporate", "banking"], type: "alert", firm: "cliffordchance",
+    date: "2026-06-22", jurisdiction: "United Kingdom",
+    summary: "Clifford Chance advised Pollen Street Capital on its carve-out acquisition of Universal Banking, the core banking software division of Finastra which serves more than 150 financial institutions worldwide; the Clifford Chance team spanned private equity, financial institutions and technology/digital practices.",
+    points: [
+      "Pollen Street Capital acquires Universal Banking, Finastra's core banking software division, in a carve-out transaction",
+      "Universal Banking serves more than 150 financial institutions worldwide",
+      "Clifford Chance advised Pollen Street across private equity, financial institutions and technology practice groups",
+    ],
+    tags: ["private equity", "banking technology", "carve-out", "financial institutions", "M&A"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.cliffordchance.com/news/news/2026/07/clifford-chance-advises-on-the-investment-in-flannery-plant-hire.html",
+    id: "u679", title: "Clifford Chance advises on the investment in Flannery Plant Hire by DWS",
+    area: "banking", areas: ["banking", "corporate"], type: "alert", firm: "cliffordchance",
+    date: "2026-07-03", jurisdiction: "United Kingdom",
+    summary: "Clifford Chance advised the lending syndicate on the debt financing supporting DWS's investment in Flannery Plant Hire, the UK's largest operated heavy plant-hire company, acquiring an interest from the Flannery family and management, who retain a significant stake with Patrick and Martin Flannery continuing as joint CEOs; the financing supports the company's next phase of growth amid continued UK infrastructure investment in transport, energy and utilities.",
+    points: [
+      "DWS acquires an interest in Flannery Plant Hire, the UK's largest operated heavy plant-hire company",
+      "Flannery family retains a significant stake; Patrick and Martin Flannery continue as joint CEOs",
+      "Clifford Chance advised the lenders on the debt financing (plus hedging and tax workstreams) supporting the investment",
+    ],
+    tags: ["debt financing", "infrastructure", "plant hire", "leveraged finance", "private equity"],
+    dateEstimated: false,
+  },
 ];
 
 // ---- Recent cases published on BAILII -------------------------------------
