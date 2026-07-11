@@ -32,8 +32,11 @@
   font-feature-settings: "tnum" 1;
 }
 
-/* ---- Slightly tighter, more deliberate display type. ---- */
-h1, h2, .brand-text strong { letter-spacing: -.011em; }
+/* ---- Consistent page headlines. The app h1s set no weight (so they fell back
+        to 700), while the Glance home headline is 800 — making them look lighter
+        and inconsistent. Match the home headline exactly (800 / -.01em). ---- */
+h1 { font-weight: 800; letter-spacing: -.01em; }
+h2, .brand-text strong { letter-spacing: -.011em; }
 
 /* ---- Soft, navy-tinted elevation on cards (a designed depth system rather
         than flat 1px borders). ---- */
