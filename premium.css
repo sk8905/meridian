@@ -93,6 +93,12 @@ h2, .brand-text strong { letter-spacing: -.011em; }
   h1 { font-size: 1.2rem; line-height: 1.25; letter-spacing: 0; }
 }
 
+/* ---- The "Sign out" link uses the Meridian home-logo blue (#0ea5e9) at every
+        point in the app — the top-bar account chip on home (.g-user a) and on
+        Credit/Legal/Macro (.account-nav a). The :hover white rules are more
+        specific, so hover still turns white. ---- */
+.account-nav a, .g-user a { color: #0ea5e9; }
+
 /* ---- Respect the system reduced-motion preference. ---- */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
