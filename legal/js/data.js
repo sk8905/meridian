@@ -6775,6 +6775,34 @@ export const items = [
     tags: ["private equity", "growth investment", "Iberia"],
     dateEstimated: false,
   },
+  {
+    url: "https://www.lw.com/en/insights/english-restructuring-plans-for-us-debtors",
+    id: "u690", title: "English Restructuring Plans for US Debtors",
+    area: "ri", areas: ["ri", "banking"], type: "knowhow", firm: "latham",
+    date: "2026-07-07", jurisdiction: "United Kingdom / United States",
+    summary: "Latham & Watkins examines how US debtor groups can use an English Part 26A restructuring plan as a flexible alternative to Chapter 11, covering how to establish English jurisdiction, Chapter 15 recognition of RP features unavailable under Chapter 11 (such as cross-class cram down), the 'good' versus improper forum-shopping line drawn around COMI manipulation, and practical limitations including the absence of an automatic stay, unavailable DIP financing and the inability to reject executory contracts.",
+    points: [
+      "Sets out how US debtor groups establish English jurisdiction for a Part 26A plan, including new English subsidiaries or English-law debt conversion",
+      "Chapter 15 US courts can recognise English RP features unavailable under Chapter 11, including cram down of dissenting creditors",
+      "Flags practical limitations versus Chapter 11: no automatic stay, no DIP financing regime, no power to reject executory contracts",
+    ],
+    tags: ["restructuring plan", "Part 26A", "Chapter 15", "cross-border insolvency", "US debtors"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.simmons-simmons.com/en/about-us/news/advising-pjt-and-jefferies-on-genel-s-271m-offer-for-capricorn",
+    id: "u691", title: "Advising PJT and Jefferies on Genel's £271m offer for Capricorn",
+    area: "corporate", areas: ["corporate"], type: "alert", firm: "simmons",
+    date: "2026-07-02", jurisdiction: "United Kingdom",
+    summary: "Simmons & Simmons advised financial advisers PJT Partners and Jefferies on Genel Energy's recommended all-cash acquisition of Capricorn Energy plc for £271m (US$360m), a UK public takeover that combines Genel's Kurdistan Region of Iraq assets with Capricorn's Western Desert portfolio in Egypt to create a larger, MENA-focused energy company; Capricorn shareholders are to receive US$4.74 per share, comprising US$3.75 in cash plus a US$0.99 special dividend.",
+    points: [
+      "Genel Energy's recommended £271m (US$360m) all-cash offer for Capricorn Energy plc",
+      "Combines Genel's Kurdistan assets with Capricorn's Egyptian Western Desert portfolio",
+      "Simmons & Simmons advised financial advisers PJT Partners and Jefferies on UK Listing Rules / public M&A aspects",
+    ],
+    tags: ["public M&A", "UK Listing Rules", "oil and gas", "takeover"],
+    dateEstimated: false,
+  },
 ];
 
 // ---- Recent cases published on BAILII -------------------------------------

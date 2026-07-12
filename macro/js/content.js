@@ -13,7 +13,7 @@ export const UPDATED = "12 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-12",
-  lastCheckedTime: "17:20 BST",
+  lastCheckedTime: "21:12 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -129,6 +129,7 @@ export const BUBBLE = {
     "Markets are also shrugging off a genuine supply shock: daily vessel crossings of the Strait of Hormuz collapsed from ~130 to just 5 by 8 July 2026 as US-Iran fighting resumed, per Lloyd's List Intelligence data reported 10 July — yet the Nasdaq and S&P 500 rebounded on 9 July on chip-sector strength (Micron +4.5%, SanDisk +7.6%) even as the disruption continued, a complacency gap consistent with a narrow, AI-driven bubble read.",
     "The AI-IPO frenzy hit a new landmark on 10 July 2026 when SK Hynix raised <strong>$26.5bn</strong> in its Nasdaq ADR debut — the largest-ever US listing by a foreign company, priced at $149 and trading up ~14% on debut on demand reportedly more than seven times the shares on offer — underscoring how much speculative capital is still chasing AI-memory and chip exposure even as the Hormuz disruption continues.",
     "The energy shock widened further over the weekend: gasoline, diesel and jet-fuel prices rebounded even as crude itself eased toward the mid-$70s, a divergence that keeps a retail-inflation impulse alive ahead of the 14 July US CPI print. Separately, Ukraine said on 12 July it struck Russia's Syzran refinery (up to ~30% of its primary processing capacity) and vessels in the Sea of Azov — a second, distinct energy-infrastructure escalation alongside the Iran/Hormuz shock — yet US equities have shown no sign of pricing in a broader risk premium, consistent with a narrow, AI-led bubble read that is largely ignoring supply-side energy risk.",
+    "The Hormuz shock escalated sharply on 12 July: the US struck Iran for a third time in a week, Tehran fired on a vessel and declared the Strait closed 'until the end of the American intervention in the region', and Iran retaliated with strikes against US-allied Gulf states including Qatar and the UAE, though Washington maintains traffic through the waterway is still flowing. With markets shut over the weekend the equity reaction is untested, but the episode raises the stakes for Monday's open and for the 14 July CPI print — and, if futures hold last week's pattern of shrugging off Middle-East escalation, would be a further data point for a narrow, complacent AI-led rally.",
   ],
   dimensions: [
     {
@@ -172,6 +173,7 @@ export const BUBBLE = {
     ["TechCrunch — SK Hynix raises $26.5bn in the biggest foreign IPO in US history, 10 Jul 2026", "https://techcrunch.com/2026/07/10/sk-hynix-raises-26-5b-in-the-biggest-foreign-ipo-in-us-history-is-urged-to-build-new-us-fabs/"],
     ["Bloomberg — Fuel prices are slamming consumers even as crude crisis fades, 11 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-11/fuel-prices-are-slamming-consumers-even-as-crude-crisis-fades"],
     ["Bloomberg — Ukraine says it hit Russia's Syzran refinery, Azov Sea tankers, 12 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-12/ukraine-says-it-hit-russia-s-syzran-refinery-azov-sea-tankers"],
+    ["Bloomberg — US, Iran trade wave of attacks as Tehran says Hormuz closed, 12 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-12/us-iran-trade-wave-of-attacks-as-tehran-says-hormuz-closed"],
   ],
 };
 
@@ -179,6 +181,7 @@ export const BUBBLE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-hormuz-closed-2026-07-12", kind: "Markets", title: "Tehran declared the Strait of Hormuz closed and fired on a vessel on 12 July after the US struck Iran for a third time in a week; Iran retaliated against Gulf states including Qatar and the UAE, though Washington says traffic is still flowing — a sharp escalation beyond the shipping slowdown already flagged.", href: "#/bubble", date: "2026-07-12" },
   { id: "g-ukraine-refinery-2026-07-12", kind: "Markets", title: "Ukraine struck Russia's Syzran refinery (up to ~30% of capacity) and vessels in the Sea of Azov on 12 July — a second, distinct energy-infrastructure escalation alongside the Iran/Hormuz shock; equities have shown no sign of pricing in a broader risk premium.", href: "#/bubble", date: "2026-07-12" },
   { id: "g-fed-testimony-2026-07-10", kind: "Rate guidance", title: "Fed's semiannual Monetary Policy Report (10 Jul) pledged to 'deliver price stability'; Chair Warsh gives his debut Humphrey-Hawkins testimony to Congress 14–15 July, the next catalyst before the 29 July FOMC decision.", href: "#/policy", date: "2026-07-10" },
   { id: "g-uk-politics-2026-07-09", kind: "Markets", title: "Andy Burnham secured 322 of 403 Labour MPs' backing on the first day of nominations and is on course to become UK prime minister on 20 July, with allies signalling plans to expand No.10's economic oversight.", href: "#/cycle", date: "2026-07-09" },
@@ -215,14 +218,14 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-07-12",
   us: [
+    { title: "US, Iran Trade Wave of Attacks as Tehran Says Hormuz Closed", source: "Bloomberg", date: "2026-07-12", url: "https://www.bloomberg.com/news/articles/2026-07-12/us-iran-trade-wave-of-attacks-as-tehran-says-hormuz-closed" },
     { title: "Warsh and US Inflation Will Set Tone for July Fed Decision", source: "Bloomberg", date: "2026-07-11", url: "https://www.bloomberg.com/news/articles/2026-07-11/warsh-and-us-inflation-will-set-tone-for-july-fed-decision" },
-    { title: "Fuel Prices Are Slamming Consumers Even as Crude Crisis Fades", source: "Bloomberg", date: "2026-07-11", url: "https://www.bloomberg.com/news/articles/2026-07-11/fuel-prices-are-slamming-consumers-even-as-crude-crisis-fades" },
-    { title: "As bank earnings approach, a market anomaly emerges", source: "CNBC", date: "2026-07-10", url: "https://www.cnbc.com/2026/07/10/as-bank-earnings-approach-a-market-anomaly-emerges.html" },
+    { title: "Stock market next week: Outlook for July 13-17, 2026", source: "CNBC", date: "2026-07-10", url: "https://www.cnbc.com/2026/07/10/stock-market-next-week-outlook-for-july-13-17-2026.html" },
   ],
   uk: [
-    { title: "The Number That Could Move The Pound: UK GDP Preview", source: "ExchangeRates.org.uk", date: "2026-07-10", url: "https://www.exchangerates.org.uk/news/46462/2026-07-10-the-number-that-could-move-the-pound-uk-gdp-preview.html" },
+    { title: "Pound Sterling: UK Economy Defies Higher Oil Prices, Says Pantheon", source: "ExchangeRates.org.uk", date: "2026-07-12", url: "https://www.exchangerates.org.uk/news/46480/2026-07-12-pound-sterling-uk-economy-defies-higher-oil-prices-says-pantheon.html" },
     { title: "Burnham's Grip on No. 10 Is Firm But His Plans Are Not", source: "Bloomberg", date: "2026-07-11", url: "https://www.bloomberg.com/news/articles/2026-07-11/burnham-s-grip-on-no-10-is-firm-but-his-plans-are-not" },
-    { title: "UK jobs market downturn eases as pay pressure picks up, survey shows", source: "Reuters", date: "2026-07-07", url: "https://www.investing.com/news/economic-indicators/uk-jobs-market-downturn-eases-as-pay-pressure-pick-up-survey-shows-4780541" },
+    { title: "Bank of England's Pill says interest rates will need to rise", source: "Reuters", date: "2026-07-09", url: "https://www.aol.com/articles/bank-englands-pill-says-interest-185809000.html" },
   ],
 };
 
@@ -236,6 +239,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-12",
   items: [
+    { title: "US, Iran Trade Wave of Attacks as Tehran Says Hormuz Closed", source: "Bloomberg", date: "2026-07-12", url: "https://www.bloomberg.com/news/articles/2026-07-12/us-iran-trade-wave-of-attacks-as-tehran-says-hormuz-closed", blurb: "The US struck Iran for a third time in a week, prompting Tehran to fire on a vessel and declare the Strait of Hormuz closed, while retaliating against US-allied Gulf states including Qatar and the UAE — a sharp escalation beyond the shipping slowdown already covered, though Washington maintains traffic is flowing." },
+    { title: "Pound Sterling: UK Economy Defies Higher Oil Prices, Says Pantheon", source: "ExchangeRates.org.uk", date: "2026-07-12", url: "https://www.exchangerates.org.uk/news/46480/2026-07-12-pound-sterling-uk-economy-defies-higher-oil-prices-says-pantheon.html", blurb: "Pantheon Macroeconomics says the UK economy is showing surprising resilience to the renewed Middle East oil shock, but still expects it to raise the risk of further BoE tightening even as a prolonged hold stays the base case." },
     { title: "Ukraine says it hit Russia's Syzran refinery, Azov Sea tankers", source: "Bloomberg", date: "2026-07-12", url: "https://www.bloomberg.com/news/articles/2026-07-12/ukraine-says-it-hit-russia-s-syzran-refinery-azov-sea-tankers", blurb: "Kyiv's drones hit a major Rosneft refinery (up to ~30% of its primary processing capacity) and dozens of tankers/vessels in the Sea of Azov overnight, a fresh Ukraine-war energy-infrastructure escalation distinct from the Iran/Hormuz shock already covered." },
     { title: "Warsh and US Inflation Will Set Tone for July Fed Decision", source: "Bloomberg", date: "2026-07-11", url: "https://www.bloomberg.com/news/articles/2026-07-11/warsh-and-us-inflation-will-set-tone-for-july-fed-decision", blurb: "Ahead of his 14–15 July testimony, markets are watching whether Warsh's inflation rhetoric and June CPI combine to firm up hike odds for the 29 July FOMC." },
     { title: "Fuel Prices Are Slamming Consumers Even as Crude Crisis Fades", source: "Bloomberg", date: "2026-07-11", url: "https://www.bloomberg.com/news/articles/2026-07-11/fuel-prices-are-slamming-consumers-even-as-crude-crisis-fades", blurb: "Gasoline, diesel and jet fuel prices are rebounding even as crude eases, a rare divergence swelling costs for peak-season travelers and keeping a retail-inflation impulse alive despite softer crude." },
@@ -273,8 +278,6 @@ export const ARTICLES = {
     { title: "The world economy faces a new oil shock at the worst possible time", source: "The Economist", date: "2026-07-09", url: "https://www.economist.com/finance-and-economics/2026/07/09/the-world-economy-faces-a-new-oil-shock", blurb: "With inflation still above target and fiscal buffers thin, a renewed Middle East supply scare leaves policymakers with few good options." },
     { title: "Fed minutes reveal split as 'a few' officials saw case for a June hike", source: "Reuters", date: "2026-07-08", url: "https://www.reuters.com/markets/us/fed-minutes-june-2026-officials-split-hike-2026-07-08/", blurb: "The record of the June meeting showed broad-based price pressures and a growing hawkish minority, sending September-hike odds toward 70%." },
     { title: "Emerging markets feel the squeeze as strong dollar and high rates bite", source: "Bloomberg", date: "2026-07-08", url: "https://www.bloomberg.com/news/articles/2026-07-08/emerging-markets-squeezed-by-strong-dollar-high-rates", blurb: "Currencies from the rand to the rupiah slid as a resurgent dollar and rising US yields tightened financial conditions across the developing world." },
-    { title: "Chip stocks tumble as Samsung's record profit fails to impress", source: "The Wall Street Journal", date: "2026-07-07", url: "https://www.wsj.com/tech/chip-stocks-samsung-record-profit-2026", blurb: "A record ~$58bn operating profit still missed lofty AI expectations, dragging the Nasdaq lower and exposing how narrow the market's leadership has become." },
-    { title: "Rebalancing Growth: China Economic Update", source: "World Bank", date: "2026-07-07", url: "https://www.worldbank.org/en/news/press-release/2026/07/07/rebalancing-growth-china-economic-update", blurb: "The Bank projects China growth slowing to 4.4% in 2026 and 4.3% in 2027 as the property-sector adjustment continues to weigh on domestic demand." },
     { title: "Britain Needs £100 Billion a Year to Stabilize Public Debt, OBR Watchdog Says", source: "Bloomberg", date: "2026-07-07", url: "https://www.bloomberg.com/news/articles/2026-07-07/britain-needs-100-billion-a-year-to-stabilize-public-debt-obr-watchdog-says", blurb: "The OBR's annual fiscal risk assessment lands just as Andy Burnham prepares to take over as prime minister, framing the scale of tax rises or spending cuts needed to stabilise UK public debt." },
   ],
 };
