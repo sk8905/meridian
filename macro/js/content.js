@@ -5,7 +5,7 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "11 July 2026";
+export const UPDATED = "12 July 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
@@ -13,7 +13,7 @@ export const UPDATED = "11 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-12",
-  lastCheckedTime: "05:28 BST",
+  lastCheckedTime: "12:41 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -72,8 +72,8 @@ export const COMMENTARY = {
   ],
   uk: [
     { title: "Hedge Fund Gilt Risks Are Best Managed in Markets", source: "Bloomberg Opinion", author: "Aaron Brown", date: "2026-07-09", url: "https://www.bloomberg.com/opinion/articles/2026-07-09/hedge-fund-gilt-risks-are-best-managed-in-markets" },
+    { title: "Our latest views on the major central banks", source: "ING THINK", author: "ING — James Knightley, Carsten Brzeski, James Smith", date: "2026-07-09", url: "https://think.ing.com/articles/our-latest-views-on-the-major-central-banks-july-2026" },
     { title: "British Pound: Inflation Fears Ease, But BoE Stays Cautious", source: "exchangerates.org.uk", author: "Pantheon Macroeconomics", date: "2026-07-08", url: "https://www.exchangerates.org.uk/news/46435/2026-07-08-british-pound-inflation-fears-ease-but-boe-stays-cautious.html" },
-    { title: "BoE forecast to hold rates 'well into 2027' as inflation tops 4%", source: "Financial Reporter", author: "Oxford Economics — Edward Allenby", date: "2026-06-30", url: "https://www.financialreporter.co.uk/bank-of-england-forecast-to-hold-interest-rates-well-into-2027-as-inflation-tops-4.html" },
   ],
 };
 
@@ -128,6 +128,7 @@ export const BUBBLE = {
     "That concentration risk was on display on 7 July 2026, when a chip-stock selloff hit global markets after Samsung's record Q2 profit (~$58bn operating profit, ~19x YoY) still missed elevated AI expectations, compounded by reports DeepSeek is developing its own AI chip: the Nasdaq fell 1.2%, Intel/Applied Materials/AMD each dropped 8-10%, and Korea's KOSPI fell ~4.9% — even as the S&P 500 and Dow held near record highs and the VIX stayed inside its recent range, underscoring how narrow the market's AI-led leadership is.",
     "Markets are also shrugging off a genuine supply shock: daily vessel crossings of the Strait of Hormuz collapsed from ~130 to just 5 by 8 July 2026 as US-Iran fighting resumed, per Lloyd's List Intelligence data reported 10 July — yet the Nasdaq and S&P 500 rebounded on 9 July on chip-sector strength (Micron +4.5%, SanDisk +7.6%) even as the disruption continued, a complacency gap consistent with a narrow, AI-driven bubble read.",
     "The AI-IPO frenzy hit a new landmark on 10 July 2026 when SK Hynix raised <strong>$26.5bn</strong> in its Nasdaq ADR debut — the largest-ever US listing by a foreign company, priced at $149 and trading up ~14% on debut on demand reportedly more than seven times the shares on offer — underscoring how much speculative capital is still chasing AI-memory and chip exposure even as the Hormuz disruption continues.",
+    "The energy shock widened further over the weekend: gasoline, diesel and jet-fuel prices rebounded even as crude itself eased toward the mid-$70s, a divergence that keeps a retail-inflation impulse alive ahead of the 14 July US CPI print. Separately, Ukraine said on 12 July it struck Russia's Syzran refinery (up to ~30% of its primary processing capacity) and vessels in the Sea of Azov — a second, distinct energy-infrastructure escalation alongside the Iran/Hormuz shock — yet US equities have shown no sign of pricing in a broader risk premium, consistent with a narrow, AI-led bubble read that is largely ignoring supply-side energy risk.",
   ],
   dimensions: [
     {
@@ -169,6 +170,8 @@ export const BUBBLE = {
     ["Bloomberg — chip weakness resumes after Samsung misses lofty AI expectations, 7 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-07/tech-weakness-resumes-after-samsung-misses-lofty-ai-expectations"],
     ["Al Jazeera — Strait of Hormuz shipping grinds to halt as US, Iran resume fighting, 10 Jul 2026", "https://www.aljazeera.com/economy/2026/7/10/strait-of-hormuz-shipping-grinds-to-halt-as-us-iran-resume-fighting"],
     ["TechCrunch — SK Hynix raises $26.5bn in the biggest foreign IPO in US history, 10 Jul 2026", "https://techcrunch.com/2026/07/10/sk-hynix-raises-26-5b-in-the-biggest-foreign-ipo-in-us-history-is-urged-to-build-new-us-fabs/"],
+    ["Bloomberg — Fuel prices are slamming consumers even as crude crisis fades, 11 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-11/fuel-prices-are-slamming-consumers-even-as-crude-crisis-fades"],
+    ["Bloomberg — Ukraine says it hit Russia's Syzran refinery, Azov Sea tankers, 12 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-12/ukraine-says-it-hit-russia-s-syzran-refinery-azov-sea-tankers"],
   ],
 };
 
@@ -176,6 +179,7 @@ export const BUBBLE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-ukraine-refinery-2026-07-12", kind: "Markets", title: "Ukraine struck Russia's Syzran refinery (up to ~30% of capacity) and vessels in the Sea of Azov on 12 July — a second, distinct energy-infrastructure escalation alongside the Iran/Hormuz shock; equities have shown no sign of pricing in a broader risk premium.", href: "#/bubble", date: "2026-07-12" },
   { id: "g-fed-testimony-2026-07-10", kind: "Rate guidance", title: "Fed's semiannual Monetary Policy Report (10 Jul) pledged to 'deliver price stability'; Chair Warsh gives his debut Humphrey-Hawkins testimony to Congress 14–15 July, the next catalyst before the 29 July FOMC decision.", href: "#/policy", date: "2026-07-10" },
   { id: "g-uk-politics-2026-07-09", kind: "Markets", title: "Andy Burnham secured 322 of 403 Labour MPs' backing on the first day of nominations and is on course to become UK prime minister on 20 July, with allies signalling plans to expand No.10's economic oversight.", href: "#/cycle", date: "2026-07-09" },
   { id: "g-hormuz-2026-07-10", kind: "Markets", title: "Strait of Hormuz shipping volumes collapsed (~130/day to 5) as US-Iran fighting resumed; equities rebounded regardless, underscoring narrow AI-led market leadership.", href: "#/bubble", date: "2026-07-10" },
@@ -211,14 +215,14 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-07-12",
   us: [
-    { title: "Traders Hedge for FX Volatility Return as Fed Uncertainty Builds", source: "Bloomberg", date: "2026-07-10", url: "https://www.bloomberg.com/news/articles/2026-07-10/traders-hedge-for-fx-volatility-return-as-fed-uncertainty-builds" },
-    { title: "Here's What Fed Chair Warsh Will (And Won't) Tell Congress Next Week", source: "Yahoo Finance", date: "2026-07-10", url: "https://finance.yahoo.com/economy/policy/articles/fed-chair-warsh-won-t-200154072.html" },
-    { title: "World oil demand set for first annual decline since 2020, IEA says", source: "CNBC", date: "2026-07-10", url: "https://www.cnbc.com/2026/07/10/iea-world-oil-demand-declines-iran-war.html" },
+    { title: "Warsh and US Inflation Will Set Tone for July Fed Decision", source: "Bloomberg", date: "2026-07-11", url: "https://www.bloomberg.com/news/articles/2026-07-11/warsh-and-us-inflation-will-set-tone-for-july-fed-decision" },
+    { title: "Fuel Prices Are Slamming Consumers Even as Crude Crisis Fades", source: "Bloomberg", date: "2026-07-11", url: "https://www.bloomberg.com/news/articles/2026-07-11/fuel-prices-are-slamming-consumers-even-as-crude-crisis-fades" },
+    { title: "As bank earnings approach, a market anomaly emerges", source: "CNBC", date: "2026-07-10", url: "https://www.cnbc.com/2026/07/10/as-bank-earnings-approach-a-market-anomaly-emerges.html" },
   ],
   uk: [
+    { title: "The Number That Could Move The Pound: UK GDP Preview", source: "ExchangeRates.org.uk", date: "2026-07-10", url: "https://www.exchangerates.org.uk/news/46462/2026-07-10-the-number-that-could-move-the-pound-uk-gdp-preview.html" },
     { title: "Burnham's Grip on No. 10 Is Firm But His Plans Are Not", source: "Bloomberg", date: "2026-07-11", url: "https://www.bloomberg.com/news/articles/2026-07-11/burnham-s-grip-on-no-10-is-firm-but-his-plans-are-not" },
-    { title: "British Pound-to-Euro Forecast: GBP Hits Fourth Straight One-Year High", source: "ExchangeRates.org.uk", date: "2026-07-10", url: "https://www.exchangerates.org.uk/news/46451/2026-07-10-british-pound-to-euro-forecast-gbp-hits-fourth-straight-one-year-high.html" },
-    { title: "Bank of England's Pill says interest rates will need to rise", source: "Reuters", date: "2026-07-09", url: "https://www.aol.com/articles/bank-englands-pill-says-interest-185809000.html" },
+    { title: "UK jobs market downturn eases as pay pressure picks up, survey shows", source: "Reuters", date: "2026-07-07", url: "https://www.investing.com/news/economic-indicators/uk-jobs-market-downturn-eases-as-pay-pressure-pick-up-survey-shows-4780541" },
   ],
 };
 
@@ -232,6 +236,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-12",
   items: [
+    { title: "Ukraine says it hit Russia's Syzran refinery, Azov Sea tankers", source: "Bloomberg", date: "2026-07-12", url: "https://www.bloomberg.com/news/articles/2026-07-12/ukraine-says-it-hit-russia-s-syzran-refinery-azov-sea-tankers", blurb: "Kyiv's drones hit a major Rosneft refinery (up to ~30% of its primary processing capacity) and dozens of tankers/vessels in the Sea of Azov overnight, a fresh Ukraine-war energy-infrastructure escalation distinct from the Iran/Hormuz shock already covered." },
+    { title: "Warsh and US Inflation Will Set Tone for July Fed Decision", source: "Bloomberg", date: "2026-07-11", url: "https://www.bloomberg.com/news/articles/2026-07-11/warsh-and-us-inflation-will-set-tone-for-july-fed-decision", blurb: "Ahead of his 14–15 July testimony, markets are watching whether Warsh's inflation rhetoric and June CPI combine to firm up hike odds for the 29 July FOMC." },
+    { title: "Fuel Prices Are Slamming Consumers Even as Crude Crisis Fades", source: "Bloomberg", date: "2026-07-11", url: "https://www.bloomberg.com/news/articles/2026-07-11/fuel-prices-are-slamming-consumers-even-as-crude-crisis-fades", blurb: "Gasoline, diesel and jet fuel prices are rebounding even as crude eases, a rare divergence swelling costs for peak-season travelers and keeping a retail-inflation impulse alive despite softer crude." },
     { title: "Burnham's Grip on No. 10 Is Firm But His Plans Are Not", source: "Bloomberg", date: "2026-07-11", url: "https://www.bloomberg.com/news/articles/2026-07-11/burnham-s-grip-on-no-10-is-firm-but-his-plans-are-not", blurb: "Andy Burnham is now certain to become the UK's next prime minister after locking up Labour MPs' backing within a day of nominations opening, but allies say the detail of his economic and government plans remains obscure just over a week before he takes office." },
     { title: "World oil demand set for first annual decline since 2020, IEA says", source: "CNBC", date: "2026-07-10", url: "https://www.cnbc.com/2026/07/10/iea-world-oil-demand-declines-iran-war.html", blurb: "The IEA's July Oil Market Report projects global oil demand will fall by around 1 million barrels a day in 2026 — the first annual contraction since the pandemic — as the Strait of Hormuz disruption skews the hit unevenly across products and regions, before a 2027 rebound." },
     { title: "Here's What Fed Chair Warsh Will (And Won't) Tell Congress Next Week", source: "Yahoo Finance", date: "2026-07-10", url: "https://finance.yahoo.com/economy/policy/articles/fed-chair-warsh-won-t-200154072.html", blurb: "Ahead of his debut semiannual testimony to the House and Senate banking committees, Kevin Warsh is expected to stress data-dependence over forward guidance and defend the Fed's independence, while dodging a direct signal on the 29 July rate decision." },
