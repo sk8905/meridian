@@ -12,8 +12,8 @@ export const UPDATED = "11 July 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-07-11",
-  lastCheckedTime: "21:18 BST",
+  lastChecked: "2026-07-12",
+  lastCheckedTime: "05:28 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -64,11 +64,11 @@ export const OUTLOOK = {
 // and reputable houses, newest first. Rendered as a two-column feed styled like
 // the dashboard's Key macro headlines; the four-times-daily routine keeps it current.
 export const COMMENTARY = {
-  updated: "2026-07-10",
+  updated: "2026-07-12",
   us: [
+    { title: "Federal Reserve Chair Kevin Warsh is right to end forward guidance", source: "The Washington Post", author: "Benn Steil (Council on Foreign Relations)", date: "2026-07-09", url: "https://www.washingtonpost.com/opinions/2026/07/09/federal-reserve-chair-kevin-warsh-is-right-end-forward-guidance/" },
     { title: "Yardeni Says Inflation, Fed Back in Play as Iran Crisis Returns", source: "Bloomberg", author: "Ed Yardeni (Yardeni Research)", date: "2026-07-08", url: "https://www.bloomberg.com/news/articles/2026-07-08/yardeni-says-inflation-fed-back-in-play-as-iran-crisis-returns" },
     { title: "The worst of inflation is behind us — the Fed should stay in wait-and-see mode", source: "CNBC", author: "Mohamed El-Erian", date: "2026-07-07", url: "https://www.cnbc.com/video/2026/07/07/mohamed-el-erian-the-worst-of-inflation-is-behind-us-so-the-fed-should-stay-in-wait-and-see-mode.html" },
-    { title: "Trump's Meddling Threatens Warsh's Fed Leadership", source: "Bloomberg Opinion", author: "Jonathan Levin", date: "2026-07-06", url: "https://www.bloomberg.com/opinion/articles/2026-07-06/trump-s-meddling-threatens-warsh-s-fed-leadership" },
   ],
   uk: [
     { title: "Hedge Fund Gilt Risks Are Best Managed in Markets", source: "Bloomberg Opinion", author: "Aaron Brown", date: "2026-07-09", url: "https://www.bloomberg.com/opinion/articles/2026-07-09/hedge-fund-gilt-risks-are-best-managed-in-markets" },
@@ -209,16 +209,16 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-07-11",
+  updated: "2026-07-12",
   us: [
-    { title: "Fed officials fret over inflation risk, weigh rate hikes", source: "Reuters", date: "2026-07-10", url: "https://finance.yahoo.com/economy/policy/articles/fed-officials-fret-over-inflation-101154060.html" },
-    { title: "Fed's Williams Says AI Is Now His Main Inflation Concern", source: "Fortune", date: "2026-07-09", url: "https://fortune.com/2026/07/09/federal-reserve-john-williams-says-ai-is-now-his-main-inflation-concern/" },
-    { title: "Oil and gasoline prices begin to climb after Trump says ceasefire with Iran is over", source: "NPR", date: "2026-07-09", url: "https://www.npr.org/2026/07/09/nx-s1-5886168/oil-and-gasoline-prices-begin-to-climb-after-trump-says-ceasefire-with-iran-is-over" },
+    { title: "Traders Hedge for FX Volatility Return as Fed Uncertainty Builds", source: "Bloomberg", date: "2026-07-10", url: "https://www.bloomberg.com/news/articles/2026-07-10/traders-hedge-for-fx-volatility-return-as-fed-uncertainty-builds" },
+    { title: "Here's What Fed Chair Warsh Will (And Won't) Tell Congress Next Week", source: "Yahoo Finance", date: "2026-07-10", url: "https://finance.yahoo.com/economy/policy/articles/fed-chair-warsh-won-t-200154072.html" },
+    { title: "World oil demand set for first annual decline since 2020, IEA says", source: "CNBC", date: "2026-07-10", url: "https://www.cnbc.com/2026/07/10/iea-world-oil-demand-declines-iran-war.html" },
   ],
   uk: [
-    { title: "The Number That Could Move The Pound: UK GDP Preview", source: "ExchangeRates.org.uk", date: "2026-07-10", url: "https://www.exchangerates.org.uk/news/46462/2026-07-10-the-number-that-could-move-the-pound-uk-gdp-preview.html" },
+    { title: "Burnham's Grip on No. 10 Is Firm But His Plans Are Not", source: "Bloomberg", date: "2026-07-11", url: "https://www.bloomberg.com/news/articles/2026-07-11/burnham-s-grip-on-no-10-is-firm-but-his-plans-are-not" },
+    { title: "British Pound-to-Euro Forecast: GBP Hits Fourth Straight One-Year High", source: "ExchangeRates.org.uk", date: "2026-07-10", url: "https://www.exchangerates.org.uk/news/46451/2026-07-10-british-pound-to-euro-forecast-gbp-hits-fourth-straight-one-year-high.html" },
     { title: "Bank of England's Pill says interest rates will need to rise", source: "Reuters", date: "2026-07-09", url: "https://www.aol.com/articles/bank-englands-pill-says-interest-185809000.html" },
-    { title: "Burnham Plans to Expand UK Prime Minister's Economic Powers, Ally Says", source: "Bloomberg", date: "2026-07-09", url: "https://www.bloomberg.com/news/articles/2026-07-09/burnham-to-beef-up-uk-premier-s-economic-powers-key-ally-says" },
   ],
 };
 
@@ -230,8 +230,13 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-07-11",
+  updated: "2026-07-12",
   items: [
+    { title: "Burnham's Grip on No. 10 Is Firm But His Plans Are Not", source: "Bloomberg", date: "2026-07-11", url: "https://www.bloomberg.com/news/articles/2026-07-11/burnham-s-grip-on-no-10-is-firm-but-his-plans-are-not", blurb: "Andy Burnham is now certain to become the UK's next prime minister after locking up Labour MPs' backing within a day of nominations opening, but allies say the detail of his economic and government plans remains obscure just over a week before he takes office." },
+    { title: "World oil demand set for first annual decline since 2020, IEA says", source: "CNBC", date: "2026-07-10", url: "https://www.cnbc.com/2026/07/10/iea-world-oil-demand-declines-iran-war.html", blurb: "The IEA's July Oil Market Report projects global oil demand will fall by around 1 million barrels a day in 2026 — the first annual contraction since the pandemic — as the Strait of Hormuz disruption skews the hit unevenly across products and regions, before a 2027 rebound." },
+    { title: "Here's What Fed Chair Warsh Will (And Won't) Tell Congress Next Week", source: "Yahoo Finance", date: "2026-07-10", url: "https://finance.yahoo.com/economy/policy/articles/fed-chair-warsh-won-t-200154072.html", blurb: "Ahead of his debut semiannual testimony to the House and Senate banking committees, Kevin Warsh is expected to stress data-dependence over forward guidance and defend the Fed's independence, while dodging a direct signal on the 29 July rate decision." },
+    { title: "Stock market next week: Outlook for July 13-17, 2026", source: "CNBC", date: "2026-07-10", url: "https://www.cnbc.com/2026/07/10/stock-market-next-week-outlook-for-july-13-17-2026.html", blurb: "Second-quarter earnings season opens with the big banks alongside June CPI and Warsh's first congressional testimony, a packed week that will test whether the market's AI-led rally can withstand a still-uncertain inflation and rate picture." },
+    { title: "British Pound-to-Euro Forecast: GBP Hits Fourth Straight One-Year High", source: "ExchangeRates.org.uk", date: "2026-07-10", url: "https://www.exchangerates.org.uk/news/46451/2026-07-10-british-pound-to-euro-forecast-gbp-hits-fourth-straight-one-year-high.html", blurb: "Sterling struck a fresh one-year high against the euro for a fourth straight session, driven by the unwinding of the political-risk premium priced in during the Labour leadership contest and firming bets on a BoE rate hike later this year." },
     { title: "Fed officials fret over inflation risk, weigh rate hikes", source: "Reuters", date: "2026-07-10", url: "https://finance.yahoo.com/economy/policy/articles/fed-officials-fret-over-inflation-101154060.html", blurb: "The sparse minutes of the June 16-17 FOMC meeting revealed a divided committee under new Chair Warsh: officials are prepared to raise rates further if June and July inflation data run hot, but would hold or cut if price pressures ease, in what one economist called a shift toward explicit scenario-based policymaking." },
     { title: "Latest Oil Market News and Analysis for July 10", source: "Bloomberg", date: "2026-07-10", url: "https://www.bloomberg.com/news/articles/2026-07-09/latest-oil-market-news-and-analysis-for-july-10", blurb: "Oil steadied at the end of a volatile week as US-Iran talks continued despite a flare-up in fighting that cut traffic through the Strait of Hormuz; WTI settled at $71.41 a barrel and Brent at $76.01, both down slightly on the day." },
     { title: "Stock Market Today: Dow, S&P Live Updates for July 10", source: "Bloomberg", date: "2026-07-10", url: "https://www.bloomberg.com/news/articles/2026-07-09/stock-market-today-dow-s-p-live-updates", blurb: "The S&P 500 rose 0.42% to a record 7,575.39 and the Dow gained 0.29%, led by a 4% jump in Nvidia and a 6% surge in Meta Platforms, capping a week in which the index advanced more than 1% despite renewed Middle East tensions." },
@@ -263,11 +268,6 @@ export const ARTICLES = {
     { title: "Emerging markets feel the squeeze as strong dollar and high rates bite", source: "Bloomberg", date: "2026-07-08", url: "https://www.bloomberg.com/news/articles/2026-07-08/emerging-markets-squeezed-by-strong-dollar-high-rates", blurb: "Currencies from the rand to the rupiah slid as a resurgent dollar and rising US yields tightened financial conditions across the developing world." },
     { title: "Chip stocks tumble as Samsung's record profit fails to impress", source: "The Wall Street Journal", date: "2026-07-07", url: "https://www.wsj.com/tech/chip-stocks-samsung-record-profit-2026", blurb: "A record ~$58bn operating profit still missed lofty AI expectations, dragging the Nasdaq lower and exposing how narrow the market's leadership has become." },
     { title: "Rebalancing Growth: China Economic Update", source: "World Bank", date: "2026-07-07", url: "https://www.worldbank.org/en/news/press-release/2026/07/07/rebalancing-growth-china-economic-update", blurb: "The Bank projects China growth slowing to 4.4% in 2026 and 4.3% in 2027 as the property-sector adjustment continues to weigh on domestic demand." },
-    { title: "China's exports beat forecasts but deflation pressures persist", source: "Reuters", date: "2026-07-06", url: "https://www.reuters.com/markets/asia/china-exports-beat-forecasts-deflation-persists-2026-07-06/", blurb: "Resilient shipments masked soft domestic demand and falling factory-gate prices, keeping pressure on Beijing to add stimulus." },
-    { title: "America's fiscal path is unsustainable — and the bond market is starting to notice", source: "The Economist", date: "2026-07-03", url: "https://www.economist.com/leaders/2026/07/03/americas-fiscal-path-is-unsustainable", blurb: "With the deficit near 6% of GDP and net interest at a record, rising term premia are the market's first warning shot." },
-    { title: "UK Firms Expect to Keep Raising Prices Even as Inflation Falls", source: "Bloomberg", date: "2026-07-03", url: "https://www.bloomberg.com/news/articles/2026-07-03/uk-firms-expect-to-keep-raising-prices-even-as-inflation-falls", blurb: "The BoE's Decision Maker Panel shows firms still planning roughly 4% price rises over the coming year, a persistence signal the MPC is watching closely." },
-    { title: "China and US Target Tariff Reductions on Agricultural Products", source: "Bloomberg", date: "2026-07-02", url: "https://www.bloomberg.com/news/articles/2026-07-02/china-and-us-target-tariff-reductions-on-agricultural-products", blurb: "Beijing and Washington agreed in principle to roll back tariffs on select agricultural products as they work to preserve the trade truce reached last year." },
-    { title: "Gilts Are Giving Burnham a Pass for Now, Says Aegon's Lynch", source: "Bloomberg", date: "2026-07-01", url: "https://www.bloomberg.com/news/articles/2026-07-01/gilt-market-is-giving-burnham-a-pass-for-now-says-aegon-s-lynch", blurb: "Aegon's Colin Lynch said gilt investors are for now taking a wait-and-see approach to Burnham's leadership bid, having priced in much of the fiscal risk during the spring's volatility." },
   ],
 };
 

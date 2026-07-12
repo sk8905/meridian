@@ -15,13 +15,13 @@
 // `LAST_REVIEWED` whenever you refresh the data.
 // =============================================================================
 
-export const LAST_REVIEWED = "2026-07-11";
+export const LAST_REVIEWED = "2026-07-12";
 // When the refresh routine last ran (even if nothing new) — shown as "Last refresh".
-export const LAST_CHECKED = "2026-07-11";
+export const LAST_CHECKED = "2026-07-12";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — four runs a day (~05:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "21:18 BST";
+export const LAST_CHECKED_TIME = "05:28 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -6658,6 +6658,81 @@ export const items = [
     tags: ["healthcare real estate", "acquisition finance", "secured lending", "UK hospitals"],
     dateEstimated: false,
   },
+  {
+    url: "https://www.macfarlanes.com/insights/102mkho/eversholt-rail-365-limited-in-liquidation-everything-forever-information/",
+    id: "u682", title: "Eversholt Rail (365) Limited (in liquidation) – \"Everything forever\" information request hits the buffers",
+    area: "ri", areas: ["ri"], type: "case", firm: "macfarlanes",
+    date: "2026-02-26", jurisdiction: "England & Wales",
+    court: "High Court (Ch)", citation: "[2026] EWHC 101 (Ch)",
+    summary: "Sir Anthony Mann dismissed an appeal by the joint liquidators of Eversholt Rail (365) Limited, a documentless special-purpose vehicle whose records were held by sister company Eversholt Rail Limited (ERL) and its solicitors, against a refusal to order production of 'everything forever' relating to the company under sections 235 and 236 of the Insolvency Act 1986. The court held that reconstituting corporate knowledge is a legitimate purpose but does not itself justify unlimited, unparticularised disclosure — officeholders must show a specific 'reasonable requirement' for the material sought.",
+    points: [
+      "Sections 235/236 IA 1986 are not a 'blank cheque' for all corporate documentation held by a third party",
+      "Officeholders must articulate a concrete, targeted justification, not just an intent to reconstitute knowledge",
+      "Courts will not fashion a narrower order of their own motion if only a maximalist request is advanced",
+    ],
+    tags: ["insolvency", "liquidators", "sections 235-236", "Insolvency Act 1986", "disclosure"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://southsquare.com/new-judgment-lyons-v-bridging-finance-inc-2026-ewhc-1388-ch/",
+    id: "u683", title: "New Judgment: Lyons v Bridging Finance Inc",
+    area: "ri", areas: ["ri"], type: "case", firm: "southsquare",
+    date: "2026-06-11", jurisdiction: "England & Wales",
+    court: "High Court (Ch)", citation: "[2026] EWHC 1388 (Ch)",
+    summary: "Mr Justice Rajah dismissed Anthony Lyons' appeal against a bankruptcy order for a CAD$39m debt owed to Bridging Finance Inc under an English-law guarantee, holding that a single but substantial property development, letting and sale in London sufficed to constitute 'carrying on business' in England under section 265 of the Insolvency Act 1986. The court also confirmed, applying the Latreefers three-step test, that it retained a discretion not to make a bankruptcy order against a foreign (Bahamas-resident) debtor even once jurisdiction was established, but exercised that discretion against Lyons.",
+    points: [
+      "An isolated but substantial venture can constitute 'carrying on business' for s.265 IA 1986 jurisdiction",
+      "Foreign residence does not oust jurisdiction, but the court retains a Latreefers discretion",
+      "Guarantee was governed by English law, reinforcing the English forum's jurisdiction",
+    ],
+    tags: ["bankruptcy", "jurisdiction", "section 265", "cross-border insolvency", "guarantee"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://southsquare.com/new-judgment-bcno-limited-v-cooke-2026-ewhc-1263-ch/",
+    id: "u684", title: "New Judgment: BCNO Limited v Cooke",
+    area: "corporate", areas: ["corporate"], type: "case", firm: "southsquare",
+    date: "2026-06-02", jurisdiction: "England & Wales",
+    court: "High Court (Ch)", citation: "[2026] EWHC 1263 (Ch)",
+    summary: "HHJ Paul Matthews dismissed a company's claim for a 'no-access' order under section 117 of the Companies Act 2006 against a critic who had informally emailed requesting the register of members, holding that section 117 confers no jurisdiction where the underlying section 116 request was itself non-compliant — the company had no obligation either to comply with or to challenge a defective request by litigation. The judge also expressed reservations about his own earlier reasoning on section 117 in Sir Henry Royce Memorial Foundation v Hardy.",
+    points: [
+      "Section 117 CA 2006 jurisdiction is contingent on a valid section 116 request",
+      "A company need not issue proceedings to resist a defective members'-register request",
+      "Judge revisited and qualified his own earlier reasoning in Sir Henry Royce Memorial Foundation v Hardy",
+    ],
+    tags: ["Companies Act 2006", "register of members", "section 116", "section 117", "governance"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://southsquare.com/judgment-hand-down-re-equity-for-growth-securities-limited-2026-ewhc-696-ch/",
+    id: "u685", title: "Judgment Hand Down: Re Equity for Growth (Securities) Limited",
+    area: "ri", areas: ["ri", "funds"], type: "case", firm: "southsquare",
+    date: "2026-03-25", jurisdiction: "England & Wales",
+    court: "High Court (Ch)", citation: "[2026] EWHC 696 (Ch)",
+    summary: "ICC Judge Agnello KC wound up Equity for Growth (Securities) Limited on both the insolvency and 'just and equitable' grounds under section 367(3) of FSMA 2000, on a rare contested petition brought by the FCA, after a two-day trial examined the company's balance sheet against c.£2.7m of consumer redress claims (many already assessed by the Financial Ombudsman Service). The judge accepted the FCA's case that the company's combative stance towards redress claims and failure to treat customers fairly independently justified the just-and-equitable ground, with redress now to be administered via the Financial Services Compensation Scheme.",
+    points: [
+      "Rare contested FCA winding-up petition under s.367(3) FSMA 2000",
+      "Just-and-equitable ground made out independently of balance-sheet insolvency",
+      "Redress claims proceed to the Financial Services Compensation Scheme post-winding-up",
+    ],
+    tags: ["FSMA", "winding up", "FCA", "consumer redress", "just and equitable"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://southsquare.com/new-judgment-re-mirror-trading-international-pty-ltd-in-liquidation-2026-ewhc-1286-ch/",
+    id: "u686", title: "New Judgment: Re Mirror Trading International (Pty) Ltd (in liquidation)",
+    area: "ri", areas: ["ri"], type: "case", firm: "southsquare",
+    date: "2026-05-29", jurisdiction: "England & Wales",
+    court: "High Court (Ch)", citation: "[2026] EWHC 1286 (Ch)",
+    summary: "Mr Justice Leech dismissed a strike-out application by a respondent to transaction-avoidance claims brought in England under section 426 of the Insolvency Act 1986 by the South African joint liquidators of Mirror Trading International, one of South Africa's largest cryptocurrency Ponzi schemes. In a 63-page judgment, the court held that whether the claims were time-barred under the South African Prescription Act 1969 raised disputed questions of foreign law and fact unsuitable for summary disposal, and rejected allegations that the liquidators' pursuit of the claims was an abuse of process.",
+    points: [
+      "Section 426 IA 1986 used to pursue South African law transaction-avoidance claims through the English courts",
+      "Foreign-law limitation defences (South African Prescription Act 1969) are generally unsuitable for strike-out",
+      "One of the largest cryptocurrency Ponzi scheme liquidations, with parallel recognition in multiple jurisdictions",
+    ],
+    tags: ["cross-border insolvency", "section 426", "Ponzi scheme", "liquidators", "strike-out"],
+    dateEstimated: false,
+  },
 ];
 
 // ---- Recent cases published on BAILII -------------------------------------
@@ -6861,6 +6936,21 @@ export const cases = [
   { id: "c66", name: "JJH Enterprises Ltd (t/a ValueLicensing) v Microsoft Corporation & Ors", citation: "[2026] EWCA Civ 872", court: "Court of Appeal",
     date: "2026-07-07", area: "ri", url: "https://caselaw.nationalarchives.gov.uk/ewca/civ/2026/872",
     summary: "The Court of Appeal dismissed Microsoft's appeal in a Competition Appeal Tribunal follow-on damages claim over the secondary market for used software licences, holding the CAT has jurisdiction to determine copyright questions arising within a competition claim, that the Software Directive's exhaustion principle extends to non-program works incidental to software, and that bulk licences can lawfully be subdivided and resold." },
+  { id: "c67", name: "Jeremy Robert Webb & Anor v Eversholt Rail Limited & Anor (Re Eversholt Rail (365) Limited)", citation: "[2026] EWHC 101 (Ch)", court: "High Court (Ch)",
+    date: "2026-01-22", area: "ri", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/101",
+    summary: "Sir Anthony Mann dismissed liquidators' appeal seeking 'everything forever' disclosure from a sister company under sections 235-236 of the Insolvency Act 1986, holding that reconstituting corporate knowledge does not by itself justify unlimited, unparticularised document requests." },
+  { id: "c68", name: "Re Equity for Growth (Securities) Limited", citation: "[2026] EWHC 696 (Ch)", court: "High Court (Ch)",
+    date: "2026-03-25", area: "ri", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/696",
+    summary: "ICC Judge Agnello KC wound up a financial-services firm on a rare contested FCA petition, holding that its combative stance to c.£2.7m of consumer redress claims independently satisfied the 'just and equitable' ground under section 367(3) FSMA 2000, alongside insolvency." },
+  { id: "c69", name: "BCNO Limited v Cooke", citation: "[2026] EWHC 1263 (Ch)", court: "High Court (Ch)",
+    date: "2026-06-02", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1263",
+    summary: "HHJ Paul Matthews held that section 117 of the Companies Act 2006 gives a company no jurisdiction to seek a 'no-access' order where the underlying section 116 request for its register of members was itself non-compliant, and queried his own earlier reasoning in Sir Henry Royce Memorial Foundation v Hardy." },
+  { id: "c70", name: "Van Rooyen & Ors v The Respondents Listed in the Schedule of Respondents (Re Mirror Trading International (Pty) Ltd)", citation: "[2026] EWHC 1286 (Ch)", court: "High Court (Ch)",
+    date: "2026-05-29", area: "ri", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1286",
+    summary: "Mr Justice Leech dismissed a strike-out application against South African liquidators' section 426 transaction-avoidance claims arising from the Mirror Trading International cryptocurrency Ponzi scheme, holding that South African limitation defences raised disputed foreign-law questions unsuitable for summary disposal." },
+  { id: "c71", name: "Lyons v Bridging Finance Inc", citation: "[2026] EWHC 1388 (Ch)", court: "High Court (Ch)",
+    date: "2026-06-09", area: "ri", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1388",
+    summary: "Mr Justice Rajah upheld a bankruptcy order against a Bahamas-resident debtor, holding that a single substantial property development and letting in London sufficed to constitute 'carrying on business' in England under section 265 of the Insolvency Act 1986." },
 ];
 
 // ---- Lightweight lookups ----------------------------------------------------
@@ -6939,6 +7029,11 @@ export const caseSummaries = {
   c64: "The claimants sought to lift legal privilege over documents and communications relating to the late Oleg Bourlakov's business interests, invoking the 'iniquity exception' which disapplies privilege where legal advice was sought or given for a fraudulent or otherwise iniquitous purpose. The dispute concerns more than $3bn in disputed business interests and involves complex, multi-jurisdictional corporate structures. The High Court's ruling on the scope of privilege in this asset-tracing context is significant for practitioners advising on fraud and asset-recovery claims involving corporate vehicles, with the substantive trial listed for October 2027.",
   c65: "Tether Investments sought anti-suit relief in the English Commercial Court to restrain a derivative action brought in the BVI courts against Electric Solidus (trading as Swan Bitcoin), relying on a litigation-restriction clause in the parties' shareholders' agreement. The Commercial Court refused the relief, holding that such contractual restrictions on litigation do not extend to bar derivative claims brought on behalf of the company itself, as opposed to direct claims by a shareholder. The decision is relevant to governance and minority-shareholder disputes in crypto and digital-asset joint ventures structured through offshore vehicles.",
   c66: "JJH Enterprises (trading as ValueLicensing) brought a Competition Appeal Tribunal follow-on damages claim against Microsoft over the secondary market for used software licences, alleging Microsoft's contractual and technical restrictions unlawfully blocked resale of bulk licences. Microsoft appealed on jurisdiction and copyright-exhaustion grounds, arguing the CAT could not determine embedded copyright questions and that the Software Directive's exhaustion principle does not cover non-program works such as icons and GUI elements bundled with software, nor the subdivision and resale of bulk licences. The Court of Appeal dismissed the appeal in full, confirming the CAT's jurisdiction over copyright issues arising within a competition claim and rejecting Microsoft's narrow reading of exhaustion, distinguishing the CJEU's UsedSoft ruling on client-server arrangements. The decision is a significant precedent for competition litigators and technology-sector practices tracking the CAT's jurisdictional scope and the limits of contractual restraints on software resale.",
+  c67: "Joint liquidators of Eversholt Rail (365) Limited, an SPV holding railway rolling stock with no employees or documents of its own, sought sweeping disclosure of 'everything forever' relating to the company from sister company Eversholt Rail Limited (which held all the group's records without segregation) and its solicitors, Norton Rose Fulbright, under sections 235 and 236 of the Insolvency Act 1986. ICC Judge Burton had dismissed the application at first instance as too widely framed and unjustified, and Sir Anthony Mann rejected all ten grounds of the liquidators' appeal. The court held that while reconstituting a company's corporate knowledge is a legitimate purpose of sections 235-236, that purpose does not itself establish the 'reasonable requirement' the statute demands — officeholders must identify concrete categories of material and articulate why each is reasonably necessary, rather than requesting unlimited access as a matter of course. The decision confirms that sections 235-236 are not a 'blank cheque' and will be of significant practical importance to insolvency practitioners seeking information from affiliated companies and professional advisers.",
+  c68: "The Financial Conduct Authority brought a rare contested winding-up petition against Equity for Growth (Securities) Limited, a firm facing approximately £2.7m of consumer redress claims, many already assessed by the Financial Ombudsman Service. Following a two-day trial in December 2025 at which the company's director was cross-examined, ICC Judge Agnello KC scrutinised every line of the company's balance sheet and the extent to which redress liabilities could be met from trading income, insurance or other resources. The judge found for the FCA on almost every point, holding the company both balance-sheet insolvent and, independently, that its combative approach to redress claims and failure to treat customers fairly justified winding up on the 'just and equitable' ground under section 367(3) of FSMA 2000. Following the order, the outstanding redress claims will be administered through the Financial Services Compensation Scheme rather than by the company itself.",
+  c69: "BCNO Limited, which operates osteopathic colleges, sought a permanent 'no-access' order under section 117 of the Companies Act 2006 against Mr Cooke, a critic of its decision to close its London campus who had informally emailed requesting a copy of the register of members to lobby against the closure. Mr Cooke's email lacked the address and stated purpose required by section 116(4) CA 2006, and both parties agreed it was not a compliant request, yet the company pressed ahead with litigation seeking to bar him from making this or any future request. HHJ Paul Matthews (sitting as a High Court judge) dismissed the claim on the threshold jurisdictional point, holding that section 117 confers no power to grant relief where the underlying section 116 request was itself invalid — the company had no obligation to comply with, or to litigate against, a request that was not properly made in the first place. The judgment revisits and qualifies the judge's own earlier reasoning on section 117 in Sir Henry Royce Memorial Foundation v Hardy, and stands as a cautionary tale for companies overreacting to informal shareholder-communication requests.",
+  c70: "The South African joint liquidators of Mirror Trading International (Pty) Ltd, one of the largest cryptocurrency Ponzi and pyramid schemes in South African history, brought transaction-avoidance claims in England under section 426 of the Insolvency Act 1986, seeking assistance from the English court in aid of the South African insolvency proceeding. A respondent applied to strike out the claims, arguing they were time-barred under the South African Prescription Act 1969 and that their pursuit was an abuse of process. In a 63-page judgment, Mr Justice Leech dismissed the strike-out application, holding that whether the claims were prescribed raised disputed questions of South African law and fact — including expert evidence on foreign limitation principles — that were unsuitable for summary determination at the pleading stage. The decision allows the liquidators' claims to proceed to a full hearing and illustrates the English courts' continued willingness to provide cross-border assistance to foreign liquidators under section 426, including on complex foreign-law limitation defences.",
+  c71: "Bridging Finance Inc obtained a bankruptcy order against Anthony Lyons, a Bahamas-resident property investor, in respect of a CAD$39m debt (c.£26.6m) arising under an English-law guarantee. Lyons appealed, arguing the English court lacked jurisdiction because he was not 'carrying on business' in England within section 265 of the Insolvency Act 1986, and that even if jurisdiction existed the court should exercise its discretion against making an order against a foreign debtor. Mr Justice Rajah dismissed the appeal, holding that Lyons' development, letting and eventual sale of a substantial property at 100 Hamilton Terrace, London, through agents, was sufficient to constitute 'carrying on business' even though it was a single venture conducted in a personal capacity. Applying the three-step test from Re Latreefers Inc (No 2) and JSC Bank of Moscow v Kekhman, the judge accepted the court retained a discretion not to make an order against a foreign debtor but declined to exercise it in Lyons' favour, upholding the bankruptcy order.",
 };
 
 export const restructurings = [
