@@ -462,6 +462,26 @@ const MARKET_SERIES = [
   { label: "Bitcoin", symbol: "BTC-USD", fred: "CBBTCUSD", href: "https://finance.yahoo.com/quote/BTC-USD" },
 ];
 
+// Extra cross-asset instruments used ONLY to widen the pool the Glance one-liner
+// ticker chips pick their top movers from — so the chips aren't limited to the 8
+// banner tiles above. Fetched lightly (spot only, no futures), best-effort: any
+// that fail to resolve are simply dropped.
+const MOVERS_EXTRA = [
+  { label: "Dow", symbol: "^DJI" },
+  { label: "FTSE 100", symbol: "^FTSE" },
+  { label: "DAX", symbol: "^GDAXI" },
+  { label: "Nikkei", symbol: "^N225" },
+  { label: "Euro Stoxx 50", symbol: "^STOXX50E" },
+  { label: "Silver", symbol: "SI=F" },
+  { label: "Copper", symbol: "HG=F" },
+  { label: "Nat gas", symbol: "NG=F" },
+  { label: "EUR/USD", symbol: "EURUSD=X" },
+  { label: "GBP/USD", symbol: "GBPUSD=X" },
+  { label: "USD/JPY", symbol: "JPY=X" },
+  { label: "Ether", symbol: "ETH-USD" },
+  { label: "VIX", symbol: "^VIX" },
+];
+
 // Latest price/level + daily change + ~1-month daily-close history from Yahoo
 // Finance's public chart API (no key). Symbols like "^GSPC" must be URL-encoded.
 async function yahooQuote(symbol) {
@@ -553,7 +573,7 @@ async function handleMarkets(request, env, ctx) {
     return new Response(JSON.stringify({ nowUTC: new Date().toISOString(), probes, futures }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/markets?v=9", request.url).toString());
+  const cacheKey = new Request(new URL("/api/markets?v=10", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const fromFred = async (id) => {
@@ -577,7 +597,12 @@ async function handleMarkets(request, env, ctx) {
     }
     return { label: s.label, value: r.value, change: r.change, changePct: r.changePct, asOf: r.asOf, history: r.history || [], marketState: r.marketState || null, futuresPct, href: s.href };
   }));
-  const resp = new Response(JSON.stringify({ markets: data }), {
+  // Wider mover pool for the Glance one-liner chips (spot only, best-effort).
+  const moversExtra = (await Promise.all(MOVERS_EXTRA.map(async (s) => {
+    const r = await yahooQuote(s.symbol);
+    return r.value != null ? { label: s.label, value: r.value, changePct: r.changePct, marketState: r.marketState || null } : null;
+  }))).filter(Boolean);
+  const resp = new Response(JSON.stringify({ markets: data, moversExtra }), {
     // Short cache so the live prices stay near-real-time without hammering upstreams.
     headers: { "content-type": "application/json", "cache-control": "public, max-age=60" },
   });

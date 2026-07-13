@@ -447,7 +447,7 @@ function marketTile(x) {
 function initMarkets() {
   const el = document.getElementById("g-markets");
   if (!el) return;
-  fetch("/api/markets?v=8")
+  fetch("/api/markets?v=9")
     .then((r) => (r.ok ? r.json() : Promise.reject()))
     .then((d) => {
       const rows = d.markets || [];
@@ -456,7 +456,9 @@ function initMarkets() {
           '<a class="rate-src" href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer">Source: Yahoo Finance · FRED</a>'
         : '<span class="g-loading">Markets unavailable right now.</span>';
       setGlance("gl-markets", _pulse.markets ? esc(_pulse.markets) : marketsOneLiner(rows));
-      setGlTickers("markets", marketTickers(rows));
+      // Chips pick the top movers from a WIDER pool (the banner 8 + extra global
+      // cross-asset instruments), so they aren't limited to the banner tiles.
+      setGlTickers("markets", marketTickers([...rows, ...((d.moversExtra) || [])]));
     })
     .catch(() => { el.innerHTML = '<span class="g-loading">Markets unavailable right now.</span>'; if (!_pulse.markets) setGlance("gl-markets", "Markets data unavailable right now."); });
 }

@@ -13,8 +13,10 @@
     :root {
       --navy:#0b1f44; --brand:#1c3a5e; --brand-2:#2b4a7c; --accent:#0ea5e9;
       --ink:#131a2b; --muted:#66708a; --line:#e4e7ef; --bg:#f4f6fb; --surface:#fff;
-      /* Platform accents folded into the navy family (distinguishable shades). */
-      --credit:#4a6b93; --legal:#1c3a5e; --macro:#2b4a7c; --macro-ink:#152a45;
+      /* Per-section accents — each visibly distinct so the ◆ (and the section's
+         "Open →" link, tags and hovers) reads at a glance: Macro purple, Credit
+         grey, Legal green. */
+      --credit:#5b6472; --legal:#2f7d55; --macro:#6a4fa3; --macro-ink:#152a45;
       --shadow:0 1px 2px rgba(15,23,42,.06), 0 8px 24px rgba(15,23,42,.06);
     }
     * { box-sizing: border-box; }
@@ -566,7 +568,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-7").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-8").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of
