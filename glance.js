@@ -72,6 +72,7 @@ export function initGlance() {
   initMarkets();
   initRates();
   initPulse();
+  initGlanceTickerToggle();
   const rf = document.getElementById("g-refresh");
   if (rf) rf.textContent = `Last refresh ${fmtRefresh()}`;
   initNotifBell();
@@ -79,6 +80,24 @@ export function initGlance() {
   wirePalette(buildIndex());
   startLiveRefresh();
   import("/ptr.js?v=20260711-6").then((m) => m.initPullToRefresh()).catch(() => {});
+}
+
+// On phones the ticker chips are collapsed behind a chevron at the end of each
+// one-liner; a single delegated handler toggles the block open/closed. On
+// desktop the chips are always visible (CSS) and the chevron is hidden, so this
+// listener never fires there.
+function initGlanceTickerToggle() {
+  const glance = document.getElementById("g-glance");
+  if (!glance) return;
+  glance.addEventListener("click", (e) => {
+    const btn = e.target.closest(".gl-tk-toggle");
+    if (!btn) return;
+    const block = btn.closest(".g-gl-block");
+    if (!block) return;
+    const open = block.classList.toggle("is-open");
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    btn.setAttribute("aria-label", open ? "Hide related tickers" : "Show related tickers");
+  });
 }
 
 // ---- Section jump-links ----------------------------------------------------
@@ -201,6 +220,7 @@ function initRates() {
           '<a class="rate-src" href="https://fred.stlouisfed.org/" target="_blank" rel="noopener noreferrer">Source: FRED · ECB · NY Fed · US Treasury</a>'
         : '<span class="g-loading">Market rates unavailable right now.</span>';
       setGlance("gl-rates", _pulse.rates ? esc(_pulse.rates) : ratesOneLiner(rowsData));
+      setGlTickers("rates", rateTickers(rowsData));
     })
     .catch(() => { el.innerHTML = '<span class="g-loading">Market rates unavailable right now.</span>'; if (!_pulse.rates) setGlance("gl-rates", "Rates data unavailable right now."); });
 }
@@ -349,6 +369,48 @@ function ratesOneLiner(rows) {
 }
 function setGlance(id, html) { const el = document.getElementById(id); if (el) el.innerHTML = html; }
 
+// ---- Per-one-liner ticker chips --------------------------------------------
+// Below each hero narrative we surface up to five up/down chips drawn from the
+// SAME live feed that powers the line — the biggest movers, so the chips read
+// "in line with the context". Desktop shows them inline; phones tuck them behind
+// a chevron toggle (CSS-only; the toggle is wired in initGlance).
+function glTkChip(label, dir, mag) {
+  const arrow = dir === "up" ? "▲" : dir === "down" ? "▼" : "·";
+  return `<span class="gl-tk ${dir}"><span class="gl-tk-l">${esc(label)}</span><span class="gl-tk-c">${arrow} ${esc(mag)}</span></span>`;
+}
+// Markets: rank by the effective move (futures-implied when the market is shut,
+// else the daily %), take the five largest, render as signed % chips.
+function marketTickers(rows) {
+  const scored = (rows || [])
+    .filter((x) => x.value != null)
+    .map((x) => {
+      const move = (!isMarketOpen(x) && x.futuresPct != null) ? +Number(x.futuresPct)
+        : (x.changePct != null ? +Number(x.changePct) : null);
+      return move == null ? null : { label: x.label, move };
+    })
+    .filter(Boolean)
+    .sort((a, b) => Math.abs(b.move) - Math.abs(a.move))
+    .slice(0, 5);
+  return scored.map((s) => glTkChip(s.label, glSign(s.move), `${Math.abs(s.move).toFixed(2)}%`)).join("");
+}
+// Rates & spreads: rank by the move in basis points (both yields and OAS change
+// are decimals of a percentage point, so ×100 → bp), take the five largest.
+function rateTickers(rows) {
+  const scored = (rows || [])
+    .filter((x) => x.value != null && x.change != null)
+    .map((x) => ({ label: x.label, bp: Math.round(x.change * 100) }))
+    .sort((a, b) => Math.abs(b.bp) - Math.abs(a.bp))
+    .slice(0, 5);
+  return scored.map((s) => glTkChip(s.label, glSign(s.bp), `${Math.abs(s.bp)} bp`)).join("");
+}
+// Paint the chip row and reveal the phone toggle only when there are chips.
+function setGlTickers(kind, html) {
+  const box = document.getElementById(`gl-${kind}-tk`);
+  if (box) box.innerHTML = html;
+  const btn = document.querySelector(`.gl-tk-toggle[data-gl="${kind}"]`);
+  if (btn) btn.hidden = !html;
+}
+
 // Thousands+ round to a whole number; smaller prices keep two decimals.
 function fmtPrice(n) {
   n = Number(n);
@@ -394,6 +456,7 @@ function initMarkets() {
           '<a class="rate-src" href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer">Source: Yahoo Finance · FRED</a>'
         : '<span class="g-loading">Markets unavailable right now.</span>';
       setGlance("gl-markets", _pulse.markets ? esc(_pulse.markets) : marketsOneLiner(rows));
+      setGlTickers("markets", marketTickers(rows));
     })
     .catch(() => { el.innerHTML = '<span class="g-loading">Markets unavailable right now.</span>'; if (!_pulse.markets) setGlance("gl-markets", "Markets data unavailable right now."); });
 }

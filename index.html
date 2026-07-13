@@ -225,6 +225,21 @@
     .g-gl-l { flex:0 0 7.5rem; font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); white-space:nowrap; }
     .g-gl-v { flex:1 1 auto; min-width:0; }
     .g-gl-v .up { color:#0a7d3c; font-weight:600; } .g-gl-v .down { color:#c02626; font-weight:600; }
+    /* Each one-liner carries a row of up to five up/down ticker chips drawn from
+       the same live feed that powers the narrative. On desktop they sit inline
+       under the line (indented to align with the text); on phones they collapse
+       behind a chevron toggle at the end of the line (see the ≤760px block). */
+    .g-gl-block { display:flex; flex-direction:column; gap:.35rem; }
+    .g-gl { position:relative; }
+    .gl-tickers { display:flex; flex-wrap:wrap; gap:.35rem .4rem; padding-left:8.5rem; }
+    .gl-tickers:empty { display:none; }
+    .gl-tk { display:inline-flex; align-items:baseline; gap:.32rem; padding:.1rem .48rem;
+      border:1px solid var(--line); border-radius:999px; background:var(--surface);
+      font-size:.7rem; line-height:1.35; white-space:nowrap; }
+    .gl-tk-l { font-weight:700; color:var(--ink); }
+    .gl-tk-c { font-weight:600; font-variant-numeric:tabular-nums; }
+    .gl-tk.up .gl-tk-c { color:#0a7d3c; } .gl-tk.down .gl-tk-c { color:#c02626; } .gl-tk.flat .gl-tk-c { color:var(--muted); }
+    .gl-tk-toggle { display:none; }
 
     /* ---- Key rates & credit spreads (ported from Credit) ---- */
     .g-rates-head { font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em;
@@ -364,17 +379,28 @@
       .g-glance { padding-left:0; padding-top:1rem; border-left:0; border-top:3px solid var(--line); }
       /* Headings are desktop-only — hide them once the hero stacks. */
       .g-gl-l { display:none; }
+      /* No heading column to clear, so the chips align to the text's left edge. */
+      .gl-tickers { padding-left:0; }
     }
     @media (max-width:760px){
       .g-main { padding:1.1rem 1rem 2.5rem; }
       .g-hello h1 { font-size:1.2rem; letter-spacing:0; line-height:1.25; }
       .g-hello p { font-size:.86rem; }
       /* Smaller, tighter one-liner body on phones (headings unchanged). */
-      .g-gl { font-size:.7rem; line-height:1.35; gap:.5rem; }
+      .g-gl { font-size:.7rem; line-height:1.35; gap:.5rem; padding-right:1.6rem; }
+      /* Phones: chips collapse behind a chevron toggle sitting at the end of the
+         narrative line; tapping it expands the ticker row. */
+      .gl-tickers { display:none; }
+      .g-gl-block.is-open .gl-tickers { display:flex; margin-top:.05rem; }
+      .gl-tk-toggle { display:inline-flex; align-items:center; justify-content:center;
+        position:absolute; right:-.2rem; top:-.05rem; width:1.6rem; height:1.35rem;
+        padding:0; border:0; background:transparent; color:var(--brand-2); cursor:pointer; }
+      .gl-tk-toggle svg { width:.85rem; height:.85rem; transition:transform .2s ease; }
+      .g-gl-block.is-open .gl-tk-toggle svg { transform:rotate(180deg); }
       .cmdk-panel { margin:8vh 12px 0; }
     }
   </style>
-  <link rel="stylesheet" href="/premium.css?v=20260711-18" />
+  <link rel="stylesheet" href="/premium.css?v=20260711-19" />
 </head>
 <body>
   <!-- Loading -->
@@ -447,8 +473,14 @@
           <h1 id="hello">Your briefing</h1>
         </div>
         <div class="g-glance" id="g-glance" aria-label="At-a-glance market summary">
-          <p class="g-gl"><span class="g-gl-l">Markets</span><span class="g-gl-v" id="gl-markets" aria-label="Markets">Loading…</span></p>
-          <p class="g-gl"><span class="g-gl-l">Rates &amp; spreads</span><span class="g-gl-v" id="gl-rates" aria-label="Rates and spreads">Loading…</span></p>
+          <div class="g-gl-block" data-gl="markets">
+            <p class="g-gl"><span class="g-gl-l">Markets</span><span class="g-gl-v" id="gl-markets" aria-label="Markets">Loading…</span><button class="gl-tk-toggle" type="button" data-gl="markets" aria-controls="gl-markets-tk" aria-expanded="false" aria-label="Show related tickers" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></p>
+            <div class="gl-tickers" id="gl-markets-tk" role="group" aria-label="Key market movers"></div>
+          </div>
+          <div class="g-gl-block" data-gl="rates">
+            <p class="g-gl"><span class="g-gl-l">Rates &amp; spreads</span><span class="g-gl-v" id="gl-rates" aria-label="Rates and spreads">Loading…</span><button class="gl-tk-toggle" type="button" data-gl="rates" aria-controls="gl-rates-tk" aria-expanded="false" aria-label="Show related tickers" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button></p>
+            <div class="gl-tickers" id="gl-rates-tk" role="group" aria-label="Key rate movers"></div>
+          </div>
         </div>
       </div>
 
@@ -535,7 +567,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-6").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-7").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of
