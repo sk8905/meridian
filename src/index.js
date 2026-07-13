@@ -659,7 +659,7 @@ const MACRO_SERIES = [
   { country: "US", key: "base_rate", label: "Base rate", unit: "%", sub: "Fed funds effective rate", src: "fred", id: "FEDFUNDS", tf: "level", href: "https://fred.stlouisfed.org/series/FEDFUNDS", source: "FRED / Federal Reserve" },
   // Live current value from Yahoo's CBOE 2Y US Treasury yield future (2YY=F),
   // spliced onto the FRED DGS2 monthly history (the fallback if Yahoo is down).
-  { country: "US", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y Treasury", src: "fred", id: "DGS2", tf: "level", agg: true, live: { yahoo: "2YY=F" }, href: "https://fred.stlouisfed.org/series/DGS2", source: "FRED / U.S. Treasury" },
+  { country: "US", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y Treasury", src: "fred", id: "DGS2", tf: "level", agg: true, live: [{ yahoo: "2YY=F" }, { stooq: "2usy.b" }], href: "https://fred.stlouisfed.org/series/DGS2", source: "FRED / U.S. Treasury" },
   { country: "US", key: "core_cpi", label: "Core inflation", unit: "%", sub: "Core CPI · YoY", src: "fred", id: "CPILFESL", tf: "yoy", href: "https://fred.stlouisfed.org/series/CPILFESL", source: "FRED / BLS" },
   // DBnomics' ISM mirror lags (~Aug 2025); recent months curated from ISM's own
   // monthly releases keep it current (merged onto the real history).
@@ -676,7 +676,7 @@ const MACRO_SERIES = [
   // blocks the Worker, so the monthly history is curated from the BoE nominal
   // yield curve. The current value is refreshed live from Stooq's keyless
   // bond-yield CSV (2uky.b, the 2Y gilt), spliced onto that history.
-  { country: "UK", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y gilt", src: "curated", live: { stooq: "2uky.b" }, curated: [["2021-07", 0.10], ["2021-08", 0.20], ["2021-09", 0.40], ["2021-10", 0.68], ["2021-11", 0.50], ["2021-12", 0.68], ["2022-01", 0.90], ["2022-02", 1.25], ["2022-03", 1.35], ["2022-04", 1.60], ["2022-05", 1.55], ["2022-06", 1.88], ["2022-07", 1.85], ["2022-08", 3.00], ["2022-09", 4.20], ["2022-10", 3.30], ["2022-11", 3.30], ["2022-12", 3.60], ["2023-01", 3.50], ["2023-02", 3.90], ["2023-03", 3.40], ["2023-04", 3.80], ["2023-05", 4.30], ["2023-06", 5.30], ["2023-07", 5.00], ["2023-08", 5.10], ["2023-09", 4.90], ["2023-10", 4.75], ["2023-11", 4.60], ["2023-12", 4.00], ["2024-01", 4.20], ["2024-02", 4.35], ["2024-03", 4.20], ["2024-04", 4.50], ["2024-05", 4.40], ["2024-06", 4.20], ["2024-07", 3.80], ["2024-08", 3.90], ["2024-09", 3.90], ["2024-10", 4.30], ["2024-11", 4.40], ["2024-12", 4.40], ["2025-01", 4.50], ["2025-02", 4.20], ["2025-03", 4.30], ["2025-04", 3.90], ["2025-05", 4.00], ["2025-06", 3.85], ["2025-07", 3.85], ["2025-08", 3.90], ["2025-09", 4.00], ["2025-10", 3.95], ["2025-11", 4.20], ["2025-12", 4.25], ["2026-01", 4.35], ["2026-02", 4.40], ["2026-03", 4.55], ["2026-04", 4.40], ["2026-05", 4.35], ["2026-06", 4.38], ["2026-07", 4.23]], tf: "level", href: "https://www.bankofengland.co.uk/statistics/yield-curves", source: "Bank of England" },
+  { country: "UK", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y gilt", src: "curated", live: [{ stooq: "2uky.b" }, { stooq: "2ukgby.b" }, { stooq: "2gby.b" }], curated: [["2021-07", 0.10], ["2021-08", 0.20], ["2021-09", 0.40], ["2021-10", 0.68], ["2021-11", 0.50], ["2021-12", 0.68], ["2022-01", 0.90], ["2022-02", 1.25], ["2022-03", 1.35], ["2022-04", 1.60], ["2022-05", 1.55], ["2022-06", 1.88], ["2022-07", 1.85], ["2022-08", 3.00], ["2022-09", 4.20], ["2022-10", 3.30], ["2022-11", 3.30], ["2022-12", 3.60], ["2023-01", 3.50], ["2023-02", 3.90], ["2023-03", 3.40], ["2023-04", 3.80], ["2023-05", 4.30], ["2023-06", 5.30], ["2023-07", 5.00], ["2023-08", 5.10], ["2023-09", 4.90], ["2023-10", 4.75], ["2023-11", 4.60], ["2023-12", 4.00], ["2024-01", 4.20], ["2024-02", 4.35], ["2024-03", 4.20], ["2024-04", 4.50], ["2024-05", 4.40], ["2024-06", 4.20], ["2024-07", 3.80], ["2024-08", 3.90], ["2024-09", 3.90], ["2024-10", 4.30], ["2024-11", 4.40], ["2024-12", 4.40], ["2025-01", 4.50], ["2025-02", 4.20], ["2025-03", 4.30], ["2025-04", 3.90], ["2025-05", 4.00], ["2025-06", 3.85], ["2025-07", 3.85], ["2025-08", 3.90], ["2025-09", 4.00], ["2025-10", 3.95], ["2025-11", 4.20], ["2025-12", 4.25], ["2026-01", 4.35], ["2026-02", 4.40], ["2026-03", 4.55], ["2026-04", 4.40], ["2026-05", 4.35], ["2026-06", 4.38], ["2026-07", 4.23]], tf: "level", href: "https://www.bankofengland.co.uk/statistics/yield-curves", source: "Bank of England" },
   // UK macro: official-source-first — the ONS time-series API returns the
   // headline annual-rate/level directly (CDID/DATASET).
   { country: "UK", key: "core_cpi", label: "Core inflation", unit: "%", sub: "Core CPI · YoY", src: "ons", id: "DKO8/MM23", tf: "level", href: "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/dko8/mm23", source: "ONS" },
@@ -717,18 +717,28 @@ async function macroSeriesPairs(s, env) {
   return out;
 }
 
-// Fetch a live daily yield for a macro tile. Both feeds quote the yield directly
-// (~0–20%), so a value outside that band is treated as a bad parse and dropped
-// (keeps the monthly fallback intact). Returns null on any failure.
-async function liveYieldValue(live) {
+// Raw reading from one live candidate (no clamp) — the yield as the feed quotes
+// it. Used both by the accept path and the ?debug diagnostic.
+async function liveYieldRaw(c) {
   try {
-    let v = null;
-    if (live.yahoo) v = (await yahooQuote(live.yahoo)).value;
-    else if (live.stooq) v = (await stooqQuote(live.stooq)).value;
-    if (v == null) return null;
+    if (c.yahoo) return (await yahooQuote(c.yahoo)).value;
+    if (c.stooq) return (await stooqQuote(c.stooq)).value;
+  } catch { /* fall through */ }
+  return null;
+}
+// Fetch a live daily yield for a macro tile. `live` is an ordered list of
+// candidate sources (Yahoo yield future / Stooq keyless bond-yield CSV); the
+// first that returns a plausible reading wins. Both feeds quote the yield
+// directly (~0–20%), so a value outside that band is treated as a bad parse and
+// skipped, leaving the monthly FRED/curated history as the fallback.
+async function liveYieldValue(live) {
+  for (const c of (Array.isArray(live) ? live : [live])) {
+    let v = await liveYieldRaw(c);
+    if (v == null) continue;
     v = +Number(v).toFixed(2);
-    return (v > 0 && v < 20) ? v : null;
-  } catch { return null; }
+    if (v > 0 && v < 20) return v;
+  }
+  return null;
 }
 
 async function handleMacro(request, env, ctx) {
@@ -738,13 +748,20 @@ async function handleMacro(request, env, ctx) {
     const probes = await Promise.all(MACRO_SERIES.map(async (s) => {
       try {
         const p = await macroSeriesPairs(s, env);
-        return { key: s.country + ":" + s.key, src: s.src, id: s.id, points: p.length, last: p[p.length - 1] || null };
+        const out = { key: s.country + ":" + s.key, src: s.src, id: s.id, points: p.length, last: p[p.length - 1] || null };
+        // For live-spliced series, report each candidate's raw reading + the one
+        // that was accepted, so the correct symbol can be confirmed in prod.
+        if (s.live) {
+          const cands = Array.isArray(s.live) ? s.live : [s.live];
+          out.live = { candidates: await Promise.all(cands.map(async (c) => ({ sym: c.yahoo || c.stooq, via: c.yahoo ? "yahoo" : "stooq", raw: await liveYieldRaw(c) }))), accepted: await liveYieldValue(s.live) };
+        }
+        return out;
       } catch (e) { return { key: s.country + ":" + s.key, src: s.src, id: s.id, error: String((e && e.message) || e) }; }
     }));
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/macro?v=33", request.url).toString());
+  const cacheKey = new Request(new URL("/api/macro?v=34", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const series = await Promise.all(MACRO_SERIES.map(async (s) => {
