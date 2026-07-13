@@ -328,6 +328,20 @@ async function marketwatchBondYield(ticker) {
   return pairs[pairs.length - 1][1];
 }
 
+// Latest yield from CNBC's keyless quote service for a bond symbol (e.g.
+// UK2Y-GB = the UK 2Y gilt). Returns the last price (the yield) or null.
+async function cnbcYield(symbol) {
+  const url = `https://quote.cnbc.com/quote-html-webservice/restQuote/symbolType/symbol?symbols=${encodeURIComponent(symbol)}&requestMethod=itv&noform=1&partnerId=2&fund=1&exthrs=1&output=json&events=1`;
+  const txt = await fetchText(url);
+  if (!txt) return null;
+  try {
+    const j = JSON.parse(txt);
+    const q = j && j.FormattedQuoteResult && j.FormattedQuoteResult.FormattedQuote && j.FormattedQuoteResult.FormattedQuote[0];
+    const v = q ? parseFloat(String(q.last).replace(/[%,]/g, "")) : NaN;
+    return Number.isFinite(v) ? v : null;
+  } catch { return null; }
+}
+
 // Parse a FRED CSV body (DATE,VALUE header) into [date, value] pairs.
 function parseFredCsv(txt) {
   return txt.trim().split(/\r?\n/).slice(1)
@@ -730,7 +744,7 @@ const MACRO_SERIES = [
   // yield curve. The current value is refreshed live from Stooq's keyless
   // current value from MarketWatch's keyless CSV for the Tullett Prebon 2Y gilt
   // benchmark (tmbmkgb-02y), with Stooq as a fallback, spliced onto that history.
-  { country: "UK", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y gilt", src: "curated", live: [{ marketwatch: "tmbmkgb-02y" }, { stooq: "2uky.b" }], curated: [["2021-07", 0.10], ["2021-08", 0.20], ["2021-09", 0.40], ["2021-10", 0.68], ["2021-11", 0.50], ["2021-12", 0.68], ["2022-01", 0.90], ["2022-02", 1.25], ["2022-03", 1.35], ["2022-04", 1.60], ["2022-05", 1.55], ["2022-06", 1.88], ["2022-07", 1.85], ["2022-08", 3.00], ["2022-09", 4.20], ["2022-10", 3.30], ["2022-11", 3.30], ["2022-12", 3.60], ["2023-01", 3.50], ["2023-02", 3.90], ["2023-03", 3.40], ["2023-04", 3.80], ["2023-05", 4.30], ["2023-06", 5.30], ["2023-07", 5.00], ["2023-08", 5.10], ["2023-09", 4.90], ["2023-10", 4.75], ["2023-11", 4.60], ["2023-12", 4.00], ["2024-01", 4.20], ["2024-02", 4.35], ["2024-03", 4.20], ["2024-04", 4.50], ["2024-05", 4.40], ["2024-06", 4.20], ["2024-07", 3.80], ["2024-08", 3.90], ["2024-09", 3.90], ["2024-10", 4.30], ["2024-11", 4.40], ["2024-12", 4.40], ["2025-01", 4.50], ["2025-02", 4.20], ["2025-03", 4.30], ["2025-04", 3.90], ["2025-05", 4.00], ["2025-06", 3.85], ["2025-07", 3.85], ["2025-08", 3.90], ["2025-09", 4.00], ["2025-10", 3.95], ["2025-11", 4.20], ["2025-12", 4.25], ["2026-01", 4.35], ["2026-02", 4.40], ["2026-03", 4.55], ["2026-04", 4.40], ["2026-05", 4.35], ["2026-06", 4.38], ["2026-07", 4.23]], tf: "level", href: "https://www.bankofengland.co.uk/statistics/yield-curves", source: "Bank of England" },
+  { country: "UK", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y gilt", src: "curated", live: [{ cnbc: "UK2Y-GB" }, { marketwatch: "tmbmkgb-02y" }, { stooq: "2uky.b" }], curated: [["2021-07", 0.10], ["2021-08", 0.20], ["2021-09", 0.40], ["2021-10", 0.68], ["2021-11", 0.50], ["2021-12", 0.68], ["2022-01", 0.90], ["2022-02", 1.25], ["2022-03", 1.35], ["2022-04", 1.60], ["2022-05", 1.55], ["2022-06", 1.88], ["2022-07", 1.85], ["2022-08", 3.00], ["2022-09", 4.20], ["2022-10", 3.30], ["2022-11", 3.30], ["2022-12", 3.60], ["2023-01", 3.50], ["2023-02", 3.90], ["2023-03", 3.40], ["2023-04", 3.80], ["2023-05", 4.30], ["2023-06", 5.30], ["2023-07", 5.00], ["2023-08", 5.10], ["2023-09", 4.90], ["2023-10", 4.75], ["2023-11", 4.60], ["2023-12", 4.00], ["2024-01", 4.20], ["2024-02", 4.35], ["2024-03", 4.20], ["2024-04", 4.50], ["2024-05", 4.40], ["2024-06", 4.20], ["2024-07", 3.80], ["2024-08", 3.90], ["2024-09", 3.90], ["2024-10", 4.30], ["2024-11", 4.40], ["2024-12", 4.40], ["2025-01", 4.50], ["2025-02", 4.20], ["2025-03", 4.30], ["2025-04", 3.90], ["2025-05", 4.00], ["2025-06", 3.85], ["2025-07", 3.85], ["2025-08", 3.90], ["2025-09", 4.00], ["2025-10", 3.95], ["2025-11", 4.20], ["2025-12", 4.25], ["2026-01", 4.35], ["2026-02", 4.40], ["2026-03", 4.55], ["2026-04", 4.40], ["2026-05", 4.35], ["2026-06", 4.38], ["2026-07", 4.23]], tf: "level", href: "https://www.bankofengland.co.uk/statistics/yield-curves", source: "Bank of England" },
   // UK macro: official-source-first — the ONS time-series API returns the
   // headline annual-rate/level directly (CDID/DATASET).
   { country: "UK", key: "core_cpi", label: "Core inflation", unit: "%", sub: "Core CPI · YoY", src: "ons", id: "DKO8/MM23", tf: "level", href: "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/dko8/mm23", source: "ONS" },
@@ -778,6 +792,7 @@ async function macroSeriesPairs(s, env) {
 async function liveYieldRaw(c) {
   try {
     if (c.treasury) return (await treasurySeries(c.treasury)).value;
+    if (c.cnbc) return await cnbcYield(c.cnbc);
     if (c.marketwatch) return await marketwatchBondYield(c.marketwatch);
     if (c.yahoo) return (await yahooQuote(c.yahoo)).value;
     if (c.stooq) return (await stooqQuote(c.stooq)).value;
@@ -811,7 +826,7 @@ async function handleMacro(request, env, ctx) {
         // that was accepted, so the correct symbol can be confirmed in prod.
         if (s.live) {
           const cands = Array.isArray(s.live) ? s.live : [s.live];
-          out.live = { candidates: await Promise.all(cands.map(async (c) => ({ sym: c.treasury || c.marketwatch || c.yahoo || c.stooq, via: c.treasury ? "treasury" : c.marketwatch ? "marketwatch" : c.yahoo ? "yahoo" : "stooq", raw: await liveYieldRaw(c) }))), accepted: await liveYieldValue(s.live) };
+          out.live = { candidates: await Promise.all(cands.map(async (c) => ({ sym: c.treasury || c.cnbc || c.marketwatch || c.yahoo || c.stooq, via: c.treasury ? "treasury" : c.cnbc ? "cnbc" : c.marketwatch ? "marketwatch" : c.yahoo ? "yahoo" : "stooq", raw: await liveYieldRaw(c) }))), accepted: await liveYieldValue(s.live) };
         }
         return out;
       } catch (e) { return { key: s.country + ":" + s.key, src: s.src, id: s.id, error: String((e && e.message) || e) }; }
@@ -819,7 +834,7 @@ async function handleMacro(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/macro?v=37", request.url).toString());
+  const cacheKey = new Request(new URL("/api/macro?v=38", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const series = await Promise.all(MACRO_SERIES.map(async (s) => {
@@ -839,7 +854,7 @@ async function handleMacro(request, env, ctx) {
     // confirmed from the normal payload. Remove once the 2Y sources are pinned.
     if (s.live) {
       const cands = Array.isArray(s.live) ? s.live : [s.live];
-      row._live = { candidates: await Promise.all(cands.map(async (c) => ({ sym: c.treasury || c.marketwatch || c.yahoo || c.stooq, via: c.treasury ? "treasury" : c.marketwatch ? "marketwatch" : c.yahoo ? "yahoo" : "stooq", raw: await liveYieldRaw(c) }))), accepted: await liveYieldValue(s.live) };
+      row._live = { candidates: await Promise.all(cands.map(async (c) => ({ sym: c.treasury || c.cnbc || c.marketwatch || c.yahoo || c.stooq, via: c.treasury ? "treasury" : c.cnbc ? "cnbc" : c.marketwatch ? "marketwatch" : c.yahoo ? "yahoo" : "stooq", raw: await liveYieldRaw(c) }))), accepted: await liveYieldValue(s.live) };
     }
     return row;
   }));
