@@ -1079,6 +1079,14 @@ export default {
     if (url.pathname === "/api/notif-legal") return handleNotifSeen(request, env, notifLegalKey);
     if (url.pathname === "/api/chart-prefs") return handleChartPrefs(request, env);
     if (url.pathname === "/api/me") return handleMe(request);
+    // Deploy-freshness probe: the newest Worker returns this JSON; an older
+    // deploy has no such route and falls through to the static site. `build` is
+    // bumped on each deploy so you can confirm the edge is running current code.
+    if (url.pathname === "/api/version") {
+      return new Response(JSON.stringify({ build: "2026-07-13-2Ylive+tickers+10headlines+overflowfix", macroCache: "v36", now: new Date().toISOString() }), {
+        headers: { "content-type": "application/json", "cache-control": "no-store" },
+      });
+    }
     // Sign-in helper: hitting this behind Access triggers the Access login,
     // then bounces the user to `to` (default the landing page).
     if (url.pathname === "/api/login") {
