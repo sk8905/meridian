@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-07-13";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — four runs a day (~05:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "05:24 BST";
+export const LAST_CHECKED_TIME = "12:19 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -6818,6 +6818,21 @@ export const items = [
       "Aligns England with recent Australian and German decisions on the same point",
     ],
     tags: ["state immunity", "arbitration enforcement", "New York Convention"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.macfarlanes.com/insights/102nbb0/corporate-law-update-4-10-july/",
+    id: "u693", title: "Corporate law update: 4 – 10 July",
+    area: "corporate", areas: ["corporate"], type: "update", firm: "macfarlanes",
+    date: "2026-07-10", jurisdiction: "United Kingdom / EU",
+    summary: "Macfarlanes' weekly corporate-law bulletin covering the FCA's monitoring review of significant-transaction disclosures under the UK Listing Rules, an EU move to simplify CSRD sustainability-reporting requirements for smaller companies, HM Treasury's progress update on its corporate-reporting simplification agenda, and proposed changes to the UK modern-slavery reporting regime.",
+    points: [
+      "FCA monitoring review finds some listed companies' significant-transaction risk-factor disclosures too generic under the July 2024 Listing Rules changes",
+      "EU adopts simplified CSRD delegated regulations, easing sustainability-reporting requirements for smaller companies from FY2027",
+      "HM Treasury reaffirms its corporate-reporting simplification agenda in a regulation action-plan progress update",
+      "Immigration and Asylum Bill proposed to overhaul UK modern-slavery statement requirements, including a fixed publication deadline",
+    ],
+    tags: ["corporate governance", "listing rules", "ESG reporting", "modern slavery"],
     dateEstimated: false,
   },
 ];

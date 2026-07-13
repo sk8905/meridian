@@ -5,7 +5,7 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "12 July 2026";
+export const UPDATED = "13 July 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
@@ -13,7 +13,7 @@ export const UPDATED = "12 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-13",
-  lastCheckedTime: "05:24 BST",
+  lastCheckedTime: "12:16 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -39,7 +39,7 @@ export const OUTLOOK = {
       "Markets expect the Bank to <strong>hold at 3.75% for the rest of 2026</strong>. A Reuters poll of 65 economists found most see a year-end hold, but nearly 40% price at least one hike and only six a cut; 2026 forecasts span 3.50–4.25%. The base case for the 30 July meeting is a hold with a hawkish tilt.",
       "The renewed Iran/oil shock of 8 July 2026 pushed the <strong>10-year gilt yield above 4.9%</strong> (highest since 10 June) as traders raised BoE hike-by-year-end odds to <strong>~76%</strong> (>50% for November); Governor Bailey reaffirmed inflation should reach 2% eventually but 'later than previously expected', ruling out imminent cuts. The BoE's July Financial Stability Report also flagged record hedge-fund leverage and noted the gilt move was amplified by hedge-fund deleveraging.",
     ],
-    bottomLine: "Next move a hold on 30 July at 3.75%; the 8 July oil shock has lifted hike-by-year-end odds to ~76%, with hawkish dissents growing and cuts off the table.",
+    bottomLine: "Next move a hold on 30 July at 3.75%; markets now fully price a 25bp hike by year-end (most likely December) as the 10-year gilt yield holds above 4.9% on the renewed oil shock, with hawkish dissents growing and cuts off the table.",
   },
   sources: [
     ["Fed statement, 17 Jun 2026", "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm"],
@@ -56,6 +56,7 @@ export const OUTLOOK = {
     ["Bank of England — Financial Stability Report, Jul 2026", "https://www.bankofengland.co.uk/financial-stability-report/2026/july-2026"],
     ["Bloomberg — Fed vows to deliver price stability in Monetary Policy Report, 10 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-10/fed-vows-to-deliver-price-stability-in-monetary-policy-report"],
     ["CryptoTimes — Warsh to testify before Senate Banking Committee 15 Jul 2026", "https://www.cryptotimes.io/2026/07/09/fed-chair-kevin-warsh-testifies-before-senate-july-15-what-it-means-for-crypto/"],
+    ["TradingView/Trading Economics — UK gilt yields hold above 4.9% on BoE hike bets, 13 Jul 2026", "https://www.tradingview.com/news/te_news:565653:0-uk-gilt-yields-hold-above-4-9-on-boe-hike-bets/"],
   ],
 };
 
@@ -130,6 +131,7 @@ export const BUBBLE = {
     "The AI-IPO frenzy hit a new landmark on 10 July 2026 when SK Hynix raised <strong>$26.5bn</strong> in its Nasdaq ADR debut — the largest-ever US listing by a foreign company, priced at $149 and trading up ~14% on debut on demand reportedly more than seven times the shares on offer — underscoring how much speculative capital is still chasing AI-memory and chip exposure even as the Hormuz disruption continues.",
     "The energy shock widened further over the weekend: gasoline, diesel and jet-fuel prices rebounded even as crude itself eased toward the mid-$70s, a divergence that keeps a retail-inflation impulse alive ahead of the 14 July US CPI print. Separately, Ukraine said on 12 July it struck Russia's Syzran refinery (up to ~30% of its primary processing capacity) and vessels in the Sea of Azov — a second, distinct energy-infrastructure escalation alongside the Iran/Hormuz shock — yet US equities have shown no sign of pricing in a broader risk premium, consistent with a narrow, AI-led bubble read that is largely ignoring supply-side energy risk.",
     "The Hormuz shock escalated sharply on 12 July: the US struck Iran for a third time in a week, Tehran fired on a vessel and declared the Strait closed 'until the end of the American intervention in the region', and Iran retaliated with strikes against US-allied Gulf states including Qatar and the UAE, though Washington maintains traffic through the waterway is still flowing. With markets shut over the weekend the equity reaction is untested, but the episode raises the stakes for Monday's open and for the 14 July CPI print — and, if futures hold last week's pattern of shrugging off Middle-East escalation, would be a further data point for a narrow, complacent AI-led rally.",
+    "That narrow-leadership risk stopped being purely theoretical on 13 July: South Korea's KOSPI triggered a circuit breaker as SK Hynix plunged as much as 14–15% (its worst on record) and Samsung Electronics fell over 10%, just days after SK Hynix's record $26.5bn Nasdaq debut, with the sell-off spreading to European chip suppliers. The same day the US and Iran traded a further round of strikes — Iran hit US-linked sites in Bahrain, Kuwait and Jordan — pushing Brent to a three-week high near $78.82/bbl, while US equities were comparatively muted ahead of Tuesday's CPI print, underscoring how concentrated the market's AI-led gains remain and how little of the geopolitical or chip-sector risk is being priced into the broader index.",
   ],
   dimensions: [
     {
@@ -174,6 +176,9 @@ export const BUBBLE = {
     ["Bloomberg — Fuel prices are slamming consumers even as crude crisis fades, 11 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-11/fuel-prices-are-slamming-consumers-even-as-crude-crisis-fades"],
     ["Bloomberg — Ukraine says it hit Russia's Syzran refinery, Azov Sea tankers, 12 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-12/ukraine-says-it-hit-russia-s-syzran-refinery-azov-sea-tankers"],
     ["Bloomberg — US, Iran trade wave of attacks as Tehran says Hormuz closed, 12 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-12/us-iran-trade-wave-of-attacks-as-tehran-says-hormuz-closed"],
+    ["TradingKey — Kospi plummets to trigger circuit breaker, SK Hynix plunges, Samsung drops, 13 Jul 2026", "https://www.tradingkey.com/analysis/stocks/more/262025472-kospi-samsung-skhynix-ai-adr-skhy-tradingkey"],
+    ["Bloomberg — SK Hynix shares drop in Seoul after much-hyped US trading debut, 13 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-13/sk-hynix-shares-drop-in-seoul-after-much-hyped-us-trading-debut"],
+    ["Al Jazeera — Oil prices jump as US and Iran trade attacks over Strait of Hormuz, 13 Jul 2026", "https://www.aljazeera.com/economy/2026/7/13/oil-prices-jump-as-us-and-iran-trade-attacks-over-strait-of-hormuz"],
   ],
 };
 
@@ -181,6 +186,9 @@ export const BUBBLE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-kospi-2026-07-13", kind: "Bubble risk", title: "South Korea's KOSPI triggered a circuit breaker as SK Hynix fell as much as 14-15% and Samsung Electronics dropped over 10%, days after SK Hynix's $26.5bn Nasdaq debut — a real crack in the narrow, AI-led rally rather than just a valuation ratio.", href: "#/bubble", date: "2026-07-13" },
+  { id: "g-hormuz-widens-2026-07-13", kind: "Markets", title: "The US and Iran traded a further round of strikes on 13 July, with Iran firing on US-linked sites in Bahrain, Kuwait and Jordan — the standoff has widened geographically beyond the Strait of Hormuz itself; Brent crude rose over 4% to a three-week high near $78.82/bbl.", href: "#/bubble", date: "2026-07-13" },
+  { id: "g-boe-hike-odds-2026-07-13", kind: "Rate guidance", title: "UK 10-year gilt yields held above 4.9% as markets moved to fully price a 25bp BoE hike by year-end (most likely December), a firmer call than the prior hawkish-hold framing.", href: "#/policy", date: "2026-07-13" },
   { id: "g-hormuz-closed-2026-07-12", kind: "Markets", title: "Tehran declared the Strait of Hormuz closed and fired on a vessel on 12 July after the US struck Iran for a third time in a week; Iran retaliated against Gulf states including Qatar and the UAE, though Washington says traffic is still flowing — a sharp escalation beyond the shipping slowdown already flagged.", href: "#/bubble", date: "2026-07-12" },
   { id: "g-ukraine-refinery-2026-07-12", kind: "Markets", title: "Ukraine struck Russia's Syzran refinery (up to ~30% of capacity) and vessels in the Sea of Azov on 12 July — a second, distinct energy-infrastructure escalation alongside the Iran/Hormuz shock; equities have shown no sign of pricing in a broader risk premium.", href: "#/bubble", date: "2026-07-12" },
   { id: "g-fed-testimony-2026-07-10", kind: "Rate guidance", title: "Fed's semiannual Monetary Policy Report (10 Jul) pledged to 'deliver price stability'; Chair Warsh gives his debut Humphrey-Hawkins testimony to Congress 14–15 July, the next catalyst before the 29 July FOMC decision.", href: "#/policy", date: "2026-07-10" },
@@ -197,7 +205,7 @@ export const ALERTS = [
 export const SUMMARY = {
   outlook: {
     us: "Fed on hold at 3.50–3.75%; an 8 July oil shock and hawkish FOMC minutes lifted September-hike odds to ~70% — cuts off the table.",
-    uk: "BoE holding at 3.75%; the same oil shock lifted hike-by-year-end odds to ~76%, with hawkish dissents growing.",
+    uk: "BoE holding at 3.75%; markets now fully price a 25bp hike by year-end (most likely December) as gilt yields hold above 4.9%, with hawkish dissents growing.",
   },
   cycle: {
     us: "Late Big Debt Cycle — record debt (~101% GDP) and interest burden. Gauge ~72/100.",
@@ -218,14 +226,14 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-07-13",
   us: [
-    { title: "US, Iran Trade Wave of Attacks as Tehran Says Hormuz Closed", source: "Bloomberg", date: "2026-07-12", url: "https://www.bloomberg.com/news/articles/2026-07-12/us-iran-trade-wave-of-attacks-as-tehran-says-hormuz-closed" },
-    { title: "Warsh and US Inflation Will Set Tone for July Fed Decision", source: "Bloomberg", date: "2026-07-11", url: "https://www.bloomberg.com/news/articles/2026-07-11/warsh-and-us-inflation-will-set-tone-for-july-fed-decision" },
-    { title: "Stock market next week: Outlook for July 13-17, 2026", source: "CNBC", date: "2026-07-10", url: "https://www.cnbc.com/2026/07/10/stock-market-next-week-outlook-for-july-13-17-2026.html" },
+    { title: "U.S. and Iran Exchange Strikes as Strait of Hormuz Standoff Escalates", source: "CNBC", date: "2026-07-13", url: "https://www.cnbc.com/2026/07/13/us-iran-war-hormuz-oil-trump.html" },
+    { title: "Treasury Yields Muted as U.S.-Iran Ceasefire Strained; Investors Await Core Inflation Data", source: "CNBC", date: "2026-07-13", url: "https://www.cnbc.com/2026/07/13/treasury-yields-faltering-us-iran-ceasefire-bond-markets.html" },
+    { title: "SK Hynix Shares Drop in Seoul After Much-Hyped US Trading Debut", source: "Bloomberg", date: "2026-07-13", url: "https://www.bloomberg.com/news/articles/2026-07-13/sk-hynix-shares-drop-in-seoul-after-much-hyped-us-trading-debut" },
   ],
   uk: [
-    { title: "Pound Sterling: UK Economy Defies Higher Oil Prices, Says Pantheon", source: "ExchangeRates.org.uk", date: "2026-07-12", url: "https://www.exchangerates.org.uk/news/46480/2026-07-12-pound-sterling-uk-economy-defies-higher-oil-prices-says-pantheon.html" },
-    { title: "Burnham's Grip on No. 10 Is Firm But His Plans Are Not", source: "Bloomberg", date: "2026-07-11", url: "https://www.bloomberg.com/news/articles/2026-07-11/burnham-s-grip-on-no-10-is-firm-but-his-plans-are-not" },
-    { title: "Bank of England's Pill says interest rates will need to rise", source: "Reuters", date: "2026-07-09", url: "https://www.aol.com/articles/bank-englands-pill-says-interest-185809000.html" },
+    { title: "FTSE 100 Live: Oil Stocks Rise, Tech Stocks Fall After Latest Iran Strikes", source: "Bloomberg", date: "2026-07-13", url: "https://www.bloomberg.com/news/live-blog/2026-07-13/ftse-100-live-updated-iran-trump-oil-prices-pound-gilts-hormuz-uk-data-what-s-moving-uk-markets-right-now-markets-today-mrisu12x" },
+    { title: "FTSE 100 Live: Global Stocks Fall as Oil Prices Hit Three-Week High on Iran Fighting", source: "Proactive Investors", date: "2026-07-13", url: "https://www.proactiveinvestors.com/companies/news/1095311/ftse-100-live-global-stocks-fall-as-oil-prices-hit-three-week-high-on-iran-fighting-1095311.html" },
+    { title: "Burnham Weighs Bigger Budget as Experts Lobby on Economic Policy", source: "Bloomberg", date: "2026-07-12", url: "https://www.bloomberg.com/news/articles/2026-07-12/burnham-weighs-bigger-budget-as-experts-lobby-on-economic-policy" },
   ],
 };
 
@@ -239,6 +247,15 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-13",
   items: [
+    {"title":"US and Iran Exchange Strikes as Strait of Hormuz Standoff Escalates","source":"CNBC","date":"2026-07-13","url":"https://www.cnbc.com/2026/07/13/us-iran-war-hormuz-oil-trump.html","blurb":"Washington and Tehran traded a further round of attacks, with Iran firing on US-linked sites in Bahrain, Kuwait and Jordan as the Strait of Hormuz standoff widens geographically beyond the shipping lane itself."},
+    {"title":"Oil Prices Jump as US and Iran Trade Attacks Over Strait of Hormuz","source":"Al Jazeera","date":"2026-07-13","url":"https://www.aljazeera.com/economy/2026/7/13/oil-prices-jump-as-us-and-iran-trade-attacks-over-strait-of-hormuz","blurb":"Brent crude jumped over 4% to a three-week high near $78.82/bbl as Hormuz vessel crossings collapsed to roughly six in a 12-hour window versus a normal 18-22 a day."},
+    {"title":"Kospi Plummets to Trigger Circuit Breaker, SK Hynix Plunges, Samsung Electronics Drops","source":"TradingKey","date":"2026-07-13","url":"https://www.tradingkey.com/analysis/stocks/more/262025472-kospi-samsung-skhynix-ai-adr-skhy-tradingkey","blurb":"South Korea's KOSPI triggered a circuit breaker as SK Hynix fell as much as 14-15% just days after its $26.5bn Nasdaq debut and Samsung Electronics dropped over 10%, spreading the chip-stock correction to European suppliers and sharpening the AI-bubble narrative."},
+    {"title":"SK Hynix Shares Drop in Seoul After Much-Hyped US Trading Debut","source":"Bloomberg","date":"2026-07-13","url":"https://www.bloomberg.com/news/articles/2026-07-13/sk-hynix-shares-drop-in-seoul-after-much-hyped-us-trading-debut","blurb":"SK Hynix shares fell in Seoul trading in the wake of its record $26.5bn Nasdaq ADR debut, as investors reassessed how much further the AI-memory rally can run."},
+    {"title":"Don't Be Fooled: America's Inflation Problems Aren't Going Away Anytime Soon","source":"CNN Business","date":"2026-07-13","url":"https://us.cnn.com/2026/07/13/economy/inflation-prices","blurb":"Tariff pass-through and the renewed energy shock are keeping underlying US price pressures elevated heading into Tuesday's June CPI print, CNN's economics team argues."},
+    {"title":"FTSE 100 Live: Global Stocks Fall as Oil Prices Hit Three-Week High on Iran Fighting","source":"Proactive Investors","date":"2026-07-13","url":"https://www.proactiveinvestors.com/companies/news/1095311/ftse-100-live-global-stocks-fall-as-oil-prices-hit-three-week-high-on-iran-fighting-1095311.html","blurb":"UK and global equities slipped as renewed US-Iran fighting pushed oil to a three-week high, with energy stocks outperforming and tech/chip names leading the losses."},
+    {"title":"UK Gilt Yields Hold Above 4.9% on BoE Hike Bets","source":"TradingView / Trading Economics","date":"2026-07-13","url":"https://www.tradingview.com/news/te_news:565653:0-uk-gilt-yields-hold-above-4-9-on-boe-hike-bets/","blurb":"The 10-year gilt yield held above 4.9% — near its highest since 10 June — as markets moved to fully price a 25bp BoE hike by year-end, most likely in December, on the back of the renewed oil shock."},
+    {"title":"Burnham Weighs Bigger Budget as Experts Lobby on Economic Policy","source":"Bloomberg","date":"2026-07-12","url":"https://www.bloomberg.com/news/articles/2026-07-12/burnham-weighs-bigger-budget-as-experts-lobby-on-economic-policy","blurb":"UK Labour leader-in-waiting Andy Burnham is considering an expansive, one-off autumn Budget combined with a full spending review once he becomes prime minister on 20 July."},
+    {"title":"Fed Chair Kevin Warsh Bets on AI, Taps Marc Andreessen and Xbox CEO Asha Sharma","source":"Benzinga","date":"2026-07-10","url":"https://www.benzinga.com/markets/tech/26/07/60375922/fed-chair-kevin-warsh-bets-on-ai-taps-marc-andreessen-and-xbox-ceo-asha-sharma-to-help-inform-future-fed-policy","blurb":"Warsh empanelled an AI task force chaired by Marc Andreessen alongside Stanford's Charles I. Jones and Microsoft's Asha Sharma to study AI's effect on growth, inflation and future Fed policy."},
     {"title":"US, Iran Trade Wave of Attacks as Tehran Says Hormuz Closed","source":"Bloomberg","date":"2026-07-12","url":"https://www.bloomberg.com/news/articles/2026-07-12/us-iran-trade-wave-of-attacks-as-tehran-says-hormuz-closed","blurb":"The US struck Iran for a third time in a week, prompting Tehran to fire on a vessel and declare the Strait of Hormuz closed, while retaliating against US-allied Gulf states including Qatar and the UAE — a sharp escalation beyond the shipping slowdown already covered, though Washington maintains traffic is flowing."},
     {"title":"Pound Sterling: UK Economy Defies Higher Oil Prices, Says Pantheon","source":"ExchangeRates.org.uk","date":"2026-07-12","url":"https://www.exchangerates.org.uk/news/46480/2026-07-12-pound-sterling-uk-economy-defies-higher-oil-prices-says-pantheon.html","blurb":"Pantheon Macroeconomics says the UK economy is showing surprising resilience to the renewed Middle East oil shock, but still expects it to raise the risk of further BoE tightening even as a prolonged hold stays the base case."},
     {"title":"Ukraine says it hit Russia's Syzran refinery, Azov Sea tankers","source":"Bloomberg","date":"2026-07-12","url":"https://www.bloomberg.com/news/articles/2026-07-12/ukraine-says-it-hit-russia-s-syzran-refinery-azov-sea-tankers","blurb":"Kyiv's drones hit a major Rosneft refinery (up to ~30% of its primary processing capacity) and dozens of tankers/vessels in the Sea of Azov overnight, a fresh Ukraine-war energy-infrastructure escalation distinct from the Iran/Hormuz shock already covered."},
@@ -272,13 +289,6 @@ export const ARTICLES = {
     {"title":"Fed's Warsh signals patience as inflation risks tilt higher","source":"The Wall Street Journal","date":"2026-07-09","url":"https://www.wsj.com/economy/central-banking/fed-warsh-patience-inflation-2026","blurb":"In his first testimony as chair, Kevin Warsh played down the case for cuts, stressing that tariff and energy pass-through keep the balance of risks skewed to the upside."},
     {"title":"Global bonds sell off as traders price out central-bank cuts","source":"Bloomberg","date":"2026-07-09","url":"https://www.bloomberg.com/news/articles/2026-07-09/global-bonds-sell-off-central-bank-cuts-priced-out","blurb":"Ten-year Treasury and gilt yields hit multi-week highs as an oil shock and hawkish minutes forced a repricing of the global rate path."},
     {"title":"The world economy faces a new oil shock at the worst possible time","source":"The Economist","date":"2026-07-09","url":"https://www.economist.com/finance-and-economics/2026/07/09/the-world-economy-faces-a-new-oil-shock","blurb":"With inflation still above target and fiscal buffers thin, a renewed Middle East supply scare leaves policymakers with few good options."},
-    {"title":"Fed meeting minutes to show 'family fight' over rates. The squabble could drag on for a while","source":"CNBC","date":"2026-07-08","url":"https://www.cnbc.com/2026/07/08/with-minutes-due-feds-family-fight-over-interest-rates-could-drag-on.html","blurb":"The June FOMC minutes exposed a genuine split between officials eyeing further hikes and those still worried about a softening labour market."},
-    {"title":"UK inflation set to ease back faster than expected, says IMF","source":"PA Media","date":"2026-07-08","url":"https://uk.finance.yahoo.com/news/uk-inflation-set-ease-back-130000054.html","blurb":"The IMF projects UK CPI back at the Bank of England's 2% target by mid-2027 as Middle East oil prices retreat from their July peak."},
-    {"title":"Tensions with Iran add fresh uncertainty to an already shaky global economy","source":"NPR","date":"2026-07-08","url":"https://www.npr.org/2026/07/08/nx-s1-5885946/iran-trump-oil-stock-inflation-gas-federal-reserve","blurb":"Renewed US-Iran hostilities are adding fresh uncertainty to an economy already contending with tariffs, persistent inflation and a cooling labour market, complicating the Fed's next move."},
-    {"title":"The key global economic risks to watch in the second half of 2026","source":"Euronews","date":"2026-07-08","url":"https://www.euronews.com/business/2026/07/08/the-key-global-economic-risks-to-watch-in-the-second-half-of-2026","blurb":"An Oxford Economics briefing flags the fragile US-Iran truce as the pivotal swing factor for global growth in H2 2026."},
-    {"title":"World Economic Outlook Update, July 2026: Global Economy in Crosscurrents of War and Technology","source":"IMF","date":"2026-07-08","url":"https://www.imf.org/en/publications/weo/issues/2026/07/08/world-economic-outlook-update-july-2026","blurb":"The Fund trims growth forecasts for energy-importing economies hit by the war shock even as AI-driven investment lifts countries integrated into the tech supply chain."},
-    {"title":"Fed minutes reveal split as 'a few' officials saw case for a June hike","source":"Reuters","date":"2026-07-08","url":"https://www.reuters.com/markets/us/fed-minutes-june-2026-officials-split-hike-2026-07-08/","blurb":"The record of the June meeting showed broad-based price pressures and a growing hawkish minority, sending September-hike odds toward 70%."},
-    {"title":"Emerging markets feel the squeeze as strong dollar and high rates bite","source":"Bloomberg","date":"2026-07-08","url":"https://www.bloomberg.com/news/articles/2026-07-08/emerging-markets-squeezed-by-strong-dollar-high-rates","blurb":"Currencies from the rand to the rupiah slid as a resurgent dollar and rising US yields tightened financial conditions across the developing world."}
   ],
 };
 
