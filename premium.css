@@ -119,6 +119,11 @@ h2, .brand-text strong { letter-spacing: -.011em; }
    .feed-title = Legal list/case views, .compact-head = every app DASHBOARD's
    compact item lists (the "Law-firm alerts" / news lists on the home tab). */
 .intel-head, .feed-title, .compact-head { font-size: .9rem; }
+/* Item titles use normal (greedy) wrapping, not text-wrap:pretty — Safari/WebKit
+   balances "pretty" short 2–3 line blocks, shortening the first line so titles
+   wrap earlier than needed. Greedy wrapping fills each line to the full width.
+   (Body copy / descriptions keep :pretty, where orphan-avoidance helps.) */
+.g-item .t, .intel-head, .feed-title, .compact-head, .rx-name { text-wrap: wrap; }
 /* Small / meta text (dates, sources, fine print) → home item-meta size (.76rem). */
 .small, .feed-date { font-size: .76rem; }
 
