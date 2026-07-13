@@ -759,3 +759,6 @@ a.compact-mgr:hover { color: var(--primary); text-decoration: underline; }
 /* ---------- deep-link highlight on feed pages ---------- */
 .intel-row.flash { animation: rowflash 2.2s ease-out; }
 @keyframes rowflash { 0% { background: #fef9c3; } 100% { background: transparent; } }
+
+/* Dark-mode accent (shared surfaces/shadows live in premium.css). */
+:root[data-theme="dark"] { --accent: #6f9ad9; --primary: #6f9ad9; }

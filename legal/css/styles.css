@@ -665,3 +665,6 @@ svg.mtab-ico { width: 22px; height: 22px; }
 .rx-expand { margin-top: .7rem; padding-top: .6rem; border-top: 1px dashed var(--line); line-height: 1.5; }
 .rx-expand .feed-summary { margin: .1rem 0 .55rem; line-height: 1.55; }
 .rx-expand .feed-foot { margin-top: .7rem; }
+
+/* Dark-mode accent (shared surfaces/shadows live in premium.css). */
+:root[data-theme="dark"] { --accent: #6f9ad9; --primary: #6f9ad9; }

@@ -540,3 +540,6 @@ svg.mtab-ico { width: 22px; height: 22px; }
   h1 { font-size: 1.35rem; }
   .macro-val { font-size: 1.15rem; }
 }
+
+/* Dark-mode accent (shared surfaces/shadows live in premium.css). */
+:root[data-theme="dark"] { --macro: #6f9ad9; }

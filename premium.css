@@ -171,3 +171,57 @@ p.muted:not(.small) { font-size: .85rem; }
   }
   .card:hover, .g-card:hover { transform: none !important; }
 }
+
+/* =============================================================================
+   DARK MODE — the whole platform runs on CSS variables, so dark is a variable
+   re-map under :root[data-theme="dark"], set BEFORE paint by a tiny inline
+   <head> script that resolves the stored choice (localStorage "m_theme") or the
+   OS prefers-color-scheme. This shared block carries the SURFACES, shadows and
+   hardcoded-colour fixes common to every page; the accent vars that collide
+   across files (--accent means sky on home but blue in the apps; --macro means
+   the purple diamond on home but the blue accent in the Macro app) are re-mapped
+   in each page's own stylesheet. The navy top bar is intentionally left navy in
+   both themes. Toggle control: .theme-toggle in the top bar.
+   ============================================================================= */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0b1120; --surface: #161f33;
+  --ink: #e9eef7; --ink-soft: #c2ccdd; --muted: #8b97ad;
+  --line: #28324a; --border: #28324a;
+  --brand: #2f4d78; --brand-2: #6f9ad9;
+  --primary: #6f9ad9; --primary-ink: #9db8e4; --macro-ink: #c9d3e6;
+  --credit: #9aa3b3; --legal: #4cb488;
+  --shadow: 0 1px 2px rgba(0,0,0,.5), 0 10px 28px rgba(0,0,0,.55);
+  --shadow-lg: 0 14px 36px rgba(0,0,0,.6);
+  --elev-1: 0 1px 2px rgba(0,0,0,.4), 0 6px 18px -6px rgba(0,0,0,.55);
+  --elev-2: 0 2px 8px rgba(0,0,0,.5), 0 18px 40px -12px rgba(0,0,0,.65);
+}
+/* Menus / popovers / the command palette hardcode a white background. */
+[data-theme="dark"] .g-notif-panel,
+[data-theme="dark"] .notif-panel,
+[data-theme="dark"] .cmdk-panel { background: var(--surface); color: var(--ink); }
+[data-theme="dark"] .notif-item:hover,
+[data-theme="dark"] .notif-item.is-new:hover,
+[data-theme="dark"] .g-np-item:hover,
+[data-theme="dark"] .cmdk-item.is-active,
+[data-theme="dark"] .cmdk-item:hover { background: rgba(255,255,255,.06); }
+/* Up/down (green/red) figures brighten on the dark surface. */
+[data-theme="dark"] .up, [data-theme="dark"] .g-gl-v .up,
+[data-theme="dark"] .gl-tk.up .gl-tk-c, [data-theme="dark"] .rate-chg.up,
+[data-theme="dark"] .mkt-fut.up { color: #34d399; }
+[data-theme="dark"] .down, [data-theme="dark"] .g-gl-v .down,
+[data-theme="dark"] .gl-tk.down .gl-tk-c, [data-theme="dark"] .rate-chg.down,
+[data-theme="dark"] .mkt-fut.down { color: #f87171; }
+
+/* ---- Theme toggle button — always sits on the navy top bar (both themes), so
+        it keeps the same light-on-navy styling in light and dark. The sun/moon
+        glyphs swap on the active theme. ---- */
+.theme-toggle { display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; border-radius: 8px; cursor: pointer; flex: 0 0 auto;
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
+  color: #fff; padding: 0; line-height: 1; }
+.theme-toggle:hover { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.32); }
+.theme-toggle svg { width: 16px; height: 16px; }
+.theme-toggle .ico-sun { display: none; } .theme-toggle .ico-moon { display: inline-flex; }
+[data-theme="dark"] .theme-toggle .ico-sun { display: inline-flex; }
+[data-theme="dark"] .theme-toggle .ico-moon { display: none; }
