@@ -657,9 +657,10 @@ const MACRO_SERIES = [
   // Order (per country): base rate · 2-year yield · core inflation · services PMI
   // · wage growth · unemployment.
   { country: "US", key: "base_rate", label: "Base rate", unit: "%", sub: "Fed funds effective rate", src: "fred", id: "FEDFUNDS", tf: "level", href: "https://fred.stlouisfed.org/series/FEDFUNDS", source: "FRED / Federal Reserve" },
-  // Live current value from Yahoo's CBOE 2Y US Treasury yield future (2YY=F),
-  // spliced onto the FRED DGS2 monthly history (the fallback if Yahoo is down).
-  { country: "US", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y Treasury", src: "fred", id: "DGS2", tf: "level", agg: true, live: [{ yahoo: "2YY=F" }, { stooq: "2usy.b" }], href: "https://fred.stlouisfed.org/series/DGS2", source: "FRED / U.S. Treasury" },
+  // Live current value from the official US Treasury daily yield-curve CSV (its
+  // "2 Yr" column — the same feed the live US 10Y already uses), spliced onto the
+  // FRED DGS2 monthly history. Yahoo/Stooq are secondary fallbacks.
+  { country: "US", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y Treasury", src: "fred", id: "DGS2", tf: "level", agg: true, live: [{ treasury: "2 Yr" }, { stooq: "2usy.b" }, { yahoo: "2YY=F" }], href: "https://fred.stlouisfed.org/series/DGS2", source: "FRED / U.S. Treasury" },
   { country: "US", key: "core_cpi", label: "Core inflation", unit: "%", sub: "Core CPI · YoY", src: "fred", id: "CPILFESL", tf: "yoy", href: "https://fred.stlouisfed.org/series/CPILFESL", source: "FRED / BLS" },
   // DBnomics' ISM mirror lags (~Aug 2025); recent months curated from ISM's own
   // monthly releases keep it current (merged onto the real history).
@@ -718,9 +719,12 @@ async function macroSeriesPairs(s, env) {
 }
 
 // Raw reading from one live candidate (no clamp) — the yield as the feed quotes
-// it. Used both by the accept path and the ?debug diagnostic.
+// it. Used both by the accept path and the ?debug diagnostic. `treasury` reads a
+// column of the official US Treasury daily yield-curve CSV (the same source the
+// live US 10Y on the rates band already uses, so it's known-reachable).
 async function liveYieldRaw(c) {
   try {
+    if (c.treasury) return (await treasurySeries(c.treasury)).value;
     if (c.yahoo) return (await yahooQuote(c.yahoo)).value;
     if (c.stooq) return (await stooqQuote(c.stooq)).value;
   } catch { /* fall through */ }
@@ -753,7 +757,7 @@ async function handleMacro(request, env, ctx) {
         // that was accepted, so the correct symbol can be confirmed in prod.
         if (s.live) {
           const cands = Array.isArray(s.live) ? s.live : [s.live];
-          out.live = { candidates: await Promise.all(cands.map(async (c) => ({ sym: c.yahoo || c.stooq, via: c.yahoo ? "yahoo" : "stooq", raw: await liveYieldRaw(c) }))), accepted: await liveYieldValue(s.live) };
+          out.live = { candidates: await Promise.all(cands.map(async (c) => ({ sym: c.treasury || c.yahoo || c.stooq, via: c.treasury ? "treasury" : c.yahoo ? "yahoo" : "stooq", raw: await liveYieldRaw(c) }))), accepted: await liveYieldValue(s.live) };
         }
         return out;
       } catch (e) { return { key: s.country + ":" + s.key, src: s.src, id: s.id, error: String((e && e.message) || e) }; }
@@ -761,7 +765,7 @@ async function handleMacro(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/macro?v=34", request.url).toString());
+  const cacheKey = new Request(new URL("/api/macro?v=35", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const series = await Promise.all(MACRO_SERIES.map(async (s) => {
