@@ -11,8 +11,11 @@ const esc = (s) => String(s ?? "")
   .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
   .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
-const MACRO_COLOR = "#8b7ec8";
-const MACRO_INK = "#4b3f72";
+// Chart colours are CSS vars (defined light + dark in css/styles.css) so the
+// sparklines, the multi-series Chart tab and the policy gauge flip live with the
+// theme toggle rather than staying pinned to their light values.
+const MACRO_COLOR = "var(--macro-line)";
+const MACRO_INK = "var(--macro-deep)";
 const MONTHS = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const MONTHS_FULL = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 function macroMonth(ym) { const p = String(ym || "").split("-"); return p.length === 2 ? `${MONTHS[+p[1]] || ""} ${p[0]}` : ""; }
@@ -43,7 +46,7 @@ function sparkline(data, { color = MACRO_COLOR, unit = "" } = {}) {
     <path d="${path}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>
     <circle cx="${last[0].toFixed(1)}" cy="${last[1].toFixed(1)}" r="3.2" fill="${color}"/>
     <line class="spark-cross" y1="${top}" y2="${top + plotH}" stroke="${color}" stroke-width="1" stroke-dasharray="2 2" style="display:none"/>
-    <circle class="spark-hover" r="3" fill="${color}" stroke="#fff" stroke-width="1.5" style="display:none"/>
+    <circle class="spark-hover" r="3" fill="${color}" stroke="var(--surface)" stroke-width="1.5" style="display:none"/>
     <text x="${padX}" y="${H - 3}" class="spark-x">${esc(yr(data[0].label))}</text>
     <text x="${W - padX}" y="${H - 3}" text-anchor="end" class="spark-x">${esc(yr(data[data.length - 1].label))}</text>
   </svg>`;
@@ -277,13 +280,13 @@ function trackGauge(zones, items, aria) {
     const ly = i % 2 === 0 ? trackY - 22 : trackY - 9; // stagger vertically to avoid collisions
     return `<g>
       <line x1="${x}" y1="${trackY - 4}" x2="${x}" y2="${trackY + trackH + 4}" stroke="${MACRO_INK}" stroke-width="2"/>
-      <circle cx="${x}" cy="${trackY + trackH / 2}" r="5" fill="${MACRO_INK}" stroke="#fff" stroke-width="1.5"/>
+      <circle cx="${x}" cy="${trackY + trackH / 2}" r="5" fill="${MACRO_INK}" stroke="var(--surface)" stroke-width="1.5"/>
       <text x="${x}" y="${ly}" class="gauge-mark" text-anchor="middle">${esc(it.label)} · ${it.pos}</text>
     </g>`;
   }).join("");
   return `<svg viewBox="0 0 ${W} ${H}" class="gauge" role="img" aria-label="${esc(aria || "")}">
     <defs><linearGradient id="${gradId}" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#ece8f6"/><stop offset="1" stop-color="${MACRO_INK}"/>
+      <stop offset="0" stop-color="var(--gauge-lo)"/><stop offset="1" stop-color="${MACRO_INK}"/>
     </linearGradient></defs>
     <rect x="${x0}" y="${trackY}" width="${x1 - x0}" height="${trackH}" rx="6" fill="url(#${gradId})"/>
     ${zoneText}${marks}
@@ -550,8 +553,8 @@ function viewBubble() {
 // hover tooltip shows the actual values.
 // Series colours — a navy family (distinguishable shades), country by line style.
 const IND_COLOR = {
-  base_rate: "#16324f", two_year: "#3f74a6", core_cpi: "#4a6fa0",
-  services_pmi: "#5f93c0", wages: "#6b6f9c", unemployment: "#93a4bd",
+  base_rate: "var(--ind-base)", two_year: "var(--ind-2y)", core_cpi: "var(--ind-cpi)",
+  services_pmi: "var(--ind-pmi)", wages: "var(--ind-wage)", unemployment: "var(--ind-ue)",
 };
 // Short tickers for the TradingView-style label pinned to each line's right end.
 const IND_SHORT = {
@@ -842,7 +845,7 @@ function drawChart() {
       if (!pt) return;
       const cy = yFor(tf(s, pt.value));
       const real = `${(+pt.value).toFixed(2)}${s.unit === "%" ? "%" : ""}`;
-      dd += `<circle cx="${xFor(MI(pt.label)).toFixed(1)}" cy="${cy.toFixed(1)}" r="3.5" fill="${IND_COLOR[s.key]}" stroke="#fff" stroke-width="1.5"/>`;
+      dd += `<circle cx="${xFor(MI(pt.label)).toFixed(1)}" cy="${cy.toFixed(1)}" r="3.5" fill="${IND_COLOR[s.key]}" stroke="var(--surface)" stroke-width="1.5"/>`;
       vt.push({ y: cy, txt: fmtY(tf(s, pt.value)), color: IND_COLOR[s.key] });
       rows += `<div class="tip-row"><span class="tip-dot" style="background:${IND_COLOR[s.key]}"></span>${esc(s.country)} ${esc(s.label)}: <b>${chartMode === "value" ? real : fmtY(tf(s, pt.value))}</b>${chartMode === "value" ? "" : ` <span class="tip-real">(${real})</span>`}</div>`;
     });

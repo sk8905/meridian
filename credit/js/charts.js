@@ -13,23 +13,24 @@
 //     gradient area fills. No rainbow.
 // =============================================================================
 
-// Single brand hue for bars & lines (deep, print-safe blue).
-const BRAND = "#2b4a7c";
-// Sequential blue ramp for donut slices — dark (largest) → light (smallest).
-// Only lightness/chroma vary, so adjacent slices stay distinguishable under any
-// colour-vision deficiency; the legend still carries identity.
-const BLUE_RAMP = ["#0b1f44", "#16324f", "#1c3a5e", "#2b4a7c", "#3d5d8a", "#5a7aa8", "#7b96b8", "#9fb0c8"];
-const OTHER = "#c7ccd4";     // neutral for a folded "Other" slice
-const SURFACE = "#ffffff";   // slice-gap / marker-halo colour
+// Chart colours are CSS variables (defined light + dark in premium.css) so the
+// charts flip live with the theme toggle. --chart-brand is the single brand hue
+// for bars & lines; --chart-r0…r7 is the sequential donut ramp (most→least
+// prominent, only lightness varies so it stays colour-blind-safe); --chart-other
+// is the folded "Other" slice; and the slice-gap / marker-halo colour is just the
+// card surface (var(--surface)) so gaps read as the background in either theme.
+const BRAND = "var(--chart-brand)";
+const OTHER = "var(--chart-other)";
+const SURFACE = "var(--surface)";
 
 // Unique-id counter so multiple charts on one page don't share gradient ids.
 let _uid = 0;
 
-// Sample the ramp so N slices spread evenly across dark → light regardless of N.
+// Sample the 8-step ramp so N slices spread evenly across it regardless of N.
 function rampColor(i, n) {
-  if (n <= 1) return BLUE_RAMP[0];
-  const idx = Math.round((i / (n - 1)) * (BLUE_RAMP.length - 1));
-  return BLUE_RAMP[Math.min(idx, BLUE_RAMP.length - 1)];
+  if (n <= 1) return "var(--chart-r0)";
+  const idx = Math.round((i / (n - 1)) * 7);
+  return "var(--chart-r" + Math.min(idx, 7) + ")";
 }
 
 function esc(s) {
@@ -147,7 +148,7 @@ export function lineChart(data, { unit = "", width = 560, height = 220 } = {}) {
 // axes or grid. For the Macro mini-charts (≈5y of monthly points). Scales to its
 // container width via viewBox; the stroke stays crisp (non-scaling). data:
 // [{label, value}].
-export function sparkline(data, { width = 300, height = 88, color = "#2b4a7c", unit = "" } = {}) {
+export function sparkline(data, { width = 300, height = 88, color = "var(--chart-brand)", unit = "" } = {}) {
   if (!data || data.length < 2) return `<svg viewBox="0 0 ${width} ${height}" class="spark" role="img"></svg>`;
   const padX = 4, top = 8, bottom = 16;
   const gid = "sg" + (++_uid);

@@ -13,7 +13,7 @@ import {
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page).
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260713-7";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260713-8";
 
 const app = document.getElementById("app");
 

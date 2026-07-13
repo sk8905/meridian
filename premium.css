@@ -225,3 +225,36 @@ p.muted:not(.small) { font-size: .85rem; }
 .theme-toggle .ico-sun { display: none; } .theme-toggle .ico-moon { display: inline-flex; }
 [data-theme="dark"] .theme-toggle .ico-sun { display: inline-flex; }
 [data-theme="dark"] .theme-toggle .ico-moon { display: none; }
+
+/* ---- Chart palette (credit/js/charts.js emits these as CSS vars so the Trends
+        bar/line/donut charts flip live with the theme). --chart-brand is the one
+        brand hue; --chart-r0…r7 the sequential donut ramp (most→least prominent,
+        lightness-only so it stays colour-blind-safe); --chart-other the folded
+        "Other" slice. Slice-gaps / marker-halos use var(--surface) directly. The
+        dark ramp is re-picked to sit on the dark surface, not an inverted flip.
+        Most chart text/axis classes already use var(--muted)/--ink; only the
+        hardcoded track + grid need a dark tint. ---- */
+:root {
+  --chart-brand:#2b4a7c; --chart-other:#c7ccd4;
+  --chart-r0:#0b1f44; --chart-r1:#16324f; --chart-r2:#1c3a5e; --chart-r3:#2b4a7c;
+  --chart-r4:#3d5d8a; --chart-r5:#5a7aa8; --chart-r6:#7b96b8; --chart-r7:#9fb0c8;
+}
+:root[data-theme="dark"] {
+  --chart-brand:#6f9ad9; --chart-other:#5b6576;
+  --chart-r0:#bcd3f2; --chart-r1:#a3c1e9; --chart-r2:#8aafe0; --chart-r3:#6f9ad9;
+  --chart-r4:#5b83c2; --chart-r5:#4d6fa8; --chart-r6:#425e8d; --chart-r7:#3a5178;
+}
+[data-theme="dark"] .bar-track { fill: rgba(255,255,255,.07); }
+[data-theme="dark"] .chart-grid { stroke: rgba(255,255,255,.09); }
+
+/* ---- Mobile bottom tab bar — the light frosted-glass pill glows against the
+        dark UI, so give it a dark-glass variant (home + every app share the
+        .mobile-tabbar / .mtab classes, so one override covers all). ---- */
+[data-theme="dark"] .mobile-tabbar {
+  background: rgba(18,26,42,.82);
+  border-color: rgba(255,255,255,.10);
+  box-shadow: 0 8px 28px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.05);
+}
+[data-theme="dark"] .mtab { color: #93a0b8; }
+[data-theme="dark"] .mtab:hover { color: #cdd6e6; }
+[data-theme="dark"] .mtab.is-active { color: #e9eef7; background: rgba(255,255,255,.11); }

@@ -543,3 +543,21 @@ svg.mtab-ico { width: 22px; height: 22px; }
 
 /* Dark-mode accent (shared surfaces/shadows live in premium.css). */
 :root[data-theme="dark"] { --macro: #6f9ad9; }
+
+/* Chart palette as CSS vars (light + dark) so the sparklines, the multi-series
+   Chart tab and the policy gauge flip with the theme rather than staying pinned
+   to their light values. Dark values are re-picked to read on the dark surface. */
+:root {
+  --macro-line:#8b7ec8; --macro-deep:#4b3f72; --gauge-lo:#ece8f6;
+  --ind-base:#16324f; --ind-2y:#3f74a6; --ind-cpi:#4a6fa0;
+  --ind-pmi:#5f93c0; --ind-wage:#6b6f9c; --ind-ue:#93a4bd;
+}
+:root[data-theme="dark"] {
+  --macro-line:#b0a3e0; --macro-deep:#c3b6ea; --gauge-lo:#352e52;
+  --ind-base:#8fb0d8; --ind-2y:#6fa3d6; --ind-cpi:#7fb0dc;
+  --ind-pmi:#93c2ea; --ind-wage:#9a9fd8; --ind-ue:#b7c6de;
+}
+[data-theme="dark"] .chart-axis { stroke: rgba(255,255,255,.20); }
+[data-theme="dark"] .chart-grid.chart-zero { stroke: rgba(255,255,255,.22); }
+[data-theme="dark"] .chart-grid.chart-grid-yr { stroke: rgba(255,255,255,.14); }
+[data-theme="dark"] .chart-endtxt { fill: #0b1120; }
