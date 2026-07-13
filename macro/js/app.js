@@ -205,26 +205,24 @@ function renderReleases() {
 // days old, but falls back to whatever headlines exist rather than an empty one.
 function renderNews() {
   const cutoff = todayMidnight(); cutoff.setDate(cutoff.getDate() - 3);
-  const pick = (arr) => {
-    const sorted = [...(arr || [])].sort((a, b) => String(b.date).localeCompare(String(a.date)));
-    const fresh = sorted.filter((n) => { const d = isoToDate(n.date); return d && d >= cutoff; });
-    return fresh.length ? fresh : sorted;
-  };
+  // Merge US + UK into one newest-first list (no country split) and show 10 as
+  // 2×5. Prefer items ≤ 3 days old but fall back to whatever exists to fill 10.
+  const all = [...((NEWS && NEWS.us) || []), ...((NEWS && NEWS.uk) || [])]
+    .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  const fresh = all.filter((n) => { const d = isoToDate(n.date); return d && d >= cutoff; });
+  const items = (fresh.length >= 10 ? fresh : all).slice(0, 10);
   const row = (n) => `
     <li class="compact-item">
       <a class="compact-head" href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">${esc(n.title)}</a>
       <div class="compact-meta muted small">${esc(fmtDay(n.date))} · ${esc(n.source)}</div>
     </li>`;
-  const col = (name, arr) => {
-    const items = pick(arr);
-    const list = items.length
-      ? `<ul class="compact-list">${items.map(row).join("")}</ul>`
-      : `<p class="muted small">Headlines are temporarily unavailable.</p>`;
-    return `<div class="news-col"><h3 class="news-col-head">${esc(name)}</h3>${list}</div>`;
-  };
+  const colList = (arr) => `<div class="news-col"><ul class="compact-list">${arr.map(row).join("")}</ul></div>`;
+  const body = items.length
+    ? `<div class="news-cols">${colList(items.slice(0, 5))}${colList(items.slice(5, 10))}</div>`
+    : `<p class="muted small">Headlines are temporarily unavailable.</p>`;
   return `<section class="card feature-card macro-news-panel">
     <h2>Key macro headlines</h2>
-    <div class="news-cols">${col("United States", NEWS && NEWS.us)}${col("United Kingdom", NEWS && NEWS.uk)}</div>
+    ${body}
     <a class="news-more" href="#/commentary">See the latest commentary →</a>
   </section>`;
 }

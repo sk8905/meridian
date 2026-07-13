@@ -1229,6 +1229,10 @@ function cloRosterFor(items) {
   }).sort((a, b) => String(b.vintage).localeCompare(String(a.vintage)) || String(b.date).localeCompare(String(a.date)));
 }
 
+// Shared column template so the Funds and CLOs tables on a manager page line up
+// column-for-column (identical <col> widths + table-layout:fixed via .mgr-vehicle-table).
+const MGR_VEHICLE_COLS = `<colgroup><col style="width:28%"><col style="width:18%"><col style="width:18%"><col style="width:18%"><col style="width:18%"></colgroup>`;
+
 function viewManager(id) {
   const m = managerById[id];
   if (!m) return notFound();
@@ -1276,27 +1280,29 @@ function viewManager(id) {
     </div>
     <section class="card" id="mgr-funds">
       <h2>Funds <span class="muted">(${fs.length})</span></h2>
-      ${fs.length ? (() => { const p = pageList(fs, "mgr:" + m.id + ":funds", ""); return `<div class="table-wrap"><table class="data-table">
-        <thead><tr><th>Fund</th><th>Strategy</th><th>Geography</th><th>Vintage</th><th>Status</th><th>Target</th><th class="prog-col">Progress</th></tr></thead>
+      ${fs.length ? (() => { const p = pageList(fs, "mgr:" + m.id + ":funds", ""); return `<div class="table-wrap"><table class="data-table mgr-vehicle-table">
+        ${MGR_VEHICLE_COLS}
+        <thead><tr><th>Fund</th><th>Vintage</th><th>Size</th><th>Status</th><th>Strategy</th></tr></thead>
         <tbody>${p.shown.map((x) => `<tr class="clickable" data-href="#/fund/${x.id}">
-          <td>${nameCell("fund", x.id, `<strong>${esc(x.name)}</strong>`)}</td><td>${chip(x.strategy)}</td><td>${esc(x.geoFocus)}</td><td>${x.vintage}</td>
-          <td>${fundStatusChip(x)} ${lifecycleBadge(x)}</td><td>${x.evergreen ? "—" : eur(x.targetSize)}</td>
-          <td class="prog-col">${raiseDisplay(x)}</td>
+          <td>${nameCell("fund", x.id, `<strong>${esc(x.name)}</strong>`)}</td><td>${x.vintage}</td><td>${x.evergreen ? "—" : eur(x.targetSize)}</td>
+          <td>${fundStatusChip(x)} ${lifecycleBadge(x)}</td><td>${chip(x.strategy)}</td>
         </tr>`).join("")}</tbody>
       </table></div>${p.more}`; })()
       : `<p class="muted">${esc(m.fundsNote || "No fund tracked for this manager — see the profile note above (e.g. it is a bank/balance-sheet lender, has no dedicated credit arm, or runs only US/global vehicles).")}</p>`}
     </section>
     <section class="card">
       <h2>CLOs managed <span class="muted">(${mgrCloRoster.length})</span></h2>
-      <p class="muted small">Individual collateralised loan obligation vehicles managed by ${esc(m.name)} or its CLO affiliate, identified from tracked issuances, pricings &amp; resets. <a href="#/clos">All CLO activity →</a></p>
       ${mgrCloRoster.length ? (() => {
         const p = pageList(mgrCloRoster, "mgr:" + id + ":cloroster", "");
-        return `<div class="table-wrap"><table class="data-table">
-        <thead><tr><th>CLO</th><th>Vintage</th><th>Size</th></tr></thead>
+        return `<div class="table-wrap"><table class="data-table mgr-vehicle-table">
+        ${MGR_VEHICLE_COLS}
+        <thead><tr><th>CLO</th><th>Vintage</th><th>Size</th><th>Status</th><th>Strategy</th></tr></thead>
         <tbody>${p.shown.map((c) => `<tr class="clickable" data-href="#/clo/${m.id}/${encodeURIComponent(c.name)}">
           <td><strong>${esc(c.name)}</strong></td>
           <td>${c.vintage || "—"}</td>
           <td>${c.size ? esc(c.size) : "—"}</td>
+          <td>${chip("Issued", "st-final")}</td>
+          <td>${chip("Structured Credit")}</td>
         </tr>`).join("")}</tbody>
       </table></div>${p.more}`;
       })() : `<p class="muted">${mgrClo.length ? "No individually-named CLO vehicles identified yet — see the full CLO feed." : "This manager does not manage any tracked CLOs."}</p>`}

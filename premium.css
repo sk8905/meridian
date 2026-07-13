@@ -124,8 +124,17 @@ h2, .brand-text strong { letter-spacing: -.011em; }
    wrap earlier than needed. Greedy wrapping fills each line to the full width.
    (Body copy / descriptions keep :pretty, where orphan-avoidance helps.) */
 .g-item .t, .intel-head, .feed-title, .compact-head, .rx-name { text-wrap: wrap; }
+/* Dashboard "latest activity" / compact-list headlines (Credit & Legal & Macro
+   dashboards): clamp to a single line, truncated with an ellipsis. */
+.compact-head { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 /* Small / meta text (dates, sources, fine print) → home item-meta size (.76rem). */
 .small, .feed-date { font-size: .76rem; }
+
+/* ---- Manager page: the Funds and CLOs tables share one column template so
+        their columns line up perfectly across the two cards. table-layout:fixed
+        makes the inline <colgroup> widths authoritative (identical in both). ---- */
+.mgr-vehicle-table { table-layout: fixed; width: 100%; }
+.mgr-vehicle-table td, .mgr-vehicle-table th { overflow: hidden; text-overflow: ellipsis; }
 
 /* ---- The "Sign out" link uses the Meridian home-logo blue (#0ea5e9) at every
         point in the app — the top-bar account chip on home (.g-user a) and on
