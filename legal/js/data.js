@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-07-13";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — four runs a day (~05:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "17:24 BST";
+export const LAST_CHECKED_TIME = "21:20 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -6833,6 +6833,66 @@ export const items = [
       "Immigration and Asylum Bill proposed to overhaul UK modern-slavery statement requirements, including a fixed publication deadline",
     ],
     tags: ["corporate governance", "listing rules", "ESG reporting", "modern slavery"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.sidley.com/en/insights/newsupdates/2026/07/regulatory-update-naic-adopts-new-rbc-charges-for-collateral-loans-and-clos",
+    id: "u694", title: "Regulatory Update: NAIC Adopts New Risk-Based Capital Charges for Collateral Loans and Collateralized Loan Obligations",
+    area: "banking", areas: ["banking"], type: "update", firm: "sidley",
+    date: "2026-07-09", jurisdiction: "United States",
+    summary: "Sidley covers two June 2026 NAIC actions affecting insurers' fixed-income books: an overcollateralization-based risk-based-capital framework for collateral loans backed by LP/LLC/JV interests (effective year-end 2027), and new risk-based capital factors for CLOs incorporating credit ratings and tranche thickness (effective 31 December 2026).",
+    points: [
+      "Collateral loans backed by fund LP/LLC/JV interests get 0-50% capital haircuts based on overcollateralization, effective year-end 2027",
+      "Independent fair-value verification required to qualify for reduced capital charges",
+      "New CLO risk-based-capital factors weight tranche thickness alongside credit ratings, effective 31 December 2026",
+      "Mortgage-loan-collateralised structures get look-through treatment; CLO residual/equity tranches retain a 45% charge",
+    ],
+    tags: ["NAIC", "risk-based capital", "CLOs", "collateral loans", "insurance regulatory"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.davispolk.com/insights/client-update/sec-broadens-five-business-day-debt-tender-and-exchange-offer-framework",
+    id: "u695", title: "SEC Broadens Five-Business-Day Debt Tender and Exchange Offer Framework",
+    area: "banking", areas: ["banking"], type: "alert", firm: "davispolk",
+    date: "2026-07-10", jurisdiction: "United States",
+    summary: "Davis Polk covers the SEC's 30 June 2026 exemptive order expanding the abbreviated five-business-day tender/exchange-offer framework for non-convertible debt — permitting partial offers, relaxing the 'Qualified Debt Securities' definition to 'substantially similar' rather than identical securities, and easing simple-majority consent solicitations; the order carves out issuers already in bankruptcy/insolvency or pursuing pre-packaged consent solicitations.",
+    points: [
+      "SEC exemptive order (30 June 2026) now permits partial and capped debt tender/exchange offers on the 5-business-day timeline",
+      "New securities offered in an exchange need only be 'substantially similar' to the old, not identical",
+      "Simple-majority consent solicitations are no longer categorically barred from the abbreviated timeline",
+      "Removes the guaranteed-delivery mandate and concurrent cash-option requirement",
+    ],
+    tags: ["SEC", "debt tender offers", "capital markets", "exemptive order"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.whitecase.com/news/press-release/white-case-advises-banco-bpm-eur500-million-green-subordinated-tier-2-bond",
+    id: "u696", title: "White & Case advises Banco BPM on €500 million Green Subordinated Tier 2 bond issuance",
+    area: "banking", areas: ["banking"], type: "alert", firm: "whitecase",
+    date: "2026-07-09", jurisdiction: "Italy / United Kingdom",
+    summary: "White & Case advised Banco BPM on a €500m, 4.125% green subordinated Tier 2 bond due 2038 (callable January 2033), issued under its Euro Medium Term Notes Programme and its Green, Social and Sustainability Bonds Framework, taking the bank's cumulative ESG issuance to €8.5bn.",
+    points: [
+      "€500m green subordinated Tier 2 notes, 4.125% coupon, due 2038, callable January 2033",
+      "Issued under Banco BPM's Green, Social and Sustainability Bonds Framework; proceeds earmarked for eligible green loans",
+      "Takes Banco BPM's cumulative ESG bond issuance to €8.5bn",
+      "White & Case team led from London and Milan",
+    ],
+    tags: ["green bonds", "Tier 2 capital", "ESG debt", "capital markets"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.lw.com/en/news/2026/07/latham-advises-moneybox-on-employee-share-sale",
+    id: "u697", title: "Latham Advises Moneybox on Employee Share Sale",
+    area: "corporate", areas: ["corporate"], type: "alert", firm: "latham",
+    date: "2026-07-13", jurisdiction: "United Kingdom",
+    summary: "Latham & Watkins advised UK wealth-management platform Moneybox on a fixed-price employee/secondary share sale valuing the company at £800m (~US$1.1bn) — a 45% increase since its 2024 secondary transaction — executed via the London Stock Exchange's new PISCES private-share-trading framework, only the second employee equity transaction to use that platform.",
+    points: [
+      "Moneybox employee share sale values the fintech at £800m, up 45% since its 2024 secondary round",
+      "Executed via the London Stock Exchange's new PISCES private-share-trading platform",
+      "Only the second employee equity transaction to use PISCES since its launch",
+      "Latham previously advised Moneybox on its Series C and D funding rounds",
+    ],
+    tags: ["PISCES", "secondary share sale", "fintech", "employee equity"],
     dateEstimated: false,
   },
 ];
