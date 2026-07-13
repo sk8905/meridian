@@ -301,6 +301,33 @@ async function treasurySeries(col) {
   return lastTwo(pairs);
 }
 
+// Latest yield from MarketWatch's keyless "download data" CSV for a bond (e.g.
+// tmbmkgb-02y = the Tullett Prebon UK 2Y gilt benchmark). Returns the most recent
+// Close (the yield) or null. countrycode=bx is MarketWatch's cross-venue feed.
+async function marketwatchBondYield(ticker) {
+  const now = new Date();
+  const start = new Date(now.getTime() - 45 * 864e5);
+  const fmt = (d) => `${String(d.getUTCMonth() + 1).padStart(2, "0")}/${String(d.getUTCDate()).padStart(2, "0")}/${d.getUTCFullYear()}`;
+  const url = `https://www.marketwatch.com/investing/bond/${encodeURIComponent(ticker)}/downloaddatapartial`
+    + `?startdate=${encodeURIComponent(fmt(start) + " 00:00:00")}&enddate=${encodeURIComponent(fmt(now) + " 23:59:59")}`
+    + `&daterange=d30&frequency=p1d&csvdownload=true&downloadpartial=false&newdates=false&countrycode=bx`;
+  const txt = await fetchText(url);
+  if (!txt) return null;
+  const lines = txt.trim().split(/\r?\n/);
+  if (lines.length < 2) return null;
+  const h = lines[0].split(",").map((x) => x.replace(/^"|"$/g, "").trim());
+  const ci = h.indexOf("Close"), di = h.indexOf("Date");
+  if (ci < 0) return null;
+  const clean = (x) => (x || "").replace(/["%,]/g, "").trim();
+  const norm = (x) => { const m = clean(x).match(/(\d{2})\/(\d{2})\/(\d{4})/); return m ? `${m[3]}-${m[1]}-${m[2]}` : clean(x); };
+  const pairs = lines.slice(1).map((l) => l.split(","))
+    .map((c) => [di >= 0 ? norm(c[di]) : "", parseFloat(clean(c[ci]))])
+    .filter((p) => Number.isFinite(p[1]));
+  if (!pairs.length) return null;
+  pairs.sort((a, b) => (a[0] < b[0] ? -1 : 1)); // oldest→newest, take the latest close
+  return pairs[pairs.length - 1][1];
+}
+
 // Parse a FRED CSV body (DATE,VALUE header) into [date, value] pairs.
 function parseFredCsv(txt) {
   return txt.trim().split(/\r?\n/).slice(1)
@@ -676,8 +703,9 @@ const MACRO_SERIES = [
   // BoE's IADB benchmarks are 5/10/20y (no 2y point) and bankofengland.co.uk
   // blocks the Worker, so the monthly history is curated from the BoE nominal
   // yield curve. The current value is refreshed live from Stooq's keyless
-  // bond-yield CSV (2uky.b, the 2Y gilt), spliced onto that history.
-  { country: "UK", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y gilt", src: "curated", live: [{ stooq: "2uky.b" }, { stooq: "2ukgby.b" }, { stooq: "2gby.b" }], curated: [["2021-07", 0.10], ["2021-08", 0.20], ["2021-09", 0.40], ["2021-10", 0.68], ["2021-11", 0.50], ["2021-12", 0.68], ["2022-01", 0.90], ["2022-02", 1.25], ["2022-03", 1.35], ["2022-04", 1.60], ["2022-05", 1.55], ["2022-06", 1.88], ["2022-07", 1.85], ["2022-08", 3.00], ["2022-09", 4.20], ["2022-10", 3.30], ["2022-11", 3.30], ["2022-12", 3.60], ["2023-01", 3.50], ["2023-02", 3.90], ["2023-03", 3.40], ["2023-04", 3.80], ["2023-05", 4.30], ["2023-06", 5.30], ["2023-07", 5.00], ["2023-08", 5.10], ["2023-09", 4.90], ["2023-10", 4.75], ["2023-11", 4.60], ["2023-12", 4.00], ["2024-01", 4.20], ["2024-02", 4.35], ["2024-03", 4.20], ["2024-04", 4.50], ["2024-05", 4.40], ["2024-06", 4.20], ["2024-07", 3.80], ["2024-08", 3.90], ["2024-09", 3.90], ["2024-10", 4.30], ["2024-11", 4.40], ["2024-12", 4.40], ["2025-01", 4.50], ["2025-02", 4.20], ["2025-03", 4.30], ["2025-04", 3.90], ["2025-05", 4.00], ["2025-06", 3.85], ["2025-07", 3.85], ["2025-08", 3.90], ["2025-09", 4.00], ["2025-10", 3.95], ["2025-11", 4.20], ["2025-12", 4.25], ["2026-01", 4.35], ["2026-02", 4.40], ["2026-03", 4.55], ["2026-04", 4.40], ["2026-05", 4.35], ["2026-06", 4.38], ["2026-07", 4.23]], tf: "level", href: "https://www.bankofengland.co.uk/statistics/yield-curves", source: "Bank of England" },
+  // current value from MarketWatch's keyless CSV for the Tullett Prebon 2Y gilt
+  // benchmark (tmbmkgb-02y), with Stooq as a fallback, spliced onto that history.
+  { country: "UK", key: "two_year", label: "2-year yield", unit: "%", sub: "2Y gilt", src: "curated", live: [{ marketwatch: "tmbmkgb-02y" }, { stooq: "2uky.b" }], curated: [["2021-07", 0.10], ["2021-08", 0.20], ["2021-09", 0.40], ["2021-10", 0.68], ["2021-11", 0.50], ["2021-12", 0.68], ["2022-01", 0.90], ["2022-02", 1.25], ["2022-03", 1.35], ["2022-04", 1.60], ["2022-05", 1.55], ["2022-06", 1.88], ["2022-07", 1.85], ["2022-08", 3.00], ["2022-09", 4.20], ["2022-10", 3.30], ["2022-11", 3.30], ["2022-12", 3.60], ["2023-01", 3.50], ["2023-02", 3.90], ["2023-03", 3.40], ["2023-04", 3.80], ["2023-05", 4.30], ["2023-06", 5.30], ["2023-07", 5.00], ["2023-08", 5.10], ["2023-09", 4.90], ["2023-10", 4.75], ["2023-11", 4.60], ["2023-12", 4.00], ["2024-01", 4.20], ["2024-02", 4.35], ["2024-03", 4.20], ["2024-04", 4.50], ["2024-05", 4.40], ["2024-06", 4.20], ["2024-07", 3.80], ["2024-08", 3.90], ["2024-09", 3.90], ["2024-10", 4.30], ["2024-11", 4.40], ["2024-12", 4.40], ["2025-01", 4.50], ["2025-02", 4.20], ["2025-03", 4.30], ["2025-04", 3.90], ["2025-05", 4.00], ["2025-06", 3.85], ["2025-07", 3.85], ["2025-08", 3.90], ["2025-09", 4.00], ["2025-10", 3.95], ["2025-11", 4.20], ["2025-12", 4.25], ["2026-01", 4.35], ["2026-02", 4.40], ["2026-03", 4.55], ["2026-04", 4.40], ["2026-05", 4.35], ["2026-06", 4.38], ["2026-07", 4.23]], tf: "level", href: "https://www.bankofengland.co.uk/statistics/yield-curves", source: "Bank of England" },
   // UK macro: official-source-first — the ONS time-series API returns the
   // headline annual-rate/level directly (CDID/DATASET).
   { country: "UK", key: "core_cpi", label: "Core inflation", unit: "%", sub: "Core CPI · YoY", src: "ons", id: "DKO8/MM23", tf: "level", href: "https://www.ons.gov.uk/economy/inflationandpriceindices/timeseries/dko8/mm23", source: "ONS" },
@@ -725,6 +753,7 @@ async function macroSeriesPairs(s, env) {
 async function liveYieldRaw(c) {
   try {
     if (c.treasury) return (await treasurySeries(c.treasury)).value;
+    if (c.marketwatch) return await marketwatchBondYield(c.marketwatch);
     if (c.yahoo) return (await yahooQuote(c.yahoo)).value;
     if (c.stooq) return (await stooqQuote(c.stooq)).value;
   } catch { /* fall through */ }
@@ -757,7 +786,7 @@ async function handleMacro(request, env, ctx) {
         // that was accepted, so the correct symbol can be confirmed in prod.
         if (s.live) {
           const cands = Array.isArray(s.live) ? s.live : [s.live];
-          out.live = { candidates: await Promise.all(cands.map(async (c) => ({ sym: c.treasury || c.yahoo || c.stooq, via: c.treasury ? "treasury" : c.yahoo ? "yahoo" : "stooq", raw: await liveYieldRaw(c) }))), accepted: await liveYieldValue(s.live) };
+          out.live = { candidates: await Promise.all(cands.map(async (c) => ({ sym: c.treasury || c.marketwatch || c.yahoo || c.stooq, via: c.treasury ? "treasury" : c.marketwatch ? "marketwatch" : c.yahoo ? "yahoo" : "stooq", raw: await liveYieldRaw(c) }))), accepted: await liveYieldValue(s.live) };
         }
         return out;
       } catch (e) { return { key: s.country + ":" + s.key, src: s.src, id: s.id, error: String((e && e.message) || e) }; }
@@ -765,7 +794,7 @@ async function handleMacro(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/macro?v=35", request.url).toString());
+  const cacheKey = new Request(new URL("/api/macro?v=36", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const series = await Promise.all(MACRO_SERIES.map(async (s) => {
