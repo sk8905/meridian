@@ -471,10 +471,14 @@ extra deep-research pass on watchlisted names is skipped.
 >      web searches for the most important CURRENT US and UK macro / monetary-policy /
 >      markets stories (inflation, central banks, growth, jobs, rates, fiscal) from
 >      reputable financial outlets (Reuters, FT, Bloomberg, WSJ, CNBC, Briefing.com,
->      MarketWatch and similar) and replace the arrays with **exactly three** US and
->      **exactly three** UK headlines, ideally all dated the refresh day — the Home
->      landing card shows the newest three of each ("US headlines" / "UK headlines"),
->      so it should always surface three current (same-day) items per country. Each
+>      MarketWatch and similar) and replace the arrays with **exactly five** US and
+>      **exactly five** UK headlines, ideally all dated the refresh day. The Macro
+>      dashboard's "Key macro headlines" panel shows the newest **ten** merged (a
+>      2×5 grid), and the Home landing card shows the newest **three** of each
+>      country ("US headlines" / "UK headlines") — so five per country fills the
+>      dashboard panel to ten while still surfacing three current items per country
+>      on Home. (If fewer than five verifiable same-day stories exist for a country,
+>      include the best recent ones rather than padding — never fabricate.) Each
 >      item is `{title, source, date, url}` — use the exact published headline, the
 >      outlet, the verified `YYYY-MM-DD` publication date and the real article URL;
 >      never fabricate a headline, date or link. Diversify outlets within each country

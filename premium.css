@@ -127,6 +127,12 @@ h2, .brand-text strong { letter-spacing: -.011em; }
 /* Dashboard "latest activity" / compact-list headlines (Credit & Legal & Macro
    dashboards): clamp to a single line, truncated with an ellipsis. */
 .compact-head { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* A single-line (nowrap) .compact-head only CLIPS if its grid/flex track can
+   shrink below the text's width — grid/flex items default to min-width:auto, so
+   a long headline would otherwise widen its column and overflow the card (seen on
+   the Credit dashboard's 2-column "Latest activity" .news-cols, and the Macro
+   dashboard's .news-col pair). Let those tracks shrink so the ellipsis works. */
+.news-cols > * { min-width: 0; }
 /* Small / meta text (dates, sources, fine print) → home item-meta size (.76rem). */
 .small, .feed-date { font-size: .76rem; }
 

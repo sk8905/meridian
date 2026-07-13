@@ -228,12 +228,16 @@ export const NEWS = {
   us: [
     { title: "U.S. and Iran Exchange Strikes as Strait of Hormuz Standoff Escalates", source: "CNBC", date: "2026-07-13", url: "https://www.cnbc.com/2026/07/13/us-iran-war-hormuz-oil-trump.html" },
     { title: "Treasury Yields Muted as U.S.-Iran Ceasefire Strained; Investors Await Core Inflation Data", source: "CNBC", date: "2026-07-13", url: "https://www.cnbc.com/2026/07/13/treasury-yields-faltering-us-iran-ceasefire-bond-markets.html" },
+    { title: "Don't Be Fooled: America's Inflation Problems Aren't Going Away Anytime Soon", source: "CNN Business", date: "2026-07-13", url: "https://us.cnn.com/2026/07/13/economy/inflation-prices" },
     { title: "SK Hynix Shares Drop in Seoul After Much-Hyped US Trading Debut", source: "Bloomberg", date: "2026-07-13", url: "https://www.bloomberg.com/news/articles/2026-07-13/sk-hynix-shares-drop-in-seoul-after-much-hyped-us-trading-debut" },
+    { title: "Warsh and US Inflation Will Set Tone for July Fed Decision", source: "Bloomberg", date: "2026-07-11", url: "https://www.bloomberg.com/news/articles/2026-07-11/warsh-and-us-inflation-will-set-tone-for-july-fed-decision" },
   ],
   uk: [
     { title: "FTSE 100 Live: Oil Stocks Rise, Tech Stocks Fall After Latest Iran Strikes", source: "Bloomberg", date: "2026-07-13", url: "https://www.bloomberg.com/news/live-blog/2026-07-13/ftse-100-live-updated-iran-trump-oil-prices-pound-gilts-hormuz-uk-data-what-s-moving-uk-markets-right-now-markets-today-mrisu12x" },
     { title: "FTSE 100 Live: Global Stocks Fall as Oil Prices Hit Three-Week High on Iran Fighting", source: "Proactive Investors", date: "2026-07-13", url: "https://www.proactiveinvestors.com/companies/news/1095311/ftse-100-live-global-stocks-fall-as-oil-prices-hit-three-week-high-on-iran-fighting-1095311.html" },
+    { title: "UK Gilt Yields Hold Above 4.9% on BoE Hike Bets", source: "TradingView / Trading Economics", date: "2026-07-13", url: "https://www.tradingview.com/news/te_news:565653:0-uk-gilt-yields-hold-above-4-9-on-boe-hike-bets/" },
     { title: "Burnham Weighs Bigger Budget as Experts Lobby on Economic Policy", source: "Bloomberg", date: "2026-07-12", url: "https://www.bloomberg.com/news/articles/2026-07-12/burnham-weighs-bigger-budget-as-experts-lobby-on-economic-policy" },
+    { title: "Pound Sterling: UK Economy Defies Higher Oil Prices, Says Pantheon", source: "ExchangeRates.org.uk", date: "2026-07-12", url: "https://www.exchangerates.org.uk/news/46480/2026-07-12-pound-sterling-uk-economy-defies-higher-oil-prices-says-pantheon.html" },
   ],
 };
 
