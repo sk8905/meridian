@@ -258,3 +258,18 @@ p.muted:not(.small) { font-size: .85rem; }
 [data-theme="dark"] .mtab { color: #93a0b8; }
 [data-theme="dark"] .mtab:hover { color: #cdd6e6; }
 [data-theme="dark"] .mtab.is-active { color: #e9eef7; background: rgba(255,255,255,.11); }
+
+/* ---- Phones: the account (email/sign-out) + last-refresh block is relocated
+        from the cramped app top bar into the footer (moved by a small inline
+        script in each app). Restyle it for the footer's on-surface context —
+        the top-bar version is white-on-navy, which would vanish on the footer. ---- */
+@media (max-width: 760px) {
+  .acct-foot { display: flex; flex-direction: column; gap: .35rem; align-items: flex-start;
+    margin: 0 0 1rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(127,127,127,.25); }
+  .acct-foot .account-nav { position: static; color: var(--muted); font-size: .82rem; }
+  .acct-foot .account-nav[hidden] { display: none; }
+  .acct-foot .account-nav strong { color: var(--ink); font-weight: 600; }
+  .acct-foot .account-nav a { color: #0ea5e9; }
+  .acct-foot .account-nav .si-prefix { display: inline; }
+  .acct-foot .data-status { color: var(--muted); font-size: .78rem; }
+}
