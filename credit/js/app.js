@@ -869,8 +869,8 @@ function actualInvestorsCard(x) {
 function returnsCard(x) {
   const ti = x.targetIRR;
   const target = ti
-    ? `<p><strong>${esc(ti.range)}${ti.basis ? " " + esc(ti.basis) : ""}</strong> <span class="muted small">target — disclosed${ti.asOf ? `, ${esc(ti.asOf)}` : ""}</span>${ti.sourceUrl ? ` · <a href="${esc(ti.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="muted small">source</a>` : ""}</p>`
-    : `<p><strong>${esc(STRATEGY_IRR[x.strategy] || "—")} net</strong> <span class="chip est" title="Indicative market-typical range for the strategy, not this fund's disclosed target">indicative</span> <span class="muted small">typical for ${esc(x.strategy)}; the fund's own target is not publicly disclosed</span></p>`;
+    ? `<p class="detail-body"><strong>${esc(ti.range)}${ti.basis ? " " + esc(ti.basis) : ""}</strong> <span class="muted small">target — disclosed${ti.asOf ? `, ${esc(ti.asOf)}` : ""}</span>${ti.sourceUrl ? ` · <a href="${esc(ti.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="muted small">source</a>` : ""}</p>`
+    : `<p class="detail-body"><strong>${esc(STRATEGY_IRR[x.strategy] || "—")} net</strong> <span class="chip est" title="Indicative market-typical range for the strategy, not this fund's disclosed target">indicative</span> <span class="muted small">typical for ${esc(x.strategy)}; the fund's own target is not publicly disclosed</span></p>`;
   const p = x.performance;
   const metrics = p ? [
     p.netIRR != null ? `<span><strong>${p.netIRR}%</strong> net IRR</span>` : "",
@@ -1110,7 +1110,7 @@ function ownersFilingsBlock(m) {
     ? `<dl class="facts">${m.owners.map((o) => `<div><dt>${esc(o.name)}</dt><dd>${esc(o.stake)}</dd></div>`).join("")}</dl>`
     : `<p class="muted small">Ownership not separately disclosed in public sources.</p>`;
   const fin = m.financials
-    ? `<p>${esc(m.financials.summary)}${m.financials.asOf ? ` <span class="muted small">(as of ${esc(m.financials.asOf)})</span>` : ""}</p>`
+    ? `<p class="detail-body">${esc(m.financials.summary)}${m.financials.asOf ? ` <span class="muted small">(as of ${esc(m.financials.asOf)})</span>` : ""}</p>`
     : `<p class="muted small">Financials not yet compiled / not publicly disclosed (most private managers do not publish accounts beyond regulatory filings).</p>`;
   const hc = m.headcount
     ? `<div class="deploy-stats"><span><strong>${m.headcount.investment ?? "—"}</strong> investment professionals</span><span><strong>${m.headcount.other ?? "—"}</strong> other professionals</span><span><strong>${m.headcount.total ?? "—"}</strong> total</span></div>${m.headcount.asOf ? `<p class="muted small">as of ${esc(m.headcount.asOf)}</p>` : ""}`
