@@ -15,7 +15,7 @@
 // `LAST_REVIEWED` whenever you refresh the data.
 // =============================================================================
 
-export const LAST_REVIEWED = "2026-07-12";
+export const LAST_REVIEWED = "2026-07-13";
 // When the refresh routine last ran (even if nothing new) — shown as "Last refresh".
 export const LAST_CHECKED = "2026-07-12";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
@@ -6803,6 +6803,23 @@ export const items = [
     tags: ["public M&A", "UK Listing Rules", "oil and gas", "takeover"],
     dateEstimated: false,
   },
+  {
+    url: "https://www.cliffordchance.com/insights/resources/blogs/arbitration-insights/2026/07/court-of-appeal-confirms-mere-ratification-of-new-york-convention-does-not-waive-state-immunity.html",
+    id: "u692", title: "Court of Appeal confirms mere ratification of New York Convention does not waive state immunity",
+    area: "corporate", areas: ["corporate"], type: "case",
+    firm: "cliffordchance",
+    date: "2026-07-07", jurisdiction: "England & Wales",
+    court: "Court of Appeal", citation: "[2026] EWCA Civ 797",
+    summary: "The Court of Appeal held in CC/Devas (Mauritius) Ltd & others v The Republic of India that a state's ratification of the New York Convention 1958 does not itself waive sovereign immunity from enforcement of an arbitral award, rejecting an attempt to enforce €195m in arbitral awards against India in the English courts. The court held that Article III's obligation to enforce awards 'in accordance with the rules of procedure of the territory where the award is relied upon' incorporates state-immunity protections, distinguishing the New York Convention from the ICSID Convention's unqualified enforcement obligation.",
+    points: [
+      "Ratification of the New York Convention does not by itself waive state immunity from enforcement",
+      "Article III's reference to local 'rules of procedure' held to incorporate sovereign-immunity protections",
+      "Distinguishes the New York Convention regime from the unqualified enforcement obligation under ICSID",
+      "Aligns England with recent Australian and German decisions on the same point",
+    ],
+    tags: ["state immunity", "arbitration enforcement", "New York Convention"],
+    dateEstimated: false,
+  },
 ];
 
 // ---- Recent cases published on BAILII -------------------------------------
@@ -7021,6 +7038,12 @@ export const cases = [
   { id: "c71", name: "Lyons v Bridging Finance Inc", citation: "[2026] EWHC 1388 (Ch)", court: "High Court (Ch)",
     date: "2026-06-09", area: "ri", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1388",
     summary: "Mr Justice Rajah upheld a bankruptcy order against a Bahamas-resident debtor, holding that a single substantial property development and letting in London sufficed to constitute 'carrying on business' in England under section 265 of the Insolvency Act 1986." },
+  { id: "c72", name: "CC/Devas (Mauritius) Ltd & Ors v The Republic of India", citation: "[2026] EWCA Civ 797", court: "Court of Appeal",
+    date: "2026-06-24", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewca/civ/2026/797",
+    summary: "The Court of Appeal held that a state's ratification of the New York Convention 1958 does not, by itself, waive sovereign immunity from enforcement, rejecting an attempt to enforce €195m in arbitral awards against India in England." },
+  { id: "c73", name: "Nexans France SAS & Anor v London Array Limited & Ors", citation: "[2026] EWCA Civ 887", court: "Court of Appeal",
+    date: "2026-07-10", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewca/civ/2026/887",
+    summary: "Lord Justice Green refused Nexans permission to appeal the Competition Appeal Tribunal's ruling that London Array's offshore-windfarm joint venture was overcharged for submarine power cables supplied during a 2008–09 tender, as part of the EU Commission's submarine-cable cartel." },
 ];
 
 // ---- Lightweight lookups ----------------------------------------------------
@@ -7104,6 +7127,8 @@ export const caseSummaries = {
   c69: "BCNO Limited, which operates osteopathic colleges, sought a permanent 'no-access' order under section 117 of the Companies Act 2006 against Mr Cooke, a critic of its decision to close its London campus who had informally emailed requesting a copy of the register of members to lobby against the closure. Mr Cooke's email lacked the address and stated purpose required by section 116(4) CA 2006, and both parties agreed it was not a compliant request, yet the company pressed ahead with litigation seeking to bar him from making this or any future request. HHJ Paul Matthews (sitting as a High Court judge) dismissed the claim on the threshold jurisdictional point, holding that section 117 confers no power to grant relief where the underlying section 116 request was itself invalid — the company had no obligation to comply with, or to litigate against, a request that was not properly made in the first place. The judgment revisits and qualifies the judge's own earlier reasoning on section 117 in Sir Henry Royce Memorial Foundation v Hardy, and stands as a cautionary tale for companies overreacting to informal shareholder-communication requests.",
   c70: "The South African joint liquidators of Mirror Trading International (Pty) Ltd, one of the largest cryptocurrency Ponzi and pyramid schemes in South African history, brought transaction-avoidance claims in England under section 426 of the Insolvency Act 1986, seeking assistance from the English court in aid of the South African insolvency proceeding. A respondent applied to strike out the claims, arguing they were time-barred under the South African Prescription Act 1969 and that their pursuit was an abuse of process. In a 63-page judgment, Mr Justice Leech dismissed the strike-out application, holding that whether the claims were prescribed raised disputed questions of South African law and fact — including expert evidence on foreign limitation principles — that were unsuitable for summary determination at the pleading stage. The decision allows the liquidators' claims to proceed to a full hearing and illustrates the English courts' continued willingness to provide cross-border assistance to foreign liquidators under section 426, including on complex foreign-law limitation defences.",
   c71: "Bridging Finance Inc obtained a bankruptcy order against Anthony Lyons, a Bahamas-resident property investor, in respect of a CAD$39m debt (c.£26.6m) arising under an English-law guarantee. Lyons appealed, arguing the English court lacked jurisdiction because he was not 'carrying on business' in England within section 265 of the Insolvency Act 1986, and that even if jurisdiction existed the court should exercise its discretion against making an order against a foreign debtor. Mr Justice Rajah dismissed the appeal, holding that Lyons' development, letting and eventual sale of a substantial property at 100 Hamilton Terrace, London, through agents, was sufficient to constitute 'carrying on business' even though it was a single venture conducted in a personal capacity. Applying the three-step test from Re Latreefers Inc (No 2) and JSC Bank of Moscow v Kekhman, the judge accepted the court retained a discretion not to make an order against a foreign debtor but declined to exercise it in Lyons' favour, upholding the bankruptcy order.",
+  c72: "Investors in the Devas satellite-spectrum venture sought to enforce €195m of arbitral awards against India in the English courts, arguing that India's ratification of the New York Convention 1958 amounted to a waiver of state immunity from enforcement proceedings. The Court of Appeal (Lewison, Newey and Phillips LJJ) disagreed, holding that Article III of the Convention — which requires contracting states to enforce awards 'in accordance with the rules of procedure of the territory where the award is relied upon' — expressly preserves local procedural rules, and that state immunity is such a rule. The court distinguished the New York Convention from the ICSID Convention, whose unqualified enforcement obligation has been held to waive immunity, and noted the decision aligns England with recent Australian and German rulings on the same question. The ruling is significant for investors seeking to enforce international arbitral awards against sovereign states in England, confirming that immunity must be separately and expressly waived rather than inferred from Convention ratification alone.",
+  c73: "Members of a joint venture that built the London Array offshore windfarm sought to recover overcharges paid to Nexans Norway for submarine power cables supplied during a 2008–09 tender, following the European Commission's finding that Nexans participated in a worldwide cartel for high- and extra-high-voltage submarine and underground power cables between 2000 and 2009. The Competition Appeal Tribunal upheld the claim, and Nexans sought permission to appeal on four grounds relating to the CAT's construction of the Commission's binding infringement findings, its treatment of evidence about a rival bidder's non-genuine bid, its causation analysis, and its reliance on a 'group-to-group' econometric damages methodology. Lord Justice Green refused permission on all four grounds, holding the CAT had properly construed the Commission decision, that its factual findings were evidentially supported, that no counterfactual bidder needed to be identified to establish causation, and that the averaging methodology was a careful and justified approach to quantifying cartel overcharges. The decision reinforces appellate courts' deference to the CAT's fact-finding and damages methodology in follow-on competition claims.",
 };
 
 export const restructurings = [
