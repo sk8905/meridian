@@ -794,14 +794,14 @@ async function handleMacro(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/macro?v=36", request.url).toString());
+  const cacheKey = new Request(new URL("/api/macro?v=37", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const series = await Promise.all(MACRO_SERIES.map(async (s) => {
     let pairs = [];
     try { pairs = await macroSeriesPairs(s, env); } catch { pairs = []; }
     const last = pairs[pairs.length - 1], prev = pairs[pairs.length - 2];
-    return {
+    const row = {
       country: s.country, key: s.key, label: s.label, unit: s.unit, sub: s.sub,
       source: s.source, href: s.href,
       value: last ? last[1] : null,
@@ -809,6 +809,14 @@ async function handleMacro(request, env, ctx) {
       asOf: last ? last[0] : null,
       history: pairs.map(([d, v]) => ({ label: d, value: v })),
     };
+    // TEMP diagnostic: for live-spliced series (US/UK 2Y), report each candidate
+    // source's raw reading + the accepted value, so the working symbol can be
+    // confirmed from the normal payload. Remove once the 2Y sources are pinned.
+    if (s.live) {
+      const cands = Array.isArray(s.live) ? s.live : [s.live];
+      row._live = { candidates: await Promise.all(cands.map(async (c) => ({ sym: c.treasury || c.marketwatch || c.yahoo || c.stooq, via: c.treasury ? "treasury" : c.marketwatch ? "marketwatch" : c.yahoo ? "yahoo" : "stooq", raw: await liveYieldRaw(c) }))), accepted: await liveYieldValue(s.live) };
+    }
+    return row;
   }));
   const resp = new Response(JSON.stringify({ series }), { headers: { "content-type": "application/json", "cache-control": "public, max-age=600" } });
   // Cache 6h once a solid majority of series resolved (so a transient miss on one

@@ -226,12 +226,13 @@
     .g-gl-v { flex:1 1 auto; min-width:0; }
     .g-gl-v .up { color:#0a7d3c; font-weight:600; } .g-gl-v .down { color:#c02626; font-weight:600; }
     /* Each one-liner carries a row of up to five up/down ticker chips drawn from
-       the same live feed that powers the narrative. On desktop they sit inline
-       under the line (indented to align with the text); on phones they collapse
-       behind a chevron toggle at the end of the line (see the ≤760px block). */
+       the same live feed that powers the narrative. The chips stay COLLAPSED
+       behind a chevron at the end of the line (desktop and phones alike) and
+       reveal on tap/click — so the hero stays clean until you ask for detail. */
     .g-gl-block { display:flex; flex-direction:column; gap:.35rem; }
-    .g-gl { position:relative; }
-    .gl-tickers { display:flex; flex-wrap:wrap; gap:.35rem .4rem; padding-left:8.5rem; }
+    .g-gl { position:relative; padding-right:1.7rem; }
+    .gl-tickers { display:none; flex-wrap:wrap; gap:.35rem .4rem; padding-left:8.5rem; }
+    .g-gl-block.is-open .gl-tickers { display:flex; }
     .gl-tickers:empty { display:none; }
     .gl-tk { display:inline-flex; align-items:baseline; gap:.32rem; padding:.1rem .48rem;
       border:1px solid var(--line); border-radius:999px; background:var(--surface);
@@ -239,7 +240,13 @@
     .gl-tk-l { font-weight:700; color:var(--ink); }
     .gl-tk-c { font-weight:600; font-variant-numeric:tabular-nums; }
     .gl-tk.up .gl-tk-c { color:#0a7d3c; } .gl-tk.down .gl-tk-c { color:#c02626; } .gl-tk.flat .gl-tk-c { color:var(--muted); }
-    .gl-tk-toggle { display:none; }
+    /* Chevron toggle at the end of each one-liner (both breakpoints). */
+    .gl-tk-toggle { display:inline-flex; align-items:center; justify-content:center;
+      position:absolute; right:-.2rem; top:-.05rem; width:1.6rem; height:1.35rem;
+      padding:0; border:0; background:transparent; color:var(--brand-2); cursor:pointer; }
+    .gl-tk-toggle[hidden] { display:none; }
+    .gl-tk-toggle svg { width:.85rem; height:.85rem; transition:transform .2s ease; }
+    .g-gl-block.is-open .gl-tk-toggle svg { transform:rotate(180deg); }
 
     /* ---- Key rates & credit spreads (ported from Credit) ---- */
     .g-rates-head { font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em;
@@ -386,17 +393,9 @@
       .g-main { padding:1.1rem 1rem 2.5rem; }
       .g-hello h1 { font-size:1.2rem; letter-spacing:0; line-height:1.25; }
       .g-hello p { font-size:.86rem; }
-      /* Smaller, tighter one-liner body on phones (headings unchanged). */
-      .g-gl { font-size:.7rem; line-height:1.35; gap:.5rem; padding-right:1.6rem; }
-      /* Phones: chips collapse behind a chevron toggle sitting at the end of the
-         narrative line; tapping it expands the ticker row. */
-      .gl-tickers { display:none; }
-      .g-gl-block.is-open .gl-tickers { display:flex; margin-top:.05rem; }
-      .gl-tk-toggle { display:inline-flex; align-items:center; justify-content:center;
-        position:absolute; right:-.2rem; top:-.05rem; width:1.6rem; height:1.35rem;
-        padding:0; border:0; background:transparent; color:var(--brand-2); cursor:pointer; }
-      .gl-tk-toggle svg { width:.85rem; height:.85rem; transition:transform .2s ease; }
-      .g-gl-block.is-open .gl-tk-toggle svg { transform:rotate(180deg); }
+      /* Smaller, tighter one-liner body on phones (headings unchanged; the
+         collapsed-chips + chevron behaviour is shared in the base rules). */
+      .g-gl { font-size:.7rem; line-height:1.35; gap:.5rem; }
       .cmdk-panel { margin:8vh 12px 0; }
     }
   </style>
