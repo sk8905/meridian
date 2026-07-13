@@ -48,6 +48,11 @@ h2, .brand-text strong { letter-spacing: -.011em; }
 /* ---- Smooth nav hover (pointer devices only; not a tap/press state). ---- */
 .nav-link { transition: background var(--dur-1) var(--ease-soft),
                         color var(--dur-1) var(--ease-soft); }
+/* ---- App view-nav links (Dashboard / Commentary / …) set no font-size, so they
+        fell back to the 16px body base and rendered noticeably larger than the
+        Glance home nav (.g-jump-link is .9rem). Pin them to the home nav size so
+        the top-bar nav is consistent across the home page and every app. ---- */
+.nav-link { font-size: .9rem; }
 
 /* ---- Pointer devices: a gentle lift on hover (never fires on touch). ---- */
 @media (hover: hover) {
