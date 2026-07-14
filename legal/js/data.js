@@ -15,13 +15,13 @@
 // `LAST_REVIEWED` whenever you refresh the data.
 // =============================================================================
 
-export const LAST_REVIEWED = "2026-07-13";
+export const LAST_REVIEWED = "2026-07-14";
 // When the refresh routine last ran (even if nothing new) — shown as "Last refresh".
-export const LAST_CHECKED = "2026-07-13";
+export const LAST_CHECKED = "2026-07-14";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — four runs a day (~05:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "21:20 BST";
+export const LAST_CHECKED_TIME = "05:20 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -6893,6 +6893,20 @@ export const items = [
       "Latham previously advised Moneybox on its Series C and D funding rounds",
     ],
     tags: ["PISCES", "secondary share sale", "fintech", "employee equity"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.slaughterandmay.com/insights/new-insights/the-international-comparative-legal-guide-to-fintech-2026/",
+    id: "u698", title: "The International Comparative Legal Guide to Fintech 2026",
+    area: "banking", areas: ["banking"], type: "knowhow", firm: "slaughtermay",
+    date: "2026-07-13", jurisdiction: "United Kingdom",
+    summary: "Slaughter and May acted as contributing editors of the ICLG Fintech 2026 guide, authoring both the UK country chapter on the fintech legal/regulatory framework and an Expert Analysis chapter, 'Reporting Rules Herald the Next Chapter for the Financial Sector,' on operational resilience.",
+    points: [
+      "UK chapter surveys the fintech legal and regulatory framework, including commercial contracts, financial regulation, financing and IP touchpoints",
+      "Separate Expert Analysis chapter focuses on operational resilience reporting obligations for financial institutions",
+      "Authored by David Shone, David Ives and James Cook, with Natalie Donovan and Emily Bradley",
+    ],
+    tags: ["fintech regulation", "operational resilience", "financial services", "UK"],
     dateEstimated: false,
   },
 ];

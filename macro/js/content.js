@@ -5,15 +5,15 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "13 July 2026";
+export const UPDATED = "14 July 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-07-13",
-  lastCheckedTime: "21:20 BST",
+  lastChecked: "2026-07-14",
+  lastCheckedTime: "05:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -192,6 +192,7 @@ export const BUBBLE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-burnham-confirmed-2026-07-13", kind: "Markets", title: "Andy Burnham secured the Labour leadership with landslide MP support, confirming his path to become UK prime minister on 20 July — resolving the political-risk overhang flagged earlier in the week.", href: "#/cycle", date: "2026-07-13" },
   { id: "g-waller-hike-odds-2026-07-13", kind: "Rate guidance", title: "Fed Governor Waller said a 29 July rate hike 'will need to be considered' if core inflation stays hot in Tuesday's CPI print — CME FedWatch now shows ~46.5% odds of a hike (from a low base a week earlier) and Kalshi odds jumped to ~36%, a sharp shift from the prior hold-biased framing.", href: "#/policy", date: "2026-07-13" },
   { id: "g-hormuz-toll-2026-07-13", kind: "Markets", title: "Trump said the US will reinstate its Iran blockade in the Strait of Hormuz and impose a 20% toll on all other cargo transiting the waterway — a reversal of Washington's prior opposition to tolls that further undercuts last month's interim ceasefire and adds to the oil-driven inflation risk facing the Fed and BoE.", href: "#/bubble", date: "2026-07-13" },
   { id: "g-kospi-2026-07-13", kind: "Bubble risk", title: "South Korea's KOSPI triggered a circuit breaker as SK Hynix fell as much as 14-15% and Samsung Electronics dropped over 10%, days after SK Hynix's $26.5bn Nasdaq debut — a real crack in the narrow, AI-led rally rather than just a valuation ratio.", href: "#/bubble", date: "2026-07-13" },
@@ -232,20 +233,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-07-13",
+  updated: "2026-07-14",
   us: [
+    { title: "CNBC Daily Open: Hormuz toll threats, Mideast tensions keep investors on edge", source: "CNBC", date: "2026-07-14", url: "https://www.cnbc.com/2026/07/14/cnbc-daily-open-hormuz-toll-threats-mideast-tensions-keep-investors-on-edge.html" },
+    { title: "Fed chair Kevin Warsh testifies on monetary policy in House hearing", source: "PBS News", date: "2026-07-14", url: "https://www.pbs.org/newshour/politics/watch-live-fed-chair-kevin-warsh-testifies-on-monetary-policy-in-house-hearing" },
+    { title: "Wall Street to Fed's Warsh: Skip the Guidance, Tell Us What You Think", source: "Bloomberg", date: "2026-07-13", url: "https://www.bloomberg.com/news/articles/2026-07-13/wall-street-to-fed-s-warsh-skip-the-guidance-tell-us-what-you-think" },
+    { title: "Bank earnings: JPMorgan Chase, Goldman Sachs, Bank of America", source: "CNBC", date: "2026-07-13", url: "https://www.cnbc.com/2026/07/13/bank-earnings-jpmorgan-chase-goldman-sachs-bank-of-america.html" },
     { title: "Fed's Waller Says Rate Hike May Be Needed if Core Inflation Stays Hot", source: "Reuters", date: "2026-07-13", url: "https://gvwire.com/2026/07/13/feds-waller-says-rate-hike-may-be-needed-if-core-inflation-stays-hot/" },
-    { title: "A July rate hike from the Fed? The odds are rising", source: "CNBC", date: "2026-07-13", url: "https://www.cnbc.com/2026/07/13/-a-july-rate-hike-from-the-fed-the-odds-are-rising.html" },
-    { title: "S&P 500, Nasdaq Futures Decline as US-Iran Escalation Rattles Sentiment", source: "Reuters / U.S. News", date: "2026-07-13", url: "https://money.usnews.com/investing/news/articles/2026-07-13/s-p-500-nasdaq-futures-decline-as-us-iran-escalation-rattles-sentiment" },
-    { title: "UN Shipping Agency Opposes Fees for Any Strait, After Trump Plans Hormuz Charge", source: "Reuters / U.S. News", date: "2026-07-13", url: "https://www.usnews.com/news/world/articles/2026-07-13/un-shipping-agency-opposes-fees-for-any-strait-after-trump-plans-hormuz-charge" },
-    { title: "Gold prices today, Monday, July 13, 2026: Prices move lower following weekend airstrikes", source: "Yahoo Finance", date: "2026-07-13", url: "https://finance.yahoo.com/personal-finance/investing/article/gold-prices-today-monday-july-13-2026-prices-move-lower-following-weekend-airstrikes-123120098.html" },
   ],
   uk: [
+    { title: "Andrew Bailey: speech at the Annual Financial and Professional Services Dinner, Mansion House", source: "Bank of England", date: "2026-07-14", url: "https://www.bankofengland.co.uk/speech/2026/july/andrew-bailey-speech-at-manison-house" },
+    { title: "Andy Burnham secures Labour leadership with landslide support, paving way to becoming UK PM", source: "The Irish Times", date: "2026-07-13", url: "https://www.irishtimes.com/world/uk/2026/07/13/andy-burnham-secures-labour-leadership-with-landslide-support-paving-way-to-becoming-uk-pm/" },
+    { title: "UK two-year gilt yield hits 1-month high as Iran and US clash", source: "Reuters", date: "2026-07-13", url: "https://live.euronext.com/en/financial-news/uk-two-year-gilt-yield-hits-1-month-high-iran-and-us-clash" },
     { title: "FTSE 100 Live: UK Bonds Lead Europe Selloff as Inflation Fears Rekindled", source: "Bloomberg", date: "2026-07-13", url: "https://www.bloomberg.com/news/live-blog/2026-07-13/ftse-100-live-updated-iran-trump-oil-prices-pound-gilts-hormuz-uk-data-what-s-moving-uk-markets-right-now-markets-today-mrisu12x" },
     { title: "Burnham's Budget Is at the Mercy of a Middle East War: The Readout", source: "Bloomberg", date: "2026-07-13", url: "https://www.bloomberg.com/news/newsletters/2026-07-13/burnham-s-budget-is-at-the-mercy-of-a-middle-east-war-the-readout" },
-    { title: "UK Stock Market Today (July 13): FTSE 100 Edges Higher While FTSE 250 Slips Amid Middle East Crisis and Rising Oil Prices- What Should Investors Know", source: "Sunday Guardian Live", date: "2026-07-13", url: "https://sundayguardianlive.com/business/uk-stock-market-today-july-13-ftse-100-edges-higher-while-ftse-250-slips-amid-middle-east-crisis-and-rising-oil-prices-what-should-investors-know-235463/" },
-    { title: "Pound To Dollar Weekly Forecast: GBP Hits Three-Week High Despite Middle East Tensions", source: "ExchangeRates.org.uk", date: "2026-07-13", url: "https://www.exchangerates.org.uk/news/46482/2026-07-13-pound-to-dollar-weekly-forecast-gbp-hits-three-week-high-despite-middle-east-tensions.html" },
-    { title: "UK Gilt Yields Hold Above 4.9% on BoE Hike Bets", source: "TradingView / Trading Economics", date: "2026-07-13", url: "https://www.tradingview.com/news/te_news:565653:0-uk-gilt-yields-hold-above-4-9-on-boe-hike-bets/" },
   ],
 };
 
@@ -257,8 +258,17 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-07-13",
+  updated: "2026-07-14",
   items: [
+    {"title":"CNBC Daily Open: Hormuz toll threats, Mideast tensions keep investors on edge","source":"CNBC","date":"2026-07-14","url":"https://www.cnbc.com/2026/07/14/cnbc-daily-open-hormuz-toll-threats-mideast-tensions-keep-investors-on-edge.html","blurb":"Markets stay jittery as Trump's proposed Hormuz toll overshadows Tuesday's CPI print and bank earnings."},
+    {"title":"Fed chair Kevin Warsh testifies on monetary policy in House hearing","source":"PBS News","date":"2026-07-14","url":"https://www.pbs.org/newshour/politics/watch-live-fed-chair-kevin-warsh-testifies-on-monetary-policy-in-house-hearing","blurb":"Warsh's debut semiannual congressional testimony lands the same day as the June CPI report."},
+    {"title":"Andrew Bailey: speech at the Annual Financial and Professional Services Dinner, Mansion House","source":"Bank of England","date":"2026-07-14","url":"https://www.bankofengland.co.uk/speech/2026/july/andrew-bailey-speech-at-manison-house","blurb":"The BoE Governor's flagship City speech, delivered at the annual Mansion House dinner."},
+    {"title":"Latest Oil Market News and Analysis for July 14","source":"Bloomberg","date":"2026-07-13","url":"https://www.bloomberg.com/news/articles/2026-07-13/latest-oil-market-news-and-analysis-for-july-14","blurb":"Oil holds its biggest gain since April after Trump threatens a Hormuz blockade and cargo toll."},
+    {"title":"Wall Street to Fed's Warsh: Skip the Guidance, Tell Us What You Think","source":"Bloomberg","date":"2026-07-13","url":"https://www.bloomberg.com/news/articles/2026-07-13/wall-street-to-fed-s-warsh-skip-the-guidance-tell-us-what-you-think","blurb":"Investors want clearer signals as Warsh charts a new course for Fed communication."},
+    {"title":"Bank earnings: JPMorgan Chase, Goldman Sachs, Bank of America","source":"CNBC","date":"2026-07-13","url":"https://www.cnbc.com/2026/07/13/bank-earnings-jpmorgan-chase-goldman-sachs-bank-of-america.html","blurb":"Big US banks kick off Q2 earnings season against a backdrop of oil-driven rate-hike risk."},
+    {"title":"UK two-year gilt yield hits 1-month high as Iran and US clash","source":"Reuters","date":"2026-07-13","url":"https://live.euronext.com/en/financial-news/uk-two-year-gilt-yield-hits-1-month-high-iran-and-us-clash","blurb":"Short gilts sell off as traders price a firmer chance of BoE tightening."},
+    {"title":"Andy Burnham secures Labour leadership with landslide support, paving way to becoming UK PM","source":"The Irish Times","date":"2026-07-13","url":"https://www.irishtimes.com/world/uk/2026/07/13/andy-burnham-secures-labour-leadership-with-landslide-support-paving-way-to-becoming-uk-pm/","blurb":"Burnham locks up enough MP backing to become UK PM unopposed on 20 July."},
+    {"title":"Oil jumps amid fears of prolonged disruption in Strait of Hormuz","source":"The National","date":"2026-07-13","url":"https://www.thenationalnews.com/business/energy/2026/07/13/oil-jumps-amid-fears-of-prolonged-disruption-in-strait-of-hormuz/","blurb":"Brent tops $78 as renewed US-Iran strikes threaten a fifth of global oil and gas flows."},
     {"title":"Fed's Waller Says Rate Hike May Be Needed if Core Inflation Stays Hot","source":"Reuters","date":"2026-07-13","url":"https://gvwire.com/2026/07/13/feds-waller-says-rate-hike-may-be-needed-if-core-inflation-stays-hot/","blurb":"Fed Governor Christopher Waller said he'll treat another hot core-inflation print as 'signal, not noise' ahead of Tuesday's CPI, and that the FOMC may need to consider tightening in the near term if price pressures stay elevated."},
     {"title":"A July Rate Hike From the Fed? The Odds Are Rising","source":"CNBC","date":"2026-07-13","url":"https://www.cnbc.com/2026/07/13/-a-july-rate-hike-from-the-fed-the-odds-are-rising.html","blurb":"CME FedWatch now shows a 46.5% probability of a quarter-point hike at the 29 July FOMC meeting, up sharply as the Iran/Hormuz oil shock revives inflation concerns."},
     {"title":"Trump Takes a Page From Iran's Playbook on the Strait of Hormuz","source":"Fortune","date":"2026-07-13","url":"https://fortune.com/2026/07/13/trump-hormuz-toll-reimbursement-iran-naval-blockade-cargo-fee-oil/","blurb":"Analysis of Trump's proposed 20% cargo toll for transiting the Strait of Hormuz as a revenue play over the contested chokepoint.","author":"Eleanor Pringle"},
@@ -294,9 +304,6 @@ export const ARTICLES = {
     {"title":"SK Hynix raises $26.5bn in the biggest foreign IPO in US history, is urged to build new US fabs","source":"TechCrunch","date":"2026-07-10","url":"https://techcrunch.com/2026/07/10/sk-hynix-raises-26-5b-in-the-biggest-foreign-ipo-in-us-history-is-urged-to-build-new-us-fabs/","blurb":"The South Korean memory-chip maker priced its ADRs at $149, raising $26.5bn in the largest-ever US listing by a foreign company, with demand reportedly seven times the shares on offer as AI memory demand surges."},
     {"title":"Fed Vows to Deliver Price Stability in Monetary Policy Report","source":"Bloomberg","date":"2026-07-10","url":"https://www.bloomberg.com/news/articles/2026-07-10/fed-vows-to-deliver-price-stability-in-monetary-policy-report","blurb":"The first semiannual report under Chair Kevin Warsh describes growth as solid and the banking system as sound, while acknowledging inflation has moved higher on tariffs and the Iran war, ahead of his debut congressional testimony next week."},
     {"title":"Strait of Hormuz shipping grinds to halt as US, Iran resume fighting","source":"Al Jazeera","date":"2026-07-10","url":"https://www.aljazeera.com/economy/2026/7/10/strait-of-hormuz-shipping-grinds-to-halt-as-us-iran-resume-fighting","blurb":"Vessel-tracking data shows crossings via the US-coordinated route have effectively ground to a halt since Tuesday, a fresh blow to energy markets already reeling from the conflict."},
-    {"title":"Traders Hedge for FX Volatility Return as Fed Uncertainty Builds","source":"Bloomberg","date":"2026-07-10","url":"https://www.bloomberg.com/news/articles/2026-07-10/traders-hedge-for-fx-volatility-return-as-fed-uncertainty-builds","blurb":"Currency traders are buying protection against bigger swings as a less predictable Fed under Kevin Warsh and elevated Middle East risk stir volatility from multi-year lows."},
-    {"title":"Treasury yields little changed as investors track Middle East developments","source":"CNBC","date":"2026-07-10","url":"https://www.cnbc.com/2026/07/10/us-bond-treasury-yield-us10y-iran-war.html","blurb":"The 10-year yield held near 4.55% as traders weighed continuing US-Iran technical talks against this week's collapse of the ceasefire."},
-    {"title":"Bank of England's Pill says interest rates will need to rise","source":"Reuters","date":"2026-07-09","url":"https://www.aol.com/articles/bank-englands-pill-says-interest-185809000.html","blurb":"BoE chief economist Huw Pill, one of two MPC members who voted for a hike in June, told BBC's Walescast that rates will need to rise because the economy has been running \"a little bit hotter than the supply side,\" reinforcing the hawkish tilt ahead of the 30 July decision."},
   ],
 };
 
@@ -321,7 +328,10 @@ export const RELEASES = [
   { date: "2026-07-30", country: "US", title: "GDP Q2 2026 (advance estimate)", url: "https://www.bea.gov/news/schedule" },
   { date: "2026-07-30", country: "US", title: "PCE inflation (June)", url: "https://www.bea.gov/news/schedule" },
   { date: "2026-07-30", country: "UK", title: "MPC rate decision & Monetary Policy Report", url: "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates" },
+  { date: "2026-07-31", country: "US", title: "Employment Cost Index (Q2 2026)", url: "https://www.bls.gov/schedule/news_release/eci.htm" },
   { date: "2026-08-03", country: "US", title: "ISM Manufacturing PMI (July)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
   { date: "2026-08-05", country: "US", title: "ISM Services PMI (July)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
   { date: "2026-08-07", country: "US", title: "Jobs report / Nonfarm payrolls (July)", url: "https://www.bls.gov/schedule/news_release/empsit.htm" },
+  { date: "2026-08-12", country: "US", title: "CPI (July)", url: "https://www.bls.gov/schedule/news_release/cpi.htm" },
+  { date: "2026-08-13", country: "US", title: "PPI (July)", url: "https://www.bls.gov/schedule/news_release/ppi.htm" },
 ];
