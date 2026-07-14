@@ -95,7 +95,9 @@ h2, .brand-text strong { letter-spacing: -.011em; }
         The apps otherwise render their h1 larger (1.35rem, or 1.6rem on Legal).
         Home's own headline is .g-hello h1 (more specific), so it's unaffected. ---- */
 @media (max-width: 760px) {
-  h1 { font-size: 1.2rem; line-height: 1.25; letter-spacing: 0; }
+  /* font-size is driven by --fs-section-title (1.2rem on mobile); keep the
+     tighter line-height / no tracking that the compact mobile header wants. */
+  h1 { line-height: 1.25; letter-spacing: 0; }
 }
 
 /* ---- Page-header description/lede text matches the Glance home summary text
@@ -104,7 +106,7 @@ h2, .brand-text strong { letter-spacing: -.011em; }
         inherited the 16px body base and rendered noticeably larger than home's
         ~13.6px summary one-liners; pin them to .85rem / 1.4 for a balanced,
         consistent scale everywhere. ---- */
-.page-head p, .list-head p { font-size: .85rem; line-height: 1.4; }
+.page-head p, .list-head p { font-size: var(--fs-tagline); line-height: 1.4; }
 
 /* =============================================================================
    CANONICAL TYPE SCALE — the Glance home page is the single source of truth for
@@ -119,11 +121,39 @@ h2, .brand-text strong { letter-spacing: -.011em; }
      item meta (date · source) .. .76rem muted                    [.g-item .m]
      section sub-header ......... .68rem / 800 uppercase          [.g-sub-h]
    ============================================================================= */
+
+/* -- The five canonical text ROLES as design tokens (anchored to the Macro
+      reference snips), so every surface references ONE source of truth. Change a
+      size here and it updates platform-wide. Named for the role, not the size:
+        section title  [h1 "Macro Intelligence"]
+        tagline        [.page-head p "Key US & UK…"]
+        item title     [.compact-head "CNBC Daily Open…"]
+        item meta      [.small "14 Jul 2026 · CNBC"]
+        content        [.macro-sum-line "Fed on hold at…" — the DEFAULT]
+      card/panel titles (h2/h3) keep the established 1.05rem card-title size. -- */
+:root {
+  --fs-section-title: 1.6rem;  /* page / section heading (h1); 1.2rem on mobile */
+  --fs-card-title:    1.05rem; /* card / panel heading (h2, h3, .g-card-title) */
+  --fs-tagline:       .85rem;  /* lede / subtitle under a title (muted) */
+  --fs-item-title:    .9rem;   /* feed / list / card item headline */
+  --fs-item-meta:     .76rem;  /* item date · source · fine print (muted) */
+  --fs-content:       .85rem;  /* DEFAULT — summaries, descriptions, narrative */
+}
+@media (max-width: 760px) { :root { --fs-section-title: 1.2rem; } }
+
+/* Content is the platform's DEFAULT text size: every classless <p>, <td>, <li>
+   and narrative block inherits it in place of the old 16px body base (rem-sized
+   role text is root-relative, so it is unaffected). Role text overrides below. */
+body { font-size: var(--fs-content); }
+h1 { font-size: var(--fs-section-title); }
+h2, h3, .g-card-title, .macro-sum-title, .feature-card > h2, .card > h2 { font-size: var(--fs-card-title); }
+.macro-sum-line, .macro-para, .macro-bottomline { font-size: var(--fs-content); }
+
 /* Feed/list/dashboard item titles across the apps inherited the 16px body base;
    pin them to the home item-title size. .intel-head = Credit/Macro feed rows,
    .feed-title = Legal list/case views, .compact-head = every app DASHBOARD's
    compact item lists (the "Law-firm alerts" / news lists on the home tab). */
-.intel-head, .feed-title, .compact-head { font-size: .9rem; }
+.intel-head, .feed-title, .compact-head { font-size: var(--fs-item-title); }
 /* Item titles use normal (greedy) wrapping, not text-wrap:pretty — Safari/WebKit
    balances "pretty" short 2–3 line blocks, shortening the first line so titles
    wrap earlier than needed. Greedy wrapping fills each line to the full width.
@@ -146,7 +176,7 @@ h2, .brand-text strong { letter-spacing: -.011em; }
    dashboard's .news-col pair). Let those tracks shrink so the ellipsis works. */
 .news-cols > * { min-width: 0; }
 /* Small / meta text (dates, sources, fine print) → home item-meta size (.76rem). */
-.small, .feed-date { font-size: .76rem; }
+.small, .feed-date { font-size: var(--fs-item-meta); }
 
 /* ---- Detail-page context / body prose (Credit manager profiles, fund & investor
         pages) → the canonical page-lede size (.85rem), matching the app page
@@ -154,9 +184,9 @@ h2, .brand-text strong { letter-spacing: -.011em; }
         `.lead` was .98rem; classless <p> and <p class="muted"> inherited 16px.
         `.detail-body` tags the classless body paragraphs (finances, fund target).
         `:not(.small)` leaves the .76rem "muted small" captions alone. ---- */
-.lead { font-size: .85rem; }
-p.muted:not(.small) { font-size: .85rem; }
-.detail-body { font-size: .85rem; }
+.lead { font-size: var(--fs-content); }
+p.muted:not(.small) { font-size: var(--fs-tagline); }
+.detail-body { font-size: var(--fs-content); }
 
 /* ---- Manager page: the Funds and CLOs tables share one column template so
         their columns line up perfectly across the two cards. table-layout:fixed

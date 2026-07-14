@@ -252,23 +252,34 @@ extra deep-research pass on watchlisted names is skipped.
   Co-Authored-By: Claude Opus 4.8 (1M context) <noreply@anthropic.com>
   Claude-Session: <this session's URL>
   ```
-- **House typography — the Glance home page is the canonical style for the whole
-  app.** Font family (system stack: `-apple-system, BlinkMacSystemFont, "Segoe UI",
-  Roboto, Helvetica, Arial, sans-serif`) and the type scale below are the single
-  source of truth; every surface (Credit, Legal, Macro) must conform to it. The
-  scale lives in `premium.css` under "CANONICAL TYPE SCALE" (all sizes are `rem`
-  off the 16px root; home reference element in brackets):
-  - page headline `h1` — **1.6rem / 800**, mobile **1.2rem** `[.g-hello h1]`
-  - card / section title — **1.05rem / 800** `[.g-card-title]`
-  - page lede / description — **.85rem** muted `[.g-gl / .g-card-desc]`
-  - feed / list item title — **.9rem / 600** `[.g-item .t]`
-  - item meta (date · source) — **.76rem** muted `[.g-item .m]`
-  - section sub-header — **.68rem / 800** uppercase `[.g-sub-h]`
+- **House typography — one agreed scale, applied consistently everywhere.** Font
+  family (system stack: `-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+  Helvetica, Arial, sans-serif`) and the five-role text scale below are the single
+  source of truth; every surface (Credit, Legal, Macro **and** the Glance home)
+  must conform. The scale is defined **once**, as CSS design tokens in `premium.css`
+  under "CANONICAL TYPE SCALE" (`:root { --fs-* }`), and every rule references a
+  token — never a literal `font-size`. Change a size there and it updates
+  platform-wide. All sizes are `rem` off the 16px root; the five roles (with the
+  Macro reference element that anchors each) are:
+  - **Section title** — `--fs-section-title` **1.6rem / 800**, mobile **1.2rem**
+    `[h1 "Macro Intelligence"]`
+  - **Tagline** (lede / subtitle under a title) — `--fs-tagline` **.85rem** muted
+    `[.page-head p "Key US & UK…"]`
+  - **Item headline** (feed / list / card item title) — `--fs-item-title` **.9rem / 600**
+    `[.compact-head "CNBC Daily Open…"]`
+  - **Item headline meta** (date · source · fine print) — `--fs-item-meta` **.76rem**
+    muted `[.small "14 Jul 2026 · CNBC"]`
+  - **Content** (summaries, descriptions, explanations, narrative) — `--fs-content`
+    **.85rem** — this is the platform's **default** body text size (`body {
+    font-size: var(--fs-content); }`); every classless `<p>`/`<td>`/`<li>` inherits
+    it `[.macro-sum-line "Fed on hold at…"]`
+  - Supporting: card / panel heading (h2, h3) — `--fs-card-title` **1.05rem / 800**;
+    section sub-header — **.68rem / 800** uppercase `[.g-sub-h]`
   - "Sign out" link — the home-logo blue **#0ea5e9** everywhere
 
-  When a run adds or edits any UI/markup, it must use these sizes/classes (reuse an
-  existing home/app class rather than inventing a new size). Do NOT hard-code a
-  different font-size on new content.
+  When a run adds or edits any UI/markup, it must reuse an existing role class or a
+  `--fs-*` token — never invent or hard-code a new `font-size`. Content text (any
+  summary/description/narrative) must render at the default `--fs-content` (.85rem).
 
 ---
 
@@ -552,20 +563,29 @@ extra deep-research pass on watchlisted names is skipped.
 >    `node --input-type=module -e "import('./macro/js/content.js').then(m=>console.log(m.META.lastChecked, m.BUBBLE.dimensions.length))"`
 >    plus `node --check src/index.js`.
 >
-> 7. HOUSE-STYLE QC (every run). The Glance home page is the canonical style; the
->    app must stay conformed to it (see the "House typography" invariant + the
->    "CANONICAL TYPE SCALE" block in `premium.css`). Do a quick conformance pass:
->    - If this run added/edited any UI or markup, confirm it uses the canonical
->      classes/sizes (feed item title `.9rem/600`, meta `.76rem` muted, section
->      sub-header `.68rem/800` uppercase, lede `.85rem`, headline `h1` 1.6/1.2rem,
->      "Sign out" = `#0ea5e9`) — never a hard-coded off-scale font-size.
->    - Grep for drift a run may have introduced or that crept in elsewhere, e.g.
->      `grep -rnE "font-size:\s*(1[0-9]|9)px" credit/css legal/css macro/css` (raw
->      px on body-copy) and any new `font-family` that isn't the system stack.
->    - If you find drift, fix it in the shared `premium.css` (preferred — one place,
->      all apps) or the specific app CSS, matching the canonical size. If a
->      divergence is intentional / out of scope to fix safely, note it in the run
->      summary rather than silently leaving it. Bump the touched files' cache tokens.
+> 7. HOUSE-STYLE QC — TEXT-SIZE CONFORMANCE (every run, not optional). The five-role
+>    type scale (`--fs-*` tokens in `premium.css` → "CANONICAL TYPE SCALE"; see the
+>    "House typography" invariant) must hold across all four surfaces. Check it:
+>    - If this run added/edited any UI or markup, confirm every piece of text maps to
+>      one of the five roles and uses its token / role class — never a literal
+>      `font-size`: section title (`--fs-section-title`), tagline (`--fs-tagline`
+>      .85rem), item headline (`--fs-item-title` .9rem/600), item meta
+>      (`--fs-item-meta` .76rem muted), and **content** (`--fs-content` .85rem — the
+>      default; any summary/description/narrative renders at this size). Card/panel
+>      headings use `--fs-card-title` (1.05rem); "Sign out" = `#0ea5e9`.
+>    - Grep for drift the run (or a prior one) may have introduced:
+>      `grep -rnE "font-size:\s*(1[0-9]|[0-9](\.[0-9]+)?rem|[0-9]+px)" credit/css legal/css macro/css`
+>      then confirm each hit is either a token (`var(--fs-*)`) or a deliberate
+>      non-text size (icons, chart ticks). A raw body-copy `font-size` that is not a
+>      `--fs-*` token IS drift — fold it into the right token.
+>    - Spot-check the rendered result against the agreed sizes (the Playwright harness
+>      in the session scratchpad reports computed `font-size` per role — home,
+>      a dashboard, a list and a detail page should all show h1 25.6px / tagline &
+>      content 13.6px / item title 14.4px / meta 12.16px).
+>    - Fix any drift in the shared `premium.css` (preferred — one place, all apps) by
+>      pointing the rule at the correct `--fs-*` token. If a divergence is intentional
+>      / out of scope to fix safely, note it in the run summary rather than silently
+>      leaving it. Bump the touched files' cache tokens.
 >    This step never blocks publishing data — it just keeps the type system from
 >    drifting run to run.
 >
