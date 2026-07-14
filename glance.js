@@ -67,8 +67,7 @@ let _inited = false;
 const fmtRefresh = () => `${fmt(LAST_CHECKED)}${LAST_CHECKED_TIME ? `, ${LAST_CHECKED_TIME}` : ""}`;
 // Feed rows lead with the article's own publish time where the data carries one;
 // where it doesn't (yet), they fall back to the routine run time (the "HH:MM" from
-// LAST_CHECKED_TIME, e.g. "12:20 BST" → "12:20"), tagged so it reads as the
-// as-of-refresh time rather than a confirmed publish time.
+// LAST_CHECKED_TIME, e.g. "12:20 BST" → "12:20").
 const RUN_TIME = String(LAST_CHECKED_TIME || "").replace(/\s+[A-Za-z]+$/, "").trim();
 
 export function initGlance() {
@@ -260,7 +259,7 @@ function renderFeed() {
 
   const row = (o) => {
     const t = o.time || RUN_TIME;
-    const tspan = t ? `<span class="g-feed-time"${o.time ? "" : ' title="As of the last refresh"'}>${esc(t)}</span>` : "";
+    const tspan = t ? `<span class="g-feed-time">${esc(t)}</span>` : "";
     return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
       + tspan
       + `<span class="g-feed-title">${esc(o.title)}</span>`
