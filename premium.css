@@ -387,7 +387,7 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
         centred slate rule that's more prominent than the thin per-row borders. ---- */
 .day-sep { height: 1.6rem; position: relative; }
 .day-sep::before { content: ""; position: absolute; left: 0; right: 0; top: calc(50% - 1px);
-  border-top: 2px solid rgba(100,116,139,.32); }
+  border-top: 2px solid var(--border, var(--line, #e4e7ef)); }
 /* Drop the row's own faint bottom border when a day-break rule follows it, so the
    two don't stack into a double line. */
 .intel-row:has(+ .day-sep), .feed-row:has(+ .day-sep) { border-bottom: 0; }
