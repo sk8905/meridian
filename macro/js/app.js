@@ -275,19 +275,21 @@ function trackGauge(zones, items, aria) {
   const gradId = `gaugeGrad${gaugeSeq++}`;
   const X = (p) => x0 + (Math.max(0, Math.min(100, p)) / 100) * (x1 - x0);
   const zoneText = zones.map(([p, t]) => `<text x="${X(p).toFixed(1)}" y="${trackY + trackH + 15}" class="gauge-zone" text-anchor="middle">${esc(t)}</text>`).join("");
-  const marks = items.map((it, i) => {
+  // Markers are the tick + dot only — no numeric/identity label above the track
+  // (removed to save vertical space; the marker's position on the zoned track and
+  // the aria-label carry the read).
+  const marks = items.map((it) => {
     const x = X(it.pos).toFixed(1);
-    const ly = i % 2 === 0 ? trackY - 22 : trackY - 9; // stagger vertically to avoid collisions
     return `<g>
       <line x1="${x}" y1="${trackY - 4}" x2="${x}" y2="${trackY + trackH + 4}" stroke="${MACRO_INK}" stroke-width="2"/>
       <circle cx="${x}" cy="${trackY + trackH / 2}" r="5" fill="${MACRO_INK}" stroke="var(--surface)" stroke-width="1.5"/>
-      <text x="${x}" y="${ly}" class="gauge-mark" text-anchor="middle">${esc(it.label)} · ${it.pos}</text>
     </g>`;
   }).join("");
-  // Trim the empty top of the viewBox (the highest content — a mark label — sits at
-  // ~y25) so the gauge hugs the top of its box instead of floating ~40px low.
-  const vbTop = 20;
-  return `<svg viewBox="0 ${vbTop} ${W} ${H - vbTop}" class="gauge" role="img" aria-label="${esc(aria || "")}">
+  // With the labels gone, the top content is the marker tick (y≈52). Crop the
+  // viewBox tight to [track … zone labels] so the gauge is compact and sits at the
+  // very top of its box.
+  const vbTop = 46, vbBot = 92;
+  return `<svg viewBox="0 ${vbTop} ${W} ${vbBot - vbTop}" class="gauge" role="img" aria-label="${esc(aria || "")}">
     <defs><linearGradient id="${gradId}" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="var(--gauge-lo)"/><stop offset="1" stop-color="${MACRO_INK}"/>
     </linearGradient></defs>

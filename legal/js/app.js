@@ -690,7 +690,11 @@ function viewItem(id) {
     </nav>
 
     <article class="detail">
-      <div class="detail-chips">${areasHtml} <span class="chip type">${esc(type)}</span>${isNew(it) ? '<span class="chip new">New</span>' : ""}</div>
+      <div class="detail-top">
+        <div class="detail-chips">${areasHtml} <span class="chip type">${esc(type)}</span>${isNew(it) ? '<span class="chip new">New</span>' : ""}</div>
+        <button class="save-btn big ${saved ? "is-saved" : ""}" data-save="${esc(it.id)}"
+          aria-pressed="${saved}">${saved ? "★ Saved" : "☆ Save this update"}</button>
+      </div>
       <h1>${esc(it.title)}</h1>
       <div class="detail-meta">
         ${firmLink(it.firm, firm.name, `firm-big tier-${esc(firm.tier)}`)}
@@ -703,9 +707,6 @@ function viewItem(id) {
         ${it.court ? `<span><span class="lbl">Court</span> ${esc(it.court)}</span>` : ""}
         ${it.citation ? `<span><span class="lbl">Citation</span> ${esc(it.citation)}</span>` : ""}
       </div>` : ""}
-
-      <button class="save-btn big ${saved ? "is-saved" : ""}" data-save="${esc(it.id)}"
-        aria-pressed="${saved}">${saved ? "★ Saved" : "☆ Save this update"}</button>
 
       <h2>Summary</h2>
       <p class="detail-summary">${esc(it.summary)}</p>

@@ -54,9 +54,10 @@ h2, .brand-text strong { letter-spacing: -.011em; }
         the top-bar nav is consistent across the home page and every app. ---- */
 .nav-link { font-size: .9rem; }
 
-/* ---- Pointer devices: a gentle lift on hover (never fires on touch). ---- */
+/* ---- Pointer devices: a gentle shadow on hover (never fires on touch). No
+        move/zoom transform — cards stay put. ---- */
 @media (hover: hover) {
-  .card:hover, .g-card:hover { box-shadow: var(--elev-2); transform: translateY(-1px); }
+  .card:hover, .g-card:hover { box-shadow: var(--elev-2); }
 }
 
 /* ---- Skeleton shimmer utility (data loads synchronously today, so this is here
@@ -206,7 +207,6 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
     animation-duration: .001s !important; animation-delay: 0s !important;
     transition-duration: .001s !important;
   }
-  .card:hover, .g-card:hover { transform: none !important; }
 }
 
 /* =============================================================================
