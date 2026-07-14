@@ -13,7 +13,7 @@ export const UPDATED = "14 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-14",
-  lastCheckedTime: "10:13 BST",
+  lastCheckedTime: "12:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -192,6 +192,7 @@ export const BUBBLE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-brent-87-2026-07-14", kind: "Markets", title: "Brent crude rose a further ~4.7% to $87.20/bbl (WTI $80.83) in early US trading on 14 July, per Investing.com/Reuters — a fresh high for this cycle — as three straight nights of US strikes on Iran and the proposed Hormuz toll kept a lid on relief ahead of the June CPI print.", href: "#/bubble", date: "2026-07-14" },
   { id: "g-burnham-confirmed-2026-07-13", kind: "Markets", title: "Andy Burnham secured the Labour leadership with landslide MP support, confirming his path to become UK prime minister on 20 July — resolving the political-risk overhang flagged earlier in the week.", href: "#/cycle", date: "2026-07-13" },
   { id: "g-waller-hike-odds-2026-07-13", kind: "Rate guidance", title: "Fed Governor Waller said a 29 July rate hike 'will need to be considered' if core inflation stays hot in Tuesday's CPI print — CME FedWatch now shows ~46.5% odds of a hike (from a low base a week earlier) and Kalshi odds jumped to ~36%, a sharp shift from the prior hold-biased framing.", href: "#/policy", date: "2026-07-13" },
   { id: "g-hormuz-toll-2026-07-13", kind: "Markets", title: "Trump said the US will reinstate its Iran blockade in the Strait of Hormuz and impose a 20% toll on all other cargo transiting the waterway — a reversal of Washington's prior opposition to tolls that further undercuts last month's interim ceasefire and adds to the oil-driven inflation risk facing the Fed and BoE.", href: "#/bubble", date: "2026-07-13" },
@@ -238,7 +239,7 @@ export const NEWS = {
     { title: "Fed Rate-Hike Bets Mount Before Inflation Data, Warsh Testimony", source: "Bloomberg", date: "2026-07-14", url: "https://www.bloomberg.com/news/articles/2026-07-14/fed-rate-hike-bets-mount-before-inflation-data-warsh-testimony" },
     { title: "Dollar steady before US inflation data, yen under pressure", source: "CNBC", date: "2026-07-14", url: "https://www.cnbc.com/2026/07/14/dollar-steady-before-us-inflation-data-yen-under-pressure.html" },
     { title: "Oil prices hit 1-month high as US-Iran attacks dim Strait of Hormuz outlook", source: "Al Jazeera", date: "2026-07-14", url: "https://www.aljazeera.com/economy/2026/7/14/oil-hits-1-month-high-as-us-iran-fighting-clouds-strait-of-hormuz-outlook" },
-    { title: "Stock market today: Dow, S&P 500, Nasdaq futures decline as traders lift Fed rate hike bets ahead of key inflation data", source: "Yahoo Finance", date: "2026-07-14", url: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-july-14-dow-sp-500-nasdaq-070833816.html" },
+    { title: "Wall St futures mixed ahead of CPI, bank earnings; US-Iran tensions in focus", source: "Reuters (via Investing.com)", date: "2026-07-14", url: "https://www.investing.com/news/stock-market-news/wall-st-futures-mixed-ahead-of-cpi-bank-earnings-usiran-tensions-in-focus-4790080" },
     { title: "Morning Bid: Fed in the spotlight as Warsh faces Congress", source: "Reuters (via Investing.com)", date: "2026-07-14", url: "https://www.investing.com/news/economy-news/morning-bid-fed-in-the-spotlight-as-warsh-faces-congress-4789685" },
   ],
   uk: [
