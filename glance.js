@@ -151,15 +151,15 @@ const creditItemHref = (x, tab) => `/credit/#/${x.clo ? "clos" : tab}?focus=${en
 // ---- Highlight cards -------------------------------------------------------
 // Each platform card is broken into its natural sections, newest 3 items each.
 function renderCards() {
-  // ---- Macro: US headlines, UK headlines, market headlines (newest 3 each) ----
+  // ---- Macro: market headlines, then US, then UK (newest 3 each) ----
   // All three source daily-refreshed feeds (NEWS.us/uk and the ARTICLES reading
   // list), so the routine keeps each showing three current (same-day) items.
   const macroNews = (k) => ((NEWS && NEWS[k]) || []).slice().sort(byDateDesc).slice(0, 3);
   const marketNews = (((ARTICLES && ARTICLES.items) || []).slice()).sort(byDateDesc).slice(0, 3);
   const headline = (n) => item(n.url, n.title, `${fmt(n.date)}${n.source ? " · " + n.source : ""}`, true);
-  sec("m", 1, "US headlines", macroNews("us").map(headline));
-  sec("m", 2, "UK headlines", macroNews("uk").map(headline));
-  sec("m", 3, "Market headlines", marketNews.map(headline));
+  sec("m", 1, "Market headlines", marketNews.map(headline));
+  sec("m", 2, "US headlines", macroNews("us").map(headline));
+  sec("m", 3, "UK headlines", macroNews("uk").map(headline));
 
   // ---- Credit: deals, fundraising, CLOs ----
   const dealsR = [...deals].filter((d) => !d.clo).sort(byDateDesc).slice(0, 3);

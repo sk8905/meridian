@@ -364,3 +364,20 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   :root[data-theme="light"] .theme-toggle .ico-sun { display: inline-flex; }
   :root[data-theme="dark"]  .theme-toggle .ico-moon { display: inline-flex; }
 }
+
+/* ---- Save buttons: ONE compact "☆ Save" pill everywhere (Credit, Legal, Macro —
+        feed rows and detail pages alike). Defined here so all three apps render
+        identically; the per-app visual rules and the old ".big" detail variant are
+        superseded (context-specific margins/positioning are left to the apps). ---- */
+.save-btn {
+  display: inline-flex; align-items: center; gap: .3rem;
+  background: #f1f5f9; border: 1px solid var(--line); color: var(--muted);
+  border-radius: 7px; padding: .2rem .6rem; font-size: .74rem; font-weight: 600;
+  line-height: 1.4; cursor: pointer; white-space: nowrap;
+}
+.save-btn:hover { background: #e2e8f0; color: var(--ink); }
+.save-btn.is-saved { background: #fff7ed; border-color: #fed7aa; color: #b45309; }
+.save-btn.big { margin: 0; padding: .2rem .6rem; font-size: .74rem; }
+[data-theme="dark"] .save-btn { background: rgba(255,255,255,.06); border-color: var(--border); color: var(--ink-soft); }
+[data-theme="dark"] .save-btn:hover { background: rgba(255,255,255,.12); color: var(--ink); }
+[data-theme="dark"] .save-btn.is-saved { background: rgba(251,146,60,.16); border-color: rgba(251,146,60,.42); color: #fbbf24; }

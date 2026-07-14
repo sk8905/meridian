@@ -692,8 +692,8 @@ function viewItem(id) {
     <article class="detail">
       <div class="detail-top">
         <div class="detail-chips">${areasHtml} <span class="chip type">${esc(type)}</span>${isNew(it) ? '<span class="chip new">New</span>' : ""}</div>
-        <button class="save-btn big ${saved ? "is-saved" : ""}" data-save="${esc(it.id)}"
-          aria-pressed="${saved}">${saved ? "★ Saved" : "☆ Save this update"}</button>
+        <button class="save-btn ${saved ? "is-saved" : ""}" data-save="${esc(it.id)}"
+          aria-pressed="${saved}">${saved ? "★ Saved" : "☆ Save"}</button>
       </div>
       <h1>${esc(it.title)}</h1>
       <div class="detail-meta">
@@ -999,9 +999,7 @@ document.addEventListener("click", (e) => {
     const nowSaved = toggleSaved(id);
     saveBtn.classList.toggle("is-saved", nowSaved);
     saveBtn.setAttribute("aria-pressed", String(nowSaved));
-    saveBtn.textContent = nowSaved
-      ? (saveBtn.classList.contains("big") ? "★ Saved" : "★ Saved")
-      : (saveBtn.classList.contains("big") ? "☆ Save this update" : "☆ Save");
+    saveBtn.textContent = nowSaved ? "★ Saved" : "☆ Save";
     // If we're viewing "saved only", drop the card immediately.
     if (filterState.saved && document.getElementById("results")) renderResults();
     return;

@@ -479,7 +479,7 @@ a.compact-head:hover { color: var(--primary); }
    in a row with the area/type chips; the title sits full-width below. */
 .detail-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 1rem; }
 .detail-top .detail-chips { flex: 1 1 auto; }
-.detail-top .save-btn.big { flex: 0 0 auto; margin: 0; }
+.detail-top .save-btn { flex: 0 0 auto; margin: 0; }
 .detail-chips { display: flex; flex-wrap: wrap; gap: .4rem; }
 .detail-meta { display: flex; flex-wrap: wrap; gap: .8rem; align-items: center; font-size: var(--fs-item-meta); color: var(--ink-soft); margin-bottom: 1rem; }
 .firm-big { font-weight: 700; }
