@@ -383,5 +383,8 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 [data-theme="dark"] .save-btn.is-saved { background: rgba(251,146,60,.16); border-color: rgba(251,146,60,.42); color: #fbbf24; }
 
 /* ---- Day-break separator in date-sorted feeds (Credit news/deals/…, Macro News):
-        a clear vertical gap between one day's items and the next. ---- */
-.day-sep { height: .85rem; }
+        a clear break between one day's items and the next — a generous gap with a
+        centred slate rule that's more prominent than the thin per-row borders. ---- */
+.day-sep { height: 1.6rem; position: relative; }
+.day-sep::before { content: ""; position: absolute; left: 0; right: 0; top: calc(50% - 1px);
+  border-top: 2px solid rgba(100,116,139,.32); }
