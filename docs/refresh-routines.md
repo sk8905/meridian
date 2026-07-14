@@ -63,6 +63,17 @@ extra deep-research pass on watchlisted names is skipped.
   so look back ~24 hours to be safe — dedup removes any overlap. Verify each item's EXACT publication date from the
   source; never invent a URL, date, figure or quote. Dedupe every candidate by URL
   and normalised headline/citation against the data already in the file.
+- **Publication `time` (Home feed ranking).** For every item that carries a
+  `date` — Credit `deals`/`intel`, Legal `items`/`cases`/`restructurings`, Macro
+  `NEWS`/`ARTICLES`/`COMMENTARY` items — ALSO record a `time` field: the item's
+  publication time as a `"HH:MM"` 24-hour string in **Europe/London** (e.g.
+  `time: "14:05"`). The Home briefing feed leads each row with this time, groups
+  rows under a per-day date header, and ranks them newest→oldest by `date`+`time`.
+  Take the time from the source's own published timestamp and convert to London
+  time. **If the source gives no minute-level publish time, leave `time` unset
+  (omit it) — never guess or fabricate a time.** Rows without a `time` simply lead
+  with the headline. (This is additive; existing records gain a `time` as they are
+  next touched — no need to backfill the whole history in one run.)
 - **Historical depth (not just current-year) — always add what you uncover.** The
   ~24h window only governs which *newly surfaced* items a run hunts for — it is
   NOT a floor on an item's own date, and it is NOT a reason to discard a real

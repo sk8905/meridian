@@ -200,27 +200,31 @@ const creditItemHref = (x, tab) => `/credit/#/${x.clo ? "clos" : tab}?focus=${en
 // feed is never empty between refreshes.
 const DESK = { m: "Macro", c: "Credit", l: "Legal" };
 function renderFeed() {
-  const mk = (desk, href, title, source, ext, date) =>
-    ({ desk, href, title, ext, date, src: source || "" });
+  // `time` is the article's publish time (e.g. "14:05", Europe/London) when the
+  // data carries one — the four-times-daily routine populates it; rows lead with
+  // it and the feed ranks newest→oldest by date+time. Absent → row leads with the
+  // headline (no fabricated time) until the next refresh backfills it.
+  const mk = (desk, href, title, source, ext, date, time) =>
+    ({ desk, href, title, ext, date, time: time || "", src: source || "" });
 
   // Every dated, sourced Macro item: the reading list (ARTICLES), the dashboard
   // headlines (NEWS US/UK) and the economist commentary (COMMENTARY US/UK). Deduped
   // by title below, so cross-section overlap collapses to one row.
   const macro = [];
-  ((ARTICLES && ARTICLES.items) || []).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date)));
-  (((NEWS && NEWS.us) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date)));
-  (((NEWS && NEWS.uk) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date)));
-  (((COMMENTARY && COMMENTARY.us) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date)));
-  (((COMMENTARY && COMMENTARY.uk) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date)));
+  ((ARTICLES && ARTICLES.items) || []).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)));
+  (((NEWS && NEWS.us) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)));
+  (((NEWS && NEWS.uk) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)));
+  (((COMMENTARY && COMMENTARY.us) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)));
+  (((COMMENTARY && COMMENTARY.uk) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)));
 
   const credit = [];
-  deals.forEach((d) => credit.push(mk("c", creditItemHref(d, "deals"), d.headline, creditSource(d), false, d.date)));
-  intel.forEach((i) => credit.push(mk("c", creditItemHref(i, "intel"), i.headline, creditSource(i), false, i.date)));
+  deals.forEach((d) => credit.push(mk("c", creditItemHref(d, "deals"), d.headline, creditSource(d), false, d.date, d.time)));
+  intel.forEach((i) => credit.push(mk("c", creditItemHref(i, "intel"), i.headline, creditSource(i), false, i.date, i.time)));
 
   const legal = [];
-  items.forEach((i) => { if (i.date) legal.push(mk("l", `/legal/#/item/${encodeURIComponent(i.id)}`, i.title, firmName(i.firm), false, i.date)); });
-  cases.forEach((c) => { if (c.date) legal.push(mk("l", `/legal/#/cases?case=${encodeURIComponent(c.id)}`, c.name, c.court, false, c.date)); });
-  restructurings.forEach((r) => { if (r.date) legal.push(mk("l", `/legal/#/restructurings?m=${encodeURIComponent(r.id)}`, r.company, r.type === "scheme" ? "Scheme" : "Restructuring plan", false, r.date)); });
+  items.forEach((i) => { if (i.date) legal.push(mk("l", `/legal/#/item/${encodeURIComponent(i.id)}`, i.title, firmName(i.firm), false, i.date, i.time)); });
+  cases.forEach((c) => { if (c.date) legal.push(mk("l", `/legal/#/cases?case=${encodeURIComponent(c.id)}`, c.name, c.court, false, c.date, c.time)); });
+  restructurings.forEach((r) => { if (r.date) legal.push(mk("l", `/legal/#/restructurings?m=${encodeURIComponent(r.id)}`, r.company, r.type === "scheme" ? "Scheme" : "Restructuring plan", false, r.date, r.time)); });
 
   const day = (x) => String(x.date || "").slice(0, 10);
   const all = [...macro, ...credit, ...legal];
@@ -250,22 +254,23 @@ function renderFeed() {
   feed.length = Math.min(feed.length, CAP);
 
   const row = (o) => `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
-    + `<span class="g-feed-date">${esc(fmt(o.date))}</span>`
+    + (o.time ? `<span class="g-feed-time">${esc(o.time)}</span>` : "")
     + `<span class="g-feed-title">${esc(o.title)}</span>`
     + (o.src ? `<span class="g-feed-src">${esc(o.src)}</span>` : "")
     + `<span class="g-feed-desk">${esc(DESK[o.desk])}</span></a>`;
-  // A section break between each day (the feed is grouped newest-day-first).
+  // Rank strictly newest→oldest (by day, then publish time), grouped into days;
+  // each day is introduced by a date header and its rows lead with the time.
+  feed.sort((a, b) => day(b).localeCompare(day(a)) || String(b.time || "").localeCompare(String(a.time || "")));
   let lastDay = null;
   const body = feed.map((o) => {
     const d = day(o);
-    const sep = lastDay !== null && d !== lastDay ? '<div class="g-feed-daysep" aria-hidden="true"></div>' : "";
+    const hdr = d !== lastDay ? `<div class="g-feed-dayhdr">${esc(fmt(d))}</div>` : "";
     lastDay = d;
-    return sep + row(o);
+    return hdr + row(o);
   }).join("");
   setHTML("g-feed", feed.length ? body : `<div class="g-empty">No news yet today — check back shortly.</div>`);
   const head = document.getElementById("g-feed-head");
-  const allToday = feed.length > 0 && feed.every((o) => day(o) === target);
-  if (head) head.textContent = !feed.length ? "Today" : allToday ? `Today · ${fmt(target)}` : "Latest news";
+  if (head) head.textContent = feed.length ? "Latest news" : "Today";
 }
 // ---- Macro snapshot (right sidebar) ----------------------------------------
 // A compact read of the three Macro views — policy rate, cycle position and
