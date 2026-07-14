@@ -267,6 +267,31 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 [data-theme-choice="system"] .theme-toggle .ico-auto,
 :root:not([data-theme-choice]) .theme-toggle .ico-auto { display: inline-flex; }
 
+/* ---- App top bars (Credit / Legal / Macro — NOT the Glance home, which uses its
+        own .g-actions cluster): .topbar-right is a vertically-stacked column of the
+        "Signed in as…" line + the "Last refresh…" line. The theme-toggle was added
+        as a THIRD stacked row, making the column taller (~74px) than the 60px
+        header — so the top identity line was clipped above the bar and the toggle
+        button hung below it, over the page. Lay .topbar-right out as a 2-column
+        grid: the two text lines stack in the left column, the toggle sits beside
+        them in the right column spanning both rows (vertically centred). The
+        cluster is then only two text-rows tall and fits the header cleanly. Scoped
+        to ≥761px so the mobile layout (toggle relocates via the grid areas, text
+        moves to the footer) is untouched. ---- */
+@media (min-width: 761px) {
+  .topbar-right {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-template-areas: "acct toggle" "status toggle";
+    align-items: center;
+    column-gap: .55rem;
+    row-gap: .1rem;
+  }
+  .topbar-right .account-nav { grid-area: acct; justify-self: end; }
+  .topbar-right .data-status { grid-area: status; justify-self: end; }
+  .topbar-right .theme-toggle { grid-area: toggle; }
+}
+
 /* ---- Chart palette (credit/js/charts.js emits these as CSS vars so the Trends
         bar/line/donut charts flip live with the theme). --chart-brand is the one
         brand hue; --chart-r0…r7 the sequential donut ramp (most→least prominent,
