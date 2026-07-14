@@ -284,7 +284,10 @@ function trackGauge(zones, items, aria) {
       <text x="${x}" y="${ly}" class="gauge-mark" text-anchor="middle">${esc(it.label)} · ${it.pos}</text>
     </g>`;
   }).join("");
-  return `<svg viewBox="0 0 ${W} ${H}" class="gauge" role="img" aria-label="${esc(aria || "")}">
+  // Trim the empty top of the viewBox (the highest content — a mark label — sits at
+  // ~y25) so the gauge hugs the top of its box instead of floating ~40px low.
+  const vbTop = 20;
+  return `<svg viewBox="0 ${vbTop} ${W} ${H - vbTop}" class="gauge" role="img" aria-label="${esc(aria || "")}">
     <defs><linearGradient id="${gradId}" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="var(--gauge-lo)"/><stop offset="1" stop-color="${MACRO_INK}"/>
     </linearGradient></defs>
