@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0b1f44">
   <script>
-    (function(){var root=document.documentElement;function sysDark(){try{return matchMedia("(prefers-color-scheme: dark)").matches;}catch(e){return false;}}function choice(){var c;try{c=localStorage.getItem("m_theme");}catch(e){}return (c==="light"||c==="dark"||c==="system")?c:"system";}function apply(){var c=choice();root.setAttribute("data-theme-choice",c);root.setAttribute("data-theme",c==="system"?(sysDark()?"dark":"light"):c);}apply();try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){if(choice()==="system")apply();});}catch(e){}window.__cycleTheme=function(){var c=choice();var n;if(matchMedia("(max-width: 760px)").matches){n=c==="light"?"dark":c==="dark"?"system":"light";}else{n=root.getAttribute("data-theme")==="dark"?"light":"dark";}try{localStorage.setItem("m_theme",n);}catch(e){}apply();};})();
-    document.addEventListener("DOMContentLoaded",function(){var b=document.getElementById("theme-toggle");if(!b)return;function lbl(){var c=document.documentElement.getAttribute("data-theme-choice");var mob=matchMedia("(max-width: 760px)").matches;b.setAttribute("aria-label",mob?(c==="light"?"Theme: light — tap for dark":c==="dark"?"Theme: dark — tap for system":"Theme: system — tap for light"):(document.documentElement.getAttribute("data-theme")==="dark"?"Theme: dark — tap for light":"Theme: light — tap for dark"));}lbl();b.addEventListener("click",function(){window.__cycleTheme();lbl();});});
+    (function(){var root=document.documentElement;function sysDark(){try{return matchMedia("(prefers-color-scheme: dark)").matches;}catch(e){return false;}}function choice(){var c;try{c=localStorage.getItem("m_theme");}catch(e){}return (c==="light"||c==="dark"||c==="system"||c==="other")?c:"system";}function apply(){var c=choice();root.setAttribute("data-theme-choice",c);root.setAttribute("data-theme",c==="system"?(sysDark()?"dark":"light"):c==="other"?(sysDark()?"light":"dark"):c);}apply();try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){var c=choice();if(c==="system"||c==="other")apply();});}catch(e){}window.__cycleTheme=function(){var c=choice();var n;if(matchMedia("(max-width: 760px)").matches){n=c==="system"?"other":"system";}else{n=root.getAttribute("data-theme")==="dark"?"light":"dark";}try{localStorage.setItem("m_theme",n);}catch(e){}apply();};})();
+    document.addEventListener("DOMContentLoaded",function(){var b=document.getElementById("theme-toggle");if(!b)return;function lbl(){var c=document.documentElement.getAttribute("data-theme-choice");var mob=matchMedia("(max-width: 760px)").matches;b.setAttribute("aria-label",mob?(c==="system"?"Theme: matching system — tap to override":"Theme: overriding system — tap to match"):(document.documentElement.getAttribute("data-theme")==="dark"?"Theme: dark — tap for light":"Theme: light — tap for dark"));}lbl();b.addEventListener("click",function(){window.__cycleTheme();lbl();});});
   </script>
   <!-- Paint the navy background from the very first frame, before the external
        stylesheet loads — otherwise the top strip (above the banner / safe area)
@@ -18,7 +18,7 @@
   <title>Meridian Credit</title>
   <meta name="description" content="European private credit deal &amp; fundraising intelligence — prototype" />
   <link rel="stylesheet" href="css/styles.css?v=20260714-9" />
-  <link rel="stylesheet" href="/premium.css?v=20260711-37" />
+  <link rel="stylesheet" href="/premium.css?v=20260711-38" />
 </head>
 <body>
   <header class="topbar">

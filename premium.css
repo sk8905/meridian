@@ -260,12 +260,16 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 .theme-toggle:hover { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.32); }
 .theme-toggle svg { width: 16px; height: 16px; }
 /* Three-state toggle: the icon shows the current CHOICE (light / dark / system),
-   driven by data-theme-choice on <html>. Cycles light → dark → system. */
+   driven by data-theme-choice on <html>. Desktop cycles light ↔ dark; phones
+   cycle system ↔ other (override = the opposite of the OS setting). */
 .theme-toggle .ico-sun, .theme-toggle .ico-moon, .theme-toggle .ico-auto { display: none; }
 [data-theme-choice="light"] .theme-toggle .ico-sun,
 [data-theme-choice="dark"] .theme-toggle .ico-moon,
 [data-theme-choice="system"] .theme-toggle .ico-auto,
 :root:not([data-theme-choice]) .theme-toggle .ico-auto { display: inline-flex; }
+/* Phone "override" state: reflect the resolved theme (what you switched TO). */
+[data-theme-choice="other"][data-theme="light"] .theme-toggle .ico-sun,
+[data-theme-choice="other"][data-theme="dark"] .theme-toggle .ico-moon { display: inline-flex; }
 
 /* ---- App top bars (Credit / Legal / Macro — NOT the Glance home, which uses its
         own .g-actions cluster): .topbar-right is a vertically-stacked column of the

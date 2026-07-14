@@ -7,8 +7,8 @@
   <!-- Resolve the theme BEFORE paint (stored choice, else the OS setting) so there
        is no light flash; then wire the top-bar toggle once the DOM is ready. -->
   <script>
-    (function(){var root=document.documentElement;function sysDark(){try{return matchMedia("(prefers-color-scheme: dark)").matches;}catch(e){return false;}}function choice(){var c;try{c=localStorage.getItem("m_theme");}catch(e){}return (c==="light"||c==="dark"||c==="system")?c:"system";}function apply(){var c=choice();root.setAttribute("data-theme-choice",c);root.setAttribute("data-theme",c==="system"?(sysDark()?"dark":"light"):c);}apply();try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){if(choice()==="system")apply();});}catch(e){}window.__cycleTheme=function(){var c=choice();var n;if(matchMedia("(max-width: 760px)").matches){n=c==="light"?"dark":c==="dark"?"system":"light";}else{n=root.getAttribute("data-theme")==="dark"?"light":"dark";}try{localStorage.setItem("m_theme",n);}catch(e){}apply();};})();
-    document.addEventListener("DOMContentLoaded",function(){var b=document.getElementById("theme-toggle");if(!b)return;function lbl(){var c=document.documentElement.getAttribute("data-theme-choice");var mob=matchMedia("(max-width: 760px)").matches;b.setAttribute("aria-label",mob?(c==="light"?"Theme: light — tap for dark":c==="dark"?"Theme: dark — tap for system":"Theme: system — tap for light"):(document.documentElement.getAttribute("data-theme")==="dark"?"Theme: dark — tap for light":"Theme: light — tap for dark"));}lbl();b.addEventListener("click",function(){window.__cycleTheme();lbl();});});
+    (function(){var root=document.documentElement;function sysDark(){try{return matchMedia("(prefers-color-scheme: dark)").matches;}catch(e){return false;}}function choice(){var c;try{c=localStorage.getItem("m_theme");}catch(e){}return (c==="light"||c==="dark"||c==="system"||c==="other")?c:"system";}function apply(){var c=choice();root.setAttribute("data-theme-choice",c);root.setAttribute("data-theme",c==="system"?(sysDark()?"dark":"light"):c==="other"?(sysDark()?"light":"dark"):c);}apply();try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){var c=choice();if(c==="system"||c==="other")apply();});}catch(e){}window.__cycleTheme=function(){var c=choice();var n;if(matchMedia("(max-width: 760px)").matches){n=c==="system"?"other":"system";}else{n=root.getAttribute("data-theme")==="dark"?"light":"dark";}try{localStorage.setItem("m_theme",n);}catch(e){}apply();};})();
+    document.addEventListener("DOMContentLoaded",function(){var b=document.getElementById("theme-toggle");if(!b)return;function lbl(){var c=document.documentElement.getAttribute("data-theme-choice");var mob=matchMedia("(max-width: 760px)").matches;b.setAttribute("aria-label",mob?(c==="system"?"Theme: matching system — tap to override":"Theme: overriding system — tap to match"):(document.documentElement.getAttribute("data-theme")==="dark"?"Theme: dark — tap for light":"Theme: light — tap for dark"));}lbl();b.addEventListener("click",function(){window.__cycleTheme();lbl();});});
     // Phones: relocate the account (email/sign-out) + last-refresh block from the
     // top bar into the page footer to free up nav-bar space.
     (function(){function r(){if(!matchMedia("(max-width:760px)").matches)return;var f=document.getElementById("g-footer"),b=document.querySelector(".g-idblock");if(f&&b&&b.parentElement!==f)f.appendChild(b);}if(document.readyState!=="loading")r();else document.addEventListener("DOMContentLoaded",r);})();
@@ -354,10 +354,16 @@
       /* Phone: the tag flows inline right after the source (not pinned right). */
       .g-feed-desk { order:4; margin-left:0; padding-left:0; }
     }
-    /* Right column: the two bands become 2-column tile grids (were single wide rows). */
+    /* Right column: the two bands become 2-column tile grids (were single wide rows).
+       Numbers are dialled down and rows tightened so the whole column lands at the
+       same height as the 25-row news feed on the left. */
     .g-side { display:flex; flex-direction:column; }
-    .g-side .rates-band { grid-template-columns:repeat(2, 1fr); border-radius:14px; padding:.3rem .35rem; }
-    .g-side .rate-tile { border-left:0; border-top:0; padding:.42rem .5rem; }
+    .g-side .rates-band { grid-template-columns:repeat(2, 1fr); border-radius:14px; padding:.3rem .35rem; margin-bottom:1.1rem; }
+    .g-side .rate-tile { border-left:0; border-top:0; padding:.4rem .5rem; gap:.08rem; }
+    .g-side .rate-label { font-size:.64rem; }
+    .g-side .rate-val { font-size:.9rem; }
+    .g-side .rate-chg { font-size:.68rem; }
+    .g-side .rate-src { margin-top:.18rem; font-size:.68rem; }
     .g-side .rate-tile:nth-child(even) { border-left:1px solid var(--line); }
     .g-side .rate-tile:nth-child(n+3) { border-top:1px solid var(--line); }
     @media (max-width:900px){ .g-side .rates-band { grid-template-columns:repeat(4,1fr); }
@@ -376,13 +382,13 @@
     .g-snap-h { display:flex; align-items:baseline; justify-content:space-between; gap:.5rem; margin-bottom:.25rem; }
     .g-snap-t { font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); white-space:nowrap; }
     .g-snap-cap { font-size:.72rem; font-weight:700; color:var(--ink); text-align:right; line-height:1.25; }
-    .g-snap-pol { display:flex; gap:.4rem; align-items:baseline; font-size:.78rem; line-height:1.4; }
+    .g-snap-pol { display:flex; gap:.4rem; align-items:baseline; font-size:.78rem; line-height:1.42; }
     .g-snap-cc { flex:0 0 1.3rem; color:var(--muted); font-weight:700; font-size:.66rem; }
     .g-snap-pv { flex:0 0 auto; font-weight:700; color:var(--ink); white-space:nowrap; }
     .g-snap-ps { min-width:0; color:var(--muted); font-size:.72rem; }
-    .g-snap-gauge { display:block; width:100%; height:auto; margin:.35rem 0 .15rem; overflow:visible; }
+    .g-snap-gauge { display:block; width:100%; height:auto; margin:.4rem 0 .18rem; overflow:visible; }
     .g-snap-scale { display:flex; justify-content:space-between; font-size:.62rem; color:var(--muted); }
-    .g-snap-sub { margin-top:.2rem; font-size:.68rem; color:var(--muted); }
+    .g-snap-sub { margin-top:.22rem; font-size:.68rem; color:var(--muted); }
     a.g-snap-blk:hover .g-snap-cap { color:var(--brand-2); }
     /* iPhone: the markets + key-rates bands are one tap away behind a chart button
        in the top bar (between the theme toggle and the bell). On phones the whole
@@ -535,7 +541,7 @@
       .cmdk-panel { margin:8vh 12px 0; }
     }
   </style>
-  <link rel="stylesheet" href="/premium.css?v=20260711-37" />
+  <link rel="stylesheet" href="/premium.css?v=20260711-38" />
 </head>
 <body>
   <!-- Loading -->
@@ -697,7 +703,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-14").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-15").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

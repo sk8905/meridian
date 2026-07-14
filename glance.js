@@ -11,7 +11,7 @@
 // cache with the four-times-daily data refresh instead of serving a stale copy.
 import { deals, intel, managers, funds, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260708-9";
 import { items, cases, restructurings, firmById } from "/legal/js/data.js?v=20260708-8";
-import { NEWS, ALERTS, ARTICLES, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js?v=20260710-4";
+import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js?v=20260710-4";
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const byDateDesc = (a, b) => String(b.date || "").localeCompare(String(a.date || ""));
@@ -203,10 +203,15 @@ function renderFeed() {
   const mk = (desk, href, title, source, ext, date) =>
     ({ desk, href, title, ext, date, src: source || "" });
 
+  // Every dated, sourced Macro item: the reading list (ARTICLES), the dashboard
+  // headlines (NEWS US/UK) and the economist commentary (COMMENTARY US/UK). Deduped
+  // by title below, so cross-section overlap collapses to one row.
   const macro = [];
   ((ARTICLES && ARTICLES.items) || []).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date)));
   (((NEWS && NEWS.us) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date)));
   (((NEWS && NEWS.uk) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date)));
+  (((COMMENTARY && COMMENTARY.us) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date)));
+  (((COMMENTARY && COMMENTARY.uk) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date)));
 
   const credit = [];
   deals.forEach((d) => credit.push(mk("c", creditItemHref(d, "deals"), d.headline, creditSource(d), false, d.date)));
