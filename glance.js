@@ -254,7 +254,15 @@ function renderFeed() {
     + `<span class="g-feed-title">${esc(o.title)}</span>`
     + (o.src ? `<span class="g-feed-src">${esc(o.src)}</span>` : "")
     + `<span class="g-feed-desk">${esc(DESK[o.desk])}</span></a>`;
-  setHTML("g-feed", feed.length ? feed.map(row).join("") : `<div class="g-empty">No news yet today — check back shortly.</div>`);
+  // A section break between each day (the feed is grouped newest-day-first).
+  let lastDay = null;
+  const body = feed.map((o) => {
+    const d = day(o);
+    const sep = lastDay !== null && d !== lastDay ? '<div class="g-feed-daysep" aria-hidden="true"></div>' : "";
+    lastDay = d;
+    return sep + row(o);
+  }).join("");
+  setHTML("g-feed", feed.length ? body : `<div class="g-empty">No news yet today — check back shortly.</div>`);
   const head = document.getElementById("g-feed-head");
   const allToday = feed.length > 0 && feed.every((o) => day(o) === target);
   if (head) head.textContent = !feed.length ? "Today" : allToday ? `Today · ${fmt(target)}` : "Latest news";
