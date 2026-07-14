@@ -386,6 +386,17 @@ function saveBtn(id) {
 // news & analysis from the major financial outlets (data in content.js ARTICLES).
 // Rendered in the same feed format/style as the Credit News tab: a single line
 // per item (chip · headline · source · date · save), grouped by month.
+// Render a date-sorted list, inserting a day-break separator whenever the day
+// changes from the previous item (a visual gap between each day's items).
+function withDayBreaks(items, rowFn) {
+  let prevDay = null;
+  return items.map((x) => {
+    const day = String(x.date || "").slice(0, 10);
+    const sep = prevDay !== null && day !== prevDay ? '<div class="day-sep" aria-hidden="true"></div>' : "";
+    prevDay = day;
+    return sep + rowFn(x);
+  }).join("");
+}
 function commentaryRow(n) {
   const head = n.url
     ? `<a href="${esc(n.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(n.title)}</a>`
@@ -407,7 +418,7 @@ function byMonth(items) {
     .sort((a, b) => (a === "undated") - (b === "undated") || b.localeCompare(a))
     .map((k) => {
       const label = k === "undated" ? "Undated" : `${MONTHS_FULL[+k.slice(5, 7)]} ${k.slice(0, 4)}`;
-      return `<div class="month-group"><h3 class="month-head">${esc(label)}</h3>${groups[k].map(commentaryRow).join("")}</div>`;
+      return `<div class="month-group"><h3 class="month-head">${esc(label)}</h3>${withDayBreaks(groups[k], commentaryRow)}</div>`;
     }).join("");
 }
 // Newest-first, paginated in pages of 25 (matches Credit's Load-more feeds).
@@ -440,7 +451,7 @@ function wireCommentary() {
 function viewCommentary() {
   return `
     <div class="page-head">
-      <h1>Commentary</h1>
+      <h1>News</h1>
       <p class="muted">The most important global macro-economic news and analysis — monetary policy, growth, inflation, oil and bonds.</p>
     </div>
     <section class="card macro-articles-panel">${commentaryPanelHtml()}</section>`;

@@ -687,9 +687,11 @@ function viewDashboard() {
   const activityCompact = (a) => a.kind === "news" ? newsCompact(a.item) : compactRow(a.item, a.view);
 
   app.innerHTML = `
-    <div class="page-head">
-      <h1>Credit Intelligence</h1>
-      <p class="muted">European private credit deal flow &amp; market intelligence, with fundraising as a secondary lens · real data compiled from public sources (mid-2026)</p>
+    <div class="page-head page-head-row">
+      <div class="page-head-main">
+        <h1>Credit Intelligence</h1>
+        <p class="muted">European private credit deal flow &amp; market intelligence, with fundraising as a secondary lens · real data compiled from public sources (mid-2026)</p>
+      </div>
       ${focusToggle()}
     </div>
     <details class="rk-toggle"${window.matchMedia(MOBILE_Q).matches ? "" : " open"}>
@@ -792,7 +794,7 @@ function fundTable(rows, key, sig) {
         ${rows.map((x) => `<tr class="clickable" data-href="#/fund/${x.id}">
           <td>${nameCell("fund", x.id, `<strong>${esc(x.name)}</strong>`)}</td>
           <td>${link(`#/manager/${x.managerId}`, managerById[x.managerId].name)}</td>
-          <td>${chip(x.strategy)}</td>
+          <td>${esc(x.strategy)}</td>
           <td>${esc(x.geoFocus)}</td>
           <td>${fundStatusChip(x)} ${lifecycleBadge(x)}</td>
           <td>${x.evergreen ? "—" : eur(x.targetSize)}</td>
@@ -826,8 +828,7 @@ function viewFunds() {
     : "";
 
   app.innerHTML = `
-    <div class="page-head"><h1>Funds in Market</h1><p class="muted">${rows.length} of ${funds.length} funds${f.period ? ` · closing ${esc(f.period)}` : ""}</p></div>
-    ${focusToggle()}
+    <div class="page-head page-head-row"><div class="page-head-main"><h1>Funds in Market</h1><p class="muted">${rows.length} of ${funds.length} funds${f.period ? ` · closing ${esc(f.period)}` : ""}</p></div>${focusToggle()}</div>
     ${periodBanner}
     <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label><div class="filters">
       <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Fund or manager…" value="${esc(f.q)}"></label>
@@ -1062,8 +1063,7 @@ function viewManagers() {
   const sorted = applySort(rows, "managers");
 
   app.innerHTML = `
-    <div class="page-head"><h1>Managers</h1><p class="muted">${rows.length} of ${managers.length} GPs</p></div>
-    ${focusToggle()}
+    <div class="page-head page-head-row"><div class="page-head-main"><h1>Managers</h1><p class="muted">${rows.length} of ${managers.length} GPs</p></div>${focusToggle()}</div>
     <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label><div class="filters">
       <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Name or HQ…" value="${esc(f.q)}"></label>
       ${multiFilter("managers:strategy", "Strategy", STRATEGIES, f.strategy)}
@@ -1133,6 +1133,17 @@ function ownersFilingsBlock(m) {
 
 // Group a dated list into year sections (newest year first; undated last),
 // each rendered with a year heading acting as a section break.
+// Render a date-sorted list, inserting a day-break separator whenever the day
+// changes from the previous item (a visual gap between each day's items).
+function withDayBreaks(items, rowFn) {
+  let prevDay = null;
+  return items.map((x) => {
+    const day = String(x.date || "").slice(0, 10);
+    const sep = prevDay !== null && day !== prevDay ? '<div class="day-sep" aria-hidden="true"></div>' : "";
+    prevDay = day;
+    return sep + rowFn(x);
+  }).join("");
+}
 function byYear(items, rowFn) {
   const groups = {};
   [...items].sort((a, b) => String(b.date).localeCompare(String(a.date))).forEach((x) => {
@@ -1141,7 +1152,7 @@ function byYear(items, rowFn) {
   });
   return Object.keys(groups)
     .sort((a, b) => (a === "Undated") - (b === "Undated") || b.localeCompare(a))
-    .map((y) => `<div class="year-group"><h3 class="year-head">${esc(y)}</h3>${groups[y].map((x) => rowFn(x)).join("")}</div>`)
+    .map((y) => `<div class="year-group"><h3 class="year-head">${esc(y)}</h3>${withDayBreaks(groups[y], rowFn)}</div>`)
     .join("");
 }
 
@@ -1287,7 +1298,7 @@ function viewManager(id) {
         <thead><tr><th>Fund</th><th>Vintage</th><th>Size</th><th>Status</th><th>Strategy</th></tr></thead>
         <tbody>${p.shown.map((x) => `<tr class="clickable" data-href="#/fund/${x.id}">
           <td>${nameCell("fund", x.id, `<strong>${esc(x.name)}</strong>`)}</td><td>${x.vintage}</td><td>${x.evergreen ? "—" : eur(x.targetSize)}</td>
-          <td>${fundStatusChip(x)} ${lifecycleBadge(x)}</td><td>${chip(x.strategy)}</td>
+          <td>${fundStatusChip(x)} ${lifecycleBadge(x)}</td><td>${esc(x.strategy)}</td>
         </tr>`).join("")}</tbody>
       </table></div>${p.more}`; })()
       : `<p class="muted">${esc(m.fundsNote || "No fund tracked for this manager — see the profile note above (e.g. it is a bank/balance-sheet lender, has no dedicated credit arm, or runs only US/global vehicles).")}</p>`}
@@ -1304,7 +1315,7 @@ function viewManager(id) {
           <td>${c.vintage || "—"}</td>
           <td>${c.size ? esc(c.size) : "—"}</td>
           <td><span class="fund-status">Issued</span></td>
-          <td>${chip("Structured Credit")}</td>
+          <td>Structured Credit</td>
         </tr>`).join("")}</tbody>
       </table></div>${p.more}`;
       })() : `<p class="muted">${mgrClo.length ? "No individually-named CLO vehicles identified yet — see the full CLO feed." : "This manager does not manage any tracked CLOs."}</p>`}
@@ -1451,8 +1462,7 @@ function viewIntel() {
   ).sort((a, b) => String(b.date).localeCompare(String(a.date))); // newest first
 
   app.innerHTML = `
-    <div class="page-head"><h1>Fundraising Intelligence</h1><p class="muted">${rows.length} of ${base.length} items · European private credit capital formation</p></div>
-    ${focusToggle()}
+    <div class="page-head page-head-row"><div class="page-head-main"><h1>Fundraising Intelligence</h1><p class="muted">${rows.length} of ${base.length} items · European private credit capital formation</p></div>${focusToggle()}</div>
     <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label><div class="filters">
       <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Keyword…" value="${esc(f.q)}"></label>
       ${multiFilter("intel:type", "Type", [...new Set(base.map((i) => i.type))].sort(), f.type)}
@@ -1514,8 +1524,7 @@ function viewDeals() {
   ).sort((a, b) => String(b.date).localeCompare(String(a.date))); // newest first
 
   app.innerHTML = `
-    <div class="page-head"><h1>Deal Activity</h1><p class="muted">${rows.length} of ${base.length} transactions · investments, exits, refinancings, restructurings &amp; distress${f.period ? ` · <strong>${esc(f.period)}</strong> <button type="button" class="link-btn" id="clear-period">clear quarter ✕</button>` : ""}</p></div>
-    ${focusToggle()}
+    <div class="page-head page-head-row"><div class="page-head-main"><h1>Deal Activity</h1><p class="muted">${rows.length} of ${base.length} transactions · investments, exits, refinancings, restructurings &amp; distress${f.period ? ` · <strong>${esc(f.period)}</strong> <button type="button" class="link-btn" id="clear-period">clear quarter ✕</button>` : ""}</p></div>${focusToggle()}</div>
     <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label><div class="filters">
       <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Company, manager…" value="${esc(f.q)}"></label>
       ${multiFilter("deals:type", "Type", [...new Set(base.map((d) => d.type))].sort(), f.type)}
@@ -1553,8 +1562,7 @@ function viewClos() {
   const feedRow = (x) => x._kind === "deal" ? dealRow(x) : intelRow(x);
 
   app.innerHTML = `
-    <div class="page-head"><h1>CLOs</h1><p class="muted">${rows.length} of ${all.length} items · collateralised loan obligation pricings, platforms, funds, ETFs &amp; personnel${f.period ? ` · <strong>${esc(f.period)}</strong> <button type="button" class="link-btn" id="clear-period">clear quarter ✕</button>` : ""}</p></div>
-    ${focusToggle()}
+    <div class="page-head page-head-row"><div class="page-head-main"><h1>CLOs</h1><p class="muted">${rows.length} of ${all.length} items · collateralised loan obligation pricings, platforms, funds, ETFs &amp; personnel${f.period ? ` · <strong>${esc(f.period)}</strong> <button type="button" class="link-btn" id="clear-period">clear quarter ✕</button>` : ""}</p></div>${focusToggle()}</div>
     <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label><div class="filters">
       <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Keyword…" value="${esc(f.q)}"></label>
       ${multiFilter("clos:kind", "Source", ["Deal", "Fundraising"], f.kind)}
@@ -1676,8 +1684,7 @@ function viewTrends() {
   const cloTrend = quarterTrend("ctrend", "CLO activity by quarter", "CLO pricings &amp; news per quarter. Drag either handle to set the date range; click any quarter to open the CLO feed.", qc, cloTrendState, "clos");
 
   app.innerHTML = `
-    <div class="page-head"><h1>Trends</h1><p class="muted">Deal, fundraising &amp; CLO activity across the tracked European private-credit universe. Click any bar, slice or quarter to open the matching feed.</p></div>
-    ${focusToggle()}
+    <div class="page-head page-head-row"><div class="page-head-main"><h1>Trends</h1><p class="muted">Deal, fundraising &amp; CLO activity across the tracked European private-credit universe. Click any bar, slice or quarter to open the matching feed.</p></div>${focusToggle()}</div>
 
     <section class="trend-section">
       <h2 class="trend-cat">Deals</h2>
@@ -1737,8 +1744,7 @@ function viewNews() {
   const rows = all.filter((x) => !f.q || `${x.title || ""} ${x.outlet || ""} ${x._mname || ""}`.toLowerCase().includes(f.q.toLowerCase()));
 
   app.innerHTML = `
-    <div class="page-head"><h1>News</h1><p class="muted">${rows.length} of ${all.length} items · manager &amp; investor press across the tracked universe</p></div>
-    ${focusToggle()}
+    <div class="page-head page-head-row"><div class="page-head-main"><h1>News</h1><p class="muted">${rows.length} of ${all.length} items · manager &amp; investor press across the tracked universe</p></div>${focusToggle()}</div>
     <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label><div class="filters">
       <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Headline, outlet, manager…" value="${esc(f.q)}"></label>
     </div>
