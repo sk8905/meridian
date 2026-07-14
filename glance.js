@@ -68,7 +68,7 @@ const fmtRefresh = () => `${fmt(LAST_CHECKED)}${LAST_CHECKED_TIME ? `, ${LAST_CH
 
 export function initGlance() {
   if (_inited) return; _inited = true;
-  renderCards();
+  renderFeed();
   initMarkets();
   initRates();
   initPulse();
@@ -150,33 +150,54 @@ const creditItemHref = (x, tab) => `/credit/#/${x.clo ? "clos" : tab}?focus=${en
 
 // ---- Highlight cards -------------------------------------------------------
 // Each platform card is broken into its natural sections, newest 3 items each.
-function renderCards() {
-  // ---- Macro: market headlines, then US, then UK (newest 3 each) ----
-  // All three source daily-refreshed feeds (NEWS.us/uk and the ARTICLES reading
-  // list), so the routine keeps each showing three current (same-day) items.
-  const macroNews = (k) => ((NEWS && NEWS[k]) || []).slice().sort(byDateDesc).slice(0, 3);
-  const marketNews = (((ARTICLES && ARTICLES.items) || []).slice()).sort(byDateDesc).slice(0, 3);
-  const headline = (n) => item(n.url, n.title, `${fmt(n.date)}${n.source ? " · " + n.source : ""}`, true);
-  sec("m", 1, "Market headlines", marketNews.map(headline));
-  sec("m", 2, "US headlines", macroNews("us").map(headline));
-  sec("m", 3, "UK headlines", macroNews("uk").map(headline));
+// One cross-desk feed of everything dated TODAY — Macro headlines (market + US +
+// UK), Credit deals / fundraising / CLOs, and Legal alerts / case law / schemes —
+// interleaved across desks so it reads as a single merged feed, not three blocks.
+// Falls back to the most-recent date present if nothing is dated today, so the
+// feed is never empty between refreshes.
+const DESK = { m: "Macro", c: "Credit", l: "Legal" };
+function renderFeed() {
+  const mk = (desk, href, title, source, ext, date) =>
+    ({ desk, href, title, ext, date, meta: source ? `${DESK[desk]} · ${source}` : DESK[desk] });
 
-  // ---- Credit: deals, fundraising, CLOs ----
-  const dealsR = [...deals].filter((d) => !d.clo).sort(byDateDesc).slice(0, 3);
-  const intelR = [...intel].filter((i) => !i.clo).sort(byDateDesc).slice(0, 3);
-  const cloR = [...deals.filter((d) => d.clo), ...intel.filter((i) => i.clo)].sort(byDateDesc).slice(0, 3);
-  const mgrSuffix = (x) => (mgrName(x.managerId) ? " · " + mgrName(x.managerId) : "");
-  sec("c", 1, "Deals", dealsR.map((d) => item(creditItemHref(d, "deals"), d.headline, `${fmt(d.date)}${mgrSuffix(d)}`)));
-  sec("c", 2, "Fundraising", intelR.map((i) => item(creditItemHref(i, "intel"), i.headline, `${i.type || "Fundraising"} · ${fmt(i.date)}${mgrSuffix(i)}`)));
-  sec("c", 3, "CLOs", cloR.map((c) => item(creditItemHref(c, "clos"), c.headline, `${fmt(c.date)}${mgrSuffix(c)}`)));
+  const macro = [];
+  ((ARTICLES && ARTICLES.items) || []).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date)));
+  (((NEWS && NEWS.us) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date)));
+  (((NEWS && NEWS.uk) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date)));
 
-  // ---- Legal: alerts, case law, schemes & RPs ----
-  const alerts = [...items].filter((i) => i.date).sort(byDateDesc).slice(0, 3);
-  const caseLaw = [...cases].sort(byDateDesc).slice(0, 3);
-  const rx = [...restructurings].filter((r) => r.date).sort(byDateDesc).slice(0, 3);
-  sec("l", 1, "Alerts", alerts.map((i) => item(`/legal/#/item/${encodeURIComponent(i.id)}`, i.title, `${fmt(i.date)}${i.firm ? " · " + i.firm : ""}`)));
-  sec("l", 2, "Case law", caseLaw.map((c) => item(`/legal/#/cases?case=${encodeURIComponent(c.id)}`, c.name, `${fmt(c.date)}${c.court ? " · " + c.court : ""}`)));
-  sec("l", 3, "Schemes & RPs", rx.map((r) => item(`/legal/#/restructurings?m=${encodeURIComponent(r.id)}`, r.company, `${r.type === "scheme" ? "Scheme" : "Restructuring plan"} · ${fmt(r.date)}`)));
+  const credit = [];
+  deals.forEach((d) => credit.push(mk("c", creditItemHref(d, "deals"), d.headline, creditSource(d), false, d.date)));
+  intel.forEach((i) => credit.push(mk("c", creditItemHref(i, "intel"), i.headline, creditSource(i), false, i.date)));
+
+  const legal = [];
+  items.forEach((i) => { if (i.date) legal.push(mk("l", `/legal/#/item/${encodeURIComponent(i.id)}`, i.title, firmName(i.firm), false, i.date)); });
+  cases.forEach((c) => { if (c.date) legal.push(mk("l", `/legal/#/cases?case=${encodeURIComponent(c.id)}`, c.name, c.court, false, c.date)); });
+  restructurings.forEach((r) => { if (r.date) legal.push(mk("l", `/legal/#/restructurings?m=${encodeURIComponent(r.id)}`, r.company, r.type === "scheme" ? "Scheme" : "Restructuring plan", false, r.date)); });
+
+  const day = (x) => String(x.date || "").slice(0, 10);
+  const all = [...macro, ...credit, ...legal];
+  const now = new Date();
+  const todayISO = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
+  const target = all.some((x) => day(x) === todayISO) ? todayISO : all.reduce((m, x) => (day(x) > m ? day(x) : m), "");
+
+  // Dedupe by normalised title (Macro market-headlines overlap the US/UK feeds).
+  const norm = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+  const dedupe = (list) => { const seen = new Set(); return list.filter((x) => { const k = norm(x.title); if (seen.has(k)) return false; seen.add(k); return true; }); };
+  const pick = (list) => dedupe(list.filter((x) => day(x) === target).sort(byDateDesc));
+  const lists = [pick(macro), pick(credit), pick(legal)];
+  const seen = new Set();
+  const feed = [];
+  for (let i = 0; lists.some((l) => i < l.length); i++) lists.forEach((l) => {
+    if (i < l.length) { const k = norm(l[i].title); if (!seen.has(k)) { seen.add(k); feed.push(l[i]); } }
+  });
+
+  const row = (o) => `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
+    + `<span class="g-feed-dot" aria-hidden="true">◆</span>`
+    + `<span class="g-feed-title">${esc(o.title)}</span>`
+    + `<span class="g-feed-meta">${esc(o.meta)}</span></a>`;
+  setHTML("g-feed", feed.length ? feed.map(row).join("") : `<div class="g-empty">No news yet today — check back shortly.</div>`);
+  const head = document.getElementById("g-feed-head");
+  if (head) head.textContent = target ? `Today · ${fmt(target)}` : "Today";
 }
 const sec = (key, n, title, arr) => setHTML(`${key}-sec${n}`, subHead(title) + rows(arr));
 function item(href, title, meta, ext) {

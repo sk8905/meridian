@@ -318,7 +318,33 @@
     /* Markets banner — same layout as the key-rates band: a single row of 8
        (inherits .rates-band; responsive breakpoints apply identically). */
 
-    /* ---- Cards ---- */
+    /* ---- Dashboard body: a wide merged news feed on the left (~78%) with the
+       markets + key-rates bands stacked in a narrow right-hand column (~22%). ---- */
+    .g-layout { display:grid; grid-template-columns:minmax(0,1fr) 21rem; gap:1.75rem; align-items:start; margin-top:1.4rem; }
+    @media (max-width:900px){ .g-layout { grid-template-columns:1fr; gap:1.4rem; } }
+    .g-feed-head { font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em;
+      color:var(--muted); margin:0 0 .35rem; padding-bottom:.4rem; border-bottom:2px solid var(--line); }
+    .g-feed { background:var(--surface); border:1px solid var(--line); border-radius:16px;
+      box-shadow:var(--shadow); padding:.35rem 1.15rem; }
+    .g-feed-row { display:flex; align-items:baseline; gap:.7rem; padding:.62rem 0;
+      border-top:1px solid var(--line); }
+    .g-feed-row:first-child { border-top:0; }
+    .g-feed-dot { flex:0 0 auto; font-size:.62rem; line-height:1.5; color:var(--muted); }
+    .g-desk-m .g-feed-dot { color:var(--macro); } .g-desk-c .g-feed-dot { color:var(--credit); }
+    .g-desk-l .g-feed-dot { color:var(--legal); }
+    .g-feed-title { flex:1 1 auto; min-width:0; color:var(--ink); font-weight:600; font-size:.9rem; line-height:1.35; }
+    a.g-feed-row:hover .g-feed-title { color:var(--accent); }
+    .g-feed-meta { flex:0 0 auto; color:var(--muted); font-size:.76rem; white-space:nowrap; }
+    /* Right column: the two bands become 2-column tile grids (were single wide rows). */
+    .g-side { display:flex; flex-direction:column; }
+    .g-side .rates-band { grid-template-columns:repeat(2, 1fr); border-radius:14px; padding:.4rem; row-gap:.55rem; }
+    .g-side .rate-tile { border-left:0; padding:.35rem .6rem; }
+    .g-side .rate-tile:nth-child(2n){ border-left:1px solid var(--line); }
+    @media (max-width:900px){ .g-side .rates-band { grid-template-columns:repeat(4,1fr); }
+      .g-side .rate-tile:nth-child(2n){ border-left:0; } }
+    @media (max-width:560px){ .g-side .rates-band { grid-template-columns:repeat(2,1fr); } }
+
+    /* ---- Cards (legacy; retained for any residual use) ---- */
     .g-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.1rem; }
     @media (max-width:920px){ .g-grid { grid-template-columns:1fr; } }
     .g-card { background:var(--surface); border:1px solid var(--line); border-radius:16px;
@@ -481,12 +507,9 @@
         </div>
         <nav class="g-jump" id="g-jump" aria-label="Jump to section">
           <a href="#jump-top" class="g-jump-link g-jump-primary" data-jump="jump-top">Dashboard</a>
+          <a href="#jump-feed" class="g-jump-link g-jump-primary" data-jump="jump-feed">News</a>
           <a href="#jump-markets" class="g-jump-link g-jump-primary" data-jump="jump-markets">Markets</a>
           <a href="#jump-rates" class="g-jump-link g-jump-primary" data-jump="jump-rates">Rates</a>
-          <span class="nav-sep" aria-hidden="true"></span>
-          <a href="#jump-macro" class="g-jump-link" data-jump="jump-macro">Macro</a>
-          <a href="#jump-credit" class="g-jump-link" data-jump="jump-credit">Credit</a>
-          <a href="#jump-legal" class="g-jump-link" data-jump="jump-legal">Legal</a>
         </nav>
         <button class="g-search-btn" id="open-cmdk" type="button" aria-label="Open search">
           <span class="g-search-lbl">Search everything…</span>
@@ -525,47 +548,21 @@
         </div>
       </div>
 
-      <div class="g-rates-head g-anchor" id="jump-markets">Markets</div>
-      <div id="g-markets" class="rates-band markets-band" aria-label="Equity indices and ETFs">
-        <div class="g-loading">Loading markets…</div>
-      </div>
-
-      <div class="g-rates-head g-anchor" id="jump-rates">Key rates &amp; credit spreads</div>
-      <div id="g-rates" class="rates-band" aria-label="Key rates and credit spreads">
-        <div class="g-loading">Loading market rates…</div>
-      </div>
-
-      <div class="g-grid">
-        <section class="g-card macro g-anchor" id="jump-macro">
-          <div class="g-card-top">
-            <div class="g-card-head"><span class="g-card-title"><span class="dot">◆</span> Macro</span><a class="g-open" href="/macro/">Open →</a></div>
-            <p class="g-card-desc">US &amp; UK indicators, rate outlook &amp; cycle</p>
-          </div>
-          <div class="g-sec" id="m-sec1"><div class="g-loading">Loading…</div></div>
-          <div class="g-sec" id="m-sec2"></div>
-          <div class="g-sec" id="m-sec3"></div>
-          <div class="g-foot"><a class="g-cta" href="/macro/">Open Meridian Macro →</a></div>
+      <div class="g-layout">
+        <section class="g-feed-wrap g-anchor" id="jump-feed">
+          <div class="g-feed-head" id="g-feed-head">Today</div>
+          <div class="g-feed" id="g-feed"><div class="g-loading">Loading today's news…</div></div>
         </section>
-        <section class="g-card credit g-anchor" id="jump-credit">
-          <div class="g-card-top">
-            <div class="g-card-head"><span class="g-card-title"><span class="dot">◆</span> Credit</span><a class="g-open" href="/credit/">Open →</a></div>
-            <p class="g-card-desc">European private-credit deals &amp; fundraising</p>
+        <aside class="g-side">
+          <div class="g-rates-head g-anchor" id="jump-markets">Markets</div>
+          <div id="g-markets" class="rates-band markets-band" aria-label="Equity indices and ETFs">
+            <div class="g-loading">Loading markets…</div>
           </div>
-          <div class="g-sec" id="c-sec1"><div class="g-loading">Loading…</div></div>
-          <div class="g-sec" id="c-sec2"></div>
-          <div class="g-sec" id="c-sec3"></div>
-          <div class="g-foot"><a class="g-cta" href="/credit/">Open Meridian Credit →</a></div>
-        </section>
-        <section class="g-card legal g-anchor" id="jump-legal">
-          <div class="g-card-top">
-            <div class="g-card-head"><span class="g-card-title"><span class="dot">◆</span> Legal</span><a class="g-open" href="/legal/">Open →</a></div>
-            <p class="g-card-desc">English-law updates, case law &amp; restructurings</p>
+          <div class="g-rates-head g-anchor" id="jump-rates">Key rates &amp; credit spreads</div>
+          <div id="g-rates" class="rates-band" aria-label="Key rates and credit spreads">
+            <div class="g-loading">Loading market rates…</div>
           </div>
-          <div class="g-sec" id="l-sec1"><div class="g-loading">Loading…</div></div>
-          <div class="g-sec" id="l-sec2"></div>
-          <div class="g-sec" id="l-sec3"></div>
-          <div class="g-foot"><a class="g-cta" href="/legal/">Open Meridian Legal →</a></div>
-        </section>
+        </aside>
       </div>
     </main>
 
@@ -612,7 +609,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-9").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-10").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of
