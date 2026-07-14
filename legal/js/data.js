@@ -5197,7 +5197,7 @@ export const items = [
     url: "https://www.lw.com/en/insights/recent-developments-for-uk-plcs-july-2026",
     id: "u582", title: "Recent Developments for UK PLCs — July 2026",
     area: "corporate", areas: ["corporate"], type: "update", firm: "latham",
-    date: "2026-07-01", jurisdiction: "England & Wales",
+    date: "2026-07-01", time: "05:20", jurisdiction: "England & Wales",
     summary: "Latham & Watkins' monthly UK PLCs newsletter covers five English-law corporate developments: the first use of the FCA's Public Offer Platform regime (SpaceX's IPO), the London Stock Exchange's proposed overhaul of AIM admission and governance rules, FCA guidance urging intermediaries to enable retail shareholder voting, updated Chartered Governance Institute guidance on register-of-members access requests, and an FCA consultation tightening conflict-of-interest rules for listed closed-ended investment funds.",
     points: [
       "SpaceX's IPO was the first UK retail offer to use the FCA's new Public Offer Platform regime, avoiding a traditional prospectus/listing",
@@ -5211,7 +5211,7 @@ export const items = [
     url: "https://www.aoshearman.com/en/insights/eu-mar-has-moved-on-the-direction-of-and-potential-shape-of-uk-mar-reform",
     id: "u583", title: "EU MAR Has Moved On — The Direction of and Potential Shape of UK MAR Reform",
     area: "corporate", areas: ["corporate"], type: "alert", firm: "aoshearman",
-    date: "2026-07-01", jurisdiction: "England & Wales",
+    date: "2026-07-01", time: "05:20", jurisdiction: "England & Wales",
     summary: "A&O Shearman analyses EU Market Abuse Regulation reforms effective 5 June 2026 that removed disclosure obligations for intermediate steps in protracted processes, contrasting this with the UK's unchanged MAR regime, and flags FCA supervisory data suggesting a possible future UK reform direction for dual-listed issuers.",
     points: [
       "EU Article 17(1) now requires disclosure only on 'final events' rather than intermediate steps, replacing the 'likely to mislead' test with a 'not in contrast' standard",
@@ -5225,7 +5225,7 @@ export const items = [
     url: "https://www.aoshearman.com/en/insights/ao-shearman-on-fintech-and-digital-assets/final-rules-for-new-uk-crypto-regime",
     id: "u584", title: "Final Rules for New UK Crypto Regime",
     area: "banking", areas: ["banking"], type: "alert", firm: "aoshearman",
-    date: "2026-07-01", jurisdiction: "England & Wales",
+    date: "2026-07-01", time: "05:20", jurisdiction: "England & Wales",
     summary: "A&O Shearman summarises the FCA's final rules and guidance (published 30 June 2026) establishing the UK's new cryptoasset regulatory regime, covering stablecoin issuance, cryptoasset safeguarding and trading-platform licensing ahead of full implementation on 25 October 2027.",
     points: [
       "FCA published five final policy statements (PS26/9–PS26/13) covering admissions & disclosures, stablecoin issuance, regulated activities, prudential requirements and Handbook application",
@@ -5239,7 +5239,7 @@ export const items = [
     url: "https://www.slaughterandmay.com/recent-work/tg-jones-on-its-successful-restructuring/",
     id: "u585", title: "Slaughter and May advises TG Jones on its successful restructuring",
     area: "ri", areas: ["ri"], type: "case", firm: "slaughtermay",
-    date: "2026-07-01", jurisdiction: "England & Wales",
+    date: "2026-07-01", time: "05:25", jurisdiction: "England & Wales",
     summary: "Slaughter and May advised TG Jones Retail Holdings Limited and TG Jones High Street Limited on inter-conditional Part 26A restructuring plans, sanctioned by Hildyard J on 1 July 2026 after initial landlord opposition was withdrawn.",
     points: [
       "Restructuring implemented via Companies Act 2006 Part 26A restructuring plans",
@@ -5254,7 +5254,7 @@ export const items = [
     url: "https://www.slaughterandmay.com/recent-work/rolls-royce-on-the-re-establishment-of-its-emtn-programme-and-inaugural-issuance/",
     id: "u586", title: "Slaughter and May advises Rolls-Royce on the re-establishment of its EMTN programme and inaugural issuance",
     area: "banking", areas: ["banking"], type: "case", firm: "slaughtermay",
-    date: "2026-07-01", jurisdiction: "United Kingdom",
+    date: "2026-07-01", time: "05:25", jurisdiction: "United Kingdom",
     summary: "Slaughter and May advised Rolls-Royce Holdings plc on re-establishing its £5bn Guaranteed Euro Medium Term Note programme and its inaugural issuance of EUR 1bn of notes under the programme, admitted to trading on the London Stock Exchange's International Securities Market.",
     points: [
       "Re-establishment of a £5bn EMTN programme for Rolls-Royce Holdings plc, guaranteed by Rolls-Royce plc",
@@ -5269,7 +5269,7 @@ export const items = [
     url: "https://www.freshfields.com/en/our-thinking/blogs/transactions/reforming-uk-taxation-of-distributions-code-102n7mk",
     id: "u587", title: "Reforming UK taxation of distributions code",
     area: "corporate", areas: ["corporate"], type: "update", firm: "freshfields",
-    date: "2026-07-01", jurisdiction: "United Kingdom",
+    date: "2026-07-01", time: "05:25", jurisdiction: "United Kingdom",
     summary: "HMRC launched a consultation on 1 July 2026 proposing the most significant reform of the UK's corporate distributions rules since 1965, affecting demergers, share buybacks and shareholder returns.",
     points: [
       "Proposals include freezing capital contributions where holding companies are inserted into a structure",
@@ -5284,7 +5284,7 @@ export const items = [
     url: "https://www.macfarlanes.com/insights/102n7p3/macfarlanes-advises-ares-in-takeover-of-eagle-football-group-by-michele-kang/",
     id: "u588", title: "Macfarlanes advises Ares in takeover of Eagle Football Group by Michele Kang",
     area: "ri", areas: ["ri", "corporate", "banking"], type: "update", firm: "macfarlanes",
-    date: "2026-07-01", jurisdiction: "England & Wales",
+    date: "2026-07-01", time: "05:25", jurisdiction: "England & Wales",
     summary: "Macfarlanes advised Ares Credit funds in connection with the takeover of Eagle Football Group S.A. (owner of Olympique Lyonnais) by Michele Kang via Olympe Bidco SAS, following an English administration process and a concurrent restructuring of the OL Group's debt.",
     points: [
       "Olympe Bidco SAS acquired Eagle Bidco's entire 87.78% stake in Eagle Football for $30m",
@@ -5299,7 +5299,7 @@ export const items = [
     url: "https://www.davispolk.com/insights/client-update/impact-uk-employment-rights-act-uk-transactions",
     id: "u589", title: "Impact of the UK Employment Rights Act on UK transactions",
     area: "corporate", areas: ["corporate"], type: "alert", firm: "davispolk",
-    date: "2026-07-02", jurisdiction: "United Kingdom",
+    date: "2026-07-02", time: "05:25", jurisdiction: "United Kingdom",
     summary: "Davis Polk analyses how the phased implementation of the UK Employment Rights Act 2025 is reshaping employment-related risk and deal execution in UK corporate transactions, particularly private equity deals.",
     points: [
       "Statutory cap on unfair dismissal compensation is being eliminated, effective 1 January 2027, increasing exposure for highly-compensated executives",
@@ -5314,7 +5314,7 @@ export const items = [
     url: "https://www.lw.com/en/insights/the-uks-salaried-member-rules-supreme-court-affirms-court-of-appeals-decision-in-bluecrest",
     id: "u590", title: "The UK's \"Salaried Member\" Rules: Supreme Court Affirms Court of Appeal's Decision in BlueCrest",
     area: "funds", areas: ["funds"], type: "case", firm: "latham",
-    date: "2026-07-02", jurisdiction: "United Kingdom",
+    date: "2026-07-02", time: "05:25", jurisdiction: "United Kingdom",
     summary: "The UK Supreme Court upheld the Court of Appeal's ruling in HMRC v BlueCrest Capital Management (UK) LLP on how the 'salaried member' rules under the LLP tax regime apply to fund manager portfolio managers/traders.",
     points: [
       "Salaried member rules apply unless Condition B (sufficient 'significant influence' over the LLP's affairs) is met, alongside Conditions A and C",
@@ -5329,7 +5329,7 @@ export const items = [
     url: "https://www.traverssmith.com/knowledge/knowledge-container/bluecrest-supreme-court-confirms-narrow-interpretation-of-significant-influence-exclusion-from-salaried-members-rules/",
     id: "u591", title: "BlueCrest: Supreme Court confirms narrow interpretation of \"significant influence\" exclusion from salaried members rules",
     area: "funds", areas: ["funds"], type: "case", firm: "traverssmith",
-    date: "2026-07-02", jurisdiction: "United Kingdom",
+    date: "2026-07-02", time: "05:25", jurisdiction: "United Kingdom",
     summary: "Travers Smith analyses the Supreme Court's decision in HMRC v BlueCrest Capital Management (UK) LLP upholding a narrow interpretation of 'significant influence' under Condition B of the LLP salaried members rules.",
     points: [
       "Qualifying influence must derive from legal rights and duties and must be strategic influence over the LLP's affairs generally, not just a specific role or fund",
@@ -5345,7 +5345,7 @@ export const items = [
     url: "https://www.whitecase.com/insight-alert/unfair-dismissal-reform-considerations-sponsors",
     id: "u592", title: "Unfair dismissal reform: Considerations for sponsors",
     area: "corporate", areas: ["corporate", "funds"], type: "alert", firm: "whitecase",
-    date: "2026-07-02", jurisdiction: "England & Wales",
+    date: "2026-07-02", time: "05:25", jurisdiction: "England & Wales",
     summary: "White & Case London partners analyse how the Employment Rights Act 2025's removal of the unfair dismissal compensation cap and reduction of the qualifying period to six months will affect PE sponsors and portfolio companies, particularly around senior executive exits.",
     points: [
       "The £123,543 statutory cap on unfair dismissal compensation is being abolished, exposing employers to potentially unlimited liability",
@@ -5360,7 +5360,7 @@ export const items = [
     url: "https://tax.weil.com/insights/vat-on-servicing-fees-for-debt-originators-uk-eu-divergence/",
     id: "u593", title: "VAT on servicing fees for debt originators: UK-EU divergence?",
     area: "banking", areas: ["banking", "funds"], type: "insight", firm: "weil",
-    date: "2026-07-02", jurisdiction: "United Kingdom",
+    date: "2026-07-02", time: "05:25", jurisdiction: "United Kingdom",
     summary: "Weil tax partners analyse whether the EU General Court's decision in A Oy (Case T-184/25), which found that debt servicing by an original lender for a new loan owner is not VAT-exempt 'management of credit', should change the VAT treatment of servicing fees in typical UK securitisation structures.",
     points: [
       "EU General Court in A Oy held the VAT credit-management exemption applies only within the original credit relationship, not once a loan has been transferred to a new owner",
@@ -5375,7 +5375,7 @@ export const items = [
     url: "https://www.ropesgray.com/en/insights/viewpoints/2026/07/102n7pw/fca-sanctions-review-progress-is-evident-but-the-supervisory-bar-is-rising",
     id: "u594", title: "FCA Sanctions Review: Progress Is Evident, but the Supervisory Bar Is Rising",
     area: "banking", areas: ["banking", "funds"], type: "insight", firm: "ropesgray",
-    date: "2026-07-01", jurisdiction: "United Kingdom",
+    date: "2026-07-01", time: "05:25", jurisdiction: "United Kingdom",
     summary: "Ropes & Gray analyses the UK FCA's 28 May 2026 report on a supervisory review of sanctions systems and controls at over 150 FCA-regulated firms, which found continued improvement since 2022 but flagged persistent weaknesses, alongside a new FCA-OTSI Memorandum of Understanding.",
     points: [
       "FCA reviewed sanctions controls at 150+ regulated firms, building on its September 2023 post-Russia-invasion review",
@@ -5390,7 +5390,7 @@ export const items = [
     url: "https://www.traverssmith.com/knowledge/knowledge-container/a-lot-of-changes-not-a-lot-of-change-the-fcas-proposals-to-clarify-the-consumer-duty/",
     id: "u595", title: "A lot of changes, not a lot of change: the FCA's proposals to clarify the Consumer Duty",
     area: "banking", areas: ["banking", "funds"], type: "update", firm: "traverssmith",
-    date: "2026-07-03", jurisdiction: "United Kingdom",
+    date: "2026-07-03", time: "12:14", jurisdiction: "United Kingdom",
     summary: "Travers Smith analyses the FCA's 29 June 2026 consultation paper (CP26/23) proposing to narrow and clarify the scope of the Consumer Duty for wholesale and internationally active firms, including new primary/secondary manufacturer concepts.",
     points: [
       "CP26/23 proposes the Consumer Duty apply only to retail customers ordinarily resident in the UK",
@@ -5405,7 +5405,7 @@ export const items = [
     url: "https://www.simmons-simmons.com/en/publications/cmr3fhjct008qtl9smhznlb7d/ai-m-a-navigating-unique-risks-and-challenges-in-deals",
     id: "u596", title: "AI M&A: beyond the playbook",
     area: "corporate", areas: ["corporate"], type: "insight", firm: "simmons",
-    date: "2026-07-02", jurisdiction: "United Kingdom",
+    date: "2026-07-02", time: "12:14", jurisdiction: "United Kingdom",
     summary: "Simmons & Simmons sets out five themes for AI-focused M&A dealmakers, covering how to locate value in data, models, talent and infrastructure, AI-specific diligence and pricing metrics, regulatory-approval handling, and tailored buyer protections.",
     points: [
       "Value in AI targets sits across data, models, talent and infrastructure, requiring tailored diligence for each",
@@ -5420,7 +5420,7 @@ export const items = [
     url: "https://www.macfarlanes.com/insights/102n7sw/macfarlanes-advises-hayfin-on-the-15bn-close-of-its-direct-lending-fund-v/",
     id: "u597", title: "Macfarlanes advises Hayfin on the €15bn close of its Direct Lending Fund V",
     area: "funds", areas: ["funds"], type: "update", firm: "macfarlanes",
-    date: "2026-07-02", jurisdiction: "United Kingdom",
+    date: "2026-07-02", time: "05:27", jurisdiction: "United Kingdom",
     summary: "Macfarlanes advised Hayfin on the final close of its Direct Lending Fund V at over €15bn, more than double the ~€6bn raised for its predecessor, targeting senior-secured financing for mid-market and upper-mid-market European companies.",
     points: [
       "Direct Lending Fund V closed at over €15bn, more than double its predecessor fund",
@@ -5435,7 +5435,7 @@ export const items = [
     url: "https://www.macfarlanes.com/insights/102n7w8/supreme-court-decides-the-llp-salaried-member-rules-but-sends-bluecrest-back-to/",
     id: "u598", title: "Supreme Court decides the LLP salaried member rules - but sends BlueCrest back to the First-tier Tax Tribunal",
     area: "funds", areas: ["funds"], type: "case", firm: "macfarlanes",
-    date: "2026-07-03", jurisdiction: "United Kingdom",
+    date: "2026-07-03", time: "05:27", jurisdiction: "United Kingdom",
     summary: "Macfarlanes analyses the Supreme Court's decision in HMRC v BlueCrest Capital Management (UK) LLP, which dismissed BlueCrest's appeal, refined the 'significant influence' test under the salaried member rules, and remitted the case to the First-tier Tax Tribunal.",
     points: [
       "Supreme Court dismisses BlueCrest's appeal, upholding HMRC on both Condition A and Condition B of the salaried member rules",
@@ -5450,7 +5450,7 @@ export const items = [
     url: "https://financialregulation.linklaters.com/post/102n7wz/esmas-final-report-proposes-annual-net-cost-savings-of-up-to-eur-1-billion-throu",
     id: "u599", title: "ESMA's final report proposes annual net cost savings of up to EUR 1 billion through simplification of financial transaction reporting",
     area: "banking", areas: ["banking"], type: "update", firm: "linklaters",
-    date: "2026-07-03", jurisdiction: "European Union",
+    date: "2026-07-03", time: "05:27", jurisdiction: "European Union",
     summary: "Linklaters analyses ESMA's final report responding to a Call for Evidence on simplifying financial transaction reporting across the MiFIR, EMIR and SFTR regimes, proposing a two-track approach of near-term interim measures and a longer-term integrated 'report once' framework.",
     points: [
       "Targets annual net cost savings of EUR 250 million to EUR 1 billion for reporting firms",
@@ -5465,7 +5465,7 @@ export const items = [
     url: "https://financialregulation.linklaters.com/post/102n7wl/fca-to-simplify-investment-disclosure-regime-cp-26-24",
     id: "u600", title: "FCA to simplify investment disclosure regime: CP 26/24",
     area: "banking", areas: ["banking", "funds"], type: "alert", firm: "linklaters",
-    date: "2026-07-03", jurisdiction: "United Kingdom",
+    date: "2026-07-03", time: "05:27", jurisdiction: "United Kingdom",
     summary: "Linklaters analyses FCA Consultation Paper CP26/24 (published 2 July 2026), which proposes to simplify pre-sale and ongoing cost-disclosure requirements for investment products under the Consumer Composite Investments/Consumer Duty regime.",
     points: [
       "CP26/24 published by the FCA on 2 July 2026; consultation closes 21 August 2026, with a Policy Statement expected by year-end 2026",
@@ -5480,7 +5480,7 @@ export const items = [
     url: "https://www.slaughterandmay.com/insights/financial-regulation-weekly-bulletin/financial-regulation-weekly-bulletin-2-july-2026/",
     id: "u601", title: "Financial Regulation Weekly Bulletin – 2 July 2026",
     area: "banking", areas: ["banking", "funds"], type: "update", firm: "slaughtermay",
-    date: "2026-07-02", jurisdiction: "United Kingdom",
+    date: "2026-07-02", time: "05:27", jurisdiction: "United Kingdom",
     summary: "Slaughter and May's weekly financial regulation bulletin of 2 July 2026 covers the UK's finalised cryptoasset regulatory framework, a joint Bank of England/FCA approach to regulating systemic stablecoin issuers, FCA proposals to strengthen investment fund conflict-of-interest protections, and the partial suspension of the FCA's motor finance redress scheme pending Upper Tribunal review.",
     points: [
       "EBA published revised SREP guidelines, effective 1 January 2027, consolidating supervisory review procedures for banks",
@@ -5495,7 +5495,7 @@ export const items = [
     url: "https://www.macfarlanes.com/insights/102n7tk/corporate-law-update-27-june-3-july/",
     id: "u602", title: "Corporate law update: 27 June – 3 July",
     area: "corporate", areas: ["corporate", "funds"], type: "update", firm: "macfarlanes",
-    date: "2026-07-03", jurisdiction: "United Kingdom",
+    date: "2026-07-03", time: "05:21", jurisdiction: "United Kingdom",
     summary: "Macfarlanes' weekly corporate law update covering the FCA's consultation (CP26/21) on UK Listing Rule changes for closed-ended investment funds, and its Policy Statement (PS26/9) establishing a new market-abuse and disclosure regime for cryptoasset trading platforms.",
     points: [
       "FCA opened consultation (CP26/21) on UK Listing Rule changes for investment trusts: board independence for 'proposed' investment managers, substantial-shareholder voting restrictions on strategy changes, and investment-manager fee protections",
@@ -5509,7 +5509,7 @@ export const items = [
     url: "https://www.whitecase.com/insight-our-thinking/foreign-subsidies-regulation-quarterly-fsrq-q2-2026",
     id: "u603", title: "Foreign Subsidies Regulation Quarterly (FSRQ) Q2 2026",
     area: "corporate", areas: ["corporate"], type: "update", firm: "whitecase",
-    date: "2026-07-02", jurisdiction: "European Union",
+    date: "2026-07-02", time: "12:25", jurisdiction: "European Union",
     summary: "White & Case's quarterly newsletter on the EU Foreign Subsidies Regulation covers the Commission's first in-depth FSR merger investigation (JD.com's bid for CECONOMY AG), General Court challenges to Commission information requests, the first FSR procurement investigation resolved via remedial commitments, and new Commission data-protection rules for FSR investigations.",
     points: [
       "Commission opened an in-depth FSR merger probe into JD.com's €4.60/share bid for CECONOMY AG on 28 May 2026, decision due 2 October 2026",
@@ -5524,7 +5524,7 @@ export const items = [
     url: "https://finreg.aoshearman.com/uk-expands-frcc-remit-to-fca-supervision-under-mlrs",
     id: "u604", title: "UK expands FRCC remit to FCA supervision under MLRs",
     area: "banking", areas: ["banking"], type: "update", firm: "aoshearman",
-    date: "2026-07-02", jurisdiction: "United Kingdom",
+    date: "2026-07-02", time: "12:25", jurisdiction: "United Kingdom",
     summary: "A&O Shearman's FinReg blog reports on the Financial Services Act 2012 (Relevant Functions in relation to Complaints Scheme) (Amendment) Order 2026, extending the Financial Regulators Complaints Commissioner's remit to complaints about the FCA's supervision under the Money Laundering Regulations 2017, effective 23 July 2026.",
     points: [
       "Closes a gap left by the original 2014 order that prevented FRCC investigating MLR supervisory complaints",
@@ -5538,7 +5538,7 @@ export const items = [
     url: "https://finreg.aoshearman.com/esma-final-report-on-the-simplification-of-financial-transaction-reporting",
     id: "u605", title: "ESMA final report on the simplification of financial transaction reporting",
     area: "banking", areas: ["banking", "funds"], type: "update", firm: "aoshearman",
-    date: "2026-07-02", jurisdiction: "European Union",
+    date: "2026-07-02", time: "12:25", jurisdiction: "European Union",
     summary: "ESMA published a final report setting out a phased approach to simplifying financial transaction reporting under MiFIR, EMIR and SFTR, aiming ultimately at a 'report once' model, with near-term measures including streamlined intragroup exemptions and fewer reporting fields.",
     points: [
       "Phased reform: near-term burden reduction plus a long-term structural 'report once' model targeted for H2 2031",
@@ -5552,7 +5552,7 @@ export const items = [
     url: "https://finreg.aoshearman.com/eba-peer-review-report-on-pillar-3-disclosures",
     id: "u606", title: "EBA peer review report on Pillar 3 disclosures",
     area: "banking", areas: ["banking"], type: "update", firm: "aoshearman",
-    date: "2026-07-02", jurisdiction: "European Union",
+    date: "2026-07-02", time: "12:25", jurisdiction: "European Union",
     summary: "The EBA published a peer review assessing how EU competent authorities supervised compliance with Pillar 3 disclosure requirements under CRR and BRRD between June 2023 and June 2025, finding strong overall convergence but some jurisdictional inconsistencies.",
     points: [
       "High degree of supervisory convergence found across the EU generally",
@@ -5566,7 +5566,7 @@ export const items = [
     url: "https://finreg.aoshearman.com/uk-lays-draft-si-for-overseas-prudential-requirements-regime",
     id: "u607", title: "UK lays draft SI for overseas prudential requirements regime",
     area: "banking", areas: ["banking"], type: "update", firm: "aoshearman",
-    date: "2026-07-02", jurisdiction: "United Kingdom",
+    date: "2026-07-02", time: "12:25", jurisdiction: "United Kingdom",
     summary: "HM Treasury published draft regulations establishing a new Overseas Prudential Requirements Regime, consolidating existing UK CRR equivalence provisions into a single framework consistent with the FSMA 2000 model, taking effect 1 January 2027.",
     points: [
       "Restates UK CRR equivalence provisions into one overseas prudential requirements regime",
@@ -5580,7 +5580,7 @@ export const items = [
     url: "https://finreg.aoshearman.com/uk-fca-consults-on-simplifying-consumer-investment-disclosures",
     id: "u608", title: "UK FCA consults on simplifying consumer investment disclosures",
     area: "banking", areas: ["banking", "funds"], type: "update", firm: "aoshearman",
-    date: "2026-07-02", jurisdiction: "United Kingdom",
+    date: "2026-07-02", time: "12:25", jurisdiction: "United Kingdom",
     summary: "The FCA published CP26/24, proposing to streamline consumer investment cost-disclosure rules to align with the new Consumer Composite Investments regime, including removing cumulative cost illustrations and banning 'double dipping' on cash interest and fees.",
     points: [
       "Aligns COBS disclosure rules with the CCI regime via a duty-driven approach",
@@ -5595,7 +5595,7 @@ export const items = [
     url: "https://finreg.aoshearman.com/uk-fca-motor-finance-redress-scheme-partially-suspended",
     id: "u609", title: "UK FCA motor finance redress scheme partially suspended",
     area: "banking", areas: ["banking"], type: "update", firm: "aoshearman",
-    date: "2026-07-02", jurisdiction: "United Kingdom",
+    date: "2026-07-02", time: "12:25", jurisdiction: "United Kingdom",
     summary: "The Upper Tribunal temporarily suspended parts of the FCA's motor finance redress scheme pending legal challenges, though firms must still identify complaints and gather data; hearings are scheduled for December 2026 or February 2027.",
     points: [
       "Suspension is partial; obligations to identify complaints, gather data and notify ineligible complainants continue",
@@ -5609,7 +5609,7 @@ export const items = [
     url: "https://finreg.aoshearman.com/uk-fca-final-regulated-fees-and-levies-for-202627",
     id: "u610", title: "UK FCA final regulated fees and levies for 2026/27",
     area: "banking", areas: ["banking"], type: "update", firm: "aoshearman",
-    date: "2026-07-02", jurisdiction: "United Kingdom",
+    date: "2026-07-02", time: "12:25", jurisdiction: "United Kingdom",
     summary: "The FCA confirmed its final fees and levies for 2026/27: firms will pay £716.5m after retained penalty income is offset against a £788.9m total funding requirement, with a 1% rise to application, transaction and notification fees.",
     points: [
       "Annual FCA funding requirement of £788.9m; £716.5m payable by firms (0.7% year-on-year increase)",
@@ -5623,7 +5623,7 @@ export const items = [
     url: "https://finreg.aoshearman.com/uk-pvdc-policy-paper-on-the-roles-and-responsibilities-in-the-future-retail-payments-ecosystem",
     id: "u611", title: "UK PVDC policy paper on the roles and responsibilities in the future retail payments ecosystem",
     area: "banking", areas: ["banking"], type: "update", firm: "aoshearman",
-    date: "2026-07-02", jurisdiction: "United Kingdom",
+    date: "2026-07-02", time: "12:25", jurisdiction: "United Kingdom",
     summary: "The Payments Vision Delivery Committee (HM Treasury, Bank of England, FCA and PSR) published a policy paper proposing a framework for participants' roles in the UK's future retail payments ecosystem, covering central infrastructure, product-level arrangements and governance.",
     points: [
       "Defines roles for central infrastructure, product arrangements, and commercial/governance structures",
@@ -5637,7 +5637,7 @@ export const items = [
     url: "https://finreg.aoshearman.com/amla-draft-its-on-common-format-for-reporting-suspicions-under-amlr",
     id: "u612", title: "AMLA draft ITS on common format for reporting suspicions under AMLR",
     area: "banking", areas: ["banking"], type: "update", firm: "aoshearman",
-    date: "2026-07-02", jurisdiction: "European Union",
+    date: "2026-07-02", time: "12:25", jurisdiction: "European Union",
     summary: "The EU's new Anti-Money Laundering Authority opened consultation on draft Implementing Technical Standards for a common EU-wide format for reporting suspicious transactions and activities, aiming to harmonise reporting across member states.",
     points: [
       "Establishes standardised data points and reporting templates for obliged entities",
@@ -5651,7 +5651,7 @@ export const items = [
     url: "https://www.freshfields.com/en/our-thinking/blogs/transactions/the-2027-edition-of-panoramic-merger-control-is-now-available-102n7td",
     id: "u613", title: "The 2027 Edition of Panoramic Merger Control Is Now Available",
     area: "corporate", areas: ["corporate"], type: "knowhow", firm: "freshfields",
-    date: "2026-07-02", jurisdiction: "Global",
+    date: "2026-07-02", time: "12:25", jurisdiction: "Global",
     summary: "Freshfields announces the 2027 edition of 'Panoramic Merger Control', its international guide to merger-control regulation across 55 leading jurisdictions worldwide, including England & Wales, aimed at helping dealmakers navigate multi-jurisdictional transaction requirements.",
     points: [
       "Covers merger regulation regimes across 55 jurisdictions globally",
@@ -5665,7 +5665,7 @@ export const items = [
     url: "https://www.freshfields.com/en/our-thinking/blogs/transactions/inside-infrastructure-infrastructure-fundraising-new-channels-new-pathways-to-102n7t8",
     id: "u614", title: "Inside Infrastructure: Infrastructure fundraising - new channels, new pathways to navigate",
     area: "funds", areas: ["funds"], type: "insight", firm: "freshfields",
-    date: "2026-07-02", jurisdiction: "United Kingdom / European Union",
+    date: "2026-07-02", time: "12:25", jurisdiction: "United Kingdom / European Union",
     summary: "Freshfields examines three trends reshaping infrastructure fundraising: the recovery of the asset class, the expansion of evergreen/semi-liquid structures (LTAFs in the UK, ELTIFs in the EU) widening retail and private-wealth access, and the growth of the infrastructure secondaries market, particularly GP-led continuation vehicles.",
     points: [
       "LTAFs (UK) and ELTIFs (EU) are expanding retail and private-wealth investor access to illiquid infrastructure assets",
@@ -5680,7 +5680,7 @@ export const items = [
     url: "https://sustainablefutures.linklaters.com/post/102n7wv/eu-eba-finalises-its-guidelines-on-product-oversight-and-governance-to-address-g",
     id: "u615", title: "EU: EBA finalises its guidelines on product oversight and governance to address greenwashing risks in ESG retail banking products",
     area: "banking", areas: ["banking"], type: "update", firm: "linklaters",
-    date: "2026-07-03", jurisdiction: "European Union",
+    date: "2026-07-03", time: "12:25", jurisdiction: "European Union",
     summary: "The EBA finalised amended Guidelines on product oversight and governance for retail banking products with ESG features, sharpening greenwashing-prevention obligations and postponing implementation from December 2026 to 11 January 2027 to align with the timeline for small and non-complex institutions.",
     points: [
       "Scope refined to respect Member State discretion in transposing consumer credit rules",
@@ -5695,7 +5695,7 @@ export const items = [
     url: "https://www.traverssmith.com/knowledge/knowledge-container/private-equity-in-sports-planning-the-perfect-exit/",
     id: "u616", title: "Private Equity in Sports – planning the perfect Exit",
     area: "corporate", areas: ["corporate", "funds"], type: "insight", firm: "traverssmith",
-    date: "2026-07-06", jurisdiction: "United Kingdom / International",
+    date: "2026-07-06", time: "12:25", jurisdiction: "United Kingdom / International",
     summary: "Travers Smith explores exit routes for private equity investors in the sports sector, noting most sports investments have not yet reached maturity but early exits (secondary buyouts, trade sales, HNW buyers, IPOs) show attractive potential, with third-party/league approvals extending required holding periods.",
     points: [
       "Exit routes highlighted: secondary PE buyout, trade sale, high-net-worth individual purchaser, or IPO",
@@ -5709,7 +5709,7 @@ export const items = [
     url: "https://sustainablefutures.linklaters.com/post/102n88y/eu-esma-issues-statement-on-publication-or-distribution-of-esg-ratings-by-third",
     id: "u617", title: "EU: ESMA issues statement on publication or distribution of ESG ratings by third parties pending authorisation",
     area: "banking", areas: ["banking", "funds"], type: "update", firm: "linklaters",
-    date: "2026-07-06", jurisdiction: "European Union",
+    date: "2026-07-06", time: "05:25", jurisdiction: "European Union",
     summary: "ESMA issued guidance on transitional arrangements under the EU ESG Ratings Regulation (in force since 2 July 2026), setting out notification and authorisation deadlines for ESG rating providers and rules on how third parties may distribute ratings from as-yet-unauthorised providers.",
     points: [
       "Non-small ESG rating providers must notify ESMA of their authorisation intent by 2 August 2026, with formal applications due by 2 November 2026",
@@ -5724,7 +5724,7 @@ export const items = [
     url: "https://sustainablefutures.linklaters.com/post/102n88s/iso-consults-on-draft-international-net-zero-standard",
     id: "u618", title: "ISO consults on draft international net zero standard",
     area: "corporate", areas: ["corporate"], type: "update", firm: "linklaters",
-    date: "2026-07-06", jurisdiction: "International",
+    date: "2026-07-06", time: "05:25", jurisdiction: "International",
     summary: "Linklaters reports on ISO's 12-week public consultation on ISO/DIS 14060, a draft standard converting its existing Net Zero Guidelines into a verifiable international standard for corporate net zero claims aligned with the Paris Agreement.",
     points: [
       "Consultation launched 17 June 2026 and closes in early September 2026",
@@ -5739,7 +5739,7 @@ export const items = [
     url: "https://sustainablefutures.linklaters.com/post/102n88n/uk-government-to-introduce-mandatory-due-diligence-regime-targeting-deforestation",
     id: "u619", title: "UK government to introduce mandatory due diligence regime targeting deforestation in supply chains",
     area: "corporate", areas: ["corporate"], type: "update", firm: "linklaters",
-    date: "2026-07-06", jurisdiction: "England and Wales",
+    date: "2026-07-06", time: "05:25", jurisdiction: "England and Wales",
     summary: "The UK government announced plans for a Forest Risk Commodities Scheme requiring businesses operating in Great Britain with turnover above £1 million to conduct due diligence on commodities such as cattle, cocoa, coffee, palm oil, rubber, soy and wood.",
     points: [
       "Scheme applies to GB businesses with turnover over £1m sourcing named forest-risk commodities and derived products",
@@ -5755,7 +5755,7 @@ export const items = [
     url: "https://sustainablefutures.linklaters.com/post/102n88h/eu-csrd-commission-adopts-revised-esrs-and-voluntary-reporting-standard",
     id: "u620", title: "EU CSRD: Commission adopts revised ESRS and voluntary reporting standard",
     area: "corporate", areas: ["corporate", "banking", "funds"], type: "update", firm: "linklaters",
-    date: "2026-07-06", jurisdiction: "European Union",
+    date: "2026-07-06", time: "05:25", jurisdiction: "European Union",
     summary: "The European Commission adopted two delegated acts on 3 July 2026 under the Corporate Sustainability Reporting Directive: simplified revised European Sustainability Reporting Standards and a new voluntary reporting standard for smaller companies.",
     points: [
       "Revised ESRS must be applied by mandatory reporters for financial years beginning 1 January 2027 (reporting in 2028); early adoption from 2027 is permitted",
@@ -5770,7 +5770,7 @@ export const items = [
     url: "https://www.ashurstperkinscoie.com/en/insights/capital-allowances-on-pre-development-costs/",
     id: "u621", title: "Capital allowances on pre-development costs",
     area: "corporate", areas: ["corporate"], type: "case", firm: "ashurst",
-    date: "2026-07-06", jurisdiction: "England and Wales",
+    date: "2026-07-06", time: "05:25", jurisdiction: "England and Wales",
     court: "Supreme Court", citation: "[2026] UKSC 12",
     summary: "Ashurst examines the UK Supreme Court's decision in Orsted West of Duddon Sands (UK) Ltd v HMRC [2026] UKSC 12, which held that survey and study costs incurred during pre-development planning of offshore windfarms fall outside the scope of capital allowances for plant and machinery, narrowing relief for infrastructure and energy projects.",
     points: [
@@ -5786,7 +5786,7 @@ export const items = [
     url: "https://european-disputes-blog.weil.com/england-uk/cross-border-investments-investment-treaty-protections/",
     id: "u622", title: "Cross-border investments: investment treaty protections",
     area: "corporate", areas: ["corporate"], type: "insight", firm: "weil",
-    date: "2026-07-06", jurisdiction: "England and Wales",
+    date: "2026-07-06", time: "05:25", jurisdiction: "England and Wales",
     summary: "Weil's London disputes team, writing in PLC Magazine's July 2026 issue, examines how investment treaties can protect investors in cross-border transactions by mitigating political, regulatory and legal risk across jurisdictions.",
     points: [
       "Investment treaties can serve as a risk-mitigation tool for investors structuring cross-border transactions",
@@ -5800,7 +5800,7 @@ export const items = [
     url: "https://www.freshfields.com/en/our-thinking/blogs/transactions/re-nfe-global-holdings-limited-english-court-sanctions-us9-6-billion-restructur-102n83q",
     id: "u623", title: "Re NFE Global Holdings Limited: English court sanctions US$9.6bn restructuring plan for New Fortress Energy group",
     area: "ri", areas: ["ri"], type: "case", firm: "freshfields",
-    date: "2026-07-06", jurisdiction: "England and Wales",
+    date: "2026-07-06", time: "12:20", jurisdiction: "England and Wales",
     summary: "Freshfields examines the High Court's sanction of dual Part 26A restructuring plans for the New Fortress Energy group, extinguishing around US$9.6bn of debt and bifurcating the business into a creditor-owned 'BrazilCo' and a continuing 'New NFE'. The case confirms English restructuring plans remain available to non-UK, US-listed groups and applies full cross-class cram-down analysis even where creditor support is overwhelming.",
     points: [
       "All seven creditor classes voted in favour (six unanimously, one at 99.84%), so cram-down was largely unnecessary, but the court still tested the plan against the relevant alternative",
@@ -5815,7 +5815,7 @@ export const items = [
     url: "https://www.cliffordchance.com/briefings/2026/07/international-regulatory-update-29-june---3-july-2026.html",
     id: "u624", title: "International Regulatory Update: 29 June – 3 July 2026",
     area: "banking", areas: ["banking", "funds"], type: "update", firm: "cliffordchance",
-    date: "2026-07-07", jurisdiction: "United Kingdom",
+    date: "2026-07-07", time: "12:20", jurisdiction: "United Kingdom",
     summary: "Clifford Chance's weekly regulatory digest covers a new SRB fast-track procedure for early redemption of MREL instruments, EBA revised product-oversight guidelines targeting greenwashing in ESG-linked retail banking products, the FCA's final cryptoasset regime package alongside a joint BoE/FCA approach to systemic stablecoin issuers, ESMA's final report simplifying MiFIR/EMIR/SFTR transaction reporting, and an MAS update on disclosure practice for retail ESG funds.",
     points: [
       "SRB introduces a fast-track procedure, from 1 July 2026, for early redemption of MREL instruments",
@@ -5831,7 +5831,7 @@ export const items = [
     url: "https://finreg.aoshearman.com/esma-final-report-on-the-simplification-of-financial-transaction-reporting",
     id: "u625", title: "ESMA final report on the simplification of financial transaction reporting",
     area: "banking", areas: ["banking"], type: "update", firm: "aoshearman",
-    date: "2026-07-02", jurisdiction: "European Union",
+    date: "2026-07-02", time: "12:20", jurisdiction: "European Union",
     summary: "A&O Shearman reports on ESMA's final report, following its 2025 call for evidence, recommending a 'report once' model across MiFIR, EMIR and SFTR to cut duplicative transaction-reporting costs for banks and investment firms, alongside near-term relief measures pending legislative change.",
     points: [
       "Near-term measures include fewer back-reports and streamlined exemptions",
@@ -5845,7 +5845,7 @@ export const items = [
     url: "https://financialregulation.linklaters.com/post/102n7wz/esmas-final-report-proposes-annual-net-cost-savings-of-up-to-eur-1-billion-throu",
     id: "u626", title: "ESMA's final report proposes annual net cost savings of up to EUR 1 billion through simplification of transaction reporting",
     area: "banking", areas: ["banking"], type: "update", firm: "linklaters",
-    date: "2026-07-03", jurisdiction: "European Union",
+    date: "2026-07-03", time: "12:20", jurisdiction: "European Union",
     summary: "Linklaters analyses ESMA's final report on simplifying MiFIR/EMIR/SFTR transaction reporting, quantifying savings of up to EUR 1bn a year (a 22-24% cost reduction) and an estimated EUR 1.2-4.9bn ten-year discounted cumulative benefit, and sets out ESMA's phased implementation timeline running to the second half of 2031.",
     points: [
       "Estimated annual net cost savings of up to EUR 1bn, a 22-24% reduction in reporting costs",
@@ -5860,7 +5860,7 @@ export const items = [
     url: "https://www.slaughterandmay.com/insights/financial-regulation-weekly-bulletin/financial-regulation-weekly-bulletin-2-july-2026/",
     id: "u627", title: "Financial Regulation Weekly Bulletin – 2 July 2026",
     area: "banking", areas: ["banking", "funds"], type: "update", firm: "slaughtermay",
-    date: "2026-07-02", jurisdiction: "United Kingdom",
+    date: "2026-07-02", time: "12:20", jurisdiction: "United Kingdom",
     summary: "Slaughter and May's weekly regulatory round-up covers the EBA's revised SREP guidelines integrating ESG risk and operational resilience into supervisory review, the FCA's finalised UK cryptoasset regime and joint approach with the Bank of England to systemic stablecoin issuers, and an FCA consultation on strengthening conflict-of-interest protection in closed-ended investment funds.",
     points: [
       "EBA's revised SREP guidelines, effective 1 January 2027, integrate ESG risk and operational resilience into supervisory review",
@@ -5875,7 +5875,7 @@ export const items = [
     url: "https://www.freshfields.com/en/our-thinking/blogs/transactions/inside-infrastructure-infrastructure-fundraising-new-channels-new-pathways-to-102n7t8",
     id: "u628", title: "Inside Infrastructure: infrastructure fundraising – new channels, new pathways to navigate",
     area: "funds", areas: ["funds"], type: "insight", firm: "freshfields",
-    date: "2026-07-02", jurisdiction: "United Kingdom",
+    date: "2026-07-02", time: "12:20", jurisdiction: "United Kingdom",
     summary: "Freshfields looks at the institutionalisation of infrastructure fundraising, the rise of evergreen and semi-liquid vehicles, and maturing infrastructure secondaries, against the backdrop of the UK Long-Term Asset Fund regime, EU ELTIF 2.0 and AIFMD II.",
     points: [
       "UK Long-Term Asset Funds (LTAFs) have been permitted within stocks and shares ISAs since April 2026",
@@ -5890,7 +5890,7 @@ export const items = [
     url: "https://www.whitecase.com/insight-alert/synthetic-securitisations-credit-risk-management-tool-banks-and-non-bank-financial",
     id: "u629", title: "Synthetic securitisations as a credit risk management tool for banks and non-bank financial institutions in the UAE",
     area: "banking", areas: ["banking"], type: "alert", firm: "whitecase",
-    date: "2026-07-03", jurisdiction: "United Arab Emirates",
+    date: "2026-07-03", time: "12:20", jurisdiction: "United Arab Emirates",
     summary: "White & Case examines synthetic securitisation as a capital-management tool for UAE banks and non-bank financial institutions, noting the market is currently nascent — with no reported transactions to date — but interest is rising amid strong loan growth and capital-buffer pressures.",
     points: [
       "UAE market for synthetic securitisation is nascent, with no completed transactions reported yet but growing interest",
@@ -5905,7 +5905,7 @@ export const items = [
     url: "https://www.whitecase.com/insight-alert/white-case-advises-ik-partners-financing-investment-selatek",
     id: "u630", title: "White & Case advises IK Partners on financing of investment in Selatek",
     area: "banking", areas: ["banking", "corporate"], type: "alert", firm: "whitecase",
-    date: "2026-07-03", jurisdiction: "Sweden",
+    date: "2026-07-03", time: "12:20", jurisdiction: "Sweden",
     summary: "White & Case advised IK Partners on the debt financing for its investment in SELATEK Holding AB, a Swedish technical installation company (security, electrical, automation) with over 30 locations and around 900 employees, as part of IK Partners' Nordic expansion strategy.",
     points: [
       "Debt financing for IK Partners' acquisition of Selatek, a Swedish technical-installation group",
@@ -5919,7 +5919,7 @@ export const items = [
     url: "https://www.clearygottlieb.com/news-and-insights/publication-listing/sec-modernizes-debt-tender-offer-rules-with-new-exemptive-order",
     id: "u631", title: "SEC modernizes debt tender offer rules with new exemptive order",
     area: "corporate", areas: ["corporate"], type: "alert", firm: "cleary",
-    date: "2026-07-02", jurisdiction: "United States",
+    date: "2026-07-02", time: "12:20", jurisdiction: "United States",
     summary: "Cleary Gottlieb covers the SEC's 30 June 2026 exemptive order modernizing debt tender offer rules, permitting abbreviated five-business-day offering periods for non-convertible debt securities (versus the standard 20-business-day minimum), superseding the 2015 no-action letter framework.",
     points: [
       "Supersedes the 2015 no-action letter regime and permits partial tender offers rather than only 'any and all' offers",
@@ -5934,7 +5934,7 @@ export const items = [
     url: "https://www.stblaw.com/about-us/publications/view/2026/07/02/sec-expands-exemptive-relief-for-tender-offers-and-exchange-offers-for-non-convertible-debt-securities",
     id: "u632", title: "SEC expands exemptive relief for tender offers and exchange offers for non-convertible debt securities",
     area: "corporate", areas: ["corporate"], type: "alert", firm: "simpsonthacher",
-    date: "2026-07-02", jurisdiction: "United States",
+    date: "2026-07-02", time: "12:20", jurisdiction: "United States",
     summary: "Simpson Thacher's client alert on the SEC's 30 June 2026 exemptive order (under Rules 14e-1(a)/(b)) expanding relief for tender and exchange offers in non-convertible debt securities, a topic that drew near-simultaneous client alerts from several firms this week.",
     points: [
       "'Any and all' requirement eliminated; partial offers now allowed with pro-rata provisions",
@@ -5949,7 +5949,7 @@ export const items = [
     url: "https://www.davispolk.com/insights/client-update/fdic-proposes-major-revamp-csi-regulations",
     id: "u633", title: "FDIC proposes major revamp of CSI regulations",
     area: "banking", areas: ["banking"], type: "update", firm: "davispolk",
-    date: "2026-07-06", jurisdiction: "United States",
+    date: "2026-07-06", time: "12:20", jurisdiction: "United States",
     summary: "Davis Polk covers the FDIC's proposed overhaul of its confidential supervisory information (CSI) regulations, which would significantly expand insured depository institutions' ability to share supervisory information with certain third parties — including in M&A contexts — without prior FDIC approval, benchmarked against the Federal Reserve and OCC frameworks.",
     points: [
       "Broadens CSI-sharing without prior FDIC sign-off in defined circumstances",
@@ -5963,7 +5963,7 @@ export const items = [
     url: "https://www.ashurstperkinscoie.com/en/insights/sec-exemptive-order-permits-five-business-day-nonconvertible-debt-tender-and-exchange-offers/",
     id: "u634", title: "SEC exemptive order permits five-business-day nonconvertible debt tender and exchange offers",
     area: "banking", areas: ["banking", "corporate"], type: "alert", firm: "ashurst",
-    date: "2026-07-06", jurisdiction: "United States",
+    date: "2026-07-06", time: "12:20", jurisdiction: "United States",
     summary: "Ashurst covers the SEC Division of Corporation Finance's 30 June 2026 exemptive order permitting nonconvertible debt tender and exchange offers on a shortened five-business-day minimum, versus the standard 20-business-day period under Exchange Act Rule 14e-1(a), mirroring an April 2026 order for equity tender offers.",
     points: [
       "Relief is available only to issuers, wholly-owned subsidiaries, or 100%-owning parents",
@@ -5978,7 +5978,7 @@ export const items = [
     url: "https://www.sidley.com/en/insights/newsupdates/2026/07/uk-eu-investment-management-update---july-2026",
     id: "u635", title: "UK/EU Investment Management Update – July 2026",
     area: "funds", areas: ["funds"], type: "update", firm: "sidley",
-    date: "2026-07-08", jurisdiction: "United Kingdom / EU",
+    date: "2026-07-08", time: "05:19", jurisdiction: "United Kingdom / EU",
     summary: "Sidley's monthly UK/EU investment-management update covers the FCA's finalised cryptoasset regulatory regime (firm authorisation required from 25 October 2027), a proposal to raise minimum market-abuse penalties for individuals from £100,000 to £150,000, an FCA consultation to simplify product-level climate (TCFD-style) disclosure, and the 22 June 2026 launch of the UK bond consolidated tape.",
     points: [
       "FCA published final policy statements establishing the UK cryptoasset regulatory framework, with firm authorisation required from 25 October 2027",
@@ -5993,7 +5993,7 @@ export const items = [
     url: "https://www.kirkland.com/news/press-release/2026/07/kirkland-advises-altaris-on-acquisition-of-clarivates-life-sciences-healthcare-business",
     id: "u636", title: "Kirkland advises Altaris on acquisition of Clarivate's Life Sciences & Healthcare business",
     area: "corporate", areas: ["corporate"], type: "alert", firm: "kirkland",
-    date: "2026-07-06", jurisdiction: "United Kingdom / United States",
+    date: "2026-07-06", time: "12:00", jurisdiction: "United Kingdom / United States",
     summary: "Kirkland & Ellis advised Altaris, LLC on its agreement to acquire the Life Sciences & Healthcare segment (the Cortellis and Decision Resources Group portfolios) of London-headquartered Clarivate plc for $600 million, in a transaction expected to close in the second half of 2026 subject to customary closing conditions and regulatory approvals.",
     points: [
       "Deal structured as $500m cash at closing, $25m deferred cash tied to a transition services agreement, and a $75m seller note",
@@ -6007,7 +6007,7 @@ export const items = [
     url: "https://www.weil.com/articles/weil-advises-advent-portfolio-company-cobham-ultra-on-the-sale-of-ultra-maritime-to-lockheed-martin",
     id: "u637", title: "Weil advises Advent portfolio company Cobham Ultra on the $3.45 billion sale of Ultra Maritime to Lockheed Martin",
     area: "corporate", areas: ["corporate"], type: "alert", firm: "weil",
-    date: "2026-07-06", jurisdiction: "United Kingdom / United States",
+    date: "2026-07-06", time: "12:00", jurisdiction: "United Kingdom / United States",
     summary: "Weil advised Cobham Ultra, an Advent International portfolio company, on the agreed USD $3.45 billion sale of Ultra Maritime — described as a leader in next-generation undersea warfare solutions — to Lockheed Martin, subject to regulatory approvals and customary closing conditions.",
     points: [
       "Ultra Maritime sits within the UK-rooted Cobham/Ultra Electronics defence group, majority-owned by Advent International",
@@ -6021,7 +6021,7 @@ export const items = [
     url: "https://www.weil.com/articles/weil-advises-on-400-million-privately-placed-tap-offering-by-paprec",
     id: "u638", title: "Weil advises on €400 million privately placed tap offering by Paprec",
     area: "banking", areas: ["banking"], type: "alert", firm: "weil",
-    date: "2026-07-02", jurisdiction: "France",
+    date: "2026-07-02", time: "12:00", jurisdiction: "France",
     summary: "Weil's London and Paris high-yield teams advised on a €400 million privately placed tap offering by Paprec Holding, comprising €125 million of senior secured notes due 2030 and €275 million of senior secured notes due 2032, with proceeds earmarked for acquisition financing and repayment of existing indebtedness.",
     points: [
       "Tap offering split between notes due 2030 (€125m) and notes due 2032 (€275m)",
@@ -6035,7 +6035,7 @@ export const items = [
     url: "https://www.clearygottlieb.com/news-and-insights/news-listing/solstice-advanced-materials-in-15-billion-acquisition-of-element-solutions",
     id: "u639", title: "Solstice Advanced Materials in $15 billion acquisition of Element Solutions",
     area: "banking", areas: ["banking", "corporate"], type: "alert", firm: "cleary",
-    date: "2026-07-06", jurisdiction: "United States",
+    date: "2026-07-06", time: "12:00", jurisdiction: "United States",
     summary: "Cleary Gottlieb advised Solstice Advanced Materials on a fully committed $4.7 billion bridge financing from Goldman Sachs Bank USA backing its approximately $15 billion cash-and-stock acquisition (including assumed net debt) of specialty chemicals company Element Solutions Inc, with closing anticipated in the first half of 2027.",
     points: [
       "$4.7bn bridge commitment from Goldman Sachs supports the ~$15bn acquisition",
@@ -6049,7 +6049,7 @@ export const items = [
     url: "https://www.clearygottlieb.com/news-and-insights/news-listing/alcoa-in-4-1-billion-acquisition-of-south32s-bauxite-alumina-and-aluminum-assets",
     id: "u640", title: "Alcoa in $4.1 billion acquisition of South32's bauxite, alumina and aluminum assets",
     area: "banking", areas: ["banking", "corporate"], type: "alert", firm: "cleary",
-    date: "2026-07-03", jurisdiction: "United States / Australia",
+    date: "2026-07-03", time: "12:00", jurisdiction: "United States / Australia",
     summary: "Cleary Gottlieb advised Alcoa Corporation on a $3.1 billion committed bridge financing from Goldman Sachs supporting its approximately $4.1 billion upfront cash-and-stock acquisition of South32 Limited's bauxite mine, alumina refinery and aluminium smelter interests, expected to close in the first half of 2027 subject to shareholder approval and regulatory clearances.",
     points: [
       "$3.1bn bridge commitment from Goldman Sachs",
@@ -6063,7 +6063,7 @@ export const items = [
     url: "https://www.macfarlanes.com/insights/102n7sw/macfarlanes-advises-hayfin-on-the-15bn-close-of-its-direct-lending-fund-v/",
     id: "u641", title: "Macfarlanes advises Hayfin on the €15bn close of its Direct Lending Fund V",
     area: "funds", areas: ["funds"], type: "alert", firm: "macfarlanes",
-    date: "2026-07-02", jurisdiction: "United Kingdom / Europe",
+    date: "2026-07-02", time: "12:00", jurisdiction: "United Kingdom / Europe",
     summary: "Macfarlanes advised Hayfin Capital Management on the final close of its Direct Lending Fund V, a commingled European private-credit fund raising over €15 billion — more than double the €6 billion raised for Fund IV in 2023 — with Macfarlanes handling fund formation, tax structuring and leverage-facility arrangements.",
     points: [
       "Fund V raised over €15bn, more than double Fund IV's €6bn close in 2023",
@@ -6077,7 +6077,7 @@ export const items = [
     url: "https://www.macfarlanes.com/insights/102n7w8/supreme-court-decides-the-llp-salaried-member-rules-but-sends-bluecrest-back-to/",
     id: "u642", title: "Supreme Court decides the LLP salaried member rules — but sends BlueCrest back to the First-tier Tax Tribunal",
     area: "funds", areas: ["funds", "banking"], type: "knowhow", firm: "macfarlanes",
-    date: "2026-07-03", jurisdiction: "United Kingdom",
+    date: "2026-07-03", time: "12:00", jurisdiction: "United Kingdom",
     summary: "Macfarlanes' briefing on the Supreme Court's decision in Commissioners for HMRC v BlueCrest Capital Management (UK) LLP ([2026] UKSC 18) explains the practical impact for asset managers and other LLP-structured businesses of the Court's guidance on Condition A ('disguised salary') and Condition B ('significant influence'), including the remittal of BlueCrest's own case to the First-tier Tribunal for renewed fact-finding.",
     points: [
       "Reviews the Supreme Court's treatment of Condition A (disguised salary) and Condition B (significant influence) under the salaried-members rules",
@@ -6091,7 +6091,7 @@ export const items = [
     url: "https://www.clearygottlieb.com/news-and-insights/news-listing/ghf-fund-wins-dismissal-of-300-million-fraud-appeal-in-abraaj-collapse-case",
     id: "u643", title: "GHF Fund wins dismissal of $300 million fraud appeal arising from Abraaj collapse",
     area: "funds", areas: ["funds"], type: "alert", firm: "cleary",
-    date: "2026-07-06", jurisdiction: "Cayman Islands",
+    date: "2026-07-06", time: "12:00", jurisdiction: "Cayman Islands",
     summary: "Cleary Gottlieb secured dismissal by the Cayman Islands Court of Appeal of a twelve-ground appeal brought by Abdulhameed Jafar against GHF General Partner Limited and GHF Group Limited, upholding the Grand Court's September 2025 judgment dismissing all of Jafar's roughly $300 million fraud claims arising from the 2018 collapse of the Abraaj Group, following an eight-week trial that concluded in January 2024.",
     points: [
       "CICA dismissed all twelve grounds of appeal on 23 June 2026, upholding the Grand Court's 938-page judgment",
@@ -6105,7 +6105,7 @@ export const items = [
     url: "https://financialregulation.linklaters.com/post/102n8ef/fca-tells-banks-to-improve-access-to-basic-bank-accounts",
     id: "u644", title: "FCA tells banks to improve access to basic bank accounts",
     area: "banking", areas: ["banking"], type: "update", firm: "linklaters",
-    date: "2026-07-07", jurisdiction: "United Kingdom",
+    date: "2026-07-07", time: "05:22", jurisdiction: "United Kingdom",
     summary: "Linklaters update on FCA mystery-shopping findings showing banks and building societies under-promoting and mishandling provision of basic bank accounts (BBAs), with sector-wide remediation plans agreed via UK Finance.",
     points: [
       "FCA found banks fail to proactively raise BBAs, poorly explain alternative ID options, and miss vulnerability indicators",
@@ -6119,7 +6119,7 @@ export const items = [
     url: "https://www.lw.com/en/insights/english-restructuring-plans-for-us-debtors",
     id: "u645", title: "English Restructuring Plans for US Debtors",
     area: "ri", areas: ["ri"], type: "insight", firm: "latham",
-    date: "2026-07-07", jurisdiction: "England and Wales / United States",
+    date: "2026-07-07", time: "05:22", jurisdiction: "England and Wales / United States",
     summary: "Latham & Watkins insight on how English Part 26A restructuring plans offer US debtor groups an alternative to Chapter 11, citing recent Fossil and New Fortress Energy cases.",
     points: [
       "Enables court-sanctioned creditor compromises without unanimous approval and cross-class cram-down without strict absolute priority",
@@ -6134,7 +6134,7 @@ export const items = [
     url: "https://www.slaughterandmay.com/insights/corporate-update/corporate-update-bulletin-9-july-2026/",
     id: "u646", title: "Corporate Update Bulletin — 9 July 2026",
     area: "corporate", areas: ["corporate", "funds"], type: "update", firm: "slaughtermay",
-    date: "2026-07-09", jurisdiction: "United Kingdom",
+    date: "2026-07-09", time: "05:22", jurisdiction: "United Kingdom",
     summary: "Slaughter and May's fortnightly corporate bulletin covering FCA Listing Rules changes for closed-ended investment funds, final crypto trading rules, UK IPO research reforms, FRC audit/governance guidance, and the UK corporate redomiciliation consultation.",
     points: [
       "FCA consulting on Listing Rules changes for closed-ended investment funds (board independence, conflicts)",
@@ -6149,7 +6149,7 @@ export const items = [
     url: "https://www.freshfields.com/en/our-thinking/blogs/risk-and-compliance/tracing-cryptoassets-in-the-english-high-court-what-wilden-means-for-recovery-cl-102n8ax",
     id: "u647", title: "Tracing cryptoassets in the English High Court: what Wilden means for recovery claims",
     area: "banking", areas: ["banking"], type: "insight", firm: "freshfields",
-    date: "2026-07-07", jurisdiction: "England & Wales",
+    date: "2026-07-07", time: "12:17", jurisdiction: "England & Wales",
     court: "High Court (KB)", citation: "[2026] EWHC 1355 (KB)",
     summary: "Freshfields analyses Wilden v Person Unknown and Huobi Global S.A. [2026] EWHC 1355 (KB), in which a fraud victim recovered c.€2.6m in Bitcoin via forensic blockchain (LIFO) tracing and Norwich Pharmacal relief against a crypto exchange.",
     points: [
@@ -6164,7 +6164,7 @@ export const items = [
     url: "https://financialregulation.linklaters.com/post/102n8ia/mifid-ii-esma-sets-out-expectations-on-triangular-passporting",
     id: "u648", title: "MiFID II: ESMA sets out expectations on Triangular Passporting",
     area: "banking", areas: ["banking"], type: "update", firm: "linklaters",
-    date: "2026-07-08", jurisdiction: "EU/UK",
+    date: "2026-07-08", time: "12:17", jurisdiction: "EU/UK",
     summary: "Linklaters' Financial Regulation Insights team summarises an ESMA supervisory briefing on 'triangular passporting' under MiFID II, setting expectations for firms and national regulators on notifications, risk assessments, client disclosures and supervisory cooperation.",
     points: [
       "ESMA briefing targets cross-border use of passporting permissions across multiple EU Member States",
@@ -6178,7 +6178,7 @@ export const items = [
     url: "https://www.simmons-simmons.com/en/publications/cmr9cv2iz002iu73s05q99zit/financial-markets-disputes-view-july-2026",
     id: "u649", title: "Financial Markets Disputes View: July 2026",
     area: "banking", areas: ["banking"], type: "update", firm: "simmons",
-    date: "2026-07-06", jurisdiction: "United Kingdom",
+    date: "2026-07-06", time: "21:14", jurisdiction: "United Kingdom",
     summary: "Simmons & Simmons' monthly financial-markets disputes bulletin covering the new 2-year pilot making Commercial Court/Financial List hearing documents publicly accessible, AI-hallucination concerns in court filings (Cork & Anor v Smith [2026]), FCA enforcement against a bank CEO for non-disclosure of overseas regulatory issues, proposed increases to FCA individual penalty minimums, and intensifying regulatory scrutiny of motor-finance claims-management companies.",
     points: [
       "Commercial Court/Financial List launch 2-year pilot for public access to hearing documents",
@@ -6193,7 +6193,7 @@ export const items = [
     url: "https://www.weil.com/articles/weil-advises-cvc-capital-partners-in-its-majority-investment-in-distrokid",
     id: "u650", title: "Weil advises CVC Capital Partners in its majority investment in DistroKid",
     area: "corporate", areas: ["corporate"], type: "alert", firm: "weil",
-    date: "2026-07-08", jurisdiction: "United States",
+    date: "2026-07-08", time: "21:14", jurisdiction: "United States",
     summary: "Weil is advising CVC Capital Partners (via CVC Capital Partners IX) on its majority investment in music-distribution platform DistroKid; existing investor Insight Partners retains a significant minority stake. Closing is expected Q3 2026 subject to customary conditions; deal value undisclosed.",
     points: [
       "CVC Capital Partners IX to take majority stake in DistroKid; Insight Partners retains minority position",
@@ -6207,7 +6207,7 @@ export const items = [
     url: "https://www.macfarlanes.com/insights/102n7w0/cutting-back-the-consumer-duty/",
     id: "u651", title: "Cutting back the Consumer Duty",
     area: "banking", areas: ["banking", "funds"], type: "update", firm: "macfarlanes",
-    date: "2026-07-07", jurisdiction: "United Kingdom",
+    date: "2026-07-07", time: "21:14", jurisdiction: "United Kingdom",
     summary: "Macfarlanes' briefing on the FCA's proposals (consultation closing 18 September 2026) to narrow Consumer Duty scope — excluding nine categories of wholesale business (including fund management, custody and market-making), limiting application to UK-resident retail customers, and replacing 'co-manufacturer' with 'principal'/'secondary manufacturer' classifications.",
     points: [
       "FCA proposes excluding nine wholesale-business categories (fund management, custodian roles, market making, ESG ratings) from Consumer Duty",
@@ -6222,7 +6222,7 @@ export const items = [
     url: "https://www.macfarlanes.com/insights/102n8ir/macfarlanes-advises-associated-british-foods-on-obtaining-cma-clearance-for-hovis/",
     id: "u652", title: "Macfarlanes advises Associated British Foods on obtaining CMA clearance for Hovis acquisition",
     area: "corporate", areas: ["corporate"], type: "update", firm: "macfarlanes",
-    date: "2026-07-08", jurisdiction: "United Kingdom",
+    date: "2026-07-08", time: "05:28", jurisdiction: "United Kingdom",
     summary: "Macfarlanes acted for Associated British Foods in securing unconditional Phase 2 CMA clearance for its acquisition of Hovis Group Limited from Endless LLP, combining two of the UK's largest pre-sliced packaged bread manufacturers after a nine-month investigation fast-tracked to Phase 2.",
     points: [
       "CMA granted unconditional Phase 2 clearance after a nine-month, fast-tracked investigation",
@@ -6237,7 +6237,7 @@ export const items = [
     url: "https://www.cliffordchance.com/news/news/2026/07/clifford-chance-advises-international-banking-syndicate-in-relation-to-the-400-million-euros-plus-debt-financing-of-northern-fiber-group.html",
     id: "u653", title: "Clifford Chance advises international banking syndicate in relation to the €400 million-plus debt financing of Northern Fiber Group",
     area: "banking", areas: ["banking"], type: "update", firm: "cliffordchance",
-    date: "2026-07-09", jurisdiction: "Germany",
+    date: "2026-07-09", time: "12:18", jurisdiction: "Germany",
     summary: "Clifford Chance advised an international banking syndicate on €400m-plus debt financing tied to a structured M&A/reorganisation process for Northern Fiber Group (Lünecom/sewikom brands), with a binding acquisition agreement signed and completion expected in the second half of 2026.",
     points: [
       "Lender-side mandate for an international banking syndicate",
@@ -6252,7 +6252,7 @@ export const items = [
     url: "https://www.aoshearman.com/en/insights/ecb-requires-significant-institutions-to-address-ai-enabled-cybersecurity-threats",
     id: "u654", title: "ECB requires significant institutions to address AI-enabled cybersecurity threats",
     area: "banking", areas: ["banking"], type: "update", firm: "aoshearman",
-    date: "2026-07-09", jurisdiction: "European Union",
+    date: "2026-07-09", time: "17:27", jurisdiction: "European Union",
     summary: "A&O Shearman's briefing on a letter from ECB Supervisory Board Chair Claudia Buch to the CEOs of all significant institutions supervised under the Single Supervisory Mechanism, requiring comprehensive cybersecurity action plans by 31 October 2026 in response to AI-enabled threat actors now able to identify software vulnerabilities and generate functioning exploits at unprecedented speed.",
     points: [
       "ECB letter (7 July 2026) requires significant institutions to submit cybersecurity action plans by 31 October 2026",
@@ -6267,7 +6267,7 @@ export const items = [
     url: "https://www.slaughterandmay.com/insights/corporate-update/corporate-update-bulletin-9-july-2026/",
     id: "u655", title: "Corporate Update Bulletin - 9 July 2026",
     area: "corporate", areas: ["corporate"], type: "update", firm: "slaughtermay",
-    date: "2026-07-09", jurisdiction: "United Kingdom",
+    date: "2026-07-09", time: "17:27", jurisdiction: "United Kingdom",
     summary: "Slaughter and May's fortnightly corporate bulletin covers the FCA's consultation on strengthening minority-shareholder protections in closed-ended investment funds (restricting substantial shareholders' votes on related-party transactions), the FRC's refreshed audit and Provision 29 guidance, finalised cryptoasset trading rules (effective 25 October 2027), FCA encouragement of retail-shareholder voting ahead of mandatory intermediation in 2029, and the proposed UK inward/outward redomiciliation regime.",
     points: [
       "FCA consults on strengthening minority-shareholder protections in closed-ended investment funds",
@@ -6282,7 +6282,7 @@ export const items = [
     url: "https://www.freshfields.com/en/our-thinking/news/news-search/2026/07/freshfields-advises-on-300m-green-bond-issue-of-ca-immo",
     id: "u656", title: "Freshfields advises on €300m green bond issue of CA Immo",
     area: "banking", areas: ["banking"], type: "alert", firm: "freshfields",
-    date: "2026-07-08", jurisdiction: "Austria",
+    date: "2026-07-08", time: "17:27", jurisdiction: "Austria",
     summary: "Freshfields advised the banking syndicate — Crédit Agricole CIB, Deutsche Bank, Erste Group and UniCredit as Joint Lead Managers — on a €300m three-year, 3.500% fixed-rate senior unsecured green bond issued by Vienna-based CA Immobilien Anlagen AG, priced 24 June 2026 and issued 7 July 2026, listed on the Vienna Stock Exchange.",
     points: [
       "€300m three-year senior unsecured green bond for CA Immo, priced at 3.500%",
@@ -6296,7 +6296,7 @@ export const items = [
     url: "https://www.macfarlanes.com/insights/102mv4a/rated-note-feeders-structuring-access-to-private-capital/",
     id: "u657", title: "Rated note feeders: structuring access to private capital",
     area: "funds", areas: ["funds"], type: "insight", firm: "macfarlanes",
-    date: "2026-07-09", jurisdiction: "United Kingdom / International",
+    date: "2026-07-09", time: "17:27", jurisdiction: "United Kingdom / International",
     summary: "Macfarlanes' briefing on 'rated note feeders' — structures that repackage economic exposure to private capital funds into rated debt instruments, originally designed for US insurers seeking favourable regulatory capital treatment and now used more broadly (KBRA alone rated $17bn of note feeder funds in 2025) — covering single- versus multiple-note structures and the US bankruptcy-law, securitisation-classification and tax considerations relevant to their design.",
     points: [
       "Rated note feeders repackage private-fund exposure into rated debt instruments for regulatory-capital-sensitive investors",
@@ -6311,7 +6311,7 @@ export const items = [
     url: "https://www.clearygottlieb.com/news-and-insights/news-listing/eg-on-the-move-acquires-prax-uk-petrol-station-forecourt-business",
     id: "u658", title: "EG On The Move Acquires Prax UK Petrol Station Forecourt Business",
     area: "corporate", areas: ["corporate"], type: "alert", firm: "cleary",
-    date: "2026-07-07", jurisdiction: "United Kingdom",
+    date: "2026-07-07", time: "17:27", jurisdiction: "United Kingdom",
     summary: "Cleary Gottlieb advised EG On The Move on its acquisition of 85 Prax petrol station forecourt sites across the UK, expanding its UK network to approximately 285 sites operated under a commission-operator model, continuing a run of UK forecourt acquisitions following the 2024 purchase of EG Group's UK business, the 2025 acquisition of 98 Applegreen sites, and the April 2026 addition of MPK Garages Limited sites.",
     points: [
       "Acquisition of 85 Prax forecourt sites expands EG On The Move's UK network to c.285 sites",
@@ -6326,7 +6326,7 @@ export const items = [
     url: "https://www.weil.com/articles/weil-advises-advent-portfolio-company-cobham-ultra-on-the-sale-of-ultra-maritime-to-lockheed-martin",
     id: "u659", title: "Weil Advises Advent Portfolio Company Cobham Ultra on the USD $3.45 Billion Sale of Ultra Maritime to Lockheed Martin",
     area: "corporate", areas: ["corporate"], type: "alert", firm: "weil",
-    date: "2026-07-06", jurisdiction: "United Kingdom / United States",
+    date: "2026-07-06", time: "17:27", jurisdiction: "United Kingdom / United States",
     summary: "Weil advised Cobham Ultra, an Advent International portfolio company, on the agreed $3.45bn sale of Ultra Maritime — a provider of next-generation undersea-warfare solutions — to Lockheed Martin, with the transaction subject to customary regulatory clearances and closing conditions; the Weil team spanned private equity, antitrust, tax, employment and technology specialists across New York, Boston, Washington D.C. and Brussels.",
     points: [
       "$3.45bn sale of Ultra Maritime (undersea-warfare solutions) by Advent-backed Cobham Ultra to Lockheed Martin",
@@ -6340,7 +6340,7 @@ export const items = [
     url: "https://www.cliffordchance.com/news/news/2026/07/clifford-chance-advises-cvc-capital-partners-on-its-agreement-to.html",
     id: "u660", title: "Clifford Chance advises CVC Capital Partners on its agreement to sell D-Marin to InfraVia Capital Partners",
     area: "corporate", areas: ["corporate"], type: "alert", firm: "cliffordchance",
-    date: "2026-07-09", jurisdiction: "United Kingdom / Turkey",
+    date: "2026-07-09", time: "17:27", jurisdiction: "United Kingdom / Turkey",
     summary: "Clifford Chance advised CVC Capital Partners on the sale of D-Marin — the leading premium marina operator in the EMEA region, headquartered in Turkey with operations across Croatia, Greece, the UAE, Spain, Italy, France, Malta and Albania — to InfraVia Capital Partners, marking CVC's exit six years after acquiring D-Marin in 2020; financial terms were not disclosed.",
     points: [
       "CVC exits marina operator D-Marin to InfraVia Capital Partners after six years of ownership",
@@ -6355,7 +6355,7 @@ export const items = [
     url: "https://www.aoshearman.com/en/insights/global-ma-insights/how-strategic-buyers-are-reshaping-uk-ma",
     id: "u661", title: "How strategic buyers are reshaping UK M&A",
     area: "corporate", areas: ["corporate"], type: "insight", firm: "aoshearman",
-    date: "2026-07-08", jurisdiction: "United Kingdom",
+    date: "2026-07-08", time: "21:25", jurisdiction: "United Kingdom",
     summary: "A&O Shearman's H1 2026 UK M&A review finds deal value more than doubled to $237bn despite a 22% fall in deal volume, driven by strategic (rather than private-equity) buyers and record inbound investment of $202bn into UK targets.",
     points: [
       "UK M&A value more than doubled year-on-year to $237bn in H1 2026 despite fewer deals",
@@ -6369,7 +6369,7 @@ export const items = [
     url: "https://financialregulation.linklaters.com/post/102nbgo/",
     id: "u662", title: "UK designates four tech firms as critical to financial system",
     area: "banking", areas: ["banking"], type: "alert", firm: "linklaters",
-    date: "2026-07-10", jurisdiction: "United Kingdom",
+    date: "2026-07-10", time: "21:25", jurisdiction: "United Kingdom",
     summary: "HM Treasury has designated cloud and data-services entities of Microsoft, Google, Amazon and Oracle as critical third parties to the UK financial system under the Critical Third Parties regime, bringing them within the direct oversight of the Bank of England, PRA and FCA from 13 July 2026.",
     points: [
       "HM Treasury names Microsoft, Google, Amazon and Oracle entities as critical third parties",
@@ -6383,7 +6383,7 @@ export const items = [
     url: "https://financialregulation.linklaters.com/post/102nbbr/",
     id: "u663", title: "UK FCA previews its crypto application forms",
     area: "banking", areas: ["banking", "funds"], type: "update", firm: "linklaters",
-    date: "2026-07-09", jurisdiction: "United Kingdom",
+    date: "2026-07-09", time: "21:25", jurisdiction: "United Kingdom",
     summary: "The FCA has published preview versions of the application forms firms will need to complete under the UK's new cryptoasset regulatory regime, giving prospective applicants early sight of the information and evidence the regulator will require.",
     points: [
       "FCA publishes draft/preview application forms ahead of the new UK cryptoasset regime going live",
@@ -6397,7 +6397,7 @@ export const items = [
     url: "https://financialregulation.linklaters.com/post/102n9sk/",
     id: "u664", title: "Consumer Duty centre stage: lessons from FCA's second Enforcement Watch",
     area: "banking", areas: ["banking"], type: "insight", firm: "linklaters",
-    date: "2026-07-08", jurisdiction: "United Kingdom",
+    date: "2026-07-08", time: "21:25", jurisdiction: "United Kingdom",
     summary: "Linklaters analyses the FCA's second Enforcement Watch update, which puts Consumer Duty compliance at the centre of the regulator's enforcement priorities and draws out practical lessons for firms from recent cases and investigations.",
     points: [
       "FCA's second Enforcement Watch update foregrounds Consumer Duty as an enforcement priority",
@@ -6411,7 +6411,7 @@ export const items = [
     url: "https://financialregulation.linklaters.com/post/102nbit/",
     id: "u665", title: "Between the Lines: FCA feedback on products and services outcome vs reform agenda",
     area: "banking", areas: ["banking"], type: "update", firm: "linklaters",
-    date: "2026-07-10", jurisdiction: "United Kingdom",
+    date: "2026-07-10", time: "21:25", jurisdiction: "United Kingdom",
     summary: "Linklaters' Between the Lines bulletin examines the tension between the FCA's Consumer Duty products-and-services-outcome feedback and its parallel simplification/reform agenda for retail conduct regulation.",
     points: [
       "Compares FCA feedback on the Consumer Duty products and services outcome with its broader reform agenda",
@@ -6424,7 +6424,7 @@ export const items = [
     url: "https://www.slaughterandmay.com/insights/financial-regulation-weekly-bulletin/financial-regulation-weekly-bulletin-9-july-2026/",
     id: "u666", title: "Financial Regulation Weekly Bulletin – 9 July 2026",
     area: "banking", areas: ["banking", "funds"], type: "update", firm: "slaughtermay",
-    date: "2026-07-09", jurisdiction: "United Kingdom / European Union",
+    date: "2026-07-09", time: "21:25", jurisdiction: "United Kingdom / European Union",
     summary: "Slaughter and May's weekly financial regulation round-up covers the UK's Overseas Prudential Requirements Regime Regulations 2026, the Bank of England's Financial Stability Report, and ESMA guidance on crypto and binary-options marketing.",
     points: [
       "Overseas Prudential Requirements Regime Regulations 2026 covered",
@@ -6438,7 +6438,7 @@ export const items = [
     url: "https://www.traverssmith.com/knowledge/knowledge-container/can-we-finally-summit-all-up-the-fcas-cryptoasset-regime-largely-emerges-from-the-clouds/",
     id: "u667", title: "Can we finally 'summit' all up? The FCA's cryptoasset regime (largely) emerges from the clouds",
     area: "banking", areas: ["banking", "funds"], type: "insight", firm: "traverssmith",
-    date: "2026-07-08", jurisdiction: "United Kingdom",
+    date: "2026-07-08", time: "21:25", jurisdiction: "United Kingdom",
     summary: "Travers Smith reviews the FCA's finalised cryptoasset regulatory framework (published 30 June 2026, implementation from 25 October 2027), assessing what is now settled and what remains to be confirmed for firms operating in the UK crypto space.",
     points: [
       "FCA finalised cryptoasset framework rules published 30 June 2026",
@@ -6452,7 +6452,7 @@ export const items = [
     url: "https://www.traverssmith.com/knowledge/knowledge-container/travers-smiths-sustainability-insights-defence-needs-capital-and-clarity/",
     id: "u668", title: "Sustainability Insights: Defence needs capital – and clarity",
     area: "funds", areas: ["funds", "corporate"], type: "insight", firm: "traverssmith",
-    date: "2026-07-10", jurisdiction: "United Kingdom / European Union",
+    date: "2026-07-10", time: "21:25", jurisdiction: "United Kingdom / European Union",
     summary: "Travers Smith argues that procurement and commercial barriers, rather than sustainability-labelling rules, are the principal constraint on fund capital flowing into the European defence sector, and calls for greater regulatory clarity to unlock investment.",
     points: [
       "Procurement/commercial barriers, not ESG rules, identified as the main constraint on defence-sector fund investment",
@@ -6466,7 +6466,7 @@ export const items = [
     url: "https://www.simmons-simmons.com/en/publications/cmrdnk7j300oavevwul1vkeev/smcr-view-july-2026",
     id: "u669", title: "SMCR+ View – July 2026",
     area: "banking", areas: ["banking", "funds"], type: "update", firm: "simmons",
-    date: "2026-07-09", jurisdiction: "United Kingdom",
+    date: "2026-07-09", time: "21:25", jurisdiction: "United Kingdom",
     summary: "Simmons & Simmons' monthly SMCR bulletin covers the Financial Services and Markets Bill 2026/27's proposed removal of the Certification Regime, the Phase 1 SMCR reforms effective 10 July 2026, and the planned extension of SMCR to cryptoasset firms.",
     points: [
       "FSM Bill 2026/27 proposes removing the Certification Regime",
@@ -6480,7 +6480,7 @@ export const items = [
     url: "https://tax.weil.com/insights/a-decision-of-significant-influence-the-supreme-court-decides-the-bluecrest-case-and-materially-narrows-the-defences-to-the-salaried-member-rules-on-llp-member-taxation/",
     id: "u670", title: "A Decision of Significant Influence: The Supreme Court Decides the BlueCrest Case and Materially Narrows the Defences to the Salaried Member Rules on LLP Member Taxation",
     area: "funds", areas: ["funds", "banking"], type: "insight", firm: "weil",
-    date: "2026-07-08", jurisdiction: "United Kingdom",
+    date: "2026-07-08", time: "21:25", jurisdiction: "United Kingdom",
     summary: "Weil analyses HMRC v BlueCrest Capital Management (UK) LLP [2026] UKSC 18, in which the Supreme Court significantly narrowed the defences available to LLPs seeking to avoid 'salaried member' tax treatment, holding that 'significant influence' must derive from legally enforceable governance rights rather than informal influence.",
     points: [
       "Supreme Court narrows the 'significant influence' defence to the salaried member rules",
@@ -6494,7 +6494,7 @@ export const items = [
     url: "https://www.weil.com/articles/weil-advises-lone-star-funds-on-the-acquisition-of-contitech-from-continental-at-an-enterprise-value",
     id: "u671", title: "Weil Advises Lone Star Funds on the Acquisition of ContiTech from Continental at an Enterprise Value of €4 Billion",
     area: "corporate", areas: ["corporate", "funds"], type: "case", firm: "weil",
-    date: "2026-07-07", jurisdiction: "United Kingdom / Germany",
+    date: "2026-07-07", time: "21:25", jurisdiction: "United Kingdom / Germany",
     summary: "Weil advised Lone Star Funds on its agreed acquisition of ContiTech, Continental AG's engineered rubber and thermoplastics division (~22,000 employees), at an enterprise value of €4.0bn plus up to €250m in performance-based consideration; the deal team included Weil's London Corporate, Tax, Litigation, Antitrust and Private Equity practices.",
     points: [
       "Lone Star Funds to acquire Continental's ContiTech division for €4.0bn enterprise value plus up to €250m earn-out",
@@ -6508,7 +6508,7 @@ export const items = [
     url: "https://www.freshfields.com/en/our-thinking/news/news-search/2026/07/freshfields-advises-itv-on-sale-of-its-media--entertainment-business-to-sky-and-the-acquisition-of-love-productions",
     id: "u672", title: "Freshfields advises ITV on sale of its Media & Entertainment business to Sky and the acquisition of Love Productions",
     area: "corporate", areas: ["corporate"], type: "alert", firm: "freshfields",
-    date: "2026-07-06", jurisdiction: "United Kingdom",
+    date: "2026-07-06", time: "05:27", jurisdiction: "United Kingdom",
     summary: "Freshfields advised ITV plc on the sale of its Media & Entertainment business to Sky UK Limited alongside ITV's concurrent acquisition of Love Productions from Sky Ventures, in a transaction worth up to £1.6bn; ITV Studios will be repositioned as a pure-play global content business, while Sky becomes the UK's largest commercial broadcaster together with ITVX.",
     points: [
       "ITV plc sells its Media & Entertainment business to Sky UK Limited for up to £1.6bn",
@@ -6523,7 +6523,7 @@ export const items = [
     url: "https://www.linklaters.com/about-us/news-and-deals/deals/2026/july/linklaters-advises-renk-on-the-acquisition-of-david-brown-defence",
     id: "u673", title: "Linklaters advises RENK on the acquisition of David Brown Defence",
     area: "corporate", areas: ["corporate"], type: "alert", firm: "linklaters",
-    date: "2026-07-02", jurisdiction: "United Kingdom / Germany",
+    date: "2026-07-02", time: "05:27", jurisdiction: "United Kingdom / Germany",
     summary: "Linklaters advised German propulsion group RENK on its agreed acquisition of UK-based David Brown Defence, a specialist manufacturer of high-precision gearboxes for naval and land defence platforms, giving RENK access to major naval programmes in the UK, Canada and Australia; completion is expected in Q4 2026 subject to regulatory clearances.",
     points: [
       "RENK (Germany) to acquire UK-based David Brown Defence, a naval/land gearbox specialist",
@@ -6537,7 +6537,7 @@ export const items = [
     url: "https://www.aoshearman.com/en/news/ao-shearman-advises-lead-arrangers-on-financing-for-warburg-pincus-acquisition-of-network-plus",
     id: "u674", title: "A&O Shearman advises lead arrangers on financing for Warburg Pincus' acquisition of Network Plus",
     area: "banking", areas: ["banking", "corporate"], type: "alert", firm: "aoshearman",
-    date: "2026-07-01", jurisdiction: "United Kingdom",
+    date: "2026-07-01", time: "05:27", jurisdiction: "United Kingdom",
     summary: "A&O Shearman's London leveraged finance team advised the mandated lead arrangers on the debt financing backing Warburg Pincus' acquisition of Network Plus, a UK utility and infrastructure services provider delivering maintenance and operational works across the water, wastewater, gas and power sectors.",
     points: [
       "A&O Shearman advises mandated lead arrangers on financing for Warburg Pincus' acquisition of Network Plus",
@@ -6551,7 +6551,7 @@ export const items = [
     url: "https://www.whitecase.com/news/press-release/white-case-advises-soderberg-partners-acquisition-benchmark-capital",
     id: "u675", title: "White & Case advises Söderberg & Partners on acquisition of Benchmark Capital",
     area: "corporate", areas: ["corporate", "funds"], type: "alert", firm: "whitecase",
-    date: "2026-07-06", jurisdiction: "United Kingdom",
+    date: "2026-07-06", time: "05:27", jurisdiction: "United Kingdom",
     summary: "White & Case advised Söderberg & Partners, a major European wealth manager, on its acquisition of Benchmark Capital, Schroders plc's UK integrated financial-advice business, deepening Söderberg's UK platform; the team advised on the regulatory, tax and employment considerations typical of UK financial-services M&A. Deal value was not disclosed.",
     points: [
       "Söderberg & Partners acquires Benchmark Capital, Schroders plc's UK financial-advice business",
@@ -6579,7 +6579,7 @@ export const items = [
     url: "https://www.macfarlanes.com/insights/102nbfd/investment-management-update-july-2026/",
     id: "u677", title: "Investment management update - July 2026",
     area: "funds", areas: ["funds"], type: "update", firm: "macfarlanes",
-    date: "2026-07-10", jurisdiction: "United Kingdom / EU",
+    date: "2026-07-10", time: "17:18", jurisdiction: "United Kingdom / EU",
     summary: "Macfarlanes' July 2026 investment management update covers FCA proposals to permit UCITS and certain NURS funds to hold cryptoasset exchange-traded notes up to 10% of scheme property, simplification of product-level climate (TCFD-style) disclosure requirements, confirmation of new money market fund liquidity resilience requirements pending replacement legislation by end-2026, a narrowed 'high-risk third country' AML definition tied to the FATF call-for-action list, and proposals to narrow the scope of the Consumer Duty for wholesale and non-UK business.",
     points: [
       "FCA proposes allowing UCITS/NURS funds to hold cryptoasset ETNs up to 10% of scheme property",
@@ -6608,7 +6608,7 @@ export const items = [
     url: "https://www.cliffordchance.com/news/news/2026/07/clifford-chance-advises-on-the-investment-in-flannery-plant-hire.html",
     id: "u679", title: "Clifford Chance advises on the investment in Flannery Plant Hire by DWS",
     area: "banking", areas: ["banking", "corporate"], type: "alert", firm: "cliffordchance",
-    date: "2026-07-03", jurisdiction: "United Kingdom",
+    date: "2026-07-03", time: "17:18", jurisdiction: "United Kingdom",
     summary: "Clifford Chance advised the lending syndicate on the debt financing supporting DWS's investment in Flannery Plant Hire, the UK's largest operated heavy plant-hire company, acquiring an interest from the Flannery family and management, who retain a significant stake with Patrick and Martin Flannery continuing as joint CEOs; the financing supports the company's next phase of growth amid continued UK infrastructure investment in transport, energy and utilities.",
     points: [
       "DWS acquires an interest in Flannery Plant Hire, the UK's largest operated heavy plant-hire company",
@@ -6625,7 +6625,7 @@ export const items = [
     areas: ["ri"],
     type: "insight",
     firm: "cliffordchance",
-    date: "2026-07-08",
+    date: "2026-07-08", time: "21:18",
     jurisdiction: "European Union",
     url: "https://www.cliffordchance.com/insights/resources/blogs/regulatory-investigations-financial-crime-insights/2026/07/what-does-the-eu-anticorruption-directive-change.html",
     summary:
@@ -6645,7 +6645,7 @@ export const items = [
     areas: ["banking", "corporate"],
     type: "alert",
     firm: "kirkland",
-    date: "2026-07-10",
+    date: "2026-07-10", time: "21:18",
     jurisdiction: "United Kingdom",
     url: "https://www.kirkland.com/news/press-release/2026/07/kirkland-advises-blue-owl-on-acquisition-and-financing-of-spire-healthcare-portfolio",
     summary:
@@ -6737,7 +6737,7 @@ export const items = [
     url: "https://www.simmons-simmons.com/en/about-us/news/simmons-simmons-advises-traxys-on-2bn-credit-facility",
     id: "u687", title: "Simmons & Simmons advises Traxys on $2bn credit facility",
     area: "banking", areas: ["banking"], type: "alert", firm: "simmons",
-    date: "2026-07-10", jurisdiction: "United Kingdom / Luxembourg",
+    date: "2026-07-10", time: "12:41", jurisdiction: "United Kingdom / Luxembourg",
     summary: "Simmons & Simmons advised global commodities trader Traxys on amending and expanding its multicurrency syndicated revolving credit facility to $2bn, with strong support from a 30-bank syndicate including twenty existing lenders increasing their commitments, supporting Traxys' continued expansion in critical-materials markets.",
     points: [
       "Multicurrency syndicated RCF amended and upsized to $2bn",
@@ -6751,7 +6751,7 @@ export const items = [
     url: "https://www.cliffordchance.com/news/news/2026/07/clifford-chance-advises-continental-on-sale-of-contitech-to-lone-star-funds.html",
     id: "u688", title: "Clifford Chance advises Continental on the sale of ContiTech to Lone Star Funds",
     area: "corporate", areas: ["corporate", "banking"], type: "alert", firm: "cliffordchance",
-    date: "2026-07-08", jurisdiction: "United Kingdom / Germany",
+    date: "2026-07-08", time: "12:41", jurisdiction: "United Kingdom / Germany",
     summary: "Clifford Chance advised Continental AG on the sale of its ContiTech engineered-rubber and thermoplastics division to Lone Star Funds at an enterprise value of €4.0bn plus up to €250m in performance-based consideration — the seller-side counterpart to Lone Star's Weil-advised acquisition — allowing Continental to refocus fully on its tyre-manufacturing business.",
     points: [
       "Continental sells ContiTech division to Lone Star Funds for €4.0bn EV plus up to €250m earn-out",
@@ -6765,7 +6765,7 @@ export const items = [
     url: "https://www.cliffordchance.com/news/news/2026/07/clifford-chance-advises-permira-on-its-strategic-investment-in-quadrante.html",
     id: "u689", title: "Clifford Chance advises Permira on its strategic investment in Quadrante",
     area: "corporate", areas: ["corporate", "funds"], type: "alert", firm: "cliffordchance",
-    date: "2026-07-10", jurisdiction: "United Kingdom / Spain / Portugal",
+    date: "2026-07-10", time: "12:41", jurisdiction: "United Kingdom / Spain / Portugal",
     summary: "Clifford Chance advised Permira on its strategic investment in Quadrante, an Iberian engineering, architecture, environmental and sustainability consulting group, with the transaction preserving significant equity positions for Quadrante's management, founders and existing investor Henko Partners alongside Permira's new investment.",
     points: [
       "Permira takes a strategic stake in Iberian consultancy Quadrante",
@@ -6779,7 +6779,7 @@ export const items = [
     url: "https://www.lw.com/en/insights/english-restructuring-plans-for-us-debtors",
     id: "u690", title: "English Restructuring Plans for US Debtors",
     area: "ri", areas: ["ri", "banking"], type: "knowhow", firm: "latham",
-    date: "2026-07-07", jurisdiction: "United Kingdom / United States",
+    date: "2026-07-07", time: "21:15", jurisdiction: "United Kingdom / United States",
     summary: "Latham & Watkins examines how US debtor groups can use an English Part 26A restructuring plan as a flexible alternative to Chapter 11, covering how to establish English jurisdiction, Chapter 15 recognition of RP features unavailable under Chapter 11 (such as cross-class cram down), the 'good' versus improper forum-shopping line drawn around COMI manipulation, and practical limitations including the absence of an automatic stay, unavailable DIP financing and the inability to reject executory contracts.",
     points: [
       "Sets out how US debtor groups establish English jurisdiction for a Part 26A plan, including new English subsidiaries or English-law debt conversion",
@@ -6793,7 +6793,7 @@ export const items = [
     url: "https://www.simmons-simmons.com/en/about-us/news/advising-pjt-and-jefferies-on-genel-s-271m-offer-for-capricorn",
     id: "u691", title: "Advising PJT and Jefferies on Genel's £271m offer for Capricorn",
     area: "corporate", areas: ["corporate"], type: "alert", firm: "simmons",
-    date: "2026-07-02", jurisdiction: "United Kingdom",
+    date: "2026-07-02", time: "21:15", jurisdiction: "United Kingdom",
     summary: "Simmons & Simmons advised financial advisers PJT Partners and Jefferies on Genel Energy's recommended all-cash acquisition of Capricorn Energy plc for £271m (US$360m), a UK public takeover that combines Genel's Kurdistan Region of Iraq assets with Capricorn's Western Desert portfolio in Egypt to create a larger, MENA-focused energy company; Capricorn shareholders are to receive US$4.74 per share, comprising US$3.75 in cash plus a US$0.99 special dividend.",
     points: [
       "Genel Energy's recommended £271m (US$360m) all-cash offer for Capricorn Energy plc",
@@ -6808,7 +6808,7 @@ export const items = [
     id: "u692", title: "Court of Appeal confirms mere ratification of New York Convention does not waive state immunity",
     area: "corporate", areas: ["corporate"], type: "case",
     firm: "cliffordchance",
-    date: "2026-07-07", jurisdiction: "England & Wales",
+    date: "2026-07-07", time: "05:21", jurisdiction: "England & Wales",
     court: "Court of Appeal", citation: "[2026] EWCA Civ 797",
     summary: "The Court of Appeal held in CC/Devas (Mauritius) Ltd & others v The Republic of India that a state's ratification of the New York Convention 1958 does not itself waive sovereign immunity from enforcement of an arbitral award, rejecting an attempt to enforce €195m in arbitral awards against India in the English courts. The court held that Article III's obligation to enforce awards 'in accordance with the rules of procedure of the territory where the award is relied upon' incorporates state-immunity protections, distinguishing the New York Convention from the ICSID Convention's unqualified enforcement obligation.",
     points: [
@@ -6824,7 +6824,7 @@ export const items = [
     url: "https://www.macfarlanes.com/insights/102nbb0/corporate-law-update-4-10-july/",
     id: "u693", title: "Corporate law update: 4 – 10 July",
     area: "corporate", areas: ["corporate"], type: "update", firm: "macfarlanes",
-    date: "2026-07-10", jurisdiction: "United Kingdom / EU",
+    date: "2026-07-10", time: "12:19", jurisdiction: "United Kingdom / EU",
     summary: "Macfarlanes' weekly corporate-law bulletin covering the FCA's monitoring review of significant-transaction disclosures under the UK Listing Rules, an EU move to simplify CSRD sustainability-reporting requirements for smaller companies, HM Treasury's progress update on its corporate-reporting simplification agenda, and proposed changes to the UK modern-slavery reporting regime.",
     points: [
       "FCA monitoring review finds some listed companies' significant-transaction risk-factor disclosures too generic under the July 2024 Listing Rules changes",
@@ -6839,7 +6839,7 @@ export const items = [
     url: "https://www.sidley.com/en/insights/newsupdates/2026/07/regulatory-update-naic-adopts-new-rbc-charges-for-collateral-loans-and-clos",
     id: "u694", title: "Regulatory Update: NAIC Adopts New Risk-Based Capital Charges for Collateral Loans and Collateralized Loan Obligations",
     area: "banking", areas: ["banking"], type: "update", firm: "sidley",
-    date: "2026-07-09", jurisdiction: "United States",
+    date: "2026-07-09", time: "21:20", jurisdiction: "United States",
     summary: "Sidley covers two June 2026 NAIC actions affecting insurers' fixed-income books: an overcollateralization-based risk-based-capital framework for collateral loans backed by LP/LLC/JV interests (effective year-end 2027), and new risk-based capital factors for CLOs incorporating credit ratings and tranche thickness (effective 31 December 2026).",
     points: [
       "Collateral loans backed by fund LP/LLC/JV interests get 0-50% capital haircuts based on overcollateralization, effective year-end 2027",
@@ -6854,7 +6854,7 @@ export const items = [
     url: "https://www.davispolk.com/insights/client-update/sec-broadens-five-business-day-debt-tender-and-exchange-offer-framework",
     id: "u695", title: "SEC Broadens Five-Business-Day Debt Tender and Exchange Offer Framework",
     area: "banking", areas: ["banking"], type: "alert", firm: "davispolk",
-    date: "2026-07-10", jurisdiction: "United States",
+    date: "2026-07-10", time: "21:20", jurisdiction: "United States",
     summary: "Davis Polk covers the SEC's 30 June 2026 exemptive order expanding the abbreviated five-business-day tender/exchange-offer framework for non-convertible debt — permitting partial offers, relaxing the 'Qualified Debt Securities' definition to 'substantially similar' rather than identical securities, and easing simple-majority consent solicitations; the order carves out issuers already in bankruptcy/insolvency or pursuing pre-packaged consent solicitations.",
     points: [
       "SEC exemptive order (30 June 2026) now permits partial and capped debt tender/exchange offers on the 5-business-day timeline",
@@ -6869,7 +6869,7 @@ export const items = [
     url: "https://www.whitecase.com/news/press-release/white-case-advises-banco-bpm-eur500-million-green-subordinated-tier-2-bond",
     id: "u696", title: "White & Case advises Banco BPM on €500 million Green Subordinated Tier 2 bond issuance",
     area: "banking", areas: ["banking"], type: "alert", firm: "whitecase",
-    date: "2026-07-09", jurisdiction: "Italy / United Kingdom",
+    date: "2026-07-09", time: "21:20", jurisdiction: "Italy / United Kingdom",
     summary: "White & Case advised Banco BPM on a €500m, 4.125% green subordinated Tier 2 bond due 2038 (callable January 2033), issued under its Euro Medium Term Notes Programme and its Green, Social and Sustainability Bonds Framework, taking the bank's cumulative ESG issuance to €8.5bn.",
     points: [
       "€500m green subordinated Tier 2 notes, 4.125% coupon, due 2038, callable January 2033",
@@ -6884,7 +6884,7 @@ export const items = [
     url: "https://www.lw.com/en/news/2026/07/latham-advises-moneybox-on-employee-share-sale",
     id: "u697", title: "Latham Advises Moneybox on Employee Share Sale",
     area: "corporate", areas: ["corporate"], type: "alert", firm: "latham",
-    date: "2026-07-13", jurisdiction: "United Kingdom",
+    date: "2026-07-13", time: "21:20", jurisdiction: "United Kingdom",
     summary: "Latham & Watkins advised UK wealth-management platform Moneybox on a fixed-price employee/secondary share sale valuing the company at £800m (~US$1.1bn) — a 45% increase since its 2024 secondary transaction — executed via the London Stock Exchange's new PISCES private-share-trading framework, only the second employee equity transaction to use that platform.",
     points: [
       "Moneybox employee share sale values the fintech at £800m, up 45% since its 2024 secondary round",
@@ -6899,7 +6899,7 @@ export const items = [
     url: "https://www.slaughterandmay.com/insights/new-insights/the-international-comparative-legal-guide-to-fintech-2026/",
     id: "u698", title: "The International Comparative Legal Guide to Fintech 2026",
     area: "banking", areas: ["banking"], type: "knowhow", firm: "slaughtermay",
-    date: "2026-07-13", jurisdiction: "United Kingdom",
+    date: "2026-07-13", time: "05:20", jurisdiction: "United Kingdom",
     summary: "Slaughter and May acted as contributing editors of the ICLG Fintech 2026 guide, authoring both the UK country chapter on the fintech legal/regulatory framework and an Expert Analysis chapter, 'Reporting Rules Herald the Next Chapter for the Financial Sector,' on operational resilience.",
     points: [
       "UK chapter surveys the fintech legal and regulatory framework, including commercial contracts, financial regulation, financing and IP touchpoints",
@@ -6913,7 +6913,7 @@ export const items = [
     url: "https://www.cliffordchance.com/news/news/2026/07/clifford-chance-advises-hsbc-on-the-issuance-of-its-first-digitally-native-tokenised-structured-product.html",
     id: "u699", title: "Clifford Chance advises HSBC on the issuance of its first digitally native tokenised structured product",
     area: "banking", areas: ["banking"], type: "case", firm: "cliffordchance",
-    date: "2026-07-13", jurisdiction: "England & Wales",
+    date: "2026-07-13", time: "10:13", jurisdiction: "England & Wales",
     summary: "Clifford Chance advised HSBC (The Hongkong and Shanghai Banking Corporation Limited) on its first digitally native tokenised structured product, issued under English law via the Marketnode digital markets infrastructure platform in Hong Kong — the first such issuance in Hong Kong governed by English law.",
     points: [
       "First digitally native tokenised structured product issued by HSBC, and the first in Hong Kong governed by English law",
@@ -7090,31 +7090,31 @@ export const cases = [
     date: "2026-06-30", area: "ri", url: "https://caselaw.nationalarchives.gov.uk/ewca/civ/2026/831",
     summary: "The Court of Appeal upheld the use of multi-claimant claim forms for over 5,000 motor finance discretionary commission mis-selling claims against eight lenders, confirming such consolidated case management is a permissible 'convenient disposal' under CPR 7.3." },
   { id: "c50", name: "Commissioners for HMRC v BlueCrest Capital Management (UK) LLP", citation: "[2026] UKSC 18", court: "Supreme Court",
-    date: "2026-07-01", area: "funds", url: "https://caselaw.nationalarchives.gov.uk/uksc/2026/18",
+    date: "2026-07-01", time: "16:32", area: "funds", url: "https://caselaw.nationalarchives.gov.uk/uksc/2026/18",
     summary: "The Supreme Court held that 'significant influence over the affairs of the partnership' under the salaried-members Condition B (Finance Act 2014) must derive from legally enforceable rights under the LLP agreement and statutory framework, not from informal or de facto arrangements, remitting HMRC's ~£142m PAYE/~£55.3m NIC dispute with BlueCrest's LLP members to the tribunal below." },
   { id: "c51", name: "Skatteforvaltningen v MCML Ltd", citation: "[2026] UKSC 19", court: "Supreme Court",
-    date: "2026-07-01", area: "banking", url: "https://caselaw.nationalarchives.gov.uk/uksc/2026/19",
+    date: "2026-07-01", time: "12:18", area: "banking", url: "https://caselaw.nationalarchives.gov.uk/uksc/2026/19",
     summary: "In the long-running cum-ex litigation, the Supreme Court unanimously held that the dismissal of SKAT's 2018 negligence claim (on Revenue Rule grounds) did not give rise to issue estoppel barring its later 2022 fraud claim against the same brokerage over the same tax vouchers, since the two claims involved fundamentally different factual and legal bases." },
   { id: "c52", name: "Houssein & Ors v London Credit Ltd & Anor", citation: "[2026] EWCA Civ 830", court: "Court of Appeal",
-    date: "2026-07-01", area: "banking", url: "https://caselaw.nationalarchives.gov.uk/ewca/civ/2026/830",
+    date: "2026-07-01", time: "05:20", area: "banking", url: "https://caselaw.nationalarchives.gov.uk/ewca/civ/2026/830",
     summary: "The Court of Appeal dismissed an appeal by borrowers against secured lender London Credit Limited arising from a £1.881m loan secured on residential property, holding that the borrowers' settlement offers did not amount to valid tenders capable of stopping interest running, and that the lender's 4%-per-month default interest rate was not an unenforceable penalty given the lender's legitimate refinancing-risk interest." },
   { id: "c53", name: "Culina Group Limited & Ors v Thomas Van Mourik & Ors", citation: "[2026] EWHC 1661 (Comm)", court: "High Court (Comm)",
-    date: "2026-07-01", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/1661",
+    date: "2026-07-01", time: "05:25", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/1661",
     summary: "In a case management conference in litigation brought by Culina Group against former chief executive Thomas van Mourik and other former directors/executives, Andrew Baker J ruled on contested pleading amendments, refusing to found fiduciary duties on a service company but permitting amendments alleging liability to account for an increase in shareholding value as an unsettled point of law for trial." },
   { id: "c54", name: "Gable Insurance AG v William Dewsall & Ors", citation: "[2026] EWCA Civ 851", court: "Court of Appeal",
-    date: "2026-07-03", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewca/civ/2026/851",
+    date: "2026-07-03", time: "12:14", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewca/civ/2026/851",
     summary: "The Court of Appeal dismissed an insurer (in liquidation)'s appeal against a finding that its former CEO/director's admitted breaches of duty in authorising payments were negligent rather than dishonest, holding the trial judge was entitled to draw a rational distinction between payments diverted from trust accounts (dishonest) and other payments made in the belief they were board-authorised and disclosed to the auditor (not dishonest)." },
   { id: "c55", name: "The Wine Enterprises Investments Scheme Limited (in liquidation) v Crowe U.K. LLP", citation: "[2026] EWHC 1662 (Ch)", court: "High Court (Ch)",
-    date: "2026-07-03", area: "ri", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1662",
+    date: "2026-07-03", time: "20:05", area: "ri", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1662",
     summary: "Consequential costs judgment following the liquidators' professional-negligence claim against the company's former auditors, in which they recovered only ~£102,000 (1.6%) of their £8.4m claim; the court held the auditors were nonetheless the successful party and awarded them 85% of pre-offer costs and full post-offer costs on the standard basis, refusing indemnity costs." },
   { id: "c56", name: "Philip Henry Cole v Scott William Masterton", citation: "[2026] EWHC 1615 (Comm)", court: "High Court (Comm)",
-    date: "2026-07-01", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/1615",
+    date: "2026-07-01", time: "12:25", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/1615",
     summary: "Hancock J refused to lift a debarring order against a defendant who had persistently failed to engage with proceedings and, proceeding on the documentary evidence alone, upheld the claimant's claim for £10m under a share purchase agreement the defendant alleged was a sham." },
   { id: "c57", name: "Frontiers Capital I Limited Partnership v Thomas Flohr", citation: "[2026] EWHC 1656 (Ch)", court: "High Court (Ch)",
-    date: "2026-07-06", area: "funds", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1656",
+    date: "2026-07-06", time: "05:25", area: "funds", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1656",
     summary: "Master Brightwell granted a non-party costs order under s.51 Senior Courts Act 1981 against Timothy Horlick, liquidator of a dissolved venture capital fund's general partner, holding he was the 'real party' who controlled and funded revived litigation against Thomas Flohr for his own benefit." },
   { id: "c58", name: "Stor RB One Ltd v Kanthasamy", citation: "[2026] EWHC 1696 (Comm)", court: "High Court (Comm)",
-    date: "2026-07-07", area: "banking", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/1696",
+    date: "2026-07-07", time: "12:20", area: "banking", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/1696",
     summary: "Judge Kramer KC declined to strike out a defendant's claim that a personal-guarantee judgment against him should be set aside for fraud (a forged guarantee deed and a fabricated legal-advice certificate produced by a co-defendant relative), finding a real issue for trial, but adjourned the harder question of whether fraud by a co-defendant (rather than the judgment creditor) can unravel a judgment pending Court of Appeal guidance in Lindsay's Estate v Outlook Finance Ltd." },
   { id: "c59", name: "UniCredit Bank GmbH, London Branch v Celestial Aviation Services Ltd", citation: "[2026] UKSC 10", court: "Supreme Court",
     date: "2026-03-25", area: "banking", url: "https://supremecourt.uk/cases/uksc-2024-0103",
@@ -7123,22 +7123,22 @@ export const cases = [
     date: "2026-02-25", area: "corporate", url: "https://supremecourt.uk/cases/uksc-2024-0047",
     summary: "The Supreme Court gave authoritative guidance on whether, and what, statutory limitation period applies to amendments to unfair-prejudice petitions under section 994 of the Companies Act 2006." },
   { id: "c61", name: "DBLP Sea Cow Limited v Lars Stefensen", citation: "[2026] EWHC 1735 (Ch)", court: "High Court (Ch)",
-    date: "2026-07-09", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1735",
+    date: "2026-07-09", time: "21:14", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1735",
     summary: "Mr Justice Mellor committed Lars Stefensen to two years' imprisonment for contempt of four court orders (a proprietary injunction, an information order, a debarring order and a post-judgment injunction) after he sold 2.5 million Rezolve AI plc shares he held on trust pending payment, without authorisation, and refused to disclose the proceeds' whereabouts." },
   { id: "c62", name: "Hamad Al Haroun v Ahmad Al Fahad Al Ahmad Al Sabah (Kuwait Finance House PLC)", citation: "[2026] EWHC 1669 (KB)", court: "High Court (KB)",
-    date: "2026-07-08", area: "banking", url: "https://caselaw.nationalarchives.gov.uk/ewhc/kb/2026/1669",
+    date: "2026-07-08", time: "21:14", area: "banking", url: "https://caselaw.nationalarchives.gov.uk/ewhc/kb/2026/1669",
     summary: "David Quest KC (sitting as a Deputy High Court Judge) dismissed applications by Kuwait Finance House PLC to set aside a contempt order and default judgment, finding that although the claimant had manipulated a delivery-confirmation document, genuine service of enforcement documents on KFH had nonetheless occurred through multiple courier/postal deliveries which the bank failed to process internally." },
   { id: "c63", name: "Illiquidx Limited v Altana Wealth & Ors", citation: "[2026] EWCA Civ 874", court: "Court of Appeal",
-    date: "2026-07-10", area: "funds", url: "https://caselaw.nationalarchives.gov.uk/ewca/civ/2026/874",
+    date: "2026-07-10", time: "12:18", area: "funds", url: "https://caselaw.nationalarchives.gov.uk/ewca/civ/2026/874",
     summary: "The Court of Appeal (Arnold, Zacaroli and Miles LJJ) dismissed an appeal against findings that Altana Wealth misused confidential information IlliquidX had disclosed under NDA about a strategy to launch a sanctions-compliant fund investing in distressed Venezuelan sovereign debt, rejecting the appellants' argument that the strategy was in the public domain." },
   { id: "c64", name: "Loudmila Bourlakova & Ors v Semen Anufriev & Ors", citation: "[2026] EWHC 1747 (Ch)", court: "High Court (Ch)",
-    date: "2026-07-10", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1747",
+    date: "2026-07-10", time: "21:25", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1747",
     summary: "The High Court ruled on an application to lift legal privilege under the 'iniquity exception' in a $3bn+ dispute over the late Oleg Bourlakov's business interests, a significant asset-tracing/fraud dispute involving complex corporate structures; trial is listed for October 2027." },
   { id: "c65", name: "Tether Investments, S.A. de C.V. & Anor v Electric Solidus, Inc. (t/a Swan Bitcoin)", citation: "[2026] EWHC 1652 (Comm)", court: "High Court (Comm)",
     date: "2026-06-26", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/1652",
     summary: "The Commercial Court refused anti-suit relief sought to restrain a BVI derivative action, holding that a litigation-restriction clause in a shareholders' agreement does not bar derivative claims brought on behalf of the company — relevant to governance disputes in crypto/digital-asset joint ventures." },
   { id: "c66", name: "JJH Enterprises Ltd (t/a ValueLicensing) v Microsoft Corporation & Ors", citation: "[2026] EWCA Civ 872", court: "Court of Appeal",
-    date: "2026-07-07", area: "ri", url: "https://caselaw.nationalarchives.gov.uk/ewca/civ/2026/872",
+    date: "2026-07-07", time: "21:18", area: "ri", url: "https://caselaw.nationalarchives.gov.uk/ewca/civ/2026/872",
     summary: "The Court of Appeal dismissed Microsoft's appeal in a Competition Appeal Tribunal follow-on damages claim over the secondary market for used software licences, holding the CAT has jurisdiction to determine copyright questions arising within a competition claim, that the Software Directive's exhaustion principle extends to non-program works incidental to software, and that bulk licences can lawfully be subdivided and resold." },
   { id: "c67", name: "Jeremy Robert Webb & Anor v Eversholt Rail Limited & Anor (Re Eversholt Rail (365) Limited)", citation: "[2026] EWHC 101 (Ch)", court: "High Court (Ch)",
     date: "2026-01-22", area: "ri", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/101",
@@ -7159,17 +7159,17 @@ export const cases = [
     date: "2026-06-24", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewca/civ/2026/797",
     summary: "The Court of Appeal held that a state's ratification of the New York Convention 1958 does not, by itself, waive sovereign immunity from enforcement, rejecting an attempt to enforce €195m in arbitral awards against India in England." },
   { id: "c73", name: "Nexans France SAS & Anor v London Array Limited & Ors", citation: "[2026] EWCA Civ 887", court: "Court of Appeal",
-    date: "2026-07-10", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewca/civ/2026/887",
+    date: "2026-07-10", time: "05:21", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/ewca/civ/2026/887",
     summary: "Lord Justice Green refused Nexans permission to appeal the Competition Appeal Tribunal's ruling that London Array's offshore-windfarm joint venture was overcharged for submarine power cables supplied during a 2008–09 tender, as part of the EU Commission's submarine-cable cartel." },
   { id: "c74", name: "ICG Manager Limited & Ors v Colliers International Valuation UK LLP", citation: "[2026] EWHC 1749 (Ch)", court: "High Court (Ch)",
-    date: "2026-07-13", area: "banking", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1749",
+    date: "2026-07-13", time: "17:24", area: "banking", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1749",
     summary: "Sitting as a deputy judge, David Halpern KC permitted amendments to a negligence claim by lender-side claimants against valuer Colliers International Valuation UK LLP over an allegedly negligent January 2018 property valuation that the claimants say prevented them identifying a breach of a loan-to-value covenant and averting subsequent losses, allowing pleaded amendments that Colliers negligently revised its valuation from £22.41m to £23.75m after borrower contact while rejecting amendments alleging intentional wrongdoing." },
   { id: "c75", name: "Malcolm Cohen & Anor v Co-Operative Group Limited & Ors (Re The Food Retailer Operations Limited)", citation: "[2026] EWHC 1228 (Ch)", court: "High Court (Ch)",
     date: "2026-05-21", area: "ri", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1228",
     summary: "Mr Justice Cawson dismissed a c.£205m claim brought by the joint liquidators of The Food Retailer Operations Limited (formerly Somerfield Stores Limited) against Co-operative Group Limited and associated entities, holding that the 2015 'Project Chicago' restructuring — under which Co-op withdrew roughly £478m of share capital from Somerfield after transferring its profitable stores to Co-op subsidiaries — did not constitute a transaction at an undervalue or a preference under sections 238/239 of the Insolvency Act 1986, since the share capital withdrawal was supported by consideration from the shares' original subscription." },
   {"id":"c80","name":"Ron Hoffman & Anor v Finalto Group Limited & Anor","citation":"[2026] EWHC 1702 (Comm)","court":"High Court (Comm)","date":"2026-07-06","area":"corporate","url":"https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/1702","summary":"Mr Justice Butcher resolved consequential matters following an earlier trial judgment on breached management-equity claims valued at roughly GBP22.8m, awarding pre-judgment interest at base+4%, splitting costs to reflect a Part 36 offer, and refusing permission to appeal."},
   { id: "c81", name: "Saxon Woods Investments Limited & Ors v Francesco Costa", citation: "[2026] UKSC 21", court: "Supreme Court",
-    date: "2026-07-14", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/uksc/2026/21",
+    date: "2026-07-14", time: "17:25", area: "corporate", url: "https://caselaw.nationalarchives.gov.uk/uksc/2026/21",
     summary: "The Supreme Court unanimously dismissed an appeal by Francesco Costa, chairman of Spring Media Investments Ltd, holding that the section 172(1) Companies Act 2006 duty of good faith governs a director's conduct, not just his subjective belief, so a director cannot secretly defy a collective board decision through concealment or deception. It upheld the Court of Appeal's order requiring Costa to buy out Saxon Woods' shareholding at its undiscounted December 2019 valuation." },
 ];
 

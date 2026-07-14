@@ -9,9 +9,9 @@
 // =============================================================================
 // Data modules are versioned (matching each app) so the live Glance busts its
 // cache with the four-times-daily data refresh instead of serving a stale copy.
-import { deals, intel, managers, funds, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260708-9";
-import { items, cases, restructurings, firmById } from "/legal/js/data.js?v=20260708-8";
-import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js?v=20260710-4";
+import { deals, intel, managers, funds, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260714-2";
+import { items, cases, restructurings, firmById } from "/legal/js/data.js?v=20260714-2";
+import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js?v=20260714-2";
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const byDateDesc = (a, b) => String(b.date || "").localeCompare(String(a.date || ""));
@@ -65,11 +65,6 @@ const MACRO_INDICATORS = [
 
 let _inited = false;
 const fmtRefresh = () => `${fmt(LAST_CHECKED)}${LAST_CHECKED_TIME ? `, ${LAST_CHECKED_TIME}` : ""}`;
-// Fallback time for items that don't yet carry their own: the current run time
-// (LAST_CHECKED_TIME, "12:20 BST" → "12:20"). Once the routine stamps each story
-// with its real publish/found time at creation, that per-item value wins and the
-// fallback only covers not-yet-stamped items (which age out of the feed).
-const RUN_TIME = String(LAST_CHECKED_TIME || "").replace(/\s+[A-Za-z]+$/, "").trim();
 
 export function initGlance() {
   if (_inited) return; _inited = true;
@@ -259,9 +254,10 @@ function renderFeed() {
   feed.length = Math.min(feed.length, CAP);
 
   const row = (o) => {
-    // The item's own time (real publish, else the run that found it — stamped by the
-    // routine) where present; otherwise the current run time so a time still shows.
-    const t = o.time || RUN_TIME;
+    // The item's OWN frozen time (real publish, else the run that first found it —
+    // stamped into the data by the routine). No moving global fallback, so a story's
+    // time never re-times to the latest run.
+    const t = o.time || "";
     const tspan = t ? `<span class="g-feed-time">${esc(t)}</span>` : "";
     return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
       + tspan

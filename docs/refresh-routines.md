@@ -76,11 +76,12 @@ extra deep-research pass on watchlisted names is skipped.
   NOT the latest run. Never guess a publish time you can't verify; the run-time
   stamp is the honest fallback. The Home feed leads each row with this per-item
   `time`, groups rows under a per-day date header, and ranks them newest→oldest by
-  `date`+`time`. Do NOT backfill old records with the current run time (that would
-  misdate them as "found now"). Items without a stored `time` fall back in the feed
-  to the current run time so a time still shows; that fallback is uniform, so the
-  point of stamping `time` at creation is to replace it with each story's real
-  per-item time as new items flow in (not-yet-stamped older items age out).
+  `date`+`time`. The feed shows this per-item value ONLY — there is no global
+  fallback, so a story's time never re-times to a later run. Do NOT rewrite an
+  item's `time` on a later run, and do NOT stamp old records with the current run
+  time (that would misdate them as "found now"). A recent-item backfill already
+  stamped existing July items with the run time of the commit that first added
+  them; items with no `time` simply lead with the headline.
 - **Historical depth (not just current-year) — always add what you uncover.** The
   ~24h window only governs which *newly surfaced* items a run hunts for — it is
   NOT a floor on an item's own date, and it is NOT a reason to discard a real
