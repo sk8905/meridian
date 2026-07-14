@@ -787,7 +787,7 @@ function fundTable(rows, key, sig) {
   let more = "";
   if (key) { pageReset(key, sig); const n = pageCount(key); more = loadMoreBtn(key, rows.length - n); rows = rows.slice(0, n); }
   return `<div class="table-wrap"><table class="data-table">
-      <thead><tr>${sortTh("funds", "name", "Fund")}${sortTh("funds", "manager", "Manager")}${sortTh("funds", "strategy", "Strategy")}${sortTh("funds", "geo", "Geography")}${sortTh("funds", "status", "Status")}${sortTh("funds", "target", "Target")}${sortTh("funds", "progress", "Progress", "prog-col")}</tr></thead>
+      <thead><tr>${sortTh("funds", "name", "Fund")}${sortTh("funds", "manager", "Manager")}${sortTh("funds", "strategy", "Strategy")}${sortTh("funds", "geo", "Geography")}${sortTh("funds", "status", "Status")}${sortTh("funds", "target", "Target")}</tr></thead>
       <tbody>
         ${rows.map((x) => `<tr class="clickable" data-href="#/fund/${x.id}">
           <td>${nameCell("fund", x.id, `<strong>${esc(x.name)}</strong>`)}</td>
@@ -796,7 +796,6 @@ function fundTable(rows, key, sig) {
           <td>${esc(x.geoFocus)}</td>
           <td>${fundStatusChip(x)} ${lifecycleBadge(x)}</td>
           <td>${x.evergreen ? "—" : eur(x.targetSize)}</td>
-          <td class="prog-col">${raiseDisplay(x)}</td>
         </tr>`).join("")}
       </tbody>
     </table></div>` + more;
