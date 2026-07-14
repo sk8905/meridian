@@ -393,8 +393,16 @@
          button-anchored dropdown would bleed off-screen. Pin the panel to the
          viewport instead; JS sets `top` from the button's position on open. */
       .g-mkt-panel { position:fixed; right:8px; left:auto; top:56px;
-        width:min(360px, calc(100vw - 16px)); max-width:none; }
+        width:min(400px, calc(100vw - 16px)); max-width:none; }
     }
+    /* Inside the panel each band is a 4-column × 2-row grid (nth-child rules use
+       the same (0,3,0) specificity as the sidebar's so they win by source order —
+       this only ever matches when .g-side has been moved into the panel on phones). */
+    .g-mkt-panel .rates-band { grid-template-columns:repeat(4, 1fr); padding:.25rem .2rem; }
+    .g-mkt-panel .rate-tile { padding:.4rem .38rem; }
+    .g-mkt-panel .rate-tile:nth-child(n+1) { border-left:1px solid var(--line); border-top:0; }
+    .g-mkt-panel .rate-tile:nth-child(4n+1) { border-left:0; }
+    .g-mkt-panel .rate-tile:nth-child(n+5) { border-top:1px solid var(--line); }
 
     /* ---- Cards (legacy; retained for any residual use) ---- */
     .g-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.1rem; }
