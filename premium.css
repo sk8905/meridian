@@ -388,3 +388,6 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 .day-sep { height: 1.6rem; position: relative; }
 .day-sep::before { content: ""; position: absolute; left: 0; right: 0; top: calc(50% - 1px);
   border-top: 2px solid rgba(100,116,139,.32); }
+/* Drop the row's own faint bottom border when a day-break rule follows it, so the
+   two don't stack into a double line. */
+.intel-row:has(+ .day-sep), .feed-row:has(+ .day-sep) { border-bottom: 0; }
