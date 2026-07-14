@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-07-14";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — four runs a day (~05:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "05:20 BST";
+export const LAST_CHECKED_TIME = "10:13 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -6907,6 +6907,21 @@ export const items = [
       "Authored by David Shone, David Ives and James Cook, with Natalie Donovan and Emily Bradley",
     ],
     tags: ["fintech regulation", "operational resilience", "financial services", "UK"],
+    dateEstimated: false,
+  },
+  {
+    url: "https://www.cliffordchance.com/news/news/2026/07/clifford-chance-advises-hsbc-on-the-issuance-of-its-first-digitally-native-tokenised-structured-product.html",
+    id: "u699", title: "Clifford Chance advises HSBC on the issuance of its first digitally native tokenised structured product",
+    area: "banking", areas: ["banking"], type: "case", firm: "cliffordchance",
+    date: "2026-07-13", jurisdiction: "England & Wales",
+    summary: "Clifford Chance advised HSBC (The Hongkong and Shanghai Banking Corporation Limited) on its first digitally native tokenised structured product, issued under English law via the Marketnode digital markets infrastructure platform in Hong Kong — the first such issuance in Hong Kong governed by English law.",
+    points: [
+      "First digitally native tokenised structured product issued by HSBC, and the first in Hong Kong governed by English law",
+      "Marketnode Pte. Ltd, an Asia-Pacific digital market infrastructure provider, acted as platform operator and paying agent",
+      "Multijurisdictional Clifford Chance team spanning London, Hong Kong, Singapore and Paris, led by partners Matteo Sbraga, Mark Chan, Stella Cramer and Lena Ng",
+      "Builds on Clifford Chance's prior work on the Hong Kong Mortgage Corporation's record-setting global digital bond issuance",
+    ],
+    tags: ["digital assets", "tokenisation", "structured products", "fintech"],
     dateEstimated: false,
   },
 ];
