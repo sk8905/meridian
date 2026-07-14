@@ -129,6 +129,13 @@ h2, .brand-text strong { letter-spacing: -.011em; }
    wrap earlier than needed. Greedy wrapping fills each line to the full width.
    (Body copy / descriptions keep :pretty, where orphan-avoidance helps.) */
 .g-item .t, .intel-head, .feed-title, .compact-head, .rx-name { text-wrap: wrap; }
+/* A .card that is a grid/flex item (e.g. the Credit dashboard's .grid-3 columns,
+   and the Legal/Macro equivalents) must be allowed to shrink below its content's
+   min-content width. Otherwise a single-line (nowrap) .compact-head headline sets
+   the card's min-width to the full headline width, so on phones the card grows
+   wider than its 1-column track and its text runs off the right of the screen.
+   min-width:0 lets the card size to its track and the .compact-head clip inside. */
+.card { min-width: 0; }
 /* Dashboard "latest activity" / compact-list headlines (Credit & Legal & Macro
    dashboards): clamp to a single line, truncated with an ellipsis. */
 .compact-head { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
