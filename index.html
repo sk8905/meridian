@@ -324,17 +324,17 @@
     @media (max-width:900px){ .g-layout { grid-template-columns:1fr; gap:1.4rem; } }
     .g-feed-head { font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em;
       color:var(--muted); margin:0 0 .35rem; padding-bottom:.4rem; border-bottom:2px solid var(--line); }
+    /* Rows mirror the app news feeds exactly: date column, bold headline, muted
+       source inline — same card/padding/dividers, so the margins match. */
     .g-feed { background:var(--surface); border:1px solid var(--line); border-radius:16px;
       box-shadow:var(--shadow); padding:.35rem 1.15rem; }
     .g-feed-row { display:flex; align-items:baseline; gap:.7rem; padding:.62rem 0;
-      border-top:1px solid var(--line); }
-    .g-feed-row:first-child { border-top:0; }
-    .g-feed-dot { flex:0 0 auto; font-size:.62rem; line-height:1.5; color:var(--muted); }
-    .g-desk-m .g-feed-dot { color:var(--macro); } .g-desk-c .g-feed-dot { color:var(--credit); }
-    .g-desk-l .g-feed-dot { color:var(--legal); }
-    .g-feed-title { flex:1 1 auto; min-width:0; color:var(--ink); font-weight:600; font-size:.9rem; line-height:1.35; }
+      border-bottom:1px solid var(--line); }
+    .g-feed-row:last-child { border-bottom:0; }
+    .g-feed-date { flex:0 0 auto; color:var(--muted); font-size:.76rem; white-space:nowrap; }
+    .g-feed-title { flex:0 1 auto; min-width:0; color:var(--ink); font-weight:600; font-size:.9rem; line-height:1.35; }
     a.g-feed-row:hover .g-feed-title { color:var(--accent); }
-    .g-feed-meta { flex:0 0 auto; color:var(--muted); font-size:.76rem; white-space:nowrap; }
+    .g-feed-src { flex:1 1 auto; min-width:0; color:var(--muted); font-size:.76rem; }
     /* Right column: the two bands become 2-column tile grids (were single wide rows). */
     .g-side { display:flex; flex-direction:column; }
     .g-side .rates-band { grid-template-columns:repeat(2, 1fr); border-radius:14px; padding:.4rem; row-gap:.55rem; }
@@ -609,7 +609,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-10").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-11").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

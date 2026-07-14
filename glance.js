@@ -192,9 +192,9 @@ function renderFeed() {
   });
 
   const row = (o) => `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
-    + `<span class="g-feed-dot" aria-hidden="true">◆</span>`
+    + `<span class="g-feed-date">${esc(fmt(o.date))}</span>`
     + `<span class="g-feed-title">${esc(o.title)}</span>`
-    + `<span class="g-feed-meta">${esc(o.meta)}</span></a>`;
+    + `<span class="g-feed-src">${esc(o.meta)}</span></a>`;
   setHTML("g-feed", feed.length ? feed.map(row).join("") : `<div class="g-empty">No news yet today — check back shortly.</div>`);
   const head = document.getElementById("g-feed-head");
   if (head) head.textContent = target ? `Today · ${fmt(target)}` : "Today";
