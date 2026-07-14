@@ -63,19 +63,22 @@ extra deep-research pass on watchlisted names is skipped.
   so look back ~24 hours to be safe — dedup removes any overlap. Verify each item's EXACT publication date from the
   source; never invent a URL, date, figure or quote. Dedupe every candidate by URL
   and normalised headline/citation against the data already in the file.
-- **Publication `time` (Home feed ranking).** For every item that carries a
-  `date` — Credit `deals`/`intel`, Legal `items`/`cases`/`restructurings`, Macro
-  `NEWS`/`ARTICLES`/`COMMENTARY` items — ALSO record a `time` field: the item's
-  publication time as a `"HH:MM"` 24-hour string in **Europe/London** (e.g.
-  `time: "14:05"`). The Home briefing feed leads each row with this time, groups
-  rows under a per-day date header, and ranks them newest→oldest by `date`+`time`.
-  Take the time from the source's own published timestamp and convert to London
-  time. **If the source gives no minute-level publish time, leave `time` unset
-  (omit it) — never guess or fabricate a time.** For any item without a `time`, the
-  Home feed automatically falls back to the routine **run time** (`LAST_CHECKED_TIME`,
-  tagged "As of the last refresh"), so every row still shows a time. (This is
-  additive; existing records gain a real `time` as they are next touched — no need
-  to backfill the whole history in one run.)
+- **`time` field (Home feed ranking) — stamp it once, at creation.** For every NEW
+  item you ADD that carries a `date` — Credit `deals`/`intel`, Legal
+  `items`/`cases`/`restructurings`, Macro `NEWS`/`ARTICLES`/`COMMENTARY` items —
+  also set a `time` field, a `"HH:MM"` 24-hour string in **Europe/London**:
+  - If the source gives a minute-level **publication time**, use that (converted to
+    London), e.g. `time: "14:05"`.
+  - Otherwise use **this run's time** — the time of the routine run that FOUND the
+    story (i.e. `LAST_CHECKED_TIME` for the run you are performing), e.g. `"17:25"`.
+  Either way the value is written ONCE when the item is first added and **must never
+  be rewritten on a later run** — an item keeps the time of the run that found it,
+  NOT the latest run. Never guess a publish time you can't verify; the run-time
+  stamp is the honest fallback. The Home feed leads each row with this per-item
+  `time`, groups rows under a per-day date header, and ranks them newest→oldest by
+  `date`+`time`. Do NOT backfill old records with the current run time (that would
+  misdate them as "found now"); pre-existing items without a `time` simply lead with
+  the headline until they age out of the feed.
 - **Historical depth (not just current-year) — always add what you uncover.** The
   ~24h window only governs which *newly surfaced* items a run hunts for — it is
   NOT a floor on an item's own date, and it is NOT a reason to discard a real

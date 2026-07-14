@@ -65,10 +65,6 @@ const MACRO_INDICATORS = [
 
 let _inited = false;
 const fmtRefresh = () => `${fmt(LAST_CHECKED)}${LAST_CHECKED_TIME ? `, ${LAST_CHECKED_TIME}` : ""}`;
-// Feed rows lead with the article's own publish time where the data carries one;
-// where it doesn't (yet), they fall back to the routine run time (the "HH:MM" from
-// LAST_CHECKED_TIME, e.g. "12:20 BST" → "12:20").
-const RUN_TIME = String(LAST_CHECKED_TIME || "").replace(/\s+[A-Za-z]+$/, "").trim();
 
 export function initGlance() {
   if (_inited) return; _inited = true;
@@ -258,7 +254,10 @@ function renderFeed() {
   feed.length = Math.min(feed.length, CAP);
 
   const row = (o) => {
-    const t = o.time || RUN_TIME;
+    // Per-item time only: the real publish time if known, else the run time when
+    // the story was first found (both stored on the item by the routine). No global
+    // fallback — otherwise every untimed item would show the latest run's time.
+    const t = o.time || "";
     const tspan = t ? `<span class="g-feed-time">${esc(t)}</span>` : "";
     return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
       + tspan
