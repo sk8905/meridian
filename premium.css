@@ -229,9 +229,13 @@ p.muted:not(.small) { font-size: .85rem; }
   color: #fff; padding: 0; line-height: 1; }
 .theme-toggle:hover { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.32); }
 .theme-toggle svg { width: 16px; height: 16px; }
-.theme-toggle .ico-sun { display: none; } .theme-toggle .ico-moon { display: inline-flex; }
-[data-theme="dark"] .theme-toggle .ico-sun { display: inline-flex; }
-[data-theme="dark"] .theme-toggle .ico-moon { display: none; }
+/* Three-state toggle: the icon shows the current CHOICE (light / dark / system),
+   driven by data-theme-choice on <html>. Cycles light → dark → system. */
+.theme-toggle .ico-sun, .theme-toggle .ico-moon, .theme-toggle .ico-auto { display: none; }
+[data-theme-choice="light"] .theme-toggle .ico-sun,
+[data-theme-choice="dark"] .theme-toggle .ico-moon,
+[data-theme-choice="system"] .theme-toggle .ico-auto,
+:root:not([data-theme-choice]) .theme-toggle .ico-auto { display: inline-flex; }
 
 /* ---- Chart palette (credit/js/charts.js emits these as CSS vars so the Trends
         bar/line/donut charts flip live with the theme). --chart-brand is the one
@@ -271,7 +275,7 @@ p.muted:not(.small) { font-size: .85rem; }
         script in each app). Restyle it for the footer's on-surface context —
         the top-bar version is white-on-navy, which would vanish on the footer. ---- */
 @media (max-width: 760px) {
-  .acct-foot { display: flex; flex-direction: column; gap: .35rem; align-items: flex-start;
+  .acct-foot { display: flex; flex-direction: column; gap: .35rem; align-items: center; text-align: center;
     margin: 0 0 1rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(127,127,127,.25); }
   .acct-foot .account-nav { position: static; color: var(--muted); font-size: .82rem; }
   .acct-foot .account-nav[hidden] { display: none; }
@@ -279,4 +283,10 @@ p.muted:not(.small) { font-size: .85rem; }
   .acct-foot .account-nav a { color: #0ea5e9; }
   .acct-foot .account-nav .si-prefix { display: inline; }
   .acct-foot .data-status { color: var(--muted); font-size: .78rem; }
+  /* iOS: the sticky top bar + `html,body{overflow-x:clip}` form a clipping
+     context that cuts off / hides the absolutely-positioned notification
+     dropdown ("sticks to the page behind"). On mobile `.notif` is
+     transform-positioned, so switching the panel to position:fixed anchors it to
+     `.notif` exactly as before but lifts it out of the body's clip context. */
+  .notif-panel { position: fixed; z-index: 200; }
 }

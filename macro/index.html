@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0b1f44">
   <script>
-    (function(){try{var t=localStorage.getItem("m_theme");if(t!=="light"&&t!=="dark")t=matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
-    document.addEventListener("DOMContentLoaded",function(){var b=document.getElementById("theme-toggle");if(!b)return;var sync=function(){var d=document.documentElement.getAttribute("data-theme")==="dark";b.setAttribute("aria-label",d?"Switch to light mode":"Switch to dark mode");};sync();b.addEventListener("click",function(){var n=document.documentElement.getAttribute("data-theme")==="dark"?"light":"dark";document.documentElement.setAttribute("data-theme",n);try{localStorage.setItem("m_theme",n);}catch(e){}sync();});});
+    (function(){var root=document.documentElement;function sysDark(){try{return matchMedia("(prefers-color-scheme: dark)").matches;}catch(e){return false;}}function choice(){var c;try{c=localStorage.getItem("m_theme");}catch(e){}return (c==="light"||c==="dark"||c==="system")?c:"system";}function apply(){var c=choice();root.setAttribute("data-theme-choice",c);root.setAttribute("data-theme",c==="system"?(sysDark()?"dark":"light"):c);}apply();try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){if(choice()==="system")apply();});}catch(e){}window.__cycleTheme=function(){var c=choice();var n=c==="light"?"dark":c==="dark"?"system":"light";try{localStorage.setItem("m_theme",n);}catch(e){}apply();};})();
+    document.addEventListener("DOMContentLoaded",function(){var b=document.getElementById("theme-toggle");if(!b)return;function lbl(){var c=document.documentElement.getAttribute("data-theme-choice");b.setAttribute("aria-label",c==="light"?"Theme: light — tap for dark":c==="dark"?"Theme: dark — tap for system":"Theme: system — tap for light");}lbl();b.addEventListener("click",function(){window.__cycleTheme();lbl();});});
   </script>
   <!-- Paint the navy background from the very first frame, before the external
        stylesheet loads — otherwise the top strip (above the banner / safe area)
@@ -18,7 +18,7 @@
   <title>Meridian Macro</title>
   <meta name="description" content="Key US &amp; UK macroeconomic indicators — core inflation, wage growth, unemployment, services PMI and the 2-year yield — prototype" />
   <link rel="stylesheet" href="css/styles.css?v=20260713-8" />
-  <link rel="stylesheet" href="/premium.css?v=20260711-26" />
+  <link rel="stylesheet" href="/premium.css?v=20260711-27" />
 </head>
 <body>
   <header class="topbar">
@@ -54,6 +54,7 @@
         <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Toggle light / dark">
           <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
           <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+              <svg class="ico-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3 a9 9 0 0 1 0 18 z" fill="currentColor" stroke="none"/></svg>
         </button>
       </div>
       <div id="notif" class="notif"></div>
@@ -78,6 +79,10 @@
   </nav>
   <script>
     (function(){function r(){if(!matchMedia("(max-width:760px)").matches)return;var f=document.querySelector(".footer");if(!f||document.querySelector(".acct-foot"))return;var b=document.createElement("div");b.className="acct-foot";var a=document.getElementById("account-nav"),d=document.getElementById("data-status");if(a)b.appendChild(a);if(d)b.appendChild(d);if(b.childNodes.length)f.insertBefore(b,f.firstChild);}if(document.readyState!=="loading")r();else document.addEventListener("DOMContentLoaded",r);})();
+    // iOS: the notif dropdown is position:fixed on mobile (to escape the sticky
+    // bar + body overflow-clip). .notif isn't transform-positioned on phones, so
+    // pin the panel under the bell in viewport coords when it opens.
+    document.addEventListener("click",function(e){if(!matchMedia("(max-width:760px)").matches)return;var bell=e.target.closest(".notif-bell");if(!bell)return;requestAnimationFrame(function(){var p=document.querySelector(".notif-panel:not([hidden])");if(!p)return;var r=bell.getBoundingClientRect();p.style.top=(Math.round(r.bottom)+8)+"px";p.style.right="8px";p.style.left="auto";});},true);
   </script>
 
 
