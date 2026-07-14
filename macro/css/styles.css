@@ -290,6 +290,8 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
    then sits full-width BELOW this header row — never beside or around the gauge. */
 .macro-gauge-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem; margin: 0 0 .8rem; }
 .macro-gauge-head h2 { margin: 0; }
+.macro-gauge-head-main { min-width: 0; }
+.macro-gauge-updated { margin: .15rem 0 0; }
 .macro-gauge-head .gauge { flex: 0 0 auto; width: 40%; max-width: 420px; margin: 0; }
 .macro-framework .macro-para:last-child { margin-bottom: 0; }
 .macro-sources { margin-top: 1.6rem; border-top: 1px solid var(--border); padding-top: 1rem; }

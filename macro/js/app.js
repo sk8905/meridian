@@ -280,9 +280,11 @@ function trackGauge(zones, items, aria) {
   // the aria-label carry the read).
   const marks = items.map((it) => {
     const x = X(it.pos).toFixed(1);
+    // Hovering the dot shows the value it represents (the visible labels were removed).
+    const tip = `<title>${esc(it.label)} · ${it.pos}</title>`;
     return `<g>
       <line x1="${x}" y1="${trackY - 4}" x2="${x}" y2="${trackY + trackH + 4}" stroke="${MACRO_INK}" stroke-width="2"/>
-      <circle cx="${x}" cy="${trackY + trackH / 2}" r="5" fill="${MACRO_INK}" stroke="var(--surface)" stroke-width="1.5"/>
+      <circle cx="${x}" cy="${trackY + trackH / 2}" r="5" fill="${MACRO_INK}" stroke="var(--surface)" stroke-width="1.5">${tip}</circle>
     </g>`;
   }).join("");
   // With the labels gone, the top content is the marker tick (y≈52). Crop the
@@ -390,7 +392,7 @@ function commentaryRow(n) {
     : `<span class="intel-head">${esc(n.title)}</span>`;
   const src = `${esc(n.source)}${n.author ? " · " + esc(n.author) : ""}`;
   return `<div class="intel-row" data-said="${esc(articleSaveId(n))}">
-    <span class="chip">News</span>${head}<span class="intel-src-inline muted small">${src}</span><span class="intel-date muted small">${esc(fmtDayGB(n.date))}</span>${saveBtn(articleSaveId(n))}
+    <span class="intel-date muted small">${esc(fmtDayGB(n.date))}</span>${head}<span class="intel-src-inline muted small">${src}</span>${saveBtn(articleSaveId(n))}
   </div>`;
 }
 // Group a list of articles (newest first) into month sections: "JULY 2026" etc.
@@ -497,7 +499,10 @@ function viewCycle() {
     </div>
     <section class="card macro-gauge-card">
       <div class="macro-gauge-head">
-        <h2 class="macro-country">Long-term debt-cycle position</h2>
+        <div class="macro-gauge-head-main">
+          <h2 class="macro-country">Long-term debt-cycle position</h2>
+          <p class="macro-gauge-updated muted small">Last refreshed ${esc(UPDATED)}</p>
+        </div>
         ${trackGauge(CYCLE_ZONES, [{ label: "US", pos: CYCLE.us.pos }, { label: "UK", pos: CYCLE.uk.pos }], "Long-term debt cycle position, 0 early to 100 crisis")}
       </div>
       <div class="macro-framework">
@@ -533,7 +538,10 @@ function viewBubble() {
     </div>
     <section class="card macro-gauge-card">
       <div class="macro-gauge-head">
-        <h2 class="macro-country">Composite bubble-risk score</h2>
+        <div class="macro-gauge-head-main">
+          <h2 class="macro-country">Composite bubble-risk score</h2>
+          <p class="macro-gauge-updated muted small">Last refreshed ${esc(UPDATED)}</p>
+        </div>
         ${trackGauge(BUBBLE_ZONES, [{ label: band, pos: composite }], "US equity bubble-risk score, 0 low to 100 extreme")}
       </div>
       <div class="macro-framework">

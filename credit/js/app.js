@@ -61,13 +61,13 @@ const statusClass = (s) => ({
 // rather than raising a vintage, so they get their own category — never "Open".
 const FUND_CATEGORIES = ["Open", "First Close", "Final Close", "Evergreen", "Pre-marketing"];
 const fundCategory = (x) => (x.evergreen ? "Evergreen" : x.status);
-// The status chip a fund should display (Evergreen funds show "Evergreen").
-const fundStatusChip = (x) => chip(fundCategory(x), statusClass(fundCategory(x)));
-// Lifecycle badge for funds that have been wound down / liquidated / fully realised.
+// Fundraising status shows as plain text (no colour pill), per house style.
+const fundStatusChip = (x) => `<span class="fund-status">${esc(fundCategory(x))}</span>`;
+// Lifecycle status (wound down / liquidated / fully realised) — plain text too.
 function lifecycleBadge(x) {
   if (!x.lifecycle) return "";
   const s = typeof x.lifecycle === "string" ? x.lifecycle : x.lifecycle.status;
-  return `<span class="chip st-wound" title="${esc(typeof x.lifecycle === "object" && x.lifecycle.note ? x.lifecycle.note : s)}">${esc(s)}</span>`;
+  return `<span class="fund-status" title="${esc(typeof x.lifecycle === "object" && x.lifecycle.note ? x.lifecycle.note : s)}">${esc(s)}</span>`;
 }
 const mandateClass = (s) => ({
   "Actively allocating": "st-final", "Selective": "st-first", "Not currently active": "st-pre",
@@ -86,7 +86,7 @@ function progressBar(raised, target) {
 // evergreen (no target), undisclosed target/raised, or a normal progress bar.
 function raiseDisplay(x) {
   if (x.evergreen) {
-    return `<span class="chip st-open">Evergreen</span>` +
+    return `<span class="fund-status">Evergreen</span>` +
       (x.raised != null ? ` <span class="muted small">~${eur(x.raised)} AUM/NAV</span>` : "");
   }
   if (x.raised != null && x.targetSize != null) return progressBar(x.raised, x.targetSize);
@@ -1152,16 +1152,19 @@ function byYear(items, rowFn) {
 // On a MANAGER PROFILE (mgr=true) the row's date moves out of the meta column to
 // the end of the headline line (after the source, in grey); elsewhere the feeds
 // keep the date in the meta column beneath the chip.
-const metaDate = (d, mgr) => mgr ? "" : `<span class="muted small">${d ? esc(fmtDate(d)) : ""}</span>`;
-const endDate = (d, mgr) => (mgr && d) ? `<span class="intel-date-end muted small">${esc(fmtDate(d))}</span>` : "";
+// The date now ALWAYS occupies the leading meta column (where the type chip used
+// to sit) on every feed row, on manager pages and feeds alike; the old inline
+// end-of-title date is retired (endDate kept as a no-op for its callers).
+const metaDate = (d) => `<span class="muted small">${d ? esc(fmtDate(d)) : ""}</span>`;
+const endDate = () => "";
 function newsItemRow(x, mgr) {
   const head = x.url
     ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a>`
     : `<span class="intel-head">${esc(x.title)}</span>`;
   const src = x.outlet ? `<span class="intel-src-inline muted small">${esc(x.outlet)}</span>` : "";
   return `<div class="intel-row" data-fkey="${esc(feedDedupKey(x))}">
-    <div class="intel-meta"><span class="chip">News</span>${metaDate(x.date, mgr)}</div>
-    <div class="intel-body"><div class="intel-title-line">${head}${src}${endDate(x.date, mgr)}${saveBtn(newsSaveId(x))}</div>${x.summary ? `<p class="muted small">${esc(x.summary)}</p>` : ""}</div>
+    <div class="intel-meta">${metaDate(x.date)}</div>
+    <div class="intel-body"><div class="intel-title-line">${head}${src}${saveBtn(newsSaveId(x))}</div>${x.summary ? `<p class="muted small">${esc(x.summary)}</p>` : ""}</div>
   </div>`;
 }
 
@@ -1301,7 +1304,7 @@ function viewManager(id) {
           <td><strong>${esc(c.name)}</strong></td>
           <td>${c.vintage || "—"}</td>
           <td>${c.size ? esc(c.size) : "—"}</td>
-          <td>${chip("Issued", "st-final")}</td>
+          <td><span class="fund-status">Issued</span></td>
           <td>${chip("Structured Credit")}</td>
         </tr>`).join("")}</tbody>
       </table></div>${p.more}`;
@@ -1433,8 +1436,8 @@ function intelRow(i, mgr) {
     ? `<a href="${esc(i.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(i.headline)}</a>`
     : (ftarget ? link(ftarget, i.headline, "intel-head") : `<span class="intel-head">${esc(i.headline)}</span>`);
   return `<div class="intel-row" id="row-${i.id}" data-fkey="${esc(feedDedupKey(i))}">
-    <div class="intel-meta"><span class="chip ${intelTypeClass(i.type)}">${esc(i.type)}</span>${metaDate(i.date, mgr)}</div>
-    <div class="intel-body"><div class="intel-title-line">${head}${tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}${endDate(i.date, mgr)}${saveBtn(i.id)}</div><p class="muted small">${esc(i.summary)}</p></div>
+    <div class="intel-meta">${metaDate(i.date)}</div>
+    <div class="intel-body"><div class="intel-title-line">${head}${tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}${saveBtn(i.id)}</div><p class="muted small">${esc(i.summary)}</p></div>
   </div>`;
 }
 
@@ -1493,8 +1496,8 @@ function dealRow(d, mgr) {
     ? `<a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(d.headline)}</a>`
     : (tgt ? link(tgt, d.headline, "intel-head") : `<span class="intel-head">${esc(d.headline)}</span>`);
   return `<div class="intel-row" id="row-${d.id}" data-fkey="${esc(feedDedupKey(d))}">
-    <div class="intel-meta"><span class="chip ${dealTypeClass(d.type)}">${esc(d.type)}</span>${metaDate(d.date, mgr)}</div>
-    <div class="intel-body"><div class="intel-title-line">${head}${tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}${endDate(d.date, mgr)}${saveBtn(d.id)}</div><p class="muted small">${esc(d.summary)}</p></div>
+    <div class="intel-meta">${metaDate(d.date)}</div>
+    <div class="intel-body"><div class="intel-title-line">${head}${tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}${saveBtn(d.id)}</div><p class="muted small">${esc(d.summary)}</p></div>
   </div>`;
 }
 
@@ -1725,7 +1728,7 @@ function newsRowFull(x) {
   // the outlet where named. No summary or separate source/date line.
   const src = `${link(`#/manager/${x._mid}`, x._mname, "muted small")}${x.outlet ? ` · <span class="muted small">${esc(x.outlet)}</span>` : ""}`;
   return `<div class="intel-row oneline" id="row-${esc(x._id || sid)}">
-    <span class="chip">News</span>${head}<span class="intel-src-inline muted small">${src}</span><span class="intel-date muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span>${saveBtn(sid)}
+    <span class="intel-date muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span>${head}<span class="intel-src-inline muted small">${src}</span>${saveBtn(sid)}
   </div>`;
 }
 
@@ -1803,7 +1806,7 @@ function viewWatchlist() {
     .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
   const feedRow = (x) => x._kind === "deal" ? dealRow(x)
     : x._kind === "intel" ? intelRow(x)
-    : `<div class="intel-row"><div class="intel-meta"><span class="chip">News</span><span class="muted small">${fmtDate(x.date)}</span></div><div class="intel-body"><div class="intel-title-line"><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a>${saveBtn(newsSaveId(x))}</div><div>${link(`#/manager/${x._mid}`, x._mname, "muted small")}${x.outlet ? ` · <span class="muted small">${esc(x.outlet)}</span>` : ""}</div></div></div>`;
+    : `<div class="intel-row"><div class="intel-meta"><span class="muted small">${fmtDate(x.date)}</span></div><div class="intel-body"><div class="intel-title-line"><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a>${saveBtn(newsSaveId(x))}</div><div>${link(`#/manager/${x._mid}`, x._mname, "muted small")}${x.outlet ? ` · <span class="muted small">${esc(x.outlet)}</span>` : ""}</div></div></div>`;
 
   if (fm.length + ff.length + fl.length === 0) {
     app.innerHTML = `<div class="page-head"><h1>My Watchlist</h1></div>

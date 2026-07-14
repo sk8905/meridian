@@ -264,6 +264,8 @@ h1, h2, h3, .kpi-label { text-wrap: balance; }
   background: #eef2ff; color: #3730a3; font-size: .72rem; font-weight: 600;
   border: 1px solid #e0e7ff; margin: 0 .15rem .25rem 0; white-space: nowrap;
 }
+/* Fundraising status as plain text (no colour pill), per house style. */
+.fund-status { font-size: .78rem; font-weight: 600; color: var(--ink-soft); white-space: nowrap; }
 .st-pre   { background:#f1f5f9; color:#475569; border-color:#e2e8f0; }
 .st-open  { background:#e8edf5; color:#2b4a7c; border-color:#c8d5e6; }
 .st-first { background:#fef9c3; color:#854d0e; border-color:#fde68a; }
@@ -444,9 +446,11 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .link-list li:last-child { border-bottom: none; }
 
 /* ---------- intelligence rows ---------- */
-.intel-row { display: flex; gap: 1rem; padding: .8rem 0; border-bottom: 1px solid var(--border); }
+.intel-row { display: flex; gap: .7rem; padding: .8rem 0; border-bottom: 1px solid var(--border); }
 .intel-row:last-child { border-bottom: none; }
-.intel-meta { display: flex; flex-direction: column; align-items: flex-start; gap: .3rem; width: 10rem; flex-shrink: 0; }
+/* The leading column now holds just the date (the type chip was removed); size it
+   to the date so the headline sits right beside it instead of 10rem away. */
+.intel-meta { display: flex; flex-direction: column; align-items: flex-start; gap: .3rem; width: 5.5rem; flex-shrink: 0; }
 .intel-meta .chip { margin: 0; }
 .intel-body { flex: 1 1 auto; min-width: 0; }
 /* Clamp each feed row's summary/description to two lines (ellipsis after). */

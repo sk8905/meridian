@@ -273,7 +273,6 @@ function itemRow(it) {
   const src = it.url || firm.insightsUrl;
   return `<div class="feed-row" id="row-${esc(it.id)}">
     <div class="feed-meta">
-      <div class="chips">${areasHtml}</div>
       <span class="feed-date">${itemDate(it)}</span>
     </div>
     <div class="feed-body">
@@ -324,7 +323,6 @@ function caseRow(c) {
   const saved = getSaved().has(c.id);
   return `<div class="feed-row" id="row-${esc(c.id)}">
     <div class="feed-meta">
-      <div class="chips">${areaChip(c.area)}</div>
       <span class="feed-date">${fmtDate(c.date)}</span>
     </div>
     <div class="feed-body">
@@ -876,7 +874,6 @@ function rxRow(r) {
   // chip and Save button sit on the title line.
   return `<div class="feed-row rx-row" id="row-${esc(r.id)}">
     <div class="feed-meta">
-      <div class="chips"><span class="chip rx-type rx-${esc(r.type)}" title="${esc(typeFull)}">${r.type === "scheme" ? "Scheme" : "Plan"}</span></div>
       <span class="feed-date">${r.date ? esc(fmtDate(r.date)) : "undated"}</span>
     </div>
     <div class="feed-body">
@@ -884,7 +881,7 @@ function rxRow(r) {
         ${srcUrl
           ? `<a class="feed-title rx-name" href="${esc(srcUrl)}" target="_blank" rel="noopener noreferrer">${esc(r.company)}</a>`
           : `<a class="feed-title rx-name" href="#/restructurings?m=${esc(r.id)}">${esc(r.company)}</a>`}
-        <span class="chip rx-out rx-out-${rxOutcomeClass(r.outcome)}" title="${esc(r.outcome)}">${esc(rxOutcomeShort(r.outcome))}</span>
+        <span class="rx-out-text muted small" title="${esc(r.outcome)}">${esc(rxOutcomeShort(r.outcome))}</span>
         <button class="save-btn rx-save ${saved ? "is-saved" : ""}" data-save="${esc(r.id)}"
           aria-pressed="${saved}" title="${saved ? "Remove from saved" : "Save this matter"}">${saved ? "★ Saved" : "☆ Save"}</button>
       </div>

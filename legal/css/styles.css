@@ -263,9 +263,11 @@ img, svg { max-width: 100%; }
 .feed-intro { margin: .25rem 0 .5rem; font-size: .82rem; color: var(--muted); }
 
 /* ---- Feed / list rows (Meridian-style) ---- */
-.feed-row { display: flex; gap: 1rem; padding: .8rem 0; border-bottom: 1px solid var(--line); }
+.feed-row { display: flex; gap: .7rem; padding: .8rem 0; border-bottom: 1px solid var(--line); }
 .feed-row:last-child { border-bottom: 0; }
-.feed-meta { display: flex; flex-direction: column; align-items: flex-start; gap: .3rem; width: 10rem; flex-shrink: 0; }
+/* The leading column now holds just the date (area/type chips removed); size it to
+   the date so the headline sits right beside it instead of 10rem away. */
+.feed-meta { display: flex; flex-direction: column; align-items: flex-start; gap: .3rem; width: 5.5rem; flex-shrink: 0; }
 /* Stack area labels one per line so multi-area rows read tidily in the meta column. */
 .feed-meta .chips { flex-direction: column; align-items: flex-start; gap: .25rem; }
 .feed-type { font-size: .7rem; text-transform: uppercase; letter-spacing: .4px; color: var(--muted); font-weight: 700; }
@@ -284,6 +286,10 @@ a.feed-title:hover { color: var(--primary); }
 /* Schemes/RPs rows tuck all their structured detail into the expander. */
 .rx-clamp .rx-detail { display: none; }
 .rx-clamp.is-open .rx-detail { display: block; margin-top: .45rem; }
+/* Schemes/RPs: the "more" toggle sits inline at the END of the summary text (was
+   on its own line beneath it) to save vertical space. */
+.rx-clamp .feed-summary.clamp2 { display: inline; -webkit-line-clamp: unset; overflow: visible; }
+.rx-clamp .clamp-toggle { margin-top: 0; margin-left: .4rem; }
 .feed-foot { font-size: .8rem; color: var(--muted); line-height: 1.6; }
 .feed-foot .firm { font-weight: 600; color: var(--ink-soft); }
 .feed-foot .cite { color: var(--muted); font-style: italic; }
