@@ -76,6 +76,7 @@ export function initGlance() {
   const rf = document.getElementById("g-refresh");
   if (rf) rf.textContent = `Last refresh ${fmtRefresh()}`;
   initNotifBell();
+  initMarketsPanel();
   initJumpNav();
   wirePalette(buildIndex());
   startLiveRefresh();
@@ -98,6 +99,47 @@ function initGlanceTickerToggle() {
     btn.setAttribute("aria-expanded", open ? "true" : "false");
     btn.setAttribute("aria-label", open ? "Hide related tickers" : "Show related tickers");
   });
+}
+
+// ---- iPhone markets/rates dropdown -----------------------------------------
+// On phones the right-hand markets + key-rates sidebar (.g-side) is relocated into
+// a dropdown panel behind the chart button in the top bar, so the numbers are one
+// tap away without pushing the news feed down. The SAME .g-side node moves between
+// the layout grid (desktop) and the panel (phone) — one fetch/render feeds both,
+// no duplicated markup. Desktop leaves it in the grid and hides the button (CSS).
+function initMarketsPanel() {
+  const btn = document.getElementById("g-mkt-btn");
+  const panel = document.getElementById("g-mkt-panel");
+  const side = document.querySelector(".g-side");
+  const layout = document.querySelector(".g-layout");
+  if (!btn || !panel || !side || !layout) return;
+  const mq = matchMedia("(max-width:760px)");
+  const close = () => { panel.hidden = true; btn.setAttribute("aria-expanded", "false"); };
+  const place = () => {
+    if (mq.matches) { if (side.parentElement !== panel) panel.appendChild(side); }
+    else { if (side.parentElement !== layout) layout.appendChild(side); close(); }
+  };
+  place();
+  mq.addEventListener("change", place);
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const open = panel.hidden;
+    panel.hidden = !open;
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    // The panel is position:fixed on phones — pin it just under the button in
+    // viewport coords (the bar height varies with the safe-area inset).
+    if (open && mq.matches) {
+      const r = btn.getBoundingClientRect();
+      panel.style.top = `${Math.round(r.bottom + 8)}px`;
+    }
+  });
+  // Tap outside the panel (or press Escape) closes it.
+  document.addEventListener("click", (e) => {
+    if (panel.hidden) return;
+    if (e.target.closest("#g-mkt-panel") || e.target.closest("#g-mkt-btn")) return;
+    close();
+  });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
 }
 
 // ---- Section jump-links ----------------------------------------------------
@@ -158,7 +200,7 @@ const creditItemHref = (x, tab) => `/credit/#/${x.clo ? "clos" : tab}?focus=${en
 const DESK = { m: "Macro", c: "Credit", l: "Legal" };
 function renderFeed() {
   const mk = (desk, href, title, source, ext, date) =>
-    ({ desk, href, title, ext, date, meta: source ? `${DESK[desk]} · ${source}` : DESK[desk] });
+    ({ desk, href, title, ext, date, src: source || "" });
 
   const macro = [];
   ((ARTICLES && ARTICLES.items) || []).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date)));
@@ -204,7 +246,8 @@ function renderFeed() {
   const row = (o) => `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
     + `<span class="g-feed-date">${esc(fmt(o.date))}</span>`
     + `<span class="g-feed-title">${esc(o.title)}</span>`
-    + `<span class="g-feed-src">${esc(o.meta)}</span></a>`;
+    + (o.src ? `<span class="g-feed-src">${esc(o.src)}</span>` : "")
+    + `<span class="g-feed-desk">${esc(DESK[o.desk])}</span></a>`;
   setHTML("g-feed", feed.length ? feed.map(row).join("") : `<div class="g-empty">No news yet today — check back shortly.</div>`);
   const head = document.getElementById("g-feed-head");
   const allToday = feed.length > 0 && feed.every((o) => day(o) === target);

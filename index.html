@@ -332,18 +332,28 @@
       border-bottom:1px solid var(--line); }
     .g-feed-row:last-child { border-bottom:0; }
     .g-feed-date { flex:0 0 auto; color:var(--muted); font-size:.76rem; white-space:nowrap; }
-    .g-feed-title { flex:1 1 auto; min-width:0; color:var(--ink); font-weight:600; font-size:.9rem; line-height:1.35; }
+    /* Headline shrinks to its content so the source sits directly after it; the
+       desk tag is pushed to the far right of the row. */
+    .g-feed-title { flex:0 1 auto; min-width:0; color:var(--ink); font-weight:600; font-size:.9rem; line-height:1.35;
+      overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     a.g-feed-row:hover .g-feed-title { color:var(--accent); }
-    .g-feed-src { flex:0 0 auto; color:var(--muted); font-size:.76rem; white-space:nowrap; text-align:right; }
-    /* iPhone: stack each row — headline full width, then a "date · source" meta line
-       below (the desktop date/headline/source columns crush the headline otherwise). */
+    .g-feed-src { flex:0 1 auto; min-width:0; color:var(--muted); font-size:.76rem; white-space:nowrap;
+      overflow:hidden; text-overflow:ellipsis; }
+    .g-feed-desk { flex:0 0 auto; margin-left:auto; padding-left:.7rem; font-size:.68rem; font-weight:700;
+      text-transform:uppercase; letter-spacing:.04em; white-space:nowrap; }
+    .g-desk-m .g-feed-desk { color:var(--macro); }
+    .g-desk-c .g-feed-desk { color:var(--credit); }
+    .g-desk-l .g-feed-desk { color:var(--legal); }
+    /* iPhone: stack each row — headline full width, then a "date · source ... desk"
+       meta line below (the desktop columns crush the headline otherwise). */
     @media (max-width:760px){
       .g-layout { margin-top:1rem; }
       .g-feed { padding:.1rem .95rem; }
       .g-feed-row { flex-wrap:wrap; gap:.15rem .5rem; padding:.7rem 0; align-items:baseline; }
-      .g-feed-title { flex:1 1 100%; order:1; font-size:.92rem; }
+      .g-feed-title { flex:1 1 100%; order:1; font-size:.92rem; white-space:normal; overflow:visible; }
       .g-feed-date { order:2; }
-      .g-feed-src { order:3; flex:1 1 auto; min-width:0; text-align:left; white-space:normal; }
+      .g-feed-src { order:3; flex:0 1 auto; min-width:0; text-align:left; white-space:normal; }
+      .g-feed-desk { order:4; margin-left:auto; padding-left:.5rem; }
     }
     /* Right column: the two bands become 2-column tile grids (were single wide rows). */
     .g-side { display:flex; flex-direction:column; }
@@ -358,6 +368,33 @@
     @media (max-width:560px){ .g-side .rates-band { grid-template-columns:repeat(2,1fr); }
       .g-side .rate-tile:nth-child(odd) { border-left:0; }
       .g-side .rate-tile:nth-child(even) { border-left:1px solid var(--line); } }
+    /* iPhone: the markets + key-rates bands are one tap away behind a chart button
+       in the top bar (between the theme toggle and the bell). On phones the whole
+       .g-side block is relocated by JS into the dropdown panel below; on desktop it
+       stays in the right sidebar and the button is hidden. */
+    .g-mkt { position:relative; flex:0 0 auto; display:none; }
+    .g-mkt-btn { width:34px; height:34px; display:grid; place-items:center; cursor:pointer;
+      border-radius:8px; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18); color:#fff; }
+    .g-mkt-btn svg { width:19px; height:19px; }
+    .g-mkt-btn:hover { background:rgba(255,255,255,.2); border-color:rgba(255,255,255,.32); }
+    .g-mkt-btn[aria-expanded="true"] { background:rgba(255,255,255,.24); border-color:rgba(255,255,255,.4); }
+    .g-mkt-panel { position:absolute; top:calc(100% + 8px); right:0; width:360px; max-width:92vw;
+      background:var(--surface); border:1px solid var(--line); border-radius:14px;
+      box-shadow:0 22px 55px rgba(8,20,60,.35); padding:.55rem .7rem .7rem; z-index:70;
+      max-height:76vh; overflow-y:auto; overscroll-behavior:contain; }
+    .g-mkt-panel[hidden] { display:none; }
+    .g-mkt-panel .g-rates-head { margin:.15rem 0 .4rem; }
+    .g-mkt-panel .g-rates-head + .g-rates-head,
+    .g-mkt-panel .rates-band + .g-rates-head { margin-top:.7rem; }
+    @media (max-width:760px){
+      .g-mkt { display:block; }
+      .g-mkt-btn { width:32px; height:32px; }
+      /* The button isn't the far-right element (the bell sits to its right), so a
+         button-anchored dropdown would bleed off-screen. Pin the panel to the
+         viewport instead; JS sets `top` from the button's position on open. */
+      .g-mkt-panel { position:fixed; right:8px; left:auto; top:56px;
+        width:min(360px, calc(100vw - 16px)); max-width:none; }
+    }
 
     /* ---- Cards (legacy; retained for any residual use) ---- */
     .g-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.1rem; }
@@ -541,6 +578,14 @@
               <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
               <svg class="ico-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3 a9 9 0 0 1 0 18 z" fill="currentColor" stroke="none"/></svg>
             </button>
+            <!-- iPhone only: opens a dropdown holding the markets + key-rates bands
+                 (which move here from the right sidebar on phones). Hidden on desktop. -->
+            <div class="g-mkt" id="g-mkt">
+              <button id="g-mkt-btn" class="g-mkt-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="g-mkt-panel" aria-label="Markets & key rates" title="Markets &amp; key rates">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>
+              </button>
+              <div class="g-mkt-panel" id="g-mkt-panel" hidden></div>
+            </div>
             <div class="g-notif" id="g-notif"></div>
           </div>
         </div>
@@ -624,7 +669,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-12").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-13").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of
