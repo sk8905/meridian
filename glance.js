@@ -190,6 +190,16 @@ function renderFeed() {
   for (let i = 0; lists.some((l) => i < l.length); i++) lists.forEach((l) => {
     if (i < l.length) { const k = norm(l[i].title); if (!seen.has(k)) { seen.add(k); feed.push(l[i]); } }
   });
+  // Show up to ~25 stories: if today alone has fewer, backfill with the most recent
+  // items from earlier days (newest-first, deduped) so the feed stays substantial.
+  const CAP = 25;
+  if (feed.length < CAP) {
+    for (const x of all.filter((x) => day(x) !== target).sort(byDateDesc)) {
+      if (feed.length >= CAP) break;
+      const k = norm(x.title); if (!seen.has(k)) { seen.add(k); feed.push(x); }
+    }
+  }
+  feed.length = Math.min(feed.length, CAP);
 
   const row = (o) => `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
     + `<span class="g-feed-date">${esc(fmt(o.date))}</span>`
@@ -197,7 +207,8 @@ function renderFeed() {
     + `<span class="g-feed-src">${esc(o.meta)}</span></a>`;
   setHTML("g-feed", feed.length ? feed.map(row).join("") : `<div class="g-empty">No news yet today — check back shortly.</div>`);
   const head = document.getElementById("g-feed-head");
-  if (head) head.textContent = target ? `Today · ${fmt(target)}` : "Today";
+  const allToday = feed.length > 0 && feed.every((o) => day(o) === target);
+  if (head) head.textContent = !feed.length ? "Today" : allToday ? `Today · ${fmt(target)}` : "Latest news";
 }
 const sec = (key, n, title, arr) => setHTML(`${key}-sec${n}`, subHead(title) + rows(arr));
 function item(href, title, meta, ext) {

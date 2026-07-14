@@ -320,7 +320,7 @@
 
     /* ---- Dashboard body: a wide merged news feed on the left (~78%) with the
        markets + key-rates bands stacked in a narrow right-hand column (~22%). ---- */
-    .g-layout { display:grid; grid-template-columns:minmax(0,1fr) 21rem; gap:1.75rem; align-items:start; margin-top:1.4rem; }
+    .g-layout { display:grid; grid-template-columns:minmax(0,1fr) 11rem; gap:1.25rem; align-items:start; margin-top:1.4rem; }
     @media (max-width:900px){ .g-layout { grid-template-columns:1fr; gap:1.4rem; } }
     .g-feed-head { font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em;
       color:var(--muted); margin:0 0 .35rem; padding-bottom:.4rem; border-bottom:2px solid var(--line); }
@@ -332,16 +332,16 @@
       border-bottom:1px solid var(--line); }
     .g-feed-row:last-child { border-bottom:0; }
     .g-feed-date { flex:0 0 auto; color:var(--muted); font-size:.76rem; white-space:nowrap; }
-    .g-feed-title { flex:0 1 auto; min-width:0; color:var(--ink); font-weight:600; font-size:.9rem; line-height:1.35; }
+    .g-feed-title { flex:1 1 auto; min-width:0; color:var(--ink); font-weight:600; font-size:.9rem; line-height:1.35; }
     a.g-feed-row:hover .g-feed-title { color:var(--accent); }
-    .g-feed-src { flex:1 1 auto; min-width:0; color:var(--muted); font-size:.76rem; }
+    .g-feed-src { flex:0 0 auto; color:var(--muted); font-size:.76rem; white-space:nowrap; text-align:right; }
     /* Right column: the two bands become 2-column tile grids (were single wide rows). */
     .g-side { display:flex; flex-direction:column; }
-    .g-side .rates-band { grid-template-columns:repeat(2, 1fr); border-radius:14px; padding:.4rem; row-gap:.55rem; }
-    .g-side .rate-tile { border-left:0; padding:.35rem .6rem; }
-    .g-side .rate-tile:nth-child(2n){ border-left:1px solid var(--line); }
+    .g-side .rates-band { grid-template-columns:1fr; border-radius:14px; padding:.25rem .55rem; }
+    .g-side .rate-tile { border-left:0; border-top:1px solid var(--line); padding:.42rem .1rem; }
+    .g-side .rate-tile:first-child { border-top:0; }
     @media (max-width:900px){ .g-side .rates-band { grid-template-columns:repeat(4,1fr); }
-      .g-side .rate-tile:nth-child(2n){ border-left:0; } }
+      .g-side .rate-tile { border-top:0; } }
     @media (max-width:560px){ .g-side .rates-band { grid-template-columns:repeat(2,1fr); } }
 
     /* ---- Cards (legacy; retained for any residual use) ---- */
@@ -609,7 +609,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-11").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-12").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of
