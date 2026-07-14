@@ -192,6 +192,11 @@ a.macro-tile:hover .macro-src { color: var(--macro); text-decoration: underline;
 .nav-link { color: #cbd5e1; padding: .5rem .85rem; border-radius: 6px; font-weight: 500; white-space: nowrap; }
 .nav-link:hover { color: #fff; text-decoration: none; background: rgba(255,255,255,.08); }
 .nav-link.active { color: #fff; background: rgba(255,255,255,.15); }
+/* Primary views emphasised (bold white); a thin divider separates them from the
+   secondary views — mirrors the Credit/Legal nav. */
+.nav-link.nav-primary { color: #fff; font-weight: 700; }
+.nav-link.nav-primary.active { background: rgba(255,255,255,.15); color: #fff; }
+.nav-sep { width: 1px; align-self: center; height: 18px; background: rgba(255,255,255,.18); margin: 0 .35rem; }
 
 /* ---------- upcoming-releases band (mirrors Credit's key-data rates band) ---------- */
 /* Card frames a hairline-divided grid of the next six releases: one row of 6 on
