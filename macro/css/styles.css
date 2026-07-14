@@ -285,7 +285,12 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
 .macro-para em { color: var(--muted); }
 .macro-bottomline { margin: auto 0 0; padding: .7rem .9rem; border-radius: 10px; background: #f3f1fa; border: 1px solid rgba(43,74,124,.3); color: var(--ink); line-height: 1.55; }
 /* Cycle: gauge and framework text side by side, filling the card. */
-.macro-gauge-wrap { display: grid; grid-template-columns: minmax(280px, 1fr) 1.4fr; gap: 1.6rem; align-items: center; margin-top: .3rem; }
+/* The 0–100 gauge floats to the top-right of the card; the narrative fills the
+   FULL width of the box, wrapping around the gauge at the top and running
+   full-width below it (was a 2-col grid: gauge left, text in a narrow column). */
+.macro-gauge-wrap { display: block; margin-top: .3rem; }
+.macro-gauge-wrap > .gauge { float: right; width: 42%; max-width: 440px; margin: .1rem 0 1rem 1.6rem; }
+.macro-gauge-wrap::after { content: ""; display: block; clear: both; }
 .macro-framework .macro-para:last-child { margin-bottom: 0; }
 .macro-sources { margin-top: 1.6rem; border-top: 1px solid var(--border); padding-top: 1rem; }
 .macro-sources-h { text-transform: uppercase; letter-spacing: .8px; font-weight: 700; }
@@ -439,7 +444,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
 @media (max-width: 620px) { .chart-ind-cols { grid-template-columns: 1fr; } .chart-ind-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 900px) {
   .macro-cols { grid-template-columns: 1fr; }
-  .macro-gauge-wrap { grid-template-columns: 1fr; gap: 1rem; }
+  .macro-gauge-wrap > .gauge { float: none; width: 100%; max-width: 640px; margin: 0 auto 1rem; }
   .macro-sources ul { grid-template-columns: repeat(2, 1fr); }
 
   /* Stacked header (tablet) — matches Meridian Credit/Legal/Glance so all four
