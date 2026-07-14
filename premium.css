@@ -290,3 +290,10 @@ p.muted:not(.small) { font-size: .85rem; }
      `.notif` exactly as before but lifts it out of the body's clip context. */
   .notif-panel { position: fixed; z-index: 200; }
 }
+
+/* ---- Disclaimer footnotes removed from the app footers. On desktop the footer
+        is now empty, so hide it (an empty bordered/padded strip otherwise). On
+        mobile the reloc script prepends `.acct-foot` into it, making it
+        non-empty, so it still shows there. Relies on the footer markup having no
+        inner whitespace: `<footer class="footer"></footer>`. ---- */
+.footer:empty { display: none; }
