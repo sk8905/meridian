@@ -766,3 +766,11 @@ a.compact-mgr:hover { color: var(--primary); text-decoration: underline; }
 
 /* Dark-mode accent (shared surfaces/shadows live in premium.css). */
 :root[data-theme="dark"] { --accent: #6f9ad9; --primary: #6f9ad9; }
+
+/* ---- Dashboard KPI tiles: the number sits to the LEFT of the label+sub instead of
+        above them, roughly halving each tile's height. (Manager-profile mini-KPIs
+        in .kpi-compact keep the stacked layout.) ---- */
+.kpi-grid:not(.kpi-compact) .kpi-card { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: auto auto; align-items: center; column-gap: .7rem; }
+.kpi-grid:not(.kpi-compact) .kpi-card .kpi-value { grid-column: 1; grid-row: 1 / 3; align-self: center; }
+.kpi-grid:not(.kpi-compact) .kpi-card .kpi-label { grid-column: 2; grid-row: 1; align-self: end; margin: 0; }
+.kpi-grid:not(.kpi-compact) .kpi-card .kpi-sub { grid-column: 2; grid-row: 2; align-self: start; }
