@@ -491,12 +491,12 @@ function viewCycle() {
       <p class="muted">Where the US and UK sit in the economic / credit cycle, framed by Ray Dalio's short-term and long-term (“Big Debt Cycle”) framework. As of ${esc(UPDATED)}. Educational only — not investment advice.</p>
     </div>
     <section class="card macro-gauge-card">
-      <h2 class="macro-country">Long-term debt-cycle position</h2>
-      <div class="macro-gauge-wrap">
+      <div class="macro-gauge-head">
+        <h2 class="macro-country">Long-term debt-cycle position</h2>
         ${trackGauge(CYCLE_ZONES, [{ label: "US", pos: CYCLE.us.pos }, { label: "UK", pos: CYCLE.uk.pos }], "Long-term debt cycle position, 0 early to 100 crisis")}
-        <div class="macro-framework">
-          ${CYCLE.framework.map((p) => `<p class="macro-para">${p}</p>`).join("")}
-        </div>
+      </div>
+      <div class="macro-framework">
+        ${CYCLE.framework.map((p) => `<p class="macro-para">${p}</p>`).join("")}
       </div>
       <p class="muted small macro-gauge-note">${esc(CYCLE.note)}</p>
     </section>
@@ -527,14 +527,12 @@ function viewBubble() {
       <p class="muted">A composite read on US stock-market bubble risk across the three workhorse dimensions — valuation, credit &amp; leverage, and breadth &amp; speculation. As of ${esc(UPDATED)}. Educational only — not investment advice.</p>
     </div>
     <section class="card macro-gauge-card">
-      <div class="macro-dim-head">
+      <div class="macro-gauge-head">
         <h2 class="macro-country">Composite bubble-risk score</h2>
-      </div>
-      <div class="macro-gauge-wrap">
         ${trackGauge(BUBBLE_ZONES, [{ label: band, pos: composite }], "US equity bubble-risk score, 0 low to 100 extreme")}
-        <div class="macro-framework">
-          ${BUBBLE.summary.map((p) => `<p class="macro-para">${p}</p>`).join("")}
-        </div>
+      </div>
+      <div class="macro-framework">
+        ${BUBBLE.summary.map((p) => `<p class="macro-para">${p}</p>`).join("")}
       </div>
       <p class="muted small macro-gauge-note">${esc(BUBBLE.note)}</p>
     </section>
