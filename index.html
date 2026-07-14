@@ -339,11 +339,9 @@
     a.g-feed-row:hover .g-feed-title { color:var(--accent); }
     .g-feed-src { flex:0 1 auto; min-width:0; color:var(--muted); font-size:.76rem; white-space:nowrap;
       overflow:hidden; text-overflow:ellipsis; }
-    .g-feed-desk { flex:0 0 auto; margin-left:auto; padding-left:.7rem; font-size:.68rem; font-weight:700;
-      text-transform:uppercase; letter-spacing:.04em; white-space:nowrap; }
-    .g-desk-m .g-feed-desk { color:var(--macro); }
-    .g-desk-c .g-feed-desk { color:var(--credit); }
-    .g-desk-l .g-feed-desk { color:var(--legal); }
+    /* Same muted meta typography as the date/source (item-meta role). */
+    .g-feed-desk { flex:0 0 auto; margin-left:auto; padding-left:.7rem; color:var(--muted);
+      font-size:.76rem; white-space:nowrap; }
     /* iPhone: stack each row — headline full width, then a "date · source ... desk"
        meta line below (the desktop columns crush the headline otherwise). */
     @media (max-width:760px){
@@ -353,7 +351,8 @@
       .g-feed-title { flex:1 1 100%; order:1; font-size:.92rem; white-space:normal; overflow:visible; }
       .g-feed-date { order:2; }
       .g-feed-src { order:3; flex:0 1 auto; min-width:0; text-align:left; white-space:normal; }
-      .g-feed-desk { order:4; margin-left:auto; padding-left:.5rem; }
+      /* Phone: the tag flows inline right after the source (not pinned right). */
+      .g-feed-desk { order:4; margin-left:0; padding-left:0; }
     }
     /* Right column: the two bands become 2-column tile grids (were single wide rows). */
     .g-side { display:flex; flex-direction:column; }
