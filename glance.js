@@ -11,7 +11,7 @@
 // cache with the four-times-daily data refresh instead of serving a stale copy.
 import { deals, intel, managers, funds, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260708-9";
 import { items, cases, restructurings, firmById } from "/legal/js/data.js?v=20260708-8";
-import { NEWS, ALERTS, ARTICLES } from "/macro/js/content.js?v=20260710-4";
+import { NEWS, ALERTS, ARTICLES, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js?v=20260710-4";
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const byDateDesc = (a, b) => String(b.date || "").localeCompare(String(a.date || ""));
@@ -69,6 +69,7 @@ const fmtRefresh = () => `${fmt(LAST_CHECKED)}${LAST_CHECKED_TIME ? `, ${LAST_CH
 export function initGlance() {
   if (_inited) return; _inited = true;
   renderFeed();
+  renderMacroSnapshot();
   initMarkets();
   initRates();
   initPulse();
@@ -252,6 +253,58 @@ function renderFeed() {
   const head = document.getElementById("g-feed-head");
   const allToday = feed.length > 0 && feed.every((o) => day(o) === target);
   if (head) head.textContent = !feed.length ? "Today" : allToday ? `Today · ${fmt(target)}` : "Latest news";
+}
+// ---- Macro snapshot (right sidebar) ----------------------------------------
+// A compact read of the three Macro views — policy rate, cycle position and
+// bubble risk — filling the space below the markets/rates bands. Each block
+// deep-links into the Macro app. Values mirror macro/js/content.js and the
+// bubble-composite / band logic in macro/js/app.js.
+const bubbleComposite = () => {
+  const d = (BUBBLE && BUBBLE.dimensions) || [];
+  const w = d.reduce((s, x) => s + x.weight, 0) || 1;
+  return Math.round(d.reduce((s, x) => s + x.score * x.weight, 0) / w);
+};
+const bubbleBand = (s) => (s < 20 ? "Low" : s < 40 ? "Moderate" : s < 65 ? "Elevated" : s < 82 ? "High" : "Extreme");
+const shortStage = (s) => String(s || "").split("—")[0].trim();
+let _gsg = 0;
+// A thin 0–100 gradient track with one dot per item (viewBox kept ~12.5:1 so it
+// scales uniformly to the column width without distorting the dots).
+function snapGauge(items) {
+  const x0 = 2, x1 = 98, id = `gsg${_gsg++}`;
+  const X = (p) => (x0 + Math.max(0, Math.min(100, p)) / 100 * (x1 - x0)).toFixed(1);
+  const dots = items.map((it) => {
+    const x = X(it.pos);
+    return `<line x1="${x}" y1="0.6" x2="${x}" y2="7.4" stroke="var(--macro)" stroke-width="1.1"/>`
+      + `<circle cx="${x}" cy="4" r="2.3" fill="var(--macro)" stroke="var(--surface)" stroke-width="1"><title>${esc(it.label)} · ${it.pos}</title></circle>`;
+  }).join("");
+  return `<svg class="g-snap-gauge" viewBox="0 0 100 8" role="img" aria-hidden="true">`
+    + `<defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="var(--gauge-lo, #d7e3f4)"/><stop offset="1" stop-color="var(--macro)"/></linearGradient></defs>`
+    + `<rect x="${x0}" y="3" width="${x1 - x0}" height="2" rx="1" fill="url(#${id})"/>${dots}</svg>`;
+}
+function renderMacroSnapshot() {
+  const el = document.getElementById("g-macro-snap");
+  if (!el || !CYCLE || !BUBBLE || !OUTLOOK) return;
+  const comp = bubbleComposite();
+  const pol = (cc, o) => `<div class="g-snap-pol"><span class="g-snap-cc">${cc}</span>`
+    + `<span class="g-snap-pv">${esc(o.rate)}</span><span class="g-snap-ps">${esc(o.stance)}</span></div>`;
+  const scale = (lo, hi) => `<div class="g-snap-scale"><span>${lo}</span><span>${hi}</span></div>`;
+  el.innerHTML =
+    `<a class="g-snap-blk" href="/macro/#/policy">`
+      + `<div class="g-snap-h"><span class="g-snap-t">Policy rate</span><span class="g-snap-cap">Next 28–30 Jul</span></div>`
+      + pol("US", OUTLOOK.us) + pol("UK", OUTLOOK.uk)
+    + `</a>`
+    + `<a class="g-snap-blk" href="/macro/#/cycle">`
+      + `<div class="g-snap-h"><span class="g-snap-t">Cycle position</span><span class="g-snap-cap">${esc(shortStage(CYCLE.us.shortStage))}</span></div>`
+      + snapGauge([{ label: "US", pos: CYCLE.us.pos }, { label: "UK", pos: CYCLE.uk.pos }])
+      + scale("Early", "Crisis")
+      + `<div class="g-snap-sub">US ${CYCLE.us.pos} · UK ${CYCLE.uk.pos}</div>`
+    + `</a>`
+    + `<a class="g-snap-blk" href="/macro/#/bubble">`
+      + `<div class="g-snap-h"><span class="g-snap-t">Bubble risk</span><span class="g-snap-cap">${esc(bubbleBand(comp))}</span></div>`
+      + snapGauge([{ label: "Composite", pos: comp }])
+      + scale("Low", "Extreme")
+      + `<div class="g-snap-sub">${esc(BUBBLE.market)} · composite ${comp}/100</div>`
+    + `</a>`;
 }
 const sec = (key, n, title, arr) => setHTML(`${key}-sec${n}`, subHead(title) + rows(arr));
 function item(href, title, meta, ext) {

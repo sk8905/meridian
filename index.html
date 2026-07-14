@@ -367,6 +367,23 @@
     @media (max-width:560px){ .g-side .rates-band { grid-template-columns:repeat(2,1fr); }
       .g-side .rate-tile:nth-child(odd) { border-left:0; }
       .g-side .rate-tile:nth-child(even) { border-left:1px solid var(--line); } }
+    /* Macro snapshot card — policy rate, cycle & bubble read below the bands. */
+    .g-snap { background:var(--surface); border:1px solid var(--line); border-radius:14px;
+      box-shadow:var(--shadow); overflow:hidden; }
+    .g-snap-blk { display:block; padding:.55rem .7rem; border-top:1px solid var(--line); color:inherit; text-decoration:none; }
+    .g-snap-blk:first-child { border-top:0; }
+    a.g-snap-blk:hover { background:rgba(120,130,150,.06); }
+    .g-snap-h { display:flex; align-items:baseline; justify-content:space-between; gap:.5rem; margin-bottom:.25rem; }
+    .g-snap-t { font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); white-space:nowrap; }
+    .g-snap-cap { font-size:.72rem; font-weight:700; color:var(--ink); text-align:right; line-height:1.25; }
+    .g-snap-pol { display:flex; gap:.4rem; align-items:baseline; font-size:.78rem; line-height:1.4; }
+    .g-snap-cc { flex:0 0 1.3rem; color:var(--muted); font-weight:700; font-size:.66rem; }
+    .g-snap-pv { flex:0 0 auto; font-weight:700; color:var(--ink); white-space:nowrap; }
+    .g-snap-ps { min-width:0; color:var(--muted); font-size:.72rem; }
+    .g-snap-gauge { display:block; width:100%; height:auto; margin:.35rem 0 .15rem; overflow:visible; }
+    .g-snap-scale { display:flex; justify-content:space-between; font-size:.62rem; color:var(--muted); }
+    .g-snap-sub { margin-top:.2rem; font-size:.68rem; color:var(--muted); }
+    a.g-snap-blk:hover .g-snap-cap { color:var(--brand-2); }
     /* iPhone: the markets + key-rates bands are one tap away behind a chart button
        in the top bar (between the theme toggle and the bell). On phones the whole
        .g-side block is relocated by JS into the dropdown panel below; on desktop it
@@ -629,6 +646,10 @@
           <div id="g-rates" class="rates-band" aria-label="Key rates and credit spreads">
             <div class="g-loading">Loading market rates…</div>
           </div>
+          <div class="g-rates-head" id="jump-macro">Macro read</div>
+          <div id="g-macro-snap" class="g-snap" aria-label="Policy rate, cycle and bubble snapshot">
+            <div class="g-loading">Loading macro read…</div>
+          </div>
         </aside>
       </div>
     </main>
@@ -676,7 +697,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-13").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-14").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of
