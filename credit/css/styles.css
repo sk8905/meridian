@@ -775,8 +775,8 @@ a.compact-mgr:hover { color: var(--primary); text-decoration: underline; }
 .kpi-grid:not(.kpi-compact) .kpi-card .kpi-label { grid-column: 2; grid-row: 1; align-self: end; margin: 0; }
 .kpi-grid:not(.kpi-compact) .kpi-card .kpi-sub { grid-column: 2; grid-row: 2; align-self: start; }
 
-/* ---- Dashboard head: the "Target focus" toggle sits at the top-right, in line with
-        the "Credit Intelligence" heading (was stacked under the lede). ---- */
-.page-head-row { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; flex-wrap: wrap; }
-.page-head-row .page-head-main { min-width: 0; flex: 1 1 320px; }
-.page-head-row .focus-toggle { flex: 0 0 auto; margin: .1rem 0 0; }
+/* ---- Page head: the "Target focus" toggle sits on the SAME row as the heading,
+        vertically centred on it (top-right); the lede sits below, full width. ---- */
+.ph-head-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin: 0 0 .25rem; }
+.ph-head-top h1 { margin: 0; }
+.ph-head-top .focus-toggle { flex: 0 0 auto; margin: 0; }

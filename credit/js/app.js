@@ -687,13 +687,7 @@ function viewDashboard() {
   const activityCompact = (a) => a.kind === "news" ? newsCompact(a.item) : compactRow(a.item, a.view);
 
   app.innerHTML = `
-    <div class="page-head page-head-row">
-      <div class="page-head-main">
-        <h1>Credit Intelligence</h1>
-        <p class="muted">European private credit deal flow &amp; market intelligence, with fundraising as a secondary lens · real data compiled from public sources (mid-2026)</p>
-      </div>
-      ${focusToggle()}
-    </div>
+    <div class="page-head"><div class="ph-head-top"><h1>Credit Intelligence</h1>${focusToggle()}</div><p class="muted">European private credit deal flow &amp; market intelligence, with fundraising as a secondary lens · real data compiled from public sources (mid-2026)</p></div>
     <details class="rk-toggle"${window.matchMedia(MOBILE_Q).matches ? "" : " open"}>
       <summary class="rk-toggle-head">Key metrics <span class="rk-caret" aria-hidden="true"></span></summary>
       <div class="rk-toggle-body">
@@ -828,7 +822,7 @@ function viewFunds() {
     : "";
 
   app.innerHTML = `
-    <div class="page-head page-head-row"><div class="page-head-main"><h1>Funds in Market</h1><p class="muted">${rows.length} of ${funds.length} funds${f.period ? ` · closing ${esc(f.period)}` : ""}</p></div>${focusToggle()}</div>
+    <div class="page-head"><div class="ph-head-top"><h1>Funds in Market</h1>${focusToggle()}</div><p class="muted">${rows.length} of ${funds.length} funds${f.period ? ` · closing ${esc(f.period)}` : ""}</p></div>
     ${periodBanner}
     <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label><div class="filters">
       <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Fund or manager…" value="${esc(f.q)}"></label>
@@ -1063,7 +1057,7 @@ function viewManagers() {
   const sorted = applySort(rows, "managers");
 
   app.innerHTML = `
-    <div class="page-head page-head-row"><div class="page-head-main"><h1>Managers</h1><p class="muted">${rows.length} of ${managers.length} GPs</p></div>${focusToggle()}</div>
+    <div class="page-head"><div class="ph-head-top"><h1>Managers</h1>${focusToggle()}</div><p class="muted">${rows.length} of ${managers.length} GPs</p></div>
     <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label><div class="filters">
       <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Name or HQ…" value="${esc(f.q)}"></label>
       ${multiFilter("managers:strategy", "Strategy", STRATEGIES, f.strategy)}
@@ -1462,7 +1456,7 @@ function viewIntel() {
   ).sort((a, b) => String(b.date).localeCompare(String(a.date))); // newest first
 
   app.innerHTML = `
-    <div class="page-head page-head-row"><div class="page-head-main"><h1>Fundraising Intelligence</h1><p class="muted">${rows.length} of ${base.length} items · European private credit capital formation</p></div>${focusToggle()}</div>
+    <div class="page-head"><div class="ph-head-top"><h1>Fundraising Intelligence</h1>${focusToggle()}</div><p class="muted">${rows.length} of ${base.length} items · European private credit capital formation</p></div>
     <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label><div class="filters">
       <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Keyword…" value="${esc(f.q)}"></label>
       ${multiFilter("intel:type", "Type", [...new Set(base.map((i) => i.type))].sort(), f.type)}
@@ -1524,7 +1518,7 @@ function viewDeals() {
   ).sort((a, b) => String(b.date).localeCompare(String(a.date))); // newest first
 
   app.innerHTML = `
-    <div class="page-head page-head-row"><div class="page-head-main"><h1>Deal Activity</h1><p class="muted">${rows.length} of ${base.length} transactions · investments, exits, refinancings, restructurings &amp; distress${f.period ? ` · <strong>${esc(f.period)}</strong> <button type="button" class="link-btn" id="clear-period">clear quarter ✕</button>` : ""}</p></div>${focusToggle()}</div>
+    <div class="page-head"><div class="ph-head-top"><h1>Deal Activity</h1>${focusToggle()}</div><p class="muted">${rows.length} of ${base.length} transactions · investments, exits, refinancings, restructurings &amp; distress${f.period ? ` · <strong>${esc(f.period)}</strong> <button type="button" class="link-btn" id="clear-period">clear quarter ✕</button>` : ""}</p></div>
     <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label><div class="filters">
       <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Company, manager…" value="${esc(f.q)}"></label>
       ${multiFilter("deals:type", "Type", [...new Set(base.map((d) => d.type))].sort(), f.type)}
@@ -1562,7 +1556,7 @@ function viewClos() {
   const feedRow = (x) => x._kind === "deal" ? dealRow(x) : intelRow(x);
 
   app.innerHTML = `
-    <div class="page-head page-head-row"><div class="page-head-main"><h1>CLOs</h1><p class="muted">${rows.length} of ${all.length} items · collateralised loan obligation pricings, platforms, funds, ETFs &amp; personnel${f.period ? ` · <strong>${esc(f.period)}</strong> <button type="button" class="link-btn" id="clear-period">clear quarter ✕</button>` : ""}</p></div>${focusToggle()}</div>
+    <div class="page-head"><div class="ph-head-top"><h1>CLOs</h1>${focusToggle()}</div><p class="muted">${rows.length} of ${all.length} items · collateralised loan obligation pricings, platforms, funds, ETFs &amp; personnel${f.period ? ` · <strong>${esc(f.period)}</strong> <button type="button" class="link-btn" id="clear-period">clear quarter ✕</button>` : ""}</p></div>
     <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label><div class="filters">
       <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Keyword…" value="${esc(f.q)}"></label>
       ${multiFilter("clos:kind", "Source", ["Deal", "Fundraising"], f.kind)}
@@ -1684,7 +1678,7 @@ function viewTrends() {
   const cloTrend = quarterTrend("ctrend", "CLO activity by quarter", "CLO pricings &amp; news per quarter. Drag either handle to set the date range; click any quarter to open the CLO feed.", qc, cloTrendState, "clos");
 
   app.innerHTML = `
-    <div class="page-head page-head-row"><div class="page-head-main"><h1>Trends</h1><p class="muted">Deal, fundraising &amp; CLO activity across the tracked European private-credit universe. Click any bar, slice or quarter to open the matching feed.</p></div>${focusToggle()}</div>
+    <div class="page-head"><div class="ph-head-top"><h1>Trends</h1>${focusToggle()}</div><p class="muted">Deal, fundraising &amp; CLO activity across the tracked European private-credit universe. Click any bar, slice or quarter to open the matching feed.</p></div>
 
     <section class="trend-section">
       <h2 class="trend-cat">Deals</h2>
@@ -1744,7 +1738,7 @@ function viewNews() {
   const rows = all.filter((x) => !f.q || `${x.title || ""} ${x.outlet || ""} ${x._mname || ""}`.toLowerCase().includes(f.q.toLowerCase()));
 
   app.innerHTML = `
-    <div class="page-head page-head-row"><div class="page-head-main"><h1>News</h1><p class="muted">${rows.length} of ${all.length} items · manager &amp; investor press across the tracked universe</p></div>${focusToggle()}</div>
+    <div class="page-head"><div class="ph-head-top"><h1>News</h1>${focusToggle()}</div><p class="muted">${rows.length} of ${all.length} items · manager &amp; investor press across the tracked universe</p></div>
     <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label><div class="filters">
       <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Headline, outlet, manager…" value="${esc(f.q)}"></label>
     </div>
