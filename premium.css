@@ -297,3 +297,15 @@ p.muted:not(.small) { font-size: .85rem; }
         non-empty, so it still shows there. Relies on the footer markup having no
         inner whitespace: `<footer class="footer"></footer>`. ---- */
 .footer:empty { display: none; }
+
+/* ---- Desktop: the theme toggle is a plain two-state light/dark switch — no
+        "system" option (the cycle logic skips it above 760px). Show the icon for
+        the resolved theme, never the "auto" glyph. `:root`-prefixed so these tie
+        the choice-based rules on specificity and win on source order. ---- */
+@media (min-width: 761px) {
+  :root .theme-toggle .ico-sun,
+  :root .theme-toggle .ico-moon,
+  :root .theme-toggle .ico-auto { display: none; }
+  :root[data-theme="light"] .theme-toggle .ico-sun { display: inline-flex; }
+  :root[data-theme="dark"]  .theme-toggle .ico-moon { display: inline-flex; }
+}
