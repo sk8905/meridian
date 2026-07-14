@@ -77,8 +77,10 @@ extra deep-research pass on watchlisted names is skipped.
   stamp is the honest fallback. The Home feed leads each row with this per-item
   `time`, groups rows under a per-day date header, and ranks them newest→oldest by
   `date`+`time`. Do NOT backfill old records with the current run time (that would
-  misdate them as "found now"); pre-existing items without a `time` simply lead with
-  the headline until they age out of the feed.
+  misdate them as "found now"). Items without a stored `time` fall back in the feed
+  to the current run time so a time still shows; that fallback is uniform, so the
+  point of stamping `time` at creation is to replace it with each story's real
+  per-item time as new items flow in (not-yet-stamped older items age out).
 - **Historical depth (not just current-year) — always add what you uncover.** The
   ~24h window only governs which *newly surfaced* items a run hunts for — it is
   NOT a floor on an item's own date, and it is NOT a reason to discard a real
