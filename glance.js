@@ -65,6 +65,11 @@ const MACRO_INDICATORS = [
 
 let _inited = false;
 const fmtRefresh = () => `${fmt(LAST_CHECKED)}${LAST_CHECKED_TIME ? `, ${LAST_CHECKED_TIME}` : ""}`;
+// Feed rows lead with the article's own publish time where the data carries one;
+// where it doesn't (yet), they fall back to the routine run time (the "HH:MM" from
+// LAST_CHECKED_TIME, e.g. "12:20 BST" → "12:20"), tagged so it reads as the
+// as-of-refresh time rather than a confirmed publish time.
+const RUN_TIME = String(LAST_CHECKED_TIME || "").replace(/\s+[A-Za-z]+$/, "").trim();
 
 export function initGlance() {
   if (_inited) return; _inited = true;
@@ -253,11 +258,15 @@ function renderFeed() {
   }
   feed.length = Math.min(feed.length, CAP);
 
-  const row = (o) => `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
-    + (o.time ? `<span class="g-feed-time">${esc(o.time)}</span>` : "")
-    + `<span class="g-feed-title">${esc(o.title)}</span>`
-    + (o.src ? `<span class="g-feed-src">${esc(o.src)}</span>` : "")
-    + `<span class="g-feed-desk">${esc(DESK[o.desk])}</span></a>`;
+  const row = (o) => {
+    const t = o.time || RUN_TIME;
+    const tspan = t ? `<span class="g-feed-time"${o.time ? "" : ' title="As of the last refresh"'}>${esc(t)}</span>` : "";
+    return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
+      + tspan
+      + `<span class="g-feed-title">${esc(o.title)}</span>`
+      + (o.src ? `<span class="g-feed-src">${esc(o.src)}</span>` : "")
+      + `<span class="g-feed-desk">${esc(DESK[o.desk])}</span></a>`;
+  };
   // Rank strictly newest→oldest (by day, then publish time), grouped into days;
   // each day is introduced by a date header and its rows lead with the time.
   feed.sort((a, b) => day(b).localeCompare(day(a)) || String(b.time || "").localeCompare(String(a.time || "")));

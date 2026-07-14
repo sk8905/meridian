@@ -71,9 +71,11 @@ extra deep-research pass on watchlisted names is skipped.
   rows under a per-day date header, and ranks them newest→oldest by `date`+`time`.
   Take the time from the source's own published timestamp and convert to London
   time. **If the source gives no minute-level publish time, leave `time` unset
-  (omit it) — never guess or fabricate a time.** Rows without a `time` simply lead
-  with the headline. (This is additive; existing records gain a `time` as they are
-  next touched — no need to backfill the whole history in one run.)
+  (omit it) — never guess or fabricate a time.** For any item without a `time`, the
+  Home feed automatically falls back to the routine **run time** (`LAST_CHECKED_TIME`,
+  tagged "As of the last refresh"), so every row still shows a time. (This is
+  additive; existing records gain a real `time` as they are next touched — no need
+  to backfill the whole history in one run.)
 - **Historical depth (not just current-year) — always add what you uncover.** The
   ~24h window only governs which *newly surfaced* items a run hunts for — it is
   NOT a floor on an item's own date, and it is NOT a reason to discard a real
