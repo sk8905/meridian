@@ -335,6 +335,16 @@
     .g-feed-title { flex:1 1 auto; min-width:0; color:var(--ink); font-weight:600; font-size:.9rem; line-height:1.35; }
     a.g-feed-row:hover .g-feed-title { color:var(--accent); }
     .g-feed-src { flex:0 0 auto; color:var(--muted); font-size:.76rem; white-space:nowrap; text-align:right; }
+    /* iPhone: stack each row — headline full width, then a "date · source" meta line
+       below (the desktop date/headline/source columns crush the headline otherwise). */
+    @media (max-width:760px){
+      .g-layout { margin-top:1rem; }
+      .g-feed { padding:.1rem .95rem; }
+      .g-feed-row { flex-wrap:wrap; gap:.15rem .5rem; padding:.7rem 0; align-items:baseline; }
+      .g-feed-title { flex:1 1 100%; order:1; font-size:.92rem; }
+      .g-feed-date { order:2; }
+      .g-feed-src { order:3; flex:1 1 auto; min-width:0; text-align:left; white-space:normal; }
+    }
     /* Right column: the two bands become 2-column tile grids (were single wide rows). */
     .g-side { display:flex; flex-direction:column; }
     .g-side .rates-band { grid-template-columns:repeat(2, 1fr); border-radius:14px; padding:.3rem .35rem; }
