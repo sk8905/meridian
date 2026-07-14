@@ -290,13 +290,15 @@ function renderMacroSnapshot() {
   const el = document.getElementById("g-macro-snap");
   if (!el || !CYCLE || !BUBBLE || !OUTLOOK) return;
   const comp = bubbleComposite();
-  const pol = (cc, o) => `<div class="g-snap-pol"><span class="g-snap-cc">${cc}</span>`
-    + `<span class="g-snap-pv">${esc(o.rate)}</span><span class="g-snap-ps">${esc(o.stance)}</span></div>`;
+  // One 3-column grid (country · rate · stance) shared by both rows so the rate
+  // and stance columns line up even though the two rates differ in width.
+  const pol = (cc, o) => `<span class="g-snap-cc">${cc}</span>`
+    + `<span class="g-snap-pv">${esc(o.rate)}</span><span class="g-snap-ps">${esc(o.stance)}</span>`;
   const scale = (lo, hi) => `<div class="g-snap-scale"><span>${lo}</span><span>${hi}</span></div>`;
   el.innerHTML =
     `<a class="g-snap-blk" href="/macro/#/policy">`
       + `<div class="g-snap-h"><span class="g-snap-t">Policy rate</span><span class="g-snap-cap">Next 28–30 Jul</span></div>`
-      + pol("US", OUTLOOK.us) + pol("UK", OUTLOOK.uk)
+      + `<div class="g-snap-pol">` + pol("US", OUTLOOK.us) + pol("UK", OUTLOOK.uk) + `</div>`
     + `</a>`
     + `<a class="g-snap-blk" href="/macro/#/cycle">`
       + `<div class="g-snap-h"><span class="g-snap-t">Cycle position</span><span class="g-snap-cap">${esc(shortStage(CYCLE.us.shortStage))}</span></div>`
@@ -341,21 +343,30 @@ function ratesTile(x) {
   const attrs = x.href ? ` href="${esc(x.href)}" target="_blank" rel="noopener noreferrer"` : "";
   return `<${tag} class="rate-tile"${attrs}${title}><span class="rate-label">${esc(x.label)}</span><span class="rate-val">${val}</span>${chg}</${tag}>`;
 }
+// Last-good market/rates payloads, persisted so a reload (or a failed refetch)
+// shows the most recent numbers immediately instead of a "Loading…" placeholder.
+function readCache(key) { try { const s = localStorage.getItem("m_glance_" + key); return s ? JSON.parse(s) : null; } catch { return null; } }
+function writeCache(key, d) { try { localStorage.setItem("m_glance_" + key, JSON.stringify(d)); } catch { /* quota/private mode — skip */ } }
+function renderRates(el, d) {
+  const rowsData = (d && d.rates) || [];
+  if (!rowsData.length) return false;
+  el.innerHTML = rowsData.map(ratesTile).join("") +
+    '<a class="rate-src" href="https://fred.stlouisfed.org/" target="_blank" rel="noopener noreferrer">Source: FRED · ECB · NY Fed · US Treasury</a>';
+  setGlance("gl-rates", _pulse.rates ? esc(_pulse.rates) : ratesOneLiner(rowsData));
+  setGlTickers("rates", rateTickers(rowsData));
+  return true;
+}
 function initRates() {
   const el = document.getElementById("g-rates");
   if (!el) return;
+  // Render the last-good numbers instantly so a slow/failed refetch never drops
+  // the tiles back to a "Loading…/unavailable" placeholder — the values just sit
+  // until fresh ones land.
+  renderRates(el, readCache("rates"));
   fetch("/api/rates?v=9")
     .then((r) => (r.ok ? r.json() : Promise.reject()))
-    .then((d) => {
-      const rowsData = d.rates || [];
-      el.innerHTML = rowsData.length
-        ? rowsData.map(ratesTile).join("") +
-          '<a class="rate-src" href="https://fred.stlouisfed.org/" target="_blank" rel="noopener noreferrer">Source: FRED · ECB · NY Fed · US Treasury</a>'
-        : '<span class="g-loading">Market rates unavailable right now.</span>';
-      setGlance("gl-rates", _pulse.rates ? esc(_pulse.rates) : ratesOneLiner(rowsData));
-      setGlTickers("rates", rateTickers(rowsData));
-    })
-    .catch(() => { el.innerHTML = '<span class="g-loading">Market rates unavailable right now.</span>'; if (!_pulse.rates) setGlance("gl-rates", "Rates data unavailable right now."); });
+    .then((d) => { if (renderRates(el, d)) writeCache("rates", d); })
+    .catch(() => { if (!el.querySelector(".rate-tile") && !_pulse.rates) { el.innerHTML = '<span class="g-loading">Market rates unavailable right now.</span>'; setGlance("gl-rates", "Rates data unavailable right now."); } });
 }
 
 // ---- Market open / closed indicator ----------------------------------------
@@ -577,23 +588,27 @@ function marketTile(x) {
   // the right of the change rather than dropping to its own line.
   return `<${tag} class="rate-tile"${attrs}${title}><span class="rate-label">${esc(x.label)}${marketDot(x)}</span><span class="rate-val">${val}</span><span class="rate-chg-line">${chg}</span></${tag}>`;
 }
+function renderMarketsBand(el, d) {
+  const rows = (d && d.markets) || [];
+  if (!rows.length) return false;
+  el.innerHTML = rows.map(marketTile).join("") +
+    '<a class="rate-src" href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer">Source: Yahoo Finance · FRED</a>';
+  setGlance("gl-markets", _pulse.markets ? esc(_pulse.markets) : marketsOneLiner(rows));
+  // Chips pick the top movers from a WIDER pool (the banner 8 + extra global
+  // cross-asset instruments), so they aren't limited to the banner tiles.
+  setGlTickers("markets", marketTickers([...rows, ...((d.moversExtra) || [])]));
+  return true;
+}
 function initMarkets() {
   const el = document.getElementById("g-markets");
   if (!el) return;
+  // Keep the last-good tiles up until fresh values arrive (never flash a
+  // placeholder on a slow or failed refetch).
+  renderMarketsBand(el, readCache("markets"));
   fetch("/api/markets?v=9")
     .then((r) => (r.ok ? r.json() : Promise.reject()))
-    .then((d) => {
-      const rows = d.markets || [];
-      el.innerHTML = rows.length
-        ? rows.map(marketTile).join("") +
-          '<a class="rate-src" href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer">Source: Yahoo Finance · FRED</a>'
-        : '<span class="g-loading">Markets unavailable right now.</span>';
-      setGlance("gl-markets", _pulse.markets ? esc(_pulse.markets) : marketsOneLiner(rows));
-      // Chips pick the top movers from a WIDER pool (the banner 8 + extra global
-      // cross-asset instruments), so they aren't limited to the banner tiles.
-      setGlTickers("markets", marketTickers([...rows, ...((d.moversExtra) || [])]));
-    })
-    .catch(() => { el.innerHTML = '<span class="g-loading">Markets unavailable right now.</span>'; if (!_pulse.markets) setGlance("gl-markets", "Markets data unavailable right now."); });
+    .then((d) => { if (renderMarketsBand(el, d)) writeCache("markets", d); })
+    .catch(() => { if (!el.querySelector(".rate-tile") && !_pulse.markets) { el.innerHTML = '<span class="g-loading">Markets unavailable right now.</span>'; setGlance("gl-markets", "Markets data unavailable right now."); } });
 }
 
 // The "market pulse" — two direction+driver one-liners written server-side by
