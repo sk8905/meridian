@@ -101,7 +101,7 @@ const STYLE = `
 .mcmdk-foot{border-top:1px solid #e4e7ef;padding:.5rem .8rem;color:#66708a;font-size:.72rem;display:flex;gap:1rem}
 .mcmdk-foot kbd{background:#eef2fb;border-radius:4px;padding:.05rem .3rem;font-family:inherit;font-weight:700}
 /* On touch phones the tag pill ("Go") and the keyboard-hint footer are irrelevant. */
-@media (max-width:760px){.mcmdk-foot{display:none}.mcmdk-tag{width:4.6rem;padding:.12rem .2rem}}`;
+@media (max-width:760px){.mcmdk-foot{display:none}.mcmdk-tag{width:4rem;padding:.1rem .18rem;font-size:.52rem;letter-spacing:.01em}}`;
 
 let _mounted = false;
 export function mountPalette() {
