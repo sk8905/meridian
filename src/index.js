@@ -1113,8 +1113,14 @@ async function handlePulse(request, env, ctx) {
 // except the pure-policy central-bank ones (filter:false) is run through the STRICT
 // macro filter below, so only key-indicator / central-bank / index-move / major-
 // earnings stories get through. `cap` bounds each source so no single desk floods.
-// Bloomberg & Reuters publish no usable public RSS, so they can't be live-sourced.
+// Bloomberg & Reuters have no usable public RSS, so they're bridged through Google
+// News search feeds (gnews:true) — reliable and not IP-blocked; the trade-off is
+// that their links route via a news.google.com redirect to the real article.
 const FEED_SOURCES = [
+  // Reuters & Bloomberg via Google News search (site:-scoped, macro terms, last 2 days)
+  { url: "https://news.google.com/rss/search?q=site%3Areuters.com%20%28Fed%20OR%20inflation%20OR%20%22interest%20rate%22%20OR%20GDP%20OR%20economy%20OR%20Treasury%20OR%20%22stock%20market%22%29%20when%3A2d&hl=en-US&gl=US&ceid=US%3Aen", source: "Reuters", region: "US", cap: 6, gnews: true },
+  { url: "https://news.google.com/rss/search?q=site%3Areuters.com%20%28%22Bank%20of%20England%22%20OR%20gilt%20OR%20inflation%20OR%20UK%20economy%20OR%20sterling%29%20when%3A2d&hl=en-GB&gl=GB&ceid=GB%3Aen", source: "Reuters", region: "UK", cap: 5, gnews: true },
+  { url: "https://news.google.com/rss/search?q=site%3Abloomberg.com%20%28Fed%20OR%20inflation%20OR%20%22interest%20rate%22%20OR%20economy%20OR%20%22Bank%20of%20England%22%20OR%20bonds%29%20when%3A2d&hl=en-US&gl=US&ceid=US%3Aen", source: "Bloomberg", region: "GEN", cap: 6, gnews: true },
   // Financial specialists — US
   { url: "https://feeds.a.dj.com/rss/RSSMarketsMain.xml", source: "The Wall Street Journal", region: "US", cap: 10 },
   { url: "https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml", source: "The Wall Street Journal", region: "US", cap: 7 },
@@ -1193,7 +1199,10 @@ function feedParse(xml, feed) {
   const out = [];
   const blocks = xml.match(/<(item|entry)\b[\s\S]*?<\/\1>/gi) || [];
   for (const block of blocks) {
-    const title = feedDecode(feedTag(block, "title"));
+    let title = feedDecode(feedTag(block, "title"));
+    // Google News appends " - <Outlet>" to every headline — strip that trailing
+    // publisher tag so the title reads cleanly (the source is set from the feed).
+    if (feed.gnews) title = title.replace(/\s+[-–—]\s+[^-–—]{2,40}$/, "").trim();
     if (!title || title.length < 8) continue;
     let link = feedDecode(feedTag(block, "link"));
     if (!/^https?:\/\//i.test(link)) link = feedAtomLink(block);
@@ -1234,7 +1243,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=3", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=4", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {
