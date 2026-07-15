@@ -500,8 +500,9 @@ extra deep-research pass on watchlisted names is skipped.
 >      each run so the dashboard keeps showing genuinely current stories. Run targeted
 >      web searches for the most important CURRENT US and UK macro / monetary-policy /
 >      markets stories (inflation, central banks, growth, jobs, rates, fiscal) from
->      reputable financial outlets — wires & majors (Reuters, AP, Bloomberg, FT, WSJ,
->      CNBC, MarketWatch, Yahoo Finance, Investing.com, Briefing.com); fast US
+>      reputable financial outlets — wires & majors (Reuters, AP, Bloomberg, Financial
+>      Times, Wall Street Journal, CNBC, The Economist, TradingEconomics, MarketWatch,
+>      Yahoo Finance, Investing.com, Briefing.com); fast US
 >      business/policy (Axios, Semafor, Barron's, Politico); UK (The Guardian, BBC,
 >      Sky News, CityAM, This is Money); and — to fill the quiet overnight / early
 >      (05:00-run) window when US/UK desks are dark — round-the-clock FX/rates & Asia
@@ -530,10 +531,11 @@ extra deep-research pass on watchlisted names is skipped.
 >      backlog than before. Each item is `{title, source, date, url, blurb, author?}`
 >      (`blurb` a one-line dek). These are the most important GENERAL global
 >      macro-economic news & analysis stories — monetary policy, growth, inflation,
->      oil, bonds, geopolitics — from reputable outlets (FT, Bloomberg, Reuters, WSJ,
->      The Economist, The Guardian, Axios, Semafor, Barron's, Project Syndicate,
->      Politico, MNI/Market News, and round-the-clock FX/rates & Asia desks such as
->      FXStreet and Nikkei Asia for the overnight window, etc.). Refresh each run: prepend genuinely current
+>      oil, bonds, geopolitics — from reputable outlets (Financial Times, Bloomberg,
+>      Reuters, Wall Street Journal, The Economist, CNBC, TradingEconomics, The
+>      Guardian, Axios, Semafor, Barron's, Project Syndicate, Politico, MNI/Market
+>      News, and round-the-clock FX/rates & Asia desks such as FXStreet and Nikkei
+>      Asia for the overnight window, etc.). Refresh each run: prepend genuinely current
 >      stories and keep roughly the **most recent ~30–40** (dropping the oldest beyond
 >      that), newest first, so the month sections stay populated a few months back;
 >      **make sure the newest three are dated the refresh day** — the Home landing
