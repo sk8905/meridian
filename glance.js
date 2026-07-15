@@ -313,13 +313,24 @@ function renderMacroSnapshot() {
   const comp = bubbleComposite();
   // One 3-column grid (country · rate · stance) shared by both rows so the rate
   // and stance columns line up even though the two rates differ in width.
-  // Show just the one-word forecast (the action before the "·", e.g. "Hold");
-  // the full stance ("Hold · hawkish bias easing") is in the hover tooltip.
+  // Two-part read of the stance: the one-word forecast for the next decision
+  // (the action before the "·", e.g. "Hold") plus the trending mood keyword
+  // (hawkish / dovish / neutral) pulled from the rest as a colour-coded tag.
+  // The full stance ("Hold · hawkish bias easing") stays in the hover tooltip.
+  const MOOD = { hawkish: "hawk", dovish: "dove", neutral: "neut" };
   const pol = (cc, o) => {
-    const short = String(o.stance || "").split("·")[0].trim() || String(o.stance || "");
+    const s = String(o.stance || "");
+    const parts = s.split("·");
+    const fc = (parts[0] || s).trim();
+    const rest = parts.slice(1).join("·").toLowerCase();
+    let mood = "";
+    for (const k in MOOD) { if (rest.includes(k)) { mood = k; break; } }
+    const tag = mood
+      ? ` <span class="g-snap-mood ${MOOD[mood]}">${mood[0].toUpperCase()}${mood.slice(1)}</span>`
+      : "";
     return `<span class="g-snap-cc">${cc}</span>`
       + `<span class="g-snap-pv">${esc(o.rate)}</span>`
-      + `<span class="g-snap-ps" title="${esc(o.stance)}">${esc(short)}</span>`;
+      + `<span class="g-snap-ps" title="${esc(s)}"><span class="g-snap-fc">${esc(fc)}</span>${tag}</span>`;
   };
   const scale = (lo, hi) => `<div class="g-snap-scale"><span>${lo}</span><span>${hi}</span></div>`;
   el.innerHTML =
