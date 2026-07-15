@@ -5,10 +5,10 @@
 
 import {
   STRATEGIES, FUND_STATUS, GEOS, LP_TYPES, DEAL_TYPES, DATA_UPDATED, LAST_CHECKED, LAST_CHECKED_TIME,
-  managers, funds, lps, intel, commitments, deals,
+  managers, funds, lps, intel, commitments, deals, research,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260715-5";
+} from "./data.js?v=20260715-6";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
@@ -1720,6 +1720,25 @@ function viewTrends() {
 // (these previously only appeared on each manager's profile and the bell).
 // One News-feed row: chip + date, headline (links out), summary, manager +
 // outlet, with a Save button top-right (Legal style; stable content-derived id).
+// Commentary tab — credit research & white papers (banks, managers, rating
+// agencies, industry bodies). One-line rows like the News feed: date · title
+// (links out) · institution · type, with daily date breaks.
+function researchRow(r) {
+  const head = r.url
+    ? `<a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(r.title)}</a>`
+    : `<span class="intel-head">${esc(r.title)}</span>`;
+  const src = `<span class="muted small">${esc(r.institution)}${r.type ? " · " + esc(r.type) : ""}</span>`;
+  return `<div class="intel-row oneline" id="row-r-${esc(r.id)}" title="${esc(r.summary || "")}">
+    <span class="intel-date muted small">${r.date ? esc(fmtDate(r.date)) : ""}</span>${head}<span class="intel-src-inline muted small">${src}</span>
+  </div>`;
+}
+function viewCommentary() {
+  const rows = [...research].sort((a, b) => `${b.date} ${b.time || ""}`.localeCompare(`${a.date} ${a.time || ""}`));
+  app.innerHTML = `
+    <div class="page-head"><h1>Commentary</h1><p class="muted">${rows.length} research pieces &amp; white papers on credit markets — spreads, underwriting &amp; covenant quality, defaults and private-credit structure — from banks, asset managers, rating agencies and industry bodies. Newest first.</p></div>
+    <section class="card">${rows.length ? feedHtml(rows, "research", researchRow, "") : '<p class="empty">No research yet.</p>'}</section>`;
+}
+
 function newsRowFull(x) {
   const sid = newsSaveId(x);
   const head = x.url
@@ -2098,6 +2117,7 @@ function router() {
     case "lps": return viewLps();
     case "lp": return viewLp(arg);
     case "news": return viewNews();
+    case "commentary": return viewCommentary();
     case "intel": return viewIntel();
     case "deals": return viewDeals();
     case "clos": return viewClos();
@@ -2111,7 +2131,7 @@ function router() {
 // (wrapping around). Ignored on detail pages and when the gesture starts on an
 // interactive control (slider, input, dropdown, link, chart, table) or a screen
 // edge (reserved for the browser's back/forward gesture).
-const SWIPE_SECTIONS = ["#/", "#/news", "#/deals", "#/intel", "#/clos", "#/managers", "#/funds", "#/lps", "#/watchlist"];
+const SWIPE_SECTIONS = ["#/", "#/news", "#/commentary", "#/deals", "#/intel", "#/clos", "#/managers", "#/funds", "#/lps", "#/watchlist"];
 const SWIPE_IGNORE = "input, textarea, select, button, a, .range-slider, .ms, .ms-pop, .table-wrap, .data-table, svg, .donut-wrap, .chart";
 let swX = 0, swY = 0, swT = 0, swSkip = true;
 document.addEventListener("touchstart", (e) => {
@@ -2143,7 +2163,7 @@ document.addEventListener("click", (e) => {
   }
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260710-15").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260710-16").then((m) => m.mountPalette()).catch(() => {});
 import("/ptr.js?v=20260711-6").then((m) => m.initPullToRefresh()).catch(() => {});
 router();
 renderDataStatus();

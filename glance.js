@@ -9,7 +9,7 @@
 // =============================================================================
 // Data modules are versioned (matching each app) so the live Glance busts its
 // cache with the four-times-daily data refresh instead of serving a stale copy.
-import { deals, intel, managers, funds, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260714-2";
+import { deals, intel, managers, funds, research, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260714-3";
 import { items, cases, restructurings, firmById } from "/legal/js/data.js?v=20260714-2";
 import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js?v=20260714-3";
 
@@ -297,6 +297,9 @@ function renderFeed() {
   const credit = [];
   deals.forEach((d) => credit.push(mk("c", creditItemHref(d, "deals"), d.headline, creditSource(d), false, d.date, d.time)));
   intel.forEach((i) => credit.push(mk("c", creditItemHref(i, "intel"), i.headline, creditSource(i), false, i.date, i.time)));
+  // Credit research / white papers (Commentary) — external pieces, so they open
+  // out to the publisher like the macro reading list.
+  (research || []).forEach((r) => credit.push(mk("c", r.url, r.title, r.institution, true, r.date, r.time)));
 
   const legal = [];
   items.forEach((i) => { if (i.date) legal.push(mk("l", `/legal/#/item/${encodeURIComponent(i.id)}`, i.title, firmName(i.firm), false, i.date, i.time)); });
@@ -862,6 +865,7 @@ function creditNotif() {
   const out = [];
   deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, source: creditSource(d), href: creditItemHref(d, "deals") }));
   intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, source: creditSource(i), href: creditItemHref(i, "intel") }));
+  (research || []).forEach((r) => out.push({ id: "r:" + r.id, date: r.date || "", kind: "Commentary", title: r.title, source: r.institution, href: "/credit/#/commentary" }));
   managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", kind: "News", title: w.title, source: w.outlet || m.name || "", href: "/credit/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey(w)) })));
   return recentNotif(out).sort(byDateDesc);
 }
@@ -1000,6 +1004,7 @@ function buildIndex() {
   funds.forEach((f) => add("credit", f.name, `Fund${f.managerId && mgrName(f.managerId) ? " · " + mgrName(f.managerId) : ""}`, `/credit/#/fund/${encodeURIComponent(f.id)}`, 1, "", "Fund"));
   deals.forEach((d) => add("credit", d.headline, `${d.clo ? "CLO" : "Deal"} · ${fmt(d.date)}${mgrName(d.managerId) ? " · " + mgrName(d.managerId) : ""}`, creditItemHref(d, "deals"), d.clo ? 1 : 2, d.date, d.clo ? "CLO" : "Deal"));
   intel.forEach((i) => add("credit", i.headline, `${i.clo ? "CLO · " : ""}${i.type || "Fundraising"} · ${fmt(i.date)}${mgrName(i.managerId) ? " · " + mgrName(i.managerId) : ""}`, creditItemHref(i, "intel"), i.clo ? 1 : 2, i.date, i.clo ? "CLO" : "Fundraising"));
+  (research || []).forEach((r) => add("credit", r.title, `${r.institution}${r.type ? " · " + r.type : ""}${r.date ? " · " + fmt(r.date) : ""}`, r.url, 2, r.date, "Commentary"));
 
   items.forEach((i) => add("legal", i.title, `Legal alert${i.firm ? " · " + i.firm : ""}${i.date ? " · " + fmt(i.date) : ""}`, `/legal/#/item/${encodeURIComponent(i.id)}`, 2, i.date, "Alert"));
   cases.forEach((c) => add("legal", c.name, `Case · ${c.court || ""}${c.citation ? " · " + c.citation : ""}`, `/legal/#/cases?case=${encodeURIComponent(c.id)}`, 2, c.date, "Case"));

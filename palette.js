@@ -8,7 +8,7 @@
 // =============================================================================
 // Versioned imports (matching each app) so the palette busts its cache with the
 // four-times-daily data refresh instead of serving a stale copy.
-import { deals, intel, managers, funds } from "/credit/js/data.js?v=20260708-9";
+import { deals, intel, managers, funds, research } from "/credit/js/data.js?v=20260708-10";
 import { items, cases, restructurings } from "/legal/js/data.js?v=20260708-8";
 import { NEWS, ARTICLES, ALERTS } from "/macro/js/content.js?v=20260711-1";
 
@@ -57,6 +57,7 @@ function buildIndex() {
   funds.forEach((f) => add("credit", f.name, `Fund${f.managerId && mgrName(f.managerId) ? " · " + mgrName(f.managerId) : ""}`, `/credit/#/fund/${encodeURIComponent(f.id)}`, 1, "", "Fund"));
   deals.forEach((d) => add("credit", d.headline, `${d.clo ? "CLO" : "Deal"} · ${fmt(d.date)}${mgrName(d.managerId) ? " · " + mgrName(d.managerId) : ""}`, creditItemHref(d, "deals"), d.clo ? 1 : 2, d.date, d.clo ? "CLO" : "Deal"));
   intel.forEach((i) => add("credit", i.headline, `${i.clo ? "CLO · " : ""}${i.type || "Fundraising"} · ${fmt(i.date)}${mgrName(i.managerId) ? " · " + mgrName(i.managerId) : ""}`, creditItemHref(i, "intel"), i.clo ? 1 : 2, i.date, i.clo ? "CLO" : "Fundraising"));
+  (research || []).forEach((r) => add("credit", r.title, `${r.institution}${r.type ? " · " + r.type : ""}${r.date ? " · " + fmt(r.date) : ""}`, r.url, 2, r.date, "Commentary"));
   items.forEach((i) => add("legal", i.title, `Legal alert${i.firm ? " · " + i.firm : ""}${i.date ? " · " + fmt(i.date) : ""}`, `/legal/#/item/${encodeURIComponent(i.id)}`, 2, i.date, "Alert"));
   cases.forEach((c) => add("legal", c.name, `Case · ${c.court || ""}${c.citation ? " · " + c.citation : ""}`, `/legal/#/cases?case=${encodeURIComponent(c.id)}`, 2, c.date, "Case"));
   restructurings.forEach((r) => add("legal", r.company, `${r.type === "scheme" ? "Scheme" : "Restructuring plan"}${r.citation ? " · " + r.citation : ""}`, `/legal/#/restructurings?m=${encodeURIComponent(r.id)}`, 2, r.date, r.type === "scheme" ? "Scheme" : "RP"));
