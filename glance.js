@@ -680,9 +680,12 @@ function setGlance(id, html) { const el = document.getElementById(id); if (el) e
 // SAME live feed that powers the line — the biggest movers, so the chips read
 // "in line with the context". Desktop shows them inline; phones tuck them behind
 // a chevron toggle (CSS-only; the toggle is wired in initGlance).
-function glTkChip(label, dir, mag) {
+function glTkChip(label, dir, mag, href) {
   const arrow = dir === "up" ? "▲" : dir === "down" ? "▼" : "·";
-  return `<span class="gl-tk ${dir}"><span class="gl-tk-l">${esc(label)}</span><span class="gl-tk-c">${arrow} ${esc(mag)}</span></span>`;
+  const inner = `<span class="gl-tk-l">${esc(label)}</span><span class="gl-tk-c">${arrow} ${esc(mag)}</span>`;
+  return href
+    ? `<a class="gl-tk ${dir}" href="${esc(href)}" target="_blank" rel="noopener noreferrer" title="${esc(label)} — open source">${inner}</a>`
+    : `<span class="gl-tk ${dir}">${inner}</span>`;
 }
 // Markets: rank by the effective move (futures-implied when the market is shut,
 // else the daily %), take the five largest, render as signed % chips.
@@ -692,22 +695,22 @@ function marketTickers(rows) {
     .map((x) => {
       const move = (!isMarketOpen(x) && x.futuresPct != null) ? +Number(x.futuresPct)
         : (x.changePct != null ? +Number(x.changePct) : null);
-      return move == null ? null : { label: x.label, move };
+      return move == null ? null : { label: x.label, move, href: x.href };
     })
     .filter(Boolean)
     .sort((a, b) => Math.abs(b.move) - Math.abs(a.move))
     .slice(0, 5);
-  return scored.map((s) => glTkChip(s.label, glSign(s.move), `${Math.abs(s.move).toFixed(2)}%`)).join("");
+  return scored.map((s) => glTkChip(s.label, glSign(s.move), `${Math.abs(s.move).toFixed(2)}%`, s.href)).join("");
 }
 // Rates & spreads: rank by the move in basis points (both yields and OAS change
 // are decimals of a percentage point, so ×100 → bp), take the five largest.
 function rateTickers(rows) {
   const scored = (rows || [])
     .filter((x) => x.value != null && x.change != null)
-    .map((x) => ({ label: x.label, bp: Math.round(x.change * 100) }))
+    .map((x) => ({ label: x.label, bp: Math.round(x.change * 100), href: x.href }))
     .sort((a, b) => Math.abs(b.bp) - Math.abs(a.bp))
     .slice(0, 5);
-  return scored.map((s) => glTkChip(s.label, glSign(s.bp), `${Math.abs(s.bp)} bp`)).join("");
+  return scored.map((s) => glTkChip(s.label, glSign(s.bp), `${Math.abs(s.bp)} bp`, s.href)).join("");
 }
 // Paint the chip row and reveal the phone toggle only when there are chips.
 function setGlTickers(kind, html) {
