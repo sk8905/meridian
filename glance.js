@@ -736,6 +736,36 @@ function renderMarketsBand(el, d) {
   // Chips pick the top movers from a WIDER pool (the banner 8 + extra global
   // cross-asset instruments), so they aren't limited to the banner tiles.
   setGlTickers("markets", marketTickers([...rows, ...((d.moversExtra) || [])]));
+  renderFxMatrix(d);
+  return true;
+}
+// FX daily matrix — USD/GBP/EUR/JPY cross rates derived from the three USD pairs
+// (EUR/USD, GBP/USD, USD/JPY) that already ride along in the markets feed's extra-
+// movers pool. cell(row,col) = value of 1 unit of the row currency in the column
+// currency. No extra request — it reuses the markets payload.
+const FX_CCY = ["USD", "GBP", "EUR", "JPY"];
+function fxUsdPer(d) {
+  const all = [...(((d && d.markets) || [])), ...(((d && d.moversExtra) || []))];
+  const by = (lbl) => { const m = all.find((x) => x.label === lbl); return m && m.value != null ? +m.value : null; };
+  const g = by("GBP/USD"), e = by("EUR/USD"), j = by("USD/JPY");
+  if (!(g > 0) || !(e > 0) || !(j > 0)) return null;
+  return { USD: 1, GBP: g, EUR: e, JPY: 1 / j };   // USD value of 1 unit of each
+}
+const fmtFx = (v) => (v >= 100 ? v.toFixed(1) : v >= 1 ? v.toFixed(3) : v.toFixed(4));
+function renderFxMatrix(d) {
+  const el = document.getElementById("g-fx");
+  if (!el) return false;
+  const up = fxUsdPer(d) || fxUsdPer(readCache("markets"));
+  if (!up) return false;
+  const head = `<tr><th></th>${FX_CCY.map((c) => `<th>${c}</th>`).join("")}</tr>`;
+  const body = FX_CCY.map((base) => {
+    const cells = FX_CCY.map((q) => base === q
+      ? `<td class="g-fx-diag">—</td>`
+      : `<td>${fmtFx(up[base] / up[q])}</td>`).join("");
+    return `<tr><th>${base}</th>${cells}</tr>`;
+  }).join("");
+  el.innerHTML = `<table class="g-fx-tbl"><thead>${head}</thead><tbody>${body}</tbody></table>`
+    + `<div class="g-fx-note">1 row = value in column currency</div>`;
   return true;
 }
 function initMarkets() {

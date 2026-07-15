@@ -347,9 +347,9 @@
        (so the stacked/mobile view leads with the news); `order` only swaps the
        two-column desktop layout. */
     @media (min-width:901px){ .g-side { order:1; } .g-feed-wrap { order:2; }
-      /* Cap the feed at ~22 rows and scroll inside the box for the rest (up to 50
+      /* Cap the feed at ~25 rows and scroll inside the box for the rest (up to 50
          held). Mobile keeps a natural single-column flow (no nested scroll). */
-      .g-feed { max-height:58rem; overflow-y:auto; overscroll-behavior:contain; } }
+      .g-feed { max-height:65.5rem; overflow-y:auto; overscroll-behavior:contain; } }
     @media (max-width:900px){ .g-layout { grid-template-columns:1fr; gap:1.4rem; } }
     .g-feed-head { font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em;
       color:var(--muted); margin:0 0 .5rem; }
@@ -424,6 +424,18 @@
     .g-ind-chg.up { color:#059669; } .g-ind-chg.down { color:#dc2626; } .g-ind-chg.flat { color:var(--muted); }
     /* In the iPhone dropdown: stack Markets/Rates (panel is narrow) — indicators stay 3-col. */
     .g-mkt-panel .g-mr { grid-template-columns:1fr; }
+    /* FX daily matrix — a compact 4×4 cross-rate grid (USD/GBP/EUR/JPY). */
+    .g-fx-card { background:var(--surface); border:1px solid var(--line); border-radius:14px;
+      box-shadow:var(--shadow); padding:.5rem .55rem; margin-bottom:1.2rem; }
+    .g-fx-tbl { width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums; }
+    .g-fx-tbl th, .g-fx-tbl td { text-align:right; padding:.26rem .3rem; font-size:.72rem; white-space:nowrap; }
+    .g-fx-tbl thead th { color:var(--muted); font-weight:800; font-size:.6rem; text-transform:uppercase; letter-spacing:.03em; border-bottom:1px solid var(--line); }
+    .g-fx-tbl tbody th { text-align:left; color:var(--muted); font-weight:800; font-size:.6rem; text-transform:uppercase; }
+    .g-fx-tbl td { color:var(--ink); font-weight:600; }
+    .g-fx-tbl td.g-fx-diag { color:var(--line); font-weight:400; }
+    .g-fx-tbl th:first-child { width:1.4rem; }
+    .g-fx-tbl tbody tr + tr th, .g-fx-tbl tbody tr + tr td { border-top:1px solid rgba(120,130,150,.12); }
+    .g-fx-note { margin-top:.35rem; font-size:.56rem; color:var(--muted); }
     /* Macro snapshot card — policy rate, cycle & bubble read below the bands. */
     .g-snap { background:var(--surface); border:1px solid var(--line); border-radius:14px;
       box-shadow:var(--shadow); overflow:hidden; }
@@ -731,6 +743,11 @@
           <div id="g-indicators" class="g-ind-card" aria-label="US and UK economic indicators">
             <div class="g-loading">Loading indicators…</div>
           </div>
+          <!-- FX daily matrix — USD / GBP / EUR / JPY cross rates -->
+          <div class="g-rates-head" id="jump-fx">FX matrix</div>
+          <div id="g-fx" class="g-fx-card" aria-label="USD, GBP, EUR and JPY cross rates">
+            <div class="g-loading">Loading FX…</div>
+          </div>
           <!-- Macro read -->
           <div class="g-rates-head" id="jump-macro">Macro read</div>
           <div id="g-macro-snap" class="g-snap" aria-label="Policy rate, cycle and bubble snapshot">
@@ -783,7 +800,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-36").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-37").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of
