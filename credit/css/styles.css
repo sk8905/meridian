@@ -759,6 +759,10 @@ a.compact-mgr:hover { color: var(--primary); text-decoration: underline; }
   border-bottom: 2px solid var(--border);
 }
 .year-group:first-child .year-head { margin-top: .25rem; }
+/* Gentle per-day break between feed rows: drop the preceding row's hairline and
+   let a single faint rule + a little breathing room mark the change of day. */
+.intel-row:has(+ .day-sep) { border-bottom: 0; }
+.day-sep { border-top: 1px solid var(--border); margin: .55rem 0 0; }
 
 /* ---------- deep-link highlight on feed pages ---------- */
 .intel-row.flash { animation: rowflash 2.2s ease-out; }

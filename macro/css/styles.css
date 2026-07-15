@@ -256,6 +256,10 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
 .month-group + .month-group { margin-top: .4rem; }
 .month-head { font-size: .74rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin: 1.1rem 0 .1rem; padding-bottom: .35rem; border-bottom: 2px solid var(--border); }
 .month-group:first-child .month-head { margin-top: .15rem; }
+/* Gentle per-day break between feed rows: drop the preceding row's hairline and
+   let a single faint rule + a little breathing room mark the change of day. */
+.intel-row:has(+ .day-sep) { border-bottom: 0; }
+.day-sep { border-top: 1px solid var(--border); margin: .55rem 0 0; }
 /* Save / unsave button (Credit/Legal style). */
 .save-btn { background: #f1f5f9; border: 1px solid var(--border); color: var(--muted); border-radius: 7px; padding: .2rem .6rem; font-size: .74rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
 .save-btn:hover { background: #e8edf5; color: var(--ink); }

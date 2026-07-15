@@ -42,6 +42,17 @@ function itemDate(it) {
 
 const byDateDesc = (a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0);
 
+// Insert a gentle day-break divider whenever the day changes from the previous
+// item (a subtle visual gap between each day's rows; rows carry their own date).
+function withDayBreaks(items, rowFn) {
+  let prevDay = null;
+  return items.map((x) => {
+    const day = String(x.date || "").slice(0, 10);
+    const sep = prevDay !== null && day !== prevDay ? '<div class="day-sep" aria-hidden="true"></div>' : "";
+    prevDay = day;
+    return sep + rowFn(x);
+  }).join("");
+}
 // Group rows into year sections with a year heading (like Meridian Credit).
 function byYear(list, rowFn) {
   const groups = {};
@@ -71,7 +82,7 @@ function loadMoreBtn(key, remaining) {
 function feedHtml(rows, key, rowFn, sig) {
   pageReset(key, sig);
   const shown = rows.slice(0, pageCount(key));
-  return byYear(shown, rowFn) + loadMoreBtn(key, rows.length - shown.length);
+  return withDayBreaks(shown, rowFn) + loadMoreBtn(key, rows.length - shown.length);
 }
 // "Load more" reveals the next page and re-renders the affected list in place
 // (a local re-render, so the sidebar filters keep their selected state).

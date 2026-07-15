@@ -490,11 +490,13 @@ function loadMoreBtn(key, remaining) {
   if (remaining <= 0) return "";
   return `<div class="load-more-wrap"><button type="button" class="load-more" data-more="${esc(key)}">Load ${Math.min(PAGE, remaining)} more <span class="lm-rem">· ${remaining} remaining</span></button></div>`;
 }
-// Render a year-grouped feed capped to the current page, plus a Load-more button.
+// Render a feed capped to the current page with a gentle per-day break between
+// items, plus a Load-more button. (Rows carry their own date, so the break is a
+// subtle divider rather than a heading.)
 function feedHtml(rows, key, rowFn, sig) {
   pageReset(key, sig);
   const shown = rows.slice(0, pageCount(key));
-  return byYear(shown, rowFn) + loadMoreBtn(key, rows.length - shown.length);
+  return withDayBreaks(shown, rowFn) + loadMoreBtn(key, rows.length - shown.length);
 }
 // Cap a flat list/table to the current page; returns { shown, more } so the
 // caller can render its own rows and drop the Load-more button after them.

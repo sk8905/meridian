@@ -435,7 +435,7 @@ function commentaryPanelHtml() {
   const items = sortedArticles();
   if (!items.length) return `<p class="muted small">The reading list is temporarily unavailable.</p>`;
   const shown = Math.min(commentaryLimit, items.length);
-  const rows = byMonth(items.slice(0, shown));
+  const rows = withDayBreaks(items.slice(0, shown), commentaryRow);
   const remaining = items.length - shown;
   const foot = remaining > 0
     ? `<div class="comm-foot"><button type="button" id="comm-more" class="load-more-btn">Show ${Math.min(COMMENTARY_PAGE, remaining)} more · ${remaining} remaining</button></div>`
@@ -468,7 +468,7 @@ function viewSaved() {
   const saved = getSavedM();
   const items = sortedArticles().filter((n) => saved.has(articleSaveId(n)));
   const body = items.length
-    ? byMonth(items)
+    ? withDayBreaks(items, commentaryRow)
     : `<p class="muted">You haven't saved anything yet. On the <a href="#/commentary">Commentary</a> tab, click the ☆ Save button on any article to add it here${savedMCloud ? " — your saved list syncs across your devices" : ""}.</p>`;
   return `
     <div class="page-head">
