@@ -315,8 +315,8 @@ function renderMacroSnapshot() {
   // and stance columns line up even though the two rates differ in width.
   // Two-part read of the stance: the one-word forecast for the next decision
   // (the action before the "·", e.g. "Hold") plus the trending mood keyword
-  // (hawkish / dovish / neutral) pulled from the rest as a colour-coded tag.
-  // The full stance ("Hold · hawkish bias easing") stays in the hover tooltip.
+  // (hawkish / dovish / neutral) pulled from the rest. The full detail lives on
+  // the linked Macro › Policy Rate page (the whole block is a link to it).
   const MOOD = { hawkish: "hawk", dovish: "dove", neutral: "neut" };
   const pol = (cc, o) => {
     const s = String(o.stance || "");
@@ -330,7 +330,7 @@ function renderMacroSnapshot() {
       : "";
     return `<span class="g-snap-cc">${cc}</span>`
       + `<span class="g-snap-pv">${esc(o.rate)}</span>`
-      + `<span class="g-snap-ps" title="${esc(s)}"><span class="g-snap-fc">${esc(fc)}</span>${tag}</span>`;
+      + `<span class="g-snap-ps"><span class="g-snap-fc">${esc(fc)}</span>${tag}</span>`;
   };
   const scale = (lo, hi) => `<div class="g-snap-scale"><span>${lo}</span><span>${hi}</span></div>`;
   el.innerHTML =
