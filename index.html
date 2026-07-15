@@ -329,7 +329,10 @@
     /* Data sidebar on the left, news feed on the right. DOM order stays feed-first
        (so the stacked/mobile view leads with the news); `order` only swaps the
        two-column desktop layout. */
-    @media (min-width:901px){ .g-side { order:1; } .g-feed-wrap { order:2; } }
+    @media (min-width:901px){ .g-side { order:1; } .g-feed-wrap { order:2; }
+      /* Cap the feed at ~22 rows and scroll inside the box for the rest (up to 50
+         held). Mobile keeps a natural single-column flow (no nested scroll). */
+      .g-feed { max-height:58rem; overflow-y:auto; overscroll-behavior:contain; } }
     @media (max-width:900px){ .g-layout { grid-template-columns:1fr; gap:1.4rem; } }
     .g-feed-head { font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em;
       color:var(--muted); margin:0 0 .5rem; }
@@ -768,7 +771,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-34").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-35").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

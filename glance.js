@@ -268,9 +268,10 @@ function renderFeed() {
   for (let i = 0; lists.some((l) => i < l.length); i++) lists.forEach((l) => {
     if (i < l.length) { const k = norm(l[i].title); if (!seen.has(k)) { seen.add(k); feed.push(l[i]); } }
   });
-  // Show up to ~25 stories: if today alone has fewer, backfill with the most recent
-  // items from earlier days (newest-first, deduped) so the feed stays substantial.
-  const CAP = 25;
+  // Hold up to 50 stories: if today alone has fewer, backfill with the most recent
+  // items from earlier days (newest-first, deduped). The box shows ~22 at a time
+  // and scrolls internally for the rest (see .g-feed max-height in index.html).
+  const CAP = 50;
   if (feed.length < CAP) {
     for (const x of all.filter((x) => day(x) !== target).sort(byDateDesc)) {
       if (feed.length >= CAP) break;
