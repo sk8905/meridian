@@ -84,7 +84,7 @@ img, svg { max-width: 100%; }
 }
 .brand { display: flex; align-items: center; gap: .6rem; flex: 0 0 auto; text-decoration: none; color: #fff; }
 .brand:hover { text-decoration: none; }
-.logo { color: var(--brand-logo); font-size: 1.3rem; line-height: 1; }
+.logo { color: #fff; font-size: 1.3rem; line-height: 1; }
 .brand-text { display: flex; flex-direction: column; }
 .brand-text strong { font-size: 1.05rem; letter-spacing: .3px; }
 .brand-sub { font-size: .7rem; color: #6fbdae; text-transform: uppercase; letter-spacing: 1px; }

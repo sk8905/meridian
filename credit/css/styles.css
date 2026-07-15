@@ -69,7 +69,7 @@ h1, h2, h3, .kpi-label { text-wrap: balance; }
 .brand-text { display: flex; flex-direction: column; }
 .brand-text strong { font-size: 1.05rem; letter-spacing: .3px; }
 .brand-sub { font-size: .7rem; color: #aab4c2; text-transform: uppercase; letter-spacing: 1px; }
-.logo { color: var(--brand-logo); font-size: 1.3rem; line-height: 1; }
+.logo { color: #fff; font-size: 1.3rem; line-height: 1; }
 .mainnav { display: flex; gap: .25rem; flex: 0 1 auto; justify-content: flex-start;
   min-width: 0; overflow-x: auto; scrollbar-width: none; }
 .mainnav::-webkit-scrollbar { display: none; }

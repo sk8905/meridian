@@ -427,17 +427,17 @@
     /* FX daily matrix — a compact 4×4 cross-rate grid (USD/GBP/EUR/JPY). */
     .g-fx-card { background:var(--surface); border:1px solid var(--line); border-radius:14px;
       box-shadow:var(--shadow); padding:.5rem .55rem; margin-bottom:1.2rem; }
-    .g-fx-tbl { width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums; }
-    .g-fx-tbl th, .g-fx-tbl td { text-align:right; padding:.26rem .3rem; font-size:.72rem; white-space:nowrap; }
-    .g-fx-tbl thead th { color:var(--muted); font-weight:800; font-size:.6rem; text-transform:uppercase; letter-spacing:.03em; border-bottom:1px solid var(--line); }
-    .g-fx-tbl tbody th { text-align:left; color:var(--muted); font-weight:800; font-size:.6rem; text-transform:uppercase; }
-    .g-fx-tbl td { color:var(--ink); font-weight:600; }
-    .g-fx-tbl td.g-fx-diag { color:var(--line); font-weight:400; }
-    .g-fx-tbl th:first-child { width:1.4rem; }
-    .g-fx-tbl tbody tr + tr th, .g-fx-tbl tbody tr + tr td { border-top:1px solid rgba(120,130,150,.12); }
-    .g-fx-tbl td { border-radius:3px; }
+    /* Each rate is its own bordered tile (like the economic-indicator boxes),
+       separated by a small gap; row/column labels stay plain. */
+    .g-fx-tbl { width:100%; border-collapse:separate; border-spacing:5px; font-variant-numeric:tabular-nums; }
+    .g-fx-tbl th, .g-fx-tbl td { text-align:right; padding:.28rem .36rem; font-size:.63rem; white-space:nowrap; }
+    .g-fx-tbl thead th { color:var(--muted); font-weight:800; font-size:.58rem; text-transform:uppercase; letter-spacing:.03em; }
+    .g-fx-tbl tbody th { text-align:left; color:var(--muted); font-weight:800; font-size:.58rem; text-transform:uppercase; }
+    .g-fx-tbl td { color:var(--ink); font-weight:600; border:1px solid var(--line); border-radius:7px; }
+    .g-fx-tbl td.g-fx-diag { color:var(--line); font-weight:400; border-color:transparent; }
+    .g-fx-tbl th:first-child { width:1.3rem; }
     .g-fx-tbl td a { color:inherit; text-decoration:none; display:block; }
-    .g-fx-tbl td a:hover { color:var(--brand-2); text-decoration:underline; }
+    .g-fx-tbl td a:hover { color:var(--brand-2); }
     /* Macro snapshot card — policy rate, cycle & bubble read below the bands. */
     .g-snap { background:var(--surface); border:1px solid var(--line); border-radius:14px;
       box-shadow:var(--shadow); overflow:hidden; }
