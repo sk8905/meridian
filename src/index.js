@@ -1135,7 +1135,9 @@ const FEED_SOURCES = [
   { url: "https://www.economist.com/finance-and-economics/rss.xml", source: "The Economist", region: "GEN", cap: 8 },
   { url: "https://www.bankofengland.co.uk/rss/news", source: "Bank of England", region: "UK", cap: 6 },
   // Global FX / rates / Asia — kept for overnight coverage but capped low.
-  { url: "https://finance.yahoo.com/news/rssindex", source: "Yahoo Finance", region: "US", cap: 3 },
+  // Yahoo Finance removed: its RSS is dominated by sensational single-company
+  // clickbait ("Uber blew its entire AI budget …") that has no reliable title
+  // signature to filter on without dropping legitimate macro headlines.
   { url: "https://www.investing.com/rss/news_25.rss", source: "Investing.com", region: "GEN", cap: 3 },
   { url: "https://www.fxstreet.com/rss/news", source: "FXStreet", region: "GEN", cap: 3 },
   { url: "https://www.forexlive.com/feed/news/", source: "ForexLive", region: "GEN", cap: 3 },
@@ -1300,7 +1302,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=9", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=10", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {
