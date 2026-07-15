@@ -20,6 +20,7 @@ export const META = {
 export const OUTLOOK = {
   us: {
     rate: "3.50–3.75%",
+    next: "29 Jul",
     stance: "Hold · hawkish bias easing",
     body: [
       "The FOMC held its target range at <strong>3.50–3.75%</strong> on 17 June 2026 — a fourth consecutive hold (12–0), and the first meeting chaired by Kevin Warsh. The June dot plot lifted the median year-end-2026 dot to roughly <strong>3.8%</strong> (from 3.4% in March), with nine of nineteen participants now pencilling in at least one further <em>hike</em> — a hawkish pivot from the earlier easing bias.",
@@ -34,6 +35,7 @@ export const OUTLOOK = {
   },
   uk: {
     rate: "3.75%",
+    next: "30 Jul",
     stance: "Hold · hawkish dissents",
     body: [
       "The MPC held <strong>Bank Rate at 3.75%</strong> on 17–18 June 2026 by a 7–2 majority, with Megan Greene and Huw Pill dissenting for a 25bp <em>hike</em> to 4.00% — more hawkish than April's 8–1 hold. The Bank cited sticky services inflation and a fresh energy-price shock.",

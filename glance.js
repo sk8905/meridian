@@ -11,7 +11,7 @@
 // cache with the four-times-daily data refresh instead of serving a stale copy.
 import { deals, intel, managers, funds, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260714-2";
 import { items, cases, restructurings, firmById } from "/legal/js/data.js?v=20260714-2";
-import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js?v=20260714-2";
+import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js?v=20260714-3";
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const byDateDesc = (a, b) => String(b.date || "").localeCompare(String(a.date || ""));
@@ -330,6 +330,7 @@ function renderMacroSnapshot() {
       : "";
     return `<span class="g-snap-cc">${cc}</span>`
       + `<span class="g-snap-pv">${esc(o.rate)}</span>`
+      + `<span class="g-snap-nx">${esc(o.next || "")}</span>`
       + `<span class="g-snap-ps"><span class="g-snap-fc">${esc(fc)}</span>${tag}</span>`;
   };
   // Meter row: the scale end-labels sit inline either side of the gauge; the
@@ -339,8 +340,13 @@ function renderMacroSnapshot() {
       + `<span class="g-snap-end">${lo}</span>${gauge}<span class="g-snap-end">${hi}</span></div>`;
   el.innerHTML =
     `<a class="g-snap-blk" href="/macro/#/policy">`
-      + `<div class="g-snap-h"><span class="g-snap-t">Policy rate</span><span class="g-snap-cap">Next 28–30 Jul</span></div>`
-      + `<div class="g-snap-pol">` + pol("US", OUTLOOK.us) + pol("UK", OUTLOOK.uk) + `</div>`
+      + `<div class="g-snap-h"><span class="g-snap-t">Policy rate</span></div>`
+      + `<div class="g-snap-pol">`
+        + `<span></span><span></span>`
+        + `<span class="g-snap-colh">Next</span>`
+        + `<span class="g-snap-colh g-snap-colh-r">Forecast</span>`
+        + pol("US", OUTLOOK.us) + pol("UK", OUTLOOK.uk)
+      + `</div>`
     + `</a>`
     + `<a class="g-snap-blk" href="/macro/#/cycle">`
       + `<div class="g-snap-h"><span class="g-snap-t">Cycle position</span><span class="g-snap-cap">${esc(shortStage(CYCLE.us.shortStage))}</span></div>`
