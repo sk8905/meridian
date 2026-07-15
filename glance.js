@@ -377,12 +377,12 @@ function snapGauge(items) {
   const X = (p) => (x0 + Math.max(0, Math.min(100, p)) / 100 * (x1 - x0)).toFixed(1);
   const dots = items.map((it) => {
     const x = X(it.pos);
-    return `<line x1="${x}" y1="0.6" x2="${x}" y2="7.4" stroke="var(--macro)" stroke-width="1.1"/>`
-      + `<circle cx="${x}" cy="4" r="2.3" fill="var(--macro)" stroke="var(--surface)" stroke-width="1"><title>${esc(it.label)} · ${it.pos}</title></circle>`;
+    return `<line x1="${x}" y1="2" x2="${x}" y2="6" stroke="var(--macro)" stroke-width="0.7"/>`
+      + `<circle cx="${x}" cy="4" r="1.6" fill="var(--macro)" stroke="var(--surface)" stroke-width="0.7"><title>${esc(it.label)} · ${it.pos}</title></circle>`;
   }).join("");
   return `<svg class="g-snap-gauge" viewBox="0 0 100 8" role="img" aria-hidden="true">`
     + `<defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="var(--gauge-lo, #d7e3f4)"/><stop offset="1" stop-color="var(--macro)"/></linearGradient></defs>`
-    + `<rect x="${x0}" y="3" width="${x1 - x0}" height="2" rx="1" fill="url(#${id})"/>${dots}</svg>`;
+    + `<rect x="${x0}" y="3.45" width="${x1 - x0}" height="1.1" rx="0.55" fill="url(#${id})"/>${dots}</svg>`;
 }
 function renderMacroSnapshot() {
   const el = document.getElementById("g-macro-snap");
