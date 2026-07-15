@@ -444,6 +444,11 @@
        the same (0,3,0) specificity as the sidebar's so they win by source order —
        this only ever matches when .g-side has been moved into the panel on phones). */
     .g-mkt-panel .rates-band { grid-template-columns:repeat(4, 1fr); padding:.25rem .2rem; }
+    /* In the 4-col phone panel the tiles are too narrow to keep the daily change
+       and the implied-open bracket on one line without stretching those columns.
+       Let the bracket drop below so every column stays the same width. */
+    .g-mkt-panel .rate-chg-line { flex-wrap:wrap; white-space:normal; gap:.05rem .25rem; }
+    .g-mkt-panel .mkt-fut { font-size:.6rem; }
     .g-mkt-panel .rate-tile { padding:.4rem .38rem; }
     .g-mkt-panel .rate-tile:nth-child(n+1) { border-left:1px solid var(--line); border-top:0; }
     .g-mkt-panel .rate-tile:nth-child(4n+1) { border-left:0; }
