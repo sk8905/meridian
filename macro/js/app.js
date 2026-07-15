@@ -478,6 +478,47 @@ function viewSaved() {
     <section class="card macro-articles-panel">${body}</section>`;
 }
 
+// US market-implied policy path: CME FedWatch odds for the next FOMC decision +
+// the FOMC dot-plot median. Two compact cards (2-col desktop, stacked on iPhone),
+// each linking out to the primary source.
+function policyMarkets(o) {
+  if (!o || (!o.fedwatch && !o.dots)) return "";
+  const fw = o.fedwatch, dp = o.dots;
+  const clamp = (n) => Math.max(0, Math.min(100, Number(n) || 0));
+  const fwCard = fw ? `
+    <section class="card macro-note pw-card">
+      <div class="pw-head">
+        <h2 class="macro-country">CME FedWatch</h2>
+        <a class="pw-src" href="${esc(fw.href)}" target="_blank" rel="noopener noreferrer">CME tool ↗</a>
+      </div>
+      <p class="macro-note-sub">Market-implied odds for the <strong>${esc(fw.meeting)}</strong> FOMC · as of ${esc(fw.asOf)}</p>
+      <div class="pw-bars">
+        ${fw.outcomes.map((x) => `
+          <div class="pw-row">
+            <span class="pw-lbl">${esc(x.label)}</span>
+            <span class="pw-pct">${esc(String(x.pct))}%</span>
+            <span class="pw-track"><span class="pw-fill" style="width:${clamp(x.pct)}%"></span></span>
+          </div>`).join("")}
+      </div>
+      <p class="muted small pw-note">${esc(fw.note)}</p>
+    </section>` : "";
+  const dpCard = dp ? `
+    <section class="card macro-note pw-card">
+      <div class="pw-head">
+        <h2 class="macro-country">Fed dot plot</h2>
+        <a class="pw-src" href="${esc(dp.href)}" target="_blank" rel="noopener noreferrer">FOMC projections ↗</a>
+      </div>
+      <p class="macro-note-sub"><strong>${esc(dp.meeting)}</strong> — median federal-funds projection</p>
+      <table class="pw-dots"><tbody>
+        ${dp.median.map((x) => `<tr><th scope="row">${esc(x.year)}</th><td>${esc(x.rate)}</td></tr>`).join("")}
+      </tbody></table>
+      <p class="muted small pw-note">${esc(dp.note)}</p>
+    </section>` : "";
+  return `
+    <h2 class="macro-subhead">United States — market-implied path &amp; Fed projections</h2>
+    <div class="macro-cols macro-policy-mkts">${fwCard}${dpCard}</div>`;
+}
+
 // Policy Rate tab — compiled Fed & BoE policy-rate outlook plus an analyst feed.
 function viewPolicy() {
   const country = (name, o) => `
@@ -492,6 +533,7 @@ function viewPolicy() {
       <h1>Policy rate — Fed &amp; Bank of England outlook</h1>
       <p class="muted">Compiled analyst and market views on whether the US Federal Reserve and Bank of England are likely to change their policy rates. As of ${esc(UPDATED)}. Educational only — not investment advice; market pricing shifts daily.</p>
     </div>
+    ${policyMarkets(OUTLOOK.us)}
     <div class="macro-cols">
       ${country("United States", OUTLOOK.us)}
       ${country("United Kingdom", OUTLOOK.uk)}

@@ -289,6 +289,29 @@ a.intel-head:hover { color: var(--macro); text-decoration: underline; }
 .macro-para:last-child { margin-bottom: 0; }
 .macro-para em { color: var(--muted); }
 .macro-bottomline { margin: auto 0 0; padding: .7rem .9rem; border-radius: 10px; background: #f3f1fa; border: 1px solid rgba(43,74,124,.3); color: var(--ink); line-height: 1.55; }
+
+/* ---- Policy: CME FedWatch odds + Fed dot-plot cards ---------------------- */
+.macro-subhead { font-size: 1rem; font-weight: 700; color: var(--ink); margin: 1.6rem 0 .75rem; }
+.macro-policy-mkts { align-items: start; }
+.pw-card { gap: 0; }
+.pw-head { display: flex; align-items: baseline; justify-content: space-between; gap: .6rem; }
+.pw-head .macro-country { margin: 0 0 .55rem; }
+.pw-src { flex: 0 0 auto; font-size: .74rem; font-weight: 700; color: var(--macro); text-decoration: none; white-space: nowrap; }
+.pw-src:hover { text-decoration: underline; }
+/* FedWatch outcome rows: label + % on one line, a track bar spanning below. */
+.pw-bars { display: flex; flex-direction: column; gap: .7rem; margin: .1rem 0 .9rem; }
+.pw-row { display: grid; grid-template-columns: 1fr auto; column-gap: .6rem; align-items: baseline; }
+.pw-lbl { font-size: .85rem; font-weight: 600; color: var(--ink); }
+.pw-pct { text-align: right; font-weight: 800; font-size: .95rem; color: var(--ink); font-variant-numeric: tabular-nums; }
+.pw-track { grid-column: 1 / -1; margin-top: .3rem; height: .5rem; background: var(--border); border-radius: 999px; overflow: hidden; }
+.pw-fill { display: block; height: 100%; background: var(--macro); border-radius: 999px; }
+/* Dot-plot median table. */
+.pw-dots { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; margin: .1rem 0 .3rem; }
+.pw-dots th, .pw-dots td { padding: .34rem .1rem; border-bottom: 1px solid var(--border); font-size: .9rem; }
+.pw-dots th { text-align: left; color: var(--muted); font-weight: 600; }
+.pw-dots td { text-align: right; font-weight: 800; color: var(--ink); }
+.pw-dots tr:last-child th, .pw-dots tr:last-child td { border-bottom: 0; }
+.pw-note { margin: .7rem 0 0; line-height: 1.5; }
 /* Cycle: gauge and framework text side by side, filling the card. */
 /* Gauge card header: heading on the left, the 0–100 gauge inline at the top-right
    of the box (same row as the heading). ALL narrative text (.macro-framework)

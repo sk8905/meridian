@@ -34,6 +34,29 @@ export const OUTLOOK = {
       "Warsh's Senate Banking Committee appearance on 15 July repeated his non-committal message — he again said the Fed has 'no tolerance' for elevated inflation and cautioned against reading the cooler CPI/PPI prints as 'mission accomplished' — while facing a sharp ethics clash with Sen. Elizabeth Warren, who said he 'seems to invite corruption'; Warsh confirmed he is in regular contact with the Trump administration but declined to say if he has personally spoken with the President since becoming chair. CME FedWatch odds of a 29 July hike fell further intraday to roughly <strong>10–13%</strong>, even as traders continue to price a real chance of a September move. Economist reaction was split: Mohamed El-Erian called the testimony 'a real breath of fresh air', while Peter Schiff criticised the Fed's inflation framework.",
     ],
     bottomLine: "The 29 July hike risk has eased further intraday to roughly 10-13% (CME FedWatch), down from ~17% after June PPI and a peak near 46.5% a week ago, as Warsh's second day of testimony again offered no fresh signal — though traders still price meaningful September-hike odds given the still-live Iran/oil shock, keeping the meeting a live, if now more lopsided, two-way risk.",
+    // Market-implied odds for the next FOMC decision (CME FedWatch) and the FOMC's
+    // June 2026 Summary of Economic Projections "dot plot" median path.
+    fedwatch: {
+      meeting: "29 Jul 2026",
+      asOf: "15 Jul 2026",
+      href: "https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html",
+      outcomes: [
+        { label: "Hold — 3.50–3.75%", pct: 88 },
+        { label: "Hike +25bp — 3.75–4.00%", pct: 12 },
+      ],
+      note: "Implied from 30-Day Fed Funds futures. Down from a ~46.5% hike peak on 13 Jul after June CPI and PPI cooled and Warsh's testimony offered no fresh signal; traders still price ~59% odds of a hike by the September meeting.",
+    },
+    dots: {
+      meeting: "June 2026 SEP",
+      href: "https://www.federalreserve.gov/monetarypolicy/fomc_projections.htm",
+      median: [
+        { year: "2026", rate: "3.8%" },
+        { year: "2027", rate: "3.6%" },
+        { year: "2028", rate: "3.4%" },
+        { year: "Longer run", rate: "3.0%" },
+      ],
+      note: "Median federal-funds projection of the 19 FOMC participants. The year-end-2026 median rose to 3.8% (from 3.4% in March), with 9 of 19 pencilling in at least one further hike.",
+    },
   },
   uk: {
     rate: "3.75%",
