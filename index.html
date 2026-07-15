@@ -473,6 +473,10 @@
     .g-snap-meter { display:flex; align-items:center; gap:.5rem; margin:.1rem 0 0; }
     .g-snap-end { flex:0 0 auto; font-size:.62rem; color:var(--muted); white-space:nowrap; }
     .g-snap-gauge { flex:1 1 auto; min-width:0; width:auto; height:auto; overflow:visible; }
+    /* Soften the gauge track + dots to a muted lavender (the full-strength --macro
+       purple reads as harsh here); scoped so desk tags etc. keep the stronger tone. */
+    #g-macro-snap { --macro:#9c92c4; }
+    :root[data-theme="dark"] #g-macro-snap { --macro:#a99fd0; }
     a.g-snap-blk:hover .g-snap-cap { color:var(--brand-2); }
     /* iPhone: the markets + key-rates bands are one tap away behind a chart button
        in the top bar (between the theme toggle and the bell). On phones the whole

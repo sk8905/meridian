@@ -1127,7 +1127,7 @@ const FEED_SOURCES = [
   { url: "https://www.cnbc.com/id/20910258/device/rss/rss.html", source: "CNBC", region: "US", cap: 10 }, // Economy
   { url: "https://www.cnbc.com/id/20409666/device/rss/rss.html", source: "CNBC", region: "US", cap: 8 },  // Markets
   { url: "https://www.cnbc.com/id/10000664/device/rss/rss.html", source: "CNBC", region: "US", cap: 6 },  // Finance
-  { url: "https://feeds.content.dowjones.io/public/rss/mw_topstories", source: "MarketWatch", region: "US", cap: 8 },
+  { url: "https://feeds.content.dowjones.io/public/rss/mw_topstories", source: "MarketWatch", region: "US", cap: 5, core: true },
   { url: "https://www.federalreserve.gov/feeds/press_monetary.xml", source: "Federal Reserve", region: "US", cap: 6, filter: false },
   // Financial specialists — UK / Europe
   { url: "https://www.ft.com/markets?format=rss", source: "Financial Times", region: "UK", cap: 10 },
@@ -1164,6 +1164,17 @@ const FEED_MACRO_RE = new RegExp([
   // "share rally" notes out.
   // major earnings
   "earnings|profit warning|results beat|results miss",
+].join("|"), "i");
+// A TIGHTER filter for sources whose general desk skews click-baity (MarketWatch):
+// only central-bank policy and top-tier economic data get through — no market
+// chatter, single stocks, FX crosses or earnings.
+const FEED_CORE_MACRO_RE = new RegExp([
+  "fed(eral reserve)?\\b", "\\bfomc\\b", "powell", "warsh", "waller", "\\bboe\\b", "bank of england", "bailey",
+  "\\bmpc\\b", "\\becb\\b", "lagarde", "central bank", "monetary policy", "rate (decision|hike|cut|rise|hold|path|bets)",
+  "interest rate", "policy rate", "bank rate", "rate-setter",
+  "inflation", "deflation", "\\bcpi\\b", "\\bppi\\b", "\\bpce\\b", "\\bgdp\\b", "recession", "unemploy", "jobless",
+  "payroll", "nonfarm", "jobs report", "labou?r market", "wage", "retail sales", "\\bpmi\\b",
+  "consumer (confidence|sentiment|spending)", "trade (balance|deficit|war)", "budget|fiscal|deficit", "tariff",
 ].join("|"), "i");
 // Reject even when a macro term matched: single-stock broker rating notes (not
 // macro), and FX stories led by a minor currency (we only want USD/GBP/EUR/JPY —
@@ -1251,7 +1262,9 @@ async function handleFeed(request, env, ctx) {
         const r = await fetch(f.url, { headers: fetchHeaders(f.url), cf: { cacheTtl: 0 } });
         const txt = r.ok ? await r.text() : "";
         const parsed = txt ? feedParse(txt, f).filter((x) => !feedReject(x.title)) : [];
-        const kept = (f.filter === false) ? parsed : parsed.filter((x) => FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title));
+        const kept = (f.filter === false) ? parsed
+          : f.core ? parsed.filter((x) => FEED_CORE_MACRO_RE.test(x.title))
+          : parsed.filter((x) => FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title));
         return { source: f.source, url: f.url, status: r.status, parsed: parsed.length, kept: kept.length };
       } catch (e) { return { source: f.source, url: f.url, error: String((e && e.message) || e) }; }
     }));
@@ -1260,14 +1273,18 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=6", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=7", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {
     const txt = await feedFetch(f.url);
     if (!txt) return [];
     let items = feedParse(txt, f).filter((x) => !feedReject(x.title));
-    if (f.filter !== false) items = items.filter((x) => FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title));
+    if (f.filter !== false) {
+      items = f.core
+        ? items.filter((x) => FEED_CORE_MACRO_RE.test(x.title))
+        : items.filter((x) => FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title));
+    }
     return items.slice(0, f.cap || 8);
   }));
   let all = [];
