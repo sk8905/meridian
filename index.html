@@ -374,14 +374,17 @@
     .g-side .rate-label { font-size:.62rem; }
     .g-side .rate-val { font-size:.86rem; }
     .g-side .rate-chg { font-size:.66rem; }
-    .g-side .rate-src { margin-top:.18rem; font-size:.64rem; }
+    /* Keep the daily change + implied-open bracket on one line so every markets
+       tile is the same height as the (bracket-free) rates tiles and they align. */
+    .g-side .rate-chg-line { flex-wrap:nowrap; white-space:nowrap; gap:.25rem; }
+    .g-side .mkt-fut { font-size:.6rem; }
     .g-side .rate-tile:nth-child(even) { border-left:1px solid var(--line); }
     .g-side .rate-tile:nth-child(n+3) { border-top:1px solid var(--line); }
     /* Economic indicators — US then UK, each a 3-col × 2-row grid of compact tiles. */
     .g-ind-card { background:var(--surface); border:1px solid var(--line); border-radius:14px;
       box-shadow:var(--shadow); padding:.6rem .65rem; margin-bottom:1.2rem; }
     .g-ind-country { font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em;
-      color:var(--brand-2); border-bottom:2px solid var(--line); padding-bottom:.2rem; margin:.1rem 0 .45rem; }
+      color:var(--brand-2); margin:.1rem 0 .45rem; }
     .g-ind-grid + .g-ind-country { margin-top:.7rem; }
     .g-ind-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:.4rem; }
     .g-ind { display:flex; flex-direction:column; gap:.05rem; padding:.35rem .4rem; border:1px solid var(--line); border-radius:8px; min-width:0; color:inherit; }
@@ -736,7 +739,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-26").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-27").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

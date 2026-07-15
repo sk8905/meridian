@@ -420,8 +420,7 @@ function writeCache(key, d) { try { localStorage.setItem("m_glance_" + key, JSON
 function renderRates(el, d) {
   const rowsData = (d && d.rates) || [];
   if (!rowsData.length) return false;
-  el.innerHTML = rowsData.map(ratesTile).join("") +
-    '<a class="rate-src" href="https://fred.stlouisfed.org/" target="_blank" rel="noopener noreferrer">Source: FRED · ECB · NY Fed · US Treasury</a>';
+  el.innerHTML = rowsData.map(ratesTile).join("");
   setGlance("gl-rates", _pulse.rates ? esc(_pulse.rates) : ratesOneLiner(rowsData));
   setGlTickers("rates", rateTickers(rowsData));
   return true;
@@ -661,8 +660,7 @@ function marketTile(x) {
 function renderMarketsBand(el, d) {
   const rows = (d && d.markets) || [];
   if (!rows.length) return false;
-  el.innerHTML = rows.map(marketTile).join("") +
-    '<a class="rate-src" href="https://finance.yahoo.com/" target="_blank" rel="noopener noreferrer">Source: Yahoo Finance · FRED</a>';
+  el.innerHTML = rows.map(marketTile).join("");
   setGlance("gl-markets", _pulse.markets ? esc(_pulse.markets) : marketsOneLiner(rows));
   // Chips pick the top movers from a WIDER pool (the banner 8 + extra global
   // cross-asset instruments), so they aren't limited to the banner tiles.
