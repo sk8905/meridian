@@ -94,7 +94,7 @@ const STYLE = `
 .mcmdk-row{display:flex;align-items:center;gap:.7rem;padding:.55rem .7rem;border-radius:9px;cursor:pointer}
 .mcmdk-row.sel,.mcmdk-row:hover{background:#eef2fb}
 .mcmdk-tag{flex:0 0 auto;font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.02em;color:#fff;padding:.12rem .3rem;border-radius:5px;width:5.4rem;text-align:center;white-space:nowrap}
-.mcmdk-tag.credit{background:#2563eb}.mcmdk-tag.legal{background:#0d9488}.mcmdk-tag.macro{background:#6d5fae}.mcmdk-tag.view{background:#64748b}
+.mcmdk-tag.credit{background:#0b1f44}.mcmdk-tag.legal{background:#0d9488}.mcmdk-tag.macro{background:#6d5fae}.mcmdk-tag.view{background:#64748b}
 .mcmdk-txt{min-width:0}
 .mcmdk-t{display:block;font-weight:600;font-size:.9rem;color:#131a2b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .mcmdk-s{display:block;color:#66708a;font-size:.75rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
