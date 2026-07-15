@@ -133,6 +133,14 @@
     .g-np-m { display:block; color:var(--muted); font-size:.72rem; margin-top:.1rem; }
     .g-np-empty { color:var(--muted); font-size:.82rem; padding:.8rem .55rem; text-align:center; }
 
+    /* Backdrop for the mobile markets / notifications menus: a full-viewport catcher
+       (above the feed + tab bar, below the top bar which is raised while a menu is
+       open) so the tap that dismisses a menu can't also activate a link or tab
+       behind it. Created & shown only on phones by glance.js. */
+    .g-scrim { position:fixed; inset:0; z-index:58; background:rgba(8,20,60,.12); -webkit-tap-highlight-color:transparent; }
+    .g-scrim[hidden] { display:none; }
+    body.g-menu-open .g-top { z-index:80; }
+
     /* ---- Mobile bottom tab bar (Macro / Credit / Legal / Search) — phones only. ---- */
     .mobile-tabbar {
       display:none; position:fixed; left:.6rem; right:.6rem; z-index:45;
@@ -187,7 +195,6 @@
         grid-template-areas:
           "brand  bell"
           "switch idblock"
-          "jump   jump"
           "search search";
       }
       .g-jump { grid-area:jump; justify-self:stretch; overflow-x:auto; scrollbar-width:none; padding-bottom:2px; }
@@ -214,7 +221,7 @@
          links scroll on their own full-width row below — mirroring the app top
          bars' view-nav so the Glance bar matches them in height on phones too. */
       .g-top-inner { grid-template-columns:auto 1fr auto;
-        grid-template-areas:"brand idblock bell" "jump jump jump"; }
+        grid-template-areas:"brand idblock bell"; }
       .platform-switch, .g-search-btn { display:none; }
       .g-logo { font-size:1.55rem; }
       .g-brand-text strong { font-size:1.05rem; }
@@ -258,6 +265,8 @@
        spreads) in a fixed-width column, so the two one-liners start at the same
        x and align. The heading is hidden on narrower screens to save space. */
     .g-gl { display:flex; align-items:baseline; column-gap:1rem; margin:0; font-size:.85rem; line-height:1.4; color:var(--ink); }
+    /* The whole one-liner is clickable to expand/collapse its tickers (when it has any). */
+    .g-gl-block:has(.gl-tk-toggle:not([hidden])) .g-gl { cursor:pointer; }
     .g-gl-l { flex:0 0 7.5rem; font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); white-space:nowrap; }
     .g-gl-v { flex:1 1 auto; min-width:0; }
     .g-gl-v .up { color:#0a7d3c; font-weight:600; } .g-gl-v .down { color:#c02626; font-weight:600; }
@@ -641,16 +650,11 @@
           <span class="g-brand-text"><strong>Meridian</strong><span class="sub">Home</span></span>
         </a>
         <div class="platform-switch" role="group" aria-label="Switch platform">
+          <a href="/" class="ps-btn is-active" aria-current="page">Home</a>
           <a href="/macro/" class="ps-btn">Macro</a>
           <a href="/credit/" class="ps-btn">Credit</a>
           <a href="/legal/" class="ps-btn">Legal</a>
         </div>
-        <nav class="g-jump" id="g-jump" aria-label="Jump to section">
-          <a href="#jump-top" class="g-jump-link g-jump-primary" data-jump="jump-top">Dashboard</a>
-          <a href="#jump-feed" class="g-jump-link g-jump-primary" data-jump="jump-feed">News</a>
-          <a href="#jump-markets" class="g-jump-link g-jump-primary" data-jump="jump-markets">Markets</a>
-          <a href="#jump-rates" class="g-jump-link g-jump-primary" data-jump="jump-rates">Rates</a>
-        </nav>
         <button class="g-search-btn" id="open-cmdk" type="button" aria-label="Open search">
           <span class="g-search-lbl">Search everything…</span>
           <kbd>/</kbd>
@@ -774,7 +778,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-35").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-36").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

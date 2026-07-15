@@ -99,14 +99,42 @@ function initGlanceTickerToggle() {
   const glance = document.getElementById("g-glance");
   if (!glance) return;
   glance.addEventListener("click", (e) => {
-    const btn = e.target.closest(".gl-tk-toggle");
-    if (!btn) return;
-    const block = btn.closest(".g-gl-block");
-    if (!block) return;
+    // Clicks on the ticker chips themselves (links inside the open dropdown) pass
+    // through; a click anywhere else on the one-liner (label, text or chevron)
+    // toggles that line's tickers.
+    if (e.target.closest(".gl-tickers")) return;
+    const line = e.target.closest(".g-gl");
+    if (!line) return;
+    const block = line.closest(".g-gl-block");
+    const btn = block && block.querySelector(".gl-tk-toggle");
+    if (!btn || btn.hidden) return;   // no tickers for this line → nothing to toggle
     const open = block.classList.toggle("is-open");
     btn.setAttribute("aria-expanded", open ? "true" : "false");
     btn.setAttribute("aria-label", open ? "Hide related tickers" : "Show related tickers");
   });
+}
+
+// Mobile-only backdrop for the markets / notifications menus. A full-viewport
+// catcher absorbs the tap that dismisses an open menu so it can't also activate a
+// link or tab on the page behind it. Only used on phones (the desktop dropdowns
+// close fine on outside-click without one). The top bar is raised above it via
+// body.g-menu-open so the open panel (which lives inside the bar) stays on top.
+let _scrimEl = null;
+function showScrim(onClose) {
+  if (!matchMedia("(max-width:760px)").matches) return;
+  if (!_scrimEl) {
+    _scrimEl = document.createElement("div");
+    _scrimEl.className = "g-scrim";
+    _scrimEl.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); if (_scrimEl._cb) _scrimEl._cb(); });
+    document.body.appendChild(_scrimEl);
+  }
+  _scrimEl._cb = onClose;
+  _scrimEl.hidden = false;
+  document.body.classList.add("g-menu-open");
+}
+function hideScrim() {
+  if (_scrimEl) { _scrimEl.hidden = true; _scrimEl._cb = null; }
+  document.body.classList.remove("g-menu-open");
 }
 
 // ---- iPhone markets/rates dropdown -----------------------------------------
@@ -122,7 +150,7 @@ function initMarketsPanel() {
   const layout = document.querySelector(".g-layout");
   if (!btn || !panel || !side || !layout) return;
   const mq = matchMedia("(max-width:760px)");
-  const close = () => { panel.hidden = true; btn.setAttribute("aria-expanded", "false"); };
+  const close = () => { panel.hidden = true; btn.setAttribute("aria-expanded", "false"); hideScrim(); };
   const place = () => {
     if (mq.matches) { if (side.parentElement !== panel) panel.appendChild(side); }
     else { if (side.parentElement !== layout) layout.appendChild(side); close(); }
@@ -139,7 +167,8 @@ function initMarketsPanel() {
     if (open && mq.matches) {
       const r = btn.getBoundingClientRect();
       panel.style.top = `${Math.round(r.bottom + 8)}px`;
-    }
+      showScrim(close);
+    } else { hideScrim(); }
   });
   // Tap outside the panel (or press Escape) closes it.
   document.addEventListener("click", (e) => {
@@ -829,6 +858,7 @@ function closeNotifPanel() {
   const p = document.getElementById("g-notif-panel"), b = document.getElementById("g-bell");
   if (p) p.setAttribute("hidden", "");
   if (b) b.setAttribute("aria-expanded", "false");
+  hideScrim();
 }
 function markAllSeen() {
   (_notifApps || []).forEach((a) => {
@@ -859,7 +889,7 @@ function renderBell() {
   const bell = document.getElementById("g-bell"), panel = document.getElementById("g-notif-panel");
   bell.addEventListener("click", (e) => {
     e.stopPropagation();
-    if (panel.hasAttribute("hidden")) { panel.removeAttribute("hidden"); bell.setAttribute("aria-expanded", "true"); markAllSeen(); }
+    if (panel.hasAttribute("hidden")) { panel.removeAttribute("hidden"); bell.setAttribute("aria-expanded", "true"); markAllSeen(); showScrim(closeNotifPanel); }
     else { closeNotifPanel(); }
   });
   document.addEventListener("click", (e) => {
