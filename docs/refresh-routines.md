@@ -504,7 +504,7 @@ extra deep-research pass on watchlisted names is skipped.
 >      Times, Wall Street Journal, CNBC, The Economist, TradingEconomics, MarketWatch,
 >      Yahoo Finance, Investing.com, Briefing.com); fast US
 >      business/policy (Axios, Semafor, Barron's, Politico); UK (The Guardian, BBC,
->      Sky News, CityAM, This is Money); and — to fill the quiet overnight / early
+>      Sky News, CityAM); and — to fill the quiet overnight / early
 >      (05:00-run) window when US/UK desks are dark — round-the-clock FX/rates & Asia
 >      desks (FXStreet, ForexLive, MNI/Market News, Trading Economics, Nikkei Asia,
 >      Reuters/Bloomberg Asia). These named outlets are the PREFERRED set — lead with

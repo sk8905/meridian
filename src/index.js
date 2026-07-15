@@ -1128,7 +1128,6 @@ const FEED_SOURCES = [
   { url: "https://feeds.skynews.com/feeds/rss/business.xml", source: "Sky News", region: "UK", broad: true },
   { url: "https://www.bankofengland.co.uk/rss/news", source: "Bank of England", region: "UK", broad: false },
   { url: "https://www.cityam.com/feed/", source: "City AM", region: "UK", broad: true },
-  { url: "https://www.thisismoney.co.uk/money/index.rss", source: "This is Money", region: "UK", broad: true },
   // FX / rates / global (overnight)
   { url: "https://www.fxstreet.com/rss/news", source: "FXStreet", region: "GEN", broad: false },
   { url: "https://www.forexlive.com/feed/news/", source: "ForexLive", region: "GEN", broad: false },
@@ -1214,7 +1213,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=1", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=2", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {

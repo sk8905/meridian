@@ -243,7 +243,10 @@
        up exactly with the "Latest news" column. */
     /* align-items:start (not center) so expanding the one-liner ticker dropdowns
        grows the row DOWNWARD and the greeting stays put — never re-centres/moves. */
-    .g-hello { display:grid; grid-template-columns:minmax(24rem, 30%) minmax(0,1fr); align-items:start; column-gap:1.5rem; margin:0 0 1.3rem; }
+    /* A full-width rule separates the header (greeting + one-liners) from the
+       data sidebar and news feed below. */
+    .g-hello { display:grid; grid-template-columns:minmax(24rem, 30%) minmax(0,1fr); align-items:start; column-gap:1.5rem;
+      margin:0 0 1.4rem; padding-bottom:1.3rem; border-bottom:1px solid var(--line); }
     .g-hello-main { grid-column:1; }
     .g-hello h1 { font-size:1.25rem; font-weight:800; margin:0 0 .2rem; letter-spacing:-.01em; line-height:1.25; }
     .g-hello p { color:var(--muted); margin:0; }
