@@ -320,7 +320,7 @@
 
     /* ---- Dashboard body: a wide merged news feed on the left (~78%) with the
        markets + key-rates bands stacked in a narrow right-hand column (~22%). ---- */
-    .g-layout { display:grid; grid-template-columns:minmax(0,1fr) minmax(12rem, 12.5%); gap:1.25rem; align-items:start; margin-top:1.4rem; }
+    .g-layout { display:grid; grid-template-columns:minmax(0,1fr) minmax(24rem, 30%); gap:1.5rem; align-items:start; margin-top:1.4rem; }
     @media (max-width:900px){ .g-layout { grid-template-columns:1fr; gap:1.4rem; } }
     .g-feed-head { font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em;
       color:var(--muted); margin:0 0 .5rem; }
@@ -364,25 +364,36 @@
       /* Phone: the tag flows inline right after the source (not pinned right). */
       .g-feed-desk { order:4; margin-left:0; padding-left:0; }
     }
-    /* Right column: the two bands become 2-column tile grids (were single wide rows).
-       Numbers are dialled down and rows tightened so the whole column lands at the
-       same height as the 25-row news feed on the left. */
+    /* Right column (~30%): Markets beside Key rates, then US/UK economic
+       indicators, then the Macro-read tile. Each band is a compact 2-col grid. */
     .g-side { display:flex; flex-direction:column; }
-    .g-side .rates-band { grid-template-columns:repeat(2, 1fr); border-radius:14px; padding:.3rem .35rem; margin-bottom:1.65rem; }
+    .g-mr { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.2rem; }
+    .g-mr-col { min-width:0; }
+    .g-side .rates-band { grid-template-columns:repeat(2, 1fr); border-radius:14px; padding:.3rem .35rem; margin-bottom:0; }
     .g-side .rate-tile { border-left:0; border-top:0; padding:.4rem .5rem; gap:.08rem; }
-    .g-side .rate-label { font-size:.64rem; }
-    .g-side .rate-val { font-size:.9rem; }
-    .g-side .rate-chg { font-size:.68rem; }
-    .g-side .rate-src { margin-top:.18rem; font-size:.68rem; }
+    .g-side .rate-label { font-size:.62rem; }
+    .g-side .rate-val { font-size:.86rem; }
+    .g-side .rate-chg { font-size:.66rem; }
+    .g-side .rate-src { margin-top:.18rem; font-size:.64rem; }
     .g-side .rate-tile:nth-child(even) { border-left:1px solid var(--line); }
     .g-side .rate-tile:nth-child(n+3) { border-top:1px solid var(--line); }
-    @media (max-width:900px){ .g-side .rates-band { grid-template-columns:repeat(4,1fr); }
-      .g-side .rate-tile:nth-child(n+3) { border-top:0; }
-      .g-side .rate-tile { border-left:1px solid var(--line); }
-      .g-side .rate-tile:nth-child(4n+1) { border-left:0; } }
-    @media (max-width:560px){ .g-side .rates-band { grid-template-columns:repeat(2,1fr); }
-      .g-side .rate-tile:nth-child(odd) { border-left:0; }
-      .g-side .rate-tile:nth-child(even) { border-left:1px solid var(--line); } }
+    /* Economic indicators — US then UK, each a 3-col × 2-row grid of compact tiles. */
+    .g-ind-card { background:var(--surface); border:1px solid var(--line); border-radius:14px;
+      box-shadow:var(--shadow); padding:.6rem .65rem; margin-bottom:1.2rem; }
+    .g-ind-country { font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em;
+      color:var(--brand-2); border-bottom:2px solid var(--line); padding-bottom:.2rem; margin:.1rem 0 .45rem; }
+    .g-ind-grid + .g-ind-country { margin-top:.7rem; }
+    .g-ind-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:.4rem; }
+    .g-ind { display:block; padding:.35rem .4rem; border:1px solid var(--line); border-radius:8px; min-width:0; color:inherit; }
+    a.g-ind:hover { background:rgba(120,130,150,.06); }
+    .g-ind-name { font-weight:700; font-size:.62rem; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .g-ind-row { display:flex; align-items:baseline; gap:.22rem; flex-wrap:wrap; }
+    .g-ind-val { font-weight:700; font-size:.78rem; color:var(--ink); }
+    .g-ind-chg { font-size:.52rem; font-weight:600; white-space:nowrap; }
+    .g-ind-chg.up { color:#059669; } .g-ind-chg.down { color:#dc2626; } .g-ind-chg.flat { color:var(--muted); }
+    .g-ind-foot { font-size:.52rem; color:var(--muted); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:.05rem; }
+    /* In the iPhone dropdown: stack Markets/Rates (panel is narrow) — indicators stay 3-col. */
+    .g-mkt-panel .g-mr { grid-template-columns:1fr; }
     /* Macro snapshot card — policy rate, cycle & bubble read below the bands. */
     .g-snap { background:var(--surface); border:1px solid var(--line); border-radius:14px;
       box-shadow:var(--shadow); overflow:hidden; }
@@ -655,14 +666,27 @@
           <div class="g-feed" id="g-feed"><div class="g-loading">Loading today's news…</div></div>
         </section>
         <aside class="g-side">
-          <div class="g-rates-head g-anchor" id="jump-markets">Markets</div>
-          <div id="g-markets" class="rates-band markets-band" aria-label="Equity indices and ETFs">
-            <div class="g-loading">Loading markets…</div>
+          <!-- Markets + Key rates side by side -->
+          <div class="g-mr">
+            <div class="g-mr-col">
+              <div class="g-rates-head g-anchor" id="jump-markets">Markets</div>
+              <div id="g-markets" class="rates-band markets-band" aria-label="Equity indices and ETFs">
+                <div class="g-loading">Loading markets…</div>
+              </div>
+            </div>
+            <div class="g-mr-col">
+              <div class="g-rates-head g-anchor" id="jump-rates">Key rates &amp; spreads</div>
+              <div id="g-rates" class="rates-band" aria-label="Key rates and credit spreads">
+                <div class="g-loading">Loading market rates…</div>
+              </div>
+            </div>
           </div>
-          <div class="g-rates-head g-anchor" id="jump-rates">Key rates &amp; credit spreads</div>
-          <div id="g-rates" class="rates-band" aria-label="Key rates and credit spreads">
-            <div class="g-loading">Loading market rates…</div>
+          <!-- US &amp; UK economic indicators (live from /api/macro) -->
+          <div class="g-rates-head" id="jump-indicators">Economic indicators</div>
+          <div id="g-indicators" class="g-ind-card" aria-label="US and UK economic indicators">
+            <div class="g-loading">Loading indicators…</div>
           </div>
+          <!-- Macro read -->
           <div class="g-rates-head" id="jump-macro">Macro read</div>
           <div id="g-macro-snap" class="g-snap" aria-label="Policy rate, cycle and bubble snapshot">
             <div class="g-loading">Loading macro read…</div>
@@ -714,7 +738,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-24").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-25").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

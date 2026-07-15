@@ -70,6 +70,7 @@ export function initGlance() {
   if (_inited) return; _inited = true;
   renderFeed();
   renderMacroSnapshot();
+  initMacroIndicators();
   initMarkets();
   initRates();
   initPulse();
@@ -338,6 +339,45 @@ function renderMacroSnapshot() {
       + scale("Low", "Extreme")
       + `<div class="g-snap-sub">${esc(BUBBLE.market)} · composite ${comp}/100</div>`
     + `</a>`;
+}
+
+// ---- US & UK economic indicators (sidebar) ---------------------------------
+// The same live series the Macro dashboard shows (Base rate, 2-year yield, Core
+// inflation, Services PMI, Wage growth, Unemployment) fetched from /api/macro and
+// rendered as a compact 3×2 grid per country — value + change + source, no chart.
+const monY = (iso) => { const m = /^(\d{4})-(\d{2})/.exec(iso || ""); return m ? `${MON[+m[2] - 1]} ${m[1]}` : ""; };
+const IND_ORDER = ["base_rate", "two_year", "core_cpi", "services_pmi", "wages", "unemployment"];
+function indTile(s) {
+  const pct = s.unit === "%";
+  const val = s.value == null ? "—" : `${(+s.value).toFixed(2)}${pct ? "%" : ""}`;
+  const ch = s.change;
+  const dir = ch > 0 ? "up" : ch < 0 ? "down" : "flat";
+  const arrow = ch > 0 ? "▲" : ch < 0 ? "▼" : "·";
+  const chg = (ch == null || s.value == null) ? "" : `<span class="g-ind-chg ${dir}">${arrow} ${Math.abs(ch).toFixed(2)}${pct ? " pp" : ""}</span>`;
+  const foot = `${s.asOf ? monY(s.asOf) + " · " : ""}${s.source || ""}`;
+  const tag = s.href ? "a" : "div";
+  const attrs = s.href ? ` href="${esc(s.href)}" target="_blank" rel="noopener noreferrer"` : "";
+  return `<${tag} class="g-ind"${attrs} title="${esc(s.label)}${s.sub ? " — " + esc(s.sub) : ""}">`
+    + `<div class="g-ind-name">${esc(s.label)}</div>`
+    + `<div class="g-ind-row"><span class="g-ind-val">${val}</span>${chg}</div>`
+    + `<div class="g-ind-foot">${esc(foot)}</div></${tag}>`;
+}
+function initMacroIndicators() {
+  const el = document.getElementById("g-indicators");
+  if (!el) return;
+  const fail = () => { el.innerHTML = '<div class="g-loading">Indicators unavailable right now.</div>'; };
+  fetch("/api/macro")
+    .then((r) => (r.ok ? r.json() : Promise.reject()))
+    .then((d) => {
+      const series = (d && d.series) || [];
+      if (!series.length) return fail();
+      const rowsFor = (c) => IND_ORDER.map((k) => series.find((s) => s.country === c && s.key === k)).filter(Boolean);
+      const block = (label, c) => { const r = rowsFor(c); return r.length ? `<div class="g-ind-country">${label}</div><div class="g-ind-grid">${r.map(indTile).join("")}</div>` : ""; };
+      const html = block("United States", "US") + block("United Kingdom", "UK");
+      if (!html) return fail();
+      el.innerHTML = html;
+    })
+    .catch(fail);
 }
 const sec = (key, n, title, arr) => setHTML(`${key}-sec${n}`, subHead(title) + rows(arr));
 function item(href, title, meta, ext) {
