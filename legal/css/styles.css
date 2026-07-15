@@ -484,10 +484,6 @@ a.compact-head:hover { color: var(--primary); }
   letter-spacing: 1px; margin: 1rem 0 .1rem; padding-bottom: .35rem; border-bottom: 2px solid var(--line);
 }
 .year-group:first-child .year-head { margin-top: .25rem; }
-/* Gentle per-day break between feed rows: drop the preceding row's hairline and
-   let a single faint rule + a little breathing room mark the change of day. */
-.feed-row:has(+ .day-sep) { border-bottom: 0; }
-.day-sep { border-top: 1px solid var(--line); margin: .55rem 0 0; }
 .empty { padding: 2rem; text-align: center; color: var(--muted); }
 /* Deep-link highlight when arriving at a specific case from the dashboard */
 .feed-row.flash { animation: rowflash 2.2s ease-out; }
