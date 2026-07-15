@@ -35,6 +35,11 @@
     * { box-sizing: border-box; }
     html, body { margin:0; padding:0; }
     html { background:var(--navy); }
+    /* The stable scrollbar-gutter reserves a strip on the right; on desktop the page
+       background is light, so match the gutter to it (otherwise the navy html shows
+       through as a border when the page doesn't overflow). Mobile keeps navy for the
+       top safe-area strip. */
+    @media (min-width:901px){ html { background:var(--bg); } }
     html { scrollbar-gutter: stable; scroll-behavior: smooth; }
     @media (prefers-reduced-motion:reduce){ html { scroll-behavior: auto; } }
     body {
