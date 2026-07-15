@@ -12,8 +12,8 @@ export const UPDATED = "14 July 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-07-14",
-  lastCheckedTime: "21:19 BST",
+  lastChecked: "2026-07-15",
+  lastCheckedTime: "05:19 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -70,11 +70,11 @@ export const OUTLOOK = {
 // and reputable houses, newest first. Rendered as a two-column feed styled like
 // the dashboard's Key macro headlines; the four-times-daily routine keeps it current.
 export const COMMENTARY = {
-  updated: "2026-07-14",
+  updated: "2026-07-15",
   us: [
+    { title: "Cooler-than-expected CPI is 'a huge relief' for the stock market", source: "Seeking Alpha", author: "J.P. Morgan Asset Management — Gabriela Santos", date: "2026-07-14", url: "https://seekingalpha.com/news/4613735-cooler-than-expected-cpi-is-a-huge-relief-for-the-stock-market-jpmorgan-s-gabriela-santos" },
     { title: "Oil prices march upward again as the U.S-Iran conflict intensifies — and it's yet another headache for Warsh and the Fed", source: "Fortune", author: "Goldman Sachs — David Mericle (via Fortune)", date: "2026-07-13", url: "https://fortune.com/2026/07/13/oil-price-rises-inflation-expectations-warsh-fed-goldman/" },
     { title: "Federal Reserve Chair Kevin Warsh is right to end forward guidance", source: "The Washington Post", author: "Benn Steil (Council on Foreign Relations)", date: "2026-07-09", url: "https://www.washingtonpost.com/opinions/2026/07/09/federal-reserve-chair-kevin-warsh-is-right-end-forward-guidance/" },
-    { title: "Yardeni Says Inflation, Fed Back in Play as Iran Crisis Returns", source: "Bloomberg", author: "Ed Yardeni (Yardeni Research)", date: "2026-07-08", url: "https://www.bloomberg.com/news/articles/2026-07-08/yardeni-says-inflation-fed-back-in-play-as-iran-crisis-returns" },
   ],
   uk: [
     { title: "Latest UK Interest Rate Forecasts: Will The Bank Of England Cut Interest Rates On 30 July 2026?", source: "HomeOwners Alliance", author: "Pantheon Macroeconomics — Rob Wood", date: "2026-07-13", url: "https://hoa.org.uk/news/interest-rate-predictions-2/" },
@@ -316,8 +316,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-07-14", country: "US", title: "CPI (June)", url: "https://www.bls.gov/schedule/news_release/cpi.htm" },
-  { date: "2026-07-14", country: "US", title: "Fed Chair Kevin Warsh semiannual Monetary Policy testimony, House Financial Services Committee", url: "https://www.federalreserve.gov/newsevents/testimony.htm" },
   { date: "2026-07-15", country: "US", title: "Fed Chair Kevin Warsh semiannual Monetary Policy testimony, Senate Banking Committee", url: "https://www.banking.senate.gov/hearings" },
   { date: "2026-07-15", country: "US", title: "PPI (June)", url: "https://www.bls.gov/schedule/news_release/ppi.htm" },
   { date: "2026-07-15", country: "US", title: "Fed Beige Book", url: "https://www.federalreserve.gov/monetarypolicy/publications/beige-book-default.htm" },
