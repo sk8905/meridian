@@ -1180,8 +1180,12 @@ const FEED_CORE_MACRO_RE = new RegExp([
 // macro), and FX stories led by a minor currency (we only want USD/GBP/EUR/JPY —
 // unless a major currency is also in play, i.e. it's a cross vs a major).
 const FEED_BROKER_RE = /\b(price target|target price|raises? target|cuts? target|lifts? target|upgrade[sd]?|downgrade[sd]?|overweight|underweight|outperform|market perform|initiates? coverage|reiterate[sd]?|buy rating|sell rating|hold rating|valuation discount|(cut|raised?|lowered?) to (buy|sell|hold|neutral))\b/i;
-const FEED_MINOR_FX_RE = /\b(rupee|renminbi|yuan|won\b|ringgit|baht|rupiah|peso|real\b|rand\b|rouble|ruble|hryvnia|zloty|forint|krona|krone|shekel|dirham|riyal|naira|cedi|birr|taka|dong\b|tenge|lira)\b/i;
-const FEED_MAJOR_FX_RE = /\b(dollar|greenback|\busd\b|sterling|pound|\bgbp\b|euro|\beur\b|\byen\b|\bjpy\b)\b/i;
+// Non-major currencies. When one of these is *named* in a headline the story is
+// about that currency, so it's cut even if a major (USD/EUR/GBP/JPY) also appears
+// — FX-desk notes are always "X against the dollar". Ambiguous tokens that double
+// as ordinary words (real yields, "won" the verb, Rand the surname) are pinned to
+// their currency form to avoid false positives.
+const FEED_MINOR_FX_RE = /\b(rupee|renminbi|yuan|korean won|ringgit|baht|rupiah|peso|brazilian real|south african rand|rouble|ruble|hryvnia|zloty|forint|krona|krone|shekel|dirham|riyal|naira|cedi|birr|taka|dong\b|tenge|lira|franc|aussie dollar|australian dollar|canadian dollar|kiwi dollar|new zealand dollar|loonie)\b/i;
 // Mega-cap / high-profile names — single-stock notes on these are market-moving,
 // so they stay in (both as an include signal and an exception to the broker cut).
 // Smaller names (e.g. Sandvik) still get filtered out.
@@ -1189,15 +1193,29 @@ const FEED_MEGACAP_RE = /\b(apple|microsoft|alphabet|google|amazon|nvidia|meta|f
 // Single-stock promo / clickbait pitches ("X Is Too Cheap To Ignore", "3 stocks
 // to buy", "Wall Street thinks …", "is a screaming buy", dividend-stock lists).
 const FEED_STOCKPITCH_RE = /\b(too cheap to ignore|to ignore now|is (a |an )?(screaming |strong |compelling |must-own )?buy\b|screaming buy|stocks? to buy|best stocks?|top (stock )?picks?|is it time to buy|should you buy|why i('|')?m buying|undervalued|overvalued|hidden gem|is (a |too )?(cheap|bargain|steal)|dividend (stock|aristocrat|king|machine)|wall street thinks|motley fool|zacks)\b/i;
+// Earnings-move / trading-bait headlines ("X shares may move 9% on earnings",
+// "stock could jump", "options imply a big move", "straddle"). These push readers
+// to trade a single name rather than inform — cut regardless of the company.
+const FEED_TRADEBAIT_RE = /\b((shares?|stock) (may|might|could|to|set to|likely to) (move|jump|surge|soar|swing|rally|plunge|tumble|sink|slide)|move \d+(\.\d+)?% on (its |the )?earnings|(implied|expected) move|options? (traders?|market) (are |is )?(betting|pricing|implying)|straddle|priced for a (big|large) move|earnings (play|bet))\b/i;
+// FOMO / hype clickbait ("you're missing the deal of the decade", "guaranteed to
+// beat inflation", "get rich", "the only trade you need"). Pure induce-to-trade
+// junk — cut unconditionally, whatever the subject.
+const FEED_HYPE_RE = /\b(you'?(re| are) missing|don'?t miss (out )?on|before (it'?s|its) too late|(deal|trade|stock|opportunity|buy) of (the|a) (decade|lifetime|century|year)|once[- ]in[- ]a[- ](lifetime|generation)|guaranteed (to|returns?|income|profit|gains?)|get(ting)? rich|will make you rich|makes? you rich|retire (early|rich|a millionaire)|this (one|single) (stock|trade|move|chart)|the only (stock|trade|etf|fund) you (need|will ever need)|smart money is (buying|piling)|screaming (buy|deal)|can'?t[- ]miss)\b/i;
 // A stock ticker in parentheses — "Chemours Company (CC)" — is a strong single-
 // stock signal; ignore common macro/geo abbreviations that also appear that way.
 const FEED_TICKER_RE = /\(([A-Z]{1,5})\)/;
 const FEED_TICKER_OK = new Set(["US", "UK", "EU", "EC", "UN", "CPI", "GDP", "PCE", "PPI", "PMI", "ISM", "ECB", "BOE", "BOJ", "FOMC", "OPEC", "IMF", "G7", "G20", "AI", "EV", "IPO", "CEO", "CFO", "QE", "QT", "FX", "WTI", "OBR", "ONS", "IFS", "NIESR"]);
 function feedHasStockTicker(title) { const m = FEED_TICKER_RE.exec(title); return m ? !FEED_TICKER_OK.has(m[1]) : false; }
 function feedReject(title) {
-  // Single-stock notes/pitches are cut unless they're about a mega-cap.
-  if (!FEED_MEGACAP_RE.test(title) && (FEED_BROKER_RE.test(title) || FEED_STOCKPITCH_RE.test(title) || feedHasStockTicker(title))) return true;
-  if (FEED_MINOR_FX_RE.test(title) && !FEED_MAJOR_FX_RE.test(title)) return true;
+  // Hype / FOMO clickbait is junk regardless of subject — cut it outright.
+  if (FEED_HYPE_RE.test(title)) return true;
+  // Single-stock notes/pitches and earnings-move trading bait are cut unless the
+  // story is about a mega-cap (those are genuinely market-moving).
+  if (!FEED_MEGACAP_RE.test(title) && (FEED_BROKER_RE.test(title) || FEED_STOCKPITCH_RE.test(title) || FEED_TRADEBAIT_RE.test(title) || feedHasStockTicker(title))) return true;
+  // A named non-major currency means the story is about that currency — cut it
+  // even when a major (USD/EUR/GBP/JPY) also appears, since FX notes always quote
+  // the pair against the dollar. Only USD/EUR/GBP/JPY stories get through.
+  if (FEED_MINOR_FX_RE.test(title)) return true;
   return false;
 }
 function feedDecode(s) {
@@ -1282,7 +1300,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=8", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=9", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {

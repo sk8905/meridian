@@ -60,7 +60,7 @@
     .g-top { position:sticky; top:0; z-index:20; background:var(--navy); color:#fff; }
     .g-top-inner { position:relative; display:flex; align-items:center; gap:2rem; padding:0 1.5rem; height:60px; }
     .g-brand { display:flex; align-items:center; gap:.6rem; flex:0 0 auto; color:#fff; }
-    .g-logo { color:var(--accent); font-size:1.3rem; line-height:1; }
+    .g-logo { color:#fff; font-size:1.3rem; line-height:1; }
     .g-brand-text { display:flex; flex-direction:column; }
     .g-brand-text strong { font-size:1.05rem; letter-spacing:.3px; }
     .g-brand-text .sub { font-size:.7rem; color:#93c5fd; text-transform:uppercase; letter-spacing:1px; }
@@ -409,34 +409,44 @@
     .g-side .mkt-fut { font-size:.52rem; }
     .g-side .rate-tile:nth-child(even) { border-left:1px solid var(--line); }
     .g-side .rate-tile:nth-child(n+3) { border-top:1px solid var(--line); }
-    /* Economic indicators — US then UK, each a 3-col × 2-row grid of compact tiles. */
+    /* Economic indicators — US then UK, each a 3-col × 2-row grid of tiles styled
+       to match the markets/key-rates band: a seamless grid divided by hairlines
+       (no per-tile boxes or gaps), name · value · change. */
     .g-ind-card { background:var(--surface); border:1px solid var(--line); border-radius:14px;
-      box-shadow:var(--shadow); padding:.6rem .65rem; margin-bottom:1.2rem; }
+      box-shadow:var(--shadow); padding:.55rem .6rem; margin-bottom:1.2rem; }
     .g-ind-country { font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em;
-      color:var(--brand-2); margin:.1rem 0 .45rem; }
+      color:var(--brand-2); margin:.1rem 0 .4rem; }
     .g-ind-grid + .g-ind-country { margin-top:.7rem; }
-    .g-ind-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:.4rem; }
-    .g-ind { display:flex; flex-direction:column; gap:.05rem; padding:.35rem .4rem; border:1px solid var(--line); border-radius:8px; min-width:0; color:inherit; }
-    a.g-ind:hover { background:rgba(120,130,150,.06); }
+    .g-ind-grid { display:grid; grid-template-columns:repeat(3, 1fr); }
+    .g-ind { display:flex; flex-direction:column; gap:.06rem; padding:.4rem .5rem; min-width:0; color:inherit;
+      text-decoration:none; border-left:1px solid var(--line); }
+    .g-ind:nth-child(3n+1) { border-left:none; }
+    .g-ind:nth-child(n+4) { border-top:1px solid var(--line); }
+    a.g-ind:hover .g-ind-name, a.g-ind:hover .g-ind-val { color:var(--brand-2); }
     .g-ind-name { text-transform:uppercase; letter-spacing:.4px; font-size:.6rem; color:var(--muted); font-weight:400; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .g-ind-val { font-weight:700; font-size:.86rem; color:var(--ink); line-height:1.2; }
     .g-ind-chg { font-size:.64rem; font-weight:600; white-space:nowrap; }
     .g-ind-chg.up { color:#059669; } .g-ind-chg.down { color:#dc2626; } .g-ind-chg.flat { color:var(--muted); }
     /* In the iPhone dropdown: stack Markets/Rates (panel is narrow) — indicators stay 3-col. */
     .g-mkt-panel .g-mr { grid-template-columns:1fr; }
-    /* FX daily matrix — a compact 4×4 cross-rate grid (USD/GBP/EUR/JPY). */
+    /* FX daily matrix — a compact 4×4 cross-rate grid (USD/GBP/EUR/JPY) styled to
+       match the markets/key-rates tiles: a bordered card whose cells sit in a
+       seamless grid divided by hairlines, each rate carrying a subtle heat tint. */
     .g-fx-card { background:var(--surface); border:1px solid var(--line); border-radius:14px;
-      box-shadow:var(--shadow); padding:.5rem .55rem; margin-bottom:1.2rem; }
-    /* Each rate is its own bordered tile (like the economic-indicator boxes),
-       separated by a small gap; row/column labels stay plain. */
-    .g-fx-tbl { width:100%; border-collapse:separate; border-spacing:5px; font-variant-numeric:tabular-nums; }
-    .g-fx-tbl th, .g-fx-tbl td { text-align:right; padding:.28rem .36rem; font-size:.63rem; white-space:nowrap; }
-    .g-fx-tbl thead th { color:var(--muted); font-weight:800; font-size:.58rem; text-transform:uppercase; letter-spacing:.03em; }
-    .g-fx-tbl tbody th { text-align:left; color:var(--muted); font-weight:800; font-size:.58rem; text-transform:uppercase; }
-    .g-fx-tbl td { color:var(--ink); font-weight:600; border:1px solid var(--line); border-radius:7px; }
-    .g-fx-tbl td.g-fx-diag { color:var(--line); font-weight:400; border-color:transparent; }
-    .g-fx-tbl th:first-child { width:1.3rem; }
-    .g-fx-tbl td a { color:inherit; text-decoration:none; display:block; }
+      box-shadow:var(--shadow); padding:.4rem .45rem; margin-bottom:1.2rem; }
+    .g-fx-tbl { width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums; }
+    .g-fx-tbl th, .g-fx-tbl td { text-align:right; font-size:.66rem; white-space:nowrap; }
+    .g-fx-tbl th { padding:.3rem .4rem; }
+    .g-fx-tbl thead th { color:var(--muted); font-weight:800; font-size:.6rem; text-transform:uppercase; letter-spacing:.04em; }
+    .g-fx-tbl tbody th { text-align:left; color:var(--muted); font-weight:800; font-size:.6rem; text-transform:uppercase; }
+    .g-fx-tbl td { color:var(--ink); font-weight:700; padding:0; }
+    .g-fx-tbl td.g-fx-diag { color:var(--line); font-weight:400; padding:.3rem .4rem; }
+    .g-fx-tbl th:first-child { width:1.5rem; }
+    /* Seamless internal dividers, exactly like the markets/rates tile grid. */
+    .g-fx-tbl thead th:not(:first-child), .g-fx-tbl td { border-left:1px solid var(--line); }
+    .g-fx-tbl thead th { border-bottom:1px solid var(--line); }
+    .g-fx-tbl tbody tr + tr th, .g-fx-tbl tbody tr + tr td { border-top:1px solid var(--line); }
+    .g-fx-tbl td a { color:inherit; text-decoration:none; display:block; padding:.3rem .4rem; }
     .g-fx-tbl td a:hover { color:var(--brand-2); }
     /* Macro snapshot card — policy rate, cycle & bubble read below the bands. */
     .g-snap { background:var(--surface); border:1px solid var(--line); border-radius:14px;
@@ -809,7 +819,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-39").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-40").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

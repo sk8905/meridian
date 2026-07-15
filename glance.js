@@ -98,6 +98,14 @@ export function initGlance() {
 function initGlanceTickerToggle() {
   const glance = document.getElementById("g-glance");
   if (!glance) return;
+  const closeBlock = (block) => {
+    block.classList.remove("is-open");
+    const btn = block.querySelector(".gl-tk-toggle");
+    if (btn) {
+      btn.setAttribute("aria-expanded", "false");
+      btn.setAttribute("aria-label", "Show related tickers");
+    }
+  };
   glance.addEventListener("click", (e) => {
     // Clicks on the ticker chips themselves (links inside the open dropdown) pass
     // through; a click anywhere else on the one-liner (label, text or chevron)
@@ -111,6 +119,20 @@ function initGlanceTickerToggle() {
     const open = block.classList.toggle("is-open");
     btn.setAttribute("aria-expanded", open ? "true" : "false");
     btn.setAttribute("aria-label", open ? "Hide related tickers" : "Show related tickers");
+  });
+  // Clicking anywhere off an open one-liner collapses it. The toggle above runs
+  // first (it bubbles from inside the block), so a click that just opened a block
+  // is skipped here because the target is still inside that block.
+  document.addEventListener("click", (e) => {
+    const inside = e.target.closest(".g-gl-block");
+    glance.querySelectorAll(".g-gl-block.is-open").forEach((block) => {
+      if (block !== inside) closeBlock(block);
+    });
+  });
+  // Escape closes any open one-liner too.
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    glance.querySelectorAll(".g-gl-block.is-open").forEach(closeBlock);
   });
 }
 
