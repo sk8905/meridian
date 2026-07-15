@@ -1171,8 +1171,12 @@ const FEED_MACRO_RE = new RegExp([
 const FEED_BROKER_RE = /\b(price target|target price|raises? target|cuts? target|lifts? target|upgrade[sd]?|downgrade[sd]?|overweight|underweight|outperform|market perform|initiates? coverage|reiterate[sd]?|buy rating|sell rating|hold rating|valuation discount|(cut|raised?|lowered?) to (buy|sell|hold|neutral))\b/i;
 const FEED_MINOR_FX_RE = /\b(rupee|renminbi|yuan|won\b|ringgit|baht|rupiah|peso|real\b|rand\b|rouble|ruble|hryvnia|zloty|forint|krona|krone|shekel|dirham|riyal|naira|cedi|birr|taka|dong\b|tenge|lira)\b/i;
 const FEED_MAJOR_FX_RE = /\b(dollar|greenback|\busd\b|sterling|pound|\bgbp\b|euro|\beur\b|\byen\b|\bjpy\b)\b/i;
+// Mega-cap / high-profile names — single-stock notes on these are market-moving,
+// so they stay in (both as an include signal and an exception to the broker cut).
+// Smaller names (e.g. Sandvik) still get filtered out.
+const FEED_MEGACAP_RE = /\b(apple|microsoft|alphabet|google|amazon|nvidia|meta|facebook|tesla|berkshire|broadcom|tsmc|taiwan semiconductor|eli lilly|jpmorgan|goldman sachs|netflix|aramco|exxon|walmart|mastercard|oracle|openai|boeing|spacex|samsung|\bmag ?7\b|magnificent seven)\b/i;
 function feedReject(title) {
-  if (FEED_BROKER_RE.test(title)) return true;
+  if (FEED_BROKER_RE.test(title) && !FEED_MEGACAP_RE.test(title)) return true;
   if (FEED_MINOR_FX_RE.test(title) && !FEED_MAJOR_FX_RE.test(title)) return true;
   return false;
 }
@@ -1247,7 +1251,7 @@ async function handleFeed(request, env, ctx) {
         const r = await fetch(f.url, { headers: fetchHeaders(f.url), cf: { cacheTtl: 0 } });
         const txt = r.ok ? await r.text() : "";
         const parsed = txt ? feedParse(txt, f).filter((x) => !feedReject(x.title)) : [];
-        const kept = (f.filter === false) ? parsed : parsed.filter((x) => FEED_MACRO_RE.test(x.title));
+        const kept = (f.filter === false) ? parsed : parsed.filter((x) => FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title));
         return { source: f.source, url: f.url, status: r.status, parsed: parsed.length, kept: kept.length };
       } catch (e) { return { source: f.source, url: f.url, error: String((e && e.message) || e) }; }
     }));
@@ -1256,14 +1260,14 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=5", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=6", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {
     const txt = await feedFetch(f.url);
     if (!txt) return [];
     let items = feedParse(txt, f).filter((x) => !feedReject(x.title));
-    if (f.filter !== false) items = items.filter((x) => FEED_MACRO_RE.test(x.title));
+    if (f.filter !== false) items = items.filter((x) => FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title));
     return items.slice(0, f.cap || 8);
   }));
   let all = [];
