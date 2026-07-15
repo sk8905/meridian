@@ -238,20 +238,19 @@
 
     /* ---- Main ---- */
     .g-main { max-width:1500px; margin:0 auto; padding:1.75rem 2rem 3rem; }
-    /* Laid on the SAME 8-column grid as the markets band below, so the greeting
-       fills columns 1–3 and the one-liners start exactly at the 4th column —
-       lining their left edge up with the 4th market tile. */
+    /* Laid on the SAME two-column grid as the layout below (data sidebar | news),
+       so the greeting sits above the sidebar and the one-liners' left edge lines
+       up exactly with the "Latest news" column. */
     /* align-items:start (not center) so expanding the one-liner ticker dropdowns
        grows the row DOWNWARD and the greeting stays put — never re-centres/moves. */
-    .g-hello { display:grid; grid-template-columns:repeat(8,1fr); align-items:start; column-gap:1rem; margin:0 0 1.3rem; }
-    .g-hello-main { grid-column:1 / 4; }
-    .g-hello h1 { font-size:1.6rem; font-weight:800; margin:0 0 .2rem; letter-spacing:-.01em; }
+    .g-hello { display:grid; grid-template-columns:minmax(24rem, 30%) minmax(0,1fr); align-items:start; column-gap:1.5rem; margin:0 0 1.3rem; }
+    .g-hello-main { grid-column:1; }
+    .g-hello h1 { font-size:1.25rem; font-weight:800; margin:0 0 .2rem; letter-spacing:-.01em; line-height:1.25; }
     .g-hello p { color:var(--muted); margin:0; }
     /* At-a-glance one-liners (markets + rates), refreshed with the twice-daily
-       data pull. Sit to the right of the greeting on desktop, stack below on
-       narrow screens. */
-    .g-glance { grid-column:4 / -1; display:flex; flex-direction:column;
-      gap:.5rem; padding-left:1.25rem; border-left:3px solid var(--line); }
+       data pull. Sit above the news feed on desktop, stack below on narrow
+       screens. */
+    .g-glance { grid-column:2; display:flex; flex-direction:column; gap:.5rem; }
     /* On desktop each line carries a small uppercase heading (Markets / Rates &
        spreads) in a fixed-width column, so the two one-liners start at the same
        x and align. The heading is hidden on narrower screens to save space. */
@@ -390,14 +389,19 @@
     .g-side .mkt-fut { font-size:.52rem; }
     .g-side .rate-tile:nth-child(even) { border-left:1px solid var(--line); }
     .g-side .rate-tile:nth-child(n+3) { border-top:1px solid var(--line); }
-    /* Economic indicators — US then UK, each a 3-col × 2-row grid of compact tiles. */
+    /* Economic indicators — US then UK, each a 3-col × 2-row band styled like the
+       markets/rates bands: a single card with thin dividers between tiles rather
+       than individual bordered tiles. */
     .g-ind-card { background:var(--surface); border:1px solid var(--line); border-radius:14px;
-      box-shadow:var(--shadow); padding:.6rem .65rem; margin-bottom:1.2rem; }
+      box-shadow:var(--shadow); padding:.45rem .5rem; margin-bottom:1.2rem; }
     .g-ind-country { font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em;
-      color:var(--brand-2); margin:.1rem 0 .45rem; }
+      color:var(--brand-2); margin:.1rem 0 .35rem; }
     .g-ind-grid + .g-ind-country { margin-top:.7rem; }
-    .g-ind-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:.4rem; }
-    .g-ind { display:flex; flex-direction:column; gap:.05rem; padding:.35rem .4rem; border:1px solid var(--line); border-radius:8px; min-width:0; color:inherit; }
+    .g-ind-grid { display:grid; grid-template-columns:repeat(3, 1fr); align-items:stretch; }
+    .g-ind { display:flex; flex-direction:column; gap:.06rem; padding:.4rem .5rem; min-width:0; color:inherit;
+      border-left:1px solid var(--line); }
+    .g-ind:nth-child(3n+1) { border-left:0; }
+    .g-ind:nth-child(n+4) { border-top:1px solid var(--line); }
     a.g-ind:hover { background:rgba(120,130,150,.06); }
     .g-ind-name { text-transform:uppercase; letter-spacing:.4px; font-size:.6rem; color:var(--muted); font-weight:400; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .g-ind-val { font-weight:700; font-size:.86rem; color:var(--ink); line-height:1.2; }
