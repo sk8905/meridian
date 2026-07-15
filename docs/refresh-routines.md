@@ -507,8 +507,10 @@ extra deep-research pass on watchlisted names is skipped.
 >      Sky News, CityAM, This is Money); and — to fill the quiet overnight / early
 >      (05:00-run) window when US/UK desks are dark — round-the-clock FX/rates & Asia
 >      desks (FXStreet, ForexLive, MNI/Market News, Trading Economics, Nikkei Asia,
->      Reuters/Bloomberg Asia). Diversify across this wider set — do not lean on the
->      same two or three outlets every run — then replace the arrays with **exactly five** US and
+>      Reuters/Bloomberg Asia). These named outlets are the PREFERRED set — lead with
+>      them — but the list is NOT exhaustive: any other reputable, verifiable source is
+>      fine when a genuine story breaks elsewhere. Diversify across this wider set — do
+>      not lean on the same two or three outlets every run — then replace the arrays with **exactly five** US and
 >      **exactly five** UK headlines, ideally all dated the refresh day. The Macro
 >      dashboard's "Key macro headlines" panel shows the newest **ten** merged (a
 >      2×5 grid), and the Home landing card shows the newest **three** of each
