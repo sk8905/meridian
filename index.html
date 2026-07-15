@@ -249,7 +249,7 @@
     }
 
     /* ---- Main ---- */
-    .g-main { max-width:1500px; margin:0 auto; padding:1.75rem 2rem 3rem; }
+    .g-main { max-width:1500px; margin:0 auto; padding:1.75rem 2rem .5rem; }
     /* Laid on the SAME two-column grid as the layout below (data sidebar | news),
        so the greeting sits above the sidebar and the one-liners' left edge lines
        up exactly with the "Latest news" column. */
@@ -436,6 +436,8 @@
     .g-fx-tbl th:first-child { width:1.4rem; }
     .g-fx-tbl tbody tr + tr th, .g-fx-tbl tbody tr + tr td { border-top:1px solid rgba(120,130,150,.12); }
     .g-fx-tbl td { border-radius:3px; }
+    .g-fx-tbl td a { color:inherit; text-decoration:none; display:block; }
+    .g-fx-tbl td a:hover { color:var(--brand-2); text-decoration:underline; }
     /* Macro snapshot card — policy rate, cycle & bubble read below the bands. */
     .g-snap { background:var(--surface); border:1px solid var(--line); border-radius:14px;
       box-shadow:var(--shadow); overflow:hidden; }
@@ -803,7 +805,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-38").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-39").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

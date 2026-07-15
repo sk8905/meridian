@@ -776,8 +776,9 @@ function renderFxMatrix(d) {
     const cells = FX_CCY.map((q) => {
       if (base === q) return `<td class="g-fx-diag">—</td>`;
       const chg = dPct[base] - dPct[q];   // row currency's move vs the column currency
-      const tip = ` title="${base}/${q} ${chg > 0 ? "+" : ""}${chg.toFixed(2)}% today"`;
-      return `<td${fxHeat(chg)}${tip}>${fmtFx(up[base] / up[q])}</td>`;
+      const tip = `${base}/${q} ${chg > 0 ? "+" : ""}${chg.toFixed(2)}% today — source: Yahoo Finance`;
+      const href = `https://finance.yahoo.com/quote/${base}${q}=X`;
+      return `<td${fxHeat(chg)}><a href="${esc(href)}" target="_blank" rel="noopener noreferrer" title="${esc(tip)}">${fmtFx(up[base] / up[q])}</a></td>`;
     }).join("");
     return `<tr><th>${base}</th>${cells}</tr>`;
   }).join("");
