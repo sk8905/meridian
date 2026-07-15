@@ -1159,10 +1159,23 @@ const FEED_MACRO_RE = new RegExp([
   "s&p 500|s&p500|\\bs&p\\b", "nasdaq", "dow jones|\\bdow\\b", "\\bftse\\b", "nikkei", "\\bdax\\b", "stoxx",
   "wall street", "stock market|stock-market", "\\bindex\\b|indices|equit", "treasur", "\\byield", "\\bgilt", "\\bbond",
   "\\bbund", "\\boil\\b|brent|crude|\\bopec\\b", "\\bgold\\b", "dollar|sterling|\\bpound\\b|\\beuro\\b|\\byen\\b",
-  "sell-?off|rally|slump|rout|rebound",
+  // NB: bare move-verbs (rally/slump/sell-off) were removed — index-level moves are
+  // caught by the index/Wall-Street terms above, so dropping them keeps single-stock
+  // "share rally" notes out.
   // major earnings
   "earnings|profit warning|results beat|results miss",
 ].join("|"), "i");
+// Reject even when a macro term matched: single-stock broker rating notes (not
+// macro), and FX stories led by a minor currency (we only want USD/GBP/EUR/JPY —
+// unless a major currency is also in play, i.e. it's a cross vs a major).
+const FEED_BROKER_RE = /\b(price target|target price|raises? target|cuts? target|lifts? target|upgrade[sd]?|downgrade[sd]?|overweight|underweight|outperform|market perform|initiates? coverage|reiterate[sd]?|buy rating|sell rating|hold rating|valuation discount|(cut|raised?|lowered?) to (buy|sell|hold|neutral))\b/i;
+const FEED_MINOR_FX_RE = /\b(rupee|renminbi|yuan|won\b|ringgit|baht|rupiah|peso|real\b|rand\b|rouble|ruble|hryvnia|zloty|forint|krona|krone|shekel|dirham|riyal|naira|cedi|birr|taka|dong\b|tenge|lira)\b/i;
+const FEED_MAJOR_FX_RE = /\b(dollar|greenback|\busd\b|sterling|pound|\bgbp\b|euro|\beur\b|\byen\b|\bjpy\b)\b/i;
+function feedReject(title) {
+  if (FEED_BROKER_RE.test(title)) return true;
+  if (FEED_MINOR_FX_RE.test(title) && !FEED_MAJOR_FX_RE.test(title)) return true;
+  return false;
+}
 function feedDecode(s) {
   return String(s || "")
     .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
@@ -1233,7 +1246,7 @@ async function handleFeed(request, env, ctx) {
       try {
         const r = await fetch(f.url, { headers: fetchHeaders(f.url), cf: { cacheTtl: 0 } });
         const txt = r.ok ? await r.text() : "";
-        const parsed = txt ? feedParse(txt, f) : [];
+        const parsed = txt ? feedParse(txt, f).filter((x) => !feedReject(x.title)) : [];
         const kept = (f.filter === false) ? parsed : parsed.filter((x) => FEED_MACRO_RE.test(x.title));
         return { source: f.source, url: f.url, status: r.status, parsed: parsed.length, kept: kept.length };
       } catch (e) { return { source: f.source, url: f.url, error: String((e && e.message) || e) }; }
@@ -1243,13 +1256,13 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=4", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=5", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {
     const txt = await feedFetch(f.url);
     if (!txt) return [];
-    let items = feedParse(txt, f);
+    let items = feedParse(txt, f).filter((x) => !feedReject(x.title));
     if (f.filter !== false) items = items.filter((x) => FEED_MACRO_RE.test(x.title));
     return items.slice(0, f.cap || 8);
   }));
