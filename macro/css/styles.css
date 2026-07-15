@@ -574,3 +574,11 @@ svg.mtab-ico { width: 22px; height: 22px; }
 [data-theme="dark"] .chart-grid.chart-zero { stroke: rgba(255,255,255,.22); }
 [data-theme="dark"] .chart-grid.chart-grid-yr { stroke: rgba(255,255,255,.14); }
 [data-theme="dark"] .chart-endtxt { fill: #0b1120; }
+
+/* ---- Commentary rows: the Save button occupies a fixed top-right column and the
+        row reserves it, so no headline / source text wraps under the button
+        (desktop ≥761px). Phones let text use that space. ---- */
+@media (min-width: 761px) {
+  .intel-row { position: relative; padding-right: 5.2rem; }
+  .intel-row .save-btn { position: absolute; top: .8rem; right: 0; margin: 0; }
+}

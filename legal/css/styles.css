@@ -706,3 +706,12 @@ svg.mtab-ico { width: 22px; height: 22px; }
 /* ---- Dashboard feature-card taglines (the muted line under each section heading)
         are clamped to a single line so the cards stay compact. ---- */
 .feature-card > h2 + p { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 1; overflow: hidden; }
+
+/* ---- Feed rows: the Save button occupies a fixed top-right column and the row
+        content reserves it, so no title / summary / footer text wraps under the
+        button (≥561px). Phones let text use that space. ---- */
+@media (min-width: 561px) {
+  .feed-row { position: relative; }
+  .rx-title-line .save-btn { position: absolute; top: .8rem; right: 0; margin: 0; }
+  .feed-body { padding-right: 5.2rem; }
+}

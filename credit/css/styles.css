@@ -780,3 +780,15 @@ a.compact-mgr:hover { color: var(--primary); text-decoration: underline; }
 .ph-head-top { display: flex; align-items: center; justify-content: space-between; gap: 1rem; flex-wrap: wrap; margin: 0 0 .25rem; }
 .ph-head-top h1 { margin: 0; }
 .ph-head-top .focus-toggle { flex: 0 0 auto; margin: 0; }
+
+/* ---- Feed rows: the Save button occupies a fixed top-right column and the row
+        content reserves it, so no headline / source / summary text wraps under the
+        button (desktop ≥901px). Phones keep the stacked layout where text may use
+        that space. ---- */
+@media (min-width: 901px) {
+  .intel-row { position: relative; }
+  .intel-title-line .save-btn,
+  .intel-row.oneline > .save-btn { position: absolute; top: .8rem; right: 0; margin: 0; }
+  .intel-body { padding-right: 5.2rem; }
+  .intel-row.oneline { padding-right: 5.2rem; }
+}
