@@ -64,11 +64,17 @@ const MACRO_INDICATORS = [
 ];
 
 let _inited = false;
+// Live macro headlines from /api/feed (curated finance/macro RSS, edge-parsed).
+// Seeded from last-good cache on load, refreshed on the 5-min live cadence, and
+// merged into the home feed's Macro items. Empty until the first fetch resolves.
+let _liveFeed = [];
 const fmtRefresh = () => `${fmt(LAST_CHECKED)}${LAST_CHECKED_TIME ? `, ${LAST_CHECKED_TIME}` : ""}`;
 
 export function initGlance() {
   if (_inited) return; _inited = true;
+  _liveFeed = ((readCache("feed") || {}).items) || [];  // instant last-good merge
   renderFeed();
+  refreshLiveFeed();                                     // then pull fresh headlines
   renderMacroSnapshot();
   initMacroIndicators();
   initMarkets();
@@ -179,7 +185,23 @@ function initJumpNav() {
 // cadence. Work is skipped while the tab is hidden and caught up on return.
 const LIVE_REFRESH_MS = 5 * 60 * 1000;
 let _lastLive = Date.now();
-function refreshLive() { _lastLive = Date.now(); initMarkets(); initRates(); initPulse(); }
+function refreshLive() { _lastLive = Date.now(); initMarkets(); initRates(); initPulse(); refreshLiveFeed(); }
+
+// Pull the curated live news feed (/api/feed) and re-render the home feed with
+// the fresh headlines merged in. Non-200 / empty / offline → keep whatever we
+// already show (cached live items or the static curated feed) — never blanks it.
+function refreshLiveFeed() {
+  fetch("/api/feed", { headers: { accept: "application/json" } })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((d) => {
+      if (d && Array.isArray(d.items) && d.items.length) {
+        _liveFeed = d.items;
+        writeCache("feed", d);
+        renderFeed();
+      }
+    })
+    .catch(() => { /* keep cached/static feed */ });
+}
 function startLiveRefresh() {
   setInterval(() => { if (!document.hidden) refreshLive(); }, LIVE_REFRESH_MS);
   document.addEventListener("visibilitychange", () => {
@@ -217,6 +239,9 @@ function renderFeed() {
   (((NEWS && NEWS.uk) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)));
   (((COMMENTARY && COMMENTARY.us) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)));
   (((COMMENTARY && COMMENTARY.uk) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)));
+  // Live RSS headlines (real publish times) merged in with the curated macro
+  // items; the title-dedupe below collapses any overlap with the static feeds.
+  (_liveFeed || []).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)));
 
   const credit = [];
   deals.forEach((d) => credit.push(mk("c", creditItemHref(d, "deals"), d.headline, creditSource(d), false, d.date, d.time)));

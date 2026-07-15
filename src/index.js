@@ -1102,6 +1102,151 @@ async function handlePulse(request, env, ctx) {
   }
 }
 
+// ============================ LIVE NEWS FEED ===============================
+// Curated finance / macro RSS+Atom feeds (US & UK focus), fetched and parsed at
+// the edge, normalised to the Glance feed-item shape { title, url, source, date,
+// time } and merged into the home "Latest news" list by the client. Same pattern
+// as the markets/rates handlers: fan out with Promise.allSettled, skip anything
+// that fails, edge-cache the combined result ~10 min, only cache once non-empty.
+// `broad` feeds (general business desks) are keyword-filtered down to macro/markets
+// stories; `focused` feeds (central banks, economy desks, FX) are kept wholesale.
+// Paywalled names (Bloomberg, Reuters, WSJ, full FT, The Economist) publish no
+// usable public RSS, so they can't be live-sourced here.
+const FEED_SOURCES = [
+  // US / markets & macro
+  { url: "https://www.cnbc.com/id/20910258/device/rss/rss.html", source: "CNBC", region: "US", broad: false },
+  { url: "https://www.cnbc.com/id/10000664/device/rss/rss.html", source: "CNBC", region: "US", broad: true },
+  { url: "https://feeds.content.dowjones.io/public/rss/mw_topstories", source: "MarketWatch", region: "US", broad: true },
+  { url: "https://feeds.content.dowjones.io/public/rss/mw_realtimeheadlines", source: "MarketWatch", region: "US", broad: true },
+  { url: "https://finance.yahoo.com/news/rssindex", source: "Yahoo Finance", region: "US", broad: true },
+  { url: "https://rss.nytimes.com/services/xml/rss/nyt/Economy.xml", source: "New York Times", region: "US", broad: false },
+  { url: "https://www.federalreserve.gov/feeds/press_monetary.xml", source: "Federal Reserve", region: "US", broad: false },
+  // UK / markets & macro
+  { url: "https://feeds.bbci.co.uk/news/business/rss.xml", source: "BBC", region: "UK", broad: true },
+  { url: "https://feeds.bbci.co.uk/news/business/economy/rss.xml", source: "BBC", region: "UK", broad: false },
+  { url: "https://www.theguardian.com/business/economics/rss", source: "The Guardian", region: "UK", broad: false },
+  { url: "https://feeds.skynews.com/feeds/rss/business.xml", source: "Sky News", region: "UK", broad: true },
+  { url: "https://www.bankofengland.co.uk/rss/news", source: "Bank of England", region: "UK", broad: false },
+  { url: "https://www.cityam.com/feed/", source: "City AM", region: "UK", broad: true },
+  { url: "https://www.thisismoney.co.uk/money/index.rss", source: "This is Money", region: "UK", broad: true },
+  // FX / rates / global (overnight)
+  { url: "https://www.fxstreet.com/rss/news", source: "FXStreet", region: "GEN", broad: false },
+  { url: "https://www.forexlive.com/feed/news/", source: "ForexLive", region: "GEN", broad: false },
+  { url: "https://www.investing.com/rss/news_25.rss", source: "Investing.com", region: "GEN", broad: false },
+  { url: "https://asia.nikkei.com/rss/feed/nar", source: "Nikkei Asia", region: "GEN", broad: true },
+];
+// A story is macro/markets-relevant if its title mentions any of these.
+const FEED_MACRO_RE = /\b(inflation|deflation|cpi|ppi|rate cut|rate hike|interest rate|rates?|fed\b|federal reserve|fomc|boe\b|bank of england|ecb\b|central bank|treasur|gilt|yield|bond|gdp|growth|recession|slowdown|jobs?|unemploy|payroll|wage|econom|dollar|sterling|pound|euro\b|oil|brent|crude|opec|gold|stocks?|shares?|equit|markets?|ftse|s&p|nasdaq|dow\b|pmi|tariff|trade war|budget|fiscal|debt|deficit|hike|dovish|hawkish|earnings|bitcoin|crypto|sanction|imf\b|opec)\b/i;
+function feedDecode(s) {
+  return String(s || "")
+    .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
+    .replace(/<[^>]+>/g, " ")
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => { try { return String.fromCodePoint(parseInt(h, 16)); } catch { return ""; } })
+    .replace(/&#(\d+);/g, (_, d) => { try { return String.fromCodePoint(parseInt(d, 10)); } catch { return ""; } })
+    .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'").replace(/&#39;/g, "'").replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&")
+    .replace(/\s+/g, " ").trim();
+}
+function feedTag(block, tag) {
+  const m = new RegExp(`<${tag}\\b[^>]*>([\\s\\S]*?)</${tag}>`, "i").exec(block);
+  return m ? m[1] : "";
+}
+function feedAtomLink(block) {
+  const links = (block.match(/<link\b[^>]*\/?>/gi) || []);
+  const pick = links.find((l) => /rel=["']?alternate/i.test(l)) || links.find((l) => !/rel=/i.test(l)) || links[0];
+  if (!pick) return "";
+  const h = /href=["']([^"']+)["']/i.exec(pick);
+  return h ? h[1] : "";
+}
+// Europe/London calendar date (YYYY-MM-DD) + 24h time (HH:MM) for a Date.
+function feedLondon(d) {
+  if (!d || isNaN(d.getTime())) return { date: "", time: "" };
+  const p = Object.fromEntries(new Intl.DateTimeFormat("en-GB", {
+    timeZone: "Europe/London", year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", hour12: false,
+  }).formatToParts(d).map((x) => [x.type, x.value]));
+  const hh = p.hour === "24" ? "00" : p.hour;
+  return { date: `${p.year}-${p.month}-${p.day}`, time: `${hh}:${p.minute}` };
+}
+function feedParse(xml, feed) {
+  const out = [];
+  const blocks = xml.match(/<(item|entry)\b[\s\S]*?<\/\1>/gi) || [];
+  for (const block of blocks) {
+    const title = feedDecode(feedTag(block, "title"));
+    if (!title || title.length < 8) continue;
+    let link = feedDecode(feedTag(block, "link"));
+    if (!/^https?:\/\//i.test(link)) link = feedAtomLink(block);
+    link = (link || "").trim();
+    if (!/^https?:\/\//i.test(link)) continue;
+    const ds = feedTag(block, "pubDate") || feedTag(block, "published") || feedTag(block, "updated") || feedTag(block, "dc:date") || feedTag(block, "date");
+    const when = ds ? new Date(feedDecode(ds)) : null;
+    out.push({ title, url: link, source: feed.source, region: feed.region, when: (when && !isNaN(when.getTime())) ? when : null });
+  }
+  return out;
+}
+async function feedFetch(url) {
+  for (let i = 0; i < 2; i++) {
+    try {
+      // Bound each feed so one slow host can't stall the combined response.
+      const r = await fetch(url, { headers: fetchHeaders(url), cf: { cacheTtl: 600 }, signal: AbortSignal.timeout(4500) });
+      if (r.ok) return await r.text();
+    } catch { /* timed out / errored — retry once, then skip */ }
+  }
+  return null;
+}
+const feedNorm = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+async function handleFeed(request, env, ctx) {
+  const url = new URL(request.url);
+  // /api/feed?debug=1 — probe every source and report ok/status/item counts.
+  if (url.searchParams.get("debug") === "1") {
+    const probes = await Promise.all(FEED_SOURCES.map(async (f) => {
+      try {
+        const r = await fetch(f.url, { headers: fetchHeaders(f.url), cf: { cacheTtl: 0 } });
+        const txt = r.ok ? await r.text() : "";
+        const parsed = txt ? feedParse(txt, f) : [];
+        const kept = f.broad ? parsed.filter((x) => FEED_MACRO_RE.test(x.title)) : parsed;
+        return { source: f.source, url: f.url, status: r.status, parsed: parsed.length, kept: kept.length };
+      } catch (e) { return { source: f.source, url: f.url, error: String((e && e.message) || e) }; }
+    }));
+    return new Response(JSON.stringify({ probes }, null, 2), {
+      headers: { "content-type": "application/json", "cache-control": "no-store" },
+    });
+  }
+  const cache = caches.default;
+  const cacheKey = new Request(new URL("/api/feed?v=1", request.url).toString());
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+  const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {
+    const txt = await feedFetch(f.url);
+    if (!txt) return [];
+    let items = feedParse(txt, f);
+    if (f.broad) items = items.filter((x) => FEED_MACRO_RE.test(x.title));
+    return items.slice(0, 14);
+  }));
+  let all = [];
+  for (const r of results) if (r.status === "fulfilled") all = all.concat(r.value);
+  all.sort((a, b) => (b.when ? b.when.getTime() : 0) - (a.when ? a.when.getTime() : 0));
+  const cutoff = Date.now() - 6 * 864e5; // drop anything older than ~6 days
+  const seen = new Set();
+  const items = [];
+  for (const it of all) {
+    if (!it.when || it.when.getTime() < cutoff) continue;
+    const k = feedNorm(it.title);
+    if (!k || seen.has(k)) continue;
+    seen.add(k);
+    const { date, time } = feedLondon(it.when);
+    if (!date) continue;
+    items.push({ title: it.title, url: it.url, source: it.source, region: it.region, date, time });
+    if (items.length >= 60) break;
+  }
+  const resp = new Response(JSON.stringify({ items, asOf: new Date().toISOString() }), {
+    headers: { "content-type": "application/json", "cache-control": "public, max-age=600" },
+  });
+  if (ctx && ctx.waitUntil && items.length) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+  return resp;
+}
+
 export default {
   async fetch(request, env, ctx) {
    try {
@@ -1110,6 +1255,7 @@ export default {
     if (url.pathname === "/api/markets") return handleMarkets(request, env, ctx);
     if (url.pathname === "/api/pulse") return handlePulse(request, env, ctx);
     if (url.pathname === "/api/macro") return handleMacro(request, env, ctx);
+    if (url.pathname === "/api/feed") return handleFeed(request, env, ctx);
     if (url.pathname === "/api/watchlist") return handleWatchlist(request, env);
     if (url.pathname === "/api/research-targets") return handleResearchTargets(request, env);
     if (url.pathname === "/api/saved") return handleSaved(request, env, savedKeyFor);
