@@ -312,8 +312,14 @@ function renderMacroSnapshot() {
   const comp = bubbleComposite();
   // One 3-column grid (country · rate · stance) shared by both rows so the rate
   // and stance columns line up even though the two rates differ in width.
-  const pol = (cc, o) => `<span class="g-snap-cc">${cc}</span>`
-    + `<span class="g-snap-pv">${esc(o.rate)}</span><span class="g-snap-ps">${esc(o.stance)}</span>`;
+  // Show just the one-word forecast (the action before the "·", e.g. "Hold");
+  // the full stance ("Hold · hawkish bias easing") is in the hover tooltip.
+  const pol = (cc, o) => {
+    const short = String(o.stance || "").split("·")[0].trim() || String(o.stance || "");
+    return `<span class="g-snap-cc">${cc}</span>`
+      + `<span class="g-snap-pv">${esc(o.rate)}</span>`
+      + `<span class="g-snap-ps" title="${esc(o.stance)}">${esc(short)}</span>`;
+  };
   const scale = (lo, hi) => `<div class="g-snap-scale"><span>${lo}</span><span>${hi}</span></div>`;
   el.innerHTML =
     `<a class="g-snap-blk" href="/macro/#/policy">`

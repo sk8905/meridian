@@ -396,7 +396,7 @@
       align-items:baseline; font-size:.78rem; line-height:1.34; }
     .g-snap-cc { color:var(--muted); font-weight:700; font-size:.66rem; }
     .g-snap-pv { font-weight:700; color:var(--ink); white-space:nowrap; }
-    .g-snap-ps { min-width:0; color:var(--muted); font-size:.72rem; text-align:right; }
+    .g-snap-ps { min-width:0; color:var(--muted); font-size:.72rem; text-align:right; white-space:nowrap; cursor:help; }
     .g-snap-gauge { display:block; width:100%; height:auto; margin:.32rem 0 .14rem; overflow:visible; }
     .g-snap-scale { display:flex; justify-content:space-between; font-size:.62rem; color:var(--muted); }
     .g-snap-sub { margin-top:.14rem; font-size:.68rem; color:var(--muted); }
@@ -714,7 +714,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-23").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-24").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of
