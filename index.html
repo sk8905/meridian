@@ -610,8 +610,8 @@
     .cmdk-empty { color:var(--muted); font-size:.9rem; padding:1.2rem; text-align:center; }
     .cmdk-row { display:flex; align-items:center; gap:.7rem; padding:.55rem .7rem; border-radius:9px; cursor:pointer; }
     .cmdk-row.sel, .cmdk-row:hover { background:#eef2fb; }
-    .cmdk-tag { flex:0 0 auto; font-size:.6rem; font-weight:800; text-transform:uppercase; letter-spacing:.04em;
-      color:#fff; padding:.12rem .4rem; border-radius:5px; width:56px; text-align:center; }
+    .cmdk-tag { flex:0 0 auto; font-size:.58rem; font-weight:800; text-transform:uppercase; letter-spacing:.02em;
+      color:#fff; padding:.12rem .3rem; border-radius:5px; width:5.4rem; text-align:center; white-space:nowrap; }
     .cmdk-tag.credit { background:var(--credit); } .cmdk-tag.legal { background:var(--legal); }
     .cmdk-tag.macro { background:var(--macro); } .cmdk-tag.view { background:#64748b; }
     .cmdk-txt { min-width:0; }
@@ -822,7 +822,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-42").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-43").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of
