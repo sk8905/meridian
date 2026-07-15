@@ -1186,8 +1186,17 @@ const FEED_MAJOR_FX_RE = /\b(dollar|greenback|\busd\b|sterling|pound|\bgbp\b|eur
 // so they stay in (both as an include signal and an exception to the broker cut).
 // Smaller names (e.g. Sandvik) still get filtered out.
 const FEED_MEGACAP_RE = /\b(apple|microsoft|alphabet|google|amazon|nvidia|meta|facebook|tesla|berkshire|broadcom|tsmc|taiwan semiconductor|eli lilly|jpmorgan|goldman sachs|netflix|aramco|exxon|walmart|mastercard|oracle|openai|boeing|spacex|samsung|\bmag ?7\b|magnificent seven)\b/i;
+// Single-stock promo / clickbait pitches ("X Is Too Cheap To Ignore", "3 stocks
+// to buy", "Wall Street thinks …", "is a screaming buy", dividend-stock lists).
+const FEED_STOCKPITCH_RE = /\b(too cheap to ignore|to ignore now|is (a |an )?(screaming |strong |compelling |must-own )?buy\b|screaming buy|stocks? to buy|best stocks?|top (stock )?picks?|is it time to buy|should you buy|why i('|')?m buying|undervalued|overvalued|hidden gem|is (a |too )?(cheap|bargain|steal)|dividend (stock|aristocrat|king|machine)|wall street thinks|motley fool|zacks)\b/i;
+// A stock ticker in parentheses — "Chemours Company (CC)" — is a strong single-
+// stock signal; ignore common macro/geo abbreviations that also appear that way.
+const FEED_TICKER_RE = /\(([A-Z]{1,5})\)/;
+const FEED_TICKER_OK = new Set(["US", "UK", "EU", "EC", "UN", "CPI", "GDP", "PCE", "PPI", "PMI", "ISM", "ECB", "BOE", "BOJ", "FOMC", "OPEC", "IMF", "G7", "G20", "AI", "EV", "IPO", "CEO", "CFO", "QE", "QT", "FX", "WTI", "OBR", "ONS", "IFS", "NIESR"]);
+function feedHasStockTicker(title) { const m = FEED_TICKER_RE.exec(title); return m ? !FEED_TICKER_OK.has(m[1]) : false; }
 function feedReject(title) {
-  if (FEED_BROKER_RE.test(title) && !FEED_MEGACAP_RE.test(title)) return true;
+  // Single-stock notes/pitches are cut unless they're about a mega-cap.
+  if (!FEED_MEGACAP_RE.test(title) && (FEED_BROKER_RE.test(title) || FEED_STOCKPITCH_RE.test(title) || feedHasStockTicker(title))) return true;
   if (FEED_MINOR_FX_RE.test(title) && !FEED_MAJOR_FX_RE.test(title)) return true;
   return false;
 }
@@ -1273,7 +1282,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=7", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=8", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {
