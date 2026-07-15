@@ -250,7 +250,7 @@ a.compact-head:hover { color: var(--macro); text-decoration: underline; }
 .intel-date { flex-shrink: 0; white-space: nowrap; }
 .intel-head { font-weight: 600; color: var(--ink); overflow-wrap: anywhere; }
 a.intel-head:hover { color: var(--macro); text-decoration: underline; }
-.intel-src-inline { white-space: nowrap; }
+.intel-src-inline { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; max-width: 100%; }
 .intel-row .save-btn { margin-left: auto; flex-shrink: 0; }
 /* Month-group headers (JULY 2026 …), styled like Credit's year headers. */
 .month-group + .month-group { margin-top: .4rem; }
