@@ -389,19 +389,14 @@
     .g-side .mkt-fut { font-size:.52rem; }
     .g-side .rate-tile:nth-child(even) { border-left:1px solid var(--line); }
     .g-side .rate-tile:nth-child(n+3) { border-top:1px solid var(--line); }
-    /* Economic indicators — US then UK, each a 3-col × 2-row band styled like the
-       markets/rates bands: a single card with thin dividers between tiles rather
-       than individual bordered tiles. */
+    /* Economic indicators — US then UK, each a 3-col × 2-row grid of compact tiles. */
     .g-ind-card { background:var(--surface); border:1px solid var(--line); border-radius:14px;
-      box-shadow:var(--shadow); padding:.45rem .5rem; margin-bottom:1.2rem; }
+      box-shadow:var(--shadow); padding:.6rem .65rem; margin-bottom:1.2rem; }
     .g-ind-country { font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em;
-      color:var(--brand-2); margin:.1rem 0 .35rem; }
+      color:var(--brand-2); margin:.1rem 0 .45rem; }
     .g-ind-grid + .g-ind-country { margin-top:.7rem; }
-    .g-ind-grid { display:grid; grid-template-columns:repeat(3, 1fr); align-items:stretch; }
-    .g-ind { display:flex; flex-direction:column; gap:.06rem; padding:.4rem .5rem; min-width:0; color:inherit;
-      border-left:1px solid var(--line); }
-    .g-ind:nth-child(3n+1) { border-left:0; }
-    .g-ind:nth-child(n+4) { border-top:1px solid var(--line); }
+    .g-ind-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:.4rem; }
+    .g-ind { display:flex; flex-direction:column; gap:.05rem; padding:.35rem .4rem; border:1px solid var(--line); border-radius:8px; min-width:0; color:inherit; }
     a.g-ind:hover { background:rgba(120,130,150,.06); }
     .g-ind-name { text-transform:uppercase; letter-spacing:.4px; font-size:.6rem; color:var(--muted); font-weight:400; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .g-ind-val { font-weight:700; font-size:.86rem; color:var(--ink); line-height:1.2; }
