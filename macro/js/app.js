@@ -382,10 +382,10 @@ function saveBtn(id) {
   return `<button type="button" class="save-btn ${on ? "is-saved" : ""}" data-save="${esc(id)}" aria-pressed="${on}" title="${on ? "Remove from saved" : "Save this item"}">${on ? "★ Saved" : "☆ Save"}</button>`;
 }
 
-// Commentary tab — a curated, newest-first reading list of general macro-economic
-// news & analysis from the major financial outlets (data in content.js ARTICLES).
+// Commentary tab — a curated, newest-first reading list of economist & bank
+// commentary only (data in content.js COMMENTARY), not news-outlet content.
 // Rendered in the same feed format/style as the Credit News tab: a single line
-// per item (chip · headline · source · date · save), grouped by month.
+// per item (headline · source · author · date · save), grouped by month.
 // Render a date-sorted list, inserting a day-break separator whenever the day
 // changes from the previous item (a visual gap between each day's items).
 function withDayBreaks(items, rowFn) {
@@ -425,7 +425,11 @@ function byMonth(items) {
 const COMMENTARY_PAGE = 25;
 let commentaryLimit = COMMENTARY_PAGE;
 function sortedArticles() {
-  return [...((ARTICLES && ARTICLES.items) || [])].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  // Economist / bank commentary only (not news-outlet content) — the curated
+  // COMMENTARY set (author-attributed bank & economist views), US + UK merged,
+  // newest first.
+  return [...((COMMENTARY && COMMENTARY.us) || []), ...((COMMENTARY && COMMENTARY.uk) || [])]
+    .sort((a, b) => String(b.date).localeCompare(String(a.date)));
 }
 function commentaryPanelHtml() {
   const items = sortedArticles();
@@ -451,8 +455,8 @@ function wireCommentary() {
 function viewCommentary() {
   return `
     <div class="page-head">
-      <h1>News</h1>
-      <p class="muted">The most important global macro-economic news and analysis — monetary policy, growth, inflation, oil and bonds.</p>
+      <h1>Commentary</h1>
+      <p class="muted">Selected bank research, analyst &amp; economist views on the Fed and Bank of England — monetary policy, growth, inflation, oil and bonds. Newest first.</p>
     </div>
     <section class="card macro-articles-panel">${commentaryPanelHtml()}</section>`;
 }
