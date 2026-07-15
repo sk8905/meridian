@@ -1108,34 +1108,55 @@ async function handlePulse(request, env, ctx) {
 // time } and merged into the home "Latest news" list by the client. Same pattern
 // as the markets/rates handlers: fan out with Promise.allSettled, skip anything
 // that fails, edge-cache the combined result ~10 min, only cache once non-empty.
-// `broad` feeds (general business desks) are keyword-filtered down to macro/markets
-// stories; `focused` feeds (central banks, economy desks, FX) are kept wholesale.
-// Paywalled names (Bloomberg, Reuters, WSJ, full FT, The Economist) publish no
-// usable public RSS, so they can't be live-sourced here.
+// Lead with the financial specialists (WSJ, FT, The Economist, CNBC, MarketWatch)
+// and the central banks; keep a few FX/global desks but cap them low. Every feed
+// except the pure-policy central-bank ones (filter:false) is run through the STRICT
+// macro filter below, so only key-indicator / central-bank / index-move / major-
+// earnings stories get through. `cap` bounds each source so no single desk floods.
+// Bloomberg & Reuters publish no usable public RSS, so they can't be live-sourced.
 const FEED_SOURCES = [
-  // US / markets & macro
-  { url: "https://www.cnbc.com/id/20910258/device/rss/rss.html", source: "CNBC", region: "US", broad: false },
-  { url: "https://www.cnbc.com/id/10000664/device/rss/rss.html", source: "CNBC", region: "US", broad: true },
-  { url: "https://feeds.content.dowjones.io/public/rss/mw_topstories", source: "MarketWatch", region: "US", broad: true },
-  { url: "https://feeds.content.dowjones.io/public/rss/mw_realtimeheadlines", source: "MarketWatch", region: "US", broad: true },
-  { url: "https://finance.yahoo.com/news/rssindex", source: "Yahoo Finance", region: "US", broad: true },
-  { url: "https://rss.nytimes.com/services/xml/rss/nyt/Economy.xml", source: "New York Times", region: "US", broad: false },
-  { url: "https://www.federalreserve.gov/feeds/press_monetary.xml", source: "Federal Reserve", region: "US", broad: false },
-  // UK / markets & macro
-  { url: "https://feeds.bbci.co.uk/news/business/rss.xml", source: "BBC", region: "UK", broad: true },
-  { url: "https://feeds.bbci.co.uk/news/business/economy/rss.xml", source: "BBC", region: "UK", broad: false },
-  { url: "https://www.theguardian.com/business/economics/rss", source: "The Guardian", region: "UK", broad: false },
-  { url: "https://feeds.skynews.com/feeds/rss/business.xml", source: "Sky News", region: "UK", broad: true },
-  { url: "https://www.bankofengland.co.uk/rss/news", source: "Bank of England", region: "UK", broad: false },
-  { url: "https://www.cityam.com/feed/", source: "City AM", region: "UK", broad: true },
-  // FX / rates / global (overnight)
-  { url: "https://www.fxstreet.com/rss/news", source: "FXStreet", region: "GEN", broad: false },
-  { url: "https://www.forexlive.com/feed/news/", source: "ForexLive", region: "GEN", broad: false },
-  { url: "https://www.investing.com/rss/news_25.rss", source: "Investing.com", region: "GEN", broad: false },
-  { url: "https://asia.nikkei.com/rss/feed/nar", source: "Nikkei Asia", region: "GEN", broad: true },
+  // Financial specialists — US
+  { url: "https://feeds.a.dj.com/rss/RSSMarketsMain.xml", source: "The Wall Street Journal", region: "US", cap: 10 },
+  { url: "https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml", source: "The Wall Street Journal", region: "US", cap: 7 },
+  { url: "https://www.cnbc.com/id/20910258/device/rss/rss.html", source: "CNBC", region: "US", cap: 10 }, // Economy
+  { url: "https://www.cnbc.com/id/20409666/device/rss/rss.html", source: "CNBC", region: "US", cap: 8 },  // Markets
+  { url: "https://www.cnbc.com/id/10000664/device/rss/rss.html", source: "CNBC", region: "US", cap: 6 },  // Finance
+  { url: "https://feeds.content.dowjones.io/public/rss/mw_topstories", source: "MarketWatch", region: "US", cap: 8 },
+  { url: "https://www.federalreserve.gov/feeds/press_monetary.xml", source: "Federal Reserve", region: "US", cap: 6, filter: false },
+  // Financial specialists — UK / Europe
+  { url: "https://www.ft.com/markets?format=rss", source: "Financial Times", region: "UK", cap: 10 },
+  { url: "https://www.ft.com/global-economy?format=rss", source: "Financial Times", region: "UK", cap: 8 },
+  { url: "https://www.economist.com/finance-and-economics/rss.xml", source: "The Economist", region: "GEN", cap: 8 },
+  { url: "https://www.bankofengland.co.uk/rss/news", source: "Bank of England", region: "UK", cap: 6 },
+  // Global FX / rates / Asia — kept for overnight coverage but capped low.
+  { url: "https://finance.yahoo.com/news/rssindex", source: "Yahoo Finance", region: "US", cap: 3 },
+  { url: "https://www.investing.com/rss/news_25.rss", source: "Investing.com", region: "GEN", cap: 3 },
+  { url: "https://www.fxstreet.com/rss/news", source: "FXStreet", region: "GEN", cap: 3 },
+  { url: "https://www.forexlive.com/feed/news/", source: "ForexLive", region: "GEN", cap: 3 },
+  { url: "https://asia.nikkei.com/rss/feed/nar", source: "Nikkei Asia", region: "GEN", cap: 3 },
 ];
-// A story is macro/markets-relevant if its title mentions any of these.
-const FEED_MACRO_RE = /\b(inflation|deflation|cpi|ppi|rate cut|rate hike|interest rate|rates?|fed\b|federal reserve|fomc|boe\b|bank of england|ecb\b|central bank|treasur|gilt|yield|bond|gdp|growth|recession|slowdown|jobs?|unemploy|payroll|wage|econom|dollar|sterling|pound|euro\b|oil|brent|crude|opec|gold|stocks?|shares?|equit|markets?|ftse|s&p|nasdaq|dow\b|pmi|tariff|trade war|budget|fiscal|debt|deficit|hike|dovish|hawkish|earnings|bitcoin|crypto|sanction|imf\b|opec)\b/i;
+// STRICT macro filter — a title must touch one of: central-bank policy, a key
+// economic indicator, an index / rates / commodity / FX move, or major earnings.
+// Deliberately excludes single-stock tips, crypto, personal finance and general
+// news so the high-volume FX/aggregator desks contribute only genuine macro.
+const FEED_MACRO_RE = new RegExp([
+  // central banks & monetary policy
+  "fed(eral reserve)?\\b", "\\bfomc\\b", "powell", "warsh", "waller", "\\bboe\\b", "bank of england", "bailey",
+  "\\bmpc\\b", "\\becb\\b", "lagarde", "central bank", "monetary policy", "rate (decision|hike|cut|rise|hold|path|bets)",
+  "interest rate", "policy rate", "bank rate", "basis point", "\\bbps\\b", "quantitative", "hawkish", "dovish", "rate-setter",
+  // key economic indicators
+  "inflation", "deflation", "\\bcpi\\b", "\\bppi\\b", "\\bpce\\b", "\\bgdp\\b", "recession", "unemploy", "jobless",
+  "payroll", "nonfarm", "jobs report", "labou?r market", "wage", "retail sales", "industrial production", "\\bpmi\\b",
+  "\\bism\\b", "consumer (confidence|sentiment|spending)", "housing", "trade (balance|deficit|war)",
+  "budget|fiscal|deficit|borrowing", "tariff",
+  // indices / rates / commodities / FX (macro-level moves)
+  "s&p 500|s&p500|\\bs&p\\b", "nasdaq", "dow jones|\\bdow\\b", "\\bftse\\b", "nikkei", "\\bdax\\b", "stoxx",
+  "wall street", "stock market|stock-market", "\\bindex\\b|indices|equit", "treasur", "\\byield", "\\bgilt", "\\bbond",
+  "\\bbund", "\\boil\\b|brent|crude|\\bopec\\b", "\\bgold\\b", "dollar|sterling|\\bpound\\b|\\beuro\\b|\\byen\\b",
+  "sell-?off|rally|slump|rout|rebound",
+  // major earnings
+  "earnings|profit warning|results beat|results miss",
+].join("|"), "i");
 function feedDecode(s) {
   return String(s || "")
     .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, "$1")
@@ -1204,7 +1225,7 @@ async function handleFeed(request, env, ctx) {
         const r = await fetch(f.url, { headers: fetchHeaders(f.url), cf: { cacheTtl: 0 } });
         const txt = r.ok ? await r.text() : "";
         const parsed = txt ? feedParse(txt, f) : [];
-        const kept = f.broad ? parsed.filter((x) => FEED_MACRO_RE.test(x.title)) : parsed;
+        const kept = (f.filter === false) ? parsed : parsed.filter((x) => FEED_MACRO_RE.test(x.title));
         return { source: f.source, url: f.url, status: r.status, parsed: parsed.length, kept: kept.length };
       } catch (e) { return { source: f.source, url: f.url, error: String((e && e.message) || e) }; }
     }));
@@ -1213,15 +1234,15 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=2", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=3", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {
     const txt = await feedFetch(f.url);
     if (!txt) return [];
     let items = feedParse(txt, f);
-    if (f.broad) items = items.filter((x) => FEED_MACRO_RE.test(x.title));
-    return items.slice(0, 14);
+    if (f.filter !== false) items = items.filter((x) => FEED_MACRO_RE.test(x.title));
+    return items.slice(0, f.cap || 8);
   }));
   let all = [];
   for (const r of results) if (r.status === "fulfilled") all = all.concat(r.value);
