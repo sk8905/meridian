@@ -435,7 +435,7 @@
     .g-fx-tbl td.g-fx-diag { color:var(--line); font-weight:400; }
     .g-fx-tbl th:first-child { width:1.4rem; }
     .g-fx-tbl tbody tr + tr th, .g-fx-tbl tbody tr + tr td { border-top:1px solid rgba(120,130,150,.12); }
-    .g-fx-note { margin-top:.35rem; font-size:.56rem; color:var(--muted); }
+    .g-fx-tbl td { border-radius:3px; }
     /* Macro snapshot card — policy rate, cycle & bubble read below the bands. */
     .g-snap { background:var(--surface); border:1px solid var(--line); border-radius:14px;
       box-shadow:var(--shadow); overflow:hidden; }
@@ -800,7 +800,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-37").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-38").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

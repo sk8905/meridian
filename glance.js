@@ -744,28 +744,44 @@ function renderMarketsBand(el, d) {
 // movers pool. cell(row,col) = value of 1 unit of the row currency in the column
 // currency. No extra request — it reuses the markets payload.
 const FX_CCY = ["USD", "GBP", "EUR", "JPY"];
-function fxUsdPer(d) {
+function fxData(d) {
   const all = [...(((d && d.markets) || [])), ...(((d && d.moversExtra) || []))];
-  const by = (lbl) => { const m = all.find((x) => x.label === lbl); return m && m.value != null ? +m.value : null; };
-  const g = by("GBP/USD"), e = by("EUR/USD"), j = by("USD/JPY");
-  if (!(g > 0) || !(e > 0) || !(j > 0)) return null;
-  return { USD: 1, GBP: g, EUR: e, JPY: 1 / j };   // USD value of 1 unit of each
+  const find = (lbl) => all.find((x) => x.label === lbl);
+  const g = find("GBP/USD"), e = find("EUR/USD"), j = find("USD/JPY");
+  const v = (x) => (x && x.value != null ? +x.value : NaN);
+  if (!(v(g) > 0) || !(v(e) > 0) || !(v(j) > 0)) return null;
+  const chg = (x) => (x && typeof x.changePct === "number" && isFinite(x.changePct) ? x.changePct : 0);
+  // USD value of 1 unit of each, and each currency's daily % move vs USD.
+  return {
+    up: { USD: 1, GBP: v(g), EUR: v(e), JPY: 1 / v(j) },
+    dPct: { USD: 0, GBP: chg(g), EUR: chg(e), JPY: -chg(j) },
+  };
 }
 const fmtFx = (v) => (v >= 100 ? v.toFixed(1) : v >= 1 ? v.toFixed(3) : v.toFixed(4));
+// A faint background tint scaled to the cross's daily move — deliberately low
+// contrast (a glance reads it, but it doesn't pull the eye). No tint on tiny moves.
+function fxHeat(chg) {
+  const a = Math.min(Math.abs(chg) / 1.0, 1) * 0.18;
+  if (!(a > 0.015)) return "";
+  return ` style="background:rgba(${chg > 0 ? "5,150,105" : "220,38,38"},${a.toFixed(3)})"`;
+}
 function renderFxMatrix(d) {
   const el = document.getElementById("g-fx");
   if (!el) return false;
-  const up = fxUsdPer(d) || fxUsdPer(readCache("markets"));
-  if (!up) return false;
+  const fx = fxData(d) || fxData(readCache("markets"));
+  if (!fx) return false;
+  const { up, dPct } = fx;
   const head = `<tr><th></th>${FX_CCY.map((c) => `<th>${c}</th>`).join("")}</tr>`;
   const body = FX_CCY.map((base) => {
-    const cells = FX_CCY.map((q) => base === q
-      ? `<td class="g-fx-diag">—</td>`
-      : `<td>${fmtFx(up[base] / up[q])}</td>`).join("");
+    const cells = FX_CCY.map((q) => {
+      if (base === q) return `<td class="g-fx-diag">—</td>`;
+      const chg = dPct[base] - dPct[q];   // row currency's move vs the column currency
+      const tip = ` title="${base}/${q} ${chg > 0 ? "+" : ""}${chg.toFixed(2)}% today"`;
+      return `<td${fxHeat(chg)}${tip}>${fmtFx(up[base] / up[q])}</td>`;
+    }).join("");
     return `<tr><th>${base}</th>${cells}</tr>`;
   }).join("");
-  el.innerHTML = `<table class="g-fx-tbl"><thead>${head}</thead><tbody>${body}</tbody></table>`
-    + `<div class="g-fx-note">1 row = value in column currency</div>`;
+  el.innerHTML = `<table class="g-fx-tbl"><thead>${head}</thead><tbody>${body}</tbody></table>`;
   return true;
 }
 function initMarkets() {
