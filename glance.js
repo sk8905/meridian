@@ -332,7 +332,11 @@ function renderMacroSnapshot() {
       + `<span class="g-snap-pv">${esc(o.rate)}</span>`
       + `<span class="g-snap-ps"><span class="g-snap-fc">${esc(fc)}</span>${tag}</span>`;
   };
-  const scale = (lo, hi) => `<div class="g-snap-scale"><span>${lo}</span><span>${hi}</span></div>`;
+  // Meter row: the scale end-labels sit inline either side of the gauge; the
+  // per-country / composite detail is tucked into the row's hover tooltip.
+  const meter = (lo, hi, gauge, detail) =>
+    `<div class="g-snap-meter"${detail ? ` title="${esc(detail)}"` : ""}>`
+      + `<span class="g-snap-end">${lo}</span>${gauge}<span class="g-snap-end">${hi}</span></div>`;
   el.innerHTML =
     `<a class="g-snap-blk" href="/macro/#/policy">`
       + `<div class="g-snap-h"><span class="g-snap-t">Policy rate</span><span class="g-snap-cap">Next 28–30 Jul</span></div>`
@@ -340,15 +344,11 @@ function renderMacroSnapshot() {
     + `</a>`
     + `<a class="g-snap-blk" href="/macro/#/cycle">`
       + `<div class="g-snap-h"><span class="g-snap-t">Cycle position</span><span class="g-snap-cap">${esc(shortStage(CYCLE.us.shortStage))}</span></div>`
-      + snapGauge([{ label: "US", pos: CYCLE.us.pos }, { label: "UK", pos: CYCLE.uk.pos }])
-      + scale("Early", "Crisis")
-      + `<div class="g-snap-sub">US ${CYCLE.us.pos} · UK ${CYCLE.uk.pos}</div>`
+      + meter("Early", "Crisis", snapGauge([{ label: "US", pos: CYCLE.us.pos }, { label: "UK", pos: CYCLE.uk.pos }]), `US ${CYCLE.us.pos} · UK ${CYCLE.uk.pos}`)
     + `</a>`
     + `<a class="g-snap-blk" href="/macro/#/bubble">`
       + `<div class="g-snap-h"><span class="g-snap-t">Bubble risk</span><span class="g-snap-cap">${esc(bubbleBand(comp))}</span></div>`
-      + snapGauge([{ label: "Composite", pos: comp }])
-      + scale("Low", "Extreme")
-      + `<div class="g-snap-sub">${esc(BUBBLE.market)} · composite ${comp}/100</div>`
+      + meter("Low", "Extreme", snapGauge([{ label: "Composite", pos: comp }]), `${BUBBLE.market} · composite ${comp}/100`)
     + `</a>`;
 }
 

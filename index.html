@@ -423,9 +423,10 @@
     /* Trending mood beside the forecast (hawkish / dovish / neutral) — plain
        muted text, e.g. "Hold · Hawkish". */
     .g-snap-mood { color:var(--muted); font-weight:600; }
-    .g-snap-gauge { display:block; width:100%; height:auto; margin:.32rem 0 .14rem; overflow:visible; }
-    .g-snap-scale { display:flex; justify-content:space-between; font-size:.62rem; color:var(--muted); }
-    .g-snap-sub { margin-top:.14rem; font-size:.68rem; color:var(--muted); }
+    /* Scale end-labels sit inline either side of the gauge (not below it). */
+    .g-snap-meter { display:flex; align-items:center; gap:.5rem; margin:.4rem 0 .1rem; }
+    .g-snap-end { flex:0 0 auto; font-size:.62rem; color:var(--muted); white-space:nowrap; }
+    .g-snap-gauge { flex:1 1 auto; min-width:0; width:auto; height:auto; overflow:visible; }
     a.g-snap-blk:hover .g-snap-cap { color:var(--brand-2); }
     /* iPhone: the markets + key-rates bands are one tap away behind a chart button
        in the top bar (between the theme toggle and the bell). On phones the whole
@@ -758,7 +759,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-30").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-31").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of
