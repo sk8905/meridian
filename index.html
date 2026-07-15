@@ -440,9 +440,12 @@
     .g-snap { background:var(--surface); border:1px solid var(--line); border-radius:14px;
       box-shadow:var(--shadow); overflow:hidden; }
     .g-snap-blk { display:block; padding:.6rem .7rem; border-top:1px solid var(--line); color:inherit; text-decoration:none; }
+    /* The two gauge blocks (cycle, bubble) sit tighter so the macro-read box ends
+       level with the news feed. */
+    .g-snap-blk:nth-child(n+2) { padding-top:.14rem; padding-bottom:.14rem; }
     .g-snap-blk:first-child { border-top:0; }
     a.g-snap-blk:hover { background:rgba(120,130,150,.06); }
-    .g-snap-h { display:flex; align-items:baseline; justify-content:space-between; gap:.5rem; margin-bottom:.25rem; }
+    .g-snap-h { display:flex; align-items:baseline; justify-content:space-between; gap:.5rem; margin-bottom:.1rem; }
     .g-snap-t { font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); white-space:nowrap; }
     .g-snap-cap { font-size:.72rem; font-weight:700; color:var(--ink); text-align:right; line-height:1.25; }
     /* Header row (Policy rate | Next | Forecast) and the data rows share one grid,
@@ -465,7 +468,7 @@
        muted text, e.g. "Hold · Hawkish". */
     .g-snap-mood { color:var(--muted); font-weight:600; }
     /* Scale end-labels sit inline either side of the gauge (not below it). */
-    .g-snap-meter { display:flex; align-items:center; gap:.5rem; margin:.4rem 0 .1rem; }
+    .g-snap-meter { display:flex; align-items:center; gap:.5rem; margin:.1rem 0 0; }
     .g-snap-end { flex:0 0 auto; font-size:.62rem; color:var(--muted); white-space:nowrap; }
     .g-snap-gauge { flex:1 1 auto; min-width:0; width:auto; height:auto; overflow:visible; }
     a.g-snap-blk:hover .g-snap-cap { color:var(--brand-2); }
