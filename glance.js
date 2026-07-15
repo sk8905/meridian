@@ -340,10 +340,9 @@ function renderMacroSnapshot() {
       + `<span class="g-snap-end">${lo}</span>${gauge}<span class="g-snap-end">${hi}</span></div>`;
   el.innerHTML =
     `<a class="g-snap-blk" href="/macro/#/policy">`
-      + `<div class="g-snap-h"><span class="g-snap-t">Policy rate</span></div>`
       + `<div class="g-snap-pol">`
-        + `<span></span><span></span>`
-        + `<span class="g-snap-colh">Next</span>`
+        + `<span class="g-snap-t g-snap-polh">Policy rate</span>`
+        + `<span class="g-snap-colh g-snap-colh-c">Next</span>`
         + `<span class="g-snap-colh g-snap-colh-r">Forecast</span>`
         + pol("US", OUTLOOK.us) + pol("UK", OUTLOOK.uk)
       + `</div>`
