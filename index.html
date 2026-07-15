@@ -263,9 +263,15 @@
        the same live feed that powers the narrative. The chips stay COLLAPSED
        behind a chevron at the end of the line (desktop and phones alike) and
        reveal on tap/click — so the hero stays clean until you ask for detail. */
-    .g-gl-block { display:flex; flex-direction:column; gap:.35rem; }
+    .g-gl-block { display:flex; flex-direction:column; gap:.35rem; position:relative; }
     .g-gl { position:relative; padding-right:1.7rem; }
-    .gl-tickers { display:none; flex-wrap:wrap; gap:.35rem .4rem; padding-left:8.5rem; }
+    /* Tickers reveal as a horizontal overlay dropdown anchored just under the
+       one-liner (aligned to the value text), so opening them floats over the page
+       instead of pushing the rest of it down. */
+    .gl-tickers { display:none; flex-wrap:wrap; gap:.35rem .4rem;
+      position:absolute; top:calc(100% + .3rem); left:8.5rem; right:0; z-index:60;
+      background:var(--surface); border:1px solid var(--line); border-radius:10px;
+      box-shadow:0 16px 38px rgba(8,20,60,.20); padding:.5rem .6rem; }
     .g-gl-block.is-open .gl-tickers { display:flex; }
     .gl-tickers:empty { display:none; }
     .gl-tk { display:inline-flex; align-items:baseline; gap:.32rem; padding:.1rem .48rem;
@@ -565,8 +571,8 @@
       .g-glance { padding-left:0; padding-top:1rem; border-left:0; border-top:3px solid var(--line); }
       /* Headings are desktop-only — hide them once the hero stacks. */
       .g-gl-l { display:none; }
-      /* No heading column to clear, so the chips align to the text's left edge. */
-      .gl-tickers { padding-left:0; }
+      /* No heading column to clear, so the dropdown aligns to the text's left edge. */
+      .gl-tickers { left:0; }
     }
     @media (max-width:760px){
       .g-main { padding:1.1rem 1rem 2.5rem; }
