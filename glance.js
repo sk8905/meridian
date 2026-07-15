@@ -326,7 +326,7 @@ function renderMacroSnapshot() {
     let mood = "";
     for (const k in MOOD) { if (rest.includes(k)) { mood = k; break; } }
     const tag = mood
-      ? ` <span class="g-snap-mood ${MOOD[mood]}">${mood[0].toUpperCase()}${mood.slice(1)}</span>`
+      ? ` <span class="g-snap-mood">· ${mood[0].toUpperCase()}${mood.slice(1)}</span>`
       : "";
     return `<span class="g-snap-cc">${cc}</span>`
       + `<span class="g-snap-pv">${esc(o.rate)}</span>`
