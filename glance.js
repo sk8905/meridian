@@ -354,13 +354,17 @@ function indTile(s) {
   const dir = ch > 0 ? "up" : ch < 0 ? "down" : "flat";
   const arrow = ch > 0 ? "▲" : ch < 0 ? "▼" : "·";
   const chg = (ch == null || s.value == null) ? "" : `<span class="g-ind-chg ${dir}">${arrow} ${Math.abs(ch).toFixed(2)}${pct ? " pp" : ""}</span>`;
-  const foot = `${s.asOf ? monY(s.asOf) + " · " : ""}${s.source || ""}`;
   const tag = s.href ? "a" : "div";
   const attrs = s.href ? ` href="${esc(s.href)}" target="_blank" rel="noopener noreferrer"` : "";
-  return `<${tag} class="g-ind"${attrs} title="${esc(s.label)}${s.sub ? " — " + esc(s.sub) : ""}">`
-    + `<div class="g-ind-name">${esc(s.label)}</div>`
-    + `<div class="g-ind-row"><span class="g-ind-val">${val}</span>${chg}</div>`
-    + `<div class="g-ind-foot">${esc(foot)}</div></${tag}>`;
+  // Source label removed from the tile face (matches the markets/key-rates tiles:
+  // name · value · change); the whole tile still links to the source, and the
+  // as-of/source detail lives in the hover tooltip.
+  const foot = [s.asOf ? monY(s.asOf) : "", s.source].filter(Boolean).join(" · ");
+  const tip = [s.label, s.sub, foot].filter(Boolean).join(" — ");
+  return `<${tag} class="g-ind"${attrs} title="${esc(tip)}">`
+    + `<span class="g-ind-name">${esc(s.label)}</span>`
+    + `<span class="g-ind-val">${val}</span>`
+    + chg + `</${tag}>`;
 }
 function initMacroIndicators() {
   const el = document.getElementById("g-indicators");
