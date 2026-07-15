@@ -5,7 +5,7 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "14 July 2026";
+export const UPDATED = "15 July 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
@@ -13,7 +13,7 @@ export const UPDATED = "14 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-15",
-  lastCheckedTime: "11:07 BST",
+  lastCheckedTime: "12:16 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -140,6 +140,7 @@ export const BUBBLE = {
     "The Hormuz shock escalated sharply on 12 July: the US struck Iran for a third time in a week, Tehran fired on a vessel and declared the Strait closed 'until the end of the American intervention in the region', and Iran retaliated with strikes against US-allied Gulf states including Qatar and the UAE, though Washington maintains traffic through the waterway is still flowing. With markets shut over the weekend the equity reaction is untested, but the episode raises the stakes for Monday's open and for the 14 July CPI print — and, if futures hold last week's pattern of shrugging off Middle-East escalation, would be a further data point for a narrow, complacent AI-led rally.",
     "That narrow-leadership risk stopped being purely theoretical on 13 July: South Korea's KOSPI triggered a circuit breaker as SK Hynix plunged as much as 14–15% (its worst on record) and Samsung Electronics fell over 10%, just days after SK Hynix's record $26.5bn Nasdaq debut, with the sell-off spreading to European chip suppliers. The same day the US and Iran traded a further round of strikes — Iran hit US-linked sites in Bahrain, Kuwait and Jordan — pushing Brent to a three-week high near $78.82/bbl, while US equities were comparatively muted ahead of Tuesday's CPI print, underscoring how concentrated the market's AI-led gains remain and how little of the geopolitical or chip-sector risk is being priced into the broader index.",
     "The standoff escalated further within the day on 13 July as President Trump announced the US would reinstate its Iran blockade in the Strait of Hormuz and impose a 20% toll on all other cargo transiting the waterway — reversing Washington's prior opposition to tolls — while Brent held near $79–80/bbl on the news; US equities were little changed into the early afternoon (S&P 500 -0.4%, Nasdaq -1%), a further test of how much geopolitical and chip-sector risk is being priced into the broader index.",
+    "The rhetoric widened further on 15 July when Iran's Revolutionary Guard threatened to halt <strong>all</strong> Mideast energy exports — not just Hormuz transit — in retaliation for the reimposed US blockade, saying exports would be 'for everyone or for no one'; Brent held around $85–87/bbl, broadly in line with 14 July levels rather than spiking further, with equities so far showing the same complacency toward the escalating supply-side threat.",
   ],
   dimensions: [
     {
@@ -188,6 +189,7 @@ export const BUBBLE = {
     ["Bloomberg — SK Hynix shares drop in Seoul after much-hyped US trading debut, 13 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-13/sk-hynix-shares-drop-in-seoul-after-much-hyped-us-trading-debut"],
     ["Al Jazeera — Oil prices jump as US and Iran trade attacks over Strait of Hormuz, 13 Jul 2026", "https://www.aljazeera.com/economy/2026/7/13/oil-prices-jump-as-us-and-iran-trade-attacks-over-strait-of-hormuz"],
     ["AP — Trump says US will blockade Iran, charge 20% toll on Hormuz cargo, 13 Jul 2026", "https://www.yahoo.com/news/politics/articles/us-ends-latest-round-airstrikes-024503851.html"],
+    ["NBC News — Iran threatens to halt all Mideast energy exports after US reimposes blockade, 15 Jul 2026", "https://www.nbcnews.com/world/iran/iran-threatens-halt-mideast-energy-exports-us-reimposes-blockade-rcna587593"],
   ],
 };
 
@@ -195,6 +197,7 @@ export const BUBBLE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-iran-halt-exports-2026-07-15", kind: "Markets", title: "Iran's Revolutionary Guard threatened to halt all Mideast energy exports — not just Hormuz transit — in retaliation for the reimposed US blockade, a rhetorical escalation beyond the shipping-disruption threat already flagged; Brent trades $85-87/bbl, in line with levels reached 14 July.", href: "#/bubble", date: "2026-07-15" },
   { id: "g-cpi-cool-2026-07-14", kind: "Rate guidance", title: "June US CPI cooled sharply to 3.5% y/y (core 2.6%) — the largest monthly drop since 2020 — cutting CME FedWatch odds of a 29 July Fed hike from ~46.5% to roughly 15-20% and pulling the 2-year Treasury yield down as much as 14bp.", href: "#/policy", date: "2026-07-14" },
   { id: "g-hormuz-toll-dropped-2026-07-14", kind: "Markets", title: "Trump abandoned his proposed 20% Strait of Hormuz cargo toll hours after floating it, easing some of the oil-driven inflation risk even as the wider US-Iran conflict continues into a further day of strikes.", href: "#/bubble", date: "2026-07-14" },
   { id: "g-warsh-testimony-2026-07-14", kind: "Rate guidance", title: "Fed Chair Warsh's debut House testimony added no fresh signal on the 29 July decision — he called the Fed's prior average-inflation-targeting framework a 'mistake' and pledged the Fed has 'no tolerance' for elevated inflation.", href: "#/policy", date: "2026-07-14" },
@@ -242,18 +245,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-07-15",
   us: [
+    { title: "Iran threatens to halt all Mideast energy exports after U.S. reimposes its blockade on Iran", source: "NBC News", date: "2026-07-15", time: "07:46", url: "https://www.nbcnews.com/world/iran/iran-threatens-halt-mideast-energy-exports-us-reimposes-blockade-rcna587593" },
     { title: "Oil rises after another round of U.S. strikes against Iran, naval blockade of the country's ports", source: "CNBC", date: "2026-07-15", url: "https://www.cnbc.com/2026/07/15/oil-prices-today-brent-wti-hormuz-blockade.html" },
     { title: "United States Dollar Index stays below 101 as traders trim hawkish Fed bets", source: "FXStreet", date: "2026-07-15", url: "https://www.fxstreet.com/news/united-states-dollar-index-stays-below-101-as-traders-trim-hawkish-fed-bets-202607150329" },
     { title: "PPI and crude oil inventories highlight Wednesday's economic calendar", source: "Investing.com", date: "2026-07-14", url: "https://www.investing.com/news/stock-market-news/ppi-and-crude-oil-inventories-highlight-wednesdays-economic-calendar-93CH-4791457" },
     { title: "Consumer price index inflation report June 2026", source: "CNBC", date: "2026-07-14", url: "https://www.cnbc.com/2026/07/14/consumer-price-index-inflation-report-june-2026.html" },
-    { title: "Fed's Warsh stays mum on rate plans, pledges price stability", source: "Axios", date: "2026-07-14", url: "https://www.axios.com/2026/07/14/fed-warsh-congress-rates" },
   ],
   uk: [
     { title: "Who will be UK's next chancellor: Ed Miliband, Streeting, McFadden?", source: "CNBC", date: "2026-07-15", url: "https://www.cnbc.com/2026/07/15/who-will-be-uks-next-chancellor-ed-miliband-streeting-mcfadden.html" },
     { title: "UK economy needs budget discipline, OECD says as Burnham prepares for power", source: "Investing.com (Reuters)", date: "2026-07-15", url: "https://www.investing.com/news/economy-news/uk-economy-needs-budget-discipline-oecd-says-as-burnham-prepares-for-power-4792475" },
+    { title: "FTSE 100 Live: UK Stocks Fall as China Growth Worries Hit Miners", source: "Bloomberg", date: "2026-07-15", time: "12:13", url: "https://www.bloomberg.com/news/live-blog/2026-07-15/ftse-100-live-pound-gilts-asml-reeves-iran-trump-hormuz-oil-prices-ai-stocks-what-s-moving-uk-markets-right-now-markets-today-mrlnubkg" },
     { title: "Bank of England warns Andy Burnham of UK economy's 'big issue'", source: "CityAM", date: "2026-07-14", url: "https://www.cityam.com/bank-of-england-warns-andy-burnham-economic-growth-is-the-uks-big-issue/" },
-    { title: "UK borrowing costs soar as Iran ceasefire collapses", source: "CityAM", date: "2026-07-14", url: "https://www.cityam.com/borrowing-costs-climb-after-trump-salvo/" },
-    { title: "Burnham Faces Day One Warning of Souring UK Economy and Oil Risk", source: "Bloomberg", date: "2026-07-14", url: "https://www.bloomberg.com/news/articles/2026-07-14/burnham-faces-day-one-warning-of-souring-uk-economy-and-oil-risk" },
+    { title: "Rathbones Cuts Gilt Exposure in Case Burnham 'Does a Truss'", source: "Bloomberg", date: "2026-07-14", time: "12:13", url: "https://www.bloomberg.com/news/articles/2026-07-14/rathbones-cut-gilt-exposure-in-case-burnham-does-a-truss" },
   ],
 };
 
@@ -267,6 +270,11 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-15",
   items: [
+    {"title":"Iran threatens to halt all Mideast energy exports after U.S. reimposes its blockade on Iran","source":"NBC News","date":"2026-07-15","time":"07:46","url":"https://www.nbcnews.com/world/iran/iran-threatens-halt-mideast-energy-exports-us-reimposes-blockade-rcna587593","blurb":"Iran's Revolutionary Guard says regional energy exports will be 'for everyone or for no one' in retaliation for the reimposed US blockade, a broader threat than the Hormuz-transit disruption already flagged."},
+    {"title":"FTSE 100 Live: UK Stocks Fall as China Growth Worries Hit Miners","source":"Bloomberg","date":"2026-07-15","time":"12:13","url":"https://www.bloomberg.com/news/live-blog/2026-07-15/ftse-100-live-pound-gilts-asml-reeves-iran-trump-hormuz-oil-prices-ai-stocks-what-s-moving-uk-markets-right-now-markets-today-mrlnubkg","blurb":"UK miners drag the FTSE 100 lower as fresh concerns over Chinese growth compound the Iran/Hormuz oil-shock backdrop."},
+    {"title":"Rathbones Cuts Gilt Exposure in Case Burnham 'Does a Truss'","source":"Bloomberg","date":"2026-07-14","time":"12:13","url":"https://www.bloomberg.com/news/articles/2026-07-14/rathbones-cut-gilt-exposure-in-case-burnham-does-a-truss","blurb":"The asset manager trims UK gilt holdings on fears an incoming Burnham government could rattle bond markets the way Liz Truss's 2022 mini-budget did."},
+    {"title":"World Economic Outlook Update, July 2026: Global Economy in Crosscurrents of War and Technology","source":"IMF","date":"2026-07-08","time":"12:13","url":"https://www.imf.org/en/publications/weo/issues/2026/07/08/world-economic-outlook-update-july-2026","blurb":"The IMF trims global growth to 3.0% for 2026 and flags inflation rising to 4.7% as disinflation stalls amid war and AI-driven crosscurrents."},
+    {"title":"Short-Term Energy Outlook, July 2026","source":"EIA","date":"2026-07-07","time":"12:13","url":"https://www.eia.gov/outlooks/steo/pdf/steo_full.pdf","blurb":"The EIA sees Brent easing toward $70-74/bbl by late 2026 absent further Middle East escalation, a contrast to the current Hormuz-driven spike."},
     {"title":"Oil rises after another round of U.S. strikes against Iran, naval blockade of the country's ports","source":"CNBC","date":"2026-07-15","time":"10:59","url":"https://www.cnbc.com/2026/07/15/oil-prices-today-brent-wti-hormuz-blockade.html","blurb":"Brent extends its gains as a fresh round of US strikes on Iran and a naval blockade of Iranian ports keep the Strait of Hormuz standoff live."},
     {"title":"United States Dollar Index stays below 101 as traders trim hawkish Fed bets","source":"FXStreet","date":"2026-07-15","time":"10:59","url":"https://www.fxstreet.com/news/united-states-dollar-index-stays-below-101-as-traders-trim-hawkish-fed-bets-202607150329","blurb":"The dollar index holds below 101 as traders pare back hawkish Fed bets following the cooler June CPI print."},
     {"title":"Who will be UK's next chancellor: Ed Miliband, Streeting, McFadden?","source":"CNBC","date":"2026-07-15","time":"10:59","url":"https://www.cnbc.com/2026/07/15/who-will-be-uks-next-chancellor-ed-miliband-streeting-mcfadden.html","blurb":"Speculation intensifies over who Andy Burnham will name as chancellor, with Ed Miliband, Wes Streeting and Pat McFadden all floated."},
@@ -302,12 +310,6 @@ export const ARTICLES = {
     {"title":"Dollar steady before US inflation data, yen under pressure","source":"CNBC","date":"2026-07-14","time":"10:13","url":"https://www.cnbc.com/2026/07/14/dollar-steady-before-us-inflation-data-yen-under-pressure.html","blurb":"FX markets mark time ahead of the June CPI print, with the yen the session's clearest mover."},
     {"title":"Stock market today: Dow, S&P 500, Nasdaq futures decline as traders lift Fed rate hike bets ahead of key inflation data","source":"Yahoo Finance","date":"2026-07-14","time":"10:13","url":"https://finance.yahoo.com/markets/live/stock-market-today-tuesday-july-14-dow-sp-500-nasdaq-070833816.html","blurb":"US equity futures slip as markets price higher odds of a July Fed hike ahead of the CPI release."},
     {"title":"FTSE 100 Live: Bond Yields Jump as Traders Add to Rate-Hike Bets","source":"Bloomberg","date":"2026-07-14","time":"10:13","url":"https://www.bloomberg.com/news/live-blog/2026-07-14/ftse-100-live-brent-oil-iran-trump-hormuz-pound-bonds-reeves-what-s-moving-uk-markets-right-now-markets-today","blurb":"Live UK-markets blog tracking gilts, sterling and Chancellor Reeves's Mansion House speech against the Hormuz oil-shock backdrop."},
-    {"title":"FTSE 100 Live: Stocks drop as oil surges after Trump reinstates Iranian blockade","source":"CityAM","date":"2026-07-14","time":"10:13","url":"https://www.cityam.com/ftse-100-live-stocks-to-dip-as-oil-surges-after-trump-reinstates-iranian-blockade/","blurb":"Brent tops $84 as Washington reimposes a Strait of Hormuz blockade and floats a 20% transit toll.","author":"Samuel Norman & Felix Armstrong"},
-    {"title":"Top investors managing $3tn to gain access to UK infrastructure projects via AI platform","source":"CityAM","date":"2026-07-14","time":"10:13","url":"https://www.cityam.com/top-investors-managing-3tn-to-gain-access-to-uk-infrastructure-projects-via-ai-platform/","blurb":"At her Mansion House dinner speech, Chancellor Reeves unveils an AI-driven investment platform meant to funnel global capital into UK infrastructure.","author":"Maisie Grice"},
-    {"title":"Sterling today: Pound slips as US-Iran escalation drives oil, dollar","source":"Investing.com","date":"2026-07-13","time":"10:13","url":"https://www.investing.com/news/forex-news/sterling-today-pound-slips-as-usiran-escalation-drives-oil-dollar-4787777","blurb":"Sterling gives back ground as the renewed Hormuz standoff lifts oil and the dollar.","author":"Navamya Acharya"},
-    {"title":"CNBC Daily Open: Hormuz toll threats, Mideast tensions keep investors on edge","source":"CNBC","date":"2026-07-14","time":"05:20","url":"https://www.cnbc.com/2026/07/14/cnbc-daily-open-hormuz-toll-threats-mideast-tensions-keep-investors-on-edge.html","blurb":"Markets stay jittery as Trump's proposed Hormuz toll overshadows Tuesday's CPI print and bank earnings."},
-    {"title":"Fed chair Kevin Warsh testifies on monetary policy in House hearing","source":"PBS News","date":"2026-07-14","time":"05:20","url":"https://www.pbs.org/newshour/politics/watch-live-fed-chair-kevin-warsh-testifies-on-monetary-policy-in-house-hearing","blurb":"Warsh's debut semiannual congressional testimony lands the same day as the June CPI report."},
-    {"title":"Andrew Bailey: speech at the Annual Financial and Professional Services Dinner, Mansion House","source":"Bank of England","date":"2026-07-14","time":"05:20","url":"https://www.bankofengland.co.uk/speech/2026/july/andrew-bailey-speech-at-manison-house","blurb":"The BoE Governor's flagship City speech, delivered at the annual Mansion House dinner."},
   ],
 };
 
