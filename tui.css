@@ -14,9 +14,12 @@
 :root[data-theme="dark"] {
   --bg: #05080f;
   --surface: #0c1220;
-  --line: #1e2a45;
-  --border: #1e2a45;
+  --line: #232f47;
+  --border: #232f47;
   --head: #080d17;
+  --ink: #eaf0fb;
+  --muted: #8592ad;
+  --faint: #5c6a86;
   --accent: #4aa8f0;
   --primary: #4aa8f0;
 }
@@ -88,7 +91,9 @@
 .tcol::-webkit-scrollbar, .twire::-webkit-scrollbar { width: 8px; }
 .tcol::-webkit-scrollbar-thumb, .twire::-webkit-scrollbar-thumb { background: var(--border); }
 
-.tpanel { border-bottom: 1px solid var(--border); }
+.tcol { background: var(--bg); }
+.tpanel { border-bottom: 1px solid var(--border); background: var(--surface); }
+.twire { background: var(--surface); }
 .tpanel-h { display: flex; align-items: center; gap: 8px; height: 28px; padding: 0 11px; background: var(--head); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 2; flex: 0 0 auto; }
 .tpanel-h > span:first-child { font-size: 11px; font-weight: 600; color: var(--ink); }
 .tpanel-x { margin-left: auto; font-size: 9.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
@@ -109,9 +114,9 @@
 .tw-tag.deal { color: #6f97d6; } .tw-tag.intel { color: #cc9f43; } .tw-tag.clo { color: #9b83e2; } .tw-tag.news { color: #4fa89c; }
 .tw-head { grid-column: 2; grid-row: 1; font-size: 12px; font-weight: 600; line-height: 1.35; color: var(--ink); }
 .twire .compact-item:hover .tw-head { color: var(--accent); }
-.tw-meta { grid-column: 2; grid-row: 2; font-size: 10px; margin-top: 1px; color: var(--muted); }
-.tw-src { grid-column: 3; grid-row: 1 / 3; align-self: center; text-align: right; white-space: nowrap; font-size: 10px; color: var(--muted); font-family: var(--t-mono); padding-left: 12px; max-width: 130px; overflow: hidden; text-overflow: ellipsis; }
-.tw-src a { color: var(--muted); }
+.tw-meta { grid-column: 2; grid-row: 2; font-size: 10px; margin-top: 1px; color: var(--faint); }
+.tw-src { grid-column: 3; grid-row: 1 / 3; align-self: center; text-align: right; white-space: nowrap; font-size: 10px; color: var(--faint); font-family: var(--t-mono); padding-left: 12px; max-width: 130px; overflow: hidden; text-overflow: ellipsis; }
+.tw-src a { color: var(--faint); }
 .tw-src a:hover { color: var(--accent); }
 .tw-empty { padding: 12px; }
 
