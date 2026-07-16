@@ -422,6 +422,9 @@ function renderFeed() {
   // Live RSS headlines (real publish times) merged in with the curated macro
   // items; the title-dedupe below collapses any overlap with the static feeds.
   (_liveFeed || []).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)));
+  // Drop Investing.com as a source unless the item is a Reuters story delivered
+  // via Investing.com (title carries the Reuters attribution).
+  { const kept = macro.filter((o) => o.src !== "Investing.com" || /\breuters\b/i.test(o.title || "")); macro.length = 0; macro.push(...kept); }
 
   const credit = [];
   deals.forEach((d) => credit.push(mk("c", creditItemHref(d, "deals"), d.headline, creditSource(d), false, d.date, d.time)));

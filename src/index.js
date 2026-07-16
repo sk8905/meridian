@@ -1302,7 +1302,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=10", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=11", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {
@@ -1324,6 +1324,12 @@ async function handleFeed(request, env, ctx) {
   const items = [];
   for (const it of all) {
     if (!it.when || it.when.getTime() < cutoff) continue;
+    // Investing.com is dropped as a source UNLESS the item is a Reuters story
+    // delivered via Investing.com (its title carries the Reuters attribution),
+    // in which case it's relabelled to Reuters.
+    if (it.source === "Investing.com") {
+      if (/\breuters\b/i.test(it.title)) it.source = "Reuters"; else continue;
+    }
     const k = feedNorm(it.title);
     if (!k || seen.has(k)) continue;
     seen.add(k);

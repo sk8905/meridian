@@ -703,18 +703,22 @@ function viewDashboard() {
   const uni = managers.filter((m) => !targetFocus || midInFocus(m.id));
   // League table shows the FULL manager universe ranked by credit AUM; its own
   // €1–10bn toggle filters it in place (independent of the page-level focus).
+  // AUM = the manager's total AUM (aumTotal ?? aum), the same measure the old
+  // Managers table and the €1–10bn band use — aumCredit is missing for many.
   const league = [...managers]
-    .map((m) => ({ m, nf: mgrFundList(m.id).length, live: mgrFundList(m.id).filter(inMkt).length, focus: mInFocus(m) }))
-    .sort((a, b) => (b.m.aumCredit || 0) - (a.m.aumCredit || 0));
+    .map((m) => ({ m, aum: focusAumOf(m), nf: mgrFundList(m.id).length, live: mgrFundList(m.id).filter(inMkt).length, focus: mInFocus(m) }))
+    .sort((a, b) => (b.aum == null ? -1 : b.aum) - (a.aum == null ? -1 : a.aum));
   const pipeline = creditFunds.filter(inMkt).sort((a, b) => (b.targetSize || 0) - (a.targetSize || 0)).slice(0, 12);
-  const totalCreditAum = uni.reduce((s, m) => s + (m.aumCredit || 0), 0);
+  const totalAum = uni.reduce((s, m) => s + (focusAumOf(m) || 0), 0);
   const metrics = [
     ["Deals " + curQ, dealsThisQuarter], ["Open funds", openProcesses],
     ["Closes " + curQ, closesThisQuarter], ["CLO closes " + curQ, cloClosesThisQuarter],
     ["Managers", uni.length], ["Funds", creditFunds.length],
-    ["Credit AUM", "€" + Math.round(totalCreditAum) + "bn"],
+    ["AUM", fmtAum(Math.round(totalAum))],
   ];
   const KIND = { deal: "DEAL", intel: "FUND", clo: "CLO", news: "NEWS" };
+  // Single line matching the Home feed: date · CODE · headline (+ inline manager)
+  // · source (right). Credit stories carry a date, so the date leads (vs Home's time).
   const wireRow = (a) => {
     const rec = a.item, isNews = a.kind === "news";
     const title = isNews ? rec.title : rec.headline;
@@ -723,25 +727,25 @@ function viewDashboard() {
     const mname = mid && managerById[mid] ? managerById[mid].name : (isNews ? (rec._mname || "") : "");
     const src = isNews ? (rec.outlet || "") : creditSource(rec);
     const url = isNews ? rec.url : rec.sourceUrl;
-    const mgr = mid ? link(`#/manager/${mid}`, mname, "tw-mgr") : (mname ? esc(mname) : "");
+    const mgr = mid ? `<a href="#/manager/${mid}" class="tw-mgr">${esc(mname)}</a>` : (mname ? `<span class="tw-mgr">${esc(mname)}</span>` : "");
     return `<li class="compact-item tw-row" data-kind="${a.kind}">`
+      + `<span class="tw-date">${rec.date ? esc(fmtDate(rec.date)) : ""}</span>`
       + `<span class="tw-tag ${a.kind}">${KIND[a.kind]}</span>`
-      + `<a href="#/${isNews ? "news" : a.view}" data-goto="${goto}" class="compact-head tw-head">${esc(title)}</a>`
-      + `<div class="compact-meta tw-meta muted small">${rec.date ? esc(fmtDate(rec.date)) : ""}${mgr ? ` · ${mgr}` : ""}</div>`
+      + `<span class="tw-body"><a href="#/${isNews ? "news" : a.view}" data-goto="${goto}" class="tw-head">${esc(title)}</a>${mgr ? `<span class="tw-mgr-w">${mgr}</span>` : ""}</span>`
       + `<span class="tw-src">${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(src || "source")}</a>` : esc(src || "")}</span>`
       + `</li>`;
   };
 
   app.innerHTML = `
     <div class="tdash">
-      <div class="tdash-head"><h1>Credit Intelligence</h1>${focusToggle()}</div>
+      <div class="tdash-head"><h1>Credit Intelligence</h1></div>
       <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
       <div class="tdash-grid">
         <aside class="tcol tcol-l">
           <section class="tpanel">
             <header class="tpanel-h"><span>Manager league table</span><button type="button" class="tfocus-btn" id="cr-lg-focus" aria-pressed="false" title="Show only €1–10bn AUM managers">€1–10bn</button></header>
             <table class="tleague"><thead><tr><th>Manager</th><th>AUM</th><th>Fd</th><th>Lv</th></tr></thead>
-            <tbody>${league.map((r) => `<tr class="clickable" data-href="#/manager/${r.m.id}" data-focus="${r.focus ? 1 : 0}"><td class="tl-nm">${esc(r.m.name)}</td><td class="tl-n">€${r.m.aumCredit || 0}bn</td><td class="tl-n">${r.nf}</td><td class="tl-n">${r.live || ""}</td></tr>`).join("")}</tbody></table>
+            <tbody>${league.map((r) => `<tr class="clickable" data-href="#/manager/${r.m.id}" data-focus="${r.focus ? 1 : 0}"><td class="tl-nm">${esc(r.m.name)}</td><td class="tl-n">${r.aum == null ? "n/a" : esc(fmtAum(r.aum))}</td><td class="tl-n">${r.nf}</td><td class="tl-n">${r.live || ""}</td></tr>`).join("")}</tbody></table>
           </section>
         </aside>
         <section class="tcol tcol-c">
