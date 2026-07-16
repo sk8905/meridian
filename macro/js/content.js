@@ -5,15 +5,15 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "15 July 2026";
+export const UPDATED = "16 July 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-07-15",
-  lastCheckedTime: "21:21 BST",
+  lastChecked: "2026-07-16",
+  lastCheckedTime: "05:21 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -32,6 +32,7 @@ export const OUTLOOK = {
       "That risk eased sharply on 14 July: <strong>June CPI fell 0.4% month-on-month</strong> (vs. -0.1% expected) and rose just <strong>3.5% year-on-year</strong> (down from 4.2% in May) — the largest monthly drop since 2020, driven by a 9.7% slide in gasoline prices; core CPI was flat on the month and eased to 2.6% y/y. CME FedWatch odds of a 29 July hike collapsed from ~46.5% to roughly <strong>15–20%</strong>, and the 2-year Treasury yield fell as much as 14bp to ~4.14%, its biggest one-day drop since February. Chair Warsh's same-day House testimony added no fresh signal — he called the Fed's prior average-inflation-targeting framework a 'mistake' and said the Fed has 'no tolerance' for elevated inflation, but avoided hinting at the July decision — while President Trump's same-day reversal of the proposed 20% Hormuz cargo toll eased some of the oil-driven inflation risk, even as the wider US-Iran conflict continues.",
       "The disinflation theme extended to producer prices on 15 July: <strong>June PPI fell 0.3% month-on-month</strong>, its first monthly decline since June 2025, with a 12% drop in gasoline prices driving two-thirds of the fall and core PPI slowing to a 4.6% annual pace from 4.9% in May. CME FedWatch odds of a 29 July hike have now fallen to roughly <strong>17%</strong> (from a peak near 46.5% a week earlier), though traders still assign around 59% odds to a hike by the September meeting given the still-live Hormuz oil shock. Chair Warsh gives a second day of testimony to the Senate Banking Committee on 15 July, having offered no fresh signal on 14 July.",
       "Warsh's Senate Banking Committee appearance on 15 July repeated his non-committal message — he again said the Fed has 'no tolerance' for elevated inflation and cautioned against reading the cooler CPI/PPI prints as 'mission accomplished' — while facing a sharp ethics clash with Sen. Elizabeth Warren, who said he 'seems to invite corruption'; Warsh confirmed he is in regular contact with the Trump administration but declined to say if he has personally spoken with the President since becoming chair. CME FedWatch odds of a 29 July hike fell further intraday to roughly <strong>10–13%</strong>, even as traders continue to price a real chance of a September move. Economist reaction was split: Mohamed El-Erian called the testimony 'a real breath of fresh air', while Peter Schiff criticised the Fed's inflation framework.",
+      "The IMF's July 2026 World Economic Outlook Update, published 8 July, held global growth steady at 3.0% but lifted its global headline-inflation forecast to roughly <strong>4.7%</strong>, built on an $89/bbl oil-price assumption tied to the Middle East conflict — external confirmation that the Hormuz shock is a genuine, fund-level inflation risk rather than a purely domestic US pricing dynamic, reinforcing the case some FOMC hawks are making for keeping a hike on the table past July.",
     ],
     bottomLine: "The 29 July hike risk has eased further intraday to roughly 10-13% (CME FedWatch), down from ~17% after June PPI and a peak near 46.5% a week ago, as Warsh's second day of testimony again offered no fresh signal — though traders still price meaningful September-hike odds given the still-live Iran/oil shock, keeping the meeting a live, if now more lopsided, two-way risk.",
     // Market-implied odds for the next FOMC decision (CME FedWatch) and the FOMC's
@@ -94,6 +95,7 @@ export const OUTLOOK = {
     ["CNBC — Fed Chairman Kevin Warsh's testimony to Senate Banking Committee hits on economy, interest rates, 15 Jul 2026", "https://www.cnbc.com/2026/07/15/watch-fed-chairman-kevin-warsh-testify-live-before-senate-banking-committee.html"],
     ["CNN Business — Elizabeth Warren blasts Kevin Warsh, saying he 'seems to invite corruption', 15 Jul 2026", "https://www.cnn.com/2026/07/15/economy/fed-chairman-kevin-warsh-senate-testimony"],
     ["Benzinga — Kevin Warsh's Congressional Debut Like a 'Breath of Fresh Air,' Says El-Erian, 15 Jul 2026", "https://www.benzinga.com/markets/economic-data/26/07/60460861/fed-chair-kevin-warshs-congressional-debut-draws-mixed-reactions"],
+    ["IMF — World Economic Outlook Update, Jul 2026", "https://www.imf.org/en/publications/weo/issues/2026/07/08/world-economic-outlook-update-july-2026"],
   ],
 };
 
@@ -102,16 +104,16 @@ export const OUTLOOK = {
 // and reputable houses, newest first. Rendered as a two-column feed styled like
 // the dashboard's Key macro headlines; the four-times-daily routine keeps it current.
 export const COMMENTARY = {
-  updated: "2026-07-15",
+  updated: "2026-07-16",
   us: [
     { title: "Kevin Warsh's Congressional Debut Like a 'Breath of Fresh Air,' Says El Erian, as Schiff Flags Fed Chair's 'False Claim'", source: "Benzinga", author: "Mohamed El-Erian", date: "2026-07-15", url: "https://www.benzinga.com/markets/economic-data/26/07/60460861/fed-chair-kevin-warshs-congressional-debut-draws-mixed-reactions" },
     { title: "Consumer price index inflation report June 2026", source: "CNBC", author: "J.P. Morgan — Michael Feroli", date: "2026-07-14", url: "https://www.cnbc.com/2026/07/14/consumer-price-index-inflation-report-june-2026.html" },
     { title: "AI boom replaces oil as key inflation risk, says Barclays", source: "Yahoo Finance UK", author: "Barclays Research", date: "2026-07-13", url: "https://uk.finance.yahoo.com/news/ai-boom-replaces-oil-key-120900584.html" },
   ],
   uk: [
+    { title: "United Kingdom: Market-friendly chancellor prospects", source: "FXStreet", author: "TD Securities", date: "2026-07-15", url: "https://www.fxstreet.com/news/united-kingdom-market-friendly-chancellor-prospects-td-securities-202607151259" },
     { title: "Latest UK Interest Rate Forecasts: Will The Bank Of England Cut Interest Rates On 30 July 2026?", source: "HomeOwners Alliance", author: "Pantheon Macroeconomics — Rob Wood", date: "2026-07-13", url: "https://hoa.org.uk/news/interest-rate-predictions-2/" },
     { title: "Hedge Fund Gilt Risks Are Best Managed in Markets", source: "Bloomberg Opinion", author: "Aaron Brown", date: "2026-07-09", url: "https://www.bloomberg.com/opinion/articles/2026-07-09/hedge-fund-gilt-risks-are-best-managed-in-markets" },
-    { title: "Our latest views on the major central banks", source: "ING THINK", author: "ING — James Knightley, Carsten Brzeski, James Smith", date: "2026-07-09", url: "https://think.ing.com/articles/our-latest-views-on-the-major-central-banks-july-2026" },
   ],
 };
 
@@ -175,6 +177,7 @@ export const BUBBLE = {
     "The rhetoric widened further on 15 July when Iran's Revolutionary Guard threatened to halt <strong>all</strong> Mideast energy exports — not just Hormuz transit — in retaliation for the reimposed US blockade, saying exports would be 'for everyone or for no one'; Brent held around $85–87/bbl, broadly in line with 14 July levels rather than spiking further, with equities so far showing the same complacency toward the escalating supply-side threat.",
     "Sentiment data now corroborates the narrow-leadership read directly: BofA's July Fund Manager Survey, published 14 July, found 45% of managers naming an AI bubble as the single biggest tail risk to markets, up sharply from 28% in June — even as the S&P 500 and Nasdaq continue to hold near record highs on the back of the same handful of AI mega-caps.",
     "Markets closed little moved by the latest escalation on 15 July: the Dow added a marginal 0.02% to 52,508.66, the S&P 500 gained 0.4% to 7,543.89 and the Nasdaq rose 0.9% to 26,107.01, even as Trump warned of a 'really bad' next week of strikes on Iranian power plants and bridges unless Tehran returns to the table — a further test of how much geopolitical risk the AI-led rally is pricing in. Separately, Barclays argued on 13 July that AI investment, not oil, is now the more durable US inflation risk, lifting its end-2026 core PCE forecast to 3.3% (from 2.8% at the start of the year) on rising memory-chip and data-centre costs — a reminder that the same AI capex driving the market's narrow leadership is also complicating the Fed's disinflation path.",
+    "The concentration risk resurfaced again on 15 July: South Korea's Kospi tumbled as much as ~7% in a fresh chip-sector rout — coming just two days after SK Hynix's circuit-breaker-triggering slide — even as US index futures held broadly steady ahead of the 16 July retail-sales and jobless-claims prints, underscoring how narrowly the AI-led rally's resilience is concentrated in a handful of US mega-caps rather than the wider chip supply chain. Separately, the IMF's July 2026 World Economic Outlook Update held global growth at 3.0% for the year but lifted its global headline-inflation forecast to ~4.7%, built on an $89/bbl oil assumption tied to the Middle East conflict — a reminder that the same Hormuz shock feeding the Fed/BoE inflation risk is also a live tail risk for the equity rally's valuation support.",
   ],
   dimensions: [
     {
@@ -227,6 +230,8 @@ export const BUBBLE = {
     ["Seeking Alpha — AI bubble fears climb to top market risk in BofA fund manager survey, 14 Jul 2026", "https://seekingalpha.com/news/4613569-ai-bubble-fears-climb-to-top-market-risk-in-bofa-fund-manager-survey"],
     ["CNBC — Trump warns U.S. strikes on Iran could get 'really bad' next week, 15 Jul 2026", "https://www.cnbc.com/2026/07/15/trump-iran-hormuz-strikes-power-plants-targeted.html"],
     ["Yahoo Finance UK (Barclays) — AI boom replaces oil as key inflation risk, 13 Jul 2026", "https://uk.finance.yahoo.com/news/ai-boom-replaces-oil-key-120900584.html"],
+    ["CNBC — Stock futures little changed ahead of retail sales, jobs data; Kospi tumbles 7% in chip rout, 15 Jul 2026", "https://www.cnbc.com/2026/07/15/stock-market-today-live-updates.html"],
+    ["IMF — World Economic Outlook Update, Jul 2026", "https://www.imf.org/en/publications/weo/issues/2026/07/08/world-economic-outlook-update-july-2026"],
   ],
 };
 
@@ -234,6 +239,7 @@ export const BUBBLE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-kospi-chip-rout-2026-07-15", kind: "Bubble risk", title: "South Korea's Kospi tumbled as much as ~7% in a fresh chip-sector rout on 15 July, extending the prior week's SK Hynix/Samsung slide, even as US futures held broadly steady ahead of retail-sales and jobs data — a further crack in the narrow, AI-led rally.", href: "#/bubble", date: "2026-07-15" },
   { id: "g-fedwatch-10pct-2026-07-15", kind: "Rate guidance", title: "CME FedWatch odds of a 29 July Fed hike fell further intraday to roughly 10-13% (from ~17% after June PPI), even as Chair Warsh's second day of Senate testimony reiterated the Fed has 'no tolerance' for elevated inflation and warned against reading the cooler CPI/PPI prints as 'mission accomplished'.", href: "#/policy", date: "2026-07-15" },
   { id: "g-iran-power-plants-2026-07-15", kind: "Markets", title: "Trump warned US strikes on Iran will intensify to power plants and bridges 'next week' unless Tehran returns to the negotiating table — a fresh escalation threat beyond the current blockade dispute; oil held little changed (Brent Sept future $84.95) on the news.", href: "#/bubble", date: "2026-07-15" },
   { id: "g-mahmood-chancellor-2026-07-15", kind: "Markets", title: "Andy Burnham is reportedly set to name Shabana Mahmood — seen as fiscally cautious — rather than Ed Miliband as UK Chancellor (FT, via Bloomberg), a gilt- and sterling-supportive signal that softens the near-term UK fiscal-risk overhang.", href: "#/cycle", date: "2026-07-15" },
@@ -285,20 +291,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-07-15",
+  updated: "2026-07-16",
   us: [
+    { title: "Stock futures little changed ahead of retail sales, jobs data; South Korea's Kospi tumbles 7% in chip rout: Live updates", source: "CNBC", date: "2026-07-15", time: "05:21", url: "https://www.cnbc.com/2026/07/15/stock-market-today-live-updates.html" },
     { title: "Fed Chairman Kevin Warsh's testimony to Senate banking committee hits on economy, interest rates", source: "CNBC", date: "2026-07-15", time: "21:07", url: "https://www.cnbc.com/2026/07/15/watch-fed-chairman-kevin-warsh-testify-live-before-senate-banking-committee.html" },
     { title: "Elizabeth Warren blasts Kevin Warsh, saying he 'seems to invite corruption'", source: "CNN Business", date: "2026-07-15", time: "21:07", url: "https://www.cnn.com/2026/07/15/economy/fed-chairman-kevin-warsh-senate-testimony" },
-    { title: "The U.S.-Iran standoff over the Strait of Hormuz intensifies", source: "NPR", date: "2026-07-15", time: "21:07", url: "https://www.npr.org/2026/07/15/nx-s1-5894582/us-iran-updates" },
-    { title: "Stock market today: Dow, S&P 500, Nasdaq rise as Big Tech stocks rally", source: "Yahoo Finance", date: "2026-07-15", time: "21:07", url: "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-july-15-dow-sp-nasdaq-091813320.html" },
+    { title: "Oil prices hit 1-month high as US-Iran attacks dim Strait of Hormuz outlook", source: "Al Jazeera", date: "2026-07-14", time: "05:21", url: "https://www.aljazeera.com/economy/2026/7/14/oil-hits-1-month-high-as-us-iran-fighting-clouds-strait-of-hormuz-outlook" },
     { title: "Kevin Warsh's Congressional Debut Like a 'Breath of Fresh Air,' Says El Erian, as Schiff Flags Fed Chair's 'False Claim'", source: "Benzinga", date: "2026-07-15", time: "21:07", url: "https://www.benzinga.com/markets/economic-data/26/07/60460861/fed-chair-kevin-warshs-congressional-debut-draws-mixed-reactions" },
   ],
   uk: [
+    { title: "Burnham Upsets Labour Left Who Wanted Him to Become UK Premier", source: "Bloomberg", date: "2026-07-15", time: "05:21", url: "https://www.bloomberg.com/news/articles/2026-07-15/burnham-upsets-labour-left-who-wanted-him-to-become-uk-premier" },
+    { title: "Burnham Faces Day One Warning of Souring UK Economy and Oil Risk", source: "Bloomberg", date: "2026-07-14", time: "05:21", url: "https://www.bloomberg.com/news/articles/2026-07-14/burnham-faces-day-one-warning-of-souring-uk-economy-and-oil-risk" },
     { title: "Pound hits one-year high vs. euro on report Mahmood may get finance job", source: "Yahoo Finance UK", date: "2026-07-15", time: "21:07", url: "https://uk.finance.yahoo.com/news/pound-hits-one-high-vs-144336519.html" },
     { title: "OECD sounds alarm on pension triple lock in challenge to Burnham", source: "CityAM", date: "2026-07-15", time: "21:07", url: "https://www.cityam.com/oecd-andy-burnham-must-reform-state-pension-triple-lock/" },
-    { title: "Starmer's Out, Burnham's In, But the UK's Problems Stay the Same: Readout", source: "Bloomberg", date: "2026-07-15", time: "21:07", url: "https://www.bloomberg.com/news/newsletters/2026-07-15/starmer-s-out-burnham-s-in-but-the-uk-s-problems-stay-the-same-readout?srnd=phx-economics-v2" },
     { title: "Shabana Mahmood expected to beat Ed Miliband in race to become Burnham's chancellor", source: "LBC", date: "2026-07-15", time: "21:07", url: "https://www.lbc.co.uk/article/shabana-mahmood-to-beat-ed-miliband-next-chancellor-5Hjddbj_2/" },
-    { title: "UK economic growth subdued, OECD report warns ahead of leadership change", source: "Cyprus Mail", date: "2026-07-15", time: "21:07", url: "https://cyprus-mail.com/2026/07/15/uk-economic-growth-subdued-oecd-report-warns-ahead-of-leadership-change" },
   ],
 };
 
@@ -310,8 +316,14 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-07-15",
+  updated: "2026-07-16",
   items: [
+    {"title":"Stock futures little changed ahead of retail sales, jobs data; South Korea's Kospi tumbles 7% in chip rout: Live updates","source":"CNBC","date":"2026-07-15","time":"05:21","url":"https://www.cnbc.com/2026/07/15/stock-market-today-live-updates.html","blurb":"South Korea's Kospi drops ~7% in a fresh chip-sector rout as US futures hold steady ahead of retail-sales and jobs data."},
+    {"title":"Burnham Upsets Labour Left Who Wanted Him to Become UK Premier","source":"Bloomberg","date":"2026-07-15","time":"05:21","url":"https://www.bloomberg.com/news/articles/2026-07-15/burnham-upsets-labour-left-who-wanted-him-to-become-uk-premier","blurb":"Labour's left flank bristles at Burnham's centrist positioning and cabinet picks as he prepares to take office."},
+    {"title":"Burnham Faces Day One Warning of Souring UK Economy and Oil Risk","source":"Bloomberg","date":"2026-07-14","time":"05:21","url":"https://www.bloomberg.com/news/articles/2026-07-14/burnham-faces-day-one-warning-of-souring-uk-economy-and-oil-risk","blurb":"Economists warn the incoming PM inherits a weakening growth backdrop compounded by the renewed Hormuz oil shock."},
+    {"title":"Rate-hike wagers rebuild across the Fed, BOE, and ECB","source":"Enterprise AM","date":"2026-07-15","time":"05:21","url":"https://enterpriseam.com/uae/2026/07/15/rate-hike-wagers-rebuild-across-the-fed-boe-and-ecb/","blurb":"A cross-central-bank roundup of how the Hormuz oil shock is reviving tightening bets from Washington to London to Frankfurt."},
+    {"title":"Oil prices hit 1-month high as US-Iran attacks dim Strait of Hormuz outlook","source":"Al Jazeera","date":"2026-07-14","time":"05:21","url":"https://www.aljazeera.com/economy/2026/7/14/oil-hits-1-month-high-as-us-iran-fighting-clouds-strait-of-hormuz-outlook","blurb":"Brent extends its climb as renewed US-Iran attacks curb transits through a corridor carrying a fifth of global oil trade."},
+    {"title":"World Economic Outlook Update, July 2026: Global Economy in Crosscurrents of War and Technology","source":"IMF","date":"2026-07-08","time":"05:21","url":"https://www.imf.org/en/publications/weo/issues/2026/07/08/world-economic-outlook-update-july-2026","blurb":"The IMF holds 2026 global growth at 3.0% but lifts its global headline-inflation forecast to ~4.7% on an $89/bbl oil assumption tied to the Middle East war."},
     {"title":"Fed Chairman Kevin Warsh's testimony to Senate banking committee hits on economy, interest rates","source":"CNBC","date":"2026-07-15","time":"21:07","url":"https://www.cnbc.com/2026/07/15/watch-fed-chairman-kevin-warsh-testify-live-before-senate-banking-committee.html","blurb":"Warsh's second day of testimony repeats his non-committal message, warning against reading June's cooler CPI/PPI as 'mission accomplished'."},
     {"title":"Elizabeth Warren blasts Kevin Warsh, saying he 'seems to invite corruption'","source":"CNN Business","date":"2026-07-15","time":"21:07","url":"https://www.cnn.com/2026/07/15/economy/fed-chairman-kevin-warsh-senate-testimony","blurb":"Warren presses Warsh on Fed ethics and his contacts with Trump-administration officials during his Senate Banking Committee appearance."},
     {"title":"Kevin Warsh's Congressional Debut Like a 'Breath of Fresh Air,' Says El Erian, as Schiff Flags Fed Chair's 'False Claim'","source":"Benzinga","date":"2026-07-15","time":"21:07","url":"https://www.benzinga.com/markets/economic-data/26/07/60460861/fed-chair-kevin-warshs-congressional-debut-draws-mixed-reactions","blurb":"Economists split on Warsh's debut testimony, with El-Erian praising his communication style and Schiff criticising the Fed's inflation framework."},
@@ -357,9 +369,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-07-15", country: "US", title: "Fed Chair Kevin Warsh semiannual Monetary Policy testimony, Senate Banking Committee", url: "https://www.banking.senate.gov/hearings" },
-  { date: "2026-07-15", country: "US", title: "PPI (June)", url: "https://www.bls.gov/schedule/news_release/ppi.htm" },
-  { date: "2026-07-15", country: "US", title: "Fed Beige Book", url: "https://www.federalreserve.gov/monetarypolicy/publications/beige-book-default.htm" },
   { date: "2026-07-16", country: "US", title: "Retail sales (June)", url: "https://www.census.gov/retail/release_schedule.html" },
   { date: "2026-07-16", country: "UK", title: "GDP monthly estimate (May)", url: "https://www.ons.gov.uk/economy/grossdomesticproductgdp" },
   { date: "2026-07-21", country: "UK", title: "ONS labour market & average earnings", url: "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/uklabourmarket/latest" },
