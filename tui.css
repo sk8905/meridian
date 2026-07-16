@@ -1,0 +1,64 @@
+/* =====================================================================
+   tui.css — terminal-dashboard reskin for the Macro / Credit / Legal
+   section apps. Loaded AFTER each app's css/styles.css and premium.css,
+   so it wins. Active in both themes (dark is the section default). This
+   is the cosmetic foundation: full-bleed content, squared corners,
+   flattened hairline panels, deeper terminal surfaces and denser type.
+   Per-view 3-column layout (data on the edges) is layered on top of this.
+   ===================================================================== */
+
+/* ---- deeper terminal surfaces (dark) to match Home ---- */
+:root[data-theme="dark"] {
+  --bg: #0b1220;
+  --surface: #111b2f;
+  --line: #243150;
+  --border: #243150;
+}
+
+/* ---- full-bleed content column ---- */
+.container {
+  max-width: none;
+  padding: 1.1rem 1.75rem 3rem;
+}
+@media (max-width: 760px) { .container { padding: .9rem 1rem 2.5rem; } }
+
+/* ---- square everything that's currently rounded (pills, cards, inputs,
+        buttons, tables, chips) — the terminal look is flat and squared ---- */
+.card, .g-card, .kpi, .kpi-grid > *, .panel, .data-table, .data-table th,
+.data-table td, .wl-panel, .macro-tile, .macro-metrics, .chart, .detail,
+.detail-top, .rx-summary, .rx-expand, .searchbar, .filter, .filter-fold,
+.chip, .pill, .seg-btn, .btn, .save-btn, .rk-toggle, .ms-btn, .ms-opt,
+.chart-range-btn, .chart-mode-btn, .rel-dd, .rel-dd-btn, .nav-badge,
+.load-more, .focus-toggle, .range-slider, input, select, textarea,
+.notif-item, .compact-item, .provenance, .facts, .legend-item, .sources {
+  border-radius: 0 !important;
+}
+
+/* ---- flatten cards into hairline panels (no elevation) ---- */
+.card, .g-card, .panel, .wl-panel, .macro-tile, .detail, .data-table, .facts {
+  box-shadow: none !important;
+  border: 1px solid var(--border);
+  background: var(--surface);
+}
+.card:hover, .g-card:hover { box-shadow: none !important; }
+
+/* ---- denser headings (terminal scale) ---- */
+.container > h1:first-child, .view-title, .ph-title { font-size: 1.35rem; letter-spacing: -.01em; }
+.card > h2, .card > h3, .g-card h2, .panel h2 { letter-spacing: .01em; }
+
+/* tabular figures on data-heavy elements */
+.data-table, .kpi, .macro-metrics, .facts, .manager-stats, .kpis {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- dark inputs / search fields (were leaking a white light-mode fill) ---- */
+:root[data-theme="dark"] input,
+:root[data-theme="dark"] select,
+:root[data-theme="dark"] textarea,
+:root[data-theme="dark"] .searchbar {
+  background: var(--surface);
+  color: var(--ink);
+  border: 1px solid var(--border);
+}
+:root[data-theme="dark"] input::placeholder,
+:root[data-theme="dark"] textarea::placeholder { color: var(--muted); }
