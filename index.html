@@ -57,19 +57,21 @@
        far-left corner and the row is indented to the page container's left edge,
        so the switch lines up with the page content; the search sits at the
        content's right margin — the same slot the apps give Watchlist). ---- */
-    .g-top { position:sticky; top:0; z-index:20; background:var(--navy); color:#fff; }
-    .g-top-inner { position:relative; display:flex; align-items:center; gap:2rem; padding:0 1.5rem; height:60px; }
-    .g-brand { display:flex; align-items:center; gap:.6rem; flex:0 0 auto; color:#fff; }
-    .g-logo { color:#fff; font-size:1.3rem; line-height:1; }
+    .g-top { position:sticky; top:0; z-index:20; background:#0d1728; color:#fff; border-bottom:1px solid rgba(255,255,255,.08); }
+    .g-top-inner { position:relative; display:flex; align-items:center; gap:1.6rem; padding:0 1.5rem; height:54px; }
+    .g-brand { display:flex; align-items:center; gap:.55rem; flex:0 0 auto; color:#fff; }
+    .g-logo { color:var(--accent, #4aa8f0); font-size:1.2rem; line-height:1; }
     .g-brand-text { display:flex; flex-direction:column; }
-    .g-brand-text strong { font-size:1.05rem; letter-spacing:.3px; }
-    .g-brand-text .sub { font-size:.7rem; color:#93c5fd; text-transform:uppercase; letter-spacing:1px; }
-    .platform-switch { display:inline-flex; align-items:center; gap:2px; background:rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.22); border-radius:8px; padding:2px; flex:0 0 auto; }
-    .ps-btn { padding:.3rem .6rem; border-radius:6px; font-size:.8rem; font-weight:700; color:#cbd5e1;
-      text-decoration:none; white-space:nowrap; }
-    .ps-btn:hover { color:#fff; background:rgba(255,255,255,.1); }
-    .ps-btn.is-active, .ps-btn.is-active:hover { background:#fff; color:var(--navy); }
+    .g-brand-text strong { font-size:1rem; letter-spacing:.2px; font-weight:650; }
+    .g-brand-text .sub { font-size:.62rem; color:#8ea6c8; text-transform:uppercase; letter-spacing:1.2px; }
+    /* Modern segmented switch: no outer box; active tab is an accent-tinted pill. */
+    .platform-switch { display:inline-flex; align-items:center; gap:1px; background:transparent;
+      border:0; border-radius:0; padding:0; flex:0 0 auto; }
+    .ps-btn { padding:.36rem .72rem; border-radius:7px; font-size:.82rem; font-weight:500; color:#9fb0cc;
+      text-decoration:none; white-space:nowrap; transition:background .12s, color .12s; }
+    .ps-btn:hover { color:#fff; background:rgba(255,255,255,.07); }
+    .ps-btn.is-active, .ps-btn.is-active:hover { background:rgba(74,168,240,.18); color:#fff;
+      box-shadow:inset 0 0 0 1px rgba(74,168,240,.38); font-weight:600; }
     /* Section jump-links — occupy the slot the app top bars give their view-nav
        (.mainnav), so the Glance top bar matches them in size. Styled identically
        to .nav-link; each anchor smooth-scrolls to a section of the briefing. */
@@ -87,12 +89,13 @@
     /* Clear the sticky top bar (60px) when an anchor is scrolled into view. */
     .g-anchor { scroll-margin-top: 76px; }
     .g-search-btn { display:inline-flex; align-items:center; gap:.55rem; min-width:236px; margin-left:auto;
-      background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18); color:#c8d6ef; flex:0 0 auto;
-      font:inherit; font-size:.85rem; padding:.42rem .7rem; border-radius:9px; cursor:pointer; text-align:left; }
-    .g-search-btn:hover { background:rgba(255,255,255,.18); color:#fff; border-color:rgba(255,255,255,.3); }
+      background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); color:#9fb0cc; flex:0 0 auto;
+      font:inherit; font-size:.84rem; padding:.44rem .72rem; border-radius:8px; cursor:pointer; text-align:left;
+      transition:background .12s, border-color .12s; }
+    .g-search-btn:hover { background:rgba(255,255,255,.11); color:#fff; border-color:rgba(255,255,255,.22); }
     .g-search-btn .g-search-lbl { flex:1 1 auto; }
-    .g-search-btn kbd { background:rgba(255,255,255,.16); border-radius:5px; padding:.02rem .42rem;
-      font-family:inherit; font-size:.82rem; font-weight:700; line-height:1.5; }
+    .g-search-btn kbd { background:rgba(255,255,255,.1); border-radius:5px; padding:.02rem .42rem;
+      font-family:var(--t-mono, monospace); font-size:.78rem; font-weight:600; line-height:1.5; }
     /* Far-right cluster: signed-in identity + last-refresh stacked, then the bell */
     .g-right { display:flex; align-items:center; gap:.85rem; flex:0 0 auto; }
     .g-actions { display:flex; align-items:center; gap:.55rem; flex:0 0 auto; }
@@ -698,29 +701,32 @@
     /* provisional (to be refined). All terminal styling reads --t-* vars. */
     /* ================================================================= */
     :root[data-theme="dark"] #glance{
-      --t-ground:#0a1120; --t-panel:#0d1728; --t-panel2:#0f1c31; --t-head:#122340;
-      --t-grid:#1c2942; --t-grid2:#243352;
-      --t-ink:#e6ecf8; --t-dim:#aeb9d2; --t-mut:#7c89a6; --t-faint:#586686;
-      --t-accent:#38bdf8; --t-accent-dim:#1c6a97;
-      --t-up:#25c281; --t-down:#ff5d73;
-      --t-mac:#a07ee0; --t-crd:#7f95bf; --t-lex:#43b880; --t-amber:#e2a13b;
+      --t-ground:#0b1220; --t-panel:#111b2f; --t-panel2:#17223a; --t-head:#0f1930;
+      --t-grid:#1e2942; --t-grid2:#2a3552;
+      --t-ink:#eaf0fb; --t-dim:#b7c2da; --t-mut:#8592ad; --t-faint:#5c6a86;
+      --t-accent:#4aa8f0; --t-accent-dim:#2b638f; --t-accent-soft:rgba(74,168,240,.14);
+      --t-up:#3fc08d; --t-down:#f26d84;
+      --t-mac:#9b83e2; --t-crd:#6f97d6; --t-lex:#2fbf8a; --t-amber:#d9a441;
+      --t-shadow:0 1px 2px rgba(0,0,0,.28);
     }
     :root[data-theme="light"] #glance{
-      --t-ground:#d4dbe6; --t-panel:#ffffff; --t-panel2:#eef2f9; --t-head:#e7ecf5;
-      --t-grid:#ccd5e3; --t-grid2:#b3bfd3;
-      --t-ink:#0d1729; --t-dim:#28344e; --t-mut:#515d78; --t-faint:#7c88a2;
-      --t-accent:#0a6fb2; --t-accent-dim:#7cb5db;
-      --t-up:#08935c; --t-down:#d23349;
-      --t-mac:#63479c; --t-crd:#414f70; --t-lex:#2b7650; --t-amber:#a1670a;
+      --t-ground:#e7ebf2; --t-panel:#ffffff; --t-panel2:#f3f6fb; --t-head:#f4f7fb;
+      --t-grid:#e0e6ef; --t-grid2:#cdd6e3;
+      --t-ink:#131b2c; --t-dim:#3b475f; --t-mut:#5e6a84; --t-faint:#8b96ac;
+      --t-accent:#1f7fc4; --t-accent-dim:#9cc4e4; --t-accent-soft:rgba(31,127,196,.10);
+      --t-up:#0f9d68; --t-down:#df4763;
+      --t-mac:#6a4fa3; --t-crd:#3f5c8a; --t-lex:#2b8a5f; --t-amber:#b3760f;
+      --t-shadow:0 1px 2px rgba(19,27,44,.06);
     }
     #glance{ --t-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; }
 
     /* ---- ticker strip (below the command bar) ---- */
     .g-ticker{ display:flex; align-items:stretch; height:26px; overflow:hidden;
       background:var(--t-panel2); border-bottom:1px solid var(--t-grid2); }
-    .g-ticker-lbl{ display:flex; align-items:center; padding:0 12px; font-family:var(--t-mono);
-      font-size:10px; letter-spacing:.12em; color:var(--t-amber); border-right:1px solid var(--t-grid);
-      white-space:nowrap; }
+    .g-ticker-lbl{ display:flex; align-items:center; gap:6px; padding:0 13px; font-size:10.5px; font-weight:600;
+      letter-spacing:.04em; color:var(--t-mut); border-right:1px solid var(--t-grid); white-space:nowrap; }
+    .g-ticker-lbl::before{ content:""; width:6px; height:6px; border-radius:50%; background:var(--t-accent);
+      box-shadow:0 0 7px var(--t-accent); }
     .g-ticker-row{ display:flex; align-items:center; overflow:hidden; flex:1; }
     .g-tk{ display:flex; align-items:baseline; gap:7px; padding:0 13px; line-height:26px;
       font-family:var(--t-mono); font-size:11.5px; font-variant-numeric:tabular-nums;
@@ -736,7 +742,14 @@
     .tui .g-side{ order:1; display:block; border-right:1px solid var(--t-grid2); }
     .tui .g-feed-wrap{ order:2; min-width:0; }
     .tui .g-side2{ order:3; display:block; border-left:1px solid var(--t-grid2); }
-    @media (min-width:901px){ .tui .g-feed{ max-height:none; overflow:visible; } }
+    @media (min-width:901px){ .tui .g-feed{ max-height:none; overflow:visible; }
+      /* Pin the data rails so the market/macro panels stay in view as the long news
+         wire scrolls — no dead space below the shorter columns. Each rail scrolls
+         internally if its own panels exceed the viewport. */
+      .tui .g-side,.tui .g-side2{ position:sticky; top:54px; align-self:start;
+        max-height:calc(100vh - 54px); overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+      .tui .g-side::-webkit-scrollbar,.tui .g-side2::-webkit-scrollbar{ width:7px; }
+      .tui .g-side::-webkit-scrollbar-thumb,.tui .g-side2::-webkit-scrollbar-thumb{ background:var(--t-grid2); border-radius:4px; } }
     @media (max-width:900px){ .tui .g-layout{ grid-template-columns:1fr; }
       .tui .g-side,.tui .g-side2{ border-right:0; border-left:0; border-bottom:1px solid var(--t-grid2); } }
 
@@ -744,8 +757,7 @@
     .tui .g-hello{ display:block; padding:0; margin:0; background:var(--t-panel);
       border-bottom:1px solid var(--t-grid2); }
     .tui .g-hello-main{ display:flex; align-items:baseline; gap:12px; padding:7px 14px; }
-    .tui #hello{ font-size:11px; font-family:var(--t-mono); letter-spacing:.13em; text-transform:uppercase;
-      color:var(--t-mut); margin:0; font-weight:700; white-space:nowrap; }
+    .tui #hello{ font-size:12.5px; letter-spacing:0; color:var(--t-dim); margin:0; font-weight:600; white-space:nowrap; }
     .tui .g-brief{ font-size:12.5px; color:var(--t-dim); margin:0; }
     .tui .g-brief b{ color:var(--t-ink); font-variant-numeric:tabular-nums; }
     .tui .g-brief-sep{ margin:0 .5rem; opacity:.5; }
@@ -755,22 +767,20 @@
     .tui .g-gl-block{ padding:6px 14px; border-right:1px solid var(--t-grid); min-width:0; }
     .tui .g-gl-block:last-child{ border-right:0; }
     .tui .g-gl{ font-size:11.5px; line-height:1.4; color:var(--t-dim); display:flex; gap:8px; align-items:baseline; margin:0; }
-    .tui .g-gl-l{ font-family:var(--t-mono); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase;
-      color:var(--t-amber); white-space:nowrap; }
+    .tui .g-gl-l{ font-size:10px; font-weight:600; letter-spacing:.02em; text-transform:uppercase;
+      color:var(--t-accent); white-space:nowrap; opacity:.85; }
     .tui .g-gl-v{ min-width:0; }
     .tui .gl-tickers,.tui .gl-tk-toggle{ display:none; }
     @media (max-width:760px){ .tui .g-glance{ grid-template-columns:1fr; } .tui .g-gl-block{ border-right:0; border-bottom:1px solid var(--t-grid); }
       .tui .g-hello-main{ flex-wrap:wrap; gap:3px 10px; } .tui #hello{ white-space:normal; flex:1 1 100%; } }
 
     /* ---- panels ---- */
-    .tui-pnl{ border-bottom:1px solid var(--t-grid2); }
-    .tui-ph{ display:flex; align-items:center; gap:8px; height:24px; padding:0 11px;
-      background:var(--t-head); border-bottom:1px solid var(--t-grid2); }
-    .tui-ph > span:first-child{ font-family:var(--t-mono); font-size:10.5px; font-weight:700;
-      letter-spacing:.13em; text-transform:uppercase; color:var(--t-dim); }
-    .tui-px{ margin-left:auto; font-family:var(--t-mono); font-size:9.5px; letter-spacing:.08em;
-      color:var(--t-faint); text-transform:uppercase; }
-    .tui .g-loading,.tui .g-empty{ padding:10px 12px; font-family:var(--t-mono); font-size:11px; color:var(--t-faint); background:var(--t-panel); }
+    .tui-pnl{ border-bottom:1px solid var(--t-grid2); background:var(--t-panel); }
+    .tui-ph{ display:flex; align-items:center; gap:8px; height:30px; padding:0 12px;
+      background:var(--t-head); border-bottom:1px solid var(--t-grid); }
+    .tui-ph > span:first-child{ font-size:11.5px; font-weight:600; letter-spacing:.005em; color:var(--t-dim); }
+    .tui-px{ margin-left:auto; font-size:10px; letter-spacing:.01em; color:var(--t-faint); }
+    .tui .g-loading,.tui .g-empty{ padding:11px 12px; font-size:11.5px; color:var(--t-faint); background:var(--t-panel); }
 
     /* ---- data rows (markets / rates) reuse .rates-band/.rate-tile ---- */
     .tui .rates-band,.tui .g-side .rates-band,.tui .markets-band{ display:block; background:var(--t-panel);
@@ -804,7 +814,7 @@
     .tui .g-snap-blk{ display:block; padding:8px 11px; border-bottom:1px solid var(--t-grid); }
     .tui .g-snap-blk:last-child{ border-bottom:0; }
     .tui .g-snap-pol{ display:grid; grid-template-columns:auto 1fr auto auto; gap:3px 8px; align-items:baseline; font-family:var(--t-mono); }
-    .tui .g-snap-t,.tui .g-snap-colh,.tui .g-snap-polh{ font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--t-mut); }
+    .tui .g-snap-t,.tui .g-snap-colh,.tui .g-snap-polh{ font-size:9.5px; letter-spacing:.02em; text-transform:uppercase; color:var(--t-mut); font-family:inherit; }
     .tui .g-snap-cc{ font-size:11px; color:var(--t-dim); font-family:var(--t-mono); }
     .tui .g-snap-pv{ font-size:12px; color:var(--t-ink); font-family:var(--t-mono); font-variant-numeric:tabular-nums; }
     .tui .g-snap-nx,.tui .g-snap-ps{ font-size:10px; color:var(--t-dim); font-family:var(--t-mono); }
@@ -817,12 +827,12 @@
 
     /* ---- economic indicators ---- */
     .tui #g-indicators{ background:var(--t-panel); }
-    .tui .g-ind-country{ font-family:var(--t-mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase;
-      color:var(--t-mut); padding:6px 11px 3px; }
+    .tui .g-ind-country{ font-size:10px; font-weight:600; letter-spacing:.03em; text-transform:uppercase;
+      color:var(--t-mut); padding:8px 12px 4px; }
     .tui .g-ind-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px; background:var(--t-grid); margin:0 0 1px; }
-    .tui .g-ind{ background:var(--t-panel); padding:5px 8px; display:flex; flex-direction:column; gap:1px; }
-    .tui .g-ind-name{ font-family:var(--t-mono); font-size:8.5px; letter-spacing:.02em; color:var(--t-mut);
-      text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .tui .g-ind{ background:var(--t-panel); padding:6px 9px; display:flex; flex-direction:column; gap:2px; }
+    .tui .g-ind-name{ font-size:9px; letter-spacing:.01em; color:var(--t-mut);
+      white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .tui .g-ind-val{ font-family:var(--t-mono); font-size:12px; color:var(--t-ink); font-variant-numeric:tabular-nums; }
     .tui .g-ind-chg{ font-family:var(--t-mono); font-size:9px; }
     .tui .g-ind-chg.up{ color:var(--t-up); } .tui .g-ind-chg.down{ color:var(--t-down); } .tui .g-ind-chg.flat{ color:var(--t-faint); }
@@ -832,39 +842,51 @@
       padding:4px 11px; font-family:var(--t-mono); font-size:11.5px; border-bottom:1px solid var(--t-grid); background:var(--t-panel); }
     .tui .g-mv:last-child{ border-bottom:0; }
     .tui .g-mv .nm{ color:var(--t-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .tui .g-mv .bar{ width:64px; height:9px; background:var(--t-grid); position:relative; border-radius:1px; }
-    .tui .g-mv .bar i{ position:absolute; top:0; bottom:0; left:0; border-radius:1px; }
+    .tui .g-mv .bar{ width:64px; height:8px; background:var(--t-grid); position:relative; border-radius:3px; overflow:hidden; }
+    .tui .g-mv .bar i{ position:absolute; top:0; bottom:0; left:0; border-radius:3px; }
     .tui .g-mv .val{ font-variant-numeric:tabular-nums; text-align:right; }
     .tui .g-mv .val.up{ color:var(--t-up); } .tui .g-mv .val.down{ color:var(--t-down); }
 
+    /* ---- compact list panels (latest deals / restructurings) ---- */
+    .tui .tui-li{ display:block; padding:7px 12px; border-bottom:1px solid var(--t-grid); background:var(--t-panel); }
+    .tui .tui-li:last-child{ border-bottom:0; }
+    .tui .tui-li:hover{ background:var(--t-panel2); }
+    .tui .tui-li-t{ display:block; font-size:12px; color:var(--t-ink); line-height:1.35;
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+    .tui .tui-li:hover .tui-li-t{ color:var(--t-accent); }
+    .tui .tui-li-m{ display:flex; gap:6px; align-items:baseline; font-family:var(--t-mono); font-size:9.5px;
+      color:var(--t-faint); margin-top:3px; }
+    .tui .tui-li-tag{ color:var(--t-crd); font-weight:700; letter-spacing:.03em; }
+    .tui .tui-li-tag.lex{ color:var(--t-lex); }
+
     /* ---- news wire (feed) ---- */
     .tui .g-feed-wrap{ background:var(--t-ground); }
-    .tui .g-feed-head{ display:flex; align-items:center; gap:0; height:24px; padding:0; margin:0;
-      background:var(--t-head); border-bottom:1px solid var(--t-grid2); }
+    .tui .g-feed-head{ display:flex; align-items:center; gap:0; height:30px; padding:0; margin:0;
+      background:var(--t-head); border-bottom:1px solid var(--t-grid); }
     .tui .g-feed-h-lbl{ display:none; }
     .tui .g-feed-chips{ display:flex; gap:0; height:100%; }
-    .tui .g-feed-chip{ display:flex; align-items:center; gap:5px; height:100%; padding:0 13px; border:0;
-      border-right:1px solid var(--t-grid); background:transparent; cursor:pointer; font-family:var(--t-mono);
-      font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--t-mut); border-radius:0; }
-    .tui .g-feed-chip.is-on{ color:var(--t-ink); background:var(--t-panel2); box-shadow:inset 0 -2px 0 var(--t-accent); }
-    .tui .g-feed-chip-n{ color:var(--t-faint); font-size:9.5px; background:none; padding:0; }
+    .tui .g-feed-chip{ display:flex; align-items:center; gap:6px; height:100%; padding:0 15px; border:0;
+      border-right:1px solid var(--t-grid); background:transparent; cursor:pointer;
+      font-size:11.5px; font-weight:500; letter-spacing:.005em; color:var(--t-mut); border-radius:0; }
+    .tui .g-feed-chip.is-on{ color:var(--t-ink); font-weight:600; background:var(--t-accent-soft); box-shadow:inset 0 -2px 0 var(--t-accent); }
+    .tui .g-feed-chip-n{ color:var(--t-faint); font-size:10px; font-variant-numeric:tabular-nums; background:none; padding:0; }
     .tui .g-feed{ background:var(--t-panel); border:0; border-radius:0; padding:0; }
-    .tui .g-feed-dayhdr{ padding:5px 12px; background:var(--t-ground); border-top:0;
-      font-family:var(--t-mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--t-faint); margin:0; }
+    .tui .g-feed-dayhdr{ padding:6px 12px; background:var(--t-ground); border-top:0;
+      font-size:10px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--t-faint); margin:0; }
     .tui .g-feed-row{ display:grid; grid-template-columns:44px 34px minmax(0,1fr) auto; align-items:baseline;
       gap:10px; padding:5px 12px; border-bottom:1px solid var(--t-grid); }
     .tui .g-feed-row:hover{ background:var(--t-panel2); }
     .tui .g-feed-time{ font-family:var(--t-mono); font-size:11px; color:var(--t-mut); min-width:0; }
-    .tui .g-feed-code{ font-family:var(--t-mono); font-size:9.5px; font-weight:700; letter-spacing:.05em;
-      text-align:center; border-radius:2px; padding:1px 0; }
-    .tui .g-feed-code.macro{ color:var(--t-mac); border:1px solid color-mix(in srgb,var(--t-mac) 40%,transparent); }
-    .tui .g-feed-code.credit{ color:var(--t-crd); border:1px solid color-mix(in srgb,var(--t-crd) 40%,transparent); }
-    .tui .g-feed-code.legal{ color:var(--t-lex); border:1px solid color-mix(in srgb,var(--t-lex) 40%,transparent); }
-    .tui .g-feed-title{ font-size:12.5px; color:var(--t-ink); font-weight:400; line-height:1.35;
+    .tui .g-feed-code{ font-family:var(--t-mono); font-size:9px; font-weight:700; letter-spacing:.04em;
+      text-align:center; border-radius:4px; padding:2px 0; }
+    .tui .g-feed-code.macro{ color:var(--t-mac); background:color-mix(in srgb,var(--t-mac) 15%,transparent); }
+    .tui .g-feed-code.credit{ color:var(--t-crd); background:color-mix(in srgb,var(--t-crd) 15%,transparent); }
+    .tui .g-feed-code.legal{ color:var(--t-lex); background:color-mix(in srgb,var(--t-lex) 15%,transparent); }
+    .tui .g-feed-title{ font-size:13px; color:var(--t-ink); font-weight:400; line-height:1.4;
       white-space:normal; overflow:visible; min-width:0; }
     .tui a.g-feed-row:hover .g-feed-title{ color:var(--t-accent); }
     .tui .g-feed-ent{ font-family:var(--t-mono); font-size:9.5px; color:var(--t-accent);
-      border:1px solid var(--t-accent-dim); background:transparent; border-radius:2px; padding:0 4px; margin-left:6px; }
+      border:1px solid var(--t-accent-dim); background:var(--t-accent-soft); border-radius:4px; padding:1px 5px; margin-left:6px; }
     .tui .g-feed-ent::before{ content:"↗"; margin-right:2px; opacity:.7; }
     .tui .g-feed-ent:hover{ background:var(--t-accent); color:#04121f; }
     .tui .g-feed-src{ font-family:var(--t-mono); font-size:10px; color:var(--t-faint); white-space:nowrap; }
@@ -995,6 +1017,12 @@
               <div class="g-loading">Loading FX…</div>
             </div>
           </section>
+          <section class="tui-pnl g-anchor" id="jump-indicators">
+            <header class="tui-ph"><span>Economic indicators</span><span class="tui-px">US · UK</span></header>
+            <div id="g-indicators" class="g-ind-card" aria-label="US and UK economic indicators">
+              <div class="g-loading">Loading indicators…</div>
+            </div>
+          </section>
         </aside>
 
         <!-- CENTER: news wire -->
@@ -1015,15 +1043,17 @@
             <header class="tui-ph"><span>Top movers</span><span class="tui-px">1D</span></header>
             <div id="g-movers" aria-label="Top market movers"><div class="g-loading">Loading movers…</div></div>
           </section>
-          <section class="tui-pnl g-anchor" id="jump-indicators">
-            <header class="tui-ph"><span>Economic indicators</span><span class="tui-px">US · UK</span></header>
-            <div id="g-indicators" class="g-ind-card" aria-label="US and UK economic indicators">
-              <div class="g-loading">Loading indicators…</div>
-            </div>
-          </section>
           <section class="tui-pnl">
             <header class="tui-ph"><span>New across desks</span><span class="tui-px">today</span></header>
             <div id="g-newdesk" aria-label="New items per desk"></div>
+          </section>
+          <section class="tui-pnl">
+            <header class="tui-ph"><span>Latest deals</span><span class="tui-px">credit</span></header>
+            <div id="g-deals" aria-label="Latest credit deals"><div class="g-loading">Loading deals…</div></div>
+          </section>
+          <section class="tui-pnl">
+            <header class="tui-ph"><span>Restructurings &amp; schemes</span><span class="tui-px">legal</span></header>
+            <div id="g-rx" aria-label="Active restructurings and schemes"><div class="g-loading">Loading…</div></div>
           </section>
         </aside>
       </div>
@@ -1072,7 +1102,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-51").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-52").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

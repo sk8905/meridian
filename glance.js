@@ -85,6 +85,8 @@ export function initGlance() {
   if (rf) rf.textContent = `Last refresh ${fmtRefresh()}`;
   initNotifBell();
   initSavedPanel();
+  renderDeals();
+  renderRx();
   initFeedEntityNav();
   initMarketsPanel();
   initJumpNav();
@@ -1040,6 +1042,32 @@ function renderNewDesk(counts) {
     const n = counts[k] || 0;
     const w = Math.max(4, Math.round((n / max) * 100));
     return `<div class="g-mv"><span class="nm">${esc(label)}</span><span class="bar"><i style="width:${w}%;background:${col[k]}"></i></span><span class="val">${n}</span></div>`;
+  }).join("");
+}
+// Latest credit deals — the most recent priced/announced deals, deep-linking into
+// the Credit desk. Fills the right rail with cross-desk data on the home hub.
+function renderDeals() {
+  const el = document.getElementById("g-deals");
+  if (!el) return;
+  const list = [...deals].sort(byDateDesc).slice(0, 6);
+  if (!list.length) { el.innerHTML = '<div class="g-empty">No deals yet.</div>'; return; }
+  el.innerHTML = list.map((d) => {
+    const meta = [creditSource(d), d.date ? fmt(String(d.date).slice(0, 10)) : ""].filter(Boolean).join(" · ");
+    return `<a class="tui-li" href="${esc(creditItemHref(d, "deals"))}"><span class="tui-li-t">${esc(d.headline)}</span>`
+      + `<span class="tui-li-m"><span class="tui-li-tag">DEAL</span>${esc(meta)}</span></a>`;
+  }).join("");
+}
+// Active restructurings & schemes — the most recent from the Legal desk.
+function renderRx() {
+  const el = document.getElementById("g-rx");
+  if (!el) return;
+  const list = [...restructurings].filter((r) => r.date).sort(byDateDesc).slice(0, 6);
+  if (!list.length) { el.innerHTML = '<div class="g-empty">Nothing active.</div>'; return; }
+  el.innerHTML = list.map((r) => {
+    const kind = r.type === "scheme" ? "SCHEME" : "RP";
+    const meta = [r.date ? fmt(String(r.date).slice(0, 10)) : ""].filter(Boolean).join(" · ");
+    return `<a class="tui-li" href="/legal/#/restructurings?m=${encodeURIComponent(r.id)}"><span class="tui-li-t">${esc(r.company)}</span>`
+      + `<span class="tui-li-m"><span class="tui-li-tag lex">${kind}</span>${esc(meta)}</span></a>`;
   }).join("");
 }
 
