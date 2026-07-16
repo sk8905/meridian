@@ -242,6 +242,17 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 [data-theme="dark"] .g-np-item:hover,
 [data-theme="dark"] .cmdk-item.is-active,
 [data-theme="dark"] .cmdk-item:hover { background: rgba(255,255,255,.06); }
+/* Terminal dropdown/popover rules — squared, hairline, one surface. Covers the
+   nav-bar notification panel, the multi-select filter menus and the relative-date
+   menu, which otherwise keep a rounded white pill from the base stylesheet. */
+.notif-panel, .ms-pop, .rel-dd-menu, .cmdk-panel { border-radius: 0 !important; }
+.notif-item, .ms-opt, .rel-dd-item { border-radius: 0 !important; }
+.ms-pop { box-shadow: 0 12px 34px rgba(0,0,0,.5); padding: 0; }
+.ms-opt { border-bottom: 1px solid var(--border); }
+[data-theme="dark"] .ms-pop, [data-theme="dark"] .rel-dd-menu { background: var(--surface); border-color: var(--border); color: var(--ink); }
+[data-theme="dark"] .ms-opt { color: var(--ink); }
+[data-theme="dark"] .ms-opt:hover, [data-theme="dark"] .rel-dd-item:hover { background: rgba(255,255,255,.06); }
+[data-theme="dark"] .notif-item.is-new { background: rgba(74,168,240,.1); }
 /* Up/down (green/red) figures brighten on the dark surface. */
 [data-theme="dark"] .up, [data-theme="dark"] .g-gl-v .up,
 [data-theme="dark"] .gl-tk.up .gl-tk-c, [data-theme="dark"] .rate-chg.up,

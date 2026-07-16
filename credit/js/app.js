@@ -1330,6 +1330,31 @@ function cloRosterFor(items) {
 // column-for-column (identical <col> widths + table-layout:fixed via .mgr-vehicle-table).
 const MGR_VEHICLE_COLS = `<colgroup><col style="width:28%"><col style="width:18%"><col style="width:18%"><col style="width:18%"><col style="width:18%"></colgroup>`;
 
+// Shared terminal wire row for credit detail pages (manager / fund / CLO). Builds
+// one dense line — date · CODE · headline (+ optional inline entity) · source —
+// from a feed item tagged with _kind (deal / intel / news). data-fkey (news) or
+// id="row-<id>" (structured) preserve the notification deep-link focus.
+const CR_KIND = { deal: "DEAL", intel: "FUND", news: "NEWS" };
+function crWireRow(x, inline) {
+  const isNews = x._kind === "news";
+  const title = isNews ? x.title : x.headline;
+  const src = isNews ? (x.outlet || "") : creditSource(x);
+  const url = isNews ? x.url : x.sourceUrl;
+  const head = isNews
+    ? `<a href="${esc(url || "#")}"${url ? ' target="_blank" rel="noopener noreferrer"' : ""} class="tw-head">${esc(title)}</a>`
+    : `<a href="#/${x._kind === "deal" ? "deals" : "intel"}" data-goto="${x._kind === "deal" ? "deals" : "intel"}:${x.id}" class="tw-head">${esc(title)}</a>`;
+  return `<li class="compact-item tw-row" data-kind="${x._kind}"${isNews ? ` data-fkey="${esc(feedDedupKey(x))}"` : ` id="row-${esc(x.id)}"`}>`
+    + `<span class="tw-date">${x.date ? esc(fmtDate(x.date)) : ""}</span>`
+    + `<span class="tw-tag ${x._kind}">${CR_KIND[x._kind]}</span>`
+    + `<span class="tw-body">${head}${inline ? `<span class="tw-mgr-w">${inline}</span>` : ""}</span>`
+    + `<span class="tw-src">${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(src || "source")}</a>` : esc(src || "")}</span>`
+    + `</li>`;
+}
+// Small reusable terminal rail panel.
+function railPanel(title, meta, body) {
+  return `<section class="tpanel"><header class="tpanel-h"><span>${title}</span>${meta ? `<span class="tpanel-x">${meta}</span>` : ""}</header>${body}</section>`;
+}
+
 function viewManager(id) {
   const m = managerById[id];
   if (!m) return notFound();
@@ -1361,27 +1386,9 @@ function viewManager(id) {
   })();
 
   const commits = commitmentsForManager(m.id);
-  // Terminal wire row for the manager's combined activity (deal / fundraising /
-  // press). The manager is implicit on this page, so we surface the fund inline
-  // instead. data-fkey / id preserve the notification deep-link focus.
-  const KINDM = { deal: "DEAL", intel: "FUND", news: "NEWS" };
-  const mgrWireRow = (x) => {
-    const isNews = x._kind === "news";
-    const title = isNews ? x.title : x.headline;
-    const src = isNews ? (x.outlet || "") : creditSource(x);
-    const url = isNews ? x.url : x.sourceUrl;
-    const fund = x.fundId && fundById[x.fundId] ? fundById[x.fundId] : null;
-    const fmeta = fund ? `<span class="tw-mgr-w"><a href="#/fund/${fund.id}" class="tw-mgr">${esc(fund.name)}</a></span>` : "";
-    const head = isNews
-      ? `<a href="${esc(url || "#")}"${url ? ' target="_blank" rel="noopener noreferrer"' : ""} class="tw-head">${esc(title)}</a>`
-      : `<a href="#/${x._kind === "deal" ? "deals" : "intel"}" data-goto="${x._kind === "deal" ? "deals" : "intel"}:${x.id}" class="tw-head">${esc(title)}</a>`;
-    return `<li class="compact-item tw-row" data-kind="${x._kind}"${isNews ? ` data-fkey="${esc(feedDedupKey(x))}"` : ` id="row-${esc(x.id)}"`}>`
-      + `<span class="tw-date">${x.date ? esc(fmtDate(x.date)) : ""}</span>`
-      + `<span class="tw-tag ${x._kind}">${KINDM[x._kind]}</span>`
-      + `<span class="tw-body">${head}${fmeta}</span>`
-      + `<span class="tw-src">${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(src || "source")}</a>` : esc(src || "")}</span>`
-      + `</li>`;
-  };
+  // The manager is implicit on this page, so we surface the fund inline instead.
+  const mgrWireRow = (x) => crWireRow(x, x.fundId && fundById[x.fundId]
+    ? `<a href="#/fund/${x.fundId}" class="tw-mgr">${esc(fundById[x.fundId].name)}</a>` : "");
   const metrics = [
     ["AUM", esc(aumHeadline(m))], ["Founded", m.founded], ["Funds", fs.length],
     ["In market", liveFunds], ["CLOs", mgrCloRoster.length], ["Investors", commits.length],
@@ -1391,7 +1398,6 @@ function viewManager(id) {
     ["Funds", fs.length], ["In market", liveFunds],
     ["CLOs", mgrCloRoster.length], ["Investors", commits.length],
   ];
-  const railPanel = (title, meta, body) => `<section class="tpanel"><header class="tpanel-h"><span>${title}</span>${meta ? `<span class="tpanel-x">${meta}</span>` : ""}</header>${body}</section>`;
   const fundsRail = fs.length
     ? `<ul class="tmini">${fs.map((x) => `<li class="tmini-row clickable" data-href="#/fund/${x.id}"><span class="tmini-t">${esc(x.name)}<span class="tmini-r">${x.evergreen ? "Evergreen" : (x.targetSize ? eur(x.targetSize) : "—")}</span></span><span class="tmini-m">Vintage ${x.vintage} · ${esc(x.status || x.strategy || "")}</span></li>`).join("")}</ul>`
     : `<p class="g-empty tw-empty muted small">${esc(m.fundsNote || "No fund tracked (bank/balance-sheet lender, no dedicated credit arm, or US/global-only vehicles).")}</p>`;

@@ -904,9 +904,16 @@
     .tui .g-feed-src{ font-family:var(--t-mono); font-size:10px; color:var(--t-faint); white-space:nowrap; }
     .tui .g-feed-desk{ display:none; }
     @media (max-width:760px){
-      .tui .g-feed-row{ grid-template-columns:38px 30px 1fr; gap:5px 8px; }
-      .tui .g-feed-title{ grid-column:1 / -1; order:3; }
-      .tui .g-feed-src{ grid-column:2 / -1; }
+      /* 2 lines: [time · CODE … source] over the headline — source rides the meta
+         line inline with the heading block, not orphaned on its own row below */
+      .tui .g-feed-row{ grid-template-columns:auto auto 1fr;
+        grid-template-areas:"time code src" "title title title";
+        row-gap:3px; column-gap:8px; padding:9px 12px; align-items:center; }
+      .tui .g-feed-time{ grid-area:time; }
+      .tui .g-feed-code{ grid-area:code; justify-self:start; padding:2px 5px; }
+      .tui .g-feed-src{ grid-area:src; justify-self:end; text-align:right; min-width:0;
+        overflow:hidden; text-overflow:ellipsis; max-width:58vw; }
+      .tui .g-feed-title{ grid-area:title; }
     }
 
     /* ---- command bar: flat, squared tabs matching the terminal body ---- */
@@ -925,7 +932,7 @@
     .g-top .g-notif-panel,.g-top .g-sv-panel,.g-top .g-mkt-panel{ border-radius:0; }
     .cmdk-panel,.cmdk-input,.cmdk-results .cmdk-item{ border-radius:0; }
   </style>
-  <link rel="stylesheet" href="/premium.css?v=20260716-6" />
+  <link rel="stylesheet" href="/premium.css?v=20260716-7" />
 </head>
 <body>
   <!-- Loading -->
