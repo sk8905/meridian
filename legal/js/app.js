@@ -442,7 +442,6 @@ function viewDashboard() {
   const caseRow = (c) => `<li class="tmini-row"><a class="tmini-t" href="#/cases?case=${encodeURIComponent(c.id)}">${esc(c.name)}</a><span class="tmini-m">${esc(c.court)}${c.date ? " · " + esc(fmtDate(c.date)) : ""}</span></li>`;
 
   app.innerHTML = `<div class="tdash">
-    <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
     <div class="tdash-grid">
       <aside class="tcol tcol-l">
         <section class="tpanel">
@@ -455,7 +454,7 @@ function viewDashboard() {
         </section>
       </aside>
       <section class="tcol tcol-c">
-        <header class="tpanel-h twire-head"><span>Legal wire</span>
+        <header class="tpanel-h twire-head">
           <div class="tchips" id="lg-chips">
             <button type="button" class="tchip is-on" data-k="all">All</button>
             <button type="button" class="tchip" data-k="alert">Alerts</button>

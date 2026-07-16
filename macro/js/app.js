@@ -348,7 +348,6 @@ function viewDashboard() {
   const relRow = (r) => `<li class="tmini-row"><a class="tmini-t" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">${esc(r.title)}</a><span class="tmini-m">${esc(fmtDayGB(r.date))} · ${esc(r.country)}</span></li>`;
 
   return `<div class="tdash">
-    <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${esc(v)}</b> ${esc(l)}</span>`).join("")}</div>
     <div class="tdash-grid">
       <aside class="tcol tcol-l">
         <section class="tpanel">
@@ -367,7 +366,7 @@ function viewDashboard() {
         </section>
       </aside>
       <section class="tcol tcol-c">
-        <header class="tpanel-h twire-head"><span>Commentary &amp; news</span>
+        <header class="tpanel-h twire-head">
           <div class="tchips" id="mac-chips">
             <button type="button" class="tchip is-on" data-k="all">All</button>
             <button type="button" class="tchip" data-k="comm">Commentary</button>

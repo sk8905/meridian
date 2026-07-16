@@ -758,7 +758,6 @@ function viewDashboard() {
     + `<td class="tl-cl">${cloMgrIds.has(r.m.id) ? "●" : ""}</td></tr>`;
   app.innerHTML = `
     <div class="tdash">
-      <div class="tdash-ticker">${mgrMetrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
       <div class="tdash-grid tdash-1">
         <section class="tcol tcol-full">
           <header class="tpanel-h thead-search"><span>Managers</span>
@@ -1124,7 +1123,7 @@ function viewFund(id) {
             <div class="tdet-src">Data as of ${esc(x.asOf || "—")} · ${completenessPill(x)}</div>
             ${(x.sources && x.sources.length) ? `<div class="tdet-src">${sources(x)}</div>` : ""}
           </div>
-          <header class="tpanel-h twire-head"><span>Activity</span>
+          <header class="tpanel-h twire-head">
             <div class="tchips" id="fd-chips">
               <button type="button" class="tchip is-on" data-k="all">All</button>
               <button type="button" class="tchip" data-k="intel">Fundraising</button>
@@ -1483,8 +1482,8 @@ function viewManager(id) {
             ${m.strategies && m.strategies.length ? `<div class="tdet-chips">${m.strategies.map((s) => `<span class="tdet-chip">${esc(s)}</span>`).join("")}</div>` : ""}
             ${(m.sources && m.sources.length) ? `<div class="tdet-src">${sources(m)}</div>` : ""}
           </div>
-          <header class="tpanel-h">
-            <div class="tchips tchips-l" id="mgr-tabs">
+          <header class="tpanel-h twire-head">
+            <div class="tchips" id="mgr-tabs">
               <button type="button" class="tchip is-on" data-p="news">News</button>
               <button type="button" class="tchip" data-p="funds">Funds${fs.length ? " " + fs.length : ""}</button>
               <button type="button" class="tchip" data-p="clos">CLOs${mgrCloRoster.length ? " " + mgrCloRoster.length : ""}</button>
