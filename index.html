@@ -742,14 +742,21 @@
     .tui .g-side{ order:1; display:block; border-right:1px solid var(--t-grid2); }
     .tui .g-feed-wrap{ order:2; min-width:0; }
     .tui .g-side2{ order:3; display:block; border-left:1px solid var(--t-grid2); }
-    @media (min-width:901px){ .tui .g-feed{ max-height:none; overflow:visible; }
-      /* Pin the data rails so the market/macro panels stay in view as the long news
-         wire scrolls — no dead space below the shorter columns. Each rail scrolls
-         internally if its own panels exceed the viewport. */
-      .tui .g-side,.tui .g-side2{ position:sticky; top:54px; align-self:start;
-        max-height:calc(100vh - 54px); overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
-      .tui .g-side::-webkit-scrollbar,.tui .g-side2::-webkit-scrollbar{ width:7px; }
-      .tui .g-side::-webkit-scrollbar-thumb,.tui .g-side2::-webkit-scrollbar-thumb{ background:var(--t-grid2); border-radius:4px; } }
+    @media (min-width:901px){
+      /* Fixed-height terminal: the PAGE never scrolls. The command bar, ticker and
+         briefing stay put; the workspace fills the rest of the viewport and each
+         column (left rail · news wire · right rail) scrolls on its own. */
+      #glance{ height:100vh; overflow:hidden; display:flex; flex-direction:column; }
+      .g-main.tui{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
+      .tui .g-hello{ flex:0 0 auto; }
+      .tui .g-layout{ flex:1 1 auto; min-height:0; align-items:stretch; }
+      .tui .g-side,.tui .g-side2{ height:100%; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+      .tui .g-feed-wrap{ height:100%; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
+      .tui .g-feed-head{ flex:0 0 auto; }
+      .tui .g-feed{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+      .tui .g-side::-webkit-scrollbar,.tui .g-side2::-webkit-scrollbar,.tui .g-feed::-webkit-scrollbar{ width:8px; }
+      .tui .g-side::-webkit-scrollbar-thumb,.tui .g-side2::-webkit-scrollbar-thumb,.tui .g-feed::-webkit-scrollbar-thumb{ background:var(--t-grid2); border-radius:0; }
+    }
     @media (max-width:900px){ .tui .g-layout{ grid-template-columns:1fr; }
       .tui .g-side,.tui .g-side2{ border-right:0; border-left:0; border-bottom:1px solid var(--t-grid2); } }
 
@@ -842,8 +849,8 @@
       padding:4px 11px; font-family:var(--t-mono); font-size:11.5px; border-bottom:1px solid var(--t-grid); background:var(--t-panel); }
     .tui .g-mv:last-child{ border-bottom:0; }
     .tui .g-mv .nm{ color:var(--t-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .tui .g-mv .bar{ width:64px; height:8px; background:var(--t-grid); position:relative; border-radius:3px; overflow:hidden; }
-    .tui .g-mv .bar i{ position:absolute; top:0; bottom:0; left:0; border-radius:3px; }
+    .tui .g-mv .bar{ width:64px; height:8px; background:var(--t-grid); position:relative; border-radius:0; overflow:hidden; }
+    .tui .g-mv .bar i{ position:absolute; top:0; bottom:0; left:0; border-radius:0; }
     .tui .g-mv .val{ font-variant-numeric:tabular-nums; text-align:right; }
     .tui .g-mv .val.up{ color:var(--t-up); } .tui .g-mv .val.down{ color:var(--t-down); }
 
@@ -878,7 +885,7 @@
     .tui .g-feed-row:hover{ background:var(--t-panel2); }
     .tui .g-feed-time{ font-family:var(--t-mono); font-size:11px; color:var(--t-mut); min-width:0; }
     .tui .g-feed-code{ font-family:var(--t-mono); font-size:9px; font-weight:700; letter-spacing:.04em;
-      text-align:center; border-radius:4px; padding:2px 0; }
+      text-align:center; border-radius:0; padding:2px 0; }
     .tui .g-feed-code.macro{ color:var(--t-mac); background:color-mix(in srgb,var(--t-mac) 15%,transparent); }
     .tui .g-feed-code.credit{ color:var(--t-crd); background:color-mix(in srgb,var(--t-crd) 15%,transparent); }
     .tui .g-feed-code.legal{ color:var(--t-lex); background:color-mix(in srgb,var(--t-lex) 15%,transparent); }
@@ -886,7 +893,7 @@
       white-space:normal; overflow:visible; min-width:0; }
     .tui a.g-feed-row:hover .g-feed-title{ color:var(--t-accent); }
     .tui .g-feed-ent{ font-family:var(--t-mono); font-size:9.5px; color:var(--t-accent);
-      border:1px solid var(--t-accent-dim); background:var(--t-accent-soft); border-radius:4px; padding:1px 5px; margin-left:6px; }
+      border:1px solid var(--t-accent-dim); background:var(--t-accent-soft); border-radius:0; padding:1px 5px; margin-left:6px; }
     .tui .g-feed-ent::before{ content:"↗"; margin-right:2px; opacity:.7; }
     .tui .g-feed-ent:hover{ background:var(--t-accent); color:#04121f; }
     .tui .g-feed-src{ font-family:var(--t-mono); font-size:10px; color:var(--t-faint); white-space:nowrap; }
@@ -896,8 +903,24 @@
       .tui .g-feed-title{ grid-column:1 / -1; order:3; }
       .tui .g-feed-src{ grid-column:2 / -1; }
     }
+
+    /* ---- command bar: flat, squared tabs matching the terminal body ---- */
+    .g-top .g-top-inner{ gap:1.3rem; }
+    .g-brand-text strong{ font-size:.92rem; font-weight:600; letter-spacing:.15px; }
+    .g-brand-text .sub{ font-size:.58rem; }
+    .g-top .platform-switch{ align-self:stretch; align-items:stretch; gap:0; }
+    .g-top .ps-btn{ display:inline-flex; align-items:center; padding:0 14px; border-radius:0;
+      font-size:12px; font-weight:500; color:#9fb0cc; box-shadow:none; }
+    .g-top .ps-btn:hover{ background:rgba(255,255,255,.05); color:#fff; }
+    .g-top .ps-btn.is-active,.g-top .ps-btn.is-active:hover{ background:rgba(74,168,240,.14); color:#fff;
+      font-weight:600; box-shadow:inset 0 -2px 0 #4aa8f0; }
+    .g-top .g-search-btn{ border-radius:0; font-size:.8rem; padding:.42rem .7rem; }
+    .g-top .g-search-btn kbd{ border-radius:0; font-size:.74rem; }
+    .g-top .g-actions button,.g-top .theme-toggle,.g-top .g-sv-btn,.g-top .g-mkt-btn{ border-radius:0; }
+    .g-top .g-notif-panel,.g-top .g-sv-panel,.g-top .g-mkt-panel{ border-radius:0; }
+    .cmdk-panel,.cmdk-input,.cmdk-results .cmdk-item{ border-radius:0; }
   </style>
-  <link rel="stylesheet" href="/premium.css?v=20260716-2" />
+  <link rel="stylesheet" href="/premium.css?v=20260716-3" />
 </head>
 <body>
   <!-- Loading -->
