@@ -1,10 +1,25 @@
 /* =====================================================================
-   tui.css — terminal-dashboard reskin for the Macro / Credit / Legal
-   section apps. Loaded AFTER each app's css/styles.css and premium.css,
-   so it wins. Active in both themes (dark is the section default). This
-   is the cosmetic foundation: full-bleed content, squared corners,
-   flattened hairline panels, deeper terminal surfaces and denser type.
-   Per-view 3-column layout (data on the edges) is layered on top of this.
+   tui.css — THE canonical Meridian terminal format. Loaded after each app's
+   css/styles.css and premium.css so it wins. This file is the SINGLE SOURCE OF
+   TRUTH for the terminal look across Home and the Macro / Credit / Legal
+   sections. Every new view MUST use these tokens/classes — do not invent new
+   colours, fonts or spacing.
+
+   STRICT SPEC (dark is the default; light mirrors it via tokens):
+   • Surfaces  ground #05080f · panel/surface #0c1220 · panel-header #080d17
+   • Ink       primary #eaf0fb · muted #8592ad · faint #5c6a86 · border #232f47
+   • Accent    #4aa8f0 (ONE accent platform-wide; links, active tabs, hovers)
+   • Up/Down   green #3fc08d / red #f26d84 (functional only)
+   • Fonts     system sans for headlines/labels; --t-mono for ALL numbers,
+               dates, tickers, tags, sources, manager names (tabular-nums)
+   • Scrollbar one style (premium.css): thin, squared, rgba(255,255,255,.16)
+   • Corners   squared (border-radius:0) everywhere
+   Dense-screen anatomy (a "single screen"): .tdash > .tdash-ticker (metrics)
+     + .tdash-grid[.tcol-l data rail | .tcol-c wire | .tcol-r data rail].
+   Wire row (.twire .compact-item): date · CODE tag · headline · inline manager
+     (grey) · source (right). Panels: .tpanel + .tpanel-h header bar. Filter
+     chips: .tchip (accent underline when .is-on). Tables: .tleague. Lists: .tmini.
+   No page headings inside .tdash — the nav bar names the section.
    ===================================================================== */
 
 /* mono for numeric/terminal data (matches Home) + a head surface for panel bars */
