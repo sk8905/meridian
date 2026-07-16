@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#0b1f44">
   <script>
-    (function(){var root=document.documentElement;function sysDark(){try{return matchMedia("(prefers-color-scheme: dark)").matches;}catch(e){return false;}}function choice(){var c;try{c=localStorage.getItem("m_theme");}catch(e){}return (c==="light"||c==="dark"||c==="system"||c==="other")?c:"dark";}function apply(){var c=choice();root.setAttribute("data-theme-choice",c);root.setAttribute("data-theme",c==="system"?(sysDark()?"dark":"light"):c==="other"?(sysDark()?"light":"dark"):c);}apply();try{matchMedia("(prefers-color-scheme: dark)").addEventListener("change",function(){var c=choice();if(c==="system"||c==="other")apply();});}catch(e){}window.__cycleTheme=function(){var c=choice();var n;if(matchMedia("(max-width: 760px)").matches){n=c==="system"?"other":"system";}else{n=root.getAttribute("data-theme")==="dark"?"light":"dark";}try{localStorage.setItem("m_theme",n);}catch(e){}apply();};})();
-    document.addEventListener("DOMContentLoaded",function(){var b=document.getElementById("theme-toggle");if(!b)return;function lbl(){var c=document.documentElement.getAttribute("data-theme-choice");var mob=matchMedia("(max-width: 760px)").matches;b.setAttribute("aria-label",mob?(c==="system"?"Theme: matching system — tap to override":"Theme: overriding system — tap to match"):(document.documentElement.getAttribute("data-theme")==="dark"?"Theme: dark — tap for light":"Theme: light — tap for dark"));}lbl();b.addEventListener("click",function(){window.__cycleTheme();lbl();});});
+    (function(){var r=document.documentElement;r.setAttribute("data-theme","dark");r.setAttribute("data-theme-choice","dark");try{localStorage.setItem("m_theme","dark");}catch(e){}})();
   </script>
   <!-- Paint the navy background from the very first frame, before the external
        stylesheet loads — otherwise the top strip (above the banner / safe area)
@@ -53,11 +52,6 @@
     <div class="topbar-right">
       <div id="account-nav" class="account-nav"></div>
       <div id="data-status" class="data-status"></div>
-      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark mode" title="Toggle light / dark">
-        <svg class="ico-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-        <svg class="ico-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
-              <svg class="ico-auto" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 3 a9 9 0 0 1 0 18 z" fill="currentColor" stroke="none"/></svg>
-      </button>
     </div>
     <div id="notif" class="notif"></div>
     </div>
