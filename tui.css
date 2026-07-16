@@ -184,18 +184,24 @@
   .tpanel-h, .tleague th { position: static; }      /* page scrolls on mobile — don't pin sub-headers under the sticky topbar */
 
   /* Bloomberg-Go news row: the headline leads, then ONE muted meta line beneath —
-     CODE · date · entity · source — category tag first on the left. .tw-body is
-     display:contents so its headline + manager join the row's flex flow directly. */
+     CODE · date · entity · source — category tag first on the left. Grid (not
+     flex-wrap) so the meta stays on a single line: the entity/source tracks
+     shrink to an ellipsis instead of wrapping or overflowing off-screen.
+     .tw-body is display:contents so its headline + manager join the grid. */
   .twire .compact-item {
-    display: flex; flex-wrap: wrap; align-items: baseline;
-    column-gap: 7px; row-gap: 4px; padding: 11px 14px;
+    display: grid; align-items: baseline;
+    grid-template-columns: max-content max-content minmax(0, 1fr);
+    grid-template-areas: "head head head" "tag date src";
+    column-gap: 6px; row-gap: 4px; padding: 11px 14px;
   }
   .tw-body { display: contents; }
-  .tw-head { order: 1; flex: 1 1 100%; white-space: normal; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; font-size: 14px; }
-  .tw-tag  { order: 2; font-size: 9px; }
-  .tw-date { order: 3; }
-  .tw-mgr-w { order: 4; max-width: 60vw; }
-  .tw-src  { order: 5; text-align: left; padding-left: 0; max-width: 70vw; }
+  .tw-head { grid-area: head; white-space: normal; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; font-size: 14px; }
+  /* the entity is already in the headline; drop it from the meta so the line
+     stays clean and truncates only the source (like Bloomberg's mobile rows). */
+  .tw-mgr-w { display: none; }
+  .tw-tag  { grid-area: tag; font-size: 9px; }
+  .tw-date { grid-area: date; white-space: nowrap; }
+  .tw-src  { grid-area: src; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: left; padding-left: 0; max-width: none; }
   .tw-src::before { content: "·"; color: var(--faint); margin-right: 5px; }
 
   /* chips: swipeable if a section has many filters */
