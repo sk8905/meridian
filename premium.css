@@ -222,7 +222,7 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
    ============================================================================= */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #0b1120; --surface: #161f33;
+  --bg: #05080f; --surface: #161f33;
   --ink: #e9eef7; --ink-soft: #c2ccdd; --muted: #8b97ad;
   --line: #28324a; --border: #28324a;
   --brand: #2f4d78; --brand-2: #6f9ad9;
