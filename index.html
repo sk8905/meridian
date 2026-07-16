@@ -2,12 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="theme-color" content="#05080f">
   <!-- Resolve the theme BEFORE paint (stored choice, else the OS setting) so there
        is no light flash; then wire the top-bar toggle once the DOM is ready. -->
   <script>
     (function(){var r=document.documentElement;r.setAttribute("data-theme","dark");r.setAttribute("data-theme-choice","dark");try{localStorage.setItem("m_theme","dark");}catch(e){}})();
+    ["gesturestart","gesturechange","gestureend"].forEach(function(t){document.addEventListener(t,function(e){e.preventDefault();},{passive:false});});
     // Phones: relocate the account (email/sign-out) + last-refresh block from the
     // top bar into the page footer to free up nav-bar space.
     (function(){function r(){if(!matchMedia("(max-width:760px)").matches)return;var f=document.getElementById("g-footer"),b=document.querySelector(".g-idblock");if(f&&b&&b.parentElement!==f)f.appendChild(b);}if(document.readyState!=="loading")r();else document.addEventListener("DOMContentLoaded",r);})();

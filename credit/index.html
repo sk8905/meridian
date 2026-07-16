@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="theme-color" content="#05080f">
   <script>
     (function(){var r=document.documentElement;r.setAttribute("data-theme","dark");r.setAttribute("data-theme-choice","dark");try{localStorage.setItem("m_theme","dark");}catch(e){}})();
+    ["gesturestart","gesturechange","gestureend"].forEach(function(t){document.addEventListener(t,function(e){e.preventDefault();},{passive:false});});
   </script>
   <!-- Paint the navy background from the very first frame, before the external
        stylesheet loads — otherwise the top strip (above the banner / safe area)
