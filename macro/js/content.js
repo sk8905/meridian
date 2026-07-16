@@ -13,7 +13,7 @@ export const UPDATED = "16 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-16",
-  lastCheckedTime: "05:21 BST",
+  lastCheckedTime: "12:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -293,15 +293,15 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-07-16",
   us: [
-    { title: "Stock futures little changed ahead of retail sales, jobs data; South Korea's Kospi tumbles 7% in chip rout: Live updates", source: "CNBC", date: "2026-07-15", time: "05:21", url: "https://www.cnbc.com/2026/07/15/stock-market-today-live-updates.html" },
     { title: "Fed Chairman Kevin Warsh's testimony to Senate banking committee hits on economy, interest rates", source: "CNBC", date: "2026-07-15", time: "21:07", url: "https://www.cnbc.com/2026/07/15/watch-fed-chairman-kevin-warsh-testify-live-before-senate-banking-committee.html" },
     { title: "Elizabeth Warren blasts Kevin Warsh, saying he 'seems to invite corruption'", source: "CNN Business", date: "2026-07-15", time: "21:07", url: "https://www.cnn.com/2026/07/15/economy/fed-chairman-kevin-warsh-senate-testimony" },
-    { title: "Oil prices hit 1-month high as US-Iran attacks dim Strait of Hormuz outlook", source: "Al Jazeera", date: "2026-07-14", time: "05:21", url: "https://www.aljazeera.com/economy/2026/7/14/oil-hits-1-month-high-as-us-iran-fighting-clouds-strait-of-hormuz-outlook" },
     { title: "Kevin Warsh's Congressional Debut Like a 'Breath of Fresh Air,' Says El Erian, as Schiff Flags Fed Chair's 'False Claim'", source: "Benzinga", date: "2026-07-15", time: "21:07", url: "https://www.benzinga.com/markets/economic-data/26/07/60460861/fed-chair-kevin-warshs-congressional-debut-draws-mixed-reactions" },
+    { title: "US stocks rise within 0.5% of their record, even as oil prices keep climbing", source: "Washington Post", date: "2026-07-15", time: "12:17", url: "https://washingtonpost.com/business/2026/07/15/stock-markets-iran-inflation-oil/8b3251fc-8003-11f1-8a16-393bd03340b0_story.html" },
+    { title: "Oil prices hit 1-month high as US-Iran attacks dim Strait of Hormuz outlook", source: "Al Jazeera", date: "2026-07-14", time: "05:21", url: "https://www.aljazeera.com/economy/2026/7/14/oil-hits-1-month-high-as-us-iran-fighting-clouds-strait-of-hormuz-outlook" },
   ],
   uk: [
-    { title: "Burnham Upsets Labour Left Who Wanted Him to Become UK Premier", source: "Bloomberg", date: "2026-07-15", time: "05:21", url: "https://www.bloomberg.com/news/articles/2026-07-15/burnham-upsets-labour-left-who-wanted-him-to-become-uk-premier" },
-    { title: "Burnham Faces Day One Warning of Souring UK Economy and Oil Risk", source: "Bloomberg", date: "2026-07-14", time: "05:21", url: "https://www.bloomberg.com/news/articles/2026-07-14/burnham-faces-day-one-warning-of-souring-uk-economy-and-oil-risk" },
+    { title: "FTSE 100 Live: UK Economy Grew Unexpectedly in May", source: "Bloomberg", date: "2026-07-16", time: "12:17", url: "https://www.bloomberg.com/news/live-blog/2026-07-16/ftse-100-live-uk-gdp-iip-pound-gilts-mahmood-burnham-hormuz-oil-prices-iran-war-what-s-moving-uk-markets-right-now-markets-today" },
+    { title: "Pound Sterling Climbs As Markets Cheer Burnham's Expected Chancellor Pick", source: "ExchangeRates.org.uk", date: "2026-07-15", time: "12:17", url: "https://www.exchangerates.org.uk/news/46520/2026-07-15-pound-sterling-jumps-on-shabana-mahmood-chancellor-reports.html" },
     { title: "Pound hits one-year high vs. euro on report Mahmood may get finance job", source: "Yahoo Finance UK", date: "2026-07-15", time: "21:07", url: "https://uk.finance.yahoo.com/news/pound-hits-one-high-vs-144336519.html" },
     { title: "OECD sounds alarm on pension triple lock in challenge to Burnham", source: "CityAM", date: "2026-07-15", time: "21:07", url: "https://www.cityam.com/oecd-andy-burnham-must-reform-state-pension-triple-lock/" },
     { title: "Shabana Mahmood expected to beat Ed Miliband in race to become Burnham's chancellor", source: "LBC", date: "2026-07-15", time: "21:07", url: "https://www.lbc.co.uk/article/shabana-mahmood-to-beat-ed-miliband-next-chancellor-5Hjddbj_2/" },
@@ -318,6 +318,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-16",
   items: [
+    {"title":"FTSE 100 Live: UK Economy Grew Unexpectedly in May","source":"Bloomberg","date":"2026-07-16","time":"12:17","url":"https://www.bloomberg.com/news/live-blog/2026-07-16/ftse-100-live-uk-gdp-iip-pound-gilts-mahmood-burnham-hormuz-oil-prices-iran-war-what-s-moving-uk-markets-right-now-markets-today","blurb":"UK GDP grew 0.1% m/m in May, beating expectations of no growth, as services offset weak construction and industrial output."},
+    {"title":"Bank of Korea raises rates to 2.75% in first hike in over three years","source":"CNBC","date":"2026-07-16","time":"12:17","url":"https://www.cnbc.com/2026/07/16/bok-interest-rate-monetary-policy-markets-kospi-skhynix.html","blurb":"The BoK hikes 25bp to 2.75%, its first increase since January 2023, as inflation runs above target amid a weaker won and elevated oil prices."},
+    {"title":"Bank of Korea raises rates by 25 basis points to 2.75%","source":"Investing.com","date":"2026-07-16","time":"12:17","url":"https://www.investing.com/news/economy-news/bank-of-korea-raises-rates-by-25-basis-points-to-275-93CH-4794841","blurb":"Confirms the BoK's quarter-point hike to 2.75%, its first move since early 2023, as policymakers respond to above-target inflation."},
     {"title":"Stock futures little changed ahead of retail sales, jobs data; South Korea's Kospi tumbles 7% in chip rout: Live updates","source":"CNBC","date":"2026-07-15","time":"05:21","url":"https://www.cnbc.com/2026/07/15/stock-market-today-live-updates.html","blurb":"South Korea's Kospi drops ~7% in a fresh chip-sector rout as US futures hold steady ahead of retail-sales and jobs data."},
     {"title":"Burnham Upsets Labour Left Who Wanted Him to Become UK Premier","source":"Bloomberg","date":"2026-07-15","time":"05:21","url":"https://www.bloomberg.com/news/articles/2026-07-15/burnham-upsets-labour-left-who-wanted-him-to-become-uk-premier","blurb":"Labour's left flank bristles at Burnham's centrist positioning and cabinet picks as he prepares to take office."},
     {"title":"Burnham Faces Day One Warning of Souring UK Economy and Oil Risk","source":"Bloomberg","date":"2026-07-14","time":"05:21","url":"https://www.bloomberg.com/news/articles/2026-07-14/burnham-faces-day-one-warning-of-souring-uk-economy-and-oil-risk","blurb":"Economists warn the incoming PM inherits a weakening growth backdrop compounded by the renewed Hormuz oil shock."},
@@ -353,13 +356,6 @@ export const ARTICLES = {
     {"title":"Iran threatens to halt all Mideast energy exports after U.S. reimposes its blockade on Iran","source":"NBC News","date":"2026-07-15","time":"07:46","url":"https://www.nbcnews.com/world/iran/iran-threatens-halt-mideast-energy-exports-us-reimposes-blockade-rcna587593","blurb":"Iran's Revolutionary Guard says regional energy exports will be 'for everyone or for no one' in retaliation for the reimposed US blockade, a broader threat than the Hormuz-transit disruption already flagged."},
     {"title":"Burnham Team Falls Into Infighting Over Miliband Chancellor Pick","source":"Bloomberg","date":"2026-07-14","time":"21:19","url":"https://www.bloomberg.com/news/articles/2026-07-14/burnham-team-falls-into-infighting-over-miliband-chancellor-pick","blurb":"Labour insiders clash over Burnham's choice of chancellor as the transition to power nears."},
     {"title":"US Inflation: CPI Falls for First Time Since 2020, Core Gauge Unchanged","source":"Bloomberg","date":"2026-07-14","time":"21:19","url":"https://www.bloomberg.com/news/articles/2026-07-14/us-cpi-falls-for-the-first-time-since-2020-core-gauge-unchanged","blurb":"June headline CPI posts its first outright monthly decline since 2020 even as core inflation holds steady."},
-    {"title":"US Inflation Report: Expect Higher for Longer","source":"Bloomberg Opinion","date":"2026-07-14","time":"21:19","url":"https://www.bloomberg.com/opinion/articles/2026-07-14/us-inflation-report-expect-higher-for-longer","blurb":"A column cautioning against reading too much into one soft print given an still-elevated 3-month inflation average."},
-    {"title":"Oil prices rise as U.S. launches new Iran airstrikes, while Trump abandons Strait of Hormuz fee","source":"CNBC","date":"2026-07-14","time":"21:19","url":"https://www.cnbc.com/2026/07/14/oil-prices-today-brent-wti-hormuz-trump-toll-iran.html","blurb":"Crude extends its climb on a third day of US-Iran strikes even after Washington drops its proposed transit toll."},
-    {"title":"The price of oil shoots upward again as Trump demands tolls in the Strait of Hormuz","source":"Fortune","date":"2026-07-14","time":"21:19","url":"https://fortune.com/2026/07/14/oil-price-trump-tolls-strait-of-hormuz/","blurb":"Brent extends its rally as the blockade-and-toll standoff over the Strait of Hormuz continues to escalate."},
-    {"title":"Rate Hike Chances Rising as Warsh Takes Center Stage","source":"Bloomberg","date":"2026-07-14","time":"21:19","url":"https://www.bloomberg.com/news/newsletters/2026-07-14/rate-hike-chances-rising-as-warsh-takes-center-stage","blurb":"A markets newsletter frames the collision of Warsh's testimony, June CPI and the 29 July FOMC decision."},
-    {"title":"Cooler CPI, Hotter Risk Appetite: Data Slams Door on July Fed Rate Hike","source":"Benzinga","date":"2026-07-14","time":"21:19","url":"https://www.benzinga.com/markets/economic-data/26/07/60446797/cooler-cpi-hotter-risk-appetite-data-slams-door-on-july-fed-rate-hike","blurb":"Traders sharply pare back July hike bets after the softer-than-expected June inflation print."},
-    {"title":"Iran Ceasefire Collapse Sends UK Borrowing Costs to Five-Month High","source":"OilPrice.com","date":"2026-07-14","time":"21:19","url":"https://oilprice.com/Finance/the-Economy/Iran-Ceasefire-Collapse-Sends-UK-Borrowing-Costs-to-Five-Month-High.html","blurb":"UK gilt yields top 5% for the third time since the Iran conflict reignited, on renewed BoE hike bets."},
-    {"title":"AI boom replaces oil as key inflation risk, says Barclays","source":"Yahoo Finance UK","date":"2026-07-13","time":"07:09","url":"https://uk.finance.yahoo.com/news/ai-boom-replaces-oil-key-120900584.html","blurb":"Barclays lifts its end-2026 core PCE forecast to 3.3%, arguing AI-driven memory-chip and data-centre costs are a more durable inflation risk than oil."},
   ],
 };
 
@@ -387,4 +383,5 @@ export const RELEASES = [
   { date: "2026-08-13", country: "US", title: "PPI (July)", url: "https://www.bls.gov/schedule/news_release/ppi.htm" },
   { date: "2026-08-19", country: "US", title: "FOMC minutes (28–29 July meeting)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-08-19", country: "UK", title: "CPI inflation (July)", url: "https://www.ons.gov.uk/releases/consumerpriceinflationukjuly2026" },
+  { date: "2026-08-13", country: "UK", title: "GDP monthly estimate (June)", url: "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/latest" },
 ];
