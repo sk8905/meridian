@@ -723,54 +723,64 @@ function viewItem(id) {
     .filter((x) => x.id !== it.id && (x.areas || [x.area]).some((a) => (it.areas || [it.area]).includes(a)))
     .sort(byDateDesc).slice(0, 4).map(itemRow).join("");
 
+  const areaNames = (it.areas || [it.area]).map((a) => (areaById[a] ? areaById[a].name : a));
+  const metrics = [
+    ["Firm", esc(firm.name)], ["Tier", esc(tierLabel(firm.tier))], ["Type", esc(type)],
+    ["Date", esc(itemDate(it))], ...(it.jurisdiction ? [["Jurisdiction", esc(it.jurisdiction)]] : []),
+  ];
+  const facts = [
+    ["Firm", firmLink(it.firm, firm.name, `tf-lnk`)],
+    ["Tier", esc(tierLabel(firm.tier))],
+    ["Type", esc(type)],
+    ["Practice areas", areaNames.map(esc).join(", ")],
+    ...(it.jurisdiction ? [["Jurisdiction", esc(it.jurisdiction)]] : []),
+    ...(it.court ? [["Court", esc(it.court)]] : []),
+    ...(it.citation ? [["Citation", esc(it.citation)]] : []),
+    ["Date", esc(itemDate(it))],
+  ];
+  const relatedList = items
+    .filter((x) => x.id !== it.id && (x.areas || [x.area]).some((a) => (it.areas || [it.area]).includes(a)))
+    .sort(byDateDesc).slice(0, 8);
+  const relatedRail = relatedList.length
+    ? `<ul class="tmini">${relatedList.map((r) => `<li class="tmini-row clickable" data-href="#/item/${encodeURIComponent(r.id)}"><span class="tmini-t">${esc(r.title)}</span><span class="tmini-m">${esc((firmById[r.firm] || {}).name || r.firm)}${r.date ? " · " + esc(fmtDate(r.date)) : ""}</span></li>`).join("")}</ul>`
+    : `<p class="tw-empty muted small">No related updates.</p>`;
+
   app.innerHTML = `
-    <nav class="breadcrumb" aria-label="Breadcrumb">
-      <a href="#/">Dashboard</a> ›
-      <a href="#/list?area=${esc(it.area)}">${esc(areaById[it.area] ? areaById[it.area].name : it.area)}</a> ›
-      <span aria-current="page">Update</span>
-    </nav>
-
-    <article class="detail">
-      <div class="detail-top">
-        <div class="detail-chips">${areasHtml} <span class="chip type">${esc(type)}</span>${isNew(it) ? '<span class="chip new">New</span>' : ""}</div>
-        <button class="save-btn ${saved ? "is-saved" : ""}" data-save="${esc(it.id)}"
-          aria-pressed="${saved}">${saved ? "★ Saved" : "☆ Save"}</button>
+    <div class="tdash">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="#/">Dashboard</a><span class="sep">/</span>
+        <a href="#/list?area=${esc(it.area)}">${esc(areaById[it.area] ? areaById[it.area].name : it.area)}</a><span class="sep">/</span>
+        <span aria-current="page">Update</span>
+      </nav>
+      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
+      <div class="tdash-grid tdash-2">
+        <section class="tcol tcol-c">
+          <div class="tdet-id">
+            <div class="tdet-chips">${areasHtml} <span class="chip type">${esc(type)}</span>${isNew(it) ? '<span class="chip new">New</span>' : ""}
+              <button class="save-btn ${saved ? "is-saved" : ""}" data-save="${esc(it.id)}" aria-pressed="${saved}" style="margin-left:auto">${saved ? "★ Saved" : "☆ Save"}</button></div>
+            <h1>${esc(it.title)}</h1>
+            <div class="tdet-sub">${firmLink(it.firm, firm.name, `tf-lnk`)} · ${esc(tierLabel(firm.tier))} · ${itemDate(it)}${it.jurisdiction ? " · " + esc(it.jurisdiction) : ""}</div>
+          </div>
+          <header class="tpanel-h"><span>Summary</span></header>
+          <div class="tdet-read">
+            <p>${esc(it.summary)}</p>
+            ${pointsHtml ? `<h4>Key points</h4><ul>${pointsHtml}</ul>` : ""}
+            ${tagsHtml ? `<div class="tags">${tagsHtml}</div>` : ""}
+            <div class="source-box">
+              <span class="lbl">Source</span>
+              <a href="${esc(it.url || firm.insightsUrl)}" target="_blank" rel="noopener noreferrer">${esc(firm.name)} — ${it.url ? "read the article" : "insights / know-how"}</a>
+              <p class="source-note">${it.url ? "Links to the cited publication." : "Links to the firm's public landing page."} This summary is written for this prototype and is not legal advice — confirm against the firm's actual publication.</p>
+            </div>
+          </div>
+        </section>
+        <aside class="tcol tcol-r">
+          <section class="tpanel"><header class="tpanel-h"><span>Details</span></header>
+            <ul class="tfacts">${facts.map(([k, v]) => `<li><span class="tf-k">${esc(k)}</span><span class="tf-v">${v}</span></li>`).join("")}</ul>
+          </section>
+          <section class="tpanel"><header class="tpanel-h"><span>Related updates</span>${relatedList.length ? `<span class="tpanel-x">${relatedList.length}</span>` : ""}</header>${relatedRail}</section>
+        </aside>
       </div>
-      <h1>${esc(it.title)}</h1>
-      <div class="detail-meta">
-        ${firmLink(it.firm, firm.name, `firm-big tier-${esc(firm.tier)}`)}
-        <span class="tier tier-${esc(firm.tier)}">${esc(tierLabel(firm.tier))}</span>
-        <time datetime="${esc(it.date)}">${itemDate(it)}</time>
-        ${it.jurisdiction ? `<span class="juris">${esc(it.jurisdiction)}</span>` : ""}
-      </div>
-
-      ${(it.court || it.citation) ? `<div class="case-bar">
-        ${it.court ? `<span><span class="lbl">Court</span> ${esc(it.court)}</span>` : ""}
-        ${it.citation ? `<span><span class="lbl">Citation</span> ${esc(it.citation)}</span>` : ""}
-      </div>` : ""}
-
-      <h2>Summary</h2>
-      <p class="detail-summary">${esc(it.summary)}</p>
-
-      ${pointsHtml ? `<h2>Key points</h2><ul class="points">${pointsHtml}</ul>` : ""}
-
-      ${tagsHtml ? `<div class="tags">${tagsHtml}</div>` : ""}
-
-      <div class="source-box">
-        <span class="lbl">Source</span>
-        <a href="${esc(it.url || firm.insightsUrl)}" target="_blank" rel="noopener noreferrer">
-          ${esc(firm.name)} — ${it.url ? "read the article" : "insights / know-how"}</a>
-        <p class="source-note">${it.url
-          ? "Links to the cited publication."
-          : "Links to the firm's public landing page."} This summary is written for
-          this prototype and is not legal advice — confirm against the firm's actual publication.</p>
-      </div>
-    </article>
-
-    ${related ? `<section class="related">
-      <h2 class="section-head">Related updates</h2>
-      <div class="feed">${related}</div>
-    </section>` : ""}
+    </div>
   `;
 }
 
@@ -789,40 +799,53 @@ function viewFirm(id) {
   const firmAlerts = items.filter((i) => i.firm === id).sort(byDateDesc);
   const firmRx = restructurings.filter((r) => r.firm === id).sort(byDateDesc);
   const tierTxt = tierLabel(firm.tier);
+  // Practice-area mix across this firm's alerts (for the rail).
+  const areaMix = {};
+  firmAlerts.forEach((i) => (i.areas || [i.area]).forEach((a) => (areaMix[a] = (areaMix[a] || 0) + 1)));
+  const areaMixRows = Object.entries(areaMix).sort((a, b) => b[1] - a[1]);
+
+  const metrics = [
+    ["Tier", esc(tierTxt)], ["Alerts", firmAlerts.length], ["Matters", firmRx.length],
+    ["Practice areas", areaMixRows.length],
+  ];
+  const alertWireRow = (it) => `<li class="compact-item tw-row" data-kind="alert">`
+    + `<span class="tw-date">${it.date ? esc(fmtDate(it.date)) : ""}</span>`
+    + `<span class="tw-tag alert">ALERT</span>`
+    + `<span class="tw-body"><a href="#/item/${encodeURIComponent(it.id)}" class="tw-head">${esc(it.title)}</a>`
+    + `${(it.areas || [it.area]).length ? `<span class="tw-mgr-w"><span class="tw-mgr">${esc((areaById[(it.areas || [it.area])[0]] || {}).name || (it.areas || [it.area])[0])}</span></span>` : ""}</span>`
+    + `<span class="tw-src">${esc((typeById[it.type] || {}).name || it.type)}</span>`
+    + `</li>`;
+  const rxRail = firmRx.length
+    ? `<ul class="tmini">${firmRx.map((r) => `<li class="tmini-row clickable" data-href="#/restructurings?m=${encodeURIComponent(r.id)}"><span class="tmini-t">${esc(r.company)}<span class="tmini-r">${r.type === "scheme" ? "Scheme" : "Plan"}</span></span><span class="tmini-m">${r.date ? esc(fmtDate(r.date)) : ""}${r.citation ? " · " + esc(r.citation) : ""}</span></li>`).join("")}</ul>`
+    : `<p class="tw-empty muted small">No restructuring matters tracked.</p>`;
+  const areaRail = areaMixRows.length
+    ? `<ul class="tfacts">${areaMixRows.map(([a, n]) => `<li><span class="tf-k">${esc((areaById[a] || {}).name || a)}</span><span class="tf-v">${n}</span></li>`).join("")}</ul>`
+    : "";
 
   app.innerHTML = `
-    <nav class="breadcrumb" aria-label="Breadcrumb">
-      <a href="#/">Dashboard</a> › <a href="#/list">Legal alerts</a> ›
-      <span aria-current="page">${esc(firm.name)}</span>
-    </nav>
-
-    <article class="detail firm-profile">
-      <div class="detail-chips"><span class="tier tier-${esc(firm.tier)}">${esc(tierTxt)}</span></div>
-      <h1>${esc(firm.name)}</h1>
-      <div class="source-box">
-        <span class="lbl">Insights</span>
-        <a href="${esc(firm.insightsUrl || "#")}" target="_blank" rel="noopener noreferrer">
-          ${esc(firm.name)} — insights / know-how</a>
-        <p class="source-note">Links to the firm's public insights landing page. Alerts below are
-          summarised for this prototype — confirm against the firm's actual publications.</p>
+    <div class="tdash">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="#/">Dashboard</a><span class="sep">/</span><a href="#/list">Legal alerts</a><span class="sep">/</span>
+        <span aria-current="page">${esc(firm.name)}</span>
+      </nav>
+      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
+      <div class="tdash-grid tdash-2">
+        <section class="tcol tcol-c">
+          <div class="tdet-id">
+            <div class="tdet-chips"><span class="tier tier-${esc(firm.tier)}">${esc(tierTxt)}</span></div>
+            <h1>${esc(firm.name)}</h1>
+            <div class="tdet-src"><span class="lbl">Insights:</span> <a href="${esc(firm.insightsUrl || "#")}" target="_blank" rel="noopener noreferrer">${esc(firm.name)} — insights / know-how</a></div>
+          </div>
+          <header class="tpanel-h"><span>Alerts from ${esc(firm.name)}</span><span class="tpanel-x">${firmAlerts.length}</span></header>
+          <ul class="twire compact-list">${firmAlerts.length ? firmAlerts.map(alertWireRow).join("") : '<li class="tw-empty muted small">No alerts tracked from this firm yet.</li>'}</ul>
+        </section>
+        <aside class="tcol tcol-r">
+          ${areaRail ? `<section class="tpanel"><header class="tpanel-h"><span>Practice areas</span><span class="tpanel-x">alerts</span></header>${areaRail}</section>` : ""}
+          <section class="tpanel"><header class="tpanel-h"><span>Restructuring matters</span>${firmRx.length ? `<span class="tpanel-x">${firmRx.length}</span>` : ""}</header>${rxRail}</section>
+        </aside>
       </div>
-    </article>
-
-    ${firmAlerts.length ? `<section class="related">
-      <h2 class="section-head">Alerts from ${esc(firm.name)} (${firmAlerts.length})</h2>
-      <div class="feed">${firmAlerts.map(itemRow).join("")}</div>
-    </section>` : ""}
-
-    ${firmRx.length ? `<section class="related">
-      <h2 class="section-head">Restructuring matters analysed (${firmRx.length})</h2>
-      <div class="feed">${firmRx.map(rxRow).join("")}</div>
-    </section>` : ""}
-
-    ${(!firmAlerts.length && !firmRx.length)
-      ? `<section class="related"><p class="empty">No alerts or matters tracked from this firm yet.</p></section>`
-      : ""}
+    </div>
   `;
-  initClamps(app);
 }
 
 // =============================================================================
