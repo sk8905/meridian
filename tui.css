@@ -244,6 +244,8 @@
 .tfacts .tf-k { color: var(--ink); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tfacts .tf-v { color: var(--muted); font-family: var(--t-mono); white-space: nowrap; flex: 0 0 auto; }
 .tmini-r { color: var(--muted); font-family: var(--t-mono); font-size: 10px; float: right; margin-left: 8px; }
+.tfacts .tf-est { font-family: var(--t-mono); font-size: 8.5px; text-transform: uppercase; letter-spacing: .03em; color: var(--faint); }
+.tfd-raise { padding: 8px 12px; border-bottom: 1px solid var(--border); font-size: 11px; }
 /* mobile: detail collapses like the dashboard, identity + wire lead */
 @media (max-width: 900px) {
   .tdash-grid.tdash-2 { grid-template-columns: 1fr; }

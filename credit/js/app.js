@@ -1044,50 +1044,94 @@ function viewFund(id) {
   // Evergreen funds show both; a still-raising fund also shows actual investors if any are disclosed.
   const extraInvestorCard = (x.evergreen || (showPotential && hasActualInvestors)) ? actualInvestorsCard(x) : "";
 
+  // Combined, date-sorted activity wire for this fund: fundraising intel + deals.
+  const fdeals = dealsForFund(x.id);
+  const fundFeed = [
+    ...related.map((i) => ({ ...i, _kind: "intel" })),
+    ...fdeals.map((d) => ({ ...d, _kind: "deal" })),
+  ].sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+  const inv = investorsForFund(x);
+  const interestedLps = lps.filter((l) => l.strategies.includes(x.strategy) && l.mandateStatus !== "Not currently active");
+  // The manager is the natural inline entity on a fund's activity rows.
+  const fundWireRow = (i) => crWireRow(i, `<a href="#/manager/${m.id}" class="tw-mgr">${esc(m.name)}</a>`);
+
+  const raisedLabel = x.evergreen ? "AUM/NAV" : "Raised";
+  const metrics = [
+    [x.evergreen ? "AUM" : "Target", x.evergreen ? (x.raised != null ? eur(x.raised) : "—") : eur(x.targetSize)],
+    [raisedLabel, eur(x.raised)], ["Vintage", x.vintage], ["Status", esc(x.status)],
+    ["Investors", inv.length], ["Deals", fdeals.length],
+  ];
+  // Rail: fundraising facts, deployment, returns, investors, notable, peers, provenance.
+  const facts = [
+    ["Target size", x.evergreen ? "Evergreen" : eur(x.targetSize)],
+    ["Hard cap", eur(x.hardCap)],
+    [x.evergreen ? "Current AUM/NAV" : "Raised to date", eur(x.raised)],
+    ["Sector focus", esc(x.sectorFocus || "—")],
+    ["Domicile", esc(x.domicile)],
+    ["Geography", esc(x.geoFocus || "—")],
+  ];
+  const factsRail = `<ul class="tfacts">${facts.map(([k, v]) => `<li><span class="tf-k">${k}</span><span class="tf-v">${v}</span></li>`).join("")}</ul>`;
+  const ti = x.targetIRR;
+  const perf = x.performance;
+  const irrLine = ti ? `${esc(ti.range)}${ti.basis ? " " + esc(ti.basis) : ""} <span class="tf-est">disclosed</span>` : `${esc(STRATEGY_IRR[x.strategy] || "—")} <span class="tf-est">indicative</span>`;
+  const returnsRail = `<ul class="tfacts"><li><span class="tf-k">Target IRR</span><span class="tf-v">${irrLine}</span></li>`
+    + (perf && perf.netIRR != null ? `<li><span class="tf-k">Net IRR</span><span class="tf-v">${perf.netIRR}%</span></li>` : "")
+    + (perf && perf.grossIRR != null ? `<li><span class="tf-k">Gross IRR</span><span class="tf-v">${perf.grossIRR}%</span></li>` : "")
+    + (perf && perf.moic != null ? `<li><span class="tf-k">MOIC</span><span class="tf-v">${perf.moic}x</span></li>` : "")
+    + (perf && perf.dpi != null ? `<li><span class="tf-k">DPI</span><span class="tf-v">${perf.dpi}x</span></li>` : "")
+    + (!perf ? `<li><span class="tf-k">Performance</span><span class="tf-v">n/d</span></li>` : "")
+    + `</ul>`;
+  const investorsRail = inv.length
+    ? `<ul class="tmini">${inv.map((i) => `<li class="tmini-row${i.lpId ? " clickable" : ""}"${i.lpId ? ` data-href="#/lp/${i.lpId}"` : ""}><span class="tmini-t">${esc(i.name)}</span>${i.note ? `<span class="tmini-m">${esc(i.note)}</span>` : ""}</li>`).join("")}</ul>`
+    : (showPotential && interestedLps.length
+      ? `<ul class="tmini">${interestedLps.slice(0, 8).map((l) => `<li class="tmini-row clickable" data-href="#/lp/${l.id}"><span class="tmini-t">${esc(l.name)}<span class="tmini-r">${l.typicalTicket != null ? eur(l.typicalTicket) : ""}</span></span><span class="tmini-m">${esc(l.type)} · indicative fit</span></li>`).join("")}</ul>`
+      : `<p class="tw-empty muted small">No LP commitments publicly disclosed.</p>`);
+  const investorsTitle = inv.length ? "Investors" : (showPotential && interestedLps.length ? "Potential investor fit" : "Investors");
+  const investorsCount = inv.length || (showPotential ? interestedLps.length : 0);
+  const notable = x.notableInvestments || [];
+  const notableRail = notable.length
+    ? `<ul class="tmini">${notable.map((n) => `<li class="tmini-row">${n.url ? `<a class="tmini-t" href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">${esc(n.name)}</a>` : `<span class="tmini-t">${esc(n.name)}</span>`}${n.note ? `<span class="tmini-m">${esc(n.note)}</span>` : ""}</li>`).join("")}</ul>`
+    : "";
+  const peersRail = peers.length
+    ? `<ul class="tmini">${peers.map((pp) => `<li class="tmini-row clickable" data-href="#/fund/${pp.id}"><span class="tmini-t">${esc(pp.name)}</span><span class="tmini-m">${esc(managerById[pp.managerId].name)} · ${esc(pp.status)}</span></li>`).join("")}</ul>`
+    : "";
+  const provRail = `<ul class="tfacts">${dataDimensions(x).map((d) => `<li><span class="tf-k">${STATE_ICON[d.state]} ${esc(d.key)}</span><span class="tf-v">${esc(String(d.detail).replace(/\s*—.*$/, "")) || esc(STATE_LABEL[d.state])}</span></li>`).join("")}</ul>`;
+
   app.innerHTML = `
-    ${breadcrumb([["#/funds", "Funds"], [null, x.name]])}
-    <div class="detail-head">
-      <div>
-        <h1>${nameCell("fund", x.id, esc(x.name))}</h1>
-        <p class="muted">${link(`#/manager/${m.id}`, m.name)} · ${esc(x.domicile)} · Vintage ${x.vintage}</p>
-        <div>${chip(x.strategy)} ${fundStatusChip(x)} ${lifecycleBadge(x)} ${chip(x.geoFocus)}</div>
-        <p class="muted small data-asof">Data as of ${esc(x.asOf || "—")} · ${completenessPill(x)}</p>
+    <div class="tdash">
+      ${breadcrumb([["#/funds", "Funds"], [null, x.name]])}
+      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
+      <div class="tdash-grid tdash-2">
+        <section class="tcol tcol-c">
+          <div class="tdet-id">
+            <h1>${nameCell("fund", x.id, esc(x.name))}</h1>
+            <div class="tdet-sub">${link(`#/manager/${m.id}`, m.name)} · ${esc(x.domicile)} · Vintage ${x.vintage}</div>
+            ${x.description ? `<p class="tdet-desc">${esc(x.description)}</p>` : ""}
+            <div class="tdet-chips"><span class="tdet-chip">${esc(x.strategy)}</span><span class="tdet-chip">${esc(x.status)}</span>${x.geoFocus ? `<span class="tdet-chip">${esc(x.geoFocus)}</span>` : ""}${x.lifecycle ? `<span class="tdet-chip">${esc(typeof x.lifecycle === "string" ? x.lifecycle : x.lifecycle.status)}</span>` : ""}</div>
+            <div class="tdet-src">Data as of ${esc(x.asOf || "—")} · ${completenessPill(x)}</div>
+            ${(x.sources && x.sources.length) ? `<div class="tdet-src">${sources(x)}</div>` : ""}
+          </div>
+          <header class="tpanel-h twire-head"><span>Activity</span>
+            <div class="tchips" id="fd-chips">
+              <button type="button" class="tchip is-on" data-k="all">All</button>
+              <button type="button" class="tchip" data-k="intel">Fundraising</button>
+              <button type="button" class="tchip" data-k="deal">Deals</button>
+            </div>
+          </header>
+          <ul class="twire compact-list" id="fd-wire">${fundFeed.length ? fundFeed.map(fundWireRow).join("") : '<li class="muted small tw-empty">No activity linked to this fund yet.</li>'}</ul>
+        </section>
+        <aside class="tcol tcol-r">
+          ${railPanel("Fundraising", "", `<div class="tfd-raise">${raiseDisplay(x)}</div>${factsRail}`)}
+          ${railPanel("Target & performance", "", returnsRail)}
+          ${railPanel(investorsTitle, investorsCount ? String(investorsCount) : "", investorsRail)}
+          ${notableRail ? railPanel("Notable investments", String(notable.length), notableRail) : ""}
+          ${peersRail ? railPanel("Peer funds", esc(x.strategy), peersRail) : ""}
+          ${railPanel("Data completeness", "", provRail)}
+        </aside>
       </div>
-    </div>
-    <p class="lead">${esc(x.description)}</p>
-    ${lifecycleNote(x)}
-    ${sources(x)}
-    <div class="grid-2">
-      <section class="card">
-        <h2>Fundraising</h2>
-        ${raiseDisplay(x)}
-        <dl class="facts">
-          <div><dt>Target size</dt><dd>${x.evergreen ? "Evergreen (open-ended)" : eur(x.targetSize)}</dd></div>
-          <div><dt>Hard cap</dt><dd>${eur(x.hardCap)}</dd></div>
-          <div><dt>${x.evergreen ? "Current AUM/NAV" : "Raised to date"}</dt><dd>${eur(x.raised)}</dd></div>
-          <div><dt>Status</dt><dd>${fundStatusChip(x)}</dd></div>
-          <div><dt>Sector focus</dt><dd>${esc(x.sectorFocus)}</dd></div>
-          <div><dt>Domicile</dt><dd>${esc(x.domicile)}</dd></div>
-        </dl>
-        ${deploymentBlock(x)}
-      </section>
-      ${investorCard}
-    </div>
-    ${extraInvestorCard}
-    ${returnsCard(x)}
-    ${dataProvenanceCard(x)}
-    <section class="card">
-      <h2>Related intelligence</h2>
-      ${related.length ? related.map(intelRow).join("") : '<p class="muted">No intelligence items linked to this fund yet.</p>'}
-    </section>
-    ${notableInvestmentsCard(x)}
-    ${dealsForFund(x.id).length ? `<section class="card"><h2>Deal activity <span class="muted">(${dealsForFund(x.id).length})</span></h2>${dealsForFund(x.id).map(dealRow).join("")}</section>` : ""}
-    <section class="card">
-      <h2>Peer funds — ${esc(x.strategy)}</h2>
-      <ul class="link-list">
-        ${peers.map((p) => `<li>${link(`#/fund/${p.id}`, p.name)} <span class="muted small">${esc(managerById[p.managerId].name)} · ${chip(p.status, statusClass(p.status))}</span></li>`).join("") || '<li class="muted">No peers found.</li>'}
-      </ul>
-    </section>`;
+    </div>`;
+  wireSimpleChips("fd-chips", "fd-wire");
+  applyPendingFocus("intel");
 }
 
 // ================================ MANAGERS ==================================
@@ -1467,17 +1511,41 @@ function viewClo(mid, encName) {
   const roster = cloRosterFor(mgrClo);
   const c = roster.find((x) => x.name === name) || roster.find((x) => x.name.toLowerCase() === name.toLowerCase());
   if (!c) return notFound();
+  const items = [...c.items].sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+  const otherClos = roster.filter((r) => r.name !== c.name);
+  const metrics = [
+    ["Vintage", c.vintage || "—"], ["Size", c.size || "—"],
+    ["Items", c.items.length], ["Manager", esc(m.name)],
+  ];
+  const kvFig = [
+    ["Vintage", c.vintage || "—"], ["Size", c.size || "—"],
+    ["Items", c.items.length], ["Manager CLOs", roster.length],
+  ];
+  const otherRail = otherClos.length
+    ? `<ul class="tmini">${otherClos.map((r) => `<li class="tmini-row clickable" data-href="#/clo/${mid}/${encodeURIComponent(r.name)}"><span class="tmini-t">${esc(r.name)}<span class="tmini-r">${r.size ? esc(r.size) : ""}</span></span><span class="tmini-m">${r.vintage ? "Vintage " + esc(r.vintage) : "Issued"}</span></li>`).join("")}</ul>`
+    : `<p class="tw-empty muted small">No other tracked CLOs from this manager.</p>`;
   app.innerHTML = `
-    ${breadcrumb([["#/managers", "Managers"], ["#/manager/" + mid, m.name], [null, c.name]])}
-    <div class="detail-head"><div>
-      <h1>${esc(c.name)}</h1>
-      <p class="muted">CLO managed by ${link("#/manager/" + mid, m.name)}${c.vintage ? ` · Vintage ${esc(c.vintage)}` : ""}${c.size ? ` · ${esc(c.size)}` : ""}</p>
-    </div></div>
-    <section class="card">
-      <h2>News &amp; activity <span class="muted">(${c.items.length})</span></h2>
-      <p class="muted small">Tracked issuances, pricings, resets &amp; related news for this CLO. <a href="#/clos">All CLO activity →</a></p>
-      ${feedHtml(c.items, "clo:" + mid + ":" + c.name, (x) => (x._kind === "deal" ? dealRow(x) : intelRow(x)), "")}
-    </section>`;
+    <div class="tdash">
+      ${breadcrumb([["#/managers", "Managers"], ["#/manager/" + mid, m.name], [null, c.name]])}
+      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
+      <div class="tdash-grid tdash-2">
+        <section class="tcol tcol-c">
+          <div class="tdet-id">
+            <h1>${esc(c.name)}</h1>
+            <div class="tdet-sub">CLO · managed by ${link("#/manager/" + mid, m.name)}${c.vintage ? ` · Vintage ${esc(c.vintage)}` : ""}${c.size ? ` · ${esc(c.size)}` : ""}</div>
+            <div class="tdet-chips"><span class="tdet-chip">Structured Credit</span>${c.vintage ? `<span class="tdet-chip">Vintage ${esc(c.vintage)}</span>` : ""}</div>
+          </div>
+          <header class="tpanel-h twire-head"><span>Issuance, pricings, resets &amp; news</span><a class="tpanel-x" href="#/clos">All CLOs →</a></header>
+          <ul class="twire compact-list" id="clo-wire">${items.length ? items.map((x) => crWireRow(x, "")).join("") : '<li class="muted small tw-empty">No tracked activity for this CLO yet.</li>'}</ul>
+        </section>
+        <aside class="tcol tcol-r">
+          ${railPanel("Key figures", "", `<dl class="tkv">${kvFig.map(([l, v]) => `<div><dt>${esc(l)}</dt><dd>${v}</dd></div>`).join("")}</dl>`)}
+          ${railPanel("Manager", "", `<ul class="tmini"><li class="tmini-row clickable" data-href="#/manager/${mid}"><span class="tmini-t">${esc(m.name)}</span><span class="tmini-m">${esc(m.hq || "")}</span></li></ul>`)}
+          ${railPanel("Other CLOs from " + esc(m.name), otherClos.length ? String(otherClos.length) : "", otherRail)}
+        </aside>
+      </div>
+    </div>`;
+  applyPendingFocus("clos");
 }
 
 // ================================ INVESTORS =================================
@@ -1518,35 +1586,45 @@ function viewLp(id) {
   const matches = funds.filter((x) => l.strategies.includes(x.strategy) && (x.status === "Open" || x.status === "First Close" || x.status === "Pre-marketing"));
   const mf = pageList(matches, "lp:" + l.id + ":funds", "");
 
+  const commits = commitmentsForLp(l.id);
+  const metrics = [
+    ["AUM", "€" + l.aum + "bn"], ["PC alloc", pct(l.pcAllocationPct)],
+    ["Implied PC", pcAum != null ? "€" + pcAum.toFixed(1) + "bn" : "—"],
+    ["Ticket", eur(l.typicalTicket)], ["Commitments", commits.length], ["Matches", matches.length],
+  ];
+  const kvFig = [
+    ["Total AUM", "€" + l.aum + "bn"], ["PC allocation", pct(l.pcAllocationPct)],
+    ["Implied PC AUM", pcAum != null ? "€" + pcAum.toFixed(1) + "bn" : "—"], ["Typical ticket", eur(l.typicalTicket)],
+  ];
+  const commitsBody = commits.length
+    ? `<ul class="tmini">${commits.map((c) => `<li class="tmini-row clickable" data-href="#/manager/${c.managerId}"><span class="tmini-t">${esc(managerById[c.managerId].name)}${c.fundId && fundById[c.fundId] ? `<span class="tmini-r">${esc(fundById[c.fundId].name)}</span>` : ""}</span>${c.note ? `<span class="tmini-m">${esc(c.note)}</span>` : ""}</li>`).join("")}</ul>`
+    : `<p class="tw-empty muted small">No specific commitments publicly disclosed.</p>`;
+  const matchesBody = matches.length
+    ? `<ul class="tmini">${mf.shown.map((x) => `<li class="tmini-row clickable" data-href="#/fund/${x.id}"><span class="tmini-t">${esc(x.name)}</span><span class="tmini-m">${esc(managerById[x.managerId].name)} · ${esc(x.strategy)} · ${esc(x.status)}</span></li>`).join("")}${mf.more}</ul>`
+    : `<p class="tw-empty muted small">No matching live funds.</p>`;
+
   app.innerHTML = `
-    ${breadcrumb([["#/lps", "Investors"], [null, l.name]])}
-    <div class="detail-head"><div>
-      <h1>${nameCell("lp", l.id, esc(l.name))}</h1>
-      <p class="muted">${esc(l.type)} · ${esc(l.hq)}</p>
-      <div>${chip(l.mandateStatus, mandateClass(l.mandateStatus))} ${l.strategies.map((s) => chip(s)).join(" ")}</div>
-    </div></div>
-    <div class="kpi-grid">
-      <div class="kpi-card"><div class="kpi-value">€${l.aum}bn</div><div class="kpi-label">Total AUM</div></div>
-      <div class="kpi-card"><div class="kpi-value">${pct(l.pcAllocationPct)} ${l.pcAllocationPct != null ? estBadge(l.pcEstimated) : ""}</div><div class="kpi-label">Private credit allocation</div></div>
-      <div class="kpi-card"><div class="kpi-value">${pcAum != null ? "€" + pcAum.toFixed(1) + "bn" : "Undisclosed"}</div><div class="kpi-label">Implied PC allocation</div></div>
-      <div class="kpi-card"><div class="kpi-value">${eur(l.typicalTicket)}</div><div class="kpi-label">Typical ticket</div></div>
-    </div>
-    <section class="card">
-      <h2>Mandate notes</h2>
-      <p class="lead">${esc(l.notes)}</p>
-      <dl class="facts">
-        <div><dt>Status</dt><dd>${chip(l.mandateStatus, mandateClass(l.mandateStatus))}</dd></div>
-        <div><dt>Strategies of interest</dt><dd>${l.strategies.map((s) => chip(s)).join(" ")}</dd></div>
-      </dl>
-    </section>
-    ${commitmentsForLp(l.id).length ? `<section class="card"><h2>Known commitments <span class="muted">(${commitmentsForLp(l.id).length})</span></h2><ul class="link-list">${commitmentsForLp(l.id).map((c) => `<li>${link(`#/manager/${c.managerId}`, managerById[c.managerId].name)}${c.fundId ? ` · ${link(`#/fund/${c.fundId}`, fundById[c.fundId].name, "muted small")}` : ""} <span class="muted small">${esc(c.note)}</span></li>`).join("")}</ul></section>` : ""}
-    <section class="card">
-      <h2>Matching funds in market <span class="muted">(${matches.length})</span></h2>
-      <p class="muted small">Live funds whose strategy aligns with this investor's stated interests.</p>
-      <ul class="link-list">
-        ${mf.shown.map((x) => `<li>${link(`#/fund/${x.id}`, x.name)} <span class="muted small">${esc(managerById[x.managerId].name)} · ${chip(x.strategy)} · ${chip(x.status, statusClass(x.status))}</span></li>`).join("") || '<li class="muted">No matching live funds.</li>'}
-      </ul>${mf.more}
-    </section>`;
+    <div class="tdash">
+      ${breadcrumb([["#/lps", "Investors"], [null, l.name]])}
+      <div class="tdash-ticker">${metrics.map(([lab, v]) => `<span class="tmet"><b>${v}</b> ${esc(lab)}</span>`).join("")}</div>
+      <div class="tdash-grid tdash-2">
+        <section class="tcol tcol-c">
+          <div class="tdet-id">
+            <h1>${nameCell("lp", l.id, esc(l.name))}</h1>
+            <div class="tdet-sub">${esc(l.type)} · ${esc(l.hq)}</div>
+            ${l.notes ? `<p class="tdet-desc">${esc(l.notes)}</p>` : ""}
+            <div class="tdet-chips"><span class="tdet-chip">${esc(l.mandateStatus)}</span>${l.strategies.map((s) => `<span class="tdet-chip">${esc(s)}</span>`).join("")}</div>
+          </div>
+          <header class="tpanel-h twire-head"><span>Known commitments</span><span class="tpanel-x">${commits.length}</span></header>
+          <div id="lp-commits">${commitsBody}</div>
+        </section>
+        <aside class="tcol tcol-r">
+          ${railPanel("Key figures", "", `<dl class="tkv">${kvFig.map(([lab, v]) => `<div><dt>${esc(lab)}</dt><dd>${v}</dd></div>`).join("")}</dl>`)}
+          ${railPanel("Strategies of interest", "", `<div class="tdet-chips" style="padding:9px 12px">${l.strategies.map((s) => `<span class="tdet-chip">${esc(s)}</span>`).join("")}</div>`)}
+          ${railPanel("Matching funds in market", String(matches.length), matchesBody)}
+        </aside>
+      </div>
+    </div>`;
 }
 
 // =============================== INTELLIGENCE ===============================
