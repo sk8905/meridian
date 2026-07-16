@@ -49,7 +49,9 @@ export function initPullToRefresh() {
   // touch-action isn't inherited, so a universal rule is needed to cover every
   // element (e.g. the fixed bottom tab-bar buttons), not just html/body.
 
-  const navy = (getComputedStyle(document.documentElement).getPropertyValue("--navy") || "").trim() || "#0b1f44";
+  // Match the near-black app ground so the pull-down zone doesn't flash navy.
+  const cs = getComputedStyle(document.documentElement);
+  const navy = (cs.getPropertyValue("--bg") || cs.getPropertyValue("--t-ground") || "").trim() || "#05080f";
   const zone = document.createElement("div");
   zone.setAttribute("aria-hidden", "true");
   zone.style.cssText =

@@ -92,7 +92,7 @@ export function initGlance() {
   initJumpNav();
   wirePalette(buildIndex());
   startLiveRefresh();
-  import("/ptr.js?v=20260711-6").then((m) => m.initPullToRefresh()).catch(() => {});
+  import("/ptr.js?v=20260716-1").then((m) => m.initPullToRefresh()).catch(() => {});
 }
 
 // ---- Unified Saved -----------------------------------------------------------
