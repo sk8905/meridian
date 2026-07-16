@@ -164,15 +164,52 @@
 :root[data-theme="light"] .tleague tr.clickable:hover,
 :root[data-theme="light"] .tmini-row:hover { background: rgba(11,31,68,.04); }
 
-/* mobile: stack, let the page scroll */
+/* =====================================================================
+   iPhone / narrow: the fixed 3-column terminal degrades to a single
+   page-scrolling column. The centre WIRE (the primary content) leads;
+   the data rails follow so you never scroll past a 30-row league table to
+   reach the news. Dense single-line rows relax to a readable 2-line block.
+   ===================================================================== */
 @media (max-width: 900px) {
   .tdash { height: auto; overflow: visible; }
-  .tdash-ticker { overflow-x: auto; }
+  /* ticker: swipeable strip with momentum, a touch taller for the thumb */
+  .tdash-ticker { overflow-x: auto; -webkit-overflow-scrolling: touch; height: 30px; }
+  .tdash-ticker::-webkit-scrollbar { display: none; }
+  .tmet { padding: 0 12px; }
+
   .tdash-grid { grid-template-columns: 1fr; }
   .tcol { overflow: visible; border-right: 0; border-left: 0; border-bottom: 1px solid var(--border); }
-  .tcol-c { overflow: visible; }
+  .tcol-c { overflow: visible; order: -1; }        /* wire leads on mobile */
   .twire { overflow: visible; }
-  .tpanel-h, .tleague th { position: static; }
+  .tpanel-h, .tleague th { position: static; }      /* page scrolls on mobile — don't pin sub-headers under the sticky topbar */
+
+  /* wire row → 2 lines: [date · TAG … source] over [headline · manager] */
+  .twire .compact-item {
+    grid-template-columns: auto auto 1fr;
+    grid-template-areas: "date tag src" "body body body";
+    row-gap: 3px; column-gap: 8px; padding: 9px 14px;
+    align-items: center;
+  }
+  .tw-date { grid-area: date; }
+  .tw-tag  { grid-area: tag;  justify-self: start; }
+  .tw-src  { grid-area: src;  justify-self: end; padding-left: 0; max-width: 46vw; }
+  .tw-body { grid-area: body; flex-wrap: wrap; }
+  /* let the headline take up to two lines instead of hard-truncating to one */
+  .tw-head { white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .tw-mgr-w { max-width: 100%; }
+
+  /* chips: swipeable if a section has many filters */
+  .tchips { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .tchips::-webkit-scrollbar { display: none; }
+  .tchip { flex: 0 0 auto; }
+
+  /* league / mini rows: comfier tap targets */
+  .tleague td, .tleague th { padding: 8px; }
+  .tleague .tl-nm { max-width: 52vw; }
+  .tmini-row { padding: 9px 14px; }
+
+  /* clear the floating bottom tab bar so the last rows aren't hidden under it */
+  .tcol:last-child { padding-bottom: 5rem; }
 }
 
 /* macro dashboard — indicators rail + commentary tag */
