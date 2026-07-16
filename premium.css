@@ -336,14 +336,33 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 /* ---- Mobile bottom tab bar — the light frosted-glass pill glows against the
         dark UI, so give it a dark-glass variant (home + every app share the
         .mobile-tabbar / .mtab classes, so one override covers all). ---- */
-[data-theme="dark"] .mobile-tabbar {
-  background: rgba(18,26,42,.82);
-  border-color: rgba(255,255,255,.10);
-  box-shadow: 0 8px 28px rgba(0,0,0,.55), inset 0 1px 0 rgba(255,255,255,.05);
+/* ---- Bloomberg-Go bottom tab bar: flat, edge-to-edge, icon over label. ----
+   Replaces the floating frosted-glass pill with a solid bar pinned to the
+   bottom edge (no rounded corners, blur or shadow). The active item is the
+   platform accent with no pill background, matching the Bloomberg terminal app. */
+.mobile-tabbar {
+  left: 0 !important; right: 0 !important; bottom: 0 !important;
+  border-radius: 0 !important;
+  padding: 6px 0 calc(4px + env(safe-area-inset-bottom, 0px)) !important;
+  background: #f6f8fc !important;
+  border: 0 !important; border-top: 1px solid rgba(15,23,42,.12) !important;
+  -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
+  box-shadow: none !important;
 }
-[data-theme="dark"] .mtab { color: #93a0b8; }
+.mtab { border-radius: 0 !important; min-height: 48px; gap: 3px; font-size: .6rem; letter-spacing: .02em; }
+.mtab.is-active { background: none !important; }
+.mtab-ico { font-size: 1.28rem; }
+svg.mtab-ico { width: 24px; height: 24px; }
+[data-theme="dark"] .mobile-tabbar {
+  background: #0a0f1a !important;
+  border-top: 1px solid var(--border, #232f47) !important;
+  box-shadow: none !important;
+}
+[data-theme="dark"] .mtab { color: #7f8ca6; }
 [data-theme="dark"] .mtab:hover { color: #cdd6e6; }
-[data-theme="dark"] .mtab.is-active { color: #e9eef7; background: rgba(255,255,255,.11); }
+[data-theme="dark"] .mtab.is-active { color: var(--accent, #4aa8f0) !important; background: none !important; }
+/* the flat bar is shorter than the old floating pill — trim the reserved space */
+@media (max-width: 760px) { body { padding-bottom: calc(3.7rem + env(safe-area-inset-bottom, 0px)) !important; } }
 
 /* ---- Phones: the account (email/sign-out) + last-refresh block is relocated
         from the cramped app top bar into the footer (moved by a small inline
