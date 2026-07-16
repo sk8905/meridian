@@ -701,9 +701,11 @@ function viewDashboard() {
   const inMkt = (f) => !f.evergreen && (f.status === "Open" || f.status === "First Close");
   const mgrFundList = (id) => funds.filter((f) => f.managerId === id);
   const uni = managers.filter((m) => !targetFocus || midInFocus(m.id));
-  const league = uni
-    .map((m) => ({ m, nf: mgrFundList(m.id).length, live: mgrFundList(m.id).filter(inMkt).length }))
-    .sort((a, b) => (b.m.aumCredit || 0) - (a.m.aumCredit || 0)).slice(0, 18);
+  // League table shows the FULL manager universe ranked by credit AUM; its own
+  // €1–10bn toggle filters it in place (independent of the page-level focus).
+  const league = [...managers]
+    .map((m) => ({ m, nf: mgrFundList(m.id).length, live: mgrFundList(m.id).filter(inMkt).length, focus: mInFocus(m) }))
+    .sort((a, b) => (b.m.aumCredit || 0) - (a.m.aumCredit || 0));
   const pipeline = creditFunds.filter(inMkt).sort((a, b) => (b.targetSize || 0) - (a.targetSize || 0)).slice(0, 12);
   const totalCreditAum = uni.reduce((s, m) => s + (m.aumCredit || 0), 0);
   const metrics = [
@@ -713,8 +715,22 @@ function viewDashboard() {
     ["Credit AUM", "€" + Math.round(totalCreditAum) + "bn"],
   ];
   const KIND = { deal: "DEAL", intel: "FUND", clo: "CLO", news: "NEWS" };
-  const wireRow = (a) => (a.kind === "news" ? newsCompact(a.item) : compactRow(a.item, a.view))
-    .replace('<li class="compact-item">', `<li class="compact-item tw-row" data-kind="${a.kind}"><span class="tw-tag ${a.kind}">${KIND[a.kind]}</span>`);
+  const wireRow = (a) => {
+    const rec = a.item, isNews = a.kind === "news";
+    const title = isNews ? rec.title : rec.headline;
+    const goto = isNews ? `news:${rec._id}` : `${a.view}:${rec.id}`;
+    const mid = isNews ? rec._mid : rec.managerId;
+    const mname = mid && managerById[mid] ? managerById[mid].name : (isNews ? (rec._mname || "") : "");
+    const src = isNews ? (rec.outlet || "") : creditSource(rec);
+    const url = isNews ? rec.url : rec.sourceUrl;
+    const mgr = mid ? link(`#/manager/${mid}`, mname, "tw-mgr") : (mname ? esc(mname) : "");
+    return `<li class="compact-item tw-row" data-kind="${a.kind}">`
+      + `<span class="tw-tag ${a.kind}">${KIND[a.kind]}</span>`
+      + `<a href="#/${isNews ? "news" : a.view}" data-goto="${goto}" class="compact-head tw-head">${esc(title)}</a>`
+      + `<div class="compact-meta tw-meta muted small">${rec.date ? esc(fmtDate(rec.date)) : ""}${mgr ? ` · ${mgr}` : ""}</div>`
+      + `<span class="tw-src">${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(src || "source")}</a>` : esc(src || "")}</span>`
+      + `</li>`;
+  };
 
   app.innerHTML = `
     <div class="tdash">
@@ -723,9 +739,9 @@ function viewDashboard() {
       <div class="tdash-grid">
         <aside class="tcol tcol-l">
           <section class="tpanel">
-            <header class="tpanel-h"><span>Manager league table</span><span class="tpanel-x">credit AUM</span></header>
+            <header class="tpanel-h"><span>Manager league table</span><button type="button" class="tfocus-btn" id="cr-lg-focus" aria-pressed="false" title="Show only €1–10bn AUM managers">€1–10bn</button></header>
             <table class="tleague"><thead><tr><th>Manager</th><th>AUM</th><th>Fd</th><th>Lv</th></tr></thead>
-            <tbody>${league.map((r) => `<tr class="clickable" data-href="#/manager/${r.m.id}"><td class="tl-nm">${esc(r.m.name)}</td><td class="tl-n">€${r.m.aumCredit || 0}bn</td><td class="tl-n">${r.nf}</td><td class="tl-n">${r.live || ""}</td></tr>`).join("")}</tbody></table>
+            <tbody>${league.map((r) => `<tr class="clickable" data-href="#/manager/${r.m.id}" data-focus="${r.focus ? 1 : 0}"><td class="tl-nm">${esc(r.m.name)}</td><td class="tl-n">€${r.m.aumCredit || 0}bn</td><td class="tl-n">${r.nf}</td><td class="tl-n">${r.live || ""}</td></tr>`).join("")}</tbody></table>
           </section>
         </aside>
         <section class="tcol tcol-c">
@@ -766,6 +782,13 @@ function wireDashChips() {
     chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
     const k = b.dataset.k;
     wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (k === "all" || r.dataset.kind === k) ? "" : "none"; });
+  });
+  const lf = document.getElementById("cr-lg-focus");
+  if (lf) lf.addEventListener("click", () => {
+    const on = lf.getAttribute("aria-pressed") !== "true";
+    lf.setAttribute("aria-pressed", on ? "true" : "false");
+    lf.classList.toggle("is-on", on);
+    document.querySelectorAll(".tleague tbody tr").forEach((r) => { r.style.display = (!on || r.dataset.focus === "1") ? "" : "none"; });
   });
 }
 
