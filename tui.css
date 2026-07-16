@@ -184,3 +184,5 @@
 .mac-ind-v { font-family: var(--t-mono); font-size: 12px; color: var(--ink); font-variant-numeric: tabular-nums; }
 .mac-ind-c-chg { font-family: var(--t-mono); font-size: 9px; }
 .mac-ind-c-chg.up { color: #3fc08d; } .mac-ind-c-chg.down { color: #f26d84; } .mac-ind-c-chg.flat { color: var(--faint); }
+/* legal wire tags */
+.tw-tag.alert { color: #43b880; } .tw-tag.case { color: #6f97d6; } .tw-tag.rp { color: #cc9f43; }

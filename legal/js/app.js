@@ -415,47 +415,79 @@ function viewDashboard() {
     nav: { month: m },
   }));
 
-  app.innerHTML = `
-    <section class="page-head">
-      <h1>Legal Intelligence</h1>
-      <p class="muted">English-law updates curated from UK Magic Circle, Silver Circle and US-elite London firms, plus recent BAILII judgments</p>
-    </section>
+  // ---- dense terminal screen (canonical tui.css format) -------------------
+  const inYear = (i) => Number(String(i.date).slice(0, 4)) === thisYear;
+  const areaCount = (a) => items.filter((i) => inYear(i) && (i.areas || [i.area]).includes(a.id)).length;
+  const metrics = [
+    ["Alerts " + thisYear, items.filter(inYear).length],
+    ...practiceAreas.map((a) => [a.name, areaCount(a)]),
+    ["Case law", cases.length], ["Schemes & RPs", restructurings.length],
+  ];
+  const alerts = items.map((it) => ({ _k: "alert", date: it.date, title: it.title, href: `#/item/${encodeURIComponent(it.id)}`, mgr: (firmById[it.firm] || {}).name || it.firm, src: (firmById[it.firm] || {}).name || it.firm, url: it.url, code: "ALERT" }));
+  const caseItems = cases.map((c) => ({ _k: "case", date: c.date, title: c.name, href: `#/cases?case=${encodeURIComponent(c.id)}`, mgr: c.court, src: c.citation, url: null, code: "CASE" }));
+  const rps = restructurings.map((r) => ({ _k: "rp", date: r.date, title: r.company, href: `#/restructurings?m=${encodeURIComponent(r.id)}`, mgr: r.court || (r.type === "scheme" ? "Scheme" : "Restructuring plan"), src: r.citation || "", url: null, code: r.type === "scheme" ? "SCHEME" : "RP" }));
+  const wire = [...alerts, ...caseItems, ...rps].filter((x) => x.date).sort(byDateDesc);
+  const wireRow = (x) => {
+    const mgr = x.mgr ? `<span class="tw-mgr-w"><span class="tw-mgr">${esc(x.mgr)}</span></span>` : "";
+    return `<li class="compact-item tw-row" data-kind="${x._k}">`
+      + `<span class="tw-date">${x.date ? esc(fmtDate(x.date)) : ""}</span>`
+      + `<span class="tw-tag ${x._k}">${x.code}</span>`
+      + `<span class="tw-body"><a href="${x.href}" class="tw-head">${esc(x.title)}</a>${mgr}</span>`
+      + `<span class="tw-src">${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.src || "source")}</a>` : esc(x.src || "")}</span>`
+      + `</li>`;
+  };
+  const areaRow = (a) => `<li class="tmini-row"><a class="tmini-t" href="#/list?area=${esc(a.id)}">${esc(a.name)}</a><span class="tmini-m">${areaCount(a)} in ${thisYear}</span></li>`;
+  const tierRow = (t) => `<li class="tmini-row"><a class="tmini-t" href="#/list?tier=${esc(t.id)}">${esc(t.name)}</a><span class="tmini-m">${items.filter((i) => (firmById[i.firm] || {}).tier === t.id).length} alerts</span></li>`;
+  const rxRow = (r) => `<li class="tmini-row"><a class="tmini-t" href="#/restructurings?m=${encodeURIComponent(r.id)}">${esc(r.company)}</a><span class="tmini-m">${r.type === "scheme" ? "Scheme" : "Plan"}${r.date ? " · " + esc(fmtDate(r.date)) : ""}</span></li>`;
+  const caseRow = (c) => `<li class="tmini-row"><a class="tmini-t" href="#/cases?case=${encodeURIComponent(c.id)}">${esc(c.name)}</a><span class="tmini-m">${esc(c.court)}${c.date ? " · " + esc(fmtDate(c.date)) : ""}</span></li>`;
 
-    <details class="rk-toggle"${window.matchMedia(MOBILE_Q).matches ? "" : " open"}>
-      <summary class="rk-toggle-head">Key metrics <span class="rk-caret" aria-hidden="true"></span></summary>
-      <div class="rk-toggle-body">
-        <section class="kpis kpis-5" aria-label="Alerts this year by practice area">${tiles}</section>
-      </div>
-    </details>
-
-    <div class="grid-3">
-      <section class="card feature-card">
-        <h2>Law-firm alerts</h2>
-        <p class="muted small">Latest legal updates &amp; client alerts from UK Magic Circle, Silver Circle and US-elite London firms. Click a headline to open it.</p>
-        <ul class="compact-list">${firmList}</ul>
-        <div class="card-foot"><a href="#/list">View all alerts →</a></div>
+  app.innerHTML = `<div class="tdash">
+    <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
+    <div class="tdash-grid">
+      <aside class="tcol tcol-l">
+        <section class="tpanel">
+          <header class="tpanel-h"><span>Practice areas</span><span class="tpanel-x">${thisYear}</span></header>
+          <ul class="tmini">${practiceAreas.map(areaRow).join("")}</ul>
+        </section>
+        <section class="tpanel">
+          <header class="tpanel-h"><span>Source tiers</span><span class="tpanel-x">firms</span></header>
+          <ul class="tmini">${tiers.map(tierRow).join("")}</ul>
+        </section>
+      </aside>
+      <section class="tcol tcol-c">
+        <header class="tpanel-h twire-head"><span>Legal wire</span>
+          <div class="tchips" id="lg-chips">
+            <button type="button" class="tchip is-on" data-k="all">All</button>
+            <button type="button" class="tchip" data-k="alert">Alerts</button>
+            <button type="button" class="tchip" data-k="case">Case law</button>
+            <button type="button" class="tchip" data-k="rp">Schemes &amp; RPs</button>
+          </div>
+        </header>
+        <ul class="twire compact-list" id="lg-wire">${wire.length ? wire.slice(0, 90).map(wireRow).join("") : '<li class="tw-empty muted small">No items yet.</li>'}</ul>
       </section>
-      <section class="card feature-card">
-        <h2>Recent cases on BAILII</h2>
-        <p class="muted small">Latest English-law judgments, linked to bailii.org.</p>
-        <ul class="compact-list">${caseListHtml}</ul>
-        <div class="card-foot"><a href="#/cases">View all case law →</a></div>
-      </section>
-      <section class="card feature-card">
-        <h2>Schemes &amp; RPs</h2>
-        <p class="muted small">Latest restructuring plans &amp; schemes of arrangement before the English court. Click a matter to open it.</p>
-        <ul class="compact-list">${rxListHtml}</ul>
-        <div class="card-foot"><a href="#/restructurings">View all schemes &amp; RPs →</a></div>
-      </section>
+      <aside class="tcol tcol-r">
+        <section class="tpanel">
+          <header class="tpanel-h"><span>Schemes &amp; RPs</span><span class="tpanel-x">latest</span></header>
+          <ul class="tmini">${[...restructurings].filter((r) => r.date).sort(byDateDesc).slice(0, 10).map(rxRow).join("")}</ul>
+        </section>
+        <section class="tpanel">
+          <header class="tpanel-h"><span>Recent cases</span><span class="tpanel-x">BAILII</span></header>
+          <ul class="tmini">${[...cases].filter((c) => c.date).sort(byDateDesc).slice(0, 10).map(caseRow).join("")}</ul>
+        </section>
+      </aside>
     </div>
-
-    <div class="grid-2">
-      <section class="card"><h2>Alerts by source tier</h2><p class="muted small">Click a tier to see its alerts.</p>${donutChart(tierData, { size: 200 })}</section>
-      <section class="card"><h2>Publishing activity by month</h2><p class="muted small">Click a month to see that month's alerts.</p>${columnChart(monthData, { width: 720, height: 200 })}</section>
-    </div>
-
-    <p class="reviewed">Data last reviewed ${fmtDate(LAST_REVIEWED)}.</p>
-  `;
+  </div>`;
+  legalWireDash();
+}
+function legalWireDash() {
+  const chips = document.getElementById("lg-chips"), wire = document.getElementById("lg-wire");
+  if (!chips || !wire) return;
+  chips.onclick = (e) => {
+    const b = e.target.closest(".tchip"); if (!b) return;
+    chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
+    const k = b.dataset.k;
+    wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (k === "all" || r.dataset.kind === k) ? "" : "none"; });
+  };
 }
 
 // =============================================================================
