@@ -343,13 +343,13 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 .mobile-tabbar {
   left: 0 !important; right: 0 !important; bottom: 0 !important;
   border-radius: 0 !important;
-  padding: 6px 0 calc(4px + env(safe-area-inset-bottom, 0px)) !important;
+  padding: 9px 0 calc(9px + env(safe-area-inset-bottom, 0px)) !important;
   background: #f6f8fc !important;
   border: 0 !important; border-top: 1px solid rgba(15,23,42,.12) !important;
   -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
   box-shadow: none !important;
 }
-.mtab { border-radius: 0 !important; min-height: 46px; gap: 2px; font-size: .56rem; font-weight: 600; letter-spacing: .02em; padding: 2px .1rem !important; }
+.mtab { border-radius: 0 !important; min-height: 54px; gap: 3px; font-size: .58rem; font-weight: 600; letter-spacing: .02em; padding: 3px .1rem !important; }
 .mtab.is-active { background: none !important; }
 .mtab-ico { font-size: 1.42rem; line-height: 1; }        /* diamond glyph → optically match the SVG icons */
 svg.mtab-ico { width: 22px; height: 22px; }
@@ -361,8 +361,8 @@ svg.mtab-ico { width: 22px; height: 22px; }
 [data-theme="dark"] .mtab { color: #7f8ca6; }
 [data-theme="dark"] .mtab:hover { color: #cdd6e6; }
 [data-theme="dark"] .mtab.is-active { color: var(--accent, #4aa8f0) !important; background: none !important; }
-/* the flat bar is shorter than the old floating pill — trim the reserved space */
-@media (max-width: 760px) { body { padding-bottom: calc(3.7rem + env(safe-area-inset-bottom, 0px)) !important; } }
+/* reserve room for the taller flat bar */
+@media (max-width: 760px) { body { padding-bottom: calc(4.9rem + env(safe-area-inset-bottom, 0px)) !important; } }
 
 /* ---- Phones: the account (email/sign-out) + last-refresh block is relocated
         from the cramped app top bar into the footer (moved by a small inline
