@@ -277,6 +277,15 @@
     .g-hello-main { grid-column:1; }
     .g-hello h1 { font-size:1.25rem; font-weight:800; margin:0 0 .2rem; letter-spacing:-.01em; line-height:1.25; }
     .g-hello p { color:var(--muted); margin:0; }
+    /* One-line cross-desk briefing under the heading. */
+    .g-brief { font-size:.85rem; line-height:1.4; color:var(--muted); }
+    .g-brief:empty { display:none; }
+    .g-brief b { color:var(--ink); font-weight:700; font-variant-numeric:tabular-nums; }
+    .g-brief-sep { margin:0 .5rem; opacity:.5; }
+    .g-brief-lead { color:var(--muted); }
+    .g-brief-link { color:var(--brand-2); font-weight:600; text-decoration:none; }
+    .g-brief-link:hover { text-decoration:underline; }
+    :root[data-theme="dark"] .g-brief-link { color:var(--accent); }
     /* At-a-glance one-liners (markets + rates), refreshed with the twice-daily
        data pull. Sit above the news feed on desktop, stack below on narrow
        screens. */
@@ -403,6 +412,17 @@
     :root[data-theme="dark"] a.g-feed-row:hover .g-feed-title { color:var(--accent); }
     .g-feed-src { flex:0 1 auto; min-width:0; color:var(--muted); font-size:.76rem; white-space:nowrap;
       overflow:hidden; text-overflow:ellipsis; }
+    /* Entity chip: a manager/firm named in the headline, linking to its Credit
+       profile. Sits between the headline and the source; behaves like a link but is
+       a span (the row is already an anchor). */
+    .g-feed-ent { flex:0 0 auto; display:inline-flex; align-items:center; gap:.2rem; cursor:pointer;
+      font-size:.7rem; font-weight:700; line-height:1; color:var(--brand-2); white-space:nowrap;
+      padding:.16rem .42rem; border:1px solid color-mix(in srgb, var(--brand-2) 32%, transparent);
+      border-radius:999px; background:color-mix(in srgb, var(--brand-2) 8%, transparent); }
+    .g-feed-ent::before { content:"↗"; font-size:.66rem; opacity:.7; }
+    .g-feed-ent:hover { background:var(--brand-2); color:#fff; border-color:var(--brand-2); }
+    :root[data-theme="dark"] .g-feed-ent { color:var(--accent); border-color:color-mix(in srgb, var(--accent) 40%, transparent); }
+    :root[data-theme="dark"] .g-feed-ent:hover { background:var(--accent); color:var(--navy); }
     /* Same muted meta typography as the date/source (item-meta role). */
     .g-feed-desk { flex:0 0 auto; margin-left:auto; padding-left:.7rem; color:var(--muted);
       font-size:.76rem; white-space:nowrap; }
@@ -415,8 +435,9 @@
       .g-feed-title { flex:1 1 100%; order:1; font-size:.92rem; white-space:normal; overflow:visible; }
       .g-feed-time { order:2; min-width:0; }
       .g-feed-src { order:3; flex:0 1 auto; min-width:0; text-align:left; white-space:normal; }
+      .g-feed-ent { order:4; }
       /* Phone: the tag flows inline right after the source (not pinned right). */
-      .g-feed-desk { order:4; margin-left:0; padding-left:0; }
+      .g-feed-desk { order:5; margin-left:0; padding-left:0; }
     }
     /* Right column (~30%): Markets beside Key rates, then US/UK economic
        indicators, then the Macro-read tile. Each band is a compact 2-col grid. */
@@ -750,6 +771,7 @@
       <div class="g-hello g-anchor" id="jump-top">
         <div class="g-hello-main">
           <h1 id="hello">Your briefing</h1>
+          <p class="g-brief" id="g-brief"></p>
         </div>
         <div class="g-glance" id="g-glance" aria-label="At-a-glance market summary">
           <div class="g-gl-block" data-gl="markets">
@@ -846,7 +868,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-49").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-50").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

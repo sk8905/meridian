@@ -85,6 +85,7 @@ export function initGlance() {
   if (rf) rf.textContent = `Last refresh ${fmtRefresh()}`;
   initNotifBell();
   initSavedPanel();
+  initFeedEntityNav();
   initMarketsPanel();
   initJumpNav();
   wirePalette(buildIndex());
@@ -146,6 +147,58 @@ function initSavedPanel() {
     else close();
   });
   document.addEventListener("click", (e) => { if (!panel.hasAttribute("hidden") && !e.target.closest("#g-saved")) close(); });
+}
+
+// ---- Entity cross-linking ----------------------------------------------------
+// A manager/firm named in ANY feed headline (macro, credit or legal) gets a small
+// chip linking straight to its Credit profile. We reduce each manager's full name
+// to a short brand key ("Bridgepoint Credit" → "Bridgepoint", "ICG (Intermediate
+// Capital Group)" → "ICG") and word-boundary match it against the headline.
+const _ENT_GENERIC = new Set(["credit", "management", "capital", "global", "partners", "advisors", "advisers", "asset", "alternatives", "group", "investment", "investments", "private", "holdings", "llp", "llc", "inc", "co", "company", "the", "and"]);
+function _entKey(name) {
+  let toks = String(name || "").split("(")[0].replace(/&/g, " ").trim().split(/\s+/).filter(Boolean);
+  while (toks.length > 1 && _ENT_GENERIC.has(toks[toks.length - 1].toLowerCase().replace(/[^a-z]/gi, ""))) toks.pop();
+  return toks.join(" ");
+}
+// Single-word brand keys that collide with common English words (or plain
+// numbers) would light up on unrelated headlines ("one-year high", "400bps"),
+// so they're excluded from matching.
+const _ENT_STOPKEYS = new Set(["one", "signal", "arrow", "orbit", "metric", "trinity", "crescent", "fortress"]);
+let _entIndex = null;
+function entityIndex() {
+  if (_entIndex) return _entIndex;
+  _entIndex = managers.map((m) => ({ id: m.id, name: m.name, key: _entKey(m.name) }))
+    .filter((e) => e.key && e.key.replace(/[^a-z0-9]/gi, "").length >= 3
+      && !_ENT_GENERIC.has(e.key.toLowerCase()) && !_ENT_STOPKEYS.has(e.key.toLowerCase())
+      && !/^\d+$/.test(e.key))
+    .sort((a, b) => b.key.length - a.key.length);   // longest key wins (Park Square before Park)
+  return _entIndex;
+}
+function matchEntity(title) {
+  const t = String(title || "");
+  for (const e of entityIndex()) {
+    const re = new RegExp("(^|[^A-Za-z0-9])" + e.key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "($|[^A-Za-z0-9])", "i");
+    if (re.test(t)) return e;
+  }
+  return null;
+}
+// One delegated handler: a click (or Enter/Space) on an entity chip navigates to
+// the manager's Credit profile without triggering the row's own story link.
+function initFeedEntityNav() {
+  const go = (el) => { const h = el.getAttribute("data-href"); if (h) location.href = h; };
+  const feed = document.getElementById("g-feed");
+  if (!feed) return;
+  feed.addEventListener("click", (e) => {
+    const chip = e.target.closest(".g-feed-ent");
+    if (!chip) return;
+    e.preventDefault(); e.stopPropagation(); go(chip);
+  });
+  feed.addEventListener("keydown", (e) => {
+    if (e.key !== "Enter" && e.key !== " ") return;
+    const chip = e.target.closest(".g-feed-ent");
+    if (!chip) return;
+    e.preventDefault(); e.stopPropagation(); go(chip);
+  });
 }
 
 // On phones the ticker chips are collapsed behind a chevron at the end of each
@@ -331,6 +384,25 @@ const creditItemHref = (x, tab) => `/credit/#/${x.clo ? "clos" : tab}?focus=${en
 // feed is never empty between refreshes.
 const DESK = { m: "Macro", c: "Credit", l: "Legal" };
 // Active desk filter for the home news feed: "all" | "m" | "c" | "l".
+// One-line cross-desk briefing shown under the "Your briefing" heading.
+function renderBrief(byDesk, counts, day) {
+  const el = document.getElementById("g-brief");
+  if (!el) return;
+  const parts = [];
+  if (counts.m) parts.push(`<b>${counts.m}</b> macro`);
+  if (counts.c) parts.push(`<b>${counts.c}</b> credit`);
+  if (counts.l) parts.push(`<b>${counts.l}</b> legal`);
+  const lead = [byDesk.m[0], byDesk.c[0], byDesk.l[0]].filter(Boolean)
+    .sort((a, b) => day(b).localeCompare(day(a)) || String(b.time || "12:00").localeCompare(String(a.time || "12:00")))[0];
+  const countTxt = parts.length
+    ? `${parts.join(" · ")} added recently`
+    : "All quiet — nothing new across your desks";
+  const leadHtml = lead
+    ? `<span class="g-brief-sep">·</span><span class="g-brief-lead">Top story <a class="g-brief-link g-desk-${lead.desk}" href="${esc(lead.href)}"${lead.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>${esc(lead.title)}</a></span>`
+    : "";
+  el.innerHTML = `<span class="g-brief-counts">${countTxt}</span>${leadHtml}`;
+}
+
 let _feedDesk = "all";
 function renderFeed() {
   // `time` is the article's publish time (e.g. "14:05", Europe/London) when the
@@ -383,6 +455,12 @@ function renderFeed() {
   const recentN = (list) => (cutoff ? list.filter((x) => day(x) >= cutoff).length : list.length);
   const counts = { m: recentN(byDesk.m), c: recentN(byDesk.c), l: recentN(byDesk.l) };
 
+  // One-line cross-desk morning briefing atop the page: how much is new across the
+  // three desks (last ~2 days) plus the single freshest headline as a link. Always
+  // computed from the full per-desk streams, so it doesn't change when the reader
+  // filters the feed below.
+  renderBrief(byDesk, counts, day);
+
   let feed;
   if (_feedDesk === "all") {
     const pick = (list) => dedupe(list.filter((x) => day(x) === target).sort(byDateDesc));
@@ -412,9 +490,11 @@ function renderFeed() {
     // time never re-times to the latest run. When no time is known, default to
     // "12:00" (midday) so every row leads with a time.
     const t = o.time || "12:00";
+    const ent = matchEntity(o.title);
     return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
       + `<span class="g-feed-time">${esc(t)}</span>`
       + `<span class="g-feed-title">${esc(o.title)}</span>`
+      + (ent ? `<span class="g-feed-ent" data-href="/credit/#/manager/${esc(ent.id)}" role="link" tabindex="0" title="Open ${esc(ent.name)} in Credit">${esc(ent.key)}</span>` : "")
       + (o.src ? `<span class="g-feed-src">${esc(o.src)}</span>` : "")
       + `<span class="g-feed-desk">${esc(DESK[o.desk])}</span></a>`;
   };
