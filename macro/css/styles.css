@@ -145,12 +145,12 @@ a.rel-item:hover .cal-title, a.rel-item:hover .cal-country { color: var(--macro)
 .footer code { background: #eef1f5; padding: 0 .25rem; border-radius: 4px; }
 
 /* ---------- macro dashboard ---------- */
-/* US then UK, each a single full-width row of six compact tiles (stacked). */
-.macro-groups { display: grid; grid-template-columns: 1fr; gap: 1.5rem; align-items: start; margin-bottom: 1.6rem; }
+/* US and UK side by side, each a single row of six compact tiles (2 × 1×6). */
+.macro-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem 1.5rem; align-items: start; margin-bottom: 1.6rem; }
 .macro-group { margin-bottom: 0; }
 .macro-country { font-size: 1.02rem; font-weight: 700; color: var(--ink); margin: 0 0 .6rem; padding-bottom: .4rem; border-bottom: 2px solid var(--macro); display: inline-block; }
-.macro-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .55rem; }
-.macro-tile { position: relative; border: 1px solid var(--border); border-radius: 10px; padding: .55rem .6rem .62rem; background: var(--surface); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: .3rem; }
+.macro-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .4rem; }
+.macro-tile { position: relative; border: 1px solid var(--border); border-radius: 9px; padding: .48rem .5rem .55rem; background: var(--surface); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: .26rem; }
 /* Deep-link highlight when a data-alert notification focuses a tile. */
 .macro-tile.flash { animation: tileflash 2.2s ease-out; }
 @keyframes tileflash { 0% { background: #fef9c3; border-color: #fde68a; } 100% { background: var(--surface); border-color: var(--border); } }
@@ -469,8 +469,13 @@ svg.mtab-ico { width: 22px; height: 22px; }
 
 /* Below 1100px there isn't room for two 3-col grids side by side, so stack the
    US and UK groups; each then spans the full width as its own 3-col grid. */
-@media (max-width: 1100px) {
+/* Below ~1280px there isn't room for two 6-tile rows side by side, so stack the
+   US and UK groups (each still a full-width row of six). */
+@media (max-width: 1280px) {
   .macro-groups { grid-template-columns: 1fr; gap: 1.4rem; }
+}
+/* Narrower still: fall back to three columns per group. */
+@media (max-width: 1100px) {
   .macro-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 }
 @media (max-width: 620px) { .chart-ind-cols { grid-template-columns: 1fr; } .chart-ind-grid { grid-template-columns: repeat(2, 1fr); } }
