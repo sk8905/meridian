@@ -84,11 +84,68 @@ export function initGlance() {
   const rf = document.getElementById("g-refresh");
   if (rf) rf.textContent = `Last refresh ${fmtRefresh()}`;
   initNotifBell();
+  initSavedPanel();
   initMarketsPanel();
   initJumpNav();
   wirePalette(buildIndex());
   startLiveRefresh();
   import("/ptr.js?v=20260711-6").then((m) => m.initPullToRefresh()).catch(() => {});
+}
+
+// ---- Unified Saved -----------------------------------------------------------
+// One cross-desk bookmark list. Each app stores its own saved-id set in
+// localStorage; here we resolve those ids back to items (replicating the two
+// hashed-id schemes and matching the raw-id ones) so the home page shows
+// everything the user has starred across Macro, Credit and Legal in one place.
+function _savedHash(s) { let h = 0; for (let i = 0; i < s.length; i++) h = (Math.imul(h, 31) + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); }
+function _savedBase(x) { return (x.url || x.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, ""); }
+function resolveSaved() {
+  const rd = (k) => { try { return new Set(JSON.parse(localStorage.getItem(k) || "[]")); } catch { return new Set(); } };
+  const mS = rd("meridian.macro.saved"), cS = rd("meridian.credit.saved"), lS = rd("lexalert.saved");
+  const out = [];
+  // Macro — article ids are "a" + hash(url|title base).
+  [...((ARTICLES && ARTICLES.items) || []), ...((NEWS && NEWS.us) || []), ...((NEWS && NEWS.uk) || []),
+   ...((COMMENTARY && COMMENTARY.us) || []), ...((COMMENTARY && COMMENTARY.uk) || [])]
+    .forEach((n) => { if (mS.has("a" + _savedHash(_savedBase(n)))) out.push({ desk: "m", title: n.title, href: n.url, ext: true, date: n.date, time: n.time, src: n.source }); });
+  // Credit — deals/intel by raw id; manager press by "n" + hash(base|managerId).
+  deals.forEach((d) => { if (cS.has(d.id)) out.push({ desk: "c", title: d.headline, href: creditItemHref(d, "deals"), ext: false, date: d.date, time: d.time, src: creditSource(d) }); });
+  intel.forEach((i) => { if (cS.has(i.id)) out.push({ desk: "c", title: i.headline, href: creditItemHref(i, "intel"), ext: false, date: i.date, time: i.time, src: creditSource(i) }); });
+  managers.forEach((m) => [...(m.news || []), ...(m.webNews || [])].forEach((w) => {
+    if (cS.has("n" + _savedHash(_savedBase(w) + "|" + m.id))) out.push({ desk: "c", title: w.title, href: "/credit/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey({ ...w, _mid: m.id })), ext: false, date: w.date, time: w.time, src: w.outlet || m.name });
+  }));
+  // Legal — items/cases/restructurings by raw id.
+  items.forEach((it) => { if (lS.has(it.id)) out.push({ desk: "l", title: it.title, href: "/legal/#/item/" + encodeURIComponent(it.id), ext: false, date: it.date, time: it.time, src: firmName(it.firm) }); });
+  cases.forEach((c) => { if (lS.has(c.id)) out.push({ desk: "l", title: c.name, href: "/legal/#/cases?case=" + encodeURIComponent(c.id), ext: false, date: c.date, time: c.time, src: c.court }); });
+  restructurings.forEach((r) => { if (lS.has(r.id)) out.push({ desk: "l", title: r.company, href: "/legal/#/restructurings?m=" + encodeURIComponent(r.id), ext: false, date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
+  return out.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+}
+const _deskClass = { m: "macro", c: "credit", l: "legal" };
+function initSavedPanel() {
+  const wrap = document.getElementById("g-saved");
+  if (!wrap) return;
+  const list = resolveSaved();
+  const n = list.length;
+  const row = (x) => `<a class="g-sv-item" href="${esc(x.href)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
+    + `<span class="g-sv-tag ${_deskClass[x.desk]}">${esc(DESK[x.desk])}</span>`
+    + `<span class="g-sv-txt"><span class="g-sv-t">${esc(x.title)}</span>`
+    + `<span class="g-sv-m">${x.src ? esc(x.src) : ""}${x.date ? (x.src ? " · " : "") + esc(fmt(String(x.date).slice(0, 10))) : ""}</span></span></a>`;
+  wrap.innerHTML = `
+    <button type="button" class="g-sv-btn" id="g-sv-btn" aria-haspopup="true" aria-expanded="false" aria-label="Saved${n ? ` — ${n}` : ""}">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+      ${n ? `<span class="g-sv-badge">${n > 9 ? "9+" : n}</span>` : ""}
+    </button>
+    <div class="g-sv-panel" id="g-sv-panel" role="menu" hidden>
+      <div class="g-sv-head">Saved${n ? ` · ${n}` : ""}</div>
+      <div class="g-sv-body">${n ? list.map(row).join("") : '<div class="g-sv-empty">Nothing saved yet. Tap the ☆ on any item across Macro, Credit or Legal to keep it here.</div>'}</div>
+    </div>`;
+  const btn = document.getElementById("g-sv-btn"), panel = document.getElementById("g-sv-panel");
+  const close = () => { panel.setAttribute("hidden", ""); btn.setAttribute("aria-expanded", "false"); hideScrim(); };
+  btn.addEventListener("click", (e) => {
+    e.stopPropagation();
+    if (panel.hasAttribute("hidden")) { panel.removeAttribute("hidden"); btn.setAttribute("aria-expanded", "true"); showScrim(close); }
+    else close();
+  });
+  document.addEventListener("click", (e) => { if (!panel.hasAttribute("hidden") && !e.target.closest("#g-saved")) close(); });
 }
 
 // On phones the ticker chips are collapsed behind a chevron at the end of each
