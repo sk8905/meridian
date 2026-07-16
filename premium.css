@@ -195,11 +195,11 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 .mgr-vehicle-table { table-layout: fixed; width: 100%; }
 .mgr-vehicle-table td, .mgr-vehicle-table th { overflow: hidden; text-overflow: ellipsis; }
 
-/* ---- The "Sign out" link uses the Meridian home-logo blue (#0ea5e9) at every
+/* ---- The "Sign out" link uses the Meridian home-logo blue (#d1701c) at every
         point in the app — the top-bar account chip on home (.g-user a) and on
         Credit/Legal/Macro (.account-nav a). The :hover white rules are more
         specific, so hover still turns white. ---- */
-.account-nav a, .g-user a { color: #0ea5e9; }
+.account-nav a, .g-user a { color: #d1701c; }
 
 /* ---- Respect the system reduced-motion preference. ---- */
 @media (prefers-reduced-motion: reduce) {
@@ -225,8 +225,8 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   --bg: #05080f; --surface: #161f33;
   --ink: #e9eef7; --ink-soft: #c2ccdd; --muted: #8b97ad;
   --line: #28324a; --border: #28324a;
-  --brand: #2f4d78; --brand-2: #6f9ad9;
-  --primary: #6f9ad9; --primary-ink: #9db8e4; --macro-ink: #c9d3e6;
+  --brand: #2f4d78; --brand-2: #f28c3c;
+  --primary: #f28c3c; --primary-ink: #f6ab6e; --macro-ink: #c9d3e6;
   --credit: #9aa3b3; --legal: #4cb488;
   --shadow: 0 1px 2px rgba(0,0,0,.5), 0 10px 28px rgba(0,0,0,.55);
   --shadow-lg: 0 14px 36px rgba(0,0,0,.6);
@@ -326,8 +326,8 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   --chart-r4:#3d5d8a; --chart-r5:#5a7aa8; --chart-r6:#7b96b8; --chart-r7:#9fb0c8;
 }
 :root[data-theme="dark"] {
-  --chart-brand:#6f9ad9; --chart-other:#5b6576;
-  --chart-r0:#bcd3f2; --chart-r1:#a3c1e9; --chart-r2:#8aafe0; --chart-r3:#6f9ad9;
+  --chart-brand:#f28c3c; --chart-other:#5b6576;
+  --chart-r0:#bcd3f2; --chart-r1:#a3c1e9; --chart-r2:#8aafe0; --chart-r3:#f28c3c;
   --chart-r4:#5b83c2; --chart-r5:#4d6fa8; --chart-r6:#425e8d; --chart-r7:#3a5178;
 }
 [data-theme="dark"] .bar-track { fill: rgba(255,255,255,.07); }
@@ -360,7 +360,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
 }
 [data-theme="dark"] .mtab { color: #7f8ca6; }
 [data-theme="dark"] .mtab:hover { color: #cdd6e6; }
-[data-theme="dark"] .mtab.is-active { color: var(--accent, #4aa8f0) !important; background: none !important; }
+[data-theme="dark"] .mtab.is-active { color: var(--accent, #f28c3c) !important; background: none !important; }
 /* reserve room for the taller flat bar */
 @media (max-width: 760px) { body { padding-bottom: calc(4.9rem + env(safe-area-inset-bottom, 0px)) !important; } }
 
@@ -374,7 +374,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
   .acct-foot .account-nav { position: static; color: var(--muted); font-size: .82rem; }
   .acct-foot .account-nav[hidden] { display: none; }
   .acct-foot .account-nav strong { color: var(--ink); font-weight: 600; }
-  .acct-foot .account-nav a { color: #0ea5e9; }
+  .acct-foot .account-nav a { color: #d1701c; }
   .acct-foot .account-nav .si-prefix { display: inline; }
   .acct-foot .data-status { color: var(--muted); font-size: .78rem; }
   /* iOS: the sticky top bar + `html,body{overflow-x:clip}` form a clipping
@@ -450,18 +450,18 @@ svg.mtab-ico { width: 22px; height: 22px; }
    an accent-tinted active tab and a refined search field. */
 .topbar { background: #090e18; border-bottom: 1px solid rgba(255,255,255,.07); }
 @media (min-width: 901px) { .topbar .topbar-inner { height: 54px; } }
-.topbar .logo { color: #4aa8f0; }
+.topbar .logo { color: #f28c3c; }
 .topbar .brand-text strong { font-size: .92rem; font-weight: 600; }
 .topbar .brand-sub { color: #8ea6c8; font-size: .58rem; }
 /* Flat, squared tabs with an accent underline — matches the Home feed filters. */
 .topbar .platform-switch { align-self: stretch; align-items: stretch; background: transparent; border: 0; border-radius: 0; padding: 0; gap: 0; margin-right: .4rem; }
 .topbar .ps-btn { display: inline-flex; align-items: center; padding: 0 12px; border-radius: 0; font-size: 12px; font-weight: 500; color: #9fb0cc; }
 .topbar .ps-btn:hover { background: rgba(255,255,255,.05); color: #fff; }
-.topbar .ps-btn.is-active, .topbar .ps-btn.is-active:hover { background: rgba(74,168,240,.14); color: #fff; font-weight: 600; box-shadow: inset 0 -2px 0 #4aa8f0; }
+.topbar .ps-btn.is-active, .topbar .ps-btn.is-active:hover { background: rgba(74,168,240,.14); color: #fff; font-weight: 600; box-shadow: inset 0 -2px 0 #f28c3c; }
 .topbar .mainnav { align-self: stretch; align-items: stretch; gap: 0; }
 .topbar .nav-link { display: inline-flex; align-items: center; padding: 0 12px; border-radius: 0; font-size: 12px; font-weight: 500; color: #9fb0cc; }
 .topbar .nav-link:hover, .topbar .nav-link:focus-visible { background: rgba(255,255,255,.05); color: #fff; }
-.topbar .nav-link.active { background: rgba(74,168,240,.14); color: #fff; font-weight: 600; box-shadow: inset 0 -2px 0 #4aa8f0; }
+.topbar .nav-link.active { background: rgba(74,168,240,.14); color: #fff; font-weight: 600; box-shadow: inset 0 -2px 0 #f28c3c; }
 .topbar .nav-link.nav-primary { color: #dbe5f5; }
 .topbar .nav-link.nav-primary.active { color: #fff; }
 .topbar .nav-sep { background: rgba(255,255,255,.14); align-self: center; }

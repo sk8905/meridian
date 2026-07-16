@@ -11,7 +11,7 @@
   --muted: #66708a;
   --border: #e4e7ef;
   --navy: #0b1f44;          /* top bar (matches Glance) */
-  --macro: #2b4a7c;         /* accent — Glance blue (was lavender) */
+  --macro: #d1701c;         /* accent — Glance blue (was lavender) */
   --macro-ink: #1c3a5e;     /* deep blue for emphasis text */
   --brand-accent: #6d5fae;  /* Macro signature — logo + iPhone tab only */
   --brand-logo: #c4b5e8;    /* light lavender for the logo glyph on the navy bar */
@@ -243,7 +243,7 @@ a.compact-head:hover { color: var(--macro); text-decoration: underline; }
    headline that ellipsizes to its content, then a muted inline source. */
 .intel-row { display: flex; align-items: baseline; gap: .7rem; padding: .62rem 0; border-bottom: 1px solid var(--border); flex-wrap: nowrap; }
 .intel-row:last-child { border-bottom: none; }
-.chip { display: inline-block; padding: .12rem .5rem; border-radius: 999px; background: #e8edf5; color: #2b4a7c; font-size: .72rem; font-weight: 600; border: 1px solid #c8d5e6; white-space: nowrap; flex-shrink: 0; }
+.chip { display: inline-block; padding: .12rem .5rem; border-radius: 999px; background: #e8edf5; color: #d1701c; font-size: .72rem; font-weight: 600; border: 1px solid #c8d5e6; white-space: nowrap; flex-shrink: 0; }
 .intel-date { flex: 0 0 auto; min-width: 4.9rem; white-space: nowrap; font-size: .76rem; }
 .intel-head { flex: 0 1 auto; min-width: 0; font-weight: 600; font-size: .9rem; line-height: 1.35; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 a.intel-head:hover { color: var(--macro); text-decoration: underline; }
@@ -581,7 +581,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
 }
 
 /* Dark-mode accent (shared surfaces/shadows live in premium.css). */
-:root[data-theme="dark"] { --macro: #6f9ad9; }
+:root[data-theme="dark"] { --macro: #f28c3c; }
 
 /* Chart palette as CSS vars (light + dark) so the sparklines, the multi-series
    Chart tab and the policy gauge flip with the theme rather than staying pinned

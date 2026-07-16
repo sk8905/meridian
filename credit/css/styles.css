@@ -10,9 +10,9 @@
   --muted: #66708a;
   --border: #e4e7ef;
   --navy: #0b1f44;          /* top bar (matches Glance) */
-  --primary: #2b4a7c;       /* accent — Glance blue */
+  --primary: #d1701c;       /* accent — Glance blue */
   --primary-ink: #1c3a5e;
-  --accent: #2b4a7c;
+  --accent: #d1701c;
   --brand-accent: #64748b;  /* Credit signature — logo + iPhone tab only */
   --brand-logo: #c3ccd8;    /* light slate for the logo glyph on the navy bar */
   --radius: 10px;
@@ -260,12 +260,12 @@ h1, h2, h3, .kpi-label { text-wrap: balance; }
 /* Fundraising status as plain text (no colour pill), per house style. */
 .fund-status { font-size: .78rem; font-weight: 600; color: var(--ink-soft); white-space: nowrap; }
 .st-pre   { background:#f1f5f9; color:#475569; border-color:#e2e8f0; }
-.st-open  { background:#e8edf5; color:#2b4a7c; border-color:#c8d5e6; }
+.st-open  { background:#e8edf5; color:#d1701c; border-color:#c8d5e6; }
 .st-first { background:#fef9c3; color:#854d0e; border-color:#fde68a; }
 .st-final { background:#dcfce7; color:#166534; border-color:#bbf7d0; }
 .st-ever  { background:#ede9fe; color:#5b21b6; border-color:#ddd6fe; }
 .st-wound { background:#fee2e2; color:#991b1b; border-color:#fecaca; }
-.it-launch{ background:#e8edf5; color:#2b4a7c; }
+.it-launch{ background:#e8edf5; color:#d1701c; }
 .it-first { background:#fef9c3; color:#854d0e; }
 .it-final { background:#dcfce7; color:#166534; }
 .it-mandate{ background:#fae8ff; color:#86198f; }
@@ -273,7 +273,7 @@ h1, h2, h3, .kpi-label { text-wrap: balance; }
 .it-strategy{ background:#e0f2fe; color:#075985; }
 .chip.est { background:#fff7ed; color:#9a3412; border-color:#fed7aa; }
 /* deal-activity type chips */
-.dt-invest{ background:#e8edf5; color:#2b4a7c; }
+.dt-invest{ background:#e8edf5; color:#d1701c; }
 .dt-fin{ background:#cffafe; color:#155e75; }
 .dt-exit{ background:#dcfce7; color:#166534; }
 .dt-refi{ background:#ecfccb; color:#3f6212; }
@@ -289,8 +289,8 @@ h3.sub:first-of-type { margin-top: .2rem; }
 /* ---------- fund status sections ---------- */
 .lifecycle-note { background:#fef2f2; border:1px solid #fecaca; border-radius:8px; padding:.6rem .8rem; margin:.6rem 0 1rem; }
 .lifecycle-note p { margin:.3rem 0 0; }
-.active-filter { display:flex; align-items:center; gap:.5rem; background:#eef2f8; border:1px solid #c8d5e6; color:#2b4a7c; border-radius:8px; padding:.45rem .7rem; margin:.4rem 0 .8rem; font-size:.85rem; }
-.active-filter button.chip { cursor:pointer; background:#e8edf5; border-color:#c8d5e6; color:#2b4a7c; }
+.active-filter { display:flex; align-items:center; gap:.5rem; background:#eef2f8; border:1px solid #c8d5e6; color:#d1701c; border-radius:8px; padding:.45rem .7rem; margin:.4rem 0 .8rem; font-size:.85rem; }
+.active-filter button.chip { cursor:pointer; background:#e8edf5; border-color:#c8d5e6; color:#d1701c; }
 .active-filter button.chip:hover { background:#c8d5e6; }
 .fund-section { margin-bottom: 1.4rem; }
 .section-head { font-size: 1.05rem; margin: 1.1rem 0 .6rem; display: flex; align-items: center; gap: .5rem; }
@@ -387,7 +387,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
   color: var(--muted); padding: .55rem .6rem; border-bottom: 2px solid var(--border); white-space: nowrap;
 }
 .data-table thead th.sortable { cursor: pointer; user-select: none; }
-.data-table thead th.sortable:hover { color: var(--primary, #2b4a7c); }
+.data-table thead th.sortable:hover { color: var(--primary, #d1701c); }
 .data-table thead th.sortable.active { color: var(--primary-ink, #1c3a5e); }
 .data-table thead th.sortable:focus-visible { outline: 2px solid #c8d5e6; outline-offset: -2px; }
 .data-table tbody td { padding: .6rem .6rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
@@ -413,7 +413,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
 
 /* ---------- progress ---------- */
 .progress { position: relative; background: #eef2f7; border-radius: 6px; height: 22px; overflow: hidden; border: 1px solid var(--border); }
-.progress-fill { position: absolute; inset: 0 auto 0 0; background: linear-gradient(90deg,#2b4a7c,#2b4a7c); border-radius: 6px 0 0 6px; }
+.progress-fill { position: absolute; inset: 0 auto 0 0; background: linear-gradient(90deg,#d1701c,#d1701c); border-radius: 6px 0 0 6px; }
 .progress-label { position: relative; z-index: 1; font-size: .72rem; font-weight: 600; color: #0f172a; padding: 0 .5rem; line-height: 22px; mix-blend-mode: normal; }
 
 /* ---------- cards grid (managers) ---------- */
@@ -769,7 +769,7 @@ a.compact-mgr:hover { color: var(--primary); text-decoration: underline; }
 @keyframes rowflash { 0% { background: #fef9c3; } 100% { background: transparent; } }
 
 /* Dark-mode accent (shared surfaces/shadows live in premium.css). */
-:root[data-theme="dark"] { --accent: #6f9ad9; --primary: #6f9ad9; }
+:root[data-theme="dark"] { --accent: #f28c3c; --primary: #f28c3c; }
 
 /* ---- Dashboard KPI tiles: the number sits to the LEFT of the label+sub instead of
         above them, roughly halving each tile's height. (Manager-profile mini-KPIs
