@@ -773,6 +773,20 @@ function viewDashboard() {
     </div>`;
   wireDashChips();
 }
+// Generic in-place wire filter: chips toggle which kinds (data-kind) show,
+// without leaving the screen. Shared by the dashboard and terminal detail pages.
+function wireSimpleChips(chipsId, wireId) {
+  const chips = document.getElementById(chipsId);
+  const wire = document.getElementById(wireId);
+  if (!chips || !wire) return;
+  chips.addEventListener("click", (e) => {
+    const b = e.target.closest(".tchip");
+    if (!b) return;
+    chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
+    const k = b.dataset.k;
+    wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (k === "all" || r.dataset.kind === k) ? "" : "none"; });
+  });
+}
 // In-place filter for the dashboard activity wire: chips toggle which kinds show
 // without leaving the screen (the collapsed News/Deals/Fundraising/CLOs tabs).
 function wireDashChips() {
@@ -1346,61 +1360,91 @@ function viewManager(id) {
       .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
   })();
 
-  app.innerHTML = `
-    ${breadcrumb([["#/managers", "Managers"], [null, m.name]])}
-    <div class="detail-head"><div>
-      <h1>${nameCell("manager", m.id, esc(m.name))}</h1>
-      <p class="muted">${esc(m.hq)} · Founded ${m.founded}</p>
-      <div>${m.strategies.map((s) => chip(s)).join(" ")}</div>
-    </div></div>
-    <p class="lead">${esc(m.description)}</p>
-    ${sources(m)}
-    <div class="kpi-grid kpi-compact">
-      <div class="kpi-card"><div class="kpi-value">${m.founded}</div><div class="kpi-label">Founded</div></div>
-      <div class="kpi-card" title="${esc(m.aumText || "")}"><div class="kpi-value kpi-aum">${esc(aumHeadline(m))}</div><div class="kpi-label">AUM</div></div>
-      <div class="kpi-card${fs.length ? " clickable" : ""}"${fs.length ? ' data-scroll="mgr-funds"' : ""}><div class="kpi-value">${fs.length}</div><div class="kpi-label">Funds</div></div>
-      <div class="kpi-card${fs.length ? " clickable" : ""}"${fs.length ? ' data-scroll="mgr-funds"' : ""}><div class="kpi-value">${liveFunds}</div><div class="kpi-label">In market</div></div>
-    </div>
-    <section class="card" id="mgr-funds">
-      <h2>Funds <span class="muted">(${fs.length})</span></h2>
-      ${fs.length ? (() => { const p = pageList(fs, "mgr:" + m.id + ":funds", ""); return `<div class="table-wrap"><table class="data-table mgr-vehicle-table">
-        ${MGR_VEHICLE_COLS}
-        <thead><tr><th>Fund</th><th>Vintage</th><th>Size</th><th>Status</th><th>Strategy</th></tr></thead>
-        <tbody>${p.shown.map((x) => `<tr class="clickable" data-href="#/fund/${x.id}">
-          <td>${nameCell("fund", x.id, `<strong>${esc(x.name)}</strong>`)}</td><td>${x.vintage}</td><td>${x.evergreen ? "—" : eur(x.targetSize)}</td>
-          <td>${fundStatusChip(x)} ${lifecycleBadge(x)}</td><td>${esc(x.strategy)}</td>
-        </tr>`).join("")}</tbody>
-      </table></div>${p.more}`; })()
-      : `<p class="muted">${esc(m.fundsNote || "No fund tracked for this manager — see the profile note above (e.g. it is a bank/balance-sheet lender, has no dedicated credit arm, or runs only US/global vehicles).")}</p>`}
-    </section>
-    <section class="card">
-      <h2>CLOs managed <span class="muted">(${mgrCloRoster.length})</span></h2>
-      ${mgrCloRoster.length ? (() => {
-        const p = pageList(mgrCloRoster, "mgr:" + id + ":cloroster", "");
-        return `<div class="table-wrap"><table class="data-table mgr-vehicle-table">
-        ${MGR_VEHICLE_COLS}
-        <thead><tr><th>CLO</th><th>Vintage</th><th>Size</th><th>Status</th><th>Strategy</th></tr></thead>
-        <tbody>${p.shown.map((c) => `<tr class="clickable" data-href="#/clo/${m.id}/${encodeURIComponent(c.name)}">
-          <td><strong>${esc(c.name)}</strong></td>
-          <td>${c.vintage || "—"}</td>
-          <td>${c.size ? esc(c.size) : "—"}</td>
-          <td><span class="fund-status">Issued</span></td>
-          <td>Structured Credit</td>
-        </tr>`).join("")}</tbody>
-      </table></div>${p.more}`;
-      })() : `<p class="muted">${mgrClo.length ? "No individually-named CLO vehicles identified yet — see the full CLO feed." : "This manager does not manage any tracked CLOs."}</p>`}
-    </section>
-    ${commitmentsForManager(m.id).length ? `<section class="card"><h2>Known investors <span class="muted">(${commitmentsForManager(m.id).length})</span></h2><ul class="link-list">${commitmentsForManager(m.id).map((c) => `<li>${link(`#/lp/${c.lpId}`, lpById[c.lpId].name)} <span class="muted small">${esc(c.note)}</span></li>`).join("")}</ul></section>` : ""}
-    ${ownersFilingsBlock(m)}
+  const commits = commitmentsForManager(m.id);
+  // Terminal wire row for the manager's combined activity (deal / fundraising /
+  // press). The manager is implicit on this page, so we surface the fund inline
+  // instead. data-fkey / id preserve the notification deep-link focus.
+  const KINDM = { deal: "DEAL", intel: "FUND", news: "NEWS" };
+  const mgrWireRow = (x) => {
+    const isNews = x._kind === "news";
+    const title = isNews ? x.title : x.headline;
+    const src = isNews ? (x.outlet || "") : creditSource(x);
+    const url = isNews ? x.url : x.sourceUrl;
+    const fund = x.fundId && fundById[x.fundId] ? fundById[x.fundId] : null;
+    const fmeta = fund ? `<span class="tw-mgr-w"><a href="#/fund/${fund.id}" class="tw-mgr">${esc(fund.name)}</a></span>` : "";
+    const head = isNews
+      ? `<a href="${esc(url || "#")}"${url ? ' target="_blank" rel="noopener noreferrer"' : ""} class="tw-head">${esc(title)}</a>`
+      : `<a href="#/${x._kind === "deal" ? "deals" : "intel"}" data-goto="${x._kind === "deal" ? "deals" : "intel"}:${x.id}" class="tw-head">${esc(title)}</a>`;
+    return `<li class="compact-item tw-row" data-kind="${x._kind}"${isNews ? ` data-fkey="${esc(feedDedupKey(x))}"` : ` id="row-${esc(x.id)}"`}>`
+      + `<span class="tw-date">${x.date ? esc(fmtDate(x.date)) : ""}</span>`
+      + `<span class="tw-tag ${x._kind}">${KINDM[x._kind]}</span>`
+      + `<span class="tw-body">${head}${fmeta}</span>`
+      + `<span class="tw-src">${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(src || "source")}</a>` : esc(src || "")}</span>`
+      + `</li>`;
+  };
+  const metrics = [
+    ["AUM", esc(aumHeadline(m))], ["Founded", m.founded], ["Funds", fs.length],
+    ["In market", liveFunds], ["CLOs", mgrCloRoster.length], ["Investors", commits.length],
+  ];
+  const kvFig = [
+    ["AUM", esc(aumHeadline(m))], ["Founded", m.founded],
+    ["Funds", fs.length], ["In market", liveFunds],
+    ["CLOs", mgrCloRoster.length], ["Investors", commits.length],
+  ];
+  const railPanel = (title, meta, body) => `<section class="tpanel"><header class="tpanel-h"><span>${title}</span>${meta ? `<span class="tpanel-x">${meta}</span>` : ""}</header>${body}</section>`;
+  const fundsRail = fs.length
+    ? `<ul class="tmini">${fs.map((x) => `<li class="tmini-row clickable" data-href="#/fund/${x.id}"><span class="tmini-t">${esc(x.name)}<span class="tmini-r">${x.evergreen ? "Evergreen" : (x.targetSize ? eur(x.targetSize) : "—")}</span></span><span class="tmini-m">Vintage ${x.vintage} · ${esc(x.status || x.strategy || "")}</span></li>`).join("")}</ul>`
+    : `<p class="g-empty tw-empty muted small">${esc(m.fundsNote || "No fund tracked (bank/balance-sheet lender, no dedicated credit arm, or US/global-only vehicles).")}</p>`;
+  const closRail = mgrCloRoster.length
+    ? `<ul class="tmini">${mgrCloRoster.map((c) => `<li class="tmini-row clickable" data-href="#/clo/${m.id}/${encodeURIComponent(c.name)}"><span class="tmini-t">${esc(c.name)}<span class="tmini-r">${c.size ? esc(c.size) : ""}</span></span><span class="tmini-m">${c.vintage ? "Vintage " + esc(c.vintage) : "Issued"}</span></li>`).join("")}</ul>`
+    : `<p class="tw-empty muted small">${mgrClo.length ? "No individually-named CLO vehicles identified yet." : "No tracked CLOs."}</p>`;
+  const lpsRail = commits.length
+    ? `<ul class="tmini">${commits.map((c) => `<li class="tmini-row clickable" data-href="#/lp/${c.lpId}"><span class="tmini-t">${esc(lpById[c.lpId].name)}</span>${c.note ? `<span class="tmini-m">${esc(c.note)}</span>` : ""}</li>`).join("")}</ul>`
+    : "";
+  const ownersRail = (m.owners && m.owners.length)
+    ? `<ul class="tfacts">${m.owners.map((o) => `<li><span class="tf-k">${esc(o.name)}</span><span class="tf-v">${esc(o.stake)}</span></li>`).join("")}</ul>`
+    : "";
+  const filingsRail = (m.filings && m.filings.length)
+    ? `<ul class="tmini">${m.filings.map((x) => `<li class="tmini-row"><a class="tmini-t" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.label)}</a>${x.date ? `<span class="tmini-m">${esc(x.date)}</span>` : ""}</li>`).join("")}</ul>`
+    : "";
 
-    <div class="section-divider"><span>News</span></div>
-    <section class="card">
-      <h2>News <span class="muted">(${mgrFeed.length})</span></h2>
-      <p class="muted small">All tracked press, deal, fundraising &amp; CLO activity for ${esc(m.name)} and its funds/CLOs, newest first.</p>
-      ${mgrFeed.length ? feedHtml(mgrFeed, "mgr:" + id + ":all", mgrFeedRow, "") : '<p class="muted">No news yet for this manager.</p>'}
-    </section>`;
+  app.innerHTML = `
+    <div class="tdash">
+      ${breadcrumb([["#/managers", "Managers"], [null, m.name]])}
+      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
+      <div class="tdash-grid tdash-2">
+        <section class="tcol tcol-c">
+          <div class="tdet-id">
+            <h1>${nameCell("manager", m.id, esc(m.name))}</h1>
+            <div class="tdet-sub">${esc(m.hq)} · Founded ${m.founded}${m.aumText ? " · " + esc(aumHeadline(m)) + " AUM" : ""}</div>
+            ${m.description ? `<p class="tdet-desc">${esc(m.description)}</p>` : ""}
+            ${m.strategies && m.strategies.length ? `<div class="tdet-chips">${m.strategies.map((s) => `<span class="tdet-chip">${esc(s)}</span>`).join("")}</div>` : ""}
+            ${(m.sources && m.sources.length) ? `<div class="tdet-src">${sources(m)}</div>` : ""}
+          </div>
+          <header class="tpanel-h twire-head"><span>Activity</span>
+            <div class="tchips" id="mgr-chips">
+              <button type="button" class="tchip is-on" data-k="all">All</button>
+              <button type="button" class="tchip" data-k="news">News</button>
+              <button type="button" class="tchip" data-k="deal">Deals</button>
+              <button type="button" class="tchip" data-k="intel">Fundraising</button>
+            </div>
+          </header>
+          <ul class="twire compact-list" id="mgr-wire">${mgrFeed.length ? mgrFeed.map(mgrWireRow).join("") : '<li class="muted small tw-empty">No activity yet for this manager.</li>'}</ul>
+        </section>
+        <aside class="tcol tcol-r">
+          ${railPanel("Key figures", "", `<dl class="tkv">${kvFig.map(([l, v]) => `<div><dt>${esc(l)}</dt><dd>${v}</dd></div>`).join("")}</dl>`)}
+          ${railPanel("Funds", fs.length ? String(fs.length) : "", fundsRail)}
+          ${railPanel("CLOs managed", mgrCloRoster.length ? String(mgrCloRoster.length) : "", closRail)}
+          ${lpsRail ? railPanel("Known investors", String(commits.length), lpsRail) : ""}
+          ${ownersRail ? railPanel("Ownership", "", ownersRail) : ""}
+          ${filingsRail ? railPanel("Filings", "", filingsRail) : ""}
+        </aside>
+      </div>
+    </div>`;
+  // Filter the activity wire in place (chips) — same behaviour as the dashboard.
+  wireSimpleChips("mgr-chips", "mgr-wire");
   // A notification / deep link to a specific story on this manager focuses that
-  // row (id="row-<newsSaveId>"), matching the deals/intel feed behaviour.
+  // row (data-fkey for news, id="row-<id>" for structured deals/intel).
   applyPendingFocus("manager");
 }
 
