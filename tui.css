@@ -225,6 +225,29 @@
    (key figures, vehicles, counterparties, filings) in the right rail.
    ===================================================================== */
 .tdash-grid.tdash-2 { grid-template-columns: minmax(0,1fr) 340px; }
+/* single-column dense screen (managers list, manager detail) */
+.tdash-grid.tdash-1 { grid-template-columns: minmax(0,1fr); }
+.tcol-full { border-right: 0; border-left: 0; }
+/* full-width managers table + its search header */
+.thead-search { gap: 10px; }
+.thead-search .tfocus-btn { margin-left: 0; }
+.tsearch { margin-left: auto; background: var(--bg); border: 1px solid var(--border); color: var(--ink); font-family: var(--t-mono); font-size: 11px; padding: 2px 8px; height: 20px; width: 210px; max-width: 46vw; border-radius: 0; }
+.tsearch::placeholder { color: var(--faint); }
+.tleague-full .tl-hq { text-align: left; color: var(--muted); font-family: var(--t-mono); font-size: 10px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tleague-full th.tl-hq { text-align: left; }
+.tleague-full .tl-cl { text-align: center; color: var(--accent); }
+.tleague-full th { top: 28px; }
+/* detail pane toggle (News / Funds / CLOs / Key personnel) */
+.tchips-l { margin-left: 0; }
+.tpanes { flex: 1 1 auto; min-height: 0; overflow-y: auto; background: var(--surface); }
+.tpanes .twire { overflow: visible; flex: none; }
+.tpane[hidden] { display: none; }
+.tpg { border-bottom: 1px solid var(--border); }
+.tpg-h { font-size: 9px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; padding: 9px 12px 4px; }
+@media (max-width: 900px) {
+  .tsearch { width: 150px; }
+}
+
 /* breadcrumb as the terminal detail's top strip (inside the fixed-height .tdash) */
 .tdash > .breadcrumb { flex: 0 0 auto; margin: 0; padding: 6px 16px; height: auto; background: var(--head); border-bottom: 1px solid var(--border); font-size: 11px; font-family: var(--t-mono); color: var(--muted); display: flex; align-items: center; gap: 7px; }
 .tdash > .breadcrumb a { color: var(--muted); } .tdash > .breadcrumb a:hover { color: var(--accent); }

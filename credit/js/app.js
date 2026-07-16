@@ -736,42 +736,55 @@ function viewDashboard() {
       + `</li>`;
   };
 
+  // Credit tab = the manager universe ranked by AUM. General news now lives on
+  // Home; drilling into a manager shows its news / funds / CLOs / people.
+  const cloMgrIds = new Set([...deals, ...intel].filter((x) => x.clo && x.managerId).map((x) => x.managerId));
+  const fst = filterState.managers;
+  const q0 = (fst.q || "").toLowerCase();
+  const mrows = league.filter((r) =>
+    (!q0 || r.m.name.toLowerCase().includes(q0) || String(r.m.hq || "").toLowerCase().includes(q0))
+    && (!fst.strategy.length || fst.strategy.some((s) => r.m.strategies.includes(s))));
+  const mgrMetrics = [
+    ["Managers", managers.length], ["AUM", fmtAum(Math.round(totalAum))],
+    ["Funds", funds.length], ["In market", funds.filter(inMkt).length], ["CLO managers", cloMgrIds.size],
+  ];
+  const mgrRow = (r) => `<tr class="clickable" data-href="#/manager/${r.m.id}" data-focus="${r.focus ? 1 : 0}" data-name="${esc((r.m.name + " " + (r.m.hq || "")).toLowerCase())}">`
+    + `<td class="tl-nm">${esc(r.m.name)}</td>`
+    + `<td class="tl-hq">${esc(r.m.hq || "")}</td>`
+    + `<td class="tl-n">${r.aum == null ? "n/a" : esc(fmtAum(r.aum))}</td>`
+    + `<td class="tl-n">${r.m.aumCredit != null ? esc(fmtAum(r.m.aumCredit)) : "—"}</td>`
+    + `<td class="tl-n">${r.nf}</td>`
+    + `<td class="tl-n">${r.live || ""}</td>`
+    + `<td class="tl-cl">${cloMgrIds.has(r.m.id) ? "●" : ""}</td></tr>`;
   app.innerHTML = `
     <div class="tdash">
-      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
-      <div class="tdash-grid">
-        <aside class="tcol tcol-l">
-          <section class="tpanel">
-            <header class="tpanel-h"><span>Manager league table</span><button type="button" class="tfocus-btn" id="cr-lg-focus" aria-pressed="false" title="Show only €1–10bn AUM managers">€1–10bn</button></header>
-            <table class="tleague"><thead><tr><th>Manager</th><th>AUM</th><th>Fd</th><th>Lv</th></tr></thead>
-            <tbody>${league.map((r) => `<tr class="clickable" data-href="#/manager/${r.m.id}" data-focus="${r.focus ? 1 : 0}"><td class="tl-nm">${esc(r.m.name)}</td><td class="tl-n">${r.aum == null ? "n/a" : esc(fmtAum(r.aum))}</td><td class="tl-n">${r.nf}</td><td class="tl-n">${r.live || ""}</td></tr>`).join("")}</tbody></table>
-          </section>
-        </aside>
-        <section class="tcol tcol-c">
-          <header class="tpanel-h twire-head"><span>Latest activity</span>
-            <div class="tchips" id="cr-chips">
-              <button type="button" class="tchip is-on" data-k="all">All</button>
-              <button type="button" class="tchip" data-k="news">News</button>
-              <button type="button" class="tchip" data-k="deal">Deals</button>
-              <button type="button" class="tchip" data-k="intel">Fundraising</button>
-              <button type="button" class="tchip" data-k="clo">CLOs</button>
-            </div>
+      <div class="tdash-ticker">${mgrMetrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
+      <div class="tdash-grid tdash-1">
+        <section class="tcol tcol-full">
+          <header class="tpanel-h thead-search"><span>Managers</span>
+            <input type="search" id="mgr-q" class="tsearch" placeholder="Search name or HQ…" value="${esc(fst.q || "")}" aria-label="Search managers">
+            <button type="button" class="tfocus-btn" id="cr-lg-focus" aria-pressed="false" title="Show only €1–10bn AUM managers">€1–10bn</button>
           </header>
-          <ul class="twire compact-list" id="cr-wire">${activity.length ? activity.slice(0, 90).map(wireRow).join("") : '<li class="muted small tw-empty">No activity yet.</li>'}</ul>
+          <table class="tleague tleague-full">
+            <thead><tr><th>Manager</th><th class="tl-hq">HQ</th><th>AUM</th><th>Credit&nbsp;AUM</th><th>Funds</th><th>In&nbsp;mkt</th><th>CLOs</th></tr></thead>
+            <tbody id="mgr-rows">${mrows.map(mgrRow).join("")}</tbody>
+          </table>
         </section>
-        <aside class="tcol tcol-r">
-          <section class="tpanel">
-            <header class="tpanel-h"><span>Fundraising pipeline</span><span class="tpanel-x">in market</span></header>
-            <ul class="tmini">${pipeline.length ? pipeline.map((f) => `<li class="tmini-row clickable" data-href="#/fund/${f.id}"><span class="tmini-t">${esc(f.name)}</span><span class="tmini-m">${esc(managerById[f.managerId].name)} · ${f.evergreen ? "Evergreen" : eur(f.targetSize)}</span></li>`).join("") : '<li class="tmini-row muted small">None in market.</li>'}</ul>
-          </section>
-          <section class="tpanel">
-            <header class="tpanel-h"><span>Recent CLOs</span><span class="tpanel-x">latest</span></header>
-            <ul class="tmini">${cloByDate.slice(0, 8).map((c) => `<li class="tmini-row"><a class="tmini-t" href="#/clos" data-goto="clos:${c.id}">${esc(c.headline)}</a><span class="tmini-m">${fmtDate(c.date)}${c.managerId ? " · " + esc(managerById[c.managerId].name) : ""}</span></li>`).join("")}</ul>
-          </section>
-        </aside>
       </div>
     </div>`;
-  wireDashChips();
+  const qi = document.getElementById("mgr-q");
+  if (qi) qi.addEventListener("input", () => {
+    filterState.managers.q = qi.value;
+    const v = qi.value.toLowerCase().trim();
+    document.querySelectorAll("#mgr-rows tr").forEach((tr) => { tr.style.display = (!v || (tr.dataset.name || "").includes(v)) ? "" : "none"; });
+  });
+  const lf = document.getElementById("cr-lg-focus");
+  if (lf) lf.addEventListener("click", () => {
+    const on = lf.getAttribute("aria-pressed") !== "true";
+    lf.setAttribute("aria-pressed", on ? "true" : "false");
+    lf.classList.toggle("is-on", on);
+    document.querySelectorAll("#mgr-rows tr").forEach((tr) => { tr.style.display = (!on || tr.dataset.focus === "1") ? "" : "none"; });
+  });
 }
 // Generic in-place wire filter: chips toggle which kinds (data-kind) show,
 // without leaving the screen. Shared by the dashboard and terminal detail pages.
@@ -1437,33 +1450,32 @@ function viewManager(id) {
     ["AUM", esc(aumHeadline(m))], ["Founded", m.founded], ["Funds", fs.length],
     ["In market", liveFunds], ["CLOs", mgrCloRoster.length], ["Investors", commits.length],
   ];
-  const kvFig = [
-    ["AUM", esc(aumHeadline(m))], ["Founded", m.founded],
-    ["Funds", fs.length], ["In market", liveFunds],
-    ["CLOs", mgrCloRoster.length], ["Investors", commits.length],
-  ];
-  const fundsRail = fs.length
+  // ---- panes: News (default) · Funds · CLOs · Key personnel ----
+  const newsPane = mgrFeed.length
+    ? `<ul class="twire compact-list" id="mgr-wire">${mgrFeed.map(mgrWireRow).join("")}</ul>`
+    : '<p class="tw-empty muted small">No news yet for this manager.</p>';
+  const fundsPane = fs.length
     ? `<ul class="tmini">${fs.map((x) => `<li class="tmini-row clickable" data-href="#/fund/${x.id}"><span class="tmini-t">${esc(x.name)}<span class="tmini-r">${x.evergreen ? "Evergreen" : (x.targetSize ? eur(x.targetSize) : "—")}</span></span><span class="tmini-m">Vintage ${x.vintage} · ${esc(x.status || x.strategy || "")}</span></li>`).join("")}</ul>`
-    : `<p class="g-empty tw-empty muted small">${esc(m.fundsNote || "No fund tracked (bank/balance-sheet lender, no dedicated credit arm, or US/global-only vehicles).")}</p>`;
-  const closRail = mgrCloRoster.length
+    : `<p class="tw-empty muted small">${esc(m.fundsNote || "No fund tracked (bank/balance-sheet lender, no dedicated credit arm, or US/global-only vehicles).")}</p>`;
+  const closPane = mgrCloRoster.length
     ? `<ul class="tmini">${mgrCloRoster.map((c) => `<li class="tmini-row clickable" data-href="#/clo/${m.id}/${encodeURIComponent(c.name)}"><span class="tmini-t">${esc(c.name)}<span class="tmini-r">${c.size ? esc(c.size) : ""}</span></span><span class="tmini-m">${c.vintage ? "Vintage " + esc(c.vintage) : "Issued"}</span></li>`).join("")}</ul>`
     : `<p class="tw-empty muted small">${mgrClo.length ? "No individually-named CLO vehicles identified yet." : "No tracked CLOs."}</p>`;
-  const lpsRail = commits.length
-    ? `<ul class="tmini">${commits.map((c) => `<li class="tmini-row clickable" data-href="#/lp/${c.lpId}"><span class="tmini-t">${esc(lpById[c.lpId].name)}</span>${c.note ? `<span class="tmini-m">${esc(c.note)}</span>` : ""}</li>`).join("")}</ul>`
-    : "";
-  const ownersRail = (m.owners && m.owners.length)
-    ? `<ul class="tfacts">${m.owners.map((o) => `<li><span class="tf-k">${esc(o.name)}</span><span class="tf-v">${esc(o.stake)}</span></li>`).join("")}</ul>`
-    : "";
-  const filingsRail = (m.filings && m.filings.length)
-    ? `<ul class="tmini">${m.filings.map((x) => `<li class="tmini-row"><a class="tmini-t" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.label)}</a>${x.date ? `<span class="tmini-m">${esc(x.date)}</span>` : ""}</li>`).join("")}</ul>`
-    : "";
+  const peoplePane = (() => {
+    let out = "";
+    if (m.owners && m.owners.length) out += `<div class="tpg"><div class="tpg-h">Ownership</div><ul class="tfacts">${m.owners.map((o) => `<li><span class="tf-k">${esc(o.name)}</span><span class="tf-v">${esc(o.stake)}</span></li>`).join("")}</ul></div>`;
+    if (m.legal && m.legal.length) out += `<div class="tpg"><div class="tpg-h">Legal &amp; senior counsel</div><ul class="tmini">${m.legal.map((p) => `<li class="tmini-row"><span class="tmini-t">${esc(p.name)}${p.linkedin ? ` · <a href="${esc(p.linkedin)}" target="_blank" rel="noopener noreferrer" class="tw-mgr">LinkedIn</a>` : ""}</span><span class="tmini-m">${esc(p.role || "")}${p.city ? " · " + esc(p.city) : ""}</span></li>`).join("")}</ul></div>`;
+    if (m.headcount) { const h = m.headcount; out += `<div class="tpg"><div class="tpg-h">Headcount${h.asOf ? ` · as of ${esc(h.asOf)}` : ""}</div><ul class="tfacts"><li><span class="tf-k">Investment professionals</span><span class="tf-v">${h.investment ?? "—"}</span></li><li><span class="tf-k">Other professionals</span><span class="tf-v">${h.other ?? "—"}</span></li><li><span class="tf-k">Total</span><span class="tf-v">${h.total ?? "—"}</span></li></ul></div>`; }
+    if (m.filings && m.filings.length) out += `<div class="tpg"><div class="tpg-h">Regulatory &amp; account filings</div><ul class="tmini">${m.filings.map((x) => `<li class="tmini-row"><a class="tmini-t" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.label)}</a>${x.date ? `<span class="tmini-m">${esc(x.date)}</span>` : ""}</li>`).join("")}</ul></div>`;
+    return out || '<p class="tw-empty muted small">No ownership or personnel data compiled for this manager yet.</p>';
+  })();
+  const pane = (p, inner) => `<div class="tpane" data-p="${p}"${p === "news" ? "" : " hidden"}>${inner}</div>`;
 
   app.innerHTML = `
     <div class="tdash">
-      ${breadcrumb([["#/managers", "Managers"], [null, m.name]])}
+      ${breadcrumb([["#/", "Managers"], [null, m.name]])}
       <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
-      <div class="tdash-grid tdash-2">
-        <section class="tcol tcol-c">
+      <div class="tdash-grid tdash-1">
+        <section class="tcol tcol-c tcol-full">
           <div class="tdet-id">
             <h1>${nameCell("manager", m.id, esc(m.name))}</h1>
             <div class="tdet-sub">${esc(m.hq)} · Founded ${m.founded}${m.aumText ? " · " + esc(aumHeadline(m)) + " AUM" : ""}</div>
@@ -1471,30 +1483,32 @@ function viewManager(id) {
             ${m.strategies && m.strategies.length ? `<div class="tdet-chips">${m.strategies.map((s) => `<span class="tdet-chip">${esc(s)}</span>`).join("")}</div>` : ""}
             ${(m.sources && m.sources.length) ? `<div class="tdet-src">${sources(m)}</div>` : ""}
           </div>
-          <header class="tpanel-h twire-head"><span>Activity</span>
-            <div class="tchips" id="mgr-chips">
-              <button type="button" class="tchip is-on" data-k="all">All</button>
-              <button type="button" class="tchip" data-k="news">News</button>
-              <button type="button" class="tchip" data-k="deal">Deals</button>
-              <button type="button" class="tchip" data-k="intel">Fundraising</button>
+          <header class="tpanel-h">
+            <div class="tchips tchips-l" id="mgr-tabs">
+              <button type="button" class="tchip is-on" data-p="news">News</button>
+              <button type="button" class="tchip" data-p="funds">Funds${fs.length ? " " + fs.length : ""}</button>
+              <button type="button" class="tchip" data-p="clos">CLOs${mgrCloRoster.length ? " " + mgrCloRoster.length : ""}</button>
+              <button type="button" class="tchip" data-p="people">Key personnel</button>
             </div>
           </header>
-          <ul class="twire compact-list" id="mgr-wire">${mgrFeed.length ? mgrFeed.map(mgrWireRow).join("") : '<li class="muted small tw-empty">No activity yet for this manager.</li>'}</ul>
+          <div class="tpanes" id="mgr-panes">
+            ${pane("news", newsPane)}
+            ${pane("funds", fundsPane)}
+            ${pane("clos", closPane)}
+            ${pane("people", peoplePane)}
+          </div>
         </section>
-        <aside class="tcol tcol-r">
-          ${railPanel("Key figures", "", `<dl class="tkv">${kvFig.map(([l, v]) => `<div><dt>${esc(l)}</dt><dd>${v}</dd></div>`).join("")}</dl>`)}
-          ${railPanel("Funds", fs.length ? String(fs.length) : "", fundsRail)}
-          ${railPanel("CLOs managed", mgrCloRoster.length ? String(mgrCloRoster.length) : "", closRail)}
-          ${lpsRail ? railPanel("Known investors", String(commits.length), lpsRail) : ""}
-          ${ownersRail ? railPanel("Ownership", "", ownersRail) : ""}
-          ${filingsRail ? railPanel("Filings", "", filingsRail) : ""}
-        </aside>
       </div>
     </div>`;
-  // Filter the activity wire in place (chips) — same behaviour as the dashboard.
-  wireSimpleChips("mgr-chips", "mgr-wire");
-  // A notification / deep link to a specific story on this manager focuses that
-  // row (data-fkey for news, id="row-<id>" for structured deals/intel).
+  // Toggle which pane (News / Funds / CLOs / Key personnel) is shown.
+  const tabs = document.getElementById("mgr-tabs");
+  if (tabs) tabs.addEventListener("click", (e) => {
+    const b = e.target.closest(".tchip"); if (!b) return;
+    tabs.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
+    const p = b.dataset.p;
+    document.querySelectorAll("#mgr-panes .tpane").forEach((el) => { el.hidden = el.dataset.p !== p; });
+  });
+  // Deep link to a specific story focuses its row in the News pane.
   applyPendingFocus("manager");
 }
 
