@@ -364,6 +364,22 @@ svg.mtab-ico { width: 22px; height: 22px; }
 /* the page footer hardcodes a white background — dark it so it doesn't show as a
    white band on the now dark-only app (holds the mobile account/refresh block) */
 [data-theme="dark"] .footer { background: #05080f; }
+
+/* ---- Shared section top-bar actions (nav-actions.js): Markets · Saved · Bell ---- */
+.na-actions { display: inline-flex; align-items: center; gap: .4rem; }
+.na-btn { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--border, #232f47); background: transparent; color: var(--muted, #8592ad); cursor: pointer; border-radius: 0; text-decoration: none; }
+.na-btn svg { width: 19px; height: 19px; }
+.na-btn:hover { color: var(--ink, #eaf0fb); border-color: var(--accent, #f28c3c); }
+.na-panel { position: fixed; right: 8px; top: 56px; width: 320px; max-width: 92vw; max-height: 70vh; overflow-y: auto; z-index: 200; background: var(--surface, #0c1220); border: 1px solid var(--border, #232f47); box-shadow: 0 12px 34px rgba(0,0,0,.5); }
+.na-panel[hidden] { display: none; }
+.na-sec { font-size: 9px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, #8592ad); font-weight: 700; padding: 8px 12px 4px; background: var(--head, #080d17); border-bottom: 1px solid var(--border, #232f47); position: sticky; top: 0; }
+.na-row { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: baseline; padding: 6px 12px; border-bottom: 1px solid var(--border, #232f47); font-size: 11.5px; }
+.na-l { color: var(--ink, #eaf0fb); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.na-v, .na-c { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; }
+.na-v { color: var(--ink, #eaf0fb); }
+.na-c { min-width: 66px; text-align: right; }
+.na-c.up { color: #3fc08d; } .na-c.down { color: #f26d84; } .na-c.flat { color: var(--faint, #5c6a86); }
+.na-load { padding: 14px 12px; color: var(--muted, #8592ad); font-size: 12px; }
 /* reserve room for the taller flat bar */
 @media (max-width: 760px) { body { padding-bottom: calc(4.9rem + env(safe-area-inset-bottom, 0px)) !important; } }
 

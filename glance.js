@@ -495,9 +495,7 @@ function renderFeed() {
     return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
       + `<span class="g-feed-time">${esc(t)}</span>`
       + `<span class="g-feed-code ${_deskClass[o.desk]}" title="${esc(DESK[o.desk])}">${DESK_CODE[o.desk]}</span>`
-      + `<span class="g-feed-title">${esc(o.title)}`
-      + (ent ? `<span class="g-feed-ent" data-href="/credit/#/manager/${esc(ent.id)}" role="link" tabindex="0" title="Open ${esc(ent.name)} in Credit">${esc(ent.key)}</span>` : "")
-      + `</span>`
+      + `<span class="g-feed-title">${esc(o.title)}</span>`
       + (o.src ? `<span class="g-feed-src">${esc(o.src)}</span>` : "")
       + `<span class="g-feed-desk">${esc(DESK[o.desk])}</span></a>`;
   };
