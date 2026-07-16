@@ -493,10 +493,10 @@ function loadMoreBtn(key, remaining) {
 // Render a feed capped to the current page with a gentle per-day break between
 // items, plus a Load-more button. (Rows carry their own date, so the break is a
 // subtle divider rather than a heading.)
-function feedHtml(rows, key, rowFn, sig) {
+function feedHtml(rows, key, rowFn, sig, labeled) {
   pageReset(key, sig);
   const shown = rows.slice(0, pageCount(key));
-  return withDayBreaks(shown, rowFn) + loadMoreBtn(key, rows.length - shown.length);
+  return withDayBreaks(shown, rowFn, labeled) + loadMoreBtn(key, rows.length - shown.length);
 }
 // Cap a flat list/table to the current page; returns { shown, more } so the
 // caller can render its own rows and drop the Load-more button after them.
@@ -1131,11 +1131,16 @@ function ownersFilingsBlock(m) {
 // each rendered with a year heading acting as a section break.
 // Render a date-sorted list, inserting a day-break separator whenever the day
 // changes from the previous item (a visual gap between each day's items).
-function withDayBreaks(items, rowFn) {
+// `labeled` → introduce each day with a dated header ("16 Jul 2026", uppercased
+// in CSS), matching the home news feed; the news/commentary rows then lead with
+// the time. Other feeds keep the plain centred day-rule.
+function withDayBreaks(items, rowFn, labeled) {
   let prevDay = null;
   return items.map((x) => {
     const day = String(x.date || "").slice(0, 10);
-    const sep = prevDay !== null && day !== prevDay ? '<div class="day-sep" aria-hidden="true"></div>' : "";
+    const sep = labeled
+      ? (day !== prevDay ? `<div class="day-hdr">${esc(fmtDate(day))}</div>` : "")
+      : (prevDay !== null && day !== prevDay ? '<div class="day-sep" aria-hidden="true"></div>' : "");
     prevDay = day;
     return sep + rowFn(x);
   }).join("");
@@ -1729,14 +1734,14 @@ function researchRow(r) {
     : `<span class="intel-head">${esc(r.title)}</span>`;
   const src = `<span class="muted small">${esc(r.institution)}${r.type ? " · " + esc(r.type) : ""}</span>`;
   return `<div class="intel-row oneline" id="row-r-${esc(r.id)}" title="${esc(r.summary || "")}">
-    <span class="intel-date muted small">${r.date ? esc(fmtDate(r.date)) : ""}</span>${head}<span class="intel-src-inline muted small">${src}</span>
+    <span class="intel-date muted small">${esc(r.time || "")}</span>${head}<span class="intel-src-inline muted small">${src}</span>
   </div>`;
 }
 function viewCommentary() {
   const rows = [...research].sort((a, b) => `${b.date} ${b.time || ""}`.localeCompare(`${a.date} ${a.time || ""}`));
   app.innerHTML = `
     <div class="page-head"><h1>Commentary</h1><p class="muted">${rows.length} research pieces &amp; white papers on credit markets — spreads, underwriting &amp; covenant quality, defaults and private-credit structure — from banks, asset managers, rating agencies and industry bodies. Newest first.</p></div>
-    <section class="card">${rows.length ? feedHtml(rows, "research", researchRow, "") : '<p class="empty">No research yet.</p>'}</section>`;
+    <section class="card">${rows.length ? feedHtml(rows, "research", researchRow, "", true) : '<p class="empty">No research yet.</p>'}</section>`;
 }
 
 function newsRowFull(x) {
@@ -1749,7 +1754,7 @@ function newsRowFull(x) {
   // the outlet where named. No summary or separate source/date line.
   const src = `${link(`#/manager/${x._mid}`, x._mname, "muted small")}${x.outlet ? ` · <span class="muted small">${esc(x.outlet)}</span>` : ""}`;
   return `<div class="intel-row oneline" id="row-${esc(x._id || sid)}">
-    <span class="intel-date muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span>${head}<span class="intel-src-inline muted small">${src}</span>${saveBtn(sid)}
+    <span class="intel-date muted small">${esc(x.time || "")}</span>${head}<span class="intel-src-inline muted small">${src}</span>${saveBtn(sid)}
   </div>`;
 }
 
@@ -1763,7 +1768,7 @@ function viewNews() {
     <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label><div class="filters">
       <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Headline, outlet, manager…" value="${esc(f.q)}"></label>
     </div>
-    <section class="card">${rows.length ? feedHtml(rows, "news", newsRowFull, JSON.stringify(f)) : '<p class="empty">No news items match your search.</p>'}</section>`;
+    <section class="card">${rows.length ? feedHtml(rows, "news", newsRowFull, JSON.stringify(f), true) : '<p class="empty">No news items match your search.</p>'}</section>`;
   wireFilters("news");
   applyPendingFocus("news");
 }

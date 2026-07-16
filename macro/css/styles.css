@@ -244,13 +244,15 @@ a.compact-head:hover { color: var(--macro); text-decoration: underline; }
    line: chip · date · headline (black, links out) · source (grey). Wraps
    gracefully when a headline is too long for one line. */
 .macro-articles-panel { padding: 1.1rem 1.25rem; }
-.intel-row { display: flex; align-items: baseline; gap: .6rem; padding: .8rem 0; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+/* News/commentary feed row — matches the home feed: a fixed time column, a bold
+   headline that ellipsizes to its content, then a muted inline source. */
+.intel-row { display: flex; align-items: baseline; gap: .7rem; padding: .62rem 0; border-bottom: 1px solid var(--border); flex-wrap: nowrap; }
 .intel-row:last-child { border-bottom: none; }
 .chip { display: inline-block; padding: .12rem .5rem; border-radius: 999px; background: #e8edf5; color: #2b4a7c; font-size: .72rem; font-weight: 600; border: 1px solid #c8d5e6; white-space: nowrap; flex-shrink: 0; }
-.intel-date { flex-shrink: 0; white-space: nowrap; }
-.intel-head { font-weight: 600; color: var(--ink); overflow-wrap: anywhere; }
+.intel-date { flex: 0 0 auto; min-width: 2.7rem; white-space: nowrap; font-size: .76rem; font-variant-numeric: tabular-nums; }
+.intel-head { flex: 0 1 auto; min-width: 0; font-weight: 600; font-size: .9rem; line-height: 1.35; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 a.intel-head:hover { color: var(--macro); text-decoration: underline; }
-.intel-src-inline { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; max-width: 100%; }
+.intel-src-inline { flex: 0 1 auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; max-width: 100%; font-size: .76rem; }
 .intel-row .save-btn { margin-left: auto; flex-shrink: 0; }
 /* Month-group headers (JULY 2026 …), styled like Credit's year headers. */
 .month-group + .month-group { margin-top: .4rem; }
@@ -563,11 +565,12 @@ svg.mtab-ico { width: 22px; height: 22px; }
   /* Commentary/Saved rows: chip + date + Save share the top line; the headline and
      source drop to their own full-width lines below, so Save is pinned top-right of
      the box on the pill + date line (matching Credit & Legal). */
+  .intel-row { flex-wrap: wrap; }
   .intel-row .chip { order: 1; }
   .intel-row .intel-date { order: 2; }
   .intel-row .save-btn { order: 3; }
-  .intel-row .intel-head { flex: 1 0 100%; order: 4; }
-  .intel-row .intel-src-inline { flex: 1 0 100%; order: 5; }
+  .intel-row .intel-head { flex: 1 0 100%; order: 4; white-space: normal; overflow: visible; }
+  .intel-row .intel-src-inline { flex: 1 0 100%; order: 5; white-space: normal; }
   /* Fixed bottom tab bar (phones only): platform switch + search. */
   body { padding-bottom: 5.65rem; }
   .mobile-tabbar { display: grid; }

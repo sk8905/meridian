@@ -468,13 +468,21 @@ a.intel-head:hover { color: var(--primary); }
 /* Manager-profile rows put the date at the end of the headline line, after the
    source (grey), instead of in the meta column. */
 .intel-date-end { margin-top: .05rem; white-space: nowrap; flex-shrink: 0; }
-/* One-line news rows: chip · date · headline · source, all on the same line
-   (wraps only when the headline is too long), to save vertical space. */
-.intel-row.oneline { flex-direction: row; align-items: baseline; gap: .55rem; flex-wrap: wrap; }
+/* One-line news / commentary rows — matches the home feed: a fixed time column,
+   a bold headline that ellipsizes to its content, then a muted inline source. */
+.intel-row.oneline { flex-direction: row; align-items: baseline; gap: .7rem; flex-wrap: nowrap; padding: .62rem 0; }
 .intel-row.oneline .chip { margin: 0; }
-.intel-row.oneline .intel-date { flex-shrink: 0; white-space: nowrap; }
-.intel-row.oneline .intel-src-inline { margin-top: 0; }
+.intel-row.oneline .intel-date { flex: 0 0 auto; min-width: 2.7rem; white-space: nowrap; font-size: .76rem; font-variant-numeric: tabular-nums; }
+.intel-row.oneline .intel-head { flex: 0 1 auto; min-width: 0; margin-bottom: 0; font-size: .9rem; line-height: 1.35; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.intel-row.oneline .intel-src-inline { flex: 0 1 auto; min-width: 0; margin-top: 0; overflow: hidden; text-overflow: ellipsis; font-size: .76rem; }
 .intel-row.oneline .save-btn { margin-left: auto; flex-shrink: 0; }
+@media (max-width: 640px) {
+  .intel-row.oneline { flex-wrap: wrap; }
+  .intel-row.oneline .intel-head { flex: 1 1 100%; order: 4; white-space: normal; overflow: visible; }
+  .intel-row.oneline .intel-date { order: 2; }
+  .intel-row.oneline .intel-src-inline { flex: 1 1 100%; order: 5; white-space: normal; }
+  .intel-row.oneline .save-btn { order: 3; }
+}
 .save-btn {
   background: #f1f5f9; border: 1px solid var(--border); color: var(--muted);
   border-radius: 7px; padding: .2rem .6rem; font-size: .74rem; font-weight: 600;

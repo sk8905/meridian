@@ -395,3 +395,15 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 /* Drop the row's own faint bottom border when a day-break rule follows it, so the
    two don't stack into a double line. */
 .intel-row:has(+ .day-sep), .feed-row:has(+ .day-sep) { border-bottom: 0; }
+
+/* ---- Dated day header for the news / commentary feeds (Macro Commentary,
+   Credit News & Commentary) — mirrors the home feed's dated day breaks: an
+   uppercase date label with a 2px rule above each group except the first. ---- */
+.day-hdr { font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em;
+  color: var(--muted); padding: .62rem 0 .45rem; }
+.day-hdr:first-child { padding-top: .1rem; }
+.day-hdr:not(:first-child) { border-top: 2px solid var(--border, var(--line, #e4e7ef)); margin-top: .15rem; }
+.intel-row:has(+ .day-hdr), .feed-row:has(+ .day-hdr) { border-bottom: 0; }
+/* When an item carries no publish time (e.g. some commentary), drop the empty
+   time cell so the headline sits flush left instead of behind a blank column. */
+.intel-row .intel-date:empty { display: none; }
