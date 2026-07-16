@@ -121,6 +121,7 @@ function resolveSaved() {
   return out.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 }
 const _deskClass = { m: "macro", c: "credit", l: "legal" };
+const DESK_CODE = { m: "MAC", c: "CRD", l: "LEX" };
 function initSavedPanel() {
   const wrap = document.getElementById("g-saved");
   if (!wrap) return;
@@ -401,6 +402,7 @@ function renderBrief(byDesk, counts, day) {
     ? `<span class="g-brief-sep">·</span><span class="g-brief-lead">Top story <a class="g-brief-link g-desk-${lead.desk}" href="${esc(lead.href)}"${lead.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>${esc(lead.title)}</a></span>`
     : "";
   el.innerHTML = `<span class="g-brief-counts">${countTxt}</span>${leadHtml}`;
+  renderNewDesk(counts);
 }
 
 let _feedDesk = "all";
@@ -493,6 +495,7 @@ function renderFeed() {
     const ent = matchEntity(o.title);
     return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
       + `<span class="g-feed-time">${esc(t)}</span>`
+      + `<span class="g-feed-code ${_deskClass[o.desk]}" title="${esc(DESK[o.desk])}">${DESK_CODE[o.desk]}</span>`
       + `<span class="g-feed-title">${esc(o.title)}</span>`
       + (ent ? `<span class="g-feed-ent" data-href="/credit/#/manager/${esc(ent.id)}" role="link" tabindex="0" title="Open ${esc(ent.name)} in Credit">${esc(ent.key)}</span>` : "")
       + (o.src ? `<span class="g-feed-src">${esc(o.src)}</span>` : "")
@@ -676,6 +679,8 @@ function renderRates(el, d) {
   el.innerHTML = rowsData.map(ratesTile).join("");
   setGlance("gl-rates", _pulse.rates ? esc(_pulse.rates) : ratesOneLiner(rowsData));
   setGlTickers("rates", rateTickers(rowsData));
+  _rateRows = rowsData;
+  renderTicker(); renderMovers();
   return true;
 }
 function initRates() {
@@ -922,6 +927,8 @@ function renderMarketsBand(el, d) {
   // cross-asset instruments), so they aren't limited to the banner tiles.
   setGlTickers("markets", marketTickers([...rows, ...((d.moversExtra) || [])]));
   renderFxMatrix(d);
+  _mktRows = rows;
+  renderTicker(); renderMovers();
   return true;
 }
 // FX daily matrix — USD/GBP/EUR/JPY cross rates derived from the three USD pairs
@@ -970,6 +977,72 @@ function renderFxMatrix(d) {
   el.innerHTML = `<table class="g-fx-tbl"><thead>${head}</thead><tbody>${body}</tbody></table>`;
   return true;
 }
+
+// ---- Terminal ticker strip · top movers · cross-desk counts -----------------
+// The ticker strip and movers panel are derived views over the SAME live markets
+// and rates payloads the left-rail panels show — no extra request. The renderers
+// stash the freshest rows so either feed landing repaints both derived views.
+let _mktRows = [], _rateRows = [];
+const TK_SHORT = { "S&P 500": "SPX", "NASDAQ": "NDX", "IGWD": "FTSE", "EMEE": "STOXX", "Oil": "BRENT", "Gold": "GOLD", "DXY": "DXY", "Bitcoin": "BTC" };
+function renderTicker() {
+  const row = document.getElementById("g-ticker-row");
+  if (!row) return;
+  const items = [];
+  (_mktRows || []).forEach((x) => {
+    if (x.value == null) return;
+    const eff = (!isMarketOpen(x) && x.futuresPct != null) ? +Number(x.futuresPct) : (x.changePct != null ? +Number(x.changePct) : null);
+    items.push({ s: TK_SHORT[x.label] || x.label, v: fmtPrice(x.value), chg: eff == null ? "" : `${eff > 0 ? "+" : ""}${eff.toFixed(2)}%`, dir: glSign(eff || 0), href: x.href });
+  });
+  (_rateRows || []).slice(0, 5).forEach((x) => {
+    if (x.value == null) return;
+    const bp = x.change != null ? Math.round(x.change * 100) : null;
+    items.push({ s: x.label.replace(/ OAS$/, ""), v: fmtRate(x.value, x.unit).replace(/\s/g, ""), chg: bp == null ? "" : `${bp > 0 ? "+" : ""}${bp}bp`, dir: glSign(bp || 0), href: x.href });
+  });
+  row.innerHTML = items.map((it) => {
+    const inner = `<span class="s">${esc(it.s)}</span><span class="v">${esc(it.v)}</span>${it.chg ? `<span class="${it.dir}">${esc(it.chg)}</span>` : ""}`;
+    return it.href ? `<a class="g-tk" href="${esc(it.href)}" target="_blank" rel="noopener noreferrer">${inner}</a>` : `<span class="g-tk">${inner}</span>`;
+  }).join("");
+}
+function renderMovers() {
+  const el = document.getElementById("g-movers");
+  if (!el) return;
+  const list = [];
+  (_mktRows || []).forEach((x) => {
+    if (x.value == null) return;
+    const eff = (!isMarketOpen(x) && x.futuresPct != null) ? +Number(x.futuresPct) : (x.changePct != null ? +Number(x.changePct) : null);
+    if (eff == null) return;
+    list.push({ nm: TK_SHORT[x.label] || x.label, mag: Math.abs(eff), dir: glSign(eff), val: `${eff > 0 ? "+" : ""}${eff.toFixed(2)}%`, unit: "pct" });
+  });
+  (_rateRows || []).forEach((x) => {
+    if (x.value == null || x.change == null) return;
+    const bp = Math.round(x.change * 100);
+    if (!bp) return;
+    list.push({ nm: x.label.replace(/ OAS$/, ""), mag: Math.abs(bp), dir: glSign(bp), val: `${bp > 0 ? "+" : ""}${bp}bp`, unit: "bp" });
+  });
+  if (!list.length) { el.innerHTML = '<div class="g-empty">No moves yet.</div>'; return; }
+  const maxPct = Math.max(...list.filter((x) => x.unit === "pct").map((x) => x.mag), 0.01);
+  const maxBp = Math.max(...list.filter((x) => x.unit === "bp").map((x) => x.mag), 1);
+  const rel = (x) => x.mag / (x.unit === "pct" ? maxPct : maxBp);
+  const top = list.sort((a, b) => rel(b) - rel(a)).slice(0, 6);
+  el.innerHTML = top.map((x) => {
+    const w = Math.max(8, Math.round(rel(x) * 100));
+    const col = x.dir === "up" ? "var(--t-up)" : x.dir === "down" ? "var(--t-down)" : "var(--t-faint)";
+    return `<div class="g-mv"><span class="nm">${esc(x.nm)}</span><span class="bar"><i style="width:${w}%;background:${col}"></i></span><span class="val ${x.dir}">${esc(x.val)}</span></div>`;
+  }).join("");
+}
+function renderNewDesk(counts) {
+  const el = document.getElementById("g-newdesk");
+  if (!el) return;
+  const rows = [["m", "Macro"], ["c", "Credit"], ["l", "Legal"]];
+  const max = Math.max(counts.m, counts.c, counts.l, 1);
+  const col = { m: "var(--t-mac)", c: "var(--t-crd)", l: "var(--t-lex)" };
+  el.innerHTML = rows.map(([k, label]) => {
+    const n = counts[k] || 0;
+    const w = Math.max(4, Math.round((n / max) * 100));
+    return `<div class="g-mv"><span class="nm">${esc(label)}</span><span class="bar"><i style="width:${w}%;background:${col[k]}"></i></span><span class="val">${n}</span></div>`;
+  }).join("");
+}
+
 function initMarkets() {
   const el = document.getElementById("g-markets");
   if (!el) return;

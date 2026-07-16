@@ -690,6 +690,190 @@
       .g-gl { font-size:.7rem; line-height:1.35; gap:.5rem; }
       .cmdk-panel { margin:8vh 12px 0; }
     }
+
+    /* ================================================================= */
+    /* TERMINAL LAYOUT — dense, data-first "trading terminal" treatment.  */
+    /* Scoped to .tui (the workspace) and #g-ticker so the auth/hero       */
+    /* surfaces are untouched. Dark is the polished default; light is      */
+    /* provisional (to be refined). All terminal styling reads --t-* vars. */
+    /* ================================================================= */
+    :root[data-theme="dark"] #glance{
+      --t-ground:#0a1120; --t-panel:#0d1728; --t-panel2:#0f1c31; --t-head:#122340;
+      --t-grid:#1c2942; --t-grid2:#243352;
+      --t-ink:#e6ecf8; --t-dim:#aeb9d2; --t-mut:#7c89a6; --t-faint:#586686;
+      --t-accent:#38bdf8; --t-accent-dim:#1c6a97;
+      --t-up:#25c281; --t-down:#ff5d73;
+      --t-mac:#a07ee0; --t-crd:#7f95bf; --t-lex:#43b880; --t-amber:#e2a13b;
+    }
+    :root[data-theme="light"] #glance{
+      --t-ground:#d4dbe6; --t-panel:#ffffff; --t-panel2:#eef2f9; --t-head:#e7ecf5;
+      --t-grid:#ccd5e3; --t-grid2:#b3bfd3;
+      --t-ink:#0d1729; --t-dim:#28344e; --t-mut:#515d78; --t-faint:#7c88a2;
+      --t-accent:#0a6fb2; --t-accent-dim:#7cb5db;
+      --t-up:#08935c; --t-down:#d23349;
+      --t-mac:#63479c; --t-crd:#414f70; --t-lex:#2b7650; --t-amber:#a1670a;
+    }
+    #glance{ --t-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; }
+
+    /* ---- ticker strip (below the command bar) ---- */
+    .g-ticker{ display:flex; align-items:stretch; height:26px; overflow:hidden;
+      background:var(--t-panel2); border-bottom:1px solid var(--t-grid2); }
+    .g-ticker-lbl{ display:flex; align-items:center; padding:0 12px; font-family:var(--t-mono);
+      font-size:10px; letter-spacing:.12em; color:var(--t-amber); border-right:1px solid var(--t-grid);
+      white-space:nowrap; }
+    .g-ticker-row{ display:flex; align-items:center; overflow:hidden; flex:1; }
+    .g-tk{ display:flex; align-items:baseline; gap:7px; padding:0 13px; line-height:26px;
+      font-family:var(--t-mono); font-size:11.5px; font-variant-numeric:tabular-nums;
+      border-right:1px solid var(--t-grid); white-space:nowrap; text-decoration:none; }
+    .g-tk .s{ color:var(--t-mut); } .g-tk .v{ color:var(--t-ink); }
+    .g-tk .up{ color:var(--t-up); } .g-tk .down{ color:var(--t-down); }
+    @media (max-width:760px){ .g-ticker{ display:none; } }
+
+    /* ---- workspace shell ---- */
+    .g-main.tui{ padding:0; background:var(--t-ground); color:var(--t-ink); max-width:none; }
+    .tui .g-layout{ display:grid; grid-template-columns:322px minmax(0,1fr) 340px; gap:0;
+      margin:0; align-items:start; }
+    .tui .g-side{ order:1; display:block; border-right:1px solid var(--t-grid2); }
+    .tui .g-feed-wrap{ order:2; min-width:0; }
+    .tui .g-side2{ order:3; display:block; border-left:1px solid var(--t-grid2); }
+    @media (min-width:901px){ .tui .g-feed{ max-height:none; overflow:visible; } }
+    @media (max-width:900px){ .tui .g-layout{ grid-template-columns:1fr; }
+      .tui .g-side,.tui .g-side2{ border-right:0; border-left:0; border-bottom:1px solid var(--t-grid2); } }
+
+    /* ---- briefing bar ---- */
+    .tui .g-hello{ display:block; padding:0; margin:0; background:var(--t-panel);
+      border-bottom:1px solid var(--t-grid2); }
+    .tui .g-hello-main{ display:flex; align-items:baseline; gap:12px; padding:7px 14px; }
+    .tui #hello{ font-size:11px; font-family:var(--t-mono); letter-spacing:.13em; text-transform:uppercase;
+      color:var(--t-mut); margin:0; font-weight:700; white-space:nowrap; }
+    .tui .g-brief{ font-size:12.5px; color:var(--t-dim); margin:0; }
+    .tui .g-brief b{ color:var(--t-ink); font-variant-numeric:tabular-nums; }
+    .tui .g-brief-sep{ margin:0 .5rem; opacity:.5; }
+    .tui .g-brief-link{ color:var(--t-accent); font-weight:600; }
+    /* narrative one-liners: slim strip under the brief */
+    .tui .g-glance{ display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:1px solid var(--t-grid); }
+    .tui .g-gl-block{ padding:6px 14px; border-right:1px solid var(--t-grid); min-width:0; }
+    .tui .g-gl-block:last-child{ border-right:0; }
+    .tui .g-gl{ font-size:11.5px; line-height:1.4; color:var(--t-dim); display:flex; gap:8px; align-items:baseline; margin:0; }
+    .tui .g-gl-l{ font-family:var(--t-mono); font-size:9.5px; letter-spacing:.1em; text-transform:uppercase;
+      color:var(--t-amber); white-space:nowrap; }
+    .tui .g-gl-v{ min-width:0; }
+    .tui .gl-tickers,.tui .gl-tk-toggle{ display:none; }
+    @media (max-width:760px){ .tui .g-glance{ grid-template-columns:1fr; } .tui .g-gl-block{ border-right:0; border-bottom:1px solid var(--t-grid); }
+      .tui .g-hello-main{ flex-wrap:wrap; gap:3px 10px; } .tui #hello{ white-space:normal; flex:1 1 100%; } }
+
+    /* ---- panels ---- */
+    .tui-pnl{ border-bottom:1px solid var(--t-grid2); }
+    .tui-ph{ display:flex; align-items:center; gap:8px; height:24px; padding:0 11px;
+      background:var(--t-head); border-bottom:1px solid var(--t-grid2); }
+    .tui-ph > span:first-child{ font-family:var(--t-mono); font-size:10.5px; font-weight:700;
+      letter-spacing:.13em; text-transform:uppercase; color:var(--t-dim); }
+    .tui-px{ margin-left:auto; font-family:var(--t-mono); font-size:9.5px; letter-spacing:.08em;
+      color:var(--t-faint); text-transform:uppercase; }
+    .tui .g-loading,.tui .g-empty{ padding:10px 12px; font-family:var(--t-mono); font-size:11px; color:var(--t-faint); background:var(--t-panel); }
+
+    /* ---- data rows (markets / rates) reuse .rates-band/.rate-tile ---- */
+    .tui .rates-band,.tui .g-side .rates-band,.tui .markets-band{ display:block; background:var(--t-panel);
+      border:0; border-radius:0; padding:2px 0; margin:0; }
+    .tui .rate-tile,.tui .g-side .rate-tile{ display:grid; grid-template-columns:1fr auto auto;
+      align-items:baseline; column-gap:10px; padding:4px 11px; border:0; border-radius:0;
+      font-family:var(--t-mono); font-variant-numeric:tabular-nums; }
+    .tui .rate-tile:hover{ background:var(--t-panel2); }
+    .tui .rate-label,.tui .g-side .rate-label{ font-size:11.5px; color:var(--t-dim); white-space:nowrap;
+      overflow:hidden; text-overflow:ellipsis; font-weight:400; letter-spacing:0; text-transform:none; }
+    .tui a.rate-tile:hover .rate-label,.tui a.rate-tile:hover .rate-val{ color:var(--t-accent); }
+    .tui .rate-val,.tui .g-side .rate-val{ font-size:12px; color:var(--t-ink); text-align:right; }
+    .tui .rate-chg,.tui .g-side .rate-chg{ font-size:11px; text-align:right; }
+    .tui .rate-chg.up{ color:var(--t-up); } .tui .rate-chg.down{ color:var(--t-down); } .tui .rate-chg.flat{ color:var(--t-faint); }
+    .tui .rate-chg-line{ display:inline-flex; gap:5px; white-space:nowrap; }
+    .tui .mkt-fut{ font-size:9.5px; }
+    .tui .mkt-dot{ margin-left:5px; }
+
+    /* ---- FX matrix ---- */
+    .tui .g-fx-card{ background:var(--t-panel); padding:0; border:0; border-radius:0; }
+    .tui .g-fx-tbl{ width:100%; border-collapse:collapse; font-family:var(--t-mono);
+      font-variant-numeric:tabular-nums; }
+    .tui .g-fx-tbl th,.tui .g-fx-tbl td{ border:1px solid var(--t-grid); padding:5px 4px; text-align:center;
+      font-size:11px; color:var(--t-ink); font-weight:400; }
+    .tui .g-fx-tbl thead th,.tui .g-fx-tbl tbody th{ color:var(--t-mut); font-size:9.5px; letter-spacing:.04em; background:var(--t-panel2); }
+    .tui .g-fx-tbl td a{ color:var(--t-ink); }
+    .tui .g-fx-diag{ color:var(--t-faint); }
+
+    /* ---- macro read (snap) ---- */
+    .tui #g-macro-snap{ background:var(--t-panel); }
+    .tui .g-snap-blk{ display:block; padding:8px 11px; border-bottom:1px solid var(--t-grid); }
+    .tui .g-snap-blk:last-child{ border-bottom:0; }
+    .tui .g-snap-pol{ display:grid; grid-template-columns:auto 1fr auto auto; gap:3px 8px; align-items:baseline; font-family:var(--t-mono); }
+    .tui .g-snap-t,.tui .g-snap-colh,.tui .g-snap-polh{ font-size:9px; letter-spacing:.1em; text-transform:uppercase; color:var(--t-mut); }
+    .tui .g-snap-cc{ font-size:11px; color:var(--t-dim); font-family:var(--t-mono); }
+    .tui .g-snap-pv{ font-size:12px; color:var(--t-ink); font-family:var(--t-mono); font-variant-numeric:tabular-nums; }
+    .tui .g-snap-nx,.tui .g-snap-ps{ font-size:10px; color:var(--t-dim); font-family:var(--t-mono); }
+    .tui .g-snap-mood{ color:var(--t-amber); }
+    .tui .g-snap-h{ display:flex; align-items:baseline; gap:8px; margin-bottom:5px; }
+    .tui .g-snap-cap{ margin-left:auto; font-family:var(--t-mono); font-size:11px; color:var(--t-amber); }
+    .tui .g-snap-meter{ display:flex; align-items:center; gap:7px; }
+    .tui .g-snap-end{ font-family:var(--t-mono); font-size:9px; color:var(--t-faint); }
+    .tui .g-snap-gauge{ flex:1; }
+
+    /* ---- economic indicators ---- */
+    .tui #g-indicators{ background:var(--t-panel); }
+    .tui .g-ind-country{ font-family:var(--t-mono); font-size:9px; letter-spacing:.1em; text-transform:uppercase;
+      color:var(--t-mut); padding:6px 11px 3px; }
+    .tui .g-ind-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px; background:var(--t-grid); margin:0 0 1px; }
+    .tui .g-ind{ background:var(--t-panel); padding:5px 8px; display:flex; flex-direction:column; gap:1px; }
+    .tui .g-ind-name{ font-family:var(--t-mono); font-size:8.5px; letter-spacing:.02em; color:var(--t-mut);
+      text-transform:uppercase; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .tui .g-ind-val{ font-family:var(--t-mono); font-size:12px; color:var(--t-ink); font-variant-numeric:tabular-nums; }
+    .tui .g-ind-chg{ font-family:var(--t-mono); font-size:9px; }
+    .tui .g-ind-chg.up{ color:var(--t-up); } .tui .g-ind-chg.down{ color:var(--t-down); } .tui .g-ind-chg.flat{ color:var(--t-faint); }
+
+    /* ---- movers + new-across-desks ---- */
+    .tui .g-mv{ display:grid; grid-template-columns:1fr auto auto; gap:10px; align-items:center;
+      padding:4px 11px; font-family:var(--t-mono); font-size:11.5px; border-bottom:1px solid var(--t-grid); background:var(--t-panel); }
+    .tui .g-mv:last-child{ border-bottom:0; }
+    .tui .g-mv .nm{ color:var(--t-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .tui .g-mv .bar{ width:64px; height:9px; background:var(--t-grid); position:relative; border-radius:1px; }
+    .tui .g-mv .bar i{ position:absolute; top:0; bottom:0; left:0; border-radius:1px; }
+    .tui .g-mv .val{ font-variant-numeric:tabular-nums; text-align:right; }
+    .tui .g-mv .val.up{ color:var(--t-up); } .tui .g-mv .val.down{ color:var(--t-down); }
+
+    /* ---- news wire (feed) ---- */
+    .tui .g-feed-wrap{ background:var(--t-ground); }
+    .tui .g-feed-head{ display:flex; align-items:center; gap:0; height:24px; padding:0; margin:0;
+      background:var(--t-head); border-bottom:1px solid var(--t-grid2); }
+    .tui .g-feed-h-lbl{ display:none; }
+    .tui .g-feed-chips{ display:flex; gap:0; height:100%; }
+    .tui .g-feed-chip{ display:flex; align-items:center; gap:5px; height:100%; padding:0 13px; border:0;
+      border-right:1px solid var(--t-grid); background:transparent; cursor:pointer; font-family:var(--t-mono);
+      font-size:10.5px; letter-spacing:.07em; text-transform:uppercase; color:var(--t-mut); border-radius:0; }
+    .tui .g-feed-chip.is-on{ color:var(--t-ink); background:var(--t-panel2); box-shadow:inset 0 -2px 0 var(--t-accent); }
+    .tui .g-feed-chip-n{ color:var(--t-faint); font-size:9.5px; background:none; padding:0; }
+    .tui .g-feed{ background:var(--t-panel); border:0; border-radius:0; padding:0; }
+    .tui .g-feed-dayhdr{ padding:5px 12px; background:var(--t-ground); border-top:0;
+      font-family:var(--t-mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--t-faint); margin:0; }
+    .tui .g-feed-row{ display:grid; grid-template-columns:44px 34px minmax(0,1fr) auto; align-items:baseline;
+      gap:10px; padding:5px 12px; border-bottom:1px solid var(--t-grid); }
+    .tui .g-feed-row:hover{ background:var(--t-panel2); }
+    .tui .g-feed-time{ font-family:var(--t-mono); font-size:11px; color:var(--t-mut); min-width:0; }
+    .tui .g-feed-code{ font-family:var(--t-mono); font-size:9.5px; font-weight:700; letter-spacing:.05em;
+      text-align:center; border-radius:2px; padding:1px 0; }
+    .tui .g-feed-code.macro{ color:var(--t-mac); border:1px solid color-mix(in srgb,var(--t-mac) 40%,transparent); }
+    .tui .g-feed-code.credit{ color:var(--t-crd); border:1px solid color-mix(in srgb,var(--t-crd) 40%,transparent); }
+    .tui .g-feed-code.legal{ color:var(--t-lex); border:1px solid color-mix(in srgb,var(--t-lex) 40%,transparent); }
+    .tui .g-feed-title{ font-size:12.5px; color:var(--t-ink); font-weight:400; line-height:1.35;
+      white-space:normal; overflow:visible; min-width:0; }
+    .tui a.g-feed-row:hover .g-feed-title{ color:var(--t-accent); }
+    .tui .g-feed-ent{ font-family:var(--t-mono); font-size:9.5px; color:var(--t-accent);
+      border:1px solid var(--t-accent-dim); background:transparent; border-radius:2px; padding:0 4px; margin-left:6px; }
+    .tui .g-feed-ent::before{ content:"↗"; margin-right:2px; opacity:.7; }
+    .tui .g-feed-ent:hover{ background:var(--t-accent); color:#04121f; }
+    .tui .g-feed-src{ font-family:var(--t-mono); font-size:10px; color:var(--t-faint); white-space:nowrap; }
+    .tui .g-feed-desk{ display:none; }
+    @media (max-width:760px){
+      .tui .g-feed-row{ grid-template-columns:38px 30px 1fr; gap:5px 8px; }
+      .tui .g-feed-title{ grid-column:1 / -1; order:3; }
+      .tui .g-feed-src{ grid-column:2 / -1; }
+    }
   </style>
   <link rel="stylesheet" href="/premium.css?v=20260716-1" />
 </head>
@@ -767,10 +951,15 @@
         </div>
       </div>
     </header>
-    <main class="g-main">
+    <!-- Live ticker strip (indices + rates), populated from the markets/rates feeds -->
+    <div class="g-ticker" id="g-ticker" aria-label="Live market ticker">
+      <div class="g-ticker-lbl">MKTS</div>
+      <div class="g-ticker-row" id="g-ticker-row"></div>
+    </div>
+    <main class="g-main tui">
       <div class="g-hello g-anchor" id="jump-top">
         <div class="g-hello-main">
-          <h1 id="hello">Your briefing</h1>
+          <h1 id="hello">Briefing</h1>
           <p class="g-brief" id="g-brief"></p>
         </div>
         <div class="g-glance" id="g-glance" aria-label="At-a-glance market summary">
@@ -786,41 +975,56 @@
       </div>
 
       <div class="g-layout">
+        <!-- LEFT RAIL: market data panels -->
+        <aside class="g-side">
+          <section class="tui-pnl g-anchor" id="jump-markets">
+            <header class="tui-ph"><span>Markets</span><span class="tui-px">live</span></header>
+            <div id="g-markets" class="rates-band markets-band" aria-label="Equity indices and ETFs">
+              <div class="g-loading">Loading markets…</div>
+            </div>
+          </section>
+          <section class="tui-pnl g-anchor" id="jump-rates">
+            <header class="tui-ph"><span>Key rates &amp; spreads</span><span class="tui-px">bp · %</span></header>
+            <div id="g-rates" class="rates-band" aria-label="Key rates and credit spreads">
+              <div class="g-loading">Loading market rates…</div>
+            </div>
+          </section>
+          <section class="tui-pnl g-anchor" id="jump-fx">
+            <header class="tui-ph"><span>FX matrix</span><span class="tui-px">spot</span></header>
+            <div id="g-fx" class="g-fx-card" aria-label="USD, GBP, EUR and JPY cross rates">
+              <div class="g-loading">Loading FX…</div>
+            </div>
+          </section>
+        </aside>
+
+        <!-- CENTER: news wire -->
         <section class="g-feed-wrap g-anchor" id="jump-feed">
           <div class="g-feed-head" id="g-feed-head">Today</div>
           <div class="g-feed" id="g-feed"><div class="g-loading">Loading today's news…</div></div>
         </section>
-        <aside class="g-side">
-          <!-- Markets + Key rates side by side -->
-          <div class="g-mr">
-            <div class="g-mr-col">
-              <div class="g-rates-head g-anchor" id="jump-markets">Markets</div>
-              <div id="g-markets" class="rates-band markets-band" aria-label="Equity indices and ETFs">
-                <div class="g-loading">Loading markets…</div>
-              </div>
+
+        <!-- RIGHT: macro read, movers, indicators, cross-desk counts -->
+        <aside class="g-side2">
+          <section class="tui-pnl g-anchor" id="jump-macro">
+            <header class="tui-ph"><span>Macro read</span><span class="tui-px">policy · cycle</span></header>
+            <div id="g-macro-snap" class="g-snap" aria-label="Policy rate, cycle and bubble snapshot">
+              <div class="g-loading">Loading macro read…</div>
             </div>
-            <div class="g-mr-col">
-              <div class="g-rates-head g-anchor" id="jump-rates">Key rates &amp; spreads</div>
-              <div id="g-rates" class="rates-band" aria-label="Key rates and credit spreads">
-                <div class="g-loading">Loading market rates…</div>
-              </div>
+          </section>
+          <section class="tui-pnl">
+            <header class="tui-ph"><span>Top movers</span><span class="tui-px">1D</span></header>
+            <div id="g-movers" aria-label="Top market movers"><div class="g-loading">Loading movers…</div></div>
+          </section>
+          <section class="tui-pnl g-anchor" id="jump-indicators">
+            <header class="tui-ph"><span>Economic indicators</span><span class="tui-px">US · UK</span></header>
+            <div id="g-indicators" class="g-ind-card" aria-label="US and UK economic indicators">
+              <div class="g-loading">Loading indicators…</div>
             </div>
-          </div>
-          <!-- US &amp; UK economic indicators (live from /api/macro) -->
-          <div class="g-rates-head" id="jump-indicators">Economic indicators</div>
-          <div id="g-indicators" class="g-ind-card" aria-label="US and UK economic indicators">
-            <div class="g-loading">Loading indicators…</div>
-          </div>
-          <!-- FX daily matrix — USD / GBP / EUR / JPY cross rates -->
-          <div class="g-rates-head" id="jump-fx">FX matrix</div>
-          <div id="g-fx" class="g-fx-card" aria-label="USD, GBP, EUR and JPY cross rates">
-            <div class="g-loading">Loading FX…</div>
-          </div>
-          <!-- Macro read -->
-          <div class="g-rates-head" id="jump-macro">Macro read</div>
-          <div id="g-macro-snap" class="g-snap" aria-label="Policy rate, cycle and bubble snapshot">
-            <div class="g-loading">Loading macro read…</div>
-          </div>
+          </section>
+          <section class="tui-pnl">
+            <header class="tui-ph"><span>New across desks</span><span class="tui-px">today</span></header>
+            <div id="g-newdesk" aria-label="New items per desk"></div>
+          </section>
         </aside>
       </div>
     </main>
@@ -868,7 +1072,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-50").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-51").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of
