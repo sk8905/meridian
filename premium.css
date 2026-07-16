@@ -436,3 +436,17 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 .topbar .topbar-tag { color: #8ea6c8; }
 .topbar button, .topbar .notif-bell, .topbar .nav-search { border-radius: 0; }
 .topbar .notif-panel, .topbar .mkt-panel { border-radius: 0; }
+
+/* =============================================================================
+   CANONICAL SCROLLBAR — one consistent style platform-wide (Home + all sections,
+   every scroll container). Thin, squared, subtle. The horizontal nav scrollers
+   (.g-jump / .mainnav) keep their own hidden-scrollbar rules (higher specificity).
+   ============================================================================= */
+* { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.16) transparent; }
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,.16); border-radius: 0; border: 2px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,.28); background-clip: padding-box; }
+:root[data-theme="light"] * { scrollbar-color: rgba(11,31,68,.24) transparent; }
+:root[data-theme="light"] ::-webkit-scrollbar-thumb { background: rgba(11,31,68,.24); background-clip: padding-box; }
+:root[data-theme="light"] ::-webkit-scrollbar-thumb:hover { background: rgba(11,31,68,.36); background-clip: padding-box; }

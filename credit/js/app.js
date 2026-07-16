@@ -738,7 +738,6 @@ function viewDashboard() {
 
   app.innerHTML = `
     <div class="tdash">
-      <div class="tdash-head"><h1>Credit Intelligence</h1></div>
       <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
       <div class="tdash-grid">
         <aside class="tcol tcol-l">

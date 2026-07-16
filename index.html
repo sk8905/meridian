@@ -753,9 +753,7 @@
       .tui .g-side,.tui .g-side2{ height:100%; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
       .tui .g-feed-wrap{ height:100%; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
       .tui .g-feed-head{ flex:0 0 auto; }
-      .tui .g-feed{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
-      .tui .g-side::-webkit-scrollbar,.tui .g-side2::-webkit-scrollbar,.tui .g-feed::-webkit-scrollbar{ width:8px; }
-      .tui .g-side::-webkit-scrollbar-thumb,.tui .g-side2::-webkit-scrollbar-thumb,.tui .g-feed::-webkit-scrollbar-thumb{ background:var(--t-grid2); border-radius:0; }
+      .tui .g-feed{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; }
     }
     @media (max-width:900px){ .tui .g-layout{ grid-template-columns:1fr; }
       .tui .g-side,.tui .g-side2{ border-right:0; border-left:0; border-bottom:1px solid var(--t-grid2); } }
@@ -766,7 +764,9 @@
     .tui .g-hello-main{ display:flex; align-items:baseline; gap:8px; padding:0; flex:0 1 auto; min-width:0; }
     .tui #hello{ font-size:12px; letter-spacing:0; color:var(--t-dim); margin:0; font-weight:600; white-space:nowrap; flex:0 0 auto; }
     .tui .g-brief{ font-size:12px; color:var(--t-dim); margin:0; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:0 1 auto; }
-    .tui .g-brief-link{ color:var(--t-accent); font-weight:600; }
+    .tui .g-brief-lbl{ font-size:10px; font-weight:600; letter-spacing:.02em; text-transform:uppercase; color:var(--t-accent); white-space:nowrap; opacity:.85; }
+    .tui .g-brief-link{ color:var(--t-dim); font-weight:400; }
+    .tui .g-brief-link:hover{ color:var(--t-ink); }
     /* narrative one-liners: packed inline right after the brief, small gap, not distributed */
     .tui .g-glance{ display:flex; flex-direction:row; flex-wrap:nowrap; gap:12px; flex:0 1 auto; min-width:0; border-top:0; border-left:0; padding-left:0; }
     .tui .g-gl-block{ padding:0; border-right:0; min-width:0; flex:0 1 auto; display:flex; gap:6px; align-items:baseline; }
@@ -920,7 +920,7 @@
     .g-top .g-notif-panel,.g-top .g-sv-panel,.g-top .g-mkt-panel{ border-radius:0; }
     .cmdk-panel,.cmdk-input,.cmdk-results .cmdk-item{ border-radius:0; }
   </style>
-  <link rel="stylesheet" href="/premium.css?v=20260716-5" />
+  <link rel="stylesheet" href="/premium.css?v=20260716-6" />
 </head>
 <body>
   <!-- Loading -->
@@ -1125,7 +1125,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-54").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-55").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

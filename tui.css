@@ -85,11 +85,9 @@
 .tmet { display: flex; align-items: center; gap: 6px; padding: 0 14px; font-size: 11.5px; white-space: nowrap; border-right: 1px solid var(--border); color: var(--muted); font-family: var(--t-mono); font-variant-numeric: tabular-nums; }
 .tmet b { color: var(--ink); font-weight: 700; }
 .tdash-grid { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: 322px minmax(0,1fr) 340px; }
-.tcol { min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-right: 1px solid var(--border); scrollbar-width: thin; }
+.tcol { min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-right: 1px solid var(--border); }
 .tcol-r { border-right: 0; border-left: 1px solid var(--border); }
 .tcol-c { display: flex; flex-direction: column; overflow: hidden; }
-.tcol::-webkit-scrollbar, .twire::-webkit-scrollbar { width: 8px; }
-.tcol::-webkit-scrollbar-thumb, .twire::-webkit-scrollbar-thumb { background: var(--border); }
 
 .tcol { background: var(--bg); }
 .tpanel { border-bottom: 1px solid var(--border); background: var(--surface); }
@@ -119,9 +117,9 @@
 .twire .compact-item:hover .tw-head { color: var(--accent); }
 .tw-mgr-w { flex: 0 0 auto; white-space: nowrap; max-width: 42%; overflow: hidden; text-overflow: ellipsis; }
 .tw-mgr-w::before { content: "· "; color: var(--faint); }
-/* manager links inline in rows / rails: mono + accent, matching Home */
-.tw-mgr, .compact-mgr { font-family: var(--t-mono); font-size: 11px; color: var(--accent); }
-.tw-mgr:hover, .compact-mgr:hover { text-decoration: underline; }
+/* manager links inline in rows / rails: mono, light grey (not accent) */
+.tw-mgr, .compact-mgr { font-family: var(--t-mono); font-size: 11px; color: var(--muted); }
+.tw-mgr:hover, .compact-mgr:hover { color: var(--ink); text-decoration: underline; }
 .tw-src { grid-column: 4; text-align: right; white-space: nowrap; font-size: 10px; color: var(--faint); font-family: var(--t-mono); padding-left: 12px; max-width: 150px; overflow: hidden; text-overflow: ellipsis; }
 .tw-src a { color: var(--faint); }
 .tw-src a:hover { color: var(--accent); }

@@ -396,7 +396,7 @@ function renderBrief(byDesk, counts, day) {
   const lead = [byDesk.m[0], byDesk.c[0], byDesk.l[0]].filter(Boolean)
     .sort((a, b) => day(b).localeCompare(day(a)) || String(b.time || "12:00").localeCompare(String(a.time || "12:00")))[0];
   el.innerHTML = lead
-    ? `<span class="g-brief-lead">Top story <a class="g-brief-link g-desk-${lead.desk}" href="${esc(lead.href)}"${lead.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>${esc(lead.title)}</a></span>`
+    ? `<span class="g-brief-lead"><span class="g-brief-lbl">Top story</span> <a class="g-brief-link g-desk-${lead.desk}" href="${esc(lead.href)}"${lead.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>${esc(lead.title)}</a></span>`
     : "";
   renderNewDesk(counts);
 }
