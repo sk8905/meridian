@@ -349,10 +349,10 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
   box-shadow: none !important;
 }
-.mtab { border-radius: 0 !important; min-height: 48px; gap: 3px; font-size: .6rem; letter-spacing: .02em; }
+.mtab { border-radius: 0 !important; min-height: 46px; gap: 2px; font-size: .56rem; font-weight: 600; letter-spacing: .02em; padding: 2px .1rem !important; }
 .mtab.is-active { background: none !important; }
-.mtab-ico { font-size: 1.28rem; }
-svg.mtab-ico { width: 24px; height: 24px; }
+.mtab-ico { font-size: 1.42rem; line-height: 1; }        /* diamond glyph → optically match the SVG icons */
+svg.mtab-ico { width: 22px; height: 22px; }
 [data-theme="dark"] .mobile-tabbar {
   background: #0a0f1a !important;
   border-top: 1px solid var(--border, #232f47) !important;

@@ -783,14 +783,17 @@
     .tui .gl-tickers,.tui .gl-tk-toggle{ display:none; }
     @media (max-width:760px){
       /* iPhone: stack the briefing into four rows — 1) greeting, 2) top story,
-         3) markets one-liner, 4) key-rates one-liner. */
-      .tui .g-hello{ flex-direction:column; align-items:stretch; gap:5px; padding:9px 14px; }
-      .tui .g-hello-main{ flex-direction:column; align-items:stretch; gap:5px; flex:0 0 auto; }
+         3) markets one-liner, 4) key-rates one-liner. Each is a single ellipsised
+         line; kill the padding-top/border-top the non-tui .g-glance rule leaks in. */
+      .tui .g-hello{ flex-direction:column; align-items:stretch; gap:6px; padding:10px 14px; }
+      .tui .g-hello-main{ flex-direction:column; align-items:stretch; gap:6px; flex:0 0 auto; }
       .tui #hello{ white-space:normal; flex:0 0 auto; }
       .tui .g-brief{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:0 0 auto; }
-      .tui .g-glance{ flex-direction:column; gap:5px; border-left:0; padding-left:0; flex:0 0 auto; align-items:stretch; }
-      .tui .g-gl-block{ flex:0 0 auto; }
-      .tui .g-gl-v{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; } }
+      .tui .g-glance{ flex-direction:column; gap:6px; flex:0 0 auto; align-items:stretch;
+        border-top:0; border-left:0; padding-top:0; padding-left:0; }
+      .tui .g-gl-block{ display:block; min-width:0; padding:0; border:0; }
+      .tui .g-gl{ display:block; min-width:0; padding-right:0; }
+      .tui .g-gl-v{ display:block; min-width:0; max-width:100%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; } }
 
     /* ---- panels ---- */
     .tui-pnl{ border-bottom:1px solid var(--t-grid2); background:var(--t-panel); }
@@ -943,7 +946,7 @@
     .g-top .g-notif-panel,.g-top .g-sv-panel,.g-top .g-mkt-panel{ border-radius:0; }
     .cmdk-panel,.cmdk-input,.cmdk-results .cmdk-item{ border-radius:0; }
   </style>
-  <link rel="stylesheet" href="/premium.css?v=20260716-9" />
+  <link rel="stylesheet" href="/premium.css?v=20260716-10" />
 </head>
 <body>
   <!-- Loading -->
