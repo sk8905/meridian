@@ -102,19 +102,12 @@ img, svg { max-width: 100%; }
    the rest of the row to the page container's left edge, so the switch and the
    nav tabs line up with the page heading/body text. The 11rem floor keeps the
    content clear of the logo on narrower desktops. */
+/* Full-width bar: the brand sits in flow at the same 2rem gutter as the page
+   content, then the toggle + nav follow; the search pill's margin-left:auto pushes
+   the identity + bell to the right 2rem gutter. */
 @media (min-width: 1101px) {
-  .topbar-inner { padding-left: max(11rem, calc((100% - min(100%, var(--maxw))) / 2 + 2rem)); padding-right: calc((100% - min(100%, var(--maxw))) / 2 + 2rem); }
-  .topbar-inner .brand { position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); }
-  /* Glance-style layout: the nav keeps its natural width and the search pill's
-     margin-left:auto pushes it — with the signed-in identity + bell flowing to
-     its right — to the content's right margin. */
+  .topbar-inner { padding-left: 2rem; padding-right: 2rem; }
   .mainnav { flex: 0 1 auto; }
-}
-/* Very wide screens: pin the identity + bell to the true far-right corner
-   (escaping the centred content padding), matching Glance. */
-@media (min-width: 1880px) {
-  .topbar-inner .topbar-right { position: absolute; right: 4rem; top: 50%; transform: translateY(-50%); }
-  .topbar-inner .notif { position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); }
 }
 .nav-link { color: #cbd5e1; padding: .5rem .85rem; border-radius: 6px; font-weight: 500; white-space: nowrap; }
 .nav-link:hover, .nav-link:focus-visible { color: #fff; text-decoration: none; background: rgba(255,255,255,.08); }
@@ -198,9 +191,10 @@ img, svg { max-width: 100%; }
 .mobile-nav .nav-link { padding: .65rem .8rem; }
 
 /* ---- Layout ---- */
-.container { max-width: var(--maxw); margin: 0 auto; padding: 1.75rem 2rem 3rem; }
+/* Full-width content with consistent 2rem side gutters (no centred max-width). */
+.container { padding: 1.75rem 2rem 3rem; }
 .footer {
-  max-width: var(--maxw); margin: 1rem auto 0; padding: 1.5rem;
+  margin: 1rem 0 0; padding: 1.5rem 2rem;
   color: var(--muted); font-size: .8rem; border-top: 1px solid var(--line);
 }
 .footer strong { color: var(--ink-soft); }

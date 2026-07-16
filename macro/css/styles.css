@@ -60,18 +60,12 @@ h1, h2, .macro-country, .macro-label { text-wrap: balance; }
    signed-in identity + bell to the far-right corner (out of flow); the nav
    fills the row so the right-aligned Chart tab lands at the page content's
    right edge — the same place Credit's Watchlist sits. */
+/* Full-width bar: the brand sits in flow at the same 2rem gutter as the page
+   content, then the toggle + nav follow; the search pill's margin-left:auto pushes
+   the identity + bell to the right 2rem gutter. */
 @media (min-width: 1101px) {
-  .topbar-inner { padding-left: max(11rem, calc((100% - min(100%, 1500px)) / 2 + 2rem)); padding-right: calc((100% - min(100%, 1500px)) / 2 + 2rem); }
-  .topbar-inner .brand { position: absolute; left: 1.5rem; top: 50%; transform: translateY(-50%); }
-  /* Glance-style: nav keeps natural width; the search pill's margin-left:auto
-     pushes it (with identity + bell flowing to its right) to the content margin. */
+  .topbar-inner { padding-left: 2rem; padding-right: 2rem; }
   .topbar-inner .mainnav { flex: 0 1 auto; }
-}
-/* Very wide screens: pin the identity + bell to the true far-right corner
-   (escaping the centred content padding), matching Glance. */
-@media (min-width: 1880px) {
-  .topbar-inner .topbar-right { position: absolute; right: 4rem; top: 50%; transform: translateY(-50%); }
-  .topbar-inner .notif { position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); }
 }
 .brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: #fff; flex: 0 0 auto; }
 .brand:hover { text-decoration: none; }
@@ -107,7 +101,8 @@ h1, h2, .macro-country, .macro-label { text-wrap: balance; }
 .notif-empty { padding: .6rem .5rem; }
 
 /* ---------- layout ---------- */
-.container { max-width: 1500px; margin: 0 auto; padding: 1.75rem 2rem 3rem; }
+/* Full-width content with consistent 2rem side gutters (no centred max-width). */
+.container { padding: 1.75rem 2rem 3rem; }
 .page-head { margin-bottom: 1.25rem; }
 /* Dashboard header: title on the left; the upcoming-releases dropdown and the
    1Y/3Y/5Y range toggle sit together in a right-hand cluster, on the same line. */
@@ -141,7 +136,7 @@ a.rel-item:hover .cal-title, a.rel-item:hover .cal-country { color: var(--macro)
 @media (max-width: 620px) { .rel-dd { align-self: flex-start; } .rel-dd-panel { right: auto; left: 0; } }
 .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 1.1rem 1.25rem; box-shadow: var(--shadow); }
 .feature-card { border-top: 3px solid var(--macro); }
-.footer { border-top: 1px solid var(--border); padding: 1.5rem 2rem; color: var(--muted); font-size: .78rem; max-width: 1500px; margin: 0 auto; }
+.footer { border-top: 1px solid var(--border); padding: 1.5rem 2rem; color: var(--muted); font-size: .78rem; }
 .footer code { background: #eef1f5; padding: 0 .25rem; border-radius: 4px; }
 
 /* ---------- macro dashboard ---------- */

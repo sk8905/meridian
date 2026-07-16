@@ -175,16 +175,7 @@
          the signed-in identity to the far-right corner (both out of flow), so the
          search bar lands at the content's right margin — the same slot the apps
          give the Watchlist / Chart tab. */
-      .g-top-inner { padding-left: max(11rem, calc((100% - min(100%, 1500px)) / 2 + 2rem));
-        padding-right: calc((100% - min(100%, 1500px)) / 2 + 2rem); }
-      .g-brand { position:absolute; left:1.5rem; top:50%; transform:translateY(-50%); }
-    }
-    /* Once the page margins are wide enough to hold it, pin the identity to the
-       far-right corner so the search bar drops back to the content's right margin
-       (the apps' Watchlist/Chart slot). Below this the two share the right cluster
-       in normal flow, so they never collide on narrower desktops. */
-    @media (min-width:1880px){
-      .g-right { position:absolute; right:1.5rem; top:50%; transform:translateY(-50%); }
+      .g-top-inner { padding-left:2rem; padding-right:2rem; }
     }
     /* 900–1100px: keep the single desktop row but tighten it so it never overflows. */
     @media (max-width:1100px){
@@ -249,7 +240,8 @@
     }
 
     /* ---- Main ---- */
-    .g-main { max-width:1500px; margin:0 auto; padding:1.75rem 2rem .5rem; }
+    /* Full-width content with consistent 2rem side gutters (no centred max-width). */
+    .g-main { padding:1.75rem 2rem .5rem; }
     /* Laid on the SAME two-column grid as the layout below (data sidebar | news),
        so the greeting sits above the sidebar and the one-liners' left edge lines
        up exactly with the "Latest news" column. */
