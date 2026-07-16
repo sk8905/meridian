@@ -760,26 +760,27 @@
     @media (max-width:900px){ .tui .g-layout{ grid-template-columns:1fr; }
       .tui .g-side,.tui .g-side2{ border-right:0; border-left:0; border-bottom:1px solid var(--t-grid2); } }
 
-    /* ---- briefing bar ---- */
-    .tui .g-hello{ display:block; padding:0; margin:0; background:var(--t-panel);
-      border-bottom:1px solid var(--t-grid2); }
-    .tui .g-hello-main{ display:flex; align-items:baseline; gap:12px; padding:7px 14px; }
-    .tui #hello{ font-size:12.5px; letter-spacing:0; color:var(--t-dim); margin:0; font-weight:600; white-space:nowrap; }
-    .tui .g-brief{ font-size:12.5px; color:var(--t-dim); margin:0; }
-    .tui .g-brief b{ color:var(--t-ink); font-variant-numeric:tabular-nums; }
-    .tui .g-brief-sep{ margin:0 .5rem; opacity:.5; }
+    /* ---- briefing bar — a single compact row: greeting · top story · narratives ---- */
+    .tui .g-hello{ display:flex; align-items:baseline; gap:14px; padding:6px 14px; margin:0;
+      background:var(--t-panel); border-bottom:1px solid var(--t-grid2); overflow:hidden; }
+    .tui .g-hello-main{ display:flex; align-items:baseline; gap:10px; padding:0; flex:0 1 auto; min-width:0; }
+    .tui #hello{ font-size:12px; letter-spacing:0; color:var(--t-dim); margin:0; font-weight:600; white-space:nowrap; flex:0 0 auto; }
+    .tui .g-brief{ font-size:12px; color:var(--t-dim); margin:0; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .tui .g-brief-link{ color:var(--t-accent); font-weight:600; }
-    /* narrative one-liners: slim strip under the brief */
-    .tui .g-glance{ display:grid; grid-template-columns:1fr 1fr; gap:0; border-top:1px solid var(--t-grid); }
-    .tui .g-gl-block{ padding:6px 14px; border-right:1px solid var(--t-grid); min-width:0; }
+    /* narrative one-liners: inline on the same row, divided from the brief, each truncating */
+    .tui .g-glance{ display:flex; gap:14px; flex:1 1 auto; min-width:0; border-top:0;
+      border-left:1px solid var(--t-grid); padding-left:14px; }
+    .tui .g-gl-block{ padding:0; border-right:0; min-width:0; flex:1 1 0; display:flex; gap:8px; align-items:baseline; }
     .tui .g-gl-block:last-child{ border-right:0; }
-    .tui .g-gl{ font-size:11.5px; line-height:1.4; color:var(--t-dim); display:flex; gap:8px; align-items:baseline; margin:0; }
-    .tui .g-gl-l{ font-size:10px; font-weight:600; letter-spacing:.02em; text-transform:uppercase;
-      color:var(--t-accent); white-space:nowrap; opacity:.85; }
-    .tui .g-gl-v{ min-width:0; }
+    .tui .g-gl{ font-size:11.5px; line-height:1.4; color:var(--t-dim); display:flex; gap:7px; align-items:baseline; margin:0; min-width:0; }
+    .tui .g-gl-l{ font-size:9.5px; font-weight:600; letter-spacing:.02em; text-transform:uppercase;
+      color:var(--t-accent); white-space:nowrap; opacity:.85; flex:0 0 auto; }
+    .tui .g-gl-v{ min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .tui .gl-tickers,.tui .gl-tk-toggle{ display:none; }
-    @media (max-width:760px){ .tui .g-glance{ grid-template-columns:1fr; } .tui .g-gl-block{ border-right:0; border-bottom:1px solid var(--t-grid); }
-      .tui .g-hello-main{ flex-wrap:wrap; gap:3px 10px; } .tui #hello{ white-space:normal; flex:1 1 100%; } }
+    @media (max-width:760px){ .tui .g-hello{ flex-wrap:wrap; gap:4px 10px; }
+      .tui #hello{ white-space:normal; flex:1 1 100%; }
+      .tui .g-glance{ flex-direction:column; gap:3px; border-left:0; padding-left:0; flex:1 1 100%; }
+      .tui .g-gl-v{ white-space:normal; } }
 
     /* ---- panels ---- */
     .tui-pnl{ border-bottom:1px solid var(--t-grid2); background:var(--t-panel); }
@@ -893,9 +894,9 @@
       white-space:normal; overflow:visible; min-width:0; }
     .tui a.g-feed-row:hover .g-feed-title{ color:var(--t-accent); }
     .tui .g-feed-ent{ font-family:var(--t-mono); font-size:9.5px; color:var(--t-accent);
-      border:1px solid var(--t-accent-dim); background:var(--t-accent-soft); border-radius:0; padding:1px 5px; margin-left:6px; }
-    .tui .g-feed-ent::before{ content:"↗"; margin-right:2px; opacity:.7; }
-    .tui .g-feed-ent:hover{ background:var(--t-accent); color:#04121f; }
+      border:0; background:transparent; padding:0; margin-left:7px; white-space:nowrap; cursor:pointer; }
+    .tui .g-feed-ent::before{ content:"↗"; margin-right:1px; opacity:.7; }
+    .tui .g-feed-ent:hover{ text-decoration:underline; }
     .tui .g-feed-src{ font-family:var(--t-mono); font-size:10px; color:var(--t-faint); white-space:nowrap; }
     .tui .g-feed-desk{ display:none; }
     @media (max-width:760px){
@@ -1125,7 +1126,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-52").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-53").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

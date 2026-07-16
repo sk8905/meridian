@@ -391,19 +391,13 @@ const DESK = { m: "Macro", c: "Credit", l: "Legal" };
 function renderBrief(byDesk, counts, day) {
   const el = document.getElementById("g-brief");
   if (!el) return;
-  const parts = [];
-  if (counts.m) parts.push(`<b>${counts.m}</b> macro`);
-  if (counts.c) parts.push(`<b>${counts.c}</b> credit`);
-  if (counts.l) parts.push(`<b>${counts.l}</b> legal`);
+  // The per-desk "what's new" counts now live in the "New across desks" panel, so
+  // the brief line is just the single freshest headline across all three desks.
   const lead = [byDesk.m[0], byDesk.c[0], byDesk.l[0]].filter(Boolean)
     .sort((a, b) => day(b).localeCompare(day(a)) || String(b.time || "12:00").localeCompare(String(a.time || "12:00")))[0];
-  const countTxt = parts.length
-    ? `${parts.join(" · ")} added recently`
-    : "All quiet — nothing new across your desks";
-  const leadHtml = lead
-    ? `<span class="g-brief-sep">·</span><span class="g-brief-lead">Top story <a class="g-brief-link g-desk-${lead.desk}" href="${esc(lead.href)}"${lead.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>${esc(lead.title)}</a></span>`
+  el.innerHTML = lead
+    ? `<span class="g-brief-lead">Top story <a class="g-brief-link g-desk-${lead.desk}" href="${esc(lead.href)}"${lead.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>${esc(lead.title)}</a></span>`
     : "";
-  el.innerHTML = `<span class="g-brief-counts">${countTxt}</span>${leadHtml}`;
   renderNewDesk(counts);
 }
 
@@ -498,8 +492,9 @@ function renderFeed() {
     return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
       + `<span class="g-feed-time">${esc(t)}</span>`
       + `<span class="g-feed-code ${_deskClass[o.desk]}" title="${esc(DESK[o.desk])}">${DESK_CODE[o.desk]}</span>`
-      + `<span class="g-feed-title">${esc(o.title)}</span>`
+      + `<span class="g-feed-title">${esc(o.title)}`
       + (ent ? `<span class="g-feed-ent" data-href="/credit/#/manager/${esc(ent.id)}" role="link" tabindex="0" title="Open ${esc(ent.name)} in Credit">${esc(ent.key)}</span>` : "")
+      + `</span>`
       + (o.src ? `<span class="g-feed-src">${esc(o.src)}</span>` : "")
       + `<span class="g-feed-desk">${esc(DESK[o.desk])}</span></a>`;
   };
