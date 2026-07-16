@@ -413,7 +413,7 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
    after each section's styles.css, so these win; scoped under .topbar so the
    Home command bar (.g-top) is untouched. Deep, hairline-bordered surface with
    an accent-tinted active tab and a refined search field. */
-.topbar { background: #0d1728; border-bottom: 1px solid rgba(255,255,255,.08); }
+.topbar { background: #090e18; border-bottom: 1px solid rgba(255,255,255,.07); }
 @media (min-width: 901px) { .topbar .topbar-inner { height: 54px; } }
 .topbar .logo { color: #4aa8f0; }
 .topbar .brand-text strong { font-size: .92rem; font-weight: 600; }

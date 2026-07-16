@@ -7,12 +7,12 @@
    Per-view 3-column layout (data on the edges) is layered on top of this.
    ===================================================================== */
 
-/* ---- deeper terminal surfaces (dark) to match Home ---- */
+/* ---- deep near-black terminal surfaces (dark) to match Home ---- */
 :root[data-theme="dark"] {
-  --bg: #0b1220;
-  --surface: #111b2f;
-  --line: #243150;
-  --border: #243150;
+  --bg: #05080f;
+  --surface: #0c1220;
+  --line: #1e2a45;
+  --border: #1e2a45;
 }
 
 /* ---- full-bleed content column ---- */
