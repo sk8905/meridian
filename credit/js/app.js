@@ -694,42 +694,79 @@ function viewDashboard() {
   activity.sort((a, b) => String(b.item.date || "").localeCompare(String(a.item.date || "")));
   const activityCompact = (a) => a.kind === "news" ? newsCompact(a.item) : compactRow(a.item, a.view);
 
+  // ---- dense terminal screen ----------------------------------------------
+  // Metrics ticker + manager league table (left) + a filterable activity wire
+  // (centre) + fundraising pipeline and recent CLOs (right) — everything that
+  // used to be spread across News/Deals/Fundraising/CLOs/Managers on one screen.
+  const inMkt = (f) => !f.evergreen && (f.status === "Open" || f.status === "First Close");
+  const mgrFundList = (id) => funds.filter((f) => f.managerId === id);
+  const uni = managers.filter((m) => !targetFocus || midInFocus(m.id));
+  const league = uni
+    .map((m) => ({ m, nf: mgrFundList(m.id).length, live: mgrFundList(m.id).filter(inMkt).length }))
+    .sort((a, b) => (b.m.aumCredit || 0) - (a.m.aumCredit || 0)).slice(0, 18);
+  const pipeline = creditFunds.filter(inMkt).sort((a, b) => (b.targetSize || 0) - (a.targetSize || 0)).slice(0, 12);
+  const totalCreditAum = uni.reduce((s, m) => s + (m.aumCredit || 0), 0);
+  const metrics = [
+    ["Deals " + curQ, dealsThisQuarter], ["Open funds", openProcesses],
+    ["Closes " + curQ, closesThisQuarter], ["CLO closes " + curQ, cloClosesThisQuarter],
+    ["Managers", uni.length], ["Funds", creditFunds.length],
+    ["Credit AUM", "€" + Math.round(totalCreditAum) + "bn"],
+  ];
+  const KIND = { deal: "DEAL", intel: "FUND", clo: "CLO", news: "NEWS" };
+  const wireRow = (a) => (a.kind === "news" ? newsCompact(a.item) : compactRow(a.item, a.view))
+    .replace('<li class="compact-item">', `<li class="compact-item tw-row" data-kind="${a.kind}"><span class="tw-tag ${a.kind}">${KIND[a.kind]}</span>`);
+
   app.innerHTML = `
-    <div class="page-head"><div class="ph-head-top"><h1>Credit Intelligence</h1>${focusToggle()}</div><p class="muted">European private credit deal flow &amp; market intelligence, with fundraising as a secondary lens · real data compiled from public sources (mid-2026)</p></div>
-    <details class="rk-toggle"${window.matchMedia(MOBILE_Q).matches ? "" : " open"}>
-      <summary class="rk-toggle-head">Key metrics <span class="rk-caret" aria-hidden="true"></span></summary>
-      <div class="rk-toggle-body">
-        <div class="kpi-grid">${kpis.map((k) => `<div class="kpi-card clickable" ${k.jump}><div class="kpi-value">${k.value}</div><div class="kpi-label">${k.label}</div><div class="kpi-sub muted">${k.sub}</div></div>`).join("")}</div>
+    <div class="tdash">
+      <div class="tdash-head"><h1>Credit Intelligence</h1>${focusToggle()}</div>
+      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
+      <div class="tdash-grid">
+        <aside class="tcol tcol-l">
+          <section class="tpanel">
+            <header class="tpanel-h"><span>Manager league table</span><span class="tpanel-x">credit AUM</span></header>
+            <table class="tleague"><thead><tr><th>Manager</th><th>AUM</th><th>Fd</th><th>Lv</th></tr></thead>
+            <tbody>${league.map((r) => `<tr class="clickable" data-href="#/manager/${r.m.id}"><td class="tl-nm">${esc(r.m.name)}</td><td class="tl-n">€${r.m.aumCredit || 0}bn</td><td class="tl-n">${r.nf}</td><td class="tl-n">${r.live || ""}</td></tr>`).join("")}</tbody></table>
+          </section>
+        </aside>
+        <section class="tcol tcol-c">
+          <header class="tpanel-h twire-head"><span>Latest activity</span>
+            <div class="tchips" id="cr-chips">
+              <button type="button" class="tchip is-on" data-k="all">All</button>
+              <button type="button" class="tchip" data-k="news">News</button>
+              <button type="button" class="tchip" data-k="deal">Deals</button>
+              <button type="button" class="tchip" data-k="intel">Fundraising</button>
+              <button type="button" class="tchip" data-k="clo">CLOs</button>
+            </div>
+          </header>
+          <ul class="twire compact-list" id="cr-wire">${activity.length ? activity.slice(0, 90).map(wireRow).join("") : '<li class="muted small tw-empty">No activity yet.</li>'}</ul>
+        </section>
+        <aside class="tcol tcol-r">
+          <section class="tpanel">
+            <header class="tpanel-h"><span>Fundraising pipeline</span><span class="tpanel-x">in market</span></header>
+            <ul class="tmini">${pipeline.length ? pipeline.map((f) => `<li class="tmini-row clickable" data-href="#/fund/${f.id}"><span class="tmini-t">${esc(f.name)}</span><span class="tmini-m">${esc(managerById[f.managerId].name)} · ${f.evergreen ? "Evergreen" : eur(f.targetSize)}</span></li>`).join("") : '<li class="tmini-row muted small">None in market.</li>'}</ul>
+          </section>
+          <section class="tpanel">
+            <header class="tpanel-h"><span>Recent CLOs</span><span class="tpanel-x">latest</span></header>
+            <ul class="tmini">${cloByDate.slice(0, 8).map((c) => `<li class="tmini-row"><a class="tmini-t" href="#/clos" data-goto="clos:${c.id}">${esc(c.headline)}</a><span class="tmini-m">${fmtDate(c.date)}${c.managerId ? " · " + esc(managerById[c.managerId].name) : ""}</span></li>`).join("")}</ul>
+          </section>
+        </aside>
       </div>
-    </details>
-
-    <section class="card feature-card news-panel">
-      <h2>Latest activity</h2>
-      <p class="muted small">Manager &amp; investor press, deals, fundraising and CLO activity across the tracked universe, newest first. Click a headline to open it in its feed.</p>
-      ${activity.length ? `<ul class="compact-list news-cols">${activity.slice(0, 12).map(activityCompact).join("")}</ul>` : '<p class="muted small">No activity yet.</p>'}
-      <div class="card-foot">${link("#/news", "View all news →")}</div>
-    </section>
-
-    <div class="grid-3">
-      <section class="card feature-card">
-        <h2>Latest deal activity</h2>
-        <p class="muted small">Financings, investments, acquisitions, refinancings, restructurings and exits. Click a headline to open it in the deal feed.</p>
-        ${dealsByDate.length ? `<ul class="compact-list">${dealsByDate.slice(0, 12).map((d) => compactRow(d, "deals")).join("")}</ul>` : '<p class="muted small">No deal activity yet.</p>'}
-        <div class="card-foot">${link("#/deals", "View all deal activity →")}</div>
-      </section>
-      <section class="card feature-card">
-        <h2>Latest fundraising intelligence</h2>
-        <p class="muted small">Fund launches, first/final closes, LP mandates, personnel and strategy moves. Click a headline to open it in the fundraising feed.</p>
-        ${intelByDate.length ? `<ul class="compact-list">${intelByDate.slice(0, 12).map((i) => compactRow(i, "intel")).join("")}</ul>` : '<p class="muted small">No items yet.</p>'}
-        <div class="card-foot">${link("#/intel", "View full fundraising intelligence →")}</div>
-      </section>
-      <section class="card feature-card">
-        <h2>Latest CLO news</h2>
-        <p class="muted small">Collateralised loan obligation pricings, resets, platforms, funds &amp; ETFs. Click a headline to open it in the CLOs section.</p>
-        ${cloByDate.length ? `<ul class="compact-list">${cloByDate.slice(0, 12).map((c) => compactRow(c, "clos")).join("")}</ul>` : '<p class="muted small">No CLO news yet.</p>'}
-        <div class="card-foot">${link("#/clos", "View all CLO activity →")}</div>
-      </section>
     </div>`;
+  wireDashChips();
+}
+// In-place filter for the dashboard activity wire: chips toggle which kinds show
+// without leaving the screen (the collapsed News/Deals/Fundraising/CLOs tabs).
+function wireDashChips() {
+  const chips = document.getElementById("cr-chips");
+  const wire = document.getElementById("cr-wire");
+  if (!chips || !wire) return;
+  chips.addEventListener("click", (e) => {
+    const b = e.target.closest(".tchip");
+    if (!b) return;
+    chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
+    const k = b.dataset.k;
+    wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (k === "all" || r.dataset.kind === k) ? "" : "none"; });
+  });
 }
 
 // ================================== FUNDS ===================================

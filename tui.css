@@ -62,3 +62,75 @@
 }
 :root[data-theme="dark"] input::placeholder,
 :root[data-theme="dark"] textarea::placeholder { color: var(--muted); }
+
+/* =====================================================================
+   Dense terminal dashboard (sections) — a single information-rich screen:
+   metrics ticker + edge data rails + a filterable centre wire. Fixed to
+   the viewport with each column scrolling on its own (the page doesn't).
+   ===================================================================== */
+.container:has(.tdash) { padding: 0 !important; max-width: none; }
+.tdash { display: flex; flex-direction: column; height: calc(100vh - 54px); background: var(--bg); overflow: hidden; }
+.tdash-head { display: flex; align-items: center; gap: 12px; padding: 6px 14px; border-bottom: 1px solid var(--border); flex: 0 0 auto; }
+.tdash-head h1 { font-size: 1.02rem; margin: 0; font-weight: 700; letter-spacing: -.01em; }
+.tdash-ticker { display: flex; align-items: stretch; height: 26px; overflow: hidden; border-bottom: 1px solid var(--border); background: var(--surface); flex: 0 0 auto; }
+.tmet { display: flex; align-items: center; gap: 6px; padding: 0 14px; font-size: 11.5px; white-space: nowrap; border-right: 1px solid var(--border); color: var(--muted); font-variant-numeric: tabular-nums; }
+.tmet b { color: var(--ink); font-weight: 700; }
+.tdash-grid { flex: 1 1 auto; min-height: 0; display: grid; grid-template-columns: 300px minmax(0,1fr) 322px; }
+.tcol { min-height: 0; overflow-y: auto; overscroll-behavior: contain; border-right: 1px solid var(--border); scrollbar-width: thin; }
+.tcol-r { border-right: 0; border-left: 1px solid var(--border); }
+.tcol-c { display: flex; flex-direction: column; overflow: hidden; }
+.tcol::-webkit-scrollbar, .twire::-webkit-scrollbar { width: 8px; }
+.tcol::-webkit-scrollbar-thumb, .twire::-webkit-scrollbar-thumb { background: var(--border); }
+
+.tpanel { border-bottom: 1px solid var(--border); }
+.tpanel-h { display: flex; align-items: center; gap: 8px; height: 28px; padding: 0 11px; background: var(--surface); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 2; flex: 0 0 auto; }
+.tpanel-h > span:first-child { font-size: 11px; font-weight: 600; color: var(--ink); }
+.tpanel-x { margin-left: auto; font-size: 9.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
+
+/* centre activity wire */
+.tchips { display: flex; gap: 0; margin-left: auto; height: 100%; }
+.tchip { border: 0; background: transparent; padding: 0 11px; font-size: 11px; color: var(--muted); cursor: pointer; height: 100%; border-radius: 0; }
+.tchip:hover { color: var(--ink); }
+.tchip.is-on { color: var(--ink); font-weight: 600; box-shadow: inset 0 -2px 0 var(--accent, #4aa8f0); }
+.twire { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1 1 auto; min-height: 0; }
+.twire .compact-item { display: grid; grid-template-columns: 34px minmax(0,1fr); column-gap: 8px; padding: 5px 12px 6px; border-bottom: 1px solid var(--border); align-items: start; }
+.twire .compact-item:hover { background: rgba(255,255,255,.03); }
+.tw-tag { grid-column: 1; grid-row: 1 / 3; align-self: center; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 8px; font-weight: 700; letter-spacing: .03em; color: var(--muted); }
+.tw-tag.deal { color: #6f97d6; } .tw-tag.intel { color: #cc9f43; } .tw-tag.clo { color: #9b83e2; } .tw-tag.news { color: #4fa89c; }
+.twire .compact-head { grid-column: 2; font-size: 12px; font-weight: 600; line-height: 1.3; }
+.twire .compact-meta { grid-column: 2; font-size: 10px; margin-top: 1px; }
+.tw-empty { padding: 12px; }
+
+/* left league table */
+.tleague { width: 100%; border-collapse: collapse; font-size: 11px; }
+.tleague th { text-align: left; font-size: 8.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; padding: 5px 8px; position: sticky; top: 28px; background: var(--surface); border-bottom: 1px solid var(--border); }
+.tleague td { padding: 5px 8px; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; }
+.tleague .tl-nm { color: var(--ink); max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tleague .tl-n { text-align: right; color: var(--muted); }
+.tleague tr.clickable:hover { background: rgba(255,255,255,.03); cursor: pointer; }
+.tleague tr.clickable:hover .tl-nm { color: var(--accent, #4aa8f0); }
+
+/* right rails */
+.tmini { list-style: none; margin: 0; padding: 0; }
+.tmini-row { display: block; padding: 6px 12px; border-bottom: 1px solid var(--border); }
+.tmini-row:last-child { border-bottom: 0; }
+.tmini-t { display: block; font-size: 11.5px; color: var(--ink); font-weight: 600; line-height: 1.3; }
+.tmini-row.clickable:hover, .tmini-row:hover { background: rgba(255,255,255,.03); cursor: pointer; }
+.tmini-row:hover .tmini-t { color: var(--accent, #4aa8f0); }
+.tmini-m { display: block; font-size: 9.5px; color: var(--muted); margin-top: 2px; }
+
+/* light theme: hover tint darker */
+:root[data-theme="light"] .twire .compact-item:hover,
+:root[data-theme="light"] .tleague tr.clickable:hover,
+:root[data-theme="light"] .tmini-row:hover { background: rgba(11,31,68,.04); }
+
+/* mobile: stack, let the page scroll */
+@media (max-width: 900px) {
+  .tdash { height: auto; overflow: visible; }
+  .tdash-ticker { overflow-x: auto; }
+  .tdash-grid { grid-template-columns: 1fr; }
+  .tcol { overflow: visible; border-right: 0; border-left: 0; border-bottom: 1px solid var(--border); }
+  .tcol-c { overflow: visible; }
+  .twire { overflow: visible; }
+  .tpanel-h, .tleague th { position: static; }
+}
