@@ -472,16 +472,19 @@ a.intel-head:hover { color: var(--primary); }
    a bold headline that ellipsizes to its content, then a muted inline source. */
 .intel-row.oneline { flex-direction: row; align-items: baseline; gap: .7rem; flex-wrap: nowrap; padding: .62rem 0; }
 .intel-row.oneline .chip { margin: 0; }
-.intel-row.oneline .intel-date { flex: 0 0 auto; min-width: 2.7rem; white-space: nowrap; font-size: .76rem; font-variant-numeric: tabular-nums; }
+.intel-row.oneline .intel-date { flex: 0 0 auto; min-width: 4.9rem; white-space: nowrap; font-size: .76rem; }
 .intel-row.oneline .intel-head { flex: 0 1 auto; min-width: 0; margin-bottom: 0; font-size: .9rem; line-height: 1.35; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .intel-row.oneline .intel-src-inline { flex: 0 1 auto; min-width: 0; margin-top: 0; overflow: hidden; text-overflow: ellipsis; font-size: .76rem; }
 .intel-row.oneline .save-btn { margin-left: auto; flex-shrink: 0; }
+/* News/Commentary type tag, pinned to the far right (mirrors the home feed's
+   section tag). */
+.intel-type { flex: 0 0 auto; margin-left: auto; padding-left: .7rem; color: var(--muted); font-size: .76rem; white-space: nowrap; }
 @media (max-width: 640px) {
   .intel-row.oneline { flex-wrap: wrap; }
   .intel-row.oneline .intel-head { flex: 1 1 100%; order: 4; white-space: normal; overflow: visible; }
   .intel-row.oneline .intel-date { order: 2; }
   .intel-row.oneline .intel-src-inline { flex: 1 1 100%; order: 5; white-space: normal; }
-  .intel-row.oneline .save-btn { order: 3; }
+  .intel-row.oneline .intel-type { order: 3; margin-left: auto; padding-left: 0; }
 }
 .save-btn {
   background: #f1f5f9; border: 1px solid var(--border); color: var(--muted);

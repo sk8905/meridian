@@ -865,7 +865,7 @@ function creditNotif() {
   const out = [];
   deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, source: creditSource(d), href: creditItemHref(d, "deals") }));
   intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, source: creditSource(i), href: creditItemHref(i, "intel") }));
-  (research || []).forEach((r) => out.push({ id: "r:" + r.id, date: r.date || "", kind: "Commentary", title: r.title, source: r.institution, href: "/credit/#/commentary" }));
+  (research || []).forEach((r) => out.push({ id: "r:" + r.id, date: r.date || "", kind: "Commentary", title: r.title, source: r.institution, href: "/credit/#/news" }));
   managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", kind: "News", title: w.title, source: w.outlet || m.name || "", href: "/credit/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey(w)) })));
   return recentNotif(out).sort(byDateDesc);
 }

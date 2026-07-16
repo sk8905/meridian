@@ -498,6 +498,12 @@ function feedHtml(rows, key, rowFn, sig, labeled) {
   const shown = rows.slice(0, pageCount(key));
   return withDayBreaks(shown, rowFn, labeled) + loadMoreBtn(key, rows.length - shown.length);
 }
+// Flat paginated feed — no day-break separators (the row carries its own date).
+function feedFlat(rows, key, rowFn, sig) {
+  pageReset(key, sig);
+  const shown = rows.slice(0, pageCount(key));
+  return shown.map(rowFn).join("") + loadMoreBtn(key, rows.length - shown.length);
+}
 // Cap a flat list/table to the current page; returns { shown, more } so the
 // caller can render its own rows and drop the Load-more button after them.
 function pageList(rows, key, sig) {
@@ -1728,21 +1734,8 @@ function viewTrends() {
 // Commentary tab — credit research & white papers (banks, managers, rating
 // agencies, industry bodies). One-line rows like the News feed: date · title
 // (links out) · institution · type, with daily date breaks.
-function researchRow(r) {
-  const head = r.url
-    ? `<a href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(r.title)}</a>`
-    : `<span class="intel-head">${esc(r.title)}</span>`;
-  const src = `<span class="muted small">${esc(r.institution)}${r.type ? " · " + esc(r.type) : ""}</span>`;
-  return `<div class="intel-row oneline" id="row-r-${esc(r.id)}" title="${esc(r.summary || "")}">
-    <span class="intel-date muted small">${esc(r.time || "")}</span>${head}<span class="intel-src-inline muted small">${src}</span>
-  </div>`;
-}
-function viewCommentary() {
-  const rows = [...research].sort((a, b) => `${b.date} ${b.time || ""}`.localeCompare(`${a.date} ${a.time || ""}`));
-  app.innerHTML = `
-    <div class="page-head"><h1>Commentary</h1><p class="muted">${rows.length} research pieces &amp; white papers on credit markets — spreads, underwriting &amp; covenant quality, defaults and private-credit structure — from banks, asset managers, rating agencies and industry bodies. Newest first.</p></div>
-    <section class="card">${rows.length ? feedHtml(rows, "research", researchRow, "", true) : '<p class="empty">No research yet.</p>'}</section>`;
-}
+// Credit research/commentary now lives in the merged News tab (mergedNewsItems /
+// unifiedNewsRow); the standalone Commentary view has been folded in.
 
 function newsRowFull(x) {
   const sid = newsSaveId(x);
@@ -1758,17 +1751,45 @@ function newsRowFull(x) {
   </div>`;
 }
 
+// Combined News + Commentary. News = tracked-manager & investor press;
+// Commentary = credit research / white papers. Each item keeps a type so the two
+// stay distinguishable via a tag at the end of the row. Newest first, no day
+// breaks — the published date sits inline at the start of each row.
+function mergedNewsItems() {
+  const news = aggregateNews().map((x) => ({
+    _type: "News", _id: "n:" + (x._id || x.url || x.title), _mid: x._mid, _fkey: feedDedupKey(x),
+    date: x.date || "", time: x.time || "", title: x.title, url: x.url,
+    src: `${link(`#/manager/${x._mid}`, x._mname, "muted small")}${x.outlet ? ` · <span class="muted small">${esc(x.outlet)}</span>` : ""}`,
+    hay: `${x.title || ""} ${x.outlet || ""} ${x._mname || ""}`.toLowerCase(),
+  }));
+  const comm = (research || []).map((r) => ({
+    _type: "Commentary", _id: "r:" + r.id, _mid: null,
+    date: r.date || "", time: r.time || "", title: r.title, url: r.url,
+    src: `<span class="muted small">${esc(r.institution)}${r.type ? " · " + esc(r.type) : ""}</span>`,
+    hay: `${r.title || ""} ${r.institution || ""} ${r.type || ""}`.toLowerCase(),
+  }));
+  return [...news, ...comm].sort((a, b) => `${b.date} ${b.time}`.localeCompare(`${a.date} ${a.time}`));
+}
+function unifiedNewsRow(x) {
+  const head = x.url
+    ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a>`
+    : `<span class="intel-head">${esc(x.title)}</span>`;
+  const tag = `<span class="intel-type ${x._type === "Commentary" ? "is-commentary" : "is-news"}">${esc(x._type)}</span>`;
+  return `<div class="intel-row oneline" id="row-${esc(x._id)}"${x._fkey ? ` data-fkey="${esc(x._fkey)}"` : ""}>
+    <span class="intel-date muted small">${x.date ? esc(fmtDate(x.date)) : ""}</span>${head}<span class="intel-src-inline muted small">${x.src}</span>${tag}
+  </div>`;
+}
 function viewNews() {
   const f = filterState.news;
-  const all = aggregateNews().filter((x) => !targetFocus || midInFocus(x._mid));
-  const rows = all.filter((x) => !f.q || `${x.title || ""} ${x.outlet || ""} ${x._mname || ""}`.toLowerCase().includes(f.q.toLowerCase()));
+  const all = mergedNewsItems().filter((x) => !targetFocus || !x._mid || midInFocus(x._mid));
+  const rows = all.filter((x) => !f.q || x.hay.includes(f.q.toLowerCase()));
 
   app.innerHTML = `
-    <div class="page-head"><div class="ph-head-top"><h1>News</h1>${focusToggle()}</div><p class="muted">${rows.length} of ${all.length} items · manager &amp; investor press across the tracked universe</p></div>
+    <div class="page-head"><div class="ph-head-top"><h1>News</h1>${focusToggle()}</div><p class="muted">${rows.length} of ${all.length} items · manager &amp; investor press plus credit research across the tracked universe</p></div>
     <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label><div class="filters">
-      <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Headline, outlet, manager…" value="${esc(f.q)}"></label>
+      <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Headline, source, manager…" value="${esc(f.q)}"></label>
     </div>
-    <section class="card">${rows.length ? feedHtml(rows, "news", newsRowFull, JSON.stringify(f), true) : '<p class="empty">No news items match your search.</p>'}</section>`;
+    <section class="card">${rows.length ? feedFlat(rows, "news", unifiedNewsRow, JSON.stringify(f)) : '<p class="empty">No items match your search.</p>'}</section>`;
   wireFilters("news");
   applyPendingFocus("news");
 }
@@ -2122,7 +2143,7 @@ function router() {
     case "lps": return viewLps();
     case "lp": return viewLp(arg);
     case "news": return viewNews();
-    case "commentary": return viewCommentary();
+    case "commentary": return viewNews(); // merged into News; keep legacy deep-links working
     case "intel": return viewIntel();
     case "deals": return viewDeals();
     case "clos": return viewClos();
@@ -2136,7 +2157,7 @@ function router() {
 // (wrapping around). Ignored on detail pages and when the gesture starts on an
 // interactive control (slider, input, dropdown, link, chart, table) or a screen
 // edge (reserved for the browser's back/forward gesture).
-const SWIPE_SECTIONS = ["#/", "#/news", "#/commentary", "#/deals", "#/intel", "#/clos", "#/managers", "#/funds", "#/lps", "#/watchlist"];
+const SWIPE_SECTIONS = ["#/", "#/news", "#/deals", "#/intel", "#/clos", "#/managers", "#/funds", "#/lps", "#/watchlist"];
 const SWIPE_IGNORE = "input, textarea, select, button, a, .range-slider, .ms, .ms-pop, .table-wrap, .data-table, svg, .donut-wrap, .chart";
 let swX = 0, swY = 0, swT = 0, swSkip = true;
 document.addEventListener("touchstart", (e) => {

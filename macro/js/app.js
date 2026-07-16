@@ -408,7 +408,7 @@ function commentaryRow(n) {
     : `<span class="intel-head">${esc(n.title)}</span>`;
   const src = `${esc(n.source)}${n.author ? " · " + esc(n.author) : ""}`;
   return `<div class="intel-row" data-said="${esc(articleSaveId(n))}">
-    <span class="intel-date muted small">${esc(n.time || "")}</span>${head}<span class="intel-src-inline muted small">${src}</span>${saveBtn(articleSaveId(n))}
+    <span class="intel-date muted small">${esc(fmtDayGB(n.date))}</span>${head}<span class="intel-src-inline muted small">${src}</span>${saveBtn(articleSaveId(n))}
   </div>`;
 }
 // Group a list of articles (newest first) into month sections: "JULY 2026" etc.
@@ -440,7 +440,7 @@ function commentaryPanelHtml() {
   const items = sortedArticles();
   if (!items.length) return `<p class="muted small">The reading list is temporarily unavailable.</p>`;
   const shown = Math.min(commentaryLimit, items.length);
-  const rows = withDayBreaks(items.slice(0, shown), commentaryRow, true);
+  const rows = items.slice(0, shown).map(commentaryRow).join("");
   const remaining = items.length - shown;
   const foot = remaining > 0
     ? `<div class="comm-foot"><button type="button" id="comm-more" class="load-more-btn">Show ${Math.min(COMMENTARY_PAGE, remaining)} more · ${remaining} remaining</button></div>`
@@ -473,7 +473,7 @@ function viewSaved() {
   const saved = getSavedM();
   const items = sortedArticles().filter((n) => saved.has(articleSaveId(n)));
   const body = items.length
-    ? withDayBreaks(items, commentaryRow, true)
+    ? items.map(commentaryRow).join("")
     : `<p class="muted">You haven't saved anything yet. On the <a href="#/commentary">Commentary</a> tab, click the ☆ Save button on any article to add it here${savedMCloud ? " — your saved list syncs across your devices" : ""}.</p>`;
   return `
     <div class="page-head">
