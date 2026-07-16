@@ -318,21 +318,103 @@ function sourceList(sources) {
   }</ul></div>`;
 }
 
+// Dense terminal screen (canonical tui.css format): ticker (policy/cycle/bubble)
+// + policy & regime rail (left) + commentary/news wire with filter chips (centre)
+// + economic indicators (async) & upcoming releases (right).
 function viewDashboard() {
-  return `
-    <div class="page-head page-head-row">
-      <div class="page-head-main">
-        <h1>Macro Intelligence</h1>
-        <p class="muted">Key US &amp; UK economic indicators plus the policy-rate outlook and where we sit in the credit cycle.</p>
-      </div>
-      <div class="page-head-tools">
-        ${renderReleases()}
-        <div class="chart-range" role="group" aria-label="Sparkline time range">
-          ${Object.keys(DASH_RANGES).map((r) => `<button type="button" class="chart-range-btn dash-range-btn${dashRange === r ? " is-on" : ""}" data-drange="${r}">${r.toUpperCase()}</button>`).join("")}
-        </div>
-      </div>
+  const comp = bubbleComposite();
+  const bBand = bubbleBand(comp);
+  const cycUS = String(CYCLE.us.shortStage || "").split("—")[0].trim();
+  const metrics = [
+    ["US policy", OUTLOOK.us.rate], ["UK policy", OUTLOOK.uk.rate],
+    ["US next", OUTLOOK.us.next], ["UK next", OUTLOOK.uk.next],
+    ["Cycle", cycUS], ["Bubble", bBand],
+  ];
+  const comm = [...((COMMENTARY && COMMENTARY.us) || []), ...((COMMENTARY && COMMENTARY.uk) || [])].map((x) => ({ ...x, _kind: "comm" }));
+  const news = [...((NEWS && NEWS.us) || []), ...((NEWS && NEWS.uk) || [])].map((x) => ({ ...x, _kind: "news" }));
+  const wire = [...comm, ...news].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  const KIND = { comm: "COMM", news: "NEWS" };
+  const wireRow = (x) => {
+    const url = x.url || "", src = x.source || "";
+    const auth = x.author ? `<span class="tw-mgr-w"><span class="tw-mgr">${esc(x.author)}</span></span>` : "";
+    return `<li class="compact-item tw-row" data-kind="${x._kind}">`
+      + `<span class="tw-date">${x.date ? esc(fmtDate(x.date)) : ""}</span>`
+      + `<span class="tw-tag ${x._kind}">${KIND[x._kind]}</span>`
+      + `<span class="tw-body"><a href="${esc(url)}" target="_blank" rel="noopener noreferrer" class="tw-head">${esc(x.title)}</a>${auth}</span>`
+      + `<span class="tw-src">${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(src)}</a>` : esc(src)}</span>`
+      + `</li>`;
+  };
+  const rel = [...RELEASES].sort((a, b) => String(a.date).localeCompare(String(b.date))).slice(0, 12);
+  const relRow = (r) => `<li class="tmini-row"><a class="tmini-t" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">${esc(r.title)}</a><span class="tmini-m">${esc(fmtDayGB(r.date))} · ${esc(r.country)}</span></li>`;
+
+  return `<div class="tdash">
+    <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${esc(v)}</b> ${esc(l)}</span>`).join("")}</div>
+    <div class="tdash-grid">
+      <aside class="tcol tcol-l">
+        <section class="tpanel">
+          <header class="tpanel-h"><span>Policy rate</span><span class="tpanel-x">US · UK</span></header>
+          <ul class="tmini">
+            <li class="tmini-row"><a class="tmini-t" href="#/policy">US ${esc(OUTLOOK.us.rate)}</a><span class="tmini-m">Next ${esc(OUTLOOK.us.next)} · ${esc(OUTLOOK.us.stance)}</span></li>
+            <li class="tmini-row"><a class="tmini-t" href="#/policy">UK ${esc(OUTLOOK.uk.rate)}</a><span class="tmini-m">Next ${esc(OUTLOOK.uk.next)} · ${esc(OUTLOOK.uk.stance)}</span></li>
+          </ul>
+        </section>
+        <section class="tpanel">
+          <header class="tpanel-h"><span>Cycle &amp; bubble</span><span class="tpanel-x">regime</span></header>
+          <ul class="tmini">
+            <li class="tmini-row"><a class="tmini-t" href="#/cycle">Cycle — ${esc(cycUS)}</a><span class="tmini-m">US ${CYCLE.us.pos}/100 · UK ${CYCLE.uk.pos}/100</span></li>
+            <li class="tmini-row"><a class="tmini-t" href="#/bubble">Bubble risk — ${esc(bBand)}</a><span class="tmini-m">${esc(BUBBLE.market)} · ${comp}/100</span></li>
+          </ul>
+        </section>
+      </aside>
+      <section class="tcol tcol-c">
+        <header class="tpanel-h twire-head"><span>Commentary &amp; news</span>
+          <div class="tchips" id="mac-chips">
+            <button type="button" class="tchip is-on" data-k="all">All</button>
+            <button type="button" class="tchip" data-k="comm">Commentary</button>
+            <button type="button" class="tchip" data-k="news">News</button>
+          </div>
+        </header>
+        <ul class="twire compact-list" id="mac-wire">${wire.length ? wire.slice(0, 90).map(wireRow).join("") : '<li class="tw-empty muted small">No items yet.</li>'}</ul>
+      </section>
+      <aside class="tcol tcol-r">
+        <section class="tpanel">
+          <header class="tpanel-h"><span>Economic indicators</span><span class="tpanel-x">US · UK</span></header>
+          <div id="macro-ind"><div class="tw-empty muted small">Loading indicators…</div></div>
+        </section>
+        <section class="tpanel">
+          <header class="tpanel-h"><span>Upcoming releases</span><span class="tpanel-x">calendar</span></header>
+          <ul class="tmini">${rel.map(relRow).join("")}</ul>
+        </section>
+      </aside>
     </div>
-    <div id="macro-body" class="macro-body"><section class="card"><p class="muted">Loading macro data…</p></section></div>`;
+  </div>`;
+}
+// Fill the indicators rail (async) + wire the wire's filter chips.
+const MAC_IND_ORDER = ["base_rate", "two_year", "core_cpi", "services_pmi", "wages", "unemployment"];
+function renderMacroIndRail(series) {
+  const el = document.getElementById("macro-ind");
+  if (!el) return;
+  const tile = (s) => {
+    const pct = s.unit === "%";
+    const val = s.value == null ? "—" : `${(+s.value).toFixed(2)}${pct ? "%" : ""}`;
+    const ch = s.change, dir = ch > 0 ? "up" : ch < 0 ? "down" : "flat", arrow = ch > 0 ? "▲" : ch < 0 ? "▼" : "·";
+    const chg = (ch == null || s.value == null) ? "" : `<span class="mac-ind-c-chg ${dir}">${arrow} ${Math.abs(ch).toFixed(2)}${pct ? "pp" : ""}</span>`;
+    return `<div class="mac-ind"><span class="mac-ind-n">${esc(s.label)}</span><span class="mac-ind-v">${val}</span>${chg}</div>`;
+  };
+  const rowsFor = (c) => MAC_IND_ORDER.map((k) => (series || []).find((s) => s.country === c && s.key === k)).filter(Boolean);
+  const block = (label, c) => { const r = rowsFor(c); return r.length ? `<div class="mac-ind-cty">${label}</div><div class="mac-ind-grid">${r.map(tile).join("")}</div>` : ""; };
+  const html = block("United States", "US") + block("United Kingdom", "UK");
+  el.innerHTML = html || '<div class="tw-empty muted small">Indicators unavailable right now.</div>';
+}
+function macroWireDash() {
+  const chips = document.getElementById("mac-chips"), wire = document.getElementById("mac-wire");
+  if (!chips || !wire) return;
+  chips.onclick = (e) => {
+    const b = e.target.closest(".tchip"); if (!b) return;
+    chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
+    const k = b.dataset.k;
+    wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (k === "all" || r.dataset.kind === k) ? "" : "none"; });
+  };
 }
 
 // --------------------------- saved articles (cloud sync + localStorage) -----
@@ -1115,16 +1197,7 @@ function fetchMacro() {
 }
 async function loadMacro(focus) {
   const data = await fetchMacro();
-  const el = document.getElementById("macro-body");
-  if (!el) return;
-  el.innerHTML = renderMacro(data);
-  // A data-alert notification deep-links here with ?focus=<country>-<key>; the
-  // tiles load async, so scroll to and briefly highlight the matching tile once
-  // the body is in the DOM.
-  if (focus && /^(US|UK)-[a-z_]+$/.test(focus)) {
-    const t = document.getElementById("tile-" + focus);
-    if (t) { t.scrollIntoView({ behavior: "smooth", block: "center" }); t.classList.add("flash"); setTimeout(() => t.classList.remove("flash"), 2200); }
-  }
+  renderMacroIndRail((data && data.series) || []);
 }
 
 // ---- Topbar: last-refresh line (matches Credit/Legal) ----------------------
@@ -1280,7 +1353,7 @@ function render() {
   const body = tab === "commentary" ? viewCommentary() : tab === "policy" ? viewPolicy() : tab === "cycle" ? viewCycle() : tab === "bubble" ? viewBubble() : tab === "chart" ? viewChart() : tab === "saved" ? viewSaved() : viewDashboard();
   app.innerHTML = body;
   syncNav(tab);
-  if (tab === "dashboard") loadMacro(dashFocus);
+  if (tab === "dashboard") { macroWireDash(); loadMacro(dashFocus); }
   if (tab === "commentary") wireCommentary();
   if (tab === "chart") { syncChartAll(); fetchMacro().then(() => { if (currentTab() === "chart") drawChart(); }); }
   window.scrollTo(0, 0);
