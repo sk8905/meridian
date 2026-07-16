@@ -87,22 +87,40 @@ const STYLE = `
 .mcmdk{position:fixed;inset:0;z-index:9000;display:none;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
 .mcmdk.open{display:block}
 .mcmdk *{box-sizing:border-box}
-.mcmdk-scrim{position:absolute;inset:0;background:rgba(9,16,38,.5)}
-.mcmdk-panel{position:relative;max-width:620px;margin:9vh auto 0;background:#fff;border-radius:14px;box-shadow:0 24px 60px rgba(8,20,60,.4);overflow:hidden}
-.mcmdk-input{width:100%;border:0;border-bottom:1px solid #e4e7ef;padding:1rem 1.1rem;font:inherit;font-size:1.05rem;color:#131a2b;outline:none}
+.mcmdk-scrim{position:absolute;inset:0;background:rgba(3,6,12,.62)}
+.mcmdk-panel{position:relative;max-width:620px;margin:9vh auto 0;background:var(--surface,#0c1220);border:1px solid var(--border,#232f47);border-radius:0;box-shadow:0 24px 60px rgba(0,0,0,.55);overflow:hidden}
+.mcmdk-bar{display:flex;align-items:center}
+.mcmdk-mag,.mcmdk-cancel{display:none}
+.mcmdk .mcmdk-input{flex:1 1 auto;width:100%;min-width:0;border:0 !important;border-bottom:1px solid var(--border,#232f47) !important;padding:1rem 1.1rem;font:inherit;font-size:1.05rem;color:var(--ink,#eaf0fb);background:transparent !important;outline:none}
+.mcmdk-input::placeholder{color:var(--faint,#5c6a86)}
 .mcmdk-results{max-height:56vh;overflow-y:auto;overscroll-behavior:contain;padding:.35rem}
-.mcmdk-empty{color:#66708a;font-size:.9rem;padding:1.2rem;text-align:center}
-.mcmdk-row{display:flex;align-items:center;gap:.7rem;padding:.55rem .7rem;border-radius:9px;cursor:pointer}
-.mcmdk-row.sel,.mcmdk-row:hover{background:#eef2fb}
-.mcmdk-tag{flex:0 0 auto;font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.02em;color:#fff;padding:.12rem .3rem;border-radius:5px;width:5.4rem;text-align:center;white-space:nowrap}
-.mcmdk-tag.credit{background:#2b4a7c}.mcmdk-tag.legal{background:#0d9488}.mcmdk-tag.macro{background:#6d5fae}.mcmdk-tag.view{background:#64748b}
+.mcmdk-empty{color:var(--muted,#8592ad);font-size:.9rem;padding:1.2rem;text-align:center}
+.mcmdk-row{display:flex;align-items:center;gap:.7rem;padding:.55rem .7rem;border-radius:0;cursor:pointer}
+.mcmdk-row.sel,.mcmdk-row:hover{background:var(--panel2,rgba(255,255,255,.05))}
+.mcmdk-tag{flex:0 0 auto;font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.02em;color:#fff;padding:.12rem .3rem;border-radius:0;width:5.4rem;text-align:center;white-space:nowrap}
+.mcmdk-tag.credit{background:#4a6b93}.mcmdk-tag.legal{background:#1c3a5e}.mcmdk-tag.macro{background:#2b4a7c}.mcmdk-tag.view{background:#5b6576}
 .mcmdk-txt{min-width:0}
-.mcmdk-t{display:block;font-weight:600;font-size:.9rem;color:#131a2b;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mcmdk-s{display:block;color:#66708a;font-size:.75rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mcmdk-foot{border-top:1px solid #e4e7ef;padding:.5rem .8rem;color:#66708a;font-size:.72rem;display:flex;gap:1rem}
-.mcmdk-foot kbd{background:#eef2fb;border-radius:4px;padding:.05rem .3rem;font-family:inherit;font-weight:700}
+.mcmdk-t{display:block;font-weight:600;font-size:.9rem;color:var(--ink,#eaf0fb);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mcmdk-s{display:block;color:var(--muted,#8592ad);font-size:.75rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mcmdk-foot{border-top:1px solid var(--border,#232f47);padding:.5rem .8rem;color:var(--muted,#8592ad);font-size:.72rem;display:flex;gap:1rem}
+.mcmdk-foot kbd{background:var(--panel2,rgba(255,255,255,.06));border-radius:0;padding:.05rem .3rem;font-family:inherit;font-weight:700}
 /* On touch phones the tag pill ("Go") and the keyboard-hint footer are irrelevant. */
-@media (max-width:760px){.mcmdk-foot{display:none}.mcmdk-tag{width:4rem;padding:.1rem .18rem;font-size:.52rem;letter-spacing:.01em}}`;
+@media (max-width:760px){.mcmdk-foot{display:none}.mcmdk-tag{width:4rem;padding:.1rem .18rem;font-size:.52rem;letter-spacing:.01em}}
+/* iPhone: Bloomberg-Go full-screen search — top bar (magnifier · field · Cancel),
+   results filling the screen, terminal-styled. */
+@media (max-width:760px){
+  .mcmdk{z-index:9000}
+  .mcmdk-scrim{display:none}
+  .mcmdk-panel{position:fixed;inset:0;top:0;left:0;right:0;bottom:0;margin:0;max-width:none;width:100vw;height:100dvh;max-height:100dvh;border:0;border-radius:0;box-shadow:none;display:flex;flex-direction:column;overflow:hidden;background:var(--bg,#05080f)}
+  .mcmdk-bar{flex:0 0 auto;gap:9px;padding:6px 8px 6px 13px;padding-top:calc(env(safe-area-inset-top,0px) + 8px);background:var(--head,#080d17);border-bottom:1px solid var(--border,#232f47)}
+  .mcmdk-mag{display:block;flex:0 0 auto;width:18px;height:18px;color:var(--faint,#5c6a86)}
+  .mcmdk .mcmdk-input{border:0 !important;border-bottom:0 !important;padding:.5rem .1rem;font-size:16px}
+  .mcmdk-cancel{display:block;flex:0 0 auto;border:0;background:transparent;color:var(--accent,#f28c3c);font:inherit;font-size:14px;font-weight:600;padding:.4rem .35rem;cursor:pointer;white-space:nowrap}
+  .mcmdk-results{flex:1 1 auto;max-height:none;padding:0}
+  .mcmdk-row{border-bottom:1px solid var(--border,#232f47);padding:.72rem .9rem;gap:.7rem}
+  .mcmdk-t{font-size:.95rem}.mcmdk-s{font-size:.8rem}
+  .mcmdk-empty{padding:1.4rem}
+}`;
 
 let _mounted = false;
 export function mountPalette() {
@@ -114,7 +132,11 @@ export function mountPalette() {
   ov.className = "mcmdk"; ov.id = "mcmdk"; ov.setAttribute("role", "dialog"); ov.setAttribute("aria-modal", "true"); ov.setAttribute("aria-label", "Search Meridian");
   ov.innerHTML = `<div class="mcmdk-scrim" data-close></div>
     <div class="mcmdk-panel">
-      <input class="mcmdk-input" type="text" placeholder="Search deals, managers, cases, indicators, views…" autocomplete="off" spellcheck="false" aria-label="Search" />
+      <div class="mcmdk-bar">
+        <svg class="mcmdk-mag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.6" y1="15.6" x2="21" y2="21"/></svg>
+        <input class="mcmdk-input" type="text" placeholder="Search deals, managers, cases…" autocomplete="off" spellcheck="false" aria-label="Search" />
+        <button class="mcmdk-cancel" type="button" data-close aria-label="Cancel search">Cancel</button>
+      </div>
       <div class="mcmdk-results"></div>
       <div class="mcmdk-foot"><span><kbd>↑</kbd><kbd>↓</kbd> navigate</span><span><kbd>↵</kbd> open</span><span><kbd>esc</kbd> close</span></div>
     </div>`;
@@ -151,7 +173,7 @@ export function mountPalette() {
   const open = () => { ov.classList.add("open"); input.value = ""; refresh(); input.focus({ preventScroll: true }); };
   const close = () => ov.classList.remove("open");
 
-  ov.querySelector("[data-close]").addEventListener("click", close);
+  ov.querySelectorAll("[data-close]").forEach((el) => el.addEventListener("click", close));
   // A visible nav search button (any app topbar) opens the palette on click.
   document.addEventListener("click", (ev) => {
     if (ev.target.closest("[data-open-search]") && !ov.classList.contains("open")) { ev.preventDefault(); open(); }

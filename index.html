@@ -559,25 +559,47 @@
     @media (max-width:760px){
       .g-mkt { display:block; }
       .g-mkt-btn { width:32px; height:32px; }
-      /* The button isn't the far-right element (the bell sits to its right), so a
-         button-anchored dropdown would bleed off-screen. Pin the panel to the
-         viewport instead; JS sets `top` from the button's position on open. */
-      .g-mkt-panel { position:fixed; right:8px; left:auto; top:56px;
-        width:min(400px, calc(100vw - 16px)); max-width:none; }
+      /* iPhone: the Markets button opens a FULL-SCREEN terminal panel holding every
+         data rail (markets · rates · FX · indicators · macro read · movers · desks ·
+         deals · restructurings). The news wire is the page; the data lives one tap
+         away and fills the screen when summoned. Rendered in the .tui terminal look
+         (the panel carries the `tui` class), so it matches the desktop rails. */
+      .g-mkt-panel { position:fixed; inset:0; top:0; left:0; right:0; bottom:0;
+        width:100vw; max-width:100vw; height:100dvh; max-height:100dvh;
+        margin:0; padding:0 0 calc(2rem + env(safe-area-inset-bottom, 0px)); border:0; border-radius:0;
+        z-index:130; overflow-y:auto; overscroll-behavior:contain; box-shadow:none;
+        background:var(--t-ground, #05080f); }
+      body.g-mkt-open { overflow:hidden; }
     }
-    /* Inside the panel each band is a 4-column × 2-row grid (nth-child rules use
-       the same (0,3,0) specificity as the sidebar's so they win by source order —
-       this only ever matches when .g-side has been moved into the panel on phones). */
-    .g-mkt-panel .rates-band { grid-template-columns:repeat(4, 1fr); padding:.25rem .2rem; }
-    /* In the 4-col phone panel the tiles are too narrow to keep the daily change
-       and the implied-open bracket on one line without stretching those columns.
-       Let the bracket drop below so every column stays the same width. */
-    .g-mkt-panel .rate-chg-line { flex-wrap:wrap; white-space:normal; gap:.05rem .25rem; }
-    .g-mkt-panel .mkt-fut { font-size:.6rem; }
-    .g-mkt-panel .rate-tile { padding:.4rem .38rem; }
-    .g-mkt-panel .rate-tile:nth-child(n+1) { border-left:1px solid var(--line); border-top:0; }
-    .g-mkt-panel .rate-tile:nth-child(4n+1) { border-left:0; }
-    .g-mkt-panel .rate-tile:nth-child(n+5) { border-top:1px solid var(--line); }
+    /* Sticky header inside the full-screen panel: title + close. Phones only. */
+    .g-mkt-head { display:none; }
+    @media (max-width:760px){
+      .g-mkt-head { position:sticky; top:0; z-index:3; display:flex; align-items:center;
+        justify-content:space-between; gap:10px; min-height:52px; padding:0 12px 0 14px;
+        padding-top:env(safe-area-inset-top, 0px);
+        background:var(--t-head, #080d17); border-bottom:1px solid var(--t-grid2, #232f47); }
+      .g-mkt-title { font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+        color:var(--t-dim, #8592ad); }
+      .g-mkt-close { width:34px; height:34px; flex:0 0 auto; display:grid; place-items:center;
+        border:1px solid var(--t-grid2, #232f47); background:transparent; color:var(--t-ink, #eaf0fb);
+        font-size:15px; line-height:1; cursor:pointer; border-radius:0; }
+      .g-mkt-close:hover { border-color:var(--t-accent, #f28c3c); color:var(--t-accent, #f28c3c); }
+      /* The moved rails stack seamlessly; drop the side dividers, keep a hairline
+         between panels. Flatten the FX / indicators / macro-read cards too so they
+         match the seamless terminal panels around them. */
+      .g-mkt-panel .g-side, .g-mkt-panel .g-side2 { border:0; }
+      .g-mkt-panel .g-ind-card, .g-mkt-panel .g-fx-card, .g-mkt-panel .g-snap {
+        border:0; border-radius:0; box-shadow:none; background:var(--t-panel, #0c1220); margin:0; padding:0; }
+    }
+    /* Legacy floating-dropdown grid (used only if the panel is ever shown WITHOUT
+       the terminal .tui treatment). The full-screen phone panel is always .tui. */
+    .g-mkt-panel:not(.tui) .rates-band { grid-template-columns:repeat(4, 1fr); padding:.25rem .2rem; }
+    .g-mkt-panel:not(.tui) .rate-chg-line { flex-wrap:wrap; white-space:normal; gap:.05rem .25rem; }
+    .g-mkt-panel:not(.tui) .mkt-fut { font-size:.6rem; }
+    .g-mkt-panel:not(.tui) .rate-tile { padding:.4rem .38rem; }
+    .g-mkt-panel:not(.tui) .rate-tile:nth-child(n+1) { border-left:1px solid var(--line); border-top:0; }
+    .g-mkt-panel:not(.tui) .rate-tile:nth-child(4n+1) { border-left:0; }
+    .g-mkt-panel:not(.tui) .rate-tile:nth-child(n+5) { border-top:1px solid var(--line); }
 
     /* ---- Cards (legacy; retained for any residual use) ---- */
     .g-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.1rem; }
@@ -669,6 +691,37 @@
     .cmdk-foot kbd { background:#eef2fb; border-radius:4px; padding:.05rem .3rem; font-family:inherit; font-weight:700; }
     /* On touch phones the tag pill ("Go") and the keyboard-hint footer are irrelevant. */
     @media (max-width:760px){ .cmdk-foot { display:none; } .cmdk-tag { width:4rem; padding:.1rem .18rem; font-size:.52rem; letter-spacing:.01em; } }
+    /* Search bar wrapper. On desktop it's just the input (the magnifier + Cancel are
+       phone-only), so the palette looks exactly as before. */
+    .cmdk-bar { display:flex; align-items:center; }
+    .cmdk-mag, .cmdk-cancel { display:none; }
+    .cmdk-bar .cmdk-input { flex:1 1 auto; }
+    /* iPhone: Bloomberg-Go full-screen search — a top bar (magnifier · field ·
+       Cancel) with results filling the rest of the screen, terminal-styled. */
+    @media (max-width:760px){
+      .cmdk { z-index:140; }
+      .cmdk-scrim { display:none; }
+      .cmdk-panel { position:fixed; inset:0; top:0; left:0; right:0; bottom:0; margin:0;
+        max-width:none; width:100vw; height:100dvh; max-height:100dvh; border-radius:0 !important;
+        box-shadow:none; display:flex; flex-direction:column; overflow:hidden;
+        background:var(--t-ground, #05080f); }
+      .cmdk-bar { flex:0 0 auto; gap:9px; padding:6px 8px 6px 13px;
+        padding-top:calc(env(safe-area-inset-top, 0px) + 8px);
+        background:var(--t-head, #080d17); border-bottom:1px solid var(--t-grid2, #232f47); }
+      .cmdk-mag { display:block; flex:0 0 auto; width:18px; height:18px; color:var(--t-faint, #5c6a86); }
+      .cmdk-input { flex:1 1 auto; min-width:0; border:0 !important; border-bottom:0 !important;
+        background:transparent; padding:.5rem .1rem; font-size:16px; color:var(--t-ink, #eaf0fb); }
+      .cmdk-input::placeholder { color:var(--t-faint, #5c6a86); }
+      .cmdk-cancel { display:block; flex:0 0 auto; border:0; background:transparent;
+        color:var(--t-accent, #f28c3c); font:inherit; font-size:14px; font-weight:600;
+        padding:.4rem .35rem; cursor:pointer; white-space:nowrap; }
+      .cmdk-results { flex:1 1 auto; max-height:none; padding:0; overflow-y:auto; overscroll-behavior:contain; }
+      .cmdk-row { border-bottom:1px solid var(--t-grid2, #232f47); border-radius:0; padding:.72rem .9rem; gap:.7rem; }
+      .cmdk-row.sel, .cmdk-row:hover { background:var(--t-panel2, rgba(255,255,255,.05)); }
+      .cmdk-t { font-size:.95rem; color:var(--t-ink, #eaf0fb); }
+      .cmdk-s { font-size:.8rem; color:var(--t-dim, #8592ad); }
+      .cmdk-empty { color:var(--t-faint, #5c6a86); padding:1.4rem; }
+    }
 
     /* Mobile body-text overrides — placed last so they win over the base
        .g-main / .g-hello / .cmdk-panel rules above. On phones the hero heading
@@ -691,6 +744,10 @@
       /* Smaller, tighter one-liner body on phones (headings unchanged; the
          collapsed-chips + chevron behaviour is shared in the base rules). */
       .g-gl { font-size:.7rem; line-height:1.35; gap:.5rem; }
+    }
+    /* 761–900px only: tablet keeps the floating palette (phones go full-screen via
+       the ≤760 rule, which must win — so this no longer applies at phone width). */
+    @media (min-width:761px) and (max-width:900px){
       .cmdk-panel { margin:8vh 12px 0; }
     }
 
@@ -1015,7 +1072,7 @@
               <button id="g-mkt-btn" class="g-mkt-btn" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="g-mkt-panel" aria-label="Markets & key rates" title="Markets &amp; key rates">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>
               </button>
-              <div class="g-mkt-panel" id="g-mkt-panel" hidden></div>
+              <div class="g-mkt-panel tui" id="g-mkt-panel" hidden></div>
             </div>
             <div class="g-saved" id="g-saved"></div>
             <div class="g-notif" id="g-notif"></div>
@@ -1117,7 +1174,11 @@
     <div class="cmdk" id="cmdk" role="dialog" aria-modal="true" aria-label="Search Meridian">
       <div class="cmdk-scrim" data-close></div>
       <div class="cmdk-panel">
-        <input class="cmdk-input" id="cmdk-input" type="text" placeholder="Search deals, managers, cases, indicators, views…" autocomplete="off" spellcheck="false" />
+        <div class="cmdk-bar">
+          <svg class="cmdk-mag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.6" y1="15.6" x2="21" y2="21"/></svg>
+          <input class="cmdk-input" id="cmdk-input" type="text" placeholder="Search deals, managers, cases…" autocomplete="off" spellcheck="false" />
+          <button class="cmdk-cancel" type="button" data-close aria-label="Cancel search">Cancel</button>
+        </div>
         <div class="cmdk-results" id="cmdk-results"></div>
         <div class="cmdk-foot"><span><kbd>↑</kbd><kbd>↓</kbd> navigate</span><span><kbd>↵</kbd> open</span><span><kbd>esc</kbd> close</span></div>
       </div>
@@ -1152,7 +1213,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-57").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260716-1").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

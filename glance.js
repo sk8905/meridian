@@ -282,13 +282,34 @@ function initMarketsPanel() {
   const btn = document.getElementById("g-mkt-btn");
   const panel = document.getElementById("g-mkt-panel");
   const side = document.querySelector(".g-side");
+  const side2 = document.querySelector(".g-side2");
   const layout = document.querySelector(".g-layout");
+  const feed = document.querySelector(".g-feed-wrap");
   if (!btn || !panel || !side || !layout) return;
   const mq = matchMedia("(max-width:760px)");
-  const close = () => { panel.hidden = true; btn.setAttribute("aria-expanded", "false"); hideScrim(); };
+  // Full-screen panel header (title + close), built once — phones only (CSS hides
+  // it on desktop). Sits above the moved rails so it stays sticky while scrolling.
+  let head = panel.querySelector(".g-mkt-head");
+  if (!head) {
+    head = document.createElement("div");
+    head.className = "g-mkt-head";
+    head.innerHTML = '<span class="g-mkt-title">Markets &amp; data</span>'
+      + '<button type="button" class="g-mkt-close" aria-label="Close markets panel">✕</button>';
+    panel.appendChild(head);
+  }
+  const close = () => { panel.hidden = true; btn.setAttribute("aria-expanded", "false"); document.body.classList.remove("g-mkt-open"); hideScrim(); };
+  // On phones EVERY data rail (left: markets/rates/FX/indicators; right: macro
+  // read/movers/desks/deals/restructurings) lives in the full-screen panel, so the
+  // news wire owns the page. On desktop both rails return to the 3-column grid.
   const place = () => {
-    if (mq.matches) { if (side.parentElement !== panel) panel.appendChild(side); }
-    else { if (side.parentElement !== layout) layout.appendChild(side); close(); }
+    if (mq.matches) {
+      if (side.parentElement !== panel) panel.appendChild(side);
+      if (side2 && side2.parentElement !== panel) panel.appendChild(side2);
+    } else {
+      if (side.parentElement !== layout) layout.insertBefore(side, feed || null);
+      if (side2 && side2.parentElement !== layout) layout.appendChild(side2);
+      close();
+    }
   };
   place();
   mq.addEventListener("change", place);
@@ -297,20 +318,11 @@ function initMarketsPanel() {
     const open = panel.hidden;
     panel.hidden = !open;
     btn.setAttribute("aria-expanded", open ? "true" : "false");
-    // The panel is position:fixed on phones — pin it just under the button in
-    // viewport coords (the bar height varies with the safe-area inset).
-    if (open && mq.matches) {
-      const r = btn.getBoundingClientRect();
-      panel.style.top = `${Math.round(r.bottom + 8)}px`;
-      showScrim(close);
-    } else { hideScrim(); }
+    if (open && mq.matches) { document.body.classList.add("g-mkt-open"); }
+    else { document.body.classList.remove("g-mkt-open"); hideScrim(); }
   });
-  // Tap outside the panel (or press Escape) closes it.
-  document.addEventListener("click", (e) => {
-    if (panel.hidden) return;
-    if (e.target.closest("#g-mkt-panel") || e.target.closest("#g-mkt-btn")) return;
-    close();
-  });
+  // Close button, or Escape.
+  panel.addEventListener("click", (e) => { if (e.target.closest(".g-mkt-close")) close(); });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
 }
 
@@ -1343,7 +1355,7 @@ function wirePalette(idx) {
   document.getElementById("open-cmdk").addEventListener("click", open);
   // Also open from the mobile bottom-bar search button (or any [data-open-search]).
   document.addEventListener("click", (e) => { if (e.target.closest("[data-open-search]")) { e.preventDefault(); open(); } });
-  overlay.querySelector("[data-close]").addEventListener("click", close);
+  overlay.querySelectorAll("[data-close]").forEach((el) => el.addEventListener("click", close));
   input.addEventListener("input", refresh);
   results.addEventListener("click", (ev) => { const r = ev.target.closest(".cmdk-row"); if (r) go(current[+r.getAttribute("data-i")]); });
   input.addEventListener("keydown", (ev) => {
