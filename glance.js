@@ -352,18 +352,18 @@ function renderFeed() {
   const row = (o) => {
     // The item's OWN frozen time (real publish, else the run that first found it —
     // stamped into the data by the routine). No moving global fallback, so a story's
-    // time never re-times to the latest run.
-    const t = o.time || "";
-    const tspan = t ? `<span class="g-feed-time">${esc(t)}</span>` : "";
+    // time never re-times to the latest run. When no time is known, default to
+    // "12:00" (midday) so every row leads with a time.
+    const t = o.time || "12:00";
     return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
-      + tspan
+      + `<span class="g-feed-time">${esc(t)}</span>`
       + `<span class="g-feed-title">${esc(o.title)}</span>`
       + (o.src ? `<span class="g-feed-src">${esc(o.src)}</span>` : "")
       + `<span class="g-feed-desk">${esc(DESK[o.desk])}</span></a>`;
   };
-  // Rank strictly newest→oldest (by day, then publish time), grouped into days;
-  // each day is introduced by a date header and its rows lead with the time.
-  feed.sort((a, b) => day(b).localeCompare(day(a)) || String(b.time || "").localeCompare(String(a.time || "")));
+  // Rank strictly newest→oldest (by day, then publish time); untimed items sort at
+  // midday to match their "12:00" display. Each day is introduced by a date header.
+  feed.sort((a, b) => day(b).localeCompare(day(a)) || String(b.time || "12:00").localeCompare(String(a.time || "12:00")));
   let lastDay = null;
   const body = feed.map((o) => {
     const d = day(o);
