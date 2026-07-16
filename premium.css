@@ -236,12 +236,17 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 /* Menus / popovers / the command palette hardcode a white background. */
 [data-theme="dark"] .g-notif-panel,
 [data-theme="dark"] .notif-panel,
+[data-theme="dark"] .g-sv-panel,
 [data-theme="dark"] .cmdk-panel { background: var(--surface); color: var(--ink); }
 [data-theme="dark"] .notif-item:hover,
 [data-theme="dark"] .notif-item.is-new:hover,
 [data-theme="dark"] .g-np-item:hover,
+[data-theme="dark"] .g-sv-item:hover,
 [data-theme="dark"] .cmdk-item.is-active,
 [data-theme="dark"] .cmdk-item:hover { background: rgba(255,255,255,.06); }
+/* the Home saved menu → terminal surface, squared (matches the notif panel) */
+.g-sv-panel { border-radius: 0 !important; }
+.g-sv-item { border-radius: 0 !important; }
 /* Terminal dropdown/popover rules — squared, hairline, one surface. Covers the
    nav-bar notification panel, the multi-select filter menus and the relative-date
    menu, which otherwise keep a rounded white pill from the base stylesheet. */
