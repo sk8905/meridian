@@ -63,9 +63,17 @@ export function initNavActions() {
       `<button type="button" class="na-btn" id="na-mkt" aria-label="Markets & key rates" aria-haspopup="true" aria-expanded="false" title="Markets & key rates">${ICO_MKT}</button>` +
       `<a class="na-btn" id="na-saved" href="${SAVED_HREF}" aria-label="Saved" title="Saved">${ICO_SAVED}</a>` +
       `<div class="na-panel" id="na-mkt-panel" role="menu" hidden></div>`;
-    // Sit just before the bell so the order is Markets · Saved · Bell.
-    if (notif && notif.parentElement) notif.parentElement.insertBefore(wrap, notif);
-    else bar.appendChild(wrap);
+    // Group Markets · Saved · Bell into ONE right-hand cluster (mirrors the Home
+    // command bar). The section grid assigns the bell its own grid-area, so an
+    // un-placed sibling wraps to a new row on the left — instead we drop the
+    // cluster where the bell was and MOVE the existing #notif element inside it,
+    // keeping its id/handlers intact.
+    if (notif && notif.parentElement) {
+      notif.parentElement.insertBefore(wrap, notif);
+      wrap.appendChild(notif); // Markets · Saved · Bell, in one flex row
+    } else if (bar) {
+      bar.appendChild(wrap);
+    }
 
     const btn = wrap.querySelector("#na-mkt");
     const panel = wrap.querySelector("#na-mkt-panel");

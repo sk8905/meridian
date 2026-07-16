@@ -367,6 +367,15 @@ svg.mtab-ico { width: 22px; height: 22px; }
 
 /* ---- Shared section top-bar actions (nav-actions.js): Markets · Saved · Bell ---- */
 .na-actions { display: inline-flex; align-items: center; gap: .4rem; }
+/* The bell (#notif) is moved inside this cluster by nav-actions.js so Markets ·
+   Saved · Bell read as one right-hand group, exactly like the Home command bar. */
+.na-actions .notif { flex: 0 0 auto; }
+/* On phones the section top bar is a named grid; without an explicit area the
+   cluster would wrap to a new row on the left. Pin it to the bell cell so all
+   three buttons stay together on the right, level with the brand. */
+@media (max-width: 900px) {
+  .topbar .topbar-inner > .na-actions { grid-area: bell; justify-self: end; align-self: center; }
+}
 .na-btn { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--border, #232f47); background: transparent; color: var(--muted, #8592ad); cursor: pointer; border-radius: 0; text-decoration: none; }
 .na-btn svg { width: 19px; height: 19px; }
 .na-btn:hover { color: var(--ink, #eaf0fb); border-color: var(--accent, #f28c3c); }

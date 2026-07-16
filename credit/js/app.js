@@ -760,17 +760,38 @@ function viewDashboard() {
     <div class="tdash">
       <div class="tdash-grid tdash-1">
         <section class="tcol tcol-full">
-          <header class="tpanel-h thead-search"><span>Managers</span>
-            <input type="search" id="mgr-q" class="tsearch" placeholder="Search name or HQ…" value="${esc(fst.q || "")}" aria-label="Search managers">
-            <button type="button" class="tfocus-btn" id="cr-lg-focus" aria-pressed="false" title="Show only €1–10bn AUM managers">€1–10bn</button>
+          <header class="tpanel-h twire-head">
+            <div class="tchips" id="cr-dash-tabs">
+              <button type="button" class="tchip is-on" data-p="managers">Managers</button>
+              <button type="button" class="tchip" data-p="news">News</button>
+            </div>
           </header>
-          <table class="tleague tleague-full">
-            <thead><tr><th>Manager</th><th class="tl-hq">HQ</th><th>AUM</th><th>Credit&nbsp;AUM</th><th>Funds</th><th>In&nbsp;mkt</th><th>CLOs</th></tr></thead>
-            <tbody id="mgr-rows">${mrows.map(mgrRow).join("")}</tbody>
-          </table>
+          <div class="tpanes" id="cr-dash-panes">
+            <div class="tpane" data-p="managers">
+              <header class="tpanel-h thead-search"><span>Managers</span>
+                <input type="search" id="mgr-q" class="tsearch" placeholder="Search name or HQ…" value="${esc(fst.q || "")}" aria-label="Search managers">
+                <button type="button" class="tfocus-btn" id="cr-lg-focus" aria-pressed="false" title="Show only €1–10bn AUM managers">€1–10bn</button>
+              </header>
+              <table class="tleague tleague-full">
+                <thead><tr><th>Manager</th><th class="tl-hq">HQ</th><th>AUM</th><th>Credit&nbsp;AUM</th><th>Funds</th><th>In&nbsp;mkt</th><th>CLOs</th></tr></thead>
+                <tbody id="mgr-rows">${mrows.map(mgrRow).join("")}</tbody>
+              </table>
+            </div>
+            <div class="tpane" data-p="news" hidden>
+              <ul class="twire compact-list" id="cr-dash-wire">${activity.slice(0, 90).map(wireRow).join("") || `<li class="compact-item"><span class="tw-src">No recent items.</span></li>`}</ul>
+            </div>
+          </div>
         </section>
       </div>
     </div>`;
+  // Toggle Managers ↔ News without leaving the page.
+  const dashTabs = document.getElementById("cr-dash-tabs");
+  if (dashTabs) dashTabs.addEventListener("click", (e) => {
+    const b = e.target.closest(".tchip"); if (!b) return;
+    dashTabs.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
+    const p = b.dataset.p;
+    document.querySelectorAll("#cr-dash-panes .tpane").forEach((el) => { el.hidden = el.dataset.p !== p; });
+  });
   const qi = document.getElementById("mgr-q");
   if (qi) qi.addEventListener("input", () => {
     filterState.managers.q = qi.value;
