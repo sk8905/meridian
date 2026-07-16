@@ -353,8 +353,16 @@
          held). Mobile keeps a natural single-column flow (no nested scroll). */
       .g-feed { max-height:65.5rem; overflow-y:auto; overscroll-behavior:contain; } }
     @media (max-width:900px){ .g-layout { grid-template-columns:1fr; gap:1.4rem; } }
-    .g-feed-head { font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em;
-      color:var(--muted); margin:0 0 .5rem; }
+    .g-feed-head { display:flex; align-items:center; gap:.5rem .8rem; flex-wrap:wrap; margin:0 0 .5rem; }
+    .g-feed-h-lbl { font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); }
+    .g-feed-chips { display:flex; gap:.3rem; flex-wrap:wrap; margin-left:auto; }
+    .g-feed-chip { display:inline-flex; align-items:center; gap:.32rem; padding:.16rem .55rem; border:1px solid var(--line);
+      border-radius:999px; background:var(--surface); color:var(--muted); font-size:.68rem; font-weight:700; cursor:pointer;
+      font-family:inherit; line-height:1.3; }
+    .g-feed-chip:hover { border-color:var(--brand-2); color:var(--brand-2); }
+    .g-feed-chip.is-on { background:var(--navy); border-color:var(--navy); color:#fff; }
+    .g-feed-chip-n { font-size:.6rem; font-weight:800; font-variant-numeric:tabular-nums; opacity:.75; }
+    .g-feed-chip.is-on .g-feed-chip-n { opacity:.95; }
     /* Rows mirror the app news feeds exactly: date column, bold headline, muted
        source inline — same card/padding/dividers, so the margins match. */
     .g-feed { background:var(--surface); border:1px solid var(--line); border-radius:16px;
@@ -822,7 +830,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260711-46").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260711-47").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

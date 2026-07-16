@@ -273,6 +273,8 @@ const creditItemHref = (x, tab) => `/credit/#/${x.clo ? "clos" : tab}?focus=${en
 // Falls back to the most-recent date present if nothing is dated today, so the
 // feed is never empty between refreshes.
 const DESK = { m: "Macro", c: "Credit", l: "Legal" };
+// Active desk filter for the home news feed: "all" | "m" | "c" | "l".
+let _feedDesk = "all";
 function renderFeed() {
   // `time` is the article's publish time (e.g. "14:05", Europe/London) when the
   // data carries one — the four-times-daily routine populates it; rows lead with
@@ -314,25 +316,38 @@ function renderFeed() {
 
   // Dedupe by normalised title (Macro market-headlines overlap the US/UK feeds).
   const norm = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
-  const dedupe = (list) => { const seen = new Set(); return list.filter((x) => { const k = norm(x.title); if (seen.has(k)) return false; seen.add(k); return true; }); };
-  const pick = (list) => dedupe(list.filter((x) => day(x) === target).sort(byDateDesc));
-  const lists = [pick(macro), pick(credit), pick(legal)];
-  const seen = new Set();
-  const feed = [];
-  for (let i = 0; lists.some((l) => i < l.length); i++) lists.forEach((l) => {
-    if (i < l.length) { const k = norm(l[i].title); if (!seen.has(k)) { seen.add(k); feed.push(l[i]); } }
-  });
-  // Hold up to 50 stories: if today alone has fewer, backfill with the most recent
-  // items from earlier days (newest-first, deduped). The box shows ~22 at a time
-  // and scrolls internally for the rest (see .g-feed max-height in index.html).
+  const dedupe = (list) => { const s = new Set(); return list.filter((x) => { const k = norm(x.title); if (s.has(k)) return false; s.add(k); return true; }); };
   const CAP = 50;
-  if (feed.length < CAP) {
-    for (const x of all.filter((x) => day(x) !== target).sort(byDateDesc)) {
-      if (feed.length >= CAP) break;
-      const k = norm(x.title); if (!seen.has(k)) { seen.add(k); feed.push(x); }
+  // Per-desk deduped streams (newest first) — power the desk filter and the
+  // "what's new" counts (items in the most recent ~2 days).
+  const byDesk = { m: dedupe([...macro].sort(byDateDesc)), c: dedupe([...credit].sort(byDateDesc)), l: dedupe([...legal].sort(byDateDesc)) };
+  const maxDay = all.reduce((m, x) => (day(x) > m ? day(x) : m), "");
+  const cutoff = (() => { const d = new Date(maxDay + "T00:00:00"); if (isNaN(d)) return ""; d.setDate(d.getDate() - 1); return d.toISOString().slice(0, 10); })();
+  const recentN = (list) => (cutoff ? list.filter((x) => day(x) >= cutoff).length : list.length);
+  const counts = { m: recentN(byDesk.m), c: recentN(byDesk.c), l: recentN(byDesk.l) };
+
+  let feed;
+  if (_feedDesk === "all") {
+    const pick = (list) => dedupe(list.filter((x) => day(x) === target).sort(byDateDesc));
+    const lists = [pick(macro), pick(credit), pick(legal)];
+    const seen = new Set();
+    feed = [];
+    for (let i = 0; lists.some((l) => i < l.length); i++) lists.forEach((l) => {
+      if (i < l.length) { const k = norm(l[i].title); if (!seen.has(k)) { seen.add(k); feed.push(l[i]); } }
+    });
+    // Hold up to 50 stories: if today alone has fewer, backfill with the most
+    // recent earlier items (newest-first, deduped).
+    if (feed.length < CAP) {
+      for (const x of all.filter((x) => day(x) !== target).sort(byDateDesc)) {
+        if (feed.length >= CAP) break;
+        const k = norm(x.title); if (!seen.has(k)) { seen.add(k); feed.push(x); }
+      }
     }
+    feed.length = Math.min(feed.length, CAP);
+  } else {
+    // Single desk: that desk's most-recent items, up to the cap.
+    feed = byDesk[_feedDesk].slice(0, CAP);
   }
-  feed.length = Math.min(feed.length, CAP);
 
   const row = (o) => {
     // The item's OWN frozen time (real publish, else the run that first found it —
@@ -356,9 +371,14 @@ function renderFeed() {
     lastDay = d;
     return hdr + row(o);
   }).join("");
-  setHTML("g-feed", feed.length ? body : `<div class="g-empty">No news yet today — check back shortly.</div>`);
+  setHTML("g-feed", feed.length ? body : `<div class="g-empty">No ${_feedDesk === "all" ? "news yet today" : DESK[_feedDesk] + " items"} — check back shortly.</div>`);
   const head = document.getElementById("g-feed-head");
-  if (head) head.textContent = feed.length ? "Latest news" : "Today";
+  if (head) {
+    const chip = (k, label) => `<button type="button" class="g-feed-chip${_feedDesk === k ? " is-on" : ""}" data-desk="${k}" aria-pressed="${_feedDesk === k}">${label}${k !== "all" && counts[k] ? `<span class="g-feed-chip-n">${counts[k] > 99 ? "99+" : counts[k]}</span>` : ""}</button>`;
+    head.innerHTML = `<span class="g-feed-h-lbl">Latest news</span>`
+      + `<span class="g-feed-chips" role="group" aria-label="Filter by desk">${chip("all", "All")}${chip("m", "Macro")}${chip("c", "Credit")}${chip("l", "Legal")}</span>`;
+    head.querySelectorAll(".g-feed-chip").forEach((b) => b.addEventListener("click", () => { _feedDesk = b.dataset.desk; renderFeed(); }));
+  }
 }
 // ---- Macro snapshot (right sidebar) ----------------------------------------
 // A compact read of the three Macro views — policy rate, cycle position and
