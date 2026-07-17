@@ -1008,6 +1008,22 @@
     .g-top .g-actions button,.g-top .theme-toggle,.g-top .g-sv-btn,.g-top .g-mkt-btn{ border-radius:0; }
     .g-top .g-notif-panel,.g-top .g-sv-panel,.g-top .g-mkt-panel{ border-radius:0; }
     .cmdk-panel,.cmdk-input,.cmdk-results .cmdk-item{ border-radius:0; }
+    /* Touch devices: never show the row/story hover state while a finger rests on
+       a row during a scroll. :hover latches on touch, so a headline would flash
+       orange under the thumb — neutralise every scrollable-row hover here (a real
+       tap navigates; it doesn't need a hover tint). Desktop pointers are
+       unaffected because they don't match (hover: none). */
+    @media (hover: none) {
+      .tui .g-feed-row:hover,
+      .tui .tui-li:hover,
+      .tui .rate-tile:hover{ background:transparent; }
+      .tui a.g-feed-row:hover .g-feed-title,
+      .tui .tui-li:hover .tui-li-t,
+      .tui a.rate-tile:hover .rate-label,
+      .tui a.rate-tile:hover .rate-val,
+      a.g-feed-row:hover .g-feed-title,
+      :root[data-theme="dark"] a.g-feed-row:hover .g-feed-title{ color:inherit; }
+    }
   </style>
   <link rel="stylesheet" href="/premium.css?v=20260716-15" />
 </head>

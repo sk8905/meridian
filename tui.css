@@ -112,7 +112,6 @@
 .tpanel-x { margin-left: auto; font-size: 9.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
 /* league €1–10bn focus toggle */
 .tfocus-btn { margin-left: auto; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 9.5px; font-weight: 600; padding: 2px 7px; cursor: pointer; border-radius: 0; font-family: var(--t-mono); }
-.tfocus-btn:hover { color: var(--ink); }
 .tfocus-btn.is-on { color: #fff; background: var(--accent); border-color: var(--accent); }
 
 /* centre activity wire */
@@ -124,26 +123,21 @@
   border: 0; border-right: 1px solid var(--border); background: transparent; padding: 0 8px;
   font-size: 11px; color: var(--muted); cursor: pointer; height: 100%; border-radius: 0; }
 .tchip:last-child { border-right: 0; }
-.tchip:hover { color: var(--ink); }
 .tchip.is-on { color: var(--ink); font-weight: 600; box-shadow: inset 0 -2px 0 var(--accent, #f28c3c); }
 .twire { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1 1 auto; min-height: 0; }
 /* single line, matching Home: date | CODE | headline (+ inline manager) | source */
 .twire .compact-item { display: grid; grid-template-columns: 70px 30px minmax(0,1fr) auto; column-gap: 10px; padding: 5px 12px; border-bottom: 1px solid var(--border); align-items: baseline; }
-.twire .compact-item:hover { background: rgba(255,255,255,.03); }
 .tw-date { grid-column: 1; font-family: var(--t-mono); font-size: 11px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .tw-tag { grid-column: 2; font-family: var(--t-mono); font-size: 8px; font-weight: 700; letter-spacing: .03em; color: var(--muted); }
 .tw-tag.deal { color: #f28c3c; } .tw-tag.intel { color: #cc9f43; } .tw-tag.clo { color: #9b83e2; } .tw-tag.news { color: #4fa89c; }
 .tw-body { grid-column: 3; display: flex; gap: 6px; align-items: baseline; min-width: 0; }
 .tw-head { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; font-weight: 400; line-height: 1.35; color: var(--ink); }
-.twire .compact-item:hover .tw-head { color: var(--accent); }
 .tw-mgr-w { flex: 0 0 auto; white-space: nowrap; max-width: 42%; overflow: hidden; text-overflow: ellipsis; }
 .tw-mgr-w::before { content: "· "; color: var(--faint); }
 /* manager links inline in rows / rails: mono, light grey (not accent) */
 .tw-mgr, .compact-mgr { font-family: var(--t-mono); font-size: 11px; color: var(--muted); }
-.tw-mgr:hover, .compact-mgr:hover { color: var(--ink); text-decoration: underline; }
 .tw-src { grid-column: 4; text-align: right; white-space: nowrap; font-size: 10px; color: var(--faint); font-family: var(--t-mono); padding-left: 12px; max-width: 150px; overflow: hidden; text-overflow: ellipsis; }
 .tw-src a { color: var(--faint); }
-.tw-src a:hover { color: var(--accent); }
 .tw-empty { padding: 12px; }
 
 /* left league table */
@@ -153,22 +147,35 @@
 .tleague .tl-nm { color: var(--ink); max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tleague .tl-n { text-align: right; color: var(--muted); font-family: var(--t-mono); }
 .tleague th:not(:first-child) { text-align: right; }
-.tleague tr.clickable:hover { background: rgba(255,255,255,.03); cursor: pointer; }
-.tleague tr.clickable:hover .tl-nm { color: var(--accent, #f28c3c); }
+.tleague tr.clickable { cursor: pointer; }
 
 /* right rails */
 .tmini { list-style: none; margin: 0; padding: 0; }
 .tmini-row { display: block; padding: 6px 12px; border-bottom: 1px solid var(--border); }
 .tmini-row:last-child { border-bottom: 0; }
 .tmini-t { display: block; font-size: 11.5px; color: var(--ink); font-weight: 600; line-height: 1.3; }
-.tmini-row.clickable:hover, .tmini-row:hover { background: rgba(255,255,255,.03); cursor: pointer; }
-.tmini-row:hover .tmini-t { color: var(--accent, #f28c3c); }
+.tmini-row.clickable { cursor: pointer; }
 .tmini-m { display: block; font-size: 9.5px; color: var(--muted); margin-top: 2px; }
 
-/* light theme: hover tint darker */
-:root[data-theme="light"] .twire .compact-item:hover,
-:root[data-theme="light"] .tleague tr.clickable:hover,
-:root[data-theme="light"] .tmini-row:hover { background: rgba(11,31,68,.04); }
+/* Hover affordances live behind (hover: hover) so a touch device NEVER shows the
+   orange/tint hover state while a finger rests on a row mid-scroll — on phones a
+   headline only reacts to a real tap (which navigates). Desktop pointers keep the
+   full hover feedback. */
+@media (hover: hover) {
+  .tfocus-btn:hover { color: var(--ink); }
+  .tchip:hover { color: var(--ink); }
+  .twire .compact-item:hover { background: rgba(255,255,255,.03); }
+  .twire .compact-item:hover .tw-head { color: var(--accent); }
+  .tw-mgr:hover, .compact-mgr:hover { color: var(--ink); text-decoration: underline; }
+  .tw-src a:hover { color: var(--accent); }
+  .tleague tr.clickable:hover { background: rgba(255,255,255,.03); }
+  .tleague tr.clickable:hover .tl-nm { color: var(--accent, #f28c3c); }
+  .tmini-row.clickable:hover, .tmini-row:hover { background: rgba(255,255,255,.03); }
+  .tmini-row:hover .tmini-t { color: var(--accent, #f28c3c); }
+  :root[data-theme="light"] .twire .compact-item:hover,
+  :root[data-theme="light"] .tleague tr.clickable:hover,
+  :root[data-theme="light"] .tmini-row:hover { background: rgba(11,31,68,.04); }
+}
 
 /* =====================================================================
    iPhone / narrow: the fixed 3-column terminal degrades to a single
@@ -305,9 +312,37 @@
 .mac-ind-c-chg { font-family: var(--t-mono); font-size: 9px; }
 .mac-ind-c-chg.up { color: #3fc08d; } .mac-ind-c-chg.down { color: #f26d84; } .mac-ind-c-chg.flat { color: var(--faint); }
 /* Macro "Dashboard" chip pane (FedWatch · dot plot · regime gauges) — scrolls
-   inside the centre terminal column, swapping in for the news wire. */
-.mac-dash-pane { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 12px 14px 20px; }
+   inside the centre terminal column, swapping in for the news wire. Everything is
+   pinned to the terminal type scale and runs edge-to-edge (no card insets), so it
+   reads at the same size and full width as the rest of the app. Scoped to the pane
+   so the standalone cycle/bubble reading pages keep their larger sizes. */
+.mac-dash-pane { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 0; }
 .mac-dash-pane[hidden] { display: none; }
-.mac-dash-pane .macro-subhead:first-child { margin-top: 0; }
+/* Section sub-heads render as terminal panel headers (full-bleed hairline bars). */
+.mac-dash-pane .macro-subhead { font-size: 11px; font-weight: 600; letter-spacing: .02em;
+  text-transform: uppercase; color: var(--muted); margin: 0; padding: 7px 12px;
+  background: var(--head); border-bottom: 1px solid var(--border); border-top: 1px solid var(--border); }
+.mac-dash-pane .macro-subhead:first-child { border-top: 0; }
+/* Cards → seamless full-width panels. */
+.mac-dash-pane .macro-cols { display: block; gap: 0; margin: 0; }
+.mac-dash-pane .card { border: 0; border-bottom: 1px solid var(--border); border-radius: 0;
+  margin: 0; padding: 11px 12px; box-shadow: none; background: var(--surface); }
+.mac-dash-pane .macro-country { font-size: 12px; font-weight: 600; color: var(--ink);
+  margin: 0 0 6px; padding-bottom: 5px; border-bottom: 1px solid var(--accent); }
+.mac-dash-pane .macro-note-sub { font-size: 11px; margin: 0 0 9px; line-height: 1.4; color: var(--muted); }
+.mac-dash-pane .pw-src { font-size: 10px; color: var(--accent); }
+.mac-dash-pane .pw-head .macro-country { margin: 0 0 6px; }
+.mac-dash-pane .pw-row { margin-bottom: 9px; }
+.mac-dash-pane .pw-lbl { font-size: 11.5px; font-weight: 400; color: var(--ink); }
+.mac-dash-pane .pw-pct { font-size: 12px; font-weight: 700; font-family: var(--t-mono); color: var(--ink); }
+.mac-dash-pane .pw-track { height: 4px; margin-top: 5px; border-radius: 0; background: var(--border); }
+.mac-dash-pane .pw-fill { background: var(--accent); border-radius: 0; }
+.mac-dash-pane .pw-note { font-size: 10.5px; color: var(--faint); margin-top: 8px; line-height: 1.45; }
+.mac-dash-pane .pw-dots th, .mac-dash-pane .pw-dots td { font-size: 12px; padding: 5px 2px; }
+.mac-dash-pane .pw-dots th { font-weight: 600; color: var(--muted); }
+.mac-dash-pane .pw-dots td { font-family: var(--t-mono); font-weight: 700; color: var(--ink); }
+.mac-dash-pane .gauge-zone { font-size: 8px; }
+.mac-dash-pane .macro-gauge-note { font-size: 10.5px; margin: 8px 0 0; }
+.mac-dash-pane .macro-gauge-note a { color: var(--accent); }
 /* legal wire tags */
 .tw-tag.alert { color: #43b880; } .tw-tag.case { color: #f28c3c; } .tw-tag.rp { color: #cc9f43; }

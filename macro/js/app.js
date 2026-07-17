@@ -271,7 +271,7 @@ function renderMacro(data) {
 // markers on the track. gradId must be unique per gauge on the page.
 let gaugeSeq = 0;
 function trackGauge(zones, items, aria) {
-  const W = 340, H = 104, x0 = 14, x1 = 326, trackY = 56, trackH = 12;
+  const W = 340, H = 104, x0 = 14, x1 = 326, trackY = 58, trackH = 5;
   const gradId = `gaugeGrad${gaugeSeq++}`;
   const X = (p) => x0 + (Math.max(0, Math.min(100, p)) / 100) * (x1 - x0);
   const zoneText = zones.map(([p, t]) => `<text x="${X(p).toFixed(1)}" y="${trackY + trackH + 15}" class="gauge-zone" text-anchor="middle">${esc(t)}</text>`).join("");
@@ -283,8 +283,8 @@ function trackGauge(zones, items, aria) {
     // Hovering the dot shows the value it represents (the visible labels were removed).
     const tip = `<title>${esc(it.label)} · ${it.pos}</title>`;
     return `<g>
-      <line x1="${x}" y1="${trackY - 4}" x2="${x}" y2="${trackY + trackH + 4}" stroke="${MACRO_INK}" stroke-width="2"/>
-      <circle cx="${x}" cy="${trackY + trackH / 2}" r="5" fill="${MACRO_INK}" stroke="var(--surface)" stroke-width="1.5">${tip}</circle>
+      <line x1="${x}" y1="${trackY - 5}" x2="${x}" y2="${trackY + trackH + 5}" stroke="#fff" stroke-width="1.5"/>
+      <circle cx="${x}" cy="${trackY + trackH / 2}" r="4.5" fill="#fff" stroke="#05080f" stroke-width="2">${tip}</circle>
     </g>`;
   }).join("");
   // With the labels gone, the top content is the marker tick (y≈52). Crop the
@@ -293,9 +293,9 @@ function trackGauge(zones, items, aria) {
   const vbTop = 46, vbBot = 92;
   return `<svg viewBox="0 ${vbTop} ${W} ${vbBot - vbTop}" class="gauge" role="img" aria-label="${esc(aria || "")}">
     <defs><linearGradient id="${gradId}" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="var(--gauge-lo)"/><stop offset="1" stop-color="${MACRO_INK}"/>
+      <stop offset="0" stop-color="rgba(255,255,255,.14)"/><stop offset="1" stop-color="rgba(255,255,255,.5)"/>
     </linearGradient></defs>
-    <rect x="${x0}" y="${trackY}" width="${x1 - x0}" height="${trackH}" rx="6" fill="url(#${gradId})"/>
+    <rect x="${x0}" y="${trackY}" width="${x1 - x0}" height="${trackH}" rx="2" fill="url(#${gradId})"/>
     ${zoneText}${marks}
   </svg>`;
 }
