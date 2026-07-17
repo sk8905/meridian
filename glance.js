@@ -24,6 +24,7 @@ const PREMIUM_NEWS = new Set([
   "CNBC",
   "Reuters", "Reuters (via Investing.com)",
   "The Wall Street Journal", "WSJ",
+  "The Economist",
 ]);
 // Low-tier aggregator / SEO / forecast-farm / crypto sources — limited out of the
 // Home macro feed so premium newsrooms dominate (credit & legal desks are the
