@@ -8,7 +8,7 @@
    STRICT SPEC (dark is the default; light mirrors it via tokens):
    • Surfaces  ground #000000 · panel/surface #0d0d0d · panel-header #0a0a0a
    • Ink       primary #eaf0fb · muted #8592ad · faint #5c6a86 · border #262626
-   • Accent    #f28c3c (ONE accent platform-wide; links, active tabs, hovers)
+   • Accent    #fb8b1e (ONE accent platform-wide; links, active tabs, hovers)
    • Up/Down   green #3fc08d / red #f26d84 (functional only)
    • Fonts     system sans for headlines/labels; --t-mono for ALL numbers,
                dates, tickers, tags, sources, manager names (tabular-nums)
@@ -35,8 +35,8 @@
   --ink: #eaf0fb;
   --muted: #8592ad;
   --faint: #5c6a86;
-  --accent: #f28c3c;
-  --primary: #f28c3c;
+  --accent: #fb8b1e;
+  --primary: #fb8b1e;
 }
 
 /* ---- full-bleed content column ---- */
@@ -123,13 +123,13 @@
   border: 0; border-right: 1px solid var(--border); background: transparent; padding: 0 8px;
   font-size: 11px; color: var(--muted); cursor: pointer; height: 100%; border-radius: 0; }
 .tchip:last-child { border-right: 0; }
-.tchip.is-on { color: var(--ink); font-weight: 600; box-shadow: inset 0 -2px 0 var(--accent, #f28c3c); }
+.tchip.is-on { color: var(--ink); font-weight: 600; box-shadow: inset 0 -2px 0 var(--accent, #fb8b1e); }
 .twire { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1 1 auto; min-height: 0; }
 /* single line, matching Home: date | CODE | headline (+ inline manager) | source */
 .twire .compact-item { display: grid; grid-template-columns: 70px 30px minmax(0,1fr) auto; column-gap: 10px; padding: 5px 12px; border-bottom: 1px solid var(--border); align-items: baseline; }
 .tw-date { grid-column: 1; font-family: var(--t-mono); font-size: 11px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .tw-tag { grid-column: 2; font-family: var(--t-mono); font-size: 8px; font-weight: 700; letter-spacing: .03em; color: var(--muted); }
-.tw-tag.deal { color: #f28c3c; } .tw-tag.intel { color: #cc9f43; } .tw-tag.clo { color: #9b83e2; } .tw-tag.news { color: #4fa89c; } .tw-tag.comm { color: #6ea8dc; }
+.tw-tag.deal { color: #fb8b1e; } .tw-tag.intel { color: #cc9f43; } .tw-tag.clo { color: #9b83e2; } .tw-tag.news { color: #4fa89c; } .tw-tag.comm { color: #6ea8dc; }
 .tw-body { grid-column: 3; display: flex; gap: 6px; align-items: baseline; min-width: 0; }
 .tw-head { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; font-weight: 400; line-height: 1.35; color: var(--ink); }
 .tw-mgr-w { flex: 0 0 auto; white-space: nowrap; max-width: 42%; overflow: hidden; text-overflow: ellipsis; }
@@ -169,9 +169,9 @@
   .tw-mgr:hover, .compact-mgr:hover { color: var(--ink); text-decoration: underline; }
   .tw-src a:hover { color: var(--accent); }
   .tleague tr.clickable:hover { background: rgba(255,255,255,.03); }
-  .tleague tr.clickable:hover .tl-nm { color: var(--accent, #f28c3c); }
+  .tleague tr.clickable:hover .tl-nm { color: var(--accent, #fb8b1e); }
   .tmini-row.clickable:hover, .tmini-row:hover { background: rgba(255,255,255,.03); }
-  .tmini-row:hover .tmini-t { color: var(--accent, #f28c3c); }
+  .tmini-row:hover .tmini-t { color: var(--accent, #fb8b1e); }
   :root[data-theme="light"] .twire .compact-item:hover,
   :root[data-theme="light"] .tleague tr.clickable:hover,
   :root[data-theme="light"] .tmini-row:hover { background: rgba(11,31,68,.04); }
@@ -354,4 +354,4 @@
 .mac-dash-pane .macro-gauge-note { font-size: 10.5px; margin: 8px 0 0; }
 .mac-dash-pane .macro-gauge-note a { color: var(--accent); }
 /* legal wire tags */
-.tw-tag.alert { color: #43b880; } .tw-tag.case { color: #f28c3c; } .tw-tag.rp { color: #cc9f43; }
+.tw-tag.alert { color: #43b880; } .tw-tag.case { color: #fb8b1e; } .tw-tag.rp { color: #cc9f43; }

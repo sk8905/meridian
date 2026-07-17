@@ -195,11 +195,11 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 .mgr-vehicle-table { table-layout: fixed; width: 100%; }
 .mgr-vehicle-table td, .mgr-vehicle-table th { overflow: hidden; text-overflow: ellipsis; }
 
-/* ---- The "Sign out" link uses the Wire home-logo blue (#d1701c) at every
+/* ---- The "Sign out" link uses the Wire home-logo blue (#fb8b1e) at every
         point in the app — the top-bar account chip on home (.g-user a) and on
         Credit/Legal/Macro (.account-nav a). The :hover white rules are more
         specific, so hover still turns white. ---- */
-.account-nav a, .g-user a { color: #d1701c; }
+.account-nav a, .g-user a { color: #fb8b1e; }
 
 /* ---- Respect the system reduced-motion preference. ---- */
 @media (prefers-reduced-motion: reduce) {
@@ -225,8 +225,8 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   --bg: #000000; --surface: #141414;
   --ink: #e9eef7; --ink-soft: #c2ccdd; --muted: #8b97ad;
   --line: #262626; --border: #262626;
-  --brand: #2f4d78; --brand-2: #f28c3c;
-  --primary: #f28c3c; --primary-ink: #f6ab6e; --macro-ink: #c9d3e6;
+  --brand: #2f4d78; --brand-2: #fb8b1e;
+  --primary: #fb8b1e; --primary-ink: #f6ab6e; --macro-ink: #c9d3e6;
   --credit: #9aa3b3; --legal: #4cb488;
   --shadow: 0 1px 2px rgba(0,0,0,.5), 0 10px 28px rgba(0,0,0,.55);
   --shadow-lg: 0 14px 36px rgba(0,0,0,.6);
@@ -326,8 +326,8 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   --chart-r4:#3d5d8a; --chart-r5:#5a7aa8; --chart-r6:#7b96b8; --chart-r7:#9fb0c8;
 }
 :root[data-theme="dark"] {
-  --chart-brand:#f28c3c; --chart-other:#5b6576;
-  --chart-r0:#bcd3f2; --chart-r1:#a3c1e9; --chart-r2:#8aafe0; --chart-r3:#f28c3c;
+  --chart-brand:#fb8b1e; --chart-other:#5b6576;
+  --chart-r0:#bcd3f2; --chart-r1:#a3c1e9; --chart-r2:#8aafe0; --chart-r3:#fb8b1e;
   --chart-r4:#5b83c2; --chart-r5:#4d6fa8; --chart-r6:#425e8d; --chart-r7:#3a5178;
 }
 [data-theme="dark"] .bar-track { fill: rgba(255,255,255,.07); }
@@ -363,7 +363,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
 /* Active platform tab: white icon/label + an orange top line, mirroring the
    filter chips' accent underline. */
 [data-theme="dark"] .mtab.is-active { color: #fff !important; background: none !important;
-  box-shadow: inset 0 2px 0 var(--accent, #f28c3c) !important; }
+  box-shadow: inset 0 2px 0 var(--accent, #fb8b1e) !important; }
 /* the page footer hardcodes a white background — dark it so it doesn't show as a
    white band on the now dark-only app (holds the mobile account/refresh block) */
 [data-theme="dark"] .footer { background: #000000; }
@@ -381,7 +381,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
 }
 .na-btn { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--border, #262626); background: transparent; color: var(--muted, #8592ad); cursor: pointer; border-radius: 0; text-decoration: none; }
 .na-btn svg { width: 19px; height: 19px; }
-.na-btn:hover { color: var(--ink, #eaf0fb); border-color: var(--accent, #f28c3c); }
+.na-btn:hover { color: var(--ink, #eaf0fb); border-color: var(--accent, #fb8b1e); }
 .na-panel { position: fixed; right: 8px; top: 56px; width: 320px; max-width: 92vw; max-height: 70vh; overflow-y: auto; z-index: 200; background: var(--surface, #0d0d0d); border: 1px solid var(--border, #262626); box-shadow: 0 12px 34px rgba(0,0,0,.5); }
 .na-panel[hidden] { display: none; }
 .na-sec { font-size: 9px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, #8592ad); font-weight: 700; padding: 8px 12px 4px; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); position: sticky; top: 0; }
@@ -405,7 +405,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
   .acct-foot .account-nav { position: static; color: var(--muted); font-size: .82rem; }
   .acct-foot .account-nav[hidden] { display: none; }
   .acct-foot .account-nav strong { color: var(--ink); font-weight: 600; }
-  .acct-foot .account-nav a { color: #d1701c; }
+  .acct-foot .account-nav a { color: #fb8b1e; }
   .acct-foot .account-nav .si-prefix { display: inline; }
   .acct-foot .data-status { color: var(--muted); font-size: .78rem; }
   /* iOS: the sticky top bar + `html,body{overflow-x:clip}` form a clipping
@@ -488,11 +488,11 @@ svg.mtab-ico { width: 22px; height: 22px; }
 .topbar .platform-switch { align-self: stretch; align-items: stretch; background: transparent; border: 0; border-radius: 0; padding: 0; gap: 0; margin-right: .4rem; }
 .topbar .ps-btn { display: inline-flex; align-items: center; padding: 0 12px; border-radius: 0; font-size: 12px; font-weight: 500; color: #9fb0cc; }
 .topbar .ps-btn:hover { background: rgba(255,255,255,.05); color: #fff; }
-.topbar .ps-btn.is-active, .topbar .ps-btn.is-active:hover { background: rgba(74,168,240,.14); color: #fff; font-weight: 600; box-shadow: inset 0 -2px 0 #f28c3c; }
+.topbar .ps-btn.is-active, .topbar .ps-btn.is-active:hover { background: rgba(74,168,240,.14); color: #fff; font-weight: 600; box-shadow: inset 0 -2px 0 #fb8b1e; }
 .topbar .mainnav { align-self: stretch; align-items: stretch; gap: 0; }
 .topbar .nav-link { display: inline-flex; align-items: center; padding: 0 12px; border-radius: 0; font-size: 12px; font-weight: 500; color: #9fb0cc; }
 .topbar .nav-link:hover, .topbar .nav-link:focus-visible { background: rgba(255,255,255,.05); color: #fff; }
-.topbar .nav-link.active { background: rgba(74,168,240,.14); color: #fff; font-weight: 600; box-shadow: inset 0 -2px 0 #f28c3c; }
+.topbar .nav-link.active { background: rgba(74,168,240,.14); color: #fff; font-weight: 600; box-shadow: inset 0 -2px 0 #fb8b1e; }
 .topbar .nav-link.nav-primary { color: #dbe5f5; }
 .topbar .nav-link.nav-primary.active { color: #fff; }
 .topbar .nav-sep { background: rgba(255,255,255,.14); align-self: center; }

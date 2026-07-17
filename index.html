@@ -20,7 +20,7 @@
   <meta name="description" content="Wire Home — a cross-desk briefing across the Credit, Legal and Macro intelligence platforms, with a unified search." />
   <style>
     :root {
-      --navy:#000000; --brand:#1c3a5e; --brand-2:#d1701c; --accent:#d1701c;
+      --navy:#000000; --brand:#1c3a5e; --brand-2:#fb8b1e; --accent:#fb8b1e;
       --ink:#131a2b; --muted:#66708a; --line:#e4e7ef; --bg:#f4f6fb; --surface:#fff;
       /* Per-section accents — each visibly distinct so the ◆ (and the section's
          "Open →" link, tags and hovers) reads at a glance: Macro purple, Credit
@@ -31,7 +31,7 @@
     /* Dark-mode accents specific to the home page (the shared surfaces/shadows
        live in premium.css). --accent is the sky logo/link blue; --macro is the
        purple section diamond; both lifted for contrast on the dark surface. */
-    :root[data-theme="dark"] { --accent:#f28c3c; --macro:#a58ad8; }
+    :root[data-theme="dark"] { --accent:#fb8b1e; --macro:#a58ad8; }
     * { box-sizing: border-box; }
     html, body { margin:0; padding:0; }
     html { background:var(--navy); }
@@ -116,7 +116,7 @@
       .g-footer .g-idblock { align-items:center; }
       .g-footer .g-user { color:var(--muted); font-size:.82rem; }
       .g-footer .g-user strong { color:var(--ink); }
-      .g-footer .g-user a { color:#d1701c; }
+      .g-footer .g-user a { color:#fb8b1e; }
       .g-footer .g-refresh { color:var(--muted); font-size:.72rem; }
     }
     .g-notif { position:relative; flex:0 0 auto; }
@@ -587,7 +587,7 @@
       .g-mkt-close { width:34px; height:34px; flex:0 0 auto; display:grid; place-items:center;
         border:1px solid var(--t-grid2, #262626); background:transparent; color:var(--t-ink, #eaf0fb);
         font-size:15px; line-height:1; cursor:pointer; border-radius:0; }
-      .g-mkt-close:hover { border-color:var(--t-accent, #f28c3c); color:var(--t-accent, #f28c3c); }
+      .g-mkt-close:hover { border-color:var(--t-accent, #fb8b1e); color:var(--t-accent, #fb8b1e); }
       /* The moved rails stack seamlessly; drop the side dividers, keep a hairline
          between panels. Flatten the FX / indicators / macro-read cards too so they
          match the seamless terminal panels around them. */
@@ -718,7 +718,7 @@
         background:transparent; padding:.5rem .1rem; font-size:16px; color:var(--t-ink, #eaf0fb); }
       .cmdk-input::placeholder { color:var(--t-faint, #5c6a86); }
       .cmdk-cancel { display:block; flex:0 0 auto; border:0; background:transparent;
-        color:var(--t-accent, #f28c3c); font:inherit; font-size:14px; font-weight:600;
+        color:var(--t-accent, #fb8b1e); font:inherit; font-size:14px; font-weight:600;
         padding:.4rem .35rem; cursor:pointer; white-space:nowrap; }
       .cmdk-results { flex:1 1 auto; max-height:none; padding:0; overflow-y:auto; overscroll-behavior:contain; }
       .cmdk-row { border-bottom:1px solid var(--t-grid2, #262626); border-radius:0; padding:.72rem .9rem; gap:.7rem; }
@@ -766,18 +766,18 @@
       --t-ground:#000000; --t-panel:#0d0d0d; --t-panel2:#191919; --t-head:#0a0a0a;
       --t-grid:#1a1a1a; --t-grid2:#262626;
       --t-ink:#eaf0fb; --t-dim:#b7c2da; --t-mut:#8592ad; --t-faint:#5c6a86;
-      --t-accent:#f28c3c; --t-accent-dim:#a86020; --t-accent-soft:rgba(242,140,60,.15);
+      --t-accent:#fb8b1e; --t-accent-dim:#a86020; --t-accent-soft:rgba(251,139,30,.15);
       --t-up:#3fc08d; --t-down:#f26d84;
-      --t-mac:#9b83e2; --t-crd:#f28c3c; --t-lex:#2fbf8a; --t-amber:#d9a441;
+      --t-mac:#9b83e2; --t-crd:#fb8b1e; --t-lex:#2fbf8a; --t-amber:#d9a441;
       --t-shadow:0 1px 2px rgba(0,0,0,.28);
     }
     :root[data-theme="light"] #glance{
       --t-ground:#e7ebf2; --t-panel:#ffffff; --t-panel2:#f3f6fb; --t-head:#f4f7fb;
       --t-grid:#e0e6ef; --t-grid2:#cdd6e3;
       --t-ink:#131b2c; --t-dim:#3b475f; --t-mut:#5e6a84; --t-faint:#8b96ac;
-      --t-accent:#d1701c; --t-accent-dim:#eab98a; --t-accent-soft:rgba(209,112,28,.10);
+      --t-accent:#fb8b1e; --t-accent-dim:#eab98a; --t-accent-soft:rgba(251,139,30,.10);
       --t-up:#0f9d68; --t-down:#df4763;
-      --t-mac:#6a4fa3; --t-crd:#d1701c; --t-lex:#2b8a5f; --t-amber:#b3760f;
+      --t-mac:#6a4fa3; --t-crd:#fb8b1e; --t-lex:#2b8a5f; --t-amber:#b3760f;
       --t-shadow:0 1px 2px rgba(19,27,44,.06);
     }
     #glance{ --t-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; }
@@ -875,11 +875,11 @@
       .tui .g-hello-main, .tui .g-glance{ display:contents; }
       .tui #hello{ white-space:normal; font-size:16px; font-weight:700; color:var(--t-ink); }
       .tui .g-brief{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; font-size:13.5px; min-width:0; }
-      .tui .g-brief-lbl{ color:#f28c3c; opacity:1; }
+      .tui .g-brief-lbl{ color:#fb8b1e; opacity:1; }
       .tui .g-brief-link{ color:var(--t-dim); font-weight:400; }
       .tui .g-gl-block{ display:block; min-width:0; padding:0; border:0; }
       .tui .g-gl{ display:flex; align-items:baseline; gap:7px; min-width:0; padding-right:0; font-size:13.5px; }
-      .tui .g-gl-l{ display:inline; flex:0 0 auto; color:#f28c3c; opacity:1; font-size:9.5px; font-weight:700;
+      .tui .g-gl-l{ display:inline; flex:0 0 auto; color:#fb8b1e; opacity:1; font-size:9.5px; font-weight:700;
         text-transform:uppercase; letter-spacing:.03em; white-space:nowrap; }
       .tui .g-gl-v{ display:block; flex:1 1 auto; min-width:0; color:var(--t-dim);
         white-space:nowrap; overflow:hidden; text-overflow:ellipsis; } }
@@ -1044,8 +1044,8 @@
     .g-top .ps-btn{ display:inline-flex; align-items:center; padding:0 14px; border-radius:0;
       font-size:12px; font-weight:500; color:#9fb0cc; box-shadow:none; }
     .g-top .ps-btn:hover{ background:rgba(255,255,255,.05); color:#fff; }
-    .g-top .ps-btn.is-active,.g-top .ps-btn.is-active:hover{ background:rgba(242,140,60,.15); color:#fff;
-      font-weight:600; box-shadow:inset 0 -2px 0 #f28c3c; }
+    .g-top .ps-btn.is-active,.g-top .ps-btn.is-active:hover{ background:rgba(251,139,30,.15); color:#fff;
+      font-weight:600; box-shadow:inset 0 -2px 0 #fb8b1e; }
     .g-top .g-search-btn{ border-radius:0; font-size:.8rem; padding:.42rem .7rem; }
     .g-top .g-search-btn kbd{ border-radius:0; font-size:.74rem; }
     .g-top .g-actions button,.g-top .theme-toggle,.g-top .g-sv-btn,.g-top .g-mkt-btn{ border-radius:0; }
@@ -1068,7 +1068,7 @@
       :root[data-theme="dark"] a.g-feed-row:hover .g-feed-title{ color:inherit; }
     }
   </style>
-  <link rel="stylesheet" href="/premium.css?v=20260717-3" />
+  <link rel="stylesheet" href="/premium.css?v=20260717-4" />
 </head>
 <body>
   <!-- Loading -->

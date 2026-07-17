@@ -115,7 +115,7 @@ const STYLE = `
   .mcmdk-bar{flex:0 0 auto;gap:9px;padding:6px 8px 6px 13px;padding-top:calc(env(safe-area-inset-top,0px) + 8px);background:var(--head,#080d17);border-bottom:1px solid var(--border,#232f47)}
   .mcmdk-mag{display:block;flex:0 0 auto;width:18px;height:18px;color:var(--faint,#5c6a86)}
   .mcmdk .mcmdk-input{border:0 !important;border-bottom:0 !important;padding:.5rem .1rem;font-size:16px}
-  .mcmdk-cancel{display:block;flex:0 0 auto;border:0;background:transparent;color:var(--accent,#f28c3c);font:inherit;font-size:14px;font-weight:600;padding:.4rem .35rem;cursor:pointer;white-space:nowrap}
+  .mcmdk-cancel{display:block;flex:0 0 auto;border:0;background:transparent;color:var(--accent,#fb8b1e);font:inherit;font-size:14px;font-weight:600;padding:.4rem .35rem;cursor:pointer;white-space:nowrap}
   .mcmdk-results{flex:1 1 auto;max-height:none;padding:0}
   .mcmdk-row{border-bottom:1px solid var(--border,#232f47);padding:.72rem .9rem;gap:.7rem}
   .mcmdk-t{font-size:.95rem}.mcmdk-s{font-size:.8rem}
