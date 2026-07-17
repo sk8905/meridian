@@ -402,12 +402,21 @@ svg.mtab-ico { width: 22px; height: 22px; }
 .na-h-n { color: var(--muted, #8592ad); font-weight: 600; text-transform: none; }
 .na-close { display: none; place-items: center; width: 30px; height: 30px; flex: 0 0 auto; border: 1px solid var(--border, #262626); background: transparent; color: var(--muted, #8592ad); cursor: pointer; font-size: 14px; line-height: 1; }
 .na-close:hover { color: var(--ink, #eaf0fb); border-color: var(--ink, #eaf0fb); }
-/* Markets numeric rows */
-.na-sec { font-size: 9px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, #8592ad); font-weight: 700; padding: 8px 12px 4px; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
+/* Markets rows — mirror the desktop left rail: mono type, section headers with a
+   right-hand sub-label, and Top movers drawn as centre-anchored bars. */
+.na-sec { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 12px; color: var(--ink, #eaf0fb); font-weight: 700; padding: 9px 12px 5px; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
+.na-sec-x { font-weight: 600; font-size: 10px; color: var(--faint, #5c6a86); }
 .na-mrow { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: baseline; padding: 8px 12px; border-bottom: 1px solid var(--border, #262626); font-size: 12px; color: inherit; text-decoration: none; }
 a.na-mrow:hover { background: var(--head, #0a0a0a); }
-.na-l { color: var(--ink, #eaf0fb); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.na-l { font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .na-v, .na-c { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; }
+/* Top-movers row: label · bar · %. */
+.na-mover { grid-template-columns: minmax(0, 1fr) 84px 58px; align-items: center; }
+.na-bar { position: relative; height: 9px; background: var(--head, #0a0a0a); border: 1px solid var(--border, #262626); }
+.na-bar::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--border, #262626); }
+.na-bar-f { position: absolute; top: 0; bottom: 0; }
+.na-bar-f.up { left: 50%; background: #3fc08d; }
+.na-bar-f.down { right: 50%; background: #f26d84; }
 .na-v { color: var(--ink, #eaf0fb); }
 .na-c { min-width: 66px; text-align: right; }
 .na-c.up { color: #3fc08d; } .na-c.down { color: #f26d84; } .na-c.flat { color: var(--faint, #5c6a86); }
@@ -429,7 +438,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
         colour-coded desk tag + mono "time · source" line, hairline dividers. ---- */
 .nf-row { display: block; padding: 12px 14px; border-bottom: 1px solid var(--border, #262626); text-decoration: none; color: inherit; }
 .nf-row:hover { background: var(--head, #0a0a0a); }
-.nf-title { display: block; color: var(--ink, #eaf0fb); font-weight: 600; font-size: 15px; line-height: 1.32; margin-bottom: 7px; }
+.nf-title { display: block; color: var(--ink, #eaf0fb); font-weight: 400; font-size: 15px; line-height: 1.32; margin-bottom: 7px; }
 .nf-meta { display: flex; align-items: center; gap: 8px; min-width: 0; font-family: var(--t-mono, ui-monospace, monospace); font-size: 12px; color: var(--muted, #8592ad); }
 .nf-code { flex: 0 0 auto; font-size: 10px; font-weight: 700; letter-spacing: .04em; padding: 2px 5px; }
 .nf-code.macro { color: #9b83e2; background: color-mix(in srgb, #9b83e2 16%, transparent); }

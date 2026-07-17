@@ -39,15 +39,21 @@ function rateRow(x) {
   const mag = c == null ? "" : (bp ? Math.abs(c) + " bp" : Math.abs(c).toFixed(2));
   return `<div class="na-mrow"><span class="na-l">${esc(x.label)}</span><span class="na-v">${x.value != null ? fmtRateVal(x.value, x.unit) : "—"}</span><span class="na-c ${dir}">${arw} ${mag}</span></div>`;
 }
+// Top movers mirror the desktop rail: label, a centre-anchored bar (green right /
+// red left, proportional to the move) and the % change.
 function moverRow(x) {
   const c = typeof x.changePct === "number" && isFinite(x.changePct) ? x.changePct : null;
   const dir = c == null ? "flat" : c > 0 ? "up" : c < 0 ? "down" : "flat";
-  const arw = c == null ? "·" : c > 0 ? "▲" : c < 0 ? "▼" : "·";
-  const inner = `<span class="na-l">${esc(x.label)}</span><span class="na-v">${x.value != null ? fmtNum(x.value) : "—"}</span><span class="na-c ${dir}">${c == null ? "" : arw + " " + Math.abs(c).toFixed(2) + "%"}</span>`;
+  const pct = c == null ? "" : (c > 0 ? "+" : "") + c.toFixed(2) + "%";
+  const w = c == null ? 0 : Math.max(3, Math.min(50, Math.abs(c) * 15));
+  const inner = `<span class="na-l">${esc(x.label)}</span>`
+    + `<span class="na-bar"><span class="na-bar-f ${dir}" style="width:${w}%"></span></span>`
+    + `<span class="na-c ${dir}">${pct}</span>`;
   return x.href
-    ? `<a class="na-mrow" href="${esc(x.href)}" target="_blank" rel="noopener noreferrer">${inner}</a>`
-    : `<div class="na-mrow">${inner}</div>`;
+    ? `<a class="na-mrow na-mover" href="${esc(x.href)}" target="_blank" rel="noopener noreferrer">${inner}</a>`
+    : `<div class="na-mrow na-mover">${inner}</div>`;
 }
+const naSec = (title, tag) => `<div class="na-sec"><span>${esc(title)}</span><span class="na-sec-x">${esc(tag)}</span></div>`;
 
 let _mktLoaded = false;
 function loadMarkets(body) {
@@ -61,9 +67,9 @@ function loadMarkets(body) {
     const rates = (rt && rt.rates) || [];
     if (!markets.length && !rates.length && !movers.length) { body.innerHTML = '<div class="na-load">Markets unavailable right now.</div>'; return; }
     body.innerHTML =
-      (markets.length ? `<div class="na-sec">Markets</div>${markets.map(marketRow).join("")}` : "") +
-      (rates.length ? `<div class="na-sec">Key rates</div>${rates.map(rateRow).join("")}` : "") +
-      (movers.length ? `<div class="na-sec">Cross-asset ETFs</div>${movers.map(moverRow).join("")}` : "");
+      (markets.length ? naSec("Markets", "live") + markets.map(marketRow).join("") : "") +
+      (rates.length ? naSec("Key rates & spreads", "bp · %") + rates.map(rateRow).join("") : "") +
+      (movers.length ? naSec("Top movers", "1D") + movers.map(moverRow).join("") : "");
   });
 }
 
