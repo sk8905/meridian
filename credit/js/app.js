@@ -776,8 +776,8 @@ function viewDashboard() {
           <header class="tpanel-h twire-head">
             <div class="tchips" id="cr-dash-tabs">
               <button type="button" class="tchip is-on" data-p="all">All</button>
-              <button type="button" class="tchip" data-p="news">News</button>
-              <button type="button" class="tchip" data-p="commentary">Commentary</button>
+              <button type="button" class="tchip" data-p="deals">Deals</button>
+              <button type="button" class="tchip" data-p="fundraising">Fundraising</button>
               <button type="button" class="tchip" data-p="managers">Managers</button>
             </div>
           </header>
@@ -799,7 +799,9 @@ function viewDashboard() {
         </section>
       </div>
     </div>`;
-  // All / News / Commentary filter the one wire; Managers swaps to the league table.
+  // All shows the whole wire (news + commentary merged in); Deals filters to
+  // deal/CLO rows, Fundraising to fund (intel) rows; Managers swaps to the table.
+  const DASH_KIND = { deals: new Set(["deal", "clo"]), fundraising: new Set(["intel"]) };
   const dashTabs = document.getElementById("cr-dash-tabs");
   if (dashTabs) dashTabs.addEventListener("click", (e) => {
     const b = e.target.closest(".tchip"); if (!b) return;
@@ -809,10 +811,9 @@ function viewDashboard() {
     const mgrPane = document.querySelector('#cr-dash-panes [data-pane="managers"]');
     if (p === "managers") { wirePane.hidden = true; mgrPane.hidden = false; return; }
     mgrPane.hidden = true; wirePane.hidden = false;
+    const kinds = DASH_KIND[p];
     wirePane.querySelectorAll(".tw-row").forEach((r) => {
-      const isComm = r.dataset.kind === "comm";
-      const show = p === "all" || (p === "commentary" ? isComm : !isComm);
-      r.style.display = show ? "" : "none";
+      r.style.display = (!kinds || kinds.has(r.dataset.kind)) ? "" : "none";
     });
   });
   const qi = document.getElementById("mgr-q");
