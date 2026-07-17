@@ -703,27 +703,34 @@
     /* ---- Command palette ---- */
     .cmdk { position:fixed; inset:0; z-index:60; display:none; }
     .cmdk.open { display:block; }
-    .cmdk-scrim { position:absolute; inset:0; background:rgba(9,16,38,.5); backdrop-filter:blur(2px); }
-    .cmdk-panel { position:relative; max-width:620px; margin:9vh auto 0; background:#fff; border-radius:14px;
-      box-shadow:0 24px 60px rgba(8,20,60,.4); overflow:hidden; }
-    .cmdk-input { width:100%; border:0; border-bottom:1px solid var(--line); padding:1rem 1.1rem;
-      font:inherit; font-size:1.05rem; outline:none; }
-    .cmdk-results { max-height:56vh; overflow-y:auto; overscroll-behavior:contain; padding:.35rem; }
-    .cmdk-empty { color:var(--muted); font-size:.9rem; padding:1.2rem; text-align:center; }
-    .cmdk-row { display:flex; align-items:center; gap:.7rem; padding:.55rem .7rem; border-radius:9px; cursor:pointer; }
-    .cmdk-row.sel, .cmdk-row:hover { background:#eef2fb; }
-    .cmdk-tag { flex:0 0 auto; font-size:.58rem; font-weight:800; text-transform:uppercase; letter-spacing:.02em;
-      color:#fff; padding:.12rem .3rem; border-radius:5px; width:5.4rem; text-align:center; white-space:nowrap; }
-    .cmdk-tag.credit { background:var(--brand-2); } .cmdk-tag.legal { background:var(--legal); }
-    .cmdk-tag.macro { background:var(--macro); } .cmdk-tag.view { background:#64748b; }
-    .cmdk-txt { min-width:0; }
-    .cmdk-t { display:block; font-weight:600; font-size:.9rem; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .cmdk-s { display:block; color:var(--muted); font-size:.75rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .cmdk-foot { border-top:1px solid var(--line); padding:.5rem .8rem; color:var(--muted); font-size:.72rem;
+    .cmdk-scrim { position:absolute; inset:0; background:rgba(0,0,0,.55); backdrop-filter:blur(2px); }
+    .cmdk-panel { position:relative; max-width:620px; margin:9vh auto 0; background:var(--t-head, #0a0a0a);
+      border:1px solid var(--t-grid2, #262626); border-radius:12px;
+      box-shadow:0 24px 60px rgba(0,0,0,.6); overflow:hidden; }
+    .cmdk-input { width:100%; border:0; border-bottom:1px solid var(--t-grid2, #262626); padding:.9rem 1.1rem;
+      font:inherit; font-size:1rem; outline:none; background:transparent; color:var(--t-ink, #eaf0fb); }
+    .cmdk-input::placeholder { color:var(--t-faint, #5c6a86); }
+    .cmdk-results { max-height:56vh; overflow-y:auto; overscroll-behavior:contain; padding:0; }
+    .cmdk-empty { color:var(--t-faint, #5c6a86); font-size:.9rem; padding:1.2rem; text-align:center; }
+    /* nf-row feed style: headline on top, mono meta line (desk code + sub) below. */
+    .cmdk-row { display:block; padding:9px 14px; border-bottom:1px solid var(--t-grid2, #262626); cursor:pointer; }
+    .cmdk-row.sel, .cmdk-row:hover { background:var(--t-panel2, rgba(255,255,255,.05)); }
+    .cmdk-t { display:block; font-weight:400; font-size:13px; line-height:1.35; margin-bottom:4px;
+      color:var(--t-ink, #eaf0fb); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .cmdk-meta { display:flex; align-items:center; gap:8px; min-width:0;
+      font-family:var(--t-mono, ui-monospace, monospace); font-size:12px; color:var(--t-dim, #8592ad); }
+    .cmdk-code { flex:0 0 auto; font-family:var(--t-mono, ui-monospace, monospace); font-size:9.5px; font-weight:700;
+      letter-spacing:.04em; padding:2px 5px; border-radius:3px; }
+    .cmdk-code.macro { color:var(--t-mac, #9b83e2); background:color-mix(in srgb, var(--t-mac, #9b83e2) 15%, transparent); }
+    .cmdk-code.credit { color:var(--t-crd, #fb8b1e); background:color-mix(in srgb, var(--t-crd, #fb8b1e) 15%, transparent); }
+    .cmdk-code.legal { color:var(--t-lex, #2fbf8a); background:color-mix(in srgb, var(--t-lex, #2fbf8a) 15%, transparent); }
+    .cmdk-code.view { color:var(--t-faint, #5c6a86); background:color-mix(in srgb, var(--t-faint, #5c6a86) 18%, transparent); }
+    .cmdk-s { min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    .cmdk-foot { border-top:1px solid var(--t-grid2, #262626); padding:.5rem .8rem; color:var(--t-faint, #5c6a86); font-size:.72rem;
       display:flex; gap:1rem; }
-    .cmdk-foot kbd { background:#eef2fb; border-radius:4px; padding:.05rem .3rem; font-family:inherit; font-weight:700; }
-    /* On touch phones the tag pill ("Go") and the keyboard-hint footer are irrelevant. */
-    @media (max-width:760px){ .cmdk-foot { display:none; } .cmdk-tag { width:4rem; padding:.1rem .18rem; font-size:.52rem; letter-spacing:.01em; } }
+    .cmdk-foot kbd { background:var(--t-panel2, rgba(255,255,255,.06)); border-radius:4px; padding:.05rem .3rem; font-family:inherit; font-weight:700; }
+    /* On touch phones the keyboard-hint footer is irrelevant. */
+    @media (max-width:760px){ .cmdk-foot { display:none; } }
     /* Search bar wrapper. On desktop it's just the input (the magnifier + Cancel are
        phone-only), so the palette looks exactly as before. */
     .cmdk-bar { display:flex; align-items:center; }
@@ -749,10 +756,9 @@
         color:var(--t-accent, #fb8b1e); font:inherit; font-size:14px; font-weight:600;
         padding:.4rem .35rem; cursor:pointer; white-space:nowrap; }
       .cmdk-results { flex:1 1 auto; max-height:none; padding:0; overflow-y:auto; overscroll-behavior:contain; }
-      .cmdk-row { border-bottom:1px solid var(--t-grid2, #262626); border-radius:0; padding:.72rem .9rem; gap:.7rem; }
+      .cmdk-row { border-bottom:1px solid var(--t-grid2, #262626); border-radius:0; padding:9px 14px; }
       .cmdk-row.sel, .cmdk-row:hover { background:var(--t-panel2, rgba(255,255,255,.05)); }
-      .cmdk-t { font-size:.95rem; color:var(--t-ink, #eaf0fb); }
-      .cmdk-s { font-size:.8rem; color:var(--t-dim, #8592ad); }
+      .cmdk-t { font-size:14px; color:var(--t-ink, #eaf0fb); }
       .cmdk-empty { color:var(--t-faint, #5c6a86); padding:1.4rem; }
     }
 
@@ -1098,7 +1104,7 @@
     .g-top .g-search-btn kbd{ border-radius:0; font-size:.74rem; }
     .g-top .g-actions button,.g-top .theme-toggle,.g-top .g-sv-btn,.g-top .g-mkt-btn{ border-radius:0; }
     .g-top .g-notif-panel,.g-top .g-sv-panel,.g-top .g-mkt-panel{ border-radius:0; }
-    .cmdk-panel,.cmdk-input,.cmdk-results .cmdk-item{ border-radius:0; }
+    .cmdk-panel,.cmdk-input{ border-radius:0; }
     /* Touch devices: never show the row/story hover state while a finger rests on
        a row during a scroll. :hover latches on touch, so a headline would flash
        orange under the thumb — neutralise every scrollable-row hover here (a real
@@ -1341,7 +1347,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260717-32").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260717-33").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

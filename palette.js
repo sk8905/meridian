@@ -86,6 +86,7 @@ function buildIndex() {
   return idx;
 }
 
+const DESKCODE = { credit: "CRD", legal: "LEX", macro: "MAC", view: "GO" };
 const STYLE = `
 .mcmdk{position:fixed;inset:0;z-index:9000;display:none;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
 .mcmdk.open{display:block}
@@ -98,17 +99,20 @@ const STYLE = `
 .mcmdk-input::placeholder{color:var(--faint,#5c6a86)}
 .mcmdk-results{max-height:56vh;overflow-y:auto;overscroll-behavior:contain;padding:.35rem}
 .mcmdk-empty{color:var(--muted,#8592ad);font-size:.9rem;padding:1.2rem;text-align:center}
-.mcmdk-row{display:flex;align-items:center;gap:.7rem;padding:.55rem .7rem;border-radius:0;cursor:pointer}
-.mcmdk-row.sel,.mcmdk-row:hover{background:var(--panel2,rgba(255,255,255,.05))}
-.mcmdk-tag{flex:0 0 auto;font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.02em;color:#fff;padding:.12rem .3rem;border-radius:0;width:5.4rem;text-align:center;white-space:nowrap}
-.mcmdk-tag.credit{background:#4a6b93}.mcmdk-tag.legal{background:#1c3a5e}.mcmdk-tag.macro{background:#2b4a7c}.mcmdk-tag.view{background:#5b6576}
-.mcmdk-txt{min-width:0}
-.mcmdk-t{display:block;font-weight:600;font-size:.9rem;color:var(--ink,#eaf0fb);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.mcmdk-s{display:block;color:var(--muted,#8592ad);font-size:.75rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mcmdk-row{display:block;padding:9px 14px;border-radius:0;cursor:pointer;border-bottom:1px solid var(--border,#262626)}
+.mcmdk-row.sel,.mcmdk-row:hover{background:var(--head,#0a0a0a)}
+.mcmdk-t{display:block;font-weight:400;font-size:13px;line-height:1.35;color:var(--ink,#eaf0fb);margin-bottom:4px}
+.mcmdk-meta{display:flex;align-items:center;gap:8px;min-width:0;font-family:var(--t-mono,ui-monospace,monospace);font-size:12px;color:var(--muted,#8592ad)}
+.mcmdk-code{flex:0 0 auto;font-size:9.5px;font-weight:700;letter-spacing:.04em;padding:2px 5px;text-transform:uppercase}
+.mcmdk-code.macro{color:#9b83e2;background:color-mix(in srgb,#9b83e2 16%,transparent)}
+.mcmdk-code.credit{color:#fb8b1e;background:color-mix(in srgb,#fb8b1e 16%,transparent)}
+.mcmdk-code.legal{color:#2fbf8a;background:color-mix(in srgb,#2fbf8a 16%,transparent)}
+.mcmdk-code.view{color:var(--faint,#5c6a86);background:color-mix(in srgb,#5c6a86 22%,transparent)}
+.mcmdk-s{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .mcmdk-foot{border-top:1px solid var(--border,#232f47);padding:.5rem .8rem;color:var(--muted,#8592ad);font-size:.72rem;display:flex;gap:1rem}
 .mcmdk-foot kbd{background:var(--panel2,rgba(255,255,255,.06));border-radius:0;padding:.05rem .3rem;font-family:inherit;font-weight:700}
 /* On touch phones the tag pill ("Go") and the keyboard-hint footer are irrelevant. */
-@media (max-width:760px){.mcmdk-foot{display:none}.mcmdk-tag{width:4rem;padding:.1rem .18rem;font-size:.52rem;letter-spacing:.01em}}
+@media (max-width:760px){.mcmdk-foot{display:none}}
 /* iPhone: Bloomberg-Go full-screen search — top bar (magnifier · field · Cancel),
    results filling the screen, terminal-styled. */
 @media (max-width:760px){
@@ -120,8 +124,8 @@ const STYLE = `
   .mcmdk .mcmdk-input{border:0 !important;border-bottom:0 !important;padding:.5rem .1rem;font-size:16px}
   .mcmdk-cancel{display:block;flex:0 0 auto;border:0;background:transparent;color:var(--accent,#fb8b1e);font:inherit;font-size:14px;font-weight:600;padding:.4rem .35rem;cursor:pointer;white-space:nowrap}
   .mcmdk-results{flex:1 1 auto;max-height:none;padding:0}
-  .mcmdk-row{border-bottom:1px solid var(--border,#232f47);padding:.72rem .9rem;gap:.7rem}
-  .mcmdk-t{font-size:.95rem}.mcmdk-s{font-size:.8rem}
+  .mcmdk-row{padding:9px 14px}
+  .mcmdk-t{font-size:13px}.mcmdk-s{font-size:12px}
   .mcmdk-empty{padding:1.4rem}
 }`;
 
@@ -165,7 +169,7 @@ export function mountPalette() {
   }
   function draw() {
     results.innerHTML = current.length
-      ? current.map((e, i) => `<div class="mcmdk-row${i === sel ? " sel" : ""}" data-i="${i}"><span class="mcmdk-tag ${e.tag}">${esc(e.label || (e.tag === "view" ? "Go" : e.tag))}</span><span class="mcmdk-txt"><span class="mcmdk-t">${esc(e.title)}</span><span class="mcmdk-s">${esc(e.sub)}</span></span></div>`).join("")
+      ? current.map((e, i) => `<div class="mcmdk-row${i === sel ? " sel" : ""}" data-i="${i}"><span class="mcmdk-t">${esc(e.title)}</span><span class="mcmdk-meta"><span class="mcmdk-code ${e.tag}">${esc(DESKCODE[e.tag] || e.label || e.tag)}</span>${e.sub ? `<span class="mcmdk-s">${esc(e.sub)}</span>` : ""}</span></div>`).join("")
       : (input.value.trim() ? `<div class="mcmdk-empty">No matches.</div>` : "");
     const s = results.querySelector(".mcmdk-row.sel"); if (s) s.scrollIntoView({ block: "nearest" });
   }

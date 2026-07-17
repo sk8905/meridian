@@ -1549,6 +1549,7 @@ function buildIndex() {
 }
 
 // ---- Command palette -------------------------------------------------------
+const PAL_CODE = { macro: "MAC", credit: "CRD", legal: "LEX", view: "GO" };
 function wirePalette(idx) {
   const overlay = document.getElementById("cmdk");
   const input = document.getElementById("cmdk-input");
@@ -1581,8 +1582,8 @@ function wirePalette(idx) {
     if (!current.length) { results.innerHTML = input.value.trim() ? `<div class="cmdk-empty">No matches.</div>` : ""; return; }
     results.innerHTML = current.map((e, i) => `
       <div class="cmdk-row${i === sel ? " sel" : ""}" data-i="${i}">
-        <span class="cmdk-tag ${e.tag}">${esc(e.label || (e.tag === "view" ? "Go" : e.tag))}</span>
-        <span class="cmdk-txt"><span class="cmdk-t">${esc(e.title)}</span><span class="cmdk-s">${esc(e.sub)}</span></span>
+        <span class="cmdk-t">${esc(e.title)}</span>
+        <span class="cmdk-meta"><span class="cmdk-code ${e.tag}">${esc(PAL_CODE[e.tag] || e.label || e.tag)}</span>${e.sub ? `<span class="cmdk-s">${esc(e.sub)}</span>` : ""}</span>
       </div>`).join("");
     const s = results.querySelector(".cmdk-row.sel"); if (s) s.scrollIntoView({ block: "nearest" });
   }
