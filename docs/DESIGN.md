@@ -146,7 +146,45 @@ source; an entity chip opens the manager page.
 
 ## Divergence ledger
 
-Populated from the consistency audit (colour, typography/row-height, link
-destinations). Each entry: what differs, where, and INTENTIONAL vs RECONCILE.
+Each entry: what differs, where, verdict, action. **RECONCILE** = fix to match
+canon. **INTENTIONAL** = correct to differ. **DECIDE** = needs a product call
+before it can be resolved.
 
-_(pending — audit in progress; entries and sign-off to follow.)_
+### A. Link destinations (behavioural — highest priority)
+
+| # | Item | Divergence | Verdict | Action |
+|---|---|---|---|---|
+| L1 | **Legal cases** | Home feed/Saved/Notif/Search (`glance.js:551,144,1374,1512`) + shared Saved (`saved.js:65`) + dashboard mini-list (`legal/js/app.js:531`) route to the **retired `#/cases?case=`** (dead — dumps on dashboard, no source). Newer modules (`saved.js:99`, `palette.js:65`, legal dashboard `:506,1222`) correctly open the judgment `c.url`. | **RECONCILE (broken)** | Point all stale surfaces to `c.url` (source, new tab). |
+| L2 | **Legal schemes/RPs** | Same split: `glance.js:552,145,1375,1513` + `saved.js:66` + `legal/js/app.js:530` route to **retired `#/restructurings?m=`** (dead). Correct elsewhere: table-jump on the legal dashboard, else `judgmentUrl||articleUrl`. | **RECONCILE (broken)** | Off-dashboard surfaces → `judgmentUrl||articleUrl` (source); on the legal dashboard keep the table-jump. |
+| L3 | **Credit deals / intel** | Two live behaviours: Home + shared → **focus the dashboard row** (`#/deals?focus=`); Credit app + palette → **source article, else manager page**. The Credit app comments treat `#/deals` as retired. | **DECIDE** | Pick one rule (see Question 2) and align all six surfaces. |
+| L4 | **Credit research/commentary** | Home Notif (`glance.js:1367`) sends it in-app to `/credit/#/news`; every other surface opens the publisher `r.url`. | **RECONCILE** | Change to `r.url`, new tab. |
+| L5 | Legal alerts (items) | Source-first with a **live** `#/item/` fallback for url-less items; some interpose `firm.insightsUrl`. | **INTENTIONAL** (fallback is benign) | Optional: unify the fallback (small). |
+| L6 | Macro news/articles/commentary, newsletters, manager web-news, CLOs, macro guidance | Consistent across all surfaces. | **INTENTIONAL / OK** | none |
+
+### B. Colour / tokens (mostly dead-code dedup — values are mostly right)
+
+| # | Item | Divergence | Verdict | Action |
+|---|---|---|---|---|
+| C1 | `.na-tag` desk colours | `#6f5cc6/#2f6df0/#2c9a86` ≠ canonical `.nf-code` (`--t-mac/crd/lex`). **Now dead code** (Saved/Notif use `.nf-row`/`.nf-code`). | **RECONCILE** | Delete dead `.na-tag`/`.na-item`/`.na-itxt` CSS. |
+| C2 | `premium.css` dark tokens | `--surface #141414`, `--ink #e9eef7`, `--muted #8b97ad` contradict the winning `tui.css` `#0d0d0d`/`#eaf0fb`/`#8592ad`. Overridden (dead) but misleading. | **RECONCILE** | Align premium.css to tui values or delete the dupes. |
+| C3 | `.tw-tag.comm` | Defined twice in tui.css (`#6ea8dc` then `#9b83e2`); first is dead. | **RECONCILE** | Remove the dead first declaration. |
+| C4 | Home-light up/down | Two emerald/red pairs on one theme: `#059669/#dc2626` vs `#0a7d3c/#c02626`. | **RECONCILE** | Consolidate to one pair (tokenise `--t-up/down`). |
+| C5 | Unread badge red | `.notif-badge`/`.na-badge` `#ef4444` vs Home `.g-badge` `#e34948`. | **RECONCILE** | One red (`#ef4444`). |
+| C6 | Legacy `.notif-tag` navy set | `#2b4a7c/#4a6b93/#1c3a5e` — unrelated to any desk palette; superseded by `.nf-code`. | **RECONCILE** | Delete (rows now use `.nf-row`). |
+| C7 | Stale comments | App `:root` + premium.css comments say accent is "Glance blue"; value is orange `#fb8b1e`. | **RECONCILE** | Fix comments. |
+| C8 | Accent orange, border, head, `.nf-code↔--t-*`, up/down dark-brighten | Consistent. | **INTENTIONAL / good** | none |
+
+### C. Typography / row height
+
+| # | Item | Divergence | Verdict | Action |
+|---|---|---|---|---|
+| T1 | List-row height | `.nf-row` `12px 14px` vs terminal wire `.tw-row`/`.tui .g-feed-row` `5px 12px` (~2.4× taller). | **DECIDE** | Row density for Saved/Notif (Question 1). |
+| T2 | Wire headline size | `.nf-title` 15px vs `.tw-head`/`.tui .g-feed-title` 13px. | **RECONCILE** (follows T1) | Align to the chosen size. |
+| T3 | Desk-code chip size | `.nf-code` 10px vs `.g-feed-code` 9px vs `.tw-tag` 8px. | **RECONCILE** | One size (≈10px); bump `.tw-tag` up. |
+| T4 | Data-table density | `.tleague td` `5px 8px` vs `.lg-sc-tbl td` `8px` (desktop drifted; mobile already 8px). | **RECONCILE** | One padding for both. |
+| T5 | Legacy sub-app `.notif` rows | weight 600 but no font-size → undefined sizing. Superseded by `.nf-row`. | **RECONCILE (low)** | Remove dead rules. |
+| T6 | Headline-sans + meta/code-mono; Home light feed 600 vs terminal 400; market rows fully mono | Consistent / by design. | **INTENTIONAL** | none |
+
+### Open product decisions
+- **Q1 — Saved/Notifications row density:** compact (match terminal wire) or roomier reading list? (drives T1/T2)
+- **Q2 — Credit deal/fundraising headline click:** focus the dashboard row, or open source article / manager page? (drives L3)
