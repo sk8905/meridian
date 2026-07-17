@@ -195,11 +195,10 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 .mgr-vehicle-table { table-layout: fixed; width: 100%; }
 .mgr-vehicle-table td, .mgr-vehicle-table th { overflow: hidden; text-overflow: ellipsis; }
 
-/* ---- The "Sign out" link uses the Wire home-logo blue (#fb8b1e) at every
-        point in the app — the top-bar account chip on home (.g-user a) and on
-        Credit/Legal/Macro (.account-nav a). The :hover white rules are more
-        specific, so hover still turns white. ---- */
-.account-nav a, .g-user a { color: #fb8b1e; }
+/* ---- The "Sign out" link is white at every point in the app — the top-bar
+        account chip on home (.g-user a) and on Credit/Legal/Macro
+        (.account-nav a). ---- */
+.account-nav a, .g-user a { color: #fff; }
 
 /* ---- Respect the system reduced-motion preference. ---- */
 @media (prefers-reduced-motion: reduce) {
@@ -415,7 +414,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
   .acct-foot .account-nav { position: static; color: var(--muted); font-size: .82rem; }
   .acct-foot .account-nav[hidden] { display: none; }
   .acct-foot .account-nav strong { color: var(--ink); font-weight: 600; }
-  .acct-foot .account-nav a { color: #fb8b1e; }
+  .acct-foot .account-nav a { color: #fff; }
   .acct-foot .account-nav .si-prefix { display: inline; }
   .acct-foot .data-status { color: var(--muted); font-size: .78rem; }
   /* iOS: the sticky top bar + `html,body{overflow-x:clip}` form a clipping

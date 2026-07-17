@@ -619,7 +619,7 @@ function renderFeed() {
   setHTML("g-feed", srcBar + (feed.length ? body : empty));
   const head = document.getElementById("g-feed-head");
   if (head) {
-    const chip = (k, label) => `<button type="button" class="g-feed-chip${!_feedSrc && _feedDesk === k ? " is-on" : ""}" data-desk="${k}" aria-pressed="${!_feedSrc && _feedDesk === k}">${label}${k !== "all" && counts[k] ? `<span class="g-feed-chip-n">${counts[k] > 99 ? "99+" : counts[k]}</span>` : ""}</button>`;
+    const chip = (k, label) => `<button type="button" class="g-feed-chip${!_feedSrc && _feedDesk === k ? " is-on" : ""}" data-desk="${k}" aria-pressed="${!_feedSrc && _feedDesk === k}">${label}</button>`;
     head.innerHTML = `<span class="g-feed-h-lbl">Latest news</span>`
       + `<span class="g-feed-chips" role="group" aria-label="Filter by desk">${chip("all", "All")}${chip("m", "Macro")}${chip("c", "Credit")}${chip("l", "Legal")}</span>`;
     // A desk chip clears any source filter and switches desks.
