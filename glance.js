@@ -1004,7 +1004,11 @@ function fmtPrice(n) {
 }
 // ---- Markets banner: equity indices + ETFs (same tile style as the rates) --
 function marketTile(x) {
-  const val = x.value != null ? fmtPrice(x.value) : "—";
+  // Two decimals for every value (even round thousands) so the decimal points
+  // line up vertically down the band. The compact ticker keeps fmtPrice.
+  const val = x.value != null
+    ? Number(x.value).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+    : "—";
   let chg = '<span class="rate-chg flat">·</span>';
   if (x.changePct != null && x.value != null) {
     const c = +Number(x.changePct).toFixed(2);
