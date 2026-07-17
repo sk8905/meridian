@@ -422,8 +422,8 @@ function schemesTablePane() {
   const tr = (r) => {
     const a = schemeAdvisers(r);
     const kind = r.type === "scheme" ? "Scheme" : "Restructuring plan";
-    return `<tr>`
-      + `<td class="lg-sc-co">${(r.judgmentUrl || r.articleUrl) ? `<a href="${esc(r.judgmentUrl || r.articleUrl)}" target="_blank" rel="noopener noreferrer">${esc(r.company)}</a>` : `<span>${esc(r.company)}</span>`}<div class="muted small">${kind}${r.date ? ` · ${esc(fmtDate(r.date))}` : ""}</div></td>`
+    return `<tr id="lg-sc-${esc(r.id)}">`
+      + `<td class="lg-sc-co"><span class="lg-sc-name">${esc(r.company)}</span><div class="muted small">${kind}${r.date ? ` · ${esc(fmtDate(r.date))}` : ""}</div></td>`
       + `<td class="lg-sc-debt">${esc(schemeDebt(r))}</td>`
       + `<td><span class="lg-sc-status ${statusClass(r.outcome)}">${esc(statusShort(r.outcome))}</span></td>`
       + `<td>${credList(r.creditors)}</td>`
@@ -491,19 +491,31 @@ function viewDashboard() {
     ["Case law", cases.length], ["Schemes & RPs", restructurings.length],
   ];
   const alerts = items.map((it) => ({ _k: "alert", date: it.date, title: it.title, href: `#/item/${encodeURIComponent(it.id)}`, mgr: (firmById[it.firm] || {}).name || it.firm, src: (firmById[it.firm] || {}).name || it.firm, url: it.url, code: "ALERT" }));
-  // Case law and Schemes/RPs headlines open their source directly (BAILII judgment
-  // / analysis) — there are no standalone case/scheme pages to route to. Alerts
-  // keep their in-app detail (#/item/…).
+  // A case headline opens its source directly (BAILII / National Archives judgment).
+  // A scheme/RP headline jumps to that matter's row in the Schemes & RPs table
+  // (goScheme); its citation still links to the judgment in the source column.
+  // Alerts keep their in-app detail (#/item/…).
   const caseItems = cases.map((c) => ({ _k: "case", date: c.date, title: c.name, href: c.url || "#/", ext: !!c.url, mgr: c.court, src: c.citation, url: c.url, code: "CASE" }));
-  const rps = restructurings.map((r) => ({ _k: "rp", date: r.date, title: r.company, href: r.judgmentUrl || r.articleUrl || "#/", ext: !!(r.judgmentUrl || r.articleUrl), mgr: r.court || (r.type === "scheme" ? "Scheme" : "Restructuring plan"), src: r.citation || "", url: r.judgmentUrl || r.articleUrl || null, code: r.type === "scheme" ? "SCHEME" : "RP" }));
-  const wire = [...alerts, ...caseItems, ...rps].filter((x) => x.date).sort(byDateDesc);
+  const rps = restructurings.map((r) => ({ _k: "rp", date: r.date, title: r.company, goScheme: r.id, mgr: r.court || (r.type === "scheme" ? "Scheme" : "Restructuring plan"), src: r.citation || "", url: r.judgmentUrl || r.articleUrl || null, code: r.type === "scheme" ? "SCHEME" : "RP" }));
+  // The 'All' feed always carries EVERY case and scheme/RP (there are far fewer of
+  // them than law-firm alerts, so a flat newest-N cap would bury them entirely);
+  // only the alert stream is capped, to the most recent 250.
+  const wire = [
+    ...alerts.filter((x) => x.date).sort(byDateDesc).slice(0, 250),
+    ...caseItems.filter((x) => x.date),
+    ...rps.filter((x) => x.date),
+  ].sort(byDateDesc);
   const wireRow = (x) => {
     const mgr = x.mgr ? `<span class="tw-mgr-w"><span class="tw-mgr">${esc(x.mgr)}</span></span>` : "";
-    const ext = x.ext ? ` target="_blank" rel="noopener noreferrer"` : "";
+    // Scheme/RP headline → jump to its row in the Schemes & RPs table (in-app);
+    // everything else opens its href (external source for cases, #/item for alerts).
+    const head = x.goScheme
+      ? `<a href="#/" data-goscheme="${esc(x.goScheme)}" class="tw-head">${esc(x.title)}</a>`
+      : `<a href="${esc(x.href)}"${x.ext ? ` target="_blank" rel="noopener noreferrer"` : ""} class="tw-head">${esc(x.title)}</a>`;
     return `<li class="compact-item tw-row" data-kind="${x._k}">`
       + `<span class="tw-date">${x.date ? esc(fmtDate(x.date)) : ""}</span>`
       + `<span class="tw-tag ${x._k}">${x.code}</span>`
-      + `<span class="tw-body"><a href="${esc(x.href)}"${ext} class="tw-head">${esc(x.title)}</a>${mgr}</span>`
+      + `<span class="tw-body">${head}${mgr}</span>`
       + `<span class="tw-src">${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.src || "source")}</a>` : esc(x.src || "")}</span>`
       + `</li>`;
   };
@@ -523,7 +535,7 @@ function viewDashboard() {
         </header>
         <div class="tpanes" id="lg-panes">
           <div class="tpane" data-pane="wire">
-            <ul class="twire compact-list" id="lg-wire">${wire.length ? wire.slice(0, 120).map(wireRow).join("") : '<li class="tw-empty muted small">No items yet.</li>'}</ul>
+            <ul class="twire compact-list" id="lg-wire">${wire.length ? wire.map(wireRow).join("") : '<li class="tw-empty muted small">No items yet.</li>'}</ul>
           </div>
           <div class="tpane" data-pane="cases" hidden>${casesPane()}</div>
           <div class="tpane" data-pane="schemes" hidden>${schemesTablePane()}</div>
@@ -541,13 +553,21 @@ function legalWireDash() {
   if (!chips || !panes) return;
   const PANE = { all: "wire", alert: "wire", case: "cases", rp: "schemes" };
   const wire = document.getElementById("lg-wire");
-  chips.onclick = (e) => {
-    const b = e.target.closest(".tchip"); if (!b) return;
-    chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
-    const k = b.dataset.k, pane = PANE[k];
+  const selectChip = (k) => {
+    chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === k));
+    const pane = PANE[k] || "wire";
     panes.querySelectorAll(".tpane").forEach((p) => { p.hidden = p.dataset.pane !== pane; });
     if (pane === "wire" && wire) wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (k === "all" || r.dataset.kind === k) ? "" : "none"; });
   };
+  chips.onclick = (e) => { const b = e.target.closest(".tchip"); if (b) selectChip(b.dataset.k); };
+  // An 'All' scheme/RP headline jumps to that matter in the Schemes & RPs table.
+  panes.addEventListener("click", (e) => {
+    const g = e.target.closest("[data-goscheme]"); if (!g) return;
+    e.preventDefault();
+    selectChip("rp");
+    const row = document.getElementById("lg-sc-" + g.getAttribute("data-goscheme"));
+    if (row) { row.scrollIntoView({ behavior: "smooth", block: "center" }); row.classList.add("lg-sc-flash"); setTimeout(() => row.classList.remove("lg-sc-flash"), 1600); }
+  });
 }
 
 // =============================================================================

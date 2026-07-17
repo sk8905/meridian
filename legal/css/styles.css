@@ -727,8 +727,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
 .lg-sc-tbl th:nth-child(5), .lg-sc-tbl td:nth-child(5) { width: 16%; }
 .lg-sc-tbl th:nth-child(6), .lg-sc-tbl td:nth-child(6) { width: 16%; }
 .lg-sc-tbl th:nth-child(7), .lg-sc-tbl td:nth-child(7) { width: 15%; }
-.lg-sc-co a { color: var(--ink); font-weight: 600; }
-.lg-sc-co a:hover { color: var(--accent); }
+.lg-sc-name { color: var(--ink); font-weight: 600; }
 .lg-sc-debt { font-variant-numeric: tabular-nums; white-space: nowrap; }
 .lg-sc-status { display: inline-block; font-size: 9.5px; font-weight: 600; padding: 1px 6px; border: 1px solid var(--border); border-radius: 2px; white-space: nowrap; color: var(--muted); }
 .lg-sc-status.s-sanctioned { color: #3fc08d; border-color: rgba(63,192,141,.4); }
@@ -739,5 +738,9 @@ svg.mtab-ico { width: 22px; height: 22px; }
 .lg-mini-list li { margin-bottom: 3px; line-height: 1.35; color: var(--muted); font-size: 10.5px; }
 .lg-mini-list li:last-child { margin-bottom: 0; }
 .lg-doc-list li { margin-bottom: 4px; }
-.lg-doc-list a { color: var(--accent); font-size: 10.5px; }
+.lg-doc-list a { color: var(--ink); font-size: 10.5px; }
 .lg-doc-list a:hover { text-decoration: underline; }
+
+/* Row highlight when an 'All' scheme/RP headline jumps into the table. */
+@keyframes lgScFlash { 0% { background: rgba(251,139,30,.22); } 100% { background: transparent; } }
+.lg-sc-flash td { animation: lgScFlash 1.6s ease-out; }

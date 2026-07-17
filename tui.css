@@ -125,8 +125,11 @@
 .wb-lbl { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .02em; color: var(--accent); white-space: nowrap; }
 .wb-link { color: var(--muted); font-weight: 400; text-decoration: none; }
 .wb-link:hover { color: var(--ink); text-decoration: underline; }
-.wb-glance { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 12px; flex: 1 1 auto; min-width: 0; overflow: hidden; }
-.wb-gl { display: flex; gap: 7px; align-items: baseline; min-width: 0; overflow: hidden; flex: 1 1 0; }
+.wb-glance { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 10px; flex: 1 1 auto; min-width: 0; overflow: hidden; }
+/* Content-sized (not a forced 50/50 split) so Rates & spreads packs right after
+   Markets with the same gap as Top story → Markets, instead of being pushed to
+   the far right. They still shrink + ellipsis when the strip is tight. */
+.wb-gl { display: flex; gap: 7px; align-items: baseline; min-width: 0; overflow: hidden; flex: 0 1 auto; }
 .wb-gl-l { font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .02em; color: var(--accent); white-space: nowrap; flex: 0 0 auto; }
 .wb-gl-v { display: block; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--muted); font-size: 11.5px; }
 @media (max-width: 760px) {
