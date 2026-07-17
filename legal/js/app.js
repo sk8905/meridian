@@ -342,7 +342,7 @@ function caseRow(c) {
       <div class="rx-title-line">
         ${c.url
           ? `<a class="feed-title rx-name" href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">${esc(c.name)}</a>`
-          : `<a class="feed-title rx-name" href="#/cases?case=${esc(c.id)}">${esc(c.name)}</a>`}
+          : `<span class="feed-title rx-name">${esc(c.name)}</span>`}
         <button class="save-btn rx-save ${saved ? "is-saved" : ""}" data-save="${esc(c.id)}"
           aria-pressed="${saved}" title="${saved ? "Remove from saved" : "Save this case"}">${saved ? "★ Saved" : "☆ Save"}</button>
       </div>
@@ -368,15 +368,16 @@ function itemCompact(it) {
 }
 function caseCompact(c) {
   return `<li class="compact-item">
-    <a class="compact-head" href="#/cases?case=${esc(c.id)}">${esc(c.name)}</a>
+    <a class="compact-head" href="${esc(c.url || "#/")}"${c.url ? ` target="_blank" rel="noopener noreferrer"` : ""}>${esc(c.name)}</a>
     <div class="compact-meta muted small">${fmtDate(c.date)} · ${esc(c.court)} · ${esc(c.citation)}</div>
   </li>`;
 }
 function rxCompact(r) {
   const kind = r.type === "scheme" ? "Scheme" : "Plan";
   const meta = [r.date ? fmtDate(r.date) : "undated", kind, r.citation ? esc(r.citation) : ""].filter(Boolean).join(" · ");
+  const u = r.judgmentUrl || r.articleUrl;
   return `<li class="compact-item">
-    <a class="compact-head" href="#/restructurings?m=${esc(r.id)}">${esc(r.company)}</a>
+    <a class="compact-head" href="${esc(u || "#/")}"${u ? ` target="_blank" rel="noopener noreferrer"` : ""}>${esc(r.company)}</a>
     <div class="compact-meta muted small">${meta}</div>
   </li>`;
 }
@@ -422,7 +423,7 @@ function schemesTablePane() {
     const a = schemeAdvisers(r);
     const kind = r.type === "scheme" ? "Scheme" : "Restructuring plan";
     return `<tr>`
-      + `<td class="lg-sc-co"><a href="#/restructurings?m=${esc(r.id)}">${esc(r.company)}</a><div class="muted small">${kind}${r.date ? ` · ${esc(fmtDate(r.date))}` : ""}</div></td>`
+      + `<td class="lg-sc-co">${(r.judgmentUrl || r.articleUrl) ? `<a href="${esc(r.judgmentUrl || r.articleUrl)}" target="_blank" rel="noopener noreferrer">${esc(r.company)}</a>` : `<span>${esc(r.company)}</span>`}<div class="muted small">${kind}${r.date ? ` · ${esc(fmtDate(r.date))}` : ""}</div></td>`
       + `<td class="lg-sc-debt">${esc(schemeDebt(r))}</td>`
       + `<td><span class="lg-sc-status ${statusClass(r.outcome)}">${esc(statusShort(r.outcome))}</span></td>`
       + `<td>${credList(r.creditors)}</td>`
@@ -442,8 +443,8 @@ function casesPane() {
   const row = (c) => `<li class="compact-item tw-row">`
     + `<span class="tw-date">${c.date ? esc(fmtDate(c.date)) : ""}</span>`
     + `<span class="tw-tag case">CASE</span>`
-    + `<span class="tw-body"><a href="#/cases?case=${esc(c.id)}" class="tw-head">${esc(c.name)}</a><span class="tw-mgr-w"><span class="tw-mgr">${esc(c.court)}</span></span></span>`
-    + `<span class="tw-src">${esc(c.citation || "")}</span>`
+    + `<span class="tw-body"><a href="${esc(c.url || "#/")}"${c.url ? ` target="_blank" rel="noopener noreferrer"` : ""} class="tw-head">${esc(c.name)}</a><span class="tw-mgr-w"><span class="tw-mgr">${esc(c.court)}</span></span></span>`
+    + `<span class="tw-src">${c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">${esc(c.citation || "source")}</a>` : esc(c.citation || "")}</span>`
     + `</li>`;
   return `<ul class="twire compact-list">${[...cases].sort(byDateDesc).map(row).join("")}</ul>`;
 }
@@ -490,15 +491,19 @@ function viewDashboard() {
     ["Case law", cases.length], ["Schemes & RPs", restructurings.length],
   ];
   const alerts = items.map((it) => ({ _k: "alert", date: it.date, title: it.title, href: `#/item/${encodeURIComponent(it.id)}`, mgr: (firmById[it.firm] || {}).name || it.firm, src: (firmById[it.firm] || {}).name || it.firm, url: it.url, code: "ALERT" }));
-  const caseItems = cases.map((c) => ({ _k: "case", date: c.date, title: c.name, href: `#/cases?case=${encodeURIComponent(c.id)}`, mgr: c.court, src: c.citation, url: null, code: "CASE" }));
-  const rps = restructurings.map((r) => ({ _k: "rp", date: r.date, title: r.company, href: `#/restructurings?m=${encodeURIComponent(r.id)}`, mgr: r.court || (r.type === "scheme" ? "Scheme" : "Restructuring plan"), src: r.citation || "", url: null, code: r.type === "scheme" ? "SCHEME" : "RP" }));
+  // Case law and Schemes/RPs headlines open their source directly (BAILII judgment
+  // / analysis) — there are no standalone case/scheme pages to route to. Alerts
+  // keep their in-app detail (#/item/…).
+  const caseItems = cases.map((c) => ({ _k: "case", date: c.date, title: c.name, href: c.url || "#/", ext: !!c.url, mgr: c.court, src: c.citation, url: c.url, code: "CASE" }));
+  const rps = restructurings.map((r) => ({ _k: "rp", date: r.date, title: r.company, href: r.judgmentUrl || r.articleUrl || "#/", ext: !!(r.judgmentUrl || r.articleUrl), mgr: r.court || (r.type === "scheme" ? "Scheme" : "Restructuring plan"), src: r.citation || "", url: r.judgmentUrl || r.articleUrl || null, code: r.type === "scheme" ? "SCHEME" : "RP" }));
   const wire = [...alerts, ...caseItems, ...rps].filter((x) => x.date).sort(byDateDesc);
   const wireRow = (x) => {
     const mgr = x.mgr ? `<span class="tw-mgr-w"><span class="tw-mgr">${esc(x.mgr)}</span></span>` : "";
+    const ext = x.ext ? ` target="_blank" rel="noopener noreferrer"` : "";
     return `<li class="compact-item tw-row" data-kind="${x._k}">`
       + `<span class="tw-date">${x.date ? esc(fmtDate(x.date)) : ""}</span>`
       + `<span class="tw-tag ${x._k}">${x.code}</span>`
-      + `<span class="tw-body"><a href="${x.href}" class="tw-head">${esc(x.title)}</a>${mgr}</span>`
+      + `<span class="tw-body"><a href="${esc(x.href)}"${ext} class="tw-head">${esc(x.title)}</a>${mgr}</span>`
       + `<span class="tw-src">${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.src || "source")}</a>` : esc(x.src || "")}</span>`
       + `</li>`;
   };
@@ -871,7 +876,7 @@ function viewFirm(id) {
     + `<span class="tw-src">${esc((typeById[it.type] || {}).name || it.type)}</span>`
     + `</li>`;
   const rxRail = firmRx.length
-    ? `<ul class="tmini">${firmRx.map((r) => `<li class="tmini-row clickable" data-href="#/restructurings?m=${encodeURIComponent(r.id)}"><span class="tmini-t">${esc(r.company)}<span class="tmini-r">${r.type === "scheme" ? "Scheme" : "Plan"}</span></span><span class="tmini-m">${r.date ? esc(fmtDate(r.date)) : ""}${r.citation ? " · " + esc(r.citation) : ""}</span></li>`).join("")}</ul>`
+    ? `<ul class="tmini">${firmRx.map((r) => { const u = r.judgmentUrl || r.articleUrl; return `<li class="tmini-row"><a class="tmini-t" href="${esc(u || "#/")}"${u ? ` target="_blank" rel="noopener noreferrer"` : ""}>${esc(r.company)}<span class="tmini-r">${r.type === "scheme" ? "Scheme" : "Plan"}</span></a><span class="tmini-m">${r.date ? esc(fmtDate(r.date)) : ""}${r.citation ? " · " + esc(r.citation) : ""}</span></li>`; }).join("")}</ul>`
     : `<p class="tw-empty muted small">No restructuring matters tracked.</p>`;
   const areaRail = areaMixRows.length
     ? `<ul class="tfacts">${areaMixRows.map(([a, n]) => `<li><span class="tf-k">${esc((areaById[a] || {}).name || a)}</span><span class="tf-v">${n}</span></li>`).join("")}</ul>`
@@ -1092,8 +1097,10 @@ function router() {
 
   if (path === "/" || path === "") viewDashboard();
   else if (path === "/list") viewList();
-  else if (path === "/cases") viewCases();
-  else if (path === "/restructurings") viewRestructurings();
+  // Case-law and Schemes/RPs list pages retired: the dashboard Case law / Schemes
+  // & RPs chips carry that content, and every case/scheme links straight to its
+  // source (BAILII judgment / analysis). viewCases/viewRestructurings are kept
+  // (dormant) for reuse; a stray hit on the old routes lands on the dashboard.
   else if (path.startsWith("/item/")) viewItem(decodeURIComponent(path.slice("/item/".length)));
   else if (path.startsWith("/firm/")) viewFirm(decodeURIComponent(path.slice("/firm/".length)));
   else viewDashboard();
@@ -1184,8 +1191,8 @@ function recentNotif(list) {
 function notifItems() {
   const out = [];
   items.forEach((it) => out.push({ id: "u:" + it.id, date: it.date || "", kind: (typeById[it.type] || {}).name || it.type, title: it.title, source: firmName(it.firm), href: "#/item/" + it.id }));
-  cases.forEach((c) => out.push({ id: "c:" + c.id, date: c.date || "", kind: c.court || "Case", title: c.name, source: judgmentSource(c.url), href: "#/cases?case=" + c.id }));
-  restructurings.forEach((r) => out.push({ id: "r:" + r.id, date: r.date || "", kind: r.type === "scheme" ? "Scheme" : "Plan", title: r.company, source: r.firm ? firmName(r.firm) : (r.judgmentUrl ? judgmentSource(r.judgmentUrl) : ""), href: "#/restructurings?m=" + r.id }));
+  cases.forEach((c) => out.push({ id: "c:" + c.id, date: c.date || "", kind: c.court || "Case", title: c.name, source: judgmentSource(c.url), href: c.url || "#/", ext: !!c.url }));
+  restructurings.forEach((r) => { const u = r.judgmentUrl || r.articleUrl; out.push({ id: "r:" + r.id, date: r.date || "", kind: r.type === "scheme" ? "Scheme" : "Plan", title: r.company, source: r.firm ? firmName(r.firm) : (r.judgmentUrl ? judgmentSource(r.judgmentUrl) : ""), href: u || "#/", ext: !!u }); });
   return recentNotif(out).sort((a, b) => String(b.date).localeCompare(String(a.date)));
 }
 function closeNotif() {
@@ -1294,7 +1301,7 @@ document.addEventListener("click", (e) => {
   }
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260716-1").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260716-2").then((m) => m.mountPalette()).catch(() => {});
 import("/ptr.js?v=20260716-1").then((m) => m.initPullToRefresh()).catch(() => {});
 initChrome();
 initNotif();

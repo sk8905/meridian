@@ -24,9 +24,12 @@ const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").
 const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const fmt = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ""); return m ? `${+m[3]} ${MON[+m[2] - 1]} ${m[1]}` : (iso || ""); };
 const mgrName = (id) => (managers.find((m) => m.id === id) || {}).name || "";
-// Deep-link a Credit deal/intel record to its exact row in the right feed tab
-// (Credit reads ?focus=<id> on load and scrolls/flashes it); CLO items → CLOs tab.
-const creditItemHref = (x, tab) => `/credit/#/${x.clo ? "clos" : tab}?focus=${encodeURIComponent(x.id)}`;
+// The standalone Deals/Fundraising list pages are retired, so a deal/intel record
+// links to its manager's page in Credit (where its activity lives); CLO items keep
+// the CLOs tab. Managerless items fall back to the source article.
+const creditItemHref = (x) => x.clo
+  ? `/credit/#/clos?focus=${encodeURIComponent(x.id)}`
+  : (x.managerId ? `/credit/#/manager/${encodeURIComponent(x.managerId)}` : (x.sourceUrl || "/credit/#/"));
 const MACRO_INDICATORS = [
   ["base_rate", "Base rate"], ["two_year", "2-year yield"], ["core_cpi", "Core inflation"],
   ["services_pmi", "Services PMI"], ["wages", "Wage growth"], ["unemployment", "Unemployment"],
@@ -55,12 +58,12 @@ function buildIndex() {
     .forEach(([k, l, tl]) => add("macro", `Macro — ${l}`, "View", `/macro/#/${k}`, 4, "", tl));
   managers.forEach((m) => add("credit", m.name, "Manager", `/credit/#/manager/${encodeURIComponent(m.id)}`, 0, "", "Manager"));
   funds.forEach((f) => add("credit", f.name, `Fund${f.managerId && mgrName(f.managerId) ? " · " + mgrName(f.managerId) : ""}`, `/credit/#/fund/${encodeURIComponent(f.id)}`, 1, "", "Fund"));
-  deals.forEach((d) => add("credit", d.headline, `${d.clo ? "CLO" : "Deal"} · ${fmt(d.date)}${mgrName(d.managerId) ? " · " + mgrName(d.managerId) : ""}`, creditItemHref(d, "deals"), d.clo ? 1 : 2, d.date, d.clo ? "CLO" : "Deal"));
-  intel.forEach((i) => add("credit", i.headline, `${i.clo ? "CLO · " : ""}${i.type || "Fundraising"} · ${fmt(i.date)}${mgrName(i.managerId) ? " · " + mgrName(i.managerId) : ""}`, creditItemHref(i, "intel"), i.clo ? 1 : 2, i.date, i.clo ? "CLO" : "Fundraising"));
+  deals.forEach((d) => add("credit", d.headline, `${d.clo ? "CLO" : "Deal"} · ${fmt(d.date)}${mgrName(d.managerId) ? " · " + mgrName(d.managerId) : ""}`, creditItemHref(d), d.clo ? 1 : 2, d.date, d.clo ? "CLO" : "Deal"));
+  intel.forEach((i) => add("credit", i.headline, `${i.clo ? "CLO · " : ""}${i.type || "Fundraising"} · ${fmt(i.date)}${mgrName(i.managerId) ? " · " + mgrName(i.managerId) : ""}`, creditItemHref(i), i.clo ? 1 : 2, i.date, i.clo ? "CLO" : "Fundraising"));
   (research || []).forEach((r) => add("credit", r.title, `${r.institution}${r.type ? " · " + r.type : ""}${r.date ? " · " + fmt(r.date) : ""}`, r.url, 2, r.date, "Commentary"));
   items.forEach((i) => add("legal", i.title, `Legal alert${i.firm ? " · " + i.firm : ""}${i.date ? " · " + fmt(i.date) : ""}`, `/legal/#/item/${encodeURIComponent(i.id)}`, 2, i.date, "Alert"));
-  cases.forEach((c) => add("legal", c.name, `Case · ${c.court || ""}${c.citation ? " · " + c.citation : ""}`, `/legal/#/cases?case=${encodeURIComponent(c.id)}`, 2, c.date, "Case"));
-  restructurings.forEach((r) => add("legal", r.company, `${r.type === "scheme" ? "Scheme" : "Restructuring plan"}${r.citation ? " · " + r.citation : ""}`, `/legal/#/restructurings?m=${encodeURIComponent(r.id)}`, 2, r.date, r.type === "scheme" ? "Scheme" : "RP"));
+  cases.forEach((c) => add("legal", c.name, `Case · ${c.court || ""}${c.citation ? " · " + c.citation : ""}`, c.url || `/legal/#/`, 2, c.date, "Case"));
+  restructurings.forEach((r) => add("legal", r.company, `${r.type === "scheme" ? "Scheme" : "Restructuring plan"}${r.citation ? " · " + r.citation : ""}`, r.judgmentUrl || r.articleUrl || `/legal/#/`, 2, r.date, r.type === "scheme" ? "Scheme" : "RP"));
   ["US", "UK"].forEach((c) => MACRO_INDICATORS.forEach(([k, l]) => add("macro", `${c} ${l}`, "Open in Chart", `/macro/#/chart?add=${c}:${k}`, 3, "", "Chart")));
   // News items — so a search for e.g. "Federal Reserve" finds macro headlines too.
   const seenNews = new Set();

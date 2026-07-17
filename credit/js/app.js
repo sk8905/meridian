@@ -320,8 +320,8 @@ function recentNotif(list) {
 }
 function notifItems() {
   const out = [];
-  deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, source: creditSource(d), href: d.clo ? "#/clos" : "#/deals", goto: (d.clo ? "clos:" : "deals:") + d.id }));
-  intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, source: creditSource(i), href: i.clo ? "#/clos" : "#/intel", goto: (i.clo ? "clos:" : "intel:") + i.id }));
+  deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, source: creditSource(d), href: d.clo ? "#/clos" : (d.managerId ? "#/manager/" + d.managerId : "#/") }));
+  intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, source: creditSource(i), href: i.clo ? "#/clos" : (i.managerId ? "#/manager/" + i.managerId : "#/") }));
   managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", kind: "News", title: w.title, source: w.outlet || m.name || "", href: "#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey(w)) })));
   return recentNotif(out).sort((a, b) => String(b.date).localeCompare(String(a.date)));
 }
@@ -745,9 +745,10 @@ function viewDashboard() {
       + `<span class="tw-date">${rec.date ? esc(fmtDate(rec.date)) : ""}</span>`
       + `<span class="tw-tag ${a.kind}">${KIND[a.kind]}</span>`
       // Headline opens the underlying source article (external) when we have a
-      // URL; otherwise it deep-links into the categorised feed. The manager name
-      // always links to that manager's page in the app.
-      + `<span class="tw-body"><a href="${url ? esc(url) : `#/${isNews ? "news" : a.view}`}"${url ? ` target="_blank" rel="noopener noreferrer"` : ` data-goto="${goto}"`} class="tw-head">${esc(title)}</a>${mgr ? `<span class="tw-mgr-w">${mgr}</span>` : ""}</span>`
+      // URL; otherwise it falls back to the relevant manager's page in the app
+      // (the standalone Deals/Fundraising list pages have been retired). The
+      // manager name always links to that manager's page too.
+      + `<span class="tw-body"><a href="${url ? esc(url) : (mid ? `#/manager/${mid}` : "#/")}"${url ? ` target="_blank" rel="noopener noreferrer"` : ""} class="tw-head">${esc(title)}</a>${mgr ? `<span class="tw-mgr-w">${mgr}</span>` : ""}</span>`
       + `<span class="tw-src">${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(src || "source")}</a>` : esc(src || "")}</span>`
       + `</li>`;
   };
@@ -2411,8 +2412,11 @@ function router() {
     case "lp": return viewLp(arg);
     case "news": return viewNews();
     case "commentary": return viewNews(); // merged into News; keep legacy deep-links working
-    case "intel": return viewIntel();
-    case "deals": return viewDeals();
+    // Deal Activity (#/deals) and Fundraising (#/intel) list pages retired — the
+    // dashboard Deals/Fundraising chips carry that content and each item links to
+    // the relevant manager's page. viewDeals/viewIntel are kept (dormant) for
+    // reuse; a stray hit on the old routes lands on the dashboard.
+    case "deals": case "intel": return viewDashboard();
     case "clos": return viewClos();
     case "watchlist": return viewWatchlist();
     default: return notFound();
@@ -2431,7 +2435,7 @@ document.addEventListener("click", (e) => {
   }
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260716-1").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260716-2").then((m) => m.mountPalette()).catch(() => {});
 import("/ptr.js?v=20260716-1").then((m) => m.initPullToRefresh()).catch(() => {});
 router();
 renderDataStatus();
