@@ -757,7 +757,7 @@ function ratesTile(x) {
     const c = x.unit === "bp" ? Math.round(x.change * 100) : +x.change.toFixed(2);
     const dir = c > 0 ? "up" : c < 0 ? "down" : "flat";
     const arrow = c > 0 ? "▲" : c < 0 ? "▼" : "·";
-    const mag = x.unit === "bp" ? `${Math.abs(c)} bp` : Math.abs(c).toFixed(2);
+    const mag = x.unit === "bp" ? `${Math.abs(c)} bp` : `${Math.abs(c).toFixed(2)} pp`;
     chg = `<span class="rate-chg ${dir}">${arrow} ${mag}</span>`;
   }
   const asOf = x.asOf ? ` as of ${esc(x.asOf)}` : "";
@@ -1238,7 +1238,7 @@ function renderVolRisk() {
     // The markets feed carries VIX's % move; convert to points for the tile.
     const cp = typeof vix.changePct === "number" ? vix.changePct : null;
     const pts = cp == null ? null : +vix.value - (+vix.value) / (1 + cp / 100);
-    rows.push(riskTile({ label: "VIX", val: (+vix.value).toFixed(2), chg: pts == null ? null : Math.abs(pts).toFixed(2), dir: dSign(pts), href: "https://finance.yahoo.com/quote/%5EVIX", title: "CBOE Volatility Index — equity volatility" }));
+    rows.push(riskTile({ label: "VIX", val: (+vix.value).toFixed(2), chg: pts == null ? null : Math.abs(pts).toFixed(2) + " pt", dir: dSign(pts), href: "https://finance.yahoo.com/quote/%5EVIX", title: "CBOE Volatility Index — equity volatility" }));
   }
   if (hy && hy.value != null) {
     rows.push(riskTile({ label: "HY OAS", val: bpTxt(hy.value), chg: hy.change == null ? null : Math.abs(Math.round(hy.change * 100)) + " bp", dir: dSign(hy.change), href: hy.href, title: "US high-yield option-adjusted spread" }));
