@@ -999,6 +999,10 @@
     .g-flow-chip.is-on{ color:var(--t-ink); font-weight:600; box-shadow:inset 0 -2px 0 var(--t-accent); }
     .g-flow-pane[hidden]{ display:none; }
     .tui .g-feed{ background:var(--t-panel); border:0; border-radius:0; padding:0; }
+    /* A quiet end-marker so the wire closes intentionally instead of trailing into
+       empty dark space when the day's stream is short. */
+    .tui .g-feed-end{ padding:16px 12px 32px; text-align:center; font-family:var(--t-mono); font-size:9.5px;
+      letter-spacing:.14em; text-transform:uppercase; color:var(--t-faint); background:var(--t-panel); }
     .tui .g-feed-dayhdr{ padding:6px 12px; background:var(--t-ground); border-top:0;
       font-size:10px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--t-faint); margin:0; }
     .tui .g-feed-row{ display:grid; grid-template-columns:44px 34px minmax(0,1fr) auto; align-items:baseline;
@@ -1304,7 +1308,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260717-17").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260717-18").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

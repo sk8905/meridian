@@ -596,7 +596,7 @@ function renderFeed() {
     const hdr = d !== lastDay ? `<div class="g-feed-dayhdr">${esc(fmt(d))}</div>` : "";
     lastDay = d;
     return hdr + row(o);
-  }).join("");
+  }).join("") + `<div class="g-feed-end">· end of wire ·</div>`;
   // When a source filter is active, a thin bar above the feed names it and offers
   // a one-click clear (the chips can't show it — they're a fixed desk set).
   const srcBar = _feedSrc
