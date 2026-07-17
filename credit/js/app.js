@@ -744,7 +744,10 @@ function viewDashboard() {
     return `<li class="compact-item tw-row" data-kind="${a.kind}">`
       + `<span class="tw-date">${rec.date ? esc(fmtDate(rec.date)) : ""}</span>`
       + `<span class="tw-tag ${a.kind}">${KIND[a.kind]}</span>`
-      + `<span class="tw-body"><a href="#/${isNews ? "news" : a.view}" data-goto="${goto}" class="tw-head">${esc(title)}</a>${mgr ? `<span class="tw-mgr-w">${mgr}</span>` : ""}</span>`
+      // Headline opens the underlying source article (external) when we have a
+      // URL; otherwise it deep-links into the categorised feed. The manager name
+      // always links to that manager's page in the app.
+      + `<span class="tw-body"><a href="${url ? esc(url) : `#/${isNews ? "news" : a.view}`}"${url ? ` target="_blank" rel="noopener noreferrer"` : ` data-goto="${goto}"`} class="tw-head">${esc(title)}</a>${mgr ? `<span class="tw-mgr-w">${mgr}</span>` : ""}</span>`
       + `<span class="tw-src">${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(src || "source")}</a>` : esc(src || "")}</span>`
       + `</li>`;
   };

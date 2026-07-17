@@ -384,6 +384,70 @@ function rxCompact(r) {
 // =============================================================================
 // VIEW: Dashboard (#/)
 // =============================================================================
+// ---- Schemes/RPs table helpers --------------------------------------------
+// Lead monetary figure from the (descriptive) debt field for the compact "Total
+// debt" column; falls back to a dash when no figure is stated.
+function schemeDebt(r) {
+  const m = String(r.debt || "").match(/(?:US\$|C\$|A\$|£|€|\$)\s?\d[\d.,]*\+?\s?(?:bn|billion|m|million|k)?/i);
+  return m ? m[0].replace(/\s+/g, " ").trim() : "—";
+}
+// The advisers field is a flat, role-annotated list (the data was never stored
+// split by side). Best-effort split into the company/debtor side vs the creditor
+// side from each entry's role note; an entry we can't clearly place stays on the
+// company side (usually the plan company's own legal/valuation team).
+function schemeAdvisers(r) {
+  const co = [], cr = [];
+  (r.advisers || []).forEach((a) => {
+    const s = String(a).toLowerCase();
+    const isCr = /creditor|ad hoc|\bahg\b|noteholder|bondholder|lender|holder group|committee/.test(s);
+    if (isCr) cr.push(a); else co.push(a);
+  });
+  return { co, cr };
+}
+const statusShort = (o) => String(o || "").split("—")[0].replace(/\s*\([^)]*\)\s*/g, "").trim();
+const statusClass = (o) => "s-" + statusShort(o).toLowerCase().replace(/[^a-z]+/g, "");
+
+// The Schemes & RPs pane: every Part 26A plan / Part 26 scheme as a table row.
+function schemesTablePane() {
+  const rows = [...restructurings].sort(byDateDesc);
+  const advList = (arr) => (arr && arr.length) ? `<ul class="lg-mini-list">${arr.map((a) => `<li>${esc(a)}</li>`).join("")}</ul>` : '<span class="muted small">—</span>';
+  const credList = (arr) => (arr && arr.length) ? `<ul class="lg-mini-list">${arr.slice(0, 4).map((c) => `<li>${esc(c)}</li>`).join("")}${arr.length > 4 ? `<li class="muted small">+${arr.length - 4} more</li>` : ""}</ul>` : '<span class="muted small">—</span>';
+  const docs = (r) => {
+    const l = [];
+    if (r.judgmentUrl) l.push(`<a href="${esc(r.judgmentUrl)}" target="_blank" rel="noopener noreferrer">Judgment${r.citation ? ` · ${esc(r.citation)}` : ""} ↗</a>`);
+    if (r.articleUrl) l.push(`<a href="${esc(r.articleUrl)}" target="_blank" rel="noopener noreferrer">Analysis / documents ↗</a>`);
+    return l.length ? `<ul class="lg-doc-list">${l.map((x) => `<li>${x}</li>`).join("")}</ul>` : '<span class="muted small">—</span>';
+  };
+  const tr = (r) => {
+    const a = schemeAdvisers(r);
+    const kind = r.type === "scheme" ? "Scheme" : "Restructuring plan";
+    return `<tr>`
+      + `<td class="lg-sc-co"><a href="#/restructurings?m=${esc(r.id)}">${esc(r.company)}</a><div class="muted small">${kind}${r.date ? ` · ${esc(fmtDate(r.date))}` : ""}</div></td>`
+      + `<td class="lg-sc-debt">${esc(schemeDebt(r))}</td>`
+      + `<td><span class="lg-sc-status ${statusClass(r.outcome)}">${esc(statusShort(r.outcome))}</span></td>`
+      + `<td>${credList(r.creditors)}</td>`
+      + `<td>${advList(a.co)}</td>`
+      + `<td>${advList(a.cr)}</td>`
+      + `<td>${docs(r)}</td>`
+      + `</tr>`;
+  };
+  return `<div class="lg-sc-wrap"><table class="lg-sc-tbl">
+    <thead><tr><th>Company</th><th>Total debt</th><th>Status</th><th>Creditors</th><th>Company's advisers</th><th>Creditors' advisers</th><th>Documents</th></tr></thead>
+    <tbody>${rows.map(tr).join("")}</tbody>
+  </table></div>`;
+}
+// The Case law pane: every tracked BAILII case as a wire row (full list, not the
+// newest-N slice the combined wire is capped at).
+function casesPane() {
+  const row = (c) => `<li class="compact-item tw-row">`
+    + `<span class="tw-date">${c.date ? esc(fmtDate(c.date)) : ""}</span>`
+    + `<span class="tw-tag case">CASE</span>`
+    + `<span class="tw-body"><a href="#/cases?case=${esc(c.id)}" class="tw-head">${esc(c.name)}</a><span class="tw-mgr-w"><span class="tw-mgr">${esc(c.court)}</span></span></span>`
+    + `<span class="tw-src">${esc(c.citation || "")}</span>`
+    + `</li>`;
+  return `<ul class="twire compact-list">${[...cases].sort(byDateDesc).map(row).join("")}</ul>`;
+}
+
 function viewDashboard() {
   const thisYear = new Date().getFullYear();
 
@@ -442,8 +506,8 @@ function viewDashboard() {
   const caseRow = (c) => `<li class="tmini-row"><a class="tmini-t" href="#/cases?case=${encodeURIComponent(c.id)}">${esc(c.name)}</a><span class="tmini-m">${esc(c.court)}${c.date ? " · " + esc(fmtDate(c.date)) : ""}</span></li>`;
 
   app.innerHTML = `<div class="tdash">
-    <div class="tdash-grid tdash-2">
-      <section class="tcol tcol-c">
+    <div class="tdash-grid tdash-1">
+      <section class="tcol tcol-c tcol-full">
         <header class="tpanel-h twire-head">
           <div class="tchips" id="lg-chips">
             <button type="button" class="tchip is-on" data-k="all">All</button>
@@ -452,30 +516,32 @@ function viewDashboard() {
             <button type="button" class="tchip" data-k="rp">Schemes &amp; RPs</button>
           </div>
         </header>
-        <ul class="twire compact-list" id="lg-wire">${wire.length ? wire.slice(0, 90).map(wireRow).join("") : '<li class="tw-empty muted small">No items yet.</li>'}</ul>
+        <div class="tpanes" id="lg-panes">
+          <div class="tpane" data-pane="wire">
+            <ul class="twire compact-list" id="lg-wire">${wire.length ? wire.slice(0, 120).map(wireRow).join("") : '<li class="tw-empty muted small">No items yet.</li>'}</ul>
+          </div>
+          <div class="tpane" data-pane="cases" hidden>${casesPane()}</div>
+          <div class="tpane" data-pane="schemes" hidden>${schemesTablePane()}</div>
+        </div>
       </section>
-      <aside class="tcol tcol-r">
-        <section class="tpanel">
-          <header class="tpanel-h"><span>Schemes &amp; RPs</span><span class="tpanel-x">latest</span></header>
-          <ul class="tmini">${[...restructurings].filter((r) => r.date).sort(byDateDesc).slice(0, 10).map(rxRow).join("")}</ul>
-        </section>
-        <section class="tpanel">
-          <header class="tpanel-h"><span>Recent cases</span><span class="tpanel-x">BAILII</span></header>
-          <ul class="tmini">${[...cases].filter((c) => c.date).sort(byDateDesc).slice(0, 10).map(caseRow).join("")}</ul>
-        </section>
-      </aside>
     </div>
   </div>`;
   legalWireDash();
 }
+// All / Alerts filter the combined wire in place; Case law and Schemes & RPs each
+// swap to their own full pane (a case list and the schemes table) so both are
+// completely populated rather than capped by the wire's newest-N slice.
 function legalWireDash() {
-  const chips = document.getElementById("lg-chips"), wire = document.getElementById("lg-wire");
-  if (!chips || !wire) return;
+  const chips = document.getElementById("lg-chips"), panes = document.getElementById("lg-panes");
+  if (!chips || !panes) return;
+  const PANE = { all: "wire", alert: "wire", case: "cases", rp: "schemes" };
+  const wire = document.getElementById("lg-wire");
   chips.onclick = (e) => {
     const b = e.target.closest(".tchip"); if (!b) return;
     chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
-    const k = b.dataset.k;
-    wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (k === "all" || r.dataset.kind === k) ? "" : "none"; });
+    const k = b.dataset.k, pane = PANE[k];
+    panes.querySelectorAll(".tpane").forEach((p) => { p.hidden = p.dataset.pane !== pane; });
+    if (pane === "wire" && wire) wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (k === "all" || r.dataset.kind === k) ? "" : "none"; });
   };
 }
 

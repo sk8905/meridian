@@ -711,3 +711,33 @@ svg.mtab-ico { width: 22px; height: 22px; }
   .rx-title-line .save-btn { position: absolute; top: .8rem; right: 0; margin: 0; }
   .feed-body { padding-right: 5.2rem; }
 }
+
+/* ===================== Schemes & RPs table (dashboard pane) =====================
+   Every Part 26A plan / Part 26 scheme in one dense table — company, debt, status,
+   creditors, each side's advisers and the judgment/analysis documents. Rendered on
+   the dark terminal surface, so it composes with the tui CSS variables. */
+.lg-sc-wrap { width: 100%; overflow-x: auto; }
+.lg-sc-tbl { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 11px; }
+.lg-sc-tbl th { text-align: left; font-size: 8.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; padding: 6px 8px; background: var(--head); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1; }
+.lg-sc-tbl td { padding: 8px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); line-height: 1.4; }
+.lg-sc-tbl th:nth-child(1), .lg-sc-tbl td:nth-child(1) { width: 13%; }
+.lg-sc-tbl th:nth-child(2), .lg-sc-tbl td:nth-child(2) { width: 9%; }
+.lg-sc-tbl th:nth-child(3), .lg-sc-tbl td:nth-child(3) { width: 9%; }
+.lg-sc-tbl th:nth-child(4), .lg-sc-tbl td:nth-child(4) { width: 22%; }
+.lg-sc-tbl th:nth-child(5), .lg-sc-tbl td:nth-child(5) { width: 16%; }
+.lg-sc-tbl th:nth-child(6), .lg-sc-tbl td:nth-child(6) { width: 16%; }
+.lg-sc-tbl th:nth-child(7), .lg-sc-tbl td:nth-child(7) { width: 15%; }
+.lg-sc-co a { color: var(--ink); font-weight: 600; }
+.lg-sc-co a:hover { color: var(--accent); }
+.lg-sc-debt { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.lg-sc-status { display: inline-block; font-size: 9.5px; font-weight: 600; padding: 1px 6px; border: 1px solid var(--border); border-radius: 2px; white-space: nowrap; color: var(--muted); }
+.lg-sc-status.s-sanctioned { color: #3fc08d; border-color: rgba(63,192,141,.4); }
+.lg-sc-status.s-refused, .lg-sc-status.s-appealallowed { color: #f26d84; border-color: rgba(242,109,132,.4); }
+.lg-sc-status.s-appealdismissed { color: #3fc08d; border-color: rgba(63,192,141,.4); }
+.lg-sc-status.s-convened { color: var(--accent); border-color: rgba(251,139,30,.4); }
+.lg-mini-list, .lg-doc-list { margin: 0; padding: 0; list-style: none; }
+.lg-mini-list li { margin-bottom: 3px; line-height: 1.35; color: var(--muted); font-size: 10.5px; }
+.lg-mini-list li:last-child { margin-bottom: 0; }
+.lg-doc-list li { margin-bottom: 4px; }
+.lg-doc-list a { color: var(--accent); font-size: 10.5px; }
+.lg-doc-list a:hover { text-decoration: underline; }
