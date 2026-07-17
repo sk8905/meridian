@@ -15,11 +15,15 @@ import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/mac
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const byDateDesc = (a, b) => String(b.date || "").localeCompare(String(a.date || ""));
-// Premium news wire — the ONLY sources eligible to lead the briefing "Top story".
+// The ONLY sources eligible to lead the briefing "Top story": FT, Bloomberg, CNBC,
+// Reuters and the WSJ (plus their same-wire variants, e.g. a Reuters story carried
+// via Investing.com or an FT Alphaville post).
 const PREMIUM_NEWS = new Set([
-  "Financial Times", "FT Alphaville", "Bloomberg", "Bloomberg Opinion", "Reuters",
-  "Reuters (via Investing.com)", "CNBC", "The Wall Street Journal", "WSJ",
-  "The Economist", "MarketWatch", "The Guardian",
+  "Financial Times", "FT Alphaville",
+  "Bloomberg",
+  "CNBC",
+  "Reuters", "Reuters (via Investing.com)",
+  "The Wall Street Journal", "WSJ",
 ]);
 // Low-tier aggregator / SEO / forecast-farm / crypto sources — limited out of the
 // Home macro feed so premium newsrooms dominate (credit & legal desks are the
