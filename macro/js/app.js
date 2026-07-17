@@ -377,6 +377,33 @@ function yieldCurveSvg(c) {
   return `<svg viewBox="0 0 ${W} ${H}" class="yc" role="img" aria-label="US Treasury and UK gilt yield curves">${grid}${seg(c.us, "yc-us")}${seg(c.uk, "yc-uk")}${xlab}</svg>`;
 }
 
+// The yield-curve panel body: legend + SVG + note. Reads the module-level _yc,
+// which starts as the compiled YIELD_CURVE and is overwritten in place by the live
+// /api/yield-curve values (falling back to the compiled figure per maturity).
+let _yc = YIELD_CURVE;
+function ycBody() {
+  return `<div class="yc-legend"><span class="yc-key yc-key-us">US Treasury</span><span class="yc-key yc-key-uk">UK gilt</span></div>`
+    + yieldCurveSvg(_yc)
+    + `<p class="ck-note">${_yc.note}</p>`;
+}
+// Pull the live US Treasury + UK gilt curves and merge over the compiled fallback
+// (per maturity), then repaint the panel in place. Never throws — on any failure
+// the compiled curve stays.
+async function loadYieldCurve() {
+  try {
+    const r = await fetch("/api/yield-curve", { headers: { accept: "application/json" } });
+    if (!r.ok) return;
+    const d = await r.json();
+    if (!d || !Array.isArray(d.us)) return;
+    const merge = (live, stat) => (stat || []).map((v, i) => (live && Number.isFinite(live[i]) ? live[i] : v));
+    _yc = { ...YIELD_CURVE, us: merge(d.us, YIELD_CURVE.us), uk: merge(d.uk, YIELD_CURVE.uk), asOf: d.asOf ? fmtDate(d.asOf) : YIELD_CURVE.asOf };
+    const body = document.getElementById("ck-yc-body");
+    if (body) body.innerHTML = ycBody();
+    const asof = document.getElementById("ck-yc-asof");
+    if (asof) asof.textContent = `gov · as of ${_yc.asOf}`;
+  } catch { /* keep the compiled curve */ }
+}
+
 // The economic-indicators block for the cockpit — US and UK side by side, each a
 // 3-across grid of value + change tiles (reuses the .mac-ind rail styling).
 function cockpitInds(series) {
@@ -416,12 +443,8 @@ function macroDashPane() {
     </section>
 
     <section class="ck-panel">
-      <header class="ck-h"><span>Yield curve</span><span class="ck-x">gov · as of ${esc(YIELD_CURVE.asOf)}</span></header>
-      <div class="ck-body">
-        <div class="yc-legend"><span class="yc-key yc-key-us">US Treasury</span><span class="yc-key yc-key-uk">UK gilt</span></div>
-        ${yieldCurveSvg(YIELD_CURVE)}
-        <p class="ck-note">${YIELD_CURVE.note}</p>
-      </div>
+      <header class="ck-h"><span>Yield curve</span><span class="ck-x" id="ck-yc-asof">gov · as of ${esc(_yc.asOf)}</span></header>
+      <div class="ck-body" id="ck-yc-body">${ycBody()}</div>
     </section>
 
     <section class="ck-panel">
@@ -1545,7 +1568,7 @@ function render() {
   const body = tab === "commentary" ? viewCommentary() : tab === "policy" ? viewPolicy() : tab === "cycle" ? viewCycle() : tab === "bubble" ? viewBubble() : tab === "chart" ? viewChart() : tab === "saved" ? viewSaved() : viewDashboard();
   app.innerHTML = body;
   syncNav(tab);
-  if (tab === "dashboard") { macroWireDash(); loadMacro(dashFocus); loadMacroFeed(); }
+  if (tab === "dashboard") { macroWireDash(); loadMacro(dashFocus); loadMacroFeed(); loadYieldCurve(); }
   if (tab === "commentary") wireCommentary();
   if (tab === "chart") { syncChartAll(); fetchMacro().then(() => { if (currentTab() === "chart") drawChart(); }); }
   window.scrollTo(0, 0);

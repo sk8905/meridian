@@ -301,6 +301,37 @@ async function treasurySeries(col) {
   return lastTwo(pairs);
 }
 
+// The whole US Treasury par yield curve in ONE fetch: pulls the latest-dated row
+// from the daily curve CSV and reads the requested columns (e.g. "3 Mo", "2 Yr",
+// "10 Yr", "30 Yr"). Returns { values: {col: yield|null}, asOf: "YYYY-MM-DD"|null }.
+async function treasuryCurve(cols) {
+  const res = {}; cols.forEach((c) => (res[c] = null));
+  const y = new Date().getFullYear();
+  const txt = await fetchText(`https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/${y}/all?type=daily_treasury_yield_curve&_format=csv`);
+  if (!txt) return { values: res, asOf: null };
+  const lines = txt.trim().split(/\r?\n/);
+  if (lines.length < 2) return { values: res, asOf: null };
+  const header = lines[0].split(",").map((h) => h.replace(/^"|"$/g, "").trim());
+  const di = header.indexOf("Date");
+  if (di < 0) return { values: res, asOf: null };
+  // Find the newest-dated row (the CSV isn't guaranteed sorted).
+  let bestIso = "", best = null;
+  for (const line of lines.slice(1)) {
+    const c = line.split(",");
+    const m = (c[di] || "").replace(/^"|"$/g, "").trim().match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if (!m) continue;
+    const iso = `${m[3]}-${m[1]}-${m[2]}`;
+    if (iso > bestIso) { bestIso = iso; best = c; }
+  }
+  if (!best) return { values: res, asOf: null };
+  cols.forEach((col) => {
+    const ci = header.indexOf(col);
+    const v = ci >= 0 ? parseFloat((best[ci] || "").trim()) : NaN;
+    if (Number.isFinite(v)) res[col] = v;
+  });
+  return { values: res, asOf: bestIso };
+}
+
 // Latest yield from MarketWatch's keyless "download data" CSV for a bond (e.g.
 // tmbmkgb-02y = the Tullett Prebon UK 2Y gilt benchmark). Returns the most recent
 // Close (the yield) or null. countrycode=bx is MarketWatch's cross-venue feed.
@@ -496,6 +527,37 @@ const MOVERS_EXTRA = [
   { label: "VIX", symbol: "^VIX" },
 ];
 
+// The Top Movers board is a cross-asset ETF universe — every asset class expressed
+// as a liquid, US-listed ETF rather than a raw index/spot/yield, so the board reads
+// as one comparable set of tradeable instruments. Broad equity + the 11 SPDR sector
+// funds + semis, plus bond, commodity and crypto ETFs. Spot-only, best-effort (any
+// that fail to resolve are dropped). Yahoo symbols.
+const MOVERS_ETF = [
+  // Broad equity
+  { label: "S&P 500", symbol: "SPY", href: "https://finance.yahoo.com/quote/SPY" },
+  { label: "Nasdaq 100", symbol: "QQQ", href: "https://finance.yahoo.com/quote/QQQ" },
+  { label: "Small caps", symbol: "IWM", href: "https://finance.yahoo.com/quote/IWM" },
+  // Equity sectors — SPDR Select Sector funds (+ semiconductors)
+  { label: "Technology", symbol: "XLK", href: "https://finance.yahoo.com/quote/XLK" },
+  { label: "Semis", symbol: "SMH", href: "https://finance.yahoo.com/quote/SMH" },
+  { label: "Financials", symbol: "XLF", href: "https://finance.yahoo.com/quote/XLF" },
+  { label: "Health Care", symbol: "XLV", href: "https://finance.yahoo.com/quote/XLV" },
+  { label: "Energy", symbol: "XLE", href: "https://finance.yahoo.com/quote/XLE" },
+  { label: "Industrials", symbol: "XLI", href: "https://finance.yahoo.com/quote/XLI" },
+  { label: "Cons. Staples", symbol: "XLP", href: "https://finance.yahoo.com/quote/XLP" },
+  { label: "Cons. Discr.", symbol: "XLY", href: "https://finance.yahoo.com/quote/XLY" },
+  { label: "Utilities", symbol: "XLU", href: "https://finance.yahoo.com/quote/XLU" },
+  { label: "Real Estate", symbol: "XLRE", href: "https://finance.yahoo.com/quote/XLRE" },
+  // Bonds / rates
+  { label: "Long Treasuries", symbol: "TLT", href: "https://finance.yahoo.com/quote/TLT" },
+  { label: "High Yield", symbol: "HYG", href: "https://finance.yahoo.com/quote/HYG" },
+  // Commodities
+  { label: "Gold", symbol: "GLD", href: "https://finance.yahoo.com/quote/GLD" },
+  { label: "Oil", symbol: "USO", href: "https://finance.yahoo.com/quote/USO" },
+  // Crypto
+  { label: "Bitcoin", symbol: "IBIT", href: "https://finance.yahoo.com/quote/IBIT" },
+];
+
 // Latest price/level + daily change + ~1-month daily-close history from Yahoo
 // Finance's public chart API (no key). Symbols like "^GSPC" must be URL-encoded.
 async function yahooQuote(symbol) {
@@ -587,7 +649,7 @@ async function handleMarkets(request, env, ctx) {
     return new Response(JSON.stringify({ nowUTC: new Date().toISOString(), probes, futures }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/markets?v=10", request.url).toString());
+  const cacheKey = new Request(new URL("/api/markets?v=11", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const fromFred = async (id) => {
@@ -616,7 +678,12 @@ async function handleMarkets(request, env, ctx) {
     const r = await yahooQuote(s.symbol);
     return r.value != null ? { label: s.label, value: r.value, changePct: r.changePct, marketState: r.marketState || null } : null;
   }))).filter(Boolean);
-  const resp = new Response(JSON.stringify({ markets: data, moversExtra }), {
+  // Cross-asset ETF universe for the Top Movers board (spot + daily % only).
+  const moversEtf = (await Promise.all(MOVERS_ETF.map(async (s) => {
+    const r = await yahooQuote(s.symbol);
+    return r.value != null ? { label: s.label, value: r.value, changePct: r.changePct, marketState: r.marketState || null, href: s.href } : null;
+  }))).filter(Boolean);
+  const resp = new Response(JSON.stringify({ markets: data, moversExtra, moversEtf }), {
     // Short cache so the live prices stay near-real-time without hammering upstreams.
     headers: { "content-type": "application/json", "cache-control": "public, max-age=60" },
   });
@@ -625,6 +692,37 @@ async function handleMarkets(request, env, ctx) {
   if (ctx && ctx.waitUntil && data.filter((d) => d.value != null).length >= 6) {
     ctx.waitUntil(cache.put(cacheKey, resp.clone()));
   }
+  return resp;
+}
+
+// Live government yield curves for the Macro dashboard: the US Treasury par curve
+// (one CSV fetch) and the UK gilt curve (Tullett Prebon benchmarks via MarketWatch).
+// Any maturity that can't be sourced comes back null and the client falls back to
+// its compiled value, so the chart never breaks. Cached 30 min (yields are daily).
+const YC_MATS = ["3M", "2Y", "5Y", "10Y", "30Y"];
+const YC_US_COL = { "3M": "3 Mo", "2Y": "2 Yr", "5Y": "5 Yr", "10Y": "10 Yr", "30Y": "30 Yr" };
+const YC_UK_TICKER = { "2Y": "tmbmkgb-02y", "5Y": "tmbmkgb-05y", "10Y": "tmbmkgb-10y", "30Y": "tmbmkgb-30y" };
+async function handleYieldCurve(request, env, ctx) {
+  const cache = caches.default;
+  const cacheKey = new Request(new URL("/api/yield-curve?v=1", request.url).toString());
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+  const [usc, ...uk] = await Promise.all([
+    treasuryCurve(YC_MATS.map((m) => YC_US_COL[m])),
+    ...YC_MATS.map((m) => (YC_UK_TICKER[m] ? marketwatchBondYield(YC_UK_TICKER[m]) : Promise.resolve(null))),
+  ]);
+  const us = YC_MATS.map((m) => { const v = usc.values[YC_US_COL[m]]; return Number.isFinite(v) ? +(+v).toFixed(2) : null; });
+  const ukArr = YC_MATS.map((m, i) => (Number.isFinite(uk[i]) ? +(+uk[i]).toFixed(2) : null));
+  const body = {
+    maturities: YC_MATS, us, uk: ukArr, asOf: usc.asOf,
+    sources: [
+      ["US Treasury — daily par yield curve", "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"],
+      ["UK gilt benchmarks (Tullett Prebon via MarketWatch)", "https://www.marketwatch.com/investing/bond/tmbmkgb-10y?countrycode=bx"],
+    ],
+  };
+  const resp = new Response(JSON.stringify(body), { headers: { "content-type": "application/json", "cache-control": "public, max-age=1800" } });
+  // Only cache once we actually have most of the US curve (don't pin a failed fetch).
+  if (ctx && ctx.waitUntil && us.filter((v) => v != null).length >= 3) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
   return resp;
 }
 
@@ -1363,6 +1461,7 @@ export default {
     if (url.pathname === "/api/markets") return handleMarkets(request, env, ctx);
     if (url.pathname === "/api/pulse") return handlePulse(request, env, ctx);
     if (url.pathname === "/api/macro") return handleMacro(request, env, ctx);
+    if (url.pathname === "/api/yield-curve") return handleYieldCurve(request, env, ctx);
     if (url.pathname === "/api/feed") return handleFeed(request, env, ctx);
     if (url.pathname === "/api/watchlist") return handleWatchlist(request, env);
     if (url.pathname === "/api/research-targets") return handleResearchTargets(request, env);

@@ -1033,6 +1033,7 @@ function renderMarketsBand(el, d) {
   renderFxMatrix(d);
   _mktRows = rows;
   _mktExtra = d.moversExtra || [];
+  _mktEtf = d.moversEtf || [];
   renderTicker(); renderMovers(); renderVolRisk();
   return true;
 }
@@ -1087,7 +1088,7 @@ function renderFxMatrix(d) {
 // The ticker strip and movers panel are derived views over the SAME live markets
 // and rates payloads the left-rail panels show — no extra request. The renderers
 // stash the freshest rows so either feed landing repaints both derived views.
-let _mktRows = [], _rateRows = [], _mktExtra = [];
+let _mktRows = [], _rateRows = [], _mktExtra = [], _mktEtf = [];
 // NB: _macroSeries is declared further down (shared with the macroSeries() helper).
 const TK_SHORT = { "S&P 500": "SPX", "NASDAQ": "NDX", "IGWD": "FTSE", "EMEE": "STOXX", "Oil": "BRENT", "Gold": "GOLD", "DXY": "DXY", "Bitcoin": "BTC" };
 function renderTicker() {
@@ -1114,25 +1115,30 @@ function renderMovers() {
   if (!el) return;
   const list = [];
   const seenNm = new Set();
-  const pushPct = (label, x) => {
+  const pushPct = (label, x, short = true) => {
     if (!x || x.value == null) return;
     const eff = (!isMarketOpen(x) && x.futuresPct != null) ? +Number(x.futuresPct) : (x.changePct != null ? +Number(x.changePct) : null);
     if (eff == null) return;
-    const nm = TK_SHORT[label] || label;
+    const nm = short ? (TK_SHORT[label] || label) : label;
     if (seenNm.has(nm)) return; seenNm.add(nm);
     list.push({ nm, mag: Math.abs(eff), dir: glSign(eff), val: `${eff > 0 ? "+" : ""}${eff.toFixed(2)}%`, unit: "pct" });
   };
-  (_mktRows || []).forEach((x) => pushPct(x.label, x));
-  // Widen the board with the cross-asset pool (other indices, commodities, crypto,
-  // VIX) that otherwise only rides the ticker — the FX pairs are skipped since the
-  // FX matrix already carries them.
-  (_mktExtra || []).forEach((x) => { if (!/\//.test(x.label)) pushPct(x.label, x); });
-  (_rateRows || []).forEach((x) => {
-    if (x.value == null || x.change == null) return;
-    const bp = Math.round(x.change * 100);
-    if (!bp) return;
-    list.push({ nm: x.label.replace(/ OAS$/, ""), mag: Math.abs(bp), dir: glSign(bp), val: `${bp > 0 ? "+" : ""}${bp}bp`, unit: "bp" });
-  });
+  // The board is a cross-asset ETF universe — equity indices & sectors, bonds,
+  // commodities and crypto, each an ETF so every row is one comparable % move.
+  // Fall back to the legacy mixed pool only if the ETF feed hasn't arrived yet
+  // (e.g. an older cached /api/markets response without moversEtf).
+  if ((_mktEtf || []).length) {
+    (_mktEtf || []).forEach((x) => pushPct(x.label, x, false));
+  } else {
+    (_mktRows || []).forEach((x) => pushPct(x.label, x));
+    (_mktExtra || []).forEach((x) => { if (!/\//.test(x.label)) pushPct(x.label, x); });
+    (_rateRows || []).forEach((x) => {
+      if (x.value == null || x.change == null) return;
+      const bp = Math.round(x.change * 100);
+      if (!bp) return;
+      list.push({ nm: x.label.replace(/ OAS$/, ""), mag: Math.abs(bp), dir: glSign(bp), val: `${bp > 0 ? "+" : ""}${bp}bp`, unit: "bp" });
+    });
+  }
   if (!list.length) { el.innerHTML = '<div class="g-empty">No moves yet.</div>'; return; }
   const maxPct = Math.max(...list.filter((x) => x.unit === "pct").map((x) => x.mag), 0.01);
   const maxBp = Math.max(...list.filter((x) => x.unit === "bp").map((x) => x.mag), 1);
