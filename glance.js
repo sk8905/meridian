@@ -685,6 +685,8 @@ function initMacroIndicators() {
     .then((d) => {
       const series = (d && d.series) || [];
       if (!series.length) return fail();
+      _macroSeries = series;
+      renderYieldCurve();
       const rowsFor = (c) => IND_ORDER.map((k) => series.find((s) => s.country === c && s.key === k)).filter(Boolean);
       const block = (label, c) => { const r = rowsFor(c); return r.length ? `<div class="rate-sub">${label}</div>${r.map(indTile).join("")}` : ""; };
       const html = block("United States", "US") + block("United Kingdom", "UK");
@@ -734,7 +736,7 @@ function renderRates(el, d) {
   setGlance("gl-rates", _pulse.rates ? esc(_pulse.rates) : ratesOneLiner(rowsData));
   setGlTickers("rates", rateTickers(rowsData));
   _rateRows = rowsData;
-  renderTicker(); renderMovers();
+  renderTicker(); renderMovers(); renderVolRisk(); renderYieldCurve();
   return true;
 }
 function initRates() {
@@ -982,7 +984,8 @@ function renderMarketsBand(el, d) {
   setGlTickers("markets", marketTickers([...rows, ...((d.moversExtra) || [])]));
   renderFxMatrix(d);
   _mktRows = rows;
-  renderTicker(); renderMovers();
+  _mktExtra = d.moversExtra || [];
+  renderTicker(); renderMovers(); renderVolRisk();
   return true;
 }
 // FX daily matrix — USD/GBP/EUR/JPY cross rates derived from the three USD pairs
@@ -1036,7 +1039,8 @@ function renderFxMatrix(d) {
 // The ticker strip and movers panel are derived views over the SAME live markets
 // and rates payloads the left-rail panels show — no extra request. The renderers
 // stash the freshest rows so either feed landing repaints both derived views.
-let _mktRows = [], _rateRows = [];
+let _mktRows = [], _rateRows = [], _mktExtra = [];
+// NB: _macroSeries is declared further down (shared with the macroSeries() helper).
 const TK_SHORT = { "S&P 500": "SPX", "NASDAQ": "NDX", "IGWD": "FTSE", "EMEE": "STOXX", "Oil": "BRENT", "Gold": "GOLD", "DXY": "DXY", "Bitcoin": "BTC" };
 function renderTicker() {
   const row = document.getElementById("g-ticker-row");
@@ -1123,6 +1127,70 @@ function renderRx() {
     return `<a class="tui-li" href="/legal/#/restructurings?m=${encodeURIComponent(r.id)}"><span class="tui-li-t">${esc(r.company)}</span>`
       + `<span class="tui-li-m"><span class="tui-li-tag lex">${kind}</span>${esc(meta)}</span></a>`;
   }).join("");
+}
+
+// ---- Volatility & risk (left rail) + Yield curve (right rail) ---------------
+// Both reuse the .rate-tile band (label · value · change) so they read exactly
+// like Markets / Key rates. Data is stitched from feeds already fetched: VIX from
+// the markets extra-movers pool, OAS spreads from the rates feed, and the 2-year
+// yield from the macro feed (the 10-year comes from the rates feed).
+const dSign = (c) => (c == null ? "flat" : c > 0 ? "up" : c < 0 ? "down" : "flat");
+function riskTile(o) {
+  const chg = o.chg == null
+    ? '<span class="rate-chg flat">·</span>'
+    : `<span class="rate-chg ${o.dir}">${o.dir === "up" ? "▲" : o.dir === "down" ? "▼" : "·"} ${o.chg}</span>`;
+  const tag = o.href ? "a" : "div";
+  const attrs = o.href ? ` href="${esc(o.href)}" target="_blank" rel="noopener noreferrer"` : "";
+  return `<${tag} class="rate-tile"${attrs} title="${esc(o.title || o.label)}">`
+    + `<span class="rate-label">${esc(o.label)}</span><span class="rate-val">${esc(o.val)}</span>${chg}</${tag}>`;
+}
+const findRate = (label) => (_rateRows || []).find((x) => x.label === label);
+const findExtra = (label) => (_mktExtra || []).find((x) => x.label === label);
+const findMacro = (country, key) => (_macroSeries || []).find((s) => s.country === country && s.key === key);
+// OAS series carry `value`/`change` in PERCENT (0.95 → 95 bp), matching fmtRate.
+const bpTxt = (v) => `${Math.round(v * 100)} bp`;
+function renderVolRisk() {
+  const el = document.getElementById("g-vol");
+  if (!el) return;
+  const vix = findExtra("VIX");
+  const hy = findRate("US HY OAS"), ig = findRate("US IG OAS"), ccc = findRate("US CCC OAS");
+  const rows = [];
+  if (vix && vix.value != null) {
+    // The markets feed carries VIX's % move; convert to points for the tile.
+    const cp = typeof vix.changePct === "number" ? vix.changePct : null;
+    const pts = cp == null ? null : +vix.value - (+vix.value) / (1 + cp / 100);
+    rows.push(riskTile({ label: "VIX", val: (+vix.value).toFixed(2), chg: pts == null ? null : Math.abs(pts).toFixed(2), dir: dSign(pts), href: "https://finance.yahoo.com/quote/%5EVIX", title: "CBOE Volatility Index — equity volatility" }));
+  }
+  if (hy && hy.value != null) {
+    rows.push(riskTile({ label: "HY OAS", val: bpTxt(hy.value), chg: hy.change == null ? null : Math.abs(Math.round(hy.change * 100)) + " bp", dir: dSign(hy.change), href: hy.href, title: "US high-yield option-adjusted spread" }));
+  }
+  if (hy && ig && hy.value != null && ig.value != null) {
+    const v = hy.value - ig.value, c = (hy.change != null && ig.change != null) ? hy.change - ig.change : null;
+    rows.push(riskTile({ label: "HY − IG", val: bpTxt(v), chg: c == null ? null : Math.abs(Math.round(c * 100)) + " bp", dir: dSign(c), href: hy.href, title: "Quality premium — high-yield minus investment-grade OAS" }));
+  }
+  if (ccc && hy && ccc.value != null && hy.value != null) {
+    const v = ccc.value - hy.value, c = (ccc.change != null && hy.change != null) ? ccc.change - hy.change : null;
+    rows.push(riskTile({ label: "CCC − HY", val: bpTxt(v), chg: c == null ? null : Math.abs(Math.round(c * 100)) + " bp", dir: dSign(c), href: ccc.href, title: "Distress premium — CCC minus high-yield OAS" }));
+  }
+  if (rows.length) el.innerHTML = rows.join("");
+}
+function renderYieldCurve() {
+  const el = document.getElementById("g-curve");
+  if (!el) return;
+  const t2 = findMacro("US", "two_year"), t10 = findRate("US 10Y");
+  const rows = [];
+  if (t2 && t2.value != null) {
+    rows.push(riskTile({ label: "2Y", val: (+t2.value).toFixed(2) + "%", chg: t2.change == null ? null : Math.abs(t2.change).toFixed(2), dir: dSign(t2.change), href: t2.href, title: "US 2-year Treasury yield" }));
+  }
+  if (t10 && t10.value != null) {
+    rows.push(riskTile({ label: "10Y", val: (+t10.value).toFixed(2) + "%", chg: t10.change == null ? null : Math.abs(t10.change).toFixed(2), dir: dSign(t10.change), href: t10.href, title: "US 10-year Treasury yield" }));
+  }
+  if (t2 && t10 && t2.value != null && t10.value != null) {
+    const spBp = Math.round((+t10.value - +t2.value) * 100);
+    const cBp = (t10.change != null && t2.change != null) ? Math.round((t10.change - t2.change) * 100) : null;
+    rows.push(riskTile({ label: "2s10s", val: `${spBp > 0 ? "+" : ""}${spBp} bp`, chg: cBp == null ? null : Math.abs(cBp) + " bp", dir: dSign(cBp), href: t10.href, title: "2s10s slope — 10Y minus 2Y (negative = inverted, a recession signal)" }));
+  }
+  if (rows.length) el.innerHTML = rows.join("");
 }
 
 function initMarkets() {
