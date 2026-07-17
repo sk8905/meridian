@@ -10,7 +10,7 @@
   --ink: #131a2b;
   --muted: #66708a;
   --border: #e4e7ef;
-  --navy: #0b1f44;          /* top bar (matches Glance) */
+  --navy: #000000;          /* top bar (matches Glance) */
   --macro: #d1701c;         /* accent — Glance blue (was lavender) */
   --macro-ink: #1c3a5e;     /* deep blue for emphasis text */
   --brand-accent: #6d5fae;  /* Macro signature — logo + iPhone tab only */

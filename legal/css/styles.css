@@ -12,7 +12,7 @@
   --ink-soft: #334155;
   --muted: #66708a;
   --line: #e4e7ef;
-  --navy: #0b1f44;          /* top bar (matches Glance) */
+  --navy: #000000;          /* top bar (matches Glance) */
   --primary: #d1701c;       /* accent — Glance blue */
   --primary-ink: #1c3a5e;
   --accent: #d1701c;
@@ -97,7 +97,7 @@ img, svg { max-width: 100%; }
 .platform-switch { display: inline-flex; align-items: center; gap: 2px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.22); border-radius: 8px; padding: 2px; margin-right: .6rem; flex: 0 0 auto; }
 .ps-btn { padding: .3rem .6rem; border-radius: 6px; font-size: .8rem; font-weight: 700; color: #cbd5e1; text-decoration: none; white-space: nowrap; }
 .ps-btn:hover { color: #fff; text-decoration: none; background: rgba(255,255,255,.1); }
-.ps-btn.is-active, .ps-btn.is-active:hover { background: #fff; color: #0b1f44; }
+.ps-btn.is-active, .ps-btn.is-active:hover { background: #fff; color: #000000; }
 /* On wide screens, pin the logo to the far-left corner (out of flow) and indent
    the rest of the row to the page container's left edge, so the switch and the
    nav tabs line up with the page heading/body text. The 11rem floor keeps the

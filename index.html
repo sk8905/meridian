@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="theme-color" content="#05080f">
+  <meta name="theme-color" content="#000000">
   <!-- Resolve the theme BEFORE paint (stored choice, else the OS setting) so there
        is no light flash; then wire the top-bar toggle once the DOM is ready. -->
   <script>
@@ -20,7 +20,7 @@
   <meta name="description" content="Meridian Home — a cross-desk briefing across the Credit, Legal and Macro intelligence platforms, with a unified search." />
   <style>
     :root {
-      --navy:#0b1f44; --brand:#1c3a5e; --brand-2:#d1701c; --accent:#d1701c;
+      --navy:#000000; --brand:#1c3a5e; --brand-2:#d1701c; --accent:#d1701c;
       --ink:#131a2b; --muted:#66708a; --line:#e4e7ef; --bg:#f4f6fb; --surface:#fff;
       /* Per-section accents — each visibly distinct so the ◆ (and the section's
          "Open →" link, tags and hovers) reads at a glance: Macro purple, Credit
@@ -57,7 +57,7 @@
        far-left corner and the row is indented to the page container's left edge,
        so the switch lines up with the page content; the search sits at the
        content's right margin — the same slot the apps give Watchlist). ---- */
-    .g-top { position:sticky; top:0; z-index:20; background:#090e18; color:#fff; border-bottom:1px solid rgba(255,255,255,.08); }
+    .g-top { position:sticky; top:0; z-index:20; background:#000000; color:#fff; border-bottom:1px solid rgba(255,255,255,.08); }
     .g-top-inner { position:relative; display:flex; align-items:center; gap:1.6rem; padding:0 1.5rem; height:54px; }
     .g-brand { display:flex; align-items:center; gap:.55rem; flex:0 0 auto; color:#fff; }
     .g-logo { color:var(--accent, #f28c3c); font-size:1.2rem; line-height:1; }
@@ -568,7 +568,7 @@
         width:100vw; max-width:100vw; height:100dvh; max-height:100dvh;
         margin:0; padding:0 0 calc(2rem + env(safe-area-inset-bottom, 0px)); border:0; border-radius:0;
         z-index:130; overflow-y:auto; overscroll-behavior:contain; box-shadow:none;
-        background:var(--t-ground, #05080f); }
+        background:var(--t-ground, #000000); }
       body.g-mkt-open { overflow:hidden; }
     }
     /* Sticky header inside the full-screen panel: title + close. Phones only. */
@@ -577,11 +577,11 @@
       .g-mkt-head { position:sticky; top:0; z-index:3; display:flex; align-items:center;
         justify-content:space-between; gap:10px; min-height:52px; padding:0 12px 0 14px;
         padding-top:env(safe-area-inset-top, 0px);
-        background:var(--t-head, #080d17); border-bottom:1px solid var(--t-grid2, #232f47); }
+        background:var(--t-head, #0a0a0a); border-bottom:1px solid var(--t-grid2, #262626); }
       .g-mkt-title { font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
         color:var(--t-dim, #8592ad); }
       .g-mkt-close { width:34px; height:34px; flex:0 0 auto; display:grid; place-items:center;
-        border:1px solid var(--t-grid2, #232f47); background:transparent; color:var(--t-ink, #eaf0fb);
+        border:1px solid var(--t-grid2, #262626); background:transparent; color:var(--t-ink, #eaf0fb);
         font-size:15px; line-height:1; cursor:pointer; border-radius:0; }
       .g-mkt-close:hover { border-color:var(--t-accent, #f28c3c); color:var(--t-accent, #f28c3c); }
       /* The moved rails stack seamlessly; drop the side dividers, keep a hairline
@@ -589,7 +589,7 @@
          match the seamless terminal panels around them. */
       .g-mkt-panel .g-side, .g-mkt-panel .g-side2 { border:0; }
       .g-mkt-panel .g-ind-card, .g-mkt-panel .g-fx-card, .g-mkt-panel .g-snap {
-        border:0; border-radius:0; box-shadow:none; background:var(--t-panel, #0c1220); margin:0; padding:0; }
+        border:0; border-radius:0; box-shadow:none; background:var(--t-panel, #0d0d0d); margin:0; padding:0; }
     }
     /* Legacy floating-dropdown grid (used only if the panel is ever shown WITHOUT
        the terminal .tui treatment). The full-screen phone panel is always .tui. */
@@ -704,10 +704,10 @@
       .cmdk-panel { position:fixed; inset:0; top:0; left:0; right:0; bottom:0; margin:0;
         max-width:none; width:100vw; height:100dvh; max-height:100dvh; border-radius:0 !important;
         box-shadow:none; display:flex; flex-direction:column; overflow:hidden;
-        background:var(--t-ground, #05080f); }
+        background:var(--t-ground, #000000); }
       .cmdk-bar { flex:0 0 auto; gap:9px; padding:6px 8px 6px 13px;
         padding-top:calc(env(safe-area-inset-top, 0px) + 8px);
-        background:var(--t-head, #080d17); border-bottom:1px solid var(--t-grid2, #232f47); }
+        background:var(--t-head, #0a0a0a); border-bottom:1px solid var(--t-grid2, #262626); }
       .cmdk-mag { display:block; flex:0 0 auto; width:18px; height:18px; color:var(--t-faint, #5c6a86); }
       .cmdk-input { flex:1 1 auto; min-width:0; border:0 !important; border-bottom:0 !important;
         background:transparent; padding:.5rem .1rem; font-size:16px; color:var(--t-ink, #eaf0fb); }
@@ -716,7 +716,7 @@
         color:var(--t-accent, #f28c3c); font:inherit; font-size:14px; font-weight:600;
         padding:.4rem .35rem; cursor:pointer; white-space:nowrap; }
       .cmdk-results { flex:1 1 auto; max-height:none; padding:0; overflow-y:auto; overscroll-behavior:contain; }
-      .cmdk-row { border-bottom:1px solid var(--t-grid2, #232f47); border-radius:0; padding:.72rem .9rem; gap:.7rem; }
+      .cmdk-row { border-bottom:1px solid var(--t-grid2, #262626); border-radius:0; padding:.72rem .9rem; gap:.7rem; }
       .cmdk-row.sel, .cmdk-row:hover { background:var(--t-panel2, rgba(255,255,255,.05)); }
       .cmdk-t { font-size:.95rem; color:var(--t-ink, #eaf0fb); }
       .cmdk-s { font-size:.8rem; color:var(--t-dim, #8592ad); }
@@ -758,8 +758,8 @@
     /* provisional (to be refined). All terminal styling reads --t-* vars. */
     /* ================================================================= */
     :root[data-theme="dark"] #glance{
-      --t-ground:#05080f; --t-panel:#0c1220; --t-panel2:#121a2b; --t-head:#080d17;
-      --t-grid:#1a2438; --t-grid2:#232f47;
+      --t-ground:#000000; --t-panel:#0d0d0d; --t-panel2:#191919; --t-head:#0a0a0a;
+      --t-grid:#1a1a1a; --t-grid2:#262626;
       --t-ink:#eaf0fb; --t-dim:#b7c2da; --t-mut:#8592ad; --t-faint:#5c6a86;
       --t-accent:#f28c3c; --t-accent-dim:#a86020; --t-accent-soft:rgba(242,140,60,.15);
       --t-up:#3fc08d; --t-down:#f26d84;
@@ -1025,7 +1025,7 @@
       :root[data-theme="dark"] a.g-feed-row:hover .g-feed-title{ color:inherit; }
     }
   </style>
-  <link rel="stylesheet" href="/premium.css?v=20260716-15" />
+  <link rel="stylesheet" href="/premium.css?v=20260717-1" />
 </head>
 <body>
   <!-- Loading -->

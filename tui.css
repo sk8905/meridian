@@ -6,8 +6,8 @@
    colours, fonts or spacing.
 
    STRICT SPEC (dark is the default; light mirrors it via tokens):
-   • Surfaces  ground #05080f · panel/surface #0c1220 · panel-header #080d17
-   • Ink       primary #eaf0fb · muted #8592ad · faint #5c6a86 · border #232f47
+   • Surfaces  ground #000000 · panel/surface #0d0d0d · panel-header #0a0a0a
+   • Ink       primary #eaf0fb · muted #8592ad · faint #5c6a86 · border #262626
    • Accent    #f28c3c (ONE accent platform-wide; links, active tabs, hovers)
    • Up/Down   green #3fc08d / red #f26d84 (functional only)
    • Fonts     system sans for headlines/labels; --t-mono for ALL numbers,
@@ -27,11 +27,11 @@
 
 /* ---- deep near-black terminal surfaces (dark) to match Home ---- */
 :root[data-theme="dark"] {
-  --bg: #05080f;
-  --surface: #0c1220;
-  --line: #232f47;
-  --border: #232f47;
-  --head: #080d17;
+  --bg: #000000;
+  --surface: #0d0d0d;
+  --line: #262626;
+  --border: #262626;
+  --head: #0a0a0a;
   --ink: #eaf0fb;
   --muted: #8592ad;
   --faint: #5c6a86;
