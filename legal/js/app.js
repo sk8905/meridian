@@ -436,23 +436,11 @@ function viewDashboard() {
       + `<span class="tw-src">${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.src || "source")}</a>` : esc(x.src || "")}</span>`
       + `</li>`;
   };
-  const areaRow = (a) => `<li class="tmini-row"><a class="tmini-t" href="#/list?area=${esc(a.id)}">${esc(a.name)}</a><span class="tmini-m">${areaCount(a)} in ${thisYear}</span></li>`;
-  const tierRow = (t) => `<li class="tmini-row"><a class="tmini-t" href="#/list?tier=${esc(t.id)}">${esc(t.name)}</a><span class="tmini-m">${items.filter((i) => (firmById[i.firm] || {}).tier === t.id).length} alerts</span></li>`;
   const rxRow = (r) => `<li class="tmini-row"><a class="tmini-t" href="#/restructurings?m=${encodeURIComponent(r.id)}">${esc(r.company)}</a><span class="tmini-m">${r.type === "scheme" ? "Scheme" : "Plan"}${r.date ? " · " + esc(fmtDate(r.date)) : ""}</span></li>`;
   const caseRow = (c) => `<li class="tmini-row"><a class="tmini-t" href="#/cases?case=${encodeURIComponent(c.id)}">${esc(c.name)}</a><span class="tmini-m">${esc(c.court)}${c.date ? " · " + esc(fmtDate(c.date)) : ""}</span></li>`;
 
   app.innerHTML = `<div class="tdash">
-    <div class="tdash-grid">
-      <aside class="tcol tcol-l">
-        <section class="tpanel">
-          <header class="tpanel-h"><span>Practice areas</span><span class="tpanel-x">${thisYear}</span></header>
-          <ul class="tmini">${practiceAreas.map(areaRow).join("")}</ul>
-        </section>
-        <section class="tpanel">
-          <header class="tpanel-h"><span>Source tiers</span><span class="tpanel-x">firms</span></header>
-          <ul class="tmini">${tiers.map(tierRow).join("")}</ul>
-        </section>
-      </aside>
+    <div class="tdash-grid tdash-2">
       <section class="tcol tcol-c">
         <header class="tpanel-h twire-head">
           <div class="tchips" id="lg-chips">
