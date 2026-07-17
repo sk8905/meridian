@@ -387,9 +387,12 @@ function rxCompact(r) {
 // =============================================================================
 // ---- Schemes/RPs table helpers --------------------------------------------
 // Lead monetary figure from the (descriptive) debt field for the compact "Total
-// debt" column; falls back to a dash when no figure is stated.
+// debt" column. Matches currency SYMBOLS and CODES (£/€/$…, EUR/GBP/USD…), the
+// usual c./~/>/up to approximations and ranges ("US$5.5-6bn"). A dash means the
+// matter has no single debt figure (leasehold compromises, consumer-redress
+// schemes, disputed derivative claims) rather than a missing value.
 function schemeDebt(r) {
-  const m = String(r.debt || "").match(/(?:US\$|C\$|A\$|£|€|\$)\s?\d[\d.,]*\+?\s?(?:bn|billion|m|million|k)?/i);
+  const m = String(r.debt || "").match(/(?:>|~|≈|up to\s|c\.?\s?|circa\s?)?(?:US\$|C\$|A\$|HK\$|£|€|\$|EUR|GBP|USD|CAD|AUD|CHF)\s?\d[\d.,]*(?:\s?[–-]\s?\d[\d.,]*)?\+?\s?(?:bn|billion|tn|trillion|m|million|k)?/i);
   return m ? m[0].replace(/\s+/g, " ").trim() : "—";
 }
 // The advisers field is a flat, role-annotated list (the data was never stored
