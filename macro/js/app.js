@@ -383,7 +383,7 @@ function yieldCurveSvg(c) {
 let _yc = YIELD_CURVE;
 function ycBody() {
   const src = _yc.sources || [];
-  const link = (i, label) => (src[i] ? `<a href="${esc(src[i][1])}" target="_blank" rel="noopener noreferrer">${label} ↗</a>` : "");
+  const link = (i, label) => (src[i] ? `<a href="${esc(src[i][1])}" target="_blank" rel="noopener noreferrer">${label}</a>` : "");
   const srcs = [link(0, "US Treasury"), link(1, "UK gilt")].filter(Boolean).join(' <span class="ck-src-sep">·</span> ');
   return `<div class="yc-legend"><span class="yc-key yc-key-us">US Treasury</span><span class="yc-key yc-key-uk">UK gilt</span></div>`
     + yieldCurveSvg(_yc)
@@ -438,7 +438,7 @@ function macroDashPane() {
 
   return `<div class="mac-cockpit">
     <section class="ck-panel ck-span2">
-      <header class="ck-h"><span>Key economic indicators</span><span class="ck-x">US · UK</span><a class="ck-more" href="#/chart">Chart ↗</a></header>
+      <header class="ck-h"><span>Key economic indicators</span><span class="ck-x">US · UK</span><a class="ck-more" href="#/chart">Chart</a></header>
       <div class="ck-inds" id="mac-ck-inds">${cockpitInds((MACRO_DATA && MACRO_DATA.series) || [])}</div>
       <div class="ck-reads">
         <p class="ck-note"><strong>US.</strong> ${SUMMARY.outlook.us}</p>
@@ -454,10 +454,10 @@ function macroDashPane() {
     <section class="ck-panel">
       <header class="ck-h"><span>Market-implied Fed path</span><a class="ck-more" href="#/policy">Policy →</a></header>
       <div class="ck-body">
-        <p class="ck-sub"><strong>CME FedWatch</strong> · ${esc(fw ? fw.meeting : "")} FOMC · as of ${esc(fw ? fw.asOf : "")} · <a class="ck-src" href="${esc(fw ? fw.href : "#")}" target="_blank" rel="noopener noreferrer">CME ↗</a></p>
+        <p class="ck-sub"><strong>CME FedWatch</strong> · ${esc(fw ? fw.meeting : "")} FOMC · as of ${esc(fw ? fw.asOf : "")} · <a class="ck-src" href="${esc(fw ? fw.href : "#")}" target="_blank" rel="noopener noreferrer">CME</a></p>
         <div class="pw-bars">${fwBars}</div>
         <p class="ck-note">${esc(fw ? fw.note : "")}</p>
-        <p class="ck-sub ck-sub2"><strong>Fed dot plot</strong> · ${esc(dp ? dp.meeting : "")} median · <a class="ck-src" href="${esc(dp ? dp.href : "#")}" target="_blank" rel="noopener noreferrer">FOMC ↗</a></p>
+        <p class="ck-sub ck-sub2"><strong>Fed dot plot</strong> · ${esc(dp ? dp.meeting : "")} median · <a class="ck-src" href="${esc(dp ? dp.href : "#")}" target="_blank" rel="noopener noreferrer">FOMC</a></p>
         <table class="ck-dots"><tbody>${dpRows}</tbody></table>
         <p class="ck-note">${esc(dp ? dp.note : "")}</p>
       </div>
@@ -790,7 +790,7 @@ function policyMarkets(o) {
     <section class="card macro-note pw-card">
       <div class="pw-head">
         <h2 class="macro-country">CME FedWatch</h2>
-        <a class="pw-src" href="${esc(fw.href)}" target="_blank" rel="noopener noreferrer">CME tool ↗</a>
+        <a class="pw-src" href="${esc(fw.href)}" target="_blank" rel="noopener noreferrer">CME tool</a>
       </div>
       <p class="macro-note-sub">Market-implied odds for the <strong>${esc(fw.meeting)}</strong> FOMC · as of ${esc(fw.asOf)}</p>
       <div class="pw-bars">
@@ -807,7 +807,7 @@ function policyMarkets(o) {
     <section class="card macro-note pw-card">
       <div class="pw-head">
         <h2 class="macro-country">Fed dot plot</h2>
-        <a class="pw-src" href="${esc(dp.href)}" target="_blank" rel="noopener noreferrer">FOMC projections ↗</a>
+        <a class="pw-src" href="${esc(dp.href)}" target="_blank" rel="noopener noreferrer">FOMC projections</a>
       </div>
       <p class="macro-note-sub"><strong>${esc(dp.meeting)}</strong> — median federal-funds projection</p>
       <table class="pw-dots"><tbody>
@@ -1495,7 +1495,7 @@ function renderNotifications() {
   const list = (n ? fresh : all).slice(0, 14);
   wrap.innerHTML = `
     <button type="button" class="notif-bell" id="notif-bell" aria-haspopup="true" aria-expanded="false" aria-label="Notifications${n ? ` — ${n} new` : ""}">
-      <span class="notif-ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="#fff" aria-hidden="true"><path d="M12 2a6 6 0 0 0-6 6c0 3.5-.87 5.3-1.65 6.32-.37.48-.55.72-.55 1.08 0 .55.45.9 1.2.9h14c.75 0 1.2-.35 1.2-.9 0-.36-.18-.6-.55-1.08C18.87 13.3 18 11.5 18 8a6 6 0 0 0-6-6zm0 20a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22z"/></svg></span>${n ? `<span class="notif-badge">${n > 9 ? "9+" : n}</span>` : ""}
+      <span class="notif-ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span>${n ? `<span class="notif-badge">${n > 9 ? "9+" : n}</span>` : ""}
     </button>
     <div class="notif-panel" id="notif-panel" role="menu" hidden>
       <div class="notif-head">${n ? `${n} new update${n > 1 ? "s" : ""}` : "No new updates"} <span class="muted small">· checked ${esc(refreshStamp())}</span></div>

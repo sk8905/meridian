@@ -421,8 +421,8 @@ function schemesTablePane() {
   const credList = (arr) => (arr && arr.length) ? `<ul class="lg-mini-list">${arr.slice(0, 4).map((c) => `<li>${esc(c)}</li>`).join("")}${arr.length > 4 ? `<li class="muted small">+${arr.length - 4} more</li>` : ""}</ul>` : '<span class="muted small">—</span>';
   const docs = (r) => {
     const l = [];
-    if (r.judgmentUrl) l.push(`<a href="${esc(r.judgmentUrl)}" target="_blank" rel="noopener noreferrer">Judgment${r.citation ? ` · ${esc(r.citation)}` : ""} ↗</a>`);
-    if (r.articleUrl) l.push(`<a href="${esc(r.articleUrl)}" target="_blank" rel="noopener noreferrer">Analysis / documents ↗</a>`);
+    if (r.judgmentUrl) l.push(`<a href="${esc(r.judgmentUrl)}" target="_blank" rel="noopener noreferrer">Judgment${r.citation ? ` · ${esc(r.citation)}` : ""}</a>`);
+    if (r.articleUrl) l.push(`<a href="${esc(r.articleUrl)}" target="_blank" rel="noopener noreferrer">Analysis / documents</a>`);
     return l.length ? `<ul class="lg-doc-list">${l.map((x) => `<li>${x}</li>`).join("")}</ul>` : '<span class="muted small">—</span>';
   };
   const tr = (r) => {
@@ -1237,7 +1237,7 @@ function renderNotifications() {
   const list = (n ? fresh : all).slice(0, 12);
   wrap.innerHTML = `
     <button type="button" class="notif-bell" id="notif-bell" aria-haspopup="true" aria-expanded="false" aria-label="Notifications${n ? ` — ${n} new` : ""}">
-      <span class="notif-ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="#fff" aria-hidden="true"><path d="M12 2a6 6 0 0 0-6 6c0 3.5-.87 5.3-1.65 6.32-.37.48-.55.72-.55 1.08 0 .55.45.9 1.2.9h14c.75 0 1.2-.35 1.2-.9 0-.36-.18-.6-.55-1.08C18.87 13.3 18 11.5 18 8a6 6 0 0 0-6-6zm0 20a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22z"/></svg></span>${n ? `<span class="notif-badge">${n > 9 ? "9+" : n}</span>` : ""}
+      <span class="notif-ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span>${n ? `<span class="notif-badge">${n > 9 ? "9+" : n}</span>` : ""}
     </button>
     <div class="notif-panel" id="notif-panel" role="menu" hidden>
       <div class="notif-head">${n ? `${n} new update${n > 1 ? "s" : ""}` : "No new updates"} <span class="muted small">· checked ${esc(fmtDate(LAST_CHECKED))}${LAST_CHECKED_TIME ? `, ${esc(LAST_CHECKED_TIME)}` : ""}</span></div>
