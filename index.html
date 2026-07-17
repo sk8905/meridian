@@ -14,7 +14,7 @@
     (function(){function r(){if(!matchMedia("(max-width:760px)").matches)return;var f=document.getElementById("g-footer"),b=document.querySelector(".g-idblock");if(f&&b&&b.parentElement!==f)f.appendChild(b);}if(document.readyState!=="loading")r();else document.addEventListener("DOMContentLoaded",r);})();
   </script>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=6" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=7" />
   <meta name="apple-mobile-web-app-title" content="Wire" />
   <title>Wire — Home</title>
   <meta name="description" content="Wire Home — a cross-desk briefing across the Credit, Legal and Macro intelligence platforms, with a unified search." />
@@ -902,6 +902,10 @@
     .tui .rate-tile,.tui .g-side .rate-tile{ display:grid; grid-template-columns:1fr auto auto;
       align-items:baseline; column-gap:10px; padding:4px 11px; border:0; border-radius:0;
       font-family:var(--t-mono); font-variant-numeric:tabular-nums; }
+    /* Fixed value + change columns so every row's numbers line up (a change with a
+       "pp"/"bp" unit is wider than one without and would otherwise shift the value). */
+    .tui #g-indicators .rate-tile,.tui #g-curve .rate-tile,
+    .tui #g-rates .rate-tile,.tui #g-vol .rate-tile{ grid-template-columns:1fr 4rem 5rem; }
     .tui .rate-tile:hover{ background:var(--t-panel2); }
     /* Every interactive rail row hovers like the news feed: a subtle grey, no
        orange text (movers, macro-read blocks, FX cells). */
@@ -1308,7 +1312,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260717-19").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260717-20").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

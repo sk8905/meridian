@@ -706,7 +706,7 @@ function indTile(s) {
   if (ch != null && s.value != null) {
     const dir = ch > 0 ? "up" : ch < 0 ? "down" : "flat";
     const arrow = ch > 0 ? "▲" : ch < 0 ? "▼" : "·";
-    chg = `<span class="rate-chg ${dir}">${arrow} ${Math.abs(ch).toFixed(2)}${pct ? " pp" : ""}</span>`;
+    chg = `<span class="rate-chg ${dir}">${arrow} ${Math.abs(ch).toFixed(2)}${pct ? " pp" : " pt"}</span>`;
   }
   const tag = s.href ? "a" : "div";
   const attrs = s.href ? ` href="${esc(s.href)}" target="_blank" rel="noopener noreferrer"` : "";
@@ -1259,10 +1259,10 @@ function renderYieldCurve() {
   const t2 = findMacro("US", "two_year"), t10 = findRate("US 10Y");
   const rows = [];
   if (t2 && t2.value != null) {
-    rows.push(riskTile({ label: "2Y", val: (+t2.value).toFixed(2) + "%", chg: t2.change == null ? null : Math.abs(t2.change).toFixed(2), dir: dSign(t2.change), href: t2.href, title: "US 2-year Treasury yield" }));
+    rows.push(riskTile({ label: "2Y", val: (+t2.value).toFixed(2) + "%", chg: t2.change == null ? null : Math.abs(t2.change).toFixed(2) + " pp", dir: dSign(t2.change), href: t2.href, title: "US 2-year Treasury yield" }));
   }
   if (t10 && t10.value != null) {
-    rows.push(riskTile({ label: "10Y", val: (+t10.value).toFixed(2) + "%", chg: t10.change == null ? null : Math.abs(t10.change).toFixed(2), dir: dSign(t10.change), href: t10.href, title: "US 10-year Treasury yield" }));
+    rows.push(riskTile({ label: "10Y", val: (+t10.value).toFixed(2) + "%", chg: t10.change == null ? null : Math.abs(t10.change).toFixed(2) + " pp", dir: dSign(t10.change), href: t10.href, title: "US 10-year Treasury yield" }));
   }
   if (t2 && t10 && t2.value != null && t10.value != null) {
     const spBp = Math.round((+t10.value - +t2.value) * 100);
