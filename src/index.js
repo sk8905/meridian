@@ -1140,7 +1140,6 @@ const FEED_SOURCES = [
   // signature to filter on without dropping legitimate macro headlines.
   { url: "https://www.investing.com/rss/news_25.rss", source: "Investing.com", region: "GEN", cap: 3 },
   { url: "https://www.fxstreet.com/rss/news", source: "FXStreet", region: "GEN", cap: 3 },
-  { url: "https://www.forexlive.com/feed/news/", source: "ForexLive", region: "GEN", cap: 3 },
   { url: "https://asia.nikkei.com/rss/feed/nar", source: "Nikkei Asia", region: "GEN", cap: 3 },
 ];
 // STRICT macro filter — a title must touch one of: central-bank policy, a key

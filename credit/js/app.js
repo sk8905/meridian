@@ -762,12 +762,15 @@ function viewDashboard() {
         <section class="tcol tcol-full">
           <header class="tpanel-h twire-head">
             <div class="tchips" id="cr-dash-tabs">
-              <button type="button" class="tchip is-on" data-p="managers">Managers</button>
-              <button type="button" class="tchip" data-p="news">News</button>
+              <button type="button" class="tchip is-on" data-p="news">News</button>
+              <button type="button" class="tchip" data-p="managers">Managers</button>
             </div>
           </header>
           <div class="tpanes" id="cr-dash-panes">
-            <div class="tpane" data-p="managers">
+            <div class="tpane" data-p="news">
+              <ul class="twire compact-list" id="cr-dash-wire">${activity.slice(0, 90).map(wireRow).join("") || `<li class="compact-item"><span class="tw-src">No recent items.</span></li>`}</ul>
+            </div>
+            <div class="tpane" data-p="managers" hidden>
               <header class="tpanel-h thead-search"><span>Managers</span>
                 <input type="search" id="mgr-q" class="tsearch" placeholder="Search name or HQ…" value="${esc(fst.q || "")}" aria-label="Search managers">
                 <button type="button" class="tfocus-btn" id="cr-lg-focus" aria-pressed="false" title="Show only €1–10bn AUM managers">€1–10bn</button>
@@ -776,9 +779,6 @@ function viewDashboard() {
                 <thead><tr><th>Manager</th><th class="tl-hq">HQ</th><th>AUM</th><th>Credit&nbsp;AUM</th><th>Funds</th><th>In&nbsp;mkt</th><th>CLOs</th></tr></thead>
                 <tbody id="mgr-rows">${mrows.map(mgrRow).join("")}</tbody>
               </table>
-            </div>
-            <div class="tpane" data-p="news" hidden>
-              <ul class="twire compact-list" id="cr-dash-wire">${activity.slice(0, 90).map(wireRow).join("") || `<li class="compact-item"><span class="tw-src">No recent items.</span></li>`}</ul>
             </div>
           </div>
         </section>
