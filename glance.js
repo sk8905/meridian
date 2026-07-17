@@ -107,6 +107,7 @@ export function initGlance() {
   renderDeals();
   renderFundraising();
   renderRx();
+  initFlowChips();
   initFeedEntityNav();
   initMarketsPanel();
   initFeedHeadLock();
@@ -1127,6 +1128,28 @@ function renderRx() {
     return `<a class="tui-li" href="/legal/#/restructurings?m=${encodeURIComponent(r.id)}"><span class="tui-li-t">${esc(r.company)}</span>`
       + `<span class="tui-li-m"><span class="tui-li-tag lex">${kind}</span>${esc(meta)}</span></a>`;
   }).join("");
+}
+// Deal-flow chips — one panel, three panes (deals / fundraising / schemes-RPs).
+// Clicking a chip shows its pane and hides the others; the active list scrolls
+// on its own so the macro data pinned above it never moves.
+function initFlowChips() {
+  const chips = [...document.querySelectorAll(".g-flow-chip")];
+  if (!chips.length) return;
+  const paneOf = { deals: "g-deals", fund: "g-fund", rx: "g-rx" };
+  const body = document.querySelector(".g-flow-body");
+  const select = (key) => {
+    chips.forEach((c) => {
+      const on = c.dataset.flow === key;
+      c.classList.toggle("is-on", on);
+      c.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    Object.entries(paneOf).forEach(([k, id]) => {
+      const el = document.getElementById(id);
+      if (el) el.hidden = k !== key;
+    });
+    if (body) body.scrollTop = 0;
+  };
+  chips.forEach((c) => c.addEventListener("click", () => select(c.dataset.flow)));
 }
 
 // ---- Volatility & risk (left rail) + Yield curve (right rail) ---------------

@@ -815,10 +815,14 @@
       .tui .g-layout{ flex:1 1 auto; min-height:0; align-items:stretch; }
       .tui .g-side,.tui .g-side2{ height:100%; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
       /* Right rail: pin the macro data (indicators + macro read) and let ONLY the
-         deal-flow well scroll, so the numbers stay put while you page the deals. */
+         deal-flow well grow to fill the rail. Inside it the chip header stays put
+         and just the active list scrolls, so the numbers above never move. */
       .tui .g-side2{ display:flex; flex-direction:column; overflow:hidden; }
       .tui .g-side2 > .tui-pnl{ flex:0 0 auto; }
-      .tui .g-flow-scroll{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+      .tui .g-flow-scroll{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
+      .tui .g-flow{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
+      .tui .g-flow-head{ flex:0 0 auto; }
+      .tui .g-flow-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
       .tui .g-feed-wrap{ height:100%; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
       .tui .g-feed-head{ flex:0 0 auto; }
       .tui .g-feed{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; }
@@ -965,6 +969,17 @@
     .tui .g-feed-chip:last-child{ border-right:0; }
     .tui .g-feed-chip.is-on{ color:var(--t-ink); font-weight:600; background:transparent; box-shadow:inset 0 -2px 0 var(--t-accent); }
     .tui .g-feed-chip-n{ color:var(--t-faint); font-size:10px; font-variant-numeric:tabular-nums; background:none; padding:0; }
+    /* ---- deal-flow chip toggle (deals / fundraising / schemes) ---- */
+    .g-flow-head.tui-ph, .tui .g-flow-head{ padding:0; }
+    .g-flow-chips{ display:flex; gap:0; height:100%; width:100%; }
+    .g-flow-chip{ display:flex; align-items:center; justify-content:center; flex:1 1 0; min-width:0;
+      height:100%; padding:0 8px; border:0; border-right:1px solid var(--t-grid); background:transparent;
+      cursor:pointer; font-family:inherit; font-size:11px; font-weight:500; letter-spacing:.005em;
+      color:var(--t-mut); border-radius:0; white-space:nowrap; }
+    .g-flow-chip:last-child{ border-right:0; }
+    .g-flow-chip:hover{ color:var(--t-dim); }
+    .g-flow-chip.is-on{ color:var(--t-ink); font-weight:600; box-shadow:inset 0 -2px 0 var(--t-accent); }
+    .g-flow-pane[hidden]{ display:none; }
     .tui .g-feed{ background:var(--t-panel); border:0; border-radius:0; padding:0; }
     .tui .g-feed-dayhdr{ padding:6px 12px; background:var(--t-ground); border-top:0;
       font-size:10px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--t-faint); margin:0; }
@@ -1187,20 +1202,23 @@
               <div class="g-loading">Loading macro read…</div>
             </div>
           </section>
-          <!-- Deal flow — credit deals, fundraising and legal restructurings share
-               one scrolling well so the rail's macro data stays put above it. -->
+          <!-- Deal flow — one panel whose chips toggle between credit deals,
+               fundraising and legal schemes/RPs. Only the active list scrolls,
+               so the rail's macro data stays pinned above it. -->
           <div class="g-flow-scroll">
-            <section class="tui-pnl">
-              <header class="tui-ph"><span>Latest deals</span><span class="tui-px">credit</span></header>
-              <div id="g-deals" aria-label="Latest credit deals"><div class="g-loading">Loading deals…</div></div>
-            </section>
-            <section class="tui-pnl">
-              <header class="tui-ph"><span>Fundraising</span><span class="tui-px">credit</span></header>
-              <div id="g-fund" aria-label="Latest fundraising and CLOs"><div class="g-loading">Loading fundraising…</div></div>
-            </section>
-            <section class="tui-pnl">
-              <header class="tui-ph"><span>Restructurings &amp; schemes</span><span class="tui-px">legal</span></header>
-              <div id="g-rx" aria-label="Active restructurings and schemes"><div class="g-loading">Loading…</div></div>
+            <section class="tui-pnl g-flow">
+              <header class="tui-ph g-flow-head">
+                <div class="g-flow-chips" role="tablist" aria-label="Deal flow view">
+                  <button type="button" class="g-flow-chip is-on" data-flow="deals" role="tab" aria-selected="true" aria-controls="g-deals">Latest deals</button>
+                  <button type="button" class="g-flow-chip" data-flow="fund" role="tab" aria-selected="false" aria-controls="g-fund">Fundraising</button>
+                  <button type="button" class="g-flow-chip" data-flow="rx" role="tab" aria-selected="false" aria-controls="g-rx">Schemes/RPs</button>
+                </div>
+              </header>
+              <div class="g-flow-body">
+                <div id="g-deals" class="g-flow-pane" role="tabpanel" aria-label="Latest credit deals"><div class="g-loading">Loading deals…</div></div>
+                <div id="g-fund" class="g-flow-pane" role="tabpanel" aria-label="Latest fundraising and CLOs" hidden><div class="g-loading">Loading fundraising…</div></div>
+                <div id="g-rx" class="g-flow-pane" role="tabpanel" aria-label="Active restructurings and schemes" hidden><div class="g-loading">Loading…</div></div>
+              </div>
             </section>
           </div>
         </aside>
@@ -1254,7 +1272,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260717-9").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260717-10").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of
