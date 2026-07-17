@@ -6,8 +6,8 @@
 // first time a Saved panel is opened, so the heavy data modules aren't pulled
 // into each app's initial load. Mirrors glance.js resolveSaved().
 // =============================================================================
-import { ARTICLES, NEWS, COMMENTARY } from "/macro/js/content.js";
-import { deals, intel, managers } from "/credit/js/data.js";
+import { ARTICLES, NEWS, COMMENTARY, ALERTS } from "/macro/js/content.js";
+import { deals, intel, managers, research } from "/credit/js/data.js";
 import { items, cases, restructurings, firms } from "/legal/js/data.js";
 
 // ---- id schemes -------------------------------------------------------------
@@ -65,4 +65,52 @@ export function resolveSaved() {
   cases.forEach((c) => { if (lS.has(c.id)) out.push({ desk: "l", title: c.name, href: "/legal/#/cases?case=" + encodeURIComponent(c.id), ext: false, date: c.date, time: c.time, src: c.court }); });
   restructurings.forEach((r) => { if (lS.has(r.id)) out.push({ desk: "l", title: r.company, href: "/legal/#/restructurings?m=" + encodeURIComponent(r.id), ext: false, date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
   return out.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+}
+
+// =============================================================================
+// Unified cross-desk Notifications — the same three desks' recent updates,
+// tagged by desk (MAC / CRD / LEX) so every page shows one consistent list.
+// Mirrors glance.js creditNotif()/legalNotif()/macroNotif(). Async because the
+// macro economic-data prints come from /api/macro.
+// =============================================================================
+const JUDGMENT_SOURCES = { "bailii.org": "BAILII", "caselaw.nationalarchives.gov.uk": "National Archives", "supremecourt.uk": "Supreme Court", "judiciary.uk": "Judiciary" };
+const judgmentSource = (url) => JUDGMENT_SOURCES[srcHost(url)] || "Judgment";
+const NOTIF_WINDOW_DAYS = 7;
+const notifTime = (d) => { if (!d) return null; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : d; const t = Date.parse(s); return isNaN(t) ? null : t; };
+function recentNotif(list) {
+  const times = list.map((x) => notifTime(x.date)).filter((t) => t != null);
+  if (!times.length) return list;
+  const cutoff = Math.max(...times) - NOTIF_WINDOW_DAYS * 864e5;
+  return list.filter((x) => { const t = notifTime(x.date); return t != null && t >= cutoff; });
+}
+const byDateDesc = (a, b) => String(b.date || "").localeCompare(String(a.date || ""));
+
+function creditNotif() {
+  const out = [];
+  deals.forEach((d) => out.push({ desk: "c", id: "d:" + d.id, date: d.date || "", title: d.headline, source: creditSource(d), href: creditItemHref(d, "deals"), ext: false }));
+  intel.forEach((i) => out.push({ desk: "c", id: "i:" + i.id, date: i.date || "", title: i.headline, source: creditSource(i), href: creditItemHref(i, "intel"), ext: false }));
+  (research || []).forEach((r) => out.push({ desk: "c", id: "r:" + r.id, date: r.date || "", title: r.title, source: r.institution, href: r.url, ext: true }));
+  managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ desk: "c", id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", title: w.title, source: w.outlet || m.name || "", href: "/credit/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey(w)), ext: false })));
+  return recentNotif(out);
+}
+function legalNotif() {
+  const out = [];
+  items.forEach((it) => out.push({ desk: "l", id: "u:" + it.id, date: it.date || "", title: it.title, source: firmName(it.firm), href: it.url || "/legal/#/item/" + encodeURIComponent(it.id), ext: !!it.url }));
+  cases.forEach((c) => out.push({ desk: "l", id: "c:" + c.id, date: c.date || "", title: c.name, source: c.url ? judgmentSource(c.url) : (c.citation || "Case"), href: c.url || "/legal/#/", ext: !!c.url }));
+  restructurings.forEach((r) => { const u = r.judgmentUrl || r.articleUrl; out.push({ desk: "l", id: "x:" + r.id, date: r.date || "", title: r.company, source: r.firm ? firmName(r.firm) : (r.judgmentUrl ? judgmentSource(r.judgmentUrl) : (r.type === "scheme" ? "Scheme" : "Restructuring plan")), href: u || "/legal/#/", ext: !!u }); });
+  return recentNotif(out);
+}
+function macroNotif(series) {
+  const guidance = (ALERTS || []).map((a) => ({ desk: "m", id: "g:" + a.id, date: a.date || "", title: a.title, source: "Wire analysis", href: "/macro/" + (a.href || "#/policy"), ext: false }));
+  const prints = (series || []).filter((s) => s.value != null).map((s) => {
+    const pct = s.unit === "%"; const val = `${(+s.value).toFixed(2)}${pct ? "%" : ""}`;
+    const country = s.country === "US" ? "US" : "UK";
+    return { desk: "m", id: `d:${s.country}:${s.key}:${s.asOf}:${(+s.value).toFixed(2)}`, date: s.asOf ? `${s.asOf}-01` : "", title: `${country} · ${s.label}: ${val}`, source: s.source || "", href: `/macro/#/dashboard?focus=${s.country}-${s.key}`, ext: false };
+  });
+  return [...guidance, ...prints];
+}
+export async function buildNotifs() {
+  let series = [];
+  try { const r = await fetch("/api/macro", { headers: { accept: "application/json" } }); if (r.ok) { const d = await r.json(); series = (d && d.series) || []; } } catch { /* offline */ }
+  return [...creditNotif(), ...legalNotif(), ...macroNotif(series)].sort(byDateDesc);
 }

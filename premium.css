@@ -378,9 +378,12 @@ svg.mtab-ico { width: 22px; height: 22px; }
 @media (max-width: 900px) {
   .topbar .topbar-inner > .na-actions { grid-area: bell; justify-self: end; align-self: center; }
 }
-.na-btn { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--border, #262626); background: transparent; color: var(--muted, #8592ad); cursor: pointer; border-radius: 0; text-decoration: none; }
+.na-btn { position: relative; width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--border, #262626); background: transparent; color: var(--muted, #8592ad); cursor: pointer; border-radius: 0; text-decoration: none; }
 .na-btn svg { width: 19px; height: 19px; }
 .na-btn:hover { color: var(--ink, #eaf0fb); border-color: var(--ink); }
+/* Unread-count badge on the notifications bell. */
+.na-badge { position: absolute; top: -5px; right: -5px; min-width: 15px; height: 15px; padding: 0 3px; border-radius: 999px; background: #ef4444; color: #fff; font-size: 9px; font-weight: 700; line-height: 15px; text-align: center; font-family: var(--t-mono, ui-monospace, monospace); }
+.na-badge[hidden] { display: none; }
 /* The notification bell is relocated into this cluster by nav-actions.js; match it
    to the Markets / Saved buttons so all three read as one set — square, transparent,
    outline (stroke) icon, same size and muted colour. */

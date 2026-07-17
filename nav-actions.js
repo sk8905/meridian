@@ -82,7 +82,7 @@ function savedRow(x) {
 async function loadSaved(body, headCount) {
   body.innerHTML = '<div class="na-load">Loading…</div>';
   try {
-    const { resolveSaved } = await import("/saved.js?v=20260717-2");
+    const { resolveSaved } = await import("/saved.js?v=20260717-3");
     const list = resolveSaved();
     if (headCount) headCount.textContent = list.length ? " · " + list.length : "";
     body.innerHTML = list.length
@@ -91,6 +91,52 @@ async function loadSaved(body, headCount) {
   } catch {
     body.innerHTML = '<div class="na-load">Saved list unavailable right now.</div>';
   }
+}
+
+// ---- Notifications — cross-desk, tagged by desk (MAC / CRD / LEX) -----------
+const ICO_BELL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>';
+const NOTIF_KEYS = { c: "meridian.credit.notifSeen", l: "meridian.legal.notifSeen", m: "meridian.macro.notifSeen" };
+const NOTIF_API = { c: "/api/notif-credit", l: "/api/notif-legal", m: "/api/notif-macro" };
+function readSeen(desk) { try { const p = JSON.parse(localStorage.getItem(NOTIF_KEYS[desk]) || "null"); return Array.isArray(p) ? new Set(p) : null; } catch { return null; } }
+function notifRow(x) {
+  const cls = DESK_CLASS[x.desk] || "";
+  const code = NF_CODE[x.desk] || "";
+  return `<a class="nf-row" href="${esc(x.href)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
+    + `<span class="nf-title">${esc(x.title)}</span>`
+    + `<span class="nf-meta"><span class="nf-code ${cls}">${esc(code)}</span>`
+    + (x.date ? `<span class="nf-time">${esc(fmtDate(x.date))}</span>` : "")
+    + (x.source ? `<span class="nf-sep">·</span><span class="nf-src">${esc(x.src || x.source)}</span>` : "")
+    + `</span></a>`;
+}
+let _notifItems = null;
+async function ensureNotifs() {
+  if (_notifItems) return _notifItems;
+  const { buildNotifs } = await import("/saved.js?v=20260717-3");
+  _notifItems = (await buildNotifs()).slice(0, 60);
+  return _notifItems;
+}
+function countUnread(items) {
+  const seen = { c: readSeen("c"), l: readSeen("l"), m: readSeen("m") };
+  return items.filter((x) => { const s = seen[x.desk]; return s ? !s.has(x.id) : false; }).length;
+}
+// First time we see a desk's notifications we treat the current set as the
+// baseline (all "seen") so the historical back-catalogue doesn't show as unread.
+function establishBaseline(items) {
+  ["c", "l", "m"].forEach((desk) => {
+    if (readSeen(desk) === null) {
+      const ids = items.filter((x) => x.desk === desk).map((x) => x.id);
+      try { localStorage.setItem(NOTIF_KEYS[desk], JSON.stringify(ids)); } catch { /* */ }
+    }
+  });
+}
+function markNotifSeen(items) {
+  ["c", "l", "m"].forEach((desk) => {
+    const ids = items.filter((x) => x.desk === desk).map((x) => x.id);
+    let prev = []; try { const p = JSON.parse(localStorage.getItem(NOTIF_KEYS[desk]) || "[]"); prev = Array.isArray(p) ? p : []; } catch { /* */ }
+    const merged = [...new Set([...prev, ...ids])];
+    try { localStorage.setItem(NOTIF_KEYS[desk], JSON.stringify(merged)); } catch { /* */ }
+    fetch(NOTIF_API[desk], { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ seen: merged }) }).catch(() => {});
+  });
 }
 
 // ---- shared full-screen shell (mobile) --------------------------------------
@@ -124,23 +170,25 @@ export function initNavActions() {
     addEventListener("resize", setTopVar);
     addEventListener("orientationchange", () => setTimeout(setTopVar, 200));
 
+    // nav-actions owns all THREE buttons and panels so switching between them is
+    // driven by one controller (no split ownership / observer races). The app's
+    // own #notif bell is hidden — its background seen-state syncing still runs and
+    // seeds localStorage, which our cross-desk badge reads.
+    if (notif) notif.style.display = "none";
     const wrap = document.createElement("div");
     wrap.className = "na-actions";
     wrap.innerHTML =
       `<button type="button" class="na-btn" id="na-mkt" aria-label="Markets & key rates" aria-haspopup="true" aria-expanded="false" title="Markets & key rates">${ICO_MKT}</button>` +
-      `<button type="button" class="na-btn" id="na-saved" aria-label="Saved" aria-haspopup="true" aria-expanded="false" title="Saved">${ICO_SAVED}</button>`;
-    // Group Markets · Saved · Bell into ONE right-hand cluster (mirrors the Home
-    // command bar). Move the existing #notif element inside it, keeping its
-    // id/handlers/seen-state intact.
+      `<button type="button" class="na-btn" id="na-saved" aria-label="Saved" aria-haspopup="true" aria-expanded="false" title="Saved">${ICO_SAVED}</button>` +
+      `<button type="button" class="na-btn na-bell" id="na-notif" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">${ICO_BELL}<span class="na-badge" hidden></span></button>`;
     if (notif && notif.parentElement) {
       notif.parentElement.insertBefore(wrap, notif);
-      wrap.appendChild(notif);
     } else if (bar) {
       bar.appendChild(wrap);
     }
 
-    // Two full-screen/dropdown overlays, lifted to <body> so the sticky top bar's
-    // stacking context can't demote them behind the filter-chip bar on iOS.
+    // Full-screen (mobile) / dropdown (desktop) overlays, lifted to <body> so the
+    // sticky top bar's stacking context can't demote them behind other layers.
     const mkPanel = (id, title) => {
       const p = document.createElement("div");
       p.className = "na-panel";
@@ -154,24 +202,29 @@ export function initNavActions() {
     };
     const mktPanel = mkPanel("na-mkt-panel", "Markets");
     const savedPanel = mkPanel("na-saved-panel", "Saved");
+    const notifPanel = mkPanel("na-notif-panel", "Notifications");
 
-    const mktBtn = wrap.querySelector("#na-mkt");
-    const savedBtn = wrap.querySelector("#na-saved");
+    const notifBtn = wrap.querySelector("#na-notif");
+    const clearBadge = () => { const b = notifBtn.querySelector(".na-badge"); if (b) b.hidden = true; };
+    const renderNotif = (body) => {
+      const items = _notifItems || [];
+      body.innerHTML = items.length ? items.map(notifRow).join("") : '<div class="na-empty">Nothing yet.</div>';
+      if (items.length) { markNotifSeen(items); clearBadge(); }
+    };
+
     const panels = [
-      { btn: mktBtn, panel: mktPanel, onOpen: (p) => { if (!_mktLoaded) { _mktLoaded = true; loadMarkets(p.querySelector(".na-body")); } } },
-      { btn: savedBtn, panel: savedPanel, onOpen: (p) => { loadSaved(p.querySelector(".na-body"), p.querySelector(".na-h-n")); } },
+      { btn: wrap.querySelector("#na-mkt"), panel: mktPanel, onOpen: (p) => { if (!_mktLoaded) { _mktLoaded = true; loadMarkets(p.querySelector(".na-body")); } } },
+      { btn: wrap.querySelector("#na-saved"), panel: savedPanel, onOpen: (p) => { loadSaved(p.querySelector(".na-body"), p.querySelector(".na-h-n")); } },
+      { btn: notifBtn, panel: notifPanel, onOpen: (p) => { const body = p.querySelector(".na-body"); if (_notifItems) renderNotif(body); else { body.innerHTML = '<div class="na-load">Loading…</div>'; ensureNotifs().then(() => renderNotif(body)).catch(() => { body.innerHTML = '<div class="na-load">Notifications unavailable right now.</div>'; }); } } },
     ];
 
-    const closeNotifPanel = () => { const np = document.querySelector(".notif-panel:not([hidden])"); if (np) np.setAttribute("hidden", ""); const nb = document.getElementById("notif-bell"); if (nb) nb.setAttribute("aria-expanded", "false"); };
-    const anyOpen = () => panels.some((x) => !x.panel.hidden) || !!document.querySelector(".notif-panel:not([hidden])");
+    const anyOpen = () => panels.some((x) => !x.panel.hidden);
     const closeAll = () => {
       panels.forEach((x) => { x.panel.hidden = true; x.btn.setAttribute("aria-expanded", "false"); });
-      closeNotifPanel();
       lockBody(false); scrimOff();
     };
     const openPanel = (rec) => {
       panels.forEach((x) => { if (x !== rec) { x.panel.hidden = true; x.btn.setAttribute("aria-expanded", "false"); } });
-      closeNotifPanel();
       rec.panel.hidden = false;
       rec.btn.setAttribute("aria-expanded", "true");
       rec.onOpen(rec.panel);
@@ -195,21 +248,13 @@ export function initNavActions() {
     });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeAll(); });
 
-    // ---- Notifications bell: layer the same full-screen presentation on mobile
-    // over the app's own bell without touching its content/seen-state logic. When
-    // the app shows its .notif-panel, we lock the body + raise the scrim; when it
-    // hides, we release. An observer keeps in sync across the panel's re-renders.
-    const syncNotif = () => {
-      const open = !!document.querySelector(".notif-panel:not([hidden])");
-      if (open) {
-        panels.forEach((x) => { if (!x.panel.hidden) { x.panel.hidden = true; x.btn.setAttribute("aria-expanded", "false"); } });
-        lockBody(isPhone()); scrimOn(closeAll);
-      } else if (!panels.some((x) => !x.panel.hidden)) {
-        lockBody(false); scrimOff();
-      }
-    };
-    const obs = new MutationObserver(syncNotif);
-    obs.observe(notif, { attributes: true, subtree: true, attributeFilter: ["hidden"], childList: true });
+    // Prime the cross-desk notifications + unread badge in the background.
+    ensureNotifs().then((items) => {
+      establishBaseline(items);
+      const n = countUnread(items);
+      const b = notifBtn.querySelector(".na-badge");
+      if (b && n) { b.textContent = n > 9 ? "9+" : String(n); b.hidden = false; }
+    }).catch(() => {});
   };
   if (document.readyState !== "loading") run(); else document.addEventListener("DOMContentLoaded", run);
 }
