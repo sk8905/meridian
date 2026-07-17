@@ -471,7 +471,7 @@ const filterState = {
   intel: { q: "", type: [], year: [] },
   deals: { q: "", type: [], year: [], period: "" },
   clos: { q: "", kind: [], year: [], period: "" },
-  news: { q: "" },
+  news: { q: "", src: "" },
 };
 
 // Calendar year (string) from an item's date; "" if none.
@@ -2002,16 +2002,19 @@ function newsRowFull(x) {
 // stay distinguishable via a tag at the end of the row. Newest first, no day
 // breaks — the published date sits inline at the start of each row.
 function mergedNewsItems() {
+  // The newsroom name (outlet / institution) is a clickable filter; the manager
+  // link and the "type" tail stay plain.
+  const srcChip = (name) => `<span class="src-filter muted small" role="button" tabindex="0" data-srcfilter="${esc(name)}" title="Show all ${esc(name)} items">${esc(name)}</span>`;
   const news = aggregateNews().map((x) => ({
     _type: "News", _id: "n:" + (x._id || x.url || x.title), _mid: x._mid, _fkey: feedDedupKey(x),
-    date: x.date || "", time: x.time || "", title: x.title, url: x.url,
-    src: `${link(`#/manager/${x._mid}`, x._mname, "muted small")}${x.outlet ? ` · <span class="muted small">${esc(x.outlet)}</span>` : ""}`,
+    date: x.date || "", time: x.time || "", title: x.title, url: x.url, _srcName: x.outlet || "",
+    src: `${link(`#/manager/${x._mid}`, x._mname, "muted small")}${x.outlet ? ` · ${srcChip(x.outlet)}` : ""}`,
     hay: `${x.title || ""} ${x.outlet || ""} ${x._mname || ""}`.toLowerCase(),
   }));
   const comm = (research || []).map((r) => ({
     _type: "Commentary", _id: "r:" + r.id, _mid: null,
-    date: r.date || "", time: r.time || "", title: r.title, url: r.url,
-    src: `<span class="muted small">${esc(r.institution)}${r.type ? " · " + esc(r.type) : ""}</span>`,
+    date: r.date || "", time: r.time || "", title: r.title, url: r.url, _srcName: r.institution || "",
+    src: `${r.institution ? srcChip(r.institution) : ""}${r.type ? ` · <span class="muted small">${esc(r.type)}</span>` : ""}`,
     hay: `${r.title || ""} ${r.institution || ""} ${r.type || ""}`.toLowerCase(),
   }));
   return [...news, ...comm].sort((a, b) => `${b.date} ${b.time}`.localeCompare(`${a.date} ${a.time}`));
@@ -2028,13 +2031,17 @@ function unifiedNewsRow(x) {
 function viewNews() {
   const f = filterState.news;
   const all = mergedNewsItems().filter((x) => !targetFocus || !x._mid || midInFocus(x._mid));
-  const rows = all.filter((x) => !f.q || x.hay.includes(f.q.toLowerCase()));
+  const rows = all.filter((x) => (!f.q || x.hay.includes(f.q.toLowerCase())) && (!f.src || x._srcName === f.src));
+  const srcBar = f.src
+    ? `<div class="srcfilter-bar">Source · <strong>${esc(f.src)}</strong><button type="button" class="srcfilter-clear" data-srcclear="1">✕ clear</button></div>`
+    : "";
 
   app.innerHTML = `
     <div class="page-head"><div class="ph-head-top"><h1>News</h1>${focusToggle()}</div><p class="muted">${rows.length} of ${all.length} items · manager &amp; investor press plus credit research across the tracked universe</p></div>
     <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label><div class="filters">
       <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Headline, source, manager…" value="${esc(f.q)}"></label>
     </div>
+    ${srcBar}
     <section class="card">${rows.length ? feedFlat(rows, "news", unifiedNewsRow, JSON.stringify(f)) : '<p class="empty">No items match your search.</p>'}</section>`;
   wireFilters("news");
   applyPendingFocus("news");
@@ -2207,6 +2214,16 @@ function applyPendingFocus(view) {
 
 // Click delegation: watchlist stars first, then row navigation.
 app.addEventListener("click", (e) => {
+  // Click a newsroom name in the News feed → filter to that source; the pill clears it.
+  const srcf = e.target.closest("[data-srcfilter]");
+  if (srcf) {
+    e.preventDefault(); e.stopPropagation();
+    filterState.news.src = srcf.getAttribute("data-srcfilter");
+    if (location.hash.replace(/^#/, "") !== "/news") { location.hash = "#/news"; } else { router(); }
+    return;
+  }
+  const srcc = e.target.closest("[data-srcclear]");
+  if (srcc) { e.preventDefault(); e.stopPropagation(); filterState.news.src = ""; router(); return; }
   const fb = e.target.closest("[data-follow]");
   if (fb) {
     e.stopPropagation();
@@ -2316,13 +2333,13 @@ app.addEventListener("click", (e) => {
   if (row && !e.target.closest("a")) location.hash = row.getAttribute("data-href");
 });
 
-// Keyboard activation for sortable column headers (Enter / Space).
+// Keyboard activation for sortable column headers + source-filter chips (Enter / Space).
 app.addEventListener("keydown", (e) => {
   if (e.key !== "Enter" && e.key !== " ") return;
-  const sortcol = e.target.closest("[data-sortcol]");
-  if (!sortcol) return;
+  const target = e.target.closest("[data-sortcol],[data-srcfilter]");
+  if (!target) return;
   e.preventDefault();
-  sortcol.click();
+  target.click();
 });
 
 // Multi-select: a checkbox toggle updates the filter array and re-renders,

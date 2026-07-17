@@ -404,11 +404,12 @@ function viewDashboard() {
   const wireRow = (x) => {
     const url = x.url || "", src = x.source || "";
     const auth = x.author ? `<span class="tw-mgr-w"><span class="tw-mgr">${esc(x.author)}</span></span>` : "";
-    return `<li class="compact-item tw-row" data-kind="${x._kind}">`
+    // The title opens the article; the source name is a filter control (below).
+    return `<li class="compact-item tw-row" data-kind="${x._kind}" data-src="${esc(src)}">`
       + `<span class="tw-date">${x.date ? esc(fmtDate(x.date)) : ""}</span>`
       + `<span class="tw-tag ${x._kind}">${KIND[x._kind]}</span>`
       + `<span class="tw-body"><a href="${esc(url)}" target="_blank" rel="noopener noreferrer" class="tw-head">${esc(x.title)}</a>${auth}</span>`
-      + `<span class="tw-src">${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(src)}</a>` : esc(src)}</span>`
+      + `<span class="tw-src">${src ? `<span class="src-filter" role="button" tabindex="0" data-srcfilter="${esc(src)}" title="Show all ${esc(src)} stories">${esc(src)}</span>` : ""}</span>`
       + `</li>`;
   };
   const rel = [...RELEASES].sort((a, b) => String(a.date).localeCompare(String(b.date))).slice(0, 12);
@@ -441,6 +442,7 @@ function viewDashboard() {
             <button type="button" class="tchip" data-k="dash">Dashboard</button>
           </div>
         </header>
+        <div class="srcfilter-bar" id="mac-srcbar" hidden></div>
         <ul class="twire compact-list" id="mac-wire">${wire.length ? wire.slice(0, 90).map(wireRow).join("") : '<li class="tw-empty muted small">No items yet.</li>'}</ul>
         <div class="mac-dash-pane" id="mac-dash" hidden>${macroDashPane()}</div>
       </section>
@@ -474,27 +476,45 @@ function renderMacroIndRail(series) {
   const html = block("United States", "US") + block("United Kingdom", "UK");
   el.innerHTML = html || '<div class="tw-empty muted small">Indicators unavailable right now.</div>';
 }
+let _macSrc = null;   // active source filter (newsroom name) or null
 function macroWireDash() {
   const chips = document.getElementById("mac-chips"), wire = document.getElementById("mac-wire");
-  const dash = document.getElementById("mac-dash");
+  const dash = document.getElementById("mac-dash"), bar = document.getElementById("mac-srcbar");
   if (!chips || !wire) return;
-  // "Dashboard" swaps the news wire for the market-implied policy dashboard; News
-  // and Commentary filter the wire in place by row kind.
-  const apply = (k) => {
+  const activeK = () => (chips.querySelector(".tchip.is-on") || {}).dataset?.k || "news";
+  // "Dashboard" swaps the news wire for the market-implied policy dashboard; News/
+  // Commentary filter by row kind; a source filter (if set) narrows to one newsroom.
+  const apply = () => {
+    const k = activeK();
     const showDash = k === "dash";
     wire.hidden = showDash;
     if (dash) dash.hidden = !showDash;
-    // "All" shows every wire row (news + commentary); News/Commentary filter by kind.
-    if (!showDash) wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (k === "all" || r.dataset.kind === k) ? "" : "none"; });
+    if (bar) {
+      bar.hidden = showDash || !_macSrc;
+      if (_macSrc && !showDash) bar.innerHTML = `Source · <strong>${esc(_macSrc)}</strong><button type="button" class="srcfilter-clear" data-srcclear="1">✕ clear</button>`;
+    }
+    if (!showDash) wire.querySelectorAll(".tw-row").forEach((r) => {
+      const kindOk = (k === "all" || r.dataset.kind === k);
+      const srcOk = (!_macSrc || r.dataset.src === _macSrc);
+      r.style.display = (kindOk && srcOk) ? "" : "none";
+    });
   };
   chips.onclick = (e) => {
     const b = e.target.closest(".tchip"); if (!b) return;
     chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
-    apply(b.dataset.k);
+    apply();
   };
-  // Apply the default (News) so the wire opens filtered, not showing commentary too.
-  const on = chips.querySelector(".tchip.is-on");
-  apply(on ? on.dataset.k : "news");
+  // Source name → filter to that newsroom; the pill clears it. Delegated on the
+  // wire and the bar so it survives the in-place row toggling.
+  const onSrc = (e) => {
+    const sf = e.target.closest("[data-srcfilter]");
+    if (sf) { e.preventDefault(); _macSrc = sf.getAttribute("data-srcfilter"); apply(); return; }
+    if (e.target.closest("[data-srcclear]")) { e.preventDefault(); _macSrc = null; apply(); }
+  };
+  wire.onclick = onSrc;
+  if (bar) bar.onclick = onSrc;
+  wire.onkeydown = (e) => { if ((e.key === "Enter" || e.key === " ") && e.target.closest("[data-srcfilter]")) { e.preventDefault(); onSrc(e); } };
+  apply();
 }
 
 // --------------------------- saved articles (cloud sync + localStorage) -----

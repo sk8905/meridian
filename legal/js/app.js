@@ -296,7 +296,9 @@ function itemRow(it) {
       </div>
       <p class="feed-summary">${esc(it.summary)}</p>
       <div class="feed-foot">
-        <span>${esc(type)}</span> · ${firmLink(it.firm, firm.name)}${tierTxt ? ` · ${esc(tierTxt)}` : ""}${it.citation ? ` · <span class="cite">${esc(it.citation)}</span>` : ""}${isNew(it) ? ' · <span class="chip new">New</span>' : ""}
+        <span>${esc(type)}</span> · ${firmById[it.firm]
+          ? `<a class="firm src-filter" href="#/list?firm=${esc(it.firm)}" title="Show all ${esc(firm.name)} updates">${esc(firm.name)}</a>`
+          : `<span class="firm">${esc(firm.name)}</span>`}${tierTxt ? ` · ${esc(tierTxt)}` : ""}${it.citation ? ` · <span class="cite">${esc(it.citation)}</span>` : ""}${isNew(it) ? ' · <span class="chip new">New</span>' : ""}
       </div>
     </div>
   </div>`;

@@ -140,6 +140,19 @@
 .tw-src a { color: var(--faint); }
 .tw-empty { padding: 12px; }
 
+/* Clickable source name in any news feed — filters that feed to the newsroom.
+   Underlines on hover so it reads as a control distinct from the article link. */
+.src-filter { cursor: pointer; }
+@media (hover: hover) { .src-filter:hover { color: var(--ink); text-decoration: underline; } }
+/* Active source-filter bar shown above a filtered feed. */
+.srcfilter-bar { display: flex; align-items: center; gap: 8px; padding: 7px 12px; margin: 0 0 8px;
+  background: var(--surface); border: 1px solid var(--border, var(--line)); font-family: var(--t-mono);
+  font-size: 10px; letter-spacing: .03em; text-transform: uppercase; color: var(--muted); }
+.srcfilter-bar strong { color: var(--ink); text-transform: none; letter-spacing: 0; }
+.srcfilter-clear { margin-left: auto; border: 0; background: transparent; cursor: pointer; color: var(--accent);
+  font: inherit; font-family: var(--t-mono); font-size: 10px; letter-spacing: .03em; text-transform: uppercase; padding: 0; }
+.srcfilter-clear:hover { text-decoration: underline; }
+
 /* left league table */
 .tleague { width: 100%; border-collapse: collapse; font-size: 11px; }
 .tleague th { text-align: left; font-size: 8.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; padding: 5px 8px; position: sticky; top: 28px; background: var(--head); border-bottom: 1px solid var(--border); }
