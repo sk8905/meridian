@@ -467,6 +467,9 @@
       box-shadow:var(--shadow); padding:.55rem .6rem; margin-bottom:1.2rem; }
     .g-ind-country { font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em;
       color:var(--brand-2); margin:.1rem 0 .4rem; }
+    /* Country sub-header inside the indicators rates-band (non-terminal fallback). */
+    .rate-sub { font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em;
+      color:var(--brand-2); grid-column:1 / -1; padding:.35rem .5rem .2rem; }
     .g-ind-grid + .g-ind-country { margin-top:.7rem; }
     .g-ind-grid { display:grid; grid-template-columns:repeat(3, 1fr); }
     .g-ind { display:flex; flex-direction:column; gap:.06rem; padding:.4rem .5rem; min-width:0; color:inherit;
@@ -916,17 +919,11 @@
     .tui .g-snap-end{ font-family:var(--t-mono); font-size:9px; color:var(--t-faint); }
     .tui .g-snap-gauge{ flex:1; }
 
-    /* ---- economic indicators ---- */
+    /* ---- economic indicators (reuse .rate-tile band; country sub-headers) ---- */
     .tui #g-indicators{ background:var(--t-panel); }
-    .tui .g-ind-country{ font-size:10px; font-weight:600; letter-spacing:.03em; text-transform:uppercase;
-      color:var(--t-mut); padding:8px 12px 4px; }
-    .tui .g-ind-grid{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:1px; background:var(--t-grid); margin:0 0 1px; }
-    .tui .g-ind{ background:var(--t-panel); padding:6px 9px; display:flex; flex-direction:column; gap:2px; }
-    .tui .g-ind-name{ font-size:9px; letter-spacing:.01em; color:var(--t-mut);
-      white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .tui .g-ind-val{ font-family:var(--t-mono); font-size:12px; color:var(--t-ink); font-variant-numeric:tabular-nums; }
-    .tui .g-ind-chg{ font-family:var(--t-mono); font-size:9px; }
-    .tui .g-ind-chg.up{ color:var(--t-up); } .tui .g-ind-chg.down{ color:var(--t-down); } .tui .g-ind-chg.flat{ color:var(--t-faint); }
+    .tui .rate-sub{ font-size:9.5px; font-weight:600; letter-spacing:.04em; text-transform:uppercase;
+      color:var(--t-mut); padding:8px 11px 3px; border-top:1px solid var(--t-grid); }
+    .tui #g-indicators .rate-sub:first-child{ border-top:0; }
 
     /* ---- movers + new-across-desks ---- */
     .tui .g-mv{ display:grid; grid-template-columns:1fr auto auto; gap:10px; align-items:center;
@@ -1127,13 +1124,17 @@
       </div>
 
       <div class="g-layout">
-        <!-- LEFT RAIL: market data panels -->
+        <!-- LEFT RAIL: markets / rates data + top movers -->
         <aside class="g-side">
           <section class="tui-pnl g-anchor" id="jump-markets">
             <header class="tui-ph"><span>Markets</span><span class="tui-px">live</span></header>
             <div id="g-markets" class="rates-band markets-band" aria-label="Equity indices and ETFs">
               <div class="g-loading">Loading markets…</div>
             </div>
+          </section>
+          <section class="tui-pnl">
+            <header class="tui-ph"><span>Top movers</span><span class="tui-px">1D</span></header>
+            <div id="g-movers" aria-label="Top market movers"><div class="g-loading">Loading movers…</div></div>
           </section>
           <section class="tui-pnl g-anchor" id="jump-rates">
             <header class="tui-ph"><span>Key rates &amp; spreads</span><span class="tui-px">bp · %</span></header>
@@ -1147,12 +1148,6 @@
               <div class="g-loading">Loading FX…</div>
             </div>
           </section>
-          <section class="tui-pnl g-anchor" id="jump-indicators">
-            <header class="tui-ph"><span>Economic indicators</span><span class="tui-px">US · UK</span></header>
-            <div id="g-indicators" class="g-ind-card" aria-label="US and UK economic indicators">
-              <div class="g-loading">Loading indicators…</div>
-            </div>
-          </section>
         </aside>
 
         <!-- CENTER: news wire -->
@@ -1161,17 +1156,19 @@
           <div class="g-feed" id="g-feed"><div class="g-loading">Loading today's news…</div></div>
         </section>
 
-        <!-- RIGHT: macro read, movers, indicators, cross-desk counts -->
+        <!-- RIGHT: macroeconomic data, macro read, cross-desk counts -->
         <aside class="g-side2">
+          <section class="tui-pnl g-anchor" id="jump-indicators">
+            <header class="tui-ph"><span>Economic indicators</span><span class="tui-px">US · UK</span></header>
+            <div id="g-indicators" class="rates-band" aria-label="Key macroeconomic indicators">
+              <div class="g-loading">Loading indicators…</div>
+            </div>
+          </section>
           <section class="tui-pnl g-anchor" id="jump-macro">
             <header class="tui-ph"><span>Macro read</span><span class="tui-px">policy · cycle</span></header>
             <div id="g-macro-snap" class="g-snap" aria-label="Policy rate, cycle and bubble snapshot">
               <div class="g-loading">Loading macro read…</div>
             </div>
-          </section>
-          <section class="tui-pnl">
-            <header class="tui-ph"><span>Top movers</span><span class="tui-px">1D</span></header>
-            <div id="g-movers" aria-label="Top market movers"><div class="g-loading">Loading movers…</div></div>
           </section>
           <section class="tui-pnl">
             <header class="tui-ph"><span>New across desks</span><span class="tui-px">today</span></header>
@@ -1236,7 +1233,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260717-6").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260717-7").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of
