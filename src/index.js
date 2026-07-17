@@ -1215,6 +1215,10 @@ async function handlePulse(request, env, ctx) {
 // News search feeds (gnews:true) — reliable and not IP-blocked; the trade-off is
 // that their links route via a news.google.com redirect to the real article.
 const FEED_SOURCES = [
+  // The reader's personalised myFT (followed-topics) feed. `myft: true` marks the
+  // emitted items so the Home page routes them to the FT stream, not Macro; no
+  // topic/quality filters — the reader curated this feed themselves.
+  { url: "https://www.ft.com/myft/following/601965b2-62d0-47e1-88cf-576ebc8a8a2e.rss", source: "Financial Times", region: "GEN", cap: 40, filter: false, myft: true },
   // Reuters & Bloomberg via Google News search (site:-scoped, macro terms, last 2 days)
   { url: "https://news.google.com/rss/search?q=site%3Areuters.com%20%28Fed%20OR%20inflation%20OR%20%22interest%20rate%22%20OR%20GDP%20OR%20economy%20OR%20Treasury%20OR%20%22stock%20market%22%29%20when%3A2d&hl=en-US&gl=US&ceid=US%3Aen", source: "Reuters", region: "US", cap: 6, gnews: true },
   { url: "https://news.google.com/rss/search?q=site%3Areuters.com%20%28%22Bank%20of%20England%22%20OR%20gilt%20OR%20inflation%20OR%20UK%20economy%20OR%20sterling%29%20when%3A2d&hl=en-GB&gl=GB&ceid=GB%3Aen", source: "Reuters", region: "UK", cap: 5, gnews: true },
@@ -1375,7 +1379,7 @@ function feedParse(xml, feed) {
     if (!/^https?:\/\//i.test(link)) continue;
     const ds = feedTag(block, "pubDate") || feedTag(block, "published") || feedTag(block, "updated") || feedTag(block, "dc:date") || feedTag(block, "date");
     const when = ds ? new Date(feedDecode(ds)) : null;
-    out.push({ title, url: link, source: feed.source, region: feed.region, when: (when && !isNaN(when.getTime())) ? when : null });
+    out.push({ title, url: link, source: feed.source, region: feed.region, myft: feed.myft || undefined, when: (when && !isNaN(when.getTime())) ? when : null });
   }
   return out;
 }
@@ -1410,13 +1414,14 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=11", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=12", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {
     const txt = await feedFetch(f.url);
     if (!txt) return [];
-    let items = feedParse(txt, f).filter((x) => !feedReject(x.title));
+    // myFT is the reader's own curation — no clickbait/single-stock rejection.
+    let items = f.myft ? feedParse(txt, f) : feedParse(txt, f).filter((x) => !feedReject(x.title));
     if (f.filter !== false) {
       items = f.core
         ? items.filter((x) => FEED_CORE_MACRO_RE.test(x.title))
@@ -1443,8 +1448,9 @@ async function handleFeed(request, env, ctx) {
     seen.add(k);
     const { date, time } = feedLondon(it.when);
     if (!date) continue;
-    items.push({ title: it.title, url: it.url, source: it.source, region: it.region, date, time });
-    if (items.length >= 60) break;
+    // myFT links carry tracking params — keep the canonical /content/ URL.
+    items.push({ title: it.title, url: it.myft ? it.url.replace(/\?.*$/, "") : it.url, source: it.source, region: it.region, myft: it.myft || undefined, date, time });
+    if (items.length >= 100) break;
   }
   const resp = new Response(JSON.stringify({ items, asOf: new Date().toISOString() }), {
     headers: { "content-type": "application/json", "cache-control": "public, max-age=600" },

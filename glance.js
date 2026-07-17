@@ -540,7 +540,8 @@ function renderFeed() {
   (((COMMENTARY && COMMENTARY.uk) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)));
   // Live RSS headlines (real publish times) merged in with the curated macro
   // items; the title-dedupe below collapses any overlap with the static feeds.
-  (_liveFeed || []).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)));
+  // myFT-flagged items belong to the FT stream, not Macro — routed below.
+  (_liveFeed || []).forEach((n) => { if (!n.myft) macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)); });
   // Limit non-premium sources: drop Investing.com (unless a Reuters story delivered
   // via it) and the low-tier aggregator/SEO/crypto desks, so the macro feed stays
   // on premium newsrooms, research houses and official data.
@@ -568,6 +569,9 @@ function renderFeed() {
   // myFT RSS feed by the refresh routines. Open out to ft.com; "FT" desk label.
   const ft = [];
   (FT_ITEMS || []).forEach((n) => ft.push(mk("f", n.url, n.title, "Financial Times", true, n.date, n.time)));
+  // Live myFT headlines from /api/feed (~10 min of publication) — the committed
+  // FT_ITEMS above are the 4×/day backfill; title-dedupe collapses the overlap.
+  (_liveFeed || []).forEach((n) => { if (n.myft) ft.push(mk("f", n.url, n.title, "Financial Times", true, n.date, n.time)); });
 
   const day = (x) => String(x.date || "").slice(0, 10);
   const all = [...macro, ...credit, ...legal, ...newsletter, ...ft];
