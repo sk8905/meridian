@@ -502,7 +502,10 @@ function renderFeed() {
   // Dedupe by normalised title (Macro market-headlines overlap the US/UK feeds).
   const norm = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
   const dedupe = (list) => { const s = new Set(); return list.filter((x) => { const k = norm(x.title); if (s.has(k)) return false; s.add(k); return true; }); };
-  const CAP = 50;
+  // No artificial 50-item ceiling — surface the whole deduped stream so the feed
+  // fills the screen and scrolls through everything (a high guard just caps
+  // pathological cases).
+  const CAP = 500;
   // Per-desk deduped streams (newest first) — power the desk filter and the
   // "what's new" counts (items in the most recent ~2 days).
   const byDesk = { m: dedupe([...macro].sort(byDateDesc)), c: dedupe([...credit].sort(byDateDesc)), l: dedupe([...legal].sort(byDateDesc)) };
