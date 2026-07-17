@@ -323,7 +323,6 @@
       border:1px solid var(--line); border-radius:999px; background:var(--surface);
       font-size:.7rem; line-height:1.35; white-space:nowrap; text-decoration:none; color:inherit; }
     a.gl-tk:hover { border-color:var(--brand-2); box-shadow:0 0 0 1px var(--brand-2); }
-    a.gl-tk:hover .gl-tk-l { color:var(--brand-2); }
     .gl-tk-l { font-weight:700; color:var(--ink); }
     .gl-tk-c { font-weight:600; font-variant-numeric:tabular-nums; }
     .gl-tk.up .gl-tk-c { color:#0a7d3c; } .gl-tk.down .gl-tk-c { color:#c02626; } .gl-tk.flat .gl-tk-c { color:var(--muted); }
@@ -344,7 +343,6 @@
     .rate-tile { display:flex; flex-direction:column; gap:.12rem; padding:.1rem 1rem;
       border-left:1px solid var(--line); color:inherit; text-decoration:none; }
     .rate-tile:nth-child(8n+1) { border-left:none; }
-    a.rate-tile:hover .rate-label, a.rate-tile:hover .rate-val { color:var(--brand-2); }
     .rate-label { text-transform:uppercase; letter-spacing:.4px; font-size:.68rem; color:var(--muted); white-space:nowrap; }
     .rate-val { font-weight:700; font-size:1rem; color:var(--ink); line-height:1.2; }
     .rate-chg { font-size:.72rem; font-weight:600; }
@@ -378,9 +376,9 @@
        (so the stacked/mobile view leads with the news); `order` only swaps the
        two-column desktop layout. */
     @media (min-width:901px){ .g-side { order:1; } .g-feed-wrap { order:2; }
-      /* Cap the feed at ~25 rows and scroll inside the box for the rest (up to 50
-         held). Mobile keeps a natural single-column flow (no nested scroll). */
-      .g-feed { max-height:65.5rem; overflow-y:auto; overscroll-behavior:contain; } }
+      /* The terminal layout sizes the feed via flex to fill the viewport (see the
+         .tui rules); no fixed cap — the wire fills the column to the page bottom. */
+      .g-feed { overflow-y:auto; overscroll-behavior:contain; } }
     @media (max-width:900px){ .g-layout { grid-template-columns:1fr; gap:1.4rem; } }
     .g-feed-head { display:flex; align-items:center; gap:.5rem .8rem; flex-wrap:wrap; margin:0 0 .5rem; }
     .g-feed-h-lbl { font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); }
@@ -475,7 +473,6 @@
       text-decoration:none; border-left:1px solid var(--line); }
     .g-ind:nth-child(3n+1) { border-left:none; }
     .g-ind:nth-child(n+4) { border-top:1px solid var(--line); }
-    a.g-ind:hover .g-ind-name, a.g-ind:hover .g-ind-val { color:var(--brand-2); }
     .g-ind-name { text-transform:uppercase; letter-spacing:.4px; font-size:.6rem; color:var(--muted); font-weight:400; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .g-ind-val { font-weight:700; font-size:.86rem; color:var(--ink); line-height:1.2; }
     .g-ind-chg { font-size:.64rem; font-weight:600; white-space:nowrap; }
@@ -501,7 +498,6 @@
     .g-fx-tbl thead th { border-bottom:1px solid var(--line); }
     .g-fx-tbl tbody tr + tr th, .g-fx-tbl tbody tr + tr td { border-top:1px solid var(--line); }
     .g-fx-tbl td a { color:inherit; text-decoration:none; display:block; padding:.3rem .4rem; }
-    .g-fx-tbl td a:hover { color:var(--brand-2); }
     /* Macro snapshot card — policy rate, cycle & bubble read below the bands. */
     .g-snap { background:var(--surface); border:1px solid var(--line); border-radius:14px;
       box-shadow:var(--shadow); overflow:hidden; }
@@ -541,7 +537,6 @@
        purple reads as harsh here); scoped so desk tags etc. keep the stronger tone. */
     #g-macro-snap { --macro:#9c92c4; }
     :root[data-theme="dark"] #g-macro-snap { --macro:#a99fd0; }
-    a.g-snap-blk:hover .g-snap-cap { color:var(--brand-2); }
     /* iPhone: the markets + key-rates bands are one tap away behind a chart button
        in the top bar (between the theme toggle and the bell). On phones the whole
        .g-side block is relocated by JS into the dropdown panel below; on desktop it
@@ -908,9 +903,11 @@
       align-items:baseline; column-gap:10px; padding:4px 11px; border:0; border-radius:0;
       font-family:var(--t-mono); font-variant-numeric:tabular-nums; }
     .tui .rate-tile:hover{ background:var(--t-panel2); }
+    /* Every interactive rail row hovers like the news feed: a subtle grey, no
+       orange text (movers, macro-read blocks, FX cells). */
+    .tui .g-mv:hover,.tui a.g-snap-blk:hover,.tui .g-fx-tbl td:hover{ background:var(--t-panel2); }
     .tui .rate-label,.tui .g-side .rate-label{ font-size:11.5px; color:var(--t-dim); white-space:nowrap;
       overflow:hidden; text-overflow:ellipsis; font-weight:400; letter-spacing:0; text-transform:none; }
-    .tui a.rate-tile:hover .rate-label,.tui a.rate-tile:hover .rate-val{ color:var(--t-accent); }
     .tui .rate-val,.tui .g-side .rate-val{ font-size:12px; color:var(--t-ink); text-align:right; }
     .tui .rate-chg,.tui .g-side .rate-chg{ font-size:11px; text-align:right; }
     .tui .rate-chg.up{ color:var(--t-up); } .tui .rate-chg.down{ color:var(--t-down); } .tui .rate-chg.flat{ color:var(--t-faint); }
