@@ -1007,8 +1007,19 @@
       border:0; background:transparent; padding:0; margin-left:7px; white-space:nowrap; cursor:pointer; }
     .tui .g-feed-ent::before{ content:"↗"; margin-right:1px; opacity:.7; }
     .tui .g-feed-ent:hover{ text-decoration:underline; }
-    .tui .g-feed-src{ font-family:var(--t-mono); font-size:10px; color:var(--t-faint); white-space:nowrap; }
+    .tui .g-feed-src{ font-family:var(--t-mono); font-size:10px; color:var(--t-faint); white-space:nowrap; cursor:pointer; }
+    /* The source name is a filter control — underline on hover to signal it acts
+       independently of the row's link-to-article. */
+    .tui .g-feed-src:hover{ color:var(--t-dim); text-decoration:underline; }
     .tui .g-feed-desk{ display:none; }
+    /* Active source-filter bar above the wire. */
+    .tui .g-feed-srcbar{ display:flex; align-items:center; gap:8px; padding:6px 12px; background:var(--t-ground);
+      border-bottom:1px solid var(--t-grid); font-family:var(--t-mono); font-size:10px; letter-spacing:.03em;
+      text-transform:uppercase; color:var(--t-mut); position:sticky; top:0; z-index:1; }
+    .tui .g-feed-srcbar strong{ color:var(--t-ink); font-weight:600; text-transform:none; letter-spacing:0; }
+    .tui .g-feed-srcclear{ margin-left:auto; border:0; background:transparent; cursor:pointer; color:var(--t-accent);
+      font-family:inherit; font-size:10px; letter-spacing:.03em; text-transform:uppercase; padding:0; }
+    .tui .g-feed-srcclear:hover{ text-decoration:underline; }
     @media (max-width:760px){
       /* Bloomberg-Go news row: the headline leads, then a muted meta line beneath
          it — [CODE]  time · source — with the category tag first on the left. */
@@ -1282,7 +1293,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260717-12").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260717-13").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

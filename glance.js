@@ -213,17 +213,19 @@ function initFeedEntityNav() {
   const go = (el) => { const h = el.getAttribute("data-href"); if (h) location.href = h; };
   const feed = document.getElementById("g-feed");
   if (!feed) return;
-  feed.addEventListener("click", (e) => {
-    const chip = e.target.closest(".g-feed-ent");
-    if (!chip) return;
-    e.preventDefault(); e.stopPropagation(); go(chip);
-  });
-  feed.addEventListener("keydown", (e) => {
-    if (e.key !== "Enter" && e.key !== " ") return;
-    const chip = e.target.closest(".g-feed-ent");
-    if (!chip) return;
-    e.preventDefault(); e.stopPropagation(); go(chip);
-  });
+  // A single delegated handler serves three in-row controls that must NOT trigger
+  // the row's link-to-article: entity chips (navigate), the source name (filter by
+  // that newsroom) and the source-filter clear pill.
+  const handle = (e) => {
+    const ent = e.target.closest(".g-feed-ent");
+    if (ent) { e.preventDefault(); e.stopPropagation(); go(ent); return; }
+    const src = e.target.closest(".g-feed-src");
+    if (src) { e.preventDefault(); e.stopPropagation(); _feedSrc = src.dataset.src; _feedDesk = "all"; renderFeed(); return; }
+    const clr = e.target.closest("[data-clearsrc]");
+    if (clr) { e.preventDefault(); e.stopPropagation(); _feedSrc = null; renderFeed(); }
+  };
+  feed.addEventListener("click", handle);
+  feed.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") handle(e); });
 }
 
 // On phones the ticker chips are collapsed behind a chevron at the end of each
@@ -456,6 +458,9 @@ function renderBrief(byDesk, counts, day) {
 }
 
 let _feedDesk = "all";
+// Active source filter (e.g. "Financial Times"): when set, the feed shows every
+// story from that newsroom across all three desks. Cleared by the pill or a chip.
+let _feedSrc = null;
 function renderFeed() {
   // `time` is the article's publish time (e.g. "14:05", Europe/London) when the
   // data carries one — the four-times-daily routine populates it; rows lead with
@@ -521,7 +526,11 @@ function renderFeed() {
   renderBrief(byDesk, counts, day);
 
   let feed;
-  if (_feedDesk === "all") {
+  if (_feedSrc) {
+    // Source filter wins over the desk chips: every story from that newsroom,
+    // across all three desks, newest first.
+    feed = dedupe([...macro, ...credit, ...legal].sort(byDateDesc)).filter((x) => x.src === _feedSrc).slice(0, CAP);
+  } else if (_feedDesk === "all") {
     const pick = (list) => dedupe(list.filter((x) => day(x) === target).sort(byDateDesc));
     const lists = [pick(macro), pick(credit), pick(legal)];
     const seen = new Set();
@@ -554,7 +563,7 @@ function renderFeed() {
       + `<span class="g-feed-time">${esc(t)}</span>`
       + `<span class="g-feed-code ${_deskClass[o.desk]}" title="${esc(DESK[o.desk])}">${DESK_CODE[o.desk]}</span>`
       + `<span class="g-feed-title">${esc(o.title)}</span>`
-      + (o.src ? `<span class="g-feed-src">${esc(o.src)}</span>` : "")
+      + (o.src ? `<span class="g-feed-src" role="button" tabindex="0" data-src="${esc(o.src)}" title="Show all ${esc(o.src)} stories">${esc(o.src)}</span>` : "")
       + `<span class="g-feed-desk">${esc(DESK[o.desk])}</span></a>`;
   };
   // Rank strictly newest→oldest (by day, then publish time); untimed items sort at
@@ -567,13 +576,20 @@ function renderFeed() {
     lastDay = d;
     return hdr + row(o);
   }).join("");
-  setHTML("g-feed", feed.length ? body : `<div class="g-empty">No ${_feedDesk === "all" ? "news yet today" : DESK[_feedDesk] + " items"} — check back shortly.</div>`);
+  // When a source filter is active, a thin bar above the feed names it and offers
+  // a one-click clear (the chips can't show it — they're a fixed desk set).
+  const srcBar = _feedSrc
+    ? `<div class="g-feed-srcbar">Source · <strong>${esc(_feedSrc)}</strong><button type="button" class="g-feed-srcclear" data-clearsrc="1" aria-label="Clear source filter — show all sources">✕ clear</button></div>`
+    : "";
+  const empty = `<div class="g-empty">No ${_feedSrc ? esc(_feedSrc) + " stories" : _feedDesk === "all" ? "news yet today" : DESK[_feedDesk] + " items"} — check back shortly.</div>`;
+  setHTML("g-feed", srcBar + (feed.length ? body : empty));
   const head = document.getElementById("g-feed-head");
   if (head) {
-    const chip = (k, label) => `<button type="button" class="g-feed-chip${_feedDesk === k ? " is-on" : ""}" data-desk="${k}" aria-pressed="${_feedDesk === k}">${label}${k !== "all" && counts[k] ? `<span class="g-feed-chip-n">${counts[k] > 99 ? "99+" : counts[k]}</span>` : ""}</button>`;
+    const chip = (k, label) => `<button type="button" class="g-feed-chip${!_feedSrc && _feedDesk === k ? " is-on" : ""}" data-desk="${k}" aria-pressed="${!_feedSrc && _feedDesk === k}">${label}${k !== "all" && counts[k] ? `<span class="g-feed-chip-n">${counts[k] > 99 ? "99+" : counts[k]}</span>` : ""}</button>`;
     head.innerHTML = `<span class="g-feed-h-lbl">Latest news</span>`
       + `<span class="g-feed-chips" role="group" aria-label="Filter by desk">${chip("all", "All")}${chip("m", "Macro")}${chip("c", "Credit")}${chip("l", "Legal")}</span>`;
-    head.querySelectorAll(".g-feed-chip").forEach((b) => b.addEventListener("click", () => { _feedDesk = b.dataset.desk; renderFeed(); }));
+    // A desk chip clears any source filter and switches desks.
+    head.querySelectorAll(".g-feed-chip").forEach((b) => b.addEventListener("click", () => { _feedSrc = null; _feedDesk = b.dataset.desk; renderFeed(); }));
   }
 }
 // ---- Macro snapshot (right sidebar) ----------------------------------------
