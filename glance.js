@@ -1602,14 +1602,18 @@ function wirePalette(idx) {
 
   // Focus SYNCHRONOUSLY within the tap gesture so iOS Safari pops the keyboard
   // immediately (a setTimeout would escape the gesture and suppress it).
-  function open() { overlay.classList.add("open"); input.value = ""; refresh(); input.focus({ preventScroll: true }); }
+  function open() { overlay.classList.add("open"); input.value = ""; refresh(); syncClr(); input.focus({ preventScroll: true }); }
   function close() { overlay.classList.remove("open"); }
 
   document.getElementById("open-cmdk").addEventListener("click", open);
   // Also open from the mobile bottom-bar search button (or any [data-open-search]).
   document.addEventListener("click", (e) => { if (e.target.closest("[data-open-search]")) { e.preventDefault(); open(); } });
   overlay.querySelectorAll("[data-close]").forEach((el) => el.addEventListener("click", close));
-  input.addEventListener("input", refresh);
+  // ✕ clears the typed query (visible only while there's text) and refocuses.
+  const clr = document.getElementById("cmdk-clear");
+  const syncClr = () => { if (clr) clr.hidden = !input.value; };
+  if (clr) clr.addEventListener("click", () => { input.value = ""; refresh(); syncClr(); input.focus(); });
+  input.addEventListener("input", () => { refresh(); syncClr(); });
   results.addEventListener("click", (ev) => { const r = ev.target.closest(".cmdk-row"); if (r) go(current[+r.getAttribute("data-i")]); });
   input.addEventListener("keydown", (ev) => {
     if (ev.key === "ArrowDown") { ev.preventDefault(); sel = Math.min(sel + 1, current.length - 1); draw(); }

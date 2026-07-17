@@ -565,9 +565,12 @@
       /* Full-screen, but sitting BELOW the sticky top nav bar (var set from JS so
          it tracks the notch / safe-area exactly). The three overlays — markets,
          saved and notifications — all use this same footprint. */
-      .g-mkt-panel, .g-sv-panel, .g-notif-panel { position:fixed; top:var(--gtop-b, 54px); left:0; right:0; bottom:0;
+      /* Stop ABOVE the bottom tab bar (72px + safe-area) — the bar persists on
+         every page, overlays included. */
+      .g-mkt-panel, .g-sv-panel, .g-notif-panel { position:fixed; top:var(--gtop-b, 54px); left:0; right:0;
+        bottom:calc(72px + env(safe-area-inset-bottom, 0px));
         width:100vw; max-width:100vw; height:auto; max-height:none;
-        margin:0; padding:0 0 calc(2rem + env(safe-area-inset-bottom, 0px)); border:0; border-radius:0;
+        margin:0; padding:0 0 1.2rem; border:0; border-radius:0;
         z-index:110; overflow-y:auto; overscroll-behavior:contain; box-shadow:none;
         background:var(--t-ground, #000000); color:var(--t-ink, #eaf0fb); }
       body.g-mkt-open, body.g-menu-open { overflow:hidden; }
@@ -707,7 +710,7 @@
     .cmdk-panel { position:relative; max-width:620px; margin:9vh auto 0; background:var(--t-head, #0a0a0a);
       border:1px solid var(--t-grid2, #262626); border-radius:12px;
       box-shadow:0 24px 60px rgba(0,0,0,.6); overflow:hidden; }
-    .cmdk-input { width:100%; border:0; border-bottom:1px solid var(--t-grid2, #262626); padding:.9rem 1.1rem;
+    .cmdk-input { width:100%; border:0; padding:.9rem 1.1rem;
       font:inherit; font-size:1rem; outline:none; background:transparent; color:var(--t-ink, #eaf0fb); }
     .cmdk-input::placeholder { color:var(--t-faint, #5c6a86); }
     .cmdk-results { max-height:56vh; overflow-y:auto; overscroll-behavior:contain; padding:0; }
@@ -733,16 +736,24 @@
     @media (max-width:760px){ .cmdk-foot { display:none; } }
     /* Search bar wrapper. On desktop it's just the input (the magnifier + Cancel are
        phone-only), so the palette looks exactly as before. */
-    .cmdk-bar { display:flex; align-items:center; }
+    .cmdk-bar { display:flex; align-items:center; border-bottom:1px solid var(--t-grid2, #262626); padding-right:8px; }
     .cmdk-mag, .cmdk-cancel { display:none; }
+    /* ✕ clears the typed query (shown only while there's text; [hidden] wins). */
+    .cmdk-clear { display:grid; place-items:center; flex:0 0 auto; width:30px; height:30px;
+      border:0; background:transparent; color:var(--t-faint, #5c6a86); font-size:13px;
+      line-height:1; cursor:pointer; border-radius:0; }
+    .cmdk-clear:hover { color:var(--t-ink, #eaf0fb); }
+    .cmdk-clear[hidden] { display:none; }
     .cmdk-bar .cmdk-input { flex:1 1 auto; }
     /* iPhone: Bloomberg-Go full-screen search — a top bar (magnifier · field ·
        Cancel) with results filling the rest of the screen, terminal-styled. */
     @media (max-width:760px){
       .cmdk { z-index:140; }
       .cmdk-scrim { display:none; }
-      .cmdk-panel { position:fixed; inset:0; top:0; left:0; right:0; bottom:0; margin:0;
-        max-width:none; width:100vw; height:100dvh; max-height:100dvh; border-radius:0 !important;
+      /* Full-screen down to the bottom tab bar, which stays visible above it. */
+      .cmdk-panel { position:fixed; top:0; left:0; right:0;
+        bottom:calc(72px + env(safe-area-inset-bottom, 0px)); margin:0;
+        max-width:none; width:100vw; height:auto; max-height:none; border-radius:0 !important;
         box-shadow:none; display:flex; flex-direction:column; overflow:hidden;
         background:var(--t-ground, #000000); }
       .cmdk-bar { flex:0 0 auto; gap:9px; padding:6px 8px 6px 13px;
@@ -1123,7 +1134,7 @@
       :root[data-theme="dark"] a.g-feed-row:hover .g-feed-title{ color:inherit; }
     }
   </style>
-  <link rel="stylesheet" href="/premium.css?v=20260717-15" />
+  <link rel="stylesheet" href="/premium.css?v=20260717-16" />
 </head>
 <body>
   <!-- Loading -->
@@ -1312,6 +1323,7 @@
         <div class="cmdk-bar">
           <svg class="cmdk-mag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.6" y1="15.6" x2="21" y2="21"/></svg>
           <input class="cmdk-input" id="cmdk-input" type="text" placeholder="Search deals, managers, cases…" autocomplete="off" spellcheck="false" />
+          <button class="cmdk-clear" id="cmdk-clear" type="button" aria-label="Clear search" hidden>✕</button>
           <button class="cmdk-cancel" type="button" data-close aria-label="Cancel search">Cancel</button>
         </div>
         <div class="cmdk-results" id="cmdk-results"></div>
@@ -1348,7 +1360,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260717-36").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260717-37").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

@@ -95,6 +95,9 @@ const STYLE = `
 .mcmdk-panel{position:relative;max-width:620px;margin:9vh auto 0;background:var(--surface,#0c1220);border:1px solid var(--border,#232f47);border-radius:0;box-shadow:0 24px 60px rgba(0,0,0,.55);overflow:hidden}
 .mcmdk-bar{display:flex;align-items:center}
 .mcmdk-mag,.mcmdk-cancel{display:none}
+.mcmdk-clear{display:grid;place-items:center;flex:0 0 auto;width:30px;height:30px;border:0;background:transparent;color:var(--faint,#5c6a86);font-size:13px;line-height:1;cursor:pointer;border-radius:0}
+.mcmdk-clear:hover{color:var(--ink,#eaf0fb)}
+.mcmdk-clear[hidden]{display:none}
 .mcmdk .mcmdk-input{flex:1 1 auto;width:100%;min-width:0;border:0 !important;border-bottom:1px solid var(--border,#232f47) !important;padding:1rem 1.1rem;font:inherit;font-size:1.05rem;color:var(--ink,#eaf0fb);background:transparent !important;outline:none}
 .mcmdk-input::placeholder{color:var(--faint,#5c6a86)}
 .mcmdk-results{max-height:56vh;overflow-y:auto;overscroll-behavior:contain;padding:.35rem}
@@ -118,7 +121,7 @@ const STYLE = `
 @media (max-width:760px){
   .mcmdk{z-index:9000}
   .mcmdk-scrim{display:none}
-  .mcmdk-panel{position:fixed;inset:0;top:0;left:0;right:0;bottom:0;margin:0;max-width:none;width:100vw;height:100dvh;max-height:100dvh;border:0;border-radius:0;box-shadow:none;display:flex;flex-direction:column;overflow:hidden;background:var(--bg,#05080f)}
+  .mcmdk-panel{position:fixed;top:0;left:0;right:0;bottom:calc(72px + env(safe-area-inset-bottom,0px));margin:0;max-width:none;width:100vw;height:auto;max-height:none;border:0;border-radius:0;box-shadow:none;display:flex;flex-direction:column;overflow:hidden;background:var(--bg,#05080f)}
   .mcmdk-bar{flex:0 0 auto;gap:9px;padding:6px 8px 6px 13px;padding-top:calc(env(safe-area-inset-top,0px) + 8px);background:var(--head,#080d17);border-bottom:1px solid var(--border,#232f47)}
   .mcmdk-mag{display:block;flex:0 0 auto;width:18px;height:18px;color:var(--faint,#5c6a86)}
   .mcmdk .mcmdk-input{border:0 !important;border-bottom:0 !important;padding:.5rem .1rem;font-size:16px}
@@ -142,6 +145,7 @@ export function mountPalette() {
       <div class="mcmdk-bar">
         <svg class="mcmdk-mag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.6" y1="15.6" x2="21" y2="21"/></svg>
         <input class="mcmdk-input" type="text" placeholder="Search deals, managers, cases…" autocomplete="off" spellcheck="false" aria-label="Search" />
+        <button class="mcmdk-clear" type="button" aria-label="Clear search" hidden>✕</button>
         <button class="mcmdk-cancel" type="button" data-close aria-label="Cancel search">Cancel</button>
       </div>
       <div class="mcmdk-results"></div>
@@ -177,7 +181,7 @@ export function mountPalette() {
   const go = (e) => { if (!e) return; close(); if (/^https?:\/\//i.test(e.href)) window.open(e.href, "_blank", "noopener"); else window.location.href = e.href; };
   // Focus SYNCHRONOUSLY within the tap/click gesture so iOS Safari pops the
   // keyboard immediately (a setTimeout would escape the gesture and suppress it).
-  const open = () => { ov.classList.add("open"); input.value = ""; refresh(); input.focus({ preventScroll: true }); };
+  const open = () => { ov.classList.add("open"); input.value = ""; refresh(); syncClr(); input.focus({ preventScroll: true }); };
   const close = () => ov.classList.remove("open");
 
   ov.querySelectorAll("[data-close]").forEach((el) => el.addEventListener("click", close));
@@ -185,7 +189,10 @@ export function mountPalette() {
   document.addEventListener("click", (ev) => {
     if (ev.target.closest("[data-open-search]") && !ov.classList.contains("open")) { ev.preventDefault(); open(); }
   });
-  input.addEventListener("input", refresh);
+  const clr = ov.querySelector(".mcmdk-clear");
+  const syncClr = () => { clr.hidden = !input.value; };
+  input.addEventListener("input", () => { refresh(); syncClr(); });
+  clr.addEventListener("click", () => { input.value = ""; refresh(); syncClr(); input.focus(); });
   results.addEventListener("click", (ev) => { const r = ev.target.closest(".mcmdk-row"); if (r) go(current[+r.getAttribute("data-i")]); });
   input.addEventListener("keydown", (ev) => {
     if (ev.key === "ArrowDown") { ev.preventDefault(); sel = Math.min(sel + 1, current.length - 1); draw(); }

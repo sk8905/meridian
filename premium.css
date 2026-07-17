@@ -332,6 +332,9 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
    platform accent with no pill background, matching the Bloomberg terminal app. */
 .mobile-tabbar {
   left: 0 !important; right: 0 !important; bottom: 0 !important;
+  /* Above every overlay (nav panels z110/60, scrims, cmdk z140, mcmdk z9000):
+     the bottom bar persists on every page, menus and search included. */
+  z-index: 9500 !important;
   border-radius: 0 !important;
   padding: 9px 0 calc(9px + env(safe-area-inset-bottom, 0px)) !important;
   background: #f6f8fc !important;
@@ -466,11 +469,13 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
      top bar is raised above the scrim so its buttons stay tappable to close. ---- */
   .na-close { display: grid; }
   .na-panel, .notif-panel {
-    position: fixed; top: var(--na-top-b, 54px); left: 0; right: 0; bottom: 0;
+    /* bottom stops above the persistent tab bar (72px + safe-area). */
+    position: fixed; top: var(--na-top-b, 54px); left: 0; right: 0;
+    bottom: calc(72px + env(safe-area-inset-bottom, 0px));
     width: auto; max-width: none; max-height: none; border: 0; border-radius: 0; box-shadow: none;
     z-index: 60; background: var(--bg, #000); color: var(--ink, #eaf0fb);
     overflow-y: auto; overscroll-behavior: contain;
-    padding: 0 0 calc(2rem + env(safe-area-inset-bottom, 0px));
+    padding: 0 0 1.2rem;
   }
   body.na-menu-open { overflow: hidden; }
   body.na-menu-open .topbar { z-index: 90; }
