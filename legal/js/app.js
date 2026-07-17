@@ -527,8 +527,8 @@ function viewDashboard() {
       + `<span class="tw-src">${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.src || "source")}</a>` : esc(x.src || "")}</span>`
       + `</li>`;
   };
-  const rxRow = (r) => `<li class="tmini-row"><a class="tmini-t" href="#/restructurings?m=${encodeURIComponent(r.id)}">${esc(r.company)}</a><span class="tmini-m">${r.type === "scheme" ? "Scheme" : "Plan"}${r.date ? " · " + esc(fmtDate(r.date)) : ""}</span></li>`;
-  const caseRow = (c) => `<li class="tmini-row"><a class="tmini-t" href="#/cases?case=${encodeURIComponent(c.id)}">${esc(c.name)}</a><span class="tmini-m">${esc(c.court)}${c.date ? " · " + esc(fmtDate(c.date)) : ""}</span></li>`;
+  const rxRow = (r) => { const u = r.judgmentUrl || r.articleUrl; return `<li class="tmini-row"><a class="tmini-t" href="${esc(u || "#/")}"${u ? ` target="_blank" rel="noopener noreferrer"` : ""}>${esc(r.company)}</a><span class="tmini-m">${r.type === "scheme" ? "Scheme" : "Plan"}${r.date ? " · " + esc(fmtDate(r.date)) : ""}</span></li>`; };
+  const caseRow = (c) => `<li class="tmini-row"><a class="tmini-t" href="${esc(c.url || "#/")}"${c.url ? ` target="_blank" rel="noopener noreferrer"` : ""}>${esc(c.name)}</a><span class="tmini-m">${esc(c.court)}${c.date ? " · " + esc(fmtDate(c.date)) : ""}</span></li>`;
 
   app.innerHTML = `<div class="tdash">
     <div class="tdash-grid tdash-1">
@@ -1328,7 +1328,7 @@ document.addEventListener("click", (e) => {
   }
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260716-3").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260716-4").then((m) => m.mountPalette()).catch(() => {});
 import("/ptr.js?v=20260716-1").then((m) => m.initPullToRefresh()).catch(() => {});
 initChrome();
 initNotif();

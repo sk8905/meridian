@@ -185,6 +185,26 @@ before it can be resolved.
 | T5 | Legacy sub-app `.notif` rows | weight 600 but no font-size → undefined sizing. Superseded by `.nf-row`. | **RECONCILE (low)** | Remove dead rules. |
 | T6 | Headline-sans + meta/code-mono; Home light feed 600 vs terminal 400; market rows fully mono | Consistent / by design. | **INTENTIONAL** | none |
 
-### Open product decisions
-- **Q1 — Saved/Notifications row density:** compact (match terminal wire) or roomier reading list? (drives T1/T2)
-- **Q2 — Credit deal/fundraising headline click:** focus the dashboard row, or open source article / manager page? (drives L3)
+### Decisions (signed off)
+- **Q1 — row density → COMPACT** (match the wire): `.nf-row` now 13px headline / `9px 14px`.
+- **Q2 — credit deal click → SOURCE first, else manager page** (CLOs keep the CLOs tab).
+
+### Resolution status (this pass)
+**Fixed & deployed:**
+- L1, L2 — legal cases → judgment `c.url`; schemes → `judgmentUrl||articleUrl` (else dashboard). Fixed in glance.js (feed/Saved/Notif/search + tui-li), saved.js `resolveSaved`, and the legal dashboard mini-lists. Verified 0 retired routes remain.
+- L3 — credit deals/intel now source-first everywhere (`creditItemHref` in glance.js + saved.js; palette.js order flipped).
+- L4 — credit research in Home Notifications → publisher `r.url`.
+- T1, T2 — `.nf-row` compact (13px / 9×14).
+- C1 — dead `.na-item`/`.na-tag`/`.na-itxt` CSS deleted.
+- C2 — `premium.css` dark `--surface/--ink/--muted` aligned to the canonical tui values.
+- C3 — dead `.tw-tag.comm #6ea8dc` removed.
+- C5 — unread badge unified to `#ef4444` (Home `.g-badge` was `#e34948`).
+- T3 (part) — `.tw-tag` bumped 8px → 9px (legibility).
+
+**Remaining (low priority — safe cleanups, not yet applied):**
+- C4 — two Home-light green/red pairs → consolidate to one.
+- C6 — legacy `.notif-tag` navy set (dead now rows use `.nf-code`) → delete.
+- C7 — stale "Glance blue" accent comments.
+- T3 (rest) — unify `.g-feed-code` 9px / `.nf-code` 10px to a single size.
+- T4 — `.tleague td` 5×8 vs `.lg-sc-tbl td` 8 → pick one desktop density.
+- T5 — dead legacy sub-app `.notif-*` size rules.

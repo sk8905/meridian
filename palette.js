@@ -25,11 +25,11 @@ const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct
 const fmt = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ""); return m ? `${+m[3]} ${MON[+m[2] - 1]} ${m[1]}` : (iso || ""); };
 const mgrName = (id) => (managers.find((m) => m.id === id) || {}).name || "";
 // The standalone Deals/Fundraising list pages are retired, so a deal/intel record
-// links to its manager's page in Credit (where its activity lives); CLO items keep
-// the CLOs tab. Managerless items fall back to the source article.
+// links to its source article when we have one, else the manager's page in Credit;
+// CLO items keep the CLOs tab.
 const creditItemHref = (x) => x.clo
   ? `/credit/#/clos?focus=${encodeURIComponent(x.id)}`
-  : (x.managerId ? `/credit/#/manager/${encodeURIComponent(x.managerId)}` : (x.sourceUrl || "/credit/#/"));
+  : (x.sourceUrl ? x.sourceUrl : (x.managerId ? `/credit/#/manager/${encodeURIComponent(x.managerId)}` : "/credit/#/"));
 const MACRO_INDICATORS = [
   ["base_rate", "Base rate"], ["two_year", "2-year yield"], ["core_cpi", "Core inflation"],
   ["services_pmi", "Services PMI"], ["wages", "Wage growth"], ["unemployment", "Unemployment"],

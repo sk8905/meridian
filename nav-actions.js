@@ -88,7 +88,7 @@ function savedRow(x) {
 async function loadSaved(body, headCount) {
   body.innerHTML = '<div class="na-load">Loading…</div>';
   try {
-    const { resolveSaved } = await import("/saved.js?v=20260717-3");
+    const { resolveSaved } = await import("/saved.js?v=20260717-4");
     const list = resolveSaved();
     if (headCount) headCount.textContent = list.length ? " · " + list.length : "";
     body.innerHTML = list.length
@@ -117,7 +117,7 @@ function notifRow(x) {
 let _notifItems = null;
 async function ensureNotifs() {
   if (_notifItems) return _notifItems;
-  const { buildNotifs } = await import("/saved.js?v=20260717-3");
+  const { buildNotifs } = await import("/saved.js?v=20260717-4");
   _notifItems = (await buildNotifs()).slice(0, 60);
   return _notifItems;
 }

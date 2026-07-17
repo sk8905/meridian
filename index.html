@@ -125,7 +125,7 @@
       color:#fff; font-size:.95rem; line-height:1; }
     .g-bell:hover { background:rgba(255,255,255,.2); border-color:rgba(255,255,255,.32); }
     .g-badge { position:absolute; top:-5px; right:-5px; min-width:16px; height:16px; padding:0 3px;
-      background:#e34948; color:#fff; font-size:.6rem; font-weight:800; border-radius:9px; display:grid; place-items:center; }
+      background:#ef4444; color:#fff; font-size:.6rem; font-weight:800; border-radius:9px; display:grid; place-items:center; }
     .g-notif-panel { position:absolute; top:calc(100% + 8px); right:0; width:340px; max-width:88vw;
       background:#fff; color:var(--ink); border-radius:12px; box-shadow:0 22px 55px rgba(8,20,60,.35);
       padding:.35rem; z-index:70; }
@@ -1116,7 +1116,7 @@
       :root[data-theme="dark"] a.g-feed-row:hover .g-feed-title{ color:inherit; }
     }
   </style>
-  <link rel="stylesheet" href="/premium.css?v=20260717-13" />
+  <link rel="stylesheet" href="/premium.css?v=20260717-14" />
 </head>
 <body>
   <!-- Loading -->
@@ -1341,7 +1341,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260717-31").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260717-32").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

@@ -134,15 +134,15 @@ function resolveSaved() {
    ...((COMMENTARY && COMMENTARY.us) || []), ...((COMMENTARY && COMMENTARY.uk) || [])]
     .forEach((n) => { if (mS.has("a" + _savedHash(_savedBase(n)))) out.push({ desk: "m", title: n.title, href: n.url, ext: true, date: n.date, time: n.time, src: n.source }); });
   // Credit — deals/intel by raw id; manager press by "n" + hash(base|managerId).
-  deals.forEach((d) => { if (cS.has(d.id)) out.push({ desk: "c", title: d.headline, href: creditItemHref(d, "deals"), ext: false, date: d.date, time: d.time, src: creditSource(d) }); });
-  intel.forEach((i) => { if (cS.has(i.id)) out.push({ desk: "c", title: i.headline, href: creditItemHref(i, "intel"), ext: false, date: i.date, time: i.time, src: creditSource(i) }); });
+  deals.forEach((d) => { if (cS.has(d.id)) out.push({ desk: "c", title: d.headline, href: creditItemHref(d), ext: creditItemExt(d), date: d.date, time: d.time, src: creditSource(d) }); });
+  intel.forEach((i) => { if (cS.has(i.id)) out.push({ desk: "c", title: i.headline, href: creditItemHref(i), ext: creditItemExt(i), date: i.date, time: i.time, src: creditSource(i) }); });
   managers.forEach((m) => [...(m.news || []), ...(m.webNews || [])].forEach((w) => {
     if (cS.has("n" + _savedHash(_savedBase(w) + "|" + m.id))) out.push({ desk: "c", title: w.title, href: "/credit/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey({ ...w, _mid: m.id })), ext: false, date: w.date, time: w.time, src: w.outlet || m.name });
   }));
   // Legal — items/cases/restructurings by raw id.
   items.forEach((it) => { if (lS.has(it.id)) out.push({ desk: "l", title: it.title, href: it.url || "/legal/#/item/" + encodeURIComponent(it.id), ext: !!it.url, date: it.date, time: it.time, src: firmName(it.firm) }); });
-  cases.forEach((c) => { if (lS.has(c.id)) out.push({ desk: "l", title: c.name, href: "/legal/#/cases?case=" + encodeURIComponent(c.id), ext: false, date: c.date, time: c.time, src: c.court }); });
-  restructurings.forEach((r) => { if (lS.has(r.id)) out.push({ desk: "l", title: r.company, href: "/legal/#/restructurings?m=" + encodeURIComponent(r.id), ext: false, date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
+  cases.forEach((c) => { if (lS.has(c.id)) out.push({ desk: "l", title: c.name, href: c.url || "/legal/#/", ext: !!c.url, date: c.date, time: c.time, src: c.court }); });
+  restructurings.forEach((r) => { if (lS.has(r.id)) out.push({ desk: "l", title: r.company, href: r.judgmentUrl || r.articleUrl || "/legal/#/", ext: !!(r.judgmentUrl || r.articleUrl), date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
   return out.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 }
 const _deskClass = { m: "macro", c: "credit", l: "legal", n: "newsletter" };
@@ -484,7 +484,13 @@ function startLiveRefresh() {
 // Deep-link a Credit deal/intel record to its exact row in the right feed tab
 // (Credit reads ?focus=<id> on load and scrolls/flashes it). CLO-tagged items
 // live in the CLOs tab regardless of which section surfaced them.
-const creditItemHref = (x, tab) => `/credit/#/${x.clo ? "clos" : tab}?focus=${encodeURIComponent(x.id)}`;
+// A deal/intel headline opens its source article when we have one, else the
+// manager's page (the standalone Deals/Fundraising pages are retired); CLOs keep
+// the CLOs tab. `creditItemExt` says whether that destination is an external URL.
+const creditItemHref = (x) => x.clo
+  ? `/credit/#/clos?focus=${encodeURIComponent(x.id)}`
+  : (x.sourceUrl ? x.sourceUrl : (x.managerId ? `/credit/#/manager/${encodeURIComponent(x.managerId)}` : "/credit/#/"));
+const creditItemExt = (x) => !x.clo && !!x.sourceUrl;
 
 // ---- Highlight cards -------------------------------------------------------
 // Each platform card is broken into its natural sections, newest 3 items each.
@@ -540,16 +546,16 @@ function renderFeed() {
   { const kept = macro.filter((o) => (o.src !== "Investing.com" || /\breuters\b/i.test(o.title || "")) && !NON_PREMIUM.has(o.src)); macro.length = 0; macro.push(...kept); }
 
   const credit = [];
-  deals.forEach((d) => credit.push(mk("c", creditItemHref(d, "deals"), d.headline, creditSource(d), false, d.date, d.time)));
-  intel.forEach((i) => credit.push(mk("c", creditItemHref(i, "intel"), i.headline, creditSource(i), false, i.date, i.time)));
+  deals.forEach((d) => credit.push(mk("c", creditItemHref(d), d.headline, creditSource(d), creditItemExt(d), d.date, d.time)));
+  intel.forEach((i) => credit.push(mk("c", creditItemHref(i), i.headline, creditSource(i), creditItemExt(i), i.date, i.time)));
   // Credit research / white papers (Commentary) — external pieces, so they open
   // out to the publisher like the macro reading list.
   (research || []).forEach((r) => credit.push(mk("c", r.url, r.title, r.institution, true, r.date, r.time)));
 
   const legal = [];
   items.forEach((i) => { if (i.date) legal.push(mk("l", i.url || `/legal/#/item/${encodeURIComponent(i.id)}`, i.title, firmName(i.firm), !!i.url, i.date, i.time)); });
-  cases.forEach((c) => { if (c.date) legal.push(mk("l", `/legal/#/cases?case=${encodeURIComponent(c.id)}`, c.name, c.court, false, c.date, c.time)); });
-  restructurings.forEach((r) => { if (r.date) legal.push(mk("l", `/legal/#/restructurings?m=${encodeURIComponent(r.id)}`, r.company, r.type === "scheme" ? "Scheme" : "Restructuring plan", false, r.date, r.time)); });
+  cases.forEach((c) => { if (c.date) legal.push(mk("l", c.url || "/legal/#/", c.name, c.court, !!c.url, c.date, c.time)); });
+  restructurings.forEach((r) => { if (r.date) legal.push(mk("l", r.judgmentUrl || r.articleUrl || "/legal/#/", r.company, r.type === "scheme" ? "Scheme" : "Restructuring plan", !!(r.judgmentUrl || r.articleUrl), r.date, r.time)); });
 
   // Reader's own aggregated email newsletters (Bloomberg, Economist, etc.),
   // pulled from the connected mailbox. They open out to the newsletter's own
@@ -1194,7 +1200,7 @@ function renderDeals() {
   if (!list.length) { el.innerHTML = '<div class="g-empty">No deals yet.</div>'; return; }
   el.innerHTML = list.map((d) => {
     const meta = [creditSource(d), d.date ? fmt(String(d.date).slice(0, 10)) : ""].filter(Boolean).join(" · ");
-    return `<a class="tui-li" href="${esc(creditItemHref(d, "deals"))}"><span class="tui-li-t">${esc(d.headline)}</span>`
+    return `<a class="tui-li" href="${esc(creditItemHref(d))}"${creditItemExt(d) ? ' target="_blank" rel="noopener noreferrer"' : ""}><span class="tui-li-t">${esc(d.headline)}</span>`
       + `<span class="tui-li-m"><span class="tui-li-tag">DEAL</span>${esc(meta)}</span></a>`;
   }).join("");
 }
@@ -1208,7 +1214,7 @@ function renderFundraising() {
   el.innerHTML = list.map((i) => {
     const kind = i.clo ? "CLO" : "RAISE";
     const meta = [creditSource(i), i.date ? fmt(String(i.date).slice(0, 10)) : ""].filter(Boolean).join(" · ");
-    return `<a class="tui-li" href="${esc(creditItemHref(i, "intel"))}"><span class="tui-li-t">${esc(i.headline)}</span>`
+    return `<a class="tui-li" href="${esc(creditItemHref(i))}"${creditItemExt(i) ? ' target="_blank" rel="noopener noreferrer"' : ""}><span class="tui-li-t">${esc(i.headline)}</span>`
       + `<span class="tui-li-m"><span class="tui-li-tag">${kind}</span>${esc(meta)}</span></a>`;
   }).join("");
 }
@@ -1221,7 +1227,7 @@ function renderRx() {
   el.innerHTML = list.map((r) => {
     const kind = r.type === "scheme" ? "SCHEME" : "RP";
     const meta = [r.date ? fmt(String(r.date).slice(0, 10)) : ""].filter(Boolean).join(" · ");
-    return `<a class="tui-li" href="/legal/#/restructurings?m=${encodeURIComponent(r.id)}"><span class="tui-li-t">${esc(r.company)}</span>`
+    return `<a class="tui-li" href="${esc(r.judgmentUrl || r.articleUrl || "/legal/#/")}"${(r.judgmentUrl || r.articleUrl) ? ' target="_blank" rel="noopener noreferrer"' : ""}><span class="tui-li-t">${esc(r.company)}</span>`
       + `<span class="tui-li-m"><span class="tui-li-tag lex">${kind}</span>${esc(meta)}</span></a>`;
   }).join("");
 }
@@ -1362,17 +1368,17 @@ function recentNotif(list) {
 }
 function creditNotif() {
   const out = [];
-  deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, source: creditSource(d), href: creditItemHref(d, "deals") }));
-  intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, source: creditSource(i), href: creditItemHref(i, "intel") }));
-  (research || []).forEach((r) => out.push({ id: "r:" + r.id, date: r.date || "", kind: "Commentary", title: r.title, source: r.institution, href: "/credit/#/news" }));
+  deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, source: creditSource(d), href: creditItemHref(d), ext: creditItemExt(d) }));
+  intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, source: creditSource(i), href: creditItemHref(i), ext: creditItemExt(i) }));
+  (research || []).forEach((r) => out.push({ id: "r:" + r.id, date: r.date || "", kind: "Commentary", title: r.title, source: r.institution, href: r.url, ext: true }));
   managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", kind: "News", title: w.title, source: w.outlet || m.name || "", href: "/credit/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey(w)) })));
   return recentNotif(out).sort(byDateDesc);
 }
 function legalNotif() {
   const out = [];
   items.forEach((it) => out.push({ id: "u:" + it.id, date: it.date || "", kind: "Alert", title: it.title, source: firmName(it.firm), href: it.url || "/legal/#/item/" + encodeURIComponent(it.id), ext: !!it.url }));
-  cases.forEach((c) => out.push({ id: "c:" + c.id, date: c.date || "", kind: c.court || "Case", title: c.name, source: judgmentSource(c.url), href: "/legal/#/cases?case=" + encodeURIComponent(c.id) }));
-  restructurings.forEach((r) => out.push({ id: "r:" + r.id, date: r.date || "", kind: r.type === "scheme" ? "Scheme" : "Plan", title: r.company, source: r.firm ? firmName(r.firm) : (r.judgmentUrl ? judgmentSource(r.judgmentUrl) : ""), href: "/legal/#/restructurings?m=" + encodeURIComponent(r.id) }));
+  cases.forEach((c) => out.push({ id: "c:" + c.id, date: c.date || "", kind: c.court || "Case", title: c.name, source: judgmentSource(c.url), href: c.url || "/legal/#/", ext: !!c.url }));
+  restructurings.forEach((r) => out.push({ id: "r:" + r.id, date: r.date || "", kind: r.type === "scheme" ? "Scheme" : "Plan", title: r.company, source: r.firm ? firmName(r.firm) : (r.judgmentUrl ? judgmentSource(r.judgmentUrl) : ""), href: r.judgmentUrl || r.articleUrl || "/legal/#/", ext: !!(r.judgmentUrl || r.articleUrl) }));
   return recentNotif(out).sort(byDateDesc);
 }
 function macroDataAlerts(series) {
@@ -1453,7 +1459,7 @@ function renderBell() {
   const unreadAll = _notifApps.flatMap((a) => tagged(a, a.unread)).sort(byDateDesc);
   const listAll = _notifApps.flatMap((a) => tagged(a, a.list)).sort(byDateDesc);
   const show = (total ? unreadAll : listAll).slice(0, 24);
-  const row = (x) => `<a class="g-np-item" href="${esc(x.href)}"><span class="g-np-tag ${x.key}">${esc(x.tag)}</span><span class="g-np-txt"><span class="g-np-t">${esc(x.title)}</span><span class="g-np-m">${esc(x.kind)}${x.date ? " · " + esc(fmt(x.date)) : ""}${x.source ? ` · <span class="g-np-src">${esc(x.source)}</span>` : ""}</span></span></a>`;
+  const row = (x) => `<a class="g-np-item" href="${esc(x.href)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}><span class="g-np-tag ${x.key}">${esc(x.tag)}</span><span class="g-np-txt"><span class="g-np-t">${esc(x.title)}</span><span class="g-np-m">${esc(x.kind)}${x.date ? " · " + esc(fmt(x.date)) : ""}${x.source ? ` · <span class="g-np-src">${esc(x.source)}</span>` : ""}</span></span></a>`;
   wrap.innerHTML = `
     <button type="button" class="g-bell" id="g-bell" aria-haspopup="true" aria-expanded="false" aria-label="Notifications${total ? ` — ${total} new` : ""}">
       <span aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span>${total ? `<span class="g-badge">${total > 9 ? "9+" : total}</span>` : ""}
@@ -1504,13 +1510,13 @@ function buildIndex() {
 
   managers.forEach((m) => add("credit", m.name, "Manager", `/credit/#/manager/${encodeURIComponent(m.id)}`, 0, "", "Manager"));
   funds.forEach((f) => add("credit", f.name, `Fund${f.managerId && mgrName(f.managerId) ? " · " + mgrName(f.managerId) : ""}`, `/credit/#/fund/${encodeURIComponent(f.id)}`, 1, "", "Fund"));
-  deals.forEach((d) => add("credit", d.headline, `${d.clo ? "CLO" : "Deal"} · ${fmt(d.date)}${mgrName(d.managerId) ? " · " + mgrName(d.managerId) : ""}`, creditItemHref(d, "deals"), d.clo ? 1 : 2, d.date, d.clo ? "CLO" : "Deal"));
-  intel.forEach((i) => add("credit", i.headline, `${i.clo ? "CLO · " : ""}${i.type || "Fundraising"} · ${fmt(i.date)}${mgrName(i.managerId) ? " · " + mgrName(i.managerId) : ""}`, creditItemHref(i, "intel"), i.clo ? 1 : 2, i.date, i.clo ? "CLO" : "Fundraising"));
+  deals.forEach((d) => add("credit", d.headline, `${d.clo ? "CLO" : "Deal"} · ${fmt(d.date)}${mgrName(d.managerId) ? " · " + mgrName(d.managerId) : ""}`, creditItemHref(d), d.clo ? 1 : 2, d.date, d.clo ? "CLO" : "Deal"));
+  intel.forEach((i) => add("credit", i.headline, `${i.clo ? "CLO · " : ""}${i.type || "Fundraising"} · ${fmt(i.date)}${mgrName(i.managerId) ? " · " + mgrName(i.managerId) : ""}`, creditItemHref(i), i.clo ? 1 : 2, i.date, i.clo ? "CLO" : "Fundraising"));
   (research || []).forEach((r) => add("credit", r.title, `${r.institution}${r.type ? " · " + r.type : ""}${r.date ? " · " + fmt(r.date) : ""}`, r.url, 2, r.date, "Commentary"));
 
   items.forEach((i) => add("legal", i.title, `Legal alert${i.firm ? " · " + i.firm : ""}${i.date ? " · " + fmt(i.date) : ""}`, i.url || `/legal/#/item/${encodeURIComponent(i.id)}`, 2, i.date, "Alert"));
-  cases.forEach((c) => add("legal", c.name, `Case · ${c.court || ""}${c.citation ? " · " + c.citation : ""}`, `/legal/#/cases?case=${encodeURIComponent(c.id)}`, 2, c.date, "Case"));
-  restructurings.forEach((r) => add("legal", r.company, `${r.type === "scheme" ? "Scheme" : "Restructuring plan"}${r.citation ? " · " + r.citation : ""}`, `/legal/#/restructurings?m=${encodeURIComponent(r.id)}`, 2, r.date, r.type === "scheme" ? "Scheme" : "RP"));
+  cases.forEach((c) => add("legal", c.name, `Case · ${c.court || ""}${c.citation ? " · " + c.citation : ""}`, c.url || "/legal/#/", 2, c.date, "Case"));
+  restructurings.forEach((r) => add("legal", r.company, `${r.type === "scheme" ? "Scheme" : "Restructuring plan"}${r.citation ? " · " + r.citation : ""}`, (r.judgmentUrl || r.articleUrl || "/legal/#/"), 2, r.date, r.type === "scheme" ? "Scheme" : "RP"));
 
   ["US", "UK"].forEach((ctry) => MACRO_INDICATORS.forEach(([k, l]) =>
     add("macro", `${ctry} ${l}`, "Open in Chart", `/macro/#/chart?add=${ctry}:${k}`, 3, "", "Chart")));

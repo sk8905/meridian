@@ -43,7 +43,12 @@ function feedDedupKey(x) {
   if (!generic) return "u:" + u;
   return "t:" + (x.title || x.headline || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
 }
-const creditItemHref = (x, tab) => `/credit/#/${x.clo ? "clos" : tab}?focus=${encodeURIComponent(x.id)}`;
+// Deal/intel headline → source article if we have one, else the manager's page
+// (Deals/Fundraising list pages retired); CLOs keep the CLOs tab.
+const creditItemHref = (x) => x.clo
+  ? `/credit/#/clos?focus=${encodeURIComponent(x.id)}`
+  : (x.sourceUrl ? x.sourceUrl : (x.managerId ? `/credit/#/manager/${encodeURIComponent(x.managerId)}` : "/credit/#/"));
+const creditItemExt = (x) => !x.clo && !!x.sourceUrl;
 
 // ---- resolver ---------------------------------------------------------------
 export function resolveSaved() {
@@ -55,15 +60,15 @@ export function resolveSaved() {
    ...((COMMENTARY && COMMENTARY.us) || []), ...((COMMENTARY && COMMENTARY.uk) || [])]
     .forEach((n) => { if (mS.has("a" + _savedHash(_savedBase(n)))) out.push({ desk: "m", title: n.title, href: n.url, ext: true, date: n.date, time: n.time, src: n.source }); });
   // Credit — deals/intel by raw id; manager press by "n" + hash(base|managerId).
-  deals.forEach((d) => { if (cS.has(d.id)) out.push({ desk: "c", title: d.headline, href: creditItemHref(d, "deals"), ext: false, date: d.date, time: d.time, src: creditSource(d) }); });
-  intel.forEach((i) => { if (cS.has(i.id)) out.push({ desk: "c", title: i.headline, href: creditItemHref(i, "intel"), ext: false, date: i.date, time: i.time, src: creditSource(i) }); });
+  deals.forEach((d) => { if (cS.has(d.id)) out.push({ desk: "c", title: d.headline, href: creditItemHref(d), ext: creditItemExt(d), date: d.date, time: d.time, src: creditSource(d) }); });
+  intel.forEach((i) => { if (cS.has(i.id)) out.push({ desk: "c", title: i.headline, href: creditItemHref(i), ext: creditItemExt(i), date: i.date, time: i.time, src: creditSource(i) }); });
   managers.forEach((m) => [...(m.news || []), ...(m.webNews || [])].forEach((w) => {
     if (cS.has("n" + _savedHash(_savedBase(w) + "|" + m.id))) out.push({ desk: "c", title: w.title, href: "/credit/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey({ ...w, _mid: m.id })), ext: false, date: w.date, time: w.time, src: w.outlet || m.name });
   }));
   // Legal — items/cases/restructurings by raw id.
   items.forEach((it) => { if (lS.has(it.id)) out.push({ desk: "l", title: it.title, href: it.url || "/legal/#/item/" + encodeURIComponent(it.id), ext: !!it.url, date: it.date, time: it.time, src: firmName(it.firm) }); });
-  cases.forEach((c) => { if (lS.has(c.id)) out.push({ desk: "l", title: c.name, href: "/legal/#/cases?case=" + encodeURIComponent(c.id), ext: false, date: c.date, time: c.time, src: c.court }); });
-  restructurings.forEach((r) => { if (lS.has(r.id)) out.push({ desk: "l", title: r.company, href: "/legal/#/restructurings?m=" + encodeURIComponent(r.id), ext: false, date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
+  cases.forEach((c) => { if (lS.has(c.id)) out.push({ desk: "l", title: c.name, href: c.url || "/legal/#/", ext: !!c.url, date: c.date, time: c.time, src: c.court }); });
+  restructurings.forEach((r) => { if (lS.has(r.id)) out.push({ desk: "l", title: r.company, href: r.judgmentUrl || r.articleUrl || "/legal/#/", ext: !!(r.judgmentUrl || r.articleUrl), date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
   return out.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 }
 
@@ -87,8 +92,8 @@ const byDateDesc = (a, b) => String(b.date || "").localeCompare(String(a.date ||
 
 function creditNotif() {
   const out = [];
-  deals.forEach((d) => out.push({ desk: "c", id: "d:" + d.id, date: d.date || "", title: d.headline, source: creditSource(d), href: creditItemHref(d, "deals"), ext: false }));
-  intel.forEach((i) => out.push({ desk: "c", id: "i:" + i.id, date: i.date || "", title: i.headline, source: creditSource(i), href: creditItemHref(i, "intel"), ext: false }));
+  deals.forEach((d) => out.push({ desk: "c", id: "d:" + d.id, date: d.date || "", title: d.headline, source: creditSource(d), href: creditItemHref(d), ext: creditItemExt(d) }));
+  intel.forEach((i) => out.push({ desk: "c", id: "i:" + i.id, date: i.date || "", title: i.headline, source: creditSource(i), href: creditItemHref(i), ext: creditItemExt(i) }));
   (research || []).forEach((r) => out.push({ desk: "c", id: "r:" + r.id, date: r.date || "", title: r.title, source: r.institution, href: r.url, ext: true }));
   managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ desk: "c", id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", title: w.title, source: w.outlet || m.name || "", href: "/credit/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey(w)), ext: false })));
   return recentNotif(out);
