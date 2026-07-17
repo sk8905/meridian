@@ -116,7 +116,7 @@
       .g-footer .g-idblock { align-items:center; }
       .g-footer .g-user { color:var(--muted); font-size:.82rem; }
       .g-footer .g-user strong { color:var(--ink); }
-      .g-footer .g-user a { color:#fb8b1e; }
+      .g-footer .g-user a { color:#fff; }
       .g-footer .g-refresh { color:var(--muted); font-size:.72rem; }
     }
     .g-notif { position:relative; flex:0 0 auto; }
@@ -1047,6 +1047,7 @@
     .tui .g-feed-code.macro{ color:var(--t-mac); background:color-mix(in srgb,var(--t-mac) 15%,transparent); }
     .tui .g-feed-code.credit{ color:var(--t-crd); background:color-mix(in srgb,var(--t-crd) 15%,transparent); }
     .tui .g-feed-code.legal{ color:var(--t-lex); background:color-mix(in srgb,var(--t-lex) 15%,transparent); }
+    .tui .g-feed-code.newsletter{ color:var(--t-amber); background:color-mix(in srgb,var(--t-amber) 15%,transparent); }
     .tui .g-feed-title{ font-size:13px; color:var(--t-ink); font-weight:400; line-height:1.4;
       white-space:normal; overflow:visible; min-width:0; }
     /* Hover highlights the row with a subtle grey (see .g-feed-row:hover above);
@@ -1340,7 +1341,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260717-27").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260717-28").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

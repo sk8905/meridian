@@ -12,6 +12,7 @@
 import { deals, intel, managers, funds, research, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260717-2";
 import { items, cases, restructurings, firmById } from "/legal/js/data.js?v=20260714-2";
 import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js?v=20260717-4";
+import { NEWSLETTERS } from "/newsletters.js?v=20260717-1";
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const byDateDesc = (a, b) => String(b.date || "").localeCompare(String(a.date || ""));
@@ -144,8 +145,8 @@ function resolveSaved() {
   restructurings.forEach((r) => { if (lS.has(r.id)) out.push({ desk: "l", title: r.company, href: "/legal/#/restructurings?m=" + encodeURIComponent(r.id), ext: false, date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
   return out.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 }
-const _deskClass = { m: "macro", c: "credit", l: "legal" };
-const DESK_CODE = { m: "MAC", c: "CRD", l: "LEX" };
+const _deskClass = { m: "macro", c: "credit", l: "legal", n: "newsletter" };
+const DESK_CODE = { m: "MAC", c: "CRD", l: "LEX", n: "NL" };
 function initSavedPanel() {
   const wrap = document.getElementById("g-saved");
   if (!wrap) return;
@@ -474,7 +475,7 @@ const creditItemHref = (x, tab) => `/credit/#/${x.clo ? "clos" : tab}?focus=${en
 // interleaved across desks so it reads as a single merged feed, not three blocks.
 // Falls back to the most-recent date present if nothing is dated today, so the
 // feed is never empty between refreshes.
-const DESK = { m: "Macro", c: "Credit", l: "Legal" };
+const DESK = { m: "Macro", c: "Credit", l: "Legal", n: "Newsletter" };
 // Active desk filter for the home news feed: "all" | "m" | "c" | "l".
 // One-line cross-desk briefing shown under the "Your briefing" heading.
 function renderBrief(byDesk, counts, day) {
@@ -532,8 +533,14 @@ function renderFeed() {
   cases.forEach((c) => { if (c.date) legal.push(mk("l", `/legal/#/cases?case=${encodeURIComponent(c.id)}`, c.name, c.court, false, c.date, c.time)); });
   restructurings.forEach((r) => { if (r.date) legal.push(mk("l", `/legal/#/restructurings?m=${encodeURIComponent(r.id)}`, r.company, r.type === "scheme" ? "Scheme" : "Restructuring plan", false, r.date, r.time)); });
 
+  // Reader's own aggregated email newsletters (Bloomberg, Economist, etc.),
+  // pulled from the connected mailbox. They open out to the newsletter's own
+  // "read online" link and carry a distinct "Newsletter" desk label.
+  const newsletter = [];
+  (NEWSLETTERS || []).forEach((n) => newsletter.push(mk("n", n.url, n.title, n.author ? `${n.author} · ${n.publication}` : n.publication, true, n.date, n.time)));
+
   const day = (x) => String(x.date || "").slice(0, 10);
-  const all = [...macro, ...credit, ...legal];
+  const all = [...macro, ...credit, ...legal, ...newsletter];
   const now = new Date();
   const todayISO = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
   const target = all.some((x) => day(x) === todayISO) ? todayISO : all.reduce((m, x) => (day(x) > m ? day(x) : m), "");
@@ -547,7 +554,7 @@ function renderFeed() {
   const CAP = 500;
   // Per-desk deduped streams (newest first) — power the desk filter and the
   // "what's new" counts (items in the most recent ~2 days).
-  const byDesk = { m: dedupe([...macro].sort(byDateDesc)), c: dedupe([...credit].sort(byDateDesc)), l: dedupe([...legal].sort(byDateDesc)) };
+  const byDesk = { m: dedupe([...macro].sort(byDateDesc)), c: dedupe([...credit].sort(byDateDesc)), l: dedupe([...legal].sort(byDateDesc)), n: dedupe([...newsletter].sort(byDateDesc)) };
   const maxDay = all.reduce((m, x) => (day(x) > m ? day(x) : m), "");
   const cutoff = (() => { const d = new Date(maxDay + "T00:00:00"); if (isNaN(d)) return ""; d.setDate(d.getDate() - 1); return d.toISOString().slice(0, 10); })();
   const recentN = (list) => (cutoff ? list.filter((x) => day(x) >= cutoff).length : list.length);
@@ -566,7 +573,7 @@ function renderFeed() {
     feed = dedupe([...macro, ...credit, ...legal].sort(byDateDesc)).filter((x) => x.src === _feedSrc).slice(0, CAP);
   } else if (_feedDesk === "all") {
     const pick = (list) => dedupe(list.filter((x) => day(x) === target).sort(byDateDesc));
-    const lists = [pick(macro), pick(credit), pick(legal)];
+    const lists = [pick(macro), pick(credit), pick(legal), pick(newsletter)];
     const seen = new Set();
     feed = [];
     for (let i = 0; lists.some((l) => i < l.length); i++) lists.forEach((l) => {
@@ -621,7 +628,7 @@ function renderFeed() {
   if (head) {
     const chip = (k, label) => `<button type="button" class="g-feed-chip${!_feedSrc && _feedDesk === k ? " is-on" : ""}" data-desk="${k}" aria-pressed="${!_feedSrc && _feedDesk === k}">${label}</button>`;
     head.innerHTML = `<span class="g-feed-h-lbl">Latest news</span>`
-      + `<span class="g-feed-chips" role="group" aria-label="Filter by desk">${chip("all", "All")}${chip("m", "Macro")}${chip("c", "Credit")}${chip("l", "Legal")}</span>`;
+      + `<span class="g-feed-chips" role="group" aria-label="Filter by desk">${chip("all", "All")}${chip("m", "Macro")}${chip("c", "Credit")}${chip("l", "Legal")}${chip("n", "Newsletters")}</span>`;
     // A desk chip clears any source filter and switches desks.
     head.querySelectorAll(".g-feed-chip").forEach((b) => b.addEventListener("click", () => { _feedSrc = null; _feedDesk = b.dataset.desk; renderFeed(); }));
   }
