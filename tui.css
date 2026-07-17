@@ -133,13 +133,10 @@
 .wb-gl-l { font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .02em; color: var(--accent); white-space: nowrap; flex: 0 0 auto; }
 .wb-gl-v { display: block; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--muted); font-size: 11.5px; }
 @media (max-width: 760px) {
-  /* Phones: show ONLY the top story — the greeting and the Markets/Rates
-     one-liners are unreadable truncated on a narrow strip, so drop them and let
-     the top-story headline use the full width. */
-  .wbrief { gap: 8px; }
-  .wb-hello { display: none; }
-  .wb-glance { display: none; }
-  .wb-main { flex: 1 1 auto; }
+  /* Phones: the strip's only phone-worthy content was the top story, which is
+     now Home-only — with just the greeting and the (unreadable-truncated)
+     one-liners left, drop the whole strip and give the row back to the wire. */
+  .wbrief { display: none; }
 }
 .tdash-head { display: flex; align-items: center; gap: 12px; padding: 6px 14px; border-bottom: 1px solid var(--border); flex: 0 0 auto; }
 .tdash-head h1 { font-size: 1.02rem; margin: 0; font-weight: 700; letter-spacing: -.01em; }
