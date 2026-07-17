@@ -772,7 +772,7 @@ function viewDashboard() {
   app.innerHTML = `
     <div class="tdash">
       <div class="tdash-grid tdash-1">
-        <section class="tcol tcol-full">
+        <section class="tcol tcol-c tcol-full">
           <header class="tpanel-h twire-head">
             <div class="tchips" id="cr-dash-tabs">
               <button type="button" class="tchip is-on" data-p="all">All</button>

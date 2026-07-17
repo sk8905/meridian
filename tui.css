@@ -309,10 +309,25 @@
 .thead-search .tfocus-btn { margin-left: 0; }
 .tsearch { margin-left: auto; background: var(--bg); border: 1px solid var(--border); color: var(--ink); font-family: var(--t-mono); font-size: 11px; padding: 2px 8px; height: 20px; width: 210px; max-width: 46vw; border-radius: 0; }
 .tsearch::placeholder { color: var(--faint); }
-.tleague-full .tl-hq { text-align: left; color: var(--muted); font-family: var(--t-mono); font-size: 10px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tleague-full .tl-hq { text-align: left; color: var(--muted); font-family: var(--t-mono); font-size: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tleague-full th.tl-hq { text-align: left; }
 .tleague-full .tl-cl { text-align: center; color: var(--accent); }
 .tleague-full th { top: 28px; }
+/* Even, fixed column distribution: auto-layout was dumping all the slack into
+   one 450px-wide HQ column (the big mid-table gap). Fixed widths spread the
+   numeric columns across the full width; the name/HQ cells ellipsis at the
+   column edge (no max-width cap needed once the column width is set). */
+@media (min-width: 761px) {
+  .tleague-full { table-layout: fixed; }
+  .tleague-full th:nth-child(1) { width: 22%; }   /* Manager    */
+  .tleague-full th:nth-child(2) { width: 17%; }   /* HQ         */
+  .tleague-full th:nth-child(3) { width: 13%; }   /* AUM        */
+  .tleague-full th:nth-child(4) { width: 14%; }   /* Credit AUM */
+  .tleague-full th:nth-child(5) { width: 11%; }   /* Funds      */
+  .tleague-full th:nth-child(6) { width: 12%; }   /* In mkt     */
+  .tleague-full th:nth-child(7) { width: 11%; }   /* CLOs       */
+  .tleague-full .tl-nm { max-width: none; }
+}
 /* iPhone: drop the HQ column so the manager name + numeric columns fit the width. */
 @media (max-width: 760px) {
   .tleague-full .tl-hq, .tleague-full th.tl-hq { display: none; }
