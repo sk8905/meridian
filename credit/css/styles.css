@@ -149,7 +149,7 @@ h1, h2, h3, .kpi-label { text-wrap: balance; }
 .notif-item:last-child { border-bottom: none; }
 .notif-item.is-new { background: #eef2f8; }
 .notif-link { font-weight: 600; color: var(--ink); display: block; }
-.notif-link:hover { color: var(--primary); }
+.notif-link:hover { color: var(--ink); }
 .notif-meta { margin-top: .1rem; }
 .notif-empty { padding: .6rem .5rem; }
 
@@ -180,7 +180,7 @@ h1, h2, h3, .kpi-label { text-wrap: balance; }
   background: var(--surface); color: var(--primary);
   border: 1px solid var(--border); border-radius: 8px; padding: .55rem 1.1rem;
 }
-.load-more:hover { border-color: var(--primary); background: rgba(29, 78, 216, .06); }
+.load-more:hover { border-color: var(--ink); background: rgba(29, 78, 216, .06); }
 .load-more .lm-rem { color: var(--muted); font-weight: 400; }
 
 /* Mobile "Filters" toggle: the checkbox is visually hidden; the label shows
@@ -387,7 +387,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
   color: var(--muted); padding: .55rem .6rem; border-bottom: 2px solid var(--border); white-space: nowrap;
 }
 .data-table thead th.sortable { cursor: pointer; user-select: none; }
-.data-table thead th.sortable:hover { color: var(--primary, #fb8b1e); }
+.data-table thead th.sortable:hover { color: var(--ink); }
 .data-table thead th.sortable.active { color: var(--primary-ink, #1c3a5e); }
 .data-table thead th.sortable:focus-visible { outline: 2px solid #c8d5e6; outline-offset: -2px; }
 .data-table tbody td { padding: .6rem .6rem; border-bottom: 1px solid var(--border); vertical-align: middle; }
@@ -420,7 +420,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .card-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
 .manager-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
   padding: 1.1rem; box-shadow: var(--shadow); cursor: pointer; transition: border-color .15s, transform .1s; display: flex; flex-direction: column; gap: .6rem; }
-.manager-card:hover { border-color: var(--accent); }
+.manager-card:hover { border-color: var(--ink); }
 .manager-card-head { display: flex; justify-content: space-between; align-items: baseline; gap: .5rem; }
 .manager-stats { display: flex; gap: 1.25rem; padding: .5rem 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
 .manager-stats div { display: flex; flex-direction: column; }
@@ -501,7 +501,7 @@ a.intel-head:hover { text-decoration: underline; }
 .chart-link.clickable { cursor: pointer; display: block; }
 .chart-link.clickable:hover { opacity: .85; }
 .kpi-card.clickable { cursor: pointer; transition: border-color .15s, transform .1s, box-shadow .15s; }
-.kpi-card.clickable:hover { border-left-color: var(--accent); box-shadow: 0 6px 16px rgba(15,23,42,.08); }
+.kpi-card.clickable:hover { border-left-color: var(--ink); box-shadow: 0 6px 16px rgba(15,23,42,.08); }
 .chart-label { font-size: 11px; fill: var(--muted); }
 .chart-value { font-size: 11px; fill: var(--ink); font-weight: 600; }
 /* Faint full-scale track behind each bar so proportions read at a glance. */
@@ -753,7 +753,7 @@ a.compact-head:hover { text-decoration: underline; }
 /* Manager name in a compact-row meta line — a link to the profile, kept in the
    muted meta colour but underlined on hover so it reads as clickable. */
 a.compact-mgr { color: inherit; }
-a.compact-mgr:hover { color: var(--primary); text-decoration: underline; }
+a.compact-mgr:hover { color: var(--ink); text-decoration: underline; }
 
 /* ---------- year section breaks (manager feeds) ---------- */
 .year-group + .year-group { margin-top: .5rem; }

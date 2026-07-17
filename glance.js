@@ -317,24 +317,45 @@ function initMarketsPanel() {
   if (!head) {
     head = document.createElement("div");
     head.className = "g-mkt-head";
-    head.innerHTML = '<span class="g-mkt-title">Markets &amp; data</span>'
+    // Left rail = "Markets" (prices, rates, FX, vol, movers); right rail = "Macro"
+    // (economic data, yield curve, macro read, deal flow). Chips swap between them.
+    head.innerHTML = '<div class="g-mkt-chips" role="tablist" aria-label="Data rail">'
+      + '<button type="button" class="g-mkt-chip is-on" data-rail="side" role="tab" aria-selected="true">Markets</button>'
+      + '<button type="button" class="g-mkt-chip" data-rail="side2" role="tab" aria-selected="false">Macro</button>'
+      + '</div>'
       + '<button type="button" class="g-mkt-close" aria-label="Close markets panel">✕</button>';
     panel.appendChild(head);
   }
+  // Show one rail at a time in the panel (phones); the chips pick which.
+  const selectRail = (which) => {
+    const isSide = which !== "side2";
+    side.style.display = isSide ? "" : "none";
+    if (side2) side2.style.display = isSide ? "none" : "";
+    head.querySelectorAll(".g-mkt-chip").forEach((c) => {
+      const on = c.dataset.rail === (isSide ? "side" : "side2");
+      c.classList.toggle("is-on", on);
+      c.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    panel.scrollTop = 0;
+  };
   const close = () => { panel.hidden = true; btn.setAttribute("aria-expanded", "false"); document.body.classList.remove("g-mkt-open"); hideScrim(); };
-  // On phones EVERY data rail (left: markets/rates/FX/indicators; right: macro
-  // read/movers/desks/deals/restructurings) lives in the full-screen panel, so the
-  // news wire owns the page. On desktop both rails return to the 3-column grid.
+  // On phones BOTH rails live in the full-screen panel (the news wire owns the
+  // page), shown one at a time via the Markets/Macro chips. On desktop both rails
+  // return to the 3-column grid with their inline show/hide cleared.
   const place = () => {
     if (mq.matches) {
       if (side.parentElement !== panel) panel.appendChild(side);
       if (side2 && side2.parentElement !== panel) panel.appendChild(side2);
+      const on = head.querySelector(".g-mkt-chip.is-on");
+      selectRail(on ? on.dataset.rail : "side");
     } else {
+      side.style.display = ""; if (side2) side2.style.display = "";
       if (side.parentElement !== layout) layout.insertBefore(side, feed || null);
       if (side2 && side2.parentElement !== layout) layout.appendChild(side2);
       close();
     }
   };
+  head.addEventListener("click", (e) => { const c = e.target.closest(".g-mkt-chip"); if (c) selectRail(c.dataset.rail); });
   place();
   mq.addEventListener("change", place);
   btn.addEventListener("click", (e) => {

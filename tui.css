@@ -205,6 +205,9 @@
   .tdash-grid { grid-template-columns: 1fr; }
   .tcol { overflow: visible; border-right: 0; border-left: 0; border-bottom: 1px solid var(--border); }
   .tcol-c { overflow: visible; order: -1; }        /* wire leads on mobile */
+  /* Phones/tablets: drop the left & right data rails on Macro/Credit/Legal so the
+     central wire owns the screen (matches Home moving its rails off-canvas). */
+  .tcol-l, .tcol-r { display: none; }
   .twire { overflow: visible; }
   .tpanel-h, .tleague th { position: static; }      /* page scrolls on mobile — don't pin sub-headers under the sticky topbar */
   /* …except the filter-chip bar, which stays locked to the top (just under the
@@ -282,7 +285,7 @@
 
 /* breadcrumb as the terminal detail's top strip (inside the fixed-height .tdash) */
 .tdash > .breadcrumb { flex: 0 0 auto; margin: 0; padding: 6px 16px; height: auto; background: var(--head); border-bottom: 1px solid var(--border); font-size: 11px; font-family: var(--t-mono); color: var(--muted); display: flex; align-items: center; gap: 7px; }
-.tdash > .breadcrumb a { color: var(--muted); } .tdash > .breadcrumb a:hover { color: var(--accent); }
+.tdash > .breadcrumb a { color: var(--muted); } .tdash > .breadcrumb a:hover { color: var(--ink); }
 .tdash > .breadcrumb .sep { color: var(--faint); }
 /* identity header — the record, centre-stage, above its activity wire */
 .tdet-id { padding: 13px 16px; background: var(--surface); border-bottom: 1px solid var(--border); flex: 0 0 auto; }
@@ -292,7 +295,7 @@
 .tdet-chips { margin-top: 9px; display: flex; flex-wrap: wrap; gap: 5px; }
 .tdet-chip { font-family: var(--t-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .03em; color: var(--muted); border: 1px solid var(--border); padding: 2px 7px; white-space: nowrap; }
 .tdet-src { margin-top: 9px; font-size: 10px; color: var(--faint); }
-.tdet-src a { color: var(--faint); } .tdet-src a:hover { color: var(--accent); }
+.tdet-src a { color: var(--faint); } .tdet-src a:hover { color: var(--ink); }
 /* key-figure grid in the rail */
 .tkv { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
 .tkv > div { background: var(--surface); padding: 7px 11px; min-width: 0; }

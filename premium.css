@@ -381,7 +381,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
 }
 .na-btn { width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--border, #262626); background: transparent; color: var(--muted, #8592ad); cursor: pointer; border-radius: 0; text-decoration: none; }
 .na-btn svg { width: 19px; height: 19px; }
-.na-btn:hover { color: var(--ink, #eaf0fb); border-color: var(--accent, #fb8b1e); }
+.na-btn:hover { color: var(--ink, #eaf0fb); border-color: var(--ink); }
 .na-panel { position: fixed; right: 8px; top: 56px; width: 320px; max-width: 92vw; max-height: 70vh; overflow-y: auto; z-index: 200; background: var(--surface, #0d0d0d); border: 1px solid var(--border, #262626); box-shadow: 0 12px 34px rgba(0,0,0,.5); }
 .na-panel[hidden] { display: none; }
 .na-sec { font-size: 9px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, #8592ad); font-weight: 700; padding: 8px 12px 4px; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); position: sticky; top: 0; }

@@ -135,7 +135,7 @@ img, svg { max-width: 100%; }
   background: var(--surface); color: var(--primary);
   border: 1px solid var(--line); border-radius: 8px; padding: .55rem 1.1rem;
 }
-.load-more:hover { border-color: var(--primary); background: rgba(54, 104, 101, .08); }
+.load-more:hover { border-color: var(--ink); background: rgba(54, 104, 101, .08); }
 .load-more .lm-rem { color: var(--muted); font-weight: 400; }
 
 /* Mobile "Filters" toggle: the checkbox is visually hidden; the label shows
@@ -180,7 +180,7 @@ img, svg { max-width: 100%; }
 .notif-item:last-child { border-bottom: none; }
 .notif-item.is-new { background: #f0fdfa; }
 .notif-link { font-weight: 600; color: var(--ink); display: block; }
-.notif-link:hover { color: var(--primary); }
+.notif-link:hover { color: var(--ink); }
 .notif-meta { margin-top: .1rem; }
 .notif-empty { padding: .6rem .5rem; }
 .nav-toggle {
@@ -333,7 +333,7 @@ a.firm:hover, a.firm-big:hover { text-decoration: underline; }
 .donut-sub { font-size: 11px; fill: var(--muted); }
 .legend { display: flex; flex-direction: column; gap: .4rem; }
 .legend-item { display: flex; align-items: center; gap: .5rem; font-size: .85rem; color: var(--ink-soft); }
-.legend-item.clickable:hover { color: var(--primary); }
+.legend-item.clickable:hover { color: var(--ink); }
 .legend-swatch { width: 12px; height: 12px; border-radius: 3px; display: inline-block; }
 
 /* ---- Section heads ---- */
@@ -530,7 +530,7 @@ a.compact-head:hover { text-decoration: underline; }
 .case-date { font-size: .76rem; color: var(--muted); margin-left: auto; }
 .case-name { margin: .1rem 0 .6rem; font-size: 1rem; line-height: 1.3; }
 .case-name a { color: var(--ink); text-decoration: none; }
-.case-name a:hover { color: var(--primary); text-decoration: underline; }
+.case-name a:hover { color: var(--ink); text-decoration: underline; }
 .case-cite { display: block; color: var(--muted); font-style: italic; font-weight: 500; font-size: .82rem; margin-top: .15rem; }
 .ai-summary { background: #f0fdfa; border: 1px solid #ccfbf1; border-left: 3px solid var(--accent); border-radius: 8px; padding: .6rem .8rem; margin: 0 0 .8rem; }
 .ai-badge { display: inline-block; font-size: .64rem; font-weight: 700; text-transform: uppercase; letter-spacing: .6px; color: var(--primary-ink); margin-bottom: .25rem; }
@@ -680,7 +680,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
 .rx-title-line .feed-title { flex: 0 1 auto; min-width: 0; }
 .rx-out-text { flex: 0 0 auto; }
 .rx-name { color: var(--ink); }
-.rx-summary:hover .rx-name { color: var(--primary); }
+.rx-summary:hover .rx-name { color: var(--ink); }
 /* Save button lives on the title line (replacing the old caret), pinned top-right.
    It must not inherit the .save-btn block margins meant for the footer layout. */
 .rx-save { margin: 0 0 0 auto; align-self: flex-start; flex-shrink: 0; padding: .15rem .55rem; font-size: .72rem; }
