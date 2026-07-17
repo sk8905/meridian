@@ -5,15 +5,15 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "16 July 2026";
+export const UPDATED = "17 July 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-07-16",
-  lastCheckedTime: "21:22 BST",
+  lastChecked: "2026-07-17",
+  lastCheckedTime: "05:25 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -33,6 +33,7 @@ export const OUTLOOK = {
       "The disinflation theme extended to producer prices on 15 July: <strong>June PPI fell 0.3% month-on-month</strong>, its first monthly decline since June 2025, with a 12% drop in gasoline prices driving two-thirds of the fall and core PPI slowing to a 4.6% annual pace from 4.9% in May. CME FedWatch odds of a 29 July hike have now fallen to roughly <strong>17%</strong> (from a peak near 46.5% a week earlier), though traders still assign around 59% odds to a hike by the September meeting given the still-live Hormuz oil shock. Chair Warsh gives a second day of testimony to the Senate Banking Committee on 15 July, having offered no fresh signal on 14 July.",
       "Warsh's Senate Banking Committee appearance on 15 July repeated his non-committal message — he again said the Fed has 'no tolerance' for elevated inflation and cautioned against reading the cooler CPI/PPI prints as 'mission accomplished' — while facing a sharp ethics clash with Sen. Elizabeth Warren, who said he 'seems to invite corruption'; Warsh confirmed he is in regular contact with the Trump administration but declined to say if he has personally spoken with the President since becoming chair. CME FedWatch odds of a 29 July hike fell further intraday to roughly <strong>10–13%</strong>, even as traders continue to price a real chance of a September move. Economist reaction was split: Mohamed El-Erian called the testimony 'a real breath of fresh air', while Peter Schiff criticised the Fed's inflation framework.",
       "The IMF's July 2026 World Economic Outlook Update, published 8 July, held global growth steady at 3.0% but lifted its global headline-inflation forecast to roughly <strong>4.7%</strong>, built on an $89/bbl oil-price assumption tied to the Middle East conflict — external confirmation that the Hormuz shock is a genuine, fund-level inflation risk rather than a purely domestic US pricing dynamic, reinforcing the case some FOMC hawks are making for keeping a hike on the table past July.",
+      "Kansas City Fed President Jeff Schmid added a fresh hawkish voice on 16 July, calling inflation his 'primary concern', saying it is 'too hot' and has been 'above target too long', and cautioning against reading June's cooler CPI/PPI prints as a trend. Meanwhile early data for July pointed to some softening beneath the inflation debate: preliminary University of Michigan consumer sentiment (17 July) rose from May's low but stayed 13% below its pre-Iran-conflict February level, with year-ahead inflation expectations easing to 4.6% from 4.8%, while June housing starts/permits data (also 17 July) showed building permits down 0.9% month-on-month.",
     ],
     bottomLine: "The 29 July hike risk has eased further intraday to roughly 10-13% (CME FedWatch), down from ~17% after June PPI and a peak near 46.5% a week ago, as Warsh's second day of testimony again offered no fresh signal — though traders still price meaningful September-hike odds given the still-live Iran/oil shock, keeping the meeting a live, if now more lopsided, two-way risk.",
     // Market-implied odds for the next FOMC decision (CME FedWatch) and the FOMC's
@@ -99,6 +100,9 @@ export const OUTLOOK = {
     ["IMF — World Economic Outlook Update, Jul 2026", "https://www.imf.org/en/publications/weo/issues/2026/07/08/world-economic-outlook-update-july-2026"],
     ["Bloomberg — Mahmood's Economic Blank Slate Boosts Appeal for UK Chancellor Role, 16 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-16/mahmood-s-economic-blank-slate-key-to-appeal-as-uk-chancellor"],
     ["Currency News UK — British Pound to Euro Forecast: UK Growth, Mahmood Hopes Keep GBP Near Best, 16 Jul 2026", "https://www.currencynews.co.uk/forecast/20260716-46530_british-pound-to-euro-forecast-uk-growth-mahmood-hopes-keep-gbp-near-best.html"],
+    ["Bloomberg — Fed's Schmid Says Inflation Too Hot, Above Target Too Long, 16 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-16/fed-s-schmid-says-inflation-is-too-hot-above-target-too-long"],
+    ["University of Michigan — Surveys of Consumers, preliminary July 2026", "https://www.sca.isr.umich.edu/"],
+    ["US Census Bureau — New Residential Construction, June 2026", "https://www.census.gov/construction/nrc/current/index.html"],
   ],
 };
 
@@ -184,6 +188,7 @@ export const BUBBLE = {
     "The narrow-leadership theme continued on 16 July: US chip stocks (Intel, AMD, Applied Materials) slid on renewed AI-valuation jitters, dragging the Nasdaq lower even as the Dow held near record highs, while China's Q2 GDP growth slowed to 4.3% y/y — its weakest since late 2022 — partly on Iran-conflict-driven resource-price spikes. Brent crude extended its climb to a fourth straight day (~$85.77/bbl) on fresh US strikes on Iranian coastal defences and missile sites, yet US equities showed only a muted reaction, consistent with the market continuing to price in relatively little of the geopolitical and global-growth risk building around its AI-led leadership.",
     "The valuation-not-demand read hardened further on 16 July when TSMC posted a record 77% profit jump — Q2 revenue of $39.62bn, up 36% year-on-year, with AI chips 61% of sales — and lifted its full-year outlook, yet the beat still failed to lift chip stocks: Micron, SK Hynix, AMD, Broadcom, Nvidia and TSMC itself all slid as investors booked profits after their outsized run, dragging the Nasdaq to a 1.3% close-of-day loss even as the Dow fell just 0.3% and the S&P 500 lost 0.5% — a clearer signal than most that stretched valuations, not AI demand itself, are now the market's chief worry.",
     "The Hormuz standoff widened again on 16 July as US CENTCOM said it struck and disabled an unladen tanker (the Curaçao-flagged Belma) attempting to breach the blockade near Kharg Island, while Iran hit back at US bases in Kuwait and Jordan on a sixth straight day of fighting; Brent settled up 0.4% at $85.28/bbl (WTI $80.02) after paring a larger intraday gain. A supply shock that keeps extending without denting the AI-led equity rally remains itself a bubble-consistent complacency signal.",
+    "The chip-sector profit-taking that followed TSMC's 16 July beat extended into 17 July: FX Leaders reported TSM shares slipped a further 2.3% despite the record quarter, as investors continued to weigh elevated AI capex guidance against near-term margin pressure — a further sign that stretched valuations, not underlying AI demand, remain the market's chief worry.",
   ],
   dimensions: [
     {
@@ -244,6 +249,7 @@ export const BUBBLE = {
     ["Bloomberg — US Stock Futures Tumble as TSMC's Results Revive AI Concerns, 16 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-16/us-stock-futures-tumble-as-tsmc-s-results-revive-ai-concerns"],
     ["TheStreet — Stock Market Today (July 16, 2026): Nasdaq slips as tech stocks lose momentum", "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-16-2026"],
     ["Bloomberg — Iran-US Strikes Worsen as Strait of Hormuz Shipping Traffic Dwindles, 16 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-16/iran-us-skirmishes-worsen-as-hormuz-shipping-traffic-dwindles"],
+    ["FX Leaders — TSM Stock Slips 2.3% Despite Record Profit as AI Demand Meets Capex Concerns, 17 Jul 2026", "https://www.fxleaders.com/news/2026/07/17/tsm-stock-slips-2-3-despite-record-profit-as-ai-demand-meets-capex-concerns/"],
   ],
 };
 
@@ -251,6 +257,7 @@ export const BUBBLE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-schmid-hawkish-2026-07-16", kind: "Rate guidance", title: "Kansas City Fed President Jeff Schmid called inflation his 'primary concern' on 16 July, saying it is 'too hot' and has been 'above target too long', and cautioned against reading June's cooler CPI/PPI prints as a trend ahead of the 29 July decision.", href: "#/policy", date: "2026-07-16" },
   { id: "g-tsmc-ai-selloff-2026-07-16", kind: "Bubble risk", title: "TSMC posted a record 77% profit jump and raised its full-year outlook, yet chip stocks (Micron, SK Hynix, AMD, Broadcom, Nvidia, TSMC) slid anyway on valuation concerns, dragging the Nasdaq to a 1.3% loss even as the Dow fell just 0.3% — further evidence the AI rally's chief risk is now valuation, not demand.", href: "#/bubble", date: "2026-07-16" },
   { id: "g-uk-gilt-sterling-2026-07-16", kind: "Rate guidance", title: "GBP/EUR held near a one-year high above 1.17 and the 10-year gilt yield stayed elevated near 4.9-5.0% as Mahmood-chancellor hopes and firming BoE tightening bets (Scotiabank: ~46bp priced by December) underpinned sterling and gilts.", href: "#/policy", date: "2026-07-16" },
   { id: "g-uk-gdp-beat-2026-07-16", kind: "Markets", title: "UK GDP grew 0.7% in the three months to May (vs 0.5% forecast), with annual growth accelerating to 1.3% — the fastest pace in 13 months — yet the FTSE 100 still fell 0.36% as Iran-driven oil and mining weakness offset the upside surprise.", href: "#/cycle", date: "2026-07-16" },
@@ -308,20 +315,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-07-16",
+  updated: "2026-07-17",
   us: [
-    { title: "US Stock Futures Tumble as TSMC's Results Revive AI Concerns", source: "Bloomberg", date: "2026-07-16", time: "21:10", url: "https://www.bloomberg.com/news/articles/2026-07-16/us-stock-futures-tumble-as-tsmc-s-results-revive-ai-concerns" },
-    { title: "Stock Market Today (July 16, 2026): Nasdaq slips as tech stocks lose momentum", source: "TheStreet", date: "2026-07-16", time: "21:10", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-16-2026" },
-    { title: "Iran-US Strikes Worsen as Strait of Hormuz Shipping Traffic Dwindles", source: "Bloomberg", date: "2026-07-16", time: "21:10", url: "https://www.bloomberg.com/news/articles/2026-07-16/iran-us-skirmishes-worsen-as-hormuz-shipping-traffic-dwindles" },
-    { title: "Oil prices rise for 4th day as U.S. strikes on Iran raise fears of wider conflict", source: "CNBC", date: "2026-07-16", time: "21:10", url: "https://www.cnbc.com/2026/07/16/oil-rise-as-us-strikes-on-iran-raise-fears-of-wider-conflict.html" },
-    { title: "US Retail Sales Rise Modestly as Consumers Spend Less on Gas", source: "Bloomberg", date: "2026-07-16", time: "13:30", url: "https://www.bloomberg.com/news/articles/2026-07-16/us-retail-sales-rise-modestly-as-consumers-spend-less-on-gas" },
+    { title: "TSM Stock Slips 2.3% Despite Record Profit as AI Demand Meets Capex Concerns", source: "FX Leaders", date: "2026-07-17", time: "05:20", url: "https://www.fxleaders.com/news/2026/07/17/tsm-stock-slips-2-3-despite-record-profit-as-ai-demand-meets-capex-concerns/" },
+    { title: "New Residential Construction, June 2026", source: "US Census Bureau", date: "2026-07-17", time: "05:20", url: "https://www.census.gov/construction/nrc/current/index.html" },
+    { title: "Surveys of Consumers, Preliminary July 2026", source: "University of Michigan", date: "2026-07-17", time: "05:20", url: "https://www.sca.isr.umich.edu/" },
+    { title: "Fed's Schmid Says Inflation Too Hot, Above Target Too Long", source: "Bloomberg", date: "2026-07-16", time: "05:20", url: "https://www.bloomberg.com/news/articles/2026-07-16/fed-s-schmid-says-inflation-is-too-hot-above-target-too-long" },
+    { title: "Latest Oil Market News and Analysis for July 17", source: "Bloomberg", date: "2026-07-16", time: "05:20", url: "https://www.bloomberg.com/news/articles/2026-07-16/latest-oil-market-news-and-analysis-for-july-17" },
   ],
   uk: [
-    { title: "Mahmood's Economic Blank Slate Boosts Appeal for UK Chancellor Role", source: "Bloomberg", date: "2026-07-16", time: "21:10", url: "https://www.bloomberg.com/news/articles/2026-07-16/mahmood-s-economic-blank-slate-key-to-appeal-as-uk-chancellor" },
-    { title: "UK Stock Market Today (July 16): FTSE 100 Falls 0.37% While FTSE 250 Gains Despite Oil Price Surge and Global Risk", source: "Sunday Guardian Live", date: "2026-07-16", time: "21:10", url: "https://sundayguardianlive.com/business/uk-stock-market-today-july-16-ftse-100-falls-037-while-ftse-250-gains-despite-oil-price-surge-and-global-risk-what-should-investors-know-238177/" },
-    { title: "British Pound to Euro Forecast: UK Growth, Mahmood Hopes Keep GBP Near Best", source: "Currency News UK", date: "2026-07-16", time: "21:10", url: "https://www.currencynews.co.uk/forecast/20260716-46530_british-pound-to-euro-forecast-uk-growth-mahmood-hopes-keep-gbp-near-best.html" },
-    { title: "FTSE 100 Live: UK Stocks and Bonds Fall Despite Better GDP", source: "Bloomberg", date: "2026-07-16", time: "21:10", url: "https://www.bloomberg.com/news/live-blog/2026-07-16/ftse-100-live-uk-gdp-iip-pound-gilts-mahmood-burnham-hormuz-oil-prices-iran-war-what-s-moving-uk-markets-right-now-markets-today" },
-    { title: "GDP monthly estimate, UK: May 2026", source: "Office for National Statistics", date: "2026-07-16", time: "07:00", url: "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/may2026" },
+    { title: "FTSE 100 Live: UK Stocks and Bonds Fall Despite Better GDP", source: "Bloomberg", date: "2026-07-16", time: "05:20", url: "https://www.bloomberg.com/news/live-blog/2026-07-16/ftse-100-live-uk-gdp-iip-pound-gilts-mahmood-burnham-hormuz-oil-prices-iran-war-what-s-moving-uk-markets-right-now-markets-today" },
+    { title: "Shabana Mahmood: Andy Burnham Has Seen the Light on Chancellor Job", source: "Bloomberg Opinion", date: "2026-07-16", time: "05:20", url: "https://www.bloomberg.com/opinion/articles/2026-07-16/shabana-mahmood-andy-burnham-has-seen-the-light-on-chancellor-job" },
+    { title: "Renewed Hormuz hostilities drive ECB rates rethink amid 'extremely volatile' outlook", source: "CNBC", date: "2026-07-15", time: "05:20", url: "https://www.cnbc.com/amp/2026/07/15/ecb-interest-rates-outlook-iran-war-hormuz.html" },
+    { title: "Pound Sterling Climbs As Markets Cheer Burnham's Expected Chancellor Pick", source: "exchangerates.org.uk", date: "2026-07-15", time: "05:20", url: "https://www.exchangerates.org.uk/news/46520/2026-07-15-pound-sterling-jumps-on-shabana-mahmood-chancellor-reports.html" },
+    { title: "Burnham should keep Miliband 'out of the Treasury'", source: "Financial Mirror", date: "2026-07-16", time: "05:20", url: "https://www.financialmirror.com/2026/07/16/burnham-should-keep-miliband-out-of-the-treasury/" },
   ],
 };
 
@@ -333,8 +340,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-07-16",
+  updated: "2026-07-17",
   items: [
+    {"title":"TSM Stock Slips 2.3% Despite Record Profit as AI Demand Meets Capex Concerns","source":"FX Leaders","date":"2026-07-17","time":"05:20","url":"https://www.fxleaders.com/news/2026/07/17/tsm-stock-slips-2-3-despite-record-profit-as-ai-demand-meets-capex-concerns/","blurb":"TSMC lifted 2026 capex guidance to $60-64bn (from $52-56bn) plus an Arizona fab expansion; markets read the higher spend as margin/FCF pressure, extending the broad chip-sector selloff a day on."},
+    {"title":"New Residential Construction, June 2026","source":"US Census Bureau","date":"2026-07-17","time":"05:20","url":"https://www.census.gov/construction/nrc/current/index.html","blurb":"Building permits fell 0.9% month-on-month to a 1.410m SAAR pace — a soft housing signal alongside the late-cycle/stagflation reads already tracked in the Cycle tab."},
+    {"title":"Surveys of Consumers, Preliminary July 2026","source":"University of Michigan","date":"2026-07-17","time":"05:20","url":"https://www.sca.isr.umich.edu/","blurb":"Sentiment rose roughly 10% from May as gasoline prices moderated, but stayed 13% below the pre-Iran-conflict February level; year-ahead inflation expectations eased to 4.6% from 4.8%."},
     {"title":"US Stock Futures Tumble as TSMC's Results Revive AI Concerns","source":"Bloomberg","date":"2026-07-16","time":"21:10","url":"https://www.bloomberg.com/news/articles/2026-07-16/us-stock-futures-tumble-as-tsmc-s-results-revive-ai-concerns","blurb":"TSMC posted a record 77% profit jump and raised its full-year outlook, yet chip stocks (Micron, SK Hynix, AMD, Broadcom, Nvidia, TSMC) slid anyway as investors booked profits after their outsized run."},
     {"title":"Stock Market Today (July 16, 2026): Nasdaq slips as tech stocks lose momentum","source":"TheStreet","date":"2026-07-16","time":"21:10","url":"https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-16-2026","blurb":"The Dow fell 0.3%, the S&P 500 lost 0.5% and the Nasdaq dropped 1.3% as a fresh semiconductor selloff overshadowed a UnitedHealth earnings beat."},
     {"title":"Iran-US Strikes Worsen as Strait of Hormuz Shipping Traffic Dwindles","source":"Bloomberg","date":"2026-07-16","time":"21:10","url":"https://www.bloomberg.com/news/articles/2026-07-16/iran-us-skirmishes-worsen-as-hormuz-shipping-traffic-dwindles","blurb":"US CENTCOM says it struck and disabled the Curaçao-flagged tanker Belma near Kharg Island for defying the blockade; Iran hit back at US bases in Gulf states and Jordan on the sixth straight day of fighting."},
@@ -370,9 +380,6 @@ export const ARTICLES = {
     {"title":"Stock market today: Dow, S&P 500, Nasdaq rise as Big Tech stocks rally","source":"Yahoo Finance","date":"2026-07-15","time":"21:07","url":"https://finance.yahoo.com/markets/live/stock-market-today-wednesday-july-15-dow-sp-nasdaq-091813320.html","blurb":"US equities close higher — Dow +0.02% to 52,508.66, S&P 500 +0.4% to 7,543.89, Nasdaq +0.9% to 26,107.01 — as cooling inflation offsets Iran-driven oil jitters."},
     {"title":"Pound hits one-year high vs. euro on report Mahmood may get finance job","source":"Yahoo Finance UK","date":"2026-07-15","time":"21:07","url":"https://uk.finance.yahoo.com/news/pound-hits-one-high-vs-144336519.html","blurb":"Sterling rallies as markets welcome reports that the fiscally cautious Mahmood, not Miliband, will become Burnham's chancellor."},
     {"title":"OECD sounds alarm on pension triple lock in challenge to Burnham","source":"CityAM","date":"2026-07-15","time":"21:07","url":"https://www.cityam.com/oecd-andy-burnham-must-reform-state-pension-triple-lock/","blurb":"The OECD's new UK Economic Survey urges reform of the state-pension triple lock to reduce fiscal risk as Burnham prepares to take office."},
-    {"title":"Starmer's Out, Burnham's In, But the UK's Problems Stay the Same: Readout","source":"Bloomberg","date":"2026-07-15","time":"21:07","url":"https://www.bloomberg.com/news/newsletters/2026-07-15/starmer-s-out-burnham-s-in-but-the-uk-s-problems-stay-the-same-readout?srnd=phx-economics-v2","blurb":"A markets newsletter argues the leadership change does little to resolve the UK's underlying growth and fiscal challenges."},
-    {"title":"Shabana Mahmood expected to beat Ed Miliband in race to become Burnham's chancellor","source":"LBC","date":"2026-07-15","time":"21:07","url":"https://www.lbc.co.uk/article/shabana-mahmood-to-beat-ed-miliband-next-chancellor-5Hjddbj_2/","blurb":"Mahmood is seen as the more market-friendly pick, with Miliband tipped for a move to the Foreign Office instead."},
-    {"title":"UK economic growth subdued, OECD report warns ahead of leadership change","source":"Cyprus Mail","date":"2026-07-15","time":"21:07","url":"https://cyprus-mail.com/2026/07/15/uk-economic-growth-subdued-oecd-report-warns-ahead-of-leadership-change","blurb":"The OECD forecasts UK GDP growth slowing to 0.9% in 2026 amid regional disparities and persistent inflation pressure."},
   ],
 };
 
@@ -382,8 +389,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-07-16", country: "US", title: "Retail sales (June)", url: "https://www.census.gov/retail/release_schedule.html" },
-  { date: "2026-07-16", country: "UK", title: "GDP monthly estimate (May)", url: "https://www.ons.gov.uk/economy/grossdomesticproductgdp" },
   { date: "2026-07-21", country: "UK", title: "ONS labour market & average earnings", url: "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/uklabourmarket/latest" },
   { date: "2026-07-22", country: "UK", title: "CPI inflation (June)", url: "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/latest" },
   { date: "2026-07-24", country: "UK", title: "Retail sales (June)", url: "https://www.ons.gov.uk/businessindustryandtrade/retailindustry/bulletins/retailsales/latest" },
@@ -399,7 +404,9 @@ export const RELEASES = [
   { date: "2026-08-12", country: "US", title: "CPI (July)", url: "https://www.bls.gov/schedule/news_release/cpi.htm" },
   { date: "2026-08-13", country: "US", title: "PPI (July)", url: "https://www.bls.gov/schedule/news_release/ppi.htm" },
   { date: "2026-08-14", country: "US", title: "Retail sales (July)", url: "https://www.census.gov/retail/release_schedule.html" },
+  { date: "2026-08-01", country: "UK", title: "S&P Global/CIPS Manufacturing PMI, final (July)", url: "https://www.pmi.spglobal.com/Public/Home/PressReleases" },
+  { date: "2026-08-03", country: "UK", title: "S&P Global/CIPS Services & Composite PMI, final (July)", url: "https://www.pmi.spglobal.com/Public/Home/PressReleases" },
+  { date: "2026-08-13", country: "UK", title: "GDP monthly estimate (June)", url: "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/latest" },
   { date: "2026-08-19", country: "US", title: "FOMC minutes (28–29 July meeting)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-08-19", country: "UK", title: "CPI inflation (July)", url: "https://www.ons.gov.uk/releases/consumerpriceinflationukjuly2026" },
-  { date: "2026-08-13", country: "UK", title: "GDP monthly estimate (June)", url: "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/latest" },
 ];
