@@ -195,6 +195,9 @@
   .tcol-c { overflow: visible; order: -1; }        /* wire leads on mobile */
   .twire { overflow: visible; }
   .tpanel-h, .tleague th { position: static; }      /* page scrolls on mobile — don't pin sub-headers under the sticky topbar */
+  /* …except the filter-chip bar, which stays locked to the top (just under the
+     58px sticky topbar) while the list scrolls. */
+  .twire-head { position: sticky; top: 57px; z-index: 8; }
 
   /* Bloomberg-Go news row: the headline leads, then ONE muted meta line beneath —
      CODE · date · entity · source — category tag first on the left. Grid (not

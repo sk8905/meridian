@@ -818,7 +818,10 @@
       .tui .g-feed-wrap{ order:0; }
       .tui .g-side{ order:1; }
       .tui .g-side2{ order:2; }
-      .tui .g-side,.tui .g-side2{ border-right:0; border-left:0; border-bottom:1px solid var(--t-grid2); } }
+      .tui .g-side,.tui .g-side2{ border-right:0; border-left:0; border-bottom:1px solid var(--t-grid2); }
+      /* Lock the feed filter tabs to the top (under the 53px sticky command bar)
+         while the headlines scroll. */
+      .tui .g-feed-head{ position:sticky; top:53px; z-index:8; background:var(--t-head); } }
 
     /* ---- briefing bar — a single compact row: greeting · top story · narratives ---- */
     .tui .g-hello{ display:flex; align-items:baseline; gap:10px; padding:6px 14px; margin:0;
