@@ -16,7 +16,8 @@
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
-} from "./data.js?v=20260717-2";
+  rxAdvisers,
+} from "./data.js?v=20260717-3";
 import { donutChart, columnChart } from "./charts.js?v=20260717-2";
 
 const app = document.getElementById("app");
@@ -395,11 +396,13 @@ function schemeDebt(r) {
   const m = String(r.debt || "").match(/(?:>|~|≈|up to\s|c\.?\s?|circa\s?)?(?:US\$|C\$|A\$|HK\$|£|€|\$|EUR|GBP|USD|CAD|AUD|CHF)\s?\d[\d.,]*(?:\s?[–-]\s?\d[\d.,]*)?\+?\s?(?:bn|billion|tn|trillion|m|million|k)?/i);
   return m ? m[0].replace(/\s+/g, " ").trim() : "—";
 }
-// The advisers field is a flat, role-annotated list (the data was never stored
-// split by side). Best-effort split into the company/debtor side vs the creditor
-// side from each entry's role note; an entry we can't clearly place stays on the
-// company side (usually the plan company's own legal/valuation team).
+// Advisers split by side. Prefer the per-matter researched mapping (rxAdvisers:
+// company-side vs creditor-side, sourced from law-firm deal notes / restructuring
+// press / the judgments); fall back to a best-effort keyword split of the flat
+// advisers field for any matter not in the mapping.
 function schemeAdvisers(r) {
+  const m = rxAdvisers && rxAdvisers[r.id];
+  if (m && ((m.co && m.co.length) || (m.cr && m.cr.length))) return { co: m.co || [], cr: m.cr || [] };
   const co = [], cr = [];
   (r.advisers || []).forEach((a) => {
     const s = String(a).toLowerCase();
