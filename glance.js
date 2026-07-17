@@ -1109,9 +1109,12 @@ function renderMovers() {
   const maxPct = Math.max(...list.filter((x) => x.unit === "pct").map((x) => x.mag), 0.01);
   const maxBp = Math.max(...list.filter((x) => x.unit === "bp").map((x) => x.mag), 1);
   const rel = (x) => x.mag / (x.unit === "pct" ? maxPct : maxBp);
-  // Show a deep list — Top movers now fills the base of the left rail, so surface
-  // the full cross-asset move set (the panel scrolls if it overflows).
-  const top = list.sort((a, b) => rel(b) - rel(a)).slice(0, 18);
+  // Signed, unit-normalised size so gainers and losers order consistently even
+  // though the board mixes % and bp moves.
+  const signed = (x) => rel(x) * (x.dir === "up" ? 1 : x.dir === "down" ? -1 : 0);
+  // Take the biggest movers (either direction), then order them from the biggest
+  // increase at the top down to the biggest decrease at the bottom.
+  const top = list.sort((a, b) => rel(b) - rel(a)).slice(0, 18).sort((a, b) => signed(b) - signed(a));
   el.innerHTML = top.map((x) => {
     const w = Math.max(8, Math.round(rel(x) * 100));
     const col = x.dir === "up" ? "var(--t-up)" : x.dir === "down" ? "var(--t-down)" : "var(--t-faint)";

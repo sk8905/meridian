@@ -942,7 +942,9 @@
     .tui #g-indicators .rate-sub:first-child{ border-top:0; }
 
     /* ---- movers + new-across-desks ---- */
-    .tui .g-mv{ display:grid; grid-template-columns:1fr auto auto; gap:10px; align-items:center;
+    /* Fixed bar + value columns so every bar shares one baseline regardless of the
+       value text width (a bp value is narrower than a % value). */
+    .tui .g-mv{ display:grid; grid-template-columns:1fr 64px 3.6rem; gap:10px; align-items:center;
       padding:4px 11px; font-family:var(--t-mono); font-size:11.5px; border-bottom:1px solid var(--t-grid); background:var(--t-panel); }
     .tui .g-mv:last-child{ border-bottom:0; }
     .tui .g-mv .nm{ color:var(--t-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
@@ -1293,7 +1295,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260717-13").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260717-14").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of
