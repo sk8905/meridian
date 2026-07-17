@@ -397,7 +397,8 @@ function viewDashboard() {
       <section class="tcol tcol-c">
         <header class="tpanel-h twire-head">
           <div class="tchips" id="mac-chips">
-            <button type="button" class="tchip is-on" data-k="news">News</button>
+            <button type="button" class="tchip is-on" data-k="all">All</button>
+            <button type="button" class="tchip" data-k="news">News</button>
             <button type="button" class="tchip" data-k="comm">Commentary</button>
             <button type="button" class="tchip" data-k="dash">Dashboard</button>
           </div>
@@ -445,7 +446,8 @@ function macroWireDash() {
     const showDash = k === "dash";
     wire.hidden = showDash;
     if (dash) dash.hidden = !showDash;
-    if (!showDash) wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (r.dataset.kind === k) ? "" : "none"; });
+    // "All" shows every wire row (news + commentary); News/Commentary filter by kind.
+    if (!showDash) wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (k === "all" || r.dataset.kind === k) ? "" : "none"; });
   };
   chips.onclick = (e) => {
     const b = e.target.closest(".tchip"); if (!b) return;

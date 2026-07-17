@@ -77,6 +77,11 @@ export function initNavActions() {
 
     const btn = wrap.querySelector("#na-mkt");
     const panel = wrap.querySelector("#na-mkt-panel");
+    // Lift the dropdown OUT of the sticky top bar to the document body. Inside the
+    // sticky/position-context top bar iOS can demote this fixed panel below other
+    // newly-stacked layers (e.g. the sticky filter-chip bar), so it renders behind
+    // them; as a direct child of <body> it is a true top-level layer over the page.
+    document.body.appendChild(panel);
     const close = () => { panel.hidden = true; btn.setAttribute("aria-expanded", "false"); };
     btn.addEventListener("click", (e) => {
       e.stopPropagation();

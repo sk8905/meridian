@@ -103,6 +103,7 @@ export function initGlance() {
   renderRx();
   initFeedEntityNav();
   initMarketsPanel();
+  initFeedHeadLock();
   initJumpNav();
   wirePalette(buildIndex());
   startLiveRefresh();
@@ -338,6 +339,25 @@ function initMarketsPanel() {
   // Close button, or Escape.
   panel.addEventListener("click", (e) => { if (e.target.closest(".g-mkt-close")) close(); });
   document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+}
+
+// On phones the filter-chip bar locks DIRECTLY beneath the sticky command bar,
+// with the briefing + feed scrolling underneath it — so no briefing text is ever
+// caught in the gap between the two frozen bars (the "leak"). On desktop the bar
+// stays at the top of the internally-scrolling feed column.
+function initFeedHeadLock() {
+  const head = document.getElementById("g-feed-head");
+  const main = document.querySelector(".g-main");
+  const wrap = document.querySelector(".g-feed-wrap");
+  const hello = document.querySelector(".g-hello");
+  if (!head || !main || !wrap) return;
+  const mq = matchMedia("(max-width:900px)");
+  const place = () => {
+    if (mq.matches) { if (head.parentElement !== main) main.insertBefore(head, hello || main.firstElementChild); }
+    else if (head.parentElement !== wrap) wrap.insertBefore(head, wrap.firstElementChild);
+  };
+  place();
+  mq.addEventListener("change", place);
 }
 
 // ---- Section jump-links ----------------------------------------------------
