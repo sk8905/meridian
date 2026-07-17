@@ -311,8 +311,8 @@ h3.sub:first-of-type { margin-top: .2rem; }
   background: none; border: none; cursor: pointer; padding: 0; margin-right: .3rem;
   font-size: 1rem; line-height: 1; color: #cbd5e1; vertical-align: middle;
 }
-.follow-btn:hover { color: #f59e0b; }
-.follow-btn.on { color: #f59e0b; }
+.follow-btn:hover { color: var(--ink); }
+.follow-btn.on { color: var(--accent); }
 /* Star + name as two columns: a wrapping name stays beside the star, not under it. */
 .namecell { display: flex; align-items: baseline; gap: .35rem; }
 .namecell .follow-btn { flex: 0 0 auto; margin-right: 0; }
@@ -354,7 +354,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .provenance .dim-icon { font-weight: 700; text-align: center; border-radius: 50%; }
 .provenance .dim-key { font-weight: 600; }
 .dim-yes .dim-icon { color: #16a34a; }
-.dim-est .dim-icon, .dim-indicative .dim-icon { color: #d97706; }
+.dim-est .dim-icon, .dim-indicative .dim-icon { color: var(--accent); }
 .dim-no .dim-icon { color: #b91c1c; }
 .dim-na .dim-icon { color: #9ca3af; }
 .dim-no .dim-key { color: #6b7280; }
