@@ -93,7 +93,24 @@
    the viewport with each column scrolling on its own (the page doesn't).
    ===================================================================== */
 .container:has(.tdash) { padding: 0 !important; max-width: none; }
-.tdash { display: flex; flex-direction: column; height: calc(100vh - 54px - 32px); background: var(--bg); overflow: hidden; }
+/* Fixed viewport dash minus the topbar (54) + markets ticker (26) + briefing (32). */
+.tdash { display: flex; flex-direction: column; height: calc(100vh - 54px - 26px - 32px); background: var(--bg); overflow: hidden; }
+
+/* ---- Markets ticker strip (MKTS) — mirrors Home; sits above the briefing. ---- */
+.wticker { display: flex; align-items: stretch; height: 26px; flex: 0 0 auto; overflow: hidden;
+  background: var(--head); border-bottom: 1px solid var(--border); }
+.wticker:empty { display: none; }
+.wtk-lbl { display: flex; align-items: center; gap: 6px; padding: 0 13px; font-size: 10.5px; font-weight: 600;
+  letter-spacing: .04em; color: var(--muted); border-right: 1px solid var(--border); white-space: nowrap; }
+.wtk-lbl::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+  box-shadow: 0 0 7px var(--accent); }
+.wtk-row { display: flex; align-items: center; overflow: hidden; flex: 1; }
+.wtk { display: flex; align-items: baseline; gap: 7px; padding: 0 13px; line-height: 26px;
+  font-family: var(--t-mono); font-size: 11.5px; font-variant-numeric: tabular-nums;
+  border-right: 1px solid var(--border); white-space: nowrap; text-decoration: none; }
+.wtk .s { color: var(--muted); } .wtk .v { color: var(--ink); }
+.wtk .up { color: #3fc08d; } .wtk .down { color: #f26d84; } .wtk .flat { color: var(--faint); }
+@media (max-width: 760px) { .wticker { display: none; } }
 
 /* ---- Header briefing strip (mirrors Home) — greeting + TOP STORY + the
         MARKETS / RATES one-liners. Sits directly under the topbar on every tab.

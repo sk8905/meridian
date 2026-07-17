@@ -15,7 +15,44 @@ const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) =>
 const setV = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
 const dayKey = (x) => `${String(x.date || "").slice(0, 10)} ${x.time || "12:00"}`;
 
+// Short tickers for the markets strip (mirrors Home).
+const TK_SHORT = { "S&P 500": "SPX", "NASDAQ": "NDX", "IGWD": "FTSE", "EMEE": "STOXX", "Oil": "BRENT", "Gold": "GOLD", "DXY": "DXY", "Bitcoin": "BTC" };
+const fmtPrice = (v) => { const n = +v; if (!isFinite(n)) return String(v); return n >= 1000 ? n.toLocaleString("en-US", { maximumFractionDigits: 0 }) : n.toFixed(2); };
+const fmtRateV = (v, unit) => (unit === "bp" ? `${Math.round(v * 100)}bp` : `${(+v).toFixed(2)}%`);
+const sign = (n) => (n > 0 ? "up" : n < 0 ? "down" : "flat");
+
+// The MKTS markets ticker — indices/commodities/crypto from /api/markets plus a
+// couple of key rates from /api/rates, matching the Home strip.
+function initTicker() {
+  const el = document.getElementById("wticker");
+  if (!el) return;
+  el.innerHTML = `<div class="wtk-lbl">MKTS</div><div class="wtk-row" id="wtk-row"></div>`;
+  Promise.all([
+    fetch("/api/markets?v=9", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+    fetch("/api/rates?v=9", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+  ]).then(([m, rt]) => {
+    const items = [];
+    ((m && m.markets) || []).forEach((x) => {
+      if (x.value == null) return;
+      const eff = x.changePct != null ? +Number(x.changePct) : null;
+      items.push({ s: TK_SHORT[x.label] || x.label, v: fmtPrice(x.value), chg: eff == null ? "" : `${eff > 0 ? "+" : ""}${eff.toFixed(2)}%`, dir: sign(eff || 0), href: x.href });
+    });
+    ((rt && rt.rates) || []).slice(0, 4).forEach((x) => {
+      if (x.value == null) return;
+      const bp = x.change != null ? Math.round(x.change * 100) : null;
+      items.push({ s: x.label.replace(/ OAS$/, ""), v: fmtRateV(x.value, x.unit), chg: bp == null ? "" : `${bp > 0 ? "+" : ""}${bp}bp`, dir: sign(bp || 0), href: x.href });
+    });
+    const row = document.getElementById("wtk-row");
+    if (!row || !items.length) return;
+    row.innerHTML = items.map((it) => {
+      const inner = `<span class="s">${esc(it.s)}</span><span class="v">${esc(it.v)}</span>${it.chg ? `<span class="${it.dir}">${esc(it.chg)}</span>` : ""}`;
+      return it.href ? `<a class="wtk" href="${esc(it.href)}" target="_blank" rel="noopener noreferrer">${inner}</a>` : `<span class="wtk">${inner}</span>`;
+    }).join("");
+  });
+}
+
 export function initBrief() {
+  initTicker();
   const el = document.getElementById("wbrief");
   if (!el) return;
   const h = new Date().getHours();

@@ -19,7 +19,7 @@
   <meta name="description" content="Key US &amp; UK macroeconomic indicators — core inflation, wage growth, unemployment, services PMI and the 2-year yield — prototype" />
   <link rel="stylesheet" href="css/styles.css?v=20260717-7" />
   <link rel="stylesheet" href="/premium.css?v=20260717-6" />
-  <link rel="stylesheet" href="/tui.css?v=20260717-13" />
+  <link rel="stylesheet" href="/tui.css?v=20260717-14" />
 </head>
 <body>
   <header class="topbar">
@@ -48,7 +48,8 @@
     </div>
   </header>
 
-  <!-- Header briefing strip (greeting + top story + markets/rates one-liners) -->
+  <!-- Markets ticker + briefing strip (mirrors Home) -->
+  <div class="wticker" id="wticker"></div>
   <div class="wbrief" id="wbrief"></div>
 
   <main id="app" class="container"></main>
@@ -76,6 +77,6 @@
 
   <script type="module" src="js/app.js?v=20260717-14"></script>
   <script type="module">import { initNavActions } from "/nav-actions.js?v=20260717-1"; initNavActions();</script>
-  <script type="module">import { initBrief } from "/brief.js?v=1"; initBrief();</script>
+  <script type="module">import { initBrief } from "/brief.js?v=2"; initBrief();</script>
 </body>
 </html>
