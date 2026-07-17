@@ -1,10 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Meridian">
-  <defs>
-    <linearGradient id="d" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#60a5fa"/>
-      <stop offset="1" stop-color="#2563eb"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="14" fill="#102552"/>
-  <path d="M32 13 L51 32 L32 51 L13 32 Z" fill="url(#d)"/>
+  <rect width="64" height="64" fill="#000000"/>
+  <rect x="1.5" y="1.5" width="61" height="61" fill="none" stroke="#2a2a2a" stroke-width="2"/>
+  <path d="M41 15 L23 49" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="square"/>
 </svg>

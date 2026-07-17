@@ -84,7 +84,7 @@ img, svg { max-width: 100%; }
 }
 .brand { display: flex; align-items: center; gap: .6rem; flex: 0 0 auto; text-decoration: none; color: #fff; }
 .brand:hover { text-decoration: none; }
-.logo { color: #fff; font-size: 1.3rem; line-height: 1; }
+.logo { display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; box-sizing: border-box; border: 1px solid var(--border, #262626); background: #000; color: #fff; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 700; font-size: 1.15rem; line-height: 1; border-radius: 0; }
 .brand-text { display: flex; flex-direction: column; }
 .brand-text strong { font-size: 1.05rem; letter-spacing: .3px; }
 .brand-sub { font-size: .7rem; color: #6fbdae; text-transform: uppercase; letter-spacing: 1px; }
