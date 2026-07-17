@@ -412,9 +412,8 @@
        desk tag is pushed to the far right of the row. */
     .g-feed-title { flex:0 1 auto; min-width:0; color:var(--ink); font-weight:600; font-size:.9rem; line-height:1.35;
       overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-    /* Link/tap colour in the nav-bar navy family (not the bright sky accent). */
-    a.g-feed-row:hover .g-feed-title { color:var(--brand-2); }
-    :root[data-theme="dark"] a.g-feed-row:hover .g-feed-title { color:var(--accent); }
+    /* On hover the row takes a subtle grey background (see .g-feed-row:hover);
+       the headline keeps its normal colour rather than turning orange. */
     .g-feed-src { flex:0 1 auto; min-width:0; color:var(--muted); font-size:.76rem; white-space:nowrap;
       overflow:hidden; text-overflow:ellipsis; }
     /* Entity chip: a manager/firm named in the headline, linking to its Credit
