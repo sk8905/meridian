@@ -13,7 +13,7 @@ export const UPDATED = "17 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-17",
-  lastCheckedTime: "12:13 BST",
+  lastCheckedTime: "17:22 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -110,19 +110,17 @@ export const OUTLOOK = {
 // and reputable houses, newest first. Rendered as a two-column feed styled like
 // the dashboard's Key macro headlines; the four-times-daily routine keeps it current.
 export const COMMENTARY = {
-  updated: "2026-07-16",
+  updated: "2026-07-17",
   us: [
     { title: "The Daily Spark: Sticky services inflation keeps a July hike on the table", source: "Apollo", author: "Torsten Sløk", date: "2026-07-16", url: "https://www.apolloacademy.com/" },
     { title: "Market Views: Narrow AI leadership and a late-cycle US economy", source: "Blackstone", author: "Joe Zidle", date: "2026-07-15", url: "https://www.blackstone.com/insights/" },
-    { title: "Weekly commentary: Staying up-in-quality as rate cuts get pushed out", source: "BlackRock Investment Institute", author: "Jean Boivin", date: "2026-07-14", url: "https://www.blackrock.com/corporate/insights/blackrock-investment-institute" },
-    { title: "Cliff's Perspective: The AI rally and the return of bubble talk", source: "AQR", author: "Cliff Asness", date: "2026-07-11", url: "https://www.aqr.com/Insights" },
     { title: "Kevin Warsh's Congressional Debut Like a 'Breath of Fresh Air,' Says El Erian, as Schiff Flags Fed Chair's 'False Claim'", source: "Benzinga", author: "Mohamed El-Erian", date: "2026-07-15", url: "https://www.benzinga.com/markets/economic-data/26/07/60460861/fed-chair-kevin-warshs-congressional-debut-draws-mixed-reactions" },
-    { title: "Consumer price index inflation report June 2026", source: "CNBC", author: "J.P. Morgan — Michael Feroli", date: "2026-07-14", url: "https://www.cnbc.com/2026/07/14/consumer-price-index-inflation-report-june-2026.html" },
-    { title: "AI boom replaces oil as key inflation risk, says Barclays", source: "Yahoo Finance UK", author: "Barclays Research", date: "2026-07-13", url: "https://uk.finance.yahoo.com/news/ai-boom-replaces-oil-key-120900584.html" },
+    { title: "Weekly commentary: Staying up-in-quality as rate cuts get pushed out", source: "BlackRock Investment Institute", author: "Jean Boivin", date: "2026-07-14", url: "https://www.blackrock.com/corporate/insights/blackrock-investment-institute" },
   ],
   uk: [
+    { title: "British Pound: Shorts on the run", source: "FXStreet", author: "ING — Chris Turner", date: "2026-07-16", url: "https://www.fxstreet.com/news/british-pound-shorts-on-the-run-ing-202607161153" },
+    { title: "The great escape: Why Britain is stuck in a fiscal funk and how we can break free", source: "Resolution Foundation", author: "Simon Pittaway, Cillian Sheehan, James Smith, Andy King", date: "2026-07-16", url: "https://www.resolutionfoundation.org/publications/the-great-escape/" },
     { title: "Latest UK Interest Rate Forecasts: Will The Bank Of England Cut Interest Rates On 30 July 2026?", source: "HomeOwners Alliance", author: "Pantheon Macroeconomics — Rob Wood", date: "2026-07-13", url: "https://hoa.org.uk/news/interest-rate-predictions-2/" },
-    { title: "Hedge Fund Gilt Risks Are Best Managed in Markets", source: "Bloomberg Opinion", author: "Aaron Brown", date: "2026-07-09", url: "https://www.bloomberg.com/opinion/articles/2026-07-09/hedge-fund-gilt-risks-are-best-managed-in-markets" },
   ],
 };
 
@@ -344,18 +342,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-07-17",
   us: [
-    { title: "Oil prices rise as U.S.-Iran hostilities threaten supply through Strait of Hormuz", source: "CNBC", date: "2026-07-17", time: "11:00", url: "https://www.cnbc.com/2026/07/17/oil-price-today-brent-wti.html" },
-    { title: "Wall St futures fall as chip selloff gathers pace; Netflix tumbles", source: "Reuters", date: "2026-07-17", time: "10:30", url: "https://www.tradingview.com/news/reuters.com,2026:newsml_L4N43J0MP:0-wall-st-futures-fall-as-chip-selloff-gathers-pace-netflix-tumbles/" },
+    { title: "World stocks fall in semiconductor rout; oil rises on Middle East escalation", source: "Reuters", date: "2026-07-17", time: "13:00", url: "https://finance.yahoo.com/markets/stocks/articles/stocks-stumble-oil-set-weekly-011728443.html" },
+    { title: "Chip Stock Rout Deepens as TSMC Selloff Drives Taiwan Correction", source: "Bloomberg", date: "2026-07-17", time: "12:30", url: "https://www.bloomberg.com/news/articles/2026-07-17/chip-stock-selloff-deepens-in-asia-as-tsmc-fails-to-impress" },
+    { title: "Chip stock sell-off, Netflix earnings, Trump's approval rating and more in Morning Squawk", source: "CNBC", date: "2026-07-17", time: "11:30", url: "https://www.cnbc.com/2026/07/17/5-things-to-know-before-the-stock-market-opens.html" },
     { title: "Nasdaq Tumbles 1.5% Amid Selloff In Chip Stocks: Investor Sentiment Weakens, Greed Index Moves To 'Fear' Zone", source: "Benzinga", date: "2026-07-17", time: "08:10", url: "https://www.benzinga.com/markets/market-summary/26/07/60516921/nasdaq-tumbles-1-5-amid-selloff-in-chip-stocks-investor-sentiment-weakens-greed-index-moves-to-fear-zone" },
-    { title: "Surveys of Consumers, Preliminary July 2026", source: "University of Michigan", date: "2026-07-17", time: "05:20", url: "https://www.sca.isr.umich.edu/" },
-    { title: "Netflix stock falls as earnings forecast disappoints, company says it will give fewer engagement updates", source: "CNBC", date: "2026-07-16", time: "21:00", url: "https://www.cnbc.com/2026/07/16/netflix-nflx-earnings-q2-2026.html" },
+    { title: "Oil prices rise as U.S.-Iran hostilities threaten supply through Strait of Hormuz", source: "CNBC", date: "2026-07-17", time: "11:00", url: "https://www.cnbc.com/2026/07/17/oil-price-today-brent-wti.html" },
   ],
   uk: [
-    { title: "The Work of Disappointing People Begins as Soon as Burnham Enters No. 10", source: "Bloomberg", date: "2026-07-17", time: "06:00", url: "https://www.bloomberg.com/news/features/2026-07-17/the-work-of-disappointing-people-begins-as-soon-as-burnham-enters-no-10" },
-    { title: "Burnham vows to 'fix big things' in UK as he takes step closer to Downing Street", source: "The National", date: "2026-07-17", time: "07:00", url: "https://www.thenationalnews.com/news/uk/2026/07/17/burnham-vows-to-fix-big-things-in-uk-as-he-takes-step-closer-to-downing-street/" },
+    { title: "Andy Burnham becomes UK Labour leader; next stop - prime minister", source: "CNBC", date: "2026-07-17", time: "13:15", url: "https://www.cnbc.com/2026/07/17/andy-burnham-becomes-uk-labour-leader-next-stop-prime-minister.html" },
+    { title: "FTSE 100 Live: AI Selloff Hits European Stocks, UK Stocks Escape", source: "Bloomberg", date: "2026-07-17", time: "12:45", url: "https://www.bloomberg.com/news/live-blog/2026-07-17/what-s-moving-uk-markets-right-now-markets-today" },
+    { title: "Pound Sterling Price News and Forecast: GBP/USD softens to near 1.3470 in Friday's Asian session", source: "FXStreet", date: "2026-07-17", time: "07:30", url: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-softens-to-near-13470-in-fridays-asian-session-202607170602" },
     { title: "UK Gilt Yields Retreat from Two-Month Highs on Fiscal Optimism", source: "Trading Economics", date: "2026-07-17", time: "09:00", url: "https://www.tradingview.com/news/te_news:567278:0-uk-gilt-yields-retreat-from-two-month-highs-on-fiscal-optimism/" },
-    { title: "FTSE 100 Live: London stocks flatline as global tech rout spreads", source: "Proactive (Yahoo Finance UK)", date: "2026-07-17", time: "07:15", url: "https://uk.finance.yahoo.com/news/ftse-100-live-london-stocks-061500360.html" },
-    { title: "Why Markets Are Cheering Andy Burnham's Chancellor Pick: Economists Explain", source: "IBTimes UK", date: "2026-07-16", time: "00:24", url: "https://www.ibtimes.co.uk/markets-react-shabana-mahmood-chancellor-1808901" },
+    { title: "Burnham vows to 'fix big things' in UK as he takes step closer to Downing Street", source: "The National", date: "2026-07-17", time: "07:00", url: "https://www.thenationalnews.com/news/uk/2026/07/17/burnham-vows-to-fix-big-things-in-uk-as-he-takes-step-closer-to-downing-street/" },
   ],
 };
 
@@ -369,6 +367,14 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-17",
   items: [
+    {"title":"World stocks fall in semiconductor rout; oil rises on Middle East escalation","source":"Reuters","date":"2026-07-17","time":"13:00","url":"https://finance.yahoo.com/markets/stocks/articles/stocks-stumble-oil-set-weekly-011728443.html","blurb":"A global semiconductor selloff dragged equities lower while Brent held near multi-week highs on the escalating US-Iran conflict."},
+    {"title":"Chip Stock Rout Deepens as TSMC Selloff Drives Taiwan Correction","source":"Bloomberg","date":"2026-07-17","time":"12:30","url":"https://www.bloomberg.com/news/articles/2026-07-17/chip-stock-selloff-deepens-in-asia-as-tsmc-fails-to-impress","blurb":"Taiwan's stock market entered correction territory as TSMC's record results still failed to satisfy stretched AI-valuation expectations."},
+    {"title":"Andy Burnham becomes UK Labour leader; next stop - prime minister","source":"CNBC","date":"2026-07-17","time":"13:15","url":"https://www.cnbc.com/2026/07/17/andy-burnham-becomes-uk-labour-leader-next-stop-prime-minister.html","blurb":"Burnham's confirmation as Labour leader clears the way for him to enter Downing Street on Monday as the UK's seventh prime minister in a decade."},
+    {"title":"FTSE 100 Live: AI Selloff Hits European Stocks, UK Stocks Escape","source":"Bloomberg","date":"2026-07-17","time":"12:45","url":"https://www.bloomberg.com/news/live-blog/2026-07-17/what-s-moving-uk-markets-right-now-markets-today","blurb":"European bourses fell in sympathy with the global chip rout, though UK equities proved comparatively resilient on the day."},
+    {"title":"Chip stock sell-off, Netflix earnings, Trump's approval rating and more in Morning Squawk","source":"CNBC","date":"2026-07-17","time":"11:30","url":"https://www.cnbc.com/2026/07/17/5-things-to-know-before-the-stock-market-opens.html","blurb":"A rundown of the five biggest stories moving markets into Friday's US open."},
+    {"title":"European shares drop as global tech selloff, Middle East conflict weigh","source":"Reuters","date":"2026-07-17","time":"13:00","url":"https://www.investing.com/news/stock-market-news/european-shares-slip-as-tech-stocks-mideast-tensions-weigh-4797502","blurb":"European equities slide as the chip rout and escalating US-Iran conflict combine to sour risk appetite.","author":"Tharuniyaa Lakshmi and Johann M Cherian"},
+    {"title":"Pound Sterling Price News and Forecast: GBP/USD softens to near 1.3470 in Friday's Asian session","source":"FXStreet","date":"2026-07-17","time":"07:30","url":"https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-softens-to-near-13470-in-fridays-asian-session-202607170602","blurb":"Sterling eased in thin Asian trade as the dollar found modest broad-based support ahead of the weekend."},
+    {"title":"Markets sink on global selloff in chip stocks","source":"Semafor","date":"2026-07-16","time":"17:20","url":"https://www.semafor.com/article/07/16/2026/markets-sink-on-global-selloff-in-chip-stocks","blurb":"A worldwide rout in semiconductor shares, sparked by AI-spending doubts, wipes hundreds of billions off tech valuations."},
     {"title":"Oil prices rise as U.S.-Iran hostilities threaten supply through Strait of Hormuz","source":"CNBC","date":"2026-07-17","time":"11:00","url":"https://www.cnbc.com/2026/07/17/oil-price-today-brent-wti.html","blurb":"Brent rose toward $85 and WTI toward $80 — both up more than 11% on the week — after Iran vowed to target regional infrastructure if Trump follows through on threats to strike its facilities."},
     {"title":"Wall St futures fall as chip selloff gathers pace; Netflix tumbles","source":"Reuters","date":"2026-07-17","time":"10:30","url":"https://www.tradingview.com/news/reuters.com,2026:newsml_L4N43J0MP:0-wall-st-futures-fall-as-chip-selloff-gathers-pace-netflix-tumbles/","blurb":"US futures extended Thursday's semiconductor rout into Friday's premarket session, with Nvidia, Applied Materials, LAM Research and Intel all lower and Netflix down over 9% after a weak Q3 revenue forecast."},
     {"title":"Nasdaq Tumbles 1.5% Amid Selloff In Chip Stocks: Investor Sentiment Weakens, Greed Index Moves To 'Fear' Zone","source":"Benzinga","date":"2026-07-17","time":"08:10","url":"https://www.benzinga.com/markets/market-summary/26/07/60516921/nasdaq-tumbles-1-5-amid-selloff-in-chip-stocks-investor-sentiment-weakens-greed-index-moves-to-fear-zone","blurb":"The Nasdaq fell around 1.5% as chip stocks led broader selling, with the CNN Money Fear & Greed Index sliding into 'Fear' territory (41.8) as investors reassessed AI-linked valuations."},
@@ -399,14 +405,6 @@ export const ARTICLES = {
     {"title":"FTSE 100 Live: UK Economy Grew Unexpectedly in May","source":"Bloomberg","date":"2026-07-16","time":"12:17","url":"https://www.bloomberg.com/news/live-blog/2026-07-16/ftse-100-live-uk-gdp-iip-pound-gilts-mahmood-burnham-hormuz-oil-prices-iran-war-what-s-moving-uk-markets-right-now-markets-today","blurb":"UK GDP grew 0.1% m/m in May, beating expectations of no growth, as services offset weak construction and industrial output."},
     {"title":"Bank of Korea raises rates to 2.75% in first hike in over three years","source":"CNBC","date":"2026-07-16","time":"12:17","url":"https://www.cnbc.com/2026/07/16/bok-interest-rate-monetary-policy-markets-kospi-skhynix.html","blurb":"The BoK hikes 25bp to 2.75%, its first increase since January 2023, as inflation runs above target amid a weaker won and elevated oil prices."},
     {"title":"Bank of Korea raises rates by 25 basis points to 2.75%","source":"Investing.com","date":"2026-07-16","time":"12:17","url":"https://www.investing.com/news/economy-news/bank-of-korea-raises-rates-by-25-basis-points-to-275-93CH-4794841","blurb":"Confirms the BoK's quarter-point hike to 2.75%, its first move since early 2023, as policymakers respond to above-target inflation."},
-    {"title":"Stock futures little changed ahead of retail sales, jobs data; South Korea's Kospi tumbles 7% in chip rout: Live updates","source":"CNBC","date":"2026-07-15","time":"05:21","url":"https://www.cnbc.com/2026/07/15/stock-market-today-live-updates.html","blurb":"South Korea's Kospi drops ~7% in a fresh chip-sector rout as US futures hold steady ahead of retail-sales and jobs data."},
-    {"title":"Burnham Upsets Labour Left Who Wanted Him to Become UK Premier","source":"Bloomberg","date":"2026-07-15","time":"05:21","url":"https://www.bloomberg.com/news/articles/2026-07-15/burnham-upsets-labour-left-who-wanted-him-to-become-uk-premier","blurb":"Labour's left flank bristles at Burnham's centrist positioning and cabinet picks as he prepares to take office."},
-    {"title":"Fed Chairman Kevin Warsh's testimony to Senate banking committee hits on economy, interest rates","source":"CNBC","date":"2026-07-15","time":"21:07","url":"https://www.cnbc.com/2026/07/15/watch-fed-chairman-kevin-warsh-testify-live-before-senate-banking-committee.html","blurb":"Warsh's second day of testimony repeats his non-committal message, warning against reading June's cooler CPI/PPI as 'mission accomplished'."},
-    {"title":"Elizabeth Warren blasts Kevin Warsh, saying he 'seems to invite corruption'","source":"CNN Business","date":"2026-07-15","time":"21:07","url":"https://www.cnn.com/2026/07/15/economy/fed-chairman-kevin-warsh-senate-testimony","blurb":"Warren presses Warsh on Fed ethics and his contacts with Trump-administration officials during his Senate Banking Committee appearance."},
-    {"title":"Trump warns U.S. strikes on Iran could get 'really bad' next week","source":"CNBC","date":"2026-07-15","time":"21:07","url":"https://www.cnbc.com/2026/07/15/trump-iran-hormuz-strikes-power-plants-targeted.html","blurb":"Trump threatens to expand strikes to Iranian power plants and bridges unless Tehran returns to the negotiating table."},
-    {"title":"The U.S.-Iran standoff over the Strait of Hormuz intensifies","source":"NPR","date":"2026-07-15","time":"21:07","url":"https://www.npr.org/2026/07/15/nx-s1-5894582/us-iran-updates","blurb":"A fresh round of US strikes and a reinstated naval blockade keep the Hormuz standoff live even as oil prices hold roughly steady."},
-    {"title":"Pound hits one-year high vs. euro on report Mahmood may get finance job","source":"Yahoo Finance UK","date":"2026-07-15","time":"21:07","url":"https://uk.finance.yahoo.com/news/pound-hits-one-high-vs-144336519.html","blurb":"Sterling rallies as markets welcome reports that the fiscally cautious Mahmood, not Miliband, will become Burnham's chancellor."},
-    {"title":"OECD sounds alarm on pension triple lock in challenge to Burnham","source":"CityAM","date":"2026-07-15","time":"21:07","url":"https://www.cityam.com/oecd-andy-burnham-must-reform-state-pension-triple-lock/","blurb":"The OECD's new UK Economic Survey urges reform of the state-pension triple lock to reduce fiscal risk as Burnham prepares to take office."},
   ],
 };
 
