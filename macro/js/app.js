@@ -318,6 +318,35 @@ function sourceList(sources) {
   }</ul></div>`;
 }
 
+// Macro data dashboard (shown behind the "Dashboard" chip in the centre column):
+// the US market-implied policy path — CME FedWatch odds + the FOMC dot plot — and
+// the two regime gauges (long-term debt cycle, equity bubble risk). Everything is
+// static/derived data already compiled in content.js; the FedWatch card links out
+// to the live CME tool for current pricing.
+function macroDashPane() {
+  const comp = bubbleComposite();
+  const band = bubbleBand(comp);
+  return `
+    ${policyMarkets(OUTLOOK.us) || '<p class="muted small">Market-implied policy data unavailable right now.</p>'}
+    <h2 class="macro-subhead">Regime — cycle &amp; bubble risk</h2>
+    <div class="macro-cols">
+      <section class="card macro-note macro-gauge-card">
+        <div class="macro-gauge-head">
+          <div class="macro-gauge-head-main"><h2 class="macro-country">Long-term debt-cycle position</h2></div>
+          ${trackGauge(CYCLE_ZONES, [{ label: "US", pos: CYCLE.us.pos }, { label: "UK", pos: CYCLE.uk.pos }], "Long-term debt cycle position, 0 early to 100 crisis")}
+        </div>
+        <p class="muted small macro-gauge-note"><a href="#/cycle">Full cycle read →</a></p>
+      </section>
+      <section class="card macro-note macro-gauge-card">
+        <div class="macro-gauge-head">
+          <div class="macro-gauge-head-main"><h2 class="macro-country">Composite bubble-risk score</h2></div>
+          ${trackGauge(BUBBLE_ZONES, [{ label: band, pos: comp }], "US equity bubble-risk score, 0 low to 100 extreme")}
+        </div>
+        <p class="muted small macro-gauge-note"><a href="#/bubble">Full bubble read →</a></p>
+      </section>
+    </div>`;
+}
+
 // Dense terminal screen (canonical tui.css format): ticker (policy/cycle/bubble)
 // + policy & regime rail (left) + commentary/news wire with filter chips (centre)
 // + economic indicators (async) & upcoming releases (right).
@@ -371,9 +400,11 @@ function viewDashboard() {
             <button type="button" class="tchip is-on" data-k="all">All</button>
             <button type="button" class="tchip" data-k="comm">Commentary</button>
             <button type="button" class="tchip" data-k="news">News</button>
+            <button type="button" class="tchip" data-k="dash">Dashboard</button>
           </div>
         </header>
         <ul class="twire compact-list" id="mac-wire">${wire.length ? wire.slice(0, 90).map(wireRow).join("") : '<li class="tw-empty muted small">No items yet.</li>'}</ul>
+        <div class="mac-dash-pane" id="mac-dash" hidden>${macroDashPane()}</div>
       </section>
       <aside class="tcol tcol-r">
         <section class="tpanel">
@@ -407,12 +438,18 @@ function renderMacroIndRail(series) {
 }
 function macroWireDash() {
   const chips = document.getElementById("mac-chips"), wire = document.getElementById("mac-wire");
+  const dash = document.getElementById("mac-dash");
   if (!chips || !wire) return;
   chips.onclick = (e) => {
     const b = e.target.closest(".tchip"); if (!b) return;
     chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
     const k = b.dataset.k;
-    wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (k === "all" || r.dataset.kind === k) ? "" : "none"; });
+    // "Dashboard" swaps the news wire for the market-implied policy dashboard;
+    // the other chips filter the wire in place (as before).
+    const showDash = k === "dash";
+    wire.hidden = showDash;
+    if (dash) dash.hidden = !showDash;
+    if (!showDash) wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (k === "all" || r.dataset.kind === k) ? "" : "none"; });
   };
 }
 
