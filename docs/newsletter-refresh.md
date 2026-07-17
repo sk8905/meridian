@@ -93,6 +93,9 @@ Notes:
 - Only ever trash a message whose data made it into `newsletters.js` **and** was
   committed. If a message failed to parse or wasn't added, leave it in the inbox
   so the next run can retry it.
+- Also sweep stragglers: if a search result dedupes as **already present** in the
+  committed `newsletters.js` (a previous run parsed it but couldn't trash it),
+  trash it now — an inbox message whose data is committed should never linger.
 - These are disposable forwarded copies in the ingestion inbox; the originals
   remain in the source mailbox (stevedkennedy), so trashing here is safe.
 
