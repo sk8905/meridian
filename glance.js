@@ -161,7 +161,7 @@ function initSavedPanel() {
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
     </button>
     <div class="g-sv-panel" id="g-sv-panel" role="menu" hidden>
-      <div class="g-sv-head"><span>Saved${n ? ` · ${n}` : ""}</span><button type="button" class="g-menu-close" aria-label="Close" data-menu-close>✕</button></div>
+      <div class="g-sv-head"><span>Saved${n ? ` · ${n}` : ""}</span></div>
       <div class="g-sv-body">${n ? list.map(row).join("") : '<div class="g-sv-empty">Nothing saved yet. Tap the ☆ on any item across Macro, Credit or Legal to keep it here.</div>'}</div>
     </div>`;
   const btn = document.getElementById("g-sv-btn"), panel = document.getElementById("g-sv-panel");
@@ -1459,7 +1459,7 @@ function renderBell() {
       <span aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span>${total ? `<span class="g-badge">${total > 9 ? "9+" : total}</span>` : ""}
     </button>
     <div class="g-notif-panel" id="g-notif-panel" role="menu" hidden>
-      <div class="g-np-head"><span>${total ? `${total} new update${total > 1 ? "s" : ""}` : "No new updates"} <span class="g-np-sub">· checked ${esc(fmtRefresh())}</span></span><button type="button" class="g-menu-close" aria-label="Close" data-menu-close>✕</button></div>
+      <div class="g-np-head"><span>${total ? `${total} new update${total > 1 ? "s" : ""}` : "No new updates"} <span class="g-np-sub">· checked ${esc(fmtRefresh())}</span></span></div>
       <div class="g-np-list">${show.length ? show.map(row).join("") : '<div class="g-np-empty">Nothing yet.</div>'}</div>
     </div>`;
   const bell = document.getElementById("g-bell"), panel = document.getElementById("g-notif-panel");

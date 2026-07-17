@@ -194,8 +194,9 @@ export function initNavActions() {
       p.className = "na-panel";
       p.id = id;
       p.hidden = true;
-      p.innerHTML = `<div class="na-head"><span class="na-h-t">${esc(title)}<span class="na-h-n"></span></span>`
-        + `<button type="button" class="na-close" aria-label="Close" data-na-close>✕</button></div>`
+      // No explicit close control — tapping the button again (or another button,
+      // or outside / Escape) closes it; this keeps every menu consistent.
+      p.innerHTML = `<div class="na-head"><span class="na-h-t">${esc(title)}<span class="na-h-n"></span></span></div>`
         + `<div class="na-body"></div>`;
       document.body.appendChild(p);
       return p;
