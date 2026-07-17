@@ -363,7 +363,9 @@ function itemCompact(it) {
   const src = href
     ? ` · <a href="${esc(href)}" target="_blank" rel="noopener noreferrer" class="muted small">source</a>` : "";
   return `<li class="compact-item">
-    <a class="compact-head" href="#/item/${esc(it.id)}">${esc(it.title)}</a>
+    ${href
+      ? `<a class="compact-head" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(it.title)}</a>`
+      : `<a class="compact-head" href="#/item/${esc(it.id)}">${esc(it.title)}</a>`}
     <div class="compact-meta muted small">${itemDate(it)} · ${esc(firm.name)}${src}</div>
   </li>`;
 }
@@ -496,11 +498,11 @@ function viewDashboard() {
     ...practiceAreas.map((a) => [a.name, areaCount(a)]),
     ["Case law", cases.length], ["Schemes & RPs", restructurings.length],
   ];
-  const alerts = items.map((it) => ({ _k: "alert", date: it.date, title: it.title, href: `#/item/${encodeURIComponent(it.id)}`, mgr: (firmById[it.firm] || {}).name || it.firm, src: (firmById[it.firm] || {}).name || it.firm, url: it.url, code: "ALERT" }));
+  const alerts = items.map((it) => ({ _k: "alert", date: it.date, title: it.title, href: it.url || (firmById[it.firm] || {}).insightsUrl || `#/item/${encodeURIComponent(it.id)}`, ext: !!(it.url || (firmById[it.firm] || {}).insightsUrl), mgr: (firmById[it.firm] || {}).name || it.firm, src: (firmById[it.firm] || {}).name || it.firm, url: it.url, code: "ALERT" }));
   // A case headline opens its source directly (BAILII / National Archives judgment).
   // A scheme/RP headline jumps to that matter's row in the Schemes & RPs table
   // (goScheme); its citation still links to the judgment in the source column.
-  // Alerts keep their in-app detail (#/item/…).
+  // An alert headline opens the firm's own article (its source URL) directly.
   const caseItems = cases.map((c) => ({ _k: "case", date: c.date, title: c.name, href: c.url || "#/", ext: !!c.url, mgr: c.court, src: c.citation, url: c.url, code: "CASE" }));
   const rps = restructurings.map((r) => ({ _k: "rp", date: r.date, title: r.company, goScheme: r.id, mgr: r.court || (r.type === "scheme" ? "Scheme" : "Restructuring plan"), src: r.citation || "", url: r.judgmentUrl || r.articleUrl || null, code: r.type === "scheme" ? "SCHEME" : "RP" }));
   // The 'All' feed always carries EVERY case and scheme/RP (there are far fewer of
@@ -897,7 +899,7 @@ function viewFirm(id) {
   const alertWireRow = (it) => `<li class="compact-item tw-row" data-kind="alert">`
     + `<span class="tw-date">${it.date ? esc(fmtDate(it.date)) : ""}</span>`
     + `<span class="tw-tag alert">ALERT</span>`
-    + `<span class="tw-body"><a href="#/item/${encodeURIComponent(it.id)}" class="tw-head">${esc(it.title)}</a>`
+    + `<span class="tw-body">${it.url ? `<a href="${esc(it.url)}" target="_blank" rel="noopener noreferrer" class="tw-head">${esc(it.title)}</a>` : `<a href="#/item/${encodeURIComponent(it.id)}" class="tw-head">${esc(it.title)}</a>`}`
     + `${(it.areas || [it.area]).length ? `<span class="tw-mgr-w"><span class="tw-mgr">${esc((areaById[(it.areas || [it.area])[0]] || {}).name || (it.areas || [it.area])[0])}</span></span>` : ""}</span>`
     + `<span class="tw-src">${esc((typeById[it.type] || {}).name || it.type)}</span>`
     + `</li>`;
@@ -1216,7 +1218,7 @@ function recentNotif(list) {
 }
 function notifItems() {
   const out = [];
-  items.forEach((it) => out.push({ id: "u:" + it.id, date: it.date || "", kind: (typeById[it.type] || {}).name || it.type, title: it.title, source: firmName(it.firm), href: "#/item/" + it.id }));
+  items.forEach((it) => out.push({ id: "u:" + it.id, date: it.date || "", kind: (typeById[it.type] || {}).name || it.type, title: it.title, source: firmName(it.firm), href: it.url || ("#/item/" + it.id), ext: !!it.url }));
   cases.forEach((c) => out.push({ id: "c:" + c.id, date: c.date || "", kind: c.court || "Case", title: c.name, source: judgmentSource(c.url), href: c.url || "#/", ext: !!c.url }));
   restructurings.forEach((r) => { const u = r.judgmentUrl || r.articleUrl; out.push({ id: "r:" + r.id, date: r.date || "", kind: r.type === "scheme" ? "Scheme" : "Plan", title: r.company, source: r.firm ? firmName(r.firm) : (r.judgmentUrl ? judgmentSource(r.judgmentUrl) : ""), href: u || "#/", ext: !!u }); });
   return recentNotif(out).sort((a, b) => String(b.date).localeCompare(String(a.date)));
@@ -1243,11 +1245,10 @@ function renderNotifications() {
       <div class="notif-head">${n ? `${n} new update${n > 1 ? "s" : ""}` : "No new updates"} <span class="muted small">· checked ${esc(fmtDate(LAST_CHECKED))}${LAST_CHECKED_TIME ? `, ${esc(LAST_CHECKED_TIME)}` : ""}</span></div>
       <ul class="notif-list">
         ${list.length ? list.map((x) => `<li class="notif-item${(n && fresh.includes(x)) ? " is-new" : ""}">
-          <span class="notif-tag legal">Legal</span>
-          <span class="notif-txt">
-            <a href="${esc(x.href)}" ${x.ext ? 'target="_blank" rel="noopener noreferrer"' : ""} class="notif-link">${esc(x.title)}</a>
-            <div class="notif-meta">${esc(x.kind)}${x.date ? ` · ${esc(fmtDate(x.date))}` : ""}${x.source ? ` · <span class="notif-src">${esc(x.source)}</span>` : ""}</div>
-          </span>
+          <a href="${esc(x.href)}" ${x.ext ? 'target="_blank" rel="noopener noreferrer"' : ""} class="nf-row">
+            <span class="nf-title">${esc(x.title)}</span>
+            <span class="nf-meta"><span class="nf-code legal">LEX</span>${x.date ? `<span class="nf-time">${esc(fmtDate(x.date))}</span>` : ""}${x.source ? `<span class="nf-sep">·</span><span class="nf-src">${esc(x.source)}</span>` : ""}</span>
+          </a>
         </li>`).join("") : '<li class="notif-empty muted small">Nothing yet.</li>'}
       </ul>
     </div>`;
@@ -1327,7 +1328,7 @@ document.addEventListener("click", (e) => {
   }
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260716-2").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260716-3").then((m) => m.mountPalette()).catch(() => {});
 import("/ptr.js?v=20260716-1").then((m) => m.initPullToRefresh()).catch(() => {});
 initChrome();
 initNotif();

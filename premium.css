@@ -420,6 +420,32 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 /* Mobile scrim behind a full-screen overlay */
 .na-scrim { position: fixed; inset: 0; z-index: 58; background: rgba(0,0,0,.45); -webkit-tap-highlight-color: transparent; }
 .na-scrim[hidden] { display: none; }
+
+/* ---- Shared news-feed row — used by the Saved list AND the Notifications list
+        so both read exactly like the Home news wire: bold headline on top, then a
+        colour-coded desk tag + mono "time · source" line, hairline dividers. ---- */
+.nf-row { display: block; padding: 12px 14px; border-bottom: 1px solid var(--border, #262626); text-decoration: none; color: inherit; }
+.nf-row:hover { background: var(--head, #0a0a0a); }
+.nf-title { display: block; color: var(--ink, #eaf0fb); font-weight: 600; font-size: 15px; line-height: 1.32; margin-bottom: 7px; }
+.nf-meta { display: flex; align-items: center; gap: 8px; min-width: 0; font-family: var(--t-mono, ui-monospace, monospace); font-size: 12px; color: var(--muted, #8592ad); }
+.nf-code { flex: 0 0 auto; font-size: 10px; font-weight: 700; letter-spacing: .04em; padding: 2px 5px; }
+.nf-code.macro { color: #9b83e2; background: color-mix(in srgb, #9b83e2 16%, transparent); }
+.nf-code.credit { color: #fb8b1e; background: color-mix(in srgb, #fb8b1e 16%, transparent); }
+.nf-code.legal { color: #2fbf8a; background: color-mix(in srgb, #2fbf8a 16%, transparent); }
+.nf-code.newsletter { color: #d9a441; background: color-mix(in srgb, #d9a441 16%, transparent); }
+.nf-time { flex: 0 0 auto; }
+.nf-sep { flex: 0 0 auto; }
+.nf-src { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Notifications list: dark terminal panel (desktop dropdown & mobile page alike)
+   with rows rendered in the shared .nf-row style above. */
+.notif-panel { background: var(--surface, #0d0d0d); color: var(--ink, #eaf0fb); border-color: var(--border, #262626); }
+.notif-head { background: var(--head, #0a0a0a); color: var(--ink, #eaf0fb); border-color: var(--border, #262626); border-radius: 0; margin: 0; padding: 10px 14px; font-size: 12px; }
+.notif-head .muted, .notif-head .small { color: var(--muted, #8592ad); }
+.notif-list { padding: 0; margin: 0; }
+.notif-item { padding: 0; border: 0; background: transparent; list-style: none; }
+.notif-item.is-new .nf-row { box-shadow: inset 3px 0 0 var(--accent, #fb8b1e); }
+.notif-empty { padding: 16px 14px; color: var(--muted, #8592ad); }
 .na-load { padding: 14px 12px; color: var(--muted, #8592ad); font-size: 12px; }
 /* reserve room for the taller flat bar */
 @media (max-width: 760px) { body { padding-bottom: calc(4.9rem + env(safe-area-inset-bottom, 0px)) !important; } }
@@ -450,18 +476,9 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
   }
   body.na-menu-open { overflow: hidden; }
   body.na-menu-open .topbar { z-index: 90; }
-  /* Re-skin the app's own notification dropdown to match the shared feed shell. */
-  .notif-head { position: sticky; top: 0; z-index: 3; margin: 0; padding: 12px; font-size: 12px;
-    background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); border-radius: 0; color: var(--ink, #eaf0fb); }
-  .notif-list { max-height: none; padding: 0; margin: 0; overflow: visible; }
-  .notif-item { border-radius: 0; padding: 11px 12px; border-bottom: 1px solid var(--border, #262626); }
-  .notif-item:hover { background: var(--head, #0a0a0a); }
-  .notif-link { color: var(--ink, #eaf0fb); }
-  .notif-meta, .notif-src, .notif-head .muted { color: var(--muted, #8592ad); }
-  .notif-empty { color: var(--muted, #8592ad); padding: 16px 12px; }
-  /* Match the desk-tag palette used by the shared Saved feed. */
-  .notif-tag { color: #fff; border-radius: 2px; }
-  .notif-tag.macro { background: #6f5cc6; } .notif-tag.credit { background: #2f6df0; } .notif-tag.legal { background: #2c9a86; }
+  /* Full-screen notif panel: the header sticks; rows are the shared .nf-row style. */
+  .notif-head { position: sticky; top: 0; z-index: 3; }
+  .notif-list { max-height: none; overflow: visible; }
 }
 
 /* ---- Disclaimer footnotes removed from the app footers. On desktop the footer

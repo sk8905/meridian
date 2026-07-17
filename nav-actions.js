@@ -17,7 +17,7 @@ const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "
 function fmtDate(d) { if (!d) return ""; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : String(d).slice(0, 10); const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s); if (!m) return String(d); return `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}`; }
 
 const DESK = { m: "Macro", c: "Credit", l: "Legal" };
-const DESK_CLASS = { m: "macro", c: "credit", l: "legal" };
+const DESK_CLASS = { m: "macro", c: "credit", l: "legal", n: "newsletter" };
 
 const ICO_MKT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>';
 const ICO_SAVED = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
@@ -67,17 +67,22 @@ function loadMarkets(body) {
   });
 }
 
-// ---- Saved rows -------------------------------------------------------------
+// ---- Saved rows — shared news-feed row (headline, then code · date · source) --
+const NF_CODE = { m: "MAC", c: "CRD", l: "LEX", n: "LETTER" };
 function savedRow(x) {
-  return `<a class="na-item" href="${esc(x.href)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
-    + `<span class="na-tag ${DESK_CLASS[x.desk]}">${esc(DESK[x.desk] || "")}</span>`
-    + `<span class="na-itxt"><span class="na-it">${esc(x.title)}</span>`
-    + `<span class="na-im">${x.src ? esc(x.src) : ""}${x.date ? (x.src ? " · " : "") + esc(fmtDate(x.date)) : ""}</span></span></a>`;
+  const code = NF_CODE[x.desk] || "";
+  const cls = DESK_CLASS[x.desk] || "";
+  return `<a class="nf-row" href="${esc(x.href)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
+    + `<span class="nf-title">${esc(x.title)}</span>`
+    + `<span class="nf-meta"><span class="nf-code ${cls}">${esc(code)}</span>`
+    + (x.date ? `<span class="nf-time">${esc(fmtDate(x.date))}</span>` : "")
+    + (x.src ? `<span class="nf-sep">·</span><span class="nf-src">${esc(x.src)}</span>` : "")
+    + `</span></a>`;
 }
 async function loadSaved(body, headCount) {
   body.innerHTML = '<div class="na-load">Loading…</div>';
   try {
-    const { resolveSaved } = await import("/saved.js?v=20260717-1");
+    const { resolveSaved } = await import("/saved.js?v=20260717-2");
     const list = resolveSaved();
     if (headCount) headCount.textContent = list.length ? " · " + list.length : "";
     body.innerHTML = list.length

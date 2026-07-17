@@ -1501,11 +1501,10 @@ function renderNotifications() {
       <div class="notif-head">${n ? `${n} new update${n > 1 ? "s" : ""}` : "No new updates"} <span class="muted small">· checked ${esc(refreshStamp())}</span></div>
       <ul class="notif-list">
         ${list.length ? list.map((x) => `<li class="notif-item${(n && fresh.includes(x)) ? " is-new" : ""}">
-          <span class="notif-tag macro">Macro</span>
-          <span class="notif-txt">
-            <a href="${x.href}" class="notif-link">${esc(x.title)}</a>
-            <div class="notif-meta">${esc(x.kind)}${x.date ? ` · ${esc(fmtDate(x.date))}` : ""}${x.source ? ` · <span class="notif-src">${esc(x.source)}</span>` : ""}</div>
-          </span>
+          <a href="${x.href}" class="nf-row">
+            <span class="nf-title">${esc(x.title)}</span>
+            <span class="nf-meta"><span class="nf-code macro">MAC</span>${x.date ? `<span class="nf-time">${esc(fmtDate(x.date))}</span>` : ""}${x.source ? `<span class="nf-sep">·</span><span class="nf-src">${esc(x.source)}</span>` : ""}</span>
+          </a>
         </li>`).join("") : '<li class="notif-empty muted small">Nothing yet.</li>'}
       </ul>
     </div>`;
@@ -1630,7 +1629,7 @@ document.addEventListener("click", (e) => {
   }
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260716-2").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260716-3").then((m) => m.mountPalette()).catch(() => {});
 import("/ptr.js?v=20260716-1").then((m) => m.initPullToRefresh()).catch(() => {});
 render();
 initMe();
