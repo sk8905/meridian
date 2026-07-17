@@ -1,5 +1,5 @@
 /* =====================================================================
-   tui.css — THE canonical Meridian terminal format. Loaded after each app's
+   tui.css — THE canonical Wire terminal format. Loaded after each app's
    css/styles.css and premium.css so it wins. This file is the SINGLE SOURCE OF
    TRUTH for the terminal look across Home and the Macro / Credit / Legal
    sections. Every new view MUST use these tokens/classes — do not invent new

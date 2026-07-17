@@ -1,5 +1,5 @@
 // =============================================================================
-// Meridian Legal — hash-based router + all views. Renders each view by building an
+// Wire Legal — hash-based router + all views. Renders each view by building an
 // HTML string and assigning it to #app.innerHTML. Zero dependencies.
 //
 // Routes:  #/                dashboard
@@ -53,7 +53,7 @@ function withDayBreaks(items, rowFn) {
     return sep + rowFn(x);
   }).join("");
 }
-// Group rows into year sections with a year heading (like Meridian Credit).
+// Group rows into year sections with a year heading (like Wire Credit).
 function byYear(list, rowFn) {
   const groups = {};
   [...list].sort(byDateDesc).forEach((x) => {
@@ -195,7 +195,7 @@ function areaChip(areaId) {
 }
 function tierLabel(tierId) { return (tierById[tierId] || {}).name || tierId; }
 
-// Horizontal multi-select dropdown (Meridian Credit style): an uppercase label,
+// Horizontal multi-select dropdown (Wire Credit style): an uppercase label,
 // a plain-text "All ▾" toggle and a popover of checkboxes. `viewKey` is
 // "view:key" (e.g. "list:areas", "cases:courts", "rx:types") — the view routes
 // the change to the right filter store + feed re-render. `options` are strings or
@@ -273,7 +273,7 @@ function firmLink(id, name, cls) {
     : `<span class="${c}">${esc(name)}</span>`;
 }
 
-// A firm-alert as a list row — Meridian Credit style: colored chip + date in the
+// A firm-alert as a list row — Wire Credit style: colored chip + date in the
 // meta column, bold headline, full muted summary, then a single muted footer line.
 function itemRow(it) {
   const firm = firmById[it.firm] || { name: it.firm, tier: "" };
@@ -352,7 +352,7 @@ function caseRow(c) {
   </div>`;
 }
 
-// Compact dashboard rows — headline + "date · source" line, matching Meridian
+// Compact dashboard rows — headline + "date · source" line, matching Wire
 // Credit's dashboard feeds.
 function itemCompact(it) {
   const firm = firmById[it.firm] || { name: it.firm, insightsUrl: "" };
@@ -1196,7 +1196,7 @@ function initChrome() {
     status.innerHTML = `<span class="ds-part">Last refresh ${fmtDate(LAST_CHECKED)}${LAST_CHECKED_TIME ? `, ${LAST_CHECKED_TIME}` : ""}</span>`;
     status.title = `Routine last ran ${fmtDate(LAST_CHECKED)}${LAST_CHECKED_TIME ? ` ${LAST_CHECKED_TIME}` : ""}; data last changed ${fmtDate(LAST_REVIEWED)}`;
   }
-  // Same pattern as the Meridian app / landing page: behind Cloudflare Access
+  // Same pattern as the Wire app / landing page: behind Cloudflare Access
   // this returns the verified email; otherwise we leave the slot empty.
   const acct = document.getElementById("account-nav");
   if (acct) {

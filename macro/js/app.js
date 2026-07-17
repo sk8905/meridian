@@ -1,10 +1,10 @@
 // =============================================================================
-// Meridian Macro — standalone dashboard of key US & UK economic indicators, with
+// Wire Macro — standalone dashboard of key US & UK economic indicators, with
 // a Commentary reading list, a Policy Rate view and a Dalio-framework Cycle view.
 // Fetches the shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P
 // Global / BoE). Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES } from "./content.js?v=20260717-3";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES } from "./content.js?v=20260717-4";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -1311,9 +1311,9 @@ function dataAlerts(series) {
 }
 function notifItems() {
   const data = dataAlerts((MACRO_DATA && MACRO_DATA.series) || []);
-  // Guidance alerts (rate outlook / cycle / bubble) are Meridian's own editorial
+  // Guidance alerts (rate outlook / cycle / bubble) are Wire's own editorial
   // synthesis — note their proprietary source; data alerts carry the provider.
-  const guidance = ALERTS.map((a) => ({ ...a, source: "Meridian analysis" }));
+  const guidance = ALERTS.map((a) => ({ ...a, source: "Wire analysis" }));
   return [...guidance, ...data].sort((a, b) => String(b.date).localeCompare(String(a.date)));
 }
 function closeNotif() {

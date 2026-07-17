@@ -1,4 +1,4 @@
-// Cloudflare Pages Function — per-user "saved items" storage for Meridian Legal,
+// Cloudflare Pages Function — per-user "saved items" storage for Wire Legal,
 // backed by KV so saved alerts/cases/restructuring matters sync across devices.
 //
 // Mirrors functions/api/watchlist.js (and the /api/saved handler in

@@ -1,9 +1,9 @@
 /* ===========================================================================
-   Meridian Macro — standalone macro-indicators dashboard.
-   Branding/style matched to Meridian Credit & Legal, with a violet identity.
+   Wire Macro — standalone macro-indicators dashboard.
+   Branding/style matched to Wire Credit & Legal, with a violet identity.
    =========================================================================== */
 :root {
-  /* Shared Meridian (Glance) scheme: navy top bar + blue accents. The Macro
+  /* Shared Wire (Glance) scheme: navy top bar + blue accents. The Macro
      signature lavender is kept only for the logo and the iPhone bottom-bar tab. */
   --bg: #f4f6fb;
   --surface: #ffffff;
@@ -480,7 +480,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
   .macro-gauge-head .gauge { width: 100%; max-width: 640px; }
   .macro-sources ul { grid-template-columns: repeat(2, 1fr); }
 
-  /* Stacked header (tablet) — matches Meridian Credit/Legal/Glance so all four
+  /* Stacked header (tablet) — matches Wire Credit/Legal/Glance so all four
      top bars switch to the stacked layout at the same width: brand + bell, then
      the platform toggle beside the sign-in block, then search, then the nav as a
      full-width scroll strip. On phones (≤760) the toggle + search drop to the

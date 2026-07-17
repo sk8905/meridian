@@ -1,5 +1,5 @@
 // =============================================================================
-// Meridian Macro — editorial content for the Commentary and Cycle tabs, plus the
+// Wire Macro — editorial content for the Commentary and Cycle tabs, plus the
 // short conclusions surfaced on the Dashboard. Compiled from public commentary
 // and official data on the dates cited; educational only, not investment advice.
 // Each claim carries a source link — verify against it before relying on it.
@@ -127,7 +127,7 @@ export const COMMENTARY = {
 };
 
 // ---- Economic / credit cycle, Dalio framework (Cycle tab) ------------------
-// pos: stylised 0 (early / healthy) → 100 (crisis / deleveraging). Meridian
+// pos: stylised 0 (early / healthy) → 100 (crisis / deleveraging). Wire
 // synthesis, NOT a number Dalio publishes.
 export const CYCLE = {
   framework: [
@@ -149,11 +149,11 @@ export const CYCLE = {
     pos: 58,
     body: [
       "<strong>Short-term cycle:</strong> mid-to-late, cautiously easing. The BoE has cut from a 5.25% peak to 3.75% and held there in June 2026 on a 7–2 vote, with CPI still near 3% — easing stalled by sticky inflation.",
-      "<strong>Long-term debt / fiscal:</strong> elevated but less acute than the US. Public-sector net debt is <strong>~95% of GDP</strong>; borrowing is projected to fall from 5.2% (2024-25) toward ~4.3% in 2026-27. Gilt-market stress is real (10Y ~4.9%, 30Y ~5.5%) but there is no reserve-currency dynamic. <em>Dalio writes primarily about the US; the UK placement here is Meridian synthesis, not his stated view.</em>",
+      "<strong>Long-term debt / fiscal:</strong> elevated but less acute than the US. Public-sector net debt is <strong>~95% of GDP</strong>; borrowing is projected to fall from 5.2% (2024-25) toward ~4.3% in 2026-27. Gilt-market stress is real (10Y ~4.9%, 30Y ~5.5%) but there is no reserve-currency dynamic. <em>Dalio writes primarily about the US; the UK placement here is Wire synthesis, not his stated view.</em>",
       "The OECD's July 2026 Economic Survey of the UK, published 15 July, projected GDP growth slowing to <strong>0.9% in 2026</strong> (from 1.4% in 2025) and urged the incoming Burnham government to maintain budget discipline and reform the state-pension triple lock to contain fiscal risk — reinforcing the 'elevated but less acute than the US' read.",
     ],
   },
-  note: "Gauge values (0–100) are Meridian synthesis on a stylised early→crisis track, not figures Dalio publishes. Dalio's documented views are US-focused; the UK read is our interpretation.",
+  note: "Gauge values (0–100) are Wire synthesis on a stylised early→crisis track, not figures Dalio publishes. Dalio's documented views are US-focused; the UK read is our interpretation.",
   sources: [
     ["Dalio — How Countries Go Broke (excerpt)", "https://economicprinciples.org/downloads/How-Countries-Go-Broke.pdf"],
     ["CNBC — Dalio on the bond market & deficit", "https://www.cnbc.com/2025/05/22/ray-dalio-says-to-fear-the-bond-market-as-deficit-becomes-critical.html"],
@@ -169,7 +169,7 @@ export const CYCLE = {
 
 // ---- Stock-market bubble risk (Bubble tab) ---------------------------------
 // Three workhorse dimensions — valuation, credit/leverage/policy, and
-// breadth/speculation. Sub-scores (0 = no signal, 100 = extreme) are Meridian
+// breadth/speculation. Sub-scores (0 = no signal, 100 = extreme) are Wire
 // synthesis; the composite is their weighted average (computed in app.js).
 export const BUBBLE = {
   market: "US equities (S&P 500)",
@@ -218,7 +218,7 @@ export const BUBBLE = {
       note: "A handful of mega-caps drive the index while most stocks lag — a textbook late-cycle tell.",
     },
   ],
-  note: "Sub-scores and the composite are Meridian synthesis on a 0–100 scale, not published figures. Weighting: valuation 45%, breadth & speculation 30%, credit & policy 25%. Educational only — not investment advice.",
+  note: "Sub-scores and the composite are Wire synthesis on a 0–100 scale, not published figures. Weighting: valuation 45%, breadth & speculation 30%, credit & policy 25%. Educational only — not investment advice.",
   ukNote: "The FTSE 100 is far cheaper — CAPE ~20 vs ~39 for the US, trailing P/E ~15 and near its own fair value — so UK equities are not similarly stretched.",
   sources: [
     ["Shiller CAPE (multpl.com)", "https://www.multpl.com/shiller-pe"],

@@ -1,5 +1,5 @@
 // =============================================================================
-// Meridian Credit Intelligence — REAL sample dataset (European private credit)
+// Wire Credit Intelligence — REAL sample dataset (European private credit)
 // -----------------------------------------------------------------------------
 // Compiled from manager & investor press releases, regulatory/results
 // disclosures and trade press. Not affiliated with any data provider; each

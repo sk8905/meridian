@@ -1,5 +1,5 @@
 // =============================================================================
-// Meridian Credit Intelligence — application shell, router and views.
+// Wire Credit Intelligence — application shell, router and views.
 // Plain ES modules, no framework. Hash-based routing for a clickable prototype.
 // =============================================================================
 
@@ -193,7 +193,7 @@ function followCount() { return FOLLOW_TYPES.reduce((n, t) => n + followList(t).
 // --------------------------- saved items (cloud sync + localStorage) --------
 // Individually saved news / deal / fundraising / CLO items — distinct from the
 // follow-based watchlist. Persists to a per-user KV store via /api/saved-credit
-// (its OWN prefix, so it never collides with Meridian Legal's saved items) with
+// (its OWN prefix, so it never collides with Wire Legal's saved items) with
 // localStorage as an instant cache / offline fallback. Mirrors the Legal app.
 const SAVEDC_KEY = "meridian.credit.saved";
 const SAVEDC_API = "/api/saved-credit";
@@ -235,7 +235,7 @@ function newsSaveId(x) {
   let h = 0; for (let i = 0; i < s.length; i++) h = (Math.imul(h, 31) + s.charCodeAt(i)) | 0;
   return "n" + (h >>> 0).toString(36);
 }
-// Save/unsave button — Meridian Legal style. `id` is the item's stable save id.
+// Save/unsave button — Wire Legal style. `id` is the item's stable save id.
 function saveBtn(id) {
   const on = getSavedC().has(id);
   return `<button type="button" class="save-btn ${on ? "is-saved" : ""}" data-save="${esc(id)}" aria-pressed="${on}" title="${on ? "Remove from saved" : "Save this item"}">${on ? "★ Saved" : "☆ Save"}</button>`;

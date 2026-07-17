@@ -1,5 +1,5 @@
 // =============================================================================
-// Meridian unified command palette — a self-contained ⌘K search that any of the
+// Wire unified command palette — a self-contained ⌘K search that any of the
 // three apps mounts in-place. It imports all three data modules (same-origin ES
 // modules), builds one index across deals, managers, funds, legal alerts, cases,
 // restructurings, macro indicators and views, injects its own overlay + styles
@@ -129,7 +129,7 @@ export function mountPalette() {
     const st = document.createElement("style"); st.id = "mcmdk-style"; st.textContent = STYLE; document.head.appendChild(st);
   }
   const ov = document.createElement("div");
-  ov.className = "mcmdk"; ov.id = "mcmdk"; ov.setAttribute("role", "dialog"); ov.setAttribute("aria-modal", "true"); ov.setAttribute("aria-label", "Search Meridian");
+  ov.className = "mcmdk"; ov.id = "mcmdk"; ov.setAttribute("role", "dialog"); ov.setAttribute("aria-modal", "true"); ov.setAttribute("aria-label", "Search Wire");
   ov.innerHTML = `<div class="mcmdk-scrim" data-close></div>
     <div class="mcmdk-panel">
       <div class="mcmdk-bar">

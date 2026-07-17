@@ -1,5 +1,5 @@
 // =============================================================================
-// Meridian Glance — the cross-desk landing. Imports the three apps' data modules
+// Wire Glance — the cross-desk landing. Imports the three apps' data modules
 // (same-origin ES modules), renders a sectioned highlight card per platform
 // (Macro, Credit, Legal — 3 most-recent items per section), mounts the Credit
 // "key rates & credit spreads" bar, and powers a unified ⌘K command palette that
@@ -11,7 +11,7 @@
 // cache with the four-times-daily data refresh instead of serving a stale copy.
 import { deals, intel, managers, funds, research, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260717-2";
 import { items, cases, restructurings, firmById } from "/legal/js/data.js?v=20260714-2";
-import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js?v=20260717-3";
+import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js?v=20260717-4";
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const byDateDesc = (a, b) => String(b.date || "").localeCompare(String(a.date || ""));
@@ -1205,7 +1205,7 @@ async function macroSeries() {
 }
 async function macroNotif() {
   const series = await macroSeries();
-  const guidance = (ALERTS || []).map((a) => ({ id: a.id, date: a.date || "", kind: a.kind || "Guidance", title: a.title, source: "Meridian analysis", href: "/macro/" + (a.href || "#/policy") }));
+  const guidance = (ALERTS || []).map((a) => ({ id: a.id, date: a.date || "", kind: a.kind || "Guidance", title: a.title, source: "Wire analysis", href: "/macro/" + (a.href || "#/policy") }));
   return [...guidance, ...macroDataAlerts(series)].sort(byDateDesc);
 }
 const NOTIF_APPS = [

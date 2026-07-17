@@ -1,5 +1,5 @@
 // Cloudflare Worker entry — serves the static site (via the ASSETS binding) and
-// the per-user watchlist API at /api/watchlist plus the Meridian Legal saved-
+// the per-user watchlist API at /api/watchlist plus the Wire Legal saved-
 // items API at /api/saved (both backed by the WATCHLIST KV, distinct prefixes).
 //
 // The whole Worker is gated by Cloudflare Access, so every request that reaches
@@ -32,15 +32,15 @@ function identity(request) {
 }
 
 const keyFor = (email) => "wl:" + email;
-// Meridian Legal saved alerts/cases/matters — a flat array of item ids, keyed
+// Wire Legal saved alerts/cases/matters — a flat array of item ids, keyed
 // under a distinct prefix in the same KV namespace so it never collides with a
 // watchlist. Per-user isolation comes from the verified Access email, exactly
 // like the watchlist, so saved items sync across that user's devices.
 // Two distinct saved-items stores share this handler via different key prefixes
 // so the Legal and Credit apps never overwrite each other's saved sets.
-const savedKeyFor = (email) => "lsv:" + email;         // Meridian Legal
-const savedCreditKeyFor = (email) => "csv:" + email;   // Meridian Credit
-const savedMacroKeyFor = (email) => "msv:" + email;    // Meridian Macro
+const savedKeyFor = (email) => "lsv:" + email;         // Wire Legal
+const savedCreditKeyFor = (email) => "csv:" + email;   // Wire Credit
+const savedMacroKeyFor = (email) => "msv:" + email;    // Wire Macro
 // Per-user "notifications seen" sets — the ids a user has already acknowledged in
 // each app's notification bell, so an item marked seen on one device stops
 // showing as new on that user's other devices. One prefix per app.

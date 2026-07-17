@@ -1,5 +1,5 @@
 /* =============================================================================
-   Meridian — shared "premium" polish layer.
+   Wire — shared "premium" polish layer.
    Linked into every app AFTER its own stylesheet so equal-specificity rules win.
    Purely additive and non-interactive: soft navy-tinted elevation, tabular
    figures, tighter headings, and a one-time reveal on the landing page. No tap
@@ -195,7 +195,7 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 .mgr-vehicle-table { table-layout: fixed; width: 100%; }
 .mgr-vehicle-table td, .mgr-vehicle-table th { overflow: hidden; text-overflow: ellipsis; }
 
-/* ---- The "Sign out" link uses the Meridian home-logo blue (#d1701c) at every
+/* ---- The "Sign out" link uses the Wire home-logo blue (#d1701c) at every
         point in the app — the top-bar account chip on home (.g-user a) and on
         Credit/Legal/Macro (.account-nav a). The :hover white rules are more
         specific, so hover still turns white. ---- */

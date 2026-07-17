@@ -1,8 +1,8 @@
 /* ===========================================================================
-   Meridian Credit Intelligence — prototype styles
+   Wire Credit Intelligence — prototype styles
    =========================================================================== */
 :root {
-  /* Shared Meridian (Glance) scheme: navy top bar + blue accents. The Credit
+  /* Shared Wire (Glance) scheme: navy top bar + blue accents. The Credit
      signature slate is kept only for the logo and the iPhone bottom-bar tab. */
   --bg: #f4f6fb;
   --surface: #ffffff;

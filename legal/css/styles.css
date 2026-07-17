@@ -1,10 +1,10 @@
 /* =============================================================================
-   Meridian Legal — English-law legal & case-law updates.
-   Branding/style matched to Meridian Credit Intelligence. Dependency-free,
+   Wire Legal — English-law legal & case-law updates.
+   Branding/style matched to Wire Credit Intelligence. Dependency-free,
    responsive, accessible.
    ============================================================================= */
 :root {
-  /* Shared Meridian (Glance) scheme: navy top bar + blue accents. The Legal
+  /* Shared Wire (Glance) scheme: navy top bar + blue accents. The Legal
      signature teal is kept only for the logo and the iPhone bottom-bar tab. */
   --bg: #f4f6fb;
   --surface: #ffffff;
@@ -60,7 +60,7 @@ img, svg { max-width: 100%; }
 }
 .skip-link:focus { left: 0; }
 
-/* ---- Top bar (Meridian) ---- */
+/* ---- Top bar (Wire) ---- */
 .topbar {
   position: sticky; top: 0; z-index: 10;
   background: var(--navy); color: #fff;
@@ -214,7 +214,7 @@ img, svg { max-width: 100%; }
 .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
 .btn.primary:hover { background: var(--primary-ink); }
 
-/* ---- KPIs (Meridian: teal left border) ---- */
+/* ---- KPIs (Wire: teal left border) ---- */
 .kpis { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 1.25rem; }
 .kpis-5 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
 /* White tile with a soft pastel left-trim drawn from the practice-area pill
@@ -258,7 +258,7 @@ img, svg { max-width: 100%; }
 .feed-head h2 { margin: 0; }
 .feed-intro { margin: .25rem 0 .5rem; font-size: .82rem; color: var(--muted); }
 
-/* ---- Feed / list rows (Meridian-style) ---- */
+/* ---- Feed / list rows (Wire-style) ---- */
 .feed-row { display: flex; gap: .7rem; padding: .8rem 0; border-bottom: 1px solid var(--line); }
 .feed-row:last-child { border-bottom: 0; }
 /* The leading column now holds just the date (area/type chips removed); size it to
@@ -410,7 +410,7 @@ a.compact-head:hover { color: var(--primary); }
 .list-head { margin-bottom: 1.1rem; }
 .list-head h1 { margin: 0 0 .25rem; }
 .list-layout { display: grid; grid-template-columns: 240px 1fr; gap: 1.5rem; align-items: start; }
-/* Horizontal filter bar (Meridian Credit style): an uppercase label above each
+/* Horizontal filter bar (Wire Credit style): an uppercase label above each
    control, a search box, and plain-text multi-select dropdowns — the feed below
    spans the full width. */
 .filters { display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: 1rem; align-items: flex-end; }
@@ -473,7 +473,7 @@ a.compact-head:hover { color: var(--primary); }
 }
 .searchbar input[type="search"]:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: var(--accent); }
 .result-count { color: var(--muted); font-size: .82rem; margin-bottom: .8rem; }
-/* Year section breaks in the alert / case-law lists (matching Meridian Credit) */
+/* Year section breaks in the alert / case-law lists (matching Wire Credit) */
 .year-group + .year-group { margin-top: .5rem; }
 .year-head {
   font-size: .8rem; font-weight: 700; color: var(--muted); text-transform: uppercase;
@@ -568,7 +568,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
 @media (max-width: 1100px) {
   .grid-3 { grid-template-columns: 1fr 1fr; }
 }
-/* Stack the header + content at ≤900px, matching Meridian Credit/Macro/Glance so
+/* Stack the header + content at ≤900px, matching Wire Credit/Macro/Glance so
    all four top bars switch to the stacked mobile layout at the same width. */
 @media (max-width: 900px) {
   .grid-2 { grid-template-columns: 1fr; }
@@ -580,7 +580,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
   /* Stacked header so nothing overflows on a ~390px screen: brand + bell on the
      top row, the sign-in/refresh block on its own full-width row (so the email +
      "Last refresh" line never clip), then the platform toggle, then the nav as a
-     full-width scroll strip across the bottom (matching Meridian Credit). */
+     full-width scroll strip across the bottom (matching Wire Credit). */
   .topbar-inner {
     height: auto; padding: .5rem .85rem;
     display: grid; grid-template-columns: auto 1fr; align-items: center; gap: .3rem .7rem;
@@ -673,7 +673,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
 .rx-summary { cursor: pointer; list-style: none; padding: .1rem 0; }
 .rx-summary::-webkit-details-marker { display: none; }
 /* Title + Save on one row (no wrap): the title flexes/shrinks so the Save button
-   stays pinned to the top-right of the box, matching Meridian Credit's rows. */
+   stays pinned to the top-right of the box, matching Wire Credit's rows. */
 .rx-title-line { display: flex; align-items: baseline; gap: .45rem; }
 /* Title takes only its content width so the outcome note sits BESIDE the headline
    (not pushed to the far right); the Save button keeps its margin-left:auto. */
