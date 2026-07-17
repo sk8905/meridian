@@ -71,3 +71,24 @@ git push origin claude/pensive-pasteur-ohak8x:main
 ```
 
 If no new newsletters were found, make no commit.
+
+## 5. Delete the processed emails from the inbox
+
+**Only after step 4 has committed & pushed successfully** — never delete before
+the information is safely persisted — remove each email that was added this run
+from the skaidrive2 inbox, using the Gmail connector:
+
+- `apply_sensitive_message_label(messageId, labelOption: "TRASH")` on each
+  processed message (or `apply_sensitive_thread_label(threadId, "TRASH")` for the
+  whole forwarded thread).
+
+Notes:
+- This moves the email to **Trash**, which Gmail **permanently purges after ~30
+  days**. The connector has no immediate hard-delete / empty-trash capability, so
+  30-day auto-purge is the permanent-deletion mechanism (and gives a recovery
+  window if a parse was wrong).
+- Only ever trash a message whose data made it into `newsletters.js` **and** was
+  committed. If a message failed to parse or wasn't added, leave it in the inbox
+  so the next run can retry it.
+- These are disposable forwarded copies in the ingestion inbox; the originals
+  remain in the source mailbox (stevedkennedy), so trashing here is safe.
