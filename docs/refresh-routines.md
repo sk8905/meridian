@@ -456,6 +456,21 @@ extra deep-research pass on watchlisted names is skipped.
 >      `Appeal dismissed — plan upheld`), notes. Set unknown fields to `null`/`[]`;
 >      never fabricate creditors, debt figures, advisers or URLs — leave them empty
 >      if unverified. Dedupe by company + citation against the existing array.
+>    - **Counsel capture (firm profile pages).** The Legal firm pages
+>      (`/legal/#/firm/<id>`) compile every case/scheme/plan whose record text
+>      NAMES a tracked firm. So for every NEW case and scheme/plan you add,
+>      check the judgment's counsel/representation listing (BAILII and National
+>      Archives judgments open with it) and record which tracked firms or
+>      chambers acted:
+>      - cases → add a `counsel` array, e.g.
+>        `counsel: ["Kirkland & Ellis (appellant)", "South Square (respondent)"]`
+>      - restructurings → keep filling the existing `advisers` array the same way
+>      Use the firm's full display name exactly as in the `firms` table (e.g.
+>      "Freshfields", "A&O Shearman", "South Square") so the profile-page matcher
+>      picks it up. Only record what the judgment/coverage verifiably states —
+>      never infer who acted; omit the field rather than guess. Untracked firms
+>      may be listed too (they're harmless); tracked ones are what light up the
+>      profile pages.
 >    - **Schemes/RPs auto-surface in notifications** (no mirror step needed). Unlike
 >      Credit `webNews`, the `restructurings` array already feeds BOTH the
 >      Schemes-and-RPs tab AND the notification bell (kind = Plan/Scheme). The ONE
