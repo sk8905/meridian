@@ -13,7 +13,7 @@ export const UPDATED = "17 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-17",
-  lastCheckedTime: "17:22 BST",
+  lastCheckedTime: "21:04 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -281,6 +281,7 @@ export const YIELD_CURVE = {
 export const ALERTS = [
   { id: "g-chip-selloff-continues-2026-07-17", kind: "Bubble risk", title: "Global chip stocks extended Thursday's rout into Friday's pre-market session — the iShares Semiconductor ETF fell ~3.7% and Nvidia, Applied Materials, Intel and LAM Research all declined — compounding Netflix's ~9% post-earnings slide, as investors kept questioning whether AI capex can justify current valuations.", href: "#/bubble", date: "2026-07-17" },
   { id: "g-hormuz-bab-el-mandeb-2026-07-17", kind: "Markets", title: "Brent extended its advance toward $86/bbl and WTI toward $80/bbl — both up more than 11% on the week — after Iran reportedly instructed Yemen's Houthi rebels to threaten closing the Bab el-Mandeb Strait, a second Red Sea chokepoint, if Iranian power infrastructure is struck.", href: "#/bubble", date: "2026-07-17" },
+  { id: "g-kuwait-desalination-strike-2026-07-17", kind: "Markets", title: "Kuwait said an Iranian missile and drone strike hit a major power-and-desalination plant, sparking a fire and injuring several military personnel — a widening of the conflict onto Gulf civilian infrastructure (Kuwait draws ~90% of its drinking water from desalination) that kept Brent elevated near multi-week highs.", href: "#/bubble", date: "2026-07-17" },
   { id: "g-burnham-leader-confirmed-2026-07-17", kind: "Markets", title: "Labour's special conference confirmed Andy Burnham as party leader with backing from over 360 of 403 MPs; the 10-year gilt yield eased to ~4.95% as markets welcomed the expected appointment of Shabana Mahmood as chancellor, ahead of Burnham formally entering Downing Street on Monday.", href: "#/cycle", date: "2026-07-17" },
   { id: "g-schmid-hawkish-2026-07-16", kind: "Rate guidance", title: "Kansas City Fed President Jeff Schmid called inflation his 'primary concern' on 16 July, saying it is 'too hot' and has been 'above target too long', and cautioned against reading June's cooler CPI/PPI prints as a trend ahead of the 29 July decision.", href: "#/policy", date: "2026-07-16" },
   { id: "g-tsmc-ai-selloff-2026-07-16", kind: "Bubble risk", title: "TSMC posted a record 77% profit jump and raised its full-year outlook, yet chip stocks (Micron, SK Hynix, AMD, Broadcom, Nvidia, TSMC) slid anyway on valuation concerns, dragging the Nasdaq to a 1.3% loss even as the Dow fell just 0.3% — further evidence the AI rally's chief risk is now valuation, not demand.", href: "#/bubble", date: "2026-07-16" },
@@ -342,18 +343,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-07-17",
   us: [
+    { title: "Iran Attacks Kuwait Desalination and Power Plants as Hostilities Worsen", source: "Bloomberg", date: "2026-07-17", time: "21:04", url: "https://www.bloomberg.com/news/articles/2026-07-17/iran-attacks-kuwait-desalination-and-power-plants-as-hostilities-worsen" },
+    { title: "US housing starts for June 1.427 million versus 1.310 million estimate", source: "InvestingLive", date: "2026-07-17", time: "13:30", url: "https://investinglive.com/news/us-housing-starts-for-june-1-427-million-versus-1-310-million-estimate" },
+    { title: "US July prelim UMich consumer sentiment 54.4 vs 51.0 expected", source: "InvestingLive", date: "2026-07-17", time: "15:00", url: "https://investinglive.com/news/us-july-prelim-umich-consumer-sentiment-54-4-vs-51-0-expected" },
+    { title: "Iran Oil Shock Spills Into Demand Inflation, Lifting Fed Rate-Hike Odds to 73% by September", source: "Tech Times", date: "2026-07-16", time: "17:20", url: "https://www.techtimes.com/articles/320773/20260716/iran-oil-shock-spills-demand-inflation-lifting-fed-rate-hike-odds-73-september.htm" },
     { title: "World stocks fall in semiconductor rout; oil rises on Middle East escalation", source: "Reuters", date: "2026-07-17", time: "13:00", url: "https://finance.yahoo.com/markets/stocks/articles/stocks-stumble-oil-set-weekly-011728443.html" },
-    { title: "Chip Stock Rout Deepens as TSMC Selloff Drives Taiwan Correction", source: "Bloomberg", date: "2026-07-17", time: "12:30", url: "https://www.bloomberg.com/news/articles/2026-07-17/chip-stock-selloff-deepens-in-asia-as-tsmc-fails-to-impress" },
-    { title: "Chip stock sell-off, Netflix earnings, Trump's approval rating and more in Morning Squawk", source: "CNBC", date: "2026-07-17", time: "11:30", url: "https://www.cnbc.com/2026/07/17/5-things-to-know-before-the-stock-market-opens.html" },
-    { title: "Nasdaq Tumbles 1.5% Amid Selloff In Chip Stocks: Investor Sentiment Weakens, Greed Index Moves To 'Fear' Zone", source: "Benzinga", date: "2026-07-17", time: "08:10", url: "https://www.benzinga.com/markets/market-summary/26/07/60516921/nasdaq-tumbles-1-5-amid-selloff-in-chip-stocks-investor-sentiment-weakens-greed-index-moves-to-fear-zone" },
-    { title: "Oil prices rise as U.S.-Iran hostilities threaten supply through Strait of Hormuz", source: "CNBC", date: "2026-07-17", time: "11:00", url: "https://www.cnbc.com/2026/07/17/oil-price-today-brent-wti.html" },
   ],
   uk: [
     { title: "Andy Burnham becomes UK Labour leader; next stop - prime minister", source: "CNBC", date: "2026-07-17", time: "13:15", url: "https://www.cnbc.com/2026/07/17/andy-burnham-becomes-uk-labour-leader-next-stop-prime-minister.html" },
     { title: "FTSE 100 Live: AI Selloff Hits European Stocks, UK Stocks Escape", source: "Bloomberg", date: "2026-07-17", time: "12:45", url: "https://www.bloomberg.com/news/live-blog/2026-07-17/what-s-moving-uk-markets-right-now-markets-today" },
     { title: "Pound Sterling Price News and Forecast: GBP/USD softens to near 1.3470 in Friday's Asian session", source: "FXStreet", date: "2026-07-17", time: "07:30", url: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-softens-to-near-13470-in-fridays-asian-session-202607170602" },
     { title: "UK Gilt Yields Retreat from Two-Month Highs on Fiscal Optimism", source: "Trading Economics", date: "2026-07-17", time: "09:00", url: "https://www.tradingview.com/news/te_news:567278:0-uk-gilt-yields-retreat-from-two-month-highs-on-fiscal-optimism/" },
-    { title: "Burnham vows to 'fix big things' in UK as he takes step closer to Downing Street", source: "The National", date: "2026-07-17", time: "07:00", url: "https://www.thenationalnews.com/news/uk/2026/07/17/burnham-vows-to-fix-big-things-in-uk-as-he-takes-step-closer-to-downing-street/" },
+    { title: "Mahmood's Economic Blank Slate Boosts Appeal for UK Chancellor Role", source: "Bloomberg", date: "2026-07-16", time: "21:10", url: "https://www.bloomberg.com/news/articles/2026-07-16/mahmood-s-economic-blank-slate-key-to-appeal-as-uk-chancellor" },
   ],
 };
 
@@ -367,6 +368,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-17",
   items: [
+    {"title":"Iran Attacks Kuwait Desalination and Power Plants as Hostilities Worsen","source":"Bloomberg","date":"2026-07-17","time":"21:04","url":"https://www.bloomberg.com/news/articles/2026-07-17/iran-attacks-kuwait-desalination-and-power-plants-as-hostilities-worsen","blurb":"An Iranian missile and drone strike damaged a major Kuwaiti power-and-desalination plant and injured military personnel, widening the conflict onto Gulf civilian infrastructure."},
+    {"title":"8 Takeaways from Kevin Warsh's First Semiannual Testimony to Congress","source":"Bank Policy Institute","date":"2026-07-15","time":"17:20","url":"https://bpi.com/8-takeaways-from-kevin-warshs-first-semiannual-testimony-to-congress/","blurb":"A close read of the new Fed chair's two-day Hill testimony, from his refusal to signal the July rate path to his critique of average-inflation targeting.","author":"Bank Policy Institute"},
     {"title":"World stocks fall in semiconductor rout; oil rises on Middle East escalation","source":"Reuters","date":"2026-07-17","time":"13:00","url":"https://finance.yahoo.com/markets/stocks/articles/stocks-stumble-oil-set-weekly-011728443.html","blurb":"A global semiconductor selloff dragged equities lower while Brent held near multi-week highs on the escalating US-Iran conflict."},
     {"title":"Chip Stock Rout Deepens as TSMC Selloff Drives Taiwan Correction","source":"Bloomberg","date":"2026-07-17","time":"12:30","url":"https://www.bloomberg.com/news/articles/2026-07-17/chip-stock-selloff-deepens-in-asia-as-tsmc-fails-to-impress","blurb":"Taiwan's stock market entered correction territory as TSMC's record results still failed to satisfy stretched AI-valuation expectations."},
     {"title":"Andy Burnham becomes UK Labour leader; next stop - prime minister","source":"CNBC","date":"2026-07-17","time":"13:15","url":"https://www.cnbc.com/2026/07/17/andy-burnham-becomes-uk-labour-leader-next-stop-prime-minister.html","blurb":"Burnham's confirmation as Labour leader clears the way for him to enter Downing Street on Monday as the UK's seventh prime minister in a decade."},
