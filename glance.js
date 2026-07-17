@@ -165,14 +165,14 @@ function initSavedPanel() {
       <div class="g-sv-body">${n ? list.map(row).join("") : '<div class="g-sv-empty">Nothing saved yet. Tap the ☆ on any item across Macro, Credit or Legal to keep it here.</div>'}</div>
     </div>`;
   const btn = document.getElementById("g-sv-btn"), panel = document.getElementById("g-sv-panel");
-  const close = () => { panel.setAttribute("hidden", ""); btn.setAttribute("aria-expanded", "false"); document.body.classList.remove("g-menu-open"); hideScrim(); };
   btn.addEventListener("click", (e) => {
     e.stopPropagation();
-    if (panel.hasAttribute("hidden")) { panel.removeAttribute("hidden"); btn.setAttribute("aria-expanded", "true"); document.body.classList.add("g-menu-open"); showScrim(close); }
-    else close();
+    const wasOpen = !panel.hasAttribute("hidden");
+    closeAllGlanceMenus();
+    if (!wasOpen) { panel.removeAttribute("hidden"); btn.setAttribute("aria-expanded", "true"); document.body.classList.add("g-menu-open"); showScrim(closeAllGlanceMenus); }
   });
-  panel.addEventListener("click", (e) => { if (e.target.closest("[data-menu-close]")) close(); });
-  document.addEventListener("click", (e) => { if (!panel.hasAttribute("hidden") && !e.target.closest("#g-saved")) close(); });
+  panel.addEventListener("click", (e) => { if (e.target.closest("[data-menu-close]")) closeAllGlanceMenus(); });
+  document.addEventListener("click", (e) => { if (!panel.hasAttribute("hidden") && !e.target.closest("#g-saved")) closeAllGlanceMenus(); });
 }
 
 // ---- Entity cross-linking ----------------------------------------------------
@@ -296,6 +296,22 @@ function hideScrim() {
   if (_scrimEl) { _scrimEl.hidden = true; _scrimEl._cb = null; }
   document.body.classList.remove("g-menu-open");
 }
+// Close ALL three command-bar menus (Markets / Saved / Notifications) and reset
+// the shared body-locks + scrim. Every menu's toggle calls this before opening so
+// only one is ever open — opening one always closes the others (no layering/stick).
+function closeAllGlanceMenus() {
+  const mkt = document.getElementById("g-mkt-panel");
+  if (mkt && !mkt.hidden) mkt.hidden = true;
+  const mktBtn = document.getElementById("g-mkt-btn"); if (mktBtn) mktBtn.setAttribute("aria-expanded", "false");
+  const sv = document.getElementById("g-sv-panel");
+  if (sv) sv.setAttribute("hidden", "");
+  const svBtn = document.getElementById("g-sv-btn"); if (svBtn) svBtn.setAttribute("aria-expanded", "false");
+  const np = document.getElementById("g-notif-panel");
+  if (np) np.setAttribute("hidden", "");
+  const bell = document.getElementById("g-bell"); if (bell) bell.setAttribute("aria-expanded", "false");
+  document.body.classList.remove("g-mkt-open");
+  hideScrim();
+}
 
 // ---- iPhone markets/rates dropdown -----------------------------------------
 // On phones the right-hand markets + key-rates sidebar (.g-side) is relocated into
@@ -373,15 +389,17 @@ function initMarketsPanel() {
   mq.addEventListener("change", place);
   btn.addEventListener("click", (e) => {
     e.stopPropagation();
-    const open = panel.hidden;
-    panel.hidden = !open;
-    btn.setAttribute("aria-expanded", open ? "true" : "false");
-    if (open && mq.matches) { document.body.classList.add("g-mkt-open"); }
-    else { document.body.classList.remove("g-mkt-open"); hideScrim(); }
+    const wasOpen = !panel.hidden;
+    closeAllGlanceMenus();
+    if (!wasOpen) {
+      panel.hidden = false;
+      btn.setAttribute("aria-expanded", "true");
+      if (mq.matches) { document.body.classList.add("g-mkt-open", "g-menu-open"); showScrim(closeAllGlanceMenus); }
+    }
   });
   // Close button, or Escape.
-  panel.addEventListener("click", (e) => { if (e.target.closest(".g-mkt-close")) close(); });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") close(); });
+  panel.addEventListener("click", (e) => { if (e.target.closest(".g-mkt-close")) closeAllGlanceMenus(); });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeAllGlanceMenus(); });
 }
 
 // On phones the briefing leads and the filter-chip bar sits directly BELOW it,
@@ -1438,7 +1456,7 @@ function renderBell() {
   const row = (x) => `<a class="g-np-item" href="${esc(x.href)}"><span class="g-np-tag ${x.key}">${esc(x.tag)}</span><span class="g-np-txt"><span class="g-np-t">${esc(x.title)}</span><span class="g-np-m">${esc(x.kind)}${x.date ? " · " + esc(fmt(x.date)) : ""}${x.source ? ` · <span class="g-np-src">${esc(x.source)}</span>` : ""}</span></span></a>`;
   wrap.innerHTML = `
     <button type="button" class="g-bell" id="g-bell" aria-haspopup="true" aria-expanded="false" aria-label="Notifications${total ? ` — ${total} new` : ""}">
-      <span aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="#fff" aria-hidden="true"><path d="M12 2a6 6 0 0 0-6 6c0 3.5-.87 5.3-1.65 6.32-.37.48-.55.72-.55 1.08 0 .55.45.9 1.2.9h14c.75 0 1.2-.35 1.2-.9 0-.36-.18-.6-.55-1.08C18.87 13.3 18 11.5 18 8a6 6 0 0 0-6-6zm0 20a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22z"/></svg></span>${total ? `<span class="g-badge">${total > 9 ? "9+" : total}</span>` : ""}
+      <span aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span>${total ? `<span class="g-badge">${total > 9 ? "9+" : total}</span>` : ""}
     </button>
     <div class="g-notif-panel" id="g-notif-panel" role="menu" hidden>
       <div class="g-np-head"><span>${total ? `${total} new update${total > 1 ? "s" : ""}` : "No new updates"} <span class="g-np-sub">· checked ${esc(fmtRefresh())}</span></span><button type="button" class="g-menu-close" aria-label="Close" data-menu-close>✕</button></div>
@@ -1447,8 +1465,9 @@ function renderBell() {
   const bell = document.getElementById("g-bell"), panel = document.getElementById("g-notif-panel");
   bell.addEventListener("click", (e) => {
     e.stopPropagation();
-    if (panel.hasAttribute("hidden")) { panel.removeAttribute("hidden"); bell.setAttribute("aria-expanded", "true"); document.body.classList.add("g-menu-open"); markAllSeen(); showScrim(closeNotifPanel); }
-    else { closeNotifPanel(); }
+    const wasOpen = !panel.hasAttribute("hidden");
+    closeAllGlanceMenus();
+    if (!wasOpen) { panel.removeAttribute("hidden"); bell.setAttribute("aria-expanded", "true"); document.body.classList.add("g-menu-open"); markAllSeen(); showScrim(closeAllGlanceMenus); }
   });
   panel.addEventListener("click", (e) => { if (e.target.closest("[data-menu-close]")) closeNotifPanel(); });
   document.addEventListener("click", (e) => {
