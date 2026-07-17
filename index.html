@@ -600,6 +600,8 @@
       .g-mkt-panel .g-flow-scroll { display:none; }
       .g-mkt-panel .g-ind-card, .g-mkt-panel .g-fx-card, .g-mkt-panel .g-snap {
         border:0; border-radius:0; box-shadow:none; background:var(--t-panel, #0d0d0d); margin:0; padding:0; }
+      /* Markets band: a fixed change column so every row's value + change line up. */
+      .g-mkt-panel #g-markets .mkt-tile { grid-template-columns:1fr auto 4rem; }
     }
     /* The full-screen close button (saved / notifications) — phones only. */
     .g-menu-close { display:none; }
@@ -931,6 +933,8 @@
        "pp"/"bp" unit is wider than one without and would otherwise shift the value). */
     .tui #g-indicators .rate-tile,.tui #g-curve .rate-tile,
     .tui #g-rates .rate-tile,.tui #g-vol .rate-tile{ grid-template-columns:1fr 4rem 5rem; }
+    /* Markets band: a fixed change column so the value + change line up down the rail. */
+    .tui .g-side .mkt-tile{ grid-template-columns:1fr auto 3.6rem; }
     .tui .rate-tile:hover{ background:var(--t-panel2); }
     /* Every interactive rail row hovers like the news feed: a subtle grey, no
        orange text (movers, macro-read blocks, FX cells). */
@@ -1337,7 +1341,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260717-22").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260717-23").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of
