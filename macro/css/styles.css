@@ -231,7 +231,7 @@ a.cal-tile:focus-visible { outline: 2px solid var(--macro); outline-offset: -2px
 .compact-item { padding: .55rem 0; border-bottom: 1px solid var(--border); }
 .compact-item:last-child { border-bottom: none; }
 .compact-head { display: block; font-weight: 600; color: var(--ink); line-height: 1.35; overflow-wrap: anywhere; }
-a.compact-head:hover { color: var(--macro); text-decoration: underline; }
+a.compact-head:hover { text-decoration: underline; }
 .compact-meta { margin-top: .2rem; }
 
 /* ---------- commentary reading list (Commentary tab) ---------- */
@@ -246,7 +246,7 @@ a.compact-head:hover { color: var(--macro); text-decoration: underline; }
 .chip { display: inline-block; padding: .12rem .5rem; border-radius: 999px; background: #e8edf5; color: #fb8b1e; font-size: .72rem; font-weight: 600; border: 1px solid #c8d5e6; white-space: nowrap; flex-shrink: 0; }
 .intel-date { flex: 0 0 auto; min-width: 4.9rem; white-space: nowrap; font-size: .76rem; }
 .intel-head { flex: 0 1 auto; min-width: 0; font-weight: 600; font-size: .9rem; line-height: 1.35; color: var(--ink); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-a.intel-head:hover { color: var(--macro); text-decoration: underline; }
+a.intel-head:hover { text-decoration: underline; }
 .intel-src-inline { flex: 0 1 auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; max-width: 100%; font-size: .76rem; }
 .intel-row .save-btn { margin-left: auto; flex-shrink: 0; }
 /* Month-group headers (JULY 2026 …), styled like Credit's year headers. */

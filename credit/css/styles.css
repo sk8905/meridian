@@ -452,7 +452,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
   overflow: hidden; overflow-wrap: anywhere;
 }
 .intel-head { font-weight: 600; color: var(--ink); display: inline-block; margin-bottom: .15rem; overflow-wrap: anywhere; }
-a.intel-head:hover { color: var(--primary); }
+a.intel-head:hover { text-decoration: underline; }
 .intel-body p { margin: .15rem 0 .35rem; }
 /* Headline + Save button share a row; the button sits top-right (Legal style). */
 .intel-title-line { display: flex; align-items: flex-start; gap: .6rem; }
@@ -748,7 +748,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
 .compact-item { padding: .5rem 0; border-bottom: 1px solid var(--border); }
 .compact-item:last-child { border-bottom: none; }
 .compact-head { font-weight: 600; color: var(--ink); overflow-wrap: anywhere; }
-a.compact-head:hover { color: var(--primary); }
+a.compact-head:hover { text-decoration: underline; }
 .compact-meta { margin-top: .15rem; }
 /* Manager name in a compact-row meta line — a link to the profile, kept in the
    muted meta colour but underlined on hover so it reads as clickable. */

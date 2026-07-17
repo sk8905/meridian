@@ -177,14 +177,13 @@
 @media (hover: hover) {
   .tfocus-btn:hover { color: var(--ink); }
   .tchip:hover { color: var(--ink); }
-  .twire .compact-item:hover { background: rgba(255,255,255,.03); }
-  .twire .compact-item:hover .tw-head { color: var(--accent); }
+  /* One hover treatment platform-wide: a subtle grey row, no orange text. */
+  .twire .compact-item:hover,
+  .intel-row:hover, .feed-row:hover { background: rgba(255,255,255,.045); }
   .tw-mgr:hover, .compact-mgr:hover { color: var(--ink); text-decoration: underline; }
-  .tw-src a:hover { color: var(--accent); }
-  .tleague tr.clickable:hover { background: rgba(255,255,255,.03); }
-  .tleague tr.clickable:hover .tl-nm { color: var(--accent, #fb8b1e); }
-  .tmini-row.clickable:hover, .tmini-row:hover { background: rgba(255,255,255,.03); }
-  .tmini-row:hover .tmini-t { color: var(--accent, #fb8b1e); }
+  .tw-src a:hover { color: var(--ink); text-decoration: underline; }
+  .tleague tr.clickable:hover { background: rgba(255,255,255,.045); }
+  .tmini-row.clickable:hover, .tmini-row:hover { background: rgba(255,255,255,.045); }
   :root[data-theme="light"] .twire .compact-item:hover,
   :root[data-theme="light"] .tleague tr.clickable:hover,
   :root[data-theme="light"] .tmini-row:hover { background: rgba(11,31,68,.04); }

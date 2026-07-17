@@ -270,7 +270,7 @@ img, svg { max-width: 100%; }
 .feed-date { font-size: .8rem; color: var(--muted); }
 .feed-body { min-width: 0; flex: 1; }
 .feed-title { font-weight: 600; color: var(--ink); display: inline-block; margin-bottom: .15rem; overflow-wrap: anywhere; }
-a.feed-title:hover { color: var(--primary); }
+a.feed-title:hover { text-decoration: underline; }
 .feed-summary { margin: .15rem 0 .35rem; font-size: .8rem; color: var(--muted); }
 /* 2-line preview with inline expand (case law & schemes/RPs). */
 .sum-clamp { margin: .15rem 0 .35rem; }
@@ -369,7 +369,7 @@ a.firm:hover, a.firm-big:hover { text-decoration: underline; }
 .compact-item { padding: .5rem 0; border-bottom: 1px solid var(--line); }
 .compact-item:last-child { border-bottom: none; }
 .compact-head { font-weight: 600; color: var(--ink); overflow-wrap: anywhere; text-decoration: none; }
-a.compact-head:hover { color: var(--primary); }
+a.compact-head:hover { text-decoration: underline; }
 .compact-meta { margin-top: .15rem; }
 .compact-meta .small { color: var(--muted); }
 .card-link { display: block; padding: 1rem 1.1rem 0; text-decoration: none; color: inherit; flex: 1; }

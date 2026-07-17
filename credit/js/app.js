@@ -341,7 +341,7 @@ function renderNotifications() {
   const list = (n ? fresh : all).slice(0, 12);
   wrap.innerHTML = `
     <button type="button" class="notif-bell" id="notif-bell" aria-haspopup="true" aria-expanded="false" aria-label="Notifications${n ? ` — ${n} new` : ""}">
-      <span class="notif-ico" aria-hidden="true">🔔</span>${n ? `<span class="notif-badge">${n > 9 ? "9+" : n}</span>` : ""}
+      <span class="notif-ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="#fff" aria-hidden="true"><path d="M12 2a6 6 0 0 0-6 6c0 3.5-.87 5.3-1.65 6.32-.37.48-.55.72-.55 1.08 0 .55.45.9 1.2.9h14c.75 0 1.2-.35 1.2-.9 0-.36-.18-.6-.55-1.08C18.87 13.3 18 11.5 18 8a6 6 0 0 0-6-6zm0 20a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22z"/></svg></span>${n ? `<span class="notif-badge">${n > 9 ? "9+" : n}</span>` : ""}
     </button>
     <div class="notif-panel" id="notif-panel" role="menu" hidden>
       <div class="notif-head">${n ? `${n} new update${n > 1 ? "s" : ""}` : "No new updates"} <span class="muted small">· checked ${esc(fmtDate(LAST_CHECKED))}${LAST_CHECKED_TIME ? `, ${esc(LAST_CHECKED_TIME)}` : ""}</span></div>
