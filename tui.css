@@ -178,7 +178,7 @@
 /* single line, matching Home: date | CODE | headline (+ inline manager) | source */
 .twire .compact-item { display: grid; grid-template-columns: 70px 30px minmax(0,1fr) auto; column-gap: 10px; padding: 5px 12px; border-bottom: 1px solid var(--border); align-items: baseline; }
 .tw-date { grid-column: 1; font-family: var(--t-mono); font-size: 11px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
-.tw-tag { grid-column: 2; font-family: var(--t-mono); font-size: 9px; font-weight: 700; letter-spacing: .03em; color: var(--muted); }
+.tw-tag { grid-column: 2; font-family: var(--t-mono); font-size: 9.5px; font-weight: 700; letter-spacing: .03em; color: var(--muted); }
 .tw-tag.deal { color: #fb8b1e; } .tw-tag.intel { color: #cc9f43; } .tw-tag.clo { color: #9b83e2; } .tw-tag.news { color: #4fa89c; }
 .tw-body { grid-column: 3; display: flex; gap: 6px; align-items: baseline; min-width: 0; }
 .tw-head { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; font-weight: 400; line-height: 1.35; color: var(--ink); }
@@ -206,8 +206,8 @@
 
 /* left league table */
 .tleague { width: 100%; border-collapse: collapse; font-size: 11px; }
-.tleague th { text-align: left; font-size: 8.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; padding: 5px 8px; position: sticky; top: 28px; background: var(--head); border-bottom: 1px solid var(--border); }
-.tleague td { padding: 5px 8px; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; }
+.tleague th { text-align: left; font-size: 8.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; padding: 6px 8px; position: sticky; top: 28px; background: var(--head); border-bottom: 1px solid var(--border); }
+.tleague td { padding: 6px 8px; border-bottom: 1px solid var(--border); font-variant-numeric: tabular-nums; }
 .tleague .tl-nm { color: var(--ink); max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tleague .tl-n { text-align: right; color: var(--muted); font-family: var(--t-mono); }
 .tleague th:not(:first-child) { text-align: right; }

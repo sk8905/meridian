@@ -13,7 +13,7 @@
   --muted: #66708a;
   --line: #e4e7ef;
   --navy: #000000;          /* top bar (matches Glance) */
-  --primary: #fb8b1e;       /* accent — Glance blue */
+  --primary: #fb8b1e;       /* accent (Wire orange) */
   --primary-ink: #1c3a5e;
   --accent: #fb8b1e;
   --brand-accent: #2f5b53;  /* Legal signature (darker, subtler) — logo + iPhone tab */
@@ -179,9 +179,6 @@ img, svg { max-width: 100%; }
 .notif-item { padding: .45rem .5rem; border-bottom: 1px solid var(--line); border-radius: 6px; }
 .notif-item:last-child { border-bottom: none; }
 .notif-item.is-new { background: #f0fdfa; }
-.notif-link { font-weight: 600; color: var(--ink); display: block; }
-.notif-link:hover { color: var(--ink); }
-.notif-meta { margin-top: .1rem; }
 .notif-empty { padding: .6rem .5rem; }
 .nav-toggle {
   display: none; background: rgba(255,255,255,.1); color: #fff; border: 1px solid rgba(255,255,255,.22);
@@ -723,7 +720,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
    the wrapper scrolls horizontally instead. */
 @media (max-width: 760px) { .lg-sc-tbl { min-width: 920px; } }
 .lg-sc-tbl th { text-align: left; font-size: 8.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; padding: 6px 8px; background: var(--head); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1; }
-.lg-sc-tbl td { padding: 8px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); line-height: 1.4; }
+.lg-sc-tbl td { padding: 6px 8px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); line-height: 1.4; }
 .lg-sc-tbl th:nth-child(1), .lg-sc-tbl td:nth-child(1) { width: 13%; }
 .lg-sc-tbl th:nth-child(2), .lg-sc-tbl td:nth-child(2) { width: 9%; }
 .lg-sc-tbl th:nth-child(3), .lg-sc-tbl td:nth-child(3) { width: 9%; }

@@ -201,10 +201,12 @@ before it can be resolved.
 - C5 — unread badge unified to `#ef4444` (Home `.g-badge` was `#e34948`).
 - T3 (part) — `.tw-tag` bumped 8px → 9px (legibility).
 
-**Remaining (low priority — safe cleanups, not yet applied):**
-- C4 — two Home-light green/red pairs → consolidate to one.
-- C6 — legacy `.notif-tag` navy set (dead now rows use `.nf-code`) → delete.
-- C7 — stale "Glance blue" accent comments.
-- T3 (rest) — unify `.g-feed-code` 9px / `.nf-code` 10px to a single size.
-- T4 — `.tleague td` 5×8 vs `.lg-sc-tbl td` 8 → pick one desktop density.
-- T5 — dead legacy sub-app `.notif-*` size rules.
+**Also fixed (final cleanup pass):**
+- C4 — Home-light green/red consolidated to `#059669` / `#dc2626` (dropped the `#0a7d3c` / `#c02626` pair).
+- C6 — legacy `.notif-tag` navy set deleted from premium.css.
+- C7 — "Glance blue" accent comments corrected to Wire orange (app styles + premium.css).
+- T3 — desk-code chip unified to 9.5px (`.nf-code`, `.tui .g-feed-code`, `.tw-tag`).
+- T4 — both data tables now `6px 8px` cells (`.tleague`, `.lg-sc-tbl`).
+- T5 — dead legacy sub-app `.notif-link/.notif-meta/.notif-item.is-new` rules removed.
+
+**Ledger clear** — all audited divergences are either RECONCILEd or recorded as INTENTIONAL. New work conforms to §0–§7 above; the twice-daily refresh routine's typography QC step (`docs/refresh-routines.md`) guards against future drift.

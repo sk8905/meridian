@@ -11,7 +11,7 @@
   --muted: #66708a;
   --border: #e4e7ef;
   --navy: #000000;          /* top bar (matches Glance) */
-  --macro: #fb8b1e;         /* accent — Glance blue (was lavender) */
+  --macro: #fb8b1e;         /* accent (Wire orange) */
   --macro-ink: #1c3a5e;     /* deep blue for emphasis text */
   --brand-accent: #6d5fae;  /* Macro signature — logo + iPhone tab only */
   --brand-logo: #c4b5e8;    /* light lavender for the logo glyph on the navy bar */
@@ -95,9 +95,6 @@ h1, h2, .macro-country, .macro-label { text-wrap: balance; }
 .notif-item { padding: .45rem .5rem; border-bottom: 1px solid var(--border); border-radius: 6px; }
 .notif-item:last-child { border-bottom: none; }
 .notif-item.is-new { background: #eef2fb; }
-.notif-link { font-weight: 600; color: var(--ink); display: block; }
-.notif-link:hover { color: var(--ink); }
-.notif-meta { margin-top: .1rem; }
 .notif-empty { padding: .6rem .5rem; }
 
 /* ---------- layout ---------- */

@@ -10,7 +10,7 @@
   --muted: #66708a;
   --border: #e4e7ef;
   --navy: #000000;          /* top bar (matches Glance) */
-  --primary: #fb8b1e;       /* accent — Glance blue */
+  --primary: #fb8b1e;       /* accent (Wire orange) */
   --primary-ink: #1c3a5e;
   --accent: #fb8b1e;
   --brand-accent: #64748b;  /* Credit signature — logo + iPhone tab only */
@@ -147,10 +147,6 @@ h1, h2, h3, .kpi-label { text-wrap: balance; }
 .notif-list { list-style: none; margin: 0; padding: 0; }
 .notif-item { padding: .45rem .5rem; border-bottom: 1px solid var(--border); border-radius: 6px; }
 .notif-item:last-child { border-bottom: none; }
-.notif-item.is-new { background: #eef2f8; }
-.notif-link { font-weight: 600; color: var(--ink); display: block; }
-.notif-link:hover { color: var(--ink); }
-.notif-meta { margin-top: .1rem; }
 .notif-empty { padding: .6rem .5rem; }
 
 /* ---------- layout ---------- */
