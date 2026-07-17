@@ -1135,12 +1135,15 @@ const FEED_SOURCES = [
   { url: "https://www.ft.com/alphaville?format=rss", source: "FT Alphaville", region: "GEN", cap: 6 },
   { url: "https://www.economist.com/finance-and-economics/rss.xml", source: "The Economist", region: "GEN", cap: 8 },
   { url: "https://www.bankofengland.co.uk/rss/news", source: "Bank of England", region: "UK", cap: 6 },
-  // Global FX / rates / Asia — kept for overnight coverage but capped low.
-  // Yahoo Finance removed: its RSS is dominated by sensational single-company
-  // clickbait ("Uber blew its entire AI budget …") that has no reliable title
-  // signature to filter on without dropping legitimate macro headlines.
+  { url: "https://www.theguardian.com/business/economics/rss", source: "The Guardian", region: "UK", cap: 6 },
+  { url: "https://www.theguardian.com/uk/business/rss", source: "The Guardian", region: "UK", cap: 5 },
+  // Asia — reputable regional business/finance desks for overnight coverage.
+  { url: "https://asia.nikkei.com/rss/feed/nar", source: "Nikkei Asia", region: "GEN", cap: 4 },
+  { url: "https://www.scmp.com/rss/92/feed", source: "South China Morning Post", region: "GEN", cap: 4 },
+  { url: "https://www.straitstimes.com/news/business/rss.xml", source: "The Straits Times", region: "GEN", cap: 3 },
+  // Global aggregator — capped low. Yahoo Finance removed: its RSS is dominated by
+  // sensational single-company clickbait with no reliable title signature to filter.
   { url: "https://www.investing.com/rss/news_25.rss", source: "Investing.com", region: "GEN", cap: 3 },
-  { url: "https://asia.nikkei.com/rss/feed/nar", source: "Nikkei Asia", region: "GEN", cap: 3 },
 ];
 // STRICT macro filter — a title must touch one of: central-bank policy, a key
 // economic indicator, an index / rates / commodity / FX move, or major earnings.

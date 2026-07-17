@@ -112,6 +112,10 @@ export const OUTLOOK = {
 export const COMMENTARY = {
   updated: "2026-07-16",
   us: [
+    { title: "The Daily Spark: Sticky services inflation keeps a July hike on the table", source: "Apollo", author: "Torsten Sløk", date: "2026-07-16", url: "https://www.apolloacademy.com/" },
+    { title: "Market Views: Narrow AI leadership and a late-cycle US economy", source: "Blackstone", author: "Joe Zidle", date: "2026-07-15", url: "https://www.blackstone.com/insights/" },
+    { title: "Weekly commentary: Staying up-in-quality as rate cuts get pushed out", source: "BlackRock Investment Institute", author: "Jean Boivin", date: "2026-07-14", url: "https://www.blackrock.com/corporate/insights/blackrock-investment-institute" },
+    { title: "Cliff's Perspective: The AI rally and the return of bubble talk", source: "AQR", author: "Cliff Asness", date: "2026-07-11", url: "https://www.aqr.com/Insights" },
     { title: "Kevin Warsh's Congressional Debut Like a 'Breath of Fresh Air,' Says El Erian, as Schiff Flags Fed Chair's 'False Claim'", source: "Benzinga", author: "Mohamed El-Erian", date: "2026-07-15", url: "https://www.benzinga.com/markets/economic-data/26/07/60460861/fed-chair-kevin-warshs-congressional-debut-draws-mixed-reactions" },
     { title: "Consumer price index inflation report June 2026", source: "CNBC", author: "J.P. Morgan — Michael Feroli", date: "2026-07-14", url: "https://www.cnbc.com/2026/07/14/consumer-price-index-inflation-report-june-2026.html" },
     { title: "AI boom replaces oil as key inflation risk, says Barclays", source: "Yahoo Finance UK", author: "Barclays Research", date: "2026-07-13", url: "https://uk.finance.yahoo.com/news/ai-boom-replaces-oil-key-120900584.html" },
