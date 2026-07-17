@@ -360,7 +360,10 @@ svg.mtab-ico { width: 22px; height: 22px; }
 }
 [data-theme="dark"] .mtab { color: #7f8ca6; }
 [data-theme="dark"] .mtab:hover { color: #cdd6e6; }
-[data-theme="dark"] .mtab.is-active { color: var(--accent, #f28c3c) !important; background: none !important; }
+/* Active platform tab: white icon/label + an orange top line, mirroring the
+   filter chips' accent underline. */
+[data-theme="dark"] .mtab.is-active { color: #fff !important; background: none !important;
+  box-shadow: inset 0 2px 0 var(--accent, #f28c3c) !important; }
 /* the page footer hardcodes a white background — dark it so it doesn't show as a
    white band on the now dark-only app (holds the mobile account/refresh block) */
 [data-theme="dark"] .footer { background: #000000; }
