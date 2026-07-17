@@ -189,6 +189,7 @@
 .src-filter { cursor: pointer; }
 @media (hover: hover) { .src-filter:hover { color: var(--ink); text-decoration: underline; } }
 /* Active source-filter bar shown above a filtered feed. */
+.srcfilter-bar[hidden] { display: none; }
 .srcfilter-bar { display: flex; align-items: center; gap: 8px; padding: 7px 12px; margin: 0 0 8px;
   background: var(--surface); border: 1px solid var(--border, var(--line)); font-family: var(--t-mono);
   font-size: 10px; letter-spacing: .03em; text-transform: uppercase; color: var(--muted); }

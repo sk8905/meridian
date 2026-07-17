@@ -158,19 +158,19 @@ function initSavedPanel() {
   wrap.innerHTML = `
     <button type="button" class="g-sv-btn" id="g-sv-btn" aria-haspopup="true" aria-expanded="false" aria-label="Saved${n ? ` — ${n}` : ""}">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
-      ${n ? `<span class="g-sv-badge">${n > 9 ? "9+" : n}</span>` : ""}
     </button>
     <div class="g-sv-panel" id="g-sv-panel" role="menu" hidden>
-      <div class="g-sv-head">Saved${n ? ` · ${n}` : ""}</div>
+      <div class="g-sv-head"><span>Saved${n ? ` · ${n}` : ""}</span><button type="button" class="g-menu-close" aria-label="Close" data-menu-close>✕</button></div>
       <div class="g-sv-body">${n ? list.map(row).join("") : '<div class="g-sv-empty">Nothing saved yet. Tap the ☆ on any item across Macro, Credit or Legal to keep it here.</div>'}</div>
     </div>`;
   const btn = document.getElementById("g-sv-btn"), panel = document.getElementById("g-sv-panel");
-  const close = () => { panel.setAttribute("hidden", ""); btn.setAttribute("aria-expanded", "false"); hideScrim(); };
+  const close = () => { panel.setAttribute("hidden", ""); btn.setAttribute("aria-expanded", "false"); document.body.classList.remove("g-menu-open"); hideScrim(); };
   btn.addEventListener("click", (e) => {
     e.stopPropagation();
-    if (panel.hasAttribute("hidden")) { panel.removeAttribute("hidden"); btn.setAttribute("aria-expanded", "true"); showScrim(close); }
+    if (panel.hasAttribute("hidden")) { panel.removeAttribute("hidden"); btn.setAttribute("aria-expanded", "true"); document.body.classList.add("g-menu-open"); showScrim(close); }
     else close();
   });
+  panel.addEventListener("click", (e) => { if (e.target.closest("[data-menu-close]")) close(); });
   document.addEventListener("click", (e) => { if (!panel.hasAttribute("hidden") && !e.target.closest("#g-saved")) close(); });
 }
 
@@ -302,7 +302,18 @@ function hideScrim() {
 // tap away without pushing the news feed down. The SAME .g-side node moves between
 // the layout grid (desktop) and the panel (phone) — one fetch/render feeds both,
 // no duplicated markup. Desktop leaves it in the grid and hides the button (CSS).
+// The mobile overlays (markets / saved / notifications) sit full-screen BELOW the
+// sticky top nav bar. Publish the bar's exact bottom (incl. the notch/safe-area)
+// as --gtop-b so the panels' CSS `top` tracks it precisely.
+function setTopbarVar() {
+  const t = document.querySelector(".g-top");
+  const h = t ? Math.round(t.getBoundingClientRect().bottom) : 54;
+  document.documentElement.style.setProperty("--gtop-b", h + "px");
+}
 function initMarketsPanel() {
+  setTopbarVar();
+  addEventListener("resize", setTopbarVar);
+  addEventListener("orientationchange", () => setTimeout(setTopbarVar, 200));
   const btn = document.getElementById("g-mkt-btn");
   const panel = document.getElementById("g-mkt-panel");
   const side = document.querySelector(".g-side");
@@ -1393,6 +1404,7 @@ function closeNotifPanel() {
   const p = document.getElementById("g-notif-panel"), b = document.getElementById("g-bell");
   if (p) p.setAttribute("hidden", "");
   if (b) b.setAttribute("aria-expanded", "false");
+  document.body.classList.remove("g-menu-open");
   hideScrim();
 }
 function markAllSeen() {
@@ -1418,15 +1430,16 @@ function renderBell() {
       <span aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="#fff" aria-hidden="true"><path d="M12 2a6 6 0 0 0-6 6c0 3.5-.87 5.3-1.65 6.32-.37.48-.55.72-.55 1.08 0 .55.45.9 1.2.9h14c.75 0 1.2-.35 1.2-.9 0-.36-.18-.6-.55-1.08C18.87 13.3 18 11.5 18 8a6 6 0 0 0-6-6zm0 20a2.5 2.5 0 0 0 2.45-2h-4.9A2.5 2.5 0 0 0 12 22z"/></svg></span>${total ? `<span class="g-badge">${total > 9 ? "9+" : total}</span>` : ""}
     </button>
     <div class="g-notif-panel" id="g-notif-panel" role="menu" hidden>
-      <div class="g-np-head">${total ? `${total} new update${total > 1 ? "s" : ""}` : "No new updates"} <span class="g-np-sub">· checked ${esc(fmtRefresh())}</span></div>
+      <div class="g-np-head"><span>${total ? `${total} new update${total > 1 ? "s" : ""}` : "No new updates"} <span class="g-np-sub">· checked ${esc(fmtRefresh())}</span></span><button type="button" class="g-menu-close" aria-label="Close" data-menu-close>✕</button></div>
       <div class="g-np-list">${show.length ? show.map(row).join("") : '<div class="g-np-empty">Nothing yet.</div>'}</div>
     </div>`;
   const bell = document.getElementById("g-bell"), panel = document.getElementById("g-notif-panel");
   bell.addEventListener("click", (e) => {
     e.stopPropagation();
-    if (panel.hasAttribute("hidden")) { panel.removeAttribute("hidden"); bell.setAttribute("aria-expanded", "true"); markAllSeen(); showScrim(closeNotifPanel); }
+    if (panel.hasAttribute("hidden")) { panel.removeAttribute("hidden"); bell.setAttribute("aria-expanded", "true"); document.body.classList.add("g-menu-open"); markAllSeen(); showScrim(closeNotifPanel); }
     else { closeNotifPanel(); }
   });
+  panel.addEventListener("click", (e) => { if (e.target.closest("[data-menu-close]")) closeNotifPanel(); });
   document.addEventListener("click", (e) => {
     const panel = document.getElementById("g-notif-panel");
     const isOpen = panel && !panel.hasAttribute("hidden");
