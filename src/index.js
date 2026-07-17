@@ -1121,6 +1121,11 @@ const FEED_SOURCES = [
   { url: "https://news.google.com/rss/search?q=site%3Areuters.com%20%28Fed%20OR%20inflation%20OR%20%22interest%20rate%22%20OR%20GDP%20OR%20economy%20OR%20Treasury%20OR%20%22stock%20market%22%29%20when%3A2d&hl=en-US&gl=US&ceid=US%3Aen", source: "Reuters", region: "US", cap: 6, gnews: true },
   { url: "https://news.google.com/rss/search?q=site%3Areuters.com%20%28%22Bank%20of%20England%22%20OR%20gilt%20OR%20inflation%20OR%20UK%20economy%20OR%20sterling%29%20when%3A2d&hl=en-GB&gl=GB&ceid=GB%3Aen", source: "Reuters", region: "UK", cap: 5, gnews: true },
   { url: "https://news.google.com/rss/search?q=site%3Abloomberg.com%20%28Fed%20OR%20inflation%20OR%20%22interest%20rate%22%20OR%20economy%20OR%20%22Bank%20of%20England%22%20OR%20bonds%29%20when%3A2d&hl=en-US&gl=US&ceid=US%3Aen", source: "Bloomberg", region: "GEN", cap: 6, gnews: true },
+  // FT Alphaville & The Economist via Google News — reliably fetchable even when the
+  // publishers' own RSS is paywalled/IP-blocked from the Worker. Query already scopes
+  // to macro/finance, so no extra title filter.
+  { url: "https://news.google.com/rss/search?q=site%3Aft.com%2Falphaville%20when%3A7d&hl=en-GB&gl=GB&ceid=GB%3Aen", source: "FT Alphaville", region: "GEN", cap: 5, gnews: true, filter: false },
+  { url: "https://news.google.com/rss/search?q=site%3Aeconomist.com%20%28Fed%20OR%20inflation%20OR%20economy%20OR%20%22interest%20rate%22%20OR%20GDP%20OR%20markets%20OR%20bonds%20OR%20%22central%20bank%22%29%20when%3A5d&hl=en-US&gl=US&ceid=US%3Aen", source: "The Economist", region: "GEN", cap: 6, gnews: true, filter: false },
   // Financial specialists — US
   { url: "https://feeds.a.dj.com/rss/RSSMarketsMain.xml", source: "The Wall Street Journal", region: "US", cap: 10 },
   { url: "https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml", source: "The Wall Street Journal", region: "US", cap: 7 },

@@ -23,6 +23,29 @@ const MAC_NON_PREMIUM = new Set([
   "HomeOwners Alliance", "U.S. News", "CityAM", "Enterprise AM", "exchangerates.org.uk",
   "TradingView", "GV Wire", "CryptoTimes", "Financial Mirror", "FX Leaders", "Currency News UK",
 ]);
+// Live macro news wire (shared Worker /api/feed) folded into the dashboard News
+// tab alongside the curated ARTICLES/NEWS. Seeded from a localStorage cache so it
+// shows instantly, then refreshed in the background.
+let _macFeed = [];
+try { _macFeed = (JSON.parse(localStorage.getItem("wire.macro.feed") || "[]") || []).slice(0, 60); } catch { /* ignore */ }
+let _macFeedLoaded = false;
+async function loadMacroFeed() {
+  if (_macFeedLoaded) return;
+  _macFeedLoaded = true;
+  try {
+    const r = await fetch("/api/feed", { headers: { accept: "application/json" } });
+    if (!r.ok) return;
+    const d = await r.json();
+    const items = (d && Array.isArray(d.items)) ? d.items : [];
+    if (!items.length) return;
+    const changed = items.length !== _macFeed.length || (items[0] && (!_macFeed[0] || items[0].title !== _macFeed[0].title));
+    _macFeed = items;
+    try { localStorage.setItem("wire.macro.feed", JSON.stringify(items.slice(0, 60))); } catch { /* ignore */ }
+    // If the reader is on the dashboard and the data actually changed, re-render so
+    // the new live headlines appear in the News wire.
+    if (changed && document.getElementById("mac-wire")) render();
+  } catch { /* offline */ }
+}
 const MONTHS = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const MONTHS_FULL = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 function macroMonth(ym) { const p = String(ym || "").split("-"); return p.length === 2 ? `${MONTHS[+p[1]] || ""} ${p[0]}` : ""; }
@@ -372,7 +395,7 @@ function viewDashboard() {
   // desks' news feeds rather than the short NEWS-only list. Low-tier aggregator/SEO
   // sources are filtered out to keep the feed on premium newsrooms (matches Home).
   const seenNews = new Set();
-  const news = [...((ARTICLES && ARTICLES.items) || []), ...((NEWS && NEWS.us) || []), ...((NEWS && NEWS.uk) || [])]
+  const news = [...(_macFeed || []), ...((ARTICLES && ARTICLES.items) || []), ...((NEWS && NEWS.us) || []), ...((NEWS && NEWS.uk) || [])]
     .filter((x) => !MAC_NON_PREMIUM.has(x.source))
     .filter((x) => { const k = String(x.title || "").toLowerCase().replace(/[^a-z0-9]+/g, ""); if (!k || seenNews.has(k)) return false; seenNews.add(k); return true; })
     .map((x) => ({ ...x, _kind: "news" }));
@@ -1410,7 +1433,7 @@ function render() {
   const body = tab === "commentary" ? viewCommentary() : tab === "policy" ? viewPolicy() : tab === "cycle" ? viewCycle() : tab === "bubble" ? viewBubble() : tab === "chart" ? viewChart() : tab === "saved" ? viewSaved() : viewDashboard();
   app.innerHTML = body;
   syncNav(tab);
-  if (tab === "dashboard") { macroWireDash(); loadMacro(dashFocus); }
+  if (tab === "dashboard") { macroWireDash(); loadMacro(dashFocus); loadMacroFeed(); }
   if (tab === "commentary") wireCommentary();
   if (tab === "chart") { syncChartAll(); fetchMacro().then(() => { if (currentTab() === "chart") drawChart(); }); }
   window.scrollTo(0, 0);
