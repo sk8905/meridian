@@ -4,6 +4,9 @@ A step for the scheduled 4×/day refresh routines: pull the reader's forwarded
 email newsletters from Gmail and fold them into the Home news feed as `LETTER`
 items. Self-contained — an agent run can follow this end-to-end.
 
+Also includes the **myFT pull** (§6): the reader's personalised Financial Times
+followed-topics RSS feed, folded into the Home feed as `FT` items.
+
 **Prerequisite:** the run must have the **Gmail connector** enabled and pointed at
 `skaidrive2@gmail.com` (the mailbox the newsletters forward into). If the Gmail
 tools aren't available in the run, skip this step and leave `newsletters.js`
@@ -92,3 +95,38 @@ Notes:
   so the next run can retry it.
 - These are disposable forwarded copies in the ingestion inbox; the originals
   remain in the source mailbox (stevedkennedy), so trashing here is safe.
+
+## 6. myFT pull (Financial Times followed topics)
+
+Independent of Gmail — do this every run, even when the Gmail step is skipped.
+
+**Prerequisite:** the run's environment network policy must allow `www.ft.com`.
+If the fetch fails (403 / blocked / timeout), skip this step and leave `ft.js`
+unchanged — never blank it out on a failed fetch.
+
+1. Fetch the reader's myFT RSS feed:
+
+   ```
+   curl -sSL "https://www.ft.com/myft/following/601965b2-62d0-47e1-88cf-576ebc8a8a2e.rss"
+   ```
+
+2. Parse each RSS `<item>`:
+   - `title` — the headline, exactly as published (decode XML entities).
+   - `url` — the `<link>`, with tracking query params stripped
+     (keep only the canonical `https://www.ft.com/content/<uuid>` form when
+     that's what the link resolves to).
+   - `id` — the `<guid>` if present, else the cleaned URL.
+   - `date` / `time` — from `<pubDate>`, converted to **Europe/London**, as
+     `YYYY-MM-DD` + `HH:MM` (24h).
+
+3. Update `/ft.js`: regenerate the `FT_ITEMS` array — dedupe by `id` against the
+   existing entries, newest first, keep the most recent **~40**. Headline, date,
+   time and URL only — never article body text (paywalled content).
+
+4. Bump the import token in `glance.js` (`/ft.js?v=YYYYMMDD-N`) so the change
+   ships. `glance.js` already renders `FT_ITEMS` into the Home "All" feed under
+   the `FT` label (`_deskClass.f` / `DESK.f`); no other file needs editing.
+
+5. Commit `ft.js` + `glance.js` in the same refresh commit as the rest of the
+   run (or its own `myFT refresh: <N> new` commit if nothing else changed). If
+   nothing new, make no commit.

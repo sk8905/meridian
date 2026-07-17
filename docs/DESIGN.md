@@ -40,11 +40,12 @@ Always reference a token; never hardcode a hex that a token already names.
 | Credit | `CRD` | `#fb8b1e` (orange) | `--t-crd` (== accent) |
 | Legal | `LEX` | `#2fbf8a` (green) | `--t-lex` |
 | Newsletter | `LETTER` | `#d9a441` (amber) | `--t-amber` |
+| myFT | `FT` | `#e0708e` (rose; light theme `#990f3d` FT claret) | `--t-ft` |
 
 **Semantic:** up `#3fc08d` · down `#f26d84` · flat `--faint` · unread-badge `#ef4444`.
 
 Rule: the desk chip on ANY row (feed, saved, notifications) uses the desk colour
-above and the short code (MAC/CRD/LEX/LETTER). No other desk-colour set is valid
+above and the short code (MAC/CRD/LEX/LETTER/FT). No other desk-colour set is valid
 (e.g. the old `.na-tag` blue/teal set is deprecated — RECONCILE).
 
 ---

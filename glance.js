@@ -13,6 +13,7 @@ import { deals, intel, managers, funds, research, LAST_CHECKED, LAST_CHECKED_TIM
 import { items, cases, restructurings, firmById } from "/legal/js/data.js?v=20260714-2";
 import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js?v=20260717-4";
 import { NEWSLETTERS } from "/newsletters.js?v=20260717-1";
+import { FT_ITEMS } from "/ft.js?v=20260717-1";
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const byDateDesc = (a, b) => String(b.date || "").localeCompare(String(a.date || ""));
@@ -145,8 +146,8 @@ function resolveSaved() {
   restructurings.forEach((r) => { if (lS.has(r.id)) out.push({ desk: "l", title: r.company, href: r.judgmentUrl || r.articleUrl || "/legal/#/", ext: !!(r.judgmentUrl || r.articleUrl), date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
   return out.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 }
-const _deskClass = { m: "macro", c: "credit", l: "legal", n: "newsletter" };
-const DESK_CODE = { m: "MAC", c: "CRD", l: "LEX", n: "LETTER" };
+const _deskClass = { m: "macro", c: "credit", l: "legal", n: "newsletter", f: "ft" };
+const DESK_CODE = { m: "MAC", c: "CRD", l: "LEX", n: "LETTER", f: "FT" };
 function initSavedPanel() {
   const wrap = document.getElementById("g-saved");
   if (!wrap) return;
@@ -499,7 +500,7 @@ const creditItemExt = (x) => !x.clo && !!x.sourceUrl;
 // interleaved across desks so it reads as a single merged feed, not three blocks.
 // Falls back to the most-recent date present if nothing is dated today, so the
 // feed is never empty between refreshes.
-const DESK = { m: "Macro", c: "Credit", l: "Legal", n: "Letter" };
+const DESK = { m: "Macro", c: "Credit", l: "Legal", n: "Letter", f: "myFT" };
 // Active desk filter for the home news feed: "all" | "m" | "c" | "l".
 // One-line cross-desk briefing shown under the "Your briefing" heading.
 function renderBrief(byDesk, counts, day) {
@@ -563,8 +564,13 @@ function renderFeed() {
   const newsletter = [];
   (NEWSLETTERS || []).forEach((n) => newsletter.push(mk("n", n.url, n.title, n.author ? `${n.author} · ${n.publication}` : n.publication, true, n.date, n.time)));
 
+  // The reader's personalised myFT (followed-topics) headlines — pulled from the
+  // myFT RSS feed by the refresh routines. Open out to ft.com; "FT" desk label.
+  const ft = [];
+  (FT_ITEMS || []).forEach((n) => ft.push(mk("f", n.url, n.title, "Financial Times", true, n.date, n.time)));
+
   const day = (x) => String(x.date || "").slice(0, 10);
-  const all = [...macro, ...credit, ...legal, ...newsletter];
+  const all = [...macro, ...credit, ...legal, ...newsletter, ...ft];
   const now = new Date();
   const todayISO = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
   const target = all.some((x) => day(x) === todayISO) ? todayISO : all.reduce((m, x) => (day(x) > m ? day(x) : m), "");
@@ -578,7 +584,7 @@ function renderFeed() {
   const CAP = 500;
   // Per-desk deduped streams (newest first) — power the desk filter and the
   // "what's new" counts (items in the most recent ~2 days).
-  const byDesk = { m: dedupe([...macro].sort(byDateDesc)), c: dedupe([...credit].sort(byDateDesc)), l: dedupe([...legal].sort(byDateDesc)), n: dedupe([...newsletter].sort(byDateDesc)) };
+  const byDesk = { m: dedupe([...macro].sort(byDateDesc)), c: dedupe([...credit].sort(byDateDesc)), l: dedupe([...legal].sort(byDateDesc)), n: dedupe([...newsletter].sort(byDateDesc)), f: dedupe([...ft].sort(byDateDesc)) };
   const maxDay = all.reduce((m, x) => (day(x) > m ? day(x) : m), "");
   const cutoff = (() => { const d = new Date(maxDay + "T00:00:00"); if (isNaN(d)) return ""; d.setDate(d.getDate() - 1); return d.toISOString().slice(0, 10); })();
   const recentN = (list) => (cutoff ? list.filter((x) => day(x) >= cutoff).length : list.length);
@@ -594,10 +600,10 @@ function renderFeed() {
   if (_feedSrc) {
     // Source filter wins over the desk chips: every story from that newsroom,
     // across all three desks, newest first.
-    feed = dedupe([...macro, ...credit, ...legal].sort(byDateDesc)).filter((x) => x.src === _feedSrc).slice(0, CAP);
+    feed = dedupe([...macro, ...credit, ...legal, ...ft].sort(byDateDesc)).filter((x) => x.src === _feedSrc).slice(0, CAP);
   } else if (_feedDesk === "all") {
     const pick = (list) => dedupe(list.filter((x) => day(x) === target).sort(byDateDesc));
-    const lists = [pick(macro), pick(credit), pick(legal), pick(newsletter)];
+    const lists = [pick(macro), pick(credit), pick(legal), pick(newsletter), pick(ft)];
     const seen = new Set();
     feed = [];
     for (let i = 0; lists.some((l) => i < l.length); i++) lists.forEach((l) => {
