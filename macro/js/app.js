@@ -16,6 +16,13 @@ const esc = (s) => String(s ?? "")
 // theme toggle rather than staying pinned to their light values.
 const MACRO_COLOR = "var(--macro-line)";
 const MACRO_INK = "var(--macro-deep)";
+// Low-tier aggregator / SEO / forecast-farm sources kept out of the News wire so it
+// stays on premium newsrooms (mirrors the Home feed's NON_PREMIUM list in glance.js).
+const MAC_NON_PREMIUM = new Set([
+  "Benzinga", "TheStreet", "Yahoo Finance", "Yahoo Finance UK", "Sunday Guardian Live",
+  "HomeOwners Alliance", "U.S. News", "CityAM", "Enterprise AM", "exchangerates.org.uk",
+  "TradingView", "GV Wire", "CryptoTimes", "Financial Mirror", "FX Leaders", "Currency News UK",
+]);
 const MONTHS = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const MONTHS_FULL = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 function macroMonth(ym) { const p = String(ym || "").split("-"); return p.length === 2 ? `${MONTHS[+p[1]] || ""} ${p[0]}` : ""; }
@@ -360,8 +367,16 @@ function viewDashboard() {
     ["Cycle", cycUS], ["Bubble", bBand],
   ];
   const comm = [...((COMMENTARY && COMMENTARY.us) || []), ...((COMMENTARY && COMMENTARY.uk) || [])].map((x) => ({ ...x, _kind: "comm" }));
-  const news = [...((NEWS && NEWS.us) || []), ...((NEWS && NEWS.uk) || [])].map((x) => ({ ...x, _kind: "news" }));
-  const wire = [...comm, ...news].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  // News = the full curated macro reading list (ARTICLES) plus the dashboard
+  // headlines (NEWS US/UK), deduped by title so the wire is as deep as the other
+  // desks' news feeds rather than the short NEWS-only list. Low-tier aggregator/SEO
+  // sources are filtered out to keep the feed on premium newsrooms (matches Home).
+  const seenNews = new Set();
+  const news = [...((ARTICLES && ARTICLES.items) || []), ...((NEWS && NEWS.us) || []), ...((NEWS && NEWS.uk) || [])]
+    .filter((x) => !MAC_NON_PREMIUM.has(x.source))
+    .filter((x) => { const k = String(x.title || "").toLowerCase().replace(/[^a-z0-9]+/g, ""); if (!k || seenNews.has(k)) return false; seenNews.add(k); return true; })
+    .map((x) => ({ ...x, _kind: "news" }));
+  const wire = [...comm, ...news].sort((a, b) => `${b.date} ${b.time || ""}`.localeCompare(`${a.date} ${a.time || ""}`));
   const KIND = { comm: "COMM", news: "NEWS" };
   const wireRow = (x) => {
     const url = x.url || "", src = x.source || "";
