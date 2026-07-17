@@ -1116,9 +1116,12 @@ function renderMovers() {
   // increase at the top down to the biggest decrease at the bottom.
   const top = list.sort((a, b) => rel(b) - rel(a)).slice(0, 18).sort((a, b) => signed(b) - signed(a));
   el.innerHTML = top.map((x) => {
-    const w = Math.max(8, Math.round(rel(x) * 100));
+    // Diverging bar: 0 is the centre; gains grow right (green), losses left (red).
+    // Half the track = the biggest move in that unit, so each half fills to 50%.
+    const half = Math.max(3, Math.round(rel(x) * 50));
     const col = x.dir === "up" ? "var(--t-up)" : x.dir === "down" ? "var(--t-down)" : "var(--t-faint)";
-    return `<div class="g-mv"><span class="nm">${esc(x.nm)}</span><span class="bar"><i style="width:${w}%;background:${col}"></i></span><span class="val ${x.dir}">${esc(x.val)}</span></div>`;
+    const pos = x.dir === "down" ? `right:50%;left:auto` : `left:50%;right:auto`;
+    return `<div class="g-mv"><span class="nm">${esc(x.nm)}</span><span class="bar"><i style="${pos};width:${half}%;background:${col}"></i></span><span class="val ${x.dir}">${esc(x.val)}</span></div>`;
   }).join("");
 }
 // Latest credit deals — the most recent priced/announced deals, deep-linking into
