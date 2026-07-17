@@ -860,13 +860,15 @@
     .tui .g-brief-link{ color:var(--t-dim); font-weight:400; }
     .tui .g-brief-link:hover{ color:var(--t-ink); }
     /* narrative one-liners: packed inline right after the brief, small gap, not distributed */
-    .tui .g-glance{ display:flex; flex-direction:row; flex-wrap:nowrap; gap:12px; flex:0 1 auto; min-width:0; border-top:0; border-left:0; padding-left:0; }
-    .tui .g-gl-block{ padding:0; border-right:0; min-width:0; flex:0 1 auto; display:flex; gap:6px; align-items:baseline; }
+    .tui .g-glance{ display:flex; flex-direction:row; flex-wrap:nowrap; gap:12px; flex:1 1 auto; min-width:0; overflow:hidden; border-top:0; border-left:0; padding-left:0; }
+    .tui .g-gl-block{ padding:0; border-right:0; min-width:0; flex:1 1 0; display:flex; gap:6px; align-items:baseline; overflow:hidden; }
     .tui .g-gl-block:last-child{ border-right:0; }
-    .tui .g-gl{ font-size:11.5px; line-height:1.4; color:var(--t-dim); display:flex; gap:7px; align-items:baseline; margin:0; min-width:0; }
+    .tui .g-gl{ font-size:11.5px; line-height:1.4; color:var(--t-dim); display:flex; gap:7px; align-items:baseline; margin:0; min-width:0; overflow:hidden; }
     .tui .g-gl-l{ font-size:9.5px; font-weight:600; letter-spacing:.02em; text-transform:uppercase;
       color:var(--t-accent); white-space:nowrap; opacity:.85; flex:0 0 auto; }
-    .tui .g-gl-v{ min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+    /* display:block so overflow/ellipsis actually clip — an inline span ignores
+       them, which let the one-liners overflow and overlap at narrower widths. */
+    .tui .g-gl-v{ display:block; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .tui .gl-tickers,.tui .gl-tk-toggle{ display:none; }
     @media (max-width:760px){
       /* iPhone: four evenly-distributed rows — greeting · top story · markets ·
