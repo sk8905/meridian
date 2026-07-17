@@ -105,6 +105,7 @@ export function initGlance() {
   initNotifBell();
   initSavedPanel();
   renderDeals();
+  renderFundraising();
   renderRx();
   initFeedEntityNav();
   initMarketsPanel();
@@ -451,7 +452,6 @@ function renderBrief(byDesk, counts, day) {
   el.innerHTML = lead
     ? `<span class="g-brief-lead"><span class="g-brief-lbl">Top story</span> <a class="g-brief-link g-desk-${lead.desk}" href="${esc(lead.href)}"${lead.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>${esc(lead.title)}</a></span>`
     : "";
-  renderNewDesk(counts);
 }
 
 let _feedDesk = "all";
@@ -1084,24 +1084,12 @@ function renderMovers() {
     return `<div class="g-mv"><span class="nm">${esc(x.nm)}</span><span class="bar"><i style="width:${w}%;background:${col}"></i></span><span class="val ${x.dir}">${esc(x.val)}</span></div>`;
   }).join("");
 }
-function renderNewDesk(counts) {
-  const el = document.getElementById("g-newdesk");
-  if (!el) return;
-  const rows = [["m", "Macro"], ["c", "Credit"], ["l", "Legal"]];
-  const max = Math.max(counts.m, counts.c, counts.l, 1);
-  const col = { m: "var(--t-mac)", c: "var(--t-crd)", l: "var(--t-lex)" };
-  el.innerHTML = rows.map(([k, label]) => {
-    const n = counts[k] || 0;
-    const w = Math.max(4, Math.round((n / max) * 100));
-    return `<div class="g-mv"><span class="nm">${esc(label)}</span><span class="bar"><i style="width:${w}%;background:${col[k]}"></i></span><span class="val">${n}</span></div>`;
-  }).join("");
-}
 // Latest credit deals — the most recent priced/announced deals, deep-linking into
 // the Credit desk. Fills the right rail with cross-desk data on the home hub.
 function renderDeals() {
   const el = document.getElementById("g-deals");
   if (!el) return;
-  const list = [...deals].sort(byDateDesc).slice(0, 6);
+  const list = [...deals].sort(byDateDesc).slice(0, 8);
   if (!list.length) { el.innerHTML = '<div class="g-empty">No deals yet.</div>'; return; }
   el.innerHTML = list.map((d) => {
     const meta = [creditSource(d), d.date ? fmt(String(d.date).slice(0, 10)) : ""].filter(Boolean).join(" · ");
@@ -1109,11 +1097,25 @@ function renderDeals() {
       + `<span class="tui-li-m"><span class="tui-li-tag">DEAL</span>${esc(meta)}</span></a>`;
   }).join("");
 }
+// Fundraising & CLOs — the newest closes/launches from the credit intel feed,
+// deep-linking into the Credit desk alongside the deal flow.
+function renderFundraising() {
+  const el = document.getElementById("g-fund");
+  if (!el) return;
+  const list = [...intel].filter((i) => i.date).sort(byDateDesc).slice(0, 8);
+  if (!list.length) { el.innerHTML = '<div class="g-empty">Nothing raised yet.</div>'; return; }
+  el.innerHTML = list.map((i) => {
+    const kind = i.clo ? "CLO" : "RAISE";
+    const meta = [creditSource(i), i.date ? fmt(String(i.date).slice(0, 10)) : ""].filter(Boolean).join(" · ");
+    return `<a class="tui-li" href="${esc(creditItemHref(i, "intel"))}"><span class="tui-li-t">${esc(i.headline)}</span>`
+      + `<span class="tui-li-m"><span class="tui-li-tag">${kind}</span>${esc(meta)}</span></a>`;
+  }).join("");
+}
 // Active restructurings & schemes — the most recent from the Legal desk.
 function renderRx() {
   const el = document.getElementById("g-rx");
   if (!el) return;
-  const list = [...restructurings].filter((r) => r.date).sort(byDateDesc).slice(0, 6);
+  const list = [...restructurings].filter((r) => r.date).sort(byDateDesc).slice(0, 8);
   if (!list.length) { el.innerHTML = '<div class="g-empty">Nothing active.</div>'; return; }
   el.innerHTML = list.map((r) => {
     const kind = r.type === "scheme" ? "SCHEME" : "RP";

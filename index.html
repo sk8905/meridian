@@ -814,6 +814,11 @@
       .tui .g-hello{ flex:0 0 auto; }
       .tui .g-layout{ flex:1 1 auto; min-height:0; align-items:stretch; }
       .tui .g-side,.tui .g-side2{ height:100%; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+      /* Right rail: pin the macro data (indicators + macro read) and let ONLY the
+         deal-flow well scroll, so the numbers stay put while you page the deals. */
+      .tui .g-side2{ display:flex; flex-direction:column; overflow:hidden; }
+      .tui .g-side2 > .tui-pnl{ flex:0 0 auto; }
+      .tui .g-flow-scroll{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
       .tui .g-feed-wrap{ height:100%; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
       .tui .g-feed-head{ flex:0 0 auto; }
       .tui .g-feed{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; }
@@ -1126,15 +1131,15 @@
       <div class="g-layout">
         <!-- LEFT RAIL: markets / rates data + top movers -->
         <aside class="g-side">
+          <section class="tui-pnl">
+            <header class="tui-ph"><span>Top movers</span><span class="tui-px">1D</span></header>
+            <div id="g-movers" aria-label="Top market movers"><div class="g-loading">Loading movers…</div></div>
+          </section>
           <section class="tui-pnl g-anchor" id="jump-markets">
             <header class="tui-ph"><span>Markets</span><span class="tui-px">live</span></header>
             <div id="g-markets" class="rates-band markets-band" aria-label="Equity indices and ETFs">
               <div class="g-loading">Loading markets…</div>
             </div>
-          </section>
-          <section class="tui-pnl">
-            <header class="tui-ph"><span>Top movers</span><span class="tui-px">1D</span></header>
-            <div id="g-movers" aria-label="Top market movers"><div class="g-loading">Loading movers…</div></div>
           </section>
           <section class="tui-pnl g-anchor" id="jump-rates">
             <header class="tui-ph"><span>Key rates &amp; spreads</span><span class="tui-px">bp · %</span></header>
@@ -1170,18 +1175,22 @@
               <div class="g-loading">Loading macro read…</div>
             </div>
           </section>
-          <section class="tui-pnl">
-            <header class="tui-ph"><span>New across desks</span><span class="tui-px">today</span></header>
-            <div id="g-newdesk" aria-label="New items per desk"></div>
-          </section>
-          <section class="tui-pnl">
-            <header class="tui-ph"><span>Latest deals</span><span class="tui-px">credit</span></header>
-            <div id="g-deals" aria-label="Latest credit deals"><div class="g-loading">Loading deals…</div></div>
-          </section>
-          <section class="tui-pnl">
-            <header class="tui-ph"><span>Restructurings &amp; schemes</span><span class="tui-px">legal</span></header>
-            <div id="g-rx" aria-label="Active restructurings and schemes"><div class="g-loading">Loading…</div></div>
-          </section>
+          <!-- Deal flow — credit deals, fundraising and legal restructurings share
+               one scrolling well so the rail's macro data stays put above it. -->
+          <div class="g-flow-scroll">
+            <section class="tui-pnl">
+              <header class="tui-ph"><span>Latest deals</span><span class="tui-px">credit</span></header>
+              <div id="g-deals" aria-label="Latest credit deals"><div class="g-loading">Loading deals…</div></div>
+            </section>
+            <section class="tui-pnl">
+              <header class="tui-ph"><span>Fundraising</span><span class="tui-px">credit</span></header>
+              <div id="g-fund" aria-label="Latest fundraising and CLOs"><div class="g-loading">Loading fundraising…</div></div>
+            </section>
+            <section class="tui-pnl">
+              <header class="tui-ph"><span>Restructurings &amp; schemes</span><span class="tui-px">legal</span></header>
+              <div id="g-rx" aria-label="Active restructurings and schemes"><div class="g-loading">Loading…</div></div>
+            </section>
+          </div>
         </aside>
       </div>
     </main>
@@ -1233,7 +1242,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260717-7").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260717-8").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of
