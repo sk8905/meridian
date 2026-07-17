@@ -354,6 +354,10 @@ a.intel-head:hover { text-decoration: underline; }
 .ck-sub strong { color: var(--ink); font-weight: 600; }
 .ck-src { color: var(--macro); font-weight: 600; }
 .ck-sub2 { margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--border); }
+.ck-srcs { font-size: 10px; color: var(--muted); margin: 3px 0 0; }
+.ck-srcs a { color: var(--macro); }
+.ck-srcs a:hover { text-decoration: underline; }
+.ck-src-sep { opacity: .5; }
 .ck-note { font-size: 11px; line-height: 1.5; color: var(--muted); margin: 0; }
 .ck-note strong { color: var(--ink); font-weight: 600; }
 .ck-reads { padding: 9px 12px 12px; display: flex; flex-direction: column; gap: 5px; border-top: 1px solid var(--border); }

@@ -382,9 +382,13 @@ function yieldCurveSvg(c) {
 // /api/yield-curve values (falling back to the compiled figure per maturity).
 let _yc = YIELD_CURVE;
 function ycBody() {
+  const src = _yc.sources || [];
+  const link = (i, label) => (src[i] ? `<a href="${esc(src[i][1])}" target="_blank" rel="noopener noreferrer">${label} ↗</a>` : "");
+  const srcs = [link(0, "US Treasury"), link(1, "UK gilt")].filter(Boolean).join(' <span class="ck-src-sep">·</span> ');
   return `<div class="yc-legend"><span class="yc-key yc-key-us">US Treasury</span><span class="yc-key yc-key-uk">UK gilt</span></div>`
     + yieldCurveSvg(_yc)
-    + `<p class="ck-note">${_yc.note}</p>`;
+    + `<p class="ck-note">${_yc.note}</p>`
+    + (srcs ? `<p class="ck-srcs">Source · ${srcs}</p>` : "");
 }
 // Pull the live US Treasury + UK gilt curves and merge over the compiled fallback
 // (per maturity), then repaint the panel in place. Never throws — on any failure

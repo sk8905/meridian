@@ -1121,7 +1121,7 @@ function renderMovers() {
     if (eff == null) return;
     const nm = short ? (TK_SHORT[label] || label) : label;
     if (seenNm.has(nm)) return; seenNm.add(nm);
-    list.push({ nm, mag: Math.abs(eff), dir: glSign(eff), val: `${eff > 0 ? "+" : ""}${eff.toFixed(2)}%`, unit: "pct" });
+    list.push({ nm, mag: Math.abs(eff), dir: glSign(eff), val: `${eff > 0 ? "+" : ""}${eff.toFixed(2)}%`, unit: "pct", href: x.href || null });
   };
   // The board is a cross-asset ETF universe — equity indices & sectors, bonds,
   // commodities and crypto, each an ETF so every row is one comparable % move.
@@ -1155,7 +1155,9 @@ function renderMovers() {
     const half = Math.max(3, Math.round(rel(x) * 50));
     const col = x.dir === "up" ? "var(--t-up)" : x.dir === "down" ? "var(--t-down)" : "var(--t-faint)";
     const pos = x.dir === "down" ? `right:50%;left:auto` : `left:50%;right:auto`;
-    return `<div class="g-mv"><span class="nm">${esc(x.nm)}</span><span class="bar"><i style="${pos};width:${half}%;background:${col}"></i></span><span class="val ${x.dir}">${esc(x.val)}</span></div>`;
+    const tag = x.href ? "a" : "div";
+    const attrs = x.href ? ` href="${esc(x.href)}" target="_blank" rel="noopener noreferrer" title="${esc(x.nm)} — open source"` : "";
+    return `<${tag} class="g-mv"${attrs}><span class="nm">${esc(x.nm)}</span><span class="bar"><i style="${pos};width:${half}%;background:${col}"></i></span><span class="val ${x.dir}">${esc(x.val)}</span></${tag}>`;
   }).join("");
 }
 // Latest credit deals — the most recent priced/announced deals, deep-linking into
