@@ -4,7 +4,7 @@
 // Fetches the shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P
 // Global / BoE). Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES } from "./content.js?v=20260717-5";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES } from "./content.js?v=20260717-6";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -353,28 +353,115 @@ function sourceList(sources) {
 // the two regime gauges (long-term debt cycle, equity bubble risk). Everything is
 // static/derived data already compiled in content.js; the FedWatch card links out
 // to the live CME tool for current pricing.
+// A compact SVG of the US Treasury and UK gilt yield curves (yield vs maturity).
+// US solid accent, UK dashed blue — two hues + a line-style so the two series are
+// distinguishable without relying on colour alone. No dependency.
+function yieldCurveSvg(c) {
+  if (!c || !c.us) return "";
+  const W = 620, H = 178, L = 36, R = 16, T = 14, B = 32;
+  const mats = c.maturities, n = mats.length;
+  const vals = [...c.us, ...c.uk].filter((v) => v != null);
+  const lo = Math.min(...vals) - 0.3, hi = Math.max(...vals) + 0.3;
+  const plotW = W - L - R, plotH = H - T - B;
+  const X = (i) => L + (n <= 1 ? 0 : (i / (n - 1)) * plotW);
+  const Y = (v) => T + plotH - ((v - lo) / (hi - lo)) * plotH;
+  const seg = (arr, cls) => {
+    const path = arr.map((v, i) => `${i ? "L" : "M"} ${X(i).toFixed(1)} ${Y(v).toFixed(1)}`).join(" ");
+    const dots = arr.map((v, i) => `<circle cx="${X(i).toFixed(1)}" cy="${Y(v).toFixed(1)}" r="2.6" class="${cls}"><title>${esc(mats[i])} · ${v.toFixed(2)}%</title></circle>`).join("");
+    return `<path d="${path}" class="yc-line ${cls}"/>${dots}`;
+  };
+  const ticks = [];
+  for (let y = Math.ceil(lo * 2) / 2; y <= hi; y += 0.5) ticks.push(y);
+  const grid = ticks.map((y) => `<line x1="${L}" y1="${Y(y).toFixed(1)}" x2="${W - R}" y2="${Y(y).toFixed(1)}" class="yc-grid"/><text x="${L - 5}" y="${(Y(y) + 3).toFixed(1)}" class="yc-axis" text-anchor="end">${(y % 1 ? y.toFixed(1) : y.toFixed(0))}%</text>`).join("");
+  const xlab = mats.map((m, i) => `<text x="${X(i).toFixed(1)}" y="${H - 9}" class="yc-axis" text-anchor="middle">${esc(m)}</text>`).join("");
+  return `<svg viewBox="0 0 ${W} ${H}" class="yc" role="img" aria-label="US Treasury and UK gilt yield curves">${grid}${seg(c.us, "yc-us")}${seg(c.uk, "yc-uk")}${xlab}</svg>`;
+}
+
+// The economic-indicators block for the cockpit — US and UK side by side, each a
+// 3-across grid of value + change tiles (reuses the .mac-ind rail styling).
+function cockpitInds(series) {
+  const tile = (s) => {
+    const pct = s.unit === "%";
+    const val = s.value == null ? "—" : `${(+s.value).toFixed(2)}${pct ? "%" : ""}`;
+    const ch = s.change, dir = ch > 0 ? "up" : ch < 0 ? "down" : "flat", arrow = ch > 0 ? "▲" : ch < 0 ? "▼" : "·";
+    const chg = (ch == null || s.value == null) ? "" : `<span class="mac-ind-c-chg ${dir}">${arrow} ${Math.abs(ch).toFixed(2)}${pct ? "pp" : ""}</span>`;
+    return `<div class="mac-ind"><span class="mac-ind-n">${esc(s.label)}</span><span class="mac-ind-v">${val}</span>${chg}</div>`;
+  };
+  const rowsFor = (c) => MAC_IND_ORDER.map((k) => (series || []).find((s) => s.country === c && s.key === k)).filter(Boolean);
+  const col = (label, c) => { const r = rowsFor(c); return r.length ? `<div class="ck-ind-col"><div class="mac-ind-cty">${label}</div><div class="mac-ind-grid">${r.map(tile).join("")}</div></div>` : ""; };
+  const html = col("United States", "US") + col("United Kingdom", "UK");
+  return html || '<div class="tw-empty muted small" style="padding:11px">Indicators unavailable right now.</div>';
+}
+
+// The dense Macro cockpit shown behind the "Dashboard" chip: every read on one
+// screen — economic indicators, the yield curve, the market-implied Fed path
+// (FedWatch + dot plot), the rate outlook, and the two regime gauges (cycle &
+// bubble) — each panel carrying a concise narrative and a link to its full tab.
 function macroDashPane() {
-  const comp = bubbleComposite();
-  const band = bubbleBand(comp);
-  return `
-    ${policyMarkets(OUTLOOK.us) || '<p class="muted small">Market-implied policy data unavailable right now.</p>'}
-    <h2 class="macro-subhead">Regime — cycle &amp; bubble risk</h2>
-    <div class="macro-cols">
-      <section class="card macro-note macro-gauge-card">
-        <div class="macro-gauge-head">
-          <div class="macro-gauge-head-main"><h2 class="macro-country">Long-term debt-cycle position</h2></div>
-          ${trackGauge(CYCLE_ZONES, [{ label: "US", pos: CYCLE.us.pos }, { label: "UK", pos: CYCLE.uk.pos }], "Long-term debt cycle position, 0 early to 100 crisis")}
-        </div>
-        <p class="muted small macro-gauge-note"><a href="#/cycle">Full cycle read →</a></p>
-      </section>
-      <section class="card macro-note macro-gauge-card">
-        <div class="macro-gauge-head">
-          <div class="macro-gauge-head-main"><h2 class="macro-country">Composite bubble-risk score</h2></div>
-          ${trackGauge(BUBBLE_ZONES, [{ label: band, pos: comp }], "US equity bubble-risk score, 0 low to 100 extreme")}
-        </div>
-        <p class="muted small macro-gauge-note"><a href="#/bubble">Full bubble read →</a></p>
-      </section>
-    </div>`;
+  const comp = bubbleComposite(), band = bubbleBand(comp);
+  const fw = OUTLOOK.us.fedwatch, dp = OUTLOOK.us.dots;
+  const clamp = (n) => Math.max(0, Math.min(100, Number(n) || 0));
+  const fwBars = fw ? fw.outcomes.map((x) => `<div class="pw-row"><span class="pw-lbl">${esc(x.label)}</span><span class="pw-pct">${esc(String(x.pct))}%</span><span class="pw-track"><span class="pw-fill" style="width:${clamp(x.pct)}%"></span></span></div>`).join("") : "";
+  const dpRows = dp ? dp.median.map((x) => `<tr><th scope="row">${esc(x.year)}</th><td>${esc(x.rate)}</td></tr>`).join("") : "";
+  const dimCard = (d) => `<div class="ck-dim"><div class="ck-dim-h"><span class="ck-dim-n">${esc(d.label)}</span><span class="ck-dim-s">${d.score}<span class="ck-dim-max">/100</span></span></div><p class="ck-dim-note muted small">${esc(d.note)}</p></div>`;
+
+  return `<div class="mac-cockpit">
+    <section class="ck-panel ck-span2">
+      <header class="ck-h"><span>Key economic indicators</span><span class="ck-x">US · UK</span><a class="ck-more" href="#/chart">Chart ↗</a></header>
+      <div class="ck-inds" id="mac-ck-inds">${cockpitInds((MACRO_DATA && MACRO_DATA.series) || [])}</div>
+      <div class="ck-reads">
+        <p class="ck-note"><strong>US.</strong> ${SUMMARY.outlook.us}</p>
+        <p class="ck-note"><strong>UK.</strong> ${SUMMARY.outlook.uk}</p>
+      </div>
+    </section>
+
+    <section class="ck-panel">
+      <header class="ck-h"><span>Yield curve</span><span class="ck-x">gov · as of ${esc(YIELD_CURVE.asOf)}</span></header>
+      <div class="ck-body">
+        <div class="yc-legend"><span class="yc-key yc-key-us">US Treasury</span><span class="yc-key yc-key-uk">UK gilt</span></div>
+        ${yieldCurveSvg(YIELD_CURVE)}
+        <p class="ck-note">${YIELD_CURVE.note}</p>
+      </div>
+    </section>
+
+    <section class="ck-panel">
+      <header class="ck-h"><span>Market-implied Fed path</span><a class="ck-more" href="#/policy">Policy →</a></header>
+      <div class="ck-body">
+        <p class="ck-sub"><strong>CME FedWatch</strong> · ${esc(fw ? fw.meeting : "")} FOMC · as of ${esc(fw ? fw.asOf : "")} · <a class="ck-src" href="${esc(fw ? fw.href : "#")}" target="_blank" rel="noopener noreferrer">CME ↗</a></p>
+        <div class="pw-bars">${fwBars}</div>
+        <p class="ck-note">${esc(fw ? fw.note : "")}</p>
+        <p class="ck-sub ck-sub2"><strong>Fed dot plot</strong> · ${esc(dp ? dp.meeting : "")} median · <a class="ck-src" href="${esc(dp ? dp.href : "#")}" target="_blank" rel="noopener noreferrer">FOMC ↗</a></p>
+        <table class="ck-dots"><tbody>${dpRows}</tbody></table>
+        <p class="ck-note">${esc(dp ? dp.note : "")}</p>
+      </div>
+    </section>
+
+    <section class="ck-panel">
+      <header class="ck-h"><span>Rate outlook</span><a class="ck-more" href="#/policy">Policy →</a></header>
+      <div class="ck-body">
+        <p class="ck-note"><strong>US — ${esc(OUTLOOK.us.rate)}.</strong> ${OUTLOOK.us.bottomLine}</p>
+        <p class="ck-note"><strong>UK — ${esc(OUTLOOK.uk.rate)}.</strong> ${OUTLOOK.uk.bottomLine}</p>
+      </div>
+    </section>
+
+    <section class="ck-panel">
+      <header class="ck-h"><span>Cycle — long-term debt cycle</span><a class="ck-more" href="#/cycle">Cycle →</a></header>
+      <div class="ck-body">
+        ${trackGauge(CYCLE_ZONES, [{ label: "US", pos: CYCLE.us.pos }, { label: "UK", pos: CYCLE.uk.pos }], "Long-term debt cycle position, 0 early to 100 crisis")}
+        <p class="ck-note"><strong>US ${CYCLE.us.pos}/100.</strong> ${SUMMARY.cycle.us}</p>
+        <p class="ck-note"><strong>UK ${CYCLE.uk.pos}/100.</strong> ${SUMMARY.cycle.uk}</p>
+      </div>
+    </section>
+
+    <section class="ck-panel ck-span2">
+      <header class="ck-h"><span>Bubble risk — ${esc(BUBBLE.market)}</span><span class="ck-x">${esc(band)} · ${comp}/100</span><a class="ck-more" href="#/bubble">Bubble →</a></header>
+      <div class="ck-body">
+        ${trackGauge(BUBBLE_ZONES, [{ label: band, pos: comp }], "US equity bubble-risk score, 0 low to 100 extreme")}
+        <div class="ck-dims">${BUBBLE.dimensions.map(dimCard).join("")}</div>
+        <p class="ck-note">${SUMMARY.bubble.us} ${esc(BUBBLE.ukNote)}</p>
+      </div>
+    </section>
+  </div>`;
 }
 
 // Dense terminal screen (canonical tui.css format): ticker (policy/cycle/bubble)
@@ -1297,7 +1384,12 @@ function fetchMacro() {
 }
 async function loadMacro(focus) {
   const data = await fetchMacro();
-  renderMacroIndRail((data && data.series) || []);
+  const series = (data && data.series) || [];
+  renderMacroIndRail(series);
+  // Fill the cockpit's indicators grid too (the dashboard pane is built before the
+  // live /api/macro data lands, so refresh it in place once it arrives).
+  const ck = document.getElementById("mac-ck-inds");
+  if (ck) ck.innerHTML = cockpitInds(series);
 }
 
 // ---- Topbar: last-refresh line (matches Credit/Legal) ----------------------

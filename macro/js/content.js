@@ -260,6 +260,23 @@ export const BUBBLE = {
   ],
 };
 
+// ---- Government bond yield curves (Dashboard) ------------------------------
+// US Treasury and UK gilt par yields across the maturity spectrum, compiled as of
+// UPDATED. Values are Wire synthesis from the cited primary curves; refreshed by
+// the same routine that updates the indicators. Used by the dashboard yield-curve
+// chart. (No live /api endpoint yet — these are static like the FedWatch/dot data.)
+export const YIELD_CURVE = {
+  asOf: "17 Jul 2026",
+  maturities: ["3M", "2Y", "5Y", "10Y", "30Y"],
+  us: [4.30, 4.14, 4.28, 4.57, 4.82],
+  uk: [3.95, 4.30, 4.58, 4.92, 5.52],
+  note: "The US front end is inverted — the 2-year (~4.14%) sits below the 10-year (4.57%) after June's cooler CPI and PPI pulled July-hike odds down — while the long end stays elevated on heavy issuance. The UK gilt curve sits higher and steeper across the board (10Y ~4.9%, 30Y ~5.5%) on the renewed oil shock, sticky ~3% services inflation and fiscal risk.",
+  sources: [
+    ["US Treasury — daily par yield curve", "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"],
+    ["UK Debt Management Office — gilt yields", "https://www.dmo.gov.uk/data/"],
+  ],
+};
+
 // ---- Guidance alerts surfaced in the notifications bell --------------------
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.

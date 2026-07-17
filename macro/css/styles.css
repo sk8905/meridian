@@ -332,6 +332,76 @@ a.intel-head:hover { text-decoration: underline; }
 .gauge-mark { fill: var(--macro-ink); font-size: 11px; font-weight: 800; }
 .macro-gauge-note { margin: .6rem 0 0; font-size: .74rem; line-height: 1.5; }
 
+/* ===================== Macro dashboard cockpit =====================
+   The dense single-screen read behind the "Dashboard" chip: economic
+   indicators, the yield curve, the market-implied Fed path (FedWatch + dot
+   plot), the rate outlook and the two regime gauges (cycle & bubble) — each
+   panel carrying a short narrative and a link to its full tab. Rendered in the
+   dark terminal (tui) surface, so it composes with the tui CSS variables. */
+.mac-dash-pane { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; background: var(--surface); }
+.mac-dash-pane[hidden] { display: none; }
+.mac-cockpit { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1px; background: var(--border); }
+.ck-panel { background: var(--surface); min-width: 0; display: flex; flex-direction: column; }
+.ck-span2 { grid-column: 1 / -1; }
+.ck-h { display: flex; align-items: center; gap: 8px; height: 28px; padding: 0 12px; background: var(--head); border-bottom: 1px solid var(--border); flex: 0 0 auto; }
+.ck-h > span:first-child { font-size: 11px; font-weight: 600; color: var(--ink); text-transform: uppercase; letter-spacing: .03em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ck-h > *:nth-child(2) { margin-left: auto; }
+.ck-x { font-size: 9.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; white-space: nowrap; }
+.ck-more { font-size: 10px; font-weight: 600; color: var(--macro); white-space: nowrap; }
+.ck-more:hover { text-decoration: underline; }
+.ck-body { padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
+.ck-sub { font-size: 10px; color: var(--muted); margin: 0; }
+.ck-sub strong { color: var(--ink); font-weight: 600; }
+.ck-src { color: var(--macro); font-weight: 600; }
+.ck-sub2 { margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--border); }
+.ck-note { font-size: 11px; line-height: 1.5; color: var(--muted); margin: 0; }
+.ck-note strong { color: var(--ink); font-weight: 600; }
+.ck-reads { padding: 9px 12px 12px; display: flex; flex-direction: column; gap: 5px; border-top: 1px solid var(--border); }
+/* Economic indicators — US and UK side by side */
+.ck-inds { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+.ck-ind-col { background: var(--surface); min-width: 0; }
+/* FedWatch — tighten the reused .pw-* bars for the compact panel */
+.ck-body .pw-bars { gap: .5rem; margin: .1rem 0 0; }
+.ck-body .pw-lbl { font-size: 11px; }
+.ck-body .pw-pct { font-size: 12px; }
+/* Fed dot plot */
+.ck-dots { width: 100%; border-collapse: collapse; font-family: var(--t-mono); font-variant-numeric: tabular-nums; }
+.ck-dots th { text-align: left; font-weight: 400; color: var(--muted); font-size: 11px; padding: 3px 0; border-bottom: 1px solid var(--border); }
+.ck-dots td { text-align: right; color: var(--ink); font-size: 12px; font-weight: 600; padding: 3px 0; border-bottom: 1px solid var(--border); }
+.ck-dots tr:last-child th, .ck-dots tr:last-child td { border-bottom: 0; }
+/* Bubble dimensions */
+.ck-dims { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 8px; margin: 6px 0 2px; }
+.ck-dim { border: 1px solid var(--border); padding: 8px 10px; min-width: 0; }
+.ck-dim-h { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; margin-bottom: 4px; }
+.ck-dim-n { font-size: 10.5px; font-weight: 600; color: var(--ink); }
+.ck-dim-s { font-family: var(--t-mono); font-size: 15px; font-weight: 700; color: var(--macro); line-height: 1; }
+.ck-dim-max { font-size: 9px; color: var(--muted); font-weight: 400; }
+.ck-dim-note { margin: 0; font-size: 10px; line-height: 1.45; }
+/* Gauge inside a cockpit panel — capped so the zone labels don't balloon on a
+   full-width (span-2) panel; left-aligned to match the panel's other content. */
+.ck-body .gauge { width: 100%; max-width: 560px; margin: 4px 0 10px; display: block; }
+/* Yield-curve chart */
+.yc { width: 100%; height: auto; display: block; margin: 2px 0 4px; }
+.yc-grid { stroke: rgba(255,255,255,.09); stroke-width: 1; }
+.yc-axis { fill: var(--muted); font-size: 8.5px; font-family: var(--t-mono); }
+.yc-line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+path.yc-us { stroke: var(--macro); }
+circle.yc-us { fill: var(--macro); }
+path.yc-uk { stroke: #6fa3d6; stroke-dasharray: 4 3; }
+circle.yc-uk { fill: #6fa3d6; }
+.yc-legend { display: flex; gap: 14px; padding: 0 0 2px; }
+.yc-key { font-size: 9.5px; color: var(--muted); display: inline-flex; align-items: center; gap: 5px; }
+.yc-key::before { content: ""; width: 15px; border-top: 2px solid var(--kc, #888); }
+.yc-key-us { --kc: var(--macro); }
+.yc-key-uk { --kc: #6fa3d6; }
+.yc-key-uk::before { border-top-style: dashed; }
+@media (max-width: 760px) {
+  .mac-cockpit { grid-template-columns: 1fr; }
+  .ck-span2 { grid-column: auto; }
+  .ck-dims { grid-template-columns: 1fr; }
+  .ck-inds { grid-template-columns: 1fr; }  /* stack US over UK so each keeps its 3-across tiles */
+}
+
 /* ---------- bubble-risk view ---------- */
 .macro-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .macro-dim-head { display: flex; align-items: center; justify-content: space-between; gap: .7rem; margin-bottom: .8rem; }
