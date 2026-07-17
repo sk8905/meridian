@@ -1132,6 +1132,7 @@ const FEED_SOURCES = [
   // Financial specialists — UK / Europe
   { url: "https://www.ft.com/markets?format=rss", source: "Financial Times", region: "UK", cap: 10 },
   { url: "https://www.ft.com/global-economy?format=rss", source: "Financial Times", region: "UK", cap: 8 },
+  { url: "https://www.ft.com/alphaville?format=rss", source: "FT Alphaville", region: "GEN", cap: 6 },
   { url: "https://www.economist.com/finance-and-economics/rss.xml", source: "The Economist", region: "GEN", cap: 8 },
   { url: "https://www.bankofengland.co.uk/rss/news", source: "Bank of England", region: "UK", cap: 6 },
   // Global FX / rates / Asia — kept for overnight coverage but capped low.
