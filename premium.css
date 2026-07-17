@@ -391,15 +391,35 @@ svg.mtab-ico { width: 22px; height: 22px; }
    flex box and the svg a block so it centres in the button like Markets/Saved. */
 .na-actions .notif-bell .notif-ico { display: flex; align-items: center; justify-content: center; line-height: 0; }
 .na-actions .notif-bell svg { display: block; width: 19px; height: 19px; }
-.na-panel { position: fixed; right: 8px; top: 56px; width: 320px; max-width: 92vw; max-height: 70vh; overflow-y: auto; z-index: 200; background: var(--surface, #0d0d0d); border: 1px solid var(--border, #262626); box-shadow: 0 12px 34px rgba(0,0,0,.5); }
+/* ---- Overlays: compact dropdown on desktop, full-screen "page" on phones ---- */
+.na-panel { position: fixed; right: 8px; top: 56px; width: 340px; max-width: 92vw; max-height: 74vh; overflow-y: auto; overscroll-behavior: contain; z-index: 200; background: var(--surface, #0d0d0d); border: 1px solid var(--border, #262626); box-shadow: 0 12px 34px rgba(0,0,0,.5); }
 .na-panel[hidden] { display: none; }
-.na-sec { font-size: 9px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, #8592ad); font-weight: 700; padding: 8px 12px 4px; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); position: sticky; top: 0; }
-.na-row { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: baseline; padding: 6px 12px; border-bottom: 1px solid var(--border, #262626); font-size: 11.5px; }
+.na-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 12px; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); position: sticky; top: 0; z-index: 3; }
+.na-h-t { font-size: 12px; font-weight: 700; letter-spacing: .02em; color: var(--ink, #eaf0fb); text-transform: uppercase; }
+.na-h-n { color: var(--muted, #8592ad); font-weight: 600; text-transform: none; }
+.na-close { display: none; place-items: center; width: 30px; height: 30px; flex: 0 0 auto; border: 1px solid var(--border, #262626); background: transparent; color: var(--muted, #8592ad); cursor: pointer; font-size: 14px; line-height: 1; }
+.na-close:hover { color: var(--ink, #eaf0fb); border-color: var(--ink, #eaf0fb); }
+/* Markets numeric rows */
+.na-sec { font-size: 9px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, #8592ad); font-weight: 700; padding: 8px 12px 4px; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
+.na-mrow { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: baseline; padding: 8px 12px; border-bottom: 1px solid var(--border, #262626); font-size: 12px; color: inherit; text-decoration: none; }
+a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-l { color: var(--ink, #eaf0fb); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .na-v, .na-c { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; }
 .na-v { color: var(--ink, #eaf0fb); }
 .na-c { min-width: 66px; text-align: right; }
 .na-c.up { color: #3fc08d; } .na-c.down { color: #f26d84; } .na-c.flat { color: var(--faint, #5c6a86); }
+/* Saved feed rows */
+.na-item { display: flex; gap: 10px; align-items: flex-start; padding: 11px 12px; border-bottom: 1px solid var(--border, #262626); color: inherit; text-decoration: none; }
+.na-item:hover { background: var(--head, #0a0a0a); }
+.na-tag { flex: 0 0 auto; margin-top: 1px; font-size: 8.5px; font-weight: 800; text-transform: uppercase; letter-spacing: .03em; color: #fff; padding: 2px 5px; border-radius: 2px; }
+.na-tag.macro { background: #6f5cc6; } .na-tag.credit { background: #2f6df0; } .na-tag.legal { background: #2c9a86; }
+.na-itxt { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.na-it { color: var(--ink, #eaf0fb); font-size: 13px; line-height: 1.3; }
+.na-im { color: var(--muted, #8592ad); font-size: 11px; }
+.na-load, .na-empty { padding: 16px 12px; color: var(--muted, #8592ad); font-size: 12.5px; line-height: 1.5; }
+/* Mobile scrim behind a full-screen overlay */
+.na-scrim { position: fixed; inset: 0; z-index: 58; background: rgba(0,0,0,.45); -webkit-tap-highlight-color: transparent; }
+.na-scrim[hidden] { display: none; }
 .na-load { padding: 14px 12px; color: var(--muted, #8592ad); font-size: 12px; }
 /* reserve room for the taller flat bar */
 @media (max-width: 760px) { body { padding-bottom: calc(4.9rem + env(safe-area-inset-bottom, 0px)) !important; } }
@@ -417,12 +437,31 @@ svg.mtab-ico { width: 22px; height: 22px; }
   .acct-foot .account-nav a { color: #fff; }
   .acct-foot .account-nav .si-prefix { display: inline; }
   .acct-foot .data-status { color: var(--muted); font-size: .78rem; }
-  /* iOS: the sticky top bar + `html,body{overflow-x:clip}` form a clipping
-     context that cuts off / hides the absolutely-positioned notification
-     dropdown ("sticks to the page behind"). On mobile `.notif` is
-     transform-positioned, so switching the panel to position:fixed anchors it to
-     `.notif` exactly as before but lifts it out of the body's clip context. */
-  .notif-panel { position: fixed; z-index: 200; }
+  /* ---- Phones: Markets / Saved / Notifications each open as a FULL-SCREEN page
+     below the sticky top bar, styled as terminal feed rows (mirrors Home). The
+     top bar is raised above the scrim so its buttons stay tappable to close. ---- */
+  .na-close { display: grid; }
+  .na-panel, .notif-panel {
+    position: fixed; top: var(--na-top-b, 54px); left: 0; right: 0; bottom: 0;
+    width: auto; max-width: none; max-height: none; border: 0; border-radius: 0; box-shadow: none;
+    z-index: 60; background: var(--bg, #000); color: var(--ink, #eaf0fb);
+    overflow-y: auto; overscroll-behavior: contain;
+    padding: 0 0 calc(2rem + env(safe-area-inset-bottom, 0px));
+  }
+  body.na-menu-open { overflow: hidden; }
+  body.na-menu-open .topbar { z-index: 90; }
+  /* Re-skin the app's own notification dropdown to match the shared feed shell. */
+  .notif-head { position: sticky; top: 0; z-index: 3; margin: 0; padding: 12px; font-size: 12px;
+    background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); border-radius: 0; color: var(--ink, #eaf0fb); }
+  .notif-list { max-height: none; padding: 0; margin: 0; overflow: visible; }
+  .notif-item { border-radius: 0; padding: 11px 12px; border-bottom: 1px solid var(--border, #262626); }
+  .notif-item:hover { background: var(--head, #0a0a0a); }
+  .notif-link { color: var(--ink, #eaf0fb); }
+  .notif-meta, .notif-src, .notif-head .muted { color: var(--muted, #8592ad); }
+  .notif-empty { color: var(--muted, #8592ad); padding: 16px 12px; }
+  /* Match the desk-tag palette used by the shared Saved feed. */
+  .notif-tag { color: #fff; border-radius: 2px; }
+  .notif-tag.macro { background: #6f5cc6; } .notif-tag.credit { background: #2f6df0; } .notif-tag.legal { background: #2c9a86; }
 }
 
 /* ---- Disclaimer footnotes removed from the app footers. On desktop the footer
