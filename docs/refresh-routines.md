@@ -580,21 +580,38 @@ extra deep-research pass on watchlisted names is skipped.
 >      `macro/js/content.js` (Macro's "Last refresh" stamp) and advance Macro's three
 >      cache tokens — every run, even when nothing else changed.
 >
-> 5. ALWAYS set `LAST_CHECKED` to today in BOTH `credit/js/data.js` and
+> 5. NEWSLETTERS & myFT (every run) — follow `docs/newsletter-refresh.md` exactly:
+>    - §§1–4: pull newly forwarded newsletters from the connected Gmail
+>      (skaidrive2@gmail.com), parse into `newsletters.js` (headline, publication/
+>      author, date/time, one-line topic summary, "view in browser" link — never
+>      body text), dedupe, keep ~40 newest, bump the `newsletters.js` token in
+>      `glance.js`. If the Gmail connector is unavailable in this run, skip the
+>      newsletter part and leave `newsletters.js` untouched.
+>    - §5: AFTER this run's publish (next step) has succeeded, move each processed
+>      email to Gmail Trash (`apply_sensitive_message_label` / thread variant,
+>      `TRASH`). Also sweep stragglers already present in the committed
+>      `newsletters.js`. Never trash anything whose data isn't committed.
+>    - §6: fetch the myFT RSS feed
+>      (`https://www.ft.com/myft/following/601965b2-62d0-47e1-88cf-576ebc8a8a2e.rss`),
+>      regenerate `FT_ITEMS` in `ft.js` (title, canonical URL, guid id, Europe/London
+>      date + HH:MM; dedupe by id, newest first, ~40) and bump the `ft.js` token in
+>      `glance.js`. If ft.com is unreachable, skip — never blank `ft.js`.
+>
+> 6. ALWAYS set `LAST_CHECKED` to today in BOTH `credit/js/data.js` and
 >    `legal/js/data.js`, and `META.lastChecked`/`META.lastCheckedTime` in
 >    `macro/js/content.js` (these are the "Last refresh" stamps in each topbar — they
 >    must advance every run so a run is visible even when nothing was added). Then
 >    bump all three apps' cache-buster tokens (Credit/Legal four each, Macro three)
 >    to today's date with the next sequence, plus the `/api/macro?v=N` edge key.
 >
-> 6. VALIDATE as an ES module (plain `node --check` misses module-only errors and
+> 7. VALIDATE as an ES module (plain `node --check` misses module-only errors and
 >    array holes — see the "Validate" invariant):
 >    `node --input-type=module -e "import('./credit/js/data.js').then(m=>console.log(m.deals.length))"`,
 >    the legal equivalent, and Macro:
 >    `node --input-type=module -e "import('./macro/js/content.js').then(m=>console.log(m.META.lastChecked, m.BUBBLE.dimensions.length))"`
 >    plus `node --check src/index.js`.
 >
-> 7. HOUSE-STYLE QC — TEXT-SIZE CONFORMANCE (every run, not optional). The five-role
+> 8. HOUSE-STYLE QC — TEXT-SIZE CONFORMANCE (every run, not optional). The five-role
 >    type scale (`--fs-*` tokens in `premium.css` → "CANONICAL TYPE SCALE"; see the
 >    "House typography" invariant) must hold across all four surfaces. Check it:
 >    - If this run added/edited any UI or markup, confirm every piece of text maps to
@@ -620,7 +637,7 @@ extra deep-research pass on watchlisted names is skipped.
 >    This step never blocks publishing data — it just keeps the type system from
 >    drifting run to run.
 >
-> 8. PUBLISH (every run, even if nothing new): commit — message ending with the two
+> 9. PUBLISH (every run, even if nothing new): commit — message ending with the two
 >    required trailers — then publish to `main` AND the dev branch. `main` has other
 >    writers (dev sessions), so publish by **rebasing onto the latest `main` and
 >    retrying**, NOT a bare fast-forward: `git fetch origin main` → `git rebase
@@ -632,11 +649,12 @@ extra deep-research pass on watchlisted names is skipped.
 >    **GitHub API** (`create_or_update_file` per changed file — see "API fallback")
 >    and say so in the summary.
 >
-> 9. Reply with a short summary: counts of new Credit deals / intel / webNews,
->    Legal alerts / cases / schemes & plans, and Macro curated prints / guidance
->    updates (or "no new items — refresh timestamp updated"). If the preflight
->    staleness check flagged a missing prior run, or egress was blocked so nothing
->    could be verified, say so at the top.
+> 10. Reply with a short summary: counts of new Credit deals / intel / webNews,
+>    Legal alerts / cases / schemes & plans, Macro curated prints / guidance
+>    updates, and newsletters added (+ emails trashed) / myFT items pulled (or "no
+>    new items — refresh timestamp updated"). If the preflight staleness check
+>    flagged a missing prior run, or egress was blocked so nothing could be
+>    verified, say so at the top.
 
 ---
 
