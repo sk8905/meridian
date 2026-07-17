@@ -248,6 +248,10 @@
 .tleague-full th.tl-hq { text-align: left; }
 .tleague-full .tl-cl { text-align: center; color: var(--accent); }
 .tleague-full th { top: 28px; }
+/* iPhone: drop the HQ column so the manager name + numeric columns fit the width. */
+@media (max-width: 760px) {
+  .tleague-full .tl-hq, .tleague-full th.tl-hq { display: none; }
+}
 /* detail pane toggle (News / Funds / CLOs / Key personnel) */
 .tchips-l { margin-left: 0; }
 .tpanes { flex: 1 1 auto; min-height: 0; overflow-y: auto; background: var(--surface); }
