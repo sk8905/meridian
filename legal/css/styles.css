@@ -716,8 +716,12 @@ svg.mtab-ico { width: 22px; height: 22px; }
    Every Part 26A plan / Part 26 scheme in one dense table — company, debt, status,
    creditors, each side's advisers and the judgment/analysis documents. Rendered on
    the dark terminal surface, so it composes with the tui CSS variables. */
-.lg-sc-wrap { width: 100%; overflow-x: auto; }
+.lg-sc-wrap { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 .lg-sc-tbl { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 11px; }
+/* Phones: don't squeeze the 7 columns into the viewport (text overlaps / wraps to
+   slivers). Give the table a real min-width so columns keep readable widths and
+   the wrapper scrolls horizontally instead. */
+@media (max-width: 760px) { .lg-sc-tbl { min-width: 920px; } }
 .lg-sc-tbl th { text-align: left; font-size: 8.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; padding: 6px 8px; background: var(--head); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1; }
 .lg-sc-tbl td { padding: 8px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); line-height: 1.4; }
 .lg-sc-tbl th:nth-child(1), .lg-sc-tbl td:nth-child(1) { width: 13%; }

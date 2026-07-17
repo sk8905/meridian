@@ -260,12 +260,21 @@
      central wire owns the screen (matches Home moving its rails off-canvas). */
   .tcol-l, .tcol-r { display: none; }
   .twire { overflow: visible; }
+  /* The page (not .tpanes) scrolls on mobile — make .tpanes overflow visible so it
+     isn't its own scroll container, otherwise position:sticky sub-headers inside it
+     would pin to .tpanes (which scrolls off) instead of to the viewport. Needs to
+     out-specify the base `.tpanes { overflow-y: auto }` rule. */
+  .tcol .tpanes { overflow: visible; }
   .tpanel-h, .tleague th { position: static; }      /* page scrolls on mobile — don't pin sub-headers under the sticky topbar */
   /* …except the filter-chip bar, which stays locked to the top (just under the
      58px sticky topbar) while the list scrolls. A solid background + its own GPU
      layer (translate3d) stops iOS Safari bleeding the scrolling rows through it. */
   .twire-head { position: sticky; top: 57px; z-index: 8; background: var(--head);
     transform: translate3d(0, 0, 0); -webkit-backface-visibility: hidden; backface-visibility: hidden; }
+  /* Managers pane: lock the "Managers · search · AUM-toggle" row and the table
+     header too, stacked just under the chip bar (chips end at 57+28 = 85px). */
+  .tpane[data-pane="managers"] .thead-search { position: sticky; top: 85px; z-index: 7; background: var(--head); }
+  .tpane[data-pane="managers"] .tleague-full th { position: sticky; top: 113px; z-index: 6; background: var(--head); }
 
   /* Bloomberg-Go news row: the headline leads, then ONE muted meta line beneath —
      CODE · date · entity · source — category tag first on the left. Grid (not
