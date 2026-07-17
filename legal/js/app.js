@@ -878,6 +878,28 @@ function viewItem(id) {
 // published and every restructuring matter it analysed, so an item can always
 // point to "the firm" the way a Credit deal points to its manager.
 // =============================================================================
+// Textual aliases a firm is actually cited by in judgments/alerts/deal wire copy
+// (the record's own name plus historic/short forms). Used to compile the firm's
+// "involved in" lists — cases, matters and deals that NAME the firm.
+const FIRM_ALIASES = {
+  aoshearman: ["a&o shearman", "allen & overy"],
+  slaughtermay: ["slaughter and may", "slaughter & may"],
+  hsf: ["herbert smith freehills", "hsf kramer", "herbert smith"],
+  weil: ["weil, gotshal", "weil gotshal", "weil"],
+  cleary: ["cleary gottlieb", "cleary"],
+  latham: ["latham & watkins", "latham"],
+  kirkland: ["kirkland & ellis", "kirkland"],
+  ropesgray: ["ropes & gray", "ropes and gray"],
+  simmons: ["simmons & simmons", "simmons + simmons"],
+};
+function firmMentioned(firm, text) {
+  const hay = String(text || "").toLowerCase();
+  const names = FIRM_ALIASES[firm.id] || [firm.name.toLowerCase()];
+  return names.some((n) => hay.includes(n));
+}
+// Whole-record text for mention scanning (titles, summaries, adviser lists…).
+const recText = (o) => { try { return JSON.stringify(o); } catch { return ""; } };
+
 function viewFirm(id) {
   const firm = firmById[id];
   if (!firm) {
@@ -887,6 +909,14 @@ function viewFirm(id) {
   const firmAlerts = items.filter((i) => i.firm === id).sort(byDateDesc);
   const firmRx = restructurings.filter((r) => r.firm === id).sort(byDateDesc);
   const tierTxt = tierLabel(firm.tier);
+  // ---- Involvement compilation: everything on the wire that NAMES this firm ----
+  // Cases whose name/summary cite the firm (as counsel or party).
+  const firmCases = cases.filter((c) => firmMentioned(firm, recText(c))).sort(byDateDesc);
+  // Schemes & plans that cite the firm anywhere in the record (advisers, narrative)
+  // beyond the ones it authored analysis for (those are in firmRx already).
+  const rxMentions = restructurings.filter((r) => r.firm !== id && firmMentioned(firm, recText(r))).sort(byDateDesc);
+  // Other firms' / unattributed alerts that cite the firm in title or summary.
+  const alertMentions = items.filter((i) => i.firm !== id && firmMentioned(firm, (i.title || "") + " " + (i.summary || ""))).sort(byDateDesc);
   // Practice-area mix across this firm's alerts (for the rail).
   const areaMix = {};
   firmAlerts.forEach((i) => (i.areas || [i.area]).forEach((a) => (areaMix[a] = (areaMix[a] || 0) + 1)));
@@ -894,6 +924,7 @@ function viewFirm(id) {
 
   const metrics = [
     ["Tier", esc(tierTxt)], ["Alerts", firmAlerts.length], ["Matters", firmRx.length],
+    ["Involved in", firmCases.length + rxMentions.length + alertMentions.length],
     ["Practice areas", areaMixRows.length],
   ];
   const alertWireRow = (it) => `<li class="compact-item tw-row" data-kind="alert">`
@@ -906,6 +937,20 @@ function viewFirm(id) {
   const rxRail = firmRx.length
     ? `<ul class="tmini">${firmRx.map((r) => { const u = r.judgmentUrl || r.articleUrl; return `<li class="tmini-row"><a class="tmini-t" href="${esc(u || "#/")}"${u ? ` target="_blank" rel="noopener noreferrer"` : ""}>${esc(r.company)}<span class="tmini-r">${r.type === "scheme" ? "Scheme" : "Plan"}</span></a><span class="tmini-m">${r.date ? esc(fmtDate(r.date)) : ""}${r.citation ? " · " + esc(r.citation) : ""}</span></li>`; }).join("")}</ul>`
     : `<p class="tw-empty muted small">No restructuring matters tracked.</p>`;
+
+  // "Involved in" wire — cases / schemes & plans / alerts across the whole wire
+  // that name this firm, one dated list, newest first.
+  const inv = [
+    ...firmCases.map((c) => ({ date: c.date, tag: "case", code: "CASE", title: c.name, href: c.url || "#/", ext: !!c.url, meta: `${c.court || ""}${c.citation ? " · " + c.citation : ""}` })),
+    ...rxMentions.map((r) => { const u = r.judgmentUrl || r.articleUrl; return { date: r.date, tag: "rp", code: r.type === "scheme" ? "SCHEME" : "RP", title: r.company, href: u || "#/", ext: !!u, meta: `${r.type === "scheme" ? "Scheme" : "Restructuring plan"}${r.citation ? " · " + r.citation : ""}` }; }),
+    ...alertMentions.map((i) => ({ date: i.date, tag: "alert", code: "ALERT", title: i.title, href: i.url || `#/item/${encodeURIComponent(i.id)}`, ext: !!i.url, meta: (firmById[i.firm] || {}).name || "" })),
+  ].sort(byDateDesc);
+  const invRow = (x) => `<li class="compact-item tw-row">`
+    + `<span class="tw-date">${x.date ? esc(fmtDate(x.date)) : ""}</span>`
+    + `<span class="tw-tag ${x.tag}">${x.code}</span>`
+    + `<span class="tw-body"><a href="${esc(x.href)}"${x.ext ? ` target="_blank" rel="noopener noreferrer"` : ""} class="tw-head">${esc(x.title)}</a>`
+    + `${x.meta ? `<span class="tw-mgr-w"><span class="tw-mgr">${esc(x.meta)}</span></span>` : ""}</span>`
+    + `</li>`;
   const areaRail = areaMixRows.length
     ? `<ul class="tfacts">${areaMixRows.map(([a, n]) => `<li><span class="tf-k">${esc((areaById[a] || {}).name || a)}</span><span class="tf-v">${n}</span></li>`).join("")}</ul>`
     : "";
@@ -924,6 +969,10 @@ function viewFirm(id) {
             <h1>${esc(firm.name)}</h1>
             <div class="tdet-src"><span class="lbl">Insights:</span> <a href="${esc(firm.insightsUrl || "#")}" target="_blank" rel="noopener noreferrer">${esc(firm.name)} — insights / know-how</a></div>
           </div>
+          <header class="tpanel-h"><span>Involved in — cases, schemes &amp; plans</span><span class="tpanel-x">${inv.length}</span></header>
+          <ul class="twire compact-list">${inv.length ? inv.map(invRow).join("") : '<li class="tw-empty muted small">No tracked case, scheme or plan names this firm yet.</li>'}</ul>
+          <header class="tpanel-h"><span>Deals &amp; transactions</span><span class="tpanel-x" id="firm-deals-n"></span></header>
+          <ul class="twire compact-list" id="firm-deals"><li class="tw-empty muted small">Checking the credit wire…</li></ul>
           <header class="tpanel-h"><span>Alerts from ${esc(firm.name)}</span><span class="tpanel-x">${firmAlerts.length}</span></header>
           <ul class="twire compact-list">${firmAlerts.length ? firmAlerts.map(alertWireRow).join("") : '<li class="tw-empty muted small">No alerts tracked from this firm yet.</li>'}</ul>
         </section>
@@ -934,6 +983,29 @@ function viewFirm(id) {
       </div>
     </div>
   `;
+
+  // Deals & transactions — the credit wire items (deals / fundraising / intel)
+  // that name this firm. Credit's data module loads lazily so Legal doesn't
+  // carry it on every view; if it can't load, the panel says so and moves on.
+  import("/credit/js/data.js?v=20260717-2").then(({ deals, intel, managers }) => {
+    const list = document.getElementById("firm-deals"); if (!list) return; // navigated away
+    const mgr = (mid) => (managers.find((m) => m.id === mid) || {}).name || "";
+    const rows = [...(deals || []), ...(intel || [])]
+      .filter((d) => firmMentioned(firm, recText(d)))
+      .sort(byDateDesc)
+      .map((d) => ({
+        date: d.date, tag: "deal", code: d.clo ? "CLO" : (d.headline ? "DEAL" : "INTEL"),
+        title: d.headline || d.title || "", ext: !!d.sourceUrl,
+        href: d.sourceUrl || (d.managerId ? `/credit/#/manager/${encodeURIComponent(d.managerId)}` : "/credit/#/"),
+        meta: mgr(d.managerId),
+      }));
+    const n = document.getElementById("firm-deals-n"); if (n) n.textContent = rows.length || "";
+    list.innerHTML = rows.length ? rows.map(invRow).join("")
+      : '<li class="tw-empty muted small">No tracked credit-wire deal or transaction names this firm yet.</li>';
+  }).catch(() => {
+    const list = document.getElementById("firm-deals");
+    if (list) list.innerHTML = '<li class="tw-empty muted small">Credit wire unavailable.</li>';
+  });
 }
 
 // =============================================================================
@@ -1328,7 +1400,7 @@ document.addEventListener("click", (e) => {
   }
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260717-2").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260717-3").then((m) => m.mountPalette()).catch(() => {});
 import("/ptr.js?v=20260716-1").then((m) => m.initPullToRefresh()).catch(() => {});
 initChrome();
 initNotif();
