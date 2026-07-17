@@ -15,6 +15,20 @@ import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/mac
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const byDateDesc = (a, b) => String(b.date || "").localeCompare(String(a.date || ""));
+// Premium news wire — the ONLY sources eligible to lead the briefing "Top story".
+const PREMIUM_NEWS = new Set([
+  "Financial Times", "FT Alphaville", "Bloomberg", "Bloomberg Opinion", "Reuters",
+  "Reuters (via Investing.com)", "CNBC", "The Wall Street Journal", "WSJ",
+  "The Economist", "MarketWatch", "The Guardian",
+]);
+// Low-tier aggregator / SEO / forecast-farm / crypto sources — limited out of the
+// Home macro feed so premium newsrooms dominate (credit & legal desks are the
+// tracked universe and are left untouched).
+const NON_PREMIUM = new Set([
+  "Benzinga", "TheStreet", "Yahoo Finance", "Yahoo Finance UK", "Sunday Guardian Live",
+  "HomeOwners Alliance", "U.S. News", "CityAM", "Enterprise AM", "exchangerates.org.uk",
+  "TradingView", "GV Wire", "CryptoTimes",
+]);
 const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const fmt = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ""); return m ? `${+m[3]} ${MON[+m[2] - 1]} ${m[1]}` : (iso || ""); };
 const mgrName = (id) => (managers.find((m) => m.id === id) || {}).name || "";
@@ -403,9 +417,11 @@ const DESK = { m: "Macro", c: "Credit", l: "Legal" };
 function renderBrief(byDesk, counts, day) {
   const el = document.getElementById("g-brief");
   if (!el) return;
-  // The per-desk "what's new" counts now live in the "New across desks" panel, so
-  // the brief line is just the single freshest headline across all three desks.
-  const lead = [byDesk.m[0], byDesk.c[0], byDesk.l[0]].filter(Boolean)
+  // The brief line leads with the single freshest headline — but ONLY from a
+  // premium news wire (FT, Bloomberg, Reuters, CNBC, WSJ, Economist, Guardian,
+  // MarketWatch, FT Alphaville). Manager/court/research items never headline.
+  const lead = [...byDesk.m, ...byDesk.c, ...byDesk.l]
+    .filter((x) => x && PREMIUM_NEWS.has(x.src))
     .sort((a, b) => day(b).localeCompare(day(a)) || String(b.time || "12:00").localeCompare(String(a.time || "12:00")))[0];
   el.innerHTML = lead
     ? `<span class="g-brief-lead"><span class="g-brief-lbl">Top story</span> <a class="g-brief-link g-desk-${lead.desk}" href="${esc(lead.href)}"${lead.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>${esc(lead.title)}</a></span>`
@@ -434,9 +450,10 @@ function renderFeed() {
   // Live RSS headlines (real publish times) merged in with the curated macro
   // items; the title-dedupe below collapses any overlap with the static feeds.
   (_liveFeed || []).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)));
-  // Drop Investing.com as a source unless the item is a Reuters story delivered
-  // via Investing.com (title carries the Reuters attribution).
-  { const kept = macro.filter((o) => o.src !== "Investing.com" || /\breuters\b/i.test(o.title || "")); macro.length = 0; macro.push(...kept); }
+  // Limit non-premium sources: drop Investing.com (unless a Reuters story delivered
+  // via it) and the low-tier aggregator/SEO/crypto desks, so the macro feed stays
+  // on premium newsrooms, research houses and official data.
+  { const kept = macro.filter((o) => (o.src !== "Investing.com" || /\breuters\b/i.test(o.title || "")) && !NON_PREMIUM.has(o.src)); macro.length = 0; macro.push(...kept); }
 
   const credit = [];
   deals.forEach((d) => credit.push(mk("c", creditItemHref(d, "deals"), d.headline, creditSource(d), false, d.date, d.time)));

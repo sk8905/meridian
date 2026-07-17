@@ -129,7 +129,7 @@
 .twire .compact-item { display: grid; grid-template-columns: 70px 30px minmax(0,1fr) auto; column-gap: 10px; padding: 5px 12px; border-bottom: 1px solid var(--border); align-items: baseline; }
 .tw-date { grid-column: 1; font-family: var(--t-mono); font-size: 11px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .tw-tag { grid-column: 2; font-family: var(--t-mono); font-size: 8px; font-weight: 700; letter-spacing: .03em; color: var(--muted); }
-.tw-tag.deal { color: #f28c3c; } .tw-tag.intel { color: #cc9f43; } .tw-tag.clo { color: #9b83e2; } .tw-tag.news { color: #4fa89c; }
+.tw-tag.deal { color: #f28c3c; } .tw-tag.intel { color: #cc9f43; } .tw-tag.clo { color: #9b83e2; } .tw-tag.news { color: #4fa89c; } .tw-tag.comm { color: #6ea8dc; }
 .tw-body { grid-column: 3; display: flex; gap: 6px; align-items: baseline; min-width: 0; }
 .tw-head { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; font-weight: 400; line-height: 1.35; color: var(--ink); }
 .tw-mgr-w { flex: 0 0 auto; white-space: nowrap; max-width: 42%; overflow: hidden; text-overflow: ellipsis; }

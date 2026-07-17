@@ -691,6 +691,9 @@ function viewDashboard() {
   intelByDate.forEach((i) => pushAct(i, "intel", "intel"));
   cloByDate.forEach((c) => pushAct(c, "clo", "clos"));
   newsByDate.forEach((x) => pushAct(x, "news", "news"));
+  // Credit research / white papers become the "Commentary" kind in the wire.
+  [...(research || [])].sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")))
+    .forEach((r) => pushAct(r, "comm", "research"));
   activity.sort((a, b) => String(b.item.date || "").localeCompare(String(a.item.date || "")));
   const activityCompact = (a) => a.kind === "news" ? newsCompact(a.item) : compactRow(a.item, a.view);
 
@@ -716,11 +719,21 @@ function viewDashboard() {
     ["Managers", uni.length], ["Funds", creditFunds.length],
     ["AUM", fmtAum(Math.round(totalAum))],
   ];
-  const KIND = { deal: "DEAL", intel: "FUND", clo: "CLO", news: "NEWS" };
+  const KIND = { deal: "DEAL", intel: "FUND", clo: "CLO", news: "NEWS", comm: "COMM" };
   // Single line matching the Home feed: date · CODE · headline (+ inline manager)
   // · source (right). Credit stories carry a date, so the date leads (vs Home's time).
   const wireRow = (a) => {
     const rec = a.item, isNews = a.kind === "news";
+    if (a.kind === "comm") {
+      const src = rec.institution || "";
+      const url = rec.url || "";
+      return `<li class="compact-item tw-row" data-kind="comm">`
+        + `<span class="tw-date">${rec.date ? esc(fmtDate(rec.date)) : ""}</span>`
+        + `<span class="tw-tag comm">COMM</span>`
+        + `<span class="tw-body">${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer" class="tw-head">${esc(rec.title)}</a>` : `<span class="tw-head">${esc(rec.title)}</span>`}</span>`
+        + `<span class="tw-src">${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(src)}</a>` : esc(src)}</span>`
+        + `</li>`;
+    }
     const title = isNews ? rec.title : rec.headline;
     const goto = isNews ? `news:${rec._id}` : `${a.view}:${rec.id}`;
     const mid = isNews ? rec._mid : rec.managerId;
@@ -762,15 +775,17 @@ function viewDashboard() {
         <section class="tcol tcol-full">
           <header class="tpanel-h twire-head">
             <div class="tchips" id="cr-dash-tabs">
-              <button type="button" class="tchip is-on" data-p="news">News</button>
+              <button type="button" class="tchip is-on" data-p="all">All</button>
+              <button type="button" class="tchip" data-p="news">News</button>
+              <button type="button" class="tchip" data-p="commentary">Commentary</button>
               <button type="button" class="tchip" data-p="managers">Managers</button>
             </div>
           </header>
           <div class="tpanes" id="cr-dash-panes">
-            <div class="tpane" data-p="news">
-              <ul class="twire compact-list" id="cr-dash-wire">${activity.slice(0, 90).map(wireRow).join("") || `<li class="compact-item"><span class="tw-src">No recent items.</span></li>`}</ul>
+            <div class="tpane" data-pane="wire">
+              <ul class="twire compact-list" id="cr-dash-wire">${activity.slice(0, 120).map(wireRow).join("") || `<li class="compact-item"><span class="tw-src">No recent items.</span></li>`}</ul>
             </div>
-            <div class="tpane" data-p="managers" hidden>
+            <div class="tpane" data-pane="managers" hidden>
               <header class="tpanel-h thead-search"><span>Managers</span>
                 <input type="search" id="mgr-q" class="tsearch" placeholder="Search name or HQ…" value="${esc(fst.q || "")}" aria-label="Search managers">
                 <button type="button" class="tfocus-btn" id="cr-lg-focus" aria-pressed="false" title="Show only €1–10bn AUM managers">€1–10bn</button>
@@ -784,13 +799,21 @@ function viewDashboard() {
         </section>
       </div>
     </div>`;
-  // Toggle Managers ↔ News without leaving the page.
+  // All / News / Commentary filter the one wire; Managers swaps to the league table.
   const dashTabs = document.getElementById("cr-dash-tabs");
   if (dashTabs) dashTabs.addEventListener("click", (e) => {
     const b = e.target.closest(".tchip"); if (!b) return;
     dashTabs.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
     const p = b.dataset.p;
-    document.querySelectorAll("#cr-dash-panes .tpane").forEach((el) => { el.hidden = el.dataset.p !== p; });
+    const wirePane = document.querySelector('#cr-dash-panes [data-pane="wire"]');
+    const mgrPane = document.querySelector('#cr-dash-panes [data-pane="managers"]');
+    if (p === "managers") { wirePane.hidden = true; mgrPane.hidden = false; return; }
+    mgrPane.hidden = true; wirePane.hidden = false;
+    wirePane.querySelectorAll(".tw-row").forEach((r) => {
+      const isComm = r.dataset.kind === "comm";
+      const show = p === "all" || (p === "commentary" ? isComm : !isComm);
+      r.style.display = show ? "" : "none";
+    });
   });
   const qi = document.getElementById("mgr-q");
   if (qi) qi.addEventListener("input", () => {

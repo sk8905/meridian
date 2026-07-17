@@ -397,9 +397,8 @@ function viewDashboard() {
       <section class="tcol tcol-c">
         <header class="tpanel-h twire-head">
           <div class="tchips" id="mac-chips">
-            <button type="button" class="tchip is-on" data-k="all">All</button>
+            <button type="button" class="tchip is-on" data-k="news">News</button>
             <button type="button" class="tchip" data-k="comm">Commentary</button>
-            <button type="button" class="tchip" data-k="news">News</button>
             <button type="button" class="tchip" data-k="dash">Dashboard</button>
           </div>
         </header>
@@ -440,17 +439,22 @@ function macroWireDash() {
   const chips = document.getElementById("mac-chips"), wire = document.getElementById("mac-wire");
   const dash = document.getElementById("mac-dash");
   if (!chips || !wire) return;
-  chips.onclick = (e) => {
-    const b = e.target.closest(".tchip"); if (!b) return;
-    chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
-    const k = b.dataset.k;
-    // "Dashboard" swaps the news wire for the market-implied policy dashboard;
-    // the other chips filter the wire in place (as before).
+  // "Dashboard" swaps the news wire for the market-implied policy dashboard; News
+  // and Commentary filter the wire in place by row kind.
+  const apply = (k) => {
     const showDash = k === "dash";
     wire.hidden = showDash;
     if (dash) dash.hidden = !showDash;
-    if (!showDash) wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (k === "all" || r.dataset.kind === k) ? "" : "none"; });
+    if (!showDash) wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (r.dataset.kind === k) ? "" : "none"; });
   };
+  chips.onclick = (e) => {
+    const b = e.target.closest(".tchip"); if (!b) return;
+    chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
+    apply(b.dataset.k);
+  };
+  // Apply the default (News) so the wire opens filtered, not showing commentary too.
+  const on = chips.querySelector(".tchip.is-on");
+  apply(on ? on.dataset.k : "news");
 }
 
 // --------------------------- saved articles (cloud sync + localStorage) -----
