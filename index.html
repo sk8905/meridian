@@ -814,6 +814,14 @@
       .tui .g-hello{ flex:0 0 auto; }
       .tui .g-layout{ flex:1 1 auto; min-height:0; align-items:stretch; }
       .tui .g-side,.tui .g-side2{ height:100%; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+      /* Left rail: the market/rate panels keep their natural height and Top movers
+         grows to fill whatever space is left at the base (scrolling internally if
+         its list is long). The rail still scrolls as a whole on short screens. */
+      .tui .g-side{ display:flex; flex-direction:column; }
+      .tui .g-side > .tui-pnl{ flex:0 0 auto; }
+      .tui .g-side > .g-movers-pnl{ flex:1 1 auto; min-height:160px; display:flex; flex-direction:column; }
+      .tui .g-movers-pnl > .tui-ph{ flex:0 0 auto; }
+      .tui .g-movers-pnl > #g-movers{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
       /* Right rail: pin the macro data (indicators + macro read) and let ONLY the
          deal-flow well grow to fill the rail. Inside it the chip header stays put
          and just the active list scrolls, so the numbers above never move. */
@@ -950,7 +958,7 @@
     .tui .tui-li:hover{ background:var(--t-panel2); }
     .tui .tui-li-t{ display:block; font-size:12px; color:var(--t-ink); line-height:1.35;
       display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-    .tui .tui-li:hover .tui-li-t{ color:var(--t-accent); }
+    /* Row gets the subtle grey hover (above); the headline stays its normal ink. */
     .tui .tui-li-m{ display:flex; gap:6px; align-items:baseline; font-family:var(--t-mono); font-size:9.5px;
       color:var(--t-faint); margin-top:3px; }
     .tui .tui-li-tag{ color:var(--t-crd); font-weight:700; letter-spacing:.03em; }
@@ -994,7 +1002,8 @@
     .tui .g-feed-code.legal{ color:var(--t-lex); background:color-mix(in srgb,var(--t-lex) 15%,transparent); }
     .tui .g-feed-title{ font-size:13px; color:var(--t-ink); font-weight:400; line-height:1.4;
       white-space:normal; overflow:visible; min-width:0; }
-    .tui a.g-feed-row:hover .g-feed-title{ color:var(--t-accent); }
+    /* Hover highlights the row with a subtle grey (see .g-feed-row:hover above);
+       the headline keeps its normal ink colour rather than turning orange. */
     .tui .g-feed-ent{ font-family:var(--t-mono); font-size:9.5px; color:var(--t-accent);
       border:0; background:transparent; padding:0; margin-left:7px; white-space:nowrap; cursor:pointer; }
     .tui .g-feed-ent::before{ content:"↗"; margin-right:1px; opacity:.7; }
@@ -1144,12 +1153,8 @@
       </div>
 
       <div class="g-layout">
-        <!-- LEFT RAIL: markets / rates data + top movers -->
+        <!-- LEFT RAIL: markets / rates data, with Top movers filling the base -->
         <aside class="g-side">
-          <section class="tui-pnl">
-            <header class="tui-ph"><span>Top movers</span><span class="tui-px">1D</span></header>
-            <div id="g-movers" aria-label="Top market movers"><div class="g-loading">Loading movers…</div></div>
-          </section>
           <section class="tui-pnl g-anchor" id="jump-markets">
             <header class="tui-ph"><span>Markets</span><span class="tui-px">live</span></header>
             <div id="g-markets" class="rates-band markets-band" aria-label="Equity indices and ETFs">
@@ -1173,6 +1178,12 @@
             <div id="g-vol" class="rates-band" aria-label="Equity volatility and credit risk spreads">
               <div class="g-loading">Loading risk…</div>
             </div>
+          </section>
+          <!-- Top movers sits at the base and grows to fill the rail; only its
+               list scrolls, so the data panels above stay put. -->
+          <section class="tui-pnl g-movers-pnl">
+            <header class="tui-ph"><span>Top movers</span><span class="tui-px">1D</span></header>
+            <div id="g-movers" aria-label="Top market movers"><div class="g-loading">Loading movers…</div></div>
           </section>
         </aside>
 
@@ -1272,7 +1283,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260717-10").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260717-11").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

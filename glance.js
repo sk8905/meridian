@@ -1066,12 +1066,20 @@ function renderMovers() {
   const el = document.getElementById("g-movers");
   if (!el) return;
   const list = [];
-  (_mktRows || []).forEach((x) => {
-    if (x.value == null) return;
+  const seenNm = new Set();
+  const pushPct = (label, x) => {
+    if (!x || x.value == null) return;
     const eff = (!isMarketOpen(x) && x.futuresPct != null) ? +Number(x.futuresPct) : (x.changePct != null ? +Number(x.changePct) : null);
     if (eff == null) return;
-    list.push({ nm: TK_SHORT[x.label] || x.label, mag: Math.abs(eff), dir: glSign(eff), val: `${eff > 0 ? "+" : ""}${eff.toFixed(2)}%`, unit: "pct" });
-  });
+    const nm = TK_SHORT[label] || label;
+    if (seenNm.has(nm)) return; seenNm.add(nm);
+    list.push({ nm, mag: Math.abs(eff), dir: glSign(eff), val: `${eff > 0 ? "+" : ""}${eff.toFixed(2)}%`, unit: "pct" });
+  };
+  (_mktRows || []).forEach((x) => pushPct(x.label, x));
+  // Widen the board with the cross-asset pool (other indices, commodities, crypto,
+  // VIX) that otherwise only rides the ticker — the FX pairs are skipped since the
+  // FX matrix already carries them.
+  (_mktExtra || []).forEach((x) => { if (!/\//.test(x.label)) pushPct(x.label, x); });
   (_rateRows || []).forEach((x) => {
     if (x.value == null || x.change == null) return;
     const bp = Math.round(x.change * 100);
@@ -1082,7 +1090,9 @@ function renderMovers() {
   const maxPct = Math.max(...list.filter((x) => x.unit === "pct").map((x) => x.mag), 0.01);
   const maxBp = Math.max(...list.filter((x) => x.unit === "bp").map((x) => x.mag), 1);
   const rel = (x) => x.mag / (x.unit === "pct" ? maxPct : maxBp);
-  const top = list.sort((a, b) => rel(b) - rel(a)).slice(0, 6);
+  // Show a deep list — Top movers now fills the base of the left rail, so surface
+  // the full cross-asset move set (the panel scrolls if it overflows).
+  const top = list.sort((a, b) => rel(b) - rel(a)).slice(0, 18);
   el.innerHTML = top.map((x) => {
     const w = Math.max(8, Math.round(rel(x) * 100));
     const col = x.dir === "up" ? "var(--t-up)" : x.dir === "down" ? "var(--t-down)" : "var(--t-faint)";
