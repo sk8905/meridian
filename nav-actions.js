@@ -334,8 +334,9 @@ export function initNavActions() {
           ? `<div class="na-menu-recent-h">Recent searches</div>`
             + recents.map((q) => `<button type="button" class="na-menu-row na-recent-row" data-q="${esc(q)}">${ICO_SEARCH}<span>${esc(q)}</span></button>`).join("")
           : "")
+        + `<div class="na-menu-foot">`
         + `<button type="button" class="na-menu-row na-menu-push" id="na-push">${ICO_BELL}<span>Push notifications</span><span class="na-push-state">…</span></button>`
-        + `<div class="na-menu-foot">` + acctHtml
+        + acctHtml
         + (stat && stat.textContent.trim() ? `<div class="na-menu-row na-menu-stat">${esc(stat.textContent.trim())}</div>` : "")
         + `</div>`;
       wirePushRow(p);
