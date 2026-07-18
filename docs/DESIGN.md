@@ -210,7 +210,7 @@ before it can be resolved.
 - T4 — both data tables now `6px 8px` cells (`.tleague`, `.lg-sc-tbl`).
 - T5 — dead legacy sub-app `.notif-link/.notif-meta/.notif-item.is-new` rules removed.
 
-**Ledger clear** — all audited divergences are either RECONCILEd or recorded as INTENTIONAL. New work conforms to §0–§7 above; the twice-daily refresh routine's typography QC step (`docs/refresh-routines.md`) guards against future drift.
+**Ledger clear** — all audited divergences are either RECONCILEd or recorded as INTENTIONAL. New work conforms to §0–§7 above; the refresh routine's typography QC step (`docs/refresh-routines.md`) guards against future drift.
 
 ## Push notifications (iOS Home-Screen web app)
 

@@ -3,7 +3,7 @@
 Paste the block below into the new merged Meridian job (the one that replaces
 the separate *MeridianCredit* and *MeridianLegal* jobs). It is the context/brief
 for an interactive maintenance session that owns **both** apps. The scheduled
-twice-daily automation lives in the two **routines** (see
+5×/day automation lives in the **routines** (see
 [`refresh-routines.md`](./refresh-routines.md)), not here.
 
 ---
@@ -29,7 +29,7 @@ twice-daily automation lives in the two **routines** (see
 > (`wrangler.jsonc`, `src/index.js`) serves the repo root and handles
 > `/api/watchlist`, `/api/me`, `/api/login`.
 >
-> **The recurring task** is the twice-daily full refresh of both apps.
+> **The recurring task** is the 5×/day full refresh of the apps.
 > **`docs/refresh-routines.md` is the single source of truth** — follow its
 > Invariants and "routine prompt" verbatim. Key rules it encodes:
 > - Sync from `main` first; only add items published since the last run (~24h

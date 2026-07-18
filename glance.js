@@ -510,7 +510,7 @@ function initJumpNav() {
 // Auto-refresh the live markets + rates bands and the two hero one-liners every
 // 5 minutes while the page is open. This is CLIENT-SIDE ONLY — it just re-hits
 // the /api/markets and /api/rates feeds (no Claude, no scheduled routine, no
-// cost of note). Everything else on the page keeps the 4×/day editorial
+// cost of note). Everything else on the page keeps the 5×/day editorial
 // cadence. Work is skipped while the tab is hidden and caught up on return.
 const LIVE_REFRESH_MS = 5 * 60 * 1000;
 let _lastLive = Date.now();
@@ -635,7 +635,7 @@ function renderFeed() {
   const ft = [];
   (FT_ITEMS || []).forEach((n) => ft.push(mk("f", n.url, n.title, "Financial Times", true, n.date, n.time)));
   // Live myFT headlines from /api/feed (~5 min of publication) — the committed
-  // FT_ITEMS above are the 4×/day backfill; title-dedupe collapses the overlap.
+  // FT_ITEMS above are the 5×/day backfill; title-dedupe collapses the overlap.
   (_liveFeed || []).forEach((n) => { if (n.myft) ft.push(mk("f", n.url, n.title, "Financial Times", true, n.date, n.time)); });
 
   const day = (x) => String(x.date || "").slice(0, 10);

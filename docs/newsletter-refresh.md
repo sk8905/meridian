@@ -1,6 +1,6 @@
 # Newsletter refresh runbook
 
-A step for the scheduled 4×/day refresh routines: pull the reader's forwarded
+A step for the scheduled 5×/day refresh routines: pull the reader's forwarded
 email newsletters from Gmail and fold them into the Home news feed as `LETTER`
 items. Self-contained — an agent run can follow this end-to-end.
 
