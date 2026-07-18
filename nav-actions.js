@@ -99,7 +99,7 @@ async function loadSaved(body, headCount) {
   const render = async () => {
     chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _svTab));
     try {
-      const mod = await import("/saved.js?v=20260718-5");
+      const mod = await import("/saved.js?v=20260718-6");
       const list = _svTab === "saved" ? mod.resolveSaved() : mod.resolveWatchlistNews();
       if (headCount) headCount.textContent = list.length ? " · " + list.length : "";
       tb.innerHTML = list.length
@@ -156,7 +156,7 @@ function notifRow(x) {
 let _notifItems = null;
 async function ensureNotifs() {
   if (_notifItems) return _notifItems;
-  const { buildNotifs } = await import("/saved.js?v=20260718-1");
+  const { buildNotifs } = await import("/saved.js?v=20260718-6");
   _notifItems = (await buildNotifs()).slice(0, 60);
   return _notifItems;
 }
