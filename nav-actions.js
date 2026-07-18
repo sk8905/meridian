@@ -215,6 +215,33 @@ export function initNavActions() {
     const mktPanel = mkPanel("na-mkt-panel", "Markets");
     const savedPanel = mkPanel("na-saved-panel", "Saved");
     const notifPanel = mkPanel("na-notif-panel", "Notifications");
+    const menuPanel = mkPanel("na-menu-panel", "Menu");
+
+    // Menu (bottom tab bar, phones): the search bar plus the account block
+    // (Signed in as … · Sign out / Last refresh …) that used to sit in the page
+    // footer. Content is re-read on every open so it reflects the live sign-in
+    // state; the search row carries data-open-search, so the page's existing
+    // search overlay opens over the menu unchanged.
+    const ICO_SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.6" y1="15.6" x2="21" y2="21"/></svg>';
+    const fillMenu = (p) => {
+      const acct = document.getElementById("account-nav") || document.querySelector(".g-user");
+      const stat = document.getElementById("data-status") || document.querySelector(".g-refresh");
+      // Only show the account row once a verified email is present (Home's copy
+      // omits the "Signed in as" prefix — add it so the row reads the same on
+      // every page).
+      let acctHtml = "";
+      if (acct && acct.innerHTML.trim()) {
+        const email = acct.querySelector("strong");
+        const signed = /signed in/i.test(acct.textContent);
+        if (signed || (email && email.textContent.trim())) {
+          acctHtml = `<div class="na-menu-row na-menu-acct">${signed ? "" : "<span>Signed in as&nbsp;</span>"}${acct.innerHTML}</div>`;
+        }
+      }
+      p.querySelector(".na-body").innerHTML =
+        `<button type="button" class="na-menu-row na-menu-search" data-open-search>${ICO_SEARCH}<span>Search everything…</span></button>`
+        + acctHtml
+        + (stat && stat.textContent.trim() ? `<div class="na-menu-row na-menu-stat">${esc(stat.textContent.trim())}</div>` : "");
+    };
 
     const notifBtn = wrap.querySelector("#na-notif");
     const clearBadge = () => { const b = notifBtn.querySelector(".na-badge"); if (b) b.hidden = true; };
@@ -229,6 +256,10 @@ export function initNavActions() {
       { btn: wrap.querySelector("#na-saved"), panel: savedPanel, onOpen: (p) => { loadSaved(p.querySelector(".na-body"), p.querySelector(".na-h-n")); } },
       { btn: notifBtn, panel: notifPanel, onOpen: (p) => { const body = p.querySelector(".na-body"); if (_notifItems) renderNotif(body); else { body.innerHTML = '<div class="na-load">Loading…</div>'; ensureNotifs().then(() => renderNotif(body)).catch(() => { body.innerHTML = '<div class="na-load">Notifications unavailable right now.</div>'; }); } } },
     ];
+    // The Menu opens from the bottom tab bar's Menu button (phones); it joins the
+    // same controller so it swaps cleanly with the other three panels.
+    const menuBtn = document.querySelector("[data-open-menu]");
+    if (menuBtn) panels.push({ btn: menuBtn, panel: menuPanel, onOpen: fillMenu });
 
     const anyOpen = () => panels.some((x) => !x.panel.hidden);
     const closeAll = () => {

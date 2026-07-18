@@ -479,11 +479,28 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
   }
   body.na-menu-open { overflow: hidden; }
   body.na-menu-open .topbar, body.na-menu-open .g-top { z-index: 90; }
+  /* The "Signed in as … · Sign out / Last refresh" block moved from the page
+     footers into the bottom-bar Menu panel — retire the footer copies (the
+     apps' relocated .acct-foot block, its now-empty .footer host, and Home's
+     #g-footer). Desktop top bars keep their own inline copies. */
+  .acct-foot, .footer, #g-footer { display: none !important; }
   /* Home phone rails: glance moves its two data rails into a .na-rails host
      inside the shared Markets panel; the standard markets list (.na-body)
      yields to them there. Desktop keeps .na-body (rails live in the grid). */
   #na-mkt-panel.has-rails .na-body { display: none; }
   #na-mkt-panel .na-rails { display: block; }
+  /* Menu panel rows: search bar look-alike on top, then the account block. */
+  .na-menu-row { display: flex; align-items: center; gap: 10px; width: 100%;
+    padding: 13px 14px; border: 0; border-bottom: 1px solid var(--border, #262626);
+    background: transparent; color: var(--ink, #eaf0fb); font: inherit; font-size: 13px;
+    text-align: left; border-radius: 0; }
+  .na-menu-search { color: var(--faint, #5c6a86); cursor: pointer; }
+  .na-menu-search svg { width: 16px; height: 16px; flex: 0 0 auto; }
+  .na-menu-acct { display: block; font-size: 12px; color: var(--muted, #8592ad); }
+  .na-menu-acct strong { color: var(--ink, #eaf0fb); font-weight: 600; }
+  .na-menu-acct a { color: #fff; font-weight: 600; text-decoration: none; margin-left: .2em; }
+  .na-menu-stat { display: block; font-family: var(--t-mono, ui-monospace, monospace);
+    font-size: 11px; color: var(--faint, #5c6a86); border-bottom: 0; }
   /* Full-screen notif panel: the header sticks; rows are the shared .nf-row style. */
   .notif-head { position: sticky; top: 0; z-index: 3; }
   .notif-list { max-height: none; overflow: visible; }
