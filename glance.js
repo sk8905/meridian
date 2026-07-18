@@ -319,12 +319,16 @@ function initRowBookmarks() {
     const t = e.touches[0];
     if (Math.abs(t.clientX - sx) > 10 || Math.abs(t.clientY - sy) > 10) cancel();
   }, { passive: true });
-  document.addEventListener("touchend", cancel, { passive: true });
-  document.addEventListener("touchcancel", cancel, { passive: true });
-  // A fired long-press must NOT also click anything (the story link, or the
-  // sheet's scrim that now sits under the finger) — eat the trailing click.
+  // The eaten-click guard must only cover the GHOST click of the long-press
+  // release itself (arrives within ~50ms of touchend when the browser emits one
+  // at all — iOS often doesn't). Disarm shortly after the finger lifts so the
+  // user's NEXT tap (e.g. on the scrim to dismiss) is never swallowed.
+  let fireReset = null;
+  const endPress = () => { cancel(); if (fired) { clearTimeout(fireReset); fireReset = setTimeout(() => { fired = false; }, 350); } };
+  document.addEventListener("touchend", endPress, { passive: true });
+  document.addEventListener("touchcancel", endPress, { passive: true });
   document.addEventListener("click", (e) => {
-    if (fired) { e.preventDefault(); e.stopPropagation(); fired = false; }
+    if (fired) { e.preventDefault(); e.stopPropagation(); fired = false; clearTimeout(fireReset); }
   }, true);
   // Desktop: right-click opens the options menu instead of the browser one.
   document.addEventListener("contextmenu", (e) => {
