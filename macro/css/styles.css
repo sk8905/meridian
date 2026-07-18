@@ -374,8 +374,9 @@ a.intel-head:hover { text-decoration: underline; }
 .mw-col { min-width: 0; }
 .mw-split { display: flex; gap: 2px; height: 12px; margin: 7px 0 4px; }
 .mw-seg { display: block; min-width: 2px; }
-.mw-seg.mw-ig, .mw-dot.mw-ig, .mw-fill-ig { background: color-mix(in srgb, var(--t-mac, #9b83e2) 70%, transparent); }
-.mw-seg.mw-sg, .mw-dot.mw-sg, .mw-fill-sg { background: color-mix(in srgb, var(--t-crd, #fb8b1e) 70%, transparent); }
+/* Canon: monochrome marks, orange reserved for the riskier bucket only */
+.mw-seg.mw-ig, .mw-dot.mw-ig, .mw-fill-ig { background: color-mix(in srgb, var(--ink, #eaf0fb) 38%, transparent); }
+.mw-seg.mw-sg, .mw-dot.mw-sg, .mw-fill-sg { background: color-mix(in srgb, var(--macro, #fb8b1e) 75%, transparent); }
 .mw-legend { display: flex; gap: 14px; font-family: var(--t-mono); font-size: 9.5px; letter-spacing: .04em; color: var(--muted); margin-bottom: 6px; }
 .mw-legend span { display: inline-flex; align-items: center; gap: 5px; }
 .mw-dot { width: 7px; height: 7px; display: inline-block; }

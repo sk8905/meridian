@@ -470,12 +470,12 @@ export const MATWALL = {
   },
   near: {
     body: "$6.88tn due within 36 months — 29.7% of all rated debt, of which $1.43tn is speculative-grade; spec-grade maturities now peak in 2029.",
-    src: { name: "S&P Refinancing, Apr 2026", url: "https://www.spglobal.com/ratings/en/regulatory/article/credit-trends-global-refinancing-speculative-grade-maturities-now-peak-in-2029-s101682010" },
+    src: { name: "S&P · Apr 2026", url: "https://www.spglobal.com/ratings/en/regulatory/article/credit-trends-global-refinancing-speculative-grade-maturities-now-peak-in-2029-s101682010" },
   },
   bonds: {
     igPct: 24, nigPct: 31,
     note: "Share of outstanding corporate bonds due 2026–28. Outstanding end-2025: $36.4tn bonds · $23.1tn syndicated loans.",
-    src: { name: "OECD Global Debt Report 2026", url: "https://www.oecd.org/en/publications/global-debt-report-2026_e9d80efd-en.html" },
+    src: { name: "OECD GDR 2026", url: "https://www.oecd.org/en/publications/global-debt-report-2026_e9d80efd-en.html" },
   },
   privateCredit: {
     body: "Direct-lending BDC sample (74 funds, $84bn assets): only ~$15bn matures through 2026 — the private-credit wall peaks in 2028–29.",

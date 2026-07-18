@@ -433,6 +433,9 @@
 .mac-dash-pane .pw-pct { font-size: 12px; font-weight: 700; font-family: var(--t-mono); color: var(--ink); }
 .mac-dash-pane .pw-track { height: 4px; margin-top: 5px; border-radius: 0; background: var(--border); }
 .mac-dash-pane .pw-fill { background: var(--accent); border-radius: 0; }
+/* Wall of maturities: monochrome IG mark; orange stays on the riskier bucket */
+.mac-dash-pane .mw-fill-ig { background: color-mix(in srgb, var(--ink, #eaf0fb) 38%, transparent); }
+.mac-dash-pane .mw-fill-sg { background: color-mix(in srgb, var(--accent, #fb8b1e) 75%, transparent); }
 .mac-dash-pane .pw-note { font-size: 10.5px; color: var(--faint); margin-top: 8px; line-height: 1.45; }
 .mac-dash-pane .pw-dots th, .mac-dash-pane .pw-dots td { font-size: 12px; padding: 5px 2px; }
 .mac-dash-pane .pw-dots th { font-weight: 600; color: var(--muted); }
