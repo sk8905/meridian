@@ -1593,6 +1593,22 @@ async function handlePushSubscribe(request, env) {
   await env.WATCHLIST.put("push:subs", JSON.stringify(subs));
   return json({ ok: true, count: Object.keys(subs).length });
 }
+// One-tap end-to-end test: GET /api/push/test (signed in via Access) sends a
+// real push to every stored subscription and reports the push service's status
+// per endpoint — 201 means Apple/Google accepted it for delivery.
+async function handlePushTest(request, env) {
+  if (!identity(request)) return json({ error: "unauthenticated" }, 401);
+  const subs = (await env.WATCHLIST.get("push:subs", "json")) || {};
+  const results = [];
+  for (const [ep, sub] of Object.entries(subs)) {
+    const status = await sendPush(env, sub, { title: "Wire test", body: "Push pipeline OK — notifications are working.", url: "/" });
+    results.push({ endpoint: ep.slice(0, 60) + "…", status, accepted: status === 201 });
+    if (status === 404 || status === 410) { delete subs[ep]; await env.WATCHLIST.put("push:subs", JSON.stringify(subs)); }
+  }
+  return new Response(JSON.stringify({ subscriptions: results.length, results }, null, 2), {
+    headers: { "content-type": "application/json", "cache-control": "no-store" },
+  });
+}
 const prettyId = (id) => String(id).replace(/[-_]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 export async function pushScheduled(env) {
   const KV = env.WATCHLIST;
@@ -1707,6 +1723,7 @@ export default {
     if (url.pathname === "/api/chart-prefs") return handleChartPrefs(request, env);
     if (url.pathname === "/api/push/vapid") return handlePushVapid(request, env);
     if (url.pathname === "/api/push/subscribe") return handlePushSubscribe(request, env);
+    if (url.pathname === "/api/push/test") return handlePushTest(request, env);
     if (url.pathname === "/api/me") return handleMe(request);
     // Deploy-freshness probe: the newest Worker returns this JSON; an older
     // deploy has no such route and falls through to the static site. `build` is
