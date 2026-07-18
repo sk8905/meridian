@@ -12,5 +12,9 @@
   // Workers AI powers the Glance "market pulse" (two direction+driver one-liners).
   // If Workers AI is disabled on the account, env.AI is simply undefined and the
   // pulse is skipped — Glance falls back to its deterministic lines.
-  "ai": { "binding": "AI" }
+  "ai": { "binding": "AI" },
+  // Push-notification dispatcher: every 15 min the scheduled handler checks for
+  // refreshed desk data, watchlist mentions and breaking headlines, and sends
+  // Web Push to the subscriptions stored in KV.
+  "triggers": { "crons": ["*/15 * * * *"] }
 }

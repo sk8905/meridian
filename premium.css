@@ -378,6 +378,8 @@ svg.mtab-ico { width: 22px; height: 22px; }
 .na-ring circle { fill: none; stroke: var(--muted, #8592ad); stroke-width: 1.5; }
 .na-ring-track { opacity: .22; }
 .na-ring-arc { stroke-dasharray: 43.98; stroke-linecap: round; transition: stroke-dashoffset .6s linear; }
+/* Menu → push-notifications row: current state right-aligned in the meta grey */
+.na-menu-push .na-push-state { margin-left: auto; color: var(--muted, #8592ad); font-size: .72rem; white-space: nowrap; }
 /* The bell (#notif) is moved inside this cluster by nav-actions.js so Markets ·
    Saved · Bell read as one right-hand group, exactly like the Home command bar. */
 .na-actions .notif { flex: 0 0 auto; }

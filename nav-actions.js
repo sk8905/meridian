@@ -334,10 +334,72 @@ export function initNavActions() {
           ? `<div class="na-menu-recent-h">Recent searches</div>`
             + recents.map((q) => `<button type="button" class="na-menu-row na-recent-row" data-q="${esc(q)}">${ICO_SEARCH}<span>${esc(q)}</span></button>`).join("")
           : "")
+        + `<button type="button" class="na-menu-row na-menu-push" id="na-push">${ICO_BELL}<span>Push notifications</span><span class="na-push-state">…</span></button>`
         + `<div class="na-menu-foot">` + acctHtml
         + (stat && stat.textContent.trim() ? `<div class="na-menu-row na-menu-stat">${esc(stat.textContent.trim())}</div>` : "")
         + `</div>`;
+      wirePushRow(p);
     };
+
+    // --- Push notifications (iOS 16.4+ Home-Screen web app / desktop) --------
+    const pushB64ToU8 = (s) => {
+      s = s.replace(/-/g, "+").replace(/_/g, "/");
+      const pad = s.length % 4 ? "====".slice(s.length % 4) : "";
+      const bin = atob(s + pad);
+      const u = new Uint8Array(bin.length);
+      for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i);
+      return u;
+    };
+    const pushSupported = () => "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
+    const isStandalone = () => (window.matchMedia && matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true;
+    const pushState = async () => {
+      if (!pushSupported()) {
+        return /iphone|ipad|ipod/i.test(navigator.userAgent) && !isStandalone() ? "install" : "unsupported";
+      }
+      if (Notification.permission === "denied") return "denied";
+      try {
+        const reg = await navigator.serviceWorker.getRegistration("/");
+        const sub = reg && (await reg.pushManager.getSubscription());
+        return sub ? "on" : "off";
+      } catch { return "off"; }
+    };
+    const pushEnable = async () => {
+      const reg = await navigator.serviceWorker.register("/sw.js");
+      if (await Notification.requestPermission() !== "granted") return "denied";
+      const { publicKey } = await (await fetch("/api/push/vapid", { headers: { accept: "application/json" } })).json();
+      const sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: pushB64ToU8(publicKey) });
+      await fetch("/api/push/subscribe", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(sub.toJSON()) });
+      return "on";
+    };
+    const pushDisable = async () => {
+      const reg = await navigator.serviceWorker.getRegistration("/");
+      const sub = reg && (await reg.pushManager.getSubscription());
+      if (sub) {
+        fetch("/api/push/subscribe", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ unsubscribe: true, endpoint: sub.endpoint }) }).catch(() => {});
+        await sub.unsubscribe();
+      }
+      return "off";
+    };
+    const PUSH_LABEL = { on: "On", off: "Enable", denied: "Blocked in Settings", install: "Add to Home Screen first", unsupported: "Unavailable" };
+    const wirePushRow = (p) => {
+      const row = p.querySelector("#na-push");
+      if (!row) return;
+      const stateEl = row.querySelector(".na-push-state");
+      const paint = (st) => { stateEl.textContent = PUSH_LABEL[st] || st; row.dataset.st = st; };
+      pushState().then(paint);
+      row.addEventListener("click", async () => {
+        const st = row.dataset.st;
+        if (st !== "on" && st !== "off") return;
+        stateEl.textContent = "…";
+        try { paint(st === "off" ? await pushEnable() : await pushDisable()); }
+        catch { paint(await pushState()); }
+      });
+    };
+    // Keep the service worker registered/updated on every visit where one
+    // already exists (so sw.js changes ship without a Menu visit).
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.getRegistration("/").then((reg) => { if (reg) navigator.serviceWorker.register("/sw.js").catch(() => {}); }).catch(() => {});
+    }
     // Tapping a recent search re-opens the page's search overlay seeded with it.
     menuPanel.addEventListener("click", (e) => {
       const r = e.target.closest(".na-recent-row");

@@ -211,3 +211,27 @@ before it can be resolved.
 - T5 — dead legacy sub-app `.notif-link/.notif-meta/.notif-item.is-new` rules removed.
 
 **Ledger clear** — all audited divergences are either RECONCILEd or recorded as INTENTIONAL. New work conforms to §0–§7 above; the twice-daily refresh routine's typography QC step (`docs/refresh-routines.md`) guards against future drift.
+
+## Push notifications (iOS Home-Screen web app)
+
+Standard Web Push, no App Store app: `manifest.webmanifest` + `sw.js` (push-only
+service worker — deliberately NO caching; the `?v=` token system owns freshness)
+make the site an installable web app; iOS 16.4+ delivers pushes to it via APNs.
+The Worker implements VAPID (RFC 8292) and aes128gcm payload encryption
+(RFC 8291) with WebCrypto — `encryptPushRaw` is verified against the RFC's
+Appendix-A test vector. The VAPID keypair self-provisions into KV
+(`push:vapid`); subscriptions are stored per-endpoint in `push:subs` via
+`/api/push/subscribe` (enable/disable lives in the Menu tab). A 15-minute cron
+(`wrangler.jsonc` triggers) runs `pushScheduled`, which sends:
+
+1. **Refresh digest** — hashes the three desk data modules via `env.ASSETS`;
+   when a routine deploy changes them, counts today's `date:"…"` items added
+   and pushes "Wire refresh — New today: LEX 2 · CRD 3".
+2. **Watchlist mentions** — occurrence-count diffs of followed manager/firm ids
+   across the data text; appended to the digest (or pushed alone).
+3. **Breaking headlines** — new live-feed items passing `FEED_CORE_MACRO_RE`,
+   published within ~45 min, capped at 1/hour, quiet 22:00–07:00 London.
+
+State (hashes, counts, seen titles, rate-limit stamps) lives in KV
+`push:state`; expired subscriptions (410/404) are pruned on send. The routine
+needs no changes — deploy detection is automatic.

@@ -1489,7 +1489,204 @@ async function handleFeed(request, env, ctx) {
   return resp;
 }
 
+// ============================ WEB PUSH ======================================
+// Push notifications to the reader's iPhone Home-Screen web app (iOS 16.4+) —
+// standard Web Push (RFC 8030), VAPID auth (RFC 8292) and aes128gcm payload
+// encryption (RFC 8291), all via WebCrypto. The VAPID keypair self-provisions
+// into KV on first use (no dashboard secrets needed). Subscriptions live in KV
+// under "push:subs"; the scheduled() cron (every 15 min) sends:
+//   1. a refresh digest when a routine deploy lands new desk data,
+//   2. watchlist mentions (followed manager/firm ids newly appearing in data),
+//   3. breaking live-feed headlines (strict core-macro filter, ≤1/hour, 07–22).
+const PUSH_SUB_CONTACT = "mailto:kenneds7@tcd.ie";
+const pb64 = {
+  enc: (buf) => btoa(String.fromCharCode(...new Uint8Array(buf))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""),
+  dec: (s) => {
+    s = String(s || "").replace(/-/g, "+").replace(/_/g, "/");
+    const pad = s.length % 4 ? "====".slice(s.length % 4) : "";
+    const bin = atob(s + pad);
+    const u = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i);
+    return u;
+  },
+};
+async function pushVapid(env) {
+  let v = await env.WATCHLIST.get("push:vapid", "json");
+  if (!v || !v.pub || !v.priv) {
+    const kp = await crypto.subtle.generateKey({ name: "ECDSA", namedCurve: "P-256" }, true, ["sign", "verify"]);
+    v = { pub: await crypto.subtle.exportKey("jwk", kp.publicKey), priv: await crypto.subtle.exportKey("jwk", kp.privateKey) };
+    await env.WATCHLIST.put("push:vapid", JSON.stringify(v));
+  }
+  return v;
+}
+const vapidPublicRaw = (jwk) => {
+  const x = pb64.dec(jwk.x), y = pb64.dec(jwk.y);
+  const out = new Uint8Array(65); out[0] = 4; out.set(x, 1); out.set(y, 33);
+  return out;
+};
+async function vapidAuthHeader(env, endpoint) {
+  const v = await pushVapid(env);
+  const key = await crypto.subtle.importKey("jwk", v.priv, { name: "ECDSA", namedCurve: "P-256" }, false, ["sign"]);
+  const te = new TextEncoder();
+  const hdr = pb64.enc(te.encode(JSON.stringify({ typ: "JWT", alg: "ES256" })));
+  const pay = pb64.enc(te.encode(JSON.stringify({ aud: new URL(endpoint).origin, exp: Math.floor(Date.now() / 1000) + 12 * 3600, sub: PUSH_SUB_CONTACT })));
+  const sig = await crypto.subtle.sign({ name: "ECDSA", hash: "SHA-256" }, key, te.encode(hdr + "." + pay));
+  return `vapid t=${hdr}.${pay}.${pb64.enc(sig)}, k=${pb64.enc(vapidPublicRaw(v.pub))}`;
+}
+async function pushHkdf(salt, ikm, info, len) {
+  const key = await crypto.subtle.importKey("raw", ikm, "HKDF", false, ["deriveBits"]);
+  return new Uint8Array(await crypto.subtle.deriveBits({ name: "HKDF", hash: "SHA-256", salt, info }, key, len * 8));
+}
+// RFC 8291 aes128gcm encryption. Exported (with injectable ephemeral key +
+// salt) so the spec's Appendix-A test vector can verify it byte-for-byte.
+export async function encryptPushRaw(uaPubRaw, authSecret, ephKeyPair, salt, plaintextBytes) {
+  const te = new TextEncoder();
+  const uaKey = await crypto.subtle.importKey("raw", uaPubRaw, { name: "ECDH", namedCurve: "P-256" }, false, []);
+  const ecdh = new Uint8Array(await crypto.subtle.deriveBits({ name: "ECDH", public: uaKey }, ephKeyPair.privateKey, 256));
+  const ephRaw = new Uint8Array(await crypto.subtle.exportKey("raw", ephKeyPair.publicKey));
+  const keyInfo = new Uint8Array([...te.encode("WebPush: info\0"), ...uaPubRaw, ...ephRaw]);
+  const prk = await pushHkdf(authSecret, ecdh, keyInfo, 32);
+  const cek = await pushHkdf(salt, prk, te.encode("Content-Encoding: aes128gcm\0"), 16);
+  const nonce = await pushHkdf(salt, prk, te.encode("Content-Encoding: nonce\0"), 12);
+  const plain = new Uint8Array([...plaintextBytes, 2]); // 0x02 = final-record delimiter
+  const gk = await crypto.subtle.importKey("raw", cek, "AES-GCM", false, ["encrypt"]);
+  const ct = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv: nonce }, gk, plain));
+  const header = new Uint8Array(16 + 4 + 1 + 65);
+  header.set(salt, 0);
+  new DataView(header.buffer).setUint32(16, 4096); // rs
+  header[20] = 65;
+  header.set(ephRaw, 21);
+  const body = new Uint8Array(header.length + ct.length);
+  body.set(header, 0); body.set(ct, header.length);
+  return body;
+}
+async function sendPush(env, sub, obj) {
+  try {
+    const eph = await crypto.subtle.generateKey({ name: "ECDH", namedCurve: "P-256" }, true, ["deriveBits"]);
+    const salt = crypto.getRandomValues(new Uint8Array(16));
+    const body = await encryptPushRaw(pb64.dec(sub.keys.p256dh), pb64.dec(sub.keys.auth), eph, salt, new TextEncoder().encode(JSON.stringify(obj)));
+    const r = await fetch(sub.endpoint, {
+      method: "POST",
+      headers: { "authorization": await vapidAuthHeader(env, sub.endpoint), "content-encoding": "aes128gcm", "ttl": "3600", "urgency": "normal" },
+      body,
+    });
+    return r.status;
+  } catch { return 0; }
+}
+async function handlePushVapid(request, env) {
+  if (!identity(request)) return json({ error: "unauthenticated" }, 401);
+  const v = await pushVapid(env);
+  return json({ publicKey: pb64.enc(vapidPublicRaw(v.pub)) });
+}
+async function handlePushSubscribe(request, env) {
+  const email = identity(request);
+  if (!email) return json({ error: "unauthenticated" }, 401);
+  let body;
+  try { body = await request.json(); } catch { return json({ error: "invalid json" }, 400); }
+  const subs = (await env.WATCHLIST.get("push:subs", "json")) || {};
+  if (request.method === "DELETE" || body.unsubscribe) {
+    if (body.endpoint) delete subs[body.endpoint];
+  } else {
+    if (!body.endpoint || !body.keys || !body.keys.p256dh || !body.keys.auth) return json({ error: "invalid subscription" }, 400);
+    subs[body.endpoint] = { endpoint: body.endpoint, keys: { p256dh: body.keys.p256dh, auth: body.keys.auth }, email, added: new Date().toISOString() };
+  }
+  await env.WATCHLIST.put("push:subs", JSON.stringify(subs));
+  return json({ ok: true, count: Object.keys(subs).length });
+}
+const prettyId = (id) => String(id).replace(/[-_]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+export async function pushScheduled(env) {
+  const KV = env.WATCHLIST;
+  const subs = await KV.get("push:subs", "json");
+  if (!subs || !Object.keys(subs).length) return; // nobody subscribed — free
+  const state = (await KV.get("push:state", "json")) || {};
+  const now = Date.now();
+  const hour = +new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", hour: "2-digit", hour12: false }).format(now);
+  const today = new Intl.DateTimeFormat("en-CA", { timeZone: "Europe/London" }).format(now);
+  const msgs = [];
+
+  // --- 1+2: refresh digest + watchlist mentions (data-change detection) ---
+  // A routine deploy replaces the desk data modules; hash them to detect it,
+  // count today's dated items for the digest, and diff per-id occurrence
+  // counts for watchlist mentions.
+  const files = { legal: "/legal/js/data.js", credit: "/credit/js/data.js", macro: "/macro/js/content.js" };
+  const label = { legal: "LEX", credit: "CRD", macro: "MAC" };
+  const texts = {}, hashes = {};
+  for (const [k, p] of Object.entries(files)) {
+    try {
+      const r = await env.ASSETS.fetch("https://assets.local" + p);
+      texts[k] = r.ok ? await r.text() : "";
+    } catch { texts[k] = ""; }
+    hashes[k] = texts[k] ? pb64.enc(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(texts[k]))) : "";
+  }
+  const changed = Object.keys(files).filter((k) => hashes[k] && state.hashes && state.hashes[k] !== hashes[k]);
+  const dateRe = new RegExp('["\']?date["\']?\\s*:\\s*"' + today + '"', "g");
+  const counts = {};
+  for (const k of Object.keys(files)) counts[k] = (texts[k].match(dateRe) || []).length;
+  // Followed ids (single-reader: first watchlist record) for mention diffs.
+  let follows = null;
+  try {
+    const list = await KV.list({ prefix: "wl:" });
+    if (list.keys.length) follows = await KV.get(list.keys[0].name, "json");
+  } catch { /* mention check skipped */ }
+  const followIds = [...((follows && follows.manager) || []), ...((follows && follows.firm) || [])];
+  const allText = texts.legal + "\n" + texts.credit + "\n" + texts.macro;
+  const nameCounts = {};
+  for (const id of followIds) nameCounts[id] = (allText.split(id).length - 1);
+  if (changed.length) {
+    const parts = [];
+    for (const k of changed) {
+      const d = counts[k] - ((state.counts && state.counts[k]) || 0);
+      if (d > 0) parts.push(`${label[k]} ${d}`);
+    }
+    const hits = followIds.filter((id) => nameCounts[id] > ((state.nameCounts && state.nameCounts[id]) || 0));
+    if (parts.length) {
+      msgs.push({
+        title: "Wire refresh",
+        body: "New today: " + parts.join(" · ") + (hits.length ? " — watchlist: " + hits.map(prettyId).join(", ") : ""),
+        url: "/",
+      });
+    } else if (hits.length) {
+      msgs.push({ title: "Watchlist", body: hits.map(prettyId).join(", ") + " in new items", url: "/" });
+    }
+  }
+
+  // --- 3: breaking headlines (strict core-macro filter, ≤1/hour, 07–22 UK) ---
+  if (hour >= 7 && hour < 22 && (!state.lastBreakAt || now - state.lastBreakAt > 3600e3)) {
+    try {
+      const feed = await (await handleFeed(new Request("https://internal/api/feed"), env, null)).json();
+      const seen = new Set(state.seenBreak || []);
+      const nowMin = hour * 60 + +new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", minute: "2-digit" }).format(now);
+      const fresh = (feed.items || []).filter((x) => {
+        if (!FEED_CORE_MACRO_RE.test(x.title) || seen.has(feedNorm(x.title))) return false;
+        if (x.date !== today) return false;
+        const [h, m] = String(x.time || "").split(":").map(Number);
+        return Number.isFinite(h) && nowMin - (h * 60 + m) <= 45; // published in the last ~45 min
+      });
+      // Mark ALL current qualifying titles seen (even unsent) so a backlog never
+      // floods later runs; push only the newest, noting how many more there are.
+      (feed.items || []).forEach((x) => { if (FEED_CORE_MACRO_RE.test(x.title)) seen.add(feedNorm(x.title)); });
+      state.seenBreak = [...seen].slice(-400);
+      if (fresh.length) {
+        msgs.push({ title: "Breaking — " + fresh[0].source, body: fresh[0].title + (fresh.length > 1 ? ` (+${fresh.length - 1} more)` : ""), url: fresh[0].url });
+        state.lastBreakAt = now;
+      }
+    } catch { /* feed unavailable this tick */ }
+  }
+
+  for (const m of msgs) {
+    for (const [ep, sub] of Object.entries(subs)) {
+      const st = await sendPush(env, sub, m);
+      if (st === 404 || st === 410) { delete subs[ep]; await KV.put("push:subs", JSON.stringify(subs)); }
+    }
+  }
+  state.hashes = hashes; state.counts = counts; state.nameCounts = nameCounts;
+  await KV.put("push:state", JSON.stringify(state));
+}
+
 export default {
+  async scheduled(event, env, ctx) {
+    ctx.waitUntil(pushScheduled(env));
+  },
   async fetch(request, env, ctx) {
    try {
     const url = new URL(request.url);
@@ -1508,6 +1705,8 @@ export default {
     if (url.pathname === "/api/notif-credit") return handleNotifSeen(request, env, notifCreditKey);
     if (url.pathname === "/api/notif-legal") return handleNotifSeen(request, env, notifLegalKey);
     if (url.pathname === "/api/chart-prefs") return handleChartPrefs(request, env);
+    if (url.pathname === "/api/push/vapid") return handlePushVapid(request, env);
+    if (url.pathname === "/api/push/subscribe") return handlePushSubscribe(request, env);
     if (url.pathname === "/api/me") return handleMe(request);
     // Deploy-freshness probe: the newest Worker returns this JSON; an older
     // deploy has no such route and falls through to the static site. `build` is
