@@ -27,6 +27,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-econ-worldinbrief-20260718",
+    publication: "The Economist",
+    series: "The World in Brief",
+    title: "The World in Brief: Global stocks sink",
+    date: "2026-07-18",
+    time: "05:40",
+    summary: "Chip selloff sinks global stocks; Apple briefly overtakes Nvidia.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-moneystuff-20260716",
     publication: "Bloomberg",
     author: "Matt Levine",

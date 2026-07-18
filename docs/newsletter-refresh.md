@@ -14,17 +14,32 @@ unchanged — do not blank it out.
 
 ## 1. Find newsletters received since the last pull
 
-Newsletters arrive as forwarded mail from `stevedkennedy@gmail.com`; the original
-sender is in the body's `From:` line. Search Gmail (via the connector) with:
+Newsletters reach the mailbox two ways, and BOTH searches must run every time —
+Gmail auto-forwarding preserves the ORIGINAL sender, so a from:stevedkennedy
+search alone misses every auto-forwarded newsletter (this is exactly how an
+Economist issue was missed on 2026-07-18):
 
-```
-in:anywhere from:stevedkennedy@gmail.com newer_than:2d
-```
+1. Manual forwards (sender = stevedkennedy; original sender is in the body's
+   `From:` line):
 
-Also acceptable (direct senders, in case forwarding changes): `news.bloomberg.com`,
-`e.economist.com`, `legalbusiness.co.uk`, `pb.jpmorgan.com`, `mail.sailthru.com`,
-`mailbrew.com`, `cntraveller.com`. The `PUBLISHERS` map in `newsletters.js` is the
-authoritative sender→publication list — extend it when a new sender appears.
+   ```
+   in:anywhere from:stevedkennedy@gmail.com newer_than:2d
+   ```
+
+2. Auto-forwarded copies (sender = the publisher; the To: header still shows
+   stevedkennedy — that's normal). Build the from-list from the `PUBLISHERS`
+   map in `newsletters.js`:
+
+   ```
+   in:anywhere {from:news.bloomberg.com from:e.economist.com from:legalbusiness.co.uk from:pb.jpmorgan.com from:mail.sailthru.com from:mailbrew.com from:cntraveller.com} newer_than:2d
+   ```
+
+Parsing note for auto-forwarded copies: there is no "Begin forwarded message"
+wrapper — the message's own headers ARE the original (sender domain →
+publication via `PUBLISHERS`; `Date:` = original send time). If a newsletter's
+links are all click-tracking redirects (e.g. click.e.economist.com), use the
+newsletter's canonical web page instead (e.g.
+https://www.economist.com/the-world-in-brief).
 
 ## 2. Parse each message
 
