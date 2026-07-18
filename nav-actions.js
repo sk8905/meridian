@@ -249,6 +249,10 @@ export function initNavActions() {
     const wrap = document.createElement("div");
     wrap.className = "na-actions";
     wrap.innerHTML =
+      // Thin donut countdown: drains over the 5-minute live-feed window, refills
+      // on each refresh (Home dispatches wire:live-refresh; elsewhere it cycles
+      // on the wall clock, matching the edge cache cadence).
+      `<span class="na-ring" title="Time to next live-feed refresh" aria-hidden="true"><svg viewBox="0 0 18 18"><circle class="na-ring-track" cx="9" cy="9" r="7"/><circle class="na-ring-arc" cx="9" cy="9" r="7"/></svg></span>` +
       `<button type="button" class="na-btn" id="na-mkt" aria-label="Markets & key rates" aria-haspopup="true" aria-expanded="false" title="Markets & key rates">${ICO_MKT}</button>` +
       `<button type="button" class="na-btn" id="na-saved" aria-label="Saved" aria-haspopup="true" aria-expanded="false" title="Saved">${ICO_SAVED}</button>` +
       `<button type="button" class="na-btn na-bell" id="na-notif" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">${ICO_BELL}<span class="na-badge" hidden></span></button>`;
@@ -256,6 +260,24 @@ export function initNavActions() {
       notif.parentElement.insertBefore(wrap, notif);
     } else if (bar) {
       bar.appendChild(wrap);
+    }
+
+    // Refresh-countdown ring. stroke-dashoffset walks 0 → circumference across
+    // the 5-minute window (full ring draining to empty), then wraps.
+    {
+      const RING_MS = 5 * 60 * 1000;
+      const RING_C = 2 * Math.PI * 7;
+      let ringStart = Date.now();
+      const arc = wrap.querySelector(".na-ring-arc");
+      const tickRing = () => {
+        if (!arc) return;
+        const p = ((Date.now() - ringStart) % RING_MS) / RING_MS;
+        arc.style.strokeDashoffset = (RING_C * p).toFixed(2);
+      };
+      window.addEventListener("wire:live-refresh", () => { ringStart = Date.now(); tickRing(); });
+      document.addEventListener("visibilitychange", () => { if (!document.hidden) tickRing(); });
+      setInterval(tickRing, 2000);
+      tickRing();
     }
 
     // Full-screen (mobile) / dropdown (desktop) overlays, lifted to <body> so the
