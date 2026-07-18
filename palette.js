@@ -194,13 +194,13 @@ export function mountPalette() {
       localStorage.setItem(k, JSON.stringify(a.slice(0, 8)));
     } catch { /* ignore */ }
   };
-  const go = (e) => { if (!e) return; close(); if (/^https?:\/\//i.test(e.href)) window.open(e.href, "_blank", "noopener"); else window.location.href = e.href; };
+  // Recents record ONLY when a result is actually opened — a typed-then-cancelled
+  // query (or a half-typed fragment) never lands in the list.
+  const go = (e) => { if (!e) return; recordSearch(input.value); close(); if (/^https?:\/\//i.test(e.href)) window.open(e.href, "_blank", "noopener"); else window.location.href = e.href; };
   // Focus SYNCHRONOUSLY within the tap/click gesture so iOS Safari pops the
   // keyboard immediately (a setTimeout would escape the gesture and suppress it).
   const open = () => { ov.classList.add("open"); input.value = ""; refresh(); syncClr(); input.focus({ preventScroll: true }); };
-  // Record the query on ANY close of an open search (result opened, Cancel,
-  // Escape, scrim) — every search you actually ran lands in Recent searches.
-  const close = () => { if (ov.classList.contains("open")) recordSearch(input.value); ov.classList.remove("open"); };
+  const close = () => ov.classList.remove("open");
 
   ov.querySelectorAll("[data-close]").forEach((el) => el.addEventListener("click", close));
   // A visible nav search button (any app topbar) opens the palette on click.
