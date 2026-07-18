@@ -144,6 +144,93 @@ function initHomeMarketsRails() {
   mq.addEventListener("change", place);
 }
 
+// ---- Row bookmarks: long-press (touch) / right-click (desktop) --------------
+// Toggles the story in Bookmarks. Desk items (macro/credit/legal) toggle the
+// SAME saved store + API the apps' ☆ stars use, so state matches everywhere;
+// rows with no app id (Letters, FT, live RSS headlines) toggle a Home-side
+// store ("wire.home.saved") that the shared Saved panel also reads.
+const SAVED_LS = { m: "meridian.macro.saved", c: "meridian.credit.saved", l: "lexalert.saved" };
+const SAVED_API = { m: "/api/saved-macro", c: "/api/saved-credit", l: "/api/saved" };
+function _readSet(k) { try { const a = JSON.parse(localStorage.getItem(k) || "[]"); return new Set(Array.isArray(a) ? a : []); } catch { return new Set(); } }
+function _syncSaved(desk) {
+  // Merge with the server copy before writing back, so another device's
+  // bookmarks are never clobbered by this one's PUT.
+  const ls = SAVED_LS[desk], api = SAVED_API[desk];
+  fetch(api, { headers: { accept: "application/json" } })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((d) => {
+      const server = new Set((d && d.saved) || []);
+      const local = _readSet(ls);
+      const removedHere = (_unsavedRecently[desk] || new Set());
+      server.forEach((id) => { if (!removedHere.has(id)) local.add(id); });
+      localStorage.setItem(ls, JSON.stringify([...local]));
+      return fetch(api, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ saved: [...local] }) });
+    })
+    .catch(() => {});
+}
+const _unsavedRecently = { m: new Set(), c: new Set(), l: new Set() };
+function toggleRowBookmark(r) {
+  const sk = r.getAttribute("data-sk");
+  const title = (r.querySelector(".g-feed-title") || {}).textContent || "";
+  let added;
+  if (sk === "m" || sk === "c" || sk === "l") {
+    const id = r.getAttribute("data-sid");
+    if (!id) return;
+    const set = _readSet(SAVED_LS[sk]);
+    added = !set.has(id);
+    if (added) { set.add(id); _unsavedRecently[sk].delete(id); } else { set.delete(id); _unsavedRecently[sk].add(id); }
+    try { localStorage.setItem(SAVED_LS[sk], JSON.stringify([...set])); } catch { /* */ }
+    _syncSaved(sk);
+  } else {
+    // Home-side store: self-contained row snapshot, keyed on href|title.
+    const key = ((r.getAttribute("href") || "") + "|" + title).toLowerCase();
+    let arr = []; try { const a = JSON.parse(localStorage.getItem("wire.home.saved") || "[]"); if (Array.isArray(a)) arr = a; } catch { /* */ }
+    const i = arr.findIndex((o) => o && o.k === key);
+    added = i < 0;
+    if (added) {
+      arr.unshift({ k: key, desk: r.getAttribute("data-desk") || "m", title,
+        href: r.getAttribute("href") || "#", ext: r.getAttribute("target") === "_blank",
+        date: r.getAttribute("data-date") || "", time: r.getAttribute("data-time") || "",
+        src: (r.querySelector(".g-feed-src") || {}).textContent || "" });
+    } else { arr.splice(i, 1); }
+    try { localStorage.setItem("wire.home.saved", JSON.stringify(arr.slice(0, 500))); } catch { /* */ }
+  }
+  wireToast(added ? "Saved to Bookmarks" : "Removed from Bookmarks");
+}
+let _toastEl = null, _toastT = null;
+function wireToast(msg) {
+  if (!_toastEl) { _toastEl = document.createElement("div"); _toastEl.className = "wire-toast"; document.body.appendChild(_toastEl); }
+  _toastEl.textContent = msg;
+  _toastEl.classList.add("on");
+  clearTimeout(_toastT); _toastT = setTimeout(() => _toastEl.classList.remove("on"), 1600);
+}
+function initRowBookmarks() {
+  let timer = null, sx = 0, sy = 0, fired = false;
+  const findRow = (el) => (el && el.closest ? el.closest(".g-feed-row") : null);
+  const cancel = () => { if (timer) { clearTimeout(timer); timer = null; } };
+  document.addEventListener("touchstart", (e) => {
+    const r = findRow(e.target); if (!r || e.touches.length !== 1) return;
+    fired = false; sx = e.touches[0].clientX; sy = e.touches[0].clientY;
+    timer = setTimeout(() => { timer = null; fired = true; toggleRowBookmark(r); if (navigator.vibrate) navigator.vibrate(10); }, 550);
+  }, { passive: true });
+  document.addEventListener("touchmove", (e) => {
+    if (!timer) return;
+    const t = e.touches[0];
+    if (Math.abs(t.clientX - sx) > 10 || Math.abs(t.clientY - sy) > 10) cancel();
+  }, { passive: true });
+  document.addEventListener("touchend", cancel, { passive: true });
+  document.addEventListener("touchcancel", cancel, { passive: true });
+  // A fired long-press must NOT also open the story — eat the trailing click.
+  document.addEventListener("click", (e) => {
+    if (fired && findRow(e.target)) { e.preventDefault(); e.stopPropagation(); fired = false; }
+  }, true);
+  // Desktop: right-click toggles instead of the browser context menu.
+  document.addEventListener("contextmenu", (e) => {
+    const r = findRow(e.target); if (!r) return;
+    e.preventDefault(); toggleRowBookmark(r);
+  });
+}
+
 export function initGlance() {
   if (_inited) return; _inited = true;
   _liveFeed = ((readCache("feed") || {}).items) || [];  // instant last-good merge
@@ -162,13 +249,14 @@ export function initGlance() {
   // The legacy Home-only menus (initNotifBell / initSavedPanel /
   // initMarketsPanel) are retired; on phones the Home data rails move into the
   // shared Markets panel via initHomeMarketsRails.
-  import("/nav-actions.js?v=20260718-3").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260718-4").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderDeals();
   renderFundraising();
   renderRx();
   initFlowChips();
   initFeedEntityNav();
   initFeedHeadLock();
+  initRowBookmarks();
   initJumpNav();
   wirePalette(buildIndex());
   startLiveRefresh();
@@ -582,18 +670,22 @@ function renderFeed() {
   // data carries one — the four-times-daily routine populates it; rows lead with
   // it and the feed ranks newest→oldest by date+time. Absent → row leads with the
   // headline (no fabricated time) until the next refresh backfills it.
-  const mk = (desk, href, title, source, ext, date, time) =>
-    ({ desk, href, title, ext, date, time: time || "", src: source || "" });
+  // `sk`/`sid`: which app saved-store this row toggles in (m/c/l + the item's
+  // saved-id, matching the apps' own star scheme) — rows without one (letters,
+  // FT, live RSS) fall back to the Home-side store ("x").
+  const mk = (desk, href, title, source, ext, date, time, sk, sid) =>
+    ({ desk, href, title, ext, date, time: time || "", src: source || "", sk: sk || "", sid: sid || "" });
 
   // Every dated, sourced Macro item: the reading list (ARTICLES), the dashboard
   // headlines (NEWS US/UK) and the economist commentary (COMMENTARY US/UK). Deduped
   // by title below, so cross-section overlap collapses to one row.
   const macro = [];
-  ((ARTICLES && ARTICLES.items) || []).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)));
-  (((NEWS && NEWS.us) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)));
-  (((NEWS && NEWS.uk) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)));
-  (((COMMENTARY && COMMENTARY.us) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)));
-  (((COMMENTARY && COMMENTARY.uk) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)));
+  const mSid = (n) => "a" + _savedHash(_savedBase(n));
+  ((ARTICLES && ARTICLES.items) || []).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time, "m", mSid(n))));
+  (((NEWS && NEWS.us) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time, "m", mSid(n))));
+  (((NEWS && NEWS.uk) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time, "m", mSid(n))));
+  (((COMMENTARY && COMMENTARY.us) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time, "m", mSid(n))));
+  (((COMMENTARY && COMMENTARY.uk) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time, "m", mSid(n))));
   // Live RSS headlines (real publish times) merged in with the curated macro
   // items; the title-dedupe below collapses any overlap with the static feeds.
   // myFT-flagged items belong to the FT stream, not Macro — routed below.
@@ -604,16 +696,16 @@ function renderFeed() {
   { const kept = macro.filter((o) => (o.src !== "Investing.com" || /\breuters\b/i.test(o.title || "")) && !NON_PREMIUM.has(o.src)); macro.length = 0; macro.push(...kept); }
 
   const credit = [];
-  deals.forEach((d) => credit.push(mk("c", creditItemHref(d), d.headline, creditSource(d), creditItemExt(d), d.date, d.time)));
-  intel.forEach((i) => credit.push(mk("c", creditItemHref(i), i.headline, creditSource(i), creditItemExt(i), i.date, i.time)));
+  deals.forEach((d) => credit.push(mk("c", creditItemHref(d), d.headline, creditSource(d), creditItemExt(d), d.date, d.time, "c", d.id)));
+  intel.forEach((i) => credit.push(mk("c", creditItemHref(i), i.headline, creditSource(i), creditItemExt(i), i.date, i.time, "c", i.id)));
   // Credit research / white papers (Commentary) — external pieces, so they open
   // out to the publisher like the macro reading list.
   (research || []).forEach((r) => credit.push(mk("c", r.url, r.title, r.institution, true, r.date, r.time)));
 
   const legal = [];
-  items.forEach((i) => { if (i.date) legal.push(mk("l", i.url || `/legal/#/item/${encodeURIComponent(i.id)}`, i.title, firmName(i.firm), !!i.url, i.date, i.time)); });
-  cases.forEach((c) => { if (c.date) legal.push(mk("l", c.url || "/legal/#/", c.name, c.court, !!c.url, c.date, c.time)); });
-  restructurings.forEach((r) => { if (r.date) legal.push(mk("l", r.judgmentUrl || r.articleUrl || "/legal/#/", r.company, r.type === "scheme" ? "Scheme" : "Restructuring plan", !!(r.judgmentUrl || r.articleUrl), r.date, r.time)); });
+  items.forEach((i) => { if (i.date) legal.push(mk("l", i.url || `/legal/#/item/${encodeURIComponent(i.id)}`, i.title, firmName(i.firm), !!i.url, i.date, i.time, "l", i.id)); });
+  cases.forEach((c) => { if (c.date) legal.push(mk("l", c.url || "/legal/#/", c.name, c.court, !!c.url, c.date, c.time, "l", c.id)); });
+  restructurings.forEach((r) => { if (r.date) legal.push(mk("l", r.judgmentUrl || r.articleUrl || "/legal/#/", r.company, r.type === "scheme" ? "Scheme" : "Restructuring plan", !!(r.judgmentUrl || r.articleUrl), r.date, r.time, "l", r.id)); });
 
   // Reader's own aggregated email newsletters (Bloomberg, Economist, etc.),
   // pulled from the connected mailbox. They open out to the newsletter's own
@@ -690,7 +782,8 @@ function renderFeed() {
     // "12:00" (midday) so every row leads with a time.
     const t = o.time || "12:00";
     const ent = matchEntity(o.title);
-    return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
+    return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}`
+      + ` data-sk="${esc(o.sk || "x")}"${o.sid ? ` data-sid="${esc(o.sid)}"` : ""} data-desk="${esc(o.desk)}" data-date="${esc(o.date || "")}" data-time="${esc(o.time || "")}">`
       + `<span class="g-feed-time">${esc(t)}</span>`
       + `<span class="g-feed-code ${_deskClass[o.desk]}" title="${esc(DESK[o.desk])}">${DESK_CODE[o.desk]}</span>`
       + `<span class="g-feed-title">${esc(o.title)}</span>`

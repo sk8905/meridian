@@ -17,7 +17,7 @@ const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "
 function fmtDate(d) { if (!d) return ""; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : String(d).slice(0, 10); const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s); if (!m) return String(d); return `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}`; }
 
 const DESK = { m: "Macro", c: "Credit", l: "Legal" };
-const DESK_CLASS = { m: "macro", c: "credit", l: "legal", n: "newsletter" };
+const DESK_CLASS = { m: "macro", c: "credit", l: "legal", n: "newsletter", f: "ft" };
 
 const ICO_MKT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>';
 const ICO_SAVED = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
@@ -74,7 +74,7 @@ function loadMarkets(body) {
 }
 
 // ---- Saved rows — shared news-feed row (headline, then code · date · source) --
-const NF_CODE = { m: "MAC", c: "CRD", l: "LEX", n: "LETTER" };
+const NF_CODE = { m: "MAC", c: "CRD", l: "LEX", n: "LETTER", f: "FT" };
 function savedRow(x) {
   const code = NF_CODE[x.desk] || "";
   const cls = DESK_CLASS[x.desk] || "";
@@ -88,7 +88,7 @@ function savedRow(x) {
 async function loadSaved(body, headCount) {
   body.innerHTML = '<div class="na-load">Loading…</div>';
   try {
-    const { resolveSaved } = await import("/saved.js?v=20260717-4");
+    const { resolveSaved } = await import("/saved.js?v=20260718-1");
     const list = resolveSaved();
     if (headCount) headCount.textContent = list.length ? " · " + list.length : "";
     body.innerHTML = list.length
@@ -117,7 +117,7 @@ function notifRow(x) {
 let _notifItems = null;
 async function ensureNotifs() {
   if (_notifItems) return _notifItems;
-  const { buildNotifs } = await import("/saved.js?v=20260717-4");
+  const { buildNotifs } = await import("/saved.js?v=20260718-1");
   _notifItems = (await buildNotifs()).slice(0, 60);
   return _notifItems;
 }
@@ -278,6 +278,7 @@ export function initNavActions() {
     const anyOpen = () => panels.some((x) => !x.panel.hidden);
     const closeAll = () => {
       panels.forEach((x) => { x.panel.hidden = true; x.btn.setAttribute("aria-expanded", "false"); });
+      const tb = document.querySelector(".mobile-tabbar"); if (tb) tb.classList.remove("menu-open");
       lockBody(false); scrimOff();
     };
     const openPanel = (rec) => {
@@ -285,6 +286,10 @@ export function initNavActions() {
       rec.panel.hidden = false;
       rec.btn.setAttribute("aria-expanded", "true");
       rec.onOpen(rec.panel);
+      // Exactly ONE orange tab line at a time: while the Menu panel is open its
+      // tab carries the line and the current page tab's yields (CSS .menu-open).
+      const tb = document.querySelector(".mobile-tabbar");
+      if (tb) tb.classList.toggle("menu-open", !!(rec.btn && rec.btn.hasAttribute("data-open-menu")));
       if (!isPhone()) { const r = rec.btn.getBoundingClientRect(); rec.panel.style.top = `${Math.round(r.bottom + 8)}px`; }
       lockBody(isPhone());
       scrimOn(closeAll);

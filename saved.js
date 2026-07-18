@@ -69,6 +69,21 @@ export function resolveSaved() {
   items.forEach((it) => { if (lS.has(it.id)) out.push({ desk: "l", title: it.title, href: it.url || "/legal/#/item/" + encodeURIComponent(it.id), ext: !!it.url, date: it.date, time: it.time, src: firmName(it.firm) }); });
   cases.forEach((c) => { if (lS.has(c.id)) out.push({ desk: "l", title: c.name, href: c.url || "/legal/#/", ext: !!c.url, date: c.date, time: c.time, src: c.court }); });
   restructurings.forEach((r) => { if (lS.has(r.id)) out.push({ desk: "l", title: r.company, href: r.judgmentUrl || r.articleUrl || "/legal/#/", ext: !!(r.judgmentUrl || r.articleUrl), date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
+  // Home-feed long-press bookmarks (Letters, FT, live headlines — rows with no
+  // app saved-id) live in a self-contained Home store; fold them in, deduped by
+  // normalised title against the app-store items above.
+  try {
+    const a = JSON.parse(localStorage.getItem("wire.home.saved") || "[]");
+    if (Array.isArray(a)) {
+      const seen = new Set(out.map((x) => String(x.title || "").toLowerCase().replace(/[^a-z0-9]+/g, "")));
+      a.forEach((o) => {
+        if (!o || !o.title) return;
+        const k = String(o.title).toLowerCase().replace(/[^a-z0-9]+/g, "");
+        if (seen.has(k)) return; seen.add(k);
+        out.push({ desk: o.desk || "m", title: o.title, href: o.href || "#", ext: !!o.ext, date: o.date || "", time: o.time || "", src: o.src || "" });
+      });
+    }
+  } catch { /* ignore */ }
   return out.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 }
 
