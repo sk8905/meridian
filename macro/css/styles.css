@@ -365,6 +365,24 @@ a.intel-head:hover { text-decoration: underline; }
 .ck-body .pw-bars { gap: .5rem; margin: .1rem 0 0; }
 .ck-body .pw-lbl { font-size: 11px; }
 .ck-body .pw-pct { font-size: 12px; }
+/* FedWatch + dot plot side by side, 50/50 */
+.ck-fed2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.ck-fed2 .ck-fed-col { min-width: 0; }
+.ck-fed2 .ck-sub { margin-bottom: 6px; }
+/* Wall of maturities */
+.mw-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.mw-col { min-width: 0; }
+.mw-split { display: flex; gap: 2px; height: 12px; margin: 7px 0 4px; }
+.mw-seg { display: block; min-width: 2px; }
+.mw-seg.mw-ig, .mw-dot.mw-ig, .mw-fill-ig { background: color-mix(in srgb, var(--t-mac, #9b83e2) 70%, transparent); }
+.mw-seg.mw-sg, .mw-dot.mw-sg, .mw-fill-sg { background: color-mix(in srgb, var(--t-crd, #fb8b1e) 70%, transparent); }
+.mw-legend { display: flex; gap: 14px; font-family: var(--t-mono); font-size: 9.5px; letter-spacing: .04em; color: var(--muted); margin-bottom: 6px; }
+.mw-legend span { display: inline-flex; align-items: center; gap: 5px; }
+.mw-dot { width: 7px; height: 7px; display: inline-block; }
+@media (max-width: 760px) {
+  .ck-fed2 { gap: 10px; }
+  .mw-cols { grid-template-columns: 1fr; gap: 10px; }
+}
 /* Fed dot plot */
 .ck-dots { width: 100%; border-collapse: collapse; font-family: var(--t-mono); font-variant-numeric: tabular-nums; }
 .ck-dots th { text-align: left; font-weight: 400; color: var(--muted); font-size: 11px; padding: 3px 0; border-bottom: 1px solid var(--border); }

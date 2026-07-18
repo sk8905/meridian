@@ -4,7 +4,7 @@
 // Fetches the shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P
 // Global / BoE). Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES } from "./content.js?v=20260718-12";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL } from "./content.js?v=20260718-13";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -424,6 +424,43 @@ function cockpitInds(series) {
   return html || '<div class="tw-empty muted small" style="padding:11px">Indicators unavailable right now.</div>';
 }
 
+// Wall of maturities — corporate credit due over the next five years, from the
+// cited S&P / OECD / Reuters figures in MATWALL (content.js). The IG/spec split
+// and the OECD 2026–28 refinancing shares are drawn as labelled bars; per-year
+// dollar bars are deliberately absent (the sources don't publish them openly).
+function matWallPanel() {
+  const w = MATWALL;
+  if (!w) return "";
+  const srcA = (s) => `<a class="ck-src" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.name)}</a>`;
+  const ig = Math.max(0, Math.min(100, w.rated.igPct));
+  return `
+    <section class="ck-panel ck-span2">
+      <header class="ck-h"><span>Wall of maturities — corporate credit</span><span class="ck-x">next 5Y</span></header>
+      <div class="ck-body mw-cols">
+        <div class="mw-col">
+          <p class="ck-sub"><strong>${esc(w.rated.total)}</strong> rated debt due ${esc(w.rated.window)} · ${srcA(w.rated.src)}</p>
+          <div class="mw-split" role="img" aria-label="Investment grade ${ig}% of the wall, speculative grade ${100 - ig}%">
+            <span class="mw-seg mw-ig" style="width:${ig}%"></span><span class="mw-seg mw-sg" style="width:${100 - ig}%"></span>
+          </div>
+          <div class="mw-legend"><span><i class="mw-dot mw-ig"></i>IG ${ig}%</span><span><i class="mw-dot mw-sg"></i>SPEC ${100 - ig}%</span></div>
+          <p class="ck-note">${esc(w.rated.note)}</p>
+          <p class="ck-sub ck-sub2"><strong>Next 36 months</strong> · ${srcA(w.near.src)}</p>
+          <p class="ck-note">${esc(w.near.body)}</p>
+        </div>
+        <div class="mw-col">
+          <p class="ck-sub"><strong>Bonds due 2026–28</strong> · ${srcA(w.bonds.src)}</p>
+          <div class="pw-bars">
+            <div class="pw-row"><span class="pw-lbl">Investment grade</span><span class="pw-pct">${esc(String(w.bonds.igPct))}%</span><span class="pw-track"><span class="pw-fill mw-fill-ig" style="width:${esc(String(w.bonds.igPct))}%"></span></span></div>
+            <div class="pw-row"><span class="pw-lbl">Non-investment grade</span><span class="pw-pct">${esc(String(w.bonds.nigPct))}%</span><span class="pw-track"><span class="pw-fill mw-fill-sg" style="width:${esc(String(w.bonds.nigPct))}%"></span></span></div>
+          </div>
+          <p class="ck-note">${esc(w.bonds.note)}</p>
+          <p class="ck-sub ck-sub2"><strong>Private credit</strong> · ${srcA(w.privateCredit.src)}</p>
+          <p class="ck-note">${esc(w.privateCredit.body)}</p>
+        </div>
+      </div>
+    </section>`;
+}
+
 // The dense Macro cockpit shown behind the "Dashboard" chip: every read on one
 // screen — economic indicators, the yield curve, the market-implied Fed path
 // (FedWatch + dot plot), the rate outlook, and the two regime gauges (cycle &
@@ -454,14 +491,20 @@ function macroDashPane() {
     <section class="ck-panel">
       <header class="ck-h"><span>Market-implied Fed path</span><a class="ck-more" href="#/policy">Policy →</a></header>
       <div class="ck-body">
-        <p class="ck-sub"><strong>CME FedWatch</strong> · ${esc(fw ? fw.meeting : "")} FOMC · as of ${esc(fw ? fw.asOf : "")} · <a class="ck-src" href="${esc(fw ? fw.href : "#")}" target="_blank" rel="noopener noreferrer">CME</a></p>
-        <div class="pw-bars">${fwBars}</div>
-        <p class="ck-note">${esc(fw ? fw.note : "")}</p>
-        <p class="ck-sub ck-sub2"><strong>Fed dot plot</strong> · ${esc(dp ? dp.meeting : "")} median · <a class="ck-src" href="${esc(dp ? dp.href : "#")}" target="_blank" rel="noopener noreferrer">FOMC</a></p>
-        <table class="ck-dots"><tbody>${dpRows}</tbody></table>
-        <p class="ck-note">${esc(dp ? dp.note : "")}</p>
+        <div class="ck-fed2">
+          <div class="ck-fed-col">
+            <p class="ck-sub"><strong>CME FedWatch</strong> · ${esc(fw ? fw.meeting : "")} · as of ${esc(fw ? fw.asOf : "")} · <a class="ck-src" href="${esc(fw ? fw.href : "#")}" target="_blank" rel="noopener noreferrer">CME</a></p>
+            <div class="pw-bars">${fwBars}</div>
+          </div>
+          <div class="ck-fed-col">
+            <p class="ck-sub"><strong>Fed dot plot</strong> · ${esc(dp ? dp.meeting : "")} median · <a class="ck-src" href="${esc(dp ? dp.href : "#")}" target="_blank" rel="noopener noreferrer">FOMC</a></p>
+            <table class="ck-dots"><tbody>${dpRows}</tbody></table>
+          </div>
+        </div>
       </div>
     </section>
+
+    ${matWallPanel()}
 
     <section class="ck-panel">
       <header class="ck-h"><span>Rate outlook</span><a class="ck-more" href="#/policy">Policy →</a></header>

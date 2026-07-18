@@ -457,3 +457,28 @@ export const RELEASES = [
   { date: "2026-08-19", country: "US", title: "FOMC minutes (28–29 July meeting)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-08-19", country: "UK", title: "CPI inflation (July)", url: "https://www.ons.gov.uk/releases/consumerpriceinflationukjuly2026" },
 ];
+
+// ---- Wall of maturities — corporate credit due over the next five years ----
+// VERBATIM figures from the cited reports only. Per-year dollar splits sit
+// behind S&P's registration wall — never estimate or interpolate them here;
+// upgrade this block only from a source that states the numbers.
+export const MATWALL = {
+  rated: {
+    total: "$12.4tn", window: "2025–2029", igPct: 73,
+    note: "Rated corporate debt (bonds, loans, revolvers) scheduled to mature globally — ~73% investment-grade.",
+    src: { name: "S&P", url: "https://investorfactbook.spglobal.com/sp-global-ratings/global-corporate-debt-maturities-through-2029/" },
+  },
+  near: {
+    body: "$6.88tn due within 36 months — 29.7% of all rated debt, of which $1.43tn is speculative-grade; spec-grade maturities now peak in 2029.",
+    src: { name: "S&P Refinancing, Apr 2026", url: "https://www.spglobal.com/ratings/en/regulatory/article/credit-trends-global-refinancing-speculative-grade-maturities-now-peak-in-2029-s101682010" },
+  },
+  bonds: {
+    igPct: 24, nigPct: 31,
+    note: "Share of outstanding corporate bonds due 2026–28. Outstanding end-2025: $36.4tn bonds · $23.1tn syndicated loans.",
+    src: { name: "OECD Global Debt Report 2026", url: "https://www.oecd.org/en/publications/global-debt-report-2026_e9d80efd-en.html" },
+  },
+  privateCredit: {
+    body: "Direct-lending BDC sample (74 funds, $84bn assets): only ~$15bn matures through 2026 — the private-credit wall peaks in 2028–29.",
+    src: { name: "Reuters", url: "https://finance.yahoo.com/markets/stocks/articles/private-credit-borrowers-big-maturity-141544760.html" },
+  },
+};
