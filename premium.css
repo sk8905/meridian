@@ -664,10 +664,12 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
     border-left: 0; border-right: 0; }
 }
 
-/* Bookmarks panel: Saved | Watchlist chips — white-bordered, flat (desktop
-   dropdown AND phone full-screen, so defined outside any media query). */
-.na-chips { display: flex; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--border, #262626); }
-.na-chip { border: 1px solid rgba(255,255,255,.3); background: transparent; color: var(--muted, #8592ad);
-  font: inherit; font-size: 11px; font-weight: 600; letter-spacing: .03em; padding: 5px 14px;
+/* Bookmarks panel: Saved | Watchlist — the SAME segmented tab style as every
+   other chip row (equal width, hairline dividers, white underline on active). */
+.na-chips { display: flex; gap: 0; height: 34px; border-bottom: 1px solid var(--border, #262626); }
+.na-chip { flex: 1 1 0; display: flex; align-items: center; justify-content: center; padding: 0 8px;
+  border: 0; border-right: 1px solid var(--border, #262626); background: transparent;
+  color: var(--muted, #8592ad); font: inherit; font-size: 11px; font-weight: 600; letter-spacing: .03em;
   cursor: pointer; border-radius: 0; }
-.na-chip.is-on { color: #fff; border-color: #fff; }
+.na-chip:last-child { border-right: 0; }
+.na-chip.is-on { color: var(--ink, #eaf0fb); box-shadow: inset 0 -2px 0 #fff; }

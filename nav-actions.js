@@ -85,12 +85,6 @@ function savedRow(x) {
     + (x.src ? `<span class="nf-sep">·</span><span class="nf-src">${esc(x.src)}</span>` : "")
     + `</span></a>`;
 }
-function watchRow(x) {
-  return `<a class="nf-row" href="${esc(x.href)}">`
-    + `<span class="nf-title">${esc(x.title)}</span>`
-    + `<span class="nf-meta"><span class="nf-code ${DESK_CLASS[x.desk] || ""}">${esc(NF_CODE[x.desk] || "")}</span>`
-    + `<span class="nf-src">${esc(x.kind)}</span></span></a>`;
-}
 // Bookmarks panel: Saved | Watchlist chip tabs over one list. Watchlist is
 // managers + law firms only (the follow store the Credit stars write; firms
 // come from the Home row menu).
@@ -105,14 +99,14 @@ async function loadSaved(body, headCount) {
   const render = async () => {
     chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _svTab));
     try {
-      const mod = await import("/saved.js?v=20260718-2");
-      const list = _svTab === "saved" ? mod.resolveSaved() : mod.resolveWatchlist();
+      const mod = await import("/saved.js?v=20260718-3");
+      const list = _svTab === "saved" ? mod.resolveSaved() : mod.resolveWatchlistNews();
       if (headCount) headCount.textContent = list.length ? " · " + list.length : "";
       tb.innerHTML = list.length
-        ? list.map(_svTab === "saved" ? savedRow : watchRow).join("")
+        ? list.map(savedRow).join("")
         : (_svTab === "saved"
           ? '<div class="na-empty">Nothing saved yet. Tap the ☆ on any item — or press and hold a story on the Home wire — to keep it here.</div>'
-          : '<div class="na-empty">Nothing on your watchlist yet. Press and hold a manager or law-firm story (or tap the ☆ on a manager in Credit) to follow it here.</div>');
+          : '<div class="na-empty">No watchlist news yet. Press and hold a manager or law-firm story (or tap the ☆ on a manager in Credit) to follow it — their deals, fundraising, alerts and matters appear here.</div>');
     } catch {
       tb.innerHTML = '<div class="na-load">Unavailable right now.</div>';
     }
