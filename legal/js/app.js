@@ -17,7 +17,7 @@ import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
   rxAdvisers,
-} from "./data.js?v=20260718-1";
+} from "./data.js?v=20260718-2";
 import { donutChart, columnChart } from "./charts.js?v=20260718-1";
 
 const app = document.getElementById("app");
@@ -1413,7 +1413,7 @@ document.addEventListener("click", (e) => {
   }
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260718-2").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260718-3").then((m) => m.mountPalette()).catch(() => {});
 import("/ptr.js?v=20260718-2").then((m) => m.initPullToRefresh()).catch(() => {});
 initChrome();
 initNotif();

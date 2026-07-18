@@ -4965,22 +4965,7 @@ export const items = [
     tags: ["AIFMD", "FCA", "fund regulation", "authorised funds", "UCITS", "liquidity management", "investment management", "CP26/16"],
     dateEstimated: false,
   },
-  {
-    id: "u567", title: "The Financial Services and Markets Bill 2026–27: key reforms",
-    area: "banking", areas: ["banking", "funds"], type: "update", firm: "simmons",
-    date: "2026-06-11", jurisdiction: "United Kingdom",
-    summary: "Simmons & Simmons analyses the Financial Services and Markets Bill 2026–27, introduced following the King's Speech, which proposes a package of reforms to UK financial regulation including changes to the FCA's objectives, the ringfencing regime, the senior managers and certification regime (SMCR), and the Payment Systems Regulator.",
-    points: [
-      "Bill introduced in the King's Speech; proposes reforms across banking regulation, financial services authorisation and the PSR",
-      "Proposed changes to FCA statutory objectives to add a secondary competitiveness and growth objective",
-      "Ringfencing regime reforms including possible extension to building societies and review of the £25bn threshold",
-      "SMCR review expected to reduce regulatory burden and streamline individual accountability requirements",
-    ],
-    tags: ["FSMA", "Financial Services and Markets Bill", "FCA", "ringfencing", "SMCR", "PSR", "banking regulation", "regulatory reform"],
-    sourceUrl: "https://www.simmons-simmons.com/en/publications/cmpzcp1yl008kv6xk30l6igas/the-financial-services-and-markets-bill-2026-27-key-reforms",
-    dateEstimated: false,
-  },
-  {
+    {
     url: "https://www.macfarlanes.com/insights/102n6dt/corporate-law-update-20-26-june/",
     id: "u568", title: "Corporate Law Update: 20–26 June 2026",
     area: "corporate", areas: ["corporate"], type: "update", firm: "macfarlanes",

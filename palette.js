@@ -9,7 +9,7 @@
 // Versioned imports (matching each app) so the palette busts its cache with the
 // four-times-daily data refresh instead of serving a stale copy.
 import { deals, intel, managers, funds, research } from "/credit/js/data.js?v=20260708-10";
-import { items, cases, restructurings, firms } from "/legal/js/data.js?v=20260708-8";
+import { items, cases, restructurings, firms } from "/legal/js/data.js?v=20260718-2";
 import { NEWS, ARTICLES, ALERTS } from "/macro/js/content.js?v=20260711-1";
 
 // Canonical identity of a manager press item (mirrors credit/js/app.js) so a news

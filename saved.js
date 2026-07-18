@@ -8,7 +8,7 @@
 // =============================================================================
 import { ARTICLES, NEWS, COMMENTARY, ALERTS } from "/macro/js/content.js";
 import { deals, intel, managers, research } from "/credit/js/data.js";
-import { items, cases, restructurings, firms } from "/legal/js/data.js";
+import { items, cases, restructurings, firms } from "/legal/js/data.js?v=20260718-2";
 
 // ---- id schemes -------------------------------------------------------------
 function _savedHash(s) { let h = 0; for (let i = 0; i < s.length; i++) h = (Math.imul(h, 31) + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); }

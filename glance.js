@@ -10,7 +10,7 @@
 // Data modules are versioned (matching each app) so the live Glance busts its
 // cache with the four-times-daily data refresh instead of serving a stale copy.
 import { deals, intel, managers, funds, research, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260717-2";
-import { items, cases, restructurings, firmById } from "/legal/js/data.js?v=20260714-2";
+import { items, cases, restructurings, firmById } from "/legal/js/data.js?v=20260718-2";
 import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js?v=20260717-4";
 import { NEWSLETTERS } from "/newsletters.js?v=20260717-1";
 import { FT_ITEMS } from "/ft.js?v=20260718-1";
@@ -356,7 +356,7 @@ export function initGlance() {
   // The legacy Home-only menus (initNotifBell / initSavedPanel /
   // initMarketsPanel) are retired; on phones the Home data rails move into the
   // shared Markets panel via initHomeMarketsRails.
-  import("/nav-actions.js?v=20260718-8").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260718-9").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderDeals();
   renderFundraising();
   renderRx();

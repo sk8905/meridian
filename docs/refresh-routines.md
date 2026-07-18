@@ -432,7 +432,10 @@ extra deep-research pass on watchlisted names is skipped.
 >      latham, kirkland, whitecase, weil, sidley, cleary, ropesgray,
 >      simpsonthacher, davispolk, southsquare — skip items not from these);
 >      date; jurisdiction; court + citation for case notes; summary; points
->      (array); tags (array); url.
+>      (array); tags (array); url. **url is REQUIRED** — a verifiable public
+>      source is essential. NEVER add an alert without a working source URL;
+>      if an existing alert's source page disappears, replace the URL or
+>      delete the record.
 >    - **Case law** → search BAILII and caselaw.nationalarchives.gov.uk for
 >      judgments handed down in-window in the five areas AND one of the tracked
 >      courts ONLY (Supreme Court, Court of Appeal, High Court (Ch), High Court
