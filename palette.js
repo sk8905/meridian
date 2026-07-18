@@ -11,8 +11,8 @@
 import { deals, intel, managers, funds, research } from "/credit/js/data.js?v=20260718-9";
 import { items, cases, restructurings, firms } from "/legal/js/data.js?v=20260718-10";
 import { NEWS, ARTICLES, ALERTS } from "/macro/js/content.js?v=20260718-9";
-import { FT_ITEMS } from "/ft.js?v=20260718-4";
-import { NEWSLETTERS } from "/newsletters.js?v=20260718-1";
+import { FT_ITEMS } from "/ft.js?v=20260718-5";
+import { NEWSLETTERS } from "/newsletters.js?v=20260718-2";
 
 // Canonical identity of a manager press item (mirrors credit/js/app.js) so a news
 // search result deep-links to the exact row (#/manager/<id>?focus=k:<key>).

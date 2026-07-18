@@ -40,6 +40,10 @@
   Cache-Control: no-cache
 /macro/js/content.js
   Cache-Control: no-cache
+/ft.js
+  Cache-Control: no-cache
+/newsletters.js
+  Cache-Control: no-cache
 
 # The service worker and manifest must revalidate so push/behaviour updates
 # apply on the next launch instead of being pinned by the default long cache.
