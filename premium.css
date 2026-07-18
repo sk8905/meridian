@@ -501,6 +501,18 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
   .na-menu-acct a { color: #fff; font-weight: 600; text-decoration: none; margin-left: .2em; }
   .na-menu-stat { display: block; font-family: var(--t-mono, ui-monospace, monospace);
     font-size: 11px; color: var(--faint, #5c6a86); border-bottom: 0; }
+  /* Recent searches sit under the search bar; the account/refresh block is the
+     panel FOOTER (pinned to the bottom via the flex column below). */
+  #na-menu-panel:not([hidden]) { display: flex; flex-direction: column; }
+  #na-menu-panel .na-body { display: flex; flex-direction: column; flex: 1 1 auto; }
+  .na-menu-recent-h { padding: 12px 14px 4px; font-family: var(--t-mono, ui-monospace, monospace);
+    font-size: 9.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
+    color: var(--faint, #5c6a86); }
+  .na-recent-row { color: var(--muted, #8592ad); cursor: pointer;
+    border-bottom: 1px solid var(--grid, #1a1a1a); }
+  .na-recent-row svg { width: 14px; height: 14px; flex: 0 0 auto; color: var(--faint, #5c6a86); }
+  .na-menu-foot { margin-top: auto; border-top: 1px solid var(--border, #262626); }
+  .na-menu-foot .na-menu-row { border-bottom: 0; }
   /* Full-screen notif panel: the header sticks; rows are the shared .nf-row style. */
   .notif-head { position: sticky; top: 0; z-index: 3; }
   .notif-list { max-height: none; overflow: visible; }

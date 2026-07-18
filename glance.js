@@ -162,7 +162,7 @@ export function initGlance() {
   // The legacy Home-only menus (initNotifBell / initSavedPanel /
   // initMarketsPanel) are retired; on phones the Home data rails move into the
   // shared Markets panel via initHomeMarketsRails.
-  import("/nav-actions.js?v=20260718-2").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260718-3").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderDeals();
   renderFundraising();
   renderRx();
@@ -1663,7 +1663,18 @@ function wirePalette(idx) {
     const s = results.querySelector(".cmdk-row.sel"); if (s) s.scrollIntoView({ block: "nearest" });
   }
   function refresh() { current = search(input.value); sel = 0; draw(); }
-  function go(e) { if (!e) return; close(); if (/^https?:\/\//i.test(e.href)) window.open(e.href, "_blank", "noopener"); else window.location.href = e.href; }
+  // Remember the query whenever a result is opened — feeds the Menu panel's
+  // "Recent searches" list (shared key with the app palettes).
+  function recordSearch(q) {
+    q = String(q || "").trim(); if (!q) return;
+    try {
+      const k = "wire.recentSearches";
+      const a = (JSON.parse(localStorage.getItem(k) || "[]") || []).filter((x) => typeof x === "string" && x.toLowerCase() !== q.toLowerCase());
+      a.unshift(q);
+      localStorage.setItem(k, JSON.stringify(a.slice(0, 8)));
+    } catch { /* ignore */ }
+  }
+  function go(e) { if (!e) return; recordSearch(input.value); close(); if (/^https?:\/\//i.test(e.href)) window.open(e.href, "_blank", "noopener"); else window.location.href = e.href; }
 
   // Focus SYNCHRONOUSLY within the tap gesture so iOS Safari pops the keyboard
   // immediately (a setTimeout would escape the gesture and suppress it).
@@ -1690,6 +1701,12 @@ function wirePalette(idx) {
   window.addEventListener("keydown", (ev) => {
     if (ev.key === "/" && !ev.metaKey && !ev.ctrlKey && !ev.altKey && !isTyping(ev.target) && !overlay.classList.contains("open")) { ev.preventDefault(); open(); }
     else if (ev.key === "Escape" && overlay.classList.contains("open")) { close(); }
+  });
+  // Menu panel "Recent searches" → reopen the search seeded with that query.
+  document.addEventListener("wire:search", (e) => {
+    open();
+    const q = e.detail && e.detail.q;
+    if (q) { input.value = q; refresh(); syncClr(); }
   });
   // Arriving from an in-app ⌘K (which routes to "/#find") opens search immediately.
   if (location.hash === "#find") { history.replaceState(null, "", "/"); open(); }

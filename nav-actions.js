@@ -237,11 +237,25 @@ export function initNavActions() {
           acctHtml = `<div class="na-menu-row na-menu-acct">${signed ? "" : "<span>Signed in as&nbsp;</span>"}${acct.innerHTML}</div>`;
         }
       }
+      // Recent searches — recorded by both search palettes on every opened
+      // result (shared localStorage key). Tapping one re-runs it in the search.
+      let recents = [];
+      try { const a = JSON.parse(localStorage.getItem("wire.recentSearches") || "[]"); if (Array.isArray(a)) recents = a.filter((q) => typeof q === "string").slice(0, 8); } catch { /* */ }
       p.querySelector(".na-body").innerHTML =
         `<button type="button" class="na-menu-row na-menu-search" data-open-search>${ICO_SEARCH}<span>Search everything…</span></button>`
-        + acctHtml
-        + (stat && stat.textContent.trim() ? `<div class="na-menu-row na-menu-stat">${esc(stat.textContent.trim())}</div>` : "");
+        + (recents.length
+          ? `<div class="na-menu-recent-h">Recent searches</div>`
+            + recents.map((q) => `<button type="button" class="na-menu-row na-recent-row" data-q="${esc(q)}">${ICO_SEARCH}<span>${esc(q)}</span></button>`).join("")
+          : "")
+        + `<div class="na-menu-foot">` + acctHtml
+        + (stat && stat.textContent.trim() ? `<div class="na-menu-row na-menu-stat">${esc(stat.textContent.trim())}</div>` : "")
+        + `</div>`;
     };
+    // Tapping a recent search re-opens the page's search overlay seeded with it.
+    menuPanel.addEventListener("click", (e) => {
+      const r = e.target.closest(".na-recent-row");
+      if (r) document.dispatchEvent(new CustomEvent("wire:search", { detail: { q: r.dataset.q || "" } }));
+    });
 
     const notifBtn = wrap.querySelector("#na-notif");
     const clearBadge = () => { const b = notifBtn.querySelector(".na-badge"); if (b) b.hidden = true; };

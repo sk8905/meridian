@@ -183,7 +183,18 @@ export function mountPalette() {
     const s = results.querySelector(".mcmdk-row.sel"); if (s) s.scrollIntoView({ block: "nearest" });
   }
   const refresh = () => { current = searchIdx(input.value); sel = 0; draw(); };
-  const go = (e) => { if (!e) return; close(); if (/^https?:\/\//i.test(e.href)) window.open(e.href, "_blank", "noopener"); else window.location.href = e.href; };
+  // Remember the query whenever a result is opened — feeds the Menu panel's
+  // "Recent searches" list (shared key with the Home palette).
+  const recordSearch = (q) => {
+    q = String(q || "").trim(); if (!q) return;
+    try {
+      const k = "wire.recentSearches";
+      const a = (JSON.parse(localStorage.getItem(k) || "[]") || []).filter((x) => typeof x === "string" && x.toLowerCase() !== q.toLowerCase());
+      a.unshift(q);
+      localStorage.setItem(k, JSON.stringify(a.slice(0, 8)));
+    } catch { /* ignore */ }
+  };
+  const go = (e) => { if (!e) return; recordSearch(input.value); close(); if (/^https?:\/\//i.test(e.href)) window.open(e.href, "_blank", "noopener"); else window.location.href = e.href; };
   // Focus SYNCHRONOUSLY within the tap/click gesture so iOS Safari pops the
   // keyboard immediately (a setTimeout would escape the gesture and suppress it).
   const open = () => { ov.classList.add("open"); input.value = ""; refresh(); syncClr(); input.focus({ preventScroll: true }); };
@@ -193,6 +204,12 @@ export function mountPalette() {
   // A visible nav search button (any app topbar) opens the palette on click.
   document.addEventListener("click", (ev) => {
     if (ev.target.closest("[data-open-search]") && !ov.classList.contains("open")) { ev.preventDefault(); open(); }
+  });
+  // Menu panel "Recent searches" -> reopen the search seeded with that query.
+  document.addEventListener("wire:search", (ev) => {
+    open();
+    const q = ev.detail && ev.detail.q;
+    if (q) { input.value = q; refresh(); syncClr(); }
   });
   const clr = ov.querySelector(".mcmdk-clear");
   const syncClr = () => { clr.hidden = !input.value; };
