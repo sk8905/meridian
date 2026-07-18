@@ -1406,6 +1406,20 @@ async function feedFetch(url) {
   }
   return null;
 }
+// myFT relevance screen — the reader's followed topics include Weekend/Life &
+// Arts sections; keep finance / markets / business / economics / energy /
+// policy stories and drop lifestyle, arts, travel, culture and sport. Applied
+// ON TOP of FEED_MACRO_RE / FEED_MEGACAP_RE (either passing keeps the story).
+const MYFT_RE = new RegExp([
+  "\\bstocks?\\b", "\\bshares?\\b", "equit(y|ies)", "\\bbonds?\\b", "\\bgilts?\\b", "treasur", "yield",
+  "\\bmarkets?\\b", "invest", "\\bbank", "hedge fund", "private (equity|credit)", "buyout", "\\bipo\\b",
+  "listing", "\\bm&a\\b", "merger", "acquisition", "takeover", "\\bdeals?\\b", "\\bdebt\\b", "\\bloans?\\b",
+  "\\bcredit\\b", "\\bfunds?\\b", "earnings", "profits?", "revenue", "valuation", "regulator", "\\bfca\\b",
+  "pension", "retirement", "insur", "currenc", "dollar", "sterling", "\\beuro\\b", "crash", "default",
+  "energy", "\\boil\\b", "\\bgas\\b", "electricity", "utilit", "tariff", "sanction", "\\btax\\b",
+  "budget", "fiscal", "chancellor", "billion", "trillion", "[€$£]",
+  "stockpick", "\\brates?\\b", "\\bsavings\\b", "\\bimports?\\b", "\\bexports?\\b", "\\btrade\\b",
+].join("|"), "i");
 const feedNorm = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
 async function handleFeed(request, env, ctx) {
   const url = new URL(request.url);
@@ -1427,15 +1441,18 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=14", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=15", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {
     const txt = await feedFetch(f.url);
     if (!txt) return [];
-    // myFT is the reader's own curation — no clickbait/single-stock rejection.
-    let items = f.myft ? feedParse(txt, f) : feedParse(txt, f).filter((x) => !feedReject(x.title));
-    if (f.filter !== false) {
+    let items = feedParse(txt, f).filter((x) => !feedReject(x.title));
+    // myFT: personal feed, but screened for relevance — finance/markets/
+    // business/policy stay; Weekend/lifestyle/arts/travel drop.
+    if (f.myft) {
+      items = items.filter((x) => FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title) || MYFT_RE.test(x.title));
+    } else if (f.filter !== false) {
       items = f.core
         ? items.filter((x) => FEED_CORE_MACRO_RE.test(x.title))
         : items.filter((x) => FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title));

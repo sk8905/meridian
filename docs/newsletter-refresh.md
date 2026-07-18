@@ -122,14 +122,23 @@ unchanged — never blank it out on a failed fetch.
    - `date` / `time` — from `<pubDate>`, converted to **Europe/London**, as
      `YYYY-MM-DD` + `HH:MM` (24h).
 
-3. Update `/ft.js`: regenerate the `FT_ITEMS` array — dedupe by `id` against the
-   existing entries, newest first, keep the most recent **~40**. Headline, date,
-   time and URL only — never article body text (paywalled content).
+3. **Relevance screen (required).** The followed topics include FT Weekend /
+   Life & Arts, so filter before writing: KEEP only headlines relevant to
+   finance, markets, economics, business, deals, energy or economic policy;
+   DROP lifestyle, arts, culture, travel, sport, obituaries, reviews and
+   general-interest features. Mirror the live feed's screen in `src/index.js`
+   (`FEED_MACRO_RE` / `FEED_MEGACAP_RE` / `MYFT_RE` — a headline passing ANY of
+   the three stays).
 
-4. Bump the import token in `glance.js` (`/ft.js?v=YYYYMMDD-N`) so the change
+4. Update `/ft.js`: regenerate the `FT_ITEMS` array — dedupe by `id` against the
+   existing entries, newest first, keep the most recent **~40** that pass the
+   screen. Headline, date, time and URL only — never article body text
+   (paywalled content).
+
+5. Bump the import token in `glance.js` (`/ft.js?v=YYYYMMDD-N`) so the change
    ships. `glance.js` already renders `FT_ITEMS` into the Home "All" feed under
    the `FT` label (`_deskClass.f` / `DESK.f`); no other file needs editing.
 
-5. Commit `ft.js` + `glance.js` in the same refresh commit as the rest of the
+6. Commit `ft.js` + `glance.js` in the same refresh commit as the rest of the
    run (or its own `myFT refresh: <N> new` commit if nothing else changed). If
    nothing new, make no commit.
