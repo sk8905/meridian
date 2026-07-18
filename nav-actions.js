@@ -334,11 +334,10 @@ export function initNavActions() {
           ? `<div class="na-menu-recent-h">Recent searches</div>`
             + recents.map((q) => `<button type="button" class="na-menu-row na-recent-row" data-q="${esc(q)}">${ICO_SEARCH}<span>${esc(q)}</span></button>`).join("")
           : "")
-        + `<div class="na-menu-foot">`
-        + `<button type="button" class="na-menu-row na-menu-push" id="na-push">${ICO_BELL}<span>Push notifications</span><span class="na-push-state">…</span></button>`
+        + `<div class="na-menu-foot"><div class="na-menu-foot-l">`
         + acctHtml
         + (stat && stat.textContent.trim() ? `<div class="na-menu-row na-menu-stat">${esc(stat.textContent.trim())}</div>` : "")
-        + `</div>`;
+        + `</div><button type="button" class="na-menu-push" id="na-push" title="Push notifications">${ICO_BELL}<span class="na-push-state">…</span></button></div>`;
       wirePushRow(p);
     };
 
@@ -381,7 +380,7 @@ export function initNavActions() {
       }
       return "off";
     };
-    const PUSH_LABEL = { on: "On", off: "Enable", denied: "Blocked in Settings", install: "Add to Home Screen first", unsupported: "Unavailable" };
+    const PUSH_LABEL = { on: "On", off: "Enable", denied: "Blocked", install: "Add to Home Screen", unsupported: "N/A" };
     const wirePushRow = (p) => {
       const row = p.querySelector("#na-push");
       if (!row) return;

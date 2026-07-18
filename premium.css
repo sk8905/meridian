@@ -530,9 +530,13 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
   .na-recent-row { color: var(--muted, #8592ad); cursor: pointer;
     border-bottom: 1px solid var(--grid, #1a1a1a); }
   .na-recent-row svg { width: 14px; height: 14px; flex: 0 0 auto; color: var(--faint, #5c6a86); }
-  /* Push-notifications toggle row — lives in the menu footer with the
-     signed-in / last-refresh lines, matching their compact scale. */
-  .na-menu-push { color: var(--muted, #8592ad); cursor: pointer; font-size: 12px; gap: 8px; }
+  /* Push-notifications toggle — a small ghost chip on the RIGHT of the footer,
+     beside the signed-in / last-refresh lines (which keep the left column). */
+  .na-menu-foot { display: flex; align-items: center; }
+  .na-menu-foot-l { flex: 1 1 auto; min-width: 0; }
+  .na-menu-push { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px;
+    margin-right: 14px; padding: 5px 9px; border: 1px solid var(--border, #262626);
+    background: transparent; color: var(--muted, #8592ad); border-radius: 0; cursor: pointer; font: inherit; }
   .na-menu-push svg { width: 13px; height: 13px; flex: 0 0 auto; color: var(--faint, #5c6a86); }
   /* Footer sits flush against the bottom tab bar: compact rows, no stray
      padding (the menu panel drops the generic 1.2rem bottom padding). */
