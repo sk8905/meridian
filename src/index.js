@@ -1210,7 +1210,7 @@ async function handlePulse(request, env, ctx) {
 // the edge, normalised to the Glance feed-item shape { title, url, source, date,
 // time } and merged into the home "Latest news" list by the client. Same pattern
 // as the markets/rates handlers: fan out with Promise.allSettled, skip anything
-// that fails, edge-cache the combined result ~10 min, only cache once non-empty.
+// that fails, edge-cache the combined result ~5 min, only cache once non-empty.
 // Lead with the financial specialists (WSJ, FT, The Economist, CNBC, MarketWatch)
 // and the central banks; keep a few FX/global desks but cap them low. Every feed
 // except the pure-policy central-bank ones (filter:false) is run through the STRICT
@@ -1400,7 +1400,7 @@ async function feedFetch(url) {
   for (let i = 0; i < 2; i++) {
     try {
       // Bound each feed so one slow host can't stall the combined response.
-      const r = await fetch(url, { headers: fetchHeaders(url), cf: { cacheTtl: 600 }, signal: AbortSignal.timeout(4500) });
+      const r = await fetch(url, { headers: fetchHeaders(url), cf: { cacheTtl: 300 }, signal: AbortSignal.timeout(4500) });
       if (r.ok) return await r.text();
     } catch { /* timed out / errored — retry once, then skip */ }
   }
@@ -1441,7 +1441,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=15", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=16", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {
@@ -1483,7 +1483,7 @@ async function handleFeed(request, env, ctx) {
     if (items.length >= 100) break;
   }
   const resp = new Response(JSON.stringify({ items, asOf: new Date().toISOString() }), {
-    headers: { "content-type": "application/json", "cache-control": "public, max-age=600" },
+    headers: { "content-type": "application/json", "cache-control": "public, max-age=300" },
   });
   if (ctx && ctx.waitUntil && items.length) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
   return resp;

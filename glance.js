@@ -629,7 +629,7 @@ function renderFeed() {
   // myFT RSS feed by the refresh routines. Open out to ft.com; "FT" desk label.
   const ft = [];
   (FT_ITEMS || []).forEach((n) => ft.push(mk("f", n.url, n.title, "Financial Times", true, n.date, n.time)));
-  // Live myFT headlines from /api/feed (~10 min of publication) — the committed
+  // Live myFT headlines from /api/feed (~5 min of publication) — the committed
   // FT_ITEMS above are the 4×/day backfill; title-dedupe collapses the overlap.
   (_liveFeed || []).forEach((n) => { if (n.myft) ft.push(mk("f", n.url, n.title, "Financial Times", true, n.date, n.time)); });
 
