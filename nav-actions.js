@@ -422,7 +422,8 @@ export function initNavActions() {
     // The Menu opens from the bottom tab bar's Menu button (phones); it joins the
     // same controller so it swaps cleanly with the other three panels.
     const menuBtn = document.querySelector("[data-open-menu]");
-    if (menuBtn) panels.push({ btn: menuBtn, panel: menuPanel, onOpen: fillMenu });
+    const menuRec = menuBtn ? { btn: menuBtn, panel: menuPanel, onOpen: fillMenu } : null;
+    if (menuRec) panels.push(menuRec);
 
     const anyOpen = () => panels.some((x) => !x.panel.hidden);
     const closeAll = () => {
@@ -446,11 +447,29 @@ export function initNavActions() {
 
     panels.forEach((rec) => {
       rec.btn.addEventListener("click", (e) => {
-        e.stopPropagation();
+        e.stopPropagation(); e.preventDefault();
         if (rec.panel.hidden) openPanel(rec); else closeAll();
       });
       rec.panel.addEventListener("click", (e) => { if (e.target.closest("[data-na-close]")) closeAll(); });
     });
+
+    // The Menu tab sits BESIDE real navigation links in the bottom bar. iOS
+    // hit-tests the tap's synthetic click AFTER our handler has closed the
+    // panel — and the close (scroll restore → Safari toolbar shift) can move
+    // the tab bar, landing that late click on a NEIGHBOURING tab link and
+    // navigating away. Handle the Menu tap on touchend and consume the touch
+    // (preventDefault stops the click from ever being synthesised).
+    if (menuRec) {
+      let mtX = 0, mtY = 0;
+      menuBtn.addEventListener("touchstart", (e) => { const t = e.touches[0]; mtX = t.clientX; mtY = t.clientY; }, { passive: true });
+      menuBtn.addEventListener("touchend", (e) => {
+        const t = e.changedTouches && e.changedTouches[0];
+        if (t && Math.hypot(t.clientX - mtX, t.clientY - mtY) > 12) return; // a drag, not a tap
+        if (e.cancelable) e.preventDefault();
+        e.stopPropagation();
+        if (menuRec.panel.hidden) openPanel(menuRec); else closeAll();
+      }, { passive: false });
+    }
 
     document.addEventListener("click", (e) => {
       if (!anyOpen()) return;
