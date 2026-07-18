@@ -1,12 +1,23 @@
 // =============================================================================
 // Swipe-to-change-chip — a horizontal swipe on any chip-filtered pane moves to
-// the adjacent chip (swipe left → next chip, right → previous), styled as a
-// SMOOTH hand-off: the pane tracks the finger 1:1 (with resistance past 100px
-// and at the ends of the row), and on release either slides out → swaps → slides
-// in from the opposite side (~280ms total), or springs back. Vertical scrolling
-// and horizontal-scroll areas (tables, FX matrix) are never hijacked.
-// Touch-only; honours prefers-reduced-motion (instant swap). Mounted once per
-// page by nav-actions.js.
+// the adjacent chip (swipe left → next chip, right → previous) as a TRUE slide:
+// when the drag locks horizontal, the current pane is snapshotted as a fixed
+// ghost overlay (clipped to the viewport), the real pane is switched to the
+// target tab and parked one screen-width to the side, and BOTH track the finger
+// 1:1 — the incoming pane visibly drags in beside the outgoing one, iOS-pager
+// style. Release past ~35% width (or a quick flick) eases the new pane into
+// place; otherwise both slide back and the original tab is restored.
+//
+// Touch events are delivered to the element the touch STARTED on — and the tab
+// switch re-renders the pane, detaching that element, after which the rest of
+// the gesture never bubbles to document. So at lock the move/end handlers are
+// ALSO bound directly to the touched node (detached nodes still receive their
+// touch stream); a per-event stamp dedupes the doubled delivery while it is
+// still attached.
+//
+// Vertical scrolling and horizontal-scroll areas (tables, FX matrix) are never
+// hijacked. Touch-only; honours prefers-reduced-motion (instant swap, no
+// slide). Mounted once per page by nav-actions.js.
 // =============================================================================
 
 // Every chip row on the platform and the pane container(s) its tabs swap.
@@ -51,79 +62,174 @@ export function initSwipeTabs() {
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   let set = null, sx = 0, sy = 0, locked = false, aborted = false, dx = 0, t0 = 0, animating = false;
+  let tgt = null;                                     // node the touch started on
+  // Live-slide state (set up once per gesture when the drag locks with a target)
+  let live = false, dir = 0, W = 0, ghosts = [], chip = null, origChip = null, scrollY0 = 0;
+  let prevXHtml = "", prevXBody = "";
 
-  const setT = (els, x, fade, tr) => els.forEach((el) => {
+  const setT = (els, x, tr) => els.forEach((el) => {
     el.style.transition = tr || "";
     el.style.transform = x ? `translateX(${x}px)` : "";
-    el.style.opacity = fade != null ? String(fade) : "";
   });
-  const clear = (els) => els.forEach((el) => { el.style.transition = ""; el.style.transform = ""; el.style.opacity = ""; });
 
-  const targetChip = (dir) => {
+  const targetChip = (d) => {
     if (!set) return null;
     const i = set.chips.findIndex((c) => c.classList.contains("is-on"));
-    const j = (i < 0 ? 0 : i) + dir;
+    const j = (i < 0 ? 0 : i) + d;
     return j >= 0 && j < set.chips.length ? set.chips[j] : null;
   };
 
+  // Snapshot the visible pane(s) as fixed, viewport-clipped ghosts, switch the
+  // real panes to the target tab and park them one width to the side. Returns
+  // false when there is no chip in that direction (end of the row → rubber-band).
+  const beginSlide = (d) => {
+    chip = targetChip(d);
+    if (!chip) return false;
+    dir = d;
+    origChip = set.chips.find((c) => c.classList.contains("is-on")) || null;
+    W = window.innerWidth;
+    scrollY0 = window.scrollY;
+    const vh = window.innerHeight;
+    const bg = getComputedStyle(document.body).backgroundColor;
+    ghosts = [];
+    for (const el of set.els) {
+      if (!el.getClientRects().length) continue;
+      const r = el.getBoundingClientRect();
+      el.style.minHeight = r.height + "px";          // keep page height stable under the ghost
+      // Outer clip = only the on-screen band of the pane (feeds can be tens of
+      // thousands of px tall); the full clone sits inside, offset so the same
+      // slice shows.
+      const clipTop = Math.max(r.top, -8);
+      const clipH = Math.min(r.bottom, vh + 8) - clipTop;
+      if (clipH <= 0) continue;
+      const outer = document.createElement("div");
+      Object.assign(outer.style, {
+        position: "fixed", top: clipTop + "px", left: r.left + "px",
+        width: r.width + "px", height: clipH + "px", margin: "0",
+        zIndex: "60", pointerEvents: "none", overflow: "hidden", background: bg,
+      });
+      const g = el.cloneNode(true);
+      Object.assign(g.style, {
+        position: "absolute", top: (r.top - clipTop) + "px", left: "0",
+        width: r.width + "px", margin: "0", transform: "none", minHeight: "0",
+      });
+      outer.appendChild(g);
+      document.body.appendChild(outer);
+      ghosts.push(outer);
+    }
+    prevXHtml = document.documentElement.style.overflowX;
+    prevXBody = document.body.style.overflowX;
+    document.documentElement.style.overflowX = "hidden";
+    document.body.style.overflowX = "hidden";
+    // The click below re-renders the pane and usually DETACHES the touched
+    // node — after which its touch events stop reaching document. Bind the
+    // rest of this gesture's handlers to the node itself first.
+    if (tgt && tgt.addEventListener) {
+      tgt.addEventListener("touchmove", onMove, { passive: false });
+      tgt.addEventListener("touchend", finish, { passive: true });
+      tgt.addEventListener("touchcancel", finish, { passive: true });
+    }
+    chip.click();                                    // real panes now hold the target tab
+    window.scrollTo(0, scrollY0);                    // undo any scroll the handler did
+    setT(set.els, dir * W, "none");                  // park incoming content off-screen
+    live = true;
+    return true;
+  };
+
+  const unbindTgt = () => {
+    if (tgt && tgt.removeEventListener) {
+      tgt.removeEventListener("touchmove", onMove);
+      tgt.removeEventListener("touchend", finish);
+      tgt.removeEventListener("touchcancel", finish);
+    }
+    tgt = null;
+  };
+
+  const cleanup = (els) => {
+    ghosts.forEach((g) => g.remove()); ghosts = [];
+    els.forEach((el) => { el.style.transition = ""; el.style.transform = ""; el.style.minHeight = ""; });
+    document.documentElement.style.overflowX = prevXHtml;
+    document.body.style.overflowX = prevXBody;
+    animating = false; live = false; dir = 0; chip = null; origChip = null;
+  };
+
   document.addEventListener("touchstart", (e) => {
-    set = null; locked = false; aborted = false; dx = 0;
+    set = null; locked = false; aborted = false; dx = 0; live = false; tgt = null;
     if (animating || e.touches.length !== 1) return;
     const t = e.target;
     if (t.closest && t.closest(EXCLUDE)) return;
     if (inHorizontalScroller(t)) return;
     const s = findSet(t);
     if (!s) return;
-    set = s; sx = e.touches[0].clientX; sy = e.touches[0].clientY; t0 = Date.now();
+    set = s; tgt = t; sx = e.touches[0].clientX; sy = e.touches[0].clientY; t0 = Date.now();
   }, { passive: true });
 
-  document.addEventListener("touchmove", (e) => {
+  const onMove = (e) => {
+    if (e._swipetabs) return; e._swipetabs = true;    // dedupe node + document delivery
     if (!set || aborted || animating) return;
     const x = e.touches[0].clientX, y = e.touches[0].clientY;
     dx = x - sx; const dy = y - sy;
     if (!locked) {
       if (Math.abs(dy) > 9 && Math.abs(dy) > Math.abs(dx)) { aborted = true; return; }   // vertical scroll wins
-      if (Math.abs(dx) > 14 && Math.abs(dx) > Math.abs(dy) * 1.4) locked = true;
-      else return;
+      if (Math.abs(dx) > 14 && Math.abs(dx) > Math.abs(dy) * 1.4) {
+        locked = true;
+        if (!reduced) beginSlide(dx < 0 ? 1 : -1);   // direction fixed at lock
+      } else return;
     }
     if (e.cancelable) e.preventDefault();
-    // 1:1 up to 100px, damped past that; heavier damping when there is no chip
-    // in that direction (end of the row) so the edge feels solid.
-    const dir = dx < 0 ? 1 : -1;
-    const hasTarget = !!targetChip(dir);
-    const a = Math.abs(dx);
-    let t = a <= 100 ? a : 100 + (a - 100) * 0.3;
-    if (!hasTarget) t *= 0.25;
-    t = Math.min(t, 150) * (dx < 0 ? -1 : 1);
-    setT(set.els, t, 1 - Math.min(Math.abs(t) / 320, 0.3));
-  }, { passive: false });
+    if (reduced) return;
+    if (live) {
+      // 1:1 finger tracking; movement against the locked direction gets heavy
+      // damping (slight give, springs back on release).
+      const main = dir === 1 ? Math.max(Math.min(dx, 0), -W) : Math.min(Math.max(dx, 0), W);
+      const wrong = dir === 1 ? Math.max(dx, 0) : Math.min(dx, 0);
+      const shift = main + wrong * 0.15;
+      setT(ghosts, shift, "none");
+      setT(set.els, dir * W + shift, "none");
+    } else {
+      // end of the chip row: no target — damped rubber-band so the edge feels solid
+      const t = Math.min(Math.abs(dx) * 0.25, 60) * (dx < 0 ? -1 : 1);
+      setT(set.els, t, "none");
+    }
+  };
+  document.addEventListener("touchmove", onMove, { passive: false });
 
-  const finish = () => {
+  const finish = (e) => {
+    if (e && e._swipetabs) return; if (e) e._swipetabs = true;
+    unbindTgt();
     if (!set || !locked) { set = null; return; }
     const els = set.els;
-    const dir = dx < 0 ? 1 : -1;
-    const chip = targetChip(dir);
-    const vel = Math.abs(dx) / Math.max(Date.now() - t0, 1);
-    const commit = chip && (Math.abs(dx) > 70 || (Math.abs(dx) > 30 && vel > 0.45));
-    if (!commit) {
-      // spring back
-      setT(els, 0, 1, "transform .18s ease, opacity .18s ease");
-      setTimeout(() => clear(els), 200);
+    if (reduced) {
+      const d = dx < 0 ? 1 : -1; const c = targetChip(d);
+      if (c && Math.abs(dx) > 70) c.click();
       set = null; locked = false;
       return;
     }
-    if (reduced) { clear(els); chip.click(); set = null; locked = false; return; }
+    if (!live) {                                     // rubber-band spring back
+      setT(els, 0, "transform .18s ease");
+      setTimeout(() => els.forEach((el) => { el.style.transition = ""; el.style.transform = ""; }), 200);
+      set = null; locked = false;
+      return;
+    }
     animating = true;
-    const out = dx < 0 ? -64 : 64;
-    setT(els, out, 0, "transform .13s ease-in, opacity .13s ease-in");
-    setTimeout(() => {
-      chip.click();                                   // page handler swaps the pane
-      setT(els, -out, 0, "none");
-      requestAnimationFrame(() => requestAnimationFrame(() => {
-        setT(els, 0, 1, "transform .16s ease-out, opacity .16s ease-out");
-        setTimeout(() => { clear(els); animating = false; }, 190);
-      }));
-    }, 135);
+    const vel = Math.abs(dx) / Math.max(Date.now() - t0, 1);
+    const progressed = dir === 1 ? -dx : dx;         // px moved toward the commit
+    const commit = progressed > W * 0.35 || (progressed > 30 && vel > 0.45);
+    const ease = "transform .21s cubic-bezier(.22,.61,.36,1)";
+    if (commit) {
+      setT(ghosts, -dir * W, ease);                  // outgoing finishes its exit
+      setT(els, 0, ease);                            // incoming settles into place
+      setTimeout(() => cleanup(els), 230);
+    } else {
+      setT(ghosts, 0, ease);                         // outgoing returns
+      setT(els, dir * W, ease);                      // incoming retreats off-screen
+      const oc = origChip, y0 = scrollY0;
+      setTimeout(() => {
+        if (oc) oc.click();                          // restore the original tab's content
+        window.scrollTo(0, y0);
+        cleanup(els);
+      }, 230);
+    }
     set = null; locked = false;
   };
   document.addEventListener("touchend", finish, { passive: true });
