@@ -13,7 +13,7 @@ import { deals, intel, managers, funds, research, LAST_CHECKED, LAST_CHECKED_TIM
 import { items, cases, restructurings, firmById } from "/legal/js/data.js?v=20260714-2";
 import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js?v=20260717-4";
 import { NEWSLETTERS } from "/newsletters.js?v=20260717-1";
-import { FT_ITEMS } from "/ft.js?v=20260717-2";
+import { FT_ITEMS } from "/ft.js?v=20260718-1";
 
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 const byDateDesc = (a, b) => String(b.date || "").localeCompare(String(a.date || ""));
