@@ -27,9 +27,9 @@ const mgrName = (id) => (managers.find((m) => m.id === id) || {}).name || "";
 // The standalone Deals/Fundraising list pages are retired, so a deal/intel record
 // links to its source article when we have one, else the manager's page in Credit;
 // CLO items keep the CLOs tab.
-const creditItemHref = (x) => x.clo
-  ? `/credit/#/clos?focus=${encodeURIComponent(x.id)}`
-  : (x.sourceUrl ? x.sourceUrl : (x.managerId ? `/credit/#/manager/${encodeURIComponent(x.managerId)}` : "/credit/#/"));
+const creditItemHref = (x) => x.sourceUrl
+  ? x.sourceUrl
+  : (x.managerId ? `/credit/#/manager/${encodeURIComponent(x.managerId)}` : "/credit/#/");
 const MACRO_INDICATORS = [
   ["base_rate", "Base rate"], ["two_year", "2-year yield"], ["core_cpi", "Core inflation"],
   ["services_pmi", "Services PMI"], ["wages", "Wage growth"], ["unemployment", "Unemployment"],

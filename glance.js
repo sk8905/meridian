@@ -356,7 +356,7 @@ export function initGlance() {
   // The legacy Home-only menus (initNotifBell / initSavedPanel /
   // initMarketsPanel) are retired; on phones the Home data rails move into the
   // shared Markets panel via initHomeMarketsRails.
-  import("/nav-actions.js?v=20260718-7").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260718-8").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderDeals();
   renderFundraising();
   renderRx();
@@ -739,10 +739,10 @@ function startLiveRefresh() {
 // A deal/intel headline opens its source article when we have one, else the
 // manager's page (the standalone Deals/Fundraising pages are retired); CLOs keep
 // the CLOs tab. `creditItemExt` says whether that destination is an external URL.
-const creditItemHref = (x) => x.clo
-  ? `/credit/#/clos?focus=${encodeURIComponent(x.id)}`
-  : (x.sourceUrl ? x.sourceUrl : (x.managerId ? `/credit/#/manager/${encodeURIComponent(x.managerId)}` : "/credit/#/"));
-const creditItemExt = (x) => !x.clo && !!x.sourceUrl;
+const creditItemHref = (x) => x.sourceUrl
+  ? x.sourceUrl
+  : (x.managerId ? `/credit/#/manager/${encodeURIComponent(x.managerId)}` : "/credit/#/");
+const creditItemExt = (x) => !!x.sourceUrl;
 
 // ---- Highlight cards -------------------------------------------------------
 // Each platform card is broken into its natural sections, newest 3 items each.

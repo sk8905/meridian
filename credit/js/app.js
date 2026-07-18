@@ -320,8 +320,8 @@ function recentNotif(list) {
 }
 function notifItems() {
   const out = [];
-  deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, source: creditSource(d), href: d.clo ? "#/clos" : (d.managerId ? "#/manager/" + d.managerId : "#/") }));
-  intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, source: creditSource(i), href: i.clo ? "#/clos" : (i.managerId ? "#/manager/" + i.managerId : "#/") }));
+  deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, source: creditSource(d), href: d.managerId ? "#/manager/" + d.managerId : "#/" }));
+  intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, source: creditSource(i), href: i.managerId ? "#/manager/" + i.managerId : "#/" }));
   managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", kind: "News", title: w.title, source: w.outlet || m.name || "", href: "#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey(w)) })));
   return recentNotif(out).sort((a, b) => String(b.date).localeCompare(String(a.date)));
 }
@@ -1594,7 +1594,7 @@ function viewClo(mid, encName) {
             <div class="tdet-sub">CLO · managed by ${link("#/manager/" + mid, m.name)}${c.vintage ? ` · Vintage ${esc(c.vintage)}` : ""}${c.size ? ` · ${esc(c.size)}` : ""}</div>
             <div class="tdet-chips"><span class="tdet-chip">Structured Credit</span>${c.vintage ? `<span class="tdet-chip">Vintage ${esc(c.vintage)}</span>` : ""}</div>
           </div>
-          <header class="tpanel-h twire-head"><span>Issuance, pricings, resets &amp; news</span><a class="tpanel-x" href="#/clos">All CLOs →</a></header>
+          <header class="tpanel-h twire-head"><span>Issuance, pricings, resets &amp; news</span><span class="tpanel-x">CLO wire</span></header>
           <ul class="twire compact-list" id="clo-wire">${items.length ? items.map((x) => crWireRow(x, "")).join("") : '<li class="muted small tw-empty">No tracked activity for this CLO yet.</li>'}</ul>
         </section>
         <aside class="tcol tcol-r">
@@ -2415,9 +2415,9 @@ function router() {
     // dashboard Deals/Fundraising chips carry that content and each item links to
     // the relevant manager's page. viewDeals/viewIntel are kept (dormant) for
     // reuse; a stray hit on the old routes lands on the dashboard.
-    case "deals": case "intel": return viewDashboard();
-    case "clos": return viewClos();
-    case "watchlist": return viewWatchlist();
+    // #/clos (old CLO list) and #/watchlist (superseded by the Bookmarks
+    // panel's Watchlist tab) are retired the same way — views kept dormant.
+    case "deals": case "intel": case "clos": case "watchlist": return viewDashboard();
     default: return notFound();
   }
 }
@@ -2434,7 +2434,7 @@ document.addEventListener("click", (e) => {
   }
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260718-1").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260718-2").then((m) => m.mountPalette()).catch(() => {});
 import("/ptr.js?v=20260718-2").then((m) => m.initPullToRefresh()).catch(() => {});
 router();
 renderDataStatus();

@@ -93,7 +93,7 @@ appears (Home feed, app feed, Notifications, Saved, search/palette):
 |---|---|
 | Macro news / articles / commentary | **Source URL**, new tab |
 | Newsletters | **Source URL** ("read online"), new tab |
-| Credit deals / intel (fundraising) / CLOs | In-app focus route (`/credit/#/…?focus=`) |
+| Credit deals / intel (fundraising) / CLOs | SOURCE article if `sourceUrl`, else manager page (`/credit/#/manager/<id>`) |
 | Credit manager web-news | In-app **manager page** |
 | Legal alerts (items) | **Source URL** (firm article), new tab — NOT `#/item/` |
 | Legal cases | **Source judgment URL**, new tab |
@@ -188,7 +188,7 @@ before it can be resolved.
 
 ### Decisions (signed off)
 - **Q1 — row density → COMPACT** (match the wire): `.nf-row` now 13px headline / `9px 14px`.
-- **Q2 — credit deal click → SOURCE first, else manager page** (CLOs keep the CLOs tab).
+- **Q2 — credit deal click → SOURCE first, else manager page** (extended to CLO items 2026-07-18; the #/clos and #/watchlist list pages are retired → dashboard).
 
 ### Resolution status (this pass)
 **Fixed & deployed:**

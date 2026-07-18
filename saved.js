@@ -45,10 +45,10 @@ function feedDedupKey(x) {
 }
 // Deal/intel headline → source article if we have one, else the manager's page
 // (Deals/Fundraising list pages retired); CLOs keep the CLOs tab.
-const creditItemHref = (x) => x.clo
-  ? `/credit/#/clos?focus=${encodeURIComponent(x.id)}`
-  : (x.sourceUrl ? x.sourceUrl : (x.managerId ? `/credit/#/manager/${encodeURIComponent(x.managerId)}` : "/credit/#/"));
-const creditItemExt = (x) => !x.clo && !!x.sourceUrl;
+const creditItemHref = (x) => x.sourceUrl
+  ? x.sourceUrl
+  : (x.managerId ? `/credit/#/manager/${encodeURIComponent(x.managerId)}` : "/credit/#/");
+const creditItemExt = (x) => !!x.sourceUrl;
 
 // ---- resolver ---------------------------------------------------------------
 export function resolveSaved() {

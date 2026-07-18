@@ -99,7 +99,7 @@ async function loadSaved(body, headCount) {
   const render = async () => {
     chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _svTab));
     try {
-      const mod = await import("/saved.js?v=20260718-3");
+      const mod = await import("/saved.js?v=20260718-4");
       const list = _svTab === "saved" ? mod.resolveSaved() : mod.resolveWatchlistNews();
       if (headCount) headCount.textContent = list.length ? " · " + list.length : "";
       tb.innerHTML = list.length
