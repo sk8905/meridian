@@ -119,6 +119,29 @@ async function loadSaved(body, headCount) {
   };
   chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c && c.dataset.k !== _svTab) { _svTab = c.dataset.k; render(); } });
   render();
+  // Pull the server's follow list once per open and union it into the local
+  // store, so follows made on another device (or in the Credit app) show up
+  // here without a Credit visit first. Re-render if anything new arrived.
+  fetch("/api/watchlist", { headers: { accept: "application/json" } })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((d) => {
+      const server = (d && d.watchlist) || {};
+      let local = {};
+      try { local = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; } catch { /* */ }
+      let grew = false;
+      ["manager", "fund", "lp", "firm"].forEach((t) => {
+        const set = new Set(Array.isArray(local[t]) ? local[t] : []);
+        const before = set.size;
+        (Array.isArray(server[t]) ? server[t] : []).forEach((x) => set.add(x));
+        if (set.size !== before) grew = true;
+        local[t] = [...set];
+      });
+      if (grew) {
+        try { localStorage.setItem("meridian.follows", JSON.stringify(local)); } catch { /* */ }
+        render();
+      }
+    })
+    .catch(() => {});
 }
 
 // ---- Notifications — cross-desk, tagged by desk (MAC / CRD / LEX) -----------

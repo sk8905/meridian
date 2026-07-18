@@ -85,7 +85,7 @@ export function initPullToRefresh() {
   // vertically-scrollable area (e.g. the notifications panel or command palette)
   // — that content should scroll on its own instead of pulling the page.
   function inOverlayOrScroller(node) {
-    if (node && node.closest && node.closest(".na-panel,.na-scrim,.notif-panel,.g-notif-panel,.mcmdk,#cmdk,.rel-dd-panel,[data-no-ptr]")) return true;
+    if (node && node.closest && node.closest(".na-panel,.na-scrim,.rowmenu,.rowmenu-scrim,.notif-panel,.g-notif-panel,.mcmdk,#cmdk,.rel-dd-panel,[data-no-ptr]")) return true;
     let el = node;
     while (el && el !== document.body && el.nodeType === 1) {
       const oy = getComputedStyle(el).overflowY;

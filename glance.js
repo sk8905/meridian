@@ -199,17 +199,35 @@ function toggleRowBookmark(r) {
 }
 // Watchlist toggle — the SAME follow store the Credit app's stars use
 // ("meridian.follows"), extended with law firms; synced to /api/watchlist.
+// The PUT merges with the server copy first: this device's store may be cold
+// (user follows from another device / the Credit app) and a bare local PUT
+// would wipe those. Removals made here are excluded from the merge-back.
+const _unwatched = { manager: new Set(), fund: new Set(), lp: new Set(), firm: new Set() };
 function toggleWatch(type, id) {
   let f = {};
   try { f = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; } catch { /* ignore */ }
   if (!Array.isArray(f[type])) f[type] = [];
   const i = f[type].indexOf(id);
   const added = i < 0;
-  if (added) f[type].push(id); else f[type].splice(i, 1);
+  if (added) { f[type].push(id); _unwatched[type].delete(id); } else { f[type].splice(i, 1); _unwatched[type].add(id); }
   try { localStorage.setItem("meridian.follows", JSON.stringify(f)); } catch { /* ignore */ }
-  const body = {};
-  ["manager", "fund", "lp", "firm"].forEach((t) => { body[t] = Array.isArray(f[t]) ? f[t] : []; });
-  fetch("/api/watchlist", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(body) }).catch(() => {});
+  fetch("/api/watchlist", { headers: { accept: "application/json" } })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((d) => {
+      const server = (d && d.watchlist) || {};
+      let local = {};
+      try { local = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; } catch { /* ignore */ }
+      const body = {};
+      ["manager", "fund", "lp", "firm"].forEach((t) => {
+        const merged = new Set(Array.isArray(local[t]) ? local[t] : []);
+        (Array.isArray(server[t]) ? server[t] : []).forEach((x) => { if (!_unwatched[t].has(x)) merged.add(x); });
+        body[t] = [...merged];
+        local[t] = body[t];
+      });
+      try { localStorage.setItem("meridian.follows", JSON.stringify(local)); } catch { /* ignore */ }
+      return fetch("/api/watchlist", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+    })
+    .catch(() => {});
   return added;
 }
 function isWatched(type, id) {
@@ -334,7 +352,7 @@ export function initGlance() {
   // The legacy Home-only menus (initNotifBell / initSavedPanel /
   // initMarketsPanel) are retired; on phones the Home data rails move into the
   // shared Markets panel via initHomeMarketsRails.
-  import("/nav-actions.js?v=20260718-5").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260718-6").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderDeals();
   renderFundraising();
   renderRx();
@@ -345,7 +363,7 @@ export function initGlance() {
   initJumpNav();
   wirePalette(buildIndex());
   startLiveRefresh();
-  import("/ptr.js?v=20260718-1").then((m) => m.initPullToRefresh()).catch(() => {});
+  import("/ptr.js?v=20260718-2").then((m) => m.initPullToRefresh()).catch(() => {});
 }
 
 // ---- Unified Saved -----------------------------------------------------------

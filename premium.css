@@ -498,12 +498,6 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
      yields to them there. Desktop keeps .na-body (rails live in the grid). */
   #na-mkt-panel.has-rails .na-body { display: none; }
   #na-mkt-panel .na-rails { display: block; }
-  /* Bookmarks panel: Saved | Watchlist chips — white-bordered, flat. */
-  .na-chips { display: flex; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--border, #262626); }
-  .na-chip { border: 1px solid rgba(255,255,255,.3); background: transparent; color: var(--muted, #8592ad);
-    font: inherit; font-size: 11px; font-weight: 600; letter-spacing: .03em; padding: 5px 14px;
-    cursor: pointer; border-radius: 0; }
-  .na-chip.is-on { color: #fff; border-color: #fff; }
   /* Menu panel rows: search bar look-alike on top, then the account block. */
   .na-menu-row { display: flex; align-items: center; gap: 10px; width: 100%;
     padding: 13px 14px; border: 0; border-bottom: 1px solid var(--border, #262626);
@@ -669,3 +663,11 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
     bottom: calc(72px + env(safe-area-inset-bottom, 0px));
     border-left: 0; border-right: 0; }
 }
+
+/* Bookmarks panel: Saved | Watchlist chips — white-bordered, flat (desktop
+   dropdown AND phone full-screen, so defined outside any media query). */
+.na-chips { display: flex; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--border, #262626); }
+.na-chip { border: 1px solid rgba(255,255,255,.3); background: transparent; color: var(--muted, #8592ad);
+  font: inherit; font-size: 11px; font-weight: 600; letter-spacing: .03em; padding: 5px 14px;
+  cursor: pointer; border-radius: 0; }
+.na-chip.is-on { color: #fff; border-color: #fff; }
