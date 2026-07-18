@@ -1489,7 +1489,11 @@ function renderBell() {
   document.addEventListener("click", (e) => {
     const panel = document.getElementById("g-notif-panel");
     const isOpen = panel && !panel.hasAttribute("hidden");
-    if (isOpen && !wrap.contains(e.target)) { e.preventDefault(); e.stopPropagation(); closeNotifPanel(); }
+    // Consume ONLY taps on the page behind (links/feed rows) — never taps on the
+    // top-bar action buttons (.g-actions holds Markets/Saved/this bell): killing
+    // those in the capture phase is what made "notifications → Saved/Markets"
+    // close notifications without opening the tapped menu.
+    if (isOpen && !wrap.contains(e.target) && !e.target.closest(".g-actions")) { e.preventDefault(); e.stopPropagation(); closeNotifPanel(); }
   }, true);
 }
 
