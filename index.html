@@ -808,7 +808,7 @@
     /* surfaces are untouched. Dark is the polished default; light is      */
     /* provisional (to be refined). All terminal styling reads --t-* vars. */
     /* ================================================================= */
-    :root[data-theme="dark"] #glance{
+    :root[data-theme="dark"] #glance, :root[data-theme="dark"] .na-panel{
       --t-ground:#000000; --t-panel:#0d0d0d; --t-panel2:#191919; --t-head:#0a0a0a;
       --t-grid:#1a1a1a; --t-grid2:#262626;
       --t-ink:#eaf0fb; --t-dim:#b7c2da; --t-mut:#8592ad; --t-faint:#5c6a86;
@@ -817,7 +817,7 @@
       --t-mac:#9b83e2; --t-crd:#fb8b1e; --t-lex:#2fbf8a; --t-amber:#d9a441; --t-ft:#e0708e;
       --t-shadow:0 1px 2px rgba(0,0,0,.28);
     }
-    :root[data-theme="light"] #glance{
+    :root[data-theme="light"] #glance, :root[data-theme="light"] .na-panel{
       --t-ground:#e7ebf2; --t-panel:#ffffff; --t-panel2:#f3f6fb; --t-head:#f4f7fb;
       --t-grid:#e0e6ef; --t-grid2:#cdd6e3;
       --t-ink:#131b2c; --t-dim:#3b475f; --t-mut:#5e6a84; --t-faint:#8b96ac;
@@ -826,7 +826,7 @@
       --t-mac:#6a4fa3; --t-crd:#fb8b1e; --t-lex:#2b8a5f; --t-amber:#b3760f; --t-ft:#990f3d;
       --t-shadow:0 1px 2px rgba(19,27,44,.06);
     }
-    #glance{ --t-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; }
+    #glance, .na-panel{ --t-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; }
 
     /* ---- ticker strip (below the command bar) ---- */
     .g-ticker{ display:flex; align-items:stretch; height:26px; flex:0 0 auto; overflow:hidden;
@@ -1135,7 +1135,7 @@
       :root[data-theme="dark"] a.g-feed-row:hover .g-feed-title{ color:inherit; }
     }
   </style>
-  <link rel="stylesheet" href="/premium.css?v=20260718-7" />
+  <link rel="stylesheet" href="/premium.css?v=20260718-8" />
 </head>
 <body>
   <!-- Loading -->
@@ -1361,7 +1361,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260718-7").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260718-8").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

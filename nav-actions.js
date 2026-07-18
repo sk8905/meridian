@@ -85,18 +85,40 @@ function savedRow(x) {
     + (x.src ? `<span class="nf-sep">·</span><span class="nf-src">${esc(x.src)}</span>` : "")
     + `</span></a>`;
 }
+function watchRow(x) {
+  return `<a class="nf-row" href="${esc(x.href)}">`
+    + `<span class="nf-title">${esc(x.title)}</span>`
+    + `<span class="nf-meta"><span class="nf-code ${DESK_CLASS[x.desk] || ""}">${esc(NF_CODE[x.desk] || "")}</span>`
+    + `<span class="nf-src">${esc(x.kind)}</span></span></a>`;
+}
+// Bookmarks panel: Saved | Watchlist chip tabs over one list. Watchlist is
+// managers + law firms only (the follow store the Credit stars write; firms
+// come from the Home row menu).
+let _svTab = "saved";
 async function loadSaved(body, headCount) {
-  body.innerHTML = '<div class="na-load">Loading…</div>';
-  try {
-    const { resolveSaved } = await import("/saved.js?v=20260718-1");
-    const list = resolveSaved();
-    if (headCount) headCount.textContent = list.length ? " · " + list.length : "";
-    body.innerHTML = list.length
-      ? list.map(savedRow).join("")
-      : '<div class="na-empty">Nothing saved yet. Tap the ☆ on any item across Macro, Credit or Legal to keep it here.</div>';
-  } catch {
-    body.innerHTML = '<div class="na-load">Saved list unavailable right now.</div>';
-  }
+  body.innerHTML = `<div class="na-chips">`
+    + `<button type="button" class="na-chip" data-k="saved">Saved</button>`
+    + `<button type="button" class="na-chip" data-k="watch">Watchlist</button>`
+    + `</div><div class="na-tabbody"><div class="na-load">Loading…</div></div>`;
+  const chips = body.querySelector(".na-chips");
+  const tb = body.querySelector(".na-tabbody");
+  const render = async () => {
+    chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _svTab));
+    try {
+      const mod = await import("/saved.js?v=20260718-2");
+      const list = _svTab === "saved" ? mod.resolveSaved() : mod.resolveWatchlist();
+      if (headCount) headCount.textContent = list.length ? " · " + list.length : "";
+      tb.innerHTML = list.length
+        ? list.map(_svTab === "saved" ? savedRow : watchRow).join("")
+        : (_svTab === "saved"
+          ? '<div class="na-empty">Nothing saved yet. Tap the ☆ on any item — or press and hold a story on the Home wire — to keep it here.</div>'
+          : '<div class="na-empty">Nothing on your watchlist yet. Press and hold a manager or law-firm story (or tap the ☆ on a manager in Credit) to follow it here.</div>');
+    } catch {
+      tb.innerHTML = '<div class="na-load">Unavailable right now.</div>';
+    }
+  };
+  chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c && c.dataset.k !== _svTab) { _svTab = c.dataset.k; render(); } });
+  render();
 }
 
 // ---- Notifications — cross-desk, tagged by desk (MAC / CRD / LEX) -----------
@@ -213,7 +235,7 @@ export function initNavActions() {
       return p;
     };
     const mktPanel = mkPanel("na-mkt-panel", "Markets");
-    const savedPanel = mkPanel("na-saved-panel", "Saved");
+    const savedPanel = mkPanel("na-saved-panel", "Bookmarks");
     const notifPanel = mkPanel("na-notif-panel", "Notifications");
     const menuPanel = mkPanel("na-menu-panel", "Menu");
 

@@ -197,6 +197,24 @@ function toggleRowBookmark(r) {
   }
   wireToast(added ? "Saved to Bookmarks" : "Removed from Bookmarks");
 }
+// Watchlist toggle — the SAME follow store the Credit app's stars use
+// ("meridian.follows"), extended with law firms; synced to /api/watchlist.
+function toggleWatch(type, id) {
+  let f = {};
+  try { f = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; } catch { /* ignore */ }
+  if (!Array.isArray(f[type])) f[type] = [];
+  const i = f[type].indexOf(id);
+  const added = i < 0;
+  if (added) f[type].push(id); else f[type].splice(i, 1);
+  try { localStorage.setItem("meridian.follows", JSON.stringify(f)); } catch { /* ignore */ }
+  const body = {};
+  ["manager", "fund", "lp", "firm"].forEach((t) => { body[t] = Array.isArray(f[t]) ? f[t] : []; });
+  fetch("/api/watchlist", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(body) }).catch(() => {});
+  return added;
+}
+function isWatched(type, id) {
+  try { const f = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; return Array.isArray(f[type]) && f[type].includes(id); } catch { return false; }
+}
 // Saved-state probe for the options menu label.
 function isRowSaved(r) {
   const sk = r.getAttribute("data-sk");
@@ -227,10 +245,12 @@ function openRowMenu(r, x, y) {
   const canShare = /^https?:\/\//i.test(href) && (!!navigator.share || !!(navigator.clipboard && navigator.clipboard.writeText));
   const ICO_SRC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>';
   const ICO_GO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>';
+  const ICO_STAR = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.7 6.3.8-4.6 4.3 1.2 6.2-5.6-3.1-5.6 3.1 1.2-6.2L3 9.5l6.3-.8z"/></svg>';
   const ICO_SHARE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><path d="M5 12v7h14v-7"/></svg>';
   _rmEl = document.createElement("div"); _rmEl.className = "rowmenu"; _rmEl.setAttribute("role", "menu");
   _rmEl.innerHTML = `<div class="rowmenu-title">${esc(title)}</div>`
     + `<button type="button" class="rowmenu-act" data-act="save">${ICO_BM}<span>${saved ? "Remove from Bookmarks" : "Save to Bookmarks"}</span></button>`
+    + (mgr || firm ? `<button type="button" class="rowmenu-act" data-act="watch">${ICO_STAR}<span>${(mgr ? isWatched("manager", mgr) : isWatched("firm", firm)) ? "Remove from Watchlist" : "Add to Watchlist"}</span></button>` : "")
     + (srcName ? `<button type="button" class="rowmenu-act" data-act="src">${ICO_SRC}<span>Show all from ${esc(srcName)}</span></button>` : "")
     + (mgr ? `<button type="button" class="rowmenu-act" data-act="mgr">${ICO_GO}<span>Open manager page</span></button>` : "")
     + (firm ? `<button type="button" class="rowmenu-act" data-act="firm">${ICO_GO}<span>Open firm page</span></button>` : "")
@@ -241,6 +261,10 @@ function openRowMenu(r, x, y) {
     const act = b.dataset.act;
     closeRowMenu();
     if (act === "save") toggleRowBookmark(r);
+    else if (act === "watch") {
+      const added = mgr ? toggleWatch("manager", mgr) : toggleWatch("firm", firm);
+      wireToast(added ? "Added to Watchlist" : "Removed from Watchlist");
+    }
     else if (act === "src") { _feedSrc = srcName; _feedDesk = "all"; renderFeed(); const f = document.querySelector(".g-feed-wrap"); if (f) f.scrollIntoView({ block: "start" }); }
     else if (act === "mgr") { window.location.href = "/credit/#/manager/" + encodeURIComponent(mgr); }
     else if (act === "firm") { window.location.href = "/legal/#/firm/" + encodeURIComponent(firm); }
@@ -310,7 +334,7 @@ export function initGlance() {
   // The legacy Home-only menus (initNotifBell / initSavedPanel /
   // initMarketsPanel) are retired; on phones the Home data rails move into the
   // shared Markets panel via initHomeMarketsRails.
-  import("/nav-actions.js?v=20260718-4").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260718-5").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderDeals();
   renderFundraising();
   renderRx();

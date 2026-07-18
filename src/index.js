@@ -8,7 +8,7 @@
 // their verified email. Static asset requests are served before this Worker is
 // invoked; anything else (the API, unknown paths) lands here.
 
-const FOLLOW_TYPES = ["manager", "fund", "lp"];
+const FOLLOW_TYPES = ["manager", "fund", "lp", "firm"];
 
 function json(obj, status = 200) {
   return new Response(JSON.stringify(obj), {
@@ -136,11 +136,16 @@ async function handleWatchlist(request, env) {
   if (request.method === "PUT") {
     let body;
     try { body = await request.json(); } catch { return json({ error: "invalid json" }, 400); }
+    // A type the client didn't send keeps its stored value (older clients only
+    // send manager/fund/lp — a PUT from them must not wipe firm follows).
+    let prev = {};
+    const rawPrev = await env.WATCHLIST.get(keyFor(email));
+    if (rawPrev) { try { prev = JSON.parse(rawPrev) || {}; } catch { /* keep default */ } }
     const clean = {};
     for (const t of FOLLOW_TYPES) {
       clean[t] = Array.isArray(body[t])
         ? body[t].filter((x) => typeof x === "string" && x.length <= 16).slice(0, 5000)
-        : [];
+        : (Array.isArray(prev[t]) ? prev[t] : []);
     }
     await env.WATCHLIST.put(keyFor(email), JSON.stringify(clean));
     return json({ ok: true });
