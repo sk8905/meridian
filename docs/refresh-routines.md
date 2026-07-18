@@ -598,7 +598,11 @@ extra deep-research pass on watchlisted names is skipped.
 >      `macro/js/content.js` (Macro's "Last refresh" stamp) and advance Macro's three
 >      cache tokens — every run, even when nothing else changed.
 >
-> 5. NEWSLETTERS & myFT (every run) — follow `docs/newsletter-refresh.md` exactly:
+> 5. NEWSLETTERS & myFT — MANDATORY every run, never skip (a 2026-07-18 manual
+>    run omitted it silently). Even when Credit/Legal/Macro found nothing, run
+>    both pulls and report their counts (0 is fine) in the summary — a summary
+>    without newsletter/myFT counts means the run is incomplete. Follow
+>    `docs/newsletter-refresh.md` exactly:
 >    - §§1–4: pull newly forwarded newsletters from the connected Gmail
 >      (skaidrive2@gmail.com), parse into `newsletters.js` (headline, publication/
 >      author, date/time, one-line topic summary, "view in browser" link — never
