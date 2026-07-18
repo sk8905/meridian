@@ -172,7 +172,7 @@ export function initGlance() {
   initJumpNav();
   wirePalette(buildIndex());
   startLiveRefresh();
-  import("/ptr.js?v=20260716-1").then((m) => m.initPullToRefresh()).catch(() => {});
+  import("/ptr.js?v=20260718-1").then((m) => m.initPullToRefresh()).catch(() => {});
 }
 
 // ---- Unified Saved -----------------------------------------------------------
@@ -1674,12 +1674,14 @@ function wirePalette(idx) {
       localStorage.setItem(k, JSON.stringify(a.slice(0, 8)));
     } catch { /* ignore */ }
   }
-  function go(e) { if (!e) return; recordSearch(input.value); close(); if (/^https?:\/\//i.test(e.href)) window.open(e.href, "_blank", "noopener"); else window.location.href = e.href; }
+  function go(e) { if (!e) return; close(); if (/^https?:\/\//i.test(e.href)) window.open(e.href, "_blank", "noopener"); else window.location.href = e.href; }
 
   // Focus SYNCHRONOUSLY within the tap gesture so iOS Safari pops the keyboard
   // immediately (a setTimeout would escape the gesture and suppress it).
   function open() { overlay.classList.add("open"); input.value = ""; refresh(); syncClr(); input.focus({ preventScroll: true }); }
-  function close() { overlay.classList.remove("open"); }
+  // Record the query on ANY close of an open search (result opened, Cancel,
+  // Escape, scrim) — every search you actually ran lands in Recent searches.
+  function close() { if (overlay.classList.contains("open")) recordSearch(input.value); overlay.classList.remove("open"); }
 
   document.getElementById("open-cmdk").addEventListener("click", open);
   // Also open from the mobile bottom-bar search button (or any [data-open-search]).
