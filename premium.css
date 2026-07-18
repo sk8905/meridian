@@ -478,7 +478,12 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
     padding: 0 0 1.2rem;
   }
   body.na-menu-open { overflow: hidden; }
-  body.na-menu-open .topbar { z-index: 90; }
+  body.na-menu-open .topbar, body.na-menu-open .g-top { z-index: 90; }
+  /* Home phone rails: glance moves its two data rails into a .na-rails host
+     inside the shared Markets panel; the standard markets list (.na-body)
+     yields to them there. Desktop keeps .na-body (rails live in the grid). */
+  #na-mkt-panel.has-rails .na-body { display: none; }
+  #na-mkt-panel .na-rails { display: block; }
   /* Full-screen notif panel: the header sticks; rows are the shared .nf-row style. */
   .notif-head { position: sticky; top: 0; z-index: 3; }
   .notif-list { max-height: none; overflow: visible; }

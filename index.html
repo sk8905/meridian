@@ -477,7 +477,7 @@
     .g-ind-chg { font-size:.64rem; font-weight:600; white-space:nowrap; }
     .g-ind-chg.up { color:#059669; } .g-ind-chg.down { color:#dc2626; } .g-ind-chg.flat { color:var(--muted); }
     /* In the iPhone dropdown: stack Markets/Rates (panel is narrow) — indicators stay 3-col. */
-    .g-mkt-panel .g-mr { grid-template-columns:1fr; }
+    .g-mkt-panel .g-mr, .na-rails .g-mr { grid-template-columns:1fr; }
     /* FX daily matrix — a compact 4×4 cross-rate grid (USD/GBP/EUR/JPY) styled to
        match the markets/key-rates tiles: a bordered card whose cells sit in a
        seamless grid divided by hairlines, each rate carrying a subtle heat tint. */
@@ -551,9 +551,9 @@
       box-shadow:0 22px 55px rgba(8,20,60,.35); padding:.55rem .7rem .7rem; z-index:70;
       max-height:76vh; overflow-y:auto; overscroll-behavior:contain; }
     .g-mkt-panel[hidden] { display:none; }
-    .g-mkt-panel .g-rates-head { margin:.15rem 0 .4rem; }
-    .g-mkt-panel .g-rates-head + .g-rates-head,
-    .g-mkt-panel .rates-band + .g-rates-head { margin-top:.7rem; }
+    .g-mkt-panel .g-rates-head, .na-rails .g-rates-head { margin:.15rem 0 .4rem; }
+    .g-mkt-panel .g-rates-head + .g-rates-head, .na-rails .g-rates-head + .g-rates-head,
+    .g-mkt-panel .rates-band + .g-rates-head, .na-rails .rates-band + .g-rates-head { margin-top:.7rem; }
     @media (max-width:760px){
       .g-mkt { display:block; }
       .g-mkt-btn { width:32px; height:32px; }
@@ -596,14 +596,15 @@
       /* The moved rails stack seamlessly; drop the side dividers, keep a hairline
          between panels. Flatten the FX / indicators / macro-read cards too so they
          match the seamless terminal panels around them. */
-      .g-mkt-panel .g-side, .g-mkt-panel .g-side2 { border:0; }
+      .g-mkt-panel .g-side, .g-mkt-panel .g-side2, .na-rails .g-side, .na-rails .g-side2 { border:0; }
       /* iPhone: the Macro rail carries economic data only — drop the deal flow
          (latest deals / fundraising / schemes) here; it stays on desktop. */
-      .g-mkt-panel .g-flow-scroll { display:none; }
-      .g-mkt-panel .g-ind-card, .g-mkt-panel .g-fx-card, .g-mkt-panel .g-snap {
+      .g-mkt-panel .g-flow-scroll, .na-rails .g-flow-scroll { display:none; }
+      .g-mkt-panel .g-ind-card, .g-mkt-panel .g-fx-card, .g-mkt-panel .g-snap,
+      .na-rails .g-ind-card, .na-rails .g-fx-card, .na-rails .g-snap {
         border:0; border-radius:0; box-shadow:none; background:var(--t-panel, #0d0d0d); margin:0; padding:0; }
       /* Markets band: a fixed change column so every row's value + change line up. */
-      .g-mkt-panel #g-markets .mkt-tile { grid-template-columns:1fr auto 4rem; }
+      .g-mkt-panel #g-markets .mkt-tile, .na-rails #g-markets .mkt-tile { grid-template-columns:1fr auto 4rem; }
     }
     /* The full-screen close button (saved / notifications) — phones only. */
     .g-menu-close { display:none; }
@@ -1134,7 +1135,7 @@
       :root[data-theme="dark"] a.g-feed-row:hover .g-feed-title{ color:inherit; }
     }
   </style>
-  <link rel="stylesheet" href="/premium.css?v=20260717-16" />
+  <link rel="stylesheet" href="/premium.css?v=20260718-1" />
 </head>
 <body>
   <!-- Loading -->
@@ -1360,7 +1361,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260717-39").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260718-1").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

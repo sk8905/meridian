@@ -147,7 +147,7 @@ function markNotifSeen(items) {
 
 // ---- shared full-screen shell (mobile) --------------------------------------
 function setTopVar() {
-  const t = document.querySelector(".topbar");
+  const t = document.querySelector(".topbar") || document.querySelector(".g-top");
   const h = t ? Math.round(t.getBoundingClientRect().bottom) : 54;
   document.documentElement.style.setProperty("--na-top-b", h + "px");
 }
@@ -169,7 +169,9 @@ function lockBody(on) { document.body.classList.toggle("na-menu-open", !!on); }
 export function initNavActions() {
   const run = () => {
     const notif = document.getElementById("notif");
-    const bar = document.querySelector(".topbar-right");
+    // Apps mount into .topbar-right; Home (glance) mounts into .g-top .g-actions —
+    // the SAME controller runs on all four pages.
+    const bar = document.querySelector(".topbar-right") || document.querySelector(".g-top .g-actions");
     if (!notif && !bar) return;
     if (document.getElementById("na-mkt")) return; // already mounted
     setTopVar();
@@ -181,6 +183,9 @@ export function initNavActions() {
     // own #notif bell is hidden — its background seen-state syncing still runs and
     // seeds localStorage, which our cross-desk badge reads.
     if (notif) notif.style.display = "none";
+    // Home's legacy per-page menu mounts (markets / saved / bell) — retired in
+    // favour of this shared controller.
+    ["g-mkt", "g-saved", "g-notif"].forEach((lid) => { const el = document.getElementById(lid); if (el) el.style.display = "none"; });
     const wrap = document.createElement("div");
     wrap.className = "na-actions";
     wrap.innerHTML =

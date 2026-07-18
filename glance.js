@@ -91,6 +91,59 @@ let _inited = false;
 let _liveFeed = [];
 const fmtRefresh = () => `${fmt(LAST_CHECKED)}${LAST_CHECKED_TIME ? `, ${LAST_CHECKED_TIME}` : ""}`;
 
+// Home phone rails inside the SHARED Markets panel (#na-mkt-panel, created by
+// nav-actions): on phones the two desktop side rails move into a .na-rails host
+// with the Markets/Macro chips, and the panel's standard markets list hides
+// (premium.css `.has-rails`). On desktop the rails return to the 3-column grid
+// and the panel shows nav-actions' standard markets list, same as the apps.
+function initHomeMarketsRails() {
+  const panel = document.getElementById("na-mkt-panel");
+  const side = document.querySelector(".g-side");
+  const side2 = document.querySelector(".g-side2");
+  const layout = document.querySelector(".g-layout");
+  const feed = document.querySelector(".g-feed-wrap");
+  if (!panel || !side || !layout) return;
+  const host = document.createElement("div");
+  host.className = "na-rails tui";
+  panel.appendChild(host);
+  const head = document.createElement("div");
+  head.className = "g-mkt-head";
+  head.innerHTML = '<div class="g-mkt-chips" role="tablist" aria-label="Data rail">'
+    + '<button type="button" class="g-mkt-chip is-on" data-rail="side" role="tab" aria-selected="true">Markets</button>'
+    + '<button type="button" class="g-mkt-chip" data-rail="side2" role="tab" aria-selected="false">Macro</button>'
+    + '</div>';
+  host.appendChild(head);
+  const mq = matchMedia("(max-width:760px)");
+  const selectRail = (which) => {
+    const isSide = which !== "side2";
+    side.style.display = isSide ? "" : "none";
+    if (side2) side2.style.display = isSide ? "none" : "";
+    head.querySelectorAll(".g-mkt-chip").forEach((c) => {
+      const on = c.dataset.rail === (isSide ? "side" : "side2");
+      c.classList.toggle("is-on", on);
+      c.setAttribute("aria-selected", on ? "true" : "false");
+    });
+    panel.scrollTop = 0;
+  };
+  const place = () => {
+    if (mq.matches) {
+      panel.classList.add("has-rails");
+      if (side.parentElement !== host) host.appendChild(side);
+      if (side2 && side2.parentElement !== host) host.appendChild(side2);
+      const on = head.querySelector(".g-mkt-chip.is-on");
+      selectRail(on ? on.dataset.rail : "side");
+    } else {
+      panel.classList.remove("has-rails");
+      side.style.display = ""; if (side2) side2.style.display = "";
+      if (side.parentElement !== layout) layout.insertBefore(side, feed || null);
+      if (side2 && side2.parentElement !== layout) layout.appendChild(side2);
+    }
+  };
+  head.addEventListener("click", (e) => { const c = e.target.closest(".g-mkt-chip"); if (c) selectRail(c.dataset.rail); });
+  place();
+  mq.addEventListener("change", place);
+}
+
 export function initGlance() {
   if (_inited) return; _inited = true;
   _liveFeed = ((readCache("feed") || {}).items) || [];  // instant last-good merge
@@ -104,14 +157,17 @@ export function initGlance() {
   initGlanceTickerToggle();
   const rf = document.getElementById("g-refresh");
   if (rf) rf.textContent = `Last refresh ${fmtRefresh()}`;
-  initNotifBell();
-  initSavedPanel();
+  // Top-bar Markets / Saved / Notifications: the SAME shared controller as
+  // Macro/Credit/Legal (nav-actions.js) — one implementation on all four pages.
+  // The legacy Home-only menus (initNotifBell / initSavedPanel /
+  // initMarketsPanel) are retired; on phones the Home data rails move into the
+  // shared Markets panel via initHomeMarketsRails.
+  import("/nav-actions.js?v=20260718-1").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderDeals();
   renderFundraising();
   renderRx();
   initFlowChips();
   initFeedEntityNav();
-  initMarketsPanel();
   initFeedHeadLock();
   initJumpNav();
   wirePalette(buildIndex());
