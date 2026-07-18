@@ -1652,6 +1652,33 @@ export async function pushScheduled(env) {
   const dateRe = new RegExp('["\']?date["\']?\\s*:\\s*"' + today + '"', "g");
   const counts = {};
   for (const k of Object.keys(files)) counts[k] = (texts[k].match(dateRe) || []).length;
+  // Today's item HEADLINES per desk (regex over the data-module source): for
+  // each today-dated item, the nearest headline/title/name/company string in
+  // the surrounding object literal. Diffed against the previous run so the
+  // digest can lead with an actual new headline, not just counts.
+  const todayTitles = {};
+  for (const k of Object.keys(files)) {
+    const out = [];
+    let m;
+    const re = new RegExp(dateRe.source, "g");
+    while ((m = re.exec(texts[k])) && out.length < 40) {
+      const start = Math.max(0, m.index - 800);
+      const slice = texts[k].slice(start, m.index + 800);
+      const datePos = m.index - start;
+      // The item's own headline field precedes its date in these files, so take
+      // the LAST title-ish string before the date (fall back to the first one
+      // after) — plain nearest-by-distance can grab the NEXT object's title.
+      let before = null, after = null, t;
+      const tre = /(?:headline|title|name|company)\s*:\s*"((?:[^"\\]|\\.)*)"/g;
+      while ((t = tre.exec(slice))) {
+        if (t.index < datePos) before = t[1];
+        else { after = after ?? t[1]; }
+      }
+      const best = before ?? after;
+      if (best) out.push(best.replace(/\\(["\\])/g, "$1"));
+    }
+    todayTitles[k] = [...new Set(out)];
+  }
   // Followed ids (single-reader: first watchlist record) for mention diffs.
   let follows = null;
   try {
@@ -1670,15 +1697,24 @@ export async function pushScheduled(env) {
     }
     const hits = followIds.filter((id) => nameCounts[id] > ((state.nameCounts && state.nameCounts[id]) || 0));
     if (parts.length) {
+      // Same shape as the breaking pushes: context in the title, a REAL
+      // headline in the body. Lead with the busiest desk's newest addition.
+      const prevT = state.todayTitles || {};
+      const newTitles = changed
+        .sort((a, b) => (counts[b] - ((state.counts && state.counts[b]) || 0)) - (counts[a] - ((state.counts && state.counts[a]) || 0)))
+        .flatMap((k) => todayTitles[k].filter((t) => !(prevT[k] || []).includes(t)));
+      const extra = newTitles.length > 1 ? ` (+${newTitles.length - 1} more)` : "";
       msgs.push({
-        title: "Wire refresh",
-        body: pushClamp("New today: " + parts.join(" · ") + (hits.length ? " — watchlist: " + hits.map(prettyId).join(", ") : ""), 78),
+        title: "Refresh — " + parts.join(" · "),
+        body: newTitles.length ? pushClamp(newTitles[0], 78 - extra.length) + extra : "New items on the desks",
         url: "/",
       });
-    } else if (hits.length) {
+    }
+    if (hits.length) {
       msgs.push({ title: "Watchlist", body: pushClamp(hits.map(prettyId).join(", ") + " in new items", 78), url: "/" });
     }
   }
+  state.todayTitles = todayTitles;
 
   // --- 3: breaking headlines (strict core-macro filter, ≤1/hour, 07–22 UK) ---
   if (hour >= 7 && hour < 22 && (!state.lastBreakAt || now - state.lastBreakAt > 3600e3)) {
