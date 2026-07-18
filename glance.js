@@ -197,6 +197,45 @@ function toggleRowBookmark(r) {
   }
   wireToast(added ? "Saved to Bookmarks" : "Removed from Bookmarks");
 }
+// Saved-state probe for the options menu label.
+function isRowSaved(r) {
+  const sk = r.getAttribute("data-sk");
+  if (sk === "m" || sk === "c" || sk === "l") {
+    const id = r.getAttribute("data-sid");
+    return !!id && _readSet(SAVED_LS[sk]).has(id);
+  }
+  const title = (r.querySelector(".g-feed-title") || {}).textContent || "";
+  const key = ((r.getAttribute("href") || "") + "|" + title).toLowerCase();
+  try { const a = JSON.parse(localStorage.getItem("wire.home.saved") || "[]"); return Array.isArray(a) && a.some((o) => o && o.k === key); } catch { return false; }
+}
+// The options menu the gesture opens: story title + Save/Remove + Cancel.
+// Phone: bottom sheet above the tab bar; desktop: popover at the cursor.
+const ICO_BM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
+let _rmEl = null, _rmScrim = null;
+function closeRowMenu() { if (_rmEl) { _rmEl.remove(); _rmEl = null; } if (_rmScrim) { _rmScrim.remove(); _rmScrim = null; } }
+function openRowMenu(r, x, y) {
+  closeRowMenu();
+  _rmScrim = document.createElement("div"); _rmScrim.className = "rowmenu-scrim";
+  _rmScrim.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); closeRowMenu(); });
+  document.body.appendChild(_rmScrim);
+  const saved = isRowSaved(r);
+  const title = (r.querySelector(".g-feed-title") || {}).textContent || "";
+  _rmEl = document.createElement("div"); _rmEl.className = "rowmenu"; _rmEl.setAttribute("role", "menu");
+  _rmEl.innerHTML = `<div class="rowmenu-title">${esc(title)}</div>`
+    + `<button type="button" class="rowmenu-act" data-act="save">${ICO_BM}<span>${saved ? "Remove from Bookmarks" : "Save to Bookmarks"}</span></button>`
+    + `<button type="button" class="rowmenu-act rowmenu-cancel" data-act="cancel"><span>Cancel</span></button>`;
+  _rmEl.addEventListener("click", (e) => {
+    const b = e.target.closest(".rowmenu-act"); if (!b) return;
+    if (b.dataset.act === "save") toggleRowBookmark(r);
+    closeRowMenu();
+  });
+  document.body.appendChild(_rmEl);
+  if (!matchMedia("(max-width:760px)").matches) {
+    const rect = _rmEl.getBoundingClientRect();
+    _rmEl.style.left = Math.max(8, Math.min(x || 0, innerWidth - rect.width - 8)) + "px";
+    _rmEl.style.top = Math.max(8, Math.min(y || 0, innerHeight - rect.height - 8)) + "px";
+  }
+}
 let _toastEl = null, _toastT = null;
 function wireToast(msg) {
   if (!_toastEl) { _toastEl = document.createElement("div"); _toastEl.className = "wire-toast"; document.body.appendChild(_toastEl); }
@@ -211,7 +250,7 @@ function initRowBookmarks() {
   document.addEventListener("touchstart", (e) => {
     const r = findRow(e.target); if (!r || e.touches.length !== 1) return;
     fired = false; sx = e.touches[0].clientX; sy = e.touches[0].clientY;
-    timer = setTimeout(() => { timer = null; fired = true; toggleRowBookmark(r); if (navigator.vibrate) navigator.vibrate(10); }, 550);
+    timer = setTimeout(() => { timer = null; fired = true; openRowMenu(r); if (navigator.vibrate) navigator.vibrate(10); }, 550);
   }, { passive: true });
   document.addEventListener("touchmove", (e) => {
     if (!timer) return;
@@ -220,15 +259,17 @@ function initRowBookmarks() {
   }, { passive: true });
   document.addEventListener("touchend", cancel, { passive: true });
   document.addEventListener("touchcancel", cancel, { passive: true });
-  // A fired long-press must NOT also open the story — eat the trailing click.
+  // A fired long-press must NOT also click anything (the story link, or the
+  // sheet's scrim that now sits under the finger) — eat the trailing click.
   document.addEventListener("click", (e) => {
-    if (fired && findRow(e.target)) { e.preventDefault(); e.stopPropagation(); fired = false; }
+    if (fired) { e.preventDefault(); e.stopPropagation(); fired = false; }
   }, true);
-  // Desktop: right-click toggles instead of the browser context menu.
+  // Desktop: right-click opens the options menu instead of the browser one.
   document.addEventListener("contextmenu", (e) => {
     const r = findRow(e.target); if (!r) return;
-    e.preventDefault(); toggleRowBookmark(r);
+    e.preventDefault(); openRowMenu(r, e.clientX, e.clientY);
   });
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeRowMenu(); });
 }
 
 export function initGlance() {
