@@ -498,7 +498,7 @@ function viewDashboard() {
     ...practiceAreas.map((a) => [a.name, areaCount(a)]),
     ["Case law", cases.length], ["Schemes & RPs", restructurings.length],
   ];
-  const alerts = items.map((it) => ({ _k: "alert", date: it.date, title: it.title, href: it.url || (firmById[it.firm] || {}).insightsUrl || `#/item/${encodeURIComponent(it.id)}`, ext: !!(it.url || (firmById[it.firm] || {}).insightsUrl), mgr: (firmById[it.firm] || {}).name || it.firm, src: (firmById[it.firm] || {}).name || it.firm, url: it.url, code: "ALERT" }));
+  const alerts = items.map((it) => ({ _k: "alert", date: it.date, title: it.title, href: it.url || (firmById[it.firm] || {}).insightsUrl || `#/item/${encodeURIComponent(it.id)}`, ext: !!(it.url || (firmById[it.firm] || {}).insightsUrl), mgr: (firmById[it.firm] || {}).name || it.firm, src: (firmById[it.firm] || {}).name || it.firm, url: it.url, code: "ALERT", firmId: it.firm || "" }));
   // A case headline opens its source directly (BAILII / National Archives judgment).
   // A scheme/RP headline jumps to that matter's row in the Schemes & RPs table
   // (goScheme); its citation still links to the judgment in the source column.
@@ -520,7 +520,7 @@ function viewDashboard() {
     const head = x.goScheme
       ? `<a href="#/" data-goscheme="${esc(x.goScheme)}" class="tw-head">${esc(x.title)}</a>`
       : `<a href="${esc(x.href)}"${x.ext ? ` target="_blank" rel="noopener noreferrer"` : ""} class="tw-head">${esc(x.title)}</a>`;
-    return `<li class="compact-item tw-row" data-kind="${x._k}">`
+    return `<li class="compact-item tw-row" data-kind="${x._k}"${x.firmId ? ` data-firm="${esc(x.firmId)}"` : ""}>`
       + `<span class="tw-date">${x.date ? esc(fmtDate(x.date)) : ""}</span>`
       + `<span class="tw-tag ${x._k}">${x.code}</span>`
       + `<span class="tw-body">${head}${mgr}</span>`
@@ -1413,7 +1413,7 @@ document.addEventListener("click", (e) => {
   }
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260718-4").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260718-5").then((m) => m.mountPalette()).catch(() => {});
 import("/ptr.js?v=20260718-2").then((m) => m.initPullToRefresh()).catch(() => {});
 initChrome();
 initNotif();

@@ -196,7 +196,7 @@ export function mountPalette() {
   };
   // Recents record ONLY when a result is actually opened — a typed-then-cancelled
   // query (or a half-typed fragment) never lands in the list.
-  const go = (e) => { if (!e) return; recordSearch(input.value); close(); if (/^https?:\/\//i.test(e.href)) window.open(e.href, "_blank", "noopener"); else window.location.href = e.href; };
+  const go = (e) => { if (!e) return; recordSearch((e.title || input.value || "").trim()); close(); if (/^https?:\/\//i.test(e.href)) window.open(e.href, "_blank", "noopener"); else window.location.href = e.href; };
   // Focus SYNCHRONOUSLY within the tap/click gesture so iOS Safari pops the
   // keyboard immediately (a setTimeout would escape the gesture and suppress it).
   const open = () => { ov.classList.add("open"); input.value = ""; refresh(); syncClr(); input.focus({ preventScroll: true }); };

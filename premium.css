@@ -633,7 +633,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 
 /* ---- Row-bookmark toast + long-press support (Home feed) ---- */
 /* Long-press must reach our handler, not iOS's link callout / text selection. */
-.g-feed-row { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
+.g-feed-row, .tw-row, .tmini-row, .tui-li { -webkit-touch-callout: none; -webkit-user-select: none; user-select: none; }
 .wire-toast { position: fixed; left: 50%; transform: translateX(-50%);
   bottom: calc(84px + env(safe-area-inset-bottom, 0px)); z-index: 9600;
   background: var(--surface, #191919); color: var(--ink, #eaf0fb);

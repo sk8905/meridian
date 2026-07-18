@@ -231,6 +231,8 @@ export function initNavActions() {
     if (!notif && !bar) return;
     if (document.getElementById("na-mkt")) return; // already mounted
     setTopVar();
+    // Shared press-and-hold / right-click row options menu — every page.
+    import("/rowmenu.js?v=20260718-1").then((m) => m.initRowMenu()).catch(() => {});
     addEventListener("resize", setTopVar);
     addEventListener("orientationchange", () => setTimeout(setTopVar, 200));
 
