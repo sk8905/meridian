@@ -203,7 +203,24 @@ function scrimOn(onClose) {
   _scrim.hidden = false;
 }
 function scrimOff() { if (_scrim) { _scrim.hidden = true; _scrim._cb = null; } }
-function lockBody(on) { document.body.classList.toggle("na-menu-open", !!on); }
+// iOS-safe scroll lock: overflow:hidden alone loses the scroll position on
+// iOS Safari (the page "jumps" when a panel closes). Freeze the body with
+// position:fixed at the captured offset and restore it exactly on unlock.
+let _lockY = 0;
+function lockBody(on) {
+  const b = document.body;
+  const locked = b.classList.contains("na-menu-open");
+  if (on && !locked) {
+    _lockY = window.scrollY || document.documentElement.scrollTop || 0;
+    b.classList.add("na-menu-open");
+    b.style.position = "fixed"; b.style.top = (-_lockY) + "px";
+    b.style.left = "0"; b.style.right = "0"; b.style.width = "100%";
+  } else if (!on && locked) {
+    b.classList.remove("na-menu-open");
+    b.style.position = ""; b.style.top = ""; b.style.left = ""; b.style.right = ""; b.style.width = "";
+    window.scrollTo(0, _lockY);
+  }
+}
 
 export function initNavActions() {
   const run = () => {
