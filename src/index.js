@@ -1610,6 +1610,20 @@ async function handlePushTest(request, env) {
   });
 }
 const prettyId = (id) => String(id).replace(/[-_]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+// iOS banner discipline: title must hold one line, body two. Apple adds its own
+// "from Wire" attribution line to web-app pushes (not in our payload, not
+// suppressible), so our text has to stay tight. ~78 chars ≈ two banner lines.
+const PUSH_SRC_ABBR = {
+  "Financial Times": "FT", "The Wall Street Journal": "WSJ", "The Economist": "Economist",
+  "South China Morning Post": "SCMP", "The Straits Times": "Straits Times", "Nikkei Asia": "Nikkei",
+  "Federal Reserve": "Fed", "Bank of England": "BoE", "The Guardian": "Guardian", "FT Alphaville": "Alphaville",
+};
+const pushClamp = (s, max) => {
+  s = String(s || "").trim();
+  if (s.length <= max) return s;
+  const cut = s.slice(0, max - 1);
+  return (cut.includes(" ") ? cut.replace(/\s+\S*$/, "") : cut) + "…";
+};
 export async function pushScheduled(env) {
   const KV = env.WATCHLIST;
   const subs = await KV.get("push:subs", "json");
@@ -1658,11 +1672,11 @@ export async function pushScheduled(env) {
     if (parts.length) {
       msgs.push({
         title: "Wire refresh",
-        body: "New today: " + parts.join(" · ") + (hits.length ? " — watchlist: " + hits.map(prettyId).join(", ") : ""),
+        body: pushClamp("New today: " + parts.join(" · ") + (hits.length ? " — watchlist: " + hits.map(prettyId).join(", ") : ""), 78),
         url: "/",
       });
     } else if (hits.length) {
-      msgs.push({ title: "Watchlist", body: hits.map(prettyId).join(", ") + " in new items", url: "/" });
+      msgs.push({ title: "Watchlist", body: pushClamp(hits.map(prettyId).join(", ") + " in new items", 78), url: "/" });
     }
   }
 
@@ -1683,7 +1697,12 @@ export async function pushScheduled(env) {
       (feed.items || []).forEach((x) => { if (FEED_CORE_MACRO_RE.test(x.title)) seen.add(feedNorm(x.title)); });
       state.seenBreak = [...seen].slice(-400);
       if (fresh.length) {
-        msgs.push({ title: "Breaking — " + fresh[0].source, body: fresh[0].title + (fresh.length > 1 ? ` (+${fresh.length - 1} more)` : ""), url: fresh[0].url });
+        const suffix = fresh.length > 1 ? ` (+${fresh.length - 1} more)` : "";
+        msgs.push({
+          title: "Breaking — " + (PUSH_SRC_ABBR[fresh[0].source] || fresh[0].source),
+          body: pushClamp(fresh[0].title, 78 - suffix.length) + suffix,
+          url: fresh[0].url,
+        });
         state.lastBreakAt = now;
       }
     } catch { /* feed unavailable this tick */ }
