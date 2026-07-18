@@ -13,7 +13,7 @@ export const UPDATED = "18 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-18",
-  lastCheckedTime: "12:20 BST",
+  lastCheckedTime: "17:08 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -356,17 +356,17 @@ export const NEWS = {
   updated: "2026-07-18",
   us: [
     { title: "U.S. stocks slide as semiconductors slip into technical bear market", source: "Xinhua", date: "2026-07-18", time: "12:03", url: "https://english.news.cn/20260718/3a7128e8ba5e4146b87ec169223cb3b4/c.html" },
-    { title: "Stock market next week: Outlook for July 20-24, 2026", source: "CNBC", date: "2026-07-17", time: "12:03", url: "https://www.cnbc.com/2026/07/17/stock-market-next-week-outlook-for-july-20-24-2026.html" },
+    { title: "Chips Stocks Sink Into Bear Market as 105% AI Rally Fizzles", source: "Bloomberg", date: "2026-07-17", time: "05:21", url: "https://www.bloomberg.com/news/articles/2026-07-17/chips-stocks-tumble-into-bear-market-as-105-ai-rally-fizzles" },
     { title: "Iran Oil Shock Spills Into Demand Inflation, Lifting Fed Rate-Hike Odds to 73% by September", source: "Tech Times", date: "2026-07-16", time: "12:03", url: "https://www.techtimes.com/articles/320773/20260716/iran-oil-shock-spills-demand-inflation-lifting-fed-rate-hike-odds-73-september.htm" },
     { title: "Fed's Cook Says She's Prepared to Act If Inflation Doesn't Cool", source: "Bloomberg", date: "2026-07-15", time: "12:03", url: "https://www.bloomberg.com/news/articles/2026-07-15/fed-s-cook-says-she-s-prepared-to-act-if-inflation-doesn-t-cool" },
-    { title: "Oil prices are on the march once again after the U.S-Iran conflict intensifies — it's yet another headache for Warsh and the Fed", source: "Fortune", date: "2026-07-13", time: "12:03", url: "https://fortune.com/2026/07/13/oil-price-rises-inflation-expectations-warsh-fed-goldman/" },
+    { title: "Fed's Warsh stays mum on rate plans, pledges price stability", source: "Axios", date: "2026-07-14", time: "17:08", url: "https://www.axios.com/2026/07/14/fed-warsh-congress-rates" },
   ],
   uk: [
+    { title: "Burnham finalising plans for UK govt before becoming PM", source: "RTÉ", date: "2026-07-18", time: "17:08", url: "https://www.rte.ie/news/2026/0718/1583956-uk-andy-burnham/" },
+    { title: "Britain hopes this man will save its economy. We went to Manchester to find out why", source: "CNN Business", date: "2026-07-18", time: "17:08", url: "https://kesq.com/money/cnn-business-consumer/2026/07/18/britain-hopes-this-man-will-save-its-economy-we-went-to-manchester-to-find-out-why/" },
     { title: "Pound Sterling Forecast 2026: Politics And Growth Keep GBP Supported — Lloyds", source: "ExchangeRates.org.uk", date: "2026-07-18", time: "12:03", url: "https://www.exchangerates.org.uk/news/46543/2026-07-18-pound-sterling-forecast-2026-politics-and-growth-keep-gbp-supported-lloyds.html" },
-    { title: "Andy Burnham Calls for 'New Politics' in U.K. in First Speech as Labour Leader", source: "Time", date: "2026-07-17", time: "12:03", url: "https://time.com/article/2026/07/17/andy-burnham-first-speech-labour-leader-incoming-prime-minister/" },
-    { title: "Andy Burnham to become U.K.'s prime minister Monday after being declared Labour Party leader", source: "CBS News", date: "2026-07-17", time: "12:03", url: "https://www.cbsnews.com/news/andy-burnham-uk-prime-minister-labour-party-leader/" },
-    { title: "Andy Burnham will be Britain's seventh leader in a decade. Can he buck the trend?", source: "CNN", date: "2026-07-17", time: "12:03", url: "https://www.cnn.com/2026/07/17/uk/andy-burnham-labour-leader-uk-intl" },
-    { title: "Pound Index Hits One-Year High on Mahmood for Chancellor Reports", source: "Bloomberg", date: "2026-07-16", time: "12:03", url: "https://www.bloomberg.com/news/articles/2026-07-16/pound-index-hits-one-year-high-on-mahmood-for-chancellor-reports" },
+    { title: "Burnham Says He'll Be a Pro-Business Prime Minister in London Speech", source: "Bloomberg", date: "2026-07-17", time: "17:08", url: "https://www.bloomberg.com/news/articles/2026-07-17/burnham-says-he-will-be-a-pro-business-prime-minister" },
+    { title: "Pound Sterling Price News and Forecast: GBP/USD slips for second straight day as Oil spike revives inflation fears", source: "FXStreet", date: "2026-07-17", time: "05:21", url: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-slips-for-second-straight-day-as-oil-spike-revives-inflation-fears-202607171924" },
   ],
 };
 
@@ -380,6 +380,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-18",
   items: [
+    {"title":"Burnham finalising plans for UK govt before becoming PM","source":"RTÉ","date":"2026-07-18","time":"17:08","url":"https://www.rte.ie/news/2026/0718/1583956-uk-andy-burnham/","blurb":"Burnham becomes PM on Monday with a cabinet and chancellor announcement due that day; an internal government inflation forecast has reportedly been revised up to 3.2% for Q4."},
+    {"title":"Britain hopes this man will save its economy. We went to Manchester to find out why","source":"CNN Business","date":"2026-07-18","time":"17:08","url":"https://kesq.com/money/cnn-business-consumer/2026/07/18/britain-hopes-this-man-will-save-its-economy-we-went-to-manchester-to-find-out-why/","blurb":"A ground-level look at whether the incoming prime minister's Manchester track record translates into a credible economic turnaround plan for the UK."},
     {"title":"U.S. stocks slide as semiconductors slip into technical bear market","source":"Xinhua","date":"2026-07-18","time":"12:03","url":"https://english.news.cn/20260718/3a7128e8ba5e4146b87ec169223cb3b4/c.html","blurb":"The Dow fell 0.77% to 52,146.42, the S&P 500 lost 1.01% to 7,457.69 and the Nasdaq dropped 1.4% to 25,520.24 on Friday, capping the major indices' first collective weekly decline since early June as the semiconductor sector's worst week since April 2025 confirmed a technical bear market."},
     {"title":"Pound Sterling Forecast 2026: Politics And Growth Keep GBP Supported — Lloyds","source":"ExchangeRates.org.uk","date":"2026-07-18","time":"12:03","url":"https://www.exchangerates.org.uk/news/46543/2026-07-18-pound-sterling-forecast-2026-politics-and-growth-keep-gbp-supported-lloyds.html","blurb":"Lloyds' latest currency outlook argues the Burnham transition and the BoE's rate-differential advantage over the ECB should keep sterling underpinned through the rest of 2026."},
     {"title":"Andy Burnham Calls for 'New Politics' in U.K. in First Speech as Labour Leader","source":"Time","date":"2026-07-17","time":"12:03","url":"https://time.com/article/2026/07/17/andy-burnham-first-speech-labour-leader-incoming-prime-minister/","blurb":"In his first speech as Labour leader, Burnham positioned himself as a 'pro-business' reformer, pointing to his record on public transport in Manchester ahead of taking over Downing Street on Monday."},

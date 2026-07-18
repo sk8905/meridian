@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b93e063a-aba7-4dcd-9e3e-f57cab54d0f6", title: "Telecom Italia backs Poste Italiane takeover bid", date: "2026-07-18", time: "15:48", url: "https://www.ft.com/content/b93e063a-aba7-4dcd-9e3e-f57cab54d0f6" },
+  { id: "44a3698f-6481-4e83-a50d-7db109768ea1", title: "Big Law braces for second fight with Donald Trump over capitulation deals", date: "2026-07-18", time: "13:00", url: "https://www.ft.com/content/44a3698f-6481-4e83-a50d-7db109768ea1" },
   { id: "2b96703d-440b-46db-8d86-9fff9ecc59d5", title: "Traders are increasingly betting against SpaceX just weeks after IPO", date: "2026-07-18", time: "12:00", url: "https://www.ft.com/content/2b96703d-440b-46db-8d86-9fff9ecc59d5" },
   { id: "bcb38f82-d552-4d8d-af1f-87a8f06ec861", title: "Chart of the Week: Chips are nearly five times as volatile as the broader market", date: "2026-07-18", time: "10:30", url: "https://www.ft.com/content/bcb38f82-d552-4d8d-af1f-87a8f06ec861" },
   { id: "047f943b-e46b-455e-8f8e-bef1b9c97708", title: "Britain’s system for avoiding electricity blackouts faces scrutiny", date: "2026-07-18", time: "05:00", url: "https://www.ft.com/content/047f943b-e46b-455e-8f8e-bef1b9c97708" },

@@ -27,6 +27,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-thebrink-20260718",
+    publication: "Bloomberg",
+    author: "Angélica Serrano-Román",
+    series: "The Brink",
+    title: "The Brink: Bankruptcy tourism",
+    date: "2026-07-18",
+    time: "16:00",
+    summary: "Distressed US companies are finding a British way to bypass Chapter 11.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-18/distressed-us-companies-find-a-british-detour-around-chapter-11",
+  },
+  {
     id: "nl-econ-worldinbrief-20260718",
     publication: "The Economist",
     series: "The World in Brief",
