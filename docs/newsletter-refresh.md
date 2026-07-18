@@ -34,6 +34,20 @@ Economist issue was missed on 2026-07-18):
    in:anywhere {from:news.bloomberg.com from:e.economist.com from:legalbusiness.co.uk from:pb.jpmorgan.com from:mail.sailthru.com from:mailbrew.com from:cntraveller.com} newer_than:2d
    ```
 
+3. Catch-all sweep for NEW senders (self-healing). Everything delivered to the
+   mailbox, whatever its labels/folder:
+
+   ```
+   in:anywhere deliveredto:skaidrive2@gmail.com newer_than:2d
+   ```
+
+   Ignore system/admin mail (google.com / workspace senders, forwarding
+   confirmations). Anything that reads as an email newsletter from a sender NOT
+   yet in `PUBLISHERS` is a newly-added subscription: ADD its sender domain →
+   publication name to the `PUBLISHERS` map in `newsletters.js`, then parse it
+   like any other newsletter. This keeps the pull complete when the reader
+   subscribes to (or auto-forwards) something new without telling anyone.
+
 Parsing note for auto-forwarded copies: there is no "Begin forwarded message"
 wrapper — the message's own headers ARE the original (sender domain →
 publication via `PUBLISHERS`; `Date:` = original send time). If a newsletter's
