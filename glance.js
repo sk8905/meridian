@@ -1630,11 +1630,16 @@ function buildIndex() {
     });
   });
 
+  // myFT stories + email newsletters — so they're searchable and the "/FT" /
+  // "/LETTER" code filters have content to list.
+  (FT_ITEMS || []).forEach((f) => add("ft", f.title, `Financial Times · myFT${f.date ? " · " + fmt(f.date) : ""}`, f.url, 2, f.date, "FT"));
+  (NEWSLETTERS || []).forEach((n) => add("letter", n.title, `${n.publication || "Newsletter"}${n.series ? " · " + n.series : ""}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "Letter"));
+
   return idx;
 }
 
 // ---- Command palette -------------------------------------------------------
-const PAL_CODE = { macro: "MAC", credit: "CRD", legal: "LEX", view: "GO" };
+const PAL_CODE = { macro: "MAC", credit: "CRD", legal: "LEX", view: "GO", ft: "FT", letter: "LETTER" };
 function wirePalette(idx) {
   const overlay = document.getElementById("cmdk");
   const input = document.getElementById("cmdk-input");
@@ -1650,18 +1655,23 @@ function wirePalette(idx) {
   }
   function search(q) {
     q = q.trim().toLowerCase();
-    if (!q) return [];
-    const toks = q.split(/\s+/);
-    return idx
+    // "/CODE [text]" filters by the label chip (e.g. /FT, /LEX, /LETTER, /MAC,
+    // /CRD) — prefix match, so /LE lists LEX and LETTER together.
+    let code = null;
+    if (q.startsWith("/")) { const parts = q.slice(1).split(/\s+/); code = parts.shift() || ""; q = parts.join(" "); }
+    if (!q && !code) return [];
+    const pool = code ? idx.filter((e) => String(PAL_CODE[e.tag] || e.label || e.tag).toLowerCase().startsWith(code)) : idx;
+    const toks = q ? q.split(/\s+/) : [];
+    return pool
       .map((e) => ({ e, s: toks.every((t) => e.hay.includes(t)) ? score(e, q) : -1 }))
-      .filter((x) => x.s >= 0 || x.e.hay.includes(toks[0]))
+      .filter((x) => x.s >= 0 || (toks.length && x.e.hay.includes(toks[0])))
       .map((x) => ({ e: x.e, s: x.s < 0 ? 4 : x.s }))
       .sort((a, b) =>
         a.e.rank - b.e.rank ||
         (a.e.rank === 2 ? String(b.e.date).localeCompare(String(a.e.date)) : 0) ||
         a.s - b.s ||
         a.e.title.localeCompare(b.e.title))
-      .slice(0, 40).map((x) => x.e);
+      .slice(0, code ? 60 : 40).map((x) => x.e);
   }
   function draw() {
     if (!current.length) { results.innerHTML = input.value.trim() ? `<div class="cmdk-empty">No matches.</div>` : ""; return; }

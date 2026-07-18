@@ -11,6 +11,8 @@
 import { deals, intel, managers, funds, research } from "/credit/js/data.js?v=20260718-9";
 import { items, cases, restructurings, firms } from "/legal/js/data.js?v=20260718-10";
 import { NEWS, ARTICLES, ALERTS } from "/macro/js/content.js?v=20260718-9";
+import { FT_ITEMS } from "/ft.js?v=20260718-4";
+import { NEWSLETTERS } from "/newsletters.js?v=20260718-1";
 
 // Canonical identity of a manager press item (mirrors credit/js/app.js) so a news
 // search result deep-links to the exact row (#/manager/<id>?focus=k:<key>).
@@ -88,10 +90,14 @@ function buildIndex() {
       add("credit", w.title, `News${m.name ? " · " + m.name : ""}${w.date ? " · " + fmt(w.date) : ""}`, `/credit/#/manager/${encodeURIComponent(m.id)}?focus=k:${encodeURIComponent(feedDedupKey(w))}`, 2, w.date, "News");
     });
   });
+  // myFT stories + email newsletters — searchable, and the "/FT" / "/LETTER"
+  // code filters list them.
+  (FT_ITEMS || []).forEach((f) => add("ft", f.title, `Financial Times · myFT${f.date ? " · " + fmt(f.date) : ""}`, f.url, 2, f.date, "FT"));
+  (NEWSLETTERS || []).forEach((n) => add("letter", n.title, `${n.publication || "Newsletter"}${n.series ? " · " + n.series : ""}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "Letter"));
   return idx;
 }
 
-const DESKCODE = { credit: "CRD", legal: "LEX", macro: "MAC", view: "GO" };
+const DESKCODE = { credit: "CRD", legal: "LEX", macro: "MAC", view: "GO", ft: "FT", letter: "LETTER" };
 const STYLE = `
 .mcmdk{position:fixed;inset:0;z-index:9000;display:none;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
 .mcmdk.open{display:block}
@@ -116,6 +122,8 @@ const STYLE = `
 .mcmdk-code.credit{color:#fb8b1e;background:color-mix(in srgb,#fb8b1e 16%,transparent)}
 .mcmdk-code.legal{color:#2fbf8a;background:color-mix(in srgb,#2fbf8a 16%,transparent)}
 .mcmdk-code.view{color:var(--faint,#5c6a86);background:color-mix(in srgb,#5c6a86 22%,transparent)}
+.mcmdk-code.ft{color:#e0708e;background:color-mix(in srgb,#e0708e 16%,transparent)}
+.mcmdk-code.letter{color:#d9a441;background:color-mix(in srgb,#d9a441 16%,transparent)}
 .mcmdk-s{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .mcmdk-foot{border-top:1px solid var(--border,#232f47);padding:.5rem .8rem;color:var(--muted,#8592ad);font-size:.72rem;display:flex;gap:1rem}
 .mcmdk-foot kbd{background:var(--panel2,rgba(255,255,255,.06));border-radius:0;padding:.05rem .3rem;font-family:inherit;font-weight:700}
@@ -165,16 +173,21 @@ export function mountPalette() {
   const score = (e, q) => { const t = e.title.toLowerCase(); return t === q ? 0 : t.startsWith(q) ? 1 : t.includes(q) ? 2 : e.hay.includes(q) ? 3 : 4; };
   function searchIdx(q) {
     q = q.trim().toLowerCase();
-    if (!q) return [];
-    const toks = q.split(/\s+/);
-    return idx.filter((e) => toks.every((t) => e.hay.includes(t)))
+    // "/CODE [text]" filters by the label chip (e.g. /FT, /LEX, /LETTER) —
+    // prefix match, so /LE lists LEX and LETTER together.
+    let code = null;
+    if (q.startsWith("/")) { const parts = q.slice(1).split(/\s+/); code = parts.shift() || ""; q = parts.join(" "); }
+    if (!q && !code) return [];
+    const pool = code ? idx.filter((e) => String(DESKCODE[e.tag] || e.label || e.tag).toLowerCase().startsWith(code)) : idx;
+    const toks = q ? q.split(/\s+/) : [];
+    return pool.filter((e) => toks.every((t) => e.hay.includes(t)))
       .map((e) => ({ e, s: score(e, q) }))
       .sort((a, b) =>
         a.e.rank - b.e.rank ||
         (a.e.rank === 2 ? String(b.e.date).localeCompare(String(a.e.date)) : 0) ||
         a.s - b.s ||
         a.e.title.localeCompare(b.e.title))
-      .slice(0, 40).map((x) => x.e);
+      .slice(0, code ? 60 : 40).map((x) => x.e);
   }
   function draw() {
     results.innerHTML = current.length
