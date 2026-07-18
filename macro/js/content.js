@@ -13,7 +13,7 @@ export const UPDATED = "17 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-18",
-  lastCheckedTime: "05:26 BST",
+  lastCheckedTime: "09:12 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -350,15 +350,15 @@ export const NEWS = {
     { title: "US Stock-Index Futures Slide as Jitters Grow on Chip Selloff", source: "Bloomberg", date: "2026-07-17", time: "05:21", url: "https://www.bloomberg.com/news/articles/2026-07-17/us-stock-index-futures-slide-as-jitters-grow-on-chip-selloff" },
     { title: "Oil prices rise after Kuwait says Iran attacked water desalination and power plant", source: "CNBC", date: "2026-07-17", time: "05:21", url: "https://www.cnbc.com/2026/07/17/oil-price-today-brent-wti.html" },
     { title: "Stock Market Today (July 17, 2026): Energy stocks rise as oil prices spike; global tech sell-off deepens", source: "TheStreet", date: "2026-07-17", time: "05:21", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-17-2026" },
-    { title: "Americans keep spending while 'grumbling' about the economy", source: "Axios", date: "2026-07-16", time: "05:21", url: "https://www.axios.com/2026/07/16/retail-sales-consumer-spending-june" },
-    { title: "Fed Rate-Hike Bets Mount Before Inflation Data, Warsh Testimony", source: "Bloomberg", date: "2026-07-14", time: "05:21", url: "https://www.bloomberg.com/news/articles/2026-07-14/fed-rate-hike-bets-mount-before-inflation-data-warsh-testimony" },
+    { title: "Inflation Falls in June on a Temporary Dip in Oil Prices", source: "AP / U.S. News", date: "2026-07-14", time: "09:12", url: "https://www.usnews.com/news/national-news/articles/2026-07-14/inflation-falls-in-june-on-a-temporary-dip-in-oil-prices" },
+    { title: "Kevin Warsh's comments, good June inflation data make for unlikely rate increase", source: "Axios", date: "2026-07-15", time: "09:12", url: "https://www.axios.com/2026/07/15/warsh-inflation-ppi-rates" },
   ],
   uk: [
     { title: "GBP/USD Price Forecast: British Pound extends weakness in process of UK leadership change", source: "FXStreet", date: "2026-07-17", time: "05:21", url: "https://www.fxstreet.com/news/gbp-usd-price-forecast-british-pound-extends-weakness-in-process-of-uk-leadership-change-202607171113" },
     { title: "Mahmood's Economic Blank Slate Boosts Appeal for UK Chancellor Role", source: "Bloomberg", date: "2026-07-16", time: "05:21", url: "https://www.bloomberg.com/news/articles/2026-07-16/mahmood-s-economic-blank-slate-key-to-appeal-as-uk-chancellor" },
+    { title: "FTSE 100 Live: AI Selloff Hits European Stocks, UK Stocks Escape", source: "Bloomberg", date: "2026-07-16", time: "09:12", url: "https://www.bloomberg.com/news/live-blog/2026-07-16/ftse-100-live-uk-gdp-iip-pound-gilts-mahmood-burnham-hormuz-oil-prices-iran-war-what-s-moving-uk-markets-right-now-markets-today" },
+    { title: "Bank of England warns Burnham of UK economy's 'big issue'", source: "City A.M.", date: "2026-07-14", time: "09:12", url: "https://www.cityam.com/bank-of-england-warns-andy-burnham-economic-growth-is-the-uks-big-issue/" },
     { title: "Peston: Is Mahmood the right pick for chancellor?", source: "ITV News", date: "2026-07-16", time: "05:21", url: "https://www.itv.com/news/2026-07-16/peston-is-mahmood-the-right-pick-for-chancellor" },
-    { title: "BOE Governor Urges UK Growth Push in Direct Appeal to Burnham", source: "Bloomberg", date: "2026-07-14", time: "05:21", url: "https://www.bloomberg.com/news/articles/2026-07-14/boe-governor-urges-uk-growth-push-in-direct-appeal-to-burnham" },
-    { title: "Starmer bids MPs goodbye as British PM and pledges to support his successor", source: "Al Jazeera", date: "2026-07-15", time: "05:21", url: "https://www.aljazeera.com/news/2026/7/15/starmer-bids-mps-goodbye-as-british-pm-and-pledges-to-support-his-successor" },
   ],
 };
 
@@ -372,6 +372,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-18",
   items: [
+    {"title":"Andy Burnham must confront two-decade fiscal funk that is costing Britain £330 billion a year","source":"Resolution Foundation","date":"2026-07-16","time":"09:12","url":"https://www.resolutionfoundation.org/press-releases/andy-burnham-must-confront-two-decade-fiscal-funk-that-is-costing-britain-330-billion-a-year/","blurb":"Think tank estimates weak growth, an ageing population and rising ill-health are costing the UK £330bn a year in lost public finances."},
+    {"title":"Wall Street to Fed's Warsh: Skip the Guidance, Tell Us What You Think","source":"Bloomberg","date":"2026-07-13","time":"09:12","url":"https://www.bloomberg.com/news/articles/2026-07-13/wall-street-to-fed-s-warsh-skip-the-guidance-tell-us-what-you-think","blurb":"Investors say new Fed Chair Kevin Warsh's refusal to offer forward guidance is making the July FOMC meeting harder to price."},
     {"title":"Chips Stocks Sink Into Bear Market as 105% AI Rally Fizzles","source":"Bloomberg","date":"2026-07-17","time":"05:21","url":"https://www.bloomberg.com/news/articles/2026-07-17/chips-stocks-tumble-into-bear-market-as-105-ai-rally-fizzles","blurb":"The Philadelphia Semiconductor Index fell more than 20% from its June peak, meeting the technical definition of a bear market, as Moonshot's Kimi K3 model revived 'DeepSeek moment' fears."},
     {"title":"US Stock-Index Futures Slide as Jitters Grow on Chip Selloff","source":"Bloomberg","date":"2026-07-17","time":"05:21","url":"https://www.bloomberg.com/news/articles/2026-07-17/us-stock-index-futures-slide-as-jitters-grow-on-chip-selloff","blurb":"Semiconductor rout worsens on AI-spending doubts, dragging futures lower into the weekend."},
     {"title":"Pound Sterling Price News and Forecast: GBP/USD slips for second straight day as Oil spike revives inflation fears","source":"FXStreet","date":"2026-07-17","time":"05:21","url":"https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-slips-for-second-straight-day-as-oil-spike-revives-inflation-fears-202607171924","blurb":"Sterling extends losses as Middle East-driven oil spike reignites BoE hike bets."},
@@ -410,8 +412,6 @@ export const ARTICLES = {
     {"title":"Stock market today: Dow rises, S&P 500 and Nasdaq fall as chip stocks slide amid AI jitters","source":"Yahoo Finance","date":"2026-07-16","time":"17:20","url":"https://finance.yahoo.com/markets/live/stock-market-today-thursday-july-16-dow-sp-500-nasdaq-103116735.html","blurb":"Chip stocks lead the Nasdaq lower on renewed AI-valuation jitters even as the Dow ekes out a gain."},
     {"title":"Oil prices rise for 4th day as U.S. strikes on Iran raise fears of wider conflict","source":"CNBC","date":"2026-07-16","time":"17:20","url":"https://www.cnbc.com/2026/07/16/oil-rise-as-us-strikes-on-iran-raise-fears-of-wider-conflict.html","blurb":"Brent extends its climb to ~$85.77/bbl after fresh US strikes on Iranian coastal defences and missile sites, with vessel crossings through Hormuz falling further."},
     {"title":"US Retail Sales Rise Modestly as Consumers Spend Less on Gas","source":"Bloomberg","date":"2026-07-16","time":"17:20","url":"https://www.bloomberg.com/news/articles/2026-07-16/us-retail-sales-rise-modestly-as-consumers-spend-less-on-gas","blurb":"June retail sales rose 0.2% as falling gasoline-station receipts offset a broader 0.7% advance excluding gas; May's gain was revised up to 1.0%."},
-    {"title":"US Weekly Jobless Claims Fall; Labor Market Remains Stable","source":"U.S. News","date":"2026-07-16","time":"17:20","url":"https://money.usnews.com/investing/news/articles/2026-07-16/us-weekly-jobless-claims-fall-labor-market-remains-stable","blurb":"Initial claims fell 8,000 to 208,000 for the week ended 11 July, below the 217,000 consensus, pointing to continued labour-market stability."},
-    {"title":"Treasury yields rise as Wall Street awaits key employment data","source":"CNBC","date":"2026-07-16","time":"17:20","url":"https://www.cnbc.com/2026/07/16/us-treasury-yields-wall-street-inflation-employment-data.html","blurb":"Yields tick higher as traders position ahead of jobs and inflation data that could sway the Fed's 29 July decision."},
   ],
 };
 
