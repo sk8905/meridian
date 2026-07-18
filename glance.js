@@ -220,14 +220,34 @@ function openRowMenu(r, x, y) {
   document.body.appendChild(_rmScrim);
   const saved = isRowSaved(r);
   const title = (r.querySelector(".g-feed-title") || {}).textContent || "";
+  const srcName = (r.querySelector(".g-feed-src") || {}).textContent || "";
+  const mgr = r.getAttribute("data-mgr") || "";
+  const firm = r.getAttribute("data-firm") || "";
+  const href = r.getAttribute("href") || "";
+  const canShare = /^https?:\/\//i.test(href) && (!!navigator.share || !!(navigator.clipboard && navigator.clipboard.writeText));
+  const ICO_SRC = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>';
+  const ICO_GO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>';
+  const ICO_SHARE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M8 7l4-4 4 4"/><path d="M5 12v7h14v-7"/></svg>';
   _rmEl = document.createElement("div"); _rmEl.className = "rowmenu"; _rmEl.setAttribute("role", "menu");
   _rmEl.innerHTML = `<div class="rowmenu-title">${esc(title)}</div>`
     + `<button type="button" class="rowmenu-act" data-act="save">${ICO_BM}<span>${saved ? "Remove from Bookmarks" : "Save to Bookmarks"}</span></button>`
+    + (srcName ? `<button type="button" class="rowmenu-act" data-act="src">${ICO_SRC}<span>Show all from ${esc(srcName)}</span></button>` : "")
+    + (mgr ? `<button type="button" class="rowmenu-act" data-act="mgr">${ICO_GO}<span>Open manager page</span></button>` : "")
+    + (firm ? `<button type="button" class="rowmenu-act" data-act="firm">${ICO_GO}<span>Open firm page</span></button>` : "")
+    + (canShare ? `<button type="button" class="rowmenu-act" data-act="share">${ICO_SHARE}<span>Share</span></button>` : "")
     + `<button type="button" class="rowmenu-act rowmenu-cancel" data-act="cancel"><span>Cancel</span></button>`;
   _rmEl.addEventListener("click", (e) => {
     const b = e.target.closest(".rowmenu-act"); if (!b) return;
-    if (b.dataset.act === "save") toggleRowBookmark(r);
+    const act = b.dataset.act;
     closeRowMenu();
+    if (act === "save") toggleRowBookmark(r);
+    else if (act === "src") { _feedSrc = srcName; _feedDesk = "all"; renderFeed(); const f = document.querySelector(".g-feed-wrap"); if (f) f.scrollIntoView({ block: "start" }); }
+    else if (act === "mgr") { window.location.href = "/credit/#/manager/" + encodeURIComponent(mgr); }
+    else if (act === "firm") { window.location.href = "/legal/#/firm/" + encodeURIComponent(firm); }
+    else if (act === "share") {
+      if (navigator.share) navigator.share({ title, url: href }).catch(() => {});
+      else navigator.clipboard.writeText(href).then(() => wireToast("Link copied")).catch(() => {});
+    }
   });
   document.body.appendChild(_rmEl);
   if (!matchMedia("(max-width:760px)").matches) {
@@ -737,14 +757,14 @@ function renderFeed() {
   { const kept = macro.filter((o) => (o.src !== "Investing.com" || /\breuters\b/i.test(o.title || "")) && !NON_PREMIUM.has(o.src)); macro.length = 0; macro.push(...kept); }
 
   const credit = [];
-  deals.forEach((d) => credit.push(mk("c", creditItemHref(d), d.headline, creditSource(d), creditItemExt(d), d.date, d.time, "c", d.id)));
-  intel.forEach((i) => credit.push(mk("c", creditItemHref(i), i.headline, creditSource(i), creditItemExt(i), i.date, i.time, "c", i.id)));
+  deals.forEach((d) => credit.push({ ...mk("c", creditItemHref(d), d.headline, creditSource(d), creditItemExt(d), d.date, d.time, "c", d.id), mgr: d.managerId || "" }));
+  intel.forEach((i) => credit.push({ ...mk("c", creditItemHref(i), i.headline, creditSource(i), creditItemExt(i), i.date, i.time, "c", i.id), mgr: i.managerId || "" }));
   // Credit research / white papers (Commentary) — external pieces, so they open
   // out to the publisher like the macro reading list.
   (research || []).forEach((r) => credit.push(mk("c", r.url, r.title, r.institution, true, r.date, r.time)));
 
   const legal = [];
-  items.forEach((i) => { if (i.date) legal.push(mk("l", i.url || `/legal/#/item/${encodeURIComponent(i.id)}`, i.title, firmName(i.firm), !!i.url, i.date, i.time, "l", i.id)); });
+  items.forEach((i) => { if (i.date) legal.push({ ...mk("l", i.url || `/legal/#/item/${encodeURIComponent(i.id)}`, i.title, firmName(i.firm), !!i.url, i.date, i.time, "l", i.id), firm: i.firm || "" }); });
   cases.forEach((c) => { if (c.date) legal.push(mk("l", c.url || "/legal/#/", c.name, c.court, !!c.url, c.date, c.time, "l", c.id)); });
   restructurings.forEach((r) => { if (r.date) legal.push(mk("l", r.judgmentUrl || r.articleUrl || "/legal/#/", r.company, r.type === "scheme" ? "Scheme" : "Restructuring plan", !!(r.judgmentUrl || r.articleUrl), r.date, r.time, "l", r.id)); });
 
@@ -824,7 +844,7 @@ function renderFeed() {
     const t = o.time || "12:00";
     const ent = matchEntity(o.title);
     return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}`
-      + ` data-sk="${esc(o.sk || "x")}"${o.sid ? ` data-sid="${esc(o.sid)}"` : ""} data-desk="${esc(o.desk)}" data-date="${esc(o.date || "")}" data-time="${esc(o.time || "")}">`
+      + ` data-sk="${esc(o.sk || "x")}"${o.sid ? ` data-sid="${esc(o.sid)}"` : ""}${o.mgr ? ` data-mgr="${esc(o.mgr)}"` : ""}${o.firm ? ` data-firm="${esc(o.firm)}"` : ""} data-desk="${esc(o.desk)}" data-date="${esc(o.date || "")}" data-time="${esc(o.time || "")}">`
       + `<span class="g-feed-time">${esc(t)}</span>`
       + `<span class="g-feed-code ${_deskClass[o.desk]}" title="${esc(DESK[o.desk])}">${DESK_CODE[o.desk]}</span>`
       + `<span class="g-feed-title">${esc(o.title)}</span>`
