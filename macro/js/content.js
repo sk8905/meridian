@@ -5,7 +5,7 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "17 July 2026";
+export const UPDATED = "18 July 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
@@ -13,7 +13,7 @@ export const UPDATED = "17 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-18",
-  lastCheckedTime: "09:12 BST",
+  lastCheckedTime: "12:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -34,8 +34,9 @@ export const OUTLOOK = {
       "Warsh's Senate Banking Committee appearance on 15 July repeated his non-committal message — he again said the Fed has 'no tolerance' for elevated inflation and cautioned against reading the cooler CPI/PPI prints as 'mission accomplished' — while facing a sharp ethics clash with Sen. Elizabeth Warren, who said he 'seems to invite corruption'; Warsh confirmed he is in regular contact with the Trump administration but declined to say if he has personally spoken with the President since becoming chair. CME FedWatch odds of a 29 July hike fell further intraday to roughly <strong>10–13%</strong>, even as traders continue to price a real chance of a September move. Economist reaction was split: Mohamed El-Erian called the testimony 'a real breath of fresh air', while Peter Schiff criticised the Fed's inflation framework.",
       "The IMF's July 2026 World Economic Outlook Update, published 8 July, held global growth steady at 3.0% but lifted its global headline-inflation forecast to roughly <strong>4.7%</strong>, built on an $89/bbl oil-price assumption tied to the Middle East conflict — external confirmation that the Hormuz shock is a genuine, fund-level inflation risk rather than a purely domestic US pricing dynamic, reinforcing the case some FOMC hawks are making for keeping a hike on the table past July.",
       "Kansas City Fed President Jeff Schmid added a fresh hawkish voice on 16 July, calling inflation his 'primary concern', saying it is 'too hot' and has been 'above target too long', and cautioning against reading June's cooler CPI/PPI prints as a trend. Meanwhile early data for July pointed to some softening beneath the inflation debate: preliminary University of Michigan consumer sentiment (17 July) rose from May's low but stayed 13% below its pre-Iran-conflict February level, with year-ahead inflation expectations easing to 4.6% from 4.8%, while June housing starts/permits data (also 17 July) showed building permits down 0.9% month-on-month.",
+      "Governor Lisa Cook added to the hawkish chorus on 15 July, telling the Exchequer Club that core goods prices are running at a striking 5% annual pace and that she is <strong>'prepared to act soon'</strong> if disinflation signs don't appear, judging the current 3.50–3.75% rate only 'mildly restrictive'; she named AI-investment capex and tariff/Iran-war price pressures as the key inflation risks. Separately, CME FedWatch-implied odds of a hike at the following (September) meeting have risen further to roughly <strong>73%</strong> (from ~59% a few days earlier and just 26% in mid-June) even as the 29 July hike itself stays a low-probability outcome — underscoring that the market sees the July/September decisions as a connected, still-live hiking cycle rather than a one-off risk that has passed.",
     ],
-    bottomLine: "The 29 July hike risk has eased further intraday to roughly 10-13% (CME FedWatch), down from ~17% after June PPI and a peak near 46.5% a week ago, as Warsh's second day of testimony again offered no fresh signal — though traders still price meaningful September-hike odds given the still-live Iran/oil shock, keeping the meeting a live, if now more lopsided, two-way risk.",
+    bottomLine: "The 29 July hike risk has eased further intraday to roughly 10-13% (CME FedWatch), down from ~17% after June PPI and a peak near 46.5% a week ago, as Warsh's second day of testimony again offered no fresh signal — but odds of a hike at the following September meeting have instead risen to roughly 73% (from ~59% a few days earlier), with Governor Cook now saying she is 'prepared to act soon' absent clear disinflation, so the Iran/oil shock keeps the hiking cycle a live, if now more lopsided and later-dated, two-way risk.",
     // Market-implied odds for the next FOMC decision (CME FedWatch) and the FOMC's
     // June 2026 Summary of Economic Projections "dot plot" median path.
     fedwatch: {
@@ -46,7 +47,7 @@ export const OUTLOOK = {
         { label: "Hold — 3.50–3.75%", pct: 88 },
         { label: "Hike +25bp — 3.75–4.00%", pct: 12 },
       ],
-      note: "Implied from 30-Day Fed Funds futures. Down from a ~46.5% hike peak on 13 Jul after June CPI and PPI cooled and Warsh's testimony offered no fresh signal; traders still price ~59% odds of a hike by the September meeting.",
+      note: "Implied from 30-Day Fed Funds futures. Down from a ~46.5% hike peak on 13 Jul after June CPI and PPI cooled and Warsh's testimony offered no fresh signal; September-meeting hike odds have instead risen to roughly 73% (from ~59% a few days earlier and just 26% in mid-June) as the Iran-driven oil shock feeds through to broader inflation.",
     },
     dots: {
       meeting: "June 2026 SEP",
@@ -102,6 +103,9 @@ export const OUTLOOK = {
     ["Bloomberg — Fed's Schmid Says Inflation Too Hot, Above Target Too Long, 16 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-16/fed-s-schmid-says-inflation-is-too-hot-above-target-too-long"],
     ["University of Michigan — Surveys of Consumers, preliminary July 2026", "https://www.sca.isr.umich.edu/"],
     ["US Census Bureau — New Residential Construction, June 2026", "https://www.census.gov/construction/nrc/current/index.html"],
+    ["Federal Reserve — Governor Cook, \"Economic Outlook\", 15 Jul 2026", "https://www.federalreserve.gov/newsevents/speech/cook20260715a.htm"],
+    ["Bloomberg — Fed's Cook Says She's Prepared to Act If Inflation Doesn't Cool, 15 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-15/fed-s-cook-says-she-s-prepared-to-act-if-inflation-doesn-t-cool"],
+    ["Tech Times — Iran Oil Shock Spills Into Demand Inflation, Lifting Fed Rate-Hike Odds to 73% by September, 16 Jul 2026", "https://www.techtimes.com/articles/320773/20260716/iran-oil-shock-spills-demand-inflation-lifting-fed-rate-hike-odds-73-september.htm"],
   ],
 };
 
@@ -192,6 +196,7 @@ export const BUBBLE = {
     "The narrow-leadership rout deepened further into Friday 17 July: global chip stocks extended Thursday's slide in a broad pre-market selloff — the iShares Semiconductor ETF fell ~3.7%, with Applied Materials, LAM Research, Intel and KLA all down 4-5% and Nvidia off ~3% — compounding Thursday's 1.5% Nasdaq close (the CNN Money Fear & Greed Index moved into 'Fear' territory at 41.8) and Netflix's ~9% post-earnings slide on a third-quarter revenue forecast that missed Wall Street estimates, as investors kept questioning whether AI capex can justify current valuations even as the Dow held comparatively steady.",
     "Separately, oil extended its advance on 17 July toward $86/bbl (Brent) and $80/bbl (WTI) — both up more than 11% on the week, their best weekly performance since late April — after Tehran reportedly instructed Yemen's Houthi rebels to threaten closing the Bab el-Mandeb Strait, a second Red Sea chokepoint, if Iranian power infrastructure comes under attack. Equities again showed little sign of pricing in the widening supply-side risk, consistent with the market's narrow, AI-led complacency read.",
     "The narrow-leadership rout crossed a technical threshold on 17 July: the Philadelphia Semiconductor Index (SOX) fell as much as 5.7% on the day, taking its drawdown from June's record high beyond 20% and confirming a technical bear market — global chip stocks have now erased roughly $3.3tn in value since 22 June after a 105% rally into that peak. The proximate trigger was Moonshot AI's release of Kimi K3, a 2.8-trillion-parameter open model billed as the largest ever, which revived 'DeepSeek moment' comparisons about the durability of US AI-chip demand; the rout was multi-causal alongside weak Netflix/TSMC reactions, the Iran war and rate fears, but the speed of the swing from a 105% rally to a bear market in under a month is itself a bubble-consistent signal of narrow, sentiment-driven leadership.",
+    "Friday's close confirmed the week as the major indices' first collective weekly decline since early June: the Dow fell 0.77% to 52,146.42, the S&P 500 lost 1.01% to 7,457.69 and the Nasdaq dropped 1.4% to 25,520.24, with 10 of 11 S&P sectors lower and only energy gaining as oil extended its climb on the Iran conflict. The semiconductor cohort's 20%-plus drawdown was its worst week since April 2025, even though the SOX remains up more than 60% year-to-date — a reminder the correction is unwinding an extreme prior rally rather than a broad-market repricing.",
   ],
   dimensions: [
     {
@@ -258,6 +263,7 @@ export const BUBBLE = {
     ["CNBC — Oil prices rise as U.S.-Iran hostilities threaten supply through Strait of Hormuz, 17 Jul 2026", "https://www.cnbc.com/2026/07/17/oil-price-today-brent-wti.html"],
     ["Bloomberg — Chips Stocks Sink Into Bear Market as 105% AI Rally Fizzles, 17 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-17/chips-stocks-tumble-into-bear-market-as-105-ai-rally-fizzles"],
     ["Bloomberg — Moonshot Unveils Kimi K3 AI Model, Narrowing Gap With US Rivals, 17 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-17/china-s-powerful-new-moonshot-ai-model-closes-gap-with-us-rivals"],
+    ["Xinhua — U.S. stocks slide as semiconductors slip into technical bear market, 18 Jul 2026", "https://english.news.cn/20260718/3a7128e8ba5e4146b87ec169223cb3b4/c.html"],
   ],
 };
 
@@ -282,6 +288,8 @@ export const YIELD_CURVE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-fedwatch-sept-73pct-2026-07-18", kind: "Rate guidance", title: "CME FedWatch-implied odds of a September Fed hike have risen to roughly 73% (from ~59% a few days earlier and just 26% in mid-June) after Governor Lisa Cook said she is 'prepared to act soon' if disinflation signs don't appear, even as the 29 July hike itself stays a low-probability (~10-13%) outcome.", href: "#/policy", date: "2026-07-18" },
+  { id: "g-chip-week-close-2026-07-18", kind: "Bubble risk", title: "Friday's close confirmed the major indices' first collective weekly decline since early June (Dow -0.77%, S&P 500 -1.01%, Nasdaq -1.4%), with the semiconductor cohort's 20%-plus drawdown its worst week since April 2025 — though the SOX remains up over 60% year-to-date.", href: "#/bubble", date: "2026-07-18" },
   { id: "g-chip-bear-market-2026-07-17", kind: "Bubble risk", title: "The Philadelphia Semiconductor Index (SOX) fell as much as 5.7% on 17 July, taking its drawdown from June's record peak beyond 20% and confirming a technical bear market — chip stocks have erased ~$3.3tn since 22 June — after Moonshot AI's Kimi K3 model release revived 'DeepSeek moment' comparisons about US AI-chip demand.", href: "#/bubble", date: "2026-07-17" },
   { id: "g-chip-selloff-continues-2026-07-17", kind: "Bubble risk", title: "Global chip stocks extended Thursday's rout into Friday's pre-market session — the iShares Semiconductor ETF fell ~3.7% and Nvidia, Applied Materials, Intel and LAM Research all declined — compounding Netflix's ~9% post-earnings slide, as investors kept questioning whether AI capex can justify current valuations.", href: "#/bubble", date: "2026-07-17" },
   { id: "g-hormuz-bab-el-mandeb-2026-07-17", kind: "Markets", title: "Brent extended its advance toward $86/bbl and WTI toward $80/bbl — both up more than 11% on the week — after Iran reportedly instructed Yemen's Houthi rebels to threaten closing the Bab el-Mandeb Strait, a second Red Sea chokepoint, if Iranian power infrastructure is struck.", href: "#/bubble", date: "2026-07-17" },
@@ -325,7 +333,7 @@ export const ALERTS = [
 // ---- One-line conclusions surfaced on the Dashboard ------------------------
 export const SUMMARY = {
   outlook: {
-    us: "Fed on hold at 3.50–3.75%; June CPI and PPI both cooled, pulling 29 July hike odds from ~46.5% to ~17% (CME FedWatch), though September-hike odds stay elevated and the Iran oil shock keeps the meeting a genuine two-way risk.",
+    us: "Fed on hold at 3.50–3.75%; June CPI and PPI both cooled, pulling 29 July hike odds from ~46.5% to ~10-13% (CME FedWatch), but September-hike odds have risen to ~73% as Governor Cook says she's 'prepared to act soon' and the Iran oil shock keeps the cycle live.",
     uk: "BoE holding at 3.75%; markets now fully price a 25bp hike by year-end (most likely December) as gilt yields hold above 4.9%, with hawkish dissents growing.",
   },
   cycle: {
@@ -410,9 +418,6 @@ export const ARTICLES = {
     {"title":"Iran-US Strikes Worsen as Strait of Hormuz Shipping Traffic Dwindles","source":"Bloomberg","date":"2026-07-16","time":"21:10","url":"https://www.bloomberg.com/news/articles/2026-07-16/iran-us-skirmishes-worsen-as-hormuz-shipping-traffic-dwindles","blurb":"US CENTCOM says it struck and disabled the Curaçao-flagged tanker Belma near Kharg Island for defying the blockade; Iran hit back at US bases in Gulf states and Jordan on the sixth straight day of fighting."},
     {"title":"Mahmood's Economic Blank Slate Boosts Appeal for UK Chancellor Role","source":"Bloomberg","date":"2026-07-16","time":"21:10","url":"https://www.bloomberg.com/news/articles/2026-07-16/mahmood-s-economic-blank-slate-key-to-appeal-as-uk-chancellor","blurb":"Home Secretary Shabana Mahmood's lack of a public economic-policy record is seen as part of her appeal as Andy Burnham's likely chancellor pick, though his team says no final decision has been communicated."},
     {"title":"UK Stock Market Today (July 16): FTSE 100 Falls 0.37% While FTSE 250 Gains Despite Oil Price Surge and Global Risk","source":"Sunday Guardian Live","date":"2026-07-16","time":"21:10","url":"https://sundayguardianlive.com/business/uk-stock-market-today-july-16-ftse-100-falls-037-while-ftse-250-gains-despite-oil-price-surge-and-global-risk-what-should-investors-know-238177/","blurb":"The FTSE 100 slipped to around 10,470 as Middle East risk-off sentiment outweighed the stronger May GDP print, while the mid-cap FTSE 250 eked out a gain."},
-    {"title":"Stock market today: Dow rises, S&P 500 and Nasdaq fall as chip stocks slide amid AI jitters","source":"Yahoo Finance","date":"2026-07-16","time":"17:20","url":"https://finance.yahoo.com/markets/live/stock-market-today-thursday-july-16-dow-sp-500-nasdaq-103116735.html","blurb":"Chip stocks lead the Nasdaq lower on renewed AI-valuation jitters even as the Dow ekes out a gain."},
-    {"title":"Oil prices rise for 4th day as U.S. strikes on Iran raise fears of wider conflict","source":"CNBC","date":"2026-07-16","time":"17:20","url":"https://www.cnbc.com/2026/07/16/oil-rise-as-us-strikes-on-iran-raise-fears-of-wider-conflict.html","blurb":"Brent extends its climb to ~$85.77/bbl after fresh US strikes on Iranian coastal defences and missile sites, with vessel crossings through Hormuz falling further."},
-    {"title":"US Retail Sales Rise Modestly as Consumers Spend Less on Gas","source":"Bloomberg","date":"2026-07-16","time":"17:20","url":"https://www.bloomberg.com/news/articles/2026-07-16/us-retail-sales-rise-modestly-as-consumers-spend-less-on-gas","blurb":"June retail sales rose 0.2% as falling gasoline-station receipts offset a broader 0.7% advance excluding gas; May's gain was revised up to 1.0%."},
   ],
 };
 
@@ -431,15 +436,15 @@ export const RELEASES = [
   { date: "2026-07-30", country: "US", title: "PCE inflation (June)", url: "https://www.bea.gov/news/schedule" },
   { date: "2026-07-30", country: "UK", title: "MPC rate decision & Monetary Policy Report", url: "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates" },
   { date: "2026-07-31", country: "US", title: "Employment Cost Index (Q2 2026)", url: "https://www.bls.gov/schedule/news_release/eci.htm" },
+  { date: "2026-08-01", country: "UK", title: "S&P Global/CIPS Manufacturing PMI, final (July)", url: "https://www.pmi.spglobal.com/Public/Home/PressReleases" },
   { date: "2026-08-03", country: "US", title: "ISM Manufacturing PMI (July)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
+  { date: "2026-08-03", country: "UK", title: "S&P Global/CIPS Services & Composite PMI, final (July)", url: "https://www.pmi.spglobal.com/Public/Home/PressReleases" },
   { date: "2026-08-05", country: "US", title: "ISM Services PMI (July)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
   { date: "2026-08-07", country: "US", title: "Jobs report / Nonfarm payrolls (July)", url: "https://www.bls.gov/schedule/news_release/empsit.htm" },
   { date: "2026-08-12", country: "US", title: "CPI (July)", url: "https://www.bls.gov/schedule/news_release/cpi.htm" },
   { date: "2026-08-13", country: "US", title: "PPI (July)", url: "https://www.bls.gov/schedule/news_release/ppi.htm" },
-  { date: "2026-08-14", country: "US", title: "Retail sales (July)", url: "https://www.census.gov/retail/release_schedule.html" },
-  { date: "2026-08-01", country: "UK", title: "S&P Global/CIPS Manufacturing PMI, final (July)", url: "https://www.pmi.spglobal.com/Public/Home/PressReleases" },
-  { date: "2026-08-03", country: "UK", title: "S&P Global/CIPS Services & Composite PMI, final (July)", url: "https://www.pmi.spglobal.com/Public/Home/PressReleases" },
   { date: "2026-08-13", country: "UK", title: "GDP monthly estimate (June)", url: "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/latest" },
+  { date: "2026-08-14", country: "US", title: "Retail sales (July)", url: "https://www.census.gov/retail/release_schedule.html" },
   { date: "2026-08-19", country: "US", title: "FOMC minutes (28–29 July meeting)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-08-19", country: "UK", title: "CPI inflation (July)", url: "https://www.ons.gov.uk/releases/consumerpriceinflationukjuly2026" },
 ];
