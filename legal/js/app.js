@@ -908,7 +908,6 @@ function viewFirm(id) {
   }
   const firmAlerts = items.filter((i) => i.firm === id).sort(byDateDesc);
   const firmRx = restructurings.filter((r) => r.firm === id).sort(byDateDesc);
-  const tierTxt = tierLabel(firm.tier);
   // ---- Involvement compilation: everything on the wire that NAMES this firm ----
   // Cases whose name/summary cite the firm (as counsel or party).
   const firmCases = cases.filter((c) => firmMentioned(firm, recText(c))).sort(byDateDesc);
@@ -922,11 +921,6 @@ function viewFirm(id) {
   firmAlerts.forEach((i) => (i.areas || [i.area]).forEach((a) => (areaMix[a] = (areaMix[a] || 0) + 1)));
   const areaMixRows = Object.entries(areaMix).sort((a, b) => b[1] - a[1]);
 
-  const metrics = [
-    ["Tier", esc(tierTxt)], ["Alerts", firmAlerts.length], ["Matters", firmRx.length],
-    ["Involved in", firmCases.length + rxMentions.length + alertMentions.length],
-    ["Practice areas", areaMixRows.length],
-  ];
   const alertWireRow = (it) => `<li class="compact-item tw-row" data-kind="alert">`
     + `<span class="tw-date">${it.date ? esc(fmtDate(it.date)) : ""}</span>`
     + `<span class="tw-tag alert">ALERT</span>`
@@ -934,10 +928,6 @@ function viewFirm(id) {
     + `${(it.areas || [it.area]).length ? `<span class="tw-mgr-w"><span class="tw-mgr">${esc((areaById[(it.areas || [it.area])[0]] || {}).name || (it.areas || [it.area])[0])}</span></span>` : ""}</span>`
     + `<span class="tw-src">${esc((typeById[it.type] || {}).name || it.type)}</span>`
     + `</li>`;
-  const rxRail = firmRx.length
-    ? `<ul class="tmini">${firmRx.map((r) => { const u = r.judgmentUrl || r.articleUrl; return `<li class="tmini-row"><a class="tmini-t" href="${esc(u || "#/")}"${u ? ` target="_blank" rel="noopener noreferrer"` : ""}>${esc(r.company)}<span class="tmini-r">${r.type === "scheme" ? "Scheme" : "Plan"}</span></a><span class="tmini-m">${r.date ? esc(fmtDate(r.date)) : ""}${r.citation ? " · " + esc(r.citation) : ""}</span></li>`; }).join("")}</ul>`
-    : `<p class="tw-empty muted small">No restructuring matters tracked.</p>`;
-
   // "Involved in" wire — cases / schemes & plans / alerts across the whole wire
   // that name this firm, one dated list, newest first.
   const inv = [
@@ -955,57 +945,80 @@ function viewFirm(id) {
     ? `<ul class="tfacts">${areaMixRows.map(([a, n]) => `<li><span class="tf-k">${esc((areaById[a] || {}).name || a)}</span><span class="tf-v">${n}</span></li>`).join("")}</ul>`
     : "";
 
+  // ---- One chip-filtered wire (matches the dashboard chips): All / Alerts /
+  // Matters. "Matters" = everything the firm worked on or is named in — its
+  // restructuring-analysis matters, cases/schemes/plans naming it, and credit-
+  // wire deals naming it (loaded lazily below). "Alerts" = its own alerts.
+  const matterRows = [
+    ...firmRx.map((r) => { const u = r.judgmentUrl || r.articleUrl; return { date: r.date, tag: "rp", code: r.type === "scheme" ? "SCHEME" : "RP", title: r.company, href: u || "#/", ext: !!u, meta: `${r.type === "scheme" ? "Scheme" : "Restructuring plan"}${r.citation ? " · " + r.citation : ""}` }; }),
+    ...inv,
+  ];
+  let dealRows = null; // null = credit wire still loading
+  let firmTab = "all";
+  const emptyRow = (t) => `<li class="tw-empty muted small">${t}</li>`;
+  const renderFirmWire = () => {
+    const list = document.getElementById("firm-wire"); if (!list) return;
+    const alerts = firmAlerts.map((it) => ({ date: it.date || "", html: alertWireRow(it) }));
+    const matters = [...matterRows, ...(dealRows || [])].map((x) => ({ date: x.date || "", html: invRow(x) }));
+    const rows = (firmTab === "alerts" ? alerts : firmTab === "matters" ? matters : [...alerts, ...matters])
+      .sort(byDateDesc);
+    list.innerHTML = rows.length ? rows.map((r) => r.html).join("")
+      : emptyRow(firmTab === "alerts" ? "No alerts tracked from this firm yet."
+        : firmTab === "matters" ? "No tracked matter, case, scheme, plan or deal names this firm yet."
+        : "Nothing tracked for this firm yet.");
+  };
+
   app.innerHTML = `
     <div class="tdash">
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="#/">Dashboard</a><span class="sep">/</span><a href="#/list">Legal alerts</a><span class="sep">/</span>
         <span aria-current="page">${esc(firm.name)}</span>
       </nav>
-      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
       <div class="tdash-grid tdash-2">
         <section class="tcol tcol-c">
           <div class="tdet-id">
-            <div class="tdet-chips"><span class="tier tier-${esc(firm.tier)}">${esc(tierTxt)}</span></div>
             <h1>${esc(firm.name)}</h1>
             <div class="tdet-src"><span class="lbl">Insights:</span> <a href="${esc(firm.insightsUrl || "#")}" target="_blank" rel="noopener noreferrer">${esc(firm.name)} — insights / know-how</a></div>
           </div>
-          <header class="tpanel-h"><span>Involved in — cases, schemes &amp; plans</span><span class="tpanel-x">${inv.length}</span></header>
-          <ul class="twire compact-list">${inv.length ? inv.map(invRow).join("") : '<li class="tw-empty muted small">No tracked case, scheme or plan names this firm yet.</li>'}</ul>
-          <header class="tpanel-h"><span>Deals &amp; transactions</span><span class="tpanel-x" id="firm-deals-n"></span></header>
-          <ul class="twire compact-list" id="firm-deals"><li class="tw-empty muted small">Checking the credit wire…</li></ul>
-          <header class="tpanel-h"><span>Alerts from ${esc(firm.name)}</span><span class="tpanel-x">${firmAlerts.length}</span></header>
-          <ul class="twire compact-list">${firmAlerts.length ? firmAlerts.map(alertWireRow).join("") : '<li class="tw-empty muted small">No alerts tracked from this firm yet.</li>'}</ul>
+          <header class="tpanel-h twire-head">
+            <div class="tchips" id="firm-chips">
+              <button type="button" class="tchip is-on" data-k="all">All</button>
+              <button type="button" class="tchip" data-k="alerts">Alerts</button>
+              <button type="button" class="tchip" data-k="matters">Matters</button>
+            </div>
+          </header>
+          <ul class="twire compact-list" id="firm-wire"></ul>
         </section>
         <aside class="tcol tcol-r">
           ${areaRail ? `<section class="tpanel"><header class="tpanel-h"><span>Practice areas</span><span class="tpanel-x">alerts</span></header>${areaRail}</section>` : ""}
-          <section class="tpanel"><header class="tpanel-h"><span>Restructuring matters</span>${firmRx.length ? `<span class="tpanel-x">${firmRx.length}</span>` : ""}</header>${rxRail}</section>
         </aside>
       </div>
     </div>
   `;
+  renderFirmWire();
+  const chips = document.getElementById("firm-chips");
+  chips.addEventListener("click", (e) => {
+    const b = e.target.closest(".tchip"); if (!b) return;
+    firmTab = b.dataset.k;
+    chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
+    renderFirmWire();
+  });
 
-  // Deals & transactions — the credit wire items (deals / fundraising / intel)
-  // that name this firm. Credit's data module loads lazily so Legal doesn't
-  // carry it on every view; if it can't load, the panel says so and moves on.
+  // Credit-wire deals/fundraising naming this firm fold into "Matters" (and
+  // "All") once the lazily-loaded credit data arrives; if it can't load, the
+  // page simply shows the legal-side rows.
   import("/credit/js/data.js?v=20260717-2").then(({ deals, intel, managers }) => {
-    const list = document.getElementById("firm-deals"); if (!list) return; // navigated away
     const mgr = (mid) => (managers.find((m) => m.id === mid) || {}).name || "";
-    const rows = [...(deals || []), ...(intel || [])]
+    dealRows = [...(deals || []), ...(intel || [])]
       .filter((d) => firmMentioned(firm, recText(d)))
-      .sort(byDateDesc)
       .map((d) => ({
         date: d.date, tag: "deal", code: d.clo ? "CLO" : (d.headline ? "DEAL" : "INTEL"),
         title: d.headline || d.title || "", ext: !!d.sourceUrl,
         href: d.sourceUrl || (d.managerId ? `/credit/#/manager/${encodeURIComponent(d.managerId)}` : "/credit/#/"),
         meta: mgr(d.managerId),
       }));
-    const n = document.getElementById("firm-deals-n"); if (n) n.textContent = rows.length || "";
-    list.innerHTML = rows.length ? rows.map(invRow).join("")
-      : '<li class="tw-empty muted small">No tracked credit-wire deal or transaction names this firm yet.</li>';
-  }).catch(() => {
-    const list = document.getElementById("firm-deals");
-    if (list) list.innerHTML = '<li class="tw-empty muted small">Credit wire unavailable.</li>';
-  });
+    renderFirmWire();
+  }).catch(() => { dealRows = []; });
 }
 
 // =============================================================================
