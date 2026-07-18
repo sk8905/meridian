@@ -162,7 +162,7 @@ export function initGlance() {
   // The legacy Home-only menus (initNotifBell / initSavedPanel /
   // initMarketsPanel) are retired; on phones the Home data rails move into the
   // shared Markets panel via initHomeMarketsRails.
-  import("/nav-actions.js?v=20260718-15").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260718-16").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderDeals();
   renderFundraising();
   renderRx();
@@ -514,7 +514,7 @@ function initJumpNav() {
 // cadence. Work is skipped while the tab is hidden and caught up on return.
 const LIVE_REFRESH_MS = 5 * 60 * 1000;
 let _lastLive = Date.now();
-function refreshLive() { _lastLive = Date.now(); window.dispatchEvent(new CustomEvent("wire:live-refresh")); initMarkets(); initRates(); initPulse(); refreshLiveFeed(); }
+function refreshLive() { _lastLive = Date.now(); initMarkets(); initRates(); initPulse(); refreshLiveFeed(); }
 
 // Pull the curated live news feed (/api/feed) and re-render the home feed with
 // the fresh headlines merged in. Non-200 / empty / offline → keep whatever we
@@ -526,6 +526,11 @@ function refreshLiveFeed() {
       if (d && Array.isArray(d.items) && d.items.length) {
         _liveFeed = d.items;
         writeCache("feed", d);
+        // Anchor the top-bar countdown ring to the payload's own assembly time
+        // (asOf) — if the edge served a cached copy, the ring correctly shows
+        // the reduced time until the NEXT fresh assembly, on every page.
+        try { localStorage.setItem("wire.live.anchor", String(Date.parse(d.asOf) || Date.now())); } catch { /* private mode */ }
+        window.dispatchEvent(new CustomEvent("wire:live-refresh"));
         renderFeed();
       }
     })

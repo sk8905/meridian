@@ -263,18 +263,23 @@ export function initNavActions() {
     }
 
     // Refresh-countdown ring. stroke-dashoffset walks 0 → circumference across
-    // the 5-minute window (full ring draining to empty), then wraps.
+    // the 5-minute window (full ring draining to empty), then wraps. The phase
+    // is anchored to the last live-feed payload's assembly time (asOf, written
+    // to localStorage by Home) — NOT to page load — so the ring reads the same
+    // on every page and survives navigation/reload. Before any anchor exists,
+    // phase is computed against the epoch, which every page also agrees on.
     {
       const RING_MS = 5 * 60 * 1000;
       const RING_C = 2 * Math.PI * 7;
-      let ringStart = Date.now();
       const arc = wrap.querySelector(".na-ring-arc");
+      const ringAnchor = () => { try { return +localStorage.getItem("wire.live.anchor") || 0; } catch { return 0; } };
       const tickRing = () => {
         if (!arc) return;
-        const p = ((Date.now() - ringStart) % RING_MS) / RING_MS;
+        const p = ((((Date.now() - ringAnchor()) % RING_MS) + RING_MS) % RING_MS) / RING_MS;
         arc.style.strokeDashoffset = (RING_C * p).toFixed(2);
       };
-      window.addEventListener("wire:live-refresh", () => { ringStart = Date.now(); tickRing(); });
+      window.addEventListener("wire:live-refresh", tickRing);
+      window.addEventListener("storage", (e) => { if (!e.key || e.key === "wire.live.anchor") tickRing(); });
       document.addEventListener("visibilitychange", () => { if (!document.hidden) tickRing(); });
       setInterval(tickRing, 2000);
       tickRing();
