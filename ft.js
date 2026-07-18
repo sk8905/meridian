@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "2b96703d-440b-46db-8d86-9fff9ecc59d5", title: "Traders are increasingly betting against SpaceX just weeks after IPO", date: "2026-07-18", time: "12:00", url: "https://www.ft.com/content/2b96703d-440b-46db-8d86-9fff9ecc59d5" },
+  { id: "bcb38f82-d552-4d8d-af1f-87a8f06ec861", title: "Chart of the Week: Chips are nearly five times as volatile as the broader market", date: "2026-07-18", time: "10:30", url: "https://www.ft.com/content/bcb38f82-d552-4d8d-af1f-87a8f06ec861" },
   { id: "047f943b-e46b-455e-8f8e-bef1b9c97708", title: "Britain’s system for avoiding electricity blackouts faces scrutiny", date: "2026-07-18", time: "05:00", url: "https://www.ft.com/content/047f943b-e46b-455e-8f8e-bef1b9c97708" },
   { id: "0ac9aa5c-2807-49fc-9d7d-679b27cf3337", title: "The London IPO market isn’t as bad as it looks", date: "2026-07-18", time: "05:00", url: "https://www.ft.com/content/0ac9aa5c-2807-49fc-9d7d-679b27cf3337" },
   { id: "2dc8d54c-89b7-4e57-bd43-084d9edf01a4", title: "Asia AI bets power record equities run for Wall Street banks", date: "2026-07-18", time: "05:00", url: "https://www.ft.com/content/2dc8d54c-89b7-4e57-bd43-084d9edf01a4" },
