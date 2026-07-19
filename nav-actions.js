@@ -103,7 +103,10 @@ function initChrome() {
   if (!head) return;
   const lock = () => {
     if (isPhone()) {
-      document.documentElement.style.setProperty("--wire-head-h", head.offsetHeight + "px");
+      // Rect height, not offsetHeight: they can disagree by a couple of px on
+      // the fixed header, and the drift shows as a background seam between the
+      // chrome and the content below it.
+      document.documentElement.style.setProperty("--wire-head-h", head.getBoundingClientRect().height + "px");
       head.classList.add("wire-head-fixed");
       document.body.classList.add("wire-head-pad");
     } else {
@@ -139,7 +142,11 @@ function initChrome() {
       document.body.classList.remove("wire-bar-pad");
       return;
     }
-    const headH = head.offsetHeight;
+    const headH = head.getBoundingClientRect().height;
+    // Re-stamp the header var on every pass: the first measurement runs before
+    // fonts/late CSS settle and can be a couple of px off — the drift showed
+    // as a background seam between the chrome and the content.
+    document.documentElement.style.setProperty("--wire-head-h", headH + "px");
     let bar = document.querySelector(".wire-bar-fixed");
     if (bar && !bar.isConnected) bar = null;
     if (!bar) {
@@ -153,7 +160,7 @@ function initChrome() {
     }
     document.querySelectorAll(".wire-bar-fixed").forEach((el) => { if (el !== bar) el.classList.remove("wire-bar-fixed"); });
     if (bar) {
-      document.documentElement.style.setProperty("--wire-bar-h", bar.offsetHeight + "px");
+      document.documentElement.style.setProperty("--wire-bar-h", bar.getBoundingClientRect().height + "px");
       document.body.classList.add("wire-bar-pad");
     } else {
       document.body.classList.remove("wire-bar-pad");

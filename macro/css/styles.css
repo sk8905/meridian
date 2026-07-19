@@ -413,7 +413,10 @@ a.intel-head:hover { text-decoration: underline; }
    only colour is the post-release share move (green up / red down). */
 /* Week toggle chips (This week / Last week) — same shade treatment as the
    dashboard sub-section chips; one week block shown at a time. */
-.ew-chipbar { display: flex; height: 30px; margin: 0 0 8px; border-bottom: 1px solid var(--border); background: var(--surface); }
+/* Full-bleed and flush under the sub-section chips: cancel the panel body's
+   padding above and beside it. */
+.ew-body { padding-top: 0; }
+.ew-chipbar { display: flex; height: 30px; margin: 0 -12px 8px; border-bottom: 1px solid var(--border); background: var(--surface); }
 .ew-chipbar .tchip.is-on { box-shadow: none; background: color-mix(in srgb, var(--ink, #eaf0fb) 9%, transparent); color: var(--ink); font-weight: 600; }
 .ew-off { display: none; }
 .ew-day { margin: 10px 0 2px; }
