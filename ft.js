@@ -20,6 +20,18 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c5045a09-29c1-4a9b-8f5b-f8dead22b09c", title: "How Maga fell hard for the gender binary", date: "2026-07-19", time: "05:00", url: "https://www.ft.com/content/c5045a09-29c1-4a9b-8f5b-f8dead22b09c" },
+  { id: "9cf9b393-3ac7-4cfc-9dd1-4fc23831e6a0", title: "Chinese leaders zero in on need for stimulus for economy", date: "2026-07-19", time: "05:00", url: "https://www.ft.com/content/9cf9b393-3ac7-4cfc-9dd1-4fc23831e6a0" },
+  { id: "8005bed0-afab-4240-91f8-7567212f2b91", title: "Heroes, villains and clowns: Simon Kuper’s World Cup awards", date: "2026-07-19", time: "05:00", url: "https://www.ft.com/content/8005bed0-afab-4240-91f8-7567212f2b91" },
+  { id: "6f004c47-3be1-4245-bb8e-768268341934", title: "Can an ‘unelected’ prime minister succeed?", date: "2026-07-19", time: "05:00", url: "https://www.ft.com/content/6f004c47-3be1-4245-bb8e-768268341934" },
+  { id: "658e1eb4-2c33-4755-8f44-0261d24dd1b7", title: "Why ‘rightwing’ is no longer such a dirty word in Britain", date: "2026-07-19", time: "05:00", url: "https://www.ft.com/content/658e1eb4-2c33-4755-8f44-0261d24dd1b7" },
+  { id: "905e18e6-f054-4995-b5a7-0ff52a65ae57", title: "AI should have senior lawyers sharpening their hunting spears", date: "2026-07-19", time: "05:00", url: "https://www.ft.com/content/905e18e6-f054-4995-b5a7-0ff52a65ae57" },
+  { id: "3e1393cf-a256-40fc-b2e3-35544444474b", title: "The art of knowing when to step down", date: "2026-07-19", time: "05:00", url: "https://www.ft.com/content/3e1393cf-a256-40fc-b2e3-35544444474b" },
+  { id: "2578648c-967f-4d9d-8ec0-b22a205ece7f", title: "Luxury groups face inventory squeeze under EU destruction ban", date: "2026-07-19", time: "05:00", url: "https://www.ft.com/content/2578648c-967f-4d9d-8ec0-b22a205ece7f" },
+  { id: "5051d52f-00b6-408b-b322-a15c607bbf10", title: "Job crisis leaves newly qualified nurses struggling to secure roles", date: "2026-07-19", time: "05:00", url: "https://www.ft.com/content/5051d52f-00b6-408b-b322-a15c607bbf10" },
+  { id: "fee3f969-f592-4735-8d99-e7ab3049d194", title: "UK seeks extradition of Andrew and Tristan Tate after arrest in Miami", date: "2026-07-19", time: "02:38", url: "https://www.ft.com/content/fee3f969-f592-4735-8d99-e7ab3049d194" },
+  { id: "8f5445ab-dacb-4908-909f-277853ad0f50", title: "Burnham scraps new digital ID scheme", date: "2026-07-18", time: "21:00", url: "https://www.ft.com/content/8f5445ab-dacb-4908-909f-277853ad0f50" },
+  { id: "784a7d34-e005-4266-8bd4-82f26298b3e4", title: "Surrogacy controversy sparks resignation of Merz’s parliamentary leader", date: "2026-07-18", time: "16:29", url: "https://www.ft.com/content/784a7d34-e005-4266-8bd4-82f26298b3e4" },
   { id: "fde736b3-6999-4b9e-979e-2b4b06dbbd5c", title: "No longer grim up north for UK banks as Burnham comes to power", date: "2026-07-19", time: "05:00", url: "https://www.ft.com/content/fde736b3-6999-4b9e-979e-2b4b06dbbd5c" },
   { id: "6d817238-b2c2-475b-ae03-d71f42635f7e", title: "Friedrich Merz pitches Germany as ‘Europe’s bedrock of stability’ to investors", date: "2026-07-19", time: "05:00", url: "https://www.ft.com/content/6d817238-b2c2-475b-ae03-d71f42635f7e" },
   { id: "d3221c90-c2a4-4bdd-8e0d-6e069bf0ca25", title: "Singapore weighs hedge fund tax cuts to rival Hong Kong", date: "2026-07-19", time: "05:00", url: "https://www.ft.com/content/d3221c90-c2a4-4bdd-8e0d-6e069bf0ca25" },
@@ -49,8 +61,4 @@ export const FT_ITEMS = [
   { id: "0ae58f76-3386-464a-9248-090cc68e9864", title: "Meta and Anthropic in talks for up to $10bn data centre deal", date: "2026-07-17", time: "19:32", url: "https://www.ft.com/content/0ae58f76-3386-464a-9248-090cc68e9864" },
   { id: "55f5860b-6ef0-42ed-a87f-c49af6ef9d29", title: "How long can oil markets absorb the Hormuz shock?", date: "2026-07-17", time: "18:52", url: "https://www.ft.com/content/55f5860b-6ef0-42ed-a87f-c49af6ef9d29" },
   { id: "e8f185db-9b5c-4d0c-8e5e-e130483f151d", title: "Paris and Berlin vow to align on tougher trade measures against China", date: "2026-07-17", time: "18:14", url: "https://www.ft.com/content/e8f185db-9b5c-4d0c-8e5e-e130483f151d" },
-  { id: "662e7dd6-5fda-4fad-a6e8-cf69ee97cd96", title: "Directors’ Deals: Middle East conflict casts shadow over Energean", date: "2026-07-17", time: "18:00", url: "https://www.ft.com/content/662e7dd6-5fda-4fad-a6e8-cf69ee97cd96" },
-  { id: "ce345155-d897-4f49-b7c8-13680e3b5434", title: "SpaceX and the myth of independent Wall St research", date: "2026-07-17", time: "18:00", url: "https://www.ft.com/content/ce345155-d897-4f49-b7c8-13680e3b5434" },
-  { id: "8440f76e-2e20-4102-895f-c9387f20d22d", title: "Stockpickers: Celebrus Technologies, Cohort, ME Group", date: "2026-07-17", time: "18:00", url: "https://www.ft.com/content/8440f76e-2e20-4102-895f-c9387f20d22d" },
-  { id: "9f46db72-0a1e-42b0-8efe-974a04fa0fc7", title: "Latest savings rates", date: "2026-07-17", time: "17:01", url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7" },
 ];

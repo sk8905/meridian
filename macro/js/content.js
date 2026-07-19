@@ -5,7 +5,7 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "18 July 2026";
+export const UPDATED = "19 July 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
@@ -13,7 +13,7 @@ export const UPDATED = "18 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-19",
-  lastCheckedTime: "05:18 BST",
+  lastCheckedTime: "09:22 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -36,8 +36,9 @@ export const OUTLOOK = {
       "Kansas City Fed President Jeff Schmid added a fresh hawkish voice on 16 July, calling inflation his 'primary concern', saying it is 'too hot' and has been 'above target too long', and cautioning against reading June's cooler CPI/PPI prints as a trend. Meanwhile early data for July pointed to some softening beneath the inflation debate: preliminary University of Michigan consumer sentiment (17 July) rose from May's low but stayed 13% below its pre-Iran-conflict February level, with year-ahead inflation expectations easing to 4.6% from 4.8%, while June housing starts/permits data (also 17 July) showed building permits down 0.9% month-on-month.",
       "Governor Lisa Cook added to the hawkish chorus on 15 July, telling the Exchequer Club that core goods prices are running at a striking 5% annual pace and that she is <strong>'prepared to act soon'</strong> if disinflation signs don't appear, judging the current 3.50–3.75% rate only 'mildly restrictive'; she named AI-investment capex and tariff/Iran-war price pressures as the key inflation risks. Separately, CME FedWatch-implied odds of a hike at the following (September) meeting have risen further to roughly <strong>73%</strong> (from ~59% a few days earlier and just 26% in mid-June) even as the 29 July hike itself stays a low-probability outcome — underscoring that the market sees the July/September decisions as a connected, still-live hiking cycle rather than a one-off risk that has passed.",
       "The hawkish chorus swelled further on 17 July when Cleveland Fed President Beth Hammack said persistently high inflation — she estimated core PCE rose 3.3% in June — is now her bigger concern than the labour market, noting that for the first time in her tenure business leaders are telling her the Fed needs to act on inflation even as consumer spending holds up; the Washington Post reported the same day that a small but growing group of officials now argue a hike may be needed even as President Trump keeps pushing for cuts, though CME FedWatch's 29 July hike odds were little changed at roughly 10% (per 16 July data), with the debate increasingly centred on the 16–17 September meeting instead.",
+      "The conflict crossed a new threshold over the weekend of 18 July: two US service members were killed in Jordan in Iranian-linked attacks — the first direct US combat deaths of the renewed war — as Brent extended its climb toward $88/bbl. Chair Warsh repeated his 'no tolerance for elevated inflation' line the same day (Bloomberg, 'Warsh Shows His Inner Hawk'), underscoring that the still-live oil shock keeps the hiking debate open into the 29 July decision even with markets closed over the weekend to react to the fatalities.",
     ],
-    bottomLine: "The 29 July hike risk has eased further intraday to roughly 10-13% (CME FedWatch), down from ~17% after June PPI and a peak near 46.5% a week ago, as Warsh's second day of testimony again offered no fresh signal — but odds of a hike at the following September meeting have instead risen to roughly 73% (from ~59% a few days earlier), with Governor Cook now saying she is 'prepared to act soon' absent clear disinflation, so the Iran/oil shock keeps the hiking cycle a live, if now more lopsided and later-dated, two-way risk.",
+    bottomLine: "The 29 July hike risk has eased further intraday to roughly 10-13% (CME FedWatch), down from ~17% after June PPI and a peak near 46.5% a week ago, as Warsh's second day of testimony again offered no fresh signal — but odds of a hike at the following September meeting have instead risen to roughly 73% (from ~59% a few days earlier), with Governor Cook now saying she is 'prepared to act soon' absent clear disinflation. The weekend's escalation — the first direct US combat deaths of the renewed conflict, in Jordan, and Brent pushing toward $88/bbl — keeps the Iran/oil shock a live, if now more lopsided and later-dated, two-way risk for the hiking cycle.",
     // Market-implied odds for the next FOMC decision (CME FedWatch) and the FOMC's
     // June 2026 Summary of Economic Projections "dot plot" median path.
     fedwatch: {
@@ -109,6 +110,8 @@ export const OUTLOOK = {
     ["Tech Times — Iran Oil Shock Spills Into Demand Inflation, Lifting Fed Rate-Hike Odds to 73% by September, 16 Jul 2026", "https://www.techtimes.com/articles/320773/20260716/iran-oil-shock-spills-demand-inflation-lifting-fed-rate-hike-odds-73-september.htm"],
     ["Bloomberg — Fed's Hammack Says Inflation Is Her Main Concern as Labor Market Holds Up, 17 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-17/fed-s-hammack-sees-no-conflict-in-mandate-inflation-her-worry"],
     ["Washington Post — Trump wants rate cuts. More Fed officials say hikes could be next, 17 Jul 2026", "https://www.washingtonpost.com/business/2026/07/17/trump-wants-rate-cuts-more-fed-officials-say-hikes-could-be-next/"],
+    ["Bloomberg — Warsh Shows His Inner Hawk as Inflation Debate Heats Up, 18 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-18/warsh-shows-his-inner-hawk-as-inflation-debate-heats-up"],
+    ["Euronews — Two US troops killed in Jordan by Iranian attacks, US military says, 18 Jul 2026", "https://www.euronews.com/2026/07/18/two-us-troops-killed-in-jordan-by-iranian-attacks-us-military-says"],
   ],
 };
 
@@ -117,12 +120,12 @@ export const OUTLOOK = {
 // and reputable houses, newest first. Rendered as a two-column feed styled like
 // the dashboard's Key macro headlines; the four-times-daily routine keeps it current.
 export const COMMENTARY = {
-  updated: "2026-07-17",
+  updated: "2026-07-19",
   us: [
+    { title: "Warsh Shows His Inner Hawk as Inflation Debate Heats Up", source: "Bloomberg", author: "Bloomberg — Fed coverage", date: "2026-07-18", url: "https://www.bloomberg.com/news/articles/2026-07-18/warsh-shows-his-inner-hawk-as-inflation-debate-heats-up" },
     { title: "The Daily Spark: Sticky services inflation keeps a July hike on the table", source: "Apollo", author: "Torsten Sløk", date: "2026-07-16", url: "https://www.apolloacademy.com/" },
     { title: "Market Views: Narrow AI leadership and a late-cycle US economy", source: "Blackstone", author: "Joe Zidle", date: "2026-07-15", url: "https://www.blackstone.com/insights/" },
     { title: "Kevin Warsh's Congressional Debut Like a 'Breath of Fresh Air,' Says El Erian, as Schiff Flags Fed Chair's 'False Claim'", source: "Benzinga", author: "Mohamed El-Erian", date: "2026-07-15", url: "https://www.benzinga.com/markets/economic-data/26/07/60460861/fed-chair-kevin-warshs-congressional-debut-draws-mixed-reactions" },
-    { title: "Weekly commentary: Staying up-in-quality as rate cuts get pushed out", source: "BlackRock Investment Institute", author: "Jean Boivin", date: "2026-07-14", url: "https://www.blackrock.com/corporate/insights/blackrock-investment-institute" },
   ],
   uk: [
     { title: "British Pound: Shorts on the run", source: "FXStreet", author: "ING — Chris Turner", date: "2026-07-16", url: "https://www.fxstreet.com/news/british-pound-shorts-on-the-run-ing-202607161153" },
@@ -293,6 +296,8 @@ export const YIELD_CURVE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-jordan-troops-2026-07-18", kind: "Markets", title: "Two US service members were killed in Jordan in Iranian-linked attacks — the first direct US combat deaths of the renewed conflict — deepening the war-risk premium already visible in oil, gold and rate markets.", href: "#/bubble", date: "2026-07-18" },
+  { id: "g-warsh-hawk-2026-07-18", kind: "Rate guidance", title: "Fed Chair Kevin Warsh again said the Fed has 'no tolerance' for elevated inflation as the oil-driven price shock revives the internal Fed debate over whether a hike is still needed ahead of the 29 July decision.", href: "#/policy", date: "2026-07-18" },
   { id: "g-kuwait-desal-2nd-2026-07-18", kind: "Bubble risk", title: "Iran struck Kuwait's Shuaiba desalination and power plant for a second straight day on 18 July, pushing Brent up 4.6% to $88.10/bbl (a 14%+ weekly gain) as Hormuz tanker crossings fell to just eight a day — the Gulf war now spans both a shipping-lane crisis and a civilian-infrastructure war.", href: "#/bubble", date: "2026-07-18" },
   { id: "g-hammack-hawkish-2026-07-17", kind: "Rate guidance", title: "Cleveland Fed President Beth Hammack said persistently high inflation (core PCE ~3.3% in June) is now her bigger concern than the labour market, joining a growing chorus of officials the Washington Post reports are open to a hike even as President Trump keeps pushing for cuts.", href: "#/policy", date: "2026-07-17" },
   { id: "g-fedwatch-sept-73pct-2026-07-18", kind: "Rate guidance", title: "CME FedWatch-implied odds of a September Fed hike have risen to roughly 73% (from ~59% a few days earlier and just 26% in mid-June) after Governor Lisa Cook said she is 'prepared to act soon' if disinflation signs don't appear, even as the 29 July hike itself stays a low-probability (~10-13%) outcome.", href: "#/policy", date: "2026-07-18" },
@@ -360,13 +365,13 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-07-18",
+  updated: "2026-07-19",
   us: [
+    { title: "Warsh Shows His Inner Hawk as Inflation Debate Heats Up", source: "Bloomberg", date: "2026-07-18", time: "09:22", url: "https://www.bloomberg.com/news/articles/2026-07-18/warsh-shows-his-inner-hawk-as-inflation-debate-heats-up" },
     { title: "Brent Crude Hits $88 as Iran Extends War From Hormuz to Kuwait Drinking Water", source: "Tech Times", date: "2026-07-18", time: "21:10", url: "https://www.techtimes.com/articles/320922/20260718/brent-crude-hits-88-iran-extends-war-hormuz-kuwait-drinking-water.htm" },
     { title: "U.S. stocks slide as semiconductors slip into technical bear market", source: "Xinhua", date: "2026-07-18", time: "12:03", url: "https://english.news.cn/20260718/3a7128e8ba5e4146b87ec169223cb3b4/c.html" },
-    { title: "Fed's Hammack Says Inflation Is Her Main Concern as Labor Market Holds Up", source: "Bloomberg", date: "2026-07-17", time: "21:10", url: "https://www.bloomberg.com/news/articles/2026-07-17/fed-s-hammack-sees-no-conflict-in-mandate-inflation-her-worry" },
-    { title: "Trump wants rate cuts. More Fed officials say hikes could be next.", source: "Washington Post", date: "2026-07-17", time: "21:10", url: "https://www.washingtonpost.com/business/2026/07/17/trump-wants-rate-cuts-more-fed-officials-say-hikes-could-be-next/" },
-    { title: "Americans keep spending while \"grumbling\" about the economy", source: "Axios", date: "2026-07-16", time: "21:10", url: "https://www.axios.com/2026/07/16/retail-sales-consumer-spending-june" },
+    { title: "The U.S. and Iran blow past red lines as they lurch back toward all-out war", source: "NPR", date: "2026-07-18", time: "09:22", url: "https://www.npr.org/2026/07/18/nx-s1-5898916/us-iran-escalate-strikes" },
+    { title: "Gold heads for biggest weekly loss in six as Middle East war fans inflation worries", source: "CNBC", date: "2026-07-17", time: "21:10", url: "https://www.cnbc.com/2026/07/17/gold-on-track-for-biggest-weekly-loss-in-six-as-iran-war-fans-inflation-worries.html" },
   ],
   uk: [
     { title: "Burnham finalising plans for UK govt before becoming PM", source: "RTÉ", date: "2026-07-18", time: "17:08", url: "https://www.rte.ie/news/2026/0718/1583956-uk-andy-burnham/" },
@@ -385,8 +390,12 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-07-18",
+  updated: "2026-07-19",
   items: [
+    {"title":"U.S. blockades Iranian ports, launches dozens of strikes as Trump seeks control of Strait of Hormuz","source":"CBS News","date":"2026-07-19","time":"09:22","url":"https://www.cbsnews.com/live-updates/iran-war-trump-strait-of-hormuz-attacks-persian-gulf/","blurb":"Rolling coverage as the US completes an eighth straight night of strikes on Iran following the killing of two US service members in Jordan."},
+    {"title":"Warsh Shows His Inner Hawk as Inflation Debate Heats Up","source":"Bloomberg","date":"2026-07-18","time":"09:22","url":"https://www.bloomberg.com/news/articles/2026-07-18/warsh-shows-his-inner-hawk-as-inflation-debate-heats-up","blurb":"Fed Chair Kevin Warsh reiterates the Fed has 'no tolerance' for elevated inflation as the oil-driven price shock revives an internal Fed debate over whether a hike is still needed."},
+    {"title":"The U.S. and Iran blow past red lines as they lurch back toward all-out war","source":"NPR","date":"2026-07-18","time":"09:22","url":"https://www.npr.org/2026/07/18/nx-s1-5898916/us-iran-escalate-strikes","blurb":"Both sides have crossed thresholds neither had crossed before, deepening a conflict that is now feeding directly into oil prices and rate expectations."},
+    {"title":"Two US troops killed in Jordan by Iranian attacks, US military says","source":"Euronews","date":"2026-07-18","time":"09:22","url":"https://www.euronews.com/2026/07/18/two-us-troops-killed-in-jordan-by-iranian-attacks-us-military-says","blurb":"The first direct US combat deaths of the renewed conflict deepen the war-risk premium already visible in oil, gold and rate markets."},
     {"title":"Brent Crude Hits $88 as Iran Extends War From Hormuz to Kuwait Drinking Water","source":"Tech Times","date":"2026-07-18","time":"21:10","url":"https://www.techtimes.com/articles/320922/20260718/brent-crude-hits-88-iran-extends-war-hormuz-kuwait-drinking-water.htm","blurb":"Iran struck Kuwait's Shuaiba desalination plant for a second straight day, pushing Brent up 4.6% to $88.10 — a 14%+ weekly gain — as Hormuz tanker crossings fell to just eight a day and the Gulf war widens from shipping into civilian infrastructure."},
     {"title":"Fed's Hammack Says Inflation Is Her Main Concern as Labor Market Holds Up","source":"Bloomberg","date":"2026-07-17","time":"21:10","url":"https://www.bloomberg.com/news/articles/2026-07-17/fed-s-hammack-sees-no-conflict-in-mandate-inflation-her-worry","blurb":"Cleveland Fed President Beth Hammack said persistently high inflation — core PCE she estimates rose 3.3% in June — is now her bigger worry than the labor market, joining a growing chorus of officials open to a hike ahead of the 28-29 July FOMC meeting."},
     {"title":"Trump wants rate cuts. More Fed officials say hikes could be next.","source":"Washington Post","date":"2026-07-17","time":"21:10","url":"https://www.washingtonpost.com/business/2026/07/17/trump-wants-rate-cuts-more-fed-officials-say-hikes-could-be-next/","blurb":"A small but growing group of Fed officials is warning inflation may force a rate increase even as President Trump keeps pushing for cuts, setting up a charged debate at the Fed's 28-29 July meeting."},
@@ -422,10 +431,6 @@ export const ARTICLES = {
     {"title":"Netflix stock falls as earnings forecast disappoints, company says it will give fewer engagement updates","source":"CNBC","date":"2026-07-16","time":"21:00","url":"https://www.cnbc.com/2026/07/16/netflix-nflx-earnings-q2-2026.html","blurb":"Netflix guided Q3 revenue to $12.86bn and EPS to 82 cents, both below consensus, with growth set to slow to its weakest pace since late 2023; shares fell as much as 9% in after-hours trading."},
     {"title":"New Residential Construction, June 2026","source":"US Census Bureau","date":"2026-07-17","time":"05:20","url":"https://www.census.gov/construction/nrc/current/index.html","blurb":"Building permits fell 0.9% month-on-month to a 1.410m SAAR pace — a soft housing signal alongside the late-cycle/stagflation reads already tracked in the Cycle tab."},
     {"title":"Surveys of Consumers, Preliminary July 2026","source":"University of Michigan","date":"2026-07-17","time":"05:20","url":"https://www.sca.isr.umich.edu/","blurb":"Sentiment rose roughly 10% from May as gasoline prices moderated, but stayed 13% below the pre-Iran-conflict February level; year-ahead inflation expectations eased to 4.6% from 4.8%."},
-    {"title":"US Stock Futures Tumble as TSMC's Results Revive AI Concerns","source":"Bloomberg","date":"2026-07-16","time":"21:10","url":"https://www.bloomberg.com/news/articles/2026-07-16/us-stock-futures-tumble-as-tsmc-s-results-revive-ai-concerns","blurb":"TSMC posted a record 77% profit jump and raised its full-year outlook, yet chip stocks (Micron, SK Hynix, AMD, Broadcom, Nvidia, TSMC) slid anyway as investors booked profits after their outsized run."},
-    {"title":"Stock Market Today (July 16, 2026): Nasdaq slips as tech stocks lose momentum","source":"TheStreet","date":"2026-07-16","time":"21:10","url":"https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-16-2026","blurb":"The Dow fell 0.3%, the S&P 500 lost 0.5% and the Nasdaq dropped 1.3% as a fresh semiconductor selloff overshadowed a UnitedHealth earnings beat."},
-    {"title":"Iran-US Strikes Worsen as Strait of Hormuz Shipping Traffic Dwindles","source":"Bloomberg","date":"2026-07-16","time":"21:10","url":"https://www.bloomberg.com/news/articles/2026-07-16/iran-us-skirmishes-worsen-as-hormuz-shipping-traffic-dwindles","blurb":"US CENTCOM says it struck and disabled the Curaçao-flagged tanker Belma near Kharg Island for defying the blockade; Iran hit back at US bases in Gulf states and Jordan on the sixth straight day of fighting."},
-    {"title":"Mahmood's Economic Blank Slate Boosts Appeal for UK Chancellor Role","source":"Bloomberg","date":"2026-07-16","time":"21:10","url":"https://www.bloomberg.com/news/articles/2026-07-16/mahmood-s-economic-blank-slate-key-to-appeal-as-uk-chancellor","blurb":"Home Secretary Shabana Mahmood's lack of a public economic-policy record is seen as part of her appeal as Andy Burnham's likely chancellor pick, though his team says no final decision has been communicated."},
     {"title":"UK Stock Market Today (July 16): FTSE 100 Falls 0.37% While FTSE 250 Gains Despite Oil Price Surge and Global Risk","source":"Sunday Guardian Live","date":"2026-07-16","time":"21:10","url":"https://sundayguardianlive.com/business/uk-stock-market-today-july-16-ftse-100-falls-037-while-ftse-250-gains-despite-oil-price-surge-and-global-risk-what-should-investors-know-238177/","blurb":"The FTSE 100 slipped to around 10,470 as Middle East risk-off sentiment outweighed the stronger May GDP print, while the mid-cap FTSE 250 eked out a gain."},
   ],
 };
