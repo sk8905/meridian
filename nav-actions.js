@@ -23,6 +23,9 @@ const ICO_MKT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stro
 const ICO_SAVED = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
 
 const isPhone = () => matchMedia("(max-width:760px)").matches;
+// Menu is a PAGE (/menu/) — reached through the tab bar exactly like the other
+// pages, not an overlay. On that page the menu panel mounts permanently open.
+const ON_MENU_PAGE = /^\/menu\/?$/.test(location.pathname);
 
 // ---- Diagnostics ------------------------------------------------------------
 // Build stamp (the premium.css token this document loaded — shown in the Menu
@@ -83,16 +86,16 @@ const TAB_ICONS = {
 };
 function initChrome() {
   const path = location.pathname;
-  const cur = path.startsWith("/macro") ? "macro" : path.startsWith("/credit") ? "credit" : path.startsWith("/legal") ? "legal" : "home";
+  const cur = path.startsWith("/macro") ? "macro" : path.startsWith("/credit") ? "credit" : path.startsWith("/legal") ? "legal" : path.startsWith("/menu") ? "menu" : "home";
   // Buttons only — NO anchors. Nothing in the bar can trigger a browser
   // navigation on its own; page switches are explicit location.replace calls
   // from the confirmed-tap handler (wired in run()).
-  const tab = (k, href, label) => `<button type="button" class="mtab${cur === k ? " is-active" : ""}" data-nav="${href}"${cur === k ? ' aria-current="page"' : ""}>${TAB_ICONS[k]}<span class="mtab-lbl">${label}</span></button>`;
+  const tab = (k, href, label) => `<button type="button" class="mtab${k === "menu" ? " mtab-menu" : ""}${cur === k ? " is-active" : ""}" data-nav="${href}"${cur === k ? ' aria-current="page"' : ""}>${TAB_ICONS[k]}<span class="mtab-lbl">${label}</span></button>`;
   const nav = document.createElement("nav");
   nav.className = "mobile-tabbar";
   nav.setAttribute("aria-label", "Platforms");
-  nav.innerHTML = tab("home", "/", "Home") + tab("macro", "/macro/", "Macro") + tab("credit", "/credit/", "Credit") + tab("legal", "/legal/", "Legal")
-    + `<button class="mtab mtab-menu" type="button" data-open-menu aria-label="Menu">${TAB_ICONS.menu}<span class="mtab-lbl">Menu</span></button>`;
+  nav.innerHTML = tab("home", "/", "Home") + tab("macro", "/macro/", "Macro") + tab("credit", "/credit/", "Credit")
+    + tab("legal", "/legal/", "Legal") + tab("menu", "/menu/", "Menu");
   document.querySelectorAll(".mobile-tabbar").forEach((el) => el.remove());
   document.body.appendChild(nav);
 
@@ -442,7 +445,7 @@ export function initNavActions() {
     const mktPanel = mkPanel("na-mkt-panel", "Markets");
     const savedPanel = mkPanel("na-saved-panel", "Bookmarks");
     const notifPanel = mkPanel("na-notif-panel", "Notifications");
-    const menuPanel = mkPanel("na-menu-panel", "Menu");
+    const menuPanel = ON_MENU_PAGE ? mkPanel("na-menu-panel", "Menu") : null;
 
     // Menu (bottom tab bar, phones): the search bar plus the account block
     // (Signed in as … · Sign out / Last refresh …) that used to sit in the page
@@ -542,10 +545,29 @@ export function initNavActions() {
       navigator.serviceWorker.getRegistration("/").then((reg) => { if (reg) navigator.serviceWorker.register("/sw.js").catch(() => {}); }).catch(() => {});
     }
     // Tapping a recent search re-opens the page's search overlay seeded with it.
-    menuPanel.addEventListener("click", (e) => {
-      const r = e.target.closest(".na-recent-row");
-      if (r) document.dispatchEvent(new CustomEvent("wire:search", { detail: { q: r.dataset.q || "" } }));
-    });
+    if (menuPanel) {
+      menuPanel.addEventListener("click", (e) => {
+        const r = e.target.closest(".na-recent-row");
+        if (r) document.dispatchEvent(new CustomEvent("wire:search", { detail: { q: r.dataset.q || "" } }));
+      });
+      // /menu/ = the panel permanently open: no scrim, no body lock, no close
+      // paths — leaving happens through the tab bar like any other page.
+      menuPanel.classList.add("na-menu-static");
+      fillMenu(menuPanel);
+      menuPanel.hidden = false;
+      const tb0 = document.querySelector(".mobile-tabbar");
+      if (tb0) tb0.classList.add("menu-open");
+      const acct = document.getElementById("account-nav");
+      const stat = document.getElementById("data-status");
+      const jobs = [];
+      if (acct) jobs.push(fetch("/api/me", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).then((d) => {
+        if (d && d.email) { acct.innerHTML = `<span class="si-prefix">Signed in as </span><strong>${esc(d.email)}</strong> · <a href="/cdn-cgi/access/logout">Sign out</a>`; acct.hidden = false; }
+      }).catch(() => {}));
+      if (stat) jobs.push(import("/credit/js/data.js?v=20260718-9").then((m) => {
+        stat.textContent = `Last refresh ${fmtDate(m.LAST_CHECKED)}${m.LAST_CHECKED_TIME ? `, ${m.LAST_CHECKED_TIME}` : ""}`;
+      }).catch(() => {}));
+      if (jobs.length) Promise.allSettled(jobs).then(() => fillMenu(menuPanel));
+    }
 
     const notifBtn = wrap.querySelector("#na-notif");
     const clearBadge = () => { const b = notifBtn.querySelector(".na-badge"); if (b) b.hidden = true; };
@@ -560,29 +582,12 @@ export function initNavActions() {
       { btn: wrap.querySelector("#na-saved"), panel: savedPanel, onOpen: (p) => { loadSaved(p.querySelector(".na-body"), p.querySelector(".na-h-n")); } },
       { btn: notifBtn, panel: notifPanel, onOpen: (p) => { const body = p.querySelector(".na-body"); if (_notifItems) renderNotif(body); else { body.innerHTML = '<div class="na-load">Loading…</div>'; ensureNotifs().then(() => renderNotif(body)).catch(() => { body.innerHTML = '<div class="na-load">Notifications unavailable right now.</div>'; }); } } },
     ];
-    // The Menu opens from the bottom tab bar's Menu button (phones); it joins the
-    // same controller so it swaps cleanly with the other three panels.
-    const menuBtn = document.querySelector("[data-open-menu]");
-    const menuRec = menuBtn ? { btn: menuBtn, panel: menuPanel, onOpen: fillMenu } : null;
-    if (menuRec) panels.push(menuRec);
 
     const anyOpen = () => panels.some((x) => !x.panel.hidden);
     let _openAt = 0;
-    const closeAll = (reason) => {
-      const menuWasOpen = !!(menuRec && !menuRec.panel.hidden);
+    const closeAll = () => {
       panels.forEach((x) => { x.panel.hidden = true; x.btn.setAttribute("aria-expanded", "false"); });
-      const tb = document.querySelector(".mobile-tabbar"); if (tb) tb.classList.remove("menu-open");
       lockBody(false); scrimOff();
-      // Diagnostic: a menu that closes moments after opening reads as "the app
-      // sent me back to the page" — name the culprit on screen.
-      if (menuWasOpen && reason && reason !== "menu-tap" && Date.now() - _openAt < 1500) {
-        const el = document.createElement("div");
-        el.className = "wire-navdiag";
-        el.innerHTML = "<strong>menu auto-closed</strong><br>by: " + esc(reason) + " · " + (Date.now() - _openAt) + "ms after open";
-        document.body.appendChild(el);
-        el.addEventListener("click", () => el.remove());
-        setTimeout(() => { if (el.isConnected) el.remove(); }, 12000);
-      }
     };
     const openPanel = (rec) => {
       _openAt = Date.now();
@@ -590,24 +595,17 @@ export function initNavActions() {
       rec.panel.hidden = false;
       rec.btn.setAttribute("aria-expanded", "true");
       rec.onOpen(rec.panel);
-      // Exactly ONE orange tab line at a time: while the Menu panel is open its
-      // tab carries the line and the current page tab's yields (CSS .menu-open).
-      const tb = document.querySelector(".mobile-tabbar");
-      if (tb) tb.classList.toggle("menu-open", !!(rec.btn && rec.btn.hasAttribute("data-open-menu")));
       if (!isPhone()) { const r = rec.btn.getBoundingClientRect(); rec.panel.style.top = `${Math.round(r.bottom + 8)}px`; }
       lockBody(isPhone());
-      scrimOn(() => closeAll("scrim"));
+      scrimOn(closeAll);
     };
 
     panels.forEach((rec) => {
-      // The Menu button is driven by the tab bar's confirmed-tap handler below.
-      if (rec !== menuRec) {
-        rec.btn.addEventListener("click", (e) => {
-          e.stopPropagation(); e.preventDefault();
-          if (rec.panel.hidden) openPanel(rec); else closeAll();
-        });
-      }
-      rec.panel.addEventListener("click", (e) => { if (e.target.closest("[data-na-close]")) closeAll("panel-x"); });
+      rec.btn.addEventListener("click", (e) => {
+        e.stopPropagation(); e.preventDefault();
+        if (rec.panel.hidden) openPanel(rec); else closeAll();
+      });
+      rec.panel.addEventListener("click", (e) => { if (e.target.closest("[data-na-close]")) closeAll(); });
     });
 
     // ---- Bottom tab bar input ----------------------------------------------
@@ -616,16 +614,13 @@ export function initNavActions() {
     // app keeps no cross-page history, so iOS's edge back/forward swipes (the
     // Menu button borders the right screen edge, where a tap with a tiny drag
     // can fire a SYSTEM history navigation no page code sees) have nowhere to
-    // go. Menu toggles its panel the same way. Raw clicks inside the bar are
-    // inert; keyboard activation (click detail 0) still acts.
+    // go. Raw clicks inside the bar are inert; keyboard activation (click
+    // detail 0) still acts. A tap on the already-active tab is a no-op.
     {
       const tabbar = document.querySelector(".mobile-tabbar");
       const act = (btn) => {
         const dest = btn.getAttribute("data-nav");
-        if (dest) { location.replace(dest); return; }
-        if (btn.hasAttribute("data-open-menu") && menuRec) {
-          if (menuRec.panel.hidden) openPanel(menuRec); else closeAll("menu-tap");
-        }
+        if (dest && !btn.classList.contains("is-active")) location.replace(dest);
       };
       if (tabbar) {
         let pBtn = null, pX = 0, pY = 0;
@@ -649,16 +644,13 @@ export function initNavActions() {
       if (!anyOpen()) return;
       if (e.target.closest(".na-panel") || e.target.closest(".na-actions")) return;
       // Immunity window: iOS can deliver the opening tap's synthetic click a
-      // beat AFTER the panel opened — hit-tested against the new layout it can
-      // land on the exposed page and would close the menu instantly (the
-      // "menu sent me back to the page" report). A close this soon after
-      // opening can only be that ghost — ignore it.
+      // beat AFTER a panel opened; hit-tested against the new layout it can
+      // land outside and close it instantly. That soon after opening it can
+      // only be the ghost — ignore it.
       if (Date.now() - _openAt < 700) return;
-      const t = e.target;
-      const d = (t && t.tagName ? t.tagName : "?") + "." + String((t && t.className) || "").split(" ").slice(0, 2).join(".");
-      closeAll("outside-click on " + d);
+      closeAll();
     });
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeAll("esc"); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeAll(); });
 
     // Prime the cross-desk notifications + unread badge in the background.
     ensureNotifs().then((items) => {

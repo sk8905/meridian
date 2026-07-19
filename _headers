@@ -26,6 +26,10 @@
   Cache-Control: no-cache
 /macro/index.html
   Cache-Control: no-cache
+/menu/
+  Cache-Control: no-cache
+/menu/index.html
+  Cache-Control: no-cache
 
 # The shared data modules are also revalidated. The three apps bust these via
 # their own ?v= tokens, but the Glance landing (glance.js) and the in-app command

@@ -162,7 +162,7 @@ export function initGlance() {
   // The legacy Home-only menus (initNotifBell / initSavedPanel /
   // initMarketsPanel) are retired; on phones the Home data rails move into the
   // shared Markets panel via initHomeMarketsRails.
-  import("/nav-actions.js?v=20260719-9").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260719-10").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderDeals();
   renderFundraising();
   renderRx();
@@ -172,7 +172,7 @@ export function initGlance() {
   initJumpNav();
   wirePalette(buildIndex());
   startLiveRefresh();
-  import("/ptr.js?v=20260719-6").then((m) => m.initPullToRefresh()).catch(() => {});
+  import("/ptr.js?v=20260719-7").then((m) => m.initPullToRefresh()).catch(() => {});
 }
 
 // ---- Unified Saved -----------------------------------------------------------

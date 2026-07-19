@@ -272,7 +272,7 @@ function setupAutoRefresh() {
     if (busy || document.hidden || !navigator.onLine) return;
     // Never yank the page out from under an open overlay (menu/panels) — a
     // reload mid-interaction reads as "my tap navigated somewhere".
-    if (document.body && (document.body.classList.contains("na-menu-open") || document.querySelector(".na-panel:not([hidden])"))) return;
+    if (document.body && (document.body.classList.contains("na-menu-open") || document.querySelector(".na-panel:not([hidden]):not(.na-menu-static)"))) return;
     busy = true;
     try {
       const res = await fetch(location.pathname, { cache: "no-store" });

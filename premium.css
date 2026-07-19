@@ -343,6 +343,51 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   box-shadow: none !important;
 }
 .mtab { border-radius: 0 !important; min-height: 54px; gap: 3px; font-size: .58rem; font-weight: 600; letter-spacing: .02em; padding: 3px .1rem !important; }
+/* Menu as a page (/menu/): the panel is permanently open — phones use the
+   existing full-screen #na-menu-panel rules; desktop gets a centred column. */
+@media (min-width: 761px) {
+  .na-panel.na-menu-static { position: static !important; width: auto; max-width: 560px;
+    margin: 26px auto; display: flex; flex-direction: column; min-height: 60vh; max-height: none;
+    border: 1px solid var(--border, #262626); box-shadow: none; }
+}
+
+/* ---- Menu panel content (the /menu/ page — full-screen on phones, a
+        centred card on desktop; rules apply in both). */
+.na-menu-row { display: flex; align-items: center; gap: 10px; width: 100%;
+  padding: 13px 14px; border: 0; border-bottom: 1px solid var(--border, #262626);
+  background: transparent; color: var(--ink, #eaf0fb); font: inherit; font-size: 13px;
+  text-align: left; border-radius: 0; }
+.na-menu-search { color: var(--faint, #5c6a86); cursor: pointer; }
+.na-menu-search svg { width: 16px; height: 16px; flex: 0 0 auto; }
+.na-menu-acct { display: block; font-size: 12px; color: var(--muted, #8592ad); }
+.na-menu-acct strong { color: var(--ink, #eaf0fb); font-weight: 600; }
+.na-menu-acct a { color: #fff; font-weight: 600; text-decoration: none; margin-left: .2em; }
+.na-menu-stat { display: block; font-family: var(--t-mono, ui-monospace, monospace);
+  font-size: 11px; color: var(--faint, #5c6a86); border-bottom: 0; }
+/* Recent searches sit under the search bar; the account/refresh block is the
+   panel FOOTER (pinned to the bottom via the flex column below). */
+#na-menu-panel:not([hidden]) { display: flex; flex-direction: column; }
+#na-menu-panel .na-body { display: flex; flex-direction: column; flex: 1 1 auto; }
+.na-menu-recent-h { padding: 12px 14px 4px; font-family: var(--t-mono, ui-monospace, monospace);
+  font-size: 9.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
+  color: var(--faint, #5c6a86); }
+.na-recent-row { color: var(--muted, #8592ad); cursor: pointer;
+  border-bottom: 1px solid var(--grid, #1a1a1a); }
+.na-recent-row svg { width: 14px; height: 14px; flex: 0 0 auto; color: var(--faint, #5c6a86); }
+/* Push-notifications toggle — a small ghost chip on the RIGHT of the footer,
+   beside the signed-in / last-refresh lines (which keep the left column). */
+.na-menu-foot { display: flex; align-items: center; }
+.na-menu-foot-l { flex: 1 1 auto; min-width: 0; }
+.na-menu-push { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px;
+  margin-right: 14px; padding: 5px 9px; border: 1px solid var(--border, #262626);
+  background: transparent; color: var(--muted, #8592ad); border-radius: 0; cursor: pointer; font: inherit; }
+.na-menu-push svg { width: 13px; height: 13px; flex: 0 0 auto; color: var(--faint, #5c6a86); }
+/* Footer sits flush against the bottom tab bar: compact rows, no stray
+   padding (the menu panel drops the generic 1.2rem bottom padding). */
+#na-menu-panel { padding-bottom: 0; }
+.na-menu-foot { margin-top: auto; border-top: 1px solid var(--border, #262626); padding: 7px 0 9px; }
+.na-menu-foot .na-menu-row { border-bottom: 0; padding: 3px 14px; }
+
 /* History-navigation diagnostic toast (nav-actions navDiag) */
 .wire-navdiag { position: fixed; left: 10px; right: 10px; bottom: calc(84px + env(safe-area-inset-bottom, 0px));
   z-index: 9600; background: #0a0a0a; border: 1px solid var(--border, #262626); color: var(--muted, #8592ad);
@@ -527,41 +572,6 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
      yields to them there. Desktop keeps .na-body (rails live in the grid). */
   #na-mkt-panel.has-rails .na-body { display: none; }
   #na-mkt-panel .na-rails { display: block; }
-  /* Menu panel rows: search bar look-alike on top, then the account block. */
-  .na-menu-row { display: flex; align-items: center; gap: 10px; width: 100%;
-    padding: 13px 14px; border: 0; border-bottom: 1px solid var(--border, #262626);
-    background: transparent; color: var(--ink, #eaf0fb); font: inherit; font-size: 13px;
-    text-align: left; border-radius: 0; }
-  .na-menu-search { color: var(--faint, #5c6a86); cursor: pointer; }
-  .na-menu-search svg { width: 16px; height: 16px; flex: 0 0 auto; }
-  .na-menu-acct { display: block; font-size: 12px; color: var(--muted, #8592ad); }
-  .na-menu-acct strong { color: var(--ink, #eaf0fb); font-weight: 600; }
-  .na-menu-acct a { color: #fff; font-weight: 600; text-decoration: none; margin-left: .2em; }
-  .na-menu-stat { display: block; font-family: var(--t-mono, ui-monospace, monospace);
-    font-size: 11px; color: var(--faint, #5c6a86); border-bottom: 0; }
-  /* Recent searches sit under the search bar; the account/refresh block is the
-     panel FOOTER (pinned to the bottom via the flex column below). */
-  #na-menu-panel:not([hidden]) { display: flex; flex-direction: column; }
-  #na-menu-panel .na-body { display: flex; flex-direction: column; flex: 1 1 auto; }
-  .na-menu-recent-h { padding: 12px 14px 4px; font-family: var(--t-mono, ui-monospace, monospace);
-    font-size: 9.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
-    color: var(--faint, #5c6a86); }
-  .na-recent-row { color: var(--muted, #8592ad); cursor: pointer;
-    border-bottom: 1px solid var(--grid, #1a1a1a); }
-  .na-recent-row svg { width: 14px; height: 14px; flex: 0 0 auto; color: var(--faint, #5c6a86); }
-  /* Push-notifications toggle — a small ghost chip on the RIGHT of the footer,
-     beside the signed-in / last-refresh lines (which keep the left column). */
-  .na-menu-foot { display: flex; align-items: center; }
-  .na-menu-foot-l { flex: 1 1 auto; min-width: 0; }
-  .na-menu-push { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px;
-    margin-right: 14px; padding: 5px 9px; border: 1px solid var(--border, #262626);
-    background: transparent; color: var(--muted, #8592ad); border-radius: 0; cursor: pointer; font: inherit; }
-  .na-menu-push svg { width: 13px; height: 13px; flex: 0 0 auto; color: var(--faint, #5c6a86); }
-  /* Footer sits flush against the bottom tab bar: compact rows, no stray
-     padding (the menu panel drops the generic 1.2rem bottom padding). */
-  #na-menu-panel { padding-bottom: 0; }
-  .na-menu-foot { margin-top: auto; border-top: 1px solid var(--border, #262626); padding: 7px 0 9px; }
-  .na-menu-foot .na-menu-row { border-bottom: 0; padding: 3px 14px; }
   /* Full-screen notif panel: the header sticks; rows are the shared .nf-row style. */
   .notif-head { position: sticky; top: 0; z-index: 3; }
   .notif-list { max-height: none; overflow: visible; }
