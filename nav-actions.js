@@ -60,9 +60,54 @@ function initChrome() {
       head.classList.remove("wire-head-fixed");
       document.body.classList.remove("wire-head-pad");
     }
+    lockBar();
+  };
+  // A chip bar hugging the header joins the fixed chrome (Bloomberg-style):
+  // pinned through scrolling AND native overscroll, so the rubber-band happens
+  // BELOW the chips. Views re-render their DOM, so this re-applies after every
+  // mutation (childList only — class changes don't re-trigger it).
+  const BAR_WRAP = "#g-feed-head, .tpanel-h, .twire-head, .ck-secbar, .tbar";
+  const lockBar = () => {
+    if (!isPhone()) {
+      document.querySelectorAll(".wire-bar-fixed").forEach((el) => el.classList.remove("wire-bar-fixed"));
+      document.body.classList.remove("wire-bar-pad");
+      return;
+    }
+    const headH = head.offsetHeight;
+    const findBar = () => {
+      for (const b of document.querySelectorAll(".tchips, .g-feed-chips")) {
+        const w = b.closest(BAR_WRAP) || b;
+        const r = w.getBoundingClientRect();
+        if (r.height && Math.abs(r.top - headH) < 8) return w;
+      }
+      return null;
+    };
+    let bar = document.querySelector(".wire-bar-fixed");
+    if (bar && !bar.isConnected) bar = null;
+    if (!bar) {
+      bar = findBar();
+      // A re-render may have REPLACED a previously-fixed bar: the stale bar
+      // padding then offsets the new in-flow wrapper below the abut band, so
+      // it would never re-qualify. Drop the padding and look once more.
+      if (!bar && document.body.classList.contains("wire-bar-pad")) {
+        document.body.classList.remove("wire-bar-pad");
+        bar = findBar();
+      }
+      if (bar) bar.classList.add("wire-bar-fixed");
+    }
+    document.querySelectorAll(".wire-bar-fixed").forEach((el) => { if (el !== bar) el.classList.remove("wire-bar-fixed"); });
+    if (bar) {
+      document.documentElement.style.setProperty("--wire-bar-h", bar.offsetHeight + "px");
+      document.body.classList.add("wire-bar-pad");
+    } else {
+      document.body.classList.remove("wire-bar-pad");
+    }
   };
   lock();
   window.addEventListener("resize", lock);
+  let barT = 0;
+  new MutationObserver(() => { clearTimeout(barT); barT = setTimeout(lockBar, 120); })
+    .observe(document.body, { childList: true, subtree: true });
 }
 
 // ---- Markets rows -----------------------------------------------------------

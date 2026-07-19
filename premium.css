@@ -376,6 +376,9 @@ svg.mtab-ico { width: 22px; height: 22px; }
    by the same controller and is always fixed. */
 .wire-head-fixed { position: fixed !important; top: 0; left: 0; right: 0; z-index: 1300; }
 body.wire-head-pad { padding-top: var(--wire-head-h, 56px); }
+/* Chip bar promoted into the chrome: pinned below the header, full-bleed. */
+.wire-bar-fixed { position: fixed !important; top: var(--wire-head-h, 56px); left: 0; right: 0; z-index: 1290; }
+body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 56px) + var(--wire-bar-h, 34px)); }
 
 .na-actions { display: inline-flex; align-items: center; gap: .4rem; }
 /* Refresh-countdown donut — thin ring in the feed-meta grey, draining across

@@ -115,8 +115,8 @@ export function initPullToRefresh() {
     const walk = (el) => {
       if (el === zone || !el.matches) return;
       if (el.matches(".topbar, .g-top")) return;                       // header: frozen
-      if (getComputedStyle(el).position === "fixed") return;           // tab bar, scrims, panels
-      if (el.querySelector(".topbar, .g-top, .mobile-tabbar")) {
+      if (getComputedStyle(el).position === "fixed") return;           // chrome, scrims, panels
+      if (el.querySelector(".topbar, .g-top, .mobile-tabbar, .wire-bar-fixed")) {
         for (const c of Array.from(el.children)) walk(c);
         return;
       }
@@ -124,20 +124,45 @@ export function initPullToRefresh() {
     };
     for (const c of Array.from(document.body.children)) walk(c);
     counterEls = [];
-    // Chip bars hugging the header freeze too (their wrapper carries the
-    // background/borders); the zone opens below the lowest of them.
+    const BAR_WRAP = "#g-feed-head, .tpanel-h, .twire-head, .ck-secbar, .tbar";
+    // Chip bars hugging the header freeze too; the zone opens below the lowest.
     let top = head ? head.getBoundingClientRect().bottom : 0;
+    let abutted = false;
     for (let i = 0; i < 3; i++) {
       let moved = false;
       for (const b of document.querySelectorAll(".tchips, .g-feed-chips")) {
         const r = b.getBoundingClientRect();
         if (r.height && r.top >= top - 2 && r.top <= top + 40 && r.bottom > top) {
-          top = r.bottom; moved = true;
-          const wrap = b.closest(".tpanel-h, .ck-secbar, .tbar") || b;
-          if (!counterEls.includes(wrap) && moveEls.some((el) => el.contains(wrap))) counterEls.push(wrap);
+          top = r.bottom; moved = true; abutted = true;
+          const wrap = b.closest(BAR_WRAP) || b;
+          if (!counterEls.includes(wrap) && getComputedStyle(wrap).position !== "fixed" && moveEls.some((el) => el.contains(wrap))) counterEls.push(wrap);
         }
       }
       if (!moved) break;
+    }
+    // No chip bar under the header (Home: the feed chips sit mid-page, below
+    // the briefing) — the SAME look must hold: everything above the first
+    // visible chip bar stays frozen and the gap opens right above the list.
+    if (!abutted) {
+      const b = [...document.querySelectorAll(".tchips, .g-feed-chips")].find((el) => el.getClientRects().length);
+      if (b) {
+        const wrap = b.closest(BAR_WRAP) || b;
+        const r = wrap.getBoundingClientRect();
+        if (r.bottom > top) {
+          top = r.bottom;
+          moveEls = moveEls.filter((el) => el.getBoundingClientRect().bottom > r.top || el.contains(wrap));
+          if (getComputedStyle(wrap).position !== "fixed" && moveEls.some((el) => el.contains(wrap))) counterEls.push(wrap);
+          // Anything fully ABOVE the bar inside a moving container must hold
+          // still too (Home's briefing shares #glance with the feed).
+          for (const el of moveEls) {
+            if (!el.contains(wrap)) continue;
+            for (const c of Array.from(el.children)) {
+              const cr = c.getBoundingClientRect();
+              if (cr.height && cr.bottom <= r.top + 2 && !counterEls.includes(c)) counterEls.push(c);
+            }
+          }
+        }
+      }
     }
     zone.style.top = Math.round(top) + "px";
     zone.style.zIndex = "1200";      // fills the opened gap, under panels & tab bar
