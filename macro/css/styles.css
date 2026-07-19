@@ -290,7 +290,7 @@ a.intel-head:hover { text-decoration: underline; }
 .pw-card { gap: 0; }
 .pw-head { display: flex; align-items: baseline; justify-content: space-between; gap: .6rem; }
 .pw-head .macro-country { margin: 0 0 .55rem; }
-.pw-src { flex: 0 0 auto; font-size: .74rem; font-weight: 700; color: var(--macro); text-decoration: none; white-space: nowrap; }
+.pw-src { flex: 0 0 auto; font-size: .74rem; font-weight: 700; color: var(--muted); text-decoration: none; white-space: nowrap; }
 .pw-src:hover { text-decoration: underline; }
 /* FedWatch outcome rows: label + % on one line, a track bar spanning below. */
 .pw-bars { display: flex; flex-direction: column; gap: .7rem; margin: .1rem 0 .9rem; }
@@ -349,10 +349,10 @@ a.intel-head:hover { text-decoration: underline; }
 .ck-body { padding: 10px 12px; display: flex; flex-direction: column; gap: 6px; }
 .ck-sub { font-size: 10px; color: var(--muted); margin: 0; }
 .ck-sub strong { color: var(--ink); font-weight: 600; }
-.ck-src { color: var(--macro); font-weight: 600; }
+.ck-src { color: var(--muted); font-weight: 600; }
 .ck-sub2 { margin-top: 9px; padding-top: 9px; border-top: 1px solid var(--border); }
 .ck-srcs { font-size: 10px; color: var(--muted); margin: 3px 0 0; }
-.ck-srcs a { color: var(--macro); }
+.ck-srcs a { color: var(--muted); }
 .ck-srcs a:hover { text-decoration: underline; }
 .ck-src-sep { opacity: .5; }
 .ck-note { font-size: 11px; line-height: 1.5; color: var(--muted); margin: 0; }
