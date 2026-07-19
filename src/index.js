@@ -1733,9 +1733,12 @@ export async function pushScheduled(env) {
       (feed.items || []).forEach((x) => { if (FEED_CORE_MACRO_RE.test(x.title)) seen.add(feedNorm(x.title)); });
       state.seenBreak = [...seen].slice(-400);
       if (fresh.length) {
-        const suffix = fresh.length > 1 ? ` (+${fresh.length - 1} more)` : "";
+        // No title line: iOS then leads with its own "from Wire" attribution
+        // and the body is just the headline, with the source at the end.
+        const src = " — " + (PUSH_SRC_ABBR[fresh[0].source] || fresh[0].source);
+        const suffix = (fresh.length > 1 ? ` (+${fresh.length - 1} more)` : "") + src;
         msgs.push({
-          title: "Breaking — " + (PUSH_SRC_ABBR[fresh[0].source] || fresh[0].source),
+          title: "",
           body: pushClamp(fresh[0].title, 78 - suffix.length) + suffix,
           url: fresh[0].url,
         });

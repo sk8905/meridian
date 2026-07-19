@@ -67,7 +67,9 @@ self.addEventListener("push", (e) => {
   let d = {};
   try { d = e.data ? e.data.json() : {}; }
   catch { d = { body: e.data ? e.data.text() : "" }; }
-  e.waitUntil(self.registration.showNotification(d.title || "Wire", {
+  // An EMPTY title is deliberate (breaking alerts): iOS then leads with its
+  // own "from Wire" attribution and the body carries headline + source.
+  e.waitUntil(self.registration.showNotification(d.title == null ? "Wire" : d.title, {
     body: d.body || "",
     icon: "/apple-touch-icon.png",
     badge: "/apple-touch-icon.png",
