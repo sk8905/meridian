@@ -485,6 +485,26 @@ export function initNavActions() {
       }, true);
     }
 
+    // Tab-link interlock: on touch devices a tab-bar LINK only navigates when
+    // the touch that produced the click actually STARTED on that link. A
+    // synthetic click that drifted onto a link (from a tap on the Menu button
+    // or anywhere else) began its touch elsewhere — discard it. Pure mouse
+    // clicks (no recent touch) pass untouched.
+    {
+      let touchLink = null, lastTouchAt = 0;
+      document.addEventListener("touchstart", (e) => {
+        lastTouchAt = Date.now();
+        touchLink = e.target.closest ? e.target.closest(".mobile-tabbar a") : null;
+      }, { passive: true, capture: true });
+      document.addEventListener("click", (e) => {
+        const a = e.target.closest && e.target.closest(".mobile-tabbar a");
+        if (!a) return;
+        if (Date.now() - lastTouchAt < 1500 && touchLink !== a) {
+          e.preventDefault(); e.stopPropagation();
+        }
+      }, true);
+    }
+
     document.addEventListener("click", (e) => {
       if (!anyOpen()) return;
       if (e.target.closest(".na-panel") || e.target.closest(".na-actions")) return;
