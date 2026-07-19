@@ -273,10 +273,15 @@ export function initNavActions() {
       const RING_C = 2 * Math.PI * 7;
       const arc = wrap.querySelector(".na-ring-arc");
       const ringAnchor = () => { try { return +localStorage.getItem("wire.live.anchor") || 0; } catch { return 0; } };
+      const ringEl = wrap.querySelector(".na-ring");
       const tickRing = () => {
         if (!arc) return;
-        const p = ((((Date.now() - ringAnchor()) % RING_MS) + RING_MS) % RING_MS) / RING_MS;
+        const a = ringAnchor();
+        const p = ((((Date.now() - a) % RING_MS) + RING_MS) % RING_MS) / RING_MS;
         arc.style.strokeDashoffset = (RING_C * p).toFixed(2);
+        // No successful feed fetch for >20 min → dim the ring instead of
+        // pretending the cycle is alive (session expiry, offline, …).
+        if (ringEl) ringEl.classList.toggle("na-ring-stale", !!a && Date.now() - a > 20 * 60 * 1000);
       };
       window.addEventListener("wire:live-refresh", tickRing);
       window.addEventListener("storage", (e) => { if (!e.key || e.key === "wire.live.anchor") tickRing(); });

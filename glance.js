@@ -162,7 +162,7 @@ export function initGlance() {
   // The legacy Home-only menus (initNotifBell / initSavedPanel /
   // initMarketsPanel) are retired; on phones the Home data rails move into the
   // shared Markets panel via initHomeMarketsRails.
-  import("/nav-actions.js?v=20260718-21").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260719-1").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderDeals();
   renderFundraising();
   renderRx();
@@ -519,9 +519,25 @@ function refreshLive() { _lastLive = Date.now(); initMarkets(); initRates(); ini
 // Pull the curated live news feed (/api/feed) and re-render the home feed with
 // the fresh headlines merged in. Non-200 / empty / offline → keep whatever we
 // already show (cached live items or the static curated feed) — never blanks it.
+// When the Cloudflare Access session expires while the page is open, API polls
+// get silently redirected to the login page — the feed freezes with no error.
+// Detect that and reload the document (throttled, only while visible) so
+// Access re-establishes the session and the polls come back to life.
+function maybeReauth() {
+  try {
+    if (document.hidden) return;
+    const last = +localStorage.getItem("wire.reauthAt") || 0;
+    if (Date.now() - last < 15 * 60 * 1000) return;
+    localStorage.setItem("wire.reauthAt", String(Date.now()));
+    window.location.reload();
+  } catch { /* leave the stale feed rather than loop */ }
+}
 function refreshLiveFeed() {
   fetch("/api/feed", { headers: { accept: "application/json" } })
-    .then((r) => (r.ok ? r.json() : null))
+    .then((r) => {
+      if ((r.redirected && /cdn-cgi\/access/.test(r.url)) || (r.headers.get("content-type") || "").includes("text/html")) { maybeReauth(); return null; }
+      return r.ok ? r.json() : null;
+    })
     .then((d) => {
       if (d && Array.isArray(d.items) && d.items.length) {
         _liveFeed = d.items;

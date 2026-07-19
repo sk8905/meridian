@@ -378,6 +378,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
 .na-ring circle { fill: none; stroke: var(--muted, #8592ad); stroke-width: 1.5; }
 .na-ring-track { opacity: .22; }
 .na-ring-arc { stroke-dasharray: 43.98; stroke-linecap: round; transition: stroke-dashoffset .6s linear; }
+.na-ring-stale { opacity: .35; }
 /* Menu → push-notifications row: current state right-aligned, mono terminal meta */
 .na-menu-push .na-push-state { margin-left: auto; font-family: var(--t-mono, ui-monospace, monospace);
   font-size: 10px; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); white-space: nowrap; }

@@ -1419,6 +1419,12 @@ const MYFT_RE = new RegExp([
   "energy", "\\boil\\b", "\\bgas\\b", "electricity", "utilit", "tariff", "sanction", "\\btax\\b",
   "budget", "fiscal", "chancellor", "billion", "trillion", "[€$£]",
   "stockpick", "\\brates?\\b", "\\bsavings\\b", "\\bimports?\\b", "\\bexports?\\b", "\\btrade\\b",
+  // Market-moving geopolitics — the reader's followed topics include world news,
+  // and stories like "US strikes Iran" were being dropped by the finance-only
+  // vocabulary (2026-07-19). Lifestyle/arts/sport still fall through.
+  "\\biran\\b", "\\bisrael", "\\brussia", "ukrain", "\\bchina\\b", "\\bnato\\b", "\\bopec\\b", "hormuz",
+  "\\bwar\\b", "warfare", "military", "missile", "ceasefire", "\\bstrikes?\\b", "\\btroops\\b", "geopolit",
+  "zelensk", "\\bputin\\b", "kremlin", "\\belection", "\\bcoup\\b",
 ].join("|"), "i");
 const feedNorm = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
 async function handleFeed(request, env, ctx) {
@@ -1441,7 +1447,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=16", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=17", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {
