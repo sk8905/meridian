@@ -652,7 +652,19 @@ export function initNavActions() {
       const tabbar = document.querySelector(".mobile-tabbar");
       const act = (btn) => {
         const dest = btn.getAttribute("data-nav");
-        if (dest && !btn.classList.contains("is-active")) location.replace(dest);
+        if (!dest) return;
+        if (btn.classList.contains("is-active")) {
+          // Tapping the tab for the page you're already ON was a silent no-op —
+          // which read as "the button is broken" whenever a full-screen overlay
+          // (Markets / Saved / Notifications panel, or the search palette; both
+          // layered UNDER the always-on-top tab bar) was covering the page.
+          // Dismiss any such overlay so the tap always returns you to the page.
+          if (anyOpen()) closeAll();
+          const pal = document.querySelector(".mcmdk.open");
+          if (pal) { pal.classList.remove("open"); if (document.activeElement && pal.contains(document.activeElement)) document.activeElement.blur(); }
+          return;
+        }
+        location.replace(dest);
       };
       if (tabbar) {
         let pBtn = null, pX = 0, pY = 0;
