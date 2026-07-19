@@ -79,6 +79,22 @@ export function initSwipeTabs() {
   // the page scroll) — any vertical drift mid-gesture breaks the alignment
   // between the fixed ghost and the sliding real pane.
   let scrollTops = [], relock = null;
+  // The pane layers (fixed ghost z60, transformed real pane = new stacking
+  // context painted after earlier siblings) draw OVER Home's sticky chip row
+  // (z8) — the chips vanished for every gesture while scrolled. Raise the row
+  // above the slide layers for the duration; app chip bars in the fixed
+  // chrome (z1290) are already higher and are left alone.
+  let rowEl = null, rowZ = "";
+  const raiseRow = () => {
+    rowEl = set && set.chips[0] ? set.chips[0].closest("#g-feed-head, .twire-head, .tbar, .tpanel-h, .ck-secbar") : null;
+    if (rowEl) {
+      const cz = parseInt(getComputedStyle(rowEl).zIndex, 10);
+      if (cz > 70) { rowEl = null; return; }
+      rowZ = rowEl.style.zIndex;
+      rowEl.style.zIndex = "70";
+    }
+  };
+  const restoreRow = () => { if (rowEl) { rowEl.style.zIndex = rowZ; rowEl = null; rowZ = ""; } };
 
   const setT = (els, x, tr) => els.forEach((el) => {
     el.style.transition = tr || "";
@@ -135,10 +151,14 @@ export function initSwipeTabs() {
       (el.closest(".tui") || document.body).appendChild(outer);
       ghosts.push(outer);
     }
+    // Clip the parked pane's horizontal overflow WITHOUT overflow:hidden —
+    // hidden turns html/body into scroll containers, which kills position:
+    // sticky descendants (Home's chip row un-stuck and scrolled away for the
+    // whole gesture). overflow:clip clips paint only; sticky keeps working.
     prevXHtml = document.documentElement.style.overflowX;
     prevXBody = document.body.style.overflowX;
-    document.documentElement.style.overflowX = "hidden";
-    document.body.style.overflowX = "hidden";
+    document.documentElement.style.overflowX = "clip";
+    document.body.style.overflowX = "clip";
     // Underline slider — only for chip rows styled with the inset underline
     // (shade-style rows like the dashboard sub-sections keep the instant swap).
     if (origChip && chip && /inset/.test(getComputedStyle(origChip).boxShadow || "")) {
@@ -195,6 +215,7 @@ export function initSwipeTabs() {
     barChips = null; barFrom = null; barTo = null;
     if (relock) { window.removeEventListener("scroll", relock); relock = null; }
     scrollTops = [];
+    restoreRow();
     document.documentElement.style.overflowX = prevXHtml;
     document.body.style.overflowX = prevXBody;
     animating = false; live = false; dir = 0; chip = null; origChip = null;
@@ -226,7 +247,7 @@ export function initSwipeTabs() {
       if (Math.abs(dy) > 9 && Math.abs(dy) > Math.abs(dx)) { aborted = true; return; }   // vertical scroll wins
       if (Math.abs(dx) > 14 && Math.abs(dx) > Math.abs(dy) * 1.4) {
         locked = true;
-        if (!reduced) beginSlide(dx < 0 ? 1 : -1);   // direction fixed at lock
+        if (!reduced) { raiseRow(); beginSlide(dx < 0 ? 1 : -1); }   // direction fixed at lock
       } else return;
     }
     if (e.cancelable) e.preventDefault();
@@ -267,7 +288,10 @@ export function initSwipeTabs() {
     }
     if (!live) {                                     // rubber-band spring back
       setT(els, 0, "transform .18s ease");
-      setTimeout(() => els.forEach((el) => { el.style.transition = ""; el.style.transform = ""; }), 200);
+      setTimeout(() => {
+        els.forEach((el) => { el.style.transition = ""; el.style.transform = ""; });
+        restoreRow();
+      }, 200);
       set = null; locked = false;
       return;
     }

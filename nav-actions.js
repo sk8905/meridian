@@ -384,7 +384,7 @@ export function initNavActions() {
     // Shared press-and-hold / right-click row options menu — every page.
     import("/rowmenu.js?v=20260718-1").then((m) => m.initRowMenu()).catch(() => {});
     // Swipe left/right on a chip-filtered pane to move between its chips.
-    import("/swipetabs.js?v=20260719-2").then((m) => m.initSwipeTabs()).catch(() => {});
+    import("/swipetabs.js?v=20260719-3").then((m) => m.initSwipeTabs()).catch(() => {});
     addEventListener("resize", setTopVar);
     addEventListener("orientationchange", () => setTimeout(setTopVar, 200));
 
