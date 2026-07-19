@@ -74,9 +74,10 @@ export function initPullToRefresh() {
   }
   const mount = () => { if (!zone.isConnected && document.body) document.body.appendChild(zone); };
   if (document.body) mount(); else document.addEventListener("DOMContentLoaded", mount);
+  restoreTabs();
 
   const THRESH = 75, SOFT = 120, MAX = 220;
-  let startX = 0, startY = 0, armed = false, pulling = false, dist = 0, busy = false, pageEls = [];
+  let startX = 0, startY = 0, armed = false, pulling = false, dist = 0, busy = false;
   const atTop = () => (window.scrollY || document.documentElement.scrollTop || 0) <= 0;
   // Safari-like tracking: 1:1 with the finger up to SOFT, then increasing resistance.
   const pull = (d) => (d <= SOFT ? d : Math.min(SOFT + (d - SOFT) * 0.35, MAX));
@@ -95,22 +96,33 @@ export function initPullToRefresh() {
     return false;
   }
 
-  // The "page" = every direct child of <body> that isn't our zone and isn't a
-  // fixed element (so the fixed bottom tab bar and any fixed overlays stay put).
-  function gatherPage() {
-    pageEls = Array.from(document.body.children)
-      .filter((el) => el !== zone && getComputedStyle(el).position !== "fixed");
+  // NOTHING moves during the pull: the sticky header and the bottom tab bar
+  // stay frozen, and the spinner zone slides down from UNDER the header,
+  // overlaying the top of the content. Measured at pull start so it always
+  // hugs the current header height.
+  function anchorZone() {
+    const head = document.querySelector(".topbar, .g-top");
+    let top = head ? Math.max(0, head.getBoundingClientRect().bottom) : 0;
+    // The chip rows stacked directly under the top bar count as header too —
+    // the zone opens BELOW them (walk down while another bar abuts the edge).
+    for (let i = 0; i < 3; i++) {
+      let moved = false;
+      for (const b of document.querySelectorAll(".tchips, .g-feed-chips")) {
+        const r = b.getBoundingClientRect();
+        if (r.height && r.top >= top - 2 && r.top <= top + 40 && r.bottom > top) { top = r.bottom; moved = true; }
+      }
+      if (!moved) break;
+    }
+    zone.style.top = Math.round(top) + "px";
+    zone.style.zIndex = "1200";      // over content, under panels & tab bar
   }
   function apply(h, animate) {
-    const zt = animate ? "height .22s ease" : "";
-    const pt = animate ? "transform .22s ease" : "";
-    zone.style.transition = zt; zone.style.height = h + "px";
-    for (const el of pageEls) { el.style.transition = pt; el.style.transform = h ? "translateY(" + h + "px)" : ""; }
+    zone.style.transition = animate ? "height .22s ease" : "";
+    zone.style.height = h + "px";
     const prog = Math.min(dist / THRESH, 1);
     spin.style.opacity = String(prog);
     if (!busy) { spin.style.animation = ""; spin.style.transform = "rotate(" + (prog * 270) + "deg)"; }
   }
-  function clearPage() { for (const el of pageEls) { el.style.transition = ""; el.style.transform = ""; } }
 
   window.addEventListener("touchstart", (e) => {
     if (busy || e.touches.length !== 1 || !atTop() || inOverlayOrScroller(e.target)) { armed = false; pulling = false; return; }
@@ -125,14 +137,14 @@ export function initPullToRefresh() {
       if (Math.abs(dy) < 6 && Math.abs(dx) < 6) return;      // wait past the deadzone
       // Only a clearly-vertical downward drag arms the pull — horizontal swipes
       // (nav-bar tabs) and upward moves fall through to normal scrolling.
-      if (dy > 0 && dy > Math.abs(dx) * 1.2 && atTop()) { pulling = true; startY = y; dist = 0; gatherPage(); return; }
+      if (dy > 0 && dy > Math.abs(dx) * 1.2 && atTop()) { pulling = true; startY = y; dist = 0; anchorZone(); return; }
       else { armed = false; return; }
     }
     dist = y - startY;
     if (dist > 0 && atTop()) {
       if (e.cancelable) e.preventDefault();       // take over the gesture
       apply(pull(dist), false);
-    } else { pulling = false; armed = false; apply(0, true); setTimeout(clearPage, 240); }
+    } else { pulling = false; armed = false; apply(0, true); }
   }, { passive: false });
 
   window.addEventListener("touchend", () => {
@@ -145,10 +157,47 @@ export function initPullToRefresh() {
       spin.style.opacity = "1";
       spin.style.transform = "";
       spin.style.animation = "ptr-spin .6s linear infinite";
+      saveTabs();
       setTimeout(() => location.reload(), 240);
-    } else { apply(0, true); setTimeout(clearPage, 240); }
+    } else { apply(0, true); }
     dist = 0;
   }, { passive: true });
+}
+
+// ---- Keep the reader on the SAME view across reloads ------------------------
+// Chip/tab selections aren't in the URL, so a refresh (pull-to-refresh or the
+// auto-deploy reload) used to bounce back to each page's default tab. Save the
+// active chip of every known row before reloading; restore by clicking them
+// once the app has rendered.
+const TAB_ROWS = ["#mac-chips", "#ck-secnav", "#lg-chips", "#cr-dash-tabs", "#firm-chips", "#mgr-tabs", ".g-feed-chips"];
+function saveTabs() {
+  const sel = [];
+  for (const row of TAB_ROWS) {
+    const on = document.querySelector(row + " .tchip.is-on, " + row + " .g-feed-chip.is-on");
+    if (on) sel.push([row, on.dataset.desk || on.dataset.sec || on.textContent.trim()]);
+  }
+  try { sessionStorage.setItem("wire.ptrTabs", JSON.stringify({ href: location.href, sel, t: Date.now() })); } catch { /* private mode */ }
+}
+function restoreTabs() {
+  let rec = null;
+  try {
+    rec = JSON.parse(sessionStorage.getItem("wire.ptrTabs") || "null");
+    sessionStorage.removeItem("wire.ptrTabs");
+  } catch { return; }
+  if (!rec || rec.href !== location.href || Date.now() - (rec.t || 0) > 30000 || !Array.isArray(rec.sel)) return;
+  const started = Date.now();
+  const tick = () => {
+    let waiting = false;
+    rec.sel = rec.sel.filter(([row, key]) => {
+      const chips = document.querySelectorAll(row + " .tchip, " + row + " .g-feed-chip");
+      if (!chips.length) { waiting = true; return true; }    // row not rendered yet
+      const target = [...chips].find((c) => (c.dataset.desk || c.dataset.sec || c.textContent.trim()) === key);
+      if (target && !target.classList.contains("is-on")) target.click();
+      return false;
+    });
+    if (rec.sel.length && waiting && Date.now() - started < 4000) setTimeout(tick, 150);
+  };
+  setTimeout(tick, 120);
 }
 
 // Detect a new deploy and reload once (see the note in initPullToRefresh).
@@ -160,12 +209,15 @@ function setupAutoRefresh() {
   let busy = false;
   const check = async () => {
     if (busy || document.hidden || !navigator.onLine) return;
+    // Never yank the page out from under an open overlay (menu/panels) — a
+    // reload mid-interaction reads as "my tap navigated somewhere".
+    if (document.body && (document.body.classList.contains("na-menu-open") || document.querySelector(".na-panel:not([hidden])"))) return;
     busy = true;
     try {
       const res = await fetch(location.pathname, { cache: "no-store" });
       if (res.ok) {
         const live = tokenOf(await res.text());
-        if (live && live !== loaded) { location.reload(); return; }   // new build live
+        if (live && live !== loaded) { saveTabs(); location.reload(); return; }   // new build live
       }
     } catch { /* offline / Access redirect — ignore */ }
     busy = false;

@@ -465,15 +465,24 @@ export function initNavActions() {
     // navigating away. Handle the Menu tap on touchend and consume the touch
     // (preventDefault stops the click from ever being synthesised).
     if (menuRec) {
-      let mtX = 0, mtY = 0;
+      let mtX = 0, mtY = 0, menuTapAt = 0;
       menuBtn.addEventListener("touchstart", (e) => { const t = e.touches[0]; mtX = t.clientX; mtY = t.clientY; }, { passive: true });
       menuBtn.addEventListener("touchend", (e) => {
         const t = e.changedTouches && e.changedTouches[0];
         if (t && Math.hypot(t.clientX - mtX, t.clientY - mtY) > 12) return; // a drag, not a tap
+        menuTapAt = Date.now();
         if (e.cancelable) e.preventDefault();
         e.stopPropagation();
         if (menuRec.panel.hidden) openPanel(menuRec); else closeAll();
       }, { passive: false });
+      // Belt and braces: whatever iOS does with the tap's synthetic click
+      // (hit-test drift can land it on a NEIGHBOURING tab link and navigate),
+      // no tab-bar LINK may accept a click in the wake of a Menu tap.
+      document.addEventListener("click", (e) => {
+        if (Date.now() - menuTapAt < 600 && e.target.closest(".mobile-tabbar a")) {
+          e.preventDefault(); e.stopPropagation();
+        }
+      }, true);
     }
 
     document.addEventListener("click", (e) => {
