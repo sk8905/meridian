@@ -74,6 +74,11 @@ export function initSwipeTabs() {
   // a 2px bar tracks the gesture between the outgoing and incoming chip instead
   // of the underline jumping at the moment of the switch.
   let bar = null, barFrom = null, barTo = null, barChips = null;
+  // Scroll freeze for the duration of a live slide: the tab switch re-renders
+  // the pane (internal scrollTop resets, document height can shrink and clamp
+  // the page scroll) — any vertical drift mid-gesture breaks the alignment
+  // between the fixed ghost and the sliding real pane.
+  let scrollTops = [], relock = null;
 
   const setT = (els, x, tr) => els.forEach((el) => {
     el.style.transition = tr || "";
@@ -154,7 +159,13 @@ export function initSwipeTabs() {
       tgt.addEventListener("touchend", finish, { passive: true });
       tgt.addEventListener("touchcancel", finish, { passive: true });
     }
+    scrollTops = set.els.map((el) => el.scrollTop || 0);
     chip.click();                                    // real panes now hold the target tab
+    set.els.forEach((el, i) => { if (scrollTops[i]) el.scrollTop = scrollTops[i]; });
+    // Freeze vertical scroll for the whole gesture — snap back any drift
+    // (async re-render scrolling, height clamp, momentum).
+    relock = () => { if (window.scrollY !== scrollY0) window.scrollTo(0, scrollY0); };
+    window.addEventListener("scroll", relock, { passive: true });
     if (bar) {
       // Suppress the static underline AFTER the switch: some chip rows (Home
       // feed) re-render on click, replacing the nodes — class the fresh set.
@@ -182,6 +193,8 @@ export function initSwipeTabs() {
     if (bar) { bar.remove(); bar = null; }
     (barChips || []).forEach((c) => c.classList.remove("st-nobar"));
     barChips = null; barFrom = null; barTo = null;
+    if (relock) { window.removeEventListener("scroll", relock); relock = null; }
+    scrollTops = [];
     document.documentElement.style.overflowX = prevXHtml;
     document.body.style.overflowX = prevXBody;
     animating = false; live = false; dir = 0; chip = null; origChip = null;
@@ -272,10 +285,11 @@ export function initSwipeTabs() {
       setT(ghosts, 0, ease);                         // outgoing returns
       setT(els, dir * W, ease);                      // incoming retreats off-screen
       barSettle(barFrom, ".21s cubic-bezier(.22,.61,.36,1)");
-      const oc = origChip, y0 = scrollY0;
+      const oc = origChip, y0 = scrollY0, sts = scrollTops.slice();
       setTimeout(() => {
         if (oc) oc.click();                          // restore the original tab's content
         window.scrollTo(0, y0);
+        els.forEach((el, i) => { if (sts[i]) el.scrollTop = sts[i]; });
         cleanup(els);
       }, 230);
     }
