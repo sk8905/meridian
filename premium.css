@@ -349,6 +349,10 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
    the header (one chip for now — Search). tui.css styles the chips. */
 .na-menu-bar { height: 34px; flex: 0 0 auto; display: flex;
   background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
+/* One chip so far: size it like a single tab in the four-chip bars (¼ width),
+   not full-bleed; keep the segment divider on its right edge. */
+.na-menu-bar .tchip { flex: 0 0 25%; max-width: 120px;
+  border-right: 1px solid var(--border, #262626) !important; }
 @media (min-width: 761px) {
   .na-panel.na-menu-static { position: static !important; width: auto; max-width: 560px;
     margin: 26px auto; display: flex; flex-direction: column; min-height: 60vh; max-height: none;
