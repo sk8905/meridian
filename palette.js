@@ -23,7 +23,7 @@ function feedDedupKey(x) {
   return generic ? "t:" + (x.title || x.headline || "").toLowerCase().replace(/[^a-z0-9]+/g, "") : "u:" + u;
 }
 
-const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+import { esc } from "/util.js?v=20260719-1";
 const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const fmt = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ""); return m ? `${+m[3]} ${MON[+m[2] - 1]} ${m[1]}` : (iso || ""); };
 const mgrName = (id) => (managers.find((m) => m.id === id) || {}).name || "";

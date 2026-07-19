@@ -3,8 +3,7 @@
 // Self-contained (no app data imports); reads the same server feeds Home uses
 // (/api/pulse for the AI one-liners, /api/markets + /api/rates for the ticker).
 
-const esc = (s) => String(s == null ? "" : s).replace(/[&<>"]/g, (c) =>
-  ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+import { esc } from "/util.js?v=20260719-1";
 const setV = (id, txt) => { const el = document.getElementById(id); if (el) el.textContent = txt; };
 
 // Short tickers for the markets strip (mirrors Home).

@@ -10,10 +10,9 @@
 // owned here; the bell keeps its own per-app content/seen-state but is layered
 // with the same full-screen presentation on mobile.
 // =============================================================================
-const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+import { esc, MONTHS } from "/util.js?v=20260719-1";
 const fmtNum = (v) => { v = +v; if (!isFinite(v)) return "—"; const a = Math.abs(v); if (a >= 1000) return v.toLocaleString(undefined, { maximumFractionDigits: a >= 10000 ? 0 : 1 }); if (a >= 100) return v.toFixed(1); if (a >= 1) return v.toFixed(2); return v.toFixed(4); };
 const fmtRateVal = (v, unit) => { v = +v; if (!isFinite(v)) return "—"; if (unit === "bp") return v.toFixed(0) + " bp"; return v.toFixed(2) + "%"; };
-const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 function fmtDate(d) { if (!d) return ""; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : String(d).slice(0, 10); const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s); if (!m) return String(d); return `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}`; }
 
 const DESK = { m: "Macro", c: "Credit", l: "Legal" };
@@ -249,7 +248,7 @@ async function loadSaved(body, headCount) {
   const render = async () => {
     chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _svTab));
     try {
-      const mod = await import("/saved.js?v=20260719-1");
+      const mod = await import("/saved.js?v=20260719-2");
       const list = _svTab === "saved" ? mod.resolveSaved() : mod.resolveWatchlistNews();
       if (headCount) headCount.textContent = list.length ? " · " + list.length : "";
       tb.innerHTML = list.length
@@ -308,7 +307,7 @@ function notifRow(x) {
 let _notifItems = null;
 async function ensureNotifs() {
   if (_notifItems) return _notifItems;
-  const { buildNotifs } = await import("/saved.js?v=20260719-1");
+  const { buildNotifs } = await import("/saved.js?v=20260719-2");
   _notifItems = (await buildNotifs()).slice(0, 60);
   return _notifItems;
 }
@@ -391,7 +390,7 @@ export function initNavActions() {
     if (!notif && !bar) return;
     setTopVar();
     // Shared press-and-hold / right-click row options menu — every page.
-    import("/rowmenu.js?v=20260719-1").then((m) => m.initRowMenu()).catch(() => {});
+    import("/rowmenu.js?v=20260719-2").then((m) => m.initRowMenu()).catch(() => {});
     // Swipe left/right on a chip-filtered pane to move between its chips.
     import("/swipetabs.js?v=20260719-6").then((m) => m.initSwipeTabs()).catch(() => {});
     addEventListener("resize", setTopVar);

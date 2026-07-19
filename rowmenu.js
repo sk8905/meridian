@@ -6,7 +6,7 @@
 // Bookmark, Add/Remove Watchlist (manager & law-firm rows), Show all from
 // <source>, Share, Cancel. Mounted once per page by nav-actions.js.
 // =============================================================================
-const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+import { esc } from "/util.js?v=20260719-1";
 
 const ROW_SEL = ".g-feed-row, .tw-row, .tmini-row, .tui-li, .ew-row";
 // Resolve a row into a descriptor the actions understand.

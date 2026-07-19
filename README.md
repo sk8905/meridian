@@ -72,6 +72,20 @@ python3 -m http.server 8000
 #            http://localhost:8000/legal/  (Lexalert)
 ```
 
+## Tests
+
+A headless Playwright regression suite lives in [`tests/`](tests/README.md) —
+page boot on every route, the shared chrome, swipe/sticky interplay, the chip
+lifecycle, the notifications bell and the pinned filter bars:
+
+```bash
+node tests/run.mjs        # all specs (needs a host Playwright install)
+```
+
+Run it after touching the shared modules (nav-actions, swipetabs, ptr, glance,
+saved, util) or the sticky/chrome CSS, and extend it when fixing a new class
+of bug.
+
 ## Extending toward a real platform
 
 This prototype is intentionally front-end only. Natural next steps:

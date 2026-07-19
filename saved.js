@@ -7,6 +7,7 @@
 // into each app's initial load. Mirrors glance.js resolveSaved().
 // =============================================================================
 import { ARTICLES, NEWS, COMMENTARY } from "/macro/js/content.js";
+import { byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
 import { deals, intel, managers } from "/credit/js/data.js";
 import { items, cases, restructurings, firms } from "/legal/js/data.js?v=20260718-10";
 
@@ -15,20 +16,8 @@ function _savedHash(s) { let h = 0; for (let i = 0; i < s.length; i++) h = (Math
 function _savedBase(x) { return (x.url || x.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, ""); }
 
 // ---- source-label helpers (mirror glance.js / credit app.js) ----------------
-const NEWS_SOURCES = {
-  "bloomberg.com": "Bloomberg", "reuters.com": "Reuters", "ft.com": "Financial Times",
-  "wsj.com": "WSJ", "cnbc.com": "CNBC", "marketwatch.com": "MarketWatch",
-  "creditflux.com": "Creditflux", "alternativecreditinvestor.com": "Alternative Credit Investor",
-  "privatedebtinvestor.com": "Private Debt Investor", "privateequitywire.co.uk": "Private Equity Wire",
-  "privateequityinternational.com": "Private Equity International", "penews.com": "Private Equity News",
-  "pehub.com": "PE Hub", "with-intelligence.com": "With Intelligence", "fnlondon.com": "Financial News",
-  "globenewswire.com": "GlobeNewswire", "businesswire.com": "Business Wire", "prnewswire.com": "PR Newswire",
-  "finance.yahoo.com": "Yahoo Finance", "fintech.global": "FinTech Global", "citywire.com": "Citywire",
-};
 const _mgrById = new Map(managers.map((m) => [m.id, m]));
 const _firmById = new Map((firms || []).map((f) => [f.id, f]));
-const srcHost = (url) => { try { return new URL(url).hostname.replace(/^www\./, ""); } catch { return ""; } };
-const tidyDomain = (host) => { const l = host.split(".").slice(-2, -1)[0] || host; return l ? l.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) : ""; };
 const mgrName = (id) => (_mgrById.get(id) || {}).name || "";
 const firmName = (id) => (_firmById.get(id) || {}).name || id || "";
 function creditSource(rec) {
@@ -88,12 +77,9 @@ export function resolveSaved() {
 }
 
 // =============================================================================
-// Unified cross-desk Notifications — the same three desks' recent updates,
-// tagged by desk (MAC / CRD / LEX) so every page shows one consistent list.
-// Mirrors glance.js creditNotif()/legalNotif()/macroNotif(). Async because the
-// macro economic-data prints come from /api/macro.
+// Unified cross-desk Notifications — recent updates tagged by desk (CRD / LEX),
+// one consistent list on every page (rendered by the nav-actions.js bell).
 // =============================================================================
-const JUDGMENT_SOURCES = { "bailii.org": "BAILII", "caselaw.nationalarchives.gov.uk": "National Archives", "supremecourt.uk": "Supreme Court", "judiciary.uk": "Judiciary" };
 const judgmentSource = (url) => JUDGMENT_SOURCES[srcHost(url)] || "Judgment";
 const NOTIF_WINDOW_DAYS = 7;
 const notifTime = (d) => { if (!d) return null; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : d; const t = Date.parse(s); return isNaN(t) ? null : t; };
@@ -103,7 +89,6 @@ function recentNotif(list) {
   const cutoff = Math.max(...times) - NOTIF_WINDOW_DAYS * 864e5;
   return list.filter((x) => { const t = notifTime(x.date); return t != null && t >= cutoff; });
 }
-const byDateDesc = (a, b) => String(b.date || "").localeCompare(String(a.date || ""));
 
 // The bell is deliberately LIMITED to the deal-flow desks: manager news, deals,
 // fundraising & CLOs (Credit — CLO pricings live in `deals`) and legal alerts,

@@ -6,10 +6,9 @@
 // =============================================================================
 import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS } from "./content.js?v=20260719-30";
 
+import { esc } from "/util.js?v=20260719-1";
+
 const app = document.getElementById("app");
-const esc = (s) => String(s ?? "")
-  .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
-  .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
 // In-page memory for chip selections: survives the async data-sync re-renders
 // (which re-run the templates with the first chip hardcoded active — the old
@@ -1870,7 +1869,7 @@ document.addEventListener("click", (e) => {
   }
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260719-1").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260719-2").then((m) => m.mountPalette()).catch(() => {});
 import("/ptr.js?v=20260719-10").then((m) => m.initPullToRefresh()).catch(() => {});
 render();
 initMe();

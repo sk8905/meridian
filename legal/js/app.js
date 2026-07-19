@@ -37,11 +37,8 @@ window.addEventListener("hashchange", () => {
 });
 
 // ---- Small helpers ----------------------------------------------------------
-const esc = (s) => String(s ?? "")
-  .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
-  .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+import { esc, MONTHS, byDateDesc } from "/util.js?v=20260719-1";
 
-const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 function fmtDate(iso) {
   const d = new Date(iso + "T00:00:00");
   if (isNaN(d)) return esc(iso);
@@ -78,7 +75,6 @@ function syncDayRows(root) {
     d.style.display = vis ? "" : "none";
   });
 }
-const byDateDesc = (a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0);
 
 // Insert a gentle day-break divider whenever the day changes from the previous
 // item (a subtle visual gap between each day's rows; rows carry their own date).
@@ -1462,7 +1458,7 @@ document.addEventListener("click", (e) => {
   }
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260719-1").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260719-2").then((m) => m.mountPalette()).catch(() => {});
 import("/ptr.js?v=20260719-10").then((m) => m.initPullToRefresh()).catch(() => {});
 initChrome();
 initNotif();

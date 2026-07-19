@@ -33,7 +33,7 @@ window.addEventListener("hashchange", () => {
 
 // ----------------------------- formatting utils ----------------------------
 const eur = (m) => (m == null ? "Undisclosed" : "€" + (m >= 1000 ? (m / 1000).toFixed(m % 1000 === 0 ? 0 : 1) + "bn" : m + "m"));
-const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+import { esc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
 const pct = (n) => (n == null ? "Undisclosed" : Math.round(n) + "%");
 const fmtDate = (d) => new Date(d).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
 // Format a €bn AUM figure: €Xtn above 1,000bn, €Xm below 1bn, else €Xbn.
@@ -316,18 +316,6 @@ let notifCloud = false;  // true once the per-user seen-set API responds
 // its sourceUrl. Known wires & trade-press map to a clean label; an unmapped
 // domain is taken to be the manager's own press release (show the manager name);
 // otherwise a tidied domain. Kept in sync with Glance's copy.
-const NEWS_SOURCES = {
-  "bloomberg.com": "Bloomberg", "reuters.com": "Reuters", "ft.com": "Financial Times",
-  "wsj.com": "WSJ", "cnbc.com": "CNBC", "marketwatch.com": "MarketWatch",
-  "creditflux.com": "Creditflux", "alternativecreditinvestor.com": "Alternative Credit Investor",
-  "privatedebtinvestor.com": "Private Debt Investor", "privateequitywire.co.uk": "Private Equity Wire",
-  "privateequityinternational.com": "Private Equity International", "penews.com": "Private Equity News",
-  "pehub.com": "PE Hub", "with-intelligence.com": "With Intelligence", "fnlondon.com": "Financial News",
-  "globenewswire.com": "GlobeNewswire", "businesswire.com": "Business Wire", "prnewswire.com": "PR Newswire",
-  "finance.yahoo.com": "Yahoo Finance", "fintech.global": "FinTech Global", "citywire.com": "Citywire",
-};
-function srcHost(url) { try { return new URL(url).hostname.replace(/^www\./, ""); } catch { return ""; } }
-function tidyDomain(host) { const l = host.split(".").slice(-2, -1)[0] || host; return l ? l.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) : ""; }
 function creditSource(rec) {
   const host = srcHost(rec.sourceUrl);
   if (host && NEWS_SOURCES[host]) return NEWS_SOURCES[host];
@@ -2495,7 +2483,7 @@ document.addEventListener("click", (e) => {
   }
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260719-1").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260719-2").then((m) => m.mountPalette()).catch(() => {});
 import("/ptr.js?v=20260719-10").then((m) => m.initPullToRefresh()).catch(() => {});
 router();
 renderDataStatus();

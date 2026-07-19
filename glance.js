@@ -15,8 +15,7 @@ import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/mac
 import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
 
-const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-const byDateDesc = (a, b) => String(b.date || "").localeCompare(String(a.date || ""));
+import { esc, byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
 // The ONLY sources eligible to lead the briefing "Top story": FT, Bloomberg, CNBC,
 // Reuters and the WSJ (plus their same-wire variants, e.g. a Reuters story carried
 // via Investing.com or an FT Alphaville post).
@@ -44,22 +43,6 @@ const mgrName = (id) => (managers.find((m) => m.id === id) || {}).name || "";
 // Credit: outlet/wire from sourceUrl, else the manager's own PR (manager name).
 // Legal: firm name for alerts/RPs, judgment host for cases. Macro data: series
 // source (FRED/ONS/…). Editorial macro guidance has no single external source.
-const NEWS_SOURCES = {
-  "bloomberg.com": "Bloomberg", "reuters.com": "Reuters", "ft.com": "Financial Times",
-  "wsj.com": "WSJ", "cnbc.com": "CNBC", "marketwatch.com": "MarketWatch",
-  "creditflux.com": "Creditflux", "alternativecreditinvestor.com": "Alternative Credit Investor",
-  "privatedebtinvestor.com": "Private Debt Investor", "privateequitywire.co.uk": "Private Equity Wire",
-  "privateequityinternational.com": "Private Equity International", "penews.com": "Private Equity News",
-  "pehub.com": "PE Hub", "with-intelligence.com": "With Intelligence", "fnlondon.com": "Financial News",
-  "globenewswire.com": "GlobeNewswire", "businesswire.com": "Business Wire", "prnewswire.com": "PR Newswire",
-  "finance.yahoo.com": "Yahoo Finance", "fintech.global": "FinTech Global", "citywire.com": "Citywire",
-};
-const JUDGMENT_SOURCES = {
-  "bailii.org": "BAILII", "caselaw.nationalarchives.gov.uk": "National Archives",
-  "supremecourt.uk": "Supreme Court", "judiciary.uk": "Judiciary",
-};
-const srcHost = (url) => { try { return new URL(url).hostname.replace(/^www\./, ""); } catch { return ""; } };
-const tidyDomain = (host) => { const l = host.split(".").slice(-2, -1)[0] || host; return l ? l.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) : ""; };
 function creditSource(rec) {
   const host = srcHost(rec.sourceUrl);
   if (host && NEWS_SOURCES[host]) return NEWS_SOURCES[host];
@@ -162,7 +145,7 @@ export function initGlance() {
   // The legacy Home-only menus (initNotifBell / initSavedPanel /
   // initMarketsPanel) are retired; on phones the Home data rails move into the
   // shared Markets panel via initHomeMarketsRails.
-  import("/nav-actions.js?v=20260719-30").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260719-31").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderDeals();
   renderFundraising();
   renderRx();
