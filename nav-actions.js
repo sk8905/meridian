@@ -486,8 +486,11 @@ export function initNavActions() {
           : "")
         + `<div class="na-menu-foot"><div class="na-menu-foot-l">`
         + acctHtml
-        + (stat && stat.textContent.trim() ? `<div class="na-menu-row na-menu-stat">${esc(stat.textContent.trim())}</div>` : "")
-        + `<div class="na-menu-row na-menu-stat">Build ${esc(BUILD_TOKEN)} · loaded via ${esc(NAV_TYPE)}</div>`
+        // One compact line: refresh date/time (prefix + year dropped) · build.
+        + (() => {
+          const t = stat ? stat.textContent.trim().replace(/^Last refresh\s*/i, "").replace(/\s+\d{4}\b/, "") : "";
+          return `<div class="na-menu-row na-menu-stat">${t ? esc(t) + " · " : ""}Build ${esc(BUILD_TOKEN)}</div>`;
+        })()
         + `</div><button type="button" class="na-menu-push" id="na-push" title="Push notifications">${ICO_BELL}<span class="na-push-state">…</span></button></div>`;
       wirePushRow(p);
     };
