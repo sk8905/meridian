@@ -467,6 +467,12 @@ a.intel-head:hover { text-decoration: underline; }
   .mac-dash-pane .ck-secbar { position: sticky; top: calc(var(--wire-head-h, 54px) + var(--wire-bar-h, 34px)); z-index: 45; }
   .mac-cockpit .ck-panel > .ck-h { position: sticky; top: calc(var(--wire-head-h, 54px) + var(--wire-bar-h, 34px) + 34px); z-index: 44; }
   .ew-chipbar { position: sticky; top: calc(var(--wire-head-h, 54px) + var(--wire-bar-h, 34px) + 34px + 28px); z-index: 43; }
+  /* During a pull-to-refresh gesture the whole page translates as one block —
+     suspend the sticky stack (ptr.js stamps body.wire-pulling; pulls only
+     start at the top, where nothing is stuck, so this never jumps). */
+  body.wire-pulling .mac-dash-pane .ck-secbar,
+  body.wire-pulling .mac-cockpit .ck-panel > .ck-h,
+  body.wire-pulling .ew-chipbar { position: static; }
   .ck-fed2 { gap: 10px; }
   .mw-cols { grid-template-columns: 1fr; gap: 10px; }
   .ck-stats2 { grid-template-columns: 1fr; gap: 7px; }

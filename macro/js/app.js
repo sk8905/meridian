@@ -500,7 +500,7 @@ function earningsPanel() {
   wireEwNav();
   const srcs = (w.srcs || []).map((s) => `<a class="ck-src" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.name)}</a>`).join(" · ");
   return `<section class="ck-panel ck-span2">
-    <header class="ck-h"><span>Results &amp; week ahead</span><span class="ck-x">consensus → actual</span></header>
+    <header class="ck-h wire-ptr-freeze"><span>Results &amp; week ahead</span><span class="ck-x">consensus → actual</span></header>
     <div class="ck-body ew-body">
       <div class="ew-chipbar"><div class="tchips" id="ew-weeknav">
         <button type="button" class="tchip${wsel === "this" ? " is-on" : ""}" data-w="this">This week</button>
@@ -535,7 +535,7 @@ function matWallPanel() {
   const ig = Math.max(0, Math.min(100, w.rated.igPct));
   return `
     <section class="ck-panel ck-span2">
-      <header class="ck-h"><span>Wall of maturities — corporate credit</span><span class="ck-x">next 5Y</span></header>
+      <header class="ck-h wire-ptr-freeze"><span>Wall of maturities — corporate credit</span><span class="ck-x">next 5Y</span></header>
       <div class="ck-body mw-cols">
         <div class="mw-col">
           <p class="ck-sub"><strong>${esc(w.rated.total)}</strong> rated debt due ${esc(w.rated.window)} · ${srcA(w.rated.src)}</p>
@@ -593,7 +593,7 @@ function macroDashPane() {
     <div ${grp("economy")}>
     <div class="ck-sec">Economy</div>
     <section class="ck-panel ck-span2">
-      <header class="ck-h"><span>Key economic indicators</span><span class="ck-x">US · UK</span><a class="ck-more" href="#/chart">Chart</a></header>
+      <header class="ck-h wire-ptr-freeze"><span>Key economic indicators</span><span class="ck-x">US · UK</span><a class="ck-more" href="#/chart">Chart</a></header>
       <div class="ck-inds" id="mac-ck-inds">${cockpitInds((MACRO_DATA && MACRO_DATA.series) || [])}</div>
     </section>
     </div>
@@ -601,12 +601,12 @@ function macroDashPane() {
     <div ${grp("rates")}>
     <div class="ck-sec">Rates &amp; policy</div>
     <section class="ck-panel">
-      <header class="ck-h"><span>Yield curve</span><span class="ck-x" id="ck-yc-asof">gov · as of ${esc(_yc.asOf)}</span></header>
+      <header class="ck-h wire-ptr-freeze"><span>Yield curve</span><span class="ck-x" id="ck-yc-asof">gov · as of ${esc(_yc.asOf)}</span></header>
       <div class="ck-body" id="ck-yc-body">${ycBody()}</div>
     </section>
 
     <section class="ck-panel">
-      <header class="ck-h"><span>Market-implied Fed path</span><a class="ck-more" href="#/policy">Policy →</a></header>
+      <header class="ck-h wire-ptr-freeze"><span>Market-implied Fed path</span><a class="ck-more" href="#/policy">Policy →</a></header>
       <div class="ck-body">
         <div class="ck-fed2">
           <div class="ck-fed-col">
@@ -622,7 +622,7 @@ function macroDashPane() {
     </section>
 
     <section class="ck-panel ck-span2 ck-strip">
-      <header class="ck-h"><span>Rate outlook</span><a class="ck-more" href="#/policy">Policy →</a></header>
+      <header class="ck-h wire-ptr-freeze"><span>Rate outlook</span><a class="ck-more" href="#/policy">Policy →</a></header>
       <div class="ck-body ck-stats2">
         ${stat("US", OUTLOOK.us.rate, `${OUTLOOK.us.stance || ""}${OUTLOOK.us.next ? " · next " + OUTLOOK.us.next : ""}`)}
         ${stat("UK", OUTLOOK.uk.rate, `${OUTLOOK.uk.stance || ""}${OUTLOOK.uk.next ? " · next " + OUTLOOK.uk.next : ""}`)}
@@ -638,7 +638,7 @@ function macroDashPane() {
     <div ${grp("regime")}>
     <div class="ck-sec">Regime</div>
     <section class="ck-panel">
-      <header class="ck-h"><span>Cycle — long-term debt cycle</span><a class="ck-more" href="#/cycle">Cycle →</a></header>
+      <header class="ck-h wire-ptr-freeze"><span>Cycle — long-term debt cycle</span><a class="ck-more" href="#/cycle">Cycle →</a></header>
       <div class="ck-body">
         ${trackGauge(CYCLE_ZONES, [{ label: "US", pos: CYCLE.us.pos }, { label: "UK", pos: CYCLE.uk.pos }], "Long-term debt cycle position, 0 early to 100 crisis")}
         <div class="ck-stats">
@@ -649,7 +649,7 @@ function macroDashPane() {
     </section>
 
     <section class="ck-panel">
-      <header class="ck-h"><span>Bubble risk</span><span class="ck-x">${esc(BUBBLE.market)} · ${esc(band)} · ${comp}/100</span><a class="ck-more" href="#/bubble">Bubble →</a></header>
+      <header class="ck-h wire-ptr-freeze"><span>Bubble risk</span><span class="ck-x">${esc(BUBBLE.market)} · ${esc(band)} · ${comp}/100</span><a class="ck-more" href="#/bubble">Bubble →</a></header>
       <div class="ck-body">
         ${trackGauge(BUBBLE_ZONES, [{ label: band, pos: comp }], "US equity bubble-risk score, 0 low to 100 extreme")}
         <div class="ck-dims">${BUBBLE.dimensions.map(dimCard).join("")}</div>
@@ -1818,7 +1818,7 @@ document.addEventListener("click", (e) => {
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
 import("/palette.js?v=20260719-1").then((m) => m.mountPalette()).catch(() => {});
-import("/ptr.js?v=20260719-8").then((m) => m.initPullToRefresh()).catch(() => {});
+import("/ptr.js?v=20260719-10").then((m) => m.initPullToRefresh()).catch(() => {});
 render();
 initMe();
 renderDataStatus();

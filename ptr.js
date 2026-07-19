@@ -124,17 +124,20 @@ export function initPullToRefresh() {
     };
     for (const c of Array.from(document.body.children)) walk(c);
     counterEls = [];
-    const BAR_WRAP = "#g-feed-head, .tpanel-h, .twire-head, .ck-secbar, .tbar";
-    // Chip bars hugging the header freeze too; the zone opens below the lowest.
+    const BAR_WRAP = "#g-feed-head, .tpanel-h, .twire-head, .ck-secbar, .tbar, .ew-chipbar";
+    // Chip bars hugging the header freeze too — as do rows opted in with
+    // .wire-ptr-freeze (the Macro dashboard's panel title bars): the frozen
+    // stack extends down every contiguous row, and the zone opens below the
+    // lowest one.
     let top = head ? head.getBoundingClientRect().bottom : 0;
     let abutted = false;
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 4; i++) {
       let moved = false;
-      for (const b of document.querySelectorAll(".tchips, .g-feed-chips")) {
+      for (const b of document.querySelectorAll(".tchips, .g-feed-chips, .wire-ptr-freeze")) {
         const r = b.getBoundingClientRect();
         if (r.height && r.top >= top - 2 && r.top <= top + 40 && r.bottom > top) {
           top = r.bottom; moved = true; abutted = true;
-          const wrap = b.closest(BAR_WRAP) || b;
+          const wrap = b.matches(".wire-ptr-freeze") ? b : (b.closest(BAR_WRAP) || b);
           if (!counterEls.includes(wrap) && getComputedStyle(wrap).position !== "fixed" && moveEls.some((el) => el.contains(wrap))) counterEls.push(wrap);
         }
       }
@@ -177,7 +180,10 @@ export function initPullToRefresh() {
     spin.style.opacity = String(prog);
     if (!busy) { spin.style.animation = ""; spin.style.transform = "rotate(" + (prog * 270) + "deg)"; }
   }
-  function clearPage() { for (const el of moveEls.concat(counterEls)) { el.style.transition = ""; el.style.transform = ""; } }
+  function clearPage() {
+    for (const el of moveEls.concat(counterEls)) { el.style.transition = ""; el.style.transform = ""; }
+    document.body.classList.remove("wire-pulling");
+  }
 
   window.addEventListener("touchstart", (e) => {
     if (busy || e.touches.length !== 1 || !atTop() || inOverlayOrScroller(e.target)) { armed = false; pulling = false; return; }
@@ -198,7 +204,12 @@ export function initPullToRefresh() {
       if (Math.abs(dy) < 6 && Math.abs(dx) < 6) return;      // wait past the deadzone
       // Only a clearly-vertical downward drag arms the pull — horizontal swipes
       // (nav-bar tabs) and upward moves fall through to normal scrolling.
-      if (dy > 0 && dy > Math.abs(dx) * 1.2 && atTop()) { pulling = true; startY = y; dist = 0; gatherSets(); return; }
+      // wire-pulling: suspends in-page sticky stacks (e.g. the Macro dashboard
+      // header rows) for the gesture — stuck rows would hold their viewport
+      // position while the content translates, tearing gaps mid-pull. A pull
+      // only starts at the very top, where sticky is not engaged, so the
+      // switch is visually a no-op.
+      if (dy > 0 && dy > Math.abs(dx) * 1.2 && atTop()) { pulling = true; startY = y; dist = 0; document.body.classList.add("wire-pulling"); gatherSets(); return; }
       else { armed = false; return; }
     }
     dist = y - startY;
