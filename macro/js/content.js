@@ -573,7 +573,6 @@ export const EARNINGS = {
       ] },
     ] },
   ],
-  foot: "Third row = the sector's key metric (bank markets/equities revenue, chip gross margin, TSLA deliveries, NOW cRPO, VZ adj EBITDA). Guide: Fcst = guidance in force going into the print, Act = guidance issued with the results. N/R = no published figure (consensus for secondary metrics mostly sits behind paid terminals). NOW revenue is the company's subscription guide; TSLA revenue is Tesla's company-compiled consensus. ETF labels show the stock's fund/index weight where published (MSCI & BlackRock factsheets); other holdings are label-only. OpenAI, Anthropic & SpaceX are private \u2014 no earnings releases; their funding news runs in the wire. WMVG (min-vol) holds none of these reporters; COMM holds commodity futures, not equities.",
   srcs: [
     { name: "CNBC week ahead", url: "https://www.cnbc.com/2026/07/17/stock-market-next-week-outlook-for-july-20-24-2026.html" },
     { name: "Tech Times (banks, IBM prelim)", url: "https://www.techtimes.com/articles/320491/20260714/all-five-major-banks-beat-estimates-jpmorgan-posts-highest-profit-us-history.htm" },

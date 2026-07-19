@@ -4,7 +4,7 @@
 // Fetches the shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P
 // Global / BoE). Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS } from "./content.js?v=20260719-28";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS } from "./content.js?v=20260719-29";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -517,8 +517,7 @@ function earningsPanel() {
       </div></div>
       <div data-ew-week="this" class="${wsel !== "this" ? "ew-off" : ""}">${week(w.weeks[1], 1)}</div>
       <div data-ew-week="last" class="${wsel !== "last" ? "ew-off" : ""}">${week(w.weeks[0], 0)}</div>
-      ${w.foot ? `<p class="ck-sub ew-foot">${esc(w.foot)}</p>` : ""}
-      <p class="ck-sub ew-srcs">Sources: ${srcs}</p></div>
+      <details class="ew-srcwrap"><summary>Sources</summary><p class="ck-sub ew-srcs">${srcs}</p></details></div>
   </section>`;
 }
 

@@ -473,7 +473,14 @@ a.intel-head:hover { text-decoration: underline; }
 .ew-etf-wmvg { color: #2fbf8a; background: color-mix(in srgb, #2fbf8a 16%, transparent); }
 .ew-etf-emee { color: #9b83e2; background: color-mix(in srgb, #9b83e2 16%, transparent); }
 .ew-etf-comm { color: #d9a441; background: color-mix(in srgb, #d9a441 16%, transparent); }
-.ew-foot { margin-top: 10px; }
+/* Sources tucked behind a collapse — the press-hold menu still reads the
+   .ew-srcs links from the DOM whether or not the details is open. */
+.ew-srcwrap { margin-top: 10px; }
+.ew-srcwrap summary { cursor: pointer; list-style: none; font-family: var(--t-mono);
+  font-size: 9.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
+.ew-srcwrap summary::-webkit-details-marker { display: none; }
+.ew-srcwrap summary::after { content: " ▸"; }
+.ew-srcwrap[open] summary::after { content: " ▾"; }
 .ew-srcs { margin-top: 6px; }
 .mw-legend span { display: inline-flex; align-items: center; gap: 5px; }
 .mw-dot { width: 7px; height: 7px; display: inline-block; }

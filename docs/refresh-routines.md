@@ -517,8 +517,9 @@ extra deep-research pass on watchlisted names is skipped.
 >      managers, AI-relevant names (hyperscalers, chip companies, AI software),
 >      the Mag 7, and any other release likely to move the broad market. Skip
 >      minor names outside those groups. Private AI leaders (OpenAI, Anthropic,
->      SpaceX, xAI) have no earnings releases — keep the `foot` note current
->      rather than adding rows. Each row also carries `held[]` — which of the
+>      SpaceX, xAI) have no earnings releases — never add rows for them; their
+>      funding news runs in the wire. (The panel renders NO explainer footnote —
+>      there is no `foot` field; the sources list renders collapsed.) Each row also carries `held[]` — which of the
 >      reader's ETFs hold the name, shown as a small colour-coded label — each
 >      entry is `{etf, w}` where `w` is the stock's weight in that ETF/index
 >      quoted VERBATIM from a published source (MSCI factsheet top-10 or the
