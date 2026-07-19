@@ -413,7 +413,7 @@ a.intel-head:hover { text-decoration: underline; }
    only colour is the post-release share move (green up / red down). */
 /* Week toggle chips (This week / Last week) — same shade treatment as the
    dashboard sub-section chips; one week block shown at a time. */
-.ew-chipbar { display: flex; height: 30px; margin: 0 0 8px; border-bottom: 1px solid var(--border); }
+.ew-chipbar { display: flex; height: 30px; margin: 0 0 8px; border-bottom: 1px solid var(--border); background: var(--surface); }
 .ew-chipbar .tchip.is-on { box-shadow: none; background: color-mix(in srgb, var(--ink, #eaf0fb) 9%, transparent); color: var(--ink); font-weight: 600; }
 .ew-off { display: none; }
 .ew-day { margin: 10px 0 2px; }
@@ -456,6 +456,17 @@ a.intel-head:hover { text-decoration: underline; }
 .mw-legend span { display: inline-flex; align-items: center; gap: 5px; }
 .mw-dot { width: 7px; height: 7px; display: inline-block; }
 @media (max-width: 760px) {
+  /* Lock the dashboard's own header stack under the fixed chrome while the
+     content scrolls: sub-section chips, then each panel's title bar, then the
+     earnings week chips — stacked sticky at their measured heights (secbar
+     34px, ck-h 28px) below the fixed header + main tab bar. */
+  /* The pane's desktop overflow-y:auto makes IT the sticky container (and it
+     never scrolls on phones — the page does), so sticky silently no-ops.
+     Phones scroll the page: let overflow be visible here. */
+  #mac-dash.mac-dash-pane { overflow: visible; }
+  .mac-dash-pane .ck-secbar { position: sticky; top: calc(var(--wire-head-h, 54px) + var(--wire-bar-h, 34px)); z-index: 45; }
+  .mac-cockpit .ck-panel > .ck-h { position: sticky; top: calc(var(--wire-head-h, 54px) + var(--wire-bar-h, 34px) + 34px); z-index: 44; }
+  .ew-chipbar { position: sticky; top: calc(var(--wire-head-h, 54px) + var(--wire-bar-h, 34px) + 34px + 28px); z-index: 43; }
   .ck-fed2 { gap: 10px; }
   .mw-cols { grid-template-columns: 1fr; gap: 10px; }
   .ck-stats2 { grid-template-columns: 1fr; gap: 7px; }
