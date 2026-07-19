@@ -1139,7 +1139,7 @@
       :root[data-theme="dark"] a.g-feed-row:hover .g-feed-title{ color:inherit; }
     }
   </style>
-  <link rel="stylesheet" href="/premium.css?v=20260719-5" />
+  <link rel="stylesheet" href="/premium.css?v=20260719-6" />
 </head>
 <body>
   <!-- Loading -->
@@ -1336,16 +1336,7 @@
       </div>
     </div>
 
-    <nav class="mobile-tabbar" aria-label="Platforms">
-      <a class="mtab is-active" href="/" aria-current="page"><svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11 12 4l8 7"/><path d="M6 9.5V20h12V9.5"/></svg><span class="mtab-lbl">Home</span></a>
-      <a class="mtab" href="/macro/"><svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V12"/><path d="M12 20V5"/><path d="M19 20V9"/></svg><span class="mtab-lbl">Macro</span></a>
-      <a class="mtab" href="/credit/"><svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="7" width="19" height="10" rx="1.5"/><circle cx="12" cy="12" r="2.3"/></svg><span class="mtab-lbl">Credit</span></a>
-      <a class="mtab" href="/legal/"><svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v15"/><path d="M8 19h8"/><path d="M4 7h16"/><path d="M4 7l-2 4.5h4z"/><path d="M20 7l-2 4.5h4z"/></svg><span class="mtab-lbl">Legal</span></a>
-      <button class="mtab mtab-menu" type="button" data-open-menu aria-label="Menu">
-        <svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>
-        <span class="mtab-lbl">Menu</span>
-      </button>
-    </nav>
+    <!-- Bottom tab bar is injected by nav-actions.js (shared chrome — one copy for all pages). -->
   </div>
 
   <script>
@@ -1365,7 +1356,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260719-6").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260719-7").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

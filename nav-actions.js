@@ -24,6 +24,47 @@ const ICO_SAVED = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" st
 
 const isPhone = () => matchMedia("(max-width:760px)").matches;
 
+// ---- Shared page chrome -----------------------------------------------------
+// ONE header + ONE bottom tab bar, owned here and identical on every page. The
+// tab bar is INJECTED (no per-page copies in the HTMLs) and always
+// position:fixed; on phones the header is promoted to fixed too, with the body
+// padded by its measured height so layout is unchanged. Nothing — pull-to-
+// refresh, native overscroll, panel transitions — can move either.
+const TAB_ICONS = {
+  home: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11 12 4l8 7"/><path d="M6 9.5V20h12V9.5"/></svg>',
+  macro: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V12"/><path d="M12 20V5"/><path d="M19 20V9"/></svg>',
+  credit: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="7" width="19" height="10" rx="1.5"/><circle cx="12" cy="12" r="2.3"/></svg>',
+  legal: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v15"/><path d="M8 19h8"/><path d="M4 7h16"/><path d="M4 7l-2 4.5h4z"/><path d="M20 7l-2 4.5h4z"/></svg>',
+  menu: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>',
+};
+function initChrome() {
+  const path = location.pathname;
+  const cur = path.startsWith("/macro") ? "macro" : path.startsWith("/credit") ? "credit" : path.startsWith("/legal") ? "legal" : "home";
+  const tab = (k, href, label) => `<a class="mtab${cur === k ? " is-active" : ""}" href="${href}"${cur === k ? ' aria-current="page"' : ""}>${TAB_ICONS[k]}<span class="mtab-lbl">${label}</span></a>`;
+  const nav = document.createElement("nav");
+  nav.className = "mobile-tabbar";
+  nav.setAttribute("aria-label", "Platforms");
+  nav.innerHTML = tab("home", "/", "Home") + tab("macro", "/macro/", "Macro") + tab("credit", "/credit/", "Credit") + tab("legal", "/legal/", "Legal")
+    + `<button class="mtab mtab-menu" type="button" data-open-menu aria-label="Menu">${TAB_ICONS.menu}<span class="mtab-lbl">Menu</span></button>`;
+  document.querySelectorAll(".mobile-tabbar").forEach((el) => el.remove());
+  document.body.appendChild(nav);
+
+  const head = document.querySelector(".topbar, .g-top");
+  if (!head) return;
+  const lock = () => {
+    if (isPhone()) {
+      document.documentElement.style.setProperty("--wire-head-h", head.offsetHeight + "px");
+      head.classList.add("wire-head-fixed");
+      document.body.classList.add("wire-head-pad");
+    } else {
+      head.classList.remove("wire-head-fixed");
+      document.body.classList.remove("wire-head-pad");
+    }
+  };
+  lock();
+  window.addEventListener("resize", lock);
+}
+
 // ---- Markets rows -----------------------------------------------------------
 function marketRow(x) {
   const c = typeof x.changePct === "number" && isFinite(x.changePct) ? x.changePct : null;
@@ -224,6 +265,7 @@ function lockBody(on) {
 
 export function initNavActions() {
   const run = () => {
+    initChrome();
     const notif = document.getElementById("notif");
     // Apps mount into .topbar-right; Home (glance) mounts into .g-top .g-actions —
     // the SAME controller runs on all four pages.

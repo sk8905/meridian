@@ -370,6 +370,13 @@ svg.mtab-ico { width: 22px; height: 22px; }
 [data-theme="dark"] .footer { background: #000000; }
 
 /* ---- Shared section top-bar actions (nav-actions.js): Markets · Saved · Bell ---- */
+/* Shared chrome hard-lock (nav-actions initChrome): on phones the header is
+   viewport-fixed and the body is padded by its measured height, so neither
+   pull-to-refresh nor native overscroll can move it. The tab bar is injected
+   by the same controller and is always fixed. */
+.wire-head-fixed { position: fixed !important; top: 0; left: 0; right: 0; z-index: 1300; }
+body.wire-head-pad { padding-top: var(--wire-head-h, 56px); }
+
 .na-actions { display: inline-flex; align-items: center; gap: .4rem; }
 /* Refresh-countdown donut — thin ring in the feed-meta grey, draining across
    the 5-minute live-feed window (nav-actions.js drives stroke-dashoffset). */

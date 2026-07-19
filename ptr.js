@@ -164,6 +164,12 @@ export function initPullToRefresh() {
     const y = e.touches[0].clientY, x = e.touches[0].clientX;
     if (!pulling) {
       const dy = y - startY, dx = x - startX;
+      // Claim the gesture from iOS on the FIRST downward move at the top:
+      // with native overscroll enabled, letting even one unprevented move
+      // through starts the rubber-band (which drags the whole page, header
+      // included) and every later preventDefault is ignored. Momentum
+      // arrivals at the top still bounce natively — no touch, no claim.
+      if (dy > 0 && dy >= Math.abs(dx) && e.cancelable) e.preventDefault();
       if (Math.abs(dy) < 6 && Math.abs(dx) < 6) return;      // wait past the deadzone
       // Only a clearly-vertical downward drag arms the pull — horizontal swipes
       // (nav-bar tabs) and upward moves fall through to normal scrolling.
