@@ -1051,19 +1051,18 @@
     .tui .g-feed-chips{ display:flex; gap:0; height:100%; flex:1 1 auto; width:100%; }
     .tui .g-feed-chip{ display:flex; align-items:center; justify-content:center; gap:6px; flex:1 1 0; min-width:0;
       height:100%; padding:0 15px; border:0;
-      border-right:1px solid var(--t-grid); background:transparent; cursor:pointer;
+      background:transparent; cursor:pointer;
       font-size:11.5px; font-weight:500; letter-spacing:.005em; color:var(--t-mut); border-radius:0; }
-    .tui .g-feed-chip:last-child{ border-right:0; }
     .tui .g-feed-chip.is-on{ color:var(--t-ink); font-weight:600; background:transparent; box-shadow:inset 0 -2px 0 #fff; }
     .tui .g-feed-chip-n{ color:var(--t-faint); font-size:10px; font-variant-numeric:tabular-nums; background:none; padding:0; }
     /* ---- deal-flow chip toggle (deals / fundraising / schemes) ---- */
     .g-flow-head.tui-ph, .tui .g-flow-head{ padding:0; }
     .g-flow-chips{ display:flex; gap:0; height:100%; width:100%; }
     .g-flow-chip{ display:flex; align-items:center; justify-content:center; flex:1 1 0; min-width:0;
-      height:100%; padding:0 8px; border:0; border-right:1px solid var(--t-grid); background:transparent;
+      height:100%; padding:0 8px; border:0; background:transparent;
       cursor:pointer; font-family:inherit; font-size:11px; font-weight:500; letter-spacing:.005em;
       color:var(--t-mut); border-radius:0; white-space:nowrap; }
-    .g-flow-chip:last-child{ border-right:0; }
+
     .g-flow-chip:hover{ color:var(--t-dim); }
     .g-flow-chip.is-on{ color:var(--t-ink); font-weight:600; box-shadow:inset 0 -2px 0 #fff; }
     .g-flow-pane[hidden]{ display:none; }
@@ -1153,7 +1152,7 @@
       :root[data-theme="dark"] a.g-feed-row:hover .g-feed-title{ color:inherit; }
     }
   </style>
-  <link rel="stylesheet" href="/premium.css?v=20260719-20" />
+  <link rel="stylesheet" href="/premium.css?v=20260719-21" />
   <script type="module" blocking="render">
     // Render-blocking boot, mirroring the app pages: with a recent sign-in
     // hint the briefing renders BEFORE first paint and the shared chrome

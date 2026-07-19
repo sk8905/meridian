@@ -167,9 +167,8 @@
 .twire-head { padding: 0 !important; }
 .tchips { display: flex; gap: 0; height: 100%; width: 100%; flex: 1 1 auto; }
 .tchip { flex: 1 1 0; display: flex; align-items: center; justify-content: center; gap: 5px;
-  border: 0; border-right: 1px solid var(--border); background: transparent; padding: 0 8px;
+  border: 0; background: transparent; padding: 0 8px;
   font-size: 11px; color: var(--muted); cursor: pointer; height: 100%; border-radius: 0; }
-.tchip:last-child { border-right: 0; }
 .tchip.is-on { color: var(--ink); font-weight: 600; box-shadow: inset 0 -2px 0 #fff; }
 .twire { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1 1 auto; min-height: 0; }
 /* single line, matching Home: date | CODE | headline (+ inline manager) | source */
