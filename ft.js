@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "fde736b3-6999-4b9e-979e-2b4b06dbbd5c", title: "No longer grim up north for UK banks as Burnham comes to power", date: "2026-07-19", time: "05:00", url: "https://www.ft.com/content/fde736b3-6999-4b9e-979e-2b4b06dbbd5c" },
+  { id: "6d817238-b2c2-475b-ae03-d71f42635f7e", title: "Friedrich Merz pitches Germany as ‘Europe’s bedrock of stability’ to investors", date: "2026-07-19", time: "05:00", url: "https://www.ft.com/content/6d817238-b2c2-475b-ae03-d71f42635f7e" },
+  { id: "d3221c90-c2a4-4bdd-8e0d-6e069bf0ca25", title: "Singapore weighs hedge fund tax cuts to rival Hong Kong", date: "2026-07-19", time: "05:00", url: "https://www.ft.com/content/d3221c90-c2a4-4bdd-8e0d-6e069bf0ca25" },
+  { id: "e8e8adc5-7c56-45a8-99fc-bb5acfda263e", title: "US strikes Iran after two American troops are killed in Jordan", date: "2026-07-18", time: "23:54", url: "https://www.ft.com/content/e8e8adc5-7c56-45a8-99fc-bb5acfda263e" },
+  { id: "1cb986a4-2428-4e64-a559-7867cfa1a3e3", title: "Trump to fund Maga-aligned projects in Europe as he reorders US aid", date: "2026-07-18", time: "18:22", url: "https://www.ft.com/content/1cb986a4-2428-4e64-a559-7867cfa1a3e3" },
+  { id: "1b34caa6-d909-4df8-a90f-b928f2199261", title: "Zelenskyy considers sacking commander-in-chief as protests swell", date: "2026-07-18", time: "11:10", url: "https://www.ft.com/content/1b34caa6-d909-4df8-a90f-b928f2199261" },
   { id: "b93e063a-aba7-4dcd-9e3e-f57cab54d0f6", title: "Telecom Italia backs Poste Italiane takeover bid", date: "2026-07-18", time: "15:48", url: "https://www.ft.com/content/b93e063a-aba7-4dcd-9e3e-f57cab54d0f6" },
   { id: "44a3698f-6481-4e83-a50d-7db109768ea1", title: "Big Law braces for second fight with Donald Trump over capitulation deals", date: "2026-07-18", time: "13:00", url: "https://www.ft.com/content/44a3698f-6481-4e83-a50d-7db109768ea1" },
   { id: "2b96703d-440b-46db-8d86-9fff9ecc59d5", title: "Traders are increasingly betting against SpaceX just weeks after IPO", date: "2026-07-18", time: "12:00", url: "https://www.ft.com/content/2b96703d-440b-46db-8d86-9fff9ecc59d5" },
