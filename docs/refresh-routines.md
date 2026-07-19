@@ -529,11 +529,16 @@ extra deep-research pass on watchlisted names is skipped.
 >      the MSCI World Minimum Volatility factsheet constituents), `EMEE`
 >      (iShares EM Equity Enhanced Active — EM names only, verify against the
 >      iShares holdings page). `COMM` (iShares Diversified Commodity Swap)
->      holds futures, never equities — never tag it. With pre-release
->      consensus and, once released, actuals + the share-price
->      reaction. Upkeep each run: (a) on the FIRST run of each Monday, replace
->      the block with the new week's calendar (`week`, `days[].rows[]` with
->      `estEps`/`estRev` consensus figures quoted VERBATIM from a named source —
+>      holds futures, never equities — never tag it. The block holds TWO
+>      weeks (`weeks[]`): a LOOK-BACK week (results + share reaction) and the
+>      week AHEAD (consensus). Every row carries the full triple
+>      `est`/`act` × `Eps`/`Rev`/`Ebitda` — quote each figure a source
+>      publishes; leave the rest null (renders as an em-dash; banks report no
+>      EBITDA and consensus EBITDA is rarely published — never derive one).
+>      Upkeep each run: (a) on the FIRST run of each Monday, the look-back
+>      block becomes the week just ended (rows keep their actuals) and the
+>      ahead block is rebuilt with the new week's calendar (`days[].rows[]`
+>      with consensus figures quoted VERBATIM from a named source —
 >      `srcs[]` must carry working URLs; omit an estimate you cannot verify,
 >      leave it null); (b) on every run, for any row whose release has happened,
 >      fill `actEps`/`actRev` and `px` (the source's quoted same/next-day share

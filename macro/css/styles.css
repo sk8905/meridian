@@ -411,6 +411,9 @@ a.intel-head:hover { text-decoration: underline; }
 
 /* Earnings wall (Dashboard › Earnings). Canon: white values, grey meta; the
    only colour is the post-release share move (green up / red down). */
+.ew-week { margin: 14px 0 0; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  color: var(--ink); border-bottom: 1px solid var(--border); padding-bottom: 5px; }
+.ew-week:first-child { margin-top: 0; }
 .ew-day { margin: 10px 0 2px; }
 .ew-day:first-child { margin-top: 0; }
 .ew-row { display: flex; gap: 12px; align-items: flex-start; padding: 7px 0; border-bottom: 1px solid var(--border); }
