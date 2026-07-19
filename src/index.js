@@ -1417,8 +1417,6 @@ const FEED_LIFESTYLE_RE = new RegExp([
   "\\barts\\b", "artist", "\\bgallery\\b", "museum", "exhibition", "theatre", "theater", "\\bopera\\b", "ballet",
   "\\bfilm\\b", "\\bmovie", "\\bcinema", "box office", "\\bpodcast", "\\bmusic\\b", "\\balbum\\b", "\\bconcert\\b", "celebrit", "royal family", "memoir", "poetry",
   "crossword", "puzzle", "horoscope", "wellness", "\\byoga\\b", "recipes", "lunch with the ft", "how to spend it",
-  "football", "soccer", "\\btennis\\b", "\\bgolf\\b", "cricket", "\\brugby\\b", "olympic", "world cup", "grand prix",
-  "formula (one|1)", "\\bf1\\b", "tour de france", "premier league", "\\bnba\\b", "\\bnfl\\b", "\\bmlb\\b",
   "obituar", "\\bdies aged\\b", "\\b(19|20)\\d\\d[–—-](19|20)\\d\\d\\b",
 ].join("|"), "i");
 const feedNorm = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
@@ -1443,7 +1441,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=18", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=19", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {

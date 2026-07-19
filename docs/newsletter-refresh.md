@@ -152,8 +152,9 @@ unchanged — never blank it out on a failed fetch.
      `YYYY-MM-DD` + `HH:MM` (24h).
 
 3. **Lifestyle screen (required).** KEEP EVERY story — news, business,
-   politics, geopolitics — EXCEPT lifestyle: arts, culture, film/TV/music,
-   travel, dining, fashion, sport, obituaries and general-interest features.
+   politics, geopolitics, sport — EXCEPT lifestyle: arts, culture,
+   film/TV/music, travel, dining, fashion, obituaries and general-interest
+   features.
    Mirror the live feed's soft screen in `src/index.js` (`FEED_LIFESTYLE_RE`
    rejects; a headline also matching `FEED_MACRO_RE`/`FEED_MEGACAP_RE` is
    rescued — business-of-culture stories stay).
