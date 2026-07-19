@@ -131,6 +131,8 @@
    the far right. They still shrink + ellipsis when the strip is tight. */
 .wb-gl { display: flex; gap: 7px; align-items: baseline; min-width: 0; overflow: hidden; flex: 0 1 auto; }
 .wb-gl-l { font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .02em; color: var(--accent); white-space: nowrap; flex: 0 0 auto; }
+.wb-gl-v a { color: inherit; text-decoration: none; }
+.wb-gl-v a:hover { text-decoration: underline; }
 .wb-gl-v { display: block; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--muted); font-size: 11.5px; }
 @media (max-width: 760px) {
   /* Phones: the strip's only phone-worthy content was the top story, which is

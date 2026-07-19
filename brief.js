@@ -60,14 +60,32 @@ export function initBrief() {
     + `<div class="wb-gl"><span class="wb-gl-l">Rates &amp; spreads</span><span class="wb-gl-v" id="wb-rates">Loading…</span></div>`
     + `</div>`;
 
-  // MARKETS / RATES one-liners — the AI "pulse" the Home page shows.
+  // MARKETS / RATES lines = the top live-feed story in each category (same as
+  // Home). The AI "pulse" one-liner is only a fallback while the feed is empty.
+  const MKT_RE = /\b(stocks?|equit\w*|shares?|S&P|Nasdaq|Dow|FTSE|Nikkei|oil|crude|Brent|gold|dollar|DXY|bitcoin|crypto|rally|sell-?off|futures|Wall Street|market)\b/i;
+  const RATE_RE = /\b(treasur\w*|yields?|gilts?|bonds?|interest rates?|rate (cut|hike|rise|path)|Fed\b|FOMC|Bank of England|BoE|ECB|central bank|spreads?|credit|inflation|CPI|PCE)\b/i;
+  const leads = { markets: false, rates: false };
+  const setStory = (id, x) => {
+    const el = document.getElementById(id);
+    if (el && x) el.innerHTML = `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.title)}</a>`;
+  };
+  fetch("/api/feed", { headers: { accept: "application/json" } })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((d) => {
+      const items = (d && d.items) || [];
+      const mkt = items.find((x) => x && x.title && MKT_RE.test(x.title));
+      const rt = items.find((x) => x && x.title && x !== mkt && RATE_RE.test(x.title));
+      if (mkt) { leads.markets = true; setStory("wb-markets", mkt); }
+      if (rt) { leads.rates = true; setStory("wb-rates", rt); }
+    })
+    .catch(() => {});
   let retried = false;
   const pulse = () => fetch("/api/pulse", { headers: { accept: "application/json" } })
     .then((r) => (r.ok ? r.json() : null))
     .then((d) => {
       if (!d) return;
-      if (d.markets) setV("wb-markets", d.markets);
-      if (d.rates) setV("wb-rates", d.rates);
+      if (d.markets && !leads.markets) setV("wb-markets", d.markets);
+      if (d.rates && !leads.rates) setV("wb-rates", d.rates);
       if (!d.markets && !retried) { retried = true; setTimeout(pulse, 15000); }
     })
     .catch(() => {});

@@ -583,18 +583,32 @@ const creditItemExt = (x) => !!x.sourceUrl;
 const DESK = { m: "Macro", c: "Credit", l: "Legal", n: "Letter", f: "myFT" };
 // Active desk filter for the home news feed: "all" | "m" | "c" | "l".
 // One-line cross-desk briefing shown under the "Your briefing" heading.
+// Category matchers for the two glance lines: the freshest premium story
+// ABOUT markets / about rates & credit replaces the generated one-liners.
+const BRIEF_MKT_RE = /\b(stocks?|equit\w*|shares?|S&P|Nasdaq|Dow|FTSE|Nikkei|oil|crude|Brent|gold|dollar|DXY|bitcoin|crypto|rally|sell-?off|futures|Wall Street|market)\b/i;
+const BRIEF_RATE_RE = /\b(treasur\w*|yields?|gilts?|bonds?|interest rates?|rate (cut|hike|rise|path)|Fed\b|FOMC|Bank of England|BoE|ECB|central bank|spreads?|credit|inflation|CPI|PCE)\b/i;
+// Once a real story fills a line, the pulse/deterministic writers stand down.
+const _briefLeads = { markets: false, rates: false };
 function renderBrief(byDesk, counts, day) {
   const el = document.getElementById("g-brief");
   if (!el) return;
   // The brief line leads with the single freshest headline — but ONLY from a
   // premium news wire (FT, Bloomberg, Reuters, CNBC, WSJ, Economist, Guardian,
   // MarketWatch, FT Alphaville). Manager/court/research items never headline.
-  const lead = [...byDesk.m, ...byDesk.c, ...byDesk.l]
+  const pool = [...byDesk.m, ...byDesk.c, ...byDesk.l]
     .filter((x) => x && PREMIUM_NEWS.has(x.src))
-    .sort((a, b) => day(b).localeCompare(day(a)) || String(b.time || "12:00").localeCompare(String(a.time || "12:00")))[0];
+    .sort((a, b) => day(b).localeCompare(day(a)) || String(b.time || "12:00").localeCompare(String(a.time || "12:00")));
+  const lead = pool[0];
   el.innerHTML = lead
     ? `<span class="g-brief-lead"><span class="g-brief-lbl">Top story</span> <a class="g-brief-link g-desk-${lead.desk}" href="${esc(lead.href)}"${lead.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>${esc(lead.title)}</a></span>`
     : "";
+  // MARKETS / RATES & SPREADS lines = the top story in each category (never
+  // duplicating the Top story line above).
+  const linkFor = (x) => `<a class="g-brief-link g-desk-${x.desk}" href="${esc(x.href)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>${esc(x.title)}</a>`;
+  const mkt = pool.find((x) => x !== lead && BRIEF_MKT_RE.test(x.title));
+  const rt = pool.find((x) => x !== lead && x !== mkt && BRIEF_RATE_RE.test(x.title));
+  if (mkt) { _briefLeads.markets = true; setGlance("gl-markets", linkFor(mkt)); }
+  if (rt) { _briefLeads.rates = true; setGlance("gl-rates", linkFor(rt)); }
 }
 
 let _feedDesk = "all";
@@ -913,7 +927,7 @@ function renderRates(el, d) {
   const rowsData = (d && d.rates) || [];
   if (!rowsData.length) return false;
   el.innerHTML = rowsData.map(ratesTile).join("");
-  setGlance("gl-rates", _pulse.rates ? esc(_pulse.rates) : ratesOneLiner(rowsData));
+  if (!_briefLeads.rates) setGlance("gl-rates", _pulse.rates ? esc(_pulse.rates) : ratesOneLiner(rowsData));
   setGlTickers("rates", rateTickers(rowsData));
   _rateRows = rowsData;
   renderTicker(); renderMovers(); renderVolRisk(); renderYieldCurve();
@@ -929,7 +943,7 @@ function initRates() {
   fetch("/api/rates?v=9")
     .then((r) => (r.ok ? r.json() : Promise.reject()))
     .then((d) => { if (renderRates(el, d)) writeCache("rates", d); })
-    .catch(() => { if (!el.querySelector(".rate-tile") && !_pulse.rates) { el.innerHTML = '<span class="g-loading">Market rates unavailable right now.</span>'; setGlance("gl-rates", "Rates data unavailable right now."); } });
+    .catch(() => { if (!el.querySelector(".rate-tile") && !_pulse.rates) { el.innerHTML = '<span class="g-loading">Market rates unavailable right now.</span>'; if (!_briefLeads.rates) setGlance("gl-rates", "Rates data unavailable right now."); } });
 }
 
 // ---- Market open / closed indicator ----------------------------------------
@@ -1152,7 +1166,7 @@ function renderMarketsBand(el, d) {
   const rows = (d && d.markets) || [];
   if (!rows.length) return false;
   el.innerHTML = rows.map(marketTile).join("");
-  setGlance("gl-markets", _pulse.markets ? esc(_pulse.markets) : marketsOneLiner(rows));
+  if (!_briefLeads.markets) setGlance("gl-markets", _pulse.markets ? esc(_pulse.markets) : marketsOneLiner(rows));
   // Chips pick the top movers from a WIDER pool (the banner 8 + extra global
   // cross-asset instruments), so they aren't limited to the banner tiles.
   setGlTickers("markets", marketTickers([...rows, ...((d.moversExtra) || [])]));
@@ -1422,7 +1436,7 @@ function initMarkets() {
   fetch("/api/markets?v=9")
     .then((r) => (r.ok ? r.json() : Promise.reject()))
     .then((d) => { if (renderMarketsBand(el, d)) writeCache("markets", d); })
-    .catch(() => { if (!el.querySelector(".rate-tile") && !_pulse.markets) { el.innerHTML = '<span class="g-loading">Markets unavailable right now.</span>'; setGlance("gl-markets", "Markets data unavailable right now."); } });
+    .catch(() => { if (!el.querySelector(".rate-tile") && !_pulse.markets) { el.innerHTML = '<span class="g-loading">Markets unavailable right now.</span>'; if (!_briefLeads.markets) setGlance("gl-markets", "Markets data unavailable right now."); } });
 }
 
 // The "market pulse" — two direction+driver one-liners written server-side by
@@ -1438,8 +1452,8 @@ function initPulse() {
     .then((d) => {
       if (!d) return;
       _pulse = { markets: d.markets || null, rates: d.rates || null };
-      if (_pulse.markets) setGlance("gl-markets", esc(_pulse.markets));
-      if (_pulse.rates) setGlance("gl-rates", esc(_pulse.rates));
+      if (_pulse.markets && !_briefLeads.markets) setGlance("gl-markets", esc(_pulse.markets));
+      if (_pulse.rates && !_briefLeads.rates) setGlance("gl-rates", esc(_pulse.rates));
       // First view often precedes the first background generation — retry once.
       if (!_pulse.markets && !_pulseRetried) { _pulseRetried = true; setTimeout(initPulse, 15000); }
     })
