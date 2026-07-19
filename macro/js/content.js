@@ -368,18 +368,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-07-19",
   us: [
-    { title: "US strikes Iran after two American troops killed in Jordan", source: "Financial Times", date: "2026-07-19", time: "10:13", url: "https://www.ft.com/content/e8e8adc5-7c56-45a8-99fc-bb5acfda263e" },
-    { title: "Warsh Shows His Inner Hawk as Inflation Debate Heats Up", source: "Bloomberg", date: "2026-07-18", time: "09:22", url: "https://www.bloomberg.com/news/articles/2026-07-18/warsh-shows-his-inner-hawk-as-inflation-debate-heats-up" },
-    { title: "Brent Crude Hits $88 as Iran Extends War From Hormuz to Kuwait Drinking Water", source: "Tech Times", date: "2026-07-18", time: "21:10", url: "https://www.techtimes.com/articles/320922/20260718/brent-crude-hits-88-iran-extends-war-hormuz-kuwait-drinking-water.htm" },
-    { title: "U.S. stocks slide as semiconductors slip into technical bear market", source: "Xinhua", date: "2026-07-18", time: "12:03", url: "https://english.news.cn/20260718/3a7128e8ba5e4146b87ec169223cb3b4/c.html" },
-    { title: "The U.S. and Iran blow past red lines as they lurch back toward all-out war", source: "NPR", date: "2026-07-18", time: "09:22", url: "https://www.npr.org/2026/07/18/nx-s1-5898916/us-iran-escalate-strikes" },
+    { title: "U.S. says it targeted Iran forces after deaths of two American troops", source: "CNBC", date: "2026-07-19", time: "21:05", url: "https://www.cnbc.com/2026/07/19/us-says-it-targeted-iran-forces-after-deaths-of-two-american-troops.html" },
+    { title: "US renews strikes on Iran after two military personnel killed by Iranian attack", source: "Reuters (via Yahoo Finance)", date: "2026-07-19", time: "19:33", url: "https://www.yahoo.com/news/articles/us-renews-strikes-iran-two-232139930.html" },
+    { title: "US launches new Iran strikes after two soldiers killed: What's the latest?", source: "Al Jazeera", date: "2026-07-19", time: "21:05", url: "https://www.aljazeera.com/news/2026/7/19/us-launches-new-iran-strikes-after-two-soldiers-killed-whats-the-latest" },
+    { title: "Here are the 6 big things we're watching in the stock market this week", source: "CNBC", date: "2026-07-19", time: "21:05", url: "https://www.cnbc.com/2026/07/19/here-are-the-6-big-things-were-watching-in-the-stock-market-this-week.html" },
+    { title: "Live updates: US-Iran war news; American military casualties raise fears of a wider war with Iran", source: "CNN", date: "2026-07-19", time: "21:05", url: "https://www.cnn.com/2026/07/19/world/live-news/iran-war-trump" },
   ],
   uk: [
-    { title: "Burnham to maintain ban on North Sea exploration licences", source: "Financial Times", date: "2026-07-19", time: "16:37", url: "https://www.ft.com/content/d9631aae-1100-43e0-a09a-e49f5c21f896" },
-    { title: "UK must focus on insiders vs outsiders not north vs south", source: "Financial Times", date: "2026-07-19", time: "16:00", url: "https://www.ft.com/content/79160822-5eb7-41c1-b9f7-a2a447ecb378" },
-    { title: "UK steel quota concessions to seal India deal pose risk to Welsh plant, say insiders", source: "Financial Times", date: "2026-07-19", time: "12:00", url: "https://www.ft.com/content/b0ac6cd9-e325-485a-9c0a-db5053af8d93" },
+    { title: "UK's incoming PM Andy Burnham drops digital ID scheme to prioritize cost of living, say allies", source: "CNBC", date: "2026-07-19", time: "21:05", url: "https://www.cnbc.com/2026/07/19/uks-incoming-pm-andy-burnham-to-prioritize-cost-of-living-say-allies.html" },
+    { title: "Burnham urged not to allow new North Sea drilling", source: "RTÉ", date: "2026-07-18", time: "20:02", url: "https://www.rte.ie/news/2026/0718/1583956-uk-andy-burnham/" },
+    { title: "Burnham to approve North Sea oil and gas drilling in policy blitz", source: "CityAM", date: "2026-07-17", time: "11:53", url: "https://www.cityam.com/burnham-to-approve-north-sea-oil-and-gas-drilling-in-policy-blitz/" },
+    { title: "UK Economy Leads G7 on Growth as Rate-Hike Pressure Builds for Borrowers", source: "Tech Times", date: "2026-07-16", time: "21:10", url: "https://www.techtimes.com/articles/320748/20260716/uk-economy-leads-g7-growth-rate-hike-pressure-builds-borrowers.htm" },
     { title: "Pound Index Hits One-Year High on Mahmood for Chancellor Reports", source: "Bloomberg", date: "2026-07-16", time: "21:10", url: "https://www.bloomberg.com/news/articles/2026-07-16/pound-index-hits-one-year-high-on-mahmood-for-chancellor-reports" },
-    { title: "Burnham finalising plans for UK govt before becoming PM", source: "RTÉ", date: "2026-07-18", time: "17:08", url: "https://www.rte.ie/news/2026/0718/1583956-uk-andy-burnham/" },
   ],
 };
 
