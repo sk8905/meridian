@@ -458,38 +458,25 @@ export function initNavActions() {
       rec.panel.addEventListener("click", (e) => { if (e.target.closest("[data-na-close]")) closeAll(); });
     });
 
-    // The Menu tab sits BESIDE real navigation links in the bottom bar. iOS
-    // hit-tests the tap's synthetic click AFTER our handler has closed the
-    // panel — and the close (scroll restore → Safari toolbar shift) can move
-    // the tab bar, landing that late click on a NEIGHBOURING tab link and
-    // navigating away. Handle the Menu tap on touchend and consume the touch
-    // (preventDefault stops the click from ever being synthesised).
+    // ---- Bottom tab bar: touch discipline ----------------------------------
+    // The Menu TAB toggles on touchend (consumed, so iOS never synthesises a
+    // click from it), and the tab LINKS carry an interlock: on touch devices a
+    // link only navigates when the touch that produced its click actually
+    // STARTED on that link. Together these make a misrouted synthetic click —
+    // iOS hit-tests it after our handler runs, and panel-close reflow can land
+    // it on a neighbouring link — inert by construction. Mouse clicks (no
+    // recent touch) navigate untouched.
     if (menuRec) {
-      let mtX = 0, mtY = 0, menuTapAt = 0;
+      let mtX = 0, mtY = 0;
       menuBtn.addEventListener("touchstart", (e) => { const t = e.touches[0]; mtX = t.clientX; mtY = t.clientY; }, { passive: true });
       menuBtn.addEventListener("touchend", (e) => {
         const t = e.changedTouches && e.changedTouches[0];
         if (t && Math.hypot(t.clientX - mtX, t.clientY - mtY) > 12) return; // a drag, not a tap
-        menuTapAt = Date.now();
         if (e.cancelable) e.preventDefault();
         e.stopPropagation();
         if (menuRec.panel.hidden) openPanel(menuRec); else closeAll();
       }, { passive: false });
-      // Belt and braces: whatever iOS does with the tap's synthetic click
-      // (hit-test drift can land it on a NEIGHBOURING tab link and navigate),
-      // no tab-bar LINK may accept a click in the wake of a Menu tap.
-      document.addEventListener("click", (e) => {
-        if (Date.now() - menuTapAt < 600 && e.target.closest(".mobile-tabbar a")) {
-          e.preventDefault(); e.stopPropagation();
-        }
-      }, true);
     }
-
-    // Tab-link interlock: on touch devices a tab-bar LINK only navigates when
-    // the touch that produced the click actually STARTED on that link. A
-    // synthetic click that drifted onto a link (from a tap on the Menu button
-    // or anywhere else) began its touch elsewhere — discard it. Pure mouse
-    // clicks (no recent touch) pass untouched.
     {
       let touchLink = null, lastTouchAt = 0;
       document.addEventListener("touchstart", (e) => {

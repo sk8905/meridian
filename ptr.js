@@ -1,13 +1,14 @@
 // =============================================================================
-// Custom pull-to-refresh, tuned to feel like Safari's native gesture: pulling
-// down at the very top drags the whole page content down with your finger
-// (near 1:1, with rubber-band resistance past a point), revealing a navy zone
-// (matching the nav bar) with a spinner that winds up as you pull and spins on
-// release; letting go past the threshold reloads, otherwise it springs back.
-// The fixed bottom tab bar stays put. iOS gives no native PTR in standalone
-// (home-screen) web apps, which is why we roll our own. Touch devices only.
-// Also switches off double-tap-to-zoom (touch-action: manipulation) while
-// keeping pinch-zoom. Import once and call initPullToRefresh().
+// Custom pull-to-refresh, Bloomberg-app style: the top bar, the chip rows
+// under it and the bottom tab bar stay FROZEN while the content slides down
+// with the finger (near 1:1, rubber-band resistance past a point), opening a
+// gap below the chips with a spinner that winds up as you pull and spins on
+// release; past the threshold it reloads (restoring the active tabs via
+// saveTabs/restoreTabs), otherwise it springs back. Native elastic overscroll
+// stays enabled at both page edges (overscroll-behavior: contain). iOS gives
+// no native PTR in standalone (home-screen) web apps, which is why we roll our
+// own. Touch devices only. Also switches off double-tap-to-zoom (touch-action:
+// manipulation) while keeping pinch-zoom. Import once, call initPullToRefresh().
 // =============================================================================
 let _init = false;
 export function initPullToRefresh() {

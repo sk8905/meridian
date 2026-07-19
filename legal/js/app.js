@@ -1413,8 +1413,8 @@ document.addEventListener("click", (e) => {
   }
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260718-8").then((m) => m.mountPalette()).catch(() => {});
-import("/ptr.js?v=20260719-3").then((m) => m.initPullToRefresh()).catch(() => {});
+import("/palette.js?v=20260719-1").then((m) => m.mountPalette()).catch(() => {});
+import("/ptr.js?v=20260719-4").then((m) => m.initPullToRefresh()).catch(() => {});
 initChrome();
 initNotif();
 router();

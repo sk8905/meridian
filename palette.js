@@ -6,13 +6,14 @@
 // (namespaced so they never clash with the host app), and deep-links on select.
 // Import dynamically and call mountPalette() once.  Zero dependencies.
 // =============================================================================
-// Versioned imports (matching each app) so the palette busts its cache with the
-// four-times-daily data refresh instead of serving a stale copy.
+// All five data modules are served Cache-Control: no-cache (see _headers), so
+// these imports always revalidate — the ?v= tokens on the app-owned modules
+// are inert here and kept only to mirror each app's own import line.
 import { deals, intel, managers, funds, research } from "/credit/js/data.js?v=20260718-9";
 import { items, cases, restructurings, firms } from "/legal/js/data.js?v=20260718-10";
 import { NEWS, ARTICLES, ALERTS } from "/macro/js/content.js?v=20260718-9";
-import { FT_ITEMS } from "/ft.js?v=20260718-5";
-import { NEWSLETTERS } from "/newsletters.js?v=20260718-2";
+import { FT_ITEMS } from "/ft.js";
+import { NEWSLETTERS } from "/newsletters.js";
 
 // Canonical identity of a manager press item (mirrors credit/js/app.js) so a news
 // search result deep-links to the exact row (#/manager/<id>?focus=k:<key>).

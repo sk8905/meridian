@@ -86,9 +86,9 @@ Prepend new items to the `NEWSLETTERS` array. Schema per item:
 - Store only headline + one-line summary + link. No full article text (copyright +
   personal-data hygiene; this deployment is single-reader behind Access).
 
-Bump the import token in `glance.js` (`/newsletters.js?v=YYYYMMDD-N`) so the change
-ships. No other file needs editing — `glance.js` already renders `NEWSLETTERS`
-into the feed under the `LETTER` label (see `_deskClass.n` / `DESK.n`).
+No token bump needed — `newsletters.js` is served `Cache-Control: no-cache`
+(see `_headers`), so the change ships on its own. `glance.js` already renders
+`NEWSLETTERS` into the feed under the `LETTER` label (`_deskClass.n` / `DESK.n`).
 
 ## 4. Commit & deploy
 
@@ -164,9 +164,10 @@ unchanged — never blank it out on a failed fetch.
    screen. Headline, date, time and URL only — never article body text
    (paywalled content).
 
-5. Bump the import token in `glance.js` (`/ft.js?v=YYYYMMDD-N`) so the change
-   ships. `glance.js` already renders `FT_ITEMS` into the Home "All" feed under
-   the `FT` label (`_deskClass.f` / `DESK.f`); no other file needs editing.
+5. No token bump needed — `ft.js` is served `Cache-Control: no-cache` (see
+   `_headers`), so the change ships on its own. `glance.js` already renders
+   `FT_ITEMS` into the Home "All" feed under the `FT` label (`_deskClass.f` /
+   `DESK.f`); no other file needs editing.
 
 6. Commit `ft.js` + `glance.js` in the same refresh commit as the rest of the
    run (or its own `myFT refresh: <N> new` commit if nothing else changed). If
