@@ -13,7 +13,7 @@ export const UPDATED = "19 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-19",
-  lastCheckedTime: "12:21 BST",
+  lastCheckedTime: "17:19 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -296,6 +296,7 @@ export const YIELD_CURVE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-us-strikes-iran-2026-07-19", kind: "Markets", title: "The US carried out retaliatory strikes on Iran after two American service members were killed in Jordan, deepening the oil-driven inflation and war-risk premium into the 28-29 July FOMC meeting.", href: "#/bubble", date: "2026-07-19" },
   { id: "g-jordan-troops-2026-07-18", kind: "Markets", title: "Two US service members were killed in Jordan in Iranian-linked attacks — the first direct US combat deaths of the renewed conflict — deepening the war-risk premium already visible in oil, gold and rate markets.", href: "#/bubble", date: "2026-07-18" },
   { id: "g-warsh-hawk-2026-07-18", kind: "Rate guidance", title: "Fed Chair Kevin Warsh again said the Fed has 'no tolerance' for elevated inflation as the oil-driven price shock revives the internal Fed debate over whether a hike is still needed ahead of the 29 July decision.", href: "#/policy", date: "2026-07-18" },
   { id: "g-kuwait-desal-2nd-2026-07-18", kind: "Bubble risk", title: "Iran struck Kuwait's Shuaiba desalination and power plant for a second straight day on 18 July, pushing Brent up 4.6% to $88.10/bbl (a 14%+ weekly gain) as Hormuz tanker crossings fell to just eight a day — the Gulf war now spans both a shipping-lane crisis and a civilian-infrastructure war.", href: "#/bubble", date: "2026-07-18" },
@@ -367,18 +368,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-07-19",
   us: [
+    { title: "US strikes Iran after two American troops killed in Jordan", source: "Financial Times", date: "2026-07-19", time: "10:13", url: "https://www.ft.com/content/e8e8adc5-7c56-45a8-99fc-bb5acfda263e" },
     { title: "Warsh Shows His Inner Hawk as Inflation Debate Heats Up", source: "Bloomberg", date: "2026-07-18", time: "09:22", url: "https://www.bloomberg.com/news/articles/2026-07-18/warsh-shows-his-inner-hawk-as-inflation-debate-heats-up" },
     { title: "Brent Crude Hits $88 as Iran Extends War From Hormuz to Kuwait Drinking Water", source: "Tech Times", date: "2026-07-18", time: "21:10", url: "https://www.techtimes.com/articles/320922/20260718/brent-crude-hits-88-iran-extends-war-hormuz-kuwait-drinking-water.htm" },
     { title: "U.S. stocks slide as semiconductors slip into technical bear market", source: "Xinhua", date: "2026-07-18", time: "12:03", url: "https://english.news.cn/20260718/3a7128e8ba5e4146b87ec169223cb3b4/c.html" },
     { title: "The U.S. and Iran blow past red lines as they lurch back toward all-out war", source: "NPR", date: "2026-07-18", time: "09:22", url: "https://www.npr.org/2026/07/18/nx-s1-5898916/us-iran-escalate-strikes" },
-    { title: "Gold heads for biggest weekly loss in six as Middle East war fans inflation worries", source: "CNBC", date: "2026-07-17", time: "21:10", url: "https://www.cnbc.com/2026/07/17/gold-on-track-for-biggest-weekly-loss-in-six-as-iran-war-fans-inflation-worries.html" },
   ],
   uk: [
-    { title: "Burnham finalising plans for UK govt before becoming PM", source: "RTÉ", date: "2026-07-18", time: "17:08", url: "https://www.rte.ie/news/2026/0718/1583956-uk-andy-burnham/" },
-    { title: "Britain hopes this man will save its economy. We went to Manchester to find out why", source: "CNN Business", date: "2026-07-18", time: "17:08", url: "https://kesq.com/money/cnn-business-consumer/2026/07/18/britain-hopes-this-man-will-save-its-economy-we-went-to-manchester-to-find-out-why/" },
-    { title: "Pound Sterling Forecast 2026: Politics And Growth Keep GBP Supported — Lloyds", source: "ExchangeRates.org.uk", date: "2026-07-18", time: "12:03", url: "https://www.exchangerates.org.uk/news/46543/2026-07-18-pound-sterling-forecast-2026-politics-and-growth-keep-gbp-supported-lloyds.html" },
+    { title: "Burnham to maintain ban on North Sea exploration licences", source: "Financial Times", date: "2026-07-19", time: "16:37", url: "https://www.ft.com/content/d9631aae-1100-43e0-a09a-e49f5c21f896" },
+    { title: "UK must focus on insiders vs outsiders not north vs south", source: "Financial Times", date: "2026-07-19", time: "16:00", url: "https://www.ft.com/content/79160822-5eb7-41c1-b9f7-a2a447ecb378" },
+    { title: "UK steel quota concessions to seal India deal pose risk to Welsh plant, say insiders", source: "Financial Times", date: "2026-07-19", time: "12:00", url: "https://www.ft.com/content/b0ac6cd9-e325-485a-9c0a-db5053af8d93" },
     { title: "Pound Index Hits One-Year High on Mahmood for Chancellor Reports", source: "Bloomberg", date: "2026-07-16", time: "21:10", url: "https://www.bloomberg.com/news/articles/2026-07-16/pound-index-hits-one-year-high-on-mahmood-for-chancellor-reports" },
-    { title: "Pound Sterling Price News and Forecast: GBP/USD slips for second straight day as Oil spike revives inflation fears", source: "FXStreet", date: "2026-07-17", time: "05:21", url: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-slips-for-second-straight-day-as-oil-spike-revives-inflation-fears-202607171924" },
+    { title: "Burnham finalising plans for UK govt before becoming PM", source: "RTÉ", date: "2026-07-18", time: "17:08", url: "https://www.rte.ie/news/2026/0718/1583956-uk-andy-burnham/" },
   ],
 };
 
@@ -392,6 +393,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-19",
   items: [
+    {"title":"Burnham to maintain ban on North Sea exploration licences","source":"Financial Times","date":"2026-07-19","time":"16:37","url":"https://www.ft.com/content/d9631aae-1100-43e0-a09a-e49f5c21f896","blurb":"The incoming PM confirms Labour's North Sea exploration ban stands, a decision criticised by the oil and gas industry and unions alike."},
+    {"title":"How will the ECB respond to the latest rise in oil prices?","source":"Financial Times","date":"2026-07-19","time":"12:00","url":"https://www.ft.com/content/c1b04338-8fc8-45fc-8a35-f623843d4dda","blurb":"The Iran-driven oil shock complicates the ECB's own policy calculus just as the Fed and BoE debate whether to hike."},
+    {"title":"US strikes Iran after two American troops killed in Jordan","source":"Financial Times","date":"2026-07-19","time":"10:13","url":"https://www.ft.com/content/e8e8adc5-7c56-45a8-99fc-bb5acfda263e","blurb":"Washington carries out retaliatory strikes after the first direct US combat deaths of the renewed conflict, deepening the oil-driven inflation risk into the 28-29 July FOMC meeting."},
     {"title":"U.S. blockades Iranian ports, launches dozens of strikes as Trump seeks control of Strait of Hormuz","source":"CBS News","date":"2026-07-19","time":"09:22","url":"https://www.cbsnews.com/live-updates/iran-war-trump-strait-of-hormuz-attacks-persian-gulf/","blurb":"Rolling coverage as the US completes an eighth straight night of strikes on Iran following the killing of two US service members in Jordan."},
     {"title":"Brent Crude Hits $88 as Iran Extends War From Hormuz to Kuwait Drinking Water","source":"Tech Times","date":"2026-07-18","time":"21:10","url":"https://www.techtimes.com/articles/320922/20260718/brent-crude-hits-88-iran-extends-war-hormuz-kuwait-drinking-water.htm","blurb":"Iran struck Kuwait's Shuaiba desalination plant for a second straight day, pushing Brent up 4.6% to $88.10 — a 14%+ weekly gain — as Hormuz tanker crossings fell to just eight a day and the Gulf war widens from shipping into civilian infrastructure."},
     {"title":"Burnham finalising plans for UK govt before becoming PM","source":"RTÉ","date":"2026-07-18","time":"17:08","url":"https://www.rte.ie/news/2026/0718/1583956-uk-andy-burnham/","blurb":"Burnham becomes PM on Monday with a cabinet and chancellor announcement due that day; an internal government inflation forecast has reportedly been revised up to 3.2% for Q4."},
@@ -429,9 +433,6 @@ export const ARTICLES = {
     {"title":"Chips Stocks Sink Into Bear Market as 105% AI Rally Fizzles","source":"Bloomberg","date":"2026-07-17","time":"05:21","url":"https://www.bloomberg.com/news/articles/2026-07-17/chips-stocks-tumble-into-bear-market-as-105-ai-rally-fizzles","blurb":"The Philadelphia Semiconductor Index fell more than 20% from its June peak, meeting the technical definition of a bear market, as Moonshot's Kimi K3 model revived 'DeepSeek moment' fears."},
     {"title":"US Stock-Index Futures Slide as Jitters Grow on Chip Selloff","source":"Bloomberg","date":"2026-07-17","time":"05:21","url":"https://www.bloomberg.com/news/articles/2026-07-17/us-stock-index-futures-slide-as-jitters-grow-on-chip-selloff","blurb":"Semiconductor rout worsens on AI-spending doubts, dragging futures lower into the weekend."},
     {"title":"Pound Sterling Price News and Forecast: GBP/USD slips for second straight day as Oil spike revives inflation fears","source":"FXStreet","date":"2026-07-17","time":"05:21","url":"https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-slips-for-second-straight-day-as-oil-spike-revives-inflation-fears-202607171924","blurb":"Sterling extends losses as Middle East-driven oil spike reignites BoE hike bets."},
-    {"title":"New Residential Construction, June 2026","source":"US Census Bureau","date":"2026-07-17","time":"05:20","url":"https://www.census.gov/construction/nrc/current/index.html","blurb":"Building permits fell 0.9% month-on-month to a 1.410m SAAR pace — a soft housing signal alongside the late-cycle/stagflation reads already tracked in the Cycle tab."},
-    {"title":"Surveys of Consumers, Preliminary July 2026","source":"University of Michigan","date":"2026-07-17","time":"05:20","url":"https://www.sca.isr.umich.edu/","blurb":"Sentiment rose roughly 10% from May as gasoline prices moderated, but stayed 13% below the pre-Iran-conflict February level; year-ahead inflation expectations eased to 4.6% from 4.8%."},
-    {"title":"Americans keep spending while \"grumbling\" about the economy","source":"Axios","date":"2026-07-16","time":"21:10","url":"https://www.axios.com/2026/07/16/retail-sales-consumer-spending-june","blurb":"June retail sales rose 0.2% — a fifth straight monthly increase, with sales excluding gas stations up 0.7% — underscoring a disconnect between resilient consumer spending and the gloomiest sentiment readings since 2023."},
   ],
 };
 

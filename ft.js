@@ -20,6 +20,14 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d9631aae-1100-43e0-a09a-e49f5c21f896", title: "Burnham to maintain ban on North Sea exploration licences", date: "2026-07-19", time: "16:37", url: "https://www.ft.com/content/d9631aae-1100-43e0-a09a-e49f5c21f896" },
+  { id: "79160822-5eb7-41c1-b9f7-a2a447ecb378", title: "UK must focus on insiders vs outsiders not north vs south", date: "2026-07-19", time: "16:00", url: "https://www.ft.com/content/79160822-5eb7-41c1-b9f7-a2a447ecb378" },
+  { id: "eb0cd740-e45d-4dd7-ab9a-6f6643bb32ee", title: "EU faces crumbling support for new Russia sanctions", date: "2026-07-19", time: "15:00", url: "https://www.ft.com/content/eb0cd740-e45d-4dd7-ab9a-6f6643bb32ee" },
+  { id: "cbeea953-1162-48f0-ac6d-e022c42353c6", title: "It’s time for Europe to embrace air conditioning", date: "2026-07-19", time: "14:58", url: "https://www.ft.com/content/cbeea953-1162-48f0-ac6d-e022c42353c6" },
+  { id: "29985fc4-db18-4799-ae3c-59877a6c5bc9", title: "India’s rupee problem has been misdiagnosed", date: "2026-07-19", time: "13:07", url: "https://www.ft.com/content/29985fc4-db18-4799-ae3c-59877a6c5bc9" },
+  { id: "45657e57-c8d0-4e58-b20d-d67a7bfdb050", title: "Andy Burnham should pursue a devolution ‘big bang’", date: "2026-07-19", time: "12:00", url: "https://www.ft.com/content/45657e57-c8d0-4e58-b20d-d67a7bfdb050" },
+  { id: "b0ac6cd9-e325-485a-9c0a-db5053af8d93", title: "UK steel quota concessions to seal India deal pose risk to Welsh plant, say insiders", date: "2026-07-19", time: "12:00", url: "https://www.ft.com/content/b0ac6cd9-e325-485a-9c0a-db5053af8d93" },
+  { id: "c1b04338-8fc8-45fc-8a35-f623843d4dda", title: "How will the ECB respond to the latest rise in oil prices?", date: "2026-07-19", time: "12:00", url: "https://www.ft.com/content/c1b04338-8fc8-45fc-8a35-f623843d4dda" },
   { id: "dc61c278-c3eb-48b5-8f79-f949eae7a601", title: "China’s Jingye demands payout over British Steel nationalisation", date: "2026-07-19", time: "11:50", url: "https://www.ft.com/content/dc61c278-c3eb-48b5-8f79-f949eae7a601" },
   { id: "8da4243f-820c-428c-bcfb-ba63dac48c1c", title: "US day traders flock to ‘the most dangerous product in crypto’", date: "2026-07-19", time: "11:10", url: "https://www.ft.com/content/8da4243f-820c-428c-bcfb-ba63dac48c1c" },
   { id: "e8e8adc5-7c56-45a8-99fc-bb5acfda263e", title: "US strikes Iran after two American troops killed in Jordan", date: "2026-07-19", time: "10:13", url: "https://www.ft.com/content/e8e8adc5-7c56-45a8-99fc-bb5acfda263e" },
@@ -56,8 +64,4 @@ export const FT_ITEMS = [
   { id: "8c910a8f-2b8b-4234-918a-2022bdc01889", title: "How to fix the housing crisis", date: "2026-07-18", time: "05:00", url: "https://www.ft.com/content/8c910a8f-2b8b-4234-918a-2022bdc01889" },
   { id: "580f2b36-1d00-40b8-a12a-cc7d7067a046", title: "Washington pushes EU to announce import rules rollback", date: "2026-07-18", time: "05:00", url: "https://www.ft.com/content/580f2b36-1d00-40b8-a12a-cc7d7067a046" },
   { id: "de2978b0-481c-4af5-9e77-9e34650fb20f", title: "The next crash: why this time might not be different", date: "2026-07-18", time: "05:00", url: "https://www.ft.com/content/de2978b0-481c-4af5-9e77-9e34650fb20f" },
-  { id: "fa4e24db-9324-47e2-8512-a581ca9c1aba", title: "Donald Trump threatens Canada with tariffs over ‘invasion’ of wildfire smoke", date: "2026-07-17", time: "21:56", url: "https://www.ft.com/content/fa4e24db-9324-47e2-8512-a581ca9c1aba" },
-  { id: "e466df85-fa3b-4a7f-a4a1-ae04d66db99f", title: "Trump Media pitched $100,000 monthly fee for fast feed of president’s posts", date: "2026-07-17", time: "21:24", url: "https://www.ft.com/content/e466df85-fa3b-4a7f-a4a1-ae04d66db99f" },
-  { id: "79a15abd-5892-4f1c-b038-b09a1ceecabb", title: "US chip stocks notch up worst week in more than a year", date: "2026-07-17", time: "21:22", url: "https://www.ft.com/content/79a15abd-5892-4f1c-b038-b09a1ceecabb" },
-  { id: "9586223a-8339-4a57-9e2f-251899ebd211", title: "Apple briefly leapfrogs Nvidia as world’s most valuable company", date: "2026-07-17", time: "21:17", url: "https://www.ft.com/content/9586223a-8339-4a57-9e2f-251899ebd211" },
 ];

@@ -17,8 +17,8 @@ import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
   rxAdvisers,
-} from "./data.js?v=20260719-3";
-import { donutChart, columnChart } from "./charts.js?v=20260719-3";
+} from "./data.js?v=20260719-4";
+import { donutChart, columnChart } from "./charts.js?v=20260719-4";
 
 const app = document.getElementById("app");
 
@@ -1033,7 +1033,7 @@ function viewFirm(id) {
   // Credit-wire deals/fundraising naming this firm fold into "Matters" (and
   // "All") once the lazily-loaded credit data arrives; if it can't load, the
   // page simply shows the legal-side rows.
-  import("/credit/js/data.js?v=20260718-9").then(({ deals, intel, managers }) => {
+  import("/credit/js/data.js?v=20260719-4").then(({ deals, intel, managers }) => {
     const mgr = (mid) => (managers.find((m) => m.id === mid) || {}).name || "";
     dealRows = [...(deals || []), ...(intel || [])]
       .filter((d) => firmMentioned(firm, recText(d)))
