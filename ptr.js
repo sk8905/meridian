@@ -65,11 +65,13 @@ export function initPullToRefresh() {
   if (!document.getElementById("ptr-kf")) {
     const st = document.createElement("style"); st.id = "ptr-kf";
     st.textContent = "@keyframes ptr-spin{to{transform:rotate(360deg)}}html *{touch-action:manipulation}" +
-      // Kill the native iOS rubber-band bounce so ONLY our custom PTR moves the
-      // page. Otherwise the bounce shifts the in-flow (translated) content while
-      // the position:fixed navy zone detaches during overscroll, opening a gap
-      // that flashes the light page background (the "white band" on pull-down).
-      "html,body{overscroll-behavior-y:none}";
+      // Keep the native iOS rubber-band bounce at BOTH ends of the page —
+      // hitting the top or bottom shouldn't kill the scroll dead. `contain`
+      // preserves the elastic overscroll while suppressing the browser's own
+      // pull-to-refresh (ours takes over active top-pulls via preventDefault;
+      // momentum arrivals at the top just bounce natively). The html ground
+      // matches the app so the bounce band never flashes a foreign colour.
+      "html,body{overscroll-behavior-y:contain}html{background:var(--bg,#05080f)}";
     document.head.appendChild(st);
   }
   const mount = () => { if (!zone.isConnected && document.body) document.body.appendChild(zone); };
