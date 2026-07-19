@@ -727,6 +727,10 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .rowmenu { position: fixed; z-index: 9560; min-width: 230px; max-width: 92vw;
   background: var(--surface, #0d0d0d); border: 1px solid var(--border, #262626);
   box-shadow: 0 12px 34px rgba(0,0,0,.5); }
+/* Small grey group header inside the row menu (e.g. the earnings Sources list) */
+.rowmenu-sub { padding: 8px 14px 3px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 9.5px;
+  font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86);
+  border-top: 1px solid var(--border, #262626); }
 .rowmenu-title { padding: 10px 14px; font-size: 12px; line-height: 1.35; color: var(--muted, #8592ad);
   border-bottom: 1px solid var(--border, #262626);
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }

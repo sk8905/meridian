@@ -8,9 +8,19 @@
 // =============================================================================
 const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
-const ROW_SEL = ".g-feed-row, .tw-row, .tmini-row, .tui-li";
+const ROW_SEL = ".g-feed-row, .tw-row, .tmini-row, .tui-li, .ew-row";
 // Resolve a row into a descriptor the actions understand.
 function resolveRow(r) {
+  if (r.classList.contains("ew-row")) {
+    // Earnings-wall row (Macro dashboard): the menu offers the panel's source
+    // list — read from the .ew-srcs links rendered in the same panel body.
+    const srcs = [...(r.closest(".ew-body") || r.parentElement).querySelectorAll(".ew-srcs a")]
+      .map((a) => ({ name: a.textContent.trim(), url: a.getAttribute("href") || "" }))
+      .filter((s) => /^https?:\/\//i.test(s.url));
+    const t = ((r.querySelector(".ew-t") || {}).textContent || "").trim();
+    const n = ((r.querySelector(".ew-n") || {}).textContent || "").trim();
+    return { kind: "earn", title: t && n ? `${t} — ${n}` : t || n, srcs };
+  }
   if (r.classList.contains("g-feed-row")) {
     return {
       sk: r.getAttribute("data-sk") || "x",
@@ -156,6 +166,28 @@ function openRowMenu(r, x, y) {
   _rmScrim = document.createElement("div"); _rmScrim.className = "rowmenu-scrim";
   _rmScrim.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); closeRowMenu(); });
   document.body.appendChild(_rmScrim);
+  // Earnings-wall rows: a compact sources menu (name → opens the source URL).
+  if (d.kind === "earn") {
+    const ICO_GO2 = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>';
+    _rmEl = document.createElement("div"); _rmEl.className = "rowmenu"; _rmEl.setAttribute("role", "menu");
+    _rmEl.innerHTML = `<div class="rowmenu-title">${esc(d.title)}</div>`
+      + `<div class="rowmenu-sub">Sources</div>`
+      + d.srcs.map((s, i) => `<button type="button" class="rowmenu-act" data-act="esrc" data-i="${i}">${ICO_GO2}<span>${esc(s.name)}</span></button>`).join("")
+      + `<button type="button" class="rowmenu-act rowmenu-cancel" data-act="cancel"><span>Cancel</span></button>`;
+    _rmEl.addEventListener("click", (e) => {
+      const b = e.target.closest(".rowmenu-act"); if (!b) return;
+      const i = +b.dataset.i;
+      closeRowMenu();
+      if (b.dataset.act === "esrc" && d.srcs[i]) window.open(d.srcs[i].url, "_blank", "noopener");
+    });
+    document.body.appendChild(_rmEl);
+    if (!matchMedia("(max-width:760px)").matches) {
+      const rect = _rmEl.getBoundingClientRect();
+      _rmEl.style.left = Math.max(8, Math.min(x || 0, innerWidth - rect.width - 8)) + "px";
+      _rmEl.style.top = Math.max(8, Math.min(y || 0, innerHeight - rect.height - 8)) + "px";
+    }
+    return;
+  }
   const saved = isRowSaved(d);
   const title = d.title;
   const srcName = d.src || "";
