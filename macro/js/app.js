@@ -457,10 +457,13 @@ function cockpitInds(series) {
 function earningsPanel() {
   const w = EARNINGS;
   if (!w || !w.weeks || !w.weeks.length) return "";
-  // Every row shows the full triple — EPS · Rev · EBITDA — with an em-dash for
-  // any figure no source publishes (banks report no EBITDA at all).
-  const trip = (eps, rev, ebitda) => `EPS ${eps ? esc(eps) : "—"} · Rev ${rev ? esc(rev) : "—"} · EBITDA ${ebitda ? esc(ebitda) : "—"}`;
-  const row = (r) => {
+  // Every row shows the full triple — EPS · Rev · EBITDA. A figure no source
+  // publishes states "not reported" (faint); a release that simply hasn't
+  // happened yet keeps a plain em-dash on its Act line.
+  const nr = '<span class="ew-nr">not reported</span>';
+  const trip = (eps, rev, ebitda) => (!eps && !rev && !ebitda) ? nr
+    : `EPS ${eps ? esc(eps) : nr} · Rev ${rev ? esc(rev) : nr} · EBITDA ${ebitda ? esc(ebitda) : nr}`;
+  const row = (r, past) => {
     const reported = r.actEps || r.actRev || r.actEbitda || r.px;
     const px = r.px ? ` <span class="ew-px ${String(r.px).trim().startsWith("-") ? "ew-dn" : "ew-up"}">${esc(r.px)}</span>` : "";
     const held = (r.held || []).map((h) => {
@@ -473,13 +476,13 @@ function earningsPanel() {
         <span class="ew-tag">${esc(r.tag || "")}${r.when ? (r.tag ? " · " : "") + esc(r.when) : ""}</span></div>
       <div class="ew-r">
         <div class="ew-line"><span class="ew-k">Fcst</span><span class="ew-v">${trip(r.estEps, r.estRev, r.estEbitda)}</span></div>
-        <div class="ew-line"><span class="ew-k">Act</span><span class="ew-v">${reported ? trip(r.actEps, r.actRev, r.actEbitda) + px : "—"}</span></div>
+        <div class="ew-line"><span class="ew-k">Act</span><span class="ew-v">${reported || past ? trip(r.actEps, r.actRev, r.actEbitda) + px : "—"}</span></div>
         ${r.note ? `<div class="ew-note">${esc(r.note)}</div>` : ""}
       </div>
     </div>`;
   };
-  const day = (d) => `<p class="ck-sub ew-day"><strong>${esc(fmtWeekday(d.date))}</strong></p>${d.rows.map(row).join("")}`;
-  const week = (wk) => `<p class="ck-sub ew-week">${esc(wk.label)}</p>${wk.days.map(day).join("")}`;
+  const day = (d, past) => `<p class="ck-sub ew-day"><strong>${esc(fmtWeekday(d.date))}</strong></p>${d.rows.map((r) => row(r, past)).join("")}`;
+  const week = (wk, i) => `<p class="ck-sub ew-week">${esc(wk.label)}</p>${wk.days.map((d) => day(d, i === 0)).join("")}`;
   const srcs = (w.srcs || []).map((s) => `<a class="ck-src" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.name)}</a>`).join(" · ");
   return `<section class="ck-panel ck-span2">
     <header class="ck-h"><span>Results &amp; week ahead</span><span class="ck-x">consensus → actual</span></header>
