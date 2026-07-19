@@ -56,10 +56,10 @@ export function initPullToRefresh() {
   zone.setAttribute("aria-hidden", "true");
   zone.style.cssText =
     "position:fixed;top:0;left:0;right:0;height:0;z-index:9999;overflow:hidden;pointer-events:none;" +
-    "display:flex;align-items:flex-end;justify-content:center;background:" + navy + ";";
+    "display:flex;align-items:flex-start;justify-content:center;background:" + navy + ";";
   const spin = document.createElement("div");
   spin.style.cssText =
-    "width:22px;height:22px;margin-bottom:11px;border-radius:50%;opacity:0;" +
+    "width:22px;height:22px;margin-top:16px;border-radius:50%;opacity:0;" +
     "border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;";
   zone.appendChild(spin);
   if (!document.getElementById("ptr-kf")) {
@@ -96,33 +96,60 @@ export function initPullToRefresh() {
     return false;
   }
 
-  // NOTHING moves during the pull: the sticky header and the bottom tab bar
-  // stay frozen, and the spinner zone slides down from UNDER the header,
-  // overlaying the top of the content. Measured at pull start so it always
-  // hugs the current header height.
-  function anchorZone() {
+  // Bloomberg-style pull: the top bar, the chip rows under it and the bottom
+  // tab bar stay FROZEN while the content slides down with the finger, opening
+  // a gap below the chips with the spinner in it. Mechanically: the in-flow
+  // page translates down, and the header/chip bars inside it get an equal
+  // counter-translate so they hold still.
+  let moveEls = [], counterEls = [];
+  function gatherSets() {
     const head = document.querySelector(".topbar, .g-top");
-    let top = head ? Math.max(0, head.getBoundingClientRect().bottom) : 0;
-    // The chip rows stacked directly under the top bar count as header too —
-    // the zone opens BELOW them (walk down while another bar abuts the edge).
+    // Translating a wrapper that CONTAINS the header or the fixed tab bar
+    // would drag them along (transform breaks position:fixed on descendants —
+    // Home nests both inside #glance). Walk down past such wrappers and
+    // translate only their content children.
+    moveEls = [];
+    const walk = (el) => {
+      if (el === zone || !el.matches) return;
+      if (el.matches(".topbar, .g-top")) return;                       // header: frozen
+      if (getComputedStyle(el).position === "fixed") return;           // tab bar, scrims, panels
+      if (el.querySelector(".topbar, .g-top, .mobile-tabbar")) {
+        for (const c of Array.from(el.children)) walk(c);
+        return;
+      }
+      moveEls.push(el);
+    };
+    for (const c of Array.from(document.body.children)) walk(c);
+    counterEls = [];
+    // Chip bars hugging the header freeze too (their wrapper carries the
+    // background/borders); the zone opens below the lowest of them.
+    let top = head ? head.getBoundingClientRect().bottom : 0;
     for (let i = 0; i < 3; i++) {
       let moved = false;
       for (const b of document.querySelectorAll(".tchips, .g-feed-chips")) {
         const r = b.getBoundingClientRect();
-        if (r.height && r.top >= top - 2 && r.top <= top + 40 && r.bottom > top) { top = r.bottom; moved = true; }
+        if (r.height && r.top >= top - 2 && r.top <= top + 40 && r.bottom > top) {
+          top = r.bottom; moved = true;
+          const wrap = b.closest(".tpanel-h, .ck-secbar, .tbar") || b;
+          if (!counterEls.includes(wrap) && moveEls.some((el) => el.contains(wrap))) counterEls.push(wrap);
+        }
       }
       if (!moved) break;
     }
     zone.style.top = Math.round(top) + "px";
-    zone.style.zIndex = "1200";      // over content, under panels & tab bar
+    zone.style.zIndex = "1200";      // fills the opened gap, under panels & tab bar
   }
   function apply(h, animate) {
+    const t = animate ? "transform .22s ease" : "";
     zone.style.transition = animate ? "height .22s ease" : "";
     zone.style.height = h + "px";
+    for (const el of moveEls) { el.style.transition = t; el.style.transform = h ? "translateY(" + h + "px)" : ""; }
+    for (const el of counterEls) { el.style.transition = t; el.style.transform = h ? "translateY(" + (-h) + "px)" : ""; }
     const prog = Math.min(dist / THRESH, 1);
     spin.style.opacity = String(prog);
     if (!busy) { spin.style.animation = ""; spin.style.transform = "rotate(" + (prog * 270) + "deg)"; }
   }
+  function clearPage() { for (const el of moveEls.concat(counterEls)) { el.style.transition = ""; el.style.transform = ""; } }
 
   window.addEventListener("touchstart", (e) => {
     if (busy || e.touches.length !== 1 || !atTop() || inOverlayOrScroller(e.target)) { armed = false; pulling = false; return; }
@@ -137,14 +164,14 @@ export function initPullToRefresh() {
       if (Math.abs(dy) < 6 && Math.abs(dx) < 6) return;      // wait past the deadzone
       // Only a clearly-vertical downward drag arms the pull — horizontal swipes
       // (nav-bar tabs) and upward moves fall through to normal scrolling.
-      if (dy > 0 && dy > Math.abs(dx) * 1.2 && atTop()) { pulling = true; startY = y; dist = 0; anchorZone(); return; }
+      if (dy > 0 && dy > Math.abs(dx) * 1.2 && atTop()) { pulling = true; startY = y; dist = 0; gatherSets(); return; }
       else { armed = false; return; }
     }
     dist = y - startY;
     if (dist > 0 && atTop()) {
       if (e.cancelable) e.preventDefault();       // take over the gesture
       apply(pull(dist), false);
-    } else { pulling = false; armed = false; apply(0, true); }
+    } else { pulling = false; armed = false; apply(0, true); setTimeout(clearPage, 240); }
   }, { passive: false });
 
   window.addEventListener("touchend", () => {
@@ -159,7 +186,7 @@ export function initPullToRefresh() {
       spin.style.animation = "ptr-spin .6s linear infinite";
       saveTabs();
       setTimeout(() => location.reload(), 240);
-    } else { apply(0, true); }
+    } else { apply(0, true); setTimeout(clearPage, 240); }
     dist = 0;
   }, { passive: true });
 }
