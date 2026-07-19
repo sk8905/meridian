@@ -24,6 +24,10 @@
 // Containers persist across swaps (handlers toggle/refill them), so they can be
 // animated directly.
 const SETS = [
+  // Dashboard sub-sections FIRST: a touch inside the cockpit belongs to the
+  // inner section chips, not the outer Macro tab row (findSet returns the
+  // first matching set).
+  { chips: "#ck-secnav .tchip", panes: ["#ck-cockpit"] },
   { chips: "#mac-chips .tchip", panes: ["#mac-srcbar", "#mac-wire", "#mac-dash"] },
   { chips: "#lg-chips .tchip", panes: ["#lg-panes"] },
   { chips: "#cr-dash-tabs .tchip", panes: ["#cr-dash-panes"] },

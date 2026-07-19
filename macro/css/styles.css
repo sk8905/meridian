@@ -365,6 +365,13 @@ a.intel-head:hover { text-decoration: underline; }
 .ck-body .pw-bars { gap: .5rem; margin: .1rem 0 0; }
 .ck-body .pw-lbl { font-size: 11px; }
 .ck-body .pw-pct { font-size: 12px; }
+/* Sub-section menu: house underline chips above the cockpit; groups wrap the
+   panels transparently (display:contents keeps the grid intact) and hide as a
+   unit when filtered. Dividers only show on the All view. */
+.ck-secbar { height: 34px; border-bottom: 1px solid var(--border); background: var(--surface); }
+.ck-group { display: contents; }
+.ck-group.ck-off { display: none; }
+.ck-single .ck-sec { display: none; }
 /* Cockpit sub-section headers — full-width mono dividers grouping the panels */
 .ck-sec { grid-column: 1 / -1; background: var(--bg, #05080f); padding: 14px 12px 5px;
   font-family: var(--t-mono, ui-monospace, monospace); font-size: 9.5px; font-weight: 600;

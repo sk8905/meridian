@@ -473,14 +473,27 @@ function macroDashPane() {
   const dimCard = (d) => `<div class="ck-dim"><div class="ck-dim-h"><span class="ck-dim-n">${esc(d.label)}</span><span class="ck-dim-s">${d.score}<span class="ck-dim-max">/100</span></span></div></div>`;
   const cyc = (c) => String(c.shortStage || "").split("—")[0].trim();
   const stat = (l, v, m) => `<div class="ck-stat"><span class="ck-stat-l">${esc(l)}</span><span class="ck-stat-v">${esc(v)}</span>${m ? `<span class="ck-stat-m">${esc(m)}</span>` : ""}</div>`;
+  // Sub-section menu: one section at a time by default (All shows the full
+  // cockpit); the choice persists per device.
+  let sec = "economy";
+  try { sec = localStorage.getItem("mac.dash.sec") || "economy"; } catch { /* default */ }
+  const SECS = [["all", "All"], ["economy", "Economy"], ["rates", "Rates"], ["credit", "Credit"], ["regime", "Regime"]];
+  if (!SECS.some(([k]) => k === sec)) sec = "economy";
+  const chip = ([k, l]) => `<button type="button" class="tchip${k === sec ? " is-on" : ""}" data-sec="${k}">${l}</button>`;
+  const grp = (k) => `class="ck-group${sec !== "all" && sec !== k ? " ck-off" : ""}" data-sec="${k}"`;
+  wireSecNav();
 
-  return `<div class="mac-cockpit">
+  return `<div class="ck-secbar"><div class="tchips" id="ck-secnav">${SECS.map(chip).join("")}</div></div>
+  <div class="mac-cockpit${sec !== "all" ? " ck-single" : ""}" id="ck-cockpit">
+    <div ${grp("economy")}>
     <div class="ck-sec">Economy</div>
     <section class="ck-panel ck-span2">
       <header class="ck-h"><span>Key economic indicators</span><span class="ck-x">US · UK</span><a class="ck-more" href="#/chart">Chart</a></header>
       <div class="ck-inds" id="mac-ck-inds">${cockpitInds((MACRO_DATA && MACRO_DATA.series) || [])}</div>
     </section>
+    </div>
 
+    <div ${grp("rates")}>
     <div class="ck-sec">Rates &amp; policy</div>
     <section class="ck-panel">
       <header class="ck-h"><span>Yield curve</span><span class="ck-x" id="ck-yc-asof">gov · as of ${esc(_yc.asOf)}</span></header>
@@ -510,10 +523,14 @@ function macroDashPane() {
         ${stat("UK", OUTLOOK.uk.rate, `${OUTLOOK.uk.stance || ""}${OUTLOOK.uk.next ? " · next " + OUTLOOK.uk.next : ""}`)}
       </div>
     </section>
+    </div>
 
+    <div ${grp("credit")}>
     <div class="ck-sec">Credit</div>
     ${matWallPanel()}
+    </div>
 
+    <div ${grp("regime")}>
     <div class="ck-sec">Regime</div>
     <section class="ck-panel">
       <header class="ck-h"><span>Cycle — long-term debt cycle</span><a class="ck-more" href="#/cycle">Cycle →</a></header>
@@ -533,7 +550,25 @@ function macroDashPane() {
         <div class="ck-dims">${BUBBLE.dimensions.map(dimCard).join("")}</div>
       </div>
     </section>
+    </div>
   </div>`;
+}
+
+// Dashboard sub-section menu (delegated, wired once): chip click filters the
+// cockpit to that section, All restores everything; choice persists.
+let _secWired = false;
+function wireSecNav() {
+  if (_secWired) return; _secWired = true;
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("#ck-secnav .tchip");
+    if (!b) return;
+    const sec = b.getAttribute("data-sec") || "all";
+    try { localStorage.setItem("mac.dash.sec", sec); } catch { /* private mode */ }
+    document.querySelectorAll("#ck-secnav .tchip").forEach((c) => c.classList.toggle("is-on", c === b));
+    document.querySelectorAll("#ck-cockpit .ck-group").forEach((g) => g.classList.toggle("ck-off", sec !== "all" && g.getAttribute("data-sec") !== sec));
+    const ck = document.getElementById("ck-cockpit");
+    if (ck) ck.classList.toggle("ck-single", sec !== "all");
+  });
 }
 
 // Dense terminal screen (canonical tui.css format): ticker (policy/cycle/bubble)
