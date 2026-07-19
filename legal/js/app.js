@@ -519,7 +519,7 @@ function viewDashboard() {
   const metrics = [
     ["Alerts " + thisYear, items.filter(inYear).length],
     ...practiceAreas.map((a) => [a.name, areaCount(a)]),
-    ["Case law", cases.length], ["Schemes & RPs", restructurings.length],
+    ["Case law", cases.length], ["Schemes", restructurings.length],
   ];
   const alerts = items.map((it) => ({ _k: "alert", date: it.date, title: it.title, href: it.url || (firmById[it.firm] || {}).insightsUrl || `#/item/${encodeURIComponent(it.id)}`, ext: !!(it.url || (firmById[it.firm] || {}).insightsUrl), mgr: (firmById[it.firm] || {}).name || it.firm, src: (firmById[it.firm] || {}).name || it.firm, url: it.url, code: "ALERT", firmId: it.firm || "" }));
   // A case headline opens its source directly (BAILII / National Archives judgment).
@@ -561,7 +561,7 @@ function viewDashboard() {
             <button type="button" class="tchip is-on" data-k="all">All</button>
             <button type="button" class="tchip" data-k="alert">Alerts</button>
             <button type="button" class="tchip" data-k="case">Case law</button>
-            <button type="button" class="tchip" data-k="rp">Schemes &amp; RPs</button>
+            <button type="button" class="tchip" data-k="rp">Schemes</button>
           </div>
         </header>
         <div class="tpanes" id="lg-panes">
@@ -1167,7 +1167,7 @@ function viewRestructurings() {
 
   app.innerHTML = `
     <div class="list-head">
-      <h1>Schemes and RPs</h1>
+      <h1>Schemes</h1>
       <p class="muted">English-law restructuring plans (Companies Act 2006 <strong>Part 26A</strong>) and
         distressed schemes of arrangement (<strong>Part 26</strong>) before the court since 2020.</p>
     </div>
