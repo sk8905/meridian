@@ -487,9 +487,12 @@ export function initNavActions() {
         + `<div class="na-menu-foot"><div class="na-menu-foot-l">`
         + acctHtml
         // One compact line: refresh date/time (prefix + year dropped) · build.
+        // The sw/no-sw suffix answers "is the app-shell cache actually serving
+        // this device?" at a glance.
         + (() => {
           const t = stat ? stat.textContent.trim().replace(/^Last refresh\s*/i, "").replace(/\s+\d{4}\b/, "") : "";
-          return `<div class="na-menu-row na-menu-stat">${t ? esc(t) + " · " : ""}Build ${esc(BUILD_TOKEN)}</div>`;
+          const sw = "serviceWorker" in navigator && navigator.serviceWorker.controller ? "sw" : "no-sw";
+          return `<div class="na-menu-row na-menu-stat">${t ? esc(t) + " · " : ""}Build ${esc(BUILD_TOKEN)} · ${sw}</div>`;
         })()
         + `</div><button type="button" class="na-menu-push" id="na-push" title="Push notifications">${ICO_BELL}<span class="na-push-state">…</span></button></div>`;
       wirePushRow(p);

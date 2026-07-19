@@ -345,6 +345,20 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 .mtab { border-radius: 0 !important; min-height: 54px; gap: 3px; font-size: .58rem; font-weight: 600; letter-spacing: .02em; padding: 3px .1rem !important; }
 /* Menu as a page (/menu/): the panel is permanently open — phones use the
    existing full-screen #na-menu-panel rules; desktop gets a centred column. */
+/* ---- Cross-document view transitions (Safari 18.2+/26, Chrome 126+). The
+        browser HOLDS the outgoing page's pixels through the navigation and
+        crossfades to the new page — this is the only mechanism that removes
+        the between-documents blank in the standalone app. Kept very short so
+        switches still read as instant, not animated. The module scripts carry
+        blocking="render" where supported, so the state being faded to is the
+        COMPLETE page (the earlier attempt without that guarantee crossfaded
+        into half-built pages — the "ghosting" that got it reverted). ---- */
+@view-transition { navigation: auto; }
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: .16s; }
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+}
+
 /* ---- First-paint hold. The head boot script stamps html.wire-boot; the
         content area stays invisible until nav-actions' run() completes (by
         which point the app has rendered and the chrome is injected), then the
