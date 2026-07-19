@@ -53,7 +53,7 @@ function findSet(target) {
     const els = s.panes.map((p) => document.querySelector(p)).filter(Boolean);
     if (els.some((el) => el.contains(target))) {
       const chips = [...document.querySelectorAll(s.chips)].filter((c) => c.offsetParent !== null);
-      if (chips.length > 1) return { chips, els };
+      if (chips.length > 1) return { chips, els, sel: s.chips };
     }
   }
   return null;
@@ -70,6 +70,10 @@ export function initSwipeTabs() {
   // Live-slide state (set up once per gesture when the drag locks with a target)
   let live = false, dir = 0, W = 0, ghosts = [], chip = null, origChip = null, scrollY0 = 0;
   let prevXHtml = "", prevXBody = "";
+  // Sliding active-chip underline (chips whose on-state is an inset underline):
+  // a 2px bar tracks the gesture between the outgoing and incoming chip instead
+  // of the underline jumping at the moment of the switch.
+  let bar = null, barFrom = null, barTo = null, barChips = null;
 
   const setT = (els, x, tr) => els.forEach((el) => {
     el.style.transition = tr || "";
@@ -118,13 +122,30 @@ export function initSwipeTabs() {
         width: r.width + "px", margin: "0", transform: "none", minHeight: "0",
       });
       outer.appendChild(g);
-      document.body.appendChild(outer);
+      // Mount the ghost inside the pane's own style scope: Home's feed rules
+      // are scoped under .tui, and a body-mounted clone escaped them — the
+      // UNscoped desktop card style (16px border-radius, border) took over
+      // and drew rounded edges on the slide. position:fixed still positions
+      // against the viewport (no transformed ancestors here).
+      (el.closest(".tui") || document.body).appendChild(outer);
       ghosts.push(outer);
     }
     prevXHtml = document.documentElement.style.overflowX;
     prevXBody = document.body.style.overflowX;
     document.documentElement.style.overflowX = "hidden";
     document.body.style.overflowX = "hidden";
+    // Underline slider — only for chip rows styled with the inset underline
+    // (shade-style rows like the dashboard sub-sections keep the instant swap).
+    if (origChip && chip && /inset/.test(getComputedStyle(origChip).boxShadow || "")) {
+      barFrom = origChip.getBoundingClientRect();
+      barTo = chip.getBoundingClientRect();
+      bar = document.createElement("div");
+      Object.assign(bar.style, {
+        position: "fixed", height: "2px", background: "#fff", zIndex: "1400", pointerEvents: "none",
+        left: barFrom.left + "px", top: (barFrom.bottom - 2) + "px", width: barFrom.width + "px",
+      });
+      document.body.appendChild(bar);
+    }
     // The click below re-renders the pane and usually DETACHES the touched
     // node — after which its touch events stop reaching document. Bind the
     // rest of this gesture's handlers to the node itself first.
@@ -134,6 +155,12 @@ export function initSwipeTabs() {
       tgt.addEventListener("touchcancel", finish, { passive: true });
     }
     chip.click();                                    // real panes now hold the target tab
+    if (bar) {
+      // Suppress the static underline AFTER the switch: some chip rows (Home
+      // feed) re-render on click, replacing the nodes — class the fresh set.
+      barChips = [...document.querySelectorAll(set.sel)];
+      barChips.forEach((c) => c.classList.add("st-nobar"));
+    }
     window.scrollTo(0, scrollY0);                    // undo any scroll the handler did
     setT(set.els, dir * W, "none");                  // park incoming content off-screen
     live = true;
@@ -152,9 +179,18 @@ export function initSwipeTabs() {
   const cleanup = (els) => {
     ghosts.forEach((g) => g.remove()); ghosts = [];
     els.forEach((el) => { el.style.transition = ""; el.style.transform = ""; el.style.minHeight = ""; });
+    if (bar) { bar.remove(); bar = null; }
+    (barChips || []).forEach((c) => c.classList.remove("st-nobar"));
+    barChips = null; barFrom = null; barTo = null;
     document.documentElement.style.overflowX = prevXHtml;
     document.body.style.overflowX = prevXBody;
     animating = false; live = false; dir = 0; chip = null; origChip = null;
+  };
+  // Ease the underline bar to a chip's rect alongside the pane settle.
+  const barSettle = (r, ease) => {
+    if (!bar) return;
+    bar.style.transition = `left ${ease}, width ${ease}, top ${ease}`;
+    bar.style.left = r.left + "px"; bar.style.width = r.width + "px"; bar.style.top = r.bottom - 2 + "px";
   };
 
   document.addEventListener("touchstart", (e) => {
@@ -190,6 +226,13 @@ export function initSwipeTabs() {
       const shift = main + wrong * 0.15;
       setT(ghosts, shift, "none");
       setT(set.els, dir * W + shift, "none");
+      if (bar) {
+        const p = Math.min(Math.abs(shift) / W, 1);
+        bar.style.transition = "none";
+        bar.style.left = barFrom.left + (barTo.left - barFrom.left) * p + "px";
+        bar.style.width = barFrom.width + (barTo.width - barFrom.width) * p + "px";
+        bar.style.top = barFrom.bottom - 2 + (barTo.bottom - barFrom.bottom) * p + "px";
+      }
     } else {
       // end of the chip row: no target — damped rubber-band so the edge feels solid
       const t = Math.min(Math.abs(dx) * 0.25, 60) * (dx < 0 ? -1 : 1);
@@ -223,10 +266,12 @@ export function initSwipeTabs() {
     if (commit) {
       setT(ghosts, -dir * W, ease);                  // outgoing finishes its exit
       setT(els, 0, ease);                            // incoming settles into place
+      barSettle(barTo, ".21s cubic-bezier(.22,.61,.36,1)");
       setTimeout(() => cleanup(els), 230);
     } else {
       setT(ghosts, 0, ease);                         // outgoing returns
       setT(els, dir * W, ease);                      // incoming retreats off-screen
+      barSettle(barFrom, ".21s cubic-bezier(.22,.61,.36,1)");
       const oc = origChip, y0 = scrollY0;
       setTimeout(() => {
         if (oc) oc.click();                          // restore the original tab's content

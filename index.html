@@ -1153,7 +1153,7 @@
       :root[data-theme="dark"] a.g-feed-row:hover .g-feed-title{ color:inherit; }
     }
   </style>
-  <link rel="stylesheet" href="/premium.css?v=20260719-18" />
+  <link rel="stylesheet" href="/premium.css?v=20260719-19" />
   <script type="module" blocking="render">
     // Render-blocking boot, mirroring the app pages: with a recent sign-in
     // hint the briefing renders BEFORE first paint and the shared chrome
@@ -1161,7 +1161,7 @@
     // bar staging. The body auth script confirms via /api/me and calls
     // window.__enterGlance for the no-hint path (initGlance self-guards).
     import { initGlance } from "/glance.js?v=20260719-13";
-    import { initNavActions } from "/nav-actions.js?v=20260719-19";
+    import { initNavActions } from "/nav-actions.js?v=20260719-20";
     window.__enterGlance = () => {
       ["loading", "out", "glance"].forEach((s) => document.getElementById(s).classList.toggle("hidden", s !== "glance"));
       const h = new Date().getHours();

@@ -369,6 +369,11 @@ html.wire-boot main#app, html.wire-boot .footer, html.wire-boot .wticker,
 html.wire-boot .wbrief, html.wire-boot #glance, html.wire-boot #loading,
 html.wire-boot #out { visibility: hidden; }
 
+/* During a swipe-between-chips gesture the static inset-underline on-state is
+   suppressed — swipetabs.js draws a single 2px bar that SLIDES between the two
+   chips with the panes instead of the underline jumping at the switch. */
+.st-nobar { box-shadow: none !important; }
+
 /* /menu/ head strip: the same segmented chip bar the other pages pin under
    the header (one chip for now — Search). tui.css styles the chips. */
 .na-menu-bar { height: 34px; flex: 0 0 auto; display: flex;
