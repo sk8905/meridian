@@ -495,43 +495,55 @@ export const MATWALL = {
   },
 };
 
-// Earnings wall (Dashboard › Earnings): the coming week's MAJOR reporters
-// (S&P 500 / Nasdaq-100 / Dow heavyweights and other market-moving names).
-// RULES — figures are taken VERBATIM from the sources below, never estimated
-// here. est* = pre-release consensus; act* and px (share-price reaction) stay
-// null until the release and are filled by the first refresh routine after it,
-// quoting the source's numbers. Each Monday 05:00 routine replaces the block
-// with the new week's calendar.
+// Earnings wall (Dashboard › Earnings): the coming week's market-moving
+// reporters, FOCUSED on: banks & brokers, asset managers, AI-relevant names
+// (hyperscalers, chips, AI software), the Mag 7, and other releases likely to
+// move the market. RULES — figures are taken VERBATIM from the sources below,
+// never estimated here. est* = pre-release consensus; act* and px (share-price
+// reaction) stay null until the release and are filled by the first refresh
+// routine after it, quoting the source's numbers. Each Monday 05:00 routine
+// replaces the block with the new week's calendar.
+// held[] = the reader's ETFs that hold the name — only claims that are
+// verifiable: IGWD tracks MSCI World (all developed large caps qualify);
+// WMVG tracks MSCI World Minimum Volatility (check the MSCI factsheet
+// constituents); EMEE is EM-only; COMM holds commodity futures, never equities.
 export const EARNINGS = {
-  week: "20–24 Jul 2026",
+  week: "20\u201324 Jul 2026",
   days: [
     { date: "2026-07-21", rows: [
-      { t: "KO", n: "Coca-Cola", tag: "Dow · S&P 500", when: "Pre-mkt", estEps: "$0.93", estRev: null, actEps: null, actRev: null, px: null },
-      { t: "VZ", n: "Verizon", tag: "Dow · S&P 500", when: "Pre-mkt", estEps: "$1.26", estRev: null, note: "consensus +7.7% y/y", actEps: null, actRev: null, px: null },
-      { t: "RTX", n: "RTX", tag: "S&P 500", when: "Pre-mkt", estEps: "$1.66", estRev: null, actEps: null, actRev: null, px: null },
-      { t: "LMT", n: "Lockheed Martin", tag: "S&P 500", when: "Pre-mkt", estEps: "$7.19", estRev: "$19.37bn", actEps: null, actRev: null, px: null },
+      { t: "SCHW", n: "Charles Schwab", tag: "Banks/brokers \u00b7 S&P 500", when: "Pre-mkt", held: ["IGWD"], estEps: null, estRev: null, actEps: null, actRev: null, px: null },
+      { t: "COF", n: "Capital One", tag: "Banks \u00b7 S&P 500", when: null, held: ["IGWD"], estEps: null, estRev: null, actEps: null, actRev: null, px: null },
+      { t: "KO", n: "Coca-Cola", tag: "Staples \u00b7 Dow", when: "Pre-mkt", held: ["IGWD"], estEps: "$0.93", estRev: null, actEps: null, actRev: null, px: null },
+      { t: "VZ", n: "Verizon", tag: "Telecoms \u00b7 Dow", when: "Pre-mkt", held: ["IGWD"], estEps: "$1.26", estRev: null, note: "consensus +7.7% y/y", actEps: null, actRev: null, px: null },
+      { t: "RTX", n: "RTX", tag: "Defence \u00b7 S&P 500", when: "Pre-mkt", held: ["IGWD"], estEps: "$1.66", estRev: null, actEps: null, actRev: null, px: null },
+      { t: "LMT", n: "Lockheed Martin", tag: "Defence \u00b7 S&P 500", when: "Pre-mkt", held: ["IGWD"], estEps: "$7.19", estRev: "$19.37bn", actEps: null, actRev: null, px: null },
     ] },
     { date: "2026-07-22", rows: [
-      { t: "GOOGL", n: "Alphabet", tag: "Nasdaq 100 · S&P 500", when: "After close", estEps: "$2.86", estRev: "$116.53bn", note: "consensus +23.8% y/y; 2026 capex guided $175bn", actEps: null, actRev: null, px: null },
-      { t: "TSLA", n: "Tesla", tag: "Nasdaq 100 · S&P 500", when: "After close", estEps: "$0.47", estRev: null, note: "Zacks consensus, +17.5% y/y", actEps: null, actRev: null, px: null },
+      { t: "GOOGL", n: "Alphabet", tag: "Mag 7 \u00b7 hyperscaler", when: "After close", held: ["IGWD"], estEps: "$2.86", estRev: "$116.53bn", note: "consensus +23.8% y/y; 2026 capex guided $175bn", actEps: null, actRev: null, px: null },
+      { t: "TSLA", n: "Tesla", tag: "Mag 7", when: "After close", held: ["IGWD"], estEps: "$0.47", estRev: null, note: "Zacks consensus, +17.5% y/y", actEps: null, actRev: null, px: null },
+      { t: "TXN", n: "Texas Instruments", tag: "Chips \u00b7 S&P 500", when: null, held: ["IGWD"], estEps: "$1.92", estRev: "$5.24bn", note: "consensus +36.2% y/y; industrial-cycle bellwether", actEps: null, actRev: null, px: null },
+      { t: "IBM", n: "IBM", tag: "AI/software \u00b7 Dow", when: null, held: ["IGWD"], estEps: null, estRev: null, note: "prelim Q2 miss already out \u2014 shares \u221225.2% on 14 Jul", actEps: null, actRev: null, px: null },
+      { t: "NOW", n: "ServiceNow", tag: "AI/software \u00b7 S&P 500", when: null, held: ["IGWD"], estEps: null, estRev: null, actEps: null, actRev: null, px: null },
     ] },
     { date: "2026-07-23", rows: [
-      { t: "INTC", n: "Intel", tag: "Nasdaq 100 · S&P 500", when: "After close", estEps: "$0.10", estRev: null, note: "consensus +138.5% y/y", actEps: null, actRev: null, px: null },
-      { t: "TMUS", n: "T-Mobile US", tag: "Nasdaq 100 · S&P 500", when: null, estEps: null, estRev: null, actEps: null, actRev: null, px: null },
-      { t: "HON", n: "Honeywell", tag: "S&P 500", when: null, estEps: null, estRev: null, note: "options imply ±2.9% move", actEps: null, actRev: null, px: null },
-      { t: "CLF", n: "Cleveland-Cliffs", tag: "US steel", when: "Pre-mkt", estEps: null, estRev: null, note: "loss expected (Zacks)", actEps: null, actRev: null, px: null },
+      { t: "INTC", n: "Intel", tag: "Chips \u00b7 Nasdaq 100", when: "After close", held: ["IGWD"], estEps: "$0.10", estRev: null, note: "consensus +138.5% y/y", actEps: null, actRev: null, px: null },
+      { t: "BX", n: "Blackstone", tag: "Asset mgr \u00b7 S&P 500", when: null, held: ["IGWD"], estEps: null, estRev: null, actEps: null, actRev: null, px: null },
     ] },
     { date: "2026-07-24", rows: [
-      { t: "SLB", n: "SLB (Schlumberger)", tag: "S&P 500", when: "Pre-mkt", estEps: null, estRev: null, actEps: null, actRev: null, px: null },
+      { t: "SLB", n: "SLB (Schlumberger)", tag: "Oil services \u00b7 S&P 500", when: "Pre-mkt", held: ["IGWD"], estEps: null, estRev: null, note: "commodity-complex bellwether", actEps: null, actRev: null, px: null },
     ] },
   ],
+  foot: "OpenAI, Anthropic & SpaceX are private \u2014 no earnings releases; their funding and disclosure news runs in the wire. WMVG (min-vol) & EMEE (EM) hold none of this week's reporters; COMM holds commodity futures, not equities.",
   srcs: [
-    { name: "Zacks/Yahoo (TSLA, INTC, VZ, CLF)", url: "https://finance.yahoo.com/markets/stocks/articles/tesla-tsla-reports-next-week-140020290.html" },
+    { name: "CNBC week ahead", url: "https://www.cnbc.com/2026/07/17/stock-market-next-week-outlook-for-july-20-24-2026.html" },
+    { name: "investinglive calendar", url: "https://investinglive.com/stocks/earnings-week-ahead-alphabet-and-tesla-are-the-headliners" },
+    { name: "Zacks/Yahoo (TSLA, INTC, VZ)", url: "https://finance.yahoo.com/markets/stocks/articles/tesla-tsla-reports-next-week-140020290.html" },
     { name: "Yahoo (GOOGL)", url: "https://finance.yahoo.com/markets/stocks/articles/alphabet-q2-earnings-preview-expect-134252050.html" },
+    { name: "Alphastreet (TXN)", url: "https://news.alphastreet.com/texas-instruments-q2-2026-earnings-preview-july-22-street-expects-1-92-eps/" },
+    { name: "Tech Times (IBM prelim)", url: "https://www.techtimes.com/articles/320542/20260715/morgan-stanley-q2-arrives-goldman-record-ibm-crash-raise-stakes-wealth-giant.htm" },
     { name: "Barchart (LMT)", url: "https://www.barchart.com/story/news/3115438/what-to-expect-from-lockheed-martins-next-quarterly-earnings-report" },
     { name: "Nasdaq (RTX)", url: "https://www.nasdaq.com/market-activity/stocks/rtx/earnings" },
     { name: "MarketBeat (KO, SLB)", url: "https://www.marketbeat.com/stocks/NYSE/KO/earnings/" },
-    { name: "Investing.com (HON)", url: "https://www.investing.com/news/stock-market-news/honeywell-stock-may-move-29-on-july-23-earnings-report-93CH-4796614" },
-    { name: "CNBC week ahead", url: "https://www.cnbc.com/2026/07/17/stock-market-next-week-outlook-for-july-20-24-2026.html" },
+    { name: "MSCI Min Vol factsheet (WMVG)", url: "https://www.msci.com/documents/10199/255599/msci-world-minimum-volatility-index.pdf" },
   ],
 };

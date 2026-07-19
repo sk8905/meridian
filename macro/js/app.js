@@ -4,7 +4,7 @@
 // Fetches the shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P
 // Global / BoE). Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS } from "./content.js?v=20260719-4";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS } from "./content.js?v=20260719-5";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -461,8 +461,9 @@ function earningsPanel() {
     const fc = [r.estEps ? "EPS " + esc(r.estEps) : null, r.estRev ? "Rev " + esc(r.estRev) : null].filter(Boolean).join(" · ") || "—";
     const act = [r.actEps ? "EPS " + esc(r.actEps) : null, r.actRev ? "Rev " + esc(r.actRev) : null].filter(Boolean).join(" · ");
     const px = r.px ? ` <span class="ew-px ${String(r.px).trim().startsWith("-") ? "ew-dn" : "ew-up"}">${esc(r.px)}</span>` : "";
+    const held = (r.held || []).map((h) => `<span class="ew-etf">${esc(h)}</span>`).join("");
     return `<div class="ew-row">
-      <div class="ew-l"><span class="ew-t">${esc(r.t)}</span><span class="ew-n">${esc(r.n)}</span>
+      <div class="ew-l"><span class="ew-t">${esc(r.t)}${held}</span><span class="ew-n">${esc(r.n)}</span>
         <span class="ew-tag">${esc(r.tag || "")}${r.when ? (r.tag ? " · " : "") + esc(r.when) : ""}</span></div>
       <div class="ew-r">
         <div class="ew-line"><span class="ew-k">Fcst</span><span class="ew-v">${fc}</span></div>
@@ -475,7 +476,9 @@ function earningsPanel() {
   const srcs = (w.srcs || []).map((s) => `<a class="ck-src" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.name)}</a>`).join(" · ");
   return `<section class="ck-panel ck-span2">
     <header class="ck-h"><span>Week of ${esc(w.week)}</span><span class="ck-x">consensus → actual</span></header>
-    <div class="ck-body ew-body">${w.days.map(day).join("")}<p class="ck-sub ew-srcs">Sources: ${srcs}</p></div>
+    <div class="ck-body ew-body">${w.days.map(day).join("")}
+      ${w.foot ? `<p class="ck-sub ew-foot">${esc(w.foot)}</p>` : ""}
+      <p class="ck-sub ew-srcs">Sources: ${srcs}</p></div>
   </section>`;
 }
 

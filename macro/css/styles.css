@@ -426,7 +426,12 @@ a.intel-head:hover { text-decoration: underline; }
 .ew-note { font-family: var(--t-mono); font-size: 9.5px; color: var(--muted); }
 .ew-px.ew-up { color: #2fbf8a; }
 .ew-px.ew-dn { color: #e0708e; }
-.ew-srcs { margin-top: 10px; }
+/* Held-in-ETF mini label beside the ticker (reader's own holdings) */
+.ew-etf { display: inline-block; margin-left: 6px; padding: 1px 4px; vertical-align: 1px;
+  border: 1px solid var(--border); font-family: var(--t-mono); font-size: 8.5px; font-weight: 600;
+  letter-spacing: .05em; color: var(--muted); }
+.ew-foot { margin-top: 10px; }
+.ew-srcs { margin-top: 6px; }
 .mw-legend span { display: inline-flex; align-items: center; gap: 5px; }
 .mw-dot { width: 7px; height: 7px; display: inline-block; }
 @media (max-width: 760px) {

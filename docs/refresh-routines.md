@@ -512,9 +512,21 @@ extra deep-research pass on watchlisted names is skipped.
 >      you cannot verify. Keep the list sorted by date. (Omit the recurring weekly
 >      initial-jobless-claims prints — too noisy for the banner.)
 >    - **Earnings wall in `macro/js/content.js` `EARNINGS`** → feeds the
->      Dashboard › **Earnings** sub-section: the coming week's MAJOR reporters
->      (S&P 500 / Nasdaq-100 / Dow heavyweights and other market-moving names)
->      with pre-release consensus and, once released, actuals + the share-price
+>      Dashboard › **Earnings** sub-section: the coming week's market-moving
+>      reporters, FOCUSED on (in priority order): banks & brokers, asset
+>      managers, AI-relevant names (hyperscalers, chip companies, AI software),
+>      the Mag 7, and any other release likely to move the broad market. Skip
+>      minor names outside those groups. Private AI leaders (OpenAI, Anthropic,
+>      SpaceX, xAI) have no earnings releases — keep the `foot` note current
+>      rather than adding rows. Each row also carries `held[]` — which of the
+>      reader's ETFs hold the name, shown as a small label: `IGWD` (iShares
+>      MSCI World GBP-hedged — ANY developed large cap qualifies), `WMVG`
+>      (iShares Edge MSCI World Min Vol GBP-hedged — tag ONLY names verified in
+>      the MSCI World Minimum Volatility factsheet constituents), `EMEE`
+>      (iShares EM Equity Enhanced Active — EM names only, verify against the
+>      iShares holdings page). `COMM` (iShares Diversified Commodity Swap)
+>      holds futures, never equities — never tag it. With pre-release
+>      consensus and, once released, actuals + the share-price
 >      reaction. Upkeep each run: (a) on the FIRST run of each Monday, replace
 >      the block with the new week's calendar (`week`, `days[].rows[]` with
 >      `estEps`/`estRev` consensus figures quoted VERBATIM from a named source —
