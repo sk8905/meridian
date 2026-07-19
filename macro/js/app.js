@@ -500,7 +500,6 @@ function earningsPanel() {
   wireEwNav();
   const srcs = (w.srcs || []).map((s) => `<a class="ck-src" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.name)}</a>`).join(" · ");
   return `<section class="ck-panel ck-span2">
-    <header class="ck-h wire-ptr-freeze"><span>Results &amp; week ahead</span><span class="ck-x">consensus → actual</span></header>
     <div class="ck-body ew-body">
       <div class="ew-chipbar"><div class="tchips" id="ew-weeknav">
         <button type="button" class="tchip${wsel === "this" ? " is-on" : ""}" data-w="this">This week</button>
@@ -734,12 +733,15 @@ function viewDashboard() {
       </aside>
       <section class="tcol tcol-c">
         <header class="tpanel-h twire-head">
-          <div class="tchips" id="mac-chips">
-            <button type="button" class="tchip is-on" data-k="all">All</button>
-            <button type="button" class="tchip" data-k="news">News</button>
-            <button type="button" class="tchip" data-k="comm">Commentary</button>
-            <button type="button" class="tchip" data-k="dash">Dashboard</button>
-          </div>
+          <div class="tchips" id="mac-chips">${(() => {
+            // Persisted main tab: a re-render (data syncs re-run the template)
+            // used to hardcode All active — kicking a reader off Dashboard.
+            let mk = "all";
+            try { mk = localStorage.getItem("mac.wire.tab") || "all"; } catch { /* default */ }
+            if (!["all", "news", "comm", "dash"].includes(mk)) mk = "all";
+            return [["all", "All"], ["news", "News"], ["comm", "Commentary"], ["dash", "Dashboard"]]
+              .map(([k, l]) => `<button type="button" class="tchip${k === mk ? " is-on" : ""}" data-k="${k}">${l}</button>`).join("");
+          })()}</div>
         </header>
         <div class="srcfilter-bar" id="mac-srcbar" hidden></div>
         <ul class="twire compact-list" id="mac-wire">${wire.length ? wireDays(wire.slice(0, 90), wireRow) : '<li class="tw-empty muted small">No items yet.</li>'}</ul>
@@ -804,6 +806,7 @@ function macroWireDash() {
   chips.onclick = (e) => {
     const b = e.target.closest(".tchip"); if (!b) return;
     chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
+    try { localStorage.setItem("mac.wire.tab", b.dataset.k || "all"); } catch { /* private mode */ }
     apply();
   };
   // Source name → filter to that newsroom; the pill clears it. Delegated on the
