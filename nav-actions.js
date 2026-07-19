@@ -24,6 +24,50 @@ const ICO_SAVED = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" st
 
 const isPhone = () => matchMedia("(max-width:760px)").matches;
 
+// ---- Diagnostics ------------------------------------------------------------
+// Build stamp (the premium.css token this document loaded — shown in the Menu
+// footer so "am I on the current build?" is answerable at a glance) and a
+// navigation detective: the last few input events are persisted across unload,
+// and when a page load arrives via HISTORY traversal (back_forward — what the
+// iOS edge swipe gestures produce, invisible to page code) a diagnostic toast
+// says so, with the previous page and its final touches.
+const BUILD_TOKEN = (() => {
+  const link = document.querySelector('link[href*="premium.css"]');
+  const m = String((link && link.getAttribute("href")) || "").match(/premium\.css\?v=([\w.-]+)/);
+  return m ? m[1] : "dev";
+})();
+const NAV_TYPE = (() => {
+  try { const e = performance.getEntriesByType("navigation")[0]; return e ? e.type : "unknown"; } catch { return "unknown"; }
+})();
+const _evLog = [];
+function _logEv(e) {
+  let t = e.target;
+  if (t && t.closest) t = t.closest("button, a, .mtab, [data-open-menu]") || e.target;
+  const cls = t && t.className != null && t.className.baseVal === undefined ? String(t.className).split(" ").slice(0, 2).join(".") : "";
+  _evLog.push((Date.now() % 100000) + " " + e.type + " " + ((t && t.tagName) || "?") + (cls ? "." + cls : ""));
+  if (_evLog.length > 30) _evLog.shift();
+}
+["pointerdown", "click"].forEach((k) => document.addEventListener(k, _logEv, true));
+window.addEventListener("popstate", _logEv);
+window.addEventListener("pagehide", (e) => {
+  _logEv(e);
+  try { sessionStorage.setItem("wire.lastPage", JSON.stringify({ url: location.href, at: Date.now(), ev: _evLog.slice(-8) })); } catch { /* private mode */ }
+});
+function navDiag() {
+  if (NAV_TYPE !== "back_forward") return;
+  let prev = null;
+  try { prev = JSON.parse(sessionStorage.getItem("wire.lastPage") || "null"); } catch { /* none */ }
+  const el = document.createElement("div");
+  el.className = "wire-navdiag";
+  el.innerHTML = "<strong>⚠ history navigation (back_forward)</strong><br>"
+    + (prev
+      ? "from " + esc(String(prev.url).replace(location.origin, "")) + " · " + Math.round((Date.now() - (prev.at || 0)) / 1000) + "s ago<br>" + (prev.ev || []).map((x) => esc(x)).join("<br>")
+      : "no prior page record");
+  document.body.appendChild(el);
+  el.addEventListener("click", () => el.remove());
+  setTimeout(() => { if (el.isConnected) el.remove(); }, 15000);
+}
+
 // ---- Shared page chrome -----------------------------------------------------
 // ONE header + ONE bottom tab bar, owned here and identical on every page. The
 // tab bar is INJECTED (no per-page copies in the HTMLs) and always
@@ -314,6 +358,7 @@ function lockBody(on) {
 export function initNavActions() {
   const run = () => {
     initChrome();
+    navDiag();
     const notif = document.getElementById("notif");
     // Apps mount into .topbar-right; Home (glance) mounts into .g-top .g-actions —
     // the SAME controller runs on all four pages.
@@ -432,6 +477,7 @@ export function initNavActions() {
         + `<div class="na-menu-foot"><div class="na-menu-foot-l">`
         + acctHtml
         + (stat && stat.textContent.trim() ? `<div class="na-menu-row na-menu-stat">${esc(stat.textContent.trim())}</div>` : "")
+        + `<div class="na-menu-row na-menu-stat">Build ${esc(BUILD_TOKEN)} · loaded via ${esc(NAV_TYPE)}</div>`
         + `</div><button type="button" class="na-menu-push" id="na-push" title="Push notifications">${ICO_BELL}<span class="na-push-state">…</span></button></div>`;
       wirePushRow(p);
     };

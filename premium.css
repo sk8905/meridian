@@ -343,6 +343,12 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   box-shadow: none !important;
 }
 .mtab { border-radius: 0 !important; min-height: 54px; gap: 3px; font-size: .58rem; font-weight: 600; letter-spacing: .02em; padding: 3px .1rem !important; }
+/* History-navigation diagnostic toast (nav-actions navDiag) */
+.wire-navdiag { position: fixed; left: 10px; right: 10px; bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+  z-index: 9600; background: #0a0a0a; border: 1px solid var(--border, #262626); color: var(--muted, #8592ad);
+  font-family: var(--t-mono, ui-monospace, monospace); font-size: 10.5px; line-height: 1.55; padding: 9px 11px; }
+.wire-navdiag strong { color: #fb8b1e; font-weight: 700; }
+
 /* Tabs are <button>s (no anchors in the bar) — neutralise UA button styling. */
 .mobile-tabbar .mtab { background: none; border: 0; font-family: inherit; color: inherit; cursor: pointer; -webkit-appearance: none; appearance: none; }
 .mtab.is-active { background: none !important; }
