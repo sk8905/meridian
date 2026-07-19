@@ -555,8 +555,6 @@ export function initNavActions() {
       menuPanel.classList.add("na-menu-static");
       fillMenu(menuPanel);
       menuPanel.hidden = false;
-      const tb0 = document.querySelector(".mobile-tabbar");
-      if (tb0) tb0.classList.add("menu-open");
       const acct = document.getElementById("account-nav");
       const stat = document.getElementById("data-status");
       const jobs = [];
