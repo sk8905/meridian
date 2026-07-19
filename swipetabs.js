@@ -36,7 +36,7 @@ const SETS = [
   { chips: ".g-feed-chips .g-feed-chip[data-desk]", panes: ["#g-feed"] },
 ];
 
-const EXCLUDE = ".na-panel,.na-scrim,.rowmenu,.rowmenu-scrim,.mcmdk,#cmdk,.g-mkt-panel,[data-no-swipe]";
+const EXCLUDE = ".na-panel,.na-scrim,.rowmenu,.rowmenu-scrim,.mcmdk,#cmdk,.g-mkt-panel,[data-no-swipe],.mobile-tabbar,.topbar,.g-top,.wticker,.wbrief";
 
 function inHorizontalScroller(node) {
   let el = node;
@@ -55,6 +55,17 @@ function findSet(target) {
       const chips = [...document.querySelectorAll(s.chips)].filter((c) => c.offsetParent !== null);
       if (chips.length > 1) return { chips, els, sel: s.chips };
     }
+  }
+  // Fallback: the swipe works ANYWHERE on the page, not just on the data —
+  // touches outside every pane (panel headers, chip rows, empty space) drive
+  // the page's primary chip set: the first registered set whose pane and
+  // chips are currently visible (inner-most sets are registered first, so on
+  // the Macro dashboard this is the sub-section row).
+  for (const s of SETS) {
+    const els = s.panes.map((p) => document.querySelector(p)).filter(Boolean).filter((el) => el.getClientRects().length);
+    if (!els.length) continue;
+    const chips = [...document.querySelectorAll(s.chips)].filter((c) => c.offsetParent !== null);
+    if (chips.length > 1) return { chips, els, sel: s.chips };
   }
   return null;
 }
