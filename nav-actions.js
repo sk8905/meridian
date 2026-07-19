@@ -567,12 +567,25 @@ export function initNavActions() {
     if (menuRec) panels.push(menuRec);
 
     const anyOpen = () => panels.some((x) => !x.panel.hidden);
-    const closeAll = () => {
+    let _openAt = 0;
+    const closeAll = (reason) => {
+      const menuWasOpen = !!(menuRec && !menuRec.panel.hidden);
       panels.forEach((x) => { x.panel.hidden = true; x.btn.setAttribute("aria-expanded", "false"); });
       const tb = document.querySelector(".mobile-tabbar"); if (tb) tb.classList.remove("menu-open");
       lockBody(false); scrimOff();
+      // Diagnostic: a menu that closes moments after opening reads as "the app
+      // sent me back to the page" — name the culprit on screen.
+      if (menuWasOpen && reason && reason !== "menu-tap" && Date.now() - _openAt < 1500) {
+        const el = document.createElement("div");
+        el.className = "wire-navdiag";
+        el.innerHTML = "<strong>menu auto-closed</strong><br>by: " + esc(reason) + " · " + (Date.now() - _openAt) + "ms after open";
+        document.body.appendChild(el);
+        el.addEventListener("click", () => el.remove());
+        setTimeout(() => { if (el.isConnected) el.remove(); }, 12000);
+      }
     };
     const openPanel = (rec) => {
+      _openAt = Date.now();
       panels.forEach((x) => { if (x !== rec) { x.panel.hidden = true; x.btn.setAttribute("aria-expanded", "false"); } });
       rec.panel.hidden = false;
       rec.btn.setAttribute("aria-expanded", "true");
@@ -583,7 +596,7 @@ export function initNavActions() {
       if (tb) tb.classList.toggle("menu-open", !!(rec.btn && rec.btn.hasAttribute("data-open-menu")));
       if (!isPhone()) { const r = rec.btn.getBoundingClientRect(); rec.panel.style.top = `${Math.round(r.bottom + 8)}px`; }
       lockBody(isPhone());
-      scrimOn(closeAll);
+      scrimOn(() => closeAll("scrim"));
     };
 
     panels.forEach((rec) => {
@@ -594,7 +607,7 @@ export function initNavActions() {
           if (rec.panel.hidden) openPanel(rec); else closeAll();
         });
       }
-      rec.panel.addEventListener("click", (e) => { if (e.target.closest("[data-na-close]")) closeAll(); });
+      rec.panel.addEventListener("click", (e) => { if (e.target.closest("[data-na-close]")) closeAll("panel-x"); });
     });
 
     // ---- Bottom tab bar input ----------------------------------------------
@@ -611,7 +624,7 @@ export function initNavActions() {
         const dest = btn.getAttribute("data-nav");
         if (dest) { location.replace(dest); return; }
         if (btn.hasAttribute("data-open-menu") && menuRec) {
-          if (menuRec.panel.hidden) openPanel(menuRec); else closeAll();
+          if (menuRec.panel.hidden) openPanel(menuRec); else closeAll("menu-tap");
         }
       };
       if (tabbar) {
@@ -635,9 +648,17 @@ export function initNavActions() {
     document.addEventListener("click", (e) => {
       if (!anyOpen()) return;
       if (e.target.closest(".na-panel") || e.target.closest(".na-actions")) return;
-      closeAll();
+      // Immunity window: iOS can deliver the opening tap's synthetic click a
+      // beat AFTER the panel opened — hit-tested against the new layout it can
+      // land on the exposed page and would close the menu instantly (the
+      // "menu sent me back to the page" report). A close this soon after
+      // opening can only be that ghost — ignore it.
+      if (Date.now() - _openAt < 700) return;
+      const t = e.target;
+      const d = (t && t.tagName ? t.tagName : "?") + "." + String((t && t.className) || "").split(" ").slice(0, 2).join(".");
+      closeAll("outside-click on " + d);
     });
-    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeAll(); });
+    document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeAll("esc"); });
 
     // Prime the cross-desk notifications + unread badge in the background.
     ensureNotifs().then((items) => {

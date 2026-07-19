@@ -402,7 +402,7 @@
     /* Each day is introduced by a date header (a 2px rule above it, except the
        first); the row above drops its 1px line so the break reads as one divider. */
     .g-feed-dayhdr { font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em;
-      color:var(--muted); padding:.62rem 0 .45rem; }
+      color:var(--muted); padding:.62rem 0 .45rem; border-bottom:1px solid rgba(255,255,255,.22); }
     .g-feed-dayhdr:not(:first-child) { border-top:2px solid var(--line); margin-top:.15rem; }
     .g-feed-row:has(+ .g-feed-dayhdr) { border-bottom:0; }
     /* Row leads with the publish time (tabular figures so they align). */
@@ -1139,7 +1139,7 @@
       :root[data-theme="dark"] a.g-feed-row:hover .g-feed-title{ color:inherit; }
     }
   </style>
-  <link rel="stylesheet" href="/premium.css?v=20260719-9" />
+  <link rel="stylesheet" href="/premium.css?v=20260719-10" />
 </head>
 <body>
   <!-- Loading -->
@@ -1356,7 +1356,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260719-10").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260719-11").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), show the briefing immediately instead of

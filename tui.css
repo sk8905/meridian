@@ -482,4 +482,4 @@
    feed: a darker mono band marking where one day ends and the next begins. */
 .tw-day { list-style: none; padding: 5px 12px 3px; font-family: var(--t-mono, ui-monospace, monospace);
   font-size: 9.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
-  color: var(--muted, #8592ad); background: rgba(0, 0, 0, .45); border-bottom: 1px solid var(--grid, #1a1a1a); }
+  color: var(--muted, #8592ad); background: rgba(0, 0, 0, .45); border-bottom: 1px solid rgba(255, 255, 255, .22); }
