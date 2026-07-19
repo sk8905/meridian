@@ -665,6 +665,19 @@ export function initNavActions() {
       }
     }
 
+    // Clamped feed rows (Wire-analysis paragraphs clip to 2 lines): first tap
+    // expands the row in place; once expanded, the next tap follows its link
+    // to the full story. Capture phase so the expand wins over navigation.
+    document.addEventListener("click", (e) => {
+      const row = e.target.closest(".na-panel .nf-row");
+      if (!row || row.classList.contains("is-open")) return;
+      const t = row.querySelector(".nf-title");
+      if (t && t.scrollHeight - t.clientHeight > 2) {
+        e.preventDefault(); e.stopPropagation();
+        row.classList.add("is-open");
+      }
+    }, true);
+
     document.addEventListener("click", (e) => {
       if (!anyOpen()) return;
       if (e.target.closest(".na-panel") || e.target.closest(".na-actions")) return;
