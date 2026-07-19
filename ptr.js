@@ -219,7 +219,14 @@ export function initPullToRefresh() {
       spin.style.transform = "";
       spin.style.animation = "ptr-spin .6s linear infinite";
       saveTabs();
-      setTimeout(() => location.reload(), 240);
+      // Freshen the app-shell cache FIRST (cache:"reload" = network-first in
+      // sw.js), then reload: the repaint is served from the just-updated cache
+      // — fresh content with none of the old blank-while-fetching jump. Capped
+      // so a dead network still reloads (into the cached copy) after ~3.5s.
+      const fresh = [location.pathname, "/ft.js", "/newsletters.js", "/credit/js/data.js", "/legal/js/data.js", "/macro/js/content.js"]
+        .map((u) => fetch(u, { cache: "reload" }).catch(() => {}));
+      Promise.race([Promise.allSettled(fresh), new Promise((r) => setTimeout(r, 3500))])
+        .then(() => location.reload());
     } else { apply(0, true); setTimeout(clearPage, 240); }
     dist = 0;
   }, { passive: true });

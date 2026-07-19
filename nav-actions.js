@@ -549,10 +549,15 @@ export function initNavActions() {
         catch { paint(await pushState()); }
       });
     };
-    // Keep the service worker registered/updated on every visit where one
-    // already exists (so sw.js changes ship without a Menu visit).
+    // Register/refresh the service worker on every visit — it carries Web Push
+    // AND the app-shell cache that makes page switches paint instantly.
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.getRegistration("/").then((reg) => { if (reg) navigator.serviceWorker.register("/sw.js").catch(() => {}); }).catch(() => {});
+      navigator.serviceWorker.register("/sw.js").catch(() => {});
+    }
+    // Tidy the Access re-auth marker (?__net=1 forces the navigation past the
+    // app-shell cache so Access can round-trip through login).
+    if (/(^|[?&])__net=/.test(location.search)) {
+      try { history.replaceState(null, "", location.pathname); } catch { /* */ }
     }
     // Tapping a recent search re-opens the page's search overlay seeded with it.
     if (menuPanel) {

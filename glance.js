@@ -162,7 +162,7 @@ export function initGlance() {
   // The legacy Home-only menus (initNotifBell / initSavedPanel /
   // initMarketsPanel) are retired; on phones the Home data rails move into the
   // shared Markets panel via initHomeMarketsRails.
-  import("/nav-actions.js?v=20260719-13").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260719-14").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderDeals();
   renderFundraising();
   renderRx();
@@ -172,7 +172,7 @@ export function initGlance() {
   initJumpNav();
   wirePalette(buildIndex());
   startLiveRefresh();
-  import("/ptr.js?v=20260719-7").then((m) => m.initPullToRefresh()).catch(() => {});
+  import("/ptr.js?v=20260719-8").then((m) => m.initPullToRefresh()).catch(() => {});
 }
 
 // ---- Unified Saved -----------------------------------------------------------
@@ -529,7 +529,10 @@ function maybeReauth() {
     const last = +localStorage.getItem("wire.reauthAt") || 0;
     if (Date.now() - last < 15 * 60 * 1000) return;
     localStorage.setItem("wire.reauthAt", String(Date.now()));
-    window.location.reload();
+    // ?__net=1 forces the navigation past the service-worker app-shell cache —
+    // it must reach the origin so Access can redirect through login and back
+    // (nav-actions strips the marker after load).
+    window.location.href = location.pathname + "?__net=1";
   } catch { /* leave the stale feed rather than loop */ }
 }
 function refreshLiveFeed() {
