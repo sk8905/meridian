@@ -151,13 +151,12 @@ unchanged — never blank it out on a failed fetch.
    - `date` / `time` — from `<pubDate>`, converted to **Europe/London**, as
      `YYYY-MM-DD` + `HH:MM` (24h).
 
-3. **Relevance screen (required).** The followed topics include FT Weekend /
-   Life & Arts, so filter before writing: KEEP only headlines relevant to
-   finance, markets, economics, business, deals, energy or economic policy;
-   DROP lifestyle, arts, culture, travel, sport, obituaries, reviews and
-   general-interest features. Mirror the live feed's screen in `src/index.js`
-   (`FEED_MACRO_RE` / `FEED_MEGACAP_RE` / `MYFT_RE` — a headline passing ANY of
-   the three stays).
+3. **Lifestyle screen (required).** KEEP EVERY story — news, business,
+   politics, geopolitics — EXCEPT lifestyle: arts, culture, film/TV/music,
+   travel, dining, fashion, sport, obituaries and general-interest features.
+   Mirror the live feed's soft screen in `src/index.js` (`FEED_LIFESTYLE_RE`
+   rejects; a headline also matching `FEED_MACRO_RE`/`FEED_MEGACAP_RE` is
+   rescued — business-of-culture stories stay).
 
 4. Update `/ft.js`: regenerate the `FT_ITEMS` array — dedupe by `id` against the
    existing entries, newest first, keep the most recent **~40** that pass the

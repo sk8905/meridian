@@ -1223,7 +1223,7 @@ const FEED_SOURCES = [
   // The reader's personalised myFT (followed-topics) feed. `myft: true` marks the
   // emitted items so the Home page routes them to the FT stream, not Macro; no
   // topic/quality filters — the reader curated this feed themselves.
-  { url: "https://www.ft.com/myft/following/601965b2-62d0-47e1-88cf-576ebc8a8a2e.rss", source: "Financial Times", region: "GEN", cap: 40, filter: false, myft: true },
+  { url: "https://www.ft.com/myft/following/601965b2-62d0-47e1-88cf-576ebc8a8a2e.rss", source: "Financial Times", region: "GEN", cap: 40, myft: true, soft: true },
   // Reuters & Bloomberg via Google News search (site:-scoped, macro terms, last 2 days)
   { url: "https://news.google.com/rss/search?q=site%3Areuters.com%20%28Fed%20OR%20inflation%20OR%20%22interest%20rate%22%20OR%20GDP%20OR%20economy%20OR%20Treasury%20OR%20%22stock%20market%22%29%20when%3A2d&hl=en-US&gl=US&ceid=US%3Aen", source: "Reuters", region: "US", cap: 6, gnews: true },
   { url: "https://news.google.com/rss/search?q=site%3Areuters.com%20%28%22Bank%20of%20England%22%20OR%20gilt%20OR%20inflation%20OR%20UK%20economy%20OR%20sterling%29%20when%3A2d&hl=en-GB&gl=GB&ceid=GB%3Aen", source: "Reuters", region: "UK", cap: 5, gnews: true },
@@ -1233,9 +1233,9 @@ const FEED_SOURCES = [
   // coverage overnight, so they take the STANDARD macro-relevance title filter
   // (same as the FT/CNBC/MarketWatch sections) rather than filter:false;
   // title-dedupe collapses overlap with the Google-News Bloomberg fallback.
-  { url: "https://feeds.bloomberg.com/markets/news.rss", source: "Bloomberg", region: "GEN", cap: 8 },
-  { url: "https://feeds.bloomberg.com/business/news.rss", source: "Bloomberg", region: "GEN", cap: 6 },
-  { url: "https://feeds.bloomberg.com/economics/news.rss", source: "Bloomberg", region: "GEN", cap: 6 },
+  { url: "https://feeds.bloomberg.com/markets/news.rss", source: "Bloomberg", region: "GEN", cap: 8, soft: true },
+  { url: "https://feeds.bloomberg.com/business/news.rss", source: "Bloomberg", region: "GEN", cap: 6, soft: true },
+  { url: "https://feeds.bloomberg.com/economics/news.rss", source: "Bloomberg", region: "GEN", cap: 6, soft: true },
   // FT Alphaville & The Economist via Google News — reliably fetchable even when the
   // publishers' own RSS is paywalled/IP-blocked from the Worker. Query already scopes
   // to macro/finance, so no extra title filter.
@@ -1406,25 +1406,20 @@ async function feedFetch(url) {
   }
   return null;
 }
-// myFT relevance screen — the reader's followed topics include Weekend/Life &
-// Arts sections; keep finance / markets / business / economics / energy /
-// policy stories and drop lifestyle, arts, travel, culture and sport. Applied
-// ON TOP of FEED_MACRO_RE / FEED_MEGACAP_RE (either passing keeps the story).
-const MYFT_RE = new RegExp([
-  "\\bstocks?\\b", "\\bshares?\\b", "equit(y|ies)", "\\bbonds?\\b", "\\bgilts?\\b", "treasur", "yield",
-  "\\bmarkets?\\b", "invest", "\\bbank", "hedge fund", "private (equity|credit)", "buyout", "\\bipo\\b",
-  "listing", "\\bm&a\\b", "merger", "acquisition", "takeover", "\\bdeals?\\b", "\\bdebt\\b", "\\bloans?\\b",
-  "\\bcredit\\b", "\\bfunds?\\b", "earnings", "profits?", "revenue", "valuation", "regulator", "\\bfca\\b",
-  "pension", "retirement", "insur", "currenc", "dollar", "sterling", "\\beuro\\b", "crash", "default",
-  "energy", "\\boil\\b", "\\bgas\\b", "electricity", "utilit", "tariff", "sanction", "\\btax\\b",
-  "budget", "fiscal", "chancellor", "billion", "trillion", "[€$£]",
-  "stockpick", "\\brates?\\b", "\\bsavings\\b", "\\bimports?\\b", "\\bexports?\\b", "\\btrade\\b",
-  // Market-moving geopolitics — the reader's followed topics include world news,
-  // and stories like "US strikes Iran" were being dropped by the finance-only
-  // vocabulary (2026-07-19). Lifestyle/arts/sport still fall through.
-  "\\biran\\b", "\\bisrael", "\\brussia", "ukrain", "\\bchina\\b", "\\bnato\\b", "\\bopec\\b", "hormuz",
-  "\\bwar\\b", "warfare", "military", "missile", "ceasefire", "\\bstrikes?\\b", "\\btroops\\b", "geopolit",
-  "zelensk", "\\bputin\\b", "kremlin", "\\belection", "\\bcoup\\b",
+// Soft screen for the reader-curated feeds (myFT + Bloomberg's official section
+// wires): EVERYTHING passes except lifestyle / arts / culture / travel / sport.
+// A headline that ALSO matches the finance vocabulary survives even when it
+// brushes lifestyle terms (business-of-culture: "Netflix earnings", a studio
+// merger), so the reject list can afford to be broad.
+const FEED_LIFESTYLE_RE = new RegExp([
+  "travel", "holiday", "\\bhotels?\\b", "restaurant", "recipe", "cook(ing|book)", "\\bdining\\b", "\\bwine\\b", "whisky", "cocktail",
+  "fashion", "beauty", "jewell?er", "luxury watch", "\\byacht", "interior design",
+  "\\barts\\b", "artist", "\\bgallery\\b", "museum", "exhibition", "theatre", "theater", "\\bopera\\b", "ballet",
+  "\\bfilm\\b", "\\bmovie", "\\bcinema", "box office", "\\bpodcast", "\\bmusic\\b", "\\balbum\\b", "\\bconcert\\b", "celebrit", "royal family", "memoir", "poetry",
+  "crossword", "puzzle", "horoscope", "wellness", "\\byoga\\b", "recipes", "lunch with the ft", "how to spend it",
+  "football", "soccer", "\\btennis\\b", "\\bgolf\\b", "cricket", "\\brugby\\b", "olympic", "world cup", "grand prix",
+  "formula (one|1)", "\\bf1\\b", "tour de france", "premier league", "\\bnba\\b", "\\bnfl\\b", "\\bmlb\\b",
+  "obituar", "\\bdies aged\\b", "\\b(19|20)\\d\\d[–—-](19|20)\\d\\d\\b",
 ].join("|"), "i");
 const feedNorm = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
 async function handleFeed(request, env, ctx) {
@@ -1436,7 +1431,8 @@ async function handleFeed(request, env, ctx) {
         const r = await fetch(f.url, { headers: fetchHeaders(f.url), cf: { cacheTtl: 0 } });
         const txt = r.ok ? await r.text() : "";
         const parsed = txt ? feedParse(txt, f).filter((x) => !feedReject(x.title)) : [];
-        const kept = (f.filter === false) ? parsed
+        const kept = f.soft ? parsed.filter((x) => !FEED_LIFESTYLE_RE.test(x.title) || FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title))
+          : (f.filter === false) ? parsed
           : f.core ? parsed.filter((x) => FEED_CORE_MACRO_RE.test(x.title))
           : parsed.filter((x) => FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title));
         return { source: f.source, url: f.url, status: r.status, parsed: parsed.length, kept: kept.length };
@@ -1447,17 +1443,17 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=17", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=18", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {
     const txt = await feedFetch(f.url);
     if (!txt) return [];
     let items = feedParse(txt, f).filter((x) => !feedReject(x.title));
-    // myFT: personal feed, but screened for relevance — finance/markets/
-    // business/policy stay; Weekend/lifestyle/arts/travel drop.
-    if (f.myft) {
-      items = items.filter((x) => FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title) || MYFT_RE.test(x.title));
+    // Reader-curated feeds (myFT, Bloomberg official wires): everything passes
+    // except lifestyle — unless the headline also reads as finance/business.
+    if (f.soft) {
+      items = items.filter((x) => !FEED_LIFESTYLE_RE.test(x.title) || FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title));
     } else if (f.filter !== false) {
       items = f.core
         ? items.filter((x) => FEED_CORE_MACRO_RE.test(x.title))
