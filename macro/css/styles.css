@@ -425,6 +425,8 @@ a.intel-head:hover { text-decoration: underline; }
 .ew-t { font-family: var(--t-mono); font-size: 11px; font-weight: 700; letter-spacing: .04em; color: var(--ink); }
 .ew-n { font-size: 12px; color: var(--ink); }
 .ew-tag { font-family: var(--t-mono); font-size: 9.5px; color: var(--faint, #5c6a86); }
+/* Release timing (Pre-mkt / After close) on its own line under the tag */
+.ew-when { font-family: var(--t-mono); font-size: 9.5px; color: var(--muted); }
 .ew-r { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
 /* Per-company mini table: Fcst / Act columns x Rev / EBITDA / EPS rows */
 .ew-tbl { width: 100%; border-collapse: collapse; font-family: var(--t-mono); font-variant-numeric: tabular-nums; }

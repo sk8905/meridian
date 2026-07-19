@@ -475,7 +475,8 @@ function earningsPanel() {
     const tr = (lbl, est, act) => `<tr><th>${lbl}</th><td>${cell(est, false)}</td><td>${cell(act, pending)}</td></tr>`;
     return `<div class="ew-row">
       <div class="ew-l"><span class="ew-t">${esc(r.t)}${held}</span><span class="ew-n">${esc(r.n)}</span>
-        <span class="ew-tag">${esc(r.tag || "")}${r.when ? (r.tag ? " · " : "") + esc(r.when) : ""}</span></div>
+        ${r.tag ? `<span class="ew-tag">${esc(r.tag)}</span>` : ""}
+        ${r.when ? `<span class="ew-when">${esc(r.when)}</span>` : ""}</div>
       <div class="ew-r">
         <table class="ew-tbl">
           <thead><tr><th></th><th>Fcst</th><th>Act</th></tr></thead>
