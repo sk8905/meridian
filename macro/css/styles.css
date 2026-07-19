@@ -416,16 +416,23 @@ a.intel-head:hover { text-decoration: underline; }
 .ew-week:first-child { margin-top: 0; }
 .ew-day { margin: 10px 0 2px; }
 .ew-day:first-child { margin-top: 0; }
-.ew-row { display: flex; gap: 12px; align-items: flex-start; padding: 7px 0; border-bottom: 1px solid var(--border); }
+.ew-row { display: block; padding: 8px 0 9px; border-bottom: 1px solid var(--border); }
 .ew-row:last-of-type { border-bottom: 0; }
-.ew-l { flex: 0 0 44%; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+/* Header line: ticker + ETF label + name, tag pushed right; table below, full width */
+.ew-l { display: flex; align-items: baseline; gap: 8px; min-width: 0; margin-bottom: 3px; flex-wrap: wrap; }
 .ew-t { font-family: var(--t-mono); font-size: 11px; font-weight: 700; letter-spacing: .04em; color: var(--ink); }
 .ew-n { font-size: 12px; color: var(--ink); }
-.ew-tag { font-family: var(--t-mono); font-size: 9.5px; color: var(--faint, #5c6a86); }
-.ew-r { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
-.ew-line { display: flex; gap: 8px; align-items: baseline; }
-.ew-k { flex: 0 0 30px; font-family: var(--t-mono); font-size: 9.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
-.ew-v { font-family: var(--t-mono); font-size: 11.5px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.ew-tag { font-family: var(--t-mono); font-size: 9.5px; color: var(--faint, #5c6a86); margin-left: auto; text-align: right; }
+.ew-r { display: flex; flex-direction: column; gap: 3px; }
+/* Per-company mini table: Fcst / Act columns x Rev / EBITDA / EPS rows */
+.ew-tbl { width: 100%; border-collapse: collapse; font-family: var(--t-mono); font-variant-numeric: tabular-nums; }
+.ew-tbl th, .ew-tbl td { text-align: right; padding: 1px 0 1px 8px; font-weight: 400; }
+.ew-tbl thead th:nth-child(2), .ew-tbl tbody td:nth-child(2),
+.ew-tbl thead th:nth-child(3), .ew-tbl tbody td:nth-child(3) { width: 38%; }
+.ew-tbl tbody th, .ew-tbl thead th { font-size: 9.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
+.ew-tbl tbody th { text-align: left; padding-left: 0; white-space: nowrap; }
+.ew-tbl thead th:first-child { text-align: left; }
+.ew-tbl td { font-size: 11px; color: var(--ink); white-space: nowrap; }
 .ew-note { font-family: var(--t-mono); font-size: 9.5px; color: var(--muted); }
 .ew-nr { color: var(--faint, #5c6a86); font-weight: 400; }
 .ew-px.ew-up { color: #2fbf8a; }

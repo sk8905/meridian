@@ -516,15 +516,15 @@ export const EARNINGS = {
   weeks: [
     { label: "Last week \u00b7 13\u201317 Jul", days: [
       { date: "2026-07-14", rows: [
-        { t: "JPM", n: "JPMorgan", tag: "Banks \u00b7 Dow", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: null, estRev: null, estEbitda: null, actEps: null, actRev: null, actEbitda: null, px: null, note: "record $21.2bn net income, +41% y/y; equities +86%; all five majors beat" },
+        { t: "JPM", n: "JPMorgan", tag: "Banks \u00b7 Dow", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: null, estRev: null, estEbitda: null, actEps: null, actRev: null, actEbitda: null, px: null, note: "record $21.2bn profit; all five majors beat" },
         { t: "GS", n: "Goldman Sachs", tag: "Banks \u00b7 Dow", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: null, estRev: null, estEbitda: null, actEps: "$20.98", actRev: "$20.34bn", actEbitda: null, px: null, note: "best quarter in its history" },
       ] },
       { date: "2026-07-15", rows: [
-        { t: "MS", n: "Morgan Stanley", tag: "Banks \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: null, estRev: null, estEbitda: null, actEps: "$3.46", actRev: "$21.3bn", actEbitda: null, px: null, note: "record equities $6.3bn, ~$1.9bn above estimates" },
-        { t: "ASML", n: "ASML", tag: "Chips \u00b7 AI capex", when: null, held: [{ etf: "IGWD", w: null }], estEps: null, estRev: null, estEbitda: null, actEps: null, actRev: "\u20ac9.3bn", actEbitda: null, px: null, note: "net income \u20ac2.9bn; 2026 sales guided \u20ac43\u201345bn" },
+        { t: "MS", n: "Morgan Stanley", tag: "Banks \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: null, estRev: null, estEbitda: null, actEps: "$3.46", actRev: "$21.3bn", actEbitda: null, px: null, note: "record equities revenue" },
+        { t: "ASML", n: "ASML", tag: "Chips \u00b7 AI capex", when: null, held: [{ etf: "IGWD", w: null }], estEps: null, estRev: null, estEbitda: null, actEps: null, actRev: "\u20ac9.3bn", actEbitda: null, px: null, note: "2026 sales guided \u20ac43\u201345bn" },
       ] },
       { date: "2026-07-16", rows: [
-        { t: "TSM", n: "TSMC", tag: "Chips \u00b7 EM", when: null, held: [{ etf: "EMEE", w: "9.74%" }], estEps: null, estRev: null, estEbitda: null, actEps: "$4.31/ADR", actRev: "$40.2bn", actEbitda: null, px: "-5%", note: "revenue +36% y/y, net income +77%; record 67.7% gross margin" },
+        { t: "TSM", n: "TSMC", tag: "Chips \u00b7 EM", when: null, held: [{ etf: "EMEE", w: "9.74%" }], estEps: null, estRev: null, estEbitda: null, actEps: "$4.31/ADR", actRev: "$40.2bn", actEbitda: null, px: "-5%", note: "record 67.7% gross margin" },
       ] },
     ] },
     { label: "This week \u00b7 20\u201324 Jul", days: [
@@ -537,18 +537,18 @@ export const EARNINGS = {
         { t: "LMT", n: "Lockheed Martin", tag: "Defence \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$7.19", estRev: "$19.37bn", estEbitda: null, actEps: null, actRev: null, actEbitda: null, px: null },
       ] },
       { date: "2026-07-22", rows: [
-        { t: "GOOGL", n: "Alphabet", tag: "Mag 7 \u00b7 hyperscaler", when: "After close", held: [{ etf: "IGWD", w: "4.16%" }], estEps: "$2.86", estRev: "$116.53bn", estEbitda: null, note: "consensus +23.8% y/y; 2026 capex guided $175bn", actEps: null, actRev: null, actEbitda: null, px: null },
-        { t: "TSLA", n: "Tesla", tag: "Mag 7", when: "After close", held: [{ etf: "IGWD", w: "1.33%" }], estEps: "$0.47", estRev: null, estEbitda: null, note: "Zacks consensus, +17.5% y/y", actEps: null, actRev: null, actEbitda: null, px: null },
-        { t: "TXN", n: "Texas Instruments", tag: "Chips \u00b7 S&P 500", when: null, held: [{ etf: "IGWD", w: null }], estEps: "$1.92", estRev: "$5.24bn", estEbitda: null, note: "consensus +36.2% y/y; industrial-cycle bellwether", actEps: null, actRev: null, actEbitda: null, px: null },
-        { t: "IBM", n: "IBM", tag: "AI/software \u00b7 Dow", when: null, held: [{ etf: "IGWD", w: null }], estEps: "$3.02", estRev: "$17.86bn", estEbitda: null, actEps: "$2.93 prelim", actRev: "$17.2bn prelim", actEbitda: null, px: "-25.2%", note: "prelim 14 Jul: clients shifted capex to hardware, software/consulting deals unsigned; full report 22 Jul" },
-        { t: "NOW", n: "ServiceNow", tag: "AI/software \u00b7 S&P 500", when: null, held: [{ etf: "IGWD", w: null }], estEps: null, estRev: null, estEbitda: null, note: "focus: cRPO growth >19.5%; fell ~8% on IBM's prelim miss", actEps: null, actRev: null, actEbitda: null, px: null },
+        { t: "GOOGL", n: "Alphabet", tag: "Mag 7 \u00b7 hyperscaler", when: "After close", held: [{ etf: "IGWD", w: "4.16%" }], estEps: "$2.86", estRev: "$116.53bn", estEbitda: null, note: "2026 capex guided $175bn", actEps: null, actRev: null, actEbitda: null, px: null },
+        { t: "TSLA", n: "Tesla", tag: "Mag 7", when: "After close", held: [{ etf: "IGWD", w: "1.33%" }], estEps: "$0.47", estRev: null, estEbitda: null, note: "consensus +17.5% y/y", actEps: null, actRev: null, actEbitda: null, px: null },
+        { t: "TXN", n: "Texas Instruments", tag: "Chips \u00b7 S&P 500", when: null, held: [{ etf: "IGWD", w: null }], estEps: "$1.92", estRev: "$5.24bn", estEbitda: null, note: "industrial-cycle bellwether", actEps: null, actRev: null, actEbitda: null, px: null },
+        { t: "IBM", n: "IBM", tag: "AI/software \u00b7 Dow", when: null, held: [{ etf: "IGWD", w: null }], estEps: "$3.02", estRev: "$17.86bn", estEbitda: null, actEps: "$2.93 prelim", actRev: "$17.2bn prelim", actEbitda: null, px: "-25.2%", note: "prelim miss 14 Jul; full report 22 Jul" },
+        { t: "NOW", n: "ServiceNow", tag: "AI/software \u00b7 S&P 500", when: null, held: [{ etf: "IGWD", w: null }], estEps: null, estRev: null, estEbitda: null, note: "watch cRPO growth >19.5%", actEps: null, actRev: null, actEbitda: null, px: null },
       ] },
       { date: "2026-07-23", rows: [
         { t: "INTC", n: "Intel", tag: "Chips \u00b7 Nasdaq 100", when: "After close", held: [{ etf: "IGWD", w: null }], estEps: "$0.10", estRev: null, estEbitda: null, note: "consensus +138.5% y/y", actEps: null, actRev: null, actEbitda: null, px: null },
         { t: "BX", n: "Blackstone", tag: "Asset mgr \u00b7 S&P 500", when: null, held: [{ etf: "IGWD", w: null }], estEps: null, estRev: null, estEbitda: null, actEps: null, actRev: null, actEbitda: null, px: null },
       ] },
       { date: "2026-07-24", rows: [
-        { t: "SLB", n: "SLB (Schlumberger)", tag: "Oil services \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$0.52", estRev: null, estEbitda: null, note: "consensus \u221229.7% y/y; commodity-complex bellwether", actEps: null, actRev: null, actEbitda: null, px: null },
+        { t: "SLB", n: "SLB (Schlumberger)", tag: "Oil services \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$0.52", estRev: null, estEbitda: null, note: "consensus \u221229.7% y/y", actEps: null, actRev: null, actEbitda: null, px: null },
       ] },
     ] },
   ],

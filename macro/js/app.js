@@ -4,7 +4,7 @@
 // Fetches the shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P
 // Global / BoE). Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS } from "./content.js?v=20260719-7";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS } from "./content.js?v=20260719-8";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -457,27 +457,35 @@ function cockpitInds(series) {
 function earningsPanel() {
   const w = EARNINGS;
   if (!w || !w.weeks || !w.weeks.length) return "";
-  // Every row shows the full triple — EPS · Rev · EBITDA. A figure no source
-  // publishes states "not reported" (faint); a release that simply hasn't
-  // happened yet keeps a plain em-dash on its Act line.
+  // Each entry is a small table — Fcst / Act columns × Revenue / EBITDA / EPS
+  // rows. A figure no source publishes states "not reported" (faint); a
+  // release that simply hasn't happened yet shows a plain em-dash in Act.
+  // Beneath the table: the share reaction + a very short note.
   const nr = '<span class="ew-nr">not reported</span>';
-  const trip = (eps, rev, ebitda) => (!eps && !rev && !ebitda) ? nr
-    : `EPS ${eps ? esc(eps) : nr} · Rev ${rev ? esc(rev) : nr} · EBITDA ${ebitda ? esc(ebitda) : nr}`;
+  const cell = (v, pending) => v ? esc(v) : (pending ? "—" : nr);
   const row = (r, past) => {
     const reported = r.actEps || r.actRev || r.actEbitda || r.px;
-    const px = r.px ? ` <span class="ew-px ${String(r.px).trim().startsWith("-") ? "ew-dn" : "ew-up"}">${esc(r.px)}</span>` : "";
+    const pending = !past && !reported;
+    const px = r.px ? `<span class="ew-px ${String(r.px).trim().startsWith("-") ? "ew-dn" : "ew-up"}">${esc(r.px)}</span>` : "";
     const held = (r.held || []).map((h) => {
       const etf = typeof h === "string" ? h : h.etf;
       const w = typeof h === "string" ? null : h.w;
       return `<span class="ew-etf ew-etf-${esc(String(etf).toLowerCase())}">${esc(etf)}${w ? " " + esc(w) : ""}</span>`;
     }).join("");
+    const tr = (lbl, est, act) => `<tr><th>${lbl}</th><td>${cell(est, false)}</td><td>${cell(act, pending)}</td></tr>`;
     return `<div class="ew-row">
       <div class="ew-l"><span class="ew-t">${esc(r.t)}${held}</span><span class="ew-n">${esc(r.n)}</span>
         <span class="ew-tag">${esc(r.tag || "")}${r.when ? (r.tag ? " · " : "") + esc(r.when) : ""}</span></div>
       <div class="ew-r">
-        <div class="ew-line"><span class="ew-k">Fcst</span><span class="ew-v">${trip(r.estEps, r.estRev, r.estEbitda)}</span></div>
-        <div class="ew-line"><span class="ew-k">Act</span><span class="ew-v">${reported || past ? trip(r.actEps, r.actRev, r.actEbitda) + px : "—"}</span></div>
-        ${r.note ? `<div class="ew-note">${esc(r.note)}</div>` : ""}
+        <table class="ew-tbl">
+          <thead><tr><th></th><th>Fcst</th><th>Act</th></tr></thead>
+          <tbody>
+            ${tr("Rev", r.estRev, r.actRev)}
+            ${tr("EBITDA", r.estEbitda, r.actEbitda)}
+            ${tr("EPS", r.estEps, r.actEps)}
+          </tbody>
+        </table>
+        ${px || r.note ? `<div class="ew-note">${px}${px && r.note ? " · " : ""}${r.note ? esc(r.note) : ""}</div>` : ""}
       </div>
     </div>`;
   };
