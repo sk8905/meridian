@@ -519,7 +519,11 @@ extra deep-research pass on watchlisted names is skipped.
 >      minor names outside those groups. Private AI leaders (OpenAI, Anthropic,
 >      SpaceX, xAI) have no earnings releases — keep the `foot` note current
 >      rather than adding rows. Each row also carries `held[]` — which of the
->      reader's ETFs hold the name, shown as a small label: `IGWD` (iShares
+>      reader's ETFs hold the name, shown as a small colour-coded label — each
+>      entry is `{etf, w}` where `w` is the stock's weight in that ETF/index
+>      quoted VERBATIM from a published source (MSCI factsheet top-10 or the
+>      iShares holdings page); leave `w` null when no published figure is
+>      reachable (the label then renders without a percentage): `IGWD` (iShares
 >      MSCI World GBP-hedged — ANY developed large cap qualifies), `WMVG`
 >      (iShares Edge MSCI World Min Vol GBP-hedged — tag ONLY names verified in
 >      the MSCI World Minimum Volatility factsheet constituents), `EMEE`

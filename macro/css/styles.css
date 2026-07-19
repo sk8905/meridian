@@ -426,10 +426,16 @@ a.intel-head:hover { text-decoration: underline; }
 .ew-note { font-family: var(--t-mono); font-size: 9.5px; color: var(--muted); }
 .ew-px.ew-up { color: #2fbf8a; }
 .ew-px.ew-dn { color: #e0708e; }
-/* Held-in-ETF mini label beside the ticker (reader's own holdings) */
+/* Held-in-ETF mini label beside the ticker (reader's own holdings), with the
+   stock's index weight where the source publishes it. One colour per ETF so
+   they're distinguishable at a glance (same tint recipe as the desk codes). */
 .ew-etf { display: inline-block; margin-left: 6px; padding: 1px 4px; vertical-align: 1px;
-  border: 1px solid var(--border); font-family: var(--t-mono); font-size: 8.5px; font-weight: 600;
-  letter-spacing: .05em; color: var(--muted); }
+  border: 0; font-family: var(--t-mono); font-size: 8.5px; font-weight: 700;
+  letter-spacing: .05em; font-variant-numeric: tabular-nums; }
+.ew-etf-igwd { color: #4aa8f0; background: color-mix(in srgb, #4aa8f0 16%, transparent); }
+.ew-etf-wmvg { color: #2fbf8a; background: color-mix(in srgb, #2fbf8a 16%, transparent); }
+.ew-etf-emee { color: #9b83e2; background: color-mix(in srgb, #9b83e2 16%, transparent); }
+.ew-etf-comm { color: #d9a441; background: color-mix(in srgb, #d9a441 16%, transparent); }
 .ew-foot { margin-top: 10px; }
 .ew-srcs { margin-top: 6px; }
 .mw-legend span { display: inline-flex; align-items: center; gap: 5px; }

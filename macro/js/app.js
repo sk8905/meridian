@@ -4,7 +4,7 @@
 // Fetches the shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P
 // Global / BoE). Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS } from "./content.js?v=20260719-5";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS } from "./content.js?v=20260719-6";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -461,7 +461,11 @@ function earningsPanel() {
     const fc = [r.estEps ? "EPS " + esc(r.estEps) : null, r.estRev ? "Rev " + esc(r.estRev) : null].filter(Boolean).join(" · ") || "—";
     const act = [r.actEps ? "EPS " + esc(r.actEps) : null, r.actRev ? "Rev " + esc(r.actRev) : null].filter(Boolean).join(" · ");
     const px = r.px ? ` <span class="ew-px ${String(r.px).trim().startsWith("-") ? "ew-dn" : "ew-up"}">${esc(r.px)}</span>` : "";
-    const held = (r.held || []).map((h) => `<span class="ew-etf">${esc(h)}</span>`).join("");
+    const held = (r.held || []).map((h) => {
+      const etf = typeof h === "string" ? h : h.etf;
+      const w = typeof h === "string" ? null : h.w;
+      return `<span class="ew-etf ew-etf-${esc(String(etf).toLowerCase())}">${esc(etf)}${w ? " " + esc(w) : ""}</span>`;
+    }).join("");
     return `<div class="ew-row">
       <div class="ew-l"><span class="ew-t">${esc(r.t)}${held}</span><span class="ew-n">${esc(r.n)}</span>
         <span class="ew-tag">${esc(r.tag || "")}${r.when ? (r.tag ? " · " : "") + esc(r.when) : ""}</span></div>
