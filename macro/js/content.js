@@ -12,8 +12,8 @@ export const UPDATED = "18 July 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-07-18",
-  lastCheckedTime: "21:10 BST",
+  lastChecked: "2026-07-19",
+  lastCheckedTime: "05:18 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
