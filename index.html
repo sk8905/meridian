@@ -1144,6 +1144,28 @@
     }
   </style>
   <link rel="stylesheet" href="/premium.css?v=20260719-16" />
+  <script type="module" blocking="render">
+    // Render-blocking boot, mirroring the app pages: with a recent sign-in
+    // hint the briefing renders BEFORE first paint and the shared chrome
+    // mounts, so arriving on Home paints once, complete — no feed/chips/tab-
+    // bar staging. The body auth script confirms via /api/me and calls
+    // window.__enterGlance for the no-hint path (initGlance self-guards).
+    import { initGlance } from "/glance.js?v=20260719-13";
+    import { initNavActions } from "/nav-actions.js?v=20260719-16";
+    window.__enterGlance = () => {
+      ["loading", "out", "glance"].forEach((s) => document.getElementById(s).classList.toggle("hidden", s !== "glance"));
+      const h = new Date().getHours();
+      document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
+      // Contain render errors: callers include the auth .then chain, and a
+      // throw there would be caught as "signed out" (dynamic-import boot kept
+      // these silent too).
+      try { initGlance(); } catch { /* keep the briefing shell */ }
+    };
+    let hint = false;
+    try { hint = localStorage.getItem("m_signed_in") === "1"; } catch { /* ignore */ }
+    if (hint) window.__enterGlance();
+    initNavActions();
+  </script>
 </head>
 <body>
   <!-- Loading -->
@@ -1354,23 +1376,23 @@
     // Auth state gate — behind Cloudflare Access /api/me returns the verified email.
     const show = (id) => ["loading", "out", "glance"].forEach((s) => document.getElementById(s).classList.toggle("hidden", s !== id));
     document.getElementById("preview-toggle").addEventListener("click", (e) => { e.preventDefault(); document.getElementById("preview").classList.toggle("hidden"); });
-    // Enter the briefing: reveal it, greet, and lazy-load its logic. initGlance
-    // self-guards against running twice, so calling this once is safe.
+    // Enter the briefing. The render-blocking head module owns the real path
+    // (it renders BEFORE first paint on the optimistic sign-in hint, exactly
+    // like the app pages); this fallback covers a failed module load only.
     const enterGlance = () => {
+      if (window.__enterGlance) { window.__enterGlance(); return; }
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
       import("/glance.js?v=20260719-13").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
-    // app on their own /api/me), show the briefing immediately instead of
-    // flashing the full-screen "Checking your sign-in…" splash — that splash
-    // crossfading in and out is what made the landing page flicker when arriving
-    // from another page. /api/me still runs below to confirm and fill the email;
-    // a stale hint (expired session) is corrected to the signed-out view.
+    // app on their own /api/me), the head module shows the briefing immediately
+    // instead of flashing the full-screen "Checking your sign-in…" splash.
+    // /api/me still runs below to confirm and fill the email; a stale hint
+    // (expired session) is corrected to the signed-out view.
     let signedInHint = false;
     try { signedInHint = localStorage.getItem("m_signed_in") === "1"; } catch { /* ignore */ }
-    if (signedInHint) enterGlance();
     fetch("/api/me", { headers: { accept: "application/json" } })
       .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
       .then((d) => {
