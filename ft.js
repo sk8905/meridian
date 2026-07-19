@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c688ea11-c066-44a3-9372-2e2293e9e6f9", title: "Boeing says it will be ready to fund new plane programme by 2030", date: "2026-07-19", time: "18:22", url: "https://www.ft.com/content/c688ea11-c066-44a3-9372-2e2293e9e6f9" },
+  { id: "0b2af747-f298-4740-a3d2-7165f1f687be", title: "Andy Burnham’s British reboot begins", date: "2026-07-19", time: "18:15", url: "https://www.ft.com/content/0b2af747-f298-4740-a3d2-7165f1f687be" },
   { id: "d9631aae-1100-43e0-a09a-e49f5c21f896", title: "Burnham to maintain ban on North Sea exploration licences", date: "2026-07-19", time: "16:37", url: "https://www.ft.com/content/d9631aae-1100-43e0-a09a-e49f5c21f896" },
   { id: "79160822-5eb7-41c1-b9f7-a2a447ecb378", title: "UK must focus on insiders vs outsiders not north vs south", date: "2026-07-19", time: "16:00", url: "https://www.ft.com/content/79160822-5eb7-41c1-b9f7-a2a447ecb378" },
   { id: "eb0cd740-e45d-4dd7-ab9a-6f6643bb32ee", title: "EU faces crumbling support for new Russia sanctions", date: "2026-07-19", time: "15:00", url: "https://www.ft.com/content/eb0cd740-e45d-4dd7-ab9a-6f6643bb32ee" },
@@ -57,11 +59,4 @@ export const FT_ITEMS = [
   { id: "047f943b-e46b-455e-8f8e-bef1b9c97708", title: "Britain’s system for avoiding electricity blackouts faces scrutiny", date: "2026-07-18", time: "05:00", url: "https://www.ft.com/content/047f943b-e46b-455e-8f8e-bef1b9c97708" },
   { id: "0ac9aa5c-2807-49fc-9d7d-679b27cf3337", title: "The London IPO market isn’t as bad as it looks", date: "2026-07-18", time: "05:00", url: "https://www.ft.com/content/0ac9aa5c-2807-49fc-9d7d-679b27cf3337" },
   { id: "2dc8d54c-89b7-4e57-bd43-084d9edf01a4", title: "Asia AI bets power record equities run for Wall Street banks", date: "2026-07-18", time: "05:00", url: "https://www.ft.com/content/2dc8d54c-89b7-4e57-bd43-084d9edf01a4" },
-  { id: "93db3195-9a17-4798-810a-0509f3ab35a3", title: "Superdrug owner considers delay to planned London IPO", date: "2026-07-18", time: "05:00", url: "https://www.ft.com/content/93db3195-9a17-4798-810a-0509f3ab35a3" },
-  { id: "e34cbb4d-1c40-4e71-9ef2-31b44331d642", title: "Data errors mar UK regulator’s new short selling disclosure rules", date: "2026-07-18", time: "05:00", url: "https://www.ft.com/content/e34cbb4d-1c40-4e71-9ef2-31b44331d642" },
-  { id: "fcbd9074-8870-4f04-b0a6-0c22a2aca70e", title: "How long until there is a US markets reckoning over Trump’s damage?", date: "2026-07-18", time: "05:00", url: "https://www.ft.com/content/fcbd9074-8870-4f04-b0a6-0c22a2aca70e" },
-  { id: "b4bc3868-7684-4b36-a0e0-a5bf2b606162", title: "Ageism: the silent but deadly threat to your retirement", date: "2026-07-18", time: "05:00", url: "https://www.ft.com/content/b4bc3868-7684-4b36-a0e0-a5bf2b606162" },
-  { id: "8c910a8f-2b8b-4234-918a-2022bdc01889", title: "How to fix the housing crisis", date: "2026-07-18", time: "05:00", url: "https://www.ft.com/content/8c910a8f-2b8b-4234-918a-2022bdc01889" },
-  { id: "580f2b36-1d00-40b8-a12a-cc7d7067a046", title: "Washington pushes EU to announce import rules rollback", date: "2026-07-18", time: "05:00", url: "https://www.ft.com/content/580f2b36-1d00-40b8-a12a-cc7d7067a046" },
-  { id: "de2978b0-481c-4af5-9e77-9e34650fb20f", title: "The next crash: why this time might not be different", date: "2026-07-18", time: "05:00", url: "https://www.ft.com/content/de2978b0-481c-4af5-9e77-9e34650fb20f" },
 ];
