@@ -4,7 +4,7 @@
 // Fetches the shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P
 // Global / BoE). Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS } from "./content.js?v=20260719-27";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS } from "./content.js?v=20260719-28";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -464,14 +464,17 @@ function cockpitInds(series) {
 function earningsPanel() {
   const w = EARNINGS;
   if (!w || !w.weeks || !w.weeks.length) return "";
-  // Each entry is a small table — Fcst / Act columns × Revenue / EBITDA / EPS
-  // rows. A figure no source publishes states "not reported" (faint); a
-  // release that simply hasn't happened yet shows a plain em-dash in Act.
-  // Beneath the table: the share reaction + a very short note.
+  // Each entry is a small table — Fcst / Act columns × Rev / EPS rows, plus an
+  // optional sector KEY-METRIC row (its own label: bank markets revenue, chip
+  // gross margin, TSLA deliveries, NOW cRPO…) and an optional GUIDE row (Fcst
+  // = guidance in force going into the print, Act = guidance issued with the
+  // results). A figure no source publishes states "N/R" (faint); a release
+  // that simply hasn't happened yet shows a plain em-dash in Act. Beneath the
+  // table: the share reaction + a very short note.
   const nr = '<span class="ew-nr">N/R</span>';
   const cell = (v, pending) => v ? esc(v) : (pending ? "—" : nr);
   const row = (r, past) => {
-    const reported = r.actEps || r.actRev || r.actEbitda || r.px;
+    const reported = r.actEps || r.actRev || (r.km && r.km.act) || r.px;
     const pending = !past && !reported;
     const px = r.px ? `<span class="ew-px ${String(r.px).trim().startsWith("-") ? "ew-dn" : "ew-up"}">${esc(r.px)}</span>` : "";
     const held = (r.held || []).map((h) => {
@@ -489,8 +492,9 @@ function earningsPanel() {
           <thead><tr><th></th><th>Fcst</th><th>Act</th></tr></thead>
           <tbody>
             ${tr("Rev", r.estRev, r.actRev)}
-            ${tr("EBITDA", r.estEbitda, r.actEbitda)}
             ${tr("EPS", r.estEps, r.actEps)}
+            ${r.km ? tr(esc(r.km.l), r.km.est, r.km.act) : ""}
+            ${r.guide ? tr("Guide", r.guide.est, r.guide.act) : ""}
           </tbody>
         </table>
         ${px || r.note ? `<div class="ew-note">${px}${px && r.note ? " · " : ""}${r.note ? esc(r.note) : ""}</div>` : ""}

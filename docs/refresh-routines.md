@@ -531,10 +531,16 @@ extra deep-research pass on watchlisted names is skipped.
 >      iShares holdings page). `COMM` (iShares Diversified Commodity Swap)
 >      holds futures, never equities — never tag it. The block holds TWO
 >      weeks (`weeks[]`): a LOOK-BACK week (results + share reaction) and the
->      week AHEAD (consensus). Every row carries the full triple
->      `est`/`act` × `Eps`/`Rev`/`Ebitda` — quote each figure a source
->      publishes; leave the rest null (renders as an em-dash; banks report no
->      EBITDA and consensus EBITDA is rarely published — never derive one).
+>      week AHEAD (consensus). Every row carries `est`/`act` × `Eps`/`Rev`,
+>      plus two OPTIONAL rows: `km: {l, est, act}` — the sector's KEY METRIC
+>      with its own short label (bank markets/equities revenue or NII, chip
+>      gross margin, TSLA deliveries, NOW cRPO, VZ adj EBITDA, BX DE/inflows,
+>      KO organic growth…) — and `guide: {est, act}` where `est` is the
+>      guidance in force going INTO the print (company's own guide for the
+>      quarter, or standing FY guidance) and `act` is the new guidance issued
+>      WITH the results. Omit `km`/`guide` when nothing is published. Quote
+>      each figure a source publishes; leave the rest null (renders as an
+>      em-dash pre-release, N/R after — never derive one).
 >      Upkeep each run: (a) on the FIRST run of each Monday, the look-back
 >      block becomes the week just ended (rows keep their actuals) and the
 >      ahead block is rebuilt with the new week's calendar (`days[].rows[]`
