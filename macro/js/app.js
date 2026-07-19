@@ -184,6 +184,29 @@ function summaryCards() {
 // ---- Date helpers ----------------------------------------------------------
 const WEEKDAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const isoToDate = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ""); return m ? new Date(+m[1], +m[2] - 1, +m[3]) : null; };
+
+// Day-break separator rows in the wire (same scanning aid as the Home feed),
+// plus keeping them in step with the in-place kind/source filters.
+function wireDays(rows, rowFn, getDate) {
+  let last = "";
+  return rows.map((x) => {
+    const d = String((getDate ? getDate(x) : x.date) || "").slice(0, 10);
+    const hdr = d && d !== last ? `<li class="tw-day">${esc(fmtDate(d))}</li>` : "";
+    if (d) last = d;
+    return hdr + rowFn(x);
+  }).join("");
+}
+function syncDayRows(root) {
+  if (!root) return;
+  root.querySelectorAll(".tw-day").forEach((d) => {
+    let vis = false, n = d.nextElementSibling;
+    while (n && !n.classList.contains("tw-day")) {
+      if (n.classList.contains("tw-row") && n.style.display !== "none") { vis = true; break; }
+      n = n.nextElementSibling;
+    }
+    d.style.display = vis ? "" : "none";
+  });
+}
 const todayMidnight = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; };
 // Full-date formatter for news items: "2026-07-01" → "1 Jul 2026".
 function fmtDay(iso) {
@@ -637,7 +660,7 @@ function viewDashboard() {
           </div>
         </header>
         <div class="srcfilter-bar" id="mac-srcbar" hidden></div>
-        <ul class="twire compact-list" id="mac-wire">${wire.length ? wire.slice(0, 90).map(wireRow).join("") : '<li class="tw-empty muted small">No items yet.</li>'}</ul>
+        <ul class="twire compact-list" id="mac-wire">${wire.length ? wireDays(wire.slice(0, 90), wireRow) : '<li class="tw-empty muted small">No items yet.</li>'}</ul>
         <div class="mac-dash-pane" id="mac-dash" hidden>${macroDashPane()}</div>
       </section>
       <aside class="tcol tcol-r">
@@ -687,11 +710,14 @@ function macroWireDash() {
       bar.hidden = showDash || !_macSrc;
       if (_macSrc && !showDash) bar.innerHTML = `Source · <strong>${esc(_macSrc)}</strong><button type="button" class="srcfilter-clear" data-srcclear="1">✕ clear</button>`;
     }
-    if (!showDash) wire.querySelectorAll(".tw-row").forEach((r) => {
-      const kindOk = (k === "all" || r.dataset.kind === k);
-      const srcOk = (!_macSrc || r.dataset.src === _macSrc);
-      r.style.display = (kindOk && srcOk) ? "" : "none";
-    });
+    if (!showDash) {
+      wire.querySelectorAll(".tw-row").forEach((r) => {
+        const kindOk = (k === "all" || r.dataset.kind === k);
+        const srcOk = (!_macSrc || r.dataset.src === _macSrc);
+        r.style.display = (kindOk && srcOk) ? "" : "none";
+      });
+      syncDayRows(wire);
+    }
   };
   chips.onclick = (e) => {
     const b = e.target.closest(".tchip"); if (!b) return;

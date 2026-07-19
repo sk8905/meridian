@@ -477,3 +477,9 @@
 .active-filter, .srcfilter-bar { border: 1px solid var(--border); background: var(--head);
   font-family: var(--t-mono); font-size: 11px; padding: 6px 10px; border-radius: 0; }
 .card > h2, .card > h3, .panel h2 { font-size: 12.5px; }
+
+/* Day-break separator rows in the wires — the same scanning aid as the Home
+   feed: a darker mono band marking where one day ends and the next begins. */
+.tw-day { list-style: none; padding: 5px 12px 3px; font-family: var(--t-mono, ui-monospace, monospace);
+  font-size: 9.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
+  color: var(--muted, #8592ad); background: rgba(0, 0, 0, .45); border-bottom: 1px solid var(--grid, #1a1a1a); }

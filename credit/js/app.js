@@ -23,6 +23,29 @@ const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").
 const pct = (n) => (n == null ? "Undisclosed" : Math.round(n) + "%");
 const fmtDate = (d) => new Date(d).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
 // Format a €bn AUM figure: €Xtn above 1,000bn, €Xm below 1bn, else €Xbn.
+
+// Day-break separator rows in the wire (same scanning aid as the Home feed),
+// plus keeping them in step with the in-place kind/source filters.
+function wireDays(rows, rowFn, getDate) {
+  let last = "";
+  return rows.map((x) => {
+    const d = String((getDate ? getDate(x) : x.date) || "").slice(0, 10);
+    const hdr = d && d !== last ? `<li class="tw-day">${esc(fmtDate(d))}</li>` : "";
+    if (d) last = d;
+    return hdr + rowFn(x);
+  }).join("");
+}
+function syncDayRows(root) {
+  if (!root) return;
+  root.querySelectorAll(".tw-day").forEach((d) => {
+    let vis = false, n = d.nextElementSibling;
+    while (n && !n.classList.contains("tw-day")) {
+      if (n.classList.contains("tw-row") && n.style.display !== "none") { vis = true; break; }
+      n = n.nextElementSibling;
+    }
+    d.style.display = vis ? "" : "none";
+  });
+}
 const fmtAum = (n) => {
   if (n == null) return "—";
   if (n >= 1000) return `€${(n / 1000).toFixed(n % 1000 === 0 ? 0 : 1)}tn`;
@@ -786,7 +809,7 @@ function viewDashboard() {
           </header>
           <div class="tpanes" id="cr-dash-panes">
             <div class="tpane" data-pane="wire">
-              <ul class="twire compact-list" id="cr-dash-wire">${activity.slice(0, 120).map(wireRow).join("") || `<li class="compact-item"><span class="tw-src">No recent items.</span></li>`}</ul>
+              <ul class="twire compact-list" id="cr-dash-wire">${wireDays(activity.slice(0, 120), wireRow, (a) => (a.item || {}).date) || `<li class="compact-item"><span class="tw-src">No recent items.</span></li>`}</ul>
             </div>
             <div class="tpane" data-pane="managers" hidden>
               <header class="tpanel-h thead-search"><span>Managers</span>
@@ -859,6 +882,7 @@ function wireDashChips() {
     chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
     const k = b.dataset.k;
     wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (k === "all" || r.dataset.kind === k) ? "" : "none"; });
+    syncDayRows(wire);
   });
   const lf = document.getElementById("cr-lg-focus");
   if (lf) lf.addEventListener("click", () => {

@@ -40,7 +40,10 @@ const TAB_ICONS = {
 function initChrome() {
   const path = location.pathname;
   const cur = path.startsWith("/macro") ? "macro" : path.startsWith("/credit") ? "credit" : path.startsWith("/legal") ? "legal" : "home";
-  const tab = (k, href, label) => `<a class="mtab${cur === k ? " is-active" : ""}" href="${href}"${cur === k ? ' aria-current="page"' : ""}>${TAB_ICONS[k]}<span class="mtab-lbl">${label}</span></a>`;
+  // Buttons only — NO anchors. Nothing in the bar can trigger a browser
+  // navigation on its own; page switches are explicit location.replace calls
+  // from the confirmed-tap handler (wired in run()).
+  const tab = (k, href, label) => `<button type="button" class="mtab${cur === k ? " is-active" : ""}" data-nav="${href}"${cur === k ? ' aria-current="page"' : ""}>${TAB_ICONS[k]}<span class="mtab-lbl">${label}</span></button>`;
   const nav = document.createElement("nav");
   nav.className = "mobile-tabbar";
   nav.setAttribute("aria-label", "Platforms");
@@ -538,45 +541,49 @@ export function initNavActions() {
     };
 
     panels.forEach((rec) => {
-      rec.btn.addEventListener("click", (e) => {
-        e.stopPropagation(); e.preventDefault();
-        if (rec.panel.hidden) openPanel(rec); else closeAll();
-      });
+      // The Menu button is driven by the tab bar's confirmed-tap handler below.
+      if (rec !== menuRec) {
+        rec.btn.addEventListener("click", (e) => {
+          e.stopPropagation(); e.preventDefault();
+          if (rec.panel.hidden) openPanel(rec); else closeAll();
+        });
+      }
       rec.panel.addEventListener("click", (e) => { if (e.target.closest("[data-na-close]")) closeAll(); });
     });
 
-    // ---- Bottom tab bar: touch discipline ----------------------------------
-    // The Menu TAB toggles on touchend (consumed, so iOS never synthesises a
-    // click from it), and the tab LINKS carry an interlock: on touch devices a
-    // link only navigates when the touch that produced its click actually
-    // STARTED on that link. Together these make a misrouted synthetic click —
-    // iOS hit-tests it after our handler runs, and panel-close reflow can land
-    // it on a neighbouring link — inert by construction. Mouse clicks (no
-    // recent touch) navigate untouched.
-    if (menuRec) {
-      let mtX = 0, mtY = 0;
-      menuBtn.addEventListener("touchstart", (e) => { const t = e.touches[0]; mtX = t.clientX; mtY = t.clientY; }, { passive: true });
-      menuBtn.addEventListener("touchend", (e) => {
-        const t = e.changedTouches && e.changedTouches[0];
-        if (t && Math.hypot(t.clientX - mtX, t.clientY - mtY) > 12) return; // a drag, not a tap
-        if (e.cancelable) e.preventDefault();
-        e.stopPropagation();
-        if (menuRec.panel.hidden) openPanel(menuRec); else closeAll();
-      }, { passive: false });
-    }
+    // ---- Bottom tab bar input ----------------------------------------------
+    // A tap is confirmed with pointer events: down and up on the SAME button
+    // with minimal movement. Page buttons navigate via location.replace — the
+    // app keeps no cross-page history, so iOS's edge back/forward swipes (the
+    // Menu button borders the right screen edge, where a tap with a tiny drag
+    // can fire a SYSTEM history navigation no page code sees) have nowhere to
+    // go. Menu toggles its panel the same way. Raw clicks inside the bar are
+    // inert; keyboard activation (click detail 0) still acts.
     {
-      let touchLink = null, lastTouchAt = 0;
-      document.addEventListener("touchstart", (e) => {
-        lastTouchAt = Date.now();
-        touchLink = e.target.closest ? e.target.closest(".mobile-tabbar a") : null;
-      }, { passive: true, capture: true });
-      document.addEventListener("click", (e) => {
-        const a = e.target.closest && e.target.closest(".mobile-tabbar a");
-        if (!a) return;
-        if (Date.now() - lastTouchAt < 1500 && touchLink !== a) {
-          e.preventDefault(); e.stopPropagation();
+      const tabbar = document.querySelector(".mobile-tabbar");
+      const act = (btn) => {
+        const dest = btn.getAttribute("data-nav");
+        if (dest) { location.replace(dest); return; }
+        if (btn.hasAttribute("data-open-menu") && menuRec) {
+          if (menuRec.panel.hidden) openPanel(menuRec); else closeAll();
         }
-      }, true);
+      };
+      if (tabbar) {
+        let pBtn = null, pX = 0, pY = 0;
+        tabbar.addEventListener("pointerdown", (e) => { pBtn = e.target.closest(".mtab"); pX = e.clientX; pY = e.clientY; }, { passive: true });
+        tabbar.addEventListener("pointerup", (e) => {
+          const b = e.target.closest(".mtab");
+          const ok = b && b === pBtn && Math.hypot(e.clientX - pX, e.clientY - pY) <= 14;
+          pBtn = null;
+          if (ok) act(b);
+        });
+        tabbar.addEventListener("click", (e) => {
+          e.preventDefault(); e.stopPropagation();
+          const b = e.target.closest(".mtab");
+          if (b && e.detail === 0) act(b);           // keyboard only
+        }, true);
+        tabbar.addEventListener("touchend", (e) => { if (e.cancelable) e.preventDefault(); }, { passive: false });
+      }
     }
 
     document.addEventListener("click", (e) => {

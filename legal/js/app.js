@@ -41,6 +41,29 @@ function itemDate(it) {
   return (it.dateEstimated ? "≈ " : "") + fmtDate(it.date);
 }
 
+
+// Day-break separator rows in the wire (same scanning aid as the Home feed),
+// plus keeping them in step with the in-place kind/source filters.
+function wireDays(rows, rowFn, getDate) {
+  let last = "";
+  return rows.map((x) => {
+    const d = String((getDate ? getDate(x) : x.date) || "").slice(0, 10);
+    const hdr = d && d !== last ? `<li class="tw-day">${esc(fmtDate(d))}</li>` : "";
+    if (d) last = d;
+    return hdr + rowFn(x);
+  }).join("");
+}
+function syncDayRows(root) {
+  if (!root) return;
+  root.querySelectorAll(".tw-day").forEach((d) => {
+    let vis = false, n = d.nextElementSibling;
+    while (n && !n.classList.contains("tw-day")) {
+      if (n.classList.contains("tw-row") && n.style.display !== "none") { vis = true; break; }
+      n = n.nextElementSibling;
+    }
+    d.style.display = vis ? "" : "none";
+  });
+}
 const byDateDesc = (a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0);
 
 // Insert a gentle day-break divider whenever the day changes from the previous
@@ -543,7 +566,7 @@ function viewDashboard() {
         </header>
         <div class="tpanes" id="lg-panes">
           <div class="tpane" data-pane="wire">
-            <ul class="twire compact-list" id="lg-wire">${wire.length ? wire.map(wireRow).join("") : '<li class="tw-empty muted small">No items yet.</li>'}</ul>
+            <ul class="twire compact-list" id="lg-wire">${wire.length ? wireDays(wire, wireRow) : '<li class="tw-empty muted small">No items yet.</li>'}</ul>
           </div>
           <div class="tpane" data-pane="cases" hidden>${casesPane()}</div>
           <div class="tpane" data-pane="schemes" hidden>${schemesTablePane()}</div>
@@ -565,7 +588,10 @@ function legalWireDash() {
     chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === k));
     const pane = PANE[k] || "wire";
     panes.querySelectorAll(".tpane").forEach((p) => { p.hidden = p.dataset.pane !== pane; });
-    if (pane === "wire" && wire) wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (k === "all" || r.dataset.kind === k) ? "" : "none"; });
+    if (pane === "wire" && wire) {
+      wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (k === "all" || r.dataset.kind === k) ? "" : "none"; });
+      syncDayRows(wire);
+    }
   };
   chips.onclick = (e) => { const b = e.target.closest(".tchip"); if (b) selectChip(b.dataset.k); };
   // An 'All' scheme/RP headline jumps to that matter in the Schemes & RPs table.
