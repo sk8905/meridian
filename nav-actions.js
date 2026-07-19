@@ -114,9 +114,25 @@ function initChrome() {
   };
   // A chip bar hugging the header joins the fixed chrome (Bloomberg-style):
   // pinned through scrolling AND native overscroll, so the rubber-band happens
-  // BELOW the chips. Views re-render their DOM, so this re-applies after every
-  // mutation (childList only — class changes don't re-trigger it).
+  // BELOW the chips. Discovery runs at the TOP of the page only — that is the
+  // one scroll position where "abuts the header" identifies the page's own top
+  // strip (Home's feed chips are mid-page with their own sticky and must never
+  // be captured here). Once pinned the bar's IDENTITY is remembered: view
+  // re-renders REPLACE the element, and the replacement is re-pinned
+  // immediately and unconditionally. (Re-testing geometry on every re-render
+  // unpinned the bar mid-scroll and dropped the body padding with it — a
+  // visible jump/flicker on every section switch and feed refresh.)
   const BAR_WRAP = "#g-feed-head, .tpanel-h, .twire-head, .ck-secbar, .tbar";
+  let barSel = null;
+  const barWraps = () => {
+    const out = [];
+    for (const c of document.querySelectorAll(".tchips, .g-feed-chips")) {
+      if (c.closest(".na-panel")) continue;   // panel-internal chips (e.g. the /menu/ strip) are not page chrome
+      const w = c.closest(BAR_WRAP) || c;
+      if (!out.includes(w)) out.push(w);
+    }
+    return out;
+  };
   const lockBar = () => {
     if (!isPhone()) {
       document.querySelectorAll(".wire-bar-fixed").forEach((el) => el.classList.remove("wire-bar-fixed"));
@@ -124,24 +140,14 @@ function initChrome() {
       return;
     }
     const headH = head.offsetHeight;
-    const findBar = () => {
-      for (const b of document.querySelectorAll(".tchips, .g-feed-chips")) {
-        const w = b.closest(BAR_WRAP) || b;
-        const r = w.getBoundingClientRect();
-        if (r.height && Math.abs(r.top - headH) < 8) return w;
-      }
-      return null;
-    };
     let bar = document.querySelector(".wire-bar-fixed");
     if (bar && !bar.isConnected) bar = null;
     if (!bar) {
-      bar = findBar();
-      // A re-render may have REPLACED a previously-fixed bar: the stale bar
-      // padding then offsets the new in-flow wrapper below the abut band, so
-      // it would never re-qualify. Drop the padding and look once more.
-      if (!bar && document.body.classList.contains("wire-bar-pad")) {
-        document.body.classList.remove("wire-bar-pad");
-        bar = findBar();
+      const wraps = barWraps();
+      if (barSel) bar = wraps.find((w) => w.matches(barSel)) || null;
+      if (!bar && (window.scrollY || 0) < 2) {
+        bar = wraps.find((w) => { const r = w.getBoundingClientRect(); return r.height && Math.abs(r.top - headH) < 8; }) || null;
+        if (bar) barSel = bar.id ? "#" + bar.id : (BAR_WRAP.split(", ").find((s) => s[0] === "." && bar.matches(s)) || barSel);
       }
       if (bar) bar.classList.add("wire-bar-fixed");
     }
@@ -155,9 +161,10 @@ function initChrome() {
   };
   lock();
   window.addEventListener("resize", lock);
-  let barT = 0;
-  new MutationObserver(() => { clearTimeout(barT); barT = setTimeout(lockBar, 120); })
-    .observe(document.body, { childList: true, subtree: true });
+  // Synchronous re-apply: observer callbacks run before the next paint, so a
+  // replaced bar is re-pinned with NO visible unpinned frame (a debounce here
+  // showed a 120ms flicker on every re-render).
+  new MutationObserver(lockBar).observe(document.body, { childList: true, subtree: true });
 }
 
 // ---- Markets rows -----------------------------------------------------------
@@ -553,6 +560,10 @@ export function initNavActions() {
       // /menu/ = the panel permanently open: no scrim, no body lock, no close
       // paths — leaving happens through the tab bar like any other page.
       menuPanel.classList.add("na-menu-static");
+      // The panel head is the same segmented chip strip the other pages pin
+      // under the header — one chip for now (Search); tapping it opens search.
+      const mh = menuPanel.querySelector(".na-head");
+      if (mh) mh.outerHTML = `<div class="na-menu-bar"><div class="tchips"><button type="button" class="tchip is-on" data-open-search>Search</button></div></div>`;
       fillMenu(menuPanel);
       menuPanel.hidden = false;
       const acct = document.getElementById("account-nav");
