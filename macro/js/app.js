@@ -490,14 +490,40 @@ function earningsPanel() {
     </div>`;
   };
   const day = (d, past) => `<p class="ck-sub ew-day"><strong>${esc(fmtWeekday(d.date))}</strong></p>${d.rows.map((r) => row(r, past)).join("")}`;
-  const week = (wk, i) => `<p class="ck-sub ew-week">${esc(wk.label)}</p>${wk.days.map((d) => day(d, i === 0)).join("")}`;
+  const week = (wk, i) => wk.days.map((d) => day(d, i === 0)).join("");
+  // Week toggle chips (This week / Last week) — one block shown at a time;
+  // choice persists. Content order is weeks[0]=last, weeks[1]=this.
+  let wsel = "this";
+  try { wsel = localStorage.getItem("mac.earn.week") || "this"; } catch { /* default */ }
+  if (wsel !== "this" && wsel !== "last") wsel = "this";
+  wireEwNav();
   const srcs = (w.srcs || []).map((s) => `<a class="ck-src" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.name)}</a>`).join(" · ");
   return `<section class="ck-panel ck-span2">
     <header class="ck-h"><span>Results &amp; week ahead</span><span class="ck-x">consensus → actual</span></header>
-    <div class="ck-body ew-body">${w.weeks.map(week).join("")}
+    <div class="ck-body ew-body">
+      <div class="ew-chipbar"><div class="tchips" id="ew-weeknav">
+        <button type="button" class="tchip${wsel === "this" ? " is-on" : ""}" data-w="this">This week</button>
+        <button type="button" class="tchip${wsel === "last" ? " is-on" : ""}" data-w="last">Last week</button>
+      </div></div>
+      <div data-ew-week="this" class="${wsel !== "this" ? "ew-off" : ""}">${week(w.weeks[1], 1)}</div>
+      <div data-ew-week="last" class="${wsel !== "last" ? "ew-off" : ""}">${week(w.weeks[0], 0)}</div>
       ${w.foot ? `<p class="ck-sub ew-foot">${esc(w.foot)}</p>` : ""}
       <p class="ck-sub ew-srcs">Sources: ${srcs}</p></div>
   </section>`;
+}
+
+// Earnings week chips (delegated, wired once — the dashboard re-renders).
+let _ewWired = false;
+function wireEwNav() {
+  if (_ewWired) return; _ewWired = true;
+  document.addEventListener("click", (e) => {
+    const b = e.target.closest("#ew-weeknav .tchip");
+    if (!b) return;
+    const wsel = b.getAttribute("data-w") || "this";
+    try { localStorage.setItem("mac.earn.week", wsel); } catch { /* private mode */ }
+    document.querySelectorAll("#ew-weeknav .tchip").forEach((c) => c.classList.toggle("is-on", c === b));
+    document.querySelectorAll("[data-ew-week]").forEach((g) => g.classList.toggle("ew-off", g.getAttribute("data-ew-week") !== wsel));
+  });
 }
 
 function matWallPanel() {
