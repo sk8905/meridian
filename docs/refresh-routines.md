@@ -511,6 +511,19 @@ extra deep-research pass on watchlisted names is skipped.
 >      economic-calendar source; never invent or approximate a date — omit an item
 >      you cannot verify. Keep the list sorted by date. (Omit the recurring weekly
 >      initial-jobless-claims prints — too noisy for the banner.)
+>    - **Earnings wall in `macro/js/content.js` `EARNINGS`** → feeds the
+>      Dashboard › **Earnings** sub-section: the coming week's MAJOR reporters
+>      (S&P 500 / Nasdaq-100 / Dow heavyweights and other market-moving names)
+>      with pre-release consensus and, once released, actuals + the share-price
+>      reaction. Upkeep each run: (a) on the FIRST run of each Monday, replace
+>      the block with the new week's calendar (`week`, `days[].rows[]` with
+>      `estEps`/`estRev` consensus figures quoted VERBATIM from a named source —
+>      `srcs[]` must carry working URLs; omit an estimate you cannot verify,
+>      leave it null); (b) on every run, for any row whose release has happened,
+>      fill `actEps`/`actRev` and `px` (the source's quoted same/next-day share
+>      move, e.g. "+4.1%") from the coverage — NEVER computed or guessed; keep
+>      nulls where the source gives no figure. Rows stay for the rest of their
+>      week so forecast vs actual reads side by side.
 >    - **Key macro news headlines in `macro/js/content.js` `NEWS`** → REWRITE every
 >      run. The dashboard renders these as ONE newest-first feed: it prefers items
 >      dated within the last 3 days, but if none are that recent it falls back to

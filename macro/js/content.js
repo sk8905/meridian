@@ -494,3 +494,44 @@ export const MATWALL = {
     src: { name: "Reuters", url: "https://finance.yahoo.com/markets/stocks/articles/private-credit-borrowers-big-maturity-141544760.html" },
   },
 };
+
+// Earnings wall (Dashboard › Earnings): the coming week's MAJOR reporters
+// (S&P 500 / Nasdaq-100 / Dow heavyweights and other market-moving names).
+// RULES — figures are taken VERBATIM from the sources below, never estimated
+// here. est* = pre-release consensus; act* and px (share-price reaction) stay
+// null until the release and are filled by the first refresh routine after it,
+// quoting the source's numbers. Each Monday 05:00 routine replaces the block
+// with the new week's calendar.
+export const EARNINGS = {
+  week: "20–24 Jul 2026",
+  days: [
+    { date: "2026-07-21", rows: [
+      { t: "KO", n: "Coca-Cola", tag: "Dow · S&P 500", when: "Pre-mkt", estEps: "$0.93", estRev: null, actEps: null, actRev: null, px: null },
+      { t: "VZ", n: "Verizon", tag: "Dow · S&P 500", when: "Pre-mkt", estEps: "$1.26", estRev: null, note: "consensus +7.7% y/y", actEps: null, actRev: null, px: null },
+      { t: "RTX", n: "RTX", tag: "S&P 500", when: "Pre-mkt", estEps: "$1.66", estRev: null, actEps: null, actRev: null, px: null },
+      { t: "LMT", n: "Lockheed Martin", tag: "S&P 500", when: "Pre-mkt", estEps: "$7.19", estRev: "$19.37bn", actEps: null, actRev: null, px: null },
+    ] },
+    { date: "2026-07-22", rows: [
+      { t: "GOOGL", n: "Alphabet", tag: "Nasdaq 100 · S&P 500", when: "After close", estEps: "$2.86", estRev: "$116.53bn", note: "consensus +23.8% y/y; 2026 capex guided $175bn", actEps: null, actRev: null, px: null },
+      { t: "TSLA", n: "Tesla", tag: "Nasdaq 100 · S&P 500", when: "After close", estEps: "$0.47", estRev: null, note: "Zacks consensus, +17.5% y/y", actEps: null, actRev: null, px: null },
+    ] },
+    { date: "2026-07-23", rows: [
+      { t: "INTC", n: "Intel", tag: "Nasdaq 100 · S&P 500", when: "After close", estEps: "$0.10", estRev: null, note: "consensus +138.5% y/y", actEps: null, actRev: null, px: null },
+      { t: "TMUS", n: "T-Mobile US", tag: "Nasdaq 100 · S&P 500", when: null, estEps: null, estRev: null, actEps: null, actRev: null, px: null },
+      { t: "HON", n: "Honeywell", tag: "S&P 500", when: null, estEps: null, estRev: null, note: "options imply ±2.9% move", actEps: null, actRev: null, px: null },
+      { t: "CLF", n: "Cleveland-Cliffs", tag: "US steel", when: "Pre-mkt", estEps: null, estRev: null, note: "loss expected (Zacks)", actEps: null, actRev: null, px: null },
+    ] },
+    { date: "2026-07-24", rows: [
+      { t: "SLB", n: "SLB (Schlumberger)", tag: "S&P 500", when: "Pre-mkt", estEps: null, estRev: null, actEps: null, actRev: null, px: null },
+    ] },
+  ],
+  srcs: [
+    { name: "Zacks/Yahoo (TSLA, INTC, VZ, CLF)", url: "https://finance.yahoo.com/markets/stocks/articles/tesla-tsla-reports-next-week-140020290.html" },
+    { name: "Yahoo (GOOGL)", url: "https://finance.yahoo.com/markets/stocks/articles/alphabet-q2-earnings-preview-expect-134252050.html" },
+    { name: "Barchart (LMT)", url: "https://www.barchart.com/story/news/3115438/what-to-expect-from-lockheed-martins-next-quarterly-earnings-report" },
+    { name: "Nasdaq (RTX)", url: "https://www.nasdaq.com/market-activity/stocks/rtx/earnings" },
+    { name: "MarketBeat (KO, SLB)", url: "https://www.marketbeat.com/stocks/NYSE/KO/earnings/" },
+    { name: "Investing.com (HON)", url: "https://www.investing.com/news/stock-market-news/honeywell-stock-may-move-29-on-july-23-earnings-report-93CH-4796614" },
+    { name: "CNBC week ahead", url: "https://www.cnbc.com/2026/07/17/stock-market-next-week-outlook-for-july-20-24-2026.html" },
+  ],
+};

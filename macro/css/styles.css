@@ -408,6 +408,25 @@ a.intel-head:hover { text-decoration: underline; }
 .mw-seg.mw-ig, .mw-dot.mw-ig, .mw-fill-ig { background: color-mix(in srgb, var(--ink, #eaf0fb) 38%, transparent); }
 .mw-seg.mw-sg, .mw-dot.mw-sg, .mw-fill-sg { background: color-mix(in srgb, var(--macro, #fb8b1e) 75%, transparent); }
 .mw-legend { display: flex; gap: 14px; font-family: var(--t-mono); font-size: 9.5px; letter-spacing: .04em; color: var(--muted); margin-bottom: 6px; }
+
+/* Earnings wall (Dashboard › Earnings). Canon: white values, grey meta; the
+   only colour is the post-release share move (green up / red down). */
+.ew-day { margin: 10px 0 2px; }
+.ew-day:first-child { margin-top: 0; }
+.ew-row { display: flex; gap: 12px; align-items: flex-start; padding: 7px 0; border-bottom: 1px solid var(--border); }
+.ew-row:last-of-type { border-bottom: 0; }
+.ew-l { flex: 0 0 44%; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.ew-t { font-family: var(--t-mono); font-size: 11px; font-weight: 700; letter-spacing: .04em; color: var(--ink); }
+.ew-n { font-size: 12px; color: var(--ink); }
+.ew-tag { font-family: var(--t-mono); font-size: 9.5px; color: var(--faint, #5c6a86); }
+.ew-r { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.ew-line { display: flex; gap: 8px; align-items: baseline; }
+.ew-k { flex: 0 0 30px; font-family: var(--t-mono); font-size: 9.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
+.ew-v { font-family: var(--t-mono); font-size: 11.5px; color: var(--ink); font-variant-numeric: tabular-nums; }
+.ew-note { font-family: var(--t-mono); font-size: 9.5px; color: var(--muted); }
+.ew-px.ew-up { color: #2fbf8a; }
+.ew-px.ew-dn { color: #e0708e; }
+.ew-srcs { margin-top: 10px; }
 .mw-legend span { display: inline-flex; align-items: center; gap: 5px; }
 .mw-dot { width: 7px; height: 7px; display: inline-block; }
 @media (max-width: 760px) {

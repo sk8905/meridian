@@ -4,7 +4,7 @@
 // Fetches the shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P
 // Global / BoE). Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL } from "./content.js?v=20260719-3";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS } from "./content.js?v=20260719-4";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -450,6 +450,35 @@ function cockpitInds(series) {
 // cited S&P / OECD / Reuters figures in MATWALL (content.js). The IG/spec split
 // and the OECD 2026–28 refinancing shares are drawn as labelled bars; per-year
 // dollar bars are deliberately absent (the sources don't publish them openly).
+// Earnings wall (Dashboard › Earnings): the coming week's major reporters —
+// consensus before the release, actuals + share-price reaction after. Every
+// figure comes verbatim from EARNINGS (content.js, sourced); nulls render as
+// an em-dash rather than being estimated here.
+function earningsPanel() {
+  const w = EARNINGS;
+  if (!w || !w.days || !w.days.length) return "";
+  const row = (r) => {
+    const fc = [r.estEps ? "EPS " + esc(r.estEps) : null, r.estRev ? "Rev " + esc(r.estRev) : null].filter(Boolean).join(" · ") || "—";
+    const act = [r.actEps ? "EPS " + esc(r.actEps) : null, r.actRev ? "Rev " + esc(r.actRev) : null].filter(Boolean).join(" · ");
+    const px = r.px ? ` <span class="ew-px ${String(r.px).trim().startsWith("-") ? "ew-dn" : "ew-up"}">${esc(r.px)}</span>` : "";
+    return `<div class="ew-row">
+      <div class="ew-l"><span class="ew-t">${esc(r.t)}</span><span class="ew-n">${esc(r.n)}</span>
+        <span class="ew-tag">${esc(r.tag || "")}${r.when ? (r.tag ? " · " : "") + esc(r.when) : ""}</span></div>
+      <div class="ew-r">
+        <div class="ew-line"><span class="ew-k">Fcst</span><span class="ew-v">${fc}</span></div>
+        <div class="ew-line"><span class="ew-k">Act</span><span class="ew-v">${act || "—"}${px}</span></div>
+        ${r.note ? `<div class="ew-note">${esc(r.note)}</div>` : ""}
+      </div>
+    </div>`;
+  };
+  const day = (d) => `<p class="ck-sub ew-day"><strong>${esc(fmtWeekday(d.date))}</strong></p>${d.rows.map(row).join("")}`;
+  const srcs = (w.srcs || []).map((s) => `<a class="ck-src" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.name)}</a>`).join(" · ");
+  return `<section class="ck-panel ck-span2">
+    <header class="ck-h"><span>Week of ${esc(w.week)}</span><span class="ck-x">consensus → actual</span></header>
+    <div class="ck-body ew-body">${w.days.map(day).join("")}<p class="ck-sub ew-srcs">Sources: ${srcs}</p></div>
+  </section>`;
+}
+
 function matWallPanel() {
   const w = MATWALL;
   if (!w) return "";
@@ -500,14 +529,19 @@ function macroDashPane() {
   // cockpit); the choice persists per device.
   let sec = "economy";
   try { sec = localStorage.getItem("mac.dash.sec") || "economy"; } catch { /* default */ }
-  const SECS = [["all", "All"], ["economy", "Economy"], ["rates", "Rates"], ["credit", "Credit"], ["regime", "Regime"]];
-  if (!SECS.some(([k]) => k === sec)) sec = "economy";
+  const SECS = [["earnings", "Earnings"], ["economy", "Economy"], ["rates", "Rates"], ["credit", "Credit"], ["regime", "Regime"]];
+  if (!SECS.some(([k]) => k === sec)) sec = "economy";   // also migrates a stored "all"
   const chip = ([k, l]) => `<button type="button" class="tchip${k === sec ? " is-on" : ""}" data-sec="${k}">${l}</button>`;
-  const grp = (k) => `class="ck-group${sec !== "all" && sec !== k ? " ck-off" : ""}" data-sec="${k}"`;
+  const grp = (k) => `class="ck-group${sec !== k ? " ck-off" : ""}" data-sec="${k}"`;
   wireSecNav();
 
   return `<div class="ck-secbar"><div class="tchips" id="ck-secnav">${SECS.map(chip).join("")}</div></div>
-  <div class="mac-cockpit${sec !== "all" ? " ck-single" : ""}" id="ck-cockpit">
+  <div class="mac-cockpit ck-single" id="ck-cockpit">
+    <div ${grp("earnings")}>
+    <div class="ck-sec">Earnings</div>
+    ${earningsPanel()}
+    </div>
+
     <div ${grp("economy")}>
     <div class="ck-sec">Economy</div>
     <section class="ck-panel ck-span2">
@@ -585,10 +619,10 @@ function wireSecNav() {
   document.addEventListener("click", (e) => {
     const b = e.target.closest("#ck-secnav .tchip");
     if (!b) return;
-    const sec = b.getAttribute("data-sec") || "all";
+    const sec = b.getAttribute("data-sec") || "economy";
     try { localStorage.setItem("mac.dash.sec", sec); } catch { /* private mode */ }
     document.querySelectorAll("#ck-secnav .tchip").forEach((c) => c.classList.toggle("is-on", c === b));
-    document.querySelectorAll("#ck-cockpit .ck-group").forEach((g) => g.classList.toggle("ck-off", sec !== "all" && g.getAttribute("data-sec") !== sec));
+    document.querySelectorAll("#ck-cockpit .ck-group").forEach((g) => g.classList.toggle("ck-off", g.getAttribute("data-sec") !== sec));
     const ck = document.getElementById("ck-cockpit");
     if (ck) ck.classList.toggle("ck-single", sec !== "all");
   });
