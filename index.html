@@ -1163,8 +1163,8 @@
     // mounts, so arriving on Home paints once, complete — no feed/chips/tab-
     // bar staging. The body auth script confirms via /api/me and calls
     // window.__enterGlance for the no-hint path (initGlance self-guards).
-    import { initGlance } from "/glance.js?v=20260719-17";
-    import { initNavActions } from "/nav-actions.js?v=20260719-27";
+    import { initGlance } from "/glance.js?v=20260719-18";
+    import { initNavActions } from "/nav-actions.js?v=20260719-28";
     window.__enterGlance = () => {
       ["loading", "out", "glance"].forEach((s) => document.getElementById(s).classList.toggle("hidden", s !== "glance"));
       const h = new Date().getHours();
@@ -1397,7 +1397,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260719-17").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260719-18").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), the head module shows the briefing immediately

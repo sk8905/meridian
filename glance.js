@@ -162,7 +162,7 @@ export function initGlance() {
   // The legacy Home-only menus (initNotifBell / initSavedPanel /
   // initMarketsPanel) are retired; on phones the Home data rails move into the
   // shared Markets panel via initHomeMarketsRails.
-  import("/nav-actions.js?v=20260719-27").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260719-28").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderDeals();
   renderFundraising();
   renderRx();
@@ -1229,7 +1229,7 @@ function renderFxMatrix(d) {
 // and rates payloads the left-rail panels show — no extra request. The renderers
 // stash the freshest rows so either feed landing repaints both derived views.
 let _mktRows = [], _rateRows = [], _mktExtra = [], _mktEtf = [];
-// NB: _macroSeries is declared further down (shared with the macroSeries() helper).
+// NB: _macroSeries is declared further down (populated by the macro snapshot).
 const TK_SHORT = { "S&P 500": "SPX", "NASDAQ": "NDX", "IGWD": "FTSE", "EMEE": "STOXX", "Oil": "BRENT", "Gold": "GOLD", "DXY": "DXY", "Bitcoin": "BTC" };
 function renderTicker() {
   const row = document.getElementById("g-ticker-row");
@@ -1475,11 +1475,14 @@ function recentNotif(list) {
   const cutoff = Math.max(...times) - NOTIF_WINDOW_DAYS * 864e5;
   return list.filter((x) => { const t = notifTime(x.date); return t != null && t >= cutoff; });
 }
+// The bell is deliberately LIMITED to the deal-flow desks: manager news, deals,
+// fundraising & CLOs (Credit — CLO pricings live in `deals`) and legal alerts,
+// case law & schemes/RPs (Legal). Macro items (Wire-analysis guidance, data
+// prints) and institutional research are excluded — they have their own surfaces.
 function creditNotif() {
   const out = [];
   deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, source: creditSource(d), href: creditItemHref(d), ext: creditItemExt(d) }));
   intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, source: creditSource(i), href: creditItemHref(i), ext: creditItemExt(i) }));
-  (research || []).forEach((r) => out.push({ id: "r:" + r.id, date: r.date || "", kind: "Commentary", title: r.title, source: r.institution, href: r.url, ext: true }));
   managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", kind: "News", title: w.title, source: w.outlet || m.name || "", href: "/credit/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey(w)) })));
   return recentNotif(out).sort(byDateDesc);
 }
@@ -1490,34 +1493,12 @@ function legalNotif() {
   restructurings.forEach((r) => out.push({ id: "r:" + r.id, date: r.date || "", kind: r.type === "scheme" ? "Scheme" : "Plan", title: r.company, source: r.firm ? firmName(r.firm) : (r.judgmentUrl ? judgmentSource(r.judgmentUrl) : ""), href: r.judgmentUrl || r.articleUrl || "/legal/#/", ext: !!(r.judgmentUrl || r.articleUrl) }));
   return recentNotif(out).sort(byDateDesc);
 }
-function macroDataAlerts(series) {
-  return (series || []).filter((s) => s.value != null).map((s) => {
-    const pct = s.unit === "%";
-    const val = `${(+s.value).toFixed(2)}${pct ? "%" : ""}`;
-    const country = s.country === "US" ? "US" : "UK";
-    let chg = "";
-    if (s.change != null && s.change !== 0) chg = ` · ${s.change > 0 ? "▲" : "▼"} ${Math.abs(s.change).toFixed(2)}${pct ? " pp" : ""} MoM`;
-    else if (s.change === 0) chg = " · unchanged MoM";
-    const flag = (s.key === "services_pmi" && +s.value < 50) ? " — below 50 (contraction)" : "";
-    return { id: `d:${s.country}:${s.key}:${s.asOf}:${(+s.value).toFixed(2)}`, kind: "Economic data",
-      title: `${country} · ${s.label}: ${val}${flag}${chg}`, source: s.source || "", href: `/macro/#/dashboard?focus=${s.country}-${s.key}`, date: s.asOf ? `${s.asOf}-01` : "" };
-  });
-}
+// Shared cache of the /api/macro series — populated by the macro snapshot
+// (initMacroSnapshot) and read via findMacro(); the bell no longer uses it.
 let _macroSeries;
-async function macroSeries() {
-  if (_macroSeries) return _macroSeries;
-  try { const r = await fetch("/api/macro", { headers: { accept: "application/json" } }); if (r.ok) { const d = await r.json(); _macroSeries = (d && d.series) || []; return _macroSeries; } } catch { /* offline */ }
-  _macroSeries = []; return _macroSeries;
-}
-async function macroNotif() {
-  const series = await macroSeries();
-  const guidance = (ALERTS || []).map((a) => ({ id: a.id, date: a.date || "", kind: a.kind || "Guidance", title: a.title, source: "Wire analysis", href: "/macro/" + (a.href || "#/policy") }));
-  return [...guidance, ...macroDataAlerts(series)].sort(byDateDesc);
-}
 const NOTIF_APPS = [
   { key: "credit", tag: "Credit", api: "/api/notif-credit", ls: "meridian.credit.notifSeen", build: creditNotif },
   { key: "legal", tag: "Legal", api: "/api/notif-legal", ls: "meridian.legal.notifSeen", build: legalNotif },
-  { key: "macro", tag: "Macro", api: "/api/notif-macro", ls: "meridian.macro.notifSeen", build: macroNotif },
 ];
 async function resolveSeen(api, ls, allIds) {
   let local = null;

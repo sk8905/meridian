@@ -6,8 +6,8 @@
 // first time a Saved panel is opened, so the heavy data modules aren't pulled
 // into each app's initial load. Mirrors glance.js resolveSaved().
 // =============================================================================
-import { ARTICLES, NEWS, COMMENTARY, ALERTS } from "/macro/js/content.js";
-import { deals, intel, managers, research } from "/credit/js/data.js";
+import { ARTICLES, NEWS, COMMENTARY } from "/macro/js/content.js";
+import { deals, intel, managers } from "/credit/js/data.js";
 import { items, cases, restructurings, firms } from "/legal/js/data.js?v=20260718-10";
 
 // ---- id schemes -------------------------------------------------------------
@@ -105,11 +105,14 @@ function recentNotif(list) {
 }
 const byDateDesc = (a, b) => String(b.date || "").localeCompare(String(a.date || ""));
 
+// The bell is deliberately LIMITED to the deal-flow desks: manager news, deals,
+// fundraising & CLOs (Credit — CLO pricings live in `deals`) and legal alerts,
+// case law & schemes/RPs (Legal). Macro items (Wire-analysis guidance, data
+// prints) and institutional research are excluded — they have their own surfaces.
 function creditNotif() {
   const out = [];
   deals.forEach((d) => out.push({ desk: "c", id: "d:" + d.id, date: d.date || "", title: d.headline, source: creditSource(d), href: creditItemHref(d), ext: creditItemExt(d) }));
   intel.forEach((i) => out.push({ desk: "c", id: "i:" + i.id, date: i.date || "", title: i.headline, source: creditSource(i), href: creditItemHref(i), ext: creditItemExt(i) }));
-  (research || []).forEach((r) => out.push({ desk: "c", id: "r:" + r.id, date: r.date || "", title: r.title, source: r.institution, href: r.url, ext: true }));
   managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ desk: "c", id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", title: w.title, source: w.outlet || m.name || "", href: "/credit/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey(w)), ext: false })));
   return recentNotif(out);
 }
@@ -120,19 +123,8 @@ function legalNotif() {
   restructurings.forEach((r) => { const u = r.judgmentUrl || r.articleUrl; out.push({ desk: "l", id: "x:" + r.id, date: r.date || "", title: r.company, source: r.firm ? firmName(r.firm) : (r.judgmentUrl ? judgmentSource(r.judgmentUrl) : (r.type === "scheme" ? "Scheme" : "Restructuring plan")), href: u || "/legal/#/", ext: !!u }); });
   return recentNotif(out);
 }
-function macroNotif(series) {
-  const guidance = (ALERTS || []).map((a) => ({ desk: "m", id: "g:" + a.id, date: a.date || "", title: a.title, source: "Wire analysis", href: "/macro/" + (a.href || "#/policy"), ext: false }));
-  const prints = (series || []).filter((s) => s.value != null).map((s) => {
-    const pct = s.unit === "%"; const val = `${(+s.value).toFixed(2)}${pct ? "%" : ""}`;
-    const country = s.country === "US" ? "US" : "UK";
-    return { desk: "m", id: `d:${s.country}:${s.key}:${s.asOf}:${(+s.value).toFixed(2)}`, date: s.asOf ? `${s.asOf}-01` : "", title: `${country} · ${s.label}: ${val}`, source: s.source || "", href: `/macro/#/dashboard?focus=${s.country}-${s.key}`, ext: false };
-  });
-  return [...guidance, ...prints];
-}
 export async function buildNotifs() {
-  let series = [];
-  try { const r = await fetch("/api/macro", { headers: { accept: "application/json" } }); if (r.ok) { const d = await r.json(); series = (d && d.series) || []; } } catch { /* offline */ }
-  return [...creditNotif(), ...legalNotif(), ...macroNotif(series)].sort(byDateDesc);
+  return [...creditNotif(), ...legalNotif()].sort(byDateDesc);
 }
 
 // ---- Watchlist (managers + law firms) ---------------------------------------
