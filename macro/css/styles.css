@@ -436,6 +436,8 @@ a.intel-head:hover { text-decoration: underline; }
 .ew-off { display: none; }
 .ew-day { margin: 10px 0 2px; }
 .ew-day:first-child { margin-top: 0; }
+/* Day headers carry the standard Wire orange accent (data-mark colour). */
+.ew-day strong { color: var(--macro); }
 .ew-row { display: flex; gap: 12px; align-items: flex-start; padding: 8px 0 9px; border-bottom: 1px solid var(--border); }
 .ew-row:last-of-type { border-bottom: 0; }
 /* Left column: ticker + ETF label / name / tag; right column: the Fcst-Act table */
