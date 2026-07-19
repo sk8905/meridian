@@ -1101,6 +1101,10 @@
       border-bottom:1px solid var(--t-grid); font-family:var(--t-mono); font-size:10px; letter-spacing:.03em;
       text-transform:uppercase; color:var(--t-mut); position:sticky; top:0; z-index:1; }
     .tui .g-feed-srcbar strong{ color:var(--t-ink); font-weight:600; text-transform:none; letter-spacing:0; }
+    /* The srcbar lives INSIDE the #g-feed swipe pane — unstick it while a chip
+       slide is in flight (body.wire-sliding) so it travels with the slab
+       instead of floating at its stuck viewport offset. */
+    body.wire-sliding .g-feed-srcbar{ position:static; }
     .tui .g-feed-srcclear{ margin-left:auto; border:0; background:transparent; cursor:pointer; color:var(--t-accent);
       font-family:inherit; font-size:10px; letter-spacing:.03em; text-transform:uppercase; padding:0; }
     .tui .g-feed-srcclear:hover{ text-decoration:underline; }
@@ -1159,8 +1163,8 @@
     // mounts, so arriving on Home paints once, complete — no feed/chips/tab-
     // bar staging. The body auth script confirms via /api/me and calls
     // window.__enterGlance for the no-hint path (initGlance self-guards).
-    import { initGlance } from "/glance.js?v=20260719-16";
-    import { initNavActions } from "/nav-actions.js?v=20260719-26";
+    import { initGlance } from "/glance.js?v=20260719-17";
+    import { initNavActions } from "/nav-actions.js?v=20260719-27";
     window.__enterGlance = () => {
       ["loading", "out", "glance"].forEach((s) => document.getElementById(s).classList.toggle("hidden", s !== "glance"));
       const h = new Date().getHours();
@@ -1393,7 +1397,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260719-16").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260719-17").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), the head module shows the briefing immediately

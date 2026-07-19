@@ -103,15 +103,18 @@ export function initSwipeTabs() {
     document.body.classList.add("wire-sliding");
     rowEl = set && set.chips[0] ? set.chips[0].closest("#g-feed-head, .twire-head, .tbar, .tpanel-h, .ck-secbar") : null;
     if (rowEl) {
+      // Mark the ACTIVE chip row: the wire-sliding suspension rules exempt it
+      // via :not(.st-hold) so the row the finger is on keeps its sticky lock
+      // while every other stuck row in the sliding panes drops to static.
+      rowEl.classList.add("st-hold");
       const cz = parseInt(getComputedStyle(rowEl).zIndex, 10);
-      if (cz > 70) { rowEl = null; return; }
       rowZ = rowEl.style.zIndex;
-      rowEl.style.zIndex = "70";
+      if (!(cz > 70)) rowEl.style.zIndex = "70";
     }
   };
   const restoreRow = () => {
     document.body.classList.remove("wire-sliding");
-    if (rowEl) { rowEl.style.zIndex = rowZ; rowEl = null; rowZ = ""; }
+    if (rowEl) { rowEl.classList.remove("st-hold"); rowEl.style.zIndex = rowZ; rowEl = null; rowZ = ""; }
   };
 
   const setT = (els, x, tr) => els.forEach((el) => {
