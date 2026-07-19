@@ -909,10 +909,7 @@
          headlines scroll. */
       .tui .g-feed-head{ position:sticky; top:var(--wire-head-h, 53px); z-index:8; background:var(--t-head);
         transform:translate3d(0,0,0); -webkit-backface-visibility:hidden; backface-visibility:hidden; }
-      /* An active source filter stays clearable without scrolling back up:
-         pin its bar just under the feed chips (30px row below the command bar). */
-      .tui .g-feed-srcbar{ position:sticky; top:calc(var(--wire-head-h, 53px) + 30px); z-index:7;
-        transform:translate3d(0,0,0); } }
+      }
 
     /* ---- briefing bar — a single compact row: greeting · top story · narratives ---- */
     .tui .g-hello{ display:flex; align-items:baseline; gap:10px; padding:6px 14px; margin:0;
@@ -1105,6 +1102,14 @@
       border-bottom:1px solid var(--t-grid); font-family:var(--t-mono); font-size:10px; letter-spacing:.03em;
       text-transform:uppercase; color:var(--t-mut); position:sticky; top:0; z-index:1; }
     .tui .g-feed-srcbar strong{ color:var(--t-ink); font-weight:600; text-transform:none; letter-spacing:0; }
+    /* Phones: pin the active-filter bar in the locked chrome stack, directly
+       under the feed chips (30px row below the fixed command bar), so scroll
+       happens only below it and the filter is always clearable. Placed AFTER
+       the base rule above — same specificity, source order decides. */
+    @media (max-width:760px){
+      .tui .g-feed-srcbar{ position:sticky; top:calc(var(--wire-head-h, 53px) + 30px); z-index:7;
+        transform:translate3d(0,0,0); -webkit-backface-visibility:hidden; backface-visibility:hidden; background:var(--t-head); }
+    }
     /* The srcbar lives INSIDE the #g-feed swipe pane — unstick it while a chip
        slide is in flight (body.wire-sliding) so it travels with the slab
        instead of floating at its stuck viewport offset. */
