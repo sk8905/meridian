@@ -523,8 +523,8 @@ export const MATWALL = {
 // asset managers, AI-relevant names (hyperscalers, chips, AI software), the
 // Mag 7, and other market-movers. RULES — every figure VERBATIM from the
 // sources below, never estimated here. Each row carries the full triple
-// est/act × Eps/Rev/Ebitda (null renders as —; banks do not report EBITDA and
-// consensus EBITDA appears only when a source publishes one) plus px = the
+// est/act × Eps/Rev plus optional km {l, est, act} (the sector's key metric)
+// and guide {est, act} (guidance going in / issued with results), plus px = the
 // source's quoted share reaction. Weekly roll (Monday 05:00 routine): last
 // week's block is replaced by the week just ended, the ahead block by the new
 // calendar; act/px filled by the first routine after each release.

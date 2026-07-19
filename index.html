@@ -109,7 +109,7 @@
     /* Legacy per-page menu mounts, retired by the shared nav-actions controller.
        It hides them from JS too, but that ran after first paint — the markets
        icon could flash beside the shared cluster. CSS wins the race. */
-    #g-mkt, #g-saved, #g-notif { display:none; }
+    #g-mkt, #g-saved { display:none; }
     .g-idblock { display:flex; flex-direction:column; align-items:flex-end; line-height:1.28; }
     .g-user { color:#c3cfea; font-size:.72rem; white-space:nowrap; }
     .g-user strong { color:#fff; font-weight:600; }
@@ -128,29 +128,6 @@
       .g-footer .g-user a { color:#fff; }
       .g-footer .g-refresh { color:var(--muted); font-size:.72rem; }
     }
-    .g-notif { position:relative; flex:0 0 auto; }
-    .g-bell { position:relative; width:34px; height:34px; display:grid; place-items:center; cursor:pointer;
-      border-radius:8px; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18);
-      color:#fff; font-size:.95rem; line-height:1; }
-    .g-bell:hover { background:rgba(255,255,255,.2); border-color:rgba(255,255,255,.32); }
-    .g-badge { position:absolute; top:-5px; right:-5px; min-width:16px; height:16px; padding:0 3px;
-      background:#ef4444; color:#fff; font-size:.6rem; font-weight:800; border-radius:9px; display:grid; place-items:center; }
-    .g-notif-panel { position:absolute; top:calc(100% + 8px); right:0; width:340px; max-width:88vw;
-      background:#fff; color:var(--ink); border-radius:12px; box-shadow:0 22px 55px rgba(8,20,60,.35);
-      padding:.35rem; z-index:70; }
-    .g-notif-panel[hidden] { display:none; }
-    .g-np-head { font-weight:700; font-size:.82rem; color:var(--ink); padding:.45rem .55rem .5rem; border-bottom:1px solid var(--line); margin-bottom:.2rem; }
-    .g-np-sub { color:var(--muted); font-weight:500; font-size:.72rem; }
-    .g-np-list { max-height:62vh; overflow-y:auto; overscroll-behavior:contain; }
-    .g-np-item { display:flex; gap:.55rem; align-items:flex-start; padding:.5rem .55rem; border-radius:8px; }
-    .g-np-item:hover { background:#eef2fb; }
-    .g-np-tag { flex:0 0 auto; margin-top:.05rem; font-size:.58rem; font-weight:800; text-transform:uppercase;
-      letter-spacing:.03em; color:#fff; padding:.1rem .32rem; border-radius:4px; }
-    .g-np-tag.credit { background:var(--brand-2); } .g-np-tag.legal { background:var(--legal); } .g-np-tag.macro { background:var(--macro); }
-    .g-np-txt { min-width:0; }
-    .g-np-t { display:block; font-weight:600; font-size:.82rem; color:var(--ink); line-height:1.3; overflow-wrap:anywhere; }
-    .g-np-m { display:block; color:var(--muted); font-size:.72rem; margin-top:.1rem; }
-    .g-np-empty { color:var(--muted); font-size:.82rem; padding:.8rem .55rem; text-align:center; }
 
     /* Unified Saved — one cross-desk bookmark panel (Macro + Credit + Legal). */
     .g-saved { position:relative; flex:0 0 auto; }
@@ -240,7 +217,6 @@
       .g-right { display:contents; }
       .g-idblock { grid-area:idblock; justify-self:end; align-items:flex-end; }
       .g-actions { grid-area:bell; justify-self:end; }
-      .g-bell { width:32px; height:32px; }
       .platform-switch { grid-area:switch; justify-self:start; }
       .ps-btn { padding:.24rem .5rem; font-size:.74rem; }
       .g-search-btn { grid-area:search; width:100%; min-width:0; margin-left:0; }
@@ -582,7 +558,7 @@
          saved and notifications — all use this same footprint. */
       /* Stop ABOVE the bottom tab bar (72px + safe-area) — the bar persists on
          every page, overlays included. */
-      .g-mkt-panel, .g-sv-panel, .g-notif-panel { position:fixed; top:var(--gtop-b, 54px); left:0; right:0;
+      .g-mkt-panel, .g-sv-panel { position:fixed; top:var(--gtop-b, 54px); left:0; right:0;
         bottom:calc(72px + env(safe-area-inset-bottom, 0px));
         width:100vw; max-width:100vw; height:auto; max-height:none;
         margin:0; padding:0 0 1.2rem; border:0; border-radius:0;
@@ -626,21 +602,20 @@
     @media (max-width:760px){
       /* Saved & Notifications: full-screen dark panels below the top nav bar,
          with a sticky header (title + close) and edge-to-edge rows. */
-      .g-sv-panel, .g-notif-panel { background:var(--t-ground, #000000); color:var(--t-ink, #eaf0fb); padding:0 0 calc(2rem + env(safe-area-inset-bottom, 0px)); }
-      .g-sv-head, .g-np-head { position:sticky; top:0; z-index:3; display:flex; align-items:center; justify-content:space-between;
+      .g-sv-panel { background:var(--t-ground, #000000); color:var(--t-ink, #eaf0fb); padding:0 0 calc(2rem + env(safe-area-inset-bottom, 0px)); }
+      .g-sv-head { position:sticky; top:0; z-index:3; display:flex; align-items:center; justify-content:space-between;
         gap:10px; min-height:46px; padding:0 4px 0 14px; margin:0; border-radius:0;
         background:var(--t-head, #0a0a0a); border-bottom:1px solid var(--t-grid2, #262626);
         color:var(--t-ink, #eaf0fb); font-weight:600; font-size:12px; }
-      .g-np-head .g-np-sub { color:var(--t-faint, #5c6a86); font-weight:500; }
       .g-menu-close { display:grid; width:34px; height:34px; flex:0 0 auto; align-self:center; place-items:center;
         border:1px solid var(--t-grid2, #262626); background:transparent; color:var(--t-ink, #eaf0fb);
         font-size:15px; line-height:1; cursor:pointer; border-radius:0; }
-      .g-sv-body, .g-np-list { max-height:none; overflow-y:visible; padding:0; margin:0; }
-      .g-sv-item, .g-np-item { border-radius:0; padding:11px 14px; border-bottom:1px solid var(--t-grid, #1a1a1a); }
-      .g-sv-item:hover, .g-np-item:hover { background:var(--t-panel2, #191919); }
-      .g-sv-t, .g-np-t { color:var(--t-ink, #eaf0fb); }
-      .g-sv-m, .g-np-m { color:var(--t-mut, #8592ad); }
-      .g-sv-empty, .g-np-empty { color:var(--t-mut, #8592ad); padding:22px 16px; }
+      .g-sv-body { max-height:none; overflow-y:visible; padding:0; margin:0; }
+      .g-sv-item { border-radius:0; padding:11px 14px; border-bottom:1px solid var(--t-grid, #1a1a1a); }
+      .g-sv-item:hover { background:var(--t-panel2, #191919); }
+      .g-sv-t { color:var(--t-ink, #eaf0fb); }
+      .g-sv-m { color:var(--t-mut, #8592ad); }
+      .g-sv-empty { color:var(--t-mut, #8592ad); padding:22px 16px; }
     }
     /* Legacy floating-dropdown grid (used only if the panel is ever shown WITHOUT
        the terminal .tui treatment). The full-screen phone panel is always .tui. */
@@ -1146,7 +1121,7 @@
     .g-top .g-search-btn{ border-radius:0; font-size:.8rem; padding:.42rem .7rem; }
     .g-top .g-search-btn kbd{ border-radius:0; font-size:.74rem; }
     .g-top .g-actions button,.g-top .theme-toggle,.g-top .g-sv-btn,.g-top .g-mkt-btn{ border-radius:0; }
-    .g-top .g-notif-panel,.g-top .g-sv-panel,.g-top .g-mkt-panel{ border-radius:0; }
+    .g-top .g-sv-panel,.g-top .g-mkt-panel{ border-radius:0; }
     .cmdk-panel,.cmdk-input{ border-radius:0; }
     /* Touch devices: never show the row/story hover state while a finger rests on
        a row during a scroll. :hover latches on touch, so a headline would flash
@@ -1172,8 +1147,8 @@
     // mounts, so arriving on Home paints once, complete — no feed/chips/tab-
     // bar staging. The body auth script confirms via /api/me and calls
     // window.__enterGlance for the no-hint path (initGlance self-guards).
-    import { initGlance } from "/glance.js?v=20260719-19";
-    import { initNavActions } from "/nav-actions.js?v=20260719-29";
+    import { initGlance } from "/glance.js?v=20260719-20";
+    import { initNavActions } from "/nav-actions.js?v=20260719-30";
     window.__enterGlance = () => {
       ["loading", "out", "glance"].forEach((s) => document.getElementById(s).classList.toggle("hidden", s !== "glance"));
       const h = new Date().getHours();
@@ -1253,7 +1228,6 @@
               <div class="g-mkt-panel tui" id="g-mkt-panel" hidden></div>
             </div>
             <div class="g-saved" id="g-saved"></div>
-            <div class="g-notif" id="g-notif"></div>
           </div>
         </div>
       </div>
@@ -1406,7 +1380,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260719-19").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260719-20").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), the head module shows the briefing immediately

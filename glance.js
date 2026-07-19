@@ -162,7 +162,7 @@ export function initGlance() {
   // The legacy Home-only menus (initNotifBell / initSavedPanel /
   // initMarketsPanel) are retired; on phones the Home data rails move into the
   // shared Markets panel via initHomeMarketsRails.
-  import("/nav-actions.js?v=20260719-29").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260719-30").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderDeals();
   renderFundraising();
   renderRx();
@@ -363,9 +363,6 @@ function closeAllGlanceMenus() {
   const sv = document.getElementById("g-sv-panel");
   if (sv) sv.setAttribute("hidden", "");
   const svBtn = document.getElementById("g-sv-btn"); if (svBtn) svBtn.setAttribute("aria-expanded", "false");
-  const np = document.getElementById("g-notif-panel");
-  if (np) np.setAttribute("hidden", "");
-  const bell = document.getElementById("g-bell"); if (bell) bell.setAttribute("aria-expanded", "false");
   document.body.classList.remove("g-mkt-open");
   hideScrim();
 }
@@ -1460,122 +1457,15 @@ function initPulse() {
     .catch(() => { /* keep deterministic lines */ });
 }
 
-// ---- Notifications: aggregate the three apps' unread counts ----------------
-// Each app defines its own notification set + per-user "seen" ids (synced via
-// /api/notif-<app>, KV keyed on the Access email, with localStorage as cache).
-// Glance replays that model for all three and sums the unread counts on one bell.
-// Only surface RECENT updates (within NOTIF_WINDOW_DAYS of the latest) so the
-// historical back-catalogue doesn't flood the aggregated bell with old-dated
-// items that are buried deep in each app's feeds.
-const NOTIF_WINDOW_DAYS = 7;
-function notifTime(d) { if (!d) return null; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : d; const t = Date.parse(s); return isNaN(t) ? null : t; }
-function recentNotif(list) {
-  const times = list.map((x) => notifTime(x.date)).filter((t) => t != null);
-  if (!times.length) return list;
-  const cutoff = Math.max(...times) - NOTIF_WINDOW_DAYS * 864e5;
-  return list.filter((x) => { const t = notifTime(x.date); return t != null && t >= cutoff; });
-}
-// The bell is deliberately LIMITED to the deal-flow desks: manager news, deals,
-// fundraising & CLOs (Credit — CLO pricings live in `deals`) and legal alerts,
-// case law & schemes/RPs (Legal). Macro items (Wire-analysis guidance, data
-// prints) and institutional research are excluded — they have their own surfaces.
-function creditNotif() {
-  const out = [];
-  deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, source: creditSource(d), href: creditItemHref(d), ext: creditItemExt(d) }));
-  intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, source: creditSource(i), href: creditItemHref(i), ext: creditItemExt(i) }));
-  managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", kind: "News", title: w.title, source: w.outlet || m.name || "", href: "/credit/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey(w)) })));
-  return recentNotif(out).sort(byDateDesc);
-}
-function legalNotif() {
-  const out = [];
-  items.forEach((it) => out.push({ id: "u:" + it.id, date: it.date || "", kind: "Alert", title: it.title, source: firmName(it.firm), href: it.url || "/legal/#/item/" + encodeURIComponent(it.id), ext: !!it.url }));
-  cases.forEach((c) => out.push({ id: "c:" + c.id, date: c.date || "", kind: c.court || "Case", title: c.name, source: judgmentSource(c.url), href: c.url || "/legal/#/", ext: !!c.url }));
-  restructurings.forEach((r) => out.push({ id: "r:" + r.id, date: r.date || "", kind: r.type === "scheme" ? "Scheme" : "Plan", title: r.company, source: r.firm ? firmName(r.firm) : (r.judgmentUrl ? judgmentSource(r.judgmentUrl) : ""), href: r.judgmentUrl || r.articleUrl || "/legal/#/", ext: !!(r.judgmentUrl || r.articleUrl) }));
-  return recentNotif(out).sort(byDateDesc);
-}
+// ---- Notifications ----------------------------------------------------------
+// The Home-only bell (initNotifBell/renderBell and friends) is RETIRED: all
+// four pages share the nav-actions.js bell, whose list comes from saved.js
+// buildNotifs() — limited to the deal-flow desks (manager news, deals,
+// fundraising, CLOs, legal alerts, case law, schemes/RPs).
+
 // Shared cache of the /api/macro series — populated by the macro snapshot
-// (initMacroSnapshot) and read via findMacro(); the bell no longer uses it.
+// (initMacroSnapshot) and read via findMacro().
 let _macroSeries;
-const NOTIF_APPS = [
-  { key: "credit", tag: "Credit", api: "/api/notif-credit", ls: "meridian.credit.notifSeen", build: creditNotif },
-  { key: "legal", tag: "Legal", api: "/api/notif-legal", ls: "meridian.legal.notifSeen", build: legalNotif },
-];
-async function resolveSeen(api, ls, allIds) {
-  let local = null;
-  try { const p = JSON.parse(localStorage.getItem(ls) || "null"); local = Array.isArray(p) ? p : null; } catch { /* */ }
-  let server = null, cloud = false;
-  try { const r = await fetch(api, { headers: { accept: "application/json" } }); if (r.ok) { const d = await r.json(); server = Array.isArray(d.seen) ? d.seen : []; cloud = true; } } catch { /* not behind Access */ }
-  const hasHistory = (server && server.length) || (local && local.length);
-  const baseline = hasHistory ? [...new Set([...(local || []), ...(server || [])])] : allIds.slice();
-  return { baseline, cloud };
-}
-let _notifApps = null;
-async function initNotifBell() {
-  const wrap = document.getElementById("g-notif");
-  if (!wrap) return;
-  const apps = [];
-  for (const cfg of NOTIF_APPS) {
-    let list = [];
-    try { list = await cfg.build(); } catch { list = []; }
-    const allIds = list.map((x) => x.id);
-    const { baseline, cloud } = await resolveSeen(cfg.api, cfg.ls, allIds);
-    const set = new Set(baseline);
-    apps.push({ ...cfg, list, allIds, baseline, cloud, unread: list.filter((x) => !set.has(x.id)) });
-  }
-  _notifApps = apps;
-  renderBell();
-}
-function closeNotifPanel() {
-  const p = document.getElementById("g-notif-panel"), b = document.getElementById("g-bell");
-  if (p) p.setAttribute("hidden", "");
-  if (b) b.setAttribute("aria-expanded", "false");
-  document.body.classList.remove("g-menu-open");
-  hideScrim();
-}
-function markAllSeen() {
-  (_notifApps || []).forEach((a) => {
-    const merged = [...new Set([...a.baseline, ...a.allIds])];
-    try { localStorage.setItem(a.ls, JSON.stringify(merged)); } catch { /* */ }
-    if (a.cloud) fetch(a.api, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ seen: merged }) }).catch(() => {});
-    a.baseline = merged; a.unread = [];
-  });
-  const badge = document.querySelector("#g-bell .g-badge"); if (badge) badge.remove();
-}
-function renderBell() {
-  const wrap = document.getElementById("g-notif");
-  if (!wrap || !_notifApps) return;
-  const total = _notifApps.reduce((s, a) => s + a.unread.length, 0);
-  const tagged = (a, arr) => arr.map((x) => ({ ...x, tag: a.tag, key: a.key }));
-  const unreadAll = _notifApps.flatMap((a) => tagged(a, a.unread)).sort(byDateDesc);
-  const listAll = _notifApps.flatMap((a) => tagged(a, a.list)).sort(byDateDesc);
-  const show = (total ? unreadAll : listAll).slice(0, 24);
-  const row = (x) => `<a class="g-np-item" href="${esc(x.href)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}><span class="g-np-tag ${x.key}">${esc(x.tag)}</span><span class="g-np-txt"><span class="g-np-t">${esc(x.title)}</span><span class="g-np-m">${esc(x.kind)}${x.date ? " · " + esc(fmt(x.date)) : ""}${x.source ? ` · <span class="g-np-src">${esc(x.source)}</span>` : ""}</span></span></a>`;
-  wrap.innerHTML = `
-    <button type="button" class="g-bell" id="g-bell" aria-haspopup="true" aria-expanded="false" aria-label="Notifications${total ? ` — ${total} new` : ""}">
-      <span aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span>${total ? `<span class="g-badge">${total > 9 ? "9+" : total}</span>` : ""}
-    </button>
-    <div class="g-notif-panel" id="g-notif-panel" role="menu" hidden>
-      <div class="g-np-head"><span>${total ? `${total} new update${total > 1 ? "s" : ""}` : "No new updates"} <span class="g-np-sub">· checked ${esc(fmtRefresh())}</span></span></div>
-      <div class="g-np-list">${show.length ? show.map(row).join("") : '<div class="g-np-empty">Nothing yet.</div>'}</div>
-    </div>`;
-  const bell = document.getElementById("g-bell"), panel = document.getElementById("g-notif-panel");
-  bell.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const wasOpen = !panel.hasAttribute("hidden");
-    closeAllGlanceMenus();
-    if (!wasOpen) { panel.removeAttribute("hidden"); bell.setAttribute("aria-expanded", "true"); document.body.classList.add("g-menu-open"); markAllSeen(); showScrim(closeAllGlanceMenus); }
-  });
-  panel.addEventListener("click", (e) => { if (e.target.closest("[data-menu-close]")) closeNotifPanel(); });
-  document.addEventListener("click", (e) => {
-    const panel = document.getElementById("g-notif-panel");
-    const isOpen = panel && !panel.hasAttribute("hidden");
-    // Consume ONLY taps on the page behind (links/feed rows) — never taps on the
-    // top-bar action buttons (.g-actions holds Markets/Saved/this bell): killing
-    // those in the capture phase is what made "notifications → Saved/Markets"
-    // close notifications without opening the tapped menu.
-    if (isOpen && !wrap.contains(e.target) && !e.target.closest(".g-actions")) { e.preventDefault(); e.stopPropagation(); closeNotifPanel(); }
-  }, true);
-}
 
 // ---- Unified search index --------------------------------------------------
 // Result priority (rank): managers first, then funds / CLOs, then dated items
