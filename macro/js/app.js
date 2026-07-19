@@ -536,7 +536,7 @@ function macroDashPane() {
   // cockpit); the choice persists per device.
   let sec = "economy";
   try { sec = localStorage.getItem("mac.dash.sec") || "economy"; } catch { /* default */ }
-  const SECS = [["earnings", "Earnings"], ["economy", "Economy"], ["rates", "Rates"], ["credit", "Credit"], ["regime", "Regime"]];
+  const SECS = [["economy", "Economy"], ["rates", "Rates"], ["regime", "Regime"], ["earnings", "Earnings"], ["credit", "Credit"]];
   if (!SECS.some(([k]) => k === sec)) sec = "economy";   // also migrates a stored "all"
   const chip = ([k, l]) => `<button type="button" class="tchip${k === sec ? " is-on" : ""}" data-sec="${k}">${l}</button>`;
   const grp = (k) => `class="ck-group${sec !== k ? " ck-off" : ""}" data-sec="${k}"`;
