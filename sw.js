@@ -63,18 +63,42 @@ self.addEventListener("fetch", (e) => {
   })());
 });
 
+// Background refresh, iOS-style: a web app gets NO periodic background time,
+// but a push wakes this worker with a work budget — so every incoming alert
+// also re-pulls the app shell + data modules into the cache (network-first).
+// Tapping the notification (or opening later) then lands on fresh content.
+const WARM_PATHS = ["/", "/macro/", "/credit/", "/legal/", "/menu/",
+  "/ft.js", "/newsletters.js", "/credit/js/data.js", "/legal/js/data.js", "/macro/js/content.js"];
+async function warmShell() {
+  try {
+    const cache = await caches.open(CACHE);
+    const one = async (u) => {
+      const res = await fetch(u, { cache: "reload" });
+      if (res && res.ok && !res.redirected && res.type === "basic") await cache.put(u, res.clone());
+    };
+    // Cap the whole warm well inside the push work budget.
+    await Promise.race([
+      Promise.allSettled(WARM_PATHS.map(one)),
+      new Promise((r) => setTimeout(r, 12000)),
+    ]);
+  } catch { /* offline — the stale cache stays usable */ }
+}
+
 self.addEventListener("push", (e) => {
   let d = {};
   try { d = e.data ? e.data.json() : {}; }
   catch { d = { body: e.data ? e.data.text() : "" }; }
   // An EMPTY title is deliberate (breaking alerts): iOS then leads with its
   // own "from Wire" attribution and the body carries headline + source.
-  e.waitUntil(self.registration.showNotification(d.title == null ? "Wire" : d.title, {
-    body: d.body || "",
-    icon: "/apple-touch-icon.png",
-    badge: "/apple-touch-icon.png",
-    data: { url: d.url || "/" },
-  }));
+  e.waitUntil(Promise.all([
+    self.registration.showNotification(d.title == null ? "Wire" : d.title, {
+      body: d.body || "",
+      icon: "/apple-touch-icon.png",
+      badge: "/apple-touch-icon.png",
+      data: { url: d.url || "/" },
+    }),
+    warmShell(),
+  ]));
 });
 
 self.addEventListener("notificationclick", (e) => {
