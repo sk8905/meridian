@@ -498,6 +498,24 @@ export const MATWALL = {
     ],
     src: { name: "Reuters", url: "https://finance.yahoo.com/markets/stocks/articles/private-credit-borrowers-big-maturity-141544760.html" },
   },
+  // Maturity wall by year (bar chart) \u2014 the ONLY published per-year figures;
+  // the global rated per-year splits sit behind S&P's registration wall (see
+  // note above). US leveraged finance, quoted verbatim from public index
+  // analyses. null = no published figure for that bucket \u2014 rendered as "n/p",
+  // NEVER estimated or interpolated. hyMin marks a ">$Xbn" floor figure.
+  wall: {
+    unit: "$bn",
+    buckets: [
+      { y: "2026\u201327", loans: 32, hy: null },
+      { y: "2028", loans: 331, hy: null },
+      { y: "2029", loans: null, hy: 350, hyMin: true },
+    ],
+    note: "Loans: Morningstar LSTA US Lev Loan Index ($1.57tn outstanding, end-Jun 2026); 2028 includes $124bn from B\u2212 borrowers. HY bonds: >$700bn due 2027\u201329 in total (as of 30 Nov 2025). n/p = no published per-year figure.",
+    srcs: {
+      loans: { name: "LSTA \u00b7 Jun 2026", url: "https://www.lsta.org/content/morningstar-lsta-leveraged-loan-index-analysis-june-2026/" },
+      hy: { name: "PitchBook \u00b7 LCD", url: "https://pitchbook.com/news/articles/2026-us-high-yield-outlook-volume-to-tick-higher-amid-looming-maturity-wall" },
+    },
+  },
 };
 
 // Earnings wall (Dashboard › Earnings): a one-week LOOK-BACK (results +

@@ -545,6 +545,16 @@ extra deep-research pass on watchlisted names is skipped.
 >      move, e.g. "+4.1%") from the coverage — NEVER computed or guessed; keep
 >      nulls where the source gives no figure. Rows stay for the rest of their
 >      week so forecast vs actual reads side by side.
+>    - **Maturity-wall chart in `macro/js/content.js` `MATWALL.wall`** → feeds
+>      the bar chart in Dashboard › **Credit** (y = $bn, x = year bucket).
+>      Every plotted value is quoted VERBATIM from a public source (currently
+>      the LSTA Morningstar-index monthly analysis for loans and PitchBook/LCD
+>      coverage for HY bonds); `null` renders as "n/p" — NEVER estimate,
+>      interpolate, or back out a missing year (per-year global rated splits
+>      sit behind S&P's registration wall). Upkeep is occasional, not per-run:
+>      when a newer index analysis or outlook publishes updated bucket figures,
+>      replace the values, `note` and `srcs` together and keep the as-of dates
+>      in the note current. `hyMin: true` marks a ">$Xbn" floor figure.
 >    - **Key macro news headlines in `macro/js/content.js` `NEWS`** → REWRITE every
 >      run. The dashboard renders these as ONE newest-first feed: it prefers items
 >      dated within the last 3 days, but if none are that recent it falls back to

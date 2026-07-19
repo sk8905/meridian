@@ -4,7 +4,7 @@
 // Fetches the shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P
 // Global / BoE). Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS } from "./content.js?v=20260719-25";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS } from "./content.js?v=20260719-26";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -526,16 +526,58 @@ function wireEwNav() {
   });
 }
 
+// Maturity-wall bar chart (y = $bn, x = year) from MATWALL.wall — plots ONLY
+// published figures; buckets with no published number render a small "n/p"
+// mark at the baseline instead of a bar (never estimated).
+function wallChart(wl) {
+  if (!wl || !wl.buckets || !wl.buckets.length) return "";
+  const W = 340, H = 138, T = 16, B = 22, L = 26, R = 4;
+  const max = 400, ih = H - T - B, base = T + ih;
+  const y = (v) => T + (1 - v / max) * ih;
+  const gw = (W - L - R) / wl.buckets.length, bw = 30, gap = 6;
+  const grid = [0, 100, 200, 300, 400].map((g) =>
+    `<line x1="${L}" y1="${y(g)}" x2="${W - R}" y2="${y(g)}" class="mwc-grid"/>`
+    + (g ? `<text x="${L - 4}" y="${y(g) + 3}" text-anchor="end" class="mwc-t">${g}</text>` : "")).join("");
+  const bars = wl.buckets.map((b, i) => {
+    const cx = L + gw * i + gw / 2;
+    const slots = [[b.loans, "", "mwc-loan"], [b.hy, b.hyMin ? ">" : "", "mwc-hy"]];
+    let out = "";
+    slots.forEach(([v, pre, cls], si) => {
+      const x = cx - bw - gap / 2 + si * (bw + gap);
+      if (v == null) {
+        out += `<text x="${x + bw / 2}" y="${base - 4}" text-anchor="middle" class="mwc-t mwc-np">n/p</text>`;
+      } else {
+        const yy = y(v);
+        out += `<rect x="${x}" y="${yy}" width="${bw}" height="${base - yy}" rx="2" class="${cls}"/>`
+          + `<text x="${x + bw / 2}" y="${yy - 4}" text-anchor="middle" class="mwc-t mwc-v">${pre}$${v}bn</text>`;
+      }
+    });
+    return out + `<text x="${cx}" y="${H - 8}" text-anchor="middle" class="mwc-t mwc-xl">${esc(b.y)}</text>`;
+  }).join("");
+  const alt = wl.buckets.map((b) => `${b.y}: ${b.loans == null ? "" : "loans $" + b.loans + "bn"}${b.loans != null && b.hy != null ? ", " : ""}${b.hy == null ? "" : "high-yield bonds " + (b.hyMin ? "over " : "") + "$" + b.hy + "bn"}`.trim()).join("; ");
+  return `<svg class="mwc-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="US leveraged-finance maturities by year, $bn — ${esc(alt)}">${grid}<line x1="${L}" y1="${base}" x2="${W - R}" y2="${base}" class="mwc-base"/>${bars}</svg>`;
+}
+
 function matWallPanel() {
   const w = MATWALL;
   if (!w) return "";
   const srcA = (s) => `<a class="ck-src" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.name)}</a>`;
   const kv = (rows) => `<div class="ck-kv">${(rows || []).map(([l, v]) => `<div class="ck-kv-row"><span class="ck-kv-l">${esc(l)}</span><span class="ck-kv-v">${esc(v)}</span></div>`).join("")}</div>`;
   const ig = Math.max(0, Math.min(100, w.rated.igPct));
+  const wl = w.wall;
+  const wallBlock = wl ? `
+        <div class="mwc">
+          <p class="ck-sub"><strong>Maturity wall by year — US leveraged finance</strong> · ${srcA(wl.srcs.loans)} · ${srcA(wl.srcs.hy)}</p>
+          ${wallChart(wl)}
+          <div class="mw-legend"><span><i class="mw-dot mwc-loan"></i>Lev loans</span><span><i class="mw-dot mwc-hy"></i>HY bonds</span></div>
+          <p class="ck-sub mwc-note">${esc(wl.note)}</p>
+        </div>` : "";
   return `
     <section class="ck-panel ck-span2">
       <header class="ck-h wire-ptr-freeze"><span>Wall of maturities — corporate credit</span><span class="ck-x">next 5Y</span></header>
-      <div class="ck-body mw-cols">
+      <div class="ck-body">
+        ${wallBlock}
+        <div class="mw-cols">
         <div class="mw-col">
           <p class="ck-sub"><strong>${esc(w.rated.total)}</strong> rated debt due ${esc(w.rated.window)} · ${srcA(w.rated.src)}</p>
           <div class="mw-split" role="img" aria-label="Investment grade ${ig}% of the wall, speculative grade ${100 - ig}%">
@@ -554,6 +596,7 @@ function matWallPanel() {
           ${kv(w.bonds.rows)}
           <p class="ck-sub ck-sub2"><strong>Private credit</strong> · ${srcA(w.privateCredit.src)}</p>
           ${kv(w.privateCredit.rows)}
+        </div>
         </div>
       </div>
     </section>`;
