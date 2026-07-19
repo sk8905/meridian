@@ -8,6 +8,9 @@
        is no light flash; then wire the top-bar toggle once the DOM is ready. -->
   <script>
     (function(){var r=document.documentElement;r.setAttribute("data-theme","dark");r.setAttribute("data-theme-choice","dark");try{localStorage.setItem("m_theme","dark");}catch(e){}})();
+    // Hold the content area invisible until the briefing has rendered (nav-actions
+    // reveals; timeout = safety net) so a page switch paints ONCE, complete.
+    document.documentElement.classList.add("wire-boot");setTimeout(function(){document.documentElement.classList.remove("wire-boot");},1600);
     ["gesturestart","gesturechange","gestureend"].forEach(function(t){document.addEventListener(t,function(e){e.preventDefault();},{passive:false});});
     // Phones: relocate the account (email/sign-out) + last-refresh block from the
     // top bar into the page footer to free up nav-bar space.
@@ -1140,7 +1143,7 @@
       :root[data-theme="dark"] a.g-feed-row:hover .g-feed-title{ color:inherit; }
     }
   </style>
-  <link rel="stylesheet" href="/premium.css?v=20260719-14" />
+  <link rel="stylesheet" href="/premium.css?v=20260719-15" />
 </head>
 <body>
   <!-- Loading -->

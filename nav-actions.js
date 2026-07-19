@@ -677,5 +677,12 @@ export function initNavActions() {
       if (b && n) { b.textContent = n > 9 ? "9+" : String(n); b.hidden = false; }
     }).catch(() => {});
   };
-  if (document.readyState !== "loading") run(); else document.addEventListener("DOMContentLoaded", run);
+  // First-paint reveal: the HTML boot script holds the content area invisible
+  // (html.wire-boot) so a page switch never paints the half-built state — the
+  // apps render synchronously before this module executes, so once run() has
+  // injected the chrome the page is COMPLETE and appears in a single frame.
+  // finally + the boot script's own timeout guarantee the page can never stay
+  // hidden.
+  const runR = () => { try { run(); } finally { document.documentElement.classList.remove("wire-boot"); } };
+  if (document.readyState !== "loading") runR(); else document.addEventListener("DOMContentLoaded", runR);
 }

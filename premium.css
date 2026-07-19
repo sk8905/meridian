@@ -345,6 +345,16 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 .mtab { border-radius: 0 !important; min-height: 54px; gap: 3px; font-size: .58rem; font-weight: 600; letter-spacing: .02em; padding: 3px .1rem !important; }
 /* Menu as a page (/menu/): the panel is permanently open — phones use the
    existing full-screen #na-menu-panel rules; desktop gets a centred column. */
+/* ---- First-paint hold. The head boot script stamps html.wire-boot; the
+        content area stays invisible until nav-actions' run() completes (by
+        which point the app has rendered and the chrome is injected), then the
+        whole page appears in ONE frame — no header-then-chips-then-content
+        staging on page switches. The header stays visible throughout: it is
+        identical on every page, so it reads as static across the switch. ---- */
+html.wire-boot main#app, html.wire-boot .footer, html.wire-boot .wticker,
+html.wire-boot .wbrief, html.wire-boot #glance, html.wire-boot #loading,
+html.wire-boot #out { visibility: hidden; }
+
 /* /menu/ head strip: the same segmented chip bar the other pages pin under
    the header (one chip for now — Search). tui.css styles the chips. */
 .na-menu-bar { height: 34px; flex: 0 0 auto; display: flex;
