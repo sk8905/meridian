@@ -833,6 +833,7 @@ function viewDashboard() {
     const b = e.target.closest(".tchip"); if (!b) return;
     dashTabs.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
     const p = b.dataset.p;
+    try { localStorage.setItem("cr.dash.tab", p || "all"); } catch { /* private mode */ }
     const wirePane = document.querySelector('#cr-dash-panes [data-pane="wire"]');
     const mgrPane = document.querySelector('#cr-dash-panes [data-pane="managers"]');
     if (p === "managers") { wirePane.hidden = true; mgrPane.hidden = false; return; }
@@ -842,6 +843,15 @@ function viewDashboard() {
       r.style.display = (!kinds || kinds.has(r.dataset.kind)) ? "" : "none";
     });
   });
+  // Re-select the persisted tab after every render — async syncs re-run this
+  // template with All hardcoded (the same kick the Macro main tabs had).
+  if (dashTabs) {
+    try {
+      const k0 = localStorage.getItem("cr.dash.tab");
+      const b0 = k0 && k0 !== "all" ? dashTabs.querySelector(`.tchip[data-p="${k0}"]`) : null;
+      if (b0 && !b0.classList.contains("is-on")) b0.click();
+    } catch { /* private mode */ }
+  }
   const qi = document.getElementById("mgr-q");
   if (qi) qi.addEventListener("input", () => {
     filterState.managers.q = qi.value;
@@ -862,13 +872,22 @@ function wireSimpleChips(chipsId, wireId) {
   const chips = document.getElementById(chipsId);
   const wire = document.getElementById(wireId);
   if (!chips || !wire) return;
+  const KEY = "cr.chips." + chipsId;
   chips.addEventListener("click", (e) => {
     const b = e.target.closest(".tchip");
     if (!b) return;
     chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
     const k = b.dataset.k;
+    try { localStorage.setItem(KEY, k || "all"); } catch { /* private mode */ }
     wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (k === "all" || r.dataset.kind === k) ? "" : "none"; });
   });
+  // Persisted selection survives the async-sync re-renders (All is hardcoded
+  // active in the templates).
+  try {
+    const k0 = localStorage.getItem(KEY);
+    const b0 = k0 && k0 !== "all" ? chips.querySelector(`.tchip[data-k="${k0}"]`) : null;
+    if (b0 && !b0.classList.contains("is-on")) b0.click();
+  } catch { /* private mode */ }
 }
 // In-place filter for the dashboard activity wire: chips toggle which kinds show
 // without leaving the screen (the collapsed News/Deals/Fundraising/CLOs tabs).
@@ -1575,8 +1594,16 @@ function viewManager(id) {
     const b = e.target.closest(".tchip"); if (!b) return;
     tabs.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
     const p = b.dataset.p;
+    try { localStorage.setItem("cr.mgr.tab", p || "news"); } catch { /* private mode */ }
     document.querySelectorAll("#mgr-panes .tpane").forEach((el) => { el.hidden = el.dataset.p !== p; });
   });
+  if (tabs) {
+    try {
+      const k0 = localStorage.getItem("cr.mgr.tab");
+      const b0 = k0 && k0 !== "news" ? tabs.querySelector(`.tchip[data-p="${k0}"]`) : null;
+      if (b0 && !b0.classList.contains("is-on")) b0.click();
+    } catch { /* private mode */ }
+  }
   // Deep link to a specific story focuses its row in the News pane.
   applyPendingFocus("manager");
 }

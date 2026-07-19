@@ -593,7 +593,17 @@ function legalWireDash() {
       syncDayRows(wire);
     }
   };
-  chips.onclick = (e) => { const b = e.target.closest(".tchip"); if (b) selectChip(b.dataset.k); };
+  chips.onclick = (e) => {
+    const b = e.target.closest(".tchip"); if (!b) return;
+    try { localStorage.setItem("lg.wire.tab", b.dataset.k || "all"); } catch { /* private mode */ }
+    selectChip(b.dataset.k);
+  };
+  // Persisted selection survives async-sync re-renders (All is hardcoded
+  // active in the template — the same kick the Macro main tabs had).
+  try {
+    const k0 = localStorage.getItem("lg.wire.tab");
+    if (k0 && k0 !== "all" && chips.querySelector(`.tchip[data-k="${k0}"]`)) selectChip(k0);
+  } catch { /* private mode */ }
   // An 'All' scheme/RP headline jumps to that matter in the Schemes & RPs table.
   panes.addEventListener("click", (e) => {
     const g = e.target.closest("[data-goscheme]"); if (!g) return;
@@ -981,6 +991,8 @@ function viewFirm(id) {
   ];
   let dealRows = null; // null = credit wire still loading
   let firmTab = "all";
+  try { firmTab = localStorage.getItem("lg.firm.tab") || "all"; } catch { /* private mode */ }
+  if (!["all", "alerts", "matters"].includes(firmTab)) firmTab = "all";
   const emptyRow = (t) => `<li class="tw-empty muted small">${t}</li>`;
   const renderFirmWire = () => {
     const list = document.getElementById("firm-wire"); if (!list) return;
@@ -1007,11 +1019,8 @@ function viewFirm(id) {
             <div class="tdet-src"><span class="lbl">Insights:</span> <a href="${esc(firm.insightsUrl || "#")}" target="_blank" rel="noopener noreferrer">${esc(firm.name)} — insights / know-how</a></div>
           </div>
           <header class="tpanel-h twire-head">
-            <div class="tchips" id="firm-chips">
-              <button type="button" class="tchip is-on" data-k="all">All</button>
-              <button type="button" class="tchip" data-k="alerts">Alerts</button>
-              <button type="button" class="tchip" data-k="matters">Matters</button>
-            </div>
+            <div class="tchips" id="firm-chips">${[["all", "All"], ["alerts", "Alerts"], ["matters", "Matters"]]
+              .map(([k, l]) => `<button type="button" class="tchip${k === firmTab ? " is-on" : ""}" data-k="${k}">${l}</button>`).join("")}</div>
           </header>
           <ul class="twire compact-list" id="firm-wire"></ul>
         </section>
@@ -1026,6 +1035,7 @@ function viewFirm(id) {
   chips.addEventListener("click", (e) => {
     const b = e.target.closest(".tchip"); if (!b) return;
     firmTab = b.dataset.k;
+    try { localStorage.setItem("lg.firm.tab", firmTab || "all"); } catch { /* private mode */ }
     chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
     renderFirmWire();
   });
