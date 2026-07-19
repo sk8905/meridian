@@ -367,6 +367,12 @@ function lockBody(on) {
 
 export function initNavActions() {
   const run = () => {
+    // Idempotence guard FIRST: initNavActions can be invoked twice on Home
+    // (the render-blocking head module AND glance's dynamic import). A second
+    // pass must be a no-op — when this guard sat below initChrome(), the
+    // re-run replaced the tab bar with a fresh copy and then bailed before
+    // rebinding its tap handlers: a dead bar.
+    if (document.getElementById("na-mkt")) return; // already mounted
     initChrome();
     navDiag();
     const notif = document.getElementById("notif");
@@ -374,7 +380,6 @@ export function initNavActions() {
     // the SAME controller runs on all four pages.
     const bar = document.querySelector(".topbar-right") || document.querySelector(".g-top .g-actions");
     if (!notif && !bar) return;
-    if (document.getElementById("na-mkt")) return; // already mounted
     setTopVar();
     // Shared press-and-hold / right-click row options menu — every page.
     import("/rowmenu.js?v=20260718-1").then((m) => m.initRowMenu()).catch(() => {});
