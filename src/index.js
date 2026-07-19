@@ -1240,10 +1240,14 @@ const FEED_SOURCES = [
   // publishers' own RSS is paywalled/IP-blocked from the Worker. Query already scopes
   // to macro/finance, so no extra title filter.
   { url: "https://news.google.com/rss/search?q=site%3Aft.com%2Falphaville%20when%3A7d&hl=en-GB&gl=GB&ceid=GB%3Aen", source: "FT Alphaville", region: "GEN", cap: 5, gnews: true, filter: false },
-  { url: "https://news.google.com/rss/search?q=site%3Aeconomist.com%20%28Fed%20OR%20inflation%20OR%20economy%20OR%20%22interest%20rate%22%20OR%20GDP%20OR%20markets%20OR%20bonds%20OR%20%22central%20bank%22%29%20when%3A5d&hl=en-US&gl=US&ceid=US%3Aen", source: "The Economist", region: "GEN", cap: 6, gnews: true, filter: false },
+  // The Economist via Google News: UNscoped (was keyword-limited) — the soft
+  // lifestyle-only screen replaces the query scoping, so far more gets through.
+  { url: "https://news.google.com/rss/search?q=site%3Aeconomist.com%20when%3A5d&hl=en-US&gl=US&ceid=US%3Aen", source: "The Economist", region: "GEN", cap: 10, gnews: true, soft: true },
   // Financial specialists — US
-  { url: "https://feeds.a.dj.com/rss/RSSMarketsMain.xml", source: "The Wall Street Journal", region: "US", cap: 10 },
-  { url: "https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml", source: "The Wall Street Journal", region: "US", cap: 7 },
+  // WSJ: soft filter (lifestyle-only reject) + generous caps — the strict
+  // macro-keyword title filter dropped most of their markets/business run.
+  { url: "https://feeds.a.dj.com/rss/RSSMarketsMain.xml", source: "The Wall Street Journal", region: "US", cap: 14, soft: true },
+  { url: "https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml", source: "The Wall Street Journal", region: "US", cap: 10, soft: true },
   { url: "https://www.cnbc.com/id/20910258/device/rss/rss.html", source: "CNBC", region: "US", cap: 10 }, // Economy
   { url: "https://www.cnbc.com/id/20409666/device/rss/rss.html", source: "CNBC", region: "US", cap: 8 },  // Markets
   { url: "https://www.cnbc.com/id/10000664/device/rss/rss.html", source: "CNBC", region: "US", cap: 6 },  // Finance
@@ -1256,7 +1260,8 @@ const FEED_SOURCES = [
   // (filter:false), so the strict macro-keyword title filter doesn't drop their
   // (often oblique) headlines. Capped, so they can't flood the feed.
   { url: "https://www.ft.com/alphaville?format=rss", source: "FT Alphaville", region: "GEN", cap: 6, filter: false },
-  { url: "https://www.economist.com/finance-and-economics/rss.xml", source: "The Economist", region: "GEN", cap: 8, filter: false },
+  { url: "https://www.economist.com/finance-and-economics/rss.xml", source: "The Economist", region: "GEN", cap: 12, filter: false },
+  { url: "https://www.economist.com/business/rss.xml", source: "The Economist", region: "GEN", cap: 6, filter: false },
   { url: "https://www.bankofengland.co.uk/rss/news", source: "Bank of England", region: "UK", cap: 6 },
   { url: "https://www.theguardian.com/business/economics/rss", source: "The Guardian", region: "UK", cap: 6 },
   { url: "https://www.theguardian.com/uk/business/rss", source: "The Guardian", region: "UK", cap: 5 },
@@ -1441,7 +1446,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=19", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=20", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {
