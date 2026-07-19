@@ -4,7 +4,7 @@
 // Fetches the shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P
 // Global / BoE). Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS } from "./content.js?v=20260719-8";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS } from "./content.js?v=20260719-9";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -461,7 +461,7 @@ function earningsPanel() {
   // rows. A figure no source publishes states "not reported" (faint); a
   // release that simply hasn't happened yet shows a plain em-dash in Act.
   // Beneath the table: the share reaction + a very short note.
-  const nr = '<span class="ew-nr">not reported</span>';
+  const nr = '<span class="ew-nr">N/R</span>';
   const cell = (v, pending) => v ? esc(v) : (pending ? "—" : nr);
   const row = (r, past) => {
     const reported = r.actEps || r.actRev || r.actEbitda || r.px;
