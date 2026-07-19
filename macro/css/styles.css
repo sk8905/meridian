@@ -478,6 +478,12 @@ a.intel-head:hover { text-decoration: underline; }
   body.wire-pulling .mac-dash-pane .ck-secbar,
   body.wire-pulling .mac-cockpit .ck-panel > .ck-h,
   body.wire-pulling .ew-chipbar { position: static; }
+  /* Same during a horizontal chip slide (swipetabs stamps body.wire-sliding):
+     the panes travel as flat slabs; the sub-section chip row itself stays
+     sticky — it is outside the sliding panes. The selectors are unscoped to
+     .mac-cockpit so the GHOST CLONE (body-mounted) is covered too. */
+  body.wire-sliding .ck-panel > .ck-h,
+  body.wire-sliding .ew-chipbar { position: static; }
   .ck-fed2 { gap: 10px; }
   .mw-cols { grid-template-columns: 1fr; gap: 10px; }
   .ck-stats2 { grid-template-columns: 1fr; gap: 7px; }

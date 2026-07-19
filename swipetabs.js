@@ -97,6 +97,10 @@ export function initSwipeTabs() {
   // chrome (z1290) are already higher and are left alone.
   let rowEl = null, rowZ = "";
   const raiseRow = () => {
+    // Suspend in-pane sticky rows for the slide (body.wire-sliding): stuck
+    // panel titles/chip bars render at their VIEWPORT offsets inside the ghost
+    // clone and the transformed pane — floating headers over jumbled rows.
+    document.body.classList.add("wire-sliding");
     rowEl = set && set.chips[0] ? set.chips[0].closest("#g-feed-head, .twire-head, .tbar, .tpanel-h, .ck-secbar") : null;
     if (rowEl) {
       const cz = parseInt(getComputedStyle(rowEl).zIndex, 10);
@@ -105,7 +109,10 @@ export function initSwipeTabs() {
       rowEl.style.zIndex = "70";
     }
   };
-  const restoreRow = () => { if (rowEl) { rowEl.style.zIndex = rowZ; rowEl = null; rowZ = ""; } };
+  const restoreRow = () => {
+    document.body.classList.remove("wire-sliding");
+    if (rowEl) { rowEl.style.zIndex = rowZ; rowEl = null; rowZ = ""; }
+  };
 
   const setT = (els, x, tr) => els.forEach((el) => {
     el.style.transition = tr || "";
