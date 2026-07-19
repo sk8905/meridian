@@ -106,6 +106,10 @@
     /* Far-right cluster: signed-in identity + last-refresh stacked, then the bell */
     .g-right { display:flex; align-items:center; gap:.85rem; flex:0 0 auto; }
     .g-actions { display:flex; align-items:center; gap:.55rem; flex:0 0 auto; }
+    /* Legacy per-page menu mounts, retired by the shared nav-actions controller.
+       It hides them from JS too, but that ran after first paint — the markets
+       icon could flash beside the shared cluster. CSS wins the race. */
+    #g-mkt, #g-saved, #g-notif { display:none; }
     .g-idblock { display:flex; flex-direction:column; align-items:flex-end; line-height:1.28; }
     .g-user { color:#c3cfea; font-size:.72rem; white-space:nowrap; }
     .g-user strong { color:#fff; font-weight:600; }
@@ -252,6 +256,12 @@
       .g-top-inner { grid-template-columns:auto 1fr auto;
         grid-template-areas:"brand idblock bell"; }
       .platform-switch, .g-search-btn { display:none; }
+      /* The signed-in / last-refresh block lives in the Menu page on phones.
+         Hide it HERE (render-blocking CSS) — it used to be hidden only by the
+         JS that relocates it into the (hidden) footer, so it flashed in the
+         header gap until that script ran. Kept in the DOM: the Menu reads its
+         text. */
+      .g-top .g-idblock { display:none; }
       .g-logo { font-size:1.55rem; }
       .g-brand-text strong { font-size:1.05rem; }
       /* Match the app top bars' mobile sub-label size so the brand column — and
