@@ -4,7 +4,7 @@
 // Fetches the shared Worker /api/macro endpoint (FRED / DBnomics / ONS / S&P
 // Global / BoE). Zero dependencies, no build step.
 // =============================================================================
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL } from "./content.js?v=20260718-14";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL } from "./content.js?v=20260718-15";
 
 const app = document.getElementById("app");
 const esc = (s) => String(s ?? "")
@@ -387,7 +387,6 @@ function ycBody() {
   const srcs = [link(0, "US Treasury"), link(1, "UK gilt")].filter(Boolean).join(' <span class="ck-src-sep">·</span> ');
   return `<div class="yc-legend"><span class="yc-key yc-key-us">US Treasury</span><span class="yc-key yc-key-uk">UK gilt</span></div>`
     + yieldCurveSvg(_yc)
-    + `<p class="ck-note">${_yc.note}</p>`
     + (srcs ? `<p class="ck-srcs">Source · ${srcs}</p>` : "");
 }
 // Pull the live US Treasury + UK gilt curves and merge over the compiled fallback
@@ -432,6 +431,7 @@ function matWallPanel() {
   const w = MATWALL;
   if (!w) return "";
   const srcA = (s) => `<a class="ck-src" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.name)}</a>`;
+  const kv = (rows) => `<div class="ck-kv">${(rows || []).map(([l, v]) => `<div class="ck-kv-row"><span class="ck-kv-l">${esc(l)}</span><span class="ck-kv-v">${esc(v)}</span></div>`).join("")}</div>`;
   const ig = Math.max(0, Math.min(100, w.rated.igPct));
   return `
     <section class="ck-panel ck-span2">
@@ -443,9 +443,8 @@ function matWallPanel() {
             <span class="mw-seg mw-ig" style="width:${ig}%"></span><span class="mw-seg mw-sg" style="width:${100 - ig}%"></span>
           </div>
           <div class="mw-legend"><span><i class="mw-dot mw-ig"></i>IG ${ig}%</span><span><i class="mw-dot mw-sg"></i>SPEC ${100 - ig}%</span></div>
-          <p class="ck-note">${esc(w.rated.note)}</p>
           <p class="ck-sub ck-sub2"><strong>Next 36 months</strong> · ${srcA(w.near.src)}</p>
-          <p class="ck-note">${esc(w.near.body)}</p>
+          ${kv(w.near.rows)}
         </div>
         <div class="mw-col">
           <p class="ck-sub"><strong>Bonds due 2026–28</strong> · ${srcA(w.bonds.src)}</p>
@@ -453,9 +452,9 @@ function matWallPanel() {
             <div class="pw-row"><span class="pw-lbl">Investment grade</span><span class="pw-pct">${esc(String(w.bonds.igPct))}%</span><span class="pw-track"><span class="pw-fill mw-fill-ig" style="width:${esc(String(w.bonds.igPct))}%"></span></span></div>
             <div class="pw-row"><span class="pw-lbl">Non-investment grade</span><span class="pw-pct">${esc(String(w.bonds.nigPct))}%</span><span class="pw-track"><span class="pw-fill mw-fill-sg" style="width:${esc(String(w.bonds.nigPct))}%"></span></span></div>
           </div>
-          <p class="ck-note">${esc(w.bonds.note)}</p>
+          ${kv(w.bonds.rows)}
           <p class="ck-sub ck-sub2"><strong>Private credit</strong> · ${srcA(w.privateCredit.src)}</p>
-          <p class="ck-note">${esc(w.privateCredit.body)}</p>
+          ${kv(w.privateCredit.rows)}
         </div>
       </div>
     </section>`;
@@ -471,18 +470,18 @@ function macroDashPane() {
   const clamp = (n) => Math.max(0, Math.min(100, Number(n) || 0));
   const fwBars = fw ? fw.outcomes.map((x) => `<div class="pw-row"><span class="pw-lbl">${esc(x.label)}</span><span class="pw-pct">${esc(String(x.pct))}%</span><span class="pw-track"><span class="pw-fill" style="width:${clamp(x.pct)}%"></span></span></div>`).join("") : "";
   const dpRows = dp ? dp.median.map((x) => `<tr><th scope="row">${esc(x.year)}</th><td>${esc(x.rate)}</td></tr>`).join("") : "";
-  const dimCard = (d) => `<div class="ck-dim"><div class="ck-dim-h"><span class="ck-dim-n">${esc(d.label)}</span><span class="ck-dim-s">${d.score}<span class="ck-dim-max">/100</span></span></div><p class="ck-dim-note muted small">${esc(d.note)}</p></div>`;
+  const dimCard = (d) => `<div class="ck-dim"><div class="ck-dim-h"><span class="ck-dim-n">${esc(d.label)}</span><span class="ck-dim-s">${d.score}<span class="ck-dim-max">/100</span></span></div></div>`;
+  const cyc = (c) => String(c.shortStage || "").split("—")[0].trim();
+  const stat = (l, v, m) => `<div class="ck-stat"><span class="ck-stat-l">${esc(l)}</span><span class="ck-stat-v">${esc(v)}</span>${m ? `<span class="ck-stat-m">${esc(m)}</span>` : ""}</div>`;
 
   return `<div class="mac-cockpit">
+    <div class="ck-sec">Economy</div>
     <section class="ck-panel ck-span2">
       <header class="ck-h"><span>Key economic indicators</span><span class="ck-x">US · UK</span><a class="ck-more" href="#/chart">Chart</a></header>
       <div class="ck-inds" id="mac-ck-inds">${cockpitInds((MACRO_DATA && MACRO_DATA.series) || [])}</div>
-      <div class="ck-reads">
-        <p class="ck-note"><strong>US.</strong> ${SUMMARY.outlook.us}</p>
-        <p class="ck-note"><strong>UK.</strong> ${SUMMARY.outlook.uk}</p>
-      </div>
     </section>
 
+    <div class="ck-sec">Rates &amp; policy</div>
     <section class="ck-panel">
       <header class="ck-h"><span>Yield curve</span><span class="ck-x" id="ck-yc-asof">gov · as of ${esc(_yc.asOf)}</span></header>
       <div class="ck-body" id="ck-yc-body">${ycBody()}</div>
@@ -504,31 +503,34 @@ function macroDashPane() {
       </div>
     </section>
 
-    ${matWallPanel()}
-
-    <section class="ck-panel">
+    <section class="ck-panel ck-span2 ck-strip">
       <header class="ck-h"><span>Rate outlook</span><a class="ck-more" href="#/policy">Policy →</a></header>
-      <div class="ck-body">
-        <p class="ck-note"><strong>US — ${esc(OUTLOOK.us.rate)}.</strong> ${OUTLOOK.us.bottomLine}</p>
-        <p class="ck-note"><strong>UK — ${esc(OUTLOOK.uk.rate)}.</strong> ${OUTLOOK.uk.bottomLine}</p>
+      <div class="ck-body ck-stats2">
+        ${stat("US", OUTLOOK.us.rate, `${OUTLOOK.us.stance || ""}${OUTLOOK.us.next ? " · next " + OUTLOOK.us.next : ""}`)}
+        ${stat("UK", OUTLOOK.uk.rate, `${OUTLOOK.uk.stance || ""}${OUTLOOK.uk.next ? " · next " + OUTLOOK.uk.next : ""}`)}
       </div>
     </section>
 
+    <div class="ck-sec">Credit</div>
+    ${matWallPanel()}
+
+    <div class="ck-sec">Regime</div>
     <section class="ck-panel">
       <header class="ck-h"><span>Cycle — long-term debt cycle</span><a class="ck-more" href="#/cycle">Cycle →</a></header>
       <div class="ck-body">
         ${trackGauge(CYCLE_ZONES, [{ label: "US", pos: CYCLE.us.pos }, { label: "UK", pos: CYCLE.uk.pos }], "Long-term debt cycle position, 0 early to 100 crisis")}
-        <p class="ck-note"><strong>US ${CYCLE.us.pos}/100.</strong> ${SUMMARY.cycle.us}</p>
-        <p class="ck-note"><strong>UK ${CYCLE.uk.pos}/100.</strong> ${SUMMARY.cycle.uk}</p>
+        <div class="ck-stats">
+          ${stat("US", `${CYCLE.us.pos}/100`, cyc(CYCLE.us))}
+          ${stat("UK", `${CYCLE.uk.pos}/100`, cyc(CYCLE.uk))}
+        </div>
       </div>
     </section>
 
-    <section class="ck-panel ck-span2">
-      <header class="ck-h"><span>Bubble risk — ${esc(BUBBLE.market)}</span><span class="ck-x">${esc(band)} · ${comp}/100</span><a class="ck-more" href="#/bubble">Bubble →</a></header>
+    <section class="ck-panel">
+      <header class="ck-h"><span>Bubble risk</span><span class="ck-x">${esc(BUBBLE.market)} · ${esc(band)} · ${comp}/100</span><a class="ck-more" href="#/bubble">Bubble →</a></header>
       <div class="ck-body">
         ${trackGauge(BUBBLE_ZONES, [{ label: band, pos: comp }], "US equity bubble-risk score, 0 low to 100 extreme")}
         <div class="ck-dims">${BUBBLE.dimensions.map(dimCard).join("")}</div>
-        <p class="ck-note">${SUMMARY.bubble.us} ${esc(BUBBLE.ukNote)}</p>
       </div>
     </section>
   </div>`;

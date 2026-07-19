@@ -464,21 +464,28 @@ export const RELEASES = [
 // upgrade this block only from a source that states the numbers.
 export const MATWALL = {
   rated: {
-    total: "$12.4tn", window: "2025–2029", igPct: 73,
-    note: "Rated corporate debt (bonds, loans, revolvers) scheduled to mature globally — ~73% investment-grade.",
+    total: "$12.4tn", window: "2025\u20132029", igPct: 73,
     src: { name: "S&P", url: "https://investorfactbook.spglobal.com/sp-global-ratings/global-corporate-debt-maturities-through-2029/" },
   },
   near: {
-    body: "$6.88tn due within 36 months — 29.7% of all rated debt, of which $1.43tn is speculative-grade; spec-grade maturities now peak in 2029.",
-    src: { name: "S&P · Apr 2026", url: "https://www.spglobal.com/ratings/en/regulatory/article/credit-trends-global-refinancing-speculative-grade-maturities-now-peak-in-2029-s101682010" },
+    rows: [
+      ["Due within 36 months", "$6.88tn \u00b7 29.7% of rated"],
+      ["of which speculative-grade", "$1.43tn"],
+      ["Spec-grade peak year", "2029"],
+    ],
+    src: { name: "S&P \u00b7 Apr 2026", url: "https://www.spglobal.com/ratings/en/regulatory/article/credit-trends-global-refinancing-speculative-grade-maturities-now-peak-in-2029-s101682010" },
   },
   bonds: {
     igPct: 24, nigPct: 31,
-    note: "Share of outstanding corporate bonds due 2026–28. Outstanding end-2025: $36.4tn bonds · $23.1tn syndicated loans.",
+    rows: [["Outstanding, end-2025", "$36.4tn bonds \u00b7 $23.1tn loans"]],
     src: { name: "OECD GDR 2026", url: "https://www.oecd.org/en/publications/global-debt-report-2026_e9d80efd-en.html" },
   },
   privateCredit: {
-    body: "Direct-lending BDC sample (74 funds, $84bn assets): only ~$15bn matures through 2026 — the private-credit wall peaks in 2028–29.",
+    rows: [
+      ["BDC direct-lending sample", "74 funds \u00b7 $84bn"],
+      ["Due through 2026", "~$15bn"],
+      ["Wall peaks", "2028\u201329"],
+    ],
     src: { name: "Reuters", url: "https://finance.yahoo.com/markets/stocks/articles/private-credit-borrowers-big-maturity-141544760.html" },
   },
 };

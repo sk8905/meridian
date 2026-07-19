@@ -365,6 +365,27 @@ a.intel-head:hover { text-decoration: underline; }
 .ck-body .pw-bars { gap: .5rem; margin: .1rem 0 0; }
 .ck-body .pw-lbl { font-size: 11px; }
 .ck-body .pw-pct { font-size: 12px; }
+/* Cockpit sub-section headers — full-width mono dividers grouping the panels */
+.ck-sec { grid-column: 1 / -1; background: var(--bg, #05080f); padding: 14px 12px 5px;
+  font-family: var(--t-mono, ui-monospace, monospace); font-size: 9.5px; font-weight: 600;
+  letter-spacing: .08em; text-transform: uppercase; color: var(--faint, #5c6a86); }
+.mac-cockpit .ck-sec:first-child { padding-top: 4px; }
+/* Compact stat rows (rate outlook / cycle) — label · value · grey meta */
+.ck-stats2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.ck-stats { display: flex; flex-direction: column; gap: 6px; margin-top: 7px; }
+.ck-stat { display: flex; align-items: baseline; gap: 8px; min-width: 0; }
+.ck-stat-l { font-family: var(--t-mono, ui-monospace, monospace); font-size: 9.5px; font-weight: 600;
+  letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); flex: 0 0 auto; }
+.ck-stat-v { font-size: 13px; font-weight: 600; color: var(--ink); white-space: nowrap; }
+.ck-stat-m { font-size: 11px; color: var(--muted); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Key-value data rows (maturity wall) — grey label, white mono value */
+.ck-kv { display: flex; flex-direction: column; margin-top: 4px; }
+.ck-kv-row { display: flex; justify-content: space-between; align-items: baseline; gap: 10px;
+  padding: 3.5px 0; border-bottom: 1px solid var(--border); font-size: 11px; }
+.ck-kv-row:last-child { border-bottom: 0; }
+.ck-kv-l { color: var(--muted); min-width: 0; }
+.ck-kv-v { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums;
+  color: var(--ink); font-weight: 600; text-align: right; white-space: nowrap; }
 /* FedWatch + dot plot side by side, 50/50 */
 .ck-fed2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .ck-fed2 .ck-fed-col { min-width: 0; }
@@ -383,6 +404,7 @@ a.intel-head:hover { text-decoration: underline; }
 @media (max-width: 760px) {
   .ck-fed2 { gap: 10px; }
   .mw-cols { grid-template-columns: 1fr; gap: 10px; }
+  .ck-stats2 { grid-template-columns: 1fr; gap: 7px; }
 }
 /* Fed dot plot */
 .ck-dots { width: 100%; border-collapse: collapse; font-family: var(--t-mono); font-variant-numeric: tabular-nums; }
