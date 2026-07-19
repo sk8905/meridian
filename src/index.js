@@ -1639,7 +1639,6 @@ export async function pushScheduled(env) {
   // count today's dated items for the digest, and diff per-id occurrence
   // counts for watchlist mentions.
   const files = { legal: "/legal/js/data.js", credit: "/credit/js/data.js", macro: "/macro/js/content.js" };
-  const label = { legal: "LEX", credit: "CRD", macro: "MAC" };
   const texts = {}, hashes = {};
   for (const [k, p] of Object.entries(files)) {
     try {
@@ -1689,27 +1688,11 @@ export async function pushScheduled(env) {
   const allText = texts.legal + "\n" + texts.credit + "\n" + texts.macro;
   const nameCounts = {};
   for (const id of followIds) nameCounts[id] = (allText.split(id).length - 1);
+  // NOTE: the routine "Refresh — …" digest push is retired by request —
+  // refresh detection still runs (it keeps state current and gates the
+  // watchlist mention diff below), it just no longer notifies on its own.
   if (changed.length) {
-    const parts = [];
-    for (const k of changed) {
-      const d = counts[k] - ((state.counts && state.counts[k]) || 0);
-      if (d > 0) parts.push(`${label[k]} ${d}`);
-    }
     const hits = followIds.filter((id) => nameCounts[id] > ((state.nameCounts && state.nameCounts[id]) || 0));
-    if (parts.length) {
-      // Same shape as the breaking pushes: context in the title, a REAL
-      // headline in the body. Lead with the busiest desk's newest addition.
-      const prevT = state.todayTitles || {};
-      const newTitles = changed
-        .sort((a, b) => (counts[b] - ((state.counts && state.counts[b]) || 0)) - (counts[a] - ((state.counts && state.counts[a]) || 0)))
-        .flatMap((k) => todayTitles[k].filter((t) => !(prevT[k] || []).includes(t)));
-      const extra = newTitles.length > 1 ? ` (+${newTitles.length - 1} more)` : "";
-      msgs.push({
-        title: "Refresh — " + parts.join(" · "),
-        body: newTitles.length ? pushClamp(newTitles[0], 78 - extra.length) + extra : "New items on the desks",
-        url: "/",
-      });
-    }
     if (hits.length) {
       msgs.push({ title: "Watchlist", body: pushClamp(hits.map(prettyId).join(", ") + " in new items", 78), url: "/" });
     }

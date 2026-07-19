@@ -224,11 +224,11 @@ Appendix-A test vector. The VAPID keypair self-provisions into KV
 `/api/push/subscribe` (enable/disable lives in the Menu tab). A 15-minute cron
 (`wrangler.jsonc` triggers) runs `pushScheduled`, which sends:
 
-1. **Refresh digest** — hashes the three desk data modules via `env.ASSETS`;
-   when a routine deploy changes them, counts today's `date:"…"` items added
-   and pushes "Wire refresh — New today: LEX 2 · CRD 3".
+1. **Refresh digest** — RETIRED by request (no push). The change detection
+   still runs — hashing the three desk data modules via `env.ASSETS` — because
+   it keeps state current and gates the watchlist mention diff.
 2. **Watchlist mentions** — occurrence-count diffs of followed manager/firm ids
-   across the data text; appended to the digest (or pushed alone).
+   across the data text; pushed on their own.
 3. **Breaking headlines** — new live-feed items passing `FEED_CORE_MACRO_RE`,
    published within ~45 min, capped at 1/hour, quiet 22:00–07:00 London.
 
