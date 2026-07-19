@@ -415,7 +415,7 @@
     /* Each day is introduced by a date header (a 2px rule above it, except the
        first); the row above drops its 1px line so the break reads as one divider. */
     .g-feed-dayhdr { font-size:.68rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em;
-      color:var(--muted); padding:.62rem 0 .45rem; border-bottom:1px solid rgba(255,255,255,.22); }
+      color:var(--t-accent, #fb8b1e); padding:.62rem 0 .45rem; border-bottom:1px solid rgba(255,255,255,.22); }
     .g-feed-dayhdr:not(:first-child) { border-top:2px solid var(--line); margin-top:.15rem; }
     .g-feed-row:has(+ .g-feed-dayhdr) { border-bottom:0; }
     /* Row leads with the publish time (tabular figures so they align). */
@@ -908,7 +908,11 @@
          its measured height, set by nav-actions initChrome) while the
          headlines scroll. */
       .tui .g-feed-head{ position:sticky; top:var(--wire-head-h, 53px); z-index:8; background:var(--t-head);
-        transform:translate3d(0,0,0); -webkit-backface-visibility:hidden; backface-visibility:hidden; } }
+        transform:translate3d(0,0,0); -webkit-backface-visibility:hidden; backface-visibility:hidden; }
+      /* An active source filter stays clearable without scrolling back up:
+         pin its bar just under the feed chips (30px row below the command bar). */
+      .tui .g-feed-srcbar{ position:sticky; top:calc(var(--wire-head-h, 53px) + 30px); z-index:7;
+        transform:translate3d(0,0,0); } }
 
     /* ---- briefing bar — a single compact row: greeting · top story · narratives ---- */
     .tui .g-hello{ display:flex; align-items:baseline; gap:10px; padding:6px 14px; margin:0;
@@ -1072,7 +1076,7 @@
     .tui .g-feed-end{ padding:16px 12px 32px; text-align:center; font-family:var(--t-mono); font-size:9.5px;
       letter-spacing:.14em; text-transform:uppercase; color:var(--t-faint); background:var(--t-panel); }
     .tui .g-feed-dayhdr{ padding:6px 12px; background:var(--t-ground); border-top:0;
-      font-size:10px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--t-faint); margin:0; }
+      font-size:10px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--t-accent); margin:0; }
     .tui .g-feed-row{ display:grid; grid-template-columns:44px 34px minmax(0,1fr) auto; align-items:baseline;
       gap:10px; padding:5px 12px; border-bottom:1px solid var(--t-grid); }
     .tui .g-feed-row:hover{ background:var(--t-panel2); }
