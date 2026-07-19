@@ -22,6 +22,20 @@ import { donutChart, columnChart } from "./charts.js?v=20260719-15";
 
 const app = document.getElementById("app");
 
+// In-page memory for chip selections, keyed per chips-row AND current route:
+// survives the async data-sync re-renders (which re-run the templates with the
+// first chip hardcoded active — the old "kick" bug) but deliberately NOT page
+// loads or navigation — every fresh view starts on the first chip. Leaving a
+// route drops its entries, so coming back also starts fresh. (Pull-to-refresh
+// keeps position across its reload separately, via ptr.js's short-lived
+// sessionStorage tab snapshot.)
+const _chipMem = {};
+const chipMemKey = (id) => id + "|" + location.hash;
+window.addEventListener("hashchange", () => {
+  const suf = "|" + location.hash;
+  Object.keys(_chipMem).forEach((k) => { if (!k.endsWith(suf)) delete _chipMem[k]; });
+});
+
 // ---- Small helpers ----------------------------------------------------------
 const esc = (s) => String(s ?? "")
   .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
@@ -595,15 +609,15 @@ function legalWireDash() {
   };
   chips.onclick = (e) => {
     const b = e.target.closest(".tchip"); if (!b) return;
-    try { localStorage.setItem("lg.wire.tab", b.dataset.k || "all"); } catch { /* private mode */ }
+    _chipMem[chipMemKey("lg-chips")] = b.dataset.k || "all";
     selectChip(b.dataset.k);
   };
-  // Persisted selection survives async-sync re-renders (All is hardcoded
+  // In-page selection survives async-sync re-renders (All is hardcoded
   // active in the template — the same kick the Macro main tabs had).
-  try {
-    const k0 = localStorage.getItem("lg.wire.tab");
+  {
+    const k0 = _chipMem[chipMemKey("lg-chips")];
     if (k0 && k0 !== "all" && chips.querySelector(`.tchip[data-k="${k0}"]`)) selectChip(k0);
-  } catch { /* private mode */ }
+  }
   // An 'All' scheme/RP headline jumps to that matter in the Schemes & RPs table.
   panes.addEventListener("click", (e) => {
     const g = e.target.closest("[data-goscheme]"); if (!g) return;
@@ -990,8 +1004,7 @@ function viewFirm(id) {
     ...inv,
   ];
   let dealRows = null; // null = credit wire still loading
-  let firmTab = "all";
-  try { firmTab = localStorage.getItem("lg.firm.tab") || "all"; } catch { /* private mode */ }
+  let firmTab = _chipMem[chipMemKey("firm-chips")] || "all";
   if (!["all", "alerts", "matters"].includes(firmTab)) firmTab = "all";
   const emptyRow = (t) => `<li class="tw-empty muted small">${t}</li>`;
   const renderFirmWire = () => {
@@ -1035,7 +1048,7 @@ function viewFirm(id) {
   chips.addEventListener("click", (e) => {
     const b = e.target.closest(".tchip"); if (!b) return;
     firmTab = b.dataset.k;
-    try { localStorage.setItem("lg.firm.tab", firmTab || "all"); } catch { /* private mode */ }
+    _chipMem[chipMemKey("firm-chips")] = firmTab || "all";
     chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
     renderFirmWire();
   });

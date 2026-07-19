@@ -17,6 +17,20 @@ import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=2
 
 const app = document.getElementById("app");
 
+// In-page memory for chip selections, keyed per chips-row AND current route:
+// survives the async data-sync re-renders (which re-run the templates with the
+// first chip hardcoded active — the old "kick" bug) but deliberately NOT page
+// loads or navigation — every fresh view starts on the first chip. Leaving a
+// route drops its entries, so coming back also starts fresh. (Pull-to-refresh
+// keeps position across its reload separately, via ptr.js's short-lived
+// sessionStorage tab snapshot.)
+const _chipMem = {};
+const chipMemKey = (id) => id + "|" + location.hash;
+window.addEventListener("hashchange", () => {
+  const suf = "|" + location.hash;
+  Object.keys(_chipMem).forEach((k) => { if (!k.endsWith(suf)) delete _chipMem[k]; });
+});
+
 // ----------------------------- formatting utils ----------------------------
 const eur = (m) => (m == null ? "Undisclosed" : "€" + (m >= 1000 ? (m / 1000).toFixed(m % 1000 === 0 ? 0 : 1) + "bn" : m + "m"));
 const esc = (s) => String(s ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
@@ -833,7 +847,7 @@ function viewDashboard() {
     const b = e.target.closest(".tchip"); if (!b) return;
     dashTabs.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
     const p = b.dataset.p;
-    try { localStorage.setItem("cr.dash.tab", p || "all"); } catch { /* private mode */ }
+    _chipMem[chipMemKey("cr-dash-tabs")] = p || "all";
     const wirePane = document.querySelector('#cr-dash-panes [data-pane="wire"]');
     const mgrPane = document.querySelector('#cr-dash-panes [data-pane="managers"]');
     if (p === "managers") { wirePane.hidden = true; mgrPane.hidden = false; return; }
@@ -843,14 +857,12 @@ function viewDashboard() {
       r.style.display = (!kinds || kinds.has(r.dataset.kind)) ? "" : "none";
     });
   });
-  // Re-select the persisted tab after every render — async syncs re-run this
+  // Re-select the in-page tab after every render — async syncs re-run this
   // template with All hardcoded (the same kick the Macro main tabs had).
   if (dashTabs) {
-    try {
-      const k0 = localStorage.getItem("cr.dash.tab");
-      const b0 = k0 && k0 !== "all" ? dashTabs.querySelector(`.tchip[data-p="${k0}"]`) : null;
-      if (b0 && !b0.classList.contains("is-on")) b0.click();
-    } catch { /* private mode */ }
+    const k0 = _chipMem[chipMemKey("cr-dash-tabs")];
+    const b0 = k0 && k0 !== "all" ? dashTabs.querySelector(`.tchip[data-p="${k0}"]`) : null;
+    if (b0 && !b0.classList.contains("is-on")) b0.click();
   }
   const qi = document.getElementById("mgr-q");
   if (qi) qi.addEventListener("input", () => {
@@ -872,22 +884,22 @@ function wireSimpleChips(chipsId, wireId) {
   const chips = document.getElementById(chipsId);
   const wire = document.getElementById(wireId);
   if (!chips || !wire) return;
-  const KEY = "cr.chips." + chipsId;
+  const KEY = chipMemKey(chipsId);
   chips.addEventListener("click", (e) => {
     const b = e.target.closest(".tchip");
     if (!b) return;
     chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
     const k = b.dataset.k;
-    try { localStorage.setItem(KEY, k || "all"); } catch { /* private mode */ }
+    _chipMem[KEY] = k || "all";
     wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (k === "all" || r.dataset.kind === k) ? "" : "none"; });
   });
-  // Persisted selection survives the async-sync re-renders (All is hardcoded
+  // In-page selection survives the async-sync re-renders (All is hardcoded
   // active in the templates).
-  try {
-    const k0 = localStorage.getItem(KEY);
+  {
+    const k0 = _chipMem[KEY];
     const b0 = k0 && k0 !== "all" ? chips.querySelector(`.tchip[data-k="${k0}"]`) : null;
     if (b0 && !b0.classList.contains("is-on")) b0.click();
-  } catch { /* private mode */ }
+  }
 }
 // In-place filter for the dashboard activity wire: chips toggle which kinds show
 // without leaving the screen (the collapsed News/Deals/Fundraising/CLOs tabs).
@@ -1594,15 +1606,13 @@ function viewManager(id) {
     const b = e.target.closest(".tchip"); if (!b) return;
     tabs.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
     const p = b.dataset.p;
-    try { localStorage.setItem("cr.mgr.tab", p || "news"); } catch { /* private mode */ }
+    _chipMem[chipMemKey("mgr-tabs")] = p || "news";
     document.querySelectorAll("#mgr-panes .tpane").forEach((el) => { el.hidden = el.dataset.p !== p; });
   });
   if (tabs) {
-    try {
-      const k0 = localStorage.getItem("cr.mgr.tab");
-      const b0 = k0 && k0 !== "news" ? tabs.querySelector(`.tchip[data-p="${k0}"]`) : null;
-      if (b0 && !b0.classList.contains("is-on")) b0.click();
-    } catch { /* private mode */ }
+    const k0 = _chipMem[chipMemKey("mgr-tabs")];
+    const b0 = k0 && k0 !== "news" ? tabs.querySelector(`.tchip[data-p="${k0}"]`) : null;
+    if (b0 && !b0.classList.contains("is-on")) b0.click();
   }
   // Deep link to a specific story focuses its row in the News pane.
   applyPendingFocus("manager");

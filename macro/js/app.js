@@ -11,6 +11,13 @@ const esc = (s) => String(s ?? "")
   .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
   .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
 
+// In-page memory for chip selections: survives the async data-sync re-renders
+// (which re-run the templates with the first chip hardcoded active — the old
+// "kick" bug) but deliberately NOT page loads: every fresh visit starts on the
+// first chip. Pull-to-refresh keeps position across its reload separately, via
+// ptr.js's short-lived sessionStorage tab snapshot.
+let _macTab = "all", _dashSec = "economy", _earnWeek = "this";
+
 // Chart colours are CSS vars (defined light + dark in css/styles.css) so the
 // sparklines, the multi-series Chart tab and the policy gauge flip live with the
 // theme toggle rather than staying pinned to their light values.
@@ -492,10 +499,9 @@ function earningsPanel() {
   };
   const day = (d, past) => `<p class="ck-sub ew-day"><strong>${esc(fmtWeekday(d.date))}</strong></p>${d.rows.map((r) => row(r, past)).join("")}`;
   const week = (wk, i) => wk.days.map((d) => day(d, i === 0)).join("");
-  // Week toggle chips (This week / Last week) — one block shown at a time;
-  // choice persists. Content order is weeks[0]=last, weeks[1]=this.
-  let wsel = "this";
-  try { wsel = localStorage.getItem("mac.earn.week") || "this"; } catch { /* default */ }
+  // Week toggle chips (This week / Last week) — one block shown at a time.
+  // Content order is weeks[0]=last, weeks[1]=this.
+  let wsel = _earnWeek;
   if (wsel !== "this" && wsel !== "last") wsel = "this";
   wireEwNav();
   const srcs = (w.srcs || []).map((s) => `<a class="ck-src" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.name)}</a>`).join(" · ");
@@ -520,7 +526,7 @@ function wireEwNav() {
     const b = e.target.closest("#ew-weeknav .tchip");
     if (!b) return;
     const wsel = b.getAttribute("data-w") || "this";
-    try { localStorage.setItem("mac.earn.week", wsel); } catch { /* private mode */ }
+    _earnWeek = wsel;
     document.querySelectorAll("#ew-weeknav .tchip").forEach((c) => c.classList.toggle("is-on", c === b));
     document.querySelectorAll("[data-ew-week]").forEach((g) => g.classList.toggle("ew-off", g.getAttribute("data-ew-week") !== wsel));
   });
@@ -615,12 +621,11 @@ function macroDashPane() {
   const dimCard = (d) => `<div class="ck-dim"><div class="ck-dim-h"><span class="ck-dim-n">${esc(d.label)}</span><span class="ck-dim-s">${d.score}<span class="ck-dim-max">/100</span></span></div></div>`;
   const cyc = (c) => String(c.shortStage || "").split("—")[0].trim();
   const stat = (l, v, m) => `<div class="ck-stat"><span class="ck-stat-l">${esc(l)}</span><span class="ck-stat-v">${esc(v)}</span>${m ? `<span class="ck-stat-m">${esc(m)}</span>` : ""}</div>`;
-  // Sub-section menu: one section at a time by default (All shows the full
-  // cockpit); the choice persists per device.
-  let sec = "economy";
-  try { sec = localStorage.getItem("mac.dash.sec") || "economy"; } catch { /* default */ }
+  // Sub-section menu: one section at a time (a fresh visit always starts on
+  // the first chip; in-page re-renders keep the current pick via _dashSec).
+  let sec = _dashSec;
   const SECS = [["economy", "Economy"], ["rates", "Rates"], ["regime", "Regime"], ["earnings", "Earnings"], ["credit", "Credit"]];
-  if (!SECS.some(([k]) => k === sec)) sec = "economy";   // also migrates a stored "all"
+  if (!SECS.some(([k]) => k === sec)) sec = "economy";
   const chip = ([k, l]) => `<button type="button" class="tchip${k === sec ? " is-on" : ""}" data-sec="${k}">${l}</button>`;
   const grp = (k) => `class="ck-group${sec !== k ? " ck-off" : ""}" data-sec="${k}"`;
   wireSecNav();
@@ -710,7 +715,7 @@ function wireSecNav() {
     const b = e.target.closest("#ck-secnav .tchip");
     if (!b) return;
     const sec = b.getAttribute("data-sec") || "economy";
-    try { localStorage.setItem("mac.dash.sec", sec); } catch { /* private mode */ }
+    _dashSec = sec;
     document.querySelectorAll("#ck-secnav .tchip").forEach((c) => c.classList.toggle("is-on", c === b));
     document.querySelectorAll("#ck-cockpit .ck-group").forEach((g) => g.classList.toggle("ck-off", g.getAttribute("data-sec") !== sec));
     const ck = document.getElementById("ck-cockpit");
@@ -777,10 +782,9 @@ function viewDashboard() {
       <section class="tcol tcol-c">
         <header class="tpanel-h twire-head">
           <div class="tchips" id="mac-chips">${(() => {
-            // Persisted main tab: a re-render (data syncs re-run the template)
+            // In-page memory: a re-render (data syncs re-run the template)
             // used to hardcode All active — kicking a reader off Dashboard.
-            let mk = "all";
-            try { mk = localStorage.getItem("mac.wire.tab") || "all"; } catch { /* default */ }
+            let mk = _macTab;
             if (!["all", "news", "comm", "dash"].includes(mk)) mk = "all";
             return [["all", "All"], ["news", "News"], ["comm", "Commentary"], ["dash", "Dashboard"]]
               .map(([k, l]) => `<button type="button" class="tchip${k === mk ? " is-on" : ""}" data-k="${k}">${l}</button>`).join("");
@@ -849,7 +853,7 @@ function macroWireDash() {
   chips.onclick = (e) => {
     const b = e.target.closest(".tchip"); if (!b) return;
     chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
-    try { localStorage.setItem("mac.wire.tab", b.dataset.k || "all"); } catch { /* private mode */ }
+    _macTab = b.dataset.k || "all";
     apply();
   };
   // Source name → filter to that newsroom; the pill clears it. Delegated on the
