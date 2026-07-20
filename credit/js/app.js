@@ -31,6 +31,9 @@ import {
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
 } from "./shared.js?v=20260720-4";
 import { viewFund, viewManager, viewClo, viewLp } from "./detail.js?v=20260720-4";
+// The shared news-wire engine — the Home feed's row / day-header / source-filter
+// markup, so the Credit dashboard wire is the same build as Home's.
+import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks } from "/feed.js?v=20260720-1";
 
 const app = document.getElementById("app");
 
@@ -557,38 +560,39 @@ function viewDashboard() {
     ["Managers", uni.length], ["Funds", creditFunds.length],
     ["AUM", fmtAum(Math.round(totalAum))],
   ];
-  const KIND = { deal: "DEAL", intel: "FUND", clo: "CLO", news: "NEWS", comm: "COMM" };
-  // Single line matching the Home feed: date · CODE · headline (+ inline manager)
-  // · source (right). Credit stories carry a date, so the date leads (vs Home's time).
-  const wireRow = (a) => {
+  // Normalise the activity stream into the shared wire's item shape: the Credit
+  // desk taxonomy (deal→DEAL, intel→FUND, clo→CLO, news→NEWS, research→COMM)
+  // maps to the shared code chips; the source (outlet, else manager) becomes the
+  // in-place source-filter, exactly like the Home wire. Credit items carry a date
+  // but rarely a time, so most rows lead with the "12:00" default (as on Home).
+  const KIND_DESK = { deal: "deal", intel: "fund", clo: "clo", news: "news", comm: "comm" };
+  const wireItems = activity.slice(0, 120).map((a) => {
     const rec = a.item, isNews = a.kind === "news";
     if (a.kind === "comm") {
-      const src = rec.institution || "";
-      const url = rec.url || "";
-      return `<li class="compact-item tw-row" data-kind="comm">`
-        + `<span class="tw-date">${rec.date ? esc(fmtDate(rec.date)) : ""}</span>`
-        + `<span class="tw-tag comm">COMM</span>`
-        + `<span class="tw-body">${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer" class="tw-head">${esc(rec.title)}</a>` : `<span class="tw-head">${esc(rec.title)}</span>`}</span>`
-        + `<span class="tw-src">${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(src)}</a>` : esc(src)}</span>`
-        + `</li>`;
+      return { desk: "comm", href: rec.url || "#/", ext: !!rec.url, title: rec.title,
+        src: rec.institution || "", date: rec.date || "", time: rec.time || "" };
     }
     const title = isNews ? rec.title : rec.headline;
-    const goto = isNews ? `news:${rec._id}` : `${a.view}:${rec.id}`;
     const mid = isNews ? rec._mid : rec.managerId;
     const mname = mid && managerById[mid] ? managerById[mid].name : (isNews ? (rec._mname || "") : "");
-    const src = isNews ? (rec.outlet || "") : creditSource(rec);
     const url = isNews ? rec.url : rec.sourceUrl;
-    const mgr = mid ? `<a href="#/manager/${mid}" class="tw-mgr">${esc(mname)}</a>` : (mname ? `<span class="tw-mgr">${esc(mname)}</span>` : "");
-    return `<li class="compact-item tw-row" data-kind="${a.kind}">`
-      + `<span class="tw-date">${rec.date ? esc(fmtDate(rec.date)) : ""}</span>`
-      + `<span class="tw-tag ${a.kind}">${KIND[a.kind]}</span>`
-      // Headline opens the underlying source article (external) when we have a
-      // URL; otherwise it falls back to the relevant manager's page in the app
-      // (the standalone Deals/Fundraising list pages have been retired). The
-      // manager name always links to that manager's page too.
-      + `<span class="tw-body"><a href="${url ? esc(url) : (mid ? `#/manager/${mid}` : "#/")}"${url ? ` target="_blank" rel="noopener noreferrer"` : ""} class="tw-head">${esc(title)}</a>${mgr ? `<span class="tw-mgr-w">${mgr}</span>` : ""}</span>`
-      + `<span class="tw-src">${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(src || "source")}</a>` : esc(src || "")}</span>`
-      + `</li>`;
+    const src = isNews ? (rec.outlet || mname || "") : creditSource(rec);
+    return { desk: KIND_DESK[a.kind] || "news", href: url || (mid ? `#/manager/${mid}` : "#/"),
+      ext: !!url, title, src, date: rec.date || "", time: rec.time || "", mgr: mid || "" };
+  });
+  // Deals/CLO share the "Deals" chip; intel is "Fundraising"; news/comm live only
+  // under "All". Source filter (row click) overrides the chip, as on Home.
+  const CR_GROUP = { deal: "deals", clo: "deals", fund: "fundraising" };
+  const crGroupOf = (it) => CR_GROUP[it.desk] || it.desk;
+  let crGroup = "all", crSrc = null;
+  const paintCreditWire = () => {
+    const wrap = document.getElementById("cr-dash-wire");
+    if (!wrap) return;
+    let list = wireItems;
+    if (crSrc) list = list.filter((x) => x.src === crSrc);
+    else if (crGroup !== "all") list = list.filter((x) => crGroupOf(x) === crGroup);
+    const body = list.length ? feedBodyHTML(list) : feedEmptyHTML(crSrc ? `No ${crSrc} stories — check back shortly.` : "No recent items.");
+    wrap.innerHTML = (crSrc ? feedSrcBarHTML(crSrc) : "") + body;
   };
 
   // Credit tab = the manager universe ranked by AUM. General news now lives on
@@ -624,8 +628,8 @@ function viewDashboard() {
             </div>
           </header>
           <div class="tpanes" id="cr-dash-panes">
-            <div class="tpane" data-pane="wire">
-              <ul class="twire compact-list" id="cr-dash-wire">${wireDays(activity.slice(0, 120), wireRow, (a) => (a.item || {}).date) || `<li class="compact-item"><span class="tw-src">No recent items.</span></li>`}</ul>
+            <div class="tpane g-feed-wrap" data-pane="wire">
+              <div class="g-feed twire" id="cr-dash-wire">${wireItems.length ? feedBodyHTML(wireItems) : feedEmptyHTML("No recent items.")}</div>
             </div>
             <div class="tpane" data-pane="managers" hidden>
               <header class="tpanel-h thead-search"><span>Managers</span>
@@ -643,21 +647,26 @@ function viewDashboard() {
     </div>`;
   // All shows the whole wire (news + commentary merged in); Deals filters to
   // deal/CLO rows, Fundraising to fund (intel) rows; Managers swaps to the table.
-  const DASH_KIND = { deals: new Set(["deal", "clo"]), fundraising: new Set(["intel"]) };
+  // Filtering re-renders the shared wire (so day headers + source filter stay
+  // correct) rather than toggling row display.
   const dashTabs = document.getElementById("cr-dash-tabs");
+  const crSetActive = (p) => dashTabs && dashTabs.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c.dataset.p === p));
   if (dashTabs) dashTabs.addEventListener("click", (e) => {
     const b = e.target.closest(".tchip"); if (!b) return;
-    dashTabs.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
-    const p = b.dataset.p;
-    _chipMem[chipMemKey("cr-dash-tabs")] = p || "all";
+    const p = b.dataset.p || "all";
+    crSetActive(p);
+    _chipMem[chipMemKey("cr-dash-tabs")] = p;
     const wirePane = document.querySelector('#cr-dash-panes [data-pane="wire"]');
     const mgrPane = document.querySelector('#cr-dash-panes [data-pane="managers"]');
     if (p === "managers") { wirePane.hidden = true; mgrPane.hidden = false; return; }
     mgrPane.hidden = true; wirePane.hidden = false;
-    const kinds = DASH_KIND[p];
-    wirePane.querySelectorAll(".tw-row").forEach((r) => {
-      r.style.display = (!kinds || kinds.has(r.dataset.kind)) ? "" : "none";
-    });
+    crGroup = p; crSrc = null; paintCreditWire();
+  });
+  // Clicking a source name filters the wire to that newsroom (Home-style),
+  // resetting the chip to All and showing the clearable source bar.
+  attachFeedClicks(document.getElementById("cr-dash-wire"), {
+    onSrc: (s) => { crSrc = s; crGroup = "all"; crSetActive("all"); paintCreditWire(); },
+    onClearSrc: () => { crSrc = null; paintCreditWire(); },
   });
   // Re-select the in-page tab after every render — async syncs re-run this
   // template with All hardcoded (the same kick the Macro main tabs had).
