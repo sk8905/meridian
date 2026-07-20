@@ -1,0 +1,125 @@
+/* =============================================================================
+   feed.css — the ONE news-wire stylesheet. The Home wire's row / day-header /
+   chip / source-filter styling, extracted so Macro, Credit and Legal render an
+   identical feed. Loaded on every page (Home + the three apps). Terminal look
+   only (Home is always .tui); the wire reads --t-* tokens, which are defined
+   here scoped to .g-feed-wrap so they resolve wherever the wire is mounted —
+   the app pages don't load home.css. Bump the ?v= token in every importer when
+   this file changes.
+   ============================================================================= */
+
+/* ---- token scope: the wire's palette, so app pages resolve --t-* -----------
+   Mirrors home.css's #glance/.na-panel scope. On Home the wire nests inside
+   #glance (id wins) so these class-scoped copies are inert; on the apps they're
+   the source of truth. */
+:root[data-theme="dark"] .g-feed-wrap {
+  --t-ground:#000000; --t-panel:#0d0d0d; --t-panel2:#191919; --t-head:#0a0a0a;
+  --t-grid:#1a1a1a; --t-grid2:#262626;
+  --t-ink:#eaf0fb; --t-dim:#b7c2da; --t-mut:#8592ad; --t-faint:#5c6a86;
+  --t-accent:#fb8b1e;
+  --t-mac:#9b83e2; --t-crd:#fb8b1e; --t-lex:#2fbf8a; --t-amber:#d9a441; --t-ft:#e0708e;
+}
+:root[data-theme="light"] .g-feed-wrap {
+  --t-ground:#e7ebf2; --t-panel:#ffffff; --t-panel2:#f3f6fb; --t-head:#f4f7fb;
+  --t-grid:#e0e6ef; --t-grid2:#cdd6e3;
+  --t-ink:#131b2c; --t-dim:#3b475f; --t-mut:#5e6a84; --t-faint:#8b96ac;
+  --t-accent:#fb8b1e;
+  --t-mac:#6a4fa3; --t-crd:#fb8b1e; --t-lex:#2b8a5f; --t-amber:#b3760f; --t-ft:#990f3d;
+}
+.g-feed-wrap { --t-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; }
+
+/* ---- chip bar --------------------------------------------------------------- */
+.g-feed-wrap { background:var(--t-ground); }
+.g-feed-head { display:flex; align-items:center; gap:0; height:30px; padding:0; margin:0;
+  background:var(--t-head); border-bottom:1px solid var(--t-grid); }
+.g-feed-h-lbl { display:none; }
+.g-feed-chips { display:flex; gap:0; height:100%; flex:1 1 auto; width:100%; }
+.g-feed-chip { display:flex; align-items:center; justify-content:center; gap:6px; flex:1 1 0; min-width:0;
+  height:100%; padding:0 15px; border:0; background:transparent; cursor:pointer; font-family:inherit;
+  font-size:11.5px; font-weight:500; letter-spacing:.005em; color:var(--t-mut); border-radius:0; }
+.g-feed-chip:hover { color:var(--t-dim); }
+.g-feed-chip.is-on { color:var(--t-ink); font-weight:600; background:transparent; box-shadow:inset 0 -2px 0 var(--chip-ul); }
+.g-feed-chip-n { color:var(--t-faint); font-size:10px; font-variant-numeric:tabular-nums; background:none; padding:0; }
+
+/* ---- wire body -------------------------------------------------------------- */
+.g-feed { background:var(--t-panel); border:0; border-radius:0; padding:0; }
+.g-loading, .g-empty { padding:11px 12px; font-size:11.5px; color:var(--t-faint); background:var(--t-panel); }
+/* A quiet end-marker so the wire closes intentionally instead of trailing off. */
+.g-feed-end { padding:16px 12px 32px; text-align:center; font-family:var(--t-mono); font-size:9.5px;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--t-faint); background:var(--t-panel); }
+/* Each day is introduced by a date header. Dark = orange-on-black band; light =
+   a white band with blue label text and a grey bottom border matching the rows. */
+.g-feed-dayhdr { padding:6px 12px; background:var(--t-ground); border-top:0; margin:0;
+  font-size:10px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--t-accent); }
+:root[data-theme="light"] .g-feed-dayhdr { background:var(--t-panel); color:#2f6cae;
+  border-bottom:1px solid var(--t-grid); }
+.g-feed-row { display:grid; grid-template-columns:44px 34px minmax(0,1fr) auto; align-items:baseline;
+  gap:10px; padding:5px 12px; border-bottom:1px solid var(--t-grid); text-decoration:none; }
+.g-feed-row:hover { background:var(--t-panel2); }
+.g-feed-time { font-family:var(--t-mono); font-size:11px; color:var(--t-mut); min-width:0; }
+.g-feed-code { font-family:var(--t-mono); font-size:9.5px; font-weight:700; letter-spacing:.04em;
+  text-align:center; border-radius:0; padding:2px 0; }
+.g-feed-code.news{ color:var(--t-news, #8aa0c8); background:color-mix(in srgb,var(--t-news, #8aa0c8) 14%,transparent); }
+.g-feed-code.macro{ color:var(--t-mac); background:color-mix(in srgb,var(--t-mac) 15%,transparent); }
+.g-feed-code.credit{ color:var(--t-crd); background:color-mix(in srgb,var(--t-crd) 15%,transparent); }
+.g-feed-code.legal{ color:var(--t-lex); background:color-mix(in srgb,var(--t-lex) 15%,transparent); }
+.g-feed-code.newsletter{ color:var(--t-amber); background:color-mix(in srgb,var(--t-amber) 15%,transparent); }
+.g-feed-code.ft{ color:var(--t-ft); background:color-mix(in srgb,var(--t-ft) 15%,transparent); }
+.g-feed-code.substack{ color:var(--t-sub, #9b8cf5); background:color-mix(in srgb,var(--t-sub, #9b8cf5) 15%,transparent); }
+.g-feed-code.brew{ color:var(--t-brew, #2fb6a8); background:color-mix(in srgb,var(--t-brew, #2fb6a8) 15%,transparent); }
+.g-feed-code.bbg{ color:var(--t-bbg, #e0873a); background:color-mix(in srgb,var(--t-bbg, #e0873a) 15%,transparent); }
+.g-feed-code.econ{ color:var(--t-econ, #e0524d); background:color-mix(in srgb,var(--t-econ, #e0524d) 15%,transparent); }
+/* App-desk codes (credit + legal taxonomies) — matched to the prior .tw-tag hues
+   so the appearance is preserved, now as pill chips like every other code. */
+.g-feed-code.deal{ color:#fb8b1e; background:color-mix(in srgb,#fb8b1e 15%,transparent); }
+.g-feed-code.fund{ color:#cc9f43; background:color-mix(in srgb,#cc9f43 15%,transparent); }
+.g-feed-code.clo{ color:var(--t-mac); background:color-mix(in srgb,var(--t-mac) 15%,transparent); }
+.g-feed-code.comm{ color:var(--t-mac); background:color-mix(in srgb,var(--t-mac) 15%,transparent); }
+.g-feed-code.alert{ color:#43b880; background:color-mix(in srgb,#43b880 15%,transparent); }
+.g-feed-code.case{ color:#fb8b1e; background:color-mix(in srgb,#fb8b1e 15%,transparent); }
+.g-feed-code.scheme{ color:#cc9f43; background:color-mix(in srgb,#cc9f43 15%,transparent); }
+.g-feed-code.rp{ color:#cc9f43; background:color-mix(in srgb,#cc9f43 15%,transparent); }
+.g-feed-title { font-size:13px; color:var(--t-ink); font-weight:400; line-height:1.4;
+  white-space:normal; overflow:visible; min-width:0; }
+/* Entity chip (a manager/firm named in the headline, linking to its profile). */
+.g-feed-ent { font-family:var(--t-mono); font-size:9.5px; color:var(--t-accent);
+  border:0; background:transparent; padding:0; margin-left:7px; white-space:nowrap; cursor:pointer; }
+.g-feed-ent:hover { text-decoration:underline; }
+/* The source name is a filter control — underline on hover to signal it acts
+   independently of the row's link-to-article. */
+.g-feed-src { font-family:var(--t-mono); font-size:10px; color:var(--t-faint); white-space:nowrap; cursor:pointer; }
+.g-feed-src:hover { color:var(--t-dim); text-decoration:underline; }
+.g-feed-desk { display:none; }
+/* Active source-filter bar above the wire. */
+.g-feed-srcbar { display:flex; align-items:center; gap:8px; padding:6px 12px; background:var(--t-ground);
+  border-bottom:1px solid var(--t-grid); font-family:var(--t-mono); font-size:10px; letter-spacing:.03em;
+  text-transform:uppercase; color:var(--t-mut); position:sticky; top:0; z-index:1; }
+.g-feed-srcbar strong { color:var(--t-ink); font-weight:600; text-transform:none; letter-spacing:0; }
+.g-feed-srcclear { margin-left:auto; border:0; background:transparent; cursor:pointer; color:var(--t-accent);
+  font-family:inherit; font-size:10px; letter-spacing:.03em; text-transform:uppercase; padding:0; }
+.g-feed-srcclear:hover { text-decoration:underline; }
+/* The srcbar lives inside the swipe pane — unstick it mid-slide so it travels
+   with the slab instead of floating at its stuck offset. */
+body.wire-sliding .g-feed-srcbar { position:static; }
+
+/* ---- phones: headline leads, meta line beneath (code · time · source) ------- */
+@media (max-width:760px){
+  .g-feed-row { display:grid; align-items:baseline;
+    grid-template-columns:max-content max-content minmax(0,1fr);
+    grid-template-areas:"title title title" "code time src";
+    column-gap:6px; row-gap:5px; padding:11px 12px; }
+  .g-feed-title { grid-area:title; font-size:14px; line-height:1.36; }
+  .g-feed-code { grid-area:code; padding:2px 5px; }
+  .g-feed-time { grid-area:time; white-space:nowrap; }
+  .g-feed-src { grid-area:src; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .g-feed-src::before { content:"·"; color:var(--t-faint); margin-right:5px; }
+  .g-feed-srcbar { position:sticky; top:calc(var(--wire-head-h, 53px) + 30px); z-index:7;
+    transform:translate3d(0,0,0); -webkit-backface-visibility:hidden; backface-visibility:hidden; background:var(--t-head); }
+}
+
+/* Touch devices: never latch the row hover state under a resting finger during
+   a scroll (a real tap navigates; it doesn't need a hover tint). */
+@media (hover: none) {
+  .g-feed-row:hover { background:transparent; }
+  a.g-feed-row:hover .g-feed-title { color:inherit; }
+}

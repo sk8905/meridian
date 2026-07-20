@@ -16,6 +16,12 @@ import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
 
 import { esc, byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
+// The shared news-wire engine — row/day-header/chip/source-filter markup + the
+// desk vocabulary. Home assembles its cross-desk streams below and hands them to
+// these helpers; Macro/Credit/Legal use the same module, so every wire is one
+// build.
+import { DESK, DESK_CODE, DESK_CLASS, STRICT_MACRO_RE, deskFor, palTag,
+  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, feedChipsHTML } from "/feed.js?v=20260720-1";
 // The ONLY sources eligible to lead the briefing "Top story": FT, Bloomberg, CNBC,
 // Reuters and the WSJ (plus their same-wire variants, e.g. a Reuters story carried
 // via Investing.com or an FT Alphaville post).
@@ -185,8 +191,7 @@ function resolveSaved() {
   restructurings.forEach((r) => { if (lS.has(r.id)) out.push({ desk: "l", title: r.company, href: r.judgmentUrl || r.articleUrl || "/legal/#/", ext: !!(r.judgmentUrl || r.articleUrl), date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
   return out.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 }
-const _deskClass = { news: "news", bbg: "bbg", econ: "econ", m: "macro", c: "credit", l: "legal", n: "newsletter", f: "ft", s: "substack", b: "brew" };
-const DESK_CODE = { news: "NEWS", bbg: "BBG", econ: "ECON", m: "MAC", c: "CRD", l: "LEX", n: "LTR", f: "FT", s: "SUBS", b: "BREW" };
+const _deskClass = DESK_CLASS;   // desk → code colour class (shared)
 function initSavedPanel() {
   const wrap = document.getElementById("g-saved");
   if (!wrap) return;
@@ -560,24 +565,8 @@ const creditItemExt = (x) => !!x.sourceUrl;
 // interleaved across desks so it reads as a single merged feed, not three blocks.
 // Falls back to the most-recent date present if nothing is dated today, so the
 // feed is never empty between refreshes.
-const DESK = { news: "News", bbg: "Bloomberg", econ: "The Economist", m: "Macro", c: "Credit", l: "Legal", n: "Letter", f: "myFT", s: "Substack", b: "Brew" };
-// Bloomberg stories that aren't strictly macro get the BBG label (not the
-// generic NEWS one); strict-macro Bloomberg items still read MAC.
-const deskFor = (title, source, dflt = "news") => {
-  if (STRICT_MACRO_RE.test(title || "")) return "m";
-  const s = source || "";
-  if (/^bloomberg\b/i.test(s)) return "bbg";
-  if (/economist/i.test(s)) return "econ";
-  return dflt;
-};
-// Map a feed desk to the command-palette tag vocabulary, so the "#CODE" filters
-// (e.g. #BBG, #ECON) list the same items the feed labels carry.
-const palTag = (d, dflt) => ({ m: "macro", n: "letter", bbg: "bbg", econ: "econ", c: "credit", l: "legal", f: "ft" }[d] || dflt);
-// Strictly-macro classifier: central-bank policy, rates/yields, inflation, growth
-// & the labour market. A macro-sourced story (curated headline or live RSS) is
-// tagged MAC only when its headline reads as core macro; everything else defaults
-// to the general NEWS desk, so the wire isn't a wall of "MAC".
-const STRICT_MACRO_RE = /\b(fed(eral reserve)?|fomc|powell|rate (cut|hike|rise|path|decision)|interest rates?|bank of england|\bboe\b|\bmpc\b|\becb\b|central bank|lagarde|\bcpi\b|\bpce\b|inflation|disinflation|deflation|\bgdp\b|gross domestic|growth forecast|recession|jobs report|payrolls?|unemployment|jobless|labou?r market|treasur\w* (yield|note|bond)|gilt|bund|bond yield|yield curve|quantitative (easing|tightening)|\bqt\b|monetary policy|budget|deficit|fiscal|tariffs?|trade war)\b/i;
+// DESK, DESK_CODE, DESK_CLASS, deskFor, palTag and STRICT_MACRO_RE now live in
+// the shared wire engine (feed.js) so every page's labels agree.
 // Active desk filter for the home news feed: "all" | "m" | "c" | "l".
 // One-line cross-desk briefing shown under the "Your briefing" heading.
 // Category matchers for the two glance lines: the freshest premium story
@@ -750,43 +739,15 @@ function renderFeed() {
     feed = byDesk[_feedDesk].slice(0, CAP);
   }
 
-  const row = (o) => {
-    // The item's OWN frozen time (real publish, else the run that first found it —
-    // stamped into the data by the routine). No moving global fallback, so a story's
-    // time never re-times to the latest run. When no time is known, default to
-    // "12:00" (midday) so every row leads with a time.
-    const t = o.time || "12:00";
-    const ent = matchEntity(o.title);
-    return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}`
-      + ` data-sk="${esc(o.sk || "x")}"${o.sid ? ` data-sid="${esc(o.sid)}"` : ""}${o.mgr ? ` data-mgr="${esc(o.mgr)}"` : ""}${o.firm ? ` data-firm="${esc(o.firm)}"` : ""} data-desk="${esc(o.desk)}" data-date="${esc(o.date || "")}" data-time="${esc(o.time || "")}">`
-      + `<span class="g-feed-time">${esc(t)}</span>`
-      + `<span class="g-feed-code ${_deskClass[o.desk]}" title="${esc(DESK[o.desk])}">${DESK_CODE[o.desk]}</span>`
-      + `<span class="g-feed-title">${esc(o.title)}</span>`
-      + (o.src ? `<span class="g-feed-src" role="button" tabindex="0" data-src="${esc(o.src)}" title="Show all ${esc(o.src)} stories">${esc(o.src)}</span>` : "")
-      + `<span class="g-feed-desk">${esc(DESK[o.desk])}</span></a>`;
-  };
-  // Rank strictly newest→oldest (by day, then publish time); untimed items sort at
-  // midday to match their "12:00" display. Each day is introduced by a date header.
-  feed.sort((a, b) => day(b).localeCompare(day(a)) || String(b.time || "12:00").localeCompare(String(a.time || "12:00")));
-  let lastDay = null;
-  const body = feed.map((o) => {
-    const d = day(o);
-    const hdr = d !== lastDay ? `<div class="g-feed-dayhdr">${esc(fmt(d))}</div>` : "";
-    lastDay = d;
-    return hdr + row(o);
-  }).join("") + `<div class="g-feed-end">· end of wire ·</div>`;
-  // When a source filter is active, a thin bar above the feed names it and offers
-  // a one-click clear (the chips can't show it — they're a fixed desk set).
-  const srcBar = _feedSrc
-    ? `<div class="g-feed-srcbar">Source · <strong>${esc(_feedSrc)}</strong><button type="button" class="g-feed-srcclear" data-clearsrc="1" aria-label="Clear source filter — show all sources">✕ clear</button></div>`
-    : "";
-  const empty = `<div class="g-empty">No ${_feedSrc ? esc(_feedSrc) + " stories" : _feedDesk === "all" ? "news yet today" : DESK[_feedDesk] + " items"} — check back shortly.</div>`;
+  // Row + day-header + source-bar + empty markup all come from the shared wire
+  // engine (feed.js) — the same builders the Macro/Credit/Legal wires use.
+  const body = feedBodyHTML(feed);
+  const srcBar = _feedSrc ? feedSrcBarHTML(_feedSrc) : "";
+  const empty = feedEmptyHTML(`No ${_feedSrc ? _feedSrc + " stories" : _feedDesk === "all" ? "news yet today" : DESK[_feedDesk] + " items"} — check back shortly.`);
   setHTML("g-feed", srcBar + (feed.length ? body : empty));
   const head = document.getElementById("g-feed-head");
   if (head) {
-    const chip = (k, label) => `<button type="button" class="g-feed-chip${!_feedSrc && _feedDesk === k ? " is-on" : ""}" data-desk="${k}" aria-pressed="${!_feedSrc && _feedDesk === k}">${label}</button>`;
-    head.innerHTML = `<span class="g-feed-h-lbl">Latest news</span>`
-      + `<span class="g-feed-chips" role="group" aria-label="Filter by desk">${chip("all", "All")}${chip("m", "Macro")}${chip("c", "Credit")}${chip("l", "Legal")}</span>`;
+    head.innerHTML = feedChipsHTML([{ k: "all", label: "All" }, { k: "m", label: "Macro" }, { k: "c", label: "Credit" }, { k: "l", label: "Legal" }], _feedSrc ? null : _feedDesk, "Latest news");
     // A desk chip clears any source filter and switches desks.
     head.querySelectorAll(".g-feed-chip").forEach((b) => b.addEventListener("click", () => { _feedSrc = null; _feedDesk = b.dataset.desk; renderFeed(); }));
   }
