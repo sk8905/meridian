@@ -185,8 +185,8 @@ function resolveSaved() {
   restructurings.forEach((r) => { if (lS.has(r.id)) out.push({ desk: "l", title: r.company, href: r.judgmentUrl || r.articleUrl || "/legal/#/", ext: !!(r.judgmentUrl || r.articleUrl), date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
   return out.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 }
-const _deskClass = { news: "news", m: "macro", c: "credit", l: "legal", n: "newsletter", f: "ft", s: "substack" };
-const DESK_CODE = { news: "NEWS", m: "MAC", c: "CRD", l: "LEX", n: "LETTER", f: "FT", s: "SUBS" };
+const _deskClass = { news: "news", m: "macro", c: "credit", l: "legal", n: "newsletter", f: "ft", s: "substack", b: "brew" };
+const DESK_CODE = { news: "NEWS", m: "MAC", c: "CRD", l: "LEX", n: "LETTER", f: "FT", s: "SUBS", b: "BREW" };
 function initSavedPanel() {
   const wrap = document.getElementById("g-saved");
   if (!wrap) return;
@@ -560,7 +560,7 @@ const creditItemExt = (x) => !!x.sourceUrl;
 // interleaved across desks so it reads as a single merged feed, not three blocks.
 // Falls back to the most-recent date present if nothing is dated today, so the
 // feed is never empty between refreshes.
-const DESK = { news: "News", m: "Macro", c: "Credit", l: "Legal", n: "Letter", f: "myFT", s: "Substack" };
+const DESK = { news: "News", m: "Macro", c: "Credit", l: "Legal", n: "Letter", f: "myFT", s: "Substack", b: "Brew" };
 // Strictly-macro classifier: central-bank policy, rates/yields, inflation, growth
 // & the labour market. A macro-sourced story (curated headline or live RSS) is
 // tagged MAC only when its headline reads as core macro; everything else defaults
@@ -677,8 +677,13 @@ function renderFeed() {
   const substacks = [];
   (_liveFeed || []).forEach((n) => { if (n.substack) substacks.push(mk("s", n.url, n.title, n.source, true, n.date, n.time)); });
 
+  // MailBrew digest items — live from /api/feed (brew:true), edge-fetched by the
+  // Worker with the reader's MailBrew key. Own "BREW" desk label; folded into All.
+  const brew = [];
+  (_liveFeed || []).forEach((n) => { if (n.brew) brew.push(mk("b", n.url, n.title, n.source || "MailBrew", true, n.date, n.time)); });
+
   const day = (x) => String(x.date || "").slice(0, 10);
-  const all = [...news, ...macro, ...credit, ...legal, ...newsletter, ...ft, ...substacks];
+  const all = [...news, ...macro, ...credit, ...legal, ...newsletter, ...ft, ...substacks, ...brew];
   const now = new Date();
   const todayISO = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
   const target = all.some((x) => day(x) === todayISO) ? todayISO : all.reduce((m, x) => (day(x) > m ? day(x) : m), "");
@@ -692,7 +697,7 @@ function renderFeed() {
   const CAP = 500;
   // Per-desk deduped streams (newest first) — power the desk filter and the
   // "what's new" counts (items in the most recent ~2 days).
-  const byDesk = { news: dedupe([...news].sort(byDateDesc)), m: dedupe([...macro].sort(byDateDesc)), c: dedupe([...credit].sort(byDateDesc)), l: dedupe([...legal].sort(byDateDesc)), n: dedupe([...newsletter].sort(byDateDesc)), f: dedupe([...ft].sort(byDateDesc)), s: dedupe([...substacks].sort(byDateDesc)) };
+  const byDesk = { news: dedupe([...news].sort(byDateDesc)), m: dedupe([...macro].sort(byDateDesc)), c: dedupe([...credit].sort(byDateDesc)), l: dedupe([...legal].sort(byDateDesc)), n: dedupe([...newsletter].sort(byDateDesc)), f: dedupe([...ft].sort(byDateDesc)), s: dedupe([...substacks].sort(byDateDesc)), b: dedupe([...brew].sort(byDateDesc)) };
   const maxDay = all.reduce((m, x) => (day(x) > m ? day(x) : m), "");
   const cutoff = (() => { const d = new Date(maxDay + "T00:00:00"); if (isNaN(d)) return ""; d.setDate(d.getDate() - 1); return d.toISOString().slice(0, 10); })();
   const recentN = (list) => (cutoff ? list.filter((x) => day(x) >= cutoff).length : list.length);
@@ -708,10 +713,10 @@ function renderFeed() {
   if (_feedSrc) {
     // Source filter wins over the desk chips: every story from that newsroom,
     // across all three desks, newest first.
-    feed = dedupe([...news, ...macro, ...credit, ...legal, ...ft, ...substacks].sort(byDateDesc)).filter((x) => x.src === _feedSrc).slice(0, CAP);
+    feed = dedupe([...news, ...macro, ...credit, ...legal, ...ft, ...substacks, ...brew].sort(byDateDesc)).filter((x) => x.src === _feedSrc).slice(0, CAP);
   } else if (_feedDesk === "all") {
     const pick = (list) => dedupe(list.filter((x) => day(x) === target).sort(byDateDesc));
-    const lists = [pick(news), pick(macro), pick(credit), pick(legal), pick(newsletter), pick(ft), pick(substacks)];
+    const lists = [pick(news), pick(macro), pick(credit), pick(legal), pick(newsletter), pick(ft), pick(substacks), pick(brew)];
     const seen = new Set();
     feed = [];
     for (let i = 0; lists.some((l) => i < l.length); i++) lists.forEach((l) => {
@@ -1550,12 +1555,13 @@ function buildIndex() {
   // Curated Substacks (live from /api/feed, seeded from cache at init) — so the
   // "/SUBS" code filter has content to list.
   (_liveFeed || []).forEach((n) => { if (n.substack) add("substack", n.title, `${n.source || "Substack"}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "SUBS"); });
+  (_liveFeed || []).forEach((n) => { if (n.brew) add("brew", n.title, `${n.source || "MailBrew"}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "BREW"); });
 
   return idx;
 }
 
 // ---- Command palette -------------------------------------------------------
-const PAL_CODE = { macro: "MAC", credit: "CRD", legal: "LEX", view: "GO", ft: "FT", letter: "LETTER", substack: "SUBS" };
+const PAL_CODE = { macro: "MAC", credit: "CRD", legal: "LEX", view: "GO", ft: "FT", letter: "LETTER", substack: "SUBS", brew: "BREW" };
 function wirePalette(idx) {
   const overlay = document.getElementById("cmdk");
   const input = document.getElementById("cmdk-input");
