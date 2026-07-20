@@ -545,6 +545,11 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
         colour-coded desk tag + mono "time · source" line, hairline dividers. ---- */
 .nf-row { display: block; padding: 9px 14px; border-bottom: 1px solid var(--border, #262626); text-decoration: none; color: inherit; }
 .nf-row:hover { background: var(--head, #0a0a0a); }
+/* Notifications panel: a small "N new updates" header, and a muted "Recent"
+   divider shown only when the reader is caught up (no genuinely-new items). */
+.nf-head { padding: 9px 14px 7px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--accent, #fb8b1e); font-weight: 700; border-bottom: 1px solid var(--border, #262626); }
+.nf-head-quiet { color: var(--muted, #8592ad); }
+.nf-sub { padding: 8px 14px 5px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 10px; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
 /* Titles clamp to two lines (the Wire-analysis guidance rows are full
    paragraphs); a tap goes straight to the full story via the row's link. */
 .nf-title { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;

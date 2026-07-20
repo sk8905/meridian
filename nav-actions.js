@@ -323,6 +323,12 @@ function countUnread(items) {
   const seen = { c: readSeen("c"), l: readSeen("l") };
   return items.filter((x) => { const s = seen[x.desk]; return s ? !s.has(x.id) : false; }).length;
 }
+// The genuinely-new items — those not in the per-desk seen-set (same test the
+// badge counts with), so the panel lists exactly what the badge promises.
+function freshNotifs(items) {
+  const seen = { c: readSeen("c"), l: readSeen("l") };
+  return items.filter((x) => { const s = seen[x.desk]; return s ? !s.has(x.id) : false; });
+}
 // First time we see a desk's notifications we treat the current set as the
 // baseline (all "seen") so the historical back-catalogue doesn't show as unread.
 function establishBaseline(items) {
@@ -612,10 +618,21 @@ export function initNavActions() {
 
     const notifBtn = wrap.querySelector("#na-notif");
     const clearBadge = () => { const b = notifBtn.querySelector(".na-badge"); if (b) b.hidden = true; };
+    // Show ONLY what's genuinely new since last opened (matching the badge). When
+    // caught up, a short note + the few most recent as muted context — so the
+    // panel never dumps the whole 60-item back-catalogue as if it were all new.
     const renderNotif = (body) => {
       const items = _notifItems || [];
-      body.innerHTML = items.length ? items.map(notifRow).join("") : '<div class="na-empty">Nothing yet.</div>';
-      if (items.length) { markNotifSeen(items); clearBadge(); }
+      const fresh = freshNotifs(items);
+      if (fresh.length) {
+        body.innerHTML = `<div class="nf-head">${fresh.length} new update${fresh.length > 1 ? "s" : ""}</div>`
+          + fresh.map(notifRow).join("");
+        markNotifSeen(items); clearBadge();
+      } else {
+        const recent = items.slice(0, 6);
+        body.innerHTML = `<div class="nf-head nf-head-quiet">You're all caught up</div>`
+          + (recent.length ? `<div class="nf-sub">Recent</div>` + recent.map(notifRow).join("") : '<div class="na-empty">Nothing yet.</div>');
+      }
     };
 
     const panels = [
