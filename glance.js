@@ -145,7 +145,7 @@ export function initGlance() {
   // The legacy Home-only menus (initNotifBell / initSavedPanel /
   // initMarketsPanel) are retired; on phones the Home data rails move into the
   // shared Markets panel via initHomeMarketsRails.
-  import("/nav-actions.js?v=20260719-38").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260719-39").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderDeals();
   renderFundraising();
   renderRx();
@@ -186,7 +186,7 @@ function resolveSaved() {
   return out.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 }
 const _deskClass = { news: "news", m: "macro", c: "credit", l: "legal", n: "newsletter", f: "ft", s: "substack", b: "brew" };
-const DESK_CODE = { news: "NEWS", m: "MAC", c: "CRD", l: "LEX", n: "LETTER", f: "FT", s: "SUBS", b: "BREW" };
+const DESK_CODE = { news: "NEWS", m: "MAC", c: "CRD", l: "LEX", n: "LTR", f: "FT", s: "SUBS", b: "BREW" };
 function initSavedPanel() {
   const wrap = document.getElementById("g-saved");
   if (!wrap) return;
@@ -1567,7 +1567,7 @@ function buildIndex() {
 }
 
 // ---- Command palette -------------------------------------------------------
-const PAL_CODE = { macro: "MAC", credit: "CRD", legal: "LEX", view: "GO", ft: "FT", letter: "LETTER", substack: "SUBS", brew: "BREW" };
+const PAL_CODE = { macro: "MAC", credit: "CRD", legal: "LEX", view: "GO", ft: "FT", letter: "LTR", substack: "SUBS", brew: "BREW" };
 function wirePalette(idx) {
   const overlay = document.getElementById("cmdk");
   const input = document.getElementById("cmdk-input");

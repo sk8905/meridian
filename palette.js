@@ -98,7 +98,7 @@ function buildIndex() {
   return idx;
 }
 
-const DESKCODE = { credit: "CRD", legal: "LEX", macro: "MAC", view: "GO", ft: "FT", letter: "LETTER" };
+const DESKCODE = { credit: "CRD", legal: "LEX", macro: "MAC", view: "GO", ft: "FT", letter: "LTR" };
 const STYLE = `
 .mcmdk{position:fixed;inset:0;z-index:9000;display:none;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
 .mcmdk.open{display:block}

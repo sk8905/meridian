@@ -499,6 +499,10 @@ body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 56px) + v
   .topbar .topbar-inner > .na-actions { grid-area: bell; justify-self: end; align-self: center; }
 }
 .na-btn { position: relative; width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--border, #262626); background: transparent; color: var(--muted, #8592ad); cursor: pointer; border-radius: 0; text-decoration: none; }
+/* Desktop: the Markets dropdown is redundant (the data lives in the page rails /
+   ticker), so hide its button. It stays in the DOM (kept as the mount sentinel)
+   and remains available on phones, which have no rails. */
+@media (min-width: 761px) { #na-mkt { display: none; } }
 .na-btn svg { width: 19px; height: 19px; }
 .na-btn:hover { color: var(--ink, #eaf0fb); border-color: var(--ink); }
 /* Unread-count badge on the notifications bell. */
@@ -542,9 +546,9 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-c.up { color: #3fc08d; } .na-c.down { color: #f26d84; } .na-c.flat { color: var(--faint, #5c6a86); }
 /* Market open/closed session dot on the shared Markets panel rows (matches the
    Home markets band + Top Movers dots). Green = regular session, red = closed. */
-.na-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-left: 6px; vertical-align: middle; }
-.na-dot.open { background: #059669; box-shadow: 0 0 0 1px rgba(5,150,105,.14); }
-.na-dot.closed { background: #dc2626; box-shadow: 0 0 0 1px rgba(220,38,38,.12); }
+.na-dot { display: inline-block; width: 4px; height: 4px; border-radius: 50%; margin-left: 6px; vertical-align: middle; opacity: .8; }
+.na-dot.open { background: #059669; }
+.na-dot.closed { background: #dc2626; }
 /* Saved feed rows */
 .na-load, .na-empty { padding: 16px 12px; color: var(--muted, #8592ad); font-size: 12.5px; line-height: 1.5; }
 /* Mobile scrim behind a full-screen overlay. Starts BELOW the top bar so the
@@ -556,13 +560,14 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 /* ---- Shared news-feed row — used by the Saved list AND the Notifications list
         so both read exactly like the Home news wire: bold headline on top, then a
         colour-coded desk tag + mono "time · source" line, hairline dividers. ---- */
-.nf-row { display: block; padding: 9px 14px; border-bottom: 1px solid var(--border, #262626); text-decoration: none; color: inherit; }
+.nf-row { display: block; padding: 9px 12px; border-bottom: 1px solid var(--border, #262626); text-decoration: none; color: inherit; }
 .nf-row:hover { background: var(--head, #0a0a0a); }
-/* Notifications panel: a small "N new updates" header, and a muted "Recent"
-   divider shown only when the reader is caught up (no genuinely-new items). */
-.nf-head { padding: 9px 14px 7px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--accent, #fb8b1e); font-weight: 700; border-bottom: 1px solid var(--border, #262626); }
+/* Notifications panel section headers — the "N new updates" / "Recent" bands read
+   as the SAME grey section-header band the Markets panel uses (.na-sec): mono,
+   12px, grey --head background, hairline bottom border, 12px gutters. */
+.nf-head { padding: 9px 12px 5px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 12px; letter-spacing: .04em; text-transform: uppercase; color: var(--accent, #fb8b1e); font-weight: 700; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
 .nf-head-quiet { color: var(--muted, #8592ad); }
-.nf-sub { padding: 8px 14px 5px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 10px; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
+.nf-sub { padding: 9px 12px 5px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 10px; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
 /* Titles clamp to two lines (the Wire-analysis guidance rows are full
    paragraphs); a tap goes straight to the full story via the row's link. */
 .nf-title { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;
@@ -688,6 +693,10 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .day-hdr:first-child { padding-top: .1rem; }
 .day-hdr:not(:first-child) { border-top: 2px solid var(--border, var(--line, #e4e7ef)); margin-top: .15rem; }
 .intel-row:has(+ .day-hdr), .feed-row:has(+ .day-hdr) { border-bottom: 0; }
+/* Light theme: match the terminal day breaks — blue label text on a white band
+   with a single grey bottom border (drop the heavy 2px top rule). */
+:root[data-theme="light"] .day-hdr { color: #2f6cae; background: var(--surface); padding: .4rem .5rem;
+  border-top: 0; margin-top: 0; border-bottom: 1px solid var(--border, var(--line, #e4e7ef)); }
 /* When an item carries no publish time (e.g. some commentary), drop the empty
    time cell so the headline sits flush left instead of behind a blank column. */
 .intel-row .intel-date:empty { display: none; }

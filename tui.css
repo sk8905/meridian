@@ -351,7 +351,9 @@
 .tsearch::placeholder { color: var(--faint); }
 .tleague-full .tl-hq { text-align: left; color: var(--muted); font-family: var(--t-mono); font-size: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tleague-full th.tl-hq { text-align: left; }
-.tleague-full .tl-cl { text-align: center; color: var(--accent); }
+/* CLO indicator: right-align to sit under its right-aligned "CLOs" header (the
+   other numeric columns are right-aligned too) and dim the bullet a touch. */
+.tleague-full .tl-cl { text-align: right; color: var(--accent); opacity: .85; }
 .tleague-full th { top: 28px; }
 /* Even, fixed column distribution: auto-layout was dumping all the slack into
    one 450px-wide HQ column (the big mid-table gap). Fixed widths spread the
@@ -511,3 +513,6 @@
 .tw-day { list-style: none; padding: 5px 12px 3px; font-family: var(--t-mono, ui-monospace, monospace);
   font-size: 9.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
   color: var(--accent, #fb8b1e); background: rgba(0, 0, 0, .45); border-bottom: 1px solid rgba(255, 255, 255, .22); }
+/* Light theme: the black-tint band read as heavy grey. Flip to a white band with
+   blue label text and a grey bottom border matching the row hairlines. */
+:root[data-theme="light"] .tw-day { color: #2f6cae; background: var(--surface); border-bottom: 1px solid var(--border); }

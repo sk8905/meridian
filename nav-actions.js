@@ -249,7 +249,7 @@ function loadMarkets(body) {
 }
 
 // ---- Saved rows — shared news-feed row (headline, then code · date · source) --
-const NF_CODE = { m: "MAC", c: "CRD", l: "LEX", n: "LETTER", f: "FT" };
+const NF_CODE = { m: "MAC", c: "CRD", l: "LEX", n: "LTR", f: "FT" };
 function savedRow(x) {
   const code = NF_CODE[x.desk] || "";
   const cls = DESK_CLASS[x.desk] || "";
