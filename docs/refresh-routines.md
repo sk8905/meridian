@@ -128,7 +128,7 @@ extra deep-research pass on watchlisted names is skipped.
     `./data.js?v=` & `./charts.js?v=` imports in `credit/js/app.js`.
   - Legal (FOUR): the same four under `legal/`.
   - Macro (THREE): `css/styles.css?v=` & `js/app.js?v=` in `macro/index.html`; the
-    `./content.js?v=` import in `macro/js/app.js`. Macro has no `data.js`/`charts.js`.
+    `./content.js?v=` import in `macro/js/app.js` AND its siblings `macro/js/dashboard.js` + `macro/js/shared.js` — all three MUST carry the SAME content token, or the browser instantiates content.js twice. Macro has no `data.js`/`charts.js`.
   **RULE: whenever you change an app's data (`data.js`, or for Macro its
   `content.js`/`src/index.js` curated series) at all, you MUST advance that app's
   tokens to a value not already present in its files (increment the sequence if it
