@@ -54,6 +54,7 @@ export function initBrief() {
     `<div class="wb-main">`
     + `<span class="wb-hello">${greet} — here's your briefing</span>`
     + `</div>`
+    + `<p class="wb-brief" id="wb-top"></p>`
     + `<div class="wb-glance">`
     + `<div class="wb-gl"><span class="wb-gl-l">Markets</span><span class="wb-gl-v" id="wb-markets">Loading…</span></div>`
     + `<div class="wb-gl"><span class="wb-gl-l">Rates &amp; spreads</span><span class="wb-gl-v" id="wb-rates">Loading…</span></div>`
@@ -68,12 +69,18 @@ export function initBrief() {
     const el = document.getElementById(id);
     if (el && x) el.innerHTML = `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.title)}</a>`;
   };
+  // Top story = the single freshest PREMIUM-newsroom headline (same premium set
+  // Home leads with), so the app pages open on the same "Top story" as Home.
+  const PREMIUM = new Set(["Financial Times", "Bloomberg", "Reuters", "CNBC", "The Wall Street Journal", "The Economist", "The Guardian", "MarketWatch", "FT Alphaville"]);
   fetch("/api/feed", { headers: { accept: "application/json" } })
     .then((r) => (r.ok ? r.json() : null))
     .then((d) => {
       const items = (d && d.items) || [];
-      const mkt = items.find((x) => x && x.title && MKT_RE.test(x.title));
-      const rt = items.find((x) => x && x.title && x !== mkt && RATE_RE.test(x.title));
+      const lead = items.find((x) => x && x.title && PREMIUM.has(x.source));
+      const top = document.getElementById("wb-top");
+      if (lead && top) top.innerHTML = `<span class="wb-lbl">Top story</span> <a class="wb-link" href="${esc(lead.url)}" target="_blank" rel="noopener noreferrer">${esc(lead.title)}</a>`;
+      const mkt = items.find((x) => x && x.title && x !== lead && MKT_RE.test(x.title));
+      const rt = items.find((x) => x && x.title && x !== lead && x !== mkt && RATE_RE.test(x.title));
       if (mkt) { leads.markets = true; setStory("wb-markets", mkt); }
       if (rt) { leads.rates = true; setStory("wb-rates", rt); }
     })
