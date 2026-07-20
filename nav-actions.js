@@ -20,6 +20,7 @@ const DESK_CLASS = { m: "macro", c: "credit", l: "legal", n: "newsletter", f: "f
 
 const ICO_MKT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>';
 const ICO_SAVED = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
+const ICO_MAG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.6" y1="15.6" x2="21" y2="21"/></svg>';
 
 const isPhone = () => matchMedia("(max-width:760px)").matches;
 // Menu is a PAGE (/menu/) — reached through the tab bar exactly like the other
@@ -474,6 +475,9 @@ export function initNavActions() {
       // on each refresh (Home dispatches wire:live-refresh; elsewhere it cycles
       // on the wall clock, matching the edge cache cadence).
       `<span class="na-ring" title="Time to next live-feed refresh" aria-hidden="true"><svg viewBox="0 0 18 18"><circle class="na-ring-track" cx="9" cy="9" r="7"/><circle class="na-ring-arc" cx="9" cy="9" r="7"/></svg></span>` +
+      // Search — a magnifying-glass button on phones (the desktop search pill is
+      // hidden there); opens the command palette via the shared [data-open-search].
+      (isPhone() ? `<button type="button" class="na-btn" id="na-search" data-open-search aria-label="Search" title="Search">${ICO_MAG}</button>` : "") +
       `<button type="button" class="na-btn" id="na-mkt" aria-label="Markets & key rates" aria-haspopup="true" aria-expanded="false" title="Markets & key rates">${ICO_MKT}</button>` +
       `<button type="button" class="na-btn" id="na-saved" aria-label="Saved" aria-haspopup="true" aria-expanded="false" title="Saved">${ICO_SAVED}</button>` +
       `<button type="button" class="na-btn na-bell" id="na-notif" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">${ICO_BELL}<span class="na-badge" hidden></span></button>` +
