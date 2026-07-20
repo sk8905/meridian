@@ -27,6 +27,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-20260720",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: Ice Cream Hedging",
+    date: "2026-07-20",
+    time: "19:23",
+    summary: "API, LCDL, 10Q, peptides, reinspection.",
+    url: "https://bloom.bg/4vE6OFc",
+  },
+  {
     id: "nl-lb-cadwaladerceo-20260720",
     publication: "Legal Business",
     title: "'We're not done' – Hogan Lovells Cadwalader's CEO on what comes after the biggest law firm merger in history",

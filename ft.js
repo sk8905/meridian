@@ -20,6 +20,18 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "05b20ea3-425b-49da-886e-fd0ac9270fe7", title: "Who is in Andy Burnham’s new cabinet?", date: "2026-07-20", time: "20:40", url: "https://www.ft.com/content/05b20ea3-425b-49da-886e-fd0ac9270fe7" },
+  { id: "9f36df1b-cc5b-4391-ae91-562cf85a58a3", title: "Man charged with Ann Widdecombe murder", date: "2026-07-20", time: "19:40", url: "https://www.ft.com/content/9f36df1b-cc5b-4391-ae91-562cf85a58a3" },
+  { id: "b7cc3ea9-c89c-4f94-8ce0-3786034a6ddc", title: "Gilts under pressure as investors brace for higher spending under new PM", date: "2026-07-20", time: "19:37", url: "https://www.ft.com/content/b7cc3ea9-c89c-4f94-8ce0-3786034a6ddc" },
+  { id: "740f0449-f367-46e0-92a6-43251f56f974", title: "Burnham stuns Labour MPs by choosing Healey as new chancellor", date: "2026-07-20", time: "19:35", url: "https://www.ft.com/content/740f0449-f367-46e0-92a6-43251f56f974" },
+  { id: "e9563a0f-0a93-4a38-87e1-32b7898522d8", title: "Big Tech’s AI backstops risk ignominy", date: "2026-07-20", time: "18:55", url: "https://www.ft.com/content/e9563a0f-0a93-4a38-87e1-32b7898522d8" },
+  { id: "948861e2-3064-47b7-848b-0bdd633a6c00", title: "Andy Burnham’s tenure begins with troubling signals", date: "2026-07-20", time: "18:47", url: "https://www.ft.com/content/948861e2-3064-47b7-848b-0bdd633a6c00" },
+  { id: "ce24c3cb-4643-43f1-8cfd-688056a434ec", title: "US judge pauses Paramount’s $110bn Warner Bros acquisition", date: "2026-07-20", time: "18:37", url: "https://www.ft.com/content/ce24c3cb-4643-43f1-8cfd-688056a434ec" },
+  { id: "13092f23-4b2f-4e62-8aa9-76ab465a667c", title: "Donald Trump to meet Lebanon’s president as US pushes ahead with peace deal", date: "2026-07-20", time: "18:27", url: "https://www.ft.com/content/13092f23-4b2f-4e62-8aa9-76ab465a667c" },
+  { id: "ffbf8a50-e497-4ab6-a2d3-d94277f4a087", title: "Andy Burnham becomes UK prime minister promising ‘unity and positivity’", date: "2026-07-20", time: "18:21", url: "https://www.ft.com/content/ffbf8a50-e497-4ab6-a2d3-d94277f4a087" },
+  { id: "5e79b5d1-6b2a-4d9d-8b46-6980e861856d", title: "US probes insurers owned by billionaire Mark Walter over asset disclosures", date: "2026-07-20", time: "18:04", url: "https://www.ft.com/content/5e79b5d1-6b2a-4d9d-8b46-6980e861856d" },
+  { id: "c28acecc-7fa1-44ce-b343-c282cb23fe47", title: "Labour has handed Burnham a blank cheque", date: "2026-07-20", time: "17:23", url: "https://www.ft.com/content/c28acecc-7fa1-44ce-b343-c282cb23fe47" },
+  { id: "2f0a9be3-cbeb-4bbe-b05a-3d61ddf81065", title: "David Austin’s empire of rose", date: "2026-07-20", time: "17:15", url: "https://www.ft.com/content/2f0a9be3-cbeb-4bbe-b05a-3d61ddf81065" },
   { id: "5ae43650-a99e-4175-a1e6-e0d63f3027d3", title: "Don’t blame colonialism for Africa’s trade woes", date: "2026-07-20", time: "17:10", url: "https://www.ft.com/content/5ae43650-a99e-4175-a1e6-e0d63f3027d3" },
   { id: "51089f41-6f8b-4381-aab5-a83bbe4048c4", title: "Keep fit French-style, quit smoking, eat Dua Lipa’s favourite crisps – and catch up with HTSI’s most popular reads", date: "2026-07-20", time: "17:03", url: "https://www.ft.com/content/51089f41-6f8b-4381-aab5-a83bbe4048c4" },
   { id: "522fc69e-77df-40fd-8ab4-6726b866d289", title: "US petrol prices climb back above $4 as Iran war intensifies", date: "2026-07-20", time: "16:22", url: "https://www.ft.com/content/522fc69e-77df-40fd-8ab4-6726b866d289" },
@@ -48,15 +60,4 @@ export const FT_ITEMS = [
   { id: "715da6d5-bd8a-4419-b45c-8cfb02d847be", title: "Samsung Biologics buys Swiss peptide maker for $1.8bn", date: "2026-07-20", time: "07:53", url: "https://www.ft.com/content/715da6d5-bd8a-4419-b45c-8cfb02d847be" },
   { id: "9523ead6-6599-4ed0-9b14-dfa70fd1b180", title: "Portfolio construction in the shadow of the AI bubble", date: "2026-07-20", time: "06:30", url: "https://www.ft.com/content/9523ead6-6599-4ed0-9b14-dfa70fd1b180" },
   { id: "7a1a9e9b-7919-4f3a-b84b-0cab584a04bb", title: "Paris and Berlin set year-end deadline for options to reform EU’s diplomatic arm", date: "2026-07-20", time: "06:00", url: "https://www.ft.com/content/7a1a9e9b-7919-4f3a-b84b-0cab584a04bb" },
-  { id: "07ec1df0-7ded-45e0-aad9-9dde31d6ba15", title: "Trump Media’s pitched fee for early access to posts", date: "2026-07-20", time: "06:00", url: "https://www.ft.com/content/07ec1df0-7ded-45e0-aad9-9dde31d6ba15" },
-  { id: "29a22ffc-ff20-44c2-b2e9-c1a7b28646e3", title: "FTAV’s further reading", date: "2026-07-20", time: "06:00", url: "https://www.ft.com/content/29a22ffc-ff20-44c2-b2e9-c1a7b28646e3" },
-  { id: "b8fd6341-4191-4fdd-a9c0-7fb7837d1dc7", title: "FirstFT: Burnham weighs Number 10 overhaul", date: "2026-07-20", time: "05:32", url: "https://www.ft.com/content/b8fd6341-4191-4fdd-a9c0-7fb7837d1dc7" },
-  { id: "a803297d-ddd1-40a7-8bdb-c0bd50c3b546", title: "Sinaloa cartel founder set for $15bn forfeiture order and life sentence", date: "2026-07-20", time: "05:00", url: "https://www.ft.com/content/a803297d-ddd1-40a7-8bdb-c0bd50c3b546" },
-  { id: "82e9b2fc-0dd8-4560-837c-2e7695457783", title: "UK pension insurers raise exposure to opaque private credit", date: "2026-07-20", time: "05:00", url: "https://www.ft.com/content/82e9b2fc-0dd8-4560-837c-2e7695457783" },
-  { id: "ac288d04-8354-4a6c-99fe-c0fca832ad43", title: "Andy Burnham urged to use flexibility in fiscal rules to boost investment", date: "2026-07-20", time: "05:00", url: "https://www.ft.com/content/ac288d04-8354-4a6c-99fe-c0fca832ad43" },
-  { id: "8e01440b-1a90-4ab2-a67e-fba7deee1ac8", title: "Burnham must remember the first rule of government", date: "2026-07-20", time: "05:00", url: "https://www.ft.com/content/8e01440b-1a90-4ab2-a67e-fba7deee1ac8" },
-  { id: "3b659fcd-77ce-4e63-aa46-8cb648735f13", title: "Iran’s currency tumbles as renewed conflict threatens economy", date: "2026-07-20", time: "05:00", url: "https://www.ft.com/content/3b659fcd-77ce-4e63-aa46-8cb648735f13" },
-  { id: "e876a37b-e508-489b-a0bd-4bb99eaba8fe", title: "What to expect from Burnham’s ‘crucial’ first 100 days as UK prime minister", date: "2026-07-20", time: "05:00", url: "https://www.ft.com/content/e876a37b-e508-489b-a0bd-4bb99eaba8fe" },
-  { id: "4e2f85ae-0b7d-4b31-aef1-abf8a7474e34", title: "An odyssey through Metlen’s interconnected solar empire", date: "2026-07-20", time: "05:00", url: "https://www.ft.com/content/4e2f85ae-0b7d-4b31-aef1-abf8a7474e34" },
-  { id: "892872ad-fb56-4774-abae-4d2880922635", title: "Chinese helium ban threatens supplies to Europe", date: "2026-07-20", time: "05:00", url: "https://www.ft.com/content/892872ad-fb56-4774-abae-4d2880922635" },
-  { id: "b70b3f8c-9c2e-434b-b33b-0d8e7a410a49", title: "What has the overhaul of the UK’s tax authority delivered so far?", date: "2026-07-20", time: "05:00", url: "https://www.ft.com/content/b70b3f8c-9c2e-434b-b33b-0d8e7a410a49" },];
+];
