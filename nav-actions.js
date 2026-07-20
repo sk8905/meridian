@@ -319,13 +319,22 @@ const ICO_SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stro
 const ICO_MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
 // "System" = follow the OS. A small monitor glyph reads as "adapts to system".
 const ICO_AUTO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 4v13" stroke-width="1.6"/><path d="M8 21h8M12 17v4"/></svg>';
-// Two-option theme choice: "system" (follow the OS) or "other" (the opposite of
-// the OS setting — always a real switch). The choice lives in the
-// data-theme-choice attribute the inline head script sets before paint.
+// Two-option theme control (System | Other) over a REMEMBERED preference stored
+// in data-theme-choice (+ localStorage): "system" follows the OS live, while
+// "light"/"dark" are concrete, remembered choices that persist across OS changes
+// and reloads — so "Other" sticks to the exact theme you picked. When switching
+// INTO Other we pick the opposite of the current OS theme (a guaranteed switch),
+// then remember that concrete value.
 const osDark = () => !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
-const themeChoice = () => (document.documentElement.getAttribute("data-theme-choice") === "other" ? "other" : "system");
-// Resolve a preference to a concrete theme: system = OS as-is, other = its opposite.
-const resolveTheme = (pref) => (pref === "other" ? (osDark() ? "light" : "dark") : (osDark() ? "dark" : "light"));
+// The stored preference: "system" | "light" | "dark".
+const storedPref = () => { const c = document.documentElement.getAttribute("data-theme-choice"); return (c === "light" || c === "dark") ? c : "system"; };
+// UI mode for the two-option control.
+const themeChoice = () => (storedPref() === "system" ? "system" : "other");
+// Resolve a preference to a concrete theme: system = OS setting, else itself.
+const resolveTheme = (pref) => (pref === "system" ? (osDark() ? "dark" : "light") : pref);
+// The concrete theme "Other" should switch to: keep a remembered manual choice,
+// else the opposite of the current OS theme.
+const otherPref = () => { const p = storedPref(); return p === "system" ? (osDark() ? "light" : "dark") : p; };
 // Button reflects the CURRENT state: the monitor glyph while following the
 // system, otherwise the sun/moon of whatever theme is showing.
 const themeIcon = () => (themeChoice() === "system" ? ICO_AUTO : (document.documentElement.getAttribute("data-theme") === "dark" ? ICO_MOON : ICO_SUN));
@@ -473,11 +482,12 @@ export function initNavActions() {
       bar.appendChild(wrap);
     }
 
-    // Theme toggle — two options: "system" (follow the OS) or "other" (its
-    // opposite). The choice is stored in localStorage (m_theme_pref) so the
-    // inline head script applies it before paint on the next load. Both options
-    // resolve against the live OS setting. Shared across all pages (nav-bar
-    // button on desktop; /menu/ segmented control on phones) via this controller.
+    // Theme toggle — two options over a remembered preference: "system" (follow
+    // the OS) or a concrete "light"/"dark" ("Other"). The pref is stored in
+    // localStorage (m_theme_pref) so the inline head script applies it before
+    // paint on the next load. A concrete choice is remembered as-is and does NOT
+    // drift with the OS. Shared across all pages (nav-bar button on desktop;
+    // /menu/ segmented control on phones) via this controller.
     const themeBtn = wrap.querySelector("#na-theme");
     const applyThemeChoice = (pref) => {
       const r = document.documentElement;
@@ -487,23 +497,25 @@ export function initNavActions() {
       try { localStorage.setItem("m_theme_pref", pref); } catch { /* */ }
       const meta = document.querySelector('meta[name="theme-color"]');
       if (meta) meta.setAttribute("content", t === "dark" ? "#05080f" : "#ffffff");
-      if (themeBtn) { themeBtn.innerHTML = themeIcon(); themeBtn.setAttribute("title", THEME_TITLE[pref] || "Switch theme"); }
-      // Keep any menu segmented control (the phone control) in sync.
+      if (themeBtn) { themeBtn.innerHTML = themeIcon(); themeBtn.setAttribute("title", THEME_TITLE[themeChoice()] || "Switch theme"); }
+      // Keep any menu segmented control (the phone control) in sync — "System"
+      // is on for pref==="system", "Other" for a concrete light/dark pref.
       document.querySelectorAll(".na-theme-opt").forEach((b) => {
-        const on = b.dataset.themePref === pref;
+        const on = b.dataset.themePref === "system" ? (pref === "system") : (pref !== "system");
         b.classList.toggle("is-on", on);
         b.setAttribute("aria-pressed", on ? "true" : "false");
       });
     };
     _applyThemeChoice = applyThemeChoice;   // expose for the /menu/ segmented control
     if (themeBtn) themeBtn.addEventListener("click", () => {
-      applyThemeChoice(themeChoice() === "system" ? "other" : "system");
+      // System → Other (opposite of OS, then remembered); Other → System.
+      applyThemeChoice(themeChoice() === "system" ? otherPref() : "system");
     });
-    // Both options resolve against the OS setting, so re-apply on every OS
-    // light/dark change (no reload) to keep the theme live.
+    // Only re-apply on OS light/dark change when following the system; a
+    // concrete choice is remembered and must not drift.
     if (window.matchMedia) {
       const mq = window.matchMedia("(prefers-color-scheme: dark)");
-      const onOS = () => applyThemeChoice(themeChoice());
+      const onOS = () => { if (storedPref() === "system") applyThemeChoice("system"); };
       if (mq.addEventListener) mq.addEventListener("change", onOS);
       else if (mq.addListener) mq.addListener(onOS);
     }
@@ -604,7 +616,12 @@ export function initNavActions() {
         })()
         + `</div><button type="button" class="na-menu-push" id="na-push" title="Push notifications">${ICO_BELL}<span class="na-push-state">…</span></button></div>`;
       // Theme segmented control → same apply logic as the desktop nav button.
-      p.querySelectorAll(".na-theme-opt").forEach((b) => b.addEventListener("click", () => { if (_applyThemeChoice) _applyThemeChoice(b.dataset.themePref); }));
+      // "System" follows the OS; "Other" applies the remembered concrete theme
+      // (or the opposite of the OS the first time).
+      p.querySelectorAll(".na-theme-opt").forEach((b) => b.addEventListener("click", () => {
+        if (!_applyThemeChoice) return;
+        _applyThemeChoice(b.dataset.themePref === "system" ? "system" : otherPref());
+      }));
       wirePushRow(p);
     };
 
