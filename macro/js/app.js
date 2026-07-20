@@ -10,7 +10,7 @@ import { esc } from "/util.js?v=20260719-1";
 import { MONTHS, MONTHS_FULL, WEEKDAYS, isoToDate, fmtDay, fmtDayGB, fmtWeekday, fmtDate,
   trackGauge, CYCLE_ZONES, BUBBLE_ZONES, bubbleComposite, bubbleBand,
   MAC_IND_ORDER, MACRO_DATA, setMacroData } from "./shared.js?v=20260719-1";
-import { macroDashPane, loadYieldCurve, cockpitInds } from "./dashboard.js?v=20260719-1";
+import { macroDashPane, loadYieldCurve, cockpitInds } from "./dashboard.js?v=20260719-2";
 // NOTE: dashboard.js and shared.js import ./content.js with their OWN ?v= —
 // keep all three content tokens identical (and bump together) or the browser
 // loads content.js twice as separate module instances.
