@@ -1272,6 +1272,14 @@ const FEED_SOURCES = [
   // Global aggregator — capped low. Yahoo Finance removed: its RSS is dominated by
   // sensational single-company clickbait with no reliable title signature to filter.
   { url: "https://www.investing.com/rss/news_25.rss", source: "Investing.com", region: "GEN", cap: 3 },
+  // Curated Substacks — reader-chosen credit/macro newsletters. `substack: true`
+  // marks the emitted items so the Home page routes them to their own "SUBS"
+  // desk label (integrated into the All wire, like the myFT stream). filter:false
+  // — these are hand-picked, so the macro-keyword title screen is bypassed.
+  { url: "https://investorama.substack.com/feed", source: "Accredited Investor Insights", region: "GEN", cap: 4, filter: false, substack: true },
+  { url: "https://mohamedelerian.substack.com/feed", source: "Mohamed El-Erian", region: "GEN", cap: 4, filter: false, substack: true },
+  { url: "https://debtserious.substack.com/feed", source: "Debt Serious", region: "GEN", cap: 4, filter: false, substack: true },
+  { url: "https://sineados.substack.com/feed", source: "But This Time It's Different", region: "GEN", cap: 4, filter: false, substack: true },
 ];
 // STRICT macro filter — a title must touch one of: central-bank policy, a key
 // economic indicator, an index / rates / commodity / FX move, or major earnings.
@@ -1397,7 +1405,7 @@ function feedParse(xml, feed) {
     if (!/^https?:\/\//i.test(link)) continue;
     const ds = feedTag(block, "pubDate") || feedTag(block, "published") || feedTag(block, "updated") || feedTag(block, "dc:date") || feedTag(block, "date");
     const when = ds ? new Date(feedDecode(ds)) : null;
-    out.push({ title, url: link, source: feed.source, region: feed.region, myft: feed.myft || undefined, when: (when && !isNaN(when.getTime())) ? when : null });
+    out.push({ title, url: link, source: feed.source, region: feed.region, myft: feed.myft || undefined, substack: feed.substack || undefined, when: (when && !isNaN(when.getTime())) ? when : null });
   }
   return out;
 }
@@ -1446,7 +1454,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=20", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=21", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {
@@ -1484,7 +1492,7 @@ async function handleFeed(request, env, ctx) {
     const { date, time } = feedLondon(it.when);
     if (!date) continue;
     // myFT links carry tracking params — keep the canonical /content/ URL.
-    items.push({ title: it.title, url: it.myft ? it.url.replace(/\?.*$/, "") : it.url, source: it.source, region: it.region, myft: it.myft || undefined, date, time });
+    items.push({ title: it.title, url: it.myft ? it.url.replace(/\?.*$/, "") : it.url, source: it.source, region: it.region, myft: it.myft || undefined, substack: it.substack || undefined, date, time });
     if (items.length >= 100) break;
   }
   const resp = new Response(JSON.stringify({ items, asOf: new Date().toISOString() }), {

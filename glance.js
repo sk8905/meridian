@@ -185,8 +185,8 @@ function resolveSaved() {
   restructurings.forEach((r) => { if (lS.has(r.id)) out.push({ desk: "l", title: r.company, href: r.judgmentUrl || r.articleUrl || "/legal/#/", ext: !!(r.judgmentUrl || r.articleUrl), date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
   return out.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 }
-const _deskClass = { m: "macro", c: "credit", l: "legal", n: "newsletter", f: "ft" };
-const DESK_CODE = { m: "MAC", c: "CRD", l: "LEX", n: "LETTER", f: "FT" };
+const _deskClass = { m: "macro", c: "credit", l: "legal", n: "newsletter", f: "ft", s: "substack" };
+const DESK_CODE = { m: "MAC", c: "CRD", l: "LEX", n: "LETTER", f: "FT", s: "SUBS" };
 function initSavedPanel() {
   const wrap = document.getElementById("g-saved");
   if (!wrap) return;
@@ -560,7 +560,7 @@ const creditItemExt = (x) => !!x.sourceUrl;
 // interleaved across desks so it reads as a single merged feed, not three blocks.
 // Falls back to the most-recent date present if nothing is dated today, so the
 // feed is never empty between refreshes.
-const DESK = { m: "Macro", c: "Credit", l: "Legal", n: "Letter", f: "myFT" };
+const DESK = { m: "Macro", c: "Credit", l: "Legal", n: "Letter", f: "myFT", s: "Substack" };
 // Active desk filter for the home news feed: "all" | "m" | "c" | "l".
 // One-line cross-desk briefing shown under the "Your briefing" heading.
 // Category matchers for the two glance lines: the freshest premium story
@@ -618,8 +618,9 @@ function renderFeed() {
   (((COMMENTARY && COMMENTARY.uk) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time, "m", mSid(n))));
   // Live RSS headlines (real publish times) merged in with the curated macro
   // items; the title-dedupe below collapses any overlap with the static feeds.
-  // myFT-flagged items belong to the FT stream, not Macro — routed below.
-  (_liveFeed || []).forEach((n) => { if (!n.myft) macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)); });
+  // myFT-flagged items belong to the FT stream and substack-flagged items to the
+  // Substack desk, not Macro — both routed below.
+  (_liveFeed || []).forEach((n) => { if (!n.myft && !n.substack) macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)); });
   // Limit non-premium sources: drop Investing.com (unless a Reuters story delivered
   // via it) and the low-tier aggregator/SEO/crypto desks, so the macro feed stays
   // on premium newsrooms, research houses and official data.
@@ -651,8 +652,14 @@ function renderFeed() {
   // FT_ITEMS above are the 5×/day backfill; title-dedupe collapses the overlap.
   (_liveFeed || []).forEach((n) => { if (n.myft) ft.push(mk("f", n.url, n.title, "Financial Times", true, n.date, n.time)); });
 
+  // Curated Substacks (credit/macro newsletters) — live from /api/feed, edge-
+  // parsed by the Worker (substack:true). Their own "SUBS" desk label; folded
+  // into the All wire and filterable by source like every other desk.
+  const substacks = [];
+  (_liveFeed || []).forEach((n) => { if (n.substack) substacks.push(mk("s", n.url, n.title, n.source, true, n.date, n.time)); });
+
   const day = (x) => String(x.date || "").slice(0, 10);
-  const all = [...macro, ...credit, ...legal, ...newsletter, ...ft];
+  const all = [...macro, ...credit, ...legal, ...newsletter, ...ft, ...substacks];
   const now = new Date();
   const todayISO = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
   const target = all.some((x) => day(x) === todayISO) ? todayISO : all.reduce((m, x) => (day(x) > m ? day(x) : m), "");
@@ -666,7 +673,7 @@ function renderFeed() {
   const CAP = 500;
   // Per-desk deduped streams (newest first) — power the desk filter and the
   // "what's new" counts (items in the most recent ~2 days).
-  const byDesk = { m: dedupe([...macro].sort(byDateDesc)), c: dedupe([...credit].sort(byDateDesc)), l: dedupe([...legal].sort(byDateDesc)), n: dedupe([...newsletter].sort(byDateDesc)), f: dedupe([...ft].sort(byDateDesc)) };
+  const byDesk = { m: dedupe([...macro].sort(byDateDesc)), c: dedupe([...credit].sort(byDateDesc)), l: dedupe([...legal].sort(byDateDesc)), n: dedupe([...newsletter].sort(byDateDesc)), f: dedupe([...ft].sort(byDateDesc)), s: dedupe([...substacks].sort(byDateDesc)) };
   const maxDay = all.reduce((m, x) => (day(x) > m ? day(x) : m), "");
   const cutoff = (() => { const d = new Date(maxDay + "T00:00:00"); if (isNaN(d)) return ""; d.setDate(d.getDate() - 1); return d.toISOString().slice(0, 10); })();
   const recentN = (list) => (cutoff ? list.filter((x) => day(x) >= cutoff).length : list.length);
@@ -682,10 +689,10 @@ function renderFeed() {
   if (_feedSrc) {
     // Source filter wins over the desk chips: every story from that newsroom,
     // across all three desks, newest first.
-    feed = dedupe([...macro, ...credit, ...legal, ...ft].sort(byDateDesc)).filter((x) => x.src === _feedSrc).slice(0, CAP);
+    feed = dedupe([...macro, ...credit, ...legal, ...ft, ...substacks].sort(byDateDesc)).filter((x) => x.src === _feedSrc).slice(0, CAP);
   } else if (_feedDesk === "all") {
     const pick = (list) => dedupe(list.filter((x) => day(x) === target).sort(byDateDesc));
-    const lists = [pick(macro), pick(credit), pick(legal), pick(newsletter), pick(ft)];
+    const lists = [pick(macro), pick(credit), pick(legal), pick(newsletter), pick(ft), pick(substacks)];
     const seen = new Set();
     feed = [];
     for (let i = 0; lists.some((l) => i < l.length); i++) lists.forEach((l) => {
@@ -1521,12 +1528,15 @@ function buildIndex() {
   // "/LETTER" code filters have content to list.
   (FT_ITEMS || []).forEach((f) => add("ft", f.title, `Financial Times · myFT${f.date ? " · " + fmt(f.date) : ""}`, f.url, 2, f.date, "FT"));
   (NEWSLETTERS || []).forEach((n) => add("letter", n.title, `${n.publication || "Newsletter"}${n.series ? " · " + n.series : ""}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "Letter"));
+  // Curated Substacks (live from /api/feed, seeded from cache at init) — so the
+  // "/SUBS" code filter has content to list.
+  (_liveFeed || []).forEach((n) => { if (n.substack) add("substack", n.title, `${n.source || "Substack"}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "SUBS"); });
 
   return idx;
 }
 
 // ---- Command palette -------------------------------------------------------
-const PAL_CODE = { macro: "MAC", credit: "CRD", legal: "LEX", view: "GO", ft: "FT", letter: "LETTER" };
+const PAL_CODE = { macro: "MAC", credit: "CRD", legal: "LEX", view: "GO", ft: "FT", letter: "LETTER", substack: "SUBS" };
 function wirePalette(idx) {
   const overlay = document.getElementById("cmdk");
   const input = document.getElementById("cmdk-input");
