@@ -77,8 +77,11 @@
   .notif { grid-area: bell; justify-self: end; align-self: center; }
   .logo { font-size: 1.55rem; }
   .brand-text strong { font-size: 1.05rem; }
-  .account-nav, .data-status { font-size: .6rem; }
-  .account-nav .si-prefix { display: none; }
+  /* Phones: drop the identity (email/sign-out) + last-refresh from the header
+     entirely — they live in the /menu/ page instead. Hidden wherever they sit
+     (header or the footer relocation); the menu reads their innerHTML, not their
+     display, so it still shows the signed-in account. */
+  #account-nav, #data-status, .acct-foot { display: none !important; }
 }
 
 /* ---------- Markets ticker strip (MKTS) ---------- */

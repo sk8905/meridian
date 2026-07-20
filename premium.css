@@ -384,7 +384,11 @@ html.wire-boot #out { visibility: hidden; }
   background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
 /* One chip so far: size it like a single tab in the four-chip bars (¼ width),
    not full-bleed. */
-.na-menu-bar .tchip { flex: 0 0 25%; max-width: 120px; }
+/* Spread the menu chips evenly across the full width of the bar. */
+.na-menu-bar .tchip { flex: 1 1 0; max-width: none; }
+/* Push toggle row (Notifications tab): label left, the on/off pill right. */
+.na-menu-pushrow { justify-content: space-between; }
+.na-menu-pushrow .na-menu-push { margin-right: 0; }
 @media (min-width: 761px) {
   .na-panel.na-menu-static { position: static !important; width: auto; max-width: 560px;
     margin: 26px auto; display: flex; flex-direction: column; min-height: 60vh; max-height: none;

@@ -602,12 +602,14 @@ export function initNavActions() {
           const sw = "serviceWorker" in navigator && navigator.serviceWorker.controller ? "sw" : "no-sw";
           return `<div class="na-menu-row na-menu-stat">${t ? esc(t) + " · " : ""}Build ${esc(BUILD_TOKEN)} · ${sw}</div>`;
         })()
-        + `</div><button type="button" class="na-menu-push" id="na-push" title="Push notifications">${ICO_BELL}<span class="na-push-state">…</span></button></div>`;
+        + `</div></div>`;
 
       // Active pane — chosen by the menu bar chips (Search · Notifications · Display).
       let pane;
       if (_menuTab === "notifs") {
-        pane = `<div class="na-tabbody" id="na-menu-notifs"><div class="na-load">Loading…</div></div>`;
+        // Just the push on/off toggle — NOT the notifications themselves.
+        pane = `<div class="na-menu-recent-h">Notifications</div>`
+          + `<div class="na-menu-row na-menu-pushrow"><span>Push notifications</span><button type="button" class="na-menu-push" id="na-push" title="Push notifications">${ICO_BELL}<span class="na-push-state">…</span></button></div>`;
       } else if (_menuTab === "display") {
         // Light/dark toggle — two options: System (follow the OS) or Other (its opposite).
         pane = `<div class="na-menu-recent-h">Appearance</div>`
@@ -633,13 +635,6 @@ export function initNavActions() {
           if (!_applyThemeChoice) return;
           _applyThemeChoice(b.dataset.themePref === "system" ? "system" : otherPref());
         }));
-      }
-      if (_menuTab === "notifs") {
-        const nb = p.querySelector("#na-menu-notifs");
-        ensureNotifs().then((items) => {
-          nb.innerHTML = items.length ? items.slice(0, 40).map(notifRow).join("") : '<div class="na-empty">Nothing yet.</div>';
-          markNotifSeen(items); clearBadge();
-        }).catch(() => { nb.innerHTML = '<div class="na-load">Unavailable right now.</div>'; });
       }
       wirePushRow(p);
     };
