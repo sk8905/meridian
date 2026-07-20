@@ -11,6 +11,10 @@ for (const [name, dev] of [["phone", PHONE], ["desktop", DESKTOP]]) {
     await pg.waitForTimeout(2200);
     await pg.evaluate(async () => {
       const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+      // Empty seen-sets → every notification counts as genuinely NEW, so the
+      // panel lists the fresh cross-desk items (the bell now shows only what's
+      // new; on a caught-up bell it shows a "Recent" context list instead).
+      try { localStorage.setItem("meridian.credit.notifSeen", "[]"); localStorage.setItem("meridian.legal.notifSeen", "[]"); } catch { /* */ }
       document.getElementById("na-notif")?.click(); await sleep(700);
     });
     const st = await pg.evaluate(() => ({
