@@ -24,14 +24,14 @@
   <title>Wire — Home</title>
   <meta name="description" content="Wire Home — a cross-desk briefing across the Credit, Legal and Macro intelligence platforms, with a unified search." />
   <link rel="stylesheet" href="/home.css?v=20260719-5" />
-  <link rel="stylesheet" href="/premium.css?v=20260719-26" />
+  <link rel="stylesheet" href="/premium.css?v=20260719-27" />
   <script type="module" blocking="render">
     // Render-blocking boot, mirroring the app pages: with a recent sign-in
     // hint the briefing renders BEFORE first paint and the shared chrome
     // mounts, so arriving on Home paints once, complete — no feed/chips/tab-
     // bar staging. The body auth script confirms via /api/me and calls
     // window.__enterGlance for the no-hint path (initGlance self-guards).
-    import { initGlance } from "/glance.js?v=20260719-25";
+    import { initGlance } from "/glance.js?v=20260719-26";
     import { initNavActions } from "/nav-actions.js?v=20260719-39";
     window.__enterGlance = () => {
       ["loading", "out", "glance"].forEach((s) => document.getElementById(s).classList.toggle("hidden", s !== "glance"));
@@ -264,7 +264,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260719-25").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260719-26").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), the head module shows the briefing immediately

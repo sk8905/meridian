@@ -772,7 +772,7 @@ function renderFeed() {
   if (head) {
     const chip = (k, label) => `<button type="button" class="g-feed-chip${!_feedSrc && _feedDesk === k ? " is-on" : ""}" data-desk="${k}" aria-pressed="${!_feedSrc && _feedDesk === k}">${label}</button>`;
     head.innerHTML = `<span class="g-feed-h-lbl">Latest news</span>`
-      + `<span class="g-feed-chips" role="group" aria-label="Filter by desk">${chip("all", "All")}${chip("news", "News")}${chip("m", "Macro")}${chip("c", "Credit")}${chip("l", "Legal")}</span>`;
+      + `<span class="g-feed-chips" role="group" aria-label="Filter by desk">${chip("all", "All")}${chip("m", "Macro")}${chip("c", "Credit")}${chip("l", "Legal")}</span>`;
     // A desk chip clears any source filter and switches desks.
     head.querySelectorAll(".g-feed-chip").forEach((b) => b.addEventListener("click", () => { _feedSrc = null; _feedDesk = b.dataset.desk; renderFeed(); }));
   }

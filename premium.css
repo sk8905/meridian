@@ -498,13 +498,16 @@ body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 56px) + v
 @media (max-width: 900px) {
   .topbar .topbar-inner > .na-actions { grid-area: bell; justify-self: end; align-self: center; }
 }
-.na-btn { position: relative; width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid var(--border, #262626); background: transparent; color: var(--muted, #8592ad); cursor: pointer; border-radius: 0; text-decoration: none; }
+/* Borderless icon buttons: the outline (var(--border)) read as a stray white box
+   on the navy top bar in light theme. Keep a transparent 1px border so sizing is
+   unchanged; hover just brightens the icon. */
+.na-btn { position: relative; width: 34px; height: 34px; display: grid; place-items: center; border: 1px solid transparent; background: transparent; color: var(--muted, #8592ad); cursor: pointer; border-radius: 0; text-decoration: none; }
 /* Desktop: the Markets dropdown is redundant (the data lives in the page rails /
    ticker), so hide its button. It stays in the DOM (kept as the mount sentinel)
    and remains available on phones, which have no rails. */
 @media (min-width: 761px) { #na-mkt { display: none; } }
 .na-btn svg { width: 19px; height: 19px; }
-.na-btn:hover { color: var(--ink, #eaf0fb); border-color: var(--ink); }
+.na-btn:hover { color: var(--ink, #eaf0fb); }
 /* Unread-count badge on the notifications bell. */
 .na-badge { position: absolute; top: -5px; right: -5px; min-width: 15px; height: 15px; padding: 0 3px; border-radius: 999px; background: #ef4444; color: #fff; font-size: 9px; font-weight: 700; line-height: 15px; text-align: center; font-family: var(--t-mono, ui-monospace, monospace); }
 .na-badge[hidden] { display: none; }
@@ -519,6 +522,20 @@ body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 56px) + v
 .na-actions .notif-bell .notif-ico { display: flex; align-items: center; justify-content: center; line-height: 0; }
 .na-actions .notif-bell svg { display: block; width: 19px; height: 19px; }
 /* ---- Overlays: compact dropdown on desktop, full-screen "page" on phones ---- */
+/* The shared dropdown panels (Markets / Bookmarks / Notifications / Menu) are
+   terminal chrome and must look identical on EVERY page. Home doesn't load
+   tui.css — where --surface/--head/--border/--ink/--muted are defined — so on
+   Home in light theme those tokens were unset and the panel fell back to dark
+   values (dark band + dark borders on a white panel). Scope the terminal palette
+   to the panels themselves so it resolves the same way regardless of page. */
+.na-panel, .notif-panel {
+  --surface: #ffffff; --head: #f4f7fb; --border: #e4e7ef;
+  --ink: #131b2c; --muted: #5e6a84; --faint: #8b96ac; --accent: #fb8b1e;
+}
+:root[data-theme="dark"] .na-panel, :root[data-theme="dark"] .notif-panel {
+  --surface: #0d0d0d; --head: #0a0a0a; --border: #262626;
+  --ink: #eaf0fb; --muted: #8592ad; --faint: #5c6a86; --accent: #fb8b1e;
+}
 .na-panel { position: fixed; right: 8px; top: 56px; width: 340px; max-width: 92vw; max-height: 74vh; overflow-y: auto; overscroll-behavior: contain; z-index: 200; background: var(--surface, #0d0d0d); border: 1px solid var(--border, #262626); box-shadow: 0 12px 34px rgba(0,0,0,.5); }
 .na-panel[hidden] { display: none; }
 .na-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 9px 12px; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); position: sticky; top: 0; z-index: 3; }
