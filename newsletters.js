@@ -27,6 +27,27 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-economicsdaily-20260720",
+    publication: "Bloomberg",
+    author: "Tom Rees",
+    series: "Economics Daily",
+    title: "Economics Daily: Growth gamble",
+    date: "2026-07-20",
+    time: "12:00",
+    summary: "Burnham faces a tough economic inheritance with tepid growth rates and a lingering inflation problem.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-20/uk-latest-andy-burnham-s-growth-gamble-starts-today",
+  },
+  {
+    id: "nl-bbg-marketsdaily-20260720",
+    publication: "Bloomberg",
+    series: "Markets Daily",
+    title: "Markets Daily: Prove it, Big Tech",
+    date: "2026-07-20",
+    time: "11:05",
+    summary: "Big Tech needs to prove that AI spending is going somewhere; plus, new private asset alchemy.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-20/big-tech-needs-to-prove-that-ai-spending-is-going-somewhere",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-20260720",
     publication: "Bloomberg",
     author: "Victoria Batchelor",

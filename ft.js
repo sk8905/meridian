@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "13c385e7-600f-471a-858e-6f1970802a10", title: "EU fines AliExpress €550mn for failing to prevent sale of illegal goods", date: "2026-07-20", time: "11:00", url: "https://www.ft.com/content/13c385e7-600f-471a-858e-6f1970802a10" },
+  { id: "dadcd609-1f27-405b-a7b6-348456abbcab", title: "Bad cabinet appointments will steal Andy Burnham's precious hours", date: "2026-07-20", time: "10:43", url: "https://www.ft.com/content/dadcd609-1f27-405b-a7b6-348456abbcab" },
+  { id: "7b19969f-3c3c-4e45-9eb4-aac02519ad46", title: "India's 'Cockroach' protests mount on streets of Delhi", date: "2026-07-20", time: "09:49", url: "https://www.ft.com/content/7b19969f-3c3c-4e45-9eb4-aac02519ad46" },
+  { id: "f1b94dc3-112a-424d-93ea-569f4869c259", title: "How the UK can be cleverer about stamp duty", date: "2026-07-20", time: "09:46", url: "https://www.ft.com/content/f1b94dc3-112a-424d-93ea-569f4869c259" },
   { id: "f567af77-801a-48b2-ba59-cf033f599701", title: "Lockheed to build cheaper Patriot missile to counter drone threat", date: "2026-07-20", time: "08:54", url: "https://www.ft.com/content/f567af77-801a-48b2-ba59-cf033f599701" },
   { id: "fc5b45df-9d69-400b-8ca2-949f827fad49", title: "Segro rejects £13.5bn bid by US rival Prologis in latest takeover twist", date: "2026-07-20", time: "08:36", url: "https://www.ft.com/content/fc5b45df-9d69-400b-8ca2-949f827fad49" },
   { id: "52e98fc4-32e3-4ed9-90fd-dcbba6188df5", title: "Oil back above $90 as Iran hits tankers", date: "2026-07-20", time: "08:11", url: "https://www.ft.com/content/52e98fc4-32e3-4ed9-90fd-dcbba6188df5" },
