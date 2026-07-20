@@ -13,7 +13,7 @@ export const UPDATED = "20 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-20",
-  lastCheckedTime: "05:18 BST",
+  lastCheckedTime: "12:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -379,18 +379,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-07-20",
   us: [
+    { title: "US Bombs Iran for Ninth Day as Standoff Over Hormuz Deepens", source: "Bloomberg", date: "2026-07-20", time: "12:15", url: "https://www.bloomberg.com/news/articles/2026-07-20/us-bombs-iran-for-ninth-day-as-standoff-over-hormuz-deepens" },
     { title: "Brent breaches $90 as Middle East risks mount with U.S-Iran tensions on the rise", source: "CNBC", date: "2026-07-20", time: "05:18", url: "https://www.cnbc.com/2026/07/20/oil-prices-today-brent-wti-crude-us-iran-centcom-hormuz.html" },
     { title: "Asia shares hesitant as oil climbs, earnings loom", source: "Reuters (via Yahoo Finance)", date: "2026-07-20", time: "05:18", url: "https://finance.yahoo.com/markets/stocks/articles/asia-shares-hesitant-oil-climbs-003525906.html" },
     { title: "Latest Oil Market News and Analysis for July 20", source: "Bloomberg", date: "2026-07-19", time: "22:00", url: "https://www.bloomberg.com/news/articles/2026-07-19/latest-oil-market-news-and-analysis-for-july-20" },
     { title: "Stock futures are little changed after Wall Street suffers losing week: Live updates", source: "CNBC", date: "2026-07-19", time: "21:30", url: "https://www.cnbc.com/2026/07/19/stock-market-today-live-updates.html" },
-    { title: "U.S. says it targeted Iran forces after deaths of two American troops", source: "CNBC", date: "2026-07-19", time: "21:05", url: "https://www.cnbc.com/2026/07/19/us-says-it-targeted-iran-forces-after-deaths-of-two-american-troops.html" },
   ],
   uk: [
+    { title: "UK to get a new prime minister as Trump slams Britain as 'Poverty Stricken Disaster'", source: "CNBC", date: "2026-07-20", time: "12:15", url: "https://www.cnbc.com/2026/07/20/uk-prime-minister-burnham-trump-poverty-stricken-disaster.html" },
     { title: "Burnham to promise cost of living relief in PM speech", source: "RTÉ", date: "2026-07-20", time: "05:18", url: "https://www.rte.ie/news/2026/0720/1584121-uk-prime-minister-burnham/" },
     { title: "Andy Burnham's in-tray: The challenges facing the new UK PM", source: "Al Jazeera", date: "2026-07-19", time: "20:00", url: "https://www.aljazeera.com/economy/2026/7/19/andy-burnhams-in-tray-the-challenges-facing-the-new-uk-pm" },
     { title: "Burnham will deal with living costs in short term, key adviser says", source: "AOL (wire)", date: "2026-07-19", time: "11:33", url: "https://www.aol.com/articles/burnham-deal-living-costs-short-113302000.html" },
     { title: "UK's incoming PM Andy Burnham drops digital ID scheme to prioritize cost of living, say allies", source: "CNBC", date: "2026-07-19", time: "21:05", url: "https://www.cnbc.com/2026/07/19/uks-incoming-pm-andy-burnham-to-prioritize-cost-of-living-say-allies.html" },
-    { title: "Burnham finalising cabinet before becoming PM on Monday", source: "ITV News", date: "2026-07-17", time: "12:00", url: "https://www.itv.com/news/2026-07-17/burnham-finalising-plans-for-government-before-becoming-prime-minister-on-monday" },
   ],
 };
 
@@ -404,6 +404,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-20",
   items: [
+    {"title":"US Bombs Iran for Ninth Day as Standoff Over Hormuz Deepens","source":"Bloomberg","date":"2026-07-20","time":"12:15","url":"https://www.bloomberg.com/news/articles/2026-07-20/us-bombs-iran-for-ninth-day-as-standoff-over-hormuz-deepens","blurb":"US strikes on Iran continue into a ninth day as the standoff over the Strait of Hormuz deepens and Brent holds above $90/bbl."},
+    {"title":"AI Is 'New Engine' Keeping Chinese Economy From Harder Landing","source":"Bloomberg","date":"2026-07-20","time":"12:15","url":"https://www.bloomberg.com/news/articles/2026-07-20/ai-is-new-engine-keeping-chinese-economy-from-harder-landing","blurb":"AI-related capital spending is offsetting property-sector drag and cushioning China's growth slowdown, Bloomberg reports."},
+    {"title":"Fear of a President Le Pen Spreads to Germany","source":"Bloomberg Opinion","date":"2026-07-20","time":"12:15","url":"https://www.bloomberg.com/opinion/articles/2026-07-20/fear-of-a-president-le-pen-spreads-to-germany","blurb":"European political-risk premia widen as concern over a possible Le Pen presidency spreads beyond France into German markets."},
     {"title":"Brent breaches $90 as Middle East risks mount with U.S-Iran tensions on the rise","source":"CNBC","date":"2026-07-20","time":"05:18","url":"https://www.cnbc.com/2026/07/20/oil-prices-today-brent-wti-crude-us-iran-centcom-hormuz.html","blurb":"Brent for September delivery rose ~2.8% to top $90/bbl and WTI gained 2.4% to $84.49 as the US carried out a ninth night of strikes on Iran."},
     {"title":"Asia shares hesitant as oil climbs, earnings loom","source":"Reuters (via Yahoo Finance)","date":"2026-07-20","time":"05:18","url":"https://finance.yahoo.com/markets/stocks/articles/asia-shares-hesitant-oil-climbs-003525906.html","blurb":"JPMorgan's Bruce Kasman says \"the balance of risks is shifting in the direction of an earlier hike than expected\" as futures price further Fed tightening into year-end."},
     {"title":"Burnham to promise cost of living relief in PM speech","source":"RTÉ","date":"2026-07-20","time":"05:18","url":"https://www.rte.ie/news/2026/0720/1584121-uk-prime-minister-burnham/","blurb":"Andy Burnham formally enters Downing Street today and pledges to prioritise cost-of-living relief in his first speech as prime minister."},
@@ -441,9 +444,6 @@ export const ARTICLES = {
     {"title":"Stock market today: Stocks fall after Netflix whiff while chip stocks sell-off hammers Nasdaq","source":"Yahoo Finance","date":"2026-07-17","time":"12:19","url":"https://finance.yahoo.com/markets/live/stock-market-today-friday-july-17-dow-sp-500-nasdaq-092345307.html","blurb":"A semiconductor-led sell-off dragged Wall Street lower, closing out a losing week for the major US indexes."},
     {"title":"Andy Burnham Calls for 'New Politics' in U.K. in First Speech as Labour Leader","source":"Time","date":"2026-07-17","time":"12:03","url":"https://time.com/article/2026/07/17/andy-burnham-first-speech-labour-leader-incoming-prime-minister/","blurb":"In his first speech as Labour leader, Burnham positioned himself as a 'pro-business' reformer, pointing to his record on public transport in Manchester ahead of taking over Downing Street on Monday."},
     {"title":"Andy Burnham to become U.K.'s prime minister Monday after being declared Labour Party leader","source":"CBS News","date":"2026-07-17","time":"12:03","url":"https://www.cbsnews.com/news/andy-burnham-uk-prime-minister-labour-party-leader/","blurb":"Burnham will succeed Keir Starmer as Britain's seventh prime minister in a decade, inheriting a sluggish economy, a cost-of-living squeeze and overstretched public services."},
-    {"title":"Andy Burnham will be Britain's seventh leader in a decade. Can he buck the trend?","source":"CNN","date":"2026-07-17","time":"12:03","url":"https://www.cnn.com/2026/07/17/uk/andy-burnham-labour-leader-uk-intl","blurb":"A look at whether the former Greater Manchester mayor, known as the 'King of the North,' can break the UK's recent run of short-lived premierships."},
-    {"title":"Stock market next week: Outlook for July 20-24, 2026","source":"CNBC","date":"2026-07-17","time":"12:03","url":"https://www.cnbc.com/2026/07/17/stock-market-next-week-outlook-for-july-20-24-2026.html","blurb":"Alphabet and Tesla headline a heavy earnings week as investors weigh whether hyperscaler AI-capex guidance can steady the reeling chip sector."},
-    {"title":"Chip stock sell-off, Netflix earnings, Trump's approval rating and more in Morning Squawk","source":"CNBC","date":"2026-07-17","time":"11:30","url":"https://www.cnbc.com/2026/07/17/5-things-to-know-before-the-stock-market-opens.html","blurb":"A rundown of the five biggest stories moving markets into Friday's US open."},
   ],
 };
 

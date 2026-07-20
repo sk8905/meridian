@@ -229,7 +229,7 @@ export function viewFirm(id) {
   // Credit-wire deals/fundraising naming this firm fold into "Matters" (and
   // "All") once the lazily-loaded credit data arrives; if it can't load, the
   // page simply shows the legal-side rows.
-  import("/credit/js/data.js?v=20260720-1").then(({ deals, intel, managers }) => {
+  import("/credit/js/data.js?v=20260720-2").then(({ deals, intel, managers }) => {
     const mgr = (mid) => (managers.find((m) => m.id === mid) || {}).name || "";
     dealRows = [...(deals || []), ...(intel || [])]
       .filter((d) => firmMentioned(firm, recText(d)))
