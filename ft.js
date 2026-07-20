@@ -20,6 +20,16 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f567af77-801a-48b2-ba59-cf033f599701", title: "Lockheed to build cheaper Patriot missile to counter drone threat", date: "2026-07-20", time: "08:54", url: "https://www.ft.com/content/f567af77-801a-48b2-ba59-cf033f599701" },
+  { id: "fc5b45df-9d69-400b-8ca2-949f827fad49", title: "Segro rejects £13.5bn bid by US rival Prologis in latest takeover twist", date: "2026-07-20", time: "08:36", url: "https://www.ft.com/content/fc5b45df-9d69-400b-8ca2-949f827fad49" },
+  { id: "52e98fc4-32e3-4ed9-90fd-dcbba6188df5", title: "Oil back above $90 as Iran hits tankers", date: "2026-07-20", time: "08:11", url: "https://www.ft.com/content/52e98fc4-32e3-4ed9-90fd-dcbba6188df5" },
+  { id: "e6e3acd7-81a2-471c-9be1-a7f7558d639b", title: "China’s ‘national team’ buys shares worth $9bn to prop up market", date: "2026-07-20", time: "07:54", url: "https://www.ft.com/content/e6e3acd7-81a2-471c-9be1-a7f7558d639b" },
+  { id: "715da6d5-bd8a-4419-b45c-8cfb02d847be", title: "Samsung Biologics buys Swiss peptide maker for $1.8bn", date: "2026-07-20", time: "07:53", url: "https://www.ft.com/content/715da6d5-bd8a-4419-b45c-8cfb02d847be" },
+  { id: "9523ead6-6599-4ed0-9b14-dfa70fd1b180", title: "Portfolio construction in the shadow of the AI bubble", date: "2026-07-20", time: "06:30", url: "https://www.ft.com/content/9523ead6-6599-4ed0-9b14-dfa70fd1b180" },
+  { id: "7a1a9e9b-7919-4f3a-b84b-0cab584a04bb", title: "Paris and Berlin set year-end deadline for options to reform EU’s diplomatic arm", date: "2026-07-20", time: "06:00", url: "https://www.ft.com/content/7a1a9e9b-7919-4f3a-b84b-0cab584a04bb" },
+  { id: "07ec1df0-7ded-45e0-aad9-9dde31d6ba15", title: "Trump Media’s pitched fee for early access to posts", date: "2026-07-20", time: "06:00", url: "https://www.ft.com/content/07ec1df0-7ded-45e0-aad9-9dde31d6ba15" },
+  { id: "29a22ffc-ff20-44c2-b2e9-c1a7b28646e3", title: "FTAV’s further reading", date: "2026-07-20", time: "06:00", url: "https://www.ft.com/content/29a22ffc-ff20-44c2-b2e9-c1a7b28646e3" },
+  { id: "b8fd6341-4191-4fdd-a9c0-7fb7837d1dc7", title: "FirstFT: Burnham weighs Number 10 overhaul", date: "2026-07-20", time: "05:32", url: "https://www.ft.com/content/b8fd6341-4191-4fdd-a9c0-7fb7837d1dc7" },
   { id: "a803297d-ddd1-40a7-8bdb-c0bd50c3b546", title: "Sinaloa cartel founder set for $15bn forfeiture order and life sentence", date: "2026-07-20", time: "05:00", url: "https://www.ft.com/content/a803297d-ddd1-40a7-8bdb-c0bd50c3b546" },
   { id: "82e9b2fc-0dd8-4560-837c-2e7695457783", title: "UK pension insurers raise exposure to opaque private credit", date: "2026-07-20", time: "05:00", url: "https://www.ft.com/content/82e9b2fc-0dd8-4560-837c-2e7695457783" },
   { id: "ac288d04-8354-4a6c-99fe-c0fca832ad43", title: "Andy Burnham urged to use flexibility in fiscal rules to boost investment", date: "2026-07-20", time: "05:00", url: "https://www.ft.com/content/ac288d04-8354-4a6c-99fe-c0fca832ad43" },
@@ -50,14 +60,4 @@ export const FT_ITEMS = [
   { id: "b0ac6cd9-e325-485a-9c0a-db5053af8d93", title: "UK steel quota concessions to seal India deal pose risk to Welsh plant, say insiders", date: "2026-07-19", time: "12:00", url: "https://www.ft.com/content/b0ac6cd9-e325-485a-9c0a-db5053af8d93" },
   { id: "c1b04338-8fc8-45fc-8a35-f623843d4dda", title: "How will the ECB respond to the latest rise in oil prices?", date: "2026-07-19", time: "12:00", url: "https://www.ft.com/content/c1b04338-8fc8-45fc-8a35-f623843d4dda" },
   { id: "dc61c278-c3eb-48b5-8f79-f949eae7a601", title: "China’s Jingye demands payout over British Steel nationalisation", date: "2026-07-19", time: "11:50", url: "https://www.ft.com/content/dc61c278-c3eb-48b5-8f79-f949eae7a601" },
-  { id: "8da4243f-820c-428c-bcfb-ba63dac48c1c", title: "US day traders flock to ‘the most dangerous product in crypto’", date: "2026-07-19", time: "11:10", url: "https://www.ft.com/content/8da4243f-820c-428c-bcfb-ba63dac48c1c" },
-  { id: "e8e8adc5-7c56-45a8-99fc-bb5acfda263e", title: "US strikes Iran after two American troops killed in Jordan", date: "2026-07-19", time: "10:13", url: "https://www.ft.com/content/e8e8adc5-7c56-45a8-99fc-bb5acfda263e" },
-  { id: "e4f7727f-b1c1-4325-b76d-366b6449cbe3", title: "GameStop extends pursuit of eBay despite Wall Street scepticism", date: "2026-07-19", time: "10:00", url: "https://www.ft.com/content/e4f7727f-b1c1-4325-b76d-366b6449cbe3" },
-  { id: "99279482-ffdb-44db-bab0-e13790b3b525", title: "Is Fifa’s hyper-commercialised World Cup here to stay?", date: "2026-07-19", time: "09:05", url: "https://www.ft.com/content/99279482-ffdb-44db-bab0-e13790b3b525" },
-  { id: "fde736b3-6999-4b9e-979e-2b4b06dbbd5c", title: "No longer grim up north for UK banks as Burnham comes to power", date: "2026-07-19", time: "05:00", url: "https://www.ft.com/content/fde736b3-6999-4b9e-979e-2b4b06dbbd5c" },
-  { id: "c5045a09-29c1-4a9b-8f5b-f8dead22b09c", title: "How Maga fell hard for the gender binary", date: "2026-07-19", time: "05:00", url: "https://www.ft.com/content/c5045a09-29c1-4a9b-8f5b-f8dead22b09c" },
-  { id: "9cf9b393-3ac7-4cfc-9dd1-4fc23831e6a0", title: "Chinese leaders zero in on need for stimulus for economy", date: "2026-07-19", time: "05:00", url: "https://www.ft.com/content/9cf9b393-3ac7-4cfc-9dd1-4fc23831e6a0" },
-  { id: "8005bed0-afab-4240-91f8-7567212f2b91", title: "Heroes, villains and clowns: Simon Kuper’s World Cup awards", date: "2026-07-19", time: "05:00", url: "https://www.ft.com/content/8005bed0-afab-4240-91f8-7567212f2b91" },
-  { id: "6f004c47-3be1-4245-bb8e-768268341934", title: "Can an ‘unelected’ prime minister succeed?", date: "2026-07-19", time: "05:00", url: "https://www.ft.com/content/6f004c47-3be1-4245-bb8e-768268341934" },
-  { id: "658e1eb4-2c33-4755-8f44-0261d24dd1b7", title: "Why ‘rightwing’ is no longer such a dirty word in Britain", date: "2026-07-19", time: "05:00", url: "https://www.ft.com/content/658e1eb4-2c33-4755-8f44-0261d24dd1b7" },
 ];

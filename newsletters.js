@@ -27,6 +27,27 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-20260720",
+    publication: "Bloomberg",
+    author: "Victoria Batchelor",
+    series: "Morning Briefing Europe",
+    title: "Escalating attacks",
+    date: "2026-07-20",
+    time: "07:21",
+    summary: "Oil pushes higher as US-Iran attacks escalate, Spain wins the World Cup, and Andy Burnham takes over as UK prime minister.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-20/us-strikes-iran-in-escalating-campaign-after-troops-killed",
+  },
+  {
+    id: "nl-econ-worldinbrief-20260720",
+    publication: "The Economist",
+    series: "The World in Brief",
+    title: "The World in Brief: America launches ninth round of strikes",
+    date: "2026-07-20",
+    time: "06:40",
+    summary: "US launches its ninth round of strikes on Iran as Brent crosses $90 a barrel; Spain beats Argentina to win the World Cup.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-pointsofreturn-20260720",
     publication: "Bloomberg",
     author: "John Authers",
