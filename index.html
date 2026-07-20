@@ -7,7 +7,7 @@
   <!-- Resolve the theme BEFORE paint (stored choice, else the OS setting) so there
        is no light flash; then wire the top-bar toggle once the DOM is ready. -->
   <script>
-    (function(){var r=document.documentElement;r.setAttribute("data-theme","dark");r.setAttribute("data-theme-choice","dark");try{localStorage.setItem("m_theme","dark");}catch(e){}})();
+    (function(){var r=document.documentElement;var t="dark";try{var s=localStorage.getItem("m_theme");if(s==="light"||s==="dark")t=s;}catch(e){}r.setAttribute("data-theme",t);r.setAttribute("data-theme-choice",t);})();
     // Hold the content area invisible until the briefing has rendered (nav-actions
     // reveals; timeout = safety net) so a page switch paints ONCE, complete.
     document.documentElement.classList.add("wire-boot");setTimeout(function(){document.documentElement.classList.remove("wire-boot");},1600);

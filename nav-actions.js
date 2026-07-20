@@ -297,6 +297,10 @@ async function loadSaved(body, headCount) {
 
 // ---- Notifications — cross-desk, tagged by desk (MAC / CRD / LEX) -----------
 const ICO_BELL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>';
+const ICO_SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.5M12 19v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2.5 12H5M19 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>';
+const ICO_MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
+// Reflect the theme the button will switch TO (sun while dark, moon while light).
+const themeIcon = () => (document.documentElement.getAttribute("data-theme") === "dark" ? ICO_SUN : ICO_MOON);
 // Two desks only: the bell is limited to Credit + Legal deal-flow (saved.js
 // buildNotifs) — macro items no longer appear, so no macro seen-state to sync.
 const NOTIF_KEYS = { c: "meridian.credit.notifSeen", l: "meridian.legal.notifSeen" };
@@ -427,12 +431,29 @@ export function initNavActions() {
       `<span class="na-ring" title="Time to next live-feed refresh" aria-hidden="true"><svg viewBox="0 0 18 18"><circle class="na-ring-track" cx="9" cy="9" r="7"/><circle class="na-ring-arc" cx="9" cy="9" r="7"/></svg></span>` +
       `<button type="button" class="na-btn" id="na-mkt" aria-label="Markets & key rates" aria-haspopup="true" aria-expanded="false" title="Markets & key rates">${ICO_MKT}</button>` +
       `<button type="button" class="na-btn" id="na-saved" aria-label="Saved" aria-haspopup="true" aria-expanded="false" title="Saved">${ICO_SAVED}</button>` +
-      `<button type="button" class="na-btn na-bell" id="na-notif" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">${ICO_BELL}<span class="na-badge" hidden></span></button>`;
+      `<button type="button" class="na-btn na-bell" id="na-notif" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">${ICO_BELL}<span class="na-badge" hidden></span></button>` +
+      `<button type="button" class="na-btn" id="na-theme" aria-label="Switch theme" title="Switch light / dark">${themeIcon()}</button>`;
     if (notif && notif.parentElement) {
       notif.parentElement.insertBefore(wrap, notif);
     } else if (bar) {
       bar.appendChild(wrap);
     }
+
+    // Light / dark toggle: flip data-theme (+ the choice attr the CSS reads),
+    // persist to localStorage (m_theme) so the inline head script applies it
+    // before paint on the next load, and swap the button's icon. Shared across
+    // all pages via this one controller.
+    const themeBtn = wrap.querySelector("#na-theme");
+    if (themeBtn) themeBtn.addEventListener("click", () => {
+      const r = document.documentElement;
+      const next = r.getAttribute("data-theme") === "dark" ? "light" : "dark";
+      r.setAttribute("data-theme", next);
+      r.setAttribute("data-theme-choice", next);
+      try { localStorage.setItem("m_theme", next); } catch { /* */ }
+      const meta = document.querySelector('meta[name="theme-color"]');
+      if (meta) meta.setAttribute("content", next === "dark" ? "#05080f" : "#ffffff");
+      themeBtn.innerHTML = themeIcon();
+    });
 
     // Refresh-countdown ring. stroke-dashoffset walks 0 → circumference across
     // the 5-minute window (full ring draining to empty), then wraps. The phase
