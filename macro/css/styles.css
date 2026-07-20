@@ -408,6 +408,17 @@ a.intel-head:hover { text-decoration: underline; }
 .mw-seg.mw-ig, .mw-dot.mw-ig, .mw-fill-ig { background: color-mix(in srgb, var(--ink, #eaf0fb) 38%, transparent); }
 .mw-seg.mw-sg, .mw-dot.mw-sg, .mw-fill-sg { background: color-mix(in srgb, var(--macro, #fb8b1e) 75%, transparent); }
 .mw-legend { display: flex; gap: 14px; font-family: var(--t-mono); font-size: 9.5px; letter-spacing: .04em; color: var(--muted); margin-bottom: 6px; }
+/* Further-reading resources (refi / maturity walls), collapsed by default. */
+.mw-res { margin-top: 12px; border-top: 1px solid var(--border); padding-top: 8px; }
+.mw-res > summary { cursor: pointer; font-family: var(--t-mono); font-size: 10px; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); list-style: none; }
+.mw-res > summary::-webkit-details-marker { display: none; }
+.mw-res > summary::before { content: "▸ "; }
+.mw-res[open] > summary::before { content: "▾ "; }
+.mw-res-g { margin: 8px 0 4px; }
+.mw-res-h { margin: 6px 0 3px; }
+.mw-res-list { list-style: none; margin: 0; padding: 0; }
+.mw-res-list li { font-size: var(--fs-sm, 12px); line-height: 1.45; margin: 2px 0; }
+.mw-res-list a { font-weight: 600; }
 /* Maturity-wall bar chart (Dashboard › Credit): published figures only. Series
    marks reuse the panel's two-hue system — neutral ink for loans, the macro
    accent for HY bonds; one rule per series covers both the SVG bar (fill) and

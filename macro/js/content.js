@@ -525,6 +525,30 @@ export const MATWALL = {
       hy: { name: "PitchBook \u00b7 LCD", url: "https://pitchbook.com/news/articles/2026-us-high-yield-outlook-volume-to-tick-higher-amid-looming-maturity-wall" },
     },
   },
+  // Curated further-reading on refinancing / maturity walls across the credit
+  // stack \u2014 primary-source research hubs & official-sector reports (each links
+  // to the publisher's own landing page; several S&P items are gated).
+  resources: [
+    { group: "High yield bonds", items: [
+      { name: "S&P Global Leveraged Finance Handbook 2025", use: "Annual handbook with HY & loan data, incl. maturity walls and refi risk.", url: "https://www.spglobal.com/ratings/en/research/credit-market-research" },
+      { name: "S&P Global \u2014 Leveraged Finance & CLOs research", use: "Cross-regional HY/loan trends, maturity profiles, default outlook.", url: "https://www.spglobal.com/ratings/en/research/topics/leveraged-finance-clos-uncovered" },
+      { name: "AFME \u2014 European HY, Leveraged Loan & Private Credit reports", use: "Issuance, outstanding amounts and maturity/refi analysis for European HY.", url: "https://www.afme.eu/publications/data-research" },
+    ] },
+    { group: "Leveraged finance / leveraged loans", items: [
+      { name: "S&P \u2014 US Leveraged Finance Q3 2025 update", use: "Quarterly maturity walls, issuance and default expectations.", url: "https://www.spglobal.com/ratings/en/regulatory/article/us-leveraged-finance-q3-2025-update-issuers-adjust-to-slower-growth-s101652207" },
+      { name: "S&P \u2014 European Leveraged Finance Monthly", use: "European leveraged loans/HY, incl. upcoming maturities and rating actions.", url: "https://www.spglobal.com/ratings/en/research/credit-market-research" },
+      { name: "AFME \u2014 Q3 2025 European HY, LL & Private Credit report", use: "Integrates HY, leveraged loans and private credit in one quarterly report.", url: "https://www.afme.eu/publications/data-research/afme-q3-2025-european-high-yield-leveraged-loan-and-private-credit-report/" },
+    ] },
+    { group: "Public corporate credit (IG & broad market)", items: [
+      { name: "Federal Reserve \u2014 Financial Stability Report", use: "Charts on corporate debt, with maturity/refi risk by sector.", url: "https://www.federalreserve.gov/publications/financial-stability-report.htm" },
+      { name: "FSOC \u2014 2025 Annual Report", use: "Corporate-debt vulnerabilities, sometimes with maturity/refi charts.", url: "https://home.treasury.gov/policy-issues/financial-markets-financial-institutions-and-fiscal-service/fsoc/studies-and-reports/annual-reports" },
+    ] },
+    { group: "Private credit / direct lending", items: [
+      { name: "FSB \u2014 Vulnerabilities in Private Credit", use: "Official-sector sizing of private credit + data gaps and refi risk.", url: "https://www.fsb.org/2026/05/report-on-vulnerabilities-in-private-credit/" },
+      { name: "AFME \u2014 European Private Credit reports", use: "Private-credit module (from Q3 2025): volumes, sector breakdowns, maturity context.", url: "https://www.afme.eu/publications/data-research" },
+      { name: "European Parliament (EPRS) \u2014 Private credit briefing", use: "Policy-level market size, returns, risk channels; notes data limits on maturities.", url: "https://www.europarl.europa.eu/thinktank/en/home" },
+    ] },
+  ],
 };
 
 // Earnings wall (Dashboard › Earnings): a one-week LOOK-BACK (results +

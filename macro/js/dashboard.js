@@ -209,6 +209,12 @@ function matWallPanel() {
   const kv = (rows) => `<div class="ck-kv">${(rows || []).map(([l, v]) => `<div class="ck-kv-row"><span class="ck-kv-l">${esc(l)}</span><span class="ck-kv-v">${esc(v)}</span></div>`).join("")}</div>`;
   const ig = Math.max(0, Math.min(100, w.rated.igPct));
   const wl = w.wall;
+  // Curated further-reading (refi / maturity-wall research), collapsed by default.
+  const resBlock = (w.resources && w.resources.length) ? `
+        <details class="mw-res">
+          <summary>Further resources — refinancing &amp; maturity walls</summary>
+          ${w.resources.map((g) => `<div class="mw-res-g"><p class="ck-sub mw-res-h"><strong>${esc(g.group)}</strong></p><ul class="mw-res-list">${g.items.map((it) => `<li><a href="${esc(it.url)}" target="_blank" rel="noopener noreferrer">${esc(it.name)}</a> <span class="muted small">— ${esc(it.use)}</span></li>`).join("")}</ul></div>`).join("")}
+        </details>` : "";
   const wallBlock = wl ? `
         <div class="mwc">
           <p class="ck-sub"><strong>Maturity wall by year — US leveraged finance</strong> · ${srcA(wl.srcs.loans)} · ${srcA(wl.srcs.hy)}</p>
@@ -242,6 +248,7 @@ function matWallPanel() {
           ${kv(w.privateCredit.rows)}
         </div>
         </div>
+        ${resBlock}
       </div>
     </section>`;
 }
