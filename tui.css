@@ -99,56 +99,6 @@
 /* Fixed viewport dash minus the topbar (54) + markets ticker (26) + briefing (32). */
 .tdash { display: flex; flex-direction: column; height: calc(100vh - 54px - 26px - 32px); background: var(--bg); overflow: hidden; }
 
-/* ---- Markets ticker strip (MKTS) — mirrors Home; sits above the briefing. ---- */
-.wticker { display: flex; align-items: stretch; height: 26px; flex: 0 0 auto; overflow: hidden;
-  background: var(--head); border-bottom: 1px solid var(--border); }
-.wticker:empty { display: none; }
-.wtk-lbl { display: flex; align-items: center; gap: 6px; padding: 0 13px; font-size: 10.5px; font-weight: 600;
-  letter-spacing: .04em; color: var(--muted); border-right: 1px solid var(--border); white-space: nowrap; }
-.wtk-lbl::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
-  box-shadow: 0 0 7px var(--accent); }
-.wtk-row { display: flex; align-items: center; overflow: hidden; flex: 1; }
-.wtk { display: flex; align-items: baseline; gap: 7px; padding: 0 13px; line-height: 26px;
-  font-family: var(--t-mono); font-size: 11.5px; font-variant-numeric: tabular-nums;
-  border-right: 1px solid var(--border); white-space: nowrap; text-decoration: none; }
-.wtk .s { color: var(--muted); } .wtk .v { color: var(--ink); }
-.wtk .up { color: #3fc08d; } .wtk .down { color: #f26d84; } .wtk .flat { color: var(--faint); }
-@media (max-width: 760px) { .wticker { display: none; } }
-
-/* ---- Header briefing strip (mirrors Home) — greeting + TOP STORY + the
-        MARKETS / RATES one-liners. Sits directly under the topbar on every tab.
-        The one-liners use display:block + overflow:hidden so they clip and never
-        overlap at narrow widths (the bug that hit the Home header). ---- */
-/* Desktop-only (hidden on phones below) — a single compact horizontal row that
-   mirrors Home's terminal briefing bar (.tui .g-hello): greeting · Top story ·
-   Markets · Rates & spreads, all inline on one line, ellipsis-clipped. Labels
-   are Wire-orange caps; the story/one-liner text is muted, links brighten on
-   hover. Same layout on every app tab so the banner matches Home exactly. */
-/* Type metrics are a 1:1 mirror of Home's .tui .g-hello (px sizes, weight 600/400,
-   --t-dim body text via --wb-txt, #fb8b1e uppercase labels at .85 opacity) so the
-   banner reads identically on Home and every app tab. */
-.wbrief { display: flex; align-items: baseline; gap: 10px; padding: 6px 20px; margin: 0;
-  background: var(--surface); border-bottom: 1px solid var(--border); overflow: hidden; }
-.wbrief:empty { display: none; }
-.wb-main { flex: 0 0 auto; display: flex; align-items: baseline; gap: 8px; }
-.wb-hello { color: var(--wb-txt); font-size: 12px; font-weight: 600; letter-spacing: 0; white-space: nowrap; }
-.wb-brief { flex: 0 1 auto; min-width: 0; margin: 0; font-size: 12px; color: var(--wb-txt); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.wb-brief:empty { display: none; }
-.wb-lbl { font-size: 10px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: #fb8b1e; opacity: .85; white-space: nowrap; margin-right: .3rem; }
-.wb-link { color: var(--wb-txt); font-weight: 400; text-decoration: none; }
-.wb-link:hover { color: var(--ink); text-decoration: underline; }
-.wb-glance { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 10px; flex: 1 1 auto; min-width: 0; overflow: hidden; }
-.wb-gl { display: flex; column-gap: 7px; align-items: baseline; min-width: 0; font-size: 11.5px; line-height: 1.4; color: var(--wb-txt); overflow: hidden; }
-.wb-gl-l { flex: 0 0 auto; font-size: 9.5px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: #fb8b1e; opacity: .85; white-space: nowrap; }
-.wb-gl-v { flex: 1 1 auto; min-width: 0; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--wb-txt); }
-.wb-gl-v a { color: inherit; text-decoration: none; }
-.wb-gl-v a:hover { color: var(--ink); text-decoration: underline; }
-@media (max-width: 760px) {
-  /* Phones: the strip's only phone-worthy content was the top story, which is
-     now Home-only — with just the greeting and the (unreadable-truncated)
-     one-liners left, drop the whole strip and give the row back to the wire. */
-  .wbrief { display: none; }
-}
 .tdash-head { display: flex; align-items: center; gap: 12px; padding: 6px 14px; border-bottom: 1px solid var(--border); flex: 0 0 auto; }
 .tdash-head h1 { font-size: 1.02rem; margin: 0; font-weight: 700; letter-spacing: -.01em; }
 .tdash-ticker { display: flex; align-items: stretch; height: 26px; overflow: hidden; border-bottom: 1px solid var(--border); background: var(--head); flex: 0 0 auto; }
