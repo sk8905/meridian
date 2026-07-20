@@ -252,6 +252,9 @@ function matWallPanel() {
 // bubble) — each panel carrying a concise narrative and a link to its full tab.
 export function macroDashPane() {
   const comp = bubbleComposite(), band = bubbleBand(comp);
+  // Marquee valuation gauges (Shiller CAPE + Buffett Indicator) surfaced on the
+  // cockpit Bubble panel — the headline read; full metric context is on #/bubble.
+  const bubVal = ((BUBBLE.dimensions.find((d) => d.key === "valuation") || {}).metrics) || [];
   const fw = OUTLOOK.us.fedwatch, dp = OUTLOOK.us.dots;
   const clamp = (n) => Math.max(0, Math.min(100, Number(n) || 0));
   const fwBars = fw ? fw.outcomes.map((x) => `<div class="pw-row"><span class="pw-lbl">${esc(x.label)}</span><span class="pw-pct">${esc(String(x.pct))}%</span><span class="pw-track"><span class="pw-fill" style="width:${clamp(x.pct)}%"></span></span></div>`).join("") : "";
@@ -337,6 +340,7 @@ export function macroDashPane() {
       <header class="ck-h wire-ptr-freeze"><span>Bubble risk</span><span class="ck-x">${esc(BUBBLE.market)} · ${esc(band)} · ${comp}/100</span><a class="ck-more" href="#/bubble">Bubble →</a></header>
       <div class="ck-body">
         ${trackGauge(BUBBLE_ZONES, [{ label: band, pos: comp }], "US equity bubble-risk score, 0 low to 100 extreme")}
+        ${bubVal.length ? `<div class="ck-stats">${bubVal.map(([l, v, sub]) => stat(l, v, "")).join("")}</div>` : ""}
         <div class="ck-dims">${BUBBLE.dimensions.map(dimCard).join("")}</div>
       </div>
     </section>
