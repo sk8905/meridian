@@ -1010,18 +1010,11 @@
     .tui .tui-li-tag{ color:var(--t-crd); font-weight:700; letter-spacing:.03em; }
     .tui .tui-li-tag.lex{ color:var(--t-lex); }
 
-    /* ---- news wire (feed) ---- */
-    .tui .g-feed-wrap{ background:var(--t-ground); }
-    .tui .g-feed-head{ display:flex; align-items:center; gap:0; height:30px; padding:0; margin:0;
-      background:var(--t-head); border-bottom:1px solid var(--t-grid); }
-    .tui .g-feed-h-lbl{ display:none; }
-    .tui .g-feed-chips{ display:flex; gap:0; height:100%; flex:1 1 auto; width:100%; }
-    .tui .g-feed-chip{ display:flex; align-items:center; justify-content:center; gap:6px; flex:1 1 0; min-width:0;
-      height:100%; padding:0 15px; border:0;
-      background:transparent; cursor:pointer;
-      font-size:11.5px; font-weight:500; letter-spacing:.005em; color:var(--t-mut); border-radius:0; }
-    .tui .g-feed-chip.is-on{ color:var(--t-ink); font-weight:600; background:transparent; box-shadow:inset 0 -2px 0 var(--chip-ul); }
-    .tui .g-feed-chip-n{ color:var(--t-faint); font-size:10px; font-variant-numeric:tabular-nums; background:none; padding:0; }
+    /* ---- news wire (feed) ---- The wire's row / day-header / chip / source-
+       filter styling now lives in the ONE shared /feed.css (loaded on every
+       page), so Home and the Macro/Credit/Legal wires are the same build. Only
+       Home-specific LAYOUT for the wire (column order, full-height flex, sticky
+       offsets) stays here (see .tui .g-feed-wrap rules above). ---- */
     /* ---- deal-flow chip toggle (deals / fundraising / schemes) ---- */
     .g-flow-head.tui-ph, .tui .g-flow-head{ padding:0; }
     .g-flow-chips{ display:flex; gap:0; height:100%; width:100%; }
@@ -1033,81 +1026,6 @@
     .g-flow-chip:hover{ color:var(--t-dim); }
     .g-flow-chip.is-on{ color:var(--t-ink); font-weight:600; box-shadow:inset 0 -2px 0 var(--chip-ul); }
     .g-flow-pane[hidden]{ display:none; }
-    .tui .g-feed{ background:var(--t-panel); border:0; border-radius:0; padding:0; }
-    /* A quiet end-marker so the wire closes intentionally instead of trailing into
-       empty dark space when the day's stream is short. */
-    .tui .g-feed-end{ padding:16px 12px 32px; text-align:center; font-family:var(--t-mono); font-size:9.5px;
-      letter-spacing:.14em; text-transform:uppercase; color:var(--t-faint); background:var(--t-panel); }
-    .tui .g-feed-dayhdr{ padding:6px 12px; background:var(--t-ground); border-top:0;
-      font-size:10px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--t-accent); margin:0; }
-    /* Light theme: the grey day-break fill read too heavy. Flip it to a white
-       band with blue label text and a grey bottom border that matches the
-       per-row hairlines (var(--t-grid)). Dark keeps the orange-on-black band. */
-    :root[data-theme="light"] .tui .g-feed-dayhdr{ background:var(--t-panel); color:#2f6cae;
-      border-bottom:1px solid var(--t-grid); }
-    .tui .g-feed-row{ display:grid; grid-template-columns:44px 34px minmax(0,1fr) auto; align-items:baseline;
-      gap:10px; padding:5px 12px; border-bottom:1px solid var(--t-grid); }
-    .tui .g-feed-row:hover{ background:var(--t-panel2); }
-    .tui .g-feed-time{ font-family:var(--t-mono); font-size:11px; color:var(--t-mut); min-width:0; }
-    .tui .g-feed-code{ font-family:var(--t-mono); font-size:9.5px; font-weight:700; letter-spacing:.04em;
-      text-align:center; border-radius:0; padding:2px 0; }
-    .tui .g-feed-code.news{ color:var(--t-news, #8aa0c8); background:color-mix(in srgb,var(--t-news, #8aa0c8) 14%,transparent); }
-    .tui .g-feed-code.macro{ color:var(--t-mac); background:color-mix(in srgb,var(--t-mac) 15%,transparent); }
-    .tui .g-feed-code.credit{ color:var(--t-crd); background:color-mix(in srgb,var(--t-crd) 15%,transparent); }
-    .tui .g-feed-code.legal{ color:var(--t-lex); background:color-mix(in srgb,var(--t-lex) 15%,transparent); }
-    .tui .g-feed-code.newsletter{ color:var(--t-amber); background:color-mix(in srgb,var(--t-amber) 15%,transparent); }
-    .tui .g-feed-code.ft{ color:var(--t-ft); background:color-mix(in srgb,var(--t-ft) 15%,transparent); }
-    .tui .g-feed-code.substack{ color:var(--t-sub, #9b8cf5); background:color-mix(in srgb,var(--t-sub, #9b8cf5) 15%,transparent); }
-    .tui .g-feed-code.brew{ color:var(--t-brew, #2fb6a8); background:color-mix(in srgb,var(--t-brew, #2fb6a8) 15%,transparent); }
-    .tui .g-feed-code.bbg{ color:var(--t-bbg, #e0873a); background:color-mix(in srgb,var(--t-bbg, #e0873a) 15%,transparent); }
-    .tui .g-feed-code.econ{ color:var(--t-econ, #e0524d); background:color-mix(in srgb,var(--t-econ, #e0524d) 15%,transparent); }
-    .tui .g-feed-title{ font-size:13px; color:var(--t-ink); font-weight:400; line-height:1.4;
-      white-space:normal; overflow:visible; min-width:0; }
-    /* Hover highlights the row with a subtle grey (see .g-feed-row:hover above);
-       the headline keeps its normal ink colour rather than turning orange. */
-    .tui .g-feed-ent{ font-family:var(--t-mono); font-size:9.5px; color:var(--t-accent);
-      border:0; background:transparent; padding:0; margin-left:7px; white-space:nowrap; cursor:pointer; }
-    .tui .g-feed-ent:hover{ text-decoration:underline; }
-    .tui .g-feed-src{ font-family:var(--t-mono); font-size:10px; color:var(--t-faint); white-space:nowrap; cursor:pointer; }
-    /* The source name is a filter control — underline on hover to signal it acts
-       independently of the row's link-to-article. */
-    .tui .g-feed-src:hover{ color:var(--t-dim); text-decoration:underline; }
-    .tui .g-feed-desk{ display:none; }
-    /* Active source-filter bar above the wire. */
-    .tui .g-feed-srcbar{ display:flex; align-items:center; gap:8px; padding:6px 12px; background:var(--t-ground);
-      border-bottom:1px solid var(--t-grid); font-family:var(--t-mono); font-size:10px; letter-spacing:.03em;
-      text-transform:uppercase; color:var(--t-mut); position:sticky; top:0; z-index:1; }
-    .tui .g-feed-srcbar strong{ color:var(--t-ink); font-weight:600; text-transform:none; letter-spacing:0; }
-    /* Phones: pin the active-filter bar in the locked chrome stack, directly
-       under the feed chips (30px row below the fixed command bar), so scroll
-       happens only below it and the filter is always clearable. Placed AFTER
-       the base rule above — same specificity, source order decides. */
-    @media (max-width:760px){
-      .tui .g-feed-srcbar{ position:sticky; top:calc(var(--wire-head-h, 53px) + 30px); z-index:7;
-        transform:translate3d(0,0,0); -webkit-backface-visibility:hidden; backface-visibility:hidden; background:var(--t-head); }
-    }
-    /* The srcbar lives INSIDE the #g-feed swipe pane — unstick it while a chip
-       slide is in flight (body.wire-sliding) so it travels with the slab
-       instead of floating at its stuck viewport offset. */
-    body.wire-sliding .g-feed-srcbar{ position:static; }
-    .tui .g-feed-srcclear{ margin-left:auto; border:0; background:transparent; cursor:pointer; color:var(--t-accent);
-      font-family:inherit; font-size:10px; letter-spacing:.03em; text-transform:uppercase; padding:0; }
-    .tui .g-feed-srcclear:hover{ text-decoration:underline; }
-    @media (max-width:760px){
-      /* Bloomberg-Go news row: the headline leads, then a muted meta line beneath
-         it — [CODE]  time · source — with the category tag first on the left. */
-      /* grid keeps the meta on ONE line — the source track shrinks to an ellipsis
-         rather than wrapping or running off-screen. */
-      .tui .g-feed-row{ display:grid; align-items:baseline;
-        grid-template-columns:max-content max-content minmax(0,1fr);
-        grid-template-areas:"title title title" "code time src";
-        column-gap:6px; row-gap:5px; padding:11px 12px; }
-      .tui .g-feed-title{ grid-area:title; font-size:14px; line-height:1.36; }
-      .tui .g-feed-code{ grid-area:code; padding:2px 5px; }
-      .tui .g-feed-time{ grid-area:time; white-space:nowrap; }
-      .tui .g-feed-src{ grid-area:src; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-      .tui .g-feed-src::before{ content:"·"; color:var(--t-faint); margin-right:5px; }
-    }
 
     /* ---- command bar: flat, squared tabs matching the terminal body ---- */
     .g-top .g-top-inner{ gap:1.3rem; }
