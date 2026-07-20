@@ -12,8 +12,25 @@ import {
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
-// app.js and the app fails to load (blank page).
+// app.js and the app fails to load (blank page). shared.js AND detail.js also
+// import ./data.js with this SAME token; keep all three identical or the browser
+// loads data.js twice as separate module instances.
 import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260720-1";
+// The view code splits across three modules with an ACYCLIC import graph —
+// app.js -> detail.js -> shared.js. shared.js holds the format/render helpers,
+// the watchlist/saved read layer, the paginated-feed + pending-focus machinery
+// and the shared feed-row renderers; detail.js holds the deep Fund / Manager /
+// CLO / Investor profile views; this shell keeps the list/dashboard/news views,
+// the global event delegation and the router.
+import {
+  eur, pct, fmtDate, link, notFound,
+  FOLLOW_KEY, FOLLOW_TYPES, follows, followList, followCount, nameCell,
+  SAVEDC_KEY, getSavedC, saveBtn, newsSaveId,
+  creditSource, feedDedupKey, intelRow, dealRow,
+  PAGE, pageShown, pageCount, pageReset, loadMoreBtn, feedHtml, feedFlat,
+  applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
+} from "./shared.js?v=20260720-1";
+import { viewFund, viewManager, viewClo, viewLp } from "./detail.js?v=20260720-1";
 
 const app = document.getElementById("app");
 
@@ -24,18 +41,13 @@ const app = document.getElementById("app");
 // route drops its entries, so coming back also starts fresh. (Pull-to-refresh
 // keeps position across its reload separately, via ptr.js's short-lived
 // sessionStorage tab snapshot.)
-const _chipMem = {};
-const chipMemKey = (id) => id + "|" + location.hash;
 window.addEventListener("hashchange", () => {
   const suf = "|" + location.hash;
   Object.keys(_chipMem).forEach((k) => { if (!k.endsWith(suf)) delete _chipMem[k]; });
 });
 
 // ----------------------------- formatting utils ----------------------------
-const eur = (m) => (m == null ? "Undisclosed" : "€" + (m >= 1000 ? (m / 1000).toFixed(m % 1000 === 0 ? 0 : 1) + "bn" : m + "m"));
 import { esc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
-const pct = (n) => (n == null ? "Undisclosed" : Math.round(n) + "%");
-const fmtDate = (d) => new Date(d).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
 // Format a €bn AUM figure: €Xtn above 1,000bn, €Xm below 1bn, else €Xbn.
 
 // Day-break separator rows in the wire (same scanning aid as the Home feed),
@@ -74,25 +86,7 @@ const fundQuarter = (f) => {
 };
 const isClose = (f) => f.status === "Final Close" || f.status === "First Close";
 
-// Indicative NET target IRR ranges by strategy — market-typical conventions, NOT
-// a specific fund's disclosed target. Used only where a fund discloses no target.
-const STRATEGY_IRR = {
-  "Senior Direct Lending": "8–10%",
-  "Unitranche": "9–12%",
-  "Mezzanine / Junior Debt": "12–15%",
-  "Distressed & Special Situations": "15–20%+",
-  "Structured Credit / CLO": "12–16%",
-  "Real Estate Debt": "7–10%",
-  "Infrastructure Debt": "6–9%",
-  "Asset-Based Lending": "8–12%",
-  "Opportunistic Credit": "10–14%",
-  "NAV / Fund Finance": "8–12%",
-};
 
-const statusClass = (s) => ({
-  "Pre-marketing": "st-pre", "Open": "st-open", "First Close": "st-first", "Final Close": "st-final",
-  "Evergreen": "st-ever",
-}[s] || "");
 
 // Funds page categories. Evergreen funds are open-ended (continuously subscribable)
 // rather than raising a vintage, so they get their own category — never "Open".
@@ -110,105 +104,24 @@ const mandateClass = (s) => ({
   "Actively allocating": "st-final", "Selective": "st-first", "Not currently active": "st-pre",
 }[s] || "");
 
-function progressBar(raised, target) {
-  const actual = Math.round((raised / target) * 100);
-  const w = Math.min(100, actual);
-  return `<div class="progress" title="${eur(raised)} of ${eur(target)} target">
-    <div class="progress-fill" style="width:${w}%"></div>
-    <span class="progress-label">${eur(raised)} / ${eur(target)} · ${actual}%</span>
-  </div>`;
-}
 
-// Decides how to display a fund's fundraising state given real-world gaps:
-// evergreen (no target), undisclosed target/raised, or a normal progress bar.
-function raiseDisplay(x) {
-  if (x.evergreen) {
-    return `<span class="fund-status">Evergreen</span>` +
-      (x.raised != null ? ` <span class="muted small">~${eur(x.raised)} AUM/NAV</span>` : "");
-  }
-  if (x.raised != null && x.targetSize != null) return progressBar(x.raised, x.targetSize);
-  if (x.raised != null) return `<span class="muted small">${eur(x.raised)} raised · target undisclosed</span>`;
-  if (x.status === "Pre-marketing") return `<span class="muted small">Pre-marketing</span>`;
-  return `<span class="muted small">Undisclosed</span>`;
-}
 
-// Deployment vs raised (dry powder) where publicly disclosed; links to the
-// fund's disclosed deals (what the capital was spent on).
-function deploymentBlock(x) {
-  const dl = dealsForFund(x.id);
-  const dealNote = dl.length ? `<p class="muted small deploy-note">Disclosed investments: ${dl.length} — see Deal activity below.</p>` : "";
-  if (x.evergreen) {
-    return `<div class="deploy"><div class="deploy-head"><span>Deployment</span><span class="muted small">evergreen — capital deployed &amp; recycled on a rolling basis</span></div>${dealNote}</div>`;
-  }
-  if (x.deployedPct == null) {
-    return `<div class="deploy"><div class="deploy-head"><span>Deployment / dry powder</span><span class="muted small">not separately disclosed</span></div>${dealNote}</div>`;
-  }
-  const raised = x.raised;
-  const dep = raised != null ? Math.round(raised * x.deployedPct / 100) : null;
-  const dry = (raised != null && dep != null) ? raised - dep : null;
-  return `<div class="deploy">
-    <div class="deploy-head"><span>Deployment${x.deployedEstimated ? " (est.)" : ""}</span><span>${x.deployedPct}% invested${x.deployedAsOf ? ` · as of ${esc(x.deployedAsOf)}` : ""}</span></div>
-    <div class="deploy-bar" title="${x.deployedPct}% deployed"><div class="deploy-fill" style="width:${Math.min(100, x.deployedPct)}%"></div></div>
-    <div class="deploy-stats">
-      <span><strong>${dep != null ? eur(dep) : "—"}</strong> deployed</span>
-      <span><strong>${dry != null ? eur(dry) : "—"}</strong> dry powder</span>
-      <span><strong>${raised != null ? eur(raised) : "—"}</strong> raised</span>
-    </div>
-    ${dealNote}
-  </div>`;
-}
 
-// Notable / high-profile investments a fund is publicly known for. Each entry is
-// { name, note?, url? }; renders an honest empty-state when none are compiled.
-function notableInvestmentsCard(x) {
-  const items = x.notableInvestments || [];
-  const body = items.length
-    ? `<ul class="link-list">${items.map((n) => {
-        const head = n.url ? `<a href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">${esc(n.name)}</a>` : `<strong>${esc(n.name)}</strong>`;
-        return `<li>${head}${n.note ? ` <span class="muted small">— ${esc(n.note)}</span>` : ""}</li>`;
-      }).join("")}</ul>`
-    : `<p class="muted small">Notable portfolio investments not yet compiled / not publicly disclosed for this fund.</p>`;
-  return `<section class="card"><h2>Notable investments</h2>${body}</section>`;
-}
 
-// A prominent note for funds that have been wound down / liquidated / fully realised.
-function lifecycleNote(x) {
-  if (!x.lifecycle) return "";
-  const o = typeof x.lifecycle === "string" ? { status: x.lifecycle } : x.lifecycle;
-  return `<div class="lifecycle-note">${lifecycleBadge(x)} <strong>${esc(o.status)}</strong>${o.date ? ` <span class="muted small">· ${esc(o.date)}</span>` : ""}${o.note ? `<p class="muted small">${esc(o.note)}</p>` : ""}</div>`;
-}
 
 function chip(text, cls = "") { return `<span class="chip ${cls}">${esc(text)}</span>`; }
-function link(href, text, cls = "") { return `<a href="${href}" class="${cls}">${esc(text)}</a>`; }
 
-// "Est." badge for figures that are labelled estimates rather than disclosed facts.
-const estBadge = (on) => on ? '<span class="chip est" title="Estimated / not precisely disclosed publicly">Est.</span>' : "";
 
-// Renders a record's source citations + as-of date, when present. No-ops otherwise.
-function sources(rec) {
-  if (!rec || !rec.sources || !rec.sources.length) return "";
-  const links = rec.sources.map((s, i) =>
-    `<a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.label || "source " + (i + 1))}</a>`
-  ).join(" · ");
-  const asOf = rec.asOf ? ` · <span>as of ${esc(rec.asOf)}</span>` : "";
-  return `<div class="sources muted small"><span class="src-label">Sources:</span> ${links}${asOf}</div>`;
-}
 
 // --------------------------- watchlist (cloud sync + localStorage) ---------
 // Watchlist persists to a per-user Cloudflare KV store (via the /api/watchlist
 // Pages Function) when the site is served behind Cloudflare Access, so it syncs
 // across devices. localStorage is kept as an instant cache / offline fallback,
 // so the app still works if the API isn't reachable (e.g. plain static hosting).
-const FOLLOW_KEY = "meridian.follows";
 const WATCHLIST_API = "/api/watchlist";
-const FOLLOW_TYPES = ["manager", "fund", "lp"];
-function loadFollows() { try { return JSON.parse(localStorage.getItem(FOLLOW_KEY)) || {}; } catch { return {}; } }
-const follows = loadFollows();
 let account = null;          // signed-in identity (email) when behind Access
 let cloudSync = false;       // true once the watchlist API responds
 let pushTimer = null;
-function followList(type) { return follows[type] || (follows[type] = []); }
-function isFollowed(type, id) { return followList(type).includes(id); }
 function persistLocal() { try { localStorage.setItem(FOLLOW_KEY, JSON.stringify(follows)); } catch { /* ignore */ } }
 // Debounced save to the cloud (no-op when not signed in / not on Cloudflare).
 function pushRemote() {
@@ -225,18 +138,15 @@ function toggleFollow(type, id) {
   if (i >= 0) a.splice(i, 1); else a.push(id);
   saveFollows();
 }
-function followCount() { return FOLLOW_TYPES.reduce((n, t) => n + followList(t).length, 0); }
 
 // --------------------------- saved items (cloud sync + localStorage) --------
 // Individually saved news / deal / fundraising / CLO items — distinct from the
 // follow-based watchlist. Persists to a per-user KV store via /api/saved-credit
 // (its OWN prefix, so it never collides with Wire Legal's saved items) with
 // localStorage as an instant cache / offline fallback. Mirrors the Legal app.
-const SAVEDC_KEY = "meridian.credit.saved";
 const SAVEDC_API = "/api/saved-credit";
 let savedCloud = false;
 let savedPushTimer = null;
-function getSavedC() { try { return new Set(JSON.parse(localStorage.getItem(SAVEDC_KEY) || "[]")); } catch { return new Set(); } }
 function setSavedC(set) { try { localStorage.setItem(SAVEDC_KEY, JSON.stringify([...set])); } catch { /* ignore */ } pushSavedC(); }
 function toggleSavedC(id) { const s = getSavedC(); s.has(id) ? s.delete(id) : s.add(id); setSavedC(s); return s.has(id); }
 // Debounced push to the cloud (no-op when not signed in / not on Cloudflare).
@@ -263,25 +173,9 @@ async function initSavedSync() {
   if (union.size !== server.length || server.some((id) => !union.has(id))) pushSavedC();
   router();
 }
-// Stable content-derived id for a news item — a short hash of its normalised URL
-// (or title) + manager, so a saved news story keeps pointing at the same item
-// across data refreshes (unlike the aggregation index used for row anchors).
-function newsSaveId(x) {
-  const base = (x.url || x.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, "");
-  const s = base + "|" + (x._mid || x.managerId || "");
-  let h = 0; for (let i = 0; i < s.length; i++) h = (Math.imul(h, 31) + s.charCodeAt(i)) | 0;
-  return "n" + (h >>> 0).toString(36);
-}
-// Save/unsave button — Wire Legal style. `id` is the item's stable save id.
-function saveBtn(id) {
-  const on = getSavedC().has(id);
-  return `<button type="button" class="save-btn ${on ? "is-saved" : ""}" data-save="${esc(id)}" aria-pressed="${on}" title="${on ? "Remove from saved" : "Save this item"}">${on ? "★ Saved" : "☆ Save"}</button>`;
-}
 // Topbar data-freshness line: dataset "last updated" date + the time this view
 // was last loaded/refreshed, plus a manual Refresh button that reloads to pull
 // the latest deployed data and re-sync the watchlist.
-// Most recent item date across the intelligence + deals feeds (content freshness).
-const LATEST_ITEM = [...intel, ...deals].reduce((m, x) => (x.date && x.date > m ? x.date : m), "");
 function renderDataStatus() {
   const el = document.getElementById("data-status");
   if (!el) return;
@@ -312,17 +206,6 @@ const NOTIF_KEY = "meridian.credit.notifSeen";
 const NOTIF_API = "/api/notif-credit";
 let notifSeen = null;    // resolved array of acknowledged ids (null until known)
 let notifCloud = false;  // true once the per-user seen-set API responds
-// Human-readable source (outlet / wire / manager PR) for a notification, from
-// its sourceUrl. Known wires & trade-press map to a clean label; an unmapped
-// domain is taken to be the manager's own press release (show the manager name);
-// otherwise a tidied domain. Kept in sync with Glance's copy.
-function creditSource(rec) {
-  const host = srcHost(rec.sourceUrl);
-  if (host && NEWS_SOURCES[host]) return NEWS_SOURCES[host];
-  const m = rec.managerId ? managerById[rec.managerId] : null;
-  if (m && m.name) return m.name;           // manager's own press release
-  return host ? tidyDomain(host) : "";
-}
 function notifReadLocal() {
   try { const p = JSON.parse(localStorage.getItem(NOTIF_KEY) || "null"); return Array.isArray(p) ? p : null; } catch { return null; }
 }
@@ -391,7 +274,7 @@ function renderNotifications() {
   });
   panel.addEventListener("click", (e) => {
     const a = e.target.closest("[data-goto]");
-    if (a) { const [view, id] = a.getAttribute("data-goto").split(":"); pendingFocus = { view, id }; }
+    if (a) { const [view, id] = a.getAttribute("data-goto").split(":"); setPendingFocus({ view, id }); }
   });
 }
 // Resolve the seen-set: instant render from localStorage, then reconcile with the
@@ -449,40 +332,7 @@ async function initWatchlistSync() {
   }
   router();                    // re-render with synced data + account chip
 }
-function followBtn(type, id) {
-  const on = isFollowed(type, id);
-  return `<button type="button" class="follow-btn ${on ? "on" : ""}" data-follow="${type}:${id}" title="${on ? "Following — click to remove from watchlist" : "Add to your watchlist"}" aria-label="Follow">${on ? "★" : "☆"}</button>`;
-}
 
-// Star + name as two flex columns, so a wrapping name stays in its own column
-// (and never slides back under the star).
-function nameCell(type, id, inner) {
-  return `<span class="namecell">${followBtn(type, id)}<span class="namecell-text">${inner}</span></span>`;
-}
-
-// ----------------------- relationship lookups ------------------------------
-function commitmentsForLp(lpId) { return commitments.filter((c) => c.lpId === lpId); }
-function commitmentsForManager(managerId) { return commitments.filter((c) => c.managerId === managerId); }
-
-// Actual, publicly-disclosed investors in a specific fund: combines the fund's
-// own `investors` list with any fund-level entries in the commitments table.
-// Deduped by name; LP-universe entries link through to the investor profile.
-function investorsForFund(f) {
-  const out = [];
-  const seen = new Set();
-  const push = (name, lpId, note, url) => {
-    const key = (name || "").toLowerCase();
-    if (!name || seen.has(key)) return;
-    seen.add(key);
-    out.push({ name, lpId: lpId || null, note: note || "", url: url || null });
-  };
-  (f.investors || []).forEach((i) => push(i.name, i.lpId, i.note, i.url));
-  commitments.filter((c) => c.fundId === f.id).forEach((c) => {
-    const lp = lpById[c.lpId];
-    push(lp ? lp.name : c.lpId, c.lpId, c.note, c.sourceUrl);
-  });
-  return out;
-}
 
 // --------------------------- simple filter state ---------------------------
 // Persists per-view filter selections across re-renders within a session.
@@ -501,40 +351,6 @@ const filterState = {
 // Calendar year (string) from an item's date; "" if none.
 const yearOf = (d) => (String(d).match(/^(\d{4})/) || [])[1] || "";
 
-// ---- Feed pagination --------------------------------------------------------
-// Long feeds render the first PAGE items with a "Load more" button that reveals
-// the next PAGE. The shown count resets to PAGE whenever the filter signature
-// for that feed changes (so a new search/filter starts from the top again).
-const PAGE = 25;
-const pageShown = {};
-const pageSig = {};
-function pageReset(key, sig) { if (pageSig[key] !== sig) { pageSig[key] = sig; pageShown[key] = PAGE; } }
-function pageCount(key) { return pageShown[key] || PAGE; }
-function loadMoreBtn(key, remaining) {
-  if (remaining <= 0) return "";
-  return `<div class="load-more-wrap"><button type="button" class="load-more" data-more="${esc(key)}">Load ${Math.min(PAGE, remaining)} more <span class="lm-rem">· ${remaining} remaining</span></button></div>`;
-}
-// Render a feed capped to the current page with a gentle per-day break between
-// items, plus a Load-more button. (Rows carry their own date, so the break is a
-// subtle divider rather than a heading.)
-function feedHtml(rows, key, rowFn, sig, labeled) {
-  pageReset(key, sig);
-  const shown = rows.slice(0, pageCount(key));
-  return withDayBreaks(shown, rowFn, labeled) + loadMoreBtn(key, rows.length - shown.length);
-}
-// Flat paginated feed — no day-break separators (the row carries its own date).
-function feedFlat(rows, key, rowFn, sig) {
-  pageReset(key, sig);
-  const shown = rows.slice(0, pageCount(key));
-  return shown.map(rowFn).join("") + loadMoreBtn(key, rows.length - shown.length);
-}
-// Cap a flat list/table to the current page; returns { shown, more } so the
-// caller can render its own rows and drop the Load-more button after them.
-function pageList(rows, key, sig) {
-  pageReset(key, sig);
-  const shown = rows.slice(0, pageCount(key));
-  return { shown, more: loadMoreBtn(key, rows.length - shown.length) };
-}
 
 // ---- Mobile filter collapse -------------------------------------------------
 // On phones, filter bars are collapsed behind a "Filters" toggle to save space.
@@ -585,8 +401,6 @@ document.addEventListener("change", (e) => {
 
 // Which multi-select popover (if any) is open — kept open across re-renders.
 let openMs = null;
-// Pending scroll-to target after navigating to a feed page ({view, id}).
-let pendingFocus = null;
 
 // Dashboard quarterly-trend window (indices into the 40-quarter range). null =>
 // default to the last 8 quarters (2 years). Persists across re-renders.
@@ -866,29 +680,6 @@ function viewDashboard() {
     document.querySelectorAll("#mgr-rows tr").forEach((tr) => { tr.style.display = (!on || tr.dataset.focus === "1") ? "" : "none"; });
   });
 }
-// Generic in-place wire filter: chips toggle which kinds (data-kind) show,
-// without leaving the screen. Shared by the dashboard and terminal detail pages.
-function wireSimpleChips(chipsId, wireId) {
-  const chips = document.getElementById(chipsId);
-  const wire = document.getElementById(wireId);
-  if (!chips || !wire) return;
-  const KEY = chipMemKey(chipsId);
-  chips.addEventListener("click", (e) => {
-    const b = e.target.closest(".tchip");
-    if (!b) return;
-    chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
-    const k = b.dataset.k;
-    _chipMem[KEY] = k || "all";
-    wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (k === "all" || r.dataset.kind === k) ? "" : "none"; });
-  });
-  // In-page selection survives the async-sync re-renders (All is hardcoded
-  // active in the templates).
-  {
-    const k0 = _chipMem[KEY];
-    const b0 = k0 && k0 !== "all" ? chips.querySelector(`.tchip[data-k="${k0}"]`) : null;
-    if (b0 && !b0.classList.contains("is-on")) b0.click();
-  }
-}
 // In-place filter for the dashboard activity wire: chips toggle which kinds show
 // without leaving the screen (the collapsed News/Deals/Fundraising/CLOs tabs).
 function wireDashChips() {
@@ -956,15 +747,6 @@ function aggregateNews() {
   return out.sort((a, b) => String(b.date).localeCompare(String(a.date)));
 }
 
-// Press items in the dataset are headline-only (no article body), so compose a
-// short attributed summary from the fields we have. Kept to ~2 lines by the
-// .news-sum clamp in CSS.
-function newsSummary(x) {
-  const t = (x.title || "").replace(/\s+/g, " ").trim();
-  if (!t) return "";
-  const s = esc(/[.!?]$/.test(t) ? t : t + ".");
-  return x.outlet ? `${esc(x.outlet)} reports: ${s}` : s;
-}
 
 function fundTable(rows, key, sig) {
   rows = applySort(rows, "funds");
@@ -1022,220 +804,6 @@ function viewFunds() {
   wireFilters("funds");
 }
 
-// Indicative LP fit — shown while a fund is raising (open / first close / evergreen).
-// Explicitly NOT confirmed commitments.
-function potentialFitCard(x) {
-  const interestedLps = lps.filter((l) => l.strategies.includes(x.strategy) && l.mandateStatus !== "Not currently active");
-  return `<section class="card">
-    <h2>Potential investor fit <span class="muted">(${interestedLps.length})</span></h2>
-    <p class="muted small">LPs whose stated interests include ${esc(x.strategy)} — indicative fit while the fund is open, not confirmed commitments.</p>
-    <ul class="link-list">
-      ${interestedLps.slice(0, 6).map((l) => `<li>${link(`#/lp/${l.id}`, l.name)} <span class="muted small">${esc(l.type)} · ${l.typicalTicket != null ? eur(l.typicalTicket) + " typical ticket" : "ticket undisclosed"}</span></li>`).join("") || '<li class="muted">No active LPs flagged.</li>'}
-    </ul>
-  </section>`;
-}
-
-// Actual, publicly-disclosed investors — shown for funds that have reached final
-// close (and evergreen funds). Honest empty-state when no LPs are public.
-function actualInvestorsCard(x) {
-  const inv = investorsForFund(x);
-  const body = inv.length
-    ? `<ul class="link-list">${inv.map((i) => `<li>${i.lpId ? link(`#/lp/${i.lpId}`, i.name) : `<strong>${esc(i.name)}</strong>`}${i.note ? ` <span class="muted small">— ${esc(i.note)}</span>` : ""}${i.url ? ` · <a href="${esc(i.url)}" target="_blank" rel="noopener noreferrer" class="muted small">source</a>` : ""}</li>`).join("")}</ul>`
-    : `<p class="muted small">No specific LP commitments to this fund have been disclosed publicly. (Most private funds do not name investors; where cornerstone/anchor LPs are announced — e.g. public pensions, the EIF / British Business Bank, sovereign wealth funds — they are listed here with sources.)</p>`;
-  return `<section class="card"><h2>Investors <span class="muted">(${inv.length})</span></h2>
-    <p class="muted small">Limited partners publicly disclosed as having committed to this fund.</p>${body}</section>`;
-}
-
-// Target IRR (disclosed where known, else indicative strategy range) + any
-// publicly-disclosed actual performance (net/gross IRR, MOIC, DPI).
-function returnsCard(x) {
-  const ti = x.targetIRR;
-  const target = ti
-    ? `<p class="detail-body"><strong>${esc(ti.range)}${ti.basis ? " " + esc(ti.basis) : ""}</strong> <span class="muted small">target — disclosed${ti.asOf ? `, ${esc(ti.asOf)}` : ""}</span>${ti.sourceUrl ? ` · <a href="${esc(ti.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="muted small">source</a>` : ""}</p>`
-    : `<p class="detail-body"><strong>${esc(STRATEGY_IRR[x.strategy] || "—")} net</strong> <span class="chip est" title="Indicative market-typical range for the strategy, not this fund's disclosed target">indicative</span> <span class="muted small">typical for ${esc(x.strategy)}; the fund's own target is not publicly disclosed</span></p>`;
-  const p = x.performance;
-  const metrics = p ? [
-    p.netIRR != null ? `<span><strong>${p.netIRR}%</strong> net IRR</span>` : "",
-    p.grossIRR != null ? `<span><strong>${p.grossIRR}%</strong> gross IRR</span>` : "",
-    p.moic != null ? `<span><strong>${p.moic}x</strong> MOIC</span>` : "",
-    p.dpi != null ? `<span><strong>${p.dpi}x</strong> DPI</span>` : "",
-  ].filter(Boolean).join("") : "";
-  const perf = p
-    ? `<div class="deploy-stats">${metrics || '<span class="muted small">disclosed</span>'}</div>${p.note ? `<p class="muted small">${esc(p.note)}</p>` : ""}${p.asOf ? `<p class="muted small">as of ${esc(p.asOf)}</p>` : ""}${p.sourceUrl ? sources({ sources: [{ label: "Performance source", url: p.sourceUrl }] }) : ""}`
-    : `<p class="muted small">No fund-level performance publicly disclosed. (Net IRR / multiples for private funds are usually only visible via public-pension reports or listed vehicles; shown here when available.)</p>`;
-  return `<section class="card"><h2>Target return &amp; performance</h2>
-    <h3 class="sub">Target IRR</h3>${target}
-    <h3 class="sub">Actual performance</h3>${perf}</section>`;
-}
-
-// ---- Data provenance & completeness -----------------------------------------
-// Honest, at-a-glance view of WHICH data points are disclosed for a fund, which
-// are estimates/indicative, and which are simply not public — so gaps are
-// explicit rather than hidden. States: yes (disclosed) · est (estimate) ·
-// indicative (strategy proxy, not this fund's figure) · no (gap) · na (n/a).
-function dataDimensions(x) {
-  const inv = investorsForFund(x);
-  const notable = (x.notableInvestments || []).length;
-  return [
-    { key: "Fundraising target",
-      state: x.evergreen ? "na" : (x.targetSize != null ? "yes" : "no"),
-      detail: x.evergreen ? "evergreen — no fixed target" : (x.targetSize != null ? eur(x.targetSize) + " target" : "target not disclosed") },
-    { key: x.evergreen ? "Current AUM/NAV" : "Amount raised",
-      state: x.raised != null ? "yes" : "no",
-      detail: x.raised != null ? eur(x.raised) : "not disclosed" },
-    { key: "Deployment",
-      state: x.evergreen ? "na" : (x.deployedPct != null ? (x.deployedEstimated ? "est" : "yes") : "no"),
-      detail: x.evergreen ? "rolling (evergreen)" : (x.deployedPct != null ? `${x.deployedPct}% invested${x.deployedEstimated ? " (est.)" : ""}${x.deployedAsOf ? ` · as of ${x.deployedAsOf}` : ""}` : "not separately disclosed") },
-    { key: "Target IRR",
-      state: x.targetIRR ? "yes" : "indicative",
-      detail: x.targetIRR ? `${x.targetIRR.range}${x.targetIRR.basis ? " " + x.targetIRR.basis : ""} — disclosed` : `${STRATEGY_IRR[x.strategy] || "—"} — indicative strategy range, not this fund's figure` },
-    { key: "Actual performance",
-      state: x.performance ? "yes" : "no",
-      detail: x.performance ? "net IRR / multiples disclosed" : "not publicly disclosed" },
-    { key: "Named investors",
-      state: inv.length ? "yes" : "no",
-      detail: inv.length ? `${inv.length} disclosed` : "none publicly disclosed" },
-    { key: "Notable investments",
-      state: notable ? "yes" : "no",
-      detail: notable ? `${notable} compiled` : "none compiled / disclosed" },
-  ];
-}
-// Disclosed = hard facts (yes) + flagged estimates (est). Indicative/no/na are not
-// counted as disclosed; na is excluded from the denominator (not applicable).
-function completeness(x) {
-  const dims = dataDimensions(x);
-  const applicable = dims.filter((d) => d.state !== "na");
-  const disclosed = applicable.filter((d) => d.state === "yes" || d.state === "est");
-  return { disclosed: disclosed.length, total: applicable.length, gaps: applicable.filter((d) => d.state === "no" || d.state === "indicative").map((d) => d.key) };
-}
-// Compact inline meter for tables/headers; tooltip spells out the gaps.
-function completenessPill(x) {
-  const c = completeness(x);
-  const lvl = c.disclosed / c.total;
-  const cls = lvl >= 0.66 ? "dm-hi" : lvl >= 0.34 ? "dm-mid" : "dm-lo";
-  const title = c.gaps.length ? `Not disclosed: ${c.gaps.join(", ")}` : "All tracked data points disclosed";
-  return `<span class="data-meter ${cls}" title="${esc(title)}"><span class="dm-bar"><span class="dm-fill" style="width:${Math.round(lvl * 100)}%"></span></span>${c.disclosed}/${c.total} data</span>`;
-}
-const STATE_ICON = { yes: "✓", est: "~", indicative: "~", no: "—", na: "·" };
-const STATE_LABEL = { yes: "Disclosed", est: "Estimate", indicative: "Indicative", no: "Not disclosed", na: "N/A" };
-// Full breakdown card: as-of date + per-dimension disclosure status.
-function dataProvenanceCard(x) {
-  const c = completeness(x);
-  const rows = dataDimensions(x).map((d) =>
-    `<li class="dim dim-${d.state}"><span class="dim-icon" title="${esc(STATE_LABEL[d.state])}">${STATE_ICON[d.state]}</span>
-      <span class="dim-key">${esc(d.key)}</span>
-      <span class="dim-detail muted small">${esc(d.detail)}</span></li>`).join("");
-  return `<section class="card provenance">
-    <h2>Data completeness &amp; provenance</h2>
-    <p class="muted small">Record compiled <strong>as of ${esc(x.asOf || "—")}</strong> from public sources. <strong>${c.disclosed} of ${c.total}</strong> tracked data points are publicly disclosed${c.gaps.length ? `; the rest are not public (or shown as an indicative proxy) and are marked below.` : "."}</p>
-    <ul class="dim-list">${rows}</ul>
-    <p class="muted small">“Indicative” = a market-typical range for the strategy, not this fund’s own figure. “Estimate” = a figure we have approximated and flagged. Everything else links to its source above.</p>
-  </section>`;
-}
-
-function viewFund(id) {
-  const x = fundById[id];
-  if (!x) return notFound();
-  const m = managerById[x.managerId];
-  const related = intelForFund(id);
-  const peers = funds.filter((p) => p.strategy === x.strategy && p.id !== id).slice(0, 5);
-  // While raising (open/first close/pre-marketing) or evergreen → indicative fit.
-  // At final close (and for evergreen) → actual disclosed investor list.
-  const showPotential = x.evergreen || x.status === "Open" || x.status === "First Close" || x.status === "Pre-marketing";
-  const hasActualInvestors = investorsForFund(x).length > 0;
-  const investorCard = showPotential ? potentialFitCard(x) : actualInvestorsCard(x);
-  // Evergreen funds show both; a still-raising fund also shows actual investors if any are disclosed.
-  const extraInvestorCard = (x.evergreen || (showPotential && hasActualInvestors)) ? actualInvestorsCard(x) : "";
-
-  // Combined, date-sorted activity wire for this fund: fundraising intel + deals.
-  const fdeals = dealsForFund(x.id);
-  const fundFeed = [
-    ...related.map((i) => ({ ...i, _kind: "intel" })),
-    ...fdeals.map((d) => ({ ...d, _kind: "deal" })),
-  ].sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
-  const inv = investorsForFund(x);
-  const interestedLps = lps.filter((l) => l.strategies.includes(x.strategy) && l.mandateStatus !== "Not currently active");
-  // The manager is the natural inline entity on a fund's activity rows.
-  const fundWireRow = (i) => crWireRow(i, `<a href="#/manager/${m.id}" class="tw-mgr">${esc(m.name)}</a>`);
-
-  const raisedLabel = x.evergreen ? "AUM/NAV" : "Raised";
-  const metrics = [
-    [x.evergreen ? "AUM" : "Target", x.evergreen ? (x.raised != null ? eur(x.raised) : "—") : eur(x.targetSize)],
-    [raisedLabel, eur(x.raised)], ["Vintage", x.vintage], ["Status", esc(x.status)],
-    ["Investors", inv.length], ["Deals", fdeals.length],
-  ];
-  // Rail: fundraising facts, deployment, returns, investors, notable, peers, provenance.
-  const facts = [
-    ["Target size", x.evergreen ? "Evergreen" : eur(x.targetSize)],
-    ["Hard cap", eur(x.hardCap)],
-    [x.evergreen ? "Current AUM/NAV" : "Raised to date", eur(x.raised)],
-    ["Sector focus", esc(x.sectorFocus || "—")],
-    ["Domicile", esc(x.domicile)],
-    ["Geography", esc(x.geoFocus || "—")],
-  ];
-  const factsRail = `<ul class="tfacts">${facts.map(([k, v]) => `<li><span class="tf-k">${k}</span><span class="tf-v">${v}</span></li>`).join("")}</ul>`;
-  const ti = x.targetIRR;
-  const perf = x.performance;
-  const irrLine = ti ? `${esc(ti.range)}${ti.basis ? " " + esc(ti.basis) : ""} <span class="tf-est">disclosed</span>` : `${esc(STRATEGY_IRR[x.strategy] || "—")} <span class="tf-est">indicative</span>`;
-  const returnsRail = `<ul class="tfacts"><li><span class="tf-k">Target IRR</span><span class="tf-v">${irrLine}</span></li>`
-    + (perf && perf.netIRR != null ? `<li><span class="tf-k">Net IRR</span><span class="tf-v">${perf.netIRR}%</span></li>` : "")
-    + (perf && perf.grossIRR != null ? `<li><span class="tf-k">Gross IRR</span><span class="tf-v">${perf.grossIRR}%</span></li>` : "")
-    + (perf && perf.moic != null ? `<li><span class="tf-k">MOIC</span><span class="tf-v">${perf.moic}x</span></li>` : "")
-    + (perf && perf.dpi != null ? `<li><span class="tf-k">DPI</span><span class="tf-v">${perf.dpi}x</span></li>` : "")
-    + (!perf ? `<li><span class="tf-k">Performance</span><span class="tf-v">n/d</span></li>` : "")
-    + `</ul>`;
-  const investorsRail = inv.length
-    ? `<ul class="tmini">${inv.map((i) => `<li class="tmini-row${i.lpId ? " clickable" : ""}"${i.lpId ? ` data-href="#/lp/${i.lpId}"` : ""}><span class="tmini-t">${esc(i.name)}</span>${i.note ? `<span class="tmini-m">${esc(i.note)}</span>` : ""}</li>`).join("")}</ul>`
-    : (showPotential && interestedLps.length
-      ? `<ul class="tmini">${interestedLps.slice(0, 8).map((l) => `<li class="tmini-row clickable" data-href="#/lp/${l.id}"><span class="tmini-t">${esc(l.name)}<span class="tmini-r">${l.typicalTicket != null ? eur(l.typicalTicket) : ""}</span></span><span class="tmini-m">${esc(l.type)} · indicative fit</span></li>`).join("")}</ul>`
-      : `<p class="tw-empty muted small">No LP commitments publicly disclosed.</p>`);
-  const investorsTitle = inv.length ? "Investors" : (showPotential && interestedLps.length ? "Potential investor fit" : "Investors");
-  const investorsCount = inv.length || (showPotential ? interestedLps.length : 0);
-  const notable = x.notableInvestments || [];
-  const notableRail = notable.length
-    ? `<ul class="tmini">${notable.map((n) => `<li class="tmini-row">${n.url ? `<a class="tmini-t" href="${esc(n.url)}" target="_blank" rel="noopener noreferrer">${esc(n.name)}</a>` : `<span class="tmini-t">${esc(n.name)}</span>`}${n.note ? `<span class="tmini-m">${esc(n.note)}</span>` : ""}</li>`).join("")}</ul>`
-    : "";
-  const peersRail = peers.length
-    ? `<ul class="tmini">${peers.map((pp) => `<li class="tmini-row clickable" data-href="#/fund/${pp.id}"><span class="tmini-t">${esc(pp.name)}</span><span class="tmini-m">${esc(managerById[pp.managerId].name)} · ${esc(pp.status)}</span></li>`).join("")}</ul>`
-    : "";
-  const provRail = `<ul class="tfacts">${dataDimensions(x).map((d) => `<li><span class="tf-k">${STATE_ICON[d.state]} ${esc(d.key)}</span><span class="tf-v">${esc(String(d.detail).replace(/\s*—.*$/, "")) || esc(STATE_LABEL[d.state])}</span></li>`).join("")}</ul>`;
-
-  app.innerHTML = `
-    <div class="tdash">
-      ${breadcrumb([["#/funds", "Funds"], [null, x.name]])}
-      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
-      <div class="tdash-grid tdash-2">
-        <section class="tcol tcol-c">
-          <div class="tdet-id">
-            <h1>${nameCell("fund", x.id, esc(x.name))}</h1>
-            <div class="tdet-sub">${link(`#/manager/${m.id}`, m.name)} · ${esc(x.domicile)} · Vintage ${x.vintage}</div>
-            ${x.description ? `<p class="tdet-desc">${esc(x.description)}</p>` : ""}
-            <div class="tdet-chips"><span class="tdet-chip">${esc(x.strategy)}</span><span class="tdet-chip">${esc(x.status)}</span>${x.geoFocus ? `<span class="tdet-chip">${esc(x.geoFocus)}</span>` : ""}${x.lifecycle ? `<span class="tdet-chip">${esc(typeof x.lifecycle === "string" ? x.lifecycle : x.lifecycle.status)}</span>` : ""}</div>
-            <div class="tdet-src">Data as of ${esc(x.asOf || "—")} · ${completenessPill(x)}</div>
-            ${(x.sources && x.sources.length) ? `<div class="tdet-src">${sources(x)}</div>` : ""}
-          </div>
-          <header class="tpanel-h twire-head">
-            <div class="tchips" id="fd-chips">
-              <button type="button" class="tchip is-on" data-k="all">All</button>
-              <button type="button" class="tchip" data-k="intel">Fundraising</button>
-              <button type="button" class="tchip" data-k="deal">Deals</button>
-            </div>
-          </header>
-          <ul class="twire compact-list" id="fd-wire">${fundFeed.length ? fundFeed.map(fundWireRow).join("") : '<li class="muted small tw-empty">No activity linked to this fund yet.</li>'}</ul>
-        </section>
-        <aside class="tcol tcol-r">
-          ${railPanel("Fundraising", "", `<div class="tfd-raise">${raiseDisplay(x)}</div>${factsRail}`)}
-          ${railPanel("Target & performance", "", returnsRail)}
-          ${railPanel(investorsTitle, investorsCount ? String(investorsCount) : "", investorsRail)}
-          ${notableRail ? railPanel("Notable investments", String(notable.length), notableRail) : ""}
-          ${peersRail ? railPanel("Peer funds", esc(x.strategy), peersRail) : ""}
-          ${railPanel("Data completeness", "", provRail)}
-        </aside>
-      </div>
-    </div>`;
-  wireSimpleChips("fd-chips", "fd-wire");
-  applyPendingFocus("intel");
-}
 
 // ================================ MANAGERS ==================================
 // Normalise a manager's HQ string to one or more canonical countries/regions so
@@ -1318,343 +886,7 @@ function viewManagers() {
   wireFilters("managers");
 }
 
-// A short, strong AUM figure for the compact profile tile: pull the leading
-// currency figure out of the (often descriptive) aumText — e.g. "c. €2.5bn AUM
-// (firm website); ~€2.2bn across the funds" → "€2.5bn". Falls back to the numeric
-// aum, then a dash. Full aumText still shows on hover (title) and in Finances.
-function aumHeadline(m) {
-  const t = String(m.aumText || "");
-  const hit = t.match(/[~<>]?\s*(?:c\.\s*)?[€$£]\s*\d[\d.,]*\s*(?:tn|bn|billion|m|million)?\+?/i);
-  if (hit) return hit[0].replace(/c\.\s*/i, "").replace(/\s+/g, "").replace(/billion/i, "bn").replace(/million/i, "m");
-  return m.aum != null ? "€" + m.aum + "bn" : "—";
-}
 
-// Ownership, financials, headcount and regulatory/account filings (last 2 yrs).
-function ownersFilingsBlock(m) {
-  const owners = (m.owners && m.owners.length)
-    ? `<dl class="facts">${m.owners.map((o) => `<div><dt>${esc(o.name)}</dt><dd>${esc(o.stake)}</dd></div>`).join("")}</dl>`
-    : `<p class="muted small">Ownership not separately disclosed in public sources.</p>`;
-  const fin = m.financials
-    ? `<p class="detail-body">${esc(m.financials.summary)}${m.financials.asOf ? ` <span class="muted small">(as of ${esc(m.financials.asOf)})</span>` : ""}</p>`
-    : `<p class="muted small">Financials not yet compiled / not publicly disclosed (most private managers do not publish accounts beyond regulatory filings).</p>`;
-  const hc = m.headcount
-    ? `<div class="deploy-stats"><span><strong>${m.headcount.investment ?? "—"}</strong> investment professionals</span><span><strong>${m.headcount.other ?? "—"}</strong> other professionals</span><span><strong>${m.headcount.total ?? "—"}</strong> total</span></div>${m.headcount.asOf ? `<p class="muted small">as of ${esc(m.headcount.asOf)}</p>` : ""}`
-    : `<p class="muted small">Headcount split not yet compiled / not publicly broken out.</p>`;
-  const fil = (m.filings && m.filings.length)
-    ? `<ul class="link-list">${m.filings.map((x) => `<li><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.label)}</a>${x.date ? ` <span class="muted small">· ${esc(x.date)}</span>` : ""}</li>`).join("")}</ul>`
-    : `<p class="muted small">No regulatory/account filings compiled yet (UK LLPs file at Companies House; US advisers file SEC Form ADV; listed parents file annual reports).</p>`;
-  const leg = (m.legal && m.legal.length)
-    ? `<ul class="link-list">${m.legal.map((p) => `<li><strong>${esc(p.name)}</strong> <span class="muted small">${esc(p.role)}${p.city ? ` · ${esc(p.city)}` : ""}</span>${p.linkedin ? ` · <a href="${esc(p.linkedin)}" target="_blank" rel="noopener noreferrer" class="muted small">LinkedIn</a>` : ""}</li>`).join("")}</ul>`
-    : '<p class="muted small">Senior legal contacts not yet compiled for this manager (sourced from the firm\'s own website and LinkedIn where disclosed).</p>';
-  return `<section class="card">
-    <h2>About</h2>
-    <h3 class="sub">Owners</h3>${owners}
-    <h3 class="sub">Finances</h3>${fin}
-    <h3 class="sub">Headcount</h3>${hc}
-    <h3 class="sub">Legal &amp; senior counsel</h3>${leg}
-    <h3 class="sub">Recent regulatory &amp; account filings (last 2 years)</h3>${fil}
-    ${m.regSources ? sources({ sources: m.regSources }) : ""}
-  </section>`;
-}
-
-// Group a dated list into year sections (newest year first; undated last),
-// each rendered with a year heading acting as a section break.
-// Render a date-sorted list, inserting a day-break separator whenever the day
-// changes from the previous item (a visual gap between each day's items).
-// `labeled` → introduce each day with a dated header ("16 Jul 2026", uppercased
-// in CSS), matching the home news feed; the news/commentary rows then lead with
-// the time. Other feeds keep the plain centred day-rule.
-function withDayBreaks(items, rowFn, labeled) {
-  let prevDay = null;
-  return items.map((x) => {
-    const day = String(x.date || "").slice(0, 10);
-    const sep = labeled
-      ? (day !== prevDay ? `<div class="day-hdr">${esc(fmtDate(day))}</div>` : "")
-      : (prevDay !== null && day !== prevDay ? '<div class="day-sep" aria-hidden="true"></div>' : "");
-    prevDay = day;
-    return sep + rowFn(x);
-  }).join("");
-}
-function byYear(items, rowFn) {
-  const groups = {};
-  [...items].sort((a, b) => String(b.date).localeCompare(String(a.date))).forEach((x) => {
-    const y = (String(x.date).match(/^(\d{4})/) || [])[1] || "Undated";
-    (groups[y] ||= []).push(x);
-  });
-  return Object.keys(groups)
-    .sort((a, b) => (a === "Undated") - (b === "Undated") || b.localeCompare(a))
-    .map((y) => `<div class="year-group"><h3 class="year-head">${esc(y)}</h3>${withDayBreaks(groups[y], rowFn)}</div>`)
-    .join("");
-}
-
-// One manager-profile news row — same layout as the Fundraising (intelRow) rows:
-// a "News" pill + date in the meta column, the headline (links to source), then
-// the outlet inline after the headline, and a summary line where present.
-// On a MANAGER PROFILE (mgr=true) the row's date moves out of the meta column to
-// the end of the headline line (after the source, in grey); elsewhere the feeds
-// keep the date in the meta column beneath the chip.
-// The date now ALWAYS occupies the leading meta column (where the type chip used
-// to sit) on every feed row, on manager pages and feeds alike; the old inline
-// end-of-title date is retired (endDate kept as a no-op for its callers).
-const metaDate = (d) => `<span class="muted small">${d ? esc(fmtDate(d)) : ""}</span>`;
-const endDate = () => "";
-function newsItemRow(x, mgr) {
-  const head = x.url
-    ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a>`
-    : `<span class="intel-head">${esc(x.title)}</span>`;
-  const src = x.outlet ? `<span class="intel-src-inline muted small">${esc(x.outlet)}</span>` : "";
-  return `<div class="intel-row" data-fkey="${esc(feedDedupKey(x))}">
-    <div class="intel-meta">${metaDate(x.date)}</div>
-    <div class="intel-body"><div class="intel-title-line">${head}${src}${saveBtn(newsSaveId(x))}</div>${x.summary ? `<p class="muted small">${esc(x.summary)}</p>` : ""}</div>
-  </div>`;
-}
-
-// Dedup key for a manager's combined news feed: a specific source URL when one
-// exists, else the normalized headline/title — so an event captured as both a
-// press item and a structured deal/intel collapses to a single row. Generic
-// landing URLs (a bare domain, /news, /press-releases, …) are ignored so they
-// don't wrongly merge unrelated items that share the same landing page.
-function feedDedupKey(x) {
-  const u = (x.url || x.sourceUrl || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, "");
-  const generic = !u || /^https?:\/\/[^/]+$/.test(u) || /\/(news-insights|news|press-releases|media|insights|press)$/.test(u);
-  if (!generic) return "u:" + u;
-  return "t:" + (x.title || x.headline || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
-}
-// Render one row of the manager's combined feed by its tagged kind. On a manager
-// profile the headline should open the source directly (srcHead), matching the
-// press rows — the manager link would only point back to this same page.
-function mgrFeedRow(x) {
-  return x._kind === "deal" ? dealRow(x, true) : x._kind === "intel" ? intelRow(x, true) : newsItemRow(x, true);
-}
-
-// Senior legal team — general counsel and other senior legal counsel, with the
-// city they are based in and a link to their LinkedIn profile where known.
-// Best-effort extraction of a named CLO vehicle from a headline/summary, e.g.
-// "Palmer Square CLO 2026-1", "Cordatus XXXVIII", "GLM US CLO 30",
-// "Hayfin Emerald CLO XIII". Returns null when no specific vehicle is named
-// (general CLO news), so those items only show in the CLO news feed.
-function cloName(text) {
-  if (!text) return null;
-  let m = text.match(/\b([A-Z][\w'&.]*(?:\s+(?:[A-Z][\w'&.()/]*|of|the)){0,4}?\s+CLO\s+\d{4}-\d+[A-Z]?)\b/);
-  if (m) return m[1].trim();
-  m = text.match(/\b([A-Z][\w'&.]*(?:\s+[A-Z][\w'&.()/]*){0,4}?\s+CLO\s+(?:[IVXLCDM]{1,9}|\d{1,3}))\b/);
-  if (m) return m[1].trim();
-  m = text.match(/\b([A-Z][a-z]{3,}\s+[IVXLCDM]{1,9})\b/);
-  if (m) return m[1].trim();
-  return null;
-}
-// Best-effort deal size from a headline/summary, e.g. "€406m" / "$726m".
-function cloSize(text) {
-  const m = String(text || "").match(/([€$£])\s?~?\s?(\d[\d,]*(?:\.\d+)?)\s?(bn|billion|m|million)\b/i);
-  if (!m) return null;
-  return m[1] + m[2].replace(/,/g, "") + (/b/i.test(m[3]) ? "bn" : "m");
-}
-// Reduce a manager's CLO items to a roster of distinct named vehicles, each with
-// its vintage (issuance year), disclosed size and the items relating to it.
-// Sorted newest vintage first.
-function cloRosterFor(items) {
-  const map = new Map();
-  items.forEach((x) => {
-    const name = cloName(x.headline) || cloName(x.summary);
-    if (!name) return;
-    const key = name.toLowerCase();
-    let e = map.get(key);
-    if (!e) { e = { name, items: [], date: x.date }; map.set(key, e); }
-    e.items.push(x);
-    if (String(x.date) > String(e.date)) { e.date = x.date; e.name = name; }
-  });
-  return [...map.values()].map((e) => {
-    const byDate = [...e.items].sort((a, b) => String(a.date).localeCompare(String(b.date)));
-    const ny = (e.name.match(/\b(20\d{2})\b/) || [])[1];
-    const vintage = ny || (String(byDate[0].date).match(/^(\d{4})/) || [])[1] || "";
-    let size = null;
-    byDate.some((it) => (size = cloSize(it.headline) || cloSize(it.summary)));
-    return { name: e.name, items: e.items, date: e.date, vintage, size };
-  }).sort((a, b) => String(b.vintage).localeCompare(String(a.vintage)) || String(b.date).localeCompare(String(a.date)));
-}
-
-// Shared column template so the Funds and CLOs tables on a manager page line up
-// column-for-column (identical <col> widths + table-layout:fixed via .mgr-vehicle-table).
-const MGR_VEHICLE_COLS = `<colgroup><col style="width:28%"><col style="width:18%"><col style="width:18%"><col style="width:18%"><col style="width:18%"></colgroup>`;
-
-// Shared terminal wire row for credit detail pages (manager / fund / CLO). Builds
-// one dense line — date · CODE · headline (+ optional inline entity) · source —
-// from a feed item tagged with _kind (deal / intel / news). data-fkey (news) or
-// id="row-<id>" (structured) preserve the notification deep-link focus.
-const CR_KIND = { deal: "DEAL", intel: "FUND", news: "NEWS" };
-function crWireRow(x, inline) {
-  const isNews = x._kind === "news";
-  const title = isNews ? x.title : x.headline;
-  const src = isNews ? (x.outlet || "") : creditSource(x);
-  const url = isNews ? x.url : x.sourceUrl;
-  const head = isNews
-    ? `<a href="${esc(url || "#")}"${url ? ' target="_blank" rel="noopener noreferrer"' : ""} class="tw-head">${esc(title)}</a>`
-    : `<a href="#/${x._kind === "deal" ? "deals" : "intel"}" data-goto="${x._kind === "deal" ? "deals" : "intel"}:${x.id}" class="tw-head">${esc(title)}</a>`;
-  return `<li class="compact-item tw-row" data-kind="${x._kind}"${isNews ? ` data-fkey="${esc(feedDedupKey(x))}"` : ` id="row-${esc(x.id)}"`}>`
-    + `<span class="tw-date">${x.date ? esc(fmtDate(x.date)) : ""}</span>`
-    + `<span class="tw-tag ${x._kind}">${CR_KIND[x._kind]}</span>`
-    + `<span class="tw-body">${head}${inline ? `<span class="tw-mgr-w">${inline}</span>` : ""}</span>`
-    + `<span class="tw-src">${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(src || "source")}</a>` : esc(src || "")}</span>`
-    + `</li>`;
-}
-// Small reusable terminal rail panel.
-function railPanel(title, meta, body) {
-  return `<section class="tpanel"><header class="tpanel-h"><span>${title}</span>${meta ? `<span class="tpanel-x">${meta}</span>` : ""}</header>${body}</section>`;
-}
-
-function viewManager(id) {
-  const m = managerById[id];
-  if (!m) return notFound();
-  const fs = fundsByManager(id).sort((a, b) => b.vintage - a.vintage);
-  const news = intelForManager(id);
-  const liveFunds = fs.filter((x) => !x.evergreen && !x.lifecycle && x.status !== "Final Close").length;
-  // The CLO roster still needs this manager's CLO items (deals + intel tagged clo).
-  const mgrClo = [
-    ...dealsForManager(m.id).filter((d) => d.clo).map((d) => ({ ...d, _kind: "deal" })),
-    ...news.filter((i) => i.clo).map((i) => ({ ...i, _kind: "intel" })),
-  ];
-  const mgrCloRoster = cloRosterFor(mgrClo);
-  // One comprehensive, date-sorted feed for the manager AND its funds/CLOs:
-  // press (news + webNews), deal activity, fundraising intelligence and CLO
-  // items together, de-duplicated so an event captured as both a press item and
-  // a structured deal/intel shows once (the structured record wins).
-  const fundIds = new Set(fs.map((f) => f.id));
-  const belongs = (x) => x.managerId === id || (x.fundId && fundIds.has(x.fundId));
-  const mgrFeed = (() => {
-    const items = [
-      ...deals.filter(belongs).map((d) => ({ ...d, _kind: "deal" })),
-      ...intel.filter(belongs).map((i) => ({ ...i, _kind: "intel" })),
-      ...[...(m.news || []), ...(m.webNews || [])].map((x) => ({ ...x, _kind: "news", _mid: m.id, _mname: m.name })),
-    ];
-    const seen = new Set();
-    return items
-      .filter((x) => { const k = feedDedupKey(x); if (seen.has(k)) return false; seen.add(k); return true; })
-      .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
-  })();
-
-  const commits = commitmentsForManager(m.id);
-  // The manager is implicit on this page, so we surface the fund inline instead.
-  const mgrWireRow = (x) => crWireRow(x, x.fundId && fundById[x.fundId]
-    ? `<a href="#/fund/${x.fundId}" class="tw-mgr">${esc(fundById[x.fundId].name)}</a>` : "");
-  const metrics = [
-    ["AUM", esc(aumHeadline(m))], ["Founded", m.founded], ["Funds", fs.length],
-    ["In market", liveFunds], ["CLOs", mgrCloRoster.length], ["Investors", commits.length],
-  ];
-  // ---- panes: News (default) · Funds · CLOs · Key personnel ----
-  const newsPane = mgrFeed.length
-    ? `<ul class="twire compact-list" id="mgr-wire">${mgrFeed.map(mgrWireRow).join("")}</ul>`
-    : '<p class="tw-empty muted small">No news yet for this manager.</p>';
-  const fundsPane = fs.length
-    ? `<ul class="tmini">${fs.map((x) => `<li class="tmini-row clickable" data-href="#/fund/${x.id}"><span class="tmini-t">${esc(x.name)}<span class="tmini-r">${x.evergreen ? "Evergreen" : (x.targetSize ? eur(x.targetSize) : "—")}</span></span><span class="tmini-m">Vintage ${x.vintage} · ${esc(x.status || x.strategy || "")}</span></li>`).join("")}</ul>`
-    : `<p class="tw-empty muted small">${esc(m.fundsNote || "No fund tracked (bank/balance-sheet lender, no dedicated credit arm, or US/global-only vehicles).")}</p>`;
-  const closPane = mgrCloRoster.length
-    ? `<ul class="tmini">${mgrCloRoster.map((c) => `<li class="tmini-row clickable" data-href="#/clo/${m.id}/${encodeURIComponent(c.name)}"><span class="tmini-t">${esc(c.name)}<span class="tmini-r">${c.size ? esc(c.size) : ""}</span></span><span class="tmini-m">${c.vintage ? "Vintage " + esc(c.vintage) : "Issued"}</span></li>`).join("")}</ul>`
-    : `<p class="tw-empty muted small">${mgrClo.length ? "No individually-named CLO vehicles identified yet." : "No tracked CLOs."}</p>`;
-  const peoplePane = (() => {
-    let out = "";
-    if (m.owners && m.owners.length) out += `<div class="tpg"><div class="tpg-h">Ownership</div><ul class="tfacts">${m.owners.map((o) => `<li><span class="tf-k">${esc(o.name)}</span><span class="tf-v">${esc(o.stake)}</span></li>`).join("")}</ul></div>`;
-    if (m.legal && m.legal.length) out += `<div class="tpg"><div class="tpg-h">Legal &amp; senior counsel</div><ul class="tmini">${m.legal.map((p) => `<li class="tmini-row"><span class="tmini-t">${esc(p.name)}${p.linkedin ? ` · <a href="${esc(p.linkedin)}" target="_blank" rel="noopener noreferrer" class="tw-mgr">LinkedIn</a>` : ""}</span><span class="tmini-m">${esc(p.role || "")}${p.city ? " · " + esc(p.city) : ""}</span></li>`).join("")}</ul></div>`;
-    if (m.headcount) { const h = m.headcount; out += `<div class="tpg"><div class="tpg-h">Headcount${h.asOf ? ` · as of ${esc(h.asOf)}` : ""}</div><ul class="tfacts"><li><span class="tf-k">Investment professionals</span><span class="tf-v">${h.investment ?? "—"}</span></li><li><span class="tf-k">Other professionals</span><span class="tf-v">${h.other ?? "—"}</span></li><li><span class="tf-k">Total</span><span class="tf-v">${h.total ?? "—"}</span></li></ul></div>`; }
-    if (m.filings && m.filings.length) out += `<div class="tpg"><div class="tpg-h">Regulatory &amp; account filings</div><ul class="tmini">${m.filings.map((x) => `<li class="tmini-row"><a class="tmini-t" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.label)}</a>${x.date ? `<span class="tmini-m">${esc(x.date)}</span>` : ""}</li>`).join("")}</ul></div>`;
-    return out || '<p class="tw-empty muted small">No ownership or personnel data compiled for this manager yet.</p>';
-  })();
-  const pane = (p, inner) => `<div class="tpane" data-p="${p}"${p === "news" ? "" : " hidden"}>${inner}</div>`;
-
-  app.innerHTML = `
-    <div class="tdash">
-      ${breadcrumb([["#/", "Managers"], [null, m.name]])}
-      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
-      <div class="tdash-grid tdash-1">
-        <section class="tcol tcol-c tcol-full">
-          <div class="tdet-id">
-            <h1>${nameCell("manager", m.id, esc(m.name))}</h1>
-            <div class="tdet-sub">${esc(m.hq)} · Founded ${m.founded}${m.aumText ? " · " + esc(aumHeadline(m)) + " AUM" : ""}</div>
-            ${m.description ? `<p class="tdet-desc">${esc(m.description)}</p>` : ""}
-            ${m.strategies && m.strategies.length ? `<div class="tdet-chips">${m.strategies.map((s) => `<span class="tdet-chip">${esc(s)}</span>`).join("")}</div>` : ""}
-            ${(m.sources && m.sources.length) ? `<div class="tdet-src">${sources(m)}</div>` : ""}
-          </div>
-          <header class="tpanel-h twire-head">
-            <div class="tchips" id="mgr-tabs">
-              <button type="button" class="tchip is-on" data-p="news">News</button>
-              <button type="button" class="tchip" data-p="funds">Funds${fs.length ? " " + fs.length : ""}</button>
-              <button type="button" class="tchip" data-p="clos">CLOs${mgrCloRoster.length ? " " + mgrCloRoster.length : ""}</button>
-            </div>
-          </header>
-          <div class="tpanes" id="mgr-panes">
-            ${pane("news", newsPane)}
-            ${pane("funds", fundsPane)}
-            ${pane("clos", closPane)}
-          </div>
-        </section>
-      </div>
-    </div>`;
-  // Toggle which pane (News / Funds / CLOs / Key personnel) is shown.
-  const tabs = document.getElementById("mgr-tabs");
-  if (tabs) tabs.addEventListener("click", (e) => {
-    const b = e.target.closest(".tchip"); if (!b) return;
-    tabs.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
-    const p = b.dataset.p;
-    _chipMem[chipMemKey("mgr-tabs")] = p || "news";
-    document.querySelectorAll("#mgr-panes .tpane").forEach((el) => { el.hidden = el.dataset.p !== p; });
-  });
-  if (tabs) {
-    const k0 = _chipMem[chipMemKey("mgr-tabs")];
-    const b0 = k0 && k0 !== "news" ? tabs.querySelector(`.tchip[data-p="${k0}"]`) : null;
-    if (b0 && !b0.classList.contains("is-on")) b0.click();
-  }
-  // Deep link to a specific story focuses its row in the News pane.
-  applyPendingFocus("manager");
-}
-
-// Drill-down from a manager's CLO roster: the news/activity for one CLO vehicle.
-// Route: #/clo/<managerId>/<encoded CLO name>.
-function viewClo(mid, encName) {
-  const m = managerById[mid];
-  if (!m) return notFound();
-  const name = decodeURIComponent(encName || "");
-  const mgrClo = [
-    ...dealsForManager(mid).filter((d) => d.clo).map((d) => ({ ...d, _kind: "deal" })),
-    ...intelForManager(mid).filter((i) => i.clo).map((i) => ({ ...i, _kind: "intel" })),
-  ];
-  const roster = cloRosterFor(mgrClo);
-  const c = roster.find((x) => x.name === name) || roster.find((x) => x.name.toLowerCase() === name.toLowerCase());
-  if (!c) return notFound();
-  const items = [...c.items].sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
-  const otherClos = roster.filter((r) => r.name !== c.name);
-  const metrics = [
-    ["Vintage", c.vintage || "—"], ["Size", c.size || "—"],
-    ["Items", c.items.length], ["Manager", esc(m.name)],
-  ];
-  const kvFig = [
-    ["Vintage", c.vintage || "—"], ["Size", c.size || "—"],
-    ["Items", c.items.length], ["Manager CLOs", roster.length],
-  ];
-  const otherRail = otherClos.length
-    ? `<ul class="tmini">${otherClos.map((r) => `<li class="tmini-row clickable" data-href="#/clo/${mid}/${encodeURIComponent(r.name)}"><span class="tmini-t">${esc(r.name)}<span class="tmini-r">${r.size ? esc(r.size) : ""}</span></span><span class="tmini-m">${r.vintage ? "Vintage " + esc(r.vintage) : "Issued"}</span></li>`).join("")}</ul>`
-    : `<p class="tw-empty muted small">No other tracked CLOs from this manager.</p>`;
-  app.innerHTML = `
-    <div class="tdash">
-      ${breadcrumb([["#/managers", "Managers"], ["#/manager/" + mid, m.name], [null, c.name]])}
-      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
-      <div class="tdash-grid tdash-2">
-        <section class="tcol tcol-c">
-          <div class="tdet-id">
-            <h1>${esc(c.name)}</h1>
-            <div class="tdet-sub">CLO · managed by ${link("#/manager/" + mid, m.name)}${c.vintage ? ` · Vintage ${esc(c.vintage)}` : ""}${c.size ? ` · ${esc(c.size)}` : ""}</div>
-            <div class="tdet-chips"><span class="tdet-chip">Structured Credit</span>${c.vintage ? `<span class="tdet-chip">Vintage ${esc(c.vintage)}</span>` : ""}</div>
-          </div>
-          <header class="tpanel-h twire-head"><span>Issuance, pricings, resets &amp; news</span><span class="tpanel-x">CLO wire</span></header>
-          <ul class="twire compact-list" id="clo-wire">${items.length ? items.map((x) => crWireRow(x, "")).join("") : '<li class="muted small tw-empty">No tracked activity for this CLO yet.</li>'}</ul>
-        </section>
-        <aside class="tcol tcol-r">
-          ${railPanel("Key figures", "", `<dl class="tkv">${kvFig.map(([l, v]) => `<div><dt>${esc(l)}</dt><dd>${v}</dd></div>`).join("")}</dl>`)}
-          ${railPanel("Manager", "", `<ul class="tmini"><li class="tmini-row clickable" data-href="#/manager/${mid}"><span class="tmini-t">${esc(m.name)}</span><span class="tmini-m">${esc(m.hq || "")}</span></li></ul>`)}
-          ${railPanel("Other CLOs from " + esc(m.name), otherClos.length ? String(otherClos.length) : "", otherRail)}
-        </aside>
-      </div>
-    </div>`;
-  applyPendingFocus("clos");
-}
 
 // ================================ INVESTORS =================================
 function viewLps() {
@@ -1687,75 +919,8 @@ function viewLps() {
   wireFilters("lps");
 }
 
-function viewLp(id) {
-  const l = lpById[id];
-  if (!l) return notFound();
-  const pcAum = l.pcAllocationPct != null ? (l.aum * l.pcAllocationPct / 100) : null;
-  const matches = funds.filter((x) => l.strategies.includes(x.strategy) && (x.status === "Open" || x.status === "First Close" || x.status === "Pre-marketing"));
-  const mf = pageList(matches, "lp:" + l.id + ":funds", "");
-
-  const commits = commitmentsForLp(l.id);
-  const metrics = [
-    ["AUM", "€" + l.aum + "bn"], ["PC alloc", pct(l.pcAllocationPct)],
-    ["Implied PC", pcAum != null ? "€" + pcAum.toFixed(1) + "bn" : "—"],
-    ["Ticket", eur(l.typicalTicket)], ["Commitments", commits.length], ["Matches", matches.length],
-  ];
-  const kvFig = [
-    ["Total AUM", "€" + l.aum + "bn"], ["PC allocation", pct(l.pcAllocationPct)],
-    ["Implied PC AUM", pcAum != null ? "€" + pcAum.toFixed(1) + "bn" : "—"], ["Typical ticket", eur(l.typicalTicket)],
-  ];
-  const commitsBody = commits.length
-    ? `<ul class="tmini">${commits.map((c) => `<li class="tmini-row clickable" data-href="#/manager/${c.managerId}"><span class="tmini-t">${esc(managerById[c.managerId].name)}${c.fundId && fundById[c.fundId] ? `<span class="tmini-r">${esc(fundById[c.fundId].name)}</span>` : ""}</span>${c.note ? `<span class="tmini-m">${esc(c.note)}</span>` : ""}</li>`).join("")}</ul>`
-    : `<p class="tw-empty muted small">No specific commitments publicly disclosed.</p>`;
-  const matchesBody = matches.length
-    ? `<ul class="tmini">${mf.shown.map((x) => `<li class="tmini-row clickable" data-href="#/fund/${x.id}"><span class="tmini-t">${esc(x.name)}</span><span class="tmini-m">${esc(managerById[x.managerId].name)} · ${esc(x.strategy)} · ${esc(x.status)}</span></li>`).join("")}${mf.more}</ul>`
-    : `<p class="tw-empty muted small">No matching live funds.</p>`;
-
-  app.innerHTML = `
-    <div class="tdash">
-      ${breadcrumb([["#/lps", "Investors"], [null, l.name]])}
-      <div class="tdash-ticker">${metrics.map(([lab, v]) => `<span class="tmet"><b>${v}</b> ${esc(lab)}</span>`).join("")}</div>
-      <div class="tdash-grid tdash-2">
-        <section class="tcol tcol-c">
-          <div class="tdet-id">
-            <h1>${nameCell("lp", l.id, esc(l.name))}</h1>
-            <div class="tdet-sub">${esc(l.type)} · ${esc(l.hq)}</div>
-            ${l.notes ? `<p class="tdet-desc">${esc(l.notes)}</p>` : ""}
-            <div class="tdet-chips"><span class="tdet-chip">${esc(l.mandateStatus)}</span>${l.strategies.map((s) => `<span class="tdet-chip">${esc(s)}</span>`).join("")}</div>
-          </div>
-          <header class="tpanel-h twire-head"><span>Known commitments</span><span class="tpanel-x">${commits.length}</span></header>
-          <div id="lp-commits">${commitsBody}</div>
-        </section>
-        <aside class="tcol tcol-r">
-          ${railPanel("Key figures", "", `<dl class="tkv">${kvFig.map(([lab, v]) => `<div><dt>${esc(lab)}</dt><dd>${v}</dd></div>`).join("")}</dl>`)}
-          ${railPanel("Strategies of interest", "", `<div class="tdet-chips" style="padding:9px 12px">${l.strategies.map((s) => `<span class="tdet-chip">${esc(s)}</span>`).join("")}</div>`)}
-          ${railPanel("Matching funds in market", String(matches.length), matchesBody)}
-        </aside>
-      </div>
-    </div>`;
-}
 
 // =============================== INTELLIGENCE ===============================
-const INTEL_TYPES = ["Launch", "First Close", "Final Close", "Mandate", "Personnel", "Strategy"];
-const intelTypeClass = (t) => ({
-  "Launch": "it-launch", "First Close": "it-first", "Final Close": "it-final",
-  "Mandate": "it-mandate", "Personnel": "it-personnel", "Strategy": "it-strategy",
-}[t] || "");
-
-// The headline links straight to the source; the manager sits inline beside the
-// headline (a link to its profile), consistently across every feed.
-function intelRow(i, mgr) {
-  const m = i.managerId ? managerById[i.managerId] : null;
-  const ftarget = i.fundId ? `#/fund/${i.fundId}` : (m ? `#/manager/${m.id}` : null);
-  const tag = m ? link(`#/manager/${m.id}`, m.name, "muted small") : '<span class="muted small">Market-wide</span>';
-  const head = i.sourceUrl
-    ? `<a href="${esc(i.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(i.headline)}</a>`
-    : (ftarget ? link(ftarget, i.headline, "intel-head") : `<span class="intel-head">${esc(i.headline)}</span>`);
-  return `<div class="intel-row" id="row-${i.id}" data-fkey="${esc(feedDedupKey(i))}">
-    <div class="intel-meta">${metaDate(i.date)}</div>
-    <div class="intel-body"><div class="intel-title-line">${head}${tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}${saveBtn(i.id)}</div><p class="muted small">${esc(i.summary)}</p></div>
-  </div>`;
-}
 
 function viewIntel() {
   const f = filterState.intel;
@@ -1794,27 +959,6 @@ function viewIntel() {
 }
 
 // ============================== DEAL ACTIVITY ==============================
-const dealTypeClass = (t) => ({
-  "Investment": "dt-invest", "Financing": "dt-fin", "Disposal / Exit": "dt-exit",
-  "Refinancing": "dt-refi", "Restructuring": "dt-restr", "Bankruptcy / Distress": "dt-bank",
-  "Acquisition": "dt-acq", "NPL / Portfolio": "dt-npl", "Continuation Vehicle": "dt-cv",
-  "Unitranche": "dt-fin", "Structured Credit": "dt-invest", "NAV / Fund Finance": "dt-refi",
-}[t] || "");
-
-// The headline links straight to the source; the manager sits inline beside the
-// headline (a link to its profile), consistently across every feed.
-function dealRow(d, mgr) {
-  const m = d.managerId ? managerById[d.managerId] : null;
-  const tgt = d.fundId ? `#/fund/${d.fundId}` : (m ? `#/manager/${m.id}` : null);
-  const tag = m ? link(`#/manager/${m.id}`, m.name, "muted small") : "";
-  const head = d.sourceUrl
-    ? `<a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(d.headline)}</a>`
-    : (tgt ? link(tgt, d.headline, "intel-head") : `<span class="intel-head">${esc(d.headline)}</span>`);
-  return `<div class="intel-row" id="row-${d.id}" data-fkey="${esc(feedDedupKey(d))}">
-    <div class="intel-meta">${metaDate(d.date)}</div>
-    <div class="intel-body"><div class="intel-title-line">${head}${tag ? `<span class="intel-src-inline muted small">${tag}</span>` : ""}${saveBtn(d.id)}</div><p class="muted small">${esc(d.summary)}</p></div>
-  </div>`;
-}
 
 function viewDeals() {
   const f = filterState.deals;
@@ -2202,15 +1346,6 @@ function viewWatchlist() {
 }
 
 // ============================== shared bits ================================
-function breadcrumb(parts) {
-  return `<nav class="breadcrumb">${parts.map(([href, label], i) =>
-    (href ? link(href, label) : `<span>${esc(label)}</span>`) + (i < parts.length - 1 ? '<span class="sep">/</span>' : "")
-  ).join("")}</nav>`;
-}
-
-function notFound() {
-  app.innerHTML = `<div class="page-head"><h1>Not found</h1><p class="muted">That record doesn't exist. ${link("#/", "Back to dashboard")}.</p></div>`;
-}
 
 // Re-render current view but keep updated filter state, without losing focus
 function wireFilters(view) {
@@ -2247,23 +1382,6 @@ function reopenMs() {
   if (btn) btn.setAttribute("aria-expanded", "true");
 }
 
-// After navigating to a feed page via a dashboard headline, scroll to and
-// briefly highlight the targeted item.
-function applyPendingFocus(view) {
-  if (!pendingFocus || pendingFocus.view !== view) return;
-  const windowed = !!pendingFocus.until; // URL-driven (re-apply until it lapses)
-  if (windowed && Date.now() > pendingFocus.until) { pendingFocus = null; return; }
-  // Resolve by feed dedup key (news stories, which may render as a deal/intel
-  // row) or by element id (structured deal/intel deep links).
-  const el = pendingFocus.fkey
-    ? [...document.querySelectorAll("[data-fkey]")].find((e) => e.getAttribute("data-fkey") === pendingFocus.fkey)
-    : document.getElementById("row-" + pendingFocus.id);
-  if (!windowed) pendingFocus = null; // click-set focus is one-shot (unchanged)
-  if (!el) return; // row not in the DOM yet (paged out) — a windowed focus retries
-  el.scrollIntoView({ behavior: "smooth", block: "center" });
-  el.classList.add("flash");
-  setTimeout(() => el.classList.remove("flash"), 2200);
-}
 
 // Click delegation: watchlist stars first, then row navigation.
 app.addEventListener("click", (e) => {
@@ -2322,7 +1440,7 @@ app.addEventListener("click", (e) => {
   const goto = e.target.closest("[data-goto]");
   if (goto) {
     const [view, id] = goto.getAttribute("data-goto").split(":");
-    pendingFocus = { view, id };
+    setPendingFocus({ view, id });
     // the anchor's href (#/deals or #/intel) changes the hash and triggers router
     return;
   }
@@ -2438,9 +1556,9 @@ function router() {
     // A "k:" prefix targets a row by its feed dedup key (data-fkey) rather than
     // its element id — used for news stories, which may collapse into a deal /
     // intel row on the manager feed, so an id would miss the surviving row.
-    pendingFocus = focusId.startsWith("k:")
+    setPendingFocus(focusId.startsWith("k:")
       ? { view: route, fkey: decodeURIComponent(focusId.slice(2)), until: Date.now() + 4000 }
-      : { view: route, id: focusId, until: Date.now() + 4000 };
+      : { view: route, id: focusId, until: Date.now() + 4000 });
     history.replaceState(null, "", hash);
   }
   document.querySelectorAll(".nav-link").forEach((a) => {
@@ -2467,7 +1585,7 @@ function router() {
     // #/clos (old CLO list) and #/watchlist (superseded by the Bookmarks
     // panel's Watchlist tab) are retired the same way — views kept dormant.
     case "deals": case "intel": case "clos": case "watchlist": return viewDashboard();
-    default: return notFound();
+    default: return notFound(app);
   }
 }
 
