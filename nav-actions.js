@@ -802,6 +802,10 @@ export function initNavActions() {
     };
     const openPanel = (rec) => {
       _openAt = Date.now();
+      // Re-measure the top bar's bottom NOW (its height settles after the safe-
+      // area/notch layout, which an init-time measurement can miss) so the full-
+      // screen panel opens flush BELOW it instead of sliding up under it.
+      if (isPhone()) setTopVar();
       panels.forEach((x) => { if (x !== rec) { x.panel.hidden = true; x.btn.setAttribute("aria-expanded", "false"); } });
       rec.panel.hidden = false;
       rec.btn.setAttribute("aria-expanded", "true");

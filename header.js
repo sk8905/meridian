@@ -9,7 +9,7 @@
 // brief.js. This module wires all three together in the right order so the
 // account block, buttons and briefing all find their mount points.
 // =============================================================================
-import { initNavActions } from "/nav-actions.js?v=20260719-42";
+import { initNavActions } from "/nav-actions.js?v=20260719-43";
 import { initBrief } from "/brief.js?v=6";
 
 const TABS = [
