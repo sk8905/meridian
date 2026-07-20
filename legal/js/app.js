@@ -31,8 +31,14 @@ import {
   markVisitedSoon, _chipMem, chipMemKey,
 } from "./shared.js?v=20260720-1";
 import { viewItem, viewFirm } from "./detail.js?v=20260720-1";
+// The shared news-wire engine — so the Legal dashboard wire is the same build as
+// the Home feed (time-led .g-feed-* rows, day headers, and — new — the firm name
+// at row end as an in-place source filter).
+import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks } from "/feed.js?v=20260720-1";
 
 const app = document.getElementById("app");
+let _lgWireItems = [];        // normalised wire items for the shared feed engine
+let _lgFilter = "all", _lgSrc = null;   // active desk chip / source filter
 
 // In-page memory for chip selections, keyed per chips-row AND current route:
 // survives the async data-sync re-renders (which re-run the templates with the
@@ -472,20 +478,17 @@ function viewDashboard() {
     ...caseItems.filter((x) => x.date),
     ...rps.filter((x) => x.date),
   ].sort(byDateDesc);
-  const wireRow = (x) => {
-    const mgr = x.mgr ? `<span class="tw-mgr-w"><span class="tw-mgr">${esc(x.mgr)}</span></span>` : "";
-    // Scheme/RP headline → jump to its row in the Schemes & RPs table (in-app);
-    // everything else opens its href (external source for cases, #/item for alerts).
-    const head = x.goScheme
-      ? `<a href="#/" data-goscheme="${esc(x.goScheme)}" class="tw-head">${esc(x.title)}</a>`
-      : `<a href="${esc(x.href)}"${x.ext ? ` target="_blank" rel="noopener noreferrer"` : ""} class="tw-head">${esc(x.title)}</a>`;
-    return `<li class="compact-item tw-row" data-kind="${x._k}"${x.firmId ? ` data-firm="${esc(x.firmId)}"` : ""}>`
-      + `<span class="tw-date">${x.date ? esc(fmtDate(x.date)) : ""}</span>`
-      + `<span class="tw-tag ${x._k}">${x.code}</span>`
-      + `<span class="tw-body">${head}${mgr}</span>`
-      + `<span class="tw-src">${x.url ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.src || "source")}</a>` : esc(x.src || "")}</span>`
-      + `</li>`;
-  };
+  // Normalise into the shared wire's item shape: the Legal taxonomy (ALERT /
+  // CASE / SCHEME / RP) maps to the shared code chips. The row-end value — for an
+  // alert that's the FIRM name — becomes an in-place source filter, exactly like
+  // the Home feed (previously it was a plain external link). Scheme/RP headlines
+  // still jump to that matter in the Schemes & RPs table (via data-sid, handled
+  // in legalWireDash). Legal data carries a date only, so rows lead with "12:00".
+  _lgWireItems = wire.map((x) => x._k === "rp"
+    ? { desk: x.code === "SCHEME" ? "scheme" : "rp", href: "#/", ext: false, title: x.title,
+        src: x.src || "", date: x.date || "", sid: x.goScheme || "" }
+    : { desk: x._k, href: x.href, ext: x.ext, title: x.title,
+        src: x.src || "", date: x.date || "", firm: x.firmId || "" });
   const rxRow = (r) => { const u = r.judgmentUrl || r.articleUrl; return `<li class="tmini-row"><a class="tmini-t" href="${esc(u || "#/")}"${u ? ` target="_blank" rel="noopener noreferrer"` : ""}>${esc(r.company)}</a><span class="tmini-m">${r.type === "scheme" ? "Scheme" : "Plan"}${r.date ? " · " + esc(fmtDate(r.date)) : ""}</span></li>`; };
   const caseRow = (c) => `<li class="tmini-row"><a class="tmini-t" href="${esc(c.url || "#/")}"${c.url ? ` target="_blank" rel="noopener noreferrer"` : ""}>${esc(c.name)}</a><span class="tmini-m">${esc(c.court)}${c.date ? " · " + esc(fmtDate(c.date)) : ""}</span></li>`;
 
@@ -501,8 +504,8 @@ function viewDashboard() {
           </div>
         </header>
         <div class="tpanes" id="lg-panes">
-          <div class="tpane" data-pane="wire">
-            <ul class="twire compact-list" id="lg-wire">${wire.length ? wireDays(wire, wireRow) : '<li class="tw-empty muted small">No items yet.</li>'}</ul>
+          <div class="tpane g-feed-wrap" data-pane="wire">
+            <div class="g-feed twire" id="lg-wire">${_lgWireItems.length ? feedBodyHTML(_lgWireItems) : feedEmptyHTML("No items yet.")}</div>
           </div>
           <div class="tpane" data-pane="cases" hidden>${casesPane()}</div>
           <div class="tpane" data-pane="schemes" hidden>${schemesTablePane()}</div>
@@ -520,33 +523,50 @@ function legalWireDash() {
   if (!chips || !panes) return;
   const PANE = { all: "wire", alert: "wire", case: "cases", rp: "schemes" };
   const wire = document.getElementById("lg-wire");
+  // Filtering re-renders the shared wire (so day headers + the source bar stay
+  // correct), like the Home feed. Case law / Schemes still swap to their own full
+  // pane (not capped by the wire's newest-N slice).
+  const paint = () => {
+    if (!wire) return;
+    let list = _lgWireItems;
+    if (_lgSrc) list = list.filter((x) => x.src === _lgSrc);
+    else if (_lgFilter !== "all") list = list.filter((x) => x.desk === _lgFilter);
+    wire.innerHTML = (_lgSrc ? feedSrcBarHTML(_lgSrc) : "")
+      + (list.length ? feedBodyHTML(list) : feedEmptyHTML(_lgSrc ? `No ${_lgSrc} stories — check back shortly.` : "No items yet."));
+  };
+  const showPane = (pane) => panes.querySelectorAll(".tpane").forEach((p) => { p.hidden = p.dataset.pane !== pane; });
+  const setActive = (k) => chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === k));
   const selectChip = (k) => {
-    chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === k));
+    setActive(k);
     const pane = PANE[k] || "wire";
-    panes.querySelectorAll(".tpane").forEach((p) => { p.hidden = p.dataset.pane !== pane; });
-    if (pane === "wire" && wire) {
-      wire.querySelectorAll(".tw-row").forEach((r) => { r.style.display = (k === "all" || r.dataset.kind === k) ? "" : "none"; });
-      syncDayRows(wire);
-    }
+    showPane(pane);
+    if (pane === "wire") { _lgFilter = k === "alert" ? "alert" : "all"; _lgSrc = null; paint(); }
   };
   chips.onclick = (e) => {
     const b = e.target.closest(".tchip"); if (!b) return;
     _chipMem[chipMemKey("lg-chips")] = b.dataset.k || "all";
     selectChip(b.dataset.k);
   };
-  // In-page selection survives async-sync re-renders (All is hardcoded
-  // active in the template — the same kick the Macro main tabs had).
+  // In-page selection survives async-sync re-renders (All is hardcoded active in
+  // the template — the same kick the Macro main tabs had).
   {
     const k0 = _chipMem[chipMemKey("lg-chips")];
     if (k0 && k0 !== "all" && chips.querySelector(`.tchip[data-k="${k0}"]`)) selectChip(k0);
   }
-  // An 'All' scheme/RP headline jumps to that matter in the Schemes & RPs table.
-  panes.addEventListener("click", (e) => {
-    const g = e.target.closest("[data-goscheme]"); if (!g) return;
+  // Firm name (row end) → filter the wire to that firm, Home-style; reset to All.
+  attachFeedClicks(wire, {
+    onSrc: (s) => { _lgSrc = s; _lgFilter = "all"; setActive("all"); showPane("wire"); paint(); },
+    onClearSrc: () => { _lgSrc = null; paint(); },
+  });
+  // A scheme/RP headline still jumps to that matter in the Schemes & RPs table.
+  if (wire) wire.addEventListener("click", (e) => {
+    if (e.target.closest(".g-feed-src")) return;   // source-filter click, not a jump
+    const row = e.target.closest('.g-feed-row[data-desk="scheme"], .g-feed-row[data-desk="rp"]');
+    if (!row || !row.dataset.sid) return;
     e.preventDefault();
     selectChip("rp");
-    const row = document.getElementById("lg-sc-" + g.getAttribute("data-goscheme"));
-    if (row) { row.scrollIntoView({ behavior: "smooth", block: "center" }); row.classList.add("lg-sc-flash"); setTimeout(() => row.classList.remove("lg-sc-flash"), 1600); }
+    const t = document.getElementById("lg-sc-" + row.dataset.sid);
+    if (t) { t.scrollIntoView({ behavior: "smooth", block: "center" }); t.classList.add("lg-sc-flash"); setTimeout(() => t.classList.remove("lg-sc-flash"), 1600); }
   });
 }
 
