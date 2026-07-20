@@ -32,7 +32,7 @@
     // bar staging. The body auth script confirms via /api/me and calls
     // window.__enterGlance for the no-hint path (initGlance self-guards).
     import { initGlance } from "/glance.js?v=20260719-23";
-    import { initNavActions } from "/nav-actions.js?v=20260719-33";
+    import { initNavActions } from "/nav-actions.js?v=20260719-34";
     window.__enterGlance = () => {
       ["loading", "out", "glance"].forEach((s) => document.getElementById(s).classList.toggle("hidden", s !== "glance"));
       const h = new Date().getHours();
