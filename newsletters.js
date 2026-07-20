@@ -27,6 +27,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-pointsofreturn-20260720",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "How the market broadened and nobody noticed",
+    date: "2026-07-20",
+    time: "05:01",
+    summary: "Earnings season gets going amid escalating Iran-US hostilities and Brent above $90; the real Q2 story is quietly broadening market breadth.",
+    url: "https://bloom.bg/4prWQW6",
+  },
+  {
     id: "nl-bbg-thebrink-20260718",
     publication: "Bloomberg",
     author: "Angélica Serrano-Román",
