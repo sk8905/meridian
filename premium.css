@@ -527,6 +527,11 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-v { color: var(--ink, #eaf0fb); }
 .na-c { min-width: 66px; text-align: right; }
 .na-c.up { color: #3fc08d; } .na-c.down { color: #f26d84; } .na-c.flat { color: var(--faint, #5c6a86); }
+/* Market open/closed session dot on the shared Markets panel rows (matches the
+   Home markets band + Top Movers dots). Green = regular session, red = closed. */
+.na-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-left: 6px; vertical-align: middle; }
+.na-dot.open { background: #059669; box-shadow: 0 0 0 1px rgba(5,150,105,.14); }
+.na-dot.closed { background: #dc2626; box-shadow: 0 0 0 1px rgba(220,38,38,.12); }
 /* Saved feed rows */
 .na-load, .na-empty { padding: 16px 12px; color: var(--muted, #8592ad); font-size: 12.5px; line-height: 1.5; }
 /* Mobile scrim behind a full-screen overlay. Starts BELOW the top bar so the

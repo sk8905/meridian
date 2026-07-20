@@ -174,11 +174,19 @@ function initChrome() {
 }
 
 // ---- Markets rows -----------------------------------------------------------
+// Session dot from Yahoo's authoritative marketState (REGULAR = open); omitted
+// when the row carries no state. Mirrors the Home markets band + Top Movers.
+function naDot(x) {
+  if (!x || !x.marketState) return "";
+  const open = x.marketState === "REGULAR";
+  const tip = open ? "Market open" : "Market closed";
+  return ` <span class="na-dot ${open ? "open" : "closed"}" title="${esc(tip)}" aria-label="${esc(tip)}"></span>`;
+}
 function marketRow(x) {
   const c = typeof x.changePct === "number" && isFinite(x.changePct) ? x.changePct : null;
   const dir = c == null ? "flat" : c > 0 ? "up" : c < 0 ? "down" : "flat";
   const arw = c == null ? "·" : c > 0 ? "▲" : c < 0 ? "▼" : "·";
-  return `<div class="na-mrow"><span class="na-l">${esc(x.label)}</span><span class="na-v">${x.value != null ? fmtNum(x.value) : "—"}</span><span class="na-c ${dir}">${c == null ? "" : arw + " " + Math.abs(c).toFixed(2) + "%"}</span></div>`;
+  return `<div class="na-mrow"><span class="na-l">${esc(x.label)}${naDot(x)}</span><span class="na-v">${x.value != null ? fmtNum(x.value) : "—"}</span><span class="na-c ${dir}">${c == null ? "" : arw + " " + Math.abs(c).toFixed(2) + "%"}</span></div>`;
 }
 function rateRow(x) {
   const bp = x.unit === "bp";
@@ -195,7 +203,7 @@ function moverRow(x) {
   const dir = c == null ? "flat" : c > 0 ? "up" : c < 0 ? "down" : "flat";
   const pct = c == null ? "" : (c > 0 ? "+" : "") + c.toFixed(2) + "%";
   const w = c == null ? 0 : Math.max(3, Math.min(50, Math.abs(c) * 15));
-  const inner = `<span class="na-l">${esc(x.label)}</span>`
+  const inner = `<span class="na-l">${esc(x.label)}${naDot(x)}</span>`
     + `<span class="na-bar"><span class="na-bar-f ${dir}" style="width:${w}%"></span></span>`
     + `<span class="na-c ${dir}">${pct}</span>`;
   return x.href
