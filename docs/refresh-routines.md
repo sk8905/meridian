@@ -124,9 +124,15 @@ extra deep-research pass on watchlisted names is skipped.
   Crunchbase, PitchBook, SimplyWall, MarketBeat).
 - **Cache-busters.** Each app has `?v=YYYYMMDD-N` tokens that MUST move in
   lockstep or the browser serves a stale `app.js`:
-  - Credit (FOUR): `css/styles.css?v=` & `js/app.js?v=` in `credit/index.html`; the
-    `./data.js?v=` & `./charts.js?v=` imports in `credit/js/app.js`.
-  - Legal (FOUR): the same four under `legal/`.
+  - Credit: `css/styles.css?v=` & `js/app.js?v=` in `credit/index.html`; the
+    `./data.js?v=` & `./charts.js?v=` imports in `credit/js/app.js`. NB `app.js`
+    also imports `./shared.js?v=` + `./detail.js?v=`, and BOTH `credit/js/shared.js`
+    and `credit/js/detail.js` import `./data.js?v=` too — the `./data.js?v=` token
+    MUST stay identical across `app.js`, `shared.js` and `detail.js` (bump all
+    three together) or the browser instantiates `data.js` twice.
+  - Legal: the same under `legal/` — `js/app.js?v=` + `css/styles.css?v=` in
+    `legal/index.html`, and the `./data.js?v=` token identical across
+    `legal/js/app.js`, `legal/js/shared.js` and `legal/js/detail.js`.
   - Macro (THREE): `css/styles.css?v=` & `js/app.js?v=` in `macro/index.html`; the
     `./content.js?v=` import in `macro/js/app.js` AND its siblings `macro/js/dashboard.js` + `macro/js/shared.js` — all three MUST carry the SAME content token, or the browser instantiates content.js twice. Macro has no `data.js`/`charts.js`.
   **RULE: whenever you change an app's data (`data.js`, or for Macro its
