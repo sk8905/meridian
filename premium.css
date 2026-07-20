@@ -418,15 +418,8 @@ html.wire-boot #out { visibility: hidden; }
 .na-recent-row { color: var(--muted, #8592ad); cursor: pointer;
   border-bottom: 1px solid var(--grid, #1a1a1a); }
 .na-recent-row svg { width: 14px; height: 14px; flex: 0 0 auto; color: var(--faint, #5c6a86); }
-/* Appearance — two-option theme control (System | Other), squared to match the
-   terminal chrome. The selected option gets the black/white chip underline. */
-.na-theme-seg { display: flex; gap: 8px; padding: 6px 14px 12px; }
-.na-theme-opt { flex: 1 1 0; display: inline-flex; align-items: center; justify-content: center; gap: 7px;
-  padding: 9px 8px; border: 1px solid var(--border, #262626); background: transparent;
-  color: var(--muted, #8592ad); font: inherit; font-size: 12.5px; border-radius: 0; cursor: pointer; }
-.na-theme-opt svg { width: 15px; height: 15px; flex: 0 0 auto; }
-.na-theme-opt.is-on { color: var(--ink, #eaf0fb); font-weight: 600;
-  box-shadow: inset 0 -2px 0 var(--chip-ul); }
+/* Appearance — the theme chip reuses the Push-notifications row style
+   (.na-menu-pushrow + .na-menu-push), so no bespoke control CSS is needed. */
 /* Push-notifications toggle — a small ghost chip on the RIGHT of the footer,
    beside the signed-in / last-refresh lines (which keep the left column). */
 .na-menu-foot { display: flex; align-items: center; }

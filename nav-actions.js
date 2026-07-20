@@ -340,6 +340,12 @@ const otherPref = () => { const p = storedPref(); return p === "system" ? (osDar
 // system, otherwise the sun/moon of whatever theme is showing.
 const themeIcon = () => (themeChoice() === "system" ? ICO_AUTO : (document.documentElement.getAttribute("data-theme") === "dark" ? ICO_MOON : ICO_SUN));
 const THEME_TITLE = { system: "Theme: System — tap to override", other: "Theme: Manual — tap to follow system" };
+// Phone /menu/ "Appearance" pill — cycles System → Light → Dark, styled exactly
+// like the Push-notifications row's chip (icon + mono state word on the right).
+const THEME_WORD = { system: "System", light: "Light", dark: "Dark" };
+const THEME_NEXT = { system: "light", light: "dark", dark: "system" };
+const themePillIco = () => { const p = storedPref(); return p === "dark" ? ICO_MOON : p === "light" ? ICO_SUN : ICO_AUTO; };
+const themePillInner = () => `${themePillIco()}<span class="na-push-state">${THEME_WORD[storedPref()] || "System"}</span>`;
 // Set by initNavActions so the /menu/ segmented control can drive the same
 // apply logic as the nav-bar button.
 let _applyThemeChoice = null;
@@ -506,13 +512,9 @@ export function initNavActions() {
       const meta = document.querySelector('meta[name="theme-color"]');
       if (meta) meta.setAttribute("content", t === "dark" ? "#05080f" : "#ffffff");
       if (themeBtn) { themeBtn.innerHTML = themeIcon(); themeBtn.setAttribute("title", THEME_TITLE[themeChoice()] || "Switch theme"); }
-      // Keep any menu segmented control (the phone control) in sync — "System"
-      // is on for pref==="system", "Other" for a concrete light/dark pref.
-      document.querySelectorAll(".na-theme-opt").forEach((b) => {
-        const on = b.dataset.themePref === "system" ? (pref === "system") : (pref !== "system");
-        b.classList.toggle("is-on", on);
-        b.setAttribute("aria-pressed", on ? "true" : "false");
-      });
+      // Keep the phone /menu/ theme chip in sync with the new state.
+      const pill = document.getElementById("na-theme-pill");
+      if (pill) pill.innerHTML = themePillInner();
     };
     _applyThemeChoice = applyThemeChoice;   // expose for the /menu/ segmented control
     if (themeBtn) themeBtn.addEventListener("click", () => {
@@ -615,11 +617,12 @@ export function initNavActions() {
         pane = `<div class="na-menu-recent-h">Notifications</div>`
           + `<div class="na-menu-row na-menu-pushrow"><span>Push notifications</span><button type="button" class="na-menu-push" id="na-push" title="Push notifications">${ICO_BELL}<span class="na-push-state">…</span></button></div>`;
       } else if (_menuTab === "display") {
-        // Light/dark toggle — two options: System (follow the OS) or Other (its opposite).
+        // Theme — a single labelled row with a chip on the right, mirroring the
+        // Push-notifications row. The chip shows the current mode and cycles
+        // System → Light → Dark on tap.
         pane = `<div class="na-menu-recent-h">Appearance</div>`
-          + `<div class="na-theme-seg" role="group" aria-label="Theme">`
-            + `<button type="button" class="na-theme-opt${themeChoice() === "system" ? " is-on" : ""}" data-theme-pref="system" aria-pressed="${themeChoice() === "system"}">${ICO_AUTO}<span>System</span></button>`
-            + `<button type="button" class="na-theme-opt${themeChoice() === "other" ? " is-on" : ""}" data-theme-pref="other" aria-pressed="${themeChoice() === "other"}">${document.documentElement.getAttribute("data-theme") === "dark" ? ICO_MOON : ICO_SUN}<span>Other</span></button>`
+          + `<div class="na-menu-row na-menu-pushrow"><span>Theme</span>`
+            + `<button type="button" class="na-menu-push na-theme-pill" id="na-theme-pill" aria-label="Theme — tap to change" title="Tap to change theme">${themePillInner()}</button>`
           + `</div>`;
       } else {
         // Search — the search launcher + recent searches (shared localStorage key).
@@ -634,11 +637,13 @@ export function initNavActions() {
       p.querySelector(".na-body").innerHTML = pane + foot;
 
       if (_menuTab === "display") {
-        // Theme segmented control → same apply logic as the desktop nav button.
-        p.querySelectorAll(".na-theme-opt").forEach((b) => b.addEventListener("click", () => {
+        // Theme chip → cycle System → Light → Dark (persisted; the head script
+        // applies it before paint on the next load).
+        const pill = p.querySelector("#na-theme-pill");
+        if (pill) pill.addEventListener("click", () => {
           if (!_applyThemeChoice) return;
-          _applyThemeChoice(b.dataset.themePref === "system" ? "system" : otherPref());
-        }));
+          _applyThemeChoice(THEME_NEXT[storedPref()] || "system");
+        });
       }
       wirePushRow(p);
     };
