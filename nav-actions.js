@@ -182,6 +182,24 @@ function naDot(x) {
   const tip = open ? "Market open" : "Market closed";
   return ` <span class="na-dot ${open ? "open" : "closed"}" title="${esc(tip)}" aria-label="${esc(tip)}"></span>`;
 }
+// US regular session (NYSE/Nasdaq): Mon–Fri 09:30–16:00 America/New_York.
+function usEquityOpen() {
+  try {
+    const p = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false }).formatToParts(new Date());
+    const g = (t) => (p.find((x) => x.type === t) || {}).value;
+    const dow = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 }[g("weekday")];
+    if (dow === 0 || dow === 6) return false;
+    let h = +g("hour"); if (h === 24) h = 0;
+    const t = h * 60 + +g("minute"); return t >= 570 && t < 960;
+  } catch { return false; }
+}
+// Top movers are all US-listed ETFs → always show a session dot: Yahoo's
+// marketState when present, else the US-equity clock.
+function naEtfDot(x) {
+  const open = x && x.marketState ? x.marketState === "REGULAR" : usEquityOpen();
+  const tip = open ? "Market open" : "Market closed";
+  return ` <span class="na-dot ${open ? "open" : "closed"}" title="${esc(tip)}" aria-label="${esc(tip)}"></span>`;
+}
 function marketRow(x) {
   const c = typeof x.changePct === "number" && isFinite(x.changePct) ? x.changePct : null;
   const dir = c == null ? "flat" : c > 0 ? "up" : c < 0 ? "down" : "flat";
@@ -203,7 +221,7 @@ function moverRow(x) {
   const dir = c == null ? "flat" : c > 0 ? "up" : c < 0 ? "down" : "flat";
   const pct = c == null ? "" : (c > 0 ? "+" : "") + c.toFixed(2) + "%";
   const w = c == null ? 0 : Math.max(3, Math.min(50, Math.abs(c) * 15));
-  const inner = `<span class="na-l">${esc(x.label)}${naDot(x)}</span>`
+  const inner = `<span class="na-l">${esc(x.label)}${naEtfDot(x)}</span>`
     + `<span class="na-bar"><span class="na-bar-f ${dir}" style="width:${w}%"></span></span>`
     + `<span class="na-c ${dir}">${pct}</span>`;
   return x.href
@@ -299,17 +317,22 @@ async function loadSaved(body, headCount) {
 const ICO_BELL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>';
 const ICO_SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.5M12 19v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2.5 12H5M19 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>';
 const ICO_MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
-// "Auto" = follow the OS. A small monitor glyph with a half-fill to read as
-// "adapts to the system".
+// "System" = follow the OS. A small monitor glyph reads as "adapts to system".
 const ICO_AUTO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 4v13" stroke-width="1.6"/><path d="M8 21h8M12 17v4"/></svg>';
-// Three-state theme choice: light → dark → system, read from the
+// Two-option theme choice: "system" (follow the OS) or "other" (the opposite of
+// the OS setting — always a real switch). The choice lives in the
 // data-theme-choice attribute the inline head script sets before paint.
-const THEME_ICON = { light: ICO_SUN, dark: ICO_MOON, system: ICO_AUTO };
-const THEME_TITLE = { light: "Theme: Light — tap for Dark", dark: "Theme: Dark — tap for Auto", system: "Theme: Auto (follows system) — tap for Light" };
-const themeChoice = () => document.documentElement.getAttribute("data-theme-choice") || "dark";
-const themeIcon = () => THEME_ICON[themeChoice()] || ICO_MOON;
-// Resolve a preference to a concrete light/dark theme (system → OS setting).
-const resolveTheme = (pref) => (pref === "system" ? ((window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light") : pref);
+const osDark = () => !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+const themeChoice = () => (document.documentElement.getAttribute("data-theme-choice") === "other" ? "other" : "system");
+// Resolve a preference to a concrete theme: system = OS as-is, other = its opposite.
+const resolveTheme = (pref) => (pref === "other" ? (osDark() ? "light" : "dark") : (osDark() ? "dark" : "light"));
+// Button reflects the CURRENT state: the monitor glyph while following the
+// system, otherwise the sun/moon of whatever theme is showing.
+const themeIcon = () => (themeChoice() === "system" ? ICO_AUTO : (document.documentElement.getAttribute("data-theme") === "dark" ? ICO_MOON : ICO_SUN));
+const THEME_TITLE = { system: "Theme: System — tap to override", other: "Theme: Manual — tap to follow system" };
+// Set by initNavActions so the /menu/ segmented control can drive the same
+// apply logic as the nav-bar button.
+let _applyThemeChoice = null;
 // Two desks only: the bell is limited to Credit + Legal deal-flow (saved.js
 // buildNotifs) — macro items no longer appear, so no macro seen-state to sync.
 const NOTIF_KEYS = { c: "meridian.credit.notifSeen", l: "meridian.legal.notifSeen" };
@@ -441,17 +464,20 @@ export function initNavActions() {
       `<button type="button" class="na-btn" id="na-mkt" aria-label="Markets & key rates" aria-haspopup="true" aria-expanded="false" title="Markets & key rates">${ICO_MKT}</button>` +
       `<button type="button" class="na-btn" id="na-saved" aria-label="Saved" aria-haspopup="true" aria-expanded="false" title="Saved">${ICO_SAVED}</button>` +
       `<button type="button" class="na-btn na-bell" id="na-notif" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">${ICO_BELL}<span class="na-badge" hidden></span></button>` +
-      `<button type="button" class="na-btn" id="na-theme" aria-label="Switch theme" title="${THEME_TITLE[themeChoice()] || "Switch theme"}">${themeIcon()}</button>`;
+      // Theme toggle lives in the nav bar on desktop; on phones it moves into the
+      // /menu/ page (see fillMenu) so the nav bar stays uncluttered.
+      (isPhone() ? "" : `<button type="button" class="na-btn" id="na-theme" aria-label="Switch theme" title="${THEME_TITLE[themeChoice()] || "Switch theme"}">${themeIcon()}</button>`);
     if (notif && notif.parentElement) {
       notif.parentElement.insertBefore(wrap, notif);
     } else if (bar) {
       bar.appendChild(wrap);
     }
 
-    // Theme toggle — cycles Light → Dark → Auto(system). The choice is stored
-    // in localStorage (m_theme_pref) so the inline head script applies it before
-    // paint on the next load; "system" resolves to the OS setting live. Shared
-    // across all pages via this one controller.
+    // Theme toggle — two options: "system" (follow the OS) or "other" (its
+    // opposite). The choice is stored in localStorage (m_theme_pref) so the
+    // inline head script applies it before paint on the next load. Both options
+    // resolve against the live OS setting. Shared across all pages (nav-bar
+    // button on desktop; /menu/ segmented control on phones) via this controller.
     const themeBtn = wrap.querySelector("#na-theme");
     const applyThemeChoice = (pref) => {
       const r = document.documentElement;
@@ -462,15 +488,22 @@ export function initNavActions() {
       const meta = document.querySelector('meta[name="theme-color"]');
       if (meta) meta.setAttribute("content", t === "dark" ? "#05080f" : "#ffffff");
       if (themeBtn) { themeBtn.innerHTML = themeIcon(); themeBtn.setAttribute("title", THEME_TITLE[pref] || "Switch theme"); }
+      // Keep any menu segmented control (the phone control) in sync.
+      document.querySelectorAll(".na-theme-opt").forEach((b) => {
+        const on = b.dataset.themePref === pref;
+        b.classList.toggle("is-on", on);
+        b.setAttribute("aria-pressed", on ? "true" : "false");
+      });
     };
-    const THEME_CYCLE = { light: "dark", dark: "system", system: "light" };
+    _applyThemeChoice = applyThemeChoice;   // expose for the /menu/ segmented control
     if (themeBtn) themeBtn.addEventListener("click", () => {
-      applyThemeChoice(THEME_CYCLE[themeChoice()] || "dark");
+      applyThemeChoice(themeChoice() === "system" ? "other" : "system");
     });
-    // When the choice is "Auto", track OS light/dark changes live (no reload).
+    // Both options resolve against the OS setting, so re-apply on every OS
+    // light/dark change (no reload) to keep the theme live.
     if (window.matchMedia) {
       const mq = window.matchMedia("(prefers-color-scheme: dark)");
-      const onOS = () => { if (themeChoice() === "system") applyThemeChoice("system"); };
+      const onOS = () => applyThemeChoice(themeChoice());
       if (mq.addEventListener) mq.addEventListener("change", onOS);
       else if (mq.addListener) mq.addListener(onOS);
     }
@@ -552,6 +585,13 @@ export function initNavActions() {
           ? `<div class="na-menu-recent-h">Recent searches</div>`
             + recents.map((q) => `<button type="button" class="na-menu-row na-recent-row" data-q="${esc(q)}">${ICO_SEARCH}<span>${esc(q)}</span></button>`).join("")
           : "")
+        // Appearance — the theme control lives here on phones (moved out of the
+        // nav bar). Two options: System (follow the OS) or Other (its opposite).
+        + `<div class="na-menu-recent-h">Appearance</div>`
+        + `<div class="na-theme-seg" role="group" aria-label="Theme">`
+          + `<button type="button" class="na-theme-opt${themeChoice() === "system" ? " is-on" : ""}" data-theme-pref="system" aria-pressed="${themeChoice() === "system"}">${ICO_AUTO}<span>System</span></button>`
+          + `<button type="button" class="na-theme-opt${themeChoice() === "other" ? " is-on" : ""}" data-theme-pref="other" aria-pressed="${themeChoice() === "other"}">${document.documentElement.getAttribute("data-theme") === "dark" ? ICO_MOON : ICO_SUN}<span>Other</span></button>`
+        + `</div>`
         + `<div class="na-menu-foot"><div class="na-menu-foot-l">`
         + acctHtml
         // One compact line: refresh date/time (prefix + year dropped) · build.
@@ -563,6 +603,8 @@ export function initNavActions() {
           return `<div class="na-menu-row na-menu-stat">${t ? esc(t) + " · " : ""}Build ${esc(BUILD_TOKEN)} · ${sw}</div>`;
         })()
         + `</div><button type="button" class="na-menu-push" id="na-push" title="Push notifications">${ICO_BELL}<span class="na-push-state">…</span></button></div>`;
+      // Theme segmented control → same apply logic as the desktop nav button.
+      p.querySelectorAll(".na-theme-opt").forEach((b) => b.addEventListener("click", () => { if (_applyThemeChoice) _applyThemeChoice(b.dataset.themePref); }));
       wirePushRow(p);
     };
 

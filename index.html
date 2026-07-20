@@ -7,7 +7,7 @@
   <!-- Resolve the theme BEFORE paint (stored choice, else the OS setting) so there
        is no light flash; then wire the top-bar toggle once the DOM is ready. -->
   <script>
-    (function(){var r=document.documentElement;var mq=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)");var ios=/iP(hone|od|ad)/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);var p;try{p=localStorage.getItem("m_theme_pref");}catch(e){}if(p!=="light"&&p!=="dark"&&p!=="system"){p=ios?"system":"dark";}var t=p==="system"?((mq&&mq.matches)?"dark":"light"):p;r.setAttribute("data-theme",t);r.setAttribute("data-theme-choice",p);})();
+    (function(){var r=document.documentElement;var mq=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)");var sd=mq&&mq.matches;var p;try{p=localStorage.getItem("m_theme_pref");}catch(e){}if(p!=="system"&&p!=="other"){p="system";}var t=p==="other"?(sd?"light":"dark"):(sd?"dark":"light");r.setAttribute("data-theme",t);r.setAttribute("data-theme-choice",p);})();
     // Hold the content area invisible until the briefing has rendered (nav-actions
     // reveals; timeout = safety net) so a page switch paints ONCE, complete.
     document.documentElement.classList.add("wire-boot");setTimeout(function(){document.documentElement.classList.remove("wire-boot");},1600);
@@ -23,16 +23,16 @@
   <link rel="manifest" href="/manifest.webmanifest" />
   <title>Wire — Home</title>
   <meta name="description" content="Wire Home — a cross-desk briefing across the Credit, Legal and Macro intelligence platforms, with a unified search." />
-  <link rel="stylesheet" href="/home.css?v=20260719-3" />
-  <link rel="stylesheet" href="/premium.css?v=20260719-24" />
+  <link rel="stylesheet" href="/home.css?v=20260719-4" />
+  <link rel="stylesheet" href="/premium.css?v=20260719-25" />
   <script type="module" blocking="render">
     // Render-blocking boot, mirroring the app pages: with a recent sign-in
     // hint the briefing renders BEFORE first paint and the shared chrome
     // mounts, so arriving on Home paints once, complete — no feed/chips/tab-
     // bar staging. The body auth script confirms via /api/me and calls
     // window.__enterGlance for the no-hint path (initGlance self-guards).
-    import { initGlance } from "/glance.js?v=20260719-23";
-    import { initNavActions } from "/nav-actions.js?v=20260719-35";
+    import { initGlance } from "/glance.js?v=20260719-24";
+    import { initNavActions } from "/nav-actions.js?v=20260719-36";
     window.__enterGlance = () => {
       ["loading", "out", "glance"].forEach((s) => document.getElementById(s).classList.toggle("hidden", s !== "glance"));
       const h = new Date().getHours();
@@ -264,7 +264,7 @@
       show("glance");
       const h = new Date().getHours();
       document.getElementById("hello").textContent = (h < 12 ? "Good morning" : h < 18 ? "Good afternoon" : "Good evening") + " — here's your briefing";
-      import("/glance.js?v=20260719-23").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260719-24").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), the head module shows the briefing immediately

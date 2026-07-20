@@ -145,7 +145,7 @@ export function initGlance() {
   // The legacy Home-only menus (initNotifBell / initSavedPanel /
   // initMarketsPanel) are retired; on phones the Home data rails move into the
   // shared Markets panel via initHomeMarketsRails.
-  import("/nav-actions.js?v=20260719-35").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260719-36").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderDeals();
   renderFundraising();
   renderRx();
@@ -1009,9 +1009,13 @@ const MKT_STATE_LABEL = {
 // Is this market in its regular session? Yahoo's marketState is authoritative;
 // otherwise fall back to the clock-based schedule (returns false if neither is
 // available for the label).
+// Session schedule for a tile: its label's mapping, or an explicit `mktType`
+// hint carried by rows without a fixed label (e.g. the Top-movers ETFs, which
+// are all US-listed → us_equity).
+const mktTypeOf = (x) => MKT_TYPE[x.label] || x.mktType || null;
 function isMarketOpen(x) {
   if (x.marketState) return x.marketState === "REGULAR";
-  const type = MKT_TYPE[x.label];
+  const type = mktTypeOf(x);
   return type ? marketOpen(type) : false;
 }
 function marketDot(x) {
@@ -1019,7 +1023,7 @@ function marketDot(x) {
   if (x.marketState) {                       // authoritative — from Yahoo
     tip = MKT_STATE_LABEL[x.marketState] || (x.marketState === "REGULAR" ? "Market open" : "Market closed");
   } else {                                    // fallback — clock-based schedule
-    if (!MKT_TYPE[x.label]) return "";
+    if (!mktTypeOf(x)) return "";
     tip = isMarketOpen(x) ? "Market open" : "Market closed";
   }
   const state = isMarketOpen(x) ? "open" : "closed";
@@ -1279,7 +1283,9 @@ function renderMovers() {
   // Fall back to the legacy mixed pool only if the ETF feed hasn't arrived yet
   // (e.g. an older cached /api/markets response without moversEtf).
   if ((_mktEtf || []).length) {
-    (_mktEtf || []).forEach((x) => pushPct(x.label, x, false));
+    // All movers are US-listed ETFs → carry a us_equity session hint so the
+    // open/closed dot shows even when Yahoo omits marketState.
+    (_mktEtf || []).forEach((x) => pushPct(x.label, { ...x, mktType: "us_equity" }, false));
   } else {
     (_mktRows || []).forEach((x) => pushPct(x.label, x));
     (_mktExtra || []).forEach((x) => { if (!/\//.test(x.label)) pushPct(x.label, x); });

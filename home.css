@@ -559,7 +559,7 @@
       .g-mkt-chip { flex:1 1 0; border:0; background:transparent; cursor:pointer; font-family:inherit;
         font-size:12px; font-weight:600; letter-spacing:.04em; text-transform:uppercase;
         color:var(--t-mut, #8592ad); border-radius:0; }
-      .g-mkt-chip.is-on { color:var(--t-ink, #eaf0fb); box-shadow:inset 0 -2px 0 #fff; }
+      .g-mkt-chip.is-on { color:var(--t-ink, #eaf0fb); box-shadow:inset 0 -2px 0 var(--chip-ul); }
       .g-mkt-title { font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
         color:var(--t-dim, #8592ad); }
       .g-mkt-close { width:34px; height:34px; flex:0 0 auto; align-self:center; display:grid; place-items:center;
@@ -955,6 +955,10 @@
     .tui .g-fx-diag{ color:var(--t-faint); }
 
     /* ---- macro read (snap) ---- */
+    /* The base .g-snap card is a rounded, shadowed box (14px) — square and
+       flatten it in the terminal so it reads like every other rail panel
+       (the .tui-pnl frame provides the hairline). */
+    .tui .g-snap{ border:0; border-radius:0; box-shadow:none; }
     .tui #g-macro-snap{ background:var(--t-panel); }
     .tui .g-snap-blk{ display:block; padding:8px 11px; border-bottom:1px solid var(--t-grid); }
     .tui .g-snap-blk:last-child{ border-bottom:0; }
@@ -1014,7 +1018,7 @@
       height:100%; padding:0 15px; border:0;
       background:transparent; cursor:pointer;
       font-size:11.5px; font-weight:500; letter-spacing:.005em; color:var(--t-mut); border-radius:0; }
-    .tui .g-feed-chip.is-on{ color:var(--t-ink); font-weight:600; background:transparent; box-shadow:inset 0 -2px 0 #fff; }
+    .tui .g-feed-chip.is-on{ color:var(--t-ink); font-weight:600; background:transparent; box-shadow:inset 0 -2px 0 var(--chip-ul); }
     .tui .g-feed-chip-n{ color:var(--t-faint); font-size:10px; font-variant-numeric:tabular-nums; background:none; padding:0; }
     /* ---- deal-flow chip toggle (deals / fundraising / schemes) ---- */
     .g-flow-head.tui-ph, .tui .g-flow-head{ padding:0; }
@@ -1025,7 +1029,7 @@
       color:var(--t-mut); border-radius:0; white-space:nowrap; }
 
     .g-flow-chip:hover{ color:var(--t-dim); }
-    .g-flow-chip.is-on{ color:var(--t-ink); font-weight:600; box-shadow:inset 0 -2px 0 #fff; }
+    .g-flow-chip.is-on{ color:var(--t-ink); font-weight:600; box-shadow:inset 0 -2px 0 var(--chip-ul); }
     .g-flow-pane[hidden]{ display:none; }
     .tui .g-feed{ background:var(--t-panel); border:0; border-radius:0; padding:0; }
     /* A quiet end-marker so the wire closes intentionally instead of trailing into
@@ -1034,6 +1038,11 @@
       letter-spacing:.14em; text-transform:uppercase; color:var(--t-faint); background:var(--t-panel); }
     .tui .g-feed-dayhdr{ padding:6px 12px; background:var(--t-ground); border-top:0;
       font-size:10px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--t-accent); margin:0; }
+    /* Light theme: the grey day-break fill read too heavy. Flip it to a white
+       band with blue label text and a grey bottom border that matches the
+       per-row hairlines (var(--t-grid)). Dark keeps the orange-on-black band. */
+    :root[data-theme="light"] .tui .g-feed-dayhdr{ background:var(--t-panel); color:#2f6cae;
+      border-bottom:1px solid var(--t-grid); }
     .tui .g-feed-row{ display:grid; grid-template-columns:44px 34px minmax(0,1fr) auto; align-items:baseline;
       gap:10px; padding:5px 12px; border-bottom:1px solid var(--t-grid); }
     .tui .g-feed-row:hover{ background:var(--t-panel2); }
