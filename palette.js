@@ -24,6 +24,9 @@ function feedDedupKey(x) {
 }
 
 import { esc } from "/util.js?v=20260719-1";
+// Shared label vocabulary + classifier, so a "#CODE" search behaves identically
+// here and in the Home palette (same tags, same precedence).
+import { PAL_CODE, deskFor, palTag, nlDesk } from "/feed.js?v=20260720-2";
 const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const fmt = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ""); return m ? `${+m[3]} ${MON[+m[2] - 1]} ${m[1]}` : (iso || ""); };
 const mgrName = (id) => (managers.find((m) => m.id === id) || {}).name || "";
@@ -75,13 +78,22 @@ function buildIndex() {
   ["US", "UK"].forEach((c) => MACRO_INDICATORS.forEach(([k, l]) => add("macro", `${c} ${l}`, "Open in Chart", `/macro/#/chart?add=${c}:${k}`, 3, "", "Chart")));
   // News items — so a search for e.g. "Federal Reserve" finds macro headlines too.
   const seenNews = new Set();
+  // NEWS default; strictly-macro → MAC, Bloomberg → BBG, The Economist → ECON —
+  // so "#ECON"/"#BBG"/"#MAC" list the right ones (same rule as the Home palette).
   const addNews = (n) => {
     const k = (n.url || n.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, "");
     if (k && seenNews.has(k)) return; if (k) seenNews.add(k);
-    add("macro", n.title, `Macro news${n.source ? " · " + n.source : ""}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "News");
+    add(palTag(deskFor(n.title, n.source), "news"), n.title, `${n.source || "News"}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "News");
   };
   ["us", "uk"].forEach((c) => ((NEWS && NEWS[c]) || []).forEach(addNews));
   ((ARTICLES && ARTICLES.items) || []).forEach(addNews);
+  // Live wire headlines (the cross-desk feed the Home page caches) — INCLUDING
+  // the separately-fetched Bloomberg & Economist stories — so "#BBG"/"#ECON"
+  // work in the app search too when Home has been visited.
+  try {
+    const lf = JSON.parse(localStorage.getItem("m_glance_feed") || "null");
+    ((lf && lf.items) || []).forEach((n) => { if (n.myft || n.substack || n.brew) return; addNews(n); });
+  } catch { /* no cached feed — skip */ }
   (ALERTS || []).forEach((a) => add("macro", a.title, `Macro guidance${a.kind ? " · " + a.kind : ""}`, `/macro/${a.href || "#/policy"}`, 3, a.date, "Guidance"));
   managers.forEach((m) => {
     const seen = new Set();
@@ -94,11 +106,13 @@ function buildIndex() {
   // myFT stories + email newsletters — searchable, and the "/FT" / "/LETTER"
   // code filters list them.
   (FT_ITEMS || []).forEach((f) => add("ft", f.title, `Financial Times · myFT${f.date ? " · " + fmt(f.date) : ""}`, f.url, 2, f.date, "FT"));
-  (NEWSLETTERS || []).forEach((n) => add("letter", n.title, `${n.publication || "Newsletter"}${n.series ? " · " + n.series : ""}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "Letter"));
+  (NEWSLETTERS || []).forEach((n) => add(palTag(nlDesk(n.title), "letter"), n.title, `${n.publication || "Newsletter"}${n.series ? " · " + n.series : ""}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "Letter"));
   return idx;
 }
 
-const DESKCODE = { credit: "CRD", legal: "LEX", macro: "MAC", view: "GO", ft: "FT", letter: "LTR" };
+// Shared tag → pill-code map (from feed.js), so "#" filters by the same labels
+// the Home palette uses.
+const DESKCODE = PAL_CODE;
 const STYLE = `
 .mcmdk{position:fixed;inset:0;z-index:9000;display:none;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
 .mcmdk.open{display:block}
@@ -125,6 +139,11 @@ const STYLE = `
 .mcmdk-code.view{color:var(--faint,#5c6a86);background:color-mix(in srgb,#5c6a86 22%,transparent)}
 .mcmdk-code.ft{color:#e0708e;background:color-mix(in srgb,#e0708e 16%,transparent)}
 .mcmdk-code.letter{color:#d9a441;background:color-mix(in srgb,#d9a441 16%,transparent)}
+.mcmdk-code.news{color:#8aa0c8;background:color-mix(in srgb,#8aa0c8 16%,transparent)}
+.mcmdk-code.bbg{color:#e0873a;background:color-mix(in srgb,#e0873a 16%,transparent)}
+.mcmdk-code.econ{color:#e0524d;background:color-mix(in srgb,#e0524d 16%,transparent)}
+.mcmdk-code.substack{color:#9b8cf5;background:color-mix(in srgb,#9b8cf5 16%,transparent)}
+.mcmdk-code.brew{color:#2fb6a8;background:color-mix(in srgb,#2fb6a8 16%,transparent)}
 .mcmdk-s{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .mcmdk-foot{border-top:1px solid var(--border,#232f47);padding:.5rem .8rem;color:var(--muted,#8592ad);font-size:.72rem;display:flex;gap:1rem}
 .mcmdk-foot kbd{background:var(--panel2,rgba(255,255,255,.06));border-radius:0;padding:.05rem .3rem;font-family:inherit;font-weight:700}

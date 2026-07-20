@@ -50,7 +50,17 @@ export const deskFor = (title, source, dflt = "news") => {
 };
 // Map a feed desk to the command-palette tag vocabulary, so the "#CODE" filters
 // (e.g. #BBG, #ECON) list the same items the feed labels carry.
-export const palTag = (d, dflt) => ({ m: "macro", n: "letter", bbg: "bbg", econ: "econ", c: "credit", l: "legal", f: "ft" }[d] || dflt);
+export const palTag = (d, dflt) => ({ m: "macro", n: "letter", bbg: "bbg", econ: "econ", c: "credit", l: "legal", f: "ft", news: "news" }[d] || dflt);
+// Newsletter classifier — the reader's Gmail-swept newsletters are LTR by the
+// stated precedence (LTR trumps FT/BBG/ECON); only a strictly-macro one reads MAC
+// (MAC also trumps LTR). Named premium sources (Bloomberg, The Economist) are
+// fetched SEPARATELY as live wire stories and carry BBG/ECON there — the
+// newsletter copy stays LTR.
+export const nlDesk = (title) => (STRICT_MACRO_RE.test(title || "") ? "m" : "n");
+// The command-palette label vocabulary: tag → the pill code shown + matched by
+// the "#CODE" filter. Shared by the Home palette and the app palette so a "#"
+// search behaves identically in every search bar.
+export const PAL_CODE = { macro: "MAC", credit: "CRD", legal: "LEX", view: "GO", ft: "FT", letter: "LTR", substack: "SUBS", brew: "BREW", bbg: "BBG", econ: "ECON", news: "NEWS" };
 
 // ---- Formatting / sorting ---------------------------------------------------
 const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];

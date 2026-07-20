@@ -20,8 +20,8 @@ import { esc, byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } 
 // desk vocabulary. Home assembles its cross-desk streams below and hands them to
 // these helpers; Macro/Credit/Legal use the same module, so every wire is one
 // build.
-import { DESK, DESK_CODE, DESK_CLASS, STRICT_MACRO_RE, deskFor, palTag,
-  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, feedChipsHTML } from "/feed.js?v=20260720-1";
+import { DESK, DESK_CODE, DESK_CLASS, STRICT_MACRO_RE, deskFor, palTag, nlDesk, PAL_CODE,
+  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, feedChipsHTML } from "/feed.js?v=20260720-2";
 // The ONLY sources eligible to lead the briefing "Top story": FT, Bloomberg, CNBC,
 // Reuters and the WSJ (plus their same-wire variants, e.g. a Reuters story carried
 // via Investing.com or an FT Alphaville post).
@@ -536,6 +536,7 @@ function refreshLiveFeed() {
         try { localStorage.setItem("wire.live.anchor", String(Date.parse(d.asOf) || Date.now())); } catch { /* private mode */ }
         window.dispatchEvent(new CustomEvent("wire:live-refresh"));
         renderFeed();
+        _palIdx = buildIndex();   // re-index so #ECON/#BBG find the fresh wire items
       }
     })
     .catch(() => { /* keep cached/static feed */ });
@@ -658,11 +659,12 @@ function renderFeed() {
   cases.forEach((c) => { if (c.date) legal.push(mk("l", c.url || "/legal/#/", c.name, c.court, !!c.url, c.date, c.time, "l", c.id)); });
   restructurings.forEach((r) => { if (r.date) legal.push(mk("l", r.judgmentUrl || r.articleUrl || "/legal/#/", r.company, r.type === "scheme" ? "Scheme" : "Restructuring plan", !!(r.judgmentUrl || r.articleUrl), r.date, r.time, "l", r.id)); });
 
-  // Reader's own aggregated email newsletters (Bloomberg, Economist, etc.).
-  // Named premium sources keep their own label so they're searchable (Bloomberg
-  // → BBG, The Economist → ECON); MAC still trumps; everything else is LTR.
+  // Reader's own aggregated email newsletters (Gmail-swept). By the stated
+  // precedence these are LTR — even the Bloomberg / Economist ones — and only a
+  // strictly-macro issue reads MAC. Bloomberg & Economist STORIES are fetched
+  // separately as live wire items and carry BBG / ECON there.
   const newsletter = [];
-  (NEWSLETTERS || []).forEach((n) => newsletter.push(mk(deskFor(n.title, n.publication, "n"), n.url, n.title, n.author ? `${n.author} · ${n.publication}` : n.publication, true, n.date, n.time)));
+  (NEWSLETTERS || []).forEach((n) => newsletter.push(mk(nlDesk(n.title), n.url, n.title, n.author ? `${n.author} · ${n.publication}` : n.publication, true, n.date, n.time)));
 
   // The reader's personalised myFT (followed-topics) headlines — pulled from the
   // myFT RSS feed by the refresh routines. Open out to ft.com; "FT" desk label.
@@ -1502,13 +1504,19 @@ function buildIndex() {
   // Macro news headlines (US/UK) + the market reading list — link out to the
   // source, deduped across the two feeds.
   const seenNews = new Set();
+  // NEWS is the default label; strictly-macro headlines read MAC, Bloomberg → BBG,
+  // The Economist → ECON — so a "#ECON"/"#BBG"/"#MAC" search lists the right ones.
   const addNews = (n) => {
     const k = (n.url || n.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, "");
     if (k && seenNews.has(k)) return; if (k) seenNews.add(k);
-    add(palTag(deskFor(n.title, n.source), "macro"), n.title, `Macro news${n.source ? " · " + n.source : ""}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "News");
+    add(palTag(deskFor(n.title, n.source), "news"), n.title, `${n.source || "News"}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "News");
   };
   ["us", "uk"].forEach((c) => ((NEWS && NEWS[c]) || []).forEach(addNews));
   ((ARTICLES && ARTICLES.items) || []).forEach(addNews);
+  // Live wire headlines (from /api/feed, seeded from cache at init) — INCLUDING
+  // the separately-fetched Bloomberg & Economist stories — so "#BBG"/"#ECON"
+  // find the real wire items (not the Gmail newsletters, which are LTR).
+  (_liveFeed || []).forEach((n) => { if (n.myft || n.substack || n.brew) return; addNews(n); });
   // Editorial macro guidance (rate outlook / cycle / bubble).
   (ALERTS || []).forEach((a) => add("macro", a.title, `Macro guidance${a.kind ? " · " + a.kind : ""}`, `/macro/${a.href || "#/policy"}`, 3, a.date, "Guidance"));
   // Credit manager press (news + webNews), deduped per manager — deep-link into the profile.
@@ -1525,7 +1533,7 @@ function buildIndex() {
   // myFT stories + email newsletters — so they're searchable and the "/FT" /
   // "/LETTER" code filters have content to list.
   (FT_ITEMS || []).forEach((f) => add("ft", f.title, `Financial Times · myFT${f.date ? " · " + fmt(f.date) : ""}`, f.url, 2, f.date, "FT"));
-  (NEWSLETTERS || []).forEach((n) => add(palTag(deskFor(n.title, n.publication, "n"), "letter"), n.title, `${n.publication || "Newsletter"}${n.series ? " · " + n.series : ""}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "Letter"));
+  (NEWSLETTERS || []).forEach((n) => add(palTag(nlDesk(n.title), "letter"), n.title, `${n.publication || "Newsletter"}${n.series ? " · " + n.series : ""}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "Letter"));
   // Curated Substacks (live from /api/feed, seeded from cache at init) — so the
   // "/SUBS" code filter has content to list.
   (_liveFeed || []).forEach((n) => { if (n.substack) add("substack", n.title, `${n.source || "Substack"}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "SUBS"); });
@@ -1535,8 +1543,13 @@ function buildIndex() {
 }
 
 // ---- Command palette -------------------------------------------------------
-const PAL_CODE = { macro: "MAC", credit: "CRD", legal: "LEX", view: "GO", ft: "FT", letter: "LTR", substack: "SUBS", brew: "BREW", bbg: "BBG", econ: "ECON" };
+// PAL_CODE (tag → pill code) is the shared vocabulary from feed.js, so the "#"
+// label search behaves identically here and in the app palette (palette.js).
+// The palette's search index — rebuilt after the live feed loads so a "#ECON"/
+// "#BBG" search finds the freshly-fetched wire stories (not just the init cache).
+let _palIdx = [];
 function wirePalette(idx) {
+  _palIdx = idx;
   const overlay = document.getElementById("cmdk");
   const input = document.getElementById("cmdk-input");
   const results = document.getElementById("cmdk-results");
@@ -1556,7 +1569,7 @@ function wirePalette(idx) {
     let code = null;
     if (q.startsWith("#")) { const parts = q.slice(1).split(/\s+/); code = parts.shift() || ""; q = parts.join(" "); }
     if (!q && !code) return [];
-    const pool = code ? idx.filter((e) => String(PAL_CODE[e.tag] || e.label || e.tag).toLowerCase().startsWith(code)) : idx;
+    const pool = code ? _palIdx.filter((e) => String(PAL_CODE[e.tag] || e.label || e.tag).toLowerCase().startsWith(code)) : _palIdx;
     const toks = q ? q.split(/\s+/) : [];
     return pool
       .map((e) => ({ e, s: toks.every((t) => e.hay.includes(t)) ? score(e, q) : -1 }))
