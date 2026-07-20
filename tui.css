@@ -22,8 +22,10 @@
    No page headings inside .tdash — the nav bar names the section.
    ===================================================================== */
 
-/* mono for numeric/terminal data (matches Home) + a head surface for panel bars */
-:root { --t-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; --head: #f4f7fb; }
+/* mono for numeric/terminal data (matches Home) + a head surface for panel bars.
+   --wb-txt is the briefing-bar body text colour, kept in lock-step with Home's
+   terminal --t-dim so the app banners read identically (light value here). */
+:root { --t-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; --head: #f4f7fb; --wb-txt: #3b475f; }
 
 /* ---- deep near-black terminal surfaces (dark) to match Home ---- */
 :root[data-theme="dark"] {
@@ -37,6 +39,7 @@
   --faint: #5c6a86;
   --accent: #fb8b1e;
   --primary: #fb8b1e;
+  --wb-txt: #b7c2da;   /* == Home --t-dim (dark) */
 }
 
 /* ---- full-bleed content column ---- */
@@ -121,20 +124,23 @@
    Markets · Rates & spreads, all inline on one line, ellipsis-clipped. Labels
    are Wire-orange caps; the story/one-liner text is muted, links brighten on
    hover. Same layout on every app tab so the banner matches Home exactly. */
-.wbrief { display: flex; align-items: baseline; gap: 12px; padding: 8px 20px; margin: 0;
+/* Type metrics are a 1:1 mirror of Home's .tui .g-hello (px sizes, weight 600/400,
+   --t-dim body text via --wb-txt, #fb8b1e uppercase labels at .85 opacity) so the
+   banner reads identically on Home and every app tab. */
+.wbrief { display: flex; align-items: baseline; gap: 10px; padding: 6px 20px; margin: 0;
   background: var(--surface); border-bottom: 1px solid var(--border); overflow: hidden; }
 .wbrief:empty { display: none; }
-.wb-main { flex: 0 0 auto; display: flex; align-items: baseline; }
-.wb-hello { color: var(--ink); font-size: .8rem; font-weight: 700; letter-spacing: 0; line-height: 1.4; white-space: nowrap; }
-.wb-brief { flex: 0 1 auto; min-width: 0; margin: 0; font-size: .8rem; line-height: 1.4; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wb-main { flex: 0 0 auto; display: flex; align-items: baseline; gap: 8px; }
+.wb-hello { color: var(--wb-txt); font-size: 12px; font-weight: 600; letter-spacing: 0; white-space: nowrap; }
+.wb-brief { flex: 0 1 auto; min-width: 0; margin: 0; font-size: 12px; color: var(--wb-txt); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .wb-brief:empty { display: none; }
-.wb-lbl { font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--brand-2); white-space: nowrap; margin-right: .3rem; }
-.wb-link { color: var(--muted); font-weight: 500; text-decoration: none; }
+.wb-lbl { font-size: 10px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: #fb8b1e; opacity: .85; white-space: nowrap; margin-right: .3rem; }
+.wb-link { color: var(--wb-txt); font-weight: 400; text-decoration: none; }
 .wb-link:hover { color: var(--ink); text-decoration: underline; }
-.wb-glance { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 12px; flex: 1 1 auto; min-width: 0; overflow: hidden; }
-.wb-gl { display: flex; column-gap: .4rem; align-items: baseline; min-width: 0; font-size: .8rem; line-height: 1.4; color: var(--muted); overflow: hidden; }
-.wb-gl-l { flex: 0 0 auto; font-size: .62rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--brand-2); white-space: nowrap; }
-.wb-gl-v { flex: 1 1 auto; min-width: 0; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--muted); }
+.wb-glance { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 10px; flex: 1 1 auto; min-width: 0; overflow: hidden; }
+.wb-gl { display: flex; column-gap: 7px; align-items: baseline; min-width: 0; font-size: 11.5px; line-height: 1.4; color: var(--wb-txt); overflow: hidden; }
+.wb-gl-l { flex: 0 0 auto; font-size: 9.5px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: #fb8b1e; opacity: .85; white-space: nowrap; }
+.wb-gl-v { flex: 1 1 auto; min-width: 0; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--wb-txt); }
 .wb-gl-v a { color: inherit; text-decoration: none; }
 .wb-gl-v a:hover { color: var(--ink); text-decoration: underline; }
 @media (max-width: 760px) {

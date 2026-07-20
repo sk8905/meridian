@@ -358,6 +358,8 @@ function notifRow(x) {
     + `</span></a>`;
 }
 let _notifItems = null;
+// Active notifications tab: "all" | "watch" (mirrors the Bookmarks panel).
+let _ntTab = "all";
 async function ensureNotifs() {
   if (_notifItems) return _notifItems;
   const { buildNotifs } = await import("/saved.js?v=20260719-2");
@@ -721,18 +723,45 @@ export function initNavActions() {
     // Show ONLY what's genuinely new since last opened (matching the badge). When
     // caught up, a short note + the few most recent as muted context — so the
     // panel never dumps the whole 60-item back-catalogue as if it were all new.
+    // Two tabs (mirrors the Bookmarks panel): All = every notification (fresh
+    // updates, else a caught-up note + recent context); Watchlist = only the
+    // followed managers'/firms' news (same source the Bookmarks Watchlist tab
+    // uses). Each open re-defaults to All so the "new updates" get marked seen.
     const renderNotif = (body) => {
       const items = _notifItems || [];
-      const fresh = freshNotifs(items);
-      if (fresh.length) {
-        body.innerHTML = `<div class="nf-head">${fresh.length} new update${fresh.length > 1 ? "s" : ""}</div>`
-          + fresh.map(notifRow).join("");
-        markNotifSeen(items); clearBadge();
-      } else {
-        const recent = items.slice(0, 6);
-        body.innerHTML = `<div class="nf-head nf-head-quiet">You're all caught up</div>`
-          + (recent.length ? `<div class="nf-sub">Recent</div>` + recent.map(notifRow).join("") : '<div class="na-empty">Nothing yet.</div>');
-      }
+      _ntTab = "all";
+      body.innerHTML = `<div class="na-chips">`
+        + `<button type="button" class="na-chip" data-k="all">All</button>`
+        + `<button type="button" class="na-chip" data-k="watch">Watchlist</button>`
+        + `</div><div class="na-tabbody"></div>`;
+      const chips = body.querySelector(".na-chips");
+      const tb = body.querySelector(".na-tabbody");
+      const paint = async () => {
+        chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _ntTab));
+        if (_ntTab === "all") {
+          const fresh = freshNotifs(items);
+          if (fresh.length) {
+            tb.innerHTML = `<div class="nf-head">${fresh.length} new update${fresh.length > 1 ? "s" : ""}</div>`
+              + fresh.map(notifRow).join("");
+            markNotifSeen(items); clearBadge();
+          } else {
+            const recent = items.slice(0, 6);
+            tb.innerHTML = `<div class="nf-head nf-head-quiet">You're all caught up</div>`
+              + (recent.length ? `<div class="nf-sub">Recent</div>` + recent.map(notifRow).join("") : '<div class="na-empty">Nothing yet.</div>');
+          }
+        } else {
+          tb.innerHTML = '<div class="na-load">Loading…</div>';
+          try {
+            const mod = await import("/saved.js?v=20260719-2");
+            const list = mod.resolveWatchlistNews();
+            tb.innerHTML = list.length
+              ? list.map(savedRow).join("")
+              : '<div class="na-empty">No watchlist updates yet. Press and hold a manager or law-firm story (or tap the ☆ on a manager in Credit) to follow it — their updates appear here.</div>';
+          } catch { tb.innerHTML = '<div class="na-load">Unavailable right now.</div>'; }
+        }
+      };
+      chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c && c.dataset.k !== _ntTab) { _ntTab = c.dataset.k; paint(); } });
+      paint();
     };
 
     const panels = [
