@@ -22,34 +22,12 @@
   <link rel="stylesheet" href="/credit/css/styles.css?v=20260719-1" />
   <link rel="stylesheet" href="/premium.css?v=20260719-27" />
   <link rel="stylesheet" href="/tui.css?v=20260719-11" />
-  <script type="module" blocking="render">import { initNavActions } from "/nav-actions.js?v=20260719-39"; initNavActions();</script>
+  <!-- Header (top bar + ticker + briefing) is built by the ONE shared module so
+       every page's header is identical (no platform tab is active on /menu/). -->
+  <script type="module" blocking="render">import { initHeader } from "/header.js?v=20260720-1"; initHeader({ active: "/menu/" });</script>
 </head>
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-    <a class="brand" href="/" aria-label="Wire Home">
-      <span class="logo" aria-hidden="true">/</span>
-      <span class="brand-text">
-        <strong>Wire</strong>
-      </span>
-    </a>
-    <div class="platform-switch" role="group" aria-label="Switch platform">
-      <a href="/" class="ps-btn">Home</a>
-      <a href="/macro/" class="ps-btn">Macro</a>
-      <a href="/credit/" class="ps-btn">Credit</a>
-      <a href="/legal/" class="ps-btn">Legal</a>
-    </div>
-    <button class="nav-search" data-open-search type="button" aria-label="Search Wire">
-      <span class="ns-lbl">Search everything…</span>
-      <kbd>/</kbd>
-    </button>
-    <div class="topbar-right">
-      <div id="account-nav" class="account-nav" hidden></div>
-      <div id="data-status" class="data-status"></div>
-    </div>
-    <div id="notif" class="notif"></div>
-    </div>
-  </header>
+  <div id="wire-header"></div>
 
   <!-- The menu content itself is mounted by nav-actions.js (the same panel the
        overlay used, permanently open — /menu/ is a page like any other). -->

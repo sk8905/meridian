@@ -25,39 +25,14 @@
   <link rel="stylesheet" href="css/styles.css?v=20260720-2" />
   <link rel="stylesheet" href="/premium.css?v=20260719-27" />
   <link rel="stylesheet" href="/tui.css?v=20260719-11" />
+  <!-- Header (top bar + ticker + briefing) is built by the ONE shared module so
+       every page's header is identical. It runs before app.js so the account /
+       status mounts exist when app.js fills them. -->
+  <script type="module" blocking="render">import { initHeader } from "/header.js?v=20260720-1"; initHeader({ active: "/macro/" });</script>
   <script type="module" blocking="render" src="js/app.js?v=20260720-3"></script>
-  <script type="module" blocking="render">import { initNavActions } from "/nav-actions.js?v=20260719-39"; initNavActions();</script>
 </head>
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="/" aria-label="Wire Home">
-        <span class="logo" aria-hidden="true">/</span>
-        <span class="brand-text">
-          <strong>Wire</strong>
-        </span>
-      </a>
-      <div class="platform-switch" role="group" aria-label="Switch platform">
-        <a href="/" class="ps-btn">Home</a>
-        <a href="/macro/" class="ps-btn is-active" aria-current="page">Macro</a>
-        <a href="/credit/" class="ps-btn">Credit</a>
-        <a href="/legal/" class="ps-btn">Legal</a>
-      </div>
-      <button class="nav-search" data-open-search type="button" aria-label="Search Wire">
-        <span class="ns-lbl">Search everything…</span>
-        <kbd>/</kbd>
-      </button>
-      <div class="topbar-right">
-        <div id="account-nav" class="account-nav" hidden></div>
-        <div id="data-status" class="data-status"></div>
-      </div>
-      <div id="notif" class="notif"></div>
-    </div>
-  </header>
-
-  <!-- Markets ticker + briefing strip (mirrors Home) -->
-  <div class="wticker" id="wticker"></div>
-  <div class="wbrief" id="wbrief"></div>
+  <div id="wire-header"></div>
 
   <main id="app" class="container"></main>
 
@@ -67,8 +42,5 @@
   <script>
     (function(){function r(){if(!matchMedia("(max-width:760px)").matches)return;var f=document.querySelector(".footer");if(!f||document.querySelector(".acct-foot"))return;var b=document.createElement("div");b.className="acct-foot";var a=document.getElementById("account-nav"),d=document.getElementById("data-status");if(a)b.appendChild(a);if(d)b.appendChild(d);if(b.childNodes.length)f.insertBefore(b,f.firstChild);}if(document.readyState!=="loading")r();else document.addEventListener("DOMContentLoaded",r);})();
   </script>
-
-
-  <script type="module">import { initBrief } from "/brief.js?v=6"; initBrief();</script>
 </body>
 </html>
