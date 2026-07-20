@@ -1610,7 +1610,7 @@ document.addEventListener("click", (e) => {
   }
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260719-5").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260719-6").then((m) => m.mountPalette()).catch(() => {});
 import("/ptr.js?v=20260719-10").then((m) => m.initPullToRefresh()).catch(() => {});
 router();
 renderDataStatus();

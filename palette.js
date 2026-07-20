@@ -187,7 +187,7 @@ export function mountPalette() {
   document.body.appendChild(ov);
 
   const input = ov.querySelector(".mcmdk-input"), results = ov.querySelector(".mcmdk-results");
-  const idx = buildIndex();
+  let idx = buildIndex();
   let sel = 0, current = [];
 
   const score = (e, q) => { const t = e.title.toLowerCase(); return t === q ? 0 : t.startsWith(q) ? 1 : t.includes(q) ? 2 : e.hay.includes(q) ? 3 : 4; };
@@ -262,4 +262,20 @@ export function mountPalette() {
     if (ev.key === "/" && !ev.metaKey && !ev.ctrlKey && !ev.altKey && !isTyping(ev.target) && !ov.classList.contains("open")) { ev.preventDefault(); open(); }
     else if (ev.key === "Escape" && ov.classList.contains("open")) close();
   });
+
+  // Pull the live cross-desk wire independently (the Worker's /api/feed) so the
+  // "#BBG"/"#ECON" label search finds the separately-fetched Bloomberg &
+  // Economist stories WITHOUT needing a Home-page visit first. On success we warm
+  // the shared cache (same key/shape the Home landing uses) and rebuild the index;
+  // if the palette is open, re-run the current search so results update live.
+  // Non-200 / HTML redirect (Access re-auth) / offline → keep the cache-based index.
+  fetch("/api/feed", { headers: { accept: "application/json" } })
+    .then((r) => (r.ok && !(r.headers.get("content-type") || "").includes("text/html") ? r.json() : null))
+    .then((d) => {
+      if (!d || !Array.isArray(d.items) || !d.items.length) return;
+      try { localStorage.setItem("m_glance_feed", JSON.stringify(d)); } catch { /* quota/private mode */ }
+      idx = buildIndex();
+      if (ov.classList.contains("open")) refresh();
+    })
+    .catch(() => { /* keep the cache-based index */ });
 }
