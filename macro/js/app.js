@@ -11,6 +11,9 @@ import { MONTHS, MONTHS_FULL, WEEKDAYS, isoToDate, fmtDay, fmtDayGB, fmtWeekday,
   trackGauge, CYCLE_ZONES, BUBBLE_ZONES, bubbleComposite, bubbleBand,
   MAC_IND_ORDER, MACRO_DATA, setMacroData } from "./shared.js?v=20260719-1";
 import { macroDashPane, loadYieldCurve, cockpitInds } from "./dashboard.js?v=20260719-2";
+// The shared news-wire engine — so the Macro dashboard wire is the same build as
+// the Home feed (time-led .g-feed-* rows, day headers, source filter).
+import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks } from "/feed.js?v=20260720-1";
 // NOTE: dashboard.js and shared.js import ./content.js with their OWN ?v= —
 // keep all three content tokens identical (and bump together) or the browser
 // loads content.js twice as separate module instances.
@@ -23,6 +26,7 @@ const app = document.getElementById("app");
 // first chip. Pull-to-refresh keeps position across its reload separately, via
 // ptr.js's short-lived sessionStorage tab snapshot.
 let _macTab = "all";
+let _macWireItems = [];   // normalised wire items for the shared feed engine
 
 // Chart colours are CSS vars (defined light + dark in css/styles.css) so the
 // sparklines, the multi-series Chart tab and the policy gauge flip live with the
@@ -342,18 +346,18 @@ function viewDashboard() {
     .filter((x) => { const k = String(x.title || "").toLowerCase().replace(/[^a-z0-9]+/g, ""); if (!k || seenNews.has(k)) return false; seenNews.add(k); return true; })
     .map((x) => ({ ...x, _kind: "news" }));
   const wire = [...comm, ...news].sort((a, b) => `${b.date} ${b.time || ""}`.localeCompare(`${a.date} ${a.time || ""}`));
-  const KIND = { comm: "COMM", news: "NEWS" };
-  const wireRow = (x) => {
-    const url = x.url || "", src = x.source || "";
-    const auth = x.author ? `<span class="tw-mgr-w"><span class="tw-mgr">${esc(x.author)}</span></span>` : "";
-    // The title opens the article; the source name is a filter control (below).
-    return `<li class="compact-item tw-row" data-kind="${x._kind}" data-src="${esc(src)}">`
-      + `<span class="tw-date">${x.date ? esc(fmtDate(x.date)) : ""}</span>`
-      + `<span class="tw-tag ${x._kind}">${KIND[x._kind]}</span>`
-      + `<span class="tw-body"><a href="${esc(url)}" target="_blank" rel="noopener noreferrer" class="tw-head">${esc(x.title)}</a>${auth}</span>`
-      + `<span class="tw-src">${src ? `<span class="src-filter" role="button" tabindex="0" data-srcfilter="${esc(src)}" title="Show all ${esc(src)} stories">${esc(src)}</span>` : ""}</span>`
-      + `</li>`;
-  };
+  // Normalise into the shared wire's item shape: the News / Commentary streams
+  // map to the NEWS / COMM code chips, the source becomes the in-place filter.
+  // Macro items carry a date but usually no time, so most rows lead with "12:00"
+  // (as on Home). Kept in the module var so macroWireDash() can re-filter.
+  // Keep the whole deduped stream (Home caps at 500) so the Commentary chip has
+  // items even when recent News dominates — slicing to a short combined list
+  // used to drop all commentary out of the top rows.
+  _macWireItems = wire.slice(0, 500).map((x) => ({
+    desk: x._kind === "comm" ? "comm" : "news",
+    href: x.url || "#/", ext: !!x.url, title: x.title,
+    src: x.source || "", date: x.date || "", time: x.time || "",
+  }));
   const rel = [...RELEASES].sort((a, b) => String(a.date).localeCompare(String(b.date))).slice(0, 12);
   const relRow = (r) => `<li class="tmini-row"><a class="tmini-t" href="${esc(r.url)}" target="_blank" rel="noopener noreferrer">${esc(r.title)}</a><span class="tmini-m">${esc(fmtDayGB(r.date))} · ${esc(r.country)}</span></li>`;
 
@@ -386,8 +390,7 @@ function viewDashboard() {
               .map(([k, l]) => `<button type="button" class="tchip${k === mk ? " is-on" : ""}" data-k="${k}">${l}</button>`).join("");
           })()}</div>
         </header>
-        <div class="srcfilter-bar" id="mac-srcbar" hidden></div>
-        <ul class="twire compact-list" id="mac-wire">${wire.length ? wireDays(wire.slice(0, 90), wireRow) : '<li class="tw-empty muted small">No items yet.</li>'}</ul>
+        <div class="g-feed twire g-feed-wrap" id="mac-wire">${_macWireItems.length ? feedBodyHTML(_macWireItems) : feedEmptyHTML("No items yet.")}</div>
         <div class="mac-dash-pane" id="mac-dash" hidden>${macroDashPane()}</div>
       </section>
       <aside class="tcol tcol-r">
@@ -422,46 +425,40 @@ function renderMacroIndRail(series) {
 let _macSrc = null;   // active source filter (newsroom name) or null
 function macroWireDash() {
   const chips = document.getElementById("mac-chips"), wire = document.getElementById("mac-wire");
-  const dash = document.getElementById("mac-dash"), bar = document.getElementById("mac-srcbar");
+  const dash = document.getElementById("mac-dash");
   if (!chips || !wire) return;
   const activeK = () => (chips.querySelector(".tchip.is-on") || {}).dataset?.k || "news";
+  const setChip = (k) => chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === k));
   // "Dashboard" swaps the news wire for the market-implied policy dashboard; News/
-  // Commentary filter by row kind; a source filter (if set) narrows to one newsroom.
-  const apply = () => {
+  // Commentary filter the wire by desk; a source filter (row click) narrows to one
+  // newsroom. Filtering re-renders the shared wire (so day headers + the source
+  // bar stay correct), exactly like the Home feed.
+  const paint = () => {
     const k = activeK();
     const showDash = k === "dash";
     wire.hidden = showDash;
     if (dash) dash.hidden = !showDash;
-    if (bar) {
-      bar.hidden = showDash || !_macSrc;
-      if (_macSrc && !showDash) bar.innerHTML = `Source · <strong>${esc(_macSrc)}</strong><button type="button" class="srcfilter-clear" data-srcclear="1">✕ clear</button>`;
-    }
-    if (!showDash) {
-      wire.querySelectorAll(".tw-row").forEach((r) => {
-        const kindOk = (k === "all" || r.dataset.kind === k);
-        const srcOk = (!_macSrc || r.dataset.src === _macSrc);
-        r.style.display = (kindOk && srcOk) ? "" : "none";
-      });
-      syncDayRows(wire);
-    }
+    if (showDash) return;
+    let list = _macWireItems;
+    if (_macSrc) list = list.filter((x) => x.src === _macSrc);
+    else if (k !== "all") list = list.filter((x) => x.desk === k);
+    wire.innerHTML = (_macSrc ? feedSrcBarHTML(_macSrc) : "")
+      + (list.length ? feedBodyHTML(list) : feedEmptyHTML(_macSrc ? `No ${_macSrc} stories — check back shortly.` : "No items yet."));
   };
   chips.onclick = (e) => {
     const b = e.target.closest(".tchip"); if (!b) return;
     chips.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
     _macTab = b.dataset.k || "all";
-    apply();
+    _macSrc = null;   // switching desk clears any source filter (as on Home)
+    paint();
   };
-  // Source name → filter to that newsroom; the pill clears it. Delegated on the
-  // wire and the bar so it survives the in-place row toggling.
-  const onSrc = (e) => {
-    const sf = e.target.closest("[data-srcfilter]");
-    if (sf) { e.preventDefault(); _macSrc = sf.getAttribute("data-srcfilter"); apply(); return; }
-    if (e.target.closest("[data-srcclear]")) { e.preventDefault(); _macSrc = null; apply(); }
-  };
-  wire.onclick = onSrc;
-  if (bar) bar.onclick = onSrc;
-  wire.onkeydown = (e) => { if ((e.key === "Enter" || e.key === " ") && e.target.closest("[data-srcfilter]")) { e.preventDefault(); onSrc(e); } };
-  apply();
+  // Source name → filter to that newsroom (spans both streams, so reset to All);
+  // the ✕ clear pill removes it.
+  attachFeedClicks(wire, {
+    onSrc: (s) => { _macSrc = s; setChip("all"); _macTab = "all"; paint(); },
+    onClearSrc: () => { _macSrc = null; paint(); },
+  });
+  paint();
 }
 
 // --------------------------- saved articles (cloud sync + localStorage) -----

@@ -30,21 +30,22 @@ const base = `http://localhost:${srv.port}`;
   checkErrs(errs, "home srcbar");
   await ctx.close();
 }
-// MACRO: shared .srcfilter-bar sticks below the fixed chrome.
+// MACRO: shared .g-feed-srcbar (now the same wire engine as Home) sticks below
+// the fixed chrome on phones.
 {
   const { ctx, pg, errs } = await open(b, PHONE, base + "/macro/");
   await pg.waitForTimeout(1500);
   const res = await pg.evaluate(async () => {
     const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-    document.querySelector("#mac-wire [data-srcfilter]")?.click(); await sleep(500);
-    const bar = document.getElementById("mac-srcbar");
-    if (!bar || bar.hidden) return { fail: "srcbar not shown" };
+    document.querySelector("#mac-wire .g-feed-src")?.click(); await sleep(500);
+    const bar = document.querySelector("#mac-wire .g-feed-srcbar");
+    if (!bar) return { fail: "srcbar not shown" };
     window.scrollTo(0, 1500); await sleep(400);
     const cs = getComputedStyle(bar);
     const r = bar.getBoundingClientRect();
-    const clear = bar.querySelector("[data-srcclear]");
+    const clear = bar.querySelector(".g-feed-srcclear");
     const out = { pos: cs.position, visible: r.top >= 0 && r.top < 220, hasClear: !!clear };
-    if (clear) { clear.click(); await sleep(400); out.cleared = document.getElementById("mac-srcbar").hidden; }
+    if (clear) { clear.click(); await sleep(400); out.cleared = !document.querySelector("#mac-wire .g-feed-srcbar"); }
     return out;
   });
   check(!res.fail, "macro srcbar appears");
