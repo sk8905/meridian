@@ -12,7 +12,12 @@ const base = `http://localhost:${srv.port}`;
   await pg.waitForTimeout(2000);
   const res = await pg.evaluate(async () => {
     const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-    document.querySelector("#g-feed .g-feed-src")?.click(); await sleep(500);
+    // Filter by the source with the MOST rows so the filtered wire is tall enough
+    // to actually scroll (a data-dependent first-source can have too few items).
+    const srcs = [...document.querySelectorAll("#g-feed .g-feed-src")];
+    const counts = {}; srcs.forEach((s) => { const k = s.dataset.src; counts[k] = (counts[k] || 0) + 1; });
+    const top = Object.keys(counts).sort((a, b) => counts[b] - counts[a])[0];
+    (srcs.find((s) => s.dataset.src === top) || srcs[0])?.click(); await sleep(500);
     const bar = document.querySelector(".g-feed-srcbar");
     if (!bar) return { fail: "no srcbar" };
     window.scrollTo(0, 2000); await sleep(400);
