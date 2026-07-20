@@ -14,6 +14,19 @@
 :root { --wb-txt: #3b475f; }
 :root[data-theme="dark"] { --wb-txt: #b7c2da; }
 
+/* The ticker + briefing read terminal surface tokens (--head/--surface/--border/
+   --ink/--muted/--faint/--accent). Home doesn't load tui.css (where those live),
+   so scope them to the header mount itself — resolves identically on EVERY page
+   without touching the rest of the page's token vocabulary. */
+#wire-header {
+  --surface: #ffffff; --head: #f4f7fb; --border: #e4e7ef;
+  --ink: #131b2c; --muted: #5e6a84; --faint: #8b96ac; --accent: #fb8b1e;
+}
+:root[data-theme="dark"] #wire-header {
+  --surface: #0d0d0d; --head: #0a0a0a; --border: #262626;
+  --ink: #eaf0fb; --muted: #8592ad; --faint: #5c6a86; --accent: #fb8b1e;
+}
+
 /* ---------- top bar ---------- */
 .topbar { background: var(--navy, #05080f); color: #fff; position: sticky; top: 0; z-index: 10; }
 .topbar-inner { position: relative; display: flex; align-items: center; gap: 2rem; padding: 0 1.5rem; height: 60px; }
@@ -44,8 +57,8 @@
 .topbar-right { flex: 0 0 auto; margin-left: 0; display: flex; flex-direction: column; align-items: flex-end; gap: .2rem; }
 .account-nav { font-size: .72rem; color: #cbd5e1; white-space: nowrap; }
 .account-nav strong { color: #fff; font-weight: 600; }
-.account-nav a { color: #93c5fd; font-weight: 600; }
-.account-nav a:hover { color: #fff; }
+.account-nav a { color: #fff; font-weight: 600; }
+.account-nav a:hover { color: #fff; text-decoration: underline; }
 .account-nav:empty { display: none; }
 .data-status { display: flex; align-items: center; gap: .4rem; font-size: .68rem; color: #cbd5e1; white-space: nowrap; }
 .ds-part { white-space: nowrap; }
@@ -88,7 +101,7 @@
    Markets · Rates & spreads, ellipsis-clipped. Labels are Wire-orange caps; the
    story/one-liner text is --wb-txt (== terminal --t-dim). Desktop-only. ---------- */
 .wbrief { display: flex; align-items: baseline; gap: 10px; padding: 6px 20px; margin: 0;
-  background: var(--surface); border-bottom: 1px solid var(--border); overflow: hidden; }
+  background: var(--head); border-bottom: 1px solid var(--border); overflow: hidden; }
 .wbrief:empty { display: none; }
 .wb-main { flex: 0 0 auto; display: flex; align-items: baseline; gap: 8px; }
 .wb-hello { color: var(--wb-txt); font-size: 12px; font-weight: 600; letter-spacing: 0; white-space: nowrap; }

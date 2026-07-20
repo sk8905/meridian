@@ -174,10 +174,10 @@ export function mountPalette() {
   const score = (e, q) => { const t = e.title.toLowerCase(); return t === q ? 0 : t.startsWith(q) ? 1 : t.includes(q) ? 2 : e.hay.includes(q) ? 3 : 4; };
   function searchIdx(q) {
     q = q.trim().toLowerCase();
-    // "/CODE [text]" filters by the label chip (e.g. /FT, /LEX, /LETTER) —
-    // prefix match, so /LE lists LEX and LETTER together.
+    // "#CODE [text]" filters by the label chip (e.g. #FT, #LEX, #LTR) —
+    // prefix match, so #LE lists LEX and LTR together.
     let code = null;
-    if (q.startsWith("/")) { const parts = q.slice(1).split(/\s+/); code = parts.shift() || ""; q = parts.join(" "); }
+    if (q.startsWith("#")) { const parts = q.slice(1).split(/\s+/); code = parts.shift() || ""; q = parts.join(" "); }
     if (!q && !code) return [];
     const pool = code ? idx.filter((e) => String(DESKCODE[e.tag] || e.label || e.tag).toLowerCase().startsWith(code)) : idx;
     const toks = q ? q.split(/\s+/) : [];

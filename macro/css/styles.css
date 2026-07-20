@@ -39,51 +39,6 @@ h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
 h1, h2, .macro-country, .macro-label { text-wrap: balance; }
 .intel-head, .compact-head, .macro-para, .macro-bottomline, p, .muted { text-wrap: pretty; }
 
-/* ---------- top bar ---------- */
-.topbar { background: var(--navy); color: #fff; position: sticky; top: 0; z-index: 10; }
-/* Search pill in the nav row — opens the command palette (same as "/"); its
-   margin-left:auto pushes it (and the identity + bell after it) to the right,
-   mirroring Glance's nav search. */
-.nav-search { display: inline-flex; align-items: center; gap: .55rem; justify-content: space-between; margin-left: auto; flex: 0 0 auto; min-width: 236px;
-  background: rgba(255,255,255,.12); border: 1px solid rgba(255,255,255,.22); color: #e5e0f2;
-  font: inherit; font-size: .85rem; padding: .42rem .7rem; border-radius: 9px; cursor: pointer; text-align: left; white-space: nowrap; }
-.nav-search:hover { background: rgba(255,255,255,.2); color: #fff; border-color: rgba(255,255,255,.34); }
-.nav-search .ns-lbl { flex: 1 1 auto; color: inherit; }
-.nav-search kbd { background: rgba(255,255,255,.18); border-radius: 5px; padding: .02rem .42rem; font: inherit; font-size: .8rem; font-weight: 700; line-height: 1.5; }
-/* Full-bleed row aligned to the page container (matches Credit/Legal): on wide
-   screens the brand is pinned to the far-left corner and the signed-in identity
-   to the far-right corner, out of flow, while the platform toggle aligns with the
-   page content's left edge. The 11rem floor keeps the toggle clear of the logo on
-   narrower desktops. */
-.topbar-inner { position: relative; display: flex; align-items: center; gap: 2rem; padding: 0 1.5rem; height: 60px; }
-/* Identical to Credit/Legal: the brand pins to the far-left corner and the
-   signed-in identity + bell to the far-right corner (out of flow); the nav
-   fills the row so the right-aligned Chart tab lands at the page content's
-   right edge — the same place Credit's Watchlist sits. */
-/* Full-width bar: the brand sits in flow at the same 2rem gutter as the page
-   content, then the toggle + nav follow; the search pill's margin-left:auto pushes
-   the identity + bell to the right 2rem gutter. */
-@media (min-width: 1101px) {
-  .topbar-inner { padding-left: 2rem; padding-right: 2rem; }
-  .topbar-inner .mainnav { flex: 0 1 auto; }
-}
-.brand { display: flex; align-items: center; gap: .6rem; text-decoration: none; color: #fff; flex: 0 0 auto; }
-.brand:hover { text-decoration: none; }
-.brand-text { display: flex; flex-direction: column; }
-.brand-text strong { font-size: 1.05rem; letter-spacing: .3px; }
-.brand-sub { font-size: .7rem; color: #cabfe6; text-transform: uppercase; letter-spacing: 1px; }
-.logo { display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; box-sizing: border-box; border: 1px solid var(--border, #262626); background: #000; color: #fff; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 700; font-size: 1.15rem; line-height: 1; border-radius: 0; }
-.platform-switch { display: inline-flex; align-items: center; gap: 2px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.22); border-radius: 8px; padding: 2px; flex: 0 0 auto; }
-.ps-btn { padding: .3rem .6rem; border-radius: 6px; font-size: .8rem; font-weight: 700; color: #cbd5e1; text-decoration: none; white-space: nowrap; }
-.ps-btn:hover { color: #fff; text-decoration: none; background: rgba(255,255,255,.1); }
-.ps-btn.is-active, .ps-btn.is-active:hover { background: #fff; color: var(--macro-ink); }
-.topbar-right { margin-left: 0; display: flex; flex-direction: column; align-items: flex-end; gap: .2rem; }
-.account-nav { font-size: .72rem; color: #cbd5e1; white-space: nowrap; }
-.account-nav strong { color: #fff; font-weight: 600; }
-.account-nav a { color: #cabfe6; font-weight: 600; }
-.account-nav a:hover { color: #fff; }
-.data-status { display: flex; align-items: center; gap: .4rem; font-size: .68rem; color: #cbd5e1; white-space: nowrap; }
-.ds-part { white-space: nowrap; }
 /* Notifications bell */
 .notif { position: relative; flex: 0 0 auto; }
 .notif-bell { position: relative; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 8px; cursor: pointer; font-size: 1rem; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.22); color: #fff; }

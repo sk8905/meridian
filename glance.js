@@ -145,7 +145,7 @@ export function initGlance() {
   // The legacy Home-only menus (initNotifBell / initSavedPanel /
   // initMarketsPanel) are retired; on phones the Home data rails move into the
   // shared Markets panel via initHomeMarketsRails.
-  import("/nav-actions.js?v=20260719-39").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260719-40").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderDeals();
   renderFundraising();
   renderRx();
@@ -185,8 +185,8 @@ function resolveSaved() {
   restructurings.forEach((r) => { if (lS.has(r.id)) out.push({ desk: "l", title: r.company, href: r.judgmentUrl || r.articleUrl || "/legal/#/", ext: !!(r.judgmentUrl || r.articleUrl), date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
   return out.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 }
-const _deskClass = { news: "news", m: "macro", c: "credit", l: "legal", n: "newsletter", f: "ft", s: "substack", b: "brew" };
-const DESK_CODE = { news: "NEWS", m: "MAC", c: "CRD", l: "LEX", n: "LTR", f: "FT", s: "SUBS", b: "BREW" };
+const _deskClass = { news: "news", bbg: "bbg", m: "macro", c: "credit", l: "legal", n: "newsletter", f: "ft", s: "substack", b: "brew" };
+const DESK_CODE = { news: "NEWS", bbg: "BBG", m: "MAC", c: "CRD", l: "LEX", n: "LTR", f: "FT", s: "SUBS", b: "BREW" };
 function initSavedPanel() {
   const wrap = document.getElementById("g-saved");
   if (!wrap) return;
@@ -560,7 +560,10 @@ const creditItemExt = (x) => !!x.sourceUrl;
 // interleaved across desks so it reads as a single merged feed, not three blocks.
 // Falls back to the most-recent date present if nothing is dated today, so the
 // feed is never empty between refreshes.
-const DESK = { news: "News", m: "Macro", c: "Credit", l: "Legal", n: "Letter", f: "myFT", s: "Substack", b: "Brew" };
+const DESK = { news: "News", bbg: "Bloomberg", m: "Macro", c: "Credit", l: "Legal", n: "Letter", f: "myFT", s: "Substack", b: "Brew" };
+// Bloomberg stories that aren't strictly macro get the BBG label (not the
+// generic NEWS one); strict-macro Bloomberg items still read MAC.
+const deskFor = (title, source) => (STRICT_MACRO_RE.test(title || "") ? "m" : (/^bloomberg\b/i.test(source || "") ? "bbg" : "news"));
 // Strictly-macro classifier: central-bank policy, rates/yields, inflation, growth
 // & the labour market. A macro-sourced story (curated headline or live RSS) is
 // tagged MAC only when its headline reads as core macro; everything else defaults
@@ -621,7 +624,7 @@ function renderFeed() {
   const macro = [], news = [];
   const mSid = (n) => "a" + _savedHash(_savedBase(n));
   const pushMacroItem = (n) => {
-    const desk = STRICT_MACRO_RE.test(n.title || "") ? "m" : "news";
+    const desk = deskFor(n.title, n.source);
     (desk === "m" ? macro : news).push(mk(desk, n.url, n.title, n.source, true, n.date, n.time, "m", mSid(n)));
   };
   ((ARTICLES && ARTICLES.items) || []).forEach(pushMacroItem);
@@ -635,7 +638,7 @@ function renderFeed() {
   // rest split MAC vs NEWS by the same strict-macro test.
   (_liveFeed || []).forEach((n) => {
     if (n.myft || n.substack) return;
-    const desk = STRICT_MACRO_RE.test(n.title || "") ? "m" : "news";
+    const desk = deskFor(n.title, n.source);
     (desk === "m" ? macro : news).push(mk(desk, n.url, n.title, n.source, true, n.date, n.time));
   });
   // Limit non-premium sources: drop Investing.com (unless a Reuters story delivered
@@ -835,6 +838,7 @@ function renderMacroSnapshot() {
   const meter = (lo, hi, gauge, detail) =>
     `<div class="g-snap-meter"${detail ? ` title="${esc(detail)}"` : ""}>`
       + `<span class="g-snap-end">${lo}</span>${gauge}<span class="g-snap-end">${hi}</span></div>`;
+  // Policy rate only — the cycle & bubble gauges were moved off this rail panel.
   el.innerHTML =
     `<a class="g-snap-blk" href="/macro/#/policy">`
       + `<div class="g-snap-pol">`
@@ -843,14 +847,6 @@ function renderMacroSnapshot() {
         + `<span class="g-snap-colh g-snap-colh-r">Forecast</span>`
         + pol("US", OUTLOOK.us) + pol("UK", OUTLOOK.uk)
       + `</div>`
-    + `</a>`
-    + `<a class="g-snap-blk" href="/macro/#/cycle">`
-      + `<div class="g-snap-h"><span class="g-snap-t">Cycle position</span><span class="g-snap-cap">${esc(shortStage(CYCLE.us.shortStage))}</span></div>`
-      + meter("Early", "Crisis", snapGauge([{ label: "US", pos: CYCLE.us.pos }, { label: "UK", pos: CYCLE.uk.pos }]), `US ${CYCLE.us.pos} · UK ${CYCLE.uk.pos}`)
-    + `</a>`
-    + `<a class="g-snap-blk" href="/macro/#/bubble">`
-      + `<div class="g-snap-h"><span class="g-snap-t">Bubble risk</span><span class="g-snap-cap">${esc(bubbleBand(comp))}</span></div>`
-      + meter("Low", "Extreme", snapGauge([{ label: "Composite", pos: comp }]), `${BUBBLE.market} · composite ${comp}/100`)
     + `</a>`;
 }
 
@@ -1567,7 +1563,7 @@ function buildIndex() {
 }
 
 // ---- Command palette -------------------------------------------------------
-const PAL_CODE = { macro: "MAC", credit: "CRD", legal: "LEX", view: "GO", ft: "FT", letter: "LTR", substack: "SUBS", brew: "BREW" };
+const PAL_CODE = { macro: "MAC", credit: "CRD", legal: "LEX", view: "GO", ft: "FT", letter: "LTR", substack: "SUBS", brew: "BREW", bbg: "BBG" };
 function wirePalette(idx) {
   const overlay = document.getElementById("cmdk");
   const input = document.getElementById("cmdk-input");
@@ -1583,10 +1579,10 @@ function wirePalette(idx) {
   }
   function search(q) {
     q = q.trim().toLowerCase();
-    // "/CODE [text]" filters by the label chip (e.g. /FT, /LEX, /LETTER, /MAC,
-    // /CRD) — prefix match, so /LE lists LEX and LETTER together.
+    // "#CODE [text]" filters by the label chip (e.g. #FT, #LEX, #LTR, #MAC,
+    // #CRD) — prefix match, so #LE lists LEX and LTR together.
     let code = null;
-    if (q.startsWith("/")) { const parts = q.slice(1).split(/\s+/); code = parts.shift() || ""; q = parts.join(" "); }
+    if (q.startsWith("#")) { const parts = q.slice(1).split(/\s+/); code = parts.shift() || ""; q = parts.join(" "); }
     if (!q && !code) return [];
     const pool = code ? idx.filter((e) => String(PAL_CODE[e.tag] || e.label || e.tag).toLowerCase().startsWith(code)) : idx;
     const toks = q ? q.split(/\s+/) : [];

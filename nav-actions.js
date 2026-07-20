@@ -360,6 +360,8 @@ function notifRow(x) {
 let _notifItems = null;
 // Active notifications tab: "all" | "watch" (mirrors the Bookmarks panel).
 let _ntTab = "all";
+// Active /menu/ page tab: "search" | "notifs" | "display".
+let _menuTab = "search";
 async function ensureNotifs() {
   if (_notifItems) return _notifItems;
   const { buildNotifs } = await import("/saved.js?v=20260719-2");
@@ -589,24 +591,8 @@ export function initNavActions() {
           acctHtml = `<div class="na-menu-row na-menu-acct">${signed ? "" : "<span>Signed in as&nbsp;</span>"}${acct.innerHTML}</div>`;
         }
       }
-      // Recent searches — recorded by both search palettes on every opened
-      // result (shared localStorage key). Tapping one re-runs it in the search.
-      let recents = [];
-      try { const a = JSON.parse(localStorage.getItem("wire.recentSearches") || "[]"); if (Array.isArray(a)) recents = a.filter((q) => typeof q === "string").slice(0, 8); } catch { /* */ }
-      p.querySelector(".na-body").innerHTML =
-        `<button type="button" class="na-menu-row na-menu-search" data-open-search>${ICO_SEARCH}<span>Search everything…</span></button>`
-        + (recents.length
-          ? `<div class="na-menu-recent-h">Recent searches</div>`
-            + recents.map((q) => `<button type="button" class="na-menu-row na-recent-row" data-q="${esc(q)}">${ICO_SEARCH}<span>${esc(q)}</span></button>`).join("")
-          : "")
-        // Appearance — the theme control lives here on phones (moved out of the
-        // nav bar). Two options: System (follow the OS) or Other (its opposite).
-        + `<div class="na-menu-recent-h">Appearance</div>`
-        + `<div class="na-theme-seg" role="group" aria-label="Theme">`
-          + `<button type="button" class="na-theme-opt${themeChoice() === "system" ? " is-on" : ""}" data-theme-pref="system" aria-pressed="${themeChoice() === "system"}">${ICO_AUTO}<span>System</span></button>`
-          + `<button type="button" class="na-theme-opt${themeChoice() === "other" ? " is-on" : ""}" data-theme-pref="other" aria-pressed="${themeChoice() === "other"}">${document.documentElement.getAttribute("data-theme") === "dark" ? ICO_MOON : ICO_SUN}<span>Other</span></button>`
-        + `</div>`
-        + `<div class="na-menu-foot"><div class="na-menu-foot-l">`
+      // Footer (account · refresh/build · push toggle) — shown under every tab.
+      const foot = `<div class="na-menu-foot"><div class="na-menu-foot-l">`
         + acctHtml
         // One compact line: refresh date/time (prefix + year dropped) · build.
         // The sw/no-sw suffix answers "is the app-shell cache actually serving
@@ -617,13 +603,44 @@ export function initNavActions() {
           return `<div class="na-menu-row na-menu-stat">${t ? esc(t) + " · " : ""}Build ${esc(BUILD_TOKEN)} · ${sw}</div>`;
         })()
         + `</div><button type="button" class="na-menu-push" id="na-push" title="Push notifications">${ICO_BELL}<span class="na-push-state">…</span></button></div>`;
-      // Theme segmented control → same apply logic as the desktop nav button.
-      // "System" follows the OS; "Other" applies the remembered concrete theme
-      // (or the opposite of the OS the first time).
-      p.querySelectorAll(".na-theme-opt").forEach((b) => b.addEventListener("click", () => {
-        if (!_applyThemeChoice) return;
-        _applyThemeChoice(b.dataset.themePref === "system" ? "system" : otherPref());
-      }));
+
+      // Active pane — chosen by the menu bar chips (Search · Notifications · Display).
+      let pane;
+      if (_menuTab === "notifs") {
+        pane = `<div class="na-tabbody" id="na-menu-notifs"><div class="na-load">Loading…</div></div>`;
+      } else if (_menuTab === "display") {
+        // Light/dark toggle — two options: System (follow the OS) or Other (its opposite).
+        pane = `<div class="na-menu-recent-h">Appearance</div>`
+          + `<div class="na-theme-seg" role="group" aria-label="Theme">`
+            + `<button type="button" class="na-theme-opt${themeChoice() === "system" ? " is-on" : ""}" data-theme-pref="system" aria-pressed="${themeChoice() === "system"}">${ICO_AUTO}<span>System</span></button>`
+            + `<button type="button" class="na-theme-opt${themeChoice() === "other" ? " is-on" : ""}" data-theme-pref="other" aria-pressed="${themeChoice() === "other"}">${document.documentElement.getAttribute("data-theme") === "dark" ? ICO_MOON : ICO_SUN}<span>Other</span></button>`
+          + `</div>`;
+      } else {
+        // Search — the search launcher + recent searches (shared localStorage key).
+        let recents = [];
+        try { const a = JSON.parse(localStorage.getItem("wire.recentSearches") || "[]"); if (Array.isArray(a)) recents = a.filter((q) => typeof q === "string").slice(0, 8); } catch { /* */ }
+        pane = `<button type="button" class="na-menu-row na-menu-search" data-open-search>${ICO_SEARCH}<span>Search everything…</span></button>`
+          + (recents.length
+            ? `<div class="na-menu-recent-h">Recent searches</div>`
+              + recents.map((q) => `<button type="button" class="na-menu-row na-recent-row" data-q="${esc(q)}">${ICO_SEARCH}<span>${esc(q)}</span></button>`).join("")
+            : "");
+      }
+      p.querySelector(".na-body").innerHTML = pane + foot;
+
+      if (_menuTab === "display") {
+        // Theme segmented control → same apply logic as the desktop nav button.
+        p.querySelectorAll(".na-theme-opt").forEach((b) => b.addEventListener("click", () => {
+          if (!_applyThemeChoice) return;
+          _applyThemeChoice(b.dataset.themePref === "system" ? "system" : otherPref());
+        }));
+      }
+      if (_menuTab === "notifs") {
+        const nb = p.querySelector("#na-menu-notifs");
+        ensureNotifs().then((items) => {
+          nb.innerHTML = items.length ? items.slice(0, 40).map(notifRow).join("") : '<div class="na-empty">Nothing yet.</div>';
+          markNotifSeen(items); clearBadge();
+        }).catch(() => { nb.innerHTML = '<div class="na-load">Unavailable right now.</div>'; });
+      }
       wirePushRow(p);
     };
 
@@ -703,7 +720,16 @@ export function initNavActions() {
       // The panel head is the same segmented chip strip the other pages pin
       // under the header — one chip for now (Search); tapping it opens search.
       const mh = menuPanel.querySelector(".na-head");
-      if (mh) mh.outerHTML = `<div class="na-menu-bar"><div class="tchips"><button type="button" class="tchip is-on" data-open-search>Search</button></div></div>`;
+      const menuChip = (k, label) => `<button type="button" class="tchip${_menuTab === k ? " is-on" : ""}" data-menutab="${k}">${label}</button>`;
+      if (mh) mh.outerHTML = `<div class="na-menu-bar"><div class="tchips">${menuChip("search", "Search")}${menuChip("notifs", "Notifications")}${menuChip("display", "Display")}</div></div>`;
+      const menuBar = menuPanel.querySelector(".na-menu-bar");
+      if (menuBar) menuBar.addEventListener("click", (e) => {
+        const c = e.target.closest(".tchip[data-menutab]");
+        if (!c || c.dataset.menutab === _menuTab) return;
+        _menuTab = c.dataset.menutab;
+        menuBar.querySelectorAll(".tchip").forEach((x) => x.classList.toggle("is-on", x.dataset.menutab === _menuTab));
+        fillMenu(menuPanel);
+      });
       fillMenu(menuPanel);
       menuPanel.hidden = false;
       const acct = document.getElementById("account-nav");
@@ -746,8 +772,7 @@ export function initNavActions() {
             markNotifSeen(items); clearBadge();
           } else {
             const recent = items.slice(0, 6);
-            tb.innerHTML = `<div class="nf-head nf-head-quiet">You're all caught up</div>`
-              + (recent.length ? `<div class="nf-sub">Recent</div>` + recent.map(notifRow).join("") : '<div class="na-empty">Nothing yet.</div>');
+            tb.innerHTML = recent.length ? recent.map(notifRow).join("") : '<div class="na-empty">Nothing yet.</div>';
           }
         } else {
           tb.innerHTML = '<div class="na-load">Loading…</div>';

@@ -23,17 +23,17 @@
   <link rel="manifest" href="/manifest.webmanifest" />
   <title>Wire — Home</title>
   <meta name="description" content="Wire Home — a cross-desk briefing across the Credit, Legal and Macro intelligence platforms, with a unified search." />
-  <link rel="stylesheet" href="/home.css?v=20260719-5" />
+  <link rel="stylesheet" href="/home.css?v=20260719-6" />
   <link rel="stylesheet" href="/premium.css?v=20260719-27" />
-  <link rel="stylesheet" href="/header.css?v=20260720-1" />
+  <link rel="stylesheet" href="/header.css?v=20260720-2" />
   <script type="module" blocking="render">
     // Render-blocking boot, mirroring the app pages: with a recent sign-in
     // hint the briefing renders BEFORE first paint and the shared chrome
     // mounts, so arriving on Home paints once, complete — no feed/chips/tab-
     // bar staging. The body auth script confirms via /api/me and calls
     // window.__enterGlance for the no-hint path (initGlance self-guards).
-    import { initGlance } from "/glance.js?v=20260719-27";
-    import { initHeader } from "/header.js?v=20260720-1";
+    import { initGlance } from "/glance.js?v=20260719-28";
+    import { initHeader } from "/header.js?v=20260720-2";
     // The ONE shared header (top bar + ticker + briefing) — same module the app
     // pages use. It renders into the (still-hidden) #wire-header and boots the
     // shared chrome + briefing text, so Home's header is identical to the rest.
@@ -129,6 +129,12 @@
 
         <!-- RIGHT: macroeconomic data, macro read, cross-desk counts -->
         <aside class="g-side2">
+          <section class="tui-pnl g-anchor" id="jump-macro">
+            <header class="tui-ph"><span>Policy rate</span><span class="tui-px">US · UK</span></header>
+            <div id="g-macro-snap" class="g-snap" aria-label="Policy rate snapshot">
+              <div class="g-loading">Loading policy rate…</div>
+            </div>
+          </section>
           <section class="tui-pnl g-anchor" id="jump-indicators">
             <header class="tui-ph"><span>Economic indicators</span><span class="tui-px">US · UK</span></header>
             <div id="g-indicators" class="rates-band" aria-label="Key macroeconomic indicators">
@@ -139,12 +145,6 @@
             <header class="tui-ph"><span>Yield curve</span><span class="tui-px">UST</span></header>
             <div id="g-curve" class="rates-band" aria-label="US Treasury yield curve and 2s10s slope">
               <div class="g-loading">Loading curve…</div>
-            </div>
-          </section>
-          <section class="tui-pnl g-anchor" id="jump-macro">
-            <header class="tui-ph"><span>Macro read</span><span class="tui-px">policy · cycle</span></header>
-            <div id="g-macro-snap" class="g-snap" aria-label="Policy rate, cycle and bubble snapshot">
-              <div class="g-loading">Loading macro read…</div>
             </div>
           </section>
           <!-- Deal flow — one panel whose chips toggle between credit deals,
@@ -219,7 +219,7 @@
     const enterGlance = () => {
       if (window.__enterGlance) { window.__enterGlance(); return; }
       show("glance");
-      import("/glance.js?v=20260719-27").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260719-28").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), the head module shows the briefing immediately
