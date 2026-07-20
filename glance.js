@@ -570,6 +570,9 @@ const deskFor = (title, source, dflt = "news") => {
   if (/economist/i.test(s)) return "econ";
   return dflt;
 };
+// Map a feed desk to the command-palette tag vocabulary, so the "#CODE" filters
+// (e.g. #BBG, #ECON) list the same items the feed labels carry.
+const palTag = (d, dflt) => ({ m: "macro", n: "letter", bbg: "bbg", econ: "econ", c: "credit", l: "legal", f: "ft" }[d] || dflt);
 // Strictly-macro classifier: central-bank policy, rates/yields, inflation, growth
 // & the labour market. A macro-sourced story (curated headline or live RSS) is
 // tagged MAC only when its headline reads as core macro; everything else defaults
@@ -666,11 +669,11 @@ function renderFeed() {
   cases.forEach((c) => { if (c.date) legal.push(mk("l", c.url || "/legal/#/", c.name, c.court, !!c.url, c.date, c.time, "l", c.id)); });
   restructurings.forEach((r) => { if (r.date) legal.push(mk("l", r.judgmentUrl || r.articleUrl || "/legal/#/", r.company, r.type === "scheme" ? "Scheme" : "Restructuring plan", !!(r.judgmentUrl || r.articleUrl), r.date, r.time, "l", r.id)); });
 
-  // Reader's own aggregated email newsletters (Bloomberg, Economist, etc.),
-  // pulled from the connected mailbox. LTR trumps the source labels, so every
-  // newsletter reads LTR — unless it's strictly macro, in which case MAC wins.
+  // Reader's own aggregated email newsletters (Bloomberg, Economist, etc.).
+  // Named premium sources keep their own label so they're searchable (Bloomberg
+  // → BBG, The Economist → ECON); MAC still trumps; everything else is LTR.
   const newsletter = [];
-  (NEWSLETTERS || []).forEach((n) => newsletter.push(mk(STRICT_MACRO_RE.test(n.title || "") ? "m" : "n", n.url, n.title, n.author ? `${n.author} · ${n.publication}` : n.publication, true, n.date, n.time)));
+  (NEWSLETTERS || []).forEach((n) => newsletter.push(mk(deskFor(n.title, n.publication, "n"), n.url, n.title, n.author ? `${n.author} · ${n.publication}` : n.publication, true, n.date, n.time)));
 
   // The reader's personalised myFT (followed-topics) headlines — pulled from the
   // myFT RSS feed by the refresh routines. Open out to ft.com; "FT" desk label.
@@ -1541,7 +1544,7 @@ function buildIndex() {
   const addNews = (n) => {
     const k = (n.url || n.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, "");
     if (k && seenNews.has(k)) return; if (k) seenNews.add(k);
-    add("macro", n.title, `Macro news${n.source ? " · " + n.source : ""}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "News");
+    add(palTag(deskFor(n.title, n.source), "macro"), n.title, `Macro news${n.source ? " · " + n.source : ""}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "News");
   };
   ["us", "uk"].forEach((c) => ((NEWS && NEWS[c]) || []).forEach(addNews));
   ((ARTICLES && ARTICLES.items) || []).forEach(addNews);
@@ -1561,7 +1564,7 @@ function buildIndex() {
   // myFT stories + email newsletters — so they're searchable and the "/FT" /
   // "/LETTER" code filters have content to list.
   (FT_ITEMS || []).forEach((f) => add("ft", f.title, `Financial Times · myFT${f.date ? " · " + fmt(f.date) : ""}`, f.url, 2, f.date, "FT"));
-  (NEWSLETTERS || []).forEach((n) => add("letter", n.title, `${n.publication || "Newsletter"}${n.series ? " · " + n.series : ""}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "Letter"));
+  (NEWSLETTERS || []).forEach((n) => add(palTag(deskFor(n.title, n.publication, "n"), "letter"), n.title, `${n.publication || "Newsletter"}${n.series ? " · " + n.series : ""}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "Letter"));
   // Curated Substacks (live from /api/feed, seeded from cache at init) — so the
   // "/SUBS" code filter has content to list.
   (_liveFeed || []).forEach((n) => { if (n.substack) add("substack", n.title, `${n.source || "Substack"}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "SUBS"); });
