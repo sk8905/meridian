@@ -7,7 +7,7 @@
   <!-- Resolve the theme BEFORE paint (stored choice, else the OS setting) so there
        is no light flash; then wire the top-bar toggle once the DOM is ready. -->
   <script>
-    (function(){var r=document.documentElement;var t="dark";try{var s=localStorage.getItem("m_theme");if(s==="light"||s==="dark")t=s;}catch(e){}r.setAttribute("data-theme",t);r.setAttribute("data-theme-choice",t);})();
+    (function(){var r=document.documentElement;var mq=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)");var ios=/iP(hone|od|ad)/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);var p;try{p=localStorage.getItem("m_theme_pref");}catch(e){}if(p!=="light"&&p!=="dark"&&p!=="system"){p=ios?"system":"dark";}var t=p==="system"?((mq&&mq.matches)?"dark":"light"):p;r.setAttribute("data-theme",t);r.setAttribute("data-theme-choice",p);})();
     // Hold the content area invisible until the briefing has rendered (nav-actions
     // reveals; timeout = safety net) so a page switch paints ONCE, complete.
     document.documentElement.classList.add("wire-boot");setTimeout(function(){document.documentElement.classList.remove("wire-boot");},1600);
@@ -32,7 +32,7 @@
     // bar staging. The body auth script confirms via /api/me and calls
     // window.__enterGlance for the no-hint path (initGlance self-guards).
     import { initGlance } from "/glance.js?v=20260719-23";
-    import { initNavActions } from "/nav-actions.js?v=20260719-34";
+    import { initNavActions } from "/nav-actions.js?v=20260719-35";
     window.__enterGlance = () => {
       ["loading", "out", "glance"].forEach((s) => document.getElementById(s).classList.toggle("hidden", s !== "glance"));
       const h = new Date().getHours();

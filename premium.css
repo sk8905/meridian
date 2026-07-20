@@ -202,8 +202,8 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 /* =============================================================================
    DARK MODE — the whole platform runs on CSS variables, so dark is a variable
    re-map under :root[data-theme="dark"], set BEFORE paint by a tiny inline
-   <head> script that resolves the stored choice (localStorage "m_theme") or the
-   OS prefers-color-scheme. This shared block carries the SURFACES, shadows and
+   <head> script that resolves the stored choice (localStorage "m_theme_pref":
+   light / dark / system) or the OS prefers-color-scheme when unset / "system". This shared block carries the SURFACES, shadows and
    hardcoded-colour fixes common to every page. The one accent is Wire orange
    (#fb8b1e) platform-wide; the per-desk signature hues (--macro purple, --legal
    green, etc.) are re-mapped in each page's own stylesheet. The navy top bar is

@@ -299,8 +299,17 @@ async function loadSaved(body, headCount) {
 const ICO_BELL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>';
 const ICO_SUN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.5M12 19v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2.5 12H5M19 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"/></svg>';
 const ICO_MOON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
-// Reflect the theme the button will switch TO (sun while dark, moon while light).
-const themeIcon = () => (document.documentElement.getAttribute("data-theme") === "dark" ? ICO_SUN : ICO_MOON);
+// "Auto" = follow the OS. A small monitor glyph with a half-fill to read as
+// "adapts to the system".
+const ICO_AUTO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M12 4v13" stroke-width="1.6"/><path d="M8 21h8M12 17v4"/></svg>';
+// Three-state theme choice: light → dark → system, read from the
+// data-theme-choice attribute the inline head script sets before paint.
+const THEME_ICON = { light: ICO_SUN, dark: ICO_MOON, system: ICO_AUTO };
+const THEME_TITLE = { light: "Theme: Light — tap for Dark", dark: "Theme: Dark — tap for Auto", system: "Theme: Auto (follows system) — tap for Light" };
+const themeChoice = () => document.documentElement.getAttribute("data-theme-choice") || "dark";
+const themeIcon = () => THEME_ICON[themeChoice()] || ICO_MOON;
+// Resolve a preference to a concrete light/dark theme (system → OS setting).
+const resolveTheme = (pref) => (pref === "system" ? ((window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light") : pref);
 // Two desks only: the bell is limited to Credit + Legal deal-flow (saved.js
 // buildNotifs) — macro items no longer appear, so no macro seen-state to sync.
 const NOTIF_KEYS = { c: "meridian.credit.notifSeen", l: "meridian.legal.notifSeen" };
@@ -432,28 +441,39 @@ export function initNavActions() {
       `<button type="button" class="na-btn" id="na-mkt" aria-label="Markets & key rates" aria-haspopup="true" aria-expanded="false" title="Markets & key rates">${ICO_MKT}</button>` +
       `<button type="button" class="na-btn" id="na-saved" aria-label="Saved" aria-haspopup="true" aria-expanded="false" title="Saved">${ICO_SAVED}</button>` +
       `<button type="button" class="na-btn na-bell" id="na-notif" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">${ICO_BELL}<span class="na-badge" hidden></span></button>` +
-      `<button type="button" class="na-btn" id="na-theme" aria-label="Switch theme" title="Switch light / dark">${themeIcon()}</button>`;
+      `<button type="button" class="na-btn" id="na-theme" aria-label="Switch theme" title="${THEME_TITLE[themeChoice()] || "Switch theme"}">${themeIcon()}</button>`;
     if (notif && notif.parentElement) {
       notif.parentElement.insertBefore(wrap, notif);
     } else if (bar) {
       bar.appendChild(wrap);
     }
 
-    // Light / dark toggle: flip data-theme (+ the choice attr the CSS reads),
-    // persist to localStorage (m_theme) so the inline head script applies it
-    // before paint on the next load, and swap the button's icon. Shared across
-    // all pages via this one controller.
+    // Theme toggle — cycles Light → Dark → Auto(system). The choice is stored
+    // in localStorage (m_theme_pref) so the inline head script applies it before
+    // paint on the next load; "system" resolves to the OS setting live. Shared
+    // across all pages via this one controller.
     const themeBtn = wrap.querySelector("#na-theme");
-    if (themeBtn) themeBtn.addEventListener("click", () => {
+    const applyThemeChoice = (pref) => {
       const r = document.documentElement;
-      const next = r.getAttribute("data-theme") === "dark" ? "light" : "dark";
-      r.setAttribute("data-theme", next);
-      r.setAttribute("data-theme-choice", next);
-      try { localStorage.setItem("m_theme", next); } catch { /* */ }
+      const t = resolveTheme(pref);
+      r.setAttribute("data-theme", t);
+      r.setAttribute("data-theme-choice", pref);
+      try { localStorage.setItem("m_theme_pref", pref); } catch { /* */ }
       const meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.setAttribute("content", next === "dark" ? "#05080f" : "#ffffff");
-      themeBtn.innerHTML = themeIcon();
+      if (meta) meta.setAttribute("content", t === "dark" ? "#05080f" : "#ffffff");
+      if (themeBtn) { themeBtn.innerHTML = themeIcon(); themeBtn.setAttribute("title", THEME_TITLE[pref] || "Switch theme"); }
+    };
+    const THEME_CYCLE = { light: "dark", dark: "system", system: "light" };
+    if (themeBtn) themeBtn.addEventListener("click", () => {
+      applyThemeChoice(THEME_CYCLE[themeChoice()] || "dark");
     });
+    // When the choice is "Auto", track OS light/dark changes live (no reload).
+    if (window.matchMedia) {
+      const mq = window.matchMedia("(prefers-color-scheme: dark)");
+      const onOS = () => { if (themeChoice() === "system") applyThemeChoice("system"); };
+      if (mq.addEventListener) mq.addEventListener("change", onOS);
+      else if (mq.addListener) mq.addListener(onOS);
+    }
 
     // Refresh-countdown ring. stroke-dashoffset walks 0 → circumference across
     // the 5-minute window (full ring draining to empty), then wraps. The phase
