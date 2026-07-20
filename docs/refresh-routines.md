@@ -632,8 +632,9 @@ extra deep-research pass on watchlisted names is skipped.
 >      analyst notes and named bank economists (Goldman Sachs, J.P. Morgan, Morgan
 >      Stanley, BofA, Citi, Wells Fargo, Deutsche Bank, Barclays, UBS, HSBC, Nomura,
 >      ING, etc. — their rate calls/forecasts), (b) research-house reports (Capital
->      Economics, Oxford Economics, Pantheon Macroeconomics, NIESR, Resolution
->      Foundation), and (c) named economist/columnist opinion (FT, Bloomberg Opinion,
+>      Economics, Oxford Economics, Pantheon Macroeconomics, TS Lombard, Absolute
+>      Strategy Research, NIESR, Resolution Foundation), and (c) named
+>      economist/columnist opinion (FT, Bloomberg Opinion,
 >      Reuters Breakingviews, WSJ, The Economist, Project Syndicate, CNBC). A bank
 >      item may be either the firm's own insights page OR a reputable article
 >      reporting its forecast. Each item is `{title, source, author, date, url}` —
