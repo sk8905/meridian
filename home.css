@@ -551,13 +551,16 @@
     /* Sticky header inside the full-screen panel: title + close. Phones only. */
     .g-mkt-head { display:none; }
     @media (max-width:760px){
+      /* Match the shared Saved/Watchlist chip bar (.na-chips/.na-chip): 34px tall,
+         full-bleed equal-width tabs, 11px title-case labels. */
       .g-mkt-head { position:sticky; top:0; z-index:3; display:flex; align-items:stretch;
-        gap:10px; min-height:46px; padding:0 12px 0 0;
+        min-height:34px;
         background:var(--t-head, #0a0a0a); border-bottom:1px solid var(--t-grid2, #262626); }
       /* Markets / Macro toggle — the two rails, one at a time. */
       .g-mkt-chips { display:flex; flex:1 1 auto; align-items:stretch; }
-      .g-mkt-chip { flex:1 1 0; border:0; background:transparent; cursor:pointer; font-family:inherit;
-        font-size:12px; font-weight:600; letter-spacing:.04em; text-transform:uppercase;
+      .g-mkt-chip { flex:1 1 0; display:flex; align-items:center; justify-content:center;
+        border:0; background:transparent; cursor:pointer; font-family:inherit;
+        font-size:11px; font-weight:600; letter-spacing:.03em;
         color:var(--t-mut, #8592ad); border-radius:0; }
       .g-mkt-chip.is-on { color:var(--t-ink, #eaf0fb); box-shadow:inset 0 -2px 0 var(--chip-ul); }
       .g-mkt-title { font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase;

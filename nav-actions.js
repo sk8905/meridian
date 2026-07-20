@@ -480,13 +480,16 @@ export function initNavActions() {
       // Thin donut countdown: drains over the 5-minute live-feed window, refills
       // on each refresh (Home dispatches wire:live-refresh; elsewhere it cycles
       // on the wall clock, matching the edge cache cadence).
+      // Order (left→right): countdown ring · Markets · Bookmarks · Notifications ·
+      // Search. Search sits LAST on phones; the desktop theme button takes the
+      // trailing slot (search there is the topbar pill, not this cluster).
       `<span class="na-ring" title="Time to next live-feed refresh" aria-hidden="true"><svg viewBox="0 0 18 18"><circle class="na-ring-track" cx="9" cy="9" r="7"/><circle class="na-ring-arc" cx="9" cy="9" r="7"/></svg></span>` +
-      // Search — a magnifying-glass button on phones (the desktop search pill is
-      // hidden there); opens the command palette via the shared [data-open-search].
-      (isPhone() ? `<button type="button" class="na-btn" id="na-search" data-open-search aria-label="Search" title="Search">${ICO_MAG}</button>` : "") +
       `<button type="button" class="na-btn" id="na-mkt" aria-label="Markets & key rates" aria-haspopup="true" aria-expanded="false" title="Markets & key rates">${ICO_MKT}</button>` +
       `<button type="button" class="na-btn" id="na-saved" aria-label="Saved" aria-haspopup="true" aria-expanded="false" title="Saved">${ICO_SAVED}</button>` +
       `<button type="button" class="na-btn na-bell" id="na-notif" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">${ICO_BELL}<span class="na-badge" hidden></span></button>` +
+      // Search — a magnifying-glass button on phones (the desktop search pill is
+      // hidden there); opens the command palette via the shared [data-open-search].
+      (isPhone() ? `<button type="button" class="na-btn" id="na-search" data-open-search aria-label="Search" title="Search">${ICO_MAG}</button>` : "") +
       // Theme toggle lives in the nav bar on desktop; on phones it moves into the
       // /menu/ page (see fillMenu) so the nav bar stays uncluttered.
       (isPhone() ? "" : `<button type="button" class="na-btn" id="na-theme" aria-label="Switch theme" title="${THEME_TITLE[themeChoice()] || "Switch theme"}">${themeIcon()}</button>`);
