@@ -27,6 +27,25 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-cadwaladerceo-20260720",
+    publication: "Legal Business",
+    title: "'We're not done' – Hogan Lovells Cadwalader's CEO on what comes after the biggest law firm merger in history",
+    date: "2026-07-20",
+    time: "16:25",
+    summary: "CEO Miguel Zaldivar talks ambitions for the merged firm, why he doesn't care about PEP reporting, and his leadership legacy.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQrNOky7HqkPhRcY1/wv",
+  },
+  {
+    id: "nl-mailbrew-fridaybrew-20260720-4",
+    publication: "Mailbrew",
+    series: "Friday Brew",
+    title: "Friday Brew #4",
+    date: "2026-07-20",
+    time: "13:46",
+    summary: "Debt markets weekender, Michael Burry's latest trades, El-Erian's week-in-review, and FT Alphaville on national eccentrics.",
+    url: "https://app.mailbrew.com/stevedkennedy/friday-brew-03bEHcNb3hHB/4",
+  },
+  {
     id: "nl-bbg-economicsdaily-20260720",
     publication: "Bloomberg",
     author: "Tom Rees",
