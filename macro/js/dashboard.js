@@ -5,7 +5,7 @@
 // it via macroDashPane() and repaints via cockpitInds()/loadYieldCurve().
 // =============================================================================
 import { esc } from "/util.js?v=20260719-1";
-import { YIELD_CURVE, OUTLOOK, CYCLE, BUBBLE, EARNINGS, MATWALL } from "./content.js?v=20260720-2";
+import { YIELD_CURVE, OUTLOOK, CYCLE, BUBBLE, EARNINGS, MATWALL } from "./content.js?v=20260720-4";
 import { fmtDate, fmtWeekday, trackGauge, CYCLE_ZONES, BUBBLE_ZONES,
   bubbleComposite, bubbleBand, MAC_IND_ORDER, MACRO_DATA } from "./shared.js?v=20260719-1";
 
