@@ -62,27 +62,36 @@ const base = `http://localhost:${srv.port}`;
   checkErrs(errs, "macro swipes");
   await ctx.close();
 }
-// C) Credit dashboard managers pane: stuck search/table headers static mid-slide.
+// C) Credit dashboard managers pane: the wide league table scrolls HORIZONTALLY
+// on phones (it used to squash to fit). That scroll takes priority over the
+// tab-swipe (swipetabs defers to horizontal scrollers, as it does for the
+// ticker), so a horizontal swipe ON the table scrolls it rather than changing
+// tabs; a chip TAP still switches panes.
 {
   const { ctx, pg, errs } = await open(b, PHONE, base + "/credit/");
   const t = await touches(ctx, pg);
   await pg.waitForTimeout(1800);
   await pg.evaluate(async () => {
     const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-    [...document.querySelectorAll("#cr-dash-tabs .tchip")].find((c) => c.dataset.p === "managers").click(); await sleep(400);
-    window.scrollTo(0, 600);
+    [...document.querySelectorAll("#cr-dash-tabs .tchip")].find((c) => c.dataset.p === "managers").click(); await sleep(300);
   });
-  await pg.waitForTimeout(300);
-  await t.swipeBegin(300, 500, +1);
-  const mid = await pg.evaluate(() => ({
-    search: getComputedStyle(document.querySelector('.tpane[data-pane="managers"] .thead-search')).position,
-    th: getComputedStyle(document.querySelector('.tpane[data-pane="managers"] .tleague-full th')).position,
-  }));
-  checkEq(mid.search, "static", "managers search header static mid-slide");
-  checkEq(mid.th, "static", "managers table header static mid-slide");
-  await t.swipeFinish(300, 500, +1);
-  checkEq(await pg.evaluate(() => document.querySelector("#cr-dash-tabs .tchip.is-on")?.dataset.p), "fundraising", "managers swipe lands on fundraising");
-  checkErrs(errs, "credit managers swipe");
+  await pg.waitForTimeout(200);
+  const geo = await pg.evaluate(() => {
+    const w = document.querySelector(".tleague-wrap");
+    return { scrollable: w.scrollWidth > w.clientWidth + 1, overflowX: getComputedStyle(w).overflowX,
+      th: getComputedStyle(document.querySelector('.tpane[data-pane="managers"] .tleague-full th')).position };
+  });
+  check(geo.scrollable, "managers league table is horizontally scrollable");
+  checkEq(geo.overflowX, "auto", "managers table wrapper scrolls on x");
+  checkEq(geo.th, "static", "managers table header static (h-scroll wrapper)");
+  // A horizontal swipe ON the table must NOT change the tab (defers to scroll).
+  await t.swipeBegin(300, 500, +1); await t.swipeFinish(300, 500, +1);
+  checkEq(await pg.evaluate(() => document.querySelector("#cr-dash-tabs .tchip.is-on")?.dataset.p), "managers", "swipe on the table does not change tab");
+  // A chip tap still switches panes.
+  await pg.evaluate(() => [...document.querySelectorAll("#cr-dash-tabs .tchip")].find((c) => c.dataset.p === "fundraising").click());
+  await pg.waitForTimeout(200);
+  checkEq(await pg.evaluate(() => document.querySelector("#cr-dash-tabs .tchip.is-on")?.dataset.p), "fundraising", "chip tap switches to fundraising");
+  checkErrs(errs, "credit managers table");
   await ctx.close();
 }
 await b.close(); srv.close();
