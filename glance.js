@@ -185,8 +185,8 @@ function resolveSaved() {
   restructurings.forEach((r) => { if (lS.has(r.id)) out.push({ desk: "l", title: r.company, href: r.judgmentUrl || r.articleUrl || "/legal/#/", ext: !!(r.judgmentUrl || r.articleUrl), date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
   return out.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 }
-const _deskClass = { news: "news", bbg: "bbg", m: "macro", c: "credit", l: "legal", n: "newsletter", f: "ft", s: "substack", b: "brew" };
-const DESK_CODE = { news: "NEWS", bbg: "BBG", m: "MAC", c: "CRD", l: "LEX", n: "LTR", f: "FT", s: "SUBS", b: "BREW" };
+const _deskClass = { news: "news", bbg: "bbg", econ: "econ", m: "macro", c: "credit", l: "legal", n: "newsletter", f: "ft", s: "substack", b: "brew" };
+const DESK_CODE = { news: "NEWS", bbg: "BBG", econ: "ECON", m: "MAC", c: "CRD", l: "LEX", n: "LTR", f: "FT", s: "SUBS", b: "BREW" };
 function initSavedPanel() {
   const wrap = document.getElementById("g-saved");
   if (!wrap) return;
@@ -560,10 +560,16 @@ const creditItemExt = (x) => !!x.sourceUrl;
 // interleaved across desks so it reads as a single merged feed, not three blocks.
 // Falls back to the most-recent date present if nothing is dated today, so the
 // feed is never empty between refreshes.
-const DESK = { news: "News", bbg: "Bloomberg", m: "Macro", c: "Credit", l: "Legal", n: "Letter", f: "myFT", s: "Substack", b: "Brew" };
+const DESK = { news: "News", bbg: "Bloomberg", econ: "The Economist", m: "Macro", c: "Credit", l: "Legal", n: "Letter", f: "myFT", s: "Substack", b: "Brew" };
 // Bloomberg stories that aren't strictly macro get the BBG label (not the
 // generic NEWS one); strict-macro Bloomberg items still read MAC.
-const deskFor = (title, source) => (STRICT_MACRO_RE.test(title || "") ? "m" : (/^bloomberg\b/i.test(source || "") ? "bbg" : "news"));
+const deskFor = (title, source, dflt = "news") => {
+  if (STRICT_MACRO_RE.test(title || "")) return "m";
+  const s = source || "";
+  if (/^bloomberg\b/i.test(s)) return "bbg";
+  if (/economist/i.test(s)) return "econ";
+  return dflt;
+};
 // Strictly-macro classifier: central-bank policy, rates/yields, inflation, growth
 // & the labour market. A macro-sourced story (curated headline or live RSS) is
 // tagged MAC only when its headline reads as core macro; everything else defaults
@@ -661,10 +667,10 @@ function renderFeed() {
   restructurings.forEach((r) => { if (r.date) legal.push(mk("l", r.judgmentUrl || r.articleUrl || "/legal/#/", r.company, r.type === "scheme" ? "Scheme" : "Restructuring plan", !!(r.judgmentUrl || r.articleUrl), r.date, r.time, "l", r.id)); });
 
   // Reader's own aggregated email newsletters (Bloomberg, Economist, etc.),
-  // pulled from the connected mailbox. They open out to the newsletter's own
-  // "read online" link and carry a distinct "Newsletter" desk label.
+  // pulled from the connected mailbox. Labelled by publication the same way the
+  // wire is (Bloomberg → BBG, The Economist → ECON), else the default LTR desk.
   const newsletter = [];
-  (NEWSLETTERS || []).forEach((n) => newsletter.push(mk("n", n.url, n.title, n.author ? `${n.author} · ${n.publication}` : n.publication, true, n.date, n.time)));
+  (NEWSLETTERS || []).forEach((n) => newsletter.push(mk(deskFor(n.title, n.publication, "n"), n.url, n.title, n.author ? `${n.author} · ${n.publication}` : n.publication, true, n.date, n.time)));
 
   // The reader's personalised myFT (followed-topics) headlines — pulled from the
   // myFT RSS feed by the refresh routines. Open out to ft.com; "FT" desk label.
@@ -1563,7 +1569,7 @@ function buildIndex() {
 }
 
 // ---- Command palette -------------------------------------------------------
-const PAL_CODE = { macro: "MAC", credit: "CRD", legal: "LEX", view: "GO", ft: "FT", letter: "LTR", substack: "SUBS", brew: "BREW", bbg: "BBG" };
+const PAL_CODE = { macro: "MAC", credit: "CRD", legal: "LEX", view: "GO", ft: "FT", letter: "LTR", substack: "SUBS", brew: "BREW", bbg: "BBG", econ: "ECON" };
 function wirePalette(idx) {
   const overlay = document.getElementById("cmdk");
   const input = document.getElementById("cmdk-input");

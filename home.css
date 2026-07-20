@@ -707,6 +707,7 @@
     .cmdk-code.substack { color:var(--t-sub, #9b8cf5); background:color-mix(in srgb, var(--t-sub, #9b8cf5) 16%, transparent); }
     .cmdk-code.brew { color:var(--t-brew, #2fb6a8); background:color-mix(in srgb, var(--t-brew, #2fb6a8) 16%, transparent); }
     .cmdk-code.bbg { color:var(--t-bbg, #e0873a); background:color-mix(in srgb, var(--t-bbg, #e0873a) 16%, transparent); }
+    .cmdk-code.econ { color:var(--t-econ, #e0524d); background:color-mix(in srgb, var(--t-econ, #e0524d) 16%, transparent); }
     .cmdk-s { min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .cmdk-foot { border-top:1px solid var(--t-grid2, #262626); padding:.5rem .8rem; color:var(--t-faint, #5c6a86); font-size:.72rem;
       display:flex; gap:1rem; }
@@ -1059,6 +1060,7 @@
     .tui .g-feed-code.substack{ color:var(--t-sub, #9b8cf5); background:color-mix(in srgb,var(--t-sub, #9b8cf5) 15%,transparent); }
     .tui .g-feed-code.brew{ color:var(--t-brew, #2fb6a8); background:color-mix(in srgb,var(--t-brew, #2fb6a8) 15%,transparent); }
     .tui .g-feed-code.bbg{ color:var(--t-bbg, #e0873a); background:color-mix(in srgb,var(--t-bbg, #e0873a) 15%,transparent); }
+    .tui .g-feed-code.econ{ color:var(--t-econ, #e0524d); background:color-mix(in srgb,var(--t-econ, #e0524d) 15%,transparent); }
     .tui .g-feed-title{ font-size:13px; color:var(--t-ink); font-weight:400; line-height:1.4;
       white-space:normal; overflow:visible; min-width:0; }
     /* Hover highlights the row with a subtle grey (see .g-feed-row:hover above);
