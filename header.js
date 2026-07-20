@@ -63,4 +63,7 @@ export function initHeader(opts = {}) {
   // ticker + briefing text.
   initNavActions();
   initBrief();
+  // If auth resolved before the header existed (a fast/cached /api/me can beat
+  // this deferred module), reflect the signed-in identity now.
+  if (typeof window !== "undefined" && typeof window.__fillAccount === "function") window.__fillAccount();
 }

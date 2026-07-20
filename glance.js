@@ -138,7 +138,7 @@ export function initGlance() {
   initRates();
   initPulse();
   initGlanceTickerToggle();
-  const rf = document.getElementById("g-refresh");
+  const rf = document.getElementById("data-status") || document.getElementById("g-refresh");
   if (rf) rf.textContent = `Last refresh ${fmtRefresh()}`;
   // Top-bar Markets / Saved / Notifications: the SAME shared controller as
   // Macro/Credit/Legal (nav-actions.js) — one implementation on all four pages.
@@ -360,7 +360,7 @@ function closeAllGlanceMenus() {
 // sticky top nav bar. Publish the bar's exact bottom (incl. the notch/safe-area)
 // as --gtop-b so the panels' CSS `top` tracks it precisely.
 function setTopbarVar() {
-  const t = document.querySelector(".g-top");
+  const t = document.querySelector(".topbar") || document.querySelector(".g-top");
   const h = t ? Math.round(t.getBoundingClientRect().bottom) : 54;
   document.documentElement.style.setProperty("--gtop-b", h + "px");
 }
@@ -1631,8 +1631,10 @@ function wirePalette(idx) {
   function open() { overlay.classList.add("open"); input.value = ""; refresh(); syncClr(); input.focus({ preventScroll: true }); }
   function close() { overlay.classList.remove("open"); }
 
-  document.getElementById("open-cmdk").addEventListener("click", open);
-  // Also open from the mobile bottom-bar search button (or any [data-open-search]).
+  const ocBtn = document.getElementById("open-cmdk");
+  if (ocBtn) ocBtn.addEventListener("click", open);
+  // Also open from the shared header search pill / mobile bottom-bar (or any
+  // [data-open-search]) — this is how Home's search opens now.
   document.addEventListener("click", (e) => { if (e.target.closest("[data-open-search]")) { e.preventDefault(); open(); } });
   overlay.querySelectorAll("[data-close]").forEach((el) => el.addEventListener("click", close));
   // ✕ clears the typed query (visible only while there's text) and refocuses.

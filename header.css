@@ -1,0 +1,110 @@
+/* =============================================================================
+   header.css — THE single stylesheet for the Wire page header (top bar + markets
+   ticker + briefing strip). Loaded on EVERY page and paired with header.js
+   (which renders the markup). This is the one place header styling lives — the
+   per-page copies in each app's css/styles.css and in home.css were removed in
+   favour of this file, so a header restyle is one edit everywhere.
+
+   The bar itself is navy in both themes; the ticker + briefing are theme-aware
+   (terminal surfaces). Accent is Wire orange platform-wide.
+   ============================================================================= */
+
+/* Briefing body-text colour, kept in lock-step with the terminal --t-dim so the
+   strip reads identically on Home and the app pages (light value here). */
+:root { --wb-txt: #3b475f; }
+:root[data-theme="dark"] { --wb-txt: #b7c2da; }
+
+/* ---------- top bar ---------- */
+.topbar { background: var(--navy, #05080f); color: #fff; position: sticky; top: 0; z-index: 10; }
+.topbar-inner { position: relative; display: flex; align-items: center; gap: 2rem; padding: 0 1.5rem; height: 60px; }
+@media (min-width: 1101px) { .topbar-inner { padding-left: 2rem; padding-right: 2rem; } }
+
+.brand { display: flex; align-items: center; gap: .6rem; flex: 0 0 auto; text-decoration: none; color: #fff; }
+.brand:hover { text-decoration: none; }
+.brand-text { display: flex; flex-direction: column; }
+.brand-text strong { font-size: 1.05rem; letter-spacing: .3px; }
+.logo { display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; box-sizing: border-box; border: 1px solid var(--border, #262626); background: #000; color: #fff; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 700; font-size: 1.15rem; line-height: 1; border-radius: 0; }
+
+/* Platform switch (Home / Macro / Credit / Legal) */
+.platform-switch { display: inline-flex; align-items: center; gap: 2px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.22); border-radius: 8px; padding: 2px; margin-right: .6rem; flex: 0 0 auto; }
+.ps-btn { padding: .3rem .6rem; border-radius: 6px; font-size: .8rem; font-weight: 700; color: #cbd5e1; text-decoration: none; white-space: nowrap; }
+.ps-btn:hover { color: #fff; text-decoration: none; background: rgba(255,255,255,.1); }
+.ps-btn.is-active, .ps-btn.is-active:hover { background: #fff; color: #0b0f17; }
+
+/* Search pill — opens the command palette (same as "/"). margin-left:auto pushes
+   it + the identity/bell cluster to the right gutter. */
+.nav-search { display: inline-flex; align-items: center; gap: .55rem; justify-content: space-between; margin-left: auto; flex: 0 0 auto; min-width: 236px;
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); color: #c8d6ef;
+  font: inherit; font-size: .85rem; padding: .42rem .7rem; border-radius: 9px; cursor: pointer; text-align: left; white-space: nowrap; }
+.nav-search:hover { background: rgba(255,255,255,.18); color: #fff; border-color: rgba(255,255,255,.3); }
+.nav-search .ns-lbl { flex: 1 1 auto; color: inherit; }
+.nav-search kbd { background: rgba(255,255,255,.16); border-radius: 5px; padding: .02rem .42rem; font: inherit; font-size: .8rem; font-weight: 700; line-height: 1.5; }
+
+/* Right cluster: identity + last-refresh stacked, sitting in the right gutter. */
+.topbar-right { flex: 0 0 auto; margin-left: 0; display: flex; flex-direction: column; align-items: flex-end; gap: .2rem; }
+.account-nav { font-size: .72rem; color: #cbd5e1; white-space: nowrap; }
+.account-nav strong { color: #fff; font-weight: 600; }
+.account-nav a { color: #93c5fd; font-weight: 600; }
+.account-nav a:hover { color: #fff; }
+.account-nav:empty { display: none; }
+.data-status { display: flex; align-items: center; gap: .4rem; font-size: .68rem; color: #cbd5e1; white-space: nowrap; }
+.ds-part { white-space: nowrap; }
+.notif { position: relative; flex: 0 0 auto; }
+
+/* Phone: platform switch + search move to the bottom tab bar (injected by
+   nav-actions); the top bar keeps brand · identity · bell. The identity/refresh
+   block is relocated into the footer by a small inline script, so the grid's
+   account cell is usually empty — harmless. */
+@media (max-width: 760px) {
+  .topbar-inner { height: auto; padding: .5rem .85rem; display: grid; align-items: center;
+    grid-template-columns: auto 1fr auto; gap: .3rem .7rem; grid-template-areas: "brand account bell"; }
+  .brand { grid-area: brand; justify-self: start; }
+  .platform-switch, .nav-search { display: none; }
+  .topbar-right { grid-area: account; align-items: flex-end; text-align: right; }
+  .notif { grid-area: bell; justify-self: end; align-self: center; }
+  .logo { font-size: 1.55rem; }
+  .brand-text strong { font-size: 1.05rem; }
+  .account-nav, .data-status { font-size: .6rem; }
+  .account-nav .si-prefix { display: none; }
+}
+
+/* ---------- Markets ticker strip (MKTS) ---------- */
+.wticker { display: flex; align-items: stretch; height: 26px; flex: 0 0 auto; overflow: hidden;
+  background: var(--head); border-bottom: 1px solid var(--border); }
+.wticker:empty { display: none; }
+.wtk-lbl { display: flex; align-items: center; gap: 6px; padding: 0 13px; font-size: 10.5px; font-weight: 600;
+  letter-spacing: .04em; color: var(--muted); border-right: 1px solid var(--border); white-space: nowrap; }
+.wtk-lbl::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
+  box-shadow: 0 0 7px var(--accent); }
+.wtk-row { display: flex; align-items: center; overflow: hidden; flex: 1; }
+.wtk { display: flex; align-items: baseline; gap: 7px; padding: 0 13px; line-height: 26px;
+  font-family: var(--t-mono, ui-monospace, monospace); font-size: 11.5px; font-variant-numeric: tabular-nums;
+  border-right: 1px solid var(--border); white-space: nowrap; text-decoration: none; }
+.wtk .s { color: var(--muted); } .wtk .v { color: var(--ink); }
+.wtk .up { color: #3fc08d; } .wtk .down { color: #f26d84; } .wtk .flat { color: var(--faint); }
+@media (max-width: 760px) { .wticker { display: none; } }
+
+/* ---------- Briefing strip — one compact horizontal row: greeting · Top story ·
+   Markets · Rates & spreads, ellipsis-clipped. Labels are Wire-orange caps; the
+   story/one-liner text is --wb-txt (== terminal --t-dim). Desktop-only. ---------- */
+.wbrief { display: flex; align-items: baseline; gap: 10px; padding: 6px 20px; margin: 0;
+  background: var(--surface); border-bottom: 1px solid var(--border); overflow: hidden; }
+.wbrief:empty { display: none; }
+.wb-main { flex: 0 0 auto; display: flex; align-items: baseline; gap: 8px; }
+.wb-hello { color: var(--wb-txt); font-size: 12px; font-weight: 600; letter-spacing: 0; white-space: nowrap; }
+.wb-brief { flex: 0 1 auto; min-width: 0; margin: 0; font-size: 12px; color: var(--wb-txt); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.wb-brief:empty { display: none; }
+.wb-lbl { font-size: 10px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: #fb8b1e; opacity: .85; white-space: nowrap; margin-right: .3rem; }
+.wb-link { color: var(--wb-txt); font-weight: 400; text-decoration: none; }
+.wb-link:hover { color: var(--ink); text-decoration: underline; }
+.wb-glance { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 10px; flex: 1 1 auto; min-width: 0; overflow: hidden; }
+.wb-gl { display: flex; column-gap: 7px; align-items: baseline; min-width: 0; font-size: 11.5px; line-height: 1.4; color: var(--wb-txt); overflow: hidden; }
+.wb-gl-l { flex: 0 0 auto; font-size: 9.5px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: #fb8b1e; opacity: .85; white-space: nowrap; }
+.wb-gl-v { flex: 1 1 auto; min-width: 0; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--wb-txt); }
+.wb-gl-v a { color: inherit; text-decoration: none; }
+.wb-gl-v a:hover { color: var(--ink); text-decoration: underline; }
+@media (max-width: 760px) { .wbrief { display: none; } }
+
+/* Home only: the header is a fixed-height band at the top of the 100vh terminal
+   column (#glance), with the dashboard filling the rest. */
+#glance > #wire-header { flex: 0 0 auto; }
