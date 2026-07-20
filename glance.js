@@ -667,18 +667,20 @@ function renderFeed() {
   restructurings.forEach((r) => { if (r.date) legal.push(mk("l", r.judgmentUrl || r.articleUrl || "/legal/#/", r.company, r.type === "scheme" ? "Scheme" : "Restructuring plan", !!(r.judgmentUrl || r.articleUrl), r.date, r.time, "l", r.id)); });
 
   // Reader's own aggregated email newsletters (Bloomberg, Economist, etc.),
-  // pulled from the connected mailbox. Labelled by publication the same way the
-  // wire is (Bloomberg → BBG, The Economist → ECON), else the default LTR desk.
+  // pulled from the connected mailbox. LTR trumps the source labels, so every
+  // newsletter reads LTR — unless it's strictly macro, in which case MAC wins.
   const newsletter = [];
-  (NEWSLETTERS || []).forEach((n) => newsletter.push(mk(deskFor(n.title, n.publication, "n"), n.url, n.title, n.author ? `${n.author} · ${n.publication}` : n.publication, true, n.date, n.time)));
+  (NEWSLETTERS || []).forEach((n) => newsletter.push(mk(STRICT_MACRO_RE.test(n.title || "") ? "m" : "n", n.url, n.title, n.author ? `${n.author} · ${n.publication}` : n.publication, true, n.date, n.time)));
 
   // The reader's personalised myFT (followed-topics) headlines — pulled from the
   // myFT RSS feed by the refresh routines. Open out to ft.com; "FT" desk label.
+  // myFT items read FT — unless strictly macro, where MAC trumps FT.
+  const ftDesk = (t) => (STRICT_MACRO_RE.test(t || "") ? "m" : "f");
   const ft = [];
-  (FT_ITEMS || []).forEach((n) => ft.push(mk("f", n.url, n.title, "Financial Times", true, n.date, n.time)));
+  (FT_ITEMS || []).forEach((n) => ft.push(mk(ftDesk(n.title), n.url, n.title, "Financial Times", true, n.date, n.time)));
   // Live myFT headlines from /api/feed (~5 min of publication) — the committed
   // FT_ITEMS above are the 5×/day backfill; title-dedupe collapses the overlap.
-  (_liveFeed || []).forEach((n) => { if (n.myft) ft.push(mk("f", n.url, n.title, "Financial Times", true, n.date, n.time)); });
+  (_liveFeed || []).forEach((n) => { if (n.myft) ft.push(mk(ftDesk(n.title), n.url, n.title, "Financial Times", true, n.date, n.time)); });
 
   // Curated Substacks (credit/macro newsletters) — live from /api/feed, edge-
   // parsed by the Worker (substack:true). Their own "SUBS" desk label; folded
