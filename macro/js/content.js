@@ -5,15 +5,15 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "19 July 2026";
+export const UPDATED = "20 July 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-07-19",
-  lastCheckedTime: "21:19 BST",
+  lastChecked: "2026-07-20",
+  lastCheckedTime: "05:18 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -38,8 +38,9 @@ export const OUTLOOK = {
       "The hawkish chorus swelled further on 17 July when Cleveland Fed President Beth Hammack said persistently high inflation — she estimated core PCE rose 3.3% in June — is now her bigger concern than the labour market, noting that for the first time in her tenure business leaders are telling her the Fed needs to act on inflation even as consumer spending holds up; the Washington Post reported the same day that a small but growing group of officials now argue a hike may be needed even as President Trump keeps pushing for cuts, though CME FedWatch's 29 July hike odds were little changed at roughly 10% (per 16 July data), with the debate increasingly centred on the 16–17 September meeting instead.",
       "The conflict crossed a new threshold over the weekend of 18 July: two US service members were killed in Jordan in Iranian-linked attacks — the first direct US combat deaths of the renewed war — as Brent extended its climb toward $88/bbl. Chair Warsh repeated his 'no tolerance for elevated inflation' line the same day (Bloomberg, 'Warsh Shows His Inner Hawk'), underscoring that the still-live oil shock keeps the hiking debate open into the 29 July decision even with markets closed over the weekend to react to the fatalities.",
       "The escalation deepened further on 19 July: a third US service member was killed, in Iraq, during the controlled detonation of a downed Iranian drone, as CENTCOM completed an eighth consecutive night of strikes on Iran — including one Tehran says hit the under-construction Darkhovin nuclear power plant — and Kuwait reported a second attack on its desalination and power plant in as many days. Iran's deputy foreign minister said the US had suspended the Islamabad ceasefire framework. CME FedWatch odds for the 29 July meeting were little changed from Saturday at roughly 87% hold / 13% hike as of 18-19 July, with equity markets shut over the weekend leaving the reaction untested ahead of Monday's open.",
+      "The conflict widened again on 20 July as CENTCOM carried out a ninth consecutive night of strikes on Iran and Jordan reported an intercepted Iranian missile attempt near Aqaba; Brent crossed <strong>$90/bbl</strong> in early trading — the first time in over six weeks — up roughly 2.8% on the session, with WTI up 2.4% to $84.49. J.P. Morgan's chief economist Bruce Kasman said 'the balance of risks is shifting in the direction of an earlier hike than expected', though the bank's house call remains no move in 2026; equity futures were little changed into Monday's open as markets weighed the fresh oil shock against a heavy earnings week.",
     ],
-    bottomLine: "The 29 July hike risk has eased further intraday to roughly 10-13% (CME FedWatch), down from ~17% after June PPI and a peak near 46.5% a week ago, as Warsh's second day of testimony again offered no fresh signal — but odds of a hike at the following September meeting have instead risen to roughly 73% (from ~59% a few days earlier), with Governor Cook now saying she is 'prepared to act soon' absent clear disinflation. The weekend's escalation — the first direct US combat deaths of the renewed conflict, in Jordan, and Brent pushing toward $88/bbl — keeps the Iran/oil shock a live, if now more lopsided and later-dated, two-way risk for the hiking cycle.",
+    bottomLine: "The 29 July hike risk has eased further intraday to roughly 10-13% (CME FedWatch), down from ~17% after June PPI and a peak near 46.5% a week ago, as Warsh's second day of testimony again offered no fresh signal — but odds of a hike at the following September meeting have instead risen to roughly 73% (from ~59% a few days earlier), with Governor Cook now saying she is 'prepared to act soon' absent clear disinflation. Brent crossing $90/bbl on 20 July, a fresh six-week high after a ninth night of US strikes on Iran and an intercepted missile attempt near Jordan, keeps the Iran/oil shock a live, if now more lopsided and later-dated, two-way risk for the hiking cycle.",
     // Market-implied odds for the next FOMC decision (CME FedWatch) and the FOMC's
     // June 2026 Summary of Economic Projections "dot plot" median path.
     fedwatch: {
@@ -50,7 +51,7 @@ export const OUTLOOK = {
         { label: "Hold — 3.50–3.75%", pct: 88 },
         { label: "Hike +25bp — 3.75–4.00%", pct: 12 },
       ],
-      note: "Implied from 30-Day Fed Funds futures. Down from a ~46.5% hike peak on 13 Jul after June CPI and PPI cooled and Warsh's testimony offered no fresh signal; September-meeting hike odds have instead risen to roughly 73% (from ~59% a few days earlier and just 26% in mid-June) as the Iran-driven oil shock feeds through to broader inflation.",
+      note: "Implied from 30-Day Fed Funds futures. Down from a ~46.5% hike peak on 13 Jul after June CPI and PPI cooled and Warsh's testimony offered no fresh signal; September-meeting hike odds have instead risen to roughly 73% (from ~59% a few days earlier and just 26% in mid-June) as the Iran-driven oil shock feeds through to broader inflation. J.P. Morgan's Bruce Kasman flagged on 20 Jul that risks are tilting toward an earlier hike as Brent crossed $90/bbl, though the bank's base case remains no 2026 move.",
     },
     dots: {
       meeting: "June 2026 SEP",
@@ -74,8 +75,9 @@ export const OUTLOOK = {
       "Markets expect the Bank to <strong>hold at 3.75% for the rest of 2026</strong>. A Reuters poll of 65 economists found most see a year-end hold, but nearly 40% price at least one hike and only six a cut; 2026 forecasts span 3.50–4.25%. The base case for the 30 July meeting is a hold with a hawkish tilt.",
       "The renewed Iran/oil shock of 8 July 2026 pushed the <strong>10-year gilt yield above 4.9%</strong> (highest since 10 June) as traders raised BoE hike-by-year-end odds to <strong>~76%</strong> (>50% for November); Governor Bailey reaffirmed inflation should reach 2% eventually but 'later than previously expected', ruling out imminent cuts. The BoE's July Financial Stability Report also flagged record hedge-fund leverage and noted the gilt move was amplified by hedge-fund deleveraging.",
       "Sterling and gilts held firm on 16 July on growing expectations Andy Burnham will confirm Shabana Mahmood — seen as a fiscally cautious 'blank slate' — as chancellor when he takes office on Monday: GBP/EUR traded near a one-year high above 1.17 and the 10-year gilt yield stayed elevated near 4.9-5.0%, with Scotiabank noting BoE tightening bets have firmed to a cumulative ~46bp of hikes priced by December — a modestly firmer hawkish-hold read than a week ago, even as the OECD continues to urge fiscal discipline from the incoming government.",
+      "Andy Burnham formally became prime minister on 20 July, pledging in his first speech in office to prioritise cost-of-living relief and confirming allies' reports that a planned digital-ID scheme has been dropped so government attention can focus on living costs. The accession lands the same day Brent crossed $90/bbl for the first time in six weeks on the widening Iran conflict — a fresh oil-driven inflation headwind for the new government's first days, on top of the fiscal and gilt-market pressures already flagged to him.",
     ],
-    bottomLine: "Next move a hold on 30 July at 3.75%; markets now fully price a 25bp hike by year-end (most likely December) as the 10-year gilt yield holds above 4.9% on the renewed oil shock, with hawkish dissents growing and cuts off the table.",
+    bottomLine: "Next move a hold on 30 July at 3.75%; markets now fully price a 25bp hike by year-end (most likely December) as the 10-year gilt yield holds above 4.9% on the renewed oil shock, with hawkish dissents growing and cuts off the table. Andy Burnham took office as PM on 20 July as Brent broke above $90/bbl, adding a fresh inflation headwind to his in-tray.",
   },
   sources: [
     ["Fed statement, 17 Jun 2026", "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm"],
@@ -115,6 +117,9 @@ export const OUTLOOK = {
     ["Euronews — Two US troops killed in Jordan by Iranian attacks, US military says, 18 Jul 2026", "https://www.euronews.com/2026/07/18/two-us-troops-killed-in-jordan-by-iranian-attacks-us-military-says"],
     ["Al Jazeera — US launches new Iran strikes after two soldiers killed: What's the latest?, 19 Jul 2026", "https://www.aljazeera.com/news/2026/7/19/us-launches-new-iran-strikes-after-two-soldiers-killed-whats-the-latest"],
     ["CNBC — U.S. says it targeted Iran forces after deaths of two American troops, 19 Jul 2026", "https://www.cnbc.com/2026/07/19/us-says-it-targeted-iran-forces-after-deaths-of-two-american-troops.html"],
+    ["CNBC — Brent breaches $90 as Middle East risks mount with U.S-Iran tensions on the rise, 20 Jul 2026", "https://www.cnbc.com/2026/07/20/oil-prices-today-brent-wti-crude-us-iran-centcom-hormuz.html"],
+    ["Reuters (via Yahoo Finance) — Asia shares hesitant as oil climbs, earnings loom, 20 Jul 2026", "https://finance.yahoo.com/markets/stocks/articles/asia-shares-hesitant-oil-climbs-003525906.html"],
+    ["RTÉ — Burnham to promise cost of living relief in PM speech, 20 Jul 2026", "https://www.rte.ie/news/2026/0720/1584121-uk-prime-minister-burnham/"],
   ],
 };
 
@@ -299,6 +304,8 @@ export const YIELD_CURVE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-burnham-pm-2026-07-20", kind: "Markets", title: "Andy Burnham formally became UK prime minister on 20 July, pledging cost-of-living relief in his first speech and confirming the digital-ID scheme has been dropped — landing the same day Brent crossed $90/bbl on the widening Iran conflict.", href: "#/cycle", date: "2026-07-20" },
+  { id: "g-brent-90-2026-07-20", kind: "Markets", title: "Brent crossed $90/bbl in early trading on 20 July — a fresh six-week high, up ~2.8% on the session — as CENTCOM carried out a ninth consecutive night of strikes on Iran and Jordan reported an intercepted Iranian missile attempt near Aqaba.", href: "#/bubble", date: "2026-07-20" },
   { id: "g-iraq-death-nuclear-site-2026-07-19", kind: "Markets", title: "A third US service member was killed (in Iraq, during the detonation of a downed Iranian drone) as the US completed an eighth straight night of strikes on Iran, including one Iran says hit the under-construction Darkhovin nuclear plant; Kuwait reported a second desalination-plant attack in two days and Iran said the Islamabad ceasefire framework is now suspended.", href: "#/bubble", date: "2026-07-19" },
   { id: "g-us-strikes-iran-2026-07-19", kind: "Markets", title: "The US carried out retaliatory strikes on Iran after two American service members were killed in Jordan, deepening the oil-driven inflation and war-risk premium into the 28-29 July FOMC meeting.", href: "#/bubble", date: "2026-07-19" },
   { id: "g-jordan-troops-2026-07-18", kind: "Markets", title: "Two US service members were killed in Jordan in Iranian-linked attacks — the first direct US combat deaths of the renewed conflict — deepening the war-risk premium already visible in oil, gold and rate markets.", href: "#/bubble", date: "2026-07-18" },
@@ -350,8 +357,8 @@ export const ALERTS = [
 // ---- One-line conclusions surfaced on the Dashboard ------------------------
 export const SUMMARY = {
   outlook: {
-    us: "Fed on hold at 3.50–3.75%; June CPI and PPI both cooled, pulling 29 July hike odds from ~46.5% to ~10-13% (CME FedWatch), but September-hike odds have risen to ~73% as Governor Cook says she's 'prepared to act soon' and the Iran oil shock keeps the cycle live.",
-    uk: "BoE holding at 3.75%; markets now fully price a 25bp hike by year-end (most likely December) as gilt yields hold above 4.9%, with hawkish dissents growing.",
+    us: "Fed on hold at 3.50–3.75%; June CPI and PPI both cooled, pulling 29 July hike odds from ~46.5% to ~10-13% (CME FedWatch), but September-hike odds have risen to ~73% as Governor Cook says she's 'prepared to act soon' and Brent crossing $90/bbl on 20 July (a fresh six-week high, ninth night of US-Iran strikes) keeps the oil shock live.",
+    uk: "BoE holding at 3.75%; markets now fully price a 25bp hike by year-end (most likely December) as gilt yields hold above 4.9%, with hawkish dissents growing. Andy Burnham took office as PM on 20 July pledging cost-of-living relief.",
   },
   cycle: {
     us: "Late Big Debt Cycle — record debt (~101% GDP) and interest burden. Gauge ~72/100.",
@@ -370,20 +377,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-07-19",
+  updated: "2026-07-20",
   us: [
+    { title: "Brent breaches $90 as Middle East risks mount with U.S-Iran tensions on the rise", source: "CNBC", date: "2026-07-20", time: "05:18", url: "https://www.cnbc.com/2026/07/20/oil-prices-today-brent-wti-crude-us-iran-centcom-hormuz.html" },
+    { title: "Asia shares hesitant as oil climbs, earnings loom", source: "Reuters (via Yahoo Finance)", date: "2026-07-20", time: "05:18", url: "https://finance.yahoo.com/markets/stocks/articles/asia-shares-hesitant-oil-climbs-003525906.html" },
+    { title: "Latest Oil Market News and Analysis for July 20", source: "Bloomberg", date: "2026-07-19", time: "22:00", url: "https://www.bloomberg.com/news/articles/2026-07-19/latest-oil-market-news-and-analysis-for-july-20" },
+    { title: "Stock futures are little changed after Wall Street suffers losing week: Live updates", source: "CNBC", date: "2026-07-19", time: "21:30", url: "https://www.cnbc.com/2026/07/19/stock-market-today-live-updates.html" },
     { title: "U.S. says it targeted Iran forces after deaths of two American troops", source: "CNBC", date: "2026-07-19", time: "21:05", url: "https://www.cnbc.com/2026/07/19/us-says-it-targeted-iran-forces-after-deaths-of-two-american-troops.html" },
-    { title: "US renews strikes on Iran after two military personnel killed by Iranian attack", source: "Reuters (via Yahoo Finance)", date: "2026-07-19", time: "19:33", url: "https://www.yahoo.com/news/articles/us-renews-strikes-iran-two-232139930.html" },
-    { title: "US launches new Iran strikes after two soldiers killed: What's the latest?", source: "Al Jazeera", date: "2026-07-19", time: "21:05", url: "https://www.aljazeera.com/news/2026/7/19/us-launches-new-iran-strikes-after-two-soldiers-killed-whats-the-latest" },
-    { title: "Here are the 6 big things we're watching in the stock market this week", source: "CNBC", date: "2026-07-19", time: "21:05", url: "https://www.cnbc.com/2026/07/19/here-are-the-6-big-things-were-watching-in-the-stock-market-this-week.html" },
-    { title: "Live updates: US-Iran war news; American military casualties raise fears of a wider war with Iran", source: "CNN", date: "2026-07-19", time: "21:05", url: "https://www.cnn.com/2026/07/19/world/live-news/iran-war-trump" },
   ],
   uk: [
+    { title: "Burnham to promise cost of living relief in PM speech", source: "RTÉ", date: "2026-07-20", time: "05:18", url: "https://www.rte.ie/news/2026/0720/1584121-uk-prime-minister-burnham/" },
+    { title: "Andy Burnham's in-tray: The challenges facing the new UK PM", source: "Al Jazeera", date: "2026-07-19", time: "20:00", url: "https://www.aljazeera.com/economy/2026/7/19/andy-burnhams-in-tray-the-challenges-facing-the-new-uk-pm" },
+    { title: "Burnham will deal with living costs in short term, key adviser says", source: "AOL (wire)", date: "2026-07-19", time: "11:33", url: "https://www.aol.com/articles/burnham-deal-living-costs-short-113302000.html" },
     { title: "UK's incoming PM Andy Burnham drops digital ID scheme to prioritize cost of living, say allies", source: "CNBC", date: "2026-07-19", time: "21:05", url: "https://www.cnbc.com/2026/07/19/uks-incoming-pm-andy-burnham-to-prioritize-cost-of-living-say-allies.html" },
-    { title: "Burnham urged not to allow new North Sea drilling", source: "RTÉ", date: "2026-07-18", time: "20:02", url: "https://www.rte.ie/news/2026/0718/1583956-uk-andy-burnham/" },
-    { title: "Burnham to approve North Sea oil and gas drilling in policy blitz", source: "CityAM", date: "2026-07-17", time: "11:53", url: "https://www.cityam.com/burnham-to-approve-north-sea-oil-and-gas-drilling-in-policy-blitz/" },
-    { title: "UK Economy Leads G7 on Growth as Rate-Hike Pressure Builds for Borrowers", source: "Tech Times", date: "2026-07-16", time: "21:10", url: "https://www.techtimes.com/articles/320748/20260716/uk-economy-leads-g7-growth-rate-hike-pressure-builds-borrowers.htm" },
-    { title: "Pound Index Hits One-Year High on Mahmood for Chancellor Reports", source: "Bloomberg", date: "2026-07-16", time: "21:10", url: "https://www.bloomberg.com/news/articles/2026-07-16/pound-index-hits-one-year-high-on-mahmood-for-chancellor-reports" },
+    { title: "Burnham finalising cabinet before becoming PM on Monday", source: "ITV News", date: "2026-07-17", time: "12:00", url: "https://www.itv.com/news/2026-07-17/burnham-finalising-plans-for-government-before-becoming-prime-minister-on-monday" },
   ],
 };
 
@@ -395,8 +402,13 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-07-19",
+  updated: "2026-07-20",
   items: [
+    {"title":"Brent breaches $90 as Middle East risks mount with U.S-Iran tensions on the rise","source":"CNBC","date":"2026-07-20","time":"05:18","url":"https://www.cnbc.com/2026/07/20/oil-prices-today-brent-wti-crude-us-iran-centcom-hormuz.html","blurb":"Brent for September delivery rose ~2.8% to top $90/bbl and WTI gained 2.4% to $84.49 as the US carried out a ninth night of strikes on Iran."},
+    {"title":"Asia shares hesitant as oil climbs, earnings loom","source":"Reuters (via Yahoo Finance)","date":"2026-07-20","time":"05:18","url":"https://finance.yahoo.com/markets/stocks/articles/asia-shares-hesitant-oil-climbs-003525906.html","blurb":"JPMorgan's Bruce Kasman says \"the balance of risks is shifting in the direction of an earlier hike than expected\" as futures price further Fed tightening into year-end."},
+    {"title":"Burnham to promise cost of living relief in PM speech","source":"RTÉ","date":"2026-07-20","time":"05:18","url":"https://www.rte.ie/news/2026/0720/1584121-uk-prime-minister-burnham/","blurb":"Andy Burnham formally enters Downing Street today and pledges to prioritise cost-of-living relief in his first speech as prime minister."},
+    {"title":"Stock futures are little changed after Wall Street suffers losing week: Live updates","source":"CNBC","date":"2026-07-19","time":"21:30","url":"https://www.cnbc.com/2026/07/19/stock-market-today-live-updates.html","blurb":"The S&P 500 fell 1.6% and the Nasdaq 2.9% on the week as the semiconductor rout and Iran-driven oil shock weighed on sentiment."},
+    {"title":"Andy Burnham's in-tray: The challenges facing the new UK PM","source":"Al Jazeera","date":"2026-07-19","time":"20:00","url":"https://www.aljazeera.com/economy/2026/7/19/andy-burnhams-in-tray-the-challenges-facing-the-new-uk-pm","blurb":"The UK's roughly £110bn annual debt-interest bill and a tax take heading for post-WWII highs headline the fiscal challenges awaiting Burnham."},
     {"title":"U.S. says it targeted Iran forces after deaths of two American troops","source":"CNBC","date":"2026-07-19","time":"21:05","url":"https://www.cnbc.com/2026/07/19/us-says-it-targeted-iran-forces-after-deaths-of-two-american-troops.html","blurb":"CENTCOM says it hit Iranian coastal-surveillance, air-defence and missile-storage sites after two US troops were killed in Jordan and a third in Iraq."},
     {"title":"US renews strikes on Iran after two military personnel killed by Iranian attack","source":"Reuters (via Yahoo Finance)","date":"2026-07-19","time":"19:33","url":"https://www.yahoo.com/news/articles/us-renews-strikes-iran-two-232139930.html","blurb":"An eighth consecutive night of US strikes on Iran follows the Jordan attack, as Tehran says the Islamabad ceasefire framework is now suspended."},
     {"title":"US launches new Iran strikes after two soldiers killed: What's the latest?","source":"Al Jazeera","date":"2026-07-19","time":"21:05","url":"https://www.aljazeera.com/news/2026/7/19/us-launches-new-iran-strikes-after-two-soldiers-killed-whats-the-latest","blurb":"A rundown of the conflict's eighth day, as Iran says the US struck an under-construction nuclear plant near Darkhovin and Kuwait reports a second desalination-plant attack in two days."},
@@ -432,9 +444,6 @@ export const ARTICLES = {
     {"title":"Andy Burnham will be Britain's seventh leader in a decade. Can he buck the trend?","source":"CNN","date":"2026-07-17","time":"12:03","url":"https://www.cnn.com/2026/07/17/uk/andy-burnham-labour-leader-uk-intl","blurb":"A look at whether the former Greater Manchester mayor, known as the 'King of the North,' can break the UK's recent run of short-lived premierships."},
     {"title":"Stock market next week: Outlook for July 20-24, 2026","source":"CNBC","date":"2026-07-17","time":"12:03","url":"https://www.cnbc.com/2026/07/17/stock-market-next-week-outlook-for-july-20-24-2026.html","blurb":"Alphabet and Tesla headline a heavy earnings week as investors weigh whether hyperscaler AI-capex guidance can steady the reeling chip sector."},
     {"title":"Chip stock sell-off, Netflix earnings, Trump's approval rating and more in Morning Squawk","source":"CNBC","date":"2026-07-17","time":"11:30","url":"https://www.cnbc.com/2026/07/17/5-things-to-know-before-the-stock-market-opens.html","blurb":"A rundown of the five biggest stories moving markets into Friday's US open."},
-    {"title":"Oil prices rise as U.S.-Iran hostilities threaten supply through Strait of Hormuz","source":"CNBC","date":"2026-07-17","time":"11:00","url":"https://www.cnbc.com/2026/07/17/oil-price-today-brent-wti.html","blurb":"Brent rose toward $85 and WTI toward $80 — both up more than 11% on the week — after Iran vowed to target regional infrastructure if Trump follows through on threats to strike its facilities."},
-    {"title":"Wall St futures fall as chip selloff gathers pace; Netflix tumbles","source":"Reuters","date":"2026-07-17","time":"10:30","url":"https://www.tradingview.com/news/reuters.com,2026:newsml_L4N43J0MP:0-wall-st-futures-fall-as-chip-selloff-gathers-pace-netflix-tumbles/","blurb":"US futures extended Thursday's semiconductor rout into Friday's premarket session, with Nvidia, Applied Materials, LAM Research and Intel all lower and Netflix down over 9% after a weak Q3 revenue forecast."},
-    {"title":"UK Gilt Yields Retreat from Two-Month Highs on Fiscal Optimism","source":"Trading Economics","date":"2026-07-17","time":"09:00","url":"https://www.tradingview.com/news/te_news:567278:0-uk-gilt-yields-retreat-from-two-month-highs-on-fiscal-optimism/","blurb":"The 10-year gilt yield eased toward 4.95% as investors welcomed the expected appointment of a fiscally cautious chancellor, unwinding some of the week's Hormuz-driven rate-hike repricing."},
   ],
 };
 
