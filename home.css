@@ -697,6 +697,7 @@
       font-family:var(--t-mono, ui-monospace, monospace); font-size:12px; color:var(--t-dim, #8592ad); }
     .cmdk-code { flex:0 0 auto; font-family:var(--t-mono, ui-monospace, monospace); font-size:9.5px; font-weight:700;
       letter-spacing:.04em; padding:2px 5px; border-radius:3px; }
+    .cmdk-code.news { color:var(--t-news, #8aa0c8); background:color-mix(in srgb, var(--t-news, #8aa0c8) 14%, transparent); }
     .cmdk-code.macro { color:var(--t-mac, #9b83e2); background:color-mix(in srgb, var(--t-mac, #9b83e2) 15%, transparent); }
     .cmdk-code.credit { color:var(--t-crd, #fb8b1e); background:color-mix(in srgb, var(--t-crd, #fb8b1e) 15%, transparent); }
     .cmdk-code.legal { color:var(--t-lex, #2fbf8a); background:color-mix(in srgb, var(--t-lex, #2fbf8a) 15%, transparent); }
@@ -1038,6 +1039,7 @@
     .tui .g-feed-time{ font-family:var(--t-mono); font-size:11px; color:var(--t-mut); min-width:0; }
     .tui .g-feed-code{ font-family:var(--t-mono); font-size:9.5px; font-weight:700; letter-spacing:.04em;
       text-align:center; border-radius:0; padding:2px 0; }
+    .tui .g-feed-code.news{ color:var(--t-news, #8aa0c8); background:color-mix(in srgb,var(--t-news, #8aa0c8) 14%,transparent); }
     .tui .g-feed-code.macro{ color:var(--t-mac); background:color-mix(in srgb,var(--t-mac) 15%,transparent); }
     .tui .g-feed-code.credit{ color:var(--t-crd); background:color-mix(in srgb,var(--t-crd) 15%,transparent); }
     .tui .g-feed-code.legal{ color:var(--t-lex); background:color-mix(in srgb,var(--t-lex) 15%,transparent); }

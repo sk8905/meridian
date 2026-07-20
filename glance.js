@@ -185,8 +185,8 @@ function resolveSaved() {
   restructurings.forEach((r) => { if (lS.has(r.id)) out.push({ desk: "l", title: r.company, href: r.judgmentUrl || r.articleUrl || "/legal/#/", ext: !!(r.judgmentUrl || r.articleUrl), date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
   return out.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 }
-const _deskClass = { m: "macro", c: "credit", l: "legal", n: "newsletter", f: "ft", s: "substack" };
-const DESK_CODE = { m: "MAC", c: "CRD", l: "LEX", n: "LETTER", f: "FT", s: "SUBS" };
+const _deskClass = { news: "news", m: "macro", c: "credit", l: "legal", n: "newsletter", f: "ft", s: "substack" };
+const DESK_CODE = { news: "NEWS", m: "MAC", c: "CRD", l: "LEX", n: "LETTER", f: "FT", s: "SUBS" };
 function initSavedPanel() {
   const wrap = document.getElementById("g-saved");
   if (!wrap) return;
@@ -560,7 +560,12 @@ const creditItemExt = (x) => !!x.sourceUrl;
 // interleaved across desks so it reads as a single merged feed, not three blocks.
 // Falls back to the most-recent date present if nothing is dated today, so the
 // feed is never empty between refreshes.
-const DESK = { m: "Macro", c: "Credit", l: "Legal", n: "Letter", f: "myFT", s: "Substack" };
+const DESK = { news: "News", m: "Macro", c: "Credit", l: "Legal", n: "Letter", f: "myFT", s: "Substack" };
+// Strictly-macro classifier: central-bank policy, rates/yields, inflation, growth
+// & the labour market. A macro-sourced story (curated headline or live RSS) is
+// tagged MAC only when its headline reads as core macro; everything else defaults
+// to the general NEWS desk, so the wire isn't a wall of "MAC".
+const STRICT_MACRO_RE = /\b(fed(eral reserve)?|fomc|powell|rate (cut|hike|rise|path|decision)|interest rates?|bank of england|\bboe\b|\bmpc\b|\becb\b|central bank|lagarde|\bcpi\b|\bpce\b|inflation|disinflation|deflation|\bgdp\b|gross domestic|growth forecast|recession|jobs report|payrolls?|unemployment|jobless|labou?r market|treasur\w* (yield|note|bond)|gilt|bund|bond yield|yield curve|quantitative (easing|tightening)|\bqt\b|monetary policy|budget|deficit|fiscal|tariffs?|trade war)\b/i;
 // Active desk filter for the home news feed: "all" | "m" | "c" | "l".
 // One-line cross-desk briefing shown under the "Your briefing" heading.
 // Category matchers for the two glance lines: the freshest premium story
@@ -609,22 +614,36 @@ function renderFeed() {
   // Every dated, sourced Macro item: the reading list (ARTICLES), the dashboard
   // headlines (NEWS US/UK) and the economist commentary (COMMENTARY US/UK). Deduped
   // by title below, so cross-section overlap collapses to one row.
-  const macro = [];
+  // macro-sourced items split two ways: strictly-macro headlines get the MAC
+  // desk, everything else defaults to the general NEWS desk. Economist COMMENTARY
+  // is always MAC (it IS macro analysis). The saved-store (sk="m") is unchanged —
+  // desk (label) is independent of which app owns the star.
+  const macro = [], news = [];
   const mSid = (n) => "a" + _savedHash(_savedBase(n));
-  ((ARTICLES && ARTICLES.items) || []).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time, "m", mSid(n))));
-  (((NEWS && NEWS.us) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time, "m", mSid(n))));
-  (((NEWS && NEWS.uk) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time, "m", mSid(n))));
+  const pushMacroItem = (n) => {
+    const desk = STRICT_MACRO_RE.test(n.title || "") ? "m" : "news";
+    (desk === "m" ? macro : news).push(mk(desk, n.url, n.title, n.source, true, n.date, n.time, "m", mSid(n)));
+  };
+  ((ARTICLES && ARTICLES.items) || []).forEach(pushMacroItem);
+  (((NEWS && NEWS.us) || [])).forEach(pushMacroItem);
+  (((NEWS && NEWS.uk) || [])).forEach(pushMacroItem);
   (((COMMENTARY && COMMENTARY.us) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time, "m", mSid(n))));
   (((COMMENTARY && COMMENTARY.uk) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time, "m", mSid(n))));
-  // Live RSS headlines (real publish times) merged in with the curated macro
-  // items; the title-dedupe below collapses any overlap with the static feeds.
-  // myFT-flagged items belong to the FT stream and substack-flagged items to the
-  // Substack desk, not Macro — both routed below.
-  (_liveFeed || []).forEach((n) => { if (!n.myft && !n.substack) macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time)); });
+  // Live RSS headlines (real publish times) merged in with the curated items; the
+  // title-dedupe below collapses any overlap with the static feeds. myFT-flagged
+  // items belong to the FT stream and substack-flagged to the Substack desk; the
+  // rest split MAC vs NEWS by the same strict-macro test.
+  (_liveFeed || []).forEach((n) => {
+    if (n.myft || n.substack) return;
+    const desk = STRICT_MACRO_RE.test(n.title || "") ? "m" : "news";
+    (desk === "m" ? macro : news).push(mk(desk, n.url, n.title, n.source, true, n.date, n.time));
+  });
   // Limit non-premium sources: drop Investing.com (unless a Reuters story delivered
-  // via it) and the low-tier aggregator/SEO/crypto desks, so the macro feed stays
-  // on premium newsrooms, research houses and official data.
-  { const kept = macro.filter((o) => (o.src !== "Investing.com" || /\breuters\b/i.test(o.title || "")) && !NON_PREMIUM.has(o.src)); macro.length = 0; macro.push(...kept); }
+  // via it) and the low-tier aggregator/SEO/crypto desks, so the wire stays on
+  // premium newsrooms, research houses and official data. Applies to both desks.
+  const keepPremium = (o) => (o.src !== "Investing.com" || /\breuters\b/i.test(o.title || "")) && !NON_PREMIUM.has(o.src);
+  { const km = macro.filter(keepPremium); macro.length = 0; macro.push(...km); }
+  { const kn = news.filter(keepPremium); news.length = 0; news.push(...kn); }
 
   const credit = [];
   deals.forEach((d) => credit.push({ ...mk("c", creditItemHref(d), d.headline, creditSource(d), creditItemExt(d), d.date, d.time, "c", d.id), mgr: d.managerId || "" }));
@@ -659,7 +678,7 @@ function renderFeed() {
   (_liveFeed || []).forEach((n) => { if (n.substack) substacks.push(mk("s", n.url, n.title, n.source, true, n.date, n.time)); });
 
   const day = (x) => String(x.date || "").slice(0, 10);
-  const all = [...macro, ...credit, ...legal, ...newsletter, ...ft, ...substacks];
+  const all = [...news, ...macro, ...credit, ...legal, ...newsletter, ...ft, ...substacks];
   const now = new Date();
   const todayISO = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
   const target = all.some((x) => day(x) === todayISO) ? todayISO : all.reduce((m, x) => (day(x) > m ? day(x) : m), "");
@@ -673,7 +692,7 @@ function renderFeed() {
   const CAP = 500;
   // Per-desk deduped streams (newest first) — power the desk filter and the
   // "what's new" counts (items in the most recent ~2 days).
-  const byDesk = { m: dedupe([...macro].sort(byDateDesc)), c: dedupe([...credit].sort(byDateDesc)), l: dedupe([...legal].sort(byDateDesc)), n: dedupe([...newsletter].sort(byDateDesc)), f: dedupe([...ft].sort(byDateDesc)), s: dedupe([...substacks].sort(byDateDesc)) };
+  const byDesk = { news: dedupe([...news].sort(byDateDesc)), m: dedupe([...macro].sort(byDateDesc)), c: dedupe([...credit].sort(byDateDesc)), l: dedupe([...legal].sort(byDateDesc)), n: dedupe([...newsletter].sort(byDateDesc)), f: dedupe([...ft].sort(byDateDesc)), s: dedupe([...substacks].sort(byDateDesc)) };
   const maxDay = all.reduce((m, x) => (day(x) > m ? day(x) : m), "");
   const cutoff = (() => { const d = new Date(maxDay + "T00:00:00"); if (isNaN(d)) return ""; d.setDate(d.getDate() - 1); return d.toISOString().slice(0, 10); })();
   const recentN = (list) => (cutoff ? list.filter((x) => day(x) >= cutoff).length : list.length);
@@ -689,10 +708,10 @@ function renderFeed() {
   if (_feedSrc) {
     // Source filter wins over the desk chips: every story from that newsroom,
     // across all three desks, newest first.
-    feed = dedupe([...macro, ...credit, ...legal, ...ft, ...substacks].sort(byDateDesc)).filter((x) => x.src === _feedSrc).slice(0, CAP);
+    feed = dedupe([...news, ...macro, ...credit, ...legal, ...ft, ...substacks].sort(byDateDesc)).filter((x) => x.src === _feedSrc).slice(0, CAP);
   } else if (_feedDesk === "all") {
     const pick = (list) => dedupe(list.filter((x) => day(x) === target).sort(byDateDesc));
-    const lists = [pick(macro), pick(credit), pick(legal), pick(newsletter), pick(ft), pick(substacks)];
+    const lists = [pick(news), pick(macro), pick(credit), pick(legal), pick(newsletter), pick(ft), pick(substacks)];
     const seen = new Set();
     feed = [];
     for (let i = 0; lists.some((l) => i < l.length); i++) lists.forEach((l) => {
@@ -748,7 +767,7 @@ function renderFeed() {
   if (head) {
     const chip = (k, label) => `<button type="button" class="g-feed-chip${!_feedSrc && _feedDesk === k ? " is-on" : ""}" data-desk="${k}" aria-pressed="${!_feedSrc && _feedDesk === k}">${label}</button>`;
     head.innerHTML = `<span class="g-feed-h-lbl">Latest news</span>`
-      + `<span class="g-feed-chips" role="group" aria-label="Filter by desk">${chip("all", "All")}${chip("m", "Macro")}${chip("c", "Credit")}${chip("l", "Legal")}</span>`;
+      + `<span class="g-feed-chips" role="group" aria-label="Filter by desk">${chip("all", "All")}${chip("news", "News")}${chip("m", "Macro")}${chip("c", "Credit")}${chip("l", "Legal")}</span>`;
     // A desk chip clears any source filter and switches desks.
     head.querySelectorAll(".g-feed-chip").forEach((b) => b.addEventListener("click", () => { _feedSrc = null; _feedDesk = b.dataset.desk; renderFeed(); }));
   }
