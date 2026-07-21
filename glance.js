@@ -113,11 +113,10 @@ export function initGlance() {
   const rf = document.getElementById("data-status") || document.getElementById("g-refresh");
   if (rf) rf.textContent = `Last refresh ${fmtRefresh()}`;
   // Top-bar Markets / Saved / Notifications: the SAME shared controller as
-  // Macro/Credit/Legal (nav-actions.js) — one implementation on all four pages.
-  // The legacy Home-only menus (initNotifBell / initSavedPanel /
-  // initMarketsPanel) are retired; on phones the Home data rails move into the
-  // shared Markets panel via initHomeMarketsRails.
-  import("/nav-actions.js?v=20260721-5").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  // Macro/Credit/Legal (nav-actions.js) — one implementation on all pages. The
+  // legacy Home-only dropdown menus are retired; on phones Home just hides its
+  // desktop data rails (initHomeMarketsRails) and uses the shared Markets panel.
+  import("/nav-actions.js?v=20260721-6").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderDeals();
   renderFundraising();
   renderRx();
@@ -319,95 +318,6 @@ function closeAllGlanceMenus() {
   const svBtn = document.getElementById("g-sv-btn"); if (svBtn) svBtn.setAttribute("aria-expanded", "false");
   document.body.classList.remove("g-mkt-open");
   hideScrim();
-}
-
-// ---- iPhone markets/rates dropdown -----------------------------------------
-// On phones the right-hand markets + key-rates sidebar (.g-side) is relocated into
-// a dropdown panel behind the chart button in the top bar, so the numbers are one
-// tap away without pushing the news feed down. The SAME .g-side node moves between
-// the layout grid (desktop) and the panel (phone) — one fetch/render feeds both,
-// no duplicated markup. Desktop leaves it in the grid and hides the button (CSS).
-// The mobile overlays (markets / saved / notifications) sit full-screen BELOW the
-// sticky top nav bar. Publish the bar's exact bottom (incl. the notch/safe-area)
-// as --gtop-b so the panels' CSS `top` tracks it precisely.
-function setTopbarVar() {
-  const t = document.querySelector(".topbar") || document.querySelector(".g-top");
-  const h = t ? Math.round(t.getBoundingClientRect().bottom) : 54;
-  document.documentElement.style.setProperty("--gtop-b", h + "px");
-}
-function initMarketsPanel() {
-  setTopbarVar();
-  addEventListener("resize", setTopbarVar);
-  addEventListener("orientationchange", () => setTimeout(setTopbarVar, 200));
-  const btn = document.getElementById("g-mkt-btn");
-  const panel = document.getElementById("g-mkt-panel");
-  const side = document.querySelector(".g-side");
-  const side2 = document.querySelector(".g-side2");
-  const layout = document.querySelector(".g-layout");
-  const feed = document.querySelector(".g-feed-wrap");
-  if (!btn || !panel || !side || !layout) return;
-  const mq = matchMedia("(max-width:760px)");
-  // Full-screen panel header (title + close), built once — phones only (CSS hides
-  // it on desktop). Sits above the moved rails so it stays sticky while scrolling.
-  let head = panel.querySelector(".g-mkt-head");
-  if (!head) {
-    head = document.createElement("div");
-    head.className = "g-mkt-head";
-    // Left rail = "Markets" (prices, rates, FX, vol, movers); right rail = "Macro"
-    // (economic data, yield curve, macro read, deal flow). Chips swap between them.
-    // No explicit close control: tapping the Markets icon again (or Escape)
-    // toggles the panel shut, so the header is just the Markets / Macro chips.
-    head.innerHTML = '<div class="g-mkt-chips" role="tablist" aria-label="Data rail">'
-      + '<button type="button" class="g-mkt-chip is-on" data-rail="side" role="tab" aria-selected="true">Markets</button>'
-      + '<button type="button" class="g-mkt-chip" data-rail="side2" role="tab" aria-selected="false">Macro</button>'
-      + '</div>';
-    panel.appendChild(head);
-  }
-  // Show one rail at a time in the panel (phones); the chips pick which.
-  const selectRail = (which) => {
-    const isSide = which !== "side2";
-    side.style.display = isSide ? "" : "none";
-    if (side2) side2.style.display = isSide ? "none" : "";
-    head.querySelectorAll(".g-mkt-chip").forEach((c) => {
-      const on = c.dataset.rail === (isSide ? "side" : "side2");
-      c.classList.toggle("is-on", on);
-      c.setAttribute("aria-selected", on ? "true" : "false");
-    });
-    panel.scrollTop = 0;
-  };
-  const close = () => { panel.hidden = true; btn.setAttribute("aria-expanded", "false"); document.body.classList.remove("g-mkt-open"); hideScrim(); };
-  // On phones BOTH rails live in the full-screen panel (the news wire owns the
-  // page), shown one at a time via the Markets/Macro chips. On desktop both rails
-  // return to the 3-column grid with their inline show/hide cleared.
-  const place = () => {
-    if (mq.matches) {
-      if (side.parentElement !== panel) panel.appendChild(side);
-      if (side2 && side2.parentElement !== panel) panel.appendChild(side2);
-      const on = head.querySelector(".g-mkt-chip.is-on");
-      selectRail(on ? on.dataset.rail : "side");
-    } else {
-      side.style.display = ""; if (side2) side2.style.display = "";
-      if (side.parentElement !== layout) layout.insertBefore(side, feed || null);
-      if (side2 && side2.parentElement !== layout) layout.appendChild(side2);
-      close();
-    }
-  };
-  head.addEventListener("click", (e) => { const c = e.target.closest(".g-mkt-chip"); if (c) selectRail(c.dataset.rail); });
-  place();
-  mq.addEventListener("change", place);
-  btn.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const wasOpen = !panel.hidden;
-    closeAllGlanceMenus();
-    if (!wasOpen) {
-      panel.hidden = false;
-      btn.setAttribute("aria-expanded", "true");
-      if (mq.matches) { document.body.classList.add("g-mkt-open", "g-menu-open"); showScrim(closeAllGlanceMenus); }
-    }
-  });
-  // Close button, or Escape.
-  panel.addEventListener("click", (e) => { if (e.target.closest(".g-mkt-close")) closeAllGlanceMenus(); });
-  document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeAllGlanceMenus(); });
 }
 
 // On phones the briefing leads and the filter-chip bar sits directly BELOW it,
