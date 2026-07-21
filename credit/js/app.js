@@ -663,7 +663,7 @@ function viewDashboard() {
                 <tbody id="mgr-rows">${mrows.map(mgrRow).join("")}</tbody>
               </table>
               </div>
-              <p class="tl-sls-key muted small">SLS = Structured Liquidity Solutions — NAV: NAV / fund-level financing · SRT: significant risk transfer · CFO: collateralised fund obligation · CONT: continuation fund / vehicle · OTH: other structured liquidity (secondaries platform, fund finance). Every chip is backed by a cited article (hover for the source; the articles sit in that manager's news). — = none found in public coverage.</p>
+              <p class="tl-sls-key muted small">SLS = Structured Liquidity Solutions — NAV: NAV / fund-level financing · SRT: significant/synthetic risk transfer · CFO: collateralised fund obligation · CONT: continuation fund / vehicle · OTH: other structured liquidity (secondaries platform, fund finance). Every chip is backed by a cited article (hover for the source; the articles sit in that manager's news). — = none found in public coverage.</p>
             </div>
           </div>
         </section>

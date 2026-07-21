@@ -195,7 +195,7 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
         the eye against a light page. --navy drives the .topbar background AND
         the html overscroll behind it (every page), so overriding the token
         recolors both consistently; dark mode keeps true black. ---- */
-:root[data-theme="light"] { --navy: #252a33; }
+:root[data-theme="light"] { --navy: #484f5d; }
 
 /* ---- Respect the system reduced-motion preference. ---- */
 @media (prefers-reduced-motion: reduce) {

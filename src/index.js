@@ -1626,7 +1626,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=30", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=31", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const items = await feedAssemble(env, ctx);
@@ -1644,35 +1644,62 @@ async function handleFeed(request, env, ctx) {
 // the real assembly is visible with the exact stage where it died.
 async function feedAssemble(env, ctx, trace = null) {
   const delays = feedStagger();
+  // Per-source LAST-GOOD cache. Every failure mode we've chased (Google 503s,
+  // Substack 429s, WSJ/Fed direct-feed timeouts under the parallel burst) is a
+  // TRANSIENT single-source outage: the source is healthy in one probe and
+  // empty in the next, so it flickers in and out of the wire. Remember each
+  // source's last successful capped items in KV and REUSE them (up to 24h) when
+  // its current fetch fails — so a source that succeeds even occasionally stays
+  // in the wire continuously. The 6-day cutoff below still ages reused items.
+  let lastGood = {};
+  try { lastGood = (await env.WATCHLIST.get("feed:lastgood", "json")) || {}; } catch { /* KV miss — no reuse this run */ }
+  const nowT = Date.now();
+  const LASTGOOD_MAX = 24 * 3600e3;
+  const serWhen = (x) => ({ title: x.title, url: x.url, source: x.source, region: x.region, myft: x.myft, substack: x.substack, when: x.when ? x.when.toISOString() : null });
+  const deWhen = (x) => ({ ...x, when: x.when ? new Date(x.when) : null });
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f, i) => {
+    const key = "s" + i;
     const d = trace ? { source: f.source, url: f.url } : null;
     let txt = await feedFetch(f.url, delays[i], d);
     // Stuck Google query → one locale-flipped variant, then the Bing mirror.
     if (!txt && f.gnews) { txt = await feedFetch(gnewsVariant(f.url), 300, d); if (txt && d) d.via = "variant"; }
     if (!txt && f.gnews) { const b = bingMirror(f.url); if (b) { txt = await feedFetch(b, 200, d); if (txt && d) d.via = "bing"; } }
-    if (d) { d.bytes = txt ? txt.length : 0; }
-    if (!txt) { if (d) trace.push(d); return []; }
-    let items = feedParse(txt, f).filter((x) => !feedReject(x.title));
-    if (d) d.parsed = items.length;
-    // Reader-curated feeds (myFT, Bloomberg official wires): everything passes
-    // except lifestyle — unless the headline also reads as finance/business.
-    if (f.soft) {
-      items = items.filter((x) => !FEED_LIFESTYLE_RE.test(x.title) || FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title));
-    } else if (f.filter !== false) {
-      items = f.core
-        ? items.filter((x) => FEED_CORE_MACRO_RE.test(x.title))
-        : items.filter((x) => FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title));
+    if (d) d.bytes = txt ? txt.length : 0;
+    let items = [];
+    if (txt) {
+      items = feedParse(txt, f).filter((x) => !feedReject(x.title));
+      if (d) d.parsed = items.length;
+      // Reader-curated feeds (myFT, Bloomberg official wires): everything passes
+      // except lifestyle — unless the headline also reads as finance/business.
+      if (f.soft) {
+        items = items.filter((x) => !FEED_LIFESTYLE_RE.test(x.title) || FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title));
+      } else if (f.filter !== false) {
+        items = f.core
+          ? items.filter((x) => FEED_CORE_MACRO_RE.test(x.title))
+          : items.filter((x) => FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title));
+      }
+      // Cap the FRESHEST items, not the first-parsed: Google News search RSS is
+      // relevance-ordered, so slicing in parse order could fill a source's cap
+      // with days-old stories that then sort to the bottom and get cut.
+      items.sort((a, b) => (b.when ? b.when.getTime() : 0) - (a.when ? a.when.getTime() : 0));
+      items = items.slice(0, f.cap || 8);
     }
-    // Cap the FRESHEST items, not the first-parsed: Google News search RSS is
-    // relevance-ordered (not chronological), so slicing in parse order could
-    // fill a source's whole cap with days-old "relevant" stories — which then
-    // sort to the bottom of the combined wire and get cut by the global cap,
-    // wiping the source from the feed entirely.
-    items.sort((a, b) => (b.when ? b.when.getTime() : 0) - (a.when ? a.when.getTime() : 0));
-    const capped = items.slice(0, f.cap || 8);
-    if (d) { d.kept = items.length; d.dated = items.filter((x) => x.when).length; d.capped = capped.length; trace.push(d); }
-    return capped;
+    if (items.length) {
+      lastGood[key] = { at: nowT, items: items.map(serWhen) };   // refresh the cache
+      if (d) { d.kept = items.length; d.dated = items.filter((x) => x.when).length; d.capped = items.length; trace.push(d); }
+      return items;
+    }
+    // Fetch failed / empty → reuse this source's last-good items if still fresh.
+    const lg = lastGood[key];
+    if (lg && Array.isArray(lg.items) && lg.items.length && (nowT - lg.at) < LASTGOOD_MAX) {
+      if (d) { d.reusedLastGood = Math.round((nowT - lg.at) / 60000) + "m"; d.capped = lg.items.length; trace.push(d); }
+      return lg.items.map(deWhen);
+    }
+    if (d) { d.capped = 0; trace.push(d); }
+    return [];
   }));
+  // Persist the refreshed last-good map (updated keys + untouched older ones).
+  try { if (ctx && ctx.waitUntil) ctx.waitUntil(env.WATCHLIST.put("feed:lastgood", JSON.stringify(lastGood))); } catch { /* KV write best-effort */ }
   let all = [];
   for (const r of results) if (r.status === "fulfilled") all = all.concat(r.value);
   // ---- Stable stamps for undated items --------------------------------------

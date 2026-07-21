@@ -359,6 +359,17 @@ extra deep-research pass on watchlisted names is skipped.
 >      no sourced item renders an em-dash, which is the correct outcome — never
 >      stretch weak or asset-level evidence (portfolio-company ABS, CLO
 >      issuance, a "CFO" job title) into an SLS chip.
+>    - **CFOs — standing check EVERY run.** Collateralised fund obligations are
+>      under-covered in the table (several tracked managers — e.g. AlpInvest,
+>      KKR, Carlyle — have issued/sponsored CFOs that aren't yet captured).
+>      On each refresh, actively search each tracked manager for CFO / rated-
+>      feeder / rated-note-feeder / fund-securitisation activity and APPEND a
+>      `type:"CFO"` structured item wherever a dated, sourced deal exists
+>      (sponsor or arranger role stated in the `note`). Same discipline: verbatim
+>      claim, working URL, article also added to the manager's news. This step
+>      needs live web egress (environment network access = Full, or an allowlist
+>      covering the sources); under the restricted default the routine cannot
+>      research and should record that the CFO check was skipped for want of egress.
 >    - **MIRROR webNews into deals/intel (critical).** A `webNews` entry shows ONLY
 >      in the notifications bell — it does NOT appear in the Deal Activity or
 >      Fundraising Intelligence feeds, the dashboard KPIs, or any tab/list (those

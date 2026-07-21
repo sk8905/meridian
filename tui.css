@@ -125,7 +125,18 @@
 /* centre activity wire */
 /* filter chips = full-width segmented tabs (matches the Home feed's tab bar):
    equal-width, hairline dividers, accent underline on the active one. */
-.twire-head { padding: 0 !important; }
+/* A thin grey rule under the view-chip bar, separating it from the table/feed
+   below (the tabs sat flush against the column-header row). The fallback colour
+   is REQUIRED: Legal never defines --border, so in light mode var(--border) is
+   empty and the whole border declaration voids (border-style none → 0px) — the
+   fallback makes it render on every page/theme. The active-tab underline draws
+   ON this line, so selection still reads clearly. */
+.twire-head { padding: 0 !important; border-bottom: 1px solid var(--border, #e4e7ef) !important; }
+[data-theme="dark"] .twire-head { border-bottom-color: #262626 !important; }
+/* Managers view has a second header tier (the search sub-bar) between the chips
+   and the table — give it the same divider so the bottom two tiers separate. */
+.tpane[data-pane="managers"] .thead-search { border-bottom: 1px solid var(--border, #e4e7ef); }
+[data-theme="dark"] .tpane[data-pane="managers"] .thead-search { border-bottom-color: #262626; }
 .tchips { display: flex; gap: 0; height: 100%; width: 100%; flex: 1 1 auto; }
 .tchip { flex: 1 1 0; display: flex; align-items: center; justify-content: center; gap: 5px;
   border: 0; background: transparent; padding: 0 8px;
