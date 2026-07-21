@@ -38,7 +38,7 @@ body {
   line-height: 1.5;
 }
 a { color: var(--primary); text-decoration: none; }
-a:hover { text-decoration: underline; }
+a:hover { text-decoration: none; }
 h1 { font-size: 1.6rem; margin: 0 0 .25rem; }
 h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
 h3 { font-size: 1rem; margin: 0; }
@@ -123,7 +123,7 @@ h1, h2, h3, .kpi-label { text-wrap: balance; }
 .rk-toggle > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: .45rem;
   width: fit-content; font-weight: 700; font-size: .95rem; color: var(--muted); padding: .15rem .1rem; }
 .rk-toggle > summary::-webkit-details-marker { display: none; }
-.rk-toggle > summary:hover { text-decoration: underline; }
+.rk-toggle > summary:hover { text-decoration: none; }
 .rk-caret { width: 7px; height: 7px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor;
   transform: rotate(45deg); margin-bottom: 3px; transition: transform .15s; }
 .rk-toggle[open] .rk-caret { transform: rotate(-135deg); margin-bottom: -2px; }
@@ -376,7 +376,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
   overflow: hidden; overflow-wrap: anywhere;
 }
 .intel-head { font-weight: 600; color: var(--ink); display: inline-block; margin-bottom: .15rem; overflow-wrap: anywhere; }
-a.intel-head:hover { text-decoration: underline; }
+a.intel-head:hover { text-decoration: none; }
 .intel-body p { margin: .15rem 0 .35rem; }
 /* Headline + Save button share a row; the button sits top-right (Legal style). */
 .intel-title-line { display: flex; align-items: flex-start; gap: .6rem; }
@@ -421,7 +421,7 @@ a.intel-head:hover { text-decoration: underline; }
 .donut path.clickable { cursor: pointer; }
 .donut path.clickable:hover { opacity: .82; }
 .legend-item.clickable { cursor: pointer; }
-.legend-item.clickable:hover { text-decoration: underline; }
+.legend-item.clickable:hover { text-decoration: none; }
 .chart-link.clickable { cursor: pointer; display: block; }
 .chart-link.clickable:hover { opacity: .85; }
 .kpi-card.clickable { cursor: pointer; transition: border-color .15s, transform .1s, box-shadow .15s; }
@@ -672,12 +672,12 @@ svg.mtab-ico { width: 22px; height: 22px; }
 .compact-item { padding: .5rem 0; border-bottom: 1px solid var(--border); }
 .compact-item:last-child { border-bottom: none; }
 .compact-head { font-weight: 600; color: var(--ink); overflow-wrap: anywhere; }
-a.compact-head:hover { text-decoration: underline; }
+a.compact-head:hover { text-decoration: none; }
 .compact-meta { margin-top: .15rem; }
 /* Manager name in a compact-row meta line — a link to the profile, kept in the
    muted meta colour but underlined on hover so it reads as clickable. */
 a.compact-mgr { color: inherit; }
-a.compact-mgr:hover { color: var(--ink); text-decoration: underline; }
+a.compact-mgr:hover { color: var(--ink); text-decoration: none; }
 
 /* ---------- year section breaks (manager feeds) ---------- */
 .year-group + .year-group { margin-top: .5rem; }

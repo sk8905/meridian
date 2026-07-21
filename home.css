@@ -96,7 +96,7 @@
     .g-user { color:#c3cfea; font-size:.72rem; white-space:nowrap; }
     .g-user strong { color:#fff; font-weight:600; }
     .g-user a { color:#9fb3dd; margin-left:.35rem; font-weight:600; }
-    .g-user a:hover { color:#fff; text-decoration:underline; }
+    .g-user a:hover { color:#fff; text-decoration:none; }
     .g-refresh { color:#8fa0c4; font-size:.64rem; white-space:nowrap; }
     /* Phones: the account/refresh block is relocated here (below the content) to
        declutter the top bar; hidden on desktop where it stays in the top bar. */
@@ -262,7 +262,7 @@
     .g-brief-sep { margin:0 .5rem; opacity:.5; }
     .g-brief-lead { color:var(--muted); }
     .g-brief-link { color:var(--brand-2); font-weight:600; text-decoration:none; }
-    .g-brief-link:hover { text-decoration:underline; }
+    .g-brief-link:hover { text-decoration:none; }
     :root[data-theme="dark"] .g-brief-link { color:var(--t-dim); }
     /* At-a-glance one-liners (markets + rates), refreshed with the twice-daily
        data pull. Sit above the news feed on desktop, stack below on narrow
@@ -635,7 +635,7 @@
     .g-card-title { font-size:1.05rem; font-weight:800; color:var(--ink); }
     .g-card-title .dot { color:var(--ac); }
     .g-open { font-size:.82rem; font-weight:700; color:var(--ac); white-space:nowrap; }
-    .g-open:hover { text-decoration:underline; }
+    .g-open:hover { text-decoration:none; }
     .g-card-desc { color:var(--muted); font-size:.82rem; margin:.1rem 0 .5rem; }
     .g-list { display:flex; flex-direction:column; }
     .g-item { display:block; padding:.55rem 0; border-top:1px solid var(--line); }
@@ -653,7 +653,7 @@
     .g-loading { color:var(--muted); font-size:.85rem; padding:.5rem 0; }
     .g-foot { padding-top:.9rem; }
     .g-cta { display:inline-block; margin-top:.7rem; font-size:.85rem; font-weight:700; color:var(--ac); }
-    .g-cta:hover { text-decoration:underline; }
+    .g-cta:hover { text-decoration:none; }
 
     /* ---- Sign-in / loading states ---- */
     .g-center { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:1.5rem;

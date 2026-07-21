@@ -150,7 +150,7 @@
 /* Clickable source name in any news feed — filters that feed to the newsroom.
    Underlines on hover so it reads as a control distinct from the article link. */
 .src-filter { cursor: pointer; }
-@media (hover: hover) { .src-filter:hover { color: var(--ink); text-decoration: underline; } }
+@media (hover: hover) { .src-filter:hover { color: var(--ink); text-decoration: none; } }
 /* Active source-filter bar shown above a filtered feed. */
 .srcfilter-bar[hidden] { display: none; }
 .srcfilter-bar { display: flex; align-items: center; gap: 8px; padding: 7px 12px; margin: 0 0 8px;
@@ -159,7 +159,7 @@
 .srcfilter-bar strong { color: var(--ink); text-transform: none; letter-spacing: 0; }
 .srcfilter-clear { margin-left: auto; border: 0; background: transparent; cursor: pointer; color: var(--accent);
   font: inherit; font-family: var(--t-mono); font-size: 10px; letter-spacing: .03em; text-transform: uppercase; padding: 0; }
-.srcfilter-clear:hover { text-decoration: underline; }
+.srcfilter-clear:hover { text-decoration: none; }
 
 /* left league table */
 .tleague { width: 100%; border-collapse: collapse; font-size: 11px; }
@@ -188,8 +188,8 @@
   /* One hover treatment platform-wide: a subtle grey row, no orange text. */
   .twire .compact-item:hover,
   .intel-row:hover, .feed-row:hover { background: rgba(255,255,255,.045); }
-  .tw-mgr:hover, .compact-mgr:hover { color: var(--ink); text-decoration: underline; }
-  .tw-src a:hover { color: var(--ink); text-decoration: underline; }
+  .tw-mgr:hover, .compact-mgr:hover { color: var(--ink); text-decoration: none; }
+  .tw-src a:hover { color: var(--ink); text-decoration: none; }
   .tleague tr.clickable:hover { background: rgba(255,255,255,.045); }
   .tmini-row.clickable:hover, .tmini-row:hover { background: rgba(255,255,255,.045); }
   :root[data-theme="light"] .twire .compact-item:hover,

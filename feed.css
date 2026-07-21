@@ -84,11 +84,11 @@
 /* Entity chip (a manager/firm named in the headline, linking to its profile). */
 .g-feed-ent { font-family:var(--t-mono); font-size:9.5px; color:var(--t-accent);
   border:0; background:transparent; padding:0; margin-left:7px; white-space:nowrap; cursor:pointer; }
-.g-feed-ent:hover { text-decoration:underline; }
+.g-feed-ent:hover { text-decoration:none; }
 /* The source name is a filter control — underline on hover to signal it acts
    independently of the row's link-to-article. */
 .g-feed-src { font-family:var(--t-mono); font-size:10px; color:var(--t-faint); white-space:nowrap; cursor:pointer; }
-.g-feed-src:hover { color:var(--t-dim); text-decoration:underline; }
+.g-feed-src:hover { color:var(--t-dim); text-decoration:none; }
 .g-feed-desk { display:none; }
 /* Active source-filter bar above the wire. */
 .g-feed-srcbar { display:flex; align-items:center; gap:8px; padding:6px 12px; background:var(--t-ground);
@@ -97,7 +97,7 @@
 .g-feed-srcbar strong { color:var(--t-ink); font-weight:600; text-transform:none; letter-spacing:0; }
 .g-feed-srcclear { margin-left:auto; border:0; background:transparent; cursor:pointer; color:var(--t-accent);
   font-family:inherit; font-size:10px; letter-spacing:.03em; text-transform:uppercase; padding:0; }
-.g-feed-srcclear:hover { text-decoration:underline; }
+.g-feed-srcclear:hover { text-decoration:none; }
 /* The srcbar lives inside the swipe pane — unstick it mid-slide so it travels
    with the slab instead of floating at its stuck offset. */
 body.wire-sliding .g-feed-srcbar { position:static; }
@@ -118,8 +118,13 @@ body.wire-sliding .g-feed-srcbar { position:static; }
 }
 
 /* Touch devices: never latch the row hover state under a resting finger during
-   a scroll (a real tap navigates; it doesn't need a hover tint). */
+   a scroll (a real tap navigates; it doesn't need a hover tint). The headline
+   stays white — NOT `inherit`, which would pick up the app's orange link colour
+   (a { color: var(--macro/--primary) }) and turn the tapped headline orange. */
 @media (hover: none) {
   .g-feed-row:hover { background:transparent; }
-  a.g-feed-row:hover .g-feed-title { color:inherit; }
+  a.g-feed-row:hover .g-feed-title { color:var(--t-ink); }
 }
+/* Belt-and-suspenders: the shared wire never underlines, whatever the host page's
+   a:hover rules do. */
+.g-feed-row, .g-feed-row:hover, .g-feed-title { text-decoration:none; }
