@@ -359,6 +359,20 @@ extra deep-research pass on watchlisted names is skipped.
 >      no sourced item renders an em-dash, which is the correct outcome — never
 >      stretch weak or asset-level evidence (portfolio-company ABS, CLO
 >      issuance, a "CFO" job title) into an SLS chip.
+>    - **SRT — running/originating, NOT opportunistic buying.** A `type:"SRT"`
+>      chip is for a manager whose franchise *uses* significant/synthetic risk
+>      transfer: running dedicated SRT/bank-capital funds or strategies,
+>      structuring/originating/leading SRT transactions with banks. A manager
+>      merely **buying SRT paper** as one investment among many does NOT earn an
+>      SRT chip — "buying SRTs is different to using/selling SRTs, so it should
+>      not count towards a label" (per the app owner). Tell them apart from the
+>      cited article's framing: "X is buying up SRTs", "X bought SRTs tied to …"
+>      → buy-side, no chip (the story can still live in `webNews`); "X raises
+>      €Xbn for its SRT strategy", "X leads/closes/structures an SRT", "dedicated
+>      SRT manager, N bilateral deals" → franchise, chip stands. When in doubt,
+>      classify as buy-side (no chip). If a future refresh only has buy-side
+>      evidence for a manager, leave `structured` empty rather than adding an SRT
+>      chip.
 >    - **CFOs — standing check EVERY run.** Collateralised fund obligations are
 >      under-covered. Seeded so far (keep, extend): AlpInvest/Carlyle (two CFOs,
 >      $1bn 2024 + $1.25bn 2025), KKR (REIGN I $1.58bn), Ardian ($1bn 2026). On
