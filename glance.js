@@ -573,7 +573,11 @@ const creditItemExt = (x) => !!x.sourceUrl;
 // Category matchers for the two glance lines: the freshest premium story
 // ABOUT markets / about rates & credit replaces the generated one-liners.
 const BRIEF_MKT_RE = /\b(stocks?|equit\w*|shares?|S&P|Nasdaq|Dow|FTSE|Nikkei|oil|crude|Brent|gold|dollar|DXY|bitcoin|crypto|rally|sell-?off|futures|Wall Street|market)\b/i;
-const BRIEF_RATE_RE = /\b(treasur\w*|yields?|gilts?|bonds?|interest rates?|rate (cut|hike|rise|path)|Fed\b|FOMC|Bank of England|BoE|ECB|central bank|spreads?|credit|inflation|CPI|PCE)\b/i;
+// STRICTLY rates (gilts, treasuries, bunds, policy) & spreads (yield curve,
+// credit/swap spreads). Deliberately absent: bare "bonds?" (corporate issuance
+// headlines aren't rates), bare "credit"/"spreads?" (any wildfire "spreads"),
+// and the inflation-print vocabulary (CPI/PCE — data, not rates/spreads).
+const BRIEF_RATE_RE = /\b(treasur\w+|gilts?|bunds?|JGBs?|yields?|yield curve|2s10s|interest rates?|rate (cut|hike|rise|hold|path|decision|bets)|policy rate|bank rate|basis[- ]points?|bps|Fed|FOMC|Bank of England|BoE|ECB|MPC|central bank|monetary policy|credit spreads?|swap spreads?|spreads? (widen|tighten|narrow)\w*|(wider|tighter) spreads?|high[- ]?yield spreads?|IG spreads?|CDS|OAS)\b/i;
 // Once a real story fills a line, the pulse/deterministic writers stand down.
 const _briefLeads = { markets: false, rates: false };
 function renderBrief(byDesk, counts, day) {

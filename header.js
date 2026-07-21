@@ -10,7 +10,7 @@
 // account block, buttons and briefing all find their mount points.
 // =============================================================================
 import { initNavActions } from "/nav-actions.js?v=20260721-1";
-import { initBrief } from "/brief.js?v=6";
+import { initBrief } from "/brief.js?v=7";
 
 const TABS = [
   ["/", "Home"],

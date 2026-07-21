@@ -1530,6 +1530,9 @@ function bingMirror(url) {
 const FEED_LIFESTYLE_RE = new RegExp([
   "travel", "holiday", "\\bhotels?\\b", "restaurant", "recipe", "cook(ing|book)", "\\bdining\\b", "\\bwine\\b", "whisky", "cocktail",
   "fashion", "beauty", "jewell?er", "luxury watch", "\\byacht", "interior design",
+  // beauty / self-care / style-advice ("How does she get that glow?" got through)
+  "skincare", "make-?up", "cosmetics?", "fragrance", "perfume", "grooming", "\\bglow\\b", "hairstyl",
+  "gift guide", "what to wear", "wardrobe", "\\bdating\\b", "parenting", "\\bfitness\\b", "\\bgym\\b",
   "\\barts\\b", "artist", "\\bgallery\\b", "museum", "exhibition", "theatre", "theater", "\\bopera\\b", "ballet",
   "\\bfilm\\b", "\\bmovie", "\\bcinema", "box office", "\\bpodcast", "\\bmusic\\b", "\\balbum\\b", "\\bconcert\\b", "celebrit", "royal family", "memoir", "poetry",
   "crossword", "puzzle", "horoscope", "wellness", "\\byoga\\b", "recipes", "lunch with the ft", "how to spend it",
@@ -1574,17 +1577,51 @@ async function handleFeed(request, env, ctx) {
           : (f.filter === false) ? parsed
           : f.core ? parsed.filter((x) => FEED_CORE_MACRO_RE.test(x.title))
           : parsed.filter((x) => FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title));
-        return { source: f.source, url: f.url, status: r.status, parsed: parsed.length, kept: kept.length, ...(via ? { via } : {}) };
+        // `dated` is the count that actually matters downstream: an item with
+        // no parseable pubDate used to be dropped silently by the assembly's
+        // cutoff check, so a source could probe "kept: 20" yet contribute
+        // NOTHING to the wire. (Undated items now get stable first-seen
+        // stamps, but the gap between kept and dated remains the diagnostic.)
+        return { source: f.source, url: f.url, status: r.status, parsed: parsed.length, kept: kept.length, dated: kept.filter((x) => x.when).length, ...(via ? { via } : {}) };
       } catch (e) { return { source: f.source, url: f.url, error: String((e && e.message) || e) }; }
     }));
     return new Response(JSON.stringify({ probes }, null, 2), {
       headers: { "content-type": "application/json", "cache-control": "no-store" },
     });
   }
+  // /api/feed?debug=2 — the GROUND TRUTH: run the real assembly (no cache) and
+  // report the per-source composition of the exact payload clients receive.
+  // debug=1 shows what each fetch returns; THIS shows what survives into the
+  // wire — the two together pinpoint any silently-vanishing source.
+  if (url.searchParams.get("debug") === "2") {
+    const items = await feedAssemble(env, ctx);
+    const bySource = {};
+    for (const it of items) {
+      const s = bySource[it.source] || (bySource[it.source] = { n: 0, newest: "", oldest: "" });
+      s.n++;
+      const d = `${it.date} ${it.time}`;
+      if (!s.newest || d > s.newest) s.newest = d;
+      if (!s.oldest || d < s.oldest) s.oldest = d;
+    }
+    return new Response(JSON.stringify({ total: items.length, bySource }, null, 2), {
+      headers: { "content-type": "application/json", "cache-control": "no-store" },
+    });
+  }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=28", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=29", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
+  const items = await feedAssemble(env, ctx);
+  const resp = new Response(JSON.stringify({ items, asOf: new Date().toISOString() }), {
+    headers: { "content-type": "application/json", "cache-control": "public, max-age=300" },
+  });
+  if (ctx && ctx.waitUntil && items.length) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+  return resp;
+}
+// The actual wire assembly — fetch every source (with the variant/Bing
+// fallbacks), filter, cap, stamp, merge, dedupe. Shared by the live /api/feed
+// path and the debug=2 ground-truth probe so they can never drift apart.
+async function feedAssemble(env, ctx) {
   const delays = feedStagger();
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f, i) => {
     let txt = await feedFetch(f.url, delays[i]);
@@ -1612,6 +1649,32 @@ async function handleFeed(request, env, ctx) {
   }));
   let all = [];
   for (const r of results) if (r.status === "fulfilled") all = all.concat(r.value);
+  // ---- Stable stamps for undated items --------------------------------------
+  // Some feeds ship items with no parseable pubDate. These used to die at the
+  // cutoff check below — silently, AFTER the probe had already counted them as
+  // "kept", which is exactly how a healthy-looking source contributes nothing
+  // to the wire. Stamp each undated item with the time this Worker FIRST SAW
+  // its title, persisted in KV so the stamp holds across assemblies (stamping
+  // "now" each cycle would pin the item to the top of the wire forever).
+  if (all.some((it) => !it.when)) {
+    let firstSeen = {};
+    try { firstSeen = (await env.WATCHLIST.get("feed:firstseen", "json")) || {}; } catch { /* KV miss — stamp fresh */ }
+    let dirty = false;
+    const now = Date.now();
+    for (const it of all) {
+      if (it.when) continue;
+      const h = feedNorm(it.title);
+      if (!h) continue;
+      if (!firstSeen[h]) { firstSeen[h] = now; dirty = true; }
+      it.when = new Date(firstSeen[h]);
+    }
+    if (dirty && env && env.WATCHLIST) {
+      // Prune to the newest ~800 stamps so the map stays bounded.
+      const pruned = Object.fromEntries(Object.entries(firstSeen).sort((a, b) => b[1] - a[1]).slice(0, 800));
+      const put = env.WATCHLIST.put("feed:firstseen", JSON.stringify(pruned));
+      if (ctx && ctx.waitUntil) ctx.waitUntil(put);
+    }
+  }
   all.sort((a, b) => (b.when ? b.when.getTime() : 0) - (a.when ? a.when.getTime() : 0));
   const cutoff = Date.now() - 6 * 864e5; // drop anything older than ~6 days
   const seen = new Set();
@@ -1637,11 +1700,7 @@ async function handleFeed(request, env, ctx) {
     // still bounds the window; clients render day-grouped so depth is cheap.
     if (items.length >= 250) break;
   }
-  const resp = new Response(JSON.stringify({ items, asOf: new Date().toISOString() }), {
-    headers: { "content-type": "application/json", "cache-control": "public, max-age=300" },
-  });
-  if (ctx && ctx.waitUntil && items.length) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
-  return resp;
+  return items;
 }
 
 // ============================ WEB PUSH ======================================

@@ -63,7 +63,10 @@ export function initBrief() {
   // MARKETS / RATES lines = the top live-feed story in each category (same as
   // Home). The AI "pulse" one-liner is only a fallback while the feed is empty.
   const MKT_RE = /\b(stocks?|equit\w*|shares?|S&P|Nasdaq|Dow|FTSE|Nikkei|oil|crude|Brent|gold|dollar|DXY|bitcoin|crypto|rally|sell-?off|futures|Wall Street|market)\b/i;
-  const RATE_RE = /\b(treasur\w*|yields?|gilts?|bonds?|interest rates?|rate (cut|hike|rise|path)|Fed\b|FOMC|Bank of England|BoE|ECB|central bank|spreads?|credit|inflation|CPI|PCE)\b/i;
+  // STRICTLY rates & spreads — kept identical to glance.js BRIEF_RATE_RE (no
+  // bare bonds/credit/spreads, no inflation prints) so Home and the app pages
+  // pick the same class of story for this line.
+  const RATE_RE = /\b(treasur\w+|gilts?|bunds?|JGBs?|yields?|yield curve|2s10s|interest rates?|rate (cut|hike|rise|hold|path|decision|bets)|policy rate|bank rate|basis[- ]points?|bps|Fed|FOMC|Bank of England|BoE|ECB|MPC|central bank|monetary policy|credit spreads?|swap spreads?|spreads? (widen|tighten|narrow)\w*|(wider|tighter) spreads?|high[- ]?yield spreads?|IG spreads?|CDS|OAS)\b/i;
   const leads = { markets: false, rates: false };
   const setStory = (id, x) => {
     const el = document.getElementById(id);
