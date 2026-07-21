@@ -41,6 +41,7 @@ const keyFor = (email) => "wl:" + email;
 const savedKeyFor = (email) => "lsv:" + email;         // Wire Legal
 const savedCreditKeyFor = (email) => "csv:" + email;   // Wire Credit
 const savedMacroKeyFor = (email) => "msv:" + email;    // Wire Macro
+const savedHomeKeyFor = (email) => "hsv:" + email;     // Home-wire bookmarks (self-contained snapshots)
 // Per-user "notifications seen" sets — the ids a user has already acknowledged in
 // each app's notification bell, so an item marked seen on one device stops
 // showing as new on that user's other devices. One prefix per app.
@@ -119,6 +120,38 @@ async function handleSaved(request, env, keyFor) {
     return json({ ok: true });
   }
 
+  return json({ error: "method not allowed" }, 405);
+}
+
+// Home-wire bookmarks — the press-and-hold saves on rows with NO app saved-id
+// (live headlines, Letters, FT, Substacks). Unlike the three id-set stores
+// above these are self-contained SNAPSHOT OBJECTS ({k, desk, title, href, ext,
+// date, time, src}) — the underlying wire is ephemeral, so the row itself is
+// what's kept. Same per-user KV, "hsv:" prefix; fields sanitised and bounded.
+async function handleSavedHome(request, env) {
+  const email = identity(request);
+  if (!email) return json({ error: "unauthenticated" }, 401);
+  if (request.method === "GET") {
+    const raw = await env.WATCHLIST.get(savedHomeKeyFor(email));
+    let saved = [];
+    if (raw) { try { const p = JSON.parse(raw); if (Array.isArray(p)) saved = p; } catch { /* keep default */ } }
+    return json({ email, saved });
+  }
+  if (request.method === "PUT") {
+    let body;
+    try { body = await request.json(); } catch { return json({ error: "invalid json" }, 400); }
+    const str = (v, max) => (typeof v === "string" ? v.slice(0, max) : "");
+    const saved = (Array.isArray(body.saved) ? body.saved : [])
+      .filter((o) => o && typeof o === "object" && typeof o.k === "string" && o.k && typeof o.title === "string" && o.title)
+      .slice(0, 500)
+      .map((o) => ({
+        k: str(o.k, 700), desk: str(o.desk, 12) || "m", title: str(o.title, 500),
+        href: str(o.href, 1000) || "#", ext: !!o.ext,
+        date: str(o.date, 10), time: str(o.time, 5), src: str(o.src, 120),
+      }));
+    await env.WATCHLIST.put(savedHomeKeyFor(email), JSON.stringify(saved));
+    return json({ ok: true });
+  }
   return json({ error: "method not allowed" }, 405);
 }
 
@@ -1785,6 +1818,7 @@ export default {
     if (url.pathname === "/api/saved") return handleSaved(request, env, savedKeyFor);
     if (url.pathname === "/api/saved-credit") return handleSaved(request, env, savedCreditKeyFor);
     if (url.pathname === "/api/saved-macro") return handleSaved(request, env, savedMacroKeyFor);
+    if (url.pathname === "/api/saved-home") return handleSavedHome(request, env);
     if (url.pathname === "/api/notif-macro") return handleNotifSeen(request, env, notifMacroKey);
     if (url.pathname === "/api/notif-credit") return handleNotifSeen(request, env, notifCreditKey);
     if (url.pathname === "/api/notif-legal") return handleNotifSeen(request, env, notifLegalKey);

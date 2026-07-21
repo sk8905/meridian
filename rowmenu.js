@@ -85,6 +85,26 @@ function _syncSaved(desk) {
     .catch(() => {});
 }
 const _unsavedRecently = { m: new Set(), c: new Set(), l: new Set() };
+// Home-wire snapshots (rows with no app saved-id) sync to their own per-user KV
+// store (/api/saved-home) exactly like the desk id-sets above — merge the server
+// copy in first (so another device's bookmarks are never clobbered), excluding
+// keys removed on THIS device this session, then PUT the merged list back.
+const _unsavedHome = new Set();
+const _readHome = () => { try { const a = JSON.parse(localStorage.getItem("wire.home.saved") || "[]"); return Array.isArray(a) ? a : []; } catch { return []; } };
+function _syncSavedHome() {
+  fetch("/api/saved-home", { headers: { accept: "application/json" } })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((d) => {
+      const local = _readHome();
+      const have = new Set(local.map((o) => o && o.k));
+      ((d && d.saved) || []).forEach((o) => {
+        if (o && o.k && !have.has(o.k) && !_unsavedHome.has(o.k)) { local.push(o); have.add(o.k); }
+      });
+      try { localStorage.setItem("wire.home.saved", JSON.stringify(local.slice(0, 500))); } catch { /* */ }
+      return fetch("/api/saved-home", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ saved: local.slice(0, 500) }) });
+    })
+    .catch(() => {});
+}
 function toggleRowBookmark(d) {
   const sk = d.sk;
   const title = d.title;
@@ -100,14 +120,16 @@ function toggleRowBookmark(d) {
   } else {
     // Self-contained row snapshot, keyed on href|title.
     const key = ((d.href || "") + "|" + title).toLowerCase();
-    let arr = []; try { const a = JSON.parse(localStorage.getItem("wire.home.saved") || "[]"); if (Array.isArray(a)) arr = a; } catch { /* */ }
+    const arr = _readHome();
     const i = arr.findIndex((o) => o && o.k === key);
     added = i < 0;
     if (added) {
       arr.unshift({ k: key, desk: d.desk || "m", title,
         href: d.href || "#", ext: !!d.ext, date: d.date || "", time: d.time || "", src: d.src || "" });
-    } else { arr.splice(i, 1); }
+      _unsavedHome.delete(key);
+    } else { arr.splice(i, 1); _unsavedHome.add(key); }
     try { localStorage.setItem("wire.home.saved", JSON.stringify(arr.slice(0, 500))); } catch { /* */ }
+    _syncSavedHome();
   }
   wireToast(added ? "Saved to Bookmarks" : "Removed from Bookmarks");
 }

@@ -289,6 +289,46 @@ async function loadSaved(body, headCount) {
   };
   chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c && c.dataset.k !== _svTab) { _svTab = c.dataset.k; render(); } });
   render();
+  // Pull the server's saved stores once per open and union them into the local
+  // copies, so bookmarks made on another device show up here without visiting
+  // each app first. Four stores: the three desk id-sets (macro/credit/legal ☆
+  // stars) and the Home-wire snapshot store (press-and-hold saves on live
+  // headlines / Letters / FT rows — the store resolveSaved folds in last).
+  // Union-only, like the watchlist pull below: removals propagate via each
+  // device's own PUT, which excludes what was removed there.
+  const pulls = [
+    ...[["/api/saved-macro", "meridian.macro.saved"], ["/api/saved-credit", "meridian.credit.saved"], ["/api/saved", "lexalert.saved"]]
+      .map(([api, ls]) => fetch(api, { headers: { accept: "application/json" } })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d) => {
+          const server = (d && d.saved) || [];
+          if (!server.length) return false;
+          let local = [];
+          try { const a = JSON.parse(localStorage.getItem(ls) || "[]"); if (Array.isArray(a)) local = a; } catch { /* */ }
+          const set = new Set(local);
+          const before = set.size;
+          server.forEach((id) => { if (typeof id === "string") set.add(id); });
+          if (set.size === before) return false;
+          try { localStorage.setItem(ls, JSON.stringify([...set])); } catch { /* */ }
+          return true;
+        })
+        .catch(() => false)),
+    fetch("/api/saved-home", { headers: { accept: "application/json" } })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        const server = (d && d.saved) || [];
+        if (!server.length) return false;
+        let local = [];
+        try { const a = JSON.parse(localStorage.getItem("wire.home.saved") || "[]"); if (Array.isArray(a)) local = a; } catch { /* */ }
+        const have = new Set(local.map((o) => o && o.k));
+        let grew = false;
+        server.forEach((o) => { if (o && o.k && !have.has(o.k)) { local.push(o); have.add(o.k); grew = true; } });
+        if (grew) { try { localStorage.setItem("wire.home.saved", JSON.stringify(local.slice(0, 500))); } catch { /* */ } }
+        return grew;
+      })
+      .catch(() => false),
+  ];
+  Promise.all(pulls).then((grew) => { if (grew.some(Boolean)) render(); });
   // Pull the server's follow list once per open and union it into the local
   // store, so follows made on another device (or in the Credit app) show up
   // here without a Credit visit first. Re-render if anything new arrived.
@@ -460,7 +500,7 @@ export function initNavActions() {
     if (!notif && !bar) return;
     setTopVar();
     // Shared press-and-hold / right-click row options menu — every page.
-    import("/rowmenu.js?v=20260719-2").then((m) => m.initRowMenu()).catch(() => {});
+    import("/rowmenu.js?v=20260721-1").then((m) => m.initRowMenu()).catch(() => {});
     // Swipe left/right on a chip-filtered pane to move between its chips.
     import("/swipetabs.js?v=20260719-6").then((m) => m.initSwipeTabs()).catch(() => {});
     addEventListener("resize", setTopVar);
