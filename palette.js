@@ -239,20 +239,12 @@ export function mountPalette() {
   const go = (e) => { if (!e) return; recordSearch((e.title || input.value || "").trim()); close(); if (/^https?:\/\//i.test(e.href)) window.open(e.href, "_blank", "noopener"); else window.location.href = e.href; };
   // Focus SYNCHRONOUSLY within the tap/click gesture so iOS Safari pops the
   // keyboard immediately (a setTimeout would escape the gesture and suppress it).
-  // Phones: pin the panel to the VISUAL viewport so the keyboard shrinks it (the
-  // results stay fully above the keyboard and scroll), instead of the panel
-  // running its bottom rows behind the keyboard.
-  const panel = ov.querySelector(".mcmdk-panel");
-  // The panel stays FULL-SCREEN (top:0 → bottom:0) and the results scroll.
-  // Pinning it to visualViewport.height was fragile on iOS: with the keyboard up,
-  // the fixed panel + viewport offset left the results stranded near the bottom
-  // and the page showed through the uncovered strip. Instead the panel always
-  // covers the screen (no show-through) and a generous results padding-bottom
-  // (CSS) keeps every row scrollable up above the keyboard.
-  const fitVV = () => { panel.style.height = ""; panel.style.bottom = ""; };
-  if (window.visualViewport) { window.visualViewport.addEventListener("resize", fitVV); window.visualViewport.addEventListener("scroll", fitVV); }
-  const open = () => { ov.classList.add("open"); document.body.classList.add("mcmdk-open"); input.value = ""; refresh(); syncClr(); input.focus({ preventScroll: true }); fitVV(); };
-  const close = () => { ov.classList.remove("open"); document.body.classList.remove("mcmdk-open"); panel.style.height = ""; panel.style.bottom = ""; };
+  // The panel stays FULL-SCREEN (top:0 → bottom:0) and the results scroll with a
+  // generous CSS padding-bottom, so every row clears the keyboard. Pinning it to
+  // visualViewport.height instead was fragile on iOS — the keyboard-shrunk panel
+  // left results stranded at the bottom with the page showing through the strip.
+  const open = () => { ov.classList.add("open"); document.body.classList.add("mcmdk-open"); input.value = ""; refresh(); syncClr(); input.focus({ preventScroll: true }); };
+  const close = () => { ov.classList.remove("open"); document.body.classList.remove("mcmdk-open"); };
 
   ov.querySelectorAll("[data-close]").forEach((el) => el.addEventListener("click", close));
   // A visible nav search button (any app topbar) opens the palette on click.

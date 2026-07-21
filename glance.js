@@ -1611,19 +1611,14 @@ function wirePalette(idx) {
   // query (or a half-typed fragment) never lands in the list.
   function go(e) { if (!e) return; recordSearch((e.title || input.value || "").trim()); close(); if (/^https?:\/\//i.test(e.href)) window.open(e.href, "_blank", "noopener"); else window.location.href = e.href; }
 
-  // Phones: pin the panel to the VISUAL viewport so the keyboard shrinks it and
-  // the results stay fully above the keyboard (and scroll), rather than the panel
-  // running its bottom rows behind it.
-  const cmdkPanel = overlay.querySelector(".cmdk-panel");
   // Panel stays FULL-SCREEN and the results scroll (with a generous CSS
-  // padding-bottom) — pinning it to visualViewport.height was fragile on iOS,
-  // leaving the results stranded at the bottom with the page showing through.
-  const fitVV = () => { if (cmdkPanel) { cmdkPanel.style.height = ""; cmdkPanel.style.bottom = ""; } };
-  if (window.visualViewport) { window.visualViewport.addEventListener("resize", fitVV); window.visualViewport.addEventListener("scroll", fitVV); }
+  // padding-bottom), so every row clears the keyboard. Pinning it to
+  // visualViewport.height instead was fragile on iOS — the keyboard-shrunk panel
+  // left results stranded at the bottom with the page showing through.
   // Focus SYNCHRONOUSLY within the tap gesture so iOS Safari pops the keyboard
   // immediately (a setTimeout would escape the gesture and suppress it).
-  function open() { overlay.classList.add("open"); document.body.classList.add("cmdk-open"); input.value = ""; refresh(); syncClr(); input.focus({ preventScroll: true }); fitVV(); }
-  function close() { overlay.classList.remove("open"); document.body.classList.remove("cmdk-open"); if (cmdkPanel) { cmdkPanel.style.height = ""; cmdkPanel.style.bottom = ""; } }
+  function open() { overlay.classList.add("open"); document.body.classList.add("cmdk-open"); input.value = ""; refresh(); syncClr(); input.focus({ preventScroll: true }); }
+  function close() { overlay.classList.remove("open"); document.body.classList.remove("cmdk-open"); }
 
   const ocBtn = document.getElementById("open-cmdk");
   if (ocBtn) ocBtn.addEventListener("click", open);
