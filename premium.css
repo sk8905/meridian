@@ -378,12 +378,12 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   border: 0; border-top: 1px solid rgba(15,23,42,.12);
   -webkit-backdrop-filter: none; backdrop-filter: none;
   box-shadow: none;
-  /* Pin it to its OWN compositing layer so iOS Safari keeps it welded to the
-     bottom edge during momentum scroll instead of letting the fixed bar drift
-     up into the middle of the feed (the same translate3d/backface trick the
-     header + sticky bars already use). */
-  transform: translate3d(0, 0, 0);
-  -webkit-backface-visibility: hidden; backface-visibility: hidden;
+  /* NO transform here — and that is deliberate. A self-transform promotes the
+     bar to its own compositing layer, which modern iOS Safari repositions only
+     at scroll boundaries; during momentum that layer lags and the bar drifts up
+     into the middle of the feed. Plain position:fixed keeps it on Safari's
+     native viewport-locked path — exactly like .wire-head-fixed (top:0, no
+     transform), which stays glued. Do not re-add translate3d/backface here. */
 }
 @media (max-width: 760px) { .mobile-tabbar { display: grid; } }
 /* Tabs are <button>s (no anchors in the bar) — icon over label, UA button
