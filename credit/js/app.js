@@ -15,7 +15,7 @@ import {
 // app.js and the app fails to load (blank page). shared.js AND detail.js also
 // import ./data.js with this SAME token; keep all three identical or the browser
 // loads data.js twice as separate module instances.
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260721-2";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260721-3";
 // The view code splits across three modules with an ACYCLIC import graph —
 // app.js -> detail.js -> shared.js. shared.js holds the format/render helpers,
 // the watchlist/saved read layer, the paginated-feed + pending-focus machinery
