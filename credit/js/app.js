@@ -8,7 +8,7 @@ import {
   managers, funds, lps, intel, commitments, deals, research,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260721-2";
+} from "./data.js?v=20260721-3";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
@@ -634,6 +634,20 @@ function viewDashboard() {
     ["Managers", managers.length], ["AUM", fmtAum(Math.round(totalAum))],
     ["Funds", funds.length], ["In market", funds.filter(inMkt).length], ["CLO managers", cloMgrIds.size],
   ];
+  // SLS (Structured Liquidity Solutions) chips from each manager's sourced
+  // `structured` items (data.js). One chip per type present, fixed order; the
+  // tooltip carries every item's label, note and attribution. No sourced item
+  // → em-dash (a sparse column is correct — chips are never inferred here).
+  const SLS_ORDER = ["NAV", "SRT", "CFO", "CONT", "STR"];
+  const slsChips = (m) => {
+    const items = m.structured || [];
+    if (!items.length) return "—";
+    return SLS_ORDER.filter((t) => items.some((s) => s.type === t)).map((t) => {
+      const tip = items.filter((s) => s.type === t)
+        .map((s) => `${s.label} — ${s.note} (${s.outlet}, ${s.date})`).join(" · ");
+      return `<span class="sls-chip" title="${esc(tip)}">${t}</span>`;
+    }).join("");
+  };
   const mgrRow = (r) => `<tr class="clickable" data-href="#/manager/${r.m.id}" data-focus="${r.focus ? 1 : 0}" data-name="${esc((r.m.name + " " + (r.m.hq || "")).toLowerCase())}">`
     + `<td class="tl-nm">${esc(r.m.name)}</td>`
     + `<td class="tl-hq">${esc(r.m.hq || "")}</td>`
@@ -641,7 +655,8 @@ function viewDashboard() {
     + `<td class="tl-n">${r.m.aumCredit != null ? esc(fmtAum(r.m.aumCredit)) : "—"}</td>`
     + `<td class="tl-n">${r.nf}</td>`
     + `<td class="tl-n">${r.live || ""}</td>`
-    + `<td class="tl-cl">${cloMgrIds.has(r.m.id) ? "●" : ""}</td></tr>`;
+    + `<td class="tl-cl">${cloMgrIds.has(r.m.id) ? "●" : ""}</td>`
+    + `<td class="tl-sls">${slsChips(r.m)}</td></tr>`;
   app.innerHTML = `
     <div class="tdash">
       <div class="tdash-grid tdash-1">
@@ -665,10 +680,11 @@ function viewDashboard() {
               </header>
               <div class="tleague-wrap">
               <table class="tleague tleague-full">
-                <thead><tr><th>Manager</th><th class="tl-hq">HQ</th><th>AUM</th><th>Credit&nbsp;AUM</th><th>Funds</th><th>In&nbsp;mkt</th><th>CLOs</th></tr></thead>
+                <thead><tr><th>Manager</th><th class="tl-hq">HQ</th><th>AUM</th><th>Credit&nbsp;AUM</th><th>Funds</th><th>In&nbsp;mkt</th><th>CLOs</th><th class="tl-sls" title="Structured Liquidity Solutions">SLS</th></tr></thead>
                 <tbody id="mgr-rows">${mrows.map(mgrRow).join("")}</tbody>
               </table>
               </div>
+              <p class="tl-sls-key muted small">SLS = Structured Liquidity Solutions — NAV: NAV / fund-level financing · SRT: significant risk transfer · CFO: collateralised fund obligation · CONT: continuation fund / vehicle · STR: other structured liquidity (secondaries platform, fund finance). Every chip is backed by a cited article (hover for the source; the articles sit in that manager's news). — = none found in public coverage.</p>
             </div>
           </div>
         </section>

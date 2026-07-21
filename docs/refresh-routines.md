@@ -341,6 +341,24 @@ extra deep-research pass on watchlisted names is skipped.
 >      new announcements to that manager's `webNews` array ({date, outlet, title,
 >      url}), deduped against their existing `news` + `webNews`; prefer the
 >      manager's own press-release URL.
+>    - **SLS column (`structured` on managers) — PRESERVE and EXTEND.** The
+>      managers league table renders an **SLS** column ("Structured Liquidity
+>      Solutions") of chips — NAV / SRT / CFO / CONT / STR — from each manager's
+>      `structured: [{type, label, url, outlet, date, note}]` array. NEVER drop
+>      or rewrite existing `structured` entries in a refresh; they are curated,
+>      dated evidence (same standing as the maturity-wall figures). When new
+>      coverage lands on a manager's NAV financing, significant risk transfer,
+>      collateralised fund obligation, continuation fund/vehicle or GP-led /
+>      secondaries / fund-finance activity, APPEND a new `structured` item —
+>      type from that fixed vocab (STR = other structured liquidity), every
+>      claim verbatim from the cited article, `note` attributing the vehicle
+>      and the manager's role (fund-level vs manager-level; provider vs user
+>      vs investor) — and ALSO add the source article to that manager's
+>      `news`/`webNews` (deduped by URL, and mirrored into deals/intel per the
+>      rule above when it is a transaction). No source, no chip: a manager with
+>      no sourced item renders an em-dash, which is the correct outcome — never
+>      stretch weak or asset-level evidence (portfolio-company ABS, CLO
+>      issuance, a "CFO" job title) into an SLS chip.
 >    - **MIRROR webNews into deals/intel (critical).** A `webNews` entry shows ONLY
 >      in the notifications bell — it does NOT appear in the Deal Activity or
 >      Fundraising Intelligence feeds, the dashboard KPIs, or any tab/list (those
