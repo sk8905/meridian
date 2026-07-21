@@ -208,12 +208,13 @@ const naSec = (title, tag) => `<div class="na-sec"><span>${esc(title)}</span><sp
 // `cost` is the average price paid PER UNIT in GBP-major, the SAME unit
 // /api/markets returns (LSE lines are rescaled GBp→GBP there), so value/P&L
 // compare like-for-like. The tiny EMEE/WMVG costs are real: penny-priced lines
-// held in huge size.
+// held in huge size — and their live quote arrives UNSCALED (raw pence), so they
+// carry `pxScale: 0.01` to bring the price back to GBP-major before valuing.
 const PORTFOLIO = [
   { ticker: "IGWD", qty: 639, cost: 118.2118 },   // 476 @ £115.99 + 163 @ £124.70
   { ticker: "CNX1", qty: 1, cost: 1269.17 },
-  { ticker: "EMEE", qty: 303000, cost: 0.0596 },
-  { ticker: "WMVG", qty: 363600, cost: 0.0823 },
+  { ticker: "EMEE", qty: 303000, cost: 0.0596, pxScale: 0.01 },
+  { ticker: "WMVG", qty: 363600, cost: 0.0823, pxScale: 0.01 },
   { ticker: "COMM", qty: 1424, cost: 6.6794 },
   { ticker: "BTCGBP", label: "BTC", qty: 0.02204, cost: 64633.31 },
 ];
@@ -300,30 +301,31 @@ function pfMrow(label, valueStr, pct, dot) {
 }
 function portfolioPane(d) {
   const q = {}; (d.portfolio || []).forEach((x) => { q[x.label] = x; });
-  let tVal = 0, tCost = 0, tDay = 0, priced = 0;
-  for (const h of PORTFOLIO) {
+  // Value each holding (some LSE lines quote unscaled → pxScale brings them to £).
+  const rows = PORTFOLIO.map((h) => {
     const m = q[h.ticker];
-    if (m && m.value != null) {
-      tVal += m.value * h.qty; tCost += h.cost * h.qty; priced++;
-      if (m.change != null) tDay += m.change * h.qty;
-    }
-  }
+    const px = m && m.value != null ? m.value * (h.pxScale || 1) : null;
+    const val = px != null ? px * h.qty : null;
+    const costBasis = h.cost * h.qty;
+    const pnlPct = val != null && costBasis ? ((val - costBasis) / costBasis) * 100 : null;
+    const day = (m && m.change != null) ? m.change * (h.pxScale || 1) * h.qty : 0;
+    return { h, m, val, costBasis, pnlPct, day };
+  });
+  let tVal = 0, tCost = 0, tDay = 0, priced = 0;
+  for (const r of rows) { if (r.val != null) { tVal += r.val; tCost += r.costBasis; tDay += r.day; priced++; } }
   const tPnl = tVal - tCost;
   const tPnlPct = tCost ? (tPnl / tCost) * 100 : null;
   const priorVal = tVal - tDay;
   const tDayPct = priorVal ? (tDay / priorVal) * 100 : null;
+  // Holdings first, ordered by value (high → low; unpriced last); summary beneath.
+  const sorted = rows.slice().sort((a, b) => (b.val == null ? -1 : b.val) - (a.val == null ? -1 : a.val));
+  const holdings = naSec("Holdings", "value · return")
+    + sorted.map((r) => pfMrow(r.h.label || r.h.ticker, r.val != null ? fmtGBP(r.val) : "—", r.pnlPct, naDot(r.m))).join("");
   const summary = naSec("Portfolio", `${priced}/${PORTFOLIO.length} priced`)
     + pfMrow("Value", priced ? fmtGBP(tVal) : "—", null)
-    + pfMrow("Today", priced ? fmtGBP(tDay, true) : "—", tDayPct)
+    + pfMrow("Daily P&L", priced ? fmtGBP(tDay, true) : "—", tDayPct)
     + pfMrow("Total P&L", priced ? fmtGBP(tPnl, true) : "—", tPnlPct);
-  const rows = PORTFOLIO.map((h) => {
-    const m = q[h.ticker];
-    const val = m && m.value != null ? m.value * h.qty : null;
-    const costBasis = h.cost * h.qty;
-    const pnlPct = val != null && costBasis ? ((val - costBasis) / costBasis) * 100 : null;
-    return pfMrow(h.label || h.ticker, val != null ? fmtGBP(val) : "—", pnlPct, naDot(m));
-  }).join("");
-  return summary + naSec("Holdings", "value · return") + rows;
+  return holdings + summary;
 }
 
 // ---- Saved rows — shared news-feed row (headline, then code · date · source) --
