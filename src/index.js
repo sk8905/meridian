@@ -1284,6 +1284,13 @@ const FEED_SOURCES = [
   // (every item >6 days old, so all silently cut at the cutoff while still
   // burning two subrequest slots each run) — Dow Jones has deprecated them.
   { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Awsj.com%20when%3A5d", source: "The Wall Street Journal", region: "US", cap: 18, gnews: true, soft: true },
+  // WSJ via GDELT (open, datacenter-friendly, domain-scoped) — the working
+  // route while Google HARD-pins the site:wsj.com search (503s it run after
+  // run). Same bridge as TradingEconomics below; soft filter (lifestyle-only
+  // reject) matches the gnews WSJ source, and title-dedupe collapses any overlap
+  // if/when the Google bridge unsticks. GDELT items are sometimes undated — the
+  // first-seen stamping covers that.
+  { url: "https://api.gdeltproject.org/api/v2/doc/doc?query=domainis:wsj.com&mode=artlist&maxrecords=40&timespan=5d&format=rss", source: "The Wall Street Journal", region: "US", cap: 14, soft: true },
   // TradingEconomics — macro-data desk (GDP / CPI / rates / labour releases).
   // Bridged via Google News (their own RSS needs an API key). Inherently macro,
   // so filter:false (no strict title screen) and the client always labels it MAC.
@@ -1475,13 +1482,16 @@ function feedStagger() {
   return FEED_SOURCES.map((f) => {
     let h = "";
     try { h = new URL(f.url).hostname; } catch { return 0; }
-    const k = h === "news.google.com" ? h : (h.endsWith(".substack.com") ? "substack" : "");
+    const k = h === "news.google.com" ? h
+      : h === "api.gdeltproject.org" ? "gdelt"
+      : h.endsWith(".substack.com") ? "substack" : "";
     if (!k) return 0;
     const n = seen[k] || 0;
     seen[k] = n + 1;
     // Substack throttles harder than Google (still flapping 429s at 450ms
-    // spacing in live probes) — give its feeds double the gap.
-    return n * (k === "substack" ? 900 : 450);
+    // spacing) — double the gap. GDELT rate-limits by IP (429s two concurrent
+    // domain queries), so space its calls ~2s apart.
+    return n * (k === "substack" ? 900 : k === "gdelt" ? 2000 : 450);
   });
 }
 async function feedFetch(url, delayMs = 0, diag = null, budget = null) {
@@ -1507,8 +1517,13 @@ async function feedFetch(url, delayMs = 0, diag = null, budget = null) {
     // fresh wire AND the last-good cache. Give google.com a longer leash so more
     // of those fetches land; the assembled payload is cached 5 min, so an
     // occasional slow origin hit is cheap. Everyone else keeps the tight bound.
+    // news.google.com slow-walls datacenter IPs, and GDELT's doc API is simply a
+    // slow index (3-8s) — both timed out on the tight 4.5s abort, starving the
+    // fresh wire AND the last-good cache. Give those two a longer leash; the
+    // assembled payload is cached 5 min, so an occasional slow origin hit is
+    // cheap. Everyone else keeps the tight bound.
     let toMs = 4500;
-    try { if (new URL(url).hostname === "news.google.com") toMs = 9000; } catch { /* keep default */ }
+    try { const h = new URL(url).hostname; if (h === "news.google.com" || h === "api.gdeltproject.org") toMs = 9000; } catch { /* keep default */ }
     const r = await fetch(url, { headers: fetchHeaders(url), cf: { cacheTtl: 0 }, signal: AbortSignal.timeout(toMs) });
     if (diag) diag.status = r.status;
     if (r.ok) return await r.text();
@@ -1632,7 +1647,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=33", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=34", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const items = await feedAssemble(env, ctx);
