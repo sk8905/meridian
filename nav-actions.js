@@ -254,11 +254,13 @@ function fmtGBP(v, sign) {
 }
 
 let _mktLoaded = false;
-// Markets panel: Markets | Portfolio chip tabs over one shared fetch.
+// Markets panel: Markets | Macro | Portfolio chip tabs over one shared fetch.
+// Byte-identical on every page (Home included) — the shared dropdown.
 let _mktTab = "markets";
 function loadMarkets(body) {
   body.innerHTML = `<div class="na-chips">`
     + `<button type="button" class="na-chip" data-k="markets">Markets</button>`
+    + `<button type="button" class="na-chip" data-k="macro">Macro</button>`
     + `<button type="button" class="na-chip" data-k="portfolio">Portfolio</button>`
     + `</div><div class="na-tabbody"><div class="na-load">Loading…</div></div>`;
   const chips = body.querySelector(".na-chips");
@@ -267,7 +269,7 @@ function loadMarkets(body) {
   const render = () => {
     chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _mktTab));
     if (!data) { tb.innerHTML = '<div class="na-load">Loading…</div>'; return; }
-    tb.innerHTML = _mktTab === "portfolio" ? portfolioPane(data) : marketsPane(data);
+    tb.innerHTML = _mktTab === "portfolio" ? portfolioPane(data) : _mktTab === "macro" ? macroPane(data) : marketsPane(data);
   };
   chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c && c.dataset.k !== _mktTab) { _mktTab = c.dataset.k; render(); } });
   render();
@@ -280,10 +282,13 @@ function loadMarkets(body) {
   });
 }
 function marketsPane(d) {
-  if (!d.markets.length && !d.rates.length && !d.movers.length) return '<div class="na-load">Markets unavailable right now.</div>';
+  if (!d.markets.length && !d.movers.length) return '<div class="na-load">Markets unavailable right now.</div>';
   return (d.markets.length ? naSec("Markets", "live") + d.markets.map(marketRow).join("") : "")
-    + (d.rates.length ? naSec("Key rates & spreads", "bp · %") + d.rates.map(rateRow).join("") : "")
     + (d.movers.length ? naSec("Top movers", "1D") + d.movers.map(moverRow).join("") : "");
+}
+function macroPane(d) {
+  if (!d.rates.length) return '<div class="na-load">Key rates unavailable right now.</div>';
+  return naSec("Key rates & spreads", "bp · %") + d.rates.map(rateRow).join("");
 }
 // A markets-panel row (label · value · % change) — identical grammar to
 // marketRow, so the Portfolio tab reads exactly like the Markets tab.
