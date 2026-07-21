@@ -1324,7 +1324,10 @@ const FEED_SOURCES = [
   { url: "https://investorama.substack.com/feed", source: "Accredited Investor Insights", region: "GEN", cap: 4, filter: false, substack: true },
   { url: "https://mohamedelerian.substack.com/feed", source: "Mohamed El-Erian", region: "GEN", cap: 4, filter: false, substack: true },
   { url: "https://debtserious.substack.com/feed", source: "Debt Serious", region: "GEN", cap: 4, filter: false, substack: true },
-  { url: "https://sineados.substack.com/feed", source: "But This Time It's Different", region: "GEN", cap: 4, filter: false, substack: true },
+  // Moved to a custom domain (butthistime.com) — the old sineados.substack.com
+  // feed returns 200 with zero items. Substack serves the same RSS at /feed on
+  // custom domains.
+  { url: "https://www.butthistime.com/feed", source: "But This Time It's Different", region: "GEN", cap: 4, filter: false, substack: true },
 ];
 // STRICT macro filter — a title must touch one of: central-bank policy, a key
 // economic indicator, an index / rates / commodity / FX move, or major earnings.
@@ -1550,7 +1553,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=26", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=27", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const delays = feedStagger();
