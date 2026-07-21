@@ -1502,7 +1502,14 @@ async function feedFetch(url, delayMs = 0, diag = null, budget = null) {
     // bot-wall challenge page) for 5 minutes; the assembled payload has its own
     // 5-minute cache so origin hit-rates are identical, and symmetry with the
     // uncached debug=2 probe is worth more.
-    const r = await fetch(url, { headers: fetchHeaders(url), cf: { cacheTtl: 0 }, signal: AbortSignal.timeout(4500) });
+    // news.google.com slow-walls datacenter IPs — it answered fine intermittently
+    // but timed out on EVERY gnews source at the old 4.5s abort, starving both the
+    // fresh wire AND the last-good cache. Give google.com a longer leash so more
+    // of those fetches land; the assembled payload is cached 5 min, so an
+    // occasional slow origin hit is cheap. Everyone else keeps the tight bound.
+    let toMs = 4500;
+    try { if (new URL(url).hostname === "news.google.com") toMs = 9000; } catch { /* keep default */ }
+    const r = await fetch(url, { headers: fetchHeaders(url), cf: { cacheTtl: 0 }, signal: AbortSignal.timeout(toMs) });
     if (diag) diag.status = r.status;
     if (r.ok) return await r.text();
   } catch (e) { if (diag) diag.err = String((e && e.message) || e).slice(0, 80); }
@@ -1625,7 +1632,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=32", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=33", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const items = await feedAssemble(env, ctx);
@@ -1663,7 +1670,13 @@ async function feedAssemble(env, ctx, trace = null) {
   // reads/writes below.
   const budget = { left: 46 };
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f, i) => {
-    const key = "s" + i;
+    // Key the last-good cache by the STABLE source URL, never by array position.
+    // Position keys ("s"+i) silently corrupt the cache the moment a source is
+    // added or removed: every downstream index shifts, so a failing feed reuses
+    // a DIFFERENT feed's cached items (this is exactly how, after two WSJ direct
+    // feeds were removed, WSJ/TE gnews reused those feeds' stale >6-day items and
+    // vanished at the cutoff).
+    const key = f.url;
     const d = trace ? { source: f.source, url: f.url } : null;
     let txt = await feedFetch(f.url, delays[i], d, budget);
     // Stuck Google query → one locale-flipped variant (also budget-gated). The
@@ -1704,7 +1717,11 @@ async function feedAssemble(env, ctx, trace = null) {
     if (d) { d.capped = 0; trace.push(d); }
     return [];
   }));
-  // Persist the refreshed last-good map (updated keys + untouched older ones).
+  // Persist the refreshed last-good map. Prune anything not keyed by a CURRENT
+  // source URL — this drops the legacy "s"+i position keys and any removed
+  // source's entry, so the blob can't accumulate orphaned/mismatched caches.
+  const liveKeys = new Set(FEED_SOURCES.map((f) => f.url));
+  for (const k of Object.keys(lastGood)) if (!liveKeys.has(k)) delete lastGood[k];
   try { if (ctx && ctx.waitUntil) ctx.waitUntil(env.WATCHLIST.put("feed:lastgood", JSON.stringify(lastGood))); } catch { /* KV write best-effort */ }
   let all = [];
   for (const r of results) if (r.status === "fulfilled") all = all.concat(r.value);
