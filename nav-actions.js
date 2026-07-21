@@ -203,21 +203,20 @@ function naEtfDot(x) {
 }
 const naSec = (title, tag) => `<div class="na-sec"><span>${esc(title)}</span><span class="na-sec-x">${esc(tag)}</span></div>`;
 
-// The reader's ETF book. `costN` is the buy price in the instrument's NATIVE quote
-// unit (exactly as the broker shows it) and `unit` says what that is: "GBX" = LSE
-// pence, "GBP" = pounds. /api/markets returns LSE lines rescaled GBp→GBP (major),
-// so we convert native↔major with the 0.01 scale. ALL the iShares LSE lines quote
-// in pence — EMEE 5.96p and WMVG 8.23p included (penny-priced lines, big share
-// counts). BTC/GBP is priced in £. P&L is on the total open position.
+// The reader's ETF book, per ACCOUNT (AJ / FD / HL / RV) — a ticker can appear in
+// more than one account with its own avg cost (e.g. IGWD in AJ and FD). `cost` is
+// the average price paid PER UNIT in GBP-major, the SAME unit /api/markets returns
+// (LSE lines are rescaled GBp→GBP there), so value/P&L compare like-for-like. The
+// tiny EMEE/WMVG costs are real: those are penny-priced lines held in huge size.
 const PORTFOLIO = [
-  { name: "iShares Emerging Markets Equity Enhanced", ticker: "EMEE", venue: "LON", qty: 303000, costN: 5.96, unit: "GBX" },
-  { name: "iShares MSCI World GBP Hedged UCITS", ticker: "IGWD", venue: "LON", qty: 639, costN: 11818.0, unit: "GBX" },
-  { name: "iShares Diversified Commodity SWAP UCITS", ticker: "COMM", venue: "LON", qty: 1424, costN: 667.94, unit: "GBX" },
-  { name: "iShares Nasdaq 100 UCITS", ticker: "CNX1", venue: "LON", qty: 1, costN: 126917.0, unit: "GBX" },
-  { name: "iShares Edge MSCI World Min Volatility UCITS", ticker: "WMVG", venue: "LON", qty: 363600, costN: 8.23, unit: "GBX" },
-  { name: "BTC/GBP", ticker: "BTCGBP", venue: "Coinbase Pro", qty: 0.02, costN: 66075.30, unit: "GBP", note: "Leverage · 1:1" },
+  { ticker: "IGWD", acct: "AJ", qty: 476, cost: 115.99 },
+  { ticker: "IGWD", acct: "FD", qty: 163, cost: 124.70 },
+  { ticker: "CNX1", acct: "FD", qty: 1, cost: 1269.17 },
+  { ticker: "EMEE", acct: "HL", qty: 303000, cost: 0.0596 },
+  { ticker: "WMVG", acct: "HL", qty: 363600, cost: 0.0823 },
+  { ticker: "COMM", acct: "HL", qty: 1424, cost: 6.6794 },
+  { ticker: "BTCGBP", acct: "RV", label: "BTC", qty: 0.02204, cost: 64633.31 },
 ];
-const unitScale = (u) => (u === "GBX" ? 0.01 : 1);   // native → GBP-major
 // £ money: sign + thousands + 2dp under £100k, 0dp above (keeps totals compact).
 function fmtGBP(v, sign) {
   if (v == null || !isFinite(v)) return "—";
@@ -305,7 +304,7 @@ function portfolioPane(d) {
   for (const h of PORTFOLIO) {
     const m = q[h.ticker];
     if (m && m.value != null) {
-      tVal += m.value * h.qty; tCost += h.costN * unitScale(h.unit) * h.qty; priced++;
+      tVal += m.value * h.qty; tCost += h.cost * h.qty; priced++;
       if (m.change != null) tDay += m.change * h.qty;
     }
   }
@@ -320,9 +319,9 @@ function portfolioPane(d) {
   const rows = PORTFOLIO.map((h) => {
     const m = q[h.ticker];
     const val = m && m.value != null ? m.value * h.qty : null;
-    const costGBP = h.costN * unitScale(h.unit) * h.qty;
-    const pnlPct = val != null && costGBP ? ((val - costGBP) / costGBP) * 100 : null;
-    return pfMrow(h.name, val != null ? fmtGBP(val) : "—", pnlPct, naDot(m));
+    const costBasis = h.cost * h.qty;
+    const pnlPct = val != null && costBasis ? ((val - costBasis) / costBasis) * 100 : null;
+    return pfMrow(`${h.label || h.ticker} · ${h.acct}`, val != null ? fmtGBP(val) : "—", pnlPct, naDot(m));
   }).join("");
   return summary + naSec("Holdings", "value · return") + rows;
 }
