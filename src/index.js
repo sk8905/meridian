@@ -1277,16 +1277,12 @@ const FEED_SOURCES = [
   // lifestyle-only screen replaces the query scoping, so far more gets through.
   { url: "https://news.google.com/rss/search?q=site%3Aeconomist.com%20when%3A5d&hl=en-US&gl=US&ceid=US%3Aen", source: "The Economist", region: "GEN", cap: 10, gnews: true, soft: true },
   // Financial specialists — US
-  // WSJ: soft filter (lifestyle-only reject) + generous caps — the strict
-  // macro-keyword title filter dropped most of their markets/business run.
-  // The direct feeds.a.dj.com RSS DOES deliver from the Worker (live probe:
-  // 200s, ~40 items) but only carries the newest ~day; the site:wsj.com
-  // Google-News bridge adds the multi-day depth and covers direct outages.
-  // Both emit "The Wall Street Journal"; title-dedupe collapses the overlap.
-  { url: "https://feeds.a.dj.com/rss/RSSMarketsMain.xml", source: "The Wall Street Journal", region: "US", cap: 14, soft: true },
-  { url: "https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml", source: "The Wall Street Journal", region: "US", cap: 10, soft: true },
-  // 5-day window + a generous cap so the back-catalogue surfaces (the direct
-  // feeds only carry ~1-2 days); the 6-day feed cutoff still bounds it.
+  // WSJ via the site:wsj.com Google-News bridge — soft filter (lifestyle-only
+  // reject) + generous cap + 5-day window for multi-day depth; the 6-day feed
+  // cutoff still bounds it. The two direct feeds.a.dj.com/rss feeds were
+  // REMOVED: the debug=2 assembly showed them serving a FROZEN back-catalogue
+  // (every item >6 days old, so all silently cut at the cutoff while still
+  // burning two subrequest slots each run) — Dow Jones has deprecated them.
   { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Awsj.com%20when%3A5d", source: "The Wall Street Journal", region: "US", cap: 18, gnews: true, soft: true },
   // TradingEconomics — macro-data desk (GDP / CPI / rates / labour releases).
   // Bridged via Google News (their own RSS needs an API key). Inherently macro,
@@ -1488,25 +1484,28 @@ function feedStagger() {
     return n * (k === "substack" ? 900 : 450);
   });
 }
-async function feedFetch(url, delayMs = 0, diag = null) {
+async function feedFetch(url, delayMs = 0, diag = null, budget = null) {
   if (delayMs) await feedSleep(delayMs);
-  for (let i = 0; i < 2; i++) {
-    try {
-      // Bound each feed so one slow host can't stall the combined response.
-      // cacheTtl 0 — NOT 300: the debug probe fetches uncached and the live
-      // probe showed WSJ healthy (51 dated items) while the cached assembly
-      // path carried ZERO, i.e. the edge cache can pin a stale/poisoned body
-      // (bot-wall challenge page) for 5 minutes. The intermediate cache buys
-      // nothing anyway — the assembled payload has its own 5-minute cache, so
-      // origin hit-rates are identical; symmetry with the probe is worth more.
-      const r = await fetch(url, { headers: fetchHeaders(url), cf: { cacheTtl: 0 }, signal: AbortSignal.timeout(4500) });
-      if (diag) diag.status = r.status;
-      if (r.ok) return await r.text();
-      // Rate-limited (Google News 503 / Substack 429): pause before the retry —
-      // an immediate re-hit lands inside the same throttle window and fails too.
-      if (i === 0 && (r.status === 429 || r.status === 503)) await feedSleep(700);
-    } catch (e) { if (diag) diag.err = String((e && e.message) || e).slice(0, 80); }
-  }
+  // Subrequest budget. Cloudflare caps total subrequests per invocation (~50).
+  // The old per-source retry DOUBLED every rate-limited fetch, so with ~34
+  // sources a burst of 429/503s blew the ceiling — and whichever feeds fetch
+  // LAST were the ones starved with "Too many subrequests", which feedStagger
+  // reliably makes the google.com queries (WSJ & TradingEconomics). So: exactly
+  // ONE attempt per URL, hard-capped by a shared budget. A stuck gnews query
+  // gets its second chance from the locale variant in feedAssemble (a DIFFERENT
+  // URL, still budget-gated), not from a same-window retry that the live probes
+  // showed just lands in the same throttle and fails anyway.
+  if (budget) { if (budget.left <= 0) { if (diag && !diag.err) diag.err = "subrequest-budget"; return null; } budget.left--; }
+  try {
+    // Bound each feed so one slow host can't stall the combined response.
+    // cacheTtl 0 — NOT 300: the edge cache can pin a stale/poisoned body (a
+    // bot-wall challenge page) for 5 minutes; the assembled payload has its own
+    // 5-minute cache so origin hit-rates are identical, and symmetry with the
+    // uncached debug=2 probe is worth more.
+    const r = await fetch(url, { headers: fetchHeaders(url), cf: { cacheTtl: 0 }, signal: AbortSignal.timeout(4500) });
+    if (diag) diag.status = r.status;
+    if (r.ok) return await r.text();
+  } catch (e) { if (diag) diag.err = String((e && e.message) || e).slice(0, 80); }
   return null;
 }
 // Google News pins 503s to SPECIFIC query strings from datacenter IPs (live
@@ -1626,7 +1625,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=31", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=32", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const items = await feedAssemble(env, ctx);
@@ -1657,13 +1656,20 @@ async function feedAssemble(env, ctx, trace = null) {
   const LASTGOOD_MAX = 24 * 3600e3;
   const serWhen = (x) => ({ title: x.title, url: x.url, source: x.source, region: x.region, myft: x.myft, substack: x.substack, when: x.when ? x.when.toISOString() : null });
   const deWhen = (x) => ({ ...x, when: x.when ? new Date(x.when) : null });
+  // ONE subrequest budget shared across every source (Cloudflare caps total
+  // subrequests per invocation at ~50). Without it, a 429/503 retry burst blew
+  // the ceiling and starved whichever feeds fetched last — the staggered
+  // google.com WSJ / TradingEconomics queries. Leave headroom for the KV
+  // reads/writes below.
+  const budget = { left: 46 };
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f, i) => {
     const key = "s" + i;
     const d = trace ? { source: f.source, url: f.url } : null;
-    let txt = await feedFetch(f.url, delays[i], d);
-    // Stuck Google query → one locale-flipped variant, then the Bing mirror.
-    if (!txt && f.gnews) { txt = await feedFetch(gnewsVariant(f.url), 300, d); if (txt && d) d.via = "variant"; }
-    if (!txt && f.gnews) { const b = bingMirror(f.url); if (b) { txt = await feedFetch(b, 200, d); if (txt && d) d.via = "bing"; } }
+    let txt = await feedFetch(f.url, delays[i], d, budget);
+    // Stuck Google query → one locale-flipped variant (also budget-gated). The
+    // Bing mirror was removed: live probes showed it returns empty for these
+    // site: queries, and the per-source last-good cache now covers persistence.
+    if (!txt && f.gnews) { txt = await feedFetch(gnewsVariant(f.url), 300, d, budget); if (txt && d) d.via = "variant"; }
     if (d) d.bytes = txt ? txt.length : 0;
     let items = [];
     if (txt) {
