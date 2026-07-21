@@ -1269,22 +1269,20 @@ const FEED_SOURCES = [
   { url: "https://feeds.bloomberg.com/markets/news.rss", source: "Bloomberg", region: "GEN", cap: 8, soft: true },
   { url: "https://feeds.bloomberg.com/business/news.rss", source: "Bloomberg", region: "GEN", cap: 6, soft: true },
   { url: "https://feeds.bloomberg.com/economics/news.rss", source: "Bloomberg", region: "GEN", cap: 6, soft: true },
-  // FT Alphaville & The Economist via Google News — reliably fetchable even when the
-  // publishers' own RSS is paywalled/IP-blocked from the Worker. Query already scopes
-  // to macro/finance, so no extra title filter.
-  { url: "https://news.google.com/rss/search?q=site%3Aft.com%2Falphaville%20when%3A7d&hl=en-GB&gl=GB&ceid=GB%3Aen", source: "FT Alphaville", region: "GEN", cap: 5, gnews: true, filter: false },
+  // (FT Alphaville's Google-News bridge removed: path-scoped site: queries
+  // return zero items from Google News — confirmed by the live probe — so it
+  // was pure dead weight against the news.google.com rate limit. The direct
+  // ft.com/alphaville RSS below carries the column.)
   // The Economist via Google News: UNscoped (was keyword-limited) — the soft
   // lifestyle-only screen replaces the query scoping, so far more gets through.
   { url: "https://news.google.com/rss/search?q=site%3Aeconomist.com%20when%3A5d&hl=en-US&gl=US&ceid=US%3Aen", source: "The Economist", region: "GEN", cap: 10, gnews: true, soft: true },
   // Financial specialists — US
   // WSJ: soft filter (lifestyle-only reject) + generous caps — the strict
   // macro-keyword title filter dropped most of their markets/business run.
-  // The direct feeds.a.dj.com RSS is frequently 403'd / empty from the Worker's
-  // datacenter IPs (the same reason Reuters & Bloomberg are bridged via Google
-  // News), so pair them with a site:wsj.com Google-News bridge. Both emit "The
-  // Wall Street Journal"; title-dedupe collapses the overlap and PREFERS the
-  // direct wsj.com link (it sorts first when both carry the same headline), with
-  // the gnews copy — a news.google.com redirect — filling in when direct fails.
+  // The direct feeds.a.dj.com RSS DOES deliver from the Worker (live probe:
+  // 200s, ~40 items) but only carries the newest ~day; the site:wsj.com
+  // Google-News bridge adds the multi-day depth and covers direct outages.
+  // Both emit "The Wall Street Journal"; title-dedupe collapses the overlap.
   { url: "https://feeds.a.dj.com/rss/RSSMarketsMain.xml", source: "The Wall Street Journal", region: "US", cap: 14, soft: true },
   { url: "https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml", source: "The Wall Street Journal", region: "US", cap: 10, soft: true },
   // 5-day window + a generous cap so the back-catalogue surfaces (the direct
@@ -1456,12 +1454,34 @@ function feedParse(xml, feed) {
   }
   return out;
 }
-async function feedFetch(url) {
+const feedSleep = (ms) => new Promise((res) => setTimeout(res, ms));
+// Same-host burst control. The live probe showed news.google.com answering 503
+// and substack.com 429 when all their queries fire in ONE parallel burst from
+// the same edge IP — rate limiting, not blocking (siblings in the same burst
+// got 200s). Space out the fetch STARTS for those two hosts (every other host
+// stays fully parallel); returns a per-source delay array aligned to FEED_SOURCES.
+function feedStagger() {
+  const seen = {};
+  return FEED_SOURCES.map((f) => {
+    let h = "";
+    try { h = new URL(f.url).hostname; } catch { return 0; }
+    const k = h === "news.google.com" ? h : (h.endsWith(".substack.com") ? "substack" : "");
+    if (!k) return 0;
+    const n = seen[k] || 0;
+    seen[k] = n + 1;
+    return n * 450;
+  });
+}
+async function feedFetch(url, delayMs = 0) {
+  if (delayMs) await feedSleep(delayMs);
   for (let i = 0; i < 2; i++) {
     try {
       // Bound each feed so one slow host can't stall the combined response.
       const r = await fetch(url, { headers: fetchHeaders(url), cf: { cacheTtl: 300 }, signal: AbortSignal.timeout(4500) });
       if (r.ok) return await r.text();
+      // Rate-limited (Google News 503 / Substack 429): pause before the retry —
+      // an immediate re-hit lands inside the same throttle window and fails too.
+      if (i === 0 && (r.status === 429 || r.status === 503)) await feedSleep(700);
     } catch { /* timed out / errored — retry once, then skip */ }
   }
   return null;
@@ -1484,9 +1504,17 @@ async function handleFeed(request, env, ctx) {
   const url = new URL(request.url);
   // /api/feed?debug=1 — probe every source and report ok/status/item counts.
   if (url.searchParams.get("debug") === "1") {
-    const probes = await Promise.all(FEED_SOURCES.map(async (f) => {
+    const dbgDelays = feedStagger();
+    const probes = await Promise.all(FEED_SOURCES.map(async (f, i) => {
       try {
-        const r = await fetch(f.url, { headers: fetchHeaders(f.url), cf: { cacheTtl: 0 } });
+        if (dbgDelays[i]) await feedSleep(dbgDelays[i]);
+        let r = await fetch(f.url, { headers: fetchHeaders(f.url), cf: { cacheTtl: 0 } });
+        // Mirror feedFetch's rate-limit retry so the probe reports what the
+        // real assembly would actually get, not the first throttled answer.
+        if (r.status === 429 || r.status === 503) {
+          await feedSleep(700);
+          r = await fetch(f.url, { headers: fetchHeaders(f.url), cf: { cacheTtl: 0 } });
+        }
         const txt = r.ok ? await r.text() : "";
         const parsed = txt ? feedParse(txt, f).filter((x) => !feedReject(x.title)) : [];
         const kept = f.soft ? parsed.filter((x) => !FEED_LIFESTYLE_RE.test(x.title) || FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title))
@@ -1501,11 +1529,12 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=24", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=25", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
-  const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {
-    const txt = await feedFetch(f.url);
+  const delays = feedStagger();
+  const results = await Promise.allSettled(FEED_SOURCES.map(async (f, i) => {
+    const txt = await feedFetch(f.url, delays[i]);
     if (!txt) return [];
     let items = feedParse(txt, f).filter((x) => !feedReject(x.title));
     // Reader-curated feeds (myFT, Bloomberg official wires): everything passes
