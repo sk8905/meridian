@@ -370,6 +370,8 @@
 .tdash > .breadcrumb { flex: 0 0 auto; margin: 0; padding: 6px 16px; height: auto; background: var(--head); border-bottom: 1px solid var(--border); font-size: 11px; font-family: var(--t-mono); color: var(--muted); display: flex; align-items: center; gap: 7px; }
 .tdash > .breadcrumb a { color: var(--muted); } .tdash > .breadcrumb a:hover { color: var(--ink); }
 .tdash > .breadcrumb .sep { color: var(--faint); }
+.tdash > .breadcrumb .crumb-back { display: inline-flex; align-items: center; gap: 2px; margin-right: 4px; padding: 2px 9px 3px; border: 1px solid var(--border, #e4e7ef); border-radius: 5px; background: var(--bg, #fff); color: var(--ink) !important; font-weight: 600; text-decoration: none; line-height: 1.3; }
+.tdash > .breadcrumb .crumb-back:hover { background: var(--accent, #fb8b1e); border-color: var(--accent, #fb8b1e); color: #fff !important; }
 /* identity header — the record, centre-stage, above its activity wire */
 .tdet-id { padding: 13px 16px; background: var(--head, #f4f7fb); border-bottom: 1px solid var(--border, #e4e7ef); flex: 0 0 auto; }
 .tdet-id h1 { margin: 0 0 3px; font-size: 1.12rem; font-weight: 700; letter-spacing: -.01em; color: var(--ink); line-height: 1.2; }

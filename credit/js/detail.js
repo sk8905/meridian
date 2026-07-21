@@ -41,7 +41,12 @@ function railPanel(title, meta, body) {
 }
 
 function breadcrumb(parts) {
-  return `<nav class="breadcrumb">${parts.map(([href, label], i) =>
+  // Explicit Back button → the immediate parent list (the last crumb that still
+  // carries a link; the current page is the trailing null-href crumb). For a
+  // manager profile that's the Managers list, which is what the reader wants.
+  const parent = parts.filter((p) => p[0]).pop();
+  const back = parent ? `<a class="crumb-back" href="${esc(parent[0])}" aria-label="Back to ${esc(parent[1])}">‹ Back</a>` : "";
+  return `<nav class="breadcrumb">${back}${parts.map(([href, label], i) =>
     (href ? link(href, label) : `<span>${esc(label)}</span>`) + (i < parts.length - 1 ? '<span class="sep">/</span>' : "")
   ).join("")}</nav>`;
 }

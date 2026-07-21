@@ -30,7 +30,7 @@ import {
   PAGE, pageShown, pageCount, pageReset, loadMoreBtn, feedHtml, feedFlat,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
 } from "./shared.js?v=20260720-4";
-import { viewFund, viewManager, viewClo, viewLp } from "./detail.js?v=20260720-5";
+import { viewFund, viewManager, viewClo, viewLp } from "./detail.js?v=20260721-1";
 // The shared news-wire engine — the Home feed's row / day-header / source-filter
 // markup, so the Credit dashboard wire is the same build as Home's.
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260721-9";
