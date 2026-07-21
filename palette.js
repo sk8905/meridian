@@ -166,7 +166,7 @@ const STYLE = `
   .mcmdk-mag{display:block;flex:0 0 auto;width:18px;height:18px;color:var(--faint,#5c6a86)}
   .mcmdk .mcmdk-input{border:0 !important;border-bottom:0 !important;padding:.5rem .1rem;font-size:16px}
   .mcmdk-cancel{display:block;flex:0 0 auto;border:0;background:transparent;color:var(--accent,#fb8b1e);font:inherit;font-size:14px;font-weight:600;padding:.4rem .35rem;cursor:pointer;white-space:nowrap}
-  .mcmdk-results{flex:1 1 auto;max-height:none;padding:0}
+  .mcmdk-results{flex:1 1 auto;max-height:none;padding:0 0 48vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
   .mcmdk-row{padding:9px 14px}
   .mcmdk-t{font-size:13px}.mcmdk-s{font-size:12px}
   .mcmdk-empty{padding:1.4rem}
@@ -243,11 +243,13 @@ export function mountPalette() {
   // results stay fully above the keyboard and scroll), instead of the panel
   // running its bottom rows behind the keyboard.
   const panel = ov.querySelector(".mcmdk-panel");
-  const fitVV = () => {
-    if (!ov.classList.contains("open") || !matchMedia("(max-width:760px)").matches) { panel.style.height = ""; panel.style.bottom = ""; return; }
-    const vv = window.visualViewport;
-    if (vv) { panel.style.bottom = "auto"; panel.style.height = Math.round(vv.height) + "px"; }
-  };
+  // The panel stays FULL-SCREEN (top:0 → bottom:0) and the results scroll.
+  // Pinning it to visualViewport.height was fragile on iOS: with the keyboard up,
+  // the fixed panel + viewport offset left the results stranded near the bottom
+  // and the page showed through the uncovered strip. Instead the panel always
+  // covers the screen (no show-through) and a generous results padding-bottom
+  // (CSS) keeps every row scrollable up above the keyboard.
+  const fitVV = () => { panel.style.height = ""; panel.style.bottom = ""; };
   if (window.visualViewport) { window.visualViewport.addEventListener("resize", fitVV); window.visualViewport.addEventListener("scroll", fitVV); }
   const open = () => { ov.classList.add("open"); document.body.classList.add("mcmdk-open"); input.value = ""; refresh(); syncClr(); input.focus({ preventScroll: true }); fitVV(); };
   const close = () => { ov.classList.remove("open"); document.body.classList.remove("mcmdk-open"); panel.style.height = ""; panel.style.bottom = ""; };

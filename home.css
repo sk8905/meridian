@@ -732,7 +732,7 @@
       .cmdk-cancel { display:block; flex:0 0 auto; border:0; background:transparent;
         color:var(--t-accent, #fb8b1e); font:inherit; font-size:14px; font-weight:600;
         padding:.4rem .35rem; cursor:pointer; white-space:nowrap; }
-      .cmdk-results { flex:1 1 auto; max-height:none; padding:0; overflow-y:auto; overscroll-behavior:contain; }
+      .cmdk-results { flex:1 1 auto; max-height:none; padding:0 0 48vh; overflow-y:auto; overscroll-behavior:contain; -webkit-overflow-scrolling:touch; }
       .cmdk-row { border-bottom:1px solid var(--t-grid2, #262626); border-radius:0; padding:9px 14px; }
       .cmdk-row.sel, .cmdk-row:hover { background:var(--t-panel2, rgba(255,255,255,.05)); }
       .cmdk-t { font-size:14px; color:var(--t-ink, #eaf0fb); }

@@ -161,7 +161,7 @@ export function initGlance() {
   initJumpNav();
   wirePalette(buildIndex());
   startLiveRefresh();
-  import("/ptr.js?v=20260721-3").then((m) => m.initPullToRefresh()).catch(() => {});
+  import("/ptr.js?v=20260721-1").then((m) => m.initPullToRefresh()).catch(() => {});
 }
 
 // ---- Unified Saved -----------------------------------------------------------
@@ -1615,12 +1615,10 @@ function wirePalette(idx) {
   // the results stay fully above the keyboard (and scroll), rather than the panel
   // running its bottom rows behind it.
   const cmdkPanel = overlay.querySelector(".cmdk-panel");
-  const fitVV = () => {
-    if (!cmdkPanel) return;
-    if (!overlay.classList.contains("open") || !matchMedia("(max-width:760px)").matches) { cmdkPanel.style.height = ""; cmdkPanel.style.bottom = ""; return; }
-    const vv = window.visualViewport;
-    if (vv) { cmdkPanel.style.bottom = "auto"; cmdkPanel.style.height = Math.round(vv.height) + "px"; }
-  };
+  // Panel stays FULL-SCREEN and the results scroll (with a generous CSS
+  // padding-bottom) — pinning it to visualViewport.height was fragile on iOS,
+  // leaving the results stranded at the bottom with the page showing through.
+  const fitVV = () => { if (cmdkPanel) { cmdkPanel.style.height = ""; cmdkPanel.style.bottom = ""; } };
   if (window.visualViewport) { window.visualViewport.addEventListener("resize", fitVV); window.visualViewport.addEventListener("scroll", fitVV); }
   // Focus SYNCHRONOUSLY within the tap gesture so iOS Safari pops the keyboard
   // immediately (a setTimeout would escape the gesture and suppress it).
