@@ -203,19 +203,19 @@ function naEtfDot(x) {
 }
 const naSec = (title, tag) => `<div class="na-sec"><span>${esc(title)}</span><span class="na-sec-x">${esc(tag)}</span></div>`;
 
-// The reader's ETF book, per ACCOUNT (AJ / FD / HL / RV) — a ticker can appear in
-// more than one account with its own avg cost (e.g. IGWD in AJ and FD). `cost` is
-// the average price paid PER UNIT in GBP-major, the SAME unit /api/markets returns
-// (LSE lines are rescaled GBp→GBP there), so value/P&L compare like-for-like. The
-// tiny EMEE/WMVG costs are real: those are penny-priced lines held in huge size.
+// The reader's ETF book, aggregated per ticker (accounts ignored — IGWD's two
+// accounts fold into one line at their unit-weighted average cost, 639 units).
+// `cost` is the average price paid PER UNIT in GBP-major, the SAME unit
+// /api/markets returns (LSE lines are rescaled GBp→GBP there), so value/P&L
+// compare like-for-like. The tiny EMEE/WMVG costs are real: penny-priced lines
+// held in huge size.
 const PORTFOLIO = [
-  { ticker: "IGWD", acct: "AJ", qty: 476, cost: 115.99 },
-  { ticker: "IGWD", acct: "FD", qty: 163, cost: 124.70 },
-  { ticker: "CNX1", acct: "FD", qty: 1, cost: 1269.17 },
-  { ticker: "EMEE", acct: "HL", qty: 303000, cost: 0.0596 },
-  { ticker: "WMVG", acct: "HL", qty: 363600, cost: 0.0823 },
-  { ticker: "COMM", acct: "HL", qty: 1424, cost: 6.6794 },
-  { ticker: "BTCGBP", acct: "RV", label: "BTC", qty: 0.02204, cost: 64633.31 },
+  { ticker: "IGWD", qty: 639, cost: 118.2118 },   // 476 @ £115.99 + 163 @ £124.70
+  { ticker: "CNX1", qty: 1, cost: 1269.17 },
+  { ticker: "EMEE", qty: 303000, cost: 0.0596 },
+  { ticker: "WMVG", qty: 363600, cost: 0.0823 },
+  { ticker: "COMM", qty: 1424, cost: 6.6794 },
+  { ticker: "BTCGBP", label: "BTC", qty: 0.02204, cost: 64633.31 },
 ];
 // £ money: sign + thousands + 2dp under £100k, 0dp above (keeps totals compact).
 function fmtGBP(v, sign) {
@@ -321,7 +321,7 @@ function portfolioPane(d) {
     const val = m && m.value != null ? m.value * h.qty : null;
     const costBasis = h.cost * h.qty;
     const pnlPct = val != null && costBasis ? ((val - costBasis) / costBasis) * 100 : null;
-    return pfMrow(`${h.label || h.ticker} · ${h.acct}`, val != null ? fmtGBP(val) : "—", pnlPct, naDot(m));
+    return pfMrow(h.label || h.ticker, val != null ? fmtGBP(val) : "—", pnlPct, naDot(m));
   }).join("");
   return summary + naSec("Holdings", "value · return") + rows;
 }
