@@ -89,6 +89,22 @@ function recentNotif(list) {
   const cutoff = Math.max(...times) - NOTIF_WINDOW_DAYS * 864e5;
   return list.filter((x) => { const t = notifTime(x.date); return t != null && t >= cutoff; });
 }
+// Collapse the SAME story arriving from more than one source. The refresh
+// routine deliberately MIRRORS a manager's webNews into deals/intel, and a
+// headline naming two firms ("X and Y partner…") can also sit in BOTH managers'
+// webNews — so an identical headline enters the list two+ times with different
+// ids (d:/i:/w:), which nothing else dedups. Key by normalized title, keeping
+// the first (deals/intel precede webNews in the build order, so the canonical
+// transaction record wins the internal link).
+function dedupNotif(list) {
+  const seen = new Set();
+  return list.filter((x) => {
+    const k = String(x.title || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
+    if (!k || seen.has(k)) return false;
+    seen.add(k);
+    return true;
+  });
+}
 
 // The bell is deliberately LIMITED to the deal-flow desks: manager news, deals,
 // fundraising & CLOs (Credit — CLO pricings live in `deals`) and legal alerts,
@@ -99,14 +115,14 @@ function creditNotif() {
   deals.forEach((d) => out.push({ desk: "c", id: "d:" + d.id, date: d.date || "", title: d.headline, source: creditSource(d), href: creditItemHref(d), ext: creditItemExt(d) }));
   intel.forEach((i) => out.push({ desk: "c", id: "i:" + i.id, date: i.date || "", title: i.headline, source: creditSource(i), href: creditItemHref(i), ext: creditItemExt(i) }));
   managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ desk: "c", id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", title: w.title, source: w.outlet || m.name || "", href: "/credit/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey(w)), ext: false })));
-  return recentNotif(out);
+  return recentNotif(dedupNotif(out));
 }
 function legalNotif() {
   const out = [];
   items.forEach((it) => out.push({ desk: "l", id: "u:" + it.id, date: it.date || "", title: it.title, source: firmName(it.firm), href: it.url || "/legal/#/item/" + encodeURIComponent(it.id), ext: !!it.url }));
   cases.forEach((c) => out.push({ desk: "l", id: "c:" + c.id, date: c.date || "", title: c.name, source: c.url ? judgmentSource(c.url) : (c.citation || "Case"), href: c.url || "/legal/#/", ext: !!c.url }));
   restructurings.forEach((r) => { const u = r.judgmentUrl || r.articleUrl; out.push({ desk: "l", id: "x:" + r.id, date: r.date || "", title: r.company, source: r.firm ? firmName(r.firm) : (r.judgmentUrl ? judgmentSource(r.judgmentUrl) : (r.type === "scheme" ? "Scheme" : "Restructuring plan")), href: u || "/legal/#/", ext: !!u }); });
-  return recentNotif(out);
+  return recentNotif(dedupNotif(out));
 }
 export async function buildNotifs() {
   return [...creditNotif(), ...legalNotif()].sort(byDateDesc);
@@ -155,7 +171,7 @@ export function resolveWatchlistNews() {
     items.forEach((i) => { if (fset.has(i.firm)) out.push({ desk: "l", title: i.title, href: i.url || "/legal/#/item/" + encodeURIComponent(i.id), ext: !!i.url, date: i.date, time: i.time, src: (_firmById.get(i.firm) || {}).name || "" }); });
     restructurings.forEach((r) => { if (fset.has(r.firm)) out.push({ desk: "l", title: r.company, href: r.judgmentUrl || r.articleUrl || "/legal/#/", ext: !!(r.judgmentUrl || r.articleUrl), date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
   }
-  return out
+  return dedupNotif(out)
     .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")) || String(b.time || "").localeCompare(String(a.time || "")))
     .slice(0, 80);
 }
