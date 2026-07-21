@@ -226,11 +226,6 @@ function fmtGBP(v, sign) {
   const pre = sign && v > 0 ? "+£" : v < 0 ? "−£" : "£";
   return pre + s;
 }
-// Native price display, matching the broker: ≥1000 → thousands + 1dp, else 2dp.
-const fmtNative = (v) => (v == null || !isFinite(v)) ? "—"
-  : (Math.abs(v) >= 1000 ? v.toLocaleString(undefined, { minimumFractionDigits: 1, maximumFractionDigits: 1 }) : v.toFixed(2));
-// Compact share count: 303000 → "303K", 363600 → "363.6K", small counts verbatim.
-const fmtQty = (q) => q >= 1000 ? (q % 1000 === 0 ? q / 1000 + "K" : (q / 1000).toFixed(1) + "K") : String(q);
 
 let _mktLoaded = false;
 // Markets panel: Markets | Macro | Portfolio chip tabs over one shared fetch.
@@ -260,54 +255,49 @@ function loadMarkets(body) {
     render();
   });
 }
-// Rich card — stacked label · value · change, the same visual language as the
-// Home data rails (.rate-tile), laid out as a band in the dropdown. Caller passes
-// the already-formatted change text and its direction class.
-const naDir = (c) => c == null ? "flat" : c > 0 ? "up" : c < 0 ? "down" : "flat";
-const naPctTxt = (c) => c == null ? "" : (c > 0 ? "+" : c < 0 ? "−" : "") + Math.abs(c).toFixed(2) + "%";
-function naTile(label, valueStr, chgText, dir) {
-  return `<div class="rate-tile"><span class="rate-label">${label}</span>`
-    + `<span class="rate-val">${valueStr}</span>`
-    + `<span class="rate-chg ${dir || "flat"}">${chgText || ""}</span></div>`;
+function marketRow(x) {
+  const c = typeof x.changePct === "number" && isFinite(x.changePct) ? x.changePct : null;
+  const dir = c == null ? "flat" : c > 0 ? "up" : c < 0 ? "down" : "flat";
+  const arw = c == null ? "·" : c > 0 ? "▲" : c < 0 ? "▼" : "·";
+  return `<div class="na-mrow"><span class="na-l">${esc(x.label)}${naDot(x)}</span><span class="na-v">${x.value != null ? fmtNum(x.value) : "—"}</span><span class="na-c ${dir}">${c == null ? "" : arw + " " + Math.abs(c).toFixed(2) + "%"}</span></div>`;
 }
-const band = (tiles) => `<div class="rates-band na-band">${tiles.join("")}</div>`;
+function rateRow(x) {
+  const bp = x.unit === "bp";
+  const c = x.change == null ? null : (bp ? Math.round(x.change * 100) : +Number(x.change).toFixed(2));
+  const dir = c == null ? "flat" : c > 0 ? "up" : c < 0 ? "down" : "flat";
+  const arw = c == null ? "·" : c > 0 ? "▲" : c < 0 ? "▼" : "·";
+  const mag = c == null ? "" : (bp ? Math.abs(c) + " bp" : Math.abs(c).toFixed(2));
+  return `<div class="na-mrow"><span class="na-l">${esc(x.label)}</span><span class="na-v">${x.value != null ? fmtRateVal(x.value, x.unit) : "—"}</span><span class="na-c ${dir}">${arw} ${mag}</span></div>`;
+}
+function moverRow(x) {
+  const c = typeof x.changePct === "number" && isFinite(x.changePct) ? x.changePct : null;
+  const dir = c == null ? "flat" : c > 0 ? "up" : c < 0 ? "down" : "flat";
+  const pct = c == null ? "" : (c > 0 ? "+" : "") + c.toFixed(2) + "%";
+  const w = c == null ? 0 : Math.max(3, Math.min(50, Math.abs(c) * 15));
+  const inner = `<span class="na-l">${esc(x.label)}${naEtfDot(x)}</span>`
+    + `<span class="na-bar"><span class="na-bar-f ${dir}" style="width:${w}%"></span></span>`
+    + `<span class="na-c ${dir}">${pct}</span>`;
+  return x.href
+    ? `<a class="na-mrow na-mover" href="${esc(x.href)}" target="_blank" rel="noopener noreferrer">${inner}</a>`
+    : `<div class="na-mrow na-mover">${inner}</div>`;
+}
 function marketsPane(d) {
   if (!d.markets.length && !d.movers.length) return '<div class="na-load">Markets unavailable right now.</div>';
-  const tile = (x, dot) => { const c = typeof x.changePct === "number" && isFinite(x.changePct) ? x.changePct : null; return naTile(esc(x.label) + dot, x.value != null ? fmtNum(x.value) : "—", naPctTxt(c), naDir(c)); };
-  const mkt = d.markets.map((x) => tile(x, naDot(x)));
-  const mov = d.movers.map((x) => tile(x, naEtfDot(x)));
-  return (mkt.length ? naSec("Markets", "live") + band(mkt) : "")
-    + (mov.length ? naSec("Top movers", "1D") + band(mov) : "");
+  return (d.markets.length ? naSec("Markets", "live") + d.markets.map(marketRow).join("") : "")
+    + (d.movers.length ? naSec("Top movers", "1D") + d.movers.map(moverRow).join("") : "");
 }
 function macroPane(d) {
   if (!d.rates.length) return '<div class="na-load">Key rates unavailable right now.</div>';
-  const tiles = d.rates.map((x) => {
-    const bp = x.unit === "bp";
-    const c = x.change == null ? null : (bp ? Math.round(x.change * 100) : +Number(x.change).toFixed(2));
-    const mag = c == null ? "" : (c > 0 ? "+" : c < 0 ? "−" : "") + (bp ? Math.abs(c) + "bp" : Math.abs(c).toFixed(2));
-    return naTile(esc(x.label), x.value != null ? fmtRateVal(x.value, x.unit) : "—", mag, naDir(c));
-  });
-  return naSec("Key rates & spreads", "bp · %") + band(tiles);
+  return naSec("Key rates & spreads", "bp · %") + d.rates.map(rateRow).join("");
 }
-// Portfolio holding — the broker layout: name + live price, then venue/ticker +
-// total-position P&L (£ and %), then the BUY line, all in the instrument's native
-// quote unit (LSE pence / £). P&L compares live vs cost in GBP-major internally.
-function pfRow(h, m) {
-  const scale = unitScale(h.unit);
-  const px = m && m.value != null ? m.value : null;              // GBP-major / unit
-  const nativePx = px != null ? px / scale : null;              // back to native (pence / £)
-  const valGBP = px != null ? px * h.qty : null;
-  const costGBP = h.costN * scale * h.qty;
-  const pnl = valGBP != null ? valGBP - costGBP : null;
-  const pnlPct = pnl != null && costGBP ? (pnl / costGBP) * 100 : null;
-  const dir = pnl == null ? "flat" : pnl > 0 ? "up" : pnl < 0 ? "down" : "flat";
-  const pnlTxt = pnl == null ? "—" : `${fmtGBP(pnl, true)} (${pnl > 0 ? "+" : pnl < 0 ? "−" : ""}${Math.abs(pnlPct).toFixed(2)}%)`;
-  const tkr = h.ticker === "BTCGBP" ? esc(h.venue) : `${esc(h.venue)} <span class="na-pf-sep">|</span> ${esc(h.ticker)}`;
-  return `<div class="na-pf-row">`
-    + `<div class="na-pf-top"><span class="na-pf-name">${esc(h.name)}${naDot(m)}</span><span class="na-pf-px">${fmtNative(nativePx)}</span></div>`
-    + `<div class="na-pf-mid"><span class="na-pf-tkr">${tkr}</span><span class="na-pf-pnl ${dir}">${pnlTxt}</span></div>`
-    + `<div class="na-pf-buy">BUY ${fmtQty(h.qty)} @ ${fmtNative(h.costN)}${h.note ? `<span class="na-pf-note">${esc(h.note)}</span>` : ""}</div>`
-    + `</div>`;
+// A markets-panel row (label · value · % change) — same grammar as marketRow.
+function pfMrow(label, valueStr, pct, dot) {
+  const c = typeof pct === "number" && isFinite(pct) ? pct : null;
+  const dir = c == null ? "flat" : c > 0 ? "up" : c < 0 ? "down" : "flat";
+  const arw = c == null ? "" : c > 0 ? "▲" : c < 0 ? "▼" : "·";
+  return `<div class="na-mrow"><span class="na-l">${esc(label)}${dot || ""}</span>`
+    + `<span class="na-v">${valueStr}</span>`
+    + `<span class="na-c ${dir}">${c == null ? "" : arw + " " + Math.abs(c).toFixed(2) + "%"}</span></div>`;
 }
 function portfolioPane(d) {
   const q = {}; (d.portfolio || []).forEach((x) => { q[x.label] = x; });
@@ -323,13 +313,18 @@ function portfolioPane(d) {
   const tPnlPct = tCost ? (tPnl / tCost) * 100 : null;
   const priorVal = tVal - tDay;
   const tDayPct = priorVal ? (tDay / priorVal) * 100 : null;
-  const sumTiles = [
-    naTile("Value", priced ? fmtGBP(tVal) : "—", "&nbsp;", "flat"),
-    naTile("Today", priced ? fmtGBP(tDay, true) : "—", naPctTxt(tDayPct), naDir(tDayPct)),
-    naTile("Total P&amp;L", priced ? fmtGBP(tPnl, true) : "—", naPctTxt(tPnlPct), naDir(tPnlPct)),
-  ];
-  const summary = naSec("Portfolio", `${priced}/${PORTFOLIO.length} priced`) + `<div class="rates-band na-band na-band-3">${sumTiles.join("")}</div>`;
-  return summary + naSec("Holdings", "position · P&L") + PORTFOLIO.map((h) => pfRow(h, q[h.ticker])).join("");
+  const summary = naSec("Portfolio", `${priced}/${PORTFOLIO.length} priced`)
+    + pfMrow("Value", priced ? fmtGBP(tVal) : "—", null)
+    + pfMrow("Today", priced ? fmtGBP(tDay, true) : "—", tDayPct)
+    + pfMrow("Total P&L", priced ? fmtGBP(tPnl, true) : "—", tPnlPct);
+  const rows = PORTFOLIO.map((h) => {
+    const m = q[h.ticker];
+    const val = m && m.value != null ? m.value * h.qty : null;
+    const costGBP = h.costN * unitScale(h.unit) * h.qty;
+    const pnlPct = val != null && costGBP ? ((val - costGBP) / costGBP) * 100 : null;
+    return pfMrow(h.name, val != null ? fmtGBP(val) : "—", pnlPct, naDot(m));
+  }).join("");
+  return summary + naSec("Holdings", "value · return") + rows;
 }
 
 // ---- Saved rows — shared news-feed row (headline, then code · date · source) --

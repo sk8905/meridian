@@ -588,34 +588,25 @@ body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 56px) + v
 .na-h-n { color: var(--muted, #8592ad); font-weight: 600; text-transform: none; }
 .na-close { display: none; place-items: center; width: 30px; height: 30px; flex: 0 0 auto; border: 1px solid var(--border, #262626); background: transparent; color: var(--muted, #8592ad); cursor: pointer; font-size: 14px; line-height: 1; }
 .na-close:hover { color: var(--ink, #eaf0fb); border-color: var(--ink, #eaf0fb); }
-/* Markets panel — section headers plus rich data tiles: the SAME rate-tile visual
-   language as the Home data rails, shared here (scoped to the panel) so the whole
-   dropdown reads identically on every page. */
+/* Markets rows — mirror the desktop left rail: mono type, section headers with a
+   right-hand sub-label, and Top movers drawn as centre-anchored bars. Identical on
+   every page (Markets · Macro · Portfolio share this one list grammar). */
 .na-sec { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 12px; color: var(--ink, #eaf0fb); font-weight: 700; padding: 9px 12px 5px; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
 .na-sec-x { font-weight: 600; font-size: 10px; color: var(--faint, #5c6a86); }
-/* Tile band: label / value / change stacked, 2-up (3-up for the portfolio summary). */
-.na-tabbody .rates-band { display: grid; grid-template-columns: 1fr 1fr; }
-.na-tabbody .na-band-3 { grid-template-columns: 1fr 1fr 1fr; }
-.na-tabbody .rate-tile { display: flex; flex-direction: column; gap: 3px; padding: 9px 12px; border-bottom: 1px solid var(--border, #262626); border-left: 1px solid var(--border, #262626); min-width: 0; }
-.na-tabbody .na-band > .rate-tile:nth-child(2n+1) { border-left: 0; }
-.na-tabbody .na-band-3 > .rate-tile:nth-child(3n+1) { border-left: 0; }
-.na-tabbody .rate-label { font-family: var(--t-mono, ui-monospace, monospace); font-size: 10px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted, #8592ad); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.na-tabbody .rate-val { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 700; color: var(--ink, #eaf0fb); line-height: 1.15; }
-.na-tabbody .rate-chg { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; font-size: 11px; font-weight: 600; min-height: 14px; }
-.na-tabbody .rate-chg.up { color: #3fc08d; } .na-tabbody .rate-chg.down { color: #f26d84; } .na-tabbody .rate-chg.flat { color: var(--faint, #5c6a86); }
-/* Portfolio holdings — the broker layout: name + live price, venue/ticker + total
-   open-position P&L, then the BUY line, all in native quote units. */
-.na-pf-row { padding: 9px 12px; border-bottom: 1px solid var(--border, #262626); }
-.na-pf-top, .na-pf-mid { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
-.na-pf-mid { margin-top: 2px; }
-.na-pf-name { font-size: 13px; font-weight: 600; color: var(--ink, #eaf0fb); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.na-pf-px { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; font-size: 14px; font-weight: 700; color: var(--ink, #eaf0fb); flex: 0 0 auto; }
-.na-pf-tkr { font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; letter-spacing: .03em; color: var(--muted, #8592ad); text-transform: uppercase; white-space: nowrap; }
-.na-pf-sep { color: var(--faint, #5c6a86); }
-.na-pf-pnl { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; font-size: 12.5px; font-weight: 700; flex: 0 0 auto; }
-.na-pf-pnl.up { color: #3fc08d; } .na-pf-pnl.down { color: #f26d84; } .na-pf-pnl.flat { color: var(--faint, #5c6a86); }
-.na-pf-buy { margin-top: 3px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 10.5px; letter-spacing: .02em; color: var(--faint, #5c6a86); text-transform: uppercase; }
-.na-pf-note { margin-left: 8px; color: var(--muted, #8592ad); }
+.na-mrow { display: grid; grid-template-columns: 1fr auto auto; gap: 10px; align-items: baseline; padding: 8px 12px; border-bottom: 1px solid var(--border, #262626); font-size: 12px; color: inherit; text-decoration: none; }
+a.na-mrow:hover { background: var(--head, #0a0a0a); }
+.na-l { font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.na-v, .na-c { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; }
+/* Top-movers row: label · bar · %. */
+.na-mover { grid-template-columns: minmax(0, 1fr) 84px 58px; align-items: center; }
+.na-bar { position: relative; height: 9px; background: var(--head, #0a0a0a); border: 1px solid var(--border, #262626); }
+.na-bar::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--border, #262626); }
+.na-bar-f { position: absolute; top: 0; bottom: 0; }
+.na-bar-f.up { left: 50%; background: #3fc08d; }
+.na-bar-f.down { right: 50%; background: #f26d84; }
+.na-v { color: var(--ink, #eaf0fb); }
+.na-c { min-width: 66px; text-align: right; }
+.na-c.up { color: #3fc08d; } .na-c.down { color: #f26d84; } .na-c.flat { color: var(--faint, #5c6a86); }
 /* Market open/closed session dot on the shared Markets panel rows (matches the
    Home markets band + Top Movers dots). Green = regular session, red = closed. */
 .na-dot { display: inline-block; width: 4px; height: 4px; border-radius: 50%; margin-left: 6px; vertical-align: middle; opacity: .8; }
