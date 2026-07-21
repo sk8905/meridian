@@ -1277,30 +1277,26 @@ const FEED_SOURCES = [
   // lifestyle-only screen replaces the query scoping, so far more gets through.
   { url: "https://news.google.com/rss/search?q=site%3Aeconomist.com%20when%3A5d&hl=en-US&gl=US&ceid=US%3Aen", source: "The Economist", region: "GEN", cap: 10, gnews: true, soft: true },
   // Financial specialists — US
-  // WSJ via the site:wsj.com Google-News bridge — soft filter (lifestyle-only
-  // reject) + generous cap + 5-day window for multi-day depth; the 6-day feed
-  // cutoff still bounds it. The two direct feeds.a.dj.com/rss feeds were
-  // REMOVED: the debug=2 assembly showed them serving a FROZEN back-catalogue
-  // (every item >6 days old, so all silently cut at the cutoff while still
-  // burning two subrequest slots each run) — Dow Jones has deprecated them.
+  // WSJ — DIRECT publisher feeds on Dow Jones's CURRENT feed host
+  // (feeds.content.dowjones.io), the same host MarketWatch pulls from fine below.
+  // These are the reliable route: the OLD feeds.a.dj.com/rss mirrors serve a
+  // frozen >6-day back-catalogue, and Google HARD-pins the site:wsj.com search
+  // (503s it run after run). soft filter (lifestyle-only reject) keeps the full
+  // markets/business run; title-dedupe collapses overlap between the two.
+  { url: "https://feeds.content.dowjones.io/public/rss/RSSMarketsMain", source: "The Wall Street Journal", region: "US", cap: 12, soft: true },
+  { url: "https://feeds.content.dowjones.io/public/rss/WSJcomUSBusiness", source: "The Wall Street Journal", region: "US", cap: 10, soft: true },
+  // WSJ backups behind the direct feeds + last-good cache: the Google-News bridge
+  // (5-day depth) and the GDELT domain index. Both throttle this edge
+  // intermittently, so they only fill gaps when the direct feeds miss.
   { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Awsj.com%20when%3A5d", source: "The Wall Street Journal", region: "US", cap: 18, gnews: true, soft: true },
-  // WSJ via GDELT (open, datacenter-friendly, domain-scoped) — the working
-  // route while Google HARD-pins the site:wsj.com search (503s it run after
-  // run). Same bridge as TradingEconomics below; soft filter (lifestyle-only
-  // reject) matches the gnews WSJ source, and title-dedupe collapses any overlap
-  // if/when the Google bridge unsticks. GDELT items are sometimes undated — the
-  // first-seen stamping covers that.
   { url: "https://api.gdeltproject.org/api/v2/doc/doc?query=domainis:wsj.com&mode=artlist&maxrecords=40&timespan=5d&format=rss", source: "The Wall Street Journal", region: "US", cap: 14, soft: true },
-  // TradingEconomics — macro-data desk (GDP / CPI / rates / labour releases).
-  // Bridged via Google News (their own RSS needs an API key). Inherently macro,
-  // so filter:false (no strict title screen) and the client always labels it MAC.
-  // 5-day window + generous cap so several days of releases come through.
+  // TradingEconomics — macro-data desk (GDP / CPI / rates / labour releases),
+  // always labelled MAC (filter:false). DIRECT keyless publisher RSS leads: the
+  // aggregator bridges below both fail TE from this edge (Google pins the site:
+  // query, GDELT rate-limits/times out), so tradingeconomics.com's own news feed
+  // is the working route. cap generous for a few days of releases.
+  { url: "https://tradingeconomics.com/rss/news.aspx", source: "TradingEconomics", region: "GEN", cap: 20, filter: false },
   { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Atradingeconomics.com%20when%3A5d", source: "TradingEconomics", region: "GEN", cap: 20, gnews: true, filter: false },
-  // TE via GDELT (open API, datacenter-friendly, domain-scoped) — the working
-  // route while BOTH bridge indexes fail TE: Google pins the query (503) and
-  // Bing returns an empty result set (live probes). GDELT items are sometimes
-  // undated; the first-seen stamping covers that. Title-dedupe collapses any
-  // overlap if/when the Google bridge unsticks.
   { url: "https://api.gdeltproject.org/api/v2/doc/doc?query=domainis:tradingeconomics.com&mode=artlist&maxrecords=40&timespan=5d&format=rss", source: "TradingEconomics", region: "GEN", cap: 20, filter: false },
   { url: "https://www.cnbc.com/id/20910258/device/rss/rss.html", source: "CNBC", region: "US", cap: 10 }, // Economy
   { url: "https://www.cnbc.com/id/20409666/device/rss/rss.html", source: "CNBC", region: "US", cap: 8 },  // Markets
@@ -1647,7 +1643,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=34", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=35", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const items = await feedAssemble(env, ctx);
