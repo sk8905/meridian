@@ -237,11 +237,16 @@
   /* …except the filter-chip bar, which stays locked to the top (just under the
      58px sticky topbar) while the list scrolls. A solid background + its own GPU
      layer (translate3d) stops iOS Safari bleeding the scrolling rows through it. */
-  .twire-head { position: sticky; top: 57px; z-index: 8; background: var(--head);
+  /* Pin to the MEASURED header height (--wire-head-h, set by nav-actions on every
+     lock pass), NOT a hardcoded 57px: on iPhone the fixed header is taller/shorter
+     than 57 once the status-bar safe-area is included, and the mismatch left a
+     see-through band where a scrolled headline bled between the header and these
+     pinned tabs. */
+  .twire-head { position: sticky; top: var(--wire-head-h, 57px); z-index: 8; background: var(--head);
     transform: translate3d(0, 0, 0); -webkit-backface-visibility: hidden; backface-visibility: hidden; }
   /* Managers pane: lock the "Managers · search · AUM-toggle" row just under the
-     chip bar (chips end at 57+28 = 85px). */
-  .tpane[data-pane="managers"] .thead-search { position: sticky; top: 85px; z-index: 7; background: var(--head); }
+     chip bar (chips are 28px tall, so head + 28). */
+  .tpane[data-pane="managers"] .thead-search { position: sticky; top: calc(var(--wire-head-h, 57px) + 28px); z-index: 7; background: var(--head); }
   /* The wide league table scrolls HORIZONTALLY inside .tleague-wrap on phones —
      it used to squash to fit (width:100%), so there was nothing to scroll. Let it
      take its natural width (columns keep a readable size, and it survives adding
