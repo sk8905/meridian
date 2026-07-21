@@ -1501,7 +1501,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=23", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=24", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {
@@ -1517,6 +1517,12 @@ async function handleFeed(request, env, ctx) {
         ? items.filter((x) => FEED_CORE_MACRO_RE.test(x.title))
         : items.filter((x) => FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title));
     }
+    // Cap the FRESHEST items, not the first-parsed: Google News search RSS is
+    // relevance-ordered (not chronological), so slicing in parse order could
+    // fill a source's whole cap with days-old "relevant" stories — which then
+    // sort to the bottom of the combined wire and get cut by the global cap,
+    // wiping the source from the feed entirely.
+    items.sort((a, b) => (b.when ? b.when.getTime() : 0) - (a.when ? a.when.getTime() : 0));
     return items.slice(0, f.cap || 8);
   }));
   let all = [];
@@ -1540,7 +1546,11 @@ async function handleFeed(request, env, ctx) {
     if (!date) continue;
     // myFT links carry tracking params — keep the canonical /content/ URL.
     items.push({ title: it.title, url: it.myft ? it.url.replace(/\?.*$/, "") : it.url, source: it.source, region: it.region, myft: it.myft || undefined, substack: it.substack || undefined, date, time });
-    if (items.length >= 100) break;
+    // 250 (was 100): with ~270 capped candidates across the sources, a 100-item
+    // wire only ever carried the newest ~day — the 5-day back-catalogue (WSJ /
+    // TradingEconomics backfill) never made the cut. The 6-day cutoff above
+    // still bounds the window; clients render day-grouped so depth is cheap.
+    if (items.length >= 250) break;
   }
   const resp = new Response(JSON.stringify({ items, asOf: new Date().toISOString() }), {
     headers: { "content-type": "application/json", "cache-control": "public, max-age=300" },
