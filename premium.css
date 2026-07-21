@@ -341,7 +341,7 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   z-index: 9500;
   grid-template-columns: repeat(5, 1fr);
   border-radius: 0;
-  padding: 9px 0 calc(9px + env(safe-area-inset-bottom, 0px));
+  padding: 7px 0 calc(7px + env(safe-area-inset-bottom, 0px));
   background: #f6f8fc;
   border: 0; border-top: 1px solid rgba(15,23,42,.12);
   -webkit-backdrop-filter: none; backdrop-filter: none;
@@ -359,7 +359,7 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 .mtab {
   position: relative;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  gap: 3px; min-height: 54px; padding: 3px .1rem; border-radius: 0;
+  gap: 3px; min-height: 48px; padding: 3px .1rem; border-radius: 0;
   color: #7b8494; font-family: inherit; font-size: .58rem; font-weight: 600; letter-spacing: .02em;
   text-decoration: none; background: none; border: 0; cursor: pointer;
   -webkit-appearance: none; appearance: none;
@@ -370,7 +370,7 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
    (the view-nav underlines etc. all use black); dark mode keeps the orange
    accent, which reads on the black bar. */
 .mtab.is-active { color: #1f2733; background: none; }
-.mtab.is-active::before { content: ""; position: absolute; top: -10px; left: 0; right: 0; height: 2px; background: #000; }
+.mtab.is-active::before { content: ""; position: absolute; top: -8px; left: 0; right: 0; height: 2px; background: #000; }
 .mtab-ico { display: block; font-size: 1.42rem; line-height: 1; }   /* diamond glyph → optically match the SVG icons */
 svg.mtab-ico { width: 22px; height: 22px; }
 /* Dark variant — home dashboard + every app share it (one override covers all). */
