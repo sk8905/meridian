@@ -149,8 +149,6 @@
       grid-template-columns:repeat(5,1fr);
       padding:.28rem .3rem; border-radius:24px;
       background:rgba(248,249,252,.72);
-      -webkit-backdrop-filter:saturate(180%) blur(22px);
-      backdrop-filter:saturate(180%) blur(22px);
       border:1px solid rgba(255,255,255,.6);
       box-shadow:0 6px 24px rgba(15,23,42,.16), inset 0 1px 0 rgba(255,255,255,.5);
     }
