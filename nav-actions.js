@@ -175,14 +175,6 @@ function initChrome() {
 }
 
 // ---- Markets rows -----------------------------------------------------------
-// Session dot from Yahoo's authoritative marketState (REGULAR = open); omitted
-// when the row carries no state. Mirrors the Home markets band + Top Movers.
-function naDot(x) {
-  if (!x || !x.marketState) return "";
-  const open = x.marketState === "REGULAR";
-  const tip = open ? "Market open" : "Market closed";
-  return ` <span class="na-dot ${open ? "open" : "closed"}" title="${esc(tip)}" aria-label="${esc(tip)}"></span>`;
-}
 // US regular session (NYSE/Nasdaq): Mon–Fri 09:30–16:00 America/New_York.
 function usEquityOpen() {
   try {
@@ -201,6 +193,30 @@ function naEtfDot(x) {
   const tip = open ? "Market open" : "Market closed";
   return ` <span class="na-dot ${open ? "open" : "closed"}" title="${esc(tip)}" aria-label="${esc(tip)}"></span>`;
 }
+// London Stock Exchange regular session: Mon–Fri 08:00–16:30 Europe/London.
+function lseOpen() {
+  try {
+    const p = new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", weekday: "short", hour: "2-digit", minute: "2-digit", hour12: false }).formatToParts(new Date());
+    const g = (t) => (p.find((x) => x.type === t) || {}).value;
+    const dow = { Sun: 0, Mon: 1, Tue: 2, Wed: 3, Thu: 4, Fri: 5, Sat: 6 }[g("weekday")];
+    if (dow === 0 || dow === 6) return false;
+    let h = +g("hour"); if (h === 24) h = 0;
+    const t = h * 60 + +g("minute"); return t >= 480 && t < 990;
+  } catch { return false; }
+}
+// ALWAYS-rendered session dot: Yahoo's marketState when present, otherwise an
+// exchange clock (so LSE lines that fall back to Stooq — which carries no state —
+// still show open/closed). Crypto trades 24/7. Used on Markets + Portfolio rows.
+function sessDot(marketState, exch) {
+  const open = marketState ? marketState === "REGULAR"
+    : exch === "CRYPTO" ? true
+    : exch === "LSE" ? lseOpen()
+    : usEquityOpen();
+  const tip = open ? "Market open" : "Market closed";
+  return ` <span class="na-dot ${open ? "open" : "closed"}" title="${esc(tip)}" aria-label="${esc(tip)}"></span>`;
+}
+// Which exchange clock backs each Markets-tab row when marketState is missing.
+const MKT_EXCH = { "S&P 500": "US", "NASDAQ": "US", "IGWD": "LSE", "EMEE": "LSE", "Bitcoin": "CRYPTO" };
 const naSec = (title, tag) => `<div class="na-sec"><span>${esc(title)}</span><span class="na-sec-x">${esc(tag)}</span></div>`;
 
 // The reader's ETF book, aggregated per ticker (accounts ignored — IGWD's two
@@ -211,12 +227,12 @@ const naSec = (title, tag) => `<div class="na-sec"><span>${esc(title)}</span><sp
 // held in huge size — and their live quote arrives UNSCALED (raw pence), so they
 // carry `pxScale: 0.01` to bring the price back to GBP-major before valuing.
 const PORTFOLIO = [
-  { ticker: "IGWD", qty: 639, cost: 118.2118 },   // 476 @ £115.99 + 163 @ £124.70
-  { ticker: "CNX1", qty: 1, cost: 1269.17 },
-  { ticker: "EMEE", qty: 303000, cost: 0.0596, pxScale: 0.01 },
-  { ticker: "WMVG", qty: 363600, cost: 0.0823, pxScale: 0.01 },
-  { ticker: "COMM", qty: 1424, cost: 6.6794 },
-  { ticker: "BTCGBP", label: "BTC", qty: 0.02204, cost: 64633.31 },
+  { ticker: "IGWD", qty: 639, cost: 118.2118, exch: "LSE" },   // 476 @ £115.99 + 163 @ £124.70
+  { ticker: "CNX1", qty: 1, cost: 1269.17, exch: "LSE" },
+  { ticker: "EMEE", qty: 303000, cost: 0.0596, pxScale: 0.01, exch: "LSE" },
+  { ticker: "WMVG", qty: 363600, cost: 0.0823, pxScale: 0.01, exch: "LSE" },
+  { ticker: "COMM", qty: 1424, cost: 6.6794, exch: "LSE" },
+  { ticker: "BTCGBP", label: "BTC", qty: 0.02204, cost: 64633.31, exch: "CRYPTO" },
 ];
 // £ money: sign + thousands, always 2dp (so the portfolio value reads to the penny).
 function fmtGBP(v, sign) {
@@ -259,7 +275,7 @@ function marketRow(x) {
   const c = typeof x.changePct === "number" && isFinite(x.changePct) ? x.changePct : null;
   const dir = c == null ? "flat" : c > 0 ? "up" : c < 0 ? "down" : "flat";
   const arw = c == null ? "·" : c > 0 ? "▲" : c < 0 ? "▼" : "·";
-  return `<div class="na-mrow"><span class="na-l">${esc(x.label)}${naDot(x)}</span><span class="na-v">${x.value != null ? fmtNum(x.value) : "—"}</span><span class="na-c ${dir}">${c == null ? "" : arw + " " + Math.abs(c).toFixed(2) + "%"}</span></div>`;
+  return `<div class="na-mrow"><span class="na-l">${esc(x.label)}${sessDot(x.marketState, MKT_EXCH[x.label] || "US")}</span><span class="na-v">${x.value != null ? fmtNum(x.value) : "—"}</span><span class="na-c ${dir}">${c == null ? "" : arw + " " + Math.abs(c).toFixed(2) + "%"}</span></div>`;
 }
 function rateRow(x) {
   const bp = x.unit === "bp";
@@ -320,7 +336,7 @@ function portfolioPane(d) {
   // Holdings first, ordered by value (high → low; unpriced last); summary beneath.
   const sorted = rows.slice().sort((a, b) => (b.val == null ? -1 : b.val) - (a.val == null ? -1 : a.val));
   const holdings = naSec("Holdings", "value · return")
-    + sorted.map((r) => pfMrow(r.h.label || r.h.ticker, r.val != null ? fmtGBP(r.val) : "—", r.pnlPct, naDot(r.m))).join("");
+    + sorted.map((r) => pfMrow(r.h.label || r.h.ticker, r.val != null ? fmtGBP(r.val) : "—", r.pnlPct, sessDot(r.m && r.m.marketState, r.h.exch))).join("");
   const summary = naSec("Portfolio", `${priced}/${PORTFOLIO.length} priced`)
     + pfMrow("Value", priced ? fmtGBP(tVal) : "—", null)
     + pfMrow("Daily P&L", priced ? fmtGBP(tDay, true) : "—", tDayPct)
