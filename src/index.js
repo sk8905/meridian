@@ -1258,7 +1258,7 @@ const FEED_SOURCES = [
   // topic/quality filters — the reader curated this feed themselves.
   { url: "https://www.ft.com/myft/following/601965b2-62d0-47e1-88cf-576ebc8a8a2e.rss", source: "Financial Times", region: "GEN", cap: 40, myft: true, soft: true },
   // Reuters & Bloomberg via Google News search (site:-scoped, macro terms, last 2 days)
-  { url: "https://news.google.com/rss/search?q=site%3Areuters.com%20%28Fed%20OR%20inflation%20OR%20%22interest%20rate%22%20OR%20GDP%20OR%20economy%20OR%20Treasury%20OR%20%22stock%20market%22%29%20when%3A2d&hl=en-US&gl=US&ceid=US%3Aen", source: "Reuters", region: "US", cap: 6, gnews: true },
+  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Areuters.com%20%28Fed%20OR%20inflation%20OR%20%22interest%20rate%22%20OR%20GDP%20OR%20economy%20OR%20Treasury%20OR%20%22stock%20market%22%29%20when%3A2d", source: "Reuters", region: "US", cap: 6, gnews: true },
   { url: "https://news.google.com/rss/search?q=site%3Areuters.com%20%28%22Bank%20of%20England%22%20OR%20gilt%20OR%20inflation%20OR%20UK%20economy%20OR%20sterling%29%20when%3A2d&hl=en-GB&gl=GB&ceid=GB%3Aen", source: "Reuters", region: "UK", cap: 5, gnews: true },
   { url: "https://news.google.com/rss/search?q=site%3Abloomberg.com%20%28Fed%20OR%20inflation%20OR%20%22interest%20rate%22%20OR%20economy%20OR%20%22Bank%20of%20England%22%20OR%20bonds%29%20when%3A2d&hl=en-US&gl=US&ceid=US%3Aen", source: "Bloomberg", region: "GEN", cap: 6, gnews: true },
   // Bloomberg's OFFICIAL section feeds (feeds.bloomberg.com) — live, so stories
@@ -1287,12 +1287,12 @@ const FEED_SOURCES = [
   { url: "https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml", source: "The Wall Street Journal", region: "US", cap: 10, soft: true },
   // 5-day window + a generous cap so the back-catalogue surfaces (the direct
   // feeds only carry ~1-2 days); the 6-day feed cutoff still bounds it.
-  { url: "https://news.google.com/rss/search?q=site%3Awsj.com%20when%3A5d&hl=en-US&gl=US&ceid=US%3Aen", source: "The Wall Street Journal", region: "US", cap: 18, gnews: true, soft: true },
+  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Awsj.com%20when%3A5d", source: "The Wall Street Journal", region: "US", cap: 18, gnews: true, soft: true },
   // TradingEconomics — macro-data desk (GDP / CPI / rates / labour releases).
   // Bridged via Google News (their own RSS needs an API key). Inherently macro,
   // so filter:false (no strict title screen) and the client always labels it MAC.
   // 5-day window + generous cap so several days of releases come through.
-  { url: "https://news.google.com/rss/search?q=site%3Atradingeconomics.com%20when%3A5d&hl=en-US&gl=US&ceid=US%3Aen", source: "TradingEconomics", region: "GEN", cap: 20, gnews: true, filter: false },
+  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Atradingeconomics.com%20when%3A5d", source: "TradingEconomics", region: "GEN", cap: 20, gnews: true, filter: false },
   { url: "https://www.cnbc.com/id/20910258/device/rss/rss.html", source: "CNBC", region: "US", cap: 10 }, // Economy
   { url: "https://www.cnbc.com/id/20409666/device/rss/rss.html", source: "CNBC", region: "US", cap: 8 },  // Markets
   { url: "https://www.cnbc.com/id/10000664/device/rss/rss.html", source: "CNBC", region: "US", cap: 6 },  // Finance
@@ -1486,6 +1486,19 @@ async function feedFetch(url, delayMs = 0) {
   }
   return null;
 }
+// Google News pins 503s to SPECIFIC query strings from datacenter IPs (live
+// probes: the same three queries fail run after run while structurally
+// identical siblings pass — per-query-hash scoring, not burst throttling).
+// Re-roll the bucket: flip the locale params and nudge the when: window, so
+// the variant hashes differently but returns the same journalism. Used as an
+// automatic fallback whenever a gnews primary comes back empty.
+function gnewsVariant(url) {
+  let v = url.replace(/when%3A(\d+)d/, (m, d) => "when%3A" + Math.max(1, +d - 1) + "d");
+  v = /ceid=US%3Aen/.test(v)
+    ? v.replace("hl=en-US", "hl=en-GB").replace("gl=US", "gl=GB").replace("ceid=US%3Aen", "ceid=GB%3Aen")
+    : v.replace("hl=en-GB", "hl=en-US").replace("gl=GB", "gl=US").replace("ceid=GB%3Aen", "ceid=US%3Aen");
+  return v;
+}
 // Soft screen for the reader-curated feeds (myFT + Bloomberg's official section
 // wires): EVERYTHING passes except lifestyle / arts / culture / travel / sport.
 // A headline that ALSO matches the finance vocabulary survives even when it
@@ -1515,13 +1528,21 @@ async function handleFeed(request, env, ctx) {
           await feedSleep(700);
           r = await fetch(f.url, { headers: fetchHeaders(f.url), cf: { cacheTtl: 0 } });
         }
+        // Mirror the assembly's locale-flipped variant fallback for stuck
+        // Google queries; `via: "variant"` marks rows the fallback served.
+        let via;
+        if (!r.ok && f.gnews) {
+          await feedSleep(300);
+          const vr = await fetch(gnewsVariant(f.url), { headers: fetchHeaders(f.url), cf: { cacheTtl: 0 } });
+          if (vr.ok) { r = vr; via = "variant"; }
+        }
         const txt = r.ok ? await r.text() : "";
         const parsed = txt ? feedParse(txt, f).filter((x) => !feedReject(x.title)) : [];
         const kept = f.soft ? parsed.filter((x) => !FEED_LIFESTYLE_RE.test(x.title) || FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title))
           : (f.filter === false) ? parsed
           : f.core ? parsed.filter((x) => FEED_CORE_MACRO_RE.test(x.title))
           : parsed.filter((x) => FEED_MACRO_RE.test(x.title) || FEED_MEGACAP_RE.test(x.title));
-        return { source: f.source, url: f.url, status: r.status, parsed: parsed.length, kept: kept.length };
+        return { source: f.source, url: f.url, status: r.status, parsed: parsed.length, kept: kept.length, ...(via ? { via } : {}) };
       } catch (e) { return { source: f.source, url: f.url, error: String((e && e.message) || e) }; }
     }));
     return new Response(JSON.stringify({ probes }, null, 2), {
@@ -1529,12 +1550,14 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=25", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=26", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const delays = feedStagger();
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f, i) => {
-    const txt = await feedFetch(f.url, delays[i]);
+    let txt = await feedFetch(f.url, delays[i]);
+    // Stuck Google query (per-query-hash 503) → one locale-flipped variant.
+    if (!txt && f.gnews) txt = await feedFetch(gnewsVariant(f.url), 300);
     if (!txt) return [];
     let items = feedParse(txt, f).filter((x) => !feedReject(x.title));
     // Reader-curated feeds (myFT, Bloomberg official wires): everything passes
