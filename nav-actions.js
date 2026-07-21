@@ -218,11 +218,11 @@ const PORTFOLIO = [
   { ticker: "COMM", qty: 1424, cost: 6.6794 },
   { ticker: "BTCGBP", label: "BTC", qty: 0.02204, cost: 64633.31 },
 ];
-// £ money: sign + thousands + 2dp under £100k, 0dp above (keeps totals compact).
+// £ money: sign + thousands, always 2dp (so the portfolio value reads to the penny).
 function fmtGBP(v, sign) {
   if (v == null || !isFinite(v)) return "—";
   const a = Math.abs(v);
-  const s = a.toLocaleString(undefined, { minimumFractionDigits: a >= 100000 ? 0 : 2, maximumFractionDigits: a >= 100000 ? 0 : 2 });
+  const s = a.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   const pre = sign && v > 0 ? "+£" : v < 0 ? "−£" : "£";
   return pre + s;
 }
