@@ -78,7 +78,6 @@ export function initPullToRefresh() {
   const mount = () => { if (!zone.isConnected && document.body) document.body.appendChild(zone); };
   if (document.body) mount(); else document.addEventListener("DOMContentLoaded", mount);
   restoreTabs();
-  ptrDebugOverlay();
 
   const THRESH = 75, SOFT = 120, MAX = 220;
   let startX = 0, startY = 0, armed = false, pulling = false, dist = 0, busy = false, clearT = 0;
@@ -250,38 +249,6 @@ export function initPullToRefresh() {
     } else { apply(0, true); clearT = setTimeout(clearPage, 240); }
     dist = 0;
   }, { passive: true });
-}
-
-// ---- On-device PTR diagnostic (enable with ?ptrdebug=1) ---------------------
-// iOS-only PTR glitches can't be reproduced in the headless (Chromium) harness
-// and a screen recording can't show DOM state. This pins a LIVE readout — the
-// header/chip geometry + any stuck inline transforms — so the reader can pull
-// twice and screenshot the broken frame with real numbers. Gated + persisted to
-// localStorage so it survives the PTR reload; invisible to normal use.
-function ptrDebugOverlay() {
-  let on = false;
-  try {
-    if (new URLSearchParams(location.search).has("ptrdebug")) localStorage.setItem("ptrdebug", "1");
-    on = localStorage.getItem("ptrdebug") === "1";
-  } catch { on = /(\?|&)ptrdebug/.test(location.search); }
-  if (!on || document.getElementById("ptr-dbg")) return;
-  const box = document.createElement("pre");
-  box.id = "ptr-dbg";
-  box.style.cssText = "position:fixed;left:6px;bottom:66px;z-index:99999;margin:0;padding:6px 8px;max-width:74vw;" +
-    "background:rgba(0,0,0,.82);color:#0f0;font:10px/1.35 ui-monospace,monospace;white-space:pre-wrap;pointer-events:none;border:1px solid rgba(0,255,0,.35);border-radius:4px;";
-  (document.body || document.documentElement).appendChild(box);
-  const rct = (sel, name) => { const el = document.querySelector(sel); if (!el) return name + ":—"; const b = el.getBoundingClientRect(); return name + " t:" + Math.round(b.top) + " h:" + Math.round(b.height); };
-  const tick = () => {
-    const tf = [];
-    document.querySelectorAll("*").forEach((el) => { const t = el.style && el.style.transform; if (t && t !== "none" && t !== "") tf.push(((el.id ? "#" + el.id : "." + String(el.className || el.tagName).split(" ")[0]) + "=" + t).slice(0, 30)); });
-    box.textContent =
-      "sY:" + Math.round(window.scrollY) + " body[" + document.body.className.replace(/wire-/g, "").trim() + "]\n" +
-      rct(".topbar, .g-top", "head") + "  " + rct(".wire-bar-fixed", "chip") + "\n" +
-      rct(".mobile-tabbar", "tabbar") + "\n" +
-      "tf(" + tf.length + "):" + (tf.filter((s) => !s.startsWith(".DIV=rotate")).slice(0, 5).join(" ") || " none");
-    requestAnimationFrame(tick);
-  };
-  requestAnimationFrame(tick);
 }
 
 // ---- Keep the reader on the SAME view across reloads ------------------------
