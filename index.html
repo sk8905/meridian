@@ -22,6 +22,12 @@
   <link rel="manifest" href="/manifest.webmanifest" />
   <title>Wire — Home</title>
   <meta name="description" content="Wire Home — a cross-desk briefing across the Credit, Legal and Macro intelligence platforms, with a unified search." />
+  <!-- Paint the black top-bar ground from the very first frame, BEFORE the
+       external CSS applies (home.css sets html{background:var(--navy)} but on an
+       iOS PWA inter-page navigation the WebView can flash a frame with the raw
+       default WHITE html background — the white banner at the top on tab change).
+       The app pages already carry this guard; Home was missing it. -->
+  <style>html{background:#000}</style>
   <link rel="stylesheet" href="/home.css?v=20260721-4" />
   <link rel="stylesheet" href="/premium.css?v=20260721-13" />
   <link rel="stylesheet" href="/header.css?v=20260720-4" />
