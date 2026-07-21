@@ -776,6 +776,14 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .topbar .logo { color: #fff; }
 .topbar .brand-text strong { font-size: .92rem; font-weight: 600; }
 .topbar .brand-sub { color: #8ea6c8; font-size: .58rem; }
+/* Top-bar action icons (Markets · Saved · Bell · Search + the refresh ring):
+   the base .na-btn is --muted grey, which suits the LIGHT promoted chip bar but
+   reads as permanently DIMMED on the always-black top bar — touch devices never
+   fire the :hover that brightens it. Lift them to a clearly-visible light here
+   (scoped to .topbar, so the chip-bar case keeps its muted grey). */
+.topbar .na-btn, .topbar .na-actions .notif-bell { color: #cdd6e6; }
+.topbar .na-btn:hover, .topbar .na-actions .notif-bell:hover { color: #fff; }
+.topbar .na-ring circle { stroke: #cdd6e6; }
 /* Flat, squared tabs with an accent underline — matches the Home feed filters. */
 .topbar .platform-switch { align-self: stretch; align-items: stretch; background: transparent; border: 0; border-radius: 0; padding: 0; gap: 0; margin-right: .4rem; }
 .topbar .ps-btn { display: inline-flex; align-items: center; padding: 0 12px; border-radius: 0; font-size: 12px; font-weight: 500; color: #9fb0cc; }
