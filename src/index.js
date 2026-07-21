@@ -1293,6 +1293,12 @@ const FEED_SOURCES = [
   // so filter:false (no strict title screen) and the client always labels it MAC.
   // 5-day window + generous cap so several days of releases come through.
   { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Atradingeconomics.com%20when%3A5d", source: "TradingEconomics", region: "GEN", cap: 20, gnews: true, filter: false },
+  // TE via GDELT (open API, datacenter-friendly, domain-scoped) — the working
+  // route while BOTH bridge indexes fail TE: Google pins the query (503) and
+  // Bing returns an empty result set (live probes). GDELT items are sometimes
+  // undated; the first-seen stamping covers that. Title-dedupe collapses any
+  // overlap if/when the Google bridge unsticks.
+  { url: "https://api.gdeltproject.org/api/v2/doc/doc?query=domainis:tradingeconomics.com&mode=artlist&maxrecords=40&timespan=5d&format=rss", source: "TradingEconomics", region: "GEN", cap: 20, filter: false },
   { url: "https://www.cnbc.com/id/20910258/device/rss/rss.html", source: "CNBC", region: "US", cap: 10 }, // Economy
   { url: "https://www.cnbc.com/id/20409666/device/rss/rss.html", source: "CNBC", region: "US", cap: 8 },  // Markets
   { url: "https://www.cnbc.com/id/10000664/device/rss/rss.html", source: "CNBC", region: "US", cap: 6 },  // Finance
@@ -1477,20 +1483,29 @@ function feedStagger() {
     if (!k) return 0;
     const n = seen[k] || 0;
     seen[k] = n + 1;
-    return n * 450;
+    // Substack throttles harder than Google (still flapping 429s at 450ms
+    // spacing in live probes) — give its feeds double the gap.
+    return n * (k === "substack" ? 900 : 450);
   });
 }
-async function feedFetch(url, delayMs = 0) {
+async function feedFetch(url, delayMs = 0, diag = null) {
   if (delayMs) await feedSleep(delayMs);
   for (let i = 0; i < 2; i++) {
     try {
       // Bound each feed so one slow host can't stall the combined response.
-      const r = await fetch(url, { headers: fetchHeaders(url), cf: { cacheTtl: 300 }, signal: AbortSignal.timeout(4500) });
+      // cacheTtl 0 — NOT 300: the debug probe fetches uncached and the live
+      // probe showed WSJ healthy (51 dated items) while the cached assembly
+      // path carried ZERO, i.e. the edge cache can pin a stale/poisoned body
+      // (bot-wall challenge page) for 5 minutes. The intermediate cache buys
+      // nothing anyway — the assembled payload has its own 5-minute cache, so
+      // origin hit-rates are identical; symmetry with the probe is worth more.
+      const r = await fetch(url, { headers: fetchHeaders(url), cf: { cacheTtl: 0 }, signal: AbortSignal.timeout(4500) });
+      if (diag) diag.status = r.status;
       if (r.ok) return await r.text();
       // Rate-limited (Google News 503 / Substack 429): pause before the retry —
       // an immediate re-hit lands inside the same throttle window and fails too.
       if (i === 0 && (r.status === 429 || r.status === 503)) await feedSleep(700);
-    } catch { /* timed out / errored — retry once, then skip */ }
+    } catch (e) { if (diag) diag.err = String((e && e.message) || e).slice(0, 80); }
   }
   return null;
 }
@@ -1594,7 +1609,8 @@ async function handleFeed(request, env, ctx) {
   // debug=1 shows what each fetch returns; THIS shows what survives into the
   // wire — the two together pinpoint any silently-vanishing source.
   if (url.searchParams.get("debug") === "2") {
-    const items = await feedAssemble(env, ctx);
+    const trace = [];
+    const items = await feedAssemble(env, ctx, trace);
     const bySource = {};
     for (const it of items) {
       const s = bySource[it.source] || (bySource[it.source] = { n: 0, newest: "", oldest: "" });
@@ -1603,12 +1619,14 @@ async function handleFeed(request, env, ctx) {
       if (!s.newest || d > s.newest) s.newest = d;
       if (!s.oldest || d < s.oldest) s.oldest = d;
     }
-    return new Response(JSON.stringify({ total: items.length, bySource }, null, 2), {
+    // `assembly` = THIS run's per-source fetch/filter/cap stages (status/err,
+    // bytes, parsed→kept→capped) — where a probe-healthy source actually dies.
+    return new Response(JSON.stringify({ total: items.length, bySource, assembly: trace }, null, 2), {
       headers: { "content-type": "application/json", "cache-control": "no-store" },
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=29", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=30", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const items = await feedAssemble(env, ctx);
@@ -1621,15 +1639,21 @@ async function handleFeed(request, env, ctx) {
 // The actual wire assembly — fetch every source (with the variant/Bing
 // fallbacks), filter, cap, stamp, merge, dedupe. Shared by the live /api/feed
 // path and the debug=2 ground-truth probe so they can never drift apart.
-async function feedAssemble(env, ctx) {
+// `trace` (debug=2): collects THIS assembly's per-source fetch/filter/cap
+// stats, so a source that fetches healthily in the debug=1 probe but dies in
+// the real assembly is visible with the exact stage where it died.
+async function feedAssemble(env, ctx, trace = null) {
   const delays = feedStagger();
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f, i) => {
-    let txt = await feedFetch(f.url, delays[i]);
+    const d = trace ? { source: f.source, url: f.url } : null;
+    let txt = await feedFetch(f.url, delays[i], d);
     // Stuck Google query → one locale-flipped variant, then the Bing mirror.
-    if (!txt && f.gnews) txt = await feedFetch(gnewsVariant(f.url), 300);
-    if (!txt && f.gnews) { const b = bingMirror(f.url); if (b) txt = await feedFetch(b, 200); }
-    if (!txt) return [];
+    if (!txt && f.gnews) { txt = await feedFetch(gnewsVariant(f.url), 300, d); if (txt && d) d.via = "variant"; }
+    if (!txt && f.gnews) { const b = bingMirror(f.url); if (b) { txt = await feedFetch(b, 200, d); if (txt && d) d.via = "bing"; } }
+    if (d) { d.bytes = txt ? txt.length : 0; }
+    if (!txt) { if (d) trace.push(d); return []; }
     let items = feedParse(txt, f).filter((x) => !feedReject(x.title));
+    if (d) d.parsed = items.length;
     // Reader-curated feeds (myFT, Bloomberg official wires): everything passes
     // except lifestyle — unless the headline also reads as finance/business.
     if (f.soft) {
@@ -1645,7 +1669,9 @@ async function feedAssemble(env, ctx) {
     // sort to the bottom of the combined wire and get cut by the global cap,
     // wiping the source from the feed entirely.
     items.sort((a, b) => (b.when ? b.when.getTime() : 0) - (a.when ? a.when.getTime() : 0));
-    return items.slice(0, f.cap || 8);
+    const capped = items.slice(0, f.cap || 8);
+    if (d) { d.kept = items.length; d.dated = items.filter((x) => x.when).length; d.capped = capped.length; trace.push(d); }
+    return capped;
   }));
   let all = [];
   for (const r of results) if (r.status === "fulfilled") all = all.concat(r.value);
