@@ -626,28 +626,8 @@ circle.yc-uk { fill: #6fa3d6; }
 .chart-swatch.dash { border-top-style: dashed; }
 .chart-note { margin-top: .8rem; }
 
-/* ---- Mobile bottom tab bar (Macro / Credit / Legal / Search) — shown only on
-   phones (the ≤760px block flips display to grid). ---- */
-.mobile-tabbar {
-  display: none; position: fixed; left: .6rem; right: .6rem; z-index: 45;
-  bottom: calc(1.55rem + env(safe-area-inset-bottom, 0px));
-  grid-template-columns: repeat(5, 1fr);
-  padding: .28rem .3rem; border-radius: 24px;
-  background: rgba(248,249,252,.72);
-  border: 1px solid rgba(255,255,255,.6);
-  box-shadow: 0 6px 24px rgba(15,23,42,.16), inset 0 1px 0 rgba(255,255,255,.5);
-}
-.mtab {
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .12rem;
-  min-height: 44px; padding: .28rem .1rem; border-radius: 15px;
-  color: #7b8494; font-family: inherit; font-size: .62rem; font-weight: 600; letter-spacing: .01em;
-  text-decoration: none; background: none; border: 0; cursor: pointer;
-}
-.mtab:hover { color: #4a5566; }
-/* Active tab carries the Macro signature colour (the one place besides the logo). */
-.mtab.is-active { color: var(--brand-accent); background: color-mix(in srgb, var(--brand-accent) 14%, transparent); }
-.mtab-ico { display: block; font-size: 1.3rem; line-height: 1; }
-svg.mtab-ico { width: 22px; height: 22px; }
+/* The bottom tab bar (.mobile-tabbar / .mtab) is defined ONCE, in premium.css
+   — identical on every page, like the shared header. */
 
 /* Below 1100px there isn't room for two 3-col grids side by side, so stack the
    US and UK groups; each then spans the full width as its own 3-col grid. */
@@ -758,9 +738,8 @@ svg.mtab-ico { width: 22px; height: 22px; }
   .intel-row .save-btn { order: 3; }
   .intel-row .intel-head { flex: 1 0 100%; order: 4; white-space: normal; overflow: visible; }
   .intel-row .intel-src-inline { flex: 1 0 100%; order: 5; white-space: normal; }
-  /* Fixed bottom tab bar (phones only): platform switch + search. */
+  /* Clear the fixed bottom tab bar (defined in premium.css). */
   body { padding-bottom: 5.65rem; }
-  .mobile-tabbar { display: grid; }
 }
 @media (max-width: 480px) {
   h1 { font-size: 1.35rem; }

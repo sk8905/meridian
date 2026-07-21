@@ -484,26 +484,8 @@ a.intel-head:hover { text-decoration: none; }
 .footer { border-top: 1px solid var(--border); background: #fff; padding: 1.25rem 1.5rem; }
 .footer p { font-size: .78rem; color: var(--muted); }
 
-/* ---- Mobile bottom tab bar (Macro / Credit / Legal / Search) — phones only. ---- */
-.mobile-tabbar {
-  display: none; position: fixed; left: .6rem; right: .6rem; z-index: 45;
-  bottom: calc(1.55rem + env(safe-area-inset-bottom, 0px));
-  grid-template-columns: repeat(5, 1fr);
-  padding: .28rem .3rem; border-radius: 24px;
-  background: rgba(248,249,252,.72);
-  border: 1px solid rgba(255,255,255,.6);
-  box-shadow: 0 6px 24px rgba(15,23,42,.16), inset 0 1px 0 rgba(255,255,255,.5);
-}
-.mtab {
-  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .12rem;
-  min-height: 44px; padding: .28rem .1rem; border-radius: 15px;
-  color: #7b8494; font-family: inherit; font-size: .62rem; font-weight: 600; letter-spacing: .01em;
-  text-decoration: none; background: none; border: 0; cursor: pointer;
-}
-.mtab:hover { color: #4a5566; }
-.mtab.is-active { color: var(--brand-accent); background: color-mix(in srgb, var(--brand-accent) 14%, transparent); }
-.mtab-ico { display: block; font-size: 1.3rem; line-height: 1; }
-svg.mtab-ico { width: 22px; height: 22px; }
+/* The bottom tab bar (.mobile-tabbar / .mtab) is defined ONCE, in premium.css
+   — identical on every page, like the shared header. */
 
 /* ---------- responsive ---------- */
 /* 3-up dashboard rows step down to 2 columns before collapsing to 1. */
@@ -619,8 +601,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
   .brand-sub { font-size: .62rem; }
   .topbar-right { justify-self: end; }
   .account-nav, .data-status { font-size: .6rem; }
-  body { padding-bottom: 5.65rem; }
-  .mobile-tabbar { display: grid; }
+  body { padding-bottom: 5.65rem; }   /* clear the fixed bottom tab bar (premium.css) */
 }
 
 @media (max-width: 480px) {

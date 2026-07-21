@@ -327,32 +327,55 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 [data-theme="dark"] .bar-track { fill: rgba(255,255,255,.07); }
 [data-theme="dark"] .chart-grid { stroke: rgba(255,255,255,.09); }
 
-/* ---- Mobile bottom tab bar — the light frosted-glass pill glows against the
-        dark UI, so give it a dark-glass variant (home + every app share the
-        .mobile-tabbar / .mtab classes, so one override covers all). ---- */
-/* ---- Bloomberg-Go bottom tab bar: flat, edge-to-edge, icon over label. ----
-   Replaces the floating frosted-glass pill with a solid bar pinned to the
-   bottom edge (no rounded corners, blur or shadow). The active item is the
-   platform accent with no pill background, matching the Bloomberg terminal app. */
+/* ==== Shared bottom tab bar — ONE definition for home + every app ==========
+   Flat, edge-to-edge, icon-over-label: a solid bar pinned to the bottom edge
+   (no rounded corners, blur or shadow). This is the SOLE source for the tab
+   bar — home.css and the three app styles.css no longer carry their own copy,
+   so the bar is byte-for-byte identical on every page, exactly like the shared
+   header. Phones only: hidden by default, shown as a 5-up grid at ≤760px. */
 .mobile-tabbar {
-  left: 0 !important; right: 0 !important; bottom: 0 !important;
+  display: none;
+  position: fixed; left: 0; right: 0; bottom: 0;
   /* Above every overlay (nav panels z110/60, scrims, cmdk z140, mcmdk z9000):
      the bottom bar persists on every page, menus and search included. */
-  z-index: 9500 !important;
-  border-radius: 0 !important;
-  padding: 9px 0 calc(9px + env(safe-area-inset-bottom, 0px)) !important;
-  background: #f6f8fc !important;
-  border: 0 !important; border-top: 1px solid rgba(15,23,42,.12) !important;
-  -webkit-backdrop-filter: none !important; backdrop-filter: none !important;
-  box-shadow: none !important;
+  z-index: 9500;
+  grid-template-columns: repeat(5, 1fr);
+  border-radius: 0;
+  padding: 9px 0 calc(9px + env(safe-area-inset-bottom, 0px));
+  background: #f6f8fc;
+  border: 0; border-top: 1px solid rgba(15,23,42,.12);
+  -webkit-backdrop-filter: none; backdrop-filter: none;
+  box-shadow: none;
   /* Pin it to its OWN compositing layer so iOS Safari keeps it welded to the
      bottom edge during momentum scroll instead of letting the fixed bar drift
      up into the middle of the feed (the same translate3d/backface trick the
      header + sticky bars already use). */
-  transform: translate3d(0, 0, 0) !important;
+  transform: translate3d(0, 0, 0);
   -webkit-backface-visibility: hidden; backface-visibility: hidden;
 }
-.mtab { border-radius: 0 !important; min-height: 54px; gap: 3px; font-size: .58rem; font-weight: 600; letter-spacing: .02em; padding: 3px .1rem !important; }
+@media (max-width: 760px) { .mobile-tabbar { display: grid; } }
+/* Tabs are <button>s (no anchors in the bar) — icon over label, UA button
+   styling neutralised. */
+.mtab {
+  position: relative;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 3px; min-height: 54px; padding: 3px .1rem; border-radius: 0;
+  color: #7b8494; font-family: inherit; font-size: .58rem; font-weight: 600; letter-spacing: .02em;
+  text-decoration: none; background: none; border: 0; cursor: pointer;
+  -webkit-appearance: none; appearance: none;
+}
+.mtab:hover { color: #4a5566; }
+/* Active tab: darker ink + an accent top line (no pill background) — the same
+   flat treatment in light and dark, so it reads identically across pages. */
+.mtab.is-active { color: #1f2733; background: none; }
+.mtab.is-active::before { content: ""; position: absolute; top: -10px; left: 0; right: 0; height: 2px; background: var(--accent, #fb8b1e); }
+.mtab-ico { display: block; font-size: 1.42rem; line-height: 1; }   /* diamond glyph → optically match the SVG icons */
+svg.mtab-ico { width: 22px; height: 22px; }
+/* Dark variant — home dashboard + every app share it (one override covers all). */
+[data-theme="dark"] .mobile-tabbar { background: #000; border-top: 1px solid var(--border, #262626); box-shadow: none; }
+[data-theme="dark"] .mtab { color: #7f8ca6; }
+[data-theme="dark"] .mtab:hover { color: #cdd6e6; }
+[data-theme="dark"] .mtab.is-active { color: #fff; background: none; }
 /* Menu as a page (/menu/): the panel is permanently open — phones use the
    existing full-screen #na-menu-panel rules; desktop gets a centred column. */
 /* ---- Cross-document view transitions (Safari 18.2+/26, Chrome 126+). The
@@ -446,26 +469,6 @@ html.wire-boot #out { visibility: hidden; }
   font-family: var(--t-mono, ui-monospace, monospace); font-size: 10.5px; line-height: 1.55; padding: 9px 11px; }
 .wire-navdiag strong { color: #fb8b1e; font-weight: 700; }
 
-/* Tabs are <button>s (no anchors in the bar) — neutralise UA button styling. */
-.mobile-tabbar .mtab { background: none; border: 0; font-family: inherit; color: inherit; cursor: pointer; -webkit-appearance: none; appearance: none; }
-.mtab.is-active { background: none !important; }
-.mtab-ico { font-size: 1.42rem; line-height: 1; }        /* diamond glyph → optically match the SVG icons */
-svg.mtab-ico { width: 22px; height: 22px; }
-[data-theme="dark"] .mobile-tabbar {
-  background: #000000 !important;
-  border-top: 1px solid var(--border, #262626) !important;
-  box-shadow: none !important;
-}
-[data-theme="dark"] .mtab { color: #7f8ca6; }
-[data-theme="dark"] .mtab:hover { color: #cdd6e6; }
-/* Active platform tab: white icon/label + an orange top line. The bar's 9px top
-   padding (+1px border) floated an inset box-shadow BELOW the bar's top border;
-   draw the line as a ::before pinned to the bar's top edge so it sits flush with
-   that border instead. */
-.mtab { position: relative; }
-[data-theme="dark"] .mtab.is-active { color: #fff !important; background: none !important; box-shadow: none !important; }
-[data-theme="dark"] .mtab.is-active::before { content: ""; position: absolute; top: -10px; left: 0; right: 0;
-  height: 2px; background: var(--accent, #fb8b1e); }
 /* the page footer hardcodes a white background — dark it so it doesn't show as a
    white band on the now dark-only app (holds the mobile account/refresh block) */
 [data-theme="dark"] .footer { background: #000000; }

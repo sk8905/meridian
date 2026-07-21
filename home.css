@@ -142,26 +142,8 @@
     .g-scrim[hidden] { display:none; }
     body.g-menu-open .g-top { z-index:80; }
 
-    /* ---- Mobile bottom tab bar (Macro / Credit / Legal / Search) — phones only. ---- */
-    .mobile-tabbar {
-      display:none; position:fixed; left:.6rem; right:.6rem; z-index:45;
-      bottom:calc(1.55rem + env(safe-area-inset-bottom, 0px));
-      grid-template-columns:repeat(5,1fr);
-      padding:.28rem .3rem; border-radius:24px;
-      background:rgba(248,249,252,.72);
-      border:1px solid rgba(255,255,255,.6);
-      box-shadow:0 6px 24px rgba(15,23,42,.16), inset 0 1px 0 rgba(255,255,255,.5);
-    }
-    .mtab {
-      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.12rem;
-      min-height:44px; padding:.28rem .1rem; border-radius:15px;
-      color:#7b8494; font-family:inherit; font-size:.62rem; font-weight:600; letter-spacing:.01em;
-      text-decoration:none; background:none; border:0; cursor:pointer;
-    }
-    .mtab:hover { color:#4a5566; }
-    .mtab.is-active { color:#1f2733; background:rgba(70,80,100,.12); }
-    .mtab-ico { display:block; font-size:1.3rem; line-height:1; }
-    svg.mtab-ico { width:22px; height:22px; }
+    /* The bottom tab bar (.mobile-tabbar / .mtab) is defined ONCE, in
+       premium.css — identical on every page, like the shared header. */
 
     @media (min-width:1101px){
       /* Mirror the app top bars exactly: the row is indented to the page
@@ -226,8 +208,7 @@
       .g-idblock { justify-self:end; grid-area:idblock; }
       .g-actions { grid-area:bell; justify-self:end; }
       .g-user, .g-refresh { font-size:.6rem; }
-      body { padding-bottom:5.65rem; }
-      .mobile-tabbar { display:grid; }
+      body { padding-bottom:5.65rem; }   /* clear the fixed bottom tab bar (premium.css) */
     }
     /* Smallest phones (≤360px, e.g. the compact iPhone SE): tighten the top row so
        the switch + identity still fit side by side without horizontal scroll. */
