@@ -371,7 +371,7 @@
 .tdash > .breadcrumb a { color: var(--muted); } .tdash > .breadcrumb a:hover { color: var(--ink); }
 .tdash > .breadcrumb .sep { color: var(--faint); }
 /* identity header — the record, centre-stage, above its activity wire */
-.tdet-id { padding: 13px 16px; background: var(--surface); border-bottom: 1px solid var(--border); flex: 0 0 auto; }
+.tdet-id { padding: 13px 16px; background: var(--head, #f4f7fb); border-bottom: 1px solid var(--border, #e4e7ef); flex: 0 0 auto; }
 .tdet-id h1 { margin: 0 0 3px; font-size: 1.12rem; font-weight: 700; letter-spacing: -.01em; color: var(--ink); line-height: 1.2; }
 .tdet-sub { font-family: var(--t-mono); font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
 .tdet-desc { margin: 8px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--muted); max-width: 76ch; }
