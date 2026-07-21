@@ -12,6 +12,12 @@
   --ink-soft: #334155;
   --muted: #66708a;
   --line: #e4e7ef;
+  --border: #e4e7ef;        /* light-mode row/table borders. Without this, every
+                               `1px solid var(--border)` on the Legal page (the
+                               Case-law wire rows, the Schemes/RPs table, status
+                               pills) collapsed to nothing — --border was only
+                               defined for dark mode (tui.css). Dark still wins
+                               via :root[data-theme="dark"]. */
   --navy: #000000;          /* top bar (matches Glance) */
   --primary: #fb8b1e;       /* accent (Wire orange) */
   --primary-ink: #1c3a5e;
