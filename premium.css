@@ -676,9 +676,12 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
      top bar is raised above the scrim so its buttons stay tappable to close. ---- */
   .na-close { display: grid; }
   .na-panel, .notif-panel {
-    /* bottom stops above the persistent tab bar (72px + safe-area). */
+    /* Bottom sits FLUSH with the top of the persistent tab bar. The bar is
+       ~54px tall now (6px pad + 42px tab + 6px pad + 1px border) plus the
+       home-indicator safe-area — was 72px here, sized for the taller old bar,
+       which left a dead gap once the bar was shortened. */
     position: fixed; top: var(--na-top-b, 54px); left: 0; right: 0;
-    bottom: calc(72px + env(safe-area-inset-bottom, 0px));
+    bottom: calc(54px + env(safe-area-inset-bottom, 0px));
     width: auto; max-width: none; max-height: none; border: 0; border-radius: 0; box-shadow: none;
     z-index: 60; background: var(--bg, #000); color: var(--ink, #eaf0fb);
     overflow-y: auto; overscroll-behavior: contain;
