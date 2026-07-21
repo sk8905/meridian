@@ -1291,11 +1291,14 @@ const FEED_SOURCES = [
   { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Awsj.com%20when%3A5d", source: "The Wall Street Journal", region: "US", cap: 18, gnews: true, soft: true },
   { url: "https://api.gdeltproject.org/api/v2/doc/doc?query=domainis:wsj.com&mode=artlist&maxrecords=40&timespan=5d&format=rss", source: "The Wall Street Journal", region: "US", cap: 14, soft: true },
   // TradingEconomics — macro-data desk (GDP / CPI / rates / labour releases),
-  // always labelled MAC (filter:false). DIRECT keyless publisher RSS leads: the
-  // aggregator bridges below both fail TE from this edge (Google pins the site:
-  // query, GDELT rate-limits/times out), so tradingeconomics.com's own news feed
-  // is the working route. cap generous for a few days of releases.
-  { url: "https://tradingeconomics.com/rss/news.aspx", source: "TradingEconomics", region: "GEN", cap: 20, filter: false },
+  // always labelled MAC (filter:false). TE's own RSS 403s the datacenter IP
+  // (Cloudflare Bot Fight), so it can only come via aggregators. Google pins the
+  // BROAD site: dump (503s it), so lead with a NARROWER indicator-scoped query
+  // (different query hash — a real search rather than a domain scrape, which
+  // Google is far less likely to flag), then the broad query (auto-flips locale
+  // on empty) and the GDELT domain index as parallel fallbacks. Whichever lands
+  // seeds the last-good cache. cap generous for a few days of releases.
+  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Atradingeconomics.com%20(inflation%20OR%20GDP%20OR%20unemployment%20OR%20%22interest%20rate%22%20OR%20CPI%20OR%20PMI%20OR%20%22central%20bank%22)%20when%3A7d", source: "TradingEconomics", region: "GEN", cap: 20, gnews: true, filter: false },
   { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Atradingeconomics.com%20when%3A5d", source: "TradingEconomics", region: "GEN", cap: 20, gnews: true, filter: false },
   { url: "https://api.gdeltproject.org/api/v2/doc/doc?query=domainis:tradingeconomics.com&mode=artlist&maxrecords=40&timespan=5d&format=rss", source: "TradingEconomics", region: "GEN", cap: 20, filter: false },
   { url: "https://www.cnbc.com/id/20910258/device/rss/rss.html", source: "CNBC", region: "US", cap: 10 }, // Economy
@@ -1643,7 +1646,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=35", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=36", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const items = await feedAssemble(env, ctx);
