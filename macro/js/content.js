@@ -673,11 +673,7 @@ export const EARNINGS = {
     { label: "This week \u00b7 20\u201324 Jul", days: [
       { date: "2026-07-21", rows: [
         { t: "SCHW", n: "Charles Schwab", tag: "Banks/brokers \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$1.55", estRev: "$6.89bn", actEps: "$1.62 adj", actRev: "$7.07bn", note: "record revenue +21% y/y; GAAP EPS $1.54", px: null },
-        { t: "COF", n: "Capital One", tag: "Banks \u00b7 S&P 500", when: null, held: [{ etf: "IGWD", w: null }], estEps: "$4.89", estRev: "$15.7bn", km: { l: "Non-int inc", est: "$3.21bn", act: null }, actEps: "$4.73 (adj $5.81)", actRev: null, note: "net income $3.0bn", px: null },
-        { t: "KO", n: "Coca-Cola", tag: "Staples \u00b7 Dow", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$0.93", estRev: "$13.13bn", actEps: null, actRev: null, px: null },
-        { t: "VZ", n: "Verizon", tag: "Telecoms \u00b7 Dow", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$1.26", estRev: "$35.5bn", km: { l: "Adj EBITDA", est: "$13.7bn", act: null }, note: "consensus +7.7% y/y; EBITDA cons +8.1%", actEps: null, actRev: null, px: null },
-        { t: "RTX", n: "RTX", tag: "Defence \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$1.66", estRev: "$23.08bn", actEps: null, actRev: null, px: null },
-        { t: "LMT", n: "Lockheed Martin", tag: "Defence \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$7.19", estRev: "$19.37bn", actEps: null, actRev: null, px: null },
+        { t: "COF", n: "Capital One", tag: "Banks \u00b7 S&P 500", when: "After close", held: [{ etf: "IGWD", w: null }], estEps: "$4.89", estRev: "$15.7bn", km: { l: "Non-int inc", est: "$3.21bn", act: null }, actEps: "$4.73 (adj $5.81)", actRev: null, note: "net income $3.0bn", px: null },
       ] },
       { date: "2026-07-22", rows: [
         { t: "GOOGL", n: "Alphabet", tag: "Mag 7 \u00b7 hyperscaler", when: "After close", held: [{ etf: "IGWD", w: "4.16%" }], estEps: "$2.86", estRev: "$116.53bn", guide: { est: "FY26 capex $175bn", act: null }, actEps: null, actRev: null, px: null },
@@ -687,10 +683,13 @@ export const EARNINGS = {
         { t: "NOW", n: "ServiceNow", tag: "AI/software \u00b7 S&P 500", when: "After close", held: [{ etf: "IGWD", w: null }], estEps: "$0.86", estRev: "$3.82bn subs", km: { l: "cRPO growth", est: ">19.5%", act: null }, note: "rev = subscription guide", actEps: null, actRev: null, px: null },
       ] },
       { date: "2026-07-23", rows: [
+        { t: "RTX", n: "RTX", tag: "Defence \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$1.66", estRev: "$23.08bn", actEps: null, actRev: null, px: null },
+        { t: "LMT", n: "Lockheed Martin", tag: "Defence \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$7.19", estRev: "$19.37bn", actEps: null, actRev: null, px: null },
         { t: "INTC", n: "Intel", tag: "Chips \u00b7 Nasdaq 100", when: "After close", held: [{ etf: "IGWD", w: null }], estEps: "$0.10", estRev: "$14.4bn", guide: { est: "co guide $13.8\u201314.8bn \u00b7 EPS $0.20", act: null }, note: "consensus +138.5% y/y", actEps: null, actRev: null, px: null },
         { t: "BX", n: "Blackstone", tag: "Asset mgr \u00b7 S&P 500", when: null, held: [{ etf: "IGWD", w: null }], estEps: "$1.34", estRev: null, actEps: null, actRev: null, px: null },
       ] },
       { date: "2026-07-24", rows: [
+        { t: "VZ", n: "Verizon", tag: "Telecoms \u00b7 Dow", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$1.26", estRev: "$35.5bn", km: { l: "Adj EBITDA", est: "$13.7bn", act: null }, note: "consensus +7.7% y/y; EBITDA cons +8.1%", actEps: null, actRev: null, px: null },
         { t: "SLB", n: "SLB (Schlumberger)", tag: "Oil services \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$0.52", estRev: null, guide: { est: "intl rev +mid-high SD \u00b7 NAm flat", act: null }, note: "consensus \u221229.7% y/y", actEps: null, actRev: null, px: null },
       ] },
     ] },

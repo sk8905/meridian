@@ -602,11 +602,25 @@ extra deep-research pass on watchlisted names is skipped.
 >      ahead block is rebuilt with the new week's calendar (`days[].rows[]`
 >      with consensus figures quoted VERBATIM from a named source —
 >      `srcs[]` must carry working URLs; omit an estimate you cannot verify,
->      leave it null); (b) on every run, for any row whose release has happened,
->      fill `actEps`/`actRev` and `px` (the source's quoted same/next-day share
->      move, e.g. "+4.1%") from the coverage — NEVER computed or guessed; keep
->      nulls where the source gives no figure. Rows stay for the rest of their
->      week so forecast vs actual reads side by side.
+>      leave it null). **Each row MUST sit under its verified report date.**
+>      Every `days[].date` is a real calendar day and each row belongs under
+>      the day the company actually reports — look the date up from a named
+>      source (the company's own "announces timing of Q_ earnings" release,
+>      or a calendar page), do NOT lump the whole week under one day. If a
+>      confirmed report date falls OUTSIDE the block's window (e.g. a name
+>      that slips to the following week), drop that row from the ahead block —
+>      it does not belong under any day shown. Set each row's `when`
+>      ("Pre-mkt" / "After close" / null) to match that source too.
+>      (b) on EVERY run, before anything else, sweep the ahead block: for
+>      every row whose report date is today or earlier, the actuals MUST be
+>      filled — pull `actEps`/`actRev` and `px` (the source's quoted
+>      same/next-day share move, e.g. "+4.1%") from the coverage, NEVER
+>      computed or guessed, and add a one-line `note` on the headline result.
+>      A reported row still showing `actEps: null` is a routine miss, not an
+>      expected state — treat a null actual on a past-dated row as work owed.
+>      Keep nulls only where the source genuinely gives no figure (e.g. a
+>      bank that reports EPS but not a revenue line). Rows stay for the rest
+>      of their week so forecast vs actual reads side by side.
 >    - **Maturity-wall charts in `macro/js/content.js` `MATWALL.wall` +
 >      `MATWALL.ratedWall`** → feed the two bar charts in Dashboard ›
 >      **Credit** (y = $bn, x = year bucket). `wall` is the US leveraged-finance
