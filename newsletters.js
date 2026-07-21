@@ -27,6 +27,36 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-economicsdaily-20260721",
+    publication: "Bloomberg",
+    author: "Malcolm Scott",
+    series: "Economics Daily",
+    title: "Economics Daily: China Shock 3.0?",
+    date: "2026-07-21",
+    time: "12:00",
+    summary: "China is closing the technology gap on both AI models and the chips that make them possible.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-21/china-s-double-moonshot-moment-in-the-ai-tech-race",
+  },
+  {
+    id: "nl-bbg-marketsdaily-20260721",
+    publication: "Bloomberg",
+    series: "Markets Daily",
+    title: "Markets Daily: Prediction insiders",
+    date: "2026-07-21",
+    time: "11:17",
+    summary: "The new insider traders lurking on prediction markets; plus, money market funds prioritize flexibility.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-21/the-new-insider-traders-lurking-on-prediction-markets",
+  },
+  {
+    id: "nl-lb-dacbeachcroft-20260721",
+    publication: "Legal Business",
+    title: "DAC Beachcroft posts double-digit growth as profits jump 20% under new leadership",
+    date: "2026-07-21",
+    time: "10:10",
+    summary: "DACB managing partner Helen Faulkner talks strategy after her first full year at the helm of the firm.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQsSXufXgBpyLGg4u/wv",
+  },
+  {
     id: "nl-lb-linklaterspep-20260721",
     publication: "Legal Business",
     title: "Linklaters posts double-digit PEP hike as turnover nears £2.5bn",
