@@ -27,6 +27,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-20260721",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: LSE Will Trade 22.83 Hours a Day",
+    date: "2026-07-21",
+    time: "19:30",
+    summary: "22.83/5, BLK v. BLK, ticking, VPN, gold.",
+    url: "https://bloom.bg/45fUlNi",
+  },
+  {
     id: "nl-bbg-thebrink-20260721",
     publication: "Bloomberg",
     author: "Giulia Morpurgo",
