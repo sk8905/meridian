@@ -622,9 +622,15 @@ function viewDashboard() {
     const items = m.structured || [];
     if (!items.length) return "—";
     return SLS_ORDER.filter((t) => items.some((s) => s.type === t)).map((t) => {
-      const tip = items.filter((s) => s.type === t)
-        .map((s) => `${s.label} — ${s.note} (${s.outlet}, ${s.date})`).join(" · ");
-      return `<span class="sls-chip" title="${esc(tip)}">${t}</span>`;
+      const ofType = items.filter((s) => s.type === t);
+      const tip = ofType.map((s) => `${s.label} — ${s.note} (${s.outlet}, ${s.date})`).join(" · ");
+      // Click → the exact source story in the manager's profile News pane
+      // (focus=k: matches the news row's data-fkey; the structured item's url is
+      // the same one added to the manager's webNews). Newest item of the type;
+      // the tooltip lists them all. An <a>, so the row's data-href defers to it.
+      const src = ofType.slice().sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")))[0];
+      const href = `#/manager/${m.id}?focus=k:${encodeURIComponent(feedDedupKey({ url: src.url, title: src.label }))}`;
+      return `<a class="sls-chip" href="${esc(href)}" title="${esc(tip)}">${esc(t)}</a>`;
     }).join("");
   };
   const mgrRow = (r) => `<tr class="clickable" data-href="#/manager/${r.m.id}" data-focus="${r.focus ? 1 : 0}" data-name="${esc((r.m.name + " " + (r.m.hq || "")).toLowerCase())}">`

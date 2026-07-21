@@ -360,16 +360,22 @@ extra deep-research pass on watchlisted names is skipped.
 >      stretch weak or asset-level evidence (portfolio-company ABS, CLO
 >      issuance, a "CFO" job title) into an SLS chip.
 >    - **CFOs — standing check EVERY run.** Collateralised fund obligations are
->      under-covered in the table (several tracked managers — e.g. AlpInvest,
->      KKR, Carlyle — have issued/sponsored CFOs that aren't yet captured).
->      On each refresh, actively search each tracked manager for CFO / rated-
->      feeder / rated-note-feeder / fund-securitisation activity and APPEND a
->      `type:"CFO"` structured item wherever a dated, sourced deal exists
->      (sponsor or arranger role stated in the `note`). Same discipline: verbatim
->      claim, working URL, article also added to the manager's news. This step
->      needs live web egress (environment network access = Full, or an allowlist
->      covering the sources); under the restricted default the routine cannot
->      research and should record that the CFO check was skipped for want of egress.
+>      under-covered. Seeded so far (keep, extend): AlpInvest/Carlyle (two CFOs,
+>      $1bn 2024 + $1.25bn 2025), KKR (REIGN I $1.58bn), Ardian ($1bn 2026). On
+>      each refresh, actively search each tracked manager for CFO / rated-feeder /
+>      rated-note-feeder / fund-securitisation activity and APPEND a `type:"CFO"`
+>      structured item wherever a dated, sourced deal exists (sponsor or arranger
+>      role stated in the `note`), also adding the source article to the manager's
+>      news. RESEARCH VIA THE **WebSearch** TOOL — it runs on Anthropic
+>      infrastructure and works regardless of the environment's network policy
+>      (Trusted or Full). Do NOT conclude research is blocked because a direct
+>      `curl`/`WebFetch` 403s: that only measures the container's own egress
+>      (what "Trusted" governs), which the established pattern never used. Quote
+>      WebSearch snippets verbatim with their source URLs (the three CFOs above
+>      were sourced exactly this way). If one specific page genuinely must be
+>      fetched rather than searched, add that fetch to the Worker (production
+>      side, unaffected by container egress) — never treat "flip the environment
+>      to Full" as a prerequisite for routine research.
 >    - **MIRROR webNews into deals/intel (critical).** A `webNews` entry shows ONLY
 >      in the notifications bell — it does NOT appear in the Deal Activity or
 >      Fundraising Intelligence feeds, the dashboard KPIs, or any tab/list (those
