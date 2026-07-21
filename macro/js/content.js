@@ -672,8 +672,8 @@ export const EARNINGS = {
     ] },
     { label: "This week \u00b7 20\u201324 Jul", days: [
       { date: "2026-07-21", rows: [
-        { t: "SCHW", n: "Charles Schwab", tag: "Banks/brokers \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$1.55", estRev: "$6.89bn", actEps: null, actRev: null, px: null },
-        { t: "COF", n: "Capital One", tag: "Banks \u00b7 S&P 500", when: null, held: [{ etf: "IGWD", w: null }], estEps: "$4.89", estRev: "$15.7bn", km: { l: "Non-int inc", est: "$3.21bn", act: null }, actEps: null, actRev: null, px: null },
+        { t: "SCHW", n: "Charles Schwab", tag: "Banks/brokers \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$1.55", estRev: "$6.89bn", actEps: "$1.62 adj", actRev: "$7.07bn", note: "record revenue +21% y/y; GAAP EPS $1.54", px: null },
+        { t: "COF", n: "Capital One", tag: "Banks \u00b7 S&P 500", when: null, held: [{ etf: "IGWD", w: null }], estEps: "$4.89", estRev: "$15.7bn", km: { l: "Non-int inc", est: "$3.21bn", act: null }, actEps: "$4.73 (adj $5.81)", actRev: null, note: "net income $3.0bn", px: null },
         { t: "KO", n: "Coca-Cola", tag: "Staples \u00b7 Dow", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$0.93", estRev: "$13.13bn", actEps: null, actRev: null, px: null },
         { t: "VZ", n: "Verizon", tag: "Telecoms \u00b7 Dow", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$1.26", estRev: "$35.5bn", km: { l: "Adj EBITDA", est: "$13.7bn", act: null }, note: "consensus +7.7% y/y; EBITDA cons +8.1%", actEps: null, actRev: null, px: null },
         { t: "RTX", n: "RTX", tag: "Defence \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$1.66", estRev: "$23.08bn", actEps: null, actRev: null, px: null },
