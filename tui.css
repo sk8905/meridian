@@ -374,7 +374,7 @@
 .tdet-id { padding: 13px 16px; background: var(--head, #f4f7fb); border-bottom: 1px solid var(--border, #e4e7ef); flex: 0 0 auto; }
 .tdet-id h1 { margin: 0 0 3px; font-size: 1.12rem; font-weight: 700; letter-spacing: -.01em; color: var(--ink); line-height: 1.2; }
 .tdet-sub { font-family: var(--t-mono); font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
-.tdet-desc { margin: 8px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--muted); max-width: 76ch; }
+.tdet-desc { margin: 8px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--muted); }
 .tdet-chips { margin-top: 9px; display: flex; flex-wrap: wrap; gap: 5px; }
 .tdet-chip { font-family: var(--t-mono); font-size: 9px; text-transform: uppercase; letter-spacing: .03em; color: var(--muted); border: 1px solid var(--border); padding: 2px 7px; white-space: nowrap; }
 .tdet-src { margin-top: 9px; font-size: 10px; color: var(--faint); }
