@@ -1246,8 +1246,19 @@ const FEED_SOURCES = [
   // Financial specialists — US
   // WSJ: soft filter (lifestyle-only reject) + generous caps — the strict
   // macro-keyword title filter dropped most of their markets/business run.
+  // The direct feeds.a.dj.com RSS is frequently 403'd / empty from the Worker's
+  // datacenter IPs (the same reason Reuters & Bloomberg are bridged via Google
+  // News), so pair them with a site:wsj.com Google-News bridge. Both emit "The
+  // Wall Street Journal"; title-dedupe collapses the overlap and PREFERS the
+  // direct wsj.com link (it sorts first when both carry the same headline), with
+  // the gnews copy — a news.google.com redirect — filling in when direct fails.
   { url: "https://feeds.a.dj.com/rss/RSSMarketsMain.xml", source: "The Wall Street Journal", region: "US", cap: 14, soft: true },
   { url: "https://feeds.a.dj.com/rss/WSJcomUSBusiness.xml", source: "The Wall Street Journal", region: "US", cap: 10, soft: true },
+  { url: "https://news.google.com/rss/search?q=site%3Awsj.com%20when%3A2d&hl=en-US&gl=US&ceid=US%3Aen", source: "The Wall Street Journal", region: "US", cap: 12, gnews: true, soft: true },
+  // TradingEconomics — macro-data desk (GDP / CPI / rates / labour releases).
+  // Bridged via Google News (their own RSS needs an API key). Inherently macro,
+  // so filter:false (no strict title screen) and the client always labels it MAC.
+  { url: "https://news.google.com/rss/search?q=site%3Atradingeconomics.com%20when%3A3d&hl=en-US&gl=US&ceid=US%3Aen", source: "TradingEconomics", region: "GEN", cap: 8, gnews: true, filter: false },
   { url: "https://www.cnbc.com/id/20910258/device/rss/rss.html", source: "CNBC", region: "US", cap: 10 }, // Economy
   { url: "https://www.cnbc.com/id/20409666/device/rss/rss.html", source: "CNBC", region: "US", cap: 8 },  // Markets
   { url: "https://www.cnbc.com/id/10000664/device/rss/rss.html", source: "CNBC", region: "US", cap: 6 },  // Finance
@@ -1454,7 +1465,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=21", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=22", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f) => {

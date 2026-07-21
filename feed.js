@@ -42,8 +42,11 @@ export const STRICT_MACRO_RE = /\b(fed(eral reserve)?|fomc|powell|rate (cut|hike
 // Bloomberg stories that aren't strictly macro get the BBG label (not the
 // generic NEWS one); Economist → ECON; strict-macro items still read MAC.
 export const deskFor = (title, source, dflt = "news") => {
-  if (STRICT_MACRO_RE.test(title || "")) return "m";
   const s = source || "";
+  // TradingEconomics is a macro-data desk (GDP / CPI / rates / labour releases),
+  // so ALL of its items read MAC regardless of the individual headline.
+  if (/trading\s*economics/i.test(s)) return "m";
+  if (STRICT_MACRO_RE.test(title || "")) return "m";
   if (/^bloomberg\b/i.test(s)) return "bbg";
   if (/economist/i.test(s)) return "econ";
   return dflt;
