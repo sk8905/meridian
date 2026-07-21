@@ -65,6 +65,43 @@ export const nlDesk = (title) => (STRICT_MACRO_RE.test(title || "") ? "m" : "n")
 // search behaves identically in every search bar.
 export const PAL_CODE = { macro: "MAC", credit: "CRD", legal: "LEX", view: "GO", ft: "FT", letter: "LTR", substack: "SUBS", brew: "BREW", bbg: "BBG", econ: "ECON", news: "NEWS" };
 
+// ---- Live wire (shared /api/feed loader) -------------------------------------
+// Desk label for a LIVE wire item — Home's routing rule, codified once so every
+// page labels the same story the same way: reader-curated streams keep their own
+// desks (myFT→FT, Substack→SUBS, Brew→BREW); everything else classifies by
+// title/source (MAC / BBG / ECON / NEWS).
+export const liveDesk = (n) => (n.myft ? "f" : n.substack ? "s" : n.brew ? "b" : deskFor(n.title, n.source));
+// One loader for the cross-desk live wire, shared by every page (Macro / Credit /
+// Legal dashboards + the app search palette). Subscribers are called immediately
+// with the last-good cached items (the SAME m_glance_feed cache Home writes, so
+// all pages see the same stories), then once more when the live fetch lands —
+// which happens at most ONCE per page load no matter how many subscribers.
+let _lwFetchStarted = false;
+let _lwLive = null;
+const _lwSubs = [];
+const lwCached = () => { try { return ((JSON.parse(localStorage.getItem("m_glance_feed") || "null") || {}).items) || []; } catch { return []; } };
+export function onLiveWire(fn) {
+  _lwSubs.push(fn);
+  const seed = _lwLive || lwCached();
+  if (seed.length) { try { fn(seed); } catch { /* subscriber error — isolate */ } }
+  if (_lwFetchStarted) return;
+  _lwFetchStarted = true;
+  fetch("/api/feed", { headers: { accept: "application/json" } })
+    .then((r) => (r.ok && !(r.headers.get("content-type") || "").includes("text/html") ? r.json() : null))
+    .then((d) => {
+      const items = d && Array.isArray(d.items) ? d.items : [];
+      if (!items.length) return;
+      _lwLive = items;
+      try { localStorage.setItem("m_glance_feed", JSON.stringify(d)); } catch { /* quota/private mode */ }
+      // Anchor the top-bar countdown ring to the payload's assembly time — the
+      // same signal Home sets — so the ring reads correctly on every page.
+      try { localStorage.setItem("wire.live.anchor", String(Date.parse(d.asOf) || Date.now())); } catch { /* */ }
+      try { window.dispatchEvent(new CustomEvent("wire:live-refresh")); } catch { /* */ }
+      _lwSubs.forEach((s) => { try { s(items); } catch { /* subscriber error — isolate */ } });
+    })
+    .catch(() => { /* offline — the cached/curated content stands */ });
+}
+
 // ---- Formatting / sorting ---------------------------------------------------
 const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 // The one day-header formatter — every wire's date breaks read "20 Jul 2026".

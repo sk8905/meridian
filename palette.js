@@ -26,7 +26,7 @@ function feedDedupKey(x) {
 import { esc } from "/util.js?v=20260719-1";
 // Shared label vocabulary + classifier, so a "#CODE" search behaves identically
 // here and in the Home palette (same tags, same precedence).
-import { PAL_CODE, deskFor, palTag, nlDesk } from "/feed.js?v=20260721-8";
+import { PAL_CODE, deskFor, palTag, nlDesk, onLiveWire } from "/feed.js?v=20260721-9";
 const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const fmt = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ""); return m ? `${+m[3]} ${MON[+m[2] - 1]} ${m[1]}` : (iso || ""); };
 const mgrName = (id) => (managers.find((m) => m.id === id) || {}).name || "";
@@ -280,19 +280,14 @@ export function mountPalette() {
     else if (ev.key === "Escape" && ov.classList.contains("open")) close();
   });
 
-  // Pull the live cross-desk wire independently (the Worker's /api/feed) so the
-  // "#BBG"/"#ECON" label search finds the separately-fetched Bloomberg &
-  // Economist stories WITHOUT needing a Home-page visit first. On success we warm
-  // the shared cache (same key/shape the Home landing uses) and rebuild the index;
-  // if the palette is open, re-run the current search so results update live.
-  // Non-200 / HTML redirect (Access re-auth) / offline → keep the cache-based index.
-  fetch("/api/feed", { headers: { accept: "application/json" } })
-    .then((r) => (r.ok && !(r.headers.get("content-type") || "").includes("text/html") ? r.json() : null))
-    .then((d) => {
-      if (!d || !Array.isArray(d.items) || !d.items.length) return;
-      try { localStorage.setItem("m_glance_feed", JSON.stringify(d)); } catch { /* quota/private mode */ }
-      idx = buildIndex();
-      if (ov.classList.contains("open")) refresh();
-    })
-    .catch(() => { /* keep the cache-based index */ });
+  // Pull the live cross-desk wire via the ONE shared loader (feed.js onLiveWire)
+  // so the "#BBG"/"#ECON" label search finds the separately-fetched Bloomberg &
+  // Economist stories WITHOUT needing a Home-page visit first — and without a
+  // second /api/feed request when the page's dashboard already subscribed. The
+  // loader warms the shared cache; on arrival rebuild the index, and if the
+  // palette is open re-run the current search so results update live.
+  onLiveWire(() => {
+    idx = buildIndex();
+    if (ov.classList.contains("open")) refresh();
+  });
 }

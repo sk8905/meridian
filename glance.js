@@ -21,7 +21,7 @@ import { esc, byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } 
 // these helpers; Macro/Credit/Legal use the same module, so every wire is one
 // build.
 import { DESK, DESK_CODE, DESK_CLASS, STRICT_MACRO_RE, deskFor, palTag, nlDesk, PAL_CODE,
-  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, feedChipsHTML } from "/feed.js?v=20260721-8";
+  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, feedChipsHTML } from "/feed.js?v=20260721-9";
 // The ONLY sources eligible to lead the briefing "Top story": FT, Bloomberg, CNBC,
 // Reuters and the WSJ (plus their same-wire variants, e.g. a Reuters story carried
 // via Investing.com or an FT Alphaville post).

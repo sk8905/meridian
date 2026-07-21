@@ -13,7 +13,7 @@ import { MONTHS, MONTHS_FULL, WEEKDAYS, isoToDate, fmtDay, fmtDayGB, fmtWeekday,
 import { macroDashPane, loadYieldCurve, cockpitInds } from "./dashboard.js?v=20260719-2";
 // The shared news-wire engine — so the Macro dashboard wire is the same build as
 // the Home feed (time-led .g-feed-* rows, day headers, source filter).
-import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks } from "/feed.js?v=20260721-8";
+import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, onLiveWire, liveDesk } from "/feed.js?v=20260721-9";
 // NOTE: dashboard.js and shared.js import ./content.js with their OWN ?v= —
 // keep all three content tokens identical (and bump together) or the browser
 // loads content.js twice as separate module instances.
@@ -40,28 +40,21 @@ const MAC_NON_PREMIUM = new Set([
   "HomeOwners Alliance", "U.S. News", "CityAM", "Enterprise AM", "exchangerates.org.uk",
   "TradingView", "GV Wire", "CryptoTimes", "Financial Mirror", "FX Leaders", "Currency News UK",
 ]);
-// Live macro news wire (shared Worker /api/feed) folded into the dashboard News
-// tab alongside the curated ARTICLES/NEWS. Seeded from a localStorage cache so it
-// shows instantly, then refreshed in the background.
+// Live cross-desk news wire folded into the dashboard News tab alongside the
+// curated ARTICLES/NEWS — via the ONE shared loader (feed.js onLiveWire), so
+// every page ingests the same /api/feed stream from the same cache, identically.
 let _macFeed = [];
-try { _macFeed = (JSON.parse(localStorage.getItem("wire.macro.feed") || "[]") || []).slice(0, 60); } catch { /* ignore */ }
 let _macFeedLoaded = false;
-async function loadMacroFeed() {
+function loadMacroFeed() {
   if (_macFeedLoaded) return;
   _macFeedLoaded = true;
-  try {
-    const r = await fetch("/api/feed", { headers: { accept: "application/json" } });
-    if (!r.ok) return;
-    const d = await r.json();
-    const items = (d && Array.isArray(d.items)) ? d.items : [];
-    if (!items.length) return;
+  onLiveWire((items) => {
     const changed = items.length !== _macFeed.length || (items[0] && (!_macFeed[0] || items[0].title !== _macFeed[0].title));
     _macFeed = items;
-    try { localStorage.setItem("wire.macro.feed", JSON.stringify(items.slice(0, 60))); } catch { /* ignore */ }
     // If the reader is on the dashboard and the data actually changed, re-render so
     // the new live headlines appear in the News wire.
     if (changed && document.getElementById("mac-wire")) render();
-  } catch { /* offline */ }
+  });
 }
 function macroMonth(ym) { const p = String(ym || "").split("-"); return p.length === 2 ? `${MONTHS[+p[1]] || ""} ${p[0]}` : ""; }
 
@@ -346,15 +339,18 @@ function viewDashboard() {
     .filter((x) => { const k = String(x.title || "").toLowerCase().replace(/[^a-z0-9]+/g, ""); if (!k || seenNews.has(k)) return false; seenNews.add(k); return true; })
     .map((x) => ({ ...x, _kind: "news" }));
   const wire = [...comm, ...news].sort((a, b) => `${b.date} ${b.time || ""}`.localeCompare(`${a.date} ${a.time || ""}`));
-  // Normalise into the shared wire's item shape: the News / Commentary streams
-  // map to the NEWS / COMM code chips, the source becomes the in-place filter.
+  // Normalise into the shared wire's item shape. News-stream rows carry their
+  // TRUE desk label — the same vocabulary Home uses (MAC / BBG / ECON / FT /
+  // SUBS / NEWS via feed.js liveDesk) — instead of a flat NEWS chip; `kind`
+  // keeps the News/Commentary chip filter working over the mixed labels.
   // Macro items carry a date but usually no time, so most rows lead with "12:00"
   // (as on Home). Kept in the module var so macroWireDash() can re-filter.
   // Keep the whole deduped stream (Home caps at 500) so the Commentary chip has
   // items even when recent News dominates — slicing to a short combined list
   // used to drop all commentary out of the top rows.
   _macWireItems = wire.slice(0, 500).map((x) => ({
-    desk: x._kind === "comm" ? "comm" : "news",
+    desk: x._kind === "comm" ? "comm" : liveDesk(x),
+    kind: x._kind === "comm" ? "comm" : "news",
     href: x.url || "#/", ext: !!x.url, title: x.title,
     src: x.source || "", date: x.date || "", time: x.time || "",
   }));
@@ -441,7 +437,9 @@ function macroWireDash() {
     if (showDash) return;
     let list = _macWireItems;
     if (_macSrc) list = list.filter((x) => x.src === _macSrc);
-    else if (k !== "all") list = list.filter((x) => x.desk === k);
+    // Chips filter on the stream kind (news/comm), not the display desk — rows
+    // carry mixed desk labels (MAC/BBG/ECON/…) under the one News stream.
+    else if (k !== "all") list = list.filter((x) => x.kind === k);
     wire.innerHTML = (_macSrc ? feedSrcBarHTML(_macSrc) : "")
       + (list.length ? feedBodyHTML(list) : feedEmptyHTML(_macSrc ? `No ${_macSrc} stories — check back shortly.` : "No items yet."));
   };
@@ -1452,7 +1450,7 @@ document.addEventListener("click", (e) => {
   }
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260721-8").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260721-9").then((m) => m.mountPalette()).catch(() => {});
 import("/ptr.js?v=20260719-10").then((m) => m.initPullToRefresh()).catch(() => {});
 render();
 initMe();
