@@ -322,10 +322,13 @@
    numeric columns across the full width; the name/HQ cells ellipsis at the
    column edge (no max-width cap needed once the column width is set). */
 @media (min-width: 761px) {
-  /* Cap the table: percentages read evenly up to ~1500px, but on an ultrawide
-     monitor a 100%-width table turns every column into a void (numbers
-     hundreds of px from their neighbours). Densest readable layout wins. */
-  .tleague-full { table-layout: fixed; max-width: 1480px; }
+  /* Ultrawide monitors: a 100%-width table turns every column into a void
+     (numbers hundreds of px from their neighbours), while capping only the
+     TABLE strands it left of its own search header. Cap the whole managers
+     pane — header + search + table + legend — as ONE centred column, so
+     everything stays aligned and dense at any screen width. */
+  .tpane[data-pane="managers"] { max-width: 1500px; margin: 0 auto; width: 100%; }
+  .tleague-full { table-layout: fixed; }
   /* EIGHT columns since SLS landed — the widths must always sum to 100% or
      table-layout:fixed starves whichever column is missing from this list
      (that's exactly what squashed SLS to nothing at the right edge). */
@@ -338,8 +341,6 @@
   .tleague-full th:nth-child(7) { width: 7%;  }   /* CLOs       */
   .tleague-full th:nth-child(8) { width: 18%; }   /* SLS        */
   .tleague-full .tl-nm { max-width: none; }
-  /* The legend hugs the table it explains, not the full ultrawide row. */
-  .tl-sls-key { max-width: 1480px; }
 }
 /* iPhone: drop the HQ column so the manager name + numeric columns fit the width. */
 @media (max-width: 760px) {
