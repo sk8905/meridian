@@ -545,6 +545,18 @@ const MARKET_SERIES = [
   { label: "Bitcoin", symbol: "BTC-USD", fred: "CBBTCUSD", href: "https://finance.yahoo.com/quote/BTC-USD" },
 ];
 
+// The reader's own ETF book (the Markets-panel Portfolio tab). EMEE and IGWD are
+// already in MARKET_SERIES (the tiles) so their quotes are reused; these are the
+// remaining holdings that need a live GBP price. LSE lines quote in GBp and
+// yahooQuote rescales them to GBP-major, so the client's £ buy prices compare
+// like-for-like. BTC-GBP is priced directly in GBP.
+const PORTFOLIO_EXTRA = [
+  { label: "COMM", symbol: "COMM.L", stooq: "comm.uk" },
+  { label: "CNX1", symbol: "CNX1.L", stooq: "cnx1.uk" },
+  { label: "WMVG", symbol: "WMVG.L", stooq: "wmvg.uk" },
+  { label: "BTCGBP", symbol: "BTC-GBP" },
+];
+
 // Extra cross-asset instruments used ONLY to widen the pool the Glance one-liner
 // ticker chips pick their top movers from — so the chips aren't limited to the 8
 // banner tiles above. Fetched lightly (spot only, no futures), best-effort: any
@@ -687,7 +699,7 @@ async function handleMarkets(request, env, ctx) {
     return new Response(JSON.stringify({ nowUTC: new Date().toISOString(), probes, futures }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/markets?v=11", request.url).toString());
+  const cacheKey = new Request(new URL("/api/markets?v=12", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const fromFred = async (id) => {
@@ -721,7 +733,16 @@ async function handleMarkets(request, env, ctx) {
     const r = await yahooQuote(s.symbol);
     return r.value != null ? { label: s.label, value: r.value, changePct: r.changePct, marketState: r.marketState || null, href: s.href } : null;
   }))).filter(Boolean);
-  const resp = new Response(JSON.stringify({ markets: data, moversExtra, moversEtf }), {
+  // Reader's ETF book: reuse EMEE/IGWD from the tiles above, fetch the rest.
+  // value = live GBP price/unit, change = GBP daily move/unit (for the £ total).
+  const pfExtra = await Promise.all(PORTFOLIO_EXTRA.map(async (s) => {
+    let r = await yahooQuote(s.symbol);
+    if (r.value == null && s.stooq) r = await stooqQuote(s.stooq);
+    return { label: s.label, value: r.value, change: r.change, changePct: r.changePct, marketState: r.marketState || null };
+  }));
+  const pfPick = (l) => { const d = data.find((x) => x.label === l); return d ? { label: l, value: d.value, change: d.change, changePct: d.changePct, marketState: d.marketState || null } : null; };
+  const portfolio = [pfPick("EMEE"), pfPick("IGWD"), ...pfExtra].filter(Boolean);
+  const resp = new Response(JSON.stringify({ markets: data, moversExtra, moversEtf, portfolio }), {
     // Short cache so the live prices stay near-real-time without hammering upstreams.
     headers: { "content-type": "application/json", "cache-control": "public, max-age=60" },
   });

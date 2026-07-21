@@ -231,22 +231,103 @@ function moverRow(x) {
 }
 const naSec = (title, tag) => `<div class="na-sec"><span>${esc(title)}</span><span class="na-sec-x">${esc(tag)}</span></div>`;
 
+// The reader's ETF book. `cost` is the per-unit buy price in GBP-MAJOR — the same
+// unit /api/markets returns (LSE GBp lines are rescaled to GBP there), so live vs
+// cost compares like-for-like. Prices shown in pence on the broker statement are
+// stored ÷100 (IGWD 11,818p→£118.18, COMM 667.94p→£6.6794, CNX1 126,917p→£1,269.17);
+// EMEE/WMVG were already major GBP. BTC is marked-to-market on the 0.02 held.
+const PORTFOLIO = [
+  { name: "iShares Emerging Markets Equity", ticker: "EMEE", venue: "LON", qty: 303000, cost: 5.96 },
+  { name: "iShares MSCI World GBP Hedged", ticker: "IGWD", venue: "LON", qty: 639, cost: 118.18 },
+  { name: "iShares Diversified Commodity", ticker: "COMM", venue: "LON", qty: 1424, cost: 6.6794 },
+  { name: "iShares Nasdaq 100 UCITS", ticker: "CNX1", venue: "LON", qty: 1, cost: 1269.17 },
+  { name: "iShares Edge MSCI World Min Vol", ticker: "WMVG", venue: "LON", qty: 363600, cost: 8.23 },
+  { name: "BTC/GBP", ticker: "BTCGBP", venue: "Coinbase Pro", qty: 0.02, cost: 66075.30, note: "Leverage" },
+];
+// £ money: sign + thousands + 2dp under £100k, 0dp above (keeps totals compact).
+function fmtGBP(v, sign) {
+  if (v == null || !isFinite(v)) return "—";
+  const a = Math.abs(v);
+  const s = a.toLocaleString(undefined, { minimumFractionDigits: a >= 100000 ? 0 : 2, maximumFractionDigits: a >= 100000 ? 0 : 2 });
+  const pre = sign && v > 0 ? "+£" : v < 0 ? "−£" : "£";
+  return pre + s;
+}
+const fmtPct = (p, sign) => (p == null || !isFinite(p)) ? "" : ((sign && p > 0 ? "+" : p < 0 ? "−" : "") + Math.abs(p).toFixed(2) + "%");
+
 let _mktLoaded = false;
+// Markets panel: Markets | Portfolio chip tabs over one shared fetch.
+let _mktTab = "markets";
 function loadMarkets(body) {
-  body.innerHTML = '<div class="na-load">Loading…</div>';
+  body.innerHTML = `<div class="na-chips">`
+    + `<button type="button" class="na-chip" data-k="markets">Markets</button>`
+    + `<button type="button" class="na-chip" data-k="portfolio">Portfolio</button>`
+    + `</div><div class="na-tabbody"><div class="na-load">Loading…</div></div>`;
+  const chips = body.querySelector(".na-chips");
+  const tb = body.querySelector(".na-tabbody");
+  let data = null;
+  const render = () => {
+    chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _mktTab));
+    if (!data) { tb.innerHTML = '<div class="na-load">Loading…</div>'; return; }
+    tb.innerHTML = _mktTab === "portfolio" ? portfolioPane(data) : marketsPane(data);
+  };
+  chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c && c.dataset.k !== _mktTab) { _mktTab = c.dataset.k; render(); } });
+  render();
   Promise.all([
-    fetch("/api/markets?v=12", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
+    fetch("/api/markets?v=13", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
     fetch("/api/rates?v=12", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
   ]).then(([m, rt]) => {
-    const markets = (m && m.markets) || [];
-    const movers = (m && m.moversEtf) || [];
-    const rates = (rt && rt.rates) || [];
-    if (!markets.length && !rates.length && !movers.length) { body.innerHTML = '<div class="na-load">Markets unavailable right now.</div>'; return; }
-    body.innerHTML =
-      (markets.length ? naSec("Markets", "live") + markets.map(marketRow).join("") : "") +
-      (rates.length ? naSec("Key rates & spreads", "bp · %") + rates.map(rateRow).join("") : "") +
-      (movers.length ? naSec("Top movers", "1D") + movers.map(moverRow).join("") : "");
+    data = { markets: (m && m.markets) || [], movers: (m && m.moversEtf) || [], portfolio: (m && m.portfolio) || [], rates: (rt && rt.rates) || [] };
+    render();
   });
+}
+function marketsPane(d) {
+  if (!d.markets.length && !d.rates.length && !d.movers.length) return '<div class="na-load">Markets unavailable right now.</div>';
+  return (d.markets.length ? naSec("Markets", "live") + d.markets.map(marketRow).join("") : "")
+    + (d.rates.length ? naSec("Key rates & spreads", "bp · %") + d.rates.map(rateRow).join("") : "")
+    + (d.movers.length ? naSec("Top movers", "1D") + d.movers.map(moverRow).join("") : "");
+}
+function pfRow(h, m) {
+  const price = m && m.value != null ? m.value : null;
+  const val = price != null ? price * h.qty : null;
+  const cost = h.cost * h.qty;
+  const pnl = val != null ? val - cost : null;
+  const pnlPct = val != null ? (pnl / cost) * 100 : null;
+  const pnlDir = pnl == null ? "flat" : pnl > 0 ? "up" : pnl < 0 ? "down" : "flat";
+  const dayC = m && typeof m.changePct === "number" && isFinite(m.changePct) ? m.changePct : null;
+  const dayDir = dayC == null ? "flat" : dayC > 0 ? "up" : dayC < 0 ? "down" : "flat";
+  const qtyTxt = h.qty >= 1000 ? h.qty.toLocaleString() : String(h.qty);
+  const sub = `${esc(h.ticker)} · ${qtyTxt} @ ${fmtGBP(h.cost)}${h.note ? " · " + esc(h.note) : ""}`;
+  return `<div class="na-pf-row">`
+    + `<span class="na-pf-main"><span class="na-pf-name">${esc(h.name)}${naDot(m)}</span><span class="na-pf-sub">${sub}</span></span>`
+    + `<span class="na-pf-nums"><span class="na-pf-val">${val != null ? fmtGBP(val) : "—"}</span>`
+    + `<span class="na-pf-pnl ${pnlDir}">${pnl != null ? fmtGBP(pnl, true) + " · " + fmtPct(pnlPct, true) : ""}</span>`
+    + `<span class="na-pf-day ${dayDir}">${dayC != null ? fmtPct(dayC, true) + " today" : ""}</span></span></div>`;
+}
+function portfolioPane(d) {
+  const q = {}; (d.portfolio || []).forEach((x) => { q[x.label] = x; });
+  let tVal = 0, tCost = 0, tDay = 0, priced = 0;
+  for (const h of PORTFOLIO) {
+    const m = q[h.ticker];
+    if (m && m.value != null) {
+      const val = m.value * h.qty;
+      tVal += val; tCost += h.cost * h.qty; priced++;
+      if (m.change != null) tDay += m.change * h.qty;
+    }
+  }
+  const rows = PORTFOLIO.map((h) => pfRow(h, q[h.ticker])).join("");
+  const tPnl = tVal - tCost;
+  const tPnlPct = tCost ? (tPnl / tCost) * 100 : null;
+  const priorVal = tVal - tDay;
+  const tDayPct = priorVal ? (tDay / priorVal) * 100 : null;
+  const dayDir = tDay > 0 ? "up" : tDay < 0 ? "down" : "flat";
+  const pnlDir = tPnl > 0 ? "up" : tPnl < 0 ? "down" : "flat";
+  const summary = `<div class="na-pf-sum">`
+    + `<div class="na-pf-sum-top"><span class="na-pf-sum-k">Portfolio value</span><span class="na-pf-sum-v">${priced ? fmtGBP(tVal) : "—"}</span></div>`
+    + `<div class="na-pf-sum-grid">`
+    + `<span class="na-pf-sum-cell"><span class="na-pf-sum-ck">Today</span><span class="na-pf-sum-cv ${dayDir}">${priced ? fmtGBP(tDay, true) + " · " + fmtPct(tDayPct, true) : "—"}</span></span>`
+    + `<span class="na-pf-sum-cell"><span class="na-pf-sum-ck">Total P&amp;L</span><span class="na-pf-sum-cv ${pnlDir}">${priced ? fmtGBP(tPnl, true) + " · " + fmtPct(tPnlPct, true) : "—"}</span></span>`
+    + `</div></div>`;
+  return summary + naSec("Holdings", `${priced}/${PORTFOLIO.length} priced`) + rows;
 }
 
 // ---- Saved rows — shared news-feed row (headline, then code · date · source) --
