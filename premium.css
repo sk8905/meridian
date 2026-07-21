@@ -513,13 +513,23 @@ html.wire-boot #out { visibility: hidden; }
    viewport-fixed and the body is padded by its measured height, so neither
    pull-to-refresh nor native overscroll can move it. The tab bar is injected
    by the same controller and is always fixed. */
-.wire-head-fixed { position: fixed !important; top: 0; left: 0; right: 0; z-index: 1300; }
+.wire-head-fixed { position: fixed !important; top: 0; left: 0; right: 0; z-index: 1300;
+  /* Pin to its OWN compositing layer (same translate3d/backface trick as the
+     bottom tab bar). Without it, iOS Safari lets this position:fixed header
+     DRIFT during momentum / rubber-band scroll — it detaches, shifts up under
+     the status bar and renders half-clipped over the chip bar. Safe: the bell/
+     saved dropdowns (.na-panel) are portaled to <body>, not descendants here,
+     so the new containing block doesn't move them. */
+  transform: translate3d(0, 0, 0); -webkit-backface-visibility: hidden; backface-visibility: hidden; }
 body.wire-head-pad { padding-top: var(--wire-head-h, 56px); }
 /* Chip bar promoted into the chrome: pinned below the header, full-bleed. */
 /* top needs !important too: per-page sticky rules (tui .twire-head top:57px)
    load later and silently won, wedging the bar 2px into the header and leaving
    a seam above the content. */
-.wire-bar-fixed { position: fixed !important; top: var(--wire-head-h, 56px) !important; left: 0; right: 0; z-index: 1290; }
+.wire-bar-fixed { position: fixed !important; top: var(--wire-head-h, 56px) !important; left: 0; right: 0; z-index: 1290;
+  /* Same compositing-layer weld as the header/tab bar so the chip bar can't
+     drift out from under the header during iOS momentum scroll. */
+  transform: translate3d(0, 0, 0); -webkit-backface-visibility: hidden; backface-visibility: hidden; }
 body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 56px) + var(--wire-bar-h, 34px)); }
 
 .na-actions { display: inline-flex; align-items: center; gap: .4rem; }
