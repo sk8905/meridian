@@ -57,12 +57,20 @@ for (const [name, dev] of [["phone", PHONE], ["desktop", DESKTOP]]) {
     await new Promise((r) => setTimeout(r, 300));
   });
   const mw = await pg.evaluate(() => {
-    const svg = document.querySelector(".mwc-svg");
-    return { svg: !!svg, bars: svg ? svg.querySelectorAll("rect").length : 0, np: svg ? svg.querySelectorAll(".mwc-np").length : 0 };
+    const pick = (id) => document.querySelector(`.mwc[data-wall="${id}"] .mwc-svg`);
+    const cnt = (svg, sel) => (svg ? svg.querySelectorAll(sel).length : 0);
+    const rated = pick("rated"), lev = pick("levfin");
+    return {
+      rated: !!rated, ratedBars: cnt(rated, "rect"), ratedNp: cnt(rated, ".mwc-np"),
+      lev: !!lev, levBars: cnt(lev, "rect"), levNp: cnt(lev, ".mwc-np"),
+    };
   });
-  check(mw.svg, "maturity-wall chart renders");
-  checkEq(mw.bars, 3, "maturity-wall bar count");
-  checkEq(mw.np, 3, "maturity-wall n/p placeholders");
+  check(mw.rated, "global rated maturity chart renders");
+  checkEq(mw.ratedBars, 5, "rated chart bar count (2025–2029)");
+  checkEq(mw.ratedNp, 0, "rated chart has no n/p placeholders");
+  check(mw.lev, "lev-fin maturity-wall chart renders");
+  checkEq(mw.levBars, 3, "lev-fin maturity-wall bar count");
+  checkEq(mw.levNp, 3, "lev-fin maturity-wall n/p placeholders");
   checkErrs(errs, "macro dashboard widgets");
   await ctx.close();
 }

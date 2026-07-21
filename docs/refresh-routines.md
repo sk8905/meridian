@@ -558,16 +558,25 @@ extra deep-research pass on watchlisted names is skipped.
 >      move, e.g. "+4.1%") from the coverage — NEVER computed or guessed; keep
 >      nulls where the source gives no figure. Rows stay for the rest of their
 >      week so forecast vs actual reads side by side.
->    - **Maturity-wall chart in `macro/js/content.js` `MATWALL.wall`** → feeds
->      the bar chart in Dashboard › **Credit** (y = $bn, x = year bucket).
->      Every plotted value is quoted VERBATIM from a public source (currently
->      the LSTA Morningstar-index monthly analysis for loans and PitchBook/LCD
->      coverage for HY bonds); `null` renders as "n/p" — NEVER estimate,
->      interpolate, or back out a missing year (per-year global rated splits
->      sit behind S&P's registration wall). Upkeep is occasional, not per-run:
->      when a newer index analysis or outlook publishes updated bucket figures,
->      replace the values, `note` and `srcs` together and keep the as-of dates
->      in the note current. `hyMin: true` marks a ">$Xbn" floor figure.
+>    - **Maturity-wall charts in `macro/js/content.js` `MATWALL.wall` +
+>      `MATWALL.ratedWall`** → feed the two bar charts in Dashboard ›
+>      **Credit** (y = $bn, x = year bucket). `wall` is the US leveraged-finance
+>      view (LSTA Morningstar-index monthly analysis for loans — the PDF is
+>      member-gated, so cite PitchBook's public write-up in `srcs.loansAlt`
+>      alongside — and PitchBook/LCD coverage for HY bonds); `ratedWall` is the
+>      global rated per-year series quoted VERBATIM from S&P's PUBLIC investor
+>      factbook (its own caption: "Data as of January 1, 2025" — fresher
+>      per-year global splits sit behind S&P's registration wall). Every
+>      plotted value is quoted VERBATIM from a public source; `null` renders
+>      as "n/p" — NEVER estimate, interpolate, or back out a missing year.
+>      Each sub-block carries a visible `asOf` vintage; NEVER mix two vintages
+>      in one series — replace a series wholesale (values, `note`, `asOf`,
+>      `srcs` together), and where sources conflict across vintages (e.g.
+>      factbook Jan-2025 vs refinancing-study Jul-2025) show both side by
+>      side, each with its own attribution. Upkeep is occasional, not per-run:
+>      when a newer index analysis, factbook edition or outlook publishes
+>      updated figures, swap the whole affected series and keep the as-of
+>      dates current. `hyMin: true` marks a ">$Xbn" floor figure.
 >    - **Key macro news headlines in `macro/js/content.js` `NEWS`** → REWRITE every
 >      run. The dashboard renders these as ONE newest-first feed: it prefers items
 >      dated within the last 3 days, but if none are that recent it falls back to

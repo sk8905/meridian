@@ -5,9 +5,9 @@
 // it via macroDashPane() and repaints via cockpitInds()/loadYieldCurve().
 // =============================================================================
 import { esc } from "/util.js?v=20260719-1";
-import { YIELD_CURVE, OUTLOOK, CYCLE, BUBBLE, EARNINGS, MATWALL } from "./content.js?v=20260721-2";
+import { YIELD_CURVE, OUTLOOK, CYCLE, BUBBLE, EARNINGS, MATWALL } from "./content.js?v=20260721-3";
 import { fmtDate, fmtWeekday, trackGauge, CYCLE_ZONES, BUBBLE_ZONES,
-  bubbleComposite, bubbleBand, MAC_IND_ORDER, MACRO_DATA } from "./shared.js?v=20260719-1";
+  bubbleComposite, bubbleBand, MAC_IND_ORDER, MACRO_DATA } from "./shared.js?v=20260721-1";
 
 // In-page chip memory (fresh visits start on the first chip; in-page re-renders
 // keep the pick — see the app.js note on the same pattern).
@@ -89,9 +89,10 @@ export function cockpitInds(series) {
 }
 
 // Wall of maturities — corporate credit due over the next five years, from the
-// cited S&P / OECD / Reuters figures in MATWALL (content.js). The IG/spec split
-// and the OECD 2026–28 refinancing shares are drawn as labelled bars; per-year
-// dollar bars are deliberately absent (the sources don't publish them openly).
+// cited S&P / OECD / Reuters / FSB figures in MATWALL (content.js). Two per-year
+// bar charts (global rated from S&P's public factbook, Jan-2025 vintage; US
+// lev-fin from LSTA/PitchBook, fresher) render above the IG/spec split and the
+// OECD 2026–28 refinancing shares; each series keeps its own visible vintage.
 // Earnings wall (Dashboard › Earnings): the coming week's major reporters —
 // consensus before the release, actuals + share-price reaction after. Every
 // figure comes verbatim from EARNINGS (content.js, sourced); nulls render as
@@ -170,36 +171,49 @@ function wireEwNav() {
   });
 }
 
-// Maturity-wall bar chart (y = $bn, x = year) from MATWALL.wall — plots ONLY
-// published figures; buckets with no published number render a small "n/p"
-// mark at the baseline instead of a bar (never estimated).
-function wallChart(wl) {
+// Maturity-wall bar chart (y = $bn, x = year) — plots ONLY published figures;
+// buckets with no published number render a small "n/p" mark at the baseline
+// instead of a bar (never estimated). Defaults draw MATWALL.wall (two series,
+// loans + hy, 0–400 grid); a wall object may override scale/layout (max, grid,
+// w, l) and series ([{key, cls, alt, minKey?}]) — MATWALL.ratedWall uses this
+// for its single global-rated series on a 0–3,000 grid.
+function wallChart(wl, ariaTitle) {
   if (!wl || !wl.buckets || !wl.buckets.length) return "";
-  const W = 340, H = 138, T = 16, B = 22, L = 26, R = 4;
-  const max = 400, ih = H - T - B, base = T + ih;
+  const W = wl.w || 340, H = 138, T = 16, B = 22, L = wl.l || 26, R = 4;
+  const max = wl.max || 400, ih = H - T - B, base = T + ih;
   const y = (v) => T + (1 - v / max) * ih;
+  const series = wl.series || [
+    { key: "loans", cls: "mwc-loan", alt: "loans" },
+    { key: "hy", cls: "mwc-hy", alt: "high-yield bonds", minKey: "hyMin" },
+  ];
   const gw = (W - L - R) / wl.buckets.length, bw = 30, gap = 6;
-  const grid = [0, 100, 200, 300, 400].map((g) =>
+  const sw = series.length * bw + (series.length - 1) * gap;
+  const fmt = (v) => Number(v).toLocaleString("en-US");
+  const grid = (wl.grid || [0, 100, 200, 300, 400]).map((g) =>
     `<line x1="${L}" y1="${y(g)}" x2="${W - R}" y2="${y(g)}" class="mwc-grid"/>`
-    + (g ? `<text x="${L - 4}" y="${y(g) + 3}" text-anchor="end" class="mwc-t">${g}</text>` : "")).join("");
+    + (g ? `<text x="${L - 4}" y="${y(g) + 3}" text-anchor="end" class="mwc-t">${fmt(g)}</text>` : "")).join("");
   const bars = wl.buckets.map((b, i) => {
     const cx = L + gw * i + gw / 2;
-    const slots = [[b.loans, "", "mwc-loan"], [b.hy, b.hyMin ? ">" : "", "mwc-hy"]];
     let out = "";
-    slots.forEach(([v, pre, cls], si) => {
-      const x = cx - bw - gap / 2 + si * (bw + gap);
+    series.forEach((s, si) => {
+      const v = b[s.key], pre = s.minKey && b[s.minKey] ? ">" : "";
+      const x = cx - sw / 2 + si * (bw + gap);
       if (v == null) {
         out += `<text x="${x + bw / 2}" y="${base - 4}" text-anchor="middle" class="mwc-t mwc-np">n/p</text>`;
       } else {
         const yy = y(v);
-        out += `<rect x="${x}" y="${yy}" width="${bw}" height="${base - yy}" rx="2" class="${cls}"/>`
-          + `<text x="${x + bw / 2}" y="${yy - 4}" text-anchor="middle" class="mwc-t mwc-v">${pre}$${v}bn</text>`;
+        out += `<rect x="${x}" y="${yy}" width="${bw}" height="${base - yy}" rx="2" class="${s.cls}"/>`
+          + `<text x="${x + bw / 2}" y="${yy - 4}" text-anchor="middle" class="mwc-t mwc-v">${pre}$${fmt(v)}bn</text>`;
       }
     });
     return out + `<text x="${cx}" y="${H - 8}" text-anchor="middle" class="mwc-t mwc-xl">${esc(b.y)}</text>`;
   }).join("");
-  const alt = wl.buckets.map((b) => `${b.y}: ${b.loans == null ? "" : "loans $" + b.loans + "bn"}${b.loans != null && b.hy != null ? ", " : ""}${b.hy == null ? "" : "high-yield bonds " + (b.hyMin ? "over " : "") + "$" + b.hy + "bn"}`.trim()).join("; ");
-  return `<svg class="mwc-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="US leveraged-finance maturities by year, $bn — ${esc(alt)}">${grid}<line x1="${L}" y1="${base}" x2="${W - R}" y2="${base}" class="mwc-base"/>${bars}</svg>`;
+  const alt = wl.buckets.map((b) => {
+    const parts = series.filter((s) => b[s.key] != null)
+      .map((s) => `${s.alt || s.key} ${s.minKey && b[s.minKey] ? "over " : ""}$${fmt(b[s.key])}bn`);
+    return `${b.y}: ${parts.join(", ")}`.trim();
+  }).join("; ");
+  return `<svg class="mwc-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(ariaTitle || "US leveraged-finance maturities by year, $bn")} — ${esc(alt)}">${grid}<line x1="${L}" y1="${base}" x2="${W - R}" y2="${base}" class="mwc-base"/>${bars}</svg>`;
 }
 
 function matWallPanel() {
@@ -215,9 +229,19 @@ function matWallPanel() {
           <summary>Further resources — refinancing &amp; maturity walls</summary>
           ${w.resources.map((g) => `<div class="mw-res-g"><p class="ck-sub mw-res-h"><strong>${esc(g.group)}</strong></p><ul class="mw-res-list">${g.items.map((it) => `<li><a href="${esc(it.url)}" target="_blank" rel="noopener noreferrer">${esc(it.name)}</a> <span class="muted small">— ${esc(it.use)}</span></li>`).join("")}</ul></div>`).join("")}
         </details>` : "";
+  // Global rated per-year chart (S&P public investor factbook) — a single
+  // Jan-2025-vintage series, labelled with its own asOf; rendered above the
+  // fresher lev-fin wall, never merged with it (vintages stay separate).
+  const rw = w.ratedWall;
+  const ratedWallBlock = rw ? `
+        <div class="mwc" data-wall="rated">
+          <p class="ck-sub"><strong>Global rated maturities by year — all corporates</strong> · ${esc(rw.asOf)} · ${srcA(rw.src)}</p>
+          ${wallChart(rw, "Global rated corporate maturities by year, $bn")}
+          <p class="ck-sub mwc-note">${esc(rw.note)}</p>
+        </div>` : "";
   const wallBlock = wl ? `
-        <div class="mwc">
-          <p class="ck-sub"><strong>Maturity wall by year — US leveraged finance</strong> · ${srcA(wl.srcs.loans)} · ${srcA(wl.srcs.hy)}</p>
+        <div class="mwc" data-wall="levfin">
+          <p class="ck-sub"><strong>Maturity wall by year — US leveraged finance</strong> · ${srcA(wl.srcs.loans)}${wl.srcs.loansAlt ? ` · ${srcA(wl.srcs.loansAlt)}` : ""} · ${srcA(wl.srcs.hy)}</p>
           ${wallChart(wl)}
           <div class="mw-legend"><span><i class="mw-dot mwc-loan"></i>Lev loans</span><span><i class="mw-dot mwc-hy"></i>HY bonds</span></div>
           <p class="ck-sub mwc-note">${esc(wl.note)}</p>
@@ -226,26 +250,29 @@ function matWallPanel() {
     <section class="ck-panel ck-span2">
       <header class="ck-h wire-ptr-freeze"><span>Wall of maturities — corporate credit</span><span class="ck-x">next 5Y</span></header>
       <div class="ck-body">
+        ${ratedWallBlock}
         ${wallBlock}
         <div class="mw-cols">
         <div class="mw-col">
-          <p class="ck-sub"><strong>${esc(w.rated.total)}</strong> rated debt due ${esc(w.rated.window)} · ${srcA(w.rated.src)}</p>
+          <p class="ck-sub"><strong>${esc(w.rated.total)}</strong> rated debt due ${esc(w.rated.window)}${w.rated.asOf ? ` · ${esc(w.rated.asOf)}` : ""} · ${srcA(w.rated.src)}</p>
           <div class="mw-split" role="img" aria-label="Investment grade ${ig}% of the wall, speculative grade ${100 - ig}%">
             <span class="mw-seg mw-ig" style="width:${ig}%"></span><span class="mw-seg mw-sg" style="width:${100 - ig}%"></span>
           </div>
           <div class="mw-legend"><span><i class="mw-dot mw-ig"></i>IG ${ig}%</span><span><i class="mw-dot mw-sg"></i>SPEC ${100 - ig}%</span></div>
-          <p class="ck-sub ck-sub2"><strong>Next 36 months</strong> · ${srcA(w.near.src)}</p>
+          <p class="ck-sub ck-sub2"><strong>Global refinancing</strong>${w.near.asOf ? ` · ${esc(w.near.asOf)}` : ""} · ${srcA(w.near.src)}${w.near.src2 ? ` · ${srcA(w.near.src2)}` : ""}</p>
           ${kv(w.near.rows)}
+          ${w.near.note ? `<p class="ck-sub mwc-note">${esc(w.near.note)}</p>` : ""}
         </div>
         <div class="mw-col">
-          <p class="ck-sub"><strong>Bonds due 2026–28</strong> · ${srcA(w.bonds.src)}</p>
+          <p class="ck-sub"><strong>Bonds due 2026–28</strong>${w.bonds.asOf ? ` · ${esc(w.bonds.asOf)}` : ""} · ${srcA(w.bonds.src)}</p>
           <div class="pw-bars">
             <div class="pw-row"><span class="pw-lbl">Investment grade</span><span class="pw-pct">${esc(String(w.bonds.igPct))}%</span><span class="pw-track"><span class="pw-fill mw-fill-ig" style="width:${esc(String(w.bonds.igPct))}%"></span></span></div>
             <div class="pw-row"><span class="pw-lbl">Non-investment grade</span><span class="pw-pct">${esc(String(w.bonds.nigPct))}%</span><span class="pw-track"><span class="pw-fill mw-fill-sg" style="width:${esc(String(w.bonds.nigPct))}%"></span></span></div>
           </div>
           ${kv(w.bonds.rows)}
-          <p class="ck-sub ck-sub2"><strong>Private credit</strong> · ${srcA(w.privateCredit.src)}</p>
+          <p class="ck-sub ck-sub2"><strong>Private credit</strong> · ${srcA(w.privateCredit.src)}${w.privateCredit.src2 ? ` · ${srcA(w.privateCredit.src2)}` : ""}</p>
           ${kv(w.privateCredit.rows)}
+          ${w.privateCredit.note ? `<p class="ck-sub mwc-note">${esc(w.privateCredit.note)}</p>` : ""}
         </div>
         </div>
         ${resBlock}

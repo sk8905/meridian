@@ -512,40 +512,72 @@ export const RELEASES = [
 ];
 
 // ---- Wall of maturities — corporate credit due over the next five years ----
-// VERBATIM figures from the cited reports only. Per-year dollar splits sit
-// behind S&P's registration wall — never estimate or interpolate them here;
-// upgrade this block only from a source that states the numbers.
+// VERBATIM figures from the cited reports only. S&P's PUBLIC investor factbook
+// publishes the global rated per-year splits at Jan-2025 vintage (ratedWall
+// below); fresher per-year global splits still sit behind S&P's registration
+// wall — never estimate, interpolate, or roll a vintage forward here; upgrade
+// a series only from a source that states the numbers. Every sub-block carries
+// its own visible `asOf` vintage; NEVER mix two vintages in one series — where
+// vintages conflict (factbook Jan-2025 vs refinancing study Jul-2025), both
+// are shown side by side, each with its own attribution.
 export const MATWALL = {
   rated: {
     total: "$12.4tn", window: "2025\u20132029", igPct: 73,
+    asOf: "as of 1 Jan 2025",
     src: { name: "S&P", url: "https://investorfactbook.spglobal.com/sp-global-ratings/global-corporate-debt-maturities-through-2029/" },
   },
-  near: {
-    rows: [
-      ["Due within 36 months", "$6.88tn \u00b7 29.7% of rated"],
-      ["of which speculative-grade", "$1.43tn"],
-      ["Spec-grade peak year", "2029"],
+  // Global rated maturities by year (bar chart) — the per-year splits S&P
+  // publishes in its public investor factbook, quoted VERBATIM. One vintage
+  // for the whole series (the factbook's own caption: "Data as of January 1,
+  // 2025"); when S&P publishes a fresher per-year split, replace the WHOLE
+  // series, note and asOf together — never a single year.
+  ratedWall: {
+    unit: "$bn", asOf: "data as of 1 Jan 2025",
+    max: 3000, grid: [0, 1000, 2000, 3000], w: 372, l: 40,
+    series: [{ key: "amt", cls: "mwc-loan", alt: "rated corporate debt" }],
+    buckets: [
+      { y: "2025", amt: 2075 },
+      { y: "2026", amt: 2624 },
+      { y: "2027", amt: 2509 },
+      { y: "2028", amt: 2783 },
+      { y: "2029", amt: 2360 },
     ],
-    src: { name: "S&P \u00b7 Apr 2026", url: "https://www.spglobal.com/ratings/en/regulatory/article/credit-trends-global-refinancing-speculative-grade-maturities-now-peak-in-2029-s101682010" },
+    note: "Global corporate debt rated by S&P due 2025\u20132029: $12.4tn total \u2014 ~73% investment grade, $3.4tn speculative grade. Data as of 1 Jan 2025 (the factbook's own vintage; S&P's later refinancing studies update the totals but publish no fresher per-year split).",
+    src: { name: "S&P investor factbook", url: "https://investorfactbook.spglobal.com/sp-global-ratings/global-corporate-debt-maturities-through-2029/" },
+  },
+  near: {
+    asOf: "data as of 1 Jul 2025",
+    rows: [
+      ["Rated debt globally", "$25.3tn \u00b7 1 Jul 2025"],
+      ["Global maturities peak", "$3.01tn in 2028"],
+      ["US spec-grade due", "$215bn 2026 \u2192 $694bn 2028"],
+    ],
+    note: "S&P's Apr 2026 update (registration-gated) re-titles the speculative-grade peak as 2029.",
+    src: { name: "S&P \u00b7 Jul 2025", url: "https://www.maalot.co.il/Publications/FTS20250903140705.pdf" },
+    src2: { name: "S&P \u00b7 Apr 2026 (gated)", url: "https://www.spglobal.com/ratings/en/regulatory/article/credit-trends-global-refinancing-speculative-grade-maturities-now-peak-in-2029-s101682010" },
   },
   bonds: {
-    igPct: 24, nigPct: 31,
+    igPct: 24, nigPct: 31, asOf: "end-2025 data",
     rows: [["Outstanding, end-2025", "$36.4tn bonds \u00b7 $23.1tn loans"]],
     src: { name: "OECD GDR 2026", url: "https://www.oecd.org/en/publications/global-debt-report-2026_e9d80efd-en.html" },
   },
   privateCredit: {
     rows: [
+      ["Global market size", "$1.5\u20132tn \u00b7 FSB, May 2026"],
       ["BDC direct-lending sample", "74 funds \u00b7 $84bn"],
       ["Due through 2026", "~$15bn"],
       ["Wall peaks", "2028\u201329"],
     ],
+    note: "No public per-year maturity data exists for private credit (FSB, May 2026).",
     src: { name: "Reuters", url: "https://finance.yahoo.com/markets/stocks/articles/private-credit-borrowers-big-maturity-141544760.html" },
+    src2: { name: "FSB \u00b7 May 2026", url: "https://www.fsb.org/2026/05/report-on-vulnerabilities-in-private-credit/" },
   },
-  // Maturity wall by year (bar chart) \u2014 the ONLY published per-year figures;
-  // the global rated per-year splits sit behind S&P's registration wall (see
-  // note above). US leveraged finance, quoted verbatim from public index
-  // analyses. null = no published figure for that bucket \u2014 rendered as "n/p",
-  // NEVER estimated or interpolated. hyMin marks a ">$Xbn" floor figure.
+  // US leveraged-finance maturity wall by year (bar chart) \u2014 quoted verbatim
+  // from public index analyses; single vintage per series (loans end-Jun 2026;
+  // HY bonds 30 Nov 2025 \u2014 stated in the note). null = no published figure for
+  // that bucket \u2014 rendered as "n/p", NEVER estimated or interpolated. hyMin
+  // marks a ">$Xbn" floor figure. srcs.loansAlt is the public PitchBook
+  // write-up of the member-gated LSTA analysis.
   wall: {
     unit: "$bn",
     buckets: [
@@ -553,9 +585,10 @@ export const MATWALL = {
       { y: "2028", loans: 331, hy: null },
       { y: "2029", loans: null, hy: 350, hyMin: true },
     ],
-    note: "Loans: Morningstar LSTA US Lev Loan Index ($1.57tn outstanding, end-Jun 2026); 2028 includes $124bn from B\u2212 borrowers. HY bonds: >$700bn due 2027\u201329 in total (as of 30 Nov 2025). n/p = no published per-year figure.",
+    note: "Loans: Morningstar LSTA US Lev Loan Index ($1.57tn outstanding; data as of 30 Jun 2026); due through end-2027 narrowed to $32bn, from $62bn at end-2025; 2028 includes $124bn from B\u2212 borrowers. HY bonds: >$700bn due 2027\u201329 in total (as of 30 Nov 2025). n/p = no published per-year figure.",
     srcs: {
       loans: { name: "LSTA \u00b7 Jun 2026", url: "https://www.lsta.org/content/morningstar-lsta-leveraged-loan-index-analysis-june-2026/" },
+      loansAlt: { name: "PitchBook \u00b7 17 Jul 2026", url: "https://finance.yahoo.com/markets/options/articles/leveraged-loan-issuers-lean-amend-150016854.html" },
       hy: { name: "PitchBook \u00b7 LCD", url: "https://pitchbook.com/news/articles/2026-us-high-yield-outlook-volume-to-tick-higher-amid-looming-maturity-wall" },
     },
   },
@@ -571,7 +604,7 @@ export const MATWALL = {
     { group: "Leveraged finance / leveraged loans", items: [
       { name: "S&P \u2014 US Leveraged Finance Q3 2025 update", use: "Quarterly maturity walls, issuance and default expectations.", url: "https://www.spglobal.com/ratings/en/regulatory/article/us-leveraged-finance-q3-2025-update-issuers-adjust-to-slower-growth-s101652207" },
       { name: "S&P \u2014 European Leveraged Finance Monthly", use: "European leveraged loans/HY, incl. upcoming maturities and rating actions.", url: "https://www.spglobal.com/ratings/en/research/credit-market-research" },
-      { name: "AFME \u2014 Q3 2025 European HY, LL & Private Credit report", use: "Integrates HY, leveraged loans and private credit in one quarterly report.", url: "https://www.afme.eu/publications/data-research/afme-q3-2025-european-high-yield-leveraged-loan-and-private-credit-report/" },
+      { name: "AFME \u2014 Q1 2026 European HY, LL & Private Credit report", use: "Integrates HY, leveraged loans and private credit in one quarterly report (published 3 Jun 2026; free PDF).", url: "https://www.afme.eu/publications/data-research/european-high-yield-leveraged-loan-and-private-credit-report-q1-2026/" },
     ] },
     { group: "Public corporate credit (IG & broad market)", items: [
       { name: "Federal Reserve \u2014 Financial Stability Report", use: "Charts on corporate debt, with maturity/refi risk by sector.", url: "https://www.federalreserve.gov/publications/financial-stability-report.htm" },
