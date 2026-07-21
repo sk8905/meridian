@@ -625,22 +625,32 @@ a.compact-head:hover { text-decoration: none; }
    Every Part 26A plan / Part 26 scheme in one dense table — company, debt, status,
    creditors, each side's advisers and the judgment/analysis documents. Rendered on
    the dark terminal surface, so it composes with the tui CSS variables. */
-.lg-sc-wrap { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+/* Desktop: NO overflow here. An overflow container would capture the sticky
+   <thead> and, having no bounded height, never scroll — so the headers never
+   lock. Leaving it visible lets .tpanes be the scroll container, so the sticky
+   `th` below pins to the pane top on scroll. Phones re-enable horizontal scroll
+   (the table keeps a real min-width there). */
+.lg-sc-wrap { width: 100%; }
 .lg-sc-tbl { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 11px; }
-/* Phones: don't squeeze the 7 columns into the viewport (text overlaps / wraps to
+/* Phones: don't squeeze the columns into the viewport (text overlaps / wraps to
    slivers). Give the table a real min-width so columns keep readable widths and
    the wrapper scrolls horizontally instead. */
-@media (max-width: 760px) { .lg-sc-tbl { min-width: 920px; } }
-.lg-sc-tbl th { text-align: left; font-size: 8.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; padding: 6px 8px; background: var(--head); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 1; }
+@media (max-width: 760px) {
+  .lg-sc-tbl { min-width: 980px; }
+  .lg-sc-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+.lg-sc-tbl th { text-align: left; font-size: 8.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; padding: 6px 8px; background: var(--head); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 2; }
 .lg-sc-tbl td { padding: 6px 8px; border-bottom: 1px solid var(--border); vertical-align: top; color: var(--ink); line-height: 1.4; }
-.lg-sc-tbl th:nth-child(1), .lg-sc-tbl td:nth-child(1) { width: 13%; }
-.lg-sc-tbl th:nth-child(2), .lg-sc-tbl td:nth-child(2) { width: 9%; }
-.lg-sc-tbl th:nth-child(3), .lg-sc-tbl td:nth-child(3) { width: 9%; }
-.lg-sc-tbl th:nth-child(4), .lg-sc-tbl td:nth-child(4) { width: 22%; }
-.lg-sc-tbl th:nth-child(5), .lg-sc-tbl td:nth-child(5) { width: 16%; }
-.lg-sc-tbl th:nth-child(6), .lg-sc-tbl td:nth-child(6) { width: 16%; }
+.lg-sc-tbl th:nth-child(1), .lg-sc-tbl td:nth-child(1) { width: 12%; }
+.lg-sc-tbl th:nth-child(2), .lg-sc-tbl td:nth-child(2) { width: 10%; }
+.lg-sc-tbl th:nth-child(3), .lg-sc-tbl td:nth-child(3) { width: 8%; }
+.lg-sc-tbl th:nth-child(4), .lg-sc-tbl td:nth-child(4) { width: 9%; }
+.lg-sc-tbl th:nth-child(5), .lg-sc-tbl td:nth-child(5) { width: 21%; }
+.lg-sc-tbl th:nth-child(6), .lg-sc-tbl td:nth-child(6) { width: 15%; }
 .lg-sc-tbl th:nth-child(7), .lg-sc-tbl td:nth-child(7) { width: 15%; }
+.lg-sc-tbl th:nth-child(8), .lg-sc-tbl td:nth-child(8) { width: 10%; }
 .lg-sc-name { color: var(--ink); font-weight: 600; }
+.lg-sc-type { color: var(--muted); }
 .lg-sc-debt { font-variant-numeric: tabular-nums; white-space: nowrap; }
 .lg-sc-status { display: inline-block; font-size: 9.5px; font-weight: 600; padding: 1px 6px; border: 1px solid var(--border); border-radius: 2px; white-space: nowrap; color: var(--muted); }
 .lg-sc-status.s-sanctioned { color: #3fc08d; border-color: rgba(63,192,141,.4); }

@@ -397,7 +397,8 @@ function schemesTablePane() {
     const a = schemeAdvisers(r);
     const kind = r.type === "scheme" ? "Scheme" : "Restructuring plan";
     return `<tr id="lg-sc-${esc(r.id)}">`
-      + `<td class="lg-sc-co"><span class="lg-sc-name">${esc(r.company)}</span><div class="muted small">${kind}${r.date ? ` · ${esc(fmtDate(r.date))}` : ""}</div></td>`
+      + `<td class="lg-sc-co"><span class="lg-sc-name">${esc(r.company)}</span>${r.date ? `<div class="muted small">${esc(fmtDate(r.date))}</div>` : ""}</td>`
+      + `<td class="lg-sc-type">${kind}</td>`
       + `<td class="lg-sc-debt">${esc(schemeDebt(r))}</td>`
       + `<td><span class="lg-sc-status ${statusClass(r.outcome)}">${esc(statusShort(r.outcome))}</span></td>`
       + `<td>${credList(r.creditors)}</td>`
@@ -407,7 +408,7 @@ function schemesTablePane() {
       + `</tr>`;
   };
   return `<div class="lg-sc-wrap"><table class="lg-sc-tbl">
-    <thead><tr><th>Company</th><th>Total debt</th><th>Status</th><th>Creditors</th><th>Company's advisers</th><th>Creditors' advisers</th><th>Documents</th></tr></thead>
+    <thead><tr><th>Company</th><th>Type</th><th>Total debt</th><th>Status</th><th>Creditors</th><th>Company's advisers</th><th>Creditors' advisers</th><th>Documents</th></tr></thead>
     <tbody>${rows.map(tr).join("")}</tbody>
   </table></div>`;
 }
@@ -462,7 +463,7 @@ function viewDashboard() {
   const metrics = [
     ["Alerts " + thisYear, items.filter(inYear).length],
     ...practiceAreas.map((a) => [a.name, areaCount(a)]),
-    ["Case law", cases.length], ["Schemes", restructurings.length],
+    ["Case law", cases.length], ["Scheme/RPs", restructurings.length],
   ];
   const alerts = items.map((it) => ({ _k: "alert", date: it.date, title: it.title, href: it.url || (firmById[it.firm] || {}).insightsUrl || `#/item/${encodeURIComponent(it.id)}`, ext: !!(it.url || (firmById[it.firm] || {}).insightsUrl), mgr: (firmById[it.firm] || {}).name || it.firm, src: (firmById[it.firm] || {}).name || it.firm, url: it.url, code: "ALERT", firmId: it.firm || "" }));
   // A case headline opens its source directly (BAILII / National Archives judgment).
@@ -506,7 +507,7 @@ function viewDashboard() {
             <button type="button" class="tchip is-on" data-k="all">All</button>
             <button type="button" class="tchip" data-k="alert">Alerts</button>
             <button type="button" class="tchip" data-k="case">Case law</button>
-            <button type="button" class="tchip" data-k="rp">Schemes</button>
+            <button type="button" class="tchip" data-k="rp">Scheme/RPs</button>
           </div>
         </header>
         <div class="tpanes" id="lg-panes">
