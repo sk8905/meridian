@@ -1285,21 +1285,24 @@ const FEED_SOURCES = [
   // markets/business run; title-dedupe collapses overlap between the two.
   { url: "https://feeds.content.dowjones.io/public/rss/RSSMarketsMain", source: "The Wall Street Journal", region: "US", cap: 12, soft: true },
   { url: "https://feeds.content.dowjones.io/public/rss/WSJcomUSBusiness", source: "The Wall Street Journal", region: "US", cap: 10, soft: true },
-  // WSJ backups behind the direct feeds + last-good cache: the Google-News bridge
-  // (5-day depth) and the GDELT domain index. Both throttle this edge
-  // intermittently, so they only fill gaps when the direct feeds miss.
+  // WSJ backup behind the direct feeds + last-good cache: the Google-News bridge
+  // (5-day depth), used only when the direct feeds miss. (The WSJ GDELT route was
+  // removed — the direct feeds solved WSJ, and dropping it leaves GDELT's tight
+  // per-IP rate limit entirely for TradingEconomics below.)
   { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Awsj.com%20when%3A5d", source: "The Wall Street Journal", region: "US", cap: 18, gnews: true, soft: true },
-  { url: "https://api.gdeltproject.org/api/v2/doc/doc?query=domainis:wsj.com&mode=artlist&maxrecords=40&timespan=5d&format=rss", source: "The Wall Street Journal", region: "US", cap: 14, soft: true },
   // TradingEconomics — macro-data desk (GDP / CPI / rates / labour releases),
   // always labelled MAC (filter:false). TE's own RSS 403s the datacenter IP
-  // (Cloudflare Bot Fight), so it can only come via aggregators. Google pins the
-  // BROAD site: dump (503s it), so lead with a NARROWER indicator-scoped query
-  // (different query hash — a real search rather than a domain scrape, which
-  // Google is far less likely to flag), then the broad query (auto-flips locale
-  // on empty) and the GDELT domain index as parallel fallbacks. Whichever lands
-  // seeds the last-good cache. cap generous for a few days of releases.
+  // (Cloudflare Bot Fight), so it can only come via aggregators — so throw EVERY
+  // one at it and let whichever lands seed the last-good cache:
+  //  1. narrower indicator-scoped Google query (a real search, not the broad
+  //     domain scrape Google 503-pins),
+  //  2. the broad Google query (auto-flips locale on empty),
+  //  3. Bing News (a wholly separate index — works when Google pins the domain),
+  //  4. the GDELT domain index (now the ONLY GDELT call, so no self-inflicted
+  //     429, and it gets the longer 12s timeout in feedFetch).
   { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Atradingeconomics.com%20(inflation%20OR%20GDP%20OR%20unemployment%20OR%20%22interest%20rate%22%20OR%20CPI%20OR%20PMI%20OR%20%22central%20bank%22)%20when%3A7d", source: "TradingEconomics", region: "GEN", cap: 20, gnews: true, filter: false },
   { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Atradingeconomics.com%20when%3A5d", source: "TradingEconomics", region: "GEN", cap: 20, gnews: true, filter: false },
+  { url: "https://www.bing.com/news/search?q=site%3Atradingeconomics.com&format=RSS&qft=sortbydate%3d%221%22", source: "TradingEconomics", region: "GEN", cap: 20, filter: false },
   { url: "https://api.gdeltproject.org/api/v2/doc/doc?query=domainis:tradingeconomics.com&mode=artlist&maxrecords=40&timespan=5d&format=rss", source: "TradingEconomics", region: "GEN", cap: 20, filter: false },
   { url: "https://www.cnbc.com/id/20910258/device/rss/rss.html", source: "CNBC", region: "US", cap: 10 }, // Economy
   { url: "https://www.cnbc.com/id/20409666/device/rss/rss.html", source: "CNBC", region: "US", cap: 8 },  // Markets
@@ -1522,7 +1525,7 @@ async function feedFetch(url, delayMs = 0, diag = null, budget = null) {
     // assembled payload is cached 5 min, so an occasional slow origin hit is
     // cheap. Everyone else keeps the tight bound.
     let toMs = 4500;
-    try { const h = new URL(url).hostname; if (h === "news.google.com" || h === "api.gdeltproject.org") toMs = 9000; } catch { /* keep default */ }
+    try { const h = new URL(url).hostname; if (h === "news.google.com") toMs = 9000; else if (h === "api.gdeltproject.org") toMs = 12000; } catch { /* keep default */ }
     const r = await fetch(url, { headers: fetchHeaders(url), cf: { cacheTtl: 0 }, signal: AbortSignal.timeout(toMs) });
     if (diag) diag.status = r.status;
     if (r.ok) return await r.text();
@@ -1646,7 +1649,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=36", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=37", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const items = await feedAssemble(env, ctx);
