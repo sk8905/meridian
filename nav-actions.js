@@ -252,7 +252,6 @@ function fmtGBP(v, sign) {
   const pre = sign && v > 0 ? "+£" : v < 0 ? "−£" : "£";
   return pre + s;
 }
-const fmtPct = (p, sign) => (p == null || !isFinite(p)) ? "" : ((sign && p > 0 ? "+" : p < 0 ? "−" : "") + Math.abs(p).toFixed(2) + "%");
 
 let _mktLoaded = false;
 // Markets panel: Markets | Portfolio chip tabs over one shared fetch.
@@ -286,22 +285,15 @@ function marketsPane(d) {
     + (d.rates.length ? naSec("Key rates & spreads", "bp · %") + d.rates.map(rateRow).join("") : "")
     + (d.movers.length ? naSec("Top movers", "1D") + d.movers.map(moverRow).join("") : "");
 }
-function pfRow(h, m) {
-  const price = m && m.value != null ? m.value : null;
-  const val = price != null ? price * h.qty : null;
-  const cost = h.cost * h.qty;
-  const pnl = val != null ? val - cost : null;
-  const pnlPct = val != null ? (pnl / cost) * 100 : null;
-  const pnlDir = pnl == null ? "flat" : pnl > 0 ? "up" : pnl < 0 ? "down" : "flat";
-  const dayC = m && typeof m.changePct === "number" && isFinite(m.changePct) ? m.changePct : null;
-  const dayDir = dayC == null ? "flat" : dayC > 0 ? "up" : dayC < 0 ? "down" : "flat";
-  const qtyTxt = h.qty >= 1000 ? h.qty.toLocaleString() : String(h.qty);
-  const sub = `${esc(h.ticker)} · ${qtyTxt} @ ${fmtGBP(h.cost)}${h.note ? " · " + esc(h.note) : ""}`;
-  return `<div class="na-pf-row">`
-    + `<span class="na-pf-main"><span class="na-pf-name">${esc(h.name)}${naDot(m)}</span><span class="na-pf-sub">${sub}</span></span>`
-    + `<span class="na-pf-nums"><span class="na-pf-val">${val != null ? fmtGBP(val) : "—"}</span>`
-    + `<span class="na-pf-pnl ${pnlDir}">${pnl != null ? fmtGBP(pnl, true) + " · " + fmtPct(pnlPct, true) : ""}</span>`
-    + `<span class="na-pf-day ${dayDir}">${dayC != null ? fmtPct(dayC, true) + " today" : ""}</span></span></div>`;
+// A markets-panel row (label · value · % change) — identical grammar to
+// marketRow, so the Portfolio tab reads exactly like the Markets tab.
+function pfMrow(label, valueStr, pct, dot) {
+  const c = typeof pct === "number" && isFinite(pct) ? pct : null;
+  const dir = c == null ? "flat" : c > 0 ? "up" : c < 0 ? "down" : "flat";
+  const arw = c == null ? "" : c > 0 ? "▲" : c < 0 ? "▼" : "·";
+  return `<div class="na-mrow"><span class="na-l">${esc(label)}${dot || ""}</span>`
+    + `<span class="na-v">${valueStr}</span>`
+    + `<span class="na-c ${dir}">${c == null ? "" : arw + " " + Math.abs(c).toFixed(2) + "%"}</span></div>`;
 }
 function portfolioPane(d) {
   const q = {}; (d.portfolio || []).forEach((x) => { q[x.label] = x; });
@@ -309,25 +301,25 @@ function portfolioPane(d) {
   for (const h of PORTFOLIO) {
     const m = q[h.ticker];
     if (m && m.value != null) {
-      const val = m.value * h.qty;
-      tVal += val; tCost += h.cost * h.qty; priced++;
+      tVal += m.value * h.qty; tCost += h.cost * h.qty; priced++;
       if (m.change != null) tDay += m.change * h.qty;
     }
   }
-  const rows = PORTFOLIO.map((h) => pfRow(h, q[h.ticker])).join("");
   const tPnl = tVal - tCost;
   const tPnlPct = tCost ? (tPnl / tCost) * 100 : null;
   const priorVal = tVal - tDay;
   const tDayPct = priorVal ? (tDay / priorVal) * 100 : null;
-  const dayDir = tDay > 0 ? "up" : tDay < 0 ? "down" : "flat";
-  const pnlDir = tPnl > 0 ? "up" : tPnl < 0 ? "down" : "flat";
-  const summary = `<div class="na-pf-sum">`
-    + `<div class="na-pf-sum-top"><span class="na-pf-sum-k">Portfolio value</span><span class="na-pf-sum-v">${priced ? fmtGBP(tVal) : "—"}</span></div>`
-    + `<div class="na-pf-sum-grid">`
-    + `<span class="na-pf-sum-cell"><span class="na-pf-sum-ck">Today</span><span class="na-pf-sum-cv ${dayDir}">${priced ? fmtGBP(tDay, true) + " · " + fmtPct(tDayPct, true) : "—"}</span></span>`
-    + `<span class="na-pf-sum-cell"><span class="na-pf-sum-ck">Total P&amp;L</span><span class="na-pf-sum-cv ${pnlDir}">${priced ? fmtGBP(tPnl, true) + " · " + fmtPct(tPnlPct, true) : "—"}</span></span>`
-    + `</div></div>`;
-  return summary + naSec("Holdings", `${priced}/${PORTFOLIO.length} priced`) + rows;
+  const summary = naSec("Portfolio", `${priced}/${PORTFOLIO.length} priced`)
+    + pfMrow("Value", priced ? fmtGBP(tVal) : "—", null)
+    + pfMrow("Today", priced ? fmtGBP(tDay, true) : "—", tDayPct)
+    + pfMrow("Total P&L", priced ? fmtGBP(tPnl, true) : "—", tPnlPct);
+  const rows = PORTFOLIO.map((h) => {
+    const m = q[h.ticker];
+    const val = m && m.value != null ? m.value * h.qty : null;
+    const pnlPct = val != null ? ((val - h.cost * h.qty) / (h.cost * h.qty)) * 100 : null;
+    return pfMrow(h.name, val != null ? fmtGBP(val) : "—", pnlPct, naDot(m));
+  }).join("");
+  return summary + naSec("Holdings", "value · return") + rows;
 }
 
 // ---- Saved rows — shared news-feed row (headline, then code · date · source) --

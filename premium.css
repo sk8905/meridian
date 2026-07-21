@@ -864,27 +864,6 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
   cursor: pointer; border-radius: 0; }
 .na-chip.is-on { color: var(--ink, #eaf0fb); box-shadow: inset 0 -2px 0 var(--chip-ul); }
 
-/* ---- Markets panel · Portfolio tab: a summary card over the holdings list. --- */
-.na-pf-sum { padding: 12px; border-bottom: 1px solid var(--border, #262626); }
-.na-pf-sum-top { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
-.na-pf-sum-k { font-size: 11px; letter-spacing: .04em; text-transform: uppercase; color: var(--faint, #5c6a86); }
-.na-pf-sum-v { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; font-size: 20px; font-weight: 700; color: var(--ink, #eaf0fb); }
-.na-pf-sum-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
-.na-pf-sum-cell { display: flex; flex-direction: column; gap: 2px; }
-.na-pf-sum-ck { font-size: 10px; letter-spacing: .04em; text-transform: uppercase; color: var(--faint, #5c6a86); }
-.na-pf-sum-cv { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; font-size: 13px; font-weight: 700; }
-.na-pf-row { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 10px; align-items: start; padding: 9px 12px; border-bottom: 1px solid var(--border, #262626); }
-.na-pf-main { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
-.na-pf-name { font-size: 12.5px; font-weight: 600; color: var(--ink, #eaf0fb); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.na-pf-sub { font-family: var(--t-mono, ui-monospace, monospace); font-size: 10.5px; color: var(--muted, #8592ad); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.na-pf-nums { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; text-align: right; }
-.na-pf-val { font-size: 12.5px; font-weight: 700; color: var(--ink, #eaf0fb); }
-.na-pf-pnl { font-size: 11px; font-weight: 600; }
-.na-pf-day { font-size: 10px; color: var(--faint, #5c6a86); }
-.na-pf-pnl.up, .na-pf-day.up, .na-pf-sum-cv.up { color: #3fc08d; }
-.na-pf-pnl.down, .na-pf-day.down, .na-pf-sum-cv.down { color: #f26d84; }
-.na-pf-pnl.flat, .na-pf-day.flat, .na-pf-sum-cv.flat { color: var(--faint, #5c6a86); }
-
 /* ---- House rule: NO hyperlink underlines anywhere on the platform — links
         read by colour and context (hover keeps its colour shift only). ---- */
 a, a:hover, a:focus { text-decoration: none !important; }
