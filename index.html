@@ -23,7 +23,7 @@
   <link rel="manifest" href="/manifest.webmanifest" />
   <title>Wire — Home</title>
   <meta name="description" content="Wire Home — a cross-desk briefing across the Credit, Legal and Macro intelligence platforms, with a unified search." />
-  <link rel="stylesheet" href="/home.css?v=20260719-10" />
+  <link rel="stylesheet" href="/home.css?v=20260719-11" />
   <link rel="stylesheet" href="/premium.css?v=20260719-30" />
   <link rel="stylesheet" href="/header.css?v=20260720-4" />
   <link rel="stylesheet" href="/feed.css?v=20260720-2" />
@@ -33,7 +33,7 @@
     // mounts, so arriving on Home paints once, complete — no feed/chips/tab-
     // bar staging. The body auth script confirms via /api/me and calls
     // window.__enterGlance for the no-hint path (initGlance self-guards).
-    import { initGlance } from "/glance.js?v=20260719-36";
+    import { initGlance } from "/glance.js?v=20260719-37";
     import { initHeader } from "/header.js?v=20260720-5";
     // The ONE shared header (top bar + ticker + briefing) — same module the app
     // pages use. It renders into the (still-hidden) #wire-header and boots the
@@ -220,7 +220,7 @@
     const enterGlance = () => {
       if (window.__enterGlance) { window.__enterGlance(); return; }
       show("glance");
-      import("/glance.js?v=20260719-36").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260719-37").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), the head module shows the briefing immediately

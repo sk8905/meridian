@@ -58,18 +58,29 @@ const tabXY = (pg, label) => pg.evaluate((lb) => {
   checkErrs(errs, "active-tab dismissal");
   await ctx.close();
 }
-// Search palette dismissal — on Macro (Home has no [data-open-search] button).
+// Search palette — on Macro (Home has no [data-open-search] button). It's a
+// full-screen modal takeover: the bottom tab bar is HIDDEN while it's open (so
+// iOS can't shove it up onto the keyboard over the results), and it's dismissed
+// with its own Cancel button, which also restores the tab bar.
 {
   const { ctx, pg, errs } = await open(b, PHONE, base + "/macro/");
-  const t = await touches(ctx, pg);
   await pg.waitForTimeout(1500);
   await pg.evaluate(() => { document.querySelector("[data-open-search]")?.click(); });
   await pg.waitForTimeout(400);
   check(await pg.evaluate(() => !!document.querySelector(".mcmdk.open")), "search palette opens");
-  const xy = await tabXY(pg, "macro");
-  await t.tap(xy.x, xy.y);
-  await pg.waitForTimeout(400);
-  check(await pg.evaluate(() => !document.querySelector(".mcmdk.open")), "active-tab tap closes the palette");
+  const openState = await pg.evaluate(() => ({
+    bodyOpen: document.body.classList.contains("mcmdk-open"),
+    tabbarHidden: (() => { const b = document.querySelector(".mobile-tabbar"); return !b || b.getClientRects().length === 0; })(),
+  }));
+  check(openState.bodyOpen && openState.tabbarHidden, "search hides the tab bar (modal takeover)");
+  await pg.evaluate(() => document.querySelector(".mcmdk-cancel")?.click());
+  await pg.waitForTimeout(300);
+  const closed = await pg.evaluate(() => ({
+    gone: !document.querySelector(".mcmdk.open"),
+    bodyOpen: document.body.classList.contains("mcmdk-open"),
+    tabbarBack: (() => { const b = document.querySelector(".mobile-tabbar"); return !!b && b.getClientRects().length > 0; })(),
+  }));
+  check(closed.gone && !closed.bodyOpen && closed.tabbarBack, "Cancel closes the palette + restores the tab bar");
   checkErrs(errs, "palette dismissal");
   await ctx.close();
 }

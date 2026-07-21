@@ -733,9 +733,13 @@
     @media (max-width:760px){
       .cmdk { z-index:140; }
       .cmdk-scrim { display:none; }
-      /* Full-screen down to the bottom tab bar, which stays visible above it. */
-      .cmdk-panel { position:fixed; top:0; left:0; right:0;
-        bottom:calc(72px + env(safe-area-inset-bottom, 0px)); margin:0;
+      /* Full-screen search is a modal takeover: hide the bottom tab bar (iOS
+         otherwise shoves it up onto the keyboard, floating over the results) and
+         lock the page behind. The panel fills top:0→bottom:0 and glance pins its
+         height to the visual viewport so the results sit ABOVE the keyboard. */
+      body.cmdk-open .mobile-tabbar { display:none !important; }
+      body.cmdk-open { overflow:hidden; }
+      .cmdk-panel { position:fixed; top:0; left:0; right:0; bottom:0; margin:0;
         max-width:none; width:100vw; height:auto; max-height:none; border-radius:0 !important;
         box-shadow:none; display:flex; flex-direction:column; overflow:hidden;
         background:var(--t-ground, #000000); }

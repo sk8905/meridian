@@ -154,7 +154,14 @@ const STYLE = `
 @media (max-width:760px){
   .mcmdk{z-index:9000}
   .mcmdk-scrim{display:none}
-  .mcmdk-panel{position:fixed;top:0;left:0;right:0;bottom:calc(72px + env(safe-area-inset-bottom,0px));margin:0;max-width:none;width:100vw;height:auto;max-height:none;border:0;border-radius:0;box-shadow:none;display:flex;flex-direction:column;overflow:hidden;background:var(--bg,#05080f)}
+  /* Full-screen search is a modal takeover: hide the bottom tab bar (otherwise
+     iOS shoves it — fixed bottom:0 — up on top of the keyboard, floating over the
+     results mid-screen) and lock the page behind. The panel fills top:0→bottom:0
+     and JS pins its height to the visual viewport so the results sit ABOVE the
+     keyboard and every row is reachable. */
+  body.mcmdk-open .mobile-tabbar{display:none !important}
+  body.mcmdk-open{overflow:hidden}
+  .mcmdk-panel{position:fixed;top:0;left:0;right:0;bottom:0;margin:0;max-width:none;width:100vw;height:auto;max-height:none;border:0;border-radius:0;box-shadow:none;display:flex;flex-direction:column;overflow:hidden;background:var(--bg,#05080f)}
   .mcmdk-bar{flex:0 0 auto;gap:9px;padding:6px 8px 6px 13px;padding-top:calc(env(safe-area-inset-top,0px) + 8px);background:var(--head,#080d17);border-bottom:1px solid var(--border,#232f47)}
   .mcmdk-mag{display:block;flex:0 0 auto;width:18px;height:18px;color:var(--faint,#5c6a86)}
   .mcmdk .mcmdk-input{border:0 !important;border-bottom:0 !important;padding:.5rem .1rem;font-size:16px}
@@ -232,8 +239,18 @@ export function mountPalette() {
   const go = (e) => { if (!e) return; recordSearch((e.title || input.value || "").trim()); close(); if (/^https?:\/\//i.test(e.href)) window.open(e.href, "_blank", "noopener"); else window.location.href = e.href; };
   // Focus SYNCHRONOUSLY within the tap/click gesture so iOS Safari pops the
   // keyboard immediately (a setTimeout would escape the gesture and suppress it).
-  const open = () => { ov.classList.add("open"); input.value = ""; refresh(); syncClr(); input.focus({ preventScroll: true }); };
-  const close = () => ov.classList.remove("open");
+  // Phones: pin the panel to the VISUAL viewport so the keyboard shrinks it (the
+  // results stay fully above the keyboard and scroll), instead of the panel
+  // running its bottom rows behind the keyboard.
+  const panel = ov.querySelector(".mcmdk-panel");
+  const fitVV = () => {
+    if (!ov.classList.contains("open") || !matchMedia("(max-width:760px)").matches) { panel.style.height = ""; panel.style.bottom = ""; return; }
+    const vv = window.visualViewport;
+    if (vv) { panel.style.bottom = "auto"; panel.style.height = Math.round(vv.height) + "px"; }
+  };
+  if (window.visualViewport) { window.visualViewport.addEventListener("resize", fitVV); window.visualViewport.addEventListener("scroll", fitVV); }
+  const open = () => { ov.classList.add("open"); document.body.classList.add("mcmdk-open"); input.value = ""; refresh(); syncClr(); input.focus({ preventScroll: true }); fitVV(); };
+  const close = () => { ov.classList.remove("open"); document.body.classList.remove("mcmdk-open"); panel.style.height = ""; panel.style.bottom = ""; };
 
   ov.querySelectorAll("[data-close]").forEach((el) => el.addEventListener("click", close));
   // A visible nav search button (any app topbar) opens the palette on click.
