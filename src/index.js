@@ -1451,6 +1451,11 @@ function feedParse(xml, feed) {
     if (!/^https?:\/\//i.test(link)) link = feedAtomLink(block);
     link = (link || "").trim();
     if (!/^https?:\/\//i.test(link)) continue;
+    // Bing News RSS (the bingMirror fallback) wraps links in an apiclick
+    // redirect — unwrap to the real article URL.
+    if (/bing\.com\/news\/apiclick/i.test(link)) {
+      try { const u = new URL(link).searchParams.get("url"); if (u && /^https?:\/\//i.test(u)) link = u; } catch { /* keep wrapped */ }
+    }
     const ds = feedTag(block, "pubDate") || feedTag(block, "published") || feedTag(block, "updated") || feedTag(block, "dc:date") || feedTag(block, "date");
     const when = ds ? new Date(feedDecode(ds)) : null;
     out.push({ title, url: link, source: feed.source, region: feed.region, myft: feed.myft || undefined, substack: feed.substack || undefined, when: (when && !isNaN(when.getTime())) ? when : null });
@@ -1502,6 +1507,21 @@ function gnewsVariant(url) {
     : v.replace("hl=en-GB", "hl=en-US").replace("gl=GB", "gl=US").replace("ceid=GB%3Aen", "ceid=US%3Aen");
   return v;
 }
+// LAST-resort mirror when Google pins a query no matter how it's dressed up
+// (live probes: three queries 503 across hours, surviving param reordering AND
+// the locale-flipped variant — Google has scored the SEARCH itself, likely a
+// scraping heuristic on broad site: queries). Bing News serves the same
+// site:-scoped news search as RSS, tolerates datacenter IPs, and links land
+// on the article directly (its apiclick redirect is unwrapped in feedParse).
+// The when: window doesn't map — sortbydate + the wire's own 6-day cutoff and
+// newest-first per-source cap do the windowing instead.
+function bingMirror(url) {
+  try {
+    const q = (new URL(url).searchParams.get("q") || "").replace(/\s*when:\d+[dh]\s*/i, " ").trim();
+    if (!q) return null;
+    return "https://www.bing.com/news/search?q=" + encodeURIComponent(q) + "&format=RSS&qft=sortbydate%3d%221%22";
+  } catch { return null; }
+}
 // Soft screen for the reader-curated feeds (myFT + Bloomberg's official section
 // wires): EVERYTHING passes except lifestyle / arts / culture / travel / sport.
 // A headline that ALSO matches the finance vocabulary survives even when it
@@ -1531,13 +1551,22 @@ async function handleFeed(request, env, ctx) {
           await feedSleep(700);
           r = await fetch(f.url, { headers: fetchHeaders(f.url), cf: { cacheTtl: 0 } });
         }
-        // Mirror the assembly's locale-flipped variant fallback for stuck
-        // Google queries; `via: "variant"` marks rows the fallback served.
+        // Mirror the assembly's fallbacks for stuck Google queries — the
+        // locale-flipped variant, then the Bing mirror; `via` marks which
+        // fallback served the row.
         let via;
         if (!r.ok && f.gnews) {
           await feedSleep(300);
           const vr = await fetch(gnewsVariant(f.url), { headers: fetchHeaders(f.url), cf: { cacheTtl: 0 } });
           if (vr.ok) { r = vr; via = "variant"; }
+        }
+        if (!r.ok && f.gnews) {
+          const b = bingMirror(f.url);
+          if (b) {
+            await feedSleep(200);
+            const br = await fetch(b, { headers: fetchHeaders(b), cf: { cacheTtl: 0 } });
+            if (br.ok) { r = br; via = "bing"; }
+          }
         }
         const txt = r.ok ? await r.text() : "";
         const parsed = txt ? feedParse(txt, f).filter((x) => !feedReject(x.title)) : [];
@@ -1553,14 +1582,15 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=27", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=28", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const delays = feedStagger();
   const results = await Promise.allSettled(FEED_SOURCES.map(async (f, i) => {
     let txt = await feedFetch(f.url, delays[i]);
-    // Stuck Google query (per-query-hash 503) → one locale-flipped variant.
+    // Stuck Google query → one locale-flipped variant, then the Bing mirror.
     if (!txt && f.gnews) txt = await feedFetch(gnewsVariant(f.url), 300);
+    if (!txt && f.gnews) { const b = bingMirror(f.url); if (b) txt = await feedFetch(b, 200); }
     if (!txt) return [];
     let items = feedParse(txt, f).filter((x) => !feedReject(x.title));
     // Reader-curated feeds (myFT, Bloomberg official wires): everything passes
