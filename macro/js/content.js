@@ -5,7 +5,7 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "20 July 2026";
+export const UPDATED = "21 July 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
@@ -13,7 +13,7 @@ export const UPDATED = "20 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-21",
-  lastCheckedTime: "05:20 BST",
+  lastCheckedTime: "09:24 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -80,8 +80,9 @@ export const OUTLOOK = {
       "Andy Burnham formally became prime minister on 20 July, pledging in his first speech in office to prioritise cost-of-living relief and confirming allies' reports that a planned digital-ID scheme has been dropped so government attention can focus on living costs. The accession lands the same day Brent crossed $90/bbl for the first time in six weeks on the widening Iran conflict — a fresh oil-driven inflation headwind for the new government's first days, on top of the fiscal and gilt-market pressures already flagged to him.",
       "UK assets traded steadily through Burnham's first day in office: the 10-year gilt yield held little changed near <strong>4.95%</strong> — a two-month high, on track for a third consecutive weekly gain — while sterling edged up 0.13% to $1.3469 as investors focused on his choice of chancellor, with continued reports that Shabana Mahmood remains the frontrunner easing fears of a more expansionary fiscal stance. The FTSE 100 slipped nearly 0.5% in early trading as Iran-driven oil and mining-sector weakness offset the political relief.",
       "Burnham's own remarks then moved the market within hours of taking office: telling reporters on 20 July he would 'stick to the fiscal rules, and by that I mean the existing fiscal rules, and use obviously any flexibility within them', the comment revived investor concern about looser spending and extended the day's gilt selloff — the 10-year yield rose 9bp to <strong>5.04%</strong> (from 4.95% Friday) and the 30-year rose a similar amount to its highest level in around two months. Sterling dipped on the day, unwinding some of the earlier Mahmood-driven relief.",
+      "Burnham then confirmed his Cabinet on the evening of 20 July, passing over the presumed frontrunners Shabana Mahmood and Ed Miliband to name <strong>John Healey</strong> — the former defence secretary who had resigned weeks earlier over funding disagreements — as Chancellor. The 10-year gilt yield closed the day up 8bp at <strong>5.049%</strong>, its highest since late May, while sterling was volatile intraday before recovering to trade little changed; analysts read the pick as a sign Burnham intends to respect bond-market discipline, with one noting Healey 'brings Treasury experience'. Separately, ONS data on 21 July showed unemployment rising to <strong>4.9%</strong> (Mar–May 2026) and payrolled employment down 85,000 on the year, with regular pay growth of 3.4% leaving real wages up just 0.3% after CPIH — a softening labour backdrop that, alongside BoE Governor Bailey's 14 July warning to Burnham that 'the big issue is growth in the economy', argues against the MPC hawks even as sticky services inflation and the Iran oil shock keep a hike in play.",
     ],
-    bottomLine: "Next move a hold on 30 July at 3.75%; markets now fully price a 25bp hike by year-end (most likely December) as the 10-year gilt yield jumped further to 5.04% on 20 July — its highest close in around two months — after PM Burnham's first-day 'fiscal flexibility' remarks unsettled bond investors, even as hopes for a fiscally cautious Chancellor (Shabana Mahmood) had briefly lifted sterling earlier in the day.",
+    bottomLine: "Next move a hold on 30 July at 3.75%; markets now fully price a 25bp hike by year-end (most likely December). The 10-year gilt yield closed at 5.049% on 20 July — its highest since late May — after Burnham named John Healey (not the presumed favourite Mahmood) as Chancellor, a pick markets read as a mild positive for fiscal discipline; a softening labour market (unemployment up to 4.9%, real regular pay growth of just 0.3%) reported by the ONS on 21 July adds a disinflationary counterweight to the still-live Iran oil shock.",
   },
   sources: [
     ["Fed statement, 17 Jun 2026", "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm"],
@@ -134,6 +135,10 @@ export const OUTLOOK = {
     ["Bloomberg — Gilts Fall as Burnham's Fiscal Flexibility Comments Spook Market, 20 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-20/gilts-fall-as-burnham-s-fiscal-flexibility-comments-spook-market"],
     ["The Motley Fool — In 15 Words, Fed Governor Christopher Waller Just Issued a Warning to Wall Street, 20 Jul 2026", "https://www.fool.com/investing/2026/07/20/in-15-words-fed-governor-christopher-waller-just-i/"],
     ["Yahoo Finance — Stock market today: Dow, S&P 500, Nasdaq rally fizzles as chip stock momentum fades, oil rises, 20 Jul 2026", "https://finance.yahoo.com/markets/live/stock-market-today-monday-july-20-dow-sp-500-nasdaq-oil-111429441.html"],
+    ["CityAM — John Healey becomes Chancellor as Andy Burnham names top Cabinet appointments, 20 Jul 2026", "https://www.cityam.com/john-healey-becomes-chancellor-as-andy-burnham-names-top-cabinet-appointments/"],
+    ["Yahoo Finance UK (PA) — John Healey named as Chancellor as borrowing costs jump to two-month high, 20 Jul 2026", "https://uk.finance.yahoo.com/news/john-healey-named-chancellor-borrowing-174034607.html"],
+    ["ONS — Labour market overview, UK: July 2026", "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/uklabourmarket/latest"],
+    ["CityAM — Bank of England warns Burnham of UK economy's 'big issue', 14 Jul 2026", "https://www.cityam.com/bank-of-england-warns-andy-burnham-economic-growth-is-the-uks-big-issue/"],
   ],
 };
 
@@ -409,18 +414,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-07-21",
   us: [
-    { title: "Stock Market Today: Dow, S&P Live Updates for July 21", source: "Bloomberg", date: "2026-07-20", time: "21:15", url: "https://www.bloomberg.com/news/articles/2026-07-20/stock-market-today-dow-s-p-live-updates" },
-    { title: "CNBC Daily Open: Spain takes the World Cup, oil takes the market spotlight", source: "CNBC", date: "2026-07-20", time: "21:20", url: "https://www.cnbc.com/2026/07/20/cnbc-daily-open-spain-world-cup-us-iran-oil.html" },
-    { title: "Trump vows Iran will 'pay' for killing US soldiers", source: "Al Jazeera", date: "2026-07-20", time: "21:15", url: "https://www.aljazeera.com/news/2026/7/20/trump-vows-iran-will-pay-for-killing-us-soldiers" },
-    { title: "Gold Falls as US-Iran Hostilities Keep Rate Hike Bets on Table", source: "Bloomberg", date: "2026-07-19", time: "21:20", url: "https://www.bloomberg.com/news/articles/2026-07-19/gold-falls-as-us-iran-hostilities-keep-rate-hike-bets-on-table" },
-    { title: "Iran Oil Shock Spills Into Demand Inflation, Lifting Fed Rate-Hike Odds to 73% by September", source: "Tech Times", date: "2026-07-16", time: "21:20", url: "https://www.techtimes.com/articles/320773/20260716/iran-oil-shock-spills-demand-inflation-lifting-fed-rate-hike-odds-73-september.htm" },
+    { title: "CNBC Daily Open: Trump revives his tariff playbook with Canada", source: "CNBC", date: "2026-07-21", time: "07:27", url: "https://www.cnbc.com/2026/07/21/cnbc-daily-open-trump-revives-his-tariff-playbook-with-canada.html" },
+    { title: "Trump imposes 50% US tariffs on some Canadian goods, citing discrimination", source: "Al Jazeera", date: "2026-07-21", time: "09:09", url: "https://www.aljazeera.com/news/2026/7/21/trump-imposes-50-us-tariffs-on-some-canadian-goods-citing-discrimination" },
+    { title: "JPMorgan Chase CEO Jamie Dimon says markets underestimate risks", source: "CNBC", date: "2026-07-20", time: "09:09", url: "https://www.cnbc.com/2026/07/20/jpmorgan-chase-ceo-jamie-dimon-market-risk.html" },
+    { title: "Stock futures are little changed as traders shift focus to earnings amid Middle East tensions: Live updates", source: "CNBC", date: "2026-07-20", time: "09:09", url: "https://www.cnbc.com/2026/07/20/stock-market-today-live-updates.html" },
+    { title: "Earnings playbook: Alphabet and Tesla are among the big companies set to report this week", source: "CNBC", date: "2026-07-19", time: "09:09", url: "https://www.cnbc.com/2026/07/19/earnings-playbook-alphabet-tesla-headline-this-weeks-big-reports.html" },
   ],
   uk: [
-    { title: "Gilts Drop as Burnham's Fiscal Flexibility Remarks Lift UK Bond Yields", source: "Bloomberg", date: "2026-07-20", time: "21:15", url: "https://www.bloomberg.com/news/articles/2026-07-20/gilts-fall-as-burnham-s-fiscal-flexibility-comments-spook-market" },
-    { title: "UK's Andy Burnham becomes PM as Trump slams Britain as 'Poverty Stricken Disaster'", source: "CNBC", date: "2026-07-20", time: "21:20", url: "https://www.cnbc.com/2026/07/20/uk-prime-minister-burnham-trump-poverty-stricken-disaster.html" },
-    { title: "FTSE 100 Live: UK Assets Dragged Around by Oil as Burnham Becomes PM", source: "Bloomberg", date: "2026-07-20", time: "21:15", url: "https://www.bloomberg.com/news/live-blog/2026-07-20/ftse-100-live-updates-burnham-uk-house-prices-pound-bonds-brent-oil-prices-iran-trump-news-what-s-moving-uk-markets-right-now-markets-today" },
-    { title: "Borrowing costs jump after Burnham 'fiscal flexibility' remarks", source: "CityAM", date: "2026-07-20", time: "17:13", url: "https://www.cityam.com/borrowing-costs-jump-after-burnham-fiscal-flexibility-remarks/" },
-    { title: "Pound Index Hits One-Year High on Mahmood for Chancellor Reports", source: "Bloomberg", date: "2026-07-16", time: "21:20", url: "https://www.bloomberg.com/news/articles/2026-07-16/pound-index-hits-one-year-high-on-mahmood-for-chancellor-reports" },
+    { title: "FTSE 100 Live: Blue-chips slip despite global tech rebound; unemployment rises", source: "Proactive Investors", date: "2026-07-21", time: "09:09", url: "https://www.proactiveinvestors.com/companies/news/1095745/ftse-100-live-blue-chips-set-to-slip-despite-global-tech-rebound-1095745.html" },
+    { title: "Labour market overview, UK: July 2026", source: "ONS", date: "2026-07-21", time: "09:09", url: "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/uklabourmarket/latest" },
+    { title: "CNBC Daily Open: Can he Healey the British economy?", source: "CNBC", date: "2026-07-21", time: "09:09", url: "https://www.cnbc.com/2026/07/21/cnbc-daily-open-john-healey-uk-economy.html" },
+    { title: "John Healey becomes Chancellor as Andy Burnham names top Cabinet appointments", source: "CityAM", date: "2026-07-20", time: "18:17", url: "https://www.cityam.com/john-healey-becomes-chancellor-as-andy-burnham-names-top-cabinet-appointments/" },
+    { title: "Borrowing costs jump to two-month high as Healey named as Chancellor", source: "Yahoo Finance UK (PA)", date: "2026-07-20", time: "09:09", url: "https://uk.finance.yahoo.com/news/john-healey-named-chancellor-borrowing-174034607.html" },
   ],
 };
 
@@ -432,8 +437,14 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-07-20",
+  updated: "2026-07-21",
   items: [
+    {"title":"Trump imposes 50% US tariffs on some Canadian goods, citing discrimination","source":"Al Jazeera","date":"2026-07-21","time":"09:09","url":"https://www.aljazeera.com/news/2026/7/21/trump-imposes-50-us-tariffs-on-some-canadian-goods-citing-discrimination","blurb":"Trump ordered 50% tariffs on roughly $20bn of Canadian goods — autos, alcohol, dairy and more — under Section 338 of the 1930 Trade Act, reviving a trade fight with one of the only nations to retaliate against earlier US tariffs."},
+    {"title":"JPMorgan Chase CEO Jamie Dimon says markets underestimate risks","source":"CNBC","date":"2026-07-20","time":"09:09","url":"https://www.cnbc.com/2026/07/20/jpmorgan-chase-ceo-jamie-dimon-market-risk.html","blurb":"Dimon said he wouldn't buy equities or long-dated Treasurys at current prices, citing Ukraine, the Middle East, US-China tensions and rising military spending against mounting deficits."},
+    {"title":"John Healey becomes Chancellor as Andy Burnham names top Cabinet appointments","source":"CityAM","date":"2026-07-20","time":"18:17","url":"https://www.cityam.com/john-healey-becomes-chancellor-as-andy-burnham-names-top-cabinet-appointments/","blurb":"Burnham passed over favourites Shabana Mahmood and Ed Miliband to install the former defence secretary at the Treasury, a surprise pick markets read as a sign of respect for bond-market discipline."},
+    {"title":"Borrowing costs jump to two-month high as Healey named as Chancellor","source":"Yahoo Finance UK (PA)","date":"2026-07-20","time":"09:09","url":"https://uk.finance.yahoo.com/news/john-healey-named-chancellor-borrowing-174034607.html","blurb":"The 10-year gilt yield rose 8bp to 5.049% and sterling briefly dipped before recovering as investors weighed the Treasury pick against Burnham's 'fiscal flexibility' remarks."},
+    {"title":"Labour market overview, UK: July 2026","source":"ONS","date":"2026-07-21","time":"09:09","url":"https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/uklabourmarket/latest","blurb":"Unemployment rose to 4.9% (Mar–May 2026) and payrolled employment fell 85,000 on the year, while regular pay growth of 3.4% left real wages up just 0.3% after CPIH inflation."},
+    {"title":"FTSE 100 Live: Blue-chips slip despite global tech rebound; unemployment rises","source":"Proactive Investors","date":"2026-07-21","time":"09:09","url":"https://www.proactiveinvestors.com/companies/news/1095745/ftse-100-live-blue-chips-set-to-slip-despite-global-tech-rebound-1095745.html","blurb":"London opened lower as investors digested the weaker jobs data, Healey's appointment and a heavy week of UK public-finance and earnings news."},
     {"title":"Gilts Fall as Burnham's Fiscal Flexibility Comments Spook Market","source":"Bloomberg","date":"2026-07-20","time":"21:15","url":"https://www.bloomberg.com/news/articles/2026-07-20/gilts-fall-as-burnham-s-fiscal-flexibility-comments-spook-market","blurb":"UK gilts sold off after Burnham said he would use 'any flexibility' within existing fiscal rules, pushing the 10-year yield up 9bp to 5.04% on his first day in office."},
     {"title":"Borrowing costs jump after Burnham 'fiscal flexibility' remarks","source":"CityAM","date":"2026-07-20","time":"17:13","url":"https://www.cityam.com/borrowing-costs-jump-after-burnham-fiscal-flexibility-remarks/","blurb":"The 30-year gilt hit its highest level in around two months as investors weighed the new PM's spending-flexibility comments against Britain's already-heavy debt load."},
     {"title":"British gilt yields rise, sterling dips as Burnham becomes UK prime minister","source":"Reuters (via Euronext)","date":"2026-07-20","time":"21:15","url":"https://live.euronext.com/en/financial-news/british-gilt-yields-rise-sterling-dips-burnham-becomes-uk-prime-minister","blurb":"Investors grew wary of potential fiscal loosening even as Burnham pledged to stick to the existing fiscal rules and proposed raising tax-free income thresholds.","author":"Sophie Kiderlin, Yoruk Bahceli, Naomi Rovnick"},
@@ -468,12 +479,6 @@ export const ARTICLES = {
     {"title":"UK's incoming PM Andy Burnham drops digital ID scheme to prioritize cost of living, say allies","source":"CNBC","date":"2026-07-19","time":"21:05","url":"https://www.cnbc.com/2026/07/19/uks-incoming-pm-andy-burnham-to-prioritize-cost-of-living-say-allies.html","blurb":"Burnham's office says scrapping the digital-ID scheme frees up government attention for cost-of-living priorities as he prepares to enter Downing Street on Monday."},
     {"title":"How will the ECB respond to the latest rise in oil prices?","source":"Financial Times","date":"2026-07-19","time":"12:00","url":"https://www.ft.com/content/c1b04338-8fc8-45fc-8a35-f623843d4dda","blurb":"The Iran-driven oil shock complicates the ECB's own policy calculus just as the Fed and BoE debate whether to hike."},
     {"title":"US strikes Iran after two American troops killed in Jordan","source":"Financial Times","date":"2026-07-19","time":"10:13","url":"https://www.ft.com/content/e8e8adc5-7c56-45a8-99fc-bb5acfda263e","blurb":"Washington carries out retaliatory strikes after the first direct US combat deaths of the renewed conflict, deepening the oil-driven inflation risk into the 28-29 July FOMC meeting."},
-    {"title":"U.S. blockades Iranian ports, launches dozens of strikes as Trump seeks control of Strait of Hormuz","source":"CBS News","date":"2026-07-19","time":"09:22","url":"https://www.cbsnews.com/live-updates/iran-war-trump-strait-of-hormuz-attacks-persian-gulf/","blurb":"Rolling coverage as the US completes an eighth straight night of strikes on Iran following the killing of two US service members in Jordan."},
-    {"title":"Brent Crude Hits $88 as Iran Extends War From Hormuz to Kuwait Drinking Water","source":"Tech Times","date":"2026-07-18","time":"21:10","url":"https://www.techtimes.com/articles/320922/20260718/brent-crude-hits-88-iran-extends-war-hormuz-kuwait-drinking-water.htm","blurb":"Iran struck Kuwait's Shuaiba desalination plant for a second straight day, pushing Brent up 4.6% to $88.10 — a 14%+ weekly gain — as Hormuz tanker crossings fell to just eight a day and the Gulf war widens from shipping into civilian infrastructure."},
-    {"title":"Burnham urged not to allow new North Sea drilling","source":"RTÉ","date":"2026-07-18","time":"20:02","url":"https://www.rte.ie/news/2026/0718/1583956-uk-andy-burnham/","blurb":"Environmental and political figures press the incoming PM to honour Labour's manifesto pledge against new North Sea oil and gas exploration licences."},
-    {"title":"Burnham to approve North Sea oil and gas drilling in policy blitz","source":"CityAM","date":"2026-07-17","time":"11:53","url":"https://www.cityam.com/burnham-to-approve-north-sea-oil-and-gas-drilling-in-policy-blitz/","blurb":"Burnham has asked officials to prepare announcements on new North Sea drilling and public control of Thames Water within days of taking office."},
-    {"title":"UK Economy Leads G7 on Growth as Rate-Hike Pressure Builds for Borrowers","source":"Tech Times","date":"2026-07-16","time":"21:10","url":"https://www.techtimes.com/articles/320748/20260716/uk-economy-leads-g7-growth-rate-hike-pressure-builds-borrowers.htm","blurb":"UK GDP growth outpaces G7 peers even as sticky services inflation and oil-driven price pressure keep BoE hike bets alive."},
-    {"title":"Britain hopes this man will save its economy. We went to Manchester to find out why","source":"CNN Business","date":"2026-07-18","time":"17:08","url":"https://kesq.com/money/cnn-business-consumer/2026/07/18/britain-hopes-this-man-will-save-its-economy-we-went-to-manchester-to-find-out-why/","blurb":"A ground-level look at whether the incoming prime minister's Manchester track record translates into a credible economic turnaround plan for the UK."},
   ],
 };
 
@@ -484,7 +489,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-07-21", country: "UK", title: "ONS labour market & average earnings", url: "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/uklabourmarket/latest" },
   { date: "2026-07-22", country: "UK", title: "CPI inflation (June)", url: "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/latest" },
   { date: "2026-07-24", country: "UK", title: "Retail sales (June)", url: "https://www.ons.gov.uk/businessindustryandtrade/retailindustry/bulletins/retailsales/latest" },
   { date: "2026-07-24", country: "UK", title: "S&P Global/CIPS Flash Manufacturing & Services PMI (July)", url: "https://www.pmi.spglobal.com/Public/Release/ReleaseDates" },

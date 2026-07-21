@@ -27,6 +27,36 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-linklaterspep-20260721",
+    publication: "Legal Business",
+    title: "Linklaters posts double-digit PEP hike as turnover nears £2.5bn",
+    date: "2026-07-21",
+    time: "08:02",
+    summary: "Firm cites strong performance in the US, where it has doubled revenue and quadrupled profit over the past four years.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQswzLGG4TS4v1XDg/wv",
+  },
+  {
+    id: "nl-bbg-morningbriefingeurope-20260721",
+    publication: "Bloomberg",
+    author: "Jill Disis",
+    series: "Morning Briefing Europe",
+    title: "Cabinet surprises",
+    date: "2026-07-21",
+    time: "07:48",
+    summary: "Burnham surprises with his UK chancellor pick, the US and Iran trade strikes for a 10th straight day, and tariffs return as the US targets Canada.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-21/burnham-surprises-with-uk-chancellor-pick",
+  },
+  {
+    id: "nl-econ-worldinbrief-20260721",
+    publication: "The Economist",
+    series: "The World in Brief",
+    title: "The World in Brief: A new era at Number 10",
+    date: "2026-07-21",
+    time: "06:17",
+    summary: "Andy Burnham unexpectedly picks John Healey as chancellor; Trump imposes a 50% tariff on Canadian goods; America launches more strikes on Iran.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-pointsofreturn-20260721",
     publication: "Bloomberg",
     author: "John Authers",
