@@ -27,6 +27,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-pointsofreturn-20260721",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "Chancellor Healey is back. The '70s needn't be",
+    date: "2026-07-21",
+    time: "05:01",
+    summary: "New chancellor Healey settles in as momentum stocks suffer their sharpest reversal since the pandemic.",
+    url: "https://bloom.bg/4pvQ81n",
+  },
+  {
     id: "nl-bbg-moneystuff-20260720",
     publication: "Bloomberg",
     author: "Matt Levine",
