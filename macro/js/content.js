@@ -12,8 +12,8 @@ export const UPDATED = "20 July 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-07-20",
-  lastCheckedTime: "21:15 BST",
+  lastChecked: "2026-07-21",
+  lastCheckedTime: "05:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -407,20 +407,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-07-20",
+  updated: "2026-07-21",
   us: [
+    { title: "Stock Market Today: Dow, S&P Live Updates for July 21", source: "Bloomberg", date: "2026-07-20", time: "21:15", url: "https://www.bloomberg.com/news/articles/2026-07-20/stock-market-today-dow-s-p-live-updates" },
+    { title: "CNBC Daily Open: Spain takes the World Cup, oil takes the market spotlight", source: "CNBC", date: "2026-07-20", time: "21:20", url: "https://www.cnbc.com/2026/07/20/cnbc-daily-open-spain-world-cup-us-iran-oil.html" },
     { title: "Trump vows Iran will 'pay' for killing US soldiers", source: "Al Jazeera", date: "2026-07-20", time: "21:15", url: "https://www.aljazeera.com/news/2026/7/20/trump-vows-iran-will-pay-for-killing-us-soldiers" },
-    { title: "Yemen's Houthis declare naval blockade of Saudi Arabia: What to know", source: "Al Jazeera", date: "2026-07-20", time: "21:15", url: "https://www.aljazeera.com/news/2026/7/20/yemens-houthis-declare-naval-blockade-of-saudi-arabia-what-to-know" },
-    { title: "Stock market today: Dow, S&P 500, Nasdaq rally fizzles as chip stock momentum fades, oil rises", source: "Yahoo Finance", date: "2026-07-20", time: "21:05", url: "https://finance.yahoo.com/markets/live/stock-market-today-monday-july-20-dow-sp-500-nasdaq-oil-111429441.html" },
-    { title: "In 15 Words, Fed Governor Christopher Waller Just Issued a Warning to Wall Street", source: "The Motley Fool", date: "2026-07-20", time: "21:15", url: "https://www.fool.com/investing/2026/07/20/in-15-words-fed-governor-christopher-waller-just-i/" },
-    { title: "Oil steadies as hopes of renewed US-Iran negotiations offset Houthi threat", source: "Reuters (via Euronext)", date: "2026-07-20", time: "21:15", url: "https://live.euronext.com/en/financial-news/oil-steadies-hopes-renewed-us-iran-negotiations-offset-houthi-threat" },
+    { title: "Gold Falls as US-Iran Hostilities Keep Rate Hike Bets on Table", source: "Bloomberg", date: "2026-07-19", time: "21:20", url: "https://www.bloomberg.com/news/articles/2026-07-19/gold-falls-as-us-iran-hostilities-keep-rate-hike-bets-on-table" },
+    { title: "Iran Oil Shock Spills Into Demand Inflation, Lifting Fed Rate-Hike Odds to 73% by September", source: "Tech Times", date: "2026-07-16", time: "21:20", url: "https://www.techtimes.com/articles/320773/20260716/iran-oil-shock-spills-demand-inflation-lifting-fed-rate-hike-odds-73-september.htm" },
   ],
   uk: [
-    { title: "Gilts Fall as Burnham's Fiscal Flexibility Comments Spook Market", source: "Bloomberg", date: "2026-07-20", time: "21:15", url: "https://www.bloomberg.com/news/articles/2026-07-20/gilts-fall-as-burnham-s-fiscal-flexibility-comments-spook-market" },
+    { title: "Gilts Drop as Burnham's Fiscal Flexibility Remarks Lift UK Bond Yields", source: "Bloomberg", date: "2026-07-20", time: "21:15", url: "https://www.bloomberg.com/news/articles/2026-07-20/gilts-fall-as-burnham-s-fiscal-flexibility-comments-spook-market" },
+    { title: "UK's Andy Burnham becomes PM as Trump slams Britain as 'Poverty Stricken Disaster'", source: "CNBC", date: "2026-07-20", time: "21:20", url: "https://www.cnbc.com/2026/07/20/uk-prime-minister-burnham-trump-poverty-stricken-disaster.html" },
+    { title: "FTSE 100 Live: UK Assets Dragged Around by Oil as Burnham Becomes PM", source: "Bloomberg", date: "2026-07-20", time: "21:15", url: "https://www.bloomberg.com/news/live-blog/2026-07-20/ftse-100-live-updates-burnham-uk-house-prices-pound-bonds-brent-oil-prices-iran-trump-news-what-s-moving-uk-markets-right-now-markets-today" },
     { title: "Borrowing costs jump after Burnham 'fiscal flexibility' remarks", source: "CityAM", date: "2026-07-20", time: "17:13", url: "https://www.cityam.com/borrowing-costs-jump-after-burnham-fiscal-flexibility-remarks/" },
-    { title: "British gilt yields rise, sterling dips as Burnham becomes UK prime minister", source: "Reuters (via Euronext)", date: "2026-07-20", time: "21:15", url: "https://live.euronext.com/en/financial-news/british-gilt-yields-rise-sterling-dips-burnham-becomes-uk-prime-minister" },
-    { title: "Andy Burnham pledges to end instability after becoming UK's seventh prime minister in a decade", source: "CNN", date: "2026-07-20", time: "21:15", url: "https://www.cnn.com/2026/07/20/world/live-news/andy-burnham-uk-prime-minister-intl" },
-    { title: "UK Stock Market Today (July 20): FTSE 100, FTSE 250 Fall as Middle East Tensions, Oil Prices and Global Selloff Weigh on Investors", source: "Sunday Guardian Live", date: "2026-07-20", time: "10:01", url: "https://sundayguardianlive.com/business/uk-stock-market-today-july-20-ftse-100-ftse-250-fall-as-middle-east-tensions-oil-prices-and-global-selloff-weigh-on-investors-what-should-investors-know-241731/" },
+    { title: "Pound Index Hits One-Year High on Mahmood for Chancellor Reports", source: "Bloomberg", date: "2026-07-16", time: "21:20", url: "https://www.bloomberg.com/news/articles/2026-07-16/pound-index-hits-one-year-high-on-mahmood-for-chancellor-reports" },
   ],
 };
 
