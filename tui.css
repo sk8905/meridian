@@ -312,22 +312,20 @@
 /* CLO indicator: right-align to sit under its right-aligned "CLOs" header (the
    other numeric columns are right-aligned too) and dim the bullet a touch. */
 .tleague-full .tl-cl { text-align: right; color: var(--accent); opacity: .85; }
-/* SLS (credit managers): left-aligned header over the left-aligned chips. Must
-   live HERE, after the generic th right-align above — a same-specificity
-   override in the app stylesheet loses on load order (tl-hq works the same way). */
-.tleague-full th.tl-sls { text-align: left; }
+/* SLS (credit managers): right-aligned like every other data column, so the
+   chips anchor to the table's right edge under a right-aligned header and the
+   column reads evenly at any width. */
+.tleague-full th.tl-sls, .tleague-full td.tl-sls { text-align: right; }
 .tleague-full th { top: 28px; }
 /* Even, fixed column distribution: auto-layout was dumping all the slack into
    one 450px-wide HQ column (the big mid-table gap). Fixed widths spread the
    numeric columns across the full width; the name/HQ cells ellipsis at the
    column edge (no max-width cap needed once the column width is set). */
 @media (min-width: 761px) {
-  /* Ultrawide monitors: a 100%-width table turns every column into a void
-     (numbers hundreds of px from their neighbours), while capping only the
-     TABLE strands it left of its own search header. Cap the whole managers
-     pane — header + search + table + legend — as ONE centred column, so
-     everything stays aligned and dense at any screen width. */
-  .tpane[data-pane="managers"] { max-width: 1500px; margin: 0 auto; width: 100%; }
+  /* Full-bleed: the table adapts to fill the screen (no width cap). Even
+     distribution comes from the fixed 8-column split below plus EVERY data
+     column being right-aligned — including SLS — so each column's content
+     anchors to a consistent edge and the slack reads as uniform gutters. */
   .tleague-full { table-layout: fixed; }
   /* EIGHT columns since SLS landed — the widths must always sum to 100% or
      table-layout:fixed starves whichever column is missing from this list

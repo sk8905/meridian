@@ -33,23 +33,8 @@ import {
 import { viewFund, viewManager, viewClo, viewLp } from "./detail.js?v=20260720-5";
 // The shared news-wire engine — the Home feed's row / day-header / source-filter
 // markup, so the Credit dashboard wire is the same build as Home's.
-import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, onLiveWire, liveDesk, byFeedDesc } from "/feed.js?v=20260721-9";
+import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260721-9";
 
-// Live cross-desk news wire (shared /api/feed via feed.js onLiveWire — the same
-// stream, cache and labels as Home/Macro/Legal) folded into the dashboard All
-// feed. Seeded synchronously from the shared cache; a background arrival
-// re-renders the dashboard in place when it's on-screen.
-let _crFeed = [];
-let _crFeedLoaded = false;
-function loadCreditFeed() {
-  if (_crFeedLoaded) return;
-  _crFeedLoaded = true;
-  onLiveWire((items) => {
-    const changed = items.length !== _crFeed.length || (items[0] && (!_crFeed[0] || items[0].title !== _crFeed[0].title));
-    _crFeed = items;
-    if (changed && document.getElementById("cr-dash-wire")) { const y = window.scrollY; router(); window.scrollTo(0, y); }
-  });
-}
 
 const app = document.getElementById("app");
 
@@ -596,17 +581,11 @@ function viewDashboard() {
     return { desk: KIND_DESK[a.kind] || "news", href: url || (mid ? `#/manager/${mid}` : "#/"),
       ext: !!url, title, src, date: rec.date || "", time: rec.time || "", mgr: mid || "" };
   });
-  // Fold the live cross-desk wire in (shared /api/feed): live stories join the
-  // All stream carrying the SAME desk labels Home shows (MAC / BBG / ECON / FT /
-  // SUBS / NEWS via feed.js liveDesk), deduped by title against the curated
-  // stream, the merged wire newest-first — so every page reads the same.
-  loadCreditFeed();
-  const crNorm = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
-  const seenWire = new Set(wireItems.map((x) => crNorm(x.title)));
-  const liveItems = (_crFeed || [])
-    .filter((n) => { const k = crNorm(n.title); if (!k || seenWire.has(k)) return false; seenWire.add(k); return true; })
-    .map((n) => ({ desk: liveDesk(n), href: n.url || "#/", ext: !!n.url, title: n.title, src: n.source || "", date: n.date || "", time: n.time || "" }));
-  const wireAll = [...wireItems, ...liveItems].sort(byFeedDesc);
+  // NO live-wire fold here: the cross-desk /api/feed stream carries no
+  // credit-desk stories (its labels are MAC/BBG/ECON/FT/SUBS/NEWS), so folding
+  // it in just made this All tab a mirror of the Home newsfeed. Credit's All
+  // is the CREDIT desk: deals, fundraising, CLOs, manager news, research.
+  const wireAll = [...wireItems].sort(byFeedDesc);
   // Deals/CLO share the "Deals" chip; intel is "Fundraising"; news/comm live only
   // under "All". Source filter (row click) overrides the chip, as on Home.
   const CR_GROUP = { deal: "deals", clo: "deals", fund: "fundraising" };
@@ -638,7 +617,7 @@ function viewDashboard() {
   // `structured` items (data.js). One chip per type present, fixed order; the
   // tooltip carries every item's label, note and attribution. No sourced item
   // → em-dash (a sparse column is correct — chips are never inferred here).
-  const SLS_ORDER = ["NAV", "SRT", "CFO", "CONT", "STR"];
+  const SLS_ORDER = ["NAV", "SRT", "CFO", "CONT", "OTH"];
   const slsChips = (m) => {
     const items = m.structured || [];
     if (!items.length) return "—";
@@ -684,7 +663,7 @@ function viewDashboard() {
                 <tbody id="mgr-rows">${mrows.map(mgrRow).join("")}</tbody>
               </table>
               </div>
-              <p class="tl-sls-key muted small">SLS = Structured Liquidity Solutions — NAV: NAV / fund-level financing · SRT: significant risk transfer · CFO: collateralised fund obligation · CONT: continuation fund / vehicle · STR: other structured liquidity (secondaries platform, fund finance). Every chip is backed by a cited article (hover for the source; the articles sit in that manager's news). — = none found in public coverage.</p>
+              <p class="tl-sls-key muted small">SLS = Structured Liquidity Solutions — NAV: NAV / fund-level financing · SRT: significant risk transfer · CFO: collateralised fund obligation · CONT: continuation fund / vehicle · OTH: other structured liquidity (secondaries platform, fund finance). Every chip is backed by a cited article (hover for the source; the articles sit in that manager's news). — = none found in public coverage.</p>
             </div>
           </div>
         </section>

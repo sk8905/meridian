@@ -48,10 +48,11 @@
 .g-feed-end { padding:16px 12px 32px; text-align:center; font-family:var(--t-mono); font-size:9.5px;
   letter-spacing:.14em; text-transform:uppercase; color:var(--t-faint); background:var(--t-panel); }
 /* Each day is introduced by a date header. Dark = orange-on-black band; light =
-   a white band with blue label text and a grey bottom border matching the rows. */
+   the standard light-grey head band (NOT white — the app's other headers all
+   use the --t-head grey) with blue label text and a grey bottom border. */
 .g-feed-dayhdr { padding:6px 12px; background:var(--t-ground); border-top:0; margin:0;
   font-size:10px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--t-accent); }
-:root[data-theme="light"] .g-feed-dayhdr { background:var(--t-panel); color:#2f6cae;
+:root[data-theme="light"] .g-feed-dayhdr { background:var(--t-head, #f4f7fb); color:#2f6cae;
   border-bottom:1px solid var(--t-grid); }
 .g-feed-row { display:grid; grid-template-columns:44px 34px minmax(0,1fr) auto; align-items:baseline;
   gap:10px; padding:5px 12px; border-bottom:1px solid var(--t-grid); text-decoration:none; }

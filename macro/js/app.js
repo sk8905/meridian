@@ -334,7 +334,10 @@ function viewDashboard() {
   // desks' news feeds rather than the short NEWS-only list. Low-tier aggregator/SEO
   // sources are filtered out to keep the feed on premium newsrooms (matches Home).
   const seenNews = new Set();
-  const news = [...(_macFeed || []), ...((ARTICLES && ARTICLES.items) || []), ...((NEWS && NEWS.us) || []), ...((NEWS && NEWS.uk) || [])]
+  // Live wire: MACRO stories only (desk "m" — the strict-macro classifier).
+  // The full cross-desk fold made this All tab a mirror of the Home newsfeed;
+  // each desk's All shows ITS desk plus its own curated stream, nothing else.
+  const news = [...(_macFeed || []).filter((n) => liveDesk(n) === "m"), ...((ARTICLES && ARTICLES.items) || []), ...((NEWS && NEWS.us) || []), ...((NEWS && NEWS.uk) || [])]
     .filter((x) => !MAC_NON_PREMIUM.has(x.source))
     .filter((x) => { const k = String(x.title || "").toLowerCase().replace(/[^a-z0-9]+/g, ""); if (!k || seenNews.has(k)) return false; seenNews.add(k); return true; })
     .map((x) => ({ ...x, _kind: "news" }));

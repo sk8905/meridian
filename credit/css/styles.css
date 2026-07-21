@@ -705,12 +705,13 @@ a.compact-mgr:hover { color: var(--ink); text-decoration: none; }
    the legend under the table is .tl-sls-key. Desktop lets a long chip run wrap
    to a second line (the phone scroller keeps its global nowrap); the em-dash
    placeholder reads faint so populated rows stand out. */
-.tleague td.tl-sls { text-align: left; color: var(--faint, #8b96ac); }
-/* th alignment lives in tui.css beside tl-hq/tl-cl (load-order specificity). */
-.sls-chip { display: inline-block; padding: 2px 6px; margin: 1px 4px 1px 0; border-radius: 3px;
+.tleague td.tl-sls { color: var(--faint, #8b96ac); }
+/* Alignment (right, matching the other data columns) lives in tui.css beside
+   tl-hq/tl-cl (load-order specificity). Chips gap LEFTWARD since the column
+   anchors right. */
+.sls-chip { display: inline-block; padding: 2px 6px; margin: 1px 0 1px 4px; border-radius: 3px;
   font-size: 8.5px; font-weight: 600; letter-spacing: .03em; line-height: 1.4; vertical-align: middle;
   font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink);
   background: color-mix(in srgb, var(--accent, #fb8b1e) 14%, transparent);
   border: 1px solid color-mix(in srgb, var(--accent, #fb8b1e) 32%, transparent); cursor: help; }
-.sls-chip:last-child { margin-right: 0; }
 .tl-sls-key { margin: 8px 8px 4px; font-size: 10px; line-height: 1.5; }

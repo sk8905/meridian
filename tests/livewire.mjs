@@ -1,7 +1,8 @@
-// Every page ingests the SAME live cross-desk wire (/api/feed) with the SAME
-// desk labels (feed.js liveDesk/deskFor): a TradingEconomics story reads MAC, a
-// Bloomberg story BBG, an Economist story ECON, a plain WSJ story NEWS — on
-// Home AND on each app dashboard (fold added via feed.js onLiveWire).
+// Desk-scoped live wire: Home shows the WHOLE cross-desk stream with shared
+// labels (MAC/BBG/ECON/NEWS via feed.js liveDesk); each app's All tab shows
+// ONLY its own desk — Macro folds in just the strictly-macro (MAC) live
+// stories, Credit and Legal fold in none (their All is their curated desk
+// content; the live stream carries no CRD/LEX stories).
 import { launchChromium, open, DESKTOP, check, checkErrs, finish } from "./lib.mjs";
 import http from "node:http"; import fs from "node:fs"; import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -29,19 +30,49 @@ const srv = http.createServer((q, r) => {
 await new Promise((res) => srv.listen(0, res));
 const port = srv.address().port;
 const b = await launchChromium();
-const WANT = { "United States GDP": "MAC", "WSJ Exclusive": "NEWS", "Global Markets Digest": "BBG", "Why Widgets": "ECON" };
-for (const page of ["/", "/macro/", "/credit/", "/legal/"]) {
+
+const rows = (pg) => pg.evaluate(() => [...document.querySelectorAll(".g-feed-row")].map((r) => ({
+  code: (r.querySelector(".g-feed-code")?.textContent || "").trim(),
+  title: (r.querySelector(".g-feed-title")?.textContent || "").trim(),
+})));
+const openPage = async (page) => {
   const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${port}${page}`);
   await pg.evaluate(() => localStorage.setItem("m_signed_in", "1"));
   await pg.waitForTimeout(2500);
-  const got = await pg.evaluate(() => [...document.querySelectorAll(".g-feed-row")].map((r) => ({
-    code: (r.querySelector(".g-feed-code")?.textContent || "").trim(),
-    title: (r.querySelector(".g-feed-title")?.textContent || "").trim(),
-  })));
-  for (const [frag, code] of Object.entries(WANT)) {
+  return { ctx, pg, errs };
+};
+
+// Home: ALL four live stories, shared desk labels.
+{
+  const { ctx, pg, errs } = await openPage("/");
+  const got = await rows(pg);
+  for (const [frag, code] of Object.entries({ "United States GDP": "MAC", "WSJ Exclusive": "NEWS", "Global Markets Digest": "BBG", "Why Widgets": "ECON" })) {
     const row = got.find((x) => x.title.includes(frag));
-    check(!!row && row.code === code, `${page}: "${frag}" carries ${code}${row ? ` (got ${row.code})` : " (row missing)"}`);
+    check(!!row && row.code === code, `/: "${frag}" carries ${code}${row ? ` (got ${row.code})` : " (row missing)"}`);
   }
+  checkErrs(errs, "/");
+  await ctx.close();
+}
+// Macro: ONLY the strictly-macro live story joins; the BBG/ECON/NEWS ones don't.
+{
+  const { ctx, pg, errs } = await openPage("/macro/");
+  const got = await rows(pg);
+  const mac = got.find((x) => x.title.includes("United States GDP"));
+  check(!!mac && mac.code === "MAC", `/macro/: strictly-macro live story present as MAC${mac ? ` (got ${mac.code})` : " (missing)"}`);
+  for (const frag of ["WSJ Exclusive", "Global Markets Digest", "Why Widgets"]) {
+    check(!got.some((x) => x.title.includes(frag)), `/macro/: non-macro live story "${frag}" is NOT folded in`);
+  }
+  checkErrs(errs, "/macro/");
+  await ctx.close();
+}
+// Credit + Legal: NO live stories fold in — All is the desk's own content.
+for (const page of ["/credit/", "/legal/"]) {
+  const { ctx, pg, errs } = await openPage(page);
+  const got = await rows(pg);
+  for (const frag of ["United States GDP", "WSJ Exclusive", "Global Markets Digest", "Why Widgets"]) {
+    check(!got.some((x) => x.title.includes(frag)), `${page}: live story "${frag}" is NOT folded in`);
+  }
+  check(got.length > 0, `${page}: the desk's own curated wire still renders (${got.length} rows)`);
   checkErrs(errs, page);
   await ctx.close();
 }

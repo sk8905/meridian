@@ -34,23 +34,8 @@ import { viewItem, viewFirm } from "./detail.js?v=20260720-1";
 // The shared news-wire engine — so the Legal dashboard wire is the same build as
 // the Home feed (time-led .g-feed-* rows, day headers, and — new — the firm name
 // at row end as an in-place source filter).
-import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, onLiveWire, liveDesk, byFeedDesc } from "/feed.js?v=20260721-9";
+import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260721-9";
 
-// Live cross-desk news wire (shared /api/feed via feed.js onLiveWire — the same
-// stream, cache and labels as Home/Macro/Credit) folded into the dashboard All
-// feed. Seeded synchronously from the shared cache; a background arrival
-// re-renders the dashboard in place when it's on-screen.
-let _lgFeed = [];
-let _lgFeedLoaded = false;
-function loadLegalFeed() {
-  if (_lgFeedLoaded) return;
-  _lgFeedLoaded = true;
-  onLiveWire((items) => {
-    const changed = items.length !== _lgFeed.length || (items[0] && (!_lgFeed[0] || items[0].title !== _lgFeed[0].title));
-    _lgFeed = items;
-    if (changed && document.getElementById("lg-wire")) { const y = window.scrollY; router(); window.scrollTo(0, y); }
-  });
-}
 
 const app = document.getElementById("app");
 let _lgWireItems = [];        // normalised wire items for the shared feed engine
@@ -505,19 +490,11 @@ function viewDashboard() {
         src: x.src || "", date: x.date || "", sid: x.goScheme || "" }
     : { desk: x._k, href: x.href, ext: x.ext, title: x.title,
         src: x.src || "", date: x.date || "", firm: x.firmId || "" });
-  // Fold the live cross-desk wire in (shared /api/feed): live stories join the
-  // All stream carrying the SAME desk labels Home shows (MAC / BBG / ECON / FT /
-  // SUBS / NEWS via feed.js liveDesk), deduped by title against the legal
-  // stream, the merged wire newest-first — so every page reads the same. The
-  // Alerts / Case law / Schemes chips are unaffected (they filter on the legal
-  // desks, which live items never carry).
-  loadLegalFeed();
-  const lgNorm = (t) => String(t || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
-  const seenWire = new Set(_lgWireItems.map((x) => lgNorm(x.title)));
-  const liveItems = (_lgFeed || [])
-    .filter((n) => { const k = lgNorm(n.title); if (!k || seenWire.has(k)) return false; seenWire.add(k); return true; })
-    .map((n) => ({ desk: liveDesk(n), href: n.url || "#/", ext: !!n.url, title: n.title, src: n.source || "", date: n.date || "", time: n.time || "" }));
-  _lgWireItems = [..._lgWireItems, ...liveItems].sort(byFeedDesc);
+  // NO live-wire fold here: the cross-desk /api/feed stream carries no
+  // legal-desk stories (its labels are MAC/BBG/ECON/FT/SUBS/NEWS), so folding
+  // it in just made this All tab a mirror of the Home newsfeed. Legal's All
+  // is the LEGAL desk: client alerts, case law, schemes/RPs.
+  _lgWireItems = [..._lgWireItems].sort(byFeedDesc);
   const rxRow = (r) => { const u = r.judgmentUrl || r.articleUrl; return `<li class="tmini-row"><a class="tmini-t" href="${esc(u || "#/")}"${u ? ` target="_blank" rel="noopener noreferrer"` : ""}>${esc(r.company)}</a><span class="tmini-m">${r.type === "scheme" ? "Scheme" : "Plan"}${r.date ? " · " + esc(fmtDate(r.date)) : ""}</span></li>`; };
   const caseRow = (c) => `<li class="tmini-row"><a class="tmini-t" href="${esc(c.url || "#/")}"${c.url ? ` target="_blank" rel="noopener noreferrer"` : ""}>${esc(c.name)}</a><span class="tmini-m">${esc(c.court)}${c.date ? " · " + esc(fmtDate(c.date)) : ""}</span></li>`;
 

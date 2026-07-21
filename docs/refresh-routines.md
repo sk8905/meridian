@@ -343,14 +343,14 @@ extra deep-research pass on watchlisted names is skipped.
 >      manager's own press-release URL.
 >    - **SLS column (`structured` on managers) — PRESERVE and EXTEND.** The
 >      managers league table renders an **SLS** column ("Structured Liquidity
->      Solutions") of chips — NAV / SRT / CFO / CONT / STR — from each manager's
+>      Solutions") of chips — NAV / SRT / CFO / CONT / OTH — from each manager's
 >      `structured: [{type, label, url, outlet, date, note}]` array. NEVER drop
 >      or rewrite existing `structured` entries in a refresh; they are curated,
 >      dated evidence (same standing as the maturity-wall figures). When new
 >      coverage lands on a manager's NAV financing, significant risk transfer,
 >      collateralised fund obligation, continuation fund/vehicle or GP-led /
 >      secondaries / fund-finance activity, APPEND a new `structured` item —
->      type from that fixed vocab (STR = other structured liquidity), every
+>      type from that fixed vocab (OTH = other structured liquidity), every
 >      claim verbatim from the cited article, `note` attributing the vehicle
 >      and the manager's role (fund-level vs manager-level; provider vs user
 >      vs investor) — and ALSO add the source article to that manager's
