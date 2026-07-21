@@ -365,10 +365,12 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   -webkit-appearance: none; appearance: none;
 }
 .mtab:hover { color: #4a5566; }
-/* Active tab: darker ink + an accent top line (no pill background) — the same
-   flat treatment in light and dark, so it reads identically across pages. */
+/* Active tab: darker ink + a top line (no pill background). In light mode the
+   line is BLACK, matching every other selected-chip marker on a light surface
+   (the view-nav underlines etc. all use black); dark mode keeps the orange
+   accent, which reads on the black bar. */
 .mtab.is-active { color: #1f2733; background: none; }
-.mtab.is-active::before { content: ""; position: absolute; top: -10px; left: 0; right: 0; height: 2px; background: var(--accent, #fb8b1e); }
+.mtab.is-active::before { content: ""; position: absolute; top: -10px; left: 0; right: 0; height: 2px; background: #000; }
 .mtab-ico { display: block; font-size: 1.42rem; line-height: 1; }   /* diamond glyph → optically match the SVG icons */
 svg.mtab-ico { width: 22px; height: 22px; }
 /* Dark variant — home dashboard + every app share it (one override covers all). */
@@ -376,6 +378,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
 [data-theme="dark"] .mtab { color: #7f8ca6; }
 [data-theme="dark"] .mtab:hover { color: #cdd6e6; }
 [data-theme="dark"] .mtab.is-active { color: #fff; background: none; }
+[data-theme="dark"] .mtab.is-active::before { background: var(--accent, #fb8b1e); }
 /* Menu as a page (/menu/): the panel is permanently open — phones use the
    existing full-screen #na-menu-panel rules; desktop gets a centred column. */
 /* ---- Cross-document view transitions (Safari 18.2+/26, Chrome 126+). The

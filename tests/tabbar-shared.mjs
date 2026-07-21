@@ -49,7 +49,9 @@ for (const theme of ["light", "dark"]) {
   checkEq(s.bar["box-shadow"], "none", `${theme}: no floating shadow`);
   checkEq(s.ico, "block", `${theme}: icon is block`);
   checkEq(s.active.background, "rgba(0, 0, 0, 0)", `${theme}: active tab has no pill background`);
-  checkEq(s.active.lineBg, "rgb(251, 139, 30)", `${theme}: active tab has the orange top line`);
+  // Selected-tab top line: black in light (matches the other light-surface chip
+  // markers), orange in dark (reads on the black bar).
+  checkEq(s.active.lineBg, theme === "dark" ? "rgb(251, 139, 30)" : "rgb(0, 0, 0)", `${theme}: active tab top line is ${theme === "dark" ? "orange" : "black"}`);
 }
 
 await b.close(); srv.close();
