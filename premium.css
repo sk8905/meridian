@@ -302,6 +302,37 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   .topbar-right .theme-toggle { grid-area: toggle; }
 }
 
+/* ---- Desktop: the identity (email/sign-out) + last-refresh block is lifted OUT
+        of the top nav (header.js placeAccountBlock) to the bottom of Home's right
+        rail, or — on the app pages, which have no right rail — into the page
+        footer. Its top-bar copy is white-on-navy; here it sits on a themed
+        surface, so restyle it (and drop the global white sign-out link, which
+        would vanish on a light rail/footer). ---- */
+@media (min-width: 761px) {
+  /* The block moved out, so the top-bar cell is empty — collapse it. */
+  .topbar-right:empty { display: none; }
+  .acct-foot { display: flex; flex-direction: column; gap: 2px; }
+  .acct-foot .account-nav .si-prefix { display: inline; }
+
+  /* Home — pinned to the base of the right rail (the rail is a fixed-height flex
+     column; flex:0 0 auto keeps this strip at the bottom, deal-flow scrolls above). */
+  .g-side2 > .acct-foot { flex: 0 0 auto; margin-top: auto;
+    border-top: 1px solid var(--t-grid2, #262626); padding: 7px 12px 8px; }
+  .g-side2 > .acct-foot .account-nav { font-size: 11px; line-height: 1.35; white-space: normal; color: var(--t-mut, #8592ad); }
+  .g-side2 > .acct-foot .account-nav strong { color: var(--t-ink, #eaf0fb); font-weight: 600; }
+  .g-side2 > .acct-foot .account-nav a { color: var(--t-ink, #eaf0fb); font-weight: 600; }
+  .g-side2 > .acct-foot .data-status { font-size: 10.5px; color: var(--t-faint, #5c6a86); font-family: var(--t-mono, ui-monospace, monospace); }
+
+  /* App pages (Macro/Credit/Legal/Menu) — no right rail, so tuck it into the
+     page footer, right-aligned, compact. */
+  .footer > .acct-foot { align-items: flex-end; text-align: right; }
+  .footer:has(> .acct-foot) { padding: .7rem 1.5rem; }
+  .footer > .acct-foot .account-nav { font-size: 11.5px; color: var(--muted, #5e6a84); }
+  .footer > .acct-foot .account-nav strong { color: var(--ink, #131b2c); font-weight: 600; }
+  .footer > .acct-foot .account-nav a { color: var(--ink, #131b2c); font-weight: 600; }
+  .footer > .acct-foot .data-status { font-size: 11px; color: var(--muted, #5e6a84); }
+}
+
 /* ---- Chart palette (credit/js/charts.js emits these as CSS vars so the Trends
         bar/line/donut charts flip live with the theme). --chart-brand is the one
         brand hue; --chart-r0…r7 the sequential donut ramp (most→least prominent,

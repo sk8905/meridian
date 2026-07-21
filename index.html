@@ -12,9 +12,8 @@
     // reveals; timeout = safety net) so a page switch paints ONCE, complete.
     document.documentElement.classList.add("wire-boot");setTimeout(function(){document.documentElement.classList.remove("wire-boot");},1600);
     ["gesturestart","gesturechange","gestureend"].forEach(function(t){document.addEventListener(t,function(e){e.preventDefault();},{passive:false});});
-    // Phones: relocate the account (email/sign-out) + last-refresh block from the
-    // top bar into the page footer to free up nav-bar space.
-    (function(){function r(){if(!matchMedia("(max-width:760px)").matches)return;var f=document.getElementById("g-footer"),b=document.querySelector(".g-idblock");if(f&&b&&b.parentElement!==f)f.appendChild(b);}if(document.readyState!=="loading")r();else document.addEventListener("DOMContentLoaded",r);})();
+    // (The account/last-refresh block is placed by header.js — bottom of the right
+    // rail on desktop, the /menu/ page on phones — so no page-level relocation here.)
   </script>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=7" />
@@ -24,7 +23,7 @@
   <title>Wire — Home</title>
   <meta name="description" content="Wire Home — a cross-desk briefing across the Credit, Legal and Macro intelligence platforms, with a unified search." />
   <link rel="stylesheet" href="/home.css?v=20260721-4" />
-  <link rel="stylesheet" href="/premium.css?v=20260721-6" />
+  <link rel="stylesheet" href="/premium.css?v=20260721-7" />
   <link rel="stylesheet" href="/header.css?v=20260720-4" />
   <link rel="stylesheet" href="/feed.css?v=20260720-2" />
   <script type="module" blocking="render">
@@ -34,7 +33,7 @@
     // bar staging. The body auth script confirms via /api/me and calls
     // window.__enterGlance for the no-hint path (initGlance self-guards).
     import { initGlance } from "/glance.js?v=20260719-37";
-    import { initHeader } from "/header.js?v=20260720-5";
+    import { initHeader } from "/header.js?v=20260721-1";
     // The ONE shared header (top bar + ticker + briefing) — same module the app
     // pages use. It renders into the (still-hidden) #wire-header and boots the
     // shared chrome + briefing text, so Home's header is identical to the rest.
