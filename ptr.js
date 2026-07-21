@@ -80,7 +80,7 @@ export function initPullToRefresh() {
   restoreTabs();
 
   const THRESH = 75, SOFT = 120, MAX = 220;
-  let startX = 0, startY = 0, armed = false, pulling = false, dist = 0, busy = false;
+  let startX = 0, startY = 0, armed = false, pulling = false, dist = 0, busy = false, clearT = 0;
   const atTop = () => (window.scrollY || document.documentElement.scrollTop || 0) <= 0;
   // Safari-like tracking: 1:1 with the finger up to SOFT, then increasing resistance.
   const pull = (d) => (d <= SOFT ? d : Math.min(SOFT + (d - SOFT) * 0.35, MAX));
@@ -183,7 +183,15 @@ export function initPullToRefresh() {
   function clearPage() {
     for (const el of moveEls.concat(counterEls)) { el.style.transition = ""; el.style.transform = ""; }
     document.body.classList.remove("wire-pulling");
+    clearT = 0;
   }
+  // Flush any pending/in-flight reset to a CLEAN, untransformed layout NOW.
+  // Called at the start of every pull: a second pull that begins while the
+  // previous spring-back is still animating (the 240ms clearPage timeout hasn't
+  // fired) would otherwise run gatherSets() against half-translated elements,
+  // mis-measure where the frozen stack ends, and open the gap in the wrong place
+  // — the big black band the reader hit on the second pull.
+  function flushReset() { if (clearT) { clearTimeout(clearT); clearT = 0; } clearPage(); }
 
   window.addEventListener("touchstart", (e) => {
     if (busy || e.touches.length !== 1 || !atTop() || inOverlayOrScroller(e.target)) { armed = false; pulling = false; return; }
@@ -209,14 +217,14 @@ export function initPullToRefresh() {
       // position while the content translates, tearing gaps mid-pull. A pull
       // only starts at the very top, where sticky is not engaged, so the
       // switch is visually a no-op.
-      if (dy > 0 && dy > Math.abs(dx) * 1.2 && atTop()) { pulling = true; startY = y; dist = 0; document.body.classList.add("wire-pulling"); gatherSets(); return; }
+      if (dy > 0 && dy > Math.abs(dx) * 1.2 && atTop()) { pulling = true; startY = y; dist = 0; flushReset(); document.body.classList.add("wire-pulling"); gatherSets(); return; }
       else { armed = false; return; }
     }
     dist = y - startY;
     if (dist > 0 && atTop()) {
       if (e.cancelable) e.preventDefault();       // take over the gesture
       apply(pull(dist), false);
-    } else { pulling = false; armed = false; apply(0, true); setTimeout(clearPage, 240); }
+    } else { pulling = false; armed = false; apply(0, true); clearT = setTimeout(clearPage, 240); }
   }, { passive: false });
 
   window.addEventListener("touchend", () => {
@@ -238,7 +246,7 @@ export function initPullToRefresh() {
         .map((u) => fetch(u, { cache: "reload" }).catch(() => {}));
       Promise.race([Promise.allSettled(fresh), new Promise((r) => setTimeout(r, 3500))])
         .then(() => location.reload());
-    } else { apply(0, true); setTimeout(clearPage, 240); }
+    } else { apply(0, true); clearT = setTimeout(clearPage, 240); }
     dist = 0;
   }, { passive: true });
 }
