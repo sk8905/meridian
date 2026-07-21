@@ -312,6 +312,10 @@
 /* CLO indicator: right-align to sit under its right-aligned "CLOs" header (the
    other numeric columns are right-aligned too) and dim the bullet a touch. */
 .tleague-full .tl-cl { text-align: right; color: var(--accent); opacity: .85; }
+/* SLS (credit managers): left-aligned header over the left-aligned chips. Must
+   live HERE, after the generic th right-align above — a same-specificity
+   override in the app stylesheet loses on load order (tl-hq works the same way). */
+.tleague-full th.tl-sls { text-align: left; }
 .tleague-full th { top: 28px; }
 /* Even, fixed column distribution: auto-layout was dumping all the slack into
    one 450px-wide HQ column (the big mid-table gap). Fixed widths spread the
@@ -319,13 +323,17 @@
    column edge (no max-width cap needed once the column width is set). */
 @media (min-width: 761px) {
   .tleague-full { table-layout: fixed; }
-  .tleague-full th:nth-child(1) { width: 22%; }   /* Manager    */
-  .tleague-full th:nth-child(2) { width: 17%; }   /* HQ         */
-  .tleague-full th:nth-child(3) { width: 13%; }   /* AUM        */
-  .tleague-full th:nth-child(4) { width: 14%; }   /* Credit AUM */
-  .tleague-full th:nth-child(5) { width: 11%; }   /* Funds      */
-  .tleague-full th:nth-child(6) { width: 12%; }   /* In mkt     */
-  .tleague-full th:nth-child(7) { width: 11%; }   /* CLOs       */
+  /* EIGHT columns since SLS landed — the widths must always sum to 100% or
+     table-layout:fixed starves whichever column is missing from this list
+     (that's exactly what squashed SLS to nothing at the right edge). */
+  .tleague-full th:nth-child(1) { width: 24%; }   /* Manager    */
+  .tleague-full th:nth-child(2) { width: 14%; }   /* HQ         */
+  .tleague-full th:nth-child(3) { width: 10%; }   /* AUM        */
+  .tleague-full th:nth-child(4) { width: 11%; }   /* Credit AUM */
+  .tleague-full th:nth-child(5) { width: 8%;  }   /* Funds      */
+  .tleague-full th:nth-child(6) { width: 8%;  }   /* In mkt     */
+  .tleague-full th:nth-child(7) { width: 7%;  }   /* CLOs       */
+  .tleague-full th:nth-child(8) { width: 18%; }   /* SLS        */
   .tleague-full .tl-nm { max-width: none; }
 }
 /* iPhone: drop the HQ column so the manager name + numeric columns fit the width. */
