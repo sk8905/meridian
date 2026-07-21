@@ -32,7 +32,7 @@
     // mounts, so arriving on Home paints once, complete — no feed/chips/tab-
     // bar staging. The body auth script confirms via /api/me and calls
     // window.__enterGlance for the no-hint path (initGlance self-guards).
-    import { initGlance } from "/glance.js?v=20260721-11";
+    import { initGlance } from "/glance.js?v=20260721-12";
     import { initHeader } from "/header.js?v=20260721-3";
     // The ONE shared header (top bar + ticker + briefing) — same module the app
     // pages use. It renders into the (still-hidden) #wire-header and boots the
@@ -219,7 +219,7 @@
     const enterGlance = () => {
       if (window.__enterGlance) { window.__enterGlance(); return; }
       show("glance");
-      import("/glance.js?v=20260721-11").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260721-12").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), the head module shows the briefing immediately

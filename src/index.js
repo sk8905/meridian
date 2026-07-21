@@ -1281,30 +1281,34 @@ const FEED_SOURCES = [
   // (feeds.content.dowjones.io), the same host MarketWatch pulls from fine below.
   // These are the reliable route: the OLD feeds.a.dj.com/rss mirrors serve a
   // frozen >6-day back-catalogue, and Google HARD-pins the site:wsj.com search
-  // (503s it run after run). soft filter (lifestyle-only reject) keeps the full
-  // markets/business run; title-dedupe collapses overlap between the two.
-  { url: "https://feeds.content.dowjones.io/public/rss/RSSMarketsMain", source: "The Wall Street Journal", region: "US", cap: 12, soft: true },
-  { url: "https://feeds.content.dowjones.io/public/rss/WSJcomUSBusiness", source: "The Wall Street Journal", region: "US", cap: 10, soft: true },
+  // (503s it run after run). STANDARD macro/markets filter (not soft): these
+  // section feeds carry a lot of single-company and human-interest copy
+  // ("Northrop lifts outlook", "luxury taxi tracking") that isn't wire-relevant,
+  // so only genuine macro/markets/megacap headlines ("Oil gains on Iran risks")
+  // pass. title-dedupe collapses overlap between the two.
+  { url: "https://feeds.content.dowjones.io/public/rss/RSSMarketsMain", source: "The Wall Street Journal", region: "US", cap: 12 },
+  { url: "https://feeds.content.dowjones.io/public/rss/WSJcomUSBusiness", source: "The Wall Street Journal", region: "US", cap: 10 },
   // WSJ backup behind the direct feeds + last-good cache: the Google-News bridge
   // (5-day depth), used only when the direct feeds miss. (The WSJ GDELT route was
   // removed — the direct feeds solved WSJ, and dropping it leaves GDELT's tight
   // per-IP rate limit entirely for TradingEconomics below.)
-  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Awsj.com%20when%3A5d", source: "The Wall Street Journal", region: "US", cap: 18, gnews: true, soft: true },
-  // TradingEconomics — macro-data desk (always MAC, filter:false). CONCLUSION
-  // after exhausting every route reachable from this Worker (debug=2 verified):
-  //   • TE's own RSS  → 403 (Cloudflare Bot Fight blocks the datacenter IP)
-  //   • Google site:  → 503, hard-pinned every run (broad AND narrow) — Google
-  //                     HAS the content but won't serve this shared edge IP
-  //   • Bing News     → 200 but ZERO items — Bing doesn't index TE
-  //   • GDELT domain  → 200 but ZERO items — GDELT doesn't index TE
-  // i.e. the only index that carries TE (Google) blocks us, and the indexes that
-  // don't block us (Bing/GDELT) don't carry TE. Bing + GDELT + the broad Google
-  // query were removed as confirmed-empty dead weight. The narrow Google query
-  // stays as a near-free best-effort (a fast 503 today) in case Google ever
-  // unpins it — one success seeds the 24h last-good cache. RELIABLE TE requires
-  // an off-Cloudflare fetcher (e.g. a GitHub Action writing to KV), since the
-  // block is this edge IP, not the content.
-  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Atradingeconomics.com%20(inflation%20OR%20GDP%20OR%20unemployment%20OR%20%22interest%20rate%22%20OR%20CPI%20OR%20PMI%20OR%20%22central%20bank%22)%20when%3A7d", source: "TradingEconomics", region: "GEN", cap: 20, gnews: true, filter: false },
+  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Awsj.com%20when%3A5d", source: "The Wall Street Journal", region: "US", cap: 18, gnews: true },
+  // Macro-data desk (always MAC) — the economic-INDICATOR releases (CPI / GDP /
+  // PMI / jobs / rates) TradingEconomics was meant to supply. TE itself is
+  // unreachable from this Worker on EVERY route (its RSS 403s the datacenter IP;
+  // Google has the content but hard-pins the query; Bing/GDELT don't index it —
+  // all debug=2-verified), so this SUBSTITUTES Investing.com's Economic
+  // Indicators feed, which carries the same releases and IS reachable (plain 200
+  // from the Worker). Distinct source name — NOT "Investing.com" — so it dodges
+  // the drop-unless-Reuters screen on the general Investing.com feed below;
+  // filter:false (the feed is already indicator-scoped) and the client labels
+  // every item MAC by source (feed.js deskFor).
+  { url: "https://www.investing.com/rss/news_95.rss", source: "Investing.com Economics", region: "GEN", cap: 16, filter: false },
+  // Business Wire — corporate press-release wire, SCOPED via Google News to
+  // private-markets / credit deals (fund closes, significant risk transfer / SRT,
+  // direct lending, CLOs, capital-relief trades) so the general PR firehose stays
+  // out. filter:false because the query already scopes it.
+  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Abusinesswire.com%20(%22private%20credit%22%20OR%20%22risk%20transfer%22%20OR%20%22direct%20lending%22%20OR%20%22asset-based%22%20OR%20CLO%20OR%20%22credit%20fund%22%20OR%20%22capital%20relief%22%20OR%20%22collateralized%22)%20when%3A7d", source: "Business Wire", region: "GEN", cap: 10, gnews: true, filter: false },
   { url: "https://www.cnbc.com/id/20910258/device/rss/rss.html", source: "CNBC", region: "US", cap: 10 }, // Economy
   { url: "https://www.cnbc.com/id/20409666/device/rss/rss.html", source: "CNBC", region: "US", cap: 8 },  // Markets
   { url: "https://www.cnbc.com/id/10000664/device/rss/rss.html", source: "CNBC", region: "US", cap: 6 },  // Finance
@@ -1650,7 +1654,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=38", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=39", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const items = await feedAssemble(env, ctx);

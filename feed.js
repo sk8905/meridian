@@ -43,9 +43,11 @@ export const STRICT_MACRO_RE = /\b(fed(eral reserve)?|fomc|powell|rate (cut|hike
 // generic NEWS one); Economist → ECON; strict-macro items still read MAC.
 export const deskFor = (title, source, dflt = "news") => {
   const s = source || "";
-  // TradingEconomics is a macro-data desk (GDP / CPI / rates / labour releases),
-  // so ALL of its items read MAC regardless of the individual headline.
-  if (/trading\s*economics/i.test(s)) return "m";
+  // The macro-data / economic-indicator desk (GDP / CPI / PMI / rates / labour
+  // releases) reads MAC regardless of the individual headline — TradingEconomics
+  // (legacy) and its reachable substitute, Investing.com's Economic Indicators
+  // feed, emitted as source "Investing.com Economics".
+  if (/trading\s*economics|investing\.com economics/i.test(s)) return "m";
   if (STRICT_MACRO_RE.test(title || "")) return "m";
   if (/^bloomberg\b/i.test(s)) return "bbg";
   if (/economist/i.test(s)) return "econ";
