@@ -17,8 +17,8 @@ import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
   rxAdvisers,
-} from "./data.js?v=20260720-4";
-import { donutChart, columnChart } from "./charts.js?v=20260720-1";
+} from "./data.js?v=20260721-1";
+import { donutChart, columnChart } from "./charts.js?v=20260721-1";
 // The view code splits across three modules with an ACYCLIC import graph —
 // app.js -> detail.js -> shared.js. shared.js holds the date formatters, the
 // saved-items read layer, the "new since last visit" marker and the alert
