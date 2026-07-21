@@ -13,7 +13,7 @@ export const UPDATED = "21 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-21",
-  lastCheckedTime: "12:17 BST",
+  lastCheckedTime: "17:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -152,12 +152,11 @@ export const OUTLOOK = {
 // and reputable houses, newest first. Rendered as a two-column feed styled like
 // the dashboard's Key macro headlines; the four-times-daily routine keeps it current.
 export const COMMENTARY = {
-  updated: "2026-07-20",
+  updated: "2026-07-21",
   us: [
+    { title: "The Federal Reserve Needs to Raise Interest Rates", source: "Bloomberg Opinion", author: "Bill Dudley", date: "2026-07-20", url: "https://www.bloomberg.com/opinion/articles/2026-07-20/the-federal-reserve-needs-to-raise-interest-rates" },
     { title: "Warsh Shows His Inner Hawk as Inflation Debate Heats Up", source: "Bloomberg", author: "Bloomberg — Fed coverage", date: "2026-07-18", url: "https://www.bloomberg.com/news/articles/2026-07-18/warsh-shows-his-inner-hawk-as-inflation-debate-heats-up" },
     { title: "The Daily Spark: Sticky services inflation keeps a July hike on the table", source: "Apollo", author: "Torsten Sløk", date: "2026-07-16", url: "https://www.apolloacademy.com/" },
-    { title: "Market Views: Narrow AI leadership and a late-cycle US economy", source: "Blackstone", author: "Joe Zidle", date: "2026-07-15", url: "https://www.blackstone.com/insights/" },
-    { title: "Kevin Warsh's Congressional Debut Like a 'Breath of Fresh Air,' Says El Erian, as Schiff Flags Fed Chair's 'False Claim'", source: "Benzinga", author: "Mohamed El-Erian", date: "2026-07-15", url: "https://www.benzinga.com/markets/economic-data/26/07/60460861/fed-chair-kevin-warshs-congressional-debut-draws-mixed-reactions" },
   ],
   uk: [
     { title: "New U.K. PM Burnham's tightrope: same fiscal rules, no raise for biggest taxes", source: "Axios", author: "ING — James Smith", date: "2026-07-20", url: "https://www.axios.com/2026/07/20/burnham-britain-economy" },
@@ -423,18 +422,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-07-21",
   us: [
-    { title: "Stock market today: Nasdaq leads Dow, S&P 500 futures higher as chip stocks revive", source: "Yahoo Finance", date: "2026-07-21", time: "11:52", url: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-july-21-dow-sp-500-nasdaq-084631499.html" },
-    { title: "CNBC Daily Open: Trump revives his tariff playbook with Canada", source: "CNBC", date: "2026-07-21", time: "07:27", url: "https://www.cnbc.com/2026/07/21/cnbc-daily-open-trump-revives-his-tariff-playbook-with-canada.html" },
-    { title: "Trump imposes 50% US tariffs on some Canadian goods, citing discrimination", source: "Al Jazeera", date: "2026-07-21", time: "09:09", url: "https://www.aljazeera.com/news/2026/7/21/trump-imposes-50-us-tariffs-on-some-canadian-goods-citing-discrimination" },
-    { title: "US Stock Market Today: S&P 500 Futures Edge Higher As Inflation Pressure Eases", source: "Yahoo Finance", date: "2026-07-21", time: "09:10", url: "https://finance.yahoo.com/markets/stocks/articles/us-stock-market-today-p-081007943.html" },
+    { title: "Court ruling freezes Paramount-Warner Bros. merger for now", source: "NPR", date: "2026-07-20", time: "17:08", url: "https://www.npr.org/2026/07/20/nx-s1-5900888/paramount-wbd-tro-restraining-lawsuit" },
     { title: "GM releases 2026 second-quarter results, raises full-year 2026 guidance and declares quarterly dividend", source: "PR Newswire", date: "2026-07-21", time: "12:10", url: "https://www.prnewswire.com/news-releases/gm-releases-2026-second-quarter-results-raises-full-year-2026-guidance-and-declares-quarterly-dividend-302830216.html" },
+    { title: "Stock market today: Nasdaq leads Dow, S&P 500 futures higher as chip stocks revive", source: "Yahoo Finance", date: "2026-07-21", time: "11:52", url: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-july-21-dow-sp-500-nasdaq-084631499.html" },
+    { title: "Trump imposes 50% US tariffs on some Canadian goods, citing discrimination", source: "Al Jazeera", date: "2026-07-21", time: "09:09", url: "https://www.aljazeera.com/news/2026/7/21/trump-imposes-50-us-tariffs-on-some-canadian-goods-citing-discrimination" },
+    { title: "CNBC Daily Open: Trump revives his tariff playbook with Canada", source: "CNBC", date: "2026-07-21", time: "07:27", url: "https://www.cnbc.com/2026/07/21/cnbc-daily-open-trump-revives-his-tariff-playbook-with-canada.html" },
   ],
   uk: [
+    { title: "Gilts Steady as Investors Await More Policy Details From Burnham", source: "Bloomberg", date: "2026-07-21", time: "17:08", url: "https://www.bloomberg.com/news/articles/2026-07-21/gilts-steady-as-investors-await-more-policy-details-from-burnham" },
     { title: "Andy Burnham scraps VAT on electricity bills in first major policy announcement as PM", source: "ITV News", date: "2026-07-21", time: "10:13", url: "https://www.itv.com/news/2026-07-21/andy-burnham-announces-tax-cut-on-energy-bills-from-october" },
     { title: "New PM cuts tax on household electricity bills to give breathing space on cost of living", source: "GOV.UK / HM Treasury", date: "2026-07-21", time: "12:10", url: "https://www.gov.uk/government/news/new-pm-cuts-tax-on-household-electricity-bills-to-give-breathing-space-on-cost-of-living" },
     { title: "Weak UK jobs market holds steady as new PM Burnham takes office", source: "Reuters (via Yahoo Finance)", date: "2026-07-21", time: "09:22", url: "https://finance.yahoo.com/economy/policy/articles/uk-wage-growth-holds-steady-060843121.html" },
     { title: "Sterling edges higher after Healey appointed as new UK finance minister", source: "Reuters (via Yahoo Finance UK)", date: "2026-07-21", time: "07:50", url: "https://uk.finance.yahoo.com/news/sterling-edges-higher-healey-appointed-065001625.html" },
-    { title: "CNBC Daily Open: Can he Healey the British economy?", source: "CNBC", date: "2026-07-21", time: "09:09", url: "https://www.cnbc.com/2026/07/21/cnbc-daily-open-john-healey-uk-economy.html" },
   ],
 };
 
@@ -448,6 +447,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-21",
   items: [
+    {"title":"Gilts Steady as Investors Await More Policy Details From Burnham","source":"Bloomberg","date":"2026-07-21","time":"17:08","url":"https://www.bloomberg.com/news/articles/2026-07-21/gilts-steady-as-investors-await-more-policy-details-from-burnham","blurb":"UK gilts held steady as markets awaited further detail on Prime Minister Burnham's fiscal plans following Monday's yield spike on his 'fiscal flexibility' remarks."},
+    {"title":"Court ruling freezes Paramount-Warner Bros. merger for now","source":"NPR","date":"2026-07-20","time":"17:08","url":"https://www.npr.org/2026/07/20/nx-s1-5900888/paramount-wbd-tro-restraining-lawsuit","blurb":"A federal judge granted a 14-day temporary restraining order halting Paramount's roughly $110bn acquisition of Warner Bros. Discovery pending further antitrust review."},
     {"title":"New PM cuts tax on household electricity bills to give breathing space on cost of living","source":"GOV.UK / HM Treasury","date":"2026-07-21","time":"12:10","url":"https://www.gov.uk/government/news/new-pm-cuts-tax-on-household-electricity-bills-to-give-breathing-space-on-cost-of-living","blurb":"PM Andy Burnham's government confirmed VAT on domestic electricity will be cut from 5% to 0% from 1 October, funded by scrapping the Digital ID programme; the Treasury estimates the move trims CPI by around 0.10 percentage points and cuts about £45 off the average annual Ofgem bill."},
     {"title":"GM releases 2026 second-quarter results, raises full-year 2026 guidance and declares quarterly dividend","source":"PR Newswire","date":"2026-07-21","time":"12:10","url":"https://www.prnewswire.com/news-releases/gm-releases-2026-second-quarter-results-raises-full-year-2026-guidance-and-declares-quarterly-dividend-302830216.html","blurb":"General Motors posted Q2 2026 revenue of $48.0bn and raised its full-year EBIT-adjusted guidance for the second time this year, kicking off a heavy day of US industrial earnings alongside 3M and Halliburton."},
     {"title":"Stock market today: Nasdaq leads Dow, S&P 500 futures higher as chip stocks revive","source":"Yahoo Finance","date":"2026-07-21","time":"11:52","url":"https://finance.yahoo.com/markets/live/stock-market-today-tuesday-july-21-dow-sp-500-nasdaq-084631499.html","blurb":"US stock futures rose — Nasdaq-100 futures up 1.3%, S&P 500 futures up 0.5% — as chip stocks extended their rebound ahead of Wednesday's Alphabet and Tesla earnings, even as Brent held near $90/bbl on the Iran conflict."},

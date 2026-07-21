@@ -27,6 +27,26 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-thebrink-20260721",
+    publication: "Bloomberg",
+    author: "Giulia Morpurgo",
+    series: "The Brink",
+    title: "The Brink: Burnham enters stage of Thames Water debt drama",
+    date: "2026-07-21",
+    time: "16:33",
+    summary: "Thames Water creditors are ready to share control with the new government.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-21/thames-water-creditors-make-an-appeal-to-andy-burnham",
+  },
+  {
+    id: "nl-lb-traversrevenue-20260721",
+    publication: "Legal Business",
+    title: "'Clearly a stronger business than last year' - Travers hits revenue record with 9% growth",
+    date: "2026-07-21",
+    time: "12:38",
+    summary: "Managing partner Edmund Reed hails return to growth as firm posts strong financials for 2025-26.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQtjOKxuiiE6SQpNr/wv",
+  },
+  {
     id: "nl-bbg-economicsdaily-20260721",
     publication: "Bloomberg",
     author: "Malcolm Scott",

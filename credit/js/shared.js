@@ -9,7 +9,7 @@
 // ./charts.js) with the SAME ?v= token — keep them identical and bump together,
 // or the browser loads data.js twice as separate module instances (blank page).
 // =============================================================================
-import { managers, managerById, lpById, commitments } from "./data.js?v=20260721-3";
+import { managers, managerById, lpById, commitments } from "./data.js?v=20260721-4";
 import { esc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
 
 // ----------------------------- formatting utils ----------------------------
