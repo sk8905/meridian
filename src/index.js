@@ -779,25 +779,35 @@ async function predictPolymarket() {
   }
   return out;
 }
+// The raw /markets list is dominated by sports with garbled titles; pull EVENTS
+// instead (clean title + category) and expand the finance ones' nested markets.
+const KALSHI_BASE = "https://api.elections.kalshi.com/trade-api/v2";
+const KALSHI_FINCAT = /econom|financ|inflation|interest|monetary|\bfed\b|treasur|\bgdp\b|jobs|unemploy|crypto|bitcoin|ethereum|climate.*energy/i;
 async function predictKalshi() {
-  // Kalshi consolidated its public API onto the elections host; try the known
-  // hosts in order and use whichever returns markets.
-  const hosts = ["https://api.elections.kalshi.com", "https://external-api.kalshi.com", "https://trading-api.kalshi.com"];
-  let arr = [];
-  for (const h of hosts) {
-    const txt = await fetchText(h + "/trade-api/v2/markets?status=open&limit=500");
-    try { const j = JSON.parse(txt); if (j && Array.isArray(j.markets) && j.markets.length) { arr = j.markets; break; } } catch { /* try next host */ }
-  }
   const out = [];
-  for (const m of arr) {
-    const q = m.title || m.subtitle || m.yes_sub_title || "";
-    if (!q || !PREDICT_RX.test(q)) continue;
-    let cents = null;
-    if (isFinite(m.last_price) && m.last_price > 0) cents = m.last_price;
-    else if (isFinite(m.yes_bid) && isFinite(m.yes_ask) && (m.yes_bid + m.yes_ask)) cents = (m.yes_bid + m.yes_ask) / 2;
-    else if (isFinite(m.yes_bid) && m.yes_bid > 0) cents = m.yes_bid;
-    if (cents == null) continue;
-    out.push({ venue: "Kalshi", q, yes: Math.round(cents), vol: Number(m.volume ?? m.volume_24h ?? 0) || 0, end: m.close_time || null, url: m.event_ticker ? "https://kalshi.com/markets/" + String(m.series_ticker || m.event_ticker).toLowerCase() : "https://kalshi.com" });
+  let cursor = "";
+  for (let page = 0; page < 3; page++) {   // up to 3 pages (600 events) of open markets
+    const txt = await fetchText(`${KALSHI_BASE}/events?status=open&limit=200&with_nested_markets=true${cursor ? "&cursor=" + encodeURIComponent(cursor) : ""}`);
+    let j; try { j = JSON.parse(txt); } catch { break; }
+    const events = j && Array.isArray(j.events) ? j.events : [];
+    if (!events.length) break;
+    for (const ev of events) {
+      const evTitle = ev.title || ev.sub_title || "";
+      const cat = String(ev.category || "");
+      if (!KALSHI_FINCAT.test(cat) && !PREDICT_RX.test(evTitle)) continue;
+      for (const m of (Array.isArray(ev.markets) ? ev.markets : [])) {
+        const sub = m.yes_sub_title || m.subtitle || "";
+        const q = sub ? `${evTitle} — ${sub}` : (evTitle || m.title || "");
+        if (!q) continue;
+        let cents = null;
+        if (isFinite(m.last_price) && m.last_price > 0) cents = m.last_price;
+        else if (isFinite(m.yes_bid) && m.yes_bid > 0) cents = isFinite(m.yes_ask) && m.yes_ask > 0 ? (m.yes_bid + m.yes_ask) / 2 : m.yes_bid;
+        if (cents == null || cents <= 0 || cents >= 100) continue;
+        out.push({ venue: "Kalshi", q, yes: Math.round(cents), vol: Number(m.volume ?? m.volume_24h ?? 0) || 0, end: m.close_time || ev.close_time || null, url: "https://kalshi.com/markets/" + String(ev.series_ticker || ev.event_ticker || "").toLowerCase() });
+      }
+    }
+    cursor = j.cursor || "";
+    if (!cursor) break;
   }
   return out;
 }
@@ -807,24 +817,22 @@ async function handlePredict(request, env, ctx) {
     // Raw reachability probe: hit each candidate host directly and report what
     // comes back (status / length / shape / a title sample) so we can see whether
     // the edge can reach them and which base URL + field names are right.
-    const probe = async (label, u, pick) => {
+    const probe = async (label, u) => {
       try {
         const r = await fetch(u, { headers: fetchHeaders(u), cf: { cacheTtl: 0 } });
         const b = await r.text();
-        let shape = null, titles = null;
-        try { const j = JSON.parse(b); const arr = Array.isArray(j) ? j : (j.markets || j.data || null);
+        let shape = null, items = null;
+        try { const j = JSON.parse(b); const arr = Array.isArray(j) ? j : (j.markets || j.events || j.data || null);
           shape = Array.isArray(j) ? `array(${j.length})` : `object{${Object.keys(j).slice(0, 8).join(",")}}`;
-          if (Array.isArray(arr)) titles = arr.slice(0, 5).map((m) => m.question || m.title || m.name || "?");
+          if (Array.isArray(arr)) items = arr.slice(0, 6).map((m) => ({ cat: m.category, t: (m.question || m.title || m.name || "?").slice(0, 70), mkts: Array.isArray(m.markets) ? m.markets.length : undefined, ysub: m.yes_sub_title, lp: m.last_price, vol: m.volume }));
         } catch { /* non-JSON */ }
-        return { label, url: u, status: r.status, len: b.length, shape, titles, snippet: b.slice(0, 200) };
-      } catch (e) { return { label, url: u, error: String((e && e.message) || e) }; }
+        return { label, status: r.status, len: b.length, shape, items, snippet: b.slice(0, 160) };
+      } catch (e) { return { label, error: String((e && e.message) || e) }; }
     };
     const probes = await Promise.all([
+      probe("kalshi-events", "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=6&with_nested_markets=true"),
+      probe("kalshi-events-econ", "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=6&category=Economics&with_nested_markets=true"),
       probe("polymarket", "https://gamma-api.polymarket.com/markets?closed=false&limit=5&order=volumeNum&ascending=false"),
-      probe("polymarket-plain", "https://gamma-api.polymarket.com/markets?limit=5"),
-      probe("kalshi-external", "https://external-api.kalshi.com/trade-api/v2/markets?limit=5"),
-      probe("kalshi-elections", "https://api.elections.kalshi.com/trade-api/v2/markets?limit=5"),
-      probe("kalshi-trading", "https://trading-api.kalshi.com/trade-api/v2/markets?limit=5"),
     ]);
     const [pm, ks] = await Promise.all([predictPolymarket().catch((e) => ({ err: String(e) })), predictKalshi().catch((e) => ({ err: String(e) }))]);
     return new Response(JSON.stringify({
