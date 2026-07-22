@@ -1821,7 +1821,7 @@ async function handleFeed(request, env, ctx) {
       { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=41", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=42", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const items = await feedAssemble(env, ctx);
@@ -1846,9 +1846,17 @@ const FEED_LOWTIER = new Set([
 const FEED_PREMIUM = new Set([
   "Financial Times", "FT Alphaville", "Bloomberg", "CNBC", "Reuters",
   "Reuters (via Investing.com)", "The Wall Street Journal", "WSJ", "The Economist",
+  // Curated official-data desk (ONS/Eurostat/BLS releases via Investing.com's
+  // Economics feed) — trusted macro, never relevance-gated.
+  "Investing.com Economics",
 ]);
 const FEED_LEGAL_SRC = new Set(["The Lawyer", "Legal Business"]);
-const FEED_RELEVANCE = /\b(econom|market|stock|share\b|shares|equit|bond|yield|treasur|gilt|bund|rate|interest|inflation|deflation|cpi|ppi|pce|gdp|growth|recession|jobs|payroll|unemploy|labou?r|wage|fed|fomc|powell|ecb|lagarde|central bank|\bboe\b|dollar|euro|sterling|\byen\b|currenc|forex|\bfx\b|oil|crude|opec|brent|\bgas\b|gold|silver|copper|commodit|bitcoin|crypto|ethereum|stablecoin|earnings|profit|revenue|guidance|\bipo\b|merger|acquisition|buyout|takeover|\bdeal|\bm&a\b|bank|lend|credit|debt|default|bankrupt|restructur|tariff|trade|export|import|sanction|budget|fiscal|deficit|\btax\b|stimulus|housing|mortgage|property|retail sales|consumer|manufactur|\bpmi\b|factory|industr|semiconductor|\bchip|\bai\b|artificial intelligence|tech|nvidia|apple|microsoft|tesla|amazon|alphabet|google|meta\b|openai|geopolit|\bwar\b|election|tariff|trump|\bchina\b|russia|\biran\b|ukraine|opec|hedge fund|private equity|venture|valuation|bond market|stock market|wall street|ftse|s&p|nasdaq|dow|nikkei|dax|hang seng)\b/i;
+const FEED_RELEVANCE = /\b(econom|market|stock|share\b|shares|equit|bond|yield|treasur|gilt|bund|rate|interest|inflation|deflation|cpi|ppi|pce|gdp|growth|recession|jobs|payroll|unemploy|labou?r|wage|\bpay\b|pay award|earnings growth|productivity|cost of living|fed|fomc|powell|ecb|lagarde|central bank|\bboe\b|dollar|euro|sterling|\byen\b|currenc|forex|\bfx\b|oil|crude|opec|brent|\bgas\b|gold|silver|copper|commodit|bitcoin|crypto|ethereum|stablecoin|earnings|profit|revenue|guidance|\bipo\b|merger|acquisition|buyout|takeover|\bdeal|\bm&a\b|bank|lend|credit|debt|default|bankrupt|restructur|tariff|trade|export|import|sanction|budget|fiscal|deficit|\btax\b|stimulus|housing|house price|mortgage|property|rent\b|retail sales|consumer|manufactur|\bpmi\b|factory|industr|semiconductor|\bchip|\bai\b|artificial intelligence|tech|nvidia|apple|microsoft|tesla|amazon|alphabet|google|meta\b|openai|geopolit|\bwar\b|election|tariff|trump|\bchina\b|russia|\biran\b|ukraine|opec|hedge fund|private equity|venture|valuation|bond market|stock market|wall street|ftse|s&p|nasdaq|dow|nikkei|dax|hang seng)\b/i;
+// Routine corporate IR / press-release boilerplate — quarterly-results notices,
+// dividend declarations, earnings-call scheduling, board appointments. Low signal
+// even when they carry a finance keyword; dropped for non-premium/non-flagged wires
+// (a genuine deal or restructuring headline doesn't read like this).
+const FEED_PR_NOISE = /\bto (announce|report)\b.*\b(results|earnings)\b|\breports?\b.*\b(q[1-4]|first|second|third|fourth|quarter|half[- ]?year|full[- ]?year|fiscal|annual|interim)\b.*\b(results|earnings|financial)\b|\bdeclares?\b.*\bdividend\b|\b(earnings|conference|investor) call\b|\bannounces?\b.*\bappointment of\b|\bappoints?\b.*\bas\b.*\b(director|officer|ceo|cfo|chair|president)\b|\bschedules?\b.*\b(earnings|results)\b|\bto (present|participate) at\b.*\bconference\b/i;
 function feedQualityKeep(it) {
   const s = it.source || "";
   if (FEED_LOWTIER.has(s)) return false;
@@ -1856,7 +1864,8 @@ function feedQualityKeep(it) {
   // (myFT / Substack) always pass; everything else must read as finance-relevant
   // (strict macro, megacap, or the broader markets/economy/policy/deal vocabulary).
   if (FEED_PREMIUM.has(s) || FEED_LEGAL_SRC.has(s) || it.myft || it.substack || it.legal) return true;
-  return FEED_MACRO_RE.test(it.title) || FEED_MEGACAP_RE.test(it.title) || FEED_RELEVANCE.test(it.title);
+  if (!(FEED_MACRO_RE.test(it.title) || FEED_MEGACAP_RE.test(it.title) || FEED_RELEVANCE.test(it.title))) return false;
+  return !FEED_PR_NOISE.test(it.title);   // drop routine IR/PR boilerplate that slipped through
 }
 // The actual wire assembly — fetch every source (with the variant/Bing
 // fallbacks), filter, cap, stamp, merge, dedupe. Shared by the live /api/feed
