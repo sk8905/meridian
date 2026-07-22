@@ -1480,7 +1480,7 @@ function buildIndex() {
   // `label` is the pill text (the sub-section / tab the item lives in, e.g.
   // "Legal alert", "Case law", "Deal", "Fundraising"); `tag` still drives the
   // pill colour (macro / credit / legal). Falls back to the section name.
-  const add = (tag, title, sub, href, rank, date, label) => idx.push({ tag, title, sub, href, rank, date: date || "", label: label || "", hay: expandHay(title + " " + sub) });
+  const add = (tag, title, sub, href, rank, date, label, source) => idx.push({ tag, title, sub, href, rank, date: date || "", label: label || "", source: (source || "").toLowerCase(), hay: expandHay(title + " " + sub) });
 
   add("view", "Home", "Cross-desk briefing", "/", 4, "");
   [["commentary", "Commentary", "Commentary"], ["policy", "Rate outlook", "Policy"], ["cycle", "Cycle", "Cycle"], ["bubble", "Bubble risk", "Bubble"], ["chart", "Chart", "Chart"], ["saved", "Saved", "Saved"]]
@@ -1513,7 +1513,7 @@ function buildIndex() {
   const addNews = (n) => {
     const k = (n.url || n.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, "");
     if (k && seenNews.has(k)) return; if (k) seenNews.add(k);
-    add(palTag(deskFor(n.title, n.source), "news"), n.title, `${n.source || "News"}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "News");
+    add(palTag(deskFor(n.title, n.source), "news"), n.title, `${n.source || "News"}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "News", n.source);
   };
   ["us", "uk"].forEach((c) => ((NEWS && NEWS[c]) || []).forEach(addNews));
   ((ARTICLES && ARTICLES.items) || []).forEach(addNews);
@@ -1530,18 +1530,18 @@ function buildIndex() {
       const k = (w.url || w.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, "");
       if (k && seen.has(k)) return; seen.add(k);
       add("credit", w.title, `News${m.name ? " · " + m.name : ""}${w.date ? " · " + fmt(w.date) : ""}`,
-        `/credit/#/manager/${encodeURIComponent(m.id)}?focus=k:${encodeURIComponent(feedDedupKey(w))}`, 2, w.date, "News");
+        `/credit/#/manager/${encodeURIComponent(m.id)}?focus=k:${encodeURIComponent(feedDedupKey(w))}`, 2, w.date, "News", w.outlet || m.name);
     });
   });
 
   // myFT stories + email newsletters — so they're searchable and the "/FT" /
   // "/LETTER" code filters have content to list.
-  (FT_ITEMS || []).forEach((f) => add("ft", f.title, `Financial Times · myFT${f.date ? " · " + fmt(f.date) : ""}`, f.url, 2, f.date, "FT"));
-  (NEWSLETTERS || []).forEach((n) => add(palTag(nlDesk(n.title), "letter"), n.title, `${n.publication || "Newsletter"}${n.series ? " · " + n.series : ""}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "Letter"));
+  (FT_ITEMS || []).forEach((f) => add("ft", f.title, `Financial Times · myFT${f.date ? " · " + fmt(f.date) : ""}`, f.url, 2, f.date, "FT", "Financial Times"));
+  (NEWSLETTERS || []).forEach((n) => add(palTag(nlDesk(n.title), "letter"), n.title, `${n.publication || "Newsletter"}${n.series ? " · " + n.series : ""}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "Letter", n.publication));
   // Curated Substacks (live from /api/feed, seeded from cache at init) — so the
   // "/SUBS" code filter has content to list.
-  (_liveFeed || []).forEach((n) => { if (n.substack) add("substack", n.title, `${n.source || "Substack"}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "SUBS"); });
-  (_liveFeed || []).forEach((n) => { if (n.brew) add("brew", n.title, `${n.source || "MailBrew"}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "BREW"); });
+  (_liveFeed || []).forEach((n) => { if (n.substack) add("substack", n.title, `${n.source || "Substack"}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "SUBS", n.source); });
+  (_liveFeed || []).forEach((n) => { if (n.brew) add("brew", n.title, `${n.source || "MailBrew"}${n.date ? " · " + fmt(n.date) : ""}`, n.url, 2, n.date, "BREW", n.source); });
 
   return idx;
 }
@@ -1568,12 +1568,17 @@ function wirePalette(idx) {
   }
   function search(q) {
     q = q.trim().toLowerCase();
-    // "#CODE [text]" filters by the label chip (e.g. #FT, #LEX, #LTR, #MAC,
-    // #CRD) — prefix match, so #LE lists LEX and LTR together.
-    let code = null;
+    // "#CODE [text]" filters by the label chip (e.g. #FT, #LEX, #LTR, #MAC, #CRD)
+    // — prefix match, so #LE lists LEX and LTR together. "/SOURCE" filters by the
+    // newsroom (e.g. /Financial Times, /Bloomberg) — the whole remainder is the
+    // source, a prefix match, so /Bloom lists every Bloomberg story.
+    let code = null, src = null;
     if (q.startsWith("#")) { const parts = q.slice(1).split(/\s+/); code = parts.shift() || ""; q = parts.join(" "); }
-    if (!q && !code) return [];
-    const pool = code ? _palIdx.filter((e) => String(PAL_CODE[e.tag] || e.label || e.tag).toLowerCase().startsWith(code)) : _palIdx;
+    else if (q.startsWith("/")) { src = q.slice(1).trim(); q = ""; }
+    if (!q && !code && !src) return [];
+    const pool = code ? _palIdx.filter((e) => String(PAL_CODE[e.tag] || e.label || e.tag).toLowerCase().startsWith(code))
+      : src ? _palIdx.filter((e) => e.source && e.source.startsWith(src))
+      : _palIdx;
     const toks = q ? q.split(/\s+/) : [];
     return pool
       .map((e) => ({ e, s: toks.every((t) => e.hay.includes(t)) ? score(e, q) : -1 }))
@@ -1584,7 +1589,7 @@ function wirePalette(idx) {
         (a.e.rank === 2 ? String(b.e.date).localeCompare(String(a.e.date)) : 0) ||
         a.s - b.s ||
         a.e.title.localeCompare(b.e.title))
-      .slice(0, code ? 60 : 40).map((x) => x.e);
+      .slice(0, (code || src) ? 60 : 40).map((x) => x.e);
   }
   function draw() {
     if (!current.length) { results.innerHTML = input.value.trim() ? `<div class="cmdk-empty">No matches.</div>` : ""; return; }
