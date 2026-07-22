@@ -113,7 +113,7 @@ export function initGlance() {
   // Macro/Credit/Legal (nav-actions.js) — one implementation on all pages. The
   // legacy Home-only dropdown menus are retired; on phones Home just hides its
   // desktop data rails (initHomeMarketsRails) and uses the shared Markets panel.
-  import("/nav-actions.js?v=20260722-7").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260722-8").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderPredict();
   initFeedEntityNav();
   initFeedHeadLock();
@@ -1027,12 +1027,12 @@ function marketTile(x) {
 // the average GBP-major price paid per unit; EMEE/WMVG quote unscaled (raw pence)
 // so they carry pxScale 0.01 to bring the live quote back to GBP-major.
 const PF_BOOK = [
-  { ticker: "IGWD", qty: 639, cost: 118.2118, exch: "LSE" },
-  { ticker: "CNX1", qty: 1, cost: 1269.17, exch: "LSE" },
-  { ticker: "EMEE", qty: 303000, cost: 0.0596, pxScale: 0.01, exch: "LSE" },
-  { ticker: "WMVG", qty: 363600, cost: 0.0823, pxScale: 0.01, exch: "LSE" },
-  { ticker: "COMM", qty: 1424, cost: 6.6794, exch: "LSE" },
-  { ticker: "BTCGBP", label: "BTC", qty: 0.02204, cost: 64633.31, exch: "CRYPTO" },
+  { ticker: "IGWD", qty: 639, cost: 118.2118, exch: "LSE", href: "https://uk.finance.yahoo.com/quote/IGWD.L" },
+  { ticker: "CNX1", qty: 1, cost: 1269.17, exch: "LSE", href: "https://uk.finance.yahoo.com/quote/CNX1.L" },
+  { ticker: "EMEE", qty: 303000, cost: 0.0596, pxScale: 0.01, exch: "LSE", href: "https://uk.finance.yahoo.com/quote/EMEE.L" },
+  { ticker: "WMVG", qty: 363600, cost: 0.0823, pxScale: 0.01, exch: "LSE", href: "https://uk.finance.yahoo.com/quote/WMVG.L" },
+  { ticker: "COMM", qty: 1424, cost: 6.6794, exch: "LSE", href: "https://uk.finance.yahoo.com/quote/COMM.L" },
+  { ticker: "BTCGBP", label: "BTC", qty: 0.02204, cost: 64633.31, exch: "CRYPTO", href: "https://finance.yahoo.com/quote/BTC-GBP" },
 ];
 let _mktView = "markets";   // Markets band content: markets | portfolio
 let _pfMode = "daily";      // Portfolio P&L column: daily (default) | total
@@ -1064,15 +1064,18 @@ function pfCompute(d) {
     tDayPct: priorVal ? (tDay / priorVal) * 100 : null };
 }
 // One band row (label · value · %), same grammar/markup as marketTile.
-function pfRow(label, valueStr, pct, dotHtml, cls) {
+function pfRow(label, valueStr, pct, dotHtml, cls, href) {
   let chg = '<span class="rate-chg flat">·</span>';
   if (typeof pct === "number" && isFinite(pct)) {
     const c = +pct.toFixed(2);
     const dir = c > 0 ? "up" : c < 0 ? "down" : "flat";
     chg = `<span class="rate-chg ${dir}">${c > 0 ? "▲" : c < 0 ? "▼" : "·"} ${Math.abs(c).toFixed(2)}%</span>`;
   }
-  return `<div class="rate-tile mkt-tile${cls ? " " + cls : ""}"><span class="rate-label">${esc(label)}${dotHtml || ""}</span>`
-    + `<span class="rate-val">${valueStr}</span>${chg}</div>`;
+  // Holdings link out to the ticker's quote page; summary rows (no href) stay divs.
+  const tag = href ? "a" : "div";
+  const attrs = href ? ` href="${esc(href)}" target="_blank" rel="noopener noreferrer"` : "";
+  return `<${tag} class="rate-tile mkt-tile${cls ? " " + cls : ""}"${attrs}><span class="rate-label">${esc(label)}${dotHtml || ""}</span>`
+    + `<span class="rate-val">${valueStr}</span>${chg}</${tag}>`;
 }
 function renderPortfolioBand(el, d) {
   const p = pfCompute(d);
@@ -1087,7 +1090,7 @@ function renderPortfolioBand(el, d) {
     const dot = marketDot({ label: r.h.ticker, marketState: r.m && r.m.marketState, mktType: PF_TYPE[r.h.exch] || "us_equity" });
     const label = r.h.label || r.h.ticker;
     const val = r.val == null ? "—" : daily ? fmtGBP(r.day, true) : fmtGBP(r.val);
-    return pfRow(label, val, daily ? r.dPct : r.pnlPct, dot);
+    return pfRow(label, val, daily ? r.dPct : r.pnlPct, dot, "", r.h.href);
   }).join("");
   const pnl = daily
     ? pfRow("P&L", p.priced ? fmtGBP(p.tDay, true) : "—", p.tDayPct, "", "g-pf-sum g-pf-pnl")

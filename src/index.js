@@ -1501,6 +1501,10 @@ const FEED_SOURCES = [
   // Google News site-search (reliable where the WordPress feeds bot-block).
   { url: "https://news.google.com/rss/search?q=site%3Athelawyer.com%20when%3A7d&hl=en-GB&gl=GB&ceid=GB%3Aen", source: "The Lawyer", region: "UK", cap: 10, gnews: true, filter: false, legal: true },
   { url: "https://news.google.com/rss/search?q=site%3Alegalbusiness.co.uk%20when%3A7d&hl=en-GB&gl=GB&ceid=GB%3Aen", source: "Legal Business", region: "UK", cap: 10, gnews: true, filter: false, legal: true },
+  // Direct WordPress feeds (the authoritative source — Google News barely indexes
+  // these trade titles); filter:false so every legal headline passes the title screen.
+  { url: "https://www.thelawyer.com/feed/", source: "The Lawyer", region: "UK", cap: 12, filter: false, legal: true },
+  { url: "https://www.legalbusiness.co.uk/feed/", source: "Legal Business", region: "UK", cap: 12, filter: false, legal: true },
 ];
 // STRICT macro filter — a title must touch one of: central-bank policy, a key
 // economic indicator, an index / rates / commodity / FX move, or major earnings.
@@ -1821,7 +1825,7 @@ async function handleFeed(request, env, ctx) {
       { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=42", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=43", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const items = await feedAssemble(env, ctx);

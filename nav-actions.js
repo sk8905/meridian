@@ -227,12 +227,12 @@ const naSec = (title, tag) => `<div class="na-sec"><span>${esc(title)}</span><sp
 // held in huge size — and their live quote arrives UNSCALED (raw pence), so they
 // carry `pxScale: 0.01` to bring the price back to GBP-major before valuing.
 const PORTFOLIO = [
-  { ticker: "IGWD", qty: 639, cost: 118.2118, exch: "LSE" },   // 476 @ £115.99 + 163 @ £124.70
-  { ticker: "CNX1", qty: 1, cost: 1269.17, exch: "LSE" },
-  { ticker: "EMEE", qty: 303000, cost: 0.0596, pxScale: 0.01, exch: "LSE" },
-  { ticker: "WMVG", qty: 363600, cost: 0.0823, pxScale: 0.01, exch: "LSE" },
-  { ticker: "COMM", qty: 1424, cost: 6.6794, exch: "LSE" },
-  { ticker: "BTCGBP", label: "BTC", qty: 0.02204, cost: 64633.31, exch: "CRYPTO" },
+  { ticker: "IGWD", qty: 639, cost: 118.2118, exch: "LSE", href: "https://uk.finance.yahoo.com/quote/IGWD.L" },   // 476 @ £115.99 + 163 @ £124.70
+  { ticker: "CNX1", qty: 1, cost: 1269.17, exch: "LSE", href: "https://uk.finance.yahoo.com/quote/CNX1.L" },
+  { ticker: "EMEE", qty: 303000, cost: 0.0596, pxScale: 0.01, exch: "LSE", href: "https://uk.finance.yahoo.com/quote/EMEE.L" },
+  { ticker: "WMVG", qty: 363600, cost: 0.0823, pxScale: 0.01, exch: "LSE", href: "https://uk.finance.yahoo.com/quote/WMVG.L" },
+  { ticker: "COMM", qty: 1424, cost: 6.6794, exch: "LSE", href: "https://uk.finance.yahoo.com/quote/COMM.L" },
+  { ticker: "BTCGBP", label: "BTC", qty: 0.02204, cost: 64633.31, exch: "CRYPTO", href: "https://finance.yahoo.com/quote/BTC-GBP" },
 ];
 // £ money: sign + thousands, always 2dp (so the portfolio value reads to the penny).
 function fmtGBP(v, sign) {
@@ -383,13 +383,16 @@ function macroPane(d) {
   return naSec("Key rates & spreads", "bp · %") + d.rates.map(rateRow).join("");
 }
 // A markets-panel row (label · value · % change) — same grammar as marketRow.
-function pfMrow(label, valueStr, pct, dot) {
+function pfMrow(label, valueStr, pct, dot, href) {
   const c = typeof pct === "number" && isFinite(pct) ? pct : null;
   const dir = c == null ? "flat" : c > 0 ? "up" : c < 0 ? "down" : "flat";
   const arw = c == null ? "" : c > 0 ? "▲" : c < 0 ? "▼" : "·";
-  return `<div class="na-mrow"><span class="na-l">${esc(label)}${dot || ""}</span>`
+  // Holdings link out to the ticker's quote page; summary rows (no href) stay divs.
+  const tag = href ? "a" : "div";
+  const attrs = href ? ` href="${esc(href)}" target="_blank" rel="noopener noreferrer"` : "";
+  return `<${tag} class="na-mrow${href ? " na-mrow-lnk" : ""}"${attrs}><span class="na-l">${esc(label)}${dot || ""}</span>`
     + `<span class="na-v">${valueStr}</span>`
-    + `<span class="na-c ${dir}">${c == null ? "" : arw + " " + Math.abs(c).toFixed(2) + "%"}</span></div>`;
+    + `<span class="na-c ${dir}">${c == null ? "" : arw + " " + Math.abs(c).toFixed(2) + "%"}</span></${tag}>`;
 }
 function portfolioPane(d) {
   const q = {}; (d.portfolio || []).forEach((x) => { q[x.label] = x; });
@@ -422,7 +425,7 @@ function portfolioPane(d) {
     + pfMrow("Total Value", priced ? fmtGBP(tVal) : "—", priced ? (daily ? tDayPct : tPnlPct) : null)
     + sorted.map((r) => {
       const val = r.val == null ? "—" : daily ? fmtGBP(r.day, true) : fmtGBP(r.val);
-      return pfMrow(r.h.label || r.h.ticker, val, daily ? r.dPct : r.pnlPct, sessDot(r.m && r.m.marketState, r.h.exch));
+      return pfMrow(r.h.label || r.h.ticker, val, daily ? r.dPct : r.pnlPct, sessDot(r.m && r.m.marketState, r.h.exch), r.h.href);
     }).join("")
     + pfMrow("P&L", priced ? (daily ? fmtGBP(tDay, true) : fmtGBP(tPnl, true)) : "—", daily ? tDayPct : tPnlPct);
 }
