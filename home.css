@@ -839,7 +839,7 @@
       .tui .g-side2 > .tui-pnl{ flex:0 0 auto; }
       .tui .g-flow-scroll{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
       .tui .g-flow{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
-      .tui .g-flow-head{ flex:0 0 auto; padding:0 14px; }
+      .tui .g-flow-head{ flex:0 0 auto; }
       .tui .g-flow-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
       /* Prediction-markets rail: sticky type filter, section breaks, bold odds. */
       .tui .g-pred-filter{ display:flex; flex-wrap:wrap; gap:4px; padding:8px 14px; background:var(--t-panel); border-bottom:1px solid var(--t-grid); position:sticky; top:0; z-index:2; }
@@ -913,6 +913,20 @@
     .tui-ph > span:first-child{ font-size:11.5px; font-weight:600; letter-spacing:.005em; color:var(--t-dim); }
     .tui-px{ margin-left:auto; font-size:10px; letter-spacing:.01em; color:var(--t-faint); }
     .tui .g-loading,.tui .g-empty{ padding:11px 12px; font-size:11.5px; color:var(--t-faint); background:var(--t-panel); }
+
+    /* ---- Markets band Markets|Portfolio toggle + portfolio Daily/Total switch --- */
+    .tui .g-mkt-head > .g-mkt-tabs{ display:inline-flex; align-items:center; gap:12px; }
+    .tui .g-mkt-tab{ font:inherit; font-size:11.5px; font-weight:600; letter-spacing:.005em;
+      height:30px; line-height:30px; padding:0; border:0; background:transparent; color:var(--t-faint); cursor:pointer; }
+    .tui .g-mkt-tab:hover{ color:var(--t-dim); }
+    .tui .g-mkt-tab.is-on{ color:var(--t-ink); box-shadow:inset 0 -2px 0 var(--chip-ul, var(--t-dim)); }
+    .tui .g-pf-tgl-wrap{ display:inline-flex; gap:2px; }
+    .tui .g-pf-tgl{ font:inherit; font-size:9.5px; font-weight:600; letter-spacing:.02em; text-transform:uppercase;
+      padding:1px 6px; border:1px solid var(--t-grid); background:transparent; color:var(--t-faint); cursor:pointer; }
+    .tui .g-pf-tgl.on{ background:var(--t-panel2); color:var(--t-ink); border-color:var(--t-dim); }
+    .tui .g-pf-sec{ font-family:var(--t-mono); font-size:9px; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
+      color:var(--t-faint); padding:8px 11px 3px; margin-top:2px; border-top:1px solid var(--t-grid); }
+    .tui .g-pf-sum .rate-val{ font-weight:700; }
 
     /* ---- data rows (markets / rates) reuse .rates-band/.rate-tile ---- */
     .tui .rates-band,.tui .g-side .rates-band,.tui .markets-band{ display:block; background:var(--t-panel);
@@ -1008,16 +1022,6 @@
        page), so Home and the Macro/Credit/Legal wires are the same build. Only
        Home-specific LAYOUT for the wire (column order, full-height flex, sticky
        offsets) stays here (see .tui .g-feed-wrap rules above). ---- */
-    /* ---- deal-flow chip toggle (deals / fundraising / schemes) ---- */
-    .g-flow-head.tui-ph, .tui .g-flow-head{ padding:0; }
-    .g-flow-chips{ display:flex; gap:0; height:100%; width:100%; }
-    .g-flow-chip{ display:flex; align-items:center; justify-content:center; flex:1 1 0; min-width:0;
-      height:100%; padding:0 8px; border:0; background:transparent;
-      cursor:pointer; font-family:inherit; font-size:11px; font-weight:500; letter-spacing:.005em;
-      color:var(--t-mut); border-radius:0; white-space:nowrap; }
-
-    .g-flow-chip:hover{ color:var(--t-dim); }
-    .g-flow-chip.is-on{ color:var(--t-ink); font-weight:600; box-shadow:inset 0 -2px 0 var(--chip-ul); }
     .g-flow-pane[hidden]{ display:none; }
 
     /* ---- command bar: flat, squared tabs matching the terminal body ---- */

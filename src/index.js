@@ -806,18 +806,34 @@ async function handlePredict(request, env, ctx) {
       { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/predict?v=3", request.url).toString());
+  const cacheKey = new Request(new URL("/api/predict?v=4", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const pm = await predictPolymarket().catch(() => []);
-  // Dedupe by normalised question, keep the deepest listing, cap and sort by volume.
+  // Dedupe by normalised question, keep the deepest listing.
   const seen = new Map();
   for (const m of pm) {
     const k = m.q.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim().slice(0, 56);
     const ex = seen.get(k);
     if (!ex || m.vol > ex.vol) seen.set(k, m);
   }
-  const markets = [...seen.values()].sort((a, b) => b.vol - a.vol).slice(0, 40);
+  // Drop long-shots (< 7.5% implied YES) then take a per-type quota so high-volume
+  // politics can't crowd finance (Fed/Economy/Equities/Crypto) out of the rail.
+  const TYPE_ORDER = ["Fed & rates", "Economy", "Equities", "Crypto", "Trump", "Geopolitics", "Elections", "Other"];
+  const byType = new Map();
+  for (const m of seen.values()) {
+    if (!(m.yes >= 7.5)) continue;
+    const g = byType.get(m.type) || [];
+    g.push(m);
+    byType.set(m.type, g);
+  }
+  const markets = [];
+  for (const t of TYPE_ORDER) {
+    const g = byType.get(t);
+    if (!g) continue;
+    g.sort((a, b) => b.vol - a.vol);
+    markets.push(...g.slice(0, 6));
+  }
   const resp = new Response(JSON.stringify({ markets }), { headers: { "content-type": "application/json", "cache-control": "public, max-age=120" } });
   if (ctx && ctx.waitUntil && markets.length) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
   return resp;

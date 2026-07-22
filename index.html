@@ -28,7 +28,7 @@
        default WHITE html background — the white banner at the top on tab change).
        The app pages already carry this guard; Home was missing it. -->
   <style>html{background:#000}</style>
-  <link rel="stylesheet" href="/home.css?v=20260721-6" />
+  <link rel="stylesheet" href="/home.css?v=20260722-1" />
   <link rel="stylesheet" href="/premium.css?v=20260721-23" />
   <link rel="stylesheet" href="/header.css?v=20260720-4" />
   <link rel="stylesheet" href="/feed.css?v=20260721-1" />
@@ -38,8 +38,8 @@
     // mounts, so arriving on Home paints once, complete — no feed/chips/tab-
     // bar staging. The body auth script confirms via /api/me and calls
     // window.__enterGlance for the no-hint path (initGlance self-guards).
-    import { initGlance } from "/glance.js?v=20260721-32";
-    import { initHeader } from "/header.js?v=20260721-17";
+    import { initGlance } from "/glance.js?v=20260722-1";
+    import { initHeader } from "/header.js?v=20260722-1";
     // The ONE shared header (top bar + ticker + briefing) — same module the app
     // pages use. It renders into the (still-hidden) #wire-header and boots the
     // shared chrome + briefing text, so Home's header is identical to the rest.
@@ -96,7 +96,13 @@
         <!-- LEFT RAIL: markets / rates data, with Top movers filling the base -->
         <aside class="g-side">
           <section class="tui-pnl g-anchor" id="jump-markets">
-            <header class="tui-ph"><span>Markets</span><span class="tui-px">live</span></header>
+            <header class="tui-ph g-mkt-head">
+              <span class="g-mkt-tabs" role="tablist" aria-label="Markets or portfolio">
+                <button type="button" class="g-mkt-tab is-on" data-k="markets" role="tab">Markets</button>
+                <button type="button" class="g-mkt-tab" data-k="portfolio" role="tab">Portfolio</button>
+              </span>
+              <span class="tui-px" id="g-mkt-meta">live</span>
+            </header>
             <div id="g-markets" class="rates-band markets-band" aria-label="Equity indices and ETFs">
               <div class="g-loading">Loading markets…</div>
             </div>
@@ -217,7 +223,7 @@
     const enterGlance = () => {
       if (window.__enterGlance) { window.__enterGlance(); return; }
       show("glance");
-      import("/glance.js?v=20260721-32").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260722-1").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), the head module shows the briefing immediately

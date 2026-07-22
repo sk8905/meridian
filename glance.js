@@ -116,7 +116,7 @@ export function initGlance() {
   // Macro/Credit/Legal (nav-actions.js) — one implementation on all pages. The
   // legacy Home-only dropdown menus are retired; on phones Home just hides its
   // desktop data rails (initHomeMarketsRails) and uses the shared Markets panel.
-  import("/nav-actions.js?v=20260721-15").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260722-1").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderPredict();
   initFeedEntityNav();
   initFeedHeadLock();
@@ -1024,10 +1024,92 @@ function marketTile(x) {
   const attrs = x.href ? ` href="${esc(x.href)}" target="_blank" rel="noopener noreferrer"` : "";
   return `<${tag} class="rate-tile mkt-tile"${attrs}${title}><span class="rate-label">${esc(x.label)}${marketDot(x)}</span><span class="rate-val">${val}</span>${chg}</${tag}>`;
 }
+// ---- Portfolio view (left-rail Markets band · Markets|Portfolio toggle) ------
+// The reader's ETF book, aggregated per ticker — byte-identical to the shared
+// dropdown's PORTFOLIO so the rail and the Markets dropdown reconcile. `cost` is
+// the average GBP-major price paid per unit; EMEE/WMVG quote unscaled (raw pence)
+// so they carry pxScale 0.01 to bring the live quote back to GBP-major.
+const PF_BOOK = [
+  { ticker: "IGWD", qty: 639, cost: 118.2118, exch: "LSE" },
+  { ticker: "CNX1", qty: 1, cost: 1269.17, exch: "LSE" },
+  { ticker: "EMEE", qty: 303000, cost: 0.0596, pxScale: 0.01, exch: "LSE" },
+  { ticker: "WMVG", qty: 363600, cost: 0.0823, pxScale: 0.01, exch: "LSE" },
+  { ticker: "COMM", qty: 1424, cost: 6.6794, exch: "LSE" },
+  { ticker: "BTCGBP", label: "BTC", qty: 0.02204, cost: 64633.31, exch: "CRYPTO" },
+];
+let _mktView = "markets";   // Markets band content: markets | portfolio
+let _pfMode = "daily";      // Portfolio P&L column: daily (default) | total
+// £ money: sign + thousands, always 2dp (so the value reads to the penny).
+function fmtGBP(v, sign) {
+  if (v == null || !isFinite(v)) return "—";
+  const s = Math.abs(v).toLocaleString("en-US", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  return (sign && v > 0 ? "+£" : v < 0 ? "−£" : "£") + s;
+}
+const PF_TYPE = { LSE: "lse_equity", CRYPTO: "crypto", US: "us_equity" };
+function pfCompute(d) {
+  const q = {}; ((d && d.portfolio) || []).forEach((x) => { q[x.label] = x; });
+  const rows = PF_BOOK.map((h) => {
+    const m = q[h.ticker];
+    const px = m && m.value != null ? m.value * (h.pxScale || 1) : null;
+    const val = px != null ? px * h.qty : null;
+    const costBasis = h.cost * h.qty;
+    const pnlPct = val != null && costBasis ? ((val - costBasis) / costBasis) * 100 : null;
+    const day = (m && m.change != null) ? m.change * (h.pxScale || 1) * h.qty : 0;
+    const dPct = m && typeof m.changePct === "number" && isFinite(m.changePct) ? m.changePct : null;
+    return { h, m, val, costBasis, pnlPct, day, dPct };
+  });
+  let tVal = 0, tCost = 0, tDay = 0, priced = 0;
+  for (const r of rows) if (r.val != null) { tVal += r.val; tCost += r.costBasis; tDay += r.day; priced++; }
+  const tPnl = tVal - tCost;
+  const priorVal = tVal - tDay;
+  return { rows, tVal, tCost, tDay, tPnl, priced,
+    tPnlPct: tCost ? (tPnl / tCost) * 100 : null,
+    tDayPct: priorVal ? (tDay / priorVal) * 100 : null };
+}
+// One band row (label · value · %), same grammar/markup as marketTile.
+function pfRow(label, valueStr, pct, dotHtml, cls) {
+  let chg = '<span class="rate-chg flat">·</span>';
+  if (typeof pct === "number" && isFinite(pct)) {
+    const c = +pct.toFixed(2);
+    const dir = c > 0 ? "up" : c < 0 ? "down" : "flat";
+    chg = `<span class="rate-chg ${dir}">${c > 0 ? "▲" : c < 0 ? "▼" : "·"} ${Math.abs(c).toFixed(2)}%</span>`;
+  }
+  return `<div class="rate-tile mkt-tile${cls ? " " + cls : ""}"><span class="rate-label">${esc(label)}${dotHtml || ""}</span>`
+    + `<span class="rate-val">${valueStr}</span>${chg}</div>`;
+}
+function renderPortfolioBand(el, d) {
+  const p = pfCompute(d);
+  const daily = _pfMode === "daily";
+  // Holdings ordered by value (high → low; unpriced last); P&L column follows the toggle.
+  const sorted = p.rows.slice().sort((a, b) => (b.val == null ? -1 : b.val) - (a.val == null ? -1 : a.val));
+  const holdings = sorted.map((r) => {
+    const dot = marketDot({ label: r.h.ticker, marketState: r.m && r.m.marketState, mktType: PF_TYPE[r.h.exch] || "us_equity" });
+    return pfRow(r.h.label || r.h.ticker, r.val != null ? fmtGBP(r.val) : "—", daily ? r.dPct : r.pnlPct, dot);
+  }).join("");
+  const summary = `<div class="g-pf-sec">Portfolio · ${p.priced}/${PF_BOOK.length} priced</div>`
+    + pfRow("Value", p.priced ? fmtGBP(p.tVal) : "—", null, "", "g-pf-sum")
+    + pfRow("Daily P&L", p.priced ? fmtGBP(p.tDay, true) : "—", p.tDayPct, "", "g-pf-sum")
+    + pfRow("Total P&L", p.priced ? fmtGBP(p.tPnl, true) : "—", p.tPnlPct, "", "g-pf-sum");
+  el.innerHTML = holdings + summary;
+  const meta = document.getElementById("g-mkt-meta");
+  if (meta) meta.innerHTML = `<span class="g-pf-tgl-wrap" role="tablist">`
+    + `<button type="button" class="g-pf-tgl${daily ? " on" : ""}" data-m="daily">Daily</button>`
+    + `<button type="button" class="g-pf-tgl${daily ? "" : " on"}" data-m="total">Total</button></span>`;
+}
+let _mktData = null;   // freshest markets payload, so the view toggle re-renders without refetch
 function renderMarketsBand(el, d) {
   const rows = (d && d.markets) || [];
   if (!rows.length) return false;
-  el.innerHTML = rows.map(marketTile).join("");
+  _mktData = d;
+  // Paint the band in the selected view; the derived views below always refresh
+  // from the same payload so the ticker/movers/FX stay live in either view.
+  const meta = document.getElementById("g-mkt-meta");
+  if (_mktView === "portfolio") {
+    renderPortfolioBand(el, d);
+  } else {
+    el.innerHTML = rows.map(marketTile).join("");
+    if (meta && meta.querySelector(".g-pf-tgl-wrap")) meta.textContent = "live";
+  }
   if (!_briefLeads.markets) setGlance("gl-markets", _pulse.markets ? esc(_pulse.markets) : marketsOneLiner(rows));
   // Chips pick the top movers from a WIDER pool (the banner 8 + extra global
   // cross-asset instruments), so they aren't limited to the banner tiles.
@@ -1038,6 +1120,30 @@ function renderMarketsBand(el, d) {
   _mktEtf = d.moversEtf || [];
   renderTicker(); renderMovers(); renderVolRisk();
   return true;
+}
+// Wire the Markets|Portfolio band toggle + the portfolio Daily/Total toggle.
+// Delegated on the section so the re-rendered meta control keeps working.
+function initMarketsToggle() {
+  const sec = document.getElementById("jump-markets");
+  const el = document.getElementById("g-markets");
+  if (!sec || !el || sec.dataset.wired) return;
+  sec.dataset.wired = "1";
+  sec.addEventListener("click", (e) => {
+    const tab = e.target.closest(".g-mkt-tab");
+    if (tab) {
+      const k = tab.dataset.k;
+      if (k === _mktView) return;
+      _mktView = k;
+      sec.querySelectorAll(".g-mkt-tab").forEach((t) => t.classList.toggle("is-on", t.dataset.k === k));
+      if (_mktData) renderMarketsBand(el, _mktData);
+      return;
+    }
+    const tgl = e.target.closest(".g-pf-tgl");
+    if (tgl && tgl.dataset.m !== _pfMode) {
+      _pfMode = tgl.dataset.m;
+      if (_mktData) renderPortfolioBand(el, _mktData);
+    }
+  });
 }
 // FX daily matrix — USD/GBP/EUR/JPY cross rates derived from the three USD pairs
 // (EUR/USD, GBP/USD, USD/JPY) that already ride along in the markets feed's extra-
@@ -1194,7 +1300,7 @@ function paintPredict(el) {
 function renderPredict() {
   const el = document.getElementById("g-predict");
   if (!el) return;
-  fetch("/api/predict?v=3", { headers: { accept: "application/json" } })
+  fetch("/api/predict?v=4", { headers: { accept: "application/json" } })
     .then((r) => (r.ok ? r.json() : null)).catch(() => null)
     .then((d) => { const list = (d && d.markets) || []; if (!list.length && el.querySelector(".tui-li")) return; _predList = list; paintPredict(el); });
 }
@@ -1266,6 +1372,7 @@ function renderYieldCurve() {
 function initMarkets() {
   const el = document.getElementById("g-markets");
   if (!el) return;
+  initMarketsToggle();
   // Keep the last-good tiles up until fresh values arrive (never flash a
   // placeholder on a slow or failed refetch).
   renderMarketsBand(el, readCache("markets"));

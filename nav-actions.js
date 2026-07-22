@@ -268,7 +268,7 @@ function loadMarkets(body) {
   const loadPredict = () => {
     if (predict != null || predictLoading) return;
     predictLoading = true;
-    fetch("/api/predict?v=3", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null)
+    fetch("/api/predict?v=4", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null)
       .then((p) => { predict = (p && p.markets) || []; predictLoading = false; if (_mktTab === "predict") render(); });
   };
   chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c && c.dataset.k !== _mktTab) { _mktTab = c.dataset.k; if (_mktTab === "predict") loadPredict(); render(); } });
