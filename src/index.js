@@ -783,69 +783,21 @@ async function predictPolymarket() {
   }
   return out;
 }
-// The raw /markets list is dominated by sports with garbled titles; pull EVENTS
-// instead (clean title + category) and expand the finance ones' nested markets.
-const KALSHI_BASE = "https://api.elections.kalshi.com/trade-api/v2";
-const KALSHI_FINCAT = /econom|financ|inflation|interest|monetary|\bfed\b|treasur|\bgdp\b|jobs|unemploy|crypto|bitcoin|ethereum|climate.*energy/i;
-async function predictKalshi() {
-  // Best-effort ONLY — Kalshi aggressively rate-limits (429) the Cloudflare edge
-  // IP, so a single request usually returns null; when it does slip through, take
-  // the finance events. Polymarket is the reliable source.
-  const out = [];
-  const txt = await fetchText(`${KALSHI_BASE}/events?status=open&limit=200&with_nested_markets=true`);
-  let j; try { j = JSON.parse(txt); } catch { return out; }
-  const events = j && Array.isArray(j.events) ? j.events : [];
-  for (const ev of events) {
-    const evTitle = ev.title || ev.sub_title || "";
-    if (!KALSHI_FINCAT.test(String(ev.category || "")) && !PREDICT_RX.test(evTitle)) continue;
-    for (const m of (Array.isArray(ev.markets) ? ev.markets : [])) {
-      const sub = m.yes_sub_title || m.subtitle || "";
-      const q = sub ? `${evTitle} — ${sub}` : (evTitle || m.title || "");
-      if (!q) continue;
-      let cents = null;
-      if (isFinite(m.last_price) && m.last_price > 0) cents = m.last_price;
-      else if (isFinite(m.yes_bid) && m.yes_bid > 0) cents = isFinite(m.yes_ask) && m.yes_ask > 0 ? (m.yes_bid + m.yes_ask) / 2 : m.yes_bid;
-      if (cents == null || cents <= 0 || cents >= 100) continue;
-      out.push({ venue: "Kalshi", q, yes: Math.round(cents), vol: Number(m.volume ?? m.volume_24h ?? 0) || 0, end: m.close_time || ev.close_time || null, url: "https://kalshi.com/markets/" + String(ev.series_ticker || ev.event_ticker || "").toLowerCase() });
-    }
-  }
-  return out;
-}
 async function handlePredict(request, env, ctx) {
   const url = new URL(request.url);
   if (url.searchParams.get("debug")) {
-    // ONE Kalshi events fetch (avoid the 429 cascade): category histogram +
-    // finance-event market shape, so we can see the real category name and where
-    // finance markets live. Plus the parsed Polymarket sample.
-    const kTxt = await fetchText(`${KALSHI_BASE}/events?status=open&limit=200&with_nested_markets=true`);
-    let kalshi = { fetch: kTxt ? "ok(" + kTxt.length + ")" : "null" };
-    try {
-      const j = JSON.parse(kTxt);
-      const events = Array.isArray(j.events) ? j.events : [];
-      const cats = {};
-      for (const e of events) cats[e.category || "?"] = (cats[e.category || "?"] || 0) + 1;
-      const fin = events.filter((e) => KALSHI_FINCAT.test(String(e.category || "")) || PREDICT_RX.test(e.title || ""));
-      kalshi = {
-        totalEvents: events.length,
-        categories: cats,
-        financeEventCount: fin.length,
-        financeSample: fin.slice(0, 8).map((e) => { const m = (e.markets || [])[0]; return { cat: e.category, title: e.title, mkts: (e.markets || []).length, m0: m ? { ysub: m.yes_sub_title, lp: m.last_price, yb: m.yes_bid, ya: m.yes_ask, vol: m.volume } : null }; }),
-      };
-    } catch (e) { kalshi.err = String((e && e.message) || e); kalshi.snippet = (kTxt || "").slice(0, 150); }
     const pm = await predictPolymarket().catch((e) => ({ err: String(e) }));
-    return new Response(JSON.stringify({
-      kalshi,
-      polymarket: { count: Array.isArray(pm) ? pm.length : pm, sample: Array.isArray(pm) ? pm.slice(0, 5) : null },
-    }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
+    return new Response(JSON.stringify({ polymarket: { count: Array.isArray(pm) ? pm.length : pm, sample: Array.isArray(pm) ? pm.slice(0, 12) : null } }, null, 2),
+      { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/predict?v=1", request.url).toString());
+  const cacheKey = new Request(new URL("/api/predict?v=2", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
-  const [pm, ks] = await Promise.all([predictPolymarket().catch(() => []), predictKalshi().catch(() => [])]);
-  // Dedupe events covered by both venues; keep the deeper (higher-volume) listing.
+  const pm = await predictPolymarket().catch(() => []);
+  // Dedupe by normalised question, keep the deepest listing, cap and sort by volume.
   const seen = new Map();
-  for (const m of [...pm, ...ks]) {
+  for (const m of pm) {
     const k = m.q.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim().slice(0, 56);
     const ex = seen.get(k);
     if (!ex || m.vol > ex.vol) seen.set(k, m);

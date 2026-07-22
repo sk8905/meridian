@@ -117,10 +117,7 @@ export function initGlance() {
   // legacy Home-only dropdown menus are retired; on phones Home just hides its
   // desktop data rails (initHomeMarketsRails) and uses the shared Markets panel.
   import("/nav-actions.js?v=20260721-14").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
-  renderDeals();
-  renderFundraising();
-  renderRx();
-  initFlowChips();
+  renderPredict();
   initFeedEntityNav();
   initFeedHeadLock();
   initJumpNav();
@@ -375,7 +372,7 @@ function initJumpNav() {
 // cadence. Work is skipped while the tab is hidden and caught up on return.
 const LIVE_REFRESH_MS = 5 * 60 * 1000;
 let _lastLive = Date.now();
-function refreshLive() { _lastLive = Date.now(); initMarkets(); initRates(); initPulse(); refreshLiveFeed(); }
+function refreshLive() { _lastLive = Date.now(); initMarkets(); initRates(); initPulse(); refreshLiveFeed(); renderPredict(); }
 
 // Pull the curated live news feed (/api/feed) and re-render the home feed with
 // the fresh headlines merged in. Non-200 / empty / offline → keep whatever we
@@ -1169,65 +1166,24 @@ function renderMovers() {
 }
 // Latest credit deals — the most recent priced/announced deals, deep-linking into
 // the Credit desk. Fills the right rail with cross-desk data on the home hub.
-function renderDeals() {
-  const el = document.getElementById("g-deals");
+// Prediction markets (right rail) — finance & finance-adjacent implied odds from
+// /api/predict (Polymarket). Question headline + a meta line (YES odds · venue ·
+// close date), reusing the deal-flow row style; refreshed on the live cycle.
+function renderPredict() {
+  const el = document.getElementById("g-predict");
   if (!el) return;
-  const list = [...deals].sort(byDateDesc).slice(0, 8);
-  if (!list.length) { el.innerHTML = '<div class="g-empty">No deals yet.</div>'; return; }
-  el.innerHTML = list.map((d) => {
-    const meta = [creditSource(d), d.date ? fmt(String(d.date).slice(0, 10)) : ""].filter(Boolean).join(" · ");
-    return `<a class="tui-li" href="${esc(creditItemHref(d))}"${creditItemExt(d) ? ' target="_blank" rel="noopener noreferrer"' : ""}><span class="tui-li-t">${esc(d.headline)}</span>`
-      + `<span class="tui-li-m"><span class="tui-li-tag">DEAL</span>${esc(meta)}</span></a>`;
-  }).join("");
-}
-// Fundraising & CLOs — the newest closes/launches from the credit intel feed,
-// deep-linking into the Credit desk alongside the deal flow.
-function renderFundraising() {
-  const el = document.getElementById("g-fund");
-  if (!el) return;
-  const list = [...intel].filter((i) => i.date).sort(byDateDesc).slice(0, 8);
-  if (!list.length) { el.innerHTML = '<div class="g-empty">Nothing raised yet.</div>'; return; }
-  el.innerHTML = list.map((i) => {
-    const kind = i.clo ? "CLO" : "RAISE";
-    const meta = [creditSource(i), i.date ? fmt(String(i.date).slice(0, 10)) : ""].filter(Boolean).join(" · ");
-    return `<a class="tui-li" href="${esc(creditItemHref(i))}"${creditItemExt(i) ? ' target="_blank" rel="noopener noreferrer"' : ""}><span class="tui-li-t">${esc(i.headline)}</span>`
-      + `<span class="tui-li-m"><span class="tui-li-tag">${kind}</span>${esc(meta)}</span></a>`;
-  }).join("");
-}
-// Active restructurings & schemes — the most recent from the Legal desk.
-function renderRx() {
-  const el = document.getElementById("g-rx");
-  if (!el) return;
-  const list = [...restructurings].filter((r) => r.date).sort(byDateDesc).slice(0, 8);
-  if (!list.length) { el.innerHTML = '<div class="g-empty">Nothing active.</div>'; return; }
-  el.innerHTML = list.map((r) => {
-    const kind = r.type === "scheme" ? "SCHEME" : "RP";
-    const meta = [r.date ? fmt(String(r.date).slice(0, 10)) : ""].filter(Boolean).join(" · ");
-    return `<a class="tui-li" href="${esc(r.judgmentUrl || r.articleUrl || "/legal/#/")}"${(r.judgmentUrl || r.articleUrl) ? ' target="_blank" rel="noopener noreferrer"' : ""}><span class="tui-li-t">${esc(r.company)}</span>`
-      + `<span class="tui-li-m"><span class="tui-li-tag lex">${kind}</span>${esc(meta)}</span></a>`;
-  }).join("");
-}
-// Deal-flow chips — one panel, three panes (deals / fundraising / schemes-RPs).
-// Clicking a chip shows its pane and hides the others; the active list scrolls
-// on its own so the macro data pinned above it never moves.
-function initFlowChips() {
-  const chips = [...document.querySelectorAll(".g-flow-chip")];
-  if (!chips.length) return;
-  const paneOf = { deals: "g-deals", fund: "g-fund", rx: "g-rx" };
-  const body = document.querySelector(".g-flow-body");
-  const select = (key) => {
-    chips.forEach((c) => {
-      const on = c.dataset.flow === key;
-      c.classList.toggle("is-on", on);
-      c.setAttribute("aria-selected", on ? "true" : "false");
+  fetch("/api/predict?v=2", { headers: { accept: "application/json" } })
+    .then((r) => (r.ok ? r.json() : null)).catch(() => null)
+    .then((d) => {
+      const list = (d && d.markets) || [];
+      if (!list.length) { if (!el.querySelector(".tui-li")) el.innerHTML = '<div class="g-empty">No prediction markets right now.</div>'; return; }
+      el.innerHTML = list.map((m) => {
+        const yes = typeof m.yes === "number" ? m.yes + "%" : "—";
+        const meta = [m.venue, m.end ? fmt(String(m.end).slice(0, 10)) : ""].filter(Boolean).join(" · ");
+        return `<a class="tui-li" href="${esc(m.url || "#")}" target="_blank" rel="noopener noreferrer"><span class="tui-li-t">${esc(m.q)}</span>`
+          + `<span class="tui-li-m"><span class="tui-li-tag g-pred-odds">${esc(yes)}</span>${esc(meta)}</span></a>`;
+      }).join("");
     });
-    Object.entries(paneOf).forEach(([k, id]) => {
-      const el = document.getElementById(id);
-      if (el) el.hidden = k !== key;
-    });
-    if (body) body.scrollTop = 0;
-  };
-  chips.forEach((c) => c.addEventListener("click", () => select(c.dataset.flow)));
 }
 
 // ---- Volatility & risk (left rail) + Yield curve (right rail) ---------------
