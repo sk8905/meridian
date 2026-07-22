@@ -113,7 +113,7 @@ export function initGlance() {
   // Macro/Credit/Legal (nav-actions.js) — one implementation on all pages. The
   // legacy Home-only dropdown menus are retired; on phones Home just hides its
   // desktop data rails (initHomeMarketsRails) and uses the shared Markets panel.
-  import("/nav-actions.js?v=20260722-10").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260722-11").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderPredict();
   initFeedEntityNav();
   initFeedHeadLock();
@@ -1287,7 +1287,7 @@ const PRED_TYPE_ORDER = ["Fed & rates", "Economy", "Equities", "Crypto", "Trump"
 // "Top Movers" is a cross-cutting view (default); the other three are the type
 // super-groups. Every market already passes the finance/finance-adjacent gate
 // server-side, so the mover set stays within the app's universe (no sport/culture).
-const PRED_SUPERS = ["Top Movers", "Macro", "Politics", "Finance"];
+const PRED_SUPERS = ["Top Movers", "Largest", "Macro", "Politics", "Finance"];
 const PRED_SUPER_TYPES = {
   Macro: ["Fed & rates", "Economy", "Other"],
   Politics: ["Trump", "Geopolitics", "Elections"],
@@ -1340,7 +1340,8 @@ function paintPredict(el) {
     (supers[s][t] = supers[s][t] || []).push(m);
   }
   const movers = predMovers(list);
-  const has = (s) => s === "Top Movers" ? movers.length > 0 : Object.keys(supers[s]).length > 0;
+  const largest = list.slice().sort((a, b) => (b.vol || 0) - (a.vol || 0));
+  const has = (s) => s === "Top Movers" ? movers.length > 0 : s === "Largest" ? list.length > 0 : Object.keys(supers[s]).length > 0;
   if (!has(_predFilter)) _predFilter = PRED_SUPERS.find(has) || "Macro";
   const chips = `<div class="g-pred-filter" role="tablist">`
     + PRED_SUPERS.map((s) => `<button type="button" class="g-pred-fchip${_predFilter === s ? " on" : ""}" data-f="${esc(s)}"${has(s) ? "" : " disabled"}>${esc(s)}</button>`).join("")
@@ -1356,6 +1357,8 @@ function paintPredict(el) {
       + `<button type="button" class="g-pred-dir${_predMoveDir === "up" ? " on" : ""}" data-dir="up">Up</button>`
       + `<button type="button" class="g-pred-dir${_predMoveDir === "down" ? " on" : ""}" data-dir="down">Down</button></span>`;
     body = `<div class="g-pred-sec g-pred-sec-tgl"><span>Top movers</span>${tgl}</div>` + rows.map(predRow).join("");
+  } else if (_predFilter === "Largest") {
+    body = `<div class="g-pred-sec">Largest markets</div>` + largest.map(predRow).join("");
   } else {
     const active = supers[_predFilter] || {};
     const subTypes = PRED_TYPE_ORDER.filter((t) => active[t] && active[t].length).concat(Object.keys(active).filter((t) => !PRED_TYPE_ORDER.includes(t)));
@@ -1368,7 +1371,7 @@ function paintPredict(el) {
 function renderPredict() {
   const el = document.getElementById("g-predict");
   if (!el) return;
-  fetch("/api/predict?v=7", { headers: { accept: "application/json" } })
+  fetch("/api/predict?v=8", { headers: { accept: "application/json" } })
     .then((r) => (r.ok ? r.json() : null)).catch(() => null)
     .then((d) => { const list = (d && d.markets) || []; if (!list.length && el.querySelector(".tui-li")) return; _predList = list; paintPredict(el); });
 }

@@ -268,7 +268,7 @@ function loadMarkets(body) {
   const loadPredict = () => {
     if (predict != null || predictLoading) return;
     predictLoading = true;
-    fetch("/api/predict?v=7", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null)
+    fetch("/api/predict?v=8", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null)
       .then((p) => { predict = (p && p.markets) || []; predictLoading = false; if (_mktTab === "predict") render(); });
   };
   chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c && c.dataset.k !== _mktTab) { _mktTab = c.dataset.k; if (_mktTab === "predict") loadPredict(); render(); } });
@@ -324,7 +324,7 @@ function predictRow(m) {
 }
 const PRED_TYPE_ORDER = ["Fed & rates", "Economy", "Equities", "Crypto", "Trump", "Geopolitics", "Elections", "Other"];
 // Top Movers (default) + the three type super-groups (as on desktop).
-const NA_PRED_SUPERS = ["Top Movers", "Macro", "Politics", "Finance"];
+const NA_PRED_SUPERS = ["Top Movers", "Largest", "Macro", "Politics", "Finance"];
 const NA_PRED_SUPER_TYPES = { Macro: ["Fed & rates", "Economy", "Other"], Politics: ["Trump", "Geopolitics", "Elections"], Finance: ["Equities", "Crypto"] };
 const NA_PRED_SUPER_OF = {};
 for (const s of ["Macro", "Politics", "Finance"]) for (const t of NA_PRED_SUPER_TYPES[s]) NA_PRED_SUPER_OF[t] = s;
@@ -343,7 +343,8 @@ function predictPane(list, loading) {
   const supers = { Macro: {}, Politics: {}, Finance: {} };
   for (const m of list) { const t = m.type || "Other"; (supers[naPredSuperOf(t)][t] = supers[naPredSuperOf(t)][t] || []).push(m); }
   const movers = naPredMovers(list);
-  const has = (s) => s === "Top Movers" ? movers.length > 0 : Object.keys(supers[s]).length > 0;
+  const largest = list.slice().sort((a, b) => (b.vol || 0) - (a.vol || 0));
+  const has = (s) => s === "Top Movers" ? movers.length > 0 : s === "Largest" ? list.length > 0 : Object.keys(supers[s]).length > 0;
   if (!has(_predSuper)) _predSuper = NA_PRED_SUPERS.find(has) || "Macro";
   const chips = `<div class="na-pred-chips" role="tablist">`
     + NA_PRED_SUPERS.map((s) => `<button type="button" class="na-pred-fchip${_predSuper === s ? " on" : ""}" data-ps="${esc(s)}"${has(s) ? "" : " disabled"}>${esc(s)}</button>`).join("")
@@ -360,6 +361,8 @@ function predictPane(list, loading) {
       + `<button type="button" class="na-pred-dir${_predMoveDir === "down" ? " on" : ""}" data-dir="down">Down</button></span>`;
     const hdr = `<div class="na-sec na-sec-tgl"><span>Top movers</span>${tgl}</div>`;
     body = hdr + rows.map(predictRow).join("");
+  } else if (_predSuper === "Largest") {
+    body = naSec("Largest markets", "by size") + largest.map(predictRow).join("");
   } else {
     const active = supers[_predSuper] || {};
     const subTypes = PRED_TYPE_ORDER.filter((t) => active[t]).concat(Object.keys(active).filter((t) => !PRED_TYPE_ORDER.includes(t)));

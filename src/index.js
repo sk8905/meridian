@@ -761,6 +761,10 @@ async function handleMarkets(request, env, ctx) {
 // venue + volume + close date. A keyword gate keeps it to finance-relevant events.
 // Finance + finance-adjacent (market-moving politics / geopolitics) gate.
 const PREDICT_RX = /\b(fed|fomc|interest[ -]?rate|rate (?:hike|cut|decision|change)|powell|cpi|inflation|deflation|recession|gdp|unemploy|jobless|payroll|nonfarm|s\s?&\s?p\s?500|sp500|nasdaq|dow jones|stock market|equit|bitcoin|btc|ethereum|eth|crypto|solana|xrp|dogecoin|stablecoin|treasur|bond yield|10[- ]year|debt ceiling|government shutdown|shutdown|oil price|opec|brent|crude|gold price|dollar index|dxy|tariff|trade war|\becb\b|bank of england|\bboe\b|earnings|nvidia|tesla|\bipo\b|trump|biden|harris|president|election|nominee|nomination|prime minister|\biran\b|israel|gaza|ukraine|russia|\bchina\b|taiwan|\bnato\b|ceasefire|nuclear|hormuz|strait|tanker)\b/i;
+// Sports / esports / entertainment novelty markets sneak past the finance gate
+// on an incidental keyword (e.g. a Valorant "VCT China" esports match matching
+// "china"). Reject them outright — the pane stays finance / macro / politics.
+const PREDICT_EXCLUDE_RX = /\b(valorant|counter[- ]?strike|cs:?go|cs2|\bdota\b|league of legends|\blol\b|overwatch|rocket league|apex legends|fortnite|call of duty|\bcod\b|esports?|e-sports|\bvct\b|\blck\b|\brlcs\b|\blpl\b|bo[35]\b|best of [357]\b|grand final|group (?:omega|alpha|sigma|stage)|\bnba\b|\bnfl\b|\bmlb\b|\bnhl\b|\bncaa\b|premier league|la liga|serie a|bundesliga|uefa|champions league|super bowl|world cup|olympic|\bufc\b|\bwwe\b|grand prix|formula 1|\bf1\b|wimbledon|oscars?|grammys?|emmys?|golden globe|box office|rotten tomatoes|billboard|eurovision|met gala|\bmovie\b|\bfilm\b)\b/i;
 // Group each market into a type (used for section breaks + the rail filter).
 function predictType(q) {
   const s = " " + String(q).toLowerCase() + " ";
@@ -783,7 +787,7 @@ async function predictPolymarket() {
     if (!Array.isArray(arr)) continue;
     for (const m of arr) {
       const q = m.question || m.title || "";
-      if (!q || !PREDICT_RX.test(q)) continue;
+      if (!q || !PREDICT_RX.test(q) || PREDICT_EXCLUDE_RX.test(q)) continue;
       let prices = m.outcomePrices, outs = m.outcomes;
       try { if (typeof prices === "string") prices = JSON.parse(prices); } catch { /* */ }
       try { if (typeof outs === "string") outs = JSON.parse(outs); } catch { /* */ }
@@ -813,7 +817,7 @@ async function handlePredict(request, env, ctx) {
       { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/predict?v=7", request.url).toString());
+  const cacheKey = new Request(new URL("/api/predict?v=8", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const pm = await predictPolymarket().catch(() => []);
