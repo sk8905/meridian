@@ -774,8 +774,9 @@ function predictType(q) {
 }
 async function predictPolymarket() {
   const out = [];
-  // Two volume-sorted pages — finance/adjacent markets sit below the novelty leaders.
-  for (const offset of [0, 500]) {
+  // Three volume-sorted pages — finance/adjacent markets sit below the novelty
+  // leaders, so a deeper sweep is needed to fill a 30–40 market pane.
+  for (const offset of [0, 500, 1000]) {
     const txt = await fetchText(`https://gamma-api.polymarket.com/markets?active=true&closed=false&archived=false&order=volumeNum&ascending=false&limit=500&offset=${offset}`);
     let arr; try { arr = JSON.parse(txt); } catch { continue; }
     if (!Array.isArray(arr)) continue;
@@ -811,7 +812,7 @@ async function handlePredict(request, env, ctx) {
       { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/predict?v=6", request.url).toString());
+  const cacheKey = new Request(new URL("/api/predict?v=7", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const pm = await predictPolymarket().catch(() => []);
@@ -837,7 +838,7 @@ async function handlePredict(request, env, ctx) {
     const g = byType.get(t);
     if (!g) continue;
     g.sort((a, b) => b.vol - a.vol);
-    markets.push(...g.slice(0, 6));
+    markets.push(...g.slice(0, 12));
   }
   const resp = new Response(JSON.stringify({ markets }), { headers: { "content-type": "application/json", "cache-control": "public, max-age=120" } });
   if (ctx && ctx.waitUntil && markets.length) ctx.waitUntil(cache.put(cacheKey, resp.clone()));

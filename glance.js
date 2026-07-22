@@ -116,7 +116,7 @@ export function initGlance() {
   // Macro/Credit/Legal (nav-actions.js) — one implementation on all pages. The
   // legacy Home-only dropdown menus are retired; on phones Home just hides its
   // desktop data rails (initHomeMarketsRails) and uses the shared Markets panel.
-  import("/nav-actions.js?v=20260722-5").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260722-6").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderPredict();
   initFeedEntityNav();
   initFeedHeadLock();
@@ -1296,16 +1296,13 @@ const PRED_SUPER_TYPES = {
 const PRED_SUPER_OF = {};
 for (const s of ["Macro", "Politics", "Finance"]) for (const t of PRED_SUPER_TYPES[s]) PRED_SUPER_OF[t] = s;
 const predSuperOf = (type) => PRED_SUPER_OF[type] || "Macro";
-// Most active markets: the biggest daily odds swings (among liquid markets) plus
-// the highest-volume markets, deduped and ranked by move then volume.
+// Most active markets (liquid only), ranked biggest daily-odds INCREASE → biggest
+// DECREASE; flat/unchanged markets fall in the middle, ordered by volume.
 function predMovers(list) {
-  const byChg = list.filter((m) => (m.vol || 0) >= 10000 && typeof m.chg === "number" && isFinite(m.chg) && Math.abs(m.chg) >= 1)
-    .sort((a, b) => Math.abs(b.chg) - Math.abs(a.chg)).slice(0, 8);
-  const byVol = list.slice().sort((a, b) => (b.vol || 0) - (a.vol || 0)).slice(0, 8);
-  const seen = new Set(), out = [];
-  for (const m of [...byChg, ...byVol]) { const k = (m.q || "").toLowerCase(); if (k && !seen.has(k)) { seen.add(k); out.push(m); } }
-  out.sort((a, b) => (Math.abs(b.chg || 0) - Math.abs(a.chg || 0)) || ((b.vol || 0) - (a.vol || 0)));
-  return out.slice(0, 14);
+  const chgOf = (m) => (typeof m.chg === "number" && isFinite(m.chg)) ? m.chg : 0;
+  return list.filter((m) => (m.vol || 0) >= 10000)
+    .sort((a, b) => (chgOf(b) - chgOf(a)) || ((b.vol || 0) - (a.vol || 0)))
+    .slice(0, 40);
 }
 let _predList = null, _predFilter = "Top Movers";
 function predRow(m) {
@@ -1355,7 +1352,7 @@ function paintPredict(el) {
 function renderPredict() {
   const el = document.getElementById("g-predict");
   if (!el) return;
-  fetch("/api/predict?v=6", { headers: { accept: "application/json" } })
+  fetch("/api/predict?v=7", { headers: { accept: "application/json" } })
     .then((r) => (r.ok ? r.json() : null)).catch(() => null)
     .then((d) => { const list = (d && d.markets) || []; if (!list.length && el.querySelector(".tui-li")) return; _predList = list; paintPredict(el); });
 }

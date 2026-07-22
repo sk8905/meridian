@@ -268,7 +268,7 @@ function loadMarkets(body) {
   const loadPredict = () => {
     if (predict != null || predictLoading) return;
     predictLoading = true;
-    fetch("/api/predict?v=6", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null)
+    fetch("/api/predict?v=7", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null)
       .then((p) => { predict = (p && p.markets) || []; predictLoading = false; if (_mktTab === "predict") render(); });
   };
   chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c && c.dataset.k !== _mktTab) { _mktTab = c.dataset.k; if (_mktTab === "predict") loadPredict(); render(); } });
@@ -318,15 +318,13 @@ const NA_PRED_SUPER_TYPES = { Macro: ["Fed & rates", "Economy", "Other"], Politi
 const NA_PRED_SUPER_OF = {};
 for (const s of ["Macro", "Politics", "Finance"]) for (const t of NA_PRED_SUPER_TYPES[s]) NA_PRED_SUPER_OF[t] = s;
 const naPredSuperOf = (t) => NA_PRED_SUPER_OF[t] || "Macro";
-// Most active markets: biggest daily odds swings (liquid only) + highest volume.
+// Most active markets (liquid only), ranked biggest daily-odds INCREASE → biggest
+// DECREASE; flat/unchanged markets fall in the middle, ordered by volume.
 function naPredMovers(list) {
-  const byChg = list.filter((m) => (m.vol || 0) >= 10000 && typeof m.chg === "number" && isFinite(m.chg) && Math.abs(m.chg) >= 1)
-    .sort((a, b) => Math.abs(b.chg) - Math.abs(a.chg)).slice(0, 8);
-  const byVol = list.slice().sort((a, b) => (b.vol || 0) - (a.vol || 0)).slice(0, 8);
-  const seen = new Set(), out = [];
-  for (const m of [...byChg, ...byVol]) { const k = (m.q || "").toLowerCase(); if (k && !seen.has(k)) { seen.add(k); out.push(m); } }
-  out.sort((a, b) => (Math.abs(b.chg || 0) - Math.abs(a.chg || 0)) || ((b.vol || 0) - (a.vol || 0)));
-  return out.slice(0, 14);
+  const chgOf = (m) => (typeof m.chg === "number" && isFinite(m.chg)) ? m.chg : 0;
+  return list.filter((m) => (m.vol || 0) >= 10000)
+    .sort((a, b) => (chgOf(b) - chgOf(a)) || ((b.vol || 0) - (a.vol || 0)))
+    .slice(0, 40);
 }
 let _predSuper = "Top Movers";
 function predictPane(list, loading) {
