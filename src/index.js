@@ -1497,12 +1497,11 @@ const FEED_SOURCES = [
   { url: "https://www.butthistime.com/feed", source: "But This Time It's Different", region: "GEN", cap: 4, filter: false, substack: true },
   // Legal-industry news — The Lawyer & Legal Business (UK). `legal: true` routes
   // the emitted items to the Legal desk (labelled NEWS there); filter:false so the
-  // macro-keyword title screen doesn't drop legal-market headlines. Fetched via
-  // Google News site-search (reliable where the WordPress feeds bot-block).
-  { url: "https://news.google.com/rss/search?q=site%3Athelawyer.com%20when%3A7d&hl=en-GB&gl=GB&ceid=GB%3Aen", source: "The Lawyer", region: "UK", cap: 10, gnews: true, filter: false, legal: true },
-  { url: "https://news.google.com/rss/search?q=site%3Alegalbusiness.co.uk%20when%3A7d&hl=en-GB&gl=GB&ceid=GB%3Aen", source: "Legal Business", region: "UK", cap: 10, gnews: true, filter: false, legal: true },
-  // Direct WordPress feeds (the authoritative source — Google News barely indexes
-  // these trade titles); filter:false so every legal headline passes the title screen.
+  // macro-keyword title screen doesn't drop legal-market headlines. Their direct
+  // WordPress feeds carry the recent posts (dated) — the debug probe confirmed
+  // 100 / 10 items, whereas the Google-News site-searches barely indexed these
+  // trade titles AND their variant/Bing fallbacks blew the Worker subrequest cap
+  // (knocking out Business Wire), so the direct feeds are used alone.
   { url: "https://www.thelawyer.com/feed/", source: "The Lawyer", region: "UK", cap: 12, filter: false, legal: true },
   { url: "https://www.legalbusiness.co.uk/feed/", source: "Legal Business", region: "UK", cap: 12, filter: false, legal: true },
 ];
@@ -1825,7 +1824,7 @@ async function handleFeed(request, env, ctx) {
       { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=43", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=44", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const items = await feedAssemble(env, ctx);
