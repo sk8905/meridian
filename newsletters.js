@@ -28,6 +28,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-20260722",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: The SEC Pays a Texting Fine",
+    date: "2026-07-22",
+    time: "19:32",
+    summary: "Phones, 351s, lockups, zombies.",
+    url: "https://bloom.bg/3RTnRFz",
+  },
+  {
     id: "nl-lb-cchikespep-20260722",
     publication: "Legal Business",
     title: "CC hikes PEP as firm aims to 'unlock' brand in the US",

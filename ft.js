@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c087714d-7d46-449b-9684-eba1975d313a", title: "Aston Martin strikes £550mn debt deal despite creditor objections", date: "2026-07-22", time: "19:22", url: "https://www.ft.com/content/c087714d-7d46-449b-9684-eba1975d313a" },
+  { id: "8e33fb1d-cce3-4b56-9546-260f3f918c2d", title: "The real barrier to Africa’s solar energy boom", date: "2026-07-22", time: "18:52", url: "https://www.ft.com/content/8e33fb1d-cce3-4b56-9546-260f3f918c2d" },
+  { id: "0c0b1e83-8e5e-4c86-b9c6-179dba51fc69", title: "Greek tycoon’s tanker towed into Iranian waters", date: "2026-07-22", time: "18:38", url: "https://www.ft.com/content/0c0b1e83-8e5e-4c86-b9c6-179dba51fc69" },
+  { id: "aa6809e5-8963-433a-8458-61abe1526087", title: "UK education secretary accused of misleading claim about Oxford entry", date: "2026-07-22", time: "18:23", url: "https://www.ft.com/content/aa6809e5-8963-433a-8458-61abe1526087" },
+  { id: "f51afc65-1569-446c-a23e-5afa583a67c2", title: "India should listen to its frustrated youth", date: "2026-07-22", time: "17:31", url: "https://www.ft.com/content/f51afc65-1569-446c-a23e-5afa583a67c2" },
+  { id: "f0115d12-35b8-4dc2-9bf1-748203ac4331", title: "Pakistan seeks $10bn US facility to shore up reserves", date: "2026-07-22", time: "17:13", url: "https://www.ft.com/content/f0115d12-35b8-4dc2-9bf1-748203ac4331" },
   { id: "8f076be9-bf29-4df5-878b-835537ba2585", title: "European gas prices approach Iran war highs as traders fret over winter supplies", date: "2026-07-22", time: "17:03", url: "https://www.ft.com/content/8f076be9-bf29-4df5-878b-835537ba2585" },
   { id: "8c3a155b-03c0-4034-9403-839674a3df9e", title: "EU review of airline ownership rules clouds Apollo’s £5.7bn easyJet bid", date: "2026-07-22", time: "16:48", url: "https://www.ft.com/content/8c3a155b-03c0-4034-9403-839674a3df9e" },
   { id: "88da2738-6fce-497b-b8d5-1ed35196b3e0", title: "The battle over America’s War Powers Act", date: "2026-07-22", time: "16:47", url: "https://www.ft.com/content/88da2738-6fce-497b-b8d5-1ed35196b3e0" },
@@ -53,11 +59,4 @@ export const FT_ITEMS = [
   { id: "d8c377d5-630c-46de-8348-b08affa7d013", title: "Andy Burnham launches £2 cap on bus fares in latest cost of living intervention", date: "2026-07-22", time: "08:18", url: "https://www.ft.com/content/d8c377d5-630c-46de-8348-b08affa7d013" },
   { id: "259d8ce9-c56f-40b6-9ab7-9da9a3d1d502", title: "Santander profits curbed by TSB restructuring costs", date: "2026-07-22", time: "07:49", url: "https://www.ft.com/content/259d8ce9-c56f-40b6-9ab7-9da9a3d1d502" },
   { id: "592162dc-66ab-475d-973f-64738f7a3f2e", title: "India’s Gen Z takes on Modi", date: "2026-07-22", time: "07:17", url: "https://www.ft.com/content/592162dc-66ab-475d-973f-64738f7a3f2e" },
-  { id: "ee2a0a8e-3698-4fdf-9616-807dcdc8ae12", title: "Warsh’s balance sheet consultants", date: "2026-07-22", time: "06:30", url: "https://www.ft.com/content/ee2a0a8e-3698-4fdf-9616-807dcdc8ae12" },
-  { id: "a571086a-04cc-4dc6-a595-13af67af2ea7", title: "FTAV’s further reading", date: "2026-07-22", time: "06:30", url: "https://www.ft.com/content/a571086a-04cc-4dc6-a595-13af67af2ea7" },
-  { id: "05f08fff-f325-4310-91ac-d64ab12eca3d", title: "Why the EU faces a Russian oil vs LNG sanctions stand-off", date: "2026-07-22", time: "06:00", url: "https://www.ft.com/content/05f08fff-f325-4310-91ac-d64ab12eca3d" },
-  { id: "3fcda833-80d2-4e13-86f4-29b479b79adf", title: "Is AI productivity growth in the room with us right now?", date: "2026-07-22", time: "06:00", url: "https://www.ft.com/content/3fcda833-80d2-4e13-86f4-29b479b79adf" },
-  { id: "181b5cb9-1d9d-42e8-8036-67c98bf3cd80", title: "FirstFT: French AI start-up Mistral in fundraising talks with Samsung", date: "2026-07-22", time: "05:32", url: "https://www.ft.com/content/181b5cb9-1d9d-42e8-8036-67c98bf3cd80" },
-  { id: "62d340a5-0806-40c4-ab30-a13823a00983", title: "Tokyo vows to take ‘bold’ action as yen keeps sliding", date: "2026-07-22", time: "05:04", url: "https://www.ft.com/content/62d340a5-0806-40c4-ab30-a13823a00983" },
-  { id: "ae77f88d-7cde-43aa-ac03-204eae25edc2", title: "The Story of Money", date: "2026-07-22", time: "05:03", url: "https://www.ft.com/content/ae77f88d-7cde-43aa-ac03-204eae25edc2" },
 ];
