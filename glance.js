@@ -50,6 +50,9 @@ const NON_PREMIUM = new Set([
 // newsroom must read as finance / markets / economy / policy / dealmaking to
 // survive; premium newsrooms (FT, Bloomberg, Reuters, WSJ, CNBC, Economist) always
 // stay. Trims the off-topic tail (human-interest, sport, lifestyle) by relevance.
+// Curated legal-industry newsrooms — kept regardless of the macro-relevance gate
+// (they're the Legal desk's news, and Home is the superset of all app news).
+const LEGAL_NEWS_SRC = new Set(["The Lawyer", "Legal Business"]);
 const NEWS_RELEVANCE = /\b(econom|market|stock|share\b|shares|equit|bond|yield|treasur|gilt|bund|rate|interest|inflation|deflation|cpi|ppi|pce|gdp|growth|recession|jobs|payroll|unemploy|labou?r|wage|fed|fomc|powell|ecb|lagarde|central bank|\bboe\b|dollar|euro|sterling|\byen\b|currenc|forex|\bfx\b|oil|crude|opec|brent|\bgas\b|gold|silver|copper|commodit|bitcoin|crypto|ethereum|stablecoin|earnings|profit|revenue|guidance|\bipo\b|merger|acquisition|buyout|takeover|\bdeal|\bm&a\b|bank|lend|credit|debt|default|bankrupt|restructur|tariff|trade|export|import|sanction|budget|fiscal|deficit|\btax\b|stimulus|housing|mortgage|property|retail sales|consumer|manufactur|\bpmi\b|factory|industr|semiconductor|\bchip|\bai\b|artificial intelligence|tech|nvidia|apple|microsoft|tesla|amazon|alphabet|google|meta\b|openai|geopolit|\bwar\b|election|tariff|trump|\bchina\b|russia|\biran\b|ukraine|opec|hedge fund|private equity|venture|valuation|bond market|stock market|wall street|ftse|s&p|nasdaq|dow|nikkei|dax|hang seng)\b/i;
 const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const fmt = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ""); return m ? `${+m[3]} ${MON[+m[2] - 1]} ${m[1]}` : (iso || ""); };
@@ -522,8 +525,11 @@ function renderFeed() {
   // title-dedupe below collapses any overlap with the static feeds. myFT-flagged
   // items belong to the FT stream and substack-flagged to the Substack desk; the
   // rest split MAC vs NEWS by the same strict-macro test.
+  // myFT / Substack ride their own desks (added below); everything else — INCLUDING
+  // the legal-industry wire (The Lawyer / Legal Business) — folds into the Home
+  // newsfeed, which is the superset of every news item across the app.
   (_liveFeed || []).forEach((n) => {
-    if (n.myft || n.substack || n.legal) return;   // legal-desk news shows on the Legal page, not the Home wire
+    if (n.myft || n.substack) return;
     const desk = deskFor(n.title, n.source);
     (desk === "m" ? macro : news).push(mk(desk, n.url, n.title, n.source, true, n.date, n.time));
   });
@@ -531,13 +537,26 @@ function renderFeed() {
   // via it) and the low-tier aggregator/SEO/crypto desks, so the wire stays on
   // premium newsrooms, research houses and official data. Applies to both desks.
   const keepPremium = (o) => (o.src !== "Investing.com" || /\breuters\b/i.test(o.title || "")) && !NON_PREMIUM.has(o.src);
+  const _cull = { macroBefore: macro.length, newsBefore: news.length };
   { const km = macro.filter(keepPremium); macro.length = 0; macro.push(...km); }
   { const kn = news.filter(keepPremium); news.length = 0; news.push(...kn); }
-  // Relevance cull on the general-news desk: keep premium newsrooms outright, and
-  // otherwise only stories that read as market/economy/policy/dealmaking — drops
-  // the off-topic tail (the lowest-quality ~10% by relevance).
-  const keepRelevant = (o) => PREMIUM_NEWS.has(o.src) || NEWS_RELEVANCE.test(o.title || "");
+  _cull.macroAfter = macro.length; _cull.newsAfterSource = news.length;
+  // Relevance cull on the general-news desk: keep premium newsrooms (and the
+  // curated legal-industry wire) outright, otherwise only stories that read as
+  // market/economy/policy/dealmaking — drops the off-topic tail (~10% by relevance).
+  const keepRelevant = (o) => PREMIUM_NEWS.has(o.src) || LEGAL_NEWS_SRC.has(o.src) || NEWS_RELEVANCE.test(o.title || "");
+  const _relDrop = news.filter((o) => !keepRelevant(o));
   { const kr = news.filter(keepRelevant); news.length = 0; news.push(...kr); }
+  // Instrumentation: read window.__feedCull in the console (or add ?cull=1 to log
+  // it) to see how many items the source + relevance culls remove, and why.
+  _cull.newsAfter = news.length;
+  _cull.droppedBySource = (_cull.macroBefore - _cull.macroAfter) + (_cull.newsBefore - _cull.newsAfterSource);
+  _cull.droppedByRelevance = _cull.newsAfterSource - _cull.newsAfter;
+  _cull.totalDropped = _cull.droppedBySource + _cull.droppedByRelevance;
+  _cull.pool = _cull.macroBefore + _cull.newsBefore;
+  _cull.pctOfPool = _cull.pool ? +((_cull.totalDropped / _cull.pool) * 100).toFixed(1) : 0;
+  _cull.relevanceExamples = _relDrop.map((o) => `${o.src} — ${o.title}`).slice(0, 30);
+  try { window.__feedCull = _cull; if (/[?&]cull=1/.test(location.search)) console.info("[feed cull]", _cull); } catch { /* */ }
 
   const credit = [];
   deals.forEach((d) => credit.push({ ...mk("c", creditItemHref(d), d.headline, creditSource(d), creditItemExt(d), d.date, d.time, "c", d.id), mgr: d.managerId || "" }));
