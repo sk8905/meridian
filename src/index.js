@@ -799,10 +799,32 @@ async function predictKalshi() {
 async function handlePredict(request, env, ctx) {
   const url = new URL(request.url);
   if (url.searchParams.get("debug")) {
+    // Raw reachability probe: hit each candidate host directly and report what
+    // comes back (status / length / shape / a title sample) so we can see whether
+    // the edge can reach them and which base URL + field names are right.
+    const probe = async (label, u, pick) => {
+      try {
+        const r = await fetch(u, { headers: fetchHeaders(u), cf: { cacheTtl: 0 } });
+        const b = await r.text();
+        let shape = null, titles = null;
+        try { const j = JSON.parse(b); const arr = Array.isArray(j) ? j : (j.markets || j.data || null);
+          shape = Array.isArray(j) ? `array(${j.length})` : `object{${Object.keys(j).slice(0, 8).join(",")}}`;
+          if (Array.isArray(arr)) titles = arr.slice(0, 5).map((m) => m.question || m.title || m.name || "?");
+        } catch { /* non-JSON */ }
+        return { label, url: u, status: r.status, len: b.length, shape, titles, snippet: b.slice(0, 200) };
+      } catch (e) { return { label, url: u, error: String((e && e.message) || e) }; }
+    };
+    const probes = await Promise.all([
+      probe("polymarket", "https://gamma-api.polymarket.com/markets?closed=false&limit=5&order=volumeNum&ascending=false"),
+      probe("polymarket-plain", "https://gamma-api.polymarket.com/markets?limit=5"),
+      probe("kalshi-external", "https://external-api.kalshi.com/trade-api/v2/markets?limit=5"),
+      probe("kalshi-elections", "https://api.elections.kalshi.com/trade-api/v2/markets?limit=5"),
+      probe("kalshi-trading", "https://trading-api.kalshi.com/trade-api/v2/markets?limit=5"),
+    ]);
     const [pm, ks] = await Promise.all([predictPolymarket().catch((e) => ({ err: String(e) })), predictKalshi().catch((e) => ({ err: String(e) }))]);
     return new Response(JSON.stringify({
-      polymarket: Array.isArray(pm) ? { count: pm.length, sample: pm.slice(0, 8) } : pm,
-      kalshi: Array.isArray(ks) ? { count: ks.length, sample: ks.slice(0, 8) } : ks,
+      probes,
+      parsed: { polymarket: Array.isArray(pm) ? pm.length : pm, kalshi: Array.isArray(ks) ? ks.length : ks },
     }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
