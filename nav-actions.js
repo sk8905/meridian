@@ -280,7 +280,9 @@ function loadMarkets(body) {
     const tgl = e.target.closest(".na-pf-tgl");        // portfolio Daily/Total
     if (tgl) { e.preventDefault(); e.stopPropagation(); if (tgl.dataset.m !== _pfMode) { _pfMode = tgl.dataset.m; render(); } return; }
     const ps = e.target.closest(".na-pred-fchip");     // predictions Macro/Politics/Finance
-    if (ps && !ps.disabled) { e.preventDefault(); e.stopPropagation(); if (ps.dataset.ps !== _predSuper) { _predSuper = ps.dataset.ps; render(); } }
+    if (ps && !ps.disabled) { e.preventDefault(); e.stopPropagation(); if (ps.dataset.ps !== _predSuper) { _predSuper = ps.dataset.ps; render(); } return; }
+    const dir = e.target.closest(".na-pred-dir");      // Top Movers Up/Down
+    if (dir) { e.preventDefault(); e.stopPropagation(); const d = dir.dataset.dir; _predMoveDir = _predMoveDir === d ? "all" : d; render(); }
   });
   if (_mktTab === "predict") loadPredict();
   render();
@@ -325,7 +327,7 @@ function naPredMovers(list) {
     .sort((a, b) => (b.chg - a.chg) || ((b.vol || 0) - (a.vol || 0)))
     .slice(0, 40);
 }
-let _predSuper = "Top Movers";
+let _predSuper = "Top Movers", _predMoveDir = "all";
 function predictPane(list, loading) {
   if (loading || list == null) return '<div class="na-load">Loading…</div>';
   if (!list.length) return '<div class="na-load">No prediction markets available right now.</div>';
@@ -339,7 +341,16 @@ function predictPane(list, loading) {
     + `</div>`;
   let body;
   if (_predSuper === "Top Movers") {
-    body = naSec("Top movers", "most active") + movers.map(predictRow).join("");
+    // Up = increases only (largest→smallest); Down = decreases only (largest
+    // magnitude→smallest); all = biggest increase→biggest decrease.
+    let rows = movers;
+    if (_predMoveDir === "up") rows = movers.filter((m) => m.chg > 0);
+    else if (_predMoveDir === "down") rows = movers.filter((m) => m.chg < 0).sort((a, b) => a.chg - b.chg);
+    const tgl = `<span class="na-pf-tgl-wrap" role="tablist">`
+      + `<button type="button" class="na-pred-dir${_predMoveDir === "up" ? " on" : ""}" data-dir="up">Up</button>`
+      + `<button type="button" class="na-pred-dir${_predMoveDir === "down" ? " on" : ""}" data-dir="down">Down</button></span>`;
+    const hdr = `<div class="na-sec na-sec-tgl"><span>Top movers</span>${tgl}</div>`;
+    body = hdr + rows.map(predictRow).join("");
   } else {
     const active = supers[_predSuper] || {};
     const subTypes = PRED_TYPE_ORDER.filter((t) => active[t]).concat(Object.keys(active).filter((t) => !PRED_TYPE_ORDER.includes(t)));

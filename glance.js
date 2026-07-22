@@ -113,7 +113,7 @@ export function initGlance() {
   // Macro/Credit/Legal (nav-actions.js) — one implementation on all pages. The
   // legacy Home-only dropdown menus are retired; on phones Home just hides its
   // desktop data rails (initHomeMarketsRails) and uses the shared Markets panel.
-  import("/nav-actions.js?v=20260722-8").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260722-9").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderPredict();
   initFeedEntityNav();
   initFeedHeadLock();
@@ -1303,7 +1303,7 @@ function predMovers(list) {
     .sort((a, b) => (b.chg - a.chg) || ((b.vol || 0) - (a.vol || 0)))
     .slice(0, 40);
 }
-let _predList = null, _predFilter = "Top Movers";
+let _predList = null, _predFilter = "Top Movers", _predMoveDir = "all";
 function predRow(m) {
   const yes = typeof m.yes === "number" ? m.yes + "%" : "—";
   const meta = [m.venue, m.end ? fmt(String(m.end).slice(0, 10)) : ""].filter(Boolean).join(" · ");
@@ -1339,7 +1339,15 @@ function paintPredict(el) {
     + `</div>`;
   let body;
   if (_predFilter === "Top Movers") {
-    body = `<div class="g-pred-sec">Top movers</div>` + movers.map(predRow).join("");
+    // Up = increases only (largest→smallest); Down = decreases only (largest
+    // magnitude→smallest); all = biggest increase→biggest decrease.
+    let rows = movers;
+    if (_predMoveDir === "up") rows = movers.filter((m) => m.chg > 0);
+    else if (_predMoveDir === "down") rows = movers.filter((m) => m.chg < 0).sort((a, b) => a.chg - b.chg);
+    const tgl = `<span class="g-pf-tgl-wrap">`
+      + `<button type="button" class="g-pred-dir${_predMoveDir === "up" ? " on" : ""}" data-dir="up">Up</button>`
+      + `<button type="button" class="g-pred-dir${_predMoveDir === "down" ? " on" : ""}" data-dir="down">Down</button></span>`;
+    body = `<div class="g-pred-sec g-pred-sec-tgl"><span>Top movers</span>${tgl}</div>` + rows.map(predRow).join("");
   } else {
     const active = supers[_predFilter] || {};
     const subTypes = PRED_TYPE_ORDER.filter((t) => active[t] && active[t].length).concat(Object.keys(active).filter((t) => !PRED_TYPE_ORDER.includes(t)));
@@ -1347,6 +1355,7 @@ function paintPredict(el) {
   }
   el.innerHTML = chips + `<div class="g-pred-list">${body}</div>`;
   el.querySelectorAll(".g-pred-fchip").forEach((c) => c.addEventListener("click", () => { if (!c.disabled && c.dataset.f !== _predFilter) { _predFilter = c.dataset.f; paintPredict(el); } }));
+  el.querySelectorAll(".g-pred-dir").forEach((b) => b.addEventListener("click", () => { const d = b.dataset.dir; _predMoveDir = _predMoveDir === d ? "all" : d; paintPredict(el); }));
 }
 function renderPredict() {
   const el = document.getElementById("g-predict");

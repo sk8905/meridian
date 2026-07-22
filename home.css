@@ -932,9 +932,10 @@
     .tui .g-mkt-tab:hover{ color:var(--t-dim); }
     .tui .g-mkt-tab.is-on{ color:var(--t-ink); box-shadow:inset 0 -2px 0 var(--chip-ul, var(--t-dim)); }
     .tui .g-pf-tgl-wrap{ display:inline-flex; gap:2px; }
-    .tui .g-pf-tgl{ font:inherit; font-size:9.5px; font-weight:600; letter-spacing:.02em; text-transform:uppercase;
+    .tui .g-pf-tgl, .tui .g-pred-dir{ font:inherit; font-size:9.5px; font-weight:600; letter-spacing:.02em; text-transform:uppercase;
       padding:1px 6px; border:1px solid var(--t-grid); background:transparent; color:var(--t-faint); cursor:pointer; }
-    .tui .g-pf-tgl.on{ background:var(--t-panel2); color:var(--t-ink); border-color:var(--t-dim); }
+    .tui .g-pf-tgl.on, .tui .g-pred-dir.on{ background:var(--t-panel2); color:var(--t-ink); border-color:var(--t-dim); }
+    .tui .g-pred-sec-tgl{ display:flex; align-items:center; justify-content:space-between; gap:8px; padding-top:6px; padding-bottom:5px; }
     .tui .g-pf-sum .rate-val{ font-weight:700; }
     /* Thin grey section breaks: below Total Value and above P&L (id-scoped so they
        beat .rate-tile{border:0} declared later). */
