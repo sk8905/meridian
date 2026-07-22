@@ -678,13 +678,13 @@ function viewCycle() {
   const country = (name, c) => `
     <section class="card macro-note">
       <h2 class="macro-country">${esc(name)}</h2>
-      <p class="macro-note-sub"><strong>${esc(c.shortStage)}</strong> · ${esc(c.longStage)}</p>
+      <p class="macro-note-sub"><strong>${esc(c.shortStage)}</strong> · ${esc(c.longStage)}${c.worldStage ? " · " + esc(c.worldStage) : ""}</p>
       ${c.body.map((p) => `<p class="macro-para">${p}</p>`).join("")}
     </section>`;
   return `
     <div class="page-head">
       <h1>Cycle stage — a Dalio reading</h1>
-      <p class="muted">Where the US and UK sit in the economic / credit cycle, framed by Ray Dalio's short-term and long-term (“Big Debt Cycle”) framework. As of ${esc(UPDATED)}. Educational only — not investment advice.</p>
+      <p class="muted">Where the US and UK sit in Ray Dalio's nested cycles — the <strong>short-term business/debt cycle</strong> and the <strong>long-term “Big Cycle”</strong> (the changing world order: debt, internal order and great-power rivalry around a reserve currency). As of ${esc(UPDATED)}. Educational only — not investment advice.</p>
     </div>
     <section class="card macro-gauge-card">
       <div class="macro-gauge-head">

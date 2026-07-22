@@ -177,24 +177,29 @@ export const COMMENTARY = {
 // synthesis, NOT a number Dalio publishes.
 export const CYCLE = {
   framework: [
-    "Ray Dalio distinguishes the <strong>short-term debt cycle</strong> — the ordinary business cycle of roughly six years, driven by central banks tightening to curb inflation then easing to revive growth — from the <strong>long-term “Big Debt Cycle”</strong> of ~50–75 years, in which each short cycle leaves debt a little higher until the burden becomes unsustainable. He describes a progression from sound money → leveraging and debt bubble → top → deleveraging → new equilibrium, the best resolution being a <em>“beautiful deleveraging”</em> that balances restructuring and money-printing so nominal growth outruns nominal rates.",
-    "His 2025 book <em>How Countries Go Broke: The Big Cycle</em> formalises this and applies it to the United States. Dalio's documented 2025–26 warning: the US must cut its deficit to about <strong>3% of GDP</strong> or risk a bond-market “heart attack” — rising rates feeding weaker demand for Treasuries feeding still-higher rates — within roughly three years.",
+    "Ray Dalio nests two horizons. The <strong>short-term debt cycle</strong> is the ordinary <strong>business cycle</strong> of roughly six years — central banks tighten to curb inflation, then ease to revive growth — progressing sound money → leveraging and debt bubble → top → deleveraging → new equilibrium, the best resolution being a <em>“beautiful deleveraging”</em> that balances restructuring and money-printing so nominal growth outruns nominal rates.",
+    "Stacked above it is the <strong>long-term “Big Cycle”</strong> — the roughly <strong>250-year rise and decline of a leading power</strong> that Dalio sets out in <em>Principles for Dealing with the Changing World Order</em> (2021). Each short cycle leaves debt a little higher until the <strong>long-term debt cycle</strong> (~50–100 years) turns; that money-and-debt arc moves in tandem with the <strong>internal-order</strong> cycle (wealth gaps and political conflict) and the <strong>external-order</strong> cycle (great-power rivalry and war), around the life of a <strong>reserve currency</strong>. When those strands turn together, the world order itself changes rather than resetting cleanly.",
+    "His 2025 book <em>How Countries Go Broke: The Big Cycle</em> applies the debt strand to the United States. Dalio's documented 2025–26 warning: the US must cut its deficit to about <strong>3% of GDP</strong> or risk a bond-market “heart attack” — rising rates feeding weaker demand for Treasuries feeding still-higher rates — within roughly three years.",
   ],
   us: {
     shortStage: "Late cycle — sticky inflation, hold / hawkish",
     longStage: "Late Big Debt Cycle — record debt & interest burden",
+    worldStage: "Late Big Cycle — incumbent power, reserve status contested",
     pos: 72,
     body: [
-      "<strong>Short-term cycle:</strong> late, but not cleanly easing. The Fed held in June 2026 with a hawkish statement and raised its end-2026 PCE projection to 3.6%; a cooling labour market — June nonfarm payrolls rose just 57,000, well below the 115,000 consensus, with the unemployment rate's dip to 4.2% driven mainly by a falling participation rate — sits alongside above-target inflation, a stagflationary tilt rather than a disinflationary glide-path.",
+      "<strong>Short-term (business) cycle:</strong> late, but not cleanly easing. The Fed held in June 2026 with a hawkish statement and raised its end-2026 PCE projection to 3.6%; a cooling labour market — June nonfarm payrolls rose just 57,000, well below the 115,000 consensus, with the unemployment rate's dip to 4.2% driven mainly by a falling participation rate — sits alongside above-target inflation, a stagflationary tilt rather than a disinflationary glide-path.",
       "<strong>Long-term debt cycle:</strong> late-stage. CBO's February 2026 outlook puts the FY2026 deficit at <strong>$1.9tn (5.8% of GDP)</strong>, debt held by the public at <strong>~101% of GDP</strong>, and net interest at a record <strong>~$1.0tn (3.3% of GDP)</strong> — the compounding interest-service and heavy issuance Dalio warns about.",
+      "<strong>Long-term “Big Cycle” (world order):</strong> the US sits late in the leading-power arc — still the reserve-currency incumbent, though the dollar's share of global reserves has drifted down over two decades, and carrying the classic late-stage markers Dalio flags: record debt and interest burden (the money strand), wide internal wealth and political divides (the internal-order strand), and an external challenge from a rising China (the external-order strand). His read is that these three are turning together, the pattern that historically precedes a change in the world order rather than a clean single-cycle reset.",
     ],
   },
   uk: {
     shortStage: "Mid-late cycle — easing stalled by ~3% CPI",
     longStage: "Elevated debt & gilt stress, less advanced",
+    worldStage: "Post-peak — well past its world-order top",
     pos: 58,
     body: [
-      "<strong>Short-term cycle:</strong> mid-to-late, cautiously easing. The BoE has cut from a 5.25% peak to 3.75% and held there in June 2026 on a 7–2 vote, with CPI still near 3% — easing stalled by sticky inflation.",
+      "<strong>Short-term (business) cycle:</strong> mid-to-late, cautiously easing. The BoE has cut from a 5.25% peak to 3.75% and held there in June 2026 on a 7–2 vote, with CPI still near 3% — easing stalled by sticky inflation.",
+      "<strong>Long-term “Big Cycle” (world order):</strong> the UK is well past its own peak in Dalio's arc — the empire and sterling's reserve-currency status were ceded to the United States across the early-to-mid 20th century — so it reads as a mid-tier power managing decline rather than a nation at a Big-Cycle turning point. Its live constraints are the debt/gilt and internal-order strands (fiscal limits, distributional politics), not a contested reserve currency. <em>Dalio writes primarily about the US; the UK placement here is Wire synthesis.</em>",
       "<strong>Long-term debt / fiscal:</strong> elevated but less acute than the US. Public-sector net debt is <strong>~95% of GDP</strong>; borrowing is projected to fall from 5.2% (2024-25) toward ~4.3% in 2026-27. Gilt-market stress is real (10Y ~4.9%, 30Y ~5.5%) but there is no reserve-currency dynamic. <em>Dalio writes primarily about the US; the UK placement here is Wire synthesis, not his stated view.</em>",
       "The OECD's July 2026 Economic Survey of the UK, published 15 July, projected GDP growth slowing to <strong>0.9% in 2026</strong> (from 1.4% in 2025) and urged the incoming Burnham government to maintain budget discipline and reform the state-pension triple lock to contain fiscal risk — reinforcing the 'elevated but less acute than the US' read.",
       "That fiscal-risk theme landed on Burnham's very first day: telling reporters on 20 July he would use 'any flexibility' within the existing fiscal rules, the remark spooked gilt investors and pushed the 10-year yield up 9bp to 5.04% — a live illustration of the bond-market constraint the OECD flagged five days earlier.",
@@ -204,6 +209,7 @@ export const CYCLE = {
   note: "Gauge values (0–100) are Wire synthesis on a stylised early→crisis track, not figures Dalio publishes. Dalio's documented views are US-focused; the UK read is our interpretation.",
   sources: [
     ["Dalio — How Countries Go Broke (excerpt)", "https://economicprinciples.org/downloads/How-Countries-Go-Broke.pdf"],
+    ["Dalio — The Changing World Order (Big Cycle)", "https://economicprinciples.org/the-changing-world-order/"],
     ["CNBC — Dalio on the bond market & deficit", "https://www.cnbc.com/2025/05/22/ray-dalio-says-to-fear-the-bond-market-as-deficit-becomes-critical.html"],
     ["Bloomberg — Dalio “debt heart attack” warning", "https://www.bloomberg.com/news/articles/2025-03-03/dalio-warns-of-us-debt-crisis-heart-attack-within-three-years"],
     ["CBO — Budget & Economic Outlook, Feb 2026", "https://www.cbo.gov/system/files/2026-02/61882-Outlook-2026.pdf"],
