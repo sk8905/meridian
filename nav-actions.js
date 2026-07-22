@@ -312,26 +312,42 @@ function predictRow(m) {
     + `<span class="na-pred-nums"><span class="na-pred-yes${cls}">${yes == null ? "—" : yes + "%"}</span>${chg}</span></a>`;
 }
 const PRED_TYPE_ORDER = ["Fed & rates", "Economy", "Equities", "Crypto", "Trump", "Geopolitics", "Elections", "Other"];
-// Three super-category chips (as on desktop) group the fine-grained types.
-const NA_PRED_SUPERS = ["Macro", "Politics", "Finance"];
+// Top Movers (default) + the three type super-groups (as on desktop).
+const NA_PRED_SUPERS = ["Top Movers", "Macro", "Politics", "Finance"];
 const NA_PRED_SUPER_TYPES = { Macro: ["Fed & rates", "Economy", "Other"], Politics: ["Trump", "Geopolitics", "Elections"], Finance: ["Equities", "Crypto"] };
 const NA_PRED_SUPER_OF = {};
-for (const s of NA_PRED_SUPERS) for (const t of NA_PRED_SUPER_TYPES[s]) NA_PRED_SUPER_OF[t] = s;
+for (const s of ["Macro", "Politics", "Finance"]) for (const t of NA_PRED_SUPER_TYPES[s]) NA_PRED_SUPER_OF[t] = s;
 const naPredSuperOf = (t) => NA_PRED_SUPER_OF[t] || "Macro";
-let _predSuper = "Macro";
+// Most active markets: biggest daily odds swings (liquid only) + highest volume.
+function naPredMovers(list) {
+  const byChg = list.filter((m) => (m.vol || 0) >= 10000 && typeof m.chg === "number" && isFinite(m.chg) && Math.abs(m.chg) >= 1)
+    .sort((a, b) => Math.abs(b.chg) - Math.abs(a.chg)).slice(0, 8);
+  const byVol = list.slice().sort((a, b) => (b.vol || 0) - (a.vol || 0)).slice(0, 8);
+  const seen = new Set(), out = [];
+  for (const m of [...byChg, ...byVol]) { const k = (m.q || "").toLowerCase(); if (k && !seen.has(k)) { seen.add(k); out.push(m); } }
+  out.sort((a, b) => (Math.abs(b.chg || 0) - Math.abs(a.chg || 0)) || ((b.vol || 0) - (a.vol || 0)));
+  return out.slice(0, 14);
+}
+let _predSuper = "Top Movers";
 function predictPane(list, loading) {
   if (loading || list == null) return '<div class="na-load">Loading…</div>';
   if (!list.length) return '<div class="na-load">No prediction markets available right now.</div>';
-  const supers = {}; NA_PRED_SUPERS.forEach((s) => (supers[s] = {}));
+  const supers = { Macro: {}, Politics: {}, Finance: {} };
   for (const m of list) { const t = m.type || "Other"; (supers[naPredSuperOf(t)][t] = supers[naPredSuperOf(t)][t] || []).push(m); }
-  const has = (s) => Object.keys(supers[s]).length > 0;
+  const movers = naPredMovers(list);
+  const has = (s) => s === "Top Movers" ? movers.length > 0 : Object.keys(supers[s]).length > 0;
   if (!has(_predSuper)) _predSuper = NA_PRED_SUPERS.find(has) || "Macro";
   const chips = `<div class="na-pred-chips" role="tablist">`
     + NA_PRED_SUPERS.map((s) => `<button type="button" class="na-pred-fchip${_predSuper === s ? " on" : ""}" data-ps="${esc(s)}"${has(s) ? "" : " disabled"}>${esc(s)}</button>`).join("")
     + `</div>`;
-  const active = supers[_predSuper] || {};
-  const subTypes = PRED_TYPE_ORDER.filter((t) => active[t]).concat(Object.keys(active).filter((t) => !PRED_TYPE_ORDER.includes(t)));
-  const body = subTypes.map((t) => naSec(t, "implied YES %") + active[t].map(predictRow).join("")).join("");
+  let body;
+  if (_predSuper === "Top Movers") {
+    body = naSec("Top movers", "most active") + movers.map(predictRow).join("");
+  } else {
+    const active = supers[_predSuper] || {};
+    const subTypes = PRED_TYPE_ORDER.filter((t) => active[t]).concat(Object.keys(active).filter((t) => !PRED_TYPE_ORDER.includes(t)));
+    body = subTypes.map((t) => naSec(t, "implied YES %") + active[t].map(predictRow).join("")).join("");
+  }
   return chips + body;
 }
 function marketRow(x) {

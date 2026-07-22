@@ -116,7 +116,7 @@ export function initGlance() {
   // Macro/Credit/Legal (nav-actions.js) — one implementation on all pages. The
   // legacy Home-only dropdown menus are retired; on phones Home just hides its
   // desktop data rails (initHomeMarketsRails) and uses the shared Markets panel.
-  import("/nav-actions.js?v=20260722-4").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260722-5").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderPredict();
   initFeedEntityNav();
   initFeedHeadLock();
@@ -1284,16 +1284,30 @@ const PRED_TYPE_ORDER = ["Fed & rates", "Economy", "Equities", "Crypto", "Trump"
 // Three top-level chips group the fine-grained types: Macro (Fed/rates, inflation),
 // Politics (Trump, geopolitics, elections) and Finance (equities/IPOs, crypto).
 // Unmapped types (the finance-adjacent "Other" bucket) fall to Macro.
-const PRED_SUPERS = ["Macro", "Politics", "Finance"];
+// "Top Movers" is a cross-cutting view (default); the other three are the type
+// super-groups. Every market already passes the finance/finance-adjacent gate
+// server-side, so the mover set stays within the app's universe (no sport/culture).
+const PRED_SUPERS = ["Top Movers", "Macro", "Politics", "Finance"];
 const PRED_SUPER_TYPES = {
   Macro: ["Fed & rates", "Economy", "Other"],
   Politics: ["Trump", "Geopolitics", "Elections"],
   Finance: ["Equities", "Crypto"],
 };
 const PRED_SUPER_OF = {};
-for (const s of PRED_SUPERS) for (const t of PRED_SUPER_TYPES[s]) PRED_SUPER_OF[t] = s;
+for (const s of ["Macro", "Politics", "Finance"]) for (const t of PRED_SUPER_TYPES[s]) PRED_SUPER_OF[t] = s;
 const predSuperOf = (type) => PRED_SUPER_OF[type] || "Macro";
-let _predList = null, _predFilter = "Macro";
+// Most active markets: the biggest daily odds swings (among liquid markets) plus
+// the highest-volume markets, deduped and ranked by move then volume.
+function predMovers(list) {
+  const byChg = list.filter((m) => (m.vol || 0) >= 10000 && typeof m.chg === "number" && isFinite(m.chg) && Math.abs(m.chg) >= 1)
+    .sort((a, b) => Math.abs(b.chg) - Math.abs(a.chg)).slice(0, 8);
+  const byVol = list.slice().sort((a, b) => (b.vol || 0) - (a.vol || 0)).slice(0, 8);
+  const seen = new Set(), out = [];
+  for (const m of [...byChg, ...byVol]) { const k = (m.q || "").toLowerCase(); if (k && !seen.has(k)) { seen.add(k); out.push(m); } }
+  out.sort((a, b) => (Math.abs(b.chg || 0) - Math.abs(a.chg || 0)) || ((b.vol || 0) - (a.vol || 0)));
+  return out.slice(0, 14);
+}
+let _predList = null, _predFilter = "Top Movers";
 function predRow(m) {
   const yes = typeof m.yes === "number" ? m.yes + "%" : "—";
   const meta = [m.venue, m.end ? fmt(String(m.end).slice(0, 10)) : ""].filter(Boolean).join(" · ");
@@ -1321,14 +1335,20 @@ function paintPredict(el) {
     const s = predSuperOf(t);
     (supers[s][t] = supers[s][t] || []).push(m);
   }
-  const has = (s) => Object.keys(supers[s]).length > 0;
+  const movers = predMovers(list);
+  const has = (s) => s === "Top Movers" ? movers.length > 0 : Object.keys(supers[s]).length > 0;
   if (!has(_predFilter)) _predFilter = PRED_SUPERS.find(has) || "Macro";
   const chips = `<div class="g-pred-filter" role="tablist">`
     + PRED_SUPERS.map((s) => `<button type="button" class="g-pred-fchip${_predFilter === s ? " on" : ""}" data-f="${esc(s)}"${has(s) ? "" : " disabled"}>${esc(s)}</button>`).join("")
     + `</div>`;
-  const active = supers[_predFilter] || {};
-  const subTypes = PRED_TYPE_ORDER.filter((t) => active[t] && active[t].length).concat(Object.keys(active).filter((t) => !PRED_TYPE_ORDER.includes(t)));
-  const body = subTypes.map((t) => `<div class="g-pred-sec">${esc(t)}</div>` + active[t].map(predRow).join("")).join("");
+  let body;
+  if (_predFilter === "Top Movers") {
+    body = `<div class="g-pred-sec">Top movers</div>` + movers.map(predRow).join("");
+  } else {
+    const active = supers[_predFilter] || {};
+    const subTypes = PRED_TYPE_ORDER.filter((t) => active[t] && active[t].length).concat(Object.keys(active).filter((t) => !PRED_TYPE_ORDER.includes(t)));
+    body = subTypes.map((t) => `<div class="g-pred-sec">${esc(t)}</div>` + active[t].map(predRow).join("")).join("");
+  }
   el.innerHTML = chips + `<div class="g-pred-list">${body}</div>`;
   el.querySelectorAll(".g-pred-fchip").forEach((c) => c.addEventListener("click", () => { if (!c.disabled && c.dataset.f !== _predFilter) { _predFilter = c.dataset.f; paintPredict(el); } }));
 }

@@ -655,7 +655,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
    then the question on the left with the implied YES odds pinned top-right and
    the daily odds change stacked directly beneath it. */
 .na-pred-chips { position: sticky; top: 0; z-index: 2; display: flex; gap: 0; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
-.na-pred-fchip { flex: 1 1 0; font: inherit; font-size: 12px; font-weight: 600; letter-spacing: .01em; padding: 8px 8px; border: 0; background: transparent; color: var(--muted, #8592ad); cursor: pointer; }
+.na-pred-fchip { flex: 1 1 0; font: inherit; font-size: 12px; font-weight: 600; letter-spacing: .01em; padding: 8px 4px; white-space: nowrap; border: 0; background: transparent; color: var(--muted, #8592ad); cursor: pointer; }
 .na-pred-fchip:hover:not(:disabled) { color: var(--ink, #eaf0fb); }
 .na-pred-fchip.on { color: var(--ink, #eaf0fb); box-shadow: inset 0 -2px 0 var(--chip-ul); }
 .na-pred-fchip:disabled { opacity: .4; cursor: default; }

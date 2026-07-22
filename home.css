@@ -844,8 +844,8 @@
       /* Prediction-markets rail: sticky Macro/Politics/Finance tabs (grey ground +
          accent underline when active, matching the news-feed chips), section breaks. */
       .tui .g-pred-filter{ display:flex; gap:0; background:var(--t-panel2); border-bottom:1px solid var(--t-grid); position:sticky; top:0; z-index:2; }
-      .tui .g-pred-fchip{ flex:1 1 0; font:inherit; font-size:11px; font-weight:600; letter-spacing:.01em; padding:7px 8px;
-        border:0; background:var(--t-panel2); color:var(--t-faint); cursor:pointer; }
+      .tui .g-pred-fchip{ flex:1 1 0; font:inherit; font-size:11px; font-weight:600; letter-spacing:.01em; padding:7px 4px;
+        white-space:nowrap; border:0; background:var(--t-panel2); color:var(--t-faint); cursor:pointer; }
       .tui .g-pred-fchip:hover:not(:disabled){ color:var(--t-dim); }
       .tui .g-pred-fchip.on{ background:var(--t-panel2); color:var(--t-ink); box-shadow:inset 0 -2px 0 var(--chip-ul, var(--t-dim)); }
       .tui .g-pred-fchip:disabled{ opacity:.4; cursor:default; }
