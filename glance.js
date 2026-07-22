@@ -523,7 +523,7 @@ function renderFeed() {
   // items belong to the FT stream and substack-flagged to the Substack desk; the
   // rest split MAC vs NEWS by the same strict-macro test.
   (_liveFeed || []).forEach((n) => {
-    if (n.myft || n.substack) return;
+    if (n.myft || n.substack || n.legal) return;   // legal-desk news shows on the Legal page, not the Home wire
     const desk = deskFor(n.title, n.source);
     (desk === "m" ? macro : news).push(mk(desk, n.url, n.title, n.source, true, n.date, n.time));
   });

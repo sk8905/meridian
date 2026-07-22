@@ -1495,6 +1495,12 @@ const FEED_SOURCES = [
   // feed returns 200 with zero items. Substack serves the same RSS at /feed on
   // custom domains.
   { url: "https://www.butthistime.com/feed", source: "But This Time It's Different", region: "GEN", cap: 4, filter: false, substack: true },
+  // Legal-industry news — The Lawyer & Legal Business (UK). `legal: true` routes
+  // the emitted items to the Legal desk (labelled NEWS there); filter:false so the
+  // macro-keyword title screen doesn't drop legal-market headlines. Fetched via
+  // Google News site-search (reliable where the WordPress feeds bot-block).
+  { url: "https://news.google.com/rss/search?q=site%3Athelawyer.com%20when%3A7d&hl=en-GB&gl=GB&ceid=GB%3Aen", source: "The Lawyer", region: "UK", cap: 10, gnews: true, filter: false, legal: true },
+  { url: "https://news.google.com/rss/search?q=site%3Alegalbusiness.co.uk%20when%3A7d&hl=en-GB&gl=GB&ceid=GB%3Aen", source: "Legal Business", region: "UK", cap: 10, gnews: true, filter: false, legal: true },
 ];
 // STRICT macro filter — a title must touch one of: central-bank policy, a key
 // economic indicator, an index / rates / commodity / FX move, or major earnings.
@@ -1625,7 +1631,7 @@ function feedParse(xml, feed) {
     }
     const ds = feedTag(block, "pubDate") || feedTag(block, "published") || feedTag(block, "updated") || feedTag(block, "dc:date") || feedTag(block, "date");
     const when = ds ? new Date(feedDecode(ds)) : null;
-    out.push({ title, url: link, source: feed.source, region: feed.region, myft: feed.myft || undefined, substack: feed.substack || undefined, when: (when && !isNaN(when.getTime())) ? when : null });
+    out.push({ title, url: link, source: feed.source, region: feed.region, myft: feed.myft || undefined, substack: feed.substack || undefined, legal: feed.legal || undefined, when: (when && !isNaN(when.getTime())) ? when : null });
   }
   return out;
 }
@@ -1805,7 +1811,7 @@ async function handleFeed(request, env, ctx) {
     });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=39", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=40", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const items = await feedAssemble(env, ctx);
@@ -1942,7 +1948,7 @@ async function feedAssemble(env, ctx, trace = null) {
     const { date, time } = feedLondon(it.when);
     if (!date) continue;
     // myFT links carry tracking params — keep the canonical /content/ URL.
-    items.push({ title: it.title, url: it.myft ? it.url.replace(/\?.*$/, "") : it.url, source: it.source, region: it.region, myft: it.myft || undefined, substack: it.substack || undefined, date, time });
+    items.push({ title: it.title, url: it.myft ? it.url.replace(/\?.*$/, "") : it.url, source: it.source, region: it.region, myft: it.myft || undefined, substack: it.substack || undefined, legal: it.legal || undefined, date, time });
     // 250 (was 100): with ~270 capped candidates across the sources, a 100-item
     // wire only ever carried the newest ~day — the 5-day back-catalogue (WSJ /
     // TradingEconomics backfill) never made the cut. The 6-day cutoff above

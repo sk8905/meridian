@@ -34,12 +34,27 @@ import { viewItem, viewFirm } from "./detail.js?v=20260722-3";
 // The shared news-wire engine — so the Legal dashboard wire is the same build as
 // the Home feed (time-led .g-feed-* rows, day headers, and — new — the firm name
 // at row end as an in-place source filter).
-import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260722-4";
+import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc, onLiveWire } from "/feed.js?v=20260722-4";
 
 
 const app = document.getElementById("app");
 let _lgWireItems = [];        // normalised wire items for the shared feed engine
 let _lgFilter = "all", _lgSrc = null;   // active desk chip / source filter
+// Legal-industry NEWS from the shared live wire (The Lawyer, Legal Business) —
+// the only /api/feed items folded into Legal's All, labelled NEWS. Loaded once
+// via the shared onLiveWire loader; a change re-renders the dashboard.
+let _lgNews = [], _lgFeedLoaded = false;
+function loadLegalNews() {
+  if (_lgFeedLoaded) return;
+  _lgFeedLoaded = true;
+  onLiveWire((items) => {
+    const news = (items || []).filter((n) => n.legal)
+      .map((n) => ({ desk: "news", href: n.url, ext: true, title: n.title, src: n.source, date: n.date || "", time: n.time || "" }));
+    const changed = news.length !== _lgNews.length || (news[0] && (!_lgNews[0] || news[0].title !== _lgNews[0].title));
+    _lgNews = news;
+    if (changed && document.getElementById("lg-wire")) router();
+  });
+}
 
 // In-page memory for chip selections, keyed per chips-row AND current route:
 // survives the async data-sync re-renders (which re-run the templates with the
@@ -491,11 +506,11 @@ function viewDashboard() {
         src: x.src || "", date: x.date || "", sid: x.goScheme || "" }
     : { desk: x._k, href: x.href, ext: x.ext, title: x.title,
         src: x.src || "", date: x.date || "", firm: x.firmId || "" });
-  // NO live-wire fold here: the cross-desk /api/feed stream carries no
-  // legal-desk stories (its labels are MAC/BBG/ECON/FT/SUBS/NEWS), so folding
-  // it in just made this All tab a mirror of the Home newsfeed. Legal's All
-  // is the LEGAL desk: client alerts, case law, schemes/RPs.
-  _lgWireItems = [..._lgWireItems].sort(byFeedDesc);
+  // Fold in ONLY legal-industry NEWS from the shared wire (The Lawyer, Legal
+  // Business, flagged legal:true) — labelled NEWS — alongside the LEGAL desk
+  // (client alerts, case law, schemes/RPs). General macro/markets wire stays out.
+  loadLegalNews();
+  _lgWireItems = [..._lgWireItems, ..._lgNews].sort(byFeedDesc);
   const rxRow = (r) => { const u = r.judgmentUrl || r.articleUrl; return `<li class="tmini-row"><a class="tmini-t" href="${esc(u || "#/")}"${u ? ` target="_blank" rel="noopener noreferrer"` : ""}>${esc(r.company)}</a><span class="tmini-m">${r.type === "scheme" ? "Scheme" : "Plan"}${r.date ? " · " + esc(fmtDate(r.date)) : ""}</span></li>`; };
   const caseRow = (c) => `<li class="tmini-row"><a class="tmini-t" href="${esc(c.url || "#/")}"${c.url ? ` target="_blank" rel="noopener noreferrer"` : ""}>${esc(c.name)}</a><span class="tmini-m">${esc(c.court)}${c.date ? " · " + esc(fmtDate(c.date)) : ""}</span></li>`;
 
@@ -506,6 +521,7 @@ function viewDashboard() {
           <div class="tchips" id="lg-chips">
             <button type="button" class="tchip is-on" data-k="all">All</button>
             <button type="button" class="tchip" data-k="alert">Alerts</button>
+            <button type="button" class="tchip" data-k="news">News</button>
             <button type="button" class="tchip" data-k="case">Case law</button>
             <button type="button" class="tchip" data-k="rp">Scheme/RPs</button>
           </div>
@@ -528,7 +544,7 @@ function viewDashboard() {
 function legalWireDash() {
   const chips = document.getElementById("lg-chips"), panes = document.getElementById("lg-panes");
   if (!chips || !panes) return;
-  const PANE = { all: "wire", alert: "wire", case: "cases", rp: "schemes" };
+  const PANE = { all: "wire", alert: "wire", news: "wire", case: "cases", rp: "schemes" };
   const wire = document.getElementById("lg-wire");
   // Filtering re-renders the shared wire (so day headers + the source bar stay
   // correct), like the Home feed. Case law / Schemes still swap to their own full
