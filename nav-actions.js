@@ -268,15 +268,20 @@ function loadMarkets(body) {
   const loadPredict = () => {
     if (predict != null || predictLoading) return;
     predictLoading = true;
-    fetch("/api/predict?v=5", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null)
+    fetch("/api/predict?v=6", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null)
       .then((p) => { predict = (p && p.markets) || []; predictLoading = false; if (_mktTab === "predict") render(); });
   };
   chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c && c.dataset.k !== _mktTab) { _mktTab = c.dataset.k; if (_mktTab === "predict") loadPredict(); render(); } });
-  // Portfolio Daily/Total P&L toggle (delegated — the pane is re-rendered).
-  // stopPropagation is essential: render() replaces tb's innerHTML, detaching the
-  // tapped button; without it the document-level outside-click closer then sees a
-  // now-orphaned target (closest(".na-panel") === null) and dismisses the panel.
-  tb.addEventListener("click", (e) => { const t = e.target.closest(".na-pf-tgl"); if (t) { e.preventDefault(); e.stopPropagation(); if (t.dataset.m !== _pfMode) { _pfMode = t.dataset.m; render(); } } });
+  // Delegated in-pane controls. stopPropagation is essential: render() replaces
+  // tb's innerHTML, detaching the tapped button; without it the document-level
+  // outside-click closer then sees a now-orphaned target (closest(".na-panel") ===
+  // null) and dismisses the panel.
+  tb.addEventListener("click", (e) => {
+    const tgl = e.target.closest(".na-pf-tgl");        // portfolio Daily/Total
+    if (tgl) { e.preventDefault(); e.stopPropagation(); if (tgl.dataset.m !== _pfMode) { _pfMode = tgl.dataset.m; render(); } return; }
+    const ps = e.target.closest(".na-pred-fchip");     // predictions Macro/Politics/Finance
+    if (ps && !ps.disabled) { e.preventDefault(); e.stopPropagation(); if (ps.dataset.ps !== _predSuper) { _predSuper = ps.dataset.ps; render(); } }
+  });
   if (_mktTab === "predict") loadPredict();
   render();
   Promise.all([
@@ -287,26 +292,47 @@ function loadMarkets(body) {
     render();
   });
 }
-// Prediction-market rows — question headline + a meta line (implied YES odds ·
-// venue · close date). Reuses the shared news-feed row style.
+// Prediction-market rows — matches the desktop rail: question + meta (venue ·
+// close date) on the left; the implied YES odds pinned top-right with the daily
+// odds change (percentage points) stacked directly beneath it.
 function predictRow(m) {
   const yes = typeof m.yes === "number" ? m.yes : null;
   const cls = yes == null ? "" : yes >= 50 ? " hi" : " lo";
+  let chg = '<span class="na-pred-chg flat">·</span>';
+  if (typeof m.chg === "number" && isFinite(m.chg)) {
+    const c = +m.chg.toFixed(1);
+    const dir = c > 0 ? "up" : c < 0 ? "down" : "flat";
+    chg = `<span class="na-pred-chg ${dir}">${c > 0 ? "▲" : c < 0 ? "▼" : "·"} ${Math.abs(c).toFixed(1)}</span>`;
+  }
   return `<a class="nf-row na-pred" href="${esc(m.url || "#")}" target="_blank" rel="noopener noreferrer">`
-    + `<span class="nf-title">${esc(m.q)}</span>`
-    + `<span class="nf-meta"><span class="na-pred-yes${cls}">${yes == null ? "—" : yes + "%"}</span>`
-    + `<span class="nf-sep">·</span><span class="nf-src">${esc(m.venue || "")}</span>`
+    + `<span class="na-pred-main"><span class="nf-title">${esc(m.q)}</span>`
+    + `<span class="nf-meta"><span class="nf-src">${esc(m.venue || "")}</span>`
     + (m.end ? `<span class="nf-sep">·</span><span class="nf-time">${esc(fmtDate(m.end))}</span>` : "")
-    + `</span></a>`;
+    + `</span></span>`
+    + `<span class="na-pred-nums"><span class="na-pred-yes${cls}">${yes == null ? "—" : yes + "%"}</span>${chg}</span></a>`;
 }
 const PRED_TYPE_ORDER = ["Fed & rates", "Economy", "Equities", "Crypto", "Trump", "Geopolitics", "Elections", "Other"];
+// Three super-category chips (as on desktop) group the fine-grained types.
+const NA_PRED_SUPERS = ["Macro", "Politics", "Finance"];
+const NA_PRED_SUPER_TYPES = { Macro: ["Fed & rates", "Economy", "Other"], Politics: ["Trump", "Geopolitics", "Elections"], Finance: ["Equities", "Crypto"] };
+const NA_PRED_SUPER_OF = {};
+for (const s of NA_PRED_SUPERS) for (const t of NA_PRED_SUPER_TYPES[s]) NA_PRED_SUPER_OF[t] = s;
+const naPredSuperOf = (t) => NA_PRED_SUPER_OF[t] || "Macro";
+let _predSuper = "Macro";
 function predictPane(list, loading) {
   if (loading || list == null) return '<div class="na-load">Loading…</div>';
   if (!list.length) return '<div class="na-load">No prediction markets available right now.</div>';
-  const groups = {};
-  for (const m of list) { const t = m.type || "Other"; (groups[t] = groups[t] || []).push(m); }
-  const types = PRED_TYPE_ORDER.filter((t) => groups[t]).concat(Object.keys(groups).filter((t) => !PRED_TYPE_ORDER.includes(t)));
-  return types.map((t) => naSec(t, "implied YES %") + groups[t].map(predictRow).join("")).join("");
+  const supers = {}; NA_PRED_SUPERS.forEach((s) => (supers[s] = {}));
+  for (const m of list) { const t = m.type || "Other"; (supers[naPredSuperOf(t)][t] = supers[naPredSuperOf(t)][t] || []).push(m); }
+  const has = (s) => Object.keys(supers[s]).length > 0;
+  if (!has(_predSuper)) _predSuper = NA_PRED_SUPERS.find(has) || "Macro";
+  const chips = `<div class="na-pred-chips" role="tablist">`
+    + NA_PRED_SUPERS.map((s) => `<button type="button" class="na-pred-fchip${_predSuper === s ? " on" : ""}" data-ps="${esc(s)}"${has(s) ? "" : " disabled"}>${esc(s)}</button>`).join("")
+    + `</div>`;
+  const active = supers[_predSuper] || {};
+  const subTypes = PRED_TYPE_ORDER.filter((t) => active[t]).concat(Object.keys(active).filter((t) => !PRED_TYPE_ORDER.includes(t)));
+  const body = subTypes.map((t) => naSec(t, "implied YES %") + active[t].map(predictRow).join("")).join("");
+  return chips + body;
 }
 function marketRow(x) {
   const c = typeof x.changePct === "number" && isFinite(x.changePct) ? x.changePct : null;
