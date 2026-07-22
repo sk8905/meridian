@@ -121,22 +121,25 @@ function earningsPanel() {
       const w = typeof h === "string" ? null : h.w;
       return `<span class="ew-etf ew-etf-${esc(String(etf).toLowerCase())}">${esc(etf)}${w ? " " + esc(w) : ""}</span>`;
     }).join("");
-    const tr = (lbl, est, act) => `<tr><th>${lbl}</th><td>${cell(est, false)}</td><td>${cell(act, pending)}</td></tr>`;
+    // Numeric rows (Rev / EPS / optional key-metric / optional guidance), plus a
+    // single Notes cell on the right that rowspans them all — the share reaction
+    // over the short commentary. Nothing to say → a faint em-dash placeholder.
+    const bodyRows = [["Rev", r.estRev, r.actRev], ["EPS", r.estEps, r.actEps]];
+    if (r.km) bodyRows.push([esc(r.km.l), r.km.est, r.km.act]);
+    if (r.guide) bodyRows.push(["Guide", r.guide.est, r.guide.act]);
+    const noteInner = (px || r.note) ? `${px}${px && r.note ? "<br>" : ""}${r.note ? esc(r.note) : ""}` : '<span class="ew-nr">—</span>';
+    const noteCell = `<td class="ew-cnote" rowspan="${bodyRows.length}">${noteInner}</td>`;
+    const body = bodyRows.map(([lbl, est, act], i) =>
+      `<tr><th>${lbl}</th><td>${cell(est, false)}</td><td>${cell(act, pending)}</td>${i === 0 ? noteCell : ""}</tr>`).join("");
     return `<div class="ew-row">
       <div class="ew-l"><span class="ew-t">${esc(r.t)}${held}</span><span class="ew-n">${esc(r.n)}</span>
         ${r.tag ? `<span class="ew-tag">${esc(r.tag)}</span>` : ""}
         ${r.when ? `<span class="ew-when">${esc(r.when)}</span>` : ""}</div>
       <div class="ew-r">
-        <table class="ew-tbl">
-          <thead><tr><th></th><th>Fcst</th><th>Act</th></tr></thead>
-          <tbody>
-            ${tr("Rev", r.estRev, r.actRev)}
-            ${tr("EPS", r.estEps, r.actEps)}
-            ${r.km ? tr(esc(r.km.l), r.km.est, r.km.act) : ""}
-            ${r.guide ? tr("Guide", r.guide.est, r.guide.act) : ""}
-          </tbody>
+        <table class="ew-tbl ew-tbl-note">
+          <thead><tr><th></th><th>Fcst</th><th>Act</th><th>Notes</th></tr></thead>
+          <tbody>${body}</tbody>
         </table>
-        ${px || r.note ? `<div class="ew-note">${px}${px && r.note ? " · " : ""}${r.note ? esc(r.note) : ""}</div>` : ""}
       </div>
     </div>`;
   };

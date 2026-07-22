@@ -421,6 +421,14 @@ a.intel-head:hover { text-decoration: none; }
    values WRAP inside their cell instead of pushing the Act column off-screen. */
 .ew-tbl thead th:nth-child(2), .ew-tbl tbody td:nth-child(2),
 .ew-tbl thead th:nth-child(3), .ew-tbl tbody td:nth-child(3) { width: 37%; }
+/* Note-bearing variant: narrower value columns make room for a right-hand
+   Notes column (share reaction + short commentary) spanning the body rows. */
+.ew-tbl-note thead th:nth-child(2), .ew-tbl-note tbody td:nth-child(2),
+.ew-tbl-note thead th:nth-child(3), .ew-tbl-note tbody td:nth-child(3) { width: 17%; }
+.ew-tbl-note thead th:nth-child(4) { width: 48%; text-align: left; padding-left: 10px; }
+.ew-tbl-note td.ew-cnote { width: 48%; vertical-align: top; text-align: left; padding: 1px 0 1px 10px;
+  font-family: var(--t-mono); font-size: 9.5px; font-weight: 400; color: var(--muted); line-height: 1.35;
+  white-space: normal; overflow-wrap: break-word; border-left: 1px solid var(--border); }
 .ew-tbl tbody th, .ew-tbl thead th { font-size: 9.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
 .ew-tbl tbody th { text-align: left; padding-left: 0; white-space: normal; overflow-wrap: break-word; }
 .ew-tbl thead th:first-child { text-align: left; }
