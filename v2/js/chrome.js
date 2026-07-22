@@ -27,6 +27,16 @@ export function initChrome({ onTab }) {
   buildHeader(onTab);
   const tabbar = buildTabBar(onTab);
 
+  // Shared, session-long chrome features, reusing the existing modules verbatim:
+  //   • ticker + briefing strip (brief.js → #wticker / #wbrief)
+  //   • ⌘K / "/" command palette (palette.js) — one instance for every view
+  //   • pull-to-refresh (ptr.js) — self-guards, touch-only
+  // All are idempotent single inits; failures never block the shell.
+  import("/brief.js?v=7").then((m) => m.initBrief()).catch(() => {});
+  import("/palette.js?v=20260722-5").then((m) => m.mountPalette()).catch(() => {});
+  import("/ptr.js?v=20260723-4").then((m) => m.initPullToRefresh()).catch(() => {});
+  fillAccount();
+
   // Update the active marker on both the bottom bar and the header switch.
   return function setActive(key) {
     tabbar.querySelectorAll(".mtab").forEach((b) => {
@@ -54,16 +64,41 @@ function buildHeader(onTab) {
         <span class="brand-text"><strong>Wire</strong></span>
       </a>
       <div class="platform-switch" role="group" aria-label="Switch platform">${pills}</div>
-      <button class="nav-search" type="button" aria-label="Search Wire" data-search>
+      <button class="nav-search" data-open-search type="button" aria-label="Search Wire">
         <span class="ns-lbl">Search everything…</span><kbd>/</kbd>
       </button>
-      <div class="topbar-right"><div id="account-nav" class="account-nav"></div></div>
+      <div class="topbar-right">
+        <div id="account-nav" class="account-nav"></div>
+        <div id="data-status" class="data-status"></div>
+      </div>
+      <div id="notif" class="notif"></div>
     </div>
-  </header>`;
+  </header>
+  <div class="wticker" id="wticker"></div>
+  <div class="wbrief" id="wbrief"></div>`;
+  // Platform pills / brand route via the SPA; the search button is left for
+  // palette.js (data-open-search) — don't treat it as a tab.
   mount.addEventListener("click", (e) => {
     const b = e.target.closest("[data-key]");
     if (b) { e.preventDefault(); onTab(b.dataset.key); }
   });
+}
+
+// Signed-in identity (behind Cloudflare Access), shared across all views — the
+// same call each ported app makes, done once here so the header shows it
+// regardless of which view is active.
+function fillAccount() {
+  const el = document.getElementById("account-nav");
+  if (!el) return;
+  fetch("/api/me", { headers: { accept: "application/json" } })
+    .then((r) => (r.ok ? r.json() : null))
+    .then((d) => {
+      if (d && d.email) {
+        el.innerHTML = `<span class="si-prefix">Signed in as </span><strong>${d.email.replace(/[<>&]/g, "")}</strong> · <a href="/cdn-cgi/access/logout">Sign out</a>`;
+        try { localStorage.setItem("m_signed_in", "1"); } catch { /* ignore */ }
+      }
+    })
+    .catch(() => { /* not behind Access */ });
 }
 
 function buildTabBar(onTab) {
