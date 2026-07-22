@@ -92,4 +92,11 @@ export function initHeader(opts = {}) {
   if (typeof window !== "undefined" && typeof window.__fillAccount === "function") window.__fillAccount();
   // Desktop: lift the identity/refresh lines out of the top bar to the rail/footer.
   placeAccountBlock();
+  // Pull-to-refresh (+ double-tap-zoom guard + auto-deploy reload): ONE shared
+  // init for every page. It used to be opt-in per page — which is how /menu/
+  // ended up with no PTR (native rubber-band exposed the dark ground) and Home
+  // drifted onto a stale ptr.js token. initHeader runs once per page and every
+  // page loads it, so this is the single correct home. ptr.js self-guards
+  // (touch-only, runs once), so it's a no-op on desktop and on a second call.
+  import("/ptr.js?v=20260723-1").then((m) => m.initPullToRefresh()).catch(() => {});
 }

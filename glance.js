@@ -120,7 +120,6 @@ export function initGlance() {
   initJumpNav();
   wirePalette(buildIndex());
   startLiveRefresh();
-  import("/ptr.js?v=20260721-1").then((m) => m.initPullToRefresh()).catch(() => {});
 }
 
 // ---- Unified Saved -----------------------------------------------------------

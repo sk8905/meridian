@@ -54,6 +54,7 @@ export function initPullToRefresh() {
   const cs = getComputedStyle(document.documentElement);
   const navy = (cs.getPropertyValue("--bg") || cs.getPropertyValue("--t-ground") || "").trim() || "#05080f";
   const zone = document.createElement("div");
+  zone.id = "ptr-zone";
   zone.setAttribute("aria-hidden", "true");
   zone.style.cssText =
     "position:fixed;top:0;left:0;right:0;height:0;z-index:9999;overflow:hidden;pointer-events:none;" +

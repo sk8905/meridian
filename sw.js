@@ -23,7 +23,12 @@
 //     Access can redirect through login and back.
 // =============================================================================
 
-const CACHE = "wire-shell-v1";
+// Bump on any change that alters cached-shell BEHAVIOUR (not just content): the
+// activate handler purges every cache != CACHE, so a rev flushes stale pages the
+// stale-while-revalidate path would otherwise serve once more. Bumped to flush
+// the pre-PTR /menu/ shell (it had no ptr.js, so its dark inline html showed as
+// a black band on pull and it couldn't self-update).
+const CACHE = "wire-shell-v2";
 // The no-cache data modules (see _headers). Cached under their bare pathname —
 // importers reference them with assorted stale ?v= tokens; the bodies are
 // identical, so all variants map to one entry.
