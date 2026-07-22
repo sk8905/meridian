@@ -436,6 +436,12 @@ svg.mtab-ico { width: 22px; height: 22px; }
 html.wire-boot main#app, html.wire-boot .footer, html.wire-boot .wticker,
 html.wire-boot .wbrief, html.wire-boot #glance, html.wire-boot #loading,
 html.wire-boot #out { visibility: hidden; }
+/* The body's theme background (light) otherwise shows through the hidden
+   content during the boot hold — the white/light flat on a bottom-nav tab
+   change. Make the body transparent while booting so the inline dark html
+   ground (set per page in <head>) shows instead, matching the header, so the
+   crossfade never lands on a white frame. */
+html.wire-boot body { background: transparent; }
 
 /* During a swipe-between-chips gesture the static inset-underline on-state is
    suppressed — swipetabs.js draws a single 2px bar that SLIDES between the two
@@ -480,7 +486,7 @@ html.wire-boot #out { visibility: hidden; }
   font-size: 9.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase;
   color: var(--faint, #5c6a86); }
 .na-recent-row { color: var(--muted, #8592ad); cursor: pointer;
-  border-bottom: 1px solid var(--grid, #1a1a1a); }
+  border-bottom: 1px solid var(--border, #262626); }
 .na-recent-row svg { width: 14px; height: 14px; flex: 0 0 auto; color: var(--faint, #5c6a86); }
 /* Appearance — the theme chip reuses the Push-notifications row style
    (.na-menu-pushrow + .na-menu-push), so no bespoke control CSS is needed. */

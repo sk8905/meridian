@@ -254,7 +254,7 @@ function matWallPanel() {
         </div>` : "";
   return `
     <section class="ck-panel ck-span2">
-      <header class="ck-h wire-ptr-freeze"><span>Wall of maturities — corporate credit</span><span class="ck-x">next 5Y</span></header>
+      <header class="ck-h"><span>Wall of maturities — corporate credit</span><span class="ck-x">next 5Y</span></header>
       <div class="ck-body">
         ${ratedWallBlock}
         ${wallBlock}
@@ -320,7 +320,7 @@ export function macroDashPane() {
     <div class="ck-ov-c ck-ov-mtx">
     <div class="ck-ov-h">Economic indicators</div>
     <section class="ck-panel">
-      <header class="ck-h wire-ptr-freeze"><span>Key economic indicators</span><span class="ck-x">G7 · EU · IE · CN</span><a class="ck-more" href="#/chart">Chart</a></header>
+      <header class="ck-h"><span>Key economic indicators</span><span class="ck-x">G7 · EU · IE · CN</span><a class="ck-more" href="#/chart">Chart</a></header>
       <div class="ck-inds" id="mac-ck-inds">${cockpitInds((MACRO_DATA && MACRO_DATA.series) || [])}</div>
     </section>
     </div>
@@ -328,12 +328,12 @@ export function macroDashPane() {
     <div class="ck-ov-c">
     <div class="ck-ov-h">Rates &amp; policy</div>
     <section class="ck-panel">
-      <header class="ck-h wire-ptr-freeze"><span>Yield curve</span><span class="ck-x" id="ck-yc-asof">gov · as of ${esc(_yc.asOf)}</span></header>
+      <header class="ck-h"><span>Yield curve</span><span class="ck-x" id="ck-yc-asof">gov · as of ${esc(_yc.asOf)}</span></header>
       <div class="ck-body" id="ck-yc-body">${ycBody()}</div>
     </section>
 
     <section class="ck-panel">
-      <header class="ck-h wire-ptr-freeze"><span>Market-implied Fed path</span><a class="ck-more" href="#/policy">Policy →</a></header>
+      <header class="ck-h"><span>Market-implied Fed path</span><a class="ck-more" href="#/policy">Policy →</a></header>
       <div class="ck-body">
         <div class="ck-fed2">
           <div class="ck-fed-col">
@@ -349,7 +349,7 @@ export function macroDashPane() {
     </section>
 
     <section class="ck-panel ck-strip">
-      <header class="ck-h wire-ptr-freeze"><span>Rate outlook</span><a class="ck-more" href="#/policy">Policy →</a></header>
+      <header class="ck-h"><span>Rate outlook</span><a class="ck-more" href="#/policy">Policy →</a></header>
       <div class="ck-body ck-stats2">
         ${stat("US", OUTLOOK.us.rate, `${OUTLOOK.us.stance || ""}${OUTLOOK.us.next ? " · next " + OUTLOOK.us.next : ""}`)}
         ${stat("UK", OUTLOOK.uk.rate, `${OUTLOOK.uk.stance || ""}${OUTLOOK.uk.next ? " · next " + OUTLOOK.uk.next : ""}`)}
@@ -360,7 +360,7 @@ export function macroDashPane() {
     <div class="ck-ov-c">
     <div class="ck-ov-h">Regime</div>
     <section class="ck-panel">
-      <header class="ck-h wire-ptr-freeze"><span>Cycle — long-term debt cycle</span><a class="ck-more" href="#/cycle">Cycle →</a></header>
+      <header class="ck-h"><span>Cycle — long-term debt cycle</span><a class="ck-more" href="#/cycle">Cycle →</a></header>
       <div class="ck-body">
         ${trackGauge(CYCLE_ZONES, [{ label: "US", pos: CYCLE.us.pos }, { label: "UK", pos: CYCLE.uk.pos }], "Long-term debt cycle position, 0 early to 100 crisis")}
         <div class="ck-stats">
@@ -371,7 +371,7 @@ export function macroDashPane() {
     </section>
 
     <section class="ck-panel">
-      <header class="ck-h wire-ptr-freeze"><span>Bubble risk</span><span class="ck-x">${esc(BUBBLE.market)} · ${esc(band)} · ${comp}/100</span><a class="ck-more" href="#/bubble">Bubble →</a></header>
+      <header class="ck-h"><span>Bubble risk</span><span class="ck-x">${esc(BUBBLE.market)} · ${esc(band)} · ${comp}/100</span><a class="ck-more" href="#/bubble">Bubble →</a></header>
       <div class="ck-body">
         ${trackGauge(BUBBLE_ZONES, [{ label: band, pos: comp }], "US equity bubble-risk score, 0 low to 100 extreme")}
         ${bubVal.length ? `<div class="ck-stats">${bubVal.map(([l, v, sub]) => stat(l, v, "")).join("")}</div>` : ""}

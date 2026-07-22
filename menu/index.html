@@ -20,7 +20,7 @@
   <title>Wire Menu</title>
   <meta name="description" content="Wire — search, recents, account &amp; settings" />
   <link rel="stylesheet" href="/credit/css/styles.css?v=20260721-9" />
-  <link rel="stylesheet" href="/premium.css?v=20260722-3" />
+  <link rel="stylesheet" href="/premium.css?v=20260722-4" />
   <link rel="stylesheet" href="/tui.css?v=20260722-2" />
   <link rel="stylesheet" href="/header.css?v=20260720-4" />
   <!-- Header (top bar + ticker + briefing) is built by the ONE shared module so
@@ -41,5 +41,10 @@
     (function(){function r(){if(!matchMedia("(max-width:760px)").matches)return;var f=document.querySelector(".footer");if(!f||document.querySelector(".acct-foot"))return;var b=document.createElement("div");b.className="acct-foot";var a=document.getElementById("account-nav"),d=document.getElementById("data-status");if(a)b.appendChild(a);if(d)b.appendChild(d);if(b.childNodes.length)f.insertBefore(b,f.firstChild);}if(document.readyState!=="loading")r();else document.addEventListener("DOMContentLoaded",r);})();
   </script>
   <script type="module">import("/palette.js?v=20260722-5").then((m) => m.mountPalette()).catch(() => {});</script>
+  <!-- Custom pull-to-refresh, same as the other pages: its gap opens in the
+       theme --bg (light in light mode) with a spinner and contains the native
+       rubber-band — otherwise a pull here revealed the raw dark html ground
+       (the black band on pull). -->
+  <script type="module">import("/ptr.js?v=20260721-3").then((m) => m.initPullToRefresh()).catch(() => {});</script>
 </body>
 </html>
