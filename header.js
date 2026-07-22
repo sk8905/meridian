@@ -103,5 +103,5 @@ export function initHeader(opts = {}) {
   // changes don't do a full page load — killing the white inter-document blank
   // on iOS, which has no cross-document view transitions. Self-guards; falls back
   // to normal navigation for Home / off-scope / unsupported browsers.
-  import("/spa.js?v=20260723-2").then((m) => m.initSpaNav()).catch(() => {});
+  import("/spa.js?v=20260723-3").then((m) => m.initSpaNav()).catch(() => {});
 }

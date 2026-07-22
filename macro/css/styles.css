@@ -368,8 +368,8 @@ a.intel-head:hover { text-decoration: none; }
 .ck-kv-l { color: var(--muted); min-width: 0; }
 .ck-kv-v { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums;
   color: var(--ink); font-weight: 600; text-align: right; white-space: nowrap; }
-/* FedWatch + dot plot side by side, 50/50 */
-.ck-fed2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+/* FedWatch + dot plot stacked (one above the other) */
+.ck-fed2 { display: grid; grid-template-columns: 1fr; gap: 14px; }
 .ck-fed2 .ck-fed-col { min-width: 0; }
 .ck-fed2 .ck-sub { margin-bottom: 6px; }
 /* Wall of maturities */

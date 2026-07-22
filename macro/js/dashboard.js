@@ -7,7 +7,7 @@
 import { esc } from "/util.js?v=20260719-1";
 import { YIELD_CURVE, OUTLOOK, CYCLE, BUBBLE, EARNINGS, MATWALL } from "./content.js?v=20260722-5";
 import { fmtDate, fmtWeekday, trackGauge, CYCLE_ZONES, BUBBLE_ZONES,
-  bubbleComposite, bubbleBand, MAC_IND_ORDER, MACRO_DATA, macroMatrixHtml, macroDetailHtml, MAC_MATRIX_KEYS_FULL } from "./shared.js?v=20260722-4";
+  bubbleComposite, bubbleBand, MACRO_DATA, macroMatrixHtml, MAC_MATRIX_KEYS_FULL } from "./shared.js?v=20260722-4";
 
 // In-page chip memory (fresh visits start on the first chip; in-page re-renders
 // keep the pick — see the app.js note on the same pattern).
@@ -75,21 +75,14 @@ export async function loadYieldCurve() {
 // The economic-indicators block for the cockpit — the G7 + Euro Area + Ireland
 // comparison matrix (country × key indicators), then the selected economy's full
 // detail. Clicking a matrix row switches the detail (wired by the cockpit host).
-let _ckIndCountry = "US";
-const ckTile = (s) => {
-  const pct = s.unit === "%";
-  const val = s.value == null ? "—" : `${(+s.value).toFixed(2)}${pct ? "%" : ""}`;
-  const ch = s.change, dir = ch > 0 ? "up" : ch < 0 ? "down" : "flat", arrow = ch > 0 ? "▲" : ch < 0 ? "▼" : "·";
-  const chg = (ch == null || s.value == null) ? "" : `<span class="mac-ind-c-chg ${dir}">${arrow} ${Math.abs(ch).toFixed(2)}${pct ? "pp" : ""}</span>`;
-  return `<div class="mac-ind"><span class="mac-ind-n">${esc(s.label)}</span><span class="mac-ind-v">${val}</span>${chg}</div>`;
-};
 export function cockpitInds(series) {
   const S = series || (MACRO_DATA && MACRO_DATA.series) || [];
   if (!S.length) return '<div class="tw-empty muted small" style="padding:11px">Indicators unavailable right now.</div>';
-  return `<div class="ck-ind-wrap">${macroMatrixHtml(S, _ckIndCountry, MAC_MATRIX_KEYS_FULL)}${macroDetailHtml(S, _ckIndCountry, ckTile)}</div>`;
+  // The full six-indicator matrix carries every economy's data, so the old
+  // per-country detail card beside it is redundant — dropped. `sel` is null so
+  // no row reads as "selected" (there is no detail left to point at).
+  return macroMatrixHtml(S, null, MAC_MATRIX_KEYS_FULL);
 }
-// Re-point the cockpit detail when a matrix row is clicked (host delegates here).
-export function cockpitIndSelect(c) { if (c && c !== _ckIndCountry) { _ckIndCountry = c; return true; } return false; }
 
 // Wall of maturities — corporate credit due over the next five years, from the
 // cited S&P / OECD / Reuters / FSB figures in MATWALL (content.js). Two per-year
@@ -397,15 +390,6 @@ let _secWired = false;
 function wireSecNav() {
   if (_secWired) return; _secWired = true;
   document.addEventListener("click", (e) => {
-    // Cockpit indicator matrix: clicking a country row re-points the detail.
-    const row = e.target.closest("#mac-ck-inds .mac-mtx-r");
-    if (row) {
-      if (cockpitIndSelect(row.dataset.c)) {
-        const host = document.getElementById("mac-ck-inds");
-        if (host) host.innerHTML = cockpitInds((MACRO_DATA && MACRO_DATA.series) || []);
-      }
-      return;
-    }
     const b = e.target.closest("#ck-secnav .tchip");
     if (!b) return;
     const sec = b.getAttribute("data-sec") || "overview";

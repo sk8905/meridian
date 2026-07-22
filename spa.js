@@ -27,12 +27,18 @@ const APP_ROUTES = ["/macro/", "/credit/", "/legal/", "/menu/"];
 const norm = (u) => { try { return new URL(u, location.href).pathname.replace(/index\.html$/, ""); } catch { return u; } };
 const inScope = (p) => APP_ROUTES.includes(norm(p));
 
-let _wired = false, _busy = false;
+let _wired = false, _busy = false, _ok = false;
 // The path we currently have mounted. Used to tell a real cross-page history
 // move (which WE must handle) apart from a same-page fragment change (which the
 // destination app's own hash router owns) — the two are indistinguishable from
 // popstate's target URL alone, and Chromium fires popstate for BOTH.
 let _curPath = "";
+// Prefetch cache: norm(dest) -> { nonce, docP }. Warmed on pointerdown (see
+// below) so the destination HTML + its js/app.js are already fetched by the time
+// the tap completes — the swap then renders from cache instead of blocking on
+// two network round-trips inside the transition (the tab-change lag).
+let _seq = 0;
+const _pre = new Map();
 
 export function initSpaNav() {
   if (_wired || typeof document === "undefined") return;
@@ -41,7 +47,7 @@ export function initSpaNav() {
   // Only same-document transitions buy us anything; if the browser has neither
   // fetch nor startViewTransition, leave normal navigation alone (the hook below
   // just reports "not handled", so every caller falls back to a real load).
-  const ok = ("startViewTransition" in document) && typeof fetch === "function";
+  _ok = ("startViewTransition" in document) && typeof fetch === "function";
 
   // The integration point: the shared nav (nav-actions' tab-bar act(), and any
   // link handler) calls window.__spaNavigate(dest) BEFORE navigating. If we
@@ -50,7 +56,7 @@ export function initSpaNav() {
   // handler means we inherit its tap/gesture detection (no event racing) and can
   // never double-fire. Only claim in-scope app↔app moves.
   window.__spaNavigate = (dest) => {
-    if (!ok || _busy) return false;
+    if (!_ok || _busy) return false;
     const from = norm(location.pathname), to = norm(dest);
     if (to === from) return false;                       // same page → let caller no-op
     if (!inScope(from) || !inScope(to)) return false;    // Home / off-scope → normal load
@@ -58,6 +64,52 @@ export function initSpaNav() {
     return true;
   };
   window.addEventListener("popstate", onPop);
+
+  // Warm the destination the instant a finger lands on a tab — navigation only
+  // fires on pointerUP (nav-actions), so this buys the whole press duration
+  // (~100-250ms) to fetch the HTML + its app.js before the swap needs them.
+  // Capturing + passive so it never interferes with the tap; prefetch is
+  // side-effect-free and self-dedupes.
+  const onDown = (e) => {
+    const t = e.target && e.target.closest && e.target.closest(".mobile-tabbar .mtab[data-nav], .platform-switch a.ps-btn[href]");
+    if (!t) return;
+    prefetch(t.getAttribute("data-nav") || t.getAttribute("href"));
+  };
+  document.addEventListener("pointerdown", onDown, { capture: true, passive: true });
+  document.addEventListener("touchstart", onDown, { capture: true, passive: true });
+}
+
+// Fetch + parse the destination and warm its entry script's exact (nonce'd) URL,
+// so go() can render from cache. Reserves the nonce here so the warmed request
+// and the later <script src> are byte-identical URLs (a browser-cache hit).
+function prefetch(dest) {
+  if (!_ok || !dest) return;
+  const to = norm(dest);
+  if (!inScope(to) || to === norm(location.pathname) || _pre.has(to)) return;
+  const base = new URL(dest, location.origin).href;
+  const nonce = ++_seq;
+  const docP = fetch(dest, { credentials: "same-origin", headers: { "x-spa-nav": "1" } })
+    .then((r) => (r.ok && !r.redirected && /text\/html/.test(r.headers.get("content-type") || "")) ? r.text() : null)
+    .then((html) => {
+      if (!html) return null;
+      const doc = new DOMParser().parseFromString(html, "text/html");
+      const u = entryScriptUrl(doc, base, nonce);
+      if (u) fetch(u, { credentials: "same-origin" }).catch(() => {});   // warm the app.js bytes
+      return doc;
+    })
+    .catch(() => null);
+  _pre.set(to, { nonce, docP });
+}
+
+// The destination's own entry module (js/app.js), as an absolute URL carrying the
+// per-navigation re-eval nonce. Skips the shared header boot and cross-origin.
+function entryScriptUrl(doc, base, nonce) {
+  for (const s of doc.querySelectorAll("script[src]")) {
+    const src = s.getAttribute("src");
+    if (!src || /^https?:/i.test(src) || /\/header\.js\b/.test(src)) continue;
+    try { const u = new URL(src, base); u.searchParams.set("_spa", String(nonce)); return u.href; } catch { /* skip */ }
+  }
+  return null;
 }
 
 function onPop() {
@@ -76,12 +128,20 @@ async function go(dest, push) {
   if (_busy) return;
   _busy = true;
   try {
-    const res = await fetch(dest, { credentials: "same-origin", headers: { "x-spa-nav": "1" } });
-    if (!res.ok || res.redirected) throw new Error("bad response");
-    const ct = res.headers.get("content-type") || "";
-    if (!/text\/html/.test(ct)) throw new Error("not html");
-    const html = await res.text();
-    const doc = new DOMParser().parseFromString(html, "text/html");
+    const to = norm(dest);
+    // Use the pointerdown prefetch if we have one (the common path — a tapped
+    // tab); otherwise fetch now (popstate / programmatic nav). Either way we end
+    // with a parsed doc and the nonce its app.js was (or will be) warmed at.
+    const pre = _pre.get(to); _pre.delete(to);
+    let doc = null, nonce;
+    if (pre) { doc = await pre.docP; nonce = pre.nonce; }
+    if (!doc) {
+      const res = await fetch(dest, { credentials: "same-origin", headers: { "x-spa-nav": "1" } });
+      if (!res.ok || res.redirected) throw new Error("bad response");
+      if (!/text\/html/.test(res.headers.get("content-type") || "")) throw new Error("not html");
+      doc = new DOMParser().parseFromString(await res.text(), "text/html");
+      nonce = ++_seq;
+    }
     const newApp = doc.getElementById("app");
     if (!newApp) throw new Error("no #app in destination");
 
@@ -108,7 +168,7 @@ async function go(dest, push) {
       // bare body ground, which on a light theme reads as a white/blank flash
       // before the content pops in. Bounded by a timeout so a slow module can
       // never freeze the old frame indefinitely.
-      await renderInto(doc);
+      await renderInto(doc, nonce);
     };
 
     if (push) history.pushState({ spa: true }, "", dest);
@@ -170,14 +230,13 @@ function reconcileStyles(doc, destUrl) {
 
 // Re-execute the destination's entry scripts against the fresh #app. Module
 // scripts are singletons keyed by URL, so a plain re-inject won't re-run the
-// top-level render; a per-navigation nonce query forces a fresh evaluation that
-// renders into the new DOM. The shared chrome modules imported transitively keep
-// their existing (unnonced) URLs → cached → their init is a guarded no-op, so
-// only the page app re-inits (no duplicate chrome). Inline module scripts are
-// re-created verbatim (they run on insertion).
-let _nav = 0;
-function runEntryScripts(doc) {
-  _nav++;
+// top-level render; the per-navigation `_spa` nonce (the SAME value the
+// pointerdown prefetch warmed the bytes at) forces a fresh evaluation that
+// renders into the new DOM — served from cache, not the network. The shared
+// chrome modules imported transitively keep their existing (unnonced) URLs →
+// cached → their init is a guarded no-op, so only the page app re-inits (no
+// duplicate chrome). Inline module scripts are re-created verbatim.
+function runEntryScripts(doc, nonce) {
   const loads = [];
   for (const s of doc.querySelectorAll("script")) {
     // Only the page's own entry (js/app.js) + its inline boot; skip the shared
@@ -188,7 +247,7 @@ function runEntryScripts(doc) {
     if (src) {
       if (/^https?:/i.test(src)) continue;           // external/CDN — skip
       if (/\/header\.js\b/.test(src)) continue;      // shared chrome — already live
-      el.src = src + (src.includes("?") ? "&" : "?") + "_spa=" + _nav;   // force re-eval
+      el.src = src + (src.includes("?") ? "&" : "?") + "_spa=" + nonce;   // force re-eval
       // onload fires after the module (and its graph) evaluate — by then the
       // entry's synchronous top-level render has populated #app.
       loads.push(new Promise((res) => { el.onload = res; el.onerror = res; }));
@@ -207,8 +266,8 @@ function runEntryScripts(doc) {
 // so its synchronous skeleton is on screen before we resolve — but never hold
 // the frozen old frame for more than a beat, so a slow module degrades to a
 // brief skeleton rather than a stall.
-function renderInto(doc) {
-  const rendered = runEntryScripts(doc)
+function renderInto(doc, nonce) {
+  const rendered = runEntryScripts(doc, nonce)
     .then(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
   return Promise.race([rendered, new Promise((r) => setTimeout(r, 600))]);
 }
