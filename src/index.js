@@ -814,30 +814,28 @@ async function predictKalshi() {
 async function handlePredict(request, env, ctx) {
   const url = new URL(request.url);
   if (url.searchParams.get("debug")) {
-    // Raw reachability probe: hit each candidate host directly and report what
-    // comes back (status / length / shape / a title sample) so we can see whether
-    // the edge can reach them and which base URL + field names are right.
-    const probe = async (label, u) => {
-      try {
-        const r = await fetch(u, { headers: fetchHeaders(u), cf: { cacheTtl: 0 } });
-        const b = await r.text();
-        let shape = null, items = null;
-        try { const j = JSON.parse(b); const arr = Array.isArray(j) ? j : (j.markets || j.events || j.data || null);
-          shape = Array.isArray(j) ? `array(${j.length})` : `object{${Object.keys(j).slice(0, 8).join(",")}}`;
-          if (Array.isArray(arr)) items = arr.slice(0, 6).map((m) => ({ cat: m.category, t: (m.question || m.title || m.name || "?").slice(0, 70), mkts: Array.isArray(m.markets) ? m.markets.length : undefined, ysub: m.yes_sub_title, lp: m.last_price, vol: m.volume }));
-        } catch { /* non-JSON */ }
-        return { label, status: r.status, len: b.length, shape, items, snippet: b.slice(0, 160) };
-      } catch (e) { return { label, error: String((e && e.message) || e) }; }
-    };
-    const probes = await Promise.all([
-      probe("kalshi-events", "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=6&with_nested_markets=true"),
-      probe("kalshi-events-econ", "https://api.elections.kalshi.com/trade-api/v2/events?status=open&limit=6&category=Economics&with_nested_markets=true"),
-      probe("polymarket", "https://gamma-api.polymarket.com/markets?closed=false&limit=5&order=volumeNum&ascending=false"),
-    ]);
-    const [pm, ks] = await Promise.all([predictPolymarket().catch((e) => ({ err: String(e) })), predictKalshi().catch((e) => ({ err: String(e) }))]);
+    // ONE Kalshi events fetch (avoid the 429 cascade): category histogram +
+    // finance-event market shape, so we can see the real category name and where
+    // finance markets live. Plus the parsed Polymarket sample.
+    const kTxt = await fetchText(`${KALSHI_BASE}/events?status=open&limit=200&with_nested_markets=true`);
+    let kalshi = { fetch: kTxt ? "ok(" + kTxt.length + ")" : "null" };
+    try {
+      const j = JSON.parse(kTxt);
+      const events = Array.isArray(j.events) ? j.events : [];
+      const cats = {};
+      for (const e of events) cats[e.category || "?"] = (cats[e.category || "?"] || 0) + 1;
+      const fin = events.filter((e) => KALSHI_FINCAT.test(String(e.category || "")) || PREDICT_RX.test(e.title || ""));
+      kalshi = {
+        totalEvents: events.length,
+        categories: cats,
+        financeEventCount: fin.length,
+        financeSample: fin.slice(0, 8).map((e) => { const m = (e.markets || [])[0]; return { cat: e.category, title: e.title, mkts: (e.markets || []).length, m0: m ? { ysub: m.yes_sub_title, lp: m.last_price, yb: m.yes_bid, ya: m.yes_ask, vol: m.volume } : null }; }),
+      };
+    } catch (e) { kalshi.err = String((e && e.message) || e); kalshi.snippet = (kTxt || "").slice(0, 150); }
+    const pm = await predictPolymarket().catch((e) => ({ err: String(e) }));
     return new Response(JSON.stringify({
-      probes,
-      parsed: { polymarket: Array.isArray(pm) ? pm.length : pm, kalshi: Array.isArray(ks) ? ks.length : ks },
+      kalshi,
+      polymarket: { count: Array.isArray(pm) ? pm.length : pm, sample: Array.isArray(pm) ? pm.slice(0, 5) : null },
     }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
