@@ -70,9 +70,20 @@ async function deepLink(url, view, min, label) {
   checkEq(counts.activeTab, "home", "cycle: active tab marker tracks the last tab");
   checkErrs(errs, "full nav cycle");
 
-  // ---- 3. Back button traverses the SPA (home <- menu) ----
+  // ---- 3. Back button traverses the SPA (clean tab-only state: … menu, home) ----
   await pg.goBack(); await pg.waitForTimeout(700);
-  checkEq(await pg.evaluate(() => (document.querySelector(".v2-view:not([hidden])") || {}).dataset?.view), "menu", "back button: returns to previous tab (menu)");
+  checkEq(await pg.evaluate(() => (document.querySelector(".v2-view:not([hidden])") || {}).dataset?.view), "menu", "back button: returns to the previous tab (menu)");
+
+  // ---- 4. In-view interactivity: the active view's own (guarded) handlers fire ----
+  await tap("macro");
+  await pg.evaluate(() => { const e = [...document.querySelectorAll('.v2-view[data-view="macro"] #ck-secnav .tchip')].find((c) => c.textContent.trim() === "Earnings"); if (e) e.click(); });
+  await pg.waitForTimeout(300);
+  checkEq(await pg.evaluate(() => (document.querySelector('.v2-view[data-view="macro"] #ck-secnav .tchip.is-on') || {}).textContent?.trim()), "Earnings", "in-view: Macro sub-tab chip switches (active-guarded handler fires)");
+  await tap("credit");
+  const creditChip = await pg.evaluate(() => { const t = [...document.querySelectorAll('.v2-view[data-view="credit"] .tchip')].find((c) => !c.classList.contains("is-on")); if (t) { t.click(); return t.textContent.trim(); } return null; });
+  await pg.waitForTimeout(300);
+  checkEq(await pg.evaluate(() => (document.querySelector('.v2-view[data-view="credit"] .tchip.is-on') || {}).textContent?.trim()), creditChip, "in-view: Credit filter chip activates");
+  checkErrs(errs, "in-view interactivity");
   await ctx.close();
 }
 
