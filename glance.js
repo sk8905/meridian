@@ -113,7 +113,7 @@ export function initGlance() {
   // Macro/Credit/Legal (nav-actions.js) — one implementation on all pages. The
   // legacy Home-only dropdown menus are retired; on phones Home just hides its
   // desktop data rails (initHomeMarketsRails) and uses the shared Markets panel.
-  import("/nav-actions.js?v=20260722-11").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260722-12").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderPredict();
   initFeedEntityNav();
   initFeedHeadLock();

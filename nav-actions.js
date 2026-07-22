@@ -1101,6 +1101,11 @@ export function initNavActions() {
           if (pal) { pal.classList.remove("open"); if (document.activeElement && pal.contains(document.activeElement)) document.activeElement.blur(); }
           return;
         }
+        // Client-side same-document transition when available (app↔app): avoids
+        // the full page load that flashes a white inter-document blank on iOS
+        // (which has no cross-document view transitions). Returns false for Home
+        // / off-scope / unsupported → fall through to a normal navigation.
+        if (typeof window.__spaNavigate === "function" && window.__spaNavigate(dest)) return;
         location.replace(dest);
       };
       if (tabbar) {

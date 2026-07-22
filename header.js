@@ -9,7 +9,7 @@
 // brief.js. This module wires all three together in the right order so the
 // account block, buttons and briefing all find their mount points.
 // =============================================================================
-import { initNavActions } from "/nav-actions.js?v=20260722-11";
+import { initNavActions } from "/nav-actions.js?v=20260722-12";
 import { initBrief } from "/brief.js?v=7";
 
 const TABS = [
@@ -99,4 +99,9 @@ export function initHeader(opts = {}) {
   // page loads it, so this is the single correct home. ptr.js self-guards
   // (touch-only, runs once), so it's a no-op on desktop and on a second call.
   import("/ptr.js?v=20260723-3").then((m) => m.initPullToRefresh()).catch(() => {});
+  // Client-side tab navigation (same-document view transitions) so app↔app tab
+  // changes don't do a full page load — killing the white inter-document blank
+  // on iOS, which has no cross-document view transitions. Self-guards; falls back
+  // to normal navigation for Home / off-scope / unsupported browsers.
+  import("/spa.js?v=20260723-1").then((m) => m.initSpaNav()).catch(() => {});
 }
