@@ -9,8 +9,8 @@ import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NE
 import { esc } from "/util.js?v=20260719-1";
 import { MONTHS, MONTHS_FULL, WEEKDAYS, isoToDate, fmtDay, fmtDayGB, fmtWeekday, fmtDate,
   trackGauge, CYCLE_ZONES, BUBBLE_ZONES, bubbleComposite, bubbleBand,
-  MAC_IND_ORDER, MACRO_DATA, setMacroData, macroMatrixHtml, macroDetailHtml } from "./shared.js?v=20260722-2";
-import { macroDashPane, loadYieldCurve, cockpitInds } from "./dashboard.js?v=20260722-3";
+  MAC_IND_ORDER, MACRO_DATA, setMacroData, macroMatrixHtml, macroDetailHtml } from "./shared.js?v=20260722-3";
+import { macroDashPane, loadYieldCurve, cockpitInds } from "./dashboard.js?v=20260722-4";
 // The shared news-wire engine — so the Macro dashboard wire is the same build as
 // the Home feed (time-led .g-feed-* rows, day headers, source filter).
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, onLiveWire, liveDesk } from "/feed.js?v=20260722-4";
@@ -394,7 +394,7 @@ function viewDashboard() {
       </section>
       <aside class="tcol tcol-r">
         <section class="tpanel">
-          <header class="tpanel-h"><span>Economic indicators</span><span class="tpanel-x">G7 · EU · IE</span></header>
+          <header class="tpanel-h"><span>Economic indicators</span><span class="tpanel-x">G7 · EU · IE · CN</span></header>
           <div id="macro-ind"><div class="tw-empty muted small">Loading indicators…</div></div>
         </section>
         <section class="tpanel">

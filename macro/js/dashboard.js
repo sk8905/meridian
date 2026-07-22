@@ -7,11 +7,11 @@
 import { esc } from "/util.js?v=20260719-1";
 import { YIELD_CURVE, OUTLOOK, CYCLE, BUBBLE, EARNINGS, MATWALL } from "./content.js?v=20260722-3";
 import { fmtDate, fmtWeekday, trackGauge, CYCLE_ZONES, BUBBLE_ZONES,
-  bubbleComposite, bubbleBand, MAC_IND_ORDER, MACRO_DATA, macroMatrixHtml, macroDetailHtml } from "./shared.js?v=20260722-2";
+  bubbleComposite, bubbleBand, MAC_IND_ORDER, MACRO_DATA, macroMatrixHtml, macroDetailHtml, MAC_MATRIX_KEYS_FULL } from "./shared.js?v=20260722-3";
 
 // In-page chip memory (fresh visits start on the first chip; in-page re-renders
 // keep the pick — see the app.js note on the same pattern).
-let _dashSec = "economy", _earnWeek = "this";
+let _dashSec = "overview", _earnWeek = "this";
 
 // Macro data dashboard (shown behind the "Dashboard" chip in the centre column):
 // the US market-implied policy path — CME FedWatch odds + the FOMC dot plot — and
@@ -86,7 +86,7 @@ const ckTile = (s) => {
 export function cockpitInds(series) {
   const S = series || (MACRO_DATA && MACRO_DATA.series) || [];
   if (!S.length) return '<div class="tw-empty muted small" style="padding:11px">Indicators unavailable right now.</div>';
-  return `<div class="ck-ind-wrap">${macroMatrixHtml(S, _ckIndCountry)}${macroDetailHtml(S, _ckIndCountry, ckTile)}</div>`;
+  return `<div class="ck-ind-wrap">${macroMatrixHtml(S, _ckIndCountry, MAC_MATRIX_KEYS_FULL)}${macroDetailHtml(S, _ckIndCountry, ckTile)}</div>`;
 }
 // Re-point the cockpit detail when a matrix row is clicked (host delegates here).
 export function cockpitIndSelect(c) { if (c && c !== _ckIndCountry) { _ckIndCountry = c; return true; } return false; }
@@ -305,28 +305,23 @@ export function macroDashPane() {
   // Sub-section menu: one section at a time (a fresh visit always starts on
   // the first chip; in-page re-renders keep the current pick via _dashSec).
   let sec = _dashSec;
-  const SECS = [["economy", "Economy"], ["rates", "Rates"], ["regime", "Regime"], ["earnings", "Earnings"], ["credit", "Credit"]];
-  if (!SECS.some(([k]) => k === sec)) sec = "economy";
+  // Overview folds the former Economy + Rates + Regime sections into one read;
+  // Earnings and Credit stay as their own tabs.
+  const SECS = [["overview", "Overview"], ["earnings", "Earnings"], ["credit", "Credit"]];
+  if (!SECS.some(([k]) => k === sec)) sec = "overview";
   const chip = ([k, l]) => `<button type="button" class="tchip${k === sec ? " is-on" : ""}" data-sec="${k}">${l}</button>`;
   const grp = (k) => `class="ck-group${sec !== k ? " ck-off" : ""}" data-sec="${k}"`;
   wireSecNav();
 
   return `<div class="ck-secbar"><div class="tchips" id="ck-secnav">${SECS.map(chip).join("")}</div></div>
   <div class="mac-cockpit ck-single" id="ck-cockpit">
-    <div ${grp("earnings")}>
-    <div class="ck-sec">Earnings</div>
-    ${earningsPanel()}
-    </div>
-
-    <div ${grp("economy")}>
-    <div class="ck-sec">Economy</div>
+    <div ${grp("overview")}>
+    <div class="ck-sec">Economic indicators</div>
     <section class="ck-panel ck-span2">
-      <header class="ck-h wire-ptr-freeze"><span>Key economic indicators</span><span class="ck-x">US · UK</span><a class="ck-more" href="#/chart">Chart</a></header>
+      <header class="ck-h wire-ptr-freeze"><span>Key economic indicators</span><span class="ck-x">G7 · EU · IE · CN</span><a class="ck-more" href="#/chart">Chart</a></header>
       <div class="ck-inds" id="mac-ck-inds">${cockpitInds((MACRO_DATA && MACRO_DATA.series) || [])}</div>
     </section>
-    </div>
 
-    <div ${grp("rates")}>
     <div class="ck-sec">Rates &amp; policy</div>
     <section class="ck-panel">
       <header class="ck-h wire-ptr-freeze"><span>Yield curve</span><span class="ck-x" id="ck-yc-asof">gov · as of ${esc(_yc.asOf)}</span></header>
@@ -356,14 +351,7 @@ export function macroDashPane() {
         ${stat("UK", OUTLOOK.uk.rate, `${OUTLOOK.uk.stance || ""}${OUTLOOK.uk.next ? " · next " + OUTLOOK.uk.next : ""}`)}
       </div>
     </section>
-    </div>
 
-    <div ${grp("credit")}>
-    <div class="ck-sec">Credit</div>
-    ${matWallPanel()}
-    </div>
-
-    <div ${grp("regime")}>
     <div class="ck-sec">Regime</div>
     <section class="ck-panel">
       <header class="ck-h wire-ptr-freeze"><span>Cycle — long-term debt cycle</span><a class="ck-more" href="#/cycle">Cycle →</a></header>
@@ -385,6 +373,14 @@ export function macroDashPane() {
       </div>
     </section>
     </div>
+
+    <div ${grp("earnings")}>
+    ${earningsPanel()}
+    </div>
+
+    <div ${grp("credit")}>
+    ${matWallPanel()}
+    </div>
   </div>`;
 }
 
@@ -405,7 +401,7 @@ function wireSecNav() {
     }
     const b = e.target.closest("#ck-secnav .tchip");
     if (!b) return;
-    const sec = b.getAttribute("data-sec") || "economy";
+    const sec = b.getAttribute("data-sec") || "overview";
     _dashSec = sec;
     document.querySelectorAll("#ck-secnav .tchip").forEach((c) => c.classList.toggle("is-on", c === b));
     document.querySelectorAll("#ck-cockpit .ck-group").forEach((g) => g.classList.toggle("ck-off", g.getAttribute("data-sec") !== sec));

@@ -94,31 +94,41 @@ export const MAC_COUNTRIES = [
   ["US", "United States", "US"], ["UK", "United Kingdom", "UK"], ["EA", "Euro Area", "Euro"],
   ["DE", "Germany", "DE"], ["FR", "France", "FR"], ["IT", "Italy", "IT"],
   ["IE", "Ireland", "IE"], ["CA", "Canada", "CA"], ["JP", "Japan", "JP"],
+  ["CN", "China", "CN"],
 ];
 export const MAC_COUNTRY_NAME = Object.fromEntries(MAC_COUNTRIES.map(([c, n]) => [c, n]));
-// The three broadly-comparable indicators shown across every economy in the matrix.
+// The three broadly-comparable indicators shown across every economy in the
+// narrow app-rail matrix (the wide cockpit matrix uses the full six below).
 export const MAC_MATRIX_KEYS = [["base_rate", "Rate"], ["core_cpi", "Infl."], ["unemployment", "Unemp."]];
+// Full six-indicator column set for the wide cockpit comparison matrix.
+export const MAC_MATRIX_KEYS_FULL = [
+  ["base_rate", "Base rate"], ["two_year", "2Y yield"], ["core_cpi", "Core CPI"],
+  ["services_pmi", "Svc PMI"], ["wages", "Wages"], ["unemployment", "Unemp."],
+];
 // Full indicator label per key (the per-country detail renders all six, "–" for gaps).
 export const MAC_IND_LABELS = { base_rate: "Base rate", two_year: "2-year yield", core_cpi: "Core inflation", services_pmi: "Services PMI", wages: "Wage growth", unemployment: "Unemployment" };
 const macFind = (series, c, k) => (series || []).find((s) => s.country === c && s.key === k);
 const macCell = (s) => (s && s.value != null) ? `${(+s.value).toFixed(2)}${s.unit === "%" ? "%" : ""}` : "–";
-// Country × key-indicator comparison table. Rows carry data-c for click-to-select.
-export function macroMatrixHtml(series, sel) {
-  const head = `<tr><th class="mac-mtx-c"></th>${MAC_MATRIX_KEYS.map(([, l]) => `<th>${esc(l)}</th>`).join("")}</tr>`;
+// Country × indicator comparison table. Rows carry data-c for click-to-select.
+// `keys` picks the column set (3 broadly-comparable for the rail; the full 6
+// for the cockpit). Header cells carry the full label as a tooltip.
+export function macroMatrixHtml(series, sel, keys = MAC_MATRIX_KEYS) {
+  const head = `<tr><th class="mac-mtx-c"></th>${keys.map(([k, l]) => `<th title="${esc(MAC_IND_LABELS[k] || l)}">${esc(l)}</th>`).join("")}</tr>`;
   const body = MAC_COUNTRIES.map(([c, name, short]) => {
-    const cells = MAC_MATRIX_KEYS.map(([k]) => `<td>${macCell(macFind(series, c, k))}</td>`).join("");
+    const cells = keys.map(([k]) => `<td>${macCell(macFind(series, c, k))}</td>`).join("");
     return `<tr class="mac-mtx-r${sel === c ? " on" : ""}" data-c="${esc(c)}" title="${esc(name)}"><th class="mac-mtx-c">${esc(short)}</th>${cells}</tr>`;
   }).join("");
   return `<table class="mac-mtx"><thead>${head}</thead><tbody>${body}</tbody></table>`;
 }
 // One economy's full six-indicator detail; missing series render an em-dash tile.
+// Wrapped in .mac-ind-detail so the cockpit can sit it beside the matrix.
 export function macroDetailHtml(series, c, tileFn) {
   const tiles = MAC_IND_ORDER.map((k) => {
     const s = macFind(series, c, k);
     if (s) return tileFn(s);
     return `<div class="mac-ind"><span class="mac-ind-n">${esc(MAC_IND_LABELS[k])}</span><span class="mac-ind-v">–</span></div>`;
   }).join("");
-  return `<div class="mac-ind-cty">${esc(MAC_COUNTRY_NAME[c] || c)}</div><div class="mac-ind-grid">${tiles}</div>`;
+  return `<div class="mac-ind-detail"><div class="mac-ind-cty">${esc(MAC_COUNTRY_NAME[c] || c)}<span class="mac-ind-cty-x">latest · daily change</span></div><div class="mac-ind-grid">${tiles}</div></div>`;
 }
 
 // Live shared state: the /api/macro payload. app.js loads it (loadMacro) and

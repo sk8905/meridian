@@ -29,7 +29,7 @@ const base = `http://localhost:${srv.port}`;
   check(st.main === "Dashboard" && st.sec === "earnings" && st.week === "last", "macro selections survive re-render");
   await pg.reload({ waitUntil: "load" }); await pg.waitForTimeout(1500);
   st = await state();
-  check(st.main === "All" && st.sec === "economy" && st.week === "this", "macro reload resets to first chips");
+  check(st.main === "All" && st.sec === "overview" && st.week === "this", "macro reload resets to first chips");
   // PTR snapshot restore
   await pg.evaluate(async () => {
     const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

@@ -1044,6 +1044,12 @@ const MACRO_SERIES = [
   // source (StatCan / BoJ) is added.
   { country: "CA", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTCAM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTCAM156N", source: "FRED / OECD" },
   { country: "JP", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTJPM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTJPM156N", source: "FRED / OECD" },
+  // China — the 10th economy. FRED's monthly China coverage is thin; these are
+  // candidate series confirmed via /api/macro?debug and trimmed to what returns
+  // (anything dead renders "–", as with CA/JP rate & inflation).
+  { country: "CN", key: "base_rate", label: "Base rate", unit: "%", sub: "3-month interbank rate", src: "fred", id: "IR3TIB01CNM156N", tf: "level", href: "https://fred.stlouisfed.org/series/IR3TIB01CNM156N", source: "FRED / OECD" },
+  { country: "CN", key: "core_cpi", label: "Core inflation", unit: "%", sub: "CPI · YoY", src: "fred", id: "CHNCPIALLMINMEI", tf: "yoy", href: "https://fred.stlouisfed.org/series/CHNCPIALLMINMEI", source: "FRED / OECD" },
+  { country: "CN", key: "unemployment", label: "Unemployment", unit: "%", sub: "Surveyed urban unemployment", src: "fred", id: "LRUNTTTTCNM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRUNTTTTCNM156N", source: "FRED / OECD" },
 ];
 
 async function macroSeriesPairs(s, env) {
@@ -1126,7 +1132,7 @@ async function handleMacro(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/macro?v=82", request.url).toString());
+  const cacheKey = new Request(new URL("/api/macro?v=83", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const series = await Promise.all(MACRO_SERIES.map(async (s) => {

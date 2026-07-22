@@ -313,8 +313,13 @@ a.intel-head:hover { text-decoration: none; }
 .ck-note { font-size: 11px; line-height: 1.5; color: var(--muted); margin: 0; }
 .ck-note strong { color: var(--ink); font-weight: 600; }
 .ck-reads { padding: 9px 12px 12px; display: flex; flex-direction: column; gap: 5px; border-top: 1px solid var(--border); }
-/* Economic indicators — US and UK side by side */
-.ck-inds { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--border); }
+/* Economic indicators — comparison matrix beside the selected economy's detail,
+   filling the full-width panel (was a half-empty 1fr 1fr grid). */
+.ck-inds { display: block; background: var(--surface); }
+.ck-ind-wrap { display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(0, 1fr); gap: 1px; background: var(--border); align-items: start; }
+.ck-ind-wrap > .mac-mtx, .ck-ind-wrap > .mac-ind-detail { background: var(--surface); }
+/* Selected-economy tiles beside the matrix: a clean 3 × 2 block. */
+.ck-ind-wrap .mac-ind-grid { grid-template-columns: repeat(3, 1fr); }
 .ck-ind-col { background: var(--surface); min-width: 0; }
 /* FedWatch — tighten the reused .pw-* bars for the compact panel */
 .ck-body .pw-bars { gap: .5rem; margin: .1rem 0 0; }
@@ -328,7 +333,6 @@ a.intel-head:hover { text-decoration: none; }
 #ck-secnav .tchip.is-on { box-shadow: none; background: color-mix(in srgb, var(--ink, #eaf0fb) 9%, transparent); color: var(--ink); font-weight: 600; }
 .ck-group { display: contents; }
 .ck-group.ck-off { display: none; }
-.ck-single .ck-sec { display: none; }
 /* Cockpit sub-section headers — full-width mono dividers grouping the panels */
 .ck-sec { grid-column: 1 / -1; background: var(--bg, #05080f); padding: 14px 12px 5px;
   font-family: var(--t-mono, ui-monospace, monospace); font-size: 9.5px; font-weight: 600;
@@ -526,7 +530,8 @@ circle.yc-uk { fill: #6fa3d6; }
   .mac-cockpit { grid-template-columns: 1fr; }
   .ck-span2 { grid-column: auto; }
   .ck-dims { grid-template-columns: 1fr; }
-  .ck-inds { grid-template-columns: 1fr; }  /* stack US over UK so each keeps its 3-across tiles */
+  /* Stack the comparison matrix over the selected-economy detail on narrow screens. */
+  .ck-ind-wrap { grid-template-columns: 1fr; }
 }
 
 /* ---------- bubble-risk view ---------- */
