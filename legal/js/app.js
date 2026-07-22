@@ -34,7 +34,7 @@ import { viewItem, viewFirm } from "./detail.js?v=20260722-3";
 // The shared news-wire engine — so the Legal dashboard wire is the same build as
 // the Home feed (time-led .g-feed-* rows, day headers, and — new — the firm name
 // at row end as an in-place source filter).
-import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260722-3";
+import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260722-4";
 
 
 const app = document.getElementById("app");
@@ -1181,7 +1181,7 @@ document.addEventListener("click", (e) => {
   }
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260722-3").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260722-4").then((m) => m.mountPalette()).catch(() => {});
 import("/ptr.js?v=20260721-3").then((m) => m.initPullToRefresh()).catch(() => {});
 initChrome();
 initNotif();

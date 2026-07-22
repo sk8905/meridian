@@ -268,7 +268,7 @@ function loadMarkets(body) {
   const loadPredict = () => {
     if (predict != null || predictLoading) return;
     predictLoading = true;
-    fetch("/api/predict?v=4", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null)
+    fetch("/api/predict?v=5", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null)
       .then((p) => { predict = (p && p.markets) || []; predictLoading = false; if (_mktTab === "predict") render(); });
   };
   chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c && c.dataset.k !== _mktTab) { _mktTab = c.dataset.k; if (_mktTab === "predict") loadPredict(); render(); } });
@@ -380,7 +380,7 @@ function portfolioPane(d) {
     + `<button type="button" class="na-pf-tgl${daily ? " on" : ""}" data-m="daily">Daily</button>`
     + `<button type="button" class="na-pf-tgl${daily ? "" : " on"}" data-m="total">Total</button></span>`;
   return `<div class="na-sec"><span>Portfolio</span>${tgl}</div>`
-    + pfMrow("Total Value", priced ? fmtGBP(tVal) : "—", null)
+    + pfMrow("Total Value", priced ? fmtGBP(tVal) : "—", priced ? (daily ? tDayPct : tPnlPct) : null)
     + sorted.map((r) => {
       const val = r.val == null ? "—" : daily ? fmtGBP(r.day, true) : fmtGBP(r.val);
       return pfMrow(r.h.label || r.h.ticker, val, daily ? r.dPct : r.pnlPct, sessDot(r.m && r.m.marketState, r.h.exch));

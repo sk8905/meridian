@@ -21,7 +21,7 @@ import { esc, byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } 
 // these helpers; Macro/Credit/Legal use the same module, so every wire is one
 // build.
 import { DESK, DESK_CODE, DESK_CLASS, STRICT_MACRO_RE, deskFor, palTag, nlDesk, PAL_CODE,
-  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, feedChipsHTML } from "/feed.js?v=20260722-3";
+  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, feedChipsHTML } from "/feed.js?v=20260722-4";
 // The ONLY sources eligible to lead the briefing "Top story": FT, Bloomberg, CNBC,
 // Reuters and the WSJ (plus their same-wire variants, e.g. a Reuters story carried
 // via Investing.com or an FT Alphaville post).
@@ -116,7 +116,7 @@ export function initGlance() {
   // Macro/Credit/Legal (nav-actions.js) — one implementation on all pages. The
   // legacy Home-only dropdown menus are retired; on phones Home just hides its
   // desktop data rails (initHomeMarketsRails) and uses the shared Markets panel.
-  import("/nav-actions.js?v=20260722-2").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260722-3").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderPredict();
   initFeedEntityNav();
   initFeedHeadLock();
@@ -1085,7 +1085,7 @@ function renderPortfolioBand(el, d) {
   // its market value; the single P&L row beneath likewise follows the toggle.
   // Holdings ordered by market value (high → low; unpriced last).
   const sorted = p.rows.slice().sort((a, b) => (b.val == null ? -1 : b.val) - (a.val == null ? -1 : a.val));
-  const totalRow = pfRow("Total Value", p.priced ? fmtGBP(p.tVal) : "—", null, "", "g-pf-sum g-pf-top");
+  const totalRow = pfRow("Total Value", p.priced ? fmtGBP(p.tVal) : "—", p.priced ? (daily ? p.tDayPct : p.tPnlPct) : null, "", "g-pf-sum g-pf-top");
   const holdings = sorted.map((r) => {
     const dot = marketDot({ label: r.h.ticker, marketState: r.m && r.m.marketState, mktType: PF_TYPE[r.h.exch] || "us_equity" });
     const label = r.h.label || r.h.ticker;
@@ -1327,7 +1327,7 @@ function paintPredict(el) {
 function renderPredict() {
   const el = document.getElementById("g-predict");
   if (!el) return;
-  fetch("/api/predict?v=4", { headers: { accept: "application/json" } })
+  fetch("/api/predict?v=5", { headers: { accept: "application/json" } })
     .then((r) => (r.ok ? r.json() : null)).catch(() => null)
     .then((d) => { const list = (d && d.markets) || []; if (!list.length && el.querySelector(".tui-li")) return; _predList = list; paintPredict(el); });
 }

@@ -759,7 +759,7 @@ async function handleMarkets(request, env, ctx) {
 // like every other upstream. Display-only: question + implied YES probability +
 // venue + volume + close date. A keyword gate keeps it to finance-relevant events.
 // Finance + finance-adjacent (market-moving politics / geopolitics) gate.
-const PREDICT_RX = /\b(fed|fomc|interest[ -]?rate|rate (?:hike|cut|decision|change)|powell|cpi|inflation|deflation|recession|gdp|unemploy|jobless|payroll|nonfarm|s\s?&\s?p\s?500|sp500|nasdaq|dow jones|stock market|equit|bitcoin|btc|ethereum|eth|crypto|solana|xrp|dogecoin|stablecoin|treasur|bond yield|10[- ]year|debt ceiling|government shutdown|shutdown|oil price|opec|brent|crude|gold price|dollar index|dxy|tariff|trade war|\becb\b|bank of england|\bboe\b|earnings|nvidia|tesla|\bipo\b|trump|biden|harris|president|election|nominee|nomination|prime minister|\biran\b|israel|gaza|ukraine|russia|\bchina\b|taiwan|\bnato\b|ceasefire|nuclear)\b/i;
+const PREDICT_RX = /\b(fed|fomc|interest[ -]?rate|rate (?:hike|cut|decision|change)|powell|cpi|inflation|deflation|recession|gdp|unemploy|jobless|payroll|nonfarm|s\s?&\s?p\s?500|sp500|nasdaq|dow jones|stock market|equit|bitcoin|btc|ethereum|eth|crypto|solana|xrp|dogecoin|stablecoin|treasur|bond yield|10[- ]year|debt ceiling|government shutdown|shutdown|oil price|opec|brent|crude|gold price|dollar index|dxy|tariff|trade war|\becb\b|bank of england|\bboe\b|earnings|nvidia|tesla|\bipo\b|trump|biden|harris|president|election|nominee|nomination|prime minister|\biran\b|israel|gaza|ukraine|russia|\bchina\b|taiwan|\bnato\b|ceasefire|nuclear|hormuz|strait|tanker)\b/i;
 // Group each market into a type (used for section breaks + the rail filter).
 function predictType(q) {
   const s = " " + String(q).toLowerCase() + " ";
@@ -768,7 +768,7 @@ function predictType(q) {
   if (/s\s?&\s?p|sp500|nasdaq|dow jones|stock market|equit|\bipo\b|nvidia|tesla|earnings/.test(s)) return "Equities";
   if (/bitcoin|\bbtc\b|ethereum|\beth\b|crypto|solana|\bxrp\b|dogecoin|stablecoin/.test(s)) return "Crypto";
   if (/\btrump\b/.test(s)) return "Trump";
-  if (/\biran\b|israel|gaza|hezbollah|houthi|ukraine|russia|\bchina\b|taiwan|\bwar\b|\bnato\b|ceasefire|nuclear/.test(s)) return "Geopolitics";
+  if (/\biran\b|israel|gaza|hezbollah|houthi|ukraine|russia|\bchina\b|taiwan|\bwar\b|\bnato\b|ceasefire|nuclear|hormuz|strait|tanker/.test(s)) return "Geopolitics";
   if (/election|president|nominee|nomination|prime minister|senate|congress|governor|mayor|\bpope\b|secretary general|referendum|parliament/.test(s)) return "Elections";
   return "Other";
 }
@@ -806,7 +806,7 @@ async function handlePredict(request, env, ctx) {
       { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/predict?v=4", request.url).toString());
+  const cacheKey = new Request(new URL("/api/predict?v=5", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const pm = await predictPolymarket().catch(() => []);

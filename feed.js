@@ -124,6 +124,11 @@ export const dedupeByTitle = (list) => { const seen = new Set(); return list.fil
 // A coloured code chip, the headline, and — when present — the source as an
 // in-place filter control (a span, not a link, so it doesn't trigger the row's
 // link-to-article) follow.
+// Trim a source to the outlet only for DISPLAY — drop "(via …)" republisher tags
+// (e.g. "Reuters (via Japan Times)" → "Reuters") so the column reads as the
+// newspaper/site. The raw value is kept as the filter key (data-src) so filtering
+// is unaffected.
+export const cleanSource = (s) => String(s || "").replace(/\s*\((?:via|from)\b[^)]*\)/gi, "").replace(/\s{2,}/g, " ").trim();
 export function feedRow(o) {
   const t = o.time || "";
   // Added-time (no source publish time) carries a tooltip so it isn't mistaken
@@ -134,7 +139,7 @@ export function feedRow(o) {
     + `<span class="g-feed-time${o.added ? " g-feed-time-added" : ""}"${timeAttr}>${esc(t)}</span>`
     + `<span class="g-feed-code ${DESK_CLASS[o.desk] || ""}" title="${esc(DESK[o.desk] || "")}">${DESK_CODE[o.desk] || ""}</span>`
     + `<span class="g-feed-title">${esc(o.title)}</span>`
-    + (o.src ? `<span class="g-feed-src" role="button" tabindex="0" data-src="${esc(o.src)}" title="Show all ${esc(o.src)} stories">${esc(o.src)}</span>` : "")
+    + (o.src ? `<span class="g-feed-src" role="button" tabindex="0" data-src="${esc(o.src)}" title="Show all ${esc(cleanSource(o.src))} stories">${esc(cleanSource(o.src))}</span>` : "")
     + `<span class="g-feed-desk">${esc(DESK[o.desk] || "")}</span></a>`;
 }
 // Some rows carry no real publish time (curated items, or a live item whose
@@ -193,7 +198,7 @@ export function feedChipsHTML(chips, activeK, label = "Latest news") {
 }
 // The active-source bar above the wire, with a one-click clear.
 export function feedSrcBarHTML(src) {
-  return `<div class="g-feed-srcbar">Source · <strong>${esc(src)}</strong><button type="button" class="g-feed-srcclear" data-clearsrc="1" aria-label="Clear source filter — show all sources">✕ clear</button></div>`;
+  return `<div class="g-feed-srcbar">Source · <strong>${esc(cleanSource(src))}</strong><button type="button" class="g-feed-srcclear" data-clearsrc="1" aria-label="Clear source filter — show all sources">✕ clear</button></div>`;
 }
 export function feedEmptyHTML(msg) { return `<div class="g-empty">${esc(msg)}</div>`; }
 

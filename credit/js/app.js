@@ -33,7 +33,7 @@ import {
 import { viewFund, viewManager, viewClo, viewLp } from "./detail.js?v=20260722-3";
 // The shared news-wire engine — the Home feed's row / day-header / source-filter
 // markup, so the Credit dashboard wire is the same build as Home's.
-import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260722-3";
+import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260722-4";
 
 
 const app = document.getElementById("app");
@@ -1638,7 +1638,7 @@ document.addEventListener("click", (e) => {
   }
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260722-3").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260722-4").then((m) => m.mountPalette()).catch(() => {});
 import("/ptr.js?v=20260721-3").then((m) => m.initPullToRefresh()).catch(() => {});
 router();
 renderDataStatus();

@@ -25,7 +25,7 @@
   <link rel="stylesheet" href="/header.css?v=20260720-4" />
   <!-- Header (top bar + ticker + briefing) is built by the ONE shared module so
        every page's header is identical (no platform tab is active on /menu/). -->
-  <script type="module" blocking="render">import { initHeader } from "/header.js?v=20260722-2"; initHeader({ active: "/menu/" });</script>
+  <script type="module" blocking="render">import { initHeader } from "/header.js?v=20260722-3"; initHeader({ active: "/menu/" });</script>
 </head>
 <body>
   <div id="wire-header"></div>
@@ -40,6 +40,6 @@
   <script>
     (function(){function r(){if(!matchMedia("(max-width:760px)").matches)return;var f=document.querySelector(".footer");if(!f||document.querySelector(".acct-foot"))return;var b=document.createElement("div");b.className="acct-foot";var a=document.getElementById("account-nav"),d=document.getElementById("data-status");if(a)b.appendChild(a);if(d)b.appendChild(d);if(b.childNodes.length)f.insertBefore(b,f.firstChild);}if(document.readyState!=="loading")r();else document.addEventListener("DOMContentLoaded",r);})();
   </script>
-  <script type="module">import("/palette.js?v=20260722-3").then((m) => m.mountPalette()).catch(() => {});</script>
+  <script type="module">import("/palette.js?v=20260722-4").then((m) => m.mountPalette()).catch(() => {});</script>
 </body>
 </html>
