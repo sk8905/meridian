@@ -282,7 +282,7 @@ function loadMarkets(body) {
     const ps = e.target.closest(".na-pred-fchip");     // predictions Macro/Politics/Finance
     if (ps && !ps.disabled) { e.preventDefault(); e.stopPropagation(); if (ps.dataset.ps !== _predSuper) { _predSuper = ps.dataset.ps; render(); } return; }
     const dir = e.target.closest(".na-pred-dir");      // Top Movers Up/Down
-    if (dir) { e.preventDefault(); e.stopPropagation(); const d = dir.dataset.dir; _predMoveDir = _predMoveDir === d ? "all" : d; render(); }
+    if (dir) { e.preventDefault(); e.stopPropagation(); if (dir.dataset.dir !== _predMoveDir) { _predMoveDir = dir.dataset.dir; render(); } }
   });
   if (_mktTab === "predict") loadPredict();
   render();
@@ -297,6 +297,14 @@ function loadMarkets(body) {
 // Prediction-market rows — matches the desktop rail: question + meta (venue ·
 // close date) on the left; the implied YES odds pinned top-right with the daily
 // odds change (percentage points) stacked directly beneath it.
+// Market size = total money wagered (Polymarket USD volume), compacted.
+function fmtVol(n) {
+  n = +n || 0;
+  if (n >= 1e9) return "$" + (n / 1e9).toFixed(1) + "B";
+  if (n >= 1e6) return "$" + (n / 1e6).toFixed(1) + "M";
+  if (n >= 1e3) return "$" + Math.round(n / 1e3) + "K";
+  return "$" + n;
+}
 function predictRow(m) {
   const yes = typeof m.yes === "number" ? m.yes : null;
   const cls = yes == null ? "" : yes >= 50 ? " hi" : " lo";
@@ -309,6 +317,7 @@ function predictRow(m) {
   return `<a class="nf-row na-pred" href="${esc(m.url || "#")}" target="_blank" rel="noopener noreferrer">`
     + `<span class="na-pred-main"><span class="nf-title">${esc(m.q)}</span>`
     + `<span class="nf-meta"><span class="nf-src">${esc(m.venue || "")}</span>`
+    + (m.vol ? `<span class="nf-sep">·</span><span class="nf-time">${esc(fmtVol(m.vol))}</span>` : "")
     + (m.end ? `<span class="nf-sep">·</span><span class="nf-time">${esc(fmtDate(m.end))}</span>` : "")
     + `</span></span>`
     + `<span class="na-pred-nums"><span class="na-pred-yes${cls}">${yes == null ? "—" : yes + "%"}</span>${chg}</span></a>`;
@@ -327,7 +336,7 @@ function naPredMovers(list) {
     .sort((a, b) => (b.chg - a.chg) || ((b.vol || 0) - (a.vol || 0)))
     .slice(0, 40);
 }
-let _predSuper = "Top Movers", _predMoveDir = "all";
+let _predSuper = "Top Movers", _predMoveDir = "up";
 function predictPane(list, loading) {
   if (loading || list == null) return '<div class="na-load">Loading…</div>';
   if (!list.length) return '<div class="na-load">No prediction markets available right now.</div>';
@@ -341,11 +350,11 @@ function predictPane(list, loading) {
     + `</div>`;
   let body;
   if (_predSuper === "Top Movers") {
-    // Up = increases only (largest→smallest); Down = decreases only (largest
-    // magnitude→smallest); all = biggest increase→biggest decrease.
-    let rows = movers;
-    if (_predMoveDir === "up") rows = movers.filter((m) => m.chg > 0);
-    else if (_predMoveDir === "down") rows = movers.filter((m) => m.chg < 0).sort((a, b) => a.chg - b.chg);
+    // Two views only: Up = increases (largest→smallest); Down = decreases
+    // (largest magnitude→smallest). One is always selected.
+    const rows = _predMoveDir === "down"
+      ? movers.filter((m) => m.chg < 0).sort((a, b) => a.chg - b.chg)
+      : movers.filter((m) => m.chg > 0);
     const tgl = `<span class="na-pf-tgl-wrap" role="tablist">`
       + `<button type="button" class="na-pred-dir${_predMoveDir === "up" ? " on" : ""}" data-dir="up">Up</button>`
       + `<button type="button" class="na-pred-dir${_predMoveDir === "down" ? " on" : ""}" data-dir="down">Down</button></span>`;

@@ -113,7 +113,7 @@ export function initGlance() {
   // Macro/Credit/Legal (nav-actions.js) — one implementation on all pages. The
   // legacy Home-only dropdown menus are retired; on phones Home just hides its
   // desktop data rails (initHomeMarketsRails) and uses the shared Markets panel.
-  import("/nav-actions.js?v=20260722-9").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260722-10").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderPredict();
   initFeedEntityNav();
   initFeedHeadLock();
@@ -1303,10 +1303,18 @@ function predMovers(list) {
     .sort((a, b) => (b.chg - a.chg) || ((b.vol || 0) - (a.vol || 0)))
     .slice(0, 40);
 }
-let _predList = null, _predFilter = "Top Movers", _predMoveDir = "all";
+let _predList = null, _predFilter = "Top Movers", _predMoveDir = "up";
+// Market size = total money wagered (Polymarket USD volume), compacted.
+function predVol(n) {
+  n = +n || 0;
+  if (n >= 1e9) return "$" + (n / 1e9).toFixed(1) + "B";
+  if (n >= 1e6) return "$" + (n / 1e6).toFixed(1) + "M";
+  if (n >= 1e3) return "$" + Math.round(n / 1e3) + "K";
+  return "$" + n;
+}
 function predRow(m) {
   const yes = typeof m.yes === "number" ? m.yes + "%" : "—";
-  const meta = [m.venue, m.end ? fmt(String(m.end).slice(0, 10)) : ""].filter(Boolean).join(" · ");
+  const meta = [m.venue, m.vol ? predVol(m.vol) : "", m.end ? fmt(String(m.end).slice(0, 10)) : ""].filter(Boolean).join(" · ");
   // Daily change in implied odds (percentage points) — column-aligned with the
   // change column of the Economic-indicators pane above.
   let chg = '<span class="g-pred-chg flat">·</span>';
@@ -1339,11 +1347,11 @@ function paintPredict(el) {
     + `</div>`;
   let body;
   if (_predFilter === "Top Movers") {
-    // Up = increases only (largest→smallest); Down = decreases only (largest
-    // magnitude→smallest); all = biggest increase→biggest decrease.
-    let rows = movers;
-    if (_predMoveDir === "up") rows = movers.filter((m) => m.chg > 0);
-    else if (_predMoveDir === "down") rows = movers.filter((m) => m.chg < 0).sort((a, b) => a.chg - b.chg);
+    // Two views only: Up = increases (largest→smallest); Down = decreases
+    // (largest magnitude→smallest). One is always selected.
+    const rows = _predMoveDir === "down"
+      ? movers.filter((m) => m.chg < 0).sort((a, b) => a.chg - b.chg)
+      : movers.filter((m) => m.chg > 0);
     const tgl = `<span class="g-pf-tgl-wrap">`
       + `<button type="button" class="g-pred-dir${_predMoveDir === "up" ? " on" : ""}" data-dir="up">Up</button>`
       + `<button type="button" class="g-pred-dir${_predMoveDir === "down" ? " on" : ""}" data-dir="down">Down</button></span>`;
@@ -1355,7 +1363,7 @@ function paintPredict(el) {
   }
   el.innerHTML = chips + `<div class="g-pred-list">${body}</div>`;
   el.querySelectorAll(".g-pred-fchip").forEach((c) => c.addEventListener("click", () => { if (!c.disabled && c.dataset.f !== _predFilter) { _predFilter = c.dataset.f; paintPredict(el); } }));
-  el.querySelectorAll(".g-pred-dir").forEach((b) => b.addEventListener("click", () => { const d = b.dataset.dir; _predMoveDir = _predMoveDir === d ? "all" : d; paintPredict(el); }));
+  el.querySelectorAll(".g-pred-dir").forEach((b) => b.addEventListener("click", () => { if (b.dataset.dir !== _predMoveDir) { _predMoveDir = b.dataset.dir; paintPredict(el); } }));
 }
 function renderPredict() {
   const el = document.getElementById("g-predict");
