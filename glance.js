@@ -21,7 +21,7 @@ import { esc, byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } 
 // these helpers; Macro/Credit/Legal use the same module, so every wire is one
 // build.
 import { DESK, DESK_CODE, DESK_CLASS, STRICT_MACRO_RE, deskFor, palTag, nlDesk, PAL_CODE,
-  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, feedChipsHTML } from "/feed.js?v=20260721-10";
+  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, feedChipsHTML } from "/feed.js?v=20260722-2";
 // The ONLY sources eligible to lead the briefing "Top story": FT, Bloomberg, CNBC,
 // Reuters and the WSJ (plus their same-wire variants, e.g. a Reuters story carried
 // via Investing.com or an FT Alphaville post).
@@ -1080,17 +1080,22 @@ function pfRow(label, valueStr, pct, dotHtml, cls) {
 function renderPortfolioBand(el, d) {
   const p = pfCompute(d);
   const daily = _pfMode === "daily";
-  // Holdings ordered by value (high → low; unpriced last); P&L column follows the toggle.
+  // Total Value (the portfolio's market value) anchors the top; each holding's
+  // number follows the toggle — DAILY shows the ticker's daily £ change, TOTAL
+  // its market value; the single P&L row beneath likewise follows the toggle.
+  // Holdings ordered by market value (high → low; unpriced last).
   const sorted = p.rows.slice().sort((a, b) => (b.val == null ? -1 : b.val) - (a.val == null ? -1 : a.val));
+  const totalRow = pfRow("Total Value", p.priced ? fmtGBP(p.tVal) : "—", null, "", "g-pf-sum g-pf-top");
   const holdings = sorted.map((r) => {
     const dot = marketDot({ label: r.h.ticker, marketState: r.m && r.m.marketState, mktType: PF_TYPE[r.h.exch] || "us_equity" });
-    return pfRow(r.h.label || r.h.ticker, r.val != null ? fmtGBP(r.val) : "—", daily ? r.dPct : r.pnlPct, dot);
+    const label = r.h.label || r.h.ticker;
+    const val = r.val == null ? "—" : daily ? fmtGBP(r.day, true) : fmtGBP(r.val);
+    return pfRow(label, val, daily ? r.dPct : r.pnlPct, dot);
   }).join("");
-  const summary = `<div class="g-pf-sec">Portfolio · ${p.priced}/${PF_BOOK.length} priced</div>`
-    + pfRow("Value", p.priced ? fmtGBP(p.tVal) : "—", null, "", "g-pf-sum")
-    + pfRow("Daily P&L", p.priced ? fmtGBP(p.tDay, true) : "—", p.tDayPct, "", "g-pf-sum")
-    + pfRow("Total P&L", p.priced ? fmtGBP(p.tPnl, true) : "—", p.tPnlPct, "", "g-pf-sum");
-  el.innerHTML = holdings + summary;
+  const pnl = daily
+    ? pfRow("P&L", p.priced ? fmtGBP(p.tDay, true) : "—", p.tDayPct, "", "g-pf-sum g-pf-pnl")
+    : pfRow("P&L", p.priced ? fmtGBP(p.tPnl, true) : "—", p.tPnlPct, "", "g-pf-sum g-pf-pnl");
+  el.innerHTML = totalRow + holdings + pnl;
   const meta = document.getElementById("g-mkt-meta");
   if (meta) meta.innerHTML = `<span class="g-pf-tgl-wrap" role="tablist">`
     + `<button type="button" class="g-pf-tgl${daily ? " on" : ""}" data-m="daily">Daily</button>`
@@ -1280,8 +1285,11 @@ let _predList = null, _predFilter = "all";
 function predRow(m) {
   const yes = typeof m.yes === "number" ? m.yes + "%" : "—";
   const meta = [m.venue, m.end ? fmt(String(m.end).slice(0, 10)) : ""].filter(Boolean).join(" · ");
-  return `<a class="tui-li" href="${esc(m.url || "#")}" target="_blank" rel="noopener noreferrer"><span class="tui-li-t">${esc(m.q)}</span>`
-    + `<span class="tui-li-m"><span class="tui-li-tag g-pred-odds">${esc(yes)}</span>${esc(meta)}</span></a>`;
+  // Odds pinned to the row's top-right; question + meta stack on the left.
+  return `<a class="tui-li g-pred-row" href="${esc(m.url || "#")}" target="_blank" rel="noopener noreferrer">`
+    + `<span class="g-pred-main"><span class="tui-li-t">${esc(m.q)}</span>`
+    + `<span class="tui-li-m">${esc(meta)}</span></span>`
+    + `<span class="g-pred-odds">${esc(yes)}</span></a>`;
 }
 function paintPredict(el) {
   const list = _predList || [];
@@ -1290,12 +1298,14 @@ function paintPredict(el) {
   for (const m of list) { const t = m.type || "Other"; (groups[t] = groups[t] || []).push(m); }
   const types = PRED_TYPE_ORDER.filter((t) => groups[t] && groups[t].length).concat(Object.keys(groups).filter((t) => !PRED_TYPE_ORDER.includes(t)));
   if (_predFilter !== "all" && !groups[_predFilter]) _predFilter = "all";
-  const chips = `<div class="g-pred-filter"><button type="button" class="g-pred-fchip${_predFilter === "all" ? " on" : ""}" data-f="all">All</button>`
-    + types.map((t) => `<button type="button" class="g-pred-fchip${_predFilter === t ? " on" : ""}" data-f="${esc(t)}">${esc(t)}</button>`).join("") + `</div>`;
+  const opts = [`<option value="all"${_predFilter === "all" ? " selected" : ""}>All categories</option>`]
+    .concat(types.map((t) => `<option value="${esc(t)}"${_predFilter === t ? " selected" : ""}>${esc(t)}</option>`)).join("");
+  const filter = `<div class="g-pred-filter"><select class="g-pred-select" aria-label="Filter prediction markets by category">${opts}</select></div>`;
   const shown = _predFilter === "all" ? types : [_predFilter];
   const body = shown.map((t) => `<div class="g-pred-sec">${esc(t)}</div>` + groups[t].map(predRow).join("")).join("");
-  el.innerHTML = chips + `<div class="g-pred-list">${body}</div>`;
-  el.querySelectorAll(".g-pred-fchip").forEach((c) => c.addEventListener("click", () => { _predFilter = c.dataset.f; paintPredict(el); }));
+  el.innerHTML = filter + `<div class="g-pred-list">${body}</div>`;
+  const sel = el.querySelector(".g-pred-select");
+  if (sel) sel.addEventListener("change", () => { _predFilter = sel.value; paintPredict(el); });
 }
 function renderPredict() {
   const el = document.getElementById("g-predict");

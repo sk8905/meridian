@@ -118,11 +118,14 @@ export const dedupeByTitle = (list) => { const seen = new Set(); return list.fil
 
 // ---- Row + body markup ------------------------------------------------------
 // One wire row. `o`: { desk, href, title, ext, date, time, src, sk, sid, mgr,
-// firm }. Leads with the publish time (real, else "12:00"), a coloured code
-// chip, the headline, and — when present — the source as an in-place filter
-// control (a span, not a link, so it doesn't trigger the row's link-to-article).
+// firm }. Leads with the publish time when the item carries a REAL one; items
+// with no known time lead with the headline (an empty time cell keeps the grid
+// aligned) rather than a fabricated "12:00" that reads as a real noon publish.
+// A coloured code chip, the headline, and — when present — the source as an
+// in-place filter control (a span, not a link, so it doesn't trigger the row's
+// link-to-article) follow.
 export function feedRow(o) {
-  const t = o.time || "12:00";
+  const t = o.time || "";
   return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}`
     + ` data-sk="${esc(o.sk || "x")}"${o.sid ? ` data-sid="${esc(o.sid)}"` : ""}${o.mgr ? ` data-mgr="${esc(o.mgr)}"` : ""}${o.firm ? ` data-firm="${esc(o.firm)}"` : ""} data-desk="${esc(o.desk)}" data-date="${esc(o.date || "")}" data-time="${esc(o.time || "")}">`
     + `<span class="g-feed-time">${esc(t)}</span>`

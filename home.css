@@ -841,13 +841,16 @@
       .tui .g-flow{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
       .tui .g-flow-head{ flex:0 0 auto; }
       .tui .g-flow-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
-      /* Prediction-markets rail: sticky type filter, section breaks, bold odds. */
-      .tui .g-pred-filter{ display:flex; flex-wrap:wrap; gap:4px; padding:8px 14px; background:var(--t-panel); border-bottom:1px solid var(--t-grid); position:sticky; top:0; z-index:2; }
-      .tui .g-pred-fchip{ font:inherit; font-size:10px; font-weight:600; letter-spacing:.02em; padding:2px 8px; border:1px solid var(--t-grid); background:transparent; color:var(--t-faint); cursor:pointer; }
-      .tui .g-pred-fchip.on{ background:var(--t-panel2); color:var(--t-ink); border-color:var(--t-dim); }
+      /* Prediction-markets rail: sticky category dropdown, section breaks, bold odds. */
+      .tui .g-pred-filter{ padding:8px 14px; background:var(--t-panel); border-bottom:1px solid var(--t-grid); position:sticky; top:0; z-index:2; }
+      .tui .g-pred-select{ width:100%; font:inherit; font-size:11px; font-weight:600; letter-spacing:.01em; color:var(--t-ink);
+        background:var(--t-panel2); border:1px solid var(--t-grid); border-radius:0; padding:4px 8px; cursor:pointer; }
+      .tui .g-pred-select:focus{ outline:none; border-color:var(--t-dim); }
       .tui .g-pred-sec{ font-family:var(--t-mono); font-size:9px; font-weight:600; letter-spacing:.06em; text-transform:uppercase; color:var(--t-faint); padding:9px 14px 3px; background:var(--t-head); border-bottom:1px solid var(--t-grid); }
       .tui .g-pred-list .tui-li{ padding-left:14px; padding-right:14px; }
-      .tui .g-pred-odds{ font-weight:700; color:var(--t-ink); }
+      .tui .g-pred-list .g-pred-row{ display:flex; align-items:flex-start; gap:10px; }
+      .tui .g-pred-main{ flex:1 1 auto; min-width:0; }
+      .tui .g-pred-odds{ flex:0 0 auto; font-family:var(--t-mono); font-variant-numeric:tabular-nums; font-size:12px; font-weight:700; color:var(--t-ink); }
       .tui .g-feed-wrap{ height:100%; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
       .tui .g-feed-head{ flex:0 0 auto; }
       .tui .g-feed{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; }
@@ -924,9 +927,9 @@
     .tui .g-pf-tgl{ font:inherit; font-size:9.5px; font-weight:600; letter-spacing:.02em; text-transform:uppercase;
       padding:1px 6px; border:1px solid var(--t-grid); background:transparent; color:var(--t-faint); cursor:pointer; }
     .tui .g-pf-tgl.on{ background:var(--t-panel2); color:var(--t-ink); border-color:var(--t-dim); }
-    .tui .g-pf-sec{ font-family:var(--t-mono); font-size:9px; font-weight:600; letter-spacing:.06em; text-transform:uppercase;
-      color:var(--t-faint); padding:8px 11px 3px; margin-top:2px; border-top:1px solid var(--t-grid); }
     .tui .g-pf-sum .rate-val{ font-weight:700; }
+    .tui .g-pf-top{ border-bottom:1px solid var(--t-grid); }
+    .tui .g-pf-pnl{ border-top:1px solid var(--t-grid); margin-top:2px; }
 
     /* ---- data rows (markets / rates) reuse .rates-band/.rate-tile ---- */
     .tui .rates-band,.tui .g-side .rates-band,.tui .markets-band{ display:block; background:var(--t-panel);
