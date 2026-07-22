@@ -1408,9 +1408,11 @@ const FEED_SOURCES = [
   // emitted items so the Home page routes them to the FT stream, not Macro; no
   // topic/quality filters — the reader curated this feed themselves.
   { url: "https://www.ft.com/myft/following/601965b2-62d0-47e1-88cf-576ebc8a8a2e.rss", source: "Financial Times", region: "GEN", cap: 40, myft: true, soft: true },
-  // Reuters & Bloomberg via Google News search (site:-scoped, macro terms, last 2 days)
-  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Areuters.com%20%28Fed%20OR%20inflation%20OR%20%22interest%20rate%22%20OR%20GDP%20OR%20economy%20OR%20Treasury%20OR%20%22stock%20market%22%29%20when%3A2d", source: "Reuters", region: "US", cap: 6, gnews: true },
-  { url: "https://news.google.com/rss/search?q=site%3Areuters.com%20%28%22Bank%20of%20England%22%20OR%20gilt%20OR%20inflation%20OR%20UK%20economy%20OR%20sterling%29%20when%3A2d&hl=en-GB&gl=GB&ceid=GB%3Aen", source: "Reuters", region: "UK", cap: 5, gnews: true },
+  // Reuters & Bloomberg via Google News search (site:-scoped, macro terms, last 2
+  // days). Reuters US + UK are CONSOLIDATED into one query (the two macro keyword
+  // sets OR'd together) to save a Worker subrequest — one gnews source instead of
+  // two, each of which also spends a variant/Bing fallback.
+  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=site%3Areuters.com%20%28Fed%20OR%20inflation%20OR%20%22interest%20rate%22%20OR%20GDP%20OR%20economy%20OR%20Treasury%20OR%20%22stock%20market%22%20OR%20%22Bank%20of%20England%22%20OR%20gilt%20OR%20%22UK%20economy%22%20OR%20sterling%29%20when%3A2d", source: "Reuters", region: "GEN", cap: 11, gnews: true },
   { url: "https://news.google.com/rss/search?q=site%3Abloomberg.com%20%28Fed%20OR%20inflation%20OR%20%22interest%20rate%22%20OR%20economy%20OR%20%22Bank%20of%20England%22%20OR%20bonds%29%20when%3A2d&hl=en-US&gl=US&ceid=US%3Aen", source: "Bloomberg", region: "GEN", cap: 6, gnews: true },
   // Bloomberg's OFFICIAL section feeds (feeds.bloomberg.com) — live, so stories
   // stream in as published. They carry the Asia-desk's broad industrial/politics
@@ -1424,9 +1426,9 @@ const FEED_SOURCES = [
   // return zero items from Google News — confirmed by the live probe — so it
   // was pure dead weight against the news.google.com rate limit. The direct
   // ft.com/alphaville RSS below carries the column.)
-  // The Economist via Google News: UNscoped (was keyword-limited) — the soft
-  // lifestyle-only screen replaces the query scoping, so far more gets through.
-  { url: "https://news.google.com/rss/search?q=site%3Aeconomist.com%20when%3A5d&hl=en-US&gl=US&ceid=US%3Aen", source: "The Economist", region: "GEN", cap: 10, gnews: true, soft: true },
+  // (The Economist's Google-News bridge removed to save a Worker subrequest — the
+  // two DIRECT economist.com section feeds below, finance-and-economics + business,
+  // return the recent archive in full and carry all the macro-relevant coverage.)
   // Financial specialists — US
   // WSJ — DIRECT publisher feeds on Dow Jones's CURRENT feed host
   // (feeds.content.dowjones.io), the same host MarketWatch pulls from fine below.
@@ -1824,7 +1826,7 @@ async function handleFeed(request, env, ctx) {
       { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=44", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=45", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const items = await feedAssemble(env, ctx);
