@@ -126,18 +126,57 @@ export const dedupeByTitle = (list) => { const seen = new Set(); return list.fil
 // link-to-article) follow.
 export function feedRow(o) {
   const t = o.time || "";
+  // Added-time (no source publish time) carries a tooltip so it isn't mistaken
+  // for a real publish time.
+  const timeAttr = o.added ? ` title="Added to Wire at ${esc(t)} — the source gave no publish time"` : "";
   return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}`
     + ` data-sk="${esc(o.sk || "x")}"${o.sid ? ` data-sid="${esc(o.sid)}"` : ""}${o.mgr ? ` data-mgr="${esc(o.mgr)}"` : ""}${o.firm ? ` data-firm="${esc(o.firm)}"` : ""} data-desk="${esc(o.desk)}" data-date="${esc(o.date || "")}" data-time="${esc(o.time || "")}">`
-    + `<span class="g-feed-time">${esc(t)}</span>`
+    + `<span class="g-feed-time${o.added ? " g-feed-time-added" : ""}"${timeAttr}>${esc(t)}</span>`
     + `<span class="g-feed-code ${DESK_CLASS[o.desk] || ""}" title="${esc(DESK[o.desk] || "")}">${DESK_CODE[o.desk] || ""}</span>`
     + `<span class="g-feed-title">${esc(o.title)}</span>`
     + (o.src ? `<span class="g-feed-src" role="button" tabindex="0" data-src="${esc(o.src)}" title="Show all ${esc(o.src)} stories">${esc(o.src)}</span>` : "")
     + `<span class="g-feed-desk">${esc(DESK[o.desk] || "")}</span></a>`;
 }
+// Some rows carry no real publish time (curated items, or a live item whose
+// source omitted one). Rather than leave the time blank, stamp each with the
+// moment it was FIRST SEEN on this device — its "added to Wire" time — persisted
+// in localStorage so the stamp holds across renders and sessions. Keyed by
+// normalised title; pruned to the newest ~1500 so the store stays bounded.
+const FIRSTSEEN_KEY = "wire.firstseen";
+const loadFirstSeen = () => { try { return JSON.parse(localStorage.getItem(FIRSTSEEN_KEY) || "{}") || {}; } catch { return {}; } };
+const londonHM = (ms) => {
+  try {
+    const p = Object.fromEntries(new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", hour: "2-digit", minute: "2-digit", hour12: false }).formatToParts(new Date(ms)).map((x) => [x.type, x.value]));
+    return `${p.hour === "24" ? "00" : p.hour}:${p.minute}`;
+  } catch { return ""; }
+};
+export function stampAddedTimes(items) {
+  const map = loadFirstSeen();
+  let dirty = false;
+  const now = Date.now();
+  for (const o of items) {
+    if (o.time) continue;
+    const k = norm(o.title);
+    if (!k) continue;
+    if (!map[k]) { map[k] = now; dirty = true; }
+    o.time = londonHM(map[k]);
+    o.added = true;   // flags the time as "added to app", not a publish time
+  }
+  if (dirty) {
+    try {
+      const keys = Object.keys(map);
+      const out = keys.length > 1500
+        ? Object.fromEntries(keys.map((k) => [k, map[k]]).sort((a, b) => b[1] - a[1]).slice(0, 1500))
+        : map;
+      localStorage.setItem(FIRSTSEEN_KEY, JSON.stringify(out));
+    } catch { /* quota/private mode — the in-memory stamps still render */ }
+  }
+  return items;
+}
 // The day-grouped body: rows newest→oldest, each new day introduced by a date
 // header, closed by a quiet end-marker.
 export function feedBodyHTML(feed) {
-  const rows = feed.slice().sort(byFeedDesc);
+  const rows = stampAddedTimes(feed.slice()).sort(byFeedDesc);
   let lastDay = null;
   return rows.map((o) => {
     const d = dayOf(o);

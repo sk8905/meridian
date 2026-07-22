@@ -928,8 +928,10 @@
       padding:1px 6px; border:1px solid var(--t-grid); background:transparent; color:var(--t-faint); cursor:pointer; }
     .tui .g-pf-tgl.on{ background:var(--t-panel2); color:var(--t-ink); border-color:var(--t-dim); }
     .tui .g-pf-sum .rate-val{ font-weight:700; }
-    .tui .g-pf-top{ border-bottom:1px solid var(--t-grid); }
-    .tui .g-pf-pnl{ border-top:1px solid var(--t-grid); margin-top:2px; }
+    /* Thin grey section breaks: below Total Value and above P&L (id-scoped so they
+       beat .rate-tile{border:0} declared later). */
+    .tui #g-markets .g-pf-top{ border-bottom:1px solid var(--t-grid); }
+    .tui #g-markets .g-pf-pnl{ border-top:1px solid var(--t-grid); }
 
     /* ---- data rows (markets / rates) reuse .rates-band/.rate-tile ---- */
     .tui .rates-band,.tui .g-side .rates-band,.tui .markets-band{ display:block; background:var(--t-panel);
@@ -942,7 +944,9 @@
     .tui #g-indicators .rate-tile,.tui #g-curve .rate-tile,
     .tui #g-rates .rate-tile,.tui #g-vol .rate-tile{ grid-template-columns:1fr 4rem 5rem; }
     /* Markets band: a fixed change column so the value + change line up down the rail. */
-    .tui .g-side .mkt-tile{ grid-template-columns:1fr auto 3.6rem; }
+    /* Match the rates band's change column (5rem) so the markets/portfolio value
+       right-edges line up vertically with Key rates & spreads below. */
+    .tui .g-side .mkt-tile{ grid-template-columns:1fr auto 5rem; }
     .tui .rate-tile:hover{ background:var(--t-panel2); }
     /* Every interactive rail row hovers like the news feed: a subtle grey, no
        orange text (movers, macro-read blocks, FX cells). */
