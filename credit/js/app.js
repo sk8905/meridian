@@ -8,14 +8,14 @@ import {
   managers, funds, lps, intel, commitments, deals, research,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260722-2";
+} from "./data.js?v=20260722-3";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
 // app.js and the app fails to load (blank page). shared.js AND detail.js also
 // import ./data.js with this SAME token; keep all three identical or the browser
 // loads data.js twice as separate module instances.
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260722-2";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260722-3";
 // The view code splits across three modules with an ACYCLIC import graph —
 // app.js -> detail.js -> shared.js. shared.js holds the format/render helpers,
 // the watchlist/saved read layer, the paginated-feed + pending-focus machinery
@@ -29,8 +29,8 @@ import {
   creditSource, feedDedupKey, intelRow, dealRow,
   PAGE, pageShown, pageCount, pageReset, loadMoreBtn, feedHtml, feedFlat,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
-} from "./shared.js?v=20260722-2";
-import { viewFund, viewManager, viewClo, viewLp } from "./detail.js?v=20260722-2";
+} from "./shared.js?v=20260722-3";
+import { viewFund, viewManager, viewClo, viewLp } from "./detail.js?v=20260722-3";
 // The shared news-wire engine — the Home feed's row / day-header / source-filter
 // markup, so the Credit dashboard wire is the same build as Home's.
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260722-3";
