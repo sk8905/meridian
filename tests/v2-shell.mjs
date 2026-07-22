@@ -31,7 +31,7 @@ const tap = async (key) => {
   const box = await pg.evaluate((k) => { const t = document.querySelector(`.mobile-tabbar .mtab[data-key="${k}"]`); const r = t.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; }, key);
   await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x: box.x, y: box.y }] });
   await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
-  await pg.waitForTimeout(350);
+  await pg.waitForTimeout(850);   // real views (Credit parses a large dataset once) need headroom
   return pg.evaluate(() => ({
     path: location.pathname,
     active: (document.querySelector(".v2-view:not([hidden])") || {}).dataset?.view,
@@ -51,22 +51,21 @@ for (const [key, path] of [["macro", "/v2/macro/"], ["credit", "/v2/credit/"], [
 const afterChain = await pg.evaluate(() => window.__vt);
 check(afterChain >= 4, `a view transition ran per switch (got ${afterChain})`);
 
-// Keep-alive: bump a counter on Credit, leave, come back — state + mount time
-// must survive (proves the view stayed alive and the revisit is instant).
+// Keep-alive: tag Credit's section node, leave, come back — the SAME node (tag
+// intact) and exactly one section prove the view stayed alive (mounted once,
+// instant revisit) rather than being torn down and rebuilt.
 await tap("credit");
-await pg.evaluate(() => document.querySelector('.v2-view[data-view="credit"] [data-inc]').click());
-await pg.evaluate(() => document.querySelector('.v2-view[data-view="credit"] [data-inc]').click());
-const creditMt = await pg.evaluate(() => document.querySelector('.v2-view[data-view="credit"] [data-mt]').textContent);
+await pg.evaluate(() => { document.querySelector('.v2-view[data-view="credit"]').dataset.ka = "kept"; });
+const creditLen0 = await pg.evaluate(() => document.querySelector('.v2-view[data-view="credit"]').textContent.trim().length);
 await tap("macro");
 const back = await tap("credit");
-const creditState = await pg.evaluate(() => ({
-  count: document.querySelector('.v2-view[data-view="credit"] [data-ct]').textContent,
-  mt: document.querySelector('.v2-view[data-view="credit"] [data-mt]').textContent,
-  mounts: document.querySelectorAll('.v2-view[data-view="credit"]').length,
-}));
-checkEq(creditState.count, "2", "keep-alive: Credit's tap count survived the round-trip");
-checkEq(creditState.mt, creditMt, "keep-alive: Credit's mount time is unchanged (mounted once)");
-checkEq(creditState.mounts, 1, "keep-alive: Credit mounted exactly once");
+const creditState = await pg.evaluate(() => {
+  const secs = document.querySelectorAll('.v2-view[data-view="credit"]');
+  return { mounts: secs.length, ka: secs[0]?.dataset.ka, len: secs[0]?.textContent.trim().length };
+});
+checkEq(creditState.ka, "kept", "keep-alive: Credit is the SAME node after the round-trip (not rebuilt)");
+checkEq(creditState.mounts, 1, "keep-alive: exactly one Credit section (mounted once)");
+checkEq(creditState.len, creditLen0, "keep-alive: Credit content preserved across the round-trip");
 checkEq(back.views, 5, "all five views cached after visiting each");
 
 // Back button traverses the SPA history (no reload).

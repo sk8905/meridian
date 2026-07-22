@@ -1,4 +1,4 @@
-import { makeView } from "./_placeholder.js?v=v2-1";
-const v = makeView({ name: "Legal", accent: "var(--legal,#4cb488)",
-  blurb: "Legal desk (deals, firms, items). Its dataset is lazy-loaded and cached the same way. Phase 0 proves the switching; content follows." });
-export const mount = v.mount;
+// Legal view — mounts the ported Legal app (its dataset lazy-loads the same way).
+import { mount as mountLegal } from "../legal/app.js?v=v2-1";
+export const css = "/legal/css/styles.css?v=20260718-10";
+export function mount(host, ctx) { return mountLegal(host, ctx); }

@@ -1,4 +1,6 @@
-import { makeView } from "./_placeholder.js?v=v2-1";
-const v = makeView({ name: "Credit", accent: "var(--credit,#9aa3b3)",
-  blurb: "Credit desk (funds, managers, LPs, CLOs). Its heavy dataset will be lazy-loaded once and cached — so the long blank page on first open goes away and revisits are instant." });
-export const mount = v.mount;
+// Credit view — mounts the ported Credit app. Its heavy dataset (data.js) is
+// imported by the ported app.js, so it loads only when this view is first opened
+// (lazy) and is then cached for the session (revisits are instant).
+import { mount as mountCredit } from "../credit/app.js?v=v2-1";
+export const css = "/credit/css/styles.css?v=20260721-9";
+export function mount(host, ctx) { return mountCredit(host, ctx); }

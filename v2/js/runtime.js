@@ -100,10 +100,16 @@ function loadCss(href) {
 }
 
 // ---- Navigation ------------------------------------------------------------
+let _pending = null;                               // latest tap requested mid-swap
 export async function navigate(path, { push = true, replace = false } = {}) {
   const url = new URL(path, location.origin);
   const { key, sub } = parse(url.pathname);
   const same = key === _active;
+
+  // A tap arriving mid-swap (a heavy view can hold the transition briefly) must
+  // not be dropped — remember the LATEST request and run it when the swap ends,
+  // so fast tab-mashing always lands on the last tab pressed.
+  if (_busy && !same) { _pending = [path, { push, replace }]; return; }
 
   // Update the URL first so the view (and chrome) read the right location.
   if (!same || url.pathname !== location.pathname) {
@@ -113,7 +119,6 @@ export async function navigate(path, { push = true, replace = false } = {}) {
 
   // Same tab, different sub-route → let the view handle it in place (no swap).
   if (same) { const r = _views.get(key); r && r.ctrl.enter && r.ctrl.enter(sub); setChromeActive(key); return; }
-  if (_busy) return;
   _busy = true;
 
   const run = async () => {
@@ -127,6 +132,10 @@ export async function navigate(path, { push = true, replace = false } = {}) {
       prev.section.hidden = true;
     }
     rec.section.hidden = false;
+    // Mark the active tab BEFORE enter() so each view's event listeners (which
+    // self-guard on this flag) know they're live. Ported apps keep their own
+    // hash routing; only the active one reacts to global events.
+    document.documentElement.dataset.v2tab = key;
     rec.ctrl.enter && rec.ctrl.enter(sub);
     _active = key;
     document.title = ROUTE_BY_KEY[key].title;
@@ -143,6 +152,8 @@ export async function navigate(path, { push = true, replace = false } = {}) {
     await run();
   }
   _busy = false;
+  // Drain a tap that arrived during the swap (latest wins).
+  if (_pending) { const [p, o] = _pending; _pending = null; navigate(p, o); }
 }
 
 let _setActive = () => {};
@@ -150,8 +161,9 @@ function setChromeActive(key) { _setActive(key); }
 
 function onPop() {
   const { key } = parse(location.pathname);
-  navigate(location.pathname + location.hash, { push: false });
-  void key;
+  // Tab changed → swap views. Same tab (a hash-only history move) → leave it to
+  // the active view's own hash router; re-entering here would double-render.
+  if (key !== _active) navigate(location.pathname + location.hash, { push: false });
 }
 
 // ---- Boot ------------------------------------------------------------------
