@@ -28,6 +28,36 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-economicsdaily-20260722",
+    publication: "Bloomberg",
+    author: "Chris Anstey",
+    series: "Economics Daily",
+    title: "Economics Daily: Economics of slimming",
+    date: "2026-07-22",
+    time: "12:00",
+    summary: "Analysis suggests obesity drugs have the potential to aid employment, incomes and fiscal balances.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-22/the-labor-boosting-potential-of-weight-loss-drugs",
+  },
+  {
+    id: "nl-bbg-marketsdaily-20260722",
+    publication: "Bloomberg",
+    series: "Markets Daily",
+    title: "Markets Daily: Hoping for an earnings breakout",
+    date: "2026-07-22",
+    time: "11:33",
+    summary: "Investors pin their hopes on an earnings breakout; plus, Alphabet's cloud business faces scrutiny.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-22/investors-pin-their-hopes-on-earnings-breakout",
+  },
+  {
+    id: "nl-lb-cmsleaders-20260722",
+    publication: "Legal Business",
+    title: "'There will be winners and losers' - CMS leaders pin their hopes on tech, scale and client relationships",
+    date: "2026-07-22",
+    time: "09:12",
+    summary: "Senior partner Charles Currier and managing partner Adrian Bell on why they're going deeper and wider for their clients.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQtxfnGfO8OL4DG52/wv",
+  },
+  {
     id: "nl-nonbillable-trumpbiglaw-20260722",
     publication: "Non-Billable",
     title: "Trump's Big Law war continues",

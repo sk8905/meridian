@@ -20,6 +20,13 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "0c03cd07-ab33-4dff-9970-8cbc21baef45", title: "Burnham can be the failure that Britain needs", date: "2026-07-22", time: "11:59", url: "https://www.ft.com/content/0c03cd07-ab33-4dff-9970-8cbc21baef45" },
+  { id: "e3dd8c16-6b12-4e7a-8772-c970b7b026d2", title: "Citadel Securities opens Amsterdam options trading office", date: "2026-07-22", time: "11:30", url: "https://www.ft.com/content/e3dd8c16-6b12-4e7a-8772-c970b7b026d2" },
+  { id: "ee030fed-d006-48d3-bc71-da452ce4069e", title: "Prologis lifts Segro offer to £14bn as takeover battle intensifies", date: "2026-07-22", time: "11:20", url: "https://www.ft.com/content/ee030fed-d006-48d3-bc71-da452ce4069e" },
+  { id: "8497ab71-cfa3-4651-bf9e-40c63e23cf15", title: "US food illnesses climb as authorities struggle to identify source", date: "2026-07-22", time: "11:00", url: "https://www.ft.com/content/8497ab71-cfa3-4651-bf9e-40c63e23cf15" },
+  { id: "a789fa81-6c39-48a1-9df3-33d67ce7a5ac", title: "US start-up wins EU approval for sight-restoring bionic eye", date: "2026-07-22", time: "11:00", url: "https://www.ft.com/content/a789fa81-6c39-48a1-9df3-33d67ce7a5ac" },
+  { id: "31f4f7f3-8c35-42af-8898-1dd988e74fc6", title: "Cutting VAT from energy bills is a painkiller, not a cure", date: "2026-07-22", time: "09:44", url: "https://www.ft.com/content/31f4f7f3-8c35-42af-8898-1dd988e74fc6" },
+  { id: "5894ac4c-4480-4ab5-a8ea-8d3c7e244cb9", title: "June's encouraging inflation will be discounted by Bank of England", date: "2026-07-22", time: "08:06", url: "https://www.ft.com/content/5894ac4c-4480-4ab5-a8ea-8d3c7e244cb9" },
   { id: "90facd68-4df7-40c2-9383-e989a02fbe51", title: "Oil rises to highest level in six weeks as Middle East war escalates", date: "2026-07-22", time: "09:08", url: "https://www.ft.com/content/90facd68-4df7-40c2-9383-e989a02fbe51" },
   { id: "62c39102-c288-4041-911f-8f2ba74fc451", title: "UK inflation falls more than expected to 2.6% in June", date: "2026-07-22", time: "08:38", url: "https://www.ft.com/content/62c39102-c288-4041-911f-8f2ba74fc451" },
   { id: "9ffbd5c5-e5b2-431c-aadd-fa3d1c45898f", title: "Wetherspoons issues fourth profit warning this year", date: "2026-07-22", time: "08:29", url: "https://www.ft.com/content/9ffbd5c5-e5b2-431c-aadd-fa3d1c45898f" },
@@ -54,10 +61,4 @@ export const FT_ITEMS = [
   { id: "4b3ad003-07dd-4b82-a9ac-4bf6e7028844", title: "Kazakhstan stops sending oil to key Russian terminal after Ukrainian tanker attacks", date: "2026-07-21", time: "17:53", url: "https://www.ft.com/content/4b3ad003-07dd-4b82-a9ac-4bf6e7028844" },
   { id: "445a4bb8-1fcb-4bba-8c57-24fc7b4cd27b", title: "Rolls-Royce expects Airbus decision on new A350 version within a year", date: "2026-07-21", time: "17:50", url: "https://www.ft.com/content/445a4bb8-1fcb-4bba-8c57-24fc7b4cd27b" },
   { id: "226026f6-108e-45d5-a04b-eeb13be3ed3a", title: "Shares in UK defence groups rise on hopes John Healey will boost military spending", date: "2026-07-21", time: "17:44", url: "https://www.ft.com/content/226026f6-108e-45d5-a04b-eeb13be3ed3a" },
-  { id: "68c5ee8a-7b24-4402-ae21-05a18382ad74", title: "India police detain opposition leader Rahul Gandhi as tensions rise", date: "2026-07-21", time: "17:33", url: "https://www.ft.com/content/68c5ee8a-7b24-4402-ae21-05a18382ad74" },
-  { id: "6cb57cc5-d5e0-4264-a620-5982c2fcaf08", title: "The bear hug is an increasingly sensible way to play UK M&A", date: "2026-07-21", time: "17:14", url: "https://www.ft.com/content/6cb57cc5-d5e0-4264-a620-5982c2fcaf08" },
-  { id: "053077e1-ad9d-4d81-ac58-56c0dc6b7335", title: "Kalshi seeks approval for perpetual precious metal contracts", date: "2026-07-21", time: "17:13", url: "https://www.ft.com/content/053077e1-ad9d-4d81-ac58-56c0dc6b7335" },
-  { id: "0915cb0d-7d8a-4499-a900-0ede1a0bfa3d", title: "Monetary Policy Radar preview: ECB’s July meeting", date: "2026-07-21", time: "17:10", url: "https://www.ft.com/content/0915cb0d-7d8a-4499-a900-0ede1a0bfa3d" },
-  { id: "8d98a654-3ccb-4efc-b0f5-50301ac35a18", title: "IEA warns of risk to energy supplies from escalation of Iran conflict", date: "2026-07-21", time: "17:05", url: "https://www.ft.com/content/8d98a654-3ccb-4efc-b0f5-50301ac35a18" },
-  { id: "0616bdd3-bc3b-45a3-a034-4548e57c190d", title: "Andy Burnham’s cabinet: who’s in, who’s out?", date: "2026-07-21", time: "17:03", url: "https://www.ft.com/content/0616bdd3-bc3b-45a3-a034-4548e57c190d" },
 ];
