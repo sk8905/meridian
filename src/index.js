@@ -760,7 +760,7 @@ async function handleMarkets(request, env, ctx) {
 // venue + volume + close date. A keyword gate keeps it to finance-relevant events.
 const PREDICT_RX = /\b(fed|fomc|interest[ -]?rate|rate (?:hike|cut|decision|change)|powell|cpi|inflation|deflation|recession|gdp|unemploy|jobless|payroll|nonfarm|s\s?&\s?p\s?500|sp500|nasdaq|dow jones|stock market|equit|bitcoin|btc|ethereum|eth|crypto|solana|treasur|bond yield|10[- ]year|debt ceiling|government shutdown|oil price|opec|brent|crude|gold price|dollar index|dxy|tariff|trade war|\becb\b|bank of england|\bboe\b|earnings|nvidia|tesla)\b/i;
 async function predictPolymarket() {
-  const txt = await fetchText("https://gamma-api.polymarket.com/markets?active=true&closed=false&archived=false&order=volumeNum&ascending=false&limit=150");
+  const txt = await fetchText("https://gamma-api.polymarket.com/markets?active=true&closed=false&archived=false&order=volumeNum&ascending=false&limit=500");
   let arr; try { arr = JSON.parse(txt); } catch { return []; }
   if (!Array.isArray(arr)) return [];
   const out = [];
@@ -780,9 +780,14 @@ async function predictPolymarket() {
   return out;
 }
 async function predictKalshi() {
-  const txt = await fetchText("https://external-api.kalshi.com/trade-api/v2/markets?status=open&limit=500");
-  let j; try { j = JSON.parse(txt); } catch { return []; }
-  const arr = j && Array.isArray(j.markets) ? j.markets : [];
+  // Kalshi consolidated its public API onto the elections host; try the known
+  // hosts in order and use whichever returns markets.
+  const hosts = ["https://api.elections.kalshi.com", "https://external-api.kalshi.com", "https://trading-api.kalshi.com"];
+  let arr = [];
+  for (const h of hosts) {
+    const txt = await fetchText(h + "/trade-api/v2/markets?status=open&limit=500");
+    try { const j = JSON.parse(txt); if (j && Array.isArray(j.markets) && j.markets.length) { arr = j.markets; break; } } catch { /* try next host */ }
+  }
   const out = [];
   for (const m of arr) {
     const q = m.title || m.subtitle || m.yes_sub_title || "";
