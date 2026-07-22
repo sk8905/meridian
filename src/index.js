@@ -1043,22 +1043,16 @@ const MACRO_SERIES = [
   { country: "IE", key: "base_rate", label: "Base rate", unit: "%", sub: "ECB deposit facility rate", src: "fred", id: "ECBDFR", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/ECBDFR", source: "FRED / ECB" },
   { country: "IE", key: "core_cpi", label: "Core inflation", unit: "%", sub: "HICP · YoY", src: "fred", id: "CP0000IEM086NEST", tf: "yoy", href: "https://fred.stlouisfed.org/series/CP0000IEM086NEST", source: "FRED / Eurostat" },
   { country: "IE", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTIEM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTIEM156N", source: "FRED / OECD" },
-  // Canada & Japan — OECD MEI policy-rate/CPI mirrors were discontinued. Candidate
-  // fills (verified via /api/macro?debug): policy rate via the BIS central-bank
-  // policy-rate dataset (DBnomics), core CPI via FRED's OECD "all items less food
-  // & energy, YoY growth" series. Dead codes render "–".
-  { country: "CA", key: "base_rate", label: "Base rate", unit: "%", sub: "BoC policy rate", src: "dbnomics", id: "BIS/WS_CBPOL_M/M.CA", tf: "level", href: "https://www.bis.org/statistics/cbpol.htm", source: "BIS" },
-  { country: "CA", key: "core_cpi", label: "Core inflation", unit: "%", sub: "CPI ex food & energy · YoY", src: "fred", id: "CPGRLE01CAM659N", tf: "level", href: "https://fred.stlouisfed.org/series/CPGRLE01CAM659N", source: "FRED / OECD" },
+  // Canada, Japan & China — the OECD MEI policy-rate/CPI mirrors and the BIS
+  // policy-rate dataset don't resolve here, but the OECD 3-month interbank rate
+  // (IR3TIB01) is still live and current for all three (verified via debug), so
+  // it stands in for the base-rate column. Core CPI has no free, current monthly
+  // source for these (the OECD mirrors are frozen ≥1yr), so it renders "–".
+  { country: "CA", key: "base_rate", label: "Base rate", unit: "%", sub: "3-month interbank rate", src: "fred", id: "IR3TIB01CAM156N", tf: "level", href: "https://fred.stlouisfed.org/series/IR3TIB01CAM156N", source: "FRED / OECD" },
   { country: "CA", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTCAM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTCAM156N", source: "FRED / OECD" },
-  { country: "JP", key: "base_rate", label: "Base rate", unit: "%", sub: "BoJ policy rate", src: "dbnomics", id: "BIS/WS_CBPOL_M/M.JP", tf: "level", href: "https://www.bis.org/statistics/cbpol.htm", source: "BIS" },
-  { country: "JP", key: "core_cpi", label: "Core inflation", unit: "%", sub: "CPI ex food & energy · YoY", src: "fred", id: "CPGRLE01JPM659N", tf: "level", href: "https://fred.stlouisfed.org/series/CPGRLE01JPM659N", source: "FRED / OECD" },
+  { country: "JP", key: "base_rate", label: "Base rate", unit: "%", sub: "3-month interbank rate", src: "fred", id: "IR3TIB01JPM156N", tf: "level", href: "https://fred.stlouisfed.org/series/IR3TIB01JPM156N", source: "FRED / OECD" },
   { country: "JP", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTJPM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTJPM156N", source: "FRED / OECD" },
-  // China — the 10th economy. FRED's monthly China coverage is thin; candidate
-  // series confirmed via /api/macro?debug and trimmed to what returns. Policy rate
-  // via BIS; core CPI via FRED OECD ex-food-&-energy YoY.
-  { country: "CN", key: "base_rate", label: "Base rate", unit: "%", sub: "PBoC policy rate", src: "dbnomics", id: "BIS/WS_CBPOL_M/M.CN", tf: "level", href: "https://www.bis.org/statistics/cbpol.htm", source: "BIS" },
-  { country: "CN", key: "core_cpi", label: "Core inflation", unit: "%", sub: "CPI ex food & energy · YoY", src: "fred", id: "CPGRLE01CNM659N", tf: "level", href: "https://fred.stlouisfed.org/series/CPGRLE01CNM659N", source: "FRED / OECD" },
-  { country: "CN", key: "unemployment", label: "Unemployment", unit: "%", sub: "Surveyed urban unemployment", src: "fred", id: "LRUNTTTTCNM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRUNTTTTCNM156N", source: "FRED / OECD" },
+  { country: "CN", key: "base_rate", label: "Base rate", unit: "%", sub: "3-month interbank rate", src: "fred", id: "IR3TIB01CNM156N", tf: "level", href: "https://fred.stlouisfed.org/series/IR3TIB01CNM156N", source: "FRED / OECD" },
 ];
 
 async function macroSeriesPairs(s, env) {
@@ -1141,7 +1135,7 @@ async function handleMacro(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/macro?v=84", request.url).toString());
+  const cacheKey = new Request(new URL("/api/macro?v=85", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const series = await Promise.all(MACRO_SERIES.map(async (s) => {
