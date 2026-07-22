@@ -252,16 +252,26 @@ function loadMarkets(body) {
     + `<button type="button" class="na-chip" data-k="markets">Markets</button>`
     + `<button type="button" class="na-chip" data-k="macro">Macro</button>`
     + `<button type="button" class="na-chip" data-k="portfolio">Portfolio</button>`
+    + `<button type="button" class="na-chip" data-k="predict">Predictions</button>`
     + `</div><div class="na-tabbody"><div class="na-load">Loading…</div></div>`;
   const chips = body.querySelector(".na-chips");
   const tb = body.querySelector(".na-tabbody");
-  let data = null;
+  let data = null, predict = null, predictLoading = false;
   const render = () => {
     chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _mktTab));
+    if (_mktTab === "predict") { tb.innerHTML = predictPane(predict, predictLoading); return; }
     if (!data) { tb.innerHTML = '<div class="na-load">Loading…</div>'; return; }
     tb.innerHTML = _mktTab === "portfolio" ? portfolioPane(data) : _mktTab === "macro" ? macroPane(data) : marketsPane(data);
   };
-  chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c && c.dataset.k !== _mktTab) { _mktTab = c.dataset.k; render(); } });
+  // Predictions load lazily on first view (their own upstream fetch).
+  const loadPredict = () => {
+    if (predict != null || predictLoading) return;
+    predictLoading = true;
+    fetch("/api/predict?v=1", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null)
+      .then((p) => { predict = (p && p.markets) || []; predictLoading = false; if (_mktTab === "predict") render(); });
+  };
+  chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c && c.dataset.k !== _mktTab) { _mktTab = c.dataset.k; if (_mktTab === "predict") loadPredict(); render(); } });
+  if (_mktTab === "predict") loadPredict();
   render();
   Promise.all([
     fetch("/api/markets?v=13", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
@@ -270,6 +280,23 @@ function loadMarkets(body) {
     data = { markets: (m && m.markets) || [], movers: (m && m.moversEtf) || [], portfolio: (m && m.portfolio) || [], rates: (rt && rt.rates) || [] };
     render();
   });
+}
+// Prediction-market rows — question headline + a meta line (implied YES odds ·
+// venue · close date). Reuses the shared news-feed row style.
+function predictRow(m) {
+  const yes = typeof m.yes === "number" ? m.yes : null;
+  const cls = yes == null ? "" : yes >= 50 ? " hi" : " lo";
+  return `<a class="nf-row na-pred" href="${esc(m.url || "#")}" target="_blank" rel="noopener noreferrer">`
+    + `<span class="nf-title">${esc(m.q)}</span>`
+    + `<span class="nf-meta"><span class="na-pred-yes${cls}">${yes == null ? "—" : yes + "%"}</span>`
+    + `<span class="nf-sep">·</span><span class="nf-src">${esc(m.venue || "")}</span>`
+    + (m.end ? `<span class="nf-sep">·</span><span class="nf-time">${esc(fmtDate(m.end))}</span>` : "")
+    + `</span></a>`;
+}
+function predictPane(list, loading) {
+  if (loading || list == null) return '<div class="na-load">Loading…</div>';
+  if (!list.length) return '<div class="na-load">No prediction markets available right now.</div>';
+  return naSec("Prediction markets", "implied YES %") + list.map(predictRow).join("");
 }
 function marketRow(x) {
   const c = typeof x.changePct === "number" && isFinite(x.changePct) ? x.changePct : null;

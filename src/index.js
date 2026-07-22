@@ -754,6 +754,75 @@ async function handleMarkets(request, env, ctx) {
   return resp;
 }
 
+// ---- Prediction markets (Polymarket + Kalshi), finance & finance-adjacent -----
+// Both expose public, no-auth market-data REST endpoints, fetched from the edge
+// like every other upstream. Display-only: question + implied YES probability +
+// venue + volume + close date. A keyword gate keeps it to finance-relevant events.
+const PREDICT_RX = /\b(fed|fomc|interest[ -]?rate|rate (?:hike|cut|decision|change)|powell|cpi|inflation|deflation|recession|gdp|unemploy|jobless|payroll|nonfarm|s\s?&\s?p\s?500|sp500|nasdaq|dow jones|stock market|equit|bitcoin|btc|ethereum|eth|crypto|solana|treasur|bond yield|10[- ]year|debt ceiling|government shutdown|oil price|opec|brent|crude|gold price|dollar index|dxy|tariff|trade war|\becb\b|bank of england|\bboe\b|earnings|nvidia|tesla)\b/i;
+async function predictPolymarket() {
+  const txt = await fetchText("https://gamma-api.polymarket.com/markets?active=true&closed=false&archived=false&order=volumeNum&ascending=false&limit=150");
+  let arr; try { arr = JSON.parse(txt); } catch { return []; }
+  if (!Array.isArray(arr)) return [];
+  const out = [];
+  for (const m of arr) {
+    const q = m.question || m.title || "";
+    if (!q || !PREDICT_RX.test(q)) continue;
+    let prices = m.outcomePrices, outs = m.outcomes;
+    try { if (typeof prices === "string") prices = JSON.parse(prices); } catch { /* */ }
+    try { if (typeof outs === "string") outs = JSON.parse(outs); } catch { /* */ }
+    if (!Array.isArray(prices) || !prices.length) continue;
+    let idx = 0;
+    if (Array.isArray(outs)) { const i = outs.findIndex((o) => /^yes$/i.test(String(o))); if (i >= 0) idx = i; }
+    const p = parseFloat(prices[idx]);
+    if (!isFinite(p)) continue;
+    out.push({ venue: "Polymarket", q, yes: Math.round(p * 100), vol: Math.round(parseFloat(m.volumeNum ?? m.volume ?? m.volume24hr ?? 0) || 0), end: m.endDate || null, url: m.slug ? "https://polymarket.com/event/" + m.slug : "https://polymarket.com" });
+  }
+  return out;
+}
+async function predictKalshi() {
+  const txt = await fetchText("https://external-api.kalshi.com/trade-api/v2/markets?status=open&limit=500");
+  let j; try { j = JSON.parse(txt); } catch { return []; }
+  const arr = j && Array.isArray(j.markets) ? j.markets : [];
+  const out = [];
+  for (const m of arr) {
+    const q = m.title || m.subtitle || m.yes_sub_title || "";
+    if (!q || !PREDICT_RX.test(q)) continue;
+    let cents = null;
+    if (isFinite(m.last_price) && m.last_price > 0) cents = m.last_price;
+    else if (isFinite(m.yes_bid) && isFinite(m.yes_ask) && (m.yes_bid + m.yes_ask)) cents = (m.yes_bid + m.yes_ask) / 2;
+    else if (isFinite(m.yes_bid) && m.yes_bid > 0) cents = m.yes_bid;
+    if (cents == null) continue;
+    out.push({ venue: "Kalshi", q, yes: Math.round(cents), vol: Number(m.volume ?? m.volume_24h ?? 0) || 0, end: m.close_time || null, url: m.event_ticker ? "https://kalshi.com/markets/" + String(m.series_ticker || m.event_ticker).toLowerCase() : "https://kalshi.com" });
+  }
+  return out;
+}
+async function handlePredict(request, env, ctx) {
+  const url = new URL(request.url);
+  if (url.searchParams.get("debug")) {
+    const [pm, ks] = await Promise.all([predictPolymarket().catch((e) => ({ err: String(e) })), predictKalshi().catch((e) => ({ err: String(e) }))]);
+    return new Response(JSON.stringify({
+      polymarket: Array.isArray(pm) ? { count: pm.length, sample: pm.slice(0, 8) } : pm,
+      kalshi: Array.isArray(ks) ? { count: ks.length, sample: ks.slice(0, 8) } : ks,
+    }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
+  }
+  const cache = caches.default;
+  const cacheKey = new Request(new URL("/api/predict?v=1", request.url).toString());
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+  const [pm, ks] = await Promise.all([predictPolymarket().catch(() => []), predictKalshi().catch(() => [])]);
+  // Dedupe events covered by both venues; keep the deeper (higher-volume) listing.
+  const seen = new Map();
+  for (const m of [...pm, ...ks]) {
+    const k = m.q.toLowerCase().replace(/[^a-z0-9]+/g, " ").trim().slice(0, 56);
+    const ex = seen.get(k);
+    if (!ex || m.vol > ex.vol) seen.set(k, m);
+  }
+  const markets = [...seen.values()].sort((a, b) => b.vol - a.vol).slice(0, 16);
+  const resp = new Response(JSON.stringify({ markets }), { headers: { "content-type": "application/json", "cache-control": "public, max-age=120" } });
+  if (ctx && ctx.waitUntil && markets.length) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+  return resp;
+}
+
 // Live government yield curves for the Macro dashboard: the US Treasury par curve
 // (one CSV fetch) and the UK gilt curve (Tullett Prebon benchmarks via MarketWatch).
 // Any maturity that can't be sourced comes back null and the client falls back to
@@ -2086,6 +2155,7 @@ export default {
     if (url.pathname === "/api/macro") return handleMacro(request, env, ctx);
     if (url.pathname === "/api/yield-curve") return handleYieldCurve(request, env, ctx);
     if (url.pathname === "/api/feed") return handleFeed(request, env, ctx);
+    if (url.pathname === "/api/predict") return handlePredict(request, env, ctx);
     if (url.pathname === "/api/watchlist") return handleWatchlist(request, env);
     if (url.pathname === "/api/research-targets") return handleResearchTargets(request, env);
     if (url.pathname === "/api/saved") return handleSaved(request, env, savedKeyFor);

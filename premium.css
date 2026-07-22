@@ -645,6 +645,11 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .nf-time { flex: 0 0 auto; }
 .nf-sep { flex: 0 0 auto; }
 .nf-src { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Prediction-market row: the implied YES odds lead the meta line, weighted by
+   magnitude (bright = more likely) — no good/bad colour, just confidence. */
+.na-pred-yes { flex: 0 0 auto; font-weight: 700; font-variant-numeric: tabular-nums; }
+.na-pred-yes.hi { color: var(--ink, #eaf0fb); }
+.na-pred-yes.lo { color: var(--muted, #8592ad); }
 
 /* Notifications list: dark terminal panel (desktop dropdown & mobile page alike)
    with rows rendered in the shared .nf-row style above. */
