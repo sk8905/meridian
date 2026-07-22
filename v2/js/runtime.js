@@ -73,8 +73,9 @@ async function ensureView(key) {
   if (_views.has(key)) return _views.get(key);
   const route = ROUTE_BY_KEY[key];
   const mod = await route.load();
-  // Per-view stylesheet, lazy-loaded once (a view declares `export const css`).
-  if (mod.css) await loadCss(mod.css);
+  // Per-view stylesheet(s), lazy-loaded once (a view declares `export const css`
+  // as a string or an array of hrefs).
+  if (mod.css) await Promise.all([].concat(mod.css).map(loadCss));
   const section = document.createElement("section");
   section.className = "v2-view";
   section.dataset.view = key;
