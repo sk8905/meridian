@@ -323,7 +323,7 @@ a.intel-head:hover { text-decoration: none; }
 /* Sub-section menu: house underline chips above the cockpit; groups wrap the
    panels transparently (display:contents keeps the grid intact) and hide as a
    unit when filtered. Dividers only show on the All view. */
-.ck-secbar { height: 34px; border-bottom: 1px solid var(--border); background: var(--surface); }
+.ck-secbar { height: 34px; border-bottom: 1px solid var(--border); background: var(--head); }
 /* Selected sub-section chip: subtle grey shade instead of the white underline */
 #ck-secnav .tchip.is-on { box-shadow: none; background: color-mix(in srgb, var(--ink, #eaf0fb) 9%, transparent); color: var(--ink); font-weight: 600; }
 .ck-group { display: contents; }

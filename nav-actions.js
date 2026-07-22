@@ -247,6 +247,7 @@ let _mktLoaded = false;
 // Markets panel: Markets | Macro | Portfolio chip tabs over one shared fetch.
 // Byte-identical on every page (Home included) — the shared dropdown.
 let _mktTab = "markets";
+let _pfMode = "daily";   // portfolio holdings P&L column: daily (default) | total
 function loadMarkets(body) {
   body.innerHTML = `<div class="na-chips">`
     + `<button type="button" class="na-chip" data-k="markets">Markets</button>`
@@ -271,6 +272,8 @@ function loadMarkets(body) {
       .then((p) => { predict = (p && p.markets) || []; predictLoading = false; if (_mktTab === "predict") render(); });
   };
   chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c && c.dataset.k !== _mktTab) { _mktTab = c.dataset.k; if (_mktTab === "predict") loadPredict(); render(); } });
+  // Portfolio Daily/Total P&L toggle (delegated — the pane is re-rendered).
+  tb.addEventListener("click", (e) => { const t = e.target.closest(".na-pf-tgl"); if (t) { e.preventDefault(); if (t.dataset.m !== _pfMode) { _pfMode = t.dataset.m; render(); } } });
   if (_mktTab === "predict") loadPredict();
   render();
   Promise.all([
@@ -361,9 +364,17 @@ function portfolioPane(d) {
   const priorVal = tVal - tDay;
   const tDayPct = priorVal ? (tDay / priorVal) * 100 : null;
   // Holdings first, ordered by value (high → low; unpriced last); summary beneath.
+  // The P&L column shows DAILY move by default, with a Daily/Total toggle.
+  const daily = _pfMode === "daily";
   const sorted = rows.slice().sort((a, b) => (b.val == null ? -1 : b.val) - (a.val == null ? -1 : a.val));
-  const holdings = naSec("Holdings", "value · return")
-    + sorted.map((r) => pfMrow(r.h.label || r.h.ticker, r.val != null ? fmtGBP(r.val) : "—", r.pnlPct, sessDot(r.m && r.m.marketState, r.h.exch))).join("");
+  const tgl = `<span class="na-pf-tgl-wrap" role="tablist">`
+    + `<button type="button" class="na-pf-tgl${daily ? " on" : ""}" data-m="daily">Daily</button>`
+    + `<button type="button" class="na-pf-tgl${daily ? "" : " on"}" data-m="total">Total</button></span>`;
+  const holdings = `<div class="na-sec"><span>Holdings</span>${tgl}</div>`
+    + sorted.map((r) => {
+      const dPct = r.m && typeof r.m.changePct === "number" && isFinite(r.m.changePct) ? r.m.changePct : null;
+      return pfMrow(r.h.label || r.h.ticker, r.val != null ? fmtGBP(r.val) : "—", daily ? dPct : r.pnlPct, sessDot(r.m && r.m.marketState, r.h.exch));
+    }).join("");
   const summary = naSec("Portfolio", `${priced}/${PORTFOLIO.length} priced`)
     + pfMrow("Value", priced ? fmtGBP(tVal) : "—", null)
     + pfMrow("Daily P&L", priced ? fmtGBP(tDay, true) : "—", tDayPct)

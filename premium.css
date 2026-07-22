@@ -607,6 +607,11 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-v { color: var(--ink, #eaf0fb); }
 .na-c { min-width: 66px; text-align: right; }
 .na-c.up { color: #3fc08d; } .na-c.down { color: #f26d84; } .na-c.flat { color: var(--faint, #5c6a86); }
+/* Portfolio Daily/Total P&L toggle, sat in the Holdings section header. */
+.na-pf-tgl-wrap { display: inline-flex; border: 1px solid var(--border, #262626); }
+.na-pf-tgl { padding: 1px 8px; font: inherit; font-size: 9.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; background: transparent; border: 0; color: var(--muted, #8592ad); cursor: pointer; }
+.na-pf-tgl + .na-pf-tgl { border-left: 1px solid var(--border, #262626); }
+.na-pf-tgl.on { background: color-mix(in srgb, var(--ink, #eaf0fb) 12%, transparent); color: var(--ink, #eaf0fb); }
 /* Market open/closed session dot on the shared Markets panel rows (matches the
    Home markets band + Top Movers dots). Green = regular session, red = closed. */
 .na-dot { display: inline-block; width: 4px; height: 4px; border-radius: 50%; margin-left: 6px; vertical-align: middle; opacity: .8; }
