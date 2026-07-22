@@ -760,22 +760,26 @@ async function handleMarkets(request, env, ctx) {
 // venue + volume + close date. A keyword gate keeps it to finance-relevant events.
 const PREDICT_RX = /\b(fed|fomc|interest[ -]?rate|rate (?:hike|cut|decision|change)|powell|cpi|inflation|deflation|recession|gdp|unemploy|jobless|payroll|nonfarm|s\s?&\s?p\s?500|sp500|nasdaq|dow jones|stock market|equit|bitcoin|btc|ethereum|eth|crypto|solana|treasur|bond yield|10[- ]year|debt ceiling|government shutdown|oil price|opec|brent|crude|gold price|dollar index|dxy|tariff|trade war|\becb\b|bank of england|\bboe\b|earnings|nvidia|tesla)\b/i;
 async function predictPolymarket() {
-  const txt = await fetchText("https://gamma-api.polymarket.com/markets?active=true&closed=false&archived=false&order=volumeNum&ascending=false&limit=500");
-  let arr; try { arr = JSON.parse(txt); } catch { return []; }
-  if (!Array.isArray(arr)) return [];
   const out = [];
-  for (const m of arr) {
-    const q = m.question || m.title || "";
-    if (!q || !PREDICT_RX.test(q)) continue;
-    let prices = m.outcomePrices, outs = m.outcomes;
-    try { if (typeof prices === "string") prices = JSON.parse(prices); } catch { /* */ }
-    try { if (typeof outs === "string") outs = JSON.parse(outs); } catch { /* */ }
-    if (!Array.isArray(prices) || !prices.length) continue;
-    let idx = 0;
-    if (Array.isArray(outs)) { const i = outs.findIndex((o) => /^yes$/i.test(String(o))); if (i >= 0) idx = i; }
-    const p = parseFloat(prices[idx]);
-    if (!isFinite(p)) continue;
-    out.push({ venue: "Polymarket", q, yes: Math.round(p * 100), vol: Math.round(parseFloat(m.volumeNum ?? m.volume ?? m.volume24hr ?? 0) || 0), end: m.endDate || null, url: m.slug ? "https://polymarket.com/event/" + m.slug : "https://polymarket.com" });
+  // Two volume-sorted pages (1000 markets) — the finance markets sit below the
+  // novelty/politics leaders, so one page only surfaced the Fed cluster.
+  for (const offset of [0, 500]) {
+    const txt = await fetchText(`https://gamma-api.polymarket.com/markets?active=true&closed=false&archived=false&order=volumeNum&ascending=false&limit=500&offset=${offset}`);
+    let arr; try { arr = JSON.parse(txt); } catch { continue; }
+    if (!Array.isArray(arr)) continue;
+    for (const m of arr) {
+      const q = m.question || m.title || "";
+      if (!q || !PREDICT_RX.test(q)) continue;
+      let prices = m.outcomePrices, outs = m.outcomes;
+      try { if (typeof prices === "string") prices = JSON.parse(prices); } catch { /* */ }
+      try { if (typeof outs === "string") outs = JSON.parse(outs); } catch { /* */ }
+      if (!Array.isArray(prices) || !prices.length) continue;
+      let idx = 0;
+      if (Array.isArray(outs)) { const i = outs.findIndex((o) => /^yes$/i.test(String(o))); if (i >= 0) idx = i; }
+      const p = parseFloat(prices[idx]);
+      if (!isFinite(p)) continue;
+      out.push({ venue: "Polymarket", q, yes: Math.round(p * 100), vol: Math.round(parseFloat(m.volumeNum ?? m.volume ?? m.volume24hr ?? 0) || 0), end: m.endDate || null, url: m.slug ? "https://polymarket.com/event/" + m.slug : "https://polymarket.com" });
+    }
   }
   return out;
 }
@@ -784,30 +788,26 @@ async function predictPolymarket() {
 const KALSHI_BASE = "https://api.elections.kalshi.com/trade-api/v2";
 const KALSHI_FINCAT = /econom|financ|inflation|interest|monetary|\bfed\b|treasur|\bgdp\b|jobs|unemploy|crypto|bitcoin|ethereum|climate.*energy/i;
 async function predictKalshi() {
+  // Best-effort ONLY — Kalshi aggressively rate-limits (429) the Cloudflare edge
+  // IP, so a single request usually returns null; when it does slip through, take
+  // the finance events. Polymarket is the reliable source.
   const out = [];
-  let cursor = "";
-  for (let page = 0; page < 3; page++) {   // up to 3 pages (600 events) of open markets
-    const txt = await fetchText(`${KALSHI_BASE}/events?status=open&limit=200&with_nested_markets=true${cursor ? "&cursor=" + encodeURIComponent(cursor) : ""}`);
-    let j; try { j = JSON.parse(txt); } catch { break; }
-    const events = j && Array.isArray(j.events) ? j.events : [];
-    if (!events.length) break;
-    for (const ev of events) {
-      const evTitle = ev.title || ev.sub_title || "";
-      const cat = String(ev.category || "");
-      if (!KALSHI_FINCAT.test(cat) && !PREDICT_RX.test(evTitle)) continue;
-      for (const m of (Array.isArray(ev.markets) ? ev.markets : [])) {
-        const sub = m.yes_sub_title || m.subtitle || "";
-        const q = sub ? `${evTitle} — ${sub}` : (evTitle || m.title || "");
-        if (!q) continue;
-        let cents = null;
-        if (isFinite(m.last_price) && m.last_price > 0) cents = m.last_price;
-        else if (isFinite(m.yes_bid) && m.yes_bid > 0) cents = isFinite(m.yes_ask) && m.yes_ask > 0 ? (m.yes_bid + m.yes_ask) / 2 : m.yes_bid;
-        if (cents == null || cents <= 0 || cents >= 100) continue;
-        out.push({ venue: "Kalshi", q, yes: Math.round(cents), vol: Number(m.volume ?? m.volume_24h ?? 0) || 0, end: m.close_time || ev.close_time || null, url: "https://kalshi.com/markets/" + String(ev.series_ticker || ev.event_ticker || "").toLowerCase() });
-      }
+  const txt = await fetchText(`${KALSHI_BASE}/events?status=open&limit=200&with_nested_markets=true`);
+  let j; try { j = JSON.parse(txt); } catch { return out; }
+  const events = j && Array.isArray(j.events) ? j.events : [];
+  for (const ev of events) {
+    const evTitle = ev.title || ev.sub_title || "";
+    if (!KALSHI_FINCAT.test(String(ev.category || "")) && !PREDICT_RX.test(evTitle)) continue;
+    for (const m of (Array.isArray(ev.markets) ? ev.markets : [])) {
+      const sub = m.yes_sub_title || m.subtitle || "";
+      const q = sub ? `${evTitle} — ${sub}` : (evTitle || m.title || "");
+      if (!q) continue;
+      let cents = null;
+      if (isFinite(m.last_price) && m.last_price > 0) cents = m.last_price;
+      else if (isFinite(m.yes_bid) && m.yes_bid > 0) cents = isFinite(m.yes_ask) && m.yes_ask > 0 ? (m.yes_bid + m.yes_ask) / 2 : m.yes_bid;
+      if (cents == null || cents <= 0 || cents >= 100) continue;
+      out.push({ venue: "Kalshi", q, yes: Math.round(cents), vol: Number(m.volume ?? m.volume_24h ?? 0) || 0, end: m.close_time || ev.close_time || null, url: "https://kalshi.com/markets/" + String(ev.series_ticker || ev.event_ticker || "").toLowerCase() });
     }
-    cursor = j.cursor || "";
-    if (!cursor) break;
   }
   return out;
 }
