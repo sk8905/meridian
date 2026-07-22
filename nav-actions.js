@@ -318,12 +318,11 @@ const NA_PRED_SUPER_TYPES = { Macro: ["Fed & rates", "Economy", "Other"], Politi
 const NA_PRED_SUPER_OF = {};
 for (const s of ["Macro", "Politics", "Finance"]) for (const t of NA_PRED_SUPER_TYPES[s]) NA_PRED_SUPER_OF[t] = s;
 const naPredSuperOf = (t) => NA_PRED_SUPER_OF[t] || "Macro";
-// Most active markets (liquid only), ranked biggest daily-odds INCREASE → biggest
-// DECREASE; flat/unchanged markets fall in the middle, ordered by volume.
+// Movers = liquid markets whose implied odds actually MOVED today, ranked biggest
+// daily-odds INCREASE → biggest DECREASE (unchanged markets are excluded here).
 function naPredMovers(list) {
-  const chgOf = (m) => (typeof m.chg === "number" && isFinite(m.chg)) ? m.chg : 0;
-  return list.filter((m) => (m.vol || 0) >= 10000)
-    .sort((a, b) => (chgOf(b) - chgOf(a)) || ((b.vol || 0) - (a.vol || 0)))
+  return list.filter((m) => (m.vol || 0) >= 10000 && typeof m.chg === "number" && isFinite(m.chg) && m.chg !== 0)
+    .sort((a, b) => (b.chg - a.chg) || ((b.vol || 0) - (a.vol || 0)))
     .slice(0, 40);
 }
 let _predSuper = "Top Movers";

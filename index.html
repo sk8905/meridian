@@ -38,8 +38,8 @@
     // mounts, so arriving on Home paints once, complete — no feed/chips/tab-
     // bar staging. The body auth script confirms via /api/me and calls
     // window.__enterGlance for the no-hint path (initGlance self-guards).
-    import { initGlance } from "/glance.js?v=20260722-11";
-    import { initHeader } from "/header.js?v=20260722-6";
+    import { initGlance } from "/glance.js?v=20260722-12";
+    import { initHeader } from "/header.js?v=20260722-7";
     // The ONE shared header (top bar + ticker + briefing) — same module the app
     // pages use. It renders into the (still-hidden) #wire-header and boots the
     // shared chrome + briefing text, so Home's header is identical to the rest.
@@ -164,7 +164,7 @@
                above it never moves. -->
           <div class="g-flow-scroll">
             <section class="tui-pnl g-flow">
-              <header class="tui-ph g-flow-head"><span>Prediction markets</span><span class="tui-px">implied odds</span></header>
+              <header class="tui-ph g-flow-head"><span>Prediction markets</span><span class="tui-px">Yes implied odds</span></header>
               <div class="g-flow-body">
                 <div id="g-predict" class="g-flow-pane" aria-label="Prediction markets"><div class="g-loading">Loading prediction markets…</div></div>
               </div>
@@ -223,7 +223,7 @@
     const enterGlance = () => {
       if (window.__enterGlance) { window.__enterGlance(); return; }
       show("glance");
-      import("/glance.js?v=20260722-11").then((m) => m.initGlance()).catch(() => {});
+      import("/glance.js?v=20260722-12").then((m) => m.initGlance()).catch(() => {});
     };
     // Optimistic auth: if we recently verified sign-in (set here and by every
     // app on their own /api/me), the head module shows the briefing immediately

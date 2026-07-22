@@ -116,7 +116,7 @@ export function initGlance() {
   // Macro/Credit/Legal (nav-actions.js) — one implementation on all pages. The
   // legacy Home-only dropdown menus are retired; on phones Home just hides its
   // desktop data rails (initHomeMarketsRails) and uses the shared Markets panel.
-  import("/nav-actions.js?v=20260722-6").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260722-7").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderPredict();
   initFeedEntityNav();
   initFeedHeadLock();
@@ -1296,12 +1296,11 @@ const PRED_SUPER_TYPES = {
 const PRED_SUPER_OF = {};
 for (const s of ["Macro", "Politics", "Finance"]) for (const t of PRED_SUPER_TYPES[s]) PRED_SUPER_OF[t] = s;
 const predSuperOf = (type) => PRED_SUPER_OF[type] || "Macro";
-// Most active markets (liquid only), ranked biggest daily-odds INCREASE → biggest
-// DECREASE; flat/unchanged markets fall in the middle, ordered by volume.
+// Movers = liquid markets whose implied odds actually MOVED today, ranked biggest
+// daily-odds INCREASE → biggest DECREASE (unchanged markets are excluded here).
 function predMovers(list) {
-  const chgOf = (m) => (typeof m.chg === "number" && isFinite(m.chg)) ? m.chg : 0;
-  return list.filter((m) => (m.vol || 0) >= 10000)
-    .sort((a, b) => (chgOf(b) - chgOf(a)) || ((b.vol || 0) - (a.vol || 0)))
+  return list.filter((m) => (m.vol || 0) >= 10000 && typeof m.chg === "number" && isFinite(m.chg) && m.chg !== 0)
+    .sort((a, b) => (b.chg - a.chg) || ((b.vol || 0) - (a.vol || 0)))
     .slice(0, 40);
 }
 let _predList = null, _predFilter = "Top Movers";

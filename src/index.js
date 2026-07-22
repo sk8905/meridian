@@ -536,10 +536,11 @@ const MARKET_SERIES = [
   { label: "NASDAQ", symbol: "^IXIC", future: "NQ=F", fred: "NASDAQCOM", href: "https://finance.yahoo.com/quote/%5EIXIC" },
   { label: "IGWD", symbol: "IGWD.L", stooq: "igwd.uk", href: "https://uk.finance.yahoo.com/quote/IGWD.L" },
   { label: "EMEE", symbol: "EMEE.L", stooq: "emee.uk", href: "https://uk.finance.yahoo.com/quote/EMEE.L" },
-  // Second row: commodity, FX & crypto spot. "Oil" is WTI (NYMEX front-month,
-  // CL=F) — the US crude benchmark; FRED's Cushing WTI spot is the fallback.
-  // "DXY" is the ICE US Dollar Index.
-  { label: "Oil", symbol: "CL=F", fred: "DCOILWTICO", href: "https://finance.yahoo.com/quote/CL=F" },
+  // Second row: commodity, FX & crypto spot. "Oil" is WTI crude — Investing.com's
+  // "CL" (crude oil WTI); the live quote comes from the equivalent NYMEX front-
+  // month (CL=F), with FRED's Cushing WTI spot as the fallback, and the tile links
+  // to Investing.com's CL page. "DXY" is the ICE US Dollar Index.
+  { label: "Oil", symbol: "CL=F", fred: "DCOILWTICO", href: "https://www.investing.com/commodities/crude-oil" },
   { label: "Gold", symbol: "GC=F", fred: "GOLDPMGBD228NLBM", href: "https://finance.yahoo.com/quote/GC=F" },
   { label: "DXY", symbol: "DX-Y.NYB", href: "https://finance.yahoo.com/quote/DX-Y.NYB" },
   { label: "Bitcoin", symbol: "BTC-USD", fred: "CBBTCUSD", href: "https://finance.yahoo.com/quote/BTC-USD" },
