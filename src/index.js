@@ -758,11 +758,23 @@ async function handleMarkets(request, env, ctx) {
 // Both expose public, no-auth market-data REST endpoints, fetched from the edge
 // like every other upstream. Display-only: question + implied YES probability +
 // venue + volume + close date. A keyword gate keeps it to finance-relevant events.
-const PREDICT_RX = /\b(fed|fomc|interest[ -]?rate|rate (?:hike|cut|decision|change)|powell|cpi|inflation|deflation|recession|gdp|unemploy|jobless|payroll|nonfarm|s\s?&\s?p\s?500|sp500|nasdaq|dow jones|stock market|equit|bitcoin|btc|ethereum|eth|crypto|solana|treasur|bond yield|10[- ]year|debt ceiling|government shutdown|oil price|opec|brent|crude|gold price|dollar index|dxy|tariff|trade war|\becb\b|bank of england|\bboe\b|earnings|nvidia|tesla)\b/i;
+// Finance + finance-adjacent (market-moving politics / geopolitics) gate.
+const PREDICT_RX = /\b(fed|fomc|interest[ -]?rate|rate (?:hike|cut|decision|change)|powell|cpi|inflation|deflation|recession|gdp|unemploy|jobless|payroll|nonfarm|s\s?&\s?p\s?500|sp500|nasdaq|dow jones|stock market|equit|bitcoin|btc|ethereum|eth|crypto|solana|xrp|dogecoin|stablecoin|treasur|bond yield|10[- ]year|debt ceiling|government shutdown|shutdown|oil price|opec|brent|crude|gold price|dollar index|dxy|tariff|trade war|\becb\b|bank of england|\bboe\b|earnings|nvidia|tesla|\bipo\b|trump|biden|harris|president|election|nominee|nomination|prime minister|\biran\b|israel|gaza|ukraine|russia|\bchina\b|taiwan|\bnato\b|ceasefire|nuclear)\b/i;
+// Group each market into a type (used for section breaks + the rail filter).
+function predictType(q) {
+  const s = " " + String(q).toLowerCase() + " ";
+  if (/\bfed\b|fomc|interest[ -]?rate|rate (?:hike|cut|decision|change)|powell|jerome/.test(s)) return "Fed & rates";
+  if (/recession|\bgdp\b|inflation|\bcpi\b|unemploy|jobless|payroll|nonfarm|jobs report/.test(s)) return "Economy";
+  if (/s\s?&\s?p|sp500|nasdaq|dow jones|stock market|equit|\bipo\b|nvidia|tesla|earnings/.test(s)) return "Equities";
+  if (/bitcoin|\bbtc\b|ethereum|\beth\b|crypto|solana|\bxrp\b|dogecoin|stablecoin/.test(s)) return "Crypto";
+  if (/\btrump\b/.test(s)) return "Trump";
+  if (/\biran\b|israel|gaza|hezbollah|houthi|ukraine|russia|\bchina\b|taiwan|\bwar\b|\bnato\b|ceasefire|nuclear/.test(s)) return "Geopolitics";
+  if (/election|president|nominee|nomination|prime minister|senate|congress|governor|mayor|\bpope\b|secretary general|referendum|parliament/.test(s)) return "Elections";
+  return "Other";
+}
 async function predictPolymarket() {
   const out = [];
-  // Two volume-sorted pages (1000 markets) — the finance markets sit below the
-  // novelty/politics leaders, so one page only surfaced the Fed cluster.
+  // Two volume-sorted pages — finance/adjacent markets sit below the novelty leaders.
   for (const offset of [0, 500]) {
     const txt = await fetchText(`https://gamma-api.polymarket.com/markets?active=true&closed=false&archived=false&order=volumeNum&ascending=false&limit=500&offset=${offset}`);
     let arr; try { arr = JSON.parse(txt); } catch { continue; }
@@ -778,7 +790,10 @@ async function predictPolymarket() {
       if (Array.isArray(outs)) { const i = outs.findIndex((o) => /^yes$/i.test(String(o))); if (i >= 0) idx = i; }
       const p = parseFloat(prices[idx]);
       if (!isFinite(p)) continue;
-      out.push({ venue: "Polymarket", q, yes: Math.round(p * 100), vol: Math.round(parseFloat(m.volumeNum ?? m.volume ?? m.volume24hr ?? 0) || 0), end: m.endDate || null, url: m.slug ? "https://polymarket.com/event/" + m.slug : "https://polymarket.com" });
+      // Grouped markets (e.g. Fed) 404 at /event/{market-slug} — use the parent
+      // EVENT slug from the market's events[] when present.
+      const evSlug = (Array.isArray(m.events) && m.events[0] && m.events[0].slug) || m.eventSlug || m.slug || null;
+      out.push({ venue: "Polymarket", type: predictType(q), q, yes: Math.round(p * 100), vol: Math.round(parseFloat(m.volumeNum ?? m.volume ?? m.volume24hr ?? 0) || 0), end: m.endDate || null, url: evSlug ? "https://polymarket.com/event/" + evSlug : "https://polymarket.com" });
     }
   }
   return out;
@@ -791,7 +806,7 @@ async function handlePredict(request, env, ctx) {
       { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/predict?v=2", request.url).toString());
+  const cacheKey = new Request(new URL("/api/predict?v=3", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const pm = await predictPolymarket().catch(() => []);
@@ -802,7 +817,7 @@ async function handlePredict(request, env, ctx) {
     const ex = seen.get(k);
     if (!ex || m.vol > ex.vol) seen.set(k, m);
   }
-  const markets = [...seen.values()].sort((a, b) => b.vol - a.vol).slice(0, 16);
+  const markets = [...seen.values()].sort((a, b) => b.vol - a.vol).slice(0, 40);
   const resp = new Response(JSON.stringify({ markets }), { headers: { "content-type": "application/json", "cache-control": "public, max-age=120" } });
   if (ctx && ctx.waitUntil && markets.length) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
   return resp;

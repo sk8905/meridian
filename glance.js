@@ -116,7 +116,7 @@ export function initGlance() {
   // Macro/Credit/Legal (nav-actions.js) — one implementation on all pages. The
   // legacy Home-only dropdown menus are retired; on phones Home just hides its
   // desktop data rails (initHomeMarketsRails) and uses the shared Markets panel.
-  import("/nav-actions.js?v=20260721-14").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
+  import("/nav-actions.js?v=20260721-15").then((m) => { m.initNavActions(); initHomeMarketsRails(); }).catch(() => {});
   renderPredict();
   initFeedEntityNav();
   initFeedHeadLock();
@@ -1167,23 +1167,36 @@ function renderMovers() {
 // Latest credit deals — the most recent priced/announced deals, deep-linking into
 // the Credit desk. Fills the right rail with cross-desk data on the home hub.
 // Prediction markets (right rail) — finance & finance-adjacent implied odds from
-// /api/predict (Polymarket). Question headline + a meta line (YES odds · venue ·
-// close date), reusing the deal-flow row style; refreshed on the live cycle.
+// /api/predict (Polymarket), grouped by type (Fed / Economy / Crypto / …) with a
+// filter, refreshed on the live cycle. Rows reuse the deal-flow row style.
+const PRED_TYPE_ORDER = ["Fed & rates", "Economy", "Equities", "Crypto", "Trump", "Geopolitics", "Elections", "Other"];
+let _predList = null, _predFilter = "all";
+function predRow(m) {
+  const yes = typeof m.yes === "number" ? m.yes + "%" : "—";
+  const meta = [m.venue, m.end ? fmt(String(m.end).slice(0, 10)) : ""].filter(Boolean).join(" · ");
+  return `<a class="tui-li" href="${esc(m.url || "#")}" target="_blank" rel="noopener noreferrer"><span class="tui-li-t">${esc(m.q)}</span>`
+    + `<span class="tui-li-m"><span class="tui-li-tag g-pred-odds">${esc(yes)}</span>${esc(meta)}</span></a>`;
+}
+function paintPredict(el) {
+  const list = _predList || [];
+  if (!list.length) { el.innerHTML = '<div class="g-empty">No prediction markets right now.</div>'; return; }
+  const groups = {};
+  for (const m of list) { const t = m.type || "Other"; (groups[t] = groups[t] || []).push(m); }
+  const types = PRED_TYPE_ORDER.filter((t) => groups[t] && groups[t].length).concat(Object.keys(groups).filter((t) => !PRED_TYPE_ORDER.includes(t)));
+  if (_predFilter !== "all" && !groups[_predFilter]) _predFilter = "all";
+  const chips = `<div class="g-pred-filter"><button type="button" class="g-pred-fchip${_predFilter === "all" ? " on" : ""}" data-f="all">All</button>`
+    + types.map((t) => `<button type="button" class="g-pred-fchip${_predFilter === t ? " on" : ""}" data-f="${esc(t)}">${esc(t)}</button>`).join("") + `</div>`;
+  const shown = _predFilter === "all" ? types : [_predFilter];
+  const body = shown.map((t) => `<div class="g-pred-sec">${esc(t)}</div>` + groups[t].map(predRow).join("")).join("");
+  el.innerHTML = chips + `<div class="g-pred-list">${body}</div>`;
+  el.querySelectorAll(".g-pred-fchip").forEach((c) => c.addEventListener("click", () => { _predFilter = c.dataset.f; paintPredict(el); }));
+}
 function renderPredict() {
   const el = document.getElementById("g-predict");
   if (!el) return;
-  fetch("/api/predict?v=2", { headers: { accept: "application/json" } })
+  fetch("/api/predict?v=3", { headers: { accept: "application/json" } })
     .then((r) => (r.ok ? r.json() : null)).catch(() => null)
-    .then((d) => {
-      const list = (d && d.markets) || [];
-      if (!list.length) { if (!el.querySelector(".tui-li")) el.innerHTML = '<div class="g-empty">No prediction markets right now.</div>'; return; }
-      el.innerHTML = list.map((m) => {
-        const yes = typeof m.yes === "number" ? m.yes + "%" : "—";
-        const meta = [m.venue, m.end ? fmt(String(m.end).slice(0, 10)) : ""].filter(Boolean).join(" · ");
-        return `<a class="tui-li" href="${esc(m.url || "#")}" target="_blank" rel="noopener noreferrer"><span class="tui-li-t">${esc(m.q)}</span>`
-          + `<span class="tui-li-m"><span class="tui-li-tag g-pred-odds">${esc(yes)}</span>${esc(meta)}</span></a>`;
-      }).join("");
-    });
+    .then((d) => { const list = (d && d.markets) || []; if (!list.length && el.querySelector(".tui-li")) return; _predList = list; paintPredict(el); });
 }
 
 // ---- Volatility & risk (left rail) + Yield curve (right rail) ---------------

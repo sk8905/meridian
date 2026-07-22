@@ -268,7 +268,7 @@ function loadMarkets(body) {
   const loadPredict = () => {
     if (predict != null || predictLoading) return;
     predictLoading = true;
-    fetch("/api/predict?v=1", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null)
+    fetch("/api/predict?v=3", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null)
       .then((p) => { predict = (p && p.markets) || []; predictLoading = false; if (_mktTab === "predict") render(); });
   };
   chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c && c.dataset.k !== _mktTab) { _mktTab = c.dataset.k; if (_mktTab === "predict") loadPredict(); render(); } });
@@ -296,10 +296,14 @@ function predictRow(m) {
     + (m.end ? `<span class="nf-sep">·</span><span class="nf-time">${esc(fmtDate(m.end))}</span>` : "")
     + `</span></a>`;
 }
+const PRED_TYPE_ORDER = ["Fed & rates", "Economy", "Equities", "Crypto", "Trump", "Geopolitics", "Elections", "Other"];
 function predictPane(list, loading) {
   if (loading || list == null) return '<div class="na-load">Loading…</div>';
   if (!list.length) return '<div class="na-load">No prediction markets available right now.</div>';
-  return naSec("Prediction markets", "implied YES %") + list.map(predictRow).join("");
+  const groups = {};
+  for (const m of list) { const t = m.type || "Other"; (groups[t] = groups[t] || []).push(m); }
+  const types = PRED_TYPE_ORDER.filter((t) => groups[t]).concat(Object.keys(groups).filter((t) => !PRED_TYPE_ORDER.includes(t)));
+  return types.map((t) => naSec(t, "implied YES %") + groups[t].map(predictRow).join("")).join("");
 }
 function marketRow(x) {
   const c = typeof x.changePct === "number" && isFinite(x.changePct) ? x.changePct : null;
