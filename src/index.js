@@ -1826,7 +1826,7 @@ async function handleFeed(request, env, ctx) {
       { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=45", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=46", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const items = await feedAssemble(env, ctx);
@@ -1862,9 +1862,19 @@ const FEED_RELEVANCE = /\b(econom|market|stock|share\b|shares|equit|bond|yield|t
 // even when they carry a finance keyword; dropped for non-premium/non-flagged wires
 // (a genuine deal or restructuring headline doesn't read like this).
 const FEED_PR_NOISE = /\bto (announce|report)\b.*\b(results|earnings)\b|\breports?\b.*\b(q[1-4]|first|second|third|fourth|quarter|half[- ]?year|full[- ]?year|fiscal|annual|interim)\b.*\b(results|earnings|financial)\b|\bdeclares?\b.*\bdividend\b|\b(earnings|conference|investor) call\b|\bannounces?\b.*\bappointment of\b|\bappoints?\b.*\bas\b.*\b(director|officer|ceo|cfo|chair|president)\b|\bschedules?\b.*\b(earnings|results)\b|\bto (present|participate) at\b.*\bconference\b/i;
+// Off-topic geography — frontier / small emerging-market economies outside the
+// app's developed-market universe (G7 + EU + Ireland, plus the China/Russia/
+// Iran/Ukraine geopolitics it already tracks). We only reject when such a
+// country is the SUBJECT of the headline (leading word, possessive, or demonym,
+// e.g. "Ghana Keeps Rates…", "Zambia's Bond Rally", "Cuban Population…"), so a
+// developed-market story that merely mentions one in passing still passes. This
+// runs before the premium bypass so even a Bloomberg/Reuters frontier-macro
+// story ("Cuba's Population Decline…") is dropped.
+const FEED_OFFTOPIC_GEO = /^(?:the\s+)?(?:ghana(?:ian)?|nigeria(?:n)?|kenya(?:n)?|zambia(?:n)?|zimbabwe(?:an)?|uganda(?:n)?|tanzania(?:n)?|ethiopia(?:n)?|angola(?:n)?|mozambique|malawi(?:an)?|rwanda(?:n)?|senegal(?:ese)?|cameroon(?:ian)?|sudan(?:ese)?|namibia(?:n)?|botswana|tunisia(?:n)?|algeria(?:n)?|cuba(?:n)?|venezuela(?:n)?|bolivia(?:n)?|ecuador(?:ian)?|paraguay(?:an)?|uruguay(?:an)?|peru(?:vian)?|pakistan(?:i)?|bangladesh(?:i)?|sri\s*lanka(?:n)?|myanmar|nepal(?:ese|i)?|cambodia(?:n)?|laos|laotian|mongolia(?:n)?|kazakh(?:stan)?|uzbek(?:istan)?)(?:'s|’s)?\b/i;
 function feedQualityKeep(it) {
   const s = it.source || "";
   if (FEED_LOWTIER.has(s)) return false;
+  if (FEED_OFFTOPIC_GEO.test(it.title)) return false;   // frontier-EM subject — off universe
   // Premium newsrooms, the curated legal wire, and reader-flagged streams
   // (myFT / Substack) always pass; everything else must read as finance-relevant
   // (strict macro, megacap, or the broader markets/economy/policy/deal vocabulary).
