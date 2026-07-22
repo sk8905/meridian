@@ -2318,6 +2318,18 @@ export default {
     if (url.pathname === "/api/push/subscribe") return handlePushSubscribe(request, env);
     if (url.pathname === "/api/push/test") return handlePushTest(request, env);
     if (url.pathname === "/api/me") return handleMe(request);
+    // v2 SPA (the ground-up rebuild, served alongside the current app). Every
+    // /v2/ NAVIGATION route — anything with no file extension that isn't a real
+    // asset — returns the single shell; the client router renders the right
+    // view. Real files under /v2/ (js, css, index.html) are served as assets
+    // by the block below untouched. The current app at / /macro/ … is wholly
+    // unaffected. no-cache so a fresh deploy's shell is picked up immediately.
+    if (url.pathname.startsWith("/v2/") && !/\.[a-z0-9]+$/i.test(url.pathname)) {
+      const shell = await env.ASSETS.fetch(new URL("/v2/index.html", url.origin).toString());
+      const headers = new Headers(shell.headers);
+      headers.set("cache-control", "no-cache");
+      return new Response(shell.body, { status: shell.status, statusText: shell.statusText, headers });
+    }
     // Deploy-freshness probe: the newest Worker returns this JSON; an older
     // deploy has no such route and falls through to the static site. `build` is
     // bumped on each deploy so you can confirm the edge is running current code.

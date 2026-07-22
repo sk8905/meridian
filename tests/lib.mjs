@@ -36,6 +36,9 @@ export function serve(apis = {}) {
     if (p.startsWith("/api/")) { r.writeHead(200, { "content-type": "application/json" }); r.end("{}"); return; }
     if (p === "/") p = "/index.html";
     if (/^\/(macro|credit|legal|menu)\/?$/.test(p)) p = p.replace(/\/?$/, "") + "/index.html";
+    // v2 SPA fallback (mirrors the Worker): any /v2/ route with no file
+    // extension serves the single shell; real /v2/ files pass through.
+    if (p.startsWith("/v2/") && !/\.[a-z0-9]+$/i.test(p)) p = "/v2/index.html";
     const fp = path.join(ROOT, p);
     if (fs.existsSync(fp) && fs.statSync(fp).isFile()) { r.writeHead(200, { "content-type": MIME[path.extname(fp)] || "text/plain" }); fs.createReadStream(fp).pipe(r); }
     else { r.writeHead(404); r.end("x"); }
