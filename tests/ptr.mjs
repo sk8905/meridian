@@ -38,6 +38,14 @@ for (const path of PAGES) {
   await pg.waitForTimeout(900);
   // 1. Shared init reached this page (the opt-in / token-drift catch).
   check(await pg.evaluate(() => !!document.getElementById("ptr-kf")), `${path}: pull-to-refresh initialised`);
+  // 1b. The html ground stays DARK (each page's inline guard) so the inter-page
+  // nav/boot frame reads as the black header, not a white flash. ptr.js must not
+  // repaint it to the light --bg (the regression that caused the flash).
+  const htmlLum = await pg.evaluate(() => {
+    const m = /(\d+),\s*(\d+),\s*(\d+)/.exec(getComputedStyle(document.documentElement).backgroundColor || "");
+    return m ? 0.299 * +m[1] + 0.587 * +m[2] + 0.114 * +m[3] : null;
+  });
+  check(htmlLum != null && htmlLum < 40, `${path}: html ground stays dark, no white nav flash (lum ${htmlLum == null ? "?" : htmlLum.toFixed(0)})`);
   // 2. A pull engages and the gap matches the page's own ground colour.
   const st = await pullAndRead(ctx, pg, () => {
     const z = document.getElementById("ptr-zone");
