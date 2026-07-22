@@ -28,6 +28,26 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-cchikespep-20260722",
+    publication: "Legal Business",
+    title: "CC hikes PEP as firm aims to 'unlock' brand in the US",
+    date: "2026-07-22",
+    time: "16:17",
+    summary: "Firm posts rising profits and revenue as it closes in on California launch.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQtP9yxh9ZzIQwqO7/wv",
+  },
+  {
+    id: "nl-bbg-goingprivate-20260722",
+    publication: "Bloomberg",
+    author: "Sinead Cruise",
+    series: "Going Private",
+    title: "Going Private: Wall Street supercharges SRTs with insurance wraps",
+    date: "2026-07-22",
+    time: "12:10",
+    summary: "Fund finance alchemists pitch new structures to boost returns and woo buyers.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-22/wall-street-supercharges-srts-demand-with-insurance-wraps",
+  },
+  {
     id: "nl-bbg-economicsdaily-20260722",
     publication: "Bloomberg",
     author: "Chris Anstey",

@@ -13,7 +13,7 @@ export const UPDATED = "22 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-22",
-  lastCheckedTime: "12:15 BST",
+  lastCheckedTime: "17:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -370,6 +370,7 @@ export const YIELD_CURVE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-eu-gas-iran-highs-2026-07-22", kind: "Markets", title: "European gas prices climbed toward the highs set earlier in the Iran war as a summer heatwave and a bidding war with Asian buyers left the market vulnerable to further Strait of Hormuz disruption, adding a second energy front (alongside oil) to the region's inflation risk into winter.", href: "#/bubble", date: "2026-07-22" },
   { id: "g-rubio-not-serious-2026-07-22", kind: "Markets", title: "Secretary of State Rubio said Iran is 'not serious about talks' as the US carried out an 11th consecutive night of strikes on 22 July; Brent jumped as much as 4% intraday, having settled 21 July at $91.01 — its highest close since 10 June.", href: "#/bubble", date: "2026-07-22" },
   { id: "g-houthi-red-sea-tankers-2026-07-22", kind: "Markets", title: "Two tankers carrying Saudi crude reversed course in the Red Sea after a Houthi warning, opening a second maritime chokepoint alongside the Strait of Hormuz; separately Kazakhstan halted Caspian Pipeline Consortium shipments (80-90% of its oil exports) after drone attacks on Black Sea tankers.", href: "#/bubble", date: "2026-07-22" },
   { id: "g-fedwatch-24pct-2026-07-22", kind: "Rate guidance", title: "CME FedWatch odds of a 29 July Fed hike ticked back up to roughly 24% (76% hold) on the morning of 22 July, from ~16-17% a day earlier, as the Iran war widened onto two further oil-supply fronts; September-hike odds eased only slightly to ~69%. A Reuters poll of 104 economists unanimously expects a 29 July hold but puts 2026-hike odds at 66%.", href: "#/policy", date: "2026-07-22" },
@@ -461,17 +462,17 @@ export const NEWS = {
   updated: "2026-07-22",
   us: [
     { title: "Oil prices jump 4% as Rubio says Iran 'not serious' about peace talks", source: "CNBC", date: "2026-07-22", time: "12:00", url: "https://www.cnbc.com/2026/07/22/oil-prices-iran-war-macro-rubio-brent-wti.html" },
-    { title: "Stock market today: Dow, S&P 500, Nasdaq futures slide with Alphabet, Tesla earnings on deck", source: "Yahoo Finance", date: "2026-07-22", time: "08:36", url: "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-july-22-dow-sp-500-nasdaq-alphabet-tesla-083644887.html" },
-    { title: "US tariffs on Brazil take effect as Trump readies fresh flurry", source: "Yahoo Finance", date: "2026-07-22", time: "04:03", url: "https://finance.yahoo.com/economy/policy/articles/us-tariffs-brazil-effect-trump-040303833.html" },
-    { title: "Stock Market News Today, 7/22/26 – Futures Slip as Oil Jumps; Alphabet, Tesla Earnings Ahead", source: "TipRanks", date: "2026-07-22", time: "12:00", url: "https://www.tipranks.com/news/stock-market-news-today-7-22-26-futures-slip-as-oil-jumps-alphabet-tesla-earnings-ahead" },
-    { title: "Fed to hold rates this year despite high inflation, but economists cite high chances of a hike: Reuters poll", source: "Reuters (via Yahoo Finance)", date: "2026-07-21", time: "12:00", url: "https://ca.finance.yahoo.com/news/fed-hold-rates-despite-high-122503162.html" },
+    { title: "Trump plans generic drug tariffs from 2028 with two-year delay testing U.S. onshoring push", source: "CNBC", date: "2026-07-22", time: "17:20", url: "https://www.cnbc.com/2026/07/22/trump-generic-drugs-tariffs-medicine-trade-.html" },
+    { title: "Stock market today: Dow, S&P 500, Nasdaq waver with Alphabet, Tesla earnings on deck", source: "Yahoo Finance", author: "Grace O'Donnell and Jake Conley", date: "2026-07-22", time: "09:57", url: "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-july-22-dow-sp-500-nasdaq-alphabet-tesla-earnings-083644887.html" },
+    { title: "5 things to know before the stock market opens Wednesday", source: "CNBC", date: "2026-07-22", time: "17:20", url: "https://www.cnbc.com/2026/07/22/5-things-to-know-before-the-stock-market-opens.html" },
+    { title: "Federal Reserve seen holding rates next week amid Oil shock", source: "Reuters (via FXStreet)", date: "2026-07-21", time: "20:27", url: "https://www.fxstreet.com/news/federal-reserve-seen-holding-rates-next-week-amid-oil-shock-reuters-202607212027" },
   ],
   uk: [
     { title: "UK inflation falls by more than expected to 2.6% in June, in lift for Andy Burnham", source: "The Guardian (via AOL)", author: "Phillip Inman", date: "2026-07-22", time: "06:01", url: "https://www.aol.co.uk/articles/uk-inflation-falls-2-6-060149000.html" },
-    { title: "UK CPI Slows to 2.6%, But Sticky Core Inflation Keeps BoE Cautious", source: "ActionForex", date: "2026-07-22", time: "12:00", url: "https://www.actionforex.com/live-comments/648047-uk-cpi-slows-to-2-6-but-sticky-core-inflation-keeps-boe-cautious/" },
+    { title: "Food prices are helping keep inflation in check – but will the good news last?", source: "ITV News", author: "Joel Hills", date: "2026-07-22", time: "10:25", url: "https://www.itv.com/news/2026-07-22/food-prices-are-helping-keep-inflation-in-check-but-will-the-good-news-last" },
+    { title: "'False dawn': June inflation falls to 2.6 per cent but analysts say rises ahead", source: "CityAM", author: "Mauricio Alencar", date: "2026-07-22", time: "17:20", url: "https://www.cityam.com/sticky-inflation-expected-to-inch-up-again/" },
+    { title: "Labour Changes City Minister for Fourth Time as Rigby Returns", source: "Bloomberg", date: "2026-07-22", time: "17:20", url: "https://www.bloomberg.com/news/articles/2026-07-22/labour-changes-city-minister-for-fourth-time-as-rigby-returns" },
     { title: "Pound Sterling Price News & Forecast: GBP/USD attracts some buyers, though it lacks follow-through", source: "FXStreet", date: "2026-07-22", time: "04:49", url: "https://www.fxstreet.com/news/pound-sterling-price-news-forecast-gbp-usd-attracts-some-buyers-though-it-lacks-follow-through-202607220449" },
-    { title: "UK Gilt Yields Explained: What Burnham's New Chancellor Means for Bond Investors", source: "IG", date: "2026-07-21", time: "12:00", url: "https://www.ig.com/uk/trading-strategies/uk-gilt-yields-explained-what-burnham-s-new-chancellor-means-for-260721" },
-    { title: "Burnham Puts Sterling on Bond Vigilante Watch", source: "Babypips", date: "2026-07-21", time: "12:00", url: "https://www.babypips.com/news/headline-burnham-puts-sterling-on-bond-vigilante-watch-2026-07-21" },
   ],
 };
 
@@ -485,6 +486,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-22",
   items: [
+    {"title":"Trump plans generic drug tariffs from 2028 with two-year delay testing U.S. onshoring push","source":"CNBC","date":"2026-07-22","url":"https://www.cnbc.com/2026/07/22/trump-generic-drugs-tariffs-medicine-trade-.html","blurb":"The administration proposed generic-drug tariffs phased in from 2028, testing whether a delayed start can shift US onshoring of medicine manufacturing without near-term price shocks."},
+    {"title":"'False dawn': June inflation falls to 2.6 per cent but analysts say rises ahead","source":"CityAM","author":"Mauricio Alencar","date":"2026-07-22","url":"https://www.cityam.com/sticky-inflation-expected-to-inch-up-again/","blurb":"Economists warned June's cooler UK CPI print is unlikely to persist, with a looming Ofgem price-cap rise expected to push inflation back above 3% later this year."},
+    {"title":"Food prices are helping keep inflation in check – but will the good news last?","source":"ITV News","author":"Joel Hills","date":"2026-07-22","url":"https://www.itv.com/news/2026-07-22/food-prices-are-helping-keep-inflation-in-check-but-will-the-good-news-last","blurb":"Softer food and fuel costs drove June's UK inflation surprise, but ITV's economics editor questions whether the relief can outlast the autumn energy price-cap rise."},
     {"title":"Stock Market News Today, 7/22/26 – Futures Slip as Oil Jumps; Alphabet, Tesla Earnings Ahead","source":"TipRanks","date":"2026-07-22","url":"https://www.tipranks.com/news/stock-market-news-today-7-22-26-futures-slip-as-oil-jumps-alphabet-tesla-earnings-ahead","blurb":"US futures slipped as Brent's renewed climb past $90 revived inflation worries ahead of Wednesday's Alphabet and Tesla results."},
     {"title":"Stock market today: Dow, S&P 500, Nasdaq futures slide with Alphabet, Tesla earnings on deck","source":"Yahoo Finance","date":"2026-07-22","url":"https://finance.yahoo.com/markets/live/stock-market-today-wednesday-july-22-dow-sp-500-nasdaq-alphabet-tesla-083644887.html","blurb":"Nasdaq futures led declines, down over 1%, as oil's jump on Rubio's Iran comments clouded the outlook ahead of the day's marquee earnings."},
     {"title":"US tariffs on Brazil take effect as Trump readies fresh flurry","source":"Yahoo Finance","date":"2026-07-22","url":"https://finance.yahoo.com/economy/policy/articles/us-tariffs-brazil-effect-trump-040303833.html","blurb":"A 25% US tariff on a range of Brazilian goods took effect Wednesday, with coffee, beef and orange juice exempted, as Washington prepares a broader tariff rollout covering dozens of countries within weeks."},
@@ -532,7 +536,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-07-22", country: "UK", title: "CPI inflation (June)", url: "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/latest" },
   { date: "2026-07-24", country: "UK", title: "Retail sales (June)", url: "https://www.ons.gov.uk/businessindustryandtrade/retailindustry/bulletins/retailsales/latest" },
   { date: "2026-07-24", country: "UK", title: "S&P Global/CIPS Flash Manufacturing & Services PMI (July)", url: "https://www.pmi.spglobal.com/Public/Release/ReleaseDates" },
   { date: "2026-07-29", country: "US", title: "FOMC rate decision", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
