@@ -1008,7 +1008,9 @@ const MACRO_SERIES = [
   // Euro Area (aggregate).
   { country: "EA", key: "base_rate", label: "Base rate", unit: "%", sub: "ECB deposit facility rate", src: "fred", id: "ECBDFR", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/ECBDFR", source: "FRED / ECB" },
   { country: "EA", key: "core_cpi", label: "Core inflation", unit: "%", sub: "HICP · YoY", src: "fred", id: "CP0000EZ19M086NEST", tf: "yoy", href: "https://fred.stlouisfed.org/series/CP0000EZ19M086NEST", source: "FRED / Eurostat" },
-  { country: "EA", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTEZM156S", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTEZM156S", source: "FRED / OECD" },
+  // (The euro-area AGGREGATE harmonised-unemployment mirror is discontinued on
+  // FRED — both NSA and SA freeze at Jan 2023 — so EA unemployment renders "–";
+  // the member states DE/FR/IT/IE each carry their own live rate below.)
   // Germany.
   { country: "DE", key: "base_rate", label: "Base rate", unit: "%", sub: "ECB deposit facility rate", src: "fred", id: "ECBDFR", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/ECBDFR", source: "FRED / ECB" },
   { country: "DE", key: "core_cpi", label: "Core inflation", unit: "%", sub: "HICP · YoY", src: "fred", id: "CP0000DEM086NEST", tf: "yoy", href: "https://fred.stlouisfed.org/series/CP0000DEM086NEST", source: "FRED / Eurostat" },
@@ -1113,7 +1115,7 @@ async function handleMacro(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/macro?v=81", request.url).toString());
+  const cacheKey = new Request(new URL("/api/macro?v=82", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const series = await Promise.all(MACRO_SERIES.map(async (s) => {

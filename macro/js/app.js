@@ -9,8 +9,8 @@ import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NE
 import { esc } from "/util.js?v=20260719-1";
 import { MONTHS, MONTHS_FULL, WEEKDAYS, isoToDate, fmtDay, fmtDayGB, fmtWeekday, fmtDate,
   trackGauge, CYCLE_ZONES, BUBBLE_ZONES, bubbleComposite, bubbleBand,
-  MAC_IND_ORDER, MACRO_DATA, setMacroData } from "./shared.js?v=20260722-1";
-import { macroDashPane, loadYieldCurve, cockpitInds } from "./dashboard.js?v=20260722-1";
+  MAC_IND_ORDER, MACRO_DATA, setMacroData, macroMatrixHtml, macroDetailHtml } from "./shared.js?v=20260722-2";
+import { macroDashPane, loadYieldCurve, cockpitInds } from "./dashboard.js?v=20260722-2";
 // The shared news-wire engine — so the Macro dashboard wire is the same build as
 // the Home feed (time-led .g-feed-* rows, day headers, source filter).
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, onLiveWire, liveDesk } from "/feed.js?v=20260722-3";
@@ -394,7 +394,7 @@ function viewDashboard() {
       </section>
       <aside class="tcol tcol-r">
         <section class="tpanel">
-          <header class="tpanel-h"><span>Economic indicators</span><span class="tpanel-x">US · UK</span></header>
+          <header class="tpanel-h"><span>Economic indicators</span><span class="tpanel-x">G7 · EU · IE</span></header>
           <div id="macro-ind"><div class="tw-empty muted small">Loading indicators…</div></div>
         </section>
         <section class="tpanel">
@@ -405,21 +405,30 @@ function viewDashboard() {
     </div>
   </div>`;
 }
-// Fill the indicators rail (async) + wire the wire's filter chips.
+// The indicator tile (label · value · change) shared by the rail detail.
+function macIndTile(s) {
+  const pct = s.unit === "%";
+  const val = s.value == null ? "—" : `${(+s.value).toFixed(2)}${pct ? "%" : ""}`;
+  const ch = s.change, dir = ch > 0 ? "up" : ch < 0 ? "down" : "flat", arrow = ch > 0 ? "▲" : ch < 0 ? "▼" : "·";
+  const chg = (ch == null || s.value == null) ? "" : `<span class="mac-ind-c-chg ${dir}">${arrow} ${Math.abs(ch).toFixed(2)}${pct ? "pp" : ""}</span>`;
+  return `<div class="mac-ind"><span class="mac-ind-n">${esc(s.label)}</span><span class="mac-ind-v">${val}</span>${chg}</div>`;
+}
+// Which economy the indicators rail has expanded (G7 + Euro Area + Ireland).
+let _macIndCountry = "US";
+// Fill the indicators rail (async): a country × key-indicator comparison matrix
+// (the whole G7 + Euro Area + Ireland), then the selected economy's full detail.
+// Clicking a matrix row switches the detail; unavailable series render "–".
 function renderMacroIndRail(series) {
   const el = document.getElementById("macro-ind");
   if (!el) return;
-  const tile = (s) => {
-    const pct = s.unit === "%";
-    const val = s.value == null ? "—" : `${(+s.value).toFixed(2)}${pct ? "%" : ""}`;
-    const ch = s.change, dir = ch > 0 ? "up" : ch < 0 ? "down" : "flat", arrow = ch > 0 ? "▲" : ch < 0 ? "▼" : "·";
-    const chg = (ch == null || s.value == null) ? "" : `<span class="mac-ind-c-chg ${dir}">${arrow} ${Math.abs(ch).toFixed(2)}${pct ? "pp" : ""}</span>`;
-    return `<div class="mac-ind"><span class="mac-ind-n">${esc(s.label)}</span><span class="mac-ind-v">${val}</span>${chg}</div>`;
-  };
-  const rowsFor = (c) => MAC_IND_ORDER.map((k) => (series || []).find((s) => s.country === c && s.key === k)).filter(Boolean);
-  const block = (label, c) => { const r = rowsFor(c); return r.length ? `<div class="mac-ind-cty">${label}</div><div class="mac-ind-grid">${r.map(tile).join("")}</div>` : ""; };
-  const html = block("United States", "US") + block("United Kingdom", "UK");
-  el.innerHTML = html || '<div class="tw-empty muted small">Indicators unavailable right now.</div>';
+  const S = series || (MACRO_DATA && MACRO_DATA.series) || [];
+  if (!S.length) { el.innerHTML = '<div class="tw-empty muted small">Indicators unavailable right now.</div>'; return; }
+  el.innerHTML = macroMatrixHtml(S, _macIndCountry) + macroDetailHtml(S, _macIndCountry, macIndTile);
+  el.querySelectorAll(".mac-mtx-r").forEach((tr) => tr.addEventListener("click", () => {
+    if (tr.dataset.c === _macIndCountry) return;
+    _macIndCountry = tr.dataset.c;
+    renderMacroIndRail(S);
+  }));
 }
 let _macSrc = null;   // active source filter (newsroom name) or null
 function macroWireDash() {

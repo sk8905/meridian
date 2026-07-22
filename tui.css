@@ -425,6 +425,17 @@
 .mac-ind-v { font-family: var(--t-mono); font-size: 12px; color: var(--ink); font-variant-numeric: tabular-nums; }
 .mac-ind-c-chg { font-family: var(--t-mono); font-size: 9px; }
 .mac-ind-c-chg.up { color: #3fc08d; } .mac-ind-c-chg.down { color: #f26d84; } .mac-ind-c-chg.flat { color: var(--faint); }
+/* G7 + Euro Area + Ireland comparison matrix (country × key indicators). Rows are
+   the country selector — clicking one expands its full detail beneath. */
+.mac-mtx { width: 100%; border-collapse: collapse; font-family: var(--t-mono); font-variant-numeric: tabular-nums; table-layout: fixed; }
+.mac-mtx th, .mac-mtx td { padding: 4px 8px; text-align: right; font-size: 11px; border-bottom: 1px solid var(--border); }
+.mac-mtx thead th { font-size: 8.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); border-bottom: 1px solid var(--border); }
+.mac-mtx .mac-mtx-c { text-align: left; color: var(--ink); font-weight: 600; }
+.mac-mtx td { color: var(--ink); }
+.mac-mtx-r { cursor: pointer; }
+.mac-mtx-r:hover { background: var(--surface2, rgba(127,140,166,.08)); }
+.mac-mtx-r.on { background: var(--surface2, rgba(127,140,166,.12)); box-shadow: inset 2px 0 0 var(--chip-ul, var(--accent)); }
+.mac-mtx-r.on .mac-mtx-c { color: var(--accent); }
 /* Macro "Dashboard" chip pane (FedWatch · dot plot · regime gauges) — scrolls
    inside the centre terminal column, swapping in for the news wire. Everything is
    pinned to the terminal type scale and runs edge-to-edge (no card insets), so it
