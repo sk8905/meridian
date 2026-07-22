@@ -1305,12 +1305,11 @@ function predRow(m) {
     const dir = c > 0 ? "up" : c < 0 ? "down" : "flat";
     chg = `<span class="g-pred-chg ${dir}">${c > 0 ? "▲" : c < 0 ? "▼" : "·"} ${Math.abs(c).toFixed(1)}</span>`;
   }
-  // Grid row: question (+meta) · odds · daily change — the odds/change columns
-  // line up with the value/change columns of the indicators band above.
+  // Odds pinned top-right, the daily change stacked directly beneath it.
   return `<a class="tui-li g-pred-row" href="${esc(m.url || "#")}" target="_blank" rel="noopener noreferrer">`
     + `<span class="g-pred-main"><span class="tui-li-t">${esc(m.q)}</span>`
     + `<span class="tui-li-m">${esc(meta)}</span></span>`
-    + `<span class="g-pred-odds">${esc(yes)}</span>${chg}</a>`;
+    + `<span class="g-pred-nums"><span class="g-pred-odds">${esc(yes)}</span>${chg}</span></a>`;
 }
 function paintPredict(el) {
   const list = _predList || [];
