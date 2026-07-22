@@ -316,13 +316,17 @@ export function macroDashPane() {
   return `<div class="ck-secbar"><div class="tchips" id="ck-secnav">${SECS.map(chip).join("")}</div></div>
   <div class="mac-cockpit ck-single" id="ck-cockpit">
     <div ${grp("overview")}>
-    <div class="ck-sec">Economic indicators</div>
-    <section class="ck-panel ck-span2">
+    <div class="ck-ov">
+    <div class="ck-ov-c ck-ov-mtx">
+    <div class="ck-ov-h">Economic indicators</div>
+    <section class="ck-panel">
       <header class="ck-h wire-ptr-freeze"><span>Key economic indicators</span><span class="ck-x">G7 · EU · IE · CN</span><a class="ck-more" href="#/chart">Chart</a></header>
       <div class="ck-inds" id="mac-ck-inds">${cockpitInds((MACRO_DATA && MACRO_DATA.series) || [])}</div>
     </section>
+    </div>
 
-    <div class="ck-sec">Rates &amp; policy</div>
+    <div class="ck-ov-c">
+    <div class="ck-ov-h">Rates &amp; policy</div>
     <section class="ck-panel">
       <header class="ck-h wire-ptr-freeze"><span>Yield curve</span><span class="ck-x" id="ck-yc-asof">gov · as of ${esc(_yc.asOf)}</span></header>
       <div class="ck-body" id="ck-yc-body">${ycBody()}</div>
@@ -344,15 +348,17 @@ export function macroDashPane() {
       </div>
     </section>
 
-    <section class="ck-panel ck-span2 ck-strip">
+    <section class="ck-panel ck-strip">
       <header class="ck-h wire-ptr-freeze"><span>Rate outlook</span><a class="ck-more" href="#/policy">Policy →</a></header>
       <div class="ck-body ck-stats2">
         ${stat("US", OUTLOOK.us.rate, `${OUTLOOK.us.stance || ""}${OUTLOOK.us.next ? " · next " + OUTLOOK.us.next : ""}`)}
         ${stat("UK", OUTLOOK.uk.rate, `${OUTLOOK.uk.stance || ""}${OUTLOOK.uk.next ? " · next " + OUTLOOK.uk.next : ""}`)}
       </div>
     </section>
+    </div>
 
-    <div class="ck-sec">Regime</div>
+    <div class="ck-ov-c">
+    <div class="ck-ov-h">Regime</div>
     <section class="ck-panel">
       <header class="ck-h wire-ptr-freeze"><span>Cycle — long-term debt cycle</span><a class="ck-more" href="#/cycle">Cycle →</a></header>
       <div class="ck-body">
@@ -372,6 +378,8 @@ export function macroDashPane() {
         <div class="ck-dims">${BUBBLE.dimensions.map(dimCard).join("")}</div>
       </div>
     </section>
+    </div>
+    </div>
     </div>
 
     <div ${grp("earnings")}>

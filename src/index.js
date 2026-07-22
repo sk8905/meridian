@@ -1019,6 +1019,11 @@ const MACRO_SERIES = [
   // Euro Area (aggregate).
   { country: "EA", key: "base_rate", label: "Base rate", unit: "%", sub: "ECB deposit facility rate", src: "fred", id: "ECBDFR", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/ECBDFR", source: "FRED / ECB" },
   { country: "EA", key: "core_cpi", label: "Core inflation", unit: "%", sub: "HICP · YoY", src: "fred", id: "CP0000EZ19M086NEST", tf: "yoy", href: "https://fred.stlouisfed.org/series/CP0000EZ19M086NEST", source: "FRED / Eurostat" },
+  // Candidate fills (verified via /api/macro?debug): 2Y via the ECB euro-area
+  // AAA spot-rate curve; unemployment via Eurostat's live monthly series (the
+  // FRED mirror is frozen). Dead codes degrade to "–".
+  { country: "EA", key: "two_year", label: "2-year yield", unit: "%", sub: "Euro-area AAA 2Y", src: "dbnomics", id: "ECB/YC/B.U2.EUR.4F.G_N_A.SV_C_YM.SR_2Y", tf: "level", href: "https://data.ecb.europa.eu/", source: "ECB yield curve" },
+  { country: "EA", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "dbnomics", id: "Eurostat/une_rt_m/M.SA.TOTAL.PC_ACT.T.EA20", tf: "level", href: "https://ec.europa.eu/eurostat/databrowser/view/une_rt_m", source: "Eurostat" },
   // (The euro-area AGGREGATE harmonised-unemployment mirror is discontinued on
   // FRED — both NSA and SA freeze at Jan 2023 — so EA unemployment renders "–";
   // the member states DE/FR/IT/IE each carry their own live rate below.)
@@ -1038,17 +1043,21 @@ const MACRO_SERIES = [
   { country: "IE", key: "base_rate", label: "Base rate", unit: "%", sub: "ECB deposit facility rate", src: "fred", id: "ECBDFR", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/ECBDFR", source: "FRED / ECB" },
   { country: "IE", key: "core_cpi", label: "Core inflation", unit: "%", sub: "HICP · YoY", src: "fred", id: "CP0000IEM086NEST", tf: "yoy", href: "https://fred.stlouisfed.org/series/CP0000IEM086NEST", source: "FRED / Eurostat" },
   { country: "IE", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTIEM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTIEM156N", source: "FRED / OECD" },
-  // Canada & Japan — the OECD MEI policy-rate and CPI mirrors were discontinued
-  // (frozen at end-2023 / empty), so only the still-maintained OECD harmonised
-  // unemployment rate is wired; rate & inflation render "–" until a live national
-  // source (StatCan / BoJ) is added.
+  // Canada & Japan — OECD MEI policy-rate/CPI mirrors were discontinued. Candidate
+  // fills (verified via /api/macro?debug): policy rate via the BIS central-bank
+  // policy-rate dataset (DBnomics), core CPI via FRED's OECD "all items less food
+  // & energy, YoY growth" series. Dead codes render "–".
+  { country: "CA", key: "base_rate", label: "Base rate", unit: "%", sub: "BoC policy rate", src: "dbnomics", id: "BIS/WS_CBPOL_M/M.CA", tf: "level", href: "https://www.bis.org/statistics/cbpol.htm", source: "BIS" },
+  { country: "CA", key: "core_cpi", label: "Core inflation", unit: "%", sub: "CPI ex food & energy · YoY", src: "fred", id: "CPGRLE01CAM659N", tf: "level", href: "https://fred.stlouisfed.org/series/CPGRLE01CAM659N", source: "FRED / OECD" },
   { country: "CA", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTCAM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTCAM156N", source: "FRED / OECD" },
+  { country: "JP", key: "base_rate", label: "Base rate", unit: "%", sub: "BoJ policy rate", src: "dbnomics", id: "BIS/WS_CBPOL_M/M.JP", tf: "level", href: "https://www.bis.org/statistics/cbpol.htm", source: "BIS" },
+  { country: "JP", key: "core_cpi", label: "Core inflation", unit: "%", sub: "CPI ex food & energy · YoY", src: "fred", id: "CPGRLE01JPM659N", tf: "level", href: "https://fred.stlouisfed.org/series/CPGRLE01JPM659N", source: "FRED / OECD" },
   { country: "JP", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTJPM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTJPM156N", source: "FRED / OECD" },
-  // China — the 10th economy. FRED's monthly China coverage is thin; these are
-  // candidate series confirmed via /api/macro?debug and trimmed to what returns
-  // (anything dead renders "–", as with CA/JP rate & inflation).
-  { country: "CN", key: "base_rate", label: "Base rate", unit: "%", sub: "3-month interbank rate", src: "fred", id: "IR3TIB01CNM156N", tf: "level", href: "https://fred.stlouisfed.org/series/IR3TIB01CNM156N", source: "FRED / OECD" },
-  { country: "CN", key: "core_cpi", label: "Core inflation", unit: "%", sub: "CPI · YoY", src: "fred", id: "CHNCPIALLMINMEI", tf: "yoy", href: "https://fred.stlouisfed.org/series/CHNCPIALLMINMEI", source: "FRED / OECD" },
+  // China — the 10th economy. FRED's monthly China coverage is thin; candidate
+  // series confirmed via /api/macro?debug and trimmed to what returns. Policy rate
+  // via BIS; core CPI via FRED OECD ex-food-&-energy YoY.
+  { country: "CN", key: "base_rate", label: "Base rate", unit: "%", sub: "PBoC policy rate", src: "dbnomics", id: "BIS/WS_CBPOL_M/M.CN", tf: "level", href: "https://www.bis.org/statistics/cbpol.htm", source: "BIS" },
+  { country: "CN", key: "core_cpi", label: "Core inflation", unit: "%", sub: "CPI ex food & energy · YoY", src: "fred", id: "CPGRLE01CNM659N", tf: "level", href: "https://fred.stlouisfed.org/series/CPGRLE01CNM659N", source: "FRED / OECD" },
   { country: "CN", key: "unemployment", label: "Unemployment", unit: "%", sub: "Surveyed urban unemployment", src: "fred", id: "LRUNTTTTCNM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRUNTTTTCNM156N", source: "FRED / OECD" },
 ];
 
