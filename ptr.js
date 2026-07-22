@@ -71,13 +71,12 @@ export function initPullToRefresh() {
       // hitting the top or bottom shouldn't kill the scroll dead. `contain`
       // preserves the elastic overscroll while suppressing the browser's own
       // pull-to-refresh (ours takes over active top-pulls via preventDefault;
-      // momentum arrivals at the top just bounce natively).
-      // NB we deliberately DON'T set html{background} here: each page paints a
-      // dark html ground inline (before any CSS) so the inter-page nav/boot
-      // frame reads as the black header, not a white flash. Forcing it to the
-      // light --bg (as this used to) re-introduced that flash on every tab
-      // change. The deliberate-pull gap still opens in the light zone below.
-      "html,body{overscroll-behavior-y:contain}";
+      // momentum arrivals at the top just bounce natively). The html ground is
+      // set to the light --bg so the OVERSCROLL band (the only place html shows;
+      // body covers it everywhere else) matches the content — otherwise a menu
+      // pull exposes the dark inline ground as a black band. This does NOT drive
+      // the tab-change flash (body, not html, is what the nav snapshot shows).
+      "html,body{overscroll-behavior-y:contain}html{background:var(--bg,#05080f)}";
     document.head.appendChild(st);
   }
   const mount = () => { if (!zone.isConnected && document.body) document.body.appendChild(zone); };

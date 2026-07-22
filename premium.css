@@ -436,12 +436,6 @@ svg.mtab-ico { width: 22px; height: 22px; }
 html.wire-boot main#app, html.wire-boot .footer, html.wire-boot .wticker,
 html.wire-boot .wbrief, html.wire-boot #glance, html.wire-boot #loading,
 html.wire-boot #out { visibility: hidden; }
-/* The body's theme background (light) otherwise shows through the hidden
-   content during the boot hold — the white/light flat on a bottom-nav tab
-   change. Make the body transparent while booting so the inline dark html
-   ground (set per page in <head>) shows instead, matching the header, so the
-   crossfade never lands on a white frame. */
-html.wire-boot body { background: transparent; }
 
 /* During a swipe-between-chips gesture the static inset-underline on-state is
    suppressed — swipetabs.js draws a single 2px bar that SLIDES between the two

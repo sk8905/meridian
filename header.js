@@ -98,5 +98,5 @@ export function initHeader(opts = {}) {
   // drifted onto a stale ptr.js token. initHeader runs once per page and every
   // page loads it, so this is the single correct home. ptr.js self-guards
   // (touch-only, runs once), so it's a no-op on desktop and on a second call.
-  import("/ptr.js?v=20260723-2").then((m) => m.initPullToRefresh()).catch(() => {});
+  import("/ptr.js?v=20260723-3").then((m) => m.initPullToRefresh()).catch(() => {});
 }
