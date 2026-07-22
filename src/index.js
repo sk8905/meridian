@@ -1810,8 +1810,18 @@ async function handleFeed(request, env, ctx) {
       headers: { "content-type": "application/json", "cache-control": "no-store" },
     });
   }
+  // /api/feed?cull=1 — instrument the shared quality cull: how many items the
+  // source + relevance gate drops from the assembled wire, and examples.
+  if (url.searchParams.get("cull")) {
+    const stats = { kept: 0, dropped: 0, examples: [] };
+    const items = await feedAssemble(env, ctx, null, stats);
+    const before = stats.kept + stats.dropped;
+    return new Response(JSON.stringify({ before, after: items.length, dropped: stats.dropped,
+      pct: before ? +((stats.dropped / before) * 100).toFixed(1) : 0, examples: stats.examples }, null, 2),
+      { headers: { "content-type": "application/json", "cache-control": "no-store" } });
+  }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=40", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=41", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const items = await feedAssemble(env, ctx);
@@ -1821,13 +1831,40 @@ async function handleFeed(request, env, ctx) {
   if (ctx && ctx.waitUntil && items.length) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
   return resp;
 }
+// ---- Wire quality cull (server-side) — applied to the assembled stream so EVERY
+// surface (Home + the Macro/Credit/Legal live-wire folds) consumes ONE filtered
+// set: drop low-tier sources, and require a general-news headline (non-premium,
+// non-flagged, non-macro) to read as finance/markets/economy/policy/dealmaking.
+const FEED_LOWTIER = new Set([
+  "Benzinga", "TheStreet", "Yahoo Finance", "Yahoo Finance UK", "Sunday Guardian Live",
+  "HomeOwners Alliance", "U.S. News", "CityAM", "Enterprise AM", "exchangerates.org.uk",
+  "TradingView", "GV Wire", "CryptoTimes",
+  "ActionForex", "FXStreet", "DailyFX", "FXEmpire", "Kitco", "MoneyWeek",
+  "MarketBeat", "Simply Wall St", "The Motley Fool", "Motley Fool", "Zacks",
+  "InvestorPlace", "TipRanks", "Finbold", "AInvest",
+]);
+const FEED_PREMIUM = new Set([
+  "Financial Times", "FT Alphaville", "Bloomberg", "CNBC", "Reuters",
+  "Reuters (via Investing.com)", "The Wall Street Journal", "WSJ", "The Economist",
+]);
+const FEED_LEGAL_SRC = new Set(["The Lawyer", "Legal Business"]);
+const FEED_RELEVANCE = /\b(econom|market|stock|share\b|shares|equit|bond|yield|treasur|gilt|bund|rate|interest|inflation|deflation|cpi|ppi|pce|gdp|growth|recession|jobs|payroll|unemploy|labou?r|wage|fed|fomc|powell|ecb|lagarde|central bank|\bboe\b|dollar|euro|sterling|\byen\b|currenc|forex|\bfx\b|oil|crude|opec|brent|\bgas\b|gold|silver|copper|commodit|bitcoin|crypto|ethereum|stablecoin|earnings|profit|revenue|guidance|\bipo\b|merger|acquisition|buyout|takeover|\bdeal|\bm&a\b|bank|lend|credit|debt|default|bankrupt|restructur|tariff|trade|export|import|sanction|budget|fiscal|deficit|\btax\b|stimulus|housing|mortgage|property|retail sales|consumer|manufactur|\bpmi\b|factory|industr|semiconductor|\bchip|\bai\b|artificial intelligence|tech|nvidia|apple|microsoft|tesla|amazon|alphabet|google|meta\b|openai|geopolit|\bwar\b|election|tariff|trump|\bchina\b|russia|\biran\b|ukraine|opec|hedge fund|private equity|venture|valuation|bond market|stock market|wall street|ftse|s&p|nasdaq|dow|nikkei|dax|hang seng)\b/i;
+function feedQualityKeep(it) {
+  const s = it.source || "";
+  if (FEED_LOWTIER.has(s)) return false;
+  // Premium newsrooms, the curated legal wire, and reader-flagged streams
+  // (myFT / Substack) always pass; everything else must read as finance-relevant
+  // (strict macro, megacap, or the broader markets/economy/policy/deal vocabulary).
+  if (FEED_PREMIUM.has(s) || FEED_LEGAL_SRC.has(s) || it.myft || it.substack || it.legal) return true;
+  return FEED_MACRO_RE.test(it.title) || FEED_MEGACAP_RE.test(it.title) || FEED_RELEVANCE.test(it.title);
+}
 // The actual wire assembly — fetch every source (with the variant/Bing
 // fallbacks), filter, cap, stamp, merge, dedupe. Shared by the live /api/feed
 // path and the debug=2 ground-truth probe so they can never drift apart.
 // `trace` (debug=2): collects THIS assembly's per-source fetch/filter/cap
 // stats, so a source that fetches healthily in the debug=1 probe but dies in
 // the real assembly is visible with the exact stage where it died.
-async function feedAssemble(env, ctx, trace = null) {
+async function feedAssemble(env, ctx, trace = null, stats = null) {
   const delays = feedStagger();
   // Per-source LAST-GOOD cache. Every failure mode we've chased (Google 503s,
   // Substack 429s, WSJ/Fed direct-feed timeouts under the parallel burst) is a
@@ -1942,6 +1979,13 @@ async function feedAssemble(env, ctx, trace = null) {
     if (it.source === "Investing.com") {
       if (/\breuters\b/i.test(it.title)) it.source = "Reuters"; else continue;
     }
+    // Quality cull (shared server-side gate) — drop low-tier sources and off-topic
+    // general news so every surface consumes the same filtered stream.
+    if (!feedQualityKeep(it)) {
+      if (stats) { stats.dropped = (stats.dropped || 0) + 1; if (stats.examples && stats.examples.length < 40) stats.examples.push(`${it.source} — ${it.title}`); }
+      continue;
+    }
+    if (stats) stats.kept = (stats.kept || 0) + 1;
     const k = feedNorm(it.title);
     if (!k || seen.has(k)) continue;
     seen.add(k);

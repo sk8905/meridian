@@ -36,24 +36,8 @@ const PREMIUM_NEWS = new Set([
 // Low-tier aggregator / SEO / forecast-farm / crypto sources — limited out of the
 // Home macro feed so premium newsrooms dominate (credit & legal desks are the
 // tracked universe and are left untouched).
-const NON_PREMIUM = new Set([
-  "Benzinga", "TheStreet", "Yahoo Finance", "Yahoo Finance UK", "Sunday Guardian Live",
-  "HomeOwners Alliance", "U.S. News", "CityAM", "Enterprise AM", "exchangerates.org.uk",
-  "TradingView", "GV Wire", "CryptoTimes",
-  // Forex / commodity forecast farms + retail stock-picking SEO — lowest-signal
-  // tail, culled so the premium newsrooms carry the wire.
-  "ActionForex", "FXStreet", "DailyFX", "FXEmpire", "Kitco", "MoneyWeek",
-  "MarketBeat", "Simply Wall St", "The Motley Fool", "Motley Fool", "Zacks",
-  "InvestorPlace", "TipRanks", "Finbold", "AInvest",
-]);
-// Relevance gate for the residual general-news desk: a story from a non-premium
-// newsroom must read as finance / markets / economy / policy / dealmaking to
-// survive; premium newsrooms (FT, Bloomberg, Reuters, WSJ, CNBC, Economist) always
-// stay. Trims the off-topic tail (human-interest, sport, lifestyle) by relevance.
-// Curated legal-industry newsrooms — kept regardless of the macro-relevance gate
-// (they're the Legal desk's news, and Home is the superset of all app news).
-const LEGAL_NEWS_SRC = new Set(["The Lawyer", "Legal Business"]);
-const NEWS_RELEVANCE = /\b(econom|market|stock|share\b|shares|equit|bond|yield|treasur|gilt|bund|rate|interest|inflation|deflation|cpi|ppi|pce|gdp|growth|recession|jobs|payroll|unemploy|labou?r|wage|fed|fomc|powell|ecb|lagarde|central bank|\bboe\b|dollar|euro|sterling|\byen\b|currenc|forex|\bfx\b|oil|crude|opec|brent|\bgas\b|gold|silver|copper|commodit|bitcoin|crypto|ethereum|stablecoin|earnings|profit|revenue|guidance|\bipo\b|merger|acquisition|buyout|takeover|\bdeal|\bm&a\b|bank|lend|credit|debt|default|bankrupt|restructur|tariff|trade|export|import|sanction|budget|fiscal|deficit|\btax\b|stimulus|housing|mortgage|property|retail sales|consumer|manufactur|\bpmi\b|factory|industr|semiconductor|\bchip|\bai\b|artificial intelligence|tech|nvidia|apple|microsoft|tesla|amazon|alphabet|google|meta\b|openai|geopolit|\bwar\b|election|tariff|trump|\bchina\b|russia|\biran\b|ukraine|opec|hedge fund|private equity|venture|valuation|bond market|stock market|wall street|ftse|s&p|nasdaq|dow|nikkei|dax|hang seng)\b/i;
+// (The low-tier source list + general-news relevance gate now live server-side in
+// the Worker's /api/feed assembly — the wire arrives pre-culled for every surface.)
 const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const fmt = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ""); return m ? `${+m[3]} ${MON[+m[2] - 1]} ${m[1]}` : (iso || ""); };
 const mgrName = (id) => (managers.find((m) => m.id === id) || {}).name || "";
@@ -533,30 +517,9 @@ function renderFeed() {
     const desk = deskFor(n.title, n.source);
     (desk === "m" ? macro : news).push(mk(desk, n.url, n.title, n.source, true, n.date, n.time));
   });
-  // Limit non-premium sources: drop Investing.com (unless a Reuters story delivered
-  // via it) and the low-tier aggregator/SEO/crypto desks, so the wire stays on
-  // premium newsrooms, research houses and official data. Applies to both desks.
-  const keepPremium = (o) => (o.src !== "Investing.com" || /\breuters\b/i.test(o.title || "")) && !NON_PREMIUM.has(o.src);
-  const _cull = { macroBefore: macro.length, newsBefore: news.length };
-  { const km = macro.filter(keepPremium); macro.length = 0; macro.push(...km); }
-  { const kn = news.filter(keepPremium); news.length = 0; news.push(...kn); }
-  _cull.macroAfter = macro.length; _cull.newsAfterSource = news.length;
-  // Relevance cull on the general-news desk: keep premium newsrooms (and the
-  // curated legal-industry wire) outright, otherwise only stories that read as
-  // market/economy/policy/dealmaking — drops the off-topic tail (~10% by relevance).
-  const keepRelevant = (o) => PREMIUM_NEWS.has(o.src) || LEGAL_NEWS_SRC.has(o.src) || NEWS_RELEVANCE.test(o.title || "");
-  const _relDrop = news.filter((o) => !keepRelevant(o));
-  { const kr = news.filter(keepRelevant); news.length = 0; news.push(...kr); }
-  // Instrumentation: read window.__feedCull in the console (or add ?cull=1 to log
-  // it) to see how many items the source + relevance culls remove, and why.
-  _cull.newsAfter = news.length;
-  _cull.droppedBySource = (_cull.macroBefore - _cull.macroAfter) + (_cull.newsBefore - _cull.newsAfterSource);
-  _cull.droppedByRelevance = _cull.newsAfterSource - _cull.newsAfter;
-  _cull.totalDropped = _cull.droppedBySource + _cull.droppedByRelevance;
-  _cull.pool = _cull.macroBefore + _cull.newsBefore;
-  _cull.pctOfPool = _cull.pool ? +((_cull.totalDropped / _cull.pool) * 100).toFixed(1) : 0;
-  _cull.relevanceExamples = _relDrop.map((o) => `${o.src} — ${o.title}`).slice(0, 30);
-  try { window.__feedCull = _cull; if (/[?&]cull=1/.test(location.search)) console.info("[feed cull]", _cull); } catch { /* */ }
+  // (The low-tier source + off-topic relevance cull now runs server-side in the
+  // Worker's /api/feed assembly, so Home and the Macro/Credit/Legal live-wire
+  // folds all share ONE filtered stream — no client-side re-cull here.)
 
   const credit = [];
   deals.forEach((d) => credit.push({ ...mk("c", creditItemHref(d), d.headline, creditSource(d), creditItemExt(d), d.date, d.time, "c", d.id), mgr: d.managerId || "" }));
