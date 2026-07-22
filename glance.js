@@ -1281,7 +1281,19 @@ function renderMovers() {
 // /api/predict (Polymarket), grouped by type (Fed / Economy / Crypto / …) with a
 // filter, refreshed on the live cycle. Rows reuse the deal-flow row style.
 const PRED_TYPE_ORDER = ["Fed & rates", "Economy", "Equities", "Crypto", "Trump", "Geopolitics", "Elections", "Other"];
-let _predList = null, _predFilter = "all";
+// Three top-level chips group the fine-grained types: Macro (Fed/rates, inflation),
+// Politics (Trump, geopolitics, elections) and Finance (equities/IPOs, crypto).
+// Unmapped types (the finance-adjacent "Other" bucket) fall to Macro.
+const PRED_SUPERS = ["Macro", "Politics", "Finance"];
+const PRED_SUPER_TYPES = {
+  Macro: ["Fed & rates", "Economy", "Other"],
+  Politics: ["Trump", "Geopolitics", "Elections"],
+  Finance: ["Equities", "Crypto"],
+};
+const PRED_SUPER_OF = {};
+for (const s of PRED_SUPERS) for (const t of PRED_SUPER_TYPES[s]) PRED_SUPER_OF[t] = s;
+const predSuperOf = (type) => PRED_SUPER_OF[type] || "Macro";
+let _predList = null, _predFilter = "Macro";
 function predRow(m) {
   const yes = typeof m.yes === "number" ? m.yes + "%" : "—";
   const meta = [m.venue, m.end ? fmt(String(m.end).slice(0, 10)) : ""].filter(Boolean).join(" · ");
@@ -1294,18 +1306,23 @@ function predRow(m) {
 function paintPredict(el) {
   const list = _predList || [];
   if (!list.length) { el.innerHTML = '<div class="g-empty">No prediction markets right now.</div>'; return; }
-  const groups = {};
-  for (const m of list) { const t = m.type || "Other"; (groups[t] = groups[t] || []).push(m); }
-  const types = PRED_TYPE_ORDER.filter((t) => groups[t] && groups[t].length).concat(Object.keys(groups).filter((t) => !PRED_TYPE_ORDER.includes(t)));
-  if (_predFilter !== "all" && !groups[_predFilter]) _predFilter = "all";
-  const opts = [`<option value="all"${_predFilter === "all" ? " selected" : ""}>All categories</option>`]
-    .concat(types.map((t) => `<option value="${esc(t)}"${_predFilter === t ? " selected" : ""}>${esc(t)}</option>`)).join("");
-  const filter = `<div class="g-pred-filter"><select class="g-pred-select" aria-label="Filter prediction markets by category">${opts}</select></div>`;
-  const shown = _predFilter === "all" ? types : [_predFilter];
-  const body = shown.map((t) => `<div class="g-pred-sec">${esc(t)}</div>` + groups[t].map(predRow).join("")).join("");
-  el.innerHTML = filter + `<div class="g-pred-list">${body}</div>`;
-  const sel = el.querySelector(".g-pred-select");
-  if (sel) sel.addEventListener("change", () => { _predFilter = sel.value; paintPredict(el); });
+  // Bucket into the 3 super-groups, keeping the fine-grained type sub-sections.
+  const supers = {}; PRED_SUPERS.forEach((s) => (supers[s] = {}));
+  for (const m of list) {
+    const t = m.type || "Other";
+    const s = predSuperOf(t);
+    (supers[s][t] = supers[s][t] || []).push(m);
+  }
+  const has = (s) => Object.keys(supers[s]).length > 0;
+  if (!has(_predFilter)) _predFilter = PRED_SUPERS.find(has) || "Macro";
+  const chips = `<div class="g-pred-filter" role="tablist">`
+    + PRED_SUPERS.map((s) => `<button type="button" class="g-pred-fchip${_predFilter === s ? " on" : ""}" data-f="${esc(s)}"${has(s) ? "" : " disabled"}>${esc(s)}</button>`).join("")
+    + `</div>`;
+  const active = supers[_predFilter] || {};
+  const subTypes = PRED_TYPE_ORDER.filter((t) => active[t] && active[t].length).concat(Object.keys(active).filter((t) => !PRED_TYPE_ORDER.includes(t)));
+  const body = subTypes.map((t) => `<div class="g-pred-sec">${esc(t)}</div>` + active[t].map(predRow).join("")).join("");
+  el.innerHTML = chips + `<div class="g-pred-list">${body}</div>`;
+  el.querySelectorAll(".g-pred-fchip").forEach((c) => c.addEventListener("click", () => { if (!c.disabled && c.dataset.f !== _predFilter) { _predFilter = c.dataset.f; paintPredict(el); } }));
 }
 function renderPredict() {
   const el = document.getElementById("g-predict");

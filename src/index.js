@@ -1008,7 +1008,7 @@ const MACRO_SERIES = [
   // Euro Area (aggregate).
   { country: "EA", key: "base_rate", label: "Base rate", unit: "%", sub: "ECB deposit facility rate", src: "fred", id: "ECBDFR", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/ECBDFR", source: "FRED / ECB" },
   { country: "EA", key: "core_cpi", label: "Core inflation", unit: "%", sub: "HICP · YoY", src: "fred", id: "CP0000EZ19M086NEST", tf: "yoy", href: "https://fred.stlouisfed.org/series/CP0000EZ19M086NEST", source: "FRED / Eurostat" },
-  { country: "EA", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTEZM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTEZM156N", source: "FRED / OECD" },
+  { country: "EA", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTEZM156S", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTEZM156S", source: "FRED / OECD" },
   // Germany.
   { country: "DE", key: "base_rate", label: "Base rate", unit: "%", sub: "ECB deposit facility rate", src: "fred", id: "ECBDFR", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/ECBDFR", source: "FRED / ECB" },
   { country: "DE", key: "core_cpi", label: "Core inflation", unit: "%", sub: "HICP · YoY", src: "fred", id: "CP0000DEM086NEST", tf: "yoy", href: "https://fred.stlouisfed.org/series/CP0000DEM086NEST", source: "FRED / Eurostat" },
@@ -1025,13 +1025,11 @@ const MACRO_SERIES = [
   { country: "IE", key: "base_rate", label: "Base rate", unit: "%", sub: "ECB deposit facility rate", src: "fred", id: "ECBDFR", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/ECBDFR", source: "FRED / ECB" },
   { country: "IE", key: "core_cpi", label: "Core inflation", unit: "%", sub: "HICP · YoY", src: "fred", id: "CP0000IEM086NEST", tf: "yoy", href: "https://fred.stlouisfed.org/series/CP0000IEM086NEST", source: "FRED / Eurostat" },
   { country: "IE", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTIEM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTIEM156N", source: "FRED / OECD" },
-  // Canada.
-  { country: "CA", key: "base_rate", label: "Base rate", unit: "%", sub: "Overnight rate", src: "fred", id: "IRSTCB01CAM156N", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/IRSTCB01CAM156N", source: "FRED / OECD" },
-  { country: "CA", key: "core_cpi", label: "Core inflation", unit: "%", sub: "CPI · YoY", src: "fred", id: "CPALCY01CAM661N", tf: "yoy", href: "https://fred.stlouisfed.org/series/CPALCY01CAM661N", source: "FRED / OECD" },
+  // Canada & Japan — the OECD MEI policy-rate and CPI mirrors were discontinued
+  // (frozen at end-2023 / empty), so only the still-maintained OECD harmonised
+  // unemployment rate is wired; rate & inflation render "–" until a live national
+  // source (StatCan / BoJ) is added.
   { country: "CA", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTCAM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTCAM156N", source: "FRED / OECD" },
-  // Japan.
-  { country: "JP", key: "base_rate", label: "Base rate", unit: "%", sub: "Policy rate", src: "fred", id: "IRSTCB01JPM156N", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/IRSTCB01JPM156N", source: "FRED / OECD" },
-  { country: "JP", key: "core_cpi", label: "Core inflation", unit: "%", sub: "CPI · YoY", src: "fred", id: "CPALTT01JPM661N", tf: "yoy", href: "https://fred.stlouisfed.org/series/CPALTT01JPM661N", source: "FRED / OECD" },
   { country: "JP", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTJPM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTJPM156N", source: "FRED / OECD" },
 ];
 
@@ -1115,7 +1113,7 @@ async function handleMacro(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/macro?v=80", request.url).toString());
+  const cacheKey = new Request(new URL("/api/macro?v=81", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const series = await Promise.all(MACRO_SERIES.map(async (s) => {
