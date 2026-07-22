@@ -16,7 +16,7 @@ const fmtRateVal = (v, unit) => { v = +v; if (!isFinite(v)) return "—"; if (un
 function fmtDate(d) { if (!d) return ""; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : String(d).slice(0, 10); const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s); if (!m) return String(d); return `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}`; }
 
 const DESK = { m: "Macro", c: "Credit", l: "Legal" };
-const DESK_CLASS = { m: "macro", c: "credit", l: "legal", n: "newsletter", f: "ft" };
+const DESK_CLASS = { m: "macro", c: "credit", l: "legal", n: "newsletter", f: "ft", s: "substack", b: "brew", news: "news", bbg: "bbg", econ: "econ", comm: "comm", deal: "deal", fund: "fund", clo: "clo", alert: "alert", case: "case", scheme: "scheme", rp: "rp" };
 
 const ICO_MKT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>';
 const ICO_SAVED = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
@@ -252,8 +252,8 @@ function loadMarkets(body) {
   body.innerHTML = `<div class="na-chips">`
     + `<button type="button" class="na-chip" data-k="markets">Markets</button>`
     + `<button type="button" class="na-chip" data-k="macro">Macro</button>`
-    + `<button type="button" class="na-chip" data-k="portfolio">Portfolio</button>`
     + `<button type="button" class="na-chip" data-k="predict">Predictions</button>`
+    + `<button type="button" class="na-chip" data-k="portfolio">Portfolio</button>`
     + `</div><div class="na-tabbody"><div class="na-load">Loading…</div></div>`;
   const chips = body.querySelector(".na-chips");
   const tb = body.querySelector(".na-tabbody");
@@ -273,7 +273,10 @@ function loadMarkets(body) {
   };
   chips.addEventListener("click", (e) => { const c = e.target.closest(".na-chip"); if (c && c.dataset.k !== _mktTab) { _mktTab = c.dataset.k; if (_mktTab === "predict") loadPredict(); render(); } });
   // Portfolio Daily/Total P&L toggle (delegated — the pane is re-rendered).
-  tb.addEventListener("click", (e) => { const t = e.target.closest(".na-pf-tgl"); if (t) { e.preventDefault(); if (t.dataset.m !== _pfMode) { _pfMode = t.dataset.m; render(); } } });
+  // stopPropagation is essential: render() replaces tb's innerHTML, detaching the
+  // tapped button; without it the document-level outside-click closer then sees a
+  // now-orphaned target (closest(".na-panel") === null) and dismisses the panel.
+  tb.addEventListener("click", (e) => { const t = e.target.closest(".na-pf-tgl"); if (t) { e.preventDefault(); e.stopPropagation(); if (t.dataset.m !== _pfMode) { _pfMode = t.dataset.m; render(); } } });
   if (_mktTab === "predict") loadPredict();
   render();
   Promise.all([
@@ -359,7 +362,8 @@ function portfolioPane(d) {
     const costBasis = h.cost * h.qty;
     const pnlPct = val != null && costBasis ? ((val - costBasis) / costBasis) * 100 : null;
     const day = (m && m.change != null) ? m.change * (h.pxScale || 1) * h.qty : 0;
-    return { h, m, val, costBasis, pnlPct, day };
+    const dPct = m && typeof m.changePct === "number" && isFinite(m.changePct) ? m.changePct : null;
+    return { h, m, val, costBasis, pnlPct, day, dPct };
   });
   let tVal = 0, tCost = 0, tDay = 0, priced = 0;
   for (const r of rows) { if (r.val != null) { tVal += r.val; tCost += r.costBasis; tDay += r.day; priced++; } }
@@ -367,30 +371,30 @@ function portfolioPane(d) {
   const tPnlPct = tCost ? (tPnl / tCost) * 100 : null;
   const priorVal = tVal - tDay;
   const tDayPct = priorVal ? (tDay / priorVal) * 100 : null;
-  // Holdings first, ordered by value (high → low; unpriced last); summary beneath.
-  // The P&L column shows DAILY move by default, with a Daily/Total toggle.
+  // Match the desktop left-rail portfolio: Total Value → holdings → single P&L,
+  // every figure following the Daily/Total toggle (Total = each ticker's market
+  // value, Daily = its daily £ change; the P&L row likewise).
   const daily = _pfMode === "daily";
   const sorted = rows.slice().sort((a, b) => (b.val == null ? -1 : b.val) - (a.val == null ? -1 : a.val));
   const tgl = `<span class="na-pf-tgl-wrap" role="tablist">`
     + `<button type="button" class="na-pf-tgl${daily ? " on" : ""}" data-m="daily">Daily</button>`
     + `<button type="button" class="na-pf-tgl${daily ? "" : " on"}" data-m="total">Total</button></span>`;
-  const holdings = `<div class="na-sec"><span>Holdings</span>${tgl}</div>`
+  return `<div class="na-sec"><span>Portfolio</span>${tgl}</div>`
+    + pfMrow("Total Value", priced ? fmtGBP(tVal) : "—", null)
     + sorted.map((r) => {
-      const dPct = r.m && typeof r.m.changePct === "number" && isFinite(r.m.changePct) ? r.m.changePct : null;
-      return pfMrow(r.h.label || r.h.ticker, r.val != null ? fmtGBP(r.val) : "—", daily ? dPct : r.pnlPct, sessDot(r.m && r.m.marketState, r.h.exch));
-    }).join("");
-  const summary = naSec("Portfolio", `${priced}/${PORTFOLIO.length} priced`)
-    + pfMrow("Value", priced ? fmtGBP(tVal) : "—", null)
-    + pfMrow("Daily P&L", priced ? fmtGBP(tDay, true) : "—", tDayPct)
-    + pfMrow("Total P&L", priced ? fmtGBP(tPnl, true) : "—", tPnlPct);
-  return holdings + summary;
+      const val = r.val == null ? "—" : daily ? fmtGBP(r.day, true) : fmtGBP(r.val);
+      return pfMrow(r.h.label || r.h.ticker, val, daily ? r.dPct : r.pnlPct, sessDot(r.m && r.m.marketState, r.h.exch));
+    }).join("")
+    + pfMrow("P&L", priced ? (daily ? fmtGBP(tDay, true) : fmtGBP(tPnl, true)) : "—", daily ? tDayPct : tPnlPct);
 }
 
 // ---- Saved rows — shared news-feed row (headline, then code · date · source) --
-const NF_CODE = { m: "MAC", c: "CRD", l: "LEX", n: "LTR", f: "FT" };
+const NF_CODE = { m: "MAC", c: "CRD", l: "LEX", n: "LTR", f: "FT", s: "SUBS", b: "BREW", news: "NEWS", bbg: "BBG", econ: "ECON", comm: "COMM", deal: "DEAL", fund: "FUND", clo: "CLO", alert: "ALERT", case: "CASE", scheme: "SCHEME", rp: "RP" };
 function savedRow(x) {
-  const code = NF_CODE[x.desk] || "";
-  const cls = DESK_CLASS[x.desk] || "";
+  // Every saved story gets a desk code — general wire items (desk "news"/bbg/econ
+  // /substack/…) used to fall through the old m/c/l/n/f-only map and show blank.
+  const code = NF_CODE[x.desk] || "NEWS";
+  const cls = DESK_CLASS[x.desk] || "news";
   return `<a class="nf-row" href="${esc(x.href)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
     + `<span class="nf-title">${esc(x.title)}</span>`
     + `<span class="nf-meta"><span class="nf-code ${cls}">${esc(code)}</span>`
