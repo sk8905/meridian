@@ -7,7 +7,7 @@
 import { esc } from "/util.js?v=20260719-1";
 import { YIELD_CURVE, OUTLOOK, CYCLE, BUBBLE, EARNINGS, MATWALL } from "./content.js?v=20260722-4";
 import { fmtDate, fmtWeekday, trackGauge, CYCLE_ZONES, BUBBLE_ZONES,
-  bubbleComposite, bubbleBand, MAC_IND_ORDER, MACRO_DATA, macroMatrixHtml, macroDetailHtml, MAC_MATRIX_KEYS_FULL } from "./shared.js?v=20260722-3";
+  bubbleComposite, bubbleBand, MAC_IND_ORDER, MACRO_DATA, macroMatrixHtml, macroDetailHtml, MAC_MATRIX_KEYS_FULL } from "./shared.js?v=20260722-4";
 
 // In-page chip memory (fresh visits start on the first chip; in-page re-renders
 // keep the pick — see the app.js note on the same pattern).
@@ -23,7 +23,7 @@ let _dashSec = "overview", _earnWeek = "this";
 // distinguishable without relying on colour alone. No dependency.
 function yieldCurveSvg(c) {
   if (!c || !c.us) return "";
-  const W = 620, H = 178, L = 36, R = 16, T = 14, B = 32;
+  const W = 620, H = 124, L = 36, R = 16, T = 10, B = 24;
   const mats = c.maturities, n = mats.length;
   const vals = [...c.us, ...c.uk].filter((v) => v != null);
   const lo = Math.min(...vals) - 0.3, hi = Math.max(...vals) + 0.3;
@@ -375,7 +375,6 @@ export function macroDashPane() {
       <div class="ck-body">
         ${trackGauge(BUBBLE_ZONES, [{ label: band, pos: comp }], "US equity bubble-risk score, 0 low to 100 extreme")}
         ${bubVal.length ? `<div class="ck-stats">${bubVal.map(([l, v, sub]) => stat(l, v, "")).join("")}</div>` : ""}
-        <div class="ck-dims">${BUBBLE.dimensions.map(dimCard).join("")}</div>
       </div>
     </section>
     </div>
