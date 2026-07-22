@@ -11,8 +11,22 @@ const base = `http://localhost:${srv.port}`;
 
 const { ctx, pg, errs } = await open(b, PHONE, base + "/macro/");
 await pg.waitForTimeout(1400);
-// Count how often a (same-document) view transition actually runs.
-await pg.evaluate(() => { window.__vt = 0; const o = document.startViewTransition.bind(document); document.startViewTransition = (cb) => { window.__vt++; return o(cb); }; });
+// Count how often a (same-document) view transition actually runs, AND record
+// how much content #app holds the instant the transition's DOM update completes.
+// The "after" snapshot is captured then; if #app is still empty (destination not
+// yet rendered) the crossfade animates old→blank body ground — the white flash
+// on a light theme. renderInto() renders the destination inside the update
+// callback, so this length must be substantial.
+await pg.evaluate(() => {
+  window.__vt = 0; window.__appLenAtSwap = -1;
+  const o = document.startViewTransition.bind(document);
+  document.startViewTransition = (cb) => {
+    window.__vt++;
+    const t = o(cb);
+    t.updateCallbackDone.then(() => { const a = document.getElementById("app"); window.__appLenAtSwap = a ? a.textContent.trim().length : -1; }).catch(() => {});
+    return t;
+  };
+});
 
 check(await pg.evaluate(() => typeof window.__spaNavigate === "function"), "spa hook installed via shared header");
 // Home / off-scope must NOT be claimed (returns false → caller does a real load).
@@ -28,6 +42,7 @@ const tapTab = async (nav) => {
   return pg.evaluate(() => ({
     path: location.pathname,
     vt: window.__vt,
+    appLenAtSwap: window.__appLenAtSwap,
     title: document.title,
     headers: document.querySelectorAll("#wire-header .topbar").length,
     tabbars: document.querySelectorAll(".mobile-tabbar").length,
@@ -41,6 +56,7 @@ const tapTab = async (nav) => {
 let s = await tapTab("/credit/");
 checkEq(s.path, "/credit/", "tap Credit: URL is /credit/ (client-side)");
 checkEq(s.vt, 1, "tap Credit: a view transition ran (same-document)");
+check(s.appLenAtSwap > 500, `tap Credit: #app is rendered before the transition ends (no blank-flash), len=${s.appLenAtSwap}`);
 checkEq(s.title, "Wire Credit", "tap Credit: title swapped");
 checkEq(s.headers, 1, "tap Credit: exactly one header (chrome not duplicated)");
 checkEq(s.tabbars, 1, "tap Credit: exactly one tab bar");

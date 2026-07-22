@@ -50,19 +50,25 @@ export function initPullToRefresh() {
   // touch-action isn't inherited, so a universal rule is needed to cover every
   // element (e.g. the fixed bottom tab-bar buttons), not just html/body.
 
-  // Match the near-black app ground so the pull-down zone doesn't flash navy.
-  const cs = getComputedStyle(document.documentElement);
-  const navy = (cs.getPropertyValue("--bg") || cs.getPropertyValue("--t-ground") || "").trim() || "#05080f";
+  // The pull-down gap must paint the SAME ground as the page body so no band is
+  // visible behind the content. Reference the live CSS var (var(--bg)) rather
+  // than snapshotting getComputedStyle(--bg) here: at init (a render-blocking
+  // module) the per-app stylesheet that defines the light --bg often hasn't
+  // resolved yet, so a snapshot falls back to near-black and STAYS black even
+  // after the page turns light — the black band on a light-theme pull. var()
+  // re-resolves at paint (always after CSS load), so the zone tracks the theme.
   const zone = document.createElement("div");
   zone.id = "ptr-zone";
   zone.setAttribute("aria-hidden", "true");
   zone.style.cssText =
     "position:fixed;top:0;left:0;right:0;height:0;z-index:9999;overflow:hidden;pointer-events:none;" +
-    "display:flex;align-items:flex-start;justify-content:center;background:" + navy + ";";
+    "display:flex;align-items:flex-start;justify-content:center;background:var(--bg,#05080f);";
   const spin = document.createElement("div");
+  // Theme-aware ring: now the gap paints the light --bg in light mode, a white
+  // spinner would vanish — use the ink colour so it reads in both themes.
   spin.style.cssText =
     "width:22px;height:22px;margin-top:16px;border-radius:50%;opacity:0;" +
-    "border:2.5px solid rgba(255,255,255,.35);border-top-color:#fff;";
+    "border:2.5px solid color-mix(in srgb, var(--ink,#fff) 22%, transparent);border-top-color:var(--ink,#fff);";
   zone.appendChild(spin);
   if (!document.getElementById("ptr-kf")) {
     const st = document.createElement("style"); st.id = "ptr-kf";

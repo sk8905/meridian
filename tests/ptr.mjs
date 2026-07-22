@@ -49,12 +49,18 @@ for (const path of PAGES) {
     return {
       pulling: document.body.classList.contains("wire-pulling"),
       zoneBg: z && getComputedStyle(z).backgroundColor,
+      zoneInline: z && z.style.background,
       bgVar,
       zoneTop: z ? parseFloat(z.style.top || "0") : -1,
     };
   });
   check(st.pulling, `${path}: a top-pull engages PTR (wire-pulling)`);
   checkEq(st.zoneBg, st.bgVar, `${path}: pull gap is the page ground (--bg), not a foreign band`);
+  // The gap colour MUST reference the live CSS var, not a value snapshotted at
+  // init: on iOS the light --bg often hasn't resolved when this render-blocking
+  // module runs, so a snapshot falls back to black and stays black on a light
+  // pull. var(--bg) re-resolves at paint, so it always tracks the theme.
+  check(/var\(--bg/.test(st.zoneInline || ""), `${path}: gap ground is live var(--bg), not an init-time snapshot`);
   check(st.zoneTop > 0, `${path}: gap opens below the frozen header`);
   checkErrs(errs, `${path} pull`);
   await ctx.close();

@@ -98,10 +98,10 @@ export function initHeader(opts = {}) {
   // drifted onto a stale ptr.js token. initHeader runs once per page and every
   // page loads it, so this is the single correct home. ptr.js self-guards
   // (touch-only, runs once), so it's a no-op on desktop and on a second call.
-  import("/ptr.js?v=20260723-3").then((m) => m.initPullToRefresh()).catch(() => {});
+  import("/ptr.js?v=20260723-4").then((m) => m.initPullToRefresh()).catch(() => {});
   // Client-side tab navigation (same-document view transitions) so app↔app tab
   // changes don't do a full page load — killing the white inter-document blank
   // on iOS, which has no cross-document view transitions. Self-guards; falls back
   // to normal navigation for Home / off-scope / unsupported browsers.
-  import("/spa.js?v=20260723-1").then((m) => m.initSpaNav()).catch(() => {});
+  import("/spa.js?v=20260723-2").then((m) => m.initSpaNav()).catch(() => {});
 }

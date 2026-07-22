@@ -85,7 +85,7 @@ async function go(dest, push) {
     const newApp = doc.getElementById("app");
     if (!newApp) throw new Error("no #app in destination");
 
-    const commit = () => {
+    const commit = async () => {
       // Title + page-specific stylesheets (each app has its own css/styles.css;
       // premium/tui/header/feed are shared and already present).
       if (doc.title) document.title = doc.title;
@@ -100,17 +100,22 @@ async function go(dest, push) {
       updateActiveChrome(dest);
       _curPath = norm(dest);                  // now mounted here (keeps onPop honest)
       window.scrollTo(0, 0);
+      // Render the destination INTO the fresh #app *inside* the update callback,
+      // so the transition captures the "after" snapshot with content present.
+      // Each app's entry (js/app.js) renders its skeleton synchronously on module
+      // eval, so awaiting the script's onload (+ a frame to paint) means the
+      // crossfade goes old→populated, not old→EMPTY #app — the latter shows the
+      // bare body ground, which on a light theme reads as a white/blank flash
+      // before the content pops in. Bounded by a timeout so a slow module can
+      // never freeze the old frame indefinitely.
+      await renderInto(doc);
     };
 
     if (push) history.pushState({ spa: true }, "", dest);
     // Same-document view transition: iOS honours this; the crossfade is defined
     // in premium.css (::view-transition-*(root)).
     const vt = document.startViewTransition(commit);
-    await vt.updateCallbackDone;              // DOM swapped
-    // Re-run the destination's entry scripts so the new #app initialises. Done
-    // AFTER the swap callback (they query the fresh DOM). Not inside the
-    // transition callback: their async work shouldn't block the crossfade.
-    runEntryScripts(doc);
+    await vt.updateCallbackDone;              // DOM swapped + destination rendered
   } catch (err) {
     // Never leave the user stuck: fall back to a real navigation.
     if (push) location.assign(dest); else location.reload();
@@ -173,6 +178,7 @@ function reconcileStyles(doc, destUrl) {
 let _nav = 0;
 function runEntryScripts(doc) {
   _nav++;
+  const loads = [];
   for (const s of doc.querySelectorAll("script")) {
     // Only the page's own entry (js/app.js) + its inline boot; skip the shared
     // header boot (it re-mounts nothing — chrome persists) and cross-origin.
@@ -183,11 +189,26 @@ function runEntryScripts(doc) {
       if (/^https?:/i.test(src)) continue;           // external/CDN — skip
       if (/\/header\.js\b/.test(src)) continue;      // shared chrome — already live
       el.src = src + (src.includes("?") ? "&" : "?") + "_spa=" + _nav;   // force re-eval
+      // onload fires after the module (and its graph) evaluate — by then the
+      // entry's synchronous top-level render has populated #app.
+      loads.push(new Promise((res) => { el.onload = res; el.onerror = res; }));
+      document.body.appendChild(el);
     } else {
       if (/initHeader/.test(s.textContent || "")) continue; // inline header boot — skip
       el.textContent = s.textContent;
+      document.body.appendChild(el);
+      el.remove();                                   // inline: ran on insert
     }
-    document.body.appendChild(el);
-    el.remove();
   }
+  return Promise.all(loads);
+}
+
+// Load + evaluate the destination's entry scripts, then wait one painted frame
+// so its synchronous skeleton is on screen before we resolve — but never hold
+// the frozen old frame for more than a beat, so a slow module degrades to a
+// brief skeleton rather than a stall.
+function renderInto(doc) {
+  const rendered = runEntryScripts(doc)
+    .then(() => new Promise((r) => requestAnimationFrame(() => requestAnimationFrame(r))));
+  return Promise.race([rendered, new Promise((r) => setTimeout(r, 600))]);
 }
