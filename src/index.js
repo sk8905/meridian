@@ -995,6 +995,44 @@ const MACRO_SERIES = [
   { country: "UK", key: "services_pmi", label: "Services PMI", unit: "", sub: "S&P Global/CIPS Services PMI", src: "curated", curated: [["2021-07", 59.6], ["2021-08", 55.0], ["2021-09", 55.4], ["2021-10", 59.1], ["2021-11", 58.5], ["2021-12", 53.6], ["2022-01", 54.1], ["2022-02", 60.5], ["2022-03", 62.6], ["2022-04", 58.9], ["2022-05", 53.4], ["2022-06", 54.3], ["2022-07", 52.6], ["2022-08", 50.9], ["2022-09", 50.0], ["2022-10", 48.8], ["2022-11", 48.8], ["2022-12", 49.9], ["2023-01", 48.7], ["2023-02", 53.5], ["2023-03", 52.9], ["2023-04", 55.9], ["2023-05", 55.2], ["2023-06", 53.7], ["2023-07", 51.5], ["2023-08", 49.5], ["2023-09", 49.3], ["2023-10", 49.5], ["2023-11", 50.9], ["2023-12", 53.4], ["2024-01", 54.3], ["2024-02", 53.8], ["2024-03", 53.1], ["2024-04", 55.0], ["2024-05", 52.9], ["2024-06", 52.1], ["2024-07", 52.5], ["2024-08", 53.7], ["2024-09", 52.4], ["2024-10", 52.0], ["2024-11", 50.8], ["2024-12", 51.1], ["2025-01", 50.8], ["2025-02", 51.0], ["2025-03", 52.5], ["2025-04", 49.0], ["2025-05", 50.9], ["2025-06", 52.8], ["2025-07", 51.8], ["2025-08", 54.2], ["2025-09", 50.8], ["2025-10", 52.3], ["2025-11", 50.5], ["2025-12", 51.0], ["2026-01", 54.0], ["2026-02", 52.5], ["2026-03", 50.5], ["2026-04", 52.7], ["2026-05", 49.3], ["2026-06", 48.8]], tf: "level", href: "https://www.pmi.spglobal.com/Public/Home/PressRelease", source: "S&P Global/CIPS" },
   { country: "UK", key: "wages", label: "Wage growth", unit: "%", sub: "Regular pay (AWE) · YoY", src: "ons", id: "KAI9/LMS", tf: "level", href: "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/earningsandworkinghours/timeseries/kai9/lms", source: "ONS" },
   { country: "UK", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "ons", id: "MGSX/LMS", tf: "level", href: "https://www.ons.gov.uk/employmentandlabourmarket/peoplenotinwork/unemployment/timeseries/mgsx/lms", source: "ONS" },
+
+  // ---- G7 (ex US/UK) + Euro Area + Ireland ----------------------------------
+  // Same six-indicator frame as US/UK, sourced from FRED's international mirrors:
+  //   · policy rate — ECB deposit facility (shared by the euro members) · BoC · BoJ
+  //   · core/headline inflation — Eurostat HICP YoY · OECD CPI YoY
+  //   · unemployment — OECD harmonised rate
+  // 2-year yields, services PMI and wage growth aren't freely available for most
+  // of these, so those tiles are simply omitted — the client renders "–". Any id
+  // that no longer resolves also degrades to "–"; the /api/macro?debug probe
+  // reports point counts so dead codes can be swapped.
+  // Euro Area (aggregate).
+  { country: "EA", key: "base_rate", label: "Base rate", unit: "%", sub: "ECB deposit facility rate", src: "fred", id: "ECBDFR", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/ECBDFR", source: "FRED / ECB" },
+  { country: "EA", key: "core_cpi", label: "Core inflation", unit: "%", sub: "HICP · YoY", src: "fred", id: "CP0000EZ19M086NEST", tf: "yoy", href: "https://fred.stlouisfed.org/series/CP0000EZ19M086NEST", source: "FRED / Eurostat" },
+  { country: "EA", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTEZM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTEZM156N", source: "FRED / OECD" },
+  // Germany.
+  { country: "DE", key: "base_rate", label: "Base rate", unit: "%", sub: "ECB deposit facility rate", src: "fred", id: "ECBDFR", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/ECBDFR", source: "FRED / ECB" },
+  { country: "DE", key: "core_cpi", label: "Core inflation", unit: "%", sub: "HICP · YoY", src: "fred", id: "CP0000DEM086NEST", tf: "yoy", href: "https://fred.stlouisfed.org/series/CP0000DEM086NEST", source: "FRED / Eurostat" },
+  { country: "DE", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTDEM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTDEM156N", source: "FRED / OECD" },
+  // France.
+  { country: "FR", key: "base_rate", label: "Base rate", unit: "%", sub: "ECB deposit facility rate", src: "fred", id: "ECBDFR", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/ECBDFR", source: "FRED / ECB" },
+  { country: "FR", key: "core_cpi", label: "Core inflation", unit: "%", sub: "HICP · YoY", src: "fred", id: "CP0000FRM086NEST", tf: "yoy", href: "https://fred.stlouisfed.org/series/CP0000FRM086NEST", source: "FRED / Eurostat" },
+  { country: "FR", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTFRM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTFRM156N", source: "FRED / OECD" },
+  // Italy.
+  { country: "IT", key: "base_rate", label: "Base rate", unit: "%", sub: "ECB deposit facility rate", src: "fred", id: "ECBDFR", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/ECBDFR", source: "FRED / ECB" },
+  { country: "IT", key: "core_cpi", label: "Core inflation", unit: "%", sub: "HICP · YoY", src: "fred", id: "CP0000ITM086NEST", tf: "yoy", href: "https://fred.stlouisfed.org/series/CP0000ITM086NEST", source: "FRED / Eurostat" },
+  { country: "IT", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTITM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTITM156N", source: "FRED / OECD" },
+  // Ireland.
+  { country: "IE", key: "base_rate", label: "Base rate", unit: "%", sub: "ECB deposit facility rate", src: "fred", id: "ECBDFR", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/ECBDFR", source: "FRED / ECB" },
+  { country: "IE", key: "core_cpi", label: "Core inflation", unit: "%", sub: "HICP · YoY", src: "fred", id: "CP0000IEM086NEST", tf: "yoy", href: "https://fred.stlouisfed.org/series/CP0000IEM086NEST", source: "FRED / Eurostat" },
+  { country: "IE", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTIEM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTIEM156N", source: "FRED / OECD" },
+  // Canada.
+  { country: "CA", key: "base_rate", label: "Base rate", unit: "%", sub: "Overnight rate", src: "fred", id: "IRSTCB01CAM156N", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/IRSTCB01CAM156N", source: "FRED / OECD" },
+  { country: "CA", key: "core_cpi", label: "Core inflation", unit: "%", sub: "CPI · YoY", src: "fred", id: "CPALCY01CAM661N", tf: "yoy", href: "https://fred.stlouisfed.org/series/CPALCY01CAM661N", source: "FRED / OECD" },
+  { country: "CA", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTCAM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTCAM156N", source: "FRED / OECD" },
+  // Japan.
+  { country: "JP", key: "base_rate", label: "Base rate", unit: "%", sub: "Policy rate", src: "fred", id: "IRSTCB01JPM156N", tf: "level", agg: true, href: "https://fred.stlouisfed.org/series/IRSTCB01JPM156N", source: "FRED / OECD" },
+  { country: "JP", key: "core_cpi", label: "Core inflation", unit: "%", sub: "CPI · YoY", src: "fred", id: "CPALTT01JPM661N", tf: "yoy", href: "https://fred.stlouisfed.org/series/CPALTT01JPM661N", source: "FRED / OECD" },
+  { country: "JP", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "LRHUTTTTJPM156N", tf: "level", href: "https://fred.stlouisfed.org/series/LRHUTTTTJPM156N", source: "FRED / OECD" },
 ];
 
 async function macroSeriesPairs(s, env) {
@@ -1077,7 +1115,7 @@ async function handleMacro(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/macro?v=79", request.url).toString());
+  const cacheKey = new Request(new URL("/api/macro?v=80", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const series = await Promise.all(MACRO_SERIES.map(async (s) => {
