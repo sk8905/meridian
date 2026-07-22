@@ -790,10 +790,15 @@ async function predictPolymarket() {
       if (Array.isArray(outs)) { const i = outs.findIndex((o) => /^yes$/i.test(String(o))); if (i >= 0) idx = i; }
       const p = parseFloat(prices[idx]);
       if (!isFinite(p)) continue;
+      // Daily change in implied YES odds (percentage points). Polymarket's
+      // oneDayPriceChange is a fraction on the primary (outcome-0) token; flip its
+      // sign when YES is the second outcome so the delta tracks the YES odds shown.
+      const dRaw = parseFloat(m.oneDayPriceChange);
+      const chg = isFinite(dRaw) ? +((idx === 0 ? dRaw : -dRaw) * 100).toFixed(1) : null;
       // Grouped markets (e.g. Fed) 404 at /event/{market-slug} — use the parent
       // EVENT slug from the market's events[] when present.
       const evSlug = (Array.isArray(m.events) && m.events[0] && m.events[0].slug) || m.eventSlug || m.slug || null;
-      out.push({ venue: "Polymarket", type: predictType(q), q, yes: Math.round(p * 100), vol: Math.round(parseFloat(m.volumeNum ?? m.volume ?? m.volume24hr ?? 0) || 0), end: m.endDate || null, url: evSlug ? "https://polymarket.com/event/" + evSlug : "https://polymarket.com" });
+      out.push({ venue: "Polymarket", type: predictType(q), q, yes: Math.round(p * 100), chg, vol: Math.round(parseFloat(m.volumeNum ?? m.volume ?? m.volume24hr ?? 0) || 0), end: m.endDate || null, url: evSlug ? "https://polymarket.com/event/" + evSlug : "https://polymarket.com" });
     }
   }
   return out;
@@ -806,7 +811,7 @@ async function handlePredict(request, env, ctx) {
       { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/predict?v=5", request.url).toString());
+  const cacheKey = new Request(new URL("/api/predict?v=6", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const pm = await predictPolymarket().catch(() => []);

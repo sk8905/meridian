@@ -1297,11 +1297,20 @@ let _predList = null, _predFilter = "Macro";
 function predRow(m) {
   const yes = typeof m.yes === "number" ? m.yes + "%" : "—";
   const meta = [m.venue, m.end ? fmt(String(m.end).slice(0, 10)) : ""].filter(Boolean).join(" · ");
-  // Odds pinned to the row's top-right; question + meta stack on the left.
+  // Daily change in implied odds (percentage points) — column-aligned with the
+  // change column of the Economic-indicators pane above.
+  let chg = '<span class="g-pred-chg flat">·</span>';
+  if (typeof m.chg === "number" && isFinite(m.chg)) {
+    const c = +m.chg.toFixed(1);
+    const dir = c > 0 ? "up" : c < 0 ? "down" : "flat";
+    chg = `<span class="g-pred-chg ${dir}">${c > 0 ? "▲" : c < 0 ? "▼" : "·"} ${Math.abs(c).toFixed(1)}</span>`;
+  }
+  // Grid row: question (+meta) · odds · daily change — the odds/change columns
+  // line up with the value/change columns of the indicators band above.
   return `<a class="tui-li g-pred-row" href="${esc(m.url || "#")}" target="_blank" rel="noopener noreferrer">`
     + `<span class="g-pred-main"><span class="tui-li-t">${esc(m.q)}</span>`
     + `<span class="tui-li-m">${esc(meta)}</span></span>`
-    + `<span class="g-pred-odds">${esc(yes)}</span></a>`;
+    + `<span class="g-pred-odds">${esc(yes)}</span>${chg}</a>`;
 }
 function paintPredict(el) {
   const list = _predList || [];
@@ -1327,7 +1336,7 @@ function paintPredict(el) {
 function renderPredict() {
   const el = document.getElementById("g-predict");
   if (!el) return;
-  fetch("/api/predict?v=5", { headers: { accept: "application/json" } })
+  fetch("/api/predict?v=6", { headers: { accept: "application/json" } })
     .then((r) => (r.ok ? r.json() : null)).catch(() => null)
     .then((d) => { const list = (d && d.markets) || []; if (!list.length && el.querySelector(".tui-li")) return; _predList = list; paintPredict(el); });
 }
