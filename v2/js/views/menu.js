@@ -66,7 +66,10 @@ export function mount(host, ctx) {
       .catch(() => {});
   };
   const render = () => {
-    host.innerHTML = `<div class="na-panel na-menu-static" style="position:static;max-width:640px;margin:0 auto">
+    // A plain, always-visible full-width column — NOT the .na-panel dropdown,
+    // which is a fixed pop-over sized for a corner and rendered the menu
+    // invisible/mis-sized on phones. The inner .na-menu-* rows are self-styled.
+    host.innerHTML = `<div class="v2-menu">
       <div class="na-menu-bar"><div class="tchips">${SECTIONS.map(([k, l]) => `<button type="button" class="tchip${k === sec ? " is-on" : ""}" data-sec="${k}">${l}</button>`).join("")}</div></div>
       <div class="na-menu-pane">${paneHTML(sec)}</div>
       <div class="na-menu-foot"><div class="na-menu-foot-l"><div id="account-nav-menu" class="na-menu-row na-menu-acct"></div><div class="na-menu-row na-menu-stat" id="v2-build">Wire</div></div></div>

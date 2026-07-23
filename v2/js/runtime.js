@@ -26,7 +26,7 @@ const ROUTES = [
   { key: "macro",  title: "Wire Macro",  load: () => import("./views/macro.js?v=v2-2") },
   { key: "credit", title: "Wire Credit", load: () => import("./views/credit.js?v=v2-2") },
   { key: "legal",  title: "Wire Legal",  load: () => import("./views/legal.js?v=v2-2") },
-  { key: "menu",   title: "Wire Menu",   load: () => import("./views/menu.js?v=v2-2") },
+  { key: "menu",   title: "Wire Menu",   load: () => import("./views/menu.js?v=v2-3") },
 ];
 const ROUTE_BY_KEY = Object.fromEntries(ROUTES.map((r) => [r.key, r]));
 

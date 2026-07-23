@@ -28,7 +28,7 @@
 // stale-while-revalidate path would otherwise serve once more. Bumped to flush
 // the pre-PTR /menu/ shell (it had no ptr.js, so its dark inline html showed as
 // a black band on pull and it couldn't self-update).
-const CACHE = "wire-shell-v3";   // bumped: flush cached shells so the PWA→v2 standalone redirect lands promptly
+const CACHE = "wire-shell-v4";   // bumped: flush stale shells (navigations are now network-first)
 // The no-cache data modules (see _headers). Cached under their bare pathname —
 // importers reference them with assorted stale ?v= tokens; the bodies are
 // identical, so all variants map to one entry.
@@ -61,6 +61,16 @@ self.addEventListener("fetch", (e) => {
       try { return await revalidate(); }
       catch { return (await cache.match(key)) || Response.error(); }
     }
+    // NAVIGATIONS are network-FIRST: the HTML shell is tiny + no-cache, and it
+    // pins the ?v= tokens of the JS/CSS it loads. Serving a STALE shell after a
+    // deploy pairs old tokens with freshly-loaded modules — a version mismatch
+    // that rendered the SPA blank/unstyled until a hard reload. Always fetch the
+    // freshest shell; fall back to cache only when offline.
+    if (isDoc) {
+      try { return await revalidate(); }
+      catch { return (await cache.match(key)) || Response.error(); }
+    }
+    // DATA modules stay stale-while-revalidate (heavy; instant + offline-friendly).
     const cached = await cache.match(key);
     if (cached) { e.waitUntil(revalidate().catch(() => {})); return cached; }
     try { return await revalidate(); }

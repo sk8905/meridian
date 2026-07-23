@@ -55,6 +55,13 @@ a { color: var(--primary); text-decoration: none; }
 .v2-view.v2-fade { animation: v2-fade-in .13s ease-out; }
 @media (prefers-reduced-motion: reduce) { .v2-view.v2-fade { animation: none; } }
 
+/* Menu view container — a full-width, always-visible column. Deliberately NOT
+   the .na-panel dropdown (a fixed corner pop-over that mis-sized the menu to a
+   sliver / off-screen on phones). The inner .na-menu-bar / .na-menu-row styling
+   is self-contained, so this just needs to be a visible block. */
+.v2-menu { display: block; max-width: 640px; margin: 0 auto; background: var(--surface, #fff); min-height: 40vh; }
+.v2-menu .na-menu-pane { display: block; }
+
 /* Loading skeleton shown the instant a not-yet-mounted tab is opened, so a switch
    paints immediately instead of blanking while the view's module/data loads. */
 .v2-loading { display: flex; align-items: center; justify-content: center; min-height: 55vh; color: var(--muted, #66708a); }
