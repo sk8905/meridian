@@ -28,7 +28,7 @@
 // stale-while-revalidate path would otherwise serve once more. Bumped to flush
 // the pre-PTR /menu/ shell (it had no ptr.js, so its dark inline html showed as
 // a black band on pull and it couldn't self-update).
-const CACHE = "wire-shell-v4";   // bumped: flush stale shells (navigations are now network-first)
+const CACHE = "wire-shell-v5";   // bumped: purge stale data modules (now network-first too — see the DATA branch below)
 // The no-cache data modules (see _headers). Cached under their bare pathname —
 // importers reference them with assorted stale ?v= tokens; the bodies are
 // identical, so all variants map to one entry.
@@ -70,11 +70,17 @@ self.addEventListener("fetch", (e) => {
       try { return await revalidate(); }
       catch { return (await cache.match(key)) || Response.error(); }
     }
-    // DATA modules stay stale-while-revalidate (heavy; instant + offline-friendly).
-    const cached = await cache.match(key);
-    if (cached) { e.waitUntil(revalidate().catch(() => {})); return cached; }
+    // DATA modules are network-FIRST too, for the SAME reason as navigations: a
+    // deploy that ADDS an export to a data module (e.g. a new HEDGE_INTEL array)
+    // pairs the freshly-loaded module graph — glance.js / palette.js / an app's
+    // app.js all `import { …new export… }` — with a STALE cached data.js that
+    // lacks it, so the ES import rejects and the view fails to mount ("Could not
+    // load this view"). These modules are served Cache-Control:no-cache exactly so
+    // they stay fresh; stale-while-revalidate silently defeated that. Fetch fresh
+    // (a cheap 304 when unchanged since they're no-cache); fall back to cache only
+    // when offline.
     try { return await revalidate(); }
-    catch { return Response.error(); }
+    catch { return (await cache.match(key)) || Response.error(); }
   })());
 });
 
