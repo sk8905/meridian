@@ -334,14 +334,13 @@
     @media (max-width:900px){ .g-layout { grid-template-columns:1fr; gap:1.4rem; } }
     .g-feed-head { display:flex; align-items:center; gap:.5rem .8rem; flex-wrap:wrap; margin:0 0 .5rem; }
     .g-feed-h-lbl { font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em; color:var(--muted); }
-    .g-feed-chips { display:flex; gap:.3rem; flex-wrap:wrap; margin-left:auto; }
-    .g-feed-chip { display:inline-flex; align-items:center; gap:.32rem; padding:.16rem .55rem; border:1px solid var(--line);
-      border-radius:999px; background:var(--surface); color:var(--muted); font-size:.68rem; font-weight:700; cursor:pointer;
-      font-family:inherit; line-height:1.3; }
-    .g-feed-chip:hover { border-color:var(--brand-2); color:var(--brand-2); }
-    .g-feed-chip.is-on { background:var(--navy); border-color:var(--navy); color:#fff; }
-    .g-feed-chip-n { font-size:.6rem; font-weight:800; font-variant-numeric:tabular-nums; opacity:.75; }
-    .g-feed-chip.is-on .g-feed-chip-n { opacity:.95; }
+    /* The feed desk-filter chips are styled ONCE, in feed.css (the shared feed
+       engine's stylesheet, loaded on every feed surface): a flat, equal-width
+       underline tab. The old document-mode pill rules that used to live here
+       (border + border-radius:999px + navy .is-on) conflicted with feed.css at
+       equal specificity, so whenever feed.css was slow/absent the chips fell back
+       to ugly bordered boxes (the intermittent "tabs formatting changed" bug).
+       Removed — feed.css is the single source of truth; .tui refinements below. */
     /* Rows mirror the app news feeds exactly: date column, bold headline, muted
        source inline — same card/padding/dividers, so the margins match. */
     .g-feed { background:var(--surface); border:1px solid var(--line); border-radius:16px;
