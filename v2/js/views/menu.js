@@ -12,12 +12,16 @@ const ICO_SUN = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" str
 const ICO_MOON = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
 const ICO_AUTO = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>';
 
-const THEME_WORD = { system: "System", light: "Light", dark: "Dark" };
-const THEME_NEXT = { system: "light", light: "dark", dark: "system" };
 const storedPref = () => { const c = document.documentElement.getAttribute("data-theme-choice"); return (c === "light" || c === "dark") ? c : "system"; };
 const osDark = () => !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
-const themeIco = () => { const p = storedPref(); return p === "dark" ? ICO_MOON : p === "light" ? ICO_SUN : ICO_AUTO; };
-const themePill = () => `${themeIco()}<span class="na-push-state">${THEME_WORD[storedPref()] || "System"}</span>`;
+// TWO options only — "System" (follow the OS) and "Other" (the opposite; a
+// remembered manual choice). Same model as the desktop header toggle
+// (nav-actions.js), so the pref (data-theme-choice / m_theme_pref) stays a
+// concrete system|light|dark that the inline boot script already understands.
+const themeChoice = () => (storedPref() === "system" ? "system" : "other");
+const otherPref = () => { const p = storedPref(); return p === "system" ? (osDark() ? "light" : "dark") : p; };
+const themeIco = () => (themeChoice() === "system" ? ICO_AUTO : (document.documentElement.getAttribute("data-theme") === "dark" ? ICO_MOON : ICO_SUN));
+const themePill = () => `${themeIco()}<span class="na-push-state">${themeChoice() === "system" ? "System" : "Other"}</span>`;
 function applyTheme(pref) {
   const r = document.documentElement;
   const t = pref === "system" ? (osDark() ? "dark" : "light") : pref;
@@ -85,7 +89,7 @@ export function mount(host, ctx) {
     const chip = e.target.closest(".na-menu-bar .tchip");
     if (chip) { sec = chip.dataset.sec; render(); return; }
     const theme = e.target.closest("#v2-theme");
-    if (theme) { applyTheme(THEME_NEXT[storedPref()] || "light"); theme.innerHTML = themePill(); return; }
+    if (theme) { applyTheme(themeChoice() === "system" ? otherPref() : "system"); theme.innerHTML = themePill(); return; }
     const rec = e.target.closest(".na-recent-row");
     if (rec) { document.dispatchEvent(new CustomEvent("wire:search", { detail: { q: rec.dataset.q } })); return; }
     const push = e.target.closest("#v2-push");

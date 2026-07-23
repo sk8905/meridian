@@ -502,7 +502,7 @@ function renderFeed() {
   // desk, everything else defaults to the general NEWS desk. Economist COMMENTARY
   // is always MAC (it IS macro analysis). The saved-store (sk="m") is unchanged —
   // desk (label) is independent of which app owns the star.
-  const macro = [], news = [];
+  const macro = [], news = [], legal = [];
   const mSid = (n) => "a" + _savedHash(_savedBase(n));
   const pushMacroItem = (n) => {
     const desk = deskFor(n.title, n.source);
@@ -517,13 +517,17 @@ function renderFeed() {
   // title-dedupe below collapses any overlap with the static feeds. myFT-flagged
   // items belong to the FT stream and substack-flagged to the Substack desk; the
   // rest split MAC vs NEWS by the same strict-macro test.
-  // myFT / Substack ride their own desks (added below); everything else — INCLUDING
-  // the legal-industry wire (The Lawyer / Legal Business) — folds into the Home
-  // newsfeed, which is the superset of every news item across the app.
+  // myFT / Substack ride their own desks (added below). The legal-industry wire
+  // (The Lawyer / Legal Business, flagged `legal:true` by the Worker) rides the
+  // LEGAL desk so it appears under the Legal chip — deskFor only knows macro/news,
+  // so without this it would fall under All/News only. Everything else folds into
+  // the Home newsfeed, the superset of every news item across the app.
   (_liveFeed || []).forEach((n) => {
     if (n.myft || n.substack) return;
-    const desk = deskFor(n.title, n.source);
-    (desk === "m" ? macro : news).push(mk(desk, n.url, n.title, n.source, true, n.date, n.time));
+    // The Legal chip reads the `legal` bucket, so route legal-flagged items there
+    // (with desk "l"); macro headlines to `macro`, the rest to `news`.
+    const desk = n.legal ? "l" : deskFor(n.title, n.source);
+    (desk === "m" ? macro : desk === "l" ? legal : news).push(mk(desk, n.url, n.title, n.source, true, n.date, n.time));
   });
   // (The low-tier source + off-topic relevance cull now runs server-side in the
   // Worker's /api/feed assembly, so Home and the Macro/Credit/Legal live-wire
@@ -536,7 +540,8 @@ function renderFeed() {
   // out to the publisher like the macro reading list.
   (research || []).forEach((r) => credit.push(mk("c", r.url, r.title, r.institution, true, r.date, r.time)));
 
-  const legal = [];
+  // `legal` is declared above (the live-wire loop folds The Lawyer / Legal
+  // Business items into it); these are the committed Legal-app records.
   items.forEach((i) => { if (i.date) legal.push({ ...mk("l", i.url || `/legal/#/item/${encodeURIComponent(i.id)}`, i.title, firmName(i.firm), !!i.url, i.date, i.time, "l", i.id), firm: i.firm || "" }); });
   cases.forEach((c) => { if (c.date) legal.push(mk("l", c.url || "/legal/#/", c.name, c.court, !!c.url, c.date, c.time, "l", c.id)); });
   restructurings.forEach((r) => { if (r.date) legal.push(mk("l", r.judgmentUrl || r.articleUrl || "/legal/#/", r.company, r.type === "scheme" ? "Scheme" : "Restructuring plan", !!(r.judgmentUrl || r.articleUrl), r.date, r.time, "l", r.id)); });

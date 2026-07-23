@@ -490,12 +490,10 @@ const otherPref = () => { const p = storedPref(); return p === "system" ? (osDar
 // system, otherwise the sun/moon of whatever theme is showing.
 const themeIcon = () => (themeChoice() === "system" ? ICO_AUTO : (document.documentElement.getAttribute("data-theme") === "dark" ? ICO_MOON : ICO_SUN));
 const THEME_TITLE = { system: "Theme: System — tap to override", other: "Theme: Manual — tap to follow system" };
-// Phone /menu/ "Appearance" pill — cycles System → Light → Dark, styled exactly
-// like the Push-notifications row's chip (icon + mono state word on the right).
-const THEME_WORD = { system: "System", light: "Light", dark: "Dark" };
-const THEME_NEXT = { system: "light", light: "dark", dark: "system" };
-const themePillIco = () => { const p = storedPref(); return p === "dark" ? ICO_MOON : p === "light" ? ICO_SUN : ICO_AUTO; };
-const themePillInner = () => `${themePillIco()}<span class="na-push-state">${THEME_WORD[storedPref()] || "System"}</span>`;
+// Phone /menu/ "Appearance" pill — TWO options only, System ↔ Other (same model
+// as the nav-bar button), styled like the Push-notifications row's chip.
+const themePillIco = () => (themeChoice() === "system" ? ICO_AUTO : (document.documentElement.getAttribute("data-theme") === "dark" ? ICO_MOON : ICO_SUN));
+const themePillInner = () => `${themePillIco()}<span class="na-push-state">${themeChoice() === "system" ? "System" : "Other"}</span>`;
 // Set by initNavActions so the /menu/ segmented control can drive the same
 // apply logic as the nav-bar button.
 let _applyThemeChoice = null;
@@ -788,7 +786,7 @@ export function initNavActions() {
         const pill = p.querySelector("#na-theme-pill");
         if (pill) pill.addEventListener("click", () => {
           if (!_applyThemeChoice) return;
-          _applyThemeChoice(THEME_NEXT[storedPref()] || "system");
+          _applyThemeChoice(themeChoice() === "system" ? otherPref() : "system");
         });
       }
       wirePushRow(p);
