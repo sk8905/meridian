@@ -19,7 +19,7 @@ import {
   PAGE, pageShown, pageCount, pageReset, loadMoreBtn, feedHtml, feedFlat,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
 } from "/credit/js/shared.js?v=20260723-3";
-import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost } from "/v2/js/credit/detail.js?v=v2-4";
+import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost } from "/v2/js/credit/detail.js?v=v2-5";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260723-3";
 import { esc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
 
@@ -319,6 +319,18 @@ on(document, "click", (e) => {
   if (isOpen && !e.target.closest("#notif")) { e.preventDefault(); e.stopPropagation(); closeNotif(); }
 }, true);
 on(window, "hashchange", closeNotif);
+
+// Back button (‹ Back) in detail views: step back through the real history when
+// there is in-app history to step through; otherwise follow the link's fallback
+// parent (a cold/deep-linked open). One document-level delegate covers every
+// detail view's button.
+on(document, "click", (e) => {
+  const b = e.target.closest("[data-back]");
+  if (!b) return;
+  e.preventDefault();
+  if (history.length > 1) history.back();
+  else location.hash = b.getAttribute("data-back") || "#/";
+});
 
 // devices; if the server is empty but this device has items, migrate them up.
 async function initWatchlistSync() {

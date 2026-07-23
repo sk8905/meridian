@@ -21,6 +21,12 @@ import {
 export let app = null;
 export function __setHost(h) { app = h; }
 
+// A single Back button (‹ Back) for detail views — replaces the crumb trail.
+// Steps through the real browser history ("the previous page"); if opened cold
+// (deep link, no in-app history) it follows `fallback`. The [data-back] click is
+// handled by a document-level delegate in app.js.
+const backBtn = (fallback) => `<nav class="breadcrumb"><a class="crumb-back" href="${esc(fallback)}" data-back="${esc(fallback)}" aria-label="Go back">‹ Back</a></nav>`;
+
 // =============================================================================
 // VIEW: Detail (#/item/<id>)
 // =============================================================================
@@ -62,11 +68,7 @@ export function viewItem(id) {
 
   app.innerHTML = `
     <div class="tdash">
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="#/">Dashboard</a><span class="sep">/</span>
-        <a href="#/list?area=${esc(it.area)}">${esc(areaById[it.area] ? areaById[it.area].name : it.area)}</a><span class="sep">/</span>
-        <span aria-current="page">Update</span>
-      </nav>
+      ${backBtn("#/list?area=" + esc(it.area))}
       <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
       <div class="tdash-grid tdash-2">
         <section class="tcol tcol-c">
@@ -239,10 +241,7 @@ export function viewFirm(id) {
 
   app.innerHTML = `
     <div class="tdash">
-      <nav class="breadcrumb" aria-label="Breadcrumb">
-        <a href="#/">Dashboard</a><span class="sep">/</span><a href="#/list">Legal alerts</a><span class="sep">/</span>
-        <span aria-current="page">${esc(firm.name)}</span>
-      </nav>
+      ${backBtn("#/")}
       <div class="tdash-grid tdash-2">
         <section class="tcol tcol-c">
           <div class="tdet-id">

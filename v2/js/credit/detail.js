@@ -46,14 +46,15 @@ function railPanel(title, meta, body) {
 }
 
 function breadcrumb(parts) {
-  // Explicit Back button → the immediate parent list (the last crumb that still
-  // carries a link; the current page is the trailing null-href crumb). For a
-  // manager profile that's the Managers list, which is what the reader wants.
+  // A single Back button (‹ Back) instead of a crumb trail. It steps through the
+  // real browser history ("the previous page") — so a fund opened from the Hedge
+  // Funds tab returns there, one opened from a search returns to the search, etc.
+  // If the page was opened cold (deep link, no in-app history), it falls back to
+  // the immediate parent list (the last still-linked crumb). The [data-back]
+  // click is handled by a document-level delegate in app.js.
   const parent = parts.filter((p) => p[0]).pop();
-  const back = parent ? `<a class="crumb-back" href="${esc(parent[0])}" aria-label="Back to ${esc(parent[1])}">‹ Back</a>` : "";
-  return `<nav class="breadcrumb">${back}${parts.map(([href, label], i) =>
-    (href ? link(href, label) : `<span>${esc(label)}</span>`) + (i < parts.length - 1 ? '<span class="sep">/</span>' : "")
-  ).join("")}</nav>`;
+  const fallback = parent ? parent[0] : "#/";
+  return `<nav class="breadcrumb"><a class="crumb-back" href="${esc(fallback)}" data-back="${esc(fallback)}" aria-label="Go back">‹ Back</a></nav>`;
 }
 
 // Generic in-place wire filter: chips toggle which kinds (data-kind) show,

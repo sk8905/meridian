@@ -13,7 +13,7 @@ import {
   fmtDate, itemDate, itemRow, firmLink, getSaved, SAVED_KEY,
   markVisitedSoon, _chipMem, chipMemKey,
 } from "/legal/js/shared.js?v=20260723-3";
-import { viewItem, viewFirm , __setHost as __detailSetHost } from "/v2/js/legal/detail.js?v=v2-2";
+import { viewItem, viewFirm , __setHost as __detailSetHost } from "/v2/js/legal/detail.js?v=v2-3";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc, onLiveWire } from "/feed.js?v=20260723-3";
 import { esc, MONTHS, byDateDesc } from "/util.js?v=20260719-1";
 
@@ -142,6 +142,15 @@ function feedHtml(rows, key, rowFn, sig) {
 // "Load more" reveals the next page and re-renders the affected list in place
 // (a local re-render, so the sidebar filters keep their selected state).
 // Expand / collapse a clamped summary preview inline.
+// Back button (‹ Back) in detail views: step back through the real history when
+// there is in-app history; otherwise follow the link's fallback parent.
+on(document, "click", (e) => {
+  const b = e.target.closest("[data-back]");
+  if (!b) return;
+  e.preventDefault();
+  if (history.length > 1) history.back();
+  else location.hash = b.getAttribute("data-back") || "#/";
+});
 on(document, "click", (e) => {
   const t = e.target.closest(".clamp-toggle");
   if (!t) return;

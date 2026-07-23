@@ -139,8 +139,29 @@ function loadCss(href) {
     const l = document.createElement("link");
     l.rel = "stylesheet"; l.href = href; l.dataset.v2css = href;
     l.onload = l.onerror = () => res();
+    setTimeout(res, 3000);                             // never hang a mount on a slow/404 sheet
     document.head.appendChild(l);
   });
+}
+
+// Make the ACTIVE view's stylesheets win. The pre-v2 per-view stylesheets each
+// carry a full copy of the shared chrome/feed rules (.topbar-*, .nav-*, .chip,
+// .breadcrumb …); in v2 every visited view's CSS stays loaded, so for equal
+// specificity the winner is decided by <link> order in the <head>. Without this,
+// the shared header + any shared-class element restyled to whichever tab was
+// loaded LAST — the intermittent "wrong format on page change". Moving the shown
+// view's own <link>s (data-v2css, in css-array order) to the end of <head> on
+// every activation makes the cascade deterministic: the tab you're looking at
+// always wins. Global head sheets (premium/tui/header/app) are untagged and stay
+// put. Re-parenting an already-loaded <link> neither re-fetches nor flashes.
+function promoteCss(rec) {
+  const css = rec && rec.mod && rec.mod.css;
+  if (!css) return;
+  for (const href of [].concat(css)) {
+    // href is our own token URL — no " or \ to escape inside the quoted selector.
+    const l = document.querySelector(`link[data-v2css="${href}"]`);
+    if (l) document.head.appendChild(l);
+  }
 }
 
 // ---- Navigation ------------------------------------------------------------
@@ -178,6 +199,7 @@ export async function navigate(path, { push = true, replace = false } = {}) {
     prev.section.hidden = true;
   }
   rec.section.hidden = false;
+  promoteCss(rec);                                  // active view's CSS wins the cascade (no-op until mounted)
   rec.section.classList.remove("v2-fade"); void rec.section.offsetWidth; rec.section.classList.add("v2-fade");
   document.documentElement.dataset.v2tab = key;    // active-tab flag before any enter()
   _active = key;
@@ -195,7 +217,7 @@ export async function navigate(path, { push = true, replace = false } = {}) {
   // revisit does NOTHING — its preserved DOM is already showing, which is what
   // makes revisits instant and flicker-free.
   if (!rec.mounted) {
-    try { await mountView(key); }
+    try { await mountView(key); if (_active === key) promoteCss(rec); }  // now css is loaded → promote for real
     catch { if (_active === key) rec.section.innerHTML = '<div class="v2-loading">Could not load this view.</div>'; }
   }
   // NOTE: no background pre-mounting. It was tried and removed — parsing a heavy
