@@ -7,12 +7,12 @@ import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
   rxAdvisers,
-} from "/legal/js/data.js?v=20260723-8";
+} from "/legal/js/data.js?v=20260723-9";
 import { donutChart, columnChart } from "/legal/js/charts.js?v=20260722-3";
 import {
   fmtDate, itemDate, itemRow, firmLink, getSaved, SAVED_KEY,
   markVisitedSoon, _chipMem, chipMemKey,
-} from "/legal/js/shared.js?v=20260723-2";
+} from "/legal/js/shared.js?v=20260723-3";
 import { viewItem, viewFirm , __setHost as __detailSetHost } from "/v2/js/legal/detail.js?v=v2-2";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc, onLiveWire } from "/feed.js?v=20260723-3";
 import { esc, MONTHS, byDateDesc } from "/util.js?v=20260719-1";

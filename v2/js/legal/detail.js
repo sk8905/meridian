@@ -11,12 +11,12 @@
 // =============================================================================
 import {
   items, cases, restructurings, firmById, areaById, typeById,
-} from "/legal/js/data.js?v=20260723-8";
+} from "/legal/js/data.js?v=20260723-9";
 import { esc, byDateDesc } from "/util.js?v=20260719-1";
 import {
   fmtDate, itemDate, isNew, getSaved, areaChip, tierLabel, firmLink, itemRow,
   _chipMem, chipMemKey,
-} from "/legal/js/shared.js?v=20260723-2";
+} from "/legal/js/shared.js?v=20260723-3";
 
 export let app = null;
 export function __setHost(h) { app = h; }
