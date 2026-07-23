@@ -739,9 +739,9 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
   .tpane[data-pane="hedgefunds"] .tleague-full th:nth-child(3) { width: 8%;  }  /* Region    */
   .tpane[data-pane="hedgefunds"] .tleague-full th:nth-child(4) { width: 9%;  }  /* AUM $bn   */
   .tpane[data-pane="hedgefunds"] .tleague-full th:nth-child(5) { width: 18%; }  /* Strategy  */
-  .tpane[data-pane="hedgefunds"] .tleague-full th:nth-child(6) { width: 9%;  }  /* Latest 13F*/
+  .tpane[data-pane="hedgefunds"] .tleague-full th:nth-child(6) { width: 17%; }  /* Founder   */
   .tpane[data-pane="hedgefunds"] .tleague-full th:nth-child(7) { width: 8%;  }  /* Founded   */
-  .tpane[data-pane="hedgefunds"] .tleague-full th:nth-child(8) { width: 17%; }  /* Founder   */
+  .tpane[data-pane="hedgefunds"] .tleague-full th:nth-child(8) { width: 9%;  }  /* Latest 13F*/
 }
 
 /* Hedge-fund 13F top-10 holdings table (fund detail page). Text columns

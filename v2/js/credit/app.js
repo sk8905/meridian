@@ -679,9 +679,9 @@ function viewDashboard() {
     + `<td>${esc(f.region)}</td>`
     + `<td class="tl-aum">${hfAum(f)}</td>`
     + `<td>${esc(f.strategy)}</td>`
-    + `<td class="tl-fil">${hfFiling(f)}</td>`
+    + `<td>${esc(f.founder || "—")}</td>`
     + `<td>${f.founded || "—"}</td>`
-    + `<td>${esc(f.founder || "—")}</td></tr>`;
+    + `<td class="tl-fil">${hfFiling(f)}</td></tr>`;
   app.innerHTML = `
     <div class="tdash">
       <div class="tdash-grid tdash-1">
@@ -718,7 +718,7 @@ function viewDashboard() {
               </header>
               <div class="tleague-wrap">
               <table class="tleague tleague-full tleague-hf">
-                <thead><tr><th>Fund</th><th class="tl-hq">HQ</th><th>Region</th><th class="tl-aum">AUM&nbsp;$bn</th><th>Strategy</th><th class="tl-fil">Latest&nbsp;13F</th><th>Founded</th><th>Founder</th></tr></thead>
+                <thead><tr><th>Fund</th><th class="tl-hq">HQ</th><th>Region</th><th class="tl-aum">AUM&nbsp;$bn</th><th>Strategy</th><th>Founder</th><th>Founded</th><th class="tl-fil">Latest&nbsp;13F</th></tr></thead>
                 <tbody id="hf-rows">${hfRows.map(hfRow).join("")}</tbody>
               </table>
               </div>
