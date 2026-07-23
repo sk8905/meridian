@@ -119,20 +119,23 @@ function mountView(key) {
 
 function loadCss(href) {
   return new Promise((res) => {
-    if ([...document.styleSheets].some((s) => s.href && s.href.endsWith(href))) return res();
-    // A concurrent view may have already inserted this <link> but it might still
-    // be LOADING — resolving now would mount the view before the stylesheet's
-    // rules apply (chips/rows briefly render unstyled). Wait for that link to
-    // finish instead of resolving immediately. A timeout guards against a link
-    // that already settled before we could attach (so we never hang a mount).
-    const existing = document.querySelector(`link[data-v2css="${href}"]`);
-    if (existing) {
-      if (existing.sheet) return res();               // already applied
-      existing.addEventListener("load", () => res(), { once: true });
-      existing.addEventListener("error", () => res(), { once: true });
+    // Resolve only once the stylesheet is actually APPLIED, judged by `link.sheet`
+    // (null until the sheet has loaded+parsed) — NOT by scanning document.styleSheets,
+    // which on Safari lists a still-LOADING sheet, so a concurrent view could resolve
+    // early and mount before its rules apply (the intermittent unstyled/mis-formatted
+    // flash on tab change). A 3s timeout guards every wait so a mount never hangs.
+    const wait = (l) => {
+      if (l.sheet) return res();                       // loaded + applied
+      l.addEventListener("load", () => res(), { once: true });
+      l.addEventListener("error", () => res(), { once: true });
       setTimeout(res, 3000);
-      return;
-    }
+    };
+    // Our own lazily-inserted <link>, or a globally-declared one (index.html) with
+    // the same href — reuse either instead of inserting a duplicate.
+    const own = document.querySelector(`link[data-v2css="${href}"]`);
+    if (own) return wait(own);
+    const global = [...document.querySelectorAll('link[rel="stylesheet"][href]')].find((l) => l.href.endsWith(href));
+    if (global) return wait(global);
     const l = document.createElement("link");
     l.rel = "stylesheet"; l.href = href; l.dataset.v2css = href;
     l.onload = l.onerror = () => res();
