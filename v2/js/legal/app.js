@@ -714,6 +714,22 @@ function rxMatchesFilters(r) {
   return true;
 }
 
+// Map a legal record (client alert / case / scheme·RP) to the shared wire's item
+// shape so the list renders through the ONE feed engine (feedBodyHTML → one-line
+// rows + standard day breaks, R5/R6). Legal taxonomy → ALERT / CASE / SCHEME / RP
+// code badges; the court (cases/RPs) or firm (alerts) becomes the source label.
+function lgToFeed(x) {
+  if (x._kind === "case") {
+    return { desk: "case", href: x.url || "#/", ext: !!x.url, title: x.name, src: x.court || "", date: x.date || "" };
+  }
+  if (x._kind === "rx") {
+    const url = x.judgmentUrl || x.articleUrl;
+    return { desk: x.type === "scheme" ? "scheme" : "rp", href: url || "#/", ext: !!url, title: x.company, src: x.court || "", date: x.date || "" };
+  }
+  const firm = firmById[x.firm];
+  const url = x.url || (firm && firm.insightsUrl);
+  return { desk: "alert", href: url || `#/item/${x.id}`, ext: !!url, title: x.title, src: firm ? firm.name : (x.firm || ""), date: x.date || "", firm: x.firm || "" };
+}
 function renderResults() {
   const results = document.getElementById("results");
   if (!results) return;
@@ -728,10 +744,9 @@ function renderResults() {
   rows.sort(byDateDesc);
   const n = rows.length;
   const noun = filterState.saved ? "saved item" : "update";
-  const sig = JSON.stringify([filterState.areas, filterState.tiers, filterState.types, filterState.firms, filterState.years, filterState.months, filterState.q, filterState.saved]);
   results.innerHTML = n
-    ? feedHtml(rows, "alerts", (x) => (x._kind === "case" ? caseRow(x) : x._kind === "rx" ? rxRow(x) : itemRow(x)), sig)
-    : `<div class="empty">No ${noun}s match these filters.${filterState.saved ? " Save items with the ☆ button." : ""}</div>`;
+    ? `<div class="g-feed twire">${feedBodyHTML(rows.map(lgToFeed))}</div>`
+    : `<div class="empty">No ${noun}s match these filters.</div>`;
   initClamps(results);
 }
 
