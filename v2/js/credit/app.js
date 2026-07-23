@@ -9,7 +9,7 @@ import {
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
   HEDGE_FUNDS, HEDGE_FUNDS_ASOF,
-} from "/credit/js/data.js?v=20260723-4";
+} from "/credit/js/data.js?v=20260723-5";
 import { barChart, donutChart, lineChart, multiLineChart } from "/credit/js/charts.js?v=20260722-4";
 import {
   eur, pct, fmtDate, link, notFound,
@@ -18,8 +18,8 @@ import {
   creditSource, feedDedupKey, intelRow, dealRow,
   PAGE, pageShown, pageCount, pageReset, loadMoreBtn, feedHtml, feedFlat,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
-} from "/credit/js/shared.js?v=20260722-4";
-import { viewFund, viewManager, viewClo, viewLp , __setHost as __detailSetHost } from "/v2/js/credit/detail.js?v=v2-1";
+} from "/credit/js/shared.js?v=20260723-1";
+import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost } from "/v2/js/credit/detail.js?v=v2-2";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260722-4";
 import { esc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
 
@@ -650,11 +650,13 @@ function viewDashboard() {
   // Hedge Funds league table — largest managers across US / UK / Europe, sorted
   // by (approximate) AUM. Rows open the firm's own site in a new tab.
   const hfRows = [...HEDGE_FUNDS].sort((a, b) => (b.aum || 0) - (a.aum || 0));
-  const hfRow = (f) => `<tr class="clickable" data-href="${esc(f.url)}" data-ext="1" data-name="${esc((f.name + " " + f.hq + " " + f.strategy + " " + f.region).toLowerCase())}">`
+  // Rows open the in-app fund detail (AUM sources, strategy, region, performance
+  // and a live SEC 13F top-10) rather than the external site.
+  const hfRow = (f) => `<tr class="clickable" data-href="#/hf/${esc(f.id)}" data-name="${esc((f.name + " " + f.hq + " " + f.strategy + " " + f.region).toLowerCase())}">`
     + `<td class="tl-nm">${esc(f.name)}</td>`
     + `<td class="tl-hq">${esc(f.hq)}</td>`
     + `<td>${esc(f.region)}</td>`
-    + `<td class="tl-n">${f.aum == null ? "—" : "$" + esc(f.aum) + "bn"}</td>`
+    + `<td class="tl-n">${f.aum == null ? "—" : "$" + esc(String(f.aum)) + "bn"}</td>`
     + `<td>${esc(f.strategy)}</td>`
     + `<td class="tl-n">${f.founded || "—"}</td>`
     + `<td>${esc(f.founder || "—")}</td></tr>`;
@@ -698,7 +700,7 @@ function viewDashboard() {
                 <tbody id="hf-rows">${hfRows.map(hfRow).join("")}</tbody>
               </table>
               </div>
-              <p class="tl-sls-key muted small">The largest hedge-fund managers across the US, UK &amp; Europe, by AUM. <strong>AUM is US$bn and approximate</strong> — latest widely-reported public figures (firm-wide, indicative only; hedge funds do not disclose AUM uniformly). As of ${esc(HEDGE_FUNDS_ASOF)}. Click a row to open the firm's site.</p>
+              <p class="tl-sls-key muted small">The largest hedge-fund managers across the US, UK &amp; Europe, by AUM. <strong>AUM is US$bn and approximate</strong> — latest widely-reported public figures (firm-wide, indicative only; hedge funds do not disclose AUM uniformly), each with a source on the fund page. As of ${esc(HEDGE_FUNDS_ASOF)}. Click a row for AUM sources, strategy, performance and live SEC 13F top-10 holdings.</p>
             </div>
           </div>
         </section>
@@ -1592,8 +1594,8 @@ app.addEventListener("click", (e) => {
   const row = e.target.closest("[data-href]");
   if (row && !e.target.closest("a")) {
     const href = row.getAttribute("data-href");
-    // External rows (e.g. Hedge Funds → the firm's own site) open in a new tab;
-    // internal rows drive the hash router.
+    // External rows (data-ext, or an absolute http href) open in a new tab;
+    // internal rows (e.g. Hedge Funds → #/hf/<id>) drive the hash router.
     if (row.dataset.ext === "1" || /^https?:/i.test(href)) window.open(href, "_blank", "noopener");
     else location.hash = href;
   }
@@ -1669,6 +1671,7 @@ function router() {
     case "managers": return viewManagers();
     case "manager": return viewManager(arg);
     case "clo": return viewClo(arg, hash.split("/")[3]);
+    case "hf": return viewHedgeFund(arg);
     case "lps": return viewLps();
     case "lp": return viewLp(arg);
     case "news": return viewNews();

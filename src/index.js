@@ -888,6 +888,122 @@ async function handleYieldCurve(request, env, ctx) {
   return resp;
 }
 
+// ============================ SEC 13F HOLDINGS =============================
+// Live top-10 equity holdings for a hedge-fund manager, straight from its most
+// recent SEC EDGAR 13F-HR filing. Runs on the Worker (Cloudflare egress), so it
+// works regardless of any session/container network policy. SEC requires a
+// descriptive User-Agent with a contact on every request or it returns 403, and
+// asks callers to stay under ~10 req/s — the 24h edge cache (13F is quarterly)
+// keeps us far below that. Bump the ?v= key only when this endpoint's CODE
+// changes (not per data refresh — the holdings self-refresh as the TTL lapses).
+const SEC_UA = "Wire meridian admin (kenneds7@tcd.ie)";
+function secFetch(url) {
+  return fetch(url, { headers: { "user-agent": SEC_UA, "accept-encoding": "gzip, deflate", accept: "application/json, text/xml, */*" } });
+}
+// Match a tag that may or may not carry a namespace prefix (some filers emit
+// <infoTable>, others <ns1:infoTable>). Field readers pull the first numeric /
+// text child regardless of prefix.
+function xmlDecode(s) {
+  return String(s).replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">")
+    .replace(/&quot;/g, '"').replace(/&#39;/g, "'").replace(/&apos;/g, "'");
+}
+function xmlFirst(block, tag) {
+  const m = block.match(new RegExp("<(?:\\w+:)?" + tag + "\\b[^>]*>([\\s\\S]*?)</(?:\\w+:)?" + tag + ">", "i"));
+  return m ? xmlDecode(m[1].trim()) : null;
+}
+async function handle13F(request, env, ctx) {
+  const url = new URL(request.url);
+  const raw = (url.searchParams.get("cik") || "").replace(/\D/g, "");
+  // No / malformed CIK → nothing to fetch (the client only calls with a real CIK).
+  if (!raw) return json({ holdings: null, error: "missing cik" });
+  const cik = raw.padStart(10, "0");
+  const cikNoPad = String(Number(cik));
+
+  const cache = caches.default;
+  // Long-lived, per-CIK edge key. Bump v when the endpoint's parsing code changes.
+  const cacheKey = new Request(new URL(`/api/13f?cik=${cik}&v=1`, request.url).toString());
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+
+  const fail = (reason) => json({ cik, holdings: null, error: reason });
+  try {
+    // 1) Submissions index → most recent 13F-HR accession + report period.
+    const subRes = await secFetch(`https://data.sec.gov/submissions/CIK${cik}.json`);
+    if (!subRes.ok) return fail(`submissions ${subRes.status}`);
+    const sub = await subRes.json();
+    const r = (sub.filings && sub.filings.recent) || {};
+    const forms = r.form || [];
+    let idx = -1;
+    for (let i = 0; i < forms.length; i++) { if (forms[i] === "13F-HR") { idx = i; break; } }
+    if (idx < 0) return fail("no 13F-HR filing");
+    const accession = r.accessionNumber[idx];
+    const filedAt = r.filingDate[idx];
+    const asOf = r.reportDate[idx] || null;
+    const accnNoDashes = accession.replace(/-/g, "");
+    const dir = `https://www.sec.gov/Archives/edgar/data/${cikNoPad}/${accnNoDashes}`;
+
+    // 2) Filing directory → the information-table XML (root <informationTable>),
+    //    NOT primary_doc.xml (the cover page). Names vary (infotable.xml,
+    //    form13fInfoTable.xml, …), so filter out the cover doc and, if several
+    //    remain, pick the one whose body is an information table.
+    const idxRes = await secFetch(`${dir}/index.json`);
+    if (!idxRes.ok) return fail(`index ${idxRes.status}`);
+    const listing = await idxRes.json();
+    const items = ((listing.directory && listing.directory.item) || []).map((it) => it.name);
+    const candidates = items.filter((n) => /\.xml$/i.test(n) && !/primary_doc/i.test(n) && !/^xsl/i.test(n));
+    if (!candidates.length) return fail("no information table");
+
+    let xml = null;
+    for (const name of candidates) {
+      const res = await secFetch(`${dir}/${name}`);
+      if (!res.ok) continue;
+      const text = await res.text();
+      if (/<(?:\w+:)?informationTable\b/i.test(text) || /<(?:\w+:)?infoTable\b/i.test(text)) { xml = text; break; }
+    }
+    if (!xml) return fail("information table not found");
+
+    // 3) Parse <infoTable> rows and aggregate by CUSIP (an issuer spans several
+    //    rows — share classes, option legs, other managers). 13F `value` is in
+    //    whole US$ for filings made from 2023 on, $thousands before — detect from
+    //    the filing date and normalise to whole dollars.
+    const dollars = String(filedAt || "") >= "2023-01-01";
+    const mult = dollars ? 1 : 1000;
+    const agg = new Map();
+    let total = 0;
+    const blockRe = /<(?:\w+:)?infoTable\b[^>]*>([\s\S]*?)<\/(?:\w+:)?infoTable>/gi;
+    let m;
+    while ((m = blockRe.exec(xml))) {
+      const b = m[1];
+      const cusip = (xmlFirst(b, "cusip") || "").toUpperCase();
+      const name = xmlFirst(b, "nameOfIssuer") || "";
+      const value = Math.round((parseFloat(xmlFirst(b, "value")) || 0) * mult);
+      const shares = parseFloat(xmlFirst(b, "sshPrnamt")) || 0;
+      if (!value && !shares) continue;
+      const key = cusip || name.toUpperCase();
+      if (!key) continue;
+      total += value;
+      let e = agg.get(key);
+      if (!e) { e = { name, cusip, value: 0, shares: 0 }; agg.set(key, e); }
+      e.value += value;
+      e.shares += shares;
+      if (!e.name && name) e.name = name;
+    }
+    if (!agg.size) return fail("no holdings parsed");
+    const holdings = [...agg.values()]
+      .sort((a, b) => b.value - a.value)
+      .slice(0, 10)
+      .map((h) => ({ name: h.name, cusip: h.cusip, value: h.value, shares: h.shares, weight: total ? h.value / total : null }));
+
+    const resp = json({ cik, asOf, filedAt, source: `${dir}/${accession}-index.htm`, total, holdings });
+    // 13F is quarterly — cache a good response 24h so it isn't refetched per view.
+    resp.headers.set("cache-control", "public, max-age=86400");
+    if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+    return resp;
+  } catch (e) {
+    return fail(String((e && e.message) || e));
+  }
+}
+
 // ============================ MACRO DASHBOARD ==============================
 // Key economic indicators (US + UK) with ~5y monthly history, fetched server-
 // side so there's no CORS issue or browser-visible key. Most series come from
@@ -2309,6 +2425,7 @@ export default {
     if (url.pathname === "/api/pulse") return handlePulse(request, env, ctx);
     if (url.pathname === "/api/macro") return handleMacro(request, env, ctx);
     if (url.pathname === "/api/yield-curve") return handleYieldCurve(request, env, ctx);
+    if (url.pathname === "/api/13f") return handle13F(request, env, ctx);
     if (url.pathname === "/api/feed") return handleFeed(request, env, ctx);
     if (url.pathname === "/api/predict") return handlePredict(request, env, ctx);
     if (url.pathname === "/api/watchlist") return handleWatchlist(request, env);

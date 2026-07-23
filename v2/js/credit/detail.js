@@ -12,14 +12,15 @@
 import {
   managerById, fundById, lpById, funds, lps, intel, deals,
   fundsByManager, intelForFund, dealsForFund, dealsForManager, intelForManager,
-} from "/credit/js/data.js?v=20260723-4";
+  HEDGE_FUNDS,
+} from "/credit/js/data.js?v=20260723-5";
 import { esc } from "/util.js?v=20260719-1";
 import {
   eur, pct, fmtDate, link, sources, raiseDisplay, nameCell, saveBtn, newsSaveId,
   metaDate, notFound, applyPendingFocus, commitmentsForLp, commitmentsForManager,
   investorsForFund, pageList, feedDedupKey, creditSource, intelRow, dealRow,
   _chipMem, chipMemKey,
-} from "/credit/js/shared.js?v=20260722-3";
+} from "/credit/js/shared.js?v=20260723-1";
 
 export let app = null;
 export function __setHost(h) { app = h; }
@@ -558,4 +559,112 @@ export function viewLp(id) {
         </aside>
       </div>
     </div>`;
+}
+
+// ================================ HEDGE FUNDS ================================
+// Per-fund detail: firm facts (AUM + source, strategy, region, performance) plus
+// a live Top-10 holdings table pulled from the fund's most recent SEC 13F-HR via
+// the Worker's /api/13f endpoint (edge-cached 24h — the holdings self-refresh as
+// the TTL lapses). Funds that don't file a US 13F (cik null) skip the call and
+// show a not-disclosed note. Escapes everything; every fetch has a .catch.
+function hfUsd(v) {
+  if (v == null || !isFinite(v)) return "—";
+  const a = Math.abs(v);
+  if (a >= 1e9) return "$" + (v / 1e9).toFixed(2) + "bn";
+  if (a >= 1e6) return "$" + (v / 1e6).toFixed(1) + "m";
+  if (a >= 1e3) return "$" + Math.round(v / 1e3) + "k";
+  return "$" + Math.round(v);
+}
+function hfHoldingsTable(d) {
+  if (!d || !Array.isArray(d.holdings) || !d.holdings.length) return null;
+  const rows = d.holdings.map((h, i) => `<tr>`
+    + `<td class="tl-n">${i + 1}</td>`
+    + `<td class="tl-nm">${esc(h.name || "—")}</td>`
+    + `<td class="tl-hq">${esc(h.cusip || "")}</td>`
+    + `<td class="tl-n">${esc(hfUsd(h.value))}</td>`
+    + `<td class="tl-n">${h.shares != null && isFinite(h.shares) ? esc(Math.round(h.shares).toLocaleString("en-US")) : "—"}</td>`
+    + `<td class="tl-n">${h.weight != null && isFinite(h.weight) ? esc((h.weight * 100).toFixed(2)) + "%" : "—"}</td></tr>`).join("");
+  return `<div class="tleague-wrap"><table class="tleague tleague-full">`
+    + `<thead><tr><th>#</th><th>Holding</th><th class="tl-hq">CUSIP</th><th>Value</th><th>Shares</th><th>Weight</th></tr></thead>`
+    + `<tbody>${rows}</tbody></table></div>`;
+}
+
+export function viewHedgeFund(id) {
+  const f = HEDGE_FUNDS.find((x) => x.id === id);
+  if (!f) return notFound(app);
+  const aumStr = f.aum == null ? "n.a." : "$" + f.aum + "bn" + (f.estimated ? " (approx.)" : "");
+  const aumFact = f.aum == null ? "n.a."
+    : `${esc(aumStr)}${f.aumAsOf ? ` <span class="tf-est">as of ${esc(f.aumAsOf)}</span>` : ""}`
+      + (f.aumSource ? ` · <a href="${esc(f.aumSource)}" target="_blank" rel="noopener noreferrer" class="tw-mgr">source</a>` : "");
+  const perfFact = f.perf && f.perf.text
+    ? `${esc(f.perf.text)}${f.perf.asOf ? ` <span class="tf-est">${esc(f.perf.asOf)}</span>` : ""}`
+      + (f.perf.source ? ` · <a href="${esc(f.perf.source)}" target="_blank" rel="noopener noreferrer" class="tw-mgr">source</a>` : "")
+    : "n.a.";
+  const secUrl = f.cik ? `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${esc(f.cik)}&type=13F-HR&dateb=&owner=include&count=40` : null;
+  const metrics = [
+    ["AUM", f.aum == null ? "n.a." : "$" + f.aum + "bn"], ["Region", esc(f.region)],
+    ["Founded", f.founded || "—"], ["Strategy", esc(f.strategy)],
+  ];
+  const facts = [
+    ["AUM (US$bn)", aumFact],
+    ["Strategy", esc(f.strategy)],
+    ["Region", esc(f.region)],
+    ["HQ", esc(f.hq)],
+    ["Founded", f.founded || "—"],
+    ["Founder", esc(f.founder || "—")],
+    ["Performance", perfFact],
+  ];
+  const factsRail = `<ul class="tfacts">${facts.map(([k, v]) => `<li><span class="tf-k">${esc(k)}</span><span class="tf-v">${v}</span></li>`).join("")}</ul>`;
+  const linksRail = `<ul class="tmini">`
+    + `<li class="tmini-row"><a class="tmini-t" href="${esc(f.url)}" target="_blank" rel="noopener noreferrer">Firm website</a><span class="tmini-m">${esc(f.name)}</span></li>`
+    + (secUrl ? `<li class="tmini-row"><a class="tmini-t" href="${esc(secUrl)}" target="_blank" rel="noopener noreferrer">SEC EDGAR — 13F filings</a><span class="tmini-m">CIK ${esc(f.cik)}</span></li>` : "")
+    + `</ul>`;
+  const holdingsBody = f.cik
+    ? `<div id="hf-holdings"><p class="tw-empty muted small">Loading latest 13F holdings…</p></div>`
+    : `<p class="tw-empty muted small">No US 13F / not disclosed.</p>`;
+
+  app.innerHTML = `
+    <div class="tdash">
+      ${breadcrumb([["#/", "Hedge Funds"], [null, f.name]])}
+      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
+      <div class="tdash-grid tdash-2">
+        <section class="tcol tcol-c">
+          <div class="tdet-id">
+            <h1>${esc(f.name)}</h1>
+            <div class="tdet-sub">${esc(f.hq)} · ${esc(f.region)}${f.founded ? " · Founded " + esc(String(f.founded)) : ""}${f.founder ? " · " + esc(f.founder) : ""}</div>
+            <div class="tdet-chips"><span class="tdet-chip">${esc(f.strategy)}</span>${f.aum != null ? `<span class="tdet-chip">$${esc(String(f.aum))}bn AUM</span>` : ""}</div>
+          </div>
+          <header class="tpanel-h twire-head"><span>Top 10 holdings</span><span class="tpanel-x">SEC 13F-HR${f.cik ? "" : " · n/a"}</span></header>
+          ${holdingsBody}
+          <p class="tl-sls-key muted small">AUM approximate; 13F holdings via SEC EDGAR, as of <span id="hf-asof">${f.cik ? "latest filing" : "n/a"}</span>; performance ${f.perf && f.perf.text ? "as noted" : "n.a."}</p>
+        </section>
+        <aside class="tcol tcol-r">
+          ${railPanel("Firm facts", "", factsRail)}
+          ${railPanel("Links", "", linksRail)}
+        </aside>
+      </div>
+    </div>`;
+
+  // Live Top-10 holdings — edge-cached at /api/13f (24h TTL); cache-first via the
+  // edge + browser cache, with a .catch fallback so a failed fetch degrades to a
+  // note rather than throwing.
+  if (f.cik) {
+    fetch(`/api/13f?cik=${encodeURIComponent(f.cik)}`, { headers: { accept: "application/json" } })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        const el = document.getElementById("hf-holdings");
+        if (!el) return;
+        const table = hfHoldingsTable(d);
+        el.innerHTML = table || `<p class="tw-empty muted small">No US 13F holdings disclosed.</p>`;
+        const asof = document.getElementById("hf-asof");
+        if (asof && d && d.asOf) {
+          asof.textContent = d.source ? "" : d.asOf;
+          if (d.source) { const a = document.createElement("a"); a.href = d.source; a.target = "_blank"; a.rel = "noopener noreferrer"; a.textContent = d.asOf; asof.appendChild(a); }
+        }
+      })
+      .catch(() => {
+        const el = document.getElementById("hf-holdings");
+        if (el) el.innerHTML = `<p class="tw-empty muted small">Holdings unavailable right now — try again shortly.</p>`;
+      });
+  }
 }
