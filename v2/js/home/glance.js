@@ -2,7 +2,7 @@
 // only the nav-actions boot and glance's own palette are skipped (the shell
 // owns chrome + search), and listeners self-guard on the active tab.
 
-import { deals, intel, managers, funds, research, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260718-9";
+import { deals, intel, managers, funds, research, HEDGE_INTEL, HEDGE_FUNDS, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260718-9";
 import { reportRefresh } from "/v2/js/status.js?v=v2-2";
 import { items, cases, restructurings, firmById } from "/legal/js/data.js?v=20260718-10";
 import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js?v=20260723-1";
@@ -10,7 +10,7 @@ import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
 import { esc, byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
 import { DESK, DESK_CODE, DESK_CLASS, STRICT_MACRO_RE, deskFor, palTag, nlDesk, PAL_CODE,
-  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, feedChipsHTML } from "/feed.js?v=20260722-4";
+  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, feedChipsHTML } from "/feed.js?v=20260723-3";
 
 const __KEY = "home";
 const __ROOT = document.documentElement;
@@ -539,6 +539,11 @@ function renderFeed() {
   // Credit research / white papers (Commentary) — external pieces, so they open
   // out to the publisher like the macro reading list.
   (research || []).forEach((r) => credit.push(mk("c", r.url, r.title, r.institution, true, r.date, r.time)));
+  // Hedge-fund news — real dated events for the 30 tracked hedge funds, in their
+  // own HDG bucket (its own desk chip; separate from the private-credit stream).
+  // Open out to the source article; the fund's page lives under Credit ▸ Hedge Funds.
+  const hdg = [];
+  (HEDGE_INTEL || []).forEach((h) => hdg.push({ ...mk("hdg", h.url || `/credit/#/hf/${encodeURIComponent(h.hfId)}`, h.headline, h.outlet || "", !!h.url, h.date, h.time), mgr: "" }));
 
   // `legal` is declared above (the live-wire loop folds The Lawyer / Legal
   // Business items into it); these are the committed Legal-app records.
@@ -575,7 +580,7 @@ function renderFeed() {
   (_liveFeed || []).forEach((n) => { if (n.brew) brew.push(mk("b", n.url, n.title, n.source || "MailBrew", true, n.date, n.time)); });
 
   const day = (x) => String(x.date || "").slice(0, 10);
-  const all = [...news, ...macro, ...credit, ...legal, ...newsletter, ...ft, ...substacks, ...brew];
+  const all = [...news, ...macro, ...credit, ...hdg, ...legal, ...newsletter, ...ft, ...substacks, ...brew];
   const now = new Date();
   const todayISO = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
   const target = all.some((x) => day(x) === todayISO) ? todayISO : all.reduce((m, x) => (day(x) > m ? day(x) : m), "");
@@ -589,7 +594,7 @@ function renderFeed() {
   const CAP = 500;
   // Per-desk deduped streams (newest first) — power the desk filter and the
   // "what's new" counts (items in the most recent ~2 days).
-  const byDesk = { news: dedupe([...news].sort(byDateDesc)), m: dedupe([...macro].sort(byDateDesc)), c: dedupe([...credit].sort(byDateDesc)), l: dedupe([...legal].sort(byDateDesc)), n: dedupe([...newsletter].sort(byDateDesc)), f: dedupe([...ft].sort(byDateDesc)), s: dedupe([...substacks].sort(byDateDesc)), b: dedupe([...brew].sort(byDateDesc)) };
+  const byDesk = { news: dedupe([...news].sort(byDateDesc)), m: dedupe([...macro].sort(byDateDesc)), c: dedupe([...credit].sort(byDateDesc)), hdg: dedupe([...hdg].sort(byDateDesc)), l: dedupe([...legal].sort(byDateDesc)), n: dedupe([...newsletter].sort(byDateDesc)), f: dedupe([...ft].sort(byDateDesc)), s: dedupe([...substacks].sort(byDateDesc)), b: dedupe([...brew].sort(byDateDesc)) };
   const maxDay = all.reduce((m, x) => (day(x) > m ? day(x) : m), "");
   const cutoff = (() => { const d = new Date(maxDay + "T00:00:00"); if (isNaN(d)) return ""; d.setDate(d.getDate() - 1); return d.toISOString().slice(0, 10); })();
   const recentN = (list) => (cutoff ? list.filter((x) => day(x) >= cutoff).length : list.length);
@@ -605,10 +610,10 @@ function renderFeed() {
   if (_feedSrc) {
     // Source filter wins over the desk chips: every story from that newsroom,
     // across all three desks, newest first.
-    feed = dedupe([...news, ...macro, ...credit, ...legal, ...ft, ...substacks, ...brew].sort(byDateDesc)).filter((x) => x.src === _feedSrc).slice(0, CAP);
+    feed = dedupe([...news, ...macro, ...credit, ...hdg, ...legal, ...ft, ...substacks, ...brew].sort(byDateDesc)).filter((x) => x.src === _feedSrc).slice(0, CAP);
   } else if (_feedDesk === "all") {
     const pick = (list) => dedupe(list.filter((x) => day(x) === target).sort(byDateDesc));
-    const lists = [pick(news), pick(macro), pick(credit), pick(legal), pick(newsletter), pick(ft), pick(substacks), pick(brew)];
+    const lists = [pick(news), pick(macro), pick(credit), pick(hdg), pick(legal), pick(newsletter), pick(ft), pick(substacks), pick(brew)];
     const seen = new Set();
     feed = [];
     for (let i = 0; lists.some((l) => i < l.length); i++) lists.forEach((l) => {
@@ -636,7 +641,7 @@ function renderFeed() {
   setHTML("g-feed", srcBar + (feed.length ? body : empty));
   const head = document.getElementById("g-feed-head");
   if (head) {
-    head.innerHTML = feedChipsHTML([{ k: "all", label: "All" }, { k: "n", label: "Newsletter" }, { k: "m", label: "Macro" }, { k: "c", label: "Credit" }, { k: "l", label: "Legal" }], _feedSrc ? null : _feedDesk, "Latest news");
+    head.innerHTML = feedChipsHTML([{ k: "all", label: "All" }, { k: "n", label: "Newsletter" }, { k: "m", label: "Macro" }, { k: "c", label: "Credit" }, { k: "hdg", label: "HDG" }, { k: "l", label: "Legal" }], _feedSrc ? null : _feedDesk, "Latest news");
     // A desk chip clears any source filter and switches desks.
     head.querySelectorAll(".g-feed-chip").forEach((b) => b.addEventListener("click", () => { _feedSrc = null; _feedDesk = b.dataset.desk; renderFeed(); }));
   }

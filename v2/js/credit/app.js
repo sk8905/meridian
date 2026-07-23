@@ -8,8 +8,8 @@ import {
   managers, funds, lps, intel, commitments, deals, research,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-  HEDGE_FUNDS, HEDGE_FUNDS_ASOF,
-} from "/credit/js/data.js?v=20260723-6";
+  HEDGE_FUNDS, HEDGE_FUNDS_ASOF, HEDGE_INTEL,
+} from "/credit/js/data.js?v=20260723-7";
 import { barChart, donutChart, lineChart, multiLineChart } from "/credit/js/charts.js?v=20260722-4";
 import {
   eur, pct, fmtDate, link, notFound,
@@ -18,9 +18,9 @@ import {
   creditSource, feedDedupKey, intelRow, dealRow,
   PAGE, pageShown, pageCount, pageReset, loadMoreBtn, feedHtml, feedFlat,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
-} from "/credit/js/shared.js?v=20260723-2";
-import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost } from "/v2/js/credit/detail.js?v=v2-3";
-import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260722-4";
+} from "/credit/js/shared.js?v=20260723-3";
+import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost } from "/v2/js/credit/detail.js?v=v2-4";
+import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260723-3";
 import { esc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
 
 export function mount(host, ctx) {
@@ -592,6 +592,15 @@ function viewDashboard() {
   // credit-desk stories (its labels are MAC/BBG/ECON/FT/SUBS/NEWS), so folding
   // it in just made this All tab a mirror of the Home newsfeed. Credit's All
   // is the CREDIT desk: deals, fundraising, CLOs, manager news, research.
+  // Hedge-fund news (HEDGE_INTEL) folds into the wire under its own HDG desk so
+  // the 30 hedge funds surface in the Credit stream, tagged distinctly from the
+  // private-credit desks. Rows open the source article; the fund's own page
+  // lives under the Hedge Funds tab.
+  (HEDGE_INTEL || []).forEach((h) => {
+    const hf = HEDGE_FUNDS.find((x) => x.id === h.hfId);
+    wireItems.push({ desk: "hdg", href: h.url || (hf ? `#/hf/${hf.id}` : "#/"), ext: !!h.url,
+      title: h.headline, src: h.outlet || (hf ? hf.name : ""), date: h.date || "", time: h.time || "", mgr: "" });
+  });
   const wireAll = [...wireItems].sort(byFeedDesc);
   // Deals/CLO share the "Deals" chip; intel is "Fundraising"; news/comm live only
   // under "All". Source filter (row click) overrides the chip, as on Home.

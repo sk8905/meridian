@@ -9,7 +9,7 @@
 // All five data modules are served Cache-Control: no-cache (see _headers), so
 // these imports always revalidate — the ?v= tokens on the app-owned modules
 // are inert here and kept only to mirror each app's own import line.
-import { deals, intel, managers, funds, research } from "/credit/js/data.js?v=20260718-9";
+import { deals, intel, managers, funds, research, HEDGE_FUNDS, HEDGE_INTEL } from "/credit/js/data.js?v=20260718-9";
 import { items, cases, restructurings, firms } from "/legal/js/data.js?v=20260718-10";
 import { NEWS, ARTICLES, ALERTS } from "/macro/js/content.js?v=20260718-9";
 import { FT_ITEMS } from "/ft.js";
@@ -26,7 +26,7 @@ function feedDedupKey(x) {
 import { esc } from "/util.js?v=20260719-1";
 // Shared label vocabulary + classifier, so a "#CODE" search behaves identically
 // here and in the Home palette (same tags, same precedence).
-import { PAL_CODE, deskFor, palTag, nlDesk, onLiveWire } from "/feed.js?v=20260722-4";
+import { PAL_CODE, deskFor, palTag, nlDesk, onLiveWire } from "/feed.js?v=20260723-3";
 const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const fmt = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ""); return m ? `${+m[3]} ${MON[+m[2] - 1]} ${m[1]}` : (iso || ""); };
 const mgrName = (id) => (managers.find((m) => m.id === id) || {}).name || "";
@@ -67,6 +67,9 @@ function buildIndex() {
   deals.forEach((d) => add("credit", d.headline, `${d.clo ? "CLO" : "Deal"} · ${fmt(d.date)}${mgrName(d.managerId) ? " · " + mgrName(d.managerId) : ""}`, creditItemHref(d), d.clo ? 1 : 2, d.date, d.clo ? "CLO" : "Deal"));
   intel.forEach((i) => add("credit", i.headline, `${i.clo ? "CLO · " : ""}${i.type || "Fundraising"} · ${fmt(i.date)}${mgrName(i.managerId) ? " · " + mgrName(i.managerId) : ""}`, creditItemHref(i), i.clo ? 1 : 2, i.date, i.clo ? "CLO" : "Fundraising"));
   (research || []).forEach((r) => add("credit", r.title, `${r.institution}${r.type ? " · " + r.type : ""}${r.date ? " · " + fmt(r.date) : ""}`, r.url, 2, r.date, "Commentary"));
+  const hfNm = {};
+  (HEDGE_FUNDS || []).forEach((f) => { hfNm[f.id] = f.name; add("credit", f.name, `Hedge fund · ${f.strategy}`, `/credit/#/hf/${encodeURIComponent(f.id)}`, 1, "", "Hedge fund"); });
+  (HEDGE_INTEL || []).forEach((h) => add("credit", h.headline, `Hedge fund${hfNm[h.hfId] ? " · " + hfNm[h.hfId] : ""}${h.date ? " · " + fmt(h.date) : ""}`, h.url || `/credit/#/hf/${encodeURIComponent(h.hfId)}`, 2, h.date, "HDG", h.outlet));
   // Law firms — rank 0 (like managers) so "Freshfields" surfaces the firm page
   // first; the page compiles the firm's alerts, matters, cases and deal mentions.
   const TIER_LBL = { magic: "Magic Circle", silver: "Silver Circle", "us-elite": "US elite", chambers: "Chambers" };

@@ -21,18 +21,21 @@ export const DESK = {
   n: "Letter", f: "myFT", s: "Substack", b: "Brew",
   deal: "Deal", fund: "Fundraising", clo: "CLO", comm: "Commentary",
   alert: "Client alert", case: "Case law", scheme: "Scheme", rp: "Restructuring plan",
+  hdg: "Hedge funds",
 };
 export const DESK_CODE = {
   news: "NEWS", bbg: "BBG", econ: "ECON", m: "MAC", c: "CRD", l: "LEX",
   n: "LTR", f: "FT", s: "SUBS", b: "BREW",
   deal: "DEAL", fund: "FUND", clo: "CLO", comm: "COMM",
   alert: "ALERT", case: "CASE", scheme: "SCHEME", rp: "RP",
+  hdg: "HDG",
 };
 export const DESK_CLASS = {
   news: "news", bbg: "bbg", econ: "econ", m: "macro", c: "credit", l: "legal",
   n: "newsletter", f: "ft", s: "substack", b: "brew",
   deal: "deal", fund: "fund", clo: "clo", comm: "comm",
   alert: "alert", case: "case", scheme: "scheme", rp: "rp",
+  hdg: "hdg",
 };
 
 // Strictly-macro classifier: central-bank policy, rates/yields, inflation,

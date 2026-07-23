@@ -80,6 +80,7 @@
 .g-feed-code.case{ color:#fb8b1e; background:color-mix(in srgb,#fb8b1e 15%,transparent); }
 .g-feed-code.scheme{ color:#cc9f43; background:color-mix(in srgb,#cc9f43 15%,transparent); }
 .g-feed-code.rp{ color:#cc9f43; background:color-mix(in srgb,#cc9f43 15%,transparent); }
+.g-feed-code.hdg{ color:#9a86f2; background:color-mix(in srgb,#9a86f2 15%,transparent); }
 .g-feed-title { font-size:13px; color:var(--t-ink); font-weight:400; line-height:1.4;
   white-space:normal; overflow:visible; min-width:0; }
 /* Entity chip (a manager/firm named in the headline, linking to its profile). */
