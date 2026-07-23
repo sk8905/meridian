@@ -371,7 +371,7 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   /* Above every overlay (nav panels z110/60, scrims, cmdk z140, mcmdk z9000):
      the bottom bar persists on every page, menus and search included. */
   z-index: 9500;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   border-radius: 0;
   padding: 6px 0 calc(6px + env(safe-area-inset-bottom, 0px));
   background: #f6f8fc;

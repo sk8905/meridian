@@ -486,6 +486,13 @@ function lawFirmsPane() {
     + `<p class="tl-sls-key muted small">London office of each firm — approximate lawyer headcount, main London practice areas, revenue and profit per equity partner (PEP). Total revenue is firm-wide/global; London revenue shows only where the firm discloses a London-office figure (or is a single-office London firm) — otherwise “—”. Hover any figure for its basis and year. Click a firm for its London profile and private-capital deals (last 12 months).</p>`;
 }
 
+// Full firms pane div (the EXACT Law Firms list) so the Profiles tab can render
+// the same list — one source, no second version. Starts hidden; the caller owns
+// show/hide + the #lf-q search wiring against the same markup.
+function lawFirmsPaneHTML() {
+  return `<div class="tpane" data-pane="firms" hidden>${lawFirmsPane()}</div>`;
+}
+
 function viewDashboard() {
   const thisYear = new Date().getFullYear();
 
@@ -1274,5 +1281,7 @@ markVisitedSoon();
 initSavedSync();   // pull + merge the per-user saved list across devices (behind Access)
 
 
-  return { enter: () => router(), leave() {} };
+  // Expose the list builder so the Profiles tab can render the EXACT same Law
+  // Firms pane (one source — it closes over this app's data).
+  return { enter: () => router(), leave() {}, buildLawFirms: lawFirmsPaneHTML };
 }

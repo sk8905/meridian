@@ -21,16 +21,19 @@ const vurl = (p) => p + (p.includes("?") ? "&" : "?") + "v=" + V;
 import { reportRefresh } from "./status.js?v=v2-2";
 import { esc } from "/util.js?v=20260719-1";
 
+// Mobile bottom tab bar: Home/Macro/Credit/Legal/Profiles/Menu (six equal
+// columns). Profiles also sits in the desktop platform switch below ("| Profiles").
 const TABS = [
-  ["home", "Home"], ["macro", "Macro"], ["credit", "Credit"], ["legal", "Legal"], ["menu", "Menu"],
+  ["home", "Home"], ["macro", "Macro"], ["credit", "Credit"], ["legal", "Legal"], ["profiles", "Profiles"], ["menu", "Menu"],
 ];
-const PLATFORMS = [["home", "Home"], ["macro", "Macro"], ["credit", "Credit"], ["legal", "Legal"]];
+const PLATFORMS = [["home", "Home"], ["macro", "Macro"], ["credit", "Credit"], ["legal", "Legal"], ["profiles", "Profiles"]];
 
 const TAB_ICONS = {
   home: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11 12 4l8 7"/><path d="M6 9.5V20h12V9.5"/></svg>',
   macro: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V12"/><path d="M12 20V5"/><path d="M19 20V9"/></svg>',
   credit: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="7" width="19" height="10" rx="1.5"/><circle cx="12" cy="12" r="2.3"/></svg>',
   legal: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v15"/><path d="M8 19h8"/><path d="M4 7h16"/><path d="M4 7l-2 4.5h4z"/><path d="M20 7l-2 4.5h4z"/></svg>',
+  profiles: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 6.5a3 3 0 0 1 0 6"/><path d="M17 14.5a5.5 5.5 0 0 1 3.5 5.5"/></svg>',
   menu: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>',
 };
 
@@ -85,7 +88,11 @@ export function initChrome({ onTab }) {
 function buildHeader(onTab) {
   const mount = document.getElementById("wire-header");
   if (!mount) return;
-  const pills = PLATFORMS.map(([k, l]) => `<button type="button" class="ps-btn" data-key="${k}">${l}</button>`).join("");
+  // Profiles is a cross-desk directory, set apart from the Home/Macro/Credit/Legal
+  // desks by a thin divider ("| Profiles").
+  const pills = PLATFORMS.map(([k, l]) =>
+    (k === "profiles" ? `<span class="ps-sep" aria-hidden="true"></span>` : "")
+    + `<button type="button" class="ps-btn" data-key="${k}">${l}</button>`).join("");
   mount.innerHTML = `
   <header class="topbar">
     <div class="topbar-inner">

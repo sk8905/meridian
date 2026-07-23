@@ -45,6 +45,9 @@
 .ps-btn { padding: .45rem .7rem; border: 0; border-radius: 0; font-size: .8rem; font-weight: 700; color: #fff; text-decoration: none; white-space: nowrap; background: transparent; border-bottom: 2px solid transparent; cursor: pointer; }
 .ps-btn:hover { color: #fff; text-decoration: none; background: rgba(255,255,255,.08); }
 .ps-btn.is-active, .ps-btn.is-active:hover { background: transparent; color: #fff; border-bottom: 2px solid var(--accent, #fb8b1e); }
+/* Divider before the Profiles entry ("| Profiles") — a cross-desk directory set
+   apart from the Home/Macro/Credit/Legal desks. */
+.ps-sep { align-self: center; flex: 0 0 auto; width: 1px; height: 18px; margin: 0 .5rem; background: rgba(255,255,255,.22); }
 
 /* Search pill — opens the command palette (same as "/"). margin-left:auto pushes
    it + the identity/bell cluster to the right gutter. */

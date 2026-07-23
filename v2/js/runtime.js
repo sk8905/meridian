@@ -35,6 +35,7 @@ const ROUTES = [
   { key: "macro",  title: "Wire Macro",  load: () => import(vurl("./views/macro.js")) },
   { key: "credit", title: "Wire Credit", load: () => import(vurl("./views/credit.js")) },
   { key: "legal",  title: "Wire Legal",  load: () => import(vurl("./views/legal.js")) },
+  { key: "profiles", title: "Wire Profiles", load: () => import(vurl("./views/profiles.js")) },
   { key: "menu",   title: "Wire Menu",   load: () => import(vurl("./views/menu.js")) },
 ];
 const ROUTE_BY_KEY = Object.fromEntries(ROUTES.map((r) => [r.key, r]));
@@ -77,6 +78,10 @@ function ctxFor() {
     data: getData,
     navigate: (path) => navigate(path, { push: true }),
     tabPath,
+    // Mount another view (off-screen if not current) and hand back its control
+    // object — used by Profiles to borrow Credit's / Legal's list builders so it
+    // renders their EXACT panes rather than a second copy.
+    view: (key) => mountView(key).then((rec) => rec.ctrl),
   };
 }
 
@@ -175,6 +180,13 @@ export async function navigate(path, { push = true, replace = false } = {}) {
   if (!rec.mounted) {
     try { await mountView(key); }
     catch { if (_active === key) rec.section.innerHTML = '<div class="v2-loading">Could not load this view.</div>'; }
+  } else if (url.hash && url.hash !== "#/" && rec.ctrl && rec.ctrl.enter) {
+    // Cross-tab deep link into an ALREADY-mounted view (e.g. a Profiles row →
+    // a manager/firm profile in Credit/Legal): re-run the view's router so it
+    // lands on the hash route instead of showing its preserved (stale) DOM. A
+    // plain tab switch (no hash, or '#/') skips this and keeps the preserved DOM
+    // — the keep-alive fast path.
+    rec.ctrl.enter();
   }
   // NOTE: no background pre-mounting. It was tried and removed — parsing a heavy
   // data module in the background blocks the main thread and can lag the very

@@ -9,7 +9,7 @@ import {
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
   HEDGE_FUNDS, HEDGE_FUNDS_ASOF, HEDGE_INTEL,
-} from "/credit/js/data.js?v=20260723-7";
+} from "/credit/js/data.js?v=20260723-9";
 import { barChart, donutChart, lineChart, multiLineChart } from "/credit/js/charts.js?v=20260722-4";
 import {
   eur, pct, fmtDate, link, notFound,
@@ -18,7 +18,7 @@ import {
   creditSource, feedDedupKey, intelRow, dealRow,
   PAGE, pageShown, pageCount, pageReset, loadMoreBtn, feedHtml, feedFlat,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
-} from "/credit/js/shared.js?v=20260723-3";
+} from "/credit/js/shared.js?v=20260723-4";
 import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost } from "/v2/js/credit/detail.js?v=v2-6";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260723-3";
 import { esc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
@@ -476,6 +476,92 @@ function sortTh(view, key, label, extraClass = "") {
   return `<th class="sortable${active ? " active" : ""}${extraClass ? " " + extraClass : ""}" data-sortcol="${view}:${key}" role="button" tabindex="0" aria-sort="${active ? (s.dir === "asc" ? "ascending" : "descending") : "none"}">${esc(label)}${arrow}</th>`;
 }
 
+// The Managers and Hedge Funds league tables, extracted verbatim so BOTH the
+// Credit dashboard (below) and the Profiles tab render the exact same list — one
+// source, no second version. `hidden` keeps them off until their chip is picked
+// (the dashboard and Profiles each own the show/hide + search wiring against the
+// same ids: #mgr-q/#mgr-rows, #hf-q/#hf-rows).
+function managersPaneHTML() {
+  const inMkt = (f) => !f.evergreen && (f.status === "Open" || f.status === "First Close");
+  const mgrFundList = (id) => funds.filter((f) => f.managerId === id);
+  const league = [...managers]
+    .map((m) => ({ m, aum: focusAumOf(m), nf: mgrFundList(m.id).length, live: mgrFundList(m.id).filter(inMkt).length, focus: mInFocus(m) }))
+    .sort((a, b) => (b.aum == null ? -1 : b.aum) - (a.aum == null ? -1 : a.aum));
+  const cloMgrIds = new Set([...deals, ...intel].filter((x) => x.clo && x.managerId).map((x) => x.managerId));
+  const fst = filterState.managers;
+  const q0 = (fst.q || "").toLowerCase();
+  const mrows = league.filter((r) =>
+    (!q0 || r.m.name.toLowerCase().includes(q0) || String(r.m.hq || "").toLowerCase().includes(q0))
+    && (!fst.strategy.length || fst.strategy.some((s) => r.m.strategies.includes(s))));
+  const SLS_ORDER = ["NAV", "SRT", "CFO", "CONT", "OTH"];
+  const slsChips = (m) => {
+    const items = m.structured || [];
+    if (!items.length) return "—";
+    return SLS_ORDER.filter((t) => items.some((s) => s.type === t)).map((t) => {
+      const ofType = items.filter((s) => s.type === t);
+      const tip = ofType.map((s) => `${s.label} — ${s.note} (${s.outlet}, ${s.date})`).join(" · ");
+      const src = ofType.slice().sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")))[0];
+      return `<a class="sls-chip" href="${esc(src.url)}" target="_blank" rel="noopener noreferrer" title="${esc(tip)}">${esc(t)}</a>`;
+    }).join("");
+  };
+  const mgrRow = (r) => `<tr class="clickable" data-href="#/manager/${r.m.id}" data-focus="${r.focus ? 1 : 0}" data-name="${esc((r.m.name + " " + (r.m.hq || "")).toLowerCase())}">`
+    + `<td class="tl-nm">${esc(r.m.name)}</td>`
+    + `<td class="tl-hq">${esc(r.m.hq || "")}</td>`
+    + `<td class="tl-n">${r.aum == null ? "n/a" : esc(fmtAum(r.aum))}</td>`
+    + `<td class="tl-n">${r.m.aumCredit != null ? esc(fmtAum(r.m.aumCredit)) : "—"}</td>`
+    + `<td class="tl-n">${r.nf}</td>`
+    + `<td class="tl-n">${r.live || ""}</td>`
+    + `<td class="tl-cl">${cloMgrIds.has(r.m.id) ? "●" : ""}</td>`
+    + `<td class="tl-sls">${slsChips(r.m)}</td></tr>`;
+  return `<div class="tpane" data-pane="managers" hidden>
+              <header class="tpanel-h thead-search"><span>Managers</span>
+                <input type="search" id="mgr-q" class="tsearch" placeholder="Search name or HQ…" value="${esc(fst.q || "")}" aria-label="Search managers">
+                <button type="button" class="tfocus-btn" id="cr-lg-focus" aria-pressed="false" title="Show only €1–10bn AUM managers">€1–10bn</button>
+              </header>
+              <div class="tleague-wrap">
+              <table class="tleague tleague-full">
+                <thead><tr><th>Manager</th><th class="tl-hq">HQ</th><th>AUM</th><th>Credit&nbsp;AUM</th><th>Funds</th><th>In&nbsp;mkt</th><th>CLOs</th><th class="tl-sls" title="Structured Liquidity Solutions">SLS</th></tr></thead>
+                <tbody id="mgr-rows">${mrows.map(mgrRow).join("")}</tbody>
+              </table>
+              </div>
+              <p class="tl-sls-key muted small">SLS = Structured Liquidity Solutions — NAV: NAV / fund-level financing · SRT: significant/synthetic risk transfer · CFO: collateralised fund obligation · CONT: continuation fund / vehicle · OTH: other structured liquidity (secondaries platform, fund finance). Every chip is backed by a cited article (hover for the source; the articles sit in that manager's news). — = none found in public coverage.</p>
+            </div>`;
+}
+function hedgeFundsPaneHTML() {
+  const hfRows = [...HEDGE_FUNDS].sort((a, b) => (b.aum || 0) - (a.aum || 0));
+  const hfSec = (cik) => `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${cik}&type=13F-HR&dateb=&owner=include&count=40`;
+  const hfAum = (f) => f.aum == null ? "—"
+    : (f.aumSource
+      ? `<a href="${esc(f.aumSource)}" target="_blank" rel="noopener noreferrer" title="AUM source (${esc(f.aumAsOf || "")})">$${esc(f.aum.toFixed(2))}bn</a>`
+      : `$${esc(f.aum.toFixed(2))}bn`);
+  const hfFiling = (f) => f.cik
+    ? `<a href="${esc(hfSec(f.cik))}" target="_blank" rel="noopener noreferrer" title="Latest SEC 13F-HR (CIK ${esc(f.cik)})">13F-HR</a>`
+    : (f.filing
+      ? `<a href="${esc(f.filing.url)}" target="_blank" rel="noopener noreferrer" title="Latest filing (no US 13F-HR)">${esc(f.filing.label)}</a>`
+      : `<span class="muted">—</span>`);
+  const hfRow = (f) => `<tr class="clickable" data-href="#/hf/${esc(f.id)}" data-name="${esc((f.name + " " + f.hq + " " + f.strategy + " " + f.region).toLowerCase())}">`
+    + `<td class="tl-nm">${esc(f.name)}</td>`
+    + `<td class="tl-hq">${esc(f.hq)}</td>`
+    + `<td>${esc(f.region)}</td>`
+    + `<td class="tl-aum">${hfAum(f)}</td>`
+    + `<td>${esc(f.strategy)}</td>`
+    + `<td>${esc(f.founder || "—")}</td>`
+    + `<td>${f.founded || "—"}</td>`
+    + `<td class="tl-fil">${hfFiling(f)}</td></tr>`;
+  return `<div class="tpane" data-pane="hedgefunds" hidden>
+              <header class="tpanel-h thead-search"><span>Hedge Funds</span>
+                <input type="search" id="hf-q" class="tsearch" placeholder="Search name, HQ or strategy…" aria-label="Search hedge funds">
+              </header>
+              <div class="tleague-wrap">
+              <table class="tleague tleague-full tleague-hf">
+                <thead><tr><th>Fund</th><th class="tl-hq">HQ</th><th>Region</th><th class="tl-aum">AUM&nbsp;$bn</th><th>Strategy</th><th>Founder</th><th>Founded</th><th class="tl-fil">Latest&nbsp;13F</th></tr></thead>
+                <tbody id="hf-rows">${hfRows.map(hfRow).join("")}</tbody>
+              </table>
+              </div>
+              <p class="tl-sls-key muted small">The largest hedge-fund managers across the US, UK &amp; Europe, by AUM. <strong>AUM is US$bn and approximate</strong> — latest widely-reported public figures (firm-wide, indicative only; hedge funds do not disclose AUM uniformly), each with a source on the fund page. As of ${esc(HEDGE_FUNDS_ASOF)}. Click a row for AUM sources, strategy, performance and live SEC 13F top-10 holdings.</p>
+            </div>`;
+}
+
 // ================================ DASHBOARD =================================
 // The key rates & credit-spreads band was moved to the Glance landing page, so
 // the Credit dashboard opens straight into the KPI metrics and activity feeds.
@@ -699,31 +785,8 @@ function viewDashboard() {
             <div class="tpane g-feed-wrap" data-pane="wire">
               <div class="g-feed twire" id="cr-dash-wire">${wireAll.length ? feedBodyHTML(wireAll) : feedEmptyHTML("No recent items.")}</div>
             </div>
-            <div class="tpane" data-pane="managers" hidden>
-              <header class="tpanel-h thead-search"><span>Managers</span>
-                <input type="search" id="mgr-q" class="tsearch" placeholder="Search name or HQ…" value="${esc(fst.q || "")}" aria-label="Search managers">
-                <button type="button" class="tfocus-btn" id="cr-lg-focus" aria-pressed="false" title="Show only €1–10bn AUM managers">€1–10bn</button>
-              </header>
-              <div class="tleague-wrap">
-              <table class="tleague tleague-full">
-                <thead><tr><th>Manager</th><th class="tl-hq">HQ</th><th>AUM</th><th>Credit&nbsp;AUM</th><th>Funds</th><th>In&nbsp;mkt</th><th>CLOs</th><th class="tl-sls" title="Structured Liquidity Solutions">SLS</th></tr></thead>
-                <tbody id="mgr-rows">${mrows.map(mgrRow).join("")}</tbody>
-              </table>
-              </div>
-              <p class="tl-sls-key muted small">SLS = Structured Liquidity Solutions — NAV: NAV / fund-level financing · SRT: significant/synthetic risk transfer · CFO: collateralised fund obligation · CONT: continuation fund / vehicle · OTH: other structured liquidity (secondaries platform, fund finance). Every chip is backed by a cited article (hover for the source; the articles sit in that manager's news). — = none found in public coverage.</p>
-            </div>
-            <div class="tpane" data-pane="hedgefunds" hidden>
-              <header class="tpanel-h thead-search"><span>Hedge Funds</span>
-                <input type="search" id="hf-q" class="tsearch" placeholder="Search name, HQ or strategy…" aria-label="Search hedge funds">
-              </header>
-              <div class="tleague-wrap">
-              <table class="tleague tleague-full tleague-hf">
-                <thead><tr><th>Fund</th><th class="tl-hq">HQ</th><th>Region</th><th class="tl-aum">AUM&nbsp;$bn</th><th>Strategy</th><th>Founder</th><th>Founded</th><th class="tl-fil">Latest&nbsp;13F</th></tr></thead>
-                <tbody id="hf-rows">${hfRows.map(hfRow).join("")}</tbody>
-              </table>
-              </div>
-              <p class="tl-sls-key muted small">The largest hedge-fund managers across the US, UK &amp; Europe, by AUM. <strong>AUM is US$bn and approximate</strong> — latest widely-reported public figures (firm-wide, indicative only; hedge funds do not disclose AUM uniformly), each with a source on the fund page. As of ${esc(HEDGE_FUNDS_ASOF)}. Click a row for AUM sources, strategy, performance and live SEC 13F top-10 holdings.</p>
-            </div>
+            ${managersPaneHTML()}
+            ${hedgeFundsPaneHTML()}
           </div>
         </section>
       </div>
@@ -1726,5 +1789,7 @@ initWatchlistSync();
 initSavedSync();
 
 
-  return { enter: () => router(), leave() {} };
+  // Expose the list builders so the Profiles tab can render the EXACT same
+  // Managers / Hedge Funds panes (one source — these close over this app's data).
+  return { enter: () => router(), leave() {}, buildManagers: managersPaneHTML, buildHedgeFunds: hedgeFundsPaneHTML };
 }

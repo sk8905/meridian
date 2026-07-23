@@ -44,7 +44,7 @@ for (const theme of ["light", "dark"]) {
   // Spot-check the intended design so a shared-but-wrong bar still fails.
   const s = snaps["/"];
   checkEq(s.bar.display, "grid", `${theme}: bar is a grid`);
-  checkEq(s.bar["grid-template-columns"].split(" ").length, 5, `${theme}: five equal columns`);
+  checkEq(s.bar["grid-template-columns"].split(" ").length, 6, `${theme}: six equal columns`);
   checkEq(s.bar["border-top-left-radius"], "0px", `${theme}: flat (no rounded corners)`);
   checkEq(s.bar["box-shadow"], "none", `${theme}: no floating shadow`);
   checkEq(s.ico, "block", `${theme}: icon is block`);
