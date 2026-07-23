@@ -99,49 +99,25 @@ function getShell(key) {
   return rec;
 }
 
-// Load the view's module (+ css) and mount it into its section — the heavy part
-// (this is where a big data module parses). Idempotent; concurrent callers share
-// one load. Runs OFF the transition, so it never blanks a switch.
+// Load the view's module and mount it into its section — the heavy part (this is
+// where a big data module parses). Idempotent; concurrent callers share one load.
+// Runs OFF the transition, so it never blanks a switch. NOTE: view CSS is NOT
+// loaded here — every view's stylesheet is declared up front in v2/index.html, so
+// it is already applied before any content mounts. That removes the whole class
+// of "content mounts, then its CSS arrives and it reformats" flashes on a tab
+// switch, and keeps this path to just: import module → mount.
 function mountView(key) {
   const rec = getShell(key);
   if (rec.mounted) return Promise.resolve(rec);
   if (rec.loading) return rec.loading;
   rec.loading = (async () => {
     const mod = await ROUTE_BY_KEY[key].load();
-    if (mod.css) await Promise.all([].concat(mod.css).map(loadCss));
     rec.mod = mod;
     rec.ctrl = (mod.mount ? await mod.mount(rec.section, ctxFor()) : null) || {};
     rec.mounted = true;
     return rec;
   })();
   return rec.loading;
-}
-
-function loadCss(href) {
-  return new Promise((res) => {
-    // Resolve only once the stylesheet is actually APPLIED, judged by `link.sheet`
-    // (null until the sheet has loaded+parsed) — NOT by scanning document.styleSheets,
-    // which on Safari lists a still-LOADING sheet, so a concurrent view could resolve
-    // early and mount before its rules apply (the intermittent unstyled/mis-formatted
-    // flash on tab change). A 3s timeout guards every wait so a mount never hangs.
-    const wait = (l) => {
-      if (l.sheet) return res();                       // loaded + applied
-      l.addEventListener("load", () => res(), { once: true });
-      l.addEventListener("error", () => res(), { once: true });
-      setTimeout(res, 3000);
-    };
-    // Our own lazily-inserted <link>, or a globally-declared one (index.html) with
-    // the same href — reuse either instead of inserting a duplicate.
-    const own = document.querySelector(`link[data-v2css="${href}"]`);
-    if (own) return wait(own);
-    const global = [...document.querySelectorAll('link[rel="stylesheet"][href]')].find((l) => l.href.endsWith(href));
-    if (global) return wait(global);
-    const l = document.createElement("link");
-    l.rel = "stylesheet"; l.href = href; l.dataset.v2css = href;
-    l.onload = l.onerror = () => res();
-    setTimeout(res, 3000);                             // never hang a mount on a slow/404 sheet
-    document.head.appendChild(l);
-  });
 }
 
 

@@ -27,11 +27,26 @@
   <link rel="stylesheet" href="/header.css?v=20260723-4" />
   <link rel="stylesheet" href="/v2/css/app.css?v=v2-16" />
 
+  <!-- Per-view stylesheets, loaded UP FRONT here instead of lazily per tab. They
+       are small, and eager loading means every view's CSS is applied before any
+       of its content is ever mounted — so switching Home/Macro/Credit/Legal can
+       never flash unstyled content that then "reformats". (The heavy per-view JS
+       and data still load lazily on first visit; only the CSS is eager.) These
+       tokens must stay in lockstep with the css arrays in v2/js/views/*.js. -->
+  <!-- feed.css comes LAST: the shared feed engine (.g-feed-row grid) must win over
+       any per-view .g-feed rules, exactly as before when each view loaded
+       [view.css, feed.css] with feed.css second. -->
+  <link rel="stylesheet" href="/home.css?v=20260723-3" />
+  <link rel="stylesheet" href="/credit/css/styles.css?v=20260723-3" />
+  <link rel="stylesheet" href="/legal/css/styles.css?v=20260723-4" />
+  <link rel="stylesheet" href="/macro/css/styles.css?v=20260723-1" />
+  <link rel="stylesheet" href="/feed.css?v=20260723-1" />
+
   <!-- ONE runtime, loaded once for the whole app. It owns the router, the shared
        chrome, the in-memory data cache and view lifecycles. There is no
        per-tab document, bundle re-fetch or re-parse — switching tabs swaps a
        view in memory. -->
-  <script type="module" src="/v2/js/runtime.js?v=v2-35"></script>
+  <script type="module" src="/v2/js/runtime.js?v=v2-36"></script>
 </head>
 <body>
   <div id="wire-header"></div>

@@ -57,7 +57,7 @@ function paneHTML(sec) {
       : "");
 }
 
-export const css = "/credit/css/styles.css?v=20260721-9";
+// CSS (the menu reuses credit styles) is declared up front in v2/index.html.
 
 export function mount(host, ctx) {
   let sec = "search";

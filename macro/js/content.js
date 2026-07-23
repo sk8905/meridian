@@ -199,12 +199,15 @@ export const OUTLOOK = {
 //   Yardeni Research, Absolute Strategy Research, Gavekal, BCA Research,
 //   Capital Economics, Pantheon Macroeconomics, Oxford Economics, TS Lombard,
 //   Alpine Macro, Variant Perception, ING, Bloomberg Opinion (Authers/Dudley/
-//   El-Erian), Project Syndicate, Mohamed El-Erian, John Authers, plus central-
-//   bank speeches/minutes commentary. Keep each item's real headline + source
-//   link; never fabricate — only add pieces that exist and are dated.
+//   El-Erian), Bloomberg MacroScope / Markets Live (Simon White), Project
+//   Syndicate, Mohamed El-Erian, John Authers, plus central-bank speeches/minutes
+//   commentary. Keep each item's real headline + source link; never fabricate —
+//   only add pieces that exist and are dated.
 export const COMMENTARY = {
   updated: "2026-07-23",
   us: [
+    { title: "The Most Fundamental Macro Risk Is Back: MacroScope", source: "Bloomberg", author: "Simon White", date: "2026-07-23", url: "https://www.bloomberg.com/news/articles/2026-07-23/the-most-fundamental-macro-risk-is-back-macroscope-mrxj1md7" },
+    { title: "Leveraged ETFs Are Just the Tip of the Iceberg: MacroScope", source: "Bloomberg", author: "Simon White", date: "2026-07-02", url: "https://www.bloomberg.com/news/articles/2026-07-02/leveraged-etfs-are-just-the-tip-of-the-iceberg-macroscope-mr3fwwwk" },
     { title: "The Oil Question That Really Matters for Stocks", source: "Bloomberg Opinion", author: "John Authers", date: "2026-07-22", url: "https://www.bloomberg.com/opinion/newsletters/2026-07-22/the-oil-question-that-really-matters-for-stocks" },
     { title: "Watch: Four reasons why US inflation should slow from here", source: "ING", author: "James Knightley", date: "2026-07-22", url: "https://think.ing.com/think-vision/videos/watch-four-reasons-why-us-inflation-should-slow-from-here/" },
     { title: "Fed to hold rates this year despite high inflation, but economists cite high chances of a hike: Reuters poll", source: "Reuters", author: null, date: "2026-07-21", url: "https://www.investing.com/news/economy-news/fed-to-hold-rates-this-year-despite-high-inflation-but-economists-cite-high-chances-of-a-hike-reuters-poll-4803207" },

@@ -1,5 +1,5 @@
 // Legal view — mounts the ported Legal app (its dataset lazy-loads the same
 // way). Loaded with the shared build version V (see runtime.js).
 const V = (() => { try { return new URL(import.meta.url).searchParams.get("v") || ""; } catch { return ""; } })();
-export const css = ["/legal/css/styles.css?v=20260723-4", "/feed.css?v=20260723-1"];
+// CSS (legal styles + feed.css) is declared up front in v2/index.html.
 export function mount(host, ctx) { return import(`../legal/app.js?v=${V}`).then((m) => m.mount(host, ctx)); }

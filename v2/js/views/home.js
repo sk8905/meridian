@@ -3,7 +3,8 @@
 // rates, briefing, watchlist, predict). Home.css + feed.css lazy-load once. The
 // content + glance modules are loaded with the shared build version V.
 const V = (() => { try { return new URL(import.meta.url).searchParams.get("v") || ""; } catch { return ""; } })();
-export const css = ["/home.css?v=20260723-3", "/feed.css?v=20260723-1"];
+// CSS (home.css + feed.css) is declared up front in v2/index.html — see the note
+// there. The runtime no longer loads per-view CSS, so views export none.
 export function mount(host, ctx) {
   return Promise.all([import(`../home/content.js?v=${V}`), import(`../home/glance.js?v=${V}`)]).then(([content, glance]) => {
     host.innerHTML = content.HOME_HTML;
