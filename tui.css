@@ -298,6 +298,9 @@
 
   /* chips: swipeable if a section has many filters */
   .tchip { padding: 0 4px; }   /* equal-width tabs stay full-width on mobile */
+  /* The wire filter-chip bar matches the Menu page's chip bar height (34px) on
+     phones, so the tap targets read identically across every tab (R14). */
+  .twire-head { height: 34px; }
 
   /* league / mini rows: comfier tap targets */
   .tleague td, .tleague th { padding: 8px; }

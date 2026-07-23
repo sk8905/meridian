@@ -114,7 +114,10 @@ notification badge red (`#ef4444`).
 - **R13 — Identity placement:** desktop → footer; phone → strip above the tab
   bar. Never duplicated across surfaces.
 - **R14 — Chips/tabs share one style** (`.tchip` / feed chips); active =
-  `is-on` / `is-active`, identical across sections.
+  `is-on` / `is-active`, identical across sections. **On phone, every chip bar
+  is the same height — 34px** (the Menu page's `.na-menu-bar`); the wire
+  filter-chip bar (`.twire-head`) matches it, so tap targets read identically on
+  every tab.
 
 ---
 
