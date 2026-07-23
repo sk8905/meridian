@@ -598,7 +598,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-l { font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .na-v, .na-c { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; }
 /* Top-movers row: label · bar · %. */
-.na-mover { grid-template-columns: minmax(0, 1fr) 84px 58px; align-items: center; }
+.na-mover { grid-template-columns: minmax(0, 1fr) 74px 70px; align-items: center; }
 .na-bar { position: relative; height: 9px; background: var(--head, #0a0a0a); border: 1px solid var(--border, #262626); }
 .na-bar::before { content: ""; position: absolute; left: 50%; top: 0; bottom: 0; width: 1px; background: var(--border, #262626); }
 .na-bar-f { position: absolute; top: 0; bottom: 0; }
@@ -607,6 +607,15 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-v { color: var(--ink, #eaf0fb); }
 .na-c { min-width: 66px; text-align: right; }
 .na-c.up { color: #3fc08d; } .na-c.down { color: #f26d84; } .na-c.flat { color: var(--faint, #5c6a86); }
+/* FX matrix in the Markets panel (mirrors the desktop right-rail cross-rate grid,
+   restyled with the panel's own tokens so it's self-contained off the Home page). */
+.na-fx-wrap { padding: 8px 12px 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.na-fx-tbl { width: 100%; border-collapse: collapse; font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; font-size: 11px; }
+.na-fx-tbl th, .na-fx-tbl td { border: 1px solid var(--border, #262626); text-align: center; }
+.na-fx-tbl thead th, .na-fx-tbl tbody th { color: var(--mut, #8592ad); font-size: 9.5px; letter-spacing: .04em; background: var(--head, #0a0a0a); font-weight: 600; padding: 5px 4px; }
+.na-fx-tbl td { color: var(--ink, #eaf0fb); font-weight: 600; padding: 0; }
+.na-fx-tbl td.na-fx-diag { color: var(--faint, #5c6a86); font-weight: 400; padding: 5px 4px; }
+.na-fx-tbl td a { color: inherit; text-decoration: none; display: block; padding: 5px 4px; }
 /* Portfolio Daily/Total P&L toggle, sat in the Holdings section header. */
 .na-pf-tgl-wrap { display: inline-flex; border: 1px solid var(--border, #262626); }
 .na-pf-tgl, .na-pred-dir { padding: 1px 8px; font: inherit; font-size: 9.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; background: transparent; border: 0; color: var(--muted, #8592ad); cursor: pointer; }

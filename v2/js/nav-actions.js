@@ -194,7 +194,7 @@ function loadMarkets(body) {
     fetch("/api/markets?v=13", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
     fetch("/api/rates?v=12", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).catch(() => null),
   ]).then(([m, rt]) => {
-    data = { markets: (m && m.markets) || [], movers: (m && m.moversEtf) || [], portfolio: (m && m.portfolio) || [], rates: (rt && rt.rates) || [] };
+    data = { markets: (m && m.markets) || [], movers: (m && m.moversEtf) || [], moversExtra: (m && m.moversExtra) || [], portfolio: (m && m.portfolio) || [], rates: (rt && rt.rates) || [] };
     render();
   });
 }
@@ -227,8 +227,8 @@ function predictRow(m) {
     + `<span class="na-pred-nums"><span class="na-pred-yes${cls}">${yes == null ? "—" : yes + "%"}</span>${chg}</span></a>`;
 }
 const PRED_TYPE_ORDER = ["Fed & rates", "Economy", "Equities", "Crypto", "Trump", "Geopolitics", "Elections", "Other"];
-// Top Movers (default) + the three type super-groups (as on desktop).
-const NA_PRED_SUPERS = ["Top Movers", "Largest", "Macro", "Politics", "Finance"];
+// Largest (default) + Top Movers + the three type super-groups (as on desktop).
+const NA_PRED_SUPERS = ["Largest", "Top Movers", "Macro", "Politics", "Finance"];
 const NA_PRED_SUPER_TYPES = { Macro: ["Fed & rates", "Economy", "Other"], Politics: ["Trump", "Geopolitics", "Elections"], Finance: ["Equities", "Crypto"] };
 const NA_PRED_SUPER_OF = {};
 for (const s of ["Macro", "Politics", "Finance"]) for (const t of NA_PRED_SUPER_TYPES[s]) NA_PRED_SUPER_OF[t] = s;
@@ -240,7 +240,7 @@ function naPredMovers(list) {
     .sort((a, b) => (b.chg - a.chg) || ((b.vol || 0) - (a.vol || 0)))
     .slice(0, 40);
 }
-let _predSuper = "Top Movers", _predMoveDir = "up";
+let _predSuper = "Largest", _predMoveDir = "up";
 function predictPane(list, loading) {
   if (loading || list == null) return '<div class="na-load">Loading…</div>';
   if (!list.length) return '<div class="na-load">No prediction markets available right now.</div>';
@@ -300,10 +300,49 @@ function moverRow(x) {
     ? `<a class="na-mrow na-mover" href="${esc(x.href)}" target="_blank" rel="noopener noreferrer">${inner}</a>`
     : `<div class="na-mrow na-mover">${inner}</div>`;
 }
+// FX daily matrix — USD/GBP/EUR/JPY cross rates derived from the three USD pairs
+// already in the markets payload's extra-movers pool (no extra request). Mirrors
+// the desktop right-rail grid; cell(row,col) = 1 unit of the row ccy in the col ccy.
+const NA_FX_CCY = ["USD", "GBP", "EUR", "JPY"];
+function naFxData(d) {
+  const all = [...((d && d.markets) || []), ...((d && d.moversExtra) || [])];
+  const find = (lbl) => all.find((x) => x.label === lbl);
+  const g = find("GBP/USD"), e = find("EUR/USD"), j = find("USD/JPY");
+  const v = (x) => (x && x.value != null ? +x.value : NaN);
+  if (!(v(g) > 0) || !(v(e) > 0) || !(v(j) > 0)) return null;
+  const chg = (x) => (x && typeof x.changePct === "number" && isFinite(x.changePct) ? x.changePct : 0);
+  return { up: { USD: 1, GBP: v(g), EUR: v(e), JPY: 1 / v(j) }, dPct: { USD: 0, GBP: chg(g), EUR: chg(e), JPY: -chg(j) } };
+}
+const naFmtFx = (v) => (v >= 100 ? v.toFixed(1) : v >= 1 ? v.toFixed(3) : v.toFixed(4));
+function naFxHeat(chg) {
+  const a = Math.min(Math.abs(chg) / 1.0, 1) * 0.18;
+  if (!(a > 0.015)) return "";
+  return ` style="background:rgba(${chg > 0 ? "5,150,105" : "220,38,38"},${a.toFixed(3)})"`;
+}
+function naFxMatrix(d) {
+  const fx = naFxData(d);
+  if (!fx) return "";
+  const { up, dPct } = fx;
+  const head = `<tr><th></th>${NA_FX_CCY.map((c) => `<th>${esc(c)}</th>`).join("")}</tr>`;
+  const body = NA_FX_CCY.map((base) => {
+    const cells = NA_FX_CCY.map((q) => {
+      if (base === q) return `<td class="na-fx-diag">—</td>`;
+      const chg = dPct[base] - dPct[q];
+      const tip = `${base}/${q} ${chg > 0 ? "+" : ""}${chg.toFixed(2)}% today — source: Yahoo Finance`;
+      const href = `https://finance.yahoo.com/quote/${base}${q}=X`;
+      return `<td${naFxHeat(chg)}><a href="${esc(href)}" target="_blank" rel="noopener noreferrer" title="${esc(tip)}">${esc(naFmtFx(up[base] / up[q]))}</a></td>`;
+    }).join("");
+    return `<tr><th>${esc(base)}</th>${cells}</tr>`;
+  }).join("");
+  return naSec("FX matrix", "1D cross") + `<div class="na-fx-wrap"><table class="na-fx-tbl"><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
+}
 function marketsPane(d) {
   if (!d.markets.length && !d.movers.length) return '<div class="na-load">Markets unavailable right now.</div>';
+  // Top movers ranked biggest absolute move first (as on desktop).
+  const movers = [...d.movers].sort((a, b) => Math.abs(b.changePct || 0) - Math.abs(a.changePct || 0));
   return (d.markets.length ? naSec("Markets", "live") + d.markets.map(marketRow).join("") : "")
-    + (d.movers.length ? naSec("Top movers", "1D") + d.movers.map(moverRow).join("") : "");
+    + (movers.length ? naSec("Top movers", "1D") + movers.map(moverRow).join("") : "")
+    + naFxMatrix(d);
 }
 function macroPane(d) {
   if (!d.rates.length) return '<div class="na-load">Key rates unavailable right now.</div>';

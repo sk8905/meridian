@@ -752,3 +752,10 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 .tl-holdings .hp-up { color: var(--t-up, #3fc08d); }
 .tl-holdings .hp-down { color: var(--t-down, #f26d84); }
 .tl-holdings .hp-flat { color: var(--faint, #8b96ac); }
+/* On phones the 11-column holdings table takes its natural width and scrolls
+   horizontally inside .tleague-wrap (it isn't a .tleague-full, so restate the
+   nowrap + auto-width the wide league tables get). */
+@media (max-width: 760px) {
+  .tl-holdings th, .tl-holdings td { white-space: nowrap; }
+  .tl-holdings { width: auto; min-width: 100%; }
+}
