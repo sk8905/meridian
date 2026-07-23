@@ -23,7 +23,11 @@
 // =============================================================================
 
 // The app shell we can swap within (NOT Home). Trailing-slash normalised.
-const APP_ROUTES = ["/macro/", "/credit/", "/legal/", "/menu/"];
+// /menu/ is deliberately EXCLUDED: its content is built by nav-actions into a
+// panel OUTSIDE #app (and nav-actions is persistent chrome that isn't re-run on
+// a client swap), so swapping #app to /menu/ leaves an empty #app — a blank
+// menu. Letting /menu/ fall through to a normal navigation renders it correctly.
+const APP_ROUTES = ["/macro/", "/credit/", "/legal/"];
 const norm = (u) => { try { return new URL(u, location.href).pathname.replace(/index\.html$/, ""); } catch { return u; } };
 const inScope = (p) => APP_ROUTES.includes(norm(p));
 
