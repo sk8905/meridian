@@ -25,8 +25,12 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   the footer is pinned to the viewport bottom on desktop; on phone the bottom
   nav/tab bar is `position:fixed` and the signed-in/last-refresh strip sits
   directly above it. None of these scroll with content.
-- **R3 — Three-column reading frame** on desktop; rails fill to the full height
-  of the feed — no dead grey gaps.
+- **R3 — Three-column reading frame** on desktop; **both rails are exactly the
+  viewport height** — pinned data panels at top/bottom, no dead grey gap under
+  the last panel, and **the rail itself never scrolls.** Only the one designated
+  overflow region inside each rail scrolls (left: Top movers `#g-movers`; right:
+  Prediction markets `.g-flow-body`), and it *shrinks* to fit rather than pushing
+  the rail past the screen. A rail that scrolls as a whole is a bug.
 - **R4 — Panels stretch, don't float.** Sibling panels in a column share equal
   height; the last panel grows to fill remaining space (no ragged bottoms).
 

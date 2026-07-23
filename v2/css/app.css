@@ -71,12 +71,13 @@ a { color: var(--primary); text-decoration: none; }
   /* The header strips (bar · ticker · briefing) must keep their natural height —
      as flex items they were shrinking, which clipped the one-line briefing. */
   #wire-header .topbar, #wire-header .wticker, #wire-header .wbrief { flex: 0 0 auto; }
-  /* Home left rail: keep Top movers compact (its curated list scrolls if long)
-     and let a surface filler take the rail's trailing space, so the rail reaches
-     the footer as one clean block instead of leaving a gap under the FX matrix. */
-  .v2-view .tui .g-side > .g-movers-pnl { flex: 0 0 auto; }
-  .v2-view .tui .g-movers-pnl > #g-movers { max-height: 340px; overflow-y: auto; overscroll-behavior: contain; }
-  .v2-view .tui .g-side::after { content: ""; flex: 1 1 auto; min-height: 0; background: var(--t-panel, var(--surface, #fff)); }
+  /* Left rail: DO NOT re-cap Top movers here. home.css's own terminal rules
+     (@media min-width:901px) already make each rail exactly the viewport height
+     with the market/rate panels pinned, Top movers flexing to fill *and shrink*
+     to the available space (min 160px, its list scrolling inside), and FX pinned
+     at the base. An earlier override pinned movers at a fixed 340px with a
+     growing filler, which overflowed the rail on shorter viewports and made the
+     whole rail scroll — exactly what R3 forbids. Defer to home.css. */
 }
 /* Clear the fixed bottom tab bar on phones so content isn't hidden behind it
    (bar ≈ 55px). The meta strip only shows on the Menu tab, so only there does
