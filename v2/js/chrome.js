@@ -35,6 +35,11 @@ export function initChrome({ onTab }) {
   import("/brief.js?v=7").then((m) => m.initBrief()).catch(() => {});
   import("/palette.js?v=20260722-5").then((m) => m.mountPalette()).catch(() => {});
   import("/ptr.js?v=20260723-4").then((m) => m.initPullToRefresh()).catch(() => {});
+  // Header action cluster + panels (Markets / Saved / Notifications / Search, the
+  // notif bell, saved + markets loaders), ported from nav-actions with its own
+  // tab bar / header-layout / swipe neutralised (the runtime owns those). Mounts
+  // into .topbar-right.
+  import("./nav-actions.js?v=v2-1").then((m) => m.initNavActions()).catch(() => {});
   fillAccount();
 
   // Update the active marker on both the bottom bar and the header switch.
@@ -110,6 +115,20 @@ function buildTabBar(onTab) {
     `<button type="button" class="mtab${k === "menu" ? " mtab-menu" : ""}" data-key="${k}">${TAB_ICONS[k]}<span class="mtab-lbl">${l}</span></button>`
   ).join("");
   document.body.appendChild(nav);
+  // A tab tap dismisses any open header panel (Markets/Saved/Notifications) or
+  // the search palette first — otherwise the overlay would linger over the new
+  // view (nav-actions did this for its own bar; the runtime bar must too).
+  const closeOverlays = () => {
+    // Escape is the shared "close" signal both nav-actions (panels) and
+    // palette.js (search) listen for — the most reliable way to dismiss either.
+    document.dispatchEvent(new KeyboardEvent("keydown", { key: "Escape", bubbles: true }));
+    // Belt-and-braces for the panels in case a listener isn't bound yet.
+    document.querySelectorAll(".na-panel.open, .na-panel:not([hidden])").forEach((p) => { p.classList.remove("open"); p.hidden = true; });
+    document.querySelectorAll(".na-btn[aria-expanded='true']").forEach((btn) => btn.setAttribute("aria-expanded", "false"));
+    const pal = document.querySelector(".mcmdk.open");
+    if (pal) { pal.classList.remove("open"); if (document.activeElement && pal.contains(document.activeElement)) document.activeElement.blur(); }
+  };
+  const go = (key) => { closeOverlays(); onTab(key); };
   // Navigate on pointerup so a tap feels immediate but a scroll/drag doesn't
   // fire it; fall back to click for non-pointer environments.
   let downBtn = null, dx = 0, dy = 0;
@@ -118,8 +137,8 @@ function buildTabBar(onTab) {
     const b = e.target.closest(".mtab");
     if (!b || b !== downBtn) return;
     if (Math.abs(e.clientX - dx) > 10 || Math.abs(e.clientY - dy) > 10) return;   // was a drag
-    onTab(b.dataset.key);
+    go(b.dataset.key);
   });
-  nav.addEventListener("click", (e) => { if (!window.PointerEvent) { const b = e.target.closest(".mtab"); if (b) onTab(b.dataset.key); } });
+  nav.addEventListener("click", (e) => { if (!window.PointerEvent) { const b = e.target.closest(".mtab"); if (b) go(b.dataset.key); } });
   return nav;
 }

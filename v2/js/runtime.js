@@ -193,7 +193,7 @@ function onPop() {
 
 // ---- Boot ------------------------------------------------------------------
 async function boot() {
-  const { initChrome } = await import("./chrome.js?v=v2-1");
+  const { initChrome } = await import("./chrome.js?v=v2-2");
   _setActive = initChrome({ onTab: (key) => navigate(tabPath(key), { push: true }) });
   window.addEventListener("popstate", onPop);
   await navigate(location.pathname + location.search + location.hash, { push: false, replace: true });
