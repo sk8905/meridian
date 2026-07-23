@@ -6,9 +6,8 @@ import { initGlance } from "../home/glance.js?v=v2-1";
 export const css = ["/home.css?v=20260722-11", "/feed.css?v=20260721-1"];
 export function mount(host, ctx) {
   host.innerHTML = HOME_HTML;
-  let done = false;
-  return {
-    enter() { if (!done) { done = true; try { initGlance(); } catch (e) { /* keep shell */ } } },
-    leave() {},
-  };
+  // Render on mount (revisits keep this DOM alive). initGlance self-guards
+  // (runs once) and is wrapped so a render error keeps the briefing shell.
+  try { initGlance(); } catch (e) { /* keep shell */ }
+  return { enter() {}, leave() {} };
 }

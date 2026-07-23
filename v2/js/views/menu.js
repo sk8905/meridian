@@ -74,6 +74,8 @@ export function mount(host, ctx) {
     fillMenuAccount();
   };
 
+  render();   // initial render on mount (revisits keep this DOM alive)
+
   host.addEventListener("click", (e) => {
     const chip = e.target.closest(".na-menu-bar .tchip");
     if (chip) { sec = chip.dataset.sec; render(); return; }

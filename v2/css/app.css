@@ -47,10 +47,13 @@ a { color: var(--primary); text-decoration: none; }
   .v2-app { padding-bottom: calc(var(--wire-bar-h, 52px) + env(safe-area-inset-bottom, 0px)); }
 }
 
-/* Crossfade for the same-document view transition (kept short + calm; iOS
-   honours this). premium.css also styles ::view-transition(root); this is a
-   harmless, matching duration for the SPA swaps. */
-::view-transition-old(root), ::view-transition-new(root) { animation-duration: .16s; }
+/* Switch feedback: a short, compositor-driven fade-IN on the incoming view.
+   Deliberately NOT a view transition (snapshotting a heavy outgoing view is slow
+   and variable on iOS). Starts at 0.55 opacity — never a blank frame — so it
+   reads as a gentle settle, identical cost on every switch. */
+@keyframes v2-fade-in { from { opacity: .55; } to { opacity: 1; } }
+.v2-view.v2-fade { animation: v2-fade-in .13s ease-out; }
+@media (prefers-reduced-motion: reduce) { .v2-view.v2-fade { animation: none; } }
 
 /* Loading skeleton shown the instant a not-yet-mounted tab is opened, so a switch
    paints immediately instead of blanking while the view's module/data loads. */

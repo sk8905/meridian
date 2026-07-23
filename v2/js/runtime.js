@@ -2,11 +2,14 @@
 // runtime.js — the Wire single-page runtime (v2).
 //
 // ONE of these loads for the whole app. It owns:
-//   • the router (History API + same-document view transitions)
+//   • the router (History API; switches are an instant, constant-time show/hide —
+//     NOT a view transition, whose snapshot capture of a heavy view is slow and
+//     variable on iOS)
 //   • the shared chrome (header + bottom tab bar), initialised ONCE
 //   • an in-memory data cache (each dataset/API loaded once per session)
 //   • view lifecycles (each tab is a lazy-loaded module, mounted once and then
-//     kept alive — revisiting a tab shows already-rendered DOM, instantly)
+//     kept alive — revisiting a tab shows its already-rendered DOM instantly,
+//     with no re-render)
 //
 // This is the structural fix for the tab-change lag: there is no per-tab
 // document, no bundle re-fetch, no re-parse of huge data on every switch. The
@@ -19,11 +22,11 @@ const BASE = "/v2";
 // heavy data) is fetched only when the tab is first opened, then cached by the
 // browser's module map for the session (no nonce, so revisits never re-fetch).
 const ROUTES = [
-  { key: "home",   title: "Wire",        load: () => import("./views/home.js?v=v2-1") },
+  { key: "home",   title: "Wire",        load: () => import("./views/home.js?v=v2-2") },
   { key: "macro",  title: "Wire Macro",  load: () => import("./views/macro.js?v=v2-1") },
   { key: "credit", title: "Wire Credit", load: () => import("./views/credit.js?v=v2-1") },
   { key: "legal",  title: "Wire Legal",  load: () => import("./views/legal.js?v=v2-1") },
-  { key: "menu",   title: "Wire Menu",   load: () => import("./views/menu.js?v=v2-1") },
+  { key: "menu",   title: "Wire Menu",   load: () => import("./views/menu.js?v=v2-2") },
 ];
 const ROUTE_BY_KEY = Object.fromEntries(ROUTES.map((r) => [r.key, r]));
 
@@ -138,39 +141,37 @@ export async function navigate(path, { push = true, replace = false } = {}) {
   if (same) { const r = _views.get(key); r && r.mounted && r.ctrl.enter && r.ctrl.enter(sub); setChromeActive(key); return; }
   _busy = true;
 
-  // INSTANT swap: show the destination section NOW — its already-rendered content
-  // if it's mounted (keep-alive), otherwise a skeleton. The transition never
-  // waits on a module/data load, so a switch can't blank or freeze; the heavy
-  // mount happens afterwards with the skeleton visible.
+  // INSTANT, CONSTANT-TIME swap. Deliberately NOT a view transition: capturing a
+  // snapshot of a heavy outgoing view (Home/Legal) on iOS is slow AND variable —
+  // that was the "sometimes quick, sometimes not". A plain show/hide is the same
+  // few milliseconds every time. A kept-alive view shows its PRESERVED DOM (no
+  // re-render → no flash, no variable cost); a first-visit shows a skeleton while
+  // its module loads.
   const rec = getShell(key);
-  const swap = () => {
-    if (_active && _views.has(_active)) {
-      const prev = _views.get(_active);
-      prev.mounted && prev.ctrl.leave && prev.ctrl.leave();
-      prev.section.hidden = true;
-    }
-    rec.section.hidden = false;
-    document.documentElement.dataset.v2tab = key;   // active-tab flag BEFORE enter()
-    _active = key;
-    document.title = ROUTE_BY_KEY[key].title;
-    setChromeActive(key);
-    window.scrollTo(0, 0);
-    // Already mounted → refresh its view for the sub-route now (cheap: render
-    // from already-parsed data), keeping the switch instant.
-    if (rec.mounted && rec.ctrl.enter) rec.ctrl.enter(sub);
-  };
-  if ("startViewTransition" in document) {
-    const vt = document.startViewTransition(swap);
-    try { await vt.updateCallbackDone; } catch { /* interrupted — swap applied */ }
-  } else { swap(); }
+  if (_active && _views.has(_active)) {
+    const prev = _views.get(_active);
+    prev.mounted && prev.ctrl.leave && prev.ctrl.leave();
+    prev.section.hidden = true;
+  }
+  rec.section.hidden = false;
+  rec.section.classList.remove("v2-fade"); void rec.section.offsetWidth; rec.section.classList.add("v2-fade");
+  document.documentElement.dataset.v2tab = key;    // active-tab flag before any enter()
+  _active = key;
+  document.title = ROUTE_BY_KEY[key].title;
+  setChromeActive(key);
+  window.scrollTo(0, 0);
   _busy = false;
   if (_pending) { const [p, o] = _pending; _pending = null; navigate(p, o); return; }
 
   // First visit → load + mount now (the skeleton is already on screen; its
   // spinner animates on the compositor, so it keeps moving even while a big data
-  // module parses on the main thread). Guard on the user still being here.
+  // module parses on the main thread). mount() renders the initial view itself
+  // (ported apps via their boot, reading location.hash for deep links; the Menu
+  // renders in its mount too), so nothing more is needed here. A kept-alive
+  // revisit does NOTHING — its preserved DOM is already showing, which is what
+  // makes revisits instant and flicker-free.
   if (!rec.mounted) {
-    try { await mountView(key); if (_active === key && rec.ctrl.enter) rec.ctrl.enter(sub); }
+    try { await mountView(key); }
     catch { if (_active === key) rec.section.innerHTML = '<div class="v2-loading">Could not load this view.</div>'; }
   }
   // NOTE: no background pre-mounting. It was tried and removed — parsing a heavy

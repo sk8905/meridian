@@ -13,13 +13,9 @@ const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/");
 await pg.waitForTimeout(700);
 
 // Stamp the loaded document so a full reload (which would blow the SPA promise)
-// is detectable, and count view transitions.
-await pg.evaluate(() => {
-  window.__boot = Math.random();
-  window.__vt = 0;
-  const o = document.startViewTransition && document.startViewTransition.bind(document);
-  if (o) document.startViewTransition = (cb) => { window.__vt++; return o(cb); };
-});
+// is detectable. (Switching is a plain constant-time swap, not a view
+// transition — see runtime.js — so there's no transition to count.)
+await pg.evaluate(() => { window.__boot = Math.random(); });
 const boot0 = await pg.evaluate(() => window.__boot);
 
 check(await pg.evaluate(() => !!document.querySelector(".mobile-tabbar")), "bottom tab bar mounted once");
@@ -38,7 +34,6 @@ const tap = async (key) => {
     docs: document.querySelectorAll("#app").length,
     views: document.querySelectorAll(".v2-view").length,
     booted: window.__boot,
-    vt: window.__vt,
   }));
 };
 
@@ -48,8 +43,6 @@ for (const [key, path] of [["macro", "/v2/macro/"], ["credit", "/v2/credit/"], [
   checkEq(s.active, key, `tap ${key}: ${key} view is the visible one`);
   checkEq(s.booted, boot0, `tap ${key}: same document (no reload)`);
 }
-const afterChain = await pg.evaluate(() => window.__vt);
-check(afterChain >= 4, `a view transition ran per switch (got ${afterChain})`);
 
 // Keep-alive: tag Credit's section node, leave, come back — the SAME node (tag
 // intact) and exactly one section prove the view stayed alive (mounted once,
