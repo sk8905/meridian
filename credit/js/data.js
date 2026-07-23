@@ -1799,3 +1799,46 @@ export function dealsForManager(managerId) {
 export function dealsForFund(fundId) {
   return deals.filter((d) => d.fundId === fundId);
 }
+
+// ---------------------------------------------------------------------------
+// HEDGE FUNDS — a reference league table of the largest hedge-fund managers
+// across the US, UK and Europe (rendered on Credit ▸ Hedge Funds, in the same
+// style as the Managers table). Name / HQ / region / strategy / founded /
+// founder are stable public facts. `aum` is US$bn and is APPROXIMATE, drawn
+// from the latest widely-reported public figures (firm-wide, indicative only —
+// hedge funds do not disclose AUM uniformly); `estimated: true` marks that.
+// The daily refresh routine verifies/updates these against current sources.
+// `url` is the firm's own site. Never fabricate — an unknown field is null.
+export const HEDGE_FUNDS_ASOF = "2026-07";
+export const HEDGE_FUNDS = [
+  { id: "h1",  name: "Bridgewater Associates",        hq: "Westport, CT, US",       region: "US",     aum: 92,  strategy: "Global macro",                founded: 1975, founder: "Ray Dalio",                       estimated: true, url: "https://www.bridgewater.com/" },
+  { id: "h2",  name: "Man Group",                     hq: "London, UK",             region: "UK",     aum: 178, strategy: "Multi (quant & discretionary)", founded: 1783, founder: "Listed (LSE: EMG)",              estimated: true, url: "https://www.man.com/" },
+  { id: "h3",  name: "Millennium Management",          hq: "New York, US",           region: "US",     aum: 75,  strategy: "Multi-strategy",              founded: 1989, founder: "Israel Englander",                estimated: true, url: "https://www.mlp.com/" },
+  { id: "h4",  name: "Citadel",                        hq: "Miami, FL, US",          region: "US",     aum: 66,  strategy: "Multi-strategy",              founded: 1990, founder: "Ken Griffin",                     estimated: true, url: "https://www.citadel.com/" },
+  { id: "h5",  name: "Elliott Investment Management",  hq: "West Palm Beach, FL, US", region: "US",    aum: 73,  strategy: "Activist / multi-strategy",   founded: 1977, founder: "Paul Singer",                     estimated: true, url: "https://www.elliottmgmt.com/" },
+  { id: "h6",  name: "D. E. Shaw & Co.",               hq: "New York, US",           region: "US",     aum: 65,  strategy: "Quant / multi-strategy",      founded: 1988, founder: "David E. Shaw",                   estimated: true, url: "https://www.deshaw.com/" },
+  { id: "h7",  name: "Two Sigma Investments",          hq: "New York, US",           region: "US",     aum: 60,  strategy: "Quantitative",                founded: 2001, founder: "John Overdeck & David Siegel",    estimated: true, url: "https://www.twosigma.com/" },
+  { id: "h8",  name: "Renaissance Technologies",       hq: "East Setauket, NY, US",  region: "US",     aum: 60,  strategy: "Quantitative",                founded: 1982, founder: "Jim Simons",                      estimated: true, url: "https://www.rentec.com/" },
+  { id: "h9",  name: "AQR Capital Management",         hq: "Greenwich, CT, US",      region: "US",     aum: 120, strategy: "Quant / factor",              founded: 1998, founder: "Cliff Asness",                    estimated: true, url: "https://www.aqr.com/" },
+  { id: "h10", name: "Point72 Asset Management",       hq: "Stamford, CT, US",       region: "US",     aum: 40,  strategy: "Multi-strategy",              founded: 2014, founder: "Steven A. Cohen",                 estimated: true, url: "https://www.point72.com/" },
+  { id: "h11", name: "Farallon Capital Management",    hq: "San Francisco, CA, US",  region: "US",     aum: 41,  strategy: "Multi-strategy",              founded: 1986, founder: "Thomas Steyer",                   estimated: true, url: "https://www.faralloncapital.com/" },
+  { id: "h12", name: "Davidson Kempner Capital",       hq: "New York, US",           region: "US",     aum: 37,  strategy: "Multi-strategy / credit",     founded: 1983, founder: "Thomas Kempner Jr.",              estimated: true, url: "https://www.davidsonkempner.com/" },
+  { id: "h13", name: "Brevan Howard",                  hq: "London, UK / Jersey",    region: "UK",     aum: 35,  strategy: "Global macro",                founded: 2002, founder: "Alan Howard",                     estimated: true, url: "https://www.brevanhoward.com/" },
+  { id: "h14", name: "Marshall Wace",                  hq: "London, UK",             region: "UK",     aum: 71,  strategy: "Long/short equity",           founded: 1997, founder: "Paul Marshall & Ian Wace",        estimated: true, url: "https://www.mwam.com/" },
+  { id: "h15", name: "Capula Investment Management",   hq: "London, UK",             region: "UK",     aum: 30,  strategy: "Fixed income / macro",        founded: 2005, founder: "Yan Huo",                         estimated: true, url: "https://www.capula.com/" },
+  { id: "h16", name: "Baupost Group",                  hq: "Boston, MA, US",         region: "US",     aum: 27,  strategy: "Value / event-driven",        founded: 1982, founder: "Seth Klarman",                    estimated: true, url: "https://www.baupost.com/" },
+  { id: "h17", name: "Balyasny Asset Management",      hq: "Chicago, IL, US",        region: "US",     aum: 21,  strategy: "Multi-strategy",              founded: 2001, founder: "Dmitry Balyasny",                 estimated: true, url: "https://www.bam.com/" },
+  { id: "h18", name: "Rokos Capital Management",       hq: "London, UK",             region: "UK",     aum: 20,  strategy: "Global macro",                founded: 2015, founder: "Chris Rokos",                     estimated: true, url: "https://www.rokoscapital.com/" },
+  { id: "h19", name: "Qube Research & Technologies",   hq: "London, UK",             region: "UK",     aum: 20,  strategy: "Quantitative",                founded: 2018, founder: "Pierre-Yves Morlat & team",       estimated: true, url: "https://www.qube-rt.com/" },
+  { id: "h20", name: "Systematica Investments",        hq: "Geneva, Switzerland",    region: "Europe", aum: 18,  strategy: "Quantitative",                founded: 2015, founder: "Leda Braga",                      estimated: true, url: "https://www.systematica.com/" },
+  { id: "h21", name: "CQS",                            hq: "London, UK",             region: "UK",     aum: 18,  strategy: "Credit / multi-strategy",     founded: 1999, founder: "Michael Hintze",                  estimated: true, url: "https://www.cqs.com/" },
+  { id: "h22", name: "Egerton Capital",               hq: "London, UK",             region: "UK",     aum: 18,  strategy: "Long/short equity",           founded: 1994, founder: "John Armitage",                   estimated: true, url: "https://www.egertoncapital.com/" },
+  { id: "h23", name: "ExodusPoint Capital",            hq: "New York, US",           region: "US",     aum: 13,  strategy: "Multi-strategy",              founded: 2018, founder: "Michael Gelband",                 estimated: true, url: "https://www.exoduspoint.com/" },
+  { id: "h24", name: "Schonfeld Strategic Advisors",   hq: "New York, US",           region: "US",     aum: 13,  strategy: "Multi-strategy / quant",      founded: 1988, founder: "Steven Schonfeld",                estimated: true, url: "https://www.schonfeld.com/" },
+  { id: "h25", name: "Verition Fund Management",       hq: "Greenwich, CT, US",      region: "US",     aum: 12,  strategy: "Multi-strategy",              founded: 2008, founder: "Nicholas Maounis",                estimated: true, url: "https://www.verition.com/" },
+  { id: "h26", name: "LMR Partners",                   hq: "London, UK / Zug",       region: "Europe", aum: 10,  strategy: "Multi-strategy",              founded: 2009, founder: "Ben Levine & Andrew Manuel",      estimated: true, url: "https://www.lmrpartners.com/" },
+  { id: "h27", name: "Winton Group",                   hq: "London, UK",             region: "UK",     aum: 8,   strategy: "Quant / CTA",                 founded: 1997, founder: "David Harding",                   estimated: true, url: "https://www.winton.com/" },
+  { id: "h28", name: "Lansdowne Partners",             hq: "London, UK",             region: "UK",     aum: 8,   strategy: "Long/short equity",           founded: 1998, founder: "Paul Ruddock & Steven Heinz",     estimated: true, url: "https://www.lansdownepartners.com/" },
+  { id: "h29", name: "Eisler Capital",                 hq: "London, UK",             region: "UK",     aum: 5,   strategy: "Multi-strategy",              founded: 2015, founder: "Edward Eisler",                   estimated: true, url: "https://www.eislercapital.com/" },
+  { id: "h30", name: "Kairos Partners",                hq: "Milan, Italy",           region: "Europe", aum: 5,   strategy: "Multi-strategy",              founded: 1999, founder: "Paolo Basilico",                  estimated: true, url: "https://www.kairospartners.com/" },
+];

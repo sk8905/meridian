@@ -8,7 +8,8 @@ import {
   managers, funds, lps, intel, commitments, deals, research,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "/credit/js/data.js?v=20260722-5";
+  HEDGE_FUNDS, HEDGE_FUNDS_ASOF,
+} from "/credit/js/data.js?v=20260723-4";
 import { barChart, donutChart, lineChart, multiLineChart } from "/credit/js/charts.js?v=20260722-4";
 import {
   eur, pct, fmtDate, link, notFound,
@@ -646,6 +647,17 @@ function viewDashboard() {
     + `<td class="tl-n">${r.live || ""}</td>`
     + `<td class="tl-cl">${cloMgrIds.has(r.m.id) ? "●" : ""}</td>`
     + `<td class="tl-sls">${slsChips(r.m)}</td></tr>`;
+  // Hedge Funds league table — largest managers across US / UK / Europe, sorted
+  // by (approximate) AUM. Rows open the firm's own site in a new tab.
+  const hfRows = [...HEDGE_FUNDS].sort((a, b) => (b.aum || 0) - (a.aum || 0));
+  const hfRow = (f) => `<tr class="clickable" data-href="${esc(f.url)}" data-ext="1" data-name="${esc((f.name + " " + f.hq + " " + f.strategy + " " + f.region).toLowerCase())}">`
+    + `<td class="tl-nm">${esc(f.name)}</td>`
+    + `<td class="tl-hq">${esc(f.hq)}</td>`
+    + `<td>${esc(f.region)}</td>`
+    + `<td class="tl-n">${f.aum == null ? "—" : "$" + esc(f.aum) + "bn"}</td>`
+    + `<td>${esc(f.strategy)}</td>`
+    + `<td class="tl-n">${f.founded || "—"}</td>`
+    + `<td>${esc(f.founder || "—")}</td></tr>`;
   app.innerHTML = `
     <div class="tdash">
       <div class="tdash-grid tdash-1">
@@ -656,6 +668,7 @@ function viewDashboard() {
               <button type="button" class="tchip" data-p="deals">Deals</button>
               <button type="button" class="tchip" data-p="fundraising">Fundraising</button>
               <button type="button" class="tchip" data-p="managers">Managers</button>
+              <button type="button" class="tchip" data-p="hedgefunds">Hedge Funds</button>
             </div>
           </header>
           <div class="tpanes" id="cr-dash-panes">
@@ -675,6 +688,18 @@ function viewDashboard() {
               </div>
               <p class="tl-sls-key muted small">SLS = Structured Liquidity Solutions — NAV: NAV / fund-level financing · SRT: significant/synthetic risk transfer · CFO: collateralised fund obligation · CONT: continuation fund / vehicle · OTH: other structured liquidity (secondaries platform, fund finance). Every chip is backed by a cited article (hover for the source; the articles sit in that manager's news). — = none found in public coverage.</p>
             </div>
+            <div class="tpane" data-pane="hedgefunds" hidden>
+              <header class="tpanel-h thead-search"><span>Hedge Funds</span>
+                <input type="search" id="hf-q" class="tsearch" placeholder="Search name, HQ or strategy…" aria-label="Search hedge funds">
+              </header>
+              <div class="tleague-wrap">
+              <table class="tleague tleague-full">
+                <thead><tr><th>Fund</th><th class="tl-hq">HQ</th><th>Region</th><th>AUM&nbsp;$bn</th><th>Strategy</th><th>Founded</th><th>Founder</th></tr></thead>
+                <tbody id="hf-rows">${hfRows.map(hfRow).join("")}</tbody>
+              </table>
+              </div>
+              <p class="tl-sls-key muted small">The largest hedge-fund managers across the US, UK &amp; Europe, by AUM. <strong>AUM is US$bn and approximate</strong> — latest widely-reported public figures (firm-wide, indicative only; hedge funds do not disclose AUM uniformly). As of ${esc(HEDGE_FUNDS_ASOF)}. Click a row to open the firm's site.</p>
+            </div>
           </div>
         </section>
       </div>
@@ -692,8 +717,10 @@ function viewDashboard() {
     _chipMem[chipMemKey("cr-dash-tabs")] = p;
     const wirePane = document.querySelector('#cr-dash-panes [data-pane="wire"]');
     const mgrPane = document.querySelector('#cr-dash-panes [data-pane="managers"]');
-    if (p === "managers") { wirePane.hidden = true; mgrPane.hidden = false; return; }
-    mgrPane.hidden = true; wirePane.hidden = false;
+    const hfPane = document.querySelector('#cr-dash-panes [data-pane="hedgefunds"]');
+    if (p === "managers") { wirePane.hidden = true; hfPane.hidden = true; mgrPane.hidden = false; return; }
+    if (p === "hedgefunds") { wirePane.hidden = true; mgrPane.hidden = true; hfPane.hidden = false; return; }
+    mgrPane.hidden = true; hfPane.hidden = true; wirePane.hidden = false;
     crGroup = p; crSrc = null; paintCreditWire();
   });
   // Clicking a source name filters the wire to that newsroom (Home-style),
@@ -721,6 +748,11 @@ function viewDashboard() {
     lf.setAttribute("aria-pressed", on ? "true" : "false");
     lf.classList.toggle("is-on", on);
     document.querySelectorAll("#mgr-rows tr").forEach((tr) => { tr.style.display = (!on || tr.dataset.focus === "1") ? "" : "none"; });
+  });
+  const hq = document.getElementById("hf-q");
+  if (hq) hq.addEventListener("input", () => {
+    const v = hq.value.toLowerCase().trim();
+    document.querySelectorAll("#hf-rows tr").forEach((tr) => { tr.style.display = (!v || (tr.dataset.name || "").includes(v)) ? "" : "none"; });
   });
 }
 // In-place filter for the dashboard activity wire: chips toggle which kinds show
@@ -1558,7 +1590,13 @@ app.addEventListener("click", (e) => {
     return;
   }
   const row = e.target.closest("[data-href]");
-  if (row && !e.target.closest("a")) location.hash = row.getAttribute("data-href");
+  if (row && !e.target.closest("a")) {
+    const href = row.getAttribute("data-href");
+    // External rows (e.g. Hedge Funds → the firm's own site) open in a new tab;
+    // internal rows drive the hash router.
+    if (row.dataset.ext === "1" || /^https?:/i.test(href)) window.open(href, "_blank", "noopener");
+    else location.hash = href;
+  }
 });
 
 // Keyboard activation for sortable column headers + source-filter chips (Enter / Space).
