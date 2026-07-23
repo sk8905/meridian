@@ -202,6 +202,7 @@ item keeps a real outbound source link (R7).
 - Investing.com / Investing.com UK
 - MarketWatch
 - TradingEconomics
+- TradingView
 
 ### 8.2 Rates, macro & official statistics
 - FRED — Federal Reserve Bank of St. Louis (`fred.stlouisfed.org`)
@@ -215,6 +216,7 @@ item keeps a real outbound source link (R7).
 - DBnomics (`api.db.nomics.world`)
 - S&P Global PMI (`pmi.spglobal.com`)
 - ISM (`ismworld.org`)
+- TradingEconomics
 
 ### 8.3 News wires & financial press
 - Bloomberg (`feeds.bloomberg.com`)
@@ -233,6 +235,7 @@ item keeps a real outbound source link (R7).
 - South China Morning Post (`scmp.com`)
 - The Straits Times (`straitstimes.com`)
 - City AM
+- DealBook — The New York Times (`nytimes.com/section/business/dealbook`)
 
 ### 8.4 Macro strategy & commentary
 (Roster behind R18 — ≥10 items/day, real dated pieces only.)
@@ -252,7 +255,7 @@ item keeps a real outbound source link (R7).
 - Mohamed El-Erian (`mohamedelerian.substack.com`)
 - Selected Substacks (`investorama.substack.com`, `debtserious.substack.com`)
 
-### 8.5 Credit & private markets
+### 8.5 Credit, private markets & hedge funds
 - Alternative Credit Investor
 - Alternatives Watch
 - GlobalCapital
@@ -264,6 +267,15 @@ item keeps a real outbound source link (R7).
 - Newswires: Business Wire, GlobeNewswire, PR Newswire
 - SEC / EDGAR filings
 - Company & sponsor press releases
+- Hedge Fund Research (HFR)
+- Hedge Fund Monitor
+- Aurum
+- Nishant Kumar (Bloomberg)
+- PE Wire
+- Paul Krugman
+- Moody's
+- S&P (Global Ratings)
+- Morningstar
 
 ### 8.6 Legal & courts
 - UK courts: High Court (Chancery · Commercial · King's Bench · Administrative;
