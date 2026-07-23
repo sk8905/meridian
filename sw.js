@@ -28,7 +28,7 @@
 // stale-while-revalidate path would otherwise serve once more. Bumped to flush
 // the pre-PTR /menu/ shell (it had no ptr.js, so its dark inline html showed as
 // a black band on pull and it couldn't self-update).
-const CACHE = "wire-shell-v2";
+const CACHE = "wire-shell-v3";   // bumped: flush cached shells so the PWA→v2 standalone redirect lands promptly
 // The no-cache data modules (see _headers). Cached under their bare pathname —
 // importers reference them with assorted stale ?v= tokens; the bodies are
 // identical, so all variants map to one entry.
