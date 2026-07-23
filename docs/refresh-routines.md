@@ -122,6 +122,15 @@ extra deep-research pass on watchlisted names is skipped.
   block automated fetching, so enumerate new article URLs with `site:<domain>` web
   searches and verify dates. Skip data-aggregators (GuruFocus, Tracxn, ZoomInfo,
   Crunchbase, PitchBook, SimplyWall, MarketBeat).
+  - **Canonical resource roster → `docs/HOUSE_STYLE.md` §8.** That sectioned list
+    is the master set of sources this app draws on; treat it as the roster to pull
+    from and keep in step. It now additionally includes, and every run should draw
+    on where relevant: **MT Newswires (via Koyfin)**, **DealBook (The New York
+    Times)**, **TradingView**, **Financial News London (fnlondon.com)**, and the
+    credit/hedge-fund & ratings sources **Hedge Fund Research (HFR)**, **Hedge Fund
+    Monitor**, **Aurum**, **Nishant Kumar (Bloomberg)**, **PE Wire**, **Paul
+    Krugman**, **Moody's**, **S&P (Global Ratings)** and **Morningstar**. When §8
+    gains a source, it is in-scope for the next refresh without editing this file.
 - **Cache-busters.** Each app has `?v=YYYYMMDD-N` tokens that MUST move in
   lockstep or the browser serves a stale `app.js`:
   - Credit: `css/styles.css?v=` & `js/app.js?v=` in `credit/index.html`; the
@@ -649,7 +658,8 @@ extra deep-research pass on watchlisted names is skipped.
 >      markets stories (inflation, central banks, growth, jobs, rates, fiscal) from
 >      reputable financial outlets — wires & majors (Reuters, AP, Bloomberg, Financial
 >      Times, Wall Street Journal, CNBC, The Economist, TradingEconomics, MarketWatch,
->      Yahoo Finance, Investing.com, Briefing.com); fast US
+>      Yahoo Finance, Investing.com, Briefing.com, MT Newswires (via Koyfin),
+>      DealBook (NYT), TradingView, Financial News London); fast US
 >      business/policy (Axios, Semafor, Barron's, Politico); UK (The Guardian, BBC,
 >      Sky News, CityAM); and — to fill the quiet overnight / early
 >      (05:00-run) window when US/UK desks are dark — round-the-clock FX/rates & Asia
