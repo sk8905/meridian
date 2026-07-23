@@ -513,9 +513,9 @@
 
 /* Day-break separator rows in the wires — the same scanning aid as the Home
    feed: a darker mono band marking where one day ends and the next begins. */
-.tw-day { list-style: none; padding: 5px 12px 3px; font-family: var(--t-mono, ui-monospace, monospace);
-  font-size: 9.5px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase;
-  color: var(--accent, #fb8b1e); background: rgba(0, 0, 0, .45); border-bottom: 1px solid rgba(255, 255, 255, .22); }
-/* Light theme: the black-tint band read as heavy grey. Flip to a white band with
-   blue label text and a grey bottom border matching the row hairlines. */
-:root[data-theme="light"] .tw-day { color: #2f6cae; background: var(--surface); border-bottom: 1px solid var(--border); }
+/* Day-break header — matches the standard wire day-break (.g-feed-dayhdr):
+   sans-serif, 10px/600, uppercase, a grey band with the accent label. */
+.tw-day { list-style: none; padding: 6px 12px;
+  font-size: 10px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;
+  color: var(--t-accent, var(--accent, #fb8b1e)); background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border); }
+:root[data-theme="light"] .tw-day { color: #2f6cae; background: var(--head, #f4f7fb); border-bottom: 1px solid var(--border); }

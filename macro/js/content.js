@@ -183,6 +183,16 @@ export const OUTLOOK = {
 // Analysis / opinion / research pieces on Fed & BoE policy from named economists
 // and reputable houses, newest first. Rendered as a two-column feed styled like
 // the dashboard's Key macro headlines; the four-times-daily routine keeps it current.
+//
+// REFRESH DIRECTIVE — coverage target: at least 10 commentary items PER DAY
+// across US+UK (this list has been running too light). Draw from a broad roster
+// of macro-strategy houses and economists, including but not limited to:
+//   Yardeni Research, Absolute Strategy Research, Gavekal, BCA Research,
+//   Capital Economics, Pantheon Macroeconomics, Oxford Economics, TS Lombard,
+//   Alpine Macro, Variant Perception, ING, Bloomberg Opinion (Authers/Dudley/
+//   El-Erian), Project Syndicate, Mohamed El-Erian, John Authers, plus central-
+//   bank speeches/minutes commentary. Keep each item's real headline + source
+//   link; never fabricate — only add pieces that exist and are dated.
 export const COMMENTARY = {
   updated: "2026-07-23",
   us: [
