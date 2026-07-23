@@ -13,7 +13,7 @@ export const UPDATED = "23 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-23",
-  lastCheckedTime: "17:20 BST",
+  lastCheckedTime: "21:17 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -208,17 +208,15 @@ export const COMMENTARY = {
     { title: "The Oil Question That Really Matters for Stocks", source: "Bloomberg Opinion", author: "John Authers", date: "2026-07-22", url: "https://www.bloomberg.com/opinion/newsletters/2026-07-22/the-oil-question-that-really-matters-for-stocks" },
     { title: "Watch: Four reasons why US inflation should slow from here", source: "ING", author: "James Knightley", date: "2026-07-22", url: "https://think.ing.com/think-vision/videos/watch-four-reasons-why-us-inflation-should-slow-from-here/" },
     { title: "Fed to hold rates this year despite high inflation, but economists cite high chances of a hike: Reuters poll", source: "Reuters", author: null, date: "2026-07-21", url: "https://www.investing.com/news/economy-news/fed-to-hold-rates-this-year-despite-high-inflation-but-economists-cite-high-chances-of-a-hike-reuters-poll-4803207" },
+    { title: "US Midyear Outlook: Geopolitical Shocks, the New Fed Era, and Growth", source: "Goldman Sachs Exchanges", author: "David Mericle", date: "2026-07-20", url: "https://www.goldmansachs.com/insights/goldman-sachs-exchanges/us-midyear-outlook-geopolitical-shocks-the-new-fed-era-and-growth" },
     { title: "The Federal Reserve Needs to Raise Interest Rates", source: "Bloomberg Opinion", author: "Bill Dudley", date: "2026-07-20", url: "https://www.bloomberg.com/opinion/articles/2026-07-20/the-federal-reserve-needs-to-raise-interest-rates" },
-    { title: "A Better Day for Inflation, a Bummer for IBM", source: "Bloomberg Opinion", author: "John Authers", date: "2026-07-15", url: "https://www.bloomberg.com/opinion/newsletters/2026-07-15/a-better-day-for-inflation-a-bummer-for-ibm" },
-    { title: "Supreme Court Seen to Support Fed Independence, Barely", source: "Bloomberg Opinion", author: null, date: "2026-07-03", url: "https://www.bloomberg.com/opinion/articles/2026-07-03/supreme-court-seen-to-support-fed-independence-barely" },
-    { title: "Warsh Must Beware of Yield Curves Flattening to Deceive", source: "Bloomberg Opinion", author: "John Authers", date: "2026-07-02", url: "https://www.bloomberg.com/opinion/newsletters/2026-07-02/warsh-must-beware-of-yield-curves-flattening-to-deceive" },
   ],
   uk: [
     { title: "What the New UK Chancellor Means for the UK Economy", source: "Project Syndicate", author: "Mohamed A. El-Erian", date: "2026-07-22", url: "https://www.project-syndicate.org/commentary/what-john-healey-appointment-as-chancellor-means-for-uk-economy-by-mohamed-a-el-erian-2026-07" },
     { title: "Lower UK inflation weakens the case for rate hikes", source: "ING", author: "James Smith", date: "2026-07-22", url: "https://think.ing.com/snaps/lower-uk-inflation-weakens-the-case-for-rate-hikes/" },
     { title: "Gilts under pressure as investors brace for higher spending under new PM", source: "Capital Economics", author: "Paul Dales", date: "2026-07-21", url: "https://www.capitaleconomics.com/newsroom/gilts-under-pressure-investors-brace-higher-spending-under-new-pm" },
+    { title: "Should Burnham Front-Load The Fiscal Squeeze?", source: "NIESR", author: null, date: "2026-07-16", url: "https://niesr.ac.uk/blog/should-burnham-front-load-fiscal-squeeze" },
     { title: "Pound Sterling: UK Loan Defaults Rise, But Economists See No Threat To Growth", source: "Pantheon Macroeconomics", author: null, date: "2026-07-20", url: "https://www.exchangerates.org.uk/news/46567/2026-07-20-pound-sterling-uk-loan-defaults-rise-but-economists-see-no-threat-to-growth.html" },
-    { title: "Pound Sterling: UK Economy Defies Higher Oil Prices, Says Pantheon", source: "Pantheon Macroeconomics", author: null, date: "2026-07-12", url: "https://www.exchangerates.org.uk/news/46480/2026-07-12-pound-sterling-uk-economy-defies-higher-oil-prices-says-pantheon.html" },
   ],
 };
 
@@ -515,15 +513,15 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-07-23",
   us: [
+    { title: "Brent crude tops $100 a barrel. How the next stop could be $120", source: "CNBC", date: "2026-07-23", time: "21:13", url: "https://www.cnbc.com/2026/07/23/brent-crude-tops-100-a-barrel-how-the-next-stop-could-be-120.html" },
+    { title: "Fed rate decision: Odds surge for hike as oil rips higher", source: "CNBC", date: "2026-07-23", time: "21:13", url: "https://www.cnbc.com/2026/07/23/fed-interest-rate-odds-oil-jobless-claims.html" },
+    { title: "Stock market today: Dow, S&P 500, Nasdaq sell off as rising oil prices, bond yields, and AI capex weigh", source: "Yahoo Finance", date: "2026-07-23", time: "21:13", url: "https://finance.yahoo.com/markets/live/stock-market-today-thursday-july-23-dow-sp-500-nasdaq-oil-bonds-earnings-084444369.html" },
     { title: "US Treasury Yields Hit 2026 Highs as Oil Price Surge Lifts Fed Rate Bets", source: "Bloomberg", date: "2026-07-23", time: "17:11", url: "https://www.bloomberg.com/news/articles/2026-07-23/us-treasury-yields-rise-to-2026-highs-as-oil-gains-spark-fed-bet" },
-    { title: "10-year Treasury yield rises to highest since January 2025 as surging oil rekindles inflation fear", source: "CNBC", date: "2026-07-23", time: "17:11", url: "https://www.cnbc.com/2026/07/23/treasury-yields-oil-prices-jobless-claims.html" },
     { title: "The number of Americans filing for unemployment is the lowest since 1969", source: "CNN", date: "2026-07-23", time: "17:11", url: "https://www.cnn.com/2026/07/23/economy/us-initial-jobless-claims-1969" },
-    { title: "U.S. oil tops $90, Brent above $98 after tankers struck off Saudi Arabia", source: "CNBC", date: "2026-07-23", time: "17:11", url: "https://www.cnbc.com/2026/07/23/oil-prices-today-wti-brent-trump-iran-hormuz.html" },
-    { title: "Iran war live: Tehran attacks Kuwait-Iraq border crossing, Jordan, Bahrain", source: "Al Jazeera", date: "2026-07-23", time: "17:11", url: "https://www.aljazeera.com/news/liveblog/2026/7/23/iran-war-live-us-launches-new-attacks-houthis-attack-2-saudi-oil-tankers" },
   ],
   uk: [
+    { title: "UK Chancellor Healey Vows Fiscal Buffer to Shield Economy From Shocks", source: "Bloomberg", date: "2026-07-23", time: "21:13", url: "https://www.bloomberg.com/news/articles/2026-07-23/uk-chancellor-healey-pledges-fiscal-buffer-in-pitch-to-the-city" },
     { title: "Andy Burnham to cut business rates by 20% for pubs, clubs and music venues", source: "ITV News", date: "2026-07-23", time: "17:11", url: "https://www.itv.com/news/2026-07-23/andy-burnham-to-cut-business-rates-by-20-for-pubs-clubs-and-music-venues" },
-    { title: "UK's Burnham Cuts Business Rates in Some Relief for Pubs, Clubs, Music Venues", source: "Bloomberg", date: "2026-07-23", time: "17:11", url: "https://www.bloomberg.com/news/newsletters/2026-07-23/uk-s-burnham-cuts-business-rates-in-some-relief-for-pubs-clubs-music-venues" },
     { title: "John Healey vows to 'make life more affordable' in first speech to Treasury staff", source: "Yahoo News UK", date: "2026-07-23", time: "17:11", url: "https://uk.news.yahoo.com/john-healey-vows-life-more-094323802.html" },
     { title: "Pound Sterling Price News & Forecast: GBP/USD edges higher to around 1.3385", source: "FXStreet", date: "2026-07-23", time: "17:11", url: "https://www.fxstreet.com/news/pound-sterling-price-news-forecast-gbp-usd-edges-higher-to-around-13385-202607230248" },
     { title: "UK Gilt Yields Rise on Fiscal Concerns, Oil Surge", source: "TradingView / Trading Economics", date: "2026-07-23", time: "17:11", url: "https://www.tradingview.com/news/te_news:569222:0-uk-gilt-yields-rise-on-fiscal-concerns-oil-surge/" },
@@ -540,6 +538,10 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-23",
   items: [
+    {"title":"Brent crude tops $100 a barrel. How the next stop could be $120","source":"CNBC","date":"2026-07-23","url":"https://www.cnbc.com/2026/07/23/brent-crude-tops-100-a-barrel-how-the-next-stop-could-be-120.html","blurb":"Brent settled around $100.69, up ~7% on the day, after Houthi strikes on two Saudi tankers; analysts flag the 2022 high of $128 and even 2008's $146 as risk-case targets."},
+    {"title":"Fed rate decision: Odds surge for hike as oil rips higher","source":"CNBC","date":"2026-07-23","url":"https://www.cnbc.com/2026/07/23/fed-interest-rate-odds-oil-jobless-claims.html","blurb":"July-hike odds jumped to nearly 38% (from under 12% a week ago) and September to ~82%, as the lowest jobless claims since 1969 met an oil-driven inflation scare."},
+    {"title":"UK Chancellor Healey Vows Fiscal Buffer to Shield Economy From Shocks","source":"Bloomberg","date":"2026-07-23","url":"https://www.bloomberg.com/news/articles/2026-07-23/uk-chancellor-healey-pledges-fiscal-buffer-in-pitch-to-the-city","blurb":"In his first City pitch since taking office, Healey pledged to meet the fiscal rules \"with a buffer against uncertainty,\" calling fiscal credibility \"the bedrock of stability.\""},
+    {"title":"Stock market today: Dow, S&P 500, Nasdaq sell off as rising oil prices, bond yields, and AI capex weigh","source":"Yahoo Finance","date":"2026-07-23","url":"https://finance.yahoo.com/markets/live/stock-market-today-thursday-july-23-dow-sp-500-nasdaq-oil-bonds-earnings-084444369.html","blurb":"Dow -1% (-507pts), S&P -1.2%, Nasdaq -2.2% as Alphabet (-7%) and Tesla (-14%) sank on capex/earnings concerns and oil's move past $100 hit bonds."},
     {"title":"US Treasury Yields Hit 2026 Highs as Oil Price Surge Lifts Fed Rate Bets","source":"Bloomberg","date":"2026-07-23","url":"https://www.bloomberg.com/news/articles/2026-07-23/us-treasury-yields-rise-to-2026-highs-as-oil-gains-spark-fed-bet","blurb":"The 2-year Treasury yield climbed to ~4.36% and the 10-year to ~4.7% as September-hike odds jumped to roughly 82%, from 52% a week earlier, on oil's surge past $100/bbl."},
     {"title":"The number of Americans filing for unemployment is the lowest since 1969","source":"CNN","date":"2026-07-23","url":"https://www.cnn.com/2026/07/23/economy/us-initial-jobless-claims-1969","blurb":"Initial jobless claims fell to 187,000 (vs 212,000 expected), a positive labour-market surprise that reinforced rather than eased the hawkish Fed repricing."},
     {"title":"Iran, Houthis strike tankers as US bombing continues: What's the latest?","source":"Al Jazeera","date":"2026-07-23","url":"https://www.aljazeera.com/news/2026/7/23/iran-houthis-strike-tankers-as-us-bombing-continues-whats-the-latest","blurb":"A wrap of the 12th consecutive night of US strikes on Iran and the widening regional retaliation reaching Kuwait, Jordan and Bahrain."},
@@ -577,9 +579,6 @@ export const ARTICLES = {
     {"title":"Trump plans generic drug tariffs from 2028 with two-year delay testing U.S. onshoring push","source":"CNBC","date":"2026-07-22","url":"https://www.cnbc.com/2026/07/22/trump-generic-drugs-tariffs-medicine-trade-.html","blurb":"The administration proposed generic-drug tariffs phased in from 2028, testing whether a delayed start can shift US onshoring of medicine manufacturing without near-term price shocks."},
     {"title":"'False dawn': June inflation falls to 2.6 per cent but analysts say rises ahead","source":"CityAM","author":"Mauricio Alencar","date":"2026-07-22","url":"https://www.cityam.com/sticky-inflation-expected-to-inch-up-again/","blurb":"Economists warned June's cooler UK CPI print is unlikely to persist, with a looming Ofgem price-cap rise expected to push inflation back above 3% later this year."},
     {"title":"Food prices are helping keep inflation in check – but will the good news last?","source":"ITV News","author":"Joel Hills","date":"2026-07-22","url":"https://www.itv.com/news/2026-07-22/food-prices-are-helping-keep-inflation-in-check-but-will-the-good-news-last","blurb":"Softer food and fuel costs drove June's UK inflation surprise, but ITV's economics editor questions whether the relief can outlast the autumn energy price-cap rise."},
-    {"title":"Stock Market News Today, 7/22/26 – Futures Slip as Oil Jumps; Alphabet, Tesla Earnings Ahead","source":"TipRanks","date":"2026-07-22","url":"https://www.tipranks.com/news/stock-market-news-today-7-22-26-futures-slip-as-oil-jumps-alphabet-tesla-earnings-ahead","blurb":"US futures slipped as Brent's renewed climb past $90 revived inflation worries ahead of Wednesday's Alphabet and Tesla results."},
-    {"title":"Stock market today: Dow, S&P 500, Nasdaq futures slide with Alphabet, Tesla earnings on deck","source":"Yahoo Finance","date":"2026-07-22","url":"https://finance.yahoo.com/markets/live/stock-market-today-wednesday-july-22-dow-sp-500-nasdaq-alphabet-tesla-083644887.html","blurb":"Nasdaq futures led declines, down over 1%, as oil's jump on Rubio's Iran comments clouded the outlook ahead of the day's marquee earnings."},
-    {"title":"US tariffs on Brazil take effect as Trump readies fresh flurry","source":"Yahoo Finance","date":"2026-07-22","url":"https://finance.yahoo.com/economy/policy/articles/us-tariffs-brazil-effect-trump-040303833.html","blurb":"A 25% US tariff on a range of Brazilian goods took effect Wednesday, with coffee, beef and orange juice exempted, as Washington prepares a broader tariff rollout covering dozens of countries within weeks."},
   ],
 };
 

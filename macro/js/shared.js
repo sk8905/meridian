@@ -7,7 +7,7 @@
 // different from the 0-indexed MONTHS in /util.js.
 // =============================================================================
 import { esc } from "/util.js?v=20260719-1";
-import { BUBBLE } from "./content.js?v=20260723-4";
+import { BUBBLE } from "./content.js?v=20260723-5";
 
 export const MONTHS = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 export const MONTHS_FULL = ["", "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
