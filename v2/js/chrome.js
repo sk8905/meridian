@@ -4,9 +4,10 @@
 // the returned setActive(key) to move the highlight. Reuses the current app's
 // classes and icons so the look is identical.
 //
-// Phase 0 keeps the header lean (brand + platform switch + search stub); the
-// ticker, briefing, account block and command palette get wired in as their
-// views are ported. The bottom tab bar is the full five-tab bar.
+// It renders the header markup + the five-tab bar, then boots the shared
+// session-long features once: the ticker + briefing (brief.js), the command
+// palette (palette.js), pull-to-refresh (ptr.js), and the header action cluster
+// + panels (the ported nav-actions — Markets / Saved / Notifications / Search).
 // =============================================================================
 
 const TABS = [
@@ -39,7 +40,7 @@ export function initChrome({ onTab }) {
   // notif bell, saved + markets loaders), ported from nav-actions with its own
   // tab bar / header-layout / swipe neutralised (the runtime owns those). Mounts
   // into .topbar-right.
-  import("./nav-actions.js?v=v2-1").then((m) => m.initNavActions()).catch(() => {});
+  import("./nav-actions.js?v=v2-2").then((m) => m.initNavActions()).catch(() => {});
   fillAccount();
 
   // Update the active marker on both the bottom bar and the header switch.

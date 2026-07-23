@@ -77,104 +77,6 @@ function navDiag() {
   setTimeout(() => { if (el.isConnected) el.remove(); }, 15000);
 }
 
-// ---- Shared page chrome -----------------------------------------------------
-// ONE header + ONE bottom tab bar, owned here and identical on every page. The
-// tab bar is INJECTED (no per-page copies in the HTMLs) and always
-// position:fixed; on phones the header is promoted to fixed too, with the body
-// padded by its measured height so layout is unchanged. Nothing — pull-to-
-// refresh, native overscroll, panel transitions — can move either.
-const TAB_ICONS = {
-  home: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11 12 4l8 7"/><path d="M6 9.5V20h12V9.5"/></svg>',
-  macro: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V12"/><path d="M12 20V5"/><path d="M19 20V9"/></svg>',
-  credit: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="7" width="19" height="10" rx="1.5"/><circle cx="12" cy="12" r="2.3"/></svg>',
-  legal: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v15"/><path d="M8 19h8"/><path d="M4 7h16"/><path d="M4 7l-2 4.5h4z"/><path d="M20 7l-2 4.5h4z"/></svg>',
-  menu: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>',
-};
-function initChrome() {
-  const path = location.pathname;
-  const cur = path.startsWith("/macro") ? "macro" : path.startsWith("/credit") ? "credit" : path.startsWith("/legal") ? "legal" : path.startsWith("/menu") ? "menu" : "home";
-  // Buttons only — NO anchors. Nothing in the bar can trigger a browser
-  // navigation on its own; page switches are explicit location.replace calls
-  // from the confirmed-tap handler (wired in run()).
-  const tab = (k, href, label) => `<button type="button" class="mtab${k === "menu" ? " mtab-menu" : ""}${cur === k ? " is-active" : ""}" data-nav="${href}"${cur === k ? ' aria-current="page"' : ""}>${TAB_ICONS[k]}<span class="mtab-lbl">${label}</span></button>`;
-  // v2: the SPA runtime owns the bottom tab bar; nav-actions only supplies the
-  // header buttons + panels here, so it does not build its own tab bar.
-  void tab;
-
-  const head = document.querySelector(".topbar, .g-top");
-  if (!head) return;
-  const lock = () => {
-    if (isPhone()) {
-      // Rect height, not offsetHeight: they can disagree by a couple of px on
-      // the fixed header, and the drift shows as a background seam between the
-      // chrome and the content below it.
-      document.documentElement.style.setProperty("--wire-head-h", head.getBoundingClientRect().height + "px");
-      head.classList.add("wire-head-fixed");
-      document.body.classList.add("wire-head-pad");
-    } else {
-      head.classList.remove("wire-head-fixed");
-      document.body.classList.remove("wire-head-pad");
-    }
-    lockBar();
-  };
-  // A chip bar hugging the header joins the fixed chrome (Bloomberg-style):
-  // pinned through scrolling AND native overscroll, so the rubber-band happens
-  // BELOW the chips. Discovery runs at the TOP of the page only — that is the
-  // one scroll position where "abuts the header" identifies the page's own top
-  // strip (Home's feed chips are mid-page with their own sticky and must never
-  // be captured here). Once pinned the bar's IDENTITY is remembered: view
-  // re-renders REPLACE the element, and the replacement is re-pinned
-  // immediately and unconditionally. (Re-testing geometry on every re-render
-  // unpinned the bar mid-scroll and dropped the body padding with it — a
-  // visible jump/flicker on every section switch and feed refresh.)
-  const BAR_WRAP = "#g-feed-head, .tpanel-h, .twire-head, .ck-secbar, .tbar";
-  let barSel = null;
-  const barWraps = () => {
-    const out = [];
-    for (const c of document.querySelectorAll(".tchips, .g-feed-chips")) {
-      if (c.closest(".na-panel")) continue;   // panel-internal chips (e.g. the /menu/ strip) are not page chrome
-      const w = c.closest(BAR_WRAP) || c;
-      if (!out.includes(w)) out.push(w);
-    }
-    return out;
-  };
-  const lockBar = () => {
-    if (!isPhone()) {
-      document.querySelectorAll(".wire-bar-fixed").forEach((el) => el.classList.remove("wire-bar-fixed"));
-      document.body.classList.remove("wire-bar-pad");
-      return;
-    }
-    const headH = head.getBoundingClientRect().height;
-    // Re-stamp the header var on every pass: the first measurement runs before
-    // fonts/late CSS settle and can be a couple of px off — the drift showed
-    // as a background seam between the chrome and the content.
-    document.documentElement.style.setProperty("--wire-head-h", headH + "px");
-    let bar = document.querySelector(".wire-bar-fixed");
-    if (bar && !bar.isConnected) bar = null;
-    if (!bar) {
-      const wraps = barWraps();
-      if (barSel) bar = wraps.find((w) => w.matches(barSel)) || null;
-      if (!bar && (window.scrollY || 0) < 2) {
-        bar = wraps.find((w) => { const r = w.getBoundingClientRect(); return r.height && Math.abs(r.top - headH) < 8; }) || null;
-        if (bar) barSel = bar.id ? "#" + bar.id : (BAR_WRAP.split(", ").find((s) => s[0] === "." && bar.matches(s)) || barSel);
-      }
-      if (bar) bar.classList.add("wire-bar-fixed");
-    }
-    document.querySelectorAll(".wire-bar-fixed").forEach((el) => { if (el !== bar) el.classList.remove("wire-bar-fixed"); });
-    if (bar) {
-      document.documentElement.style.setProperty("--wire-bar-h", bar.getBoundingClientRect().height + "px");
-      document.body.classList.add("wire-bar-pad");
-    } else {
-      document.body.classList.remove("wire-bar-pad");
-    }
-  };
-  lock();
-  window.addEventListener("resize", lock);
-  // Synchronous re-apply: observer callbacks run before the next paint, so a
-  // replaced bar is re-pinned with NO visible unpinned frame (a debounce here
-  // showed a 120ms flicker on every re-render).
-  new MutationObserver(lockBar).observe(document.body, { childList: true, subtree: true });
-}
 
 // ---- Markets rows -----------------------------------------------------------
 // US regular session (NYSE/Nasdaq): Mon–Fri 09:30–16:00 America/New_York.
@@ -693,17 +595,12 @@ function lockBody(on) {
 
 export function initNavActions() {
   const run = () => {
-    // Idempotence guard FIRST: initNavActions can be invoked twice on Home
-    // (the render-blocking head module AND glance's dynamic import). A second
-    // pass must be a no-op — when this guard sat below initChrome(), the
-    // re-run replaced the tab bar with a fresh copy and then bailed before
-    // rebinding its tap handlers: a dead bar.
+    // Idempotence guard FIRST: initNavActions can be invoked more than once, so
+    // a second pass must be a no-op (the buttons are already mounted).
     if (document.getElementById("na-mkt")) return; // already mounted
-    // v2: the runtime owns the tab bar AND the header layout (a sticky top bar),
-    // so nav-actions' initChrome (which builds a tab bar and flips the header to
-    // position:fixed + body padding) is skipped — only the header buttons/panels
-    // below are wanted here.
-    void initChrome;
+    // v2: the runtime owns the tab bar and the header layout (a sticky top bar),
+    // so nav-actions' own tab-bar / header-layout builder is omitted from this
+    // port — only the header buttons + panels below are used.
     navDiag();
     const notif = document.getElementById("notif");
     // Apps mount into .topbar-right; Home (glance) mounts into .g-top .g-actions —
