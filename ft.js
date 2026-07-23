@@ -20,6 +20,18 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c1c69ecc-4fe5-4488-9c0f-3611c4f3a1e6", title: "Iran war reignites debate over US energy-permitting reform", date: "2026-07-23", time: "12:00", url: "https://www.ft.com/content/c1c69ecc-4fe5-4488-9c0f-3611c4f3a1e6" },
+  { id: "e44325f8-c452-40d1-b423-b1f1c39ee314", title: "Blackstone says pace of withdrawals slowing at flagship private credit fund", date: "2026-07-23", time: "11:59", url: "https://www.ft.com/content/e44325f8-c452-40d1-b423-b1f1c39ee314" },
+  { id: "66bf810f-c1c0-488d-bd02-f8eba3acd743", title: "Oil price surge drives global bond sell-off", date: "2026-07-23", time: "11:49", url: "https://www.ft.com/content/66bf810f-c1c0-488d-bd02-f8eba3acd743" },
+  { id: "d6926044-2e10-4f8d-ae1e-16218307b840", title: "The return of the political professional", date: "2026-07-23", time: "11:35", url: "https://www.ft.com/content/d6926044-2e10-4f8d-ae1e-16218307b840" },
+  { id: "352943bc-6c51-4b5d-abf0-a964970ade6a", title: "Submit your questions: How will Andy Burnham govern the UK?", date: "2026-07-23", time: "11:28", url: "https://www.ft.com/content/352943bc-6c51-4b5d-abf0-a964970ade6a" },
+  { id: "94a7c686-8bc1-4f93-bd03-c7069d1ba4b4", title: "Will Burnham go big or go home?", date: "2026-07-23", time: "11:00", url: "https://www.ft.com/content/94a7c686-8bc1-4f93-bd03-c7069d1ba4b4" },
+  { id: "1e008eba-e53f-40d6-a63f-cf7a15d1004f", title: "Ireland stresses Europe's need for alumina amid spat over Russian-owned plant", date: "2026-07-23", time: "11:00", url: "https://www.ft.com/content/1e008eba-e53f-40d6-a63f-cf7a15d1004f" },
+  { id: "c836e73b-66bb-4aa1-b85b-dd5b6eb89af0", title: "EU fines Google €890mn in test of Donald Trump's threats to protect Big Tech", date: "2026-07-23", time: "11:00", url: "https://www.ft.com/content/c836e73b-66bb-4aa1-b85b-dd5b6eb89af0" },
+  { id: "02bf3e4d-7719-4482-9f2b-ab14bd3fe9c3", title: "Houthi attacks threaten to cut off Saudi Arabia's oil lifeline", date: "2026-07-23", time: "10:51", url: "https://www.ft.com/content/02bf3e4d-7719-4482-9f2b-ab14bd3fe9c3" },
+  { id: "41959a4e-f542-4225-a149-abe4fd9ba810", title: "A stealth fighter jet could blow a hole in Healey's budget", date: "2026-07-23", time: "10:09", url: "https://www.ft.com/content/41959a4e-f542-4225-a149-abe4fd9ba810" },
+  { id: "dfbbd2ad-4548-480a-b752-bf8c8adc8a2d", title: "Ford hopes Spain tie-up with China's Geely will revive European business", date: "2026-07-23", time: "09:58", url: "https://www.ft.com/content/dfbbd2ad-4548-480a-b752-bf8c8adc8a2d" },
+  { id: "d7bb8df9-f049-4e9b-9556-06fb8251afe5", title: "Andy Burnham's high-risk start may help him get ahead of political pain", date: "2026-07-23", time: "09:30", url: "https://www.ft.com/content/d7bb8df9-f049-4e9b-9556-06fb8251afe5" },
   { id: "6df8a0ef-447f-43de-81a0-48db79498d93", title: "Macquarie names banking head to succeed Shemara Wikramanayake as CEO", date: "2026-07-23", time: "09:03", url: "https://www.ft.com/content/6df8a0ef-447f-43de-81a0-48db79498d93" },
   { id: "1ddfbe42-b8e8-487c-a156-505879469926", title: "Oil jumps to $98 after Houthis attack two Saudi Arabian tankers", date: "2026-07-23", time: "08:50", url: "https://www.ft.com/content/1ddfbe42-b8e8-487c-a156-505879469926" },
   { id: "e9bbefc8-a749-4351-a89b-461de2ec63e3", title: "Andy Burnham announces cut to business rates for pubs and clubs", date: "2026-07-23", time: "08:50", url: "https://www.ft.com/content/e9bbefc8-a749-4351-a89b-461de2ec63e3" },
@@ -53,11 +65,4 @@ export const FT_ITEMS = [
   { id: "0c0b1e83-8e5e-4c86-b9c6-179dba51fc69", title: "Greek tycoon’s tanker towed into Iranian waters", date: "2026-07-22", time: "18:38", url: "https://www.ft.com/content/0c0b1e83-8e5e-4c86-b9c6-179dba51fc69" },
   { id: "aa6809e5-8963-433a-8458-61abe1526087", title: "UK education secretary accused of misleading claim about Oxford entry", date: "2026-07-22", time: "18:23", url: "https://www.ft.com/content/aa6809e5-8963-433a-8458-61abe1526087" },
   { id: "f51afc65-1569-446c-a23e-5afa583a67c2", title: "India should listen to its frustrated youth", date: "2026-07-22", time: "17:31", url: "https://www.ft.com/content/f51afc65-1569-446c-a23e-5afa583a67c2" },
-  { id: "f0115d12-35b8-4dc2-9bf1-748203ac4331", title: "Pakistan seeks $10bn US facility to shore up reserves", date: "2026-07-22", time: "17:13", url: "https://www.ft.com/content/f0115d12-35b8-4dc2-9bf1-748203ac4331" },
-  { id: "8f076be9-bf29-4df5-878b-835537ba2585", title: "European gas prices approach Iran war highs as traders fret over winter supplies", date: "2026-07-22", time: "17:03", url: "https://www.ft.com/content/8f076be9-bf29-4df5-878b-835537ba2585" },
-  { id: "8c3a155b-03c0-4034-9403-839674a3df9e", title: "EU review of airline ownership rules clouds Apollo’s £5.7bn easyJet bid", date: "2026-07-22", time: "16:48", url: "https://www.ft.com/content/8c3a155b-03c0-4034-9403-839674a3df9e" },
-  { id: "88da2738-6fce-497b-b8d5-1ed35196b3e0", title: "The battle over America’s War Powers Act", date: "2026-07-22", time: "16:47", url: "https://www.ft.com/content/88da2738-6fce-497b-b8d5-1ed35196b3e0" },
-  { id: "07b3ea10-e15e-4863-8bf5-634e8fbde7d5", title: "The Lucid dream can continue on a bed of Saudi money", date: "2026-07-22", time: "16:26", url: "https://www.ft.com/content/07b3ea10-e15e-4863-8bf5-634e8fbde7d5" },
-  { id: "19f7b0d3-f44c-422c-9e65-6b345ce55e39", title: "The deed thieves targeting New York brownstones", date: "2026-07-22", time: "16:20", url: "https://www.ft.com/content/19f7b0d3-f44c-422c-9e65-6b345ce55e39" },
-  { id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2", title: "Inflation and interest rates tracker: see how your country compares", date: "2026-07-22", time: "16:18", url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2" },
 ];

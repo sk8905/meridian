@@ -28,6 +28,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-marketsdaily-20260723",
+    publication: "Bloomberg",
+    series: "Markets Daily",
+    title: "Markets Daily: AI debt is crowding out Treasuries",
+    date: "2026-07-23",
+    time: "11:32",
+    summary: "AI debt is competing with Treasuries, adding to lofty US yields; plus, Intel faces a skeptical market.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-23/ai-debt-competing-with-treasuries-is-adding-to-lofty-us-yields",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-20260723",
     publication: "Bloomberg",
     author: "Lily Nonomiya",
