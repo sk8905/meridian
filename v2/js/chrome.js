@@ -15,6 +15,11 @@
 const V = (() => { try { return new URL(import.meta.url).searchParams.get("v") || ""; } catch { return ""; } })();
 const vurl = (p) => p + (p.includes("?") ? "&" : "?") + "v=" + V;
 
+// The app-wide "Last refresh" reporter — same singleton the desks report into
+// (its own leaf token, not V; see runtime.js), so chrome's boot-time value and a
+// desk's real stamp share one monotonic keep-latest state.
+import { reportRefresh } from "./status.js?v=v2-2";
+
 const TABS = [
   ["home", "Home"], ["macro", "Macro"], ["credit", "Credit"], ["legal", "Legal"], ["menu", "Menu"],
 ];
@@ -40,6 +45,9 @@ export function initChrome({ onTab }) {
   buildBottomMeta();
   // Anchor the top bar so it never scrolls away (see initHeaderLock).
   initHeaderLock();
+  // Show a "Last refresh" value immediately, whatever tab loads first — a desk's
+  // real stamp supersedes it the moment one loads (see bootRefreshFallback).
+  bootRefreshFallback();
 
   // Shared, session-long chrome features, reusing the existing modules verbatim:
   //   • ticker + briefing strip (brief.js → #wticker / #wbrief)
@@ -124,6 +132,33 @@ function fillAccount() {
       }
     })
     .catch(() => { /* not behind Access */ });
+}
+
+// Populate the app-wide "Last refresh" right away, independent of which tab
+// loads first. Wire's data lands on a fixed London schedule (05:00, 12:00,
+// 17:00, 21:00), so the most recent slot is a good immediate value — and
+// status.js keeps the LATEST report, so a desk's real stamp (e.g. "05:22 BST")
+// supersedes this as soon as any desk mounts. This just closes the gap where a
+// tab with no data (e.g. Menu) would otherwise show a blank refresh.
+function bootRefreshFallback() {
+  try {
+    const slots = [5, 12, 17, 21];
+    const partsIn = (d) => new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", hour12: false }).formatToParts(d);
+    const val = (p, t) => p.find((x) => x.type === t).value;
+    const p = partsIn(new Date());
+    let Y = +val(p, "year"), M = +val(p, "month"), D = +val(p, "day");
+    const H = +val(p, "hour") % 24;
+    let slot = null;
+    for (let i = slots.length - 1; i >= 0; i--) { if (H >= slots[i]) { slot = slots[i]; break; } }
+    if (slot === null) {
+      // Before 05:00 London → the previous day's 21:00 slot. Step back ~12h and
+      // re-read the London date (safe across month/year boundaries).
+      const pp = partsIn(new Date(Date.UTC(Y, M - 1, D) - 12 * 3600 * 1000));
+      Y = +val(pp, "year"); M = +val(pp, "month"); D = +val(pp, "day"); slot = 21;
+    }
+    const iso = `${Y}-${String(M).padStart(2, "0")}-${String(D).padStart(2, "0")}`;
+    reportRefresh(iso, `${String(slot).padStart(2, "0")}:00`);
+  } catch { /* leave it to the desks */ }
 }
 
 // Anchor the top bar so it stays put when the page scrolls. .topbar is

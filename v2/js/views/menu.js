@@ -57,12 +57,14 @@ export const css = "/credit/css/styles.css?v=20260721-9";
 
 export function mount(host, ctx) {
   let sec = "search";
+  // The signed-in identity now lives in the bottom strip (see chrome.js), so the
+  // menu no longer repeats "Signed in as …" — it just keeps a Sign out action.
   const fillMenuAccount = () => {
     const el = host.querySelector("#account-nav-menu");
     if (!el) return;
     fetch("/api/me", { headers: { accept: "application/json" } })
       .then((r) => (r.ok ? r.json() : null))
-      .then((d) => { if (d && d.email) el.innerHTML = `<span>Signed in as&nbsp;</span><strong>${esc(d.email)}</strong> · <a href="/cdn-cgi/access/logout">Sign out</a>`; })
+      .then((d) => { if (d && d.email) el.innerHTML = `<a href="/cdn-cgi/access/logout">Sign out</a>`; })
       .catch(() => {});
   };
   const render = () => {
