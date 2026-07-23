@@ -198,12 +198,18 @@ export const COMMENTARY = {
   us: [
     { title: "The Oil Question That Really Matters for Stocks", source: "Bloomberg Opinion", author: "John Authers", date: "2026-07-22", url: "https://www.bloomberg.com/opinion/newsletters/2026-07-22/the-oil-question-that-really-matters-for-stocks" },
     { title: "Watch: Four reasons why US inflation should slow from here", source: "ING", author: "James Knightley", date: "2026-07-22", url: "https://think.ing.com/think-vision/videos/watch-four-reasons-why-us-inflation-should-slow-from-here/" },
+    { title: "Fed to hold rates this year despite high inflation, but economists cite high chances of a hike: Reuters poll", source: "Reuters", author: null, date: "2026-07-21", url: "https://www.investing.com/news/economy-news/fed-to-hold-rates-this-year-despite-high-inflation-but-economists-cite-high-chances-of-a-hike-reuters-poll-4803207" },
     { title: "The Federal Reserve Needs to Raise Interest Rates", source: "Bloomberg Opinion", author: "Bill Dudley", date: "2026-07-20", url: "https://www.bloomberg.com/opinion/articles/2026-07-20/the-federal-reserve-needs-to-raise-interest-rates" },
+    { title: "A Better Day for Inflation, a Bummer for IBM", source: "Bloomberg Opinion", author: "John Authers", date: "2026-07-15", url: "https://www.bloomberg.com/opinion/newsletters/2026-07-15/a-better-day-for-inflation-a-bummer-for-ibm" },
+    { title: "Supreme Court Seen to Support Fed Independence, Barely", source: "Bloomberg Opinion", author: null, date: "2026-07-03", url: "https://www.bloomberg.com/opinion/articles/2026-07-03/supreme-court-seen-to-support-fed-independence-barely" },
+    { title: "Warsh Must Beware of Yield Curves Flattening to Deceive", source: "Bloomberg Opinion", author: "John Authers", date: "2026-07-02", url: "https://www.bloomberg.com/opinion/newsletters/2026-07-02/warsh-must-beware-of-yield-curves-flattening-to-deceive" },
   ],
   uk: [
     { title: "What the New UK Chancellor Means for the UK Economy", source: "Project Syndicate", author: "Mohamed A. El-Erian", date: "2026-07-22", url: "https://www.project-syndicate.org/commentary/what-john-healey-appointment-as-chancellor-means-for-uk-economy-by-mohamed-a-el-erian-2026-07" },
     { title: "Lower UK inflation weakens the case for rate hikes", source: "ING", author: "James Smith", date: "2026-07-22", url: "https://think.ing.com/snaps/lower-uk-inflation-weakens-the-case-for-rate-hikes/" },
     { title: "Gilts under pressure as investors brace for higher spending under new PM", source: "Capital Economics", author: "Paul Dales", date: "2026-07-21", url: "https://www.capitaleconomics.com/newsroom/gilts-under-pressure-investors-brace-higher-spending-under-new-pm" },
+    { title: "Pound Sterling: UK Loan Defaults Rise, But Economists See No Threat To Growth", source: "Pantheon Macroeconomics", author: null, date: "2026-07-20", url: "https://www.exchangerates.org.uk/news/46567/2026-07-20-pound-sterling-uk-loan-defaults-rise-but-economists-see-no-threat-to-growth.html" },
+    { title: "Pound Sterling: UK Economy Defies Higher Oil Prices, Says Pantheon", source: "Pantheon Macroeconomics", author: null, date: "2026-07-12", url: "https://www.exchangerates.org.uk/news/46480/2026-07-12-pound-sterling-uk-economy-defies-higher-oil-prices-says-pantheon.html" },
   ],
 };
 

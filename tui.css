@@ -324,6 +324,10 @@
 /* full-width managers table + its search header */
 .thead-search { gap: 10px; }
 .thead-search .tfocus-btn { margin-left: 0; }
+/* The managers search box grows to fill the header row (left edge lines up with
+   the chips/label above; the €1–10bn chip stays pinned right) rather than being a
+   fixed 210px box floated to the right. */
+.thead-search .tsearch { flex: 1 1 auto; min-width: 0; width: auto; max-width: none; margin-left: 0; }
 .tsearch { margin-left: auto; background: var(--bg); border: 1px solid var(--border); color: var(--ink); font-family: var(--t-mono); font-size: 11px; padding: 2px 8px; height: 20px; width: 210px; max-width: 46vw; border-radius: 0; }
 .tsearch::placeholder { color: var(--faint); }
 .tleague-full .tl-hq { text-align: left; color: var(--muted); font-family: var(--t-mono); font-size: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
