@@ -221,9 +221,14 @@
   .tdash-ticker::-webkit-scrollbar { display: none; }
   .tmet { padding: 0 12px; }
 
-  .tdash-grid { grid-template-columns: 1fr; }
-  .tcol { overflow: visible; border-right: 0; border-left: 0; border-bottom: 1px solid var(--border); }
-  .tcol-c { overflow: visible; order: -1; }        /* wire leads on mobile */
+  /* minmax(0,…) + min-width:0 so a wide child (e.g. the 13F holdings table on a
+     hedge-fund profile) can't stretch the column past the viewport — it stays
+     viewport-width and the table scrolls INSIDE its own .tleague-wrap instead of
+     overflowing the page (which the page-level overflow-x then clips, so it read
+     as "won't scroll"). */
+  .tdash-grid { grid-template-columns: minmax(0, 1fr); }
+  .tcol { overflow: visible; border-right: 0; border-left: 0; border-bottom: 1px solid var(--border); min-width: 0; }
+  .tcol-c { overflow: visible; order: -1; min-width: 0; }        /* wire leads on mobile */
   /* Phones/tablets: drop the left & right data rails on Macro/Credit/Legal so the
      central wire owns the screen (matches Home moving its rails off-canvas). */
   .tcol-l, .tcol-r { display: none; }
