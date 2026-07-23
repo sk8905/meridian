@@ -448,7 +448,7 @@ function casesPane() {
     + `<span class="tw-body"><a href="${esc(c.url || "#/")}"${c.url ? ` target="_blank" rel="noopener noreferrer"` : ""} class="tw-head">${esc(c.name)}</a><span class="tw-mgr-w"><span class="tw-mgr">${esc(c.court)}</span></span></span>`
     + `<span class="tw-src">${c.url ? `<a href="${esc(c.url)}" target="_blank" rel="noopener noreferrer">${esc(c.citation || "source")}</a>` : esc(c.citation || "")}</span>`
     + `</li>`;
-  return `<ul class="twire compact-list">${[...cases].sort(byDateDesc).map(row).join("")}</ul>`;
+  return `<ul class="twire compact-list">${wireDays([...cases].sort(byDateDesc), row)}</ul>`;
 }
 
 function viewDashboard() {

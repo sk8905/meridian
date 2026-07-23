@@ -74,7 +74,7 @@ export function mount(host, ctx) {
     host.innerHTML = `<div class="v2-menu">
       <div class="na-menu-bar"><div class="tchips">${SECTIONS.map(([k, l]) => `<button type="button" class="tchip${k === sec ? " is-on" : ""}" data-sec="${k}">${l}</button>`).join("")}</div></div>
       <div class="na-menu-pane">${paneHTML(sec)}</div>
-      <div class="na-menu-foot"><div class="na-menu-foot-l"><div id="account-nav-menu" class="na-menu-row na-menu-acct"></div><div class="na-menu-row na-menu-stat" id="v2-build">Wire</div></div></div>
+      <div class="na-menu-foot"><div class="na-menu-foot-l"><div id="account-nav-menu" class="na-menu-row na-menu-acct"></div></div></div>
     </div>`;
     fillMenuAccount();
   };

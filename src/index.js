@@ -843,7 +843,14 @@ async function handlePredict(request, env, ctx) {
     const g = byType.get(t);
     if (!g) continue;
     g.sort((a, b) => b.vol - a.vol);
-    markets.push(...g.slice(0, 12));
+    const take = g.slice(0, 12);
+    // Guarantee the 2-3 largest Strait-of-Hormuz markets surface in Geopolitics
+    // even when higher-volume geopolitics (Iran/Ukraine/etc.) would otherwise
+    // crowd them out of the top 12.
+    if (t === "Geopolitics") {
+      for (const h of g.filter((m) => /hormuz/i.test(m.q)).slice(0, 3)) if (!take.includes(h)) take.push(h);
+    }
+    markets.push(...take);
   }
   const resp = new Response(JSON.stringify({ markets }), { headers: { "content-type": "application/json", "cache-control": "public, max-age=120" } });
   if (ctx && ctx.waitUntil && markets.length) ctx.waitUntil(cache.put(cacheKey, resp.clone()));

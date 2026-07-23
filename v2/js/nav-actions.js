@@ -504,10 +504,10 @@ let _applyThemeChoice = null;
 const NOTIF_KEYS = { c: "meridian.credit.notifSeen", l: "meridian.legal.notifSeen" };
 const NOTIF_API = { c: "/api/notif-credit", l: "/api/notif-legal" };
 function readSeen(desk) { try { const p = JSON.parse(localStorage.getItem(NOTIF_KEYS[desk]) || "null"); return Array.isArray(p) ? new Set(p) : null; } catch { return null; } }
-function notifRow(x) {
+function notifRow(x, fresh) {
   const cls = DESK_CLASS[x.desk] || "";
   const code = NF_CODE[x.desk] || "";
-  return `<a class="nf-row" href="${esc(x.href)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
+  return `<a class="nf-row${fresh ? " nf-new" : ""}" href="${esc(x.href)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
     + `<span class="nf-title">${esc(x.title)}</span>`
     + `<span class="nf-meta"><span class="nf-code ${cls}">${esc(code)}</span>`
     + (x.date ? `<span class="nf-time">${esc(fmtDate(x.date))}</span>` : "")
@@ -915,12 +915,16 @@ export function initNavActions() {
       const paint = async () => {
         chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _ntTab));
         if (_ntTab === "all") {
-          // Always list the notifications, the same on every open. Opening the
-          // panel clears the unread badge (marks them seen) but must NOT empty
-          // the list — so reopening still shows them (the previous behaviour hid
-          // everything once "seen", which read as the notifications vanishing).
-          // No "N new updates" banner.
-          tb.innerHTML = items.length ? items.map(notifRow).join("") : '<div class="na-empty">Nothing yet.</div>';
+          // Always list the notifications, the same on every open — reopening
+          // must NOT empty the list (the old behaviour hid everything once
+          // "seen", which read as the notifications vanishing). But the ones that
+          // are genuinely NEW since last open (what the bell badge counts) get an
+          // accent marker, captured BEFORE we mark them seen — so the badge and
+          // the panel agree on what's new. Opening still clears the badge; on the
+          // next open nothing is marked new, but the whole list stays visible.
+          const seen = { c: readSeen("c"), l: readSeen("l") };
+          const isFresh = (x) => { const s = seen[x.desk]; return s ? !s.has(x.id) : false; };
+          tb.innerHTML = items.length ? items.map((x) => notifRow(x, isFresh(x))).join("") : '<div class="na-empty">Nothing yet.</div>';
           markNotifSeen(items); clearBadge();
         } else {
           tb.innerHTML = '<div class="na-load">Loading…</div>';

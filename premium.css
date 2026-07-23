@@ -677,7 +677,8 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .notif-head .muted, .notif-head .small { color: var(--muted, #8592ad); }
 .notif-list { padding: 0; margin: 0; }
 .notif-item { padding: 0; border: 0; background: transparent; list-style: none; }
-.notif-item.is-new .nf-row { box-shadow: inset 3px 0 0 var(--accent, #fb8b1e); }
+.notif-item.is-new .nf-row, .nf-row.nf-new { box-shadow: inset 3px 0 0 var(--accent, #fb8b1e); }
+.nf-row.nf-new { background: color-mix(in srgb, var(--accent, #fb8b1e) 7%, transparent); }
 .notif-empty { padding: 16px 14px; color: var(--muted, #8592ad); }
 .na-load { padding: 14px 12px; color: var(--muted, #8592ad); font-size: 12px; }
 /* reserve room for the taller flat bar */

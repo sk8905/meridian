@@ -1009,7 +1009,7 @@
     /* Fixed bar + value columns so every bar shares one baseline regardless of the
        value text width (a bp value is narrower than a % value). */
     .tui .g-mv{ display:grid; grid-template-columns:1fr 64px 3.6rem; gap:10px; align-items:center;
-      padding:4px 11px; font-family:var(--t-mono); font-size:11.5px; border-bottom:1px solid var(--t-grid); background:var(--t-panel); }
+      padding:4px 11px; font-family:var(--t-mono); font-size:11.5px; border-bottom:0; background:var(--t-panel); }
     .tui .g-mv:last-child{ border-bottom:0; }
     .tui a.g-mv{ color:inherit; text-decoration:none; cursor:pointer; }
     .tui .g-mv .nm{ color:var(--t-dim); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }

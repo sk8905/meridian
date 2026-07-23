@@ -71,6 +71,12 @@ a { color: var(--primary); text-decoration: none; }
   /* The header strips (bar · ticker · briefing) must keep their natural height —
      as flex items they were shrinking, which clipped the one-line briefing. */
   #wire-header .topbar, #wire-header .wticker, #wire-header .wbrief { flex: 0 0 auto; }
+  /* Home left rail: keep Top movers compact (its curated list scrolls if long)
+     and let a surface filler take the rail's trailing space, so the rail reaches
+     the footer as one clean block instead of leaving a gap under the FX matrix. */
+  .v2-view .tui .g-side > .g-movers-pnl { flex: 0 0 auto; }
+  .v2-view .tui .g-movers-pnl > #g-movers { max-height: 340px; overflow-y: auto; overscroll-behavior: contain; }
+  .v2-view .tui .g-side::after { content: ""; flex: 1 1 auto; min-height: 0; background: var(--t-panel, var(--surface, #fff)); }
 }
 /* Clear the fixed bottom tab bar on phones so content isn't hidden behind it
    (bar ≈ 55px). The meta strip only shows on the Menu tab, so only there does
@@ -124,7 +130,9 @@ a { color: var(--primary); text-decoration: none; }
   }
   #v2-footer .v2-foot-acct { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   #v2-footer .v2-foot-acct strong { color: var(--ink, #131a2b); font-weight: 600; }
-  #v2-footer .v2-foot-acct a { color: var(--primary, #fb8b1e); }
+  /* Sign out reads as the same muted grey as the rest of the line, not orange. */
+  #v2-footer .v2-foot-acct a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+  #v2-footer .v2-foot-acct a:hover { color: var(--ink, #131a2b); }
   #v2-footer .v2-foot-status { flex: 0 0 auto; white-space: nowrap; }
 }
 
@@ -142,6 +150,11 @@ a { color: var(--primary); text-decoration: none; }
    is self-contained, so this just needs to be a visible block. */
 .v2-menu { display: block; max-width: 640px; margin: 0 auto; background: var(--surface, #fff); min-height: 40vh; }
 .v2-menu .na-menu-pane { display: block; }
+/* Menu tab on phones: the whole page reads white (surface), not the grey app
+   background — so the area below the short menu list isn't a grey block. */
+@media (max-width: 760px) {
+  html[data-v2tab="menu"] body { background: var(--surface, #fff); }
+}
 
 /* Loading skeleton shown the instant a not-yet-mounted tab is opened, so a switch
    paints immediately instead of blanking while the view's module/data loads. */
