@@ -68,6 +68,9 @@ a { color: var(--primary); text-decoration: none; }
   #v2-footer { flex: 0 0 auto; }
   .v2-view .g-main.tui { height: 100%; }
   .v2-view .tdash { height: 100%; }
+  /* The header strips (bar · ticker · briefing) must keep their natural height —
+     as flex items they were shrinking, which clipped the one-line briefing. */
+  #wire-header .topbar, #wire-header .wticker, #wire-header .wbrief { flex: 0 0 auto; }
 }
 /* Clear the fixed bottom tab bar on phones so content isn't hidden behind it
    (bar ≈ 55px). The meta strip only shows on the Menu tab, so only there does
@@ -115,8 +118,8 @@ a { color: var(--primary); text-decoration: none; }
   #wire-header #account-nav, #wire-header #data-status { display: none; }
   #v2-footer {
     display: flex; align-items: center; justify-content: space-between; gap: 1rem;
-    padding: 10px 1.5rem calc(10px + env(safe-area-inset-bottom, 0px));
-    font-size: .72rem; line-height: 1.4; color: var(--muted, #66708a);
+    padding: 6px 1.5rem calc(6px + env(safe-area-inset-bottom, 0px));
+    font-size: .69rem; line-height: 1.35; color: var(--muted, #66708a);
     border-top: 1px solid var(--border, #e4e7ef); background: var(--surface, #fff);
   }
   #v2-footer .v2-foot-acct { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

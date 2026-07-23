@@ -352,16 +352,23 @@ a.intel-head:hover { text-decoration: none; }
    column top-to-bottom. The yield-curve panel takes the left, spanning the two
    rows the Fed path and outlook occupy on the right. */
 @media (min-width: 1101px) {
-  .mac-cockpit .ck-ov { grid-template-columns: minmax(0, 1.45fr) minmax(0, 2fr) minmax(0, 1fr); }
+  /* Stretch the three clusters to a common height so the four visible panes
+     (indicators · yield curve · Fed path+outlook · regime) align at the bottom
+     instead of staggering. */
+  .mac-cockpit .ck-ov { grid-template-columns: minmax(0, 1.45fr) minmax(0, 2fr) minmax(0, 1fr); align-items: stretch; }
   .mac-cockpit .ck-ov-rates {
-    display: grid; gap: 1px; background: var(--border); align-content: start;
+    display: grid; gap: 1px; background: var(--border);
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     grid-template-areas: "hd hd" "yc fed" "yc out";
+    grid-template-rows: auto auto 1fr;
   }
   .ck-ov-rates > .ck-ov-h { grid-area: hd; }
   .ck-ov-rates > .ck-panel-yc { grid-area: yc; }
   .ck-ov-rates > .ck-panel:not(.ck-panel-yc):not(.ck-strip) { grid-area: fed; }
   .ck-ov-rates > .ck-panel.ck-strip { grid-area: out; }
+  /* Fill each flex cluster's trailing space with its last panel's surface, so a
+     shorter column reads as one clean block rather than ending early. */
+  .mac-cockpit .ck-ov-c:not(.ck-ov-rates) > .ck-panel:last-child { flex: 1 1 auto; }
 }
 /* Cockpit sub-section headers — full-width mono dividers grouping the panels */
 .ck-sec { grid-column: 1 / -1; background: var(--bg, #05080f); padding: 14px 12px 5px;
@@ -459,8 +466,8 @@ a.intel-head:hover { text-decoration: none; }
    Notes column (share reaction + short commentary) spanning the body rows. */
 .ew-tbl-note thead th:nth-child(2), .ew-tbl-note tbody td:nth-child(2),
 .ew-tbl-note thead th:nth-child(3), .ew-tbl-note tbody td:nth-child(3) { width: 17%; }
-.ew-tbl-note thead th:nth-child(4) { width: 48%; text-align: left; padding-left: 10px; }
-.ew-tbl-note td.ew-cnote { width: 48%; vertical-align: top; text-align: left; padding: 1px 0 1px 10px;
+.ew-tbl-note thead th:nth-child(4) { width: 48%; text-align: right; padding-right: 4px; padding-left: 10px; }
+.ew-tbl-note td.ew-cnote { width: 48%; vertical-align: top; text-align: right; padding: 1px 4px 1px 10px;
   font-family: var(--t-mono); font-size: 9.5px; font-weight: 400; color: var(--muted); line-height: 1.35;
   white-space: normal; overflow-wrap: break-word; border-left: 1px solid var(--border); }
 .ew-tbl tbody th, .ew-tbl thead th { font-size: 9.5px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
