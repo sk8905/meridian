@@ -236,6 +236,7 @@ item keeps a real outbound source link (R7).
 - The Straits Times (`straitstimes.com`)
 - City AM
 - DealBook — The New York Times (`nytimes.com/section/business/dealbook`)
+- MT Newswires (via Koyfin)
 
 ### 8.4 Macro strategy & commentary
 (Roster behind R18 — ≥10 items/day, real dated pieces only.)
