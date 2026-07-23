@@ -11,12 +11,12 @@
 // =============================================================================
 import {
   items, cases, restructurings, firmById, areaById, typeById,
-} from "/legal/js/data.js?v=20260723-7";
+} from "/legal/js/data.js?v=20260723-8";
 import { esc, byDateDesc } from "/util.js?v=20260719-1";
 import {
   fmtDate, itemDate, isNew, getSaved, areaChip, tierLabel, firmLink, itemRow,
   _chipMem, chipMemKey,
-} from "/legal/js/shared.js?v=20260723-1";
+} from "/legal/js/shared.js?v=20260723-2";
 
 export let app = null;
 export function __setHost(h) { app = h; }
@@ -199,7 +199,8 @@ export function viewFirm(id) {
   const londonRail = L ? `<section class="tpanel"><header class="tpanel-h"><span>London office</span>${L.lawyersAsOf ? `<span class="tpanel-x">as of ${esc(String(L.lawyersAsOf))}</span>` : ""}</header>`
     + `<ul class="tfacts">`
     + `<li><span class="tf-k">London lawyers</span><span class="tf-v">${L.lawyers != null ? esc(String(L.lawyers)) : "—"}</span></li>`
-    + `<li><span class="tf-k">Revenue</span><span class="tf-v">${L.revenue != null ? esc(lfMoney(L.revenue, L.revenueBasis)) : "—"}${L.revenueBasis ? ` <span class="tf-est">${esc(L.revenueBasis)}</span>` : ""}</span></li>`
+    + `<li><span class="tf-k">Total revenue</span><span class="tf-v">${L.revenue != null ? esc(lfMoney(L.revenue, L.revenueBasis)) : "—"}${L.revenueBasis ? ` <span class="tf-est">${esc(L.revenueBasis)}</span>` : ""}</span></li>`
+    + `<li><span class="tf-k">London revenue</span><span class="tf-v">${L.revenueLondon != null ? esc(lfMoney(L.revenueLondon, L.revenueLondonBasis)) : "—"}${L.revenueLondonBasis ? ` <span class="tf-est">${esc(L.revenueLondonBasis)}</span>` : ""}</span></li>`
     + `<li><span class="tf-k">PEP</span><span class="tf-v">${L.pep != null ? esc(lfPep(L.pep, L.pepBasis)) : "—"}${L.pepBasis ? ` <span class="tf-est">${esc(L.pepBasis)}</span>` : ""}</span></li>`
     + `<li><span class="tf-k">Tier</span><span class="tf-v">${esc(tierLabel(firm.tier))}</span></li>`
     + `</ul>`

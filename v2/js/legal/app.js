@@ -7,12 +7,12 @@ import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
   rxAdvisers,
-} from "/legal/js/data.js?v=20260723-7";
+} from "/legal/js/data.js?v=20260723-8";
 import { donutChart, columnChart } from "/legal/js/charts.js?v=20260722-3";
 import {
   fmtDate, itemDate, itemRow, firmLink, getSaved, SAVED_KEY,
   markVisitedSoon, _chipMem, chipMemKey,
-} from "/legal/js/shared.js?v=20260723-1";
+} from "/legal/js/shared.js?v=20260723-2";
 import { viewItem, viewFirm , __setHost as __detailSetHost } from "/v2/js/legal/detail.js?v=v2-2";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc, onLiveWire } from "/feed.js?v=20260723-3";
 import { esc, MONTHS, byDateDesc } from "/util.js?v=20260719-1";
@@ -470,19 +470,20 @@ function lawFirmRow(f) {
     + `<td class="tl-n">${L.lawyers != null ? esc(String(L.lawyers)) : "—"}</td>`
     + `<td class="tl-areas">${esc(areas || "—")}</td>`
     + `<td class="tl-n">${L.revenue != null ? `<span title="${esc(L.revenueBasis || "")}">${esc(lfMoney(L.revenue, L.revenueBasis))}</span>` : "—"}</td>`
+    + `<td class="tl-n">${L.revenueLondon != null ? `<span title="${esc(L.revenueLondonBasis || "")}">${esc(lfMoney(L.revenueLondon, L.revenueLondonBasis))}</span>` : "—"}</td>`
     + `<td class="tl-n">${L.pep != null ? `<span title="${esc(L.pepBasis || "")}">${esc(lfPep(L.pep, L.pepBasis))}</span>` : "—"}</td></tr>`;
 }
 function lawFirmsPane() {
-  // Largest revenue → smallest. Normalise US firms' $ figures to £ (~0.79) so the
-  // order reflects real size across the mixed-currency reporting, not the raw number.
+  // Largest TOTAL (firm-wide) revenue → smallest. Normalise US firms' $ figures to
+  // £ (~0.79) so the order reflects real size across the mixed-currency reporting.
   const lfRevGBP = (f) => (f.london.revenue || 0) * (lfCcy(f.london.revenueBasis) === "$" ? 0.79 : 1);
   const rows = firms.filter((f) => f.london).sort((a, b) => lfRevGBP(b) - lfRevGBP(a));
   return `<header class="tpanel-h thead-search"><span>Law firms</span>`
     + `<input type="search" id="lf-q" class="tsearch" placeholder="Search firm, tier or practice…" aria-label="Search law firms"></header>`
     + `<div class="tleague-wrap"><table class="tleague tleague-full tleague-lf">`
-    + `<thead><tr><th>Firm</th><th class="tl-tier">Tier</th><th class="tl-n">London&nbsp;lawyers</th><th class="tl-areas">Main&nbsp;London&nbsp;areas</th><th class="tl-n">Revenue</th><th class="tl-n">PEP</th></tr></thead>`
-    + `<tbody id="lf-rows">${rows.length ? rows.map(lawFirmRow).join("") : '<tr><td colspan="6" class="tw-empty muted small">No firms tracked yet.</td></tr>'}</tbody></table></div>`
-    + `<p class="tl-sls-key muted small">London office of each firm — approximate lawyer headcount, main London practice areas, latest revenue and profit per equity partner (PEP). Revenue/PEP are firm-wide unless the basis (hover) says otherwise; US firms report globally. Click a firm for its London profile and private-capital deals (last 12 months).</p>`;
+    + `<thead><tr><th>Firm</th><th class="tl-tier">Tier</th><th class="tl-n">London&nbsp;lawyers</th><th class="tl-areas">Main&nbsp;London&nbsp;areas</th><th class="tl-n">Total&nbsp;revenue</th><th class="tl-n">London&nbsp;revenue</th><th class="tl-n">PEP</th></tr></thead>`
+    + `<tbody id="lf-rows">${rows.length ? rows.map(lawFirmRow).join("") : '<tr><td colspan="7" class="tw-empty muted small">No firms tracked yet.</td></tr>'}</tbody></table></div>`
+    + `<p class="tl-sls-key muted small">London office of each firm — approximate lawyer headcount, main London practice areas, revenue and profit per equity partner (PEP). Total revenue is firm-wide/global; London revenue shows only where the firm discloses a London-office figure (or is a single-office London firm) — otherwise “—”. Hover any figure for its basis and year. Click a firm for its London profile and private-capital deals (last 12 months).</p>`;
 }
 
 function viewDashboard() {
