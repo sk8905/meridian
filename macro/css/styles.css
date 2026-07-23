@@ -347,6 +347,22 @@ a.intel-head:hover { text-decoration: none; }
 .ck-ov-h { background: var(--bg, #05080f); padding: 10px 12px 5px; font-family: var(--t-mono, ui-monospace, monospace); font-size: 9.5px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--faint, #5c6a86); }
 /* In the narrower matrix column, stack the comparison matrix over its detail. */
 .ck-ov-mtx .ck-ind-wrap { grid-template-columns: 1fr; }
+/* Wide screens: give Rates & policy room and place the market-implied Fed path
+   + rate outlook to the RIGHT of the yield curve instead of stacking the whole
+   column top-to-bottom. The yield-curve panel takes the left, spanning the two
+   rows the Fed path and outlook occupy on the right. */
+@media (min-width: 1101px) {
+  .mac-cockpit .ck-ov { grid-template-columns: minmax(0, 1.45fr) minmax(0, 2fr) minmax(0, 1fr); }
+  .mac-cockpit .ck-ov-rates {
+    display: grid; gap: 1px; background: var(--border); align-content: start;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-areas: "hd hd" "yc fed" "yc out";
+  }
+  .ck-ov-rates > .ck-ov-h { grid-area: hd; }
+  .ck-ov-rates > .ck-panel-yc { grid-area: yc; }
+  .ck-ov-rates > .ck-panel:not(.ck-panel-yc):not(.ck-strip) { grid-area: fed; }
+  .ck-ov-rates > .ck-panel.ck-strip { grid-area: out; }
+}
 /* Cockpit sub-section headers — full-width mono dividers grouping the panels */
 .ck-sec { grid-column: 1 / -1; background: var(--bg, #05080f); padding: 14px 12px 5px;
   font-family: var(--t-mono, ui-monospace, monospace); font-size: 9.5px; font-weight: 600;

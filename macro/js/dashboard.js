@@ -318,9 +318,9 @@ export function macroDashPane() {
     </section>
     </div>
 
-    <div class="ck-ov-c">
+    <div class="ck-ov-c ck-ov-rates">
     <div class="ck-ov-h">Rates &amp; policy</div>
-    <section class="ck-panel">
+    <section class="ck-panel ck-panel-yc">
       <header class="ck-h"><span>Yield curve</span><span class="ck-x" id="ck-yc-asof">gov · as of ${esc(_yc.asOf)}</span></header>
       <div class="ck-body" id="ck-yc-body">${ycBody()}</div>
     </section>
