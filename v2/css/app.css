@@ -49,6 +49,29 @@ a { color: var(--primary); text-decoration: none; }
    is independent of this. */
 #wire-header { display: contents; }
 .v2-view[hidden] { display: none; }
+
+/* ---- Desktop/tablet: v2 desks scroll as one document --------------------- */
+/* The old app rendered each desk as a fixed full-viewport "terminal" — home's
+   #glance and the desks' .tdash sat at ~100vh with each column scrolling
+   INTERNALLY. That needs a top-level 100vh wrapper the SPA shell doesn't have
+   (v2 has a sticky header + a normal-flow content area, and no #glance), so on
+   wider screens those height/overflow:hidden rules trapped the content and page
+   scrolling was lost. In v2 every desk scrolls as one normal document — exactly
+   as it already does on phones — so nothing is clipped and the wire scrolls. */
+@media (min-width: 761px) {
+  .v2-view .g-main.tui,
+  .v2-view .tdash { height: auto; min-height: 0; overflow: visible; }
+  .v2-view .tdash-grid { min-height: 0; }
+  .v2-view .tcol,
+  .v2-view .tcol-c,
+  .v2-view .tui .g-side,
+  .v2-view .tui .g-side2,
+  .v2-view .tui .g-feed-wrap,
+  .v2-view .tui .g-feed,
+  .v2-view .tui .g-flow-scroll,
+  .v2-view .tui .g-flow-body,
+  .v2-view .tui .g-movers-pnl > #g-movers { height: auto; min-height: 0; overflow: visible; }
+}
 /* Clear the fixed bottom tab bar on phones so content isn't hidden behind it
    (bar ≈ 55px). The meta strip only shows on the Menu tab, so only there does
    the content need the extra room for it (strip ≈ 34px). */
