@@ -9,7 +9,7 @@ import {
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
   HEDGE_FUNDS, HEDGE_FUNDS_ASOF,
-} from "/credit/js/data.js?v=20260723-5";
+} from "/credit/js/data.js?v=20260723-6";
 import { barChart, donutChart, lineChart, multiLineChart } from "/credit/js/charts.js?v=20260722-4";
 import {
   eur, pct, fmtDate, link, notFound,
@@ -18,8 +18,8 @@ import {
   creditSource, feedDedupKey, intelRow, dealRow,
   PAGE, pageShown, pageCount, pageReset, loadMoreBtn, feedHtml, feedFlat,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
-} from "/credit/js/shared.js?v=20260723-1";
-import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost } from "/v2/js/credit/detail.js?v=v2-2";
+} from "/credit/js/shared.js?v=20260723-2";
+import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost } from "/v2/js/credit/detail.js?v=v2-3";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260722-4";
 import { esc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
 
@@ -650,15 +650,28 @@ function viewDashboard() {
   // Hedge Funds league table — largest managers across US / UK / Europe, sorted
   // by (approximate) AUM. Rows open the firm's own site in a new tab.
   const hfRows = [...HEDGE_FUNDS].sort((a, b) => (b.aum || 0) - (a.aum || 0));
-  // Rows open the in-app fund detail (AUM sources, strategy, region, performance
-  // and a live SEC 13F top-10) rather than the external site.
+  // Live-linked source URLs in the row: the AUM figure opens its citable source,
+  // the Latest-13F cell opens the fund's most recent SEC 13F filing list (or, for
+  // a non-US filer, the equivalent EDGAR/registry filing). The row itself (empty
+  // space) opens the in-app fund detail with the live top-10 holdings.
+  const hfSec = (cik) => `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${cik}&type=13F-HR&dateb=&owner=include&count=40`;
+  const hfAum = (f) => f.aum == null ? "—"
+    : (f.aumSource
+      ? `<a href="${esc(f.aumSource)}" target="_blank" rel="noopener noreferrer" title="AUM source (${esc(f.aumAsOf || "")})">$${esc(f.aum.toFixed(2))}bn</a>`
+      : `$${esc(f.aum.toFixed(2))}bn`);
+  const hfFiling = (f) => f.cik
+    ? `<a href="${esc(hfSec(f.cik))}" target="_blank" rel="noopener noreferrer" title="Latest SEC 13F-HR (CIK ${esc(f.cik)})">13F-HR</a>`
+    : (f.filing
+      ? `<a href="${esc(f.filing.url)}" target="_blank" rel="noopener noreferrer" title="Latest filing (no US 13F-HR)">${esc(f.filing.label)}</a>`
+      : `<span class="muted">—</span>`);
   const hfRow = (f) => `<tr class="clickable" data-href="#/hf/${esc(f.id)}" data-name="${esc((f.name + " " + f.hq + " " + f.strategy + " " + f.region).toLowerCase())}">`
     + `<td class="tl-nm">${esc(f.name)}</td>`
     + `<td class="tl-hq">${esc(f.hq)}</td>`
     + `<td>${esc(f.region)}</td>`
-    + `<td class="tl-n">${f.aum == null ? "—" : "$" + esc(String(f.aum)) + "bn"}</td>`
+    + `<td class="tl-aum">${hfAum(f)}</td>`
     + `<td>${esc(f.strategy)}</td>`
-    + `<td class="tl-n">${f.founded || "—"}</td>`
+    + `<td class="tl-fil">${hfFiling(f)}</td>`
+    + `<td>${f.founded || "—"}</td>`
     + `<td>${esc(f.founder || "—")}</td></tr>`;
   app.innerHTML = `
     <div class="tdash">
@@ -695,8 +708,8 @@ function viewDashboard() {
                 <input type="search" id="hf-q" class="tsearch" placeholder="Search name, HQ or strategy…" aria-label="Search hedge funds">
               </header>
               <div class="tleague-wrap">
-              <table class="tleague tleague-full">
-                <thead><tr><th>Fund</th><th class="tl-hq">HQ</th><th>Region</th><th>AUM&nbsp;$bn</th><th>Strategy</th><th>Founded</th><th>Founder</th></tr></thead>
+              <table class="tleague tleague-full tleague-hf">
+                <thead><tr><th>Fund</th><th class="tl-hq">HQ</th><th>Region</th><th class="tl-aum">AUM&nbsp;$bn</th><th>Strategy</th><th class="tl-fil">Latest&nbsp;13F</th><th>Founded</th><th>Founder</th></tr></thead>
                 <tbody id="hf-rows">${hfRows.map(hfRow).join("")}</tbody>
               </table>
               </div>

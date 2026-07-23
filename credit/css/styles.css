@@ -719,3 +719,36 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
   background: color-mix(in srgb, var(--accent, #fb8b1e) 26%, transparent);
   border-color: color-mix(in srgb, var(--accent, #fb8b1e) 55%, transparent); }
 .tl-sls-key { margin: 8px 8px 4px; font-size: 10px; line-height: 1.5; }
+
+/* Hedge Funds league table — unlike the managers table (every data column
+   right-anchored), this reads left-to-right: ALL headings and cells are
+   left-aligned and only the AUM figure sits centred in a narrow column. Scoped
+   to the hedgefunds pane so it overrides the default league right-alignment
+   (tui.css `.tleague th:not(:first-child)`) by specificity. */
+.tpane[data-pane="hedgefunds"] .tleague th,
+.tpane[data-pane="hedgefunds"] .tleague td { text-align: left; }
+.tpane[data-pane="hedgefunds"] .tleague th.tl-aum,
+.tpane[data-pane="hedgefunds"] .tleague td.tl-aum { text-align: center; white-space: nowrap; font-family: var(--t-mono); color: var(--ink); }
+.tpane[data-pane="hedgefunds"] .tleague td.tl-fil a { font-family: var(--t-mono); font-size: 10px; }
+/* Column widths for THIS table's 8 columns (Fund·HQ·Region·AUM·Strategy·13F·
+   Founded·Founder) — the managers-table nth-child widths in tui.css don't fit,
+   so restate them here (must sum ~100% under table-layout:fixed). */
+@media (min-width: 761px) {
+  .tpane[data-pane="hedgefunds"] .tleague-full th:nth-child(1) { width: 17%; }  /* Fund      */
+  .tpane[data-pane="hedgefunds"] .tleague-full th:nth-child(2) { width: 14%; }  /* HQ        */
+  .tpane[data-pane="hedgefunds"] .tleague-full th:nth-child(3) { width: 8%;  }  /* Region    */
+  .tpane[data-pane="hedgefunds"] .tleague-full th:nth-child(4) { width: 9%;  }  /* AUM $bn   */
+  .tpane[data-pane="hedgefunds"] .tleague-full th:nth-child(5) { width: 18%; }  /* Strategy  */
+  .tpane[data-pane="hedgefunds"] .tleague-full th:nth-child(6) { width: 9%;  }  /* Latest 13F*/
+  .tpane[data-pane="hedgefunds"] .tleague-full th:nth-child(7) { width: 8%;  }  /* Founded   */
+  .tpane[data-pane="hedgefunds"] .tleague-full th:nth-child(8) { width: 17%; }  /* Founder   */
+}
+
+/* Hedge-fund 13F top-10 holdings table (fund detail page). Text columns
+   (Holding · Ticker · CUSIP) read left; the numeric + performance columns keep
+   the league default (right). 1D/3M/6M/12M price returns are colour-coded. */
+.tl-holdings th:nth-child(2), .tl-holdings th.tl-tick, .tl-holdings th.tl-hq { text-align: left; }
+.tl-holdings .tl-tick { color: var(--muted); font-family: var(--t-mono); font-size: 10px; }
+.tl-holdings .hp-up { color: var(--t-up, #3fc08d); }
+.tl-holdings .hp-down { color: var(--t-down, #f26d84); }
+.tl-holdings .hp-flat { color: var(--faint, #8b96ac); }

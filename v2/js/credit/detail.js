@@ -13,14 +13,14 @@ import {
   managerById, fundById, lpById, funds, lps, intel, deals,
   fundsByManager, intelForFund, dealsForFund, dealsForManager, intelForManager,
   HEDGE_FUNDS,
-} from "/credit/js/data.js?v=20260723-5";
+} from "/credit/js/data.js?v=20260723-6";
 import { esc } from "/util.js?v=20260719-1";
 import {
   eur, pct, fmtDate, link, sources, raiseDisplay, nameCell, saveBtn, newsSaveId,
   metaDate, notFound, applyPendingFocus, commitmentsForLp, commitmentsForManager,
   investorsForFund, pageList, feedDedupKey, creditSource, intelRow, dealRow,
   _chipMem, chipMemKey,
-} from "/credit/js/shared.js?v=20260723-1";
+} from "/credit/js/shared.js?v=20260723-2";
 
 export let app = null;
 export function __setHost(h) { app = h; }
@@ -575,24 +575,42 @@ function hfUsd(v) {
   if (a >= 1e3) return "$" + Math.round(v / 1e3) + "k";
   return "$" + Math.round(v);
 }
-function hfHoldingsTable(d) {
+// One performance cell. perfMap null = not fetched yet (show "…" for rows that
+// have a ticker); a fetched map with no entry, or a row with no ticker = "—".
+function hfPct(v) {
+  if (v == null || !isFinite(v)) return `<span class="muted">—</span>`;
+  const cls = v > 0 ? "hp-up" : v < 0 ? "hp-down" : "hp-flat";
+  return `<span class="${cls}">${v > 0 ? "+" : ""}${esc(v.toFixed(2))}%</span>`;
+}
+function hfPerfCell(h, perfMap, k) {
+  if (!h.ticker) return `<span class="muted">—</span>`;
+  if (!perfMap) return `<span class="muted">…</span>`;
+  const p = perfMap[String(h.ticker).toUpperCase()];
+  return hfPct(p ? p[k] : null);
+}
+function hfHoldingsTable(d, perfMap) {
   if (!d || !Array.isArray(d.holdings) || !d.holdings.length) return null;
   const rows = d.holdings.map((h, i) => `<tr>`
     + `<td class="tl-n">${i + 1}</td>`
     + `<td class="tl-nm">${esc(h.name || "—")}</td>`
+    + `<td class="tl-tick">${h.ticker ? esc(h.ticker) : "—"}</td>`
     + `<td class="tl-hq">${esc(h.cusip || "")}</td>`
     + `<td class="tl-n">${esc(hfUsd(h.value))}</td>`
     + `<td class="tl-n">${h.shares != null && isFinite(h.shares) ? esc(Math.round(h.shares).toLocaleString("en-US")) : "—"}</td>`
-    + `<td class="tl-n">${h.weight != null && isFinite(h.weight) ? esc((h.weight * 100).toFixed(2)) + "%" : "—"}</td></tr>`).join("");
-  return `<div class="tleague-wrap"><table class="tleague tleague-full">`
-    + `<thead><tr><th>#</th><th>Holding</th><th class="tl-hq">CUSIP</th><th>Value</th><th>Shares</th><th>Weight</th></tr></thead>`
+    + `<td class="tl-n">${h.weight != null && isFinite(h.weight) ? esc((h.weight * 100).toFixed(2)) + "%" : "—"}</td>`
+    + `<td class="tl-n">${hfPerfCell(h, perfMap, "d1")}</td>`
+    + `<td class="tl-n">${hfPerfCell(h, perfMap, "m3")}</td>`
+    + `<td class="tl-n">${hfPerfCell(h, perfMap, "m6")}</td>`
+    + `<td class="tl-n">${hfPerfCell(h, perfMap, "m12")}</td></tr>`).join("");
+  return `<div class="tleague-wrap"><table class="tleague tl-holdings">`
+    + `<thead><tr><th>#</th><th>Holding</th><th class="tl-tick">Ticker</th><th class="tl-hq">CUSIP</th><th>Value</th><th>Shares</th><th>Weight</th><th>1D</th><th>3M</th><th>6M</th><th>12M</th></tr></thead>`
     + `<tbody>${rows}</tbody></table></div>`;
 }
 
 export function viewHedgeFund(id) {
   const f = HEDGE_FUNDS.find((x) => x.id === id);
   if (!f) return notFound(app);
-  const aumStr = f.aum == null ? "n.a." : "$" + f.aum + "bn" + (f.estimated ? " (approx.)" : "");
+  const aumStr = f.aum == null ? "n.a." : "$" + f.aum.toFixed(2) + "bn" + (f.estimated ? " (approx.)" : "");
   const aumFact = f.aum == null ? "n.a."
     : `${esc(aumStr)}${f.aumAsOf ? ` <span class="tf-est">as of ${esc(f.aumAsOf)}</span>` : ""}`
       + (f.aumSource ? ` · <a href="${esc(f.aumSource)}" target="_blank" rel="noopener noreferrer" class="tw-mgr">source</a>` : "");
@@ -602,7 +620,7 @@ export function viewHedgeFund(id) {
     : "n.a.";
   const secUrl = f.cik ? `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${esc(f.cik)}&type=13F-HR&dateb=&owner=include&count=40` : null;
   const metrics = [
-    ["AUM", f.aum == null ? "n.a." : "$" + f.aum + "bn"], ["Region", esc(f.region)],
+    ["AUM", f.aum == null ? "n.a." : "$" + f.aum.toFixed(2) + "bn"], ["Region", esc(f.region)],
     ["Founded", f.founded || "—"], ["Strategy", esc(f.strategy)],
   ];
   const facts = [
@@ -632,7 +650,7 @@ export function viewHedgeFund(id) {
           <div class="tdet-id">
             <h1>${esc(f.name)}</h1>
             <div class="tdet-sub">${esc(f.hq)} · ${esc(f.region)}${f.founded ? " · Founded " + esc(String(f.founded)) : ""}${f.founder ? " · " + esc(f.founder) : ""}</div>
-            <div class="tdet-chips"><span class="tdet-chip">${esc(f.strategy)}</span>${f.aum != null ? `<span class="tdet-chip">$${esc(String(f.aum))}bn AUM</span>` : ""}</div>
+            <div class="tdet-chips"><span class="tdet-chip">${esc(f.strategy)}</span>${f.aum != null ? `<span class="tdet-chip">$${esc(f.aum.toFixed(2))}bn AUM</span>` : ""}</div>
           </div>
           <header class="tpanel-h twire-head"><span>Top 10 holdings</span><span class="tpanel-x">SEC 13F-HR${f.cik ? "" : " · n/a"}</span></header>
           ${holdingsBody}
@@ -654,13 +672,27 @@ export function viewHedgeFund(id) {
       .then((d) => {
         const el = document.getElementById("hf-holdings");
         if (!el) return;
-        const table = hfHoldingsTable(d);
-        el.innerHTML = table || `<p class="tw-empty muted small">No US 13F holdings disclosed.</p>`;
-        const asof = document.getElementById("hf-asof");
-        if (asof && d && d.asOf) {
-          asof.textContent = d.source ? "" : d.asOf;
-          if (d.source) { const a = document.createElement("a"); a.href = d.source; a.target = "_blank"; a.rel = "noopener noreferrer"; a.textContent = d.asOf; asof.appendChild(a); }
+        if (!d || !Array.isArray(d.holdings) || !d.holdings.length) {
+          el.innerHTML = `<p class="tw-empty muted small">No US 13F holdings disclosed.</p>`;
+          return;
         }
+        // First paint: holdings with "…" in the four performance columns.
+        el.innerHTML = hfHoldingsTable(d, null);
+        const asof = document.getElementById("hf-asof");
+        if (asof && d.asOf) {
+          asof.textContent = "";
+          if (d.source) { const a = document.createElement("a"); a.href = d.source; a.target = "_blank"; a.rel = "noopener noreferrer"; a.textContent = d.asOf; asof.appendChild(a); }
+          else asof.textContent = d.asOf;
+        }
+        // Second phase: live 1D/3M/6M/12M price performance for the resolved
+        // tickers (edge-cached ~15 min), then re-render with the figures filled.
+        const syms = [...new Set(d.holdings.map((h) => h.ticker).filter(Boolean))];
+        const fill = (perfMap) => { const e2 = document.getElementById("hf-holdings"); if (e2) e2.innerHTML = hfHoldingsTable(d, perfMap); };
+        if (!syms.length) { fill({}); return; }
+        fetch(`/api/perf?symbols=${encodeURIComponent(syms.join(","))}`, { headers: { accept: "application/json" } })
+          .then((r) => (r.ok ? r.json() : null))
+          .then((pr) => fill((pr && pr.perf) || {}))
+          .catch(() => fill({}));
       })
       .catch(() => {
         const el = document.getElementById("hf-holdings");

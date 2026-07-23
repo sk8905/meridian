@@ -911,6 +911,19 @@ function xmlFirst(block, tag) {
   const m = block.match(new RegExp("<(?:\\w+:)?" + tag + "\\b[^>]*>([\\s\\S]*?)</(?:\\w+:)?" + tag + ">", "i"));
   return m ? xmlDecode(m[1].trim()) : null;
 }
+// CUSIP (or issuer name) → Yahoo ticker via the search endpoint (same host we
+// already use for quotes). Prefers an equity/ETF hit. Best-effort → null when
+// nothing resolves (a bond line, an obscure issuer), so the row just omits a
+// ticker and its performance columns read "—".
+async function yahooSymbol(query) {
+  if (!query) return null;
+  const txt = await fetchText(`https://query1.finance.yahoo.com/v1/finance/search?q=${encodeURIComponent(query)}&quotesCount=3&newsCount=0&enableFuzzyQuery=false`);
+  if (!txt) return null;
+  let j; try { j = JSON.parse(txt); } catch { return null; }
+  const q = (j && j.quotes) || [];
+  const hit = q.find((x) => x.symbol && (x.quoteType === "EQUITY" || x.quoteType === "ETF")) || q[0];
+  return (hit && hit.symbol) ? hit.symbol : null;
+}
 async function handle13F(request, env, ctx) {
   const url = new URL(request.url);
   const raw = (url.searchParams.get("cik") || "").replace(/\D/g, "");
@@ -921,7 +934,7 @@ async function handle13F(request, env, ctx) {
 
   const cache = caches.default;
   // Long-lived, per-CIK edge key. Bump v when the endpoint's parsing code changes.
-  const cacheKey = new Request(new URL(`/api/13f?cik=${cik}&v=1`, request.url).toString());
+  const cacheKey = new Request(new URL(`/api/13f?cik=${cik}&v=2`, request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
@@ -993,6 +1006,11 @@ async function handle13F(request, env, ctx) {
       .sort((a, b) => b.value - a.value)
       .slice(0, 10)
       .map((h) => ({ name: h.name, cusip: h.cusip, value: h.value, shares: h.shares, weight: total ? h.value / total : null }));
+    // Resolve each top-10 holding's ticker from its CUSIP (best-effort) so the
+    // fund page can annotate rows with live price performance. Cached with the
+    // holdings (24h) since tickers are stable.
+    const tickers = await Promise.all(holdings.map((h) => yahooSymbol(h.cusip).catch(() => null)));
+    holdings.forEach((h, i) => { if (tickers[i]) h.ticker = tickers[i]; });
 
     const resp = json({ cik, asOf, filedAt, source: `${dir}/${accession}-index.htm`, total, holdings });
     // 13F is quarterly — cache a good response 24h so it isn't refetched per view.
@@ -1002,6 +1020,54 @@ async function handle13F(request, env, ctx) {
   } catch (e) {
     return fail(String((e && e.message) || e));
   }
+}
+
+// ===================== PRICE PERFORMANCE (13F holdings) ====================
+// 1-day / 3-month / 6-month / 12-month price return for a set of tickers, from
+// Yahoo's 1y daily closes. Used by the Hedge Funds fund page to annotate each
+// 13F top-10 row. Short edge cache (~15 min) since prices move intraday — the
+// holdings themselves come from /api/13f (cached 24h). Symbols come from that
+// endpoint's resolved tickers, so this is a cheap follow-up fetch.
+function pctRet(a, b) { return (Number.isFinite(a) && Number.isFinite(b) && b) ? +(((a / b) - 1) * 100).toFixed(2) : null; }
+async function yahooPerf(symbol) {
+  const txt = await fetchText(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=1y&interval=1d`);
+  if (!txt) return null;
+  let j; try { j = JSON.parse(txt); } catch { return null; }
+  const res = j && j.chart && j.chart.result && j.chart.result[0];
+  if (!res) return null;
+  const ts = res.timestamp || [];
+  const closes = ((((res.indicators || {}).quote || [])[0] || {}).close) || [];
+  const pts = [];
+  for (let i = 0; i < ts.length; i++) { if (Number.isFinite(closes[i])) pts.push([ts[i], closes[i]]); }
+  if (pts.length < 2) return null;
+  const last = pts[pts.length - 1][1];
+  const prev = pts[pts.length - 2][1];
+  const nowT = pts[pts.length - 1][0];
+  // Close on/just before (now − days); null when history doesn't reach back that
+  // far (a recent IPO), so a horizon isn't faked from the earliest point.
+  const at = (days) => {
+    const target = nowT - days * 86400;
+    if (target < pts[0][0] - 6 * 86400) return null;
+    for (let i = pts.length - 1; i >= 0; i--) { if (pts[i][0] <= target) return pts[i][1]; }
+    return pts[0][1];
+  };
+  return { d1: pctRet(last, prev), m3: pctRet(last, at(91)), m6: pctRet(last, at(182)), m12: pctRet(last, at(365)) };
+}
+async function handlePerf(request, env, ctx) {
+  const url = new URL(request.url);
+  const syms = (url.searchParams.get("symbols") || "").split(",").map((s) => s.trim().toUpperCase()).filter(Boolean).slice(0, 15);
+  if (!syms.length) return json({ perf: {} });
+  const cache = caches.default;
+  const cacheKey = new Request(new URL(`/api/perf?symbols=${syms.join(",")}&v=1`, request.url).toString());
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+  const results = await Promise.all(syms.map((s) => yahooPerf(s).catch(() => null)));
+  const perf = {};
+  syms.forEach((s, i) => { if (results[i]) perf[s] = results[i]; });
+  const resp = json({ perf });
+  resp.headers.set("cache-control", "public, max-age=900");
+  if (ctx && ctx.waitUntil && Object.keys(perf).length) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+  return resp;
 }
 
 // ============================ MACRO DASHBOARD ==============================
@@ -2426,6 +2492,7 @@ export default {
     if (url.pathname === "/api/macro") return handleMacro(request, env, ctx);
     if (url.pathname === "/api/yield-curve") return handleYieldCurve(request, env, ctx);
     if (url.pathname === "/api/13f") return handle13F(request, env, ctx);
+    if (url.pathname === "/api/perf") return handlePerf(request, env, ctx);
     if (url.pathname === "/api/feed") return handleFeed(request, env, ctx);
     if (url.pathname === "/api/predict") return handlePredict(request, env, ctx);
     if (url.pathname === "/api/watchlist") return handleWatchlist(request, env);
