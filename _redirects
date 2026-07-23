@@ -1,0 +1,31 @@
+# Edge redirects for Cloudflare Workers Assets (processed by the asset layer,
+# before the Worker, exactly like the sibling _headers file).
+#
+# RETIRE THE OLD APP: send every visitor — browser AND installed PWA — from the
+# old app's entry routes to the rebuilt v2 SPA. The old entry pages, their
+# client-side standalone-only redirect, and all the old orchestrator modules are
+# left in place UNCHANGED as a one-step rollback: delete this file and the old
+# app serves again (browsers get it directly; the PWA's own standalone redirect
+# still bounces it to /v2/). 302 (temporary) so nothing caches the redirect hard
+# while the rollback window is open.
+#
+# Only the exact navigation routes are matched — never the shared assets under
+# /macro/js, /credit/js, /legal/js, /premium.css, … which v2 still loads — so a
+# wildcard must never be used here. Deep links into a desk are hash-based
+# (/credit/#fund/x); the browser re-appends the fragment to the redirect target,
+# and the v2 apps preserve hash sub-routing, so those links keep working.
+
+/                    /v2/           302
+/index.html          /v2/           302
+/macro               /v2/macro/     302
+/macro/              /v2/macro/     302
+/macro/index.html    /v2/macro/     302
+/credit              /v2/credit/    302
+/credit/             /v2/credit/    302
+/credit/index.html   /v2/credit/    302
+/legal               /v2/legal/     302
+/legal/              /v2/legal/     302
+/legal/index.html    /v2/legal/     302
+/menu                /v2/menu/      302
+/menu/               /v2/menu/      302
+/menu/index.html     /v2/menu/      302
