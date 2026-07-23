@@ -17,8 +17,8 @@ import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
   rxAdvisers,
-} from "./data.js?v=20260723-2";
-import { donutChart, columnChart } from "./charts.js?v=20260723-2";
+} from "./data.js?v=20260723-3";
+import { donutChart, columnChart } from "./charts.js?v=20260723-3";
 // The view code splits across three modules with an ACYCLIC import graph —
 // app.js -> detail.js -> shared.js. shared.js holds the date formatters, the
 // saved-items read layer, the "new since last visit" marker and the alert
@@ -29,8 +29,8 @@ import { donutChart, columnChart } from "./charts.js?v=20260723-2";
 import {
   fmtDate, itemDate, itemRow, firmLink, getSaved, SAVED_KEY,
   markVisitedSoon, _chipMem, chipMemKey,
-} from "./shared.js?v=20260723-2";
-import { viewItem, viewFirm } from "./detail.js?v=20260723-2";
+} from "./shared.js?v=20260723-3";
+import { viewItem, viewFirm } from "./detail.js?v=20260723-3";
 // The shared news-wire engine — so the Legal dashboard wire is the same build as
 // the Home feed (time-led .g-feed-* rows, day headers, and — new — the firm name
 // at row end as an in-place source filter).

@@ -13,7 +13,7 @@ export const UPDATED = "23 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-23",
-  lastCheckedTime: "09:28 BST",
+  lastCheckedTime: "12:23 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -184,16 +184,16 @@ export const OUTLOOK = {
 // and reputable houses, newest first. Rendered as a two-column feed styled like
 // the dashboard's Key macro headlines; the four-times-daily routine keeps it current.
 export const COMMENTARY = {
-  updated: "2026-07-22",
+  updated: "2026-07-23",
   us: [
     { title: "The Oil Question That Really Matters for Stocks", source: "Bloomberg Opinion", author: "John Authers", date: "2026-07-22", url: "https://www.bloomberg.com/opinion/newsletters/2026-07-22/the-oil-question-that-really-matters-for-stocks" },
+    { title: "Watch: Four reasons why US inflation should slow from here", source: "ING", author: "James Knightley", date: "2026-07-22", url: "https://think.ing.com/think-vision/videos/watch-four-reasons-why-us-inflation-should-slow-from-here/" },
     { title: "The Federal Reserve Needs to Raise Interest Rates", source: "Bloomberg Opinion", author: "Bill Dudley", date: "2026-07-20", url: "https://www.bloomberg.com/opinion/articles/2026-07-20/the-federal-reserve-needs-to-raise-interest-rates" },
-    { title: "Warsh Shows His Inner Hawk as Inflation Debate Heats Up", source: "Bloomberg", author: "Bloomberg — Fed coverage", date: "2026-07-18", url: "https://www.bloomberg.com/news/articles/2026-07-18/warsh-shows-his-inner-hawk-as-inflation-debate-heats-up" },
   ],
   uk: [
     { title: "What the New UK Chancellor Means for the UK Economy", source: "Project Syndicate", author: "Mohamed A. El-Erian", date: "2026-07-22", url: "https://www.project-syndicate.org/commentary/what-john-healey-appointment-as-chancellor-means-for-uk-economy-by-mohamed-a-el-erian-2026-07" },
-    { title: "Burnham kicks off UK premiership with lucky breaks. Investors hope they last", source: "Reuters Breakingviews (via MarketScreener)", author: "Mike Dolan", date: "2026-07-21", url: "https://www.marketscreener.com/news/roi-burnham-kicks-off-uk-premiership-with-lucky-breaks-investors-hope-they-last-mike-dolan-ce7f51dbde8cff24" },
-    { title: "New U.K. PM Burnham's tightrope: same fiscal rules, no raise for biggest taxes", source: "Axios", author: "ING — James Smith", date: "2026-07-20", url: "https://www.axios.com/2026/07/20/burnham-britain-economy" },
+    { title: "Lower UK inflation weakens the case for rate hikes", source: "ING", author: "James Smith", date: "2026-07-22", url: "https://think.ing.com/snaps/lower-uk-inflation-weakens-the-case-for-rate-hikes/" },
+    { title: "Gilts under pressure as investors brace for higher spending under new PM", source: "Capital Economics", author: "Paul Dales", date: "2026-07-21", url: "https://www.capitaleconomics.com/newsroom/gilts-under-pressure-investors-brace-higher-spending-under-new-pm" },
   ],
 };
 
@@ -491,15 +491,15 @@ export const NEWS = {
   updated: "2026-07-23",
   us: [
     { title: "Houthis claim strikes on Saudi Arabian oil tankers in Red Sea as Iran conflict expands", source: "CNBC", date: "2026-07-23", time: "09:20", url: "https://www.cnbc.com/2026/07/23/iran-war-us-trump-houthis-red-sea-oil.html" },
+    { title: "Treasury yields follow oil prices higher as traders await latest jobs data", source: "CNBC", date: "2026-07-23", time: "12:13", url: "https://www.cnbc.com/2026/07/23/treasury-yields-oil-prices-jobless-claims.html" },
     { title: "Oil surges past $95 as U.S. downplays Iran diplomacy and 2nd key trade route is disrupted", source: "NBC News", date: "2026-07-22", time: "22:40", url: "https://www.nbcnews.com/business/business-news/oil-prices-brent-gas-iran-war-trump-hormuz-red-sea-houthis-rcna588671" },
-    { title: "Stock Market Today: Dow, S&P Live Updates for July 23", source: "Bloomberg", date: "2026-07-22", time: "09:20", url: "https://www.bloomberg.com/news/articles/2026-07-22/stock-market-today-dow-s-p-live-updates" },
     { title: "Stock Market Today, July 22: Nasdaq Slides Prior to Tesla and Alphabet's Earnings After Market Close", source: "Yahoo Finance", date: "2026-07-22", time: "23:10", url: "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-july-22-221042092.html" },
     { title: "Trump administration keeps testing trade authorities as tariffs evolve", source: "Axios", date: "2026-07-21", time: "09:20", url: "https://www.axios.com/2026/07/21/trump-tariffs-imports-canada" },
   ],
   uk: [
+    { title: "'Door is open' to interest rate hike as inflation fears return", source: "CityAM", date: "2026-07-23", time: "12:13", url: "https://www.cityam.com/door-is-open-to-interest-rate-hike-as-inflation-fears-return/" },
+    { title: "Is the pound's rally masking underlying UK economic weakness?", source: "Investing.com UK", date: "2026-07-23", time: "12:13", url: "https://uk.investing.com/news/economy-news/is-the-pounds-rally-masking-underlying-uk-economic-weakness-4784567" },
     { title: "UK 10Y Bond Yield Hits 9-week High", source: "TradingEconomics", date: "2026-07-22", time: "11:43", url: "https://tradingeconomics.com/united-kingdom/government-bond-yield/news/568883" },
-    { title: "Pound Sterling Price News and Forecast: GBP/USD remains below 50-day EMA near the confluence of 1.3400", source: "FXStreet", date: "2026-07-22", time: "11:22", url: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-remains-below-50-day-ema-near-the-confluence-of-13400-202607221122" },
-    { title: "Healey challenges Cabinet to find cuts", source: "CityAM", date: "2026-07-21", time: "15:02", url: "https://www.cityam.com/healey-challenges-cabinet-to-find-cuts/" },
     { title: "UK Inflation Falls on Cheaper Petrol, Food Ahead of BoE Rate Decision", source: "Bloomberg", date: "2026-07-22", time: "09:20", url: "https://www.bloomberg.com/news/newsletters/2026-07-22/uk-inflation-falls-on-cheaper-petrol-food-ahead-of-boe-rate-decision" },
     { title: "Cooler Inflation Hands New UK PM Burnham An Early Boost", source: "Yahoo Finance UK", date: "2026-07-22", time: "17:34", url: "https://uk.finance.yahoo.com/news/cooler-inflation-hands-uk-pm-093144226.html" },
   ],
@@ -515,6 +515,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-23",
   items: [
+    {"title":"'Door is open' to interest rate hike as inflation fears return","source":"CityAM","date":"2026-07-23","url":"https://www.cityam.com/door-is-open-to-interest-rate-hike-as-inflation-fears-return/","blurb":"HSBC's Elizabeth Martins and UBS's Anna Titareva flagged a hawkish BoE bias as oil-driven inflation risk builds ahead of the 30 July MPC decision."},
+    {"title":"Treasury yields follow oil prices higher as traders await latest jobs data","source":"CNBC","date":"2026-07-23","url":"https://www.cnbc.com/2026/07/23/treasury-yields-oil-prices-jobless-claims.html","blurb":"US Treasury yields tracked oil's climb higher as traders weighed the inflation implications ahead of the next jobs data and the 28-29 July FOMC meeting."},
+    {"title":"Is the pound's rally masking underlying UK economic weakness?","source":"Investing.com UK","date":"2026-07-23","url":"https://uk.investing.com/news/economy-news/is-the-pounds-rally-masking-underlying-uk-economic-weakness-4784567","blurb":"Analysts question whether sterling's recent strength reflects genuine UK economic resilience or is instead a function of broader dollar weakness."},
     {"title":"Houthis claim strikes on Saudi Arabian oil tankers in Red Sea as Iran conflict expands","source":"CNBC","date":"2026-07-23","url":"https://www.cnbc.com/2026/07/23/iran-war-us-trump-houthis-red-sea-oil.html","blurb":"Yemen's Houthis claimed missile and drone strikes on two Saudi-flagged tankers in the Red Sea, opening a second maritime front alongside the Strait of Hormuz as Brent pushed toward $96/bbl."},
     {"title":"Live updates: US-Iran strikes; conflict widens with Houthis claiming Red Sea attacks","source":"CNN","date":"2026-07-23","url":"https://www.cnn.com/2026/07/23/world/live-news/iran-war-trump","blurb":"Rolling coverage of a 12th consecutive night of US strikes on Iran and the widening Red Sea shipping threat, as Washington and Tehran continue to downplay prospects for renewed talks."},
     {"title":"CNBC Daily Open: Spending shock disappoints Wall Street","source":"CNBC","date":"2026-07-23","url":"https://www.cnbc.com/2026/07/23/cnbc-daily-open-alphabet-tesla-spending-ecb.html","blurb":"Alphabet and Tesla shares fell despite solid quarterly results after both companies flagged sharply higher 2026 capital spending, overshadowing the oil-driven inflation scare weighing on markets."},
@@ -553,9 +556,6 @@ export const ARTICLES = {
     {"title":"Kazakhstan Halts Oil Shipments to Black Sea Port After Tanker Attacks","source":"Bloomberg","date":"2026-07-21","url":"https://www.bloomberg.com/news/articles/2026-07-21/kazakhstan-to-stop-piping-oil-to-black-sea-after-tanker-attacks","blurb":"Kazakhstan suspended Caspian Pipeline Consortium shipments — 80-90% of its oil exports — after drone attacks on tankers at the Black Sea terminal, widening the war's energy-supply fallout beyond the Gulf."},
     {"title":"Fed to hold rates this year despite high inflation, but economists cite high chances of a hike: Reuters poll","source":"Reuters (via Yahoo Finance)","date":"2026-07-21","url":"https://ca.finance.yahoo.com/news/fed-hold-rates-despite-high-122503162.html","blurb":"All 104 economists polled expect a 29 July hold, but 66% now call a 2026 hike likely — a reversal from last month, when most saw one as improbable."},
     {"title":"UK inflation falls by more than expected to 2.6% in June, in lift for Andy Burnham","source":"The Guardian (via AOL)","author":"Phillip Inman","date":"2026-07-22","url":"https://www.aol.co.uk/articles/uk-inflation-falls-2-6-060149000.html","blurb":"Cooling fuel, food and clothing prices pulled headline CPI below consensus, though economists warn a 13% Ofgem price-cap rise will push inflation back up later this year."},
-    {"title":"UK CPI Slows to 2.6%, But Sticky Core Inflation Keeps BoE Cautious","source":"ActionForex","date":"2026-07-22","url":"https://www.actionforex.com/live-comments/648047-uk-cpi-slows-to-2-6-but-sticky-core-inflation-keeps-boe-cautious/","blurb":"Core CPI held at 2.6% — above the 2.5% forecast — and services inflation eased only modestly to 3.6%, leaving the MPC's 30 July decision finely balanced."},
-    {"title":"UK inflation eases to 15-month low in June after food and fuel prices fall","source":"Yahoo Finance UK","date":"2026-07-22","url":"https://uk.finance.yahoo.com/news/uk-inflation-eases-15-month-062301478.html","blurb":"June's reading was the lowest since March 2025, driven by a near-11p fall in diesel prices and softer food costs."},
-    {"title":"British Pound: CPI focus supports Sterling against US Dollar","source":"FXStreet","author":"Societe Generale","date":"2026-07-21","url":"https://www.fxstreet.com/news/british-pound-cpi-focus-supports-sterling-against-us-dollar-societe-generale-202607211004","blurb":"Societe Generale flagged Wednesday's CPI print as the last read the MPC sees before its 30 July decision, framing it as the week's key sterling catalyst."},
   ],
 };
 
