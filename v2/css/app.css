@@ -61,6 +61,11 @@ a { color: var(--primary); text-decoration: none; }
 @media (min-width: 761px) {
   .v2-view .g-main.tui,
   .v2-view .tdash { height: auto; min-height: 0; overflow: visible; }
+  /* Don't stretch the rails to the (very tall) feed column — keep each column
+     its natural height, top-aligned, so the FX matrix sits right under Top
+     movers instead of being pushed to the bottom of a stretched rail. */
+  .v2-view .tui .g-layout { align-items: start; }
+  .v2-view .tui .g-side > .g-movers-pnl { flex: 0 0 auto; }
   .v2-view .tdash-grid { min-height: 0; }
   .v2-view .tcol,
   .v2-view .tcol-c,
@@ -68,9 +73,14 @@ a { color: var(--primary); text-decoration: none; }
   .v2-view .tui .g-side2,
   .v2-view .tui .g-feed-wrap,
   .v2-view .tui .g-feed,
-  .v2-view .tui .g-flow-scroll,
-  .v2-view .tui .g-flow-body,
-  .v2-view .tui .g-movers-pnl > #g-movers { height: auto; min-height: 0; overflow: visible; }
+  .v2-view .tui .g-flow-scroll { height: auto; min-height: 0; overflow: visible; }
+  /* Keep the Top movers and Prediction-markets lists as COMPACT internal
+     scrollers so the rails stay short — otherwise a full-length movers list
+     pushes the panels below it (the FX matrix under Top movers) far down the
+     page and they read as "missing". */
+  .v2-view .tui .g-movers-pnl { flex: 0 0 auto; }
+  .v2-view .tui .g-movers-pnl > #g-movers { max-height: 300px; overflow-y: auto; overscroll-behavior: contain; }
+  .v2-view .tui .g-flow-body { max-height: 360px; overflow-y: auto; overscroll-behavior: contain; }
 }
 /* Clear the fixed bottom tab bar on phones so content isn't hidden behind it
    (bar ≈ 55px). The meta strip only shows on the Menu tab, so only there does
@@ -107,6 +117,26 @@ a { color: var(--primary); text-decoration: none; }
 }
 [data-theme="dark"] .v2-botmeta { background: #000; color: #7f8ca6; border-top: 1px solid var(--border, #262626); }
 [data-theme="dark"] .v2-botmeta-acct strong { color: #e5e9f2; }
+
+/* ---- Page footer: identity + last refresh (desktop only) ----------------- */
+/* On desktop the signed-in identity + app-wide last refresh live in the page
+   footer, not the top bar — so the header copies (#account-nav/#data-status) are
+   hidden there and rendered into #v2-footer instead. On phones the footer is
+   hidden (that info is on the Menu tab's strip). */
+#v2-footer { display: none; }
+@media (min-width: 761px) {
+  #wire-header #account-nav, #wire-header #data-status { display: none; }
+  #v2-footer {
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: 10px 1.5rem calc(10px + env(safe-area-inset-bottom, 0px));
+    font-size: .72rem; line-height: 1.4; color: var(--muted, #66708a);
+    border-top: 1px solid var(--border, #e4e7ef); background: var(--surface, #fff);
+  }
+  #v2-footer .v2-foot-acct { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  #v2-footer .v2-foot-acct strong { color: var(--ink, #131a2b); font-weight: 600; }
+  #v2-footer .v2-foot-acct a { color: var(--primary, #fb8b1e); }
+  #v2-footer .v2-foot-status { flex: 0 0 auto; white-space: nowrap; }
+}
 
 /* Switch feedback: a short, compositor-driven fade-IN on the incoming view.
    Deliberately NOT a view transition (snapshotting a heavy outgoing view is slow

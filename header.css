@@ -39,10 +39,12 @@
 .logo { display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; box-sizing: border-box; border: 1px solid var(--border, #262626); background: #000; color: #fff; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 700; font-size: 1.15rem; line-height: 1; border-radius: 0; }
 
 /* Platform switch (Home / Macro / Credit / Legal) */
-.platform-switch { display: inline-flex; align-items: center; gap: 2px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.22); border-radius: 8px; padding: 2px; margin-right: .6rem; flex: 0 0 auto; }
-.ps-btn { padding: .3rem .6rem; border-radius: 6px; font-size: .8rem; font-weight: 700; color: #cbd5e1; text-decoration: none; white-space: nowrap; }
-.ps-btn:hover { color: #fff; text-decoration: none; background: rgba(255,255,255,.1); }
-.ps-btn.is-active, .ps-btn.is-active:hover { background: #fff; color: #0b0f17; }
+.platform-switch { display: inline-flex; align-items: stretch; gap: 0; background: transparent; border: 0; border-radius: 0; padding: 0; margin-right: .6rem; flex: 0 0 auto; }
+/* Each button reads black-on-header with white text; the selected one is marked
+   by an orange bottom border only (no filled background). */
+.ps-btn { padding: .45rem .7rem; border-radius: 0; font-size: .8rem; font-weight: 700; color: #fff; text-decoration: none; white-space: nowrap; background: transparent; border-bottom: 2px solid transparent; }
+.ps-btn:hover { color: #fff; text-decoration: none; background: rgba(255,255,255,.08); }
+.ps-btn.is-active, .ps-btn.is-active:hover { background: transparent; color: #fff; border-bottom: 2px solid var(--accent, #fb8b1e); }
 
 /* Search pill — opens the command palette (same as "/"). margin-left:auto pushes
    it + the identity/bell cluster to the right gutter. */

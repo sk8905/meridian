@@ -43,6 +43,8 @@ export function initChrome({ onTab }) {
   // phone this strip is where that info surfaces. Status renders here via the
   // shared reporter (data-refresh-slot); account is filled by fillAccount().
   buildBottomMeta();
+  // Desktop page footer: signed-in identity + app-wide last refresh.
+  buildFooter();
   // Anchor the top bar so it never scrolls away (see initHeaderLock).
   initHeaderLock();
   // Show a "Last refresh" value immediately, whatever tab loads first — a desk's
@@ -117,14 +119,18 @@ function buildHeader(onTab) {
 function fillAccount() {
   const el = document.getElementById("account-nav");
   const bot = document.getElementById("account-nav-bot");
-  if (!el && !bot) return;
+  const foot = document.getElementById("account-nav-foot");
+  if (!el && !bot && !foot) return;
   fetch("/api/me", { headers: { accept: "application/json" } })
     .then((r) => (r.ok ? r.json() : null))
     .then((d) => {
       if (d && d.email) {
         const email = d.email.replace(/[<>&]/g, "");
-        // Header (desktop rail/footer): full identity + sign-out.
-        if (el) el.innerHTML = `<span class="si-prefix">Signed in as </span><strong>${email}</strong> · <a href="/cdn-cgi/access/logout">Sign out</a>`;
+        const full = `<span class="si-prefix">Signed in as </span><strong>${email}</strong> · <a href="/cdn-cgi/access/logout">Sign out</a>`;
+        // Header copy (present but hidden on desktop — the footer shows it there).
+        if (el) el.innerHTML = full;
+        // Desktop footer: full identity + sign-out.
+        if (foot) foot.innerHTML = full;
         // Phone strip: compact — just the identity (sign-out lives in the Menu),
         // ellipsised so it shares the row with the last-refresh.
         if (bot) bot.innerHTML = `<span class="si-prefix">Signed in as </span><strong>${email}</strong>`;
@@ -132,6 +138,16 @@ function fillAccount() {
       }
     })
     .catch(() => { /* not behind Access */ });
+}
+
+// The desktop page footer carries the signed-in identity + the app-wide last
+// refresh (header.css/app.css hide the header copies on desktop). #data-status-
+// foot is a refresh slot so status.js renders the shared value into it too.
+function buildFooter() {
+  const f = document.getElementById("v2-footer");
+  if (!f) return;
+  f.innerHTML = `<div id="account-nav-foot" class="v2-foot-acct"></div>`
+    + `<div id="data-status-foot" class="v2-foot-status" data-refresh-slot></div>`;
 }
 
 // Populate the app-wide "Last refresh" right away, independent of which tab
