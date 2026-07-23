@@ -833,10 +833,15 @@
       .tui .g-movers-pnl > #g-movers{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
       /* Right rail: pin the macro data (indicators + macro read) and let ONLY the
          deal-flow well grow to fill the rail. Inside it the chip header stays put
-         and just the active list scrolls, so the numbers above never move. */
-      .tui .g-side2{ display:flex; flex-direction:column; overflow:hidden; }
+         and just the active list scrolls, so the numbers above never move. On a
+         short viewport the pinned macro panels can exceed the rail height, so the
+         rail scrolls as a whole (like the left rail) and the prediction well keeps
+         a height floor — otherwise it collapses to zero and Prediction markets is
+         unreachable. On a tall viewport the well fills exactly, nothing overflows,
+         and only its internal list scrolls. */
+      .tui .g-side2{ display:flex; flex-direction:column; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
       .tui .g-side2 > .tui-pnl{ flex:0 0 auto; }
-      .tui .g-flow-scroll{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
+      .tui .g-flow-scroll{ flex:1 1 auto; min-height:240px; display:flex; flex-direction:column; overflow:hidden; }
       .tui .g-flow{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
       .tui .g-flow-head{ flex:0 0 auto; }
       .tui .g-flow-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }

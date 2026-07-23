@@ -463,7 +463,7 @@ const lfMoney = (v, basis) => v == null ? "—" : lfCcy(basis) + (v >= 1000 ? (v
 const lfPep = (p, basis) => p == null ? "—" : lfCcy(basis) + (p >= 1 ? p.toFixed(2) + "m" : Math.round(p * 1000) + "k");
 function lawFirmRow(f) {
   const L = f.london || {};
-  const areas = (L.areas || []).slice(0, 4).join(", ");
+  const areas = (L.areas || []).slice(0, 2).join(", ");
   return `<tr class="clickable" data-href="#/firm/${esc(f.id)}" data-name="${esc((f.name + " " + ((tierById[f.tier] || {}).name || "") + " " + (L.areas || []).join(" ")).toLowerCase())}">`
     + `<td class="tl-nm">${esc(f.name)}</td>`
     + `<td class="tl-tier">${esc((tierById[f.tier] || {}).name || f.tier || "")}</td>`
@@ -473,13 +473,16 @@ function lawFirmRow(f) {
     + `<td class="tl-n">${L.pep != null ? `<span title="${esc(L.pepBasis || "")}">${esc(lfPep(L.pep, L.pepBasis))}</span>` : "—"}</td></tr>`;
 }
 function lawFirmsPane() {
-  const rows = firms.filter((f) => f.london).sort((a, b) => (b.london.revenue || 0) - (a.london.revenue || 0));
+  // Largest revenue → smallest. Normalise US firms' $ figures to £ (~0.79) so the
+  // order reflects real size across the mixed-currency reporting, not the raw number.
+  const lfRevGBP = (f) => (f.london.revenue || 0) * (lfCcy(f.london.revenueBasis) === "$" ? 0.79 : 1);
+  const rows = firms.filter((f) => f.london).sort((a, b) => lfRevGBP(b) - lfRevGBP(a));
   return `<header class="tpanel-h thead-search"><span>Law firms</span>`
     + `<input type="search" id="lf-q" class="tsearch" placeholder="Search firm, tier or practice…" aria-label="Search law firms"></header>`
     + `<div class="tleague-wrap"><table class="tleague tleague-full tleague-lf">`
     + `<thead><tr><th>Firm</th><th class="tl-tier">Tier</th><th class="tl-n">London&nbsp;lawyers</th><th class="tl-areas">Main&nbsp;London&nbsp;areas</th><th class="tl-n">Revenue</th><th class="tl-n">PEP</th></tr></thead>`
     + `<tbody id="lf-rows">${rows.length ? rows.map(lawFirmRow).join("") : '<tr><td colspan="6" class="tw-empty muted small">No firms tracked yet.</td></tr>'}</tbody></table></div>`
-    + `<p class="tl-sls-key muted small">London office of each firm — approximate lawyer headcount, main London practice areas, latest revenue and profit per equity partner (PEP), from public sources (firm sites, Legal Business, The Lawyer, Companies House LLP accounts). Revenue/PEP are firm-wide unless the basis (hover) says otherwise; US firms report globally. Click a firm for its London profile and private-capital deals (last 12 months).</p>`;
+    + `<p class="tl-sls-key muted small">London office of each firm — approximate lawyer headcount, main London practice areas, latest revenue and profit per equity partner (PEP). Revenue/PEP are firm-wide unless the basis (hover) says otherwise; US firms report globally. Click a firm for its London profile and private-capital deals (last 12 months).</p>`;
 }
 
 function viewDashboard() {

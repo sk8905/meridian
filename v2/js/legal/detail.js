@@ -203,8 +203,7 @@ export function viewFirm(id) {
     + `<li><span class="tf-k">PEP</span><span class="tf-v">${L.pep != null ? esc(lfPep(L.pep, L.pepBasis)) : "—"}${L.pepBasis ? ` <span class="tf-est">${esc(L.pepBasis)}</span>` : ""}</span></li>`
     + `<li><span class="tf-k">Tier</span><span class="tf-v">${esc(tierLabel(firm.tier))}</span></li>`
     + `</ul>`
-    + (L.areas && L.areas.length ? `<div class="tdet-chips" style="padding:8px 12px 4px">${L.areas.map((a) => `<span class="tdet-chip">${esc(a)}</span>`).join("")}</div>` : "")
-    + (L.sources && L.sources.length ? `<div class="tdet-src" style="padding:2px 12px 10px">${L.sources.map((u, i) => `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">source ${i + 1}</a>`).join(" · ")}</div>` : "")
+    + (L.areas && L.areas.length ? `<div class="tdet-chips" style="padding:8px 12px 10px">${L.areas.map((a) => `<span class="tdet-chip">${esc(a)}</span>`).join("")}</div>` : "")
     + `</section>` : "";
 
   // ---- One chip-filtered wire (matches the dashboard chips): All / Alerts /

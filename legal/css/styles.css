@@ -683,7 +683,8 @@ a.compact-head:hover { text-decoration: none; }
    nth-child widths in tui.css don't fit). */
 .tleague-lf th.tl-tier, .tleague-lf th.tl-areas { text-align: left; }
 .tleague-lf td.tl-tier { color: var(--muted, #8592ad); }
-.tleague-lf td.tl-areas { color: var(--muted, #8592ad); font-size: 10.5px; }
+/* Main London areas: a SHORT summary (top 2 practice areas), kept to one line. */
+.tleague-lf td.tl-areas { color: var(--muted, #8592ad); font-size: 10.5px; white-space: nowrap; }
 @media (min-width: 761px) {
   .tpane[data-pane="firms"] .tleague-full th:nth-child(1) { width: 20%; }  /* Firm    */
   .tpane[data-pane="firms"] .tleague-full th:nth-child(2) { width: 14%; }  /* Tier    */
