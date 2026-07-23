@@ -16,8 +16,12 @@
   --brand-accent: #6d5fae;  /* Macro signature — logo + iPhone tab only */
   --brand-logo: #c4b5e8;    /* light lavender for the logo glyph on the navy bar */
   --shadow: 0 1px 2px rgba(15,23,42,.06), 0 4px 12px rgba(15,23,42,.04);
+  /* App-wide semantic up/down (R9) — the same green/red the terminal uses, so
+     deltas match Home. Dark values re-picked below. */
+  --t-up: #0f9d68; --t-down: #df4763;
   font-synthesis: none;
 }
+:root[data-theme="dark"] { --t-up: #3fc08d; --t-down: #f26d84; }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
 html, body { margin: 0; padding: 0; overflow-x: clip; max-width: 100%; }
@@ -117,8 +121,8 @@ a.macro-tile:hover .macro-src { color: var(--ink); text-decoration: none; }
 .macro-valrow { display: flex; align-items: baseline; gap: .4rem; }
 .macro-val { font-size: .98rem; font-weight: 700; color: var(--macro); letter-spacing: -0.01em; line-height: 1; font-variant-numeric: tabular-nums; }
 .macro-chg { font-size: .66rem; font-weight: 600; color: var(--muted); white-space: nowrap; }
-.macro-chg.up { color: #059669; }
-.macro-chg.down { color: #dc2626; }
+.macro-chg.up { color: var(--t-up); }
+.macro-chg.down { color: var(--t-down); }
 .macro-chg.flat { color: var(--muted); }
 .macro-chart { margin: .1rem 0 .15rem; min-height: 32px; }
 .spark { width: 100%; height: auto; display: block; cursor: pointer; }

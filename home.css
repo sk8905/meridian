@@ -255,7 +255,7 @@
     .g-gl-block:has(.gl-tk-toggle:not([hidden])) .g-gl { cursor:pointer; }
     .g-gl-l { flex:0 0 7.5rem; font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); white-space:nowrap; }
     .g-gl-v { flex:1 1 auto; min-width:0; }
-    .g-gl-v .up { color:#059669; font-weight:600; } .g-gl-v .down { color:#dc2626; font-weight:600; }
+    .g-gl-v .up { color:var(--t-up); font-weight:600; } .g-gl-v .down { color:var(--t-down); font-weight:600; }
     /* Each one-liner carries a row of up to five up/down ticker chips drawn from
        the same live feed that powers the narrative. The chips stay COLLAPSED
        behind a chevron at the end of the line (desktop and phones alike) and
@@ -277,7 +277,7 @@
     a.gl-tk:hover { border-color:var(--brand-2); box-shadow:0 0 0 1px var(--brand-2); }
     .gl-tk-l { font-weight:700; color:var(--ink); }
     .gl-tk-c { font-weight:600; font-variant-numeric:tabular-nums; }
-    .gl-tk.up .gl-tk-c { color:#059669; } .gl-tk.down .gl-tk-c { color:#dc2626; } .gl-tk.flat .gl-tk-c { color:var(--muted); }
+    .gl-tk.up .gl-tk-c { color:var(--t-up); } .gl-tk.down .gl-tk-c { color:var(--t-down); } .gl-tk.flat .gl-tk-c { color:var(--muted); }
     /* Chevron toggle at the end of each one-liner (both breakpoints). */
     .gl-tk-toggle { display:inline-flex; align-items:center; justify-content:center;
       position:absolute; right:-.2rem; top:-.05rem; width:1.6rem; height:1.35rem;
@@ -298,16 +298,16 @@
     .rate-label { text-transform:uppercase; letter-spacing:.4px; font-size:.68rem; color:var(--muted); white-space:nowrap; }
     .rate-val { font-weight:700; font-size:1rem; color:var(--ink); line-height:1.2; }
     .rate-chg { font-size:.72rem; font-weight:600; }
-    .rate-chg.up { color:#059669; } .rate-chg.down { color:#dc2626; } .rate-chg.flat { color:var(--muted); }
+    .rate-chg.up { color:var(--t-up); } .rate-chg.down { color:var(--t-down); } .rate-chg.flat { color:var(--muted); }
     /* Daily change + implied-open bracket share one inline row (bracket sits to
        the right of the change, not on a new line). */
     .rate-chg-line { display:inline-flex; align-items:baseline; flex-wrap:wrap; gap:.3rem; }
     /* Futures-implied open shown beside a closed market's (stale) daily change. */
     .mkt-fut { font-size:.66rem; font-weight:600; opacity:.85; }
-    .mkt-fut.up { color:#059669; } .mkt-fut.down { color:#dc2626; } .mkt-fut.flat { color:var(--muted); }
+    .mkt-fut.up { color:var(--t-up); } .mkt-fut.down { color:var(--t-down); } .mkt-fut.flat { color:var(--muted); }
     .mkt-dot { display:inline-block; width:4px; height:4px; border-radius:50%; vertical-align:middle; margin:0 0 .05rem .1rem; opacity:.8; }
-    .mkt-dot.open { background:#059669; }
-    .mkt-dot.closed { background:#dc2626; }
+    .mkt-dot.open { background:var(--t-up); }
+    .mkt-dot.closed { background:var(--t-down); }
     .rate-src { grid-column:1 / -1; justify-self:end; margin-top:.3rem; padding:0 1rem;
       font-size:.72rem; color:var(--muted); }
     @media (max-width:1100px){ .rates-band { grid-template-columns:repeat(4,1fr); row-gap:.7rem; }
@@ -427,7 +427,7 @@
     .g-ind-name { text-transform:uppercase; letter-spacing:.4px; font-size:.6rem; color:var(--muted); font-weight:400; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .g-ind-val { font-weight:700; font-size:.86rem; color:var(--ink); line-height:1.2; }
     .g-ind-chg { font-size:.64rem; font-weight:600; white-space:nowrap; }
-    .g-ind-chg.up { color:#059669; } .g-ind-chg.down { color:#dc2626; } .g-ind-chg.flat { color:var(--muted); }
+    .g-ind-chg.up { color:var(--t-up); } .g-ind-chg.down { color:var(--t-down); } .g-ind-chg.flat { color:var(--muted); }
     /* In the iPhone dropdown: stack Markets/Rates (panel is narrow) — indicators stay 3-col. */
     .g-mkt-panel .g-mr, .na-rails .g-mr { grid-template-columns:1fr; }
     /* FX daily matrix — a compact 4×4 cross-rate grid (USD/GBP/EUR/JPY) styled to
@@ -773,7 +773,7 @@
     /* surfaces are untouched. Dark is the polished default; light is      */
     /* provisional (to be refined). All terminal styling reads --t-* vars. */
     /* ================================================================= */
-    :root[data-theme="dark"] #glance, :root[data-theme="dark"] .na-panel, :root[data-theme="dark"] .g-main.tui{
+    :root[data-theme="dark"] #glance, :root[data-theme="dark"] .na-panel, :root[data-theme="dark"] .g-main.tui, :root[data-theme="dark"] .g-mkt-panel, :root[data-theme="dark"] .g-sv-panel{
       --t-ground:#000000; --t-panel:#0d0d0d; --t-panel2:#191919; --t-head:#0a0a0a;
       --t-grid:#1a1a1a; --t-grid2:#262626;
       --t-ink:#eaf0fb; --t-dim:#b7c2da; --t-mut:#8592ad; --t-faint:#5c6a86;
@@ -782,7 +782,7 @@
       --t-mac:#9b83e2; --t-crd:#fb8b1e; --t-lex:#2fbf8a; --t-amber:#d9a441; --t-ft:#e0708e;
       --t-shadow:0 1px 2px rgba(0,0,0,.28);
     }
-    :root[data-theme="light"] #glance, :root[data-theme="light"] .na-panel, :root[data-theme="light"] .g-main.tui{
+    :root[data-theme="light"] #glance, :root[data-theme="light"] .na-panel, :root[data-theme="light"] .g-main.tui, :root[data-theme="light"] .g-mkt-panel, :root[data-theme="light"] .g-sv-panel{
       --t-ground:#e7ebf2; --t-panel:#ffffff; --t-panel2:#f3f6fb; --t-head:#f4f7fb;
       --t-grid:#e0e6ef; --t-grid2:#cdd6e3;
       --t-ink:#131b2c; --t-dim:#3b475f; --t-mut:#5e6a84; --t-faint:#8b96ac;
@@ -791,7 +791,7 @@
       --t-mac:#6a4fa3; --t-crd:#fb8b1e; --t-lex:#2b8a5f; --t-amber:#b3760f; --t-ft:#990f3d;
       --t-shadow:0 1px 2px rgba(19,27,44,.06);
     }
-    #glance, .na-panel, .g-main.tui{ --t-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; }
+    #glance, .na-panel, .g-main.tui, .g-mkt-panel, .g-sv-panel{ --t-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; }
 
     /* ---- ticker strip (below the command bar) ---- */
     .g-ticker{ display:flex; align-items:stretch; height:26px; flex:0 0 auto; overflow:hidden;
@@ -931,6 +931,17 @@
       height:30px; line-height:30px; padding:0; border:0; background:transparent; color:var(--t-faint); cursor:pointer; }
     .tui .g-mkt-tab:hover{ color:var(--t-dim); }
     .tui .g-mkt-tab.is-on{ color:var(--t-ink); box-shadow:inset 0 -2px 0 var(--chip-ul, var(--t-dim)); }
+    /* Home wire desk-filter chips (All/Newsletter/Macro/Credit/Legal): in the
+       terminal, match the app-wide tab/chip style (.tchip / .g-mkt-tab) — a flat,
+       transparent chip with an accent-ink underline when active — instead of the
+       document-mode navy pill. R14. */
+    .tui .g-feed-chips{ gap:0; }
+    .tui .g-feed-chip{ border:0; border-radius:0; background:transparent; color:var(--t-mut);
+      font-weight:600; font-size:11px; padding:5px 10px; line-height:1.3; }
+    .tui .g-feed-chip:hover{ color:var(--t-ink); border-color:transparent; }
+    .tui .g-feed-chip.is-on{ background:transparent; border-color:transparent; color:var(--t-ink);
+      box-shadow:inset 0 -2px 0 var(--chip-ul, var(--t-dim)); }
+    .tui .g-feed-chip.is-on .g-feed-chip-n{ opacity:.85; }
     .tui .g-pf-tgl-wrap{ display:inline-flex; gap:2px; }
     .tui .g-pf-tgl, .tui .g-pred-dir{ font:inherit; font-size:9.5px; font-weight:600; letter-spacing:.02em; text-transform:uppercase;
       padding:1px 6px; border:1px solid var(--t-grid); background:transparent; color:var(--t-faint); cursor:pointer; }
