@@ -28,6 +28,38 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-20260723",
+    publication: "Bloomberg",
+    author: "Lily Nonomiya",
+    series: "Morning Briefing Europe",
+    title: "Red Sea tensions rise",
+    date: "2026-07-23",
+    time: "07:02",
+    summary: "Houthi attacks on two tankers open a new Red Sea front in the Iran war as the ECB holds rates steady.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-23/houthis-attack-two-tankers-in-the-red-sea",
+  },
+  {
+    id: "nl-econ-worldinbrief-20260723",
+    publication: "The Economist",
+    series: "The World in Brief",
+    title: "The World in Brief: Saudi Arabia and America sign nuclear deal",
+    date: "2026-07-23",
+    time: "05:44",
+    summary: "Saudi Arabia and the US sign a civilian nuclear deal as America carries out a 12th night of strikes on Iran.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
+    id: "nl-bbg-pointsofreturn-20260723",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "From Napoleon to Moonshot, China is doing it again",
+    date: "2026-07-23",
+    time: "05:39",
+    summary: "China's Moonshot AI shock rattles the industry, Alphabet is punished for planned capex, and oil is up 36% since July 2.",
+    url: "https://bloom.bg/4yGXBz0",
+  },
+  {
     id: "nl-bbg-moneystuff-20260722",
     publication: "Bloomberg",
     author: "Matt Levine",
