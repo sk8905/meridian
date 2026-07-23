@@ -11,7 +11,7 @@
 // =============================================================================
 import {
   items, cases, restructurings, firmById, areaById, typeById,
-} from "/legal/js/data.js?v=20260723-6";
+} from "/legal/js/data.js?v=20260723-7";
 import { esc, byDateDesc } from "/util.js?v=20260719-1";
 import {
   fmtDate, itemDate, isNew, getSaved, areaChip, tierLabel, firmLink, itemRow,

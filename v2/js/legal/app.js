@@ -7,7 +7,7 @@ import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
   rxAdvisers,
-} from "/legal/js/data.js?v=20260723-6";
+} from "/legal/js/data.js?v=20260723-7";
 import { donutChart, columnChart } from "/legal/js/charts.js?v=20260722-3";
 import {
   fmtDate, itemDate, itemRow, firmLink, getSaved, SAVED_KEY,
