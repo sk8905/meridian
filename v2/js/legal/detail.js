@@ -21,11 +21,13 @@ import {
 export let app = null;
 export function __setHost(h) { app = h; }
 
-// A single Back button (‹ Back) for detail views — replaces the crumb trail.
-// Steps through the real browser history ("the previous page"); if opened cold
-// (deep link, no in-app history) it follows `fallback`. The [data-back] click is
-// handled by a document-level delegate in app.js.
-const backBtn = (fallback) => `<nav class="breadcrumb"><a class="crumb-back" href="${esc(fallback)}" data-back="${esc(fallback)}" aria-label="Go back">‹ Back</a></nav>`;
+// The Legal desk's section chips (the same set the dashboard shows). Rendered at
+// the top of every detail view so you navigate the desk the same way from a
+// profile as from the dashboard: each chip jumps straight to that section (the
+// dashboard seeds its selection from ?tab=). `all` has no param (bare dashboard).
+const LG_SECTIONS = [["all", "All"], ["alert", "Alerts"], ["news", "News"], ["case", "Case law"], ["rp", "Scheme/RPs"], ["firms", "Law Firms"]];
+const sectionNav = (active) => `<header class="tpanel-h twire-head tdet-secnav"><div class="tchips">${LG_SECTIONS
+  .map(([k, l]) => `<a class="tchip${k === active ? " is-on" : ""}" href="${k === "all" ? "#/" : "#/?tab=" + k}">${esc(l)}</a>`).join("")}</div></header>`;
 
 // =============================================================================
 // VIEW: Detail (#/item/<id>)
@@ -68,7 +70,7 @@ export function viewItem(id) {
 
   app.innerHTML = `
     <div class="tdash">
-      ${backBtn("#/list?area=" + esc(it.area))}
+      ${sectionNav(it.type === "news" || it.desk === "news" ? "news" : "alert")}
       <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
       <div class="tdash-grid tdash-2">
         <section class="tcol tcol-c">
@@ -241,7 +243,7 @@ export function viewFirm(id) {
 
   app.innerHTML = `
     <div class="tdash">
-      ${backBtn("#/")}
+      ${sectionNav("firms")}
       <div class="tdash-grid tdash-2">
         <section class="tcol tcol-c">
           <div class="tdet-id">

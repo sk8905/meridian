@@ -19,7 +19,7 @@ import {
   PAGE, pageShown, pageCount, pageReset, loadMoreBtn, feedHtml, feedFlat,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
 } from "/credit/js/shared.js?v=20260723-3";
-import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost } from "/v2/js/credit/detail.js?v=v2-5";
+import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost } from "/v2/js/credit/detail.js?v=v2-6";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260723-3";
 import { esc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
 
@@ -319,18 +319,6 @@ on(document, "click", (e) => {
   if (isOpen && !e.target.closest("#notif")) { e.preventDefault(); e.stopPropagation(); closeNotif(); }
 }, true);
 on(window, "hashchange", closeNotif);
-
-// Back button (‹ Back) in detail views: step back through the real history when
-// there is in-app history to step through; otherwise follow the link's fallback
-// parent (a cold/deep-linked open). One document-level delegate covers every
-// detail view's button.
-on(document, "click", (e) => {
-  const b = e.target.closest("[data-back]");
-  if (!b) return;
-  e.preventDefault();
-  if (history.length > 1) history.back();
-  else location.hash = b.getAttribute("data-back") || "#/";
-});
 
 // devices; if the server is empty but this device has items, migrate them up.
 async function initWatchlistSync() {
@@ -768,6 +756,11 @@ function viewDashboard() {
   // Re-select the in-page tab after every render — async syncs re-run this
   // template with All hardcoded (the same kick the Macro main tabs had).
   if (dashTabs) {
+    // A detail view's section chips navigate here as #/?tab=<p>. Seed the in-page
+    // selection from that param ONCE (only if not already chosen for this hash);
+    // afterwards in-page chip clicks own _chipMem and take over.
+    const tabParam = new URLSearchParams(location.hash.split("?")[1] || "").get("tab");
+    if (tabParam && _chipMem[chipMemKey("cr-dash-tabs")] === undefined) _chipMem[chipMemKey("cr-dash-tabs")] = tabParam;
     const k0 = _chipMem[chipMemKey("cr-dash-tabs")];
     const b0 = k0 && k0 !== "all" ? dashTabs.querySelector(`.tchip[data-p="${k0}"]`) : null;
     if (b0 && !b0.classList.contains("is-on")) b0.click();

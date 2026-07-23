@@ -389,6 +389,12 @@
 .tdash > .breadcrumb .sep { color: var(--faint); }
 .tdash > .breadcrumb .crumb-back { display: inline-flex; align-items: center; gap: 2px; margin-right: 4px; padding: 2px 9px 3px; border: 1px solid var(--border, #e4e7ef); border-radius: 5px; background: var(--bg, #fff); color: var(--ink) !important; font-weight: 600; text-decoration: none; line-height: 1.3; }
 .tdash > .breadcrumb .crumb-back:hover { background: var(--accent, #fb8b1e); border-color: var(--accent, #fb8b1e); color: #fff !important; }
+/* Detail-view section nav: the desk's dashboard chips at the top of a profile,
+   so you navigate a desk the same way from a profile as from the dashboard. Not
+   sticky here (it already sits at the page top, above the ticker/grid) and given
+   room below. The chips (.tchip anchors) inherit the shared chip look. */
+.tdash > .tdet-secnav { position: static; margin-bottom: 12px; border-top: 1px solid var(--border, #e4e7ef); }
+.tdash > .tdet-secnav .tchip { text-decoration: none; }
 /* identity header — the record, centre-stage, above its activity wire */
 .tdet-id { padding: 13px 16px; background: var(--head, #f4f7fb); border-bottom: 1px solid var(--border, #e4e7ef); flex: 0 0 auto; }
 .tdet-id h1 { margin: 0 0 3px; font-size: 1.12rem; font-weight: 700; letter-spacing: -.01em; color: var(--ink); line-height: 1.2; }

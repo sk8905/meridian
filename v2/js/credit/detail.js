@@ -45,16 +45,19 @@ function railPanel(title, meta, body) {
   return `<section class="tpanel"><header class="tpanel-h"><span>${title}</span>${meta ? `<span class="tpanel-x">${meta}</span>` : ""}</header>${body}</section>`;
 }
 
+// The Credit desk's section chips (the same set the dashboard shows). Rendered at
+// the top of every detail view so you navigate the desk the same way from a
+// profile as from the dashboard: each chip jumps straight to that section
+// (dashboard ?tab= is seeded from the link). `all` has no param (bare dashboard).
+const CR_SECTIONS = [["all", "All"], ["deals", "Deals"], ["fundraising", "Fundraising"], ["managers", "Managers"], ["hedgefunds", "Hedge Funds"]];
+const crSecHref = (k) => k === "all" ? "#/" : "#/?tab=" + k;
+// `parts` is kept for call-site compatibility; the first linked crumb's label
+// tells us which section this profile lives under, so that chip reads active.
 function breadcrumb(parts) {
-  // A single Back button (‹ Back) instead of a crumb trail. It steps through the
-  // real browser history ("the previous page") — so a fund opened from the Hedge
-  // Funds tab returns there, one opened from a search returns to the search, etc.
-  // If the page was opened cold (deep link, no in-app history), it falls back to
-  // the immediate parent list (the last still-linked crumb). The [data-back]
-  // click is handled by a document-level delegate in app.js.
-  const parent = parts.filter((p) => p[0]).pop();
-  const fallback = parent ? parent[0] : "#/";
-  return `<nav class="breadcrumb"><a class="crumb-back" href="${esc(fallback)}" data-back="${esc(fallback)}" aria-label="Go back">‹ Back</a></nav>`;
+  const parentLabel = (parts.filter((p) => p[0])[0] || [null, ""])[1];
+  const active = { Managers: "managers", Funds: "fundraising", "Hedge Funds": "hedgefunds" }[parentLabel] || "all";
+  return `<header class="tpanel-h twire-head tdet-secnav"><div class="tchips">${CR_SECTIONS
+    .map(([k, l]) => `<a class="tchip${k === active ? " is-on" : ""}" href="${esc(crSecHref(k))}">${esc(l)}</a>`).join("")}</div></header>`;
 }
 
 // Generic in-place wire filter: chips toggle which kinds (data-kind) show,

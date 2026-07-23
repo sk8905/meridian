@@ -13,7 +13,7 @@ import {
   fmtDate, itemDate, itemRow, firmLink, getSaved, SAVED_KEY,
   markVisitedSoon, _chipMem, chipMemKey,
 } from "/legal/js/shared.js?v=20260723-3";
-import { viewItem, viewFirm , __setHost as __detailSetHost } from "/v2/js/legal/detail.js?v=v2-3";
+import { viewItem, viewFirm , __setHost as __detailSetHost } from "/v2/js/legal/detail.js?v=v2-4";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc, onLiveWire } from "/feed.js?v=20260723-3";
 import { esc, MONTHS, byDateDesc } from "/util.js?v=20260719-1";
 
@@ -142,15 +142,6 @@ function feedHtml(rows, key, rowFn, sig) {
 // "Load more" reveals the next page and re-renders the affected list in place
 // (a local re-render, so the sidebar filters keep their selected state).
 // Expand / collapse a clamped summary preview inline.
-// Back button (‹ Back) in detail views: step back through the real history when
-// there is in-app history; otherwise follow the link's fallback parent.
-on(document, "click", (e) => {
-  const b = e.target.closest("[data-back]");
-  if (!b) return;
-  e.preventDefault();
-  if (history.length > 1) history.back();
-  else location.hash = b.getAttribute("data-back") || "#/";
-});
 on(document, "click", (e) => {
   const t = e.target.closest(".clamp-toggle");
   if (!t) return;
@@ -631,6 +622,11 @@ function legalWireDash() {
   // In-page selection survives async-sync re-renders (All is hardcoded active in
   // the template — the same kick the Macro main tabs had).
   {
+    // A detail view's section chips navigate here as #/?tab=<k>. Seed the in-page
+    // selection from that param ONCE (only if not already chosen for this hash);
+    // afterwards in-page chip clicks own _chipMem and take over.
+    const tabParam = new URLSearchParams(location.hash.split("?")[1] || "").get("tab");
+    if (tabParam && _chipMem[chipMemKey("lg-chips")] === undefined) _chipMem[chipMemKey("lg-chips")] = tabParam;
     const k0 = _chipMem[chipMemKey("lg-chips")];
     if (k0 && k0 !== "all" && chips.querySelector(`.tchip[data-k="${k0}"]`)) selectChip(k0);
   }
