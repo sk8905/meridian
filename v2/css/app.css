@@ -49,23 +49,24 @@ a { color: var(--primary); text-decoration: none; }
    is independent of this. */
 #wire-header { display: contents; }
 .v2-view[hidden] { display: none; }
-/* Clear the fixed bottom tab bar AND the meta strip above it on phones, so
-   content isn't hidden behind either. Bar ≈ 55px, strip ≈ 34px (see below). */
+/* Clear the fixed bottom tab bar on phones so content isn't hidden behind it
+   (bar ≈ 55px). The meta strip only shows on the Menu tab, so only there does
+   the content need the extra room for it (strip ≈ 34px). */
 @media (max-width: 760px) {
-  .v2-app { padding-bottom: calc(89px + env(safe-area-inset-bottom, 0px)); }
+  .v2-app { padding-bottom: calc(55px + env(safe-area-inset-bottom, 0px)); }
+  html[data-v2tab="menu"] .v2-app { padding-bottom: calc(89px + env(safe-area-inset-bottom, 0px)); }
 }
 
-/* ---- Bottom meta strip (phone only) -------------------------------------- */
+/* ---- Bottom meta strip (phone, MENU tab only) ---------------------------- */
 /* A slim strip pinned DIRECTLY above the fixed bottom tab bar, carrying the
-   signed-in identity (left) + the app-wide last refresh (right). On desktop
-   that info lives in the right rail / footer, and header.css hides the header
-   copies on phones — so this strip is where a phone surfaces it. It's welded to
-   the tab bar (same backgrounds) and sits just under it in the stack (bar 9500)
-   but persists over overlays, exactly like the bar. Anchored by the bar's known
-   height (55px) so no JS measurement is needed. */
+   signed-in identity (left) + the app-wide last refresh (right). It shows ONLY
+   on the Menu tab (html[data-v2tab="menu"], set by the runtime) — the content
+   desks stay uncluttered. It's welded to the tab bar (same backgrounds) and
+   sits just under it in the stack (bar 9500) but persists over overlays, like
+   the bar. Anchored by the bar's known height (55px) so no JS measurement. */
 .v2-botmeta { display: none; }
 @media (max-width: 760px) {
-  .v2-botmeta {
+  html[data-v2tab="menu"] .v2-botmeta {
     display: flex; align-items: center; justify-content: space-between; gap: .7rem;
     position: fixed; left: 0; right: 0;
     bottom: calc(55px + env(safe-area-inset-bottom, 0px));

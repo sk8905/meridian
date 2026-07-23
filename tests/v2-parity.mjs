@@ -33,6 +33,25 @@ async function deepLink(url, view, min, label) {
   await deepLink(`/v2/`, "home", 2000, "home");
 }
 
+// ---- 1b. Each desk cold-loads with feed.css so its wire is styled ----
+// Regression: the desk views loaded only their own styles.css, not feed.css, so
+// a directly-opened desk rendered its wire as raw unstyled orange links until
+// Home (which does load feed.css) had been visited to pull it in.
+for (const [path, view] of [["/v2/macro/", "macro"], ["/v2/credit/", "credit"], ["/v2/legal/", "legal"]]) {
+  const { ctx, pg } = await open(b, PHONE, base + path);
+  await pg.waitForTimeout(2000);
+  const r = await pg.evaluate(() => {
+    const feedCss = [...document.styleSheets].some((s) => s.href && s.href.includes("/feed.css"));
+    const row = document.querySelector(".v2-view:not([hidden]) .g-feed-row");
+    // feed.css lays each wire row out as a grid; without it the <a> is a plain
+    // inline element (the unstyled "orange links" regression).
+    return { feedCss, display: row ? getComputedStyle(row).display : null, hasRow: !!row };
+  });
+  check(r.feedCss, `${view}: feed.css is loaded on cold open (styled wire)`);
+  if (r.hasRow) check(r.display === "grid", `${view}: feed rows laid out by feed.css (display:${r.display})`);
+  await ctx.close();
+}
+
 // ---- 2. Full nav cycle x2: no duplication, no leak, no errors ----
 {
   const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/");

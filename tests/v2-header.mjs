@@ -31,8 +31,13 @@ checkEq(present.tabbars, 1, "still exactly one tab bar (nav-actions did NOT add 
 check(present.refresh > 0, `refresh indicator populated ("Last refresh…", ${present.refresh} chars)`);
 
 // Bottom meta strip (phone): the signed-in identity + the app-wide last refresh,
-// pinned DIRECTLY above the bottom tab bar. header.css hides the header copies on
-// phones, so this strip is where a phone surfaces that info.
+// pinned DIRECTLY above the bottom tab bar. It shows ONLY on the Menu tab now —
+// navigate there, assert it, then return to Home for the checks below. It must
+// be HIDDEN on the content desks.
+const stripHiddenOnHome = await pg.evaluate(() => { const s = document.querySelector(".v2-botmeta"); return !!s && getComputedStyle(s).display === "none"; });
+check(stripHiddenOnHome, "bottom meta strip is hidden on Home (content desks stay uncluttered)");
+await pg.evaluate(() => { history.pushState({ v2: true }, "", "/v2/menu/"); dispatchEvent(new PopStateEvent("popstate")); });
+await pg.waitForTimeout(700);
 const strip = await pg.evaluate(() => {
   const s = document.querySelector(".v2-botmeta");
   const t = document.querySelector(".mobile-tabbar");
@@ -46,10 +51,12 @@ const strip = await pg.evaluate(() => {
     stat: ((document.getElementById("data-status-bot") || {}).textContent || "").trim(),
   };
 });
-check(strip.ok && strip.shown, "bottom meta strip is shown on phone");
+check(strip.ok && strip.shown, "bottom meta strip is shown on the Menu tab");
 check(strip.aboveBar, "meta strip sits directly above the bottom tab bar");
 check(strip.acct > 0, "meta strip shows the signed-in identity");
 check(/last refresh/i.test(strip.stat), `meta strip shows the app-wide last refresh ("${strip.stat}")`);
+await pg.evaluate(() => { history.pushState({ v2: true }, "", "/v2/"); dispatchEvent(new PopStateEvent("popstate")); });
+await pg.waitForTimeout(700);
 
 // Header must stay ANCHORED to the top through scroll (its sticky container is
 // the short #wire-header wrapper, so on phones it's pinned position:fixed). And

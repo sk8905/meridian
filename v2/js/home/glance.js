@@ -631,7 +631,7 @@ function renderFeed() {
   setHTML("g-feed", srcBar + (feed.length ? body : empty));
   const head = document.getElementById("g-feed-head");
   if (head) {
-    head.innerHTML = feedChipsHTML([{ k: "all", label: "All" }, { k: "m", label: "Macro" }, { k: "c", label: "Credit" }, { k: "l", label: "Legal" }, { k: "n", label: "Newsletter" }], _feedSrc ? null : _feedDesk, "Latest news");
+    head.innerHTML = feedChipsHTML([{ k: "all", label: "All" }, { k: "n", label: "Newsletter" }, { k: "m", label: "Macro" }, { k: "c", label: "Credit" }, { k: "l", label: "Legal" }], _feedSrc ? null : _feedDesk, "Latest news");
     // A desk chip clears any source filter and switches desks.
     head.querySelectorAll(".g-feed-chip").forEach((b) => b.addEventListener("click", () => { _feedSrc = null; _feedDesk = b.dataset.desk; renderFeed(); }));
   }
