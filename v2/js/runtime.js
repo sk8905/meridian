@@ -18,15 +18,24 @@
 
 const BASE = "/v2";
 
+// ONE build version for the whole v2 module chain. It's the ?v= the shell puts
+// on runtime.js; runtime reads it from its own URL and stamps it onto every v2
+// module it (transitively) loads — views, chrome, nav-actions, the ported apps.
+// So a v2 change needs ONE token bump (runtime.js in v2/index.html) instead of
+// hand-bumping each link in the import chain. (Per-view CSS, detail.js and the
+// shared/data modules keep their own tokens — they change on their own cadence.)
+const V = (() => { try { return new URL(import.meta.url).searchParams.get("v") || ""; } catch { return ""; } })();
+export const vurl = (p) => p + (p.includes("?") ? "&" : "?") + "v=" + V;
+
 // The top-level tabs. `load` is a lazy import → the view's code (and, later, its
 // heavy data) is fetched only when the tab is first opened, then cached by the
 // browser's module map for the session (no nonce, so revisits never re-fetch).
 const ROUTES = [
-  { key: "home",   title: "Wire",        load: () => import("./views/home.js?v=v2-3") },
-  { key: "macro",  title: "Wire Macro",  load: () => import("./views/macro.js?v=v2-2") },
-  { key: "credit", title: "Wire Credit", load: () => import("./views/credit.js?v=v2-2") },
-  { key: "legal",  title: "Wire Legal",  load: () => import("./views/legal.js?v=v2-2") },
-  { key: "menu",   title: "Wire Menu",   load: () => import("./views/menu.js?v=v2-3") },
+  { key: "home",   title: "Wire",        load: () => import(vurl("./views/home.js")) },
+  { key: "macro",  title: "Wire Macro",  load: () => import(vurl("./views/macro.js")) },
+  { key: "credit", title: "Wire Credit", load: () => import(vurl("./views/credit.js")) },
+  { key: "legal",  title: "Wire Legal",  load: () => import(vurl("./views/legal.js")) },
+  { key: "menu",   title: "Wire Menu",   load: () => import(vurl("./views/menu.js")) },
 ];
 const ROUTE_BY_KEY = Object.fromEntries(ROUTES.map((r) => [r.key, r]));
 
@@ -193,7 +202,7 @@ function onPop() {
 
 // ---- Boot ------------------------------------------------------------------
 async function boot() {
-  const { initChrome } = await import("./chrome.js?v=v2-3");
+  const { initChrome } = await import(vurl("./chrome.js"));
   _setActive = initChrome({ onTab: (key) => navigate(tabPath(key), { push: true }) });
   window.addEventListener("popstate", onPop);
   await navigate(location.pathname + location.search + location.hash, { push: false, replace: true });

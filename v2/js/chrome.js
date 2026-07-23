@@ -10,6 +10,11 @@
 // + panels (the ported nav-actions — Markets / Saved / Notifications / Search).
 // =============================================================================
 
+// The build version (see runtime.js) — chrome is loaded with ?v=V, so it reads
+// it back off its own URL and stamps it onto the v2 modules it loads.
+const V = (() => { try { return new URL(import.meta.url).searchParams.get("v") || ""; } catch { return ""; } })();
+const vurl = (p) => p + (p.includes("?") ? "&" : "?") + "v=" + V;
+
 const TABS = [
   ["home", "Home"], ["macro", "Macro"], ["credit", "Credit"], ["legal", "Legal"], ["menu", "Menu"],
 ];
@@ -40,7 +45,7 @@ export function initChrome({ onTab }) {
   // notif bell, saved + markets loaders), ported from nav-actions with its own
   // tab bar / header-layout / swipe neutralised (the runtime owns those). Mounts
   // into .topbar-right.
-  import("./nav-actions.js?v=v2-2").then((m) => m.initNavActions()).catch(() => {});
+  import(vurl("./nav-actions.js")).then((m) => m.initNavActions()).catch(() => {});
   fillAccount();
 
   // Update the active marker on both the bottom bar and the header switch.
