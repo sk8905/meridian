@@ -5,9 +5,9 @@
 // it via macroDashPane() and repaints via cockpitInds()/loadYieldCurve().
 // =============================================================================
 import { esc } from "/util.js?v=20260719-1";
-import { YIELD_CURVE, OUTLOOK, CYCLE, BUBBLE, EARNINGS, MATWALL } from "./content.js?v=20260723-1";
+import { YIELD_CURVE, OUTLOOK, CYCLE, BUBBLE, EARNINGS, MATWALL } from "./content.js?v=20260723-2";
 import { fmtDate, fmtWeekday, trackGauge, CYCLE_ZONES, BUBBLE_ZONES,
-  bubbleComposite, bubbleBand, MACRO_DATA, macroMatrixHtml, MAC_MATRIX_KEYS_FULL } from "./shared.js?v=20260723-1";
+  bubbleComposite, bubbleBand, MACRO_DATA, macroMatrixHtml, MAC_MATRIX_KEYS_FULL } from "./shared.js?v=20260723-2";
 
 // In-page chip memory (fresh visits start on the first chip; in-page re-renders
 // keep the pick — see the app.js note on the same pattern).
