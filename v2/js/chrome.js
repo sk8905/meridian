@@ -19,6 +19,7 @@ const vurl = (p) => p + (p.includes("?") ? "&" : "?") + "v=" + V;
 // (its own leaf token, not V; see runtime.js), so chrome's boot-time value and a
 // desk's real stamp share one monotonic keep-latest state.
 import { reportRefresh } from "./status.js?v=v2-2";
+import { esc } from "/util.js?v=20260719-1";
 
 const TABS = [
   ["home", "Home"], ["macro", "Macro"], ["credit", "Credit"], ["legal", "Legal"], ["menu", "Menu"],
@@ -125,7 +126,9 @@ function fillAccount() {
     .then((r) => (r.ok ? r.json() : null))
     .then((d) => {
       if (d && d.email) {
-        const email = d.email.replace(/[<>&]/g, "");
+        // Escape (not strip) via the shared helper — same as nav-actions.js, so
+        // one identity string, one escaper (T9/T10). esc() also handles quotes.
+        const email = esc(d.email);
         const full = `<span class="si-prefix">Signed in as </span><strong>${email}</strong> · <a href="/cdn-cgi/access/logout">Sign out</a>`;
         // Header copy (present but hidden on desktop — the footer shows it there).
         if (el) el.innerHTML = full;

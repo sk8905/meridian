@@ -426,8 +426,8 @@
 .mac-ind { background: var(--surface); padding: 8px 10px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .mac-ind-n { font-size: 9px; color: var(--muted); text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .mac-ind-v { font-family: var(--t-mono); font-size: 14px; color: var(--ink); font-variant-numeric: tabular-nums; }
-.mac-ind-c-chg { font-family: var(--t-mono); font-size: 9.5px; }
-.mac-ind-c-chg.up { color: #3fc08d; } .mac-ind-c-chg.down { color: #f26d84; } .mac-ind-c-chg.flat { color: var(--faint); }
+.mac-ind-c-chg { font-family: var(--t-mono); font-size: 9.5px; font-variant-numeric: tabular-nums; }
+.mac-ind-c-chg.up { color: var(--t-up, #3fc08d); } .mac-ind-c-chg.down { color: var(--t-down, #f26d84); } .mac-ind-c-chg.flat { color: var(--faint); }
 /* G7 + Euro Area + Ireland comparison matrix (country × key indicators). Rows are
    the country selector — clicking one repoints the detail beside/beneath it. */
 .mac-mtx { width: 100%; border-collapse: collapse; font-family: var(--t-mono); font-variant-numeric: tabular-nums; table-layout: fixed; }

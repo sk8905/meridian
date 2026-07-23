@@ -181,3 +181,95 @@ notification badge red (`#ef4444`).
   would have caught it; keep commits small and single-concern.
 - **T19 — A11y basics.** Semantic elements, `aria-label` on icon-only buttons,
   visible focus states.
+
+---
+
+## 8. Data resources & sources
+
+The resources the app draws on, by section. Live market/rates/news data is
+pulled by the Cloudflare Worker (`src/index.js`); macro commentary, credit and
+legal items are curated in the content/data files
+(`macro/js/content.js`, `credit/js/data.js`, `legal/js/data.js`). Every rendered
+item keeps a real outbound source link (R7).
+
+### 8.1 Markets & pricing
+- Yahoo Finance (`finance.yahoo.com`, `uk.finance.yahoo.com`) — equity, ETF & FX quotes
+- Stooq (`stooq.com`) — index & price series
+- CNBC quotes (`quote.cnbc.com`)
+- Investing.com / Investing.com UK
+- MarketWatch
+- TradingEconomics
+
+### 8.2 Rates, macro & official statistics
+- FRED — Federal Reserve Bank of St. Louis (`fred.stlouisfed.org`)
+- U.S. Treasury (`home.treasury.gov`)
+- Federal Reserve Board (`federalreserve.gov`)
+- Federal Reserve Bank of New York (`markets.newyorkfed.org`) — SOFR
+- Bank of England (`bankofengland.co.uk`)
+- European Central Bank (`data.ecb.europa.eu`)
+- UK Office for National Statistics (`ons.gov.uk`)
+- Eurostat / European Commission (`ec.europa.eu`)
+- DBnomics (`api.db.nomics.world`)
+- S&P Global PMI (`pmi.spglobal.com`)
+- ISM (`ismworld.org`)
+
+### 8.3 News wires & financial press
+- Bloomberg (`feeds.bloomberg.com`)
+- Financial Times (`ft.com`)
+- Dow Jones / The Wall Street Journal (`feeds.content.dowjones.io`)
+- **Financial News London (`fnlondon.com`)**
+- Reuters (via aggregation)
+- CNBC (`cnbc.com`)
+- The Economist (`economist.com`)
+- The Guardian (`theguardian.com`)
+- Axios
+- NBC News
+- MarketWatch
+- Google News (`news.google.com`) — aggregation
+- Nikkei Asia (`asia.nikkei.com`)
+- South China Morning Post (`scmp.com`)
+- The Straits Times (`straitstimes.com`)
+- City AM
+
+### 8.4 Macro strategy & commentary
+(Roster behind R18 — ≥10 items/day, real dated pieces only.)
+- Yardeni Research
+- Absolute Strategy Research
+- Gavekal
+- BCA Research
+- Capital Economics
+- Pantheon Macroeconomics
+- Oxford Economics
+- TS Lombard
+- Alpine Macro
+- Variant Perception
+- ING (`think.ing.com`)
+- Bloomberg Opinion (Authers · Dudley · El-Erian)
+- Project Syndicate
+- Mohamed El-Erian (`mohamedelerian.substack.com`)
+- Selected Substacks (`investorama.substack.com`, `debtserious.substack.com`)
+
+### 8.5 Credit & private markets
+- Alternative Credit Investor
+- Alternatives Watch
+- GlobalCapital
+- Hedgeweek
+- IPE / IPE Real Assets
+- Credit Village
+- Crowdfund Insider
+- Bloomberg Law
+- Newswires: Business Wire, GlobeNewswire, PR Newswire
+- SEC / EDGAR filings
+- Company & sponsor press releases
+
+### 8.6 Legal & courts
+- UK courts: High Court (Chancery · Commercial · King's Bench · Administrative;
+  Business & Property Courts; Insolvency & Companies List), Court of Appeal,
+  UK Supreme Court
+- The Lawyer (`thelawyer.com`)
+- Legal Business (`legalbusiness.co.uk`)
+- Bloomberg Law
+- Law-firm client briefings
+
+### 8.7 Prediction markets
+- Polymarket (`polymarket.com`, `gamma-api.polymarket.com`)

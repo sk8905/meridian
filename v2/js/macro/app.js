@@ -824,7 +824,10 @@ let chartMode = (_chartLocal && CHART_MODES[_chartLocal.mode]) ? _chartLocal.mod
 function chartPersist() {
   const payload = { sel: [...chartSel], events: [...chartEvents], range: chartRange, mode: chartMode, dashRange };
   try { localStorage.setItem(CHART_LS, JSON.stringify(payload)); } catch { /* ignore */ }
-  try { fetch(CHART_API, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) }); } catch { /* not behind Access */ }
+  // Un-awaited PUT: a sync try/catch cannot catch a rejected promise, so attach
+  // .catch to swallow the network failure (not behind Access) — no unhandled
+  // rejection. Matches the other CHART_API PUTs in this file.
+  fetch(CHART_API, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(payload) }).catch(() => {});
 }
 
 const MI = (ym) => { const p = String(ym).split("-"); return (+p[0]) * 12 + (+p[1] - 1); };
