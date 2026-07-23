@@ -963,6 +963,28 @@ function viewLps() {
 }
 
 
+// Map a credit record (deal / intel / clo / news / comm) to the shared wire's
+// item shape so every credit list renders through the ONE feed engine
+// (feedBodyHTML → one-line rows + standard day breaks, R5/R6). Mirrors the
+// dashboard-wire taxonomy: deal→DEAL, intel→FUND, clo→CLO, news→NEWS, comm→COMM;
+// the source (outlet, else manager) becomes the row's source label, and the
+// manager id rides along as the row's entity link.
+function crToFeed(x, kind) {
+  const k = kind || x._kind || "intel";
+  if (k === "comm") {
+    return { desk: "comm", href: x.url || "#/", ext: !!x.url, title: x.title, src: x.institution || "", date: x.date || "", time: x.time || "" };
+  }
+  if (k === "news") {
+    const mid = x._mid;
+    const mname = mid && managerById[mid] ? managerById[mid].name : (x._mname || "");
+    return { desk: "news", href: x.url || (mid ? `#/manager/${mid}` : "#/"), ext: !!x.url, title: x.title, src: x.outlet || mname || "", date: x.date || "", time: x.time || "", mgr: mid || "" };
+  }
+  const mid = x.managerId, url = x.sourceUrl;
+  const desk = x.clo ? "clo" : ({ deal: "deal", intel: "fund" }[k] || "fund");
+  return { desk, href: url || (mid ? `#/manager/${mid}` : "#/"), ext: !!url, title: x.headline, src: creditSource(x), date: x.date || "", time: x.time || "", mgr: mid || "" };
+}
+function crFeed(rows, kind) { return `<div class="g-feed twire">${feedBodyHTML(rows.map((x) => crToFeed(x, kind)))}</div>`; }
+
 // =============================== INTELLIGENCE ===============================
 
 function viewIntel() {
@@ -983,7 +1005,7 @@ function viewIntel() {
       ${multiFilter("intel:year", "Year", [...new Set(base.map((i) => yearOf(i.date)).filter(Boolean))].sort((a, b) => b.localeCompare(a)), f.year)}
     </div>
     <section class="card">
-      ${rows.length ? feedHtml(rows, "intel", intelRow, JSON.stringify(f)) : '<p class="empty">No intelligence items match these filters.</p>'}
+      ${rows.length ? crFeed(rows, "intel") : '<p class="empty">No intelligence items match these filters.</p>'}
     </section>
     <section class="card">
       <h2>Known LP → manager commitments <span class="muted">(${commitments.length})</span></h2>
@@ -1024,7 +1046,7 @@ function viewDeals() {
       ${multiFilter("deals:year", "Year", [...new Set(base.map((d) => yearOf(d.date)).filter(Boolean))].sort((a, b) => b.localeCompare(a)), f.year)}
     </div>
     <section class="card">
-      ${rows.length ? feedHtml(rows, "deals", dealRow, JSON.stringify(f)) : '<p class="empty">No deal items match these filters.</p>'}
+      ${rows.length ? crFeed(rows, "deal") : '<p class="empty">No deal items match these filters.</p>'}
     </section>`;
   wireFilters("deals");
 
@@ -1052,8 +1074,6 @@ function viewClos() {
     (!f.period || quarterOf(x.date) === f.period)
   ).sort((a, b) => String(b.date).localeCompare(String(a.date))); // newest first
 
-  const feedRow = (x) => x._kind === "deal" ? dealRow(x) : intelRow(x);
-
   app.innerHTML = `
     <div class="page-head"><div class="ph-head-top"><h1>CLOs</h1>${focusToggle()}</div><p class="muted">${rows.length} of ${all.length} items · collateralised loan obligation pricings, platforms, funds, ETFs &amp; personnel${f.period ? ` · <strong>${esc(f.period)}</strong> <button type="button" class="link-btn" id="clear-period">clear quarter ✕</button>` : ""}</p></div>
     <input type="checkbox" id="filters-toggle" class="ff-cb" ${mfOpen() ? "checked" : ""}><label for="filters-toggle" class="ff-lab">Filters</label><div class="filters">
@@ -1062,7 +1082,7 @@ function viewClos() {
       ${multiFilter("clos:year", "Year", [...new Set(all.map((x) => yearOf(x.date)).filter(Boolean))].sort((a, b) => b.localeCompare(a)), f.year)}
     </div>
     <section class="card">
-      ${rows.length ? feedHtml(rows, "clos", feedRow, JSON.stringify(f)) : '<p class="empty">No CLO items match these filters.</p>'}
+      ${rows.length ? crFeed(rows) : '<p class="empty">No CLO items match these filters.</p>'}
     </section>`;
   wireFilters("clos");
 
@@ -1282,7 +1302,7 @@ function viewNews() {
       <label class="filter search"><span>Search</span><input type="search" data-filter="q" placeholder="Headline, source, manager…" value="${esc(f.q)}"></label>
     </div>
     ${srcBar}
-    <section class="card">${rows.length ? feedFlat(rows, "news", unifiedNewsRow, JSON.stringify(f)) : '<p class="empty">No items match your search.</p>'}</section>`;
+    <section class="card">${rows.length ? `<div class="g-feed twire">${feedBodyHTML(rows.map((x) => ({ desk: x._type === "Commentary" ? "comm" : "news", href: x.url || "#/", ext: !!x.url, title: x.title, src: x._srcName || "", date: x.date || "", time: x.time || "", mgr: x._mid || "" })))}</div>` : '<p class="empty">No items match your search.</p>'}</section>`;
   wireFilters("news");
   applyPendingFocus("news");
 }
@@ -1302,11 +1322,9 @@ function savedSectionHtml() {
     else if (nById[id]) items.push({ ...nById[id], _kind: "news" });
   });
   items.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
-  const row = (x) => x._kind === "deal" ? dealRow(x) : x._kind === "intel" ? intelRow(x) : newsRowFull(x);
-  const sig = JSON.stringify([...getSavedC()].sort());
   return `<section class="card" id="saved-section"><h2>Saved items <span class="muted">(${items.length})</span></h2>${items.length
-    ? feedHtml(items, "saved", row, sig)
-    : '<p class="muted small">No saved items yet — click <strong>☆ Save</strong> on any news, deal, fundraising or CLO item to keep it here.</p>'}</section>`;
+    ? crFeed(items)
+    : '<p class="muted small">No saved items yet.</p>'}</section>`;
 }
 
 function viewWatchlist() {
@@ -1343,9 +1361,6 @@ function viewWatchlist() {
   // (all news, then deals, …) and recent deals/CLOs get pushed off page one.
   const feed = [...newsItems, ...dealItems, ...intelItems, ...cloItems]
     .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
-  const feedRow = (x) => x._kind === "deal" ? dealRow(x)
-    : x._kind === "intel" ? intelRow(x)
-    : `<div class="intel-row"><div class="intel-meta"><span class="muted small">${fmtDate(x.date)}</span></div><div class="intel-body"><div class="intel-title-line"><a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a>${saveBtn(newsSaveId(x))}</div><div>${link(`#/manager/${x._mid}`, x._mname, "muted small")}${x.outlet ? ` · <span class="muted small">${esc(x.outlet)}</span>` : ""}</div></div></div>`;
 
   if (fm.length + ff.length + fl.length === 0) {
     app.innerHTML = `<div class="page-head"><h1>My Watchlist</h1></div>
@@ -1353,7 +1368,6 @@ function viewWatchlist() {
       ${savedSectionHtml()}`;
     return;
   }
-  const wlSig = JSON.stringify([fm.map((x) => x.id), ff.map((x) => x.id)]);
   const listCard = (title, items, type, render) =>
     `<details class="wl-cat"><summary class="wl-cat-head"><h2>${title} <span class="muted">(${items.length})</span></h2><span class="wl-caret" aria-hidden="true"></span></summary><div class="wl-body">${items.length
       ? `<ul class="link-list">${items.map((x) => `<li>${nameCell(type, x.id, render(x))}</li>`).join("")}</ul>`
@@ -1366,7 +1380,7 @@ function viewWatchlist() {
       ${listCard("Investors", fl, "lp", (l) => `${link(`#/lp/${l.id}`, l.name)} <span class="muted small">${esc(l.type)}</span>`)}
     </div>
     <div id="wl-panel" class="wl-panel" hidden></div>
-    <section class="card"><h2>News, deals, fundraising &amp; CLOs <span class="muted">(${feed.length})</span></h2>${feed.length ? feedHtml(feed, "watchlist", feedRow, wlSig) : '<p class="muted small">No news, deals or fundraising yet for the managers/funds you follow.</p>'}</section>
+    <section class="card"><h2>News, deals, fundraising &amp; CLOs <span class="muted">(${feed.length})</span></h2>${feed.length ? crFeed(feed) : '<p class="muted small">No news, deals or fundraising yet for the managers/funds you follow.</p>'}</section>
     ${savedSectionHtml()}`;
 
   // Accordion (all viewports): only one category open at a time; the open one's
