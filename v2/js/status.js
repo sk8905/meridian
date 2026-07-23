@@ -32,7 +32,10 @@ function fmt(d, t) {
 }
 
 function render() {
-  const el = document.getElementById("data-status");
-  if (!el || !_label) return;
-  el.innerHTML = `<span class="ds-text" title="Wire data is refreshed together by the four-times-daily routine (05:00, 12:00, 17:00 &amp; 21:00 London)."><span class="ds-part">Last refresh ${_label}</span></span>`;
+  if (!_label) return;
+  // Render into every refresh slot — the header #data-status (desktop
+  // rail/footer) AND the phone bottom-meta strip — so the one app-wide value
+  // shows wherever the current breakpoint surfaces it.
+  const html = `<span class="ds-text" title="Wire data is refreshed together by the four-times-daily routine (05:00, 12:00, 17:00 &amp; 21:00 London)."><span class="ds-part">Last refresh ${_label}</span></span>`;
+  document.querySelectorAll("[data-refresh-slot]").forEach((el) => { el.innerHTML = html; });
 }

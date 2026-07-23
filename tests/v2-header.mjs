@@ -30,6 +30,47 @@ check(present.panels >= 3, `Markets/Saved/Notifications panels built (${present.
 checkEq(present.tabbars, 1, "still exactly one tab bar (nav-actions did NOT add its own)");
 check(present.refresh > 0, `refresh indicator populated ("Last refresh…", ${present.refresh} chars)`);
 
+// Bottom meta strip (phone): the signed-in identity + the app-wide last refresh,
+// pinned DIRECTLY above the bottom tab bar. header.css hides the header copies on
+// phones, so this strip is where a phone surfaces that info.
+const strip = await pg.evaluate(() => {
+  const s = document.querySelector(".v2-botmeta");
+  const t = document.querySelector(".mobile-tabbar");
+  if (!s || !t) return { ok: false };
+  const sr = s.getBoundingClientRect(), tr = t.getBoundingClientRect();
+  return {
+    ok: true,
+    shown: getComputedStyle(s).display !== "none" && sr.height > 0,
+    aboveBar: sr.bottom <= tr.top + 2 && Math.abs(sr.bottom - tr.top) <= 2,
+    acct: ((document.getElementById("account-nav-bot") || {}).textContent || "").trim().length,
+    stat: ((document.getElementById("data-status-bot") || {}).textContent || "").trim(),
+  };
+});
+check(strip.ok && strip.shown, "bottom meta strip is shown on phone");
+check(strip.aboveBar, "meta strip sits directly above the bottom tab bar");
+check(strip.acct > 0, "meta strip shows the signed-in identity");
+check(/last refresh/i.test(strip.stat), `meta strip shows the app-wide last refresh ("${strip.stat}")`);
+
+// Header must stay ANCHORED to the top through scroll (its sticky container is
+// the short #wire-header wrapper, so on phones it's pinned position:fixed). And
+// --wire-head-h must be set so each view's sticky sub-nav pins flush under it
+// (no content bleeding through the seam).
+const anchored = await pg.evaluate(async () => {
+  const bar = document.querySelector(".topbar");
+  const top0 = Math.round(bar.getBoundingClientRect().top);
+  window.scrollTo(0, 600);
+  await new Promise((r) => setTimeout(r, 300));
+  const top1 = Math.round(bar.getBoundingClientRect().top);
+  const fh = document.querySelector(".g-feed-head, .g-feed-chips");
+  const headVar = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--wire-head-h")) || 0;
+  const fhTop = fh ? Math.round(fh.getBoundingClientRect().top) : null;
+  window.scrollTo(0, 0);
+  return { top0, top1, headVar, fhTop, barH: Math.round(bar.getBoundingClientRect().height) };
+});
+check(anchored.top0 === 0 && anchored.top1 === 0, `top bar stays anchored at top through scroll (top ${anchored.top0}→${anchored.top1})`);
+check(anchored.headVar > 0, `--wire-head-h is set for sub-nav offsets (${anchored.headVar}px)`);
+if (anchored.fhTop !== null) check(Math.abs(anchored.fhTop - anchored.headVar) <= 2, `sub-nav pins flush under the header (feed head ${anchored.fhTop} ≈ head ${Math.round(anchored.headVar)})`);
+
 // Each button opens its panel (click → the matching .na-panel becomes visible).
 const opens = async (btnId, panelId) => {
   await pg.evaluate((id) => document.getElementById(id)?.click(), btnId);

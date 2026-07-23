@@ -2,7 +2,7 @@
 // shell wiring changed: injected container, no chrome boot, active-tab-guarded
 // listeners. Hash sub-routing unchanged.
 
-import { reportRefresh } from "/v2/js/status.js?v=v2-1";
+import { reportRefresh } from "/v2/js/status.js?v=v2-2";
 import {
   STRATEGIES, FUND_STATUS, GEOS, LP_TYPES, DEAL_TYPES, DATA_UPDATED, LAST_CHECKED, LAST_CHECKED_TIME,
   managers, funds, lps, intel, commitments, deals, research,

@@ -32,6 +32,14 @@ const TAB_ICONS = {
 export function initChrome({ onTab }) {
   buildHeader(onTab);
   const tabbar = buildTabBar(onTab);
+  // Phone-only meta strip pinned directly above the bottom tab bar: signed-in
+  // identity + the app-wide last-refresh. header.css hides #account-nav /
+  // #data-status on phones (they live in the footer/rail on desktop), so on a
+  // phone this strip is where that info surfaces. Status renders here via the
+  // shared reporter (data-refresh-slot); account is filled by fillAccount().
+  buildBottomMeta();
+  // Anchor the top bar so it never scrolls away (see initHeaderLock).
+  initHeaderLock();
 
   // Shared, session-long chrome features, reusing the existing modules verbatim:
   //   • ticker + briefing strip (brief.js → #wticker / #wbrief)
@@ -80,7 +88,7 @@ function buildHeader(onTab) {
       </button>
       <div class="topbar-right">
         <div id="account-nav" class="account-nav"></div>
-        <div id="data-status" class="data-status"></div>
+        <div id="data-status" class="data-status" data-refresh-slot></div>
       </div>
       <div id="notif" class="notif"></div>
     </div>
@@ -100,16 +108,71 @@ function buildHeader(onTab) {
 // regardless of which view is active.
 function fillAccount() {
   const el = document.getElementById("account-nav");
-  if (!el) return;
+  const bot = document.getElementById("account-nav-bot");
+  if (!el && !bot) return;
   fetch("/api/me", { headers: { accept: "application/json" } })
     .then((r) => (r.ok ? r.json() : null))
     .then((d) => {
       if (d && d.email) {
-        el.innerHTML = `<span class="si-prefix">Signed in as </span><strong>${d.email.replace(/[<>&]/g, "")}</strong> · <a href="/cdn-cgi/access/logout">Sign out</a>`;
+        const email = d.email.replace(/[<>&]/g, "");
+        // Header (desktop rail/footer): full identity + sign-out.
+        if (el) el.innerHTML = `<span class="si-prefix">Signed in as </span><strong>${email}</strong> · <a href="/cdn-cgi/access/logout">Sign out</a>`;
+        // Phone strip: compact — just the identity (sign-out lives in the Menu),
+        // ellipsised so it shares the row with the last-refresh.
+        if (bot) bot.innerHTML = `<span class="si-prefix">Signed in as </span><strong>${email}</strong>`;
         try { localStorage.setItem("m_signed_in", "1"); } catch { /* ignore */ }
       }
     })
     .catch(() => { /* not behind Access */ });
+}
+
+// Anchor the top bar so it stays put when the page scrolls. .topbar is
+// position:sticky (header.css), but its sticky CONTAINER is the short
+// #wire-header wrapper — scroll past that wrapper and the bar leaves with it
+// (the "header not anchored" bug). On phones we pin it exactly the way the
+// current app does: position:fixed via .wire-head-fixed (iOS keeps a fixed bar
+// glued through momentum scroll, where sticky/compositor layers drift), padding
+// the body by the measured header height so nothing hides behind it. That
+// measured height (--wire-head-h) is also the offset every view's sticky sub-nav
+// (the date/tabs strip, macro secbars…) pins beneath — so it sits flush under
+// the bar instead of letting content bleed through the seam. On desktop the bar
+// is left as native sticky, which works there because app.css gives #wire-header
+// display:contents (so .topbar's sticky container becomes the tall body).
+function initHeaderLock() {
+  const head = document.querySelector("#wire-header .topbar");
+  if (!head) return;
+  const isPhone = () => matchMedia("(max-width: 760px)").matches;
+  const lock = () => {
+    if (isPhone()) {
+      // Rect height (not offsetHeight): they can differ by a px on the fixed
+      // bar, and the drift shows as a background seam under the chrome.
+      document.documentElement.style.setProperty("--wire-head-h", head.getBoundingClientRect().height + "px");
+      head.classList.add("wire-head-fixed");
+      document.body.classList.add("wire-head-pad");
+    } else {
+      head.classList.remove("wire-head-fixed");
+      document.body.classList.remove("wire-head-pad");
+      document.documentElement.style.removeProperty("--wire-head-h");
+    }
+  };
+  lock();
+  // The first measure can run before fonts/late CSS settle; re-measure next
+  // frame so --wire-head-h (hence every sub-nav offset) is pixel-accurate.
+  requestAnimationFrame(lock);
+  window.addEventListener("resize", lock);
+}
+
+// The phone-only bottom meta strip (identity + last refresh), pinned above the
+// tab bar by app.css. Built once, like the tab bar; #data-status-bot is a
+// refresh slot so status.js renders the app-wide last-refresh into it.
+function buildBottomMeta() {
+  document.querySelectorAll(".v2-botmeta").forEach((el) => el.remove());
+  const bar = document.createElement("div");
+  bar.className = "v2-botmeta";
+  bar.innerHTML = `<div id="account-nav-bot" class="v2-botmeta-acct"></div>`
+    + `<div id="data-status-bot" class="v2-botmeta-status" data-refresh-slot></div>`;
+  document.body.appendChild(bar);
+  return bar;
 }
 
 function buildTabBar(onTab) {
