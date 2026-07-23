@@ -20,6 +20,22 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "67928c74-bab1-4406-ac26-7e450b5d7c49", title: "Jes Staley to testify on Capitol Hill over ties to Jeffrey Epstein", date: "2026-07-23", time: "05:01", url: "https://www.ft.com/content/67928c74-bab1-4406-ac26-7e450b5d7c49" },
+  { id: "e5dd1766-71b0-4127-996b-7f5fb2d72531", title: "English football is for sale", date: "2026-07-23", time: "05:00", url: "https://www.ft.com/content/e5dd1766-71b0-4127-996b-7f5fb2d72531" },
+  { id: "d331c1f5-27c0-4d5a-a4ab-7a52e1119cc5", title: "Buyout groups hunt for software bargains after ‘SaaS-pocalypse’", date: "2026-07-23", time: "05:00", url: "https://www.ft.com/content/d331c1f5-27c0-4d5a-a4ab-7a52e1119cc5" },
+  { id: "c3141534-9cbb-4126-b36e-621fd6a9c312", title: "Why is England unable to fix social care?", date: "2026-07-23", time: "05:00", url: "https://www.ft.com/content/c3141534-9cbb-4126-b36e-621fd6a9c312" },
+  { id: "019ce313-00c5-4d7d-a26c-acd7250de84a", title: "Trump Media fast feed for president’s posts sparks Wall Street backlash", date: "2026-07-23", time: "05:00", url: "https://www.ft.com/content/019ce313-00c5-4d7d-a26c-acd7250de84a" },
+  { id: "397c04d8-db0f-4902-9ea0-269584f43697", title: "Japan awakes", date: "2026-07-23", time: "05:00", url: "https://www.ft.com/content/397c04d8-db0f-4902-9ea0-269584f43697" },
+  { id: "1cbe4fd0-6b81-42c5-bc30-070fec3cd9dd", title: "Military briefing: can the US reopen the Strait of Hormuz by force?", date: "2026-07-23", time: "05:00", url: "https://www.ft.com/content/1cbe4fd0-6b81-42c5-bc30-070fec3cd9dd" },
+  { id: "39aa90bd-1869-4188-9280-188ccf69ef56", title: "Inflation data gives Andy Burnham’s cost of living pledge a boost", date: "2026-07-23", time: "05:00", url: "https://www.ft.com/content/39aa90bd-1869-4188-9280-188ccf69ef56" },
+  { id: "ecf9967d-de7f-405f-b746-f09a26f3a86a", title: "US oil refineries run at breakneck speeds as wars choke fuel supplies", date: "2026-07-23", time: "05:00", url: "https://www.ft.com/content/ecf9967d-de7f-405f-b746-f09a26f3a86a" },
+  { id: "fda9e7c8-87cd-49f8-bdf1-01adf293670f", title: "Russia forced to import fuel from India as Ukrainian strikes damage refineries", date: "2026-07-23", time: "05:00", url: "https://www.ft.com/content/fda9e7c8-87cd-49f8-bdf1-01adf293670f" },
+  { id: "36c412b6-ed17-4784-97ef-87b98dbd73e8", title: "EU urged to use more ‘clout’ against Beijing", date: "2026-07-23", time: "05:00", url: "https://www.ft.com/content/36c412b6-ed17-4784-97ef-87b98dbd73e8" },
+  { id: "7b53032e-894d-43ac-9dd1-2b94572b8489", title: "Is Trump winning the tariff wars?", date: "2026-07-23", time: "05:00", url: "https://www.ft.com/content/7b53032e-894d-43ac-9dd1-2b94572b8489" },
+  { id: "de2f1e69-791e-49d3-98f0-925b2697a5c5", title: "Why China’s assault on Europe’s car market has barely begun", date: "2026-07-23", time: "05:00", url: "https://www.ft.com/content/de2f1e69-791e-49d3-98f0-925b2697a5c5" },
+  { id: "b74cbc54-c6ae-4f4a-9350-3dab1f2758d0", title: "Betting account in George Cottrell’s name received $9mn in crypto from unidentified sources", date: "2026-07-23", time: "05:00", url: "https://www.ft.com/content/b74cbc54-c6ae-4f4a-9350-3dab1f2758d0" },
+  { id: "e9d88dc0-eb5b-4758-a993-33e4285b65f7", title: "Stressed private credit funds are an opportunity for secondary investors", date: "2026-07-23", time: "05:00", url: "https://www.ft.com/content/e9d88dc0-eb5b-4758-a993-33e4285b65f7" },
+  { id: "5822885a-5eae-4c0c-8f88-21163299a119", title: "US oil refineries race against dwindling supply", date: "2026-07-23", time: "05:00", url: "https://www.ft.com/content/5822885a-5eae-4c0c-8f88-21163299a119" },
   { id: "c087714d-7d46-449b-9684-eba1975d313a", title: "Aston Martin strikes £550mn debt deal despite creditor objections", date: "2026-07-22", time: "19:22", url: "https://www.ft.com/content/c087714d-7d46-449b-9684-eba1975d313a" },
   { id: "8e33fb1d-cce3-4b56-9546-260f3f918c2d", title: "The real barrier to Africa’s solar energy boom", date: "2026-07-22", time: "18:52", url: "https://www.ft.com/content/8e33fb1d-cce3-4b56-9546-260f3f918c2d" },
   { id: "0c0b1e83-8e5e-4c86-b9c6-179dba51fc69", title: "Greek tycoon’s tanker towed into Iranian waters", date: "2026-07-22", time: "18:38", url: "https://www.ft.com/content/0c0b1e83-8e5e-4c86-b9c6-179dba51fc69" },

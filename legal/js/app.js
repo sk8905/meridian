@@ -17,8 +17,8 @@ import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
   rxAdvisers,
-} from "./data.js?v=20260722-5";
-import { donutChart, columnChart } from "./charts.js?v=20260722-3";
+} from "./data.js?v=20260723-1";
+import { donutChart, columnChart } from "./charts.js?v=20260723-1";
 // The view code splits across three modules with an ACYCLIC import graph —
 // app.js -> detail.js -> shared.js. shared.js holds the date formatters, the
 // saved-items read layer, the "new since last visit" marker and the alert
@@ -29,12 +29,12 @@ import { donutChart, columnChart } from "./charts.js?v=20260722-3";
 import {
   fmtDate, itemDate, itemRow, firmLink, getSaved, SAVED_KEY,
   markVisitedSoon, _chipMem, chipMemKey,
-} from "./shared.js?v=20260722-4";
-import { viewItem, viewFirm } from "./detail.js?v=20260722-4";
+} from "./shared.js?v=20260723-1";
+import { viewItem, viewFirm } from "./detail.js?v=20260723-1";
 // The shared news-wire engine — so the Legal dashboard wire is the same build as
 // the Home feed (time-led .g-feed-* rows, day headers, and — new — the firm name
 // at row end as an in-place source filter).
-import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc, onLiveWire } from "/feed.js?v=20260722-4";
+import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc, onLiveWire } from "/feed.js?v=20260723-1";
 
 
 const app = document.getElementById("app");
@@ -1197,7 +1197,7 @@ document.addEventListener("click", (e) => {
   }
 });
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
-import("/palette.js?v=20260722-5").then((m) => m.mountPalette()).catch(() => {});
+import("/palette.js?v=20260723-1").then((m) => m.mountPalette()).catch(() => {});
 initChrome();
 initNotif();
 router();
