@@ -112,7 +112,10 @@ a { color: var(--primary); text-decoration: none; }
   .v2-botmeta-status { flex: 0 0 auto; white-space: nowrap; }
   .v2-botmeta-status:empty { display: none; }
 }
-[data-theme="dark"] .v2-botmeta { background: #000; color: #7f8ca6; border-top: 1px solid var(--border, #262626); }
+/* Dark: the strip is black. Scoped with html[data-theme][data-v2tab] so it
+   outweighs the light menu rule (html[data-v2tab="menu"] .v2-botmeta) instead of
+   losing the cascade to it. */
+html[data-theme="dark"][data-v2tab="menu"] .v2-botmeta { background: #000; color: #7f8ca6; border-top: 1px solid var(--border, #262626); }
 [data-theme="dark"] .v2-botmeta-acct strong { color: #e5e9f2; }
 
 /* ---- Page footer: identity + last refresh (desktop only) ----------------- */
