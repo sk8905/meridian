@@ -28,6 +28,27 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-20260723",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: Sports Happen So Much",
+    date: "2026-07-23",
+    time: "19:10",
+    summary: "Index, basis, API, 10b5-1.",
+    url: "https://bloom.bg/3TRMy5N",
+  },
+  {
+    id: "nl-bbg-authoralert-jduggan-20260723",
+    publication: "Bloomberg",
+    author: "Jennifer Duggan",
+    title: "Ireland Says Alumina Probe Finds No Proof of Russia Weapons Link",
+    date: "2026-07-23",
+    time: "16:26",
+    summary: "Investigation into alumina exports from Ireland to Russia finds no conclusive evidence linking a plant to Russian weapons manufacture.",
+    url: "https://www.bloomberg.com/news/articles/2026-07-23/ireland-says-alumina-probe-finds-no-proof-of-russia-weapons-link",
+  },
+  {
     id: "nl-lb-hsfkramerrevenue-20260723",
     publication: "Legal Business",
     title: "HSF Kramer hits $2.4bn in revenue in first post-merger results",
