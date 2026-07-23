@@ -87,5 +87,37 @@ async function deepLink(url, view, min, label) {
   await ctx.close();
 }
 
+// ---- 5. Instant swap: a first-visit heavy tab paints immediately (skeleton or
+// content) — never a blank/hidden content area while its module loads. ----
+{
+  const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/");
+  await pg.waitForTimeout(900);
+  const cdp = await ctx.newCDPSession(pg);
+  const box = await pg.evaluate(() => { const t = document.querySelector('.mobile-tabbar .mtab[data-key="credit"]'); const r = t.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+  await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x: box.x, y: box.y }] });
+  await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+  // The moment the destination becomes visible, it must already be PAINTED — a
+  // skeleton spinner or real content — never an empty section. (Before it swaps
+  // in, the view transition holds the old view on screen, so there's no blank
+  // either way.) Poll for first-visible, then assert it's painted at that instant.
+  let firstPaint = null;
+  for (let i = 0; i < 80; i++) {
+    firstPaint = await pg.evaluate(() => {
+      const s = document.querySelector('.v2-view[data-view="credit"]');
+      if (!s || s.hidden) return null;
+      return { skeleton: !!s.querySelector(".v2-spin"), len: s.textContent.trim().length };
+    });
+    if (firstPaint) break;
+    await pg.waitForTimeout(20);
+  }
+  check(!!firstPaint, "instant swap: destination becomes visible (transition completes)");
+  check(firstPaint && (firstPaint.skeleton || firstPaint.len > 0), "instant swap: it is painted (skeleton or content) the instant it appears — never an empty freeze");
+  await pg.waitForTimeout(900);
+  const settled = await pg.evaluate(() => { const s = document.querySelector('.v2-view[data-view="credit"]'); return { spin: !!s.querySelector(".v2-spin"), len: s.textContent.trim().length }; });
+  check(!settled.spin && settled.len > 5000, `instant swap: content fills in after load (${settled.len} chars)`);
+  checkErrs(errs, "instant swap");
+  await ctx.close();
+}
+
 await b.close(); srv.close();
 finish();

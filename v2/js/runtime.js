@@ -69,24 +69,40 @@ function ctxFor() {
 }
 
 // Ensure a view is loaded + mounted (once). Returns its record.
-async function ensureView(key) {
-  if (_views.has(key)) return _views.get(key);
-  const route = ROUTE_BY_KEY[key];
-  const mod = await route.load();
-  // Per-view stylesheet(s), lazy-loaded once (a view declares `export const css`
-  // as a string or an array of hrefs).
-  if (mod.css) await Promise.all([].concat(mod.css).map(loadCss));
+const SKELETON = '<div class="v2-loading" aria-hidden="true"><div class="v2-spin"></div></div>';
+
+// The section SHELL — created instantly, no module load. This is what lets a
+// switch paint immediately (a skeleton) instead of waiting on a heavy module.
+function getShell(key) {
+  let rec = _views.get(key);
+  if (rec) return rec;
   const section = document.createElement("section");
   section.className = "v2-view";
   section.dataset.view = key;
   section.hidden = true;
+  section.innerHTML = SKELETON;
   appEl().appendChild(section);
-  // mount(host, ctx) renders the view's initial DOM and may return a controller
-  // with optional enter(sub) / leave() hooks for its own sub-routing.
-  const ctrl = (mod.mount ? await mod.mount(section, ctxFor()) : null) || {};
-  const rec = { section, mod, ctrl };
+  rec = { section, mod: null, ctrl: null, mounted: false, loading: null };
   _views.set(key, rec);
   return rec;
+}
+
+// Load the view's module (+ css) and mount it into its section — the heavy part
+// (this is where a big data module parses). Idempotent; concurrent callers share
+// one load. Runs OFF the transition, so it never blanks a switch.
+function mountView(key) {
+  const rec = getShell(key);
+  if (rec.mounted) return Promise.resolve(rec);
+  if (rec.loading) return rec.loading;
+  rec.loading = (async () => {
+    const mod = await ROUTE_BY_KEY[key].load();
+    if (mod.css) await Promise.all([].concat(mod.css).map(loadCss));
+    rec.mod = mod;
+    rec.ctrl = (mod.mount ? await mod.mount(rec.section, ctxFor()) : null) || {};
+    rec.mounted = true;
+    return rec;
+  })();
+  return rec.loading;
 }
 
 function loadCss(href) {
@@ -119,42 +135,49 @@ export async function navigate(path, { push = true, replace = false } = {}) {
   }
 
   // Same tab, different sub-route → let the view handle it in place (no swap).
-  if (same) { const r = _views.get(key); r && r.ctrl.enter && r.ctrl.enter(sub); setChromeActive(key); return; }
+  if (same) { const r = _views.get(key); r && r.mounted && r.ctrl.enter && r.ctrl.enter(sub); setChromeActive(key); return; }
   _busy = true;
 
-  const run = async () => {
-    let rec;
-    try { rec = await ensureView(key); }
-    catch { _busy = false; return; }               // load failed — leave current view up
-    // Hide the outgoing, show the incoming.
+  // INSTANT swap: show the destination section NOW — its already-rendered content
+  // if it's mounted (keep-alive), otherwise a skeleton. The transition never
+  // waits on a module/data load, so a switch can't blank or freeze; the heavy
+  // mount happens afterwards with the skeleton visible.
+  const rec = getShell(key);
+  const swap = () => {
     if (_active && _views.has(_active)) {
       const prev = _views.get(_active);
-      prev.ctrl.leave && prev.ctrl.leave();
+      prev.mounted && prev.ctrl.leave && prev.ctrl.leave();
       prev.section.hidden = true;
     }
     rec.section.hidden = false;
-    // Mark the active tab BEFORE enter() so each view's event listeners (which
-    // self-guard on this flag) know they're live. Ported apps keep their own
-    // hash routing; only the active one reacts to global events.
-    document.documentElement.dataset.v2tab = key;
-    rec.ctrl.enter && rec.ctrl.enter(sub);
+    document.documentElement.dataset.v2tab = key;   // active-tab flag BEFORE enter()
     _active = key;
     document.title = ROUTE_BY_KEY[key].title;
     setChromeActive(key);
     window.scrollTo(0, 0);
+    // Already mounted → refresh its view for the sub-route now (cheap: render
+    // from already-parsed data), keeping the switch instant.
+    if (rec.mounted && rec.ctrl.enter) rec.ctrl.enter(sub);
   };
-
-  // Same-document view transition (iOS-supported); instant + crossfaded. If the
-  // API is missing, just run the swap directly.
   if ("startViewTransition" in document) {
-    const vt = document.startViewTransition(run);
-    try { await vt.finished; } catch { /* transition interrupted — swap already applied */ }
-  } else {
-    await run();
-  }
+    const vt = document.startViewTransition(swap);
+    try { await vt.updateCallbackDone; } catch { /* interrupted — swap applied */ }
+  } else { swap(); }
   _busy = false;
-  // Drain a tap that arrived during the swap (latest wins).
-  if (_pending) { const [p, o] = _pending; _pending = null; navigate(p, o); }
+  if (_pending) { const [p, o] = _pending; _pending = null; navigate(p, o); return; }
+
+  // First visit → load + mount now (the skeleton is already on screen; its
+  // spinner animates on the compositor, so it keeps moving even while a big data
+  // module parses on the main thread). Guard on the user still being here.
+  if (!rec.mounted) {
+    try { await mountView(key); if (_active === key && rec.ctrl.enter) rec.ctrl.enter(sub); }
+    catch { if (_active === key) rec.section.innerHTML = '<div class="v2-loading">Could not load this view.</div>'; }
+  }
+  // NOTE: no background pre-mounting. It was tried and removed — parsing a heavy
+  // data module in the background blocks the main thread and can lag the very
+  // next tap. Keep-alive already makes every REVISIT instant, and the
+  // instant-skeleton above makes every FIRST visit paint immediately, so a
+  // preload only adds contention for no perceived win.
 }
 
 let _setActive = () => {};

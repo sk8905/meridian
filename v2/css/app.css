@@ -51,3 +51,9 @@ a { color: var(--primary); text-decoration: none; }
    honours this). premium.css also styles ::view-transition(root); this is a
    harmless, matching duration for the SPA swaps. */
 ::view-transition-old(root), ::view-transition-new(root) { animation-duration: .16s; }
+
+/* Loading skeleton shown the instant a not-yet-mounted tab is opened, so a switch
+   paints immediately instead of blanking while the view's module/data loads. */
+.v2-loading { display: flex; align-items: center; justify-content: center; min-height: 55vh; color: var(--muted, #66708a); }
+.v2-spin { width: 26px; height: 26px; border-radius: 50%; border: 2.5px solid color-mix(in srgb, var(--ink, #888) 20%, transparent); border-top-color: var(--ink, #888); animation: v2-spin .7s linear infinite; }
+@keyframes v2-spin { to { transform: rotate(360deg); } }
