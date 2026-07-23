@@ -1300,7 +1300,7 @@ const PRED_TYPE_ORDER = ["Fed & rates", "Economy", "Equities", "Crypto", "Trump"
 // "Top Movers" is a cross-cutting view (default); the other three are the type
 // super-groups. Every market already passes the finance/finance-adjacent gate
 // server-side, so the mover set stays within the app's universe (no sport/culture).
-const PRED_SUPERS = ["Top Movers", "Largest", "Macro", "Politics", "Finance"];
+const PRED_SUPERS = ["Largest", "Top Movers", "Macro", "Politics", "Finance"];
 const PRED_SUPER_TYPES = {
   Macro: ["Fed & rates", "Economy", "Other"],
   Politics: ["Trump", "Geopolitics", "Elections"],
