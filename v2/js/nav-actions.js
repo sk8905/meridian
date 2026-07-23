@@ -529,12 +529,6 @@ function countUnread(items) {
   const seen = { c: readSeen("c"), l: readSeen("l") };
   return items.filter((x) => { const s = seen[x.desk]; return s ? !s.has(x.id) : false; }).length;
 }
-// The genuinely-new items — those not in the per-desk seen-set (same test the
-// badge counts with), so the panel lists exactly what the badge promises.
-function freshNotifs(items) {
-  const seen = { c: readSeen("c"), l: readSeen("l") };
-  return items.filter((x) => { const s = seen[x.desk]; return s ? !s.has(x.id) : false; });
-}
 // First time we see a desk's notifications we treat the current set as the
 // baseline (all "seen") so the historical back-catalogue doesn't show as unread.
 function establishBaseline(items) {
@@ -921,15 +915,13 @@ export function initNavActions() {
       const paint = async () => {
         chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _ntTab));
         if (_ntTab === "all") {
-          const fresh = freshNotifs(items);
-          if (fresh.length) {
-            tb.innerHTML = `<div class="nf-head">${fresh.length} new update${fresh.length > 1 ? "s" : ""}</div>`
-              + fresh.map(notifRow).join("");
-            markNotifSeen(items); clearBadge();
-          } else {
-            const recent = items.slice(0, 6);
-            tb.innerHTML = recent.length ? recent.map(notifRow).join("") : '<div class="na-empty">Nothing yet.</div>';
-          }
+          // Always list the notifications, the same on every open. Opening the
+          // panel clears the unread badge (marks them seen) but must NOT empty
+          // the list — so reopening still shows them (the previous behaviour hid
+          // everything once "seen", which read as the notifications vanishing).
+          // No "N new updates" banner.
+          tb.innerHTML = items.length ? items.map(notifRow).join("") : '<div class="na-empty">Nothing yet.</div>';
+          markNotifSeen(items); clearBadge();
         } else {
           tb.innerHTML = '<div class="na-load">Loading…</div>';
           try {
