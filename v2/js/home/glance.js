@@ -3,6 +3,7 @@
 // owns chrome + search), and listeners self-guard on the active tab.
 
 import { deals, intel, managers, funds, research, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260718-9";
+import { reportRefresh } from "/v2/js/status.js?v=v2-1";
 import { items, cases, restructurings, firmById } from "/legal/js/data.js?v=20260718-10";
 import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js?v=20260718-9";
 import { NEWSLETTERS } from "/newsletters.js";
@@ -116,8 +117,7 @@ export function initGlance() {
   initRates();
   initPulse();
   initGlanceTickerToggle();
-  const rf = document.getElementById("data-status") || document.getElementById("g-refresh");
-  if (rf) rf.textContent = `Last refresh ${fmtRefresh()}`;
+  reportRefresh(LAST_CHECKED, LAST_CHECKED_TIME);   // v2: app-wide refresh (shared)
   // Top-bar Markets / Saved / Notifications: the SAME shared controller as
   // Macro/Credit/Legal (nav-actions.js) — one implementation on all pages. The
   // legacy Home-only dropdown menus are retired; on phones Home just hides its

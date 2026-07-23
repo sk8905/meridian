@@ -2,6 +2,7 @@
 // shell wiring changed: injected container, no chrome boot, active-tab-guarded
 // listeners. Hash sub-routing unchanged.
 
+import { reportRefresh } from "/v2/js/status.js?v=v2-1";
 import {
   STRATEGIES, FUND_STATUS, GEOS, LP_TYPES, DEAL_TYPES, DATA_UPDATED, LAST_CHECKED, LAST_CHECKED_TIME,
   managers, funds, lps, intel, commitments, deals, research,
@@ -191,13 +192,7 @@ async function initSavedSync() {
 // Topbar data-freshness line: dataset "last updated" date + the time this view
 // was last loaded/refreshed, plus a manual Refresh button that reloads to pull
 // the latest deployed data and re-sync the watchlist.
-function renderDataStatus() {
-  const el = document.getElementById("data-status");
-  if (!el) return;
-  const t = new Date().toLocaleTimeString("en-GB", { hour: "2-digit", minute: "2-digit" });
-  const refresh = `Last refresh ${esc(fmtDate(LAST_CHECKED))}${LAST_CHECKED_TIME ? `, ${esc(LAST_CHECKED_TIME)}` : ""}`;
-  el.innerHTML = `<span class="ds-text" title="Routine last ran ${esc(fmtDate(LAST_CHECKED))}${LAST_CHECKED_TIME ? ` ${esc(LAST_CHECKED_TIME)}` : ""}; data last changed ${esc(fmtDate(DATA_UPDATED))}"><span class="ds-part">${refresh}</span></span>`;
-}
+function renderDataStatus() { reportRefresh(LAST_CHECKED, LAST_CHECKED_TIME); }   // v2: app-wide refresh
 // Fill the persistent topbar identity area once we know the signed-in user.
 // Hidden when not behind Access (device-local mode).
 function renderAccountNav() {

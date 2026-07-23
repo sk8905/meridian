@@ -3,6 +3,7 @@
 // listeners. Hash sub-routing unchanged.
 
 import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS } from "/macro/js/content.js?v=20260722-5";
+import { reportRefresh } from "/v2/js/status.js?v=v2-1";
 import { esc } from "/util.js?v=20260719-1";
 import { MONTHS, MONTHS_FULL, WEEKDAYS, isoToDate, fmtDay, fmtDayGB, fmtWeekday, fmtDate,
   trackGauge, CYCLE_ZONES, BUBBLE_ZONES, bubbleComposite, bubbleBand,
@@ -1273,11 +1274,7 @@ async function loadMacro(focus) {
 function refreshStamp() {
   return `${fmtDate(META.lastChecked)}${META.lastCheckedTime ? `, ${META.lastCheckedTime}` : ""}`;
 }
-function renderDataStatus() {
-  const el = document.getElementById("data-status");
-  if (!el) return;
-  el.innerHTML = `<span class="ds-text" title="Indicators are refreshed by the four-times-daily routine (05:00, 12:00, 17:00 &amp; 21:00 London) and fetched live from /api/macro; guidance as of ${esc(UPDATED)}"><span class="ds-part">Last refresh ${esc(refreshStamp())}</span></span>`;
-}
+function renderDataStatus() { reportRefresh(META.lastChecked, META.lastCheckedTime); }   // v2: app-wide refresh
 
 // ---- Notifications bell: economic-data prints + guidance changes -----------
 // "Seen" ids sync per-user across devices via /api/notif-macro (KV keyed on the

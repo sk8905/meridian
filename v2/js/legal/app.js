@@ -2,6 +2,7 @@
 // shell wiring changed: injected container, no chrome boot, active-tab-guarded
 // listeners. Hash sub-routing unchanged.
 
+import { reportRefresh } from "/v2/js/status.js?v=v2-1";
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
@@ -1173,11 +1174,7 @@ on(document, "click", (e) => {
 on(window, "hashchange", closeNotif);
 
 function initChrome() {
-  const status = document.getElementById("data-status");
-  if (status) {
-    status.innerHTML = `<span class="ds-part">Last refresh ${fmtDate(LAST_CHECKED)}${LAST_CHECKED_TIME ? `, ${LAST_CHECKED_TIME}` : ""}</span>`;
-    status.title = `Routine last ran ${fmtDate(LAST_CHECKED)}${LAST_CHECKED_TIME ? ` ${LAST_CHECKED_TIME}` : ""}; data last changed ${fmtDate(LAST_REVIEWED)}`;
-  }
+  reportRefresh(LAST_CHECKED, LAST_CHECKED_TIME);   // v2: app-wide refresh
   // Same pattern as the Wire app / landing page: behind Cloudflare Access
   // this returns the verified email; otherwise we leave the slot empty.
   const acct = document.getElementById("account-nav");

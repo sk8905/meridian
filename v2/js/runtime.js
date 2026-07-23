@@ -22,10 +22,10 @@ const BASE = "/v2";
 // heavy data) is fetched only when the tab is first opened, then cached by the
 // browser's module map for the session (no nonce, so revisits never re-fetch).
 const ROUTES = [
-  { key: "home",   title: "Wire",        load: () => import("./views/home.js?v=v2-2") },
-  { key: "macro",  title: "Wire Macro",  load: () => import("./views/macro.js?v=v2-1") },
-  { key: "credit", title: "Wire Credit", load: () => import("./views/credit.js?v=v2-1") },
-  { key: "legal",  title: "Wire Legal",  load: () => import("./views/legal.js?v=v2-1") },
+  { key: "home",   title: "Wire",        load: () => import("./views/home.js?v=v2-3") },
+  { key: "macro",  title: "Wire Macro",  load: () => import("./views/macro.js?v=v2-2") },
+  { key: "credit", title: "Wire Credit", load: () => import("./views/credit.js?v=v2-2") },
+  { key: "legal",  title: "Wire Legal",  load: () => import("./views/legal.js?v=v2-2") },
   { key: "menu",   title: "Wire Menu",   load: () => import("./views/menu.js?v=v2-2") },
 ];
 const ROUTE_BY_KEY = Object.fromEntries(ROUTES.map((r) => [r.key, r]));

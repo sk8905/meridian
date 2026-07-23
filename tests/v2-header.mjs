@@ -67,6 +67,33 @@ await tapKey("legal");
 const closed = await pg.evaluate(() => { const p = document.getElementById("na-mkt-panel"); return !p || p.hidden || getComputedStyle(p).display === "none" || !p.classList.contains("open"); });
 check(closed, "tab tap dismisses the open header panel");
 
+// App-wide "Last refresh" + notifications: identical on every desk (not split).
+const tabKey2 = async (key) => {
+  const box = await pg.evaluate((k) => { const t = document.querySelector(`.mobile-tabbar .mtab[data-key="${k}"]`); const r = t.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; }, key);
+  await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x: box.x, y: box.y }] });
+  await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
+  await pg.waitForTimeout(950);
+};
+const readShared = async () => {
+  await pg.evaluate(() => document.getElementById("na-notif")?.click());
+  await pg.waitForTimeout(450);
+  const r = await pg.evaluate(() => ({
+    refresh: ((document.getElementById("data-status") || {}).textContent || "").trim(),
+    notif: (document.querySelector("#na-notif-panel .na-body") || {}).textContent?.trim().slice(0, 200) || "",
+  }));
+  await pg.keyboard.press("Escape"); await pg.waitForTimeout(200);
+  return r;
+};
+const seen = [];
+for (const k of ["macro", "credit", "legal", "home"]) { await tabKey2(k); seen.push([k, await readShared()]); }
+const [, first] = seen[0];
+check(first.refresh.length > 0, `refresh populated app-wide ("${first.refresh}")`);
+for (const [k, v] of seen) {
+  checkEq(v.refresh, first.refresh, `Last refresh is the SAME on ${k} (app-wide, not per-desk)`);
+  checkEq(v.notif, first.notif, `notifications are the SAME on ${k} (app-wide, not per-desk)`);
+}
+checkEq(await pg.evaluate(() => getComputedStyle(document.getElementById("notif")).display), "none", "per-desk #notif bell stays hidden (only the shared app-wide bell shows)");
+
 checkErrs(errs, "v2 header cluster");
 await ctx.close();
 await b.close(); srv.close();
