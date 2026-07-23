@@ -50,37 +50,24 @@ a { color: var(--primary); text-decoration: none; }
 #wire-header { display: contents; }
 .v2-view[hidden] { display: none; }
 
-/* ---- Desktop/tablet: v2 desks scroll as one document --------------------- */
-/* The old app rendered each desk as a fixed full-viewport "terminal" — home's
-   #glance and the desks' .tdash sat at ~100vh with each column scrolling
-   INTERNALLY. That needs a top-level 100vh wrapper the SPA shell doesn't have
-   (v2 has a sticky header + a normal-flow content area, and no #glance), so on
-   wider screens those height/overflow:hidden rules trapped the content and page
-   scrolling was lost. In v2 every desk scrolls as one normal document — exactly
-   as it already does on phones — so nothing is clipped and the wire scrolls. */
+/* ---- Desktop/tablet: fixed-viewport terminal ----------------------------- */
+/* Restore the old app's Bloomberg-style desk: the header and the data rails
+   stay PINNED and only the centre newsfeed (and the rails' own lists) scroll,
+   INTERNALLY — the page itself never moves. The old app got its height from a
+   #glance / .tdash wrapper at ~100vh; the v2 shell has no such wrapper, so we
+   make the whole SPA a viewport-height flex column (header · content · footer)
+   and give the terminal height:100% of the content area. The original terminal
+   CSS (home.css / tui.css) then lays out the internal scrollers it was written
+   for — the wire scrolls, the rails' movers/prediction panes fill and scroll,
+   and the FX matrix sits at the base of the left rail. */
 @media (min-width: 761px) {
-  .v2-view .g-main.tui,
-  .v2-view .tdash { height: auto; min-height: 0; overflow: visible; }
-  /* Don't stretch the rails to the (very tall) feed column — keep each column
-     its natural height, top-aligned, so the FX matrix sits right under Top
-     movers instead of being pushed to the bottom of a stretched rail. */
-  .v2-view .tui .g-layout { align-items: start; }
-  .v2-view .tui .g-side > .g-movers-pnl { flex: 0 0 auto; }
-  .v2-view .tdash-grid { min-height: 0; }
-  .v2-view .tcol,
-  .v2-view .tcol-c,
-  .v2-view .tui .g-side,
-  .v2-view .tui .g-side2,
-  .v2-view .tui .g-feed-wrap,
-  .v2-view .tui .g-feed,
-  .v2-view .tui .g-flow-scroll { height: auto; min-height: 0; overflow: visible; }
-  /* Keep the Top movers and Prediction-markets lists as COMPACT internal
-     scrollers so the rails stay short — otherwise a full-length movers list
-     pushes the panels below it (the FX matrix under Top movers) far down the
-     page and they read as "missing". */
-  .v2-view .tui .g-movers-pnl { flex: 0 0 auto; }
-  .v2-view .tui .g-movers-pnl > #g-movers { max-height: 300px; overflow-y: auto; overscroll-behavior: contain; }
-  .v2-view .tui .g-flow-body { max-height: 360px; overflow-y: auto; overscroll-behavior: contain; }
+  html { height: 100%; }
+  body { height: 100vh; display: flex; flex-direction: column; overflow: hidden; }
+  .v2-app { flex: 1 1 auto; min-height: 0; overflow: hidden; }
+  .v2-view:not([hidden]) { height: 100%; min-height: 0; }
+  #v2-footer { flex: 0 0 auto; }
+  .v2-view .g-main.tui { height: 100%; }
+  .v2-view .tdash { height: 100%; }
 }
 /* Clear the fixed bottom tab bar on phones so content isn't hidden behind it
    (bar ≈ 55px). The meta strip only shows on the Menu tab, so only there does
