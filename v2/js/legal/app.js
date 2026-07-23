@@ -7,13 +7,13 @@ import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
   firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
   rxAdvisers,
-} from "/legal/js/data.js?v=20260722-5";
+} from "/legal/js/data.js?v=20260723-6";
 import { donutChart, columnChart } from "/legal/js/charts.js?v=20260722-3";
 import {
   fmtDate, itemDate, itemRow, firmLink, getSaved, SAVED_KEY,
   markVisitedSoon, _chipMem, chipMemKey,
-} from "/legal/js/shared.js?v=20260722-4";
-import { viewItem, viewFirm , __setHost as __detailSetHost } from "/v2/js/legal/detail.js?v=v2-1";
+} from "/legal/js/shared.js?v=20260723-1";
+import { viewItem, viewFirm , __setHost as __detailSetHost } from "/v2/js/legal/detail.js?v=v2-2";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc, onLiveWire } from "/feed.js?v=20260723-3";
 import { esc, MONTHS, byDateDesc } from "/util.js?v=20260719-1";
 
@@ -451,6 +451,37 @@ function casesPane() {
   return `<ul class="twire compact-list">${wireDays([...cases].sort(byDateDesc), row)}</ul>`;
 }
 
+// Law Firms league table (dashboard "Law Firms" tab). The tracked firms' LONDON
+// offices — approximate lawyer headcount, main London practice areas, revenue and
+// profit per equity partner (PEP) — from public sources. Rows open the firm
+// profile, which carries the same figures plus its private-capital deals. Sorted
+// by London revenue desc; searchable. Only firms with a `london` profile show
+// (barristers' chambers are excluded).
+// Currency from the figure's basis string (US firms report global $ figures).
+const lfCcy = (basis) => /\$|US\$|USD/.test(basis || "") ? "$" : "£";
+const lfMoney = (v, basis) => v == null ? "—" : lfCcy(basis) + (v >= 1000 ? (v / 1000).toFixed(2) + "bn" : Math.round(v) + "m");
+const lfPep = (p, basis) => p == null ? "—" : lfCcy(basis) + (p >= 1 ? p.toFixed(2) + "m" : Math.round(p * 1000) + "k");
+function lawFirmRow(f) {
+  const L = f.london || {};
+  const areas = (L.areas || []).slice(0, 4).join(", ");
+  return `<tr class="clickable" data-href="#/firm/${esc(f.id)}" data-name="${esc((f.name + " " + ((tierById[f.tier] || {}).name || "") + " " + (L.areas || []).join(" ")).toLowerCase())}">`
+    + `<td class="tl-nm">${esc(f.name)}</td>`
+    + `<td class="tl-tier">${esc((tierById[f.tier] || {}).name || f.tier || "")}</td>`
+    + `<td class="tl-n">${L.lawyers != null ? esc(String(L.lawyers)) : "—"}</td>`
+    + `<td class="tl-areas">${esc(areas || "—")}</td>`
+    + `<td class="tl-n">${L.revenue != null ? `<span title="${esc(L.revenueBasis || "")}">${esc(lfMoney(L.revenue, L.revenueBasis))}</span>` : "—"}</td>`
+    + `<td class="tl-n">${L.pep != null ? `<span title="${esc(L.pepBasis || "")}">${esc(lfPep(L.pep, L.pepBasis))}</span>` : "—"}</td></tr>`;
+}
+function lawFirmsPane() {
+  const rows = firms.filter((f) => f.london).sort((a, b) => (b.london.revenue || 0) - (a.london.revenue || 0));
+  return `<header class="tpanel-h thead-search"><span>Law firms</span>`
+    + `<input type="search" id="lf-q" class="tsearch" placeholder="Search firm, tier or practice…" aria-label="Search law firms"></header>`
+    + `<div class="tleague-wrap"><table class="tleague tleague-full tleague-lf">`
+    + `<thead><tr><th>Firm</th><th class="tl-tier">Tier</th><th class="tl-n">London&nbsp;lawyers</th><th class="tl-areas">Main&nbsp;London&nbsp;areas</th><th class="tl-n">Revenue</th><th class="tl-n">PEP</th></tr></thead>`
+    + `<tbody id="lf-rows">${rows.length ? rows.map(lawFirmRow).join("") : '<tr><td colspan="6" class="tw-empty muted small">No firms tracked yet.</td></tr>'}</tbody></table></div>`
+    + `<p class="tl-sls-key muted small">London office of each firm — approximate lawyer headcount, main London practice areas, latest revenue and profit per equity partner (PEP), from public sources (firm sites, Legal Business, The Lawyer, Companies House LLP accounts). Revenue/PEP are firm-wide unless the basis (hover) says otherwise; US firms report globally. Click a firm for its London profile and private-capital deals (last 12 months).</p>`;
+}
+
 function viewDashboard() {
   const thisYear = new Date().getFullYear();
 
@@ -536,6 +567,7 @@ function viewDashboard() {
             <button type="button" class="tchip" data-k="news">News</button>
             <button type="button" class="tchip" data-k="case">Case law</button>
             <button type="button" class="tchip" data-k="rp">Scheme/RPs</button>
+            <button type="button" class="tchip" data-k="firms">Law Firms</button>
           </div>
         </header>
         <div class="tpanes" id="lg-panes">
@@ -544,6 +576,7 @@ function viewDashboard() {
           </div>
           <div class="tpane" data-pane="cases" hidden>${casesPane()}</div>
           <div class="tpane" data-pane="schemes" hidden>${schemesTablePane()}</div>
+          <div class="tpane" data-pane="firms" hidden>${lawFirmsPane()}</div>
         </div>
       </section>
     </div>
@@ -556,7 +589,7 @@ function viewDashboard() {
 function legalWireDash() {
   const chips = document.getElementById("lg-chips"), panes = document.getElementById("lg-panes");
   if (!chips || !panes) return;
-  const PANE = { all: "wire", alert: "wire", news: "wire", case: "cases", rp: "schemes" };
+  const PANE = { all: "wire", alert: "wire", news: "wire", case: "cases", rp: "schemes", firms: "firms" };
   const wire = document.getElementById("lg-wire");
   // Filtering re-renders the shared wire (so day headers + the source bar stay
   // correct), like the Home feed. Case law / Schemes still swap to their own full
@@ -592,6 +625,18 @@ function legalWireDash() {
   attachFeedClicks(wire, {
     onSrc: (s) => { _lgSrc = s; _lgFilter = "all"; setActive("all"); showPane("wire"); paint(); },
     onClearSrc: () => { _lgSrc = null; paint(); },
+  });
+  // Law Firms league table: the search box filters rows in place; a row opens the
+  // firm profile (the pane has no [data-href] delegate elsewhere, so wire it here).
+  const lfq = document.getElementById("lf-q");
+  if (lfq) lfq.addEventListener("input", () => {
+    const v = lfq.value.toLowerCase().trim();
+    document.querySelectorAll("#lf-rows tr").forEach((tr) => { tr.style.display = (!v || (tr.dataset.name || "").includes(v)) ? "" : "none"; });
+  });
+  const lfPane = panes.querySelector('.tpane[data-pane="firms"]');
+  if (lfPane) lfPane.addEventListener("click", (e) => {
+    const row = e.target.closest("tr[data-href]");
+    if (row && !e.target.closest("a")) location.hash = row.getAttribute("data-href");
   });
   // A scheme/RP headline still jumps to that matter in the Schemes & RPs table.
   if (wire) wire.addEventListener("click", (e) => {

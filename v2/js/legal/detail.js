@@ -11,12 +11,12 @@
 // =============================================================================
 import {
   items, cases, restructurings, firmById, areaById, typeById,
-} from "/legal/js/data.js?v=20260722-5";
+} from "/legal/js/data.js?v=20260723-6";
 import { esc, byDateDesc } from "/util.js?v=20260719-1";
 import {
   fmtDate, itemDate, isNew, getSaved, areaChip, tierLabel, firmLink, itemRow,
   _chipMem, chipMemKey,
-} from "/legal/js/shared.js?v=20260722-3";
+} from "/legal/js/shared.js?v=20260723-1";
 
 export let app = null;
 export function __setHost(h) { app = h; }
@@ -127,6 +127,28 @@ function firmMentioned(firm, text) {
 // Whole-record text for mention scanning (titles, summaries, adviser lists…).
 const recText = (o) => { try { return JSON.stringify(o); } catch { return ""; } };
 
+// London-office figure formatters (mirror the Law Firms league table). Revenue in
+// £m → £Xm/£X.XXbn; PEP in the reported currency ($ for US-firm global figures).
+const lfCcy = (basis) => /\$|US\$|USD/.test(basis || "") ? "$" : "£";
+const lfMoney = (v, basis) => v == null ? "—" : lfCcy(basis) + (v >= 1000 ? (v / 1000).toFixed(2) + "bn" : Math.round(v) + "m");
+const lfPep = (p, basis) => p == null ? "—" : lfCcy(basis) + (p >= 1 ? p.toFixed(2) + "m" : Math.round(p * 1000) + "k");
+// Deal dates may be full (YYYY-MM-DD), month-only (YYYY-MM) or year-only.
+const PC_MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+function pcDate(s) {
+  if (!s) return "";
+  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return esc(fmtDate(s));
+  const m = /^(\d{4})-(\d{2})$/.exec(s);
+  return m ? PC_MON[+m[2] - 1] + " " + m[1] : esc(s);
+}
+// One private-capital deal row (last-12-months list): date · parties · role · value.
+const pcDealRow = (d) => `<li class="compact-item tw-row" data-kind="deal">`
+  + `<span class="tw-date">${pcDate(d.date)}</span>`
+  + `<span class="tw-tag deal">DEAL</span>`
+  + `<span class="tw-body">${d.url ? `<a href="${esc(d.url)}" target="_blank" rel="noopener noreferrer" class="tw-head">${esc(d.parties)}</a>` : `<span class="tw-head">${esc(d.parties)}</span>`}`
+  + `${d.role ? `<span class="tw-mgr-w"><span class="tw-mgr">${esc(d.role)}</span></span>` : ""}</span>`
+  + `<span class="tw-src">${esc(d.value || "")}</span>`
+  + `</li>`;
+
 export function viewFirm(id) {
   const firm = firmById[id];
   if (!firm) {
@@ -171,6 +193,19 @@ export function viewFirm(id) {
   const areaRail = areaMixRows.length
     ? `<ul class="tfacts">${areaMixRows.map(([a, n]) => `<li><span class="tf-k">${esc((areaById[a] || {}).name || a)}</span><span class="tf-v">${n}</span></li>`).join("")}</ul>`
     : "";
+  // London-office profile panel (approx lawyer headcount, revenue, PEP, main
+  // London practice areas + sources) — the Legal analogue of the hedge-fund facts.
+  const L = firm.london;
+  const londonRail = L ? `<section class="tpanel"><header class="tpanel-h"><span>London office</span>${L.lawyersAsOf ? `<span class="tpanel-x">as of ${esc(String(L.lawyersAsOf))}</span>` : ""}</header>`
+    + `<ul class="tfacts">`
+    + `<li><span class="tf-k">London lawyers</span><span class="tf-v">${L.lawyers != null ? esc(String(L.lawyers)) : "—"}</span></li>`
+    + `<li><span class="tf-k">Revenue</span><span class="tf-v">${L.revenue != null ? esc(lfMoney(L.revenue, L.revenueBasis)) : "—"}${L.revenueBasis ? ` <span class="tf-est">${esc(L.revenueBasis)}</span>` : ""}</span></li>`
+    + `<li><span class="tf-k">PEP</span><span class="tf-v">${L.pep != null ? esc(lfPep(L.pep, L.pepBasis)) : "—"}${L.pepBasis ? ` <span class="tf-est">${esc(L.pepBasis)}</span>` : ""}</span></li>`
+    + `<li><span class="tf-k">Tier</span><span class="tf-v">${esc(tierLabel(firm.tier))}</span></li>`
+    + `</ul>`
+    + (L.areas && L.areas.length ? `<div class="tdet-chips" style="padding:8px 12px 4px">${L.areas.map((a) => `<span class="tdet-chip">${esc(a)}</span>`).join("")}</div>` : "")
+    + (L.sources && L.sources.length ? `<div class="tdet-src" style="padding:2px 12px 10px">${L.sources.map((u, i) => `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">source ${i + 1}</a>`).join(" · ")}</div>` : "")
+    + `</section>` : "";
 
   // ---- One chip-filtered wire (matches the dashboard chips): All / Alerts /
   // Matters. "Matters" = everything the firm worked on or is named in — its
@@ -181,11 +216,17 @@ export function viewFirm(id) {
     ...inv,
   ];
   let dealRows = null; // null = credit wire still loading
+  const pcDeals = (firm.pcDeals || []).slice().sort(byDateDesc);
   let firmTab = _chipMem[chipMemKey("firm-chips")] || "all";
-  if (!["all", "alerts", "matters"].includes(firmTab)) firmTab = "all";
+  if (!["all", "alerts", "matters", "deals"].includes(firmTab)) firmTab = "all";
   const emptyRow = (t) => `<li class="tw-empty muted small">${t}</li>`;
   const renderFirmWire = () => {
     const list = document.getElementById("firm-wire"); if (!list) return;
+    if (firmTab === "deals") {
+      list.innerHTML = pcDeals.length ? pcDeals.map(pcDealRow).join("")
+        : emptyRow("No private-capital deals recorded for this firm's London office in the last 12 months.");
+      return;
+    }
     const alerts = firmAlerts.map((it) => ({ date: it.date || "", html: alertWireRow(it) }));
     const matters = [...matterRows, ...(dealRows || [])].map((x) => ({ date: x.date || "", html: invRow(x) }));
     const rows = (firmTab === "alerts" ? alerts : firmTab === "matters" ? matters : [...alerts, ...matters])
@@ -209,12 +250,14 @@ export function viewFirm(id) {
             <div class="tdet-src"><span class="lbl">Insights:</span> <a href="${esc(firm.insightsUrl || "#")}" target="_blank" rel="noopener noreferrer">${esc(firm.name)} — insights / know-how</a></div>
           </div>
           <header class="tpanel-h twire-head">
-            <div class="tchips" id="firm-chips">${[["all", "All"], ["alerts", "Alerts"], ["matters", "Matters"]]
+            <div class="tchips" id="firm-chips">${[["all", "All"], ["alerts", "Alerts"], ["matters", "Matters"], ["deals", pcDeals.length ? `PC deals ${pcDeals.length}` : "PC deals"]]
               .map(([k, l]) => `<button type="button" class="tchip${k === firmTab ? " is-on" : ""}" data-k="${k}">${l}</button>`).join("")}</div>
           </header>
           <ul class="twire compact-list" id="firm-wire"></ul>
+          ${firm.london ? `<p class="tl-sls-key muted small">London office figures are approximate, from public sources${firm.london.revenueBasis ? " (" + esc(firm.london.revenueBasis) + ")" : ""}; revenue/PEP are firm-wide unless noted, and US firms report globally. Private-capital deals are the publicly-announced matters the London office advised on in the last ~12 months — not an exhaustive list.</p>` : ""}
         </section>
         <aside class="tcol tcol-r">
+          ${londonRail}
           ${areaRail ? `<section class="tpanel"><header class="tpanel-h"><span>Practice areas</span><span class="tpanel-x">alerts</span></header>${areaRail}</section>` : ""}
         </aside>
       </div>

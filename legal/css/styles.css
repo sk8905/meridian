@@ -676,3 +676,19 @@ a.compact-head:hover { text-decoration: none; }
 /* Row highlight when an 'All' scheme/RP headline jumps into the table. */
 @keyframes lgScFlash { 0% { background: rgba(251,139,30,.22); } 100% { background: transparent; } }
 .lg-sc-flash td { animation: lgScFlash 1.6s ease-out; }
+
+/* Law Firms league table (dashboard "Law Firms" tab). Firm · Tier · Areas read
+   left; the numeric columns (lawyers · revenue · PEP) keep the league default
+   (right). Column widths restated for this table's 6 columns (the managers-table
+   nth-child widths in tui.css don't fit). */
+.tleague-lf th.tl-tier, .tleague-lf th.tl-areas { text-align: left; }
+.tleague-lf td.tl-tier { color: var(--muted, #8592ad); }
+.tleague-lf td.tl-areas { color: var(--muted, #8592ad); font-size: 10.5px; }
+@media (min-width: 761px) {
+  .tpane[data-pane="firms"] .tleague-full th:nth-child(1) { width: 20%; }  /* Firm    */
+  .tpane[data-pane="firms"] .tleague-full th:nth-child(2) { width: 14%; }  /* Tier    */
+  .tpane[data-pane="firms"] .tleague-full th:nth-child(3) { width: 11%; }  /* Lawyers */
+  .tpane[data-pane="firms"] .tleague-full th:nth-child(4) { width: 33%; }  /* Areas   */
+  .tpane[data-pane="firms"] .tleague-full th:nth-child(5) { width: 11%; }  /* Revenue */
+  .tpane[data-pane="firms"] .tleague-full th:nth-child(6) { width: 11%; }  /* PEP     */
+}
