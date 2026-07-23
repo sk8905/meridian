@@ -28,6 +28,25 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-hsfkramerrevenue-20260723",
+    publication: "Legal Business",
+    title: "HSF Kramer hits $2.4bn in revenue in first post-merger results",
+    date: "2026-07-23",
+    time: "13:33",
+    summary: "Merged firm notches PEP above $2m.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQukumx41DPzBtylw/wv",
+  },
+  {
+    id: "nl-bbg-economicsdaily-20260723",
+    publication: "Bloomberg",
+    series: "Economics Daily",
+    title: "Economics Daily: US equity alarm",
+    date: "2026-07-23",
+    time: "12:07",
+    summary: "US stocks are stretched on historical valuation metrics, posing an economic risk if sentiment turns.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-23/global-reliance-on-us-equities-flashes-alarm-along-with-china-corporate-debt",
+  },
+  {
     id: "nl-bbg-marketsdaily-20260723",
     publication: "Bloomberg",
     series: "Markets Daily",
