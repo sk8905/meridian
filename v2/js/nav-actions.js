@@ -338,8 +338,9 @@ function naFxMatrix(d) {
 }
 function marketsPane(d) {
   if (!d.markets.length && !d.movers.length) return '<div class="na-load">Markets unavailable right now.</div>';
-  // Top movers ranked biggest absolute move first (as on desktop).
-  const movers = [...d.movers].sort((a, b) => Math.abs(b.changePct || 0) - Math.abs(a.changePct || 0));
+  // Top movers ranked greatest increase → greatest decrease (signed, as on the
+  // desktop movers board): biggest gainer first, biggest faller last.
+  const movers = [...d.movers].sort((a, b) => (b.changePct || 0) - (a.changePct || 0));
   return (d.markets.length ? naSec("Markets", "live") + d.markets.map(marketRow).join("") : "")
     + (movers.length ? naSec("Top movers", "1D") + movers.map(moverRow).join("") : "")
     + naFxMatrix(d);

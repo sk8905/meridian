@@ -888,7 +888,10 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 
 /* Bookmarks panel: Saved | Watchlist — the SAME segmented tab style as every
    other chip row (equal width, hairline dividers, white underline on active). */
-.na-chips { display: flex; gap: 0; height: 34px; border-bottom: 1px solid var(--border, #262626); }
+/* Tab row pinned directly beneath the sticky .na-head (≈33px tall) so the panel's
+   header block stays anchored while the list scrolls. Opaque band so rows don't
+   show through. */
+.na-chips { display: flex; gap: 0; height: 34px; border-bottom: 1px solid var(--border, #262626); position: sticky; top: 33px; z-index: 2; background: var(--head, #0a0a0a); }
 .na-chip { flex: 1 1 0; display: flex; align-items: center; justify-content: center; padding: 0 8px;
   border: 0; background: transparent;
   color: var(--muted, #8592ad); font: inherit; font-size: 11px; font-weight: 600; letter-spacing: .03em;
