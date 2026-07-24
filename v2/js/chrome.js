@@ -24,12 +24,13 @@ import { esc } from "/util.js?v=20260719-1";
 // Mobile bottom tab bar: Home/Macro/Credit/Legal/Profiles/Menu (six equal
 // columns). Profiles also sits in the desktop platform switch below ("| Profiles").
 const TABS = [
-  ["home", "Home"], ["macro", "Macro"], ["credit", "Credit"], ["legal", "Legal"], ["profiles", "Profiles"], ["menu", "Menu"],
+  ["home", "Home"], ["dashboard", "Dashboard"], ["credit", "Credit"], ["legal", "Legal"], ["profiles", "Profiles"], ["menu", "Menu"],
 ];
-const PLATFORMS = [["home", "Home"], ["macro", "Macro"], ["credit", "Credit"], ["legal", "Legal"], ["profiles", "Profiles"]];
+const PLATFORMS = [["home", "Home"], ["dashboard", "Dashboard"], ["credit", "Credit"], ["legal", "Legal"], ["profiles", "Profiles"]];
 
 const TAB_ICONS = {
   home: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11 12 4l8 7"/><path d="M6 9.5V20h12V9.5"/></svg>',
+  dashboard: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="1.2"/><rect x="13" y="3" width="8" height="5" rx="1.2"/><rect x="13" y="10" width="8" height="11" rx="1.2"/><rect x="3" y="13" width="8" height="8" rx="1.2"/></svg>',
   macro: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 20V12"/><path d="M12 20V5"/><path d="M19 20V9"/></svg>',
   credit: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="7" width="19" height="10" rx="1.5"/><circle cx="12" cy="12" r="2.3"/></svg>',
   legal: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v15"/><path d="M8 19h8"/><path d="M4 7h16"/><path d="M4 7l-2 4.5h4z"/><path d="M20 7l-2 4.5h4z"/></svg>',

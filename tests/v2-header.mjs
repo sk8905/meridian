@@ -133,7 +133,7 @@ const readShared = async () => {
   return r;
 };
 const seen = [];
-for (const k of ["macro", "credit", "legal", "home"]) { await tabKey2(k); seen.push([k, await readShared()]); }
+for (const k of ["dashboard", "credit", "legal", "home"]) { await tabKey2(k); seen.push([k, await readShared()]); }
 const [, first] = seen[0];
 check(first.refresh.length > 0, `refresh populated app-wide ("${first.refresh}")`);
 for (const [k, v] of seen) {

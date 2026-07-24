@@ -1,0 +1,89 @@
+/* =============================================================================
+   dashboard.css — the Dashboard tab (Macro · Equities · Credit overviews).
+   Colour flows only from the shared --t-* tokens (HOUSE_STYLE R8). Mobile: a
+   vertical stack of self-contained cards; desktop: the same cards tiled.
+   ============================================================================= */
+.dsh { --dsh-gap:10px; padding:0 0 40px; }
+.dsh-nav { position:sticky; top:0; z-index:2; background:var(--t-head); }
+.dsh-pane { display:flex; flex-direction:column; gap:var(--dsh-gap); padding:var(--dsh-gap); }
+@media (min-width:761px){ .dsh-pane{ display:grid; grid-template-columns:repeat(2,1fr); align-items:start; } .dsh-pane > .dsh-card:first-child, .dsh-pane > .dsh-more{ grid-column:1 / -1; } }
+
+.dsh-card { background:var(--t-panel); border:1px solid var(--t-grid); border-radius:8px; padding:12px; }
+.dsh-h { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:0 0 10px; font-size:var(--fs-card-title,1.05rem); font-weight:600; color:var(--t-ink); }
+.dsh-h .dsh-n { color:var(--t-mut); font-weight:400; font-size:.8rem; }
+.dsh-asof { margin-left:auto; color:var(--t-faint); font-size:.72rem; font-weight:400; }
+.dsh-src { color:var(--t-mut); text-decoration:none; font-size:.8em; }
+.dsh-src:hover { color:var(--t-accent); }
+.dsh-live { color:var(--t-up); font-size:.66rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; border:1px solid var(--t-up); border-radius:4px; padding:0 4px; }
+
+/* Index strip — horizontal scroll on phone, wraps on desktop */
+.dsh-strip { display:flex; gap:8px; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+.dsh-strip::-webkit-scrollbar{ display:none; }
+.dsh-idx { flex:0 0 auto; min-width:120px; display:flex; flex-direction:column; gap:2px; padding:8px 10px; border:1px solid var(--t-grid); border-radius:6px; text-decoration:none; background:var(--t-panel2); }
+.dsh-idx-nm { color:var(--t-mut); font-size:.72rem; }
+.dsh-idx-lv { color:var(--t-ink); font-size:.95rem; font-weight:600; font-variant-numeric:tabular-nums; }
+.dsh-idx-yt { font-size:.72rem; font-variant-numeric:tabular-nums; }
+
+/* Sector ranked bars (diverging around a centre line) */
+.dsh-sectors { display:flex; flex-direction:column; gap:5px; }
+.dsh-sec { display:grid; grid-template-columns:120px 1fr 56px; align-items:center; gap:8px; }
+.dsh-sec-nm { color:var(--t-dim); font-size:.78rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.dsh-sec-track { position:relative; height:14px; background:var(--t-panel2); border-radius:3px; }
+.dsh-sec-track::before{ content:""; position:absolute; left:50%; top:0; bottom:0; width:1px; background:var(--t-grid2); }
+.dsh-sec-bar { position:absolute; top:2px; bottom:2px; border-radius:2px; }
+.dsh-sec-bar.up{ background:var(--t-up); } .dsh-sec-bar.down{ background:var(--t-down); }
+.dsh-sec-v { text-align:right; font-size:.76rem; font-variant-numeric:tabular-nums; }
+
+/* Sector heatmap grid (desktop toggle) */
+.dsh-heat { display:grid; grid-template-columns:repeat(auto-fill,minmax(96px,1fr)); gap:4px; }
+.dsh-heat-t { display:flex; flex-direction:column; justify-content:center; gap:2px; padding:10px 8px; border-radius:4px; min-height:56px; }
+.dsh-heat-t span{ color:var(--t-ink); font-size:.72rem; line-height:1.15; }
+.dsh-heat-t b{ color:var(--t-ink); font-size:.82rem; font-variant-numeric:tabular-nums; }
+
+.dsh-toggle { display:inline-flex; border:1px solid var(--t-grid2); border-radius:5px; overflow:hidden; }
+.dsh-tgl { border:0; background:transparent; color:var(--t-mut); font:inherit; font-size:.72rem; padding:2px 8px; cursor:pointer; }
+.dsh-tgl.is-on { background:var(--t-panel2); color:var(--t-ink); }
+@media (max-width:760px){ .dsh-toggle{ display:none; } }
+
+.up { color:var(--t-up); } .down { color:var(--t-down); }
+
+/* Key-value grid (valuation / vol / rate outlook / maturity) */
+.dsh-kvgrid { display:grid; grid-template-columns:1fr 1fr; gap:6px 14px; }
+@media (max-width:520px){ .dsh-kvgrid{ grid-template-columns:1fr; } }
+.dsh-kv { display:flex; justify-content:space-between; align-items:baseline; gap:8px; padding:5px 0; border-bottom:1px solid var(--t-grid); }
+.dsh-kv-k { color:var(--t-mut); font-size:.78rem; }
+.dsh-kv-v { color:var(--t-ink); font-size:.86rem; font-weight:600; font-variant-numeric:tabular-nums; text-align:right; }
+.dsh-band { color:var(--t-mut); font-weight:500; font-size:.7rem; border:1px solid var(--t-grid2); border-radius:4px; padding:0 4px; margin-left:4px; }
+.dsh-band.up{ color:var(--t-up); border-color:var(--t-up); } .dsh-band.down{ color:var(--t-down); border-color:var(--t-down); }
+
+/* Spread rows */
+.dsh-spreads { display:flex; flex-direction:column; gap:4px; }
+.dsh-spread { display:flex; align-items:baseline; gap:8px; padding:5px 0; border-bottom:1px solid var(--t-grid); }
+.dsh-spread-nm { flex:1; color:var(--t-dim); font-size:.82rem; }
+.dsh-spread-v { color:var(--t-ink); font-weight:600; font-variant-numeric:tabular-nums; }
+.dsh-spread-u { color:var(--t-faint); font-size:.7rem; margin-left:2px; }
+.dsh-load { color:var(--t-mut); font-size:.8rem; margin:2px 0; }
+
+/* IPO / generic table */
+.dsh-scroll { overflow-x:auto; }
+.dsh-tbl { width:100%; border-collapse:collapse; font-size:.8rem; }
+.dsh-tbl th { text-align:left; color:var(--t-mut); font-weight:500; font-size:.72rem; padding:4px 8px; border-bottom:1px solid var(--t-grid2); white-space:nowrap; }
+.dsh-tbl td { padding:5px 8px; border-bottom:1px solid var(--t-grid); color:var(--t-dim); white-space:nowrap; }
+.dsh-tbl .dsh-nm { color:var(--t-ink); font-weight:600; }
+.dsh-r { text-align:right; }
+.dsh-tag { font-size:.68rem; font-weight:600; border-radius:4px; padding:1px 5px; border:1px solid var(--t-grid2); color:var(--t-mut); }
+.dsh-tag-priced{ color:var(--t-up); border-color:var(--t-up); }
+.dsh-tag-filed{ color:var(--t-mac); border-color:var(--t-mac); }
+.dsh-tag-rumoured{ color:var(--t-faint); }
+.dsh-tag-stress{ color:var(--t-down); border-color:var(--t-down); }
+
+/* Stress cards */
+.dsh-stresslist { display:flex; flex-direction:column; gap:8px; }
+.dsh-stress { border:1px solid var(--t-grid); border-radius:6px; padding:9px 10px; background:var(--t-panel2); }
+.dsh-stress-h { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.dsh-stress-h .dsh-nm { color:var(--t-ink); font-weight:600; font-size:.88rem; }
+.dsh-stress-m { color:var(--t-mut); font-size:.74rem; margin:3px 0 4px; }
+.dsh-stress-n { color:var(--t-dim); font-size:.8rem; line-height:1.35; }
+
+.dsh-more a { color:var(--t-accent); text-decoration:none; font-size:.85rem; }
+.dsh-more a:hover { text-decoration:underline; }

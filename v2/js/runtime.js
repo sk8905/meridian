@@ -32,6 +32,7 @@ export const vurl = (p) => p + (p.includes("?") ? "&" : "?") + "v=" + V;
 // browser's module map for the session (no nonce, so revisits never re-fetch).
 const ROUTES = [
   { key: "home",   title: "Wire",        load: () => import(vurl("./views/home.js")) },
+  { key: "dashboard", title: "Wire Dashboard", load: () => import(vurl("./views/dashboard.js")) },
   { key: "macro",  title: "Wire Macro",  load: () => import(vurl("./views/macro.js")) },
   { key: "credit", title: "Wire Credit", load: () => import(vurl("./views/credit.js")) },
   { key: "legal",  title: "Wire Legal",  load: () => import(vurl("./views/legal.js")) },

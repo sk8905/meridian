@@ -37,7 +37,7 @@ const tap = async (key) => {
   }));
 };
 
-for (const [key, path] of [["macro", "/v2/macro/"], ["credit", "/v2/credit/"], ["legal", "/v2/legal/"], ["menu", "/v2/menu/"]]) {
+for (const [key, path] of [["dashboard", "/v2/dashboard/"], ["credit", "/v2/credit/"], ["legal", "/v2/legal/"], ["menu", "/v2/menu/"]]) {
   const s = await tap(key);
   checkEq(s.path, path, `tap ${key}: URL is ${path}`);
   checkEq(s.active, key, `tap ${key}: ${key} view is the visible one`);
@@ -50,7 +50,7 @@ for (const [key, path] of [["macro", "/v2/macro/"], ["credit", "/v2/credit/"], [
 await tap("credit");
 await pg.evaluate(() => { document.querySelector('.v2-view[data-view="credit"]').dataset.ka = "kept"; });
 const creditLen0 = await pg.evaluate(() => document.querySelector('.v2-view[data-view="credit"]').textContent.trim().length);
-await tap("macro");
+await tap("dashboard");
 const back = await tap("credit");
 const creditState = await pg.evaluate(() => {
   const secs = document.querySelectorAll('.v2-view[data-view="credit"]');

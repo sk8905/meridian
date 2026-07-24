@@ -63,13 +63,13 @@ for (const [path, view] of [["/v2/macro/", "macro"], ["/v2/credit/", "credit"], 
     await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
     await pg.waitForTimeout(900);
   };
-  const order = ["macro", "credit", "legal", "menu", "home", "macro", "credit", "legal", "menu", "home"];
+  const order = ["dashboard", "credit", "legal", "menu", "home", "dashboard", "credit", "legal", "menu", "home"];
   for (const k of order) await tap(k);
   const counts = await pg.evaluate(() => ({
     headers: document.querySelectorAll("#wire-header .topbar").length,
     tabbars: document.querySelectorAll(".mobile-tabbar").length,
     apps: document.querySelectorAll("#app").length,
-    macro: document.querySelectorAll('.v2-view[data-view="macro"]').length,
+    dashboard: document.querySelectorAll('.v2-view[data-view="dashboard"]').length,
     credit: document.querySelectorAll('.v2-view[data-view="credit"]').length,
     legal: document.querySelectorAll('.v2-view[data-view="legal"]').length,
     home: document.querySelectorAll('.v2-view[data-view="home"]').length,
@@ -80,7 +80,7 @@ for (const [path, view] of [["/v2/macro/", "macro"], ["/v2/credit/", "credit"], 
   checkEq(counts.headers, 1, "cycle: one header after 10 switches");
   checkEq(counts.tabbars, 1, "cycle: one tab bar");
   checkEq(counts.apps, 1, "cycle: one #app");
-  checkEq(counts.macro, 1, "cycle: macro mounted once (no leak)");
+  checkEq(counts.dashboard, 1, "cycle: dashboard mounted once (no leak)");
   checkEq(counts.credit, 1, "cycle: credit mounted once");
   checkEq(counts.legal, 1, "cycle: legal mounted once");
   checkEq(counts.home, 1, "cycle: home mounted once");
@@ -94,10 +94,14 @@ for (const [path, view] of [["/v2/macro/", "macro"], ["/v2/credit/", "credit"], 
   checkEq(await pg.evaluate(() => (document.querySelector(".v2-view:not([hidden])") || {}).dataset?.view), "menu", "back button: returns to the previous tab (menu)");
 
   // ---- 4. In-view interactivity: the active view's own (guarded) handlers fire ----
-  await tap("macro");
-  await pg.evaluate(() => { const e = [...document.querySelectorAll('.v2-view[data-view="macro"] #ck-secnav .tchip')].find((c) => c.textContent.trim() === "Earnings"); if (e) e.click(); });
+  await tap("dashboard");
+  // Dashboard renders its three sub-tabs; Equities shows the curated index strip.
+  const dshSubs = await pg.evaluate(() => document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-nav .tchip[data-sub]').length);
+  checkEq(dshSubs, 3, "in-view: Dashboard has three sub-tabs (Macro/Equities/Credit)");
+  await pg.evaluate(() => { const e = [...document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-nav .tchip[data-sub]')].find((c) => c.dataset.sub === "equities"); if (e) e.click(); });
   await pg.waitForTimeout(300);
-  checkEq(await pg.evaluate(() => (document.querySelector('.v2-view[data-view="macro"] #ck-secnav .tchip.is-on') || {}).textContent?.trim()), "Earnings", "in-view: Macro sub-tab chip switches (active-guarded handler fires)");
+  checkEq(await pg.evaluate(() => (document.querySelector('.v2-view[data-view="dashboard"] .dsh-nav .tchip.is-on') || {}).dataset?.sub), "equities", "in-view: Dashboard sub-tab switches (active handler fires)");
+  check(await pg.evaluate(() => document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-idx').length) >= 8, "in-view: Dashboard Equities index strip renders");
   await tap("credit");
   const creditChip = await pg.evaluate(() => { const t = [...document.querySelectorAll('.v2-view[data-view="credit"] .tchip')].find((c) => !c.classList.contains("is-on")); if (t) { t.click(); return t.textContent.trim(); } return null; });
   await pg.waitForTimeout(300);
