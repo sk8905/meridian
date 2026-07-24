@@ -171,7 +171,27 @@ export function mount(host, ctx) {
   }
 
   function repaint() { renderFilters(); (st.pane === "radar" ? renderRadar : renderPipe)(); }
-  const setT = (id, patch) => { ov.targets[id] = { ...tgt(ov, id), ...patch }; writeOv(ov); };
+  const repaintCur = () => { (st.pane === "radar" ? renderRadar : renderPipe)(); };
+  // Cross-device sync: localStorage is the instant local cache; a per-user KV
+  // (/api/origination, behind Cloudflare Access) is the shared truth. Edits
+  // persist locally, then debounce up; on load/re-entry the server copy is merged
+  // in. Off-Access (no auth) it silently stays device-local.
+  let cloud = false, pushTimer = null;
+  const push = () => { if (!cloud) return; clearTimeout(pushTimer); pushTimer = setTimeout(() => { fetch("/api/origination", { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ overlay: ov }) }).catch(() => {}); }, 500); };
+  const setT = (id, patch) => { ov.targets[id] = { ...tgt(ov, id), ...patch }; writeOv(ov); push(); };
+  async function initSync() {
+    let r; try { r = await fetch("/api/origination", { headers: { accept: "application/json" } }); } catch { return; }
+    if (!r || !r.ok) return;
+    let d; try { d = await r.json(); } catch { return; }
+    cloud = true;
+    const srv = (d.overlay && typeof d.overlay === "object") ? d.overlay : { targets: {} };
+    const local = readOv();
+    // Server is the shared truth; keep any local-only targets this device added.
+    ov = { strengths: (srv.strengths && srv.strengths.length) ? srv.strengths : local.strengths, targets: { ...local.targets, ...(srv.targets || {}) } };
+    writeOv(ov);
+    if (Object.keys(local.targets).some((id) => !(srv.targets || {})[id])) push();   // migrate local-only up
+    repaintCur();
+  }
 
   // ---- events (delegated) --------------------------------------------------
   $("#org-chips").addEventListener("click", (e) => {
@@ -206,5 +226,6 @@ export function mount(host, ctx) {
   });
 
   repaint();
-  return { enter() { ov = readOv(); if (st.pane === "pipeline") renderPipe(); else renderRadar(); }, leave() {} };
+  initSync();
+  return { enter() { ov = readOv(); repaintCur(); initSync(); }, leave() {} };
 }

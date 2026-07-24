@@ -123,6 +123,46 @@ async function handleSaved(request, env, keyFor) {
   return json({ error: "method not allowed" }, 405);
 }
 
+// Origination Radar private overlay — the finance partner's BD workspace state
+// (per-target tier / relationship / firm-coverage / notes, plus strengths). One
+// JSON object per user, keyed by the verified Access email, so tiers and notes
+// sync across that user's devices. Confidential to the reader (single-reader
+// deployment behind Access) and never co-mingled with the public credit data.
+const origKeyFor = (email) => "org:" + email;
+async function handleOrigination(request, env) {
+  const email = identity(request);
+  if (!email) return json({ error: "unauthenticated" }, 401);
+  if (request.method === "GET") {
+    const raw = await env.WATCHLIST.get(origKeyFor(email));
+    let overlay = { strengths: [], targets: {} };
+    if (raw) { try { const p = JSON.parse(raw); if (p && typeof p === "object") overlay = p; } catch { /* keep default */ } }
+    return json({ email, overlay });
+  }
+  if (request.method === "PUT") {
+    let body;
+    try { body = await request.json(); } catch { return json({ error: "invalid json" }, 400); }
+    const ov = (body && body.overlay && typeof body.overlay === "object") ? body.overlay : {};
+    const strengths = Array.isArray(ov.strengths) ? ov.strengths.filter((s) => typeof s === "string" && s.length <= 40).slice(0, 20) : [];
+    const targets = {};
+    const src = (ov.targets && typeof ov.targets === "object") ? ov.targets : {};
+    Object.keys(src).slice(0, 500).forEach((id) => {
+      if (typeof id !== "string" || id.length > 24) return;
+      const t = src[id] || {}, pick = {};
+      if (["A", "B", "C"].includes(t.tier)) pick.tier = t.tier;
+      if (t.pin === true) pick.pin = true;
+      if (typeof t.relationship === "string" && t.relationship.length <= 24) pick.relationship = t.relationship;
+      if (typeof t.firmCoverage === "string" && t.firmCoverage.length <= 24) pick.firmCoverage = t.firmCoverage;
+      if (typeof t.notes === "string" && t.notes.trim()) pick.notes = t.notes.slice(0, 2000);
+      if (typeof t.nextAction === "string" && t.nextAction.trim()) pick.nextAction = t.nextAction.slice(0, 300);
+      if (typeof t.nextActionDue === "string" && t.nextActionDue.length <= 20) pick.nextActionDue = t.nextActionDue;
+      if (Object.keys(pick).length) targets[id] = pick;
+    });
+    await env.WATCHLIST.put(origKeyFor(email), JSON.stringify({ strengths, targets }));
+    return json({ ok: true });
+  }
+  return json({ error: "method not allowed" }, 405);
+}
+
 // Home-wire bookmarks — the press-and-hold saves on rows with NO app saved-id
 // (live headlines, Letters, FT, Substacks). Unlike the three id-set stores
 // above these are self-contained SNAPSHOT OBJECTS ({k, desk, title, href, ext,
@@ -2745,6 +2785,7 @@ export default {
     if (url.pathname === "/api/feed") return handleFeed(request, env, ctx);
     if (url.pathname === "/api/predict") return handlePredict(request, env, ctx);
     if (url.pathname === "/api/watchlist") return handleWatchlist(request, env);
+    if (url.pathname === "/api/origination") return handleOrigination(request, env);
     if (url.pathname === "/api/research-targets") return handleResearchTargets(request, env);
     if (url.pathname === "/api/saved") return handleSaved(request, env, savedKeyFor);
     if (url.pathname === "/api/saved-credit") return handleSaved(request, env, savedCreditKeyFor);
