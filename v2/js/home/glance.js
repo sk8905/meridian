@@ -698,7 +698,7 @@ function renderFeed() {
       + `<select class="g-feed-sel" id="g-feed-desk-sel" aria-label="Filter news by desk">`
       + DESK_OPTS.map(([k, l]) => `<option value="${esc(k)}"${selVal === k ? " selected" : ""}>${esc(l)}</option>`).join("")
       + `</select>`
-      + `<button type="button" class="g-feed-nlbtn" data-nav-tab="newsletters" aria-label="Open Newsletters">`
+      + `<button type="button" class="g-feed-nlbtn${_feedDesk === "n" ? " is-on" : ""}" data-nav-tab="newsletters" aria-pressed="${_feedDesk === "n"}" aria-label="Newsletters">`
       + `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.6"/><path d="M3.5 6.5 12 12.5 20.5 6.5"/></svg>`
       + `<span>Newsletters</span></button></div>`;
     // Second-level type chips for the active desk (when it has sub-types and no
@@ -714,6 +714,18 @@ function renderFeed() {
     // Desk change clears any source filter, switches desks and resets the type.
     const sel = document.getElementById("g-feed-desk-sel");
     if (sel) sel.addEventListener("change", () => { _feedSrc = null; _feedDesk = sel.value; _feedType = "all"; renderFeed(); });
+    // Newsletters button. On desktop it's an in-feed FILTER (toggle the Newsletters
+    // desk); on phones it stays a link to the Newsletters tab (the chrome
+    // data-nav-tab handler at document level). stopPropagation on desktop keeps
+    // that navigation from also firing.
+    const nlBtn = head.querySelector(".g-feed-nlbtn");
+    if (nlBtn) nlBtn.addEventListener("click", (e) => {
+      if (matchMedia("(max-width:760px)").matches) return;   // phone → let nav-tab navigate
+      e.preventDefault(); e.stopPropagation();
+      _feedSrc = null; _feedType = "all";
+      _feedDesk = _feedDesk === "n" ? "all" : "n";
+      renderFeed();
+    });
     // A type chip narrows within the current desk.
     head.querySelectorAll(".g-feed-chip[data-type]").forEach((b) => b.addEventListener("click", () => { _feedType = b.dataset.type; renderFeed(); }));
   }

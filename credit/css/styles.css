@@ -797,15 +797,22 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 .adv-inf { font-size: 9px; text-transform: uppercase; letter-spacing: .03em; color: var(--t-mut, #8592ad); border: 1px solid var(--border, #262626); border-radius: 3px; padding: 0 4px; margin-left: 4px; vertical-align: middle; }
 
 /* ---- Origination Radar (.tdash terminal) ---------------------------------- */
-.org-filters { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--border, #262626); }
+/* Filter bar is a grey sub-header, LOCKED below the chip header (which is sticky
+   top:0 and 28px tall) so it stays put while the target list scrolls under it. */
+.org-filters { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--border, #262626); background: var(--head); position: sticky; top: 28px; z-index: 3; }
 .org-fl { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
 .org-fl select, .org-tier, .org-rel, .org-cov { background: var(--bg); border: 1px solid var(--border, #262626); color: var(--ink); font-family: inherit; font-size: 11px; border-radius: 0; padding: 1px 4px; }
 .org-tbl th, .org-tbl td { vertical-align: middle; }
+/* Left-align every column (header + cell) — out-specifies tui.css's default
+   right-alignment for non-first league columns. Column headers do NOT stick
+   (the filter bar is the locked sub-header); a sticky thead would collide. */
+.tpane[data-pane="radar"] .tleague th,
+.tpane[data-pane="radar"] .tleague td { text-align: left; position: static; }
 .org-sortable { cursor: pointer; user-select: none; }
 .org-sortable.on { color: var(--ink); }
 .org-open { color: var(--ink); text-decoration: none; }
 .org-open:hover { text-decoration: underline; }
-.org-hq { display: block; color: var(--muted); font-size: 10px; }
+.org-hq-h, .org-hq-c { color: var(--muted); font-family: var(--t-mono); font-size: 10px; white-space: nowrap; }
 .org-strat { color: var(--muted); font-size: 10px; }
 .org-band { font-family: var(--t-mono); font-size: 10px; color: var(--muted); }
 .org-band.mid { color: var(--ink); font-weight: 600; }
@@ -816,9 +823,9 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 .org-white-flag { color: var(--faint); }
 .org-latest { font-size: 10px; white-space: nowrap; color: var(--muted); }
 .org-lt-k { color: var(--ink); }
-/* Warm column: right-aligned (header + cell). */
-.org-warm-h, .org-warm-c { text-align: right; }
-.org-warm-btn { background: transparent; border: 0; cursor: pointer; color: var(--faint); font-size: 13px; display: inline-flex; align-items: center; gap: 4px; padding: 0; justify-content: flex-end; }
+.org-lt-lnk { color: inherit; text-decoration: none; }
+.org-lt-lnk:hover { text-decoration: underline; }
+.org-warm-btn { background: transparent; border: 0; cursor: pointer; color: var(--faint); font-size: 13px; display: inline-flex; align-items: center; gap: 4px; padding: 0; }
 .org-warm-btn.on { color: var(--ink); }
 .org-warm-lbl { font-size: 9px; text-transform: uppercase; letter-spacing: .03em; }
 .org-card { border: 1px solid var(--border, #262626); border-radius: 6px; padding: 9px 11px; margin: 8px 12px; background: var(--surface2, var(--head, #131313)); }

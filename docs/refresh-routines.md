@@ -143,12 +143,15 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   fill or extend them — do NOT chase them for every manager on every run.
   - `book: { strategies:[…], structured:bool, geos:[…], … }` — the firm's product/book
     shape, only from firm disclosures, fund launches, or reputable coverage.
-  - `advisers: [ { firm:"…", role:"Fund finance"|"Fund formation"|"Financing/deals"|
-    "Restructuring"|"Regulatory"|"Tax", source:"<url>", date:"YYYY-MM-DD",
-    confidence:"confirmed"|"inferred" } ]` — a law-firm relationship is `"confirmed"`
-    only from a first-party announcement ("advised X" / "acted for X" on the firm's own
-    site or a release); a link merely inferred from deal coverage is `"inferred"`. One
-    entry per firm+role; dedupe on that pair. Unknown → omit the field (do not invent).
+  - `advisers: [ { firm:"…", firmId:"<slug, optional>", role:"Fund formation"|
+    "Financing/deals"|"Restructuring"|"Regulatory"|"Tax", scope:"matter",
+    lastSeen:"YYYY" or "YYYY-MM", confidence:"verified"|"inferred", source:"<url>" } ]`
+    — mark a law-firm relationship `"verified"` only from a first-party announcement
+    ("advised X" / "acted for X" on the firm's own site or the manager's own release);
+    a tie merely inferred from third-party deal coverage is `"inferred"`. Exclude
+    counterparty counsel (a firm that advised the other side, or the seller in the deal
+    that formed the manager). One entry per firm+role; dedupe on that pair. Unknown →
+    omit the field (do not invent).
   Never fabricate an adviser tie or a book attribute; if it isn't in a real source this
   run, leave it for a later run. These fields never gate anything — a manager without
   them renders fine.
