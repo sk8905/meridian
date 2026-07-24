@@ -10,7 +10,7 @@ import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
 import { esc, byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
 import { DESK, DESK_CODE, DESK_CLASS, STRICT_MACRO_RE, deskFor, palTag, nlDesk, PAL_CODE,
-  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, feedChipsHTML } from "/feed.js?v=20260723-3";
+  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, feedChipsHTML } from "/feed.js?v=20260724-1";
 
 const __KEY = "home";
 const __ROOT = document.documentElement;

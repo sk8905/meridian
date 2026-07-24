@@ -778,7 +778,7 @@
       --t-ink:#eaf0fb; --t-dim:#b7c2da; --t-mut:#8592ad; --t-faint:#5c6a86;
       --t-accent:#fb8b1e; --t-accent-dim:#a86020; --t-accent-soft:rgba(251,139,30,.15);
       --t-up:#3fc08d; --t-down:#f26d84;
-      --t-mac:#9b83e2; --t-crd:#fb8b1e; --t-lex:#2fbf8a; --t-amber:#d9a441; --t-ft:#e0708e;
+      --t-mac:#9b83e2; --t-crd:#fb8b1e; --t-lex:#2fbf8a; --t-amber:#d9a441; --t-ft:#e0708e; --t-hdg:#4aa3f0;
       --t-shadow:0 1px 2px rgba(0,0,0,.28);
     }
     :root[data-theme="light"] #glance, :root[data-theme="light"] .na-panel, :root[data-theme="light"] .g-main.tui, :root[data-theme="light"] .g-mkt-panel, :root[data-theme="light"] .g-sv-panel{
@@ -787,7 +787,7 @@
       --t-ink:#131b2c; --t-dim:#3b475f; --t-mut:#5e6a84; --t-faint:#8b96ac;
       --t-accent:#fb8b1e; --t-accent-dim:#eab98a; --t-accent-soft:rgba(251,139,30,.10);
       --t-up:#0f9d68; --t-down:#df4763;
-      --t-mac:#6a4fa3; --t-crd:#fb8b1e; --t-lex:#2b8a5f; --t-amber:#b3760f; --t-ft:#990f3d;
+      --t-mac:#6a4fa3; --t-crd:#fb8b1e; --t-lex:#2b8a5f; --t-amber:#b3760f; --t-ft:#990f3d; --t-hdg:#1f6fd0;
       --t-shadow:0 1px 2px rgba(19,27,44,.06);
     }
     #glance, .na-panel, .g-main.tui, .g-mkt-panel, .g-sv-panel{ --t-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; }

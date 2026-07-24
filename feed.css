@@ -17,14 +17,14 @@
   --t-grid:#1a1a1a; --t-grid2:#262626;
   --t-ink:#eaf0fb; --t-dim:#b7c2da; --t-mut:#8592ad; --t-faint:#5c6a86;
   --t-accent:#fb8b1e;
-  --t-mac:#9b83e2; --t-crd:#fb8b1e; --t-lex:#2fbf8a; --t-amber:#d9a441; --t-ft:#e0708e;
+  --t-mac:#9b83e2; --t-crd:#fb8b1e; --t-lex:#2fbf8a; --t-amber:#d9a441; --t-ft:#e0708e; --t-hdg:#4aa3f0;
 }
 :root[data-theme="light"] .g-feed-wrap {
   --t-ground:#e7ebf2; --t-panel:#ffffff; --t-panel2:#f3f6fb; --t-head:#f4f7fb;
   --t-grid:#e0e6ef; --t-grid2:#cdd6e3;
   --t-ink:#131b2c; --t-dim:#3b475f; --t-mut:#5e6a84; --t-faint:#8b96ac;
   --t-accent:#fb8b1e;
-  --t-mac:#6a4fa3; --t-crd:#fb8b1e; --t-lex:#2b8a5f; --t-amber:#b3760f; --t-ft:#990f3d;
+  --t-mac:#6a4fa3; --t-crd:#fb8b1e; --t-lex:#2b8a5f; --t-amber:#b3760f; --t-ft:#990f3d; --t-hdg:#1f6fd0;
 }
 .g-feed-wrap { --t-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; }
 
@@ -80,7 +80,7 @@
 .g-feed-code.case{ color:#fb8b1e; background:color-mix(in srgb,#fb8b1e 15%,transparent); }
 .g-feed-code.scheme{ color:#cc9f43; background:color-mix(in srgb,#cc9f43 15%,transparent); }
 .g-feed-code.rp{ color:#cc9f43; background:color-mix(in srgb,#cc9f43 15%,transparent); }
-.g-feed-code.hdg{ color:#9a86f2; background:color-mix(in srgb,#9a86f2 15%,transparent); }
+.g-feed-code.hdg{ color:var(--t-hdg, #4aa3f0); background:color-mix(in srgb,var(--t-hdg, #4aa3f0) 15%,transparent); }
 .g-feed-title { font-size:13px; color:var(--t-ink); font-weight:400; line-height:1.4;
   white-space:normal; overflow:visible; min-width:0; }
 /* Entity chip (a manager/firm named in the headline, linking to its profile). */

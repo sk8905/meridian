@@ -21,22 +21,33 @@ export const DESK = {
   n: "Letter", f: "myFT", s: "Substack", b: "Brew",
   deal: "Deal", fund: "Fundraising", clo: "CLO", comm: "Commentary",
   alert: "Client alert", case: "Case law", scheme: "Scheme", rp: "Restructuring plan",
-  hdg: "Hedge funds",
+  hdg: "Hedge funds", f13: "13F filing",
 };
 export const DESK_CODE = {
   news: "NEWS", bbg: "BBG", econ: "ECON", m: "MAC", c: "CRD", l: "LEX",
-  n: "LTR", f: "FT", s: "SUBS", b: "BREW",
-  deal: "DEAL", fund: "FUND", clo: "CLO", comm: "COMM",
+  n: "LTR", f: "myFT", s: "SUBS", b: "BREW",
+  deal: "DEAL", fund: "RAISE", clo: "CLO", comm: "COMM",
   alert: "ALERT", case: "CASE", scheme: "SCHEME", rp: "RP",
-  hdg: "HDG",
+  hdg: "HDG", f13: "13F",
 };
 export const DESK_CLASS = {
   news: "news", bbg: "bbg", econ: "econ", m: "macro", c: "credit", l: "legal",
   n: "newsletter", f: "ft", s: "substack", b: "brew",
   deal: "deal", fund: "fund", clo: "clo", comm: "comm",
   alert: "alert", case: "case", scheme: "scheme", rp: "rp",
-  hdg: "hdg",
+  hdg: "hdg", hedge: "hdg", f13: "hdg",
 };
+// Domain (colour) for a type-desk — HOUSE_STYLE R10a: the pill's COLOUR encodes
+// the domain (Credit/Hedge/Legal/…), its TEXT the type (DEAL/RAISE/13F/…). Only
+// overrides are listed; a desk absent here colours by its own key. A per-item
+// `dom` (set by the assembler) beats this map. Credit deals/raises/CLOs read the
+// credit colour; legal alerts/cases/schemes/RPs read the legal colour; etc.
+export const DESK_DOMAIN = {
+  deal: "c", fund: "c", clo: "c",
+  alert: "l", case: "l", scheme: "l", rp: "l",
+  comm: "m", f13: "hdg",
+};
+export const domClass = (o) => DESK_CLASS[o.dom || DESK_DOMAIN[o.desk] || o.desk] || "";
 
 // Strictly-macro classifier: central-bank policy, rates/yields, inflation,
 // growth & the labour market. A story is tagged MAC only when its headline reads
@@ -140,7 +151,7 @@ export function feedRow(o) {
   return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}`
     + ` data-sk="${esc(o.sk || "x")}"${o.sid ? ` data-sid="${esc(o.sid)}"` : ""}${o.mgr ? ` data-mgr="${esc(o.mgr)}"` : ""}${o.firm ? ` data-firm="${esc(o.firm)}"` : ""} data-desk="${esc(o.desk)}" data-date="${esc(o.date || "")}" data-time="${esc(o.time || "")}">`
     + `<span class="g-feed-time${o.added ? " g-feed-time-added" : ""}"${timeAttr}>${esc(t)}</span>`
-    + `<span class="g-feed-code ${DESK_CLASS[o.desk] || ""}" title="${esc(DESK[o.desk] || "")}">${DESK_CODE[o.desk] || ""}</span>`
+    + `<span class="g-feed-code ${domClass(o)}" title="${esc(DESK[o.desk] || "")}">${DESK_CODE[o.desk] || ""}</span>`
     + `<span class="g-feed-title">${esc(o.title)}</span>`
     + (o.src ? `<span class="g-feed-src" role="button" tabindex="0" data-src="${esc(o.src)}" title="Show all ${esc(cleanSource(o.src))} stories">${esc(cleanSource(o.src))}</span>` : "")
     + `<span class="g-feed-desk">${esc(DESK[o.desk] || "")}</span></a>`;
