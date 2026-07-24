@@ -479,7 +479,7 @@ function lawFirmsPane() {
   const lfRevGBP = (f) => (f.london.revenue || 0) * (lfCcy(f.london.revenueBasis) === "$" ? 0.79 : 1);
   const rows = firms.filter((f) => f.london).sort((a, b) => lfRevGBP(b) - lfRevGBP(a));
   return `<header class="tpanel-h thead-search"><span>Law firms</span>`
-    + `<input type="search" id="lf-q" class="tsearch" placeholder="Search firm, tier or practice…" aria-label="Search law firms"></header>`
+    + `<input type="search" id="lf-q" class="tsearch" placeholder="Search name, practice or tier…" aria-label="Search law firms"></header>`
     + `<div class="tleague-wrap"><table class="tleague tleague-full tleague-lf">`
     + `<thead><tr><th>Firm</th><th class="tl-tier">Tier</th><th class="tl-n">London&nbsp;lawyers</th><th class="tl-areas">Main&nbsp;London&nbsp;areas</th><th class="tl-n">Total&nbsp;revenue</th><th class="tl-n">London&nbsp;revenue</th><th class="tl-n">PEP</th></tr></thead>`
     + `<tbody id="lf-rows">${rows.length ? rows.map(lawFirmRow).join("") : '<tr><td colspan="7" class="tw-empty muted small">No firms tracked yet.</td></tr>'}</tbody></table></div>`

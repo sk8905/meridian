@@ -8,7 +8,7 @@
 // =============================================================================
 import { esc } from "/util.js?v=20260719-1";
 import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, DASH_ASOF } from "/dashboard/js/data.js?v=20260724-1";
-import { OUTLOOK, CYCLE, BUBBLE, MATWALL } from "/macro/js/content.js?v=20260724-3";
+import { OUTLOOK, CYCLE, BUBBLE, MATWALL } from "/macro/js/content.js?v=20260724-4";
 
 const SUBTABS = [["macro", "Macro"], ["equities", "Equities"], ["credit", "Credit"]];
 const pct1 = (n) => (n == null ? "—" : (n > 0 ? "+" : "") + n.toFixed(1) + "%");

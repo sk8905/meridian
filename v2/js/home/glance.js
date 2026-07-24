@@ -2,10 +2,10 @@
 // only the nav-actions boot and glance's own palette are skipped (the shell
 // owns chrome + search), and listeners self-guard on the active tab.
 
-import { deals, intel, managers, funds, research, HEDGE_INTEL, HEDGE_FUNDS, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260724-8";
+import { deals, intel, managers, funds, research, HEDGE_INTEL, HEDGE_FUNDS, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260724-9";
 import { reportRefresh } from "/v2/js/status.js?v=v2-2";
 import { items, cases, restructurings, firmById } from "/legal/js/data.js?v=20260724-3";
-import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js?v=20260724-3";
+import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js?v=20260724-4";
 import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
 import { esc, byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
@@ -458,24 +458,38 @@ const BRIEF_MKT_RE = /\b(stocks?|equit\w*|shares?|S&P|Nasdaq|Dow|FTSE|Nikkei|oil
 const BRIEF_RATE_RE = /\b(treasur\w+|gilts?|bunds?|JGBs?|yields?|yield curve|2s10s|interest rates?|rate (cut|hike|rise|hold|path|decision|bets)|policy rate|bank rate|basis[- ]points?|bps|Fed|FOMC|Bank of England|BoE|ECB|MPC|central bank|monetary policy|credit spreads?|swap spreads?|spreads? (widen|tighten|narrow)\w*|(wider|tighter) spreads?|high[- ]?yield spreads?|IG spreads?|CDS|OAS)\b/i;
 // Once a real story fills a line, the pulse/deterministic writers stand down.
 const _briefLeads = { markets: false, rates: false };
+// High-impact, market-moving vocabulary — a signal (not proof) that a headline is
+// the day's important story rather than routine coverage. Used to RANK, not filter.
+const BRIEF_MOVING_RE = /\b(fed|fomc|powell|warsh|rate (cut|hike|rise|decision|hold)|ecb|\bboe\b|inflation|\bcpi\b|\bpce\b|recession|payrolls?|jobs report|unemploy\w*|tariffs?|crash|plunge|slump|tumble|surge|soar|spike|rally|sell-?off|record (high|low)|all-time|crisis|default|downgrade|earnings|profit warning|guidance|deal|merger|acquisition|takeover|bond|yields?|treasur\w+|gilt|spreads?)\b/i;
+// Source authority tier — the day's most AUTHORITATIVE wire leads (FT / Bloomberg /
+// Reuters / WSJ / Economist over CNBC). An importance proxy, never fabricated.
+const BRIEF_SRC_TIER = (s) => (/financial times|ft alphaville|bloomberg|reuters|wall street journal|\bwsj\b|economist/i.test(s || "") ? 2 : 1);
+// Importance score: source authority first, then a market-moving signal in the
+// headline. Recency is deliberately NOT part of the score (it's only a tiebreak).
+const briefImportance = (x) => BRIEF_SRC_TIER(x.src) * 10 + (BRIEF_MOVING_RE.test(x.title || "") ? 5 : 0);
 function renderBrief(byDesk, counts, day) {
   const el = document.getElementById("g-brief");
   if (!el) return;
-  // The brief line leads with the single freshest headline — but ONLY from a
-  // premium news wire (FT, Bloomberg, Reuters, CNBC, WSJ, Economist, Guardian,
-  // MarketWatch, FT Alphaville). Manager/court/research items never headline.
-  const pool = [...byDesk.m, ...byDesk.c, ...byDesk.l]
-    .filter((x) => x && PREMIUM_NEWS.has(x.src))
-    .sort((a, b) => day(b).localeCompare(day(a)) || String(b.time || "12:00").localeCompare(String(a.time || "12:00")));
-  const lead = pool[0];
+  // Candidate pool: premium news-wire stories only (FT, Bloomberg, Reuters, CNBC,
+  // WSJ, Economist). Manager/court/research items never headline.
+  const premium = [...byDesk.m, ...byDesk.c, ...byDesk.l].filter((x) => x && PREMIUM_NEWS.has(x.src));
+  // "Today" = the freshest day present in the pool; the brief leads ONLY with that
+  // day's stories (per the editorial brief: from today, but not chosen by recency).
+  const today = premium.reduce((mx, x) => (day(x) > mx ? day(x) : mx), "");
+  const todays = premium.filter((x) => day(x) === today);
+  // Rank by IMPORTANCE, not freshness: the day's single most important market-moving
+  // story leads each line (source authority + moving signal; time is only a tiebreak).
+  const byImportance = (a, b) => (briefImportance(b) - briefImportance(a)) || String(b.time || "12:00").localeCompare(String(a.time || "12:00"));
+  const ranked = todays.slice().sort(byImportance);
+  const lead = ranked[0];
   el.innerHTML = lead
     ? `<span class="g-brief-lead"><span class="g-brief-lbl">Top story</span> <a class="g-brief-link g-desk-${lead.desk}" href="${esc(lead.href)}"${lead.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>${esc(lead.title)}</a></span>`
     : "";
-  // MARKETS / RATES & SPREADS lines = the top story in each category (never
-  // duplicating the Top story line above).
+  // EQUITIES / RATES & SPREADS lines = the day's most important story in each
+  // category (ranked, not newest), never duplicating the Top story above.
   const linkFor = (x) => `<a class="g-brief-link g-desk-${x.desk}" href="${esc(x.href)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>${esc(x.title)}</a>`;
-  const mkt = pool.find((x) => x !== lead && BRIEF_MKT_RE.test(x.title));
-  const rt = pool.find((x) => x !== lead && x !== mkt && BRIEF_RATE_RE.test(x.title));
+  const mkt = ranked.find((x) => x !== lead && BRIEF_MKT_RE.test(x.title));
+  const rt = ranked.find((x) => x !== lead && x !== mkt && BRIEF_RATE_RE.test(x.title));
   if (mkt) { _briefLeads.markets = true; setGlance("gl-markets", linkFor(mkt)); }
   if (rt) { _briefLeads.rates = true; setGlance("gl-rates", linkFor(rt)); }
 }
@@ -1352,7 +1366,7 @@ function predMovers(list) {
     .sort((a, b) => (b.chg - a.chg) || ((b.vol || 0) - (a.vol || 0)))
     .slice(0, 40);
 }
-let _predList = null, _predFilter = "Top Movers", _predMoveDir = "up";
+let _predList = null, _predFilter = "Largest", _predMoveDir = "up";
 // Market size = total money wagered (Polymarket USD volume), compacted.
 function predVol(n) {
   n = +n || 0;

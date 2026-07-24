@@ -9,7 +9,7 @@ import {
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
   HEDGE_FUNDS, HEDGE_FUNDS_ASOF, HEDGE_INTEL,
-} from "/credit/js/data.js?v=20260724-8";
+} from "/credit/js/data.js?v=20260724-9";
 import { barChart, donutChart, lineChart, multiLineChart } from "/credit/js/charts.js?v=20260722-4";
 import {
   eur, pct, fmtDate, link, notFound,
@@ -493,7 +493,7 @@ function managersPaneHTML() {
   const mrows = league.filter((r) =>
     (!q0 || r.m.name.toLowerCase().includes(q0) || String(r.m.hq || "").toLowerCase().includes(q0))
     && (!fst.strategy.length || fst.strategy.some((s) => r.m.strategies.includes(s))));
-  const SLS_ORDER = ["NAV", "SRT", "CFO", "CONT", "OTH"];
+  const SLS_ORDER = ["CONT", "SEC", "STRIP", "CFO", "NAV", "SRT", "OTH"];
   const slsChips = (m) => {
     const items = m.structured || [];
     if (!items.length) return "—";
@@ -504,7 +504,7 @@ function managersPaneHTML() {
       return `<a class="sls-chip" href="${esc(src.url)}" target="_blank" rel="noopener noreferrer" title="${esc(tip)}">${esc(t)}</a>`;
     }).join("");
   };
-  const mgrRow = (r) => `<tr class="clickable" data-href="#/manager/${r.m.id}" data-focus="${r.focus ? 1 : 0}" data-name="${esc((r.m.name + " " + (r.m.hq || "")).toLowerCase())}">`
+  const mgrRow = (r) => `<tr class="clickable" data-href="#/manager/${r.m.id}" data-focus="${r.focus ? 1 : 0}" data-name="${esc((r.m.name + " " + (r.m.hq || "") + " " + (r.m.strategies || []).join(" ")).toLowerCase())}">`
     + `<td class="tl-nm">${esc(r.m.name)}</td>`
     + `<td class="tl-hq">${esc(r.m.hq || "")}</td>`
     + `<td class="tl-n">${r.aum == null ? "n/a" : esc(fmtAum(r.aum))}</td>`
@@ -515,16 +515,16 @@ function managersPaneHTML() {
     + `<td class="tl-sls">${slsChips(r.m)}</td></tr>`;
   return `<div class="tpane" data-pane="managers" hidden>
               <header class="tpanel-h thead-search"><span>Managers</span>
-                <input type="search" id="mgr-q" class="tsearch" placeholder="Search name or HQ…" value="${esc(fst.q || "")}" aria-label="Search managers">
-                <button type="button" class="tfocus-btn" id="cr-lg-focus" aria-pressed="false" title="Show only €1–10bn AUM managers">€1–10bn</button>
+                <input type="search" id="mgr-q" class="tsearch" placeholder="Search name, HQ or strategy…" value="${esc(fst.q || "")}" aria-label="Search managers">
+                <button type="button" class="tfocus-btn" id="cr-lg-focus" aria-pressed="false" title="Show only $1–10bn AUM managers">$1–10bn</button>
               </header>
               <div class="tleague-wrap">
               <table class="tleague tleague-full">
-                <thead><tr><th>Manager</th><th class="tl-hq">HQ</th><th>AUM</th><th>Credit&nbsp;AUM</th><th>Funds</th><th>In&nbsp;mkt</th><th>CLOs</th><th class="tl-sls" title="Structured Liquidity Solutions">SLS</th></tr></thead>
+                <thead><tr><th>Manager</th><th class="tl-hq">HQ</th><th>AUM</th><th>Credit&nbsp;AUM</th><th>Funds</th><th>In&nbsp;mkt</th><th>CLOs</th><th class="tl-sls" title="Secondaries & structured liquidity — sell-side transactions">Secondaries</th></tr></thead>
                 <tbody id="mgr-rows">${mrows.map(mgrRow).join("")}</tbody>
               </table>
               </div>
-              <p class="tl-sls-key muted small">SLS = Structured Liquidity Solutions — NAV: NAV / fund-level financing · SRT: significant/synthetic risk transfer · CFO: collateralised fund obligation · CONT: continuation fund / vehicle · OTH: other structured liquidity (secondaries platform, fund finance). Every chip is backed by a cited article (hover for the source; the articles sit in that manager's news). — = none found in public coverage.</p>
+              <p class="tl-sls-key muted small">Secondaries &amp; structured liquidity (manager on the sell-side) — CONT: continuation fund / vehicle (GP-led secondary) · SEC: secondary / portfolio sale · STRIP: strip / partial fund-stake sale · CFO: collateralised fund obligation · NAV: NAV / fund-level financing · SRT: significant / synthetic risk transfer · OTH: other structured liquidity (secondaries platform, fund finance). Every chip links to a cited article (hover for the source; the articles sit in that manager's news). — = none found in public coverage.</p>
             </div>`;
 }
 function hedgeFundsPaneHTML() {
@@ -539,10 +539,9 @@ function hedgeFundsPaneHTML() {
     : (f.filing
       ? `<a href="${esc(f.filing.url)}" target="_blank" rel="noopener noreferrer" title="Latest filing (no US 13F-HR)">${esc(f.filing.label)}</a>`
       : `<span class="muted">—</span>`);
-  const hfRow = (f) => `<tr class="clickable" data-href="#/hf/${esc(f.id)}" data-name="${esc((f.name + " " + f.hq + " " + f.strategy + " " + f.region).toLowerCase())}">`
+  const hfRow = (f) => `<tr class="clickable" data-href="#/hf/${esc(f.id)}" data-focus="${inFocusAum(f.aum) ? 1 : 0}" data-name="${esc((f.name + " " + f.hq + " " + f.strategy + " " + f.region).toLowerCase())}">`
     + `<td class="tl-nm">${esc(f.name)}</td>`
     + `<td class="tl-hq">${esc(f.hq)}</td>`
-    + `<td>${esc(f.region)}</td>`
     + `<td class="tl-aum">${hfAum(f)}</td>`
     + `<td>${esc(f.strategy)}</td>`
     + `<td>${esc(f.founder || "—")}</td>`
@@ -551,10 +550,11 @@ function hedgeFundsPaneHTML() {
   return `<div class="tpane" data-pane="hedgefunds" hidden>
               <header class="tpanel-h thead-search"><span>Hedge Funds</span>
                 <input type="search" id="hf-q" class="tsearch" placeholder="Search name, HQ or strategy…" aria-label="Search hedge funds">
+                <button type="button" class="tfocus-btn" id="cr-hf-focus" aria-pressed="false" title="Show only $1–10bn AUM hedge funds">$1–10bn</button>
               </header>
               <div class="tleague-wrap">
               <table class="tleague tleague-full tleague-hf">
-                <thead><tr><th>Fund</th><th class="tl-hq">HQ</th><th>Region</th><th class="tl-aum">AUM&nbsp;$bn</th><th>Strategy</th><th>Founder</th><th>Founded</th><th class="tl-fil">Latest&nbsp;13F</th></tr></thead>
+                <thead><tr><th>Fund</th><th class="tl-hq">HQ</th><th class="tl-aum">AUM&nbsp;$bn</th><th>Strategy</th><th>Founder</th><th>Founded</th><th class="tl-fil">Latest&nbsp;13F</th></tr></thead>
                 <tbody id="hf-rows">${hfRows.map(hfRow).join("")}</tbody>
               </table>
               </div>
@@ -715,11 +715,12 @@ function viewDashboard() {
     ["Managers", managers.length], ["AUM", fmtAum(Math.round(totalAum))],
     ["Funds", funds.length], ["In market", funds.filter(inMkt).length], ["CLO managers", cloMgrIds.size],
   ];
-  // SLS (Structured Liquidity Solutions) chips from each manager's sourced
-  // `structured` items (data.js). One chip per type present, fixed order; the
-  // tooltip carries every item's label, note and attribution. No sourced item
-  // → em-dash (a sparse column is correct — chips are never inferred here).
-  const SLS_ORDER = ["NAV", "SRT", "CFO", "CONT", "OTH"];
+  // Secondaries & structured-liquidity chips (sell-side) from each manager's
+  // sourced `structured` items (data.js). One chip per type present, fixed
+  // order; the tooltip carries every item's label, note and attribution. No
+  // sourced item → em-dash (a sparse column is correct — chips are never
+  // inferred here).
+  const SLS_ORDER = ["CONT", "SEC", "STRIP", "CFO", "NAV", "SRT", "OTH"];
   const slsChips = (m) => {
     const items = m.structured || [];
     if (!items.length) return "—";
@@ -733,7 +734,7 @@ function viewDashboard() {
       return `<a class="sls-chip" href="${esc(src.url)}" target="_blank" rel="noopener noreferrer" title="${esc(tip)}">${esc(t)}</a>`;
     }).join("");
   };
-  const mgrRow = (r) => `<tr class="clickable" data-href="#/manager/${r.m.id}" data-focus="${r.focus ? 1 : 0}" data-name="${esc((r.m.name + " " + (r.m.hq || "")).toLowerCase())}">`
+  const mgrRow = (r) => `<tr class="clickable" data-href="#/manager/${r.m.id}" data-focus="${r.focus ? 1 : 0}" data-name="${esc((r.m.name + " " + (r.m.hq || "") + " " + (r.m.strategies || []).join(" ")).toLowerCase())}">`
     + `<td class="tl-nm">${esc(r.m.name)}</td>`
     + `<td class="tl-hq">${esc(r.m.hq || "")}</td>`
     + `<td class="tl-n">${r.aum == null ? "n/a" : esc(fmtAum(r.aum))}</td>`
@@ -759,10 +760,9 @@ function viewDashboard() {
     : (f.filing
       ? `<a href="${esc(f.filing.url)}" target="_blank" rel="noopener noreferrer" title="Latest filing (no US 13F-HR)">${esc(f.filing.label)}</a>`
       : `<span class="muted">—</span>`);
-  const hfRow = (f) => `<tr class="clickable" data-href="#/hf/${esc(f.id)}" data-name="${esc((f.name + " " + f.hq + " " + f.strategy + " " + f.region).toLowerCase())}">`
+  const hfRow = (f) => `<tr class="clickable" data-href="#/hf/${esc(f.id)}" data-focus="${inFocusAum(f.aum) ? 1 : 0}" data-name="${esc((f.name + " " + f.hq + " " + f.strategy + " " + f.region).toLowerCase())}">`
     + `<td class="tl-nm">${esc(f.name)}</td>`
     + `<td class="tl-hq">${esc(f.hq)}</td>`
-    + `<td>${esc(f.region)}</td>`
     + `<td class="tl-aum">${hfAum(f)}</td>`
     + `<td>${esc(f.strategy)}</td>`
     + `<td>${esc(f.founder || "—")}</td>`
@@ -845,6 +845,13 @@ function viewDashboard() {
   if (hq) hq.addEventListener("input", () => {
     const v = hq.value.toLowerCase().trim();
     document.querySelectorAll("#hf-rows tr").forEach((tr) => { tr.style.display = (!v || (tr.dataset.name || "").includes(v)) ? "" : "none"; });
+  });
+  const hff = document.getElementById("cr-hf-focus");
+  if (hff) hff.addEventListener("click", () => {
+    const on = hff.getAttribute("aria-pressed") !== "true";
+    hff.setAttribute("aria-pressed", on ? "true" : "false");
+    hff.classList.toggle("is-on", on);
+    document.querySelectorAll("#hf-rows tr").forEach((tr) => { tr.style.display = (!on || tr.dataset.focus === "1") ? "" : "none"; });
   });
 }
 // In-place filter for the dashboard activity wire: chips toggle which kinds show
