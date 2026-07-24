@@ -425,14 +425,16 @@ async function loadSaved(body, headCount) {
   const render = async () => {
     chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _svTab));
     try {
-      const mod = await import("/saved.js?v=20260721-1");
-      const list = _svTab === "saved" ? mod.resolveSaved() : mod.resolveWatchlistNews();
+      const mod = await import("/saved.js?v=20260724-1");
+      // Watchlist tab = SAVED items that relate to a followed/starred profile
+      // (the intersection), NOT all of a followed profile's news.
+      const list = _svTab === "saved" ? mod.resolveSaved() : mod.resolveSavedWatchlist();
       if (headCount) headCount.textContent = list.length ? " · " + list.length : "";
       tb.innerHTML = list.length
         ? list.map(savedRow).join("")
         : (_svTab === "saved"
           ? '<div class="na-empty">Nothing saved yet. Tap the ☆ on any item — or press and hold a story on the Home wire — to keep it here.</div>'
-          : '<div class="na-empty">No watchlist news yet. Press and hold a manager or law-firm story (or tap the ☆ on a manager in Credit) to follow it — their deals, fundraising, alerts and matters appear here.</div>');
+          : '<div class="na-empty">Nothing here yet. This shows the items you’ve saved (☆) that belong to a manager or law firm you follow. Follow a profile (☆) and save one of its stories to see it here.</div>');
     } catch {
       tb.innerHTML = '<div class="na-load">Unavailable right now.</div>';
     }
@@ -559,7 +561,7 @@ let _ntTab = "all";
 let _menuTab = "search";
 async function ensureNotifs() {
   if (_notifItems) return _notifItems;
-  const { buildNotifs } = await import("/saved.js?v=20260721-1");
+  const { buildNotifs } = await import("/saved.js?v=20260724-1");
   _notifItems = (await buildNotifs()).slice(0, 60);
   return _notifItems;
 }
@@ -967,7 +969,7 @@ export function initNavActions() {
         } else {
           tb.innerHTML = '<div class="na-load">Loading…</div>';
           try {
-            const mod = await import("/saved.js?v=20260721-1");
+            const mod = await import("/saved.js?v=20260724-1");
             const list = mod.resolveWatchlistNews();
             tb.innerHTML = list.length
               ? list.map(savedRow).join("")

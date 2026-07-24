@@ -175,3 +175,30 @@ export function resolveWatchlistNews() {
     .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")) || String(b.time || "").localeCompare(String(a.time || "")))
     .slice(0, 80);
 }
+
+// Saved items that ALSO relate to a followed/starred profile — the Bookmarks
+// panel's Watchlist tab. This is the INTERSECTION of your saved (☆) items and
+// your followed managers / law firms, NOT every piece of their news. Only
+// profile-linked saves qualify (a saved deal/intel/press for a followed manager,
+// or a saved alert/scheme/plan for a followed firm); a saved macro or Home-wire
+// story has no profile, so it never appears here.
+export function resolveSavedWatchlist() {
+  const rd = (k) => { try { return new Set(JSON.parse(localStorage.getItem(k) || "[]")); } catch { return new Set(); } };
+  const cS = rd("meridian.credit.saved"), lS = rd("lexalert.saved");
+  let f = {};
+  try { f = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; } catch { /* ignore */ }
+  const mset = new Set(Array.isArray(f.manager) ? f.manager : []);
+  const fset = new Set(Array.isArray(f.firm) ? f.firm : []);
+  const out = [];
+  deals.forEach((d) => { if (cS.has(d.id) && mset.has(d.managerId)) out.push({ desk: "c", title: d.headline, href: creditItemHref(d), ext: creditItemExt(d), date: d.date, time: d.time, src: (_mgrById.get(d.managerId) || {}).name || creditSource(d) }); });
+  intel.forEach((i) => { if (cS.has(i.id) && mset.has(i.managerId)) out.push({ desk: "c", title: i.headline, href: creditItemHref(i), ext: creditItemExt(i), date: i.date, time: i.time, src: (_mgrById.get(i.managerId) || {}).name || creditSource(i) }); });
+  managers.forEach((m) => {
+    if (!mset.has(m.id)) return;
+    [...(m.news || []), ...(m.webNews || [])].forEach((w) => {
+      if (cS.has("n" + _savedHash(_savedBase(w) + "|" + m.id))) out.push({ desk: "c", title: w.title, href: "/credit/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey({ ...w, _mid: m.id })), ext: false, date: w.date, time: w.time, src: w.outlet || m.name });
+    });
+  });
+  items.forEach((it) => { if (lS.has(it.id) && fset.has(it.firm)) out.push({ desk: "l", title: it.title, href: it.url || "/legal/#/item/" + encodeURIComponent(it.id), ext: !!it.url, date: it.date, time: it.time, src: firmName(it.firm) }); });
+  restructurings.forEach((r) => { if (lS.has(r.id) && fset.has(r.firm)) { const u = r.judgmentUrl || r.articleUrl; out.push({ desk: "l", title: r.company, href: u || "/legal/#/", ext: !!u, date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); } });
+  return out.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+}
