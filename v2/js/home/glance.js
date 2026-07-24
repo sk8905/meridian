@@ -10,7 +10,7 @@ import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
 import { esc, byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
 import { DESK, DESK_CODE, DESK_CLASS, STRICT_MACRO_RE, deskFor, palTag, nlDesk, PAL_CODE,
-  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, feedChipsHTML } from "/feed.js?v=20260724-1";
+  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, feedChipsHTML } from "/feed.js?v=20260724-2";
 
 const __KEY = "home";
 const __ROOT = document.documentElement;
@@ -481,6 +481,17 @@ function renderBrief(byDesk, counts, day) {
 }
 
 let _feedDesk = "all";
+// Second-level TYPE filter within the active desk (e.g. Credit ▸ Deals). "all"
+// shows every type. Reset to "all" whenever the primary desk changes.
+let _feedType = "all";
+// Secondary type chips per domain: [labelKey (matches item.type||item.desk), text].
+// Domains without sub-types (Newsletters, myFT) get no second row.
+const TYPE_CHIPS = {
+  m:   [["all", "All"], ["m", "News"], ["comm", "Comm"]],
+  c:   [["all", "All"], ["deal", "Deals"], ["fund", "Raises"], ["comm", "Research"]],
+  hdg: [["all", "All"], ["news", "News"], ["fund", "Raises"]],
+  l:   [["all", "All"], ["alert", "Alerts"], ["case", "Cases"]],
+};
 // Active source filter (e.g. "Financial Times"): when set, the feed shows every
 // story from that newsroom across all three desks. Cleared by the pill or a chip.
 let _feedSrc = null;
@@ -511,8 +522,8 @@ function renderFeed() {
   ((ARTICLES && ARTICLES.items) || []).forEach(pushMacroItem);
   (((NEWS && NEWS.us) || [])).forEach(pushMacroItem);
   (((NEWS && NEWS.uk) || [])).forEach(pushMacroItem);
-  (((COMMENTARY && COMMENTARY.us) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time, "m", mSid(n))));
-  (((COMMENTARY && COMMENTARY.uk) || [])).forEach((n) => macro.push(mk("m", n.url, n.title, n.source, true, n.date, n.time, "m", mSid(n))));
+  (((COMMENTARY && COMMENTARY.us) || [])).forEach((n) => macro.push({ ...mk("m", n.url, n.title, n.source, true, n.date, n.time, "m", mSid(n)), type: "comm" }));
+  (((COMMENTARY && COMMENTARY.uk) || [])).forEach((n) => macro.push({ ...mk("m", n.url, n.title, n.source, true, n.date, n.time, "m", mSid(n)), type: "comm" }));
   // Live RSS headlines (real publish times) merged in with the curated items; the
   // title-dedupe below collapses any overlap with the static feeds. myFT-flagged
   // items belong to the FT stream and substack-flagged to the Substack desk; the
@@ -533,23 +544,27 @@ function renderFeed() {
   // Worker's /api/feed assembly, so Home and the Macro/Credit/Legal live-wire
   // folds all share ONE filtered stream — no client-side re-cull here.)
 
+  // Every Home item keeps its DOMAIN in `desk` (colour + primary chip + bell) and
+  // its finer TYPE in `type` (the pill text: DEAL/RAISE/NEWS/…), per HOUSE_STYLE
+  // R10a. The feed engine colours by domain and labels by type||desk.
   const credit = [];
-  deals.forEach((d) => credit.push({ ...mk("c", creditItemHref(d), d.headline, creditSource(d), creditItemExt(d), d.date, d.time, "c", d.id), mgr: d.managerId || "" }));
-  intel.forEach((i) => credit.push({ ...mk("c", creditItemHref(i), i.headline, creditSource(i), creditItemExt(i), i.date, i.time, "c", i.id), mgr: i.managerId || "" }));
+  deals.forEach((d) => credit.push({ ...mk("c", creditItemHref(d), d.headline, creditSource(d), creditItemExt(d), d.date, d.time, "c", d.id), mgr: d.managerId || "", type: d.clo ? "clo" : "deal" }));
+  intel.forEach((i) => credit.push({ ...mk("c", creditItemHref(i), i.headline, creditSource(i), creditItemExt(i), i.date, i.time, "c", i.id), mgr: i.managerId || "", type: i.clo ? "clo" : "fund" }));
   // Credit research / white papers (Commentary) — external pieces, so they open
   // out to the publisher like the macro reading list.
-  (research || []).forEach((r) => credit.push(mk("c", r.url, r.title, r.institution, true, r.date, r.time)));
-  // Hedge-fund news — real dated events for the 30 tracked hedge funds, in their
-  // own HDG bucket (its own desk chip; separate from the private-credit stream).
-  // Open out to the source article; the fund's page lives under Credit ▸ Hedge Funds.
+  (research || []).forEach((r) => credit.push({ ...mk("c", r.url, r.title, r.institution, true, r.date, r.time), type: "comm" }));
+  // Hedge-fund news — real dated events for the tracked hedge funds, in their own
+  // Hedge bucket (its own desk chip; separate from the private-credit stream). Type
+  // maps the HEDGE_INTEL kind to the pill: fundraising/launch → RAISE, else NEWS.
+  const hdgType = (t) => /fundrais|launch|close|capital rais/i.test(t || "") ? "fund" : "news";
   const hdg = [];
-  (HEDGE_INTEL || []).forEach((h) => hdg.push({ ...mk("hdg", h.url || `/credit/#/hf/${encodeURIComponent(h.hfId)}`, h.headline, h.outlet || "", !!h.url, h.date, h.time), mgr: "" }));
+  (HEDGE_INTEL || []).forEach((h) => hdg.push({ ...mk("hdg", h.url || `/credit/#/hf/${encodeURIComponent(h.hfId)}`, h.headline, h.outlet || "", !!h.url, h.date, h.time), mgr: "", type: hdgType(h.type) }));
 
   // `legal` is declared above (the live-wire loop folds The Lawyer / Legal
   // Business items into it); these are the committed Legal-app records.
-  items.forEach((i) => { if (i.date) legal.push({ ...mk("l", i.url || `/legal/#/item/${encodeURIComponent(i.id)}`, i.title, firmName(i.firm), !!i.url, i.date, i.time, "l", i.id), firm: i.firm || "" }); });
-  cases.forEach((c) => { if (c.date) legal.push(mk("l", c.url || "/legal/#/", c.name, c.court, !!c.url, c.date, c.time, "l", c.id)); });
-  restructurings.forEach((r) => { if (r.date) legal.push(mk("l", r.judgmentUrl || r.articleUrl || "/legal/#/", r.company, r.type === "scheme" ? "Scheme" : "Restructuring plan", !!(r.judgmentUrl || r.articleUrl), r.date, r.time, "l", r.id)); });
+  items.forEach((i) => { if (i.date) legal.push({ ...mk("l", i.url || `/legal/#/item/${encodeURIComponent(i.id)}`, i.title, firmName(i.firm), !!i.url, i.date, i.time, "l", i.id), firm: i.firm || "", type: i.type === "case" ? "case" : "alert" }); });
+  cases.forEach((c) => { if (c.date) legal.push({ ...mk("l", c.url || "/legal/#/", c.name, c.court, !!c.url, c.date, c.time, "l", c.id), type: "case" }); });
+  restructurings.forEach((r) => { if (r.date) legal.push({ ...mk("l", r.judgmentUrl || r.articleUrl || "/legal/#/", r.company, r.type === "scheme" ? "Scheme" : "Restructuring plan", !!(r.judgmentUrl || r.articleUrl), r.date, r.time, "l", r.id), type: "case" }); });
 
   // Reader's own aggregated email newsletters (Gmail-swept). By the stated
   // precedence these are LTR — even the Bloomberg / Economist ones — and only a
@@ -629,8 +644,12 @@ function renderFeed() {
     }
     feed.length = Math.min(feed.length, CAP);
   } else {
-    // Single desk: that desk's most-recent items, up to the cap.
-    feed = byDesk[_feedDesk].slice(0, CAP);
+    // Single desk: that desk's most-recent items, up to the cap — narrowed to the
+    // active type when a second-level chip is on (matched on type||desk).
+    const base = byDesk[_feedDesk] || [];
+    feed = (_feedType && _feedType !== "all"
+      ? base.filter((x) => (x.type || x.desk) === _feedType)
+      : base).slice(0, CAP);
   }
 
   // Row + day-header + source-bar + empty markup all come from the shared wire
@@ -641,9 +660,21 @@ function renderFeed() {
   setHTML("g-feed", srcBar + (feed.length ? body : empty));
   const head = document.getElementById("g-feed-head");
   if (head) {
-    head.innerHTML = feedChipsHTML([{ k: "all", label: "All" }, { k: "n", label: "Newsletter" }, { k: "m", label: "Macro" }, { k: "c", label: "Credit" }, { k: "hdg", label: "HDG" }, { k: "l", label: "Legal" }], _feedSrc ? null : _feedDesk, "Latest news");
-    // A desk chip clears any source filter and switches desks.
-    head.querySelectorAll(".g-feed-chip").forEach((b) => b.addEventListener("click", () => { _feedSrc = null; _feedDesk = b.dataset.desk; renderFeed(); }));
+    const primary = feedChipsHTML([{ k: "all", label: "All" }, { k: "n", label: "Newsletters" }, { k: "m", label: "Macro" }, { k: "c", label: "Credit" }, { k: "hdg", label: "Hedge" }, { k: "l", label: "Legal" }], _feedSrc ? null : _feedDesk, "Latest news");
+    // Second-level type chips for the active desk (when it has sub-types and no
+    // source filter is overriding). Same .g-feed-chip style (HOUSE_STYLE R14),
+    // marked data-type so its handler is distinct from the desk row.
+    const subDefs = !_feedSrc && TYPE_CHIPS[_feedDesk];
+    const secondary = subDefs
+      ? `<span class="g-feed-chips g-feed-subchips" role="group" aria-label="Filter by type">`
+        + subDefs.map(([k, l]) => `<button type="button" class="g-feed-chip${_feedType === k ? " is-on" : ""}" data-type="${esc(k)}" aria-pressed="${_feedType === k}">${esc(l)}</button>`).join("")
+        + `</span>`
+      : "";
+    head.innerHTML = primary + secondary;
+    // A desk chip clears any source filter, switches desks and resets the type.
+    head.querySelectorAll(".g-feed-chip[data-desk]").forEach((b) => b.addEventListener("click", () => { _feedSrc = null; _feedDesk = b.dataset.desk; _feedType = "all"; renderFeed(); }));
+    // A type chip narrows within the current desk.
+    head.querySelectorAll(".g-feed-chip[data-type]").forEach((b) => b.addEventListener("click", () => { _feedType = b.dataset.type; renderFeed(); }));
   }
 }
 // ---- Macro snapshot (right sidebar) ----------------------------------------

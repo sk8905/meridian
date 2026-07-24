@@ -151,10 +151,10 @@ export function feedRow(o) {
   return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}`
     + ` data-sk="${esc(o.sk || "x")}"${o.sid ? ` data-sid="${esc(o.sid)}"` : ""}${o.mgr ? ` data-mgr="${esc(o.mgr)}"` : ""}${o.firm ? ` data-firm="${esc(o.firm)}"` : ""} data-desk="${esc(o.desk)}" data-date="${esc(o.date || "")}" data-time="${esc(o.time || "")}">`
     + `<span class="g-feed-time${o.added ? " g-feed-time-added" : ""}"${timeAttr}>${esc(t)}</span>`
-    + `<span class="g-feed-code ${domClass(o)}" title="${esc(DESK[o.desk] || "")}">${DESK_CODE[o.desk] || ""}</span>`
+    + `<span class="g-feed-code ${domClass(o)}" title="${esc(DESK[o.type || o.desk] || "")}">${DESK_CODE[o.type || o.desk] || ""}</span>`
     + `<span class="g-feed-title">${esc(o.title)}</span>`
     + (o.src ? `<span class="g-feed-src" role="button" tabindex="0" data-src="${esc(o.src)}" title="Show all ${esc(cleanSource(o.src))} stories">${esc(cleanSource(o.src))}</span>` : "")
-    + `<span class="g-feed-desk">${esc(DESK[o.desk] || "")}</span></a>`;
+    + `<span class="g-feed-desk">${esc(DESK[o.type || o.desk] || "")}</span></a>`;
 }
 // Some rows carry no real publish time (curated items, or a live item whose
 // source omitted one). Rather than leave the time blank, stamp each with the

@@ -14,7 +14,7 @@ import {
   markVisitedSoon, _chipMem, chipMemKey,
 } from "/legal/js/shared.js?v=20260723-3";
 import { viewItem, viewFirm , __setHost as __detailSetHost } from "/v2/js/legal/detail.js?v=v2-5";
-import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc, onLiveWire } from "/feed.js?v=20260724-1";
+import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc, onLiveWire } from "/feed.js?v=20260724-2";
 import { esc, MONTHS, byDateDesc } from "/util.js?v=20260719-1";
 
 export function mount(host, ctx) {

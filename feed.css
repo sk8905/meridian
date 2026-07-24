@@ -30,10 +30,15 @@
 
 /* ---- chip bar --------------------------------------------------------------- */
 .g-feed-wrap { background:var(--t-ground); }
-.g-feed-head { display:flex; align-items:center; gap:0; height:30px; padding:0; margin:0;
+.g-feed-head { display:flex; flex-wrap:wrap; align-items:stretch; gap:0; min-height:30px; padding:0; margin:0;
   background:var(--t-head); border-bottom:1px solid var(--t-grid); }
 .g-feed-h-lbl { display:none; }
-.g-feed-chips { display:flex; gap:0; height:100%; flex:1 1 auto; width:100%; }
+/* Each chip row takes a full line, so a second-level (type) row stacks under the
+   desk row rather than fighting it for width. */
+.g-feed-chips { display:flex; gap:0; height:30px; flex:0 0 100%; width:100%; }
+/* Second-level type row: same chips, visually subordinate (dimmer, hairline top). */
+.g-feed-subchips { border-top:1px solid var(--t-grid); background:var(--t-panel2); }
+.g-feed-subchips .g-feed-chip { font-size:10.5px; }
 .g-feed-chip { display:flex; align-items:center; justify-content:center; gap:6px; flex:1 1 0; min-width:0;
   height:100%; padding:0 15px; border:0; background:transparent; cursor:pointer; font-family:inherit;
   font-size:11.5px; font-weight:500; letter-spacing:.005em; color:var(--t-mut); border-radius:0; }
