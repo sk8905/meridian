@@ -20,6 +20,14 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "fe213675-b988-4121-9723-96d433d524d8", title: "Wise’s US bank licence bid rejected over compliance ‘deficiencies’", date: "2026-07-24", time: "08:51", url: "https://www.ft.com/content/fe213675-b988-4121-9723-96d433d524d8" },
+  { id: "856296a6-abab-4dba-ac39-9b74f9b137f1", title: "Sun, football and Andy Burnham push UK consumer confidence and retail sales higher", date: "2026-07-24", time: "07:41", url: "https://www.ft.com/content/856296a6-abab-4dba-ac39-9b74f9b137f1" },
+  { id: "061970ae-6e01-43cd-aaf7-1a728d04d09b", title: "In the rates drama, oil is a minor character", date: "2026-07-24", time: "06:30", url: "https://www.ft.com/content/061970ae-6e01-43cd-aaf7-1a728d04d09b" },
+  { id: "6023ca1b-8a8c-488f-b604-71341c3de803", title: "FTAV’s further reading", date: "2026-07-24", time: "06:30", url: "https://www.ft.com/content/6023ca1b-8a8c-488f-b604-71341c3de803" },
+  { id: "9d98ddb1-edfc-4df9-a6e8-e0b12845dd29", title: "Ireland pushes for breakthrough on EU capital markets reform", date: "2026-07-24", time: "06:04", url: "https://www.ft.com/content/9d98ddb1-edfc-4df9-a6e8-e0b12845dd29" },
+  { id: "3914d25d-b509-4859-9040-6539cea6da7b", title: "How much does Wetherspoons make from its gambling machines?", date: "2026-07-24", time: "06:00", url: "https://www.ft.com/content/3914d25d-b509-4859-9040-6539cea6da7b" },
+  { id: "1e18ad77-8ef1-4ed8-891d-a43a901febf7", title: "FirstFT: US hits 60 countries with new tariffs", date: "2026-07-24", time: "05:30", url: "https://www.ft.com/content/1e18ad77-8ef1-4ed8-891d-a43a901febf7" },
+  { id: "70fcf3e8-1fec-4af8-8fe2-5bc2cd604b21", title: "Monetary Policy Radar preview: Federal Reserve’s July meeting", date: "2026-07-24", time: "05:30", url: "https://www.ft.com/content/70fcf3e8-1fec-4af8-8fe2-5bc2cd604b21" },
   { id: "8bf64e52-3e00-4305-8c1d-afd7e5591055", title: "Blackstone’s Stephen Schwarzman: ‘Our stock is on sale’", date: "2026-07-24", time: "05:00", url: "https://www.ft.com/content/8bf64e52-3e00-4305-8c1d-afd7e5591055" },
   { id: "4ecdab5f-d85d-41df-8fa6-861f650f8bd4", title: "The fight to be the next Andy Burnham", date: "2026-07-24", time: "05:00", url: "https://www.ft.com/content/4ecdab5f-d85d-41df-8fa6-861f650f8bd4" },
   { id: "9048c284-e516-42af-bd1c-b636fb2a3462", title: "Can the ‘Johnny Cash of the Allagash’ win the US Senate for the Democrats?", date: "2026-07-24", time: "05:00", url: "https://www.ft.com/content/9048c284-e516-42af-bd1c-b636fb2a3462" },
@@ -53,11 +61,4 @@ export const FT_ITEMS = [
   { id: "bfc7b491-e553-4686-9531-a07b14a4d4b9", title: "Hundreds settle with HMRC as crypto tax crackdown continues", date: "2026-07-23", time: "16:17", url: "https://www.ft.com/content/bfc7b491-e553-4686-9531-a07b14a4d4b9" },
   { id: "c678eda2-9749-4c8b-8f25-21bcbf5d1acb", title: "Apple revives automotive ambitions with Ford deal for in-car software", date: "2026-07-23", time: "15:57", url: "https://www.ft.com/content/c678eda2-9749-4c8b-8f25-21bcbf5d1acb" },
   { id: "393e363c-a5ef-488b-9c7e-2a3e0d631125", title: "Palestinian economy on 'cliff edge' as Israeli banks cut ties", date: "2026-07-23", time: "15:41", url: "https://www.ft.com/content/393e363c-a5ef-488b-9c7e-2a3e0d631125" },
-  { id: "fff19dd8-4c7e-4120-a282-0cdf77c56d71", title: "Trump administration's dealing in companies is on shaky ground", date: "2026-07-23", time: "15:36", url: "https://www.ft.com/content/fff19dd8-4c7e-4120-a282-0cdf77c56d71" },
-  { id: "dc5e629b-562c-41e3-8b89-350af6960adc", title: "Tesla shares tumble 11% after discounts hit profits", date: "2026-07-23", time: "14:52", url: "https://www.ft.com/content/dc5e629b-562c-41e3-8b89-350af6960adc" },
-  { id: "3d5544cd-a1e5-4a33-8db5-1e95fbf17def", title: "Donald Trump throws controversial US-Saudi Arabia nuclear pact into doubt", date: "2026-07-23", time: "14:40", url: "https://www.ft.com/content/3d5544cd-a1e5-4a33-8db5-1e95fbf17def" },
-  { id: "50793b37-e310-4d38-8f8d-4a2bdb5ee91a", title: "Trump says Saudi nuclear deal depends on relations with Israel", date: "2026-07-23", time: "14:39", url: "https://www.ft.com/content/50793b37-e310-4d38-8f8d-4a2bdb5ee91a" },
-  { id: "e28b3259-ddc9-43dc-8c3f-fca85edf7e84", title: "European Central Bank holds interest rates at 2.25% after debating rise", date: "2026-07-23", time: "14:34", url: "https://www.ft.com/content/e28b3259-ddc9-43dc-8c3f-fca85edf7e84" },
-  { id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2", title: "Inflation and interest rates tracker: see how your country compares", date: "2026-07-23", time: "13:32", url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2" },
-  { id: "ed9baeee-aabc-458a-a161-a607032d158d", title: "Laura Loomer meets Volodymyr Zelenskyy after pro-Ukraine conversion", date: "2026-07-23", time: "13:30", url: "https://www.ft.com/content/ed9baeee-aabc-458a-a161-a607032d158d" },
 ];
