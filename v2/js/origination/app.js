@@ -71,7 +71,7 @@ export function mount(host, ctx) {
     advisers: (m.advisers || []).length,
   }));
   // Filter + sort state.
-  const st = { pane: "radar", line: "all", band: "all", tier: "all", warm: false, white: false, q: "", sort: "name", dir: 1 };
+  const st = { pane: "radar", line: "all", band: "all", tier: "all", warm: false, white: false, q: "", sort: "aum", dir: -1 };
 
   host.innerHTML = `
     <div class="tdash">
@@ -133,7 +133,7 @@ export function mount(host, ctx) {
 
   const th = (k, l, cls) => `<th class="org-sortable${st.sort === k ? " on" : ""}${cls ? " " + cls : ""}" data-sort="${k}">${esc(l)}${st.sort === k ? (st.dir > 0 ? " ▲" : " ▼") : ""}</th>`;
   function renderRadar() {
-    $("#org-head").innerHTML = `<tr>${th("tier", "Tier")}${th("name", "Fund / manager")}<th>Strategy</th>${th("aum", "AUM")}<th>Wallet</th><th>Advisers</th>${th("latest", "Latest")}<th>Warm</th></tr>`;
+    $("#org-head").innerHTML = `<tr>${th("name", "Fund / manager")}<th>Strategy</th>${th("aum", "AUM")}<th>Wallet</th><th>Advisers</th>${th("latest", "Latest")}<th class="org-warm-h">Warm</th>${th("tier", "Tier")}</tr>`;
     const rows = filtered();
     const relLabel = { "none": "", "warm-path": "warm", "named-contact": "contact", "strong": "strong" };
     $("#org-rows").innerHTML = rows.map((r) => {
@@ -141,14 +141,14 @@ export function mount(host, ctx) {
       const adv = r.advisers ? `${r.advisers} firm${r.advisers > 1 ? "s" : ""}` : `<span class="org-white-flag" title="No incumbent counsel recorded — potential white space">— white space?</span>`;
       const rel = relOf(id);
       return `<tr data-id="${esc(id)}">`
-        + `<td class="org-tier-c"><select class="org-tier" data-id="${esc(id)}" aria-label="Tier for ${esc(r.m.name)}">${TIERS.map((v) => `<option value="${v}"${v === (t.tier || "") ? " selected" : ""}>${v || "—"}</option>`).join("")}</select></td>`
         + `<td class="tl-nm"><a href="#" class="org-open" data-id="${esc(id)}">${esc(r.m.name)}</a><span class="org-hq">${esc(r.m.hq || "")}</span></td>`
         + `<td class="org-strat">${esc((r.m.strategies || []).slice(0, 2).join(" · "))}</td>`
         + `<td class="tl-n"><span class="org-band${r.band.mid ? " mid" : ""}">${esc(r.band.label)}</span></td>`
         + `<td class="org-wallet">${walletChips(r.wallet)}</td>`
         + `<td class="org-adv">${adv}</td>`
         + `<td class="org-latest">${r.latest ? `<span class="org-lt-k">${esc(r.latest.label)}</span> ${esc(r.latest.date)}` : "—"}</td>`
-        + `<td><button type="button" class="org-warm-btn${rel !== "none" ? " on" : ""}" data-id="${esc(id)}" title="Cycle relationship warmth">${rel === "none" ? "☆" : "★"}<span class="org-warm-lbl">${relLabel[rel]}</span></button></td>`
+        + `<td class="org-warm-c"><button type="button" class="org-warm-btn${rel !== "none" ? " on" : ""}" data-id="${esc(id)}" title="Cycle relationship warmth">${rel === "none" ? "☆" : "★"}<span class="org-warm-lbl">${relLabel[rel]}</span></button></td>`
+        + `<td class="org-tier-c"><select class="org-tier" data-id="${esc(id)}" aria-label="Tier for ${esc(r.m.name)}">${TIERS.map((v) => `<option value="${v}"${v === (t.tier || "") ? " selected" : ""}>${v || "—"}</option>`).join("")}</select></td>`
         + `</tr>`;
     }).join("") || `<tr><td colspan="8" class="tw-empty muted small">No targets match these filters.</td></tr>`;
     $("#org-note").innerHTML = `${rows.length} of ${uni.length} solutions-credit managers · signals derived from tracked data (wallet from SLS/strategy, latest from deals/news). <strong>Tier, warm flags & notes are private to this device.</strong> Advisers show recorded incumbent counsel; “white space?” means none recorded yet (not confirmed absence).`;

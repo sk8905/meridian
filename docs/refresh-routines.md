@@ -136,6 +136,22 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
   public source. Never fabricate: set unknown fields to `null`, mark estimates with
   `estimated: true`, and keep each new/edited record's `sources` pointing to real
   URLs. Reuse existing field names exactly (see a neighbouring record as a template).
+- **Origination fields (`book` + `advisers`) — capture opportunistically.** The Radar
+  tab reads two optional manager fields (spec: `docs/origination-radar-spec.md` Part H).
+  When a run surfaces source-verifiable evidence for a manager it is already touching
+  (during that manager's rotating re-verification, or when its news is being added),
+  fill or extend them — do NOT chase them for every manager on every run.
+  - `book: { strategies:[…], structured:bool, geos:[…], … }` — the firm's product/book
+    shape, only from firm disclosures, fund launches, or reputable coverage.
+  - `advisers: [ { firm:"…", role:"Fund finance"|"Fund formation"|"Financing/deals"|
+    "Restructuring"|"Regulatory"|"Tax", source:"<url>", date:"YYYY-MM-DD",
+    confidence:"confirmed"|"inferred" } ]` — a law-firm relationship is `"confirmed"`
+    only from a first-party announcement ("advised X" / "acted for X" on the firm's own
+    site or a release); a link merely inferred from deal coverage is `"inferred"`. One
+    entry per firm+role; dedupe on that pair. Unknown → omit the field (do not invent).
+  Never fabricate an adviser tie or a book attribute; if it isn't in a real source this
+  run, leave it for a later run. These fields never gate anything — a manager without
+  them renders fine.
 - **Private-credit scope — exclude equity-only entities.** Meridian Credit tracks
   European **private credit** only. Do NOT add a manager (or its funds) whose
   business is purely **equity** — private-equity/buyout, equity real estate, equity
