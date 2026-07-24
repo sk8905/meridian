@@ -87,6 +87,29 @@ notification badge red (`#ef4444`).
   only** (never body text).
 - **R10 — One muted grey** for all secondary labels ("Signed in as",
   "Sign out" → `--t-mut`). No one-off greys, no orange labels.
+- **R10a — Feed labels: colour = domain, text = type.** The wire pill
+  (`.g-feed-code`) is the ONE place a non-delta colour carries meaning. Its
+  **colour encodes the domain** (which desk the item belongs to) and its **text
+  encodes the type** (what kind of item it is). One domain = one token, reused for
+  every type within it — a Credit `DEAL` and a Credit `RAISE` are both `--t-crd`;
+  a Hedge `DEAL` is `--t-hdg`. **No per-type hex** (this retires the old ad-hoc
+  `deal`/`fund`/`case`/`scheme`/`rp` label hexes). Domain colour tokens:
+
+  | Domain | Token | Label types (text) |
+  |---|---|---|
+  | Newsletters | `--t-amber` | `LTR` · `SUBS` · `BREW` |
+  | myFT | `--t-ft` | `myFT` |
+  | Macro | `--t-mac` | `NEWS` · `COMM` (+ `BBG`/`ECON` macro wires) |
+  | Credit | `--t-crd` | `NEWS` · `DEAL` · `RAISE` |
+  | Hedge funds | `--t-hdg` | `NEWS` · `DEAL` · `RAISE` · `13F` |
+  | Legal | `--t-lex` | `NEWS` · `ALERT` · `CASE` |
+  | (neutral) | `--t-news` | `NEWS` — item not in any desk above |
+
+  `--t-hdg` (`#9a86f2`) is a named token (promoted from the old raw hex).
+  **Every wire row carries a label**; anything not clearly classifiable is `NEWS`
+  in the neutral domain. The label engine (`feed.js`) resolves colour from the
+  item's `dom` (domain) and text from its `desk` (type) — see its "Desk
+  vocabulary" header.
 
 ---
 
