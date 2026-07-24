@@ -374,6 +374,42 @@ function cloRosterFor(items) {
   }).sort((a, b) => String(b.vintage).localeCompare(String(a.vintage)) || String(b.date).localeCompare(String(a.date)));
 }
 
+// "Book & business" — additive, render-if-present manager detail (docs/
+// origination-radar-spec.md Part E). Every value is optional and sourced.
+function bookHTML(m) {
+  const b = m.book; if (!b) return "";
+  const chips = (arr) => arr.map((x) => `<span class="tdet-chip">${esc(x)}</span>`).join("");
+  const rows = [];
+  if (b.strategyDetail) rows.push(["Strategy", esc(b.strategyDetail)]);
+  if (b.checkSize) rows.push(["Typical check", esc(b.checkSize)]);
+  if (b.originationMix) rows.push(["Origination", esc(b.originationMix)]);
+  if (b.lpBase && b.lpBase.length) rows.push(["LP base", esc(b.lpBase.join(" · "))]);
+  const facts = rows.length ? `<ul class="tfacts">${rows.map(([k, v]) => `<li><span class="tf-k">${esc(k)}</span><span class="tf-v">${v}</span></li>`).join("")}</ul>` : "";
+  const instr = (b.instruments && b.instruments.length) ? `<div class="adv-role">Instruments</div><div class="tdet-chips">${chips(b.instruments)}</div>` : "";
+  const secs = (b.sectors && b.sectors.length) ? `<div class="adv-role">Target sectors</div><div class="tdet-chips">${chips(b.sectors)}</div>` : "";
+  const traj = (b.aumTrajectory && b.aumTrajectory.length)
+    ? `<div class="adv-role">AUM trajectory</div><ul class="tfacts">${b.aumTrajectory.map((t) => `<li><span class="tf-k">${esc(t.asOf)}</span><span class="tf-v">$${esc(String(t.aum))}bn</span></li>`).join("")}</ul>` : "";
+  const src = (b.sources && b.sources.length) ? `<div class="tdet-src">${b.sources.map((u, i) => `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">source${b.sources.length > 1 ? " " + (i + 1) : ""}</a>`).join(" · ")}</div>` : "";
+  return `<div class="tpg"><div class="tpg-h">Book &amp; business</div>`
+    + (b.note ? `<p class="tdet-desc">${esc(b.note)}</p>` : "") + facts + instr + secs + traj + src + `</div>`;
+}
+// "Advisers" — incumbent counsel grouped by product line (Part F). `firm` is a
+// display name; `confidence:"inferred"` edges (derived from public deal coverage)
+// are marked. Roles render in a fixed order, unknown roles appended.
+const ADV_ROLES = ["Fund formation", "Fund finance", "Financing/deals", "Restructuring", "Regulatory", "Tax"];
+function advisersHTML(m) {
+  const a = m.advisers; if (!a || !a.length) return "";
+  const roles = ADV_ROLES.filter((r) => a.some((x) => x.role === r))
+    .concat([...new Set(a.map((x) => x.role))].filter((r) => !ADV_ROLES.includes(r)));
+  const row = (x) => `<li class="tmini-row"><span class="tmini-t">`
+    + `${x.source ? `<a href="${esc(x.source)}" target="_blank" rel="noopener noreferrer">${esc(x.firm)}</a>` : esc(x.firm)}`
+    + `${x.confidence === "inferred" ? ` <span class="adv-inf" title="Inferred from public deal coverage — not confirmed panel counsel">inferred</span>` : ""}</span>`
+    + `<span class="tmini-m">${esc(x.scope || "")}${x.lastSeen ? " · " + esc(x.lastSeen) : ""}</span></li>`;
+  return `<div class="tpg"><div class="tpg-h">Advisers <span class="muted small" style="font-weight:400">· incumbent counsel by line</span></div>`
+    + roles.map((r) => `<div class="adv-grp"><div class="adv-role">${esc(r)}</div><ul class="tmini">${a.filter((x) => x.role === r).map(row).join("")}</ul></div>`).join("")
+    + `</div>`;
+}
+
 export function viewManager(id) {
   const m = managerById[id];
   if (!m) return notFound(app);
@@ -428,8 +464,13 @@ export function viewManager(id) {
     if (m.legal && m.legal.length) out += `<div class="tpg"><div class="tpg-h">Legal &amp; senior counsel</div><ul class="tmini">${m.legal.map((p) => `<li class="tmini-row"><span class="tmini-t">${esc(p.name)}${p.linkedin ? ` · <a href="${esc(p.linkedin)}" target="_blank" rel="noopener noreferrer" class="tw-mgr">LinkedIn</a>` : ""}</span><span class="tmini-m">${esc(p.role || "")}${p.city ? " · " + esc(p.city) : ""}</span></li>`).join("")}</ul></div>`;
     if (m.headcount) { const h = m.headcount; out += `<div class="tpg"><div class="tpg-h">Headcount${h.asOf ? ` · as of ${esc(h.asOf)}` : ""}</div><ul class="tfacts"><li><span class="tf-k">Investment professionals</span><span class="tf-v">${h.investment ?? "—"}</span></li><li><span class="tf-k">Other professionals</span><span class="tf-v">${h.other ?? "—"}</span></li><li><span class="tf-k">Total</span><span class="tf-v">${h.total ?? "—"}</span></li></ul></div>`; }
     if (m.filings && m.filings.length) out += `<div class="tpg"><div class="tpg-h">Regulatory &amp; account filings</div><ul class="tmini">${m.filings.map((x) => `<li class="tmini-row"><a class="tmini-t" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.label)}</a>${x.date ? `<span class="tmini-m">${esc(x.date)}</span>` : ""}</li>`).join("")}</ul></div>`;
-    return out || '<p class="tw-empty muted small">No ownership or personnel data compiled for this manager yet.</p>';
+    return out;
   })();
+  // ---- Business tab: Book & business + Advisers + ownership/personnel. Shown
+  // only when there's something to show (render-if-present); also the sole home
+  // for the ownership/counsel data (previously computed but never rendered). ----
+  const businessPane = bookHTML(m) + advisersHTML(m) + peoplePane;
+  const hasBiz = businessPane.trim().length > 0;
   // ---- Listed vehicles (BDC / registered CEF) — live holdings from SEC ----
   const vehicles = (VEHICLES && VEHICLES[m.id]) || [];
   const vehRow = (v) => {
@@ -464,6 +505,7 @@ export function viewManager(id) {
               <button type="button" class="tchip" data-p="funds">Funds${fs.length ? " " + fs.length : ""}</button>
               <button type="button" class="tchip" data-p="clos">CLOs${mgrCloRoster.length ? " " + mgrCloRoster.length : ""}</button>
               ${vehicles.length ? `<button type="button" class="tchip" data-p="vehicles">Vehicles ${vehicles.length}</button>` : ""}
+              ${hasBiz ? `<button type="button" class="tchip" data-p="business">Business</button>` : ""}
             </div>
           </header>
           <div class="tpanes" id="mgr-panes">
@@ -471,6 +513,7 @@ export function viewManager(id) {
             ${pane("funds", fundsPane)}
             ${pane("clos", closPane)}
             ${vehicles.length ? pane("vehicles", vehiclesPane) : ""}
+            ${hasBiz ? pane("business", businessPane) : ""}
           </div>
         </section>
       </div>

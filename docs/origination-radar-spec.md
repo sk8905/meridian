@@ -14,8 +14,9 @@ Design constraints already agreed:
 - **Private overlay lives apart.** Warm nodes / firm coverage / tiers / notes go in a
   per-user, Access-gated KV store (the watchlist/bookmarks mechanism) — never in the
   committed data files, never co-mingled with anything privileged. Conflicts-clean.
-- **65/35.** Relationships get the meeting; expertise wins the work. The 65/35 is
-  encoded *inside* winnability (Access 0.65 / Conversion 0.35).
+- **65/35.** Relationships get the meeting; expertise wins the work. Reflected not as a
+  weighted score but by showing *both* sides on every row — your warm/firm-coverage flags
+  (access) alongside the incumbent/white-space picture (winnability) — for you to judge.
 
 ---
 
@@ -34,68 +35,27 @@ Yields the ~40–60 account list — the spine of everything.
 
 ---
 
-## Part B — Scoring formula
+## Part B — No algorithmic score (by request)
 
-Each signal normalises to [0,1] unless noted. All weights are tunable in the UI;
-defaults below.
+There is **no computed ranking score**. A senior practitioner ranks by judgment, not a
+black box. The radar is a **filterable, sortable workspace** over the target universe: the
+signals below are surfaced as **facts and flags** on each row (not folded into a number),
+and *you* apply tiers and priority yourself.
 
-### Prize P — "how much work is here?"
-```
-P = 0.45·Wallet + 0.30·Velocity + 0.25·ScaleFit
-```
-- **Wallet** = (# active product lines) / 5 — breadth of cross-sell.
-- **Velocity** = min(1, log1p(events_12m) / log1p(24)) — deal/raise cadence (≈24 = saturated).
-- **ScaleFit** = triangular peak in the mid-market: 1.0 at $2–6bn, ~0.4 at $1bn and $10bn,
-  →0.2 above $20bn. (You *want* mid-market, not mega.)
+Signals surfaced per fund (all **derived from existing data**, so they refresh for free):
 
-### Winnability W — "can I win it?" (the 65/35)
-```
-W = 0.65·Access + 0.35·Conversion
-Conversion = 0.60·Contestability + 0.40·PracticeFit
-```
-- **Access** (private overlay) = max(relationship, firmCoverage):
-  - relationship: none 0 · warm-path 0.5 · named-contact 0.7 · strong 1.0
-  - firmCoverage: not-a-client 0 · dormant 0.5 · active-client 0.9
-- **Contestability** (from Advisers, per targeted line): white-space 1.0 · single
-  mismatched incumbent (e.g. magic-circle on a €2bn fund) 0.7 · entrenched rival 0.3 ·
-  your own firm already primary → *excluded* (that's cross-sell — routes into firmCoverage).
-- **PracticeFit** = weighted overlap of the fund's active product lines ∩ your declared strengths.
-
-### Base score
-```
-S0 = 100 · (0.40·P + 0.60·W)          # winnability-tilted; tunable
-```
-
-### Timing T — "why now?" (a multiplier, kept visible)
-```
-T = 1 + Σ( boost · decay · relevance ), capped at +0.60
-```
-- **boost**: Final Close .50 · New-product first appearance .50 · Portfolio name on Stress
-  board .40 · Launch/First Close .35 · Senior personnel move .20
-- **decay** = exp(−ageDays / 45) — a 6-week-old trigger has largely faded.
-- **relevance** = 1 if the trigger's product line ∈ your strengths, else 0.5.
-
-### Final
-```
-Score = round( S0 · T )               # 0–~160; flag "hot" when T ≥ 1.25
-Tiers: A ≥ 110 · B 80–109 · C < 80    # plus a manual pin override
-```
-
-Everything except Access, PracticeFit and the strengths list is **derived from existing
-data** and refreshes for free. Only the private inputs are yours.
-
----
-
-## Part C — Signal → source → computation
-
-| Signal | Source (already in Wire) | Computation |
+| Signal | Source (already in Wire) | Shown as |
 |---|---|---|
-| Wallet / product lines | manager SLS chips (NAV/CONT/SEC/STRIP/CFO/SRT), deal types, fundraising, Stress/Schemes on portfolio | line "active" if the matching chip/deal/stress edge exists in last ~18m |
-| Velocity | `deals` + `intel` + `webNews` (transactions) | count last 12m, log-scaled |
-| ScaleFit | manager `aumTotal` | triangular mid-market curve |
-| Contestability | new `advisers` field (Part F) + Legal-desk firm PC deals | per-line incumbent state |
-| Triggers | fundraising status change, first product-chip appearance, Stress board, launches, personnel | event within decay window |
-| Access / PracticeFit / strengths | **private overlay (Part G)** | user-set |
+| Wallet / product lines | manager SLS chips (NAV/CONT/SEC/STRIP/CFO/SRT), deal types, fundraising, Stress/Schemes on portfolio | a row of wallet chips (which of your 5 lines are active) |
+| Activity | `deals` + `intel` + `webNews` (transactions), last 12m | a count / "active" marker |
+| Scale | manager `aumTotal` | AUM band label (mid-market highlighted) |
+| Incumbents | new `advisers` field (Part F) + Legal-desk firm PC deals | per-line incumbent chips + a "white space" flag where none |
+| Triggers | fundraising status change, first product-chip appearance, Stress board, launches, personnel | a dated "why now" chip (most recent) |
+| Your flags | **private overlay (Part G)** | your tier · warm-node · firm-coverage · next action |
+
+Sort and filter, don't score: filters for product line · AUM band · warm-only · has-trigger ·
+white-space-only · tier; sortable columns (name, AUM, activity, last trigger date). Your
+manual **tier (A/B/C)** and **pin** are the only ranking — set by you, per fund.
 
 ---
 
@@ -104,9 +64,11 @@ data** and refreshes for free. Only the private inputs are yours.
 Contained view, built from existing lego (league-table renderer, feed engine, tui terminal
 CSS, chips, KV-sync). Four panes behind chips:
 
-1. **Radar** (default) — target funds ranked by Score desc. Columns: Score · fund/manager ·
-   strategy · AUM band · wallet chips · incumbent status · dominant trigger · your tier/warm
-   flag. Filters: product line · AUM band · warm-only · has-trigger · contestable-only.
+1. **Radar** (default) — the target universe as a sortable, filterable table (no score).
+   Columns: your tier · fund/manager · strategy · AUM band · wallet chips · incumbent
+   status (+ white-space flag) · most-recent trigger · your warm flag. Sort by any column;
+   filter by product line · AUM band · warm-only · has-trigger · white-space-only · tier.
+   You set the tiers.
 2. **Account card** — the enriched profile (Parts E/F) + a BD panel: wallet decomposition
    across the five lines · incumbents per line · trigger timeline · your private notes.
 3. **Pipeline** — your tiered targets with notes / next-action / due (private).
@@ -165,10 +127,10 @@ never committed, never co-mingled with shared/privileged data.
 
 ```js
 {
-  strengths: [ { line: "Fund finance", weight: 1 }, { line: "Structured", weight: 0.8 } ],
+  strengths: ["Fund finance", "Structured"],   // optional — used only to highlight fit, not to score
   targets: {
     "<managerId>": {
-      tier: "A" | "B" | "C" | null,
+      tier: "A" | "B" | "C" | null,            // your manual ranking — the only ranking
       pin: false,
       relationship: "none" | "warm-path" | "named-contact" | "strong",
       firmCoverage: "none" | "dormant" | "active",
@@ -192,9 +154,9 @@ private overlay.
 
 ---
 
-## Open inputs (from you, when ready — defaults hold until then)
+## Open inputs (from you, when ready — nothing is blocked without them)
 
-1. **Your product-line strengths** (weights) — drives PracticeFit + trigger relevance.
-2. **Cross-sell vs conquest lean** — if you're joining a platform that already acts for many
-   targets, tilt weights toward Access/firmCoverage; if cold, toward Contestability. You said
-   "not sure yet", so the defaults above stay balanced and this is a one-line tune later.
+1. **Your product-line strengths** (optional) — only used to *highlight* fit on a row; no score.
+2. **Cross-sell vs conquest lean** — you said "not sure yet". With no scoring, this needs no
+   decision now: the incumbent/white-space and warm/firm-coverage flags are shown side by
+   side and you weigh them yourself.

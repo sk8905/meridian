@@ -68,11 +68,18 @@ a { color: var(--primary); text-decoration: none; }
   #v2-footer { flex: 0 0 auto; }
   .v2-view .g-main.tui { height: 100%; }
   .v2-view .tdash { height: 100%; }
-  /* Dashboard (.dsh) and Newsletters (.nl-wrap) are plain card/feed stacks with
-     no internal terminal layout of their own — on desktop the shell is fixed
-     (body overflow:hidden), so they must scroll INTERNALLY or long content clips.
-     Their sticky sub-nav (.dsh-nav) pins to the top of this same scroller. */
-  .v2-view .dsh, .v2-view .nl-wrap { height: 100%; overflow-y: auto; }
+  /* Dashboard (.dsh) is a plain card stack with no internal terminal layout — on
+     desktop the shell is fixed (body overflow:hidden), so it scrolls INTERNALLY or
+     long content clips. Its sticky sub-nav (.dsh-nav) pins to the top of it. */
+  .v2-view .dsh { height: 100%; overflow-y: auto; }
+  /* Newsletters: make the FEED the single internal scroller (filter bar pinned).
+     A bare overflow-y:auto on .nl-wrap left #nl-feed ALSO an auto-overflow box at
+     full content height — some browsers then trap the wheel on it (nothing to
+     scroll there, and no propagation to the wrap that can), so the page "won't
+     scroll" under the cursor. One flex-column scroller fixes it (matches Home). */
+  .v2-view .nl-wrap { height: 100%; display: flex; flex-direction: column; overflow: hidden; }
+  .v2-view .nl-wrap > .g-feed-head { flex: 0 0 auto; }
+  .v2-view .nl-wrap > .g-feed { flex: 1 1 auto; min-height: 0; overflow-y: auto; }
   /* The header strips (bar · ticker · briefing) must keep their natural height —
      as flex items they were shrinking, which clipped the one-line briefing. */
   #wire-header .topbar, #wire-header .wticker, #wire-header .wbrief { flex: 0 0 auto; }
