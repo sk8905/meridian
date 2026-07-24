@@ -9,9 +9,9 @@
 // =============================================================================
 // Data modules are versioned (matching each app) so the live Glance busts its
 // cache with the four-times-daily data refresh instead of serving a stale copy.
-import { deals, intel, managers, funds, research, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260718-9";
-import { items, cases, restructurings, firmById } from "/legal/js/data.js?v=20260718-10";
-import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js?v=20260718-9";
+import { deals, intel, managers, funds, research, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js";
+import { items, cases, restructurings, firmById } from "/legal/js/data.js";
+import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js";
 import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
 

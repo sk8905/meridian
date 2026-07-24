@@ -9,9 +9,9 @@
 // All five data modules are served Cache-Control: no-cache (see _headers), so
 // these imports always revalidate — the ?v= tokens on the app-owned modules
 // are inert here and kept only to mirror each app's own import line.
-import { deals, intel, managers, funds, research, HEDGE_FUNDS, HEDGE_INTEL } from "/credit/js/data.js?v=20260718-9";
-import { items, cases, restructurings, firms } from "/legal/js/data.js?v=20260718-10";
-import { NEWS, ARTICLES, ALERTS } from "/macro/js/content.js?v=20260718-9";
+import { deals, intel, managers, funds, research, HEDGE_FUNDS, HEDGE_INTEL } from "/credit/js/data.js";
+import { items, cases, restructurings, firms } from "/legal/js/data.js";
+import { NEWS, ARTICLES, ALERTS } from "/macro/js/content.js";
 import { FT_ITEMS } from "/ft.js";
 import { NEWSLETTERS } from "/newsletters.js";
 

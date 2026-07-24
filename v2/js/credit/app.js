@@ -9,7 +9,7 @@ import {
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
   HEDGE_FUNDS, HEDGE_FUNDS_ASOF, HEDGE_INTEL,
-} from "/credit/js/data.js?v=20260724-9";
+} from "/credit/js/data.js";
 import { barChart, donutChart, lineChart, multiLineChart } from "/credit/js/charts.js?v=20260722-4";
 import {
   eur, pct, fmtDate, link, notFound,

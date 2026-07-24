@@ -13,7 +13,7 @@ import {
   managerById, fundById, lpById, funds, lps, intel, deals,
   fundsByManager, intelForFund, dealsForFund, dealsForManager, intelForManager,
   HEDGE_FUNDS,
-} from "/credit/js/data.js?v=20260724-9";
+} from "/credit/js/data.js";
 import { esc } from "/util.js?v=20260719-1";
 import {
   eur, pct, fmtDate, link, sources, raiseDisplay, nameCell, saveBtn, newsSaveId,
@@ -597,7 +597,7 @@ function hfHoldingsTable(d, perfMap) {
   const rows = d.holdings.map((h, i) => `<tr>`
     + `<td class="tl-n">${i + 1}</td>`
     + `<td class="tl-nm">${esc(h.name || "—")}</td>`
-    + `<td class="tl-tick">${h.ticker ? esc(h.ticker) : "—"}</td>`
+    + `<td class="tl-tick">${h.ticker ? `<a href="https://finance.yahoo.com/quote/${encodeURIComponent(h.ticker)}" target="_blank" rel="noopener noreferrer" title="${esc(h.ticker)} on Yahoo Finance">${esc(h.ticker)}</a>` : "—"}</td>`
     + `<td class="tl-hq">${esc(h.cusip || "")}</td>`
     + `<td class="tl-n">${esc(hfUsd(h.value))}</td>`
     + `<td class="tl-n">${h.shares != null && isFinite(h.shares) ? esc(Math.round(h.shares).toLocaleString("en-US")) : "—"}</td>`

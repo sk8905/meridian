@@ -177,9 +177,21 @@ notification badge red (`#ef4444`).
 
 ## 7. Technical rules
 
-- **T1 — Single build version.** One `V` from `import.meta.url` propagates to
-  every asset via `vurl()`; bump the `?v=` token on any changed CSS/JS so
-  caches bust together.
+- **T1 — Cache-busting: code carries a token, data does NOT.**
+  - **Code** (CSS/JS: views, engines, chrome, CSS) is fingerprinted with a `?v=`
+    token; one build `V` from `import.meta.url` propagates via `vurl()`. Bump the
+    token on any changed CSS/JS so caches bust together. Code changes ship on
+    deploy, authored by sessions.
+  - **Data** (`credit/js/data.js`, `legal/js/data.js`, `macro/js/content.js`,
+    `dashboard/js/data.js`, `newsletters.js`, `ft.js`) is imported with **NO
+    `?v=` token** and served `Cache-Control: no-cache` (see `_headers`). Every
+    importer therefore uses one tokenless URL → a **single module instance**
+    (the old cross-file `?v=` drift that double-instanced a module and blanked a
+    page is now structurally impossible), and freshness comes from ETag
+    revalidation, not a hand-bumped token. This is deliberate: the 5×/day refresh
+    routine edits ONLY these data files and never a token, so routine commits and
+    session commits stop colliding. **Never add a `?v=` back to a data-file
+    import**, and never hand-bump a data token.
 - **T2 — ES modules, no bundler.** One runtime loads once; each view
   lazy-loads its own CSS array; switching tabs swaps a keep-alive view in
   memory (no document reload).

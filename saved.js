@@ -9,7 +9,7 @@
 import { ARTICLES, NEWS, COMMENTARY } from "/macro/js/content.js";
 import { byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
 import { deals, intel, managers, HEDGE_FUNDS, HEDGE_INTEL } from "/credit/js/data.js";
-import { items, cases, restructurings, firms } from "/legal/js/data.js?v=20260718-10";
+import { items, cases, restructurings, firms } from "/legal/js/data.js";
 
 // ---- id schemes -------------------------------------------------------------
 function _savedHash(s) { let h = 0; for (let i = 0; i < s.length; i++) h = (Math.imul(h, 31) + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); }
