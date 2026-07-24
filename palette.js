@@ -26,7 +26,7 @@ function feedDedupKey(x) {
 import { esc } from "/util.js?v=20260719-1";
 // Shared label vocabulary + classifier, so a "#CODE" search behaves identically
 // here and in the Home palette (same tags, same precedence).
-import { PAL_CODE, deskFor, palTag, nlDesk, onLiveWire } from "/feed.js?v=20260723-3";
+import { PAL_CODE, deskFor, palTag, nlDesk, onLiveWire } from "/feed.js?v=20260724-2";
 const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const fmt = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ""); return m ? `${+m[3]} ${MON[+m[2] - 1]} ${m[1]}` : (iso || ""); };
 const mgrName = (id) => (managers.find((m) => m.id === id) || {}).name || "";
@@ -65,7 +65,7 @@ function buildIndex() {
   managers.forEach((m) => add("credit", m.name, "Manager", `/credit/#/manager/${encodeURIComponent(m.id)}`, 0, "", "Manager"));
   funds.forEach((f) => add("credit", f.name, `Fund${f.managerId && mgrName(f.managerId) ? " · " + mgrName(f.managerId) : ""}`, `/credit/#/fund/${encodeURIComponent(f.id)}`, 1, "", "Fund"));
   deals.forEach((d) => add("credit", d.headline, `${d.clo ? "CLO" : "Deal"} · ${fmt(d.date)}${mgrName(d.managerId) ? " · " + mgrName(d.managerId) : ""}`, creditItemHref(d), d.clo ? 1 : 2, d.date, d.clo ? "CLO" : "Deal"));
-  intel.forEach((i) => add("credit", i.headline, `${i.clo ? "CLO · " : ""}${i.type || "Fundraising"} · ${fmt(i.date)}${mgrName(i.managerId) ? " · " + mgrName(i.managerId) : ""}`, creditItemHref(i), i.clo ? 1 : 2, i.date, i.clo ? "CLO" : "Fundraising"));
+  intel.forEach((i) => add("credit", i.headline, `${i.clo ? "CLO · " : ""}${i.type || "Fundraising"} · ${fmt(i.date)}${mgrName(i.managerId) ? " · " + mgrName(i.managerId) : ""}`, creditItemHref(i), i.clo ? 1 : 2, i.date, i.clo ? "CLO" : "Raise"));
   (research || []).forEach((r) => add("credit", r.title, `${r.institution}${r.type ? " · " + r.type : ""}${r.date ? " · " + fmt(r.date) : ""}`, r.url, 2, r.date, "Commentary"));
   const hfNm = {};
   (HEDGE_FUNDS || []).forEach((f) => { hfNm[f.id] = f.name; add("credit", f.name, `Hedge fund · ${f.strategy}`, `/credit/#/hf/${encodeURIComponent(f.id)}`, 1, "", "Hedge fund"); });
@@ -187,7 +187,7 @@ export function mountPalette() {
     <div class="mcmdk-panel">
       <div class="mcmdk-bar">
         <svg class="mcmdk-mag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.6" y1="15.6" x2="21" y2="21"/></svg>
-        <input class="mcmdk-input" type="text" placeholder="Search deals, managers, cases…" autocomplete="off" spellcheck="false" aria-label="Search" />
+        <input class="mcmdk-input" type="text" placeholder="Search…   #label · /profile" autocomplete="off" spellcheck="false" aria-label="Search" />
         <button class="mcmdk-clear" type="button" aria-label="Clear search" hidden>✕</button>
         <button class="mcmdk-cancel" type="button" data-close aria-label="Cancel search">Cancel</button>
       </div>
@@ -203,16 +203,18 @@ export function mountPalette() {
   const score = (e, q) => { const t = e.title.toLowerCase(); return t === q ? 0 : t.startsWith(q) ? 1 : t.includes(q) ? 2 : e.hay.includes(q) ? 3 : 4; };
   function searchIdx(q) {
     q = q.trim().toLowerCase();
-    // "#CODE [text]" filters by the label chip (e.g. #FT, #LEX, #LTR) — prefix
-    // match, so #LE lists LEX and LTR together. "/SOURCE" filters by the newsroom
-    // (e.g. /Financial Times, /Bloomberg) — the whole remainder is the source, a
-    // prefix match, so /Bloom lists every Bloomberg story.
-    let code = null, src = null;
+    // "#LABEL [text]" filters by the label — the coarse desk code (MAC/CRD/LEX/
+    // FT/LTR) OR the fine type/kind (Deal/Raise/Alert/Case/Firm/Manager/…), prefix
+    // match. "/NAME" jumps to a PROFILE (manager / fund / hedge fund / law firm) —
+    // "/" alone lists them; "/fresh" narrows to Freshfields etc. (Source filtering
+    // now lives on a row's long-press "Show all from …", not the palette.)
+    let code = null, prof = false;
     if (q.startsWith("#")) { const parts = q.slice(1).split(/\s+/); code = parts.shift() || ""; q = parts.join(" "); }
-    else if (q.startsWith("/")) { src = q.slice(1).trim(); q = ""; }
-    if (!q && !code && !src) return [];
-    const pool = code ? idx.filter((e) => String(DESKCODE[e.tag] || e.label || e.tag).toLowerCase().startsWith(code))
-      : src ? idx.filter((e) => e.source && e.source.startsWith(src))
+    else if (q.startsWith("/")) { prof = true; q = q.slice(1).trim(); }
+    if (!q && !code && !prof) return [];
+    const PROFILE_LABELS = new Set(["manager", "fund", "firm", "hedge fund"]);
+    const pool = code ? idx.filter((e) => String(DESKCODE[e.tag] || "").toLowerCase().startsWith(code) || String(e.label || "").toLowerCase().startsWith(code))
+      : prof ? idx.filter((e) => PROFILE_LABELS.has(String(e.label || "").toLowerCase()))
       : idx;
     const toks = q ? q.split(/\s+/) : [];
     return pool.filter((e) => toks.every((t) => e.hay.includes(t)))
@@ -222,7 +224,7 @@ export function mountPalette() {
         (a.e.rank === 2 ? String(b.e.date).localeCompare(String(a.e.date)) : 0) ||
         a.s - b.s ||
         a.e.title.localeCompare(b.e.title))
-      .slice(0, (code || src) ? 60 : 40).map((x) => x.e);
+      .slice(0, (code || prof) ? 60 : 40).map((x) => x.e);
   }
   function draw() {
     results.innerHTML = current.length
