@@ -1084,5 +1084,8 @@
       .tui a.rate-tile:hover .rate-label,
       .tui a.rate-tile:hover .rate-val,
       a.g-feed-row:hover .g-feed-title,
-      :root[data-theme="dark"] a.g-feed-row:hover .g-feed-title{ color:inherit; }
+      /* NOT `inherit`: these rows are <a>, whose base colour is the app's orange
+         link colour (a{color:var(--primary)}), so `inherit` turns the tapped
+         title/label orange under the thumb. Pin the resting ink instead. */
+      :root[data-theme="dark"] a.g-feed-row:hover .g-feed-title{ color:var(--t-ink, var(--ink)); }
     }
