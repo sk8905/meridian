@@ -12,7 +12,7 @@
 import {
   managerById, fundById, lpById, funds, lps, intel, deals,
   fundsByManager, intelForFund, dealsForFund, dealsForManager, intelForManager,
-  HEDGE_FUNDS,
+  HEDGE_FUNDS, VEHICLES,
 } from "/credit/js/data.js";
 import { esc } from "/util.js?v=20260719-1";
 import {
@@ -418,6 +418,19 @@ export function viewManager(id) {
     if (m.filings && m.filings.length) out += `<div class="tpg"><div class="tpg-h">Regulatory &amp; account filings</div><ul class="tmini">${m.filings.map((x) => `<li class="tmini-row"><a class="tmini-t" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.label)}</a>${x.date ? `<span class="tmini-m">${esc(x.date)}</span>` : ""}</li>`).join("")}</ul></div>`;
     return out || '<p class="tw-empty muted small">No ownership or personnel data compiled for this manager yet.</p>';
   })();
+  // ---- Listed vehicles (BDC / registered CEF) — live holdings from SEC ----
+  const vehicles = (VEHICLES && VEHICLES[m.id]) || [];
+  const vehRow = (v) => {
+    const tag = v.type === "cef" ? `<span class="veh-tag veh-cef">CEF · N-PORT</span>` : `<span class="veh-tag veh-bdc">BDC · 10-Q</span>`;
+    return `<div class="veh">`
+      + `<div class="veh-h"><span class="veh-nm">${esc(v.name)}${v.ticker ? ` <span class="veh-tk">${esc(v.ticker)}</span>` : ""}</span>${tag}`
+      + `<button type="button" class="tfocus-btn veh-load" data-cik="${esc(v.cik)}" data-type="${esc(v.type)}" data-nm="${esc(v.name)}">Load holdings</button></div>`
+      + `<div class="veh-body" id="veh-${esc(v.cik)}"></div></div>`;
+  };
+  const vehiclesPane = vehicles.length
+    ? `<p class="tw-empty muted small">Publicly-listed lending vehicles. <strong>BDCs</strong> (10-Q Schedule of Investments) show the top portfolio positions by fair value with % of the reported book; registered <strong>CEFs</strong> (N-PORT) show top holdings by value — each links to the latest SEC filing. Tap <em>Load holdings</em>.</p>`
+      + vehicles.map(vehRow).join("")
+    : "";
   const pane = (p, inner) => `<div class="tpane" data-p="${p}"${p === "news" ? "" : " hidden"}>${inner}</div>`;
 
   app.innerHTML = `
@@ -438,12 +451,14 @@ export function viewManager(id) {
               <button type="button" class="tchip is-on" data-p="news">News</button>
               <button type="button" class="tchip" data-p="funds">Funds${fs.length ? " " + fs.length : ""}</button>
               <button type="button" class="tchip" data-p="clos">CLOs${mgrCloRoster.length ? " " + mgrCloRoster.length : ""}</button>
+              ${vehicles.length ? `<button type="button" class="tchip" data-p="vehicles">Vehicles ${vehicles.length}</button>` : ""}
             </div>
           </header>
           <div class="tpanes" id="mgr-panes">
             ${pane("news", newsPane)}
             ${pane("funds", fundsPane)}
             ${pane("clos", closPane)}
+            ${vehicles.length ? pane("vehicles", vehiclesPane) : ""}
           </div>
         </section>
       </div>
@@ -457,6 +472,18 @@ export function viewManager(id) {
     _chipMem[chipMemKey("mgr-tabs")] = p || "news";
     document.querySelectorAll("#mgr-panes .tpane").forEach((el) => { el.hidden = el.dataset.p !== p; });
   });
+  // Listed-vehicle holdings: fetch the latest N-PORT (CEF) or 10-Q SOI (BDC).
+  document.querySelectorAll(".veh-load").forEach((btn) => btn.addEventListener("click", () => {
+    const cik = btn.dataset.cik, type = btn.dataset.type;
+    const body = document.getElementById("veh-" + cik);
+    if (!body) return;
+    btn.disabled = true; btn.textContent = "Loading…";
+    body.innerHTML = `<p class="tw-empty muted small">Fetching latest SEC filing…</p>`;
+    fetch(`${type === "cef" ? "/api/nport" : "/api/bdc"}?cik=${encodeURIComponent(cik)}`, { headers: { accept: "application/json" } })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => { btn.disabled = false; btn.textContent = "Refresh"; renderVehicle(body, d, type); })
+      .catch(() => { btn.disabled = false; btn.textContent = "Retry"; body.innerHTML = `<p class="tw-empty muted small">Holdings unavailable right now — try again shortly.</p>`; });
+  }));
   if (tabs) {
     const k0 = _chipMem[chipMemKey("mgr-tabs")];
     const b0 = k0 && k0 !== "news" ? tabs.querySelector(`.tchip[data-p="${k0}"]`) : null;
@@ -591,6 +618,20 @@ function hfPerfCell(h, perfMap, k) {
   if (!perfMap) return `<span class="muted">…</span>`;
   const p = perfMap[String(h.ticker).toUpperCase()];
   return hfPct(p ? p[k] : null);
+}
+// Render a listed vehicle's top holdings (N-PORT for CEFs, 10-Q SOI for BDCs).
+function renderVehicle(body, d, type) {
+  const link = (d && d.source) ? ` · <a href="${esc(d.source)}" target="_blank" rel="noopener noreferrer" class="tw-mgr">latest filing</a>` : "";
+  if (!d || !Array.isArray(d.holdings) || !d.holdings.length) {
+    body.innerHTML = `<p class="tw-empty muted small">${type === "bdc" ? "Could not parse this filer's Schedule of Investments automatically" : "No N-PORT holdings available"}${link ? " — see the" + link : "."}</p>`;
+    return;
+  }
+  const usd = (v) => v >= 1e9 ? "$" + (v / 1e9).toFixed(2) + "bn" : v >= 1e6 ? "$" + (v / 1e6).toFixed(0) + "m" : "$" + Math.round(v || 0).toLocaleString("en-US");
+  const rows = d.holdings.map((h, i) => `<tr><td class="tl-n">${i + 1}</td><td class="tl-nm">${esc(h.name || "—")}</td>`
+    + `<td class="tl-n">${usd(h.value)}</td><td class="tl-n">${h.weight != null && isFinite(h.weight) ? (h.weight * 100).toFixed(1) + "%" : "—"}</td></tr>`).join("");
+  body.innerHTML = `<div class="tleague-wrap"><table class="tleague tl-holdings"><thead><tr><th>#</th>`
+    + `<th>${type === "bdc" ? "Portfolio company" : "Holding"}</th><th>Fair value</th><th>${type === "bdc" ? "% of book" : "% of NAV"}</th></tr></thead><tbody>${rows}</tbody></table></div>`
+    + `<p class="tl-sls-key muted small">Top ${d.holdings.length} by fair value${d.asOf ? `, as of ${esc(d.asOf)}` : ""}${link}. ${type === "bdc" ? "Fair values summed across a company's tranches; % of the parsed portfolio (there is an inherent quarterly-filing lag)." : "% of net assets from the N-PORT filing."}</p>`;
 }
 function hfHoldingsTable(d, perfMap) {
   if (!d || !Array.isArray(d.holdings) || !d.holdings.length) return null;

@@ -236,6 +236,33 @@ export const managers = [
   {"id":"m153","aumTotal":130,"aumCredit":null,"webNews":[{"date":"2026-07-01","outlet":"PR Newswire","title":"Starwood Capital Group Raises $10.2 Billion Opportunistic Real Estate Fund","url":"https://www.prnewswire.com/news-releases/starwood-capital-group-raises-10-2-billion-opportunistic-real-estate-fund-302815286.html"},{"date":"2025-06-03","outlet":"PR Newswire","title":"Starwood Capital Group Closes Private-Credit Focused Vehicles at Total Valuation of $2.86 Billion","url":"https://www.prnewswire.com/news-releases/starwood-capital-group-closes-private-credit-focused-vehicles-at-total-valuation-of-2-86-billion-302471788.html"}],"name":"Starwood Capital Group","hq":"Miami Beach, FL, US","founded":1991,"aum":130,"aumText":"~$130bn AUM firm-wide (2025, est.); real-estate credit run through Starwood Property Trust (NYSE: STWD)","strategies":["Real Estate Debt","Opportunistic Credit"],"description":"Global private investment firm founded in 1991 by Barry Sternlicht, focused on real estate — including a large real-estate-credit franchise run through its listed vehicle Starwood Property Trust (NYSE: STWD) — plus energy infrastructure and opportunistic strategies. On 3 Jun 2025 it closed three private-credit-focused vehicles (US, Europe, Australia) at a combined $2.86bn of commitments.","asOf":"2026-07-24","estimated":true,"owners":[{"name":"Barry Sternlicht (founder, Chairman & CEO)","stake":"Controlling"}],"financials":{"summary":"~$130bn of assets under management firm-wide (2025, est., per Starwood Capital); real-estate credit managed principally through the listed Starwood Property Trust (NYSE: STWD). Exact firm-AUM as-of date not cleanly disclosed publicly.","asOf":"2025"},"headcount":null,"filings":[],"news":[{"date":"2025-06-03","outlet":"PR Newswire","title":"Starwood Capital Group Closes Private-Credit Focused Vehicles at Total Valuation of $2.86 Billion","url":"https://www.prnewswire.com/news-releases/starwood-capital-group-closes-private-credit-focused-vehicles-at-total-valuation-of-2-86-billion-302471788.html"}],"regSources":[],"sources":[{"label":"Starwood Capital Group","url":"https://www.starwoodcapital.com/"},{"label":"Wikipedia — Starwood Capital Group","url":"https://en.wikipedia.org/wiki/Starwood_Capital_Group"},{"label":"PR Newswire — Starwood closes private-credit vehicles at $2.86bn","url":"https://www.prnewswire.com/news-releases/starwood-capital-group-closes-private-credit-focused-vehicles-at-total-valuation-of-2-86-billion-302471788.html"}]},
 ];
 
+// Managers' publicly-listed / SEC-registered lending VEHICLES, keyed by manager
+// id. `type` "bdc" → files 10-K/10-Q (loan-by-loan Schedule of Investments);
+// "cef" → registered closed-end fund, files N-PORT (portfolio holdings). `cik`
+// is the vehicle's own SEC EDGAR CIK (10-digit), verified on EDGAR. The manager
+// page loads each vehicle's latest holdings live (/api/nport for CEFs, /api/bdc
+// for BDCs) and links to the filing. Never fabricated — CIKs verified July 2026.
+export const VEHICLES = {
+  m8:  [{ name: "Blackstone Secured Lending Fund", ticker: "BXSL", type: "bdc", cik: "0001736035" },
+        { name: "Blackstone Private Credit Fund", ticker: "BCRED", type: "bdc", cik: "0001803498" }],
+  m90: [{ name: "Blue Owl Capital Corp", ticker: "OBDC", type: "bdc", cik: "0001655888" },
+        { name: "Blue Owl Technology Finance Corp", ticker: "OTF", type: "bdc", cik: "0001747777" }],
+  m20: [{ name: "Ares Capital Corp", ticker: "ARCC", type: "bdc", cik: "0001287750" },
+        { name: "Ares Dynamic Credit Allocation Fund", ticker: "ARDC", type: "cef", cik: "0001515324" }],
+  m7:  [{ name: "MidCap Financial Investment Corp", ticker: "MFIC", type: "bdc", cik: "0001278752" },
+        { name: "Apollo Senior Floating Rate Fund", ticker: "AFT", type: "cef", cik: "0001502573" },
+        { name: "Apollo Tactical Income Fund", ticker: "AIF", type: "cef", cik: "0001526697" }],
+  m74: [{ name: "Golub Capital BDC", ticker: "GBDC", type: "bdc", cik: "0001476765" }],
+  m63: [{ name: "Nuveen Churchill Direct Lending Corp", ticker: "NCDL", type: "bdc", cik: "0001737924" }],
+  m6:  [{ name: "Barings BDC", ticker: "BBDC", type: "bdc", cik: "0001379785" }],
+  m23: [{ name: "Sixth Street Specialty Lending", ticker: "TSLX", type: "bdc", cik: "0001508655" }],
+  m31: [{ name: "HPS Corporate Lending Fund", ticker: "HLEND", type: "bdc", cik: "0001838126" }],
+  m89: [{ name: "Oaktree Specialty Lending Corp", ticker: "OCSL", type: "bdc", cik: "0001414932" }],
+  m18: [{ name: "Carlyle Secured Lending", ticker: "CGBD", type: "bdc", cik: "0001544206" }],
+  m65: [{ name: "Bain Capital Specialty Finance", ticker: "BCSF", type: "bdc", cik: "0001655050" }],
+  m73: [{ name: "Antares Private Credit Fund", ticker: null, type: "bdc", cik: "0001976336" }],
+};
+
 // ---------------------------------------------------------------------------
 // Funds — targetSize / hardCap / raised in approximate € millions (null =
 // undisclosed). `evergreen: true` = open-ended (no fixed target); `raised` for

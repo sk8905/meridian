@@ -1122,6 +1122,140 @@ async function handleFilings(request, env, ctx) {
   }
 }
 
+// ===================== N-PORT HOLDINGS (registered CEFs) ==================
+// Top holdings for a registered closed-end fund from its latest public N-PORT-P
+// (structured XML — the third-month-of-quarter portfolio, public 60 days after
+// quarter-end). Parses <invstOrSec> blocks for name / valUSD / pctVal / assetCat.
+// Never fabricated. Edge-cached 24h. Similar shape to /api/13f.
+async function handleNPort(request, env, ctx) {
+  const url = new URL(request.url);
+  const raw = (url.searchParams.get("cik") || "").replace(/\D/g, "");
+  if (!raw) return json({ holdings: null, error: "missing cik" });
+  const cik = raw.padStart(10, "0");
+  const cikNoPad = String(Number(cik));
+  const cache = caches.default;
+  const cacheKey = new Request(new URL(`/api/nport?cik=${cik}&v=1`, request.url).toString());
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+  const fail = (r) => json({ cik, holdings: null, error: r });
+  try {
+    const subRes = await secFetch(`https://data.sec.gov/submissions/CIK${cik}.json`);
+    if (!subRes.ok) return fail(`submissions ${subRes.status}`);
+    const sub = await subRes.json();
+    const r = (sub.filings && sub.filings.recent) || {};
+    const forms = r.form || [];
+    let idx = -1;
+    for (let i = 0; i < forms.length; i++) { if (forms[i] === "NPORT-P") { idx = i; break; } }
+    if (idx < 0) return fail("no NPORT-P filing");
+    const accession = r.accessionNumber[idx], filedAt = r.filingDate[idx], asOf = r.reportDate[idx] || null;
+    const dir = `https://www.sec.gov/Archives/edgar/data/${cikNoPad}/${accession.replace(/-/g, "")}`;
+    const xmlRes = await secFetch(`${dir}/primary_doc.xml`);
+    if (!xmlRes.ok) return fail(`primary_doc ${xmlRes.status}`);
+    const xml = await xmlRes.text();
+    const totNet = parseFloat(xmlFirst(xml, "netAssets")) || 0;
+    const holdings = [];
+    const blockRe = /<(?:\w+:)?invstOrSec\b[^>]*>([\s\S]*?)<\/(?:\w+:)?invstOrSec>/gi;
+    let m;
+    while ((m = blockRe.exec(xml))) {
+      const b = m[1];
+      const name = (xmlFirst(b, "name") || xmlFirst(b, "title") || "").trim();
+      const value = parseFloat(xmlFirst(b, "valUSD")) || 0;
+      const pctRaw = parseFloat(xmlFirst(b, "pctVal"));
+      const cat = xmlFirst(b, "assetCat") || "";
+      if (!value && !name) continue;
+      holdings.push({ name, value, weight: (!isNaN(pctRaw)) ? pctRaw / 100 : (totNet ? value / totNet : null), cat });
+    }
+    if (!holdings.length) return fail("no holdings parsed");
+    holdings.sort((a, b) => b.value - a.value);
+    const resp = json({ cik, kind: "cef", asOf, filedAt, source: `${dir}/${accession}-index.htm`, count: holdings.length, holdings: holdings.slice(0, 10) });
+    resp.headers.set("cache-control", "public, max-age=86400");
+    if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+    return resp;
+  } catch (e) { return fail(String((e && e.message) || e)); }
+}
+
+// ===================== BDC SCHEDULE OF INVESTMENTS (10-Q/10-K) =============
+// Top loan/portfolio positions for a BDC from its latest 10-Q (fallback 10-K)
+// Consolidated Schedule of Investments. BDCs are NOT registered funds, so they
+// file no N-PORT — the SOI lives in the 10-Q as a (semi-structured) financial-
+// report table. We locate it via FilingSummary.xml (the SEC's own report index),
+// fetch just that report's HTML (far smaller than the full 10-Q), and extract the
+// per-issuer fair values, aggregating tranches by company. Best-effort by nature
+// (filers' HTML varies); on a parse miss it still returns the filing link.
+// Edge-cached 24h.
+function stripHtml(s) { return xmlDecode(String(s).replace(/<[^>]+>/g, " ")).replace(/\s+/g, " ").trim(); }
+function parseNum(s) { const t = String(s).replace(/[(),$\s]/g, "").replace(/[^0-9.\-]/g, ""); const n = parseFloat(t); return isNaN(n) ? null : (/\(/.test(String(s)) ? -n : n); }
+async function handleBDC(request, env, ctx) {
+  const url = new URL(request.url);
+  const raw = (url.searchParams.get("cik") || "").replace(/\D/g, "");
+  if (!raw) return json({ holdings: null, error: "missing cik" });
+  const cik = raw.padStart(10, "0");
+  const cikNoPad = String(Number(cik));
+  const cache = caches.default;
+  const cacheKey = new Request(new URL(`/api/bdc?cik=${cik}&v=1`, request.url).toString());
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+  const linkOnly = (dir, accession, asOf, err) => json({ cik, kind: "bdc", asOf, source: dir ? `${dir}/${accession}-index.htm` : null, holdings: null, error: err });
+  try {
+    const subRes = await secFetch(`https://data.sec.gov/submissions/CIK${cik}.json`);
+    if (!subRes.ok) return json({ cik, holdings: null, error: `submissions ${subRes.status}` });
+    const sub = await subRes.json();
+    const r = (sub.filings && sub.filings.recent) || {};
+    const forms = r.form || [];
+    let idx = -1;
+    for (let i = 0; i < forms.length; i++) { if (forms[i] === "10-Q" || forms[i] === "10-K") { idx = i; break; } }
+    if (idx < 0) return json({ cik, holdings: null, error: "no 10-Q/10-K" });
+    const accession = r.accessionNumber[idx], filedAt = r.filingDate[idx], asOf = r.reportDate[idx] || null;
+    const dir = `https://www.sec.gov/Archives/edgar/data/${cikNoPad}/${accession.replace(/-/g, "")}`;
+    // FilingSummary.xml → the report whose ShortName is the Schedule of Investments.
+    const fsRes = await secFetch(`${dir}/FilingSummary.xml`);
+    if (!fsRes.ok) return linkOnly(dir, accession, asOf, `FilingSummary ${fsRes.status}`);
+    const fs = await fsRes.text();
+    const reports = [...fs.matchAll(/<Report[^>]*>([\s\S]*?)<\/Report>/gi)].map((m) => m[1]);
+    let file = null;
+    for (const rep of reports) {
+      const sn = (xmlFirst(rep, "ShortName") || "").toLowerCase();
+      const htm = xmlFirst(rep, "HtmlFileName");
+      if (!htm) continue;
+      if (/schedule of investment/.test(sn) && !/change|summar|geograph|industr/.test(sn)) { file = htm; if (/consolidated/.test(sn)) break; }
+    }
+    if (!file) return linkOnly(dir, accession, asOf, "SOI report not found");
+    const soiRes = await secFetch(`${dir}/${file}`);
+    if (!soiRes.ok) return linkOnly(dir, accession, asOf, `SOI ${soiRes.status}`);
+    const html = await soiRes.text();
+    // Parse the report table into rows of plain-text cells.
+    const rows = [...html.matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr>/gi)].map((m) =>
+      [...m[1].matchAll(/<t[dh]\b[^>]*>([\s\S]*?)<\/t[dh]>/gi)].map((c) => stripHtml(c[1])));
+    // Aggregate fair value by issuer: the label column is the first non-empty text
+    // cell; fair value is taken as the LAST large positive number on the row (BDC
+    // SOI tables end with Cost, Fair Value, %-of-net-assets — fair value is the
+    // right-most $ column before the %). We sum across a company's tranche rows.
+    const agg = new Map();
+    let totFV = 0;
+    for (const cells of rows) {
+      if (cells.length < 3) continue;
+      const label = (cells.find((c) => c && !/^[\d.,()$%\s-]+$/.test(c)) || "").trim();
+      if (!label || /^total|^net assets|^schedule|^\(|companies?$|investments?$|portfolio/i.test(label)) continue;
+      if (label.length < 3 || label.length > 80) continue;
+      // numeric cells (ignore the trailing % column, values <=100 with a % sibling)
+      const nums = cells.map(parseNum).filter((n) => n != null && n > 1000);
+      if (!nums.length) continue;
+      const fv = nums[nums.length - 1];   // right-most large $ column ≈ fair value
+      if (!(fv > 0)) continue;
+      const key = label.replace(/,?\s*(inc|llc|lp|ltd|corp|co|holdings?|group|the)\.?$/i, "").trim().toUpperCase().slice(0, 60);
+      let e = agg.get(key); if (!e) { e = { name: label, value: 0 }; agg.set(key, e); }
+      e.value += fv; totFV += fv;
+    }
+    if (!agg.size) return linkOnly(dir, accession, asOf, "SOI positions not parsed");
+    const top = [...agg.values()].sort((a, b) => b.value - a.value).slice(0, 10)
+      .map((h) => ({ name: h.name, value: h.value, weight: totFV ? h.value / totFV : null }));
+    const resp = json({ cik, kind: "bdc", asOf, filedAt, form: forms[idx], source: `${dir}/${accession}-index.htm`, totalFV: totFV, holdings: top });
+    resp.headers.set("cache-control", "public, max-age=86400");
+    if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+    return resp;
+  } catch (e) { return json({ cik, holdings: null, error: String((e && e.message) || e) }); }
+}
+
 // ===================== PRICE PERFORMANCE (13F holdings) ====================
 // 1-day / 3-month / 6-month / 12-month price return for a set of tickers, from
 // Yahoo's 1y daily closes. Used by the Hedge Funds fund page to annotate each
@@ -2597,6 +2731,8 @@ export default {
     if (url.pathname === "/api/yield-curve") return handleYieldCurve(request, env, ctx);
     if (url.pathname === "/api/13f") return handle13F(request, env, ctx);
     if (url.pathname === "/api/filings") return handleFilings(request, env, ctx);
+    if (url.pathname === "/api/nport") return handleNPort(request, env, ctx);
+    if (url.pathname === "/api/bdc") return handleBDC(request, env, ctx);
     if (url.pathname === "/api/perf") return handlePerf(request, env, ctx);
     if (url.pathname === "/api/feed") return handleFeed(request, env, ctx);
     if (url.pathname === "/api/predict") return handlePredict(request, env, ctx);

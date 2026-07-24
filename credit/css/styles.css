@@ -778,3 +778,14 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 .hf-fform.hf-fl-13d { color: var(--t-down, #f26d84); border-color: var(--t-down, #f26d84); }   /* activist / control */
 .hf-fform.hf-fl-13g { color: var(--muted); }                                                    /* passive >5% */
 .hf-fform.hf-fl-ins { color: var(--t-accent, #fb8b1e); border-color: var(--t-accent, #fb8b1e); }/* insider */
+
+/* Manager listed-vehicles (BDC / CEF) holdings panel */
+.veh { border: 1px solid var(--border, #262626); border-radius: 8px; padding: 9px 11px; margin: 8px 0; background: var(--surface2, #131313); }
+.veh-h { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.veh-nm { color: var(--ink); font-weight: 600; font-size: 13px; }
+.veh-tk { font-family: var(--t-mono); font-size: 11px; color: var(--t-accent, #fb8b1e); }
+.veh-tag { font-size: 9.5px; letter-spacing: .03em; text-transform: uppercase; border: 1px solid var(--border, #262626); border-radius: 3px; padding: 1px 5px; color: var(--muted); }
+.veh-tag.veh-bdc { color: var(--t-crd, #fb8b1e); border-color: var(--t-crd, #fb8b1e); }
+.veh-tag.veh-cef { color: var(--t-mac, #9b83e2); border-color: var(--t-mac, #9b83e2); }
+.veh-load { margin-left: auto; }
+.veh-body:not(:empty) { margin-top: 8px; }
