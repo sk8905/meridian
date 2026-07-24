@@ -425,7 +425,7 @@ async function loadSaved(body, headCount) {
   const render = async () => {
     chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _svTab));
     try {
-      const mod = await import("/saved.js?v=20260724-1");
+      const mod = await import("/saved.js?v=20260724-2");
       // Watchlist tab = SAVED items that relate to a followed/starred profile
       // (the intersection), NOT all of a followed profile's news.
       const list = _svTab === "saved" ? mod.resolveSaved() : mod.resolveSavedWatchlist();
@@ -561,7 +561,7 @@ let _ntTab = "all";
 let _menuTab = "search";
 async function ensureNotifs() {
   if (_notifItems) return _notifItems;
-  const { buildNotifs } = await import("/saved.js?v=20260724-1");
+  const { buildNotifs } = await import("/saved.js?v=20260724-2");
   _notifItems = (await buildNotifs()).slice(0, 60);
   return _notifItems;
 }
@@ -643,7 +643,7 @@ export function initNavActions() {
     if (!notif && !bar) return;
     setTopVar();
     // Shared press-and-hold / right-click row options menu — every page.
-    import("/rowmenu.js?v=20260721-1").then((m) => m.initRowMenu()).catch(() => {});
+    import("/rowmenu.js?v=20260724-1").then((m) => m.initRowMenu()).catch(() => {});
     // Swipe left/right on a chip-filtered pane to move between its chips.
     /* v2: swipe-tabs disabled — the runtime owns navigation. */
     addEventListener("resize", setTopVar);
@@ -969,11 +969,11 @@ export function initNavActions() {
         } else {
           tb.innerHTML = '<div class="na-load">Loading…</div>';
           try {
-            const mod = await import("/saved.js?v=20260724-1");
+            const mod = await import("/saved.js?v=20260724-2");
             const list = mod.resolveWatchlistNews();
             tb.innerHTML = list.length
               ? list.map(savedRow).join("")
-              : '<div class="na-empty">No watchlist updates yet. Press and hold a manager or law-firm story (or tap the ☆ on a manager in Credit) to follow it — their updates appear here.</div>';
+              : '<div class="na-empty">No watchlist updates yet. Press and hold a manager, hedge-fund or law-firm profile (or story) to add it to your watchlist — their updates appear here.</div>';
           } catch { tb.innerHTML = '<div class="na-load">Unavailable right now.</div>'; }
         }
       };

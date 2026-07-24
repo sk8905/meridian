@@ -9,17 +9,17 @@ import {
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
   HEDGE_FUNDS, HEDGE_FUNDS_ASOF, HEDGE_INTEL,
-} from "/credit/js/data.js?v=20260724-3";
+} from "/credit/js/data.js?v=20260724-4";
 import { barChart, donutChart, lineChart, multiLineChart } from "/credit/js/charts.js?v=20260722-4";
 import {
   eur, pct, fmtDate, link, notFound,
-  FOLLOW_KEY, FOLLOW_TYPES, follows, followList, followCount, nameCell,
+  FOLLOW_KEY, FOLLOW_TYPES, follows, followList, followCount, nameCell, loadFollows,
   SAVEDC_KEY, getSavedC, saveBtn, newsSaveId,
   creditSource, feedDedupKey, intelRow, dealRow,
   PAGE, pageShown, pageCount, pageReset, loadMoreBtn, feedHtml, feedFlat,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
-} from "/credit/js/shared.js?v=20260724-1";
-import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost } from "/v2/js/credit/detail.js?v=v2-7";
+} from "/credit/js/shared.js?v=20260724-2";
+import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost } from "/v2/js/credit/detail.js?v=v2-8";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260723-3";
 import { esc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
 
@@ -1452,10 +1452,15 @@ function savedSectionHtml() {
 }
 
 function viewWatchlist() {
+  // Pick up follows added elsewhere this session (e.g. a long-press "Add to
+  // Watchlist" via the shared row menu, which writes localStorage directly).
+  try { const _fr = loadFollows(); Object.keys(_fr).forEach((k) => { if (Array.isArray(_fr[k])) follows[k] = _fr[k]; }); } catch { /* ignore */ }
   const byName = (a, b) => a.name.localeCompare(b.name);
   const fm = followList("manager").map((id) => managerById[id]).filter(Boolean).sort(byName);
   const ff = followList("fund").map((id) => fundById[id]).filter(Boolean).sort(byName);
   const fl = followList("lp").map((id) => lpById[id]).filter(Boolean).sort(byName);
+  const fh = followList("hf").map((id) => HEDGE_FUNDS.find((x) => x.id === id)).filter(Boolean).sort(byName);
+  const hIds = new Set(fh.map((h) => h.id));
   const mIds = new Set(fm.map((m) => m.id)), fIds = new Set(ff.map((f) => f.id));
 
   // Combined feed for followed managers/funds: in the news, deal activity and
@@ -1480,13 +1485,17 @@ function viewWatchlist() {
       newsItems.push({ ...x, _kind: "news", _mid: m.id, _mname: m.name });
     });
   });
+  // Hedge-fund news (HEDGE_INTEL) for followed funds, mapped to the news shape.
+  const hfItems = (HEDGE_INTEL || [])
+    .filter((h) => h.hfId && hIds.has(h.hfId))
+    .map((h) => ({ _kind: "news", title: h.headline, url: h.url, outlet: h.outlet, _mname: (HEDGE_FUNDS.find((x) => x.id === h.hfId) || {}).name || "", date: h.date, time: h.time || "" }));
   // Sort the whole combined feed newest-first BEFORE it is paged/grouped —
   // otherwise feedHtml slices the first 25 of a kind-ordered concatenation
   // (all news, then deals, …) and recent deals/CLOs get pushed off page one.
-  const feed = [...newsItems, ...dealItems, ...intelItems, ...cloItems]
+  const feed = [...newsItems, ...hfItems, ...dealItems, ...intelItems, ...cloItems]
     .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
 
-  if (fm.length + ff.length + fl.length === 0) {
+  if (fm.length + ff.length + fl.length + fh.length === 0) {
     app.innerHTML = `<div class="page-head"><h1>My Watchlist</h1></div>
       <section class="card"><p class="muted">You're not following anything yet. Click the ☆ star on any manager, fund or investor to add it here — your watchlist builds a personalised intelligence feed${cloudSync ? " and syncs across your devices" : ""}.</p></section>
       ${savedSectionHtml()}`;
@@ -1497,9 +1506,10 @@ function viewWatchlist() {
       ? `<ul class="link-list">${items.map((x) => `<li>${nameCell(type, x.id, render(x))}</li>`).join("")}</ul>`
       : '<p class="muted small">None followed.</p>'}</div></details>`;
   app.innerHTML = `
-    <div class="page-head"><h1>My Watchlist</h1><p class="muted">${fm.length + ff.length + fl.length} followed · ${cloudSync ? "synced across devices" : "saved on this device"}</p></div>
+    <div class="page-head"><h1>My Watchlist</h1><p class="muted">${fm.length + ff.length + fl.length + fh.length} followed · ${cloudSync ? "synced across devices" : "saved on this device"}</p></div>
     <div class="wl-cats">
       ${listCard("Managers", fm, "manager", (m) => link(`#/manager/${m.id}`, m.name))}
+      ${listCard("Hedge funds", fh, "hf", (h) => `${link(`#/hf/${h.id}`, h.name)} <span class="muted small">${esc(h.hq || "")}</span>`)}
       ${listCard("Funds", ff, "fund", (f) => `${link(`#/fund/${f.id}`, f.name)} <span class="muted small">${esc(managerById[f.managerId].name)}</span>`)}
       ${listCard("Investors", fl, "lp", (l) => `${link(`#/lp/${l.id}`, l.name)} <span class="muted small">${esc(l.type)}</span>`)}
     </div>

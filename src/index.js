@@ -8,7 +8,7 @@
 // their verified email. Static asset requests are served before this Worker is
 // invoked; anything else (the API, unknown paths) lands here.
 
-const FOLLOW_TYPES = ["manager", "fund", "lp", "firm"];
+const FOLLOW_TYPES = ["manager", "fund", "lp", "firm", "hf"];
 
 function json(obj, status = 200) {
   return new Response(JSON.stringify(obj), {
@@ -161,7 +161,7 @@ async function handleWatchlist(request, env) {
 
   if (request.method === "GET") {
     const raw = await env.WATCHLIST.get(keyFor(email));
-    let watchlist = { manager: [], fund: [], lp: [] };
+    let watchlist = { manager: [], fund: [], lp: [], firm: [], hf: [] };
     if (raw) { try { watchlist = JSON.parse(raw); } catch { /* keep default */ } }
     return json({ email, watchlist });
   }
@@ -205,7 +205,9 @@ async function handleResearchTargets(request, env) {
   // Constant-ish comparison; lengths differ rarely and this is not a timing-sensitive path.
   if (!given || given !== secret) return json({ error: "forbidden" }, 403);
 
-  const out = { manager: new Set(), fund: new Set(), lp: new Set() };
+  // One Set per follow type (manager / fund / lp / firm / hf) so every followable
+  // kind is aggregated — hedge funds and law firms included, not just credit.
+  const out = {}; for (const t of FOLLOW_TYPES) out[t] = new Set();
   let users = 0, cursor;
   try {
     do {
@@ -226,7 +228,9 @@ async function handleResearchTargets(request, env) {
   } catch (e) {
     return json({ error: String((e && e.message) || e) }, 500);
   }
-  return json({ users, manager: [...out.manager], fund: [...out.fund], lp: [...out.lp], ts: Date.now() });
+  const res = { users, ts: Date.now() };
+  for (const t of FOLLOW_TYPES) res[t] = [...out[t]];
+  return json(res);
 }
 
 // Return the signed-in identity (from the Access JWT) so the branded landing

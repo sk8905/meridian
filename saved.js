@@ -8,7 +8,7 @@
 // =============================================================================
 import { ARTICLES, NEWS, COMMENTARY } from "/macro/js/content.js";
 import { byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
-import { deals, intel, managers } from "/credit/js/data.js";
+import { deals, intel, managers, HEDGE_FUNDS, HEDGE_INTEL } from "/credit/js/data.js";
 import { items, cases, restructurings, firms } from "/legal/js/data.js?v=20260718-10";
 
 // ---- id schemes -------------------------------------------------------------
@@ -18,6 +18,7 @@ function _savedBase(x) { return (x.url || x.title || "").toLowerCase().split(/[?
 // ---- source-label helpers (mirror glance.js / credit app.js) ----------------
 const _mgrById = new Map(managers.map((m) => [m.id, m]));
 const _firmById = new Map((firms || []).map((f) => [f.id, f]));
+const _hfById = new Map((HEDGE_FUNDS || []).map((h) => [h.id, h]));
 const mgrName = (id) => (_mgrById.get(id) || {}).name || "";
 const firmName = (id) => (_firmById.get(id) || {}).name || id || "";
 function creditSource(rec) {
@@ -139,6 +140,10 @@ export function resolveWatchlist() {
     const m = _mgrById.get(id);
     if (m) out.push({ desk: "c", kind: "Manager", title: m.name, href: "/credit/#/manager/" + encodeURIComponent(id) });
   });
+  (Array.isArray(f.hf) ? f.hf : []).forEach((id) => {
+    const hf = _hfById.get(id);
+    if (hf) out.push({ desk: "c", kind: "Hedge fund", title: hf.name, href: "/credit/#/hf/" + encodeURIComponent(id) });
+  });
   (Array.isArray(f.firm) ? f.firm : []).forEach((id) => {
     const fm = _firmById.get(id);
     if (fm) out.push({ desk: "l", kind: "Law firm", title: fm.name, href: "/legal/#/firm/" + encodeURIComponent(id) });
@@ -154,7 +159,14 @@ export function resolveWatchlistNews() {
   try { f = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; } catch { /* ignore */ }
   const mset = new Set(Array.isArray(f.manager) ? f.manager : []);
   const fset = new Set(Array.isArray(f.firm) ? f.firm : []);
+  const hset = new Set(Array.isArray(f.hf) ? f.hf : []);
   const out = [];
+  if (hset.size) {
+    (HEDGE_INTEL || []).forEach((h) => {
+      if (!h.hfId || !hset.has(h.hfId)) return;
+      out.push({ desk: "c", title: h.headline, href: h.url || "/credit/#/hf/" + encodeURIComponent(h.hfId), ext: !!h.url, date: h.date, time: h.time, src: h.outlet || (_hfById.get(h.hfId) || {}).name || "" });
+    });
+  }
   if (mset.size) {
     deals.forEach((d) => { if (mset.has(d.managerId)) out.push({ desk: "c", title: d.headline, href: creditItemHref(d), ext: creditItemExt(d), date: d.date, time: d.time, src: (_mgrById.get(d.managerId) || {}).name || creditSource(d) }); });
     intel.forEach((i) => { if (mset.has(i.managerId)) out.push({ desk: "c", title: i.headline, href: creditItemHref(i), ext: creditItemExt(i), date: i.date, time: i.time, src: (_mgrById.get(i.managerId) || {}).name || creditSource(i) }); });

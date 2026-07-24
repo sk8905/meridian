@@ -8,9 +8,23 @@
 // =============================================================================
 import { esc } from "/util.js?v=20260719-1";
 
-const ROW_SEL = ".g-feed-row, .tw-row, .tmini-row, .tui-li, .ew-row";
+// Profile table rows (Managers / Hedge Funds / Law Firms leagues) — a long-press
+// on the row itself offers "Add to Watchlist" for that profile. Only these three
+// entity kinds are followable, so the selector is scoped to their hrefs.
+const PROFILE_SEL = 'tr.clickable[data-href^="#/manager/"], tr.clickable[data-href^="#/hf/"], tr.clickable[data-href^="#/firm/"]';
+const ROW_SEL = ".g-feed-row, .tw-row, .tmini-row, .tui-li, .ew-row, " + PROFILE_SEL;
 // Resolve a row into a descriptor the actions understand.
 function resolveRow(r) {
+  // Profile league row → { kind:"profile", ptype, pid }. ptype is the follow
+  // store key ("manager" / "hf" / "firm"); pid the entity id from the href.
+  if (r.matches && r.matches(PROFILE_SEL)) {
+    const href = r.getAttribute("data-href") || "";
+    const m = href.match(/^#\/(manager|hf|firm)\/(.+)$/);
+    const ptype = m ? m[1] : "";
+    const pid = m ? decodeURIComponent(m[2]) : "";
+    const nm = r.querySelector(".tl-nm, .namecell-text, td");
+    return { kind: "profile", ptype, pid, title: ((nm ? nm.textContent : r.textContent) || "").trim().slice(0, 200) };
+  }
   if (r.classList.contains("ew-row")) {
     // Earnings-wall row (Macro dashboard): the menu offers the panel's source
     // list — read from the .ew-srcs links rendered in the same panel body.
@@ -138,15 +152,18 @@ function toggleRowBookmark(d) {
 // The PUT merges with the server copy first: this device's store may be cold
 // (user follows from another device / the Credit app) and a bare local PUT
 // would wipe those. Removals made here are excluded from the merge-back.
-const _unwatched = { manager: new Set(), fund: new Set(), lp: new Set(), firm: new Set() };
+const _unwatched = { manager: new Set(), fund: new Set(), lp: new Set(), firm: new Set(), hf: new Set() };
 function toggleWatch(type, id) {
   let f = {};
   try { f = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; } catch { /* ignore */ }
   if (!Array.isArray(f[type])) f[type] = [];
   const i = f[type].indexOf(id);
   const added = i < 0;
-  if (added) { f[type].push(id); _unwatched[type].delete(id); } else { f[type].splice(i, 1); _unwatched[type].add(id); }
+  if (added) { f[type].push(id); (_unwatched[type] || (_unwatched[type] = new Set())).delete(id); } else { f[type].splice(i, 1); (_unwatched[type] || (_unwatched[type] = new Set())).add(id); }
   try { localStorage.setItem("meridian.follows", JSON.stringify(f)); } catch { /* ignore */ }
+  // Let any mounted app (Credit "My Watchlist", stars) re-read the store and
+  // re-render, so a follow made by long-press shows without a reload.
+  try { window.dispatchEvent(new CustomEvent("watchlist:changed", { detail: { type, id, added } })); } catch { /* ignore */ }
   fetch("/api/watchlist", { headers: { accept: "application/json" } })
     .then((r) => (r.ok ? r.json() : null))
     .then((d) => {
@@ -154,7 +171,7 @@ function toggleWatch(type, id) {
       let local = {};
       try { local = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; } catch { /* ignore */ }
       const body = {};
-      ["manager", "fund", "lp", "firm"].forEach((t) => {
+      ["manager", "fund", "lp", "firm", "hf"].forEach((t) => {
         const merged = new Set(Array.isArray(local[t]) ? local[t] : []);
         (Array.isArray(server[t]) ? server[t] : []).forEach((x) => { if (!_unwatched[t].has(x)) merged.add(x); });
         body[t] = [...merged];
@@ -201,6 +218,34 @@ function openRowMenu(r, x, y) {
       const i = +b.dataset.i;
       closeRowMenu();
       if (b.dataset.act === "esrc" && d.srcs[i]) window.open(d.srcs[i].url, "_blank", "noopener");
+    });
+    document.body.appendChild(_rmEl);
+    if (!matchMedia("(max-width:760px)").matches) {
+      const rect = _rmEl.getBoundingClientRect();
+      _rmEl.style.left = Math.max(8, Math.min(x || 0, innerWidth - rect.width - 8)) + "px";
+      _rmEl.style.top = Math.max(8, Math.min(y || 0, innerHeight - rect.height - 8)) + "px";
+    }
+    return;
+  }
+  // Profile league row: Add/Remove Watchlist for the profile, plus a jump to its
+  // page. No Save (a profile isn't a story) — just the follow toggle.
+  if (d.kind === "profile" && d.ptype && d.pid) {
+    const ICO_STAR2 = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.7 5.7 6.3.8-4.6 4.3 1.2 6.2-5.6-3.1-5.6 3.1 1.2-6.2L3 9.5l6.3-.8z"/></svg>';
+    const ICO_GO3 = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M13 6l6 6-6 6"/></svg>';
+    const openLabel = d.ptype === "firm" ? "Open firm page" : d.ptype === "hf" ? "Open fund page" : "Open manager page";
+    const profHref = d.ptype === "firm" ? "/legal/#/firm/" + encodeURIComponent(d.pid)
+      : "/credit/#/" + (d.ptype === "hf" ? "hf/" : "manager/") + encodeURIComponent(d.pid);
+    _rmEl = document.createElement("div"); _rmEl.className = "rowmenu"; _rmEl.setAttribute("role", "menu");
+    _rmEl.innerHTML = `<div class="rowmenu-title">${esc(d.title)}</div>`
+      + `<button type="button" class="rowmenu-act" data-act="watch">${ICO_STAR2}<span>${isWatched(d.ptype, d.pid) ? "Remove from Watchlist" : "Add to Watchlist"}</span></button>`
+      + `<button type="button" class="rowmenu-act" data-act="open">${ICO_GO3}<span>${openLabel}</span></button>`
+      + `<button type="button" class="rowmenu-act rowmenu-cancel" data-act="cancel"><span>Cancel</span></button>`;
+    _rmEl.addEventListener("click", (e) => {
+      const b = e.target.closest(".rowmenu-act"); if (!b) return;
+      const act = b.dataset.act;
+      closeRowMenu();
+      if (act === "watch") { const added = toggleWatch(d.ptype, d.pid); wireToast(added ? "Added to Watchlist" : "Removed from Watchlist"); }
+      else if (act === "open") { window.location.href = profHref; }
     });
     document.body.appendChild(_rmEl);
     if (!matchMedia("(max-width:760px)").matches) {

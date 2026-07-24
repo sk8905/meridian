@@ -9,7 +9,7 @@
 // ./charts.js) with the SAME ?v= token — keep them identical and bump together,
 // or the browser loads data.js twice as separate module instances (blank page).
 // =============================================================================
-import { managers, managerById, lpById, commitments } from "./data.js?v=20260724-3";
+import { managers, managerById, lpById, commitments } from "./data.js?v=20260724-4";
 import { esc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
 
 // ----------------------------- formatting utils ----------------------------
@@ -73,7 +73,7 @@ export function notFound(app) {
 // live `follows` store + the read helpers the views use to render stars; the
 // write/sync side (toggle, debounced push, cloud reconcile) lives in app.js.
 export const FOLLOW_KEY = "meridian.follows";
-export const FOLLOW_TYPES = ["manager", "fund", "lp"];
+export const FOLLOW_TYPES = ["manager", "fund", "lp", "hf"];
 export function loadFollows() { try { return JSON.parse(localStorage.getItem(FOLLOW_KEY)) || {}; } catch { return {}; } }
 export const follows = loadFollows();
 export function followList(type) { return follows[type] || (follows[type] = []); }

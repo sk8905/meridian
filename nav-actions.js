@@ -481,7 +481,7 @@ async function loadSaved(body, headCount) {
   const render = async () => {
     chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _svTab));
     try {
-      const mod = await import("/saved.js?v=20260724-1");
+      const mod = await import("/saved.js?v=20260724-2");
       const list = _svTab === "saved" ? mod.resolveSaved() : mod.resolveWatchlistNews();
       if (headCount) headCount.textContent = list.length ? " · " + list.length : "";
       tb.innerHTML = list.length
@@ -617,7 +617,7 @@ let _ntTab = "all";
 let _menuTab = "search";
 async function ensureNotifs() {
   if (_notifItems) return _notifItems;
-  const { buildNotifs } = await import("/saved.js?v=20260724-1");
+  const { buildNotifs } = await import("/saved.js?v=20260724-2");
   _notifItems = (await buildNotifs()).slice(0, 60);
   return _notifItems;
 }
@@ -706,7 +706,7 @@ export function initNavActions() {
     if (!notif && !bar) return;
     setTopVar();
     // Shared press-and-hold / right-click row options menu — every page.
-    import("/rowmenu.js?v=20260721-1").then((m) => m.initRowMenu()).catch(() => {});
+    import("/rowmenu.js?v=20260724-1").then((m) => m.initRowMenu()).catch(() => {});
     // Swipe left/right on a chip-filtered pane to move between its chips.
     import("/swipetabs.js?v=20260719-6").then((m) => m.initSwipeTabs()).catch(() => {});
     addEventListener("resize", setTopVar);
@@ -1030,7 +1030,7 @@ export function initNavActions() {
         } else {
           tb.innerHTML = '<div class="na-load">Loading…</div>';
           try {
-            const mod = await import("/saved.js?v=20260724-1");
+            const mod = await import("/saved.js?v=20260724-2");
             const list = mod.resolveWatchlistNews();
             tb.innerHTML = list.length
               ? list.map(savedRow).join("")

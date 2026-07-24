@@ -40,12 +40,45 @@ aggregate set through a small, secret-guarded Worker endpoint. Set this up once:
    **service token** and send `CF-Access-Client-Id` / `CF-Access-Client-Secret` with
    the request. Option (a) is recommended.
 3. **Done.** `GET /api/research-targets` (with the header) returns
-   `{ users, manager:[ids], fund:[ids], lp:[ids] }` — the union of every user's
-   watchlist, never who follows what. The endpoint is read-only. If the secret is
+   `{ users, manager:[ids], fund:[ids], lp:[ids], firm:[ids], hf:[ids] }` — the union
+   of every user's watchlist (managers, funds, investors, **law firms and hedge
+   funds**), never who follows what. The endpoint is read-only. If the secret is
    unset it returns 503 and the routine simply skips the deep-research block.
 
 Until this is configured the routine still runs its normal full refresh; only the
 extra deep-research pass on watchlisted names is skipped.
+
+## Home-feed keyword coverage — the full entity roster (CRD / HDG / LEX)
+
+The Home wire surfaces the three desks' curated content under the labels **CRD**
+(credit managers), **HDG** (hedge funds) and **LEX** (law firms). That content only
+appears if the refresh routine has actually *researched* it — so every entity the
+apps profile must be a standing search keyword, not just the watchlisted subset the
+`/api/research-targets` endpoint returns (that endpoint narrows the **deeper**
+budget; it does **not** bound the keyword universe).
+
+On every run, the keyword universe is the **entire roster in the data files** — use
+each entity's `name` (and any well-known short/alias form) as a search term:
+
+- **CRD — every credit manager** in `credit/js/data.js` `managers[]`. New,
+  verified, dated news for a manager → its `webNews` (manager press) or a `deals`/
+  `intel` record (`managerId` set). Renders on the Home wire as **CRD**.
+- **HDG — every hedge fund** in `credit/js/data.js` `HEDGE_FUNDS[]` (currently 150,
+  US/UK/Europe/Asia). New, verified, dated hedge-fund news (performance, launches,
+  fundraising, personnel, wind-downs, AUM milestones) → a `HEDGE_INTEL` record with
+  `hfId` set to the matching fund (or `null` when the story names no single fund in
+  the roster). Renders as **HDG**.
+- **LEX — every law firm** in `legal/js/data.js` `firms[]`. New, verified, dated
+  legal news for a firm → a legal `items` record (`firm` set), or a
+  `restructurings`/`cases` record where the firm is adviser. Renders as **LEX**.
+
+Rules that still bind: never fabricate — each new item keeps a real, dated, sourced
+URL and only lands in the roster entity it genuinely concerns (skip rather than
+mis-tag). Credit-desk scope (below) still governs which *new managers/funds* may be
+created; this keyword pass is about **finding news for entities already in the
+roster**, across all three desks, so the Home wire's CRD/HDG/LEX streams stay live.
+Hedge-fund keyword coverage explicitly includes Nishant Kumar's Bloomberg beat — all
+of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
 
 ## Invariants
 
