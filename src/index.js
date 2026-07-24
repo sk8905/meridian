@@ -759,6 +759,46 @@ async function handleMarkets(request, env, ctx) {
   return resp;
 }
 
+// Global equity indices for the Dashboard ▸ Equities strip. Live intraday from
+// Yahoo (regularMarketPrice + daily %), with FRED daily close as the fallback for
+// the US benchmarks. Edge-cached ~2 min (near-live without hammering upstreams),
+// and only once ≥6 resolve so a transient miss can't stick.
+const DASH_INDEX_SERIES = [
+  { id: "spx",  label: "S&P 500",         symbol: "^GSPC",  fred: "SP500",     href: "https://finance.yahoo.com/quote/%5EGSPC" },
+  { id: "ndq",  label: "Nasdaq Composite", symbol: "^IXIC", fred: "NASDAQCOM", href: "https://finance.yahoo.com/quote/%5EIXIC" },
+  { id: "dji",  label: "Dow Jones",        symbol: "^DJI",  fred: "DJIA",      href: "https://finance.yahoo.com/quote/%5EDJI" },
+  { id: "rut",  label: "Russell 2000",     symbol: "^RUT",  href: "https://finance.yahoo.com/quote/%5ERUT" },
+  { id: "sxxp", label: "Stoxx Europe 600", symbol: "^STOXX", href: "https://finance.yahoo.com/quote/%5ESTOXX" },
+  { id: "ukx",  label: "FTSE 100",         symbol: "^FTSE", href: "https://finance.yahoo.com/quote/%5EFTSE" },
+  { id: "dax",  label: "DAX",              symbol: "^GDAXI", href: "https://finance.yahoo.com/quote/%5EGDAXI" },
+  { id: "cac",  label: "CAC 40",           symbol: "^FCHI", href: "https://finance.yahoo.com/quote/%5EFCHI" },
+  { id: "nkx",  label: "Nikkei 225",       symbol: "^N225", href: "https://finance.yahoo.com/quote/%5EN225" },
+  { id: "hsi",  label: "Hang Seng",        symbol: "^HSI",  href: "https://finance.yahoo.com/quote/%5EHSI" },
+];
+async function handleEqIndices(request, env, ctx) {
+  const cosd = new Date(Date.now() - 60 * 864e5).toISOString().slice(0, 10);
+  const cache = caches.default;
+  const cacheKey = new Request(new URL("/api/eqindices?v=1", request.url).toString());
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+  const indices = await Promise.all(DASH_INDEX_SERIES.map(async (s) => {
+    let r = await yahooQuote(s.symbol);
+    if (r.value == null && s.fred) {
+      const f = await fredSeries(s.fred, cosd, env);
+      const prev = (f.value != null && f.change != null) ? f.value - f.change : null;
+      r = { value: f.value, changePct: (f.change != null && prev) ? +((f.change / prev) * 100).toFixed(2) : null, asOf: f.asOf };
+    }
+    return { id: s.id, label: s.label, value: r.value, changePct: r.changePct, asOf: r.asOf || null, href: s.href };
+  }));
+  const resp = new Response(JSON.stringify({ indices, ts: Date.now() }), {
+    headers: { "content-type": "application/json", "cache-control": "public, max-age=120" },
+  });
+  if (ctx && ctx.waitUntil && indices.filter((d) => d.value != null).length >= 6) {
+    ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+  }
+  return resp;
+}
+
 // ---- Prediction markets (Polymarket + Kalshi), finance & finance-adjacent -----
 // Both expose public, no-auth market-data REST endpoints, fetched from the edge
 // like every other upstream. Display-only: question + implied YES probability +
@@ -2492,6 +2532,7 @@ export default {
     const url = new URL(request.url);
     if (url.pathname === "/api/rates") return handleRates(request, env, ctx);
     if (url.pathname === "/api/markets") return handleMarkets(request, env, ctx);
+    if (url.pathname === "/api/eqindices") return handleEqIndices(request, env, ctx);
     if (url.pathname === "/api/pulse") return handlePulse(request, env, ctx);
     if (url.pathname === "/api/macro") return handleMacro(request, env, ctx);
     if (url.pathname === "/api/yield-curve") return handleYieldCurve(request, env, ctx);

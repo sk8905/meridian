@@ -20,12 +20,32 @@ export function mount(host, ctx) {
   let pane = "macro";
 
   // ---- Equities -----------------------------------------------------------
-  function indexStripHTML() {
-    const tile = (x) => `<a class="dsh-idx" href="${esc(x.source)}" target="_blank" rel="noopener noreferrer">`
+  function idxTile(x, live) {
+    const l = live && live[x.id];
+    const lv = l && l.value != null ? l.value : x.level;
+    const dp = l ? l.changePct : null;
+    const sub = dp != null ? `<span class="dsh-idx-yt ${upcls(dp)}">${pct1(dp)} today</span>`
+      : x.ytd != null ? `<span class="dsh-idx-yt ${upcls(x.ytd)}">${pct1(x.ytd)} YTD</span>`
+        : `<span class="dsh-idx-yt"></span>`;
+    return `<a class="dsh-idx" data-idx="${esc(x.id)}" href="${esc(x.source)}" target="_blank" rel="noopener noreferrer">`
       + `<span class="dsh-idx-nm">${esc(x.name)}</span>`
-      + `<span class="dsh-idx-lv">${x.level != null ? esc(x.level.toLocaleString("en-GB")) : "—"}</span>`
-      + `<span class="dsh-idx-yt ${upcls(x.ytd)}">${x.ytd == null ? "" : pct1(x.ytd) + " YTD"}</span></a>`;
-    return `<div class="dsh-strip">${EQ_INDICES.map(tile).join("")}</div>`;
+      + `<span class="dsh-idx-lv">${lv != null ? esc(Number(lv).toLocaleString("en-GB", { maximumFractionDigits: 2 })) : "—"}</span>`
+      + sub + `</a>`;
+  }
+  function indexStripHTML(live) { return `<div class="dsh-strip" id="dsh-strip">${EQ_INDICES.map((x) => idxTile(x, live)).join("")}</div>`; }
+  // Live index closes from the Worker (/api/eqindices, Yahoo→FRED). Overrides the
+  // seed level and shows today's %move; falls back to the seed strip on any error.
+  async function loadIndices() {
+    const strip = host.querySelector("#dsh-strip");
+    if (!strip) return;
+    try {
+      const r = await fetch("/api/eqindices", { headers: { accept: "application/json" } });
+      const d = r.ok ? await r.json() : null;
+      const arr = (d && d.indices) || [];
+      if (!arr.length) return;
+      const live = {}; arr.forEach((x) => { if (x && x.id) live[x.id] = x; });
+      strip.outerHTML = indexStripHTML(live);
+    } catch { /* keep the sourced seed strip */ }
   }
   function sectorBarsHTML() {
     const rows = EQ_SECTORS.rows.filter((r) => r.ytd != null).sort((a, b) => b.ytd - a.ytd);
@@ -85,13 +105,22 @@ export function mount(host, ctx) {
     return `<div class="dsh-stresslist">${CR_STRESS.map(card).join("")}</div>`;
   }
   function maturityHTML() {
-    const w = MATWALL && MATWALL.rated;
+    const w = MATWALL && MATWALL.rated, wall = MATWALL && MATWALL.ratedWall;
     if (!w) return "";
-    return `<div class="dsh-kvgrid">
+    const summary = `<div class="dsh-kvgrid">
       <div class="dsh-kv"><span class="dsh-kv-k">Rated corporate debt maturing</span><span class="dsh-kv-v">${esc(w.total)} <span class="dsh-band">${esc(w.window)}</span></span></div>
-      <div class="dsh-kv"><span class="dsh-kv-k">Investment-grade share</span><span class="dsh-kv-v">${esc(String(w.igPct))}%</span></div>
-      <div class="dsh-kv"><span class="dsh-kv-k">${esc(w.asOf || "")}</span><span class="dsh-kv-v">${srcLink(w.src && w.src.url)}</span></div>
+      <div class="dsh-kv"><span class="dsh-kv-k">Investment-grade share</span><span class="dsh-kv-v">${esc(String(w.igPct))}%${srcLink(w.src && w.src.url)}</span></div>
     </div>`;
+    let ladder = "";
+    if (wall && Array.isArray(wall.buckets) && wall.buckets.length) {
+      const max = wall.max || Math.max(...wall.buckets.map((b) => b.amt));
+      const col = (b) => `<div class="dsh-ladder-col"><span class="dsh-ladder-v">$${(b.amt / 1000).toFixed(1)}tn</span>`
+        + `<span class="dsh-ladder-bar" style="height:${Math.max(2, Math.round((b.amt / max) * 100))}%"></span>`
+        + `<span class="dsh-ladder-y">${esc(b.y)}</span></div>`;
+      ladder = `<div class="dsh-ladder" role="img" aria-label="Maturity wall by year">${wall.buckets.map(col).join("")}</div>`
+        + `<div class="dsh-ladder-cap">Face value maturing by year · ${esc(wall.asOf || "")}</div>`;
+    }
+    return summary + ladder;
   }
   function creditHTML() {
     return `<div class="dsh-pane">
@@ -140,7 +169,7 @@ export function mount(host, ctx) {
     const body = pane === "equities" ? equitiesHTML() : pane === "credit" ? creditHTML() : macroHTML();
     host.innerHTML = `<div class="dsh"><header class="dsh-nav tdet-secnav"><div class="tchips">${nav}</div></header>${body}</div>`;
     if (pane === "credit") loadSpreads();
-    if (pane === "equities") wireSectorToggle();
+    if (pane === "equities") { wireSectorToggle(); loadIndices(); }
   }
   function wireSectorToggle() {
     host.querySelectorAll(".dsh-tgl").forEach((b) => b.addEventListener("click", () => {

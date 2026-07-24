@@ -12,6 +12,26 @@ followed-topics RSS feed, folded into the Home feed as `FT` items.
 tools aren't available in the run, skip this step and leave `newsletters.js`
 unchanged — do not blank it out.
 
+## 0. Standalone hourly cadence (dedicated routine)
+
+Besides running inside the 5×/day full refresh, newsletters are swept **hourly**
+by a **dedicated routine** so the Home wire stays current through the day without
+waiting for a full refresh:
+
+- **Schedule:** hourly, **06:00–21:00 Europe/London**. In UTC that is
+  `0 5-20 * * *` during BST (shift to `0 6-21 * * *` in GMT/winter). Fresh session
+  per fire, in the Meridian environment, with the **Gmail connector attached**.
+- **Scope:** this runbook ONLY — §1–5 (newsletters) + §6 (myFT). Do **not** run the
+  Credit/Legal/Macro data refresh; do **not** touch their data files or tokens.
+- **Look-back:** search Gmail for forwards from `stevedkennedy@gmail.com` received
+  in roughly the **last 2 hours** (overlap is fine — dedupe removes it).
+- **Commit-on-change only:** if no new newsletters and no new myFT items are found,
+  make **no commit** (the hourly cadence must not produce empty deploys). Publish
+  to `main` (rebase-onto-latest) exactly as §4 when there is something new.
+- **Connector caveat:** a routine created programmatically without a Gmail grant
+  will find no tools and skip every run — create/edit it from the claude.ai
+  Routines UI (or a session that holds the Gmail connector) so Gmail is attached.
+
 ## 1. Find newsletters received since the last pull
 
 Newsletters reach the mailbox two ways, and BOTH searches must run every time —

@@ -77,6 +77,14 @@
 .dsh-tag-rumoured{ color:var(--t-faint); }
 .dsh-tag-stress{ color:var(--t-down); border-color:var(--t-down); }
 
+/* Maturity ladder — vertical bars, one per year (tallest near-term draws the eye) */
+.dsh-ladder { display:flex; align-items:flex-end; gap:6px; height:120px; margin:12px 0 4px; padding-top:14px; }
+.dsh-ladder-col { flex:1 1 0; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; gap:3px; }
+.dsh-ladder-v { color:var(--t-mut); font-size:.64rem; font-variant-numeric:tabular-nums; }
+.dsh-ladder-bar { width:100%; max-width:34px; background:var(--t-crd); border-radius:3px 3px 0 0; min-height:2px; }
+.dsh-ladder-y { color:var(--t-dim); font-size:.7rem; font-variant-numeric:tabular-nums; }
+.dsh-ladder-cap { color:var(--t-faint); font-size:.7rem; }
+
 /* Stress cards */
 .dsh-stresslist { display:flex; flex-direction:column; gap:8px; }
 .dsh-stress { border:1px solid var(--t-grid); border-radius:6px; padding:9px 10px; background:var(--t-panel2); }
