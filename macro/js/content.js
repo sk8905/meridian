@@ -514,20 +514,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-07-23",
+  updated: "2026-07-24",
   us: [
     { title: "Brent crude tops $100 a barrel. How the next stop could be $120", source: "CNBC", date: "2026-07-23", time: "21:13", url: "https://www.cnbc.com/2026/07/23/brent-crude-tops-100-a-barrel-how-the-next-stop-could-be-120.html" },
     { title: "Fed rate decision: Odds surge for hike as oil rips higher", source: "CNBC", date: "2026-07-23", time: "21:13", url: "https://www.cnbc.com/2026/07/23/fed-interest-rate-odds-oil-jobless-claims.html" },
-    { title: "Stock market today: Dow, S&P 500, Nasdaq sell off as rising oil prices, bond yields, and AI capex weigh", source: "Yahoo Finance", date: "2026-07-23", time: "21:13", url: "https://finance.yahoo.com/markets/live/stock-market-today-thursday-july-23-dow-sp-500-nasdaq-oil-bonds-earnings-084444369.html" },
-    { title: "US Treasury Yields Hit 2026 Highs as Oil Price Surge Lifts Fed Rate Bets", source: "Bloomberg", date: "2026-07-23", time: "17:11", url: "https://www.bloomberg.com/news/articles/2026-07-23/us-treasury-yields-rise-to-2026-highs-as-oil-gains-spark-fed-bet" },
-    { title: "The number of Americans filing for unemployment is the lowest since 1969", source: "CNN", date: "2026-07-23", time: "17:11", url: "https://www.cnn.com/2026/07/23/economy/us-initial-jobless-claims-1969" },
+    { title: "Oil prices leap to $100 a barrel after attacks in Red Sea", source: "Washington Post", date: "2026-07-23", time: "22:40", url: "https://www.washingtonpost.com/world/2026/07/23/least-one-saudi-oil-tanker-is-attacked-red-sea-war-risks-widen/" },
+    { title: "Brent Crude Tops $100 After Reports of Tanker Attacks Near Saudi Arabia. Should Investors Buy Oil Stocks Now?", source: "The Motley Fool", date: "2026-07-23", time: "20:05", url: "https://www.fool.com/investing/2026/07/23/brent-crude-tops-100-after-reports-of-tanker-attacks-near-saudi-arabia-should-investors-buy-oil-stocks-now/" },
+    { title: "US energy shares gain as Houthi tanker attacks push Brent to $100", source: "Yahoo Finance", date: "2026-07-23", time: "18:32", url: "https://finance.yahoo.com/energy/articles/us-energy-shares-gain-houthi-133228733.html" },
   ],
   uk: [
     { title: "UK Chancellor Healey Vows Fiscal Buffer to Shield Economy From Shocks", source: "Bloomberg", date: "2026-07-23", time: "21:13", url: "https://www.bloomberg.com/news/articles/2026-07-23/uk-chancellor-healey-pledges-fiscal-buffer-in-pitch-to-the-city" },
-    { title: "Andy Burnham to cut business rates by 20% for pubs, clubs and music venues", source: "ITV News", date: "2026-07-23", time: "17:11", url: "https://www.itv.com/news/2026-07-23/andy-burnham-to-cut-business-rates-by-20-for-pubs-clubs-and-music-venues" },
-    { title: "John Healey vows to 'make life more affordable' in first speech to Treasury staff", source: "Yahoo News UK", date: "2026-07-23", time: "17:11", url: "https://uk.news.yahoo.com/john-healey-vows-life-more-094323802.html" },
-    { title: "Pound Sterling Price News & Forecast: GBP/USD edges higher to around 1.3385", source: "FXStreet", date: "2026-07-23", time: "17:11", url: "https://www.fxstreet.com/news/pound-sterling-price-news-forecast-gbp-usd-edges-higher-to-around-13385-202607230248" },
-    { title: "UK Gilt Yields Rise on Fiscal Concerns, Oil Surge", source: "TradingView / Trading Economics", date: "2026-07-23", time: "17:11", url: "https://www.tradingview.com/news/te_news:569222:0-uk-gilt-yields-rise-on-fiscal-concerns-oil-surge/" },
+    { title: "'Door is open' to interest rate hike as inflation fears return", source: "CityAM", date: "2026-07-23", time: "12:05", url: "https://www.cityam.com/door-is-open-to-interest-rate-hike-as-inflation-fears-return/" },
+    { title: "FTSE 100 Live: Stocks slip as oil nears $100 after Houthi attacks", source: "CityAM", date: "2026-07-23", time: "17:35", url: "https://www.cityam.com/ftse-100-live-stocks-to-rise-easyjet-to-update-markets-after-share-slump/" },
+    { title: "FTSE 100 Live: Stocks start lower as Centrica and BT disappoint, oil prices hit 7-week high", source: "Yahoo Finance UK", date: "2026-07-23", time: "06:17", url: "https://uk.finance.yahoo.com/news/ftse-100-live-cautious-start-061700098.html" },
+    { title: "UK Gilt Yields Climb Amid Inflation Concerns", source: "Trading Economics", date: "2026-07-23", time: "09:15", url: "https://tradingeconomics.com/united-kingdom/government-bond-yield/news/530896" },
   ],
 };
 
@@ -756,17 +756,17 @@ export const EARNINGS = {
         { t: "COF", n: "Capital One", tag: "Banks \u00b7 S&P 500", when: "After close", held: [{ etf: "IGWD", w: null }], estEps: "$4.89", estRev: "$15.7bn", km: { l: "Non-int inc", est: "$3.21bn", act: null }, actEps: "$4.73 (adj $5.81)", actRev: null, note: "net income $3.0bn", px: null },
       ] },
       { date: "2026-07-22", rows: [
-        { t: "GOOGL", n: "Alphabet", tag: "Mag 7 \u00b7 hyperscaler", when: "After close", held: [{ etf: "IGWD", w: "4.16%" }], estEps: "$2.86", estRev: "$116.53bn", guide: { est: "FY26 capex $175bn", act: null }, actEps: null, actRev: null, px: null },
-        { t: "TSLA", n: "Tesla", tag: "Mag 7", when: "After close", held: [{ etf: "IGWD", w: "1.33%" }], estEps: "$0.47", estRev: "$27.6bn", km: { l: "Deliveries", est: null, act: "480,126 +25%" }, note: "deliveries (2 Jul) ~74k above Street; rev = co-compiled consensus", actEps: null, actRev: null, px: null },
-        { t: "TXN", n: "Texas Instruments", tag: "Chips \u00b7 S&P 500", when: null, held: [{ etf: "IGWD", w: null }], estEps: "$1.92", estRev: "$5.24bn", note: "industrial-cycle bellwether", actEps: null, actRev: null, px: null },
-        { t: "IBM", n: "IBM", tag: "AI/software \u00b7 Dow", when: null, held: [{ etf: "IGWD", w: null }], estEps: "$3.02", estRev: "$17.86bn", actEps: "$2.93 prelim", actRev: "$17.2bn prelim", px: "-25.2%", note: "prelim miss 14 Jul; full report 22 Jul" },
-        { t: "NOW", n: "ServiceNow", tag: "AI/software \u00b7 S&P 500", when: "After close", held: [{ etf: "IGWD", w: null }], estEps: "$0.86", estRev: "$3.82bn subs", km: { l: "cRPO growth", est: ">19.5%", act: null }, note: "rev = subscription guide", actEps: null, actRev: null, px: null },
+        { t: "GOOGL", n: "Alphabet", tag: "Mag 7 \u00b7 hyperscaler", when: "After close", held: [{ etf: "IGWD", w: "4.16%" }], estEps: "$2.86", estRev: "$116.53bn", guide: { est: "FY26 capex $175bn", act: "FY26 capex raised to $195\u2013205bn" }, actEps: "$2.85 adj", actRev: "$119.8bn", px: "-6%", note: "GAAP EPS $9.11 incl. ~$80bn Anthropic stake gain; Cloud revenue +82% to $24.8bn; beat on top line but shares fell on the higher capex guide" },
+        { t: "TSLA", n: "Tesla", tag: "Mag 7", when: "After close", held: [{ etf: "IGWD", w: "1.33%" }], estEps: "$0.47", estRev: "$27.6bn", km: { l: "Deliveries", est: null, act: "480,126 +25%" }, actEps: "$0.33 adj", actRev: "$28.24bn", px: "-12%", note: "deliveries beat Street by ~74k, but EPS missed the $0.53 estimate; op margin fell to 1.4% and FCF turned negative ($1.09bn) on a 142% capex jump" },
+        { t: "TXN", n: "Texas Instruments", tag: "Chips \u00b7 S&P 500", when: null, held: [{ etf: "IGWD", w: null }], estEps: "$1.92", estRev: "$5.24bn", actEps: "$2.14", actRev: "$5.46bn", px: "-3.4%", note: "beat on both lines and guided Q3 above seasonal, but shares fell as STMicro's soft Q3 guide weighed on the wider chip sector" },
+        { t: "IBM", n: "IBM", tag: "AI/software \u00b7 Dow", when: null, held: [{ etf: "IGWD", w: null }], estEps: "$3.02", estRev: "$17.86bn", actEps: "$2.93", actRev: "$17.16bn", px: "-25.2%", note: "confirmed the 14 Jul prelim miss; Software +5% (Red Hat +11%), Infrastructure -7%; FY guide reaffirmed at 4-5% constant-currency growth" },
+        { t: "NOW", n: "ServiceNow", tag: "AI/software \u00b7 S&P 500", when: "After close", held: [{ etf: "IGWD", w: null }], estEps: "$0.86", estRev: "$3.82bn subs", km: { l: "cRPO growth", est: ">19.5%", act: "21% (cc +21.5%)" }, actEps: "$0.90", actRev: "$3.99bn", px: "-6.5% then +4.7% AH", note: "beat on EPS/revenue/cRPO and raised guidance; stock still closed -6.5% on the day before recovering ~4.7% after-hours" },
       ] },
       { date: "2026-07-23", rows: [
-        { t: "RTX", n: "RTX", tag: "Defence \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$1.66", estRev: "$23.08bn", actEps: null, actRev: null, px: null },
-        { t: "LMT", n: "Lockheed Martin", tag: "Defence \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$7.19", estRev: "$19.37bn", actEps: null, actRev: null, px: null },
-        { t: "INTC", n: "Intel", tag: "Chips \u00b7 Nasdaq 100", when: "After close", held: [{ etf: "IGWD", w: null }], estEps: "$0.10", estRev: "$14.4bn", guide: { est: "co guide $13.8\u201314.8bn \u00b7 EPS $0.20", act: null }, note: "consensus +138.5% y/y", actEps: null, actRev: null, px: null },
-        { t: "BX", n: "Blackstone", tag: "Asset mgr \u00b7 S&P 500", when: null, held: [{ etf: "IGWD", w: null }], estEps: "$1.34", estRev: null, actEps: null, actRev: null, px: null },
+        { t: "RTX", n: "RTX", tag: "Defence \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$1.66", estRev: "$23.08bn", actEps: "$1.89", actRev: "$24.7bn", px: "+7%", note: "record $289bn backlog; raised FY26 adjusted EPS guide to $7.10-7.25" },
+        { t: "LMT", n: "Lockheed Martin", tag: "Defence \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$7.19", estRev: "$19.37bn", actEps: "$7.94", actRev: "$20.06bn", px: "+5.2%", note: "record $230bn backlog; raised FY26 guide above consensus on both lines" },
+        { t: "INTC", n: "Intel", tag: "Chips \u00b7 Nasdaq 100", when: "After close", held: [{ etf: "IGWD", w: null }], estEps: "$0.10", estRev: "$14.4bn", guide: { est: "co guide $13.8\u201314.8bn \u00b7 EPS $0.20", act: "Q3 guide ~$16.3bn midpoint" }, actEps: "$0.42 adj", actRev: "$16.1bn", px: "+4% AH", note: "fastest revenue growth since 2011 on a 59% Data Center/AI surge; consensus est. ranged $0.10-0.21 across sources" },
+        { t: "BX", n: "Blackstone", tag: "Asset mgr \u00b7 S&P 500", when: null, held: [{ etf: "IGWD", w: null }], estEps: "$1.34", estRev: null, actEps: "$1.52 DE ($1.54 GAAP)", actRev: "$5.04bn", px: null, note: "distributable earnings +26% YoY; AUM hit a record ~$1.35tn on AI-driven inflows and gains" },
       ] },
       { date: "2026-07-24", rows: [
         { t: "VZ", n: "Verizon", tag: "Telecoms \u00b7 Dow", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$1.26", estRev: "$35.5bn", km: { l: "Adj EBITDA", est: "$13.7bn", act: null }, note: "consensus +7.7% y/y; EBITDA cons +8.1%", actEps: null, actRev: null, px: null },
@@ -806,5 +806,17 @@ export const EARNINGS = {
     { name: "Yahoo (MS record quarter)", url: "https://finance.yahoo.com/markets/stocks/articles/morgan-stanley-q2-2026-earnings-115242115.html" },
     { name: "MSCI World factsheet (IGWD weights)", url: "https://www.msci.com/documents/10199/255599/msci-world-index.pdf" },
     { name: "BlackRock EMEE factsheet (TSMC weight)", url: "https://www.blackrock.com/lu/individual/literature/fact-sheet/emee-ishares-emerging-markets-equity-enhanced-active-ucits-etf-fund-fact-sheet-en-lu.pdf" },
+    { name: "CNBC (Alphabet Q2 actuals)", url: "https://www.cnbc.com/2026/07/22/google-earnings-q2-goog-live-updates.html" },
+    { name: "Yahoo Finance (GOOGL falls on capex)", url: "https://finance.yahoo.com/technology/article/google-q2-earnings-top-expectations-cloud-revenue-grows-82-but-stock-falls-on-capex-growth-202407124.html" },
+    { name: "TradingKey (Tesla Q2 actuals)", url: "https://www.tradingkey.com/analysis/stocks/us-stocks/262049199-tesla-tsla-q2-2026-earnings-results-revenue-beat-eps-miss-margin-tradingkey" },
+    { name: "Electrek (TSLA -12% after miss)", url: "https://electrek.co/2026/07/23/tesla-tsla-crashes-12-q2-2026-earnings-miss/" },
+    { name: "StockTitan (TXN Q2 actuals)", url: "https://www.stocktitan.net/news/TXN/ti-reports-second-quarter-2026-financial-results-and-shareholder-fjwrl0t8xj0f.html" },
+    { name: "TradingKey (TXN -3.4% move)", url: "https://www.tradingkey.com/news/market-movers/262050471-market-movers-txn-20260723" },
+    { name: "GuruFocus (IBM Q2 actuals)", url: "https://www.gurufocus.com/news/8972598/is-ibm-ibm-undervalued-after-q2-earnings-miss-eps-at-227-and-revenue-at-172b-gf-score-81100" },
+    { name: "GuruFocus (ServiceNow Q2 actuals)", url: "https://www.gurufocus.com/news/8973910/servicenow-now-reports-strong-q2-2026-earnings-with-23-subscription-revenue-growth" },
+    { name: "Cryptonomist (NOW stock reaction)", url: "https://en.cryptonomist.ch/2026/07/23/servicenow-inc-stock-trades-30-below-ema200-after-earnings-beat/" },
+    { name: "247wallst (RTX +7%, LMT +5.2%)", url: "https://247wallst.com/investing/2026/07/23/lockheed-martin-rockets-10-rtx-jumps-7-on-beat-and-raise-quarters-and-record-backlogs/" },
+    { name: "TradingKey (Intel Q2 actuals)", url: "https://www.tradingkey.com/analysis/stocks/us-stocks/262050823-intel-earnings-report-q2-2026-intc-ai-data-center-intel-foundry-tradingkey" },
+    { name: "Blackstone Q2 2026 press release", url: "https://www.blackstone.com/news/press/blackstone-reports-second-quarter-2026-earnings/" },
   ],
 };
