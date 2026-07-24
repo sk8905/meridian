@@ -797,17 +797,20 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 .adv-inf { font-size: 9px; text-transform: uppercase; letter-spacing: .03em; color: var(--t-mut, #8592ad); border: 1px solid var(--border, #262626); border-radius: 3px; padding: 0 4px; margin-left: 4px; vertical-align: middle; }
 
 /* ---- Origination Radar (.tdash terminal) ---------------------------------- */
-/* Filter bar is a grey sub-header, LOCKED below the chip header (which is sticky
-   top:0 and 28px tall) so it stays put while the target list scrolls under it. */
-.org-filters { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--border, #262626); background: var(--head); position: sticky; top: 28px; z-index: 3; }
+/* Filter bar is a grey sub-header; it and the column-header row are both pinned
+   (see the desktop block below) so only the target list scrolls under them.
+   Filters start at the LEFT edge — cancel tui.css's .tsearch margin-left:auto,
+   which otherwise shoved the whole row toward the centre. */
+.org-filters { flex: 0 0 auto; display: flex; align-items: center; justify-content: flex-start; flex-wrap: wrap; gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--border, #262626); background: var(--head); }
+.org-filters .tsearch { margin-left: 0; }
 .org-fl { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
 .org-fl select, .org-tier, .org-rel, .org-cov { background: var(--bg); border: 1px solid var(--border, #262626); color: var(--ink); font-family: inherit; font-size: 11px; border-radius: 0; padding: 1px 4px; }
 .org-tbl th, .org-tbl td { vertical-align: middle; }
 /* Left-align every column (header + cell) — out-specifies tui.css's default
-   right-alignment for non-first league columns. Column headers do NOT stick
-   (the filter bar is the locked sub-header); a sticky thead would collide. */
+   right-alignment for non-first league columns. One line per cell (ellipsis). */
 .tpane[data-pane="radar"] .tleague th,
-.tpane[data-pane="radar"] .tleague td { text-align: left; position: static; }
+.tpane[data-pane="radar"] .tleague td { text-align: left; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tpane[data-pane="radar"] .tl-nm { max-width: none; }
 .org-sortable { cursor: pointer; user-select: none; }
 .org-sortable.on { color: var(--ink); }
 .org-open { color: var(--ink); text-decoration: none; }
@@ -817,7 +820,7 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 .org-band { font-family: var(--t-mono); font-size: 10px; color: var(--muted); }
 .org-band.mid { color: var(--ink); font-weight: 600; }
 .org-wallet { white-space: nowrap; }
-.org-w { display: inline-block; min-width: 26px; text-align: center; font-family: var(--t-mono); font-size: 9px; padding: 1px 3px; margin-right: 2px; border: 1px solid var(--border, #262626); border-radius: 3px; color: var(--faint); }
+.org-w { display: inline-block; min-width: 21px; text-align: center; font-family: var(--t-mono); font-size: 8.5px; padding: 1px 2px; margin-right: 1px; border: 1px solid var(--border, #262626); border-radius: 3px; color: var(--faint); }
 .org-w.on { color: var(--ink); border-color: var(--muted); font-weight: 600; }
 .org-adv { font-size: 10px; color: var(--muted); }
 .org-white-flag { color: var(--faint); }
@@ -828,6 +831,29 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 .org-warm-btn { background: transparent; border: 0; cursor: pointer; color: var(--faint); font-size: 13px; display: inline-flex; align-items: center; gap: 4px; padding: 0; }
 .org-warm-btn.on { color: var(--ink); }
 .org-warm-lbl { font-size: 9px; text-transform: uppercase; letter-spacing: .03em; }
+/* Desktop: pin BOTH sub-headers (filter banner + column-header row) and scroll
+   ONLY the client list; fixed column widths keep every row to one line. */
+@media (min-width: 761px) {
+  #org-panes { display: flex; overflow: hidden; }
+  #org-panes > .tpane { flex: 1 1 auto; min-width: 0; min-height: 0; }
+  #org-panes > .tpane[hidden] { display: none; }
+  .tpane[data-pane="radar"] { display: flex; flex-direction: column; }
+  .tpane[data-pane="radar"] .tleague-wrap { flex: 1 1 auto; min-height: 0; overflow-y: auto; margin: 0; }
+  .tpane[data-pane="radar"] .org-note { flex: 0 0 auto; margin: 0; }
+  .tpane[data-pane="radar"] .org-tbl { table-layout: fixed; }
+  .tpane[data-pane="radar"] .org-tbl thead th { position: sticky; top: 0; z-index: 2; background: var(--head); }
+  .tpane[data-pane="pipeline"] { overflow-y: auto; }
+  /* Column widths (sum 100) — Fund · HQ · Strategy · AUM · Wallet · Advisers · Latest · Warm · Tier. */
+  .org-tbl th:nth-child(1), .org-tbl td:nth-child(1) { width: 19%; }
+  .org-tbl th:nth-child(2), .org-tbl td:nth-child(2) { width: 11%; }
+  .org-tbl th:nth-child(3), .org-tbl td:nth-child(3) { width: 15%; }
+  .org-tbl th:nth-child(4), .org-tbl td:nth-child(4) { width: 8%; }
+  .org-tbl th:nth-child(5), .org-tbl td:nth-child(5) { width: 14%; }
+  .org-tbl th:nth-child(6), .org-tbl td:nth-child(6) { width: 9%; }
+  .org-tbl th:nth-child(7), .org-tbl td:nth-child(7) { width: 11%; }
+  .org-tbl th:nth-child(8), .org-tbl td:nth-child(8) { width: 7%; }
+  .org-tbl th:nth-child(9), .org-tbl td:nth-child(9) { width: 6%; }
+}
 .org-card { border: 1px solid var(--border, #262626); border-radius: 6px; padding: 9px 11px; margin: 8px 12px; background: var(--surface2, var(--head, #131313)); }
 .org-card-h { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .org-card-tier { font-weight: 700; color: var(--ink); font-family: var(--t-mono); }
