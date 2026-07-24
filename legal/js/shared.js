@@ -8,7 +8,7 @@
 // token — keep them identical and bump together, or the browser loads data.js
 // twice as separate module instances (blank page).
 // =============================================================================
-import { firmById, areaById, typeById, tierById } from "./data.js?v=20260723-9";
+import { firmById, areaById, typeById, tierById } from "./data.js?v=20260724-1";
 import { esc, MONTHS } from "/util.js?v=20260719-1";
 
 // ----------------------------- date formatting ------------------------------

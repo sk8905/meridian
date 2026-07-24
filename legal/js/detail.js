@@ -8,12 +8,12 @@
 // =============================================================================
 import {
   items, cases, restructurings, firmById, areaById, typeById,
-} from "./data.js?v=20260723-7";
+} from "./data.js?v=20260724-1";
 import { esc, byDateDesc } from "/util.js?v=20260719-1";
 import {
   fmtDate, itemDate, isNew, getSaved, areaChip, tierLabel, firmLink, itemRow,
   _chipMem, chipMemKey,
-} from "./shared.js?v=20260723-4";
+} from "./shared.js?v=20260724-1";
 
 const app = document.getElementById("app");
 
@@ -229,7 +229,7 @@ export function viewFirm(id) {
   // Credit-wire deals/fundraising naming this firm fold into "Matters" (and
   // "All") once the lazily-loaded credit data arrives; if it can't load, the
   // page simply shows the legal-side rows.
-  import("/credit/js/data.js?v=20260723-8").then(({ deals, intel, managers }) => {
+  import("/credit/js/data.js?v=20260724-1").then(({ deals, intel, managers }) => {
     const mgr = (mid) => (managers.find((m) => m.id === mid) || {}).name || "";
     dealRows = [...(deals || []), ...(intel || [])]
       .filter((d) => firmMentioned(firm, recText(d)))
