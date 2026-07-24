@@ -978,7 +978,7 @@ async function handle13F(request, env, ctx) {
 
   const cache = caches.default;
   // Long-lived, per-CIK edge key. Bump v when the endpoint's parsing code changes.
-  const cacheKey = new Request(new URL(`/api/13f?cik=${cik}&v=2`, request.url).toString());
+  const cacheKey = new Request(new URL(`/api/13f?cik=${cik}&v=3`, request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
 
@@ -1036,20 +1036,27 @@ async function handle13F(request, env, ctx) {
       const value = Math.round((parseFloat(xmlFirst(b, "value")) || 0) * mult);
       const shares = parseFloat(xmlFirst(b, "sshPrnamt")) || 0;
       if (!value && !shares) continue;
+      // 13F carries two extra classifiers per row: putCall (a HELD option leg —
+      // 13F never reports written/short options) and sshPrnamtType SH|PRN (PRN =
+      // principal amount, i.e. a convertible-debt / debt-type 13(f) security).
+      const putCall = (xmlFirst(b, "putCall") || "").trim().toUpperCase();
+      const prnType = (xmlFirst(b, "sshPrnamtType") || "").trim().toUpperCase();
       const key = cusip || name.toUpperCase();
       if (!key) continue;
       total += value;
       let e = agg.get(key);
-      if (!e) { e = { name, cusip, value: 0, shares: 0 }; agg.set(key, e); }
+      if (!e) { e = { name, cusip, value: 0, shares: 0, optVal: 0, prnVal: 0 }; agg.set(key, e); }
       e.value += value;
       e.shares += shares;
+      if (putCall) e.optVal += value;
+      if (prnType === "PRN") e.prnVal += value;
       if (!e.name && name) e.name = name;
     }
     if (!agg.size) return fail("no holdings parsed");
     const holdings = [...agg.values()]
       .sort((a, b) => b.value - a.value)
       .slice(0, 10)
-      .map((h) => ({ name: h.name, cusip: h.cusip, value: h.value, shares: h.shares, weight: total ? h.value / total : null }));
+      .map((h) => ({ name: h.name, cusip: h.cusip, value: h.value, shares: h.shares, weight: total ? h.value / total : null, opt: h.optVal > 0, prn: h.prnVal > 0 }));
     // Resolve each top-10 holding's ticker from its CUSIP (best-effort) so the
     // fund page can annotate rows with live price performance. Cached with the
     // holdings (24h) since tickers are stable.

@@ -588,6 +588,29 @@ function markNotifSeen(items) {
     fetch(NOTIF_API[desk], { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ seen: merged }) }).catch(() => {});
   });
 }
+// Pull each desk's server-side seen-state (KV, keyed on the Access email) and
+// UNION it into localStorage, so a notification marked read on ONE device shows
+// as read on every device. Mirrors the Bookmarks pull; markNotifSeen only ever
+// PUT the local state, so without this each device tracked "read" independently.
+// Runs before the baseline/badge on boot, so cross-device reads are respected
+// and a later PUT can't clobber another device's reads. Returns true if changed.
+async function hydrateSeen() {
+  let changed = false;
+  await Promise.all(["c", "l"].map(async (desk) => {
+    try {
+      const r = await fetch(NOTIF_API[desk], { headers: { accept: "application/json" } });
+      if (!r.ok) return;
+      const d = await r.json();
+      const server = (d && Array.isArray(d.seen)) ? d.seen : [];
+      if (!server.length) return;
+      let local = []; try { const p = JSON.parse(localStorage.getItem(NOTIF_KEYS[desk]) || "[]"); if (Array.isArray(p)) local = p; } catch { /* */ }
+      const set = new Set(local); const before = set.size;
+      server.forEach((id) => { if (typeof id === "string") set.add(id); });
+      if (set.size !== before) { try { localStorage.setItem(NOTIF_KEYS[desk], JSON.stringify([...set].slice(0, 4000))); changed = true; } catch { /* */ } }
+    } catch { /* offline — local state stands */ }
+  }));
+  return changed;
+}
 
 // ---- shared full-screen shell (mobile) --------------------------------------
 function setTopVar() {
@@ -1077,13 +1100,15 @@ export function initNavActions() {
     });
     document.addEventListener("keydown", (e) => { if (e.key === "Escape") closeAll(); });
 
-    // Prime the cross-desk notifications + unread badge in the background.
-    ensureNotifs().then((items) => {
+    // Prime the cross-desk notifications + unread badge in the background. Hydrate
+    // the server-side seen-state FIRST so notifications read on another device are
+    // already reflected before the baseline is set and the badge is counted.
+    hydrateSeen().finally(() => ensureNotifs().then((items) => {
       establishBaseline(items);
       const n = countUnread(items);
       const b = notifBtn.querySelector(".na-badge");
-      if (b && n) { b.textContent = n > 9 ? "9+" : String(n); b.hidden = false; }
-    }).catch(() => {});
+      if (b) { if (n) { b.textContent = n > 9 ? "9+" : String(n); b.hidden = false; } else { b.hidden = true; } }
+    }).catch(() => {}));
   };
   // First-paint reveal: the HTML boot script holds the content area invisible
   // (html.wire-boot) so a page switch never paints the half-built state — the

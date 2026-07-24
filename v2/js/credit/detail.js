@@ -594,9 +594,11 @@ function hfPerfCell(h, perfMap, k) {
 }
 function hfHoldingsTable(d, perfMap) {
   if (!d || !Array.isArray(d.holdings) || !d.holdings.length) return null;
+  const flag = (h) => (h.opt ? ` <span class="hf-fl" title="Held via options (puts/calls) — 13F reports held options only">opt</span>` : "")
+    + (h.prn ? ` <span class="hf-fl" title="Held as a convertible / debt-type 13(f) security">conv</span>` : "");
   const rows = d.holdings.map((h, i) => `<tr>`
     + `<td class="tl-n">${i + 1}</td>`
-    + `<td class="tl-nm">${esc(h.name || "—")}</td>`
+    + `<td class="tl-nm">${esc(h.name || "—")}${flag(h)}</td>`
     + `<td class="tl-tick">${h.ticker ? `<a href="https://finance.yahoo.com/quote/${encodeURIComponent(h.ticker)}" target="_blank" rel="noopener noreferrer" title="${esc(h.ticker)} on Yahoo Finance">${esc(h.ticker)}</a>` : "—"}</td>`
     + `<td class="tl-hq">${esc(h.cusip || "")}</td>`
     + `<td class="tl-n">${esc(hfUsd(h.value))}</td>`

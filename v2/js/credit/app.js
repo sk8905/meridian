@@ -559,7 +559,63 @@ function hedgeFundsPaneHTML() {
               </table>
               </div>
               <p class="tl-sls-key muted small">The largest hedge-fund managers across the US, UK &amp; Europe, by AUM. <strong>AUM is US$bn and approximate</strong> — latest widely-reported public figures (firm-wide, indicative only; hedge funds do not disclose AUM uniformly), each with a source on the fund page. As of ${esc(HEDGE_FUNDS_ASOF)}. Click a row for AUM sources, strategy, performance and live SEC 13F top-10 holdings.</p>
+              <section class="hf-cons">
+                <header class="tpanel-h thead-search"><span>Most-crowded holdings — 13F consensus</span>
+                  <button type="button" class="tfocus-btn" id="hf-cons-btn" title="Aggregate the top-10 13F holdings across the largest tracked funds">Load consensus</button></header>
+                <div id="hf-cons-body"><p class="tl-sls-key muted small">Aggregates the SEC 13F top-10 US-equity holdings across the largest tracked hedge funds to show the most widely-held names — how many of our funds hold each, the average position weight, and the total 13F value. 13F is long-only US equities/options (incl. held puts/calls and convertibles); it excludes shorts, cash bonds/loans and non-US names.</p></div>
+              </section>
             </div>`;
+}
+
+// Cross-fund 13F consensus — the most widely-held names across our hedge-fund
+// universe. Fetches the latest 13F top-10 for the largest tracked funds (each via
+// the edge-cached /api/13f, so warm funds cost nothing) and aggregates by CUSIP:
+// how many of our funds hold each name, the mean position weight among holders,
+// the total reported 13F value, and the holder list — plus option/convertible
+// flags surfaced from the filing. Client-side, reusing the same cache the fund
+// pages warm; bounded to the top 30 by AUM. Lazy: only runs on the button tap.
+let _consBusy = false;
+async function loadConsensus(btn) {
+  const body = document.getElementById("hf-cons-body");
+  if (!body || _consBusy) return;
+  _consBusy = true;
+  if (btn) { btn.disabled = true; btn.textContent = "Loading…"; }
+  const funds = [...HEDGE_FUNDS].filter((f) => f.cik).sort((a, b) => (b.aum || 0) - (a.aum || 0)).slice(0, 30);
+  body.innerHTML = `<p class="tl-sls-key muted small">Aggregating 13F holdings across ${funds.length} funds…</p>`;
+  const settled = await Promise.all(funds.map((f) =>
+    fetch(`/api/13f?cik=${encodeURIComponent(f.cik)}`, { headers: { accept: "application/json" } })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => (d && Array.isArray(d.holdings) && d.holdings.length ? { f, holdings: d.holdings } : null))
+      .catch(() => null)));
+  const got = settled.filter(Boolean);
+  const agg = new Map();
+  got.forEach(({ f, holdings }) => holdings.forEach((h) => {
+    const key = (h.cusip || (h.name || "").toUpperCase()); if (!key) return;
+    let e = agg.get(key);
+    if (!e) { e = { name: h.name, ticker: h.ticker || null, count: 0, total: 0, weights: [], holders: [], opt: false, prn: false }; agg.set(key, e); }
+    e.count++; e.total += h.value || 0; if (h.weight != null) e.weights.push(h.weight);
+    e.holders.push(f.name); if (h.ticker && !e.ticker) e.ticker = h.ticker;
+    if (h.opt) e.opt = true; if (h.prn) e.prn = true;
+  }));
+  const rows = [...agg.values()].filter((e) => e.count >= 2)
+    .map((e) => ({ ...e, avgW: e.weights.length ? e.weights.reduce((a, b) => a + b, 0) / e.weights.length : null }))
+    .sort((a, b) => b.count - a.count || b.total - a.total).slice(0, 25);
+  _consBusy = false;
+  if (btn) { btn.disabled = false; btn.textContent = "Refresh"; }
+  if (!rows.length) { body.innerHTML = `<p class="tl-sls-key muted small">No overlapping 13F holdings across ${got.length}/${funds.length} funds yet (some file no US 13F; cold filings warm into the edge cache on first view). Try Refresh shortly.</p>`; return; }
+  const usd = (v) => v >= 1e9 ? "$" + (v / 1e9).toFixed(1) + "bn" : v >= 1e6 ? "$" + (v / 1e6).toFixed(0) + "m" : "$" + Math.round(v).toLocaleString("en-US");
+  const flag = (e) => (e.opt ? `<span class="hf-cons-fl" title="Held via options (puts/calls) by some funds">opt</span>` : "") + (e.prn ? `<span class="hf-cons-fl" title="Held as a convertible/debt security by some funds">conv</span>` : "");
+  const tick = (e) => e.ticker ? `<a href="https://finance.yahoo.com/quote/${encodeURIComponent(e.ticker)}" target="_blank" rel="noopener noreferrer">${esc(e.ticker)}</a>` : "—";
+  const row = (e) => `<tr><td class="tl-nm">${esc(e.name || "—")} ${flag(e)}</td>`
+    + `<td class="tl-tick">${tick(e)}</td>`
+    + `<td class="tl-n"><strong>${e.count}</strong></td>`
+    + `<td class="tl-n">${e.avgW != null ? (e.avgW * 100).toFixed(1) + "%" : "—"}</td>`
+    + `<td class="tl-n">${usd(e.total)}</td>`
+    + `<td class="tl-hq" title="${esc(e.holders.join(", "))}">${esc(e.holders.slice(0, 3).join(", "))}${e.holders.length > 3 ? ` +${e.holders.length - 3}` : ""}</td></tr>`;
+  body.innerHTML = `<div class="tleague-wrap"><table class="tleague tl-holdings">`
+    + `<thead><tr><th>Security</th><th class="tl-tick">Ticker</th><th># funds</th><th>Avg wt</th><th>Total 13F value</th><th class="tl-hq">Holders</th></tr></thead>`
+    + `<tbody>${rows.map(row).join("")}</tbody></table></div>`
+    + `<p class="tl-sls-key muted small">Across ${got.length} of the ${funds.length} largest tracked funds' latest SEC 13F filings (long US-equity/option positions only). "# funds" = how many hold the name in their top-10; "Avg wt" = mean position weight among holders. Filings self-refresh on a 24h cache.</p>`;
 }
 
 // ================================ DASHBOARD =================================
@@ -853,6 +909,8 @@ function viewDashboard() {
     hff.classList.toggle("is-on", on);
     document.querySelectorAll("#hf-rows tr").forEach((tr) => { tr.style.display = (!on || tr.dataset.focus === "1") ? "" : "none"; });
   });
+  const cb = document.getElementById("hf-cons-btn");
+  if (cb) cb.addEventListener("click", () => loadConsensus(cb));
 }
 // In-place filter for the dashboard activity wire: chips toggle which kinds show
 // without leaving the screen (the collapsed News/Deals/Fundraising/CLOs tabs).
