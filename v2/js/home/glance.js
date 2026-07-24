@@ -641,6 +641,7 @@ function renderFeed() {
     // across all three desks, newest first.
     feed = dedupe([...news, ...macro, ...credit, ...hdg, ...legal, ...ft, ...substacks, ...brew].sort(byDateDesc)).filter((x) => x.src === _feedSrc).slice(0, CAP);
   } else if (_feedDesk === "all") {
+    // Today's items lead, interleaved across desks so no single desk dominates.
     const pick = (list) => dedupe(list.filter((x) => day(x) === target).sort(byDateDesc));
     const lists = [pick(news), pick(macro), pick(credit), pick(hdg), pick(legal), pick(newsletter), pick(ft), pick(substacks), pick(brew)];
     const seen = new Set();
@@ -648,15 +649,22 @@ function renderFeed() {
     for (let i = 0; lists.some((l) => i < l.length); i++) lists.forEach((l) => {
       if (i < l.length) { const k = norm(l[i].title); if (!seen.has(k)) { seen.add(k); feed.push(l[i]); } }
     });
-    // Hold up to 50 stories: if today alone has fewer, backfill with the most
-    // recent earlier items (newest-first, deduped).
-    if (feed.length < CAP) {
-      for (const x of all.filter((x) => day(x) !== target).sort(byDateDesc)) {
-        if (feed.length >= CAP) break;
-        const k = norm(x.title); if (!seen.has(k)) { seen.add(k); feed.push(x); }
-      }
+    // Backfill older items newest-first. The Credit desk carries THOUSANDS of
+    // historical rows (and Legal hundreds), so drawing the backfill from the flat
+    // corpus lets those two bury a small desk's recent run — the newest ~500 rows
+    // only reach back ~3 weeks, so e.g. a hedge reporter's month-old stories fall
+    // below the fold. Cap the two high-volume desks to a recent slice and take
+    // every other desk WHOLE, so each desk's recent stream survives the merge
+    // (the full Credit/Legal history stays one tap away under their own filter).
+    const HEAVY = 200;
+    const pool = [byDesk.news, byDesk.m, byDesk.c.slice(0, HEAVY), byDesk.hdg,
+      byDesk.l.slice(0, HEAVY), byDesk.n, byDesk.f, byDesk.s, byDesk.b]
+      .flat().filter((x) => day(x) !== target).sort(byDateDesc);
+    const GUARD = 900;   // pathological guard, well above the capped pool (~600)
+    for (const x of pool) {
+      if (feed.length >= GUARD) break;
+      const k = norm(x.title); if (!seen.has(k)) { seen.add(k); feed.push(x); }
     }
-    feed.length = Math.min(feed.length, CAP);
   } else {
     // Single desk: that desk's most-recent items, up to the cap — narrowed to the
     // active type when a second-level chip is on (matched on type||desk).
