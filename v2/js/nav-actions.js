@@ -928,7 +928,7 @@ export function initNavActions() {
       if (acct) jobs.push(fetch("/api/me", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).then((d) => {
         if (d && d.email) { acct.innerHTML = `<span class="si-prefix">Signed in as </span><strong>${esc(d.email)}</strong> · <a href="/cdn-cgi/access/logout">Sign out</a>`; acct.hidden = false; }
       }).catch(() => {}));
-      if (stat) jobs.push(import("/credit/js/data.js?v=20260718-9").then((m) => {
+      if (stat) jobs.push(import("/credit/js/data.js?v=20260724-6").then((m) => {
         stat.textContent = `Last refresh ${fmtDate(m.LAST_CHECKED)}${m.LAST_CHECKED_TIME ? `, ${m.LAST_CHECKED_TIME}` : ""}`;
       }).catch(() => {}));
       if (jobs.length) Promise.allSettled(jobs).then(() => fillMenu(menuPanel));

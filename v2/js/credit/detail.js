@@ -13,14 +13,14 @@ import {
   managerById, fundById, lpById, funds, lps, intel, deals,
   fundsByManager, intelForFund, dealsForFund, dealsForManager, intelForManager,
   HEDGE_FUNDS,
-} from "/credit/js/data.js?v=20260724-4";
+} from "/credit/js/data.js?v=20260724-6";
 import { esc } from "/util.js?v=20260719-1";
 import {
   eur, pct, fmtDate, link, sources, raiseDisplay, nameCell, saveBtn, newsSaveId,
   metaDate, notFound, applyPendingFocus, commitmentsForLp, commitmentsForManager,
   investorsForFund, pageList, feedDedupKey, creditSource, intelRow, dealRow,
   _chipMem, chipMemKey,
-} from "/credit/js/shared.js?v=20260724-2";
+} from "/credit/js/shared.js?v=20260724-3";
 
 export let app = null;
 export function __setHost(h) { app = h; }

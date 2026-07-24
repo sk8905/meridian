@@ -165,7 +165,34 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
     Krugman**, **Moody's**, **S&P (Global Ratings)** and **Morningstar**. When §8
     gains a source, it is in-scope for the next refresh without editing this file.
 - **Cache-busters.** Each app has `?v=YYYYMMDD-N` tokens that MUST move in
-  lockstep or the browser serves a stale `app.js`:
+  lockstep or the browser serves a stale `app.js`.
+  - **⚠️ THE LIVE SURFACE IS `v2/` — bump the v2 importers, not just the legacy
+    files.** The `data.js` / `content.js` files are shared, but the modules that
+    import them on the live site live under **`v2/js/`**, and they carry their OWN
+    `?v=` tokens that this section historically forgot. If you bump
+    `credit/js/shared.js`'s `./data.js?v=` but leave `v2/js/credit/app.js`'s
+    `/credit/js/data.js?v=` behind, the browser loads `data.js` twice as separate
+    instances and **the whole desk renders blank** (this exact incident hit all
+    three desks on the 2026-07-24 09:20 run). **Foolproof procedure: after editing
+    a data file, grep every reference to it and set them ALL to the one new token**
+    — e.g. `grep -rn "credit/js/data.js?v=" v2/js/ credit/js/` and make every hit
+    identical (same for `legal/js/data.js` and `macro/js/content.js`). The live
+    chains that MUST agree per file:
+    - **Credit `data.js`:** `v2/js/credit/app.js`, `v2/js/credit/detail.js`, and
+      `credit/js/shared.js` (which the v2 app imports) — all identical. Also bump
+      the `v2/js/credit/shared.js?v=`/`detail.js?v=` **module** tokens in
+      `v2/js/credit/app.js` when those files change, and the runtime token
+      `v2/js/runtime.js?v=` in `v2/index.html` when any `v2/js/**/app.js` changes.
+    - **Legal `data.js`:** `v2/js/legal/app.js`, `v2/js/legal/detail.js`,
+      `legal/js/shared.js` — all identical (+ the v2 detail module token + runtime).
+    - **Macro `content.js`:** `v2/js/macro/app.js`, plus `macro/js/shared.js` and
+      `macro/js/dashboard.js` (imported by the v2 app) — all identical (+ runtime).
+    - **Home:** `v2/js/home/glance.js` and `v2/js/nav-actions.js` also import all
+      three data files; keep them on the same tokens (they're busted by the runtime
+      token). `_headers` no-cache keeps the files fresh regardless, but matching
+      tokens keeps ONE instance and avoids waste.
+  - Legacy per-file detail (kept for reference; the v2 rule above governs the live
+    site):
   - Credit: `css/styles.css?v=` & `js/app.js?v=` in `credit/index.html`; the
     `./data.js?v=` & `./charts.js?v=` imports in `credit/js/app.js`. NB `app.js`
     also imports `./shared.js?v=` + `./detail.js?v=`, and BOTH `credit/js/shared.js`
