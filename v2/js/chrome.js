@@ -28,10 +28,14 @@ import { esc } from "/util.js?v=20260719-1";
 // lives in Home, their market data in Dashboard, their entities in Profiles — but
 // they remain routable views (/v2/credit/…, /v2/legal/…, /v2/macro/…) for deep
 // links from feed rows and profile pages.
+// Newsletters is NOT a bottom-nav/platform tab — it's reached from the Home feed
+// banner's right-edge button (data-nav-tab="newsletters"); see glance.js. Keeping
+// it off the global bar frees a slot (for the Origination radar) and treats it as
+// the reading surface it is. The view itself stays routable (/v2/newsletters/).
 const TABS = [
-  ["home", "Home"], ["newsletters", "Newsletters"], ["dashboard", "Dashboard"], ["profiles", "Profiles"], ["menu", "Menu"],
+  ["home", "Home"], ["dashboard", "Dashboard"], ["profiles", "Profiles"], ["menu", "Menu"],
 ];
-const PLATFORMS = [["home", "Home"], ["newsletters", "Newsletters"], ["dashboard", "Dashboard"], ["profiles", "Profiles"]];
+const PLATFORMS = [["home", "Home"], ["dashboard", "Dashboard"], ["profiles", "Profiles"]];
 
 const TAB_ICONS = {
   home: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11 12 4l8 7"/><path d="M6 9.5V20h12V9.5"/></svg>',
@@ -48,6 +52,15 @@ const TAB_ICONS = {
 export function initChrome({ onTab }) {
   buildHeader(onTab);
   const tabbar = buildTabBar(onTab);
+  // In-view "go to tab" affordances (e.g. the Home feed banner's Newsletters
+  // button) route via the SPA exactly like a bottom-tab tap — any [data-nav-tab]
+  // element anywhere in the document switches to that tab (no full reload).
+  document.addEventListener("click", (e) => {
+    const el = e.target.closest("[data-nav-tab]");
+    if (!el) return;
+    e.preventDefault();
+    onTab(el.getAttribute("data-nav-tab"));
+  });
   // Phone-only meta strip pinned directly above the bottom tab bar: signed-in
   // identity + the app-wide last-refresh. header.css hides #account-nav /
   // #data-status on phones (they live in the footer/rail on desktop), so on a
@@ -250,6 +263,9 @@ function buildTabBar(onTab) {
   nav.innerHTML = TABS.map(([k, l]) =>
     `<button type="button" class="mtab${k === "menu" ? " mtab-menu" : ""}" data-key="${k}">${TAB_ICONS[k]}<span class="mtab-lbl">${l}</span></button>`
   ).join("");
+  // Columns track the tab count (premium.css hard-codes a fallback) so the row
+  // stays evenly split whether there are four tabs or five.
+  nav.style.gridTemplateColumns = `repeat(${TABS.length}, 1fr)`;
   document.body.appendChild(nav);
   // A tab tap dismisses any open header panel (Markets/Saved/Notifications) or
   // the search palette first — otherwise the overlay would linger over the new

@@ -689,12 +689,18 @@ function renderFeed() {
   if (head) {
     // Primary desk filter as a single-select dropdown (All / Newsletters / Macro /
     // Credit / Hedge / Legal). Compact, one control — replaces the chip row.
-    const DESK_OPTS = [["all", "All news"], ["n", "Newsletters"], ["m", "Macro"], ["c", "Credit"], ["hdg", "Hedge"], ["l", "Legal"]];
-    const selVal = _feedSrc ? "all" : _feedDesk;
+    // Newsletters is no longer a desk-filter option — it has its own reading
+    // surface, reached via the right-edge button below (which routes to the
+    // Newsletters tab). The "All" feed still blends newsletter items in.
+    const DESK_OPTS = [["all", "All news"], ["m", "Macro"], ["c", "Credit"], ["hdg", "Hedge"], ["l", "Legal"]];
+    const selVal = _feedSrc ? "all" : (DESK_OPTS.some(([k]) => k === _feedDesk) ? _feedDesk : "all");
     const primary = `<div class="g-feed-filterbar"><label class="g-feed-sel-lbl">Filter</label>`
       + `<select class="g-feed-sel" id="g-feed-desk-sel" aria-label="Filter news by desk">`
       + DESK_OPTS.map(([k, l]) => `<option value="${esc(k)}"${selVal === k ? " selected" : ""}>${esc(l)}</option>`).join("")
-      + `</select></div>`;
+      + `</select>`
+      + `<button type="button" class="g-feed-nlbtn" data-nav-tab="newsletters" aria-label="Open Newsletters">`
+      + `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.6"/><path d="M3.5 6.5 12 12.5 20.5 6.5"/></svg>`
+      + `<span>Newsletters</span></button></div>`;
     // Second-level type chips for the active desk (when it has sub-types and no
     // source filter is overriding). Same .g-feed-chip style (HOUSE_STYLE R14),
     // marked data-type so its handler is distinct from the desk selector.
