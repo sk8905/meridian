@@ -817,6 +817,8 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 .org-open:hover { text-decoration: underline; }
 .org-hq-h, .org-hq-c { color: var(--muted); font-family: var(--t-mono); font-size: 10px; white-space: nowrap; }
 .org-strat { color: var(--muted); font-size: 10px; }
+.org-aum-c { font-family: var(--t-mono); font-size: 10.5px; color: var(--ink); white-space: nowrap; }
+.org-aum-cr { color: var(--muted); }
 .org-band { font-family: var(--t-mono); font-size: 10px; color: var(--muted); }
 .org-band.mid { color: var(--ink); font-weight: 600; }
 .org-wallet { white-space: nowrap; }
@@ -843,16 +845,17 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
   .tpane[data-pane="radar"] .org-tbl { table-layout: fixed; }
   .tpane[data-pane="radar"] .org-tbl thead th { position: sticky; top: 0; z-index: 2; background: var(--head); }
   .tpane[data-pane="pipeline"] { overflow-y: auto; }
-  /* Column widths (sum 100) — Fund · HQ · Strategy · AUM · Wallet · Advisers · Latest · Warm · Tier. */
-  .org-tbl th:nth-child(1), .org-tbl td:nth-child(1) { width: 19%; }
-  .org-tbl th:nth-child(2), .org-tbl td:nth-child(2) { width: 11%; }
-  .org-tbl th:nth-child(3), .org-tbl td:nth-child(3) { width: 15%; }
+  /* Column widths (sum 100) — Fund · HQ · Strategy · AUM · Credit · Wallet · Advisers · Latest · Warm · Tier. */
+  .org-tbl th:nth-child(1), .org-tbl td:nth-child(1) { width: 18%; }
+  .org-tbl th:nth-child(2), .org-tbl td:nth-child(2) { width: 10%; }
+  .org-tbl th:nth-child(3), .org-tbl td:nth-child(3) { width: 14%; }
   .org-tbl th:nth-child(4), .org-tbl td:nth-child(4) { width: 8%; }
-  .org-tbl th:nth-child(5), .org-tbl td:nth-child(5) { width: 14%; }
-  .org-tbl th:nth-child(6), .org-tbl td:nth-child(6) { width: 9%; }
-  .org-tbl th:nth-child(7), .org-tbl td:nth-child(7) { width: 11%; }
-  .org-tbl th:nth-child(8), .org-tbl td:nth-child(8) { width: 7%; }
-  .org-tbl th:nth-child(9), .org-tbl td:nth-child(9) { width: 6%; }
+  .org-tbl th:nth-child(5), .org-tbl td:nth-child(5) { width: 8%; }
+  .org-tbl th:nth-child(6), .org-tbl td:nth-child(6) { width: 13%; }
+  .org-tbl th:nth-child(7), .org-tbl td:nth-child(7) { width: 8%; }
+  .org-tbl th:nth-child(8), .org-tbl td:nth-child(8) { width: 9%; }
+  .org-tbl th:nth-child(9), .org-tbl td:nth-child(9) { width: 7%; }
+  .org-tbl th:nth-child(10), .org-tbl td:nth-child(10) { width: 5%; }
 }
 .org-card { border: 1px solid var(--border, #262626); border-radius: 6px; padding: 9px 11px; margin: 8px 12px; background: var(--surface2, var(--head, #131313)); }
 .org-card-h { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }

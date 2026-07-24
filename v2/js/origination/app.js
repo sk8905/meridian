@@ -45,6 +45,13 @@ function latestOf(m) {
   return best;
 }
 const aumOf = (m) => (m.aumTotal != null ? m.aumTotal : m.aum);
+// Same figure formatting the Managers table uses (v2/js/credit/app.js fmtAum).
+const fmtAum = (n) => {
+  if (n == null) return "—";
+  if (n >= 1000) return `€${(n / 1000).toFixed(n % 1000 === 0 ? 0 : 1)}tn`;
+  if (n < 1) return `€${Math.round(n * 1000)}m`;
+  return `€${n}bn`;
+};
 function aumBand(a) {
   if (a == null) return { key: "na", label: "n/a", mid: false };
   if (a < 1) return { key: "sub1", label: "<$1bn", mid: false };
@@ -71,7 +78,7 @@ export function mount(host, ctx) {
     advisers: (m.advisers || []).length,
   }));
   // Filter + sort state.
-  const st = { pane: "radar", line: "all", band: "all", tier: "all", warm: false, white: false, q: "", sort: "aum", dir: -1 };
+  const st = { pane: "radar", line: "all", band: "all", tier: "all", q: "", sort: "aum", dir: -1 };
 
   host.innerHTML = `
     <div class="tdash">
@@ -99,14 +106,11 @@ export function mount(host, ctx) {
       <input type="search" id="org-q" class="tsearch" placeholder="Search name / HQ…" value="${esc(st.q)}" aria-label="Search targets">
       <label class="org-fl">Line <select id="org-line">${["all", ...WALLET.map((w) => w[0])].map((k) => opt(k, k === "all" ? "All" : (WALLET.find((w) => w[0] === k) || [])[1] || k, st.line)).join("")}</select></label>
       <label class="org-fl">AUM <select id="org-band">${[["all", "All"], ["mid", "$1–10bn"], ["sub1", "<$1bn"], ["large", "$10–50bn"], ["mega", "$50bn+"]].map(([k, l]) => opt(k, l, st.band)).join("")}</select></label>
-      <label class="org-fl">Tier <select id="org-tier">${[["all", "All"], ["A", "A"], ["B", "B"], ["C", "C"], ["none", "Untiered"]].map(([k, l]) => opt(k, l, st.tier)).join("")}</select></label>
-      <button type="button" class="tfocus-btn${st.warm ? " is-on" : ""}" id="org-warm" aria-pressed="${st.warm}">Warm only</button>
-      <button type="button" class="tfocus-btn${st.white ? " is-on" : ""}" id="org-white" aria-pressed="${st.white}" title="No incumbent counsel recorded">White space</button>`;
+      <label class="org-fl">Tier <select id="org-tier">${[["all", "All"], ["A", "A"], ["B", "B"], ["C", "C"], ["none", "Untiered"]].map(([k, l]) => opt(k, l, st.tier)).join("")}</select></label>`;
   }
 
   const walletChips = (w) => WALLET.map(([k, l]) => `<span class="org-w${w.includes(k) ? " on" : ""}" title="${esc(l)}">${k}</span>`).join("");
   const relOf = (id) => (tgt(ov, id).relationship || "none");
-  const isWarm = (id) => relOf(id) !== "none" || (tgt(ov, id).firmCoverage && tgt(ov, id).firmCoverage !== "none");
 
   function filtered() {
     let rows = uni.filter((r) => {
@@ -114,16 +118,16 @@ export function mount(host, ctx) {
       if (st.line !== "all" && !r.wallet.includes(st.line)) return false;
       if (st.band !== "all" && r.band.key !== st.band) return false;
       if (st.tier === "none") { if (t.tier) return false; } else if (st.tier !== "all" && t.tier !== st.tier) return false;
-      if (st.warm && !isWarm(r.m.id)) return false;
-      if (st.white && r.advisers > 0) return false;
       if (st.q) { const q = st.q.toLowerCase(); if (!((r.m.name + " " + (r.m.hq || "")).toLowerCase().includes(q))) return false; }
       return true;
     });
-    const key = st.sort;
+    const key = st.sort, warmRank = (id) => REL.findIndex(([k]) => k === relOf(id));
     rows.sort((a, b) => {
       let av, bv;
       if (key === "aum") { av = a.aum == null ? -1 : a.aum; bv = b.aum == null ? -1 : b.aum; }
+      else if (key === "aumCredit") { av = a.m.aumCredit == null ? -1 : a.m.aumCredit; bv = b.m.aumCredit == null ? -1 : b.m.aumCredit; }
       else if (key === "latest") { av = a.latest ? a.latest.date : ""; bv = b.latest ? b.latest.date : ""; }
+      else if (key === "warm") { av = warmRank(a.m.id); bv = warmRank(b.m.id); }
       else if (key === "tier") { av = tgt(ov, a.m.id).tier || "Z"; bv = tgt(ov, b.m.id).tier || "Z"; }
       else { av = a.m.name.toLowerCase(); bv = b.m.name.toLowerCase(); }
       return av < bv ? -st.dir : av > bv ? st.dir : 0;
@@ -133,7 +137,7 @@ export function mount(host, ctx) {
 
   const th = (k, l, cls) => `<th class="org-sortable${st.sort === k ? " on" : ""}${cls ? " " + cls : ""}" data-sort="${k}">${esc(l)}${st.sort === k ? (st.dir > 0 ? " ▲" : " ▼") : ""}</th>`;
   function renderRadar() {
-    $("#org-head").innerHTML = `<tr>${th("name", "Fund / manager")}<th class="org-hq-h">HQ</th><th>Strategy</th>${th("aum", "AUM")}<th>Wallet</th><th>Advisers</th>${th("latest", "Latest")}<th>Warm</th>${th("tier", "Tier")}</tr>`;
+    $("#org-head").innerHTML = `<tr>${th("name", "Fund / manager")}<th class="org-hq-h">HQ</th><th>Strategy</th>${th("aum", "AUM")}${th("aumCredit", "Credit")}<th>Wallet</th><th>Advisers</th>${th("latest", "Latest")}${th("warm", "Warm")}${th("tier", "Tier")}</tr>`;
     const rows = filtered();
     const relLabel = { "none": "", "warm-path": "warm", "named-contact": "contact", "strong": "strong" };
     $("#org-rows").innerHTML = rows.map((r) => {
@@ -149,14 +153,15 @@ export function mount(host, ctx) {
         + `<td class="tl-nm"><a href="#" class="org-open" data-id="${esc(id)}">${esc(r.m.name)}</a></td>`
         + `<td class="org-hq-c">${esc(r.m.hq || "")}</td>`
         + `<td class="org-strat">${esc((r.m.strategies || []).slice(0, 2).join(" · "))}</td>`
-        + `<td class="tl-n"><span class="org-band${r.band.mid ? " mid" : ""}">${esc(r.band.label)}</span></td>`
+        + `<td class="org-aum-c" title="Total AUM">${esc(fmtAum(r.aum))}</td>`
+        + `<td class="org-aum-c org-aum-cr" title="Private-credit AUM">${r.m.aumCredit != null ? esc(fmtAum(r.m.aumCredit)) : "—"}</td>`
         + `<td class="org-wallet">${walletChips(r.wallet)}</td>`
         + `<td class="org-adv">${adv}</td>`
         + `<td class="org-latest">${lt}</td>`
         + `<td><button type="button" class="org-warm-btn${rel !== "none" ? " on" : ""}" data-id="${esc(id)}" title="Cycle relationship warmth">${rel === "none" ? "☆" : "★"}<span class="org-warm-lbl">${relLabel[rel]}</span></button></td>`
         + `<td class="org-tier-c"><select class="org-tier" data-id="${esc(id)}" aria-label="Tier for ${esc(r.m.name)}">${TIERS.map((v) => `<option value="${v}"${v === (t.tier || "") ? " selected" : ""}>${v || "—"}</option>`).join("")}</select></td>`
         + `</tr>`;
-    }).join("") || `<tr><td colspan="9" class="tw-empty muted small">No targets match these filters.</td></tr>`;
+    }).join("") || `<tr><td colspan="10" class="tw-empty muted small">No targets match these filters.</td></tr>`;
     $("#org-note").innerHTML = `${rows.length} of ${uni.length} solutions-credit managers · signals derived from tracked data (wallet from SLS/strategy, latest from deals/news). <strong>Tier, warm flags & notes are private to this device.</strong> Advisers show recorded incumbent counsel; “white space?” means none recorded yet (not confirmed absence).`;
   }
 
@@ -211,11 +216,9 @@ export function mount(host, ctx) {
     const open = e.target.closest(".org-open");
     if (open) { e.preventDefault(); ctx.navigate(`${ctx.base}/profiles/#/manager/${open.dataset.id}`); return; }
     const sortTh = e.target.closest(".org-sortable");
-    if (sortTh) { const k = sortTh.dataset.sort; if (st.sort === k) st.dir *= -1; else { st.sort = k; st.dir = k === "aum" || k === "latest" ? -1 : 1; } renderRadar(); return; }
+    if (sortTh) { const k = sortTh.dataset.sort; if (st.sort === k) st.dir *= -1; else { st.sort = k; st.dir = (k === "name" || k === "tier") ? 1 : -1; } renderRadar(); return; }
     const warm = e.target.closest(".org-warm-btn");
     if (warm) { const id = warm.dataset.id; const order = ["none", "warm-path", "named-contact", "strong"]; const cur = relOf(id); setT(id, { relationship: order[(order.indexOf(cur) + 1) % order.length] }); renderRadar(); return; }
-    const f = e.target.closest("#org-warm, #org-white");
-    if (f) { const on = f.getAttribute("aria-pressed") !== "true"; if (f.id === "org-warm") st.warm = on; else st.white = on; renderRadar(); return; }
   });
   host.addEventListener("change", (e) => {
     const t = e.target;
