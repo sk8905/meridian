@@ -33,9 +33,9 @@ import { esc } from "/util.js?v=20260719-1";
 // it off the global bar frees a slot (for the Origination radar) and treats it as
 // the reading surface it is. The view itself stays routable (/v2/newsletters/).
 const TABS = [
-  ["home", "Home"], ["dashboard", "Dashboard"], ["profiles", "Profiles"], ["menu", "Menu"],
+  ["home", "Home"], ["dashboard", "Dashboard"], ["profiles", "Profiles"], ["radar", "Radar"], ["menu", "Menu"],
 ];
-const PLATFORMS = [["home", "Home"], ["dashboard", "Dashboard"], ["profiles", "Profiles"]];
+const PLATFORMS = [["home", "Home"], ["dashboard", "Dashboard"], ["profiles", "Profiles"], ["radar", "Radar"]];
 
 const TAB_ICONS = {
   home: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11 12 4l8 7"/><path d="M6 9.5V20h12V9.5"/></svg>',
@@ -45,6 +45,7 @@ const TAB_ICONS = {
   credit: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="7" width="19" height="10" rx="1.5"/><circle cx="12" cy="12" r="2.3"/></svg>',
   legal: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v15"/><path d="M8 19h8"/><path d="M4 7h16"/><path d="M4 7l-2 4.5h4z"/><path d="M20 7l-2 4.5h4z"/></svg>',
   profiles: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 6.5a3 3 0 0 1 0 6"/><path d="M17 14.5a5.5 5.5 0 0 1 3.5 5.5"/></svg>',
+  radar: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4.5"/><circle cx="12" cy="12" r="1"/></svg>',
   menu: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><line x1="4" y1="7" x2="20" y2="7"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="17" x2="20" y2="17"/></svg>',
 };
 
