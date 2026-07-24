@@ -31,6 +31,11 @@
 .dsh-nav { position:sticky; top:0; z-index:2; background:var(--t-head); }
 .dsh-pane { display:flex; flex-direction:column; gap:var(--dsh-gap); padding:var(--dsh-gap); }
 @media (min-width:761px){ .dsh-pane{ display:grid; grid-template-columns:repeat(2,1fr); align-items:start; } .dsh-pane > .dsh-card:first-child, .dsh-pane > .dsh-more{ grid-column:1 / -1; } }
+/* Desktop is a fixed-viewport terminal — on a wide monitor the dashboard must
+   NOT stretch edge-to-edge (a "label …… value" row spanning 1900px reads as one
+   long gap; full-width single-column cards look empty). Cap the whole surface to
+   a centred terminal column so the 2-up card grid and every row stay dense. */
+@media (min-width:1180px){ .dsh-nav > *, .dsh-pane{ max-width:1160px; margin-left:auto; margin-right:auto; } }
 
 .dsh-card { background:var(--t-panel); border:1px solid var(--t-grid); border-radius:8px; padding:12px; }
 .dsh-h { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:0 0 10px; font-size:var(--fs-card-title,1.05rem); font-weight:600; color:var(--t-ink); }
