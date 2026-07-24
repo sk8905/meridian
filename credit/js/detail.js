@@ -9,14 +9,14 @@
 import {
   managerById, fundById, lpById, funds, lps, intel, deals,
   fundsByManager, intelForFund, dealsForFund, dealsForManager, intelForManager,
-} from "./data.js?v=20260724-6";
+} from "./data.js?v=20260724-7";
 import { esc } from "/util.js?v=20260719-1";
 import {
   eur, pct, fmtDate, link, sources, raiseDisplay, nameCell, saveBtn, newsSaveId,
   metaDate, notFound, applyPendingFocus, commitmentsForLp, commitmentsForManager,
   investorsForFund, pageList, feedDedupKey, creditSource, intelRow, dealRow,
   _chipMem, chipMemKey,
-} from "./shared.js?v=20260724-5";
+} from "./shared.js?v=20260724-6";
 
 const app = document.getElementById("app");
 

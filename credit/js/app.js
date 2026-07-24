@@ -8,7 +8,7 @@ import {
   managers, funds, lps, intel, commitments, deals, research,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
-} from "./data.js?v=20260724-6";
+} from "./data.js?v=20260724-7";
 // NOTE: these internal module imports carry the same ?v= cache-buster as the
 // <script>/<link> tags in index.html. Bump ALL of them together on every release
 // — otherwise the browser/CDN can serve a stale data.js/charts.js against a fresh
@@ -29,8 +29,8 @@ import {
   creditSource, feedDedupKey, intelRow, dealRow,
   PAGE, pageShown, pageCount, pageReset, loadMoreBtn, feedHtml, feedFlat,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
-} from "./shared.js?v=20260724-5";
-import { viewFund, viewManager, viewClo, viewLp } from "./detail.js?v=20260724-5";
+} from "./shared.js?v=20260724-6";
+import { viewFund, viewManager, viewClo, viewLp } from "./detail.js?v=20260724-6";
 // The shared news-wire engine — the Home feed's row / day-header / source-filter
 // markup, so the Credit dashboard wire is the same build as Home's.
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260723-2";
