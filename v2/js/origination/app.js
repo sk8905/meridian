@@ -92,7 +92,6 @@ export function mount(host, ctx) {
         <div class="tpane" data-pane="radar">
           <div class="org-filters" id="org-filters"></div>
           <div class="tleague-wrap"><table class="tleague tleague-full org-tbl"><thead id="org-head"></thead><tbody id="org-rows"></tbody></table></div>
-          <p class="tl-sls-key muted small" id="org-note"></p>
         </div>
         <div class="tpane" data-pane="pipeline" hidden><div id="org-pipe"></div></div>
       </div>
@@ -162,7 +161,6 @@ export function mount(host, ctx) {
         + `<td class="org-tier-c"><select class="org-tier" data-id="${esc(id)}" aria-label="Tier for ${esc(r.m.name)}">${TIERS.map((v) => `<option value="${v}"${v === (t.tier || "") ? " selected" : ""}>${v || "—"}</option>`).join("")}</select></td>`
         + `</tr>`;
     }).join("") || `<tr><td colspan="10" class="tw-empty muted small">No targets match these filters.</td></tr>`;
-    $("#org-note").innerHTML = `${rows.length} of ${uni.length} solutions-credit managers · signals derived from tracked data (wallet from SLS/strategy, latest from deals/news). <strong>Tier, warm flags & notes are private to this device.</strong> Advisers show recorded incumbent counsel; “white space?” means none recorded yet (not confirmed absence).`;
   }
 
   // ---- Pipeline: tiered targets with the deep BD controls + notes. ----------
