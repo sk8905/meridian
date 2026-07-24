@@ -105,13 +105,13 @@ const tapKey = async (key) => {
   await pg.waitForTimeout(900);
 };
 // Navigation still works with nav-actions loaded.
-await tapKey("credit");
-checkEq(await pg.evaluate(() => (document.querySelector(".v2-view:not([hidden])") || {}).dataset?.view), "credit", "tab navigation still works with the header cluster loaded");
+await tapKey("profiles");
+checkEq(await pg.evaluate(() => (document.querySelector(".v2-view:not([hidden])") || {}).dataset?.view), "profiles", "tab navigation still works with the header cluster loaded");
 
 // A tab tap dismisses an open header panel (no lingering overlay over the new view).
 await pg.evaluate(() => document.getElementById("na-mkt")?.click()); await pg.waitForTimeout(400);
 check(await pg.evaluate(() => { const p = document.getElementById("na-mkt-panel"); return p && !p.hidden && getComputedStyle(p).display !== "none"; }), "Markets panel is open before the tab tap");
-await tapKey("legal");
+await tapKey("dashboard");
 const closed = await pg.evaluate(() => { const p = document.getElementById("na-mkt-panel"); return !p || p.hidden || getComputedStyle(p).display === "none" || !p.classList.contains("open"); });
 check(closed, "tab tap dismisses the open header panel");
 
@@ -133,7 +133,7 @@ const readShared = async () => {
   return r;
 };
 const seen = [];
-for (const k of ["dashboard", "credit", "legal", "home"]) { await tabKey2(k); seen.push([k, await readShared()]); }
+for (const k of ["dashboard", "profiles", "home"]) { await tabKey2(k); seen.push([k, await readShared()]); }
 const [, first] = seen[0];
 check(first.refresh.length > 0, `refresh populated app-wide ("${first.refresh}")`);
 for (const [k, v] of seen) {

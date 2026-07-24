@@ -23,10 +23,15 @@ import { esc } from "/util.js?v=20260719-1";
 
 // Mobile bottom tab bar: Home/Macro/Credit/Legal/Profiles/Menu (six equal
 // columns). Profiles also sits in the desktop platform switch below ("| Profiles").
+// Four pillars: News (Home) · Data (Dashboard) · Entities (Profiles) · Settings
+// (Menu). The Credit/Legal/Macro DESKS are no longer top-level tabs — their news
+// lives in Home, their market data in Dashboard, their entities in Profiles — but
+// they remain routable views (/v2/credit/…, /v2/legal/…, /v2/macro/…) for deep
+// links from feed rows and profile pages.
 const TABS = [
-  ["home", "Home"], ["dashboard", "Dashboard"], ["credit", "Credit"], ["legal", "Legal"], ["profiles", "Profiles"], ["menu", "Menu"],
+  ["home", "Home"], ["dashboard", "Dashboard"], ["profiles", "Profiles"], ["menu", "Menu"],
 ];
-const PLATFORMS = [["home", "Home"], ["dashboard", "Dashboard"], ["credit", "Credit"], ["legal", "Legal"], ["profiles", "Profiles"]];
+const PLATFORMS = [["home", "Home"], ["dashboard", "Dashboard"], ["profiles", "Profiles"]];
 
 const TAB_ICONS = {
   home: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11 12 4l8 7"/><path d="M6 9.5V20h12V9.5"/></svg>',

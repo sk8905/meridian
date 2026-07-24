@@ -37,7 +37,7 @@ const tap = async (key) => {
   }));
 };
 
-for (const [key, path] of [["dashboard", "/v2/dashboard/"], ["credit", "/v2/credit/"], ["legal", "/v2/legal/"], ["menu", "/v2/menu/"]]) {
+for (const [key, path] of [["dashboard", "/v2/dashboard/"], ["profiles", "/v2/profiles/"], ["menu", "/v2/menu/"]]) {
   const s = await tap(key);
   checkEq(s.path, path, `tap ${key}: URL is ${path}`);
   checkEq(s.active, key, `tap ${key}: ${key} view is the visible one`);
@@ -47,19 +47,21 @@ for (const [key, path] of [["dashboard", "/v2/dashboard/"], ["credit", "/v2/cred
 // Keep-alive: tag Credit's section node, leave, come back — the SAME node (tag
 // intact) and exactly one section prove the view stayed alive (mounted once,
 // instant revisit) rather than being torn down and rebuilt.
-await tap("credit");
-await pg.evaluate(() => { document.querySelector('.v2-view[data-view="credit"]').dataset.ka = "kept"; });
-const creditLen0 = await pg.evaluate(() => document.querySelector('.v2-view[data-view="credit"]').textContent.trim().length);
+await tap("profiles");
+await pg.evaluate(() => { document.querySelector('.v2-view[data-view="profiles"]').dataset.ka = "kept"; });
+const creditLen0 = await pg.evaluate(() => document.querySelector('.v2-view[data-view="profiles"]').textContent.trim().length);
 await tap("dashboard");
-const back = await tap("credit");
+const back = await tap("profiles");
 const creditState = await pg.evaluate(() => {
-  const secs = document.querySelectorAll('.v2-view[data-view="credit"]');
+  const secs = document.querySelectorAll('.v2-view[data-view="profiles"]');
   return { mounts: secs.length, ka: secs[0]?.dataset.ka, len: secs[0]?.textContent.trim().length };
 });
-checkEq(creditState.ka, "kept", "keep-alive: Credit is the SAME node after the round-trip (not rebuilt)");
-checkEq(creditState.mounts, 1, "keep-alive: exactly one Credit section (mounted once)");
-checkEq(creditState.len, creditLen0, "keep-alive: Credit content preserved across the round-trip");
-checkEq(back.views, 5, "all five views cached after visiting each");
+checkEq(creditState.ka, "kept", "keep-alive: Profiles is the SAME node after the round-trip (not rebuilt)");
+checkEq(creditState.mounts, 1, "keep-alive: exactly one Profiles section (mounted once)");
+checkEq(creditState.len, creditLen0, "keep-alive: Profiles content preserved across the round-trip");
+// 4 tab views (home, dashboard, profiles, menu) + the 2 Profiles borrows
+// off-screen for its reused builders (credit, legal) = 6 cached sections.
+checkEq(back.views, 6, "tab views + Profiles' borrowed Credit/Legal cached (6)");
 
 // Back button traverses the SPA history (no reload).
 await pg.goBack(); await pg.waitForTimeout(300);

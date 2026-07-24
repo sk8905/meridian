@@ -63,15 +63,14 @@ for (const [path, view] of [["/v2/macro/", "macro"], ["/v2/credit/", "credit"], 
     await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
     await pg.waitForTimeout(900);
   };
-  const order = ["dashboard", "credit", "legal", "menu", "home", "dashboard", "credit", "legal", "menu", "home"];
+  const order = ["dashboard", "profiles", "menu", "home", "dashboard", "profiles", "menu", "home"];
   for (const k of order) await tap(k);
   const counts = await pg.evaluate(() => ({
     headers: document.querySelectorAll("#wire-header .topbar").length,
     tabbars: document.querySelectorAll(".mobile-tabbar").length,
     apps: document.querySelectorAll("#app").length,
     dashboard: document.querySelectorAll('.v2-view[data-view="dashboard"]').length,
-    credit: document.querySelectorAll('.v2-view[data-view="credit"]').length,
-    legal: document.querySelectorAll('.v2-view[data-view="legal"]').length,
+    profiles: document.querySelectorAll('.v2-view[data-view="profiles"]').length,
     home: document.querySelectorAll('.v2-view[data-view="home"]').length,
     menu: document.querySelectorAll('.v2-view[data-view="menu"]').length,
     visible: document.querySelectorAll(".v2-view:not([hidden])").length,
@@ -81,8 +80,7 @@ for (const [path, view] of [["/v2/macro/", "macro"], ["/v2/credit/", "credit"], 
   checkEq(counts.tabbars, 1, "cycle: one tab bar");
   checkEq(counts.apps, 1, "cycle: one #app");
   checkEq(counts.dashboard, 1, "cycle: dashboard mounted once (no leak)");
-  checkEq(counts.credit, 1, "cycle: credit mounted once");
-  checkEq(counts.legal, 1, "cycle: legal mounted once");
+  checkEq(counts.profiles, 1, "cycle: profiles mounted once");
   checkEq(counts.home, 1, "cycle: home mounted once");
   checkEq(counts.menu, 1, "cycle: menu mounted once");
   checkEq(counts.visible, 1, "cycle: exactly one view visible at a time");
@@ -102,10 +100,6 @@ for (const [path, view] of [["/v2/macro/", "macro"], ["/v2/credit/", "credit"], 
   await pg.waitForTimeout(300);
   checkEq(await pg.evaluate(() => (document.querySelector('.v2-view[data-view="dashboard"] .dsh-nav .tchip.is-on') || {}).dataset?.sub), "equities", "in-view: Dashboard sub-tab switches (active handler fires)");
   check(await pg.evaluate(() => document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-idx').length) >= 8, "in-view: Dashboard Equities index strip renders");
-  await tap("credit");
-  const creditChip = await pg.evaluate(() => { const t = [...document.querySelectorAll('.v2-view[data-view="credit"] .tchip')].find((c) => !c.classList.contains("is-on")); if (t) { t.click(); return t.textContent.trim(); } return null; });
-  await pg.waitForTimeout(300);
-  checkEq(await pg.evaluate(() => (document.querySelector('.v2-view[data-view="credit"] .tchip.is-on') || {}).textContent?.trim()), creditChip, "in-view: Credit filter chip activates");
   checkErrs(errs, "in-view interactivity");
   await ctx.close();
 }
@@ -116,7 +110,7 @@ for (const [path, view] of [["/v2/macro/", "macro"], ["/v2/credit/", "credit"], 
   const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/");
   await pg.waitForTimeout(900);
   const cdp = await ctx.newCDPSession(pg);
-  const box = await pg.evaluate(() => { const t = document.querySelector('.mobile-tabbar .mtab[data-key="credit"]'); const r = t.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
+  const box = await pg.evaluate(() => { const t = document.querySelector('.mobile-tabbar .mtab[data-key="profiles"]'); const r = t.getBoundingClientRect(); return { x: r.x + r.width / 2, y: r.y + r.height / 2 }; });
   await cdp.send("Input.dispatchTouchEvent", { type: "touchStart", touchPoints: [{ x: box.x, y: box.y }] });
   await cdp.send("Input.dispatchTouchEvent", { type: "touchEnd", touchPoints: [] });
   // The moment the destination becomes visible, it must already be PAINTED — a
@@ -126,7 +120,7 @@ for (const [path, view] of [["/v2/macro/", "macro"], ["/v2/credit/", "credit"], 
   let firstPaint = null;
   for (let i = 0; i < 80; i++) {
     firstPaint = await pg.evaluate(() => {
-      const s = document.querySelector('.v2-view[data-view="credit"]');
+      const s = document.querySelector('.v2-view[data-view="profiles"]');
       if (!s || s.hidden) return null;
       return { skeleton: !!s.querySelector(".v2-spin"), len: s.textContent.trim().length };
     });
@@ -136,7 +130,7 @@ for (const [path, view] of [["/v2/macro/", "macro"], ["/v2/credit/", "credit"], 
   check(!!firstPaint, "instant swap: destination becomes visible (transition completes)");
   check(firstPaint && (firstPaint.skeleton || firstPaint.len > 0), "instant swap: it is painted (skeleton or content) the instant it appears — never an empty freeze");
   await pg.waitForTimeout(900);
-  const settled = await pg.evaluate(() => { const s = document.querySelector('.v2-view[data-view="credit"]'); return { spin: !!s.querySelector(".v2-spin"), len: s.textContent.trim().length }; });
+  const settled = await pg.evaluate(() => { const s = document.querySelector('.v2-view[data-view="profiles"]'); return { spin: !!s.querySelector(".v2-spin"), len: s.textContent.trim().length }; });
   check(!settled.spin && settled.len > 5000, `instant swap: content fills in after load (${settled.len} chars)`);
   checkErrs(errs, "instant swap");
   await ctx.close();
