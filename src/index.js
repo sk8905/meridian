@@ -1073,6 +1073,55 @@ async function handle13F(request, env, ctx) {
   }
 }
 
+// ===================== SEC FILINGS FEED (per CIK) =========================
+// Recent filings of interest for a manager/fund CIK, straight from the EDGAR
+// submissions index — never fabricated. Complements the long-only 13F holdings:
+//   • SC 13D / 13D-A — >5% beneficial ownership with CONTROL/activist intent
+//   • SC 13G / 13G-A — >5% passive/QII stake (short form)
+//   • Forms 3 / 4 / 5 — insider & >10%-owner transactions (Form 4 = trades)
+// Each row carries the form, filed date, the reporting period where present, and
+// a link to the filing on EDGAR (the "reference date" the reader needs given the
+// inherent reporting lag). Edge-cached 6h.
+const FILING_FORMS = { "SC 13D": "13D", "SC 13D/A": "13D/A", "SC 13G": "13G", "SC 13G/A": "13G/A", "3": "Form 3", "4": "Form 4", "5": "Form 5" };
+async function handleFilings(request, env, ctx) {
+  const url = new URL(request.url);
+  const raw = (url.searchParams.get("cik") || "").replace(/\D/g, "");
+  if (!raw) return json({ filings: null, error: "missing cik" });
+  const cik = raw.padStart(10, "0");
+  const cikNoPad = String(Number(cik));
+  const cache = caches.default;
+  const cacheKey = new Request(new URL(`/api/filings?cik=${cik}&v=1`, request.url).toString());
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+  try {
+    const subRes = await secFetch(`https://data.sec.gov/submissions/CIK${cik}.json`);
+    if (!subRes.ok) return json({ cik, filings: null, error: `submissions ${subRes.status}` });
+    const sub = await subRes.json();
+    const r = (sub.filings && sub.filings.recent) || {};
+    const forms = r.form || [], accn = r.accessionNumber || [], filed = r.filingDate || [], rptd = r.reportDate || [];
+    const out = [];
+    for (let i = 0; i < forms.length && out.length < 30; i++) {
+      const label = FILING_FORMS[forms[i]];
+      if (!label) continue;
+      const a = accn[i]; if (!a) continue;
+      const noDash = a.replace(/-/g, "");
+      out.push({
+        form: label,
+        kind: /13D/.test(label) ? "stake-active" : /13G/.test(label) ? "stake-passive" : "insider",
+        filed: filed[i] || null,
+        period: rptd[i] || null,
+        url: `https://www.sec.gov/Archives/edgar/data/${cikNoPad}/${noDash}/${a}-index.htm`,
+      });
+    }
+    const resp = json({ cik, entity: sub.name || null, filings: out });
+    resp.headers.set("cache-control", "public, max-age=21600");
+    if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+    return resp;
+  } catch (e) {
+    return json({ cik, filings: null, error: String((e && e.message) || e) });
+  }
+}
+
 // ===================== PRICE PERFORMANCE (13F holdings) ====================
 // 1-day / 3-month / 6-month / 12-month price return for a set of tickers, from
 // Yahoo's 1y daily closes. Used by the Hedge Funds fund page to annotate each
@@ -2544,6 +2593,7 @@ export default {
     if (url.pathname === "/api/macro") return handleMacro(request, env, ctx);
     if (url.pathname === "/api/yield-curve") return handleYieldCurve(request, env, ctx);
     if (url.pathname === "/api/13f") return handle13F(request, env, ctx);
+    if (url.pathname === "/api/filings") return handleFilings(request, env, ctx);
     if (url.pathname === "/api/perf") return handlePerf(request, env, ctx);
     if (url.pathname === "/api/feed") return handleFeed(request, env, ctx);
     if (url.pathname === "/api/predict") return handlePredict(request, env, ctx);

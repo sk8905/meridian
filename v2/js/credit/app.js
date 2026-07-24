@@ -547,11 +547,17 @@ function hedgeFundsPaneHTML() {
     + `<td>${esc(f.founder || "—")}</td>`
     + `<td>${f.founded || "—"}</td>`
     + `<td class="tl-fil">${hfFiling(f)}</td></tr>`;
+  const withCik = HEDGE_FUNDS.filter((f) => f.cik).length;
   return `<div class="tpane" data-pane="hedgefunds" hidden>
               <header class="tpanel-h thead-search"><span>Hedge Funds</span>
                 <input type="search" id="hf-q" class="tsearch" placeholder="Search name, HQ or strategy…" aria-label="Search hedge funds">
                 <button type="button" class="tfocus-btn" id="cr-hf-focus" aria-pressed="false" title="Show only $1–10bn AUM hedge funds">$1–10bn</button>
               </header>
+              <section class="hf-cons">
+                <header class="tpanel-h thead-search"><span>★ Most-crowded holdings — 13F consensus</span>
+                  <button type="button" class="tfocus-btn" id="hf-cons-btn" title="Aggregate the latest 13F top-10 across every tracked fund that files one">Load consensus</button></header>
+                <div id="hf-cons-body"><p class="tl-sls-key muted small">Aggregates the SEC 13F top-10 US-equity holdings across <strong>all ${withCik} tracked funds that file a 13F</strong> to show the most widely-held names — how many of our funds hold each, the average position weight, and the total 13F value, each linking to the filing. 13F is long-only US equities/options (incl. held puts/calls and convertibles); it excludes shorts, cash bonds/loans and non-US names. Tap <em>Load consensus</em> (first run warms cold filings; give it a few seconds).</p></div>
+              </section>
               <div class="tleague-wrap">
               <table class="tleague tleague-full tleague-hf">
                 <thead><tr><th>Fund</th><th class="tl-hq">HQ</th><th class="tl-aum">AUM&nbsp;$bn</th><th>Strategy</th><th>Founder</th><th>Founded</th><th class="tl-fil">Latest&nbsp;13F</th></tr></thead>
@@ -559,11 +565,6 @@ function hedgeFundsPaneHTML() {
               </table>
               </div>
               <p class="tl-sls-key muted small">The largest hedge-fund managers across the US, UK &amp; Europe, by AUM. <strong>AUM is US$bn and approximate</strong> — latest widely-reported public figures (firm-wide, indicative only; hedge funds do not disclose AUM uniformly), each with a source on the fund page. As of ${esc(HEDGE_FUNDS_ASOF)}. Click a row for AUM sources, strategy, performance and live SEC 13F top-10 holdings.</p>
-              <section class="hf-cons">
-                <header class="tpanel-h thead-search"><span>Most-crowded holdings — 13F consensus</span>
-                  <button type="button" class="tfocus-btn" id="hf-cons-btn" title="Aggregate the top-10 13F holdings across the largest tracked funds">Load consensus</button></header>
-                <div id="hf-cons-body"><p class="tl-sls-key muted small">Aggregates the SEC 13F top-10 US-equity holdings across the largest tracked hedge funds to show the most widely-held names — how many of our funds hold each, the average position weight, and the total 13F value. 13F is long-only US equities/options (incl. held puts/calls and convertibles); it excludes shorts, cash bonds/loans and non-US names.</p></div>
-              </section>
             </div>`;
 }
 
@@ -580,21 +581,29 @@ async function loadConsensus(btn) {
   if (!body || _consBusy) return;
   _consBusy = true;
   if (btn) { btn.disabled = true; btn.textContent = "Loading…"; }
-  const funds = [...HEDGE_FUNDS].filter((f) => f.cik).sort((a, b) => (b.aum || 0) - (a.aum || 0)).slice(0, 30);
-  body.innerHTML = `<p class="tl-sls-key muted small">Aggregating 13F holdings across ${funds.length} funds…</p>`;
-  const settled = await Promise.all(funds.map((f) =>
-    fetch(`/api/13f?cik=${encodeURIComponent(f.cik)}`, { headers: { accept: "application/json" } })
-      .then((r) => (r.ok ? r.json() : null))
-      .then((d) => (d && Array.isArray(d.holdings) && d.holdings.length ? { f, holdings: d.holdings } : null))
-      .catch(() => null)));
-  const got = settled.filter(Boolean);
+  // EVERY tracked fund that files a US 13F (largest first). Fetched in bounded
+  // batches (each /api/13f is edge-cached 24h, so warm funds are ~free; the batch
+  // cap keeps a cold first run gentle on SEC's rate limit).
+  const funds = [...HEDGE_FUNDS].filter((f) => f.cik).sort((a, b) => (b.aum || 0) - (a.aum || 0));
+  const got = [];
+  const BATCH = 8;
+  for (let i = 0; i < funds.length; i += BATCH) {
+    body.innerHTML = `<p class="tl-sls-key muted small">Aggregating 13F holdings… ${Math.min(i + BATCH, funds.length)}/${funds.length} funds</p>`;
+    const chunk = funds.slice(i, i + BATCH);
+    const settled = await Promise.all(chunk.map((f) =>
+      fetch(`/api/13f?cik=${encodeURIComponent(f.cik)}`, { headers: { accept: "application/json" } })
+        .then((r) => (r.ok ? r.json() : null))
+        .then((d) => (d && Array.isArray(d.holdings) && d.holdings.length ? { f, holdings: d.holdings, source: d.source } : null))
+        .catch(() => null)));
+    settled.filter(Boolean).forEach((x) => got.push(x));
+  }
   const agg = new Map();
-  got.forEach(({ f, holdings }) => holdings.forEach((h) => {
+  got.forEach(({ f, holdings, source }) => holdings.forEach((h) => {
     const key = (h.cusip || (h.name || "").toUpperCase()); if (!key) return;
     let e = agg.get(key);
     if (!e) { e = { name: h.name, ticker: h.ticker || null, count: 0, total: 0, weights: [], holders: [], opt: false, prn: false }; agg.set(key, e); }
     e.count++; e.total += h.value || 0; if (h.weight != null) e.weights.push(h.weight);
-    e.holders.push(f.name); if (h.ticker && !e.ticker) e.ticker = h.ticker;
+    e.holders.push({ name: f.name, src: source }); if (h.ticker && !e.ticker) e.ticker = h.ticker;
     if (h.opt) e.opt = true; if (h.prn) e.prn = true;
   }));
   const rows = [...agg.values()].filter((e) => e.count >= 2)
@@ -611,7 +620,7 @@ async function loadConsensus(btn) {
     + `<td class="tl-n"><strong>${e.count}</strong></td>`
     + `<td class="tl-n">${e.avgW != null ? (e.avgW * 100).toFixed(1) + "%" : "—"}</td>`
     + `<td class="tl-n">${usd(e.total)}</td>`
-    + `<td class="tl-hq" title="${esc(e.holders.join(", "))}">${esc(e.holders.slice(0, 3).join(", "))}${e.holders.length > 3 ? ` +${e.holders.length - 3}` : ""}</td></tr>`;
+    + `<td class="tl-hq" title="${esc(e.holders.map((h) => h.name).join(", "))}">${esc(e.holders.slice(0, 3).map((h) => h.name).join(", "))}${e.holders.length > 3 ? ` +${e.holders.length - 3}` : ""}</td></tr>`;
   body.innerHTML = `<div class="tleague-wrap"><table class="tleague tl-holdings">`
     + `<thead><tr><th>Security</th><th class="tl-tick">Ticker</th><th># funds</th><th>Avg wt</th><th>Total 13F value</th><th class="tl-hq">Holders</th></tr></thead>`
     + `<tbody>${rows.map(row).join("")}</tbody></table></div>`

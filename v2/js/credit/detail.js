@@ -661,6 +661,9 @@ export function viewHedgeFund(id) {
           <header class="tpanel-h twire-head"><span>Top 10 holdings</span><span class="tpanel-x">SEC 13F-HR${f.cik ? "" : " · n/a"}</span></header>
           ${holdingsBody}
           <p class="tl-sls-key muted small">AUM approximate; 13F holdings via SEC EDGAR, as of <span id="hf-asof">${f.cik ? "latest filing" : "n/a"}</span>; performance ${f.perf && f.perf.text ? "as noted" : "n.a."}</p>
+          <header class="tpanel-h twire-head"><span>Stakes &amp; insider filings</span><span class="tpanel-x">13D/G · Forms 3/4/5</span></header>
+          ${f.cik ? `<div id="hf-filings"><p class="tw-empty muted small">Loading recent SEC filings…</p></div>` : `<p class="tw-empty muted small">No US SEC filer.</p>`}
+          <p class="tl-sls-key muted small">Beneficial-ownership (SC 13D/13G, &gt;5% stakes — 13D = activist/control intent) and insider (Forms 3/4/5) filings from SEC EDGAR, newest first. 13F shows long US-equity holdings; these add stakes &amp; insider trades. Each links to the filing; dates are the SEC filed date (there is an inherent reporting lag).</p>
         </section>
         <aside class="tcol tcol-r">
           ${railPanel("Firm facts", "", factsRail)}
@@ -704,5 +707,20 @@ export function viewHedgeFund(id) {
         const el = document.getElementById("hf-holdings");
         if (el) el.innerHTML = `<p class="tw-empty muted small">Holdings unavailable right now — try again shortly.</p>`;
       });
+    // Stakes & insider filings (SC 13D/13G + Forms 3/4/5) from EDGAR — a compact
+    // list, newest first, each linking to the filing. Edge-cached 6h.
+    fetch(`/api/filings?cik=${encodeURIComponent(f.cik)}`, { headers: { accept: "application/json" } })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        const el = document.getElementById("hf-filings");
+        if (!el) return;
+        const rows = (d && Array.isArray(d.filings)) ? d.filings : [];
+        if (!rows.length) { el.innerHTML = `<p class="tw-empty muted small">No recent 13D/13G or insider filings.</p>`; return; }
+        const cls = (k) => k === "stake-active" ? "hf-fl-13d" : k === "stake-passive" ? "hf-fl-13g" : "hf-fl-ins";
+        const li = (x) => `<li class="tmini-row"><a class="tmini-t" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer"><span class="hf-fform ${cls(x.kind)}">${esc(x.form)}</span></a>`
+          + `<span class="tmini-m">${x.filed ? "filed " + esc(fmtDate(x.filed)) : ""}${x.period ? " · as of " + esc(fmtDate(x.period)) : ""}</span></li>`;
+        el.innerHTML = `<ul class="tmini">${rows.slice(0, 15).map(li).join("")}</ul>`;
+      })
+      .catch(() => { const el = document.getElementById("hf-filings"); if (el) el.innerHTML = `<p class="tw-empty muted small">Filings unavailable right now.</p>`; });
   }
 }

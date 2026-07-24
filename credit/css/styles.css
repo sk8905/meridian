@@ -772,3 +772,9 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 .tl-holdings .tl-tick a:hover, .hf-cons a:hover { text-decoration: underline; }
 .hf-cons { margin-top: 14px; }
 .hf-cons .tleague-wrap { margin-top: 0; }
+
+/* SEC filing-type badges (13D/13G/Forms 3-4-5 on the hedge fund page) */
+.hf-fform { display: inline-block; min-width: 44px; text-align: center; padding: 0 5px; border-radius: 3px; border: 1px solid var(--t-grid2, #262626); font-family: var(--t-mono); font-size: 10px; font-weight: 600; color: var(--t-ink, #eaf0fb); }
+.hf-fform.hf-fl-13d { color: var(--t-down, #f26d84); border-color: var(--t-down, #f26d84); }   /* activist / control */
+.hf-fform.hf-fl-13g { color: var(--muted); }                                                    /* passive >5% */
+.hf-fform.hf-fl-ins { color: var(--t-accent, #fb8b1e); border-color: var(--t-accent, #fb8b1e); }/* insider */
