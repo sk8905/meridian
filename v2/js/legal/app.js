@@ -13,7 +13,7 @@ import {
   fmtDate, itemDate, itemRow, firmLink, getSaved, SAVED_KEY,
   markVisitedSoon, _chipMem, chipMemKey,
 } from "/legal/js/shared.js?v=20260724-1";
-import { viewItem, viewFirm , __setHost as __detailSetHost } from "/v2/js/legal/detail.js?v=v2-6";
+import { viewItem, viewFirm , __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/legal/detail.js?v=v2-7";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc, onLiveWire } from "/feed.js?v=20260724-2";
 import { esc, MONTHS, byDateDesc } from "/util.js?v=20260719-1";
 
@@ -1079,6 +1079,10 @@ function router() {
   const hash = location.hash || "#/";
   const path = hash.slice(1).split("?")[0]; // strip query
   window.scrollTo(0, 0);
+  // Re-claim the shared detail host + desk breadcrumb (Profiles borrows viewFirm
+  // and points it at its own host; the Legal desk restakes both before rendering).
+  __detailSetHost(host);
+  __detailSetProfilesMode(false);
 
   if (path === "/" || path === "") viewDashboard();
   else if (path === "/list") viewList();

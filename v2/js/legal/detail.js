@@ -26,8 +26,17 @@ export function __setHost(h) { app = h; }
 // profile as from the dashboard: each chip jumps straight to that section (the
 // dashboard seeds its selection from ?tab=). `all` has no param (bare dashboard).
 const LG_SECTIONS = [["all", "All"], ["alert", "Alerts"], ["news", "News"], ["case", "Case law"], ["rp", "Scheme/RPs"], ["firms", "Law Firms"]];
-const sectionNav = (active) => `<header class="tpanel-h twire-head tdet-secnav"><div class="tchips">${LG_SECTIONS
-  .map(([k, l]) => `<a class="tchip${k === active ? " is-on" : ""}" href="${k === "all" ? "#/" : "#/?tab=" + k}">${esc(l)}</a>`).join("")}</div></header>`;
+// When a firm is opened from the Profiles tab it is hosted there, so its top nav
+// becomes the Profiles chip set (Managers · Hedge Funds · Law firms) returning to
+// that list, not the Legal desk's sections. Profiles flips this on per render.
+let profilesMode = false;
+export function __setProfilesMode(v) { profilesMode = v; }
+const PF_SECTIONS = [["managers", "Managers"], ["hedgefunds", "Hedge Funds"], ["firms", "Law firms"]];
+const sectionNav = (active) => profilesMode
+  ? `<header class="tpanel-h twire-head tdet-secnav"><div class="tchips">${PF_SECTIONS
+      .map(([k, l]) => `<a class="tchip${k === "firms" ? " is-on" : ""}" href="#/?tab=${k}">${esc(l)}</a>`).join("")}</div></header>`
+  : `<header class="tpanel-h twire-head tdet-secnav"><div class="tchips">${LG_SECTIONS
+      .map(([k, l]) => `<a class="tchip${k === active ? " is-on" : ""}" href="${k === "all" ? "#/" : "#/?tab=" + k}">${esc(l)}</a>`).join("")}</div></header>`;
 
 // =============================================================================
 // VIEW: Detail (#/item/<id>)

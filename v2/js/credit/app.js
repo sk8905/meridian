@@ -19,7 +19,7 @@ import {
   PAGE, pageShown, pageCount, pageReset, loadMoreBtn, feedHtml, feedFlat,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
 } from "/credit/js/shared.js?v=20260724-4";
-import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost } from "/v2/js/credit/detail.js?v=v2-10";
+import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js?v=v2-11";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260724-2";
 import { esc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
 
@@ -552,11 +552,10 @@ function hedgeFundsPaneHTML() {
               <header class="tpanel-h thead-search"><span>Hedge Funds</span>
                 <input type="search" id="hf-q" class="tsearch" placeholder="Search name, HQ or strategy…" aria-label="Search hedge funds">
                 <button type="button" class="tfocus-btn" id="cr-hf-focus" aria-pressed="false" title="Show only $1–10bn AUM hedge funds">$1–10bn</button>
+                <button type="button" class="tfocus-btn" id="hf-cons-btn" title="Most-crowded holdings — aggregate the latest 13F top-10 across all ${withCik} tracked funds that file one">Cross-holdings</button>
               </header>
               <section class="hf-cons">
-                <header class="tpanel-h thead-search"><span>★ Most-crowded holdings — 13F consensus</span>
-                  <button type="button" class="tfocus-btn" id="hf-cons-btn" title="Aggregate the latest 13F top-10 across every tracked fund that files one">Load consensus</button></header>
-                <div id="hf-cons-body"><p class="tl-sls-key muted small">Aggregates the SEC 13F top-10 US-equity holdings across <strong>all ${withCik} tracked funds that file a 13F</strong> to show the most widely-held names — how many of our funds hold each, the average position weight, and the total 13F value, each linking to the filing. 13F is long-only US equities/options (incl. held puts/calls and convertibles); it excludes shorts, cash bonds/loans and non-US names. Tap <em>Load consensus</em> (first run warms cold filings; give it a few seconds).</p></div>
+                <div id="hf-cons-body"></div>
               </section>
               <div class="tleague-wrap">
               <table class="tleague tleague-full tleague-hf">
@@ -577,7 +576,11 @@ function hedgeFundsPaneHTML() {
 // pages warm; bounded to the top 30 by AUM. Lazy: only runs on the button tap.
 let _consBusy = false;
 async function loadConsensus(btn) {
-  const body = document.getElementById("hf-cons-body");
+  // Resolve the results container relative to the tapped button's pane, not by a
+  // bare id: the Hedge Funds pane is rendered in BOTH the (retired) Credit desk
+  // and the Profiles tab, so #hf-cons-body is a duplicate id — scope to the pane
+  // the button lives in so it always fills the right copy.
+  const body = (btn && btn.closest(".tpane") ? btn.closest(".tpane") : document).querySelector("#hf-cons-body");
   if (!body || _consBusy) return;
   _consBusy = true;
   if (btn) { btn.disabled = true; btn.textContent = "Loading…"; }
@@ -893,32 +896,37 @@ function viewDashboard() {
     const b0 = k0 && k0 !== "all" ? dashTabs.querySelector(`.tchip[data-p="${k0}"]`) : null;
     if (b0 && !b0.classList.contains("is-on")) b0.click();
   }
-  const qi = document.getElementById("mgr-q");
+  // The Managers / Hedge Funds panes (managersPaneHTML / hedgeFundsPaneHTML) are
+  // ALSO rendered in the Profiles tab, so their ids (#mgr-q, #cr-hf-focus, …) are
+  // duplicated across two live sections. Scope every lookup + row filter to THIS
+  // desk's host (`app`) so the desk wires only its own copy — Profiles wires its
+  // own separately — and a re-render never double-binds the Profiles button.
+  const qi = app.querySelector("#mgr-q");
   if (qi) qi.addEventListener("input", () => {
     filterState.managers.q = qi.value;
     const v = qi.value.toLowerCase().trim();
-    document.querySelectorAll("#mgr-rows tr").forEach((tr) => { tr.style.display = (!v || (tr.dataset.name || "").includes(v)) ? "" : "none"; });
+    app.querySelectorAll("#mgr-rows tr").forEach((tr) => { tr.style.display = (!v || (tr.dataset.name || "").includes(v)) ? "" : "none"; });
   });
-  const lf = document.getElementById("cr-lg-focus");
+  const lf = app.querySelector("#cr-lg-focus");
   if (lf) lf.addEventListener("click", () => {
     const on = lf.getAttribute("aria-pressed") !== "true";
     lf.setAttribute("aria-pressed", on ? "true" : "false");
     lf.classList.toggle("is-on", on);
-    document.querySelectorAll("#mgr-rows tr").forEach((tr) => { tr.style.display = (!on || tr.dataset.focus === "1") ? "" : "none"; });
+    app.querySelectorAll("#mgr-rows tr").forEach((tr) => { tr.style.display = (!on || tr.dataset.focus === "1") ? "" : "none"; });
   });
-  const hq = document.getElementById("hf-q");
+  const hq = app.querySelector("#hf-q");
   if (hq) hq.addEventListener("input", () => {
     const v = hq.value.toLowerCase().trim();
-    document.querySelectorAll("#hf-rows tr").forEach((tr) => { tr.style.display = (!v || (tr.dataset.name || "").includes(v)) ? "" : "none"; });
+    app.querySelectorAll("#hf-rows tr").forEach((tr) => { tr.style.display = (!v || (tr.dataset.name || "").includes(v)) ? "" : "none"; });
   });
-  const hff = document.getElementById("cr-hf-focus");
+  const hff = app.querySelector("#cr-hf-focus");
   if (hff) hff.addEventListener("click", () => {
     const on = hff.getAttribute("aria-pressed") !== "true";
     hff.setAttribute("aria-pressed", on ? "true" : "false");
     hff.classList.toggle("is-on", on);
-    document.querySelectorAll("#hf-rows tr").forEach((tr) => { tr.style.display = (!on || tr.dataset.focus === "1") ? "" : "none"; });
+    app.querySelectorAll("#hf-rows tr").forEach((tr) => { tr.style.display = (!on || tr.dataset.focus === "1") ? "" : "none"; });
   });
-  const cb = document.getElementById("hf-cons-btn");
+  const cb = app.querySelector("#hf-cons-btn");
   if (cb) cb.addEventListener("click", () => loadConsensus(cb));
 }
 // In-place filter for the dashboard activity wire: chips toggle which kinds show
@@ -1838,6 +1846,11 @@ function router() {
   const wl = document.getElementById("wl-count");
   if (wl) { const n = followCount(); wl.textContent = n ? n : ""; wl.style.display = n ? "" : "none"; }
   window.scrollTo(0, 0);
+  // Re-claim the shared detail host + desk breadcrumb style: the Profiles tab
+  // borrows these same detail views and points them at its own host, so the
+  // Credit desk restakes both before it renders (only one tab renders at a time).
+  __detailSetHost(app);
+  __detailSetProfilesMode(false);
   switch (route) {
     case "": case undefined: return viewDashboard();
     case "funds": return viewFunds();
@@ -1875,5 +1888,5 @@ initSavedSync();
 
   // Expose the list builders so the Profiles tab can render the EXACT same
   // Managers / Hedge Funds panes (one source — these close over this app's data).
-  return { enter: () => router(), leave() {}, buildManagers: managersPaneHTML, buildHedgeFunds: hedgeFundsPaneHTML };
+  return { enter: () => router(), leave() {}, buildManagers: managersPaneHTML, buildHedgeFunds: hedgeFundsPaneHTML, loadConsensus };
 }

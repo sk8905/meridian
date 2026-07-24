@@ -160,6 +160,18 @@ notification badge red (`#ef4444`).
   sets its own height (30px feed chips, padding-sized pred chips) is a bug: it
   reads uneven next to the others on iPhone.
 
+- **R14a — The selected chip always shows its underline.** The active tab/filter
+  chip is marked by a **2px bottom underline** drawn as `box-shadow: inset 0 -2px
+  0 var(--chip-ul)` — **black in light, white in dark** (`--chip-ul` is set once,
+  globally, in `premium.css`). This is the ONE selection marker across every chip
+  family (`.tchip.is-on`, `.g-feed-chip.is-on`, `.na-chip.is-on`, the prediction
+  and markets chips, and the Profiles list + profile section-nav chips) — no
+  pills, no colour swaps. Always give the rule a theme-aware fallback
+  (`var(--chip-ul, #000)` in light, `var(--chip-ul, #fff)` under
+  `[data-theme="dark"]`): a bare `var(--chip-ul)` with no fallback becomes an
+  invalid declaration the moment the token is missing from a scope, and the whole
+  underline silently vanishes.
+
 ---
 
 ## 6. Behaviour & data

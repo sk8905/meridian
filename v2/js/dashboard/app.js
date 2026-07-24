@@ -139,18 +139,20 @@ export function mount(host, ctx) {
     else if (k) rows.sort((a, b) => String(a[k] || "").localeCompare(String(b[k] || "")) * _stressSort.dir);
     return rows;
   }
+  // Compact stacked cards (not a 7-column table, which on a phone scrolls
+  // sideways and — because the wrapping Note cell sets the row height — leaves
+  // the other columns floating in tall, half-empty rows). Each card packs the
+  // debtor + debt on one line, the sector/HQ/status/latest on the next, and the
+  // note beneath; a small chip bar keeps the by-debt (and A–Z) sort.
   function stressHTML() {
-    const th = (k, l, cls) => `<th class="${cls || ""} dsh-sortable${_stressSort.key === k ? " dsh-sorted" : ""}" data-sort="${k}">${l}${_stressSort.key === k ? (_stressSort.dir > 0 ? " ▲" : " ▼") : ""}</th>`;
-    const row = (s) => `<tr><td class="dsh-nm">${esc(s.name)}</td>`
-      + `<td>${esc(s.sector)}</td><td class="dsh-mut">${esc(s.hq)}</td>`
-      + `<td class="dsh-r"><strong>${esc(s.debt)}</strong></td>`
-      + `<td><span class="dsh-tag dsh-tag-stress">${esc(s.status)}</span></td>`
-      + `<td class="dsh-mut">${esc(s.latest)}</td>`
-      + `<td class="dsh-note">${esc(s.note)}${srcLink(s.source, s.name + " source")}</td></tr>`;
-    return `<div class="dsh-scroll"><table class="dsh-tbl dsh-stresstbl"><thead><tr>`
-      + th("name", "Debtor") + th("sector", "Sector") + th("hq", "HQ", "dsh-mut")
-      + th("debt", "Debt", "dsh-r") + th("status", "Status") + th("latest", "Latest", "dsh-mut")
-      + `<th>Note</th></tr></thead><tbody id="dsh-stress-body">${stressRows().map(row).join("")}</tbody></table></div>`;
+    const chip = (k, l) => `<button type="button" class="dsh-sortchip${_stressSort.key === k ? " is-on" : ""}" data-sort="${k}">${l}${_stressSort.key === k ? (_stressSort.dir > 0 ? " ▲" : " ▼") : ""}</button>`;
+    const card = (s) => `<div class="dsh-stress">`
+      + `<div class="dsh-stress-h"><span class="dsh-nm">${esc(s.name)}</span><span class="dsh-stress-debt">${esc(s.debt)}</span></div>`
+      + `<div class="dsh-stress-m">${esc(s.sector)} · ${esc(s.hq)} · <span class="dsh-tag dsh-tag-stress">${esc(s.status)}</span>${s.latest ? " · " + esc(s.latest) : ""}</div>`
+      + `<div class="dsh-stress-n">${esc(s.note)}${srcLink(s.source, s.name + " source")}</div></div>`;
+    return `<div class="dsh-stresswrap">`
+      + `<div class="dsh-sortbar"><span class="dsh-sortlbl">Sort by</span>${chip("debt", "Debt")}${chip("name", "Debtor")}${chip("sector", "Sector")}</div>`
+      + `<div class="dsh-stresslist" id="dsh-stress-body">${stressRows().map(card).join("")}</div></div>`;
   }
   function maturityHTML() {
     const w = MATWALL && MATWALL.rated, wall = MATWALL && MATWALL.ratedWall;
@@ -320,12 +322,11 @@ export function mount(host, ctx) {
     }));
   }
   function wireStressSort() {
-    host.querySelectorAll(".dsh-stresstbl th.dsh-sortable").forEach((th) => th.addEventListener("click", () => {
-      const k = th.dataset.sort;
-      if (_stressSort.key === k) _stressSort.dir *= -1; else { _stressSort.key = k; _stressSort.dir = 1; }
-      const body = host.querySelector("#dsh-stress-body");
-      const card = th.closest(".dsh-card");
-      if (card) { const wrap = card.querySelector(".dsh-scroll"); if (wrap) wrap.outerHTML = stressHTML(); wireStressSort(); }
+    host.querySelectorAll(".dsh-sortchip").forEach((btn) => btn.addEventListener("click", () => {
+      const k = btn.dataset.sort;
+      if (_stressSort.key === k) _stressSort.dir *= -1; else { _stressSort.key = k; _stressSort.dir = k === "debt" ? -1 : 1; }
+      const wrap = host.querySelector(".dsh-stresswrap");
+      if (wrap) { wrap.outerHTML = stressHTML(); wireStressSort(); }
     }));
   }
   host.addEventListener("click", (e) => {

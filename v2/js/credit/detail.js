@@ -12,7 +12,7 @@
 import {
   managerById, fundById, lpById, funds, lps, intel, deals,
   fundsByManager, intelForFund, dealsForFund, dealsForManager, intelForManager,
-  HEDGE_FUNDS, VEHICLES,
+  HEDGE_FUNDS, HEDGE_INTEL, VEHICLES,
 } from "/credit/js/data.js";
 import { esc } from "/util.js?v=20260719-1";
 import {
@@ -51,10 +51,22 @@ function railPanel(title, meta, body) {
 // (dashboard ?tab= is seeded from the link). `all` has no param (bare dashboard).
 const CR_SECTIONS = [["all", "All"], ["deals", "Deals"], ["fundraising", "Fundraising"], ["managers", "Managers"], ["hedgefunds", "Hedge Funds"]];
 const crSecHref = (k) => k === "all" ? "#/" : "#/?tab=" + k;
+// When a profile is opened from the Profiles tab it is hosted THERE (not in the
+// retired Credit desk), so its top nav must be the Profiles chip set — Managers ·
+// Hedge Funds · Law firms — each returning to that list, not the Credit desk's
+// Deals/Fundraising sections. Profiles flips this on per render; the Credit desk
+// leaves it off (its router resets it). Shared single module instance, so the
+// last writer before a synchronous render wins — and only the active tab renders.
+let profilesMode = false;
+export function __setProfilesMode(v) { profilesMode = v; }
+const PF_SECTIONS = [["managers", "Managers"], ["hedgefunds", "Hedge Funds"], ["firms", "Law firms"]];
+const pfSecNav = (active) => `<header class="tpanel-h twire-head tdet-secnav"><div class="tchips">${PF_SECTIONS
+  .map(([k, l]) => `<a class="tchip${k === active ? " is-on" : ""}" href="#/?tab=${k}">${esc(l)}</a>`).join("")}</div></header>`;
 // `parts` is kept for call-site compatibility; the first linked crumb's label
 // tells us which section this profile lives under, so that chip reads active.
 function breadcrumb(parts) {
   const parentLabel = (parts.filter((p) => p[0])[0] || [null, ""])[1];
+  if (profilesMode) return pfSecNav({ Managers: "managers", Funds: "managers", "Hedge Funds": "hedgefunds" }[parentLabel] || "managers");
   const active = { Managers: "managers", Funds: "fundraising", "Hedge Funds": "hedgefunds" }[parentLabel] || "all";
   return `<header class="tpanel-h twire-head tdet-secnav"><div class="tchips">${CR_SECTIONS
     .map(([k, l]) => `<a class="tchip${k === active ? " is-on" : ""}" href="${esc(crSecHref(k))}">${esc(l)}</a>`).join("")}</div></header>`;
@@ -657,61 +669,72 @@ function hfHoldingsTable(d, perfMap) {
 export function viewHedgeFund(id) {
   const f = HEDGE_FUNDS.find((x) => x.id === id);
   if (!f) return notFound(app);
-  const aumStr = f.aum == null ? "n.a." : "$" + f.aum.toFixed(2) + "bn" + (f.estimated ? " (approx.)" : "");
-  const aumFact = f.aum == null ? "n.a."
-    : `${esc(aumStr)}${f.aumAsOf ? ` <span class="tf-est">as of ${esc(f.aumAsOf)}</span>` : ""}`
-      + (f.aumSource ? ` · <a href="${esc(f.aumSource)}" target="_blank" rel="noopener noreferrer" class="tw-mgr">source</a>` : "");
-  const perfFact = f.perf && f.perf.text
-    ? `${esc(f.perf.text)}${f.perf.asOf ? ` <span class="tf-est">${esc(f.perf.asOf)}</span>` : ""}`
-      + (f.perf.source ? ` · <a href="${esc(f.perf.source)}" target="_blank" rel="noopener noreferrer" class="tw-mgr">source</a>` : "")
-    : "n.a.";
   const secUrl = f.cik ? `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${esc(f.cik)}&type=13F-HR&dateb=&owner=include&count=40` : null;
+  // Ticker carries every scalar fact (mirrors the manager page's metric strip),
+  // so the single-column body below is just the tabbed News / Holdings / Filings.
   const metrics = [
-    ["AUM", f.aum == null ? "n.a." : "$" + f.aum.toFixed(2) + "bn"], ["Region", esc(f.region)],
-    ["Founded", f.founded || "—"], ["Strategy", esc(f.strategy)],
+    ["AUM", f.aum == null ? "n.a." : "$" + f.aum.toFixed(2) + "bn"],
+    ["Strategy", esc(f.strategy)], ["Region", esc(f.region)], ["HQ", esc(f.hq)],
+    ["Founded", f.founded || "—"], ["Founder", esc(f.founder || "—")],
   ];
-  const facts = [
-    ["AUM (US$bn)", aumFact],
-    ["Strategy", esc(f.strategy)],
-    ["Region", esc(f.region)],
-    ["HQ", esc(f.hq)],
-    ["Founded", f.founded || "—"],
-    ["Founder", esc(f.founder || "—")],
-    ["Performance", perfFact],
-  ];
-  const factsRail = `<ul class="tfacts">${facts.map(([k, v]) => `<li><span class="tf-k">${esc(k)}</span><span class="tf-v">${v}</span></li>`).join("")}</ul>`;
-  const linksRail = `<ul class="tmini">`
-    + (f.url ? `<li class="tmini-row"><a class="tmini-t" href="${esc(f.url)}" target="_blank" rel="noopener noreferrer">Firm website</a><span class="tmini-m">${esc(f.name)}</span></li>` : "")
-    + (secUrl ? `<li class="tmini-row"><a class="tmini-t" href="${esc(secUrl)}" target="_blank" rel="noopener noreferrer">SEC EDGAR — 13F filings</a><span class="tmini-m">CIK ${esc(f.cik)}</span></li>` : "")
-    + `</ul>`;
-  const holdingsBody = f.cik
+  // News for this fund — the hedge-fund intelligence stream (HEDGE_INTEL),
+  // shaped into the shared credit wire row, newest first.
+  const news = (HEDGE_INTEL || []).filter((h) => h.hfId === f.id)
+    .map((h) => ({ _kind: "news", title: h.headline, outlet: h.outlet, url: h.url, date: h.date || "", time: h.time || "" }))
+    .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+
+  const newsPane = news.length
+    ? `<ul class="twire compact-list" id="hf-news">${news.map((x) => crWireRow(x, "")).join("")}</ul>`
+    : '<p class="tw-empty muted small">No news tracked for this fund yet.</p>';
+  const holdingsPane = f.cik
     ? `<div id="hf-holdings"><p class="tw-empty muted small">Loading latest 13F holdings…</p></div>`
+      + `<p class="tl-sls-key muted small">Top 10 long US-equity/option holdings via SEC 13F-HR, as of <span id="hf-asof">latest filing</span>; performance ${f.perf && f.perf.text ? "as noted below" : "n.a."} (13F excludes shorts, cash bonds/loans and non-US names; there is an inherent quarterly-filing lag).</p>`
     : `<p class="tw-empty muted small">No US 13F / not disclosed.</p>`;
+  const filingsPane = f.cik
+    ? `<div id="hf-filings"><p class="tw-empty muted small">Loading recent SEC filings…</p></div>`
+      + `<p class="tl-sls-key muted small">Beneficial-ownership (SC 13D/13G, &gt;5% stakes — 13D = activist/control intent) and insider (Forms 3/4/5) filings from SEC EDGAR, newest first. 13F shows long US-equity holdings; these add stakes &amp; insider trades. Each links to the filing; dates are the SEC filed date (there is an inherent reporting lag).</p>`
+    : `<p class="tw-empty muted small">No US SEC filer.</p>`;
+  const pane = (p, inner) => `<div class="tpane" data-p="${p}"${p === "news" ? "" : " hidden"}>${inner}</div>`;
 
   app.innerHTML = `
     <div class="tdash">
       ${breadcrumb([["#/", "Hedge Funds"], [null, f.name]])}
       <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
-      <div class="tdash-grid tdash-2">
-        <section class="tcol tcol-c">
+      <div class="tdash-grid tdash-1">
+        <section class="tcol tcol-c tcol-full">
           <div class="tdet-id">
             <h1>${esc(f.name)}</h1>
             <div class="tdet-sub">${esc(f.hq)} · ${esc(f.region)}${f.founded ? " · Founded " + esc(String(f.founded)) : ""}${f.founder ? " · " + esc(f.founder) : ""}</div>
+            ${f.perf && f.perf.text ? `<p class="tdet-desc">Performance: ${esc(f.perf.text)}${f.perf.asOf ? ` <span class="tf-est">${esc(f.perf.asOf)}</span>` : ""}${f.perf.source ? ` · <a href="${esc(f.perf.source)}" target="_blank" rel="noopener noreferrer" class="tw-mgr">source</a>` : ""}</p>` : ""}
             <div class="tdet-chips"><span class="tdet-chip">${esc(f.strategy)}</span>${f.aum != null ? `<span class="tdet-chip">$${esc(f.aum.toFixed(2))}bn AUM</span>` : ""}</div>
+            <div class="tdet-src">${f.aumSource ? `AUM: <a href="${esc(f.aumSource)}" target="_blank" rel="noopener noreferrer">source${f.aumAsOf ? " (as of " + esc(f.aumAsOf) + ")" : ""}</a>` : ""}${f.url ? `${f.aumSource ? " · " : ""}<a href="${esc(f.url)}" target="_blank" rel="noopener noreferrer">Firm website</a>` : ""}${secUrl ? `${(f.aumSource || f.url) ? " · " : ""}<a href="${esc(secUrl)}" target="_blank" rel="noopener noreferrer">SEC EDGAR — 13F filings</a>` : ""}</div>
           </div>
-          <header class="tpanel-h twire-head"><span>Top 10 holdings</span><span class="tpanel-x">SEC 13F-HR${f.cik ? "" : " · n/a"}</span></header>
-          ${holdingsBody}
-          <p class="tl-sls-key muted small">AUM approximate; 13F holdings via SEC EDGAR, as of <span id="hf-asof">${f.cik ? "latest filing" : "n/a"}</span>; performance ${f.perf && f.perf.text ? "as noted" : "n.a."}</p>
-          <header class="tpanel-h twire-head"><span>Stakes &amp; insider filings</span><span class="tpanel-x">13D/G · Forms 3/4/5</span></header>
-          ${f.cik ? `<div id="hf-filings"><p class="tw-empty muted small">Loading recent SEC filings…</p></div>` : `<p class="tw-empty muted small">No US SEC filer.</p>`}
-          <p class="tl-sls-key muted small">Beneficial-ownership (SC 13D/13G, &gt;5% stakes — 13D = activist/control intent) and insider (Forms 3/4/5) filings from SEC EDGAR, newest first. 13F shows long US-equity holdings; these add stakes &amp; insider trades. Each links to the filing; dates are the SEC filed date (there is an inherent reporting lag).</p>
+          <header class="tpanel-h twire-head">
+            <div class="tchips" id="hf-tabs">
+              <button type="button" class="tchip is-on" data-p="news">News${news.length ? " " + news.length : ""}</button>
+              <button type="button" class="tchip" data-p="holdings">Holdings</button>
+              <button type="button" class="tchip" data-p="filings">Filings</button>
+            </div>
+          </header>
+          <div class="tpanes" id="hf-panes">
+            ${pane("news", newsPane)}
+            ${pane("holdings", holdingsPane)}
+            ${pane("filings", filingsPane)}
+          </div>
         </section>
-        <aside class="tcol tcol-r">
-          ${railPanel("Firm facts", "", factsRail)}
-          ${railPanel("Links", "", linksRail)}
-        </aside>
       </div>
     </div>`;
+
+  // Toggle which pane (News / Holdings / Filings) is shown — same wiring as the
+  // manager page's tabs, remembered per route via _chipMem.
+  const tabs = document.getElementById("hf-tabs");
+  if (tabs) tabs.addEventListener("click", (e) => {
+    const b = e.target.closest(".tchip"); if (!b) return;
+    tabs.querySelectorAll(".tchip").forEach((c) => c.classList.toggle("is-on", c === b));
+    const p = b.dataset.p;
+    _chipMem[chipMemKey("hf-tabs")] = p || "news";
+    document.querySelectorAll("#hf-panes .tpane").forEach((el) => { el.hidden = el.dataset.p !== p; });
+  });
 
   // Live Top-10 holdings — edge-cached at /api/13f (24h TTL); cache-first via the
   // edge + browser cache, with a .catch fallback so a failed fetch degrades to a
@@ -763,5 +786,11 @@ export function viewHedgeFund(id) {
         el.innerHTML = `<ul class="tmini">${rows.slice(0, 15).map(li).join("")}</ul>`;
       })
       .catch(() => { const el = document.getElementById("hf-filings"); if (el) el.innerHTML = `<p class="tw-empty muted small">Filings unavailable right now.</p>`; });
+  }
+  // Restore the last-viewed tab (News default) for this route.
+  if (tabs) {
+    const k0 = _chipMem[chipMemKey("hf-tabs")];
+    const b0 = k0 && k0 !== "news" ? tabs.querySelector(`.tchip[data-p="${k0}"]`) : null;
+    if (b0 && !b0.classList.contains("is-on")) b0.click();
   }
 }

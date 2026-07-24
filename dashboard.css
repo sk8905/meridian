@@ -91,8 +91,12 @@
 /* IPO / generic table */
 .dsh-scroll { overflow-x:auto; }
 .dsh-tbl { width:100%; border-collapse:collapse; font-size:.8rem; }
-.dsh-tbl th { text-align:left; color:var(--t-mut); font-weight:500; font-size:.72rem; padding:4px 8px; border-bottom:1px solid var(--t-grid2); white-space:nowrap; }
-.dsh-tbl td { padding:5px 8px; border-bottom:1px solid var(--t-grid); color:var(--t-dim); white-space:nowrap; }
+.dsh-tbl th { text-align:left; color:var(--t-mut); font-weight:500; font-size:.72rem; padding:4px 8px; border-bottom:1px solid var(--t-grid2); white-space:nowrap; vertical-align:top; }
+/* Top-align cells: a wrapping cell (e.g. the Stress "Note") sets the row height,
+   and without this the short single-line cells float in the vertical middle of
+   that tall row, reading as big empty gaps ("stretched"). Top keeps every row
+   compact and its columns lined up on the first line. */
+.dsh-tbl td { padding:5px 8px; border-bottom:1px solid var(--t-grid); color:var(--t-dim); white-space:nowrap; vertical-align:top; }
 .dsh-tbl .dsh-nm { color:var(--t-ink); font-weight:600; }
 .dsh-r { text-align:right; }
 .dsh-tag { font-size:.68rem; font-weight:600; border-radius:4px; padding:1px 5px; border:1px solid var(--t-grid2); color:var(--t-mut); }
@@ -112,9 +116,15 @@
 /* Stress cards */
 .dsh-stresslist { display:flex; flex-direction:column; gap:8px; }
 .dsh-stress { border:1px solid var(--t-grid); border-radius:6px; padding:9px 10px; background:var(--t-panel2); }
-.dsh-stress-h { display:flex; align-items:center; justify-content:space-between; gap:8px; }
+.dsh-stress-h { display:flex; align-items:baseline; justify-content:space-between; gap:8px; }
 .dsh-stress-h .dsh-nm { color:var(--t-ink); font-weight:600; font-size:.88rem; }
+.dsh-stress-debt { color:var(--t-ink); font-weight:700; font-size:.82rem; font-variant-numeric:tabular-nums; white-space:nowrap; }
 .dsh-stress-m { color:var(--t-mut); font-size:.74rem; margin:3px 0 4px; }
+/* Stress sort chip bar */
+.dsh-sortbar { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:0 0 8px; }
+.dsh-sortlbl { color:var(--t-mut); font-size:.72rem; margin-right:2px; }
+.dsh-sortchip { border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); font-size:.72rem; font-family:inherit; padding:2px 8px; border-radius:999px; cursor:pointer; }
+.dsh-sortchip.is-on { color:var(--t-ink); border-color:var(--t-dim); font-weight:600; }
 .dsh-stress-n { color:var(--t-dim); font-size:.8rem; line-height:1.35; }
 
 .dsh-more a { color:var(--t-accent); text-decoration:none; font-size:.85rem; }

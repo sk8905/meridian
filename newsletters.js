@@ -28,6 +28,33 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-goingprivate-20260724",
+    publication: "Bloomberg",
+    title: "Going Private: Fund titans target US nest eggs with 'haystack alts'",
+    date: "2026-07-24",
+    time: "13:15",
+    summary: "Blackstone, Vanguard and Wellington aim to push private assets into US 401(k) retirement plans after a wave of redemptions hit private funds.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-24/fund-titans-plot-to-push-haystack-alts-into-401-k-s",
+  },
+  {
+    id: "nl-bbg-econdaily-mixedmessages-20260724",
+    publication: "Bloomberg",
+    title: "Economics Daily: Mixed messages",
+    date: "2026-07-24",
+    time: "12:28",
+    summary: "ECB officials are ready to raise rates at their next meeting — they just won't say so publicly.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-24/ecb-officials-are-ready-to-hike-they-just-won-t-admit-so-publicly",
+  },
+  {
+    id: "nl-bbg-parisedition-20260724",
+    publication: "Bloomberg",
+    title: "Paris Edition: Bankers' quest",
+    date: "2026-07-24",
+    time: "12:05",
+    summary: "Fearing higher taxes and political upheaval, Paris bankers are eyeing other financial centres.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-24/paris-bankers-fearing-more-tax-political-upheaval-eye-other-financial-centers",
+  },
+  {
     id: "nl-lb-paulhastingscity-20260724",
     publication: "Legal Business",
     title: "'This is a platform for builders' - Paul Hastings London heads on the City vision",
