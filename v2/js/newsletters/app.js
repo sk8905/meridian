@@ -38,16 +38,10 @@ export function mount(host, ctx) {
     return dedupeByTitle(out);
   }
 
+  // headEl:null — we render our own single-select dropdown (below) rather than the
+  // engine's chip row, matching the Home feed's filter.
   const feed = createFeed({
     feedEl: host.querySelector("#nl-feed"),
-    headEl: host.querySelector("#nl-head"),
-    headLabel: "Reading",
-    chips: [
-      { k: "all", label: "All" },
-      { k: "n", label: "Newsletters" },
-      { k: "s", label: "Substacks" },
-      { k: "b", label: "Brew" },
-    ],
     buildItems,
     defaultDesk: "all",
     emptyLabel: (desk) => desk === "n" ? "No newsletters yet — the sweep runs hourly, 06:00–21:00."
@@ -55,9 +49,21 @@ export function mount(host, ctx) {
         : desk === "b" ? "No Brew digest yet — check back shortly."
           : "No reading yet — check back shortly.",
   });
+
+  // Single-select desk dropdown (All / Newsletters / Substacks / Brew).
+  const OPTS = [["all", "All reading"], ["n", "Newsletters"], ["s", "Substacks"], ["b", "Brew"]];
+  const head = host.querySelector("#nl-head");
+  if (head) {
+    head.innerHTML = `<div class="g-feed-filterbar"><label class="g-feed-sel-lbl">Filter</label>`
+      + `<select class="g-feed-sel" id="nl-desk-sel" aria-label="Filter reading by type">`
+      + OPTS.map(([k, l]) => `<option value="${k}">${l}</option>`).join("")
+      + `</select></div>`;
+    const sel = host.querySelector("#nl-desk-sel");
+    if (sel) sel.addEventListener("change", () => feed.setDesk(sel.value));
+  }
   feed.render();
 
-  // Live wire: repaint when /api/feed lands (adds Substack / myFT / Brew items).
+  // Live wire: repaint when /api/feed lands (adds Substack / Brew items).
   onLiveWire((items) => { _live = Array.isArray(items) ? items : []; feed.render(); });
 
   return { enter() {}, leave() {} };

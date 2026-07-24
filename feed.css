@@ -41,6 +41,11 @@
 .g-feed-chips { display:flex; gap:0; height:var(--chip-h,34px); flex:0 0 100%; width:100%; }
 /* Second-level type row: same chips, visually subordinate (dimmer, hairline top). */
 .g-feed-subchips { height:var(--chip-h,34px); border-top:1px solid var(--t-grid); background:var(--t-panel2); }
+/* Single-select desk filter (dropdown) — Home + Newsletters feeds. */
+.g-feed-filterbar { display:flex; align-items:center; gap:8px; flex:0 0 100%; width:100%; height:var(--chip-h,34px); padding:0 12px; }
+.g-feed-sel-lbl { color:var(--t-mut); font-size:11.5px; letter-spacing:.01em; }
+.g-feed-sel { flex:0 0 auto; min-width:150px; height:24px; background:var(--t-panel2); color:var(--t-ink); border:1px solid var(--t-grid2); border-radius:5px; font-family:inherit; font-size:12px; padding:0 8px; cursor:pointer; }
+.g-feed-sel:focus { outline:none; border-color:var(--t-accent); }
 .g-feed-subchips .g-feed-chip { font-size:10.5px; }
 .g-feed-chip { display:flex; align-items:center; justify-content:center; gap:6px; flex:1 1 0; min-width:0;
   height:100%; padding:0 15px; border:0; background:transparent; cursor:pointer; font-family:inherit;
@@ -58,10 +63,18 @@
 /* Each day is introduced by a date header. Dark = orange-on-black band; light =
    the standard light-grey head band (NOT white — the app's other headers all
    use the --t-head grey) with blue label text and a grey bottom border. */
-.g-feed-dayhdr { padding:6px 12px; background:var(--t-ground); border-top:0; margin:0;
+/* The date STICKS to the top of the scroll window as its day's items scroll
+   under it, and each successive day header pushes the previous one out when it
+   reaches the top (identical `top`, so the siblings hand off — iOS-list style).
+   Desktop: the feed itself scrolls, so top:0. Phone: the page scrolls beneath
+   the fixed chrome, so pin below it (--wire-head-h). Solid band so rows don't
+   bleed through. */
+.g-feed-dayhdr { position:sticky; top:0; z-index:3; padding:6px 12px; background:var(--t-ground); border-top:0; margin:0;
+  border-bottom:1px solid var(--t-grid);
   font-size:10px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--t-accent); }
 :root[data-theme="light"] .g-feed-dayhdr { background:var(--t-head, #f4f7fb); color:#2f6cae;
   border-bottom:1px solid var(--t-grid); }
+@media (max-width:900px){ .g-feed-dayhdr { top:var(--wire-head-h, 57px); } }
 .g-feed-row { display:grid; grid-template-columns:44px 34px minmax(0,1fr) auto; align-items:baseline;
   gap:10px; padding:5px 12px; border-bottom:1px solid var(--t-grid); text-decoration:none; }
 .g-feed-row:hover { background:var(--t-panel2); }

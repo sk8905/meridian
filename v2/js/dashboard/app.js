@@ -19,7 +19,7 @@ const SUBTABS = [["macro", "Macro"], ["equities", "Equities"], ["credit", "Credi
 const pct1 = (n) => (n == null ? "—" : (n > 0 ? "+" : "") + n.toFixed(1) + "%");
 const upcls = (n) => (n == null ? "" : n > 0 ? "up" : n < 0 ? "down" : "");
 const asOf = (d) => (d ? `<span class="dsh-asof">as of ${esc(d)}</span>` : "");
-const srcLink = (u, label) => (u ? ` <a class="dsh-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer" title="${esc(label || "Source")}">↗</a>` : "");
+const srcLink = (u, label) => (u ? ` <a class="dsh-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer" title="${esc(label || "Source")}">src</a>` : "");
 const stripTags = (s) => String(s || "").replace(/<[^>]+>/g, "");
 const fmtDate = (d) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]; return m ? `${+m[3]} ${MON[+m[2]-1]}` : (d || ""); };
 
@@ -108,25 +108,35 @@ export function mount(host, ctx) {
   }
   function equitiesHTML() {
     return `<div class="dsh-pane">
-      <section class="dsh-card dsh-span"><h3 class="dsh-h">Global indices ${asOf(EQ_INDICES[0].asOf)}</h3>${indexStripHTML()}</section>
-      <section class="dsh-card"><h3 class="dsh-h">S&amp;P 500 sectors — YTD
-        <span class="dsh-toggle" role="group" aria-label="Sector view"><button type="button" class="dsh-tgl is-on" data-secview="bars">Bars</button><button type="button" class="dsh-tgl" data-secview="heat">Heatmap</button></span>
-        ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}${sectorHeatHTML()}</section>
+      <section class="dsh-card"><h3 class="dsh-h">S&amp;P 500 sectors — YTD ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
       <section class="dsh-card"><h3 class="dsh-h">Valuation &amp; volatility</h3>${valVolHTML()}</section>
-      <section class="dsh-card dsh-span"><h3 class="dsh-h">Earnings calendar</h3><div class="dsh-scroll">${earningsHTML()}</div></section>
-      <section class="dsh-card dsh-span"><h3 class="dsh-h">IPO / ECM pipeline</h3><div class="dsh-scroll">${ipoHTML()}</div></section>
+      <div class="dsh-span dsh-pair">
+        <section class="dsh-card"><h3 class="dsh-h">Earnings calendar</h3><div class="dsh-scroll">${earningsHTML()}</div></section>
+        <section class="dsh-card"><h3 class="dsh-h">IPO / ECM pipeline</h3><div class="dsh-scroll">${ipoHTML()}</div></section>
+      </div>
     </div>`;
   }
 
   // ---- Credit -------------------------------------------------------------
   // Pitchbook-style sortable Stress league table (default by prominence = source
   // order). Click a header to sort; each row's note links to its cited article.
-  let _stressSort = { key: null, dir: 1 };
+  // Parse a debt string ("€15.5bn net", "~£19bn", "$25bn bonds") to a comparable
+  // magnitude (currency-agnostic) so the table can rank by size of debt.
+  const debtNum = (s) => {
+    const m = String(s || "").replace(/,/g, "").match(/([\d.]+)\s*(tn|bn|m|k)?/i);
+    if (!m) return 0;
+    const n = parseFloat(m[1]) || 0;
+    const u = (m[2] || "bn").toLowerCase();
+    return n * (u === "tn" ? 1e12 : u === "bn" ? 1e9 : u === "m" ? 1e6 : u === "k" ? 1e3 : 1e9);
+  };
+  // Default: largest debt first (item h). Header clicks re-sort; the "debt" column
+  // sorts numerically, everything else alphabetically.
+  let _stressSort = { key: "debt", dir: -1 };
   function stressRows() {
     const rows = CR_STRESS.map((s, i) => ({ ...s, _i: i }));
-    if (_stressSort.key) {
-      rows.sort((a, b) => { const av = String(a[_stressSort.key] || ""), bv = String(b[_stressSort.key] || ""); return av.localeCompare(bv) * _stressSort.dir; });
-    }
+    const k = _stressSort.key;
+    if (k === "debt") rows.sort((a, b) => (debtNum(a.debt) - debtNum(b.debt)) * _stressSort.dir);
+    else if (k) rows.sort((a, b) => String(a[k] || "").localeCompare(String(b[k] || "")) * _stressSort.dir);
     return rows;
   }
   function stressHTML() {
@@ -139,7 +149,7 @@ export function mount(host, ctx) {
       + `<td class="dsh-note">${esc(s.note)}${srcLink(s.source, s.name + " source")}</td></tr>`;
     return `<div class="dsh-scroll"><table class="dsh-tbl dsh-stresstbl"><thead><tr>`
       + th("name", "Debtor") + th("sector", "Sector") + th("hq", "HQ", "dsh-mut")
-      + `<th class="dsh-r">Debt</th>` + th("status", "Status") + th("latest", "Latest", "dsh-mut")
+      + th("debt", "Debt", "dsh-r") + th("status", "Status") + th("latest", "Latest", "dsh-mut")
       + `<th>Note</th></tr></thead><tbody id="dsh-stress-body">${stressRows().map(row).join("")}</tbody></table></div>`;
   }
   function maturityHTML() {
@@ -173,9 +183,11 @@ export function mount(host, ctx) {
   }
   function creditHTML() {
     return `<div class="dsh-pane">
-      <section class="dsh-card"><h3 class="dsh-h">Credit spreads — ICE BofA OAS <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div></section>
-      <section class="dsh-card"><h3 class="dsh-h">Maturity wall</h3>${maturityHTML()}</section>
-      <section class="dsh-card dsh-span"><h3 class="dsh-h">Stress — situations in focus <span class="dsh-n">(${CR_STRESS.length})</span></h3>${stressHTML()}</section>
+      <div class="dsh-span dsh-pair">
+        <section class="dsh-card"><h3 class="dsh-h">Credit spreads — ICE BofA OAS <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div></section>
+        <section class="dsh-card"><h3 class="dsh-h">Maturity wall</h3>${maturityHTML()}</section>
+      </div>
+      <section class="dsh-card dsh-span"><h3 class="dsh-h">Stress — situations in focus <span class="dsh-n">(${CR_STRESS.length}) · by debt</span></h3>${stressHTML()}</section>
       <section class="dsh-card dsh-span"><h3 class="dsh-h">Credit wire — latest deals &amp; intel</h3>${creditNewsHTML()}</section>
     </div>`;
   }
@@ -186,7 +198,7 @@ export function mount(host, ctx) {
       const r = await fetch("/api/rates", { headers: { accept: "application/json" } });
       const d = r.ok ? await r.json() : null;
       const rows = ((d && (d.rates || d.series || d)) || []).filter((x) => x && /oas/i.test(x.label || ""));
-      if (!rows.length) { el.innerHTML = `<p class="dsh-load">Live spreads unavailable — <a href="https://fred.stlouisfed.org/series/BAMLH0A0HYM2" target="_blank" rel="noopener noreferrer">FRED ICE BofA OAS ↗</a></p>`; return; }
+      if (!rows.length) { el.innerHTML = `<p class="dsh-load">Live spreads unavailable — <a href="https://fred.stlouisfed.org/series/BAMLH0A0HYM2" target="_blank" rel="noopener noreferrer">FRED ICE BofA OAS</a></p>`; return; }
       el.innerHTML = rows.map((x) => `<div class="dsh-spread"><span class="dsh-spread-nm">${esc(String(x.label).replace(/\s*OAS$/i, ""))}</span>`
         + `<span class="dsh-spread-v">${x.value != null ? esc(String(x.value)) : "—"}<span class="dsh-spread-u">${esc(x.unit || "bp")}</span></span>`
         + `${srcLink(x.href, "FRED")}</div>`).join("");
@@ -194,19 +206,46 @@ export function mount(host, ctx) {
   }
 
   // ---- Macro --------------------------------------------------------------
-  // Regime pills: policy stance / cycle phase / bubble read as coloured chips.
+  // Regime pills: policy stance / cycle stage / bubble read as coloured chips —
+  // a quick top-of-page read, each drawn from the macro desk's own fields.
+  function bubbleRead() {
+    const dims = (BUBBLE && Array.isArray(BUBBLE.dimensions)) ? BUBBLE.dimensions : [];
+    if (!dims.length) return "—";
+    const wsum = dims.reduce((s, d) => s + (d.weight || 0), 0) || 1;
+    const score = Math.round(dims.reduce((s, d) => s + (d.score || 0) * (d.weight || 0), 0) / wsum);
+    const band = score >= 80 ? "Bubble-like" : score >= 65 ? "Elevated / frothy" : score >= 50 ? "Stretched" : "Contained";
+    return `${band} · ${score}/100`;
+  }
   function regimePillsHTML() {
     const pill = (label, val, cls) => `<span class="dsh-pill ${cls || ""}"><span class="dsh-pill-k">${esc(label)}</span><span class="dsh-pill-v">${esc(val)}</span></span>`;
     const usStance = (OUTLOOK && OUTLOOK.us && OUTLOOK.us.stance) || "—";
     const ukStance = (OUTLOOK && OUTLOOK.uk && OUTLOOK.uk.stance) || "—";
-    const cyc = (CYCLE && CYCLE.us && (CYCLE.us.phase || CYCLE.us.stance)) || (CYCLE && CYCLE.framework) || "—";
-    const bub = (BUBBLE && BUBBLE.market && (BUBBLE.market.read || BUBBLE.market.level)) || "—";
+    const cyc = (CYCLE && CYCLE.us && CYCLE.us.shortStage) || "—";
     return `<div class="dsh-pills">`
-      + pill("US / Fed", stripTags(usStance), "")
-      + pill("UK / BoE", stripTags(ukStance), "")
-      + pill("Cycle", stripTags(String(cyc)).slice(0, 40), "")
-      + pill("Bubble", stripTags(String(bub)).slice(0, 40), "")
+      + pill("US · Fed", stripTags(usStance))
+      + pill("UK · BoE", stripTags(ukStance))
+      + pill("Cycle", stripTags(String(cyc)))
+      + pill("Equity bubble", bubbleRead())
       + `</div>`;
+  }
+  // Fed path — the dot-plot median SEP projections and the CME FedWatch odds for
+  // the next meeting, side by side. Both link to their primary source.
+  function fedHTML() {
+    const d = OUTLOOK && OUTLOOK.us && OUTLOOK.us.dots;
+    const fw = OUTLOOK && OUTLOOK.us && OUTLOOK.us.fedwatch;
+    let dots = "";
+    if (d && Array.isArray(d.median) && d.median.length) {
+      dots = `<div class="dsh-fed-blk"><div class="dsh-fed-h">Dot plot — median projection <span class="dsh-mut">${esc(d.meeting || "")}</span>${srcLink(d.href, "FOMC projections")}</div>`
+        + `<div class="dsh-kvgrid">${d.median.map((x) => `<div class="dsh-kv"><span class="dsh-kv-k">${esc(x.year)}</span><span class="dsh-kv-v">${esc(x.rate)}</span></div>`).join("")}</div></div>`;
+    }
+    let watch = "";
+    if (fw && Array.isArray(fw.outcomes) && fw.outcomes.length) {
+      const bar = (o) => `<div class="dsh-fw"><span class="dsh-fw-l">${esc(o.label)}</span><span class="dsh-fw-track"><span class="dsh-fw-bar" style="width:${Math.max(2, Math.min(100, o.pct || 0))}%"></span></span><span class="dsh-fw-p">${o.pct != null ? o.pct + "%" : "—"}</span></div>`;
+      watch = `<div class="dsh-fed-blk"><div class="dsh-fed-h">CME FedWatch — ${esc(fw.meeting || "")} <span class="dsh-mut">as of ${esc(fw.asOf || "")}</span>${srcLink(fw.href, "CME FedWatch")}</div>`
+        + `${fw.outcomes.map(bar).join("")}</div>`;
+    }
+    if (!dots && !watch) return "";
+    return `<div class="dsh-fed">${dots}${watch}</div>`;
   }
   // Rate-outlook grid (TradingEconomics-style): current rate, next meeting, stance,
   // one-line read per economy, each with a source link.
@@ -225,12 +264,14 @@ export function mount(host, ctx) {
     const mats = yc.maturities, us = yc.us || [], uk = yc.uk || [];
     const all = [...us, ...uk].filter((v) => v != null);
     const lo = Math.floor(Math.min(...all) * 2) / 2 - 0.25, hi = Math.ceil(Math.max(...all) * 2) / 2 + 0.25;
-    const W = 300, H = 120, pad = 8;
+    // Landscape viewBox scaled proportionally (height:auto in CSS) — no
+    // preserveAspectRatio="none", which was distorting/stretching the curve.
+    const W = 600, H = 150, pad = 12;
     const x = (i) => pad + i * (W - 2 * pad) / (mats.length - 1);
     const y = (v) => H - pad - ((v - lo) / (hi - lo)) * (H - 2 * pad);
     const path = (arr) => arr.map((v, i) => (i ? "L" : "M") + x(i).toFixed(1) + "," + y(v).toFixed(1)).join(" ");
-    const dots = (arr, cls) => arr.map((v, i) => `<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="2.4" class="${cls}"/>`).join("");
-    const svg = `<svg class="dsh-yc-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="US and UK yield curves">`
+    const dots = (arr, cls) => arr.map((v, i) => `<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="3" class="${cls}"/>`).join("");
+    const svg = `<svg class="dsh-yc-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="US and UK yield curves">`
       + `<path d="${path(us)}" class="dsh-yc-us" fill="none"/>${dots(us, "dsh-yc-us-d")}`
       + `<path d="${path(uk)}" class="dsh-yc-uk" fill="none"/>${dots(uk, "dsh-yc-uk-d")}</svg>`
       + `<div class="dsh-yc-x">${mats.map((m) => `<span>${esc(m)}</span>`).join("")}</div>`;
@@ -252,8 +293,10 @@ export function mount(host, ctx) {
     return `<ul class="dsh-news">${items.map(row).join("")}</ul>`;
   }
   function macroHTML() {
+    const fed = fedHTML();
     return `<div class="dsh-pane">
       <section class="dsh-card dsh-span">${regimePillsHTML()}</section>
+      ${fed ? `<section class="dsh-card dsh-span"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
       <section class="dsh-card"><h3 class="dsh-h">Rate outlook</h3>${rateOutlookHTML()}</section>
       <section class="dsh-card"><h3 class="dsh-h">Yield curve ${asOf(YIELD_CURVE && YIELD_CURVE.asOf)}</h3>${yieldCurveHTML()}</section>
       <section class="dsh-card dsh-span"><h3 class="dsh-h">Macro wire — US &amp; UK headlines</h3>${macroNewsHTML()}</section>
@@ -266,7 +309,6 @@ export function mount(host, ctx) {
     const body = pane === "equities" ? equitiesHTML() : pane === "credit" ? creditHTML() : macroHTML();
     host.innerHTML = `<div class="dsh"><header class="dsh-nav tdet-secnav"><div class="tchips">${nav}</div></header>${body}</div>`;
     if (pane === "credit") { loadSpreads(); wireStressSort(); }
-    if (pane === "equities") { wireSectorToggle(); loadIndices(); }
   }
   function wireSectorToggle() {
     host.querySelectorAll(".dsh-tgl").forEach((b) => b.addEventListener("click", () => {

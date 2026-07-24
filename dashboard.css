@@ -36,8 +36,8 @@
 .dsh-h { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:0 0 10px; font-size:var(--fs-card-title,1.05rem); font-weight:600; color:var(--t-ink); }
 .dsh-h .dsh-n { color:var(--t-mut); font-weight:400; font-size:.8rem; }
 .dsh-asof { margin-left:auto; color:var(--t-faint); font-size:.72rem; font-weight:400; }
-.dsh-src { color:var(--t-mut); text-decoration:none; font-size:.8em; }
-.dsh-src:hover { color:var(--t-accent); }
+.dsh-src { color:var(--t-mut); text-decoration:none; font-size:.62rem; text-transform:uppercase; letter-spacing:.03em; border:1px solid var(--t-grid2); border-radius:3px; padding:0 3px; vertical-align:middle; }
+.dsh-src:hover { color:var(--t-accent); border-color:var(--t-accent); }
 .dsh-live { color:var(--t-up); font-size:.66rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; border:1px solid var(--t-up); border-radius:4px; padding:0 4px; }
 
 /* Index strip — horizontal scroll on phone, wraps on desktop */
@@ -142,7 +142,7 @@
 
 /* Yield curve (Macro) — SVG term structure + key */
 .dsh-yc { margin-bottom:8px; }
-.dsh-yc-svg { width:100%; height:120px; display:block; }
+.dsh-yc-svg { width:100%; height:auto; max-height:170px; display:block; }
 .dsh-yc-us { stroke:var(--t-accent); stroke-width:2; } .dsh-yc-us-d { fill:var(--t-accent); }
 .dsh-yc-uk { stroke:var(--t-mac); stroke-width:2; } .dsh-yc-uk-d { fill:var(--t-mac); }
 .dsh-yc-x { display:flex; justify-content:space-between; color:var(--t-faint); font-size:.66rem; padding:2px 6px 0; }
@@ -164,3 +164,19 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 .dsh-tbl th.dsh-sorted { color:var(--t-ink); }
 .dsh-stresstbl td.dsh-note { white-space:normal; min-width:280px; color:var(--t-dim); font-size:.76rem; line-height:1.35; }
 .dsh-tbl td.dsh-mut { color:var(--t-mut); }
+
+/* Two-up pair (spreads|maturity, earnings|IPO) — side by side from a small width */
+.dsh-pair { display:grid; grid-template-columns:1fr; gap:var(--dsh-gap,10px); }
+@media (min-width:560px){ .dsh-pair{ grid-template-columns:1fr 1fr; } }
+.dsh-pair > .dsh-card { min-width:0; }
+
+/* Fed path — dot plot + CME FedWatch */
+.dsh-fed { display:grid; grid-template-columns:1fr; gap:12px; }
+@media (min-width:560px){ .dsh-fed{ grid-template-columns:1fr 1fr; } }
+.dsh-fed-h { color:var(--t-mut); font-size:.76rem; margin-bottom:6px; display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+.dsh-mut { color:var(--t-faint); font-weight:400; }
+.dsh-fw { display:grid; grid-template-columns:1fr 80px 42px; align-items:center; gap:8px; padding:3px 0; }
+.dsh-fw-l { color:var(--t-dim); font-size:.76rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.dsh-fw-track { position:relative; height:12px; background:var(--t-panel2); border-radius:3px; }
+.dsh-fw-bar { position:absolute; left:0; top:0; bottom:0; background:var(--t-accent); border-radius:3px; }
+.dsh-fw-p { text-align:right; font-size:.78rem; font-variant-numeric:tabular-nums; color:var(--t-ink); }

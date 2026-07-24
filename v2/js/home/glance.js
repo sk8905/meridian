@@ -674,10 +674,17 @@ function renderFeed() {
   setHTML("g-feed", srcBar + (feed.length ? body : empty));
   const head = document.getElementById("g-feed-head");
   if (head) {
-    const primary = feedChipsHTML([{ k: "all", label: "All" }, { k: "n", label: "Newsletters" }, { k: "m", label: "Macro" }, { k: "c", label: "Credit" }, { k: "hdg", label: "Hedge" }, { k: "l", label: "Legal" }], _feedSrc ? null : _feedDesk, "Latest news");
+    // Primary desk filter as a single-select dropdown (All / Newsletters / Macro /
+    // Credit / Hedge / Legal). Compact, one control — replaces the chip row.
+    const DESK_OPTS = [["all", "All news"], ["n", "Newsletters"], ["m", "Macro"], ["c", "Credit"], ["hdg", "Hedge"], ["l", "Legal"]];
+    const selVal = _feedSrc ? "all" : _feedDesk;
+    const primary = `<div class="g-feed-filterbar"><label class="g-feed-sel-lbl">Filter</label>`
+      + `<select class="g-feed-sel" id="g-feed-desk-sel" aria-label="Filter news by desk">`
+      + DESK_OPTS.map(([k, l]) => `<option value="${esc(k)}"${selVal === k ? " selected" : ""}>${esc(l)}</option>`).join("")
+      + `</select></div>`;
     // Second-level type chips for the active desk (when it has sub-types and no
     // source filter is overriding). Same .g-feed-chip style (HOUSE_STYLE R14),
-    // marked data-type so its handler is distinct from the desk row.
+    // marked data-type so its handler is distinct from the desk selector.
     const subDefs = !_feedSrc && TYPE_CHIPS[_feedDesk];
     const secondary = subDefs
       ? `<span class="g-feed-chips g-feed-subchips" role="group" aria-label="Filter by type">`
@@ -685,8 +692,9 @@ function renderFeed() {
         + `</span>`
       : "";
     head.innerHTML = primary + secondary;
-    // A desk chip clears any source filter, switches desks and resets the type.
-    head.querySelectorAll(".g-feed-chip[data-desk]").forEach((b) => b.addEventListener("click", () => { _feedSrc = null; _feedDesk = b.dataset.desk; _feedType = "all"; renderFeed(); }));
+    // Desk change clears any source filter, switches desks and resets the type.
+    const sel = document.getElementById("g-feed-desk-sel");
+    if (sel) sel.addEventListener("change", () => { _feedSrc = null; _feedDesk = sel.value; _feedType = "all"; renderFeed(); });
     // A type chip narrows within the current desk.
     head.querySelectorAll(".g-feed-chip[data-type]").forEach((b) => b.addEventListener("click", () => { _feedType = b.dataset.type; renderFeed(); }));
   }

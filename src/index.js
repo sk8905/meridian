@@ -2177,6 +2177,9 @@ function feedQualityKeep(it) {
   const s = it.source || "";
   if (FEED_LOWTIER.has(s)) return false;
   if (FEED_OFFTOPIC_GEO.test(it.title)) return false;   // frontier-EM subject — off universe
+  // Podcast / audio items (e.g. Bloomberg podcasts) are not news — drop them
+  // BEFORE the premium bypass so a Bloomberg/FT audio show doesn't slip through.
+  if (/\bpodcasts?\b/i.test(it.title) || /\/podcasts?\/|\/audio\/|\.mp3\b/i.test(it.url || "")) return false;
   // Premium newsrooms, the curated legal wire, and reader-flagged streams
   // (myFT / Substack) always pass; everything else must read as finance-relevant
   // (strict macro, megacap, or the broader markets/economy/policy/deal vocabulary).

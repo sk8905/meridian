@@ -60,6 +60,11 @@ Markets dropdown carries the same numbers).
   (dark) / `#2f6cae` (light). No mono, no per-section variants.
 - **R7 — Every item is sourced + dated; never fabricated.** Each headline
   carries a real source and link.
+- **R7a — No decorative link/arrow glyphs.** Do NOT append arrow symbols (`↗`,
+  `→`, `➚`, `»`, or a CSS `::after` external-link arrow) to links or source
+  markers anywhere in the app. Link the text itself; for an inline source marker
+  use a plain `src` label (see `.dsh-src`). Arrows are visual noise and are not
+  used.
 
 ---
 
