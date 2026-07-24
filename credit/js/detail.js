@@ -9,7 +9,7 @@
 import {
   managerById, fundById, lpById, funds, lps, intel, deals,
   fundsByManager, intelForFund, dealsForFund, dealsForManager, intelForManager,
-} from "./data.js?v=20260724-7";
+} from "./data.js?v=20260724-8";
 import { esc } from "/util.js?v=20260719-1";
 import {
   eur, pct, fmtDate, link, sources, raiseDisplay, nameCell, saveBtn, newsSaveId,

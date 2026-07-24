@@ -37,7 +37,7 @@ const tap = async (key) => {
   }));
 };
 
-for (const [key, path] of [["dashboard", "/v2/dashboard/"], ["profiles", "/v2/profiles/"], ["menu", "/v2/menu/"]]) {
+for (const [key, path] of [["newsletters", "/v2/newsletters/"], ["dashboard", "/v2/dashboard/"], ["profiles", "/v2/profiles/"], ["menu", "/v2/menu/"]]) {
   const s = await tap(key);
   checkEq(s.path, path, `tap ${key}: URL is ${path}`);
   checkEq(s.active, key, `tap ${key}: ${key} view is the visible one`);
@@ -59,9 +59,9 @@ const creditState = await pg.evaluate(() => {
 checkEq(creditState.ka, "kept", "keep-alive: Profiles is the SAME node after the round-trip (not rebuilt)");
 checkEq(creditState.mounts, 1, "keep-alive: exactly one Profiles section (mounted once)");
 checkEq(creditState.len, creditLen0, "keep-alive: Profiles content preserved across the round-trip");
-// 4 tab views (home, dashboard, profiles, menu) + the 2 Profiles borrows
-// off-screen for its reused builders (credit, legal) = 6 cached sections.
-checkEq(back.views, 6, "tab views + Profiles' borrowed Credit/Legal cached (6)");
+// 5 tab views (home, newsletters, dashboard, profiles, menu) + the 2 Profiles
+// borrows off-screen for its reused builders (credit, legal) = 7 cached sections.
+checkEq(back.views, 7, "tab views + Profiles' borrowed Credit/Legal cached (7)");
 
 // Back button traverses the SPA history (no reload).
 await pg.goBack(); await pg.waitForTimeout(300);

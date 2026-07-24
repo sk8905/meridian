@@ -68,6 +68,11 @@ a { color: var(--primary); text-decoration: none; }
   #v2-footer { flex: 0 0 auto; }
   .v2-view .g-main.tui { height: 100%; }
   .v2-view .tdash { height: 100%; }
+  /* Dashboard (.dsh) and Newsletters (.nl-wrap) are plain card/feed stacks with
+     no internal terminal layout of their own — on desktop the shell is fixed
+     (body overflow:hidden), so they must scroll INTERNALLY or long content clips.
+     Their sticky sub-nav (.dsh-nav) pins to the top of this same scroller. */
+  .v2-view .dsh, .v2-view .nl-wrap { height: 100%; overflow-y: auto; }
   /* The header strips (bar · ticker · briefing) must keep their natural height —
      as flex items they were shrinking, which clipped the one-line briefing. */
   #wire-header .topbar, #wire-header .wticker, #wire-header .wbrief { flex: 0 0 auto; }

@@ -66,9 +66,17 @@ Markets dropdown carries the same numbers).
 ## 3. Colour — only these tokens, used only this way
 
 All colour flows from `--t-*` tokens, defined light + dark on the panel roots
-(`#glance`, `.na-panel`, `.g-main.tui`, `.g-feed-wrap`). **No raw hex in
+(`#glance`, `.na-panel`, `.g-main.tui`, `.g-feed-wrap`, `.dsh`). **No raw hex in
 component CSS** except the documented day-break light label (`#2f6cae`) and the
 notification badge red (`#ef4444`).
+
+> **Token scope is per-surface, not global.** The `--t-*` tokens are *class-
+> scoped* to the roots above — they do **not** cascade from `:root`. Any NEW
+> top-level surface (its own view container) must declare its own light+dark
+> token block, or every `var(--t-*)` inside it resolves to nothing — invisible
+> bars, black-on-black text. The Dashboard (`.dsh`) learned this the hard way;
+> mirror `feed.css`'s `.g-feed-wrap` block (and add `--t-up`/`--t-down`, which
+> `feed.css` omits) for any future surface.
 
 | Token | Dark | Light | Used for |
 |---|---|---|---|

@@ -2,7 +2,7 @@
 // only the nav-actions boot and glance's own palette are skipped (the shell
 // owns chrome + search), and listeners self-guard on the active tab.
 
-import { deals, intel, managers, funds, research, HEDGE_INTEL, HEDGE_FUNDS, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260724-7";
+import { deals, intel, managers, funds, research, HEDGE_INTEL, HEDGE_FUNDS, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js?v=20260724-8";
 import { reportRefresh } from "/v2/js/status.js?v=v2-2";
 import { items, cases, restructurings, firmById } from "/legal/js/data.js?v=20260724-3";
 import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js?v=20260724-3";
