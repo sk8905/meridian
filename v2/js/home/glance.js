@@ -10,7 +10,7 @@ import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
 import { esc, byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
 import { DESK, DESK_CODE, DESK_CLASS, STRICT_MACRO_RE, deskFor, palTag, nlDesk, PAL_CODE,
-  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, feedChipsHTML } from "/feed.js?v=20260724-2";
+  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, feedChipsHTML } from "/feed.js?v=20260724-3";
 
 const __KEY = "home";
 const __ROOT = document.documentElement;
@@ -573,6 +573,11 @@ function renderFeed() {
   const hdgType = (t) => /fundrais|launch|close|capital rais/i.test(t || "") ? "fund" : "news";
   const hdg = [];
   (HEDGE_INTEL || []).forEach((h) => hdg.push({ ...mk("hdg", h.url || `/credit/#/hf/${encodeURIComponent(h.hfId)}`, h.headline, h.outlet || "", !!h.url, h.date, h.time), mgr: "", type: hdgType(h.type) }));
+  // Live hedge-fund stories from /api/feed (e.g. Nishant Kumar's Bloomberg byline,
+  // tagged hdg:true by the Worker) — picked up ~5 min after publication and folded
+  // into the SAME Hedge (HDG) bucket; title-dedupe collapses the overlap with the
+  // curated HEDGE_INTEL backfill above so a story never shows twice.
+  (_liveFeed || []).forEach((n) => { if (n.hdg) hdg.push({ ...mk("hdg", n.url, n.title, n.source || "Bloomberg", true, n.date, n.time), mgr: "", type: hdgType(n.title) }); });
 
   // `legal` is declared above (the live-wire loop folds The Lawyer / Legal
   // Business items into it); these are the committed Legal-app records.

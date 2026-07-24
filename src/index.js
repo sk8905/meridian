@@ -1860,6 +1860,12 @@ const FEED_SOURCES = [
   { url: "https://feeds.bloomberg.com/markets/news.rss", source: "Bloomberg", region: "GEN", cap: 8, soft: true },
   { url: "https://feeds.bloomberg.com/business/news.rss", source: "Bloomberg", region: "GEN", cap: 6, soft: true },
   { url: "https://feeds.bloomberg.com/economics/news.rss", source: "Bloomberg", region: "GEN", cap: 6, soft: true },
+  // Nishant Kumar (Bloomberg hedge-fund reporter) — his byline via Google News,
+  // so his hedge-fund stories are picked up LIVE (the macro Bloomberg feeds above
+  // are Fed/inflation-scoped and miss them). hdg:true routes them to the Hedge
+  // (HDG) desk; filter:false since hedge-fund copy rarely hits the macro vocab.
+  // Title-dedupe collapses overlap with the curated HEDGE_INTEL backfill.
+  { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=%22Nishant%20Kumar%22%20site%3Abloomberg.com%20when%3A7d", source: "Bloomberg", region: "GEN", cap: 15, gnews: true, hdg: true, filter: false },
   // (FT Alphaville's Google-News bridge removed: path-scoped site: queries
   // return zero items from Google News — confirmed by the live probe — so it
   // was pure dead weight against the news.google.com rate limit. The direct
@@ -2074,7 +2080,7 @@ function feedParse(xml, feed) {
     }
     const ds = feedTag(block, "pubDate") || feedTag(block, "published") || feedTag(block, "updated") || feedTag(block, "dc:date") || feedTag(block, "date");
     const when = ds ? new Date(feedDecode(ds)) : null;
-    out.push({ title, url: link, source: feed.source, region: feed.region, myft: feed.myft || undefined, substack: feed.substack || undefined, legal: feed.legal || undefined, when: (when && !isNaN(when.getTime())) ? when : null });
+    out.push({ title, url: link, source: feed.source, region: feed.region, myft: feed.myft || undefined, substack: feed.substack || undefined, legal: feed.legal || undefined, hdg: feed.hdg || undefined, when: (when && !isNaN(when.getTime())) ? when : null });
   }
   return out;
 }
@@ -2264,7 +2270,7 @@ async function handleFeed(request, env, ctx) {
       { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/feed?v=46", request.url).toString());
+  const cacheKey = new Request(new URL("/api/feed?v=47", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const items = await feedAssemble(env, ctx);
@@ -2319,7 +2325,7 @@ function feedQualityKeep(it) {
   // Premium newsrooms, the curated legal wire, and reader-flagged streams
   // (myFT / Substack) always pass; everything else must read as finance-relevant
   // (strict macro, megacap, or the broader markets/economy/policy/deal vocabulary).
-  if (FEED_PREMIUM.has(s) || FEED_LEGAL_SRC.has(s) || it.myft || it.substack || it.legal) return true;
+  if (FEED_PREMIUM.has(s) || FEED_LEGAL_SRC.has(s) || it.myft || it.substack || it.legal || it.hdg) return true;
   if (!(FEED_MACRO_RE.test(it.title) || FEED_MEGACAP_RE.test(it.title) || FEED_RELEVANCE.test(it.title))) return false;
   return !FEED_PR_NOISE.test(it.title);   // drop routine IR/PR boilerplate that slipped through
 }
@@ -2342,7 +2348,7 @@ async function feedAssemble(env, ctx, trace = null, stats = null) {
   try { lastGood = (await env.WATCHLIST.get("feed:lastgood", "json")) || {}; } catch { /* KV miss — no reuse this run */ }
   const nowT = Date.now();
   const LASTGOOD_MAX = 24 * 3600e3;
-  const serWhen = (x) => ({ title: x.title, url: x.url, source: x.source, region: x.region, myft: x.myft, substack: x.substack, when: x.when ? x.when.toISOString() : null });
+  const serWhen = (x) => ({ title: x.title, url: x.url, source: x.source, region: x.region, myft: x.myft, substack: x.substack, hdg: x.hdg, when: x.when ? x.when.toISOString() : null });
   const deWhen = (x) => ({ ...x, when: x.when ? new Date(x.when) : null });
   // ONE subrequest budget shared across every source (Cloudflare caps total
   // subrequests per invocation at ~50). Without it, a 429/503 retry burst blew
@@ -2457,7 +2463,7 @@ async function feedAssemble(env, ctx, trace = null, stats = null) {
     const { date, time } = feedLondon(it.when);
     if (!date) continue;
     // myFT links carry tracking params — keep the canonical /content/ URL.
-    items.push({ title: it.title, url: it.myft ? it.url.replace(/\?.*$/, "") : it.url, source: it.source, region: it.region, myft: it.myft || undefined, substack: it.substack || undefined, legal: it.legal || undefined, date, time });
+    items.push({ title: it.title, url: it.myft ? it.url.replace(/\?.*$/, "") : it.url, source: it.source, region: it.region, myft: it.myft || undefined, substack: it.substack || undefined, legal: it.legal || undefined, hdg: it.hdg || undefined, date, time });
     // 250 (was 100): with ~270 capped candidates across the sources, a 100-item
     // wire only ever carried the newest ~day — the 5-day back-catalogue (WSJ /
     // TradingEconomics backfill) never made the cut. The 6-day cutoff above

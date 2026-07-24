@@ -148,13 +148,18 @@ export function feedRow(o) {
   // Added-time (no source publish time) carries a tooltip so it isn't mistaken
   // for a real publish time.
   const timeAttr = o.added ? ` title="Added to Wire at ${esc(t)} — the source gave no publish time"` : "";
+  // Badge key: most desks show their sub-type when present (credit → DEAL/FUND/CLO),
+  // but the Hedge desk always badges HDG — its items carry a news/fund `type` only
+  // to drive the sub-filter chips, and that must not override the desk code (else a
+  // hedge story reads NEWS/RAISE instead of HDG).
+  const codeKey = o.desk === "hdg" ? "hdg" : (o.type || o.desk);
   return `<a class="g-feed-row g-desk-${o.desk}" href="${esc(o.href)}"${o.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}`
     + ` data-sk="${esc(o.sk || "x")}"${o.sid ? ` data-sid="${esc(o.sid)}"` : ""}${o.mgr ? ` data-mgr="${esc(o.mgr)}"` : ""}${o.firm ? ` data-firm="${esc(o.firm)}"` : ""} data-desk="${esc(o.desk)}" data-date="${esc(o.date || "")}" data-time="${esc(o.time || "")}">`
     + `<span class="g-feed-time${o.added ? " g-feed-time-added" : ""}"${timeAttr}>${esc(t)}</span>`
-    + `<span class="g-feed-code ${domClass(o)}" title="${esc(DESK[o.type || o.desk] || "")}">${DESK_CODE[o.type || o.desk] || ""}</span>`
+    + `<span class="g-feed-code ${domClass(o)}" title="${esc(DESK[codeKey] || "")}">${DESK_CODE[codeKey] || ""}</span>`
     + `<span class="g-feed-title">${esc(o.title)}</span>`
     + (o.src ? `<span class="g-feed-src" role="button" tabindex="0" data-src="${esc(o.src)}" title="Show all ${esc(cleanSource(o.src))} stories">${esc(cleanSource(o.src))}</span>` : "")
-    + `<span class="g-feed-desk">${esc(DESK[o.type || o.desk] || "")}</span></a>`;
+    + `<span class="g-feed-desk">${esc(DESK[codeKey] || "")}</span></a>`;
 }
 // Some rows carry no real publish time (curated items, or a live item whose
 // source omitted one). Rather than leave the time blank, stamp each with the
