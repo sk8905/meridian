@@ -13,7 +13,7 @@ import {
   managerById, fundById, lpById, funds, lps, intel, deals,
   fundsByManager, intelForFund, dealsForFund, dealsForManager, intelForManager,
   HEDGE_FUNDS,
-} from "/credit/js/data.js?v=20260724-2";
+} from "/credit/js/data.js?v=20260724-3";
 import { esc } from "/util.js?v=20260719-1";
 import {
   eur, pct, fmtDate, link, sources, raiseDisplay, nameCell, saveBtn, newsSaveId,
@@ -638,7 +638,7 @@ export function viewHedgeFund(id) {
   ];
   const factsRail = `<ul class="tfacts">${facts.map(([k, v]) => `<li><span class="tf-k">${esc(k)}</span><span class="tf-v">${v}</span></li>`).join("")}</ul>`;
   const linksRail = `<ul class="tmini">`
-    + `<li class="tmini-row"><a class="tmini-t" href="${esc(f.url)}" target="_blank" rel="noopener noreferrer">Firm website</a><span class="tmini-m">${esc(f.name)}</span></li>`
+    + (f.url ? `<li class="tmini-row"><a class="tmini-t" href="${esc(f.url)}" target="_blank" rel="noopener noreferrer">Firm website</a><span class="tmini-m">${esc(f.name)}</span></li>` : "")
     + (secUrl ? `<li class="tmini-row"><a class="tmini-t" href="${esc(secUrl)}" target="_blank" rel="noopener noreferrer">SEC EDGAR — 13F filings</a><span class="tmini-m">CIK ${esc(f.cik)}</span></li>` : "")
     + `</ul>`;
   const holdingsBody = f.cik
