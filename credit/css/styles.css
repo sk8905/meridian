@@ -802,7 +802,8 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
    Filters start at the LEFT edge — cancel tui.css's .tsearch margin-left:auto,
    which otherwise shoved the whole row toward the centre. */
 .org-filters { flex: 0 0 auto; display: flex; align-items: center; justify-content: flex-start; flex-wrap: wrap; gap: 8px; padding: 8px 12px; border-bottom: 1px solid var(--border, #262626); background: var(--head); }
-.org-filters .tsearch { margin-left: 0; }
+/* Search spans the full row (forcing the LINE/AUM/TIER selects onto the line below). */
+.org-filters #org-q { margin-left: 0; flex: 1 1 100%; width: 100%; max-width: none; }
 .org-fl { display: inline-flex; align-items: center; gap: 4px; font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: .03em; }
 .org-fl select, .org-tier, .org-rel, .org-cov { background: var(--bg); border: 1px solid var(--border, #262626); color: var(--ink); font-family: inherit; font-size: 11px; border-radius: 0; padding: 1px 4px; }
 .org-tbl th, .org-tbl td { vertical-align: middle; }
