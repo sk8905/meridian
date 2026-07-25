@@ -20,6 +20,15 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "1a7cdff0-5e52-4fa1-8b21-978e501eb791", title: "Maha Inc: how companies tied to Kennedy’s movement are poised to benefit", date: "2026-07-25", time: "12:00", url: "https://www.ft.com/content/1a7cdff0-5e52-4fa1-8b21-978e501eb791" },
+  { id: "5f267b7d-9e57-40f6-9bb5-6fe5d6cf9d1d", title: "India’s education minister resigns after weeks of student protests", date: "2026-07-25", time: "11:38", url: "https://www.ft.com/content/5f267b7d-9e57-40f6-9bb5-6fe5d6cf9d1d" },
+  { id: "5019e030-796d-47e8-9f13-bee34de1d374", title: "Investors bet on Federal Reserve rate rise after oil price surge", date: "2026-07-25", time: "11:00", url: "https://www.ft.com/content/5019e030-796d-47e8-9f13-bee34de1d374" },
+  { id: "952d7583-a177-419c-91bf-3a2f71ec97b3", title: "Europe Express: Macron and Merz move on from fighter jet heartbreak", date: "2026-07-25", time: "11:00", url: "https://www.ft.com/content/952d7583-a177-419c-91bf-3a2f71ec97b3" },
+  { id: "38a18d43-5b01-4c08-ab85-c1695f10c1e3", title: "US immigration enforcement caught between Trump and public backlash", date: "2026-07-25", time: "11:00", url: "https://www.ft.com/content/38a18d43-5b01-4c08-ab85-c1695f10c1e3" },
+  { id: "14ee6049-87bf-4aac-b684-c9937374fdcc", title: "Saudi Arabia strikes Houthis after Iran-backed rebels target tankers", date: "2026-07-25", time: "10:59", url: "https://www.ft.com/content/14ee6049-87bf-4aac-b684-c9937374fdcc" },
+  { id: "ec5c4433-b17d-4116-b2fb-0fce61a261bd", title: "Chart of the Week: Who owns shares?", date: "2026-07-25", time: "10:30", url: "https://www.ft.com/content/ec5c4433-b17d-4116-b2fb-0fce61a261bd" },
+  { id: "b55e3656-4733-4eb8-bb83-b7dbb4ea8888", title: "Intern arrested on suspicion of spying at Nato military HQ", date: "2026-07-25", time: "10:22", url: "https://www.ft.com/content/b55e3656-4733-4eb8-bb83-b7dbb4ea8888" },
+  { id: "780bc4bb-1916-4fe2-ad2b-22663c66f16e", title: "Blackstone, KKR and Brookfield take Kuwait pipelines stake in $16bn deal", date: "2026-07-25", time: "09:44", url: "https://www.ft.com/content/780bc4bb-1916-4fe2-ad2b-22663c66f16e" },
   { id: "75e3ac7d-f612-470b-af3a-a310c52c4e58", title: "Who wants to buy a football club?", date: "2026-07-25", time: "09:00", url: "https://www.ft.com/content/75e3ac7d-f612-470b-af3a-a310c52c4e58" },
   { id: "ac19e4f4-cf7b-4a75-b591-0ca79ef62d37", title: "India’s ‘Cockroach’ Gen Z has had enough", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/ac19e4f4-cf7b-4a75-b591-0ca79ef62d37" },
   { id: "24a8adf9-8103-44b3-92e8-350ef897dc2a", title: "Overpriced UK homes take ‘more than four times longer to sell’, study finds", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/24a8adf9-8103-44b3-92e8-350ef897dc2a" },
@@ -52,13 +61,4 @@ export const FT_ITEMS = [
   { id: "3203fc9a-2321-44f8-8093-b7e16c8fc6d7", title: "Nvidia and Palantir urge US not to ban \u2018open\u2019 AI models after China scare", date: "2026-07-24", time: "16:20", url: "https://www.ft.com/content/3203fc9a-2321-44f8-8093-b7e16c8fc6d7" },
   { id: "822628c5-4f9c-47db-bd27-f3ad7f841700", title: "Meta faces higher borrowing costs in latest $12bn data centre financing", date: "2026-07-24", time: "16:08", url: "https://www.ft.com/content/822628c5-4f9c-47db-bd27-f3ad7f841700" },
   { id: "aba1b4be-68d6-4f74-a511-24fbad030024", title: "The Victorians have some lessons for Burnham on radical devolution", date: "2026-07-24", time: "16:04", url: "https://www.ft.com/content/aba1b4be-68d6-4f74-a511-24fbad030024" },
-  { id: "d4dc32c5-7a96-4582-b17b-ab6a4569f474", title: "Commerzbank chair calls for talks with UniCredit after takeover battle", date: "2026-07-24", time: "15:53", url: "https://www.ft.com/content/d4dc32c5-7a96-4582-b17b-ab6a4569f474" },
-  { id: "35538b17-1492-42e5-a4b6-8a9e5750c2bf", title: "Airbus and Boeing push to boost production to tackle record order backlogs", date: "2026-07-24", time: "15:45", url: "https://www.ft.com/content/35538b17-1492-42e5-a4b6-8a9e5750c2bf" },
-  { id: "a39adcc1-44fb-40e0-92b9-30d769f8e4ca", title: "Carmakers are the rare example of tariffs as the least bad option", date: "2026-07-24", time: "14:57", url: "https://www.ft.com/content/a39adcc1-44fb-40e0-92b9-30d769f8e4ca" },
-  { id: "3db2e890-a9e9-42f4-9c9c-0f5ecf7ac621", title: "Zooming in on UK growth", date: "2026-07-24", time: "14:50", url: "https://www.ft.com/content/3db2e890-a9e9-42f4-9c9c-0f5ecf7ac621" },
-  { id: "1dcd935a-45ce-42ba-a6b0-6994eae1cb86", title: "In praise of the free flow of human ingenuity", date: "2026-07-24", time: "14:48", url: "https://www.ft.com/content/1dcd935a-45ce-42ba-a6b0-6994eae1cb86" },
-  { id: "07e7e839-6d7c-4da3-a207-de5bbfb67746", title: "Submit your questions: Has the market lost its mind over AI?", date: "2026-07-24", time: "14:42", url: "https://www.ft.com/content/07e7e839-6d7c-4da3-a207-de5bbfb67746" },
-  { id: "1a98a3e5-34f3-4bb6-936a-241ab72aaeed", title: "When a president's thoughts are for sale", date: "2026-07-24", time: "14:00", url: "https://www.ft.com/content/1a98a3e5-34f3-4bb6-936a-241ab72aaeed" },
-  { id: "38341bcb-0c45-432a-bd04-fa0b9f2b790a", title: "Trump's trade war shifts from shakedown to lock-in", date: "2026-07-24", time: "13:53", url: "https://www.ft.com/content/38341bcb-0c45-432a-bd04-fa0b9f2b790a" },
-  { id: "07e6299e-816a-4d0f-a4be-a572723f9e52", title: "Ukraine opens probe into defence event after deadly Russian strike", date: "2026-07-24", time: "13:52", url: "https://www.ft.com/content/07e6299e-816a-4d0f-a4be-a572723f9e52" },
 ];
