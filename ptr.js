@@ -91,7 +91,16 @@ export function initPullToRefresh() {
 
   const THRESH = 75, SOFT = 120, MAX = 220;
   let startX = 0, startY = 0, armed = false, pulling = false, dist = 0, busy = false, clearT = 0;
-  const atTop = () => (window.scrollY || document.documentElement.scrollTop || 0) <= 0;
+  // A view can scope the pull to a single scroller (the Home news wire) by tagging
+  // it .wire-ptr-list: then ONLY that element slides, everything else — the filter
+  // sub-header and, on the tablet/desktop terminal, the side rails — stays frozen,
+  // and the pull only arms from within that column and from its own top.
+  const ptrList = () => { const el = document.querySelector(".wire-ptr-list"); return el && el.getClientRects().length ? el : null; };
+  const atTop = () => {
+    const winTop = (window.scrollY || document.documentElement.scrollTop || 0) <= 0;
+    const list = ptrList();
+    return list ? (winTop && list.scrollTop <= 0) : winTop;
+  };
   // Safari-like tracking: 1:1 with the finger up to SOFT, then increasing resistance.
   const pull = (d) => (d <= SOFT ? d : Math.min(SOFT + (d - SOFT) * 0.35, MAX));
 
@@ -116,6 +125,22 @@ export function initPullToRefresh() {
   // counter-translate so they hold still.
   let moveEls = [], counterEls = [];
   function gatherSets() {
+    // Scoped pull (Home wire): slide ONLY the tagged list, freeze all else, and
+    // open the spinner gap across just that column (not the full width, so the
+    // side rails aren't overpainted).
+    const list = ptrList();
+    if (list) {
+      moveEls = [list]; counterEls = [];
+      const r = list.getBoundingClientRect();
+      zone.style.top = Math.round(r.top) + "px";
+      zone.style.left = Math.round(Math.max(0, r.left)) + "px";
+      zone.style.right = "auto";
+      zone.style.width = Math.round(r.width) + "px";
+      zone.style.zIndex = "1200";
+      return;
+    }
+    // Generic path (every other view): full-width gap under the frozen header/chips.
+    zone.style.left = "0"; zone.style.right = "0"; zone.style.width = "";
     const head = document.querySelector(".topbar, .g-top");
     // Translating a wrapper that CONTAINS the header or the fixed tab bar
     // would drag them along (transform breaks position:fixed on descendants —
@@ -204,7 +229,14 @@ export function initPullToRefresh() {
   function flushReset() { if (clearT) { clearTimeout(clearT); clearT = 0; } clearPage(); }
 
   window.addEventListener("touchstart", (e) => {
-    if (busy || e.touches.length !== 1 || !atTop() || inOverlayOrScroller(e.target)) { armed = false; pulling = false; return; }
+    if (busy || e.touches.length !== 1) { armed = false; pulling = false; return; }
+    const list = ptrList();
+    if (list) {
+      // Home: arm only when the finger is on the wire column and it's at its top.
+      // (Don't route through inOverlayOrScroller — the wire IS a scroller, but its
+      // top-overscroll is exactly what we want to claim.)
+      if (!atTop() || !(e.target.closest && e.target.closest(".g-feed-wrap"))) { armed = false; pulling = false; return; }
+    } else if (!atTop() || inOverlayOrScroller(e.target)) { armed = false; pulling = false; return; }
     startX = e.touches[0].clientX; startY = e.touches[0].clientY; armed = true; pulling = false; dist = 0;
   }, { passive: true });
 

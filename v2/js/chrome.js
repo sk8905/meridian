@@ -83,7 +83,7 @@ export function initChrome({ onTab }) {
   // All are idempotent single inits; failures never block the shell.
   import("/brief.js?v=7").then((m) => m.initBrief()).catch(() => {});
   import("/palette.js?v=20260724-1").then((m) => m.mountPalette()).catch(() => {});
-  import("/ptr.js?v=20260723-4").then((m) => m.initPullToRefresh()).catch(() => {});
+  import("/ptr.js?v=20260725-1").then((m) => m.initPullToRefresh()).catch(() => {});
   // Header action cluster + panels (Markets / Saved / Notifications / Search, the
   // notif bell, saved + markets loaders), ported from nav-actions with its own
   // tab bar / header-layout / swipe neutralised (the runtime owns those). Mounts

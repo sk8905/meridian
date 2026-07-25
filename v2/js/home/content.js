@@ -47,7 +47,7 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
         <!-- CENTER: news wire -->
         <section class="g-feed-wrap g-anchor" id="jump-feed">
           <div class="g-feed-head" id="g-feed-head">Today</div>
-          <div class="g-feed" id="g-feed"><div class="g-loading">Loading today's news…</div></div>
+          <div class="g-feed wire-ptr-list" id="g-feed"><div class="g-loading">Loading today's news…</div></div>
         </section>
 
         <!-- RIGHT: macroeconomic data, macro read, cross-desk counts -->

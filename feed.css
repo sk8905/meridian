@@ -32,7 +32,10 @@
 /* One canonical chip-row height across the whole app (HOUSE_STYLE T20): slim but
    comfortable, never cramping the label. Every filter/tab chip row reads this. */
 :root { --chip-h:34px; }
-.g-feed-wrap { background:var(--t-ground); }
+/* container-name lets the feed rows respond to the WIRE COLUMN's width (narrow in
+   the tablet/desktop 3-column terminal) rather than the viewport — so the stacked
+   row layout kicks in on a narrow iPad wire the same way it does on a phone. */
+.g-feed-wrap { background:var(--t-ground); container:feedwrap / inline-size; }
 .g-feed-head { display:flex; flex-wrap:wrap; align-items:stretch; gap:0; min-height:var(--chip-h,34px); padding:0; margin:0;
   background:var(--t-head); border-bottom:1px solid var(--t-grid); }
 .g-feed-h-lbl { display:none; }
@@ -133,8 +136,10 @@
    with the slab instead of floating at its stuck offset. */
 body.wire-sliding .g-feed-srcbar { position:static; }
 
-/* ---- phones: headline leads, meta line beneath (code · time · source) ------- */
-@media (max-width:760px){
+/* ---- narrow wire column (phones + the iPad terminal's centre column): headline
+   leads, meta line beneath (code · time · source). Driven by the COLUMN width, so
+   it triggers whenever the wire is narrow, regardless of viewport/device. -------- */
+@container feedwrap (max-width:760px){
   .g-feed-row { display:grid; align-items:baseline;
     grid-template-columns:max-content max-content minmax(0,1fr);
     grid-template-areas:"title title title" "code time src";
@@ -144,6 +149,9 @@ body.wire-sliding .g-feed-srcbar { position:static; }
   .g-feed-time { grid-area:time; white-space:nowrap; }
   .g-feed-src { grid-area:src; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
   .g-feed-src::before { content:"·"; color:var(--t-faint); margin-right:5px; }
+}
+/* phones: keep the source-filter bar tucked under the fixed chrome. */
+@media (max-width:760px){
   .g-feed-srcbar { position:sticky; top:calc(var(--wire-head-h, 53px) + 30px); z-index:7;
     transform:translate3d(0,0,0); -webkit-backface-visibility:hidden; backface-visibility:hidden; background:var(--t-head); }
 }
