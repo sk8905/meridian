@@ -99,6 +99,37 @@ export const OUTLOOK = {
       "Two further headwinds emerged Friday: the UK was named among 60 countries facing new US Section 301 tariffs of 10% on goods entering America, effective from 00:01 ET — a fresh drag on exporters just as Chancellor Healey tries to build fiscal credibility with the City — and Bloomberg described gilts as 'caught between twin risks' from Burnham's fiscal-flexibility debut and the oil shock, with the 10-year yield's stretch above 5% now its longest since July 2008. Capital Economics' Paul Dales warned Burnham risks the same trap as his predecessors: easing fiscal policy further now, with inflation already elevated, risks pushing prices higher still. Sterling held little changed near $1.33, a 'constructive' rather than strong tone per ExchangeRates.org.uk, as markets weighed the stronger PMI/retail-sales beat against the tariff and gilt-market overhang heading into 30 July.",
     ],
     bottomLine: "Next move a hold on 30 July at 3.75%; markets now fully price a 25bp hike by year-end (most likely December). June CPI cooled more than expected to 2.6% (from 2.8%), but core CPI held at 2.6% (above the 2.5% forecast) and services inflation eased only modestly to 3.6% — a mixed print that keeps the MPC's hawkish dissent alive even as economists warn a 13% Ofgem price-cap rise will push headline CPI back above 3% later this year. Burnham/Healey's VAT cut on household electricity (from October) trims CPI by an estimated 0.10pp, a small disinflationary offset; gilt yields pushed to fresh multi-week highs on 23 July (10-year ~5.1%, highest since 20 May; 30-year ~5.78%, highest since 19 May) as Brent's intraday move above $100/bbl compounded fiscal jitters from Healey's own 'cost of doing business' remarks, even as Burnham/Healey confirmed a third cost-of-living move — a 20% business-rates cut for pubs, clubs and music venues from April 2027 — heading into the 30 July decision. Friday's flash PMI provided a rare upside surprise (Composite 52.1, first expansion since April) and retail sales beat (+1.0% in June), but gilt yields held near their multi-week highs as the stronger data was weighed against the oil shock and fiscal overhang.",
+    // The UK has no dot plot — committee sentiment is read from the MPC vote splits
+    // (tally + dissent direction), verified from the BoE Monetary Policy Summary and
+    // minutes for each meeting; paired with the market-implied path from SONIA/OIS.
+    votes: {
+      latestMeeting: "17–18 Jun 2026",
+      href: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/june-2026",
+      history: [
+        { date: "Jun 2026", decision: "Hold 3.75%", tally: "7–2", dissent: "Greene, Pill → +25bp", href: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/june-2026" },
+        { date: "Apr 2026", decision: "Hold 3.75%", tally: "8–1", dissent: "Pill → +25bp", href: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/april-2026" },
+        { date: "Mar 2026", decision: "Hold 3.75%", tally: "9–0", dissent: null, href: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/march-2026" },
+        { date: "Feb 2026", decision: "Hold 3.75%", tally: "5–4", dissent: "Breeden, Dhingra, Ramsden, Taylor → −25bp cut", href: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/february-2026" },
+        { date: "Dec 2025", decision: "Cut −25bp to 3.75%", tally: "5–4", dissent: "Greene, Lombardelli, Mann, Pill → hold 4.00%", href: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2025/december-2025" },
+      ],
+      note: "The swing bloc rotated through 2026: the Dec 2025 cut to 3.75% passed 5–4 over a hawkish hold-minority; by February the minority had flipped dovish (four wanted further cuts); March was unanimous; then a growing hawkish HIKE dissent led by Pill (8–1 in April, joined by Greene for 7–2 in June). Bank Rate has been 3.75% throughout 2026.",
+    },
+    sonia: {
+      asOf: "24 Jul 2026",
+      meeting: "30 Jul 2026",
+      href: "https://www.exchangerates.org.uk/news/46605/2026-07-24-bank-of-england-outlook-market-prices-boe-hikes-but-berenberg-sees-cuts.html",
+      odds: [
+        { label: "Hold — 3.75%", pct: 86 },
+        { label: "Hike +25bp — 4.00%", pct: 14 },
+      ],
+      path: [
+        { when: "End-2026", rate: "~4.20%" },
+        { when: "Peak (early 2027)", rate: "~4.20–4.25%" },
+        { when: "End-2027", rate: "~4.00–4.20%" },
+      ],
+      note: "Two horizons that shouldn't be conflated. For the 30 July meeting itself, SONIA futures price a hold at ~86% vs ~14% for a +25bp hike — a hold is overwhelmingly expected on the day. Over the year, the OIS curve prices net tightening: ~46bp cumulative by December 2026 (an end-2026 rate near ~4.20%) and roughly two increases to a ~4.20–4.25% peak by early 2027, then a modest easing toward ~4% into 2028. The BoE's own analysis cautions the upward slope at the short end is substantially risk premia rather than a central expectation of hikes.",
+    },
+    read: "Hawkish hold with a small skew to one more hike. The vote trend turned decisively hawkish through 2026 — from a dovish cut-minority early in the year to a two-strong HIKE dissent (Greene, Pill) in June — and the OIS/SONIA curve leans the same way, pricing ~40–46bp of net tightening and a ~4.2% peak by early 2027. But day-of odds still favour a hold on 30 July (~86%), so the likely near-term path is a hold while the majority waits on the energy-driven inflation impulse to fade, with the risk tilted toward a single +25bp hike to 4.00% later in 2026 rather than a cut.",
   },
   sources: [
     ["Fed statement, 17 Jun 2026", "https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm"],
@@ -106,7 +137,14 @@ export const OUTLOOK = {
     ["Fed H.15 selected rates", "https://www.federalreserve.gov/releases/h15/"],
     ["CNBC — May core PCE 3.4%", "https://www.cnbc.com/2026/06/25/pce-inflation-report-may-2026-.html"],
     ["J.P. Morgan Research — Fed's next move", "https://www.jpmorgan.com/insights/global-research/economy/fed-rate-cuts"],
-    ["BoE MPC minutes, Jun 2026", "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/june-2026"],
+    ["BoE MPC minutes, Jun 2026 (7–2 hold; Greene, Pill hike)", "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/june-2026"],
+    ["BoE MPC minutes, Apr 2026 (8–1 hold; Pill hike)", "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/april-2026"],
+    ["BoE MPC minutes, Mar 2026 (9–0 hold)", "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/march-2026"],
+    ["BoE MPC minutes, Feb 2026 (5–4 hold; four for a cut)", "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/february-2026"],
+    ["BoE MPC minutes, Dec 2025 (5–4 cut to 3.75%)", "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2025/december-2025"],
+    ["Exchange Rates UK — market prices BoE hikes; ~86% hold on 30 Jul, 24 Jul 2026", "https://www.exchangerates.org.uk/news/46605/2026-07-24-bank-of-england-outlook-market-prices-boe-hikes-but-berenberg-sees-cuts.html"],
+    ["AIB — Forex & Interest Rate Outlook, Jul 2026 (SONIA/OIS-implied ~4.2% peak early 2027)", "https://www.aibni.co.uk/content/dam/aib/fxcentre/docs/forex-int-rate-outlook/forex-and-interest-rate-monthly-july-2026.pdf"],
+    ["BoE Bank Insights — Bank Rate expectations in the UK curve after the Iran war (risk-premia caveat)", "https://www.bankofengland.co.uk/bank-insights/2026/bank-rate-expectations-uk-curve-following-the-war-in-iran"],
     ["ONS — CPI, May 2026", "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/may2026"],
     ["ONS — labour market, Jun 2026", "https://www.ons.gov.uk/employmentandlabourmarket/peopleinwork/employmentandemployeetypes/bulletins/uklabourmarket/june2026"],
     ["Bloomberg — Fed minutes show 'a few' saw case for June hike, 8 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-08/fed-minutes-show-a-few-officials-saw-case-for-june-rate-hike"],

@@ -249,6 +249,31 @@ export function mount(host, ctx) {
     if (!dots && !watch) return "";
     return `<div class="dsh-fed">${watch}${dots}</div>`;
   }
+  // BoE path — the UK has no dot plot, so committee sentiment is read from the MPC
+  // vote splits (tally + dissent direction), paired with the market-implied Bank
+  // Rate path from the SONIA/OIS curve, plus a one-line inference.
+  function boeHTML() {
+    const v = OUTLOOK && OUTLOOK.uk && OUTLOOK.uk.votes;
+    const s = OUTLOOK && OUTLOOK.uk && OUTLOOK.uk.sonia;
+    const read = OUTLOOK && OUTLOOK.uk && OUTLOOK.uk.read;
+    let votes = "";
+    if (v && Array.isArray(v.history) && v.history.length) {
+      const row = (r) => `<div class="dsh-vote"><span class="dsh-vote-d">${esc(r.date)}</span><span class="dsh-vote-t">${esc(r.tally)} · ${esc(stripTags(r.decision || ""))}</span><span class="dsh-vote-x">${r.dissent ? esc(r.dissent) : "unanimous"}</span></div>`;
+      votes = `<div class="dsh-fed-blk"><div class="dsh-fed-h">MPC vote splits${srcLink(v.href, "BoE minutes")}</div>`
+        + `<div class="dsh-votes">${v.history.map(row).join("")}</div>`
+        + (v.note ? `<div class="dsh-fed-note">${esc(v.note)}</div>` : "") + `</div>`;
+    }
+    let sonia = "";
+    if (s && ((Array.isArray(s.odds) && s.odds.length) || (Array.isArray(s.path) && s.path.length))) {
+      const bar = (o) => `<div class="dsh-fw"><span class="dsh-fw-l">${esc(o.label)}</span><span class="dsh-fw-track"><span class="dsh-fw-bar" style="width:${Math.max(2, Math.min(100, o.pct || 0))}%"></span></span><span class="dsh-fw-p">${o.pct != null ? o.pct + "%" : "—"}</span></div>`;
+      const bars = (s.odds || []).map(bar).join("");
+      const path = (s.path && s.path.length) ? `<div class="dsh-kvgrid">${s.path.map((x) => `<div class="dsh-kv"><span class="dsh-kv-k">${esc(x.when)}</span><span class="dsh-kv-v">${esc(x.rate)}</span></div>`).join("")}</div>` : "";
+      sonia = `<div class="dsh-fed-blk"><div class="dsh-fed-h">SONIA / OIS-implied path${s.meeting ? ` — ${esc(s.meeting)}` : ""} <span class="dsh-mut">as of ${esc(s.asOf || "")}</span>${srcLink(s.href, "OIS/SONIA")}</div>`
+        + bars + path + (s.note ? `<div class="dsh-fed-note">${esc(s.note)}</div>` : "") + `</div>`;
+    }
+    if (!votes && !sonia) return "";
+    return `<div class="dsh-fed">${votes}${sonia}</div>` + (read ? `<div class="dsh-read"><span class="dsh-read-k">Read</span> ${esc(read)}</div>` : "");
+  }
   // Rate-outlook grid (TradingEconomics-style): current rate, next meeting, stance,
   // one-line read per economy, each with a source link.
   function rateOutlookHTML() {
@@ -302,9 +327,11 @@ export function mount(host, ctx) {
   }
   function macroHTML() {
     const fed = fedHTML();
+    const boe = boeHTML();
     return `<div class="dsh-pane">
       <section class="dsh-card dsh-span">${regimePillsHTML()}</section>
       ${fed ? `<section class="dsh-card dsh-span"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
+      ${boe ? `<section class="dsh-card dsh-span"><h3 class="dsh-h">BoE path — MPC votes &amp; SONIA/OIS curve</h3>${boe}</section>` : ""}
       <section class="dsh-card"><h3 class="dsh-h">Rate outlook</h3>${rateOutlookHTML()}</section>
       <section class="dsh-card"><h3 class="dsh-h">Yield curve ${asOf(YIELD_CURVE && YIELD_CURVE.asOf)}</h3>${yieldCurveHTML()}</section>
       <section class="dsh-card dsh-span"><h3 class="dsh-h">Macro wire — US &amp; UK headlines</h3>${macroNewsHTML()}</section>
