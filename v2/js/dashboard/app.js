@@ -247,14 +247,20 @@ export function mount(host, ctx) {
         + `${fw.outcomes.map(bar).join("")}</div>`;
     }
     if (!dots && !watch) return "";
-    return `<div class="dsh-fed">${dots}${watch}</div>`;
+    return `<div class="dsh-fed">${watch}${dots}</div>`;
   }
   // Rate-outlook grid (TradingEconomics-style): current rate, next meeting, stance,
   // one-line read per economy, each with a source link.
   function rateOutlookHTML() {
-    const cell = (o, name) => o ? `<div class="dsh-ro"><div class="dsh-ro-h"><span class="dsh-ro-nm">${esc(name)}</span><span class="dsh-ro-rate">${esc(stripTags(o.rate || "—"))}</span></div>`
-      + `<div class="dsh-ro-m">${esc(stripTags(o.next || ""))}</div>`
-      + `<div class="dsh-ro-b">${esc(stripTags(o.bottomLine || o.stance || ""))}</div></div>` : "";
+    // Commentary is collapsed by default behind a native <details> toggle.
+    const cell = (o, name) => {
+      if (!o) return "";
+      const body = esc(stripTags(o.bottomLine || o.stance || ""));
+      return `<div class="dsh-ro"><div class="dsh-ro-h"><span class="dsh-ro-nm">${esc(name)}</span><span class="dsh-ro-rate">${esc(stripTags(o.rate || "—"))}</span></div>`
+        + `<div class="dsh-ro-m">${esc(stripTags(o.next || ""))}</div>`
+        + (body ? `<details class="dsh-ro-more"><summary class="dsh-ro-sum">Commentary</summary><div class="dsh-ro-b">${body}</div></details>` : "")
+        + `</div>`;
+    };
     const src = (OUTLOOK && OUTLOOK.sources && OUTLOOK.sources[0]) || null;
     return `<div class="dsh-rogrid">${cell(OUTLOOK && OUTLOOK.us, "United States · Fed")}${cell(OUTLOOK && OUTLOOK.uk, "United Kingdom · BoE")}</div>`
       + (src ? `<div class="dsh-ladder-cap">Source: <a href="${esc(src[1])}" target="_blank" rel="noopener noreferrer">${esc(src[0])}</a></div>` : "");

@@ -141,9 +141,10 @@
 
 /* Regime pills (Macro) — quick colour-coded read of stance/cycle/bubble */
 .dsh-pills { display:flex; flex-wrap:wrap; gap:8px; }
-.dsh-pill { display:flex; flex-direction:column; gap:2px; flex:1 1 160px; min-width:0; padding:8px 11px; border:1px solid var(--t-grid2); border-radius:7px; background:var(--t-panel2); }
-.dsh-pill-k { color:var(--t-mut); font-size:.68rem; text-transform:uppercase; letter-spacing:.05em; }
-.dsh-pill-v { color:var(--t-ink); font-size:.86rem; font-weight:600; line-height:1.25; }
+/* Regime pills: title on the LEFT (dark ink), value on the RIGHT (muted grey). */
+.dsh-pill { display:flex; flex-direction:row; align-items:baseline; justify-content:space-between; gap:10px; flex:1 1 160px; min-width:0; padding:8px 11px; border:1px solid var(--t-grid2); border-radius:7px; background:var(--t-panel2); }
+.dsh-pill-k { color:var(--t-ink); font-size:.68rem; font-weight:600; text-transform:uppercase; letter-spacing:.05em; flex:0 0 auto; }
+.dsh-pill-v { color:var(--t-mut); font-size:.86rem; font-weight:500; line-height:1.25; text-align:right; flex:1 1 auto; min-width:0; }
 
 /* Rate-outlook grid (Macro) — one card per economy */
 .dsh-rogrid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
@@ -153,6 +154,14 @@
 .dsh-ro-nm { color:var(--t-mut); font-size:.74rem; }
 .dsh-ro-rate { color:var(--t-ink); font-size:1rem; font-weight:700; font-variant-numeric:tabular-nums; }
 .dsh-ro-m { color:var(--t-dim); font-size:.78rem; margin:3px 0; }
+/* Collapsed-by-default commentary (native <details>). */
+.dsh-ro-more { margin-top:4px; }
+.dsh-ro-sum { cursor:pointer; color:var(--t-accent); font-size:.72rem; font-weight:600; list-style:none;
+  display:inline-flex; align-items:center; gap:5px; user-select:none; }
+.dsh-ro-sum::-webkit-details-marker { display:none; }
+.dsh-ro-sum::before { content:"\25B8"; font-size:.72em; transition:transform .15s ease; }
+.dsh-ro-more[open] .dsh-ro-sum { margin-bottom:5px; }
+.dsh-ro-more[open] .dsh-ro-sum::before { transform:rotate(90deg); }
 .dsh-ro-b { color:var(--t-mut); font-size:.76rem; line-height:1.35; }
 
 /* Yield curve (Macro) — SVG term structure + key */
