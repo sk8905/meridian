@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "5bd259ca-d278-498a-a03d-7b4556d9fa8f", title: "Top Democrat says Trump administration is worsening chip shortage", date: "2026-07-25", time: "20:33", url: "https://www.ft.com/content/5bd259ca-d278-498a-a03d-7b4556d9fa8f" },
+  { id: "fa785a9b-f136-43ab-91d5-f20742291331", title: "Brazil denies visas to US officials over alleged election interference", date: "2026-07-25", time: "19:20", url: "https://www.ft.com/content/fa785a9b-f136-43ab-91d5-f20742291331" },
+  { id: "f4a5d8da-c950-49d3-b847-6281d2087e4c", title: "Kazakhstan’s president urges Putin to ‘freeze’ the war in Ukraine", date: "2026-07-25", time: "18:58", url: "https://www.ft.com/content/f4a5d8da-c950-49d3-b847-6281d2087e4c" },
   { id: "6359b7ba-494f-4c80-b3f7-a64b3224ba9e", title: "Washington and London discuss plan for meeting to resolve Hormuz crisis", date: "2026-07-25", time: "13:11", url: "https://www.ft.com/content/6359b7ba-494f-4c80-b3f7-a64b3224ba9e" },
   { id: "1a7cdff0-5e52-4fa1-8b21-978e501eb791", title: "Maha Inc: how companies tied to Kennedy’s movement are poised to benefit", date: "2026-07-25", time: "12:00", url: "https://www.ft.com/content/1a7cdff0-5e52-4fa1-8b21-978e501eb791" },
   { id: "5f267b7d-9e57-40f6-9bb5-6fe5d6cf9d1d", title: "India’s education minister resigns after weeks of student protests", date: "2026-07-25", time: "11:38", url: "https://www.ft.com/content/5f267b7d-9e57-40f6-9bb5-6fe5d6cf9d1d" },
@@ -59,5 +62,4 @@ export const FT_ITEMS = [
   { id: "6c4aff69-197d-4d0d-9afa-83960d143f10", title: "Future hawks", date: "2026-07-24", time: "17:56", url: "https://www.ft.com/content/6c4aff69-197d-4d0d-9afa-83960d143f10" },
   { id: "52aa89e9-f014-498e-8415-2c435a1c858d", title: "Ship insurers restrict war coverage for Saudi Arabian cargoes in Red Sea", date: "2026-07-24", time: "17:38", url: "https://www.ft.com/content/52aa89e9-f014-498e-8415-2c435a1c858d" },
   { id: "3a62abc2-995b-4901-9ea3-832581295f45", title: "What is driving the sharp decline in UK small boat crossings?", date: "2026-07-24", time: "17:35", url: "https://www.ft.com/content/3a62abc2-995b-4901-9ea3-832581295f45" },
-  { id: "3203fc9a-2321-44f8-8093-b7e16c8fc6d7", title: "Nvidia and Palantir urge US not to ban \u2018open\u2019 AI models after China scare", date: "2026-07-24", time: "16:20", url: "https://www.ft.com/content/3203fc9a-2321-44f8-8093-b7e16c8fc6d7" },
 ];
