@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "75e3ac7d-f612-470b-af3a-a310c52c4e58", title: "Who wants to buy a football club?", date: "2026-07-25", time: "09:00", url: "https://www.ft.com/content/75e3ac7d-f612-470b-af3a-a310c52c4e58" },
   { id: "ac19e4f4-cf7b-4a75-b591-0ca79ef62d37", title: "India’s ‘Cockroach’ Gen Z has had enough", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/ac19e4f4-cf7b-4a75-b591-0ca79ef62d37" },
   { id: "24a8adf9-8103-44b3-92e8-350ef897dc2a", title: "Overpriced UK homes take ‘more than four times longer to sell’, study finds", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/24a8adf9-8103-44b3-92e8-350ef897dc2a" },
   { id: "66a53961-6583-4dfb-8b74-96e6abed5db7", title: "What the City needs from the Burnham government", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/66a53961-6583-4dfb-8b74-96e6abed5db7" },

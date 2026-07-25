@@ -29,6 +29,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-econ-worldinbrief-20260725",
+    publication: "The Economist",
+    series: "The World in Brief",
+    title: "The World in Brief: Paramount delays Warner Bros merger",
+    date: "2026-07-25",
+    time: "06:24",
+    summary: "Paramount Skydance delays its $111bn Warner Bros Discovery merger to June 2027 as states sue; Houthis strike Jizan, Saudi Arabia retaliates in Hodeida.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-moneystuffpodcast-20260724",
     publication: "Bloomberg",
     author: "Matt Levine",
