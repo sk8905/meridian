@@ -13,7 +13,7 @@ export const UPDATED = "25 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-25",
-  lastCheckedTime: "09:24 BST",
+  lastCheckedTime: "12:12 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -609,9 +609,9 @@ export const NEWS = {
     { title: "Waymo Plans End of Uber Robotaxi Tie-Up, Stepping Up Rivalry", source: "Bloomberg", date: "2026-07-24", url: "https://www.bloomberg.com/news/articles/2026-07-24/waymo-explores-exit-from-uber-robotaxi-partnership-ft-says" },
   ],
   uk: [
+    { title: "Week ahead: Fed and BoE policy announcements due", source: "Sharecast", date: "2026-07-25", time: "12:12", url: "https://www.sharecast.com/amp/news/financial-diary/week-ahead-fed-and-boe-policy-announcements-due--23116006.html" },
     { title: "Gilts Caught Between Twin Risks From Burnham Debut and Oil Shock", source: "Bloomberg", date: "2026-07-24", url: "https://www.bloomberg.com/news/articles/2026-07-24/gilts-caught-between-twin-risks-from-burnham-debut-and-oil-shock" },
     { title: "'Burnham bounce' and World Cup lift consumer confidence", source: "Retail Gazette", date: "2026-07-24", url: "https://www.retailgazette.co.uk/blog/2026/07/burnham-bounce-and-world-cup-lift-consumer-confidence/" },
-    { title: "Burnham Tightens No. 10 Control on UK Economy in Power Shift", source: "Bloomberg", date: "2026-07-23", url: "https://www.bloomberg.com/news/articles/2026-07-23/burnham-strengthens-no-10-control-on-uk-economy-in-power-shift" },
     { title: "Pound To Dollar Price Forecast: GBP 'Constructive' As Markets Assess Burnham's Policies", source: "ExchangeRates.org.uk", date: "2026-07-24", url: "https://www.exchangerates.org.uk/news/46593/2026-07-24-pound-to-dollar-price-forecast-gbp-constructive-as-markets-assess-burnham-s-policies.html" },
     { title: "Donald Trump Slaps New 10% Tariff On UK Goods In Early Challenge For Andy Burnham", source: "HuffPost UK", date: "2026-07-24", url: "https://www.huffingtonpost.co.uk/entry/donald-trump-tariff-uk-goods_uk_6a62f526e4b0811ae03fda40" },
   ],
@@ -627,6 +627,7 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-25",
   items: [
+    {"title":"Week ahead: Fed and BoE policy announcements due","source":"Sharecast","date":"2026-07-25","time":"12:12","url":"https://www.sharecast.com/amp/news/financial-diary/week-ahead-fed-and-boe-policy-announcements-due--23116006.html","blurb":"The coming week brings Fed and BoE rate decisions (both expected to hold), plus half-year/Q2 results from AstraZeneca, GSK, Barclays, Unilever, Microsoft and Meta."},
     {"title":"Live updates: For first time in 2 weeks, US military does not announce new Iran strikes","source":"CNN","date":"2026-07-25","url":"https://www.cnn.com/2026/07/25/world/live-news/iran-war-trump","blurb":"US Central Command made no strike announcement on Iran for the first time in nearly two weeks, and Iranian state media reported no overnight strikes or explosions, even as Trump said he is still weighing a 'massive attack'."},
     {"title":"Trump's Tariffs Are Likely to Stick Around Despite Unpopularity","source":"Bloomberg","date":"2026-07-25","url":"https://www.bloomberg.com/news/articles/2026-07-25/trump-s-tariffs-are-likely-to-stick-around-despite-unpopularity","blurb":"Economists say the revenue and negotiating leverage the tariffs generate will make them hard for any future president to fully unwind, even as they draw anger from trading partners and voters."},
     {"title":"Will the Federal Reserve raise interest rates? Here is what experts predict for July's meeting","source":"CBS News","date":"2026-07-25","url":"https://www.cbsnews.com/news/fed-interest-rate-decision-july-meeting/","blurb":"FactSet-polled economists still expect the Fed to hold at 3.50-3.75% on 29 July, even as CME FedWatch-implied hike odds have climbed to roughly 38% (from 12% a week earlier) on the oil-driven inflation scare."},
@@ -666,7 +667,6 @@ export const ARTICLES = {
     {"title":"UK Chancellor Healey Vows Fiscal Buffer to Shield Economy From Shocks","source":"Bloomberg","date":"2026-07-23","url":"https://www.bloomberg.com/news/articles/2026-07-23/uk-chancellor-healey-pledges-fiscal-buffer-in-pitch-to-the-city","blurb":"In his first City pitch since taking office, Healey pledged to meet the fiscal rules \"with a buffer against uncertainty,\" calling fiscal credibility \"the bedrock of stability.\""},
     {"title":"Stock market today: Dow, S&P 500, Nasdaq sell off as oil surges, bond yields climb","source":"CNBC","date":"2026-07-23","url":"https://www.cnbc.com/2026/07/23/stock-market-today-live-updates.html","blurb":"Dow -1% (-507pts), S&P -1.2%, Nasdaq -2.2% as Alphabet (-7%) and Tesla (-14%) sank on capex/earnings concerns and oil's move past $100 hit bonds."},
     {"title":"US Treasury Yields Hit 2026 Highs as Oil Price Surge Lifts Fed Rate Bets","source":"Bloomberg","date":"2026-07-23","url":"https://www.bloomberg.com/news/articles/2026-07-23/us-treasury-yields-rise-to-2026-highs-as-oil-gains-spark-fed-bet","blurb":"The 2-year Treasury yield climbed to ~4.36% and the 10-year to ~4.7% as September-hike odds jumped to roughly 82%, from 52% a week earlier, on oil's surge past $100/bbl."},
-    {"title":"The number of Americans filing for unemployment is the lowest since 1969","source":"CNN","date":"2026-07-23","url":"https://www.cnn.com/2026/07/23/economy/us-initial-jobless-claims-1969","blurb":"Initial jobless claims fell to 187,000 (vs 212,000 expected), a positive labour-market surprise that reinforced rather than eased the hawkish Fed repricing."},
   ],
 };
 
