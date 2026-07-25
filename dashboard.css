@@ -204,13 +204,3 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 .dsh-fw-track { position:relative; height:12px; background:var(--t-panel2); border-radius:3px; }
 .dsh-fw-bar { position:absolute; left:0; top:0; bottom:0; background:var(--t-accent); border-radius:3px; }
 .dsh-fw-p { text-align:right; font-size:.78rem; font-variant-numeric:tabular-nums; color:var(--t-ink); }
-/* BoE path — MPC vote splits, SONIA/OIS path + inference read. */
-.dsh-fed-note { color:var(--t-mut); font-size:.72rem; line-height:1.35; margin-top:6px; }
-.dsh-votes { display:flex; flex-direction:column; }
-.dsh-vote { display:grid; grid-template-columns:auto 1fr auto; align-items:baseline; gap:8px; padding:5px 0; border-bottom:1px solid var(--t-grid); }
-.dsh-vote:last-child { border-bottom:0; }
-.dsh-vote-d { color:var(--t-mut); font-size:.74rem; font-variant-numeric:tabular-nums; white-space:nowrap; }
-.dsh-vote-t { color:var(--t-ink); font-size:.76rem; font-weight:600; }
-.dsh-vote-x { color:var(--t-dim); font-size:.72rem; text-align:right; }
-.dsh-read { margin-top:10px; font-size:.78rem; line-height:1.4; color:var(--t-dim); }
-.dsh-read-k { font-weight:700; color:var(--t-ink); text-transform:uppercase; font-size:.64rem; letter-spacing:.05em; margin-right:6px; }

@@ -249,30 +249,26 @@ export function mount(host, ctx) {
     if (!dots && !watch) return "";
     return `<div class="dsh-fed">${watch}${dots}</div>`;
   }
-  // BoE path — the UK has no dot plot, so committee sentiment is read from the MPC
-  // vote splits (tally + dissent direction), paired with the market-implied Bank
-  // Rate path from the SONIA/OIS curve, plus a one-line inference.
+  // BoE path — same two-block format as the Fed box: the market-implied SONIA/OIS
+  // odds for the next decision (bars, like CME FedWatch) and the MPC vote splits
+  // (a kv grid, standing in for the dot plot the UK doesn't publish).
   function boeHTML() {
-    const v = OUTLOOK && OUTLOOK.uk && OUTLOOK.uk.votes;
     const s = OUTLOOK && OUTLOOK.uk && OUTLOOK.uk.sonia;
-    const read = OUTLOOK && OUTLOOK.uk && OUTLOOK.uk.read;
+    const v = OUTLOOK && OUTLOOK.uk && OUTLOOK.uk.votes;
+    let sonia = "";
+    if (s && Array.isArray(s.odds) && s.odds.length) {
+      const bar = (o) => `<div class="dsh-fw"><span class="dsh-fw-l">${esc(o.label)}</span><span class="dsh-fw-track"><span class="dsh-fw-bar" style="width:${Math.max(2, Math.min(100, o.pct || 0))}%"></span></span><span class="dsh-fw-p">${o.pct != null ? o.pct + "%" : "—"}</span></div>`;
+      sonia = `<div class="dsh-fed-blk"><div class="dsh-fed-h">SONIA / OIS — ${esc(s.meeting || "")} <span class="dsh-mut">as of ${esc(s.asOf || "")}</span>${srcLink(s.href, "SONIA/OIS-implied")}</div>`
+        + `${s.odds.map(bar).join("")}</div>`;
+    }
     let votes = "";
     if (v && Array.isArray(v.history) && v.history.length) {
-      const row = (r) => `<div class="dsh-vote"><span class="dsh-vote-d">${esc(r.date)}</span><span class="dsh-vote-t">${esc(r.tally)} · ${esc(stripTags(r.decision || ""))}</span><span class="dsh-vote-x">${r.dissent ? esc(r.dissent) : "unanimous"}</span></div>`;
-      votes = `<div class="dsh-fed-blk"><div class="dsh-fed-h">MPC vote splits${srcLink(v.href, "BoE minutes")}</div>`
-        + `<div class="dsh-votes">${v.history.map(row).join("")}</div>`
-        + (v.note ? `<div class="dsh-fed-note">${esc(v.note)}</div>` : "") + `</div>`;
+      const row = (r) => `<div class="dsh-kv" title="${esc(stripTags(r.decision || ""))}${r.dissent ? " · " + esc(r.dissent) : " · unanimous"}"><span class="dsh-kv-k">${esc(r.date)}</span><span class="dsh-kv-v">${esc(r.tally)}${r.lean ? ` <span class="dsh-band">${esc(r.lean)}</span>` : ""}</span></div>`;
+      votes = `<div class="dsh-fed-blk"><div class="dsh-fed-h">MPC vote splits <span class="dsh-mut">${esc(v.latestMeeting || "")}</span>${srcLink(v.href, "BoE minutes")}</div>`
+        + `<div class="dsh-kvgrid">${v.history.map(row).join("")}</div></div>`;
     }
-    let sonia = "";
-    if (s && ((Array.isArray(s.odds) && s.odds.length) || (Array.isArray(s.path) && s.path.length))) {
-      const bar = (o) => `<div class="dsh-fw"><span class="dsh-fw-l">${esc(o.label)}</span><span class="dsh-fw-track"><span class="dsh-fw-bar" style="width:${Math.max(2, Math.min(100, o.pct || 0))}%"></span></span><span class="dsh-fw-p">${o.pct != null ? o.pct + "%" : "—"}</span></div>`;
-      const bars = (s.odds || []).map(bar).join("");
-      const path = (s.path && s.path.length) ? `<div class="dsh-kvgrid">${s.path.map((x) => `<div class="dsh-kv"><span class="dsh-kv-k">${esc(x.when)}</span><span class="dsh-kv-v">${esc(x.rate)}</span></div>`).join("")}</div>` : "";
-      sonia = `<div class="dsh-fed-blk"><div class="dsh-fed-h">SONIA / OIS-implied path${s.meeting ? ` — ${esc(s.meeting)}` : ""} <span class="dsh-mut">as of ${esc(s.asOf || "")}</span>${srcLink(s.href, "OIS/SONIA")}</div>`
-        + bars + path + (s.note ? `<div class="dsh-fed-note">${esc(s.note)}</div>` : "") + `</div>`;
-    }
-    if (!votes && !sonia) return "";
-    return `<div class="dsh-fed">${votes}${sonia}</div>` + (read ? `<div class="dsh-read"><span class="dsh-read-k">Read</span> ${esc(read)}</div>` : "");
+    if (!sonia && !votes) return "";
+    return `<div class="dsh-fed">${sonia}${votes}</div>`;
   }
   // Rate-outlook grid (TradingEconomics-style): current rate, next meeting, stance,
   // one-line read per economy, each with a source link.
