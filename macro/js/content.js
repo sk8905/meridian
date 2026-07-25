@@ -12,8 +12,8 @@ export const UPDATED = "24 July 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-07-24",
-  lastCheckedTime: "21:22 BST",
+  lastChecked: "2026-07-25",
+  lastCheckedTime: "05:22 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -633,8 +633,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-07-24", country: "UK", title: "Retail sales (June)", url: "https://www.ons.gov.uk/businessindustryandtrade/retailindustry/bulletins/retailsales/latest" },
-  { date: "2026-07-24", country: "UK", title: "S&P Global/CIPS Flash Manufacturing & Services PMI (July)", url: "https://www.pmi.spglobal.com/Public/Release/ReleaseDates" },
   { date: "2026-07-29", country: "US", title: "FOMC rate decision", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-07-30", country: "US", title: "GDP Q2 2026 (advance estimate)", url: "https://www.bea.gov/news/schedule" },
   { date: "2026-07-30", country: "US", title: "PCE inflation (June)", url: "https://www.bea.gov/news/schedule" },
