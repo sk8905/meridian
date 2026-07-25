@@ -143,8 +143,8 @@
 .dsh-pills { display:flex; flex-wrap:wrap; gap:8px; }
 /* Regime pills: title on the LEFT (dark ink), value on the RIGHT (muted grey). */
 .dsh-pill { display:flex; flex-direction:row; align-items:baseline; justify-content:space-between; gap:10px; flex:1 1 160px; min-width:0; padding:8px 11px; border:1px solid var(--t-grid2); border-radius:7px; background:var(--t-panel2); }
-.dsh-pill-k { color:var(--t-ink); font-size:.68rem; font-weight:600; text-transform:uppercase; letter-spacing:.05em; flex:0 0 auto; }
-.dsh-pill-v { color:var(--t-mut); font-size:.86rem; font-weight:500; line-height:1.25; text-align:right; flex:1 1 auto; min-width:0; }
+.dsh-pill-k { color:var(--t-ink); font-size:.61rem; font-weight:600; text-transform:uppercase; letter-spacing:.05em; flex:0 0 auto; }
+.dsh-pill-v { color:var(--t-mut); font-size:.72rem; font-weight:500; line-height:1.25; text-align:right; flex:1 1 auto; min-width:0; }
 
 /* Rate-outlook grid (Macro) — one card per economy */
 .dsh-rogrid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
