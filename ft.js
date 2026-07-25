@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "6359b7ba-494f-4c80-b3f7-a64b3224ba9e", title: "Washington and London discuss plan for meeting to resolve Hormuz crisis", date: "2026-07-25", time: "13:11", url: "https://www.ft.com/content/6359b7ba-494f-4c80-b3f7-a64b3224ba9e" },
   { id: "1a7cdff0-5e52-4fa1-8b21-978e501eb791", title: "Maha Inc: how companies tied to Kennedy’s movement are poised to benefit", date: "2026-07-25", time: "12:00", url: "https://www.ft.com/content/1a7cdff0-5e52-4fa1-8b21-978e501eb791" },
   { id: "5f267b7d-9e57-40f6-9bb5-6fe5d6cf9d1d", title: "India’s education minister resigns after weeks of student protests", date: "2026-07-25", time: "11:38", url: "https://www.ft.com/content/5f267b7d-9e57-40f6-9bb5-6fe5d6cf9d1d" },
   { id: "5019e030-796d-47e8-9f13-bee34de1d374", title: "Investors bet on Federal Reserve rate rise after oil price surge", date: "2026-07-25", time: "11:00", url: "https://www.ft.com/content/5019e030-796d-47e8-9f13-bee34de1d374" },
@@ -59,6 +60,4 @@ export const FT_ITEMS = [
   { id: "52aa89e9-f014-498e-8415-2c435a1c858d", title: "Ship insurers restrict war coverage for Saudi Arabian cargoes in Red Sea", date: "2026-07-24", time: "17:38", url: "https://www.ft.com/content/52aa89e9-f014-498e-8415-2c435a1c858d" },
   { id: "3a62abc2-995b-4901-9ea3-832581295f45", title: "What is driving the sharp decline in UK small boat crossings?", date: "2026-07-24", time: "17:35", url: "https://www.ft.com/content/3a62abc2-995b-4901-9ea3-832581295f45" },
   { id: "3203fc9a-2321-44f8-8093-b7e16c8fc6d7", title: "Nvidia and Palantir urge US not to ban \u2018open\u2019 AI models after China scare", date: "2026-07-24", time: "16:20", url: "https://www.ft.com/content/3203fc9a-2321-44f8-8093-b7e16c8fc6d7" },
-  { id: "822628c5-4f9c-47db-bd27-f3ad7f841700", title: "Meta faces higher borrowing costs in latest $12bn data centre financing", date: "2026-07-24", time: "16:08", url: "https://www.ft.com/content/822628c5-4f9c-47db-bd27-f3ad7f841700" },
-  { id: "aba1b4be-68d6-4f74-a511-24fbad030024", title: "The Victorians have some lessons for Burnham on radical devolution", date: "2026-07-24", time: "16:04", url: "https://www.ft.com/content/aba1b4be-68d6-4f74-a511-24fbad030024" },
 ];

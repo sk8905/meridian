@@ -29,6 +29,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-thebrink-20260725",
+    publication: "Bloomberg",
+    author: "Giulia Morpurgo",
+    series: "The Brink",
+    title: "The Brink: A Czech billionaire fights for control of Casino",
+    date: "2026-07-25",
+    time: "16:00",
+    summary: "A Czech billionaire brings France's new insolvency regime to bear over Casino's creditors in a closely watched test case.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-25/czech-billionaire-fights-casino-creditors-for-control-in-french-test-case",
+  },
+  {
     id: "nl-econ-worldinbrief-20260725",
     publication: "The Economist",
     series: "The World in Brief",
@@ -416,25 +427,5 @@ export const NEWSLETTERS = [
     time: "10:10",
     summary: "DACB managing partner Helen Faulkner talks strategy after her first full year at the helm of the firm.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMQsSXufXgBpyLGg4u/wv",
-  },
-  {
-    id: "nl-lb-linklaterspep-20260721",
-    publication: "Legal Business",
-    title: "Linklaters posts double-digit PEP hike as turnover nears £2.5bn",
-    date: "2026-07-21",
-    time: "08:02",
-    summary: "Firm cites strong performance in the US, where it has doubled revenue and quadrupled profit over the past four years.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQswzLGG4TS4v1XDg/wv",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-20260721",
-    publication: "Bloomberg",
-    author: "Jill Disis",
-    series: "Morning Briefing Europe",
-    title: "Cabinet surprises",
-    date: "2026-07-21",
-    time: "07:48",
-    summary: "Burnham surprises with his UK chancellor pick, the US and Iran trade strikes for a 10th straight day, and tariffs return as the US targets Canada.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-07-21/burnham-surprises-with-uk-chancellor-pick",
   },
 ];
