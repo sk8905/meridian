@@ -142,8 +142,8 @@ body.wire-sliding .g-feed-srcbar { position:static; }
   .g-feed-title { grid-area:title; font-size:14px; line-height:1.36; }
   .g-feed-code { grid-area:code; padding:2px 5px; }
   .g-feed-time { grid-area:time; white-space:nowrap; }
-  .g-feed-src { grid-area:src; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-  .g-feed-src::before { content:"·"; color:var(--t-faint); margin-right:5px; }
+  /* Source sits flush RIGHT on the meta line (code · time on the left). */
+  .g-feed-src { grid-area:src; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; justify-self:end; text-align:right; }
 }
 /* phones: keep the source-filter bar tucked under the fixed chrome. */
 @media (max-width:760px){
