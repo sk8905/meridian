@@ -83,7 +83,7 @@
 :root[data-theme="light"] .g-feed-dayhdr { background:var(--t-head, #f4f7fb); color:#2f6cae;
   border-bottom:1px solid var(--t-grid); }
 @media (max-width:900px){ .g-feed-dayhdr { top:var(--wire-head-h, 57px); } }
-.g-feed-row { display:grid; grid-template-columns:44px 34px minmax(0,1fr) auto; align-items:baseline;
+.g-feed-row { display:grid; grid-template-columns:44px 34px minmax(0,1fr) minmax(0,168px); align-items:baseline;
   gap:10px; padding:5px 12px; border-bottom:1px solid var(--t-grid); text-decoration:none; }
 .g-feed-row:hover { background:var(--t-panel2); }
 .g-feed-time { font-family:var(--t-mono); font-size:11px; color:var(--t-mut); min-width:0; }
@@ -118,7 +118,7 @@
 .g-feed-ent:hover { text-decoration:none; }
 /* The source name is a filter control — underline on hover to signal it acts
    independently of the row's link-to-article. */
-.g-feed-src { font-family:var(--t-mono); font-size:10px; color:var(--t-faint); white-space:nowrap; cursor:pointer; }
+.g-feed-src { font-family:var(--t-mono); font-size:10px; color:var(--t-faint); white-space:nowrap; min-width:0; overflow:hidden; text-overflow:ellipsis; cursor:pointer; }
 .g-feed-src:hover { color:var(--t-dim); text-decoration:none; }
 .g-feed-desk { display:none; }
 /* Active source-filter bar above the wire. */
