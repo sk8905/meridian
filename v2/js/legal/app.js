@@ -97,17 +97,6 @@ function wireDays(rows, rowFn, getDate) {
     return hdr + rowFn(x);
   }).join("");
 }
-function syncDayRows(root) {
-  if (!root) return;
-  root.querySelectorAll(".tw-day").forEach((d) => {
-    let vis = false, n = d.nextElementSibling;
-    while (n && !n.classList.contains("tw-day")) {
-      if (n.classList.contains("tw-row") && n.style.display !== "none") { vis = true; break; }
-      n = n.nextElementSibling;
-    }
-    d.style.display = vis ? "" : "none";
-  });
-}
 
 // Insert a gentle day-break divider whenever the day changes from the previous
 // item (a subtle visual gap between each day's rows; rows carry their own date).

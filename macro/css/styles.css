@@ -480,8 +480,8 @@ a.intel-head:hover { text-decoration: none; }
 .ew-tbl td { font-size: 11px; color: var(--ink); white-space: normal; overflow-wrap: break-word; }
 .ew-note { font-family: var(--t-mono); font-size: 9.5px; color: var(--muted); }
 .ew-nr { color: var(--faint, #5c6a86); font-weight: 400; }
-.ew-px.ew-up { color: #2fbf8a; }
-.ew-px.ew-dn { color: #e0708e; }
+.ew-px.ew-up { color: var(--t-up, #3fc08d); }
+.ew-px.ew-dn { color: var(--t-down, #f26d84); }
 /* Held-in-ETF mini label beside the ticker (reader's own holdings), with the
    stock's index weight where the source publishes it. One colour per ETF so
    they're distinguishable at a glance (same tint recipe as the desk codes). */

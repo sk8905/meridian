@@ -191,7 +191,7 @@ function summaryCards() {
       <div class="macro-sum-head"><span class="macro-sum-icon" aria-hidden="true">${icon}</span><span class="macro-sum-title">${esc(title)}</span></div>
       <p class="macro-sum-line"><span class="macro-flag">US</span><span class="macro-sum-txt">${us}</span></p>
       <p class="macro-sum-line"><span class="macro-flag">UK</span><span class="macro-sum-txt">${uk}</span></p>
-      <span class="macro-sum-cta">${esc(cta)} →</span>
+      <span class="macro-sum-cta">${esc(cta)}</span>
     </a>`;
   return `<section class="macro-summary">
     ${card("◷", "Rate outlook", "#/policy", "See the policy-rate view", SUMMARY.outlook.us, SUMMARY.outlook.uk)}
@@ -212,17 +212,6 @@ function wireDays(rows, rowFn, getDate) {
     if (d) last = d;
     return hdr + rowFn(x);
   }).join("");
-}
-function syncDayRows(root) {
-  if (!root) return;
-  root.querySelectorAll(".tw-day").forEach((d) => {
-    let vis = false, n = d.nextElementSibling;
-    while (n && !n.classList.contains("tw-day")) {
-      if (n.classList.contains("tw-row") && n.style.display !== "none") { vis = true; break; }
-      n = n.nextElementSibling;
-    }
-    d.style.display = vis ? "" : "none";
-  });
 }
 const todayMidnight = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; };
 
@@ -280,7 +269,7 @@ function renderNews() {
   return `<section class="card feature-card macro-news-panel">
     <h2>Key macro headlines</h2>
     ${body}
-    <a class="news-more" href="#/commentary">See the latest commentary →</a>
+    <a class="news-more" href="#/commentary">See the latest commentary</a>
   </section>`;
 }
 
@@ -1305,7 +1294,7 @@ function renderNotifications() {
       <div class="notif-head">${n ? `${n} new update${n > 1 ? "s" : ""}` : "No new updates"} <span class="muted small">· checked ${esc(refreshStamp())}</span></div>
       <ul class="notif-list">
         ${list.length ? list.map((x) => `<li class="notif-item${(n && fresh.includes(x)) ? " is-new" : ""}">
-          <a href="${x.href}" class="nf-row">
+          <a href="${esc(x.href)}" class="nf-row">
             <span class="nf-title">${esc(x.title)}</span>
             <span class="nf-meta"><span class="nf-code macro">MAC</span>${x.date ? `<span class="nf-time">${esc(fmtDate(x.date))}</span>` : ""}${x.source ? `<span class="nf-sep">·</span><span class="nf-src">${esc(x.source)}</span>` : ""}</span>
           </a>

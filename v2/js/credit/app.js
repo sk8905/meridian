@@ -266,7 +266,7 @@ function renderNotifications() {
       <div class="notif-head">${n ? `${n} new update${n > 1 ? "s" : ""}` : "No new updates"} <span class="muted small">· checked ${esc(fmtDate(LAST_CHECKED))}${LAST_CHECKED_TIME ? `, ${esc(LAST_CHECKED_TIME)}` : ""}</span></div>
       <ul class="notif-list">
         ${list.length ? list.map((x) => `<li class="notif-item${(n && fresh.includes(x)) ? " is-new" : ""}">
-          <a href="${x.href}" ${x.goto ? `data-goto="${esc(x.goto)}"` : ""} class="nf-row">
+          <a href="${esc(x.href)}" ${x.goto ? `data-goto="${esc(x.goto)}"` : ""} class="nf-row">
             <span class="nf-title">${esc(x.title)}</span>
             <span class="nf-meta"><span class="nf-code credit">CRD</span>${x.date ? `<span class="nf-time">${esc(fmtDate(x.date))}</span>` : ""}${x.source ? `<span class="nf-sep">·</span><span class="nf-src">${esc(x.source)}</span>` : ""}</span>
           </a>

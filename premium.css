@@ -606,7 +606,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-bar-f.down { right: 50%; background: var(--t-down, #f26d84); }
 .na-v { color: var(--ink, #eaf0fb); }
 .na-c { min-width: 66px; text-align: right; }
-.na-c.up { color: #3fc08d; } .na-c.down { color: #f26d84; } .na-c.flat { color: var(--faint, #5c6a86); }
+.na-c.up { color: var(--t-up, #3fc08d); } .na-c.down { color: var(--t-down, #f26d84); } .na-c.flat { color: var(--faint, #5c6a86); }
 /* FX matrix in the Markets panel (mirrors the desktop right-rail cross-rate grid,
    restyled with the panel's own tokens so it's self-contained off the Home page). */
 .na-fx-wrap { padding: 8px 12px 12px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -667,7 +667,8 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-pred-chips { position: sticky; top: 0; z-index: 2; display: flex; gap: 0; background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
 .na-pred-fchip { flex: 1 1 0; font: inherit; font-size: 12px; font-weight: 600; letter-spacing: .01em; padding: 8px 4px; white-space: nowrap; border: 0; background: transparent; color: var(--muted, #8592ad); cursor: pointer; }
 .na-pred-fchip:hover:not(:disabled) { color: var(--ink, #eaf0fb); }
-.na-pred-fchip.on { color: var(--ink, #eaf0fb); box-shadow: inset 0 -2px 0 var(--chip-ul); }
+.na-pred-fchip.on { color: var(--ink, #eaf0fb); box-shadow: inset 0 -2px 0 var(--chip-ul, #000); }
+[data-theme="dark"] .na-pred-fchip.on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff); }
 .na-pred-fchip:disabled { opacity: .4; cursor: default; }
 .na-pred { display: flex; align-items: flex-start; gap: 10px; }
 .na-pred-main { flex: 1 1 auto; min-width: 0; }
@@ -677,7 +678,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-pred-yes.hi { color: var(--ink, #eaf0fb); }
 .na-pred-yes.lo { color: var(--muted, #8592ad); }
 .na-pred-chg { font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; font-size: 10px; }
-.na-pred-chg.up { color: #3fc08d; } .na-pred-chg.down { color: #f26d84; } .na-pred-chg.flat { color: var(--faint, #5c6a86); }
+.na-pred-chg.up { color: var(--t-up, #3fc08d); } .na-pred-chg.down { color: var(--t-down, #f26d84); } .na-pred-chg.flat { color: var(--faint, #5c6a86); }
 
 /* Notifications list: dark terminal panel (desktop dropdown & mobile page alike)
    with rows rendered in the shared .nf-row style above. */
@@ -783,7 +784,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 /* ---- Dated day header for the news / commentary feeds (Macro Commentary,
    Credit News & Commentary) — mirrors the home feed's dated day breaks: an
    uppercase date label with a 2px rule above each group except the first. ---- */
-.day-hdr { font-size: .68rem; font-weight: 800; text-transform: uppercase; letter-spacing: .05em;
+.day-hdr { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em;
   color: var(--muted); padding: .62rem 0 .45rem; }
 .day-hdr:first-child { padding-top: .1rem; }
 .day-hdr:not(:first-child) { border-top: 2px solid var(--border, var(--line, #e4e7ef)); margin-top: .15rem; }
@@ -896,7 +897,8 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
   border: 0; background: transparent;
   color: var(--muted, #8592ad); font: inherit; font-size: 11px; font-weight: 600; letter-spacing: .03em;
   cursor: pointer; border-radius: 0; }
-.na-chip.is-on { color: var(--ink, #eaf0fb); box-shadow: inset 0 -2px 0 var(--chip-ul); }
+.na-chip.is-on { color: var(--ink, #eaf0fb); box-shadow: inset 0 -2px 0 var(--chip-ul, #000); }
+[data-theme="dark"] .na-chip.is-on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff); }
 
 /* ---- House rule: NO hyperlink underlines anywhere on the platform — links
         read by colour and context (hover keeps its colour shift only). ---- */
