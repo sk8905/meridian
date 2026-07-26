@@ -12,8 +12,8 @@ export const UPDATED = "25 July 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-07-25",
-  lastCheckedTime: "21:09 BST",
+  lastChecked: "2026-07-26",
+  lastCheckedTime: "05:18 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -269,20 +269,19 @@ export const OUTLOOK = {
 //   commentary. Keep each item's real headline + source link; never fabricate —
 //   only add pieces that exist and are dated.
 export const COMMENTARY = {
-  updated: "2026-07-25",
+  updated: "2026-07-26",
   us: [
+    { title: "Goldman Sachs pitches eye-opening view on Fed interest-rate bets", source: "TheStreet", author: "Goldman Sachs — David Mericle", date: "2026-07-25", url: "https://www.thestreet.com/fed/markets-federal-reserve-goldman-sachs-fed-interest-rate-inflation-outlook" },
     { title: "Fed will likely hold rates at July meeting and through 2026, but Iran and tariffs pose upside risks", source: "Kitco News", author: "Natixis", date: "2026-07-23", url: "https://www.kitco.com/news/article/2026-07-23/fed-will-likely-hold-rates-july-meeting-and-through-2026-iran-and-tariffs" },
     { title: "Mohamed El-Erian Warns Higher Oil, 'Massive Bond Issuance' Are Driving Global Yield Surge Ahead Of Fed Meeting", source: "Benzinga", author: "Mohamed A. El-Erian", date: "2026-07-23", url: "https://www.benzinga.com/markets/treasuries/26/07/60635060/mohamed-el-erian-warns-higher-oil-massive-bond-issuance-are-driving-global-yield-surge-ahead-of-fed-meeting" },
     { title: "Jim Bianco Says Bond Investors Need a Rate Hike as 30-Year Treasury Yield Hits 5.15%", source: "Benzinga", author: "Jim Bianco", date: "2026-07-23", url: "https://www.benzinga.com/markets/economic-data/26/07/60629625/jim-bianco-says-bond-investors-need-a-rate-hike-as-30-year-treasury-yield-hits-5-15-when-the-fed-starts-panicking-i-can-stop-panicking" },
     { title: "The Probability of a July Fed Rate Hike Has Tripled Over the Last Week — Here's Why", source: "The Motley Fool", author: null, date: "2026-07-24", url: "https://www.fool.com/investing/2026/07/24/probability-july-fed-rate-hike-tripled-last-week/" },
-    { title: "Pressure Builds on Kevin Warsh to Hike Rates. Here's Why Rates Could Rise in As Little as 7 Days", source: "24/7 Wall St", author: null, date: "2026-07-23", url: "https://247wallst.com/investing/2026/07/23/pressure-builds-on-kevin-warsh-to-hike-rates-heres-why-rates-could-rise-in-as-little-as-7-days/" },
-    { title: "The Most Fundamental Macro Risk Is Back: MacroScope", source: "Bloomberg", author: "Simon White", date: "2026-07-23", url: "https://www.bloomberg.com/news/articles/2026-07-23/the-most-fundamental-macro-risk-is-back-macroscope-mrxj1md7" },
   ],
   uk: [
+    { title: "Bank Of England Outlook: Market Prices BoE Hikes But Berenberg Sees Cuts", source: "ExchangeRates.org.uk", author: "Berenberg", date: "2026-07-24", url: "https://www.exchangerates.org.uk/news/46605/2026-07-24-bank-of-england-outlook-market-prices-boe-hikes-but-berenberg-sees-cuts.html" },
     { title: "What the New UK Chancellor Means for the UK Economy", source: "Project Syndicate", author: "Mohamed A. El-Erian", date: "2026-07-22", url: "https://www.project-syndicate.org/commentary/what-john-healey-appointment-as-chancellor-means-for-uk-economy-by-mohamed-a-el-erian-2026-07" },
     { title: "Lower UK inflation weakens the case for rate hikes", source: "ING", author: "James Smith", date: "2026-07-22", url: "https://think.ing.com/snaps/lower-uk-inflation-weakens-the-case-for-rate-hikes/" },
     { title: "Gilts under pressure as investors brace for higher spending under new PM", source: "Capital Economics", author: "Paul Dales", date: "2026-07-21", url: "https://www.capitaleconomics.com/newsroom/gilts-under-pressure-investors-brace-higher-spending-under-new-pm" },
-    { title: "Should Burnham Front-Load The Fiscal Squeeze?", source: "NIESR", author: null, date: "2026-07-16", url: "https://niesr.ac.uk/blog/should-burnham-front-load-fiscal-squeeze" },
     { title: "Pound Sterling: UK Loan Defaults Rise, But Economists See No Threat To Growth", source: "Pantheon Macroeconomics", author: null, date: "2026-07-20", url: "https://www.exchangerates.org.uk/news/46567/2026-07-20-pound-sterling-uk-loan-defaults-rise-but-economists-see-no-threat-to-growth.html" },
   ],
 };
@@ -600,20 +599,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-07-25",
+  updated: "2026-07-26",
   us: [
+    { title: "Let's get ready to rumble: The next Fed meeting will be a 'family feud' — and that's exactly what Chairman Kevin Warsh wants", source: "Fortune", date: "2026-07-25", url: "https://fortune.com/2026/07/25/fed-meeting-family-feud-rate-hike-inflation-kevin-warsh-hawks/" },
     { title: "Live updates: For first time in 2 weeks, US military does not announce new Iran strikes", source: "CNN", date: "2026-07-25", url: "https://www.cnn.com/2026/07/25/world/live-news/iran-war-trump" },
     { title: "Trump's Tariffs Are Likely to Stick Around Despite Unpopularity", source: "Bloomberg", date: "2026-07-25", url: "https://www.bloomberg.com/news/articles/2026-07-25/trump-s-tariffs-are-likely-to-stick-around-despite-unpopularity" },
     { title: "Will the Federal Reserve raise interest rates? Here is what experts predict for July's meeting", source: "CBS News", date: "2026-07-25", url: "https://www.cbsnews.com/news/fed-interest-rate-decision-july-meeting/" },
     { title: "Saudi military strikes Iran-backed Houthi targets in Yemen", source: "CNBC", date: "2026-07-25", url: "https://www.cnbc.com/2026/07/25/saudi-military-strikes-iran-backed-houthi-targets-yemen.html" },
-    { title: "Markets See Chance Fed Hikes Next Week At July Meeting", source: "Forbes", date: "2026-07-23", url: "https://www.forbes.com/sites/simonmoore/2026/07/23/markets-see-chance-fed-hikes-next-week-at-july-meeting/" },
   ],
   uk: [
     { title: "Week ahead: Fed and BoE policy announcements due", source: "Sharecast", date: "2026-07-25", time: "12:12", url: "https://www.sharecast.com/amp/news/financial-diary/week-ahead-fed-and-boe-policy-announcements-due--23116006.html" },
     { title: "Burnham Brings Better UK Vibes But Faces Tough Six Months Ahead", source: "Bloomberg", date: "2026-07-25", url: "https://www.bloomberg.com/news/articles/2026-07-25/burnham-brings-better-uk-vibes-but-faces-tough-six-months-ahead" },
     { title: "Pound Sterling Outlook Darkens As UK Borrowing Concerns Resurface - UniCredit", source: "ExchangeRates.org.uk", date: "2026-07-25", url: "https://www.exchangerates.org.uk/news/46621/2026-07-25-pound-sterling-outlook-darkens-as-uk-borrowing-concerns-resurface-unicredit.html" },
+    { title: "Bank of England to Hold Steady This Year but Iran War Inflation Risks Persist: Reuters Poll", source: "Reuters (via U.S. News)", date: "2026-07-24", url: "https://money.usnews.com/investing/news/articles/2026-07-24/bank-of-england-to-hold-steady-this-year-but-iran-war-inflation-risks-persist-reuters-poll" },
     { title: "'Burnham bounce' and World Cup lift consumer confidence", source: "Retail Gazette", date: "2026-07-24", url: "https://www.retailgazette.co.uk/blog/2026/07/burnham-bounce-and-world-cup-lift-consumer-confidence/" },
-    { title: "Donald Trump Slaps New 10% Tariff On UK Goods In Early Challenge For Andy Burnham", source: "HuffPost UK", date: "2026-07-24", url: "https://www.huffingtonpost.co.uk/entry/donald-trump-tariff-uk-goods_uk_6a62f526e4b0811ae03fda40" },
   ],
 };
 
@@ -625,8 +624,10 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-07-25",
+  updated: "2026-07-26",
   items: [
+    {"title":"Fed Chair Kevin Warsh Testified Before Congress on July 14 and Said Inflation Remains Too High. Here's What That Means for a Rate Hike","source":"The Motley Fool","date":"2026-07-25","url":"https://www.fool.com/investing/2026/07/25/fed-chair-kevin-warsh-testified-before-congress-on/","blurb":"A look back at Warsh's mid-July Capitol Hill testimony as CME FedWatch-implied odds of a 29 July hike have climbed sharply since, driven by the Iran-war oil shock."},
+    {"title":"As oil soars, experts watch Red Sea tankers for clarity on Houthi blockade","source":"Al Jazeera","date":"2026-07-24","url":"https://www.aljazeera.com/economy/2026/7/24/as-oil-soars-experts-watch-red-sea-tankers-for-clarity-on-houthi-blockade","blurb":"Analysts assess how persistent Red Sea and Strait of Hormuz disruption from Houthi attacks is reshaping the 2026 oil-price shock and its knock-on inflation risk."},
     {"title":"Week ahead: Fed and BoE policy announcements due","source":"Sharecast","date":"2026-07-25","time":"12:12","url":"https://www.sharecast.com/amp/news/financial-diary/week-ahead-fed-and-boe-policy-announcements-due--23116006.html","blurb":"The coming week brings Fed and BoE rate decisions (both expected to hold), plus half-year/Q2 results from AstraZeneca, GSK, Barclays, Unilever, Microsoft and Meta."},
     {"title":"Live updates: For first time in 2 weeks, US military does not announce new Iran strikes","source":"CNN","date":"2026-07-25","url":"https://www.cnn.com/2026/07/25/world/live-news/iran-war-trump","blurb":"US Central Command made no strike announcement on Iran for the first time in nearly two weeks, and Iranian state media reported no overnight strikes or explosions, even as Trump said he is still weighing a 'massive attack'."},
     {"title":"Trump's Tariffs Are Likely to Stick Around Despite Unpopularity","source":"Bloomberg","date":"2026-07-25","url":"https://www.bloomberg.com/news/articles/2026-07-25/trump-s-tariffs-are-likely-to-stick-around-despite-unpopularity","blurb":"Economists say the revenue and negotiating leverage the tariffs generate will make them hard for any future president to fully unwind, even as they draw anger from trading partners and voters."},
