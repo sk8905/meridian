@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "6bd2290f-209d-4b30-9fac-dcfcd32bfb5d", title: "One dead and 16 injured after van drives into Berlin Pride crowd", date: "2026-07-26", time: "08:05", url: "https://www.ft.com/content/6bd2290f-209d-4b30-9fac-dcfcd32bfb5d" },
   { id: "af333b9c-d59d-4e7c-b814-12cef578895d", title: "Investors use crypto exchanges to avoid Beijing’s controls on AI stocks", date: "2026-07-26", time: "05:00", url: "https://www.ft.com/content/af333b9c-d59d-4e7c-b814-12cef578895d" },
   { id: "cd0b6148-a9a7-4763-b6d3-bb33e10b9899", title: "Deadly storm in Chile disrupts copper mines and raises AI supply concerns", date: "2026-07-26", time: "05:00", url: "https://www.ft.com/content/cd0b6148-a9a7-4763-b6d3-bb33e10b9899" },
   { id: "fcb2bd34-b13f-4f4f-950d-92367d43d1f3", title: "Defence giants provide record backing for military start-ups", date: "2026-07-26", time: "05:00", url: "https://www.ft.com/content/fcb2bd34-b13f-4f4f-950d-92367d43d1f3" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "0ce20ef6-178e-4f8a-8a0a-e5f5cc79a414", title: "How did summer childcare get so expensive in the UK?", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/0ce20ef6-178e-4f8a-8a0a-e5f5cc79a414" },
   { id: "e548b330-6621-4fc6-b72a-c6dcd50a785b", title: "Mexico’s Claudia Sheinbaum puts faith in petrol price cap", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/e548b330-6621-4fc6-b72a-c6dcd50a785b" },
   { id: "95cad892-7933-441a-bc82-c39b1a225835", title: "Paramount agrees extensive delay in Warner Bros deal after state lawsuit", date: "2026-07-24", time: "21:17", url: "https://www.ft.com/content/95cad892-7933-441a-bc82-c39b1a225835" },
-  { id: "6e1d4a14-b7ad-4a36-86d9-3990497272a3", title: "France and Spain evacuate 150,000 as ‘unprecedented’ wildfires spread", date: "2026-07-24", time: "21:07", url: "https://www.ft.com/content/6e1d4a14-b7ad-4a36-86d9-3990497272a3" },
 ];
