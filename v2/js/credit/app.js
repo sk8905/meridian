@@ -614,7 +614,11 @@ async function loadConsensus(btn) {
     .sort((a, b) => b.count - a.count || b.total - a.total).slice(0, 25);
   _consBusy = false;
   if (btn) { btn.disabled = false; btn.textContent = "Refresh"; }
-  if (!rows.length) { body.innerHTML = `<p class="tl-sls-key muted small">No overlapping 13F holdings across ${got.length}/${funds.length} funds yet (some file no US 13F; cold filings warm into the edge cache on first view). Try Refresh shortly.</p>`; return; }
+  // A collapse toolbar so the generated cross-holdings can be dismissed (clears the
+  // panel and resets the button back to "Cross-holdings").
+  const collapseHead = `<div class="hf-cons-head"><span class="hf-cons-h-t">Cross-holdings — most-crowded 13F names</span><button type="button" class="hf-cons-x" aria-label="Collapse cross-holdings">✕ Collapse</button></div>`;
+  const wireCollapse = () => { const x = body.querySelector(".hf-cons-x"); if (x) x.addEventListener("click", () => { body.innerHTML = ""; if (btn) btn.textContent = "Cross-holdings"; }); };
+  if (!rows.length) { body.innerHTML = collapseHead + `<p class="tl-sls-key muted small">No overlapping 13F holdings across ${got.length}/${funds.length} funds yet (some file no US 13F; cold filings warm into the edge cache on first view). Try Refresh shortly.</p>`; wireCollapse(); return; }
   const usd = (v) => v >= 1e9 ? "$" + (v / 1e9).toFixed(1) + "bn" : v >= 1e6 ? "$" + (v / 1e6).toFixed(0) + "m" : "$" + Math.round(v).toLocaleString("en-US");
   const flag = (e) => (e.opt ? `<span class="hf-cons-fl" title="Held via options (puts/calls) by some funds">opt</span>` : "") + (e.prn ? `<span class="hf-cons-fl" title="Held as a convertible/debt security by some funds">conv</span>` : "");
   const tick = (e) => e.ticker ? `<a href="https://finance.yahoo.com/quote/${encodeURIComponent(e.ticker)}" target="_blank" rel="noopener noreferrer">${esc(e.ticker)}</a>` : "—";
@@ -624,10 +628,11 @@ async function loadConsensus(btn) {
     + `<td class="tl-n">${e.avgW != null ? (e.avgW * 100).toFixed(1) + "%" : "—"}</td>`
     + `<td class="tl-n">${usd(e.total)}</td>`
     + `<td class="tl-hq" title="${esc(e.holders.map((h) => h.name).join(", "))}">${esc(e.holders.slice(0, 3).map((h) => h.name).join(", "))}${e.holders.length > 3 ? ` +${e.holders.length - 3}` : ""}</td></tr>`;
-  body.innerHTML = `<div class="tleague-wrap"><table class="tleague tl-holdings">`
+  body.innerHTML = collapseHead + `<div class="tleague-wrap"><table class="tleague tl-holdings">`
     + `<thead><tr><th>Security</th><th class="tl-tick">Ticker</th><th># funds</th><th>Avg wt</th><th>Total 13F value</th><th class="tl-hq">Holders</th></tr></thead>`
     + `<tbody>${rows.map(row).join("")}</tbody></table></div>`
     + `<p class="tl-sls-key muted small">Across ${got.length} of the ${funds.length} largest tracked funds' latest SEC 13F filings (long US-equity/option positions only). "# funds" = how many hold the name in their top-10; "Avg wt" = mean position weight among holders. Filings self-refresh on a 24h cache.</p>`;
+  wireCollapse();
 }
 
 // ================================ DASHBOARD =================================

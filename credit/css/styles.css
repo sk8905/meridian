@@ -770,8 +770,17 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 .hf-fl, .hf-cons-fl { display: inline-block; margin-left: 4px; padding: 0 4px; border: 1px solid var(--t-grid2, #262626); border-radius: 3px; font-family: var(--t-mono); font-size: 8.5px; letter-spacing: .02em; color: var(--muted); vertical-align: middle; }
 .tl-holdings .tl-tick a, .hf-cons a { color: var(--t-accent, #fb8b1e); text-decoration: none; }
 .tl-holdings .tl-tick a:hover, .hf-cons a:hover { text-decoration: underline; }
-.hf-cons { margin-top: 14px; }
+/* No reserved space until cross-holdings are actually generated (empty body =
+   no gap between the filter header and the fund table); separation only once
+   there's content. */
+.hf-cons { margin-top: 0; }
+.hf-cons #hf-cons-body:not(:empty) { display: block; margin-top: 14px; }
 .hf-cons .tleague-wrap { margin-top: 0; }
+/* Cross-holdings collapse toolbar. */
+.hf-cons-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 12px; background: var(--head); border-bottom: 1px solid var(--border); }
+.hf-cons-h-t { font-size: 11px; font-weight: 600; color: var(--ink); }
+.hf-cons-x { border: 1px solid var(--border, #262626); background: transparent; color: var(--muted); font-family: var(--t-mono); font-size: 9.5px; font-weight: 600; padding: 2px 8px; cursor: pointer; border-radius: 0; }
+.hf-cons-x:hover { color: var(--ink); border-color: var(--muted); }
 
 /* SEC filing-type badges (13D/13G/Forms 3-4-5 on the hedge fund page) */
 .hf-fform { display: inline-block; min-width: 44px; text-align: center; padding: 0 5px; border-radius: 3px; border: 1px solid var(--t-grid2, #262626); font-family: var(--t-mono); font-size: 10px; font-weight: 600; color: var(--t-ink, #eaf0fb); }
