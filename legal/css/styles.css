@@ -359,7 +359,7 @@ a.compact-head:hover { text-decoration: none; }
   font-size: .85rem; padding: .45rem .6rem; border: 1px solid var(--line);
   border-radius: 7px; background: #fff; color: var(--ink); width: 100%; min-width: 0; font-weight: 400; text-transform: none; letter-spacing: 0;
 }
-.filter > input:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: var(--accent); }
+.filter > input:focus { outline: 2px solid var(--muted); outline-offset: 0; border-color: var(--ink); }
 .ms { position: relative; }
 .ms-btn {
   font: inherit; font-size: .85rem; text-transform: none; letter-spacing: 0;
@@ -369,7 +369,7 @@ a.compact-head:hover { text-decoration: none; }
   display: inline-flex; align-items: center; justify-content: flex-start; gap: .35rem;
 }
 .ms-btn:hover, .ms-btn[aria-expanded="true"] { color: var(--ink); }
-.ms-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+.ms-btn:focus-visible { outline: 2px solid var(--muted); outline-offset: 3px; border-radius: 4px; }
 .ms-caret { color: var(--muted); font-size: .7rem; }
 .ms-pop {
   position: absolute; z-index: 30; top: calc(100% + 4px); left: 0;
@@ -410,7 +410,7 @@ a.compact-head:hover { text-decoration: none; }
   width: 100%; padding: .6rem .9rem; border: 1px solid var(--line); border-radius: 8px;
   font-size: .95rem; background: var(--surface); color: var(--ink); box-shadow: var(--shadow);
 }
-.searchbar input[type="search"]:focus { outline: 2px solid var(--accent); outline-offset: 0; border-color: var(--accent); }
+.searchbar input[type="search"]:focus { outline: 2px solid var(--muted); outline-offset: 0; border-color: var(--ink); }
 .result-count { color: var(--muted); font-size: .82rem; margin-bottom: .8rem; }
 /* Year section breaks in the alert / case-law lists (matching Wire Credit) */
 .year-group + .year-group { margin-top: .5rem; }

@@ -534,7 +534,7 @@
       .g-mkt-close { width:34px; height:34px; flex:0 0 auto; align-self:center; display:grid; place-items:center;
         border:1px solid var(--t-grid2, #262626); background:transparent; color:var(--t-ink, #eaf0fb);
         font-size:15px; line-height:1; cursor:pointer; border-radius:0; }
-      .g-mkt-close:hover { border-color:var(--t-accent, #fb8b1e); color:var(--t-accent, #fb8b1e); }
+      .g-mkt-close:hover { border-color:var(--t-mut); color:var(--t-ink); }
       /* The moved rails stack seamlessly; drop the side dividers, keep a hairline
          between panels. Flatten the FX / indicators / macro-read cards too so they
          match the seamless terminal panels around them. */

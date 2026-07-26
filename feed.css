@@ -48,14 +48,15 @@
 .g-feed-filterbar { display:flex; align-items:center; gap:8px; flex:0 0 100%; width:100%; height:var(--chip-h,34px); padding:0 12px; }
 .g-feed-sel-lbl { color:var(--t-mut); font-size:11.5px; letter-spacing:.01em; }
 .g-feed-sel { flex:0 0 auto; min-width:150px; height:24px; background:var(--t-panel2); color:var(--t-ink); border:1px solid var(--t-grid2); border-radius:5px; font-family:inherit; font-size:12px; padding:0 8px; cursor:pointer; }
-.g-feed-sel:focus { outline:none; border-color:var(--t-accent); }
+.g-feed-sel:focus { outline:none; border-color:var(--t-ink); }
 /* Newsletters shortcut, pinned to the right edge of the filter banner — routes to
    the Newsletters tab (data-nav-tab). Mirrors the .g-feed-sel height/treatment. */
 .g-feed-nlbtn { margin-left:auto; display:inline-flex; align-items:center; gap:6px; height:24px; padding:0 10px; background:var(--t-panel2); color:var(--t-dim); border:1px solid var(--t-grid2); border-radius:5px; font-family:inherit; font-size:12px; font-weight:600; cursor:pointer; }
-.g-feed-nlbtn:hover { color:var(--t-ink); border-color:var(--t-accent); }
-/* Desktop: the button is a feed filter (toggles the Newsletters desk) — highlight
-   it when active. On phones it stays a link to the Newsletters tab. */
-.g-feed-nlbtn.is-on { color:var(--t-ink); border-color:var(--t-accent); background:var(--t-accent-weak,var(--t-panel2)); box-shadow:inset 0 -2px 0 var(--t-accent); }
+.g-feed-nlbtn:hover { color:var(--t-ink); border-color:var(--t-mut); }
+/* Active (Newsletters filter on): a neutral black/white underline (matches the
+   selected-chip marker, R14a) — no orange accent. */
+.g-feed-nlbtn.is-on { color:var(--t-ink); border-color:var(--t-mut); background:var(--t-panel2); box-shadow:inset 0 -2px 0 var(--chip-ul, #000); }
+[data-theme="dark"] .g-feed-nlbtn.is-on { box-shadow:inset 0 -2px 0 var(--chip-ul, #fff); }
 .g-feed-nlbtn svg { flex:0 0 auto; }
 .g-feed-subchips .g-feed-chip { font-size:10.5px; }
 .g-feed-chip { display:flex; align-items:center; justify-content:center; gap:6px; flex:1 1 0; min-width:0;
