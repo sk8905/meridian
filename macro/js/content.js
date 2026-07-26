@@ -13,7 +13,7 @@ export const UPDATED = "26 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-26",
-  lastCheckedTime: "17:21 BST",
+  lastCheckedTime: "21:09 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -602,11 +602,11 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-07-26",
   us: [
+    { title: "New front in US-Iran war escalates as Houthis fire at Saudi oil facilities", source: "Al Jazeera", date: "2026-07-26", time: "21:09", url: "https://www.aljazeera.com/news/2026/7/26/new-front-in-us-iran-war-escalates-as-houthis-fire-at-saudi-oil-facilities" },
     { title: "Live updates: Iran war news; operations 'on a hold' after almost two weeks of consecutive US strikes, source says", source: "CNN", date: "2026-07-26", time: "12:19", url: "https://www.cnn.com/2026/07/26/world/live-news/iran-war-trump" },
     { title: "Let's get ready to rumble: The next Fed meeting will be a 'family feud' — and that's exactly what Chairman Kevin Warsh wants", source: "Fortune", date: "2026-07-25", url: "https://fortune.com/2026/07/25/fed-meeting-family-feud-rate-hike-inflation-kevin-warsh-hawks/" },
     { title: "Will the Federal Reserve raise interest rates? Here is what experts predict for July's meeting", source: "CBS News", date: "2026-07-25", url: "https://www.cbsnews.com/news/fed-interest-rate-decision-july-meeting/" },
     { title: "Trump's Tariffs Are Likely to Stick Around Despite Unpopularity", source: "Bloomberg", date: "2026-07-25", url: "https://www.bloomberg.com/news/articles/2026-07-25/trump-s-tariffs-are-likely-to-stick-around-despite-unpopularity" },
-    { title: "Crude Oil Weekly Recap and Outlook: Brent Tops $100, Then Retreats on Peace Talk Hopes — FOMC Week Ahead", source: "FX Leaders", date: "2026-07-25", url: "https://www.fxleaders.com/news/2026/07/25/crude-oil-weekly-recap-and-outlook-brent-tops-dollar100-then-retreats-on-peace-talk-hopes-fomc-week-ahead/" },
   ],
   uk: [
     { title: "Burnham Brings Better UK Vibes But Faces Tough Six Months Ahead", source: "Bloomberg", date: "2026-07-25", url: "https://www.bloomberg.com/news/articles/2026-07-25/burnham-brings-better-uk-vibes-but-faces-tough-six-months-ahead" },
@@ -627,6 +627,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-26",
   items: [
+    {"title":"New front in US-Iran war escalates as Houthis fire at Saudi oil facilities","source":"Al Jazeera","date":"2026-07-26","time":"21:09","url":"https://www.aljazeera.com/news/2026/7/26/new-front-in-us-iran-war-escalates-as-houthis-fire-at-saudi-oil-facilities","blurb":"Houthi forces struck Saudi Aramco-linked facilities at Jizan and Yanbu on the Red Sea with a large missile/drone barrage even as the US itself held off further strikes on Iran for a second consecutive night."},
+    {"title":"Iran War Spreads to Red Sea and Caspian, Gulf Quiet as US Forgoes Strikes","source":"Reuters (via U.S. News)","date":"2026-07-25","url":"https://www.usnews.com/news/world/articles/2026-07-25/iran-war-spreads-to-red-sea-and-caspian-gulf-quiet-as-us-forgoes-strikes","blurb":"The US military halted a 13-night strike streak on Iran even as the war's economic front lines multiply across the Red Sea and Caspian theatres."},
     {"title":"Live updates: Iran war news; operations 'on a hold' after almost two weeks of consecutive US strikes, source says","source":"CNN","date":"2026-07-26","time":"12:19","url":"https://www.cnn.com/2026/07/26/world/live-news/iran-war-trump","blurb":"A US defence official said overnight strikes on Iran are 'on a hold' for the first time in roughly two weeks, as Iran's Foreign Ministry describes Oman-mediated talks on reopening Hormuz shipping as 'constructive'."},
     {"title":"Let's get ready to rumble: The next Fed meeting will be a 'family feud' — and that's exactly what Chairman Kevin Warsh wants","source":"Fortune","date":"2026-07-25","url":"https://fortune.com/2026/07/25/fed-meeting-family-feud-rate-hike-inflation-kevin-warsh-hawks/","blurb":"Chair Kevin Warsh is set for a fractious 28-29 July FOMC as hawks and doves clash over whether the Iran-driven oil shock justifies a rate hike."},
     {"title":"Crude Oil Weekly Recap and Outlook: Brent Tops $100, Then Retreats on Peace Talk Hopes — FOMC Week Ahead","source":"FX Leaders","date":"2026-07-25","url":"https://www.fxleaders.com/news/2026/07/25/crude-oil-weekly-recap-and-outlook-brent-tops-dollar100-then-retreats-on-peace-talk-hopes-fomc-week-ahead/","blurb":"Brent topped $100/bbl on the week before retreating on hopes of Oman-mediated Iran peace talks, as markets brace for FOMC week."},

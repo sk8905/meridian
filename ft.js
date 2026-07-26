@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c6c745fc-58d6-4a31-9410-ce4e8f5bcfcf", title: "Gatwick airport apologises after water shortage hits toilets", date: "2026-07-26", time: "20:29", url: "https://www.ft.com/content/c6c745fc-58d6-4a31-9410-ce4e8f5bcfcf" },
+  { id: "f91661b4-5d1d-4da0-b00d-88c1bc4fe5b0", title: "The Exploration Company with SpaceX ambitions aiming for a $2bn valuation", date: "2026-07-26", time: "17:50", url: "https://www.ft.com/content/f91661b4-5d1d-4da0-b00d-88c1bc4fe5b0" },
   { id: "b2b45aca-6298-4c39-a763-bd42081cc98b", title: "Reform UK’s bank account was frozen during 2024 election", date: "2026-07-26", time: "13:28", url: "https://www.ft.com/content/b2b45aca-6298-4c39-a763-bd42081cc98b" },
   { id: "4f88ed2b-41de-4d8e-930f-92b8261f49c2", title: "Gibraltar should show Burnham a softer Brexit is the only option", date: "2026-07-26", time: "13:00", url: "https://www.ft.com/content/4f88ed2b-41de-4d8e-930f-92b8261f49c2" },
   { id: "9741206d-b53f-4149-8cab-5203dd4b70fb", title: "Why wages and productivity look set to diverge further", date: "2026-07-26", time: "12:00", url: "https://www.ft.com/content/9741206d-b53f-4149-8cab-5203dd4b70fb" },
@@ -58,8 +60,4 @@ export const FT_ITEMS = [
   { id: "ec5c4433-b17d-4116-b2fb-0fce61a261bd", title: "Chart of the Week: Who owns shares?", date: "2026-07-25", time: "10:30", url: "https://www.ft.com/content/ec5c4433-b17d-4116-b2fb-0fce61a261bd" },
   { id: "b55e3656-4733-4eb8-bb83-b7dbb4ea8888", title: "Intern arrested on suspicion of spying at Nato military HQ", date: "2026-07-25", time: "10:22", url: "https://www.ft.com/content/b55e3656-4733-4eb8-bb83-b7dbb4ea8888" },
   { id: "780bc4bb-1916-4fe2-ad2b-22663c66f16e", title: "Blackstone, KKR and Brookfield take Kuwait pipelines stake in $16bn deal", date: "2026-07-25", time: "09:44", url: "https://www.ft.com/content/780bc4bb-1916-4fe2-ad2b-22663c66f16e" },
-  { id: "75e3ac7d-f612-470b-af3a-a310c52c4e58", title: "Who wants to buy a football club?", date: "2026-07-25", time: "09:00", url: "https://www.ft.com/content/75e3ac7d-f612-470b-af3a-a310c52c4e58" },
-  { id: "ac19e4f4-cf7b-4a75-b591-0ca79ef62d37", title: "India’s ‘Cockroach’ Gen Z has had enough", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/ac19e4f4-cf7b-4a75-b591-0ca79ef62d37" },
-  { id: "24a8adf9-8103-44b3-92e8-350ef897dc2a", title: "Overpriced UK homes take ‘more than four times longer to sell’, study finds", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/24a8adf9-8103-44b3-92e8-350ef897dc2a" },
-  { id: "66a53961-6583-4dfb-8b74-96e6abed5db7", title: "What the City needs from the Burnham government", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/66a53961-6583-4dfb-8b74-96e6abed5db7" },
 ];
