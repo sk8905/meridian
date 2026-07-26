@@ -240,7 +240,12 @@ function initHeaderLock() {
   // The first measure can run before fonts/late CSS settle; re-measure next
   // frame so --wire-head-h (hence every sub-nav offset) is pixel-accurate.
   requestAnimationFrame(lock);
-  window.addEventListener("resize", lock);
+  let resizeQueued = false;
+  window.addEventListener("resize", () => {
+    if (resizeQueued) return;
+    resizeQueued = true;
+    requestAnimationFrame(() => { resizeQueued = false; lock(); });
+  });
 }
 
 // The phone-only bottom meta strip (identity + last refresh), pinned above the

@@ -25,7 +25,7 @@
 /* mono for numeric/terminal data (matches Home) + a head surface for panel bars.
    --wb-txt is the briefing-bar body text colour, kept in lock-step with Home's
    terminal --t-dim so the app banners read identically (light value here). */
-:root { --t-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; --head: #f4f7fb; --wb-txt: #3b475f; }
+:root { --t-mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; --head: #f4f7fb; --wb-txt: #3b475f; }
 
 /* ---- deep near-black terminal surfaces (dark) to match Home ---- */
 :root[data-theme="dark"] {
@@ -152,7 +152,7 @@
 .twire .compact-item { display: grid; grid-template-columns: 70px 30px minmax(0,1fr) auto; column-gap: 10px; padding: 5px 12px; border-bottom: 1px solid var(--border); align-items: baseline; }
 .tw-date { grid-column: 1; font-family: var(--t-mono); font-size: 11px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .tw-tag { grid-column: 2; font-family: var(--t-mono); font-size: 9.5px; font-weight: 700; letter-spacing: .03em; color: var(--muted); }
-.tw-tag.deal { color: #fb8b1e; } .tw-tag.intel { color: #cc9f43; } .tw-tag.clo { color: #9b83e2; } .tw-tag.news { color: #4fa89c; }
+.tw-tag.deal, .tw-tag.intel, .tw-tag.clo, .tw-tag.news { color: var(--t-crd, #fb8b1e); }
 .tw-body { grid-column: 3; display: flex; gap: 6px; align-items: baseline; min-width: 0; }
 .tw-head { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 13px; font-weight: 400; line-height: 1.35; color: var(--ink); }
 .tw-mgr-w { flex: 0 0 auto; white-space: nowrap; max-width: 42%; overflow: hidden; text-overflow: ellipsis; }
@@ -440,7 +440,7 @@
 }
 
 /* macro dashboard — indicators rail + commentary tag */
-.tw-tag.comm { color: #9b83e2; }
+.tw-tag.comm { color: var(--t-mac, #9b83e2); }
 .mac-ind-cty { font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ink); padding: 9px 12px 5px; display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
 .mac-ind-cty-x { font-size: 8.5px; font-weight: 600; letter-spacing: .03em; color: var(--faint); text-transform: none; }
 /* Detail tiles fill the available width — 2-across in the narrow rail, up to
@@ -500,7 +500,7 @@
 .mac-dash-pane .macro-gauge-note { font-size: 10.5px; margin: 8px 0 0; }
 .mac-dash-pane .macro-gauge-note a { color: var(--accent); }
 /* legal wire tags */
-.tw-tag.alert { color: #43b880; } .tw-tag.case { color: #fb8b1e; } .tw-tag.rp { color: #cc9f43; }
+.tw-tag.alert, .tw-tag.case, .tw-tag.rp { color: var(--t-lex, #2fbf8a); }
 
 /* =============================================================================
    HOUSE CONFORMANCE LAYER — the remaining legacy surfaces (Funds / Managers /

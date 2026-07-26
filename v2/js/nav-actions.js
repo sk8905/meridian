@@ -669,7 +669,12 @@ export function initNavActions() {
     import("/rowmenu.js?v=20260724-1").then((m) => m.initRowMenu()).catch(() => {});
     // Swipe left/right on a chip-filtered pane to move between its chips.
     /* v2: swipe-tabs disabled — the runtime owns navigation. */
-    addEventListener("resize", setTopVar);
+    let resizeQueued = false;
+    addEventListener("resize", () => {
+      if (resizeQueued) return;
+      resizeQueued = true;
+      requestAnimationFrame(() => { resizeQueued = false; setTopVar(); });
+    });
     addEventListener("orientationchange", () => setTimeout(setTopVar, 200));
 
     // nav-actions owns all THREE buttons and panels so switching between them is

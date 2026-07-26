@@ -1592,7 +1592,7 @@ function viewWatchlist() {
     <div class="wl-cats">
       ${listCard("Managers", fm, "manager", (m) => link(`#/manager/${m.id}`, m.name))}
       ${listCard("Hedge funds", fh, "hf", (h) => `${link(`#/hf/${h.id}`, h.name)} <span class="muted small">${esc(h.hq || "")}</span>`)}
-      ${listCard("Funds", ff, "fund", (f) => `${link(`#/fund/${f.id}`, f.name)} <span class="muted small">${esc(managerById[f.managerId].name)}</span>`)}
+      ${listCard("Funds", ff, "fund", (f) => `${link(`#/fund/${f.id}`, f.name)} <span class="muted small">${esc(managerById[f.managerId]?.name || "")}</span>`)}
       ${listCard("Investors", fl, "lp", (l) => `${link(`#/lp/${l.id}`, l.name)} <span class="muted small">${esc(l.type)}</span>`)}
     </div>
     <div id="wl-panel" class="wl-panel" hidden></div>
@@ -1877,7 +1877,6 @@ function router() {
 // Swipe-to-change-section gesture removed by request (pull-to-refresh kept).
 
 on(window, "hashchange", router);
-on(window, "DOMContentLoaded", router);
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
 router();
 renderDataStatus();

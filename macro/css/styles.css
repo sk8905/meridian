@@ -585,7 +585,7 @@ circle.yc-uk { fill: #6fa3d6; }
 .macro-score-max { color: var(--muted); font-weight: 600; font-size: .78rem; }
 .macro-metrics { width: 100%; border-collapse: collapse; margin: .1rem 0 .7rem; }
 .macro-metrics th { text-align: left; font-weight: 700; color: var(--ink); font-size: .88rem; padding: .4rem 0 .1rem; vertical-align: baseline; }
-.macro-metric-val { text-align: right; font-weight: 800; color: var(--ink); white-space: nowrap; font-size: .9rem; padding: .4rem 0 .1rem; vertical-align: baseline; }
+.macro-metric-val { text-align: right; font-weight: 800; color: var(--ink); white-space: nowrap; font-size: .9rem; padding: .4rem 0 .1rem; vertical-align: baseline; font-variant-numeric: tabular-nums; }
 .macro-metric-ctx td { padding: 0 0 .5rem; border-bottom: 1px solid var(--border); line-height: 1.4; }
 .macro-metrics tr.macro-metric-ctx:last-child td { border-bottom: none; padding-bottom: 0; }
 .macro-dim-note { margin-top: auto; color: var(--muted); }
