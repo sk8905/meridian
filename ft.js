@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b2b45aca-6298-4c39-a763-bd42081cc98b", title: "Reform UK’s bank account was frozen during 2024 election", date: "2026-07-26", time: "13:28", url: "https://www.ft.com/content/b2b45aca-6298-4c39-a763-bd42081cc98b" },
+  { id: "4f88ed2b-41de-4d8e-930f-92b8261f49c2", title: "Gibraltar should show Burnham a softer Brexit is the only option", date: "2026-07-26", time: "13:00", url: "https://www.ft.com/content/4f88ed2b-41de-4d8e-930f-92b8261f49c2" },
   { id: "9741206d-b53f-4149-8cab-5203dd4b70fb", title: "Why wages and productivity look set to diverge further", date: "2026-07-26", time: "12:00", url: "https://www.ft.com/content/9741206d-b53f-4149-8cab-5203dd4b70fb" },
   { id: "4b67aefb-f61a-4d0e-941c-bf93d625f5ca", title: "Will the Fed raise interest rates at Kevin Warsh’s second meeting?", date: "2026-07-26", time: "12:00", url: "https://www.ft.com/content/4b67aefb-f61a-4d0e-941c-bf93d625f5ca" },
   { id: "ffdeacf0-91b8-48fd-9ff8-d8d134ef5f11", title: "US pauses Iran strikes as Oman pursues Hormuz transit deal", date: "2026-07-26", time: "11:58", url: "https://www.ft.com/content/ffdeacf0-91b8-48fd-9ff8-d8d134ef5f11" },
@@ -60,5 +62,4 @@ export const FT_ITEMS = [
   { id: "ac19e4f4-cf7b-4a75-b591-0ca79ef62d37", title: "India’s ‘Cockroach’ Gen Z has had enough", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/ac19e4f4-cf7b-4a75-b591-0ca79ef62d37" },
   { id: "24a8adf9-8103-44b3-92e8-350ef897dc2a", title: "Overpriced UK homes take ‘more than four times longer to sell’, study finds", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/24a8adf9-8103-44b3-92e8-350ef897dc2a" },
   { id: "66a53961-6583-4dfb-8b74-96e6abed5db7", title: "What the City needs from the Burnham government", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/66a53961-6583-4dfb-8b74-96e6abed5db7" },
-  { id: "4c76fc58-836c-4abe-916e-bfc727f83fca", title: "Andy Burnham’s regional privilege", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/4c76fc58-836c-4abe-916e-bfc727f83fca" },
 ];
