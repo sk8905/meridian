@@ -20,6 +20,15 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "9741206d-b53f-4149-8cab-5203dd4b70fb", title: "Why wages and productivity look set to diverge further", date: "2026-07-26", time: "12:00", url: "https://www.ft.com/content/9741206d-b53f-4149-8cab-5203dd4b70fb" },
+  { id: "4b67aefb-f61a-4d0e-941c-bf93d625f5ca", title: "Will the Fed raise interest rates at Kevin Warsh’s second meeting?", date: "2026-07-26", time: "12:00", url: "https://www.ft.com/content/4b67aefb-f61a-4d0e-941c-bf93d625f5ca" },
+  { id: "ffdeacf0-91b8-48fd-9ff8-d8d134ef5f11", title: "US pauses Iran strikes as Oman pursues Hormuz transit deal", date: "2026-07-26", time: "11:58", url: "https://www.ft.com/content/ffdeacf0-91b8-48fd-9ff8-d8d134ef5f11" },
+  { id: "722d308d-d2d6-4390-976e-0a2e6f124d80", title: "Trump’s systematic assault on science", date: "2026-07-26", time: "11:51", url: "https://www.ft.com/content/722d308d-d2d6-4390-976e-0a2e6f124d80" },
+  { id: "71bbe9fd-e1cb-4e28-8edb-f319032139c4", title: "India’s Gen Z protesters puncture Narendra Modi’s aura of invincibility", date: "2026-07-26", time: "11:43", url: "https://www.ft.com/content/71bbe9fd-e1cb-4e28-8edb-f319032139c4" },
+  { id: "81bf2169-46e9-42a5-bd8b-462891343fd2", title: "Saint-Gobain pushes ahead with US expansion despite slow housing market", date: "2026-07-26", time: "11:00", url: "https://www.ft.com/content/81bf2169-46e9-42a5-bd8b-462891343fd2" },
+  { id: "1215a488-9ef6-4538-a190-5c5bfbf10c0d", title: "US economic anxieties on display in battle over digital store labels", date: "2026-07-26", time: "11:00", url: "https://www.ft.com/content/1215a488-9ef6-4538-a190-5c5bfbf10c0d" },
+  { id: "083aa3f4-04c8-48d1-905f-11ccee299ca4", title: "Carlyle and Bain Capital battle to buy wealth manager in potential $7bn deal", date: "2026-07-26", time: "11:00", url: "https://www.ft.com/content/083aa3f4-04c8-48d1-905f-11ccee299ca4" },
+  { id: "cb14773b-8c05-4434-983f-a10292db8967", title: "Andy Burnham ‘rules out’ early election", date: "2026-07-26", time: "10:44", url: "https://www.ft.com/content/cb14773b-8c05-4434-983f-a10292db8967" },
   { id: "6bd2290f-209d-4b30-9fac-dcfcd32bfb5d", title: "One dead and 16 injured after van drives into Berlin Pride crowd", date: "2026-07-26", time: "08:05", url: "https://www.ft.com/content/6bd2290f-209d-4b30-9fac-dcfcd32bfb5d" },
   { id: "af333b9c-d59d-4e7c-b814-12cef578895d", title: "Investors use crypto exchanges to avoid Beijing’s controls on AI stocks", date: "2026-07-26", time: "05:00", url: "https://www.ft.com/content/af333b9c-d59d-4e7c-b814-12cef578895d" },
   { id: "cd0b6148-a9a7-4763-b6d3-bb33e10b9899", title: "Deadly storm in Chile disrupts copper mines and raises AI supply concerns", date: "2026-07-26", time: "05:00", url: "https://www.ft.com/content/cd0b6148-a9a7-4763-b6d3-bb33e10b9899" },
@@ -52,12 +61,4 @@ export const FT_ITEMS = [
   { id: "24a8adf9-8103-44b3-92e8-350ef897dc2a", title: "Overpriced UK homes take ‘more than four times longer to sell’, study finds", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/24a8adf9-8103-44b3-92e8-350ef897dc2a" },
   { id: "66a53961-6583-4dfb-8b74-96e6abed5db7", title: "What the City needs from the Burnham government", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/66a53961-6583-4dfb-8b74-96e6abed5db7" },
   { id: "4c76fc58-836c-4abe-916e-bfc727f83fca", title: "Andy Burnham’s regional privilege", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/4c76fc58-836c-4abe-916e-bfc727f83fca" },
-  { id: "803b02dd-9d0d-43b9-8af9-24d81b1b6557", title: "Dropping quarterly company reports in US may not be a bad thing", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/803b02dd-9d0d-43b9-8af9-24d81b1b6557" },
-  { id: "bfe34895-6383-4906-96b9-c622d10e32da", title: "More than 600,000 UK high earners could be dragged into pension trap by 2032", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/bfe34895-6383-4906-96b9-c622d10e32da" },
-  { id: "42847a3b-f4b6-4a16-88e0-f06fdfabbdc6", title: "India and South Africa lead push to amass emergency fuel stockpiles", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/42847a3b-f4b6-4a16-88e0-f06fdfabbdc6" },
-  { id: "688211ec-ffa2-421d-85cb-59bce6b1e0dd", title: "The gig is now the content, and the content is the gig", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/688211ec-ffa2-421d-85cb-59bce6b1e0dd" },
-  { id: "577bd050-cee7-4e69-aa43-5106a0635a65", title: "Europe can’t stop the tide of cocaine", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/577bd050-cee7-4e69-aa43-5106a0635a65" },
-  { id: "0ce20ef6-178e-4f8a-8a0a-e5f5cc79a414", title: "How did summer childcare get so expensive in the UK?", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/0ce20ef6-178e-4f8a-8a0a-e5f5cc79a414" },
-  { id: "e548b330-6621-4fc6-b72a-c6dcd50a785b", title: "Mexico’s Claudia Sheinbaum puts faith in petrol price cap", date: "2026-07-25", time: "05:00", url: "https://www.ft.com/content/e548b330-6621-4fc6-b72a-c6dcd50a785b" },
-  { id: "95cad892-7933-441a-bc82-c39b1a225835", title: "Paramount agrees extensive delay in Warner Bros deal after state lawsuit", date: "2026-07-24", time: "21:17", url: "https://www.ft.com/content/95cad892-7933-441a-bc82-c39b1a225835" },
 ];
