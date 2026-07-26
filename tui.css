@@ -376,6 +376,14 @@
 /* iPhone: drop the HQ column so the manager name + numeric columns fit the width. */
 @media (max-width: 760px) {
   .tleague-full .tl-hq, .tleague-full th.tl-hq { display: none; }
+  /* Managers / Hedge Funds search header: don't cram the label + search + filter
+     buttons into one 28px row (it wraps into a broken stack on phones). Drop the
+     redundant pane label (the chip row above already names it), give the search
+     the full width, and let the filter buttons fall to the line beneath. */
+  .thead-search { height: auto; flex-wrap: wrap; row-gap: 8px; padding: 8px 12px; align-items: center; }
+  .thead-search > span:first-child { display: none; }
+  .thead-search .tsearch { flex: 1 1 100%; max-width: none; height: 26px; }
+  .thead-search .tfocus-btn { flex: 0 0 auto; }
 }
 /* detail pane toggle (News / Funds / CLOs / Key personnel) */
 .tchips-l { margin-left: 0; }
