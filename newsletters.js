@@ -29,6 +29,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-pointsofreturn-20260727",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "Points of Return: Will the Fed pivot on rates or just get stuck?",
+    date: "2026-07-27",
+    time: "05:02",
+    summary: "Markets price almost a 40% chance of a Fed funds hike this week as US tariffs return at 10% and Meta, Apple, Microsoft and Amazon report earnings.",
+    url: "https://bloom.bg/4hzQySh",
+  },
+  {
     id: "nl-bbg-thebrink-20260725",
     publication: "Bloomberg",
     author: "Giulia Morpurgo",

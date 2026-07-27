@@ -12,8 +12,8 @@ export const UPDATED = "26 July 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-07-26",
-  lastCheckedTime: "21:09 BST",
+  lastChecked: "2026-07-27",
+  lastCheckedTime: "05:21 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -269,20 +269,20 @@ export const OUTLOOK = {
 //   commentary. Keep each item's real headline + source link; never fabricate —
 //   only add pieces that exist and are dated.
 export const COMMENTARY = {
-  updated: "2026-07-26",
+  updated: "2026-07-27",
   us: [
-    { title: "Goldman Sachs pitches eye-opening view on Fed interest-rate bets", source: "TheStreet", author: "Goldman Sachs — David Mericle", date: "2026-07-25", url: "https://www.thestreet.com/fed/markets-federal-reserve-goldman-sachs-fed-interest-rate-inflation-outlook" },
-    { title: "Fed will likely hold rates at July meeting and through 2026, but Iran and tariffs pose upside risks", source: "Kitco News", author: "Natixis", date: "2026-07-23", url: "https://www.kitco.com/news/article/2026-07-23/fed-will-likely-hold-rates-july-meeting-and-through-2026-iran-and-tariffs" },
+    { title: "Why the Fed Is Unlikely to Cut Rates This Year", source: "Goldman Sachs Research", author: "Goldman Sachs — David Mericle", date: "2026-07-25", url: "https://www.goldmansachs.com/insights/articles/why-the-fed-is-unlikely-to-cut-rates-this-year" },
+    { title: "J.P. Morgan Predicts the Fed Will Make No Interest Rate Cuts in 2026 — but Expects a 'Hike' Next Year", source: "Yahoo Finance", author: "J.P. Morgan", date: "2026-07-25", url: "https://finance.yahoo.com/news/j-p-morgan-predicts-fed-035700750.html" },
+    { title: "Morgan Stanley identifies two triggers that could force a Fed rate hike", source: "Crypto.news", author: "Morgan Stanley", date: "2026-07-24", url: "https://crypto.news/morgan-stanley-identifies-two-triggers-that-could-force-a-fed-rate-hike/" },
     { title: "Mohamed El-Erian Warns Higher Oil, 'Massive Bond Issuance' Are Driving Global Yield Surge Ahead Of Fed Meeting", source: "Benzinga", author: "Mohamed A. El-Erian", date: "2026-07-23", url: "https://www.benzinga.com/markets/treasuries/26/07/60635060/mohamed-el-erian-warns-higher-oil-massive-bond-issuance-are-driving-global-yield-surge-ahead-of-fed-meeting" },
     { title: "Jim Bianco Says Bond Investors Need a Rate Hike as 30-Year Treasury Yield Hits 5.15%", source: "Benzinga", author: "Jim Bianco", date: "2026-07-23", url: "https://www.benzinga.com/markets/economic-data/26/07/60629625/jim-bianco-says-bond-investors-need-a-rate-hike-as-30-year-treasury-yield-hits-5-15-when-the-fed-starts-panicking-i-can-stop-panicking" },
-    { title: "The Probability of a July Fed Rate Hike Has Tripled Over the Last Week — Here's Why", source: "The Motley Fool", author: null, date: "2026-07-24", url: "https://www.fool.com/investing/2026/07/24/probability-july-fed-rate-hike-tripled-last-week/" },
   ],
   uk: [
+    { title: "Burnham is Prime Minister, Healey Chancellor. What does this mean for investors?", source: "Rathbones", author: "Rathbones", date: "2026-07-21", url: "https://www.rathbones.com/en-gb/wealth-management/knowledge-and-insight/Burnham-is-prime-minister-Healey-Chancellor-What-does-this-mean-for-investors" },
     { title: "Bank Of England Outlook: Market Prices BoE Hikes But Berenberg Sees Cuts", source: "ExchangeRates.org.uk", author: "Berenberg", date: "2026-07-24", url: "https://www.exchangerates.org.uk/news/46605/2026-07-24-bank-of-england-outlook-market-prices-boe-hikes-but-berenberg-sees-cuts.html" },
     { title: "What the New UK Chancellor Means for the UK Economy", source: "Project Syndicate", author: "Mohamed A. El-Erian", date: "2026-07-22", url: "https://www.project-syndicate.org/commentary/what-john-healey-appointment-as-chancellor-means-for-uk-economy-by-mohamed-a-el-erian-2026-07" },
     { title: "Lower UK inflation weakens the case for rate hikes", source: "ING", author: "James Smith", date: "2026-07-22", url: "https://think.ing.com/snaps/lower-uk-inflation-weakens-the-case-for-rate-hikes/" },
     { title: "Gilts under pressure as investors brace for higher spending under new PM", source: "Capital Economics", author: "Paul Dales", date: "2026-07-21", url: "https://www.capitaleconomics.com/newsroom/gilts-under-pressure-investors-brace-higher-spending-under-new-pm" },
-    { title: "Pound Sterling: UK Loan Defaults Rise, But Economists See No Threat To Growth", source: "Pantheon Macroeconomics", author: null, date: "2026-07-20", url: "https://www.exchangerates.org.uk/news/46567/2026-07-20-pound-sterling-uk-loan-defaults-rise-but-economists-see-no-threat-to-growth.html" },
   ],
 };
 
@@ -600,20 +600,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-07-26",
+  updated: "2026-07-27",
   us: [
-    { title: "New front in US-Iran war escalates as Houthis fire at Saudi oil facilities", source: "Al Jazeera", date: "2026-07-26", time: "21:09", url: "https://www.aljazeera.com/news/2026/7/26/new-front-in-us-iran-war-escalates-as-houthis-fire-at-saudi-oil-facilities" },
-    { title: "Live updates: Iran war news; operations 'on a hold' after almost two weeks of consecutive US strikes, source says", source: "CNN", date: "2026-07-26", time: "12:19", url: "https://www.cnn.com/2026/07/26/world/live-news/iran-war-trump" },
-    { title: "Let's get ready to rumble: The next Fed meeting will be a 'family feud' — and that's exactly what Chairman Kevin Warsh wants", source: "Fortune", date: "2026-07-25", url: "https://fortune.com/2026/07/25/fed-meeting-family-feud-rate-hike-inflation-kevin-warsh-hawks/" },
-    { title: "Will the Federal Reserve raise interest rates? Here is what experts predict for July's meeting", source: "CBS News", date: "2026-07-25", url: "https://www.cbsnews.com/news/fed-interest-rate-decision-july-meeting/" },
-    { title: "Trump's Tariffs Are Likely to Stick Around Despite Unpopularity", source: "Bloomberg", date: "2026-07-25", url: "https://www.bloomberg.com/news/articles/2026-07-25/trump-s-tariffs-are-likely-to-stick-around-despite-unpopularity" },
+    { title: "Stock market today: Dow, S&P live updates for July 27 — oil tumbles as US and Iran pause military strikes", source: "Bloomberg", date: "2026-07-26", url: "https://www.bloomberg.com/news/articles/2026-07-26/oil-tumbles-as-us-and-iran-pause-military-strikes-markets-wrap" },
+    { title: "Fed rate hike odds surge to 38% ahead of July meeting as oil prices fuel inflation fears", source: "HNGN", date: "2026-07-24", url: "https://www.hngn.com/articles/272326/20260724/fed-rate-hike-odds-surge-38-ahead-july-meeting-oil-prices-fuel-inflation-fears.htm" },
+    { title: "Saudi oil backup route now blocked: July Fed hike odds jump to one-in-three", source: "Tech Times", date: "2026-07-24", url: "https://www.techtimes.com/articles/321482/20260724/saudi-oil-backup-route-now-blocked-july-fed-hike-odds-jump-one-three.htm" },
+    { title: "Markets price in rising odds of July Fed rate hike", source: "Forbes", date: "2026-07-23", url: "https://www.forbes.com/sites/simonmoore/2026/07/23/markets-see-chance-fed-hikes-next-week-at-july-meeting/" },
+    { title: "Warsh confuses traders, makes them guess next week's rate move", source: "Bloomberg", date: "2026-07-22", url: "https://www.bloomberg.com/news/articles/2026-07-22/warsh-leaves-bond-traders-in-the-dark-on-next-week-s-rate-move" },
   ],
   uk: [
     { title: "Burnham Brings Better UK Vibes But Faces Tough Six Months Ahead", source: "Bloomberg", date: "2026-07-25", url: "https://www.bloomberg.com/news/articles/2026-07-25/burnham-brings-better-uk-vibes-but-faces-tough-six-months-ahead" },
-    { title: "Pound Sterling Outlook Darkens As UK Borrowing Concerns Resurface - UniCredit", source: "ExchangeRates.org.uk", date: "2026-07-25", url: "https://www.exchangerates.org.uk/news/46621/2026-07-25-pound-sterling-outlook-darkens-as-uk-borrowing-concerns-resurface-unicredit.html" },
-    { title: "Week In Focus (27-31st July 2026) — Highlights include FOMC, BoE, BoJ, US PCE, US GDP and EZ CPI", source: "Newsquawk", date: "2026-07-25", url: "https://www.newsquawk.com/daily/5685-week-in-focus-27-31st-july-2026-highlights-include-fomc-boe-boj-us-pce-us-gdp-and-ez-cpi" },
-    { title: "Bank of England to Hold Steady This Year but Iran War Inflation Risks Persist: Reuters Poll", source: "Reuters (via U.S. News)", date: "2026-07-24", url: "https://money.usnews.com/investing/news/articles/2026-07-24/bank-of-england-to-hold-steady-this-year-but-iran-war-inflation-risks-persist-reuters-poll" },
-    { title: "Forecasting the upcoming week: Fed, BoE and BoJ decisions take center stage", source: "FXStreet", date: "2026-07-24", url: "https://www.fxstreet.com/news/forecasting-the-upcoming-week-fed-boe-and-boj-decisions-take-center-stage-202607241928" },
+    { title: "UK S&P Global Services PMI returns to growth in July, arrives at 51.8", source: "FXStreet", date: "2026-07-24", url: "https://www.fxstreet.com/news/uk-sp-global-services-pmi-returns-to-growth-in-july-arrives-at-518-202607240836" },
+    { title: "Pound-to-euro forecast: UK inflation falls to 2.6%, GBP retreats", source: "ExchangeRates.org.uk", date: "2026-07-22", url: "https://www.exchangerates.org.uk/news/46573/2026-07-22-pound-to-euro-forecast-uk-inflation-falls-to-2-6-gbp-retreats.html" },
+    { title: "Bond market punishes Burnham's 'fiscal flexibility' as UK yields hit G7 high", source: "Tech Times", date: "2026-07-21", url: "https://www.techtimes.com/articles/321185/20260721/bond-market-punishes-burnhams-fiscal-flexibility-uk-yields-hit-g7-high.htm" },
+    { title: "All eyes are on John Healey, the UK's new finance minister", source: "CNBC", date: "2026-07-21", url: "https://www.cnbc.com/2026/07/21/andy-burnham-john-healey-chancellor-gilts-jamie-dimon.html" },
   ],
 };
 
@@ -625,8 +625,10 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-07-26",
+  updated: "2026-07-27",
   items: [
+    {"title":"Oil tumbles as US and Iran pause military strikes: markets wrap","source":"Bloomberg","date":"2026-07-26","url":"https://www.bloomberg.com/news/articles/2026-07-26/oil-tumbles-as-us-and-iran-pause-military-strikes-markets-wrap","blurb":"Brent fell as much as 7.4% below $90/bbl as both the US and Iran stood down from strikes for a second consecutive night, the clearest de-escalation signal yet ahead of this week's FOMC and MPC decisions."},
+    {"title":"Latest oil market news and analysis for July 27","source":"Bloomberg","date":"2026-07-26","url":"https://www.bloomberg.com/news/articles/2026-07-26/latest-oil-market-news-and-analysis-for-july-27","blurb":"A rolling wrap of oil-market drivers heading into the new week, as traders weigh the Iran-strike pause against still-elevated prices."},
     {"title":"New front in US-Iran war escalates as Houthis fire at Saudi oil facilities","source":"Al Jazeera","date":"2026-07-26","time":"21:09","url":"https://www.aljazeera.com/news/2026/7/26/new-front-in-us-iran-war-escalates-as-houthis-fire-at-saudi-oil-facilities","blurb":"Houthi forces struck Saudi Aramco-linked facilities at Jizan and Yanbu on the Red Sea with a large missile/drone barrage even as the US itself held off further strikes on Iran for a second consecutive night."},
     {"title":"Iran War Spreads to Red Sea and Caspian, Gulf Quiet as US Forgoes Strikes","source":"Reuters (via U.S. News)","date":"2026-07-25","url":"https://www.usnews.com/news/world/articles/2026-07-25/iran-war-spreads-to-red-sea-and-caspian-gulf-quiet-as-us-forgoes-strikes","blurb":"The US military halted a 13-night strike streak on Iran even as the war's economic front lines multiply across the Red Sea and Caspian theatres."},
     {"title":"Live updates: Iran war news; operations 'on a hold' after almost two weeks of consecutive US strikes, source says","source":"CNN","date":"2026-07-26","time":"12:19","url":"https://www.cnn.com/2026/07/26/world/live-news/iran-war-trump","blurb":"A US defence official said overnight strikes on Iran are 'on a hold' for the first time in roughly two weeks, as Iran's Foreign Ministry describes Oman-mediated talks on reopening Hormuz shipping as 'constructive'."},
