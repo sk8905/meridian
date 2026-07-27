@@ -427,7 +427,17 @@ quiet slot gets a short output, not padding.
   In every case `text` compresses a real wire item — never a new claim — and an
   entry with no sourced reason is omitted / left `null`.
 
-Because both files are served no-cache and imported tokenless, editing them needs
+- **Sector flows heatmap — `allocations.js` (root; no-cache/tokenless).**
+  `SECTOR_FLOWS.sectors` holds net ETF fund flows ($M, + inflow / − outflow) for
+  the 11 SPDR sector funds (XLK/XLF/XLE/XLV/XLY/XLP/XLI/XLB/XLRE/XLU/XLC) across
+  windows `w1` (5-day), `m1`, `m3`, `m6`, `y1` — sourced from each fund's ETF
+  Database (`etfdb.com/etf/<TKR>/`) flows page; set `asOf` to the snapshot date.
+  The `d1` (1-day) column is the daily piece: fill it for **all 11 at once** from
+  a single-date daily-flows report (Yahoo/ETF.com) so the column shares one date;
+  leave `null` if you can't source the whole column cleanly (never mix dates,
+  never invent a cell). Surfaces on Markets ▸ **Flows**.
+
+Because these files are served no-cache and imported tokenless, editing them needs
 **no `?v=` bump** — same discipline as `content.js`/`data.js`. Only bump a token if
 you touch the *rendering code* (`nav-actions.js`, `dashboard/app.js`) or its CSS.
 

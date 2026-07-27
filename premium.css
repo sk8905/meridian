@@ -619,6 +619,21 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 /* FX key moment — a single sourced "why it moved" line under the matrix. */
 .na-fx-km { margin-top: 8px; color: var(--mut, #8592ad); font-size: 11px; line-height: 1.45; }
 .na-fx-km-l { color: var(--ink, #eaf0fb); font-weight: 700; font-size: 9px; letter-spacing: .04em; text-transform: uppercase; margin-right: 4px; }
+
+/* Sector flows heatmap (Markets ▸ Flows) — sectors × time windows, diverging
+   colour set inline per cell. Sticky first column, horizontal scroll in-panel. */
+.na-al-wrap { padding: 8px 10px 10px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.na-al-tbl { width: 100%; border-collapse: collapse; font-family: var(--t-mono, ui-monospace, monospace); font-variant-numeric: tabular-nums; font-size: 10px; }
+.na-al-tbl th, .na-al-tbl td { border: 1px solid var(--border, #262626); text-align: center; padding: 4px 3px; white-space: nowrap; }
+.na-al-tbl thead th { color: var(--mut, #8592ad); font-size: 9px; font-weight: 600; letter-spacing: .03em; background: var(--head, #0a0a0a); }
+.na-al-tbl td { color: var(--ink, #eaf0fb); font-weight: 600; }
+.na-al-tbl th.na-al-s { text-align: left; background: var(--head, #0a0a0a); font-weight: 600; padding: 4px 6px; position: sticky; left: 0; z-index: 1; }
+.na-al-tbl th.na-al-s a { color: var(--ink, #eaf0fb); }
+.na-al-tbl th.na-al-s a:hover { color: var(--accent, #fb8b1e); }
+.na-al-tbl td.na-al-na { color: var(--faint, #5c6a86); font-weight: 400; }
+.na-al-foot { margin-top: 8px; color: var(--mut, #8592ad); font-size: 9.5px; line-height: 1.5; }
+.na-al-pos { color: var(--up, #10b981); font-weight: 700; }
+.na-al-neg { color: var(--down, #f26d84); font-weight: 700; }
 /* Portfolio Daily/Total P&L toggle, sat in the Holdings section header. */
 .na-pf-tgl-wrap { display: inline-flex; border: 1px solid var(--border, #262626); }
 .na-pf-tgl, .na-pred-dir { padding: 1px 8px; font: inherit; font-size: 9.5px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; background: transparent; border: 0; color: var(--muted, #8592ad); cursor: pointer; }
