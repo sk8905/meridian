@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "0a0684fe-2ba0-4909-82ca-0e5e70955ce3", title: "Trump says Israel ‘would not survive’ without US", date: "2026-07-27", time: "18:51", url: "https://www.ft.com/content/0a0684fe-2ba0-4909-82ca-0e5e70955ce3" },
+  { id: "2fe22a35-5544-4a0e-b72a-b93e941cbcad", title: "Burnham appoints 61 parliamentary private secretaries in bid to avert Labour unrest", date: "2026-07-27", time: "18:51", url: "https://www.ft.com/content/2fe22a35-5544-4a0e-b72a-b93e941cbcad" },
   { id: "403625cc-8371-43ee-997a-f6908a97f52e", title: "Oil tumbles as Iran and US pause strikes over Strait of Hormuz", date: "2026-07-27", time: "18:24", url: "https://www.ft.com/content/403625cc-8371-43ee-997a-f6908a97f52e" },
   { id: "9f446812-5dc9-4d25-9a4b-ac5162e62d81", title: "Ares Management has held talks to buy Leonard Green & Partners", date: "2026-07-27", time: "18:23", url: "https://www.ft.com/content/9f446812-5dc9-4d25-9a4b-ac5162e62d81" },
   { id: "5c78dec1-b6d6-415e-9456-f1ab5eed6146", title: "Nvidia bets $5bn on Ilya Sutskever’s AI breakthrough", date: "2026-07-27", time: "18:20", url: "https://www.ft.com/content/5c78dec1-b6d6-415e-9456-f1ab5eed6146" },
@@ -58,7 +60,5 @@ export const FT_ITEMS = [
   { id: "fcb2bd34-b13f-4f4f-950d-92367d43d1f3", title: "Defence giants provide record backing for military start-ups", date: "2026-07-26", time: "05:00", url: "https://www.ft.com/content/fcb2bd34-b13f-4f4f-950d-92367d43d1f3" },
   { id: "5b789a38-c9ca-4b23-8e61-8f9e2e589396", title: "Chips and drones to be at heart of Andy Burnham’s push to ‘reindustrialise’, AI minister says", date: "2026-07-26", time: "05:00", url: "https://www.ft.com/content/5b789a38-c9ca-4b23-8e61-8f9e2e589396" },
   { id: "fc7ac23f-5a0b-4114-9f6c-8089fb20ce9f", title: "The British state school that is the first to open an overseas branch", date: "2026-07-26", time: "05:00", url: "https://www.ft.com/content/fc7ac23f-5a0b-4114-9f6c-8089fb20ce9f" },
-  { id: "ad635fef-8785-47be-b264-e74582413ed6", title: "Maga’s creepy baby obsession won’t solve the fertility crisis", date: "2026-07-26", time: "05:00", url: "https://www.ft.com/content/ad635fef-8785-47be-b264-e74582413ed6" },
-  { id: "2ddef625-df80-4690-9475-f3ce86171593", title: "Why workers are nostalgic for life before AI", date: "2026-07-26", time: "05:00", url: "https://www.ft.com/content/2ddef625-df80-4690-9475-f3ce86171593" },
 
 ];

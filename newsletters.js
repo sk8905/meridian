@@ -26,9 +26,20 @@ export const PUBLISHERS = {
   "mail.nonbillable.co.uk": "Non-Billable",
   "newsletter.mail.gs.com": "Goldman Sachs",
   "businesspost.ie": "Business Post",
+  "cf.com": "Chatham Financial",
 };
 
 export const NEWSLETTERS = [
+  {
+    id: "nl-chatham-oilratedebate-20260727",
+    publication: "Chatham Financial",
+    series: "Market Update",
+    title: "Oil resets the rate debate",
+    date: "2026-07-27",
+    time: "18:44",
+    summary: "Brent crude rises 8.5% to $96.78, briefly topping $102, lifting the 10-year Treasury yield to 4.69% ahead of this week's Fed meeting, GDP, PCE and labor-cost data.",
+    url: "https://www.chathamfinancial.com/insights",
+  },
   {
     id: "nl-lb-kkrdccenergy-20260727",
     publication: "Legal Business",
@@ -396,35 +407,6 @@ export const NEWSLETTERS = [
     time: "11:33",
     summary: "Investors pin their hopes on an earnings breakout; plus, Alphabet's cloud business faces scrutiny.",
     url: "https://www.bloomberg.com/news/newsletters/2026-07-22/investors-pin-their-hopes-on-earnings-breakout",
-  },
-  {
-    id: "nl-lb-cmsleaders-20260722",
-    publication: "Legal Business",
-    title: "'There will be winners and losers' - CMS leaders pin their hopes on tech, scale and client relationships",
-    date: "2026-07-22",
-    time: "09:12",
-    summary: "Senior partner Charles Currier and managing partner Adrian Bell on why they're going deeper and wider for their clients.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQtxfnGfO8OL4DG52/wv",
-  },
-  {
-    id: "nl-nonbillable-trumpbiglaw-20260722",
-    publication: "Non-Billable",
-    title: "Trump's Big Law war continues",
-    date: "2026-07-22",
-    time: "09:05",
-    summary: "A&O Shearman is one of 13 Big Law firms ordered to give evidence in its fight with the Trump administration.",
-    url: "https://non-billable.beehiiv.com/p/trump-s-big-law-war-continues",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-20260722",
-    publication: "Bloomberg",
-    author: "Lily Nonomiya and Abhishek Shanker",
-    series: "Morning Briefing Europe",
-    title: "Dim prospects",
-    date: "2026-07-22",
-    time: "06:41",
-    summary: "Trump plays down the prospects for Iran talks as Mideast tensions rise, and Finland's government survives a confidence vote.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-07-22/trump-plays-down-prospects-for-iran-talks-as-mideast-tensions-rise",
   },
   {
     id: "nl-econ-worldinbrief-20260722",
