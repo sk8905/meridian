@@ -13,7 +13,7 @@ export const UPDATED = "27 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-27",
-  lastCheckedTime: "12:18 BST",
+  lastCheckedTime: "17:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -607,14 +607,14 @@ export const NEWS = {
     { title: "Market Quick Take – Oil gaps lower as US-Iran strikes pause, Fed in focus", source: "Saxo Bank", date: "2026-07-27", time: "12:17", url: "https://www.home.saxo/content/articles/macro/market-quick-take---oil-gaps-lower-as-us-iran-strikes-pause-fed-in-focus---27-july-2026-27072026" },
     { title: "Bond Traders Brace for Fed Rate Decision as Oil Prices Fuel Inflation Worries", source: "Bloomberg", date: "2026-07-26", url: "https://www.bloomberg.com/news/articles/2026-07-26/bond-traders-on-edge-as-risks-of-fed-rate-hike-this-week-mount" },
     { title: "Nvidia locks down memory from SK Hynix as part of $500 billion AI deal", source: "CNBC", date: "2026-07-25", url: "https://www.cnbc.com/2026/07/25/nvidia-locks-down-memory-from-sk-hynix-as-part-of-500-billion-ai-deal.html" },
-    { title: "Fed rate decision: Odds surge for hike as oil rips higher", source: "CNBC", date: "2026-07-23", url: "https://www.cnbc.com/2026/07/23/fed-interest-rate-odds-oil-jobless-claims.html" },
+    { title: "Federal Reserve is likely to hold interest rates steady. Here's what that means for consumers", source: "CNBC", date: "2026-07-27", time: "17:20", url: "https://www.cnbc.com/2026/07/27/fed-interest-rates-july.html" },
   ],
   uk: [
+    { title: "UK Inflation Eases as Domestic Price Pressures Fall for Bank of England", source: "Bloomberg", date: "2026-07-27", time: "17:20", url: "https://www.bloomberg.com/news/articles/2026-07-27/britain-s-home-grown-price-pressures-finally-easing-for-the-boe" },
     { title: "Pound To Dollar Week-Ahead Forecast: Fed, BOE Decisions Set To Drive GBP", source: "ExchangeRates.org.uk", date: "2026-07-27", time: "12:17", url: "https://www.exchangerates.org.uk/news/46608/2026-07-27-pound-to-dollar-week-ahead-forecast-fed-boe-decisions-set-to-drive-gbp.html" },
     { title: "British Pound: BoE seen on hold as risks linger – UOB", source: "FXStreet", date: "2026-07-27", time: "12:17", url: "https://www.fxstreet.com/news/british-pound-boe-seen-on-hold-as-risks-linger-uob-202607270719" },
     { title: "FTSE 100 today: Stocks rise as U.S.-Iran truce holds, oil slumps", source: "Investing.com", date: "2026-07-27", time: "12:17", url: "https://www.investing.com/news/stock-market-news/ftse-100-today-stocks-rise-as-usiran-truce-holds-oil-slumps-4813090" },
     { title: "UK Economy Boosted by World Cup and Heat Wave in July, PMI Shows", source: "Bloomberg", date: "2026-07-24", url: "https://www.bloomberg.com/news/articles/2026-07-24/uk-economy-boosted-by-world-cup-and-heat-wave-in-july-pmi-shows" },
-    { title: "Heatwaves, World Cup and Andy Burnham boosted confidence in UK economy", source: "Yahoo News UK", date: "2026-07-24", url: "https://uk.news.yahoo.com/heatwaves-world-cup-andy-burnham-230100583.html" },
   ],
 };
 
@@ -628,6 +628,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-27",
   items: [
+    {"title":"Federal Reserve is likely to hold interest rates steady. Here's what that means for consumers","source":"CNBC","date":"2026-07-27","time":"17:20","url":"https://www.cnbc.com/2026/07/27/fed-interest-rates-july.html","blurb":"A look at what a held Fed funds rate would mean for consumer borrowing costs as the July FOMC decision nears."},
+    {"title":"UK Inflation Eases as Domestic Price Pressures Fall for Bank of England","source":"Bloomberg","date":"2026-07-27","time":"17:20","url":"https://www.bloomberg.com/news/articles/2026-07-27/britain-s-home-grown-price-pressures-finally-easing-for-the-boe","blurb":"Home-grown UK price pressures are finally cooling for the Bank of England, adding to the case for a hold at Thursday's MPC decision."},
     {"title":"CNBC Daily Open: Markets finally get a calm weekend; Nvidia and SK Hynix announce massive memory deal","source":"CNBC","date":"2026-07-27","time":"12:17","url":"https://www.cnbc.com/amp/2026/07/27/cnbc-daily-open-markets-calm-weekend-nvidia-sk-hynix-deal.html","blurb":"A quieter weekend for markets as the US-Iran strike pause holds, with attention shifting to Nvidia's $500bn SK Hynix memory tie-up and this week's FOMC/BoE decisions."},
     {"title":"Market Quick Take – Oil gaps lower as US-Iran strikes pause, Fed in focus","source":"Saxo Bank","date":"2026-07-27","time":"12:17","url":"https://www.home.saxo/content/articles/macro/market-quick-take---oil-gaps-lower-as-us-iran-strikes-pause-fed-in-focus---27-july-2026-27072026","blurb":"Oil opens sharply lower as the US and Iran hold off further strikes, shifting trader focus onto Wednesday's FOMC decision."},
     {"title":"FTSE 100 today: Stocks rise as U.S.-Iran truce holds, oil slumps","source":"Investing.com","date":"2026-07-27","time":"12:17","url":"https://www.investing.com/news/stock-market-news/ftse-100-today-stocks-rise-as-usiran-truce-holds-oil-slumps-4813090","blurb":"Brent's slide to ~$86/bbl lifts airlines and consumer names while BP and Shell fall, as London stocks gain into the BoE's 30 July decision."},
@@ -665,7 +667,6 @@ export const ARTICLES = {
     {"title":"Jim Bianco Says Bond Investors Need a Rate Hike as 30-Year Treasury Yield Hits 5.15%","source":"Benzinga","author":"Jim Bianco","date":"2026-07-23","url":"https://www.benzinga.com/markets/economic-data/26/07/60629625/jim-bianco-says-bond-investors-need-a-rate-hike-as-30-year-treasury-yield-hits-5-15-when-the-fed-starts-panicking-i-can-stop-panicking","blurb":"Bianco argues a hike, not a hold, is what would actually calm the long end of the Treasury curve given the current inflation/oil backdrop."},
     {"title":"Donald Trump Slaps New 10% Tariff On UK Goods In Early Challenge For Andy Burnham","source":"HuffPost UK","date":"2026-07-24","url":"https://www.huffingtonpost.co.uk/entry/donald-trump-tariff-uk-goods_uk_6a62f526e4b0811ae03fda40","blurb":"Britain is among the 60 countries facing the new US tariff round, an early trade-policy test for the week-old Burnham government."},
     {"title":"Stock market today: Dow, S&P 500, Nasdaq futures steady from tech rout as new tariffs take effect","source":"Yahoo Finance","date":"2026-07-24","url":"https://finance.yahoo.com/markets/live/stock-market-today-friday-july-24-dow-sp-500-nasdaq-081854465.html","blurb":"US futures firmed as Brent eased from $100/bbl, even as the new global tariff round and Thursday's Alphabet/Tesla-led selloff kept sentiment cautious."},
-    {"title":"Pound To Dollar Price Forecast: GBP 'Constructive' As Markets Assess Burnham's Policies","source":"ExchangeRates.org.uk","date":"2026-07-24","url":"https://www.exchangerates.org.uk/news/46593/2026-07-24-pound-to-dollar-price-forecast-gbp-constructive-as-markets-assess-burnham-s-policies.html","blurb":"Sterling holds a broadly constructive tone near $1.33 as markets weigh the stronger UK PMI/retail-sales data against gilt-market and tariff headwinds."},
     {"title":"UK PMI Composite Returns to Expansion at 52.1 as Manufacturing Leads Strongest Growth in Nearly Two Years","source":"ActionForex","date":"2026-07-24","url":"https://www.actionforex.com/live-comments/648369-uk-pmi-composite-returns-to-expansion-at-52-1-as-manufacturing-leads-strongest-growth-in-nearly-two-years/","blurb":"UK private-sector activity returned to expansion in July, with manufacturing leading the improvement and services also returning to growth — the first expansion in overall business activity since April."},
     {"title":"UK July flash services PMI 51.8 vs 49.4 expected","source":"InvestingLive","date":"2026-07-24","url":"https://investinglive.com/news/uk-july-flash-services-pmi-xx-vs-49-4-expected","blurb":"The Business Activity Index jumped to 51.8 from June's 48.8, comfortably beating consensus, as hospitality demand was boosted by warm weather, the FIFA World Cup and more domestic holidays."},
   ],
