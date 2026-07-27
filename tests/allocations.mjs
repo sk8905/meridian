@@ -16,6 +16,7 @@ await pg.waitForTimeout(1800);
 await pg.evaluate(() => document.getElementById("na-mkt")?.click());
 await pg.waitForTimeout(500);
 check(await pg.evaluate(() => !!document.querySelector('#na-mkt-panel .na-chip[data-k="allocations"]')), "Markets panel has a Flows chip");
+check(await pg.evaluate(() => { const c = [...document.querySelectorAll('#na-mkt-panel .na-chips .na-chip')]; return c[1] && c[1].dataset.k === "allocations"; }), "on iPhone the Flows chip is the second tab (after Markets)");
 await pg.evaluate(() => document.querySelector('#na-mkt-panel .na-chip[data-k="allocations"]')?.click());
 await pg.waitForTimeout(400);
 

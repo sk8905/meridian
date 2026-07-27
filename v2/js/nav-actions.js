@@ -180,12 +180,12 @@ function renderBriefing(body, slotKey) {
     + `<div class="na-brief-foot">AI-generated summary of Wire’s sourced desks — every line links its source.</div>`;
 }
 function loadMarkets(body) {
+  // On iPhone (the primary surface) Flows sits SECOND, between Markets and Macro;
+  // desktop keeps it in the trailing slot.
+  const mktChips = [["markets", "Markets"], ["macro", "Macro"], ["predict", "Predictions"], ["portfolio", "Portfolio"], ["allocations", "Flows"]];
+  if (isPhone()) { const i = mktChips.findIndex(([k]) => k === "allocations"); mktChips.splice(1, 0, mktChips.splice(i, 1)[0]); }
   body.innerHTML = `<div class="na-chips">`
-    + `<button type="button" class="na-chip" data-k="markets">Markets</button>`
-    + `<button type="button" class="na-chip" data-k="macro">Macro</button>`
-    + `<button type="button" class="na-chip" data-k="predict">Predictions</button>`
-    + `<button type="button" class="na-chip" data-k="portfolio">Portfolio</button>`
-    + `<button type="button" class="na-chip" data-k="allocations">Flows</button>`
+    + mktChips.map(([k, l]) => `<button type="button" class="na-chip" data-k="${k}">${l}</button>`).join("")
     + `</div><div class="na-tabbody"><div class="na-load">Loading…</div></div>`;
   const chips = body.querySelector(".na-chips");
   const tb = body.querySelector(".na-tabbody");
