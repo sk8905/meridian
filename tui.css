@@ -471,6 +471,14 @@
 .mac-mtx-r:hover td, .mac-mtx-r:hover th { background: var(--surface2, rgba(127,140,166,.10)); }
 .mac-mtx-r.on td, .mac-mtx-r.on th { background: var(--surface2, rgba(127,140,166,.16)); }
 .mac-mtx-r.on .mac-mtx-c { color: var(--accent); box-shadow: inset 2px 0 0 var(--chip-ul, var(--accent)); }
+/* Denser rail rows — tighter vertical rhythm in the left/right data rails so
+   more policy/indicator/release lines fit on screen. Scoped to the rails so the
+   centre wire, the Cycle-view indicator matrix (shared .mac-ind/.mac-mtx) and the
+   mobile touch targets keep their own spacing. */
+.tcol-l .tmini-row, .tcol-r .tmini-row { padding-top: 4px; padding-bottom: 4px; }
+.tcol-l .mac-ind, .tcol-r .mac-ind { padding-top: 5px; padding-bottom: 5px; }
+.tcol-r .mac-ind-cty { padding-top: 6px; padding-bottom: 3px; }
+.tcol-r .mac-mtx th, .tcol-r .mac-mtx td { padding-top: 4px; padding-bottom: 4px; }
 /* Macro "Dashboard" chip pane (FedWatch · dot plot · regime gauges) — scrolls
    inside the centre terminal column, swapping in for the news wire. Everything is
    pinned to the terminal type scale and runs edge-to-edge (no card insets), so it
