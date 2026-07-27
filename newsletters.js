@@ -30,6 +30,26 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-econdaily-marketsignaling-20260727",
+    publication: "Bloomberg",
+    series: "Economics Daily",
+    title: "Economics Daily: 'Market signaling' tool",
+    date: "2026-07-27",
+    time: "12:00",
+    summary: "From US to Japan, policymakers aim to get capital moving where they want — jawboning isn't just for currencies anymore, now it's being used for government debt.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-27/from-us-to-japan-policymakers-aim-to-get-capital-moving-where-they-want",
+  },
+  {
+    id: "nl-bbg-marketsdaily-contentiousfed-20260727",
+    publication: "Bloomberg",
+    series: "Markets Daily",
+    title: "Markets Daily: A contentious Fed meeting",
+    date: "2026-07-27",
+    time: "11:44",
+    summary: "Whipsawing oil prices muddy traders' outlook on the Fed meeting; plus, single-stock futures make a comeback.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-27/whipsawing-oil-prices-muddy-traders-outlook-on-fed-meeting",
+  },
+  {
     id: "nl-nonbillable-spinout-20260727",
     publication: "Non-Billable",
     title: "Big Law's spin-out opportunity",
