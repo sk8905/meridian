@@ -117,7 +117,7 @@
 .g-feed-ent:hover { text-decoration:none; }
 /* The source name is a filter control — underline on hover to signal it acts
    independently of the row's link-to-article. */
-.g-feed-src { font-family:var(--t-mono); font-size:10px; color:var(--t-faint); white-space:nowrap; min-width:0; overflow:hidden; text-overflow:ellipsis; cursor:pointer; }
+.g-feed-src { font-family:var(--t-mono); font-size:10px; color:var(--t-faint); white-space:nowrap; min-width:0; overflow:hidden; text-overflow:ellipsis; cursor:pointer; justify-self:end; text-align:right; }
 .g-feed-src:hover { color:var(--t-dim); text-decoration:none; }
 .g-feed-desk { display:none; }
 /* Active source-filter bar above the wire. */
