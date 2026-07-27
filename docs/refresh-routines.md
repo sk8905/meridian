@@ -396,6 +396,38 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
 
 ---
 
+## Briefings & Key Moments (regenerate each run)
+
+Two AI-generated surfaces are written **by this routine**, from the desks' own
+already-sourced items — never at runtime, never from thin air. Both obey the
+non-negotiable: **every line is a compression of an item Wire already holds, and
+carries that item's real source URL.** No invented figures, no uncited claims; a
+quiet slot gets a short output, not padding.
+
+- **Tri-daily briefings — `briefings.js` (root; served no-cache, tokenless).**
+  Three slots: `morning` (< 12:00), `afternoon` (12:00–17:00), `evening`
+  (≥ 17:00 London). On each run, **regenerate the slot the current run-time falls
+  in** (so 05:00 & 09:00 → morning, 12:00 → afternoon, 17:00 & 21:00 → evening);
+  leave the other two as they are. Each slot has a `lede` (one plain-text
+  sentence) and 3–5 `bullets`, each `{ html, src, srcName }` where `html` is
+  authored markup (e.g. `<strong>…</strong>`) and `src` links the wire/desk item
+  it summarises. Update the slot's `date`/`time` to the run stamp. Draw material
+  from `SUMMARY`, `NEWS`, `COMMENTARY`, credit `deals`/`intel`, legal items and
+  the earnings calendar — all of which already carry verified URLs.
+- **Key Moments — `keyMoment` on `dashboard/js/data.js` `EQ_INDICES`.** For an
+  index with a genuine, sourced explanation for its latest notable move, set
+  `keyMoment: { text, src, srcName, date }`; if there is no sourced reason, set it
+  to `null` (the card omits it). `text` compresses a real wire item — never a new
+  claim. This surfaces on the Dashboard ▸ Equities "Key moments" card. (`_headers`
+  serves `dashboard/js/data.js` no-cache, so no token bump — same as the other
+  data files.)
+
+Because both files are served no-cache and imported tokenless, editing them needs
+**no `?v=` bump** — same discipline as `content.js`/`data.js`. Only bump a token if
+you touch the *rendering code* (`nav-actions.js`, `dashboard/app.js`) or its CSS.
+
+---
+
 ## The routine prompt
 
 > Do a full refresh of ALL THREE Meridian platforms — Credit, Legal and Macro —

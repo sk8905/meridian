@@ -113,8 +113,19 @@ export function mount(host, ctx) {
       + `<tbody>${weeks.map(wk).join("")}</tbody></table>`;
   }
   const earnSrc = (EARNINGS && EARNINGS.srcs && EARNINGS.srcs[0] && EARNINGS.srcs[0].url) || "";
+  // Key moments — a plain-language "why it moved" line for each index that carries
+  // a sourced explanation (EQ_INDICES[].keyMoment). Grounded only: an index with no
+  // sourced move renders nothing, and the whole card is omitted if none qualify.
+  function keyMomentsHTML() {
+    const items = EQ_INDICES.filter((x) => x.keyMoment && x.keyMoment.text);
+    if (!items.length) return "";
+    const row = (x) => `<div class="dsh-km"><span class="dsh-km-t">${esc(x.name)}</span>`
+      + `<span class="dsh-km-x">${esc(x.keyMoment.text)}${srcLink(x.keyMoment.src, (x.keyMoment.srcName || "source") + " — source")}</span></div>`;
+    return `<section class="dsh-card dsh-span"><h3 class="dsh-h">Key moments <span class="dsh-n">why it moved</span></h3>${items.map(row).join("")}</section>`;
+  }
   function equitiesHTML() {
     return `<div class="dsh-pane">
+      ${keyMomentsHTML()}
       <section class="dsh-card"><h3 class="dsh-h">S&amp;P 500 sectors — YTD ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
       <section class="dsh-card"><h3 class="dsh-h">Valuation &amp; volatility</h3>${valVolHTML()}</section>
       <div class="dsh-span dsh-pair">

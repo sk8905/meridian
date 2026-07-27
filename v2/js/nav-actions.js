@@ -17,6 +17,7 @@
 // with the same full-screen presentation on mobile.
 // =============================================================================
 import { esc, MONTHS } from "/util.js?v=20260719-1";
+import { BRIEFINGS } from "/briefings.js";
 const fmtNum = (v) => { v = +v; if (!isFinite(v)) return "—"; const a = Math.abs(v); if (a >= 1000) return v.toLocaleString(undefined, { maximumFractionDigits: a >= 10000 ? 0 : 1 }); if (a >= 100) return v.toFixed(1); if (a >= 1) return v.toFixed(2); return v.toFixed(4); };
 const fmtRateVal = (v, unit) => { v = +v; if (!isFinite(v)) return "—"; if (unit === "bp") return v.toFixed(0) + " bp"; return v.toFixed(2) + "%"; };
 function fmtDate(d) { if (!d) return ""; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : String(d).slice(0, 10); const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s); if (!m) return String(d); return `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}`; }
@@ -25,6 +26,7 @@ const DESK = { m: "Macro", c: "Credit", l: "Legal" };
 const DESK_CLASS = { m: "macro", c: "credit", l: "legal", n: "newsletter", f: "ft", s: "substack", b: "brew", news: "news", bbg: "bbg", econ: "econ", comm: "comm", deal: "deal", fund: "fund", clo: "clo", alert: "alert", case: "case", scheme: "scheme", rp: "rp" };
 
 const ICO_MKT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>';
+const ICO_BRIEF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="M8 12h8M8 16h6"/></svg>';
 const ICO_SAVED = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
 const ICO_MAG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.6" y1="15.6" x2="21" y2="21"/></svg>';
 
@@ -152,6 +154,29 @@ let _mktLoaded = false;
 // Byte-identical on every page (Home included) — the shared dropdown.
 let _mktTab = "markets";
 let _pfMode = "daily";   // portfolio holdings P&L column: daily (default) | total
+// Current briefing slot by the reader's local clock (morning < 12:00 · afternoon
+// 12:00–17:00 · evening ≥ 17:00). Slot content is BST-stamped; each shows its own
+// timestamp so the label is never ambiguous.
+function briefSlotNow() { const h = new Date().getHours(); return h < 12 ? "morning" : h < 17 ? "afternoon" : "evening"; }
+// Render one briefing slot into the panel body, with Morning/Afternoon/Evening
+// chips to switch. Bullets carry their own source link (grounding — see
+// briefings.js). `html` is authored, trusted content (like the macro narrative),
+// injected as-is; the lede is plain text and escaped.
+function renderBriefing(body, slotKey) {
+  const B = BRIEFINGS || {};
+  const slots = B.slots || {};
+  const order = (B.order || ["morning", "afternoon", "evening"]).filter((k) => slots[k]);
+  const key = slots[slotKey] ? slotKey : (order[0] || "");
+  const s = slots[key];
+  const chips = order.map((k) => `<button type="button" class="na-chip${k === key ? " is-on" : ""}" data-slot="${esc(k)}">${esc(slots[k].label || k)}</button>`).join("");
+  if (!s) { body.innerHTML = `<div class="na-chips">${chips}</div><div class="na-load">No briefing yet.</div>`; return; }
+  const bullets = (s.bullets || []).map((b) => `<li class="na-brief-b">${b.html || ""}${b.src ? ` <a class="na-brief-src" href="${esc(b.src)}" target="_blank" rel="noopener noreferrer">${esc(b.srcName || "source")}</a>` : ""}</li>`).join("");
+  body.innerHTML = `<div class="na-chips">${chips}</div>`
+    + `<div class="na-brief-when">${esc(s.label || "")}${s.time ? " · " + esc(s.time) : ""}${s.date ? " · " + esc(s.date) : ""}</div>`
+    + (s.lede ? `<p class="na-brief-lede">${esc(s.lede)}</p>` : "")
+    + `<ul class="na-brief-list">${bullets}</ul>`
+    + `<div class="na-brief-foot">AI-generated summary of Wire’s sourced desks — every line links its source.</div>`;
+}
 function loadMarkets(body) {
   body.innerHTML = `<div class="na-chips">`
     + `<button type="button" class="na-chip" data-k="markets">Markets</button>`
@@ -695,6 +720,7 @@ export function initNavActions() {
       // Search. Search sits LAST on phones; the desktop theme button takes the
       // trailing slot (search there is the topbar pill, not this cluster).
       `<span class="na-ring" title="Time to next live-feed refresh" aria-hidden="true"><svg viewBox="0 0 18 18"><circle class="na-ring-track" cx="9" cy="9" r="7"/><circle class="na-ring-arc" cx="9" cy="9" r="7"/></svg></span>` +
+      `<button type="button" class="na-btn" id="na-brief" aria-label="Market briefing" aria-haspopup="true" aria-expanded="false" title="Market briefing">${ICO_BRIEF}</button>` +
       `<button type="button" class="na-btn" id="na-mkt" aria-label="Markets & key rates" aria-haspopup="true" aria-expanded="false" title="Markets & key rates">${ICO_MKT}</button>` +
       `<button type="button" class="na-btn" id="na-saved" aria-label="Saved" aria-haspopup="true" aria-expanded="false" title="Saved">${ICO_SAVED}</button>` +
       `<button type="button" class="na-btn na-bell" id="na-notif" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">${ICO_BELL}<span class="na-badge" hidden></span></button>` +
@@ -786,6 +812,7 @@ export function initNavActions() {
       document.body.appendChild(p);
       return p;
     };
+    const briefPanel = mkPanel("na-brief-panel", "Briefing");
     const mktPanel = mkPanel("na-mkt-panel", "Markets");
     const savedPanel = mkPanel("na-saved-panel", "Bookmarks");
     const notifPanel = mkPanel("na-notif-panel", "Notifications");
@@ -1009,7 +1036,15 @@ export function initNavActions() {
       paint();
     };
 
+    // Briefing panel: chip-switch between slots survives the .na-body re-render
+    // because this listener is bound to the persistent panel, not its body.
+    briefPanel.addEventListener("click", (e) => {
+      const c = e.target.closest(".na-chip[data-slot]");
+      if (c) { e.stopPropagation(); renderBriefing(briefPanel.querySelector(".na-body"), c.dataset.slot); }
+    });
+
     const panels = [
+      { btn: wrap.querySelector("#na-brief"), panel: briefPanel, onOpen: (p) => renderBriefing(p.querySelector(".na-body"), briefSlotNow()) },
       { btn: wrap.querySelector("#na-mkt"), panel: mktPanel, onOpen: (p) => { if (!_mktLoaded) { _mktLoaded = true; loadMarkets(p.querySelector(".na-body")); } } },
       { btn: wrap.querySelector("#na-saved"), panel: savedPanel, onOpen: (p) => { loadSaved(p.querySelector(".na-body"), p.querySelector(".na-h-n")); } },
       { btn: notifBtn, panel: notifPanel, onOpen: (p) => { const body = p.querySelector(".na-body"); if (_notifItems) renderNotif(body); else { body.innerHTML = '<div class="na-load">Loading…</div>'; ensureNotifs().then(() => renderNotif(body)).catch(() => { body.innerHTML = '<div class="na-load">Notifications unavailable right now.</div>'; }); } } },
