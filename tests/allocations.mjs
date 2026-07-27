@@ -53,6 +53,19 @@ check(data.n === 11, `SECTOR_FLOWS has 11 sectors (${data.n})`);
 check(data.numeric, "every provider window (1W–1Y) is a real number");
 check(data.sourced, "every sector carries a source URL");
 
+// Desktop Home left rail: the Top-movers pane's Flows toggle renders the same
+// sector heatmap into #g-movers (markup is present regardless of viewport).
+const rail = await pg.evaluate(() => {
+  const sec = document.getElementById("jump-movers");
+  const tab = sec && sec.querySelector('.g-mkt-tab[data-k="flows"]');
+  if (!tab) return { hasTab: false };
+  tab.click();
+  const tbl = document.querySelector("#g-movers .g-al-tbl");
+  return { hasTab: true, on: tab.classList.contains("is-on"), rows: tbl ? tbl.querySelectorAll("tbody tr").length : 0 };
+});
+check(rail.hasTab, "Home rail Top-movers pane has a Flows toggle (Top movers | Flows)");
+check(rail.on && rail.rows === 11, `rail Flows toggle renders the 11-sector heatmap (${rail.rows})`);
+
 checkErrs(errs, "sector flows heatmap");
 await ctx.close();
 await b.close(); srv.close();

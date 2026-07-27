@@ -32,8 +32,14 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
           </section>
           <!-- Top movers grows to fill the rail; only its list scrolls, so the
                data panels around it stay put. -->
-          <section class="tui-pnl g-movers-pnl">
-            <header class="tui-ph"><span>Top movers</span><span class="tui-px">1D</span></header>
+          <section class="tui-pnl g-movers-pnl" id="jump-movers">
+            <header class="tui-ph g-mkt-head">
+              <span class="g-mkt-tabs" role="tablist" aria-label="Top movers or sector flows">
+                <button type="button" class="g-mkt-tab is-on" data-k="movers" role="tab">Top movers</button>
+                <button type="button" class="g-mkt-tab" data-k="flows" role="tab">Flows</button>
+              </span>
+              <span class="tui-px" id="g-mov-meta">1D</span>
+            </header>
             <div id="g-movers" aria-label="Top market movers"><div class="g-loading">Loading movers…</div></div>
           </section>
           <section class="tui-pnl g-anchor" id="jump-fx">

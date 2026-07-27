@@ -435,6 +435,17 @@
     .g-fx-tbl thead th { border-bottom:1px solid var(--line); }
     .g-fx-tbl tbody tr + tr th, .g-fx-tbl tbody tr + tr td { border-top:1px solid var(--line); }
     .g-fx-tbl td a { color:inherit; text-decoration:none; display:block; padding:.3rem .4rem; }
+    /* Sector flows heatmap in the Top-movers pane (Flows toggle) — reuses the
+       .g-fx-tbl matrix; these tune the wrap, legend and sector-name column. */
+    .g-al-wrap { overflow-x:auto; -webkit-overflow-scrolling:touch; }
+    .g-al-tbl td { padding:.28rem .34rem; text-align:right; color:var(--ink); font-weight:700; font-size:.64rem; }
+    .g-al-tbl td.g-al-na { color:var(--muted, #8592ad); font-weight:400; }
+    .g-al-tbl tbody th { white-space:nowrap; text-transform:none; letter-spacing:0; font-size:.64rem; }
+    .g-al-tbl tbody th a { color:var(--ink); text-decoration:none; }
+    .g-al-tbl tbody th a:hover { color:var(--brand-2); }
+    .g-al-foot { margin-top:.4rem; padding:0 .1rem; color:var(--muted, #8592ad); font-size:.58rem; line-height:1.4; }
+    .g-al-pos { color:#10b981; font-weight:800; }
+    .g-al-neg { color:#f26d84; font-weight:800; }
     /* Macro snapshot card — policy rate, cycle & bubble read below the bands. */
     .g-snap { background:var(--surface); border:1px solid var(--line); border-radius:14px;
       box-shadow:var(--shadow); overflow:hidden; }
