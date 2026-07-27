@@ -2,7 +2,7 @@
 // shell wiring changed: injected container, no chrome boot, active-tab-guarded
 // listeners. Hash sub-routing unchanged.
 
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS } from "/macro/js/content.js";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS, IND_KEYMOMENTS } from "/macro/js/content.js";
 import { reportRefresh } from "/v2/js/status.js?v=v2-2";
 import { esc } from "/util.js?v=20260719-1";
 import { MONTHS, MONTHS_FULL, WEEKDAYS, isoToDate, fmtDay, fmtDayGB, fmtWeekday, fmtDate,
@@ -402,6 +402,17 @@ function macIndTile(s) {
   const chg = (ch == null || s.value == null) ? "" : `<span class="mac-ind-c-chg ${dir}">${arrow} ${Math.abs(ch).toFixed(2)}${pct ? "pp" : ""}</span>`;
   return `<div class="mac-ind"><span class="mac-ind-n">${esc(s.label)}</span><span class="mac-ind-v">${val}</span>${chg}</div>`;
 }
+// Key moments for the indicators rail — sourced "why it moved" lines for the
+// selected country's indicators that carry one (IND_KEYMOMENTS, keyed by
+// COUNTRY:key). Grounded only: nothing to say → nothing renders.
+function macIndKeyMomentsHtml(country) {
+  const rows = MAC_IND_ORDER.map((k) => ({ k, km: IND_KEYMOMENTS[country + ":" + k] })).filter((x) => x.km && x.km.text);
+  if (!rows.length) return "";
+  const LBL = Object.fromEntries(INDICATORS);
+  const row = (x) => `<div class="mac-km"><span class="mac-km-t">${esc(LBL[x.k] || x.k)}</span>`
+    + `<span class="mac-km-x">${esc(x.km.text)} <a class="mac-km-src" href="${esc(x.km.src)}" target="_blank" rel="noopener noreferrer">${esc(x.km.srcName || "source")}</a></span></div>`;
+  return `<div class="mac-km-wrap"><div class="mac-km-h">Key moments <span>why it moved</span></div>${rows.map(row).join("")}</div>`;
+}
 // Which economy the indicators rail has expanded (G7 + Euro Area + Ireland).
 let _macIndCountry = "US";
 // Fill the indicators rail (async): a country × key-indicator comparison matrix
@@ -412,7 +423,7 @@ function renderMacroIndRail(series) {
   if (!el) return;
   const S = series || (MACRO_DATA && MACRO_DATA.series) || [];
   if (!S.length) { el.innerHTML = '<div class="tw-empty muted small">Indicators unavailable right now.</div>'; return; }
-  el.innerHTML = macroMatrixHtml(S, _macIndCountry) + macroDetailHtml(S, _macIndCountry, macIndTile);
+  el.innerHTML = macroMatrixHtml(S, _macIndCountry) + macroDetailHtml(S, _macIndCountry, macIndTile) + macIndKeyMomentsHtml(_macIndCountry);
   el.querySelectorAll(".mac-mtx-r").forEach((tr) => tr.addEventListener("click", () => {
     if (tr.dataset.c === _macIndCountry) return;
     _macIndCountry = tr.dataset.c;

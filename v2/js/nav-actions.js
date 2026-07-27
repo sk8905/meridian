@@ -18,6 +18,7 @@
 // =============================================================================
 import { esc, MONTHS } from "/util.js?v=20260719-1";
 import { BRIEFINGS } from "/briefings.js";
+import { FX_KEYMOMENT } from "/macro/js/content.js";
 const fmtNum = (v) => { v = +v; if (!isFinite(v)) return "—"; const a = Math.abs(v); if (a >= 1000) return v.toLocaleString(undefined, { maximumFractionDigits: a >= 10000 ? 0 : 1 }); if (a >= 100) return v.toFixed(1); if (a >= 1) return v.toFixed(2); return v.toFixed(4); };
 const fmtRateVal = (v, unit) => { v = +v; if (!isFinite(v)) return "—"; if (unit === "bp") return v.toFixed(0) + " bp"; return v.toFixed(2) + "%"; };
 function fmtDate(d) { if (!d) return ""; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : String(d).slice(0, 10); const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s); if (!m) return String(d); return `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}`; }
@@ -359,7 +360,10 @@ function naFxMatrix(d) {
     }).join("");
     return `<tr><th>${esc(base)}</th>${cells}</tr>`;
   }).join("");
-  return naSec("FX matrix", "1D cross") + `<div class="na-fx-wrap"><table class="na-fx-tbl"><thead>${head}</thead><tbody>${body}</tbody></table></div>`;
+  const km = (FX_KEYMOMENT && FX_KEYMOMENT.text)
+    ? `<div class="na-fx-km"><span class="na-fx-km-l">Key moment</span> ${esc(FX_KEYMOMENT.text)}${FX_KEYMOMENT.src ? ` <a class="na-brief-src" href="${esc(FX_KEYMOMENT.src)}" target="_blank" rel="noopener noreferrer">${esc(FX_KEYMOMENT.srcName || "source")}</a>` : ""}</div>`
+    : "";
+  return naSec("FX matrix", "1D cross") + `<div class="na-fx-wrap"><table class="na-fx-tbl"><thead>${head}</thead><tbody>${body}</tbody></table>${km}</div>`;
 }
 function marketsPane(d) {
   if (!d.markets.length && !d.movers.length) return '<div class="na-load">Markets unavailable right now.</div>';

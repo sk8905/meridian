@@ -93,11 +93,13 @@
 .dsh-spread-u { color:var(--t-faint); font-size:.7rem; margin-left:2px; }
 .dsh-load { color:var(--t-mut); font-size:.8rem; margin:2px 0; }
 
-/* Key moments — sourced "why it moved" rows in the Equities pane. */
-.dsh-km { display:flex; gap:10px; align-items:baseline; padding:6px 0; border-bottom:1px solid var(--t-grid); }
+/* Key moments — sourced "why it moved" rows in the Equities pane. Fixed first
+   column so every explanation lines up regardless of index-name length. */
+.dsh-km { display:grid; grid-template-columns:148px 1fr; gap:10px; align-items:baseline; padding:6px 0; border-bottom:1px solid var(--t-grid); }
 .dsh-km:last-child { border-bottom:0; }
-.dsh-km-t { flex:0 0 auto; min-width:104px; color:var(--t-ink); font-weight:600; font-size:.82rem; }
+.dsh-km-t { color:var(--t-ink); font-weight:600; font-size:.82rem; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
 .dsh-km-x { color:var(--t-dim); font-size:.8rem; line-height:1.4; }
+@media (max-width:520px){ .dsh-km { grid-template-columns:118px 1fr; gap:8px; } }
 
 /* IPO / generic table */
 .dsh-scroll { overflow-x:auto; }

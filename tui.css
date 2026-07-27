@@ -459,6 +459,17 @@
 .mac-ind-v { font-family: var(--t-mono); font-size: 14px; color: var(--ink); font-variant-numeric: tabular-nums; }
 .mac-ind-c-chg { font-family: var(--t-mono); font-size: 9.5px; font-variant-numeric: tabular-nums; }
 .mac-ind-c-chg.up { color: var(--t-up, #3fc08d); } .mac-ind-c-chg.down { color: var(--t-down, #f26d84); } .mac-ind-c-chg.flat { color: var(--faint); }
+
+/* Key moments on the indicators rail — sourced "why it moved" lines for the
+   selected country's rate movers (fixed first column so explanations align). */
+.mac-km-wrap { border-top: 1px solid var(--border); padding: 8px 12px 10px; }
+.mac-km-h { font-size: 9px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; color: var(--ink); margin-bottom: 5px; }
+.mac-km-h span { color: var(--muted); font-weight: 600; margin-left: 6px; text-transform: none; letter-spacing: 0; }
+.mac-km { display: grid; grid-template-columns: 92px 1fr; gap: 8px; align-items: baseline; padding: 4px 0; }
+.mac-km-t { color: var(--ink); font-weight: 600; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.mac-km-x { color: color-mix(in srgb, var(--ink) 72%, transparent); font-size: 11px; line-height: 1.4; }
+.mac-km-src { color: var(--muted); font-size: 9.5px; font-weight: 600; white-space: nowrap; }
+.mac-km-src:hover { color: var(--accent); }
 /* G7 + Euro Area + Ireland comparison matrix (country × key indicators). Rows are
    the country selector — clicking one repoints the detail beside/beneath it. */
 .mac-mtx { width: 100%; border-collapse: collapse; font-family: var(--t-mono); font-variant-numeric: tabular-nums; table-layout: fixed; }

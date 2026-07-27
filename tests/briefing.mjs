@@ -71,6 +71,20 @@ check(km.count >= 1, `Key moments card renders sourced movers (${km.count})`);
 check(km.named === km.count && km.explained === km.count, "every Key moment has an index name and an explanation");
 check(km.srcs === km.count, `every Key moment links its source (${km.srcs}/${km.count})`);
 
+// Rates/FX Key Moments render only with live /api data (absent in the harness),
+// so guard the grounded data contract instead: every entry must carry text + a
+// real source URL (the non-negotiable — no uncited claims).
+const data = await pg.evaluate(async () => {
+  const m = await import("/macro/js/content.js");
+  const ik = m.IND_KEYMOMENTS || {};
+  const keys = Object.keys(ik);
+  const wellFormed = keys.length > 0 && keys.every((k) => ik[k] && ik[k].text && /^https?:\/\//.test(ik[k].src || ""));
+  const fx = m.FX_KEYMOMENT || {};
+  return { keys: keys.length, wellFormed, fxOk: !!(fx.text && /^https?:\/\//.test(fx.src || "")) };
+});
+check(data.wellFormed, `rates Key Moments present and every entry sourced (${data.keys})`);
+check(data.fxOk, "FX key moment present and sourced");
+
 checkErrs(errs, "briefing + key moments");
 await ctx.close();
 await b.close(); srv.close();

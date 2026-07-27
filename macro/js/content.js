@@ -819,6 +819,18 @@ export const MATWALL = {
 // factsheet top-10 where published); EMEE is EM-only (weights from the
 // BlackRock factsheet); WMVG = World Min Vol (MSCI factsheet constituents);
 // COMM holds commodity futures, never equities.
+// Key Moments for the macro indicators rail (rates) — grounded, sourced "why it
+// moved" lines keyed by "COUNTRY:indicatorKey" (MAC_IND_ORDER keys: base_rate,
+// two_year, core_cpi, services_pmi, wages, unemployment). Absent = no sourced
+// move (the rail shows nothing). Routine-maintained; see docs/refresh-routines.md.
+export const IND_KEYMOMENTS = {
+  "US:two_year": { text: "Repriced higher as CME FedWatch 29 Jul hike odds jumped to ~37–38% after Brent's Red Sea spike.", src: "https://fortune.com/2026/07/25/fed-meeting-family-feud-rate-hike-inflation-kevin-warsh-hawks/", srcName: "Fortune", date: "2026-07-24" },
+  "UK:two_year": { text: "Pushed up with 10-year gilts near multi-week highs (~5.05%) as the oil shock outweighed June's softer core CPI.", src: "https://www.fxstreet.com/news/forecasting-the-upcoming-week-fed-boe-and-boj-decisions-take-center-stage-202607241928", srcName: "FXStreet", date: "2026-07-24" },
+};
+// FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
+// shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
+export const FX_KEYMOMENT = { text: "The dollar firmed to its strongest since early February as swaps traders trimmed implied 2026 Fed cuts on the oil-driven inflation scare.", src: "https://www.fxleaders.com/news/2026/07/25/crude-oil-weekly-recap-and-outlook-brent-tops-dollar100-then-retreats-on-peace-talk-hopes-fomc-week-ahead/", srcName: "FX Leaders", date: "2026-07-24" };
+
 export const EARNINGS = {
   weeks: [
     { label: "This week \u00b7 27\u201331 Jul", days: [

@@ -414,13 +414,18 @@ quiet slot gets a short output, not padding.
   it summarises. Update the slot's `date`/`time` to the run stamp. Draw material
   from `SUMMARY`, `NEWS`, `COMMENTARY`, credit `deals`/`intel`, legal items and
   the earnings calendar — all of which already carry verified URLs.
-- **Key Moments — `keyMoment` on `dashboard/js/data.js` `EQ_INDICES`.** For an
-  index with a genuine, sourced explanation for its latest notable move, set
-  `keyMoment: { text, src, srcName, date }`; if there is no sourced reason, set it
-  to `null` (the card omits it). `text` compresses a real wire item — never a new
-  claim. This surfaces on the Dashboard ▸ Equities "Key moments" card. (`_headers`
-  serves `dashboard/js/data.js` no-cache, so no token bump — same as the other
-  data files.)
+- **Key Moments — three grounded maps, each `{ text, src, srcName, date }`, all
+  no-cache/tokenless (no `?v=` bump):**
+  - **Equity indices** — `keyMoment` on `dashboard/js/data.js` `EQ_INDICES` (per
+    index). Surfaces on the Dashboard ▸ Equities "Key moments" card.
+  - **Rates** — `IND_KEYMOMENTS` in `macro/js/content.js`, keyed by
+    `COUNTRY:indicatorKey` (e.g. `US:two_year`, `UK:two_year`). Surfaces as the
+    "Key moments" mini-section under the Macro indicators rail for that country.
+  - **FX** — `FX_KEYMOMENT` in `macro/js/content.js` (a single line for the
+    USD/GBP/EUR/JPY board). Surfaces under the Markets ▸ FX matrix.
+
+  In every case `text` compresses a real wire item — never a new claim — and an
+  entry with no sourced reason is omitted / left `null`.
 
 Because both files are served no-cache and imported tokenless, editing them needs
 **no `?v=` bump** — same discipline as `content.js`/`data.js`. Only bump a token if
