@@ -31,6 +31,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-mergerclosingmystery-20260727",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: A Merger Closing Mystery",
+    date: "2026-07-27",
+    time: "19:12",
+    summary: "Record dates, futures, fraud, indexes.",
+    url: "https://bloom.bg/45bxjr7",
+  },
+  {
     id: "nl-chatham-oilratedebate-20260727",
     publication: "Chatham Financial",
     series: "Market Update",
