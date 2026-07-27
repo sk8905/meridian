@@ -30,6 +30,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-kkrdccenergy-20260727",
+    publication: "Legal Business",
+    title: "US firms lead as KKR snaps up latest FTSE 100 firm in £5.75bn energy take-private",
+    date: "2026-07-27",
+    time: "14:05",
+    summary: "Latham, Cleary, Gibson Dunn and Kirkland all land lead roles on the take-private of London-listed DCC Energy.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQuYMfXmzd1hnAeFA/wv",
+  },
+  {
     id: "nl-bbg-econdaily-marketsignaling-20260727",
     publication: "Bloomberg",
     series: "Economics Daily",
