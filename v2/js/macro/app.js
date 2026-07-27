@@ -202,17 +202,6 @@ function summaryCards() {
 
 // ---- Date helpers ----------------------------------------------------------
 
-// Day-break separator rows in the wire (same scanning aid as the Home feed),
-// plus keeping them in step with the in-place kind/source filters.
-function wireDays(rows, rowFn, getDate) {
-  let last = "";
-  return rows.map((x) => {
-    const d = String((getDate ? getDate(x) : x.date) || "").slice(0, 10);
-    const hdr = d && d !== last ? `<li class="tw-day">${esc(fmtDate(d))}</li>` : "";
-    if (d) last = d;
-    return hdr + rowFn(x);
-  }).join("");
-}
 const todayMidnight = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; };
 
 // ---- Upcoming-releases banner ----------------------------------------------

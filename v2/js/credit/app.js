@@ -67,17 +67,6 @@ on(window, "hashchange", () => {
 // ----------------------------- formatting utils ----------------------------
 // Format a €bn AUM figure: €Xtn above 1,000bn, €Xm below 1bn, else €Xbn.
 
-// Day-break separator rows in the wire (same scanning aid as the Home feed),
-// plus keeping them in step with the in-place kind/source filters.
-function wireDays(rows, rowFn, getDate) {
-  let last = "";
-  return rows.map((x) => {
-    const d = String((getDate ? getDate(x) : x.date) || "").slice(0, 10);
-    const hdr = d && d !== last ? `<li class="tw-day">${esc(fmtDate(d))}</li>` : "";
-    if (d) last = d;
-    return hdr + rowFn(x);
-  }).join("");
-}
 function syncDayRows(root) {
   if (!root) return;
   root.querySelectorAll(".tw-day").forEach((d) => {

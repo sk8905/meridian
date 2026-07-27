@@ -115,12 +115,12 @@ a { color: var(--primary); text-decoration: none; }
     z-index: 9490;
     padding: 8px 14px; min-height: 34px;
     font-size: .7rem; line-height: 1.35; letter-spacing: .01em;
-    background: #f6f8fc; color: #66708a;
+    background: #f6f8fc; color: var(--muted, #66708a);
     border-top: 1px solid rgba(15,23,42,.10);
   }
   .v2-botmeta-acct { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .v2-botmeta-acct:empty { display: none; }
-  .v2-botmeta-acct strong { color: #131a2b; font-weight: 600; }
+  .v2-botmeta-acct strong { color: var(--ink, #131a2b); font-weight: 600; }
   .v2-botmeta-status { flex: 0 0 auto; white-space: nowrap; }
   .v2-botmeta-status:empty { display: none; }
 }

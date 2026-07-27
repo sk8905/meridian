@@ -8,7 +8,7 @@ import { items, cases, restructurings, firmById } from "/legal/js/data.js";
 import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js";
 import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
-import { esc, byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
+import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
 import { DESK, DESK_CODE, DESK_CLASS, STRICT_MACRO_RE, deskFor, palTag, nlDesk, PAL_CODE,
   feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, feedChipsHTML } from "/feed.js?v=20260724-3";
 
@@ -63,22 +63,6 @@ function creditSource(rec) {
   return nm || (host ? tidyDomain(host) : "");
 }
 const firmName = (id) => (firmById[id] || {}).name || id || "";
-const judgmentSource = (url) => { const h = srcHost(url); return JUDGMENT_SOURCES[h] || "Judgment"; };
-// Mirror of credit/js/app.js feedDedupKey — the canonical identity of a feed
-// event (source URL, else title). It is stamped on every manager-feed row as
-// data-fkey, so a news notification can deep-link (#/manager/<id>?focus=k:<key>)
-// and focus the exact story even when it collapses into a deal/intel row.
-function feedDedupKey(x) {
-  const u = (x.url || x.sourceUrl || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, "");
-  const generic = !u || /^https?:\/\/[^/]+$/.test(u) || /\/(news-insights|news|press-releases|media|insights|press)$/.test(u);
-  if (!generic) return "u:" + u;
-  return "t:" + (x.title || x.headline || "").toLowerCase().replace(/[^a-z0-9]+/g, "");
-}
-
-const MACRO_INDICATORS = [
-  ["base_rate", "Base rate"], ["two_year", "2-year yield"], ["core_cpi", "Core inflation"],
-  ["services_pmi", "Services PMI"], ["wages", "Wage growth"], ["unemployment", "Unemployment"],
-];
 
 let _inited = false;
 // Live macro headlines from /api/feed (curated finance/macro RSS, edge-parsed).
@@ -138,27 +122,6 @@ export function initGlance() {
 // everything the user has starred across Macro, Credit and Legal in one place.
 function _savedHash(s) { let h = 0; for (let i = 0; i < s.length; i++) h = (Math.imul(h, 31) + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); }
 function _savedBase(x) { return (x.url || x.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, ""); }
-function resolveSaved() {
-  const rd = (k) => { try { return new Set(JSON.parse(localStorage.getItem(k) || "[]")); } catch { return new Set(); } };
-  const mS = rd("meridian.macro.saved"), cS = rd("meridian.credit.saved"), lS = rd("lexalert.saved");
-  const out = [];
-  // Macro — article ids are "a" + hash(url|title base).
-  [...((ARTICLES && ARTICLES.items) || []), ...((NEWS && NEWS.us) || []), ...((NEWS && NEWS.uk) || []),
-   ...((COMMENTARY && COMMENTARY.us) || []), ...((COMMENTARY && COMMENTARY.uk) || [])]
-    .forEach((n) => { if (mS.has("a" + _savedHash(_savedBase(n)))) out.push({ desk: "m", title: n.title, href: n.url, ext: true, date: n.date, time: n.time, src: n.source }); });
-  // Credit — deals/intel by raw id; manager press by "n" + hash(base|managerId).
-  deals.forEach((d) => { if (cS.has(d.id)) out.push({ desk: "c", title: d.headline, href: creditItemHref(d), ext: creditItemExt(d), date: d.date, time: d.time, src: creditSource(d) }); });
-  intel.forEach((i) => { if (cS.has(i.id)) out.push({ desk: "c", title: i.headline, href: creditItemHref(i), ext: creditItemExt(i), date: i.date, time: i.time, src: creditSource(i) }); });
-  managers.forEach((m) => [...(m.news || []), ...(m.webNews || [])].forEach((w) => {
-    if (cS.has("n" + _savedHash(_savedBase(w) + "|" + m.id))) out.push({ desk: "c", title: w.title, href: "/credit/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey({ ...w, _mid: m.id })), ext: false, date: w.date, time: w.time, src: w.outlet || m.name });
-  }));
-  // Legal — items/cases/restructurings by raw id.
-  items.forEach((it) => { if (lS.has(it.id)) out.push({ desk: "l", title: it.title, href: it.url || "/legal/#/item/" + encodeURIComponent(it.id), ext: !!it.url, date: it.date, time: it.time, src: firmName(it.firm) }); });
-  cases.forEach((c) => { if (lS.has(c.id)) out.push({ desk: "l", title: c.name, href: c.url || "/legal/#/", ext: !!c.url, date: c.date, time: c.time, src: c.court }); });
-  restructurings.forEach((r) => { if (lS.has(r.id)) out.push({ desk: "l", title: r.company, href: r.judgmentUrl || r.articleUrl || "/legal/#/", ext: !!(r.judgmentUrl || r.articleUrl), date: r.date, time: r.time, src: r.type === "scheme" ? "Scheme" : "Restructuring plan" }); });
-  return out.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
-}
-
 // ---- Entity cross-linking ----------------------------------------------------
 // A manager/firm named in ANY feed headline (macro, credit or legal) gets a small
 // chip linking straight to its Credit profile. We reduce each manager's full name
@@ -1557,14 +1520,3 @@ let _macroSeries;
 // ---- Unified search index --------------------------------------------------
 // Result priority (rank): managers first, then funds / CLOs, then dated items
 // (deals, intel, legal — newest first), then macro chart shortcuts, then views.
-// Expand common central-bank abbreviations both ways so "Federal Reserve" finds
-// "Fed" headlines and vice-versa (same for BoE / ECB).
-const CB_SYN = [["fed", "federal reserve"], ["fomc", "federal open market committee"], ["boe", "bank of england"], ["ecb", "european central bank"]];
-function expandHay(s) {
-  let h = s.toLowerCase();
-  for (const [ab, full] of CB_SYN) {
-    const hasAb = new RegExp("\\b" + ab + "\\b").test(h), hasFull = h.includes(full);
-    if (hasAb && !hasFull) h += " " + full; else if (hasFull && !hasAb) h += " " + ab;
-  }
-  return h;
-}

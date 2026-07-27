@@ -128,8 +128,9 @@
 /* Stress sort chip bar */
 .dsh-sortbar { display:flex; align-items:center; gap:6px; flex-wrap:wrap; margin:0 0 8px; }
 .dsh-sortlbl { color:var(--t-mut); font-size:.72rem; margin-right:2px; }
-.dsh-sortchip { border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); font-size:.72rem; font-family:inherit; padding:2px 8px; border-radius:999px; cursor:pointer; }
-.dsh-sortchip.is-on { color:var(--t-ink); border-color:var(--t-dim); font-weight:600; }
+.dsh-sortchip { border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); font-size:.72rem; font-family:inherit; padding:2px 8px; cursor:pointer; }
+.dsh-sortchip.is-on { color:var(--t-ink); font-weight:600; box-shadow: inset 0 -2px 0 var(--chip-ul, #000); }
+[data-theme="dark"] .dsh-sortchip.is-on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff); }
 .dsh-stress-n { color:var(--t-dim); font-size:.8rem; line-height:1.35; }
 
 .dsh-more a { color:var(--t-accent); text-decoration:none; font-size:.85rem; }
