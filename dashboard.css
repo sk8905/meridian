@@ -101,6 +101,18 @@
 .dsh-km-x { color:var(--t-dim); font-size:.8rem; line-height:1.4; }
 @media (max-width:520px){ .dsh-km { grid-template-columns:118px 1fr; gap:8px; } }
 
+/* Sector flows heatmap (Equities) — diverging colour set inline per cell,
+   normalised within each window column. */
+.dsh-fl-tbl { font-family:var(--t-mono); font-variant-numeric:tabular-nums; }
+.dsh-fl-tbl th, .dsh-fl-tbl td { text-align:center; white-space:nowrap; }
+.dsh-fl-tbl td.dsh-nm { text-align:left; }
+.dsh-fl { color:var(--t-ink); font-weight:600; }
+.dsh-fl-na { color:var(--t-faint); font-weight:400; }
+.dsh-fl-t { color:var(--t-mut); font-size:.68rem; margin-left:4px; }
+.dsh-fl-note { color:var(--t-faint); font-size:.7rem; line-height:1.5; margin:8px 0 0; }
+.dsh-fl-pos { color:var(--t-up); font-weight:700; }
+.dsh-fl-neg { color:var(--t-down); font-weight:700; }
+
 /* IPO / generic table */
 .dsh-scroll { overflow-x:auto; }
 .dsh-tbl { width:100%; border-collapse:collapse; font-size:.8rem; }

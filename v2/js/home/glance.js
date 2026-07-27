@@ -7,7 +7,6 @@ import { reportRefresh } from "/v2/js/status.js?v=v2-2";
 import { items, cases, restructurings, firmById } from "/legal/js/data.js";
 import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js";
 import { NEWSLETTERS } from "/newsletters.js";
-import { SECTOR_FLOWS } from "/allocations.js";
 import { FT_ITEMS } from "/ft.js";
 import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
 import { DESK, DESK_CODE, DESK_CLASS, STRICT_MACRO_RE, deskFor, palTag, nlDesk, PAL_CODE,
@@ -1257,53 +1256,9 @@ function renderTicker() {
     return it.href ? `<a class="g-tk" href="${esc(it.href)}" target="_blank" rel="noopener noreferrer">${inner}</a>` : `<span class="g-tk">${inner}</span>`;
   }).join("");
 }
-// Top-movers pane view: "movers" (1D cross-asset board) | "flows" (sector
-// allocation heatmap). Toggled by the pane's Top movers | Flows tabs.
-let _moversView = "movers";
-// Compact $M/$B flow formatter for the rail heatmap.
-const fmtFlowM = (m) => { if (m == null) return "—"; const a = Math.abs(m), s = m < 0 ? "-" : ""; return a >= 1000 ? `${s}$${(a / 1000).toFixed(a >= 9950 ? 0 : 1)}B` : `${s}$${Math.round(a)}M`; };
-// Sector flows heatmap for the rail — sectors × time windows (SECTOR_FLOWS),
-// diverging colour normalised PER COLUMN. Reuses the .g-fx-tbl matrix idiom. Null
-// cell → blank (grounding: a window with no sourced figure is not invented).
-function renderMoversFlows(el) {
-  const F = SECTOR_FLOWS;
-  if (!F || !(F.sectors || []).length) { el.innerHTML = '<div class="g-empty">No flow data yet.</div>'; return; }
-  const wins = F.windows || [];
-  const maxAbs = {};
-  wins.forEach(([k]) => { maxAbs[k] = Math.max(1, ...F.sectors.map((s) => (s[k] == null ? 0 : Math.abs(s[k])))); });
-  const heat = (v, max) => (v == null || !max) ? "" : ` style="background:rgba(${v >= 0 ? "16,185,129" : "242,109,132"},${((Math.abs(v) / max) * 0.6 + 0.08).toFixed(3)})"`;
-  const head = `<tr><th></th>${wins.map(([, l]) => `<th>${esc(l)}</th>`).join("")}</tr>`;
-  const body = F.sectors.map((s) => {
-    const cells = wins.map(([k, l]) => {
-      const v = s[k];
-      if (v == null) return `<td class="g-al-na">·</td>`;
-      const tip = `${s.t} · ${l}: ${v >= 0 ? "+" : ""}${fmtFlowM(v)} net flow`;
-      return `<td${heat(v, maxAbs[k])} title="${esc(tip)}">${esc(fmtFlowM(v))}</td>`;
-    }).join("");
-    return `<tr><th title="${esc(s.name)}"><a href="${esc(s.src)}" target="_blank" rel="noopener noreferrer">${esc(s.short || s.name)}</a></th>${cells}</tr>`;
-  }).join("");
-  el.innerHTML = `<div class="g-al-wrap"><table class="g-fx-tbl g-al-tbl"><thead>${head}</thead><tbody>${body}</tbody></table></div>`
-    + `<div class="g-al-foot">Net SPDR sector-ETF flows, $M · <span class="g-al-pos">green in</span> / <span class="g-al-neg">red out</span> · <a href="${esc(F.source)}" target="_blank" rel="noopener noreferrer">ETF Database</a> · ${esc(F.asOf)}</div>`;
-}
-// Delegated toggle for the Top movers | Flows tabs on the movers pane.
-function initMoversToggle() {
-  const sec = document.getElementById("jump-movers");
-  if (!sec || sec.dataset.wired) return;
-  sec.dataset.wired = "1";
-  sec.addEventListener("click", (e) => {
-    const tab = e.target.closest(".g-mkt-tab");
-    if (!tab || tab.dataset.k === _moversView) return;
-    _moversView = tab.dataset.k;
-    sec.querySelectorAll(".g-mkt-tab").forEach((t) => t.classList.toggle("is-on", t.dataset.k === _moversView));
-    renderMovers();
-  });
-}
 function renderMovers() {
   const el = document.getElementById("g-movers");
   if (!el) return;
-  const meta = document.getElementById("g-mov-meta");
-  if (_moversView === "flows") { if (meta) meta.textContent = "net $M"; renderMoversFlows(el); return; }
-  if (meta) meta.textContent = "1D";
   const list = [];
   const seenNm = new Set();
   const pushPct = (label, x, short = true) => {
@@ -1522,7 +1477,6 @@ function initMarkets() {
   const el = document.getElementById("g-markets");
   if (!el) return;
   initMarketsToggle();
-  initMoversToggle();
   // Keep the last-good tiles up until fresh values arrive (never flash a
   // placeholder on a slow or failed refetch).
   renderMarketsBand(el, readCache("markets"));

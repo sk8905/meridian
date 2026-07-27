@@ -1,6 +1,6 @@
 // =============================================================================
-// allocations.js — sector allocation / fund-flow heatmap data for the Markets ▸
-// Flows tab (v2/js/nav-actions.js). Net ETF fund flows into the 11 SPDR select-
+// allocations.js — sector allocation / fund-flow heatmap data for the Dashboard ▸
+// Equities "Sector flows" card (v2/js/dashboard/app.js). Net ETF fund flows into the 11 SPDR select-
 // sector funds across time windows, in $ millions (+ = inflow, − = outflow).
 //
 // SOURCING (non-negotiable): every figure is a real net-flow number from ETF

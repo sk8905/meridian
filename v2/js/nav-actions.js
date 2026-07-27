@@ -19,7 +19,6 @@
 import { esc, MONTHS } from "/util.js?v=20260719-1";
 import { BRIEFINGS } from "/briefings.js";
 import { FX_KEYMOMENT } from "/macro/js/content.js";
-import { SECTOR_FLOWS } from "/allocations.js";
 const fmtNum = (v) => { v = +v; if (!isFinite(v)) return "—"; const a = Math.abs(v); if (a >= 1000) return v.toLocaleString(undefined, { maximumFractionDigits: a >= 10000 ? 0 : 1 }); if (a >= 100) return v.toFixed(1); if (a >= 1) return v.toFixed(2); return v.toFixed(4); };
 const fmtRateVal = (v, unit) => { v = +v; if (!isFinite(v)) return "—"; if (unit === "bp") return v.toFixed(0) + " bp"; return v.toFixed(2) + "%"; };
 function fmtDate(d) { if (!d) return ""; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : String(d).slice(0, 10); const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s); if (!m) return String(d); return `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}`; }
@@ -180,12 +179,11 @@ function renderBriefing(body, slotKey) {
     + `<div class="na-brief-foot">AI-generated summary of Wire’s sourced desks — every line links its source.</div>`;
 }
 function loadMarkets(body) {
-  // On iPhone (the primary surface) Flows sits SECOND, between Markets and Macro;
-  // desktop keeps it in the trailing slot.
-  const mktChips = [["markets", "Markets"], ["macro", "Macro"], ["predict", "Predictions"], ["portfolio", "Portfolio"], ["allocations", "Flows"]];
-  if (isPhone()) { const i = mktChips.findIndex(([k]) => k === "allocations"); mktChips.splice(1, 0, mktChips.splice(i, 1)[0]); }
   body.innerHTML = `<div class="na-chips">`
-    + mktChips.map(([k, l]) => `<button type="button" class="na-chip" data-k="${k}">${l}</button>`).join("")
+    + `<button type="button" class="na-chip" data-k="markets">Markets</button>`
+    + `<button type="button" class="na-chip" data-k="macro">Macro</button>`
+    + `<button type="button" class="na-chip" data-k="predict">Predictions</button>`
+    + `<button type="button" class="na-chip" data-k="portfolio">Portfolio</button>`
     + `</div><div class="na-tabbody"><div class="na-load">Loading…</div></div>`;
   const chips = body.querySelector(".na-chips");
   const tb = body.querySelector(".na-tabbody");
@@ -193,7 +191,6 @@ function loadMarkets(body) {
   const render = () => {
     chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _mktTab));
     if (_mktTab === "predict") { tb.innerHTML = predictPane(predict, predictLoading); return; }
-    if (_mktTab === "allocations") { tb.innerHTML = allocationsPane(); return; }   // static data — no fetch
     if (!data) { tb.innerHTML = '<div class="na-load">Loading…</div>'; return; }
     tb.innerHTML = _mktTab === "portfolio" ? portfolioPane(data) : _mktTab === "macro" ? macroPane(data) : marketsPane(data);
   };
@@ -367,41 +364,6 @@ function naFxMatrix(d) {
     ? `<div class="na-fx-km"><span class="na-fx-km-l">Key moment</span> ${esc(FX_KEYMOMENT.text)}${FX_KEYMOMENT.src ? ` <a class="na-brief-src" href="${esc(FX_KEYMOMENT.src)}" target="_blank" rel="noopener noreferrer">${esc(FX_KEYMOMENT.srcName || "source")}</a>` : ""}</div>`
     : "";
   return naSec("FX matrix", "1D cross") + `<div class="na-fx-wrap"><table class="na-fx-tbl"><thead>${head}</thead><tbody>${body}</tbody></table>${km}</div>`;
-}
-// Sector allocation heatmap — net ETF fund flows into the 11 SPDR sector funds
-// across time windows (SECTOR_FLOWS). Diverging colour (green inflow / red
-// outflow), intensity normalised PER COLUMN so each window's leaders/laggards
-// read despite the huge scale gap between 1D and 1Y. Null cell → blank.
-function naFmtFlow(m) {
-  if (m == null) return "—";
-  const a = Math.abs(m), sign = m < 0 ? "-" : "";
-  if (a >= 1000) return `${sign}$${(a / 1000).toFixed(a >= 9950 ? 0 : 1)}B`;
-  return `${sign}$${Math.round(a)}M`;
-}
-function naAllocHeat(v, max) {
-  if (v == null || !max) return "";
-  const a = (Math.abs(v) / max) * 0.72 + 0.10;
-  return ` style="background:rgba(${v >= 0 ? "5,150,105" : "220,38,38"},${a.toFixed(3)})"`;
-}
-function allocationsPane() {
-  const F = SECTOR_FLOWS;
-  if (!F || !F.sectors || !F.sectors.length) return '<div class="na-load">Sector flows unavailable right now.</div>';
-  const wins = F.windows || [];
-  const maxAbs = {};
-  wins.forEach(([k]) => { maxAbs[k] = Math.max(1, ...F.sectors.map((s) => (s[k] == null ? 0 : Math.abs(s[k])))); });
-  const head = `<tr><th></th>${wins.map(([, l]) => `<th>${esc(l)}</th>`).join("")}</tr>`;
-  const row = (s) => {
-    const cells = wins.map(([k, l]) => {
-      const v = s[k];
-      if (v == null) return `<td class="na-al-na">·</td>`;
-      const tip = `${esc(s.t)} · ${esc(l)}: ${v >= 0 ? "+" : ""}${naFmtFlow(v)} net flow`;
-      return `<td${naAllocHeat(v, maxAbs[k])} title="${tip}">${esc(naFmtFlow(v))}</td>`;
-    }).join("");
-    return `<tr><th class="na-al-s"><a href="${esc(s.src)}" target="_blank" rel="noopener noreferrer" title="${esc(s.name)} (${esc(s.t)}) — flows source">${esc(s.short || s.name)}</a></th>${cells}</tr>`;
-  };
-  return naSec("Sector flows", "net ETF flows · $M")
-    + `<div class="na-al-wrap"><table class="na-al-tbl"><thead>${head}</thead><tbody>${F.sectors.map(row).join("")}</tbody></table>`
-    + `<div class="na-al-foot"><span class="na-al-pos">green = inflow</span> · <span class="na-al-neg">red = outflow</span>, shaded within each window. 1D fills on the next daily run. Source: <a href="${esc(F.source)}" target="_blank" rel="noopener noreferrer">ETF Database</a> · as of ${esc(F.asOf)}.</div></div>`;
 }
 function marketsPane(d) {
   if (!d.markets.length && !d.movers.length) return '<div class="na-load">Markets unavailable right now.</div>';

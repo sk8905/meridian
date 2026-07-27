@@ -1,8 +1,8 @@
-// Sector flows heatmap (Markets ▸ Flows). Guards the allocations surface: the
-// Markets panel gains a "Flows" chip that renders a sectors × time-window
-// heatmap from the committed, sourced SECTOR_FLOWS data (static — no live API),
-// with diverging colour and per-sector source links. Also checks the data
-// contract: 11 SPDR sectors, every provider window numeric, every row sourced.
+// Sector flows heatmap (Dashboard ▸ Equities). Guards the allocations surface:
+// the Equities pane renders a sectors × time-window heatmap from the committed,
+// sourced SECTOR_FLOWS data (allocations.js, static — no live API), with diverging
+// colour and per-sector source links. Also checks the data contract: 11 SPDR
+// sectors, every provider window numeric, every row sourced.
 import { serve, launchChromium, open, PHONE, check, checkErrs, finish } from "./lib.mjs";
 
 const srv = await serve();
@@ -12,27 +12,22 @@ const base = `http://localhost:${srv.port}`;
 const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/");
 await pg.waitForTimeout(1800);
 
-// Open the Markets panel, then switch to the Flows tab.
-await pg.evaluate(() => document.getElementById("na-mkt")?.click());
-await pg.waitForTimeout(500);
-check(await pg.evaluate(() => !!document.querySelector('#na-mkt-panel .na-chip[data-k="allocations"]')), "Markets panel has a Flows chip");
-check(await pg.evaluate(() => { const c = [...document.querySelectorAll('#na-mkt-panel .na-chips .na-chip')]; return c[1] && c[1].dataset.k === "allocations"; }), "on iPhone the Flows chip is the second tab (after Markets)");
-await pg.evaluate(() => document.querySelector('#na-mkt-panel .na-chip[data-k="allocations"]')?.click());
-await pg.waitForTimeout(400);
+// Go to Dashboard ▸ Equities where the heatmap now lives.
+await pg.evaluate(() => { history.pushState({ v2: true }, "", "/v2/dashboard/equities/"); dispatchEvent(new PopStateEvent("popstate")); });
+await pg.waitForTimeout(1200);
 
 const grid = await pg.evaluate(() => {
-  const p = document.getElementById("na-mkt-panel");
-  const tbl = p && p.querySelector(".na-al-tbl");
+  const tbl = document.querySelector(".dsh-fl-tbl");
   if (!tbl) return null;
-  const cols = tbl.querySelectorAll("thead th").length;               // corner + windows
+  const cols = tbl.querySelectorAll("thead th").length;               // label + windows
   const rows = tbl.querySelectorAll("tbody tr").length;
-  const cells = [...tbl.querySelectorAll("tbody td")];
+  const cells = [...tbl.querySelectorAll("tbody td.dsh-fl, tbody td.dsh-fl-na")];
   const colored = cells.filter((c) => c.getAttribute("style") && /rgba?\(/.test(c.getAttribute("style"))).length;
-  const srcLinks = tbl.querySelectorAll('tbody th.na-al-s a[href^="http"]').length;
-  const foot = !!p.querySelector(".na-al-foot a[href^='http']");
+  const srcLinks = tbl.querySelectorAll('tbody td.dsh-nm a[href^="http"]').length;
+  const foot = !!document.querySelector(".dsh-fl-note a[href^='http']");
   return { cols, rows, colored, srcLinks, foot };
 });
-check(!!grid, "Flows chip renders the sector-flows heatmap");
+check(!!grid, "Equities pane renders the sector-flows heatmap");
 check(grid && grid.rows === 11, `11 SPDR sector rows (${grid ? grid.rows : 0})`);
 check(grid && grid.cols === 7, `6 time-window columns + label (${grid ? grid.cols : 0} headers)`);
 check(grid && grid.colored >= 40, `flow cells are heat-shaded (${grid ? grid.colored : 0} coloured)`);
@@ -52,19 +47,6 @@ const data = await pg.evaluate(async () => {
 check(data.n === 11, `SECTOR_FLOWS has 11 sectors (${data.n})`);
 check(data.numeric, "every provider window (1W–1Y) is a real number");
 check(data.sourced, "every sector carries a source URL");
-
-// Desktop Home left rail: the Top-movers pane's Flows toggle renders the same
-// sector heatmap into #g-movers (markup is present regardless of viewport).
-const rail = await pg.evaluate(() => {
-  const sec = document.getElementById("jump-movers");
-  const tab = sec && sec.querySelector('.g-mkt-tab[data-k="flows"]');
-  if (!tab) return { hasTab: false };
-  tab.click();
-  const tbl = document.querySelector("#g-movers .g-al-tbl");
-  return { hasTab: true, on: tab.classList.contains("is-on"), rows: tbl ? tbl.querySelectorAll("tbody tr").length : 0 };
-});
-check(rail.hasTab, "Home rail Top-movers pane has a Flows toggle (Top movers | Flows)");
-check(rail.on && rail.rows === 11, `rail Flows toggle renders the 11-sector heatmap (${rail.rows})`);
 
 checkErrs(errs, "sector flows heatmap");
 await ctx.close();

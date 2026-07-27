@@ -14,6 +14,7 @@ import { esc } from "/util.js?v=20260719-1";
 import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, DASH_ASOF } from "/dashboard/js/data.js";
 import { OUTLOOK, CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS } from "/macro/js/content.js";
 import { deals, intel } from "/credit/js/data.js";
+import { SECTOR_FLOWS } from "/allocations.js";
 
 const SUBTABS = [["macro", "Macro"], ["equities", "Equities"], ["credit", "Credit"]];
 const pct1 = (n) => (n == null ? "—" : (n > 0 ? "+" : "") + n.toFixed(1) + "%");
@@ -123,9 +124,42 @@ export function mount(host, ctx) {
       + `<span class="dsh-km-x">${esc(x.keyMoment.text)}${srcLink(x.keyMoment.src, (x.keyMoment.srcName || "source") + " — source")}</span></div>`;
     return `<section class="dsh-card dsh-span"><h3 class="dsh-h">Key moments <span class="dsh-n">why it moved</span></h3>${items.map(row).join("")}</section>`;
   }
+  // Sector allocations heatmap — net ETF fund flows into the 11 SPDR sector funds
+  // across windows (SECTOR_FLOWS, allocations.js). Diverging colour normalised
+  // PER COLUMN so each window's leaders/laggards read despite the scale gap
+  // between 1D and 1Y. Null cell → blank (grounded only, never fabricated).
+  function fmtFlow(m) {
+    if (m == null) return "—";
+    const a = Math.abs(m), sign = m < 0 ? "-" : "";
+    return a >= 1000 ? `${sign}$${(a / 1000).toFixed(a >= 9950 ? 0 : 1)}B` : `${sign}$${Math.round(a)}M`;
+  }
+  function sectorFlowsHTML() {
+    const F = SECTOR_FLOWS;
+    if (!F || !(F.sectors || []).length) return "";
+    const wins = F.windows || [];
+    const maxAbs = {};
+    wins.forEach(([k]) => { maxAbs[k] = Math.max(1, ...F.sectors.map((s) => (s[k] == null ? 0 : Math.abs(s[k])))); });
+    const heat = (v, max) => {
+      if (v == null || !max) return "";
+      const a = (Math.abs(v) / max) * 0.62 + 0.10;
+      return ` style="background:rgba(${v >= 0 ? "63,192,141" : "242,109,132"},${a.toFixed(3)})"`;
+    };
+    const head = `<tr><th>Sector</th>${wins.map(([, l]) => `<th class="dsh-r">${esc(l)}</th>`).join("")}</tr>`;
+    const row = (s) => {
+      const cells = wins.map(([k, l]) => {
+        const v = s[k];
+        if (v == null) return `<td class="dsh-fl-na">·</td>`;
+        return `<td class="dsh-fl"${heat(v, maxAbs[k])} title="${esc(s.t)} · ${esc(l)}: ${v >= 0 ? "+" : ""}${esc(fmtFlow(v))} net flow">${esc(fmtFlow(v))}</td>`;
+      }).join("");
+      return `<tr><td class="dsh-nm"><a href="${esc(s.src)}" target="_blank" rel="noopener noreferrer">${esc(s.name)}</a> <span class="dsh-fl-t">${esc(s.t)}</span></td>${cells}</tr>`;
+    };
+    return `<table class="dsh-tbl dsh-fl-tbl"><thead>${head}</thead><tbody>${F.sectors.map(row).join("")}</tbody></table>`
+      + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = inflow</span> · <span class="dsh-fl-neg">red = outflow</span>, shaded within each window (net ${esc(F.unit || "$M")}). 1D fills on the next daily run. Source: <a href="${esc(F.source)}" target="_blank" rel="noopener noreferrer">ETF Database</a>.</p>`;
+  }
   function equitiesHTML() {
     return `<div class="dsh-pane">
       ${keyMomentsHTML()}
+      <section class="dsh-card dsh-span"><h3 class="dsh-h">Sector flows — net ETF flows ${asOf(SECTOR_FLOWS.asOf)}</h3><div class="dsh-scroll">${sectorFlowsHTML()}</div></section>
       <section class="dsh-card"><h3 class="dsh-h">S&amp;P 500 sectors — YTD ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
       <section class="dsh-card"><h3 class="dsh-h">Valuation &amp; volatility</h3>${valVolHTML()}</section>
       <div class="dsh-span dsh-pair">
