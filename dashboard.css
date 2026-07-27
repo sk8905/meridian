@@ -103,6 +103,10 @@
    compact and its columns lined up on the first line. */
 .dsh-tbl td { padding:5px 8px; border-bottom:1px solid var(--t-grid); color:var(--t-dim); white-space:nowrap; vertical-align:top; }
 .dsh-tbl .dsh-nm { color:var(--t-ink); font-weight:600; }
+/* Week sub-header row inside a grouped table (e.g. the earnings calendar's
+   "This week" / "Last week" bands). */
+.dsh-tbl .dsh-wkrow td { color:var(--t-ink); font-weight:600; font-size:.7rem; text-transform:uppercase;
+  letter-spacing:.04em; background:var(--t-panel2); border-bottom:1px solid var(--t-grid2); padding-top:7px; padding-bottom:4px; }
 .dsh-r { text-align:right; }
 .dsh-tag { font-size:.68rem; font-weight:600; border-radius:4px; padding:1px 5px; border:1px solid var(--t-grid2); color:var(--t-mut); }
 .dsh-tag-priced{ color:var(--t-up); border-color:var(--t-up); }

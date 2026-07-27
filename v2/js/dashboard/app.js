@@ -92,26 +92,33 @@ export function mount(host, ctx) {
     const row = (x) => `<tr><td class="dsh-nm">${esc(x.company)}</td><td>${esc(x.exchange)}</td><td class="dsh-r">${esc(x.size)}</td><td>${esc(x.timing)}</td><td><span class="dsh-tag dsh-tag-${x.status.toLowerCase()}">${esc(x.status)}</span>${srcLink(x.source, x.company + " source")}</td></tr>`;
     return `<table class="dsh-tbl"><thead><tr><th>Company</th><th>Listing</th><th class="dsh-r">Size</th><th>Timing</th><th>Status</th></tr></thead><tbody>${EQ_IPO.map(row).join("")}</tbody></table>`;
   }
-  // Compact earnings calendar — the next/last reporting rows from the macro desk's
-  // EARNINGS structure (weeks → days → rows), each ticker linked to Yahoo.
+  // Two-week earnings calendar from the macro desk's EARNINGS structure
+  // (weeks → days → rows): THIS week's slate first (expected EPS, not yet
+  // reported), then LAST week's results. Each week gets a label sub-header, and
+  // the split Est/Act columns make the exp-vs-act distinction explicit — an
+  // upcoming row shows "—" in Act until the company reports. Tickers link to
+  // Yahoo; the card header carries the week-ahead source.
   function earningsHTML() {
     const weeks = (EARNINGS && EARNINGS.weeks) || [];
-    const rows = [];
-    weeks.forEach((w) => (w.days || []).forEach((day) => (day.rows || []).forEach((r) => rows.push({ ...r, date: day.date }))));
-    if (!rows.length) return "";
-    const pick = rows.slice(0, 14);
-    const tr = (r) => `<tr><td>${esc(fmtDate(r.date))}</td>`
-      + `<td class="dsh-nm"><a href="https://finance.yahoo.com/quote/${encodeURIComponent(r.t)}" target="_blank" rel="noopener noreferrer">${esc(r.t)}</a></td>`
+    if (!weeks.length) return "";
+    const yahoo = (t) => `https://finance.yahoo.com/quote/${encodeURIComponent(t)}`;
+    const tr = (r, date) => `<tr><td>${esc(fmtDate(date))}</td>`
+      + `<td class="dsh-nm"><a href="${yahoo(r.t)}" target="_blank" rel="noopener noreferrer">${esc(r.t)}</a></td>`
       + `<td>${esc(r.n || "")}</td><td class="dsh-mut">${esc(r.tag || "")}</td>`
-      + `<td class="dsh-r">${esc(r.actEps || r.estEps || "—")}</td></tr>`;
-    return `<table class="dsh-tbl"><thead><tr><th>Date</th><th>Ticker</th><th>Company</th><th>Sector</th><th class="dsh-r">EPS (act/est)</th></tr></thead><tbody>${pick.map(tr).join("")}</tbody></table>`;
+      + `<td class="dsh-r">${esc(r.estEps || "—")}</td>`
+      + `<td class="dsh-r">${esc(r.actEps || "—")}</td></tr>`;
+    const wk = (w) => `<tr class="dsh-wkrow"><td colspan="6">${esc(w.label || "")}</td></tr>`
+      + (w.days || []).map((day) => (day.rows || []).map((r) => tr(r, day.date)).join("")).join("");
+    return `<table class="dsh-tbl"><thead><tr><th>Date</th><th>Ticker</th><th>Company</th><th>Sector</th><th class="dsh-r">Est</th><th class="dsh-r">Act</th></tr></thead>`
+      + `<tbody>${weeks.map(wk).join("")}</tbody></table>`;
   }
+  const earnSrc = (EARNINGS && EARNINGS.srcs && EARNINGS.srcs[0] && EARNINGS.srcs[0].url) || "";
   function equitiesHTML() {
     return `<div class="dsh-pane">
       <section class="dsh-card"><h3 class="dsh-h">S&amp;P 500 sectors — YTD ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
       <section class="dsh-card"><h3 class="dsh-h">Valuation &amp; volatility</h3>${valVolHTML()}</section>
       <div class="dsh-span dsh-pair">
-        <section class="dsh-card"><h3 class="dsh-h">Earnings calendar</h3><div class="dsh-scroll">${earningsHTML()}</div></section>
+        <section class="dsh-card"><h3 class="dsh-h">Earnings calendar${srcLink(earnSrc, "Earnings week-ahead source")}</h3><div class="dsh-scroll">${earningsHTML()}</div></section>
         <section class="dsh-card"><h3 class="dsh-h">IPO / ECM pipeline</h3><div class="dsh-scroll">${ipoHTML()}</div></section>
       </div>
     </div>`;

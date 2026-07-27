@@ -824,20 +824,26 @@ export const MATWALL = {
 // COMM holds commodity futures, never equities.
 export const EARNINGS = {
   weeks: [
-    { label: "Last week \u00b7 13\u201317 Jul", days: [
-      { date: "2026-07-14", rows: [
-        { t: "JPM", n: "JPMorgan", tag: "Banks \u00b7 Dow", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$5.55", estRev: "$48.8bn", actEps: "$7.70", actRev: "$57.3bn", km: { l: "Markets rev", est: null, act: "$12.1bn +35%" }, guide: { est: "FY26 NII ~$103bn", act: null }, px: null, note: "record $21.2bn profit; all five majors beat" },
-        { t: "GS", n: "Goldman Sachs", tag: "Banks \u00b7 Dow", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$14.47", estRev: "$16.49bn", actEps: "$20.98", actRev: "$20.34bn", km: { l: "Markets rev", est: null, act: "$7.42bn record" }, px: null, note: "best quarter in its history" },
+    { label: "This week \u00b7 27\u201331 Jul", days: [
+      { date: "2026-07-28", rows: [
+        { t: "KO", n: "Coca-Cola", tag: "Consumer staples \u00b7 Dow", when: "Pre-mkt", estEps: "$0.92", estRev: "$13.05bn", actEps: null, actRev: null, note: "consensus EPS +5.8% y/y, revenue +4.1%" },
+        { t: "BA", n: "Boeing", tag: "Aerospace \u00b7 Dow", when: "Pre-mkt", estEps: "-$0.31", estRev: "$24.1bn", actEps: null, actRev: null, note: "narrowed loss expected (consensus range -$0.28 to -$0.34); commercial deliveries +14% y/y to 171" },
+        { t: "F", n: "Ford", tag: "Autos \u00b7 S&P 500", when: "After close", estEps: "$0.36", estRev: "$45.66bn auto", actEps: null, actRev: null, note: "Zacks consensus EPS 36c" },
       ] },
-      { date: "2026-07-15", rows: [
-        { t: "MS", n: "Morgan Stanley", tag: "Banks \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$2.89", estRev: "$19.38bn", actEps: "$3.46", actRev: "$21.3bn", km: { l: "Equities rev", est: null, act: "$6.3bn +69%" }, px: null, note: "record equities revenue" },
-        { t: "ASML", n: "ASML", tag: "Chips \u00b7 AI capex", when: null, held: [{ etf: "IGWD", w: null }], estEps: null, estRev: null, actEps: "\u20ac7.59", actRev: "\u20ac9.3bn", km: { l: "Gross mgn", est: null, act: "54.0%" }, guide: { est: null, act: "FY26 \u20ac43\u201345bn \u00b7 Q3 \u20ac11\u201312bn" }, px: null },
+      { date: "2026-07-29", rows: [
+        { t: "MSFT", n: "Microsoft", tag: "Mag 7 \u00b7 hyperscaler", when: "After close", estEps: "$4.24", estRev: "$87.62bn", actEps: null, actRev: null, note: "fiscal Q4 FY26; ~16% EPS / ~15% revenue growth expected; Azure and AI capex in focus" },
+        { t: "META", n: "Meta Platforms", tag: "Mag 7", when: "After close", estEps: "$7.23", estRev: "$60.26bn", actEps: null, actRev: null, note: "revenue ~+27% y/y (45-analyst consensus); AI-ad monetisation and capex guide in focus" },
       ] },
-      { date: "2026-07-16", rows: [
-        { t: "TSM", n: "TSMC", tag: "Chips \u00b7 EM", when: null, held: [{ etf: "EMEE", w: "9.74%" }], estEps: "$3.83", estRev: "$40bn", actEps: "$4.31/ADR", actRev: "$40.2bn", km: { l: "Gross mgn", est: "65.5\u201367.5%", act: "67.7% record" }, px: "-5%" },
+      { date: "2026-07-30", rows: [
+        { t: "AAPL", n: "Apple", tag: "Mag 7", when: "After close", estEps: "$1.89", estRev: "$108.9bn", actEps: null, actRev: null, note: "fiscal Q3; EPS +~20% y/y on revenue +~16%" },
+        { t: "AMZN", n: "Amazon", tag: "Mag 7 \u00b7 hyperscaler", when: "After close", estEps: "$1.82", estRev: "$196bn", actEps: null, actRev: null, note: "AWS growth and retail margins in focus" },
+      ] },
+      { date: "2026-07-31", rows: [
+        { t: "XOM", n: "ExxonMobil", tag: "Energy \u00b7 Dow", when: "Pre-mkt", estEps: "$3.76", estRev: "$101bn", actEps: null, actRev: null, note: "consensus range $3.55-3.88; sharp y/y jump on higher Brent" },
+        { t: "CVX", n: "Chevron", tag: "Energy \u00b7 Dow", when: "Pre-mkt", estEps: "$5.79", estRev: null, actEps: null, actRev: null, note: "consensus ~+227% y/y on higher oil prices" },
       ] },
     ] },
-    { label: "This week \u00b7 20\u201324 Jul", days: [
+    { label: "Last week \u00b7 20\u201324 Jul", days: [
       { date: "2026-07-21", rows: [
         { t: "SCHW", n: "Charles Schwab", tag: "Banks/brokers \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$1.55", estRev: "$6.89bn", actEps: "$1.62 adj", actRev: "$7.07bn", note: "record revenue +21% y/y; GAAP EPS $1.54", px: null },
         { t: "COF", n: "Capital One", tag: "Banks \u00b7 S&P 500", when: "After close", held: [{ etf: "IGWD", w: null }], estEps: "$4.89", estRev: "$15.7bn", km: { l: "Non-int inc", est: "$3.21bn", act: null }, actEps: "$4.73 (adj $5.81)", actRev: null, note: "net income $3.0bn", px: null },
@@ -862,7 +868,12 @@ export const EARNINGS = {
     ] },
   ],
   srcs: [
-    { name: "CNBC week ahead", url: "https://www.cnbc.com/2026/07/17/stock-market-next-week-outlook-for-july-20-24-2026.html" },
+    { name: "CNBC week ahead (27–31 Jul)", url: "https://www.cnbc.com/2026/07/24/stock-market-next-week-outlook-for-july-27-31-2026.html" },
+    { name: "FX Leaders — earnings to watch 27–31 Jul", url: "https://www.fxleaders.com/news/2026/07/26/top-earnings-to-watch-this-week-july-27-31-what-to-expect-from-msft-meta-aapl-amzn-ko-ba-and-f/" },
+    { name: "Alphastreet — Meta Q2 preview (est $7.23)", url: "https://news.alphastreet.com/meta-platforms-meta-q2-2026-preview-eps-est-7-23-reports-july-29/" },
+    { name: "TipRanks — MSFT/META Q2 preview", url: "https://www.tipranks.com/news/big-tech-earnings-showdown-meta-and-microsoft-in-focus-ahead-of-july-29-earnings-report" },
+    { name: "TipRanks — Boeing Q2 preview", url: "https://www.tipranks.com/news/boeing-will-report-q2-earnings-on-july-28-heres-what-to-expect" },
+    { name: "CNBC week ahead (20–24 Jul)", url: "https://www.cnbc.com/2026/07/17/stock-market-next-week-outlook-for-july-20-24-2026.html" },
     { name: "Tech Times (banks, IBM prelim)", url: "https://www.techtimes.com/articles/320491/20260714/all-five-major-banks-beat-estimates-jpmorgan-posts-highest-profit-us-history.htm" },
     { name: "Goldman Sachs 8-K", url: "https://www.sec.gov/Archives/edgar/data/0000886982/000088698226000294/a2q26gsearningsresults.htm" },
     { name: "CNBC (Morgan Stanley)", url: "https://www.cnbc.com/2026/07/15/morgan-stanley-ms-earnings-q2-2026-.html" },
