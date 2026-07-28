@@ -130,6 +130,14 @@ function mountView(key) {
 
 
 // ---- Navigation ------------------------------------------------------------
+// Touch surfaces (the iPhone PWA is the primary one): NEVER stack history — every
+// navigation REPLACES the entry. iOS's edge-swipe "back" gesture walks browser
+// history, so with no per-page entries there is nothing to swipe through, which
+// removes swipe-to-change-page. Navigation on touch is via the bottom tab bar and
+// in-view controls only. Desktop keeps pushState so its Back button still steps
+// through pages. Computed once — device class doesn't change within a session.
+const TOUCH = (typeof navigator !== "undefined" && (navigator.maxTouchPoints || 0) > 0)
+  || (typeof matchMedia === "function" && matchMedia("(pointer: coarse)").matches);
 let _pending = null;                               // latest tap requested mid-swap
 export async function navigate(path, { push = true, replace = false } = {}) {
   const url = new URL(path, location.origin);
@@ -143,7 +151,7 @@ export async function navigate(path, { push = true, replace = false } = {}) {
 
   // Update the URL first so the view (and chrome) read the right location.
   if (!same || url.pathname !== location.pathname) {
-    if (replace) history.replaceState({ v2: true }, "", url.pathname + url.search + url.hash);
+    if (replace || TOUCH) history.replaceState({ v2: true }, "", url.pathname + url.search + url.hash);
     else if (push) history.pushState({ v2: true }, "", url.pathname + url.search + url.hash);
   }
 

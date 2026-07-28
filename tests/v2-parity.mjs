@@ -87,9 +87,11 @@ for (const [path, view] of [["/v2/macro/", "macro"], ["/v2/credit/", "credit"], 
   checkEq(counts.activeTab, "home", "cycle: active tab marker tracks the last tab");
   checkErrs(errs, "full nav cycle");
 
-  // ---- 3. Back button traverses the SPA (clean tab-only state: … menu, home) ----
-  await pg.goBack(); await pg.waitForTimeout(700);
-  checkEq(await pg.evaluate(() => (document.querySelector(".v2-view:not([hidden])") || {}).dataset?.view), "menu", "back button: returns to the previous tab (menu)");
+  // ---- 3. Touch: tab switches DON'T stack history, so the iOS edge-swipe / back
+  //         gesture can't change pages (swipe-to-change-page removed). ----
+  const hlen0 = await pg.evaluate(() => history.length);
+  await tap("dashboard"); await tap("profiles"); await tap("home");
+  checkEq(await pg.evaluate(() => history.length), hlen0, "touch: tab switches don't grow history (no swipe-to-change-page)");
 
   // ---- 4. In-view interactivity: the active view's own (guarded) handlers fire ----
   await tap("dashboard");

@@ -64,9 +64,12 @@ checkEq(creditState.len, creditLen0, "keep-alive: Profiles content preserved acr
 // (Newsletters is no longer a bottom-nav tab, so it isn't mounted in this loop.)
 checkEq(back.views, 6, "tab views + Profiles' borrowed Credit/Legal cached (6)");
 
-// Back button traverses the SPA history (no reload).
-await pg.goBack(); await pg.waitForTimeout(300);
-checkEq(await pg.evaluate(() => window.__boot), boot0, "back button: still the same document");
+// Touch surface: tab switches REPLACE history (no per-tab entries), so iOS's
+// edge-swipe / back gesture has nothing to walk — swipe-to-change-page is gone.
+// Assert switching tabs does not grow history.length.
+const hlen0 = await pg.evaluate(() => history.length);
+await tap("dashboard"); await tap("home"); await tap("menu");
+checkEq(await pg.evaluate(() => history.length), hlen0, "touch: tab switches don't grow history (no swipe-to-change-page)");
 
 checkErrs(errs, "v2 shell");
 await ctx.close();
