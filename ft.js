@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "4213bfb6-6204-47a5-ba1d-99db1d52ca5f", title: "UK charities hit after specialist bank shuts off online services", date: "2026-07-28", time: "17:42", url: "https://www.ft.com/content/4213bfb6-6204-47a5-ba1d-99db1d52ca5f" },
+  { id: "8be7a9f5-a440-4f3a-9b0f-1a1358242c35", title: "Shipping group CMA CGM boosted by customers stockpiling to beat Trump tariffs", date: "2026-07-28", time: "17:16", url: "https://www.ft.com/content/8be7a9f5-a440-4f3a-9b0f-1a1358242c35" },
+  { id: "1ed4aee0-cbb4-4c98-a2aa-34971ded2583", title: "Ebay to pay $55.7mn to settle case over harassment of company critics", date: "2026-07-28", time: "17:12", url: "https://www.ft.com/content/1ed4aee0-cbb4-4c98-a2aa-34971ded2583" },
   { id: "67236718-fe1a-42bc-9b40-1343f117a973", title: "Turkish politician hit by rent-a-crowd scandal", date: "2026-07-28", time: "16:29", url: "https://www.ft.com/content/67236718-fe1a-42bc-9b40-1343f117a973" },
   { id: "65731780-37da-4e4f-b5f4-eeaed28bcea2", title: "Wachtell Lipton co-chair set to depart for rival Gibson Dunn", date: "2026-07-28", time: "16:23", url: "https://www.ft.com/content/65731780-37da-4e4f-b5f4-eeaed28bcea2" },
   { id: "fe0981ed-dcb2-4799-ab87-4d487c0754e6", title: "We need an OBR for infrastructure", date: "2026-07-28", time: "15:59", url: "https://www.ft.com/content/fe0981ed-dcb2-4799-ab87-4d487c0754e6" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "d471f2f4-e720-4684-86fd-21713daa4119", title: "Is a private equity megadeal brewing?", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/d471f2f4-e720-4684-86fd-21713daa4119" },
   { id: "976c453c-ae12-4318-be50-e8347b385637", title: "Don’t underestimate the economic power of a UK vibe shift", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/976c453c-ae12-4318-be50-e8347b385637" },
   { id: "ef7ff634-b738-4975-91b5-2edffc51da68", title: "EU hesitates to target Irish plant accused of supplying Russia’s war industry", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/ef7ff634-b738-4975-91b5-2edffc51da68" },
-  { id: "bdfafe1e-8f31-437d-8bc3-93df255ca487", title: "‘Unpredictable and extremely dangerous’: France hit by rare fire thunderstorms", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/bdfafe1e-8f31-437d-8bc3-93df255ca487" },
-  { id: "063eecdd-125f-44a7-86c0-78f202817d7e", title: "Trump’s ability to talk down oil prices is being tested", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/063eecdd-125f-44a7-86c0-78f202817d7e" },
-  { id: "685014e7-47dd-471b-a585-1b9b73ce5d6f", title: "Nvidia behind $50bn lease on Texas data centre that will use its chips", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/685014e7-47dd-471b-a585-1b9b73ce5d6f" },
 ];
