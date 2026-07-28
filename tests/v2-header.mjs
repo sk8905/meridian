@@ -30,13 +30,15 @@ check(present.panels >= 3, `Markets/Saved/Notifications panels built (${present.
 checkEq(present.tabbars, 1, "still exactly one tab bar (nav-actions did NOT add its own)");
 check(present.refresh > 0, `refresh indicator populated ("Last refresh…", ${present.refresh} chars)`);
 
-// The header brief one-liner titles (Top story / Markets / Rates & spreads) read in
-// Wire orange — the accent, not muted grey. Guards the "orange got greyed out" regression.
-const briefColor = await pg.evaluate(() => {
-  const el = document.querySelector(".wb-link, .g-brief-link");
-  return el ? getComputedStyle(el).color : null;
+// The header brief KICKER LABELS (Top story / Markets / Rates & spreads) read in
+// Wire orange — the accent — while the story text stays plain, not orange.
+const brief = await pg.evaluate(() => {
+  const lbl = document.querySelector(".wb-lbl, .g-brief-lbl");
+  const link = document.querySelector(".wb-link, .g-brief-link");
+  return { lbl: lbl ? getComputedStyle(lbl).color : null, link: link ? getComputedStyle(link).color : null };
 });
-check(briefColor === "rgb(251, 139, 30)", `brief one-liner titles are Wire orange #fb8b1e (${briefColor})`);
+check(brief.lbl === "rgb(251, 139, 30)", `brief kicker labels are Wire orange #fb8b1e (${brief.lbl})`);
+check(brief.link !== "rgb(251, 139, 30)", `brief story text is NOT orange (${brief.link})`);
 
 // Bottom meta strip (phone): the signed-in identity + the app-wide last refresh,
 // pinned DIRECTLY above the bottom tab bar. It shows ONLY on the Menu tab now —
