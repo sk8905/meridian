@@ -15,7 +15,7 @@ import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, DASH_A
 import { OUTLOOK, CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS } from "/macro/js/content.js";
 import { deals, intel } from "/credit/js/data.js";
 import { SECTOR_FLOWS } from "/allocations.js";
-import { items as LGL_ITEMS, cases as LGL_CASES, practiceAreas as LGL_AREAS, areaById as LGL_AREA_BY_ID, firmById as LGL_FIRM_BY_ID } from "/legal/js/data.js";
+import { items as LGL_ITEMS, cases as LGL_CASES, practiceAreas as LGL_AREAS, areaById as LGL_AREA_BY_ID, firmById as LGL_FIRM_BY_ID, caseSummaries as LGL_CASE_SUMMARIES } from "/legal/js/data.js";
 
 const SUBTABS = [["macro", "Macro"], ["equities", "Equities"], ["fixed-income", "Fixed Income"], ["credit", "Credit"], ["legal", "Legal"]];
 const pct1 = (n) => (n == null ? "—" : (n > 0 ? "+" : "") + n.toFixed(1) + "%");
@@ -24,6 +24,10 @@ const asOf = (d) => (d ? `<span class="dsh-asof">as of ${esc(d)}</span>` : "");
 const srcLink = (u, label) => (u ? ` <a class="dsh-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer" title="${esc(label || "Source")}">src</a>` : "");
 const stripTags = (s) => String(s || "").replace(/<[^>]+>/g, "");
 const fmtDate = (d) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); const MON = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]; return m ? `${+m[3]} ${MON[+m[2]-1]}` : (d || ""); };
+// Search normaliser: lowercase and drop apostrophes so "director's" / "directors'"
+// / "directors" all collapse to the same token. Used to build each legal item's
+// search haystack and to tokenise the query (word-by-word AND match).
+const _norm = (s) => String(s || "").toLowerCase().replace(/['’‘]/g, "");
 
 export function mount(host, ctx) {
   let pane = "macro";
@@ -412,22 +416,48 @@ export function mount(host, ctx) {
     if (_legalCache) return _legalCache;
     // Every legal item the desk covers — alerts, updates, case notes, insights and
     // know-how (the feed labels them all, so all are searchable here). `case` items
-    // read as case law; everything else reads as an alert.
+    // read as case law; everything else reads as an alert. `hay` is the pre-built
+    // normalised search haystack: title + summary + the FULL long-form text (insight
+    // bullet points / the extended case summary) + tags + court + citation + firm,
+    // so a topic search (e.g. "directors' duties") reaches a case whose NAME never
+    // says it but whose summary does.
     const fromItems = (LGL_ITEMS || [])
       .filter((x) => x && x.title)
-      .map((x) => ({ title: x.title, area: x.area, type: x.type === "case" ? "case" : "alert", court: x.court, citation: x.citation, firm: (LGL_FIRM_BY_ID[x.firm] || {}).name || null, summary: x.summary, tags: Array.isArray(x.tags) ? x.tags.join(" ") : "", url: x.url, date: x.date }));
+      .map((x) => {
+        const firm = (LGL_FIRM_BY_ID[x.firm] || {}).name || null;
+        const long = Array.isArray(x.points) ? x.points.join(" ") : "";
+        const tags = Array.isArray(x.tags) ? x.tags.join(" ") : "";
+        return { title: x.title, area: x.area, type: x.type === "case" ? "case" : "alert", court: x.court, citation: x.citation, firm, summary: x.summary, url: x.url, date: x.date,
+          hay: _norm(`${x.title} ${x.summary || ""} ${long} ${tags} ${x.court || ""} ${x.citation || ""} ${firm || ""}`) };
+      });
     const fromCases = (LGL_CASES || [])
       .filter((c) => c && (c.name || c.title))
-      .map((c) => ({ title: c.name || c.title, area: c.area, type: "case", court: c.court, citation: c.citation, firm: null, summary: c.summary, tags: "", url: c.url, date: c.date }));
-    const seen = new Set(), all = [];
-    [...fromCases, ...fromItems].forEach((r) => { const k = (r.citation || r.title || "").toLowerCase(); if (k && seen.has(k)) return; if (k) seen.add(k); all.push(r); });
+      .map((c) => {
+        const title = c.name || c.title;
+        const long = (LGL_CASE_SUMMARIES && LGL_CASE_SUMMARIES[c.id]) || "";
+        return { title, area: c.area, type: "case", court: c.court, citation: c.citation, firm: null, summary: c.summary, url: c.url, date: c.date,
+          hay: _norm(`${title} ${c.summary || ""} ${long} ${c.court || ""} ${c.citation || ""}`) };
+      });
+    // Dedup by citation|title, but MERGE the search haystacks of duplicates into the
+    // kept row — two entries can share a citation (e.g. a Supreme Court case noted at
+    // both the appeal and final stage) yet one carries the richer summary. Folding
+    // their `hay` together means the survivor is searchable on every duplicate's text.
+    const byKey = new Map(), all = [];
+    [...fromCases, ...fromItems].forEach((r) => {
+      const k = (r.citation || r.title || "").toLowerCase();
+      if (k && byKey.has(k)) { const kept = byKey.get(k); kept.hay += " " + r.hay; return; }
+      if (k) byKey.set(k, r); all.push(r);
+    });
     _legalCache = all.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
     return _legalCache;
   }
   function legalListHTML() {
-    const q = _legalQuery.trim().toLowerCase();
-    // Search-driven: nothing is listed until a keyword is entered (no full dump).
-    if (!q) {
+    // Word-by-word AND match over the normalised haystack: every query token must
+    // appear somewhere, in any order — so "directors' duties" reaches an item whose
+    // title has one word and summary the other. Search-driven: nothing lists until a
+    // keyword is entered (no full dump).
+    const tokens = _norm(_legalQuery).split(/[^a-z0-9]+/).filter(Boolean);
+    if (!tokens.length) {
       const bits = [];
       if (_legalTypes.size) bits.push([..._legalTypes].map((t) => t === "case" ? "case law" : "alerts").join(" & "));
       if (_legalAreas.size) bits.push([..._legalAreas].map((a) => (LGL_AREA_BY_ID[a] || {}).short || a).join(", "));
@@ -437,7 +467,7 @@ export function mount(host, ctx) {
     let list = legalDb();
     if (_legalTypes.size) list = list.filter((x) => _legalTypes.has(x.type));
     if (_legalAreas.size) list = list.filter((x) => _legalAreas.has(x.area));
-    list = list.filter((x) => (`${x.title} ${x.summary || ""} ${x.court || ""} ${x.citation || ""} ${x.firm || ""} ${x.tags || ""}`).toLowerCase().includes(q));
+    list = list.filter((x) => tokens.every((t) => x.hay.includes(t)));
     if (!list.length) return `<p class="dsh-load">No matching case law or alerts.</p>`;
     const order = (LGL_AREAS || []).map((a) => a.id);
     const byArea = {};
