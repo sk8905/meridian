@@ -119,7 +119,8 @@
   color:var(--t-ink); background:var(--t-panel2); border:1px solid var(--t-grid2); border-radius:6px; }
 .dsh-lgl-search::placeholder { color:var(--t-faint); }
 .dsh-lgl-search:focus { outline:none; border-color:var(--t-accent); }
-.dsh-lgl-chips { display:flex; flex-wrap:wrap; gap:6px; margin:0 0 10px; }
+.dsh-lgl-chips { display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:0 0 10px; }
+.dsh-lgl-lbl { color:var(--t-mut); font-size:.7rem; font-weight:600; margin-right:2px; }
 .dsh-lgl-chip { border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); font:inherit;
   font-size:.72rem; font-weight:600; padding:3px 9px; border-radius:999px; cursor:pointer; }
 .dsh-lgl-chip:hover { color:var(--t-ink); }

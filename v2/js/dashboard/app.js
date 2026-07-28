@@ -17,7 +17,7 @@ import { deals, intel } from "/credit/js/data.js";
 import { SECTOR_FLOWS } from "/allocations.js";
 import { items as LGL_ITEMS, cases as LGL_CASES, practiceAreas as LGL_AREAS, areaById as LGL_AREA_BY_ID, firmById as LGL_FIRM_BY_ID } from "/legal/js/data.js";
 
-const SUBTABS = [["macro", "Macro"], ["equities", "Equities"], ["credit", "Credit"], ["fixed-income", "Fixed Income"], ["legal", "Legal"]];
+const SUBTABS = [["macro", "Macro"], ["equities", "Equities"], ["fixed-income", "Fixed Income"], ["credit", "Credit"], ["legal", "Legal"]];
 const pct1 = (n) => (n == null ? "—" : (n > 0 ? "+" : "") + n.toFixed(1) + "%");
 const upcls = (n) => (n == null ? "" : n > 0 ? "up" : n < 0 ? "down" : "");
 const asOf = (d) => (d ? `<span class="dsh-asof">as of ${esc(d)}</span>` : "");
@@ -27,7 +27,8 @@ const fmtDate = (d) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); con
 
 export function mount(host, ctx) {
   let pane = "macro";
-  let _legalQuery = "", _legalArea = "all";   // Legal database search + area filter (persist across re-renders)
+  let _legalQuery = "";                 // Legal database keyword (persist across re-renders)
+  const _legalAreas = new Set();        // practice areas the search is limited to (empty = all)
 
   // ---- Equities -----------------------------------------------------------
   function idxTile(x, live) {
@@ -421,9 +422,14 @@ export function mount(host, ctx) {
   }
   function legalListHTML() {
     const q = _legalQuery.trim().toLowerCase();
+    // Search-driven: nothing is listed until a keyword is entered (no full dump).
+    if (!q) {
+      const scope = _legalAreas.size ? ` in ${[..._legalAreas].map((a) => (LGL_AREA_BY_ID[a] || {}).short || a).join(", ")}` : "";
+      return `<p class="dsh-load">Search ${legalDb().length} alerts &amp; case law${scope} — type a keyword above${_legalAreas.size ? "" : "; use the chips to limit to practice areas"}.</p>`;
+    }
     let list = legalDb();
-    if (_legalArea !== "all") list = list.filter((x) => x.area === _legalArea);
-    if (q) list = list.filter((x) => (`${x.title} ${x.summary || ""} ${x.court || ""} ${x.citation || ""} ${x.firm || ""}`).toLowerCase().includes(q));
+    if (_legalAreas.size) list = list.filter((x) => _legalAreas.has(x.area));
+    list = list.filter((x) => (`${x.title} ${x.summary || ""} ${x.court || ""} ${x.citation || ""} ${x.firm || ""}`).toLowerCase().includes(q));
     if (!list.length) return `<p class="dsh-load">No matching case law or alerts.</p>`;
     const order = (LGL_AREAS || []).map((a) => a.id);
     const byArea = {};
@@ -442,11 +448,13 @@ export function mount(host, ctx) {
   }
   function legalHTML() {
     const total = legalDb().length;
-    const chip = (k, l) => `<button type="button" class="dsh-lgl-chip${_legalArea === k ? " is-on" : ""}" data-area="${esc(k)}">${esc(l)}</button>`;
-    const chips = `<div class="dsh-lgl-chips">${chip("all", "All")}${(LGL_AREAS || []).map((a) => chip(a.id, a.short || a.name)).join("")}</div>`;
+    // Toggleable practice-area chips (multi-select) that LIMIT the keyword search;
+    // none selected = search every area.
+    const chip = (a) => `<button type="button" class="dsh-lgl-chip${_legalAreas.has(a.id) ? " is-on" : ""}" data-area="${esc(a.id)}">${esc(a.short || a.name)}</button>`;
+    const chips = `<div class="dsh-lgl-chips"><span class="dsh-lgl-lbl">Limit to</span>${(LGL_AREAS || []).map(chip).join("")}</div>`;
     return `<div class="dsh-pane">
       <section class="dsh-card dsh-span">
-        <h3 class="dsh-h">Legal — case law &amp; alerts <span class="dsh-n">(${total}) · searchable</span></h3>
+        <h3 class="dsh-h">Legal — case law &amp; alerts <span class="dsh-n">(${total}) · search</span></h3>
         <input type="search" class="dsh-lgl-search" id="dsh-lgl-q" placeholder="Search case law &amp; alerts — party, court, citation, firm…" value="${esc(_legalQuery)}" autocomplete="off" spellcheck="false">
         ${chips}
         <div class="dsh-lgl-body" id="dsh-lgl-body">${legalListHTML()}</div>
@@ -458,8 +466,9 @@ export function mount(host, ctx) {
     const body = host.querySelector("#dsh-lgl-body");
     if (q && body) q.addEventListener("input", () => { _legalQuery = q.value; body.innerHTML = legalListHTML(); });
     host.querySelectorAll(".dsh-lgl-chip").forEach((c) => c.addEventListener("click", () => {
-      _legalArea = c.dataset.area;
-      host.querySelectorAll(".dsh-lgl-chip").forEach((x) => x.classList.toggle("is-on", x === c));
+      const a = c.dataset.area;
+      if (_legalAreas.has(a)) _legalAreas.delete(a); else _legalAreas.add(a);
+      c.classList.toggle("is-on");
       if (body) body.innerHTML = legalListHTML();
     }));
   }
