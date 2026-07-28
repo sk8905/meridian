@@ -31,6 +31,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-authoralert-nkumar-20260728",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    title: "Man Group Assets Soar to All Time High After Bumper First Half",
+    date: "2026-07-28",
+    time: "07:36",
+    summary: "Man Group Plc assets jumped to a record high in the first half of the year as clients poured money into the firm's long-only investment strategies and strong performance gains helped drive growth.",
+    url: "https://www.bloomberg.com/news/articles/2026-07-28/man-group-assets-soar-to-all-time-high-after-bumper-first-half",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-20260728",
     publication: "Bloomberg",
     author: "Jill Disis",

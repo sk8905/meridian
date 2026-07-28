@@ -20,9 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "6b2c9eb1-24f0-4117-a390-cfcdfdaad3a9", title: "Barclays profits boosted by market volatility gains", date: "2026-07-28", time: "07:30", url: "https://www.ft.com/content/6b2c9eb1-24f0-4117-a390-cfcdfdaad3a9" },
   { id: "d6439cb3-5a9e-4f6e-b5d6-b0e5621567c4", title: "The unexpected winners from China’s blockbuster chip IPO", date: "2026-07-28", time: "06:35", url: "https://www.ft.com/content/d6439cb3-5a9e-4f6e-b5d6-b0e5621567c4" },
   { id: "f917cd45-785a-45dd-9826-e8efed7003c0", title: "Tariffs and Treasury yields", date: "2026-07-28", time: "06:30", url: "https://www.ft.com/content/f917cd45-785a-45dd-9826-e8efed7003c0" },
   { id: "37ad8ef8-eaa0-4f01-adf5-fc7bf5b20cb9", title: "FTAV’s further reading", date: "2026-07-28", time: "06:30", url: "https://www.ft.com/content/37ad8ef8-eaa0-4f01-adf5-fc7bf5b20cb9" },
+  { id: "f8c03b5b-e194-4236-82c3-389b6f5dd7ae", title: "AI stock sell-off deepens as investors dump chipmakers", date: "2026-07-28", time: "06:16", url: "https://www.ft.com/content/f8c03b5b-e194-4236-82c3-389b6f5dd7ae" },
   { id: "39c96379-0797-43f0-ae01-6711dd8986dc", title: "EU keeps firefighting planes on standby as France and Spain battle blazes", date: "2026-07-28", time: "06:00", url: "https://www.ft.com/content/39c96379-0797-43f0-ae01-6711dd8986dc" },
   { id: "8ed46f5f-0d52-46a8-a38d-642f5a828491", title: "Quant trading ≠ software company", date: "2026-07-28", time: "06:00", url: "https://www.ft.com/content/8ed46f5f-0d52-46a8-a38d-642f5a828491" },
   { id: "487d9a9f-5709-4fcb-9d75-45c16d6d1cfa", title: "FirstFT: TotalEnergies to benefit from Russian sanctions U-turn", date: "2026-07-28", time: "05:31", url: "https://www.ft.com/content/487d9a9f-5709-4fcb-9d75-45c16d6d1cfa" },
