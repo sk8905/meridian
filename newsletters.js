@@ -31,6 +31,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-20260728",
+    publication: "Bloomberg",
+    author: "Jill Disis",
+    series: "Morning Briefing Europe",
+    title: "Global Selloff Deepens Over AI Spending Fears",
+    date: "2026-07-28",
+    time: "06:41",
+    summary: "A global chip selloff deepens on AI-spending worries, halting trade on South Korea's Kospi, as Trump sees a \"good chance\" of an Iran deal and France and Spain battle wildfires.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-28/global-selloff-deepens-over-ai-spending-fears",
+  },
+  {
     id: "nl-econ-worldinbrief-20260728",
     publication: "The Economist",
     series: "The World in Brief",

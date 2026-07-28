@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d6439cb3-5a9e-4f6e-b5d6-b0e5621567c4", title: "The unexpected winners from China’s blockbuster chip IPO", date: "2026-07-28", time: "06:35", url: "https://www.ft.com/content/d6439cb3-5a9e-4f6e-b5d6-b0e5621567c4" },
+  { id: "f917cd45-785a-45dd-9826-e8efed7003c0", title: "Tariffs and Treasury yields", date: "2026-07-28", time: "06:30", url: "https://www.ft.com/content/f917cd45-785a-45dd-9826-e8efed7003c0" },
+  { id: "37ad8ef8-eaa0-4f01-adf5-fc7bf5b20cb9", title: "FTAV’s further reading", date: "2026-07-28", time: "06:30", url: "https://www.ft.com/content/37ad8ef8-eaa0-4f01-adf5-fc7bf5b20cb9" },
   { id: "39c96379-0797-43f0-ae01-6711dd8986dc", title: "EU keeps firefighting planes on standby as France and Spain battle blazes", date: "2026-07-28", time: "06:00", url: "https://www.ft.com/content/39c96379-0797-43f0-ae01-6711dd8986dc" },
   { id: "8ed46f5f-0d52-46a8-a38d-642f5a828491", title: "Quant trading ≠ software company", date: "2026-07-28", time: "06:00", url: "https://www.ft.com/content/8ed46f5f-0d52-46a8-a38d-642f5a828491" },
   { id: "487d9a9f-5709-4fcb-9d75-45c16d6d1cfa", title: "FirstFT: TotalEnergies to benefit from Russian sanctions U-turn", date: "2026-07-28", time: "05:31", url: "https://www.ft.com/content/487d9a9f-5709-4fcb-9d75-45c16d6d1cfa" },
@@ -58,6 +61,4 @@ export const FT_ITEMS = [
   { id: "06c0ded7-8a5c-4429-955d-50df7e0c2438", title: "Size matters when it comes to tariff threats", date: "2026-07-27", time: "14:00", url: "https://www.ft.com/content/06c0ded7-8a5c-4429-955d-50df7e0c2438" },
   { id: "5fafe208-c728-42d1-99f5-2e0ff188e170", title: "US courts diverge on latest front in debt brawls", date: "2026-07-27", time: "13:58", url: "https://www.ft.com/content/5fafe208-c728-42d1-99f5-2e0ff188e170" },
   { id: "5374bf31-0d6d-4ebd-a4ae-28b399f39cc3", title: "Andy Burnham looks to cut welfare bill by linking up schools and employers", date: "2026-07-27", time: "13:10", url: "https://www.ft.com/content/5374bf31-0d6d-4ebd-a4ae-28b399f39cc3" },
-  { id: "7c534c2f-07f0-4148-ab59-69f84e1dbfcb", title: "Italy’s search for national football coach stumbles over Russia links", date: "2026-07-27", time: "12:59", url: "https://www.ft.com/content/7c534c2f-07f0-4148-ab59-69f84e1dbfcb" },
-  { id: "7c4d9335-6ead-4231-8e74-a55c82a7734c", title: "Fifa’s Gianni Infantino lashes out at World Cup critics ‘consumed by hate’", date: "2026-07-27", time: "12:47", url: "https://www.ft.com/content/7c4d9335-6ead-4231-8e74-a55c82a7734c" },
 ];
