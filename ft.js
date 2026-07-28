@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "67236718-fe1a-42bc-9b40-1343f117a973", title: "Turkish politician hit by rent-a-crowd scandal", date: "2026-07-28", time: "16:29", url: "https://www.ft.com/content/67236718-fe1a-42bc-9b40-1343f117a973" },
+  { id: "65731780-37da-4e4f-b5f4-eeaed28bcea2", title: "Wachtell Lipton co-chair set to depart for rival Gibson Dunn", date: "2026-07-28", time: "16:23", url: "https://www.ft.com/content/65731780-37da-4e4f-b5f4-eeaed28bcea2" },
   { id: "fe0981ed-dcb2-4799-ab87-4d487c0754e6", title: "We need an OBR for infrastructure", date: "2026-07-28", time: "15:59", url: "https://www.ft.com/content/fe0981ed-dcb2-4799-ab87-4d487c0754e6" },
   { id: "024fb6a1-fb39-4b2d-be3e-2393ed62482a", title: "Apple tops $5tn valuation for first time", date: "2026-07-28", time: "15:54", url: "https://www.ft.com/content/024fb6a1-fb39-4b2d-be3e-2393ed62482a" },
   { id: "0f1e293c-f58c-4849-b576-00b9e4a53d97", title: "Billionaire Dodgers-owner's insurer acknowledges loans to linked entities including 'Dodger Tickets'", date: "2026-07-28", time: "15:47", url: "https://www.ft.com/content/0f1e293c-f58c-4849-b576-00b9e4a53d97" },
@@ -50,7 +52,6 @@ export const FT_ITEMS = [
   { id: "487d9a9f-5709-4fcb-9d75-45c16d6d1cfa", title: "FirstFT: TotalEnergies to benefit from Russian sanctions U-turn", date: "2026-07-28", time: "05:31", url: "https://www.ft.com/content/487d9a9f-5709-4fcb-9d75-45c16d6d1cfa" },
   { id: "b11cae2f-e210-48ad-8665-3243c7b86e13", title: "Bank of England to raise rates this year if energy prices stay high", date: "2026-07-28", time: "05:30", url: "https://www.ft.com/content/b11cae2f-e210-48ad-8665-3243c7b86e13" },
   { id: "c6e66af7-5ffe-46ff-8936-78d742c1cdfd", title: "BYD takes on Japan’s ‘kei’ car market with tiny EV", date: "2026-07-28", time: "05:16", url: "https://www.ft.com/content/c6e66af7-5ffe-46ff-8936-78d742c1cdfd" },
-  { id: "0c734fbf-73f1-473d-a2fa-a59880bac4d6", title: "DCC board grapples with an M&A ‘laggard’s dilemma’", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/0c734fbf-73f1-473d-a2fa-a59880bac4d6" },
   { id: "0ee947e4-0b2a-48e4-93de-2c7985662f14", title: "TotalEnergies benefits from EU sanctions reprieve on Russian gas", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/0ee947e4-0b2a-48e4-93de-2c7985662f14" },
   { id: "cc27661a-9a6f-4e55-bfa3-64afd7107655", title: "Polish opposition split hands Donald Tusk pre-election boost", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/cc27661a-9a6f-4e55-bfa3-64afd7107655" },
   { id: "d471f2f4-e720-4684-86fd-21713daa4119", title: "Is a private equity megadeal brewing?", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/d471f2f4-e720-4684-86fd-21713daa4119" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "bdfafe1e-8f31-437d-8bc3-93df255ca487", title: "‘Unpredictable and extremely dangerous’: France hit by rare fire thunderstorms", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/bdfafe1e-8f31-437d-8bc3-93df255ca487" },
   { id: "063eecdd-125f-44a7-86c0-78f202817d7e", title: "Trump’s ability to talk down oil prices is being tested", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/063eecdd-125f-44a7-86c0-78f202817d7e" },
   { id: "685014e7-47dd-471b-a585-1b9b73ce5d6f", title: "Nvidia behind $50bn lease on Texas data centre that will use its chips", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/685014e7-47dd-471b-a585-1b9b73ce5d6f" },
-  { id: "a6801e59-3a71-4752-8456-86691e3e163f", title: "China needs a new growth model", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/a6801e59-3a71-4752-8456-86691e3e163f" },
 ];
