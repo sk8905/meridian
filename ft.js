@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "6cb23b3e-42bb-488b-bdf9-ecd1eee5495b", title: "Coca-Cola and Unilever sales surge after World Cup marketing blitz", date: "2026-07-28", time: "13:41", url: "https://www.ft.com/content/6cb23b3e-42bb-488b-bdf9-ecd1eee5495b" },
   { id: "3c62f28e-d7bc-409e-af17-61002472f3f7", title: "A truly progressive VAT would solve a lot of UK tax problems", date: "2026-07-28", time: "13:01", url: "https://www.ft.com/content/3c62f28e-d7bc-409e-af17-61002472f3f7" },
   { id: "b0dfd771-a6d6-476e-a435-7a5aedf2f820", title: "Tourists evacuated from wildfire threat as France and Spain brace for new heatwaves", date: "2026-07-28", time: "12:48", url: "https://www.ft.com/content/b0dfd771-a6d6-476e-a435-7a5aedf2f820" },
   { id: "3441b5aa-9d58-4829-bd2e-b2c0ce0198f1", title: "Trump’s waning sway over the world", date: "2026-07-28", time: "12:35", url: "https://www.ft.com/content/3441b5aa-9d58-4829-bd2e-b2c0ce0198f1" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "6d2d0b89-0d26-4e49-8e52-a53bdc178974", title: "The UAE’s bold gambit on Iran", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/6d2d0b89-0d26-4e49-8e52-a53bdc178974" },
   { id: "0a0684fe-2ba0-4909-82ca-0e5e70955ce3", title: "Trump says Israel ‘would not survive’ without US", date: "2026-07-27", time: "18:51", url: "https://www.ft.com/content/0a0684fe-2ba0-4909-82ca-0e5e70955ce3" },
   { id: "2fe22a35-5544-4a0e-b72a-b93e941cbcad", title: "Burnham appoints 61 parliamentary private secretaries in bid to avert Labour unrest", date: "2026-07-27", time: "18:51", url: "https://www.ft.com/content/2fe22a35-5544-4a0e-b72a-b93e941cbcad" },
-  { id: "403625cc-8371-43ee-997a-f6908a97f52e", title: "Oil tumbles as Iran and US pause strikes over Strait of Hormuz", date: "2026-07-27", time: "18:24", url: "https://www.ft.com/content/403625cc-8371-43ee-997a-f6908a97f52e" },
 ];
