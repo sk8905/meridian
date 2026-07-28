@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "47e4eb75-c995-40d7-85b1-2f05ff57cee0", title: "Andy Burnham wants partnership with private sector, says UK business secretary", date: "2026-07-28", time: "21:00", url: "https://www.ft.com/content/47e4eb75-c995-40d7-85b1-2f05ff57cee0" },
   { id: "e18fbfc5-bc81-4758-9a82-cc3d53a590e1", title: "Keiko Fujimori sworn in as Peru’s ninth president in 10 years", date: "2026-07-28", time: "20:01", url: "https://www.ft.com/content/e18fbfc5-bc81-4758-9a82-cc3d53a590e1" },
   { id: "a4222e62-b649-4ad6-8ebf-6ea1f7d2f7ad", title: "Greens and Reform take a hit from the Burnham bounce", date: "2026-07-28", time: "19:04", url: "https://www.ft.com/content/a4222e62-b649-4ad6-8ebf-6ea1f7d2f7ad" },
   { id: "20432705-d873-46eb-9b65-b5ae547b1585", title: "Ares’ next big private capital deal looks deceptively close to home", date: "2026-07-28", time: "19:00", url: "https://www.ft.com/content/20432705-d873-46eb-9b65-b5ae547b1585" },
@@ -59,6 +60,4 @@ export const FT_ITEMS = [
   { id: "487d9a9f-5709-4fcb-9d75-45c16d6d1cfa", title: "FirstFT: TotalEnergies to benefit from Russian sanctions U-turn", date: "2026-07-28", time: "05:31", url: "https://www.ft.com/content/487d9a9f-5709-4fcb-9d75-45c16d6d1cfa" },
   { id: "b11cae2f-e210-48ad-8665-3243c7b86e13", title: "Bank of England to raise rates this year if energy prices stay high", date: "2026-07-28", time: "05:30", url: "https://www.ft.com/content/b11cae2f-e210-48ad-8665-3243c7b86e13" },
   { id: "c6e66af7-5ffe-46ff-8936-78d742c1cdfd", title: "BYD takes on Japan’s ‘kei’ car market with tiny EV", date: "2026-07-28", time: "05:16", url: "https://www.ft.com/content/c6e66af7-5ffe-46ff-8936-78d742c1cdfd" },
-  { id: "0ee947e4-0b2a-48e4-93de-2c7985662f14", title: "TotalEnergies benefits from EU sanctions reprieve on Russian gas", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/0ee947e4-0b2a-48e4-93de-2c7985662f14" },
-  { id: "cc27661a-9a6f-4e55-bfa3-64afd7107655", title: "Polish opposition split hands Donald Tusk pre-election boost", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/cc27661a-9a6f-4e55-bfa3-64afd7107655" },
 ];

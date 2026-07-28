@@ -31,6 +31,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-gibsondunnwachtell-20260728",
+    publication: "Legal Business",
+    title: "Six-partner Wachtell team led by co-chair leaves for Gibson Dunn",
+    date: "2026-07-28",
+    time: "20:20",
+    summary: "Exec committee co-chair Bill Savitt leads Wachtell group moving to Gibson Dunn in latest in series of once-rare departures from elite US firm.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQwVDWegbNsmPjenI/wv",
+  },
+  {
     id: "nl-bbg-moneystuff-elevators-20260728",
     publication: "Bloomberg",
     author: "Matt Levine",
@@ -418,26 +427,5 @@ export const NEWSLETTERS = [
     time: "12:07",
     summary: "US stocks are stretched on historical valuation metrics, posing an economic risk if sentiment turns.",
     url: "https://www.bloomberg.com/news/newsletters/2026-07-23/global-reliance-on-us-equities-flashes-alarm-along-with-china-corporate-debt",
-  },
-  {
-    id: "nl-bbg-marketsdaily-20260723",
-    publication: "Bloomberg",
-    series: "Markets Daily",
-    title: "Markets Daily: AI debt is crowding out Treasuries",
-    date: "2026-07-23",
-    time: "11:32",
-    summary: "AI debt is competing with Treasuries, adding to lofty US yields; plus, Intel faces a skeptical market.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-07-23/ai-debt-competing-with-treasuries-is-adding-to-lofty-us-yields",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-20260723",
-    publication: "Bloomberg",
-    author: "Lily Nonomiya",
-    series: "Morning Briefing Europe",
-    title: "Red Sea tensions rise",
-    date: "2026-07-23",
-    time: "07:02",
-    summary: "Houthi attacks on two tankers open a new Red Sea front in the Iran war as the ECB holds rates steady.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-07-23/houthis-attack-two-tankers-in-the-red-sea",
   },
 ];
