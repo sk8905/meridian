@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "819cc297-4e1e-493b-91b3-e6b12519214b", title: "Fifa plans stake sale in new $20bn commercial vehicle", date: "2026-07-28", time: "15:01", url: "https://www.ft.com/content/819cc297-4e1e-493b-91b3-e6b12519214b" },
+  { id: "d5b45659-ecd5-4bb5-93d0-56b99c798b9d", title: "Maybe the chips are down because memory’s too expensive", date: "2026-07-28", time: "14:43", url: "https://www.ft.com/content/d5b45659-ecd5-4bb5-93d0-56b99c798b9d" },
+  { id: "ba86f426-0386-4afb-acb8-cdd56371a5a8", title: "Trump sets stage for Netanyahu meeting amid tensions with Israeli PM", date: "2026-07-28", time: "14:15", url: "https://www.ft.com/content/ba86f426-0386-4afb-acb8-cdd56371a5a8" },
+  { id: "e8a4b77a-f420-409a-938f-17521c5ba7bf", title: "Air Force One refurbishment costs weigh on Boeing results", date: "2026-07-28", time: "14:04", url: "https://www.ft.com/content/e8a4b77a-f420-409a-938f-17521c5ba7bf" },
   { id: "6cb23b3e-42bb-488b-bdf9-ecd1eee5495b", title: "Coca-Cola and Unilever sales surge after World Cup marketing blitz", date: "2026-07-28", time: "13:41", url: "https://www.ft.com/content/6cb23b3e-42bb-488b-bdf9-ecd1eee5495b" },
   { id: "3c62f28e-d7bc-409e-af17-61002472f3f7", title: "A truly progressive VAT would solve a lot of UK tax problems", date: "2026-07-28", time: "13:01", url: "https://www.ft.com/content/3c62f28e-d7bc-409e-af17-61002472f3f7" },
   { id: "b0dfd771-a6d6-476e-a435-7a5aedf2f820", title: "Tourists evacuated from wildfire threat as France and Spain brace for new heatwaves", date: "2026-07-28", time: "12:48", url: "https://www.ft.com/content/b0dfd771-a6d6-476e-a435-7a5aedf2f820" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "e0c5b0e8-0772-4aa6-a011-129510420c3a", title: "More than two-thirds of FTSE 100 restate climate metrics, analysis finds", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/e0c5b0e8-0772-4aa6-a011-129510420c3a" },
   { id: "82acf078-9214-4eb6-a162-15f584a5e3ca", title: "Iran’s missile resilience challenges US forces", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/82acf078-9214-4eb6-a162-15f584a5e3ca" },
   { id: "a883cdad-1851-46e1-a58f-ac5fedae2e3d", title: "Hungary’s thawing relations with EU provide lucrative trade for foreign funds", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/a883cdad-1851-46e1-a58f-ac5fedae2e3d" },
-  { id: "ce46154a-f783-4494-8ddd-a0e094414bcb", title: "To create wealth, Europe must reap the dividends of radio spectrum", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/ce46154a-f783-4494-8ddd-a0e094414bcb" },
-  { id: "6d2d0b89-0d26-4e49-8e52-a53bdc178974", title: "The UAE’s bold gambit on Iran", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/6d2d0b89-0d26-4e49-8e52-a53bdc178974" },
-  { id: "0a0684fe-2ba0-4909-82ca-0e5e70955ce3", title: "Trump says Israel ‘would not survive’ without US", date: "2026-07-27", time: "18:51", url: "https://www.ft.com/content/0a0684fe-2ba0-4909-82ca-0e5e70955ce3" },
-  { id: "2fe22a35-5544-4a0e-b72a-b93e941cbcad", title: "Burnham appoints 61 parliamentary private secretaries in bid to avert Labour unrest", date: "2026-07-27", time: "18:51", url: "https://www.ft.com/content/2fe22a35-5544-4a0e-b72a-b93e941cbcad" },
 ];
