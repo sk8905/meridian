@@ -29,6 +29,7 @@ export function mount(host, ctx) {
   let pane = "macro";
   let _legalQuery = "";                 // Legal database keyword (persist across re-renders)
   const _legalAreas = new Set();        // practice areas the search is limited to (empty = all)
+  const _legalTypes = new Set();        // item types the search is limited to (empty = all): "alert" | "case"
 
   // ---- Equities -----------------------------------------------------------
   function idxTile(x, live) {
@@ -409,12 +410,15 @@ export function mount(host, ctx) {
   let _legalCache = null;
   function legalDb() {
     if (_legalCache) return _legalCache;
+    // Every legal item the desk covers — alerts, updates, case notes, insights and
+    // know-how (the feed labels them all, so all are searchable here). `case` items
+    // read as case law; everything else reads as an alert.
     const fromItems = (LGL_ITEMS || [])
-      .filter((x) => x && x.title && (x.type === "alert" || x.type === "update" || x.type === "case"))
-      .map((x) => ({ title: x.title, area: x.area, type: x.type === "case" ? "case" : "alert", court: x.court, citation: x.citation, firm: (LGL_FIRM_BY_ID[x.firm] || {}).name || null, summary: x.summary, url: x.url, date: x.date }));
+      .filter((x) => x && x.title)
+      .map((x) => ({ title: x.title, area: x.area, type: x.type === "case" ? "case" : "alert", court: x.court, citation: x.citation, firm: (LGL_FIRM_BY_ID[x.firm] || {}).name || null, summary: x.summary, tags: Array.isArray(x.tags) ? x.tags.join(" ") : "", url: x.url, date: x.date }));
     const fromCases = (LGL_CASES || [])
       .filter((c) => c && (c.name || c.title))
-      .map((c) => ({ title: c.name || c.title, area: c.area, type: "case", court: c.court, citation: c.citation, firm: null, summary: c.summary, url: c.url, date: c.date }));
+      .map((c) => ({ title: c.name || c.title, area: c.area, type: "case", court: c.court, citation: c.citation, firm: null, summary: c.summary, tags: "", url: c.url, date: c.date }));
     const seen = new Set(), all = [];
     [...fromCases, ...fromItems].forEach((r) => { const k = (r.citation || r.title || "").toLowerCase(); if (k && seen.has(k)) return; if (k) seen.add(k); all.push(r); });
     _legalCache = all.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
@@ -424,12 +428,16 @@ export function mount(host, ctx) {
     const q = _legalQuery.trim().toLowerCase();
     // Search-driven: nothing is listed until a keyword is entered (no full dump).
     if (!q) {
-      const scope = _legalAreas.size ? ` in ${[..._legalAreas].map((a) => (LGL_AREA_BY_ID[a] || {}).short || a).join(", ")}` : "";
-      return `<p class="dsh-load">Search ${legalDb().length} alerts &amp; case law${scope} — type a keyword above${_legalAreas.size ? "" : "; use the chips to limit to practice areas"}.</p>`;
+      const bits = [];
+      if (_legalTypes.size) bits.push([..._legalTypes].map((t) => t === "case" ? "case law" : "alerts").join(" & "));
+      if (_legalAreas.size) bits.push([..._legalAreas].map((a) => (LGL_AREA_BY_ID[a] || {}).short || a).join(", "));
+      const scope = bits.length ? ` (limited to ${bits.join(" · ")})` : "";
+      return `<p class="dsh-load">Search ${legalDb().length} legal alerts &amp; case law${scope} — type a keyword above; use the chips to limit by type or practice area.</p>`;
     }
     let list = legalDb();
+    if (_legalTypes.size) list = list.filter((x) => _legalTypes.has(x.type));
     if (_legalAreas.size) list = list.filter((x) => _legalAreas.has(x.area));
-    list = list.filter((x) => (`${x.title} ${x.summary || ""} ${x.court || ""} ${x.citation || ""} ${x.firm || ""}`).toLowerCase().includes(q));
+    list = list.filter((x) => (`${x.title} ${x.summary || ""} ${x.court || ""} ${x.citation || ""} ${x.firm || ""} ${x.tags || ""}`).toLowerCase().includes(q));
     if (!list.length) return `<p class="dsh-load">No matching case law or alerts.</p>`;
     const order = (LGL_AREAS || []).map((a) => a.id);
     const byArea = {};
@@ -450,13 +458,16 @@ export function mount(host, ctx) {
     const total = legalDb().length;
     // Toggleable practice-area chips (multi-select) that LIMIT the keyword search;
     // none selected = search every area.
-    const chip = (a) => `<button type="button" class="dsh-lgl-chip${_legalAreas.has(a.id) ? " is-on" : ""}" data-area="${esc(a.id)}">${esc(a.short || a.name)}</button>`;
-    const chips = `<div class="dsh-lgl-chips"><span class="dsh-lgl-lbl">Limit to</span>${(LGL_AREAS || []).map(chip).join("")}</div>`;
+    const TYPES = [["alert", "Alerts"], ["case", "Case law"]];
+    const tchip = ([k, l]) => `<button type="button" class="dsh-lgl-chip${_legalTypes.has(k) ? " is-on" : ""}" data-type="${esc(k)}">${esc(l)}</button>`;
+    const achip = (a) => `<button type="button" class="dsh-lgl-chip${_legalAreas.has(a.id) ? " is-on" : ""}" data-area="${esc(a.id)}">${esc(a.short || a.name)}</button>`;
+    const typeChips = `<div class="dsh-lgl-chips"><span class="dsh-lgl-lbl">Type</span>${TYPES.map(tchip).join("")}</div>`;
+    const areaChips = `<div class="dsh-lgl-chips"><span class="dsh-lgl-lbl">Practice area</span>${(LGL_AREAS || []).map(achip).join("")}</div>`;
     return `<div class="dsh-pane">
       <section class="dsh-card dsh-span">
         <h3 class="dsh-h">Legal — case law &amp; alerts <span class="dsh-n">(${total}) · search</span></h3>
-        <input type="search" class="dsh-lgl-search" id="dsh-lgl-q" placeholder="Search case law &amp; alerts — party, court, citation, firm…" value="${esc(_legalQuery)}" autocomplete="off" spellcheck="false">
-        ${chips}
+        <input type="search" class="dsh-lgl-search" id="dsh-lgl-q" placeholder="Search all legal alerts &amp; case law — party, court, citation, firm…" value="${esc(_legalQuery)}" autocomplete="off" spellcheck="false">
+        ${typeChips}${areaChips}
         <div class="dsh-lgl-body" id="dsh-lgl-body">${legalListHTML()}</div>
       </section>
     </div>`;
@@ -466,8 +477,8 @@ export function mount(host, ctx) {
     const body = host.querySelector("#dsh-lgl-body");
     if (q && body) q.addEventListener("input", () => { _legalQuery = q.value; body.innerHTML = legalListHTML(); });
     host.querySelectorAll(".dsh-lgl-chip").forEach((c) => c.addEventListener("click", () => {
-      const a = c.dataset.area;
-      if (_legalAreas.has(a)) _legalAreas.delete(a); else _legalAreas.add(a);
+      if (c.dataset.type) { const t = c.dataset.type; _legalTypes.has(t) ? _legalTypes.delete(t) : _legalTypes.add(t); }
+      else { const a = c.dataset.area; _legalAreas.has(a) ? _legalAreas.delete(a) : _legalAreas.add(a); }
       c.classList.toggle("is-on");
       if (body) body.innerHTML = legalListHTML();
     }));
