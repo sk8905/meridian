@@ -50,6 +50,14 @@ const openPage = async (page) => {
     const row = got.find((x) => x.title.includes(frag));
     check(!!row && row.code === code, `/: "${frag}" carries ${code}${row ? ` (got ${row.code})` : " (row missing)"}`);
   }
+  // Newsletter labels: EVERYTHING swept in as a newsletter reads LTR ("n"),
+  // including macro-titled ones — LTR now takes precedence over MAC. (The live
+  // wire above still classifies a macro headline as MAC via deskFor — unchanged.)
+  const nl = await pg.evaluate(async () => {
+    const m = await import("/feed.js?v=test");
+    return { macro: m.nlDesk("United States GDP Growth Rate Revised Higher"), plain: m.nlDesk("Weekly roundup"), empty: m.nlDesk("") };
+  });
+  check(nl.macro === "n" && nl.plain === "n" && nl.empty === "n", `newsletters always classify LTR (n), even macro-titled (got ${nl.macro}/${nl.plain})`);
   checkErrs(errs, "/");
   await ctx.close();
 }

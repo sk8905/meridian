@@ -8,7 +8,7 @@
 // mount(host, ctx) → {enter,leave}.
 // =============================================================================
 import { NEWSLETTERS } from "/newsletters.js";
-import { createFeed, onLiveWire, dedupeByTitle } from "/feed.js?v=20260724-3";
+import { createFeed, onLiveWire, dedupeByTitle } from "/feed.js?v=20260728-1";
 
 export function mount(host, ctx) {
   host.innerHTML = `<div class="g-feed-wrap nl-wrap">

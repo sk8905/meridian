@@ -70,12 +70,13 @@ export const deskFor = (title, source, dflt = "news") => {
 // Map a feed desk to the command-palette tag vocabulary, so the "#CODE" filters
 // (e.g. #BBG, #ECON) list the same items the feed labels carry.
 export const palTag = (d, dflt) => ({ m: "macro", n: "letter", bbg: "bbg", econ: "econ", c: "credit", l: "legal", f: "ft", news: "news" }[d] || dflt);
-// Newsletter classifier — the reader's Gmail-swept newsletters are LTR by the
-// stated precedence (LTR trumps FT/BBG/ECON); only a strictly-macro one reads MAC
-// (MAC also trumps LTR). Named premium sources (Bloomberg, The Economist) are
-// fetched SEPARATELY as live wire stories and carry BBG/ECON there — the
-// newsletter copy stays LTR.
-export const nlDesk = (title) => (STRICT_MACRO_RE.test(title || "") ? "m" : "n");
+// Newsletter classifier — EVERYTHING that arrived as a newsletter reads LTR.
+// LTR takes precedence over MAC: a macro-flavoured newsletter is still a
+// newsletter, so it keeps the LTR label rather than being reclassified MAC.
+// Named premium sources (Bloomberg, The Economist) are fetched SEPARATELY as
+// live wire stories and carry BBG/ECON there; myFT/Substack/Brew keep their own
+// FT/SUBS/BREW codes via the live path — only the generic Gmail sweep is LTR here.
+export const nlDesk = () => "n";
 // The command-palette label vocabulary: tag → the pill code shown + matched by
 // the "#CODE" filter. Shared by the Home palette and the app palette so a "#"
 // search behaves identically in every search bar.
