@@ -428,15 +428,4 @@ export const NEWSLETTERS = [
     summary: "Saudi Arabia and the US sign a civilian nuclear deal as America carries out a 12th night of strikes on Iran.",
     url: "https://www.economist.com/the-world-in-brief",
   },
-  {
-    id: "nl-bbg-pointsofreturn-20260723",
-    publication: "Bloomberg",
-    author: "John Authers",
-    series: "Points of Return",
-    title: "From Napoleon to Moonshot, China is doing it again",
-    date: "2026-07-23",
-    time: "05:39",
-    summary: "China's Moonshot AI shock rattles the industry, Alphabet is punished for planned capex, and oil is up 36% since July 2.",
-    url: "https://bloom.bg/4yGXBz0",
-  },
 ];
