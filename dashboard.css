@@ -126,9 +126,7 @@
 .dsh-lgl-chip:hover { color:var(--t-ink); }
 .dsh-lgl-chip.is-on { color:var(--t-ink); border-color:var(--t-accent); background:color-mix(in srgb,var(--t-accent) 12%,transparent); }
 .dsh-lgl-body { max-height:62vh; overflow-y:auto; }
-.dsh-lgl-grp { margin:0 0 12px; }
-.dsh-lgl-grp-h { position:sticky; top:0; background:var(--t-panel); padding:5px 0; font-size:.72rem; font-weight:700;
-  text-transform:uppercase; letter-spacing:.04em; color:var(--t-ink); border-bottom:1px solid var(--t-grid2); z-index:1; }
+.dsh-lgl-list { margin:0; }
 .dsh-lgl-i { padding:7px 0; border-bottom:1px solid var(--t-grid); }
 .dsh-lgl-i:last-child { border-bottom:0; }
 .dsh-lgl-i-h { display:flex; align-items:center; gap:8px; margin-bottom:2px; }

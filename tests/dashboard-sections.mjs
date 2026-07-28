@@ -36,33 +36,31 @@ check(lg.typeChips.includes("alert") && lg.typeChips.includes("case"), "Legal: A
 checkEq(lg.areaChips, 4, "Legal: four practice-area filter chips");
 checkEq(lg.itemsDefault, 0, "Legal: no list until a keyword is entered (search-driven)");
 
-// A keyword surfaces sourced, practice-area-grouped results across ALL LEX types.
+// A keyword surfaces sourced results across ALL LEX types, as ONE flat list ordered
+// newest-first — not split into practice-area groups.
 const searched = await pg.evaluate(() => {
   const q = document.querySelector("#dsh-lgl-q"); q.value = "director"; q.dispatchEvent(new Event("input"));
-  return { items: document.querySelectorAll(".dsh-lgl-i").length, srcs: document.querySelectorAll(".dsh-lgl-t[href^='http']").length, groups: document.querySelectorAll(".dsh-lgl-grp-h").length };
+  return {
+    items: document.querySelectorAll(".dsh-lgl-i").length,
+    srcs: document.querySelectorAll(".dsh-lgl-t[href^='http']").length,
+    groupHeaders: document.querySelectorAll(".dsh-lgl-grp-h").length,
+    lists: document.querySelectorAll(".dsh-lgl-list").length,
+    dates: [...document.querySelectorAll(".dsh-lgl-i")].map((el) => el.dataset.date || ""),
+  };
 });
 check(searched.items > 0, `Legal: keyword search returns results (${searched.items})`);
-check(searched.groups >= 1, `Legal: results grouped by practice area (${searched.groups})`);
+checkEq(searched.groupHeaders, 0, "Legal: results are NOT split into practice-area groups");
+checkEq(searched.lists, 1, "Legal: results render as one flat list");
 checkEq(searched.srcs, searched.items, `Legal: every result links its source (${searched.srcs}/${searched.items})`);
+// ISO dates run newest-first down the whole list (string compare works on YYYY-MM-DD).
+check(searched.dates.every((d, i) => i === 0 || searched.dates[i - 1] >= d), "Legal: list is ordered newest-first (recency, not practice area)");
 
-// Topic search reaches cases that only RELATE to the term (name never says it) AND
-// ranks the directly-named authorities first: within every group, no title that
-// contains all query words may sit below one that doesn't.
-const ranked = await pg.evaluate(() => {
+// Topic search still reaches cases that only RELATE to the term (name never says it).
+const relates = await pg.evaluate(() => {
   const q = document.querySelector("#dsh-lgl-q"); q.value = "directors' duties"; q.dispatchEvent(new Event("input"));
-  const norm = (s) => s.toLowerCase().replace(/['’]/g, "");
-  const toks = norm("directors' duties").split(/[^a-z0-9]+/).filter(Boolean);
-  const titles = [...document.querySelectorAll(".dsh-lgl-t")].map((el) => el.textContent);
-  let ordered = true;
-  document.querySelectorAll(".dsh-lgl-grp").forEach((g) => {
-    const named = [...g.querySelectorAll(".dsh-lgl-t")].map((el) => toks.every((t) => norm(el.textContent).includes(t)));
-    let sawUnnamed = false;
-    named.forEach((n) => { if (!n) sawUnnamed = true; else if (sawUnnamed) ordered = false; });
-  });
-  return { relates: titles.some((t) => /Saxon Woods/i.test(t)), ordered };
+  return [...document.querySelectorAll(".dsh-lgl-t")].some((el) => /Saxon Woods/i.test(el.textContent));
 });
-check(ranked.relates, "Legal: topic search reaches a related case whose name never says the term (Saxon Woods)");
-check(ranked.ordered, "Legal: directly-named results are ranked ahead of body-only matches");
+check(relates, "Legal: topic search reaches a related case whose name never says the term (Saxon Woods)");
 
 // Type filter: limit to Case law → every result is case law (and fewer than all).
 const typed = await pg.evaluate(() => {
@@ -72,13 +70,13 @@ const typed = await pg.evaluate(() => {
 });
 check(typed.allCase && typed.n < searched.items, `Legal: type filter limits to case law (${typed.n} of ${searched.items})`);
 
-// Add a practice-area chip on top → case law AND that area (single group).
+// Add a practice-area chip on top → case law AND that area, further narrowing the list.
 const scoped = await pg.evaluate(() => {
   const c = [...document.querySelectorAll(".dsh-lgl-chip[data-area]")].find((x) => x.dataset.area === "corporate"); c && c.click();
-  return { groups: document.querySelectorAll(".dsh-lgl-grp-h").length, onTypes: [...document.querySelectorAll(".dsh-lgl-chip.is-on")].length };
+  return { n: document.querySelectorAll(".dsh-lgl-i").length, onChips: [...document.querySelectorAll(".dsh-lgl-chip.is-on")].length };
 });
-checkEq(scoped.groups, 1, "Legal: type + practice-area filters combine to one group");
-checkEq(scoped.onTypes, 2, "Legal: type and area chips are independent multi-select toggles");
+check(scoped.n > 0 && scoped.n <= typed.n, `Legal: type + practice-area filters combine to narrow the list (${scoped.n} of ${typed.n})`);
+checkEq(scoped.onChips, 2, "Legal: type and area chips are independent multi-select toggles");
 
 // Clearing the keyword returns to the search prompt (no dump).
 const cleared = await pg.evaluate(() => { const q = document.querySelector("#dsh-lgl-q"); q.value = ""; q.dispatchEvent(new Event("input")); return document.querySelectorAll(".dsh-lgl-i").length; });

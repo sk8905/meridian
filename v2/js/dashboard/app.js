@@ -471,30 +471,25 @@ export function mount(host, ctx) {
     if (_legalAreas.size) list = list.filter((x) => _legalAreas.has(x.area));
     list = list.filter((x) => tokens.every((t) => x.hay.includes(t)));
     if (!list.length) return `<p class="dsh-load">No matching case law or alerts.</p>`;
-    // Relevance: entries whose NAME/citation matches lead the list, so a directly-named
-    // authority sits above one that only relates to the topic in its body text. Score =
-    // whole phrase in the title (strongest) > all tokens in the title > count of tokens
-    // in the title; ties break by date (newest first).
+    // One flat list, NEWEST FIRST — not split by practice area. Relevance only breaks
+    // a date tie, so among items published the same day the directly-named authority
+    // (whole phrase in the title > all query words > word count) edges out a passing
+    // mention. Each row still carries its practice-area label so that dimension is kept.
     const phrase = tokens.join(" ");
     const score = (x) => (x.thay.includes(phrase) ? 1000 : 0)
       + (tokens.every((t) => x.thay.includes(t)) ? 100 : 0)
       + tokens.filter((t) => x.thay.includes(t)).length * 10;
     list.forEach((x) => { x._score = score(x); });
-    const order = (LGL_AREAS || []).map((a) => a.id);
-    const byArea = {};
-    list.forEach((x) => { const a = x.area || "other"; (byArea[a] = byArea[a] || []).push(x); });
-    Object.values(byArea).forEach((rows) => rows.sort((a, b) => (b._score - a._score) || String(b.date || "").localeCompare(String(a.date || ""))));
+    list.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")) || (b._score - a._score));
     const badge = (t) => t === "case" ? `<span class="dsh-lgl-badge dsh-lgl-case">Case</span>` : `<span class="dsh-lgl-badge dsh-lgl-alert">Alert</span>`;
     const row = (x) => {
-      const meta = [x.court, x.citation, x.firm].filter(Boolean).map(esc).join(" · ");
-      return `<div class="dsh-lgl-i"><div class="dsh-lgl-i-h">${badge(x.type)}<span class="dsh-lgl-d">${esc(fmtDate(x.date))}</span></div>`
+      const area = LGL_AREA_BY_ID[x.area];
+      const meta = [area && area.name, x.court, x.citation, x.firm].filter(Boolean).map(esc).join(" · ");
+      return `<div class="dsh-lgl-i" data-date="${esc(x.date || "")}"><div class="dsh-lgl-i-h">${badge(x.type)}<span class="dsh-lgl-d">${esc(fmtDate(x.date))}</span></div>`
         + (x.url ? `<a class="dsh-lgl-t" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.title)}</a>` : `<span class="dsh-lgl-t">${esc(x.title)}</span>`)
         + (meta ? `<div class="dsh-lgl-m">${meta}</div>` : "") + `</div>`;
     };
-    return Object.keys(byArea).sort((a, b) => order.indexOf(a) - order.indexOf(b)).map((a) => {
-      const area = LGL_AREA_BY_ID[a];
-      return `<div class="dsh-lgl-grp"><div class="dsh-lgl-grp-h">${esc(area ? area.name : a)} <span class="dsh-mut">(${byArea[a].length})</span></div>${byArea[a].map(row).join("")}</div>`;
-    }).join("");
+    return `<div class="dsh-lgl-list">${list.map(row).join("")}</div>`;
   }
   function legalHTML() {
     const total = legalDb().length;
