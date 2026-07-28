@@ -140,9 +140,12 @@ html[data-theme="dark"][data-v2tab="menu"] .v2-botmeta { background: #000; color
   #wire-header #account-nav, #wire-header #data-status { display: none; }
   #v2-footer {
     display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    margin-top: 0;    /* no gap above: the footer sits flush on the ground as one grey row */
     padding: 6px 1.5rem calc(6px + env(safe-area-inset-bottom, 0px));
     font-size: .69rem; line-height: 1.35; color: var(--muted, #66708a);
-    border-top: 1px solid var(--border, #e4e7ef); background: var(--surface, #fff);
+    /* Single grey row (matches the app ground) rather than a white strip below an
+       empty grey gap — the identity/refresh line reads as part of the chrome. */
+    border-top: 1px solid var(--border, #e4e7ef); background: var(--head, #f4f7fb);
   }
   #v2-footer .v2-foot-acct { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   #v2-footer .v2-foot-acct strong { color: var(--ink, #131a2b); font-weight: 600; }

@@ -15,8 +15,9 @@ import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, DASH_A
 import { OUTLOOK, CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS } from "/macro/js/content.js";
 import { deals, intel } from "/credit/js/data.js";
 import { SECTOR_FLOWS } from "/allocations.js";
+import { items as LGL_ITEMS, cases as LGL_CASES, practiceAreas as LGL_AREAS, areaById as LGL_AREA_BY_ID, firmById as LGL_FIRM_BY_ID } from "/legal/js/data.js";
 
-const SUBTABS = [["macro", "Macro"], ["equities", "Equities"], ["credit", "Credit"]];
+const SUBTABS = [["macro", "Macro"], ["equities", "Equities"], ["credit", "Credit"], ["fixed-income", "Fixed Income"], ["legal", "Legal"]];
 const pct1 = (n) => (n == null ? "—" : (n > 0 ? "+" : "") + n.toFixed(1) + "%");
 const upcls = (n) => (n == null ? "" : n > 0 ? "up" : n < 0 ? "down" : "");
 const asOf = (d) => (d ? `<span class="dsh-asof">as of ${esc(d)}</span>` : "");
@@ -26,6 +27,7 @@ const fmtDate = (d) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); con
 
 export function mount(host, ctx) {
   let pane = "macro";
+  let _legalQuery = "", _legalArea = "all";   // Legal database search + area filter (persist across re-renders)
 
   // ---- Equities -----------------------------------------------------------
   function idxTile(x, live) {
@@ -386,12 +388,94 @@ export function mount(host, ctx) {
     </div>`;
   }
 
+  // ---- Fixed Income -------------------------------------------------------
+  // Government/sovereign (the US/UK yield curves) + corporate (ICE BofA OAS
+  // spreads, loaded live). Reuses the macro yield-curve renderer and the credit
+  // spreads loader so there is one source of truth for each.
+  function fixedIncomeHTML() {
+    const note = YIELD_CURVE && YIELD_CURVE.note ? `<p class="dsh-fl-note">${esc(YIELD_CURVE.note)}</p>` : "";
+    return `<div class="dsh-pane">
+      <section class="dsh-card dsh-span"><h3 class="dsh-h">Government / sovereign — yield curves ${asOf(YIELD_CURVE && YIELD_CURVE.asOf)}</h3><div class="dsh-scroll">${yieldCurveHTML()}</div>${note}</section>
+      <section class="dsh-card dsh-span"><h3 class="dsh-h">Corporate — credit spreads (ICE BofA OAS) <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div><p class="dsh-fl-note">Option-adjusted spreads over Treasuries, by rating cohort — the corporate risk premium. Live from FRED (ICE BofA indices).</p></section>
+    </div>`;
+  }
+
+  // ---- Legal --------------------------------------------------------------
+  // A searchable database of ALL alerts + case law the platform covers, unified
+  // from the legal desk's `items` (alerts/updates + case notes) and its landmark
+  // `cases`, organised by practice area. Insights/know-how are excluded (they are
+  // thought-leadership, not alerts or case law). Every row keeps its source URL.
+  let _legalCache = null;
+  function legalDb() {
+    if (_legalCache) return _legalCache;
+    const fromItems = (LGL_ITEMS || [])
+      .filter((x) => x && x.title && (x.type === "alert" || x.type === "update" || x.type === "case"))
+      .map((x) => ({ title: x.title, area: x.area, type: x.type === "case" ? "case" : "alert", court: x.court, citation: x.citation, firm: (LGL_FIRM_BY_ID[x.firm] || {}).name || null, summary: x.summary, url: x.url, date: x.date }));
+    const fromCases = (LGL_CASES || [])
+      .filter((c) => c && (c.name || c.title))
+      .map((c) => ({ title: c.name || c.title, area: c.area, type: "case", court: c.court, citation: c.citation, firm: null, summary: c.summary, url: c.url, date: c.date }));
+    const seen = new Set(), all = [];
+    [...fromCases, ...fromItems].forEach((r) => { const k = (r.citation || r.title || "").toLowerCase(); if (k && seen.has(k)) return; if (k) seen.add(k); all.push(r); });
+    _legalCache = all.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+    return _legalCache;
+  }
+  function legalListHTML() {
+    const q = _legalQuery.trim().toLowerCase();
+    let list = legalDb();
+    if (_legalArea !== "all") list = list.filter((x) => x.area === _legalArea);
+    if (q) list = list.filter((x) => (`${x.title} ${x.summary || ""} ${x.court || ""} ${x.citation || ""} ${x.firm || ""}`).toLowerCase().includes(q));
+    if (!list.length) return `<p class="dsh-load">No matching case law or alerts.</p>`;
+    const order = (LGL_AREAS || []).map((a) => a.id);
+    const byArea = {};
+    list.forEach((x) => { const a = x.area || "other"; (byArea[a] = byArea[a] || []).push(x); });
+    const badge = (t) => t === "case" ? `<span class="dsh-lgl-badge dsh-lgl-case">Case</span>` : `<span class="dsh-lgl-badge dsh-lgl-alert">Alert</span>`;
+    const row = (x) => {
+      const meta = [x.court, x.citation, x.firm].filter(Boolean).map(esc).join(" · ");
+      return `<div class="dsh-lgl-i"><div class="dsh-lgl-i-h">${badge(x.type)}<span class="dsh-lgl-d">${esc(fmtDate(x.date))}</span></div>`
+        + (x.url ? `<a class="dsh-lgl-t" href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.title)}</a>` : `<span class="dsh-lgl-t">${esc(x.title)}</span>`)
+        + (meta ? `<div class="dsh-lgl-m">${meta}</div>` : "") + `</div>`;
+    };
+    return Object.keys(byArea).sort((a, b) => order.indexOf(a) - order.indexOf(b)).map((a) => {
+      const area = LGL_AREA_BY_ID[a];
+      return `<div class="dsh-lgl-grp"><div class="dsh-lgl-grp-h">${esc(area ? area.name : a)} <span class="dsh-mut">(${byArea[a].length})</span></div>${byArea[a].map(row).join("")}</div>`;
+    }).join("");
+  }
+  function legalHTML() {
+    const total = legalDb().length;
+    const chip = (k, l) => `<button type="button" class="dsh-lgl-chip${_legalArea === k ? " is-on" : ""}" data-area="${esc(k)}">${esc(l)}</button>`;
+    const chips = `<div class="dsh-lgl-chips">${chip("all", "All")}${(LGL_AREAS || []).map((a) => chip(a.id, a.short || a.name)).join("")}</div>`;
+    return `<div class="dsh-pane">
+      <section class="dsh-card dsh-span">
+        <h3 class="dsh-h">Legal — case law &amp; alerts <span class="dsh-n">(${total}) · searchable</span></h3>
+        <input type="search" class="dsh-lgl-search" id="dsh-lgl-q" placeholder="Search case law &amp; alerts — party, court, citation, firm…" value="${esc(_legalQuery)}" autocomplete="off" spellcheck="false">
+        ${chips}
+        <div class="dsh-lgl-body" id="dsh-lgl-body">${legalListHTML()}</div>
+      </section>
+    </div>`;
+  }
+  function wireLegal() {
+    const q = host.querySelector("#dsh-lgl-q");
+    const body = host.querySelector("#dsh-lgl-body");
+    if (q && body) q.addEventListener("input", () => { _legalQuery = q.value; body.innerHTML = legalListHTML(); });
+    host.querySelectorAll(".dsh-lgl-chip").forEach((c) => c.addEventListener("click", () => {
+      _legalArea = c.dataset.area;
+      host.querySelectorAll(".dsh-lgl-chip").forEach((x) => x.classList.toggle("is-on", x === c));
+      if (body) body.innerHTML = legalListHTML();
+    }));
+  }
+
   // ---- Shell + routing ----------------------------------------------------
   function render() {
     const nav = SUBTABS.map(([k, l]) => `<a class="tchip${pane === k ? " is-on" : ""}" href="${ctx.base}/dashboard/${k}" data-sub="${k}">${l}</a>`).join("");
-    const body = pane === "equities" ? equitiesHTML() : pane === "credit" ? creditHTML() : macroHTML();
+    const body = pane === "equities" ? equitiesHTML()
+      : pane === "credit" ? creditHTML()
+      : pane === "fixed-income" ? fixedIncomeHTML()
+      : pane === "legal" ? legalHTML()
+      : macroHTML();
     host.innerHTML = `<div class="dsh"><header class="dsh-nav tdet-secnav"><div class="tchips">${nav}</div></header>${body}</div>`;
     if (pane === "credit") { loadSpreads(); wireStressSort(); }
+    if (pane === "fixed-income") loadSpreads();
+    if (pane === "legal") wireLegal();
   }
   function wireSectorToggle() {
     host.querySelectorAll(".dsh-tgl").forEach((b) => b.addEventListener("click", () => {

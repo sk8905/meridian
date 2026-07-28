@@ -147,6 +147,12 @@
    box-shadow an invalid declaration and the underline silently disappears. */
 .tchip.is-on { color: var(--ink); font-weight: 600; box-shadow: inset 0 -2px 0 var(--chip-ul, #000); }
 [data-theme="dark"] .tchip.is-on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff); }
+/* Wire-head chip rows (Profiles · Radar · desk wires) carry their own 1px bottom
+   divider on .twire-head; the active-chip underline used to float a pixel ABOVE
+   it (double-line look). Extend the marker 1px BELOW the chip so it lands flush
+   ON the divider. Box-shadow only — no layout shift. */
+.twire-head .tchip.is-on { box-shadow: inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
+[data-theme="dark"] .twire-head .tchip.is-on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
 .twire { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1 1 auto; min-height: 0; }
 /* single line, matching Home: date | CODE | headline (+ inline manager) | source */
 .twire .compact-item { display: grid; grid-template-columns: 70px 30px minmax(0,1fr) auto; column-gap: 10px; padding: 5px 12px; border-bottom: 1px solid var(--border); align-items: baseline; }

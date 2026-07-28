@@ -113,6 +113,32 @@
 .dsh-fl-pos { color:var(--t-up); font-weight:700; }
 .dsh-fl-neg { color:var(--t-down); font-weight:700; }
 
+/* Legal database (Dashboard ▸ Legal) — searchable, practice-area-grouped list of
+   all alerts + case law. */
+.dsh-lgl-search { width:100%; box-sizing:border-box; margin:0 0 8px; padding:7px 10px; font:inherit; font-size:.82rem;
+  color:var(--t-ink); background:var(--t-panel2); border:1px solid var(--t-grid2); border-radius:6px; }
+.dsh-lgl-search::placeholder { color:var(--t-faint); }
+.dsh-lgl-search:focus { outline:none; border-color:var(--t-accent); }
+.dsh-lgl-chips { display:flex; flex-wrap:wrap; gap:6px; margin:0 0 10px; }
+.dsh-lgl-chip { border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); font:inherit;
+  font-size:.72rem; font-weight:600; padding:3px 9px; border-radius:999px; cursor:pointer; }
+.dsh-lgl-chip:hover { color:var(--t-ink); }
+.dsh-lgl-chip.is-on { color:var(--t-ink); border-color:var(--t-accent); background:color-mix(in srgb,var(--t-accent) 12%,transparent); }
+.dsh-lgl-body { max-height:62vh; overflow-y:auto; }
+.dsh-lgl-grp { margin:0 0 12px; }
+.dsh-lgl-grp-h { position:sticky; top:0; background:var(--t-panel); padding:5px 0; font-size:.72rem; font-weight:700;
+  text-transform:uppercase; letter-spacing:.04em; color:var(--t-ink); border-bottom:1px solid var(--t-grid2); z-index:1; }
+.dsh-lgl-i { padding:7px 0; border-bottom:1px solid var(--t-grid); }
+.dsh-lgl-i:last-child { border-bottom:0; }
+.dsh-lgl-i-h { display:flex; align-items:center; gap:8px; margin-bottom:2px; }
+.dsh-lgl-d { color:var(--t-mut); font-size:.7rem; font-family:var(--t-mono); }
+.dsh-lgl-badge { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:1px 5px; border-radius:3px; border:1px solid var(--t-grid2); }
+.dsh-lgl-case { color:var(--t-mac); border-color:var(--t-mac); }
+.dsh-lgl-alert { color:var(--t-lex); border-color:var(--t-lex); }
+.dsh-lgl-t { display:block; color:var(--t-ink); font-size:.84rem; line-height:1.35; font-weight:500; }
+.dsh-lgl-t:hover { color:var(--t-accent); }
+.dsh-lgl-m { color:var(--t-mut); font-size:.72rem; margin-top:2px; }
+
 /* IPO / generic table */
 .dsh-scroll { overflow-x:auto; }
 .dsh-tbl { width:100%; border-collapse:collapse; font-size:.8rem; }
