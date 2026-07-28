@@ -23,7 +23,6 @@ const fmtNum = (v) => { v = +v; if (!isFinite(v)) return "—"; const a = Math.a
 const fmtRateVal = (v, unit) => { v = +v; if (!isFinite(v)) return "—"; if (unit === "bp") return v.toFixed(0) + " bp"; return v.toFixed(2) + "%"; };
 function fmtDate(d) { if (!d) return ""; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : String(d).slice(0, 10); const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s); if (!m) return String(d); return `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}`; }
 
-const DESK = { m: "Macro", c: "Credit", l: "Legal" };
 const DESK_CLASS = { m: "macro", c: "credit", l: "legal", n: "newsletter", f: "ft", s: "substack", b: "brew", news: "news", bbg: "bbg", econ: "econ", comm: "comm", deal: "deal", fund: "fund", clo: "clo", alert: "alert", case: "case", scheme: "scheme", rp: "rp" };
 
 const ICO_MKT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>';

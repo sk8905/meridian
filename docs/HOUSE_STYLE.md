@@ -139,7 +139,8 @@ notification badge red (`#ef4444`).
   `--fs-content` (body). Numeric columns use
   `font-variant-numeric: tabular-nums`.
 - **R11b — No new font family or weight** beyond the two stacks and the weights
-  already in use (400 / 600 / 700 / 800).
+  already in use (400 / 500 / 600 / 700 / 800). 500 is the inactive-chip/label
+  weight, paired with 600 for the active state.
 
 ---
 

@@ -117,6 +117,11 @@ function buildIndex() {
 // the Home palette uses.
 const DESKCODE = PAL_CODE;
 const STYLE = `
+/* Mounted on document.body — outside every panel-scoped --t-* root (#glance/
+   .na-panel/.g-main.tui/.g-feed-wrap) — so the domain-pill tokens below must be
+   declared locally (HOUSE_STYLE §3: any new top-level surface owns its tokens). */
+html[data-theme="dark"] .mcmdk{--t-mac:#9b83e2;--t-crd:#fb8b1e;--t-lex:#2fbf8a;--t-amber:#d9a441;--t-ft:#e0708e}
+html[data-theme="light"] .mcmdk{--t-mac:#6a4fa3;--t-crd:#fb8b1e;--t-lex:#2b8a5f;--t-amber:#b3760f;--t-ft:#990f3d}
 .mcmdk{position:fixed;inset:0;z-index:9000;display:none;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
 .mcmdk.open{display:block}
 .mcmdk *{box-sizing:border-box}
@@ -136,12 +141,12 @@ const STYLE = `
 .mcmdk-t{display:block;font-weight:400;font-size:13px;line-height:1.35;color:var(--ink,#eaf0fb);margin-bottom:4px}
 .mcmdk-meta{display:flex;align-items:center;gap:8px;min-width:0;font-family:var(--t-mono,ui-monospace,monospace);font-size:12px;color:var(--muted,#8592ad)}
 .mcmdk-code{flex:0 0 auto;font-size:9.5px;font-weight:700;letter-spacing:.04em;padding:2px 5px;text-transform:uppercase}
-.mcmdk-code.macro{color:#9b83e2;background:color-mix(in srgb,#9b83e2 16%,transparent)}
-.mcmdk-code.credit{color:#fb8b1e;background:color-mix(in srgb,#fb8b1e 16%,transparent)}
-.mcmdk-code.legal{color:#2fbf8a;background:color-mix(in srgb,#2fbf8a 16%,transparent)}
+.mcmdk-code.macro{color:var(--t-mac,#9b83e2);background:color-mix(in srgb,var(--t-mac,#9b83e2) 16%,transparent)}
+.mcmdk-code.credit{color:var(--t-crd,#fb8b1e);background:color-mix(in srgb,var(--t-crd,#fb8b1e) 16%,transparent)}
+.mcmdk-code.legal{color:var(--t-lex,#2fbf8a);background:color-mix(in srgb,var(--t-lex,#2fbf8a) 16%,transparent)}
 .mcmdk-code.view{color:var(--faint,#5c6a86);background:color-mix(in srgb,#5c6a86 22%,transparent)}
-.mcmdk-code.ft{color:#e0708e;background:color-mix(in srgb,#e0708e 16%,transparent)}
-.mcmdk-code.letter{color:#d9a441;background:color-mix(in srgb,#d9a441 16%,transparent)}
+.mcmdk-code.ft{color:var(--t-ft,#e0708e);background:color-mix(in srgb,var(--t-ft,#e0708e) 16%,transparent)}
+.mcmdk-code.letter{color:var(--t-amber,#d9a441);background:color-mix(in srgb,var(--t-amber,#d9a441) 16%,transparent)}
 .mcmdk-code.news{color:#8aa0c8;background:color-mix(in srgb,#8aa0c8 16%,transparent)}
 .mcmdk-code.bbg{color:#e0873a;background:color-mix(in srgb,#e0873a 16%,transparent)}
 .mcmdk-code.econ{color:#e0524d;background:color-mix(in srgb,#e0524d 16%,transparent)}

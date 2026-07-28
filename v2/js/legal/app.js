@@ -890,15 +890,6 @@ function renderCaseResults() {
 // =============================================================================
 const rxFilter = { types: [], q: "", years: [], outcomes: [] };
 
-function rxTypeLabel(t) { return t === "scheme" ? "Scheme (Pt 26)" : "Plan (Pt 26A)"; }
-function rxOutcomeClass(o) {
-  const t = (o || "").toLowerCase();
-  if (t.includes("refus") || t.includes("overturn") || (t.includes("appeal") && t.includes("allow"))) return "neg";
-  if (t.includes("upheld") || t.includes("dismiss")) return "pos";
-  if (t.includes("conven") || t.includes("withdraw")) return "neu";
-  return "pos";
-}
-
 function rxOutcomeShort(o) {
   const t = (o || "").toLowerCase();
   if (t.includes("overturn") || (t.includes("appeal") && t.includes("allow"))) return "Overturned on appeal";

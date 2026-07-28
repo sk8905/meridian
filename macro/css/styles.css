@@ -120,7 +120,7 @@ a.macro-tile:hover .macro-src { color: var(--ink); text-decoration: none; }
 .macro-sub { display: block; line-height: 1.25; font-size: .64rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .macro-valrow { display: flex; align-items: baseline; gap: .4rem; }
 .macro-val { font-size: .98rem; font-weight: 700; color: var(--macro); letter-spacing: -0.01em; line-height: 1; font-variant-numeric: tabular-nums; }
-.macro-chg { font-size: .66rem; font-weight: 600; color: var(--muted); white-space: nowrap; }
+.macro-chg { font-size: .66rem; font-weight: 600; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .macro-chg.up { color: var(--t-up); }
 .macro-chg.down { color: var(--t-down); }
 .macro-chg.flat { color: var(--muted); }
@@ -337,9 +337,7 @@ a.intel-head:hover { text-decoration: none; }
 /* Sub-section menu: house underline chips above the cockpit; groups wrap the
    panels transparently (display:contents keeps the grid intact) and hide as a
    unit when filtered. Dividers only show on the All view. */
-.ck-secbar { height: 34px; border-bottom: 1px solid var(--border); background: var(--head); }
-/* Selected sub-section chip: subtle grey shade instead of the white underline */
-#ck-secnav .tchip.is-on { box-shadow: none; background: color-mix(in srgb, var(--ink, #eaf0fb) 9%, transparent); color: var(--ink); font-weight: 600; }
+.ck-secbar { height: var(--chip-h, 34px); border-bottom: 1px solid var(--border); background: var(--head); }
 .ck-group { display: contents; }
 .ck-group.ck-off { display: none; }
 /* Overview lays its three clusters side by side across the full width:
@@ -442,8 +440,7 @@ a.intel-head:hover { text-decoration: none; }
 /* Full-bleed and flush under the sub-section chips: cancel the panel body's
    padding above and beside it. */
 .ew-body { padding-top: 0; }
-.ew-chipbar { display: flex; height: 30px; margin: 0 -12px 8px; border-bottom: 1px solid var(--border); background: var(--surface); }
-.ew-chipbar .tchip.is-on { box-shadow: none; background: color-mix(in srgb, var(--ink, #eaf0fb) 9%, transparent); color: var(--ink); font-weight: 600; }
+.ew-chipbar { display: flex; height: var(--chip-h, 34px); margin: 0 -12px 8px; border-bottom: 1px solid var(--border); background: var(--surface); }
 .ew-off { display: none; }
 .ew-day { margin: 10px 0 2px; }
 .ew-day:first-child { margin-top: 0; }

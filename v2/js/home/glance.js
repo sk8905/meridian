@@ -69,7 +69,6 @@ let _inited = false;
 // Seeded from last-good cache on load, refreshed on the 5-min live cadence, and
 // merged into the home feed's Macro items. Empty until the first fetch resolves.
 let _liveFeed = [];
-const fmtRefresh = () => `${fmt(LAST_CHECKED)}${LAST_CHECKED_TIME ? `, ${LAST_CHECKED_TIME}` : ""}`;
 
 // The Markets dropdown is the SHARED nav-actions panel (#na-mkt-panel) on every
 // page, Home included — one identical Markets | Macro | Portfolio list. Home no
@@ -219,42 +218,6 @@ function initGlanceTickerToggle() {
     if (e.key !== "Escape") return;
     glance.querySelectorAll(".g-gl-block.is-open").forEach(closeBlock);
   });
-}
-
-// Mobile-only backdrop for the markets / notifications menus. A full-viewport
-// catcher absorbs the tap that dismisses an open menu so it can't also activate a
-// link or tab on the page behind it. Only used on phones (the desktop dropdowns
-// close fine on outside-click without one). The top bar is raised above it via
-// body.g-menu-open so the open panel (which lives inside the bar) stays on top.
-let _scrimEl = null;
-function showScrim(onClose) {
-  if (!matchMedia("(max-width:760px)").matches) return;
-  if (!_scrimEl) {
-    _scrimEl = document.createElement("div");
-    _scrimEl.className = "g-scrim";
-    _scrimEl.addEventListener("click", (e) => { e.preventDefault(); e.stopPropagation(); if (_scrimEl._cb) _scrimEl._cb(); });
-    document.body.appendChild(_scrimEl);
-  }
-  _scrimEl._cb = onClose;
-  _scrimEl.hidden = false;
-  document.body.classList.add("g-menu-open");
-}
-function hideScrim() {
-  if (_scrimEl) { _scrimEl.hidden = true; _scrimEl._cb = null; }
-  document.body.classList.remove("g-menu-open");
-}
-// Close ALL three command-bar menus (Markets / Saved / Notifications) and reset
-// the shared body-locks + scrim. Every menu's toggle calls this before opening so
-// only one is ever open — opening one always closes the others (no layering/stick).
-function closeAllGlanceMenus() {
-  const mkt = document.getElementById("g-mkt-panel");
-  if (mkt && !mkt.hidden) mkt.hidden = true;
-  const mktBtn = document.getElementById("g-mkt-btn"); if (mktBtn) mktBtn.setAttribute("aria-expanded", "false");
-  const sv = document.getElementById("g-sv-panel");
-  if (sv) sv.setAttribute("hidden", "");
-  const svBtn = document.getElementById("g-sv-btn"); if (svBtn) svBtn.setAttribute("aria-expanded", "false");
-  document.body.classList.remove("g-mkt-open");
-  hideScrim();
 }
 
 // On phones the briefing leads and the filter-chip bar sits directly BELOW it,
@@ -666,32 +629,9 @@ function renderFeed() {
 // bubble risk — filling the space below the markets/rates bands. Each block
 // deep-links into the Macro app. Values mirror macro/js/content.js and the
 // bubble-composite / band logic in macro/js/app.js.
-const bubbleComposite = () => {
-  const d = (BUBBLE && BUBBLE.dimensions) || [];
-  const w = d.reduce((s, x) => s + x.weight, 0) || 1;
-  return Math.round(d.reduce((s, x) => s + x.score * x.weight, 0) / w);
-};
-const bubbleBand = (s) => (s < 20 ? "Low" : s < 40 ? "Moderate" : s < 65 ? "Elevated" : s < 82 ? "High" : "Extreme");
-const shortStage = (s) => String(s || "").split("—")[0].trim();
-let _gsg = 0;
-// A thin 0–100 gradient track with one dot per item (viewBox kept ~12.5:1 so it
-// scales uniformly to the column width without distorting the dots).
-function snapGauge(items) {
-  const x0 = 2, x1 = 98, id = `gsg${_gsg++}`;
-  const X = (p) => (x0 + Math.max(0, Math.min(100, p)) / 100 * (x1 - x0)).toFixed(1);
-  const dots = items.map((it) => {
-    const x = X(it.pos);
-    return `<line x1="${x}" y1="2" x2="${x}" y2="6" stroke="var(--macro)" stroke-width="0.7"/>`
-      + `<circle cx="${x}" cy="4" r="1.6" fill="var(--macro)" stroke="var(--surface)" stroke-width="0.7"><title>${esc(it.label)} · ${it.pos}</title></circle>`;
-  }).join("");
-  return `<svg class="g-snap-gauge" viewBox="0 0 100 8" role="img" aria-hidden="true">`
-    + `<defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="var(--gauge-lo, #d7e3f4)"/><stop offset="1" stop-color="var(--macro)"/></linearGradient></defs>`
-    + `<rect x="${x0}" y="3.45" width="${x1 - x0}" height="1.1" rx="0.55" fill="url(#${id})"/>${dots}</svg>`;
-}
 function renderMacroSnapshot() {
   const el = document.getElementById("g-macro-snap");
   if (!el || !CYCLE || !BUBBLE || !OUTLOOK) return;
-  const comp = bubbleComposite();
   // One 3-column grid (country · rate · stance) shared by both rows so the rate
   // and stance columns line up even though the two rates differ in width.
   // Two-part read of the stance: the one-word forecast for the next decision

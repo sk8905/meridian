@@ -5,7 +5,7 @@
 import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS, IND_KEYMOMENTS } from "/macro/js/content.js";
 import { reportRefresh } from "/v2/js/status.js?v=v2-2";
 import { esc } from "/util.js?v=20260719-1";
-import { MONTHS, MONTHS_FULL, WEEKDAYS, isoToDate, fmtDay, fmtDayGB, fmtWeekday, fmtDate,
+import { MONTHS, MONTHS_FULL, WEEKDAYS, isoToDate, fmtDay, fmtDayGB, fmtDate,
   trackGauge, CYCLE_ZONES, BUBBLE_ZONES, bubbleComposite, bubbleBand,
   MAC_IND_ORDER, MACRO_DATA, setMacroData, macroMatrixHtml, macroDetailHtml } from "/macro/js/shared.js?v=20260726-2";
 import { macroDashPane, loadYieldCurve, cockpitInds } from "/macro/js/dashboard.js?v=20260726-2";
@@ -43,7 +43,6 @@ let _macWireItems = [];   // normalised wire items for the shared feed engine
 // sparklines, the multi-series Chart tab and the policy gauge flip live with the
 // theme toggle rather than staying pinned to their light values.
 const MACRO_COLOR = "var(--macro-line)";
-const MACRO_INK = "var(--macro-deep)";
 // Low-tier aggregator / SEO / forecast-farm sources kept out of the News wire so it
 // stays on premium newsrooms (mirrors the Home feed's NON_PREMIUM list in glance.js).
 const MAC_NON_PREMIUM = new Set([
@@ -203,37 +202,6 @@ function summaryCards() {
 // ---- Date helpers ----------------------------------------------------------
 
 const todayMidnight = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; };
-
-// ---- Upcoming-releases banner ----------------------------------------------
-// Shows the next six scheduled US/UK data releases & central-bank announcements
-// (soonest first) — one row of 6 on desktop, a 2×3 grid on phones.
-function renderReleases() {
-  const now = todayMidnight();
-  const up = (RELEASES || [])
-    .filter((r) => { const d = isoToDate(r.date); return d && d >= now; })
-    .sort((a, b) => String(a.date).localeCompare(String(b.date)))
-    .slice(0, 6);
-  // A compact dropdown menu pinned to the top-right of the page header (rather
-  // than a full-width banner). Native <details> so it needs no extra wiring; an
-  // outside-click closes it (see the listener at module load).
-  const items = up.length
-    ? up.map((r) => {
-        const tag = r.url ? "a" : "div";
-        const attrs = r.url ? ` href="${esc(r.url)}" target="_blank" rel="noopener noreferrer" title="${esc(r.title)} — open source"` : "";
-        return `<${tag} class="rel-item"${attrs}>
-          <span class="cal-date"><span class="cal-country cal-${(r.country || "").toLowerCase()}">${esc(r.country || "")}</span> ${esc(fmtWeekday(r.date))}</span>
-          <span class="cal-title">${esc(r.title)}</span>
-        </${tag}>`;
-      }).join("")
-    : `<p class="cal-empty muted small">No major US or UK data releases scheduled this week or next.</p>`;
-  return `<details class="rel-dd">
-    <summary class="rel-dd-btn">Upcoming releases <span class="rk-caret" aria-hidden="true"></span></summary>
-    <div class="rel-dd-panel" role="menu" aria-label="Upcoming economic releases">
-      <div class="rel-dd-head">Next US &amp; UK releases</div>
-      <div class="rel-list">${items}</div>
-    </div>
-  </details>`;
-}
 
 // ---- Key macro headlines (Latest-Activity-style, two columns) --------------
 // Two columns — US and UK — each newest-first. Each column prefers items ≤ 3
@@ -513,11 +481,6 @@ function articleSaveId(n) {
   let h = 0; for (let i = 0; i < base.length; i++) h = (Math.imul(h, 31) + base.charCodeAt(i)) | 0;
   return "a" + (h >>> 0).toString(36);
 }
-function saveBtn(id) {
-  const on = getSavedM().has(id);
-  return `<button type="button" class="save-btn ${on ? "is-saved" : ""}" data-save="${esc(id)}" aria-pressed="${on}" title="${on ? "Remove from saved" : "Save this item"}">${on ? "★ Saved" : "☆ Save"}</button>`;
-}
-
 // Commentary tab — a curated, newest-first reading list of economist & bank
 // commentary only (data in content.js COMMENTARY), not news-outlet content.
 // Rendered through the SHARED feed engine (feedBodyHTML): one-line wire rows
@@ -1081,10 +1044,6 @@ on(document, "click", (e) => {
   document.querySelectorAll(".chart-range-btn:not(.dash-range-btn)").forEach((b) => b.classList.toggle("is-on", b === rb));
   chartPersist();
   drawChart();
-});
-// Close the upcoming-releases dropdown when clicking outside it.
-on(document, "click", (e) => {
-  document.querySelectorAll("details.rel-dd[open]").forEach((d) => { if (!d.contains(e.target)) d.removeAttribute("open"); });
 });
 // Value-mode toggle: Actual level / % change / Indexed.
 on(document, "click", (e) => {

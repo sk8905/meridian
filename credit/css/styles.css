@@ -213,8 +213,8 @@ h3.sub:first-of-type { margin-top: .2rem; }
 /* ---------- fund status sections ---------- */
 .lifecycle-note { background:#fef2f2; border:1px solid #fecaca; border-radius:8px; padding:.6rem .8rem; margin:.6rem 0 1rem; }
 .lifecycle-note p { margin:.3rem 0 0; }
-.active-filter { display:flex; align-items:center; gap:.5rem; background:#eef2f8; border:1px solid #c8d5e6; color:#fb8b1e; border-radius:8px; padding:.45rem .7rem; margin:.4rem 0 .8rem; font-size:.85rem; }
-.active-filter button.chip { cursor:pointer; background:#e8edf5; border-color:#c8d5e6; color:#fb8b1e; }
+.active-filter { display:flex; align-items:center; gap:.5rem; background:#eef2f8; border:1px solid #c8d5e6; color:var(--ink); border-radius:8px; padding:.45rem .7rem; margin:.4rem 0 .8rem; font-size:.85rem; }
+.active-filter button.chip { cursor:pointer; background:#e8edf5; border-color:#c8d5e6; color:var(--ink); }
 .active-filter button.chip:hover { background:#c8d5e6; }
 .fund-section { margin-bottom: 1.4rem; }
 .section-head { font-size: 1.05rem; margin: 1.1rem 0 .6rem; display: flex; align-items: center; gap: .5rem; }
