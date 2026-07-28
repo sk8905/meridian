@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a4222e62-b649-4ad6-8ebf-6ea1f7d2f7ad", title: "Greens and Reform take a hit from the Burnham bounce", date: "2026-07-28", time: "19:04", url: "https://www.ft.com/content/a4222e62-b649-4ad6-8ebf-6ea1f7d2f7ad" },
+  { id: "20432705-d873-46eb-9b65-b5ae547b1585", title: "Ares’ next big private capital deal looks deceptively close to home", date: "2026-07-28", time: "19:00", url: "https://www.ft.com/content/20432705-d873-46eb-9b65-b5ae547b1585" },
+  { id: "3e9e7e69-08c5-4c31-af50-f7d057815946", title: "The US should stay open to open-weight AI", date: "2026-07-28", time: "18:20", url: "https://www.ft.com/content/3e9e7e69-08c5-4c31-af50-f7d057815946" },
   { id: "4213bfb6-6204-47a5-ba1d-99db1d52ca5f", title: "UK charities hit after specialist bank shuts off online services", date: "2026-07-28", time: "17:42", url: "https://www.ft.com/content/4213bfb6-6204-47a5-ba1d-99db1d52ca5f" },
   { id: "8be7a9f5-a440-4f3a-9b0f-1a1358242c35", title: "Shipping group CMA CGM boosted by customers stockpiling to beat Trump tariffs", date: "2026-07-28", time: "17:16", url: "https://www.ft.com/content/8be7a9f5-a440-4f3a-9b0f-1a1358242c35" },
   { id: "1ed4aee0-cbb4-4c98-a2aa-34971ded2583", title: "Ebay to pay $55.7mn to settle case over harassment of company critics", date: "2026-07-28", time: "17:12", url: "https://www.ft.com/content/1ed4aee0-cbb4-4c98-a2aa-34971ded2583" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "c6e66af7-5ffe-46ff-8936-78d742c1cdfd", title: "BYD takes on Japan’s ‘kei’ car market with tiny EV", date: "2026-07-28", time: "05:16", url: "https://www.ft.com/content/c6e66af7-5ffe-46ff-8936-78d742c1cdfd" },
   { id: "0ee947e4-0b2a-48e4-93de-2c7985662f14", title: "TotalEnergies benefits from EU sanctions reprieve on Russian gas", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/0ee947e4-0b2a-48e4-93de-2c7985662f14" },
   { id: "cc27661a-9a6f-4e55-bfa3-64afd7107655", title: "Polish opposition split hands Donald Tusk pre-election boost", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/cc27661a-9a6f-4e55-bfa3-64afd7107655" },
-  { id: "d471f2f4-e720-4684-86fd-21713daa4119", title: "Is a private equity megadeal brewing?", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/d471f2f4-e720-4684-86fd-21713daa4119" },
-  { id: "976c453c-ae12-4318-be50-e8347b385637", title: "Don’t underestimate the economic power of a UK vibe shift", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/976c453c-ae12-4318-be50-e8347b385637" },
-  { id: "ef7ff634-b738-4975-91b5-2edffc51da68", title: "EU hesitates to target Irish plant accused of supplying Russia’s war industry", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/ef7ff634-b738-4975-91b5-2edffc51da68" },
 ];

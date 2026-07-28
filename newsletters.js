@@ -31,6 +31,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-elevators-20260728",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: Elevators Won’t Repair Themselves",
+    date: "2026-07-28",
+    time: "19:08",
+    summary: "Sponsors, parlays, pivots, trust.",
+    url: "https://bloom.bg/4yPVqJq",
+  },
+  {
     id: "nl-bbg-thebrink-oceangate-20260728",
     publication: "Bloomberg",
     author: "Jonathan Randles",
