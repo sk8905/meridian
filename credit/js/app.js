@@ -15,7 +15,7 @@ import {
 // app.js and the app fails to load (blank page). shared.js AND detail.js also
 // import ./data.js with this SAME token; keep all three identical or the browser
 // loads data.js twice as separate module instances.
-import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260728-1";
+import { barChart, donutChart, lineChart, multiLineChart } from "./charts.js?v=20260728-2";
 // The view code splits across three modules with an ACYCLIC import graph —
 // app.js -> detail.js -> shared.js. shared.js holds the format/render helpers,
 // the watchlist/saved read layer, the paginated-feed + pending-focus machinery
@@ -29,8 +29,8 @@ import {
   creditSource, feedDedupKey, intelRow, dealRow,
   PAGE, pageShown, pageCount, pageReset, loadMoreBtn, feedHtml, feedFlat,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
-} from "./shared.js?v=20260728-1";
-import { viewFund, viewManager, viewClo, viewLp } from "./detail.js?v=20260728-1";
+} from "./shared.js?v=20260728-2";
+import { viewFund, viewManager, viewClo, viewLp } from "./detail.js?v=20260728-2";
 // The shared news-wire engine — the Home feed's row / day-header / source-filter
 // markup, so the Credit dashboard wire is the same build as Home's.
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260723-2";

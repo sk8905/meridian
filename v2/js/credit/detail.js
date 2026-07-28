@@ -20,7 +20,7 @@ import {
   metaDate, notFound, applyPendingFocus, commitmentsForLp, commitmentsForManager,
   investorsForFund, pageList, feedDedupKey, creditSource, intelRow, dealRow,
   _chipMem, chipMemKey,
-} from "/credit/js/shared.js?v=20260728-1";
+} from "/credit/js/shared.js?v=20260728-2";
 
 export let app = null;
 export function __setHost(h) { app = h; }

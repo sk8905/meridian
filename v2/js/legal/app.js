@@ -12,8 +12,8 @@ import { donutChart, columnChart } from "/legal/js/charts.js?v=20260722-3";
 import {
   fmtDate, itemDate, itemRow, firmLink, getSaved, SAVED_KEY,
   markVisitedSoon, _chipMem, chipMemKey,
-} from "/legal/js/shared.js?v=20260728-1";
-import { viewItem, viewFirm , __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/legal/detail.js?v=v2-8";
+} from "/legal/js/shared.js?v=20260728-2";
+import { viewItem, viewFirm , __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/legal/detail.js?v=v2-9";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc, onLiveWire } from "/feed.js?v=20260724-3";
 import { esc, MONTHS, byDateDesc } from "/util.js?v=20260719-1";
 
