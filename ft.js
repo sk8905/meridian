@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "e18fbfc5-bc81-4758-9a82-cc3d53a590e1", title: "Keiko Fujimori sworn in as Peru’s ninth president in 10 years", date: "2026-07-28", time: "20:01", url: "https://www.ft.com/content/e18fbfc5-bc81-4758-9a82-cc3d53a590e1" },
   { id: "a4222e62-b649-4ad6-8ebf-6ea1f7d2f7ad", title: "Greens and Reform take a hit from the Burnham bounce", date: "2026-07-28", time: "19:04", url: "https://www.ft.com/content/a4222e62-b649-4ad6-8ebf-6ea1f7d2f7ad" },
   { id: "20432705-d873-46eb-9b65-b5ae547b1585", title: "Ares’ next big private capital deal looks deceptively close to home", date: "2026-07-28", time: "19:00", url: "https://www.ft.com/content/20432705-d873-46eb-9b65-b5ae547b1585" },
   { id: "3e9e7e69-08c5-4c31-af50-f7d057815946", title: "The US should stay open to open-weight AI", date: "2026-07-28", time: "18:20", url: "https://www.ft.com/content/3e9e7e69-08c5-4c31-af50-f7d057815946" },
