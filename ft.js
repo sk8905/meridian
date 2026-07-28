@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "cc78fbc5-66dc-4a60-8ef5-e040b8aa7a11", title: "Education is not to blame for England's Neet crisis", date: "2026-07-28", time: "09:43", url: "https://www.ft.com/content/cc78fbc5-66dc-4a60-8ef5-e040b8aa7a11" },
+  { id: "29d6edcc-4499-4655-bfec-0060bea95a66", title: "EY fined £1.2mn for breaching standards on Made.com audit", date: "2026-07-28", time: "09:18", url: "https://www.ft.com/content/29d6edcc-4499-4655-bfec-0060bea95a66" },
   { id: "6b2c9eb1-24f0-4117-a390-cfcdfdaad3a9", title: "Barclays profits boosted by market volatility gains", date: "2026-07-28", time: "07:30", url: "https://www.ft.com/content/6b2c9eb1-24f0-4117-a390-cfcdfdaad3a9" },
   { id: "d6439cb3-5a9e-4f6e-b5d6-b0e5621567c4", title: "The unexpected winners from China’s blockbuster chip IPO", date: "2026-07-28", time: "06:35", url: "https://www.ft.com/content/d6439cb3-5a9e-4f6e-b5d6-b0e5621567c4" },
   { id: "f917cd45-785a-45dd-9826-e8efed7003c0", title: "Tariffs and Treasury yields", date: "2026-07-28", time: "06:30", url: "https://www.ft.com/content/f917cd45-785a-45dd-9826-e8efed7003c0" },
@@ -61,6 +63,4 @@ export const FT_ITEMS = [
   { id: "eef867f1-f03e-460a-a29f-7dd76c7c5d0b", title: "What doughnuts can tell us about the AI boom", date: "2026-07-27", time: "15:00", url: "https://www.ft.com/content/eef867f1-f03e-460a-a29f-7dd76c7c5d0b" },
   { id: "b302894c-ee9f-4081-96ff-735e5836d5d1", title: "Germany’s Friedrich Merz sacks transport minister in turbulent cabinet shake-up", date: "2026-07-27", time: "14:44", url: "https://www.ft.com/content/b302894c-ee9f-4081-96ff-735e5836d5d1" },
   { id: "06c0ded7-8a5c-4429-955d-50df7e0c2438", title: "Size matters when it comes to tariff threats", date: "2026-07-27", time: "14:00", url: "https://www.ft.com/content/06c0ded7-8a5c-4429-955d-50df7e0c2438" },
-  { id: "5fafe208-c728-42d1-99f5-2e0ff188e170", title: "US courts diverge on latest front in debt brawls", date: "2026-07-27", time: "13:58", url: "https://www.ft.com/content/5fafe208-c728-42d1-99f5-2e0ff188e170" },
-  { id: "5374bf31-0d6d-4ebd-a4ae-28b399f39cc3", title: "Andy Burnham looks to cut welfare bill by linking up schools and employers", date: "2026-07-27", time: "13:10", url: "https://www.ft.com/content/5374bf31-0d6d-4ebd-a4ae-28b399f39cc3" },
 ];
