@@ -5,15 +5,15 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "27 July 2026";
+export const UPDATED = "28 July 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-07-27",
-  lastCheckedTime: "21:10 BST",
+  lastChecked: "2026-07-28",
+  lastCheckedTime: "05:28 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -282,20 +282,20 @@ export const OUTLOOK = {
 //   commentary. Keep each item's real headline + source link; never fabricate —
 //   only add pieces that exist and are dated.
 export const COMMENTARY = {
-  updated: "2026-07-27",
+  updated: "2026-07-28",
   us: [
+    { title: "Fed July decision may be 'a close call,' analysts say", source: "BNN Bloomberg", author: "Deutsche Bank / Barclays", date: "2026-07-27", time: "05:09", url: "https://www.bnnbloomberg.ca/business/economics/2026/07/27/growing-number-of-brokerages-see-july-fed-decision-as-a-close-call/" },
     { title: "Why the Fed Is Unlikely to Cut Rates This Year", source: "Goldman Sachs Research", author: "Goldman Sachs — David Mericle", date: "2026-07-25", url: "https://www.goldmansachs.com/insights/articles/why-the-fed-is-unlikely-to-cut-rates-this-year" },
     { title: "J.P. Morgan Predicts the Fed Will Make No Interest Rate Cuts in 2026 — but Expects a 'Hike' Next Year", source: "Yahoo Finance", author: "J.P. Morgan", date: "2026-07-25", url: "https://finance.yahoo.com/news/j-p-morgan-predicts-fed-035700750.html" },
     { title: "Morgan Stanley identifies two triggers that could force a Fed rate hike", source: "Crypto.news", author: "Morgan Stanley", date: "2026-07-24", url: "https://crypto.news/morgan-stanley-identifies-two-triggers-that-could-force-a-fed-rate-hike/" },
     { title: "Mohamed El-Erian Warns Higher Oil, 'Massive Bond Issuance' Are Driving Global Yield Surge Ahead Of Fed Meeting", source: "Benzinga", author: "Mohamed A. El-Erian", date: "2026-07-23", url: "https://www.benzinga.com/markets/treasuries/26/07/60635060/mohamed-el-erian-warns-higher-oil-massive-bond-issuance-are-driving-global-yield-surge-ahead-of-fed-meeting" },
-    { title: "Jim Bianco Says Bond Investors Need a Rate Hike as 30-Year Treasury Yield Hits 5.15%", source: "Benzinga", author: "Jim Bianco", date: "2026-07-23", url: "https://www.benzinga.com/markets/economic-data/26/07/60629625/jim-bianco-says-bond-investors-need-a-rate-hike-as-30-year-treasury-yield-hits-5-15-when-the-fed-starts-panicking-i-can-stop-panicking" },
   ],
   uk: [
+    { title: "Bank of England: Higher bar seen for rate hikes - ING", source: "FXStreet", author: "ING — James Smith", date: "2026-07-27", time: "21:10", url: "https://www.fxstreet.com/news/bank-of-england-higher-bar-seen-for-rate-hikes-ing-202607271451" },
     { title: "British Pound: BoE seen on hold as risks linger", source: "FXStreet", author: "UOB", date: "2026-07-27", time: "12:17", url: "https://www.fxstreet.com/news/british-pound-boe-seen-on-hold-as-risks-linger-uob-202607270719" },
-    { title: "Burnham is Prime Minister, Healey Chancellor. What does this mean for investors?", source: "Rathbones", author: "Rathbones", date: "2026-07-21", url: "https://www.rathbones.com/en-gb/wealth-management/knowledge-and-insight/Burnham-is-prime-minister-Healey-Chancellor-What-does-this-mean-for-investors" },
     { title: "Bank Of England Outlook: Market Prices BoE Hikes But Berenberg Sees Cuts", source: "ExchangeRates.org.uk", author: "Berenberg", date: "2026-07-24", url: "https://www.exchangerates.org.uk/news/46605/2026-07-24-bank-of-england-outlook-market-prices-boe-hikes-but-berenberg-sees-cuts.html" },
     { title: "What the New UK Chancellor Means for the UK Economy", source: "Project Syndicate", author: "Mohamed A. El-Erian", date: "2026-07-22", url: "https://www.project-syndicate.org/commentary/what-john-healey-appointment-as-chancellor-means-for-uk-economy-by-mohamed-a-el-erian-2026-07" },
-    { title: "Lower UK inflation weakens the case for rate hikes", source: "ING", author: "James Smith", date: "2026-07-22", url: "https://think.ing.com/snaps/lower-uk-inflation-weakens-the-case-for-rate-hikes/" },
+    { title: "Burnham is Prime Minister, Healey Chancellor. What does this mean for investors?", source: "Rathbones", author: "Rathbones", date: "2026-07-21", url: "https://www.rathbones.com/en-gb/wealth-management/knowledge-and-insight/Burnham-is-prime-minister-Healey-Chancellor-What-does-this-mean-for-investors" },
   ],
 };
 
@@ -389,6 +389,7 @@ export const BUBBLE = {
     "Intel's Q2 report, out Thursday after the close, cut directly against the week's capex-jitters narrative: EPS of 42c beat the 21c consensus by double, revenue of $16.1bn topped the $14.42bn estimate, and AI-driven data-centre revenue rose 59% — yet the stock's ~3-4% pop drew a muted analyst reaction (most banks held ratings unchanged) even after a 172% year-to-date run, a sign investors are starting to demand more than a beat to reward AI-capex names. The same Friday morning, new US Section 301 tariffs (10-12.5% on 60 trading partners) took effect, adding a fresh growth headwind that equity futures mostly shrugged off (Dow +0.7%, S&P 500 +0.5%) alongside oil's retreat from $100 — another data point for a market pricing relatively little of the macro and policy risk building around its narrow, AI-led leadership.",
     "A tentative de-escalation signal emerged over the weekend: CENTCOM made no new strike announcement on Iran overnight into Saturday 25 July, the first such gap in nearly two weeks, and President Trump said Tehran is getting 'more serious' in talks even as he keeps the option of a larger offensive open. With US markets closed until Monday — five days before the 29 July FOMC decision — the episode is untested by price action, but a genuine pause after 13 straight nights of strikes would remove one of the two live shocks (oil and AI-capex) the narrow rally has been alternately pricing and ignoring through July.",
     "The pause held through Monday 27 July and Brent settled down 8.7% at $88.36/bbl, yet a new crack opened in the AI-financing story: Nvidia fell almost 5% — its worst day since February — on reports it is in talks to provide up to $250bn in financing guarantees backing OpenAI's planned Ohio data-centre buildout, on top of a separate $500bn AI-cooperation deal with SK Group, alongside renewed concern about cheaper Chinese AI chips. A chipmaker guaranteeing a customer's spending on its own chips is a circular-financing structure investors flagged as a genuine leverage/credit-quality concern rather than a valuation quibble — a rare instance this month of the market pricing an AI-specific risk on a day the broader oil/rate shock was easing (Dow +0.51%, S&P 500 +0.02%) rather than the usual pattern of shrugging off one risk while fixating on the other.",
+    "That circular-financing crack widened sharply into Tuesday 28 July, the first day of the FOMC's own two-day meeting: South Korea's KOSPI fell as much as 8.2% and triggered a sidecar/circuit-breaker trading halt — its eighth this year — as Samsung Electronics and SK Hynix both slumped at least 9% (SK Hynix >10%, Samsung >8%) on renewed doubts about AI-spending returns compounded by reports of fast-advancing Chinese memory-chip competition; Japan's Nikkei 225 and Taiwan's Taiex both fell more than 4%, SoftBank Group (an AI proxy via its Arm stake) dropped nearly 5%, Tokyo Electron and Advantest fell 9% and 8%, and Kioxia plunged over 15%. The rout is a direct second-session extension of Monday's Nvidia/OpenAI $250bn financing-guarantee jitters and left US equity futures lower heading into Tuesday's open — a rare case this cycle of the narrow AI-led leadership itself, rather than an external oil or rate shock, becoming the market's proximate risk two days before the Fed's own decision.",
   ],
   dimensions: [
     {
@@ -486,6 +487,10 @@ export const BUBBLE = {
     ["TradingKey — NVIDIA Corp Stock (NVDA) Moved Down by 3.46%-5% on Jul 27: Key Drivers Unveiled", "https://www.tradingkey.com/news/market-movers/262056606-market-movers-nvda-20260727"],
     ["24/7 Wall St — AI Stocks Crash After NVIDIA Plans to Finance $250 Billion OpenAI Buildout Are Reported, 27 Jul 2026", "https://247wallst.com/investing/2026/07/27/ai-stocks-crash-after-nvidia-plans-to-finance-250-billion-openai-buildout-are-reported/"],
     ["Yahoo Finance — Stock market today: Dow rises, Nasdaq slips as Nvidia leads chip stocks lower, oil prices plunge, 27 Jul 2026", "https://finance.yahoo.com/markets/live/stock-market-today-monday-july-27-dow-sp-500-nasdaq-080412540.html"],
+    ["CNBC — SK Hynix plunges as semiconductor selloff deepens; Samsung, Softbank fall too, 28 Jul 2026", "https://www.cnbc.com/2026/07/28/sk-hynix-plunges-semiconductor-selloff-deepens-samsung-softbank.html"],
+    ["Bloomberg — Korean Stocks Sink as Chipmakers Plunge on Deepening AI Fatigue, 28 Jul 2026", "https://www.bloomberg.com/news/articles/2026-07-28/korean-stocks-sink-as-chipmakers-plung-on-deepening-ai-fatigue"],
+    ["Investing.com — S.Korea's KOSPI slides over 8%, triggers circuit breaker on fragile tech stocks, 28 Jul 2026", "https://www.investing.com/news/stock-market-news/skoreas-kospi-slides-over-8-triggers-circuit-breaker-on-fragile-tech-stocks-4761989"],
+    ["Axios — Nvidia reignites 'circular' AI concerns as it weighs OpenAI financing guarantee, 27 Jul 2026", "https://www.axios.com/2026/07/27/nvidia-openai-financing-ai-jensen-huang-ssi"],
   ],
 };
 
@@ -511,6 +516,7 @@ export const YIELD_CURVE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-kospi-circuit-breaker-2026-07-28", kind: "Bubble risk", title: "South Korea's KOSPI fell as much as 8.2% and triggered a sidecar/circuit-breaker trading halt — its eighth this year — as Samsung and SK Hynix both slumped at least 9% on renewed AI-spending-return doubts and reports of fast-advancing Chinese memory-chip competition; Japan's Nikkei 225 and Taiwan's Taiex both fell over 4%, extending Monday's Nvidia/OpenAI $250bn financing-guarantee jitters into a second session two days before the Fed's own decision.", href: "#/bubble", date: "2026-07-28" },
   { id: "g-oil-plunge-88-2026-07-27", kind: "Markets", title: "Brent settled down 8.7% at $88.36/bbl — its lowest close since 17 July — as the US-Iran strike pause held for a second session, even as Saudi Arabia said it intercepted Iran-linked drones targeting its oil facilities and Iran's foreign ministry denied any active negotiations.", href: "#/bubble", date: "2026-07-27" },
   { id: "g-fedwatch-33pct-2026-07-27", kind: "Rate guidance", title: "CME FedWatch-implied odds of a 29 July Fed hike eased to roughly a one-in-three (~33%) probability Monday, down from a peak near 40% the previous Thursday but still well above the ~12% seen a week earlier, as the oil-driven inflation case cooled with Brent's slide to $88.36/bbl; September-meeting odds hold near ~80%.", href: "#/policy", date: "2026-07-27" },
   { id: "g-nvidia-openai-financing-2026-07-27", kind: "Bubble risk", title: "Nvidia fell almost 5% — its worst day since February — on reports it is in talks to provide up to $250bn in financing guarantees for OpenAI's planned Ohio data-centre buildout, alongside a separate $500bn AI-cooperation deal with SK Group, and on renewed concern about cheaper Chinese AI chips; a chipmaker guaranteeing a customer's own spending on its chips drew fresh circular-financing scrutiny.", href: "#/bubble", date: "2026-07-27" },
@@ -611,7 +617,7 @@ export const SUMMARY = {
     uk: "Elevated debt and real gilt stress, but less advanced than the US. Gauge ~58/100.",
   },
   bubble: {
-    us: "US equity bubble risk High (~80/100) — extreme valuations and narrow breadth, tempered by restrictive policy.",
+    us: "US equity bubble risk High (~80/100) — extreme valuations and narrow breadth, tempered by restrictive policy. South Korea's KOSPI fell as much as 8.2% and triggered a circuit breaker on 28 July (its eighth this year) as Samsung and SK Hynix both slumped 9%+ on AI-spending-return doubts and Chinese chip competition, extending Monday's Nvidia/OpenAI $250bn circular-financing jitters into a second session two days before the Fed decision.",
     uk: "UK (FTSE) far cheaper (CAPE ~20) — not in bubble territory.",
   },
 };
@@ -623,20 +629,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-07-27",
+  updated: "2026-07-28",
   us: [
-    { title: "Oil prices slide, Brent crude below $90 as pause to U.S.-Iran hostilities appears to hold", source: "CNBC", date: "2026-07-27", time: "21:10", url: "https://www.cnbc.com/2026/07/27/oil-price-wti-brent-slide-as-iran-reportedly-may-halt-attacks.html" },
-    { title: "Whipsawing Oil Prices Muddy Traders' Outlook on Fed Meeting", source: "Bloomberg", date: "2026-07-27", time: "21:10", url: "https://www.bloomberg.com/news/newsletters/2026-07-27/whipsawing-oil-prices-muddy-traders-outlook-on-fed-meeting" },
-    { title: "Federal Reserve July Meeting: Oil Pullback Cuts Hike Odds to One-in-Three as September Surges", source: "Tech Times", date: "2026-07-27", time: "21:10", url: "https://www.techtimes.com/articles/321675/20260727/federal-reserve-july-meeting-oil-pullback-cuts-hike-odds-one-three-september-surges.htm" },
-    { title: "Nvidia slips 4% as blockbuster AI spending spree triggers balance sheet jitters", source: "Yahoo Finance", date: "2026-07-27", time: "21:10", url: "https://finance.yahoo.com/technology/ai/articles/nvidia-slips-4-blockbuster-ai-151239844.html" },
-    { title: "Oil prices slide as U.S. and Iran pause strikes to give 'space' for diplomacy", source: "NBC News", date: "2026-07-27", time: "21:10", url: "https://www.nbcnews.com/world/iran/oil-prices-slide-us-iran-pause-strikes-trump-diplomacy-hormuz-red-sea-rcna589383" },
+    { title: "SK Hynix plunges as semiconductor selloff deepens; Samsung, Softbank fall too", source: "CNBC", date: "2026-07-28", time: "05:09", url: "https://www.cnbc.com/2026/07/28/sk-hynix-plunges-semiconductor-selloff-deepens-samsung-softbank.html" },
+    { title: "Korean Stocks Sink as Chipmakers Plunge on Deepening AI Fatigue", source: "Bloomberg", date: "2026-07-28", time: "05:09", url: "https://www.bloomberg.com/news/articles/2026-07-28/korean-stocks-sink-as-chipmakers-plung-on-deepening-ai-fatigue" },
+    { title: "Oil Extends Decline as Trump Says in Talks With Iran to End War", source: "Bloomberg", date: "2026-07-27", time: "21:10", url: "https://www.bloomberg.com/news/articles/2026-07-27/latest-oil-market-news-and-analysis-for-july-28" },
+    { title: "Nvidia reignites 'circular' AI concerns as it weighs OpenAI financing guarantee", source: "Axios", date: "2026-07-27", time: "21:10", url: "https://www.axios.com/2026/07/27/nvidia-openai-financing-ai-jensen-huang-ssi" },
+    { title: "Federal Reserve is likely to hold interest rates steady. Here's what that means for consumers", source: "CNBC", date: "2026-07-27", time: "17:20", url: "https://www.cnbc.com/2026/07/27/fed-interest-rates-july.html" },
   ],
   uk: [
-    { title: "UK Stock Market Today (July 27): FTSE 100 Rises 0.32% as Falling Oil Prices Lift UK Markets", source: "Sunday Guardian Live", date: "2026-07-27", time: "21:10", url: "https://sundayguardianlive.com/business/uk-stock-market-today-july-27-ftse-100-rises-032-ftse-250-gains-063-as-falling-oil-prices-lift-uk-markets-what-should-investors-know-247218/" },
-    { title: "UK Gilt Yields Drop as US-Iran Ceasefire Eases Oil Prices", source: "Trading Economics", date: "2026-07-27", time: "21:10", url: "https://tradingeconomics.com/united-kingdom/government-bond-yield/news/540076" },
-    { title: "Bank of England expected to hold rates at 3.75% Thursday", source: "PropertyWire", date: "2026-07-27", time: "21:10", url: "https://www.propertywire.com/news/bank-of-england-expected-to-hold-rates-at-3-75-thursday/" },
-    { title: "Pound To Euro Week-Ahead Forecast: GBP 16-Day Low On UK Fiscal Concerns", source: "ExchangeRates.org.uk", date: "2026-07-27", time: "21:10", url: "https://www.exchangerates.org.uk/news/46610/2026-07-27-pound-to-euro-week-ahead-forecast-gbp-16-day-low-on-uk-fiscal-concerns.html" },
-    { title: "Pound to Dollar Week-Ahead Forecast: Potential for GBP Retreat to 1.3250", source: "CurrencyNews UK", date: "2026-07-27", time: "21:10", url: "https://www.currencynews.co.uk/forecast/20260727-46625_pound-to-dollar-week-ahead-forecast-potential-for-gbp-retreat-to-1-3250.html" },
+    { title: "FTSE 100 Live: Stocks start higher as oil price tumbles, Vodafone and AstraZeneca impress", source: "Yahoo Finance", date: "2026-07-28", time: "05:09", url: "https://finance.yahoo.com/markets/world-indices/articles/ftse-100-live-strong-start-061600170.html" },
+    { title: "Bank of England: Higher bar seen for rate hikes - ING", source: "FXStreet", date: "2026-07-27", time: "21:10", url: "https://www.fxstreet.com/news/bank-of-england-higher-bar-seen-for-rate-hikes-ing-202607271451" },
+    { title: "British Pound loses ground against Japanese Yen ahead of central bank decisions", source: "FXStreet", date: "2026-07-27", time: "12:39", url: "https://www.fxstreet.com/news/british-pound-loses-ground-against-japanese-yen-ahead-of-central-bank-decisions-202607271239" },
+    { title: "UK Inflation Eases as Domestic Price Pressures Fall for Bank of England", source: "Bloomberg", date: "2026-07-27", time: "17:20", url: "https://www.bloomberg.com/news/articles/2026-07-27/britain-s-home-grown-price-pressures-finally-easing-for-the-boe" },
+    { title: "Bank of England to Hold Steady This Year but Iran War Inflation Risks Persist: Reuters Poll", source: "U.S. News (Reuters)", date: "2026-07-24", time: "21:10", url: "https://money.usnews.com/investing/news/articles/2026-07-24/bank-of-england-to-hold-steady-this-year-but-iran-war-inflation-risks-persist-reuters-poll" },
   ],
 };
 
@@ -648,8 +654,15 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-07-27",
+  updated: "2026-07-28",
   items: [
+    {"title":"SK Hynix plunges as semiconductor selloff deepens; Samsung, Softbank fall too","source":"CNBC","date":"2026-07-28","time":"05:09","url":"https://www.cnbc.com/2026/07/28/sk-hynix-plunges-semiconductor-selloff-deepens-samsung-softbank.html","blurb":"SK Hynix plunged more than 10% and Samsung fell over 8% as a global semiconductor selloff deepened on renewed doubts about AI-spending returns."},
+    {"title":"Korean Stocks Sink as Chipmakers Plunge on Deepening AI Fatigue","source":"Bloomberg","date":"2026-07-28","time":"05:09","url":"https://www.bloomberg.com/news/articles/2026-07-28/korean-stocks-sink-as-chipmakers-plung-on-deepening-ai-fatigue","blurb":"South Korean chipmakers led a broad regional rout as mounting doubts over AI-spending returns rippled from Wall Street to Asia."},
+    {"title":"S.Korea's KOSPI slides over 8%, triggers circuit breaker on fragile tech stocks","source":"Investing.com","date":"2026-07-28","time":"05:09","url":"https://www.investing.com/news/stock-market-news/skoreas-kospi-slides-over-8-triggers-circuit-breaker-on-fragile-tech-stocks-4761989","blurb":"The KOSPI's eighth circuit-breaker halt of the year came as Samsung and SK Hynix both slumped 9%+ on AI-financing and China-competition worries."},
+    {"title":"FTSE 100 Live: Stocks start higher as oil price tumbles, Vodafone and AstraZeneca impress","source":"Yahoo Finance","date":"2026-07-28","time":"05:09","url":"https://finance.yahoo.com/markets/world-indices/articles/ftse-100-live-strong-start-061600170.html","blurb":"London shares opened higher as falling oil prices and strong results from Vodafone and AstraZeneca offset weakness in energy names."},
+    {"title":"Oil Extends Decline as Trump Says in Talks With Iran to End War","source":"Bloomberg","date":"2026-07-27","time":"21:10","url":"https://www.bloomberg.com/news/articles/2026-07-27/latest-oil-market-news-and-analysis-for-july-28","blurb":"Brent fell toward $87/bbl after President Trump said the US and Iran are in talks to end the conflict, extending Monday's 8.7% slide."},
+    {"title":"Nvidia reignites 'circular' AI concerns as it weighs OpenAI financing guarantee","source":"Axios","date":"2026-07-27","time":"21:10","url":"https://www.axios.com/2026/07/27/nvidia-openai-financing-ai-jensen-huang-ssi","blurb":"Nvidia's reported talks to backstop up to $250bn of OpenAI's data-centre financing revived scrutiny of circular AI-investment structures."},
+    {"title":"Bank of England: Higher bar seen for rate hikes - ING","source":"FXStreet","date":"2026-07-27","time":"21:10","url":"https://www.fxstreet.com/news/bank-of-england-higher-bar-seen-for-rate-hikes-ing-202607271451","blurb":"ING's James Smith says oil and gas prices would need to rise much further to justify a BoE hike, keeping the bank's base case at an extended hold."},
     {"title":"Whipsawing Oil Prices Muddy Traders' Outlook on Fed Meeting","source":"Bloomberg","date":"2026-07-27","time":"21:10","url":"https://www.bloomberg.com/news/newsletters/2026-07-27/whipsawing-oil-prices-muddy-traders-outlook-on-fed-meeting","blurb":"Volatile oil prices have made it harder for traders to settle on a single view of what the Fed will do at Wednesday's meeting."},
     {"title":"Oil prices slide, Brent crude below $90 as pause to U.S.-Iran hostilities appears to hold","source":"CNBC","date":"2026-07-27","time":"21:10","url":"https://www.cnbc.com/2026/07/27/oil-price-wti-brent-slide-as-iran-reportedly-may-halt-attacks.html","blurb":"Brent settled down 8.7% at $88.36/bbl, its lowest close since 17 July, as the US-Iran strike pause held for a second session."},
     {"title":"Federal Reserve July Meeting: Oil Pullback Cuts Hike Odds to One-in-Three as September Surges","source":"Tech Times","date":"2026-07-27","time":"21:10","url":"https://www.techtimes.com/articles/321675/20260727/federal-reserve-july-meeting-oil-pullback-cuts-hike-odds-one-three-september-surges.htm","blurb":"CME FedWatch-implied odds of a 29 July hike eased to roughly one-in-three as oil retreated, even as September-meeting odds hold near 80%."},
@@ -682,12 +695,6 @@ export const ARTICLES = {
     {"title":"Pound Sterling Outlook Darkens As UK Borrowing Concerns Resurface - UniCredit","source":"ExchangeRates.org.uk","date":"2026-07-25","url":"https://www.exchangerates.org.uk/news/46621/2026-07-25-pound-sterling-outlook-darkens-as-uk-borrowing-concerns-resurface-unicredit.html","blurb":"UniCredit says sterling's post-Burnham rally is unwinding as renewed UK sovereign-debt concerns — alongside Japan's — resurface, reversing last week's gains against both the dollar and the euro."},
     {"title":"Stock market next week: Outlook for July 27-31, 2026","source":"CNBC","date":"2026-07-24","url":"https://www.cnbc.com/2026/07/24/stock-market-next-week-outlook-for-july-27-31-2026.html","blurb":"A look ahead to the week's key catalysts — the 28-29 July FOMC decision, the 30 July BoE decision and a heavy earnings slate — as investors weigh the Iran-driven oil shock against a still-resilient US economy."},
     {"title":"Geopolitics and Tech Woes Put Traders on Edge Before Weekend","source":"Bloomberg","date":"2026-07-24","url":"https://www.bloomberg.com/news/newsletters/2026-07-24/geopolitics-and-tech-woes-put-traders-on-edge-before-weekend","blurb":"An $800bn Big Tech wipeout, fresh Trump threats against Iran, still-elevated oil prices and surging rate-hike bets kept investors on edge heading into the weekend."},
-    {"title":"Waymo Plans End of Uber Robotaxi Tie-Up, Stepping Up Rivalry","source":"Bloomberg","date":"2026-07-24","url":"https://www.bloomberg.com/news/articles/2026-07-24/waymo-explores-exit-from-uber-robotaxi-partnership-ft-says","blurb":"Alphabet's Waymo is exploring an exit from its robotaxi partnership with Uber when the deal expires in January 2028, the Financial Times reported, sending Uber shares down nearly 5%."},
-    {"title":"'Burnham bounce' and World Cup lift consumer confidence","source":"Retail Gazette","date":"2026-07-24","url":"https://www.retailgazette.co.uk/blog/2026/07/burnham-bounce-and-world-cup-lift-consumer-confidence/","blurb":"GfK's UK consumer confidence index jumped six points to -17 in July — its biggest monthly rise in almost three years — as Burnham's arrival in Downing Street, England's World Cup run and warm weather lifted sentiment."},
-    {"title":"Burnham Tightens No. 10 Control on UK Economy in Power Shift","source":"Bloomberg","date":"2026-07-23","url":"https://www.bloomberg.com/news/articles/2026-07-23/burnham-strengthens-no-10-control-on-uk-economy-in-power-shift","blurb":"Andy Burnham is pulling more economic policymaking into No. 10 at the Treasury's expense, a shift that adds to the uncertainty facing gilt investors already pricing his 'fiscal flexibility' agenda."},
-    {"title":"UK Consumer Confidence Recovers to Pre-War Levels, GfK Says","source":"Bloomberg","date":"2026-07-23","url":"https://www.bloomberg.com/news/articles/2026-07-23/uk-consumer-confidence-recovers-to-pre-war-levels-gfk-says","blurb":"GfK's headline UK confidence gauge posted its largest monthly improvement since November 2023, with the survey's own economists linking the rebound to optimism over the change in prime minister."},
-    {"title":"Verizon Beats on Wireless, Internet Revenue Amid Turnaround","source":"Bloomberg","date":"2026-07-24","url":"https://www.bloomberg.com/news/articles/2026-07-24/verizon-beats-on-wireless-internet-revenue-amid-turnaround","blurb":"Verizon posted its strongest consumer postpaid phone net-adds in five years and raised FY26 guidance, even as headline revenue missed estimates."},
-    {"title":"A defiant Trump imposes replacement tariffs on biggest U.S. trading partners","source":"NPR","date":"2026-07-24","url":"https://www.npr.org/2026/07/24/nx-s1-5905783/trump-tariff-trade-global-canada","blurb":"New Section 301 tariffs of 10-12.5% on 60 countries (covering 99.4% of US imports) took effect at 00:01 ET, replacing the broader levy that lapsed after a Supreme Court ruling."},
   ],
 };
 
@@ -879,7 +886,7 @@ export const EARNINGS = {
     ] },
     { label: "Last week \u00b7 20\u201324 Jul", days: [
       { date: "2026-07-21", rows: [
-        { t: "SCHW", n: "Charles Schwab", tag: "Banks/brokers \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$1.55", estRev: "$6.89bn", actEps: "$1.62 adj", actRev: "$7.07bn", note: "record revenue +21% y/y; GAAP EPS $1.54", px: null },
+        { t: "SCHW", n: "Charles Schwab", tag: "Banks/brokers \u00b7 S&P 500", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$1.55", estRev: "$6.89bn", actEps: "$1.62 adj", actRev: "$7.07bn", note: "record revenue +21% y/y; GAAP EPS $1.54; shares fell despite the beat as investors booked profits after an ~11.8% prior-month run", px: "-2.5%" },
         { t: "COF", n: "Capital One", tag: "Banks \u00b7 S&P 500", when: "After close", held: [{ etf: "IGWD", w: null }], estEps: "$4.89", estRev: "$15.7bn", km: { l: "Non-int inc", est: "$3.21bn", act: null }, actEps: "$4.73 (adj $5.81)", actRev: null, note: "net income $3.0bn", px: null },
       ] },
       { date: "2026-07-22", rows: [

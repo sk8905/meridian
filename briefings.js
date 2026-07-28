@@ -20,14 +20,15 @@ export const BRIEFINGS = {
   slots: {
     morning: {
       label: "Morning",
-      date: "2026-07-27",
-      time: "09:14 BST",
-      lede: "Oil gaps lower as the US and Iran pause strikes into the weekend; a heavy FOMC week opens with a hold the base case but hike odds still elevated.",
+      date: "2026-07-28",
+      time: "05:28 BST",
+      lede: "A chip-led selloff hits Asia as South Korea's KOSPI plunges 8% and trips its 8th circuit-breaker of the year on deepening AI-capex fatigue, while oil's slide continues and the FOMC decision looms Wednesday.",
       bullets: [
-        { html: "<strong>Oil</strong> tumbled after US Central Command made no new strike announcement for the first time in nearly two weeks and Trump said Tehran is getting &lsquo;more serious&rsquo; in talks — Brent had settled 23 Jul up 7% at ~$100.70/bbl before easing back toward ~$97.", src: "https://www.bloomberg.com/news/articles/2026-07-26/oil-tumbles-as-us-and-iran-pause-military-strikes-markets-wrap", srcName: "Bloomberg" },
-        { html: "<strong>FOMC week</strong>: the 28&ndash;29 Jul decision is the centrepiece of what Fed Chair Kevin Warsh has framed as a &lsquo;family feud&rsquo; meeting — a hold at 3.50&ndash;3.75% is the base case, but CME FedWatch hike odds sat near 37&ndash;38% after the oil shock.", src: "https://fortune.com/2026/07/25/fed-meeting-family-feud-rate-hike-inflation-kevin-warsh-hawks/", srcName: "Fortune" },
-        { html: "<strong>Week ahead</strong> also brings the BoE (30 Jul), BoJ, US PCE and GDP and euro-area CPI — a dense macro slate alongside Big Tech earnings.", src: "https://www.newsquawk.com/daily/5685-week-in-focus-27-31st-july-2026-highlights-include-fomc-boe-boj-us-pce-us-gdp-and-ez-cpi", srcName: "Newsquawk" },
-        { html: "<strong>UK</strong>: gilt yields hold near multi-week highs (10-year ~5.05&ndash;5.1%) into the 30 Jul MPC decision, the oil shock outweighing June&rsquo;s softer core CPI print.", src: "https://www.fxstreet.com/news/forecasting-the-upcoming-week-fed-boe-and-boj-decisions-take-center-stage-202607241928", srcName: "FXStreet" },
+        { html: "<strong>Korea</strong>: the KOSPI plunged 8.02% to 6,213.51 &mdash; triggering a Level 1 circuit breaker, its 8th this year &mdash; as SK Hynix and Samsung Electronics fell 8&ndash;12% on contagion from Nvidia's OpenAI-financing jitters and deepening worries over AI-chip-spending sustainability.", src: "https://www.cnbc.com/2026/07/28/sk-hynix-plunges-semiconductor-selloff-deepens-samsung-softbank.html", srcName: "CNBC" },
+        { html: "<strong>Oil</strong> extended its decline as Trump said the US is in talks with Iran to end the war, adding to the pullback from last week's $100+ spike and further easing the inflation-risk input into this week's Fed decision.", src: "https://www.bloomberg.com/news/articles/2026-07-27/latest-oil-market-news-and-analysis-for-july-28", srcName: "Bloomberg" },
+        { html: "<strong>FOMC</strong>: the Fed is widely expected to hold rates steady on 29 Jul, with markets and economists reading a hold as the base case even after last week's oil-driven hike-odds spike.", src: "https://www.cnbc.com/2026/07/27/fed-interest-rates-july.html", srcName: "CNBC" },
+        { html: "<strong>UK</strong>: the FTSE 100 opened higher as the tumbling oil price and strong results from Vodafone and AstraZeneca offset the overnight Asia selloff, with the BoE's own decision due 30 Jul.", src: "https://finance.yahoo.com/markets/world-indices/articles/ftse-100-live-strong-start-061600170.html", srcName: "Yahoo Finance" },
+        { html: "<strong>Private credit</strong>: PGIM agreed to acquire the remaining 25% of Deerpath Capital, taking full ownership of the ~$16bn US direct lender, while M&amp;G priced its second euro CLO refinancing of 2026.", src: "https://alternativecreditinvestor.com/2026/07/27/pgim-acquires-remaining-stake-in-deerpath-capital/", srcName: "Alternative Credit Investor" },
       ],
     },
     afternoon: {
