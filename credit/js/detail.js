@@ -16,7 +16,7 @@ import {
   metaDate, notFound, applyPendingFocus, commitmentsForLp, commitmentsForManager,
   investorsForFund, pageList, feedDedupKey, creditSource, intelRow, dealRow,
   _chipMem, chipMemKey,
-} from "./shared.js?v=20260724-6";
+} from "./shared.js?v=20260728-1";
 
 const app = document.getElementById("app");
 

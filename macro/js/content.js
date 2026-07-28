@@ -13,7 +13,7 @@ export const UPDATED = "28 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-28",
-  lastCheckedTime: "05:28 BST",
+  lastCheckedTime: "09:22 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -632,17 +632,17 @@ export const NEWS = {
   updated: "2026-07-28",
   us: [
     { title: "SK Hynix plunges as semiconductor selloff deepens; Samsung, Softbank fall too", source: "CNBC", date: "2026-07-28", time: "05:09", url: "https://www.cnbc.com/2026/07/28/sk-hynix-plunges-semiconductor-selloff-deepens-samsung-softbank.html" },
-    { title: "Korean Stocks Sink as Chipmakers Plunge on Deepening AI Fatigue", source: "Bloomberg", date: "2026-07-28", time: "05:09", url: "https://www.bloomberg.com/news/articles/2026-07-28/korean-stocks-sink-as-chipmakers-plung-on-deepening-ai-fatigue" },
-    { title: "Oil Extends Decline as Trump Says in Talks With Iran to End War", source: "Bloomberg", date: "2026-07-27", time: "21:10", url: "https://www.bloomberg.com/news/articles/2026-07-27/latest-oil-market-news-and-analysis-for-july-28" },
+    { title: "Asian Stocks Slide 10% From June Peak to Head for Correction", source: "Bloomberg", date: "2026-07-28", time: "09:19", url: "https://www.bloomberg.com/news/articles/2026-07-28/asian-stocks-slide-10-from-june-peak-to-head-for-correction" },
+    { title: "From 'oil' to 'shock', here's what Kalshi traders expect Fed Chairman Kevin Warsh will say this week", source: "CNBC", date: "2026-07-27", time: "09:19", url: "https://www.cnbc.com/2026/07/27/from-oil-to-shock-heres-what-kalshi-traders-expect-warsh-to-say.html" },
     { title: "Nvidia reignites 'circular' AI concerns as it weighs OpenAI financing guarantee", source: "Axios", date: "2026-07-27", time: "21:10", url: "https://www.axios.com/2026/07/27/nvidia-openai-financing-ai-jensen-huang-ssi" },
-    { title: "Federal Reserve is likely to hold interest rates steady. Here's what that means for consumers", source: "CNBC", date: "2026-07-27", time: "17:20", url: "https://www.cnbc.com/2026/07/27/fed-interest-rates-july.html" },
+    { title: "Fed Faces Growing Pressure to Hike Rates as Price Risks Rebound", source: "Bloomberg", date: "2026-07-26", time: "09:19", url: "https://www.bloomberg.com/news/articles/2026-07-26/fed-faces-growing-pressure-to-hike-rates-as-price-risks-rebound" },
   ],
   uk: [
     { title: "FTSE 100 Live: Stocks start higher as oil price tumbles, Vodafone and AstraZeneca impress", source: "Yahoo Finance", date: "2026-07-28", time: "05:09", url: "https://finance.yahoo.com/markets/world-indices/articles/ftse-100-live-strong-start-061600170.html" },
+    { title: "British Pound softens as Fed rate uncertainty supports US Dollar", source: "FXStreet", date: "2026-07-28", time: "09:19", url: "https://www.fxstreet.com/news/british-pound-softens-as-fed-rate-uncertainty-supports-us-dollar-202607280138" },
+    { title: "Britain's best data week of the summer sends British Pound Sterling to a four-week low", source: "FXStreet", date: "2026-07-27", time: "09:19", url: "https://www.fxstreet.com/news/britains-best-data-week-of-the-summer-sends-british-pound-sterling-to-a-four-week-low-202607272313" },
     { title: "Bank of England: Higher bar seen for rate hikes - ING", source: "FXStreet", date: "2026-07-27", time: "21:10", url: "https://www.fxstreet.com/news/bank-of-england-higher-bar-seen-for-rate-hikes-ing-202607271451" },
-    { title: "British Pound loses ground against Japanese Yen ahead of central bank decisions", source: "FXStreet", date: "2026-07-27", time: "12:39", url: "https://www.fxstreet.com/news/british-pound-loses-ground-against-japanese-yen-ahead-of-central-bank-decisions-202607271239" },
     { title: "UK Inflation Eases as Domestic Price Pressures Fall for Bank of England", source: "Bloomberg", date: "2026-07-27", time: "17:20", url: "https://www.bloomberg.com/news/articles/2026-07-27/britain-s-home-grown-price-pressures-finally-easing-for-the-boe" },
-    { title: "Bank of England to Hold Steady This Year but Iran War Inflation Risks Persist: Reuters Poll", source: "U.S. News (Reuters)", date: "2026-07-24", time: "21:10", url: "https://money.usnews.com/investing/news/articles/2026-07-24/bank-of-england-to-hold-steady-this-year-but-iran-war-inflation-risks-persist-reuters-poll" },
   ],
 };
 
@@ -656,6 +656,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-28",
   items: [
+    {"title":"Asian Stocks Slide 10% From June Peak to Head for Correction","source":"Bloomberg","date":"2026-07-28","time":"09:19","url":"https://www.bloomberg.com/news/articles/2026-07-28/asian-stocks-slide-10-from-june-peak-to-head-for-correction","blurb":"The MSCI Asia Pacific Index has fallen more than 10% from its June 22 peak as a deepening chip-stock selloff and Fed-meeting jitters weigh on regional markets."},
+    {"title":"Globalization Ends Not With a Bang, But Tariffs 2.0","source":"Bloomberg Opinion","date":"2026-07-28","time":"09:19","url":"https://www.bloomberg.com/opinion/newsletters/2026-07-28/globalization-ends-not-with-a-bang-but-tariffs-2-0","blurb":"Bloomberg's macro newsletter argues the post-war trade order is unwinding gradually through tariff escalation rather than a single dramatic break."},
+    {"title":"RBA's Bullock Says Economy Cooling, Unsure Rates High Enough","source":"Bloomberg","date":"2026-07-28","time":"09:19","url":"https://www.bloomberg.com/news/articles/2026-07-28/rba-s-bullock-says-economy-cooling-unsure-if-rates-high-enough","blurb":"Reserve Bank of Australia governor Michele Bullock says the economy is cooling but she isn't yet sure current rates are restrictive enough."},
     {"title":"SK Hynix plunges as semiconductor selloff deepens; Samsung, Softbank fall too","source":"CNBC","date":"2026-07-28","time":"05:09","url":"https://www.cnbc.com/2026/07/28/sk-hynix-plunges-semiconductor-selloff-deepens-samsung-softbank.html","blurb":"SK Hynix plunged more than 10% and Samsung fell over 8% as a global semiconductor selloff deepened on renewed doubts about AI-spending returns."},
     {"title":"Korean Stocks Sink as Chipmakers Plunge on Deepening AI Fatigue","source":"Bloomberg","date":"2026-07-28","time":"05:09","url":"https://www.bloomberg.com/news/articles/2026-07-28/korean-stocks-sink-as-chipmakers-plung-on-deepening-ai-fatigue","blurb":"South Korean chipmakers led a broad regional rout as mounting doubts over AI-spending returns rippled from Wall Street to Asia."},
     {"title":"S.Korea's KOSPI slides over 8%, triggers circuit breaker on fragile tech stocks","source":"Investing.com","date":"2026-07-28","time":"05:09","url":"https://www.investing.com/news/stock-market-news/skoreas-kospi-slides-over-8-triggers-circuit-breaker-on-fragile-tech-stocks-4761989","blurb":"The KOSPI's eighth circuit-breaker halt of the year came as Samsung and SK Hynix both slumped 9%+ on AI-financing and China-competition worries."},
@@ -693,8 +696,6 @@ export const ARTICLES = {
     {"title":"Will the Federal Reserve raise interest rates? Here is what experts predict for July's meeting","source":"CBS News","date":"2026-07-25","url":"https://www.cbsnews.com/news/fed-interest-rate-decision-july-meeting/","blurb":"FactSet-polled economists still expect the Fed to hold at 3.50-3.75% on 29 July, even as CME FedWatch-implied hike odds have climbed to roughly 38% (from 12% a week earlier) on the oil-driven inflation scare."},
     {"title":"Burnham Brings Better UK Vibes But Faces Tough Six Months Ahead","source":"Bloomberg","date":"2026-07-25","url":"https://www.bloomberg.com/news/articles/2026-07-25/burnham-brings-better-uk-vibes-but-faces-tough-six-months-ahead","blurb":"Burnham's feel-good first-week policies — a bus-fare cap, cuts to electricity and pub taxes — have lifted the mood, but he faces a souring economy, rising rates and a possible oil-price shock over the next six months."},
     {"title":"Pound Sterling Outlook Darkens As UK Borrowing Concerns Resurface - UniCredit","source":"ExchangeRates.org.uk","date":"2026-07-25","url":"https://www.exchangerates.org.uk/news/46621/2026-07-25-pound-sterling-outlook-darkens-as-uk-borrowing-concerns-resurface-unicredit.html","blurb":"UniCredit says sterling's post-Burnham rally is unwinding as renewed UK sovereign-debt concerns — alongside Japan's — resurface, reversing last week's gains against both the dollar and the euro."},
-    {"title":"Stock market next week: Outlook for July 27-31, 2026","source":"CNBC","date":"2026-07-24","url":"https://www.cnbc.com/2026/07/24/stock-market-next-week-outlook-for-july-27-31-2026.html","blurb":"A look ahead to the week's key catalysts — the 28-29 July FOMC decision, the 30 July BoE decision and a heavy earnings slate — as investors weigh the Iran-driven oil shock against a still-resilient US economy."},
-    {"title":"Geopolitics and Tech Woes Put Traders on Edge Before Weekend","source":"Bloomberg","date":"2026-07-24","url":"https://www.bloomberg.com/news/newsletters/2026-07-24/geopolitics-and-tech-woes-put-traders-on-edge-before-weekend","blurb":"An $800bn Big Tech wipeout, fresh Trump threats against Iran, still-elevated oil prices and surging rate-hike bets kept investors on edge heading into the weekend."},
   ],
 };
 

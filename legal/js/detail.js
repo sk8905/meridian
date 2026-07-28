@@ -13,7 +13,7 @@ import { esc, byDateDesc } from "/util.js?v=20260719-1";
 import {
   fmtDate, itemDate, isNew, getSaved, areaChip, tierLabel, firmLink, itemRow,
   _chipMem, chipMemKey,
-} from "./shared.js?v=20260724-3";
+} from "./shared.js?v=20260728-1";
 
 const app = document.getElementById("app");
 

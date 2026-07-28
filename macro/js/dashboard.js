@@ -7,7 +7,7 @@
 import { esc } from "/util.js?v=20260719-1";
 import { YIELD_CURVE, OUTLOOK, CYCLE, BUBBLE, EARNINGS, MATWALL } from "./content.js";
 import { fmtDate, fmtWeekday, trackGauge, CYCLE_ZONES, BUBBLE_ZONES,
-  bubbleComposite, bubbleBand, MACRO_DATA, macroMatrixHtml, MAC_MATRIX_KEYS_FULL } from "./shared.js?v=20260726-1";
+  bubbleComposite, bubbleBand, MACRO_DATA, macroMatrixHtml, MAC_MATRIX_KEYS_FULL } from "./shared.js?v=20260728-1";
 
 // In-page chip memory (fresh visits start on the first chip; in-page re-renders
 // keep the pick — see the app.js note on the same pattern).

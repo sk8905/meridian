@@ -16,7 +16,7 @@ import { esc, byDateDesc } from "/util.js?v=20260719-1";
 import {
   fmtDate, itemDate, isNew, getSaved, areaChip, tierLabel, firmLink, itemRow,
   _chipMem, chipMemKey,
-} from "/legal/js/shared.js?v=20260724-1";
+} from "/legal/js/shared.js?v=20260728-1";
 
 export let app = null;
 export function __setHost(h) { app = h; }
