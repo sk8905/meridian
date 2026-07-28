@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a71b77dc-35db-49ef-9f60-103fc6c6d98e", title: "Singapore warns of economic risks if global AI boom falters", date: "2026-07-28", time: "10:30", url: "https://www.ft.com/content/a71b77dc-35db-49ef-9f60-103fc6c6d98e" },
+  { id: "a51314c3-36d0-4653-992c-42b62495c5fe", title: "World's largest listed hedge fund reverses outflows in key unit", date: "2026-07-28", time: "10:24", url: "https://www.ft.com/content/a51314c3-36d0-4653-992c-42b62495c5fe" },
+  { id: "5dca4c81-be8a-4555-971f-181eebf53e62", title: "Zelenskyy returns to Oval Office as Trump shifts towards Ukraine", date: "2026-07-28", time: "10:13", url: "https://www.ft.com/content/5dca4c81-be8a-4555-971f-181eebf53e62" },
   { id: "cc78fbc5-66dc-4a60-8ef5-e040b8aa7a11", title: "Education is not to blame for England's Neet crisis", date: "2026-07-28", time: "09:43", url: "https://www.ft.com/content/cc78fbc5-66dc-4a60-8ef5-e040b8aa7a11" },
   { id: "29d6edcc-4499-4655-bfec-0060bea95a66", title: "EY fined £1.2mn for breaching standards on Made.com audit", date: "2026-07-28", time: "09:18", url: "https://www.ft.com/content/29d6edcc-4499-4655-bfec-0060bea95a66" },
   { id: "6b2c9eb1-24f0-4117-a390-cfcdfdaad3a9", title: "Barclays profits boosted by market volatility gains", date: "2026-07-28", time: "07:30", url: "https://www.ft.com/content/6b2c9eb1-24f0-4117-a390-cfcdfdaad3a9" },
@@ -59,8 +62,4 @@ export const FT_ITEMS = [
   { id: "83e93ce0-1ebd-4b04-a70c-82ff7b64a5f4", title: "Amazon targets Musk’s Starlink with satellite constellation for mobile services", date: "2026-07-27", time: "16:57", url: "https://www.ft.com/content/83e93ce0-1ebd-4b04-a70c-82ff7b64a5f4" },
   { id: "8829bb6c-e4e4-4064-960a-8f789da10a41", title: "Andy Burnham rejects northern Labour MPs’ call to abolish council tax", date: "2026-07-27", time: "16:40", url: "https://www.ft.com/content/8829bb6c-e4e4-4064-960a-8f789da10a41" },
   { id: "9f9662cb-06ba-42a4-b2f2-800a60818de1", title: "Burnham and the problem of politics by social media", date: "2026-07-27", time: "16:28", url: "https://www.ft.com/content/9f9662cb-06ba-42a4-b2f2-800a60818de1" },
-  { id: "46627195-3b21-4e29-8026-9a8b30365815", title: "Andrew Tate’s extradition challenge could last almost a year, lawyers say", date: "2026-07-27", time: "15:47", url: "https://www.ft.com/content/46627195-3b21-4e29-8026-9a8b30365815" },
-  { id: "eef867f1-f03e-460a-a29f-7dd76c7c5d0b", title: "What doughnuts can tell us about the AI boom", date: "2026-07-27", time: "15:00", url: "https://www.ft.com/content/eef867f1-f03e-460a-a29f-7dd76c7c5d0b" },
-  { id: "b302894c-ee9f-4081-96ff-735e5836d5d1", title: "Germany’s Friedrich Merz sacks transport minister in turbulent cabinet shake-up", date: "2026-07-27", time: "14:44", url: "https://www.ft.com/content/b302894c-ee9f-4081-96ff-735e5836d5d1" },
-  { id: "06c0ded7-8a5c-4429-955d-50df7e0c2438", title: "Size matters when it comes to tariff threats", date: "2026-07-27", time: "14:00", url: "https://www.ft.com/content/06c0ded7-8a5c-4429-955d-50df7e0c2438" },
 ];

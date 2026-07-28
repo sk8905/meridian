@@ -31,6 +31,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-marketsdaily-aigreedfear-20260728",
+    publication: "Bloomberg",
+    series: "Markets Daily",
+    title: "Markets Daily: AI greed turns into fear",
+    date: "2026-07-28",
+    time: "11:04",
+    summary: "Traders are looking for any excuse to sell chipmakers.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-28/ai-greed-turns-into-fear-as-tech-stocks-keep-sinking",
+  },
+  {
     id: "nl-lb-resolutionlifeclaire-20260728",
     publication: "Legal Business",
     title: "Resolution Life's legal chief on segueing from GC to a CEO role – and back again",
