@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "3c62f28e-d7bc-409e-af17-61002472f3f7", title: "A truly progressive VAT would solve a lot of UK tax problems", date: "2026-07-28", time: "13:01", url: "https://www.ft.com/content/3c62f28e-d7bc-409e-af17-61002472f3f7" },
+  { id: "b0dfd771-a6d6-476e-a435-7a5aedf2f820", title: "Tourists evacuated from wildfire threat as France and Spain brace for new heatwaves", date: "2026-07-28", time: "12:48", url: "https://www.ft.com/content/b0dfd771-a6d6-476e-a435-7a5aedf2f820" },
+  { id: "3441b5aa-9d58-4829-bd2e-b2c0ce0198f1", title: "Trump’s waning sway over the world", date: "2026-07-28", time: "12:35", url: "https://www.ft.com/content/3441b5aa-9d58-4829-bd2e-b2c0ce0198f1" },
+  { id: "c1b2cd1a-d5b5-4bf6-ba51-264c2401d75e", title: "What is the state of play with the energy shock?", date: "2026-07-28", time: "12:30", url: "https://www.ft.com/content/c1b2cd1a-d5b5-4bf6-ba51-264c2401d75e" },
+  { id: "895d9928-4b9f-4401-91c0-760752dcb4d1", title: "Sorry, but Spanish olive oil is far superior to Italian", date: "2026-07-28", time: "11:00", url: "https://www.ft.com/content/895d9928-4b9f-4401-91c0-760752dcb4d1" },
   { id: "bf03d7a8-bfe7-41b6-ba43-74364de8d96f", title: "How China's grip on electrification metals could affect inflation", date: "2026-07-28", time: "12:00", url: "https://www.ft.com/content/bf03d7a8-bfe7-41b6-ba43-74364de8d96f" },
   { id: "c73bed01-2386-41a8-8db8-88069b558797", title: "AI boom raises risks of monetary policy mistakes, warn BIS economists", date: "2026-07-28", time: "11:53", url: "https://www.ft.com/content/c73bed01-2386-41a8-8db8-88069b558797" },
   { id: "a71b77dc-35db-49ef-9f60-103fc6c6d98e", title: "Singapore warns of economic risks if global AI boom falters", date: "2026-07-28", time: "10:30", url: "https://www.ft.com/content/a71b77dc-35db-49ef-9f60-103fc6c6d98e" },
@@ -55,10 +60,4 @@ export const FT_ITEMS = [
   { id: "0a0684fe-2ba0-4909-82ca-0e5e70955ce3", title: "Trump says Israel ‘would not survive’ without US", date: "2026-07-27", time: "18:51", url: "https://www.ft.com/content/0a0684fe-2ba0-4909-82ca-0e5e70955ce3" },
   { id: "2fe22a35-5544-4a0e-b72a-b93e941cbcad", title: "Burnham appoints 61 parliamentary private secretaries in bid to avert Labour unrest", date: "2026-07-27", time: "18:51", url: "https://www.ft.com/content/2fe22a35-5544-4a0e-b72a-b93e941cbcad" },
   { id: "403625cc-8371-43ee-997a-f6908a97f52e", title: "Oil tumbles as Iran and US pause strikes over Strait of Hormuz", date: "2026-07-27", time: "18:24", url: "https://www.ft.com/content/403625cc-8371-43ee-997a-f6908a97f52e" },
-  { id: "9f446812-5dc9-4d25-9a4b-ac5162e62d81", title: "Ares Management has held talks to buy Leonard Green & Partners", date: "2026-07-27", time: "18:23", url: "https://www.ft.com/content/9f446812-5dc9-4d25-9a4b-ac5162e62d81" },
-  { id: "5c78dec1-b6d6-415e-9456-f1ab5eed6146", title: "Nvidia bets $5bn on Ilya Sutskever’s AI breakthrough", date: "2026-07-27", time: "18:20", url: "https://www.ft.com/content/5c78dec1-b6d6-415e-9456-f1ab5eed6146" },
-  { id: "426d49ae-1d07-45f4-b784-e65756a4f5ac", title: "Donald Trump rebuilds his tariff wall", date: "2026-07-27", time: "17:57", url: "https://www.ft.com/content/426d49ae-1d07-45f4-b784-e65756a4f5ac" },
-  { id: "858c912e-1ea6-4c06-8929-dce7fe805622", title: "Canary Wharf holds lessons for Andy Burnham", date: "2026-07-27", time: "17:14", url: "https://www.ft.com/content/858c912e-1ea6-4c06-8929-dce7fe805622" },
-  { id: "45867580-65a2-4a7d-ba4c-8143e86f4e36", title: "France and Spain brace for more extreme heat as wildfires rage", date: "2026-07-27", time: "17:11", url: "https://www.ft.com/content/45867580-65a2-4a7d-ba4c-8143e86f4e36" },
-  { id: "47ef8550-034e-464f-8e49-64c3e4de827f", title: "Jodrell Bank observatory set to lose scientific funding", date: "2026-07-27", time: "17:09", url: "https://www.ft.com/content/47ef8550-034e-464f-8e49-64c3e4de827f" },
 ];
