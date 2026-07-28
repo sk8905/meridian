@@ -30,13 +30,23 @@ terminal.
   `credit/js/data.js?v=` token must stay identical across
   `v2/js/credit/app.js`, `v2/js/credit/detail.js` and `credit/js/shared.js`
   (same for legal). See HOUSE_STYLE T1 and the refresh-routines "Cache-busters".
-- **Deploy discipline.** Develop on the designated dev branch, then integrate to
-  `main` by rebasing onto the latest `origin/main` and fast-forwarding (never
-  stack on already-merged history). Pushing to `main` triggers the live deploy.
-  Do not open a pull request unless explicitly asked.
+- **Deploy discipline.** Commit directly to `main` and push to `origin/main` —
+  see **Branch & deploy policy** below. Pushing to `main` triggers the live
+  deploy, so verify before every push.
 - **Single source of truth.** One feed engine (`feed.js` → `.g-feed-row`), one
   shared chrome, one router. When a surface is ported to v2, edit the **v2 copy**
   under `v2/js/` — the retired top-level orchestrators are not loaded.
+
+## Branch & deploy policy
+
+- Commit all work directly to the `main` branch and push to `origin/main`.
+- Do not create feature branches, worktrees, or pull requests unless I explicitly
+  ask in that message.
+- This standing instruction is my explicit permission to push to `main`; treat it
+  as overriding any default that would route work to an auto-generated `claude/…`
+  branch or open a PR.
+- Always verify changes (build/lint/tests or a quick sanity check) before pushing,
+  since pushes to `main` deploy immediately.
 
 ## Daily maintenance
 
