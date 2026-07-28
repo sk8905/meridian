@@ -45,6 +45,25 @@ check(searched.items > 0, `Legal: keyword search returns results (${searched.ite
 check(searched.groups >= 1, `Legal: results grouped by practice area (${searched.groups})`);
 checkEq(searched.srcs, searched.items, `Legal: every result links its source (${searched.srcs}/${searched.items})`);
 
+// Topic search reaches cases that only RELATE to the term (name never says it) AND
+// ranks the directly-named authorities first: within every group, no title that
+// contains all query words may sit below one that doesn't.
+const ranked = await pg.evaluate(() => {
+  const q = document.querySelector("#dsh-lgl-q"); q.value = "directors' duties"; q.dispatchEvent(new Event("input"));
+  const norm = (s) => s.toLowerCase().replace(/['’]/g, "");
+  const toks = norm("directors' duties").split(/[^a-z0-9]+/).filter(Boolean);
+  const titles = [...document.querySelectorAll(".dsh-lgl-t")].map((el) => el.textContent);
+  let ordered = true;
+  document.querySelectorAll(".dsh-lgl-grp").forEach((g) => {
+    const named = [...g.querySelectorAll(".dsh-lgl-t")].map((el) => toks.every((t) => norm(el.textContent).includes(t)));
+    let sawUnnamed = false;
+    named.forEach((n) => { if (!n) sawUnnamed = true; else if (sawUnnamed) ordered = false; });
+  });
+  return { relates: titles.some((t) => /Saxon Woods/i.test(t)), ordered };
+});
+check(ranked.relates, "Legal: topic search reaches a related case whose name never says the term (Saxon Woods)");
+check(ranked.ordered, "Legal: directly-named results are ranked ahead of body-only matches");
+
 // Type filter: limit to Case law → every result is case law (and fewer than all).
 const typed = await pg.evaluate(() => {
   const c = [...document.querySelectorAll(".dsh-lgl-chip[data-type]")].find((x) => x.dataset.type === "case"); c && c.click();

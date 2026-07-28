@@ -428,6 +428,7 @@ export function mount(host, ctx) {
         const long = Array.isArray(x.points) ? x.points.join(" ") : "";
         const tags = Array.isArray(x.tags) ? x.tags.join(" ") : "";
         return { title: x.title, area: x.area, type: x.type === "case" ? "case" : "alert", court: x.court, citation: x.citation, firm, summary: x.summary, url: x.url, date: x.date,
+          thay: _norm(`${x.title} ${x.citation || ""}`),
           hay: _norm(`${x.title} ${x.summary || ""} ${long} ${tags} ${x.court || ""} ${x.citation || ""} ${firm || ""}`) };
       });
     const fromCases = (LGL_CASES || [])
@@ -436,6 +437,7 @@ export function mount(host, ctx) {
         const title = c.name || c.title;
         const long = (LGL_CASE_SUMMARIES && LGL_CASE_SUMMARIES[c.id]) || "";
         return { title, area: c.area, type: "case", court: c.court, citation: c.citation, firm: null, summary: c.summary, url: c.url, date: c.date,
+          thay: _norm(`${title} ${c.citation || ""}`),
           hay: _norm(`${title} ${c.summary || ""} ${long} ${c.court || ""} ${c.citation || ""}`) };
       });
     // Dedup by citation|title, but MERGE the search haystacks of duplicates into the
@@ -445,7 +447,7 @@ export function mount(host, ctx) {
     const byKey = new Map(), all = [];
     [...fromCases, ...fromItems].forEach((r) => {
       const k = (r.citation || r.title || "").toLowerCase();
-      if (k && byKey.has(k)) { const kept = byKey.get(k); kept.hay += " " + r.hay; return; }
+      if (k && byKey.has(k)) { const kept = byKey.get(k); kept.hay += " " + r.hay; kept.thay += " " + r.thay; return; }
       if (k) byKey.set(k, r); all.push(r);
     });
     _legalCache = all.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
@@ -469,9 +471,19 @@ export function mount(host, ctx) {
     if (_legalAreas.size) list = list.filter((x) => _legalAreas.has(x.area));
     list = list.filter((x) => tokens.every((t) => x.hay.includes(t)));
     if (!list.length) return `<p class="dsh-load">No matching case law or alerts.</p>`;
+    // Relevance: entries whose NAME/citation matches lead the list, so a directly-named
+    // authority sits above one that only relates to the topic in its body text. Score =
+    // whole phrase in the title (strongest) > all tokens in the title > count of tokens
+    // in the title; ties break by date (newest first).
+    const phrase = tokens.join(" ");
+    const score = (x) => (x.thay.includes(phrase) ? 1000 : 0)
+      + (tokens.every((t) => x.thay.includes(t)) ? 100 : 0)
+      + tokens.filter((t) => x.thay.includes(t)).length * 10;
+    list.forEach((x) => { x._score = score(x); });
     const order = (LGL_AREAS || []).map((a) => a.id);
     const byArea = {};
     list.forEach((x) => { const a = x.area || "other"; (byArea[a] = byArea[a] || []).push(x); });
+    Object.values(byArea).forEach((rows) => rows.sort((a, b) => (b._score - a._score) || String(b.date || "").localeCompare(String(a.date || ""))));
     const badge = (t) => t === "case" ? `<span class="dsh-lgl-badge dsh-lgl-case">Case</span>` : `<span class="dsh-lgl-badge dsh-lgl-alert">Alert</span>`;
     const row = (x) => {
       const meta = [x.court, x.citation, x.firm].filter(Boolean).map(esc).join(" · ");
