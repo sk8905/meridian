@@ -31,6 +31,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-econdaily-germanychina-20260728",
+    publication: "Bloomberg",
+    author: "Kamil Kowalcze",
+    series: "Economics Daily",
+    title: "Economics Daily: Mapping China's weaknesses",
+    date: "2026-07-28",
+    time: "12:00",
+    summary: "Germany is quietly preparing for a potential economic showdown with China.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-28/germany-china-trade-relations-berlin-is-preparing-for-a-showdown",
+  },
+  {
     id: "nl-bbg-marketsdaily-aigreedfear-20260728",
     publication: "Bloomberg",
     series: "Markets Daily",
@@ -427,16 +438,5 @@ export const NEWSLETTERS = [
     time: "05:39",
     summary: "China's Moonshot AI shock rattles the industry, Alphabet is punished for planned capex, and oil is up 36% since July 2.",
     url: "https://bloom.bg/4yGXBz0",
-  },
-  {
-    id: "nl-bbg-moneystuff-20260722",
-    publication: "Bloomberg",
-    author: "Matt Levine",
-    series: "Money Stuff",
-    title: "Money Stuff: The SEC Pays a Texting Fine",
-    date: "2026-07-22",
-    time: "19:32",
-    summary: "Phones, 351s, lockups, zombies.",
-    url: "https://bloom.bg/3RTnRFz",
   },
 ];

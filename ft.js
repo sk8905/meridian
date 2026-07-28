@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "bf03d7a8-bfe7-41b6-ba43-74364de8d96f", title: "How China's grip on electrification metals could affect inflation", date: "2026-07-28", time: "12:00", url: "https://www.ft.com/content/bf03d7a8-bfe7-41b6-ba43-74364de8d96f" },
+  { id: "c73bed01-2386-41a8-8db8-88069b558797", title: "AI boom raises risks of monetary policy mistakes, warn BIS economists", date: "2026-07-28", time: "11:53", url: "https://www.ft.com/content/c73bed01-2386-41a8-8db8-88069b558797" },
   { id: "a71b77dc-35db-49ef-9f60-103fc6c6d98e", title: "Singapore warns of economic risks if global AI boom falters", date: "2026-07-28", time: "10:30", url: "https://www.ft.com/content/a71b77dc-35db-49ef-9f60-103fc6c6d98e" },
   { id: "a51314c3-36d0-4653-992c-42b62495c5fe", title: "World's largest listed hedge fund reverses outflows in key unit", date: "2026-07-28", time: "10:24", url: "https://www.ft.com/content/a51314c3-36d0-4653-992c-42b62495c5fe" },
   { id: "5dca4c81-be8a-4555-971f-181eebf53e62", title: "Zelenskyy returns to Oval Office as Trump shifts towards Ukraine", date: "2026-07-28", time: "10:13", url: "https://www.ft.com/content/5dca4c81-be8a-4555-971f-181eebf53e62" },
@@ -59,7 +61,4 @@ export const FT_ITEMS = [
   { id: "858c912e-1ea6-4c06-8929-dce7fe805622", title: "Canary Wharf holds lessons for Andy Burnham", date: "2026-07-27", time: "17:14", url: "https://www.ft.com/content/858c912e-1ea6-4c06-8929-dce7fe805622" },
   { id: "45867580-65a2-4a7d-ba4c-8143e86f4e36", title: "France and Spain brace for more extreme heat as wildfires rage", date: "2026-07-27", time: "17:11", url: "https://www.ft.com/content/45867580-65a2-4a7d-ba4c-8143e86f4e36" },
   { id: "47ef8550-034e-464f-8e49-64c3e4de827f", title: "Jodrell Bank observatory set to lose scientific funding", date: "2026-07-27", time: "17:09", url: "https://www.ft.com/content/47ef8550-034e-464f-8e49-64c3e4de827f" },
-  { id: "83e93ce0-1ebd-4b04-a70c-82ff7b64a5f4", title: "Amazon targets Musk’s Starlink with satellite constellation for mobile services", date: "2026-07-27", time: "16:57", url: "https://www.ft.com/content/83e93ce0-1ebd-4b04-a70c-82ff7b64a5f4" },
-  { id: "8829bb6c-e4e4-4064-960a-8f789da10a41", title: "Andy Burnham rejects northern Labour MPs’ call to abolish council tax", date: "2026-07-27", time: "16:40", url: "https://www.ft.com/content/8829bb6c-e4e4-4064-960a-8f789da10a41" },
-  { id: "9f9662cb-06ba-42a4-b2f2-800a60818de1", title: "Burnham and the problem of politics by social media", date: "2026-07-27", time: "16:28", url: "https://www.ft.com/content/9f9662cb-06ba-42a4-b2f2-800a60818de1" },
 ];
