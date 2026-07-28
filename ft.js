@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "fe0981ed-dcb2-4799-ab87-4d487c0754e6", title: "We need an OBR for infrastructure", date: "2026-07-28", time: "15:59", url: "https://www.ft.com/content/fe0981ed-dcb2-4799-ab87-4d487c0754e6" },
+  { id: "024fb6a1-fb39-4b2d-be3e-2393ed62482a", title: "Apple tops $5tn valuation for first time", date: "2026-07-28", time: "15:54", url: "https://www.ft.com/content/024fb6a1-fb39-4b2d-be3e-2393ed62482a" },
+  { id: "0f1e293c-f58c-4849-b576-00b9e4a53d97", title: "Billionaire Dodgers-owner's insurer acknowledges loans to linked entities including 'Dodger Tickets'", date: "2026-07-28", time: "15:47", url: "https://www.ft.com/content/0f1e293c-f58c-4849-b576-00b9e4a53d97" },
   { id: "819cc297-4e1e-493b-91b3-e6b12519214b", title: "Fifa plans stake sale in new $20bn commercial vehicle", date: "2026-07-28", time: "15:01", url: "https://www.ft.com/content/819cc297-4e1e-493b-91b3-e6b12519214b" },
   { id: "d5b45659-ecd5-4bb5-93d0-56b99c798b9d", title: "Maybe the chips are down because memory’s too expensive", date: "2026-07-28", time: "14:43", url: "https://www.ft.com/content/d5b45659-ecd5-4bb5-93d0-56b99c798b9d" },
   { id: "ba86f426-0386-4afb-acb8-cdd56371a5a8", title: "Trump sets stage for Netanyahu meeting amid tensions with Israeli PM", date: "2026-07-28", time: "14:15", url: "https://www.ft.com/content/ba86f426-0386-4afb-acb8-cdd56371a5a8" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "063eecdd-125f-44a7-86c0-78f202817d7e", title: "Trump’s ability to talk down oil prices is being tested", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/063eecdd-125f-44a7-86c0-78f202817d7e" },
   { id: "685014e7-47dd-471b-a585-1b9b73ce5d6f", title: "Nvidia behind $50bn lease on Texas data centre that will use its chips", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/685014e7-47dd-471b-a585-1b9b73ce5d6f" },
   { id: "a6801e59-3a71-4752-8456-86691e3e163f", title: "China needs a new growth model", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/a6801e59-3a71-4752-8456-86691e3e163f" },
-  { id: "e0c5b0e8-0772-4aa6-a011-129510420c3a", title: "More than two-thirds of FTSE 100 restate climate metrics, analysis finds", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/e0c5b0e8-0772-4aa6-a011-129510420c3a" },
-  { id: "82acf078-9214-4eb6-a162-15f584a5e3ca", title: "Iran’s missile resilience challenges US forces", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/82acf078-9214-4eb6-a162-15f584a5e3ca" },
-  { id: "a883cdad-1851-46e1-a58f-ac5fedae2e3d", title: "Hungary’s thawing relations with EU provide lucrative trade for foreign funds", date: "2026-07-28", time: "05:00", url: "https://www.ft.com/content/a883cdad-1851-46e1-a58f-ac5fedae2e3d" },
 ];

@@ -31,6 +31,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-thebrink-oceangate-20260728",
+    publication: "Bloomberg",
+    author: "Jonathan Randles",
+    series: "The Brink",
+    title: "OceanGate's Cost Cuts Contributed to Fatal Titanic Expedition",
+    date: "2026-07-28",
+    time: "16:01",
+    summary: "OceanGate's cost-cutting pressures helped set the stage for the fatal Titan disaster.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-28/oceangate-s-cost-cuts-contributed-to-fatal-titanic-expedition",
+  },
+  {
     id: "nl-bbg-econdaily-germanychina-20260728",
     publication: "Bloomberg",
     author: "Kamil Kowalcze",
@@ -417,15 +428,5 @@ export const NEWSLETTERS = [
     time: "07:02",
     summary: "Houthi attacks on two tankers open a new Red Sea front in the Iran war as the ECB holds rates steady.",
     url: "https://www.bloomberg.com/news/newsletters/2026-07-23/houthis-attack-two-tankers-in-the-red-sea",
-  },
-  {
-    id: "nl-econ-worldinbrief-20260723",
-    publication: "The Economist",
-    series: "The World in Brief",
-    title: "The World in Brief: Saudi Arabia and America sign nuclear deal",
-    date: "2026-07-23",
-    time: "05:44",
-    summary: "Saudi Arabia and the US sign a civilian nuclear deal as America carries out a 12th night of strikes on Iran.",
-    url: "https://www.economist.com/the-world-in-brief",
   },
 ];
