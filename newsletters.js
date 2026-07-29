@@ -31,6 +31,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-kuwaitoiljv-20260729",
+    publication: "Legal Business",
+    title: "Top UK and US firms advise major asset management trio on $16bn Kuwait oil JV",
+    date: "2026-07-29",
+    time: "14:50",
+    summary: "Blackstone, Brookfield, and KKR line up for deal that marks Kuwait's largest ever FDI.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQxvshWiTm3L1kqgi/wv",
+  },
+  {
     id: "nl-bbg-goingprivate-cerberuspentagon-20260729",
     publication: "Bloomberg",
     author: "Sinead Cruise",
@@ -421,14 +430,5 @@ export const NEWSLETTERS = [
     time: "12:05",
     summary: "Fearing higher taxes and political upheaval, Paris bankers are eyeing other financial centres.",
     url: "https://www.bloomberg.com/news/newsletters/2026-07-24/paris-bankers-fearing-more-tax-political-upheaval-eye-other-financial-centers",
-  },
-  {
-    id: "nl-lb-paulhastingscity-20260724",
-    publication: "Legal Business",
-    title: "'This is a platform for builders' - Paul Hastings London heads on the City vision",
-    date: "2026-07-24",
-    time: "11:53",
-    summary: "City co-chairs Ross Anderson and Matt Poxon on the firm's challenger culture, rapid growth and its ambitions to disrupt the London market.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQuxUZFPxt6Y3Hbtm/wv",
   },
 ];

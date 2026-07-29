@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7a33e045-57c0-4cf7-bb1b-a7f4ecdc1e30", title: "Brookfield and NextEra to build $100bn AI campus on ex-nuclear weapons site", date: "2026-07-29", time: "14:54", url: "https://www.ft.com/content/7a33e045-57c0-4cf7-bb1b-a7f4ecdc1e30" },
+  { id: "e185a6f7-afa6-4b9e-8d6e-278c47095a67", title: "Half of England declared in drought after heatwaves", date: "2026-07-29", time: "14:26", url: "https://www.ft.com/content/e185a6f7-afa6-4b9e-8d6e-278c47095a67" },
   { id: "b2fe912f-01ef-4daa-874e-a180dfeb728c", title: "Trump vows to deliver ‘beating’ to Iran in retaliation for latest attack", date: "2026-07-29", time: "13:41", url: "https://www.ft.com/content/b2fe912f-01ef-4daa-874e-a180dfeb728c" },
   { id: "882e08d2-4c99-4a49-9afb-f7fa748abe9f", title: "Jim Leaviss, Bond Vigilante, 1971-2026", date: "2026-07-29", time: "13:26", url: "https://www.ft.com/content/882e08d2-4c99-4a49-9afb-f7fa748abe9f" },
   { id: "cd190fd5-5675-4896-87f5-1b3e985e4dde", title: "CMA drops pursuit of private equity executives over price gouging", date: "2026-07-29", time: "13:18", url: "https://www.ft.com/content/cd190fd5-5675-4896-87f5-1b3e985e4dde" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "be3149fc-9574-406a-8900-7629813f8ccf", title: "Mamdani’s pro-business push", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/be3149fc-9574-406a-8900-7629813f8ccf" },
   { id: "151e0768-7338-46d9-8c3a-49d6d595f8bb", title: "Bags or baubles? How AI wealth divides luxury stocks", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/151e0768-7338-46d9-8c3a-49d6d595f8bb" },
   { id: "78bed947-534d-45fd-a3f5-bbc8b372f66f", title: "European wildfires expose shortage of Canadair water-bomber planes", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/78bed947-534d-45fd-a3f5-bbc8b372f66f" },
-  { id: "cc765962-08a9-44e2-ac7d-1e7e10700414", title: "Transport for London demands £1bn from carmakers over allegedly unpaid Ulez charges", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/cc765962-08a9-44e2-ac7d-1e7e10700414" },
-  { id: "e888b187-75c0-4233-9588-d1b9948b1b0a", title: "If you think your profession is dying, it could soon be gone", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/e888b187-75c0-4233-9588-d1b9948b1b0a" },
 ];
