@@ -33,15 +33,15 @@ export const BRIEFINGS = {
     },
     afternoon: {
       label: "Afternoon",
-      date: "2026-07-28",
-      time: "13:20 BST",
-      lede: "European stocks steady after a brutal Asian session &mdash; the FTSE outperforms on tumbling oil and strong Vodafone and AstraZeneca results &mdash; while US chip names slip again ahead of Wednesday&rsquo;s FOMC decision and a Big Tech earnings gauntlet.",
+      date: "2026-07-29",
+      time: "12:10 BST",
+      lede: "Markets count down to today&rsquo;s FOMC decision under a cloud of fresh Middle East tension after Iran launched missiles at US forces overnight, with the Kospi and Kosdaq extending their historic rout and sterling firming ahead of the BoE&rsquo;s own call tomorrow.",
       bullets: [
-        { html: "<strong>Asia</strong>: the KOSPI plunged as much as 10.9% &mdash; tripping its 9th circuit breaker of 2026 &mdash; and the Nikkei fell 3.95% as the AI-chip selloff deepened on Nvidia circular-financing fears and fresh Chinese memory- and lithography-competition worries.", src: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-28-2026", srcName: "TheStreet" },
-        { html: "<strong>Chips</strong>: Micron, AMD and Marvell slid and Nvidia eased about 1% at the US open after Chinese memory-maker CXMT&rsquo;s blockbuster debut and a report that a state-backed firm began mass-producing immersion DUV lithography machines stoked competition fears.", src: "https://www.barchart.com/story/news/3495886/nasdaq-futures-slump-as-chip-selloff-rages-on-fomc-meeting-and-earnings-on-tap", srcName: "Barchart" },
-        { html: "<strong>UK</strong>: the FTSE 100 outperformed, buoyed by the oil slide and strong earnings &mdash; Vodafone rose about 3.6% after guiding to the top end of its outlook and AstraZeneca gained about 1.6% on a Q2 beat (core EPS $2.63 vs $2.48 expected).", src: "https://uk.advfn.com/market-news/article/20238/market-open-vodafone-raises-guidance-astrazeneca-h1-growth", srcName: "ADVFN" },
-        { html: "<strong>Earnings gauntlet</strong>: after Tesla and Alphabet flagged heavy AI spending, Microsoft and Amazon headline this week&rsquo;s mega-cap reports, with AI-capex guidance the market&rsquo;s main focus.", src: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-28-2026", srcName: "TheStreet" },
-        { html: "<strong>Fed</strong>: the FOMC&rsquo;s two-day meeting opens today with the decision due Wednesday 29 Jul; a hold is widely expected as oil&rsquo;s pullback from last week&rsquo;s $100+ spike eases the near-term inflation read.", src: "https://www.cnbc.com/2026/07/27/fed-interest-rates-july.html", srcName: "CNBC" },
+        { html: "<strong>Fed</strong>: today&rsquo;s FOMC decision (2pm ET) is widely expected to be a hold, but uncertainty is unusually elevated after overnight Iran-Iraq strikes reignited an oil-driven inflation worry just hours before the announcement.", src: "https://www.cnn.com/2026/07/29/economy/fed-rate-decision-july", srcName: "CNN Business" },
+        { html: "<strong>Geopolitics</strong>: Iran launched a surprise ballistic-missile attack on US forces in the Middle East, prompting a CENTCOM response and pushing oil and safe-haven flows higher into the Fed decision.", src: "https://www.cnbc.com/2026/07/29/us-iran-war-hormuz-centcom.html", srcName: "CNBC" },
+        { html: "<strong>Asia</strong>: South Korea&rsquo;s Kospi tumbled nearly 7% for a second straight day and other Asian shares mostly fell after SK Hynix&rsquo;s results disappointed despite a sixfold profit jump, extending the region&rsquo;s worst rout of the year.", src: "https://www.bloomberg.com/news/articles/2026-07-29/korean-stocks-tumble-a-second-day-as-sk-hynix-results-disappoint", srcName: "Bloomberg" },
+        { html: "<strong>Private credit</strong>: KKR priced a reset of Avoca CLO XIII within guidance, while a Blackstone-led group including Apollo and KKR agreed to invest $5.34bn for a 49% stake in Williams&rsquo; Power Innovation joint venture.", src: "https://www.globalcapital.com/securitization/article/2gonz8a0mhqtluseot24g/securitization/clos-europe/kkr-reset-for-avoca-clo-xiii-priced-within-guidance", srcName: "GlobalCapital" },
+        { html: "<strong>Legal</strong>: A&amp;O Shearman advised Bank Gospodarstwa Krajowego on a EUR2bn dual-tranche guaranteed notes issuance.", src: "https://www.aoshearman.com/en/news/ao-shearman-advises-bank-gospodarstwa-krajowego-on-eur-2bn-dual-tranche-guaranteed-notes-issuance", srcName: "A&O Shearman" },
       ],
     },
     evening: {
