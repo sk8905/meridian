@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "6c79711b-d541-4b7d-8c82-54450fda973f", title: "What’s up with CCC-rated bond spreads?", date: "2026-07-29", time: "10:00", url: "https://www.ft.com/content/6c79711b-d541-4b7d-8c82-54450fda973f" },
+  { id: "509a6a94-8342-49c1-965f-66abff88b977", title: "US says it intercepted ‘surprise’ Iranian missile attack", date: "2026-07-29", time: "09:51", url: "https://www.ft.com/content/509a6a94-8342-49c1-965f-66abff88b977" },
+  { id: "85c978d9-6c85-415b-93ce-e7092ddc2181", title: "Andy Burnham has Labour voters’ attention but for how long?", date: "2026-07-29", time: "09:30", url: "https://www.ft.com/content/85c978d9-6c85-415b-93ce-e7092ddc2181" },
   { id: "d5912454-6a02-4017-8a85-30a11d806780", title: "Glencore trading profits double on Middle East turmoil", date: "2026-07-29", time: "08:43", url: "https://www.ft.com/content/d5912454-6a02-4017-8a85-30a11d806780" },
   { id: "18508c64-5951-4003-a3f1-ce7f2ad0f8ec", title: "St James’s Place inflows drop as UK pensions tax change looms", date: "2026-07-29", time: "08:13", url: "https://www.ft.com/content/18508c64-5951-4003-a3f1-ce7f2ad0f8ec" },
   { id: "be6ae5f1-01fd-41d2-bd0f-e2f492076b6e", title: "Asia’s richest man Gautam Adani weighs bid for UK’s top port operator", date: "2026-07-29", time: "07:42", url: "https://www.ft.com/content/be6ae5f1-01fd-41d2-bd0f-e2f492076b6e" },
@@ -57,8 +60,4 @@ export const FT_ITEMS = [
   { id: "1ed4aee0-cbb4-4c98-a2aa-34971ded2583", title: "Ebay to pay $55.7mn to settle case over harassment of company critics", date: "2026-07-28", time: "17:12", url: "https://www.ft.com/content/1ed4aee0-cbb4-4c98-a2aa-34971ded2583" },
   { id: "67236718-fe1a-42bc-9b40-1343f117a973", title: "Turkish politician hit by rent-a-crowd scandal", date: "2026-07-28", time: "16:29", url: "https://www.ft.com/content/67236718-fe1a-42bc-9b40-1343f117a973" },
   { id: "65731780-37da-4e4f-b5f4-eeaed28bcea2", title: "Wachtell Lipton co-chair set to depart for rival Gibson Dunn", date: "2026-07-28", time: "16:23", url: "https://www.ft.com/content/65731780-37da-4e4f-b5f4-eeaed28bcea2" },
-  { id: "fe0981ed-dcb2-4799-ab87-4d487c0754e6", title: "We need an OBR for infrastructure", date: "2026-07-28", time: "15:59", url: "https://www.ft.com/content/fe0981ed-dcb2-4799-ab87-4d487c0754e6" },
-  { id: "024fb6a1-fb39-4b2d-be3e-2393ed62482a", title: "Apple tops $5tn valuation for first time", date: "2026-07-28", time: "15:54", url: "https://www.ft.com/content/024fb6a1-fb39-4b2d-be3e-2393ed62482a" },
-  { id: "0f1e293c-f58c-4849-b576-00b9e4a53d97", title: "Billionaire Dodgers-owner's insurer acknowledges loans to linked entities including 'Dodger Tickets'", date: "2026-07-28", time: "15:47", url: "https://www.ft.com/content/0f1e293c-f58c-4849-b576-00b9e4a53d97" },
-  { id: "819cc297-4e1e-493b-91b3-e6b12519214b", title: "Fifa plans stake sale in new $20bn commercial vehicle", date: "2026-07-28", time: "15:01", url: "https://www.ft.com/content/819cc297-4e1e-493b-91b3-e6b12519214b" },
 ];
