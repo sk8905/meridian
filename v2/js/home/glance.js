@@ -391,6 +391,15 @@ function renderBrief(byDesk, counts, day) {
   if (rt) { _briefLeads.rates = true; setGlance("gl-rates", linkFor(rt)); }
 }
 
+// Home-feed primary filters mirror the Dashboard sections (Macro · Equities ·
+// Fixed Income · Credit · Hedge Funds · Legal). Macro/Credit/Hedge/Legal are their
+// own desks; Equities and Fixed Income are keyword VIEWS over the macro stream
+// (equity-index/stock news vs bond/rates news) so the filter set lines up with the
+// dashboard without inventing a separate desk — items keep their real MAC label.
+const FEED_DESK_LABEL = { all: "All news", m: "Macro", eq: "Equities", fi: "Fixed Income", c: "Credit", hdg: "Hedge Funds", l: "Legal", n: "Newsletters" };
+const FEED_EQ_RE = /\b(stocks?|shares?|equit\w+|\bindex\b|indices|nasdaq|s&p ?500|s&p|dow(\s?jones)?|ftse|russell|nikkei|kospi|hang seng|\bdax\b|earnings|\bipo\b|semiconductors?|\bchips?\b|nvidia|mega-?cap|magnificent|rally|sell-?off|bull market|bear market)\b/i;
+const FEED_FI_RE = /\b(bonds?|yields?|treasur\w+|gilts?|bunds?|coupon|duration|yield curve|credit spread|\boas\b|sovereign debt|rate (cut|hike|rise|path|decision)|interest rates?|\bfed\b|\bfomc\b|bank of england|\bboe\b|\becb\b|\bmpc\b|monetary policy|high[- ]yield|investment[- ]grade)\b/i;
+
 let _feedDesk = "all";
 // Second-level TYPE filter within the active desk (e.g. Credit ▸ Deals). "all"
 // shows every type. Reset to "all" whenever the primary desk changes.
@@ -526,6 +535,10 @@ function renderFeed() {
   // Per-desk deduped streams (newest first) — power the desk filter and the
   // "what's new" counts (items in the most recent ~2 days).
   const byDesk = { news: dedupe([...news].sort(byDateDesc)), m: dedupe([...macro].sort(byDateDesc)), c: dedupe([...credit].sort(byDateDesc)), hdg: dedupe([...hdg].sort(byDateDesc)), l: dedupe([...legal].sort(byDateDesc)), n: dedupe([...newsletter].sort(byDateDesc)), f: dedupe([...ft].sort(byDateDesc)), s: dedupe([...substacks].sort(byDateDesc)), b: dedupe([...brew].sort(byDateDesc)) };
+  // Equities / Fixed Income filter views = keyword slices of the macro stream (see
+  // FEED_DESK_LABEL note). An item can match both; that's fine for a filter view.
+  byDesk.eq = byDesk.m.filter((x) => FEED_EQ_RE.test(x.title || ""));
+  byDesk.fi = byDesk.m.filter((x) => FEED_FI_RE.test(x.title || ""));
   const maxDay = all.reduce((m, x) => (day(x) > m ? day(x) : m), "");
   const cutoff = (() => { const d = new Date(maxDay + "T00:00:00"); if (isNaN(d)) return ""; d.setDate(d.getDate() - 1); return d.toISOString().slice(0, 10); })();
   const recentN = (list) => (cutoff ? list.filter((x) => day(x) >= cutoff).length : list.length);
@@ -580,7 +593,7 @@ function renderFeed() {
   // engine (feed.js) — the same builders the Macro/Credit/Legal wires use.
   const body = feedBodyHTML(feed);
   const srcBar = _feedSrc ? feedSrcBarHTML(_feedSrc) : "";
-  const empty = feedEmptyHTML(`No ${_feedSrc ? _feedSrc + " stories" : _feedDesk === "all" ? "news yet today" : DESK[_feedDesk] + " items"} — check back shortly.`);
+  const empty = feedEmptyHTML(`No ${_feedSrc ? _feedSrc + " stories" : _feedDesk === "all" ? "news yet today" : (FEED_DESK_LABEL[_feedDesk] || DESK[_feedDesk]) + " items"} — check back shortly.`);
   setHTML("g-feed", srcBar + (feed.length ? body : empty));
   const head = document.getElementById("g-feed-head");
   if (head) {
@@ -589,7 +602,7 @@ function renderFeed() {
     // Newsletters is no longer a desk-filter option — it has its own reading
     // surface, reached via the right-edge button below (which routes to the
     // Newsletters tab). The "All" feed still blends newsletter items in.
-    const DESK_OPTS = [["all", "All news"], ["m", "Macro"], ["c", "Credit"], ["hdg", "Hedge"], ["l", "Legal"]];
+    const DESK_OPTS = [["all", "All news"], ["m", "Macro"], ["eq", "Equities"], ["fi", "Fixed Income"], ["c", "Credit"], ["hdg", "Hedge Funds"], ["l", "Legal"]];
     const selVal = _feedSrc ? "all" : (DESK_OPTS.some(([k]) => k === _feedDesk) ? _feedDesk : "all");
     const primary = `<div class="g-feed-filterbar"><label class="g-feed-sel-lbl">Filter</label>`
       + `<select class="g-feed-sel" id="g-feed-desk-sel" aria-label="Filter news by desk">`
