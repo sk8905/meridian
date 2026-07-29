@@ -29,6 +29,10 @@
 .dsh { color:var(--t-ink); }
 .dsh { --dsh-gap:10px; padding:0 0 40px; }
 .dsh-nav { position:sticky; top:0; z-index:2; background:var(--t-head); }
+/* Sub-tab labels: desktop shows the full label; the narrow iPhone tab bar shows
+   the short one so "Fixed Income"/"Hedge Funds" don't wrap to two lines. */
+.dsh-tab-sm { display:none; }
+@media (max-width:760px){ .dsh-nav .dsh-tab-lg { display:none; } .dsh-nav .dsh-tab-sm { display:inline; } }
 .dsh-pane { display:flex; flex-direction:column; gap:var(--dsh-gap); padding:var(--dsh-gap); }
 @media (min-width:761px){ .dsh-pane{ display:grid; grid-template-columns:repeat(2,1fr); align-items:start; } .dsh-pane > .dsh-card:first-child, .dsh-pane > .dsh-more{ grid-column:1 / -1; } }
 /* Desktop is a fixed-viewport terminal — on a wide monitor the dashboard must

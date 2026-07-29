@@ -17,7 +17,10 @@ import { deals, intel, HEDGE_FUNDS, HF_13F } from "/credit/js/data.js";
 import { SECTOR_FLOWS } from "/allocations.js";
 import { items as LGL_ITEMS, cases as LGL_CASES, practiceAreas as LGL_AREAS, areaById as LGL_AREA_BY_ID, firmById as LGL_FIRM_BY_ID, caseSummaries as LGL_CASE_SUMMARIES } from "/legal/js/data.js";
 
-const SUBTABS = [["macro", "Macro"], ["equities", "Equities"], ["fixed-income", "Fixed Income"], ["credit", "Credit"], ["hedge-funds", "Hedge Funds"], ["legal", "Legal"]];
+// Third tuple element is an OPTIONAL short label shown on the narrow iPhone tab
+// bar (≤760px) where the full two-word labels wrap to two lines; desktop (the
+// fixed-viewport terminal) keeps the full label.
+const SUBTABS = [["macro", "Macro"], ["equities", "Equities"], ["fixed-income", "Fixed Income", "Fixed"], ["credit", "Credit"], ["hedge-funds", "Hedge Funds", "Hedge"], ["legal", "Legal"]];
 const pct1 = (n) => (n == null ? "—" : (n > 0 ? "+" : "") + n.toFixed(1) + "%");
 const upcls = (n) => (n == null ? "" : n > 0 ? "up" : n < 0 ? "down" : "");
 const asOf = (d) => (d ? `<span class="dsh-asof">as of ${esc(d)}</span>` : "");
@@ -610,7 +613,10 @@ export function mount(host, ctx) {
 
   // ---- Shell + routing ----------------------------------------------------
   function render() {
-    const nav = SUBTABS.map(([k, l]) => `<a class="tchip${pane === k ? " is-on" : ""}" href="${ctx.base}/dashboard/${k}" data-sub="${k}">${l}</a>`).join("");
+    const nav = SUBTABS.map(([k, l, s]) => {
+      const label = s ? `<span class="dsh-tab-lg">${l}</span><span class="dsh-tab-sm">${s}</span>` : l;
+      return `<a class="tchip${pane === k ? " is-on" : ""}" href="${ctx.base}/dashboard/${k}" data-sub="${k}">${label}</a>`;
+    }).join("");
     const body = pane === "equities" ? equitiesHTML()
       : pane === "credit" ? creditHTML()
       : pane === "fixed-income" ? fixedIncomeHTML()
