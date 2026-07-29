@@ -893,7 +893,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "Sterling stayed on the defensive on 27 Jul, trading near a three-week low around $1.3300–1.3320 against a broadly firmer dollar as Brent's slide to $88.36/bbl and cooling Fed hike odds set the tone ahead of this week's Fed and BoE decisions.", src: "https://www.propertywire.com/news/bank-of-england-expected-to-hold-rates-at-3-75-thursday/", srcName: "PropertyWire", date: "2026-07-27" };
+export const FX_KEYMOMENT = { text: "Sterling slipped to around $1.3311 on 29 Jul as Iran's overnight missile attack on US forces drove Brent above $88/bbl and boosted the dollar, hours ahead of today's FOMC decision and Thursday's BoE meeting.", src: "https://ng.investing.com/news/forex-news/sterling-today-pound-slips-as-usiran-escalation-drives-oil-dollar-2596203", srcName: "Investing.com", date: "2026-07-29" };
 
 export const EARNINGS = {
   weeks: [

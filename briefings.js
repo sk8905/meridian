@@ -20,15 +20,16 @@ export const BRIEFINGS = {
   slots: {
     morning: {
       label: "Morning",
-      date: "2026-07-28",
-      time: "05:28 BST",
-      lede: "A chip-led selloff hits Asia as South Korea's KOSPI plunges 8% and trips its 8th circuit-breaker of the year on deepening AI-capex fatigue, while oil's slide continues and the FOMC decision looms Wednesday.",
+      date: "2026-07-29",
+      time: "05:21 BST",
+      lede: "Iran fired ballistic missiles at US forces in the Middle East overnight before US and Saudi forces struck back at Iranian proxies in Iraq, sending oil higher just hours before today's FOMC decision, where a hold is still the consensus call.",
       bullets: [
-        { html: "<strong>Korea</strong>: the KOSPI plunged 8.02% to 6,213.51 &mdash; triggering a Level 1 circuit breaker, its 8th this year &mdash; as SK Hynix and Samsung Electronics fell 8&ndash;12% on contagion from Nvidia's OpenAI-financing jitters and deepening worries over AI-chip-spending sustainability.", src: "https://www.cnbc.com/2026/07/28/sk-hynix-plunges-semiconductor-selloff-deepens-samsung-softbank.html", srcName: "CNBC" },
-        { html: "<strong>Oil</strong> extended its decline as Trump said the US is in talks with Iran to end the war, adding to the pullback from last week's $100+ spike and further easing the inflation-risk input into this week's Fed decision.", src: "https://www.bloomberg.com/news/articles/2026-07-27/latest-oil-market-news-and-analysis-for-july-28", srcName: "Bloomberg" },
-        { html: "<strong>FOMC</strong>: the Fed is widely expected to hold rates steady on 29 Jul, with markets and economists reading a hold as the base case even after last week's oil-driven hike-odds spike.", src: "https://www.cnbc.com/2026/07/27/fed-interest-rates-july.html", srcName: "CNBC" },
-        { html: "<strong>UK</strong>: the FTSE 100 opened higher as the tumbling oil price and strong results from Vodafone and AstraZeneca offset the overnight Asia selloff, with the BoE's own decision due 30 Jul.", src: "https://finance.yahoo.com/markets/world-indices/articles/ftse-100-live-strong-start-061600170.html", srcName: "Yahoo Finance" },
-        { html: "<strong>Private credit</strong>: PGIM agreed to acquire the remaining 25% of Deerpath Capital, taking full ownership of the ~$16bn US direct lender, while M&amp;G priced its second euro CLO refinancing of 2026.", src: "https://alternativecreditinvestor.com/2026/07/27/pgim-acquires-remaining-stake-in-deerpath-capital/", srcName: "Alternative Credit Investor" },
+        { html: "<strong>Iran</strong> launched a surprise ballistic-missile attack on US forces in the Middle East overnight, intercepted by CENTCOM; US and Saudi forces conducted retaliatory strikes on Iranian proxies in Iraq.", src: "https://www.cnbc.com/2026/07/29/us-iran-war-hormuz-centcom.html", srcName: "CNBC" },
+        { html: "<strong>Oil</strong> jumped as US-Iran strikes resumed after a brief pause, with WTI and Brent both bid on the escalation risk just as this week's Fed decision approaches.", src: "https://www.cnbc.com/2026/07/29/oil-prices-today-brent-wti-iran-us-hormuz.html", srcName: "CNBC" },
+        { html: "<strong>FOMC</strong>: the Fed holds its rate decision today (29 Jul) with the target range at 3.50&ndash;3.75%; a Reuters poll of economists and futures markets overwhelmingly expect a hold despite the overnight Iran escalation.", src: "https://www.cnbc.com/2026/07/27/fed-interest-rates-july.html", srcName: "CNBC" },
+        { html: "<strong>UK</strong>: the BoE's own rate decision looms Thursday (30 Jul), widely expected to be a hold, after Barclays' H1 results showed RoTE hitting 16.1% on raised income guidance.", src: "https://www.investing.com/news/company-news/barclays-h1-2026-slides-rote-hits-161-as-income-guidance-rises-93CH-4817338", srcName: "Investing.com" },
+        { html: "<strong>Private credit</strong>: Barings and the North Carolina Investment Authority expanded their partnership with a fresh $2.1bn mandate spanning real-estate debt, CMBS and capital-solutions strategies.", src: "https://www.businesswire.com/news/home/20260724889653/en/Barings-and-North-Carolina-Investment-Authority-Expand-Partnership-with-$2.1-Billion-Mandate", srcName: "Businesswire" },
+        { html: "<strong>Legal</strong>: Slaughter and May advised Serica Energy on its recommended &pound;145.7m takeover of Pharos Energy, while White &amp; Case advised Citibank and Nedbank on a $1.28bn financing for Harmony Gold.", src: "https://www.slaughterandmay.com/recent-work/serica-energy-plc-on-the-recommended-takeover-of-pharos-energy-plc/", srcName: "Slaughter and May" },
       ],
     },
     afternoon: {
