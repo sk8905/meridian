@@ -20,6 +20,13 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7bb6a7e3-a68d-4b23-aef5-7b93fa21559b", title: "Grant Thornton seals accounting sector’s largest takeover in a generation", date: "2026-07-29", time: "13:08", url: "https://www.ft.com/content/7bb6a7e3-a68d-4b23-aef5-7b93fa21559b" },
+  { id: "749bb6e9-35fe-45d9-b359-bf457884ca7c", title: "Assisted dying debate should wait until social care is fixed, Andy Burnham says", date: "2026-07-29", time: "12:47", url: "https://www.ft.com/content/749bb6e9-35fe-45d9-b359-bf457884ca7c" },
+  { id: "33a76289-6fff-4282-9270-1e97e95e84b5", title: "How long can big investors ignore climate risk?", date: "2026-07-29", time: "12:35", url: "https://www.ft.com/content/33a76289-6fff-4282-9270-1e97e95e84b5" },
+  { id: "0c197937-672a-43a0-b186-9bf9b7f8ccd1", title: "Populism will eat itself", date: "2026-07-29", time: "12:22", url: "https://www.ft.com/content/0c197937-672a-43a0-b186-9bf9b7f8ccd1" },
+  { id: "37052f58-e11f-46f7-99d7-5e850d176ef5", title: "The thrill of South Korea’s ‘dopamine apps’", date: "2026-07-29", time: "12:09", url: "https://www.ft.com/content/37052f58-e11f-46f7-99d7-5e850d176ef5" },
+  { id: "9d9fefab-fb14-4e0b-9c42-7d9697a151ae", title: "Daily Mail publisher seeks £10mn upfront from Prince Harry and other claimants", date: "2026-07-29", time: "12:08", url: "https://www.ft.com/content/9d9fefab-fb14-4e0b-9c42-7d9697a151ae" },
+  { id: "ca8893d3-41c2-474f-b140-85072149a5e5", title: "EU warns it will investigate Fifa’s $20bn commercial venture", date: "2026-07-29", time: "12:04", url: "https://www.ft.com/content/ca8893d3-41c2-474f-b140-85072149a5e5" },
   { id: "47560cb6-4804-460e-a0fc-2b89d556bee3", title: "Russia puts Telegram founder Pavel Durov on international wanted list", date: "2026-07-29", time: "11:45", url: "https://www.ft.com/content/47560cb6-4804-460e-a0fc-2b89d556bee3" },
   { id: "ed644365-4902-4f62-b57a-089ef243eef1", title: "Andy Burnham opens door to tax rises to pay for social care overhaul", date: "2026-07-29", time: "11:40", url: "https://www.ft.com/content/ed644365-4902-4f62-b57a-089ef243eef1" },
   { id: "2e3048dc-e003-44be-957c-3f119bde3f48", title: "FTSE 100 hits all-time high as ‘anti-tech’ index shines in global chip rout", date: "2026-07-29", time: "11:21", url: "https://www.ft.com/content/2e3048dc-e003-44be-957c-3f119bde3f48" },
@@ -53,12 +60,4 @@ export const FT_ITEMS = [
   { id: "c8879a7b-f5cf-49fd-979a-01499c0054c2", title: "Do Britons pay a lot of tax?", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/c8879a7b-f5cf-49fd-979a-01499c0054c2" },
   { id: "30b7d84d-0ff5-433d-a4bb-2b12e9537534", title: "Tory MPs earn millions from advisory roles that Labour pledged to ban", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/30b7d84d-0ff5-433d-a4bb-2b12e9537534" },
   { id: "5ca782bd-5c4a-45f8-9a7a-5793d800321d", title: "Ukraine adapts strikes on Russian energy industry to hit critical components", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/5ca782bd-5c4a-45f8-9a7a-5793d800321d" },
-  { id: "99967aac-5878-4789-88ad-f3d826cede6f", title: "The dilution cycle hiding in tech valuations", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/99967aac-5878-4789-88ad-f3d826cede6f" },
-  { id: "61b2953d-ee0d-45de-af6e-a9c1cf524b33", title: "Google DeepMind dismantles Nobel-winning AlphaFold team in strategy shift", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/61b2953d-ee0d-45de-af6e-a9c1cf524b33" },
-  { id: "47e4eb75-c995-40d7-85b1-2f05ff57cee0", title: "Andy Burnham wants partnership with private sector, says UK business secretary", date: "2026-07-28", time: "21:00", url: "https://www.ft.com/content/47e4eb75-c995-40d7-85b1-2f05ff57cee0" },
-  { id: "e18fbfc5-bc81-4758-9a82-cc3d53a590e1", title: "Keiko Fujimori sworn in as Peru’s ninth president in 10 years", date: "2026-07-28", time: "20:01", url: "https://www.ft.com/content/e18fbfc5-bc81-4758-9a82-cc3d53a590e1" },
-  { id: "a4222e62-b649-4ad6-8ebf-6ea1f7d2f7ad", title: "Greens and Reform take a hit from the Burnham bounce", date: "2026-07-28", time: "19:04", url: "https://www.ft.com/content/a4222e62-b649-4ad6-8ebf-6ea1f7d2f7ad" },
-  { id: "20432705-d873-46eb-9b65-b5ae547b1585", title: "Ares’ next big private capital deal looks deceptively close to home", date: "2026-07-28", time: "19:00", url: "https://www.ft.com/content/20432705-d873-46eb-9b65-b5ae547b1585" },
-  { id: "3e9e7e69-08c5-4c31-af50-f7d057815946", title: "The US should stay open to open-weight AI", date: "2026-07-28", time: "18:20", url: "https://www.ft.com/content/3e9e7e69-08c5-4c31-af50-f7d057815946" },
-  { id: "4213bfb6-6204-47a5-ba1d-99db1d52ca5f", title: "UK charities hit after specialist bank shuts off online services", date: "2026-07-28", time: "17:42", url: "https://www.ft.com/content/4213bfb6-6204-47a5-ba1d-99db1d52ca5f" },
 ];

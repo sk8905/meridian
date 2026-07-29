@@ -31,6 +31,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-goingprivate-cerberuspentagon-20260729",
+    publication: "Bloomberg",
+    author: "Sinead Cruise",
+    series: "Going Private",
+    title: "Going Private: Cerberus alum remodels Pentagon’s $1 trillion defense spending",
+    date: "2026-07-29",
+    time: "12:18",
+    summary: "From Wall Street to War Room: Stephen Feinberg ushers in new era for US national security.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-29/private-equity-alum-remodels-pentagon-s-spending-from-within",
+  },
+  {
     id: "nl-bbg-economicsdaily-fedwarsh-20260729",
     publication: "Bloomberg",
     author: "Chris Anstey",
@@ -419,15 +430,5 @@ export const NEWSLETTERS = [
     time: "11:53",
     summary: "City co-chairs Ross Anderson and Matt Poxon on the firm's challenger culture, rapid growth and its ambitions to disrupt the London market.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMQuxUZFPxt6Y3Hbtm/wv",
-  },
-  {
-    id: "nl-bbg-marketsdaily-20260724",
-    publication: "Bloomberg",
-    series: "Markets Daily",
-    title: "Markets Daily: Big Tech's $800 billion wipeout",
-    date: "2026-07-24",
-    time: "11:32",
-    summary: "Geopolitics and tech woes put traders on edge before the weekend; plus, China's chip blockbuster.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-07-24/geopolitics-and-tech-woes-put-traders-on-edge-before-weekend",
   },
 ];
