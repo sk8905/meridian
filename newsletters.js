@@ -31,6 +31,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-20260729",
+    publication: "Bloomberg",
+    author: "Victoria Batchelor",
+    series: "Morning Briefing Europe",
+    title: "UBS and Deutsche Bank Deliver Strong Earnings",
+    date: "2026-07-29",
+    time: "07:33",
+    summary: "UBS and Deutsche Bank post solid earnings as oil jumps on fresh Middle East fighting and the chip-led stock rout deepens.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-29/ubs-and-deutsche-bank-deliver-strong-earnings",
+  },
+  {
     id: "nl-econ-worldinbrief-20260729",
     publication: "The Economist",
     series: "The World in Brief",
@@ -419,34 +430,5 @@ export const NEWSLETTERS = [
     time: "19:10",
     summary: "Index, basis, API, 10b5-1.",
     url: "https://bloom.bg/3TRMy5N",
-  },
-  {
-    id: "nl-bbg-authoralert-jduggan-20260723",
-    publication: "Bloomberg",
-    author: "Jennifer Duggan",
-    title: "Ireland Says Alumina Probe Finds No Proof of Russia Weapons Link",
-    date: "2026-07-23",
-    time: "16:26",
-    summary: "Investigation into alumina exports from Ireland to Russia finds no conclusive evidence linking a plant to Russian weapons manufacture.",
-    url: "https://www.bloomberg.com/news/articles/2026-07-23/ireland-says-alumina-probe-finds-no-proof-of-russia-weapons-link",
-  },
-  {
-    id: "nl-lb-hsfkramerrevenue-20260723",
-    publication: "Legal Business",
-    title: "HSF Kramer hits $2.4bn in revenue in first post-merger results",
-    date: "2026-07-23",
-    time: "13:33",
-    summary: "Merged firm notches PEP above $2m.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQukumx41DPzBtylw/wv",
-  },
-  {
-    id: "nl-bbg-economicsdaily-20260723",
-    publication: "Bloomberg",
-    series: "Economics Daily",
-    title: "Economics Daily: US equity alarm",
-    date: "2026-07-23",
-    time: "12:07",
-    summary: "US stocks are stretched on historical valuation metrics, posing an economic risk if sentiment turns.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-07-23/global-reliance-on-us-equities-flashes-alarm-along-with-china-corporate-debt",
   },
 ];
