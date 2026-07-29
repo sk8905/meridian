@@ -31,6 +31,24 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-nonbillable-ccnype-20260729",
+    publication: "Non-Billable",
+    title: "How CC broke into New York's private equity elite",
+    date: "2026-07-29",
+    time: "09:04",
+    summary: "Clifford Chance becomes the first non-US firm to break into New York private equity buyout rankings, and Mayer Brown doubles down on London private capital.",
+    url: "https://non-billable.beehiiv.com/p/b-c787",
+  },
+  {
+    id: "nl-lb-felsensteingodfather-20260729",
+    publication: "Legal Business",
+    title: "Latham's Oliver Felsenstein on The Godfather, client call car crashes and becoming a PE lawyer by accident",
+    date: "2026-07-29",
+    time: "09:01",
+    summary: "Germany private equity heavyweight Oliver Felsenstein reflects on decades of dealmaking, from dreams of becoming Don Corleone's consigliere to his retirement plans for a champagne bar.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQx07tWw1KtFt6cca/wv",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-20260729",
     publication: "Bloomberg",
     author: "Victoria Batchelor",
@@ -409,26 +427,5 @@ export const NEWSLETTERS = [
     time: "07:18",
     summary: "US hits 60 economies with duties as Trump rebuilds his tariff wall.",
     url: "https://www.bloomberg.com/news/newsletters/2026-07-24/us-hits-60-economies-with-duties-as-trump-rebuilds-tariff-wall",
-  },
-  {
-    id: "nl-econ-worldinbrief-20260724",
-    publication: "The Economist",
-    series: "The World in Brief",
-    title: "The World in Brief: Trump unveils new tariffs",
-    date: "2026-07-24",
-    time: "06:15",
-    summary: "US imposes 10-12.5% tariffs on 60 countries as the global levy expires; Brent crude tops $100 on Iran attack fears.",
-    url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-bbg-moneystuff-20260723",
-    publication: "Bloomberg",
-    author: "Matt Levine",
-    series: "Money Stuff",
-    title: "Money Stuff: Sports Happen So Much",
-    date: "2026-07-23",
-    time: "19:10",
-    summary: "Index, basis, API, 10b5-1.",
-    url: "https://bloom.bg/3TRMy5N",
   },
 ];
