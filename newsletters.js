@@ -31,6 +31,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-authoralert-nkumar-20260729",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    title: "Millennium’s New Capital Raise Targets a Record $20 Billion",
+    date: "2026-07-29",
+    time: "16:40",
+    summary: "Millennium Management is in talks with investors to raise an unprecedented $20 billion to reinforce its stronghold in the multistrategy hedge fund industry.",
+    url: "https://www.bloomberg.com/news/articles/2026-07-29/millennium-s-new-capital-raise-targets-a-record-20-billion",
+  },
+  {
     id: "nl-lb-kuwaitoiljv-20260729",
     publication: "Legal Business",
     title: "Top UK and US firms advise major asset management trio on $16bn Kuwait oil JV",
@@ -421,14 +431,5 @@ export const NEWSLETTERS = [
     time: "12:28",
     summary: "ECB officials are ready to raise rates at their next meeting — they just won't say so publicly.",
     url: "https://www.bloomberg.com/news/newsletters/2026-07-24/ecb-officials-are-ready-to-hike-they-just-won-t-admit-so-publicly",
-  },
-  {
-    id: "nl-bbg-parisedition-20260724",
-    publication: "Bloomberg",
-    title: "Paris Edition: Bankers' quest",
-    date: "2026-07-24",
-    time: "12:05",
-    summary: "Fearing higher taxes and political upheaval, Paris bankers are eyeing other financial centres.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-07-24/paris-bankers-fearing-more-tax-political-upheaval-eye-other-financial-centers",
   },
 ];

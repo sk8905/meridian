@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "1be84be9-1945-4388-8ff7-b621b0ed1714", title: "France moves to expel pro-Kremlin TV personality", date: "2026-07-29", time: "17:47", url: "https://www.ft.com/content/1be84be9-1945-4388-8ff7-b621b0ed1714" },
+  { id: "0f9a8575-12ad-4c17-9ee0-50cdab5b8961", title: "Fed decision live: US central bank to weigh mounting inflation worries in hotly debated meeting", date: "2026-07-29", time: "17:36", url: "https://www.ft.com/content/0f9a8575-12ad-4c17-9ee0-50cdab5b8961" },
+  { id: "35811ce1-84a7-4a59-aa91-15c6bdd24392", title: "Anthony Fauci invokes Fifth Amendment at fiery Senate hearing on Covid", date: "2026-07-29", time: "17:30", url: "https://www.ft.com/content/35811ce1-84a7-4a59-aa91-15c6bdd24392" },
+  { id: "ee2a2d3b-dc5d-4ee2-8ad6-78c4b00fca8a", title: "Here’s how to make North Sea drilling compatible with net zero", date: "2026-07-29", time: "17:27", url: "https://www.ft.com/content/ee2a2d3b-dc5d-4ee2-8ad6-78c4b00fca8a" },
+  { id: "42f17eda-ac25-464b-9c7a-8777d6164613", title: "The Fed’s next step is far from clear", date: "2026-07-29", time: "17:22", url: "https://www.ft.com/content/42f17eda-ac25-464b-9c7a-8777d6164613" },
   { id: "34006961-415e-48ae-a2e5-4f35210322ba", title: "The pathway to prosperity is getting harder for developing countries", date: "2026-07-29", time: "16:50", url: "https://www.ft.com/content/34006961-415e-48ae-a2e5-4f35210322ba" },
   { id: "1ceeddf1-0948-4640-aa2c-392ce96fab5a", title: "Wildfire evacuations hurt France’s oyster capital", date: "2026-07-29", time: "16:00", url: "https://www.ft.com/content/1ceeddf1-0948-4640-aa2c-392ce96fab5a" },
   { id: "38420819-2073-42d6-a14f-2c9a28e5970d", title: "South Korea cracks down on risky retail funds after tech rout", date: "2026-07-29", time: "15:59", url: "https://www.ft.com/content/38420819-2073-42d6-a14f-2c9a28e5970d" },
@@ -55,9 +60,4 @@ export const FT_ITEMS = [
   { id: "12fda371-31f6-4c88-899f-36d2cf147e00", title: "EU crisis chief warns wildfires are a risk from scaling back green agenda", date: "2026-07-29", time: "06:03", url: "https://www.ft.com/content/12fda371-31f6-4c88-899f-36d2cf147e00" },
   { id: "5f41c99b-a866-45d5-844b-1114969175fc", title: "Bank of Japan normalisation will continue amid market tensions", date: "2026-07-29", time: "06:00", url: "https://www.ft.com/content/5f41c99b-a866-45d5-844b-1114969175fc" },
   { id: "76b48bee-41ec-4dbe-b42f-f84d807743d9", title: "The LLM FOMC votes to raise", date: "2026-07-29", time: "06:00", url: "https://www.ft.com/content/76b48bee-41ec-4dbe-b42f-f84d807743d9" },
-  { id: "e0153a16-aa0a-4d01-8614-9d332aa86690", title: "Standard Chartered launches $1bn share buyback as bank embraces AI", date: "2026-07-29", time: "05:30", url: "https://www.ft.com/content/e0153a16-aa0a-4d01-8614-9d332aa86690" },
-  { id: "1c90934c-80c1-422c-b95b-5821a6fa9ec7", title: "FirstFT: AI sell-off sparks hedge fund collateral calls", date: "2026-07-29", time: "05:30", url: "https://www.ft.com/content/1c90934c-80c1-422c-b95b-5821a6fa9ec7" },
-  { id: "ae77f88d-7cde-43aa-ac03-204eae25edc2", title: "The Story of Money", date: "2026-07-29", time: "05:04", url: "https://www.ft.com/content/ae77f88d-7cde-43aa-ac03-204eae25edc2" },
-  { id: "7e149ac8-2ce2-4266-8940-192f9821b33c", title: "PwC published ‘thought leadership’ reports marred by AI hallucinations", date: "2026-07-29", time: "05:01", url: "https://www.ft.com/content/7e149ac8-2ce2-4266-8940-192f9821b33c" },
-  { id: "fedcff18-6ccb-4cbe-b4c2-b852d37943ae", title: "China’s commercial space boom poses strategic challenge for the US", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/fedcff18-6ccb-4cbe-b4c2-b852d37943ae" },
 ];
