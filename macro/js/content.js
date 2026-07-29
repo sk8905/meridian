@@ -896,7 +896,7 @@ export const MATWALL = {
 // two_year, core_cpi, services_pmi, wages, unemployment). Absent = no sourced
 // move (the rail shows nothing). Routine-maintained; see docs/refresh-routines.md.
 export const IND_KEYMOMENTS = {
-  "US:two_year": { text: "Eased back as CME FedWatch 29 Jul hike odds cooled to roughly a one-in-three (~33%) probability Monday — down from a peak near 40% the previous Thursday — as Brent's 8.7% slide to $88.36/bbl cooled the oil-driven inflation case.", src: "https://www.techtimes.com/articles/321675/20260727/federal-reserve-july-meeting-oil-pullback-cuts-hike-odds-one-three-september-surges.htm", srcName: "Tech Times", date: "2026-07-27" },
+  "US:two_year": { text: "Ticked up as CME FedWatch hike odds for today's decision rose to roughly 35% by Wednesday morning (from ~31% Tuesday night) after overnight Iran-Iraq strikes reignited an oil-driven inflation worry hours ahead of the FOMC announcement.", src: "https://www.france24.com/en/live-news/20260729-us-fed-expected-to-hold-rates-steady-as-inflation-hawks-circle", srcName: "France24 (AFP)", date: "2026-07-29" },
   "UK:two_year": { text: "Eased to ~4.98–5.0% (from a multi-week high near 5.1% on 23–24 Jul) as Brent's slide to $88.36/bbl reduced the near-term oil-driven case for a BoE hike ahead of the 30 Jul MPC decision.", src: "https://tradingeconomics.com/united-kingdom/government-bond-yield/news/540076", srcName: "Trading Economics", date: "2026-07-27" },
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
