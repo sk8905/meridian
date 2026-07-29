@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "34006961-415e-48ae-a2e5-4f35210322ba", title: "The pathway to prosperity is getting harder for developing countries", date: "2026-07-29", time: "16:50", url: "https://www.ft.com/content/34006961-415e-48ae-a2e5-4f35210322ba" },
   { id: "1ceeddf1-0948-4640-aa2c-392ce96fab5a", title: "Wildfire evacuations hurt France’s oyster capital", date: "2026-07-29", time: "16:00", url: "https://www.ft.com/content/1ceeddf1-0948-4640-aa2c-392ce96fab5a" },
   { id: "38420819-2073-42d6-a14f-2c9a28e5970d", title: "South Korea cracks down on risky retail funds after tech rout", date: "2026-07-29", time: "15:59", url: "https://www.ft.com/content/38420819-2073-42d6-a14f-2c9a28e5970d" },
   { id: "504b632a-85bf-4c7b-9def-0b2c02cc46fe", title: "Zijin’s $4bn deal with Allied Gold collapses", date: "2026-07-29", time: "15:22", url: "https://www.ft.com/content/504b632a-85bf-4c7b-9def-0b2c02cc46fe" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "ae77f88d-7cde-43aa-ac03-204eae25edc2", title: "The Story of Money", date: "2026-07-29", time: "05:04", url: "https://www.ft.com/content/ae77f88d-7cde-43aa-ac03-204eae25edc2" },
   { id: "7e149ac8-2ce2-4266-8940-192f9821b33c", title: "PwC published ‘thought leadership’ reports marred by AI hallucinations", date: "2026-07-29", time: "05:01", url: "https://www.ft.com/content/7e149ac8-2ce2-4266-8940-192f9821b33c" },
   { id: "fedcff18-6ccb-4cbe-b4c2-b852d37943ae", title: "China’s commercial space boom poses strategic challenge for the US", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/fedcff18-6ccb-4cbe-b4c2-b852d37943ae" },
-  { id: "3a99b024-c7bc-4f10-ad77-3cdfccbc39e8", title: "Bank of England probes Asian equity risk at prime brokers", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/3a99b024-c7bc-4f10-ad77-3cdfccbc39e8" },
 ];
