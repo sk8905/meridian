@@ -163,6 +163,21 @@
   letter-spacing:.03em; color:var(--t-mut); border:1px solid var(--t-grid2); border-radius:3px;
   padding:0 4px; margin-right:2px; }
 .dsh-earn-px { font-weight:600; color:var(--t-ink); font-family:var(--t-mono); }
+/* Hedge Funds section — consensus/moves lists + per-fund 13F picker. */
+.dsh-hf-list { margin:0 0 2px; }
+.dsh-hf-i { padding:7px 0; border-bottom:1px solid var(--t-grid); }
+.dsh-hf-i:last-child { border-bottom:0; }
+.dsh-hf-i-h { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px; margin-bottom:2px; }
+.dsh-hf-t { color:var(--t-ink); font-weight:700; font-family:var(--t-mono); font-size:.8rem; }
+.dsh-hf-nm { color:var(--t-dim); font-size:.8rem; }
+.dsh-hf-by { color:var(--t-mut); font-size:.72rem; margin-left:auto; }
+.dsh-hf-note { color:var(--t-mut); font-size:.74rem; line-height:1.35; }
+.dsh-hf-dir { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:1px 5px; border-radius:3px; border:1px solid var(--t-grid2); color:var(--t-mut); }
+.dsh-hf-buy, .dsh-hf-new { color:var(--t-up); border-color:var(--t-up); }
+.dsh-hf-sell, .dsh-hf-trim { color:var(--t-down); border-color:var(--t-down); }
+.dsh-hf-pick { display:flex; align-items:center; gap:8px; margin:2px 0 8px; }
+.dsh-hf-sel { font:inherit; font-size:.82rem; color:var(--t-ink); background:var(--t-panel); border:1px solid var(--t-grid2); border-radius:6px; padding:5px 8px; max-width:min(100%,320px); }
+.dsh-hf-body { min-height:40px; }
 .dsh-tag { font-size:.68rem; font-weight:600; border-radius:4px; padding:1px 5px; border:1px solid var(--t-grid2); color:var(--t-mut); }
 .dsh-tag-priced{ color:var(--t-up); border-color:var(--t-up); }
 .dsh-tag-filed{ color:var(--t-mac); border-color:var(--t-mac); }

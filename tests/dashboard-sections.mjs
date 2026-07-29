@@ -18,7 +18,7 @@ const fi = await pg.evaluate(() => ({
   yc: !!document.querySelector(".dsh-yc-svg"),
   spreads: !!document.querySelector("#dsh-spreads"),
 }));
-checkEq(fi.tabs.join(","), "macro,equities,fixed-income,credit,legal", "Dashboard sub-tab order (Fixed Income before Credit)");
+checkEq(fi.tabs.join(","), "macro,equities,fixed-income,credit,hedge-funds,legal", "Dashboard sub-tab order (Hedge Funds before Legal)");
 check(fi.yc, "Fixed Income: sovereign yield curve renders (government)");
 check(fi.spreads, "Fixed Income: corporate credit-spreads block present");
 
@@ -82,7 +82,24 @@ checkEq(scoped.onChips, 2, "Legal: type and area chips are independent multi-sel
 const cleared = await pg.evaluate(() => { const q = document.querySelector("#dsh-lgl-q"); q.value = ""; q.dispatchEvent(new Event("input")); return document.querySelectorAll(".dsh-lgl-i").length; });
 checkEq(cleared, 0, "Legal: clearing the keyword returns to the search prompt");
 
-checkErrs(errs, "dashboard fixed-income + legal");
+// Hedge Funds sub-tab: sourced consensus + moves lists, and the live per-fund picker.
+await pg.evaluate(() => { const t = [...document.querySelectorAll(".dsh-nav .tchip[data-sub]")].find((c) => c.dataset.sub === "hedge-funds"); t && t.click(); });
+await pg.waitForTimeout(700);
+const hf = await pg.evaluate(() => {
+  const items = [...document.querySelectorAll(".dsh-hf-i")];
+  return {
+    lists: items.length,
+    sourced: items.length > 0 && items.every((i) => i.querySelector('.dsh-src[href^="http"]')),
+    moves: document.querySelectorAll(".dsh-hf-dir").length,
+    picker: !!document.querySelector("#dsh-hf-sel") && document.querySelectorAll("#dsh-hf-sel option").length > 10,
+  };
+});
+check(hf.lists > 5, `Hedge Funds: consensus + moves render (${hf.lists})`);
+check(hf.sourced, "Hedge Funds: every consensus/move entry links a source");
+check(hf.moves >= 1, `Hedge Funds: notable moves tagged buy/sell/new/trim (${hf.moves})`);
+check(hf.picker, "Hedge Funds: per-fund 13F picker lists the tracked filers");
+
+checkErrs(errs, "dashboard fixed-income + legal + hedge funds");
 await ctx.close();
 await b.close(); srv.close();
 finish();

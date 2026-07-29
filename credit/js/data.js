@@ -2140,3 +2140,33 @@ export const HEDGE_INTEL = [
   { id: "hi65", hfId: null, date: "2026-07-28", type: "Personnel",   headline: "Former Citadel PMs emerge as preferred picks for hedge fund seeding capital", summary: "At least a dozen hedge funds founded by ex-Citadel investment professionals have secured backing from established multi-strategy managers, making former Citadel PMs favoured recipients of seeding capital.", outlet: "Hedgeweek", url: "https://www.hedgeweek.com/former-citadel-pms-emerge-as-preferred-picks-for-hedge-fund-seeding-capital/" },
   { id: "hi66", hfId: "h2", date: "2026-07-28", time: "17:19", type: "AUM", headline: "Man Group posts $7.1bn H1 2026 net inflows as private-credit AUM climbs to $14.1bn", summary: "Man Group's H1 2026 results (28 Jul 2026) showed net inflows of $7.1bn on client demand for private credit, taking group AUM to a record $253.6bn; private-markets AUM rose to $14.1bn (from $10.6bn a year earlier), including CLOs of $2bn and real estate of $1.5bn.", outlet: "Alternative Credit Investor", url: "https://alternativecreditinvestor.com/2026/07/28/man-group-net-inflows-top-7bn-amid-clear-appetite-for-private-credit/" },
 ];
+
+// 13F snapshot — the cross-fund read for the Dashboard ▸ Hedge Funds section.
+// `consensus` (most-held names) and `moves` (notable Q1 buys/sells) are a curated
+// read of public 13F coverage — every entry SOURCED, no invented fund-counts. The
+// per-fund top-10 tables in that section are LIVE from SEC via the Worker's
+// /api/13f endpoint, so precise holdings are never hand-maintained here. Refreshed
+// each quarter after the 13F deadline (mid-Feb/May/Aug/Nov); bump `quarter`/`asOf`
+// and re-source. Never fabricate a holding, count or figure.
+export const HF_13F = {
+  quarter: "Q1 2026",
+  asOf: "2026-03-31",
+  filed: "Filed by mid-May 2026 — the latest publicly available 13F quarter (Q2 due mid-August).",
+  consensus: [
+    { t: "AMZN",  name: "Amazon",               note: "Top consensus mega-cap — Pershing Square (~17% of book), Appaloosa (~15%), Himalaya and Berkshire all leaning in.", src: "https://247wallst.com/investing/2026/07/22/the-boldest-bets-on-wall-street-right-now-are-in-the-same-handful-of-stocks/" },
+    { t: "GOOGL", name: "Alphabet",             note: "Broad hedge-fund favourite alongside Amazon and Uber across the Q1 2026 13Fs.", src: "https://247wallst.com/investing/2026/07/22/the-boldest-bets-on-wall-street-right-now-are-in-the-same-handful-of-stocks/" },
+    { t: "META",  name: "Meta Platforms",       note: "Broad institutional favourite; Point72 alone added ~$519m in the quarter.", src: "https://www.grufity.com/funds/1603466" },
+    { t: "NVDA",  name: "Nvidia",               note: "Still a top consensus AI holding, though some funds (e.g. Appaloosa) trimmed in Q1.", src: "https://hedgefollow.com/stocks/NVDA" },
+    { t: "MSFT",  name: "Microsoft",            note: "Top consensus holding among the Tiger Cubs (~57% held a position).", src: "https://hedgevision.substack.com/p/heres-what-hedge-funds-bought-in-8af" },
+    { t: "UBER",  name: "Uber",                 note: "Among the most-added names across Pershing Square, Appaloosa and Berkshire in Q1.", src: "https://247wallst.com/investing/2026/07/22/the-boldest-bets-on-wall-street-right-now-are-in-the-same-handful-of-stocks/" },
+    { t: "TSM",   name: "Taiwan Semiconductor", note: "Top AI-supply-chain consensus holding across the major funds.", src: "https://hedgevision.substack.com/p/heres-what-hedge-funds-bought-in-8af" },
+    { t: "LLY",   name: "Eli Lilly",            note: "Popular non-tech consensus long on multi-year obesity-drug revenue visibility.", src: "https://hedgevision.substack.com/p/heres-what-hedge-funds-bought-in-8af" },
+  ],
+  moves: [
+    { t: "AMZN", name: "Amazon",  dir: "buy",  by: "Appaloosa (Tepper)", note: "Nearly doubled the share count; Amazon became Appaloosa's top position, dethroning Alibaba.", src: "https://247wallst.com/investing/2026/07/22/the-boldest-bets-on-wall-street-right-now-are-in-the-same-handful-of-stocks/" },
+    { t: "META", name: "Meta",    dir: "buy",  by: "Point72 (Cohen)",    note: "Bought ~$518.8m of Meta during the quarter.", src: "https://www.grufity.com/funds/1603466" },
+    { t: "SNDK", name: "SanDisk", dir: "new",  by: "Appaloosa (Tepper)", note: "Tepper's only new position in Q1 2026.", src: "https://247wallst.com/investing/2026/07/22/the-boldest-bets-on-wall-street-right-now-are-in-the-same-handful-of-stocks/" },
+    { t: "NVDA", name: "Nvidia",  dir: "trim", by: "Appaloosa (Tepper)", note: "Reduced the Nvidia (and ASML) allocation in Q1.", src: "https://247wallst.com/investing/2026/07/22/the-boldest-bets-on-wall-street-right-now-are-in-the-same-handful-of-stocks/" },
+    { t: "BABA", name: "Alibaba", dir: "sell", by: "Appaloosa (Tepper)", note: "Tepper's top sale — trimmed for a fifth consecutive quarter.", src: "https://247wallst.com/investing/2026/07/22/the-boldest-bets-on-wall-street-right-now-are-in-the-same-handful-of-stocks/" },
+  ],
+};

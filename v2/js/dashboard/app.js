@@ -13,11 +13,11 @@
 import { esc } from "/util.js?v=20260719-1";
 import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS } from "/dashboard/js/data.js";
 import { OUTLOOK, CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS } from "/macro/js/content.js";
-import { deals, intel } from "/credit/js/data.js";
+import { deals, intel, HEDGE_FUNDS, HF_13F } from "/credit/js/data.js";
 import { SECTOR_FLOWS } from "/allocations.js";
 import { items as LGL_ITEMS, cases as LGL_CASES, practiceAreas as LGL_AREAS, areaById as LGL_AREA_BY_ID, firmById as LGL_FIRM_BY_ID, caseSummaries as LGL_CASE_SUMMARIES } from "/legal/js/data.js";
 
-const SUBTABS = [["macro", "Macro"], ["equities", "Equities"], ["fixed-income", "Fixed Income"], ["credit", "Credit"], ["legal", "Legal"]];
+const SUBTABS = [["macro", "Macro"], ["equities", "Equities"], ["fixed-income", "Fixed Income"], ["credit", "Credit"], ["hedge-funds", "Hedge Funds"], ["legal", "Legal"]];
 const pct1 = (n) => (n == null ? "—" : (n > 0 ? "+" : "") + n.toFixed(1) + "%");
 const upcls = (n) => (n == null ? "" : n > 0 ? "up" : n < 0 ? "down" : "");
 const asOf = (d) => (d ? `<span class="dsh-asof">as of ${esc(d)}</span>` : "");
@@ -512,6 +512,72 @@ export function mount(host, ctx) {
     };
     return `<div class="dsh-lgl-list">${list.map(row).join("")}</div>`;
   }
+  // ---- Hedge Funds --------------------------------------------------------
+  // Cross-fund 13F read: curated, SOURCED "consensus longs" + "notable Q1 moves"
+  // (HF_13F), plus a LIVE per-fund top-10 holdings table pulled from SEC via the
+  // Worker's /api/13f endpoint (same source as the Credit fund pages).
+  const hfUsd = (v) => {
+    if (v == null || !isFinite(v)) return "—";
+    const a = Math.abs(v);
+    return a >= 1e9 ? "$" + (v / 1e9).toFixed(2) + "bn" : a >= 1e6 ? "$" + (v / 1e6).toFixed(0) + "m" : "$" + Math.round(v).toLocaleString("en-US");
+  };
+  const _hfDir = { buy: "Buy", new: "New", trim: "Trim", sell: "Sell" };
+  function hedgeFundsHTML() {
+    const F = HF_13F || {};
+    const yh = (t) => `https://finance.yahoo.com/quote/${encodeURIComponent(t)}`;
+    const tkr = (t) => `<a class="dsh-hf-t" href="${yh(t)}" target="_blank" rel="noopener noreferrer">${esc(t)}</a>`;
+    const src = (u) => u ? ` <a class="dsh-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer">src</a>` : "";
+    const conRow = (x) => `<div class="dsh-hf-i"><div class="dsh-hf-i-h">${tkr(x.t)} <span class="dsh-hf-nm">${esc(x.name)}</span>${src(x.src)}</div><div class="dsh-hf-note">${esc(x.note)}</div></div>`;
+    const mvRow = (x) => `<div class="dsh-hf-i"><div class="dsh-hf-i-h"><span class="dsh-hf-dir dsh-hf-${esc(x.dir)}">${esc(_hfDir[x.dir] || x.dir)}</span> ${tkr(x.t)} <span class="dsh-hf-nm">${esc(x.name)}</span> <span class="dsh-hf-by">${esc(x.by)}</span>${src(x.src)}</div><div class="dsh-hf-note">${esc(x.note)}</div></div>`;
+    const filers = (HEDGE_FUNDS || []).filter((f) => f.cik).sort((a, b) => a.name.localeCompare(b.name));
+    const opts = filers.map((f) => `<option value="${esc(f.cik)}">${esc(f.name)}</option>`).join("");
+    return `<div class="dsh-pane">
+      <section class="dsh-card">
+        <h3 class="dsh-h">Consensus longs <span class="dsh-n">(${esc(F.quarter || "")} 13Fs)</span></h3>
+        <div class="dsh-hf-list">${(F.consensus || []).map(conRow).join("")}</div>
+        <p class="dsh-fl-note">Most widely-held names across major hedge funds, from public ${esc(F.quarter || "")} 13F coverage — each links its source. ${esc(F.filed || "")}</p>
+      </section>
+      <section class="dsh-card">
+        <h3 class="dsh-h">Notable ${esc(F.quarter || "")} moves</h3>
+        <div class="dsh-hf-list">${(F.moves || []).map(mvRow).join("")}</div>
+        <p class="dsh-fl-note">Selected buys, new stakes, trims and exits disclosed in the ${esc(F.quarter || "")} 13Fs — sourced, illustrative not exhaustive.</p>
+      </section>
+      <section class="dsh-card dsh-span">
+        <h3 class="dsh-h">Per-fund holdings <span class="dsh-live">live · SEC 13F</span></h3>
+        <div class="dsh-hf-pick"><label class="dsh-lgl-lbl" for="dsh-hf-sel">Fund</label>
+          <select id="dsh-hf-sel" class="dsh-hf-sel">${opts}</select></div>
+        <div id="dsh-hf-body" class="dsh-hf-body"><p class="dsh-load">Loading latest 13F…</p></div>
+      </section>
+    </div>`;
+  }
+  function renderHfHoldings(body, d) {
+    if (!d || !Array.isArray(d.holdings) || !d.holdings.length) {
+      body.innerHTML = `<p class="dsh-load">No 13F holdings available${d && d.source ? ` — <a href="${esc(d.source)}" target="_blank" rel="noopener noreferrer">latest filing</a>.` : "."}</p>`;
+      return;
+    }
+    const yh = (t) => `https://finance.yahoo.com/quote/${encodeURIComponent(t)}`;
+    const rows = d.holdings.slice(0, 10).map((h, i) => `<tr><td class="dsh-r">${i + 1}</td>`
+      + `<td>${esc(h.name || "—")}</td>`
+      + `<td>${h.ticker ? `<a href="${yh(h.ticker)}" target="_blank" rel="noopener noreferrer">${esc(h.ticker)}</a>` : "—"}</td>`
+      + `<td class="dsh-r">${esc(hfUsd(h.value))}</td>`
+      + `<td class="dsh-r">${h.weight != null && isFinite(h.weight) ? (h.weight * 100).toFixed(1) + "%" : "—"}</td></tr>`).join("");
+    body.innerHTML = `<table class="dsh-tbl"><thead><tr><th class="dsh-r">#</th><th>Holding</th><th>Ticker</th><th class="dsh-r">Value</th><th class="dsh-r">Weight</th></tr></thead><tbody>${rows}</tbody></table>`
+      + `<p class="dsh-fl-note">Top ${Math.min(10, d.holdings.length)} US-listed positions by value${d.asOf ? `, as of ${esc(d.asOf)}` : ""}${d.source ? ` · <a href="${esc(d.source)}" target="_blank" rel="noopener noreferrer">latest 13F</a>` : ""}.</p>`;
+  }
+  function wireHedgeFunds() {
+    const sel = host.querySelector("#dsh-hf-sel"), body = host.querySelector("#dsh-hf-body");
+    if (!sel || !body) return;
+    const load = async (cik) => {
+      if (!cik) return;
+      body.innerHTML = `<p class="dsh-load">Loading latest 13F…</p>`;
+      try {
+        const r = await fetch(`/api/13f?cik=${encodeURIComponent(cik)}`, { headers: { accept: "application/json" } });
+        renderHfHoldings(body, r.ok ? await r.json() : null);
+      } catch { body.innerHTML = `<p class="dsh-load">Could not load holdings right now.</p>`; }
+    };
+    sel.addEventListener("change", () => load(sel.value));
+    if (sel.value) load(sel.value);
+  }
   function legalHTML() {
     const total = legalDb().length;
     // Toggleable practice-area chips (multi-select) that LIMIT the keyword search;
@@ -548,11 +614,13 @@ export function mount(host, ctx) {
     const body = pane === "equities" ? equitiesHTML()
       : pane === "credit" ? creditHTML()
       : pane === "fixed-income" ? fixedIncomeHTML()
+      : pane === "hedge-funds" ? hedgeFundsHTML()
       : pane === "legal" ? legalHTML()
       : macroHTML();
     host.innerHTML = `<div class="dsh"><header class="dsh-nav tdet-secnav"><div class="tchips">${nav}</div></header>${body}</div>`;
     if (pane === "credit") { loadSpreads(); wireStressSort(); }
     if (pane === "fixed-income") loadSpreads();
+    if (pane === "hedge-funds") wireHedgeFunds();
     if (pane === "legal") wireLegal();
   }
   function wireSectorToggle() {

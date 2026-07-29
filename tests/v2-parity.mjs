@@ -97,7 +97,7 @@ for (const [path, view] of [["/v2/macro/", "macro"], ["/v2/credit/", "credit"], 
   await tap("dashboard");
   // Dashboard renders its three sub-tabs; Equities shows the ranked sector bars.
   const dshSubs = await pg.evaluate(() => document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-nav .tchip[data-sub]').length);
-  checkEq(dshSubs, 5, "in-view: Dashboard has five sub-tabs (Macro/Equities/Credit/Fixed Income/Legal)");
+  checkEq(dshSubs, 6, "in-view: Dashboard has six sub-tabs (Macro/Equities/Fixed Income/Credit/Hedge Funds/Legal)");
   await pg.evaluate(() => { const e = [...document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-nav .tchip[data-sub]')].find((c) => c.dataset.sub === "equities"); if (e) e.click(); });
   await pg.waitForTimeout(300);
   checkEq(await pg.evaluate(() => (document.querySelector('.v2-view[data-view="dashboard"] .dsh-nav .tchip.is-on') || {}).dataset?.sub), "equities", "in-view: Dashboard sub-tab switches (active handler fires)");
