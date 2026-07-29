@@ -21,6 +21,7 @@ export const PUBLISHERS = {
   "legalbusiness.co.uk": "Legal Business",
   "pb.jpmorgan.com": "JP Morgan Private Bank",
   "mail.sailthru.com": "Thomson Reuters",
+  "thomsonreuters.com": "Thomson Reuters",
   "mailbrew.com": "Mailbrew",
   "cntraveller.com": "Condé Nast Traveller",
   "mail.nonbillable.co.uk": "Non-Billable",
@@ -30,6 +31,17 @@ export const PUBLISHERS = {
 };
 
 export const NEWSLETTERS = [
+  {
+    id: "nl-reuters-tradingday-aicrash-20260729",
+    publication: "Thomson Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "All Warshed up",
+    date: "2026-07-29",
+    time: "21:01",
+    summary: "US shares tumbled and long yields hit multi-decade peaks after the Fed held rates, as the South Korean stock rout deepened on SK Hynix earnings.",
+    url: "https://www.reuters.com/commentary/reuters-open-interest/could-an-ai-market-crash-rival-2000-or-2008-unlikely-2026-07-29/",
+  },
   {
     id: "nl-bbg-moneystuff-spacexcrash-20260729",
     publication: "Bloomberg",

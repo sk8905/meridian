@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c4eedbe8-6345-48b6-8d44-5cc5b0bea2c7", title: "US borrowing costs hit 19-year high as Fed defies inflation fears", date: "2026-07-29", time: "22:01", url: "https://www.ft.com/content/c4eedbe8-6345-48b6-8d44-5cc5b0bea2c7" },
+  { id: "06d941ed-8136-46a4-a2ec-44bea1b35c3b", title: "Meta tumbles 6% as sales forecast and profits disappoint", date: "2026-07-29", time: "21:53", url: "https://www.ft.com/content/06d941ed-8136-46a4-a2ec-44bea1b35c3b" },
+  { id: "d5762ed8-a384-4c6a-9f5e-8bce573cf0a0", title: "Qualcomm posts shrinking sales and profits as rising costs hit smartphone market", date: "2026-07-29", time: "21:37", url: "https://www.ft.com/content/d5762ed8-a384-4c6a-9f5e-8bce573cf0a0" },
+  { id: "da7c4472-cb30-4b82-b321-d82c1859419e", title: "Microsoft’s cloud business boosts sales as AI investment climbs to $41bn", date: "2026-07-29", time: "21:30", url: "https://www.ft.com/content/da7c4472-cb30-4b82-b321-d82c1859419e" },
+  { id: "ef1da506-6d2c-4e09-8b1b-6f6bb416a0a7", title: "For sale: Saba repellent", date: "2026-07-29", time: "19:44", url: "https://www.ft.com/content/ef1da506-6d2c-4e09-8b1b-6f6bb416a0a7" },
   { id: "836720ef-d768-4eda-abe1-cfb432727161", title: "Split Fed decision to hold rates in July", date: "2026-07-29", time: "19:13", url: "https://www.ft.com/content/836720ef-d768-4eda-abe1-cfb432727161" },
   { id: "730ebfb9-cec0-4cb6-947a-598d64518dad", title: "Ex-Goldman executive awarded £1.45mn after paternity leave ‘stigma’", date: "2026-07-29", time: "18:54", url: "https://www.ft.com/content/730ebfb9-cec0-4cb6-947a-598d64518dad" },
   { id: "ba9a6450-1dbc-4ff9-98e0-2f1b922c2839", title: "Social care reform is a test of UK politics", date: "2026-07-29", time: "18:50", url: "https://www.ft.com/content/ba9a6450-1dbc-4ff9-98e0-2f1b922c2839" },
@@ -58,7 +63,4 @@ export const FT_ITEMS = [
   { id: "d5912454-6a02-4017-8a85-30a11d806780", title: "Glencore trading profits double on Middle East turmoil", date: "2026-07-29", time: "08:43", url: "https://www.ft.com/content/d5912454-6a02-4017-8a85-30a11d806780" },
   { id: "18508c64-5951-4003-a3f1-ce7f2ad0f8ec", title: "St James’s Place inflows drop as UK pensions tax change looms", date: "2026-07-29", time: "08:13", url: "https://www.ft.com/content/18508c64-5951-4003-a3f1-ce7f2ad0f8ec" },
   { id: "be6ae5f1-01fd-41d2-bd0f-e2f492076b6e", title: "Asia’s richest man Gautam Adani weighs bid for UK’s top port operator", date: "2026-07-29", time: "07:42", url: "https://www.ft.com/content/be6ae5f1-01fd-41d2-bd0f-e2f492076b6e" },
-  { id: "90701678-5f49-43ba-b79a-ebf8aaf0a0f2", title: "UBS joins Wall Street rivals in trading-led profit surge", date: "2026-07-29", time: "07:04", url: "https://www.ft.com/content/90701678-5f49-43ba-b79a-ebf8aaf0a0f2" },
-  { id: "e5f66a11-02bc-4caa-bdbf-9ed1f60747f5", title: "AI isn’t taking jobs, yet", date: "2026-07-29", time: "06:30", url: "https://www.ft.com/content/e5f66a11-02bc-4caa-bdbf-9ed1f60747f5" },
-  { id: "e7bf9856-7e88-4615-a19e-c87f8ef207d5", title: "FTAV’s further reading", date: "2026-07-29", time: "06:30", url: "https://www.ft.com/content/e7bf9856-7e88-4615-a19e-c87f8ef207d5" },
 ];
