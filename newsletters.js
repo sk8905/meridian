@@ -31,6 +31,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-spacexcrash-20260729",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: SpaceX Crash Insurance",
+    date: "2026-07-29",
+    time: "18:57",
+    summary: "Structured notes, sports, ETFs, slop.",
+    url: "https://bloom.bg/4h4BQCM",
+  },
+  {
     id: "nl-bbg-authoralert-nkumar-20260729",
     publication: "Bloomberg",
     author: "Nishant Kumar",
@@ -422,14 +433,5 @@ export const NEWSLETTERS = [
     time: "13:03",
     summary: "This week's market-moving events and potential impacts: whether markets have become one big AI trade.",
     url: "https://go-pb.jpmorgan.com/v/MzkyLUhLQy04NzYAAAGjMvswvzeevDFE40J1YftSlswqb8KeJvlT7iFfVFqBw145UZny4OiFTqES4LJ0GuG7m4x7Btg=",
-  },
-  {
-    id: "nl-bbg-econdaily-mixedmessages-20260724",
-    publication: "Bloomberg",
-    title: "Economics Daily: Mixed messages",
-    date: "2026-07-24",
-    time: "12:28",
-    summary: "ECB officials are ready to raise rates at their next meeting — they just won't say so publicly.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-07-24/ecb-officials-are-ready-to-hike-they-just-won-t-admit-so-publicly",
   },
 ];

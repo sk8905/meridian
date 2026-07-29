@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "730ebfb9-cec0-4cb6-947a-598d64518dad", title: "Ex-Goldman executive awarded £1.45mn after paternity leave ‘stigma’", date: "2026-07-29", time: "18:54", url: "https://www.ft.com/content/730ebfb9-cec0-4cb6-947a-598d64518dad" },
+  { id: "ba9a6450-1dbc-4ff9-98e0-2f1b922c2839", title: "Social care reform is a test of UK politics", date: "2026-07-29", time: "18:50", url: "https://www.ft.com/content/ba9a6450-1dbc-4ff9-98e0-2f1b922c2839" },
+  { id: "b779208d-d587-4482-881c-41b063c4e235", title: "Reality bites for South Korea’s memory chip wonder-stocks", date: "2026-07-29", time: "18:37", url: "https://www.ft.com/content/b779208d-d587-4482-881c-41b063c4e235" },
+  { id: "86f37415-cc80-4ea6-bc03-87c96cb831f4", title: "US oil inventories fall to ‘precariously low’ level as Iran war disrupts supply", date: "2026-07-29", time: "18:03", url: "https://www.ft.com/content/86f37415-cc80-4ea6-bc03-87c96cb831f4" },
   { id: "1be84be9-1945-4388-8ff7-b621b0ed1714", title: "France moves to expel pro-Kremlin TV personality", date: "2026-07-29", time: "17:47", url: "https://www.ft.com/content/1be84be9-1945-4388-8ff7-b621b0ed1714" },
   { id: "0f9a8575-12ad-4c17-9ee0-50cdab5b8961", title: "Fed decision live: US central bank to weigh mounting inflation worries in hotly debated meeting", date: "2026-07-29", time: "17:36", url: "https://www.ft.com/content/0f9a8575-12ad-4c17-9ee0-50cdab5b8961" },
   { id: "35811ce1-84a7-4a59-aa91-15c6bdd24392", title: "Anthony Fauci invokes Fifth Amendment at fiery Senate hearing on Covid", date: "2026-07-29", time: "17:30", url: "https://www.ft.com/content/35811ce1-84a7-4a59-aa91-15c6bdd24392" },
@@ -57,7 +61,4 @@ export const FT_ITEMS = [
   { id: "e5f66a11-02bc-4caa-bdbf-9ed1f60747f5", title: "AI isn’t taking jobs, yet", date: "2026-07-29", time: "06:30", url: "https://www.ft.com/content/e5f66a11-02bc-4caa-bdbf-9ed1f60747f5" },
   { id: "e7bf9856-7e88-4615-a19e-c87f8ef207d5", title: "FTAV’s further reading", date: "2026-07-29", time: "06:30", url: "https://www.ft.com/content/e7bf9856-7e88-4615-a19e-c87f8ef207d5" },
   { id: "e8e3a60a-059c-45b5-bbe3-49add14fd343", title: "Tech rout roils markets after SK Hynix profits disappoint", date: "2026-07-29", time: "06:13", url: "https://www.ft.com/content/e8e3a60a-059c-45b5-bbe3-49add14fd343" },
-  { id: "12fda371-31f6-4c88-899f-36d2cf147e00", title: "EU crisis chief warns wildfires are a risk from scaling back green agenda", date: "2026-07-29", time: "06:03", url: "https://www.ft.com/content/12fda371-31f6-4c88-899f-36d2cf147e00" },
-  { id: "5f41c99b-a866-45d5-844b-1114969175fc", title: "Bank of Japan normalisation will continue amid market tensions", date: "2026-07-29", time: "06:00", url: "https://www.ft.com/content/5f41c99b-a866-45d5-844b-1114969175fc" },
-  { id: "76b48bee-41ec-4dbe-b42f-f84d807743d9", title: "The LLM FOMC votes to raise", date: "2026-07-29", time: "06:00", url: "https://www.ft.com/content/76b48bee-41ec-4dbe-b42f-f84d807743d9" },
 ];
