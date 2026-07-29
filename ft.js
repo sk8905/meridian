@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7b1197a5-e59a-4beb-ab83-e800e6ebc527", title: "BNY to adopt blockchain technology for records in new era for Wall Street", date: "2026-07-29", time: "11:00", url: "https://www.ft.com/content/7b1197a5-e59a-4beb-ab83-e800e6ebc527" },
+  { id: "bf4c32f3-735d-4742-a5b6-65b404f70cc7", title: "Inflation gauge reboot to ease pressure on Federal Reserve to raise interest rates", date: "2026-07-29", time: "11:00", url: "https://www.ft.com/content/bf4c32f3-735d-4742-a5b6-65b404f70cc7" },
   { id: "6c79711b-d541-4b7d-8c82-54450fda973f", title: "What’s up with CCC-rated bond spreads?", date: "2026-07-29", time: "10:00", url: "https://www.ft.com/content/6c79711b-d541-4b7d-8c82-54450fda973f" },
   { id: "509a6a94-8342-49c1-965f-66abff88b977", title: "US says it intercepted ‘surprise’ Iranian missile attack", date: "2026-07-29", time: "09:51", url: "https://www.ft.com/content/509a6a94-8342-49c1-965f-66abff88b977" },
   { id: "85c978d9-6c85-415b-93ce-e7092ddc2181", title: "Andy Burnham has Labour voters’ attention but for how long?", date: "2026-07-29", time: "09:30", url: "https://www.ft.com/content/85c978d9-6c85-415b-93ce-e7092ddc2181" },
