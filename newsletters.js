@@ -31,6 +31,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-pointsofreturn-20260729",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "The Magnificent Seven are riding into the sunset",
+    date: "2026-07-29",
+    time: "05:04",
+    summary: "The equal-weighted S&P 500 hits an all-time high and overtakes the Nasdaq 100 (down almost 10% from its peak) as WTI crude jumps 5% on an Iranian attack ahead of Wednesday's FOMC decision.",
+    url: "https://bloom.bg/3TuSodi",
+  },
+  {
     id: "nl-lb-gibsondunnwachtell-20260728",
     publication: "Legal Business",
     title: "Six-partner Wachtell team led by co-chair leaves for Gibson Dunn",
