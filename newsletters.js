@@ -31,6 +31,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-econ-worldinbrief-20260729",
+    publication: "The Economist",
+    series: "The World in Brief",
+    title: "The World in Brief: America thwarts \"surprise\" Iranian attack",
+    date: "2026-07-29",
+    time: "06:16",
+    summary: "America says it intercepted a \"surprise\" Iranian missile attack in the Gulf and bans imports of humanoid robots, as SK Hynix profits miss forecasts despite a 557% jump.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-pointsofreturn-20260729",
     publication: "Bloomberg",
     author: "John Authers",

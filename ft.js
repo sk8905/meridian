@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "90701678-5f49-43ba-b79a-ebf8aaf0a0f2", title: "UBS joins Wall Street rivals in trading-led profit surge", date: "2026-07-29", time: "07:04", url: "https://www.ft.com/content/90701678-5f49-43ba-b79a-ebf8aaf0a0f2" },
+  { id: "e5f66a11-02bc-4caa-bdbf-9ed1f60747f5", title: "AI isn’t taking jobs, yet", date: "2026-07-29", time: "06:30", url: "https://www.ft.com/content/e5f66a11-02bc-4caa-bdbf-9ed1f60747f5" },
+  { id: "e7bf9856-7e88-4615-a19e-c87f8ef207d5", title: "FTAV’s further reading", date: "2026-07-29", time: "06:30", url: "https://www.ft.com/content/e7bf9856-7e88-4615-a19e-c87f8ef207d5" },
+  { id: "e8e3a60a-059c-45b5-bbe3-49add14fd343", title: "Tech rout roils markets after SK Hynix profits disappoint", date: "2026-07-29", time: "06:13", url: "https://www.ft.com/content/e8e3a60a-059c-45b5-bbe3-49add14fd343" },
   { id: "12fda371-31f6-4c88-899f-36d2cf147e00", title: "EU crisis chief warns wildfires are a risk from scaling back green agenda", date: "2026-07-29", time: "06:03", url: "https://www.ft.com/content/12fda371-31f6-4c88-899f-36d2cf147e00" },
   { id: "5f41c99b-a866-45d5-844b-1114969175fc", title: "Bank of Japan normalisation will continue amid market tensions", date: "2026-07-29", time: "06:00", url: "https://www.ft.com/content/5f41c99b-a866-45d5-844b-1114969175fc" },
   { id: "76b48bee-41ec-4dbe-b42f-f84d807743d9", title: "The LLM FOMC votes to raise", date: "2026-07-29", time: "06:00", url: "https://www.ft.com/content/76b48bee-41ec-4dbe-b42f-f84d807743d9" },
@@ -56,10 +60,4 @@ export const FT_ITEMS = [
   { id: "819cc297-4e1e-493b-91b3-e6b12519214b", title: "Fifa plans stake sale in new $20bn commercial vehicle", date: "2026-07-28", time: "15:01", url: "https://www.ft.com/content/819cc297-4e1e-493b-91b3-e6b12519214b" },
   { id: "d5b45659-ecd5-4bb5-93d0-56b99c798b9d", title: "Maybe the chips are down because memory’s too expensive", date: "2026-07-28", time: "14:43", url: "https://www.ft.com/content/d5b45659-ecd5-4bb5-93d0-56b99c798b9d" },
   { id: "ba86f426-0386-4afb-acb8-cdd56371a5a8", title: "Trump sets stage for Netanyahu meeting amid tensions with Israeli PM", date: "2026-07-28", time: "14:15", url: "https://www.ft.com/content/ba86f426-0386-4afb-acb8-cdd56371a5a8" },
-  { id: "e8a4b77a-f420-409a-938f-17521c5ba7bf", title: "Air Force One refurbishment costs weigh on Boeing results", date: "2026-07-28", time: "14:04", url: "https://www.ft.com/content/e8a4b77a-f420-409a-938f-17521c5ba7bf" },
-  { id: "6cb23b3e-42bb-488b-bdf9-ecd1eee5495b", title: "Coca-Cola and Unilever sales surge after World Cup marketing blitz", date: "2026-07-28", time: "13:41", url: "https://www.ft.com/content/6cb23b3e-42bb-488b-bdf9-ecd1eee5495b" },
-  { id: "3c62f28e-d7bc-409e-af17-61002472f3f7", title: "A truly progressive VAT would solve a lot of UK tax problems", date: "2026-07-28", time: "13:01", url: "https://www.ft.com/content/3c62f28e-d7bc-409e-af17-61002472f3f7" },
-  { id: "b0dfd771-a6d6-476e-a435-7a5aedf2f820", title: "Tourists evacuated from wildfire threat as France and Spain brace for new heatwaves", date: "2026-07-28", time: "12:48", url: "https://www.ft.com/content/b0dfd771-a6d6-476e-a435-7a5aedf2f820" },
-  { id: "3441b5aa-9d58-4829-bd2e-b2c0ce0198f1", title: "Trump’s waning sway over the world", date: "2026-07-28", time: "12:35", url: "https://www.ft.com/content/3441b5aa-9d58-4829-bd2e-b2c0ce0198f1" },
-  { id: "c1b2cd1a-d5b5-4bf6-ba51-264c2401d75e", title: "What is the state of play with the energy shock?", date: "2026-07-28", time: "12:30", url: "https://www.ft.com/content/c1b2cd1a-d5b5-4bf6-ba51-264c2401d75e" },
 ];
