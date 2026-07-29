@@ -71,6 +71,25 @@ check(km.count >= 1, `Key moments card renders sourced movers (${km.count})`);
 check(km.named === km.count && km.explained === km.count, "every Key moment has an index name and an explanation");
 check(km.srcs === km.count, `every Key moment links its source (${km.srcs}/${km.count})`);
 
+// Earnings calendar: Forecast/Actual EPS columns, a note line per release, and a
+// key-metric row (bank pre-tax profit) surfaces its actual rather than "—".
+const earn = await pg.evaluate(() => {
+  const hdr = [...document.querySelectorAll(".dsh-earn thead th")].map((t) => t.textContent);
+  const rows = [...document.querySelectorAll(".dsh-earn .dsh-earn-r")];
+  const km = rows.find((t) => /BARC/.test(t.textContent));
+  const kmCells = km ? [...km.querySelectorAll("td.dsh-r")].map((c) => c.textContent) : [];
+  return {
+    fctActEps: hdr.includes("Fct EPS") && hdr.includes("Act EPS"),
+    notes: document.querySelectorAll(".dsh-earn .dsh-earn-note").length,
+    metricTags: document.querySelectorAll(".dsh-earn-metric").length,
+    kmReported: kmCells.length === 2 && kmCells.every((c) => c && c !== "—"),
+  };
+});
+check(earn.fctActEps, "Earnings: columns are Forecast EPS / Actual EPS");
+check(earn.notes > 5, `Earnings: a note line renders under each release (${earn.notes})`);
+check(earn.metricTags >= 1, `Earnings: non-EPS rows tag their metric (${earn.metricTags})`);
+check(earn.kmReported, "Earnings: a reported key-metric row shows its actual, not —");
+
 // Rates/FX Key Moments render only with live /api data (absent in the harness),
 // so guard the grounded data contract instead: every entry must carry text + a
 // real source URL (the non-negotiable — no uncited claims).

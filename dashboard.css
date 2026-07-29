@@ -153,6 +153,16 @@
 .dsh-tbl .dsh-wkrow td { color:var(--t-ink); font-weight:600; font-size:.7rem; text-transform:uppercase;
   letter-spacing:.04em; background:var(--t-panel2); border-bottom:1px solid var(--t-grid2); padding-top:7px; padding-bottom:4px; }
 .dsh-r { text-align:right; }
+/* Earnings calendar: each release is a main row + a wrapping note row beneath it
+   (the "why" — result, guidance, price reaction). The main row drops its bottom
+   border so the pair reads as one unit; the note row carries the divider. */
+.dsh-earn .dsh-earn-r td { border-bottom:0; padding-bottom:2px; }
+.dsh-earn .dsh-earn-note td { white-space:normal; color:var(--t-mut); font-size:.72rem;
+  line-height:1.35; padding:0 8px 6px; border-bottom:1px solid var(--t-grid); }
+.dsh-earn-metric { display:inline-block; font-size:.62rem; font-weight:600; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--t-mut); border:1px solid var(--t-grid2); border-radius:3px;
+  padding:0 4px; margin-right:2px; }
+.dsh-earn-px { font-weight:600; color:var(--t-ink); font-family:var(--t-mono); }
 .dsh-tag { font-size:.68rem; font-weight:600; border-radius:4px; padding:1px 5px; border:1px solid var(--t-grid2); color:var(--t-mut); }
 .dsh-tag-priced{ color:var(--t-up); border-color:var(--t-up); }
 .dsh-tag-filed{ color:var(--t-mac); border-color:var(--t-mac); }

@@ -102,23 +102,44 @@ export function mount(host, ctx) {
     return `<table class="dsh-tbl"><thead><tr><th>Company</th><th>Listing</th><th class="dsh-r">Size</th><th>Timing</th><th>Status</th></tr></thead><tbody>${EQ_IPO.map(row).join("")}</tbody></table>`;
   }
   // Two-week earnings calendar from the macro desk's EARNINGS structure
-  // (weeks → days → rows): THIS week's slate first (expected EPS, not yet
-  // reported), then LAST week's results. Each week gets a label sub-header, and
-  // the split Est/Act columns make the exp-vs-act distinction explicit — an
-  // upcoming row shows "—" in Act until the company reports. Tickers link to
-  // Yahoo; the card header carries the week-ahead source.
+  // (weeks → days → rows): THIS week's slate first (forecast, not yet reported),
+  // then LAST week's results. Columns are FORECAST vs ACTUAL EPS — the default
+  // metric — and each release carries a note line beneath it: the "why" (result
+  // colour, guidance, price reaction), plus a metric tag when the row tracks
+  // something other than EPS (banks → pre-tax profit, Tesla → deliveries) so the
+  // Fct/Act cells and their unit stay legible. An upcoming row shows its preview
+  // note and "—" in Act until the company reports; the actual fills in on the next
+  // refresh. Tickers link to Yahoo; the card header carries the week-ahead source.
   function earningsHTML() {
     const weeks = (EARNINGS && EARNINGS.weeks) || [];
     if (!weeks.length) return "";
     const yahoo = (t) => `https://finance.yahoo.com/quote/${encodeURIComponent(t)}`;
-    const tr = (r, date) => `<tr><td>${esc(fmtDate(date))}</td>`
-      + `<td class="dsh-nm"><a href="${yahoo(r.t)}" target="_blank" rel="noopener noreferrer">${esc(r.t)}</a></td>`
-      + `<td>${esc(r.n || "")}</td><td class="dsh-mut">${esc(r.tag || "")}</td>`
-      + `<td class="dsh-r">${esc(r.estEps || "—")}</td>`
-      + `<td class="dsh-r">${esc(r.actEps || "—")}</td></tr>`;
+    // Fct/Act are EPS unless the row has no EPS forecast but tracks a key metric
+    // (km) with values — a bank's pre-tax profit, Tesla's deliveries. Then both
+    // cells read from km and the note line tags the metric, so a reported bank
+    // never shows "—/—".
+    const km = (r) => (!r.estEps && r.km && (r.km.est || r.km.act)) ? r.km : null;
+    const fct = (r) => (km(r) ? km(r).est : r.estEps) || "—";
+    const act = (r) => (km(r) ? km(r).act : r.actEps) || "—";
+    const noteLine = (r) => {
+      const k = km(r), bits = [];
+      if (k && k.l) bits.push(`<span class="dsh-earn-metric">${esc(k.l)}</span>`);
+      if (r.px) bits.push(`<span class="dsh-earn-px">${esc(r.px)}</span>`);
+      if (r.note) bits.push(esc(r.note));
+      return bits.join(" · ");
+    };
+    const tr = (r, date) => {
+      const nl = noteLine(r);
+      return `<tr class="dsh-earn-r"><td>${esc(fmtDate(date))}</td>`
+        + `<td class="dsh-nm"><a href="${yahoo(r.t)}" target="_blank" rel="noopener noreferrer">${esc(r.t)}</a></td>`
+        + `<td>${esc(r.n || "")}</td><td class="dsh-mut">${esc(r.tag || "")}</td>`
+        + `<td class="dsh-r">${esc(fct(r))}</td>`
+        + `<td class="dsh-r">${esc(act(r))}</td></tr>`
+        + (nl ? `<tr class="dsh-earn-note"><td colspan="6">${nl}</td></tr>` : "");
+    };
     const wk = (w) => `<tr class="dsh-wkrow"><td colspan="6">${esc(w.label || "")}</td></tr>`
       + (w.days || []).map((day) => (day.rows || []).map((r) => tr(r, day.date)).join("")).join("");
-    return `<table class="dsh-tbl"><thead><tr><th>Date</th><th>Ticker</th><th>Company</th><th>Sector</th><th class="dsh-r">Est</th><th class="dsh-r">Act</th></tr></thead>`
+    return `<table class="dsh-tbl dsh-earn"><thead><tr><th>Date</th><th>Ticker</th><th>Company</th><th>Sector</th><th class="dsh-r">Fct EPS</th><th class="dsh-r">Act EPS</th></tr></thead>`
       + `<tbody>${weeks.map(wk).join("")}</tbody></table>`;
   }
   const earnSrc = (EARNINGS && EARNINGS.srcs && EARNINGS.srcs[0] && EARNINGS.srcs[0].url) || "";
