@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b2fe912f-01ef-4daa-874e-a180dfeb728c", title: "Trump vows to deliver ‘beating’ to Iran in retaliation for latest attack", date: "2026-07-29", time: "13:41", url: "https://www.ft.com/content/b2fe912f-01ef-4daa-874e-a180dfeb728c" },
+  { id: "882e08d2-4c99-4a49-9afb-f7fa748abe9f", title: "Jim Leaviss, Bond Vigilante, 1971-2026", date: "2026-07-29", time: "13:26", url: "https://www.ft.com/content/882e08d2-4c99-4a49-9afb-f7fa748abe9f" },
+  { id: "cd190fd5-5675-4896-87f5-1b3e985e4dde", title: "CMA drops pursuit of private equity executives over price gouging", date: "2026-07-29", time: "13:18", url: "https://www.ft.com/content/cd190fd5-5675-4896-87f5-1b3e985e4dde" },
   { id: "7bb6a7e3-a68d-4b23-aef5-7b93fa21559b", title: "Grant Thornton seals accounting sector’s largest takeover in a generation", date: "2026-07-29", time: "13:08", url: "https://www.ft.com/content/7bb6a7e3-a68d-4b23-aef5-7b93fa21559b" },
   { id: "749bb6e9-35fe-45d9-b359-bf457884ca7c", title: "Assisted dying debate should wait until social care is fixed, Andy Burnham says", date: "2026-07-29", time: "12:47", url: "https://www.ft.com/content/749bb6e9-35fe-45d9-b359-bf457884ca7c" },
   { id: "33a76289-6fff-4282-9270-1e97e95e84b5", title: "How long can big investors ignore climate risk?", date: "2026-07-29", time: "12:35", url: "https://www.ft.com/content/33a76289-6fff-4282-9270-1e97e95e84b5" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "78bed947-534d-45fd-a3f5-bbc8b372f66f", title: "European wildfires expose shortage of Canadair water-bomber planes", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/78bed947-534d-45fd-a3f5-bbc8b372f66f" },
   { id: "cc765962-08a9-44e2-ac7d-1e7e10700414", title: "Transport for London demands £1bn from carmakers over allegedly unpaid Ulez charges", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/cc765962-08a9-44e2-ac7d-1e7e10700414" },
   { id: "e888b187-75c0-4233-9588-d1b9948b1b0a", title: "If you think your profession is dying, it could soon be gone", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/e888b187-75c0-4233-9588-d1b9948b1b0a" },
-  { id: "c8879a7b-f5cf-49fd-979a-01499c0054c2", title: "Do Britons pay a lot of tax?", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/c8879a7b-f5cf-49fd-979a-01499c0054c2" },
-  { id: "30b7d84d-0ff5-433d-a4bb-2b12e9537534", title: "Tory MPs earn millions from advisory roles that Labour pledged to ban", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/30b7d84d-0ff5-433d-a4bb-2b12e9537534" },
-  { id: "5ca782bd-5c4a-45f8-9a7a-5793d800321d", title: "Ukraine adapts strikes on Russian energy industry to hit critical components", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/5ca782bd-5c4a-45f8-9a7a-5793d800321d" },
 ];
