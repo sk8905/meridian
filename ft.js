@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "47560cb6-4804-460e-a0fc-2b89d556bee3", title: "Russia puts Telegram founder Pavel Durov on international wanted list", date: "2026-07-29", time: "11:45", url: "https://www.ft.com/content/47560cb6-4804-460e-a0fc-2b89d556bee3" },
+  { id: "ed644365-4902-4f62-b57a-089ef243eef1", title: "Andy Burnham opens door to tax rises to pay for social care overhaul", date: "2026-07-29", time: "11:40", url: "https://www.ft.com/content/ed644365-4902-4f62-b57a-089ef243eef1" },
+  { id: "2e3048dc-e003-44be-957c-3f119bde3f48", title: "FTSE 100 hits all-time high as ‘anti-tech’ index shines in global chip rout", date: "2026-07-29", time: "11:21", url: "https://www.ft.com/content/2e3048dc-e003-44be-957c-3f119bde3f48" },
   { id: "7b1197a5-e59a-4beb-ab83-e800e6ebc527", title: "BNY to adopt blockchain technology for records in new era for Wall Street", date: "2026-07-29", time: "11:00", url: "https://www.ft.com/content/7b1197a5-e59a-4beb-ab83-e800e6ebc527" },
   { id: "bf4c32f3-735d-4742-a5b6-65b404f70cc7", title: "Inflation gauge reboot to ease pressure on Federal Reserve to raise interest rates", date: "2026-07-29", time: "11:00", url: "https://www.ft.com/content/bf4c32f3-735d-4742-a5b6-65b404f70cc7" },
   { id: "6c79711b-d541-4b7d-8c82-54450fda973f", title: "What’s up with CCC-rated bond spreads?", date: "2026-07-29", time: "10:00", url: "https://www.ft.com/content/6c79711b-d541-4b7d-8c82-54450fda973f" },
@@ -58,8 +61,4 @@ export const FT_ITEMS = [
   { id: "20432705-d873-46eb-9b65-b5ae547b1585", title: "Ares’ next big private capital deal looks deceptively close to home", date: "2026-07-28", time: "19:00", url: "https://www.ft.com/content/20432705-d873-46eb-9b65-b5ae547b1585" },
   { id: "3e9e7e69-08c5-4c31-af50-f7d057815946", title: "The US should stay open to open-weight AI", date: "2026-07-28", time: "18:20", url: "https://www.ft.com/content/3e9e7e69-08c5-4c31-af50-f7d057815946" },
   { id: "4213bfb6-6204-47a5-ba1d-99db1d52ca5f", title: "UK charities hit after specialist bank shuts off online services", date: "2026-07-28", time: "17:42", url: "https://www.ft.com/content/4213bfb6-6204-47a5-ba1d-99db1d52ca5f" },
-  { id: "8be7a9f5-a440-4f3a-9b0f-1a1358242c35", title: "Shipping group CMA CGM boosted by customers stockpiling to beat Trump tariffs", date: "2026-07-28", time: "17:16", url: "https://www.ft.com/content/8be7a9f5-a440-4f3a-9b0f-1a1358242c35" },
-  { id: "1ed4aee0-cbb4-4c98-a2aa-34971ded2583", title: "Ebay to pay $55.7mn to settle case over harassment of company critics", date: "2026-07-28", time: "17:12", url: "https://www.ft.com/content/1ed4aee0-cbb4-4c98-a2aa-34971ded2583" },
-  { id: "67236718-fe1a-42bc-9b40-1343f117a973", title: "Turkish politician hit by rent-a-crowd scandal", date: "2026-07-28", time: "16:29", url: "https://www.ft.com/content/67236718-fe1a-42bc-9b40-1343f117a973" },
-  { id: "65731780-37da-4e4f-b5f4-eeaed28bcea2", title: "Wachtell Lipton co-chair set to depart for rival Gibson Dunn", date: "2026-07-28", time: "16:23", url: "https://www.ft.com/content/65731780-37da-4e4f-b5f4-eeaed28bcea2" },
 ];
