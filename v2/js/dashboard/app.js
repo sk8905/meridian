@@ -156,7 +156,7 @@ export function mount(host, ctx) {
   // Sector allocations heatmap — net ETF fund flows into the 11 SPDR sector funds
   // across windows (SECTOR_FLOWS, allocations.js). Diverging colour normalised
   // PER COLUMN so each window's leaders/laggards read despite the scale gap
-  // between 1D and 1Y. Null cell → blank (grounded only, never fabricated).
+  // between 1W and 1Y. Null cell → blank (grounded only, never fabricated).
   function fmtFlow(m) {
     if (m == null) return "—";
     const a = Math.abs(m), sign = m < 0 ? "-" : "";
@@ -183,7 +183,7 @@ export function mount(host, ctx) {
       return `<tr><td class="dsh-nm"><a href="${esc(s.src)}" target="_blank" rel="noopener noreferrer">${esc(s.name)}</a> <span class="dsh-fl-t">${esc(s.t)}</span></td>${cells}</tr>`;
     };
     return `<table class="dsh-tbl dsh-fl-tbl"><thead>${head}</thead><tbody>${F.sectors.map(row).join("")}</tbody></table>`
-      + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = inflow</span> · <span class="dsh-fl-neg">red = outflow</span>, shaded within each window (net ${esc(F.unit || "$M")}). 1D fills on the next daily run. Source: <a href="${esc(F.source)}" target="_blank" rel="noopener noreferrer">ETF Database</a>.</p>`;
+      + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = inflow</span> · <span class="dsh-fl-neg">red = outflow</span>, shaded within each window (net ${esc(F.unit || "$M")}). Source: <a href="${esc(F.source)}" target="_blank" rel="noopener noreferrer">ETF Database</a>.</p>`;
   }
   function equitiesHTML() {
     return `<div class="dsh-pane">

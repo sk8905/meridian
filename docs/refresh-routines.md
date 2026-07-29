@@ -432,10 +432,11 @@ quiet slot gets a short output, not padding.
   the 11 SPDR sector funds (XLK/XLF/XLE/XLV/XLY/XLP/XLI/XLB/XLRE/XLU/XLC) across
   windows `w1` (5-day), `m1`, `m3`, `m6`, `y1` — sourced from each fund's ETF
   Database (`etfdb.com/etf/<TKR>/`) flows page; set `asOf` to the snapshot date.
-  The `d1` (1-day) column is the daily piece: fill it for **all 11 at once** from
-  a single-date daily-flows report (Yahoo/ETF.com) so the column shares one date;
-  leave `null` if you can't source the whole column cleanly (never mix dates,
-  never invent a cell). Surfaces on the Dashboard ▸ **Equities** "Sector flows" card.
+  (There is **no 1-day column**: no free, reachable source gives a same-date
+  1-day net flow for all 11 sectors at once — etfdb/etf.com are Cloudflare-gated
+  and WebSearch only returns scattered single-fund figures on mixed dates — so 1D
+  was dropped rather than left blank or date-mixed. Do not re-add a `d1` window.)
+  Surfaces on the Dashboard ▸ **Equities** "Sector flows" card.
 
 Because these files are served no-cache and imported tokenless, editing them needs
 **no `?v=` bump** — same discipline as `content.js`/`data.js`. Only bump a token if

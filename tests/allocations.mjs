@@ -29,7 +29,7 @@ const grid = await pg.evaluate(() => {
 });
 check(!!grid, "Equities pane renders the sector-flows heatmap");
 check(grid && grid.rows === 11, `11 SPDR sector rows (${grid ? grid.rows : 0})`);
-check(grid && grid.cols === 7, `6 time-window columns + label (${grid ? grid.cols : 0} headers)`);
+check(grid && grid.cols === 6, `5 time-window columns + label, no 1D (${grid ? grid.cols : 0} headers)`);
 check(grid && grid.colored >= 40, `flow cells are heat-shaded (${grid ? grid.colored : 0} coloured)`);
 check(grid && grid.srcLinks === 11, `every sector row links its flows source (${grid ? grid.srcLinks : 0}/11)`);
 check(grid && grid.foot, "footer cites the flows data source");
