@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "836720ef-d768-4eda-abe1-cfb432727161", title: "Split Fed decision to hold rates in July", date: "2026-07-29", time: "19:13", url: "https://www.ft.com/content/836720ef-d768-4eda-abe1-cfb432727161" },
   { id: "730ebfb9-cec0-4cb6-947a-598d64518dad", title: "Ex-Goldman executive awarded £1.45mn after paternity leave ‘stigma’", date: "2026-07-29", time: "18:54", url: "https://www.ft.com/content/730ebfb9-cec0-4cb6-947a-598d64518dad" },
   { id: "ba9a6450-1dbc-4ff9-98e0-2f1b922c2839", title: "Social care reform is a test of UK politics", date: "2026-07-29", time: "18:50", url: "https://www.ft.com/content/ba9a6450-1dbc-4ff9-98e0-2f1b922c2839" },
   { id: "b779208d-d587-4482-881c-41b063c4e235", title: "Reality bites for South Korea’s memory chip wonder-stocks", date: "2026-07-29", time: "18:37", url: "https://www.ft.com/content/b779208d-d587-4482-881c-41b063c4e235" },
@@ -60,5 +61,4 @@ export const FT_ITEMS = [
   { id: "90701678-5f49-43ba-b79a-ebf8aaf0a0f2", title: "UBS joins Wall Street rivals in trading-led profit surge", date: "2026-07-29", time: "07:04", url: "https://www.ft.com/content/90701678-5f49-43ba-b79a-ebf8aaf0a0f2" },
   { id: "e5f66a11-02bc-4caa-bdbf-9ed1f60747f5", title: "AI isn’t taking jobs, yet", date: "2026-07-29", time: "06:30", url: "https://www.ft.com/content/e5f66a11-02bc-4caa-bdbf-9ed1f60747f5" },
   { id: "e7bf9856-7e88-4615-a19e-c87f8ef207d5", title: "FTAV’s further reading", date: "2026-07-29", time: "06:30", url: "https://www.ft.com/content/e7bf9856-7e88-4615-a19e-c87f8ef207d5" },
-  { id: "e8e3a60a-059c-45b5-bbe3-49add14fd343", title: "Tech rout roils markets after SK Hynix profits disappoint", date: "2026-07-29", time: "06:13", url: "https://www.ft.com/content/e8e3a60a-059c-45b5-bbe3-49add14fd343" },
 ];
