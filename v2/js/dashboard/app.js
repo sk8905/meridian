@@ -153,7 +153,7 @@ export function mount(host, ctx) {
       + `<span class="dsh-km-x">${esc(x.keyMoment.text)}${srcLink(x.keyMoment.src, (x.keyMoment.srcName || "source") + " — source")}</span></div>`;
     return `<section class="dsh-card dsh-span"><h3 class="dsh-h">Key moments <span class="dsh-n">why it moved</span></h3>${items.map(row).join("")}</section>`;
   }
-  // Sector allocations heatmap — net ETF fund flows into the 11 SPDR sector funds
+  // ETF flows heatmap — net fund flows across the Top Movers cross-asset ETF set
   // across windows (SECTOR_FLOWS, allocations.js). Diverging colour normalised
   // PER COLUMN so each window's leaders/laggards read despite the scale gap
   // between 1W and 1Y. Null cell → blank (grounded only, never fabricated).
@@ -188,7 +188,7 @@ export function mount(host, ctx) {
   function equitiesHTML() {
     return `<div class="dsh-pane">
       ${keyMomentsHTML()}
-      <section class="dsh-card dsh-span"><h3 class="dsh-h">Sector flows — net ETF flows ${asOf(SECTOR_FLOWS.asOf)}</h3><div class="dsh-scroll">${sectorFlowsHTML()}</div></section>
+      <section class="dsh-card dsh-span"><h3 class="dsh-h">ETF flows — net fund flows ${asOf(SECTOR_FLOWS.asOf)}</h3><div class="dsh-scroll">${sectorFlowsHTML()}</div></section>
       <section class="dsh-card"><h3 class="dsh-h">S&amp;P 500 sectors — YTD ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
       <section class="dsh-card"><h3 class="dsh-h">Valuation &amp; volatility</h3>${valVolHTML()}</section>
       <div class="dsh-span dsh-pair">

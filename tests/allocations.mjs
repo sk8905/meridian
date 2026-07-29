@@ -28,13 +28,14 @@ const grid = await pg.evaluate(() => {
   return { cols, rows, colored, srcLinks, foot };
 });
 check(!!grid, "Equities pane renders the sector-flows heatmap");
-check(grid && grid.rows === 11, `11 SPDR sector rows (${grid ? grid.rows : 0})`);
+check(grid && grid.rows === 18, `18 Top Movers ETF rows (${grid ? grid.rows : 0})`);
 check(grid && grid.cols === 6, `5 time-window columns + label, no 1D (${grid ? grid.cols : 0} headers)`);
 check(grid && grid.colored >= 40, `flow cells are heat-shaded (${grid ? grid.colored : 0} coloured)`);
-check(grid && grid.srcLinks === 11, `every sector row links its flows source (${grid ? grid.srcLinks : 0}/11)`);
+check(grid && grid.srcLinks === 18, `every ETF row links its flows source (${grid ? grid.srcLinks : 0}/18)`);
 check(grid && grid.foot, "footer cites the flows data source");
 
-// Data contract: 11 sectors, each sourced; every ETFdb window (w1..y1) numeric.
+// Data contract: 18 ETFs (the Top Movers universe), each sourced; every ETFdb
+// window (w1..y1) numeric.
 const data = await pg.evaluate(async () => {
   const m = await import("/allocations.js");
   const F = m.SECTOR_FLOWS || {};
@@ -42,9 +43,12 @@ const data = await pg.evaluate(async () => {
   const wins = ["w1", "m1", "m3", "m6", "y1"];
   const numeric = s.every((x) => wins.every((k) => typeof x[k] === "number"));
   const sourced = s.every((x) => /^https?:\/\//.test(x.src || ""));
-  return { n: s.length, numeric, sourced };
+  const tickers = s.map((x) => x.t);
+  const topMovers = ["SPY", "QQQ", "IWM", "SMH", "TLT", "HYG", "GLD", "USO", "IBIT"].every((t) => tickers.includes(t));
+  return { n: s.length, numeric, sourced, topMovers };
 });
-check(data.n === 11, `SECTOR_FLOWS has 11 sectors (${data.n})`);
+check(data.n === 18, `SECTOR_FLOWS has 18 ETFs (${data.n})`);
+check(data.topMovers, "flows universe includes the cross-asset Top Movers ETFs (broad/bond/commodity/crypto)");
 check(data.numeric, "every provider window (1W–1Y) is a real number");
 check(data.sourced, "every sector carries a source URL");
 

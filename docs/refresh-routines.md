@@ -427,16 +427,20 @@ quiet slot gets a short output, not padding.
   In every case `text` compresses a real wire item — never a new claim — and an
   entry with no sourced reason is omitted / left `null`.
 
-- **Sector flows heatmap — `allocations.js` (root; no-cache/tokenless).**
+- **ETF flows heatmap — `allocations.js` (root; no-cache/tokenless).**
   `SECTOR_FLOWS.sectors` holds net ETF fund flows ($M, + inflow / − outflow) for
-  the 11 SPDR sector funds (XLK/XLF/XLE/XLV/XLY/XLP/XLI/XLB/XLRE/XLU/XLC) across
-  windows `w1` (5-day), `m1`, `m3`, `m6`, `y1` — sourced from each fund's ETF
-  Database (`etfdb.com/etf/<TKR>/`) flows page; set `asOf` to the snapshot date.
+  the **same cross-asset ETF set as the home Top Movers board** (`MOVERS_ETF` in
+  `src/index.js`) and **in the same order**: SPY/QQQ/IWM, XLK/SMH/XLF/XLV/XLE/XLI/
+  XLP/XLY/XLU/XLRE, TLT/HYG, GLD/USO, IBIT. Keep the two lists aligned — if a
+  ticker is added to / removed from `MOVERS_ETF`, mirror it here (same `t`, `name`
+  and order). Each row's windows are `w1` (5-day), `m1`, `m3`, `m6`, `y1`, sourced
+  from that fund's ETF Database (`etfdb.com/etf/<TKR>/`) flows page; re-source
+  **all rows to one snapshot** each run and set `asOf` to that date.
   (There is **no 1-day column**: no free, reachable source gives a same-date
-  1-day net flow for all 11 sectors at once — etfdb/etf.com are Cloudflare-gated
+  1-day net flow for every instrument at once — etfdb/etf.com are Cloudflare-gated
   and WebSearch only returns scattered single-fund figures on mixed dates — so 1D
   was dropped rather than left blank or date-mixed. Do not re-add a `d1` window.)
-  Surfaces on the Dashboard ▸ **Equities** "Sector flows" card.
+  Surfaces on the Dashboard ▸ **Equities** "ETF flows" card.
 
 Because these files are served no-cache and imported tokenless, editing them needs
 **no `?v=` bump** — same discipline as `content.js`/`data.js`. Only bump a token if
