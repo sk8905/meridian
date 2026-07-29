@@ -1906,6 +1906,16 @@ const FEED_SOURCES = [
   // (HDG) desk; filter:false since hedge-fund copy rarely hits the macro vocab.
   // Title-dedupe collapses overlap with the curated HEDGE_INTEL backfill.
   { url: "https://news.google.com/rss/search?hl=en-US&gl=US&ceid=US%3Aen&q=%22Nishant%20Kumar%22%20site%3Abloomberg.com%20when%3A7d", source: "Bloomberg", region: "GEN", cap: 15, gnews: true, hdg: true, filter: false },
+  // Hedge-fund specialist desks — dedicated industry publications, every item
+  // badged HDG (hdg:true) and filter:false (hedge-fund copy rarely hits the macro
+  // vocab). Direct publisher RSS; any feed that blocks the Worker's datacenter IP
+  // or lacks RSS simply yields nothing (Promise.allSettled skips it). If one stays
+  // empty, bridge that DOMAIN via Google News (site:<domain>, gnews:true) the way
+  // the Bloomberg/Reuters sources above are.
+  { url: "https://www.hedgeweek.com/feed/", source: "Hedgeweek", region: "GEN", cap: 12, hdg: true, filter: false },
+  { url: "https://www.ft.com/hedge-funds?format=rss", source: "Financial Times", region: "GEN", cap: 10, hdg: true, filter: false },
+  { url: "https://thehedgefundjournal.com/feed/", source: "The Hedge Fund Journal", region: "GEN", cap: 10, hdg: true, filter: false },
+  { url: "https://hedgefundalpha.com/feed/", source: "Hedge Fund Alpha", region: "GEN", cap: 10, hdg: true, filter: false },
   // (FT Alphaville's Google-News bridge removed: path-scoped site: queries
   // return zero items from Google News — confirmed by the live probe — so it
   // was pure dead weight against the news.google.com rate limit. The direct

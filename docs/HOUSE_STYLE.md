@@ -327,6 +327,8 @@ item keeps a real outbound source link (R7).
 - Alternatives Watch
 - GlobalCapital
 - Hedgeweek
+- The Hedge Fund Journal
+- Hedge Fund Alpha
 - IPE / IPE Real Assets
 - Credit Village
 - Crowdfund Insider
