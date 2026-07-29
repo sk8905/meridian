@@ -10,7 +10,7 @@ import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
 import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
 import { DESK, DESK_CODE, DESK_CLASS, STRICT_MACRO_RE, deskFor, palTag, nlDesk,
-  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML } from "/feed.js?v=20260728-1";
+  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML } from "/feed.js?v=20260729-2";
 
 const __KEY = "home";
 const __ROOT = document.documentElement;
@@ -519,8 +519,15 @@ function renderFeed() {
   const brew = [];
   (_liveFeed || []).forEach((n) => { if (n.brew) brew.push(mk("b", n.url, n.title, n.source || "MailBrew", true, n.date, n.time)); });
 
+  // Dedicated fixed-income sources — M&G's Bond Vigilantes blog, live from
+  // /api/feed (fi:true). Own "FI" desk label; every item is routed to the Fixed
+  // Income filter (in addition to the keyword slice of the macro stream below)
+  // and folded into the All wire, filterable by source like every other desk.
+  const fixedincome = [];
+  (_liveFeed || []).forEach((n) => { if (n.fi) fixedincome.push(mk("fi", n.url, n.title, n.source || "Bond Vigilantes", true, n.date, n.time)); });
+
   const day = (x) => String(x.date || "").slice(0, 10);
-  const all = [...news, ...macro, ...credit, ...hdg, ...legal, ...newsletter, ...ft, ...substacks, ...brew];
+  const all = [...news, ...macro, ...credit, ...hdg, ...legal, ...newsletter, ...ft, ...substacks, ...brew, ...fixedincome];
   const now = new Date();
   const todayISO = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}-${String(now.getDate()).padStart(2, "0")}`;
   const target = all.some((x) => day(x) === todayISO) ? todayISO : all.reduce((m, x) => (day(x) > m ? day(x) : m), "");
@@ -534,11 +541,13 @@ function renderFeed() {
   const CAP = 500;
   // Per-desk deduped streams (newest first) — power the desk filter and the
   // "what's new" counts (items in the most recent ~2 days).
-  const byDesk = { news: dedupe([...news].sort(byDateDesc)), m: dedupe([...macro].sort(byDateDesc)), c: dedupe([...credit].sort(byDateDesc)), hdg: dedupe([...hdg].sort(byDateDesc)), l: dedupe([...legal].sort(byDateDesc)), n: dedupe([...newsletter].sort(byDateDesc)), f: dedupe([...ft].sort(byDateDesc)), s: dedupe([...substacks].sort(byDateDesc)), b: dedupe([...brew].sort(byDateDesc)) };
-  // Equities / Fixed Income filter views = keyword slices of the macro stream (see
-  // FEED_DESK_LABEL note). An item can match both; that's fine for a filter view.
+  const byDesk = { news: dedupe([...news].sort(byDateDesc)), m: dedupe([...macro].sort(byDateDesc)), c: dedupe([...credit].sort(byDateDesc)), hdg: dedupe([...hdg].sort(byDateDesc)), l: dedupe([...legal].sort(byDateDesc)), n: dedupe([...newsletter].sort(byDateDesc)), f: dedupe([...ft].sort(byDateDesc)), s: dedupe([...substacks].sort(byDateDesc)), b: dedupe([...brew].sort(byDateDesc)), fisrc: dedupe([...fixedincome].sort(byDateDesc)) };
+  // Equities is a keyword slice of the macro stream (see FEED_DESK_LABEL note).
+  // Fixed Income is the DEDICATED fi sources (Bond Vigilantes, badged FI) FIRST,
+  // then the bond/rates keyword slice of the macro stream (which keeps its MAC
+  // label). An item can match both a keyword view and macro; fine for a filter.
   byDesk.eq = byDesk.m.filter((x) => FEED_EQ_RE.test(x.title || ""));
-  byDesk.fi = byDesk.m.filter((x) => FEED_FI_RE.test(x.title || ""));
+  byDesk.fi = dedupe([...byDesk.fisrc, ...byDesk.m.filter((x) => FEED_FI_RE.test(x.title || ""))].sort(byDateDesc));
   const maxDay = all.reduce((m, x) => (day(x) > m ? day(x) : m), "");
   const cutoff = (() => { const d = new Date(maxDay + "T00:00:00"); if (isNaN(d)) return ""; d.setDate(d.getDate() - 1); return d.toISOString().slice(0, 10); })();
   const recentN = (list) => (cutoff ? list.filter((x) => day(x) >= cutoff).length : list.length);
@@ -554,11 +563,11 @@ function renderFeed() {
   if (_feedSrc) {
     // Source filter wins over the desk chips: every story from that newsroom,
     // across all three desks, newest first.
-    feed = dedupe([...news, ...macro, ...credit, ...hdg, ...legal, ...ft, ...substacks, ...brew].sort(byDateDesc)).filter((x) => x.src === _feedSrc).slice(0, CAP);
+    feed = dedupe([...news, ...macro, ...credit, ...hdg, ...legal, ...ft, ...substacks, ...brew, ...fixedincome].sort(byDateDesc)).filter((x) => x.src === _feedSrc).slice(0, CAP);
   } else if (_feedDesk === "all") {
     // Today's items lead, interleaved across desks so no single desk dominates.
     const pick = (list) => dedupe(list.filter((x) => day(x) === target).sort(byDateDesc));
-    const lists = [pick(news), pick(macro), pick(credit), pick(hdg), pick(legal), pick(newsletter), pick(ft), pick(substacks), pick(brew)];
+    const lists = [pick(news), pick(macro), pick(credit), pick(hdg), pick(legal), pick(newsletter), pick(ft), pick(substacks), pick(brew), pick(fixedincome)];
     const seen = new Set();
     feed = [];
     for (let i = 0; lists.some((l) => i < l.length); i++) lists.forEach((l) => {
@@ -573,7 +582,7 @@ function renderFeed() {
     // (the full Credit/Legal history stays one tap away under their own filter).
     const HEAVY = 200;
     const pool = [byDesk.news, byDesk.m, byDesk.c.slice(0, HEAVY), byDesk.hdg,
-      byDesk.l.slice(0, HEAVY), byDesk.n, byDesk.f, byDesk.s, byDesk.b]
+      byDesk.l.slice(0, HEAVY), byDesk.n, byDesk.f, byDesk.s, byDesk.b, byDesk.fisrc]
       .flat().filter((x) => day(x) !== target).sort(byDateDesc);
     const GUARD = 900;   // pathological guard, well above the capped pool (~600)
     for (const x of pool) {

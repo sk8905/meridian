@@ -9,7 +9,7 @@ import { MONTHS, isoToDate, fmtDay, fmtDayGB, fmtDate,
   trackGauge, CYCLE_ZONES, BUBBLE_ZONES, bubbleComposite, bubbleBand,
   MAC_IND_ORDER, MACRO_DATA, setMacroData, macroMatrixHtml, macroDetailHtml } from "/macro/js/shared.js?v=20260728-2";
 import { macroDashPane, loadYieldCurve, cockpitInds } from "/macro/js/dashboard.js?v=20260728-2";
-import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, onLiveWire, liveDesk } from "/feed.js?v=20260728-1";
+import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, onLiveWire, liveDesk } from "/feed.js?v=20260729-2";
 
 export function mount(host, ctx) {
   const app = host;

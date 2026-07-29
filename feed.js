@@ -21,21 +21,21 @@ export const DESK = {
   n: "Letter", f: "myFT", s: "Substack", b: "Brew",
   deal: "Deal", fund: "Fundraising", clo: "CLO", comm: "Commentary",
   alert: "Client alert", case: "Case law", scheme: "Scheme", rp: "Restructuring plan",
-  hdg: "Hedge funds", f13: "13F filing",
+  hdg: "Hedge funds", f13: "13F filing", fi: "Fixed income",
 };
 export const DESK_CODE = {
   news: "NEWS", bbg: "BBG", econ: "ECON", m: "MAC", c: "CRD", l: "LEX",
   n: "LTR", f: "myFT", s: "SUBS", b: "BREW",
   deal: "DEAL", fund: "RAISE", clo: "CLO", comm: "COMM",
   alert: "ALERT", case: "CASE", scheme: "SCHEME", rp: "RP",
-  hdg: "HDG", f13: "13F",
+  hdg: "HDG", f13: "13F", fi: "FI",
 };
 export const DESK_CLASS = {
   news: "news", bbg: "bbg", econ: "econ", m: "macro", c: "credit", l: "legal",
   n: "newsletter", f: "ft", s: "substack", b: "brew",
   deal: "deal", fund: "fund", clo: "clo", comm: "comm",
   alert: "alert", case: "case", scheme: "scheme", rp: "rp",
-  hdg: "hdg", hedge: "hdg", f13: "hdg",
+  hdg: "hdg", hedge: "hdg", f13: "hdg", fi: "fi",
 };
 // Domain (colour) for a type-desk — HOUSE_STYLE R10a: the pill's COLOUR encodes
 // the domain (Credit/Hedge/Legal/…), its TEXT the type (DEAL/RAISE/13F/…). Only

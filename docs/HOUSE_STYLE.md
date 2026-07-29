@@ -112,7 +112,7 @@ notification badge red (`#ef4444`).
   |---|---|---|
   | Newsletters | `--t-amber` | `LTR` · `SUBS` · `BREW` |
   | myFT | `--t-ft` | `myFT` |
-  | Macro | `--t-mac` | `NEWS` · `COMM` (+ `BBG`/`ECON` macro wires) |
+  | Macro | `--t-mac` | `NEWS` · `COMM` · `FI` (fixed-income sources, e.g. Bond Vigilantes) (+ `BBG`/`ECON` macro wires) |
   | Credit | `--t-crd` | `NEWS` · `DEAL` · `RAISE` |
   | Hedge funds | `--t-hdg` | `NEWS` · `DEAL` · `RAISE` · `13F` |
   | Legal | `--t-lex` | `NEWS` · `ALERT` · `CASE` |
