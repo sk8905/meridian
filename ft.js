@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "1ceeddf1-0948-4640-aa2c-392ce96fab5a", title: "Wildfire evacuations hurt France’s oyster capital", date: "2026-07-29", time: "16:00", url: "https://www.ft.com/content/1ceeddf1-0948-4640-aa2c-392ce96fab5a" },
+  { id: "38420819-2073-42d6-a14f-2c9a28e5970d", title: "South Korea cracks down on risky retail funds after tech rout", date: "2026-07-29", time: "15:59", url: "https://www.ft.com/content/38420819-2073-42d6-a14f-2c9a28e5970d" },
+  { id: "504b632a-85bf-4c7b-9def-0b2c02cc46fe", title: "Zijin’s $4bn deal with Allied Gold collapses", date: "2026-07-29", time: "15:22", url: "https://www.ft.com/content/504b632a-85bf-4c7b-9def-0b2c02cc46fe" },
+  { id: "e1725176-ebe2-4d29-abe9-a27e11e8c1a8", title: "Elon Musk settles long-running legal battle with X advertisers", date: "2026-07-29", time: "15:09", url: "https://www.ft.com/content/e1725176-ebe2-4d29-abe9-a27e11e8c1a8" },
   { id: "7a33e045-57c0-4cf7-bb1b-a7f4ecdc1e30", title: "Brookfield and NextEra to build $100bn AI campus on ex-nuclear weapons site", date: "2026-07-29", time: "14:54", url: "https://www.ft.com/content/7a33e045-57c0-4cf7-bb1b-a7f4ecdc1e30" },
   { id: "e185a6f7-afa6-4b9e-8d6e-278c47095a67", title: "Half of England declared in drought after heatwaves", date: "2026-07-29", time: "14:26", url: "https://www.ft.com/content/e185a6f7-afa6-4b9e-8d6e-278c47095a67" },
   { id: "b2fe912f-01ef-4daa-874e-a180dfeb728c", title: "Trump vows to deliver ‘beating’ to Iran in retaliation for latest attack", date: "2026-07-29", time: "13:41", url: "https://www.ft.com/content/b2fe912f-01ef-4daa-874e-a180dfeb728c" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "7e149ac8-2ce2-4266-8940-192f9821b33c", title: "PwC published ‘thought leadership’ reports marred by AI hallucinations", date: "2026-07-29", time: "05:01", url: "https://www.ft.com/content/7e149ac8-2ce2-4266-8940-192f9821b33c" },
   { id: "fedcff18-6ccb-4cbe-b4c2-b852d37943ae", title: "China’s commercial space boom poses strategic challenge for the US", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/fedcff18-6ccb-4cbe-b4c2-b852d37943ae" },
   { id: "3a99b024-c7bc-4f10-ad77-3cdfccbc39e8", title: "Bank of England probes Asian equity risk at prime brokers", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/3a99b024-c7bc-4f10-ad77-3cdfccbc39e8" },
-  { id: "33348272-3045-43aa-9e6b-c4c8ba2f0ac0", title: "Fifa puts the World Cup up for sale", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/33348272-3045-43aa-9e6b-c4c8ba2f0ac0" },
-  { id: "be3149fc-9574-406a-8900-7629813f8ccf", title: "Mamdani’s pro-business push", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/be3149fc-9574-406a-8900-7629813f8ccf" },
-  { id: "151e0768-7338-46d9-8c3a-49d6d595f8bb", title: "Bags or baubles? How AI wealth divides luxury stocks", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/151e0768-7338-46d9-8c3a-49d6d595f8bb" },
-  { id: "78bed947-534d-45fd-a3f5-bbc8b372f66f", title: "European wildfires expose shortage of Canadair water-bomber planes", date: "2026-07-29", time: "05:00", url: "https://www.ft.com/content/78bed947-534d-45fd-a3f5-bbc8b372f66f" },
 ];
