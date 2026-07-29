@@ -5,12 +5,11 @@
 import { reportRefresh } from "/v2/js/status.js?v=v2-2";
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
-  firmById, areaById, typeById, tierById, LAST_REVIEWED, LAST_CHECKED, LAST_CHECKED_TIME,
+  firmById, areaById, typeById, tierById, LAST_CHECKED, LAST_CHECKED_TIME,
   rxAdvisers,
 } from "/legal/js/data.js";
-import { donutChart, columnChart } from "/legal/js/charts.js?v=20260722-3";
 import {
-  fmtDate, itemDate, itemRow, firmLink, getSaved, SAVED_KEY,
+  fmtDate, itemDate, firmLink, getSaved, SAVED_KEY,
   markVisitedSoon, _chipMem, chipMemKey,
 } from "/legal/js/shared.js?v=20260728-2";
 import { viewItem, viewFirm , __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/legal/detail.js?v=v2-9";

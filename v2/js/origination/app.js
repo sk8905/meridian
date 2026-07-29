@@ -8,7 +8,7 @@
 // tab. Built from the shared terminal (.tdash / .tleague / .tchips) — no new
 // look. mount(host, ctx) → {enter,leave}.
 // =============================================================================
-import { managers, funds, deals, intel } from "/credit/js/data.js";
+import { managers, deals, intel } from "/credit/js/data.js";
 import { esc } from "/util.js?v=20260719-1";
 
 // ---- Target universe: managers running a flexible / solutions-capital strategy

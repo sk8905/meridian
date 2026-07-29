@@ -14,7 +14,7 @@ import {
 } from "/legal/js/data.js";
 import { esc, byDateDesc } from "/util.js?v=20260719-1";
 import {
-  fmtDate, itemDate, isNew, getSaved, areaChip, tierLabel, firmLink, itemRow,
+  fmtDate, itemDate, isNew, getSaved, areaChip, tierLabel, firmLink,
   _chipMem, chipMemKey,
 } from "/legal/js/shared.js?v=20260728-2";
 

@@ -11,7 +11,7 @@
 // of truth. Every figure keeps a real outbound source link. mount → {enter,leave}.
 // =============================================================================
 import { esc } from "/util.js?v=20260719-1";
-import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, DASH_ASOF } from "/dashboard/js/data.js";
+import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS } from "/dashboard/js/data.js";
 import { OUTLOOK, CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS } from "/macro/js/content.js";
 import { deals, intel } from "/credit/js/data.js";
 import { SECTOR_FLOWS } from "/allocations.js";

@@ -128,7 +128,7 @@ a { color: var(--primary); text-decoration: none; }
    outweighs the light menu rule (html[data-v2tab="menu"] .v2-botmeta) instead of
    losing the cascade to it. */
 html[data-theme="dark"][data-v2tab="menu"] .v2-botmeta { background: #000; color: #7f8ca6; border-top: 1px solid var(--border, #262626); }
-[data-theme="dark"] .v2-botmeta-acct strong { color: #e5e9f2; }
+[data-theme="dark"] .v2-botmeta-acct strong { color: var(--ink, #eaf0fb); }
 
 /* ---- Page footer: identity + last refresh (desktop only) ----------------- */
 /* On desktop the signed-in identity + app-wide last refresh live in the page

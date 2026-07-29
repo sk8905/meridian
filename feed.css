@@ -91,7 +91,7 @@
 .g-feed-row { display:grid; grid-template-columns:44px 34px minmax(0,1fr) minmax(0,168px); align-items:baseline;
   gap:10px; padding:5px 12px; border-bottom:1px solid var(--t-grid); text-decoration:none; }
 .g-feed-row:hover { background:var(--t-panel2); }
-.g-feed-time { font-family:var(--t-mono); font-size:11px; color:var(--t-mut); min-width:0; }
+.g-feed-time { font-family:var(--t-mono); font-size:11px; color:var(--t-mut); min-width:0; font-variant-numeric:tabular-nums; }
 .g-feed-code { font-family:var(--t-mono); font-size:9.5px; font-weight:700; letter-spacing:.04em;
   text-align:center; border-radius:0; padding:2px 0; }
 .g-feed-code.news{ color:var(--t-news, #8aa0c8); background:color-mix(in srgb,var(--t-news, #8aa0c8) 14%,transparent); }
@@ -100,10 +100,10 @@
 .g-feed-code.legal{ color:var(--t-lex); background:color-mix(in srgb,var(--t-lex) 15%,transparent); }
 .g-feed-code.newsletter{ color:var(--t-amber); background:color-mix(in srgb,var(--t-amber) 15%,transparent); }
 .g-feed-code.ft{ color:var(--t-ft); background:color-mix(in srgb,var(--t-ft) 15%,transparent); }
-.g-feed-code.substack{ color:var(--t-sub, #9b8cf5); background:color-mix(in srgb,var(--t-sub, #9b8cf5) 15%,transparent); }
-.g-feed-code.brew{ color:var(--t-brew, #2fb6a8); background:color-mix(in srgb,var(--t-brew, #2fb6a8) 15%,transparent); }
-.g-feed-code.bbg{ color:var(--t-bbg, #e0873a); background:color-mix(in srgb,var(--t-bbg, #e0873a) 15%,transparent); }
-.g-feed-code.econ{ color:var(--t-econ, #e0524d); background:color-mix(in srgb,var(--t-econ, #e0524d) 15%,transparent); }
+.g-feed-code.substack{ color:var(--t-amber); background:color-mix(in srgb,var(--t-amber) 15%,transparent); }
+.g-feed-code.brew{ color:var(--t-amber); background:color-mix(in srgb,var(--t-amber) 15%,transparent); }
+.g-feed-code.bbg{ color:var(--t-mac); background:color-mix(in srgb,var(--t-mac) 15%,transparent); }
+.g-feed-code.econ{ color:var(--t-mac); background:color-mix(in srgb,var(--t-mac) 15%,transparent); }
 /* App-desk codes (credit + legal taxonomies) resolve to their domain colour via
    domClass()/DESK_DOMAIN in feed.js (R10a: colour = domain, text = type) — deal/
    fund/clo/comm/alert/case/scheme/rp never carry their own .g-feed-code class,

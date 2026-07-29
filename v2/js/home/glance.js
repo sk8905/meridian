@@ -2,15 +2,15 @@
 // only the nav-actions boot and glance's own palette are skipped (the shell
 // owns chrome + search), and listeners self-guard on the active tab.
 
-import { deals, intel, managers, funds, research, HEDGE_INTEL, HEDGE_FUNDS, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js";
+import { deals, intel, managers, funds, research, HEDGE_INTEL, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js";
 import { reportRefresh } from "/v2/js/status.js?v=v2-2";
 import { items, cases, restructurings, firmById } from "/legal/js/data.js";
-import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js";
+import { NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js";
 import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
 import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
-import { DESK, DESK_CODE, DESK_CLASS, STRICT_MACRO_RE, deskFor, palTag, nlDesk, PAL_CODE,
-  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, feedChipsHTML } from "/feed.js?v=20260728-1";
+import { DESK, DESK_CODE, DESK_CLASS, STRICT_MACRO_RE, deskFor, palTag, nlDesk,
+  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML } from "/feed.js?v=20260728-1";
 
 const __KEY = "home";
 const __ROOT = document.documentElement;
@@ -717,13 +717,6 @@ function initMacroIndicators() {
     })
     .catch(fail);
 }
-const sec = (key, n, title, arr) => setHTML(`${key}-sec${n}`, subHead(title) + rows(arr));
-function item(href, title, meta, ext) {
-  const a = ext ? ` target="_blank" rel="noopener noreferrer"` : "";
-  return `<a class="g-item" href="${esc(href)}"${a}><span class="t">${esc(title)}</span><span class="m">${esc(meta)}</span></a>`;
-}
-const rows = (arr) => { const h = arr.filter(Boolean).join(""); return h || `<div class="g-empty">Nothing to show yet.</div>`; };
-const subHead = (t) => `<div class="g-sub-h">${esc(t)}</div>`;
 const setHTML = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
 
 // ---- Key rates & credit spreads (ported from Credit) -----------------------

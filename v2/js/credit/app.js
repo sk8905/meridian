@@ -4,7 +4,7 @@
 
 import { reportRefresh } from "/v2/js/status.js?v=v2-2";
 import {
-  STRATEGIES, FUND_STATUS, GEOS, LP_TYPES, DEAL_TYPES, DATA_UPDATED, LAST_CHECKED, LAST_CHECKED_TIME,
+  STRATEGIES, GEOS, LP_TYPES, LAST_CHECKED, LAST_CHECKED_TIME,
   managers, funds, lps, intel, commitments, deals, research,
   managerById, fundById, lpById,
   fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
@@ -13,9 +13,9 @@ import {
 import {
   eur, pct, fmtDate, link, notFound,
   FOLLOW_KEY, FOLLOW_TYPES, follows, followList, followCount, nameCell, loadFollows,
-  SAVEDC_KEY, getSavedC, saveBtn, newsSaveId,
-  creditSource, feedDedupKey, intelRow, dealRow,
-  PAGE, pageShown, pageCount, pageReset, loadMoreBtn, feedHtml, feedFlat,
+  SAVEDC_KEY, getSavedC, newsSaveId,
+  creditSource, feedDedupKey,
+  PAGE, pageShown, pageCount, pageReset, loadMoreBtn, feedHtml,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
 } from "/credit/js/shared.js?v=20260728-2";
 import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js?v=v2-14";
@@ -66,17 +66,6 @@ on(window, "hashchange", () => {
 // ----------------------------- formatting utils ----------------------------
 // Format a €bn AUM figure: €Xtn above 1,000bn, €Xm below 1bn, else €Xbn.
 
-function syncDayRows(root) {
-  if (!root) return;
-  root.querySelectorAll(".tw-day").forEach((d) => {
-    let vis = false, n = d.nextElementSibling;
-    while (n && !n.classList.contains("tw-day")) {
-      if (n.classList.contains("tw-row") && n.style.display !== "none") { vis = true; break; }
-      n = n.nextElementSibling;
-    }
-    d.style.display = vis ? "" : "none";
-  });
-}
 const fmtAum = (n) => {
   if (n == null) return "—";
   if (n >= 1000) return `€${(n / 1000).toFixed(n % 1000 === 0 ? 0 : 1)}tn`;
@@ -407,7 +396,7 @@ let openMs = null;
 const SORT_COLUMNS = {
   funds: {
     name: { type: "txt", get: (x) => x.name },
-    manager: { type: "txt", get: (x) => managerById[x.managerId].name },
+    manager: { type: "txt", get: (x) => (managerById[x.managerId] || {}).name },
     strategy: { type: "txt", get: (x) => x.strategy },
     geo: { type: "txt", get: (x) => x.geoFocus },
     status: { type: "num", get: (x) => FUND_CATEGORIES.indexOf(fundCategory(x)) },
@@ -970,7 +959,7 @@ function fundTable(rows, key, sig) {
       <tbody>
         ${rows.map((x) => `<tr class="clickable" data-href="#/fund/${x.id}">
           <td>${nameCell("fund", x.id, `<strong>${esc(x.name)}</strong>`)}</td>
-          <td>${link(`#/manager/${x.managerId}`, managerById[x.managerId].name)}</td>
+          <td>${link(`#/manager/${x.managerId}`, (managerById[x.managerId] || {}).name)}</td>
           <td>${esc(x.strategy)}</td>
           <td>${esc(x.geoFocus)}</td>
           <td>${fundStatusChip(x)} ${lifecycleBadge(x)}</td>
@@ -985,7 +974,7 @@ function viewFunds() {
   const inMarket = (x) => !x.evergreen && (x.status === "Open" || x.status === "First Close");
   const rows = funds.filter((x) =>
     (!targetFocus || midInFocus(x.managerId)) &&
-    (!f.q || (x.name + managerById[x.managerId].name).toLowerCase().includes(f.q.toLowerCase())) &&
+    (!f.q || (x.name + (managerById[x.managerId] || {}).name).toLowerCase().includes(f.q.toLowerCase())) &&
     (!f.strategy.length || f.strategy.includes(x.strategy)) &&
     (!f.status.length || f.status.some((s) => (s === "in-market" ? inMarket(x) : fundCategory(x) === s))) &&
     (!f.geo.length || f.geo.includes(x.geoFocus)) &&
@@ -1183,8 +1172,8 @@ function viewIntel() {
       <div class="table-wrap"><table class="data-table">
         <thead><tr><th>Investor</th><th>Manager</th><th>Detail</th></tr></thead>
         <tbody>${commitments.map((c) => `<tr>
-          <td><strong>${link(`#/lp/${c.lpId}`, lpById[c.lpId].name)}</strong><div class="muted small">${esc(lpById[c.lpId].type)}</div></td>
-          <td>${link(`#/manager/${c.managerId}`, managerById[c.managerId].name)}${c.fundId ? `<div class="muted small">${link(`#/fund/${c.fundId}`, fundById[c.fundId].name)}</div>` : ""}</td>
+          <td><strong>${link(`#/lp/${c.lpId}`, (lpById[c.lpId] || {}).name)}</strong><div class="muted small">${esc((lpById[c.lpId] || {}).type)}</div></td>
+          <td>${link(`#/manager/${c.managerId}`, (managerById[c.managerId] || {}).name)}${c.fundId ? `<div class="muted small">${link(`#/fund/${c.fundId}`, (fundById[c.fundId] || {}).name)}</div>` : ""}</td>
           <td class="muted small">${esc(c.note)}</td>
         </tr>`).join("")}</tbody>
       </table></div>
