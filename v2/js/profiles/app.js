@@ -12,11 +12,11 @@
 import {
   viewManager, viewFund, viewClo, viewLp, viewHedgeFund,
   __setHost as setCreditHost, __setProfilesMode as setCreditPfMode,
-} from "/v2/js/credit/detail.js?v=v2-12";
+} from "/v2/js/credit/detail.js?v=v2-15";
 import {
   viewFirm, viewItem,
   __setHost as setLegalHost, __setProfilesMode as setLegalPfMode,
-} from "/v2/js/legal/detail.js?v=v2-7";
+} from "/v2/js/legal/detail.js?v=v2-10";
 
 export async function mount(host, ctx) {
   // Borrow Credit's and Legal's list builders (mounts them off-screen if needed).
