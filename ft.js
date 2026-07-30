@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "07e7e839-6d7c-4da3-a207-de5bbfb67746", title: "Submit your questions: Has the market lost its mind over AI?", date: "2026-07-30", time: "09:03", url: "https://www.ft.com/content/07e7e839-6d7c-4da3-a207-de5bbfb67746" },
+  { id: "9c7721e8-06c7-4504-9bcd-b266cda2b33e", title: "Adidas shares tumble after profits hit by World Cup marketing spend", date: "2026-07-30", time: "08:31", url: "https://www.ft.com/content/9c7721e8-06c7-4504-9bcd-b266cda2b33e" },
+  { id: "80274c4f-5a86-4ab6-b787-ed62e312971e", title: "BAE lifts profit and sales guidance following surge in orders", date: "2026-07-30", time: "08:29", url: "https://www.ft.com/content/80274c4f-5a86-4ab6-b787-ed62e312971e" },
+  { id: "8691854b-eab8-42e3-b81e-0c412bc23e6b", title: "FTAV’s further reading", date: "2026-07-30", time: "08:21", url: "https://www.ft.com/content/8691854b-eab8-42e3-b81e-0c412bc23e6b" },
   { id: "f0750cf6-fa77-4dbe-b8f5-5515e42cf906", title: "SpaceX’s supply chain clampdown and China’s product power", date: "2026-07-30", time: "08:02", url: "https://www.ft.com/content/f0750cf6-fa77-4dbe-b8f5-5515e42cf906" },
   { id: "38330777-9cb4-4c4e-a0f1-bdbe72ac94a6", title: "Lloyds targets £2bn in cost cuts as it unveils four-year strategy", date: "2026-07-30", time: "07:50", url: "https://www.ft.com/content/38330777-9cb4-4c4e-a0f1-bdbe72ac94a6" },
   { id: "ed09fae4-4f30-412c-97c0-ebfb5408644d", title: "Rolls-Royce raises 2026 targets after profits beat expectations", date: "2026-07-30", time: "07:47", url: "https://www.ft.com/content/ed09fae4-4f30-412c-97c0-ebfb5408644d" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "ef1da506-6d2c-4e09-8b1b-6f6bb416a0a7", title: "For sale: Saba repellent", date: "2026-07-29", time: "19:44", url: "https://www.ft.com/content/ef1da506-6d2c-4e09-8b1b-6f6bb416a0a7" },
   { id: "836720ef-d768-4eda-abe1-cfb432727161", title: "Split Fed decision to hold rates in July", date: "2026-07-29", time: "19:13", url: "https://www.ft.com/content/836720ef-d768-4eda-abe1-cfb432727161" },
   { id: "730ebfb9-cec0-4cb6-947a-598d64518dad", title: "Ex-Goldman executive awarded £1.45mn after paternity leave ‘stigma’", date: "2026-07-29", time: "18:54", url: "https://www.ft.com/content/730ebfb9-cec0-4cb6-947a-598d64518dad" },
-  { id: "ba9a6450-1dbc-4ff9-98e0-2f1b922c2839", title: "Social care reform is a test of UK politics", date: "2026-07-29", time: "18:50", url: "https://www.ft.com/content/ba9a6450-1dbc-4ff9-98e0-2f1b922c2839" },
-  { id: "b779208d-d587-4482-881c-41b063c4e235", title: "Reality bites for South Korea’s memory chip wonder-stocks", date: "2026-07-29", time: "18:37", url: "https://www.ft.com/content/b779208d-d587-4482-881c-41b063c4e235" },
-  { id: "86f37415-cc80-4ea6-bc03-87c96cb831f4", title: "US oil inventories fall to ‘precariously low’ level as Iran war disrupts supply", date: "2026-07-29", time: "18:03", url: "https://www.ft.com/content/86f37415-cc80-4ea6-bc03-87c96cb831f4" },
-  { id: "1be84be9-1945-4388-8ff7-b621b0ed1714", title: "France moves to expel pro-Kremlin TV personality", date: "2026-07-29", time: "17:47", url: "https://www.ft.com/content/1be84be9-1945-4388-8ff7-b621b0ed1714" },
 ];
