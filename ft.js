@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "da7c4472-cb30-4b82-b321-d82c1859419e", title: "Microsoft surges 15% as results and data centre leases cheer investors", date: "2026-07-30", time: "16:50", url: "https://www.ft.com/content/da7c4472-cb30-4b82-b321-d82c1859419e" },
+  { id: "44589e41-8880-4c6b-89c5-a02d34cf46ab", title: "Bank of England holds rates at 3.75% as it waits to see impact of Iran war", date: "2026-07-30", time: "16:41", url: "https://www.ft.com/content/44589e41-8880-4c6b-89c5-a02d34cf46ab" },
+  { id: "b12a08f4-442c-4f10-9688-0f93553a292f", title: "European nations to boycott World Cup in protest at Fifa’s plans", date: "2026-07-30", time: "16:17", url: "https://www.ft.com/content/b12a08f4-442c-4f10-9688-0f93553a292f" },
   { id: "8455ec94-0182-46a6-b5dd-2bb5b0a75a6c", title: "Japan’s yen jumps 3% as speculation over intervention swirls", date: "2026-07-30", time: "16:07", url: "https://www.ft.com/content/8455ec94-0182-46a6-b5dd-2bb5b0a75a6c" },
   { id: "fd75ca61-c9db-41c8-97d3-80069c25beb6", title: "Declining PCE inflation in June likely to be reversed in July", date: "2026-07-30", time: "15:58", url: "https://www.ft.com/content/fd75ca61-c9db-41c8-97d3-80069c25beb6" },
   { id: "5fb44089-ecdf-4b48-bc14-1e8b4682b142", title: "Situational Awareness offloads large portion of public equity holdings", date: "2026-07-30", time: "15:31", url: "https://www.ft.com/content/5fb44089-ecdf-4b48-bc14-1e8b4682b142" },
@@ -58,7 +61,4 @@ export const FT_ITEMS = [
   { id: "80274c4f-5a86-4ab6-b787-ed62e312971e", title: "BAE lifts profit and sales guidance following surge in orders", date: "2026-07-30", time: "08:29", url: "https://www.ft.com/content/80274c4f-5a86-4ab6-b787-ed62e312971e" },
   { id: "8691854b-eab8-42e3-b81e-0c412bc23e6b", title: "FTAV’s further reading", date: "2026-07-30", time: "08:21", url: "https://www.ft.com/content/8691854b-eab8-42e3-b81e-0c412bc23e6b" },
   { id: "f0750cf6-fa77-4dbe-b8f5-5515e42cf906", title: "SpaceX’s supply chain clampdown and China’s product power", date: "2026-07-30", time: "08:02", url: "https://www.ft.com/content/f0750cf6-fa77-4dbe-b8f5-5515e42cf906" },
-  { id: "38330777-9cb4-4c4e-a0f1-bdbe72ac94a6", title: "Lloyds targets £2bn in cost cuts as it unveils four-year strategy", date: "2026-07-30", time: "07:50", url: "https://www.ft.com/content/38330777-9cb4-4c4e-a0f1-bdbe72ac94a6" },
-  { id: "ed09fae4-4f30-412c-97c0-ebfb5408644d", title: "Rolls-Royce raises 2026 targets after profits beat expectations", date: "2026-07-30", time: "07:47", url: "https://www.ft.com/content/ed09fae4-4f30-412c-97c0-ebfb5408644d" },
-  { id: "28a1c0fa-3ed4-4e64-b24d-227e7d13c5c7", title: "Japan’s Sanae Takaichi sticks to plan to cut food sales tax", date: "2026-07-30", time: "07:28", url: "https://www.ft.com/content/28a1c0fa-3ed4-4e64-b24d-227e7d13c5c7" },
 ];
