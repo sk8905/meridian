@@ -35,6 +35,7 @@ const _norm = (s) => String(s || "").toLowerCase().replace(/['’‘]/g, "");
 export function mount(host, ctx) {
   let pane = "macro";
   let _yldTenor = "y10";                 // active tenor for the government-yields heatmap
+  let _gyLive = null;                    // live yields overlay (/api/govyields), keyed by country
   let _legalQuery = "";                 // Legal database keyword (persist across re-renders)
   const _legalAreas = new Set();        // practice areas the search is limited to (empty = all)
   const _legalTypes = new Set();        // item types the search is limited to (empty = all): "alert" | "case"
@@ -194,17 +195,20 @@ export function mount(host, ctx) {
   // its latest-session % change, heat-shaded green (up) / red (down) normalised
   // across the whole board. Snapshot from WORLD_INDICES (dashboard/js/data.js),
   // every value sourced + dated, refreshed by the daily routine.
-  function worldIndicesHeatHTML() {
+  // `live` (from /api/worldindices, keyed by index name) overrides the snapshot's
+  // level/chgPct where present; the sourced snapshot is the seed + fallback.
+  function worldIndicesHeatHTML(live) {
     const W = WORLD_INDICES;
     if (!W || !(W.regions || []).length) return "";
-    const mags = W.regions.flatMap((g) => (g.rows || []).map((r) => (r.chgPct == null ? 0 : Math.abs(r.chgPct))));
+    const eff = (r) => { const l = live && live[r.name]; return { lv: (l && l.value != null) ? l.value : r.level, v: (l && l.changePct != null) ? l.changePct : r.chgPct }; };
+    const mags = W.regions.flatMap((g) => (g.rows || []).map((r) => { const v = eff(r).v; return v == null ? 0 : Math.abs(v); }));
     const max = Math.max(1, ...mags);
     const fmtLv = (v) => (v == null ? "—" : Number(v).toLocaleString("en-GB", { maximumFractionDigits: 2 }));
     const tile = (r) => {
-      const v = r.chgPct;
+      const { lv, v } = eff(r);
       const a = v == null ? 0 : (Math.abs(v) / max) * 0.6 + 0.12;
       const col = v == null ? "transparent" : `rgba(${v >= 0 ? "63,192,141" : "242,109,132"},${a.toFixed(2)})`;
-      const inner = `<span class="dsh-wi-nm">${esc(r.name)}</span><span class="dsh-wi-lv">${fmtLv(r.level)}</span>`
+      const inner = `<span class="dsh-wi-nm">${esc(r.name)}</span><span class="dsh-wi-lv">${fmtLv(lv)}</span>`
         + `<span class="dsh-wi-ch ${upcls(v)}">${v == null ? "" : pct1(v)}</span>`;
       const tip = `${esc(r.name)}${r.asOf ? " · as of " + esc(r.asOf) : ""} — source`;
       return r.source
@@ -215,10 +219,22 @@ export function mount(host, ctx) {
     return `<div class="dsh-wi">${W.regions.map(group).join("")}</div>`
       + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = up</span> · <span class="dsh-fl-neg">red = down</span> on the latest session; each tile shows the local index level (points) and links its source.</p>`;
   }
+  async function loadWorldIndices() {
+    const box = host.querySelector("#dsh-wi-box");
+    if (!box) return;
+    try {
+      const r = await fetch("/api/worldindices", { headers: { accept: "application/json" } });
+      const d = r.ok ? await r.json() : null;
+      const arr = (d && d.indices) || [];
+      if (!arr.length) return;
+      const live = {}; arr.forEach((x) => { if (x && x.name) live[x.name] = x; });
+      box.innerHTML = worldIndicesHeatHTML(live);
+    } catch { /* keep the sourced snapshot */ }
+  }
   function equitiesHTML() {
     return `<div class="dsh-pane">
       ${keyMomentsHTML()}
-      <section class="dsh-card dsh-span"><h3 class="dsh-h">World indices — major benchmarks by jurisdiction ${asOf(WORLD_INDICES && WORLD_INDICES.asOf)}</h3><div class="dsh-scroll">${worldIndicesHeatHTML()}</div></section>
+      <section class="dsh-card dsh-span"><h3 class="dsh-h">World indices — major benchmarks by jurisdiction <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-wi-box">${worldIndicesHeatHTML()}</div></section>
       <section class="dsh-card dsh-span"><h3 class="dsh-h">ETF flows — net fund flows ${asOf(SECTOR_FLOWS.asOf)}</h3><div class="dsh-scroll">${sectorFlowsHTML()}</div></section>
       <section class="dsh-card"><h3 class="dsh-h">S&amp;P 500 sectors — YTD ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
       <section class="dsh-card"><h3 class="dsh-h">Valuation &amp; volatility</h3>${valVolHTML()}</section>
@@ -455,16 +471,19 @@ export function mount(host, ctx) {
   // Shaded by yield LEVEL within the visible tenor (deeper = higher yield). Snapshot
   // from GOVT_YIELDS (dashboard/js/data.js), every value sourced + dated.
   const YLD_TENORS = [["y2", "2Y"], ["y5", "5Y"], ["y10", "10Y"], ["y30", "30Y"]];
+  // `_gyLive` (from /api/govyields, keyed by country) overrides the snapshot's
+  // per-tenor yields where present; the sourced snapshot is the seed + fallback.
   function govtYieldsHeatHTML() {
     const G = GOVT_YIELDS;
     if (!G || !(G.regions || []).length) return "";
     const k = _yldTenor;
     const lbl = (YLD_TENORS.find(([kk]) => kk === k) || [, ""])[1];
-    const vals = G.regions.flatMap((g) => (g.rows || []).map((r) => r[k]).filter((v) => v != null));
+    const valOf = (r) => { const l = _gyLive && _gyLive[r.country]; return (l && l[k] != null) ? l[k] : r[k]; };
+    const vals = G.regions.flatMap((g) => (g.rows || []).map(valOf).filter((v) => v != null));
     const lo = vals.length ? Math.min(...vals) : 0, hi = vals.length ? Math.max(...vals) : 1;
     const span = Math.max(0.01, hi - lo);
     const tile = (r) => {
-      const v = r[k];
+      const v = valOf(r);
       const a = v == null ? 0 : ((v - lo) / span) * 0.6 + 0.14;
       const col = v == null ? "transparent" : `rgba(155,131,226,${a.toFixed(2)})`;   // rates read the macro/indigo tone
       const inner = `<span class="dsh-wi-nm">${esc(r.country)}</span><span class="dsh-wi-lv">${v == null ? "—" : v.toFixed(2) + "%"}</span>`;
@@ -489,10 +508,21 @@ export function mount(host, ctx) {
       box.innerHTML = govtYieldsHeatHTML();
     });
   }
+  async function loadGovYields() {
+    try {
+      const r = await fetch("/api/govyields", { headers: { accept: "application/json" } });
+      const d = r.ok ? await r.json() : null;
+      const arr = (d && d.yields) || [];
+      if (!arr.length) return;
+      _gyLive = {}; arr.forEach((x) => { if (x && x.country) _gyLive[x.country] = x; });
+      const box = host.querySelector("#dsh-yld");
+      if (box) box.innerHTML = govtYieldsHeatHTML();
+    } catch { /* keep the sourced snapshot */ }
+  }
   function fixedIncomeHTML() {
     const note = YIELD_CURVE && YIELD_CURVE.note ? `<p class="dsh-fl-note">${esc(YIELD_CURVE.note)}</p>` : "";
     return `<div class="dsh-pane">
-      <section class="dsh-card dsh-span"><h3 class="dsh-h">Government bond yields — by tenor (2Y · 5Y · 10Y · 30Y) ${asOf(GOVT_YIELDS && GOVT_YIELDS.asOf)}</h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
+      <section class="dsh-card dsh-span"><h3 class="dsh-h">Government bond yields — by tenor (2Y · 5Y · 10Y · 30Y) <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
       <section class="dsh-card dsh-span"><h3 class="dsh-h">Government / sovereign — yield curves ${asOf(YIELD_CURVE && YIELD_CURVE.asOf)}</h3><div class="dsh-scroll">${yieldCurveHTML()}</div>${note}</section>
       <section class="dsh-card dsh-span"><h3 class="dsh-h">Corporate — credit spreads (ICE BofA OAS) <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div><p class="dsh-fl-note">Option-adjusted spreads over Treasuries, by rating cohort — the corporate risk premium. Live from FRED (ICE BofA indices).</p></section>
     </div>`;
@@ -692,8 +722,9 @@ export function mount(host, ctx) {
       : pane === "legal" ? legalHTML()
       : macroHTML();
     host.innerHTML = `<div class="dsh"><header class="dsh-nav tdet-secnav"><div class="tchips">${nav}</div></header>${body}</div>`;
+    if (pane === "equities") loadWorldIndices();
     if (pane === "credit") { loadSpreads(); wireStressSort(); }
-    if (pane === "fixed-income") { loadSpreads(); wireYields(); }
+    if (pane === "fixed-income") { loadSpreads(); wireYields(); loadGovYields(); }
     if (pane === "hedge-funds") wireHedgeFunds();
     if (pane === "legal") wireLegal();
   }

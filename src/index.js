@@ -841,6 +841,96 @@ async function handleEqIndices(request, env, ctx) {
   return resp;
 }
 
+// ---- World indices (Equities dashboard heatmap) ----------------------------
+// Live closes for the major LOCAL benchmarks in the World-indices heatmap, keyed
+// by DISPLAY NAME so the client overlays them onto the WORLD_INDICES snapshot
+// (dashboard/js/data.js). Yahoo primary (^ index symbols); a Stooq daily-close
+// fallback for the majors. Any symbol Yahoo/Stooq can't serve just stays null and
+// the client keeps that row's sourced snapshot value.
+const WORLD_INDEX_SERIES = [
+  { name: "S&P 500", symbol: "^GSPC", stooq: "^spx" },
+  { name: "Nasdaq Composite", symbol: "^IXIC", stooq: "^ndq" },
+  { name: "Dow Jones", symbol: "^DJI", stooq: "^dji" },
+  { name: "Russell 2000", symbol: "^RUT", stooq: "^rut" },
+  { name: "Ibovespa", symbol: "^BVSP" },
+  { name: "S&P Merval", symbol: "^MERV" },
+  { name: "IPSA", symbol: "^IPSA" },
+  { name: "FTSE 100", symbol: "^FTSE", stooq: "^ftse" },
+  { name: "FTSE 250", symbol: "^FTMC" },
+  { name: "Euro Stoxx 50", symbol: "^STOXX50E" },
+  { name: "DAX", symbol: "^GDAXI", stooq: "^dax" },
+  { name: "CAC 40", symbol: "^FCHI", stooq: "^cac" },
+  { name: "IBEX 35", symbol: "^IBEX" },
+  { name: "FTSE MIB", symbol: "FTSEMIB.MI" },
+  { name: "SMI", symbol: "^SSMI" },
+  { name: "AEX", symbol: "^AEX" },
+  { name: "Nikkei 225", symbol: "^N225", stooq: "^nkx" },
+  { name: "Hang Seng", symbol: "^HSI", stooq: "^hsi" },
+  { name: "Shanghai Composite", symbol: "000001.SS" },
+  { name: "CSI 300", symbol: "000300.SS" },
+  { name: "Nifty 50", symbol: "^NSEI" },
+  { name: "BSE Sensex", symbol: "^BSESN" },
+  { name: "S&P/ASX 200", symbol: "^AXJO" },
+  { name: "KOSPI", symbol: "^KS11" },
+  { name: "TAIEX", symbol: "^TWII" },
+];
+async function handleWorldIndices(request, env, ctx) {
+  const cache = caches.default;
+  const cacheKey = new Request(new URL("/api/worldindices?v=1", request.url).toString());
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+  const indices = await Promise.all(WORLD_INDEX_SERIES.map(async (s) => {
+    let r = await yahooQuote(s.symbol);
+    if (r.value == null && s.stooq) r = await stooqQuote(s.stooq);
+    return { name: s.name, value: r.value, changePct: r.changePct, asOf: r.asOf || null };
+  }));
+  const resp = new Response(JSON.stringify({ indices, ts: Date.now() }), {
+    headers: { "content-type": "application/json", "cache-control": "public, max-age=180" },
+  });
+  if (ctx && ctx.waitUntil && indices.filter((d) => d.value != null).length >= 10) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+  return resp;
+}
+
+// ---- Government bond yields (Fixed Income dashboard heatmap) ----------------
+// Live benchmark yields (2Y/5Y/10Y/30Y) for the major economies, from Stooq's
+// keyless yield series — symbol scheme {tenor}Y{ISO2}Y.B (e.g. 10YUSY.B, 2YDEY.B).
+// Keyed by COUNTRY so the client overlays them onto the GOVT_YIELDS snapshot; a
+// tenor a country doesn't benchmark just stays null (client shows the snapshot / —).
+const GY_SERIES = [
+  { country: "United States", cc: "US", tenors: [2, 5, 10, 30] },
+  { country: "Brazil", cc: "BR", tenors: [10] },
+  { country: "United Kingdom", cc: "GB", tenors: [2, 5, 10, 30] },
+  { country: "Germany", cc: "DE", tenors: [2, 5, 10, 30] },
+  { country: "France", cc: "FR", tenors: [2, 5, 10, 30] },
+  { country: "Italy", cc: "IT", tenors: [2, 5, 10, 30] },
+  { country: "Spain", cc: "ES", tenors: [10, 30] },
+  { country: "Japan", cc: "JP", tenors: [2, 5, 10, 30] },
+  { country: "Australia", cc: "AU", tenors: [2, 5, 10, 30] },
+  { country: "China", cc: "CN", tenors: [2, 5, 10, 30] },
+  { country: "India", cc: "IN", tenors: [10] },
+  { country: "South Korea", cc: "KR", tenors: [10] },
+];
+async function handleGovYields(request, env, ctx) {
+  const cache = caches.default;
+  const cacheKey = new Request(new URL("/api/govyields?v=1", request.url).toString());
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+  const yields = await Promise.all(GY_SERIES.map(async (s) => {
+    const row = { country: s.country, y2: null, y5: null, y10: null, y30: null, asOf: null };
+    await Promise.all(s.tenors.map(async (t) => {
+      const q = await stooqQuote(`${t}Y${s.cc}Y.B`);
+      if (q.value != null) { row["y" + t] = +q.value.toFixed(3); if (q.asOf && (!row.asOf || q.asOf > row.asOf)) row.asOf = q.asOf; }
+    }));
+    return row;
+  }));
+  const resp = new Response(JSON.stringify({ yields, ts: Date.now() }), {
+    headers: { "content-type": "application/json", "cache-control": "public, max-age=300" },
+  });
+  const hits = yields.reduce((n, r) => n + (r.y10 != null ? 1 : 0), 0);
+  if (ctx && ctx.waitUntil && hits >= 6) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+  return resp;
+}
+
 // ---- Prediction markets (Polymarket + Kalshi), finance & finance-adjacent -----
 // Both expose public, no-auth market-data REST endpoints, fetched from the edge
 // like every other upstream. Display-only: question + implied YES probability +
@@ -2791,6 +2881,8 @@ export default {
     if (url.pathname === "/api/rates") return handleRates(request, env, ctx);
     if (url.pathname === "/api/markets") return handleMarkets(request, env, ctx);
     if (url.pathname === "/api/eqindices") return handleEqIndices(request, env, ctx);
+    if (url.pathname === "/api/worldindices") return handleWorldIndices(request, env, ctx);
+    if (url.pathname === "/api/govyields") return handleGovYields(request, env, ctx);
     if (url.pathname === "/api/pulse") return handlePulse(request, env, ctx);
     if (url.pathname === "/api/macro") return handleMacro(request, env, ctx);
     if (url.pathname === "/api/yield-curve") return handleYieldCurve(request, env, ctx);
