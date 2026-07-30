@@ -11,7 +11,7 @@
 // of truth. Every figure keeps a real outbound source link. mount → {enter,leave}.
 // =============================================================================
 import { esc } from "/util.js?v=20260719-1";
-import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, WORLD_INDICES, GOVT_YIELDS, GOVT_YIELD_CHG } from "/dashboard/js/data.js";
+import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, WORLD_INDICES, GOVT_YIELDS, GOVT_YIELD_CHG, PRIVATE_CREDIT } from "/dashboard/js/data.js";
 import { OUTLOOK, CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS, IND_KEYMOMENTS } from "/macro/js/content.js";
 import { deals, intel, HEDGE_FUNDS, HF_13F } from "/credit/js/data.js";
 import { SECTOR_FLOWS } from "/allocations.js";
@@ -321,8 +321,19 @@ export function mount(host, ctx) {
       + (u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(x.headline || x.title)}</a>` : `<span>${esc(x.headline || x.title)}</span>`) + `</li>`; };
     return `<ul class="dsh-news">${items.map(row).join("")}</ul>`;
   }
+  // Private credit pulse — Fitch's Private Credit Default Rate + market context, a
+  // sourced KV grid (PRIVATE_CREDIT). Every metric links its source.
+  function privateCreditHTML() {
+    const P = PRIVATE_CREDIT;
+    if (!P || !(P.metrics || []).length) return "";
+    const kv = (x) => `<div class="dsh-kv"><span class="dsh-kv-k">${esc(x.k)}</span>`
+      + `<span class="dsh-kv-v">${esc(x.v)}${x.sub ? ` <span class="dsh-band">${esc(x.sub)}</span>` : ""}${srcLink(x.src, (x.srcName || "source") + " — source")}</span></div>`;
+    return (P.headline ? `<p class="dsh-fl-note">${esc(P.headline)}</p>` : "")
+      + `<div class="dsh-kvgrid">${P.metrics.map(kv).join("")}</div>`;
+  }
   function creditHTML() {
     return `<div class="dsh-pane">
+      <section class="dsh-card dsh-span"><h3 class="dsh-h">Private credit <span class="dsh-n">Fitch PCDR &amp; market pulse</span> ${asOf(PRIVATE_CREDIT && PRIVATE_CREDIT.asOf)}</h3>${privateCreditHTML()}</section>
       <div class="dsh-span dsh-pair">
         <section class="dsh-card"><h3 class="dsh-h">Credit spreads — ICE BofA OAS <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div></section>
         <section class="dsh-card"><h3 class="dsh-h">Maturity wall</h3>${maturityHTML()}</section>

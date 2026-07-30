@@ -201,3 +201,19 @@ export const GOVT_YIELD_CHG = {
   "India":         { y10: { m1: 12, y1: 45 } },
   "South Korea":   { y10: { m1: 17, y1: 154 } },
 };
+
+// Private-credit pulse for the Credit dashboard — Fitch's U.S. Private Credit
+// Default Rate (PCDR) and market-context metrics. Every figure is real + sourced
+// (never fabricated); refreshed by the routine. PCDR is Fitch's "U.S. Private
+// Credit and Middle Market Performance Monitor" (2Q26).
+export const PRIVATE_CREDIT = {
+  asOf: "2026-07",
+  headline: "Fitch's U.S. Private Credit Default Rate (PCDR) hit a record 6.0% for the trailing 12 months ended 2Q26 — up from the prior high of 5.7% in 1Q26, and roughly double the ~3% broadly-syndicated loan default rate.",
+  metrics: [
+    { k: "Private Credit Default Rate", v: "6.0%", sub: "TTM 2Q26 · record · up from 5.7% (1Q26)", src: "https://www.fundssociety.com/en/news/alternatives/u-s-private-credit-default-rate-continues-to-climb/", srcName: "Fitch 2Q26 Monitor (via Funds Society)" },
+    { k: "Defaults recorded (TTM)", v: "32", sub: "private-credit issuers, 2Q26", src: "https://www.tradingview.com/news/reuters.com,2026:newsml_FWN41V0W8:0-fitch-ratings-u-s-private-credit-default-rate-hits-a-high-of-6-0-in-april-2026/", srcName: "Fitch (via Reuters/TradingView)" },
+    { k: "Broadly-syndicated loan default (fcst)", v: "3.0–3.5%", sub: "2026, Fitch — set to ease", src: "https://www.investmentexecutive.com/news/research-and-markets/u-s-leveraged-loan-defaults-to-ease-in-2026-fitch/", srcName: "Fitch (via Investment Executive)" },
+    { k: "Market size (AUM)", v: "~$2.0tn", sub: "2026 est. · ~$4tn by 2030", src: "https://www.moodys.com/web/en/us/insights/credit-risk/outlooks/private-credit-2026.html", srcName: "Moody's" },
+    { k: "BDC non-accruals", v: "~1.2%", sub: "of portfolios (Q2'25)", src: "https://www.withintelligence.com/insights/what-is-actually-going-on-in-bdc-portfolios/", srcName: "With Intelligence" },
+  ],
+};
