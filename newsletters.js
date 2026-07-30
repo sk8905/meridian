@@ -32,6 +32,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-20260730",
+    publication: "Bloomberg",
+    author: "Abhishek Shanker and Victoria Batchelor",
+    series: "Morning Briefing Europe",
+    title: "US Launches Fresh Strikes on Iran Hitting Military Targets",
+    date: "2026-07-30",
+    time: "07:40",
+    summary: "The US launches a fresh wave of strikes on Iran; Andy Burnham unveils an £8.4bn Dreadnought submarine investment; and a family feud threatens Leonardo Del Vecchio's €40bn empire.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-30/us-launches-fresh-strikes-on-iran-hitting-military-targets",
+  },
+  {
     id: "nl-econ-worldinbrief-20260730",
     publication: "The Economist",
     series: "The World in Brief",

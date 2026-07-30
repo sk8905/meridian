@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f0750cf6-fa77-4dbe-b8f5-5515e42cf906", title: "SpaceX’s supply chain clampdown and China’s product power", date: "2026-07-30", time: "08:02", url: "https://www.ft.com/content/f0750cf6-fa77-4dbe-b8f5-5515e42cf906" },
+  { id: "38330777-9cb4-4c4e-a0f1-bdbe72ac94a6", title: "Lloyds targets £2bn in cost cuts as it unveils four-year strategy", date: "2026-07-30", time: "07:50", url: "https://www.ft.com/content/38330777-9cb4-4c4e-a0f1-bdbe72ac94a6" },
+  { id: "ed09fae4-4f30-412c-97c0-ebfb5408644d", title: "Rolls-Royce raises 2026 targets after profits beat expectations", date: "2026-07-30", time: "07:47", url: "https://www.ft.com/content/ed09fae4-4f30-412c-97c0-ebfb5408644d" },
+  { id: "28a1c0fa-3ed4-4e64-b24d-227e7d13c5c7", title: "Japan’s Sanae Takaichi sticks to plan to cut food sales tax", date: "2026-07-30", time: "07:28", url: "https://www.ft.com/content/28a1c0fa-3ed4-4e64-b24d-227e7d13c5c7" },
+  { id: "dacf0dba-702a-400f-b534-f73011052b1d", title: "Shell reports highest profits since 2022", date: "2026-07-30", time: "07:18", url: "https://www.ft.com/content/dacf0dba-702a-400f-b534-f73011052b1d" },
   { id: "ce198d5a-4a3b-46e8-aec3-77e5ab53ffb7", title: "Central banks slashed their gold purchases in early 2026", date: "2026-07-30", time: "07:00", url: "https://www.ft.com/content/ce198d5a-4a3b-46e8-aec3-77e5ab53ffb7" },
   { id: "a943e743-501b-4b7d-aecd-85ef60a90c20", title: "SocGen profit jumps as banking boom offsets weak trading", date: "2026-07-30", time: "06:59", url: "https://www.ft.com/content/a943e743-501b-4b7d-aecd-85ef60a90c20" },
   { id: "fe3fe258-62ab-4a71-8c8b-747f9559fd05", title: "Kevin Warsh is confusing markets", date: "2026-07-30", time: "06:30", url: "https://www.ft.com/content/fe3fe258-62ab-4a71-8c8b-747f9559fd05" },
@@ -55,9 +60,4 @@ export const FT_ITEMS = [
   { id: "b779208d-d587-4482-881c-41b063c4e235", title: "Reality bites for South Korea’s memory chip wonder-stocks", date: "2026-07-29", time: "18:37", url: "https://www.ft.com/content/b779208d-d587-4482-881c-41b063c4e235" },
   { id: "86f37415-cc80-4ea6-bc03-87c96cb831f4", title: "US oil inventories fall to ‘precariously low’ level as Iran war disrupts supply", date: "2026-07-29", time: "18:03", url: "https://www.ft.com/content/86f37415-cc80-4ea6-bc03-87c96cb831f4" },
   { id: "1be84be9-1945-4388-8ff7-b621b0ed1714", title: "France moves to expel pro-Kremlin TV personality", date: "2026-07-29", time: "17:47", url: "https://www.ft.com/content/1be84be9-1945-4388-8ff7-b621b0ed1714" },
-  { id: "0f9a8575-12ad-4c17-9ee0-50cdab5b8961", title: "Fed decision live: US central bank to weigh mounting inflation worries in hotly debated meeting", date: "2026-07-29", time: "17:36", url: "https://www.ft.com/content/0f9a8575-12ad-4c17-9ee0-50cdab5b8961" },
-  { id: "35811ce1-84a7-4a59-aa91-15c6bdd24392", title: "Anthony Fauci invokes Fifth Amendment at fiery Senate hearing on Covid", date: "2026-07-29", time: "17:30", url: "https://www.ft.com/content/35811ce1-84a7-4a59-aa91-15c6bdd24392" },
-  { id: "ee2a2d3b-dc5d-4ee2-8ad6-78c4b00fca8a", title: "Here’s how to make North Sea drilling compatible with net zero", date: "2026-07-29", time: "17:27", url: "https://www.ft.com/content/ee2a2d3b-dc5d-4ee2-8ad6-78c4b00fca8a" },
-  { id: "42f17eda-ac25-464b-9c7a-8777d6164613", title: "The Fed’s next step is far from clear", date: "2026-07-29", time: "17:22", url: "https://www.ft.com/content/42f17eda-ac25-464b-9c7a-8777d6164613" },
-  { id: "34006961-415e-48ae-a2e5-4f35210322ba", title: "The pathway to prosperity is getting harder for developing countries", date: "2026-07-29", time: "16:50", url: "https://www.ft.com/content/34006961-415e-48ae-a2e5-4f35210322ba" },
 ];
