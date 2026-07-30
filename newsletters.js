@@ -32,6 +32,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-situationdeteriorated-20260730",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: The Situation Deteriorated",
+    date: "2026-07-30",
+    time: "19:03",
+    summary: "Elections, PBCs, Ionic, WLFI.",
+    url: "https://bloom.bg/44TMQvs",
+  },
+  {
     id: "nl-bbg-authoralert-nkumar-20260730",
     publication: "Bloomberg",
     author: "Nishant Kumar",
@@ -426,16 +437,5 @@ export const NEWSLETTERS = [
     time: "06:17",
     summary: "America and Iran both held off further strikes for a second night, pulling Brent crude down 5%; shares in Chinese chipmaker ChangXin Memory Technologies soared 470% on their trading debut.",
     url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-bbg-pointsofreturn-20260727",
-    publication: "Bloomberg",
-    author: "John Authers",
-    series: "Points of Return",
-    title: "Points of Return: Will the Fed pivot on rates or just get stuck?",
-    date: "2026-07-27",
-    time: "05:02",
-    summary: "Markets price almost a 40% chance of a Fed funds hike this week as US tariffs return at 10% and Meta, Apple, Microsoft and Amazon report earnings.",
-    url: "https://bloom.bg/4hzQySh",
   },
 ];

@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "3cbee183-fd1f-4afc-8376-2115e66dda6c", title: "Kevin Warsh’s concerning communication style", date: "2026-07-30", time: "18:35", url: "https://www.ft.com/content/3cbee183-fd1f-4afc-8376-2115e66dda6c" },
+  { id: "d6df67d4-b8be-4e14-b856-29852e249577", title: "China is not the solution to the US chipflation problem", date: "2026-07-30", time: "18:24", url: "https://www.ft.com/content/d6df67d4-b8be-4e14-b856-29852e249577" },
+  { id: "00d91e68-9508-42bd-b1e3-124bf7dd390b", title: "Are investors really getting cold feet about the AI boom?", date: "2026-07-30", time: "18:15", url: "https://www.ft.com/content/00d91e68-9508-42bd-b1e3-124bf7dd390b" },
   { id: "5546b044-0582-4ed9-8e61-bd1732f3063e", title: "Thousands of Moroccans swim to Spanish enclave", date: "2026-07-30", time: "17:51", url: "https://www.ft.com/content/5546b044-0582-4ed9-8e61-bd1732f3063e" },
   { id: "655a05ff-ec45-492d-a70e-4f8ba8dc141f", title: "Data suggests fears of UK ‘non-dom’ exodus overblown", date: "2026-07-30", time: "17:31", url: "https://www.ft.com/content/655a05ff-ec45-492d-a70e-4f8ba8dc141f" },
   { id: "928f3d86-32ff-4410-99a9-7a41e49624bd", title: "Donald Trump says he could withdraw Todd Blanche’s nomination for attorney-general", date: "2026-07-30", time: "17:21", url: "https://www.ft.com/content/928f3d86-32ff-4410-99a9-7a41e49624bd" },
@@ -57,8 +60,4 @@ export const FT_ITEMS = [
   { id: "6710a395-0141-4c3f-9620-ccf249e18091", title: "Eurozone grew by 0.4% in second quarter despite Middle East energy shock", date: "2026-07-30", time: "10:01", url: "https://www.ft.com/content/6710a395-0141-4c3f-9620-ccf249e18091" },
   { id: "77815def-6f50-4adf-8ba3-3643de7bf8ab", title: "DR Congo’s cobalt boom carries an unwanted cargo: uranium", date: "2026-07-30", time: "10:00", url: "https://www.ft.com/content/77815def-6f50-4adf-8ba3-3643de7bf8ab" },
   { id: "09e9be6a-9480-476f-8b3c-0b0f64e86f87", title: "Ukraine’s ex-defence minister blames procurement reforms for dismissal", date: "2026-07-30", time: "09:47", url: "https://www.ft.com/content/09e9be6a-9480-476f-8b3c-0b0f64e86f87" },
-  { id: "7fa37140-7b45-4b19-910b-67038d532d65", title: "The Burnham bounce shouldn’t come as a surprise", date: "2026-07-30", time: "09:30", url: "https://www.ft.com/content/7fa37140-7b45-4b19-910b-67038d532d65" },
-  { id: "42e83b67-cfb8-46af-b50e-3ac77748ce38", title: "US launches strikes on Iran after Donald Trump vows to deliver ‘beating’", date: "2026-07-30", time: "09:24", url: "https://www.ft.com/content/42e83b67-cfb8-46af-b50e-3ac77748ce38" },
-  { id: "07e7e839-6d7c-4da3-a207-de5bbfb67746", title: "Submit your questions: Has the market lost its mind over AI?", date: "2026-07-30", time: "09:03", url: "https://www.ft.com/content/07e7e839-6d7c-4da3-a207-de5bbfb67746" },
-  { id: "9c7721e8-06c7-4504-9bcd-b266cda2b33e", title: "Adidas shares tumble after profits hit by World Cup marketing spend", date: "2026-07-30", time: "08:31", url: "https://www.ft.com/content/9c7721e8-06c7-4504-9bcd-b266cda2b33e" },
 ];
