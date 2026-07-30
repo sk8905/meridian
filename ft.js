@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "4b39365f-841d-45d3-81ae-31db7f9d8f8f", title: "NYSE owner to buy bond platform MarketAxess in $5.7bn deal", date: "2026-07-30", time: "13:02", url: "https://www.ft.com/content/4b39365f-841d-45d3-81ae-31db7f9d8f8f" },
+  { id: "5e74c47f-b029-4b94-8c66-d88df40a150f", title: "Albanians don’t want their islands sold off to Trump and Kushner", date: "2026-07-30", time: "13:00", url: "https://www.ft.com/content/5e74c47f-b029-4b94-8c66-d88df40a150f" },
+  { id: "68274800-2971-4d50-922f-ff2b6780dc31", title: "Bank of England holds rates amid volatile energy prices", date: "2026-07-30", time: "12:44", url: "https://www.ft.com/content/68274800-2971-4d50-922f-ff2b6780dc31" },
+  { id: "c8e8502f-91c2-4dcd-b39c-e99c67b93826", title: "Blue Owl’s private credit fundraising falls to slowest pace in three years", date: "2026-07-30", time: "12:26", url: "https://www.ft.com/content/c8e8502f-91c2-4dcd-b39c-e99c67b93826" },
   { id: "354bfe84-eb98-4607-ace7-c8231beafe7b", title: "France allows some wildfire evacuees to return as blazes stabilise", date: "2026-07-30", time: "12:05", url: "https://www.ft.com/content/354bfe84-eb98-4607-ace7-c8231beafe7b" },
   { id: "3936b8c9-8ce2-41f8-8687-90a2aa385e41", title: "KKR profits soar as it cashes in record amount of private equity bets", date: "2026-07-30", time: "12:01", url: "https://www.ft.com/content/3936b8c9-8ce2-41f8-8687-90a2aa385e41" },
   { id: "06d941ed-8136-46a4-a2ec-44bea1b35c3b", title: "Meta shares tumble as Mark Zuckerberg tries to sell his vision for AI ‘agents’", date: "2026-07-30", time: "11:48", url: "https://www.ft.com/content/06d941ed-8136-46a4-a2ec-44bea1b35c3b" },
@@ -56,5 +60,4 @@ export const FT_ITEMS = [
   { id: "e3ed0f3d-52c0-45f5-b1f2-9b0e406026c7", title: "The corgi-inspired ETF provider that wants to disrupt BlackRock", date: "2026-07-30", time: "06:00", url: "https://www.ft.com/content/e3ed0f3d-52c0-45f5-b1f2-9b0e406026c7" },
   { id: "5035f634-7d47-483a-b8e9-722ded88a672", title: "FirstFT: Meta and Microsoft kick off turbulent tech results", date: "2026-07-30", time: "05:30", url: "https://www.ft.com/content/5035f634-7d47-483a-b8e9-722ded88a672" },
   { id: "3249b384-2a27-402b-be12-e3b3bea37440", title: "Accelerating Business", date: "2026-07-30", time: "05:17", url: "https://www.ft.com/content/3249b384-2a27-402b-be12-e3b3bea37440" },
-  { id: "4f6e5ad5-395b-41ac-9672-bd6880dc05a7", title: "The tech wreck roiling Wall Street", date: "2026-07-30", time: "05:00", url: "https://www.ft.com/content/4f6e5ad5-395b-41ac-9672-bd6880dc05a7" },
 ];
