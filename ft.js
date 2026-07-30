@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "783dfe9a-4643-4b2b-b69c-a46e5229d707", title: "US economy grew less than expected at 1.5% rate in second quarter", date: "2026-07-30", time: "14:05", url: "https://www.ft.com/content/783dfe9a-4643-4b2b-b69c-a46e5229d707" },
+  { id: "aca5b974-1447-4cd2-9d94-f4150c3d4d7e", title: "Antwerp cocaine gangs sentenced in ‘exceptionally large’ case", date: "2026-07-30", time: "13:48", url: "https://www.ft.com/content/aca5b974-1447-4cd2-9d94-f4150c3d4d7e" },
+  { id: "d2807eaf-8310-4099-bb4d-b9b2d2889f2a", title: "Fifa not ‘selling the World Cup’ in $20bn commercial plan, says adviser", date: "2026-07-30", time: "13:36", url: "https://www.ft.com/content/d2807eaf-8310-4099-bb4d-b9b2d2889f2a" },
+  { id: "6620ab3c-c46a-4d96-aede-0fce80a2b588", title: "Saudi economy shrinks as Middle East conflict takes heavy toll", date: "2026-07-30", time: "13:20", url: "https://www.ft.com/content/6620ab3c-c46a-4d96-aede-0fce80a2b588" },
+  { id: "17bcdc30-a59f-4a1f-afa7-f2c759fe588b", title: "Trying to make sense of Warsh", date: "2026-07-30", time: "13:18", url: "https://www.ft.com/content/17bcdc30-a59f-4a1f-afa7-f2c759fe588b" },
   { id: "4b39365f-841d-45d3-81ae-31db7f9d8f8f", title: "NYSE owner to buy bond platform MarketAxess in $5.7bn deal", date: "2026-07-30", time: "13:02", url: "https://www.ft.com/content/4b39365f-841d-45d3-81ae-31db7f9d8f8f" },
   { id: "5e74c47f-b029-4b94-8c66-d88df40a150f", title: "Albanians don’t want their islands sold off to Trump and Kushner", date: "2026-07-30", time: "13:00", url: "https://www.ft.com/content/5e74c47f-b029-4b94-8c66-d88df40a150f" },
   { id: "68274800-2971-4d50-922f-ff2b6780dc31", title: "Bank of England holds rates amid volatile energy prices", date: "2026-07-30", time: "12:44", url: "https://www.ft.com/content/68274800-2971-4d50-922f-ff2b6780dc31" },
@@ -56,8 +61,4 @@ export const FT_ITEMS = [
   { id: "fe3fe258-62ab-4a71-8c8b-747f9559fd05", title: "Kevin Warsh is confusing markets", date: "2026-07-30", time: "06:30", url: "https://www.ft.com/content/fe3fe258-62ab-4a71-8c8b-747f9559fd05" },
   { id: "5052b22e-aeca-4043-88af-dd7da3661a49", title: "Chinese stocks on track for worst month in decade", date: "2026-07-30", time: "06:28", url: "https://www.ft.com/content/5052b22e-aeca-4043-88af-dd7da3661a49" },
   { id: "cc7d24ec-abfe-440b-9e85-4d725567f278", title: "Winner of US-China AI rivalry falls 10% in Hong Kong debut", date: "2026-07-30", time: "06:08", url: "https://www.ft.com/content/cc7d24ec-abfe-440b-9e85-4d725567f278" },
-  { id: "480de423-de70-4bac-be56-f54502e29182", title: "Russia exploits Spain’s grounded firefighting helicopters as wildfires rage", date: "2026-07-30", time: "06:00", url: "https://www.ft.com/content/480de423-de70-4bac-be56-f54502e29182" },
-  { id: "e3ed0f3d-52c0-45f5-b1f2-9b0e406026c7", title: "The corgi-inspired ETF provider that wants to disrupt BlackRock", date: "2026-07-30", time: "06:00", url: "https://www.ft.com/content/e3ed0f3d-52c0-45f5-b1f2-9b0e406026c7" },
-  { id: "5035f634-7d47-483a-b8e9-722ded88a672", title: "FirstFT: Meta and Microsoft kick off turbulent tech results", date: "2026-07-30", time: "05:30", url: "https://www.ft.com/content/5035f634-7d47-483a-b8e9-722ded88a672" },
-  { id: "3249b384-2a27-402b-be12-e3b3bea37440", title: "Accelerating Business", date: "2026-07-30", time: "05:17", url: "https://www.ft.com/content/3249b384-2a27-402b-be12-e3b3bea37440" },
 ];
