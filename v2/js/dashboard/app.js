@@ -114,37 +114,46 @@ export function mount(host, ctx) {
   // Fct/Act cells and their unit stay legible. An upcoming row shows its preview
   // note and "—" in Act until the company reports; the actual fills in on the next
   // refresh. Tickers link to Yahoo; the card header carries the week-ahead source.
+  // Earnings calendar as a legible stacked list (was an over-stuffed 6-column
+  // table): a week header, then one card per release — ticker · company · date ·
+  // session on top, sector beneath, a forecast→actual line for each measure (EPS
+  // and Revenue, or a key metric like a bank's pre-tax profit when there's no EPS
+  // forecast), a colour-coded price reaction, and the "why" note. Tickers link to
+  // Yahoo; upcoming releases read "awaited" until they report.
   function earningsHTML() {
     const weeks = (EARNINGS && EARNINGS.weeks) || [];
     if (!weeks.length) return "";
     const yahoo = (t) => `https://finance.yahoo.com/quote/${encodeURIComponent(t)}`;
-    // Fct/Act are EPS unless the row has no EPS forecast but tracks a key metric
-    // (km) with values — a bank's pre-tax profit, Tesla's deliveries. Then both
-    // cells read from km and the note line tags the metric, so a reported bank
-    // never shows "—/—".
+    // A key metric (km) replaces EPS when the row has no EPS forecast but tracks
+    // something else (banks → pre-tax profit) — shown with a metric tag.
     const km = (r) => (!r.estEps && r.km && (r.km.est || r.km.act)) ? r.km : null;
-    const fct = (r) => (km(r) ? km(r).est : r.estEps) || "—";
-    const act = (r) => (km(r) ? km(r).act : r.actEps) || "—";
-    const noteLine = (r) => {
-      const k = km(r), bits = [];
-      if (k && k.l) bits.push(`<span class="dsh-earn-metric">${esc(k.l)}</span>`);
-      if (r.px) bits.push(`<span class="dsh-earn-px">${esc(r.px)}</span>`);
-      if (r.note) bits.push(esc(r.note));
-      return bits.join(" · ");
+    const pxCls = (p) => { const s = String(p || "").trim(); return /^[+▲↑]/.test(s) ? "up" : /^[-–▼↓]/.test(s) ? "down" : ""; };
+    // One forecast → actual measure. `tag` renders the metric name as a chip (km);
+    // otherwise a light inline label (EPS / Rev).
+    const measure = (label, est, act, tag) => {
+      if (est == null && act == null) return "";
+      const lab = tag ? `<span class="dsh-earn-metric">${esc(label)}</span>` : `<i class="dsh-earn-ml">${esc(label)}</i>`;
+      const a = act ? `<b class="dsh-earn-act">${esc(act)}</b>` : `<span class="dsh-earn-await">awaited</span>`;
+      return `<span class="dsh-earn-m">${lab} <span class="dsh-earn-fct">${est ? esc(est) : "—"}</span> <span class="dsh-earn-arw">&rarr;</span> ${a}</span>`;
     };
-    const tr = (r, date) => {
-      const nl = noteLine(r);
-      return `<tr class="dsh-earn-r"><td>${esc(fmtDate(date))}</td>`
-        + `<td class="dsh-nm"><a href="${yahoo(r.t)}" target="_blank" rel="noopener noreferrer">${esc(r.t)}</a></td>`
-        + `<td>${esc(r.n || "")}</td><td class="dsh-mut">${esc(r.tag || "")}</td>`
-        + `<td class="dsh-r">${esc(fct(r))}</td>`
-        + `<td class="dsh-r">${esc(act(r))}</td></tr>`
-        + (nl ? `<tr class="dsh-earn-note"><td colspan="6">${nl}</td></tr>` : "");
+    const rel = (r, date) => {
+      const k = km(r);
+      const measures = k
+        ? measure(k.l || "Metric", k.est, k.act, true)
+        : measure("EPS", r.estEps, r.actEps) + measure("Rev", r.estRev, r.actRev);
+      const px = r.px ? `<span class="dsh-earn-px ${pxCls(r.px)}">${esc(r.px)}</span>` : "";
+      const when = r.when ? `<span class="dsh-earn-when">${esc(r.when)}</span>` : "";
+      return `<div class="dsh-earn-rel">`
+        + `<div class="dsh-earn-hd"><a class="dsh-earn-tk" href="${yahoo(r.t)}" target="_blank" rel="noopener noreferrer">${esc(r.t)}</a>`
+        + `<span class="dsh-earn-co">${esc(r.n || "")}</span>${when}<span class="dsh-earn-dt">${esc(fmtDate(date))}</span></div>`
+        + (r.tag ? `<div class="dsh-earn-tag">${esc(r.tag)}</div>` : "")
+        + `<div class="dsh-earn-ms">${measures}${px}</div>`
+        + (r.note ? `<div class="dsh-earn-note">${esc(r.note)}</div>` : "")
+        + `</div>`;
     };
-    const wk = (w) => `<tr class="dsh-wkrow"><td colspan="6">${esc(w.label || "")}</td></tr>`
-      + (w.days || []).map((day) => (day.rows || []).map((r) => tr(r, day.date)).join("")).join("");
-    return `<table class="dsh-tbl dsh-earn"><thead><tr><th>Date</th><th>Ticker</th><th>Company</th><th>Sector</th><th class="dsh-r">Fct EPS</th><th class="dsh-r">Act EPS</th></tr></thead>`
-      + `<tbody>${weeks.map(wk).join("")}</tbody></table>`;
+    const wk = (w) => `<div class="dsh-earn-wk">${esc(w.label || "")}</div>`
+      + (w.days || []).map((day) => (day.rows || []).map((r) => rel(r, day.date)).join("")).join("");
+    return `<div class="dsh-earn">${weeks.map(wk).join("")}</div>`;
   }
   const earnSrc = (EARNINGS && EARNINGS.srcs && EARNINGS.srcs[0] && EARNINGS.srcs[0].url) || "";
   // Key moments — a plain-language "why it moved" line for each index that carries
@@ -190,29 +199,32 @@ export function mount(host, ctx) {
       + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = inflow</span> · <span class="dsh-fl-neg">red = outflow</span>, shaded within each window (net ${esc(F.unit || "$M")}). Source: <a href="${esc(F.source)}" target="_blank" rel="noopener noreferrer">ETF Database</a>.</p>`;
   }
   // Major indices by jurisdiction — LOCAL index points (not ETFs), as a heat-shaded
-  // table in the ETF-flows style: one row per index under a region section header,
-  // a Level column (points) and a session-move column shaded green (up) / red
-  // (down), normalised across the board. Snapshot from WORLD_INDICES
-  // (dashboard/js/data.js), every value sourced + dated.
-  // `live` (from /api/worldindices, keyed by index name) overrides the snapshot's
-  // level/chgPct where present; the sourced snapshot is the seed + fallback.
+  // table in the ETF-flows style with the SAME trailing windows (1W/1M/3M/6M/1Y):
+  // one row per index under a region section header, each window cell the index's
+  // price return over that period, shaded green (up) / red (down) normalised per
+  // column. The latest index level (points) rides in the label cell. Snapshot from
+  // WORLD_INDICES (dashboard/js/data.js), every value sourced + dated.
+  // `live` (from /api/worldindices, keyed by index name) refreshes the level.
+  const IDX_WINS = [["w1", "1W"], ["m1", "1M"], ["m3", "3M"], ["m6", "6M"], ["y1", "1Y"]];
   function worldIndicesHeatHTML(live) {
     const W = WORLD_INDICES;
     if (!W || !(W.regions || []).length) return "";
-    const eff = (r) => { const l = live && live[r.name]; return { lv: (l && l.value != null) ? l.value : r.level, v: (l && l.changePct != null) ? l.changePct : r.chgPct }; };
-    const max = Math.max(1, ...W.regions.flatMap((g) => (g.rows || []).map((r) => { const v = eff(r).v; return v == null ? 0 : Math.abs(v); })));
-    const heat = (v) => { if (v == null) return ""; const a = (Math.abs(v) / max) * 0.62 + 0.10; return ` style="background:rgba(${v >= 0 ? "63,192,141" : "242,109,132"},${a.toFixed(3)})"`; };
-    const fmtLv = (v) => (v == null ? "—" : Number(v).toLocaleString("en-GB", { maximumFractionDigits: 2 }));
+    const lvOf = (r) => { const l = live && live[r.name]; return (l && l.value != null) ? l.value : r.level; };
+    const valK = (r, k) => { const l = live && live[r.name]; return (l && l[k] != null) ? l[k] : r[k]; };
+    const maxAbs = {};
+    IDX_WINS.forEach(([k]) => { maxAbs[k] = Math.max(1, ...W.regions.flatMap((g) => (g.rows || []).map((r) => { const v = valK(r, k); return v == null ? 0 : Math.abs(v); }))); });
+    const heat = (v, k) => { if (v == null) return ""; const a = (Math.abs(v) / maxAbs[k]) * 0.62 + 0.10; return ` style="background:rgba(${v >= 0 ? "63,192,141" : "242,109,132"},${a.toFixed(3)})"`; };
+    const fmtLv = (v) => (v == null ? "" : Number(v).toLocaleString("en-GB", { maximumFractionDigits: 2 }));
+    const cell = (r, k, l) => { const v = valK(r, k); return v == null ? `<td class="dsh-fl-na">·</td>` : `<td class="dsh-fl"${heat(v, k)} title="${esc(r.name)} · ${esc(l)}: ${pct1(v)}">${pct1(v)}</td>`; };
     const row = (r) => {
-      const { lv, v } = eff(r);
       const nm = r.source ? `<a href="${esc(r.source)}" target="_blank" rel="noopener noreferrer">${esc(r.name)}</a>` : esc(r.name);
-      const chg = v == null ? `<td class="dsh-fl-na">·</td>` : `<td class="dsh-fl"${heat(v)} title="${esc(r.name)}${r.asOf ? " · as of " + esc(r.asOf) : ""}">${pct1(v)}</td>`;
-      return `<tr><td class="dsh-nm">${nm}</td><td class="dsh-r">${fmtLv(lv)}</td>${chg}</tr>`;
+      const lv = lvOf(r);
+      return `<tr><td class="dsh-nm">${nm}${lv != null ? ` <span class="dsh-fl-t">${fmtLv(lv)}</span>` : ""}</td>${IDX_WINS.map(([k, l]) => cell(r, k, l)).join("")}</tr>`;
     };
-    const group = (g) => `<tr class="dsh-wkrow"><td colspan="3">${esc(g.region)}</td></tr>` + (g.rows || []).map(row).join("");
-    return `<table class="dsh-tbl dsh-fl-tbl"><thead><tr><th>Index</th><th class="dsh-r">Level</th><th class="dsh-r">Chg</th></tr></thead>`
+    const group = (g) => `<tr class="dsh-wkrow"><td colspan="6">${esc(g.region)}</td></tr>` + (g.rows || []).map(row).join("");
+    return `<table class="dsh-tbl dsh-fl-tbl"><thead><tr><th>Index</th>${IDX_WINS.map(([, l]) => `<th class="dsh-r">${l}</th>`).join("")}</tr></thead>`
       + `<tbody>${W.regions.map(group).join("")}</tbody></table>`
-      + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = up</span> · <span class="dsh-fl-neg">red = down</span> on the latest session; Level is the local index points. Each index links its source.</p>`;
+      + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = up</span> · <span class="dsh-fl-neg">red = down</span>, price return shaded within each window; the grey figure is the latest index level (points). Each index links its source.</p>`;
   }
   async function loadWorldIndices() {
     const box = host.querySelector("#dsh-wi-box");
@@ -463,9 +475,9 @@ export function mount(host, ctx) {
   // spreads loader so there is one source of truth for each.
   // Government bond yields across the major economies in each jurisdiction, as a
   // heat-shaded table in the ETF-flows style: one row per country under a region
-  // section header, a column per tenor (2Y/5Y/10Y/30Y), each cell shaded by yield
-  // LEVEL within its column (deeper = higher yield). Snapshot from GOVT_YIELDS
-  // (dashboard/js/data.js), every value sourced + dated.
+  // section header, a column per tenor (2Y/5Y/10Y/30Y), each cell green→red heat-
+  // shaded by yield LEVEL within its column (low yield = green, high = red).
+  // Snapshot from GOVT_YIELDS (dashboard/js/data.js), every value sourced + dated.
   const YLD_TENORS = [["y2", "2Y"], ["y5", "5Y"], ["y10", "10Y"], ["y30", "30Y"]];
   // `_gyLive` (from /api/govyields, keyed by country) overrides the snapshot's
   // per-tenor yields where present; the sourced snapshot is the seed + fallback.
@@ -483,8 +495,12 @@ export function mount(host, ctx) {
     const cell = (r, k) => {
       const v = valOf(r, k);
       if (v == null) return `<td class="dsh-fl-na">·</td>`;
-      const a = ((v - bounds[k].lo) / bounds[k].span) * 0.62 + 0.10;
-      return `<td class="dsh-fl" style="background:rgba(155,131,226,${a.toFixed(3)})" title="${esc(r.country)} ${esc((YLD_TENORS.find(([kk]) => kk === k) || [, ""])[1])}${r.asOf ? " · as of " + esc(r.asOf) : ""}">${v.toFixed(2)}%</td>`;
+      // Diverging green→red across the column: low yield green, high yield red,
+      // intensity by distance from the column midpoint (the normal heatmap look).
+      const mid = bounds[k].lo + bounds[k].span / 2, half = bounds[k].span / 2;
+      const a = Math.min(1, Math.abs(v - mid) / half) * 0.62 + 0.10;
+      const rgb = v <= mid ? "63,192,141" : "242,109,132";
+      return `<td class="dsh-fl" style="background:rgba(${rgb},${a.toFixed(3)})" title="${esc(r.country)} ${esc((YLD_TENORS.find(([kk]) => kk === k) || [, ""])[1])}${r.asOf ? " · as of " + esc(r.asOf) : ""}">${v.toFixed(2)}%</td>`;
     };
     const row = (r) => {
       const nm = r.source ? `<a href="${esc(r.source)}" target="_blank" rel="noopener noreferrer">${esc(r.country)}</a>` : esc(r.country);
@@ -493,7 +509,7 @@ export function mount(host, ctx) {
     const group = (g) => `<tr class="dsh-wkrow"><td colspan="5">${esc(g.region)}</td></tr>` + (g.rows || []).map(row).join("");
     return `<table class="dsh-tbl dsh-fl-tbl"><thead><tr><th>Country</th>${YLD_TENORS.map(([, l]) => `<th class="dsh-r">${l}</th>`).join("")}</tr></thead>`
       + `<tbody>${G.regions.map(group).join("")}</tbody></table>`
-      + `<p class="dsh-fl-note">Benchmark government bond yields (%); deeper shade = higher yield within each tenor column. Each country links its source.</p>`;
+      + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = lower</span> · <span class="dsh-fl-neg">red = higher</span> yield within each tenor column (benchmark govt yields, %). Each country links its source.</p>`;
   }
   async function loadGovYields() {
     try {

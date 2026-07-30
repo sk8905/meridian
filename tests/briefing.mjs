@@ -71,24 +71,28 @@ check(km.count >= 1, `Key moments card renders sourced movers (${km.count})`);
 check(km.named === km.count && km.explained === km.count, "every Key moment has an index name and an explanation");
 check(km.srcs === km.count, `every Key moment links its source (${km.srcs}/${km.count})`);
 
-// Earnings calendar: Forecast/Actual EPS columns, a note line per release, and a
-// key-metric row (bank pre-tax profit) surfaces its actual rather than "—".
+// Earnings calendar (stacked cards): each release shows forecast→actual measures
+// with a legible EPS label, a note per release, and a key-metric row (bank pre-tax
+// profit) surfaces its actual rather than "awaited".
 const earn = await pg.evaluate(() => {
-  const hdr = [...document.querySelectorAll(".dsh-earn thead th")].map((t) => t.textContent);
-  const rows = [...document.querySelectorAll(".dsh-earn .dsh-earn-r")];
-  const km = rows.find((t) => /BARC/.test(t.textContent));
-  const kmCells = km ? [...km.querySelectorAll("td.dsh-r")].map((c) => c.textContent) : [];
+  const rels = [...document.querySelectorAll(".dsh-earn .dsh-earn-rel")];
+  const eps = rels.some((r) => [...r.querySelectorAll(".dsh-earn-ml")].some((i) => /EPS/i.test(i.textContent)));
+  const barc = rels.find((r) => /BARC/.test((r.querySelector(".dsh-earn-tk") || {}).textContent || ""));
+  const barcAct = barc ? (barc.querySelector(".dsh-earn-act") || {}).textContent : "";
   return {
-    fctActEps: hdr.includes("Fct EPS") && hdr.includes("Act EPS"),
+    cards: rels.length,
+    epsLabel: eps,
+    fctArrow: rels.some((r) => r.querySelector(".dsh-earn-arw")),
     notes: document.querySelectorAll(".dsh-earn .dsh-earn-note").length,
     metricTags: document.querySelectorAll(".dsh-earn-metric").length,
-    kmReported: kmCells.length === 2 && kmCells.every((c) => c && c !== "—"),
+    kmReported: !!barcAct && /£6\.1bn/.test(barcAct),
   };
 });
-check(earn.fctActEps, "Earnings: columns are Forecast EPS / Actual EPS");
+check(earn.cards > 10, `Earnings: releases render as stacked cards (${earn.cards})`);
+check(earn.epsLabel && earn.fctArrow, "Earnings: each release shows a forecast → actual EPS measure");
 check(earn.notes > 5, `Earnings: a note line renders under each release (${earn.notes})`);
 check(earn.metricTags >= 1, `Earnings: non-EPS rows tag their metric (${earn.metricTags})`);
-check(earn.kmReported, "Earnings: a reported key-metric row shows its actual, not —");
+check(earn.kmReported, "Earnings: a reported key-metric row (BARC pre-tax) shows its actual");
 
 // Rates/FX Key Moments render only with live /api data (absent in the harness),
 // so guard the grounded data contract instead: every entry must carry text + a

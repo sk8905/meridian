@@ -14,20 +14,23 @@ const base = `http://localhost:${srv.port}`;
   await pg.waitForTimeout(1600);
   const wi = await pg.evaluate(() => {
     const box = document.querySelector("#dsh-wi-box");
+    const cols = [...box.querySelectorAll("thead th.dsh-r")].map((t) => t.textContent.trim());
     const regions = [...box.querySelectorAll(".dsh-wkrow")].map((r) => r.textContent.trim());
     const rows = [...box.querySelectorAll("tbody tr:not(.dsh-wkrow)")];
     return {
+      cols,
       regions,
       rows: rows.length,
       sourced: rows.length > 0 && rows.every((r) => { const a = r.querySelector(".dsh-nm a"); return a && /^https?:/.test(a.getAttribute("href") || ""); }),
-      levels: rows.filter((r) => { const c = r.querySelector("td.dsh-r"); return c && c.textContent && c.textContent !== "—"; }).length,
+      levels: rows.filter((r) => { const c = r.querySelector(".dsh-nm .dsh-fl-t"); return c && c.textContent.trim(); }).length,
       hasSP: rows.some((r) => /S&P 500/.test((r.querySelector(".dsh-nm") || {}).textContent || "")),
     };
   });
+  checkEq(wi.cols.join(","), "1W,1M,3M,6M,1Y", "World indices: same 1W/1M/3M/6M/1Y windows as the ETF-flows heatmap");
   check(wi.rows >= 15, `World indices: rows render (${wi.rows})`);
   check(["US", "South America", "UK", "Europe", "APAC"].every((r) => wi.regions.includes(r)), `World indices: all five jurisdiction sections present (${wi.regions.join(", ")})`);
   check(wi.sourced, "World indices: every row links its source");
-  check(wi.levels >= 15, `World indices: rows show index points/level (${wi.levels})`);
+  check(wi.levels >= 15, `World indices: rows show the index level (points) in the label (${wi.levels})`);
   check(wi.hasSP, "World indices: includes the S&P 500");
   checkErrs(errs, "world indices heatmap");
   await ctx.close();

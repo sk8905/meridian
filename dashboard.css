@@ -162,16 +162,33 @@
 .dsh-tbl .dsh-wkrow td { color:var(--t-ink); font-weight:600; font-size:.7rem; text-transform:uppercase;
   letter-spacing:.04em; background:var(--t-panel2); border-bottom:1px solid var(--t-grid2); padding-top:7px; padding-bottom:4px; }
 .dsh-r { text-align:right; }
-/* Earnings calendar: each release is a main row + a wrapping note row beneath it
-   (the "why" — result, guidance, price reaction). The main row drops its bottom
-   border so the pair reads as one unit; the note row carries the divider. */
-.dsh-earn .dsh-earn-r td { border-bottom:0; padding-bottom:2px; }
-.dsh-earn .dsh-earn-note td { white-space:normal; color:var(--t-mut); font-size:.72rem;
-  line-height:1.35; padding:0 8px 6px; border-bottom:1px solid var(--t-grid); }
-.dsh-earn-metric { display:inline-block; font-size:.62rem; font-weight:600; text-transform:uppercase;
-  letter-spacing:.03em; color:var(--t-mut); border:1px solid var(--t-grid2); border-radius:3px;
-  padding:0 4px; margin-right:2px; }
-.dsh-earn-px { font-weight:600; color:var(--t-ink); font-family:var(--t-mono); }
+/* Earnings calendar — a legible stacked list: week band, then one card per
+   release (ticker · company · session · date; sector; forecast→actual measures;
+   price reaction; the "why" note). Replaces the old cramped 6-column table. */
+.dsh-earn { display:flex; flex-direction:column; }
+.dsh-earn-wk { font-size:.7rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase;
+  color:var(--t-ink); background:var(--t-panel2); border-bottom:1px solid var(--t-grid2);
+  padding:6px 8px; margin:10px -4px 2px; border-radius:4px; }
+.dsh-earn-wk:first-child { margin-top:0; }
+.dsh-earn-rel { padding:8px 4px; border-bottom:1px solid var(--t-grid); }
+.dsh-earn-hd { display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; }
+.dsh-earn-tk { font-weight:700; font-family:var(--t-mono); color:var(--t-accent); text-decoration:none; font-size:.9rem; }
+.dsh-earn-co { color:var(--t-ink); font-weight:600; font-size:.82rem; min-width:0; }
+.dsh-earn-when { color:var(--t-mut); font-size:.64rem; border:1px solid var(--t-grid2); border-radius:4px; padding:0 5px; }
+.dsh-earn-dt { color:var(--t-faint); font-size:.72rem; margin-left:auto; white-space:nowrap; }
+.dsh-earn-tag { color:var(--t-mut); font-size:.72rem; margin-top:2px; }
+.dsh-earn-ms { display:flex; flex-wrap:wrap; gap:5px 16px; margin-top:6px; align-items:baseline; }
+.dsh-earn-m { font-size:.78rem; color:var(--t-dim); display:inline-flex; align-items:baseline; gap:5px; }
+.dsh-earn-ml { font-style:normal; color:var(--t-mut); font-size:.64rem; text-transform:uppercase; letter-spacing:.03em; }
+.dsh-earn-fct { color:var(--t-mut); font-variant-numeric:tabular-nums; }
+.dsh-earn-arw { color:var(--t-faint); }
+.dsh-earn-act { color:var(--t-ink); font-weight:700; font-variant-numeric:tabular-nums; }
+.dsh-earn-await { color:var(--t-faint); font-style:italic; font-size:.72rem; }
+.dsh-earn-px { font-weight:700; font-size:.76rem; font-variant-numeric:tabular-nums; color:var(--t-mut); }
+.dsh-earn-px.up { color:var(--t-up); } .dsh-earn-px.down { color:var(--t-down); }
+.dsh-earn-metric { display:inline-block; font-size:.6rem; font-weight:600; text-transform:uppercase;
+  letter-spacing:.03em; color:var(--t-mut); border:1px solid var(--t-grid2); border-radius:3px; padding:0 4px; }
+.dsh-earn-note { color:var(--t-mut); font-size:.74rem; line-height:1.45; margin-top:5px; }
 /* Hedge Funds section — consensus/moves lists + per-fund 13F picker. */
 .dsh-hf-list { margin:0 0 2px; }
 .dsh-hf-i { padding:7px 0; border-bottom:1px solid var(--t-grid); }

@@ -92,85 +92,89 @@ export const DASH_ASOF = "2026-07-24";
 
 // ---------------------------------------------------------------------------
 // World equity indices — major LOCAL benchmarks (not ETFs) grouped by
-// jurisdiction, for the Equities dashboard heatmap. Each row: index name, latest
-// level (points), latest-session % change, as-of date and a source URL. Every
-// value is real + sourced (never fabricated); unknown fields are null. Values are
-// the 29 Jul 2026 session (the hawkish-Fed-hold selloff in the US + the Asian
-// AI-chip rout — TAIEX -3.8%, Nikkei/KOSPI down, Hang Seng bucking it). The daily
-// refresh routine keeps level/chgPct/asOf current.
+// jurisdiction, for the Equities dashboard heatmap (same 1W/1M/3M/6M/1Y windows
+// as the ETF-flows heatmap). Each row: index name, latest level (points), the
+// PRICE RETURN over each window (w1/m1/m3/m6/y1, %), as-of date and a source URL.
+// This is the SEED + fallback: the live /api/worldindices computes the exact
+// returns from Yahoo price history and overrides these at runtime. Every seed
+// value is real + sourced (never fabricated); windows not cleanly publishable
+// (3M/6M and many 1W) are null in the seed and filled live. Refreshed by the
+// daily routine.
 export const WORLD_INDICES = {
   asOf: "2026-07-29",
   regions: [
     { region: "US", rows: [
-      { name: "S&P 500",          level: 7316.15,   chgPct: -1.52, asOf: "2026-07-29", source: "https://247wallst.com/investing/2026/07/29/stock-market-live-july-29-2026-sp-500-spy-slightly-higher-as-markets-wait-on-the-fed/" },
-      { name: "Nasdaq Composite", level: 24442.94,  chgPct: -1.74, asOf: "2026-07-29", source: "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-july-29-dow-sp-500-nasdaq-082009165.html" },
-      { name: "Dow Jones",        level: 51594.14,  chgPct: -2.19, asOf: "2026-07-29", source: "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-july-29-dow-sp-500-nasdaq-082009165.html" },
-      { name: "Russell 2000",     level: 2906.44,   chgPct: -1.60, asOf: "2026-07-29", source: "https://www.gurufocus.com/economic_indicators/4448/russell-2000-index" },
+      { name: "S&P 500",          level: 7316.15,   w1: -0.6,  m1: -0.79,  m3: null, m6: null, y1: 17.9,  asOf: "2026-07-29", source: "https://tradingeconomics.com/united-states/stock-market" },
+      { name: "Nasdaq Composite", level: 24442.94,  w1: null,  m1: -2.52,  m3: null, m6: null, y1: 17.39, asOf: "2026-07-29", source: "https://ycharts.com/indices/%5EIXIC" },
+      { name: "Dow Jones",        level: 51594.14,  w1: null,  m1: null,   m3: null, m6: null, y1: 20.1,  asOf: "2026-07-29", source: "https://www.investing.com/indices/us-30-historical-data" },
+      { name: "Russell 2000",     level: 2906.44,   w1: null,  m1: -3.45,  m3: null, m6: null, y1: 31.4,  asOf: "2026-07-29", source: "https://www.gurufocus.com/economic_indicators/4448/russell-2000-index" },
     ] },
     { region: "South America", rows: [
-      { name: "Ibovespa",   level: 176565,  chgPct: 0.70,  asOf: "2026-07-29", source: "https://www.riotimesonline.com/brazil-markets-ibovespa-real-wednesday-july-29-2026/" },
-      { name: "S&P Merval", level: 3305316, chgPct: 0.65,  asOf: "2026-07-28", source: "https://www.riotimesonline.com/argentina-markets-merval-peso-tuesday-july-28-2026/" },
-      { name: "IPSA",       level: 10880,   chgPct: -0.77, asOf: "2026-07-29", source: "https://www.riotimesonline.com/chile-markets-ipsa-peso-wednesday-july-29-2026/" },
+      { name: "Ibovespa",   level: 176565,  w1: null, m1: 1.88, m3: null, m6: null, y1: 32.95, asOf: "2026-07-29", source: "https://tradingeconomics.com/brazil/stock-market" },
+      { name: "S&P Merval", level: 3305316, w1: null, m1: null, m3: null, m6: null, y1: null,  asOf: "2026-07-28", source: "https://www.riotimesonline.com/argentina-markets-merval-peso-tuesday-july-28-2026/" },
+      { name: "IPSA",       level: 10880,   w1: null, m1: null, m3: null, m6: null, y1: null,  asOf: "2026-07-29", source: "https://www.riotimesonline.com/chile-markets-ipsa-peso-wednesday-july-29-2026/" },
     ] },
     { region: "UK", rows: [
-      { name: "FTSE 100", level: 10908.41, chgPct: 0.34,  asOf: "2026-07-29", source: "https://www.bbntimes.com/financial/ftse-100-hits-10-908-41-as-london-bucks-the-global-selloff" },
-      { name: "FTSE 250", level: 23996.81, chgPct: -0.03, asOf: "2026-07-29", source: "https://sundayguardianlive.com/business/uk-stock-market-today-july-29-ftse-100-trades-near-10900-as-london-stocks-extend-rally-ftse-250-ftse-all-share-gain-check-top-gainers-top-losers-what-should-investors-know-248701/" },
+      { name: "FTSE 100", level: 10908.41, w1: null, m1: 3.92, m3: null, m6: null, y1: 18.22, asOf: "2026-07-29", source: "https://tradingeconomics.com/united-kingdom/stock-market" },
+      { name: "FTSE 250", level: 23996.81, w1: null, m1: null, m3: null, m6: null, y1: null,  asOf: "2026-07-29", source: "https://www.fidelity.co.uk/shares/ftse-250/" },
     ] },
     { region: "Europe", rows: [
-      { name: "Euro Stoxx 50", level: 6260.83,  chgPct: -0.46, asOf: "2026-07-29", source: "https://www.google.com/finance/beta/quote/SX5E:INDEXSTOXX" },
-      { name: "DAX",           level: 25411.08, chgPct: -0.21, asOf: "2026-07-29", source: "https://tradingeconomics.com/germany/stock-market" },
-      { name: "CAC 40",        level: 8429.26,  chgPct: null,  asOf: "2026-07-29", source: "https://en.wikipedia.org/wiki/CAC_40" },
-      { name: "IBEX 35",       level: 19743,    chgPct: 0.01,  asOf: "2026-07-29", source: "https://tradingeconomics.com/spain/stock-market" },
-      { name: "FTSE MIB",      level: 51710,    chgPct: -0.66, asOf: "2026-07-29", source: "https://www.chinatechnews.com/2026/07/29/126379-stocks-mixed-amid-ai-rout-as-oil-plummets-on-us-iran-optimism-newsquawk-us-market-wrap" },
-      { name: "SMI",           level: 14576,    chgPct: 1.07,  asOf: "2026-07-29", source: "https://www.chinatechnews.com/2026/07/29/126379-stocks-mixed-amid-ai-rout-as-oil-plummets-on-us-iran-optimism-newsquawk-us-market-wrap" },
-      { name: "AEX",           level: 1093,     chgPct: 1.05,  asOf: "2026-07-29", source: "https://www.chinatechnews.com/2026/07/29/126379-stocks-mixed-amid-ai-rout-as-oil-plummets-on-us-iran-optimism-newsquawk-us-market-wrap" },
+      { name: "Euro Stoxx 50", level: 6260.83,  w1: -0.98, m1: -1.47, m3: null, m6: null, y1: 15.61, asOf: "2026-07-29", source: "https://tradingeconomics.com/euro-area/stock-market" },
+      { name: "DAX",           level: 25411.08, w1: null,  m1: 3.21,  m3: null, m6: null, y1: 5.17,  asOf: "2026-07-29", source: "https://tradingeconomics.com/germany/stock-market" },
+      { name: "CAC 40",        level: 8429.26,  w1: null,  m1: null,  m3: null, m6: null, y1: null,  asOf: "2026-07-29", source: "https://tradingeconomics.com/france/stock-market" },
+      { name: "IBEX 35",       level: 19743,    w1: 2.0,   m1: null,  m3: null, m6: null, y1: null,  asOf: "2026-07-29", source: "https://tradingeconomics.com/spain/stock-market" },
+      { name: "FTSE MIB",      level: 51710,    w1: -0.15, m1: null,  m3: null, m6: null, y1: null,  asOf: "2026-07-29", source: "https://tradingeconomics.com/italy/stock-market" },
+      { name: "SMI",           level: 14576,    w1: null,  m1: null,  m3: null, m6: null, y1: 20.08, asOf: "2026-07-29", source: "https://finance.yahoo.com/quote/%5ESSMI/history/" },
+      { name: "AEX",           level: 1093,     w1: null,  m1: 1.01,  m3: null, m6: null, y1: 19.70, asOf: "2026-07-29", source: "https://tradingeconomics.com/aex:ind" },
     ] },
     { region: "APAC", rows: [
-      { name: "Nikkei 225",         level: 61434.19, chgPct: -1.49, asOf: "2026-07-29", source: "https://invezz.com/en-ae/news/2026/07/29/hang-seng-index-is-soaring-as-kospi-and-nikkei-225-implode-heres-why/" },
-      { name: "Hang Seng",          level: 25807.92, chgPct: 1.96,  asOf: "2026-07-29", source: "https://www.bbntimes.com/companies/hong-kong-stock-exchange-hang-seng-surges-to-25-807-92-as-tech-and-ai-stocks-rally" },
-      { name: "Shanghai Composite", level: 3828.5,   chgPct: 0.40,  asOf: "2026-07-29", source: "https://tradingeconomics.com/china/stock-market" },
-      { name: "CSI 300",            level: 4549.72,  chgPct: -1.10, asOf: "2026-07-29", source: "https://www.marketscreener.com/quote/index/CSI-300-180586427/" },
-      { name: "Nifty 50",           level: 24250.20, chgPct: 1.10,  asOf: "2026-07-29", source: "https://hdfcsky.com/news/market-close-report-july-29-2026-sensex-nifty-rise-1-percent-it-stocks" },
-      { name: "BSE Sensex",         level: 77654.60, chgPct: 1.16,  asOf: "2026-07-29", source: "https://hdfcsky.com/news/market-close-report-july-29-2026-sensex-nifty-rise-1-percent-it-stocks" },
-      { name: "S&P/ASX 200",        level: 9038.6,   chgPct: 1.01,  asOf: "2026-07-29", source: "https://www.investing.com/news/stock-market-news/australia-stocks-higher-at-close-of-trade-spasx-200-up-101-4818651" },
-      { name: "KOSPI",              level: 5593.56,  chgPct: -1.23, asOf: "2026-07-29", source: "https://invezz.com/en-ae/news/2026/07/29/hang-seng-index-is-soaring-as-kospi-and-nikkei-225-implode-heres-why/" },
-      { name: "TAIEX",              level: 40039.18, chgPct: -3.76, asOf: "2026-07-29", source: "https://www.taiwannews.com.tw/news/6410537" },
+      { name: "Nikkei 225",         level: 61434.19, w1: null, m1: -10.85, m3: null, m6: null, y1: 53.64, asOf: "2026-07-29", source: "https://tradingeconomics.com/japan/stock-market" },
+      { name: "Hang Seng",          level: 25807.92, w1: null, m1: 12.22,  m3: null, m6: null, y1: 1.99,  asOf: "2026-07-29", source: "https://tradingeconomics.com/hong-kong/stock-market" },
+      { name: "Shanghai Composite", level: 3828.5,   w1: null, m1: -6.49,  m3: null, m6: null, y1: 5.88,  asOf: "2026-07-29", source: "https://tradingeconomics.com/china/stock-market" },
+      { name: "CSI 300",            level: 4549.72,  w1: null, m1: null,   m3: null, m6: null, y1: 23.63, asOf: "2026-07-29", source: "https://www.gurufocus.com/economic_indicators/4424/csi-300-index" },
+      { name: "Nifty 50",           level: 24250.20, w1: -1.9, m1: 1.36,   m3: null, m6: null, y1: null,  asOf: "2026-07-29", source: "https://hdfcsky.com/news/market-close-report-july-29-2026-sensex-nifty-rise-1-percent-it-stocks" },
+      { name: "BSE Sensex",         level: 77654.60, w1: null, m1: null,   m3: null, m6: null, y1: null,  asOf: "2026-07-29", source: "https://hdfcsky.com/news/market-close-report-july-29-2026-sensex-nifty-rise-1-percent-it-stocks" },
+      { name: "S&P/ASX 200",        level: 9038.6,   w1: null, m1: 0.56,   m3: null, m6: null, y1: 3.21,  asOf: "2026-07-29", source: "https://tradingeconomics.com/australia/stock-market" },
+      { name: "KOSPI",              level: 5593.56,  w1: null, m1: -31.56, m3: null, m6: null, y1: 75.10, asOf: "2026-07-29", source: "https://tradingeconomics.com/south-korea/stock-market" },
+      { name: "TAIEX",              level: 40039.18, w1: null, m1: null,   m3: null, m6: null, y1: null,  asOf: "2026-07-29", source: "https://www.taiwannews.com.tw/news/6410537" },
     ] },
   ],
 };
 
 // Government bond benchmark yields (2Y/5Y/10Y/30Y, in %) for the major economies
-// in each jurisdiction, for the Fixed Income dashboard heatmap + tenor toggle.
-// Each row: country, y2/y5/y10/y30 (null where a late-July value could not be
-// verified — the 10Y benchmark is populated for every economy shown), an as-of
-// date and a live source (tradingeconomics country pages carry the full live
-// curve). Economies with no verifiable curve at all (Mexico, Switzerland) are
-// omitted rather than shown as empty. Real + sourced; refreshed by the routine.
+// in each jurisdiction, for the Fixed Income dashboard heatmap. Each row: country,
+// y2/y5/y10/y30, an as-of date and a source URL. This is the SEED + fallback: the
+// live /api/govyields (Stooq keyless yield series) refreshes these at runtime.
+// Every value is real + sourced (never fabricated). Nulls are genuine
+// non-issuance / no-benchmark cases: Brazil has no liquid 30Y, Japan's late-July
+// 30Y and China's 5Y had no consistent print. Refreshed by the daily routine.
 export const GOVT_YIELDS = {
   asOf: "2026-07-29",
   tenors: ["2Y", "5Y", "10Y", "30Y"],
   regions: [
     { region: "US", rows: [
-      { country: "United States", y2: 4.32, y5: null, y10: 4.64, y30: 5.12, asOf: "2026-07-29", source: "https://tradingeconomics.com/united-states/government-bond-yield" },
+      { country: "United States", y2: 4.31, y5: 4.35, y10: 4.65, y30: 5.12, asOf: "2026-07-28", source: "https://www.worldgovernmentbonds.com/country/united-states/" },
     ] },
     { region: "South America", rows: [
-      { country: "Brazil", y2: null, y5: null, y10: 14.86, y30: null, asOf: "2026-07-27", source: "https://en.macromicro.me/series/1824/brazil-bond-10-year" },
+      { country: "Brazil", y2: 14.07, y5: 14.98, y10: 14.86, y30: null, asOf: "2026-07-27", source: "https://tradingeconomics.com/brazil/government-bond-yield" },
+      { country: "Mexico", y2: null,  y5: null,  y10: 9.16,  y30: null, asOf: "2026-07-24", source: "https://tradingeconomics.com/mexico/government-bond-yield" },
     ] },
     { region: "UK", rows: [
-      { country: "United Kingdom", y2: null, y5: null, y10: 4.95, y30: 4.75, asOf: "2026-07-29", source: "https://tradingeconomics.com/united-kingdom/government-bond-yield" },
+      { country: "United Kingdom", y2: 4.43, y5: 4.39, y10: 4.95, y30: 4.75, asOf: "2026-07-29", source: "https://tradingeconomics.com/united-kingdom/government-bond-yield" },
     ] },
     { region: "Europe", rows: [
-      { country: "Germany", y2: 2.80, y5: null, y10: 3.12, y30: null, asOf: "2026-07-29", source: "https://tradingeconomics.com/germany/government-bond-yield" },
-      { country: "France",  y2: null, y5: null, y10: 3.94, y30: 4.69, asOf: "2026-07-29", source: "https://tradingeconomics.com/france/government-bond-yield" },
-      { country: "Italy",   y2: null, y5: null, y10: 3.98, y30: 4.75, asOf: "2026-07-29", source: "https://tradingeconomics.com/italy/government-bond-yield" },
-      { country: "Spain",   y2: null, y5: null, y10: 3.56, y30: null, asOf: "2026-07-28", source: "https://tradingeconomics.com/spain/government-bond-yield" },
+      { country: "Germany",     y2: 2.62, y5: 2.71, y10: 3.19, y30: 3.48, asOf: "2026-07-27", source: "https://tradingeconomics.com/germany/government-bond-yield" },
+      { country: "France",      y2: 2.79, y5: 3.11, y10: 3.94, y30: 4.49, asOf: "2026-07-24", source: "https://tradingeconomics.com/france/government-bond-yield" },
+      { country: "Italy",       y2: 2.80, y5: 3.05, y10: 3.98, y30: 4.75, asOf: "2026-07-29", source: "https://tradingeconomics.com/italy/government-bond-yield" },
+      { country: "Spain",       y2: 2.76, y5: 2.97, y10: 3.50, y30: 4.16, asOf: "2026-07-24", source: "https://tradingeconomics.com/spain/government-bond-yield" },
+      { country: "Switzerland", y2: 0.09, y5: 0.14, y10: 0.36, y30: 0.66, asOf: "2026-07-20", source: "https://www.worldgovernmentbonds.com/country/switzerland/" },
     ] },
     { region: "APAC", rows: [
-      { country: "Japan",       y2: 1.44, y5: 1.995, y10: 2.75, y30: null, asOf: "2026-07-29", source: "https://tradingeconomics.com/japan/government-bond-yield" },
-      { country: "Australia",   y2: 4.61, y5: 4.61,  y10: 4.90, y30: null, asOf: "2026-07-29", source: "https://tradingeconomics.com/australia/government-bond-yield" },
-      { country: "China",       y2: 1.62, y5: null,  y10: 2.10, y30: 2.50, asOf: "2026-07-22", source: "https://centralbank.watch/tools/yield-curve/china-yield-curve/" },
-      { country: "India",       y2: null, y5: null,  y10: 6.82, y30: null, asOf: "2026-07-30", source: "https://tradingeconomics.com/india/government-bond-yield" },
-      { country: "South Korea", y2: null, y5: null,  y10: 4.40, y30: null, asOf: "2026-07-15", source: "https://tradingeconomics.com/south-korea/government-bond-yield" },
+      { country: "Japan",       y2: 1.44, y5: 2.00, y10: 2.76, y30: null, asOf: "2026-07-28", source: "https://tradingeconomics.com/japan/government-bond-yield" },
+      { country: "Australia",   y2: 4.61, y5: 4.61, y10: 4.90, y30: 5.39, asOf: "2026-07-29", source: "https://tradingeconomics.com/australia/government-bond-yield" },
+      { country: "China",       y2: 1.62, y5: null, y10: 2.10, y30: 2.50, asOf: "2026-07-22", source: "https://centralbank.watch/tools/yield-curve/china-yield-curve/" },
+      { country: "India",       y2: 6.41, y5: 6.91, y10: 6.80, y30: 7.81, asOf: "2026-07-27", source: "https://tradingeconomics.com/india/government-bond-yield" },
+      { country: "South Korea", y2: 3.33, y5: 3.59, y10: 3.69, y30: 3.61, asOf: "2026-07-20", source: "https://www.worldgovernmentbonds.com/country/south-korea/" },
     ] },
   ],
 };

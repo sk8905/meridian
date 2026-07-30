@@ -687,6 +687,36 @@ async function yahooQuote(symbol) {
   return { value: +(value * scale), change, changePct, asOf, history: hist.slice(-22).map((v) => v * scale), marketState: meta.marketState || null };
 }
 
+// Trailing price returns for the World-indices heatmap: fetch a year of daily
+// closes (Yahoo, no key) and compute the return over 1W/1M/3M/6M/1Y from real
+// prices (nearest close at/ before each trailing date). Returns are ratios so the
+// GBp→GBP scale cancels; `value` (the level) is rescaled for display.
+async function yahooReturns(symbol) {
+  const nil = { value: null, w1: null, m1: null, m3: null, m6: null, y1: null, asOf: null };
+  const txt = await fetchText(`https://query1.finance.yahoo.com/v8/finance/chart/${encodeURIComponent(symbol)}?range=1y&interval=1d`);
+  if (!txt) return nil;
+  let j; try { j = JSON.parse(txt); } catch { return nil; }
+  const res = j && j.chart && j.chart.result && j.chart.result[0];
+  if (!res) return nil;
+  const meta = res.meta || {};
+  const ts = res.timestamp || [];
+  const closes = ((((res.indicators || {}).quote || [])[0] || {}).close) || [];
+  const pts = [];
+  for (let i = 0; i < ts.length; i++) if (Number.isFinite(closes[i])) pts.push([ts[i] * 1000, closes[i]]);
+  if (pts.length < 2) return nil;
+  const scale = meta.currency === "GBp" ? 0.01 : 1;
+  const lastPx = Number.isFinite(meta.regularMarketPrice) ? meta.regularMarketPrice : pts[pts.length - 1][1];
+  const lastT = meta.regularMarketTime ? meta.regularMarketTime * 1000 : pts[pts.length - 1][0];
+  const ret = (days) => {
+    const target = lastT - days * 864e5;
+    let cand = null;
+    for (const [t, c] of pts) { if (t <= target) cand = c; else break; }
+    if (cand == null) cand = pts[0][1];                         // not enough history → earliest close
+    return cand ? +(((lastPx - cand) / cand) * 100).toFixed(2) : null;
+  };
+  return { value: +(lastPx * scale).toFixed(2), w1: ret(7), m1: ret(30), m3: ret(91), m6: ret(182), y1: ret(365), asOf: meta.regularMarketTime ? new Date(lastT).toISOString().slice(0, 10) : null };
+}
+
 // Fallback ETF/index source: Stooq's keyless daily CSV (oldest→newest). LSE
 // tickers use a ".uk" suffix, indices "^spx"/"^ndq". Returns the same shape.
 async function stooqQuote(sym) {
@@ -880,9 +910,8 @@ async function handleWorldIndices(request, env, ctx) {
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const indices = await Promise.all(WORLD_INDEX_SERIES.map(async (s) => {
-    let r = await yahooQuote(s.symbol);
-    if (r.value == null && s.stooq) r = await stooqQuote(s.stooq);
-    return { name: s.name, value: r.value, changePct: r.changePct, asOf: r.asOf || null };
+    const r = await yahooReturns(s.symbol);
+    return { name: s.name, value: r.value, w1: r.w1, m1: r.m1, m3: r.m3, m6: r.m6, y1: r.y1, asOf: r.asOf || null };
   }));
   const resp = new Response(JSON.stringify({ indices, ts: Date.now() }), {
     headers: { "content-type": "application/json", "cache-control": "public, max-age=180" },
@@ -898,17 +927,19 @@ async function handleWorldIndices(request, env, ctx) {
 // tenor a country doesn't benchmark just stays null (client shows the snapshot / —).
 const GY_SERIES = [
   { country: "United States", cc: "US", tenors: [2, 5, 10, 30] },
-  { country: "Brazil", cc: "BR", tenors: [10] },
+  { country: "Brazil", cc: "BR", tenors: [2, 5, 10] },
+  { country: "Mexico", cc: "MX", tenors: [2, 5, 10, 30] },
   { country: "United Kingdom", cc: "GB", tenors: [2, 5, 10, 30] },
   { country: "Germany", cc: "DE", tenors: [2, 5, 10, 30] },
   { country: "France", cc: "FR", tenors: [2, 5, 10, 30] },
   { country: "Italy", cc: "IT", tenors: [2, 5, 10, 30] },
-  { country: "Spain", cc: "ES", tenors: [10, 30] },
+  { country: "Spain", cc: "ES", tenors: [2, 5, 10, 30] },
+  { country: "Switzerland", cc: "CH", tenors: [2, 5, 10, 30] },
   { country: "Japan", cc: "JP", tenors: [2, 5, 10, 30] },
   { country: "Australia", cc: "AU", tenors: [2, 5, 10, 30] },
-  { country: "China", cc: "CN", tenors: [2, 5, 10, 30] },
-  { country: "India", cc: "IN", tenors: [10] },
-  { country: "South Korea", cc: "KR", tenors: [10] },
+  { country: "China", cc: "CN", tenors: [2, 10, 30] },
+  { country: "India", cc: "IN", tenors: [2, 5, 10, 30] },
+  { country: "South Korea", cc: "KR", tenors: [2, 5, 10, 30] },
 ];
 async function handleGovYields(request, env, ctx) {
   const cache = caches.default;

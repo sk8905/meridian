@@ -24,10 +24,9 @@ const base = `http://localhost:${srv.port}`;
   await pg.waitForTimeout(2000);
   const sp = await pg.evaluate(() => {
     const r = [...document.querySelectorAll("#dsh-wi-box tbody tr")].find((x) => /S&P 500/.test((x.querySelector(".dsh-nm") || {}).textContent || ""));
-    return r ? { lv: (r.querySelector("td.dsh-r") || {}).textContent, ch: (r.querySelector("td.dsh-fl") || {}).textContent } : null;
+    return r ? { lv: (r.querySelector(".dsh-nm .dsh-fl-t") || {}).textContent } : null;
   });
-  check(sp && /9,?999\.99/.test(sp.lv), `World indices: S&P 500 shows the LIVE level (${sp && sp.lv})`);
-  check(sp && /\+5\.5%/.test(sp.ch), `World indices: S&P 500 shows the LIVE % change (${sp && sp.ch})`);
+  check(sp && /9,?999\.99/.test(sp.lv), `World indices: S&P 500 shows the LIVE level in the label (${sp && sp.lv})`);
   checkErrs(errs, "world indices live overlay");
   await ctx.close();
 }
