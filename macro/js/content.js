@@ -5,7 +5,7 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "29 July 2026";
+export const UPDATED = "30 July 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
@@ -13,7 +13,7 @@ export const UPDATED = "29 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-30",
-  lastCheckedTime: "09:23 BST",
+  lastCheckedTime: "12:25 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -305,16 +305,16 @@ export const OUTLOOK = {
 //   commentary. Keep each item's real headline + source link; never fabricate —
 //   only add pieces that exist and are dated.
 export const COMMENTARY = {
-  updated: "2026-07-29",
+  updated: "2026-07-30",
   us: [
     { title: "Instant View: Fed holds rates steady as three policymakers dissent for a hike", source: "Reuters (via WKZO)", author: "Deutsche Bank — Matthew Luzzetti / Goldman Sachs — Kay Haigh / Moody's Analytics — Mark Zandi / Natixis — Christopher Hodge", date: "2026-07-29", url: "https://wkzo.com/2026/07/29/instant-view-fed-holds-rates-steady-as-three-policymakers-dissent-for-a-hike/" },
     { title: "Fed Decision Eve: 104 Economists Expect No Change; Why Is Citadel Securities Betting on a Surprise Hike?", source: "TradingKey", author: "Citadel Securities", date: "2026-07-28", time: "21:17", url: "https://www.tradingkey.com/analysis/economic/inflation/262058251-fed-july-fomc-frankflight-citadelsecurities-tradingkey" },
     { title: "Analysis: Kevin Warsh has three reasons to hold off on a Fed rate hike this week", source: "CNBC", author: "CNBC", date: "2026-07-28", url: "https://www.cnbc.com/2026/07/28/warsh-fed-rate-decision-trump-powell-analysis.html" },
   ],
   uk: [
+    { title: "Bank Rate maintained at 3.75% — MPC votes 6–3 to hold", source: "Bank of England", author: "Bank of England (MPC)", date: "2026-07-30", time: "12:00", url: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/july-2026" },
     { title: "Burnham Faces £24 Billion Squeeze From UK Inflation, NIESR Says", source: "Bloomberg", author: "NIESR", date: "2026-07-28", url: "https://www.bloomberg.com/news/articles/2026-07-28/burnham-faces-24-billion-squeeze-from-uk-inflation-niesr-says" },
     { title: "Bank of England: Higher bar seen for rate hikes - ING", source: "FXStreet", author: "ING — James Smith", date: "2026-07-27", time: "21:10", url: "https://www.fxstreet.com/news/bank-of-england-higher-bar-seen-for-rate-hikes-ing-202607271451" },
-    { title: "British Pound: BoE seen on hold as risks linger", source: "FXStreet", author: "UOB", date: "2026-07-27", time: "12:17", url: "https://www.fxstreet.com/news/british-pound-boe-seen-on-hold-as-risks-linger-uob-202607270719" },
   ],
 };
 
@@ -339,12 +339,12 @@ export const CYCLE = {
     ],
   },
   uk: {
-    shortStage: "Mid-late cycle — easing stalled by ~3% CPI",
+    shortStage: "Mid-late cycle — easing stalled, hike risk rising",
     longStage: "Elevated debt & gilt stress, less advanced",
     worldStage: "Post-peak — well past its world-order top",
     pos: 58,
     body: [
-      "<strong>Short-term (business) cycle:</strong> mid-to-late, cautiously easing. The BoE has cut from a 5.25% peak to 3.75% and held there in June 2026 on a 7–2 vote, with CPI still near 3% — easing stalled by sticky inflation.",
+      "<strong>Short-term (business) cycle:</strong> mid-to-late, cautiously easing but with hike risk building. The BoE has cut from a 5.25% peak to 3.75% and held there again on 30 July 2026, this time by a narrower 6–3 vote (up from 7–2 in June) as the Iran-war oil shock keeps inflation pressures elevated — a hawkish drift that echoes the Fed's own three-way dissent the day before.",
       "<strong>Long-term “Big Cycle” (world order):</strong> the UK is well past its own peak in Dalio's arc — the empire and sterling's reserve-currency status were ceded to the United States across the early-to-mid 20th century — so it reads as a mid-tier power managing decline rather than a nation at a Big-Cycle turning point. Its live constraints are the debt/gilt and internal-order strands (fiscal limits, distributional politics), not a contested reserve currency. <em>Dalio writes primarily about the US; the UK placement here is Wire synthesis.</em>",
       "<strong>Long-term debt / fiscal:</strong> elevated but less acute than the US. Public-sector net debt is <strong>~95% of GDP</strong>; borrowing is projected to fall from 5.2% (2024-25) toward ~4.3% in 2026-27. Gilt-market stress is real (10Y ~4.9%, 30Y ~5.5%) but there is no reserve-currency dynamic. <em>Dalio writes primarily about the US; the UK placement here is Wire synthesis, not his stated view.</em>",
       "The OECD's July 2026 Economic Survey of the UK, published 15 July, projected GDP growth slowing to <strong>0.9% in 2026</strong> (from 1.4% in 2025) and urged the incoming Burnham government to maintain budget discipline and reform the state-pension triple lock to contain fiscal risk — reinforcing the 'elevated but less acute than the US' read.",
@@ -545,6 +545,7 @@ export const YIELD_CURVE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-boe-hold-6-3-vote-2026-07-30", kind: "Rate guidance", title: "The BoE's MPC held Bank Rate at 3.75% on 30 July by a narrower 6–3 vote (three members favoured an immediate 25bp hike to 4%) — one more dissenter than June's 7–2 split — as the Iran-war oil shock keeps UK inflation pressures elevated, echoing the Fed's own three-way hawkish dissent the day before.", href: "#/policy", date: "2026-07-30" },
   { id: "g-kospi-2nd-day-crash-sk-hynix-2026-07-29", kind: "Bubble risk", title: "South Korea's Kospi and Kosdaq triggered circuit breakers for a second straight day — a historic first — with the Kospi falling as much as 8.2% intraday (nearly 7% at last check) as SK Hynix sank up to 12.8% and Samsung fell over 7%; SK Hynix's Q2 operating profit, though up sixfold year-on-year to a record 60.5tn won, missed elevated analyst forecasts, reviving 'DeepSeek moment'-style doubts over AI-spending returns.", href: "#/bubble", date: "2026-07-29" },
   { id: "g-fedwatch-35pct-2026-07-29", kind: "Rate guidance", title: "CME FedWatch-implied odds ticked up to roughly 35% hike / 65% hold in Wednesday-morning trade (from ~69%/31% hold/hike Tuesday night) as the overnight Iranian missile attack on US forces and the retaliatory Iraq strikes kept the oil-driven inflation risk live hours before the Fed's 2pm ET decision.", href: "#/policy", date: "2026-07-29" },
   { id: "g-oil-jumps-iran-attack-2026-07-29", kind: "Markets", title: "Oil jumped on the renewed US-Iran clash: WTI rose as much as ~4.4% to ~$82.7/bbl and Brent gained back toward $87-88/bbl in late Tuesday/early Wednesday trading, snapping a three-session decline, as the attempted Iranian missile attack revived the Hormuz-linked energy-supply risk hours before the Fed's own decision.", href: "#/bubble", date: "2026-07-29" },
@@ -671,18 +672,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-07-30",
   us: [
-    { title: "Asian Stocks Rebound, Long Bonds Drop After Fed: Markets Wrap", source: "Bloomberg (via Swissinfo)", date: "2026-07-30", time: "05:10", url: "https://www.swissinfo.ch/eng/us-stock-futures-rise%2C-long-bonds-drop-after-fed%3A-markets-wrap/91818948" },
+    { title: "30-year Treasury yield hits highest level since 2007 after Fed keeps rates unchanged", source: "CNBC", date: "2026-07-29", time: "22:37", url: "https://www.cnbc.com/2026/07/29/treasury-yields-fed-interest-rates.html" },
+    { title: "Fed Holds Rates Steady as Three Officials Dissent in Favor of a Hike", source: "Bloomberg", date: "2026-07-29", time: "19:00", url: "https://www.bloomberg.com/news/articles/2026-07-29/fed-holds-rates-steady-three-officials-dissent-favoring-a-hike" },
+    { title: "Core PCE Price Index, GDP, and jobless claims due Thursday", source: "Investing.com", date: "2026-07-30", time: "09:17", url: "https://www.investing.com/news/stock-market-news/core-pce-price-index-gdp-and-jobless-claims-due-thursday-93CH-4821457" },
+    { title: "Stock market today: Dow, S&P 500, Nasdaq futures rebound ahead of inflation data", source: "Yahoo Finance", date: "2026-07-30", time: "08:22", url: "https://finance.yahoo.com/markets/live/stock-market-today-thursday-july-30-dow-sp-500-nasdaq-082255995.html" },
     { title: "Amazon earnings preview: Wall Street looks for more cloud growth as AI spending hits a record", source: "GeekWire", date: "2026-07-29", time: "05:10", url: "https://www.geekwire.com/2026/amazon-earnings-preview-wall-street-looks-for-more-cloud-growth-as-ai-spending-hits-a-record/" },
-    { title: "Stable growth, stubborn inflation: Q2's GDP, inflation reports preview", source: "Axios", date: "2026-07-29", time: "05:10", url: "https://www.axios.com/2026/07/29/gdp-policy-rates-fed" },
-    { title: "Here are the five big takeaways from this week's Fed meeting", source: "CNBC", date: "2026-07-29", time: "05:10", url: "https://www.cnbc.com/2026/07/29/here-are-the-five-big-takeaways-from-this-weeks-fed-meeting.html" },
-    { title: "Latest Oil Market News and Analysis for July 30", source: "Bloomberg", date: "2026-07-29", time: "05:10", url: "https://www.bloomberg.com/news/articles/2026-07-29/latest-oil-market-news-and-analysis-for-july-30" },
   ],
   uk: [
-    { title: "Bank of England to keep rates steady while oil prices gyrate", source: "Reuters", date: "2026-07-30", time: "05:10", url: "https://ca.investing.com/news/economy-news/bank-of-england-to-keep-rates-steady-while-oil-prices-gyrate-4762016" },
-    { title: "FTSE 100 Live: UK Stock Futures Ease as Focus on Earnings", source: "Bloomberg", date: "2026-07-29", time: "05:10", url: "https://www.bloomberg.com/news/live-blog/2026-07-29/ftse-100-live-pound-gilts-earnings-us-iran-war-chip-stocks-oil-prices-what-s-moving-uk-markets-right-now-markets-today-ms5nzaym" },
-    { title: "FTSE 100 touches fresh record on oil lift; eyes on Fed, BoE", source: "Reuters (via AOL)", date: "2026-07-29", time: "05:10", url: "https://www.aol.com/articles/britains-ftse-100-climbs-miner-110516000.html" },
-    { title: "Bank of England Super Thursday: Hold Expected, but Services Inflation Keeps Hike Risk Live", source: "Tech Times", date: "2026-07-27", time: "05:10", url: "https://www.techtimes.com/articles/321682/20260727/bank-england-super-thursday-hold-expected-services-inflation-keeps-hike-risk-live.htm" },
-    { title: "StanChart lifts income target as wealth boom powers earnings", source: "Nikkei Asia", date: "2026-07-29", time: "07:45", url: "https://asia.nikkei.com/business/finance/stanchart-lifts-income-target-as-wealth-boom-powers-earnings" },
+    { title: "Bank Rate maintained at 3.75% — MPC votes 6–3 to hold", source: "Bank of England", date: "2026-07-30", time: "12:00", url: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/july-2026" },
+    { title: "FTSE 100 Live: stocks to fall after Trump warns Iran of 'beating'; Bank to hold interest rates", source: "CityAM", date: "2026-07-30", time: "07:00", url: "https://www.cityam.com/ftse-100-live-stocks-to-fall-after-trump-warns-iran-beating-bank-to-hold-interest-rates/" },
+    { title: "Lloyds Profit Beats Estimates as Lender Unveils Five-Year Plan", source: "Bloomberg", date: "2026-07-30", time: "09:17", url: "https://www.bloomberg.com/news/articles/2026-07-30/lloyds-profit-beats-estimates-as-lender-unveils-five-year-plan" },
+    { title: "Retail sales decline slows in July – CBI Distributive Trades Survey", source: "CBI", date: "2026-07-28", time: "07:00", url: "https://www.cbi.org.uk/media-centre/articles/retail-sales-decline-slows-in-july-cbi-distributive-trades-survey/" },
+    { title: "FTSE 100 Outlook: Oil Results and Bank of England Policy in Focus", source: "ts2.tech", date: "2026-07-30", time: "09:17", url: "https://ts2.tech/en/ftse-100-outlook-oil-results-and-bank-of-england-policy-in-focus/" },
   ],
 };
 
@@ -696,6 +697,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-30",
   items: [
+    {"title":"Bank Rate maintained at 3.75% — MPC votes 6–3 to hold","source":"Bank of England","date":"2026-07-30","time":"12:00","url":"https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/july-2026","blurb":"The MPC held Bank Rate at 3.75% by a majority of 6-3 (three members favoured an immediate 25bp hike to 4%) — one more dissenter than June's 7-2 split, alongside a fresh quarterly Monetary Policy Report."},
+    {"title":"FTSE 100 Live: stocks to fall after Trump warns Iran of 'beating'; Bank to hold interest rates","source":"CityAM","date":"2026-07-30","time":"07:00","url":"https://www.cityam.com/ftse-100-live-stocks-to-fall-after-trump-warns-iran-beating-bank-to-hold-interest-rates/","blurb":"London's blue-chip index was set to open lower as renewed Iran tensions weighed on sentiment ahead of the BoE's Super Thursday decision."},
     {"title":"Lloyds Profit Beats Estimates as Lender Unveils Five-Year Plan","source":"Bloomberg","date":"2026-07-30","time":"09:17","url":"https://www.bloomberg.com/news/articles/2026-07-30/lloyds-profit-beats-estimates-as-lender-unveils-five-year-plan","blurb":"Lloyds' Q2 pre-tax profit rose 14% y/y to £2.27bn, beating the £2.09bn consensus, as the bank unveiled a five-year plan targeting ~20% RoTE by 2030."},
     {"title":"FTSE 100 Outlook: Oil Results and Bank of England Policy in Focus","source":"ts2.tech","date":"2026-07-30","time":"09:17","url":"https://ts2.tech/en/ftse-100-outlook-oil-results-and-bank-of-england-policy-in-focus/","blurb":"UK 10-year gilt yield near 5.05-5.07% and sterling near $1.332 as investors weigh today's BoE decision alongside oil-price swings."},
     {"title":"Core PCE Price Index, GDP, and jobless claims due Thursday","source":"Investing.com","date":"2026-07-30","time":"09:17","url":"https://www.investing.com/news/stock-market-news/core-pce-price-index-gdp-and-jobless-claims-due-thursday-93CH-4821457","blurb":"Previews today's heavy US data slate (Q2 GDP advance, June core PCE, jobless claims) as markets digest Wednesday's hawkish Fed hold."},
@@ -731,14 +734,6 @@ export const ARTICLES = {
     {"title":"Fed meeting live: Federal Reserve expected to hold rates steady, but Iran war adds tension","source":"Yahoo Finance","date":"2026-07-28","time":"17:10","url":"https://finance.yahoo.com/economy/live/fed-meeting-live-federal-reserve-july-interest-rate-decision-141813444.html","blurb":"Live coverage of the FOMC's second and final day of deliberations, with markets still assigning roughly a one-in-three chance of a surprise hike on Wednesday."},
     {"title":"Stock Market Today (July 28, 2026): Dow rises amid earnings reports, chip sell-off","source":"TheStreet","date":"2026-07-28","time":"17:10","url":"https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-28-2026","blurb":"The Dow climbed roughly 400 points on falling oil and solid earnings even as chip stocks extended their slide on AI-financing worries, leaving the Nasdaq little changed."},
     {"title":"UK Stock Market Today (July 28): FTSE 100 Climbs Above 10,800, FTSE 250 Trades Higher as Global Sentiment Improves","source":"Sunday Guardian Live","date":"2026-07-28","time":"17:10","url":"https://sundayguardianlive.com/business/uk-stock-market-today-july-28-ftse-100-climbs-above-10800-ftse-250-trades-higher-as-global-sentiment-improves-what-should-investors-know-247950/","blurb":"London's benchmark index touched a fresh five-month high as retreating oil prices and geopolitical relief lifted sentiment ahead of Thursday's BoE decision."},
-    {"title":"Fed July FOMC Meeting Preview: Rate Hike or No Change?","source":"TradingKey","date":"2026-07-28","time":"17:10","url":"https://www.tradingkey.com/analysis/stocks/us-stocks/262054021-july-fomc-fed-oil-us-oil-tradingkey","blurb":"CME FedWatch showed roughly 68.5% odds of a hold versus 31.5% for a hike on Tuesday morning, with traders still weighing the Iran-driven oil shock against cooling June inflation prints."},
-    {"title":"Pound-to-Euro Forecast: Eurozone GDP And Bank Of England In Focus","source":"ExchangeRates.org.uk","date":"2026-07-28","time":"17:10","url":"https://www.exchangerates.org.uk/news/46629/2026-07-28-pound-to-euro-forecast-eurozone-gdp-and-bank-of-england-in-focus.html","blurb":"Sterling traders look to Thursday's BoE decision and this week's eurozone GDP prints for the next directional cue."},
-    {"title":"CNBC Daily Open: Chipping away at the AI boom","source":"CNBC","date":"2026-07-28","time":"12:18","url":"https://www.cnbc.com/2026/07/28/daily-open-ai-boom-chip-selloff-sk-hynix.html","blurb":"The Nasdaq-South Korea AI feedback loop keeps running to the downside: the Kospi's Tuesday plunge extends a Monday Nvidia selloff sparked by reports of a $250bn OpenAI financing backstop."},
-    {"title":"Asian shares slip and South Korea's Kospi index sinks more than 10% on heavy selling of chipmaking stocks","source":"AP (via U.S. News)","date":"2026-07-28","time":"12:18","url":"https://www.usnews.com/news/business/articles/2026-07-28/south-koreas-kospi-index-sinks-more-than-10-on-heavy-selling-of-chipmaking-stocks","blurb":"The Kospi closed down 10.84% at 6,023.66 — its steepest one-day fall since the March 2026 crash — as Samsung and SK Hynix extended their slide on renewed AI-spending-return doubts."},
-    {"title":"NVDA Stock Falls Below $200 as $250 Billion OpenAI Plan Revives AI Financing Fears","source":"FX Leaders","date":"2026-07-28","time":"12:18","url":"https://www.fxleaders.com/news/2026/07/28/nvda-stock-falls-below-200-as-250-billion-openai-plan-revives-ai-financing-fears/","blurb":"Nvidia closed below $200 for the first time, down almost 5% to $196.51, as reports it may guarantee up to $250bn of OpenAI's data-centre financing revived circular-financing scrutiny."},
-    {"title":"US, Iran pause strikes to give talks some space","source":"Reuters (via Manila Times)","date":"2026-07-28","time":"12:18","url":"https://www.manilatimes.net/2026/07/28/world/americas-emea/us-iran-pause-strikes-to-give-talks-some-space/2392066","blurb":"US UN envoy Mike Waltz says Trump is giving negotiations 'a little bit of room' as Iran halts retaliatory attacks on US allies, even as forces on both sides remain 'locked and loaded'."},
-    {"title":"Bank of England expected to hold interest rates steady","source":"Cyprus Mail","date":"2026-07-28","time":"12:18","url":"https://cyprus-mail.com/2026/07/28/bank-of-england-expected-to-hold-interest-rates-steady","blurb":"Policymakers are widely expected to leave Bank Rate at 3.75% on Thursday, with June's cooler-than-forecast 2.6% CPI print reinforcing the hold case."},
-    {"title":"Pound To Dollar Price Forecast: GBP Slips As BoE Decision Looms","source":"ExchangeRates.org.uk","date":"2026-07-28","time":"12:18","url":"https://www.exchangerates.org.uk/news/46633/2026-07-28-pound-to-dollar-price-forecast-gbp-slips-as-boe-decision-looms.html","blurb":"Sterling eased toward its weakest level since 1 July as the dollar firmed into Wednesday's Fed decision, with attention shifting to Thursday's BoE meeting."},
   ],
 };
 
@@ -751,7 +746,6 @@ export const ARTICLES = {
 export const RELEASES = [
   { date: "2026-07-30", country: "US", title: "GDP Q2 2026 (advance estimate)", url: "https://www.bea.gov/news/schedule" },
   { date: "2026-07-30", country: "US", title: "PCE inflation (June)", url: "https://www.bea.gov/news/schedule" },
-  { date: "2026-07-30", country: "UK", title: "MPC rate decision & Monetary Policy Report", url: "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates" },
   { date: "2026-07-31", country: "US", title: "Employment Cost Index (Q2 2026)", url: "https://www.bls.gov/schedule/news_release/eci.htm" },
   { date: "2026-08-01", country: "UK", title: "S&P Global/CIPS Manufacturing PMI, final (July)", url: "https://www.pmi.spglobal.com/Public/Home/PressReleases" },
   { date: "2026-08-03", country: "US", title: "ISM Manufacturing PMI (July)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
@@ -897,11 +891,11 @@ export const MATWALL = {
 // move (the rail shows nothing). Routine-maintained; see docs/refresh-routines.md.
 export const IND_KEYMOMENTS = {
   "US:two_year": { text: "Rose after the FOMC held at 3.50–3.75% but three members dissented for a hike — the first three-way hawkish dissent since September 2016 — a more hawkish outcome than markets had priced, which sent the Dow to its worst session of the year.", src: "https://www.cnbc.com/2026/07/29/fed-rate-decision-july-2026.html", srcName: "CNBC", date: "2026-07-29" },
-  "UK:two_year": { text: "Ahead of today's MPC decision, economists polled by Reuters expect a 7-2 vote to hold Bank Rate at 3.75%, with the Iran war's grip on the closed Strait of Hormuz keeping oil-driven inflation risk elevated and no change expected for the rest of 2026.", src: "https://ca.investing.com/news/economy-news/bank-of-england-to-keep-rates-steady-while-oil-prices-gyrate-4762016", srcName: "Reuters", date: "2026-07-30" },
+  "UK:two_year": { text: "The MPC held Bank Rate at 3.75% today by a narrower 6-3 vote (from 7-2 in June), with three members favouring an immediate 25bp hike to 4% as the Iran war's grip on the closed Strait of Hormuz keeps oil-driven inflation risk elevated.", src: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/july-2026", srcName: "Bank of England", date: "2026-07-30" },
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "Sterling holds steady ahead of today's Bank of England decision (12:00 BST), with the MPC widely expected to keep Bank Rate at 3.75% alongside a Monetary Policy Report that could reprice the pound on its updated inflation forecasts.", src: "https://ca.investing.com/news/economy-news/bank-of-england-to-keep-rates-steady-while-oil-prices-gyrate-4762016", srcName: "Reuters", date: "2026-07-30" };
+export const FX_KEYMOMENT = { text: "The Bank of England held Bank Rate at 3.75% on a narrower 6-3 vote, a more hawkish split than June's 7-2, as markets weigh the pound's reaction to the accompanying Monetary Policy Report's updated inflation forecasts.", src: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/july-2026", srcName: "Bank of England", date: "2026-07-30" };
 
 export const EARNINGS = {
   weeks: [

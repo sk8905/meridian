@@ -33,15 +33,15 @@ export const BRIEFINGS = {
     },
     afternoon: {
       label: "Afternoon",
-      date: "2026-07-29",
-      time: "12:10 BST",
-      lede: "Markets count down to today&rsquo;s FOMC decision under a cloud of fresh Middle East tension after Iran launched missiles at US forces overnight, with the Kospi and Kosdaq extending their historic rout and sterling firming ahead of the BoE&rsquo;s own call tomorrow.",
+      date: "2026-07-30",
+      time: "12:20 BST",
+      lede: "The Bank of England held Bank Rate at 3.75% by a narrower 6&ndash;3 vote at today&rsquo;s Super Thursday decision, echoing the Fed&rsquo;s own hawkish three-way dissent a day earlier, as UK banks&rsquo; results day continues and US Q2 GDP and core PCE loom at 13:30 BST.",
       bullets: [
-        { html: "<strong>Fed</strong>: today&rsquo;s FOMC decision (2pm ET) is widely expected to be a hold, but uncertainty is unusually elevated after overnight Iran-Iraq strikes reignited an oil-driven inflation worry just hours before the announcement.", src: "https://www.cnn.com/2026/07/29/economy/fed-rate-decision-july", srcName: "CNN Business" },
-        { html: "<strong>Geopolitics</strong>: Iran launched a surprise ballistic-missile attack on US forces in the Middle East, prompting a CENTCOM response and pushing oil and safe-haven flows higher into the Fed decision.", src: "https://www.cnbc.com/2026/07/29/us-iran-war-hormuz-centcom.html", srcName: "CNBC" },
-        { html: "<strong>Asia</strong>: South Korea&rsquo;s Kospi tumbled nearly 7% for a second straight day and other Asian shares mostly fell after SK Hynix&rsquo;s results disappointed despite a sixfold profit jump, extending the region&rsquo;s worst rout of the year.", src: "https://www.bloomberg.com/news/articles/2026-07-29/korean-stocks-tumble-a-second-day-as-sk-hynix-results-disappoint", srcName: "Bloomberg" },
-        { html: "<strong>Private credit</strong>: KKR priced a reset of Avoca CLO XIII within guidance, while a Blackstone-led group including Apollo and KKR agreed to invest $5.34bn for a 49% stake in Williams&rsquo; Power Innovation joint venture.", src: "https://www.globalcapital.com/securitization/article/2gonz8a0mhqtluseot24g/securitization/clos-europe/kkr-reset-for-avoca-clo-xiii-priced-within-guidance", srcName: "GlobalCapital" },
-        { html: "<strong>Legal</strong>: A&amp;O Shearman advised Bank Gospodarstwa Krajowego on a EUR2bn dual-tranche guaranteed notes issuance.", src: "https://www.aoshearman.com/en/news/ao-shearman-advises-bank-gospodarstwa-krajowego-on-eur-2bn-dual-tranche-guaranteed-notes-issuance", srcName: "A&O Shearman" },
+        { html: "<strong>BoE</strong>: the MPC held Bank Rate at 3.75%, but the vote split narrowed to 6&ndash;3 (from 7&ndash;2 in June) as three members favoured an immediate 25bp hike to 4%, alongside a fresh quarterly Monetary Policy Report.", src: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/july-2026", srcName: "Bank of England" },
+        { html: "<strong>UK banks</strong>: Lloyds Banking Group&rsquo;s Q2 pre-tax profit rose 14% y/y to &pound;2.27bn, beating consensus, as it unveiled a new five-year plan targeting ~20% RoTE by 2030.", src: "https://www.bloomberg.com/news/articles/2026-07-30/lloyds-profit-beats-estimates-as-lender-unveils-five-year-plan", srcName: "Bloomberg" },
+        { html: "<strong>US calendar</strong>: the 30-year Treasury yield touched its highest level since 2007 after Wednesday&rsquo;s hawkish Fed hold, with today&rsquo;s Q2 GDP advance estimate and June core PCE due at 13:30 BST the next test of the bond-market&rsquo;s skepticism.", src: "https://www.cnbc.com/2026/07/29/treasury-yields-fed-interest-rates.html", srcName: "CNBC" },
+        { html: "<strong>Private credit</strong>: Tikehau Capital is in advanced talks to take control of Italian bottle-cap maker Tap&iacute; Group via a debt restructuring converting part of its ~&euro;150m bank debt into equity-like instruments, while Fortress agreed to buy up to $1.5bn of loans from Irish fintech Wayflyer under a three-year forward-flow deal.", src: "https://www.privateequitywire.co.uk/tikehau-poised-to-take-control-of-tapi-through-debt-restructuring-deal/", srcName: "Private Equity Wire" },
+        { html: "<strong>Legal</strong>: the High Court (Ch) ruled on preliminary issues in QuidPay Finance v SettleGo Solutions (t/a OpenPayd), a payments-suspension dispute in which A&amp;O Shearman acted for the defendant, adjourning QuidPay&rsquo;s disclosure application &mdash; including a Suspicious Activity Report &mdash; to trial.", src: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/1477", srcName: "National Archives (EWHC)" },
       ],
     },
     evening: {
