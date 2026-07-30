@@ -13,7 +13,7 @@ export const UPDATED = "29 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-30",
-  lastCheckedTime: "05:15 BST",
+  lastCheckedTime: "09:23 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -696,6 +696,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-30",
   items: [
+    {"title":"Lloyds Profit Beats Estimates as Lender Unveils Five-Year Plan","source":"Bloomberg","date":"2026-07-30","time":"09:17","url":"https://www.bloomberg.com/news/articles/2026-07-30/lloyds-profit-beats-estimates-as-lender-unveils-five-year-plan","blurb":"Lloyds' Q2 pre-tax profit rose 14% y/y to £2.27bn, beating the £2.09bn consensus, as the bank unveiled a five-year plan targeting ~20% RoTE by 2030."},
+    {"title":"FTSE 100 Outlook: Oil Results and Bank of England Policy in Focus","source":"ts2.tech","date":"2026-07-30","time":"09:17","url":"https://ts2.tech/en/ftse-100-outlook-oil-results-and-bank-of-england-policy-in-focus/","blurb":"UK 10-year gilt yield near 5.05-5.07% and sterling near $1.332 as investors weigh today's BoE decision alongside oil-price swings."},
+    {"title":"Core PCE Price Index, GDP, and jobless claims due Thursday","source":"Investing.com","date":"2026-07-30","time":"09:17","url":"https://www.investing.com/news/stock-market-news/core-pce-price-index-gdp-and-jobless-claims-due-thursday-93CH-4821457","blurb":"Previews today's heavy US data slate (Q2 GDP advance, June core PCE, jobless claims) as markets digest Wednesday's hawkish Fed hold."},
     {"title":"Asian Stocks Rebound, Long Bonds Drop After Fed: Markets Wrap","source":"Bloomberg (via Swissinfo)","date":"2026-07-30","time":"05:10","url":"https://www.swissinfo.ch/eng/us-stock-futures-rise%2C-long-bonds-drop-after-fed%3A-markets-wrap/91818948","blurb":"Asian shares rose for the first time in three days and US equity-index futures advanced as the chip-led selloff eased — Kospi up 2.2% on Samsung's 4.3% gain after a 250-fold profit jump — even as longer-dated Treasuries fell further on uncertainty over the Fed's post-hold policy path."},
     {"title":"Bank of England to keep rates steady while oil prices gyrate","source":"Reuters","date":"2026-07-30","time":"05:10","url":"https://ca.investing.com/news/economy-news/bank-of-england-to-keep-rates-steady-while-oil-prices-gyrate-4762016","blurb":"Economists polled by Reuters expect the MPC to vote 7-2 to hold Bank Rate at 3.75% at today's Super Thursday decision as the on-again, off-again Iran war keeps inflation pressures elevated via the closed Strait of Hormuz."},
     {"title":"Amazon earnings preview: Wall Street looks for more cloud growth as AI spending hits a record","source":"GeekWire","date":"2026-07-29","time":"22:50","url":"https://www.geekwire.com/2026/amazon-earnings-preview-wall-street-looks-for-more-cloud-growth-as-ai-spending-hits-a-record/","blurb":"Amazon reports Q2 after Thursday's close with consensus at $1.82 EPS on ~$196.4bn revenue; AWS growth is expected to accelerate to ~31% (~$40.5bn) on AI demand including OpenAI's and Anthropic's multi-year AWS commitments, with capex guidance the key swing factor."},
@@ -916,7 +919,7 @@ export const EARNINGS = {
       { date: "2026-07-30", rows: [
         { t: "AAPL", n: "Apple", tag: "Mag 7", when: "After close", estEps: "$1.89", estRev: "$108.9bn", actEps: null, actRev: null, note: "fiscal Q3; EPS +~20% y/y on revenue +~16%" },
         { t: "AMZN", n: "Amazon", tag: "Mag 7 \u00b7 hyperscaler", when: "After close", estEps: "$1.82", estRev: "$196bn", actEps: null, actRev: null, note: "AWS growth and retail margins in focus" },
-        { t: "LLOY", n: "Lloyds Banking Group", tag: "Banks/brokers \u00b7 UK", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: null, estRev: null, km: { l: "Pre-tax profit", est: null, act: null }, actEps: null, actRev: null, note: "H1 2026 results plus updated strategy; Q1 2026 pre-tax profit of \u00a32.0bn had beaten the \u00a31.8bn consensus" },
+        { t: "LLOY", n: "Lloyds Banking Group", tag: "Banks/brokers \u00b7 UK", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: null, estRev: null, km: { l: "Pre-tax profit", est: "\u00a32.09bn (Q2)", act: "\u00a32.27bn (Q2, +14% y/y)" }, actEps: null, actRev: "Underlying NII \u00a37.3bn (+9% y/y); NIM 3.19%", px: null, note: "H1 2026 statutory pre-tax profit \u00a34.3bn (vs \u00a33.5bn H1 2025); Q2 pre-tax profit \u00a32.27bn beat \u00a32.09bn consensus; interim dividend 1.58p/share (+30% y/y); unveiled new 5-year plan targeting ~20% RoTE by 2030 (>18% by 2028)" },
       ] },
       { date: "2026-07-31", rows: [
         { t: "XOM", n: "ExxonMobil", tag: "Energy \u00b7 Dow", when: "Pre-mkt", estEps: "$3.76", estRev: "$101bn", actEps: null, actRev: null, note: "consensus range $3.55-3.88; sharp y/y jump on higher Brent" },
@@ -1000,6 +1003,7 @@ export const EARNINGS = {
     { name: "MarketBeat (Barclays H1 2026 preview)", url: "https://www.marketbeat.com/instant-alerts/barclays-bcs-to-post-quarterly-earnings-on-tuesday-2026-07-21/" },
     { name: "Foreign Policy Journal (Barclays/Lloyds/NatWest H1 2026 preview)", url: "https://www.foreignpolicyjournal.com/2026/07/26/barclays-barc-lloyds-bank-lloy-and-natwest-set-for-profit-growth-but-iran-war-threatens-loan-quality/" },
     { name: "ts2.tech (Lloyds H1/strategy update, 30 Jul)", url: "https://ts2.tech/en/lloyds-shares-rise-but-higher-buyback-costs-heighten-expectations-for-july-30-strategy-update/" },
+    { name: "Bloomberg (Lloyds H1 2026 actuals + 5-year plan)", url: "https://www.bloomberg.com/news/articles/2026-07-30/lloyds-profit-beats-estimates-as-lender-unveils-five-year-plan" },
     { name: "NatWest Group — results news (H1 2026, 31 Jul)", url: "https://www.natwestgroup.com/news-and-insights/news-room/natwest-group-results-news.html" },
     { name: "Coca-Cola Co — Q2 2026 results and raised guidance", url: "https://investors.coca-colacompany.com/news-events/press-releases/detail/1168/coca-cola-reports-second-quarter-2026-results-and-raises-full-year-guidance" },
     { name: "Boeing — Q2 2026 results (press release)", url: "https://investors.boeing.com/investors/news/press-release-details/2026/Boeing-Reports-Second-Quarter-Results/default.aspx" },
