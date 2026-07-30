@@ -32,6 +32,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-authoralert-nkumar-20260730",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    title: "Hedge Fund Trader Kassam Readies a Billion-Dollar Millennium Cub",
+    date: "2026-07-30",
+    time: "17:13",
+    summary: "Farzad Kassam, a senior macro portfolio manager at Millennium Management, is preparing to start his own outfit with backing from Izzy Englander's multistrategy firm.",
+    url: "https://www.bloomberg.com/news/articles/2026-07-30/hedge-fund-trader-kassam-readies-a-billion-dollar-millennium-cub",
+  },
+  {
     id: "nl-bbg-economicsdaily-warshbronx-20260730",
     publication: "Bloomberg",
     author: "Chris Anstey",
@@ -427,16 +437,5 @@ export const NEWSLETTERS = [
     time: "05:02",
     summary: "Markets price almost a 40% chance of a Fed funds hike this week as US tariffs return at 10% and Meta, Apple, Microsoft and Amazon report earnings.",
     url: "https://bloom.bg/4hzQySh",
-  },
-  {
-    id: "nl-bbg-thebrink-20260725",
-    publication: "Bloomberg",
-    author: "Giulia Morpurgo",
-    series: "The Brink",
-    title: "The Brink: A Czech billionaire fights for control of Casino",
-    date: "2026-07-25",
-    time: "16:00",
-    summary: "A Czech billionaire brings France's new insolvency regime to bear over Casino's creditors in a closely watched test case.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-07-25/czech-billionaire-fights-casino-creditors-for-control-in-french-test-case",
   },
 ];
