@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "ce198d5a-4a3b-46e8-aec3-77e5ab53ffb7", title: "Central banks slashed their gold purchases in early 2026", date: "2026-07-30", time: "07:00", url: "https://www.ft.com/content/ce198d5a-4a3b-46e8-aec3-77e5ab53ffb7" },
+  { id: "a943e743-501b-4b7d-aecd-85ef60a90c20", title: "SocGen profit jumps as banking boom offsets weak trading", date: "2026-07-30", time: "06:59", url: "https://www.ft.com/content/a943e743-501b-4b7d-aecd-85ef60a90c20" },
+  { id: "fe3fe258-62ab-4a71-8c8b-747f9559fd05", title: "Kevin Warsh is confusing markets", date: "2026-07-30", time: "06:30", url: "https://www.ft.com/content/fe3fe258-62ab-4a71-8c8b-747f9559fd05" },
+  { id: "5052b22e-aeca-4043-88af-dd7da3661a49", title: "Chinese stocks on track for worst month in decade", date: "2026-07-30", time: "06:28", url: "https://www.ft.com/content/5052b22e-aeca-4043-88af-dd7da3661a49" },
+  { id: "cc7d24ec-abfe-440b-9e85-4d725567f278", title: "Winner of US-China AI rivalry falls 10% in Hong Kong debut", date: "2026-07-30", time: "06:08", url: "https://www.ft.com/content/cc7d24ec-abfe-440b-9e85-4d725567f278" },
   { id: "480de423-de70-4bac-be56-f54502e29182", title: "Russia exploits Spain’s grounded firefighting helicopters as wildfires rage", date: "2026-07-30", time: "06:00", url: "https://www.ft.com/content/480de423-de70-4bac-be56-f54502e29182" },
   { id: "e3ed0f3d-52c0-45f5-b1f2-9b0e406026c7", title: "The corgi-inspired ETF provider that wants to disrupt BlackRock", date: "2026-07-30", time: "06:00", url: "https://www.ft.com/content/e3ed0f3d-52c0-45f5-b1f2-9b0e406026c7" },
   { id: "5035f634-7d47-483a-b8e9-722ded88a672", title: "FirstFT: Meta and Microsoft kick off turbulent tech results", date: "2026-07-30", time: "05:30", url: "https://www.ft.com/content/5035f634-7d47-483a-b8e9-722ded88a672" },
@@ -55,9 +60,4 @@ export const FT_ITEMS = [
   { id: "ee2a2d3b-dc5d-4ee2-8ad6-78c4b00fca8a", title: "Here’s how to make North Sea drilling compatible with net zero", date: "2026-07-29", time: "17:27", url: "https://www.ft.com/content/ee2a2d3b-dc5d-4ee2-8ad6-78c4b00fca8a" },
   { id: "42f17eda-ac25-464b-9c7a-8777d6164613", title: "The Fed’s next step is far from clear", date: "2026-07-29", time: "17:22", url: "https://www.ft.com/content/42f17eda-ac25-464b-9c7a-8777d6164613" },
   { id: "34006961-415e-48ae-a2e5-4f35210322ba", title: "The pathway to prosperity is getting harder for developing countries", date: "2026-07-29", time: "16:50", url: "https://www.ft.com/content/34006961-415e-48ae-a2e5-4f35210322ba" },
-  { id: "1ceeddf1-0948-4640-aa2c-392ce96fab5a", title: "Wildfire evacuations hurt France’s oyster capital", date: "2026-07-29", time: "16:00", url: "https://www.ft.com/content/1ceeddf1-0948-4640-aa2c-392ce96fab5a" },
-  { id: "38420819-2073-42d6-a14f-2c9a28e5970d", title: "South Korea cracks down on risky retail funds after tech rout", date: "2026-07-29", time: "15:59", url: "https://www.ft.com/content/38420819-2073-42d6-a14f-2c9a28e5970d" },
-  { id: "504b632a-85bf-4c7b-9def-0b2c02cc46fe", title: "Zijin’s $4bn deal with Allied Gold collapses", date: "2026-07-29", time: "15:22", url: "https://www.ft.com/content/504b632a-85bf-4c7b-9def-0b2c02cc46fe" },
-  { id: "e1725176-ebe2-4d29-abe9-a27e11e8c1a8", title: "Elon Musk settles long-running legal battle with X advertisers", date: "2026-07-29", time: "15:09", url: "https://www.ft.com/content/e1725176-ebe2-4d29-abe9-a27e11e8c1a8" },
-  { id: "7a33e045-57c0-4cf7-bb1b-a7f4ecdc1e30", title: "Brookfield and NextEra to build $100bn AI campus on ex-nuclear weapons site", date: "2026-07-29", time: "14:54", url: "https://www.ft.com/content/7a33e045-57c0-4cf7-bb1b-a7f4ecdc1e30" },
 ];
