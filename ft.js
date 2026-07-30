@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "9c33426e-d413-4d9b-b429-34dea508195e", title: "UK interest rates: Bank of England predicted to hold rates", date: "2026-07-30", time: "10:06", url: "https://www.ft.com/content/9c33426e-d413-4d9b-b429-34dea508195e" },
+  { id: "6710a395-0141-4c3f-9620-ccf249e18091", title: "Eurozone grew by 0.4% in second quarter despite Middle East energy shock", date: "2026-07-30", time: "10:01", url: "https://www.ft.com/content/6710a395-0141-4c3f-9620-ccf249e18091" },
+  { id: "77815def-6f50-4adf-8ba3-3643de7bf8ab", title: "DR Congo’s cobalt boom carries an unwanted cargo: uranium", date: "2026-07-30", time: "10:00", url: "https://www.ft.com/content/77815def-6f50-4adf-8ba3-3643de7bf8ab" },
+  { id: "09e9be6a-9480-476f-8b3c-0b0f64e86f87", title: "Ukraine’s ex-defence minister blames procurement reforms for dismissal", date: "2026-07-30", time: "09:47", url: "https://www.ft.com/content/09e9be6a-9480-476f-8b3c-0b0f64e86f87" },
+  { id: "7fa37140-7b45-4b19-910b-67038d532d65", title: "The Burnham bounce shouldn’t come as a surprise", date: "2026-07-30", time: "09:30", url: "https://www.ft.com/content/7fa37140-7b45-4b19-910b-67038d532d65" },
+  { id: "42e83b67-cfb8-46af-b50e-3ac77748ce38", title: "US launches strikes on Iran after Donald Trump vows to deliver ‘beating’", date: "2026-07-30", time: "09:24", url: "https://www.ft.com/content/42e83b67-cfb8-46af-b50e-3ac77748ce38" },
   { id: "07e7e839-6d7c-4da3-a207-de5bbfb67746", title: "Submit your questions: Has the market lost its mind over AI?", date: "2026-07-30", time: "09:03", url: "https://www.ft.com/content/07e7e839-6d7c-4da3-a207-de5bbfb67746" },
   { id: "9c7721e8-06c7-4504-9bcd-b266cda2b33e", title: "Adidas shares tumble after profits hit by World Cup marketing spend", date: "2026-07-30", time: "08:31", url: "https://www.ft.com/content/9c7721e8-06c7-4504-9bcd-b266cda2b33e" },
   { id: "80274c4f-5a86-4ab6-b787-ed62e312971e", title: "BAE lifts profit and sales guidance following surge in orders", date: "2026-07-30", time: "08:29", url: "https://www.ft.com/content/80274c4f-5a86-4ab6-b787-ed62e312971e" },
@@ -54,10 +60,4 @@ export const FT_ITEMS = [
   { id: "4416d0f0-6f15-4efd-8ddc-2cb1a203e356", title: "Postcard from Morocco: learning to surf in a remote fishing town", date: "2026-07-30", time: "05:00", url: "https://www.ft.com/content/4416d0f0-6f15-4efd-8ddc-2cb1a203e356" },
   { id: "f248b78b-c973-416c-a328-96038bc09c6f", title: "Piers Morgan: from journalist provocateur to YouTube mogul", date: "2026-07-30", time: "05:00", url: "https://www.ft.com/content/f248b78b-c973-416c-a328-96038bc09c6f" },
   { id: "c4eedbe8-6345-48b6-8d44-5cc5b0bea2c7", title: "US borrowing costs hit 19-year high as Fed defies inflation fears", date: "2026-07-29", time: "22:01", url: "https://www.ft.com/content/c4eedbe8-6345-48b6-8d44-5cc5b0bea2c7" },
-  { id: "06d941ed-8136-46a4-a2ec-44bea1b35c3b", title: "Meta tumbles 6% as sales forecast and profits disappoint", date: "2026-07-29", time: "21:53", url: "https://www.ft.com/content/06d941ed-8136-46a4-a2ec-44bea1b35c3b" },
-  { id: "d5762ed8-a384-4c6a-9f5e-8bce573cf0a0", title: "Qualcomm posts shrinking sales and profits as rising costs hit smartphone market", date: "2026-07-29", time: "21:37", url: "https://www.ft.com/content/d5762ed8-a384-4c6a-9f5e-8bce573cf0a0" },
-  { id: "da7c4472-cb30-4b82-b321-d82c1859419e", title: "Microsoft’s cloud business boosts sales as AI investment climbs to $41bn", date: "2026-07-29", time: "21:30", url: "https://www.ft.com/content/da7c4472-cb30-4b82-b321-d82c1859419e" },
-  { id: "ef1da506-6d2c-4e09-8b1b-6f6bb416a0a7", title: "For sale: Saba repellent", date: "2026-07-29", time: "19:44", url: "https://www.ft.com/content/ef1da506-6d2c-4e09-8b1b-6f6bb416a0a7" },
-  { id: "836720ef-d768-4eda-abe1-cfb432727161", title: "Split Fed decision to hold rates in July", date: "2026-07-29", time: "19:13", url: "https://www.ft.com/content/836720ef-d768-4eda-abe1-cfb432727161" },
-  { id: "730ebfb9-cec0-4cb6-947a-598d64518dad", title: "Ex-Goldman executive awarded £1.45mn after paternity leave ‘stigma’", date: "2026-07-29", time: "18:54", url: "https://www.ft.com/content/730ebfb9-cec0-4cb6-947a-598d64518dad" },
 ];
