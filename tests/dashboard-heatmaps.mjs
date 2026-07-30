@@ -13,20 +13,21 @@ const base = `http://localhost:${srv.port}`;
   const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/dashboard/equities/");
   await pg.waitForTimeout(1600);
   const wi = await pg.evaluate(() => {
-    const regions = [...document.querySelectorAll("#dsh-wi-box .dsh-wi-grp .dsh-wi-h")].map((h) => h.textContent.trim());
-    const tiles = [...document.querySelectorAll("#dsh-wi-box .dsh-heat-t")];
+    const box = document.querySelector("#dsh-wi-box");
+    const regions = [...box.querySelectorAll(".dsh-wkrow")].map((r) => r.textContent.trim());
+    const rows = [...box.querySelectorAll("tbody tr:not(.dsh-wkrow)")];
     return {
       regions,
-      tiles: tiles.length,
-      sourced: tiles.length > 0 && tiles.every((t) => t.tagName === "A" && /^https?:/.test(t.getAttribute("href") || "")),
-      levels: tiles.filter((t) => (t.querySelector("b") || {}).textContent && (t.querySelector("b")).textContent !== "—").length,
-      hasSP: tiles.some((t) => /S&P 500/.test((t.querySelector("span") || {}).textContent || "")),
+      rows: rows.length,
+      sourced: rows.length > 0 && rows.every((r) => { const a = r.querySelector(".dsh-nm a"); return a && /^https?:/.test(a.getAttribute("href") || ""); }),
+      levels: rows.filter((r) => { const c = r.querySelector("td.dsh-r"); return c && c.textContent && c.textContent !== "—"; }).length,
+      hasSP: rows.some((r) => /S&P 500/.test((r.querySelector(".dsh-nm") || {}).textContent || "")),
     };
   });
-  check(wi.tiles >= 15, `World indices: tiles render (${wi.tiles})`);
-  check(["US", "South America", "UK", "Europe", "APAC"].every((r) => wi.regions.includes(r)), `World indices: all five jurisdictions present (${wi.regions.join(", ")})`);
-  check(wi.sourced, "World indices: every tile links its source");
-  check(wi.levels >= 15, `World indices: tiles show index points (${wi.levels})`);
+  check(wi.rows >= 15, `World indices: rows render (${wi.rows})`);
+  check(["US", "South America", "UK", "Europe", "APAC"].every((r) => wi.regions.includes(r)), `World indices: all five jurisdiction sections present (${wi.regions.join(", ")})`);
+  check(wi.sourced, "World indices: every row links its source");
+  check(wi.levels >= 15, `World indices: rows show index points/level (${wi.levels})`);
   check(wi.hasSP, "World indices: includes the S&P 500");
   checkErrs(errs, "world indices heatmap");
   await ctx.close();
@@ -38,34 +39,21 @@ const base = `http://localhost:${srv.port}`;
   await pg.waitForTimeout(1600);
   const gy = await pg.evaluate(() => {
     const box = document.querySelector("#dsh-yld");
-    const tenors = [...box.querySelectorAll(".dsh-yld-tgl")].map((t) => t.textContent.trim());
-    const active0 = (box.querySelector(".dsh-yld-tgl.is-on") || {}).textContent;
-    const regions = [...box.querySelectorAll(".dsh-wi-grp .dsh-wi-h")].map((h) => h.textContent.trim());
-    const tiles0 = [...box.querySelectorAll(".dsh-heat-t")];
-    const firstVal = (tiles0[0] && tiles0[0].querySelector("b") || {}).textContent;
+    const cols = [...box.querySelectorAll("thead th.dsh-r")].map((t) => t.textContent.trim());
+    const regions = [...box.querySelectorAll(".dsh-wkrow")].map((r) => r.textContent.trim());
+    const rows = [...box.querySelectorAll("tbody tr:not(.dsh-wkrow)")];
+    const cells = [...box.querySelectorAll("tbody td.dsh-fl")];
     return {
-      tenors, active0, regions, tiles: tiles0.length,
-      sourced: tiles0.length > 0 && tiles0.every((t) => t.tagName === "A"),
-      pctFmt: /%$/.test(firstVal || ""),
+      cols, regions, rows: rows.length,
+      sourced: rows.length > 0 && rows.every((r) => { const a = r.querySelector(".dsh-nm a"); return a && /^https?:/.test(a.getAttribute("href") || ""); }),
+      pctFmt: cells.length > 0 && /%$/.test(cells[0].textContent || ""),
     };
   });
-  checkEq(gy.tenors.join(","), "2Y,5Y,10Y,30Y", "Govt yields: 2Y/5Y/10Y/30Y tenor toggle present");
-  checkEq(gy.active0, "10Y", "Govt yields: defaults to the 10Y tenor");
-  check(["US", "South America", "UK", "Europe", "APAC"].every((r) => gy.regions.includes(r)), `Govt yields: all five jurisdictions present (${gy.regions.join(", ")})`);
-  check(gy.tiles >= 10, `Govt yields: economy tiles render (${gy.tiles})`);
-  check(gy.sourced, "Govt yields: every tile links its source");
-  check(gy.pctFmt, "Govt yields: tiles show a yield in %");
-
-  // Toggle to 2Y → the active tenor changes and the heatmap re-renders.
-  const after = await pg.evaluate(() => {
-    const box = document.querySelector("#dsh-yld");
-    const b2 = [...box.querySelectorAll(".dsh-yld-tgl")].find((t) => t.textContent.trim() === "2Y");
-    b2.click();
-    const box2 = document.querySelector("#dsh-yld");
-    return { active: (box2.querySelector(".dsh-yld-tgl.is-on") || {}).textContent, tiles: box2.querySelectorAll(".dsh-heat-t").length };
-  });
-  checkEq(after.active, "2Y", "Govt yields: toggling to 2Y switches the active tenor");
-  check(after.tiles >= 10, `Govt yields: heatmap re-renders on toggle (${after.tiles})`);
+  checkEq(gy.cols.join(","), "2Y,5Y,10Y,30Y", "Govt yields: 2Y/5Y/10Y/30Y tenor columns present");
+  check(["US", "South America", "UK", "Europe", "APAC"].every((r) => gy.regions.includes(r)), `Govt yields: all five jurisdiction sections present (${gy.regions.join(", ")})`);
+  check(gy.rows >= 10, `Govt yields: economy rows render (${gy.rows})`);
+  check(gy.sourced, "Govt yields: every row links its source");
+  check(gy.pctFmt, "Govt yields: yield cells show a % value");
 
   // "Why it moved" box mirrors the Equities Key-moments card, each note sourced.
   const km = await pg.evaluate(() => {

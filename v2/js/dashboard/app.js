@@ -34,7 +34,6 @@ const _norm = (s) => String(s || "").toLowerCase().replace(/['’‘]/g, "");
 
 export function mount(host, ctx) {
   let pane = "macro";
-  let _yldTenor = "y10";                 // active tenor for the government-yields heatmap
   let _gyLive = null;                    // live yields overlay (/api/govyields), keyed by country
   let _legalQuery = "";                 // Legal database keyword (persist across re-renders)
   const _legalAreas = new Set();        // practice areas the search is limited to (empty = all)
@@ -190,33 +189,30 @@ export function mount(host, ctx) {
     return `<table class="dsh-tbl dsh-fl-tbl"><thead>${head}</thead><tbody>${F.sectors.map(row).join("")}</tbody></table>`
       + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = inflow</span> · <span class="dsh-fl-neg">red = outflow</span>, shaded within each window (net ${esc(F.unit || "$M")}). Source: <a href="${esc(F.source)}" target="_blank" rel="noopener noreferrer">ETF Database</a>.</p>`;
   }
-  // Major indices by jurisdiction — LOCAL index points (not ETFs), grouped
-  // US · South America · UK · Europe · APAC. Each tile shows the index level and
-  // its latest-session % change, heat-shaded green (up) / red (down) normalised
-  // across the whole board. Snapshot from WORLD_INDICES (dashboard/js/data.js),
-  // every value sourced + dated, refreshed by the daily routine.
+  // Major indices by jurisdiction — LOCAL index points (not ETFs), as a heat-shaded
+  // table in the ETF-flows style: one row per index under a region section header,
+  // a Level column (points) and a session-move column shaded green (up) / red
+  // (down), normalised across the board. Snapshot from WORLD_INDICES
+  // (dashboard/js/data.js), every value sourced + dated.
   // `live` (from /api/worldindices, keyed by index name) overrides the snapshot's
   // level/chgPct where present; the sourced snapshot is the seed + fallback.
   function worldIndicesHeatHTML(live) {
     const W = WORLD_INDICES;
     if (!W || !(W.regions || []).length) return "";
     const eff = (r) => { const l = live && live[r.name]; return { lv: (l && l.value != null) ? l.value : r.level, v: (l && l.changePct != null) ? l.changePct : r.chgPct }; };
-    const mags = W.regions.flatMap((g) => (g.rows || []).map((r) => { const v = eff(r).v; return v == null ? 0 : Math.abs(v); }));
-    const max = Math.max(1, ...mags);
+    const max = Math.max(1, ...W.regions.flatMap((g) => (g.rows || []).map((r) => { const v = eff(r).v; return v == null ? 0 : Math.abs(v); })));
+    const heat = (v) => { if (v == null) return ""; const a = (Math.abs(v) / max) * 0.62 + 0.10; return ` style="background:rgba(${v >= 0 ? "63,192,141" : "242,109,132"},${a.toFixed(3)})"`; };
     const fmtLv = (v) => (v == null ? "—" : Number(v).toLocaleString("en-GB", { maximumFractionDigits: 2 }));
-    const tile = (r) => {
+    const row = (r) => {
       const { lv, v } = eff(r);
-      const a = v == null ? 0.14 : (Math.abs(v) / max) * 0.5 + 0.14;   // same shading ramp as the sector heatmap
-      const col = v == null ? "transparent" : `rgba(${v >= 0 ? "63,192,141" : "242,109,132"},${a.toFixed(2)})`;
-      const inner = `<span>${esc(r.name)}</span><b>${fmtLv(lv)}</b><i class="dsh-heat-ch ${upcls(v)}">${v == null ? "" : pct1(v)}</i>`;
-      const tip = `${esc(r.name)}${r.asOf ? " · as of " + esc(r.asOf) : ""} — source`;
-      return r.source
-        ? `<a class="dsh-heat-t" style="background:${col}" href="${esc(r.source)}" target="_blank" rel="noopener noreferrer" title="${tip}">${inner}</a>`
-        : `<div class="dsh-heat-t" style="background:${col}">${inner}</div>`;
+      const nm = r.source ? `<a href="${esc(r.source)}" target="_blank" rel="noopener noreferrer">${esc(r.name)}</a>` : esc(r.name);
+      const chg = v == null ? `<td class="dsh-fl-na">·</td>` : `<td class="dsh-fl"${heat(v)} title="${esc(r.name)}${r.asOf ? " · as of " + esc(r.asOf) : ""}">${pct1(v)}</td>`;
+      return `<tr><td class="dsh-nm">${nm}</td><td class="dsh-r">${fmtLv(lv)}</td>${chg}</tr>`;
     };
-    const group = (g) => `<div class="dsh-wi-grp"><h4 class="dsh-wi-h">${esc(g.region)}</h4><div class="dsh-heat">${(g.rows || []).map(tile).join("")}</div></div>`;
-    return `<div class="dsh-wi">${W.regions.map(group).join("")}</div>`
-      + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = up</span> · <span class="dsh-fl-neg">red = down</span> on the latest session; each tile shows the local index level (points) and links its source.</p>`;
+    const group = (g) => `<tr class="dsh-wkrow"><td colspan="3">${esc(g.region)}</td></tr>` + (g.rows || []).map(row).join("");
+    return `<table class="dsh-tbl dsh-fl-tbl"><thead><tr><th>Index</th><th class="dsh-r">Level</th><th class="dsh-r">Chg</th></tr></thead>`
+      + `<tbody>${W.regions.map(group).join("")}</tbody></table>`
+      + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = up</span> · <span class="dsh-fl-neg">red = down</span> on the latest session; Level is the local index points. Each index links its source.</p>`;
   }
   async function loadWorldIndices() {
     const box = host.querySelector("#dsh-wi-box");
@@ -234,7 +230,7 @@ export function mount(host, ctx) {
     return `<div class="dsh-pane">
       ${keyMomentsHTML()}
       <section class="dsh-card dsh-span"><h3 class="dsh-h">World indices — major benchmarks by jurisdiction <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-wi-box">${worldIndicesHeatHTML()}</div></section>
-      <section class="dsh-card dsh-span"><h3 class="dsh-h">ETF flows — net fund flows ${asOf(SECTOR_FLOWS.asOf)}</h3><div class="dsh-scroll">${sectorFlowsHTML()}</div></section>
+      <section class="dsh-card dsh-span"><h3 class="dsh-h">ETF flows — net fund flows ${asOf(SECTOR_FLOWS.asOf)}</h3><div class="dsh-scroll" id="dsh-flows-box">${sectorFlowsHTML()}</div></section>
       <section class="dsh-card"><h3 class="dsh-h">S&amp;P 500 sectors — YTD ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
       <section class="dsh-card"><h3 class="dsh-h">Valuation &amp; volatility</h3>${valVolHTML()}</section>
       <div class="dsh-span dsh-pair">
@@ -465,47 +461,39 @@ export function mount(host, ctx) {
   // Government/sovereign (the US/UK yield curves) + corporate (ICE BofA OAS
   // spreads, loaded live). Reuses the macro yield-curve renderer and the credit
   // spreads loader so there is one source of truth for each.
-  // Government bond yields (2Y/5Y/10Y/30Y) across the major economies in each
-  // jurisdiction, as a heatmap of ONE tenor at a time — the toggle switches tenor.
-  // Shaded by yield LEVEL within the visible tenor (deeper = higher yield). Snapshot
-  // from GOVT_YIELDS (dashboard/js/data.js), every value sourced + dated.
+  // Government bond yields across the major economies in each jurisdiction, as a
+  // heat-shaded table in the ETF-flows style: one row per country under a region
+  // section header, a column per tenor (2Y/5Y/10Y/30Y), each cell shaded by yield
+  // LEVEL within its column (deeper = higher yield). Snapshot from GOVT_YIELDS
+  // (dashboard/js/data.js), every value sourced + dated.
   const YLD_TENORS = [["y2", "2Y"], ["y5", "5Y"], ["y10", "10Y"], ["y30", "30Y"]];
   // `_gyLive` (from /api/govyields, keyed by country) overrides the snapshot's
   // per-tenor yields where present; the sourced snapshot is the seed + fallback.
   function govtYieldsHeatHTML() {
     const G = GOVT_YIELDS;
     if (!G || !(G.regions || []).length) return "";
-    const k = _yldTenor;
-    const lbl = (YLD_TENORS.find(([kk]) => kk === k) || [, ""])[1];
-    const valOf = (r) => { const l = _gyLive && _gyLive[r.country]; return (l && l[k] != null) ? l[k] : r[k]; };
-    const vals = G.regions.flatMap((g) => (g.rows || []).map(valOf).filter((v) => v != null));
-    const lo = vals.length ? Math.min(...vals) : 0, hi = vals.length ? Math.max(...vals) : 1;
-    const span = Math.max(0.01, hi - lo);
-    const tile = (r) => {
-      const v = valOf(r);
-      const a = v == null ? 0.14 : ((v - lo) / span) * 0.5 + 0.14;   // same shading ramp as the sector heatmap (deeper = higher yield)
-      const col = v == null ? "transparent" : `rgba(155,131,226,${a.toFixed(2)})`;   // rates read the macro/indigo tone
-      const inner = `<span>${esc(r.country)}</span><b>${v == null ? "—" : v.toFixed(2) + "%"}</b>`;
-      const tip = `${esc(r.country)} ${esc(lbl)}${r.asOf ? " · as of " + esc(r.asOf) : ""} — source`;
-      return r.source
-        ? `<a class="dsh-heat-t" style="background:${col}" href="${esc(r.source)}" target="_blank" rel="noopener noreferrer" title="${tip}">${inner}</a>`
-        : `<div class="dsh-heat-t" style="background:${col}">${inner}</div>`;
-    };
-    const group = (g) => `<div class="dsh-wi-grp"><h4 class="dsh-wi-h">${esc(g.region)}</h4><div class="dsh-heat">${(g.rows || []).map(tile).join("")}</div></div>`;
-    const toggle = `<div class="dsh-yld-tgl-bar" role="tablist" aria-label="Bond tenor">${YLD_TENORS
-      .map(([kk, l]) => `<button type="button" class="dsh-yld-tgl${kk === k ? " is-on" : ""}" data-tenor="${kk}" role="tab" aria-selected="${kk === k}">${l}</button>`).join("")}</div>`;
-    return toggle + `<div class="dsh-wi">${G.regions.map(group).join("")}</div>`
-      + `<p class="dsh-fl-note">Benchmark <b>${esc(lbl)}</b> government bond yields; deeper shade = higher yield. Use the toggle to switch tenor. Each tile links its source.</p>`;
-  }
-  function wireYields() {
-    const box = host.querySelector("#dsh-yld");
-    if (!box) return;
-    box.addEventListener("click", (e) => {
-      const b = e.target.closest(".dsh-yld-tgl");
-      if (!b) return;
-      _yldTenor = b.dataset.tenor;
-      box.innerHTML = govtYieldsHeatHTML();
+    const valOf = (r, k) => { const l = _gyLive && _gyLive[r.country]; return (l && l[k] != null) ? l[k] : r[k]; };
+    // Shade each tenor column independently (like flows normalises per window).
+    const bounds = {};
+    YLD_TENORS.forEach(([k]) => {
+      const vs = G.regions.flatMap((g) => (g.rows || []).map((r) => valOf(r, k)).filter((v) => v != null));
+      const lo = vs.length ? Math.min(...vs) : 0, hi = vs.length ? Math.max(...vs) : 1;
+      bounds[k] = { lo, span: Math.max(0.01, hi - lo) };
     });
+    const cell = (r, k) => {
+      const v = valOf(r, k);
+      if (v == null) return `<td class="dsh-fl-na">·</td>`;
+      const a = ((v - bounds[k].lo) / bounds[k].span) * 0.62 + 0.10;
+      return `<td class="dsh-fl" style="background:rgba(155,131,226,${a.toFixed(3)})" title="${esc(r.country)} ${esc((YLD_TENORS.find(([kk]) => kk === k) || [, ""])[1])}${r.asOf ? " · as of " + esc(r.asOf) : ""}">${v.toFixed(2)}%</td>`;
+    };
+    const row = (r) => {
+      const nm = r.source ? `<a href="${esc(r.source)}" target="_blank" rel="noopener noreferrer">${esc(r.country)}</a>` : esc(r.country);
+      return `<tr><td class="dsh-nm">${nm}</td>${YLD_TENORS.map(([k]) => cell(r, k)).join("")}</tr>`;
+    };
+    const group = (g) => `<tr class="dsh-wkrow"><td colspan="5">${esc(g.region)}</td></tr>` + (g.rows || []).map(row).join("");
+    return `<table class="dsh-tbl dsh-fl-tbl"><thead><tr><th>Country</th>${YLD_TENORS.map(([, l]) => `<th class="dsh-r">${l}</th>`).join("")}</tr></thead>`
+      + `<tbody>${G.regions.map(group).join("")}</tbody></table>`
+      + `<p class="dsh-fl-note">Benchmark government bond yields (%); deeper shade = higher yield within each tenor column. Each country links its source.</p>`;
   }
   async function loadGovYields() {
     try {
@@ -738,7 +726,7 @@ export function mount(host, ctx) {
     host.innerHTML = `<div class="dsh"><header class="dsh-nav tdet-secnav"><div class="tchips">${nav}</div></header>${body}</div>`;
     if (pane === "equities") loadWorldIndices();
     if (pane === "credit") { loadSpreads(); wireStressSort(); }
-    if (pane === "fixed-income") { loadSpreads(); wireYields(); loadGovYields(); }
+    if (pane === "fixed-income") { loadSpreads(); loadGovYields(); }
     if (pane === "hedge-funds") wireHedgeFunds();
     if (pane === "legal") wireLegal();
   }
