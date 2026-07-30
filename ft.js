@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8455ec94-0182-46a6-b5dd-2bb5b0a75a6c", title: "Japan’s yen jumps 3% as speculation over intervention swirls", date: "2026-07-30", time: "16:07", url: "https://www.ft.com/content/8455ec94-0182-46a6-b5dd-2bb5b0a75a6c" },
+  { id: "fd75ca61-c9db-41c8-97d3-80069c25beb6", title: "Declining PCE inflation in June likely to be reversed in July", date: "2026-07-30", time: "15:58", url: "https://www.ft.com/content/fd75ca61-c9db-41c8-97d3-80069c25beb6" },
+  { id: "5fb44089-ecdf-4b48-bc14-1e8b4682b142", title: "Situational Awareness offloads large portion of public equity holdings", date: "2026-07-30", time: "15:31", url: "https://www.ft.com/content/5fb44089-ecdf-4b48-bc14-1e8b4682b142" },
   { id: "cc3a80fc-128b-4b46-a9a6-1a6a6988f31f", title: "Reform UK stands by Farage aide George Cottrell amid financial scrutiny", date: "2026-07-30", time: "14:52", url: "https://www.ft.com/content/cc3a80fc-128b-4b46-a9a6-1a6a6988f31f" },
   { id: "39d00795-a6b7-4950-884a-38e2ef269f22", title: "BP to cut 700 jobs as it warns on oil ‘oversupply’", date: "2026-07-30", time: "14:51", url: "https://www.ft.com/content/39d00795-a6b7-4950-884a-38e2ef269f22" },
   { id: "67238e48-57dd-4701-8294-0a11036c8742", title: "Can Vance square his Catholicism with Trump’s Republican Party?", date: "2026-07-30", time: "14:32", url: "https://www.ft.com/content/67238e48-57dd-4701-8294-0a11036c8742" },
@@ -58,8 +61,4 @@ export const FT_ITEMS = [
   { id: "38330777-9cb4-4c4e-a0f1-bdbe72ac94a6", title: "Lloyds targets £2bn in cost cuts as it unveils four-year strategy", date: "2026-07-30", time: "07:50", url: "https://www.ft.com/content/38330777-9cb4-4c4e-a0f1-bdbe72ac94a6" },
   { id: "ed09fae4-4f30-412c-97c0-ebfb5408644d", title: "Rolls-Royce raises 2026 targets after profits beat expectations", date: "2026-07-30", time: "07:47", url: "https://www.ft.com/content/ed09fae4-4f30-412c-97c0-ebfb5408644d" },
   { id: "28a1c0fa-3ed4-4e64-b24d-227e7d13c5c7", title: "Japan’s Sanae Takaichi sticks to plan to cut food sales tax", date: "2026-07-30", time: "07:28", url: "https://www.ft.com/content/28a1c0fa-3ed4-4e64-b24d-227e7d13c5c7" },
-  { id: "dacf0dba-702a-400f-b534-f73011052b1d", title: "Shell reports highest profits since 2022", date: "2026-07-30", time: "07:18", url: "https://www.ft.com/content/dacf0dba-702a-400f-b534-f73011052b1d" },
-  { id: "ce198d5a-4a3b-46e8-aec3-77e5ab53ffb7", title: "Central banks slashed their gold purchases in early 2026", date: "2026-07-30", time: "07:00", url: "https://www.ft.com/content/ce198d5a-4a3b-46e8-aec3-77e5ab53ffb7" },
-  { id: "a943e743-501b-4b7d-aecd-85ef60a90c20", title: "SocGen profit jumps as banking boom offsets weak trading", date: "2026-07-30", time: "06:59", url: "https://www.ft.com/content/a943e743-501b-4b7d-aecd-85ef60a90c20" },
-  { id: "fe3fe258-62ab-4a71-8c8b-747f9559fd05", title: "Kevin Warsh is confusing markets", date: "2026-07-30", time: "06:30", url: "https://www.ft.com/content/fe3fe258-62ab-4a71-8c8b-747f9559fd05" },
 ];
