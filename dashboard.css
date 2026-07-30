@@ -162,6 +162,9 @@
 .dsh-tbl .dsh-wkrow td { color:var(--t-ink); font-weight:600; font-size:.7rem; text-transform:uppercase;
   letter-spacing:.04em; background:var(--t-panel2); border-bottom:1px solid var(--t-grid2); padding-top:7px; padding-bottom:4px; }
 .dsh-r { text-align:right; }
+/* Region separator inside the heatmap tables: a thin grey rule (no label band) —
+   the first row of each new region carries a stronger top border + a little space. */
+.dsh-tbl tr.dsh-secbreak td { border-top:1px solid var(--t-grid2); padding-top:11px; }
 /* Earnings calendar — a legible stacked list: week band, then one card per
    release (ticker · company · session · date; sector; forecast→actual measures;
    price reaction; the "why" note). Replaces the old cramped 6-column table. */

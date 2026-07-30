@@ -216,12 +216,14 @@ export function mount(host, ctx) {
     const heat = (v, k) => { if (v == null) return ""; const a = (Math.abs(v) / maxAbs[k]) * 0.62 + 0.10; return ` style="background:rgba(${v >= 0 ? "63,192,141" : "242,109,132"},${a.toFixed(3)})"`; };
     const fmtLv = (v) => (v == null ? "" : Number(v).toLocaleString("en-GB", { maximumFractionDigits: 2 }));
     const cell = (r, k, l) => { const v = valK(r, k); return v == null ? `<td class="dsh-fl-na">·</td>` : `<td class="dsh-fl"${heat(v, k)} title="${esc(r.name)} · ${esc(l)}: ${pct1(v)}">${pct1(v)}</td>`; };
-    const row = (r) => {
+    // Regions are separated by a thin grey rule (a top border on the first row of
+    // each new region), not a labelled band.
+    const row = (r, brk) => {
       const nm = r.source ? `<a href="${esc(r.source)}" target="_blank" rel="noopener noreferrer">${esc(r.name)}</a>` : esc(r.name);
       const lv = lvOf(r);
-      return `<tr><td class="dsh-nm">${nm}${lv != null ? ` <span class="dsh-fl-t">${fmtLv(lv)}</span>` : ""}</td>${IDX_WINS.map(([k, l]) => cell(r, k, l)).join("")}</tr>`;
+      return `<tr${brk ? ' class="dsh-secbreak"' : ""}><td class="dsh-nm">${nm}${lv != null ? ` <span class="dsh-fl-t">${fmtLv(lv)}</span>` : ""}</td>${IDX_WINS.map(([k, l]) => cell(r, k, l)).join("")}</tr>`;
     };
-    const group = (g) => `<tr class="dsh-wkrow"><td colspan="6">${esc(g.region)}</td></tr>` + (g.rows || []).map(row).join("");
+    const group = (g, i) => (g.rows || []).map((r, ri) => row(r, i > 0 && ri === 0)).join("");
     return `<table class="dsh-tbl dsh-fl-tbl"><thead><tr><th>Index</th>${IDX_WINS.map(([, l]) => `<th class="dsh-r">${l}</th>`).join("")}</tr></thead>`
       + `<tbody>${W.regions.map(group).join("")}</tbody></table>`
       + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = up</span> · <span class="dsh-fl-neg">red = down</span>, price return shaded within each window; the grey figure is the latest index level (points). Each index links its source.</p>`;
@@ -502,11 +504,13 @@ export function mount(host, ctx) {
       const rgb = v <= mid ? "63,192,141" : "242,109,132";
       return `<td class="dsh-fl" style="background:rgba(${rgb},${a.toFixed(3)})" title="${esc(r.country)} ${esc((YLD_TENORS.find(([kk]) => kk === k) || [, ""])[1])}${r.asOf ? " · as of " + esc(r.asOf) : ""}">${v.toFixed(2)}%</td>`;
     };
-    const row = (r) => {
+    // Regions are separated by a thin grey rule (a top border on the first row of
+    // each new region), not a labelled band.
+    const row = (r, brk) => {
       const nm = r.source ? `<a href="${esc(r.source)}" target="_blank" rel="noopener noreferrer">${esc(r.country)}</a>` : esc(r.country);
-      return `<tr><td class="dsh-nm">${nm}</td>${YLD_TENORS.map(([k]) => cell(r, k)).join("")}</tr>`;
+      return `<tr${brk ? ' class="dsh-secbreak"' : ""}><td class="dsh-nm">${nm}</td>${YLD_TENORS.map(([k]) => cell(r, k)).join("")}</tr>`;
     };
-    const group = (g) => `<tr class="dsh-wkrow"><td colspan="5">${esc(g.region)}</td></tr>` + (g.rows || []).map(row).join("");
+    const group = (g, i) => (g.rows || []).map((r, ri) => row(r, i > 0 && ri === 0)).join("");
     return `<table class="dsh-tbl dsh-fl-tbl"><thead><tr><th>Country</th>${YLD_TENORS.map(([, l]) => `<th class="dsh-r">${l}</th>`).join("")}</tr></thead>`
       + `<tbody>${G.regions.map(group).join("")}</tbody></table>`
       + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = lower</span> · <span class="dsh-fl-neg">red = higher</span> yield within each tenor column (benchmark govt yields, %). Each country links its source.</p>`;
