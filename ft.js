@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d4236295-ce9d-45c8-b9eb-702fd45bde13", title: "Bordeaux wineries at risk from ‘zombie fires’", date: "2026-07-30", time: "11:00", url: "https://www.ft.com/content/d4236295-ce9d-45c8-b9eb-702fd45bde13" },
+  { id: "77baac40-d803-4084-94f3-a133653072cf", title: "Amazon finds cases of AI causing runaway spending on tech projects", date: "2026-07-30", time: "11:00", url: "https://www.ft.com/content/77baac40-d803-4084-94f3-a133653072cf" },
+  { id: "d41656fe-16c4-48aa-9f45-2a276fe0a267", title: "Foxtons cuts costs after buyer caution slashes profits", date: "2026-07-30", time: "10:47", url: "https://www.ft.com/content/d41656fe-16c4-48aa-9f45-2a276fe0a267" },
+  { id: "ea820de1-9113-47cc-8888-a1d307ca6f2e", title: "Beijing pledges faster spending to support China’s economy", date: "2026-07-30", time: "10:36", url: "https://www.ft.com/content/ea820de1-9113-47cc-8888-a1d307ca6f2e" },
+  { id: "23f388eb-e8ab-4fb1-b1ca-8e04eb4561a1", title: "‘My life’s screwed’: Korean investors stress out after AI bubble bursts", date: "2026-07-30", time: "10:08", url: "https://www.ft.com/content/23f388eb-e8ab-4fb1-b1ca-8e04eb4561a1" },
   { id: "9c33426e-d413-4d9b-b429-34dea508195e", title: "UK interest rates: Bank of England predicted to hold rates", date: "2026-07-30", time: "10:06", url: "https://www.ft.com/content/9c33426e-d413-4d9b-b429-34dea508195e" },
   { id: "6710a395-0141-4c3f-9620-ccf249e18091", title: "Eurozone grew by 0.4% in second quarter despite Middle East energy shock", date: "2026-07-30", time: "10:01", url: "https://www.ft.com/content/6710a395-0141-4c3f-9620-ccf249e18091" },
   { id: "77815def-6f50-4adf-8ba3-3643de7bf8ab", title: "DR Congo’s cobalt boom carries an unwanted cargo: uranium", date: "2026-07-30", time: "10:00", url: "https://www.ft.com/content/77815def-6f50-4adf-8ba3-3643de7bf8ab" },
@@ -55,9 +60,4 @@ export const FT_ITEMS = [
   { id: "0ed87aae-96f1-45b8-87b3-cbf4c6d12e4f", title: "How exposed is the UK economy to the second China shock?", date: "2026-07-30", time: "05:00", url: "https://www.ft.com/content/0ed87aae-96f1-45b8-87b3-cbf4c6d12e4f" },
   { id: "6e1bd23a-a131-414e-afb3-46b2b4629d24", title: "Germany’s Mittelstand has not much time to lose", date: "2026-07-30", time: "05:00", url: "https://www.ft.com/content/6e1bd23a-a131-414e-afb3-46b2b4629d24" },
   { id: "db17cde4-eb38-4bac-9413-a3e8ea3a6630", title: "The UK has worse mobile coverage than Romania. Why?", date: "2026-07-30", time: "05:00", url: "https://www.ft.com/content/db17cde4-eb38-4bac-9413-a3e8ea3a6630" },
-  { id: "2bd92fad-6c5c-45ef-b975-5dee517fd268", title: "UK North Sea oil companies look overseas for growth", date: "2026-07-30", time: "05:00", url: "https://www.ft.com/content/2bd92fad-6c5c-45ef-b975-5dee517fd268" },
-  { id: "fde2dd97-317a-41b8-a746-d917c5680397", title: "ByteDance’s plan to dominate AI", date: "2026-07-30", time: "05:00", url: "https://www.ft.com/content/fde2dd97-317a-41b8-a746-d917c5680397" },
-  { id: "4416d0f0-6f15-4efd-8ddc-2cb1a203e356", title: "Postcard from Morocco: learning to surf in a remote fishing town", date: "2026-07-30", time: "05:00", url: "https://www.ft.com/content/4416d0f0-6f15-4efd-8ddc-2cb1a203e356" },
-  { id: "f248b78b-c973-416c-a328-96038bc09c6f", title: "Piers Morgan: from journalist provocateur to YouTube mogul", date: "2026-07-30", time: "05:00", url: "https://www.ft.com/content/f248b78b-c973-416c-a328-96038bc09c6f" },
-  { id: "c4eedbe8-6345-48b6-8d44-5cc5b0bea2c7", title: "US borrowing costs hit 19-year high as Fed defies inflation fears", date: "2026-07-29", time: "22:01", url: "https://www.ft.com/content/c4eedbe8-6345-48b6-8d44-5cc5b0bea2c7" },
 ];
