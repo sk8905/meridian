@@ -32,6 +32,27 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-econ-worldinbrief-20260730",
+    publication: "The Economist",
+    series: "The World in Brief",
+    title: "The World in Brief: America retaliates against Iran",
+    date: "2026-07-30",
+    time: "05:48",
+    summary: "America struck Iran's southern provinces after a missile attack on US forces in Jordan, sending Brent crude toward $90, as the Fed held rates steady and Meta's profits sank 14%.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
+    id: "nl-bbg-pointsofreturn-20260730",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "Warsh needs to do better than ‘I won’t tell you’",
+    date: "2026-07-30",
+    time: "05:25",
+    summary: "The FOMC held rates as three members voted for a hike, and Warsh's baffling press conference drove the sharpest yield-curve steepening in a year as the Nasdaq 100 sank more than 10% below its peak.",
+    url: "https://bloom.bg/4hEHA6n",
+  },
+  {
     id: "nl-reuters-tradingday-aicrash-20260729",
     publication: "Thomson Reuters",
     author: "Jamie McGeever",
