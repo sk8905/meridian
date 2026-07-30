@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "aa292d6f-3b12-4b7a-b558-7306e8d03b9e", title: "Sandwich maker Jersey Mike’s and retailer Reformation fail to excite IPO investors", date: "2026-07-30", time: "20:20", url: "https://www.ft.com/content/aa292d6f-3b12-4b7a-b558-7306e8d03b9e" },
   { id: "6d206b85-bc50-4c89-973b-f18cd84e2a15", title: "Mark Zuckerberg is becoming the king of the ‘side quest’", date: "2026-07-30", time: "19:16", url: "https://www.ft.com/content/6d206b85-bc50-4c89-973b-f18cd84e2a15" },
   { id: "3cbee183-fd1f-4afc-8376-2115e66dda6c", title: "Kevin Warsh’s concerning communication style", date: "2026-07-30", time: "18:35", url: "https://www.ft.com/content/3cbee183-fd1f-4afc-8376-2115e66dda6c" },
   { id: "d6df67d4-b8be-4e14-b856-29852e249577", title: "China is not the solution to the US chipflation problem", date: "2026-07-30", time: "18:24", url: "https://www.ft.com/content/d6df67d4-b8be-4e14-b856-29852e249577" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "23f388eb-e8ab-4fb1-b1ca-8e04eb4561a1", title: "‘My life’s screwed’: Korean investors stress out after AI bubble bursts", date: "2026-07-30", time: "10:08", url: "https://www.ft.com/content/23f388eb-e8ab-4fb1-b1ca-8e04eb4561a1" },
   { id: "9c33426e-d413-4d9b-b429-34dea508195e", title: "UK interest rates: Bank of England predicted to hold rates", date: "2026-07-30", time: "10:06", url: "https://www.ft.com/content/9c33426e-d413-4d9b-b429-34dea508195e" },
   { id: "6710a395-0141-4c3f-9620-ccf249e18091", title: "Eurozone grew by 0.4% in second quarter despite Middle East energy shock", date: "2026-07-30", time: "10:01", url: "https://www.ft.com/content/6710a395-0141-4c3f-9620-ccf249e18091" },
-  { id: "77815def-6f50-4adf-8ba3-3643de7bf8ab", title: "DR Congo’s cobalt boom carries an unwanted cargo: uranium", date: "2026-07-30", time: "10:00", url: "https://www.ft.com/content/77815def-6f50-4adf-8ba3-3643de7bf8ab" },
 ];
