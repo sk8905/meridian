@@ -80,17 +80,15 @@
 
 .up { color:var(--t-up); } .down { color:var(--t-down); }
 
-/* World-indices + government-yield heatmaps: region groups of shaded tiles. Each
-   tile is a source link showing the index level / bond yield, heat-shaded by
-   session move (indices) or yield level (bonds). */
-.dsh-wi { display:flex; flex-direction:column; gap:12px; }
+/* World-indices + government-yield heatmaps: region groups of Finviz-style tiles,
+   reusing the equities sector heatmap look (.dsh-heat grid / .dsh-heat-t tiles).
+   Each tile is a source link; shaded by session move (indices) or yield level
+   (bonds). */
+.dsh-wi { display:flex; flex-direction:column; gap:14px; }
 .dsh-wi-h { margin:0 0 6px; font-size:.7rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--t-mut); }
-.dsh-wi-tiles { display:grid; grid-template-columns:repeat(auto-fill,minmax(122px,1fr)); gap:6px; }
-.dsh-wi-t { display:flex; flex-direction:column; gap:2px; padding:8px 10px; border:1px solid var(--t-grid); border-radius:6px; text-decoration:none; color:var(--t-ink); min-width:0; }
-.dsh-wi-nm { font-size:.72rem; font-weight:600; color:var(--t-ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-.dsh-wi-lv { font-size:.92rem; font-weight:700; font-variant-numeric:tabular-nums; color:var(--t-ink); }
-.dsh-wi-ch { font-size:.72rem; font-weight:600; font-variant-numeric:tabular-nums; }
-.dsh-wi-ch.up { color:var(--t-up); } .dsh-wi-ch.down { color:var(--t-down); }
+a.dsh-heat-t { text-decoration:none; }
+.dsh-heat-t i { font-style:normal; font-size:.72rem; font-weight:600; font-variant-numeric:tabular-nums; }
+.dsh-heat-ch.up { color:var(--t-up); } .dsh-heat-ch.down { color:var(--t-down); }
 /* Tenor toggle for the government-yield heatmap */
 .dsh-yld-tgl-bar { display:flex; gap:4px; margin-bottom:12px; flex-wrap:wrap; }
 .dsh-yld-tgl { font:inherit; font-size:.78rem; font-weight:600; padding:4px 14px; border:1px solid var(--t-grid2); background:var(--t-panel2); color:var(--t-mut); border-radius:6px; cursor:pointer; }

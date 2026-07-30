@@ -12,7 +12,7 @@
 // =============================================================================
 import { esc } from "/util.js?v=20260719-1";
 import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, WORLD_INDICES, GOVT_YIELDS } from "/dashboard/js/data.js";
-import { OUTLOOK, CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS } from "/macro/js/content.js";
+import { OUTLOOK, CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS, IND_KEYMOMENTS } from "/macro/js/content.js";
 import { deals, intel, HEDGE_FUNDS, HF_13F } from "/credit/js/data.js";
 import { SECTOR_FLOWS } from "/allocations.js";
 import { items as LGL_ITEMS, cases as LGL_CASES, practiceAreas as LGL_AREAS, areaById as LGL_AREA_BY_ID, firmById as LGL_FIRM_BY_ID, caseSummaries as LGL_CASE_SUMMARIES } from "/legal/js/data.js";
@@ -206,16 +206,15 @@ export function mount(host, ctx) {
     const fmtLv = (v) => (v == null ? "—" : Number(v).toLocaleString("en-GB", { maximumFractionDigits: 2 }));
     const tile = (r) => {
       const { lv, v } = eff(r);
-      const a = v == null ? 0 : (Math.abs(v) / max) * 0.6 + 0.12;
+      const a = v == null ? 0.14 : (Math.abs(v) / max) * 0.5 + 0.14;   // same shading ramp as the sector heatmap
       const col = v == null ? "transparent" : `rgba(${v >= 0 ? "63,192,141" : "242,109,132"},${a.toFixed(2)})`;
-      const inner = `<span class="dsh-wi-nm">${esc(r.name)}</span><span class="dsh-wi-lv">${fmtLv(lv)}</span>`
-        + `<span class="dsh-wi-ch ${upcls(v)}">${v == null ? "" : pct1(v)}</span>`;
+      const inner = `<span>${esc(r.name)}</span><b>${fmtLv(lv)}</b><i class="dsh-heat-ch ${upcls(v)}">${v == null ? "" : pct1(v)}</i>`;
       const tip = `${esc(r.name)}${r.asOf ? " · as of " + esc(r.asOf) : ""} — source`;
       return r.source
-        ? `<a class="dsh-wi-t" style="background:${col}" href="${esc(r.source)}" target="_blank" rel="noopener noreferrer" title="${tip}">${inner}</a>`
-        : `<div class="dsh-wi-t" style="background:${col}">${inner}</div>`;
+        ? `<a class="dsh-heat-t" style="background:${col}" href="${esc(r.source)}" target="_blank" rel="noopener noreferrer" title="${tip}">${inner}</a>`
+        : `<div class="dsh-heat-t" style="background:${col}">${inner}</div>`;
     };
-    const group = (g) => `<div class="dsh-wi-grp"><h4 class="dsh-wi-h">${esc(g.region)}</h4><div class="dsh-wi-tiles">${(g.rows || []).map(tile).join("")}</div></div>`;
+    const group = (g) => `<div class="dsh-wi-grp"><h4 class="dsh-wi-h">${esc(g.region)}</h4><div class="dsh-heat">${(g.rows || []).map(tile).join("")}</div></div>`;
     return `<div class="dsh-wi">${W.regions.map(group).join("")}</div>`
       + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = up</span> · <span class="dsh-fl-neg">red = down</span> on the latest session; each tile shows the local index level (points) and links its source.</p>`;
   }
@@ -484,15 +483,15 @@ export function mount(host, ctx) {
     const span = Math.max(0.01, hi - lo);
     const tile = (r) => {
       const v = valOf(r);
-      const a = v == null ? 0 : ((v - lo) / span) * 0.6 + 0.14;
+      const a = v == null ? 0.14 : ((v - lo) / span) * 0.5 + 0.14;   // same shading ramp as the sector heatmap (deeper = higher yield)
       const col = v == null ? "transparent" : `rgba(155,131,226,${a.toFixed(2)})`;   // rates read the macro/indigo tone
-      const inner = `<span class="dsh-wi-nm">${esc(r.country)}</span><span class="dsh-wi-lv">${v == null ? "—" : v.toFixed(2) + "%"}</span>`;
+      const inner = `<span>${esc(r.country)}</span><b>${v == null ? "—" : v.toFixed(2) + "%"}</b>`;
       const tip = `${esc(r.country)} ${esc(lbl)}${r.asOf ? " · as of " + esc(r.asOf) : ""} — source`;
       return r.source
-        ? `<a class="dsh-wi-t" style="background:${col}" href="${esc(r.source)}" target="_blank" rel="noopener noreferrer" title="${tip}">${inner}</a>`
-        : `<div class="dsh-wi-t" style="background:${col}">${inner}</div>`;
+        ? `<a class="dsh-heat-t" style="background:${col}" href="${esc(r.source)}" target="_blank" rel="noopener noreferrer" title="${tip}">${inner}</a>`
+        : `<div class="dsh-heat-t" style="background:${col}">${inner}</div>`;
     };
-    const group = (g) => `<div class="dsh-wi-grp"><h4 class="dsh-wi-h">${esc(g.region)}</h4><div class="dsh-wi-tiles">${(g.rows || []).map(tile).join("")}</div></div>`;
+    const group = (g) => `<div class="dsh-wi-grp"><h4 class="dsh-wi-h">${esc(g.region)}</h4><div class="dsh-heat">${(g.rows || []).map(tile).join("")}</div></div>`;
     const toggle = `<div class="dsh-yld-tgl-bar" role="tablist" aria-label="Bond tenor">${YLD_TENORS
       .map(([kk, l]) => `<button type="button" class="dsh-yld-tgl${kk === k ? " is-on" : ""}" data-tenor="${kk}" role="tab" aria-selected="${kk === k}">${l}</button>`).join("")}</div>`;
     return toggle + `<div class="dsh-wi">${G.regions.map(group).join("")}</div>`
@@ -519,9 +518,24 @@ export function mount(host, ctx) {
       if (box) box.innerHTML = govtYieldsHeatHTML();
     } catch { /* keep the sourced snapshot */ }
   }
+  // "Why it moved" for rates — mirrors the Equities Key-moments box, reading the
+  // sourced per-benchmark notes in IND_KEYMOMENTS (macro/js/content.js). Keys are
+  // "<CC>:<tenor>" (e.g. US:two_year); each note is grounded + sourced. The whole
+  // card is omitted when nothing qualifies.
+  function fixedKeyMomentsHTML() {
+    const KM = IND_KEYMOMENTS || {};
+    const keys = Object.keys(KM).filter((k) => KM[k] && KM[k].text);
+    if (!keys.length) return "";
+    const TEN = { two_year: "2Y", five_year: "5Y", ten_year: "10Y", thirty_year: "30Y" };
+    const label = (k) => { const [cc, t] = String(k).split(":"); return `${cc}${TEN[t] ? " " + TEN[t] : ""}`; };
+    const row = (k) => { const m = KM[k]; return `<div class="dsh-km"><span class="dsh-km-t">${esc(label(k))}</span>`
+      + `<span class="dsh-km-x">${esc(m.text)}${srcLink(m.src, (m.srcName || "source") + " — source")}</span></div>`; };
+    return `<section class="dsh-card dsh-span"><h3 class="dsh-h">Key moments <span class="dsh-n">why it moved</span></h3>${keys.map(row).join("")}</section>`;
+  }
   function fixedIncomeHTML() {
     const note = YIELD_CURVE && YIELD_CURVE.note ? `<p class="dsh-fl-note">${esc(YIELD_CURVE.note)}</p>` : "";
     return `<div class="dsh-pane">
+      ${fixedKeyMomentsHTML()}
       <section class="dsh-card dsh-span"><h3 class="dsh-h">Government bond yields — by tenor (2Y · 5Y · 10Y · 30Y) <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
       <section class="dsh-card dsh-span"><h3 class="dsh-h">Government / sovereign — yield curves ${asOf(YIELD_CURVE && YIELD_CURVE.asOf)}</h3><div class="dsh-scroll">${yieldCurveHTML()}</div>${note}</section>
       <section class="dsh-card dsh-span"><h3 class="dsh-h">Corporate — credit spreads (ICE BofA OAS) <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div><p class="dsh-fl-note">Option-adjusted spreads over Treasuries, by rating cohort — the corporate risk premium. Live from FRED (ICE BofA indices).</p></section>

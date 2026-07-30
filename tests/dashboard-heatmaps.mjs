@@ -13,14 +13,14 @@ const base = `http://localhost:${srv.port}`;
   const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/dashboard/equities/");
   await pg.waitForTimeout(1600);
   const wi = await pg.evaluate(() => {
-    const regions = [...document.querySelectorAll(".dsh-wi .dsh-wi-grp .dsh-wi-h")].map((h) => h.textContent.trim());
-    const tiles = [...document.querySelectorAll(".dsh-wi .dsh-wi-t")];
+    const regions = [...document.querySelectorAll("#dsh-wi-box .dsh-wi-grp .dsh-wi-h")].map((h) => h.textContent.trim());
+    const tiles = [...document.querySelectorAll("#dsh-wi-box .dsh-heat-t")];
     return {
       regions,
       tiles: tiles.length,
       sourced: tiles.length > 0 && tiles.every((t) => t.tagName === "A" && /^https?:/.test(t.getAttribute("href") || "")),
-      levels: tiles.filter((t) => (t.querySelector(".dsh-wi-lv") || {}).textContent && (t.querySelector(".dsh-wi-lv")).textContent !== "—").length,
-      hasSP: tiles.some((t) => /S&P 500/.test((t.querySelector(".dsh-wi-nm") || {}).textContent || "")),
+      levels: tiles.filter((t) => (t.querySelector("b") || {}).textContent && (t.querySelector("b")).textContent !== "—").length,
+      hasSP: tiles.some((t) => /S&P 500/.test((t.querySelector("span") || {}).textContent || "")),
     };
   });
   check(wi.tiles >= 15, `World indices: tiles render (${wi.tiles})`);
@@ -41,8 +41,8 @@ const base = `http://localhost:${srv.port}`;
     const tenors = [...box.querySelectorAll(".dsh-yld-tgl")].map((t) => t.textContent.trim());
     const active0 = (box.querySelector(".dsh-yld-tgl.is-on") || {}).textContent;
     const regions = [...box.querySelectorAll(".dsh-wi-grp .dsh-wi-h")].map((h) => h.textContent.trim());
-    const tiles0 = [...box.querySelectorAll(".dsh-wi-t")];
-    const firstVal = (tiles0[0] && tiles0[0].querySelector(".dsh-wi-lv") || {}).textContent;
+    const tiles0 = [...box.querySelectorAll(".dsh-heat-t")];
+    const firstVal = (tiles0[0] && tiles0[0].querySelector("b") || {}).textContent;
     return {
       tenors, active0, regions, tiles: tiles0.length,
       sourced: tiles0.length > 0 && tiles0.every((t) => t.tagName === "A"),
@@ -62,10 +62,20 @@ const base = `http://localhost:${srv.port}`;
     const b2 = [...box.querySelectorAll(".dsh-yld-tgl")].find((t) => t.textContent.trim() === "2Y");
     b2.click();
     const box2 = document.querySelector("#dsh-yld");
-    return { active: (box2.querySelector(".dsh-yld-tgl.is-on") || {}).textContent, tiles: box2.querySelectorAll(".dsh-wi-t").length };
+    return { active: (box2.querySelector(".dsh-yld-tgl.is-on") || {}).textContent, tiles: box2.querySelectorAll(".dsh-heat-t").length };
   });
   checkEq(after.active, "2Y", "Govt yields: toggling to 2Y switches the active tenor");
   check(after.tiles >= 10, `Govt yields: heatmap re-renders on toggle (${after.tiles})`);
+
+  // "Why it moved" box mirrors the Equities Key-moments card, each note sourced.
+  const km = await pg.evaluate(() => {
+    const card = [...document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-card')].find((c) => /why it moved/i.test(c.textContent));
+    if (!card) return null;
+    const rows = [...card.querySelectorAll(".dsh-km")];
+    return { rows: rows.length, sourced: rows.length > 0 && rows.every((r) => r.querySelector('.dsh-src[href^="http"]')) };
+  });
+  check(km && km.rows > 0, `Fixed Income: "why it moved" box renders (${km && km.rows})`);
+  check(km && km.sourced, "Fixed Income: every why-it-moved note links its source");
   checkErrs(errs, "govt yields heatmap");
   await ctx.close();
 }

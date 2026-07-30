@@ -23,8 +23,8 @@ const base = `http://localhost:${srv.port}`;
   const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/dashboard/equities/");
   await pg.waitForTimeout(2000);
   const sp = await pg.evaluate(() => {
-    const t = [...document.querySelectorAll("#dsh-wi-box .dsh-wi-t")].find((x) => /S&P 500/.test((x.querySelector(".dsh-wi-nm") || {}).textContent || ""));
-    return t ? { lv: (t.querySelector(".dsh-wi-lv") || {}).textContent, ch: (t.querySelector(".dsh-wi-ch") || {}).textContent } : null;
+    const t = [...document.querySelectorAll("#dsh-wi-box .dsh-heat-t")].find((x) => /S&P 500/.test((x.querySelector("span") || {}).textContent || ""));
+    return t ? { lv: (t.querySelector("b") || {}).textContent, ch: (t.querySelector(".dsh-heat-ch") || {}).textContent } : null;
   });
   check(sp && /9,?999\.99/.test(sp.lv), `World indices: S&P 500 shows the LIVE level (${sp && sp.lv})`);
   check(sp && /\+5\.5%/.test(sp.ch), `World indices: S&P 500 shows the LIVE % change (${sp && sp.ch})`);
@@ -37,8 +37,8 @@ const base = `http://localhost:${srv.port}`;
   const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/dashboard/fixed-income/");
   await pg.waitForTimeout(2000);
   const us = await pg.evaluate(() => {
-    const t = [...document.querySelectorAll("#dsh-yld .dsh-wi-t")].find((x) => /United States/.test((x.querySelector(".dsh-wi-nm") || {}).textContent || ""));
-    return t ? (t.querySelector(".dsh-wi-lv") || {}).textContent : null;
+    const t = [...document.querySelectorAll("#dsh-yld .dsh-heat-t")].find((x) => /United States/.test((x.querySelector("span") || {}).textContent || ""));
+    return t ? (t.querySelector("b") || {}).textContent : null;
   });
   check(/9\.99%/.test(us || ""), `Govt yields: US 10Y shows the LIVE yield (${us})`);
   checkErrs(errs, "govt yields live overlay");
