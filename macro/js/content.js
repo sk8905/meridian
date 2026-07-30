@@ -13,7 +13,7 @@ export const UPDATED = "30 July 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-07-30",
-  lastCheckedTime: "12:25 BST",
+  lastCheckedTime: "17:23 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -548,6 +548,8 @@ export const YIELD_CURVE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-ftse-record-close-2026-07-30", kind: "Markets", title: "The FTSE 100 closed at a fresh all-time high of 10,972.06 (+0.58%), having touched an intraday record of 10,978.87, as a 5.6% jump in Rolls-Royce (on an upgraded full-year outlook) and gains across mining, industrial and energy stocks outweighed the BoE's narrower 6–3 hold and ongoing Middle East tensions.", href: "#/bubble", date: "2026-07-30" },
+  { id: "g-us-gdp-miss-pce-cool-2026-07-30", kind: "Rate guidance", title: "The BEA's advance estimate put Q2 GDP growth at 1.5% annualised — below the ~1.8% consensus and down from Q1's 2.1% — even as consumer spending accelerated to 3.2%; the same morning's June core PCE cooled slightly to 3.3% y/y (from 3.4%), a mixed print that left CME FedWatch-implied odds of a 15–16 September hike little changed near ~81%, while the 30-year Treasury yield extended its climb to ~5.23%, the highest since July 2007.", href: "#/policy", date: "2026-07-30" },
   { id: "g-boe-hold-6-3-vote-2026-07-30", kind: "Rate guidance", title: "The BoE's MPC held Bank Rate at 3.75% on 30 July by a narrower 6–3 vote (three members favoured an immediate 25bp hike to 4%) — one more dissenter than June's 7–2 split — as the Iran-war oil shock keeps UK inflation pressures elevated, echoing the Fed's own three-way hawkish dissent the day before.", href: "#/policy", date: "2026-07-30" },
   { id: "g-kospi-2nd-day-crash-sk-hynix-2026-07-29", kind: "Bubble risk", title: "South Korea's Kospi and Kosdaq triggered circuit breakers for a second straight day — a historic first — with the Kospi falling as much as 8.2% intraday (nearly 7% at last check) as SK Hynix sank up to 12.8% and Samsung fell over 7%; SK Hynix's Q2 operating profit, though up sixfold year-on-year to a record 60.5tn won, missed elevated analyst forecasts, reviving 'DeepSeek moment'-style doubts over AI-spending returns.", href: "#/bubble", date: "2026-07-29" },
   { id: "g-fedwatch-35pct-2026-07-29", kind: "Rate guidance", title: "CME FedWatch-implied odds ticked up to roughly 35% hike / 65% hold in Wednesday-morning trade (from ~69%/31% hold/hike Tuesday night) as the overnight Iranian missile attack on US forces and the retaliatory Iraq strikes kept the oil-driven inflation risk live hours before the Fed's 2pm ET decision.", href: "#/policy", date: "2026-07-29" },
@@ -675,18 +677,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-07-30",
   us: [
-    { title: "30-year Treasury yield hits highest level since 2007 after Fed keeps rates unchanged", source: "CNBC", date: "2026-07-29", time: "22:37", url: "https://www.cnbc.com/2026/07/29/treasury-yields-fed-interest-rates.html" },
-    { title: "Fed Holds Rates Steady as Three Officials Dissent in Favor of a Hike", source: "Bloomberg", date: "2026-07-29", time: "19:00", url: "https://www.bloomberg.com/news/articles/2026-07-29/fed-holds-rates-steady-three-officials-dissent-favoring-a-hike" },
-    { title: "Core PCE Price Index, GDP, and jobless claims due Thursday", source: "Investing.com", date: "2026-07-30", time: "09:17", url: "https://www.investing.com/news/stock-market-news/core-pce-price-index-gdp-and-jobless-claims-due-thursday-93CH-4821457" },
-    { title: "Stock market today: Dow, S&P 500, Nasdaq futures rebound ahead of inflation data", source: "Yahoo Finance", date: "2026-07-30", time: "08:22", url: "https://finance.yahoo.com/markets/live/stock-market-today-thursday-july-30-dow-sp-500-nasdaq-082255995.html" },
-    { title: "Amazon earnings preview: Wall Street looks for more cloud growth as AI spending hits a record", source: "GeekWire", date: "2026-07-29", time: "05:10", url: "https://www.geekwire.com/2026/amazon-earnings-preview-wall-street-looks-for-more-cloud-growth-as-ai-spending-hits-a-record/" },
+    { title: "US Economic Growth Misses Estimates Despite Robust Consumers", source: "Bloomberg", date: "2026-07-30", time: "13:30", url: "https://www.bloomberg.com/news/articles/2026-07-30/us-economic-growth-misses-estimates-despite-robust-consumers" },
+    { title: "The Fed's preferred inflation gauge cooled in June. It might not last", source: "CNN Business", date: "2026-07-30", time: "13:30", url: "https://www.cnn.com/2026/07/30/economy/us-pce-inflation-consumer-spending-june" },
+    { title: "Economy Slows, Inflation Dips as Markets Digest Fed's Latest Move", source: "U.S. News", date: "2026-07-30", time: "13:30", url: "https://www.usnews.com/news/national-news/articles/2026-07-30/economy-slows-inflation-dips-as-markets-digest-feds-latest-move" },
+    { title: "GDP rose by 1.5% in 2Q, lower than predicted", source: "Yahoo Finance", date: "2026-07-30", time: "13:30", url: "https://finance.yahoo.com/economy/articles/gdp-rose-1-5-2q-154442979.html" },
+    { title: "Stock Market Today (July 30, 2026): S&P 500 rises as Microsoft surges, Fed holds rates steady", source: "TheStreet", date: "2026-07-30", time: "09:30", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-july-30-2026" },
   ],
   uk: [
-    { title: "Bank Rate maintained at 3.75% — MPC votes 6–3 to hold", source: "Bank of England", date: "2026-07-30", time: "12:00", url: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/july-2026" },
-    { title: "FTSE 100 Live: stocks to fall after Trump warns Iran of 'beating'; Bank to hold interest rates", source: "CityAM", date: "2026-07-30", time: "07:00", url: "https://www.cityam.com/ftse-100-live-stocks-to-fall-after-trump-warns-iran-beating-bank-to-hold-interest-rates/" },
-    { title: "Lloyds Profit Beats Estimates as Lender Unveils Five-Year Plan", source: "Bloomberg", date: "2026-07-30", time: "09:17", url: "https://www.bloomberg.com/news/articles/2026-07-30/lloyds-profit-beats-estimates-as-lender-unveils-five-year-plan" },
-    { title: "Retail sales decline slows in July – CBI Distributive Trades Survey", source: "CBI", date: "2026-07-28", time: "07:00", url: "https://www.cbi.org.uk/media-centre/articles/retail-sales-decline-slows-in-july-cbi-distributive-trades-survey/" },
-    { title: "FTSE 100 Outlook: Oil Results and Bank of England Policy in Focus", source: "ts2.tech", date: "2026-07-30", time: "09:17", url: "https://ts2.tech/en/ftse-100-outlook-oil-results-and-bank-of-england-policy-in-focus/" },
+    { title: "Bank of England holds UK interest rate steady at 3.75% — but policymakers see upside inflation risk", source: "CNBC", date: "2026-07-30", time: "12:00", url: "https://www.cnbc.com/2026/07/30/interest-rates-inflation-bank-of-england.html" },
+    { title: "FACTBOX-Bank of England sets out economic scenarios in July meeting", source: "Reuters (via Yahoo Finance)", date: "2026-07-30", time: "12:00", url: "https://finance.yahoo.com/economy/policy/articles/factbox-bank-england-sets-economic-111844519.html" },
+    { title: "British Pound steadies against Euro as BoE leaves interest rate unchanged", source: "FXStreet", date: "2026-07-30", time: "12:30", url: "https://www.fxstreet.com/news/british-pound-steadies-against-euro-as-boe-leaves-interest-rate-unchanged-202607301230" },
+    { title: "Bank of England keeps key rate at 3.75% for the fifth time this year", source: "AP (via ClickOrlando)", date: "2026-07-30", time: "12:00", url: "https://www.clickorlando.com/business/2026/07/30/bank-of-england-keeps-key-rate-at-375-for-the-fifth-time-this-year/" },
+    { title: "London's FTSE 100 at record high on miners, industrials boost; BoE awaited", source: "Reuters (via AOL)", date: "2026-07-30", time: "09:43", url: "https://www.aol.com/articles/londons-ftse-100-record-high-100314000.html" },
   ],
 };
 
@@ -700,6 +702,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-07-30",
   items: [
+    {"title":"London's FTSE 100 at record high on miners, industrials boost; BoE awaited","source":"Reuters (via AOL)","date":"2026-07-30","time":"16:30","url":"https://www.aol.com/articles/londons-ftse-100-record-high-100314000.html","blurb":"The FTSE 100 closed at a fresh all-time high of 10,972.06 (+0.58%), having touched an intraday record of 10,978.87, as a 5.6% jump in Rolls-Royce on an upgraded outlook and strength across mining, industrial and energy stocks outweighed the BoE's narrower 6-3 hold."},
+    {"title":"US Economic Growth Misses Estimates Despite Robust Consumers","source":"Bloomberg","date":"2026-07-30","time":"13:30","url":"https://www.bloomberg.com/news/articles/2026-07-30/us-economic-growth-misses-estimates-despite-robust-consumers","blurb":"The BEA's advance estimate put Q2 GDP growth at 1.5% annualised — below the ~1.8% consensus and down from Q1's 2.1% — even as consumer spending accelerated to a 3.2% pace from just 0.5% in Q1."},
+    {"title":"The Fed's preferred inflation gauge cooled in June. It might not last","source":"CNN Business","date":"2026-07-30","time":"13:30","url":"https://www.cnn.com/2026/07/30/economy/us-pce-inflation-consumer-spending-june","blurb":"June core PCE eased to 3.3% y/y (from 3.4% in May, in line with forecast) — its fourth straight month at or above 3.3%, the longest such stretch since late 2023 — leaving September Fed hike odds little changed."},
     {"title":"Bank Rate maintained at 3.75% — MPC votes 6–3 to hold","source":"Bank of England","date":"2026-07-30","time":"12:00","url":"https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/july-2026","blurb":"The MPC held Bank Rate at 3.75% by a majority of 6-3 (three members favoured an immediate 25bp hike to 4%) — one more dissenter than June's 7-2 split, alongside a fresh quarterly Monetary Policy Report."},
     {"title":"FTSE 100 Live: stocks to fall after Trump warns Iran of 'beating'; Bank to hold interest rates","source":"CityAM","date":"2026-07-30","time":"07:00","url":"https://www.cityam.com/ftse-100-live-stocks-to-fall-after-trump-warns-iran-beating-bank-to-hold-interest-rates/","blurb":"London's blue-chip index was set to open lower as renewed Iran tensions weighed on sentiment ahead of the BoE's Super Thursday decision."},
     {"title":"Lloyds Profit Beats Estimates as Lender Unveils Five-Year Plan","source":"Bloomberg","date":"2026-07-30","time":"09:17","url":"https://www.bloomberg.com/news/articles/2026-07-30/lloyds-profit-beats-estimates-as-lender-unveils-five-year-plan","blurb":"Lloyds' Q2 pre-tax profit rose 14% y/y to £2.27bn, beating the £2.09bn consensus, as the bank unveiled a five-year plan targeting ~20% RoTE by 2030."},
