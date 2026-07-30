@@ -20,6 +20,13 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "354bfe84-eb98-4607-ace7-c8231beafe7b", title: "France allows some wildfire evacuees to return as blazes stabilise", date: "2026-07-30", time: "12:05", url: "https://www.ft.com/content/354bfe84-eb98-4607-ace7-c8231beafe7b" },
+  { id: "3936b8c9-8ce2-41f8-8687-90a2aa385e41", title: "KKR profits soar as it cashes in record amount of private equity bets", date: "2026-07-30", time: "12:01", url: "https://www.ft.com/content/3936b8c9-8ce2-41f8-8687-90a2aa385e41" },
+  { id: "06d941ed-8136-46a4-a2ec-44bea1b35c3b", title: "Meta shares tumble as Mark Zuckerberg tries to sell his vision for AI ‘agents’", date: "2026-07-30", time: "11:48", url: "https://www.ft.com/content/06d941ed-8136-46a4-a2ec-44bea1b35c3b" },
+  { id: "abc19970-1230-4dcc-a888-4877162db342", title: "Aston Martin investors kept in dark over details of asset shift", date: "2026-07-30", time: "11:45", url: "https://www.ft.com/content/abc19970-1230-4dcc-a888-4877162db342" },
+  { id: "5fa10fcb-25fb-49e0-b77a-046b6b8b7f75", title: "There is no modern-day Maggie to save Britain from Burnhamism", date: "2026-07-30", time: "11:45", url: "https://www.ft.com/content/5fa10fcb-25fb-49e0-b77a-046b6b8b7f75" },
+  { id: "57aac838-baee-406d-b4ac-c0ffda351aee", title: "Kevin Warsh’s stripped-back Fed communication ‘already backfiring’, say investors", date: "2026-07-30", time: "11:24", url: "https://www.ft.com/content/57aac838-baee-406d-b4ac-c0ffda351aee" },
+  { id: "c4eedbe8-6345-48b6-8d44-5cc5b0bea2c7", title: "US borrowing costs hit 19-year high as Federal Reserve defies inflation fears", date: "2026-07-30", time: "10:03", url: "https://www.ft.com/content/c4eedbe8-6345-48b6-8d44-5cc5b0bea2c7" },
   { id: "d4236295-ce9d-45c8-b9eb-702fd45bde13", title: "Bordeaux wineries at risk from ‘zombie fires’", date: "2026-07-30", time: "11:00", url: "https://www.ft.com/content/d4236295-ce9d-45c8-b9eb-702fd45bde13" },
   { id: "77baac40-d803-4084-94f3-a133653072cf", title: "Amazon finds cases of AI causing runaway spending on tech projects", date: "2026-07-30", time: "11:00", url: "https://www.ft.com/content/77baac40-d803-4084-94f3-a133653072cf" },
   { id: "d41656fe-16c4-48aa-9f45-2a276fe0a267", title: "Foxtons cuts costs after buyer caution slashes profits", date: "2026-07-30", time: "10:47", url: "https://www.ft.com/content/d41656fe-16c4-48aa-9f45-2a276fe0a267" },
@@ -50,14 +57,4 @@ export const FT_ITEMS = [
   { id: "5035f634-7d47-483a-b8e9-722ded88a672", title: "FirstFT: Meta and Microsoft kick off turbulent tech results", date: "2026-07-30", time: "05:30", url: "https://www.ft.com/content/5035f634-7d47-483a-b8e9-722ded88a672" },
   { id: "3249b384-2a27-402b-be12-e3b3bea37440", title: "Accelerating Business", date: "2026-07-30", time: "05:17", url: "https://www.ft.com/content/3249b384-2a27-402b-be12-e3b3bea37440" },
   { id: "4f6e5ad5-395b-41ac-9672-bd6880dc05a7", title: "The tech wreck roiling Wall Street", date: "2026-07-30", time: "05:00", url: "https://www.ft.com/content/4f6e5ad5-395b-41ac-9672-bd6880dc05a7" },
-  { id: "fc8963a1-d30b-4b95-adfd-bc2eff115f0d", title: "Deutsche Bank swings from overexcitement to overcorrection", date: "2026-07-30", time: "05:00", url: "https://www.ft.com/content/fc8963a1-d30b-4b95-adfd-bc2eff115f0d" },
-  { id: "f2a1c998-db3e-46bb-bb89-d09446a8cc3f", title: "What are PuFins and how do Andy Burnham and John Healey plan to use them?", date: "2026-07-30", time: "05:00", url: "https://www.ft.com/content/f2a1c998-db3e-46bb-bb89-d09446a8cc3f" },
-  { id: "b08b43a8-09d4-492b-ad20-f1ab53e92192", title: "UK business secretary argues against rejoining EU customs union", date: "2026-07-30", time: "05:00", url: "https://www.ft.com/content/b08b43a8-09d4-492b-ad20-f1ab53e92192" },
-  { id: "795c4ff8-bd2d-42bf-9252-3a793dec22ab", title: "Virgin Media O2 owners weigh options to slash £22bn debt pile", date: "2026-07-30", time: "05:00", url: "https://www.ft.com/content/795c4ff8-bd2d-42bf-9252-3a793dec22ab" },
-  { id: "3990cbf0-e783-4445-a32f-19a345c0cc6f", title: "How Putin’s refinery dream became Ukraine’s target", date: "2026-07-30", time: "05:00", url: "https://www.ft.com/content/3990cbf0-e783-4445-a32f-19a345c0cc6f" },
-  { id: "5ac77b70-d057-44d4-b2b3-5eccb0e73484", title: "AI investment concentration risk is not just in equities", date: "2026-07-30", time: "05:00", url: "https://www.ft.com/content/5ac77b70-d057-44d4-b2b3-5eccb0e73484" },
-  { id: "5f861140-d36f-4765-b0bb-44d26df05123", title: "Hedge funds raise bets against US-backed critical minerals companies", date: "2026-07-30", time: "05:00", url: "https://www.ft.com/content/5f861140-d36f-4765-b0bb-44d26df05123" },
-  { id: "0ed87aae-96f1-45b8-87b3-cbf4c6d12e4f", title: "How exposed is the UK economy to the second China shock?", date: "2026-07-30", time: "05:00", url: "https://www.ft.com/content/0ed87aae-96f1-45b8-87b3-cbf4c6d12e4f" },
-  { id: "6e1bd23a-a131-414e-afb3-46b2b4629d24", title: "Germany’s Mittelstand has not much time to lose", date: "2026-07-30", time: "05:00", url: "https://www.ft.com/content/6e1bd23a-a131-414e-afb3-46b2b4629d24" },
-  { id: "db17cde4-eb38-4bac-9413-a3e8ea3a6630", title: "The UK has worse mobile coverage than Romania. Why?", date: "2026-07-30", time: "05:00", url: "https://www.ft.com/content/db17cde4-eb38-4bac-9413-a3e8ea3a6630" },
 ];
