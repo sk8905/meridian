@@ -160,7 +160,6 @@ html[data-theme="light"] .mcmdk{--t-mac:#6a4fa3;--t-crd:#fb8b1e;--t-lex:#2b8a5f;
 /* iPhone: Bloomberg-Go full-screen search — top bar (magnifier · field · Cancel),
    results filling the screen, terminal-styled. */
 @media (max-width:760px){
-  .mcmdk{z-index:9000}
   .mcmdk-scrim{display:none}
   /* Full-screen search is a modal takeover: hide the bottom tab bar (otherwise
      iOS shoves it — fixed bottom:0 — up on top of the keyboard, floating over the

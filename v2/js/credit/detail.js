@@ -18,7 +18,7 @@ import { esc } from "/util.js?v=20260719-1";
 import {
   eur, pct, fmtDate, link, sources, raiseDisplay, nameCell, saveBtn, newsSaveId,
   metaDate, notFound, applyPendingFocus, commitmentsForLp, commitmentsForManager,
-  investorsForFund, pageList, feedDedupKey, creditSource, intelRow, dealRow,
+  investorsForFund, pageList, feedDedupKey, creditSource,
   _chipMem, chipMemKey,
 } from "/credit/js/shared.js?v=20260728-2";
 
@@ -307,20 +307,6 @@ function aumHeadline(m) {
   const hit = t.match(/[~<>]?\s*(?:c\.\s*)?[€$£]\s*\d[\d.,]*\s*(?:tn|bn|billion|m|million)?\+?/i);
   if (hit) return hit[0].replace(/c\.\s*/i, "").replace(/\s+/g, "").replace(/billion/i, "bn").replace(/million/i, "m");
   return m.aum != null ? "€" + m.aum + "bn" : "—";
-}
-
-// One manager-profile news row — same layout as the Fundraising (intelRow) rows:
-// a "News" pill + date in the meta column, the headline (links to source), then
-// the outlet inline after the headline, and a summary line where present.
-function newsItemRow(x, mgr) {
-  const head = x.url
-    ? `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="intel-head">${esc(x.title)}</a>`
-    : `<span class="intel-head">${esc(x.title)}</span>`;
-  const src = x.outlet ? `<span class="intel-src-inline muted small">${esc(x.outlet)}</span>` : "";
-  return `<div class="intel-row" data-fkey="${esc(feedDedupKey(x))}">
-    <div class="intel-meta">${metaDate(x.date)}</div>
-    <div class="intel-body"><div class="intel-title-line">${head}${src}${saveBtn(newsSaveId(x))}</div>${x.summary ? `<p class="muted small">${esc(x.summary)}</p>` : ""}</div>
-  </div>`;
 }
 
 // Best-effort extraction of a named CLO vehicle from a headline/summary, e.g.

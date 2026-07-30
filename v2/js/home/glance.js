@@ -9,7 +9,7 @@ import { NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/co
 import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
 import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
-import { DESK, DESK_CODE, DESK_CLASS, STRICT_MACRO_RE, deskFor, palTag, nlDesk,
+import { DESK, STRICT_MACRO_RE, deskFor, nlDesk,
   feedBodyHTML, feedSrcBarHTML, feedEmptyHTML } from "/feed.js?v=20260729-2";
 
 const __KEY = "home";

@@ -7,7 +7,7 @@ import {
   STRATEGIES, GEOS, LP_TYPES, LAST_CHECKED, LAST_CHECKED_TIME,
   managers, funds, lps, intel, commitments, deals, research,
   managerById, fundById, lpById,
-  fundsByManager, intelForManager, intelForFund, dealsForManager, dealsForFund,
+  fundsByManager,
   HEDGE_FUNDS, HEDGE_FUNDS_ASOF, HEDGE_INTEL,
 } from "/credit/js/data.js";
 import {
@@ -15,12 +15,12 @@ import {
   FOLLOW_KEY, FOLLOW_TYPES, follows, followList, followCount, nameCell, loadFollows,
   SAVEDC_KEY, getSavedC, newsSaveId,
   creditSource, feedDedupKey,
-  PAGE, pageShown, pageCount, pageReset, loadMoreBtn, feedHtml,
+  PAGE, pageShown, pageCount, pageReset, loadMoreBtn,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
 } from "/credit/js/shared.js?v=20260730-1";
-import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js?v=v2-15";
+import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js?v=v2-16";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260729-2";
-import { esc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
+import { esc } from "/util.js?v=20260719-1";
 
 export function mount(host, ctx) {
   const app = host;

@@ -5,7 +5,7 @@
 import { reportRefresh } from "/v2/js/status.js?v=v2-2";
 import {
   items, cases, caseSummaries, practiceAreas, firms, tiers, updateTypes, restructurings,
-  firmById, areaById, typeById, tierById, LAST_CHECKED, LAST_CHECKED_TIME,
+  firmById, typeById, tierById, LAST_CHECKED, LAST_CHECKED_TIME,
   rxAdvisers,
 } from "/legal/js/data.js";
 import {

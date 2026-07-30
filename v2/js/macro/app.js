@@ -2,7 +2,7 @@
 // shell wiring changed: injected container, no chrome boot, active-tab-guarded
 // listeners. Hash sub-routing unchanged.
 
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS, IND_KEYMOMENTS } from "/macro/js/content.js";
+import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, IND_KEYMOMENTS } from "/macro/js/content.js";
 import { reportRefresh } from "/v2/js/status.js?v=v2-2";
 import { esc } from "/util.js?v=20260719-1";
 import { MONTHS, isoToDate, fmtDay, fmtDayGB, fmtDate,
