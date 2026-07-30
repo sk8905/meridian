@@ -11,7 +11,7 @@
 // of truth. Every figure keeps a real outbound source link. mount → {enter,leave}.
 // =============================================================================
 import { esc } from "/util.js?v=20260719-1";
-import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS } from "/dashboard/js/data.js";
+import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, WORLD_INDICES, GOVT_YIELDS } from "/dashboard/js/data.js";
 import { OUTLOOK, CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS } from "/macro/js/content.js";
 import { deals, intel, HEDGE_FUNDS, HF_13F } from "/credit/js/data.js";
 import { SECTOR_FLOWS } from "/allocations.js";
@@ -34,6 +34,7 @@ const _norm = (s) => String(s || "").toLowerCase().replace(/['’‘]/g, "");
 
 export function mount(host, ctx) {
   let pane = "macro";
+  let _yldTenor = "y10";                 // active tenor for the government-yields heatmap
   let _legalQuery = "";                 // Legal database keyword (persist across re-renders)
   const _legalAreas = new Set();        // practice areas the search is limited to (empty = all)
   const _legalTypes = new Set();        // item types the search is limited to (empty = all): "alert" | "case"
@@ -188,9 +189,36 @@ export function mount(host, ctx) {
     return `<table class="dsh-tbl dsh-fl-tbl"><thead>${head}</thead><tbody>${F.sectors.map(row).join("")}</tbody></table>`
       + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = inflow</span> · <span class="dsh-fl-neg">red = outflow</span>, shaded within each window (net ${esc(F.unit || "$M")}). Source: <a href="${esc(F.source)}" target="_blank" rel="noopener noreferrer">ETF Database</a>.</p>`;
   }
+  // Major indices by jurisdiction — LOCAL index points (not ETFs), grouped
+  // US · South America · UK · Europe · APAC. Each tile shows the index level and
+  // its latest-session % change, heat-shaded green (up) / red (down) normalised
+  // across the whole board. Snapshot from WORLD_INDICES (dashboard/js/data.js),
+  // every value sourced + dated, refreshed by the daily routine.
+  function worldIndicesHeatHTML() {
+    const W = WORLD_INDICES;
+    if (!W || !(W.regions || []).length) return "";
+    const mags = W.regions.flatMap((g) => (g.rows || []).map((r) => (r.chgPct == null ? 0 : Math.abs(r.chgPct))));
+    const max = Math.max(1, ...mags);
+    const fmtLv = (v) => (v == null ? "—" : Number(v).toLocaleString("en-GB", { maximumFractionDigits: 2 }));
+    const tile = (r) => {
+      const v = r.chgPct;
+      const a = v == null ? 0 : (Math.abs(v) / max) * 0.6 + 0.12;
+      const col = v == null ? "transparent" : `rgba(${v >= 0 ? "63,192,141" : "242,109,132"},${a.toFixed(2)})`;
+      const inner = `<span class="dsh-wi-nm">${esc(r.name)}</span><span class="dsh-wi-lv">${fmtLv(r.level)}</span>`
+        + `<span class="dsh-wi-ch ${upcls(v)}">${v == null ? "" : pct1(v)}</span>`;
+      const tip = `${esc(r.name)}${r.asOf ? " · as of " + esc(r.asOf) : ""} — source`;
+      return r.source
+        ? `<a class="dsh-wi-t" style="background:${col}" href="${esc(r.source)}" target="_blank" rel="noopener noreferrer" title="${tip}">${inner}</a>`
+        : `<div class="dsh-wi-t" style="background:${col}">${inner}</div>`;
+    };
+    const group = (g) => `<div class="dsh-wi-grp"><h4 class="dsh-wi-h">${esc(g.region)}</h4><div class="dsh-wi-tiles">${(g.rows || []).map(tile).join("")}</div></div>`;
+    return `<div class="dsh-wi">${W.regions.map(group).join("")}</div>`
+      + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = up</span> · <span class="dsh-fl-neg">red = down</span> on the latest session; each tile shows the local index level (points) and links its source.</p>`;
+  }
   function equitiesHTML() {
     return `<div class="dsh-pane">
       ${keyMomentsHTML()}
+      <section class="dsh-card dsh-span"><h3 class="dsh-h">World indices — major benchmarks by jurisdiction ${asOf(WORLD_INDICES && WORLD_INDICES.asOf)}</h3><div class="dsh-scroll">${worldIndicesHeatHTML()}</div></section>
       <section class="dsh-card dsh-span"><h3 class="dsh-h">ETF flows — net fund flows ${asOf(SECTOR_FLOWS.asOf)}</h3><div class="dsh-scroll">${sectorFlowsHTML()}</div></section>
       <section class="dsh-card"><h3 class="dsh-h">S&amp;P 500 sectors — YTD ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
       <section class="dsh-card"><h3 class="dsh-h">Valuation &amp; volatility</h3>${valVolHTML()}</section>
@@ -422,9 +450,49 @@ export function mount(host, ctx) {
   // Government/sovereign (the US/UK yield curves) + corporate (ICE BofA OAS
   // spreads, loaded live). Reuses the macro yield-curve renderer and the credit
   // spreads loader so there is one source of truth for each.
+  // Government bond yields (2Y/5Y/10Y/30Y) across the major economies in each
+  // jurisdiction, as a heatmap of ONE tenor at a time — the toggle switches tenor.
+  // Shaded by yield LEVEL within the visible tenor (deeper = higher yield). Snapshot
+  // from GOVT_YIELDS (dashboard/js/data.js), every value sourced + dated.
+  const YLD_TENORS = [["y2", "2Y"], ["y5", "5Y"], ["y10", "10Y"], ["y30", "30Y"]];
+  function govtYieldsHeatHTML() {
+    const G = GOVT_YIELDS;
+    if (!G || !(G.regions || []).length) return "";
+    const k = _yldTenor;
+    const lbl = (YLD_TENORS.find(([kk]) => kk === k) || [, ""])[1];
+    const vals = G.regions.flatMap((g) => (g.rows || []).map((r) => r[k]).filter((v) => v != null));
+    const lo = vals.length ? Math.min(...vals) : 0, hi = vals.length ? Math.max(...vals) : 1;
+    const span = Math.max(0.01, hi - lo);
+    const tile = (r) => {
+      const v = r[k];
+      const a = v == null ? 0 : ((v - lo) / span) * 0.6 + 0.14;
+      const col = v == null ? "transparent" : `rgba(155,131,226,${a.toFixed(2)})`;   // rates read the macro/indigo tone
+      const inner = `<span class="dsh-wi-nm">${esc(r.country)}</span><span class="dsh-wi-lv">${v == null ? "—" : v.toFixed(2) + "%"}</span>`;
+      const tip = `${esc(r.country)} ${esc(lbl)}${r.asOf ? " · as of " + esc(r.asOf) : ""} — source`;
+      return r.source
+        ? `<a class="dsh-wi-t" style="background:${col}" href="${esc(r.source)}" target="_blank" rel="noopener noreferrer" title="${tip}">${inner}</a>`
+        : `<div class="dsh-wi-t" style="background:${col}">${inner}</div>`;
+    };
+    const group = (g) => `<div class="dsh-wi-grp"><h4 class="dsh-wi-h">${esc(g.region)}</h4><div class="dsh-wi-tiles">${(g.rows || []).map(tile).join("")}</div></div>`;
+    const toggle = `<div class="dsh-yld-tgl-bar" role="tablist" aria-label="Bond tenor">${YLD_TENORS
+      .map(([kk, l]) => `<button type="button" class="dsh-yld-tgl${kk === k ? " is-on" : ""}" data-tenor="${kk}" role="tab" aria-selected="${kk === k}">${l}</button>`).join("")}</div>`;
+    return toggle + `<div class="dsh-wi">${G.regions.map(group).join("")}</div>`
+      + `<p class="dsh-fl-note">Benchmark <b>${esc(lbl)}</b> government bond yields; deeper shade = higher yield. Use the toggle to switch tenor. Each tile links its source.</p>`;
+  }
+  function wireYields() {
+    const box = host.querySelector("#dsh-yld");
+    if (!box) return;
+    box.addEventListener("click", (e) => {
+      const b = e.target.closest(".dsh-yld-tgl");
+      if (!b) return;
+      _yldTenor = b.dataset.tenor;
+      box.innerHTML = govtYieldsHeatHTML();
+    });
+  }
   function fixedIncomeHTML() {
     const note = YIELD_CURVE && YIELD_CURVE.note ? `<p class="dsh-fl-note">${esc(YIELD_CURVE.note)}</p>` : "";
     return `<div class="dsh-pane">
+      <section class="dsh-card dsh-span"><h3 class="dsh-h">Government bond yields — by tenor (2Y · 5Y · 10Y · 30Y) ${asOf(GOVT_YIELDS && GOVT_YIELDS.asOf)}</h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
       <section class="dsh-card dsh-span"><h3 class="dsh-h">Government / sovereign — yield curves ${asOf(YIELD_CURVE && YIELD_CURVE.asOf)}</h3><div class="dsh-scroll">${yieldCurveHTML()}</div>${note}</section>
       <section class="dsh-card dsh-span"><h3 class="dsh-h">Corporate — credit spreads (ICE BofA OAS) <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div><p class="dsh-fl-note">Option-adjusted spreads over Treasuries, by rating cohort — the corporate risk premium. Live from FRED (ICE BofA indices).</p></section>
     </div>`;
@@ -625,7 +693,7 @@ export function mount(host, ctx) {
       : macroHTML();
     host.innerHTML = `<div class="dsh"><header class="dsh-nav tdet-secnav"><div class="tchips">${nav}</div></header>${body}</div>`;
     if (pane === "credit") { loadSpreads(); wireStressSort(); }
-    if (pane === "fixed-income") loadSpreads();
+    if (pane === "fixed-income") { loadSpreads(); wireYields(); }
     if (pane === "hedge-funds") wireHedgeFunds();
     if (pane === "legal") wireLegal();
   }
