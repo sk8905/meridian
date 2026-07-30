@@ -35,6 +35,7 @@ const _norm = (s) => String(s || "").toLowerCase().replace(/['’‘]/g, "");
 export function mount(host, ctx) {
   let pane = "macro";
   let _gyLive = null;                    // live yields overlay (/api/govyields), keyed by country
+  let _yldTenor = "y10";                 // tenor selected in the yield-change heatmap dropdown
   let _legalQuery = "";                 // Legal database keyword (persist across re-renders)
   const _legalAreas = new Set();        // practice areas the search is limited to (empty = all)
   const _legalTypes = new Set();        // item types the search is limited to (empty = all): "alert" | "case"
@@ -424,14 +425,12 @@ export function mount(host, ctx) {
       + (src ? `<div class="dsh-ladder-cap">Source: <a href="${esc(src[1])}" target="_blank" rel="noopener noreferrer">${esc(src[0])}</a></div>` : "");
   }
   // Yield curve — a small SVG line for US & UK across the standard maturities,
-  // plus the underlying table. Refinitiv-style term-structure read.
+  // plus the underlying table (used by the Macro pane). Refinitiv-style read.
   function yieldCurveHTML() {
     const yc = YIELD_CURVE; if (!yc || !yc.maturities) return "";
     const mats = yc.maturities, us = yc.us || [], uk = yc.uk || [];
     const all = [...us, ...uk].filter((v) => v != null);
     const lo = Math.floor(Math.min(...all) * 2) / 2 - 0.25, hi = Math.ceil(Math.max(...all) * 2) / 2 + 0.25;
-    // Landscape viewBox scaled proportionally (height:auto in CSS) — no
-    // preserveAspectRatio="none", which was distorting/stretching the curve.
     const W = 600, H = 150, pad = 12;
     const x = (i) => pad + i * (W - 2 * pad) / (mats.length - 1);
     const y = (v) => H - pad - ((v - lo) / (hi - lo)) * (H - 2 * pad);
@@ -445,6 +444,32 @@ export function mount(host, ctx) {
     const table = `<table class="dsh-tbl"><thead><tr><th>Curve</th>${mats.map((m) => `<th class="dsh-r">${esc(m)}</th>`).join("")}</tr></thead><tbody>${rowFor(us, "US Treasury", "dsh-yc-us")}${rowFor(uk, "UK gilts", "dsh-yc-uk")}</tbody></table>`;
     const src = (yc.sources && yc.sources[0]) || null;
     return `<div class="dsh-yc">${svg}</div>${table}` + (src ? `<div class="dsh-ladder-cap">${esc(yc.asOf || "")} · <a href="${esc(src[1])}" target="_blank" rel="noopener noreferrer">${esc(src[0])}</a></div>` : "");
+  }
+  // Multi-country yield curve (Fixed Income pane) — every country in the heatmap
+  // plotted across 2Y/5Y/10Y/30Y from the GOVT_YIELDS levels, as a multi-line SVG
+  // with a colour legend, plus the full term-structure table. One colour per
+  // country (deterministic HSL by index).
+  const YC_TENORS = [["y2", "2Y"], ["y5", "5Y"], ["y10", "10Y"], ["y30", "30Y"]];
+  function worldYieldCurveHTML() {
+    const G = GOVT_YIELDS; if (!G || !(G.regions || []).length) return "";
+    const rows = G.regions.flatMap((g) => (g.rows || []).map((r) => ({ ...r, region: g.region })));
+    const color = (i) => `hsl(${Math.round((i * 360) / rows.length)},68%,52%)`;
+    const all = rows.flatMap((r) => YC_TENORS.map(([k]) => r[k]).filter((v) => v != null));
+    if (!all.length) return "";
+    const lo = Math.floor(Math.min(...all)) - 0.5, hi = Math.ceil(Math.max(...all)) + 0.5;
+    const W = 600, H = 190, pad = 14;
+    const x = (i) => pad + i * (W - 2 * pad) / (YC_TENORS.length - 1);
+    const y = (v) => H - pad - ((v - lo) / (hi - lo)) * (H - 2 * pad);
+    const linePath = (r) => { let d = "", on = false; YC_TENORS.forEach(([k], i) => { const v = r[k]; if (v == null) return; d += (on ? "L" : "M") + x(i).toFixed(1) + "," + y(v).toFixed(1) + " "; on = true; }); return d.trim(); };
+    const lines = rows.map((r, i) => { const d = linePath(r); return d ? `<path d="${d}" fill="none" stroke="${color(i)}" stroke-width="1.5" opacity="0.85"/>` : ""; }).join("");
+    const svg = `<svg class="dsh-yc-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Government bond yield curves">${lines}</svg>`
+      + `<div class="dsh-yc-x">${YC_TENORS.map(([, l]) => `<span>${esc(l)}</span>`).join("")}</div>`;
+    const legend = `<div class="dsh-yc-leg">${rows.map((r, i) => `<span class="dsh-yc-lg"><i style="background:${color(i)}"></i>${esc(r.country)}</span>`).join("")}</div>`;
+    const rowFor = (r, i) => `<tr><td class="dsh-nm"><span class="dsh-yc-key" style="background:${color(i)}"></span>`
+      + `${r.source ? `<a href="${esc(r.source)}" target="_blank" rel="noopener noreferrer">${esc(r.country)}</a>` : esc(r.country)}</td>`
+      + `${YC_TENORS.map(([k]) => `<td class="dsh-r">${r[k] != null ? esc(r[k].toFixed(2)) : "—"}</td>`).join("")}</tr>`;
+    const table = `<table class="dsh-tbl"><thead><tr><th>Country</th>${YC_TENORS.map(([, l]) => `<th class="dsh-r">${esc(l)}</th>`).join("")}</tr></thead><tbody>${rows.map(rowFor).join("")}</tbody></table>`;
+    return `<div class="dsh-yc">${svg}</div>${legend}${table}`;
   }
   // Embedded macro news wire — the desk's US + UK headlines, linked to source.
   function macroNewsHTML() {
@@ -481,39 +506,49 @@ export function mount(host, ctx) {
   // shaded by yield LEVEL within its column (low yield = green, high = red).
   // Snapshot from GOVT_YIELDS (dashboard/js/data.js), every value sourced + dated.
   const YLD_TENORS = [["y2", "2Y"], ["y5", "5Y"], ["y10", "10Y"], ["y30", "30Y"]];
-  // `_gyLive` (from /api/govyields, keyed by country) overrides the snapshot's
-  // per-tenor yields where present; the sourced snapshot is the seed + fallback.
+  const YCHG_WINS = [["w1", "1W"], ["m1", "1M"], ["m3", "3M"], ["m6", "6M"], ["y1", "1Y"]];
+  // The heatmap shows, for the tenor picked in the dropdown, each country's yield
+  // CHANGE (basis points) over 1W/1M/3M/6M/1Y, green (fell) / red (rose), with the
+  // current yield in the label. Changes are live from /api/govyields (Stooq
+  // history, keyed by country → per-tenor {v, w1..y1}); the current level falls
+  // back to the sourced GOVT_YIELDS snapshot when live is absent.
   function govtYieldsHeatHTML() {
     const G = GOVT_YIELDS;
     if (!G || !(G.regions || []).length) return "";
-    const valOf = (r, k) => { const l = _gyLive && _gyLive[r.country]; return (l && l[k] != null) ? l[k] : r[k]; };
-    // Shade each tenor column independently (like flows normalises per window).
-    const bounds = {};
-    YLD_TENORS.forEach(([k]) => {
-      const vs = G.regions.flatMap((g) => (g.rows || []).map((r) => valOf(r, k)).filter((v) => v != null));
-      const lo = vs.length ? Math.min(...vs) : 0, hi = vs.length ? Math.max(...vs) : 1;
-      bounds[k] = { lo, span: Math.max(0.01, hi - lo) };
-    });
-    const cell = (r, k) => {
-      const v = valOf(r, k);
-      if (v == null) return `<td class="dsh-fl-na">·</td>`;
-      // Diverging green→red across the column: low yield green, high yield red,
-      // intensity by distance from the column midpoint (the normal heatmap look).
-      const mid = bounds[k].lo + bounds[k].span / 2, half = bounds[k].span / 2;
-      const a = Math.min(1, Math.abs(v - mid) / half) * 0.62 + 0.10;
-      const rgb = v <= mid ? "63,192,141" : "242,109,132";
-      return `<td class="dsh-fl" style="background:rgba(${rgb},${a.toFixed(3)})" title="${esc(r.country)} ${esc((YLD_TENORS.find(([kk]) => kk === k) || [, ""])[1])}${r.asOf ? " · as of " + esc(r.asOf) : ""}">${v.toFixed(2)}%</td>`;
-    };
-    // Regions are separated by a thin grey rule (a top border on the first row of
-    // each new region), not a labelled band.
+    const tk = _yldTenor;
+    const tl = (YLD_TENORS.find(([k]) => k === tk) || [, ""])[1];
+    const liveT = (r) => (_gyLive && _gyLive[r.country] && _gyLive[r.country][tk]) || null;
+    const levelOf = (r) => { const l = liveT(r); return (l && l.v != null) ? l.v : r[tk]; };
+    const chgOf = (r, w) => { const l = liveT(r); return (l && l[w] != null) ? l[w] : null; };
+    // Shade each window column independently by |change|.
+    const maxAbs = {};
+    YCHG_WINS.forEach(([w]) => { maxAbs[w] = Math.max(1, ...G.regions.flatMap((g) => (g.rows || []).map((r) => { const c = chgOf(r, w); return c == null ? 0 : Math.abs(c); }))); });
+    const heat = (c, w) => { if (c == null) return ""; const a = (Math.abs(c) / maxAbs[w]) * 0.62 + 0.10; return ` style="background:rgba(${c <= 0 ? "63,192,141" : "242,109,132"},${a.toFixed(3)})"`; };
+    const fmtBp = (c) => (c == null ? "" : (c > 0 ? "+" : "") + Math.round(c));
+    const cell = (r, w, l) => { const c = chgOf(r, w); return c == null ? `<td class="dsh-fl-na">·</td>` : `<td class="dsh-fl"${heat(c, w)} title="${esc(r.country)} ${esc(tl)} ${esc(l)}: ${c > 0 ? "+" : ""}${Math.round(c)}bp">${fmtBp(c)}</td>`; };
+    const fmtLv = (v) => (v == null ? "" : v.toFixed(2) + "%");
+    // Regions are separated by a thin grey rule (top border on the first row).
     const row = (r, brk) => {
+      const lv = levelOf(r);
       const nm = r.source ? `<a href="${esc(r.source)}" target="_blank" rel="noopener noreferrer">${esc(r.country)}</a>` : esc(r.country);
-      return `<tr${brk ? ' class="dsh-secbreak"' : ""}><td class="dsh-nm">${nm}</td>${YLD_TENORS.map(([k]) => cell(r, k)).join("")}</tr>`;
+      return `<tr${brk ? ' class="dsh-secbreak"' : ""}><td class="dsh-nm">${nm}${lv != null ? ` <span class="dsh-fl-t">${fmtLv(lv)}</span>` : ""}</td>${YCHG_WINS.map(([w, l]) => cell(r, w, l)).join("")}</tr>`;
     };
     const group = (g, i) => (g.rows || []).map((r, ri) => row(r, i > 0 && ri === 0)).join("");
-    return `<table class="dsh-tbl dsh-fl-tbl"><thead><tr><th>Country</th>${YLD_TENORS.map(([, l]) => `<th class="dsh-r">${l}</th>`).join("")}</tr></thead>`
+    const sel = `<div class="dsh-yld-selbar"><label class="dsh-yld-sellbl" for="dsh-yld-tenor">Bond duration</label>`
+      + `<select id="dsh-yld-tenor" class="dsh-hf-sel">${YLD_TENORS.map(([k, l]) => `<option value="${k}"${k === tk ? " selected" : ""}>${l}</option>`).join("")}</select></div>`;
+    return sel + `<table class="dsh-tbl dsh-fl-tbl"><thead><tr><th>Country</th>${YCHG_WINS.map(([, l]) => `<th class="dsh-r">${l}</th>`).join("")}</tr></thead>`
       + `<tbody>${G.regions.map(group).join("")}</tbody></table>`
-      + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = lower</span> · <span class="dsh-fl-neg">red = higher</span> yield within each tenor column (benchmark govt yields, %). Each country links its source.</p>`;
+      + `<p class="dsh-fl-note"><span class="dsh-fl-pos">green = yield fell</span> · <span class="dsh-fl-neg">red = yield rose</span> over each window (${esc(tl)} change in basis points, shaded per column); the grey figure is the current ${esc(tl)} yield. Each country links its source.</p>`;
+  }
+  function wireYields() {
+    const box = host.querySelector("#dsh-yld");
+    if (!box) return;
+    box.addEventListener("change", (e) => {
+      const s = e.target.closest("#dsh-yld-tenor");
+      if (!s) return;
+      _yldTenor = s.value;
+      box.innerHTML = govtYieldsHeatHTML();
+    });
   }
   async function loadGovYields() {
     try {
@@ -541,11 +576,10 @@ export function mount(host, ctx) {
     return `<section class="dsh-card dsh-span"><h3 class="dsh-h">Key moments <span class="dsh-n">why it moved</span></h3>${keys.map(row).join("")}</section>`;
   }
   function fixedIncomeHTML() {
-    const note = YIELD_CURVE && YIELD_CURVE.note ? `<p class="dsh-fl-note">${esc(YIELD_CURVE.note)}</p>` : "";
     return `<div class="dsh-pane">
       ${fixedKeyMomentsHTML()}
-      <section class="dsh-card dsh-span"><h3 class="dsh-h">Government bond yields — by tenor (2Y · 5Y · 10Y · 30Y) <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
-      <section class="dsh-card dsh-span"><h3 class="dsh-h">Government / sovereign — yield curves ${asOf(YIELD_CURVE && YIELD_CURVE.asOf)}</h3><div class="dsh-scroll">${yieldCurveHTML()}</div>${note}</section>
+      <section class="dsh-card dsh-span"><h3 class="dsh-h">Government bond yields — change over 1W · 1M · 3M · 6M · 1Y <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
+      <section class="dsh-card dsh-span"><h3 class="dsh-h">Government / sovereign — yield curves (all countries) ${asOf(GOVT_YIELDS && GOVT_YIELDS.asOf)}</h3><div class="dsh-scroll">${worldYieldCurveHTML()}</div></section>
       <section class="dsh-card dsh-span"><h3 class="dsh-h">Corporate — credit spreads (ICE BofA OAS) <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div><p class="dsh-fl-note">Option-adjusted spreads over Treasuries, by rating cohort — the corporate risk premium. Live from FRED (ICE BofA indices).</p></section>
     </div>`;
   }
@@ -746,7 +780,7 @@ export function mount(host, ctx) {
     host.innerHTML = `<div class="dsh"><header class="dsh-nav tdet-secnav"><div class="tchips">${nav}</div></header>${body}</div>`;
     if (pane === "equities") loadWorldIndices();
     if (pane === "credit") { loadSpreads(); wireStressSort(); }
-    if (pane === "fixed-income") { loadSpreads(); loadGovYields(); }
+    if (pane === "fixed-income") { loadSpreads(); wireYields(); loadGovYields(); }
     if (pane === "hedge-funds") wireHedgeFunds();
     if (pane === "legal") wireLegal();
   }

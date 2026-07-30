@@ -37,7 +37,7 @@ const base = `http://localhost:${srv.port}`;
   await ctx.close();
 }
 
-// ---- Fixed Income: government-yield heatmap + tenor toggle ----
+// ---- Fixed Income: yield-CHANGE heatmap (1W/1M/3M/6M/1Y) + tenor dropdown ----
 {
   const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/dashboard/fixed-income/");
   await pg.waitForTimeout(1600);
@@ -45,21 +45,44 @@ const base = `http://localhost:${srv.port}`;
     const box = document.querySelector("#dsh-yld");
     const cols = [...box.querySelectorAll("thead th.dsh-r")].map((t) => t.textContent.trim());
     const rows = [...box.querySelectorAll("tbody tr")];
-    const cells = [...box.querySelectorAll("tbody td.dsh-fl")];
+    const sel = box.querySelector("#dsh-yld-tenor");
     return {
       cols, rows: rows.length,
+      tenors: sel ? [...sel.options].map((o) => o.textContent.trim()) : [],
+      defTenor: sel ? sel.value : "",
       bands: box.querySelectorAll(".dsh-wkrow").length,
       breaks: box.querySelectorAll(".dsh-secbreak").length,
       sourced: rows.length > 0 && rows.every((r) => { const a = r.querySelector(".dsh-nm a"); return a && /^https?:/.test(a.getAttribute("href") || ""); }),
-      pctFmt: cells.length > 0 && /%$/.test(cells[0].textContent || ""),
+      levels: rows.filter((r) => { const c = r.querySelector(".dsh-nm .dsh-fl-t"); return c && /%/.test(c.textContent || ""); }).length,
     };
   });
-  checkEq(gy.cols.join(","), "2Y,5Y,10Y,30Y", "Govt yields: 2Y/5Y/10Y/30Y tenor columns present");
-  checkEq(gy.bands, 0, "Govt yields: no labelled region band (replaced by thin rules)");
+  checkEq(gy.cols.join(","), "1W,1M,3M,6M,1Y", "Govt yields: change columns are 1W/1M/3M/6M/1Y");
+  checkEq(gy.tenors.join(","), "2Y,5Y,10Y,30Y", "Govt yields: bond-duration dropdown lists 2Y/5Y/10Y/30Y");
+  checkEq(gy.defTenor, "y10", "Govt yields: dropdown defaults to 10Y");
+  checkEq(gy.bands, 0, "Govt yields: no labelled region band (thin rules)");
   checkEq(gy.breaks, 4, "Govt yields: five jurisdictions separated by thin grey rules");
   check(gy.rows >= 10, `Govt yields: economy rows render (${gy.rows})`);
   check(gy.sourced, "Govt yields: every row links its source");
-  check(gy.pctFmt, "Govt yields: yield cells show a % value");
+  check(gy.levels >= 8, `Govt yields: current yield shown in the label (${gy.levels})`);
+
+  // Selecting a different bond duration re-renders the heatmap.
+  const after = await pg.evaluate(() => {
+    const sel = document.querySelector("#dsh-yld-tenor");
+    sel.value = "y2"; sel.dispatchEvent(new Event("change", { bubbles: true }));
+    const box = document.querySelector("#dsh-yld");
+    return { val: box.querySelector("#dsh-yld-tenor").value, rows: box.querySelectorAll("tbody tr").length };
+  });
+  checkEq(after.val, "y2", "Govt yields: selecting a duration switches + re-renders");
+  check(after.rows >= 10, `Govt yields: heatmap re-renders on duration change (${after.rows})`);
+
+  // Multi-country yield curve: every country in the heatmap has a line + table row.
+  const curve = await pg.evaluate(() => {
+    const card = [...document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-card')].find((c) => /yield curves \(all countries\)/i.test(c.textContent));
+    if (!card) return null;
+    return { lines: card.querySelectorAll(".dsh-yc-svg path").length, legend: card.querySelectorAll(".dsh-yc-lg").length, rows: card.querySelectorAll("table tbody tr").length };
+  });
+  check(curve && curve.lines >= 10, `Fixed Income: yield curve plots all countries (${curve && curve.lines} lines)`);
+  check(curve && curve.legend >= 10 && curve.rows >= 10, "Fixed Income: yield-curve legend + table cover every country");
 
   // "Why it moved" box mirrors the Equities Key-moments card, each note sourced.
   const km = await pg.evaluate(() => {

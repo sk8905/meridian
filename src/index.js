@@ -941,23 +941,50 @@ const GY_SERIES = [
   { country: "India", cc: "IN", tenors: [2, 5, 10, 30] },
   { country: "South Korea", cc: "KR", tenors: [2, 5, 10, 30] },
 ];
+// A yield series from Stooq (daily CSV of the benchmark yield): the current level
+// (%) plus the CHANGE over 1W/1M/3M/6M/1Y in basis points (now − then, ×100),
+// computed from the nearest close at/before each trailing date.
+async function stooqYieldSeries(sym) {
+  const nil = { v: null, w1: null, m1: null, m3: null, m6: null, y1: null };
+  const txt = await fetchText(`https://stooq.com/q/d/l/?s=${encodeURIComponent(sym)}&i=d`);
+  if (!txt) return nil;
+  const lines = txt.trim().split(/\r?\n/);
+  if (lines.length < 2) return nil;
+  const h = lines[0].split(","), di = h.indexOf("Date"), ci = h.indexOf("Close");
+  if (di < 0 || ci < 0) return nil;
+  const pts = lines.slice(1).map((l) => l.split(","))
+    .map((c) => [Date.parse(c[di]), parseFloat(c[ci])])
+    .filter((p) => Number.isFinite(p[0]) && Number.isFinite(p[1]));
+  if (pts.length < 2) return nil;
+  const lastT = pts[pts.length - 1][0], lastV = pts[pts.length - 1][1];
+  const chg = (days) => {
+    const target = lastT - days * 864e5;
+    let cand = null;
+    for (const [t, v] of pts) { if (t <= target) cand = v; else break; }
+    if (cand == null) cand = pts[0][1];
+    return +((lastV - cand) * 100).toFixed(1);                 // basis points
+  };
+  return { v: +lastV.toFixed(3), w1: chg(7), m1: chg(30), m3: chg(91), m6: chg(182), y1: chg(365) };
+}
 async function handleGovYields(request, env, ctx) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/govyields?v=1", request.url).toString());
+  const cacheKey = new Request(new URL("/api/govyields?v=2", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
+  // Per country, per tenor: current level + windowed yield CHANGES (bp). The client
+  // heatmap shows one tenor's change columns (selectable) and the level in the label.
   const yields = await Promise.all(GY_SERIES.map(async (s) => {
-    const row = { country: s.country, y2: null, y5: null, y10: null, y30: null, asOf: null };
+    const row = { country: s.country };
     await Promise.all(s.tenors.map(async (t) => {
-      const q = await stooqQuote(`${t}Y${s.cc}Y.B`);
-      if (q.value != null) { row["y" + t] = +q.value.toFixed(3); if (q.asOf && (!row.asOf || q.asOf > row.asOf)) row.asOf = q.asOf; }
+      const q = await stooqYieldSeries(`${t}Y${s.cc}Y.B`);
+      if (q.v != null) row["y" + t] = { v: q.v, w1: q.w1, m1: q.m1, m3: q.m3, m6: q.m6, y1: q.y1 };
     }));
     return row;
   }));
   const resp = new Response(JSON.stringify({ yields, ts: Date.now() }), {
     headers: { "content-type": "application/json", "cache-control": "public, max-age=300" },
   });
-  const hits = yields.reduce((n, r) => n + (r.y10 != null ? 1 : 0), 0);
+  const hits = yields.reduce((n, r) => n + (r.y10 ? 1 : 0), 0);
   if (ctx && ctx.waitUntil && hits >= 6) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
   return resp;
 }

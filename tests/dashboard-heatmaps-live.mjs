@@ -7,8 +7,9 @@ import { serve, launchChromium, open, DESKTOP, check, checkErrs, finish } from "
 const worldindices = { indices: [
   { name: "S&P 500", value: 9999.99, changePct: 5.55, asOf: "2026-07-30" },
 ] };
+// New shape: per-tenor { v: current level, w1..y1: change in bp }.
 const govyields = { yields: [
-  { country: "United States", y2: null, y5: null, y10: 9.99, y30: null, asOf: "2026-07-30" },
+  { country: "United States", y10: { v: 4.65, w1: 5, m1: 12, m3: -8, m6: 20, y1: 40 } },
 ] };
 
 const srv = await serve({
@@ -31,17 +32,19 @@ const base = `http://localhost:${srv.port}`;
   await ctx.close();
 }
 
-// Fixed Income: the US 10Y tile reflects the LIVE yield (9.99%), not the seed.
+// Fixed Income (default tenor 10Y): the US row shows the LIVE current 10Y yield in
+// the label (4.65%) and the LIVE 1M change (+12 bp) in the 1M column.
 {
   const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/dashboard/fixed-income/");
   await pg.waitForTimeout(2000);
   const us = await pg.evaluate(() => {
     const r = [...document.querySelectorAll("#dsh-yld tbody tr")].find((x) => /United States/.test((x.querySelector(".dsh-nm") || {}).textContent || ""));
     if (!r) return null;
-    const cells = [...r.querySelectorAll("td:not(.dsh-nm)")];   // [2Y, 5Y, 10Y, 30Y]
-    return (cells[2] || {}).textContent;                        // the 10Y column
+    const cells = [...r.querySelectorAll("td.dsh-fl, td.dsh-fl-na")];   // [1W, 1M, 3M, 6M, 1Y]
+    return { lv: (r.querySelector(".dsh-nm .dsh-fl-t") || {}).textContent, m1: (cells[1] || {}).textContent };
   });
-  check(/9\.99%/.test(us || ""), `Govt yields: US 10Y shows the LIVE yield (${us})`);
+  check(us && /4\.65%/.test(us.lv || ""), `Govt yields: US label shows the LIVE current 10Y yield (${us && us.lv})`);
+  check(us && /\+12/.test(us.m1 || ""), `Govt yields: US 1M column shows the LIVE +12bp change (${us && us.m1})`);
   checkErrs(errs, "govt yields live overlay");
   await ctx.close();
 }

@@ -277,6 +277,12 @@
 .dsh-yc-key { display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:5px; vertical-align:baseline; }
 .dsh-yc-key.dsh-yc-us { background:var(--t-accent); } .dsh-yc-key.dsh-yc-uk { background:var(--t-mac); }
 td .dsh-yc-us, td .dsh-yc-uk { border:0; }
+/* Multi-country curve legend (Fixed Income) + the yield-change tenor selector. */
+.dsh-yc-leg { display:flex; flex-wrap:wrap; gap:4px 12px; margin:6px 0 10px; }
+.dsh-yc-lg { display:inline-flex; align-items:center; gap:5px; color:var(--t-dim); font-size:.72rem; }
+.dsh-yc-lg i { width:9px; height:9px; border-radius:2px; display:inline-block; }
+.dsh-yld-selbar { display:flex; align-items:center; gap:8px; margin-bottom:12px; }
+.dsh-yld-sellbl { color:var(--t-mut); font-size:.72rem; text-transform:uppercase; letter-spacing:.03em; }
 
 /* Embedded news wires (Macro/Credit) — compact linked list */
 .dsh-news { list-style:none; margin:0; padding:0; display:flex; flex-direction:column; }
