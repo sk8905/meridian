@@ -20,15 +20,15 @@ export const BRIEFINGS = {
   slots: {
     morning: {
       label: "Morning",
-      date: "2026-07-29",
-      time: "09:09 BST",
-      lede: "Asian markets extended a historic rout &mdash; the Kospi and Kosdaq tripped circuit breakers for a second straight day as SK Hynix's sixfold profit jump still missed forecasts &mdash; while the Fed's rate decision lands later today with hold-odds wobbling after overnight Iran-Iraq strikes.",
+      date: "2026-07-30",
+      time: "05:20 BST",
+      lede: "Asian markets rebounded and US futures firmed as the chip-led selloff eased in the wake of yesterday's hawkish Fed hold, with Microsoft's cloud-driven beat offsetting a Meta miss overnight and today's docket bringing the BoE's own rate call plus US GDP, PCE and Amazon earnings.",
       bullets: [
-        { html: "<strong>Asia</strong>: South Korea's Kospi and Kosdaq tripped circuit breakers for a historic second straight day as SK Hynix's results disappointed despite a sixfold year-on-year profit jump, extending Tuesday's 10.8% Kospi rout.", src: "https://www.bloomberg.com/news/articles/2026-07-29/korean-stocks-tumble-a-second-day-as-sk-hynix-results-disappoint", srcName: "Bloomberg" },
-        { html: "<strong>Fed</strong>: today's FOMC decision (target range 3.50&ndash;3.75%) is still expected to be a hold, though CME FedWatch hike odds ticked up to roughly 35% this morning after overnight Iran-Iraq strikes reignited an oil-driven inflation worry.", src: "https://www.france24.com/en/live-news/20260729-us-fed-expected-to-hold-rates-steady-as-inflation-hawks-circle", srcName: "France24 (AFP)" },
-        { html: "<strong>UK</strong>: the FTSE 100 closed at a fresh five-month high (~10,876) on 28 Jul even as Barclays fell ~5.1% despite H1 pre-tax profit rising 17% to &pound;6.1bn, with the BoE's own decision due Thursday 30 Jul.", src: "https://www.investing.com/news/company-news/barclays-h1-2026-slides-rote-hits-161-as-income-guidance-rises-93CH-4817338", srcName: "Investing.com" },
-        { html: "<strong>Private credit</strong>: Blackstone is marketing a $2bn+ collateralized fund obligation backed by stakes in its own leveraged-buyout funds, advised by Jefferies &mdash; a securitization aimed at unlocking liquidity for its Strategic Partners secondaries unit.", src: "https://www.bloomberg.com/news/articles/2026-06-08/blackstone-looks-to-sell-2-billion-of-fund-stakes-ft-says", srcName: "Bloomberg" },
-        { html: "<strong>Legal</strong>: the High Court (Ch) dismissed Alexander Greensill's strike-out application in the Secretary of State's director-disqualification claim arising from the Greensill Capital insolvencies.", src: "https://www.bailii.org/ew/cases/EWHC/Ch/2026/639.html", srcName: "BAILII" },
+        { html: "<strong>Asia</strong>: shares rebounded for the first time in three days as the chip-led rout eased &mdash; Samsung rose 4.3% on a 250-fold profit jump and South Korea's Kospi gained 2.2% &mdash; even as long-dated Treasuries fell further on uncertainty over the Fed's post-hold policy path.", src: "https://www.swissinfo.ch/eng/us-stock-futures-rise%2C-long-bonds-drop-after-fed%3A-markets-wrap/91818948", srcName: "Bloomberg (via Swissinfo)" },
+        { html: "<strong>Earnings</strong>: Microsoft beat on both lines (adj EPS $4.74 vs $4.24 est, revenue +18% to $90.0bn) as Azure grew 43%, while Meta's revenue beat ($60.8bn, +28%) but profit missed on $2.4bn of legal charges and severance costs &mdash; both reported after Wednesday's close.", src: "https://www.cnbc.com/2026/07/29/microsoft-msft-q4-earnings-report-2026.html", srcName: "CNBC" },
+        { html: "<strong>UK</strong>: the Bank of England's MPC decision lands at noon, with economists polled by Reuters expecting a 7-2 vote to hold Bank Rate at 3.75% as the Iran war's grip on the Strait of Hormuz keeps oil-driven inflation risk elevated.", src: "https://ca.investing.com/news/economy-news/bank-of-england-to-keep-rates-steady-while-oil-prices-gyrate-4762016", srcName: "Reuters" },
+        { html: "<strong>Private credit</strong>: Partners Group priced its first-ever private-credit CLO, a ~$402m vehicle arranged with BNP Paribas, extending the sponsor's push into rated structured-credit vehicles.", src: "https://www.spglobal.com/ratings/en/regulatory/article/-/view/type/HTML/id/3598614", srcName: "S&amp;P Global Ratings" },
+        { html: "<strong>Legal</strong>: Clifford Chance advised National Storage Affiliates on its ~$10.5bn all-stock acquisition by Public Storage, which closed 22 July.", src: "https://www.cliffordchance.com/news/news/2026/07/clifford-chance-advises-national-storage-affiliates-on-its-acqui.html", srcName: "Clifford Chance" },
       ],
     },
     afternoon: {

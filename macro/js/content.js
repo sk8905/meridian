@@ -12,8 +12,8 @@ export const UPDATED = "29 July 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-07-29",
-  lastCheckedTime: "22:40 BST",
+  lastChecked: "2026-07-30",
+  lastCheckedTime: "05:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -669,19 +669,19 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-07-29",
+  updated: "2026-07-30",
   us: [
-    { title: "Fed rate decision July 2026: Divided Fed holds interest rates steady, but three members voted to hike", source: "CNBC", date: "2026-07-29", time: "22:37", url: "https://www.cnbc.com/2026/07/29/fed-rate-decision-july-2026.html" },
-    { title: "Dow Posts Its Worst Day Of The Year After Federal Reserve Maintains Interest Rates", source: "Forbes", date: "2026-07-29", time: "22:37", url: "https://www.forbes.com/sites/antoniopequenoiv/2026/07/29/dow-posts-its-worst-day-of-the-year-after-federal-reserve-maintains-interest-rates/" },
-    { title: "Stock market today: Dow plunges by 1,100 points, S&P 500 and Nasdaq sink as yields rise on Fed's hawkish hold", source: "Yahoo Finance", date: "2026-07-29", time: "22:37", url: "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-july-29-dow-sp-500-nasdaq-082009165.html" },
-    { title: "Microsoft, Meta Earnings Face a Market Growing Skeptical of AI", source: "Bloomberg", date: "2026-07-29", time: "22:37", url: "https://www.bloomberg.com/news/articles/2026-07-29/microsoft-meta-earnings-face-a-market-growing-skeptical-of-ai" },
-    { title: "Live updates: Trump says Iran 'going to get a beating' as fresh fighting shatters calm", source: "CNN", date: "2026-07-29", time: "22:37", url: "https://www.cnn.com/2026/07/29/world/live-news/iran-trump-news" },
+    { title: "Asian Stocks Rebound, Long Bonds Drop After Fed: Markets Wrap", source: "Bloomberg (via Swissinfo)", date: "2026-07-30", time: "05:10", url: "https://www.swissinfo.ch/eng/us-stock-futures-rise%2C-long-bonds-drop-after-fed%3A-markets-wrap/91818948" },
+    { title: "Amazon earnings preview: Wall Street looks for more cloud growth as AI spending hits a record", source: "GeekWire", date: "2026-07-29", time: "05:10", url: "https://www.geekwire.com/2026/amazon-earnings-preview-wall-street-looks-for-more-cloud-growth-as-ai-spending-hits-a-record/" },
+    { title: "Stable growth, stubborn inflation: Q2's GDP, inflation reports preview", source: "Axios", date: "2026-07-29", time: "05:10", url: "https://www.axios.com/2026/07/29/gdp-policy-rates-fed" },
+    { title: "Here are the five big takeaways from this week's Fed meeting", source: "CNBC", date: "2026-07-29", time: "05:10", url: "https://www.cnbc.com/2026/07/29/here-are-the-five-big-takeaways-from-this-weeks-fed-meeting.html" },
+    { title: "Latest Oil Market News and Analysis for July 30", source: "Bloomberg", date: "2026-07-29", time: "05:10", url: "https://www.bloomberg.com/news/articles/2026-07-29/latest-oil-market-news-and-analysis-for-july-30" },
   ],
   uk: [
-    { title: "Britain's FTSE 100 climbs on miner and energy gains; Fed in focus", source: "Reuters (via Business Recorder)", date: "2026-07-29", time: "22:37", url: "https://www.brecorder.com/news/40432365/britains-ftse-100-climbs-on-miner-and-energy-gains-fed-in-focus" },
-    { title: "FTSE 100 Live: Stocks to slip; US hits back at 'surprise' Iran attacks to end pause in conflict", source: "CityAM", date: "2026-07-29", time: "06:30", url: "https://www.cityam.com/ftse-100-live-stocks-to-slip-us-hits-back-at-surprise-iran-attacks-to-end-pause-in-conflict/" },
-    { title: "British Pound gains ground as US Dollar struggles ahead of Fed decision", source: "FXStreet", date: "2026-07-29", time: "04:31", url: "https://www.fxstreet.com/news/british-pound-gains-ground-as-us-dollar-struggles-ahead-of-fed-decision-202607290431" },
-    { title: "Pound To Dollar Price Forecast: Fed, BoE Decisions Set The Tone", source: "ExchangeRates.org.uk", date: "2026-07-29", time: "10:40", url: "https://www.exchangerates.org.uk/news/46641/2026-07-29-pound-to-dollar-price-forecast-fed-boe-decisions-set-the-tone.html" },
+    { title: "Bank of England to keep rates steady while oil prices gyrate", source: "Reuters", date: "2026-07-30", time: "05:10", url: "https://ca.investing.com/news/economy-news/bank-of-england-to-keep-rates-steady-while-oil-prices-gyrate-4762016" },
+    { title: "FTSE 100 Live: UK Stock Futures Ease as Focus on Earnings", source: "Bloomberg", date: "2026-07-29", time: "05:10", url: "https://www.bloomberg.com/news/live-blog/2026-07-29/ftse-100-live-pound-gilts-earnings-us-iran-war-chip-stocks-oil-prices-what-s-moving-uk-markets-right-now-markets-today-ms5nzaym" },
+    { title: "FTSE 100 touches fresh record on oil lift; eyes on Fed, BoE", source: "Reuters (via AOL)", date: "2026-07-29", time: "05:10", url: "https://www.aol.com/articles/britains-ftse-100-climbs-miner-110516000.html" },
+    { title: "Bank of England Super Thursday: Hold Expected, but Services Inflation Keeps Hike Risk Live", source: "Tech Times", date: "2026-07-27", time: "05:10", url: "https://www.techtimes.com/articles/321682/20260727/bank-england-super-thursday-hold-expected-services-inflation-keeps-hike-risk-live.htm" },
     { title: "StanChart lifts income target as wealth boom powers earnings", source: "Nikkei Asia", date: "2026-07-29", time: "07:45", url: "https://asia.nikkei.com/business/finance/stanchart-lifts-income-target-as-wealth-boom-powers-earnings" },
   ],
 };
@@ -694,8 +694,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-07-29",
+  updated: "2026-07-30",
   items: [
+    {"title":"Asian Stocks Rebound, Long Bonds Drop After Fed: Markets Wrap","source":"Bloomberg (via Swissinfo)","date":"2026-07-30","time":"05:10","url":"https://www.swissinfo.ch/eng/us-stock-futures-rise%2C-long-bonds-drop-after-fed%3A-markets-wrap/91818948","blurb":"Asian shares rose for the first time in three days and US equity-index futures advanced as the chip-led selloff eased — Kospi up 2.2% on Samsung's 4.3% gain after a 250-fold profit jump — even as longer-dated Treasuries fell further on uncertainty over the Fed's post-hold policy path."},
+    {"title":"Bank of England to keep rates steady while oil prices gyrate","source":"Reuters","date":"2026-07-30","time":"05:10","url":"https://ca.investing.com/news/economy-news/bank-of-england-to-keep-rates-steady-while-oil-prices-gyrate-4762016","blurb":"Economists polled by Reuters expect the MPC to vote 7-2 to hold Bank Rate at 3.75% at today's Super Thursday decision as the on-again, off-again Iran war keeps inflation pressures elevated via the closed Strait of Hormuz."},
+    {"title":"Amazon earnings preview: Wall Street looks for more cloud growth as AI spending hits a record","source":"GeekWire","date":"2026-07-29","time":"22:50","url":"https://www.geekwire.com/2026/amazon-earnings-preview-wall-street-looks-for-more-cloud-growth-as-ai-spending-hits-a-record/","blurb":"Amazon reports Q2 after Thursday's close with consensus at $1.82 EPS on ~$196.4bn revenue; AWS growth is expected to accelerate to ~31% (~$40.5bn) on AI demand including OpenAI's and Anthropic's multi-year AWS commitments, with capex guidance the key swing factor."},
     {"title":"Nasdaq 100 Enters Correction, S&P 500 Falls After Fed Decision","source":"Bloomberg","date":"2026-07-29","time":"22:37","url":"https://www.bloomberg.com/news/articles/2026-07-29/us-futures-tick-higher-as-semiconductor-stocks-climb-fed-looms","blurb":"The Nasdaq 100 closed down 1.8%, over 11% below its June peak and in correction territory, as bond yields rose after the Fed's hawkish hold and a chip/AI-monetisation selloff deepened; the S&P 500 fell 1.5% and Brent settled up 7.9% at $90.74/bbl on the renewed Iran attack."},
     {"title":"Microsoft, Meta Earnings Face a Market Growing Skeptical of AI","source":"Bloomberg","date":"2026-07-29","time":"22:37","url":"https://www.bloomberg.com/news/articles/2026-07-29/microsoft-meta-earnings-face-a-market-growing-skeptical-of-ai","blurb":"Both AI-capex heavyweights report after Wednesday's close with roughly 95% beat-odds already priced in, leaving FY27 capex guidance — not the headline numbers — as the real stock mover for a market losing patience with unproven AI returns."},
     {"title":"Brent oil jumps back above $90 after Trump threatens to hit Iran hard","source":"CNBC","date":"2026-07-29","time":"22:37","url":"https://www.cnbc.com/2026/07/29/oil-prices-today-brent-wti-iran-us-hormuz.html","blurb":"Brent gained 7.9% to settle at $90.74/bbl and WTI rose 6.6% to $84.46 after Iran's IRGC fired ballistic missiles at US forces in an intercepted 'surprise attack,' ending the brief US-Iran pause hours before the Fed's own decision."},
@@ -733,9 +736,6 @@ export const ARTICLES = {
     {"title":"US, Iran pause strikes to give talks some space","source":"Reuters (via Manila Times)","date":"2026-07-28","time":"12:18","url":"https://www.manilatimes.net/2026/07/28/world/americas-emea/us-iran-pause-strikes-to-give-talks-some-space/2392066","blurb":"US UN envoy Mike Waltz says Trump is giving negotiations 'a little bit of room' as Iran halts retaliatory attacks on US allies, even as forces on both sides remain 'locked and loaded'."},
     {"title":"Bank of England expected to hold interest rates steady","source":"Cyprus Mail","date":"2026-07-28","time":"12:18","url":"https://cyprus-mail.com/2026/07/28/bank-of-england-expected-to-hold-interest-rates-steady","blurb":"Policymakers are widely expected to leave Bank Rate at 3.75% on Thursday, with June's cooler-than-forecast 2.6% CPI print reinforcing the hold case."},
     {"title":"Pound To Dollar Price Forecast: GBP Slips As BoE Decision Looms","source":"ExchangeRates.org.uk","date":"2026-07-28","time":"12:18","url":"https://www.exchangerates.org.uk/news/46633/2026-07-28-pound-to-dollar-price-forecast-gbp-slips-as-boe-decision-looms.html","blurb":"Sterling eased toward its weakest level since 1 July as the dollar firmed into Wednesday's Fed decision, with attention shifting to Thursday's BoE meeting."},
-    {"title":"Asian Stocks Slide 10% From June Peak to Head for Correction","source":"Bloomberg","date":"2026-07-28","time":"09:19","url":"https://www.bloomberg.com/news/articles/2026-07-28/asian-stocks-slide-10-from-june-peak-to-head-for-correction","blurb":"The MSCI Asia Pacific Index has fallen more than 10% from its June 22 peak as a deepening chip-stock selloff and Fed-meeting jitters weigh on regional markets."},
-    {"title":"Globalization Ends Not With a Bang, But Tariffs 2.0","source":"Bloomberg Opinion","date":"2026-07-28","time":"09:19","url":"https://www.bloomberg.com/opinion/newsletters/2026-07-28/globalization-ends-not-with-a-bang-but-tariffs-2-0","blurb":"Bloomberg's macro newsletter argues the post-war trade order is unwinding gradually through tariff escalation rather than a single dramatic break."},
-    {"title":"RBA's Bullock Says Economy Cooling, Unsure Rates High Enough","source":"Bloomberg","date":"2026-07-28","time":"09:19","url":"https://www.bloomberg.com/news/articles/2026-07-28/rba-s-bullock-says-economy-cooling-unsure-if-rates-high-enough","blurb":"Reserve Bank of Australia governor Michele Bullock says the economy is cooling but she isn't yet sure current rates are restrictive enough."},
   ],
 };
 
@@ -746,7 +746,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-07-29", country: "US", title: "FOMC rate decision", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-07-30", country: "US", title: "GDP Q2 2026 (advance estimate)", url: "https://www.bea.gov/news/schedule" },
   { date: "2026-07-30", country: "US", title: "PCE inflation (June)", url: "https://www.bea.gov/news/schedule" },
   { date: "2026-07-30", country: "UK", title: "MPC rate decision & Monetary Policy Report", url: "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates" },
@@ -895,11 +894,11 @@ export const MATWALL = {
 // move (the rail shows nothing). Routine-maintained; see docs/refresh-routines.md.
 export const IND_KEYMOMENTS = {
   "US:two_year": { text: "Rose after the FOMC held at 3.50–3.75% but three members dissented for a hike — the first three-way hawkish dissent since September 2016 — a more hawkish outcome than markets had priced, which sent the Dow to its worst session of the year.", src: "https://www.cnbc.com/2026/07/29/fed-rate-decision-july-2026.html", srcName: "CNBC", date: "2026-07-29" },
-  "UK:two_year": { text: "Eased to ~4.98–5.0% (from a multi-week high near 5.1% on 23–24 Jul) as Brent's slide to $88.36/bbl reduced the near-term oil-driven case for a BoE hike ahead of the 30 Jul MPC decision.", src: "https://tradingeconomics.com/united-kingdom/government-bond-yield/news/540076", srcName: "Trading Economics", date: "2026-07-27" },
+  "UK:two_year": { text: "Ahead of today's MPC decision, economists polled by Reuters expect a 7-2 vote to hold Bank Rate at 3.75%, with the Iran war's grip on the closed Strait of Hormuz keeping oil-driven inflation risk elevated and no change expected for the rest of 2026.", src: "https://ca.investing.com/news/economy-news/bank-of-england-to-keep-rates-steady-while-oil-prices-gyrate-4762016", srcName: "Reuters", date: "2026-07-30" },
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "Sterling slipped to around $1.3311 on 29 Jul as Iran's overnight missile attack on US forces drove Brent above $88/bbl and boosted the dollar, hours ahead of today's FOMC decision and Thursday's BoE meeting.", src: "https://ng.investing.com/news/forex-news/sterling-today-pound-slips-as-usiran-escalation-drives-oil-dollar-2596203", srcName: "Investing.com", date: "2026-07-29" };
+export const FX_KEYMOMENT = { text: "Sterling holds steady ahead of today's Bank of England decision (12:00 BST), with the MPC widely expected to keep Bank Rate at 3.75% alongside a Monetary Policy Report that could reprice the pound on its updated inflation forecasts.", src: "https://ca.investing.com/news/economy-news/bank-of-england-to-keep-rates-steady-while-oil-prices-gyrate-4762016", srcName: "Reuters", date: "2026-07-30" };
 
 export const EARNINGS = {
   weeks: [
@@ -911,8 +910,8 @@ export const EARNINGS = {
         { t: "BARC", n: "Barclays", tag: "Banks/brokers \u00b7 UK", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: null, estRev: null, km: { l: "Pre-tax profit", est: "\u00a35.9bn", act: "\u00a36.1bn" }, actEps: "EPS missed est (RoTE 16.1%)", actRev: null, px: "-5.1% to 503p", note: "H1 pre-tax profit \u00a36.1bn beat \u00a35.9bn consensus (up from \u00a35.2bn H1 2025); UK bank income +8% to \u00a34.5bn, investment bank +11% to \u00a38bn; upgraded income target and announced \u00a31bn buyback, but shares fell on an EPS shortfall and higher credit-impairment charges (loss rate 62bps vs 52bps)" },
       ] },
       { date: "2026-07-29", rows: [
-        { t: "MSFT", n: "Microsoft", tag: "Mag 7 \u00b7 hyperscaler", when: "After close", estEps: "$4.24", estRev: "$87.62bn", actEps: null, actRev: null, note: "fiscal Q4 FY26; ~16% EPS / ~15% revenue growth expected; Azure and AI capex in focus" },
-        { t: "META", n: "Meta Platforms", tag: "Mag 7", when: "After close", estEps: "$7.23", estRev: "$60.26bn", actEps: null, actRev: null, note: "revenue ~+27% y/y (45-analyst consensus); AI-ad monetisation and capex guide in focus" },
+        { t: "MSFT", n: "Microsoft", tag: "Mag 7 \u00b7 hyperscaler", when: "After close", estEps: "$4.24", estRev: "$87.62bn", actEps: "$4.74 adj", actRev: "$90.01bn (+18%)", px: "+~8% after hours", note: "fiscal Q4 FY26 beat on both lines; Azure grew 43% and topped $100bn in FY26 revenue, commercial RPO surged 84% to $678bn, Microsoft 365 Copilot passed 30m paid seats" },
+        { t: "META", n: "Meta Platforms", tag: "Mag 7", when: "After close", estEps: "$7.23", estRev: "$60.26bn", actEps: "$6.18 (missed est)", actRev: "$60.80bn (+28%, beat)", px: "-~8% after hours", note: "revenue beat but EPS missed on $2.4bn legal charges and $1.18bn severance tied to May 2026 layoffs; capex $31.08bn in the quarter, guided FY26 capex to $130-145bn and Q3 revenue to $61-64bn" },
       ] },
       { date: "2026-07-30", rows: [
         { t: "AAPL", n: "Apple", tag: "Mag 7", when: "After close", estEps: "$1.89", estRev: "$108.9bn", actEps: null, actRev: null, note: "fiscal Q3; EPS +~20% y/y on revenue +~16%" },
