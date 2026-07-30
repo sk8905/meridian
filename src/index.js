@@ -921,71 +921,50 @@ async function handleWorldIndices(request, env, ctx) {
 }
 
 // ---- Government bond yields (Fixed Income dashboard heatmap) ----------------
-// Live benchmark yields (2Y/5Y/10Y/30Y) for the major economies, from Stooq's
-// keyless yield series — symbol scheme {tenor}Y{ISO2}Y.B (e.g. 10YUSY.B, 2YDEY.B).
-// Keyed by COUNTRY so the client overlays them onto the GOVT_YIELDS snapshot; a
-// tenor a country doesn't benchmark just stays null (client shows the snapshot / —).
-const GY_SERIES = [
-  { country: "United States", cc: "US", tenors: [2, 5, 10, 30] },
-  { country: "Brazil", cc: "BR", tenors: [2, 5, 10] },
-  { country: "Mexico", cc: "MX", tenors: [2, 5, 10, 30] },
-  { country: "United Kingdom", cc: "GB", tenors: [2, 5, 10, 30] },
-  { country: "Germany", cc: "DE", tenors: [2, 5, 10, 30] },
-  { country: "France", cc: "FR", tenors: [2, 5, 10, 30] },
-  { country: "Italy", cc: "IT", tenors: [2, 5, 10, 30] },
-  { country: "Spain", cc: "ES", tenors: [2, 5, 10, 30] },
-  { country: "Switzerland", cc: "CH", tenors: [2, 5, 10, 30] },
-  { country: "Japan", cc: "JP", tenors: [2, 5, 10, 30] },
-  { country: "Australia", cc: "AU", tenors: [2, 5, 10, 30] },
-  { country: "China", cc: "CN", tenors: [2, 10, 30] },
-  { country: "India", cc: "IN", tenors: [2, 5, 10, 30] },
-  { country: "South Korea", cc: "KR", tenors: [2, 5, 10, 30] },
-];
-// A yield series from Stooq (daily CSV of the benchmark yield): the current level
-// (%) plus the CHANGE over 1W/1M/3M/6M/1Y in basis points (now − then, ×100),
-// computed from the nearest close at/before each trailing date.
-async function stooqYieldSeries(sym) {
-  const nil = { v: null, w1: null, m1: null, m3: null, m6: null, y1: null };
-  const txt = await fetchText(`https://stooq.com/q/d/l/?s=${encodeURIComponent(sym)}&i=d`);
-  if (!txt) return nil;
-  const lines = txt.trim().split(/\r?\n/);
-  if (lines.length < 2) return nil;
-  const h = lines[0].split(","), di = h.indexOf("Date"), ci = h.indexOf("Close");
-  if (di < 0 || ci < 0) return nil;
-  const pts = lines.slice(1).map((l) => l.split(","))
-    .map((c) => [Date.parse(c[di]), parseFloat(c[ci])])
-    .filter((p) => Number.isFinite(p[0]) && Number.isFinite(p[1]));
-  if (pts.length < 2) return nil;
+// Live US Treasury yields from FRED (the only source reachable + reliable from a
+// Worker — Stooq now JS-challenges datacenter IPs). The US full curve
+// (2Y/5Y/10Y/30Y, daily) gives the current level + the CHANGE over 1W/1M/3M/6M/1Y
+// in basis points; other countries' changes come from the curated GOVT_YIELD_CHG
+// snapshot (client-side), so the heatmap is populated for every economy.
+const GY_US_SERIES = [["y2", "DGS2"], ["y5", "DGS5"], ["y10", "DGS10"], ["y30", "DGS30"]];
+// Full daily observation history for a FRED series (ascending [ms, value]).
+async function fredHistory(id, env) {
+  if (env && env.FRED_API_KEY) {
+    const txt = await fetchText(`https://api.stlouisfed.org/fred/series/observations?series_id=${id}&api_key=${env.FRED_API_KEY}&file_type=json&sort_order=desc&limit=400`);
+    if (txt) {
+      try {
+        const obs = (JSON.parse(txt).observations || [])
+          .filter((o) => o.value !== "." && o.value !== "")
+          .map((o) => [Date.parse(o.date), parseFloat(o.value)])
+          .filter((p) => Number.isFinite(p[0]) && Number.isFinite(p[1]));
+        return obs.reverse();                                    // desc → ascending
+      } catch { /* fall through */ }
+    }
+  }
+  return [];
+}
+// Level + windowed changes (bp) from an ascending [ms, yield%] series.
+function windowedBpChanges(pts) {
+  if (!pts || pts.length < 2) return null;
   const lastT = pts[pts.length - 1][0], lastV = pts[pts.length - 1][1];
-  const chg = (days) => {
-    const target = lastT - days * 864e5;
-    let cand = null;
-    for (const [t, v] of pts) { if (t <= target) cand = v; else break; }
-    if (cand == null) cand = pts[0][1];
-    return +((lastV - cand) * 100).toFixed(1);                 // basis points
-  };
+  const chg = (days) => { const target = lastT - days * 864e5; let cand = null; for (const [t, v] of pts) { if (t <= target) cand = v; else break; } if (cand == null) cand = pts[0][1]; return +((lastV - cand) * 100).toFixed(1); };
   return { v: +lastV.toFixed(3), w1: chg(7), m1: chg(30), m3: chg(91), m6: chg(182), y1: chg(365) };
 }
 async function handleGovYields(request, env, ctx) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/govyields?v=2", request.url).toString());
+  const cacheKey = new Request(new URL("/api/govyields?v=3", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
-  // Per country, per tenor: current level + windowed yield CHANGES (bp). The client
-  // heatmap shows one tenor's change columns (selectable) and the level in the label.
-  const yields = await Promise.all(GY_SERIES.map(async (s) => {
-    const row = { country: s.country };
-    await Promise.all(s.tenors.map(async (t) => {
-      const q = await stooqYieldSeries(`${t}Y${s.cc}Y.B`);
-      if (q.v != null) row["y" + t] = { v: q.v, w1: q.w1, m1: q.m1, m3: q.m3, m6: q.m6, y1: q.y1 };
-    }));
-    return row;
+  // US full curve, live from FRED daily CMT series → level + windowed changes (bp).
+  const us = { country: "United States" };
+  await Promise.all(GY_US_SERIES.map(async ([k, id]) => {
+    const c = windowedBpChanges(await fredHistory(id, env));
+    if (c) us[k] = c;
   }));
-  const resp = new Response(JSON.stringify({ yields, ts: Date.now() }), {
+  const resp = new Response(JSON.stringify({ yields: [us], ts: Date.now() }), {
     headers: { "content-type": "application/json", "cache-control": "public, max-age=300" },
   });
-  const hits = yields.reduce((n, r) => n + (r.y10 ? 1 : 0), 0);
-  if (ctx && ctx.waitUntil && hits >= 6) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
+  if (ctx && ctx.waitUntil && us.y10) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
   return resp;
 }
 

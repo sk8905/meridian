@@ -270,7 +270,15 @@
 
 /* Yield curve (Macro) — SVG term structure + key */
 .dsh-yc { margin-bottom:8px; }
-.dsh-yc-svg { width:100%; height:auto; max-height:170px; display:block; }
+/* Multi-country curve: SVG stretches to fill the full plot width at a fixed
+   height (preserveAspectRatio:none in markup); Y-axis value labels sit in a left
+   gutter, X-axis labels align under the plot. */
+.dsh-yc-plot { position:relative; padding-left:36px; }
+.dsh-yc-yax { position:absolute; left:0; top:0; width:36px; height:210px; }
+.dsh-yc-yax span { position:absolute; right:5px; transform:translateY(-50%); font-size:.62rem; color:var(--t-faint); font-variant-numeric:tabular-nums; white-space:nowrap; }
+.dsh-yc-svg { width:100%; height:210px; display:block; }
+.dsh-yc-grid { stroke:var(--t-grid); stroke-width:1; }
+.dsh-yc-x { padding-left:36px; }
 .dsh-yc-us { stroke:var(--t-accent); stroke-width:2; } .dsh-yc-us-d { fill:var(--t-accent); }
 .dsh-yc-uk { stroke:var(--t-mac); stroke-width:2; } .dsh-yc-uk-d { fill:var(--t-mac); }
 .dsh-yc-x { display:flex; justify-content:space-between; color:var(--t-faint); font-size:.66rem; padding:2px 6px 0; }

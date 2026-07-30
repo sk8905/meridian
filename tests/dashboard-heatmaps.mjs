@@ -64,6 +64,9 @@ const base = `http://localhost:${srv.port}`;
   check(gy.rows >= 10, `Govt yields: economy rows render (${gy.rows})`);
   check(gy.sourced, "Govt yields: every row links its source");
   check(gy.levels >= 8, `Govt yields: current yield shown in the label (${gy.levels})`);
+  // Change cells are populated (curated m1/y1 snapshot) — guards the empty-table regression.
+  const chgFilled = await pg.evaluate(() => [...document.querySelectorAll("#dsh-yld tbody td.dsh-fl")].filter((c) => /-?\d/.test(c.textContent || "")).length);
+  check(chgFilled >= 10, `Govt yields: change cells show bp values, not all blank (${chgFilled})`);
 
   // Selecting a different bond duration re-renders the heatmap.
   const after = await pg.evaluate(() => {

@@ -11,7 +11,7 @@
 // of truth. Every figure keeps a real outbound source link. mount → {enter,leave}.
 // =============================================================================
 import { esc } from "/util.js?v=20260719-1";
-import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, WORLD_INDICES, GOVT_YIELDS } from "/dashboard/js/data.js";
+import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, WORLD_INDICES, GOVT_YIELDS, GOVT_YIELD_CHG } from "/dashboard/js/data.js";
 import { OUTLOOK, CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS, IND_KEYMOMENTS } from "/macro/js/content.js";
 import { deals, intel, HEDGE_FUNDS, HF_13F } from "/credit/js/data.js";
 import { SECTOR_FLOWS } from "/allocations.js";
@@ -456,13 +456,23 @@ export function mount(host, ctx) {
     const color = (i) => `hsl(${Math.round((i * 360) / rows.length)},68%,52%)`;
     const all = rows.flatMap((r) => YC_TENORS.map(([k]) => r[k]).filter((v) => v != null));
     if (!all.length) return "";
-    const lo = Math.floor(Math.min(...all)) - 0.5, hi = Math.ceil(Math.max(...all)) + 0.5;
-    const W = 600, H = 190, pad = 14;
-    const x = (i) => pad + i * (W - 2 * pad) / (YC_TENORS.length - 1);
-    const y = (v) => H - pad - ((v - lo) / (hi - lo)) * (H - 2 * pad);
-    const linePath = (r) => { let d = "", on = false; YC_TENORS.forEach(([k], i) => { const v = r[k]; if (v == null) return; d += (on ? "L" : "M") + x(i).toFixed(1) + "," + y(v).toFixed(1) + " "; on = true; }); return d.trim(); };
-    const lines = rows.map((r, i) => { const d = linePath(r); return d ? `<path d="${d}" fill="none" stroke="${color(i)}" stroke-width="1.5" opacity="0.85"/>` : ""; }).join("");
-    const svg = `<svg class="dsh-yc-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Government bond yield curves">${lines}</svg>`
+    // Nice axis bounds + gridline ticks (round yield levels).
+    const min0 = Math.min(...all), max0 = Math.max(...all);
+    const niceStep = (rng) => { const raw = Math.max(rng, 0.5) / 4; const mag = Math.pow(10, Math.floor(Math.log10(raw))); const n = raw / mag; return (n < 1.5 ? 1 : n < 3 ? 2 : n < 7 ? 5 : 10) * mag; };
+    const step = niceStep(max0 - min0);
+    const lo = Math.floor(min0 / step) * step, hi = Math.ceil(max0 / step) * step;
+    const ticks = []; for (let v = lo; v <= hi + 1e-9; v += step) ticks.push(+v.toFixed(4));
+    // viewBox 0..100 both axes; preserveAspectRatio="none" stretches to fill the
+    // full plot width + fixed height. non-scaling-stroke keeps lines/gridlines
+    // crisp under the non-uniform scale. Y-axis value labels are HTML (undistorted).
+    const x = (i) => (i * 100) / (YC_TENORS.length - 1);
+    const y = (v) => 100 - ((v - lo) / (hi - lo)) * 100;
+    const linePath = (r) => { let d = "", on = false; YC_TENORS.forEach(([k], i) => { const v = r[k]; if (v == null) return; d += (on ? "L" : "M") + x(i).toFixed(2) + "," + y(v).toFixed(2) + " "; on = true; }); return d.trim(); };
+    const grid = ticks.map((v) => `<line x1="0" y1="${y(v).toFixed(2)}" x2="100" y2="${y(v).toFixed(2)}" class="dsh-yc-grid" vector-effect="non-scaling-stroke"/>`).join("");
+    const lines = rows.map((r, i) => { const d = linePath(r); return d ? `<path d="${d}" fill="none" stroke="${color(i)}" stroke-width="1.6" opacity="0.9" vector-effect="non-scaling-stroke"/>` : ""; }).join("");
+    const yax = ticks.map((v) => `<span style="top:${y(v).toFixed(1)}%">${v.toFixed(v < 1 ? 2 : 1)}%</span>`).join("");
+    const svg = `<div class="dsh-yc-plot"><div class="dsh-yc-yax">${yax}</div>`
+      + `<svg class="dsh-yc-svg" viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Government bond yield curves">${grid}${lines}</svg></div>`
       + `<div class="dsh-yc-x">${YC_TENORS.map(([, l]) => `<span>${esc(l)}</span>`).join("")}</div>`;
     const legend = `<div class="dsh-yc-leg">${rows.map((r, i) => `<span class="dsh-yc-lg"><i style="background:${color(i)}"></i>${esc(r.country)}</span>`).join("")}</div>`;
     const rowFor = (r, i) => `<tr><td class="dsh-nm"><span class="dsh-yc-key" style="background:${color(i)}"></span>`
@@ -518,8 +528,11 @@ export function mount(host, ctx) {
     const tk = _yldTenor;
     const tl = (YLD_TENORS.find(([k]) => k === tk) || [, ""])[1];
     const liveT = (r) => (_gyLive && _gyLive[r.country] && _gyLive[r.country][tk]) || null;
+    const snapT = (r) => (GOVT_YIELD_CHG && GOVT_YIELD_CHG[r.country] && GOVT_YIELD_CHG[r.country][tk]) || null;
     const levelOf = (r) => { const l = liveT(r); return (l && l.v != null) ? l.v : r[tk]; };
-    const chgOf = (r, w) => { const l = liveT(r); return (l && l[w] != null) ? l[w] : null; };
+    // Live (US, FRED, all windows) wins; otherwise the curated GOVT_YIELD_CHG snapshot
+    // (Trading Economics m1/y1). A window with neither stays blank.
+    const chgOf = (r, w) => { const l = liveT(r); if (l && l[w] != null) return l[w]; const s = snapT(r); return s && s[w] != null ? s[w] : null; };
     // Shade each window column independently by |change|.
     const maxAbs = {};
     YCHG_WINS.forEach(([w]) => { maxAbs[w] = Math.max(1, ...G.regions.flatMap((g) => (g.rows || []).map((r) => { const c = chgOf(r, w); return c == null ? 0 : Math.abs(c); }))); });

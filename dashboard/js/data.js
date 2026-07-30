@@ -178,3 +178,26 @@ export const GOVT_YIELDS = {
     ] },
   ],
 };
+
+// Curated government-bond-yield CHANGES (basis points) by country → tenor, for the
+// Fixed Income yield-change heatmap. Trading Economics country pages publish the
+// current level plus the trailing 1-month (m1) and 1-year (y1) change; 1W/3M/6M
+// (w1/m3/m6) are not published there and stay null. The US full curve is
+// additionally refreshed LIVE + all windows via /api/govyields (FRED daily CMT),
+// which overrides these. Real + sourced; refreshed by the daily routine.
+export const GOVT_YIELD_CHG = {
+  "United States": { y2: { m1: 4, y1: 26 }, y5: { m1: 13, y1: 40 }, y10: { m1: 22, y1: 33 }, y30: { m1: 23, y1: 31 } },
+  "Brazil":        { y10: { m1: 35, y1: 68 } },
+  "Mexico":        { y10: { m1: 21, y1: 10 } },
+  "United Kingdom": { y2: { m1: 13, y1: 45 }, y10: { m1: 23, y1: 42 }, y30: { m1: 22, y1: 33 } },
+  "Germany":       { y2: { m1: 24, y1: 80 }, y10: { m1: 30, y1: 48 }, y30: { m1: 20, y1: 48 } },
+  "France":        { y10: { m1: 40, y1: 62 }, y30: { m1: 22, y1: 59 } },
+  "Italy":         { y10: { m1: 33, y1: 42 }, y30: { m1: 26, y1: 36 } },
+  "Spain":         { y10: { m1: 21, y1: 29 } },
+  "Switzerland":   { y10: { m1: 13, y1: 7 } },
+  "Japan":         { y2: { m1: 9, y1: 65 }, y10: { m1: 10, y1: 125 }, y30: { m1: 1, y1: 88 } },
+  "Australia":     { y2: { m1: 5, y1: 117 }, y10: { m1: 21, y1: 72 } },
+  "China":         { y10: { m1: -3, y1: -1 } },
+  "India":         { y10: { m1: 12, y1: 45 } },
+  "South Korea":   { y10: { m1: 17, y1: 154 } },
+};
