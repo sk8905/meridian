@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d81b5086-df43-4c91-ac23-fa9076ef0304", title: "Abu Dhabi abandons bid to build global oil benchmark", date: "2026-07-31", time: "17:03", url: "https://www.ft.com/content/d81b5086-df43-4c91-ac23-fa9076ef0304" },
+  { id: "06b7545b-94a0-4a5d-9c21-0c7852771b41", title: "Google Earth AI tool raises fears over spread of fake satellite images", date: "2026-07-31", time: "17:00", url: "https://www.ft.com/content/06b7545b-94a0-4a5d-9c21-0c7852771b41" },
+  { id: "a1c7a1ed-3687-492c-9170-48ae07d7ead3", title: "I helped bring in US bank stress tests. Now it is time to drop them", date: "2026-07-31", time: "17:00", url: "https://www.ft.com/content/a1c7a1ed-3687-492c-9170-48ae07d7ead3" },
+  { id: "71f9031c-71a4-4e1b-ab25-216ff34dc87d", title: "John Healey to deliver Budget on October 28", date: "2026-07-31", time: "16:28", url: "https://www.ft.com/content/71f9031c-71a4-4e1b-ab25-216ff34dc87d" },
   { id: "0f9b2fe7-bde4-4f5f-b49e-93ccb5da9ea8", title: "US Treasury warns banks it may intervene in yen", date: "2026-07-31", time: "15:50", url: "https://www.ft.com/content/0f9b2fe7-bde4-4f5f-b49e-93ccb5da9ea8" },
   { id: "9171610d-395b-4e58-9257-7fa08d459c28", title: "Brazilian police launch graft probe into President Lula’s son", date: "2026-07-31", time: "15:40", url: "https://www.ft.com/content/9171610d-395b-4e58-9257-7fa08d459c28" },
   { id: "0d40281a-9525-4326-95d5-1920c6742688", title: "The Bank of England gets with the programme on QT", date: "2026-07-31", time: "15:35", url: "https://www.ft.com/content/0d40281a-9525-4326-95d5-1920c6742688" },
@@ -57,8 +61,5 @@ export const FT_ITEMS = [
   { id: "f1fecefc-7de6-40e3-9bc9-a58d5b653386", title: "Taylor Wimpey cuts shareholder returns as weak housing market squeezes builders", date: "2026-07-31", time: "10:13", url: "https://www.ft.com/content/f1fecefc-7de6-40e3-9bc9-a58d5b653386" },
   { id: "f54e632e-f8b4-4554-9f2e-c8a2ded0555b", title: "Eurozone inflation rises to 2.9% in July", date: "2026-07-31", time: "10:01", url: "https://www.ft.com/content/f54e632e-f8b4-4554-9f2e-c8a2ded0555b" },
   { id: "26da67f5-e630-4552-b327-f01d45b6c7c5", title: "Mayoral scrutiny is a pressing issue", date: "2026-07-31", time: "09:30", url: "https://www.ft.com/content/26da67f5-e630-4552-b327-f01d45b6c7c5" },
-  { id: "160a686b-6573-4192-9281-7cf28912f1ed", title: "Andy Burnham to give English mayors share of income tax from 2028", date: "2026-07-31", time: "08:44", url: "https://www.ft.com/content/160a686b-6573-4192-9281-7cf28912f1ed" },
-  { id: "5f3930b9-e7ce-4b87-878f-74cf7f16f642", title: "The dark arts of securitisation", date: "2026-07-31", time: "08:09", url: "https://www.ft.com/content/5f3930b9-e7ce-4b87-878f-74cf7f16f642" },
-  { id: "77847a1c-de27-4bab-b7dc-3dd57e3d3e4d", title: "NatWest profits buoyed by retail and wealth units", date: "2026-07-31", time: "08:05", url: "https://www.ft.com/content/77847a1c-de27-4bab-b7dc-3dd57e3d3e4d" },
 
 ];

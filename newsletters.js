@@ -32,6 +32,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-anglotecklawyer-20260731",
+    publication: "Legal Business",
+    title: "Anglo American and Teck name top lawyer for $69bn mining mega-merger",
+    date: "2026-07-31",
+    time: "16:34",
+    summary: "Former BHP group general counsel named on executive leadership team as mining merger gears up for completion.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQyABrE8sIIN3CGpC/wv",
+  },
+  {
     id: "nl-bbg-wheretoinvest-elnino-20260731",
     publication: "Bloomberg",
     author: "John Stepek",
@@ -430,17 +439,6 @@ export const NEWSLETTERS = [
     time: "16:01",
     summary: "OceanGate's cost-cutting pressures helped set the stage for the fatal Titan disaster.",
     url: "https://www.bloomberg.com/news/newsletters/2026-07-28/oceangate-s-cost-cuts-contributed-to-fatal-titanic-expedition",
-  },
-  {
-    id: "nl-bbg-econdaily-germanychina-20260728",
-    publication: "Bloomberg",
-    author: "Kamil Kowalcze",
-    series: "Economics Daily",
-    title: "Economics Daily: Mapping China's weaknesses",
-    date: "2026-07-28",
-    time: "12:00",
-    summary: "Germany is quietly preparing for a potential economic showdown with China.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-07-28/germany-china-trade-relations-berlin-is-preparing-for-a-showdown",
   },
   {
     id: "nl-bbg-marketsdaily-aigreedfear-20260728",
