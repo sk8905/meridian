@@ -20,6 +20,13 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "97fd8d2a-3959-4dd6-8fbf-1e443ab793d3", title: "Warsh goes blank", date: "2026-07-31", time: "18:01", url: "https://www.ft.com/content/97fd8d2a-3959-4dd6-8fbf-1e443ab793d3" },
+  { id: "5a74e0e6-fa68-4298-884a-4b738185911b", title: "Directors’ Deals: M&S directors cash out as shares climb", date: "2026-07-31", time: "18:00", url: "https://www.ft.com/content/5a74e0e6-fa68-4298-884a-4b738185911b" },
+  { id: "fbc0d4bd-d754-4590-984d-ba21c0f1325b", title: "Stockpickers: Restore, Rio Tinto, Unite Group", date: "2026-07-31", time: "18:00", url: "https://www.ft.com/content/fbc0d4bd-d754-4590-984d-ba21c0f1325b" },
+  { id: "c5d2f736-d640-4ae6-99e2-c4d2cae1e2ab", title: "Europe’s long hot summer", date: "2026-07-31", time: "17:35", url: "https://www.ft.com/content/c5d2f736-d640-4ae6-99e2-c4d2cae1e2ab" },
+  { id: "f02ce02b-fa33-49ad-b8c7-81ab5cec3de0", title: "NXP in talks to buy $3.3bn designer of camera chips for self-driving cars", date: "2026-07-31", time: "17:32", url: "https://www.ft.com/content/f02ce02b-fa33-49ad-b8c7-81ab5cec3de0" },
+  { id: "0b7081c3-2654-471c-b1b9-87c6f6369fb0", title: "The week that shook football", date: "2026-07-31", time: "17:30", url: "https://www.ft.com/content/0b7081c3-2654-471c-b1b9-87c6f6369fb0" },
+  { id: "beb88252-6fb2-45b3-9388-eda0d3ef5551", title: "Sadiq Khan accuses Met of trying to fix contract for Palantir", date: "2026-07-31", time: "17:21", url: "https://www.ft.com/content/beb88252-6fb2-45b3-9388-eda0d3ef5551" },
   { id: "d81b5086-df43-4c91-ac23-fa9076ef0304", title: "Abu Dhabi abandons bid to build global oil benchmark", date: "2026-07-31", time: "17:03", url: "https://www.ft.com/content/d81b5086-df43-4c91-ac23-fa9076ef0304" },
   { id: "06b7545b-94a0-4a5d-9c21-0c7852771b41", title: "Google Earth AI tool raises fears over spread of fake satellite images", date: "2026-07-31", time: "17:00", url: "https://www.ft.com/content/06b7545b-94a0-4a5d-9c21-0c7852771b41" },
   { id: "a1c7a1ed-3687-492c-9170-48ae07d7ead3", title: "I helped bring in US bank stress tests. Now it is time to drop them", date: "2026-07-31", time: "17:00", url: "https://www.ft.com/content/a1c7a1ed-3687-492c-9170-48ae07d7ead3" },
@@ -53,13 +60,5 @@ export const FT_ITEMS = [
   { id: "a417eb44-bffe-4584-b14e-570e76d3fb23", title: "Chevron and Exxon earnings soar as Trump threatens price interventions", date: "2026-07-31", time: "11:30", url: "https://www.ft.com/content/a417eb44-bffe-4584-b14e-570e76d3fb23" },
   { id: "4ee1e8b0-3d48-44b6-8d9a-e71ce5b458bf", title: "Rising Eurozone inflation keeps rate rise on the table", date: "2026-07-31", time: "11:13", url: "https://www.ft.com/content/4ee1e8b0-3d48-44b6-8d9a-e71ce5b458bf" },
   { id: "4b90b384-47d7-40ff-8b0d-7a33420ea29f", title: "Ares secures biggest flagship credit fund commitments in three years", date: "2026-07-31", time: "11:03", url: "https://www.ft.com/content/4b90b384-47d7-40ff-8b0d-7a33420ea29f" },
-  { id: "8dc8b79a-7cd1-489f-b5fd-77c317fc19a2", title: "The hottest pop-ups for summer 2026", date: "2026-07-31", time: "11:00", url: "https://www.ft.com/content/8dc8b79a-7cd1-489f-b5fd-77c317fc19a2" },
-  { id: "57eca11a-5485-448d-b237-7aa8dd0d5769", title: "How can I TikTok like Andy Burnham?", date: "2026-07-31", time: "11:00", url: "https://www.ft.com/content/57eca11a-5485-448d-b237-7aa8dd0d5769" },
-  { id: "babf4c89-1a6f-447f-a17e-7e3e48f359b8", title: "Coal back in favour as US plant bidding war highlights rising demand to power AI", date: "2026-07-31", time: "11:00", url: "https://www.ft.com/content/babf4c89-1a6f-447f-a17e-7e3e48f359b8" },
-  { id: "3fa19368-0cb3-4802-8651-aca61c3f9fba", title: "FTAV’s Friday charts quiz", date: "2026-07-31", time: "10:30", url: "https://www.ft.com/content/3fa19368-0cb3-4802-8651-aca61c3f9fba" },
-  { id: "cb149846-6032-4883-8695-685e4e8dd886", title: "Bank of Japan holds rates with hawkish guidance", date: "2026-07-31", time: "10:28", url: "https://www.ft.com/content/cb149846-6032-4883-8695-685e4e8dd886" },
-  { id: "f1fecefc-7de6-40e3-9bc9-a58d5b653386", title: "Taylor Wimpey cuts shareholder returns as weak housing market squeezes builders", date: "2026-07-31", time: "10:13", url: "https://www.ft.com/content/f1fecefc-7de6-40e3-9bc9-a58d5b653386" },
-  { id: "f54e632e-f8b4-4554-9f2e-c8a2ded0555b", title: "Eurozone inflation rises to 2.9% in July", date: "2026-07-31", time: "10:01", url: "https://www.ft.com/content/f54e632e-f8b4-4554-9f2e-c8a2ded0555b" },
-  { id: "26da67f5-e630-4552-b327-f01d45b6c7c5", title: "Mayoral scrutiny is a pressing issue", date: "2026-07-31", time: "09:30", url: "https://www.ft.com/content/26da67f5-e630-4552-b327-f01d45b6c7c5" },
 
 ];
