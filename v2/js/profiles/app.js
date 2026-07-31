@@ -112,11 +112,22 @@ export async function mount(host, ctx) {
     }
     const cons = e.target.closest("#hf-cons-btn");
     if (cons) { if (credit.loadConsensus) credit.loadConsensus(cons); return; }
+    // Internal hash links inside Profiles — breadcrumbs, the Managers/Hedge Funds/
+    // Law firms section chips, and the detail views' own sub-entity anchors (a
+    // manager's funds/CLOs, a fund's manager, etc.). Route HERE, synchronously,
+    // rather than leaving it to the anchor's native hashchange + the active-tab
+    // guard, which can silently miss on some devices/timings (the recurring
+    // "tapping a name does nothing" report).
+    const link = e.target.closest('a[href^="#/"]');
+    if (link) { e.preventDefault(); const h = link.getAttribute("href"); if (location.hash !== h) location.hash = h; router(); return; }
     const row = e.target.closest("[data-href]");
     if (!row || e.target.closest("a")) return;
     const href = row.getAttribute("data-href");
     if (row.dataset.ext === "1" || /^https?:/i.test(href)) { window.open(href, "_blank", "noopener"); return; }
-    if (location.hash === href) router(); else location.hash = href;   // internal → router
+    // Keep the URL in sync (back button / deep links) AND render NOW — do not
+    // depend on the hashchange event firing or the dataset.v2tab guard passing.
+    if (location.hash !== href) location.hash = href;
+    router();
   });
   // Each list's search box filters its rows in place by the row's data-name.
   // Scoped to this host so it never touches the desks' own (hidden) copies.
@@ -128,5 +139,8 @@ export async function mount(host, ctx) {
   });
 
   router();                                             // land on the list (or a deep-linked profile)
-  return { enter: () => router(), leave() {} };
+  // On re-entry, re-run the router (honours a deep link, else shows the list).
+  // On leave, collapse any open detail back to the list so returning to Profiles
+  // never flashes a stale profile before the router re-decides.
+  return { enter: () => router(), leave() { showList(); } };
 }
