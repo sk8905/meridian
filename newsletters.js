@@ -32,6 +32,26 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-nonbillable-macfarlanespep-20260731",
+    publication: "Non-Billable",
+    title: "A 'satisfactory' £3.1m",
+    date: "2026-07-31",
+    time: "09:05",
+    summary: "Macfarlanes posts a 'satisfactory' £3.1m PEP as Wachtell loses a six-partner team led by co-chair William Savitt to Gibson Dunn and Legora buys litigation AI startup Wexler.",
+    url: "https://non-billable.beehiiv.com/p/how-cc-broke-into-new-york-s-private-equity-elite-1",
+  },
+  {
+    id: "nl-bbg-morningbriefingeurope-20260731",
+    publication: "Bloomberg",
+    author: "Samson Ellis",
+    series: "Morning Briefing Europe",
+    title: "Situational Awareness Weighed Private Stake Sales Before Citadel",
+    date: "2026-07-31",
+    time: "08:11",
+    summary: "Situational Awareness tried to sell private stakes in a scramble to raise cash before striking a deal with Citadel, as global tech stocks rally and Trump announces a deal for Hamas to disarm.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-31/situational-awareness-weighed-private-stake-sales-before-citadel",
+  },
+  {
     id: "nl-cnt-restaurantofweek-20260731",
     publication: "Condé Nast Traveller",
     series: "Restaurant of the Week",
@@ -419,25 +439,5 @@ export const NEWSLETTERS = [
     time: "14:05",
     summary: "Latham, Cleary, Gibson Dunn and Kirkland all land lead roles on the take-private of London-listed DCC Energy.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMQuYMfXmzd1hnAeFA/wv",
-  },
-  {
-    id: "nl-bbg-econdaily-marketsignaling-20260727",
-    publication: "Bloomberg",
-    series: "Economics Daily",
-    title: "Economics Daily: 'Market signaling' tool",
-    date: "2026-07-27",
-    time: "12:00",
-    summary: "From US to Japan, policymakers aim to get capital moving where they want — jawboning isn't just for currencies anymore, now it's being used for government debt.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-07-27/from-us-to-japan-policymakers-aim-to-get-capital-moving-where-they-want",
-  },
-  {
-    id: "nl-bbg-marketsdaily-contentiousfed-20260727",
-    publication: "Bloomberg",
-    series: "Markets Daily",
-    title: "Markets Daily: A contentious Fed meeting",
-    date: "2026-07-27",
-    time: "11:44",
-    summary: "Whipsawing oil prices muddy traders' outlook on the Fed meeting; plus, single-stock futures make a comeback.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-07-27/whipsawing-oil-prices-muddy-traders-outlook-on-fed-meeting",
   },
 ];

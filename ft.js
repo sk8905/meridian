@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "160a686b-6573-4192-9281-7cf28912f1ed", title: "Andy Burnham to give English mayors share of income tax from 2028", date: "2026-07-31", time: "08:44", url: "https://www.ft.com/content/160a686b-6573-4192-9281-7cf28912f1ed" },
+  { id: "613cd8b0-e8c5-45d2-a7f3-184e63d82e08", title: "Fifa opens door to amending controversial stake sale plan", date: "2026-07-31", time: "08:21", url: "https://www.ft.com/content/613cd8b0-e8c5-45d2-a7f3-184e63d82e08" },
+  { id: "23eb1fd4-8301-4c0e-89b3-2647389e6226", title: "South Korean stock market soars 18% as investors pile back into AI", date: "2026-07-31", time: "08:10", url: "https://www.ft.com/content/23eb1fd4-8301-4c0e-89b3-2647389e6226" },
+  { id: "5f3930b9-e7ce-4b87-878f-74cf7f16f642", title: "The dark arts of securitisation", date: "2026-07-31", time: "08:09", url: "https://www.ft.com/content/5f3930b9-e7ce-4b87-878f-74cf7f16f642" },
+  { id: "77847a1c-de27-4bab-b7dc-3dd57e3d3e4d", title: "NatWest profits buoyed by retail and wealth units", date: "2026-07-31", time: "08:05", url: "https://www.ft.com/content/77847a1c-de27-4bab-b7dc-3dd57e3d3e4d" },
   { id: "e874feaf-38de-479d-937b-05daa5a021a9", title: "Sainsbury’s strikes deal to sell Argos for £120mn to Swift Partners", date: "2026-07-31", time: "07:47", url: "https://www.ft.com/content/e874feaf-38de-479d-937b-05daa5a021a9" },
   { id: "c14b255c-cdda-4ba8-8139-f10e862a4235", title: "British Airways owner IAG ditches growth plans amid Iran conflict", date: "2026-07-31", time: "07:36", url: "https://www.ft.com/content/c14b255c-cdda-4ba8-8139-f10e862a4235" },
   { id: "e4cec5e1-a4e9-449b-a411-da1c025af2e8", title: "Donald Trump says Hamas has agreed to disarm over time", date: "2026-07-31", time: "07:13", url: "https://www.ft.com/content/e4cec5e1-a4e9-449b-a411-da1c025af2e8" },
@@ -59,8 +64,4 @@ export const FT_ITEMS = [
   { id: "fd75ca61-c9db-41c8-97d3-80069c25beb6", title: "Declining PCE inflation in June likely to be reversed in July", date: "2026-07-30", time: "15:58", url: "https://www.ft.com/content/fd75ca61-c9db-41c8-97d3-80069c25beb6" },
   { id: "5fb44089-ecdf-4b48-bc14-1e8b4682b142", title: "Situational Awareness offloads large portion of public equity holdings", date: "2026-07-30", time: "15:31", url: "https://www.ft.com/content/5fb44089-ecdf-4b48-bc14-1e8b4682b142" },
   { id: "cc3a80fc-128b-4b46-a9a6-1a6a6988f31f", title: "Reform UK stands by Farage aide George Cottrell amid financial scrutiny", date: "2026-07-30", time: "14:52", url: "https://www.ft.com/content/cc3a80fc-128b-4b46-a9a6-1a6a6988f31f" },
-  { id: "39d00795-a6b7-4950-884a-38e2ef269f22", title: "BP to cut 700 jobs as it warns on oil ‘oversupply’", date: "2026-07-30", time: "14:51", url: "https://www.ft.com/content/39d00795-a6b7-4950-884a-38e2ef269f22" },
-  { id: "67238e48-57dd-4701-8294-0a11036c8742", title: "Can Vance square his Catholicism with Trump’s Republican Party?", date: "2026-07-30", time: "14:32", url: "https://www.ft.com/content/67238e48-57dd-4701-8294-0a11036c8742" },
-  { id: "783dfe9a-4643-4b2b-b69c-a46e5229d707", title: "US economy grew less than expected at 1.5% rate in second quarter", date: "2026-07-30", time: "14:05", url: "https://www.ft.com/content/783dfe9a-4643-4b2b-b69c-a46e5229d707" },
-  { id: "aca5b974-1447-4cd2-9d94-f4150c3d4d7e", title: "Antwerp cocaine gangs sentenced in ‘exceptionally large’ case", date: "2026-07-30", time: "13:48", url: "https://www.ft.com/content/aca5b974-1447-4cd2-9d94-f4150c3d4d7e" },
 ];
