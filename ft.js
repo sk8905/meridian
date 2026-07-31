@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "420ea1bc-6f85-4065-ad76-61e685aa1de2", title: "BP puts its UK North Sea business up for sale", date: "2026-07-31", time: "07:11", url: "https://www.ft.com/content/420ea1bc-6f85-4065-ad76-61e685aa1de2" },
+  { id: "b1267def-3590-4482-9833-d09f0b1230b8", title: "What Warsh is (probably) up to", date: "2026-07-31", time: "06:30", url: "https://www.ft.com/content/b1267def-3590-4482-9833-d09f0b1230b8" },
+  { id: "e7a03462-3d77-464a-b268-386d75f8ff47", title: "FTAV’s further reading", date: "2026-07-31", time: "06:30", url: "https://www.ft.com/content/e7a03462-3d77-464a-b268-386d75f8ff47" },
   { id: "d4f3134b-1e04-4c0b-a1be-7bdaa6a44c64", title: "Iceland’s EU referendum on knife-edge as bloc braces for enlargement litmus test", date: "2026-07-31", time: "06:00", url: "https://www.ft.com/content/d4f3134b-1e04-4c0b-a1be-7bdaa6a44c64" },
   { id: "67e045bb-76cc-404f-a04c-073411eedfc5", title: "FirstFT: Europe vows World Cup boycott in Fifa protest", date: "2026-07-31", time: "05:44", url: "https://www.ft.com/content/67e045bb-76cc-404f-a04c-073411eedfc5" },
   { id: "51ed81fb-0361-4a5f-8d48-a2352be7e543", title: "The Fed will face a pivotal meeting in September unless there is a durable ceasefire", date: "2026-07-31", time: "05:30", url: "https://www.ft.com/content/51ed81fb-0361-4a5f-8d48-a2352be7e543" },
@@ -58,6 +61,4 @@ export const FT_ITEMS = [
   { id: "783dfe9a-4643-4b2b-b69c-a46e5229d707", title: "US economy grew less than expected at 1.5% rate in second quarter", date: "2026-07-30", time: "14:05", url: "https://www.ft.com/content/783dfe9a-4643-4b2b-b69c-a46e5229d707" },
   { id: "aca5b974-1447-4cd2-9d94-f4150c3d4d7e", title: "Antwerp cocaine gangs sentenced in ‘exceptionally large’ case", date: "2026-07-30", time: "13:48", url: "https://www.ft.com/content/aca5b974-1447-4cd2-9d94-f4150c3d4d7e" },
   { id: "d2807eaf-8310-4099-bb4d-b9b2d2889f2a", title: "Fifa not ‘selling the World Cup’ in $20bn commercial plan, says adviser", date: "2026-07-30", time: "13:36", url: "https://www.ft.com/content/d2807eaf-8310-4099-bb4d-b9b2d2889f2a" },
-  { id: "6620ab3c-c46a-4d96-aede-0fce80a2b588", title: "Saudi economy shrinks as Middle East conflict takes heavy toll", date: "2026-07-30", time: "13:20", url: "https://www.ft.com/content/6620ab3c-c46a-4d96-aede-0fce80a2b588" },
-  { id: "17bcdc30-a59f-4a1f-afa7-f2c759fe588b", title: "Trying to make sense of Warsh", date: "2026-07-30", time: "13:18", url: "https://www.ft.com/content/17bcdc30-a59f-4a1f-afa7-f2c759fe588b" },
 ];
