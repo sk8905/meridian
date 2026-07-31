@@ -12,8 +12,8 @@ export const UPDATED = "30 July 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-07-30",
-  lastCheckedTime: "21:21 BST",
+  lastChecked: "2026-07-31",
+  lastCheckedTime: "05:26 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -681,19 +681,19 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-07-30",
+  updated: "2026-07-31",
   us: [
-    { title: "Microsoft Shares Jump 17%, Poised for Largest One-Day Market Value Gain", source: "Bloomberg", date: "2026-07-30", time: "21:00", url: "https://www.bloomberg.com/news/articles/2026-07-30/microsoft-eyes-history-with-490-billion-pop-in-market-value" },
-    { title: "Stock market today: Nasdaq soars nearly 3%, Dow and S&P 500 rebound as Microsoft posts record 1-day value gain", source: "Yahoo Finance", date: "2026-07-30", time: "21:00", url: "https://finance.yahoo.com/markets/live/stock-market-today-thursday-july-30-dow-sp-500-nasdaq-treasury-yields-microsoft-082255995.html" },
-    { title: "Microsoft's stock has biggest one-day gain since 2008, adding $480 billion in market value as cloud business booms", source: "Fortune", date: "2026-07-30", time: "20:00", url: "https://fortune.com/2026/07/30/microsoft-stock-biggest-one-day-gain-since-2008-480-billion-market-value-cloud-growth/" },
-    { title: "US Economic Growth Misses Estimates Despite Robust Consumers", source: "Bloomberg", date: "2026-07-30", time: "13:30", url: "https://www.bloomberg.com/news/articles/2026-07-30/us-economic-growth-misses-estimates-despite-robust-consumers" },
-    { title: "The Fed's preferred inflation gauge cooled in June. It might not last", source: "CNN Business", date: "2026-07-30", time: "13:30", url: "https://www.cnn.com/2026/07/30/economy/us-pce-inflation-consumer-spending-june" },
+    { title: "Amazon Q2 2026 earnings: AWS grows 37%, revenue tops $200 billion", source: "Yahoo Finance", date: "2026-07-30", time: "05:16", url: "https://finance.yahoo.com/markets/stocks/articles/amazon-q2-2026-earnings-aws-204411872.html" },
+    { title: "Apple shares fall over 4% post-market even as Q3 profit rises 27% and revenue beats estimates", source: "TradingKey", date: "2026-07-30", time: "05:16", url: "https://www.tradingkey.com/analysis/stocks/us-stocks/262065111-apple-earnings-report-q3-2026-aapl-iphone-mac-tim-cook-china-services-tradingkey" },
+    { title: "US stock futures rise after upbeat Amazon earnings; Apple slides", source: "Investing.com", date: "2026-07-30", time: "05:16", url: "https://www.investing.com/news/stock-market-news/us-stock-futures-rise-after-upbeat-amazon-earnings-apple-slides-4826634" },
+    { title: "BOJ holds rates at 1%, warns of underlying inflation exceeding 2% target", source: "CNBC", date: "2026-07-31", time: "05:16", url: "https://www.cnbc.com/2026/07/31/boj-rates-yen-intervention-inflation-japan.html" },
+    { title: "Japan, South Korea stocks rally as Kospi surges, SK Hynix and Samsung jump on eased AI fears", source: "TradingKey", date: "2026-07-31", time: "05:16", url: "https://www.tradingkey.com/analysis/stocks/more/262065285-japan-south-korea-markets-stage-historic-kospi-soars-13-sk-hynix-samsung-tradingkey" },
   ],
   uk: [
+    { title: "Short gilts surge as traders slash bets on BOE hike in September", source: "Bloomberg", date: "2026-07-30", time: "05:16", url: "https://www.bloomberg.com/news/articles/2026-07-30/short-gilts-surge-as-traders-slash-bets-on-boe-hike-in-september" },
     { title: "Bank of England holds UK interest rate steady at 3.75% — but policymakers see upside inflation risk", source: "CNBC", date: "2026-07-30", time: "12:00", url: "https://www.cnbc.com/2026/07/30/interest-rates-inflation-bank-of-england.html" },
     { title: "FACTBOX-Bank of England sets out economic scenarios in July meeting", source: "Reuters (via Yahoo Finance)", date: "2026-07-30", time: "12:00", url: "https://finance.yahoo.com/economy/policy/articles/factbox-bank-england-sets-economic-111844519.html" },
     { title: "British Pound steadies against Euro as BoE leaves interest rate unchanged", source: "FXStreet", date: "2026-07-30", time: "12:30", url: "https://www.fxstreet.com/news/british-pound-steadies-against-euro-as-boe-leaves-interest-rate-unchanged-202607301230" },
-    { title: "Bank of England keeps key rate at 3.75% for the fifth time this year", source: "AP (via ClickOrlando)", date: "2026-07-30", time: "12:00", url: "https://www.clickorlando.com/business/2026/07/30/bank-of-england-keeps-key-rate-at-375-for-the-fifth-time-this-year/" },
     { title: "FTSE 100's early promise fades as Bank of England holds rates", source: "LBC", date: "2026-07-30", time: "17:00", url: "https://www.lbc.co.uk/article/f91b468ec6824c8ea729fdab23903588-5HjdfMW_2/" },
   ],
 };
@@ -706,8 +706,13 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-07-30",
+  updated: "2026-07-31",
   items: [
+    {"title":"BOJ holds rates at 1%, warns of underlying inflation exceeding 2% target","source":"CNBC","date":"2026-07-31","time":"05:16","url":"https://www.cnbc.com/2026/07/31/boj-rates-yen-intervention-inflation-japan.html","blurb":"The Bank of Japan held its policy rate at 1% in an 8-1 vote (Takata dissenting for a hike to 1.25%) after June's rise from 0.75%, upgraded its FY2026 GDP forecast to 0.8% and warned underlying inflation could exceed its 2% target, hours after the yen spiked overnight in a move suggesting government intervention."},
+    {"title":"Japan, South Korea stocks rally as Kospi surges, SK Hynix and Samsung jump on eased AI fears","source":"TradingKey","date":"2026-07-31","time":"05:16","url":"https://www.tradingkey.com/analysis/stocks/more/262065285-japan-south-korea-markets-stage-historic-kospi-soars-13-sk-hynix-samsung-tradingkey","blurb":"The Kospi spiked as much as 13% (triggering a sidecar trading halt) and the Nikkei rose over 4% as SK Hynix jumped more than 27% and Samsung over 22%, a sharp rebound after a cumulative 17% three-day Kospi slide, as Microsoft's and Amazon's cloud-led beats eased AI-capex jitters."},
+    {"title":"Amazon Q2 2026 earnings: AWS grows 37%, revenue tops $200 billion","source":"Yahoo Finance","date":"2026-07-30","time":"05:16","url":"https://finance.yahoo.com/markets/stocks/articles/amazon-q2-2026-earnings-aws-204411872.html","blurb":"Amazon's total net sales rose 20% to $200.6bn (beating the $196.47bn consensus) and EPS of $5.75 tripled estimates, as AWS revenue of $42.2bn (+37% y/y, its fastest growth in 18 quarters) drove shares up 7-10% after hours; Amazon raised FY26 capex guidance to roughly $220bn from $200bn."},
+    {"title":"Apple shares fall over 4% post-market even as Q3 profit rises 27% and revenue beats estimates","source":"TradingKey","date":"2026-07-30","time":"05:16","url":"https://www.tradingkey.com/analysis/stocks/us-stocks/262065111-apple-earnings-report-q3-2026-aapl-iphone-mac-tim-cook-china-services-tradingkey","blurb":"Apple's fiscal Q3 revenue of $109.4bn (+16% y/y) and EPS of $2.02 (+29% y/y) both beat consensus with June-quarter records across iPhone, Mac and Services, but shares fell as much as 6.65% after hours on guidance for slower September-quarter growth (+9-11% y/y), a Services miss and softer Greater China revenue."},
+    {"title":"Short gilts surge as traders slash bets on BOE hike in September","source":"Bloomberg","date":"2026-07-30","time":"05:16","url":"https://www.bloomberg.com/news/articles/2026-07-30/short-gilts-surge-as-traders-slash-bets-on-boe-hike-in-september","blurb":"Two-year gilt yields fell 11bp to 4.34% — the steepest drop since 12 June — after Governor Bailey told reporters not to read the BoE's 6-3 hold as \"edging toward a hike\"; the 10-year yield fell 6.1bp to 4.989% and the 30-year fell 3.6bp to 5.717%."},
     {"title":"Microsoft Shares Jump 17%, Poised for Largest One-Day Market Value Gain","source":"Bloomberg","date":"2026-07-30","time":"21:00","url":"https://www.bloomberg.com/news/articles/2026-07-30/microsoft-eyes-history-with-490-billion-pop-in-market-value","blurb":"Microsoft shares jumped as much as 17% (closing up ~15%) after fiscal Q4 revenue of $90.01bn beat estimates and Azure crossed $100bn in annual revenue for the first time (Q4 growth accelerating to 43%), adding roughly $480-490bn in market value — poised to eclipse Nvidia's $440bn addition as the largest single-day market-cap gain for any company in history."},
     {"title":"Stock market today: Nasdaq soars nearly 3%, Dow and S&P 500 rebound as Microsoft posts record 1-day value gain","source":"Yahoo Finance","date":"2026-07-30","time":"21:00","url":"https://finance.yahoo.com/markets/live/stock-market-today-thursday-july-30-dow-sp-500-nasdaq-treasury-yields-microsoft-082255995.html","blurb":"The Dow rose 1.19% to 52,208.06, the S&P 500 gained 1.66% to 7,437.63 and the Nasdaq jumped 2.78% to 25,122.18, a sharp rebound from Wednesday's Fed-driven selloff, as Microsoft's cloud-led beat offset an 8% slide in Meta after its EPS miss."},
     {"title":"Meta stock drops as free cash flow gets crushed—and Zuckerberg hints at cloud business","source":"Fortune","date":"2026-07-29","time":"22:00","url":"https://fortune.com/2026/07/29/meta-earnings-zuckerberg-hints-cloud-business-free-cash-flow-capex/","blurb":"Meta's Q2 EPS of $6.18 missed the $7.22 consensus — snapping a six-quarter beat streak — as total costs jumped 55% on legal charges and severance, compressing operating margin to 31% from 43% even as revenue of $60.8bn topped estimates."},
@@ -742,12 +747,8 @@ export const ARTICLES = {
     {"title":"Apple touches $5 trillion market cap for first time","source":"CNBC","date":"2026-07-28","time":"22:52","url":"https://www.cnbc.com/2026/07/28/apple-touches-5-trillion-market-cap-for-first-time-.html","blurb":"Apple shares briefly pushed the iPhone maker's market value above $5tn intraday — only the second company ever to reach the milestone, after Nvidia — before easing back to close near $4.99tn, capping a run that has added roughly 24% to the stock this year."},
     {"title":"Trump, Netanyahu tout 'productive' meeting after weeks of tensions","source":"Axios","date":"2026-07-28","time":"22:52","url":"https://www.axios.com/2026/07/28/trump-netanyahu-oval-office-iran-war","blurb":"The leaders' first in-person Iran-war talks since February wrapped after roughly 90 minutes, with both sides calling the session 'positive and productive' and reaffirming a commitment to keep Iran from acquiring nuclear weapons, alongside talk of expanding the Abraham Accords."},
     {"title":"UK shop prices rise by least since December, BRC says","source":"Reuters (via Yahoo Finance)","date":"2026-07-27","time":"22:52","url":"https://finance.yahoo.com/economy/articles/uk-shop-prices-rise-least-230632564.html","blurb":"BRC shop-price inflation eased to 0.9% in July (from 1.2% in June) as World Cup-linked supermarket discounting and summer promotions weighed on food and non-food prices alike — a fresh disinflationary data point heading into Thursday's MPC decision."},
-    {"title":"Dow Jumps 520 Points While Nasdaq Struggles Through Chip Stock Panic","source":"The Motley Fool","date":"2026-07-28","time":"21:17","url":"https://www.fool.com/investing/2026/07/28/dow-jumps-520-points-while-nasdaq-struggles/","blurb":"The Dow climbed roughly 1% to a fresh high on falling oil and strong Dow-component earnings even as a chip-sector selloff (Corning, SanDisk, Coherent) kept the Nasdaq pinned near flat, the day before the Fed's own decision."},
-    {"title":"Ford (F) Q2 2026 earnings: raises guidance after beat, says F-Series recovery on track","source":"CNBC","date":"2026-07-28","time":"21:17","url":"https://www.cnbc.com/2026/07/28/ford-motor-f-earnings-q2-2026.html","blurb":"Ford beat on adjusted EPS and raised its full-year adjusted-EBIT guidance to $10-11bn, citing operational improvements and resilient pricing even as automotive revenue slightly missed."},
     {"title":"Barclays H1 2026 slides: RoTE hits 16.1% as income guidance rises","source":"Investing.com","date":"2026-07-28","time":"21:17","url":"https://www.investing.com/news/company-news/barclays-h1-2026-slides-rote-hits-161-as-income-guidance-rises-93CH-4817338","blurb":"Barclays' H1 pre-tax profit rose 17% to £6.1bn, beating consensus, and the bank upgraded its income target and unveiled a £1bn buyback — but shares fell ~5% on an EPS shortfall and higher credit-impairment charges."},
     {"title":"Boeing Q2 2026: revenue beats, cash flow turns positive despite wider core loss","source":"ibtimes.com.au","date":"2026-07-28","time":"21:17","url":"https://www.ibtimes.com.au/boeing-financial-recovery-positive-cash-flow-revenue-beat-1873151","blurb":"Boeing's revenue topped estimates and free cash flow turned positive for the first time in years, even as a $280m Air Force One charge widened the core loss per share well past consensus; shares rose ~4%."},
-    {"title":"Trump and Netanyahu Are Poised to Meet Under a Dark Cloud","source":"Bloomberg","date":"2026-07-28","time":"17:10","url":"https://www.bloomberg.com/news/newsletters/2026-07-28/trump-and-netanyahu-are-poised-to-meet-under-a-dark-cloud","blurb":"Netanyahu's first White House meeting with Trump since the two launched the Iran war is meant to smooth tensions, with Iran's Pickaxe Mountain nuclear site, the Lebanon framework and the Abraham Accords on the agenda."},
-    {"title":"Oil price, WTI, Brent: U.S.-Iran fighting pause holds","source":"CNBC","date":"2026-07-28","time":"17:10","url":"https://www.cnbc.com/2026/07/28/oil-price-today-wti-brent-us-iran-hormuz.html","blurb":"Brent extended its slide to a third straight session, falling toward $85/bbl as Trump said the US and Iran are in talks aimed at ending the conflict."},
   ],
 };
 
@@ -758,8 +759,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-07-30", country: "US", title: "GDP Q2 2026 (advance estimate)", url: "https://www.bea.gov/news/schedule" },
-  { date: "2026-07-30", country: "US", title: "PCE inflation (June)", url: "https://www.bea.gov/news/schedule" },
   { date: "2026-07-31", country: "US", title: "Employment Cost Index (Q2 2026)", url: "https://www.bls.gov/schedule/news_release/eci.htm" },
   { date: "2026-08-01", country: "UK", title: "S&P Global/CIPS Manufacturing PMI, final (July)", url: "https://www.pmi.spglobal.com/Public/Home/PressReleases" },
   { date: "2026-08-03", country: "US", title: "ISM Manufacturing PMI (July)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
@@ -905,11 +904,11 @@ export const MATWALL = {
 // move (the rail shows nothing). Routine-maintained; see docs/refresh-routines.md.
 export const IND_KEYMOMENTS = {
   "US:two_year": { text: "Rose after the FOMC held at 3.50–3.75% but three members dissented for a hike — the first three-way hawkish dissent since September 2016 — a more hawkish outcome than markets had priced, which sent the Dow to its worst session of the year.", src: "https://www.cnbc.com/2026/07/29/fed-rate-decision-july-2026.html", srcName: "CNBC", date: "2026-07-29" },
-  "UK:two_year": { text: "The MPC held Bank Rate at 3.75% today by a narrower 6-3 vote (from 7-2 in June), with three members favouring an immediate 25bp hike to 4% as the Iran war's grip on the closed Strait of Hormuz keeps oil-driven inflation risk elevated.", src: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/july-2026", srcName: "Bank of England", date: "2026-07-30" },
+  "UK:two_year": { text: "Fell 11bp to 4.34% — the steepest drop since 12 June — after Governor Bailey told reporters not to read the MPC's narrower 6-3 hold as \"edging toward a hike\", a dovish steer that also pulled the 10-year yield down 6.1bp to 4.989%.", src: "https://www.bloomberg.com/news/articles/2026-07-30/short-gilts-surge-as-traders-slash-bets-on-boe-hike-in-september", srcName: "Bloomberg", date: "2026-07-30" },
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "The Bank of England held Bank Rate at 3.75% on a narrower 6-3 vote, a more hawkish split than June's 7-2, as markets weigh the pound's reaction to the accompanying Monetary Policy Report's updated inflation forecasts.", src: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/july-2026", srcName: "Bank of England", date: "2026-07-30" };
+export const FX_KEYMOMENT = { text: "The yen spiked sharply against the dollar overnight in a move suggesting government intervention, hours before the Bank of Japan held its policy rate at 1% (8-1, Takata dissenting for a hike) and warned underlying inflation could exceed its 2% target.", src: "https://www.cnbc.com/2026/07/31/boj-rates-yen-intervention-inflation-japan.html", srcName: "CNBC", date: "2026-07-31" };
 
 export const EARNINGS = {
   weeks: [
@@ -925,8 +924,8 @@ export const EARNINGS = {
         { t: "META", n: "Meta Platforms", tag: "Mag 7", when: "After close", estEps: "$7.23", estRev: "$60.26bn", actEps: "$6.18 (missed est)", actRev: "$60.80bn (+28%, beat)", px: "-~8% after hours", note: "revenue beat but EPS missed on $2.4bn legal charges and $1.18bn severance tied to May 2026 layoffs; capex $31.08bn in the quarter, guided FY26 capex to $130-145bn and Q3 revenue to $61-64bn" },
       ] },
       { date: "2026-07-30", rows: [
-        { t: "AAPL", n: "Apple", tag: "Mag 7", when: "After close", estEps: "$1.89", estRev: "$108.9bn", actEps: null, actRev: null, note: "fiscal Q3; EPS +~20% y/y on revenue +~16%" },
-        { t: "AMZN", n: "Amazon", tag: "Mag 7 \u00b7 hyperscaler", when: "After close", estEps: "$1.82", estRev: "$196bn", actEps: null, actRev: null, note: "AWS growth and retail margins in focus" },
+        { t: "AAPL", n: "Apple", tag: "Mag 7", when: "After close", estEps: "$1.89", estRev: "$108.9bn", actEps: "$2.02 (+29% y/y)", actRev: "$109.4bn (+16% y/y)", px: "-6.65% AH to $311.25", guide: { est: null, act: "Sept-quarter revenue guided +9-11% y/y (vs +16% in June quarter); flagged rising supply constraints and memory costs" }, note: "beat on both lines (EPS beat $1.88-1.89 est, revenue beat ~$108.8-108.9bn est) with June-quarter records for total revenue, EPS, iPhone, Mac and Services \u2014 but shares fell on weaker forward guidance, a Services miss ($30.74bn vs $31.22bn est) and Greater China revenue of $18.8bn missing the ~$19.5bn estimate" },
+        { t: "AMZN", n: "Amazon", tag: "Mag 7 \u00b7 hyperscaler", when: "After close", estEps: "$1.82", estRev: "$196bn", km: { l: "AWS growth", est: "~31%", act: "37% (fastest in 18 quarters)" }, actEps: "$5.75 (>3x consensus)", actRev: "$200.6bn (+20% y/y)", px: "+~7-10% AH", guide: { est: "FY26 capex ~$200bn", act: "FY26 capex raised to ~$220bn" }, note: "AWS revenue $42.2bn (vs ~$40.5bn est, +37% y/y, fastest AWS growth in 18 quarters) at a 39.4% operating margin ($16.6bn AWS operating income, up from $10.2bn a year earlier); total net sales $200.6bn beat the $196.47bn consensus; raised FY26 capex guidance to ~$220bn from ~$200bn" },
         { t: "LLOY", n: "Lloyds Banking Group", tag: "Banks/brokers \u00b7 UK", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: null, estRev: null, km: { l: "Pre-tax profit", est: "\u00a32.09bn (Q2)", act: "\u00a32.27bn (Q2, +14% y/y)" }, actEps: null, actRev: "Underlying NII \u00a37.3bn (+9% y/y); NIM 3.19%", px: null, note: "H1 2026 statutory pre-tax profit \u00a34.3bn (vs \u00a33.5bn H1 2025); Q2 pre-tax profit \u00a32.27bn beat \u00a32.09bn consensus; interim dividend 1.58p/share (+30% y/y); unveiled new 5-year plan targeting ~20% RoTE by 2030 (>18% by 2028)" },
       ] },
       { date: "2026-07-31", rows: [
@@ -960,6 +959,10 @@ export const EARNINGS = {
     ] },
   ],
   srcs: [
+    { name: "9to5Mac (Apple Q3 2026 actuals)", url: "https://9to5mac.com/2026/07/30/apple-reports-q3-2026-earnings-109-4-billion-in-revenue-up-16/" },
+    { name: "TradingKey (Apple shares fall AH despite beat)", url: "https://www.tradingkey.com/analysis/stocks/us-stocks/262065111-apple-earnings-report-q3-2026-aapl-iphone-mac-tim-cook-china-services-tradingkey" },
+    { name: "Yahoo Finance (Amazon Q2 2026 actuals — AWS +37%)", url: "https://finance.yahoo.com/markets/stocks/articles/amazon-q2-2026-earnings-aws-204411872.html" },
+    { name: "TradingKey (Amazon shares jump 9% post-market)", url: "https://www.tradingkey.com/analysis/stocks/us-stocks/262065084-amazon-amzn-q2-earnings-aws-37-percent-record-advertising-stock-up-9-percent-tradingkey" },
     { name: "CNBC week ahead (27–31 Jul)", url: "https://www.cnbc.com/2026/07/24/stock-market-next-week-outlook-for-july-27-31-2026.html" },
     { name: "FX Leaders — earnings to watch 27–31 Jul", url: "https://www.fxleaders.com/news/2026/07/26/top-earnings-to-watch-this-week-july-27-31-what-to-expect-from-msft-meta-aapl-amzn-ko-ba-and-f/" },
     { name: "Alphastreet — Meta Q2 preview (est $7.23)", url: "https://news.alphastreet.com/meta-platforms-meta-q2-2026-preview-eps-est-7-23-reports-july-29/" },
