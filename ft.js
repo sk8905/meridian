@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f54e632e-f8b4-4554-9f2e-c8a2ded0555b", title: "Eurozone inflation rises to 2.9% in July", date: "2026-07-31", time: "10:01", url: "https://www.ft.com/content/f54e632e-f8b4-4554-9f2e-c8a2ded0555b" },
+  { id: "26da67f5-e630-4552-b327-f01d45b6c7c5", title: "Mayoral scrutiny is a pressing issue", date: "2026-07-31", time: "09:30", url: "https://www.ft.com/content/26da67f5-e630-4552-b327-f01d45b6c7c5" },
   { id: "160a686b-6573-4192-9281-7cf28912f1ed", title: "Andy Burnham to give English mayors share of income tax from 2028", date: "2026-07-31", time: "08:44", url: "https://www.ft.com/content/160a686b-6573-4192-9281-7cf28912f1ed" },
   { id: "613cd8b0-e8c5-45d2-a7f3-184e63d82e08", title: "Fifa opens door to amending controversial stake sale plan", date: "2026-07-31", time: "08:21", url: "https://www.ft.com/content/613cd8b0-e8c5-45d2-a7f3-184e63d82e08" },
   { id: "23eb1fd4-8301-4c0e-89b3-2647389e6226", title: "South Korean stock market soars 18% as investors pile back into AI", date: "2026-07-31", time: "08:10", url: "https://www.ft.com/content/23eb1fd4-8301-4c0e-89b3-2647389e6226" },
@@ -58,10 +60,4 @@ export const FT_ITEMS = [
   { id: "655a05ff-ec45-492d-a70e-4f8ba8dc141f", title: "Data suggests fears of UK ‘non-dom’ exodus overblown", date: "2026-07-30", time: "17:31", url: "https://www.ft.com/content/655a05ff-ec45-492d-a70e-4f8ba8dc141f" },
   { id: "928f3d86-32ff-4410-99a9-7a41e49624bd", title: "Donald Trump says he could withdraw Todd Blanche’s nomination for attorney-general", date: "2026-07-30", time: "17:21", url: "https://www.ft.com/content/928f3d86-32ff-4410-99a9-7a41e49624bd" },
   { id: "da7c4472-cb30-4b82-b321-d82c1859419e", title: "Microsoft surges 15% as results and data centre leases cheer investors", date: "2026-07-30", time: "16:50", url: "https://www.ft.com/content/da7c4472-cb30-4b82-b321-d82c1859419e" },
-  { id: "44589e41-8880-4c6b-89c5-a02d34cf46ab", title: "Bank of England holds rates at 3.75% as it waits to see impact of Iran war", date: "2026-07-30", time: "16:41", url: "https://www.ft.com/content/44589e41-8880-4c6b-89c5-a02d34cf46ab" },
-  { id: "b12a08f4-442c-4f10-9688-0f93553a292f", title: "European nations to boycott World Cup in protest at Fifa’s plans", date: "2026-07-30", time: "16:17", url: "https://www.ft.com/content/b12a08f4-442c-4f10-9688-0f93553a292f" },
-  { id: "8455ec94-0182-46a6-b5dd-2bb5b0a75a6c", title: "Japan’s yen jumps 3% as speculation over intervention swirls", date: "2026-07-30", time: "16:07", url: "https://www.ft.com/content/8455ec94-0182-46a6-b5dd-2bb5b0a75a6c" },
-  { id: "fd75ca61-c9db-41c8-97d3-80069c25beb6", title: "Declining PCE inflation in June likely to be reversed in July", date: "2026-07-30", time: "15:58", url: "https://www.ft.com/content/fd75ca61-c9db-41c8-97d3-80069c25beb6" },
-  { id: "5fb44089-ecdf-4b48-bc14-1e8b4682b142", title: "Situational Awareness offloads large portion of public equity holdings", date: "2026-07-30", time: "15:31", url: "https://www.ft.com/content/5fb44089-ecdf-4b48-bc14-1e8b4682b142" },
-  { id: "cc3a80fc-128b-4b46-a9a6-1a6a6988f31f", title: "Reform UK stands by Farage aide George Cottrell amid financial scrutiny", date: "2026-07-30", time: "14:52", url: "https://www.ft.com/content/cc3a80fc-128b-4b46-a9a6-1a6a6988f31f" },
 ];
