@@ -32,6 +32,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-parisedition-succession-20260731",
+    publication: "Bloomberg",
+    author: "Lionel Laurent",
+    series: "Paris Edition",
+    title: "Paris Edition: The succession question",
+    date: "2026-07-31",
+    time: "12:50",
+    summary: "Billionaire Bernard Arnault's 'Merci' memo fails to address the key question of succession.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-07-31/billionaire-s-merci-memo-fails-to-address-the-key-question-of-succession",
+  },
+  {
     id: "nl-bbg-economicsdaily-japancurrencydogfight-20260731",
     publication: "Bloomberg",
     author: "Malcolm Scott",
@@ -430,26 +441,5 @@ export const NEWSLETTERS = [
     time: "06:41",
     summary: "A global chip selloff deepens on AI-spending worries, halting trade on South Korea's Kospi, as Trump sees a \"good chance\" of an Iran deal and France and Spain battle wildfires.",
     url: "https://www.bloomberg.com/news/newsletters/2026-07-28/global-selloff-deepens-over-ai-spending-fears",
-  },
-  {
-    id: "nl-econ-worldinbrief-20260728",
-    publication: "The Economist",
-    series: "The World in Brief",
-    title: "The World in Brief: Trump says America and Iran are talking",
-    date: "2026-07-28",
-    time: "05:51",
-    summary: "Trump says talks with Iran are ongoing but threatens renewed strikes, as Macron calls France's wildfires the toughest test since World War Two and chip stocks slide on AI and China worries.",
-    url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-bbg-pointsofreturn-20260728",
-    publication: "Bloomberg",
-    author: "John Authers",
-    series: "Points of Return",
-    title: "Points of Return: Globalization ends not with a bang, but Tariffs 2.0",
-    date: "2026-07-28",
-    time: "05:16",
-    summary: "Chips sell off ahead of hyperscaler earnings, and new US tariffs pass without a market ripple.",
-    url: "https://bloom.bg/3RGUJBc",
   },
 ];

@@ -20,6 +20,15 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "395afe31-3c86-4911-af05-54ca5aa2d41b", title: "Fed dissenters warn of challenges in taming inflation", date: "2026-07-31", time: "13:00", url: "https://www.ft.com/content/395afe31-3c86-4911-af05-54ca5aa2d41b" },
+  { id: "9f46db72-0a1e-42b0-8efe-974a04fa0fc7", title: "Latest savings rates", date: "2026-07-31", time: "12:55", url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7" },
+  { id: "75ba3055-625c-4cb5-894b-0696a38f5e79", title: "Latest Isa rates", date: "2026-07-31", time: "12:52", url: "https://www.ft.com/content/75ba3055-625c-4cb5-894b-0696a38f5e79" },
+  { id: "a500489e-8185-4605-a3ab-010b3ec85a7b", title: "‘Total devastation’: Suffolk confronts aftermath of unprecedented wildfire", date: "2026-07-31", time: "12:45", url: "https://www.ft.com/content/a500489e-8185-4605-a3ab-010b3ec85a7b" },
+  { id: "3a386a01-1276-4868-85e9-17d9dacf6986", title: "Israel’s far right urges Netanyahu to reject Trump’s Gaza plan", date: "2026-07-31", time: "12:38", url: "https://www.ft.com/content/3a386a01-1276-4868-85e9-17d9dacf6986" },
+  { id: "8ed6b98d-b5d7-41e6-a210-5b75dc0bc4f2", title: "Bridgerton author Julia Quinn: ‘Sex scenes have to serve a purpose’", date: "2026-07-31", time: "12:30", url: "https://www.ft.com/content/8ed6b98d-b5d7-41e6-a210-5b75dc0bc4f2" },
+  { id: "32951d1d-5402-406b-bfaf-a490bf1bff84", title: "Burnham’s policy bonanza", date: "2026-07-31", time: "12:19", url: "https://www.ft.com/content/32951d1d-5402-406b-bfaf-a490bf1bff84" },
+  { id: "8dc8b79a-7cd1-489f-b5fd-77c317fc19a2", title: "The hottest pop-ups for summer 2026", date: "2026-07-31", time: "11:00", url: "https://www.ft.com/content/8dc8b79a-7cd1-489f-b5fd-77c317fc19a2" },
+  { id: "57eca11a-5485-448d-b237-7aa8dd0d5769", title: "How can I TikTok like Andy Burnham?", date: "2026-07-31", time: "11:00", url: "https://www.ft.com/content/57eca11a-5485-448d-b237-7aa8dd0d5769" },
   { id: "67db9b64-ec26-442e-8356-6c4411eba66e", title: "Data centres vs housing: how London became a central battleground", date: "2026-07-31", time: "12:00", url: "https://www.ft.com/content/67db9b64-ec26-442e-8356-6c4411eba66e" },
   { id: "0f9b2fe7-bde4-4f5f-b49e-93ccb5da9ea8", title: "Bank of Japan governor vows not to ‘fall behind the curve’", date: "2026-07-31", time: "11:47", url: "https://www.ft.com/content/0f9b2fe7-bde4-4f5f-b49e-93ccb5da9ea8" },
   { id: "7e0e8281-4f14-4d6f-98c1-ea21b8c0543e", title: "Universal Music shares plunge by a quarter on streaming growth fears", date: "2026-07-31", time: "11:40", url: "https://www.ft.com/content/7e0e8281-4f14-4d6f-98c1-ea21b8c0543e" },
@@ -51,15 +60,4 @@ export const FT_ITEMS = [
   { id: "e5cb0cce-c2f5-4dae-8126-a2d3e9063dde", title: "Rhine drought strands ships and forces German production shutdowns", date: "2026-07-31", time: "05:00", url: "https://www.ft.com/content/e5cb0cce-c2f5-4dae-8126-a2d3e9063dde" },
   { id: "6a35508c-c0bd-4000-81b3-7c7383fb24fd", title: "We’ve moved from income world to wealth world", date: "2026-07-31", time: "05:00", url: "https://www.ft.com/content/6a35508c-c0bd-4000-81b3-7c7383fb24fd" },
   { id: "7a5c560a-862b-47e4-9896-196ee9494739", title: "How investors should brace portfolios for tech volatility", date: "2026-07-31", time: "05:00", url: "https://www.ft.com/content/7a5c560a-862b-47e4-9896-196ee9494739" },
-  { id: "7b2dd2b2-36f5-469b-a13e-19e936c22bea", title: "FCA launches new push to revive London share trading", date: "2026-07-31", time: "05:00", url: "https://www.ft.com/content/7b2dd2b2-36f5-469b-a13e-19e936c22bea" },
-  { id: "c81dd7e8-9f4b-415f-aa08-eb2b3b1f3680", title: "How JPMorgan walked into another football firestorm", date: "2026-07-31", time: "05:00", url: "https://www.ft.com/content/c81dd7e8-9f4b-415f-aa08-eb2b3b1f3680" },
-  { id: "4de8bfa8-9eb3-4d70-bd17-273a6834dd41", title: "US regulators cite ‘circular’ risk in investments used by KKR and Apollo", date: "2026-07-31", time: "05:00", url: "https://www.ft.com/content/4de8bfa8-9eb3-4d70-bd17-273a6834dd41" },
-  { id: "49321caa-61ce-4e25-9c2e-e354b285c92b", title: "Britain’s climate divide widens amid fires and heat deaths", date: "2026-07-31", time: "05:00", url: "https://www.ft.com/content/49321caa-61ce-4e25-9c2e-e354b285c92b" },
-  { id: "066066cf-d45b-436c-9170-b42097a4b141", title: "Russia targets hundreds of Ukrainian petrol stations", date: "2026-07-31", time: "05:00", url: "https://www.ft.com/content/066066cf-d45b-436c-9170-b42097a4b141" },
-  { id: "871976c7-8c4f-405e-803e-d86cf22bcf0f", title: "China is smarter about subsidies than everybody else", date: "2026-07-31", time: "05:00", url: "https://www.ft.com/content/871976c7-8c4f-405e-803e-d86cf22bcf0f" },
-  { id: "229f215f-9be0-4afe-a4d7-378aadbf87c5", title: "The return of Boeing", date: "2026-07-31", time: "05:00", url: "https://www.ft.com/content/229f215f-9be0-4afe-a4d7-378aadbf87c5" },
-  { id: "18a12375-2370-4ccd-8e81-528fcb9ac33b", title: "Is Wetherspoons too cheap to thrive in high-cost UK?", date: "2026-07-31", time: "05:00", url: "https://www.ft.com/content/18a12375-2370-4ccd-8e81-528fcb9ac33b" },
-  { id: "e9512442-7374-42dd-9979-d625131b84da", title: "JPMorgan walks into another football firestorm", date: "2026-07-31", time: "05:00", url: "https://www.ft.com/content/e9512442-7374-42dd-9979-d625131b84da" },
-  { id: "181a7596-a891-4b88-9a22-8f447a9e8b91", title: "China’s factory activity falls for first time in five months", date: "2026-07-31", time: "04:47", url: "https://www.ft.com/content/181a7596-a891-4b88-9a22-8f447a9e8b91" },
-  { id: "4adacb3e-cf24-4474-bfa1-c62a99676e21", title: "Potato chips and the silicon kind are surprisingly similar", date: "2026-07-31", time: "04:00", url: "https://www.ft.com/content/4adacb3e-cf24-4474-bfa1-c62a99676e21" },
 ];
