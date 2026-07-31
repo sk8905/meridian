@@ -32,6 +32,26 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-wheretoinvest-elnino-20260731",
+    publication: "Bloomberg",
+    author: "John Stepek",
+    series: "Where to Invest",
+    title: "Where to Invest with El Niño",
+    date: "2026-07-31",
+    time: "14:34",
+    summary: "How can you position a portfolio to weather its effects?",
+    url: "https://www.bloomberg.com/news/articles/2026-07-31/where-to-invest-now-as-el-nino-hits-the-global-economy",
+  },
+  {
+    id: "nl-lb-lathamcityhq-20260731",
+    publication: "Legal Business",
+    title: "'A mark of where we want to go' – Latham sets out growth plan for new City HQ",
+    date: "2026-07-31",
+    time: "14:14",
+    summary: "London managing partner Ed Barnett on lateral priorities and what's next for the US firm's $1bn-revenue City operation.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQyrEmdCMD5TdzxJR/wv",
+  },
+  {
     id: "nl-mailbrew-fridaybrew-20260731-6",
     publication: "Mailbrew",
     series: "Friday Brew",
@@ -431,14 +451,5 @@ export const NEWSLETTERS = [
     time: "11:04",
     summary: "Traders are looking for any excuse to sell chipmakers.",
     url: "https://www.bloomberg.com/news/newsletters/2026-07-28/ai-greed-turns-into-fear-as-tech-stocks-keep-sinking",
-  },
-  {
-    id: "nl-lb-resolutionlifeclaire-20260728",
-    publication: "Legal Business",
-    title: "Resolution Life's legal chief on segueing from GC to a CEO role – and back again",
-    date: "2026-07-28",
-    time: "10:06",
-    summary: "Chief people, partnerships and legal officer Claire Singleton on leading beyond legal, big deals and challenging herself.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQvu73X9qRh88xmcZ/wv",
   },
 ];

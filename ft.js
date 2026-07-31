@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "fddc42a9-4c57-4689-abde-75bbe79622e9", title: "Amazon increases AI infrastructure spending to $220bn this year", date: "2026-07-31", time: "14:47", url: "https://www.ft.com/content/fddc42a9-4c57-4689-abde-75bbe79622e9" },
   { id: "570ecb5c-68de-4844-9e73-cf32463dbcac", title: "The twilight of Dr Fauci", date: "2026-07-31", time: "14:00", url: "https://www.ft.com/content/570ecb5c-68de-4844-9e73-cf32463dbcac" },
   { id: "c167fb1b-69c3-4df0-9126-1e0af678f924", title: "Markets are getting AI right", date: "2026-07-31", time: "14:00", url: "https://www.ft.com/content/c167fb1b-69c3-4df0-9126-1e0af678f924" },
   { id: "b7e53513-27fa-4b50-af17-b1308c587f11", title: "London residents lose legal challenge against Chinese ‘mega’ embassy", date: "2026-07-31", time: "13:54", url: "https://www.ft.com/content/b7e53513-27fa-4b50-af17-b1308c587f11" },
@@ -36,6 +37,7 @@ export const FT_ITEMS = [
   { id: "8dc8b79a-7cd1-489f-b5fd-77c317fc19a2", title: "The hottest pop-ups for summer 2026", date: "2026-07-31", time: "11:00", url: "https://www.ft.com/content/8dc8b79a-7cd1-489f-b5fd-77c317fc19a2" },
   { id: "57eca11a-5485-448d-b237-7aa8dd0d5769", title: "How can I TikTok like Andy Burnham?", date: "2026-07-31", time: "11:00", url: "https://www.ft.com/content/57eca11a-5485-448d-b237-7aa8dd0d5769" },
   { id: "67db9b64-ec26-442e-8356-6c4411eba66e", title: "Data centres vs housing: how London became a central battleground", date: "2026-07-31", time: "12:00", url: "https://www.ft.com/content/67db9b64-ec26-442e-8356-6c4411eba66e" },
+  { id: "67e045bb-76cc-404f-a04c-073411eedfc5", title: "FirstFT: The fight for football's future", date: "2026-07-31", time: "11:50", url: "https://www.ft.com/content/67e045bb-76cc-404f-a04c-073411eedfc5" },
   { id: "0f9b2fe7-bde4-4f5f-b49e-93ccb5da9ea8", title: "Bank of Japan governor vows not to ‘fall behind the curve’", date: "2026-07-31", time: "11:47", url: "https://www.ft.com/content/0f9b2fe7-bde4-4f5f-b49e-93ccb5da9ea8" },
   { id: "7e0e8281-4f14-4d6f-98c1-ea21b8c0543e", title: "Universal Music shares plunge by a quarter on streaming growth fears", date: "2026-07-31", time: "11:40", url: "https://www.ft.com/content/7e0e8281-4f14-4d6f-98c1-ea21b8c0543e" },
   { id: "a417eb44-bffe-4584-b14e-570e76d3fb23", title: "Chevron and Exxon earnings soar as Trump threatens price interventions", date: "2026-07-31", time: "11:30", url: "https://www.ft.com/content/a417eb44-bffe-4584-b14e-570e76d3fb23" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "e4cec5e1-a4e9-449b-a411-da1c025af2e8", title: "Donald Trump says Hamas has agreed to disarm over time", date: "2026-07-31", time: "07:13", url: "https://www.ft.com/content/e4cec5e1-a4e9-449b-a411-da1c025af2e8" },
   { id: "420ea1bc-6f85-4065-ad76-61e685aa1de2", title: "BP puts its UK North Sea business up for sale", date: "2026-07-31", time: "07:11", url: "https://www.ft.com/content/420ea1bc-6f85-4065-ad76-61e685aa1de2" },
   { id: "b1267def-3590-4482-9833-d09f0b1230b8", title: "What Warsh is (probably) up to", date: "2026-07-31", time: "06:30", url: "https://www.ft.com/content/b1267def-3590-4482-9833-d09f0b1230b8" },
-  { id: "e7a03462-3d77-464a-b268-386d75f8ff47", title: "FTAV’s further reading", date: "2026-07-31", time: "06:30", url: "https://www.ft.com/content/e7a03462-3d77-464a-b268-386d75f8ff47" },
-  { id: "d4f3134b-1e04-4c0b-a1be-7bdaa6a44c64", title: "Iceland’s EU referendum on knife-edge as bloc braces for enlargement litmus test", date: "2026-07-31", time: "06:00", url: "https://www.ft.com/content/d4f3134b-1e04-4c0b-a1be-7bdaa6a44c64" },
 ];
