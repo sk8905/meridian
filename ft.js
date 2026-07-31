@@ -62,6 +62,4 @@ export const FT_ITEMS = [
   { id: "e9512442-7374-42dd-9979-d625131b84da", title: "JPMorgan walks into another football firestorm", date: "2026-07-31", time: "05:00", url: "https://www.ft.com/content/e9512442-7374-42dd-9979-d625131b84da" },
   { id: "181a7596-a891-4b88-9a22-8f447a9e8b91", title: "China’s factory activity falls for first time in five months", date: "2026-07-31", time: "04:47", url: "https://www.ft.com/content/181a7596-a891-4b88-9a22-8f447a9e8b91" },
   { id: "4adacb3e-cf24-4474-bfa1-c62a99676e21", title: "Potato chips and the silicon kind are surprisingly similar", date: "2026-07-31", time: "04:00", url: "https://www.ft.com/content/4adacb3e-cf24-4474-bfa1-c62a99676e21" },
-  { id: "aa292d6f-3b12-4b7a-b558-7306e8d03b9e", title: "Sandwich maker Jersey Mike’s and retailer Reformation fail to excite IPO investors", date: "2026-07-30", time: "20:20", url: "https://www.ft.com/content/aa292d6f-3b12-4b7a-b558-7306e8d03b9e" },
-  { id: "6d206b85-bc50-4c89-973b-f18cd84e2a15", title: "Mark Zuckerberg is becoming the king of the ‘side quest’", date: "2026-07-30", time: "19:16", url: "https://www.ft.com/content/6d206b85-bc50-4c89-973b-f18cd84e2a15" },
 ];
