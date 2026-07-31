@@ -20,12 +20,14 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "15de7725-ff09-4b17-bd88-42117a3404d1", title: "Is Kevin Warsh the Lionel Messi of monetary policy?", date: "2026-07-31", time: "18:22", url: "https://www.ft.com/content/15de7725-ff09-4b17-bd88-42117a3404d1" },
   { id: "97fd8d2a-3959-4dd6-8fbf-1e443ab793d3", title: "Warsh goes blank", date: "2026-07-31", time: "18:01", url: "https://www.ft.com/content/97fd8d2a-3959-4dd6-8fbf-1e443ab793d3" },
   { id: "5a74e0e6-fa68-4298-884a-4b738185911b", title: "Directors’ Deals: M&S directors cash out as shares climb", date: "2026-07-31", time: "18:00", url: "https://www.ft.com/content/5a74e0e6-fa68-4298-884a-4b738185911b" },
   { id: "fbc0d4bd-d754-4590-984d-ba21c0f1325b", title: "Stockpickers: Restore, Rio Tinto, Unite Group", date: "2026-07-31", time: "18:00", url: "https://www.ft.com/content/fbc0d4bd-d754-4590-984d-ba21c0f1325b" },
   { id: "c5d2f736-d640-4ae6-99e2-c4d2cae1e2ab", title: "Europe’s long hot summer", date: "2026-07-31", time: "17:35", url: "https://www.ft.com/content/c5d2f736-d640-4ae6-99e2-c4d2cae1e2ab" },
   { id: "f02ce02b-fa33-49ad-b8c7-81ab5cec3de0", title: "NXP in talks to buy $3.3bn designer of camera chips for self-driving cars", date: "2026-07-31", time: "17:32", url: "https://www.ft.com/content/f02ce02b-fa33-49ad-b8c7-81ab5cec3de0" },
   { id: "0b7081c3-2654-471c-b1b9-87c6f6369fb0", title: "The week that shook football", date: "2026-07-31", time: "17:30", url: "https://www.ft.com/content/0b7081c3-2654-471c-b1b9-87c6f6369fb0" },
+  { id: "f54e632e-f8b4-4554-9f2e-c8a2ded0555b", title: "Eurozone inflation rises to 2.9% in July", date: "2026-07-31", time: "17:24", url: "https://www.ft.com/content/f54e632e-f8b4-4554-9f2e-c8a2ded0555b" },
   { id: "beb88252-6fb2-45b3-9388-eda0d3ef5551", title: "Sadiq Khan accuses Met of trying to fix contract for Palantir", date: "2026-07-31", time: "17:21", url: "https://www.ft.com/content/beb88252-6fb2-45b3-9388-eda0d3ef5551" },
   { id: "d81b5086-df43-4c91-ac23-fa9076ef0304", title: "Abu Dhabi abandons bid to build global oil benchmark", date: "2026-07-31", time: "17:03", url: "https://www.ft.com/content/d81b5086-df43-4c91-ac23-fa9076ef0304" },
   { id: "06b7545b-94a0-4a5d-9c21-0c7852771b41", title: "Google Earth AI tool raises fears over spread of fake satellite images", date: "2026-07-31", time: "17:00", url: "https://www.ft.com/content/06b7545b-94a0-4a5d-9c21-0c7852771b41" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "67e045bb-76cc-404f-a04c-073411eedfc5", title: "FirstFT: The fight for football's future", date: "2026-07-31", time: "11:50", url: "https://www.ft.com/content/67e045bb-76cc-404f-a04c-073411eedfc5" },
   { id: "7e0e8281-4f14-4d6f-98c1-ea21b8c0543e", title: "Universal Music shares plunge by a quarter on streaming growth fears", date: "2026-07-31", time: "11:40", url: "https://www.ft.com/content/7e0e8281-4f14-4d6f-98c1-ea21b8c0543e" },
   { id: "a417eb44-bffe-4584-b14e-570e76d3fb23", title: "Chevron and Exxon earnings soar as Trump threatens price interventions", date: "2026-07-31", time: "11:30", url: "https://www.ft.com/content/a417eb44-bffe-4584-b14e-570e76d3fb23" },
-  { id: "4ee1e8b0-3d48-44b6-8d9a-e71ce5b458bf", title: "Rising Eurozone inflation keeps rate rise on the table", date: "2026-07-31", time: "11:13", url: "https://www.ft.com/content/4ee1e8b0-3d48-44b6-8d9a-e71ce5b458bf" },
-  { id: "4b90b384-47d7-40ff-8b0d-7a33420ea29f", title: "Ares secures biggest flagship credit fund commitments in three years", date: "2026-07-31", time: "11:03", url: "https://www.ft.com/content/4b90b384-47d7-40ff-8b0d-7a33420ea29f" },
-
 ];

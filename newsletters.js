@@ -32,6 +32,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuffpodcast-nokiddiepool-20260731",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff: The Podcast",
+    title: "Money Stuff: The Podcast: No Kiddie Pool",
+    date: "2026-07-31",
+    time: "18:47",
+    summary: "Guest co-host Silvia Killingsworth on the Situational Awareness situation, record dates, CVRs and weird retail volatility.",
+    url: "https://bloom.bg/4nhTnYV",
+  },
+  {
     id: "nl-lb-anglotecklawyer-20260731",
     publication: "Legal Business",
     title: "Anglo American and Teck name top lawyer for $69bn mining mega-merger",
@@ -417,28 +428,6 @@ export const NEWSLETTERS = [
     time: "20:20",
     summary: "Exec committee co-chair Bill Savitt leads Wachtell group moving to Gibson Dunn in latest in series of once-rare departures from elite US firm.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMQwVDWegbNsmPjenI/wv",
-  },
-  {
-    id: "nl-bbg-moneystuff-elevators-20260728",
-    publication: "Bloomberg",
-    author: "Matt Levine",
-    series: "Money Stuff",
-    title: "Money Stuff: Elevators Won’t Repair Themselves",
-    date: "2026-07-28",
-    time: "19:08",
-    summary: "Sponsors, parlays, pivots, trust.",
-    url: "https://bloom.bg/4yPVqJq",
-  },
-  {
-    id: "nl-bbg-thebrink-oceangate-20260728",
-    publication: "Bloomberg",
-    author: "Jonathan Randles",
-    series: "The Brink",
-    title: "OceanGate's Cost Cuts Contributed to Fatal Titanic Expedition",
-    date: "2026-07-28",
-    time: "16:01",
-    summary: "OceanGate's cost-cutting pressures helped set the stage for the fatal Titan disaster.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-07-28/oceangate-s-cost-cuts-contributed-to-fatal-titanic-expedition",
   },
   {
     id: "nl-bbg-marketsdaily-aigreedfear-20260728",
