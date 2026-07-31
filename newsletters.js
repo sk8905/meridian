@@ -32,6 +32,26 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-mailbrew-fridaybrew-20260731-6",
+    publication: "Mailbrew",
+    series: "Friday Brew",
+    title: "Friday Brew #6",
+    date: "2026-07-31",
+    time: "13:58",
+    summary: "Conspiracies and Ireland's stalled rail upgrade, Norges Bank's AI playbook for CRE, private credit's 'durable income' delusion, and Kevin Warsh on Fed guidance vs basis trades.",
+    url: "https://app.mailbrew.com/stevedkennedy/friday-brew-03bEHcNb3hHB/6",
+  },
+  {
+    id: "nl-jpm-rotationnotreckoning-20260731",
+    publication: "JP Morgan Private Bank",
+    series: "Top Market Takeaways",
+    title: "Rotation, not reckoning: What's testing the AI trade?",
+    date: "2026-07-31",
+    time: "13:21",
+    summary: "Investors are shifting away from artificial intelligence-related trades and into overlooked sectors as they seek proof of returns.",
+    url: "https://go-pb.jpmorgan.com/v/MzkyLUhLQy04NzYAAAGjVxf3Ym9TUNggaFbLZmJOlH87oCgaCVdfsKSCwcUbPP-HxdxgLDPLJsODHyuCoAu4KBFlHcY=",
+  },
+  {
     id: "nl-bbg-parisedition-succession-20260731",
     publication: "Bloomberg",
     author: "Lionel Laurent",
@@ -420,26 +440,5 @@ export const NEWSLETTERS = [
     time: "10:06",
     summary: "Chief people, partnerships and legal officer Claire Singleton on leading beyond legal, big deals and challenging herself.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMQvu73X9qRh88xmcZ/wv",
-  },
-  {
-    id: "nl-bbg-authoralert-nkumar-20260728",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    title: "Man Group Assets Soar to All Time High After Bumper First Half",
-    date: "2026-07-28",
-    time: "07:36",
-    summary: "Man Group Plc assets jumped to a record high in the first half of the year as clients poured money into the firm's long-only investment strategies and strong performance gains helped drive growth.",
-    url: "https://www.bloomberg.com/news/articles/2026-07-28/man-group-assets-soar-to-all-time-high-after-bumper-first-half",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-20260728",
-    publication: "Bloomberg",
-    author: "Jill Disis",
-    series: "Morning Briefing Europe",
-    title: "Global Selloff Deepens Over AI Spending Fears",
-    date: "2026-07-28",
-    time: "06:41",
-    summary: "A global chip selloff deepens on AI-spending worries, halting trade on South Korea's Kospi, as Trump sees a \"good chance\" of an Iran deal and France and Spain battle wildfires.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-07-28/global-selloff-deepens-over-ai-spending-fears",
   },
 ];

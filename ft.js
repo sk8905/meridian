@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "570ecb5c-68de-4844-9e73-cf32463dbcac", title: "The twilight of Dr Fauci", date: "2026-07-31", time: "14:00", url: "https://www.ft.com/content/570ecb5c-68de-4844-9e73-cf32463dbcac" },
+  { id: "c167fb1b-69c3-4df0-9126-1e0af678f924", title: "Markets are getting AI right", date: "2026-07-31", time: "14:00", url: "https://www.ft.com/content/c167fb1b-69c3-4df0-9126-1e0af678f924" },
+  { id: "b7e53513-27fa-4b50-af17-b1308c587f11", title: "London residents lose legal challenge against Chinese ‘mega’ embassy", date: "2026-07-31", time: "13:54", url: "https://www.ft.com/content/b7e53513-27fa-4b50-af17-b1308c587f11" },
+  { id: "0f47fc94-d039-4561-936e-55b5fc34541d", title: "US nuclear reactor company Westinghouse files for IPO", date: "2026-07-31", time: "13:27", url: "https://www.ft.com/content/0f47fc94-d039-4561-936e-55b5fc34541d" },
+  { id: "a0a5e3a7-c4e6-42a6-9a7b-a780422bcd76", title: "Leopold Aschenbrenner vows to ‘fight another day’ after fund plunges 67% in July", date: "2026-07-31", time: "13:21", url: "https://www.ft.com/content/a0a5e3a7-c4e6-42a6-9a7b-a780422bcd76" },
+  { id: "1023c8a4-fbb9-45ee-84ef-71b5fd48a1dd", title: "How Wall Street’s litigators finally became superstar lawyers", date: "2026-07-31", time: "13:17", url: "https://www.ft.com/content/1023c8a4-fbb9-45ee-84ef-71b5fd48a1dd" },
   { id: "395afe31-3c86-4911-af05-54ca5aa2d41b", title: "Fed dissenters warn of challenges in taming inflation", date: "2026-07-31", time: "13:00", url: "https://www.ft.com/content/395afe31-3c86-4911-af05-54ca5aa2d41b" },
   { id: "9f46db72-0a1e-42b0-8efe-974a04fa0fc7", title: "Latest savings rates", date: "2026-07-31", time: "12:55", url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7" },
   { id: "75ba3055-625c-4cb5-894b-0696a38f5e79", title: "Latest Isa rates", date: "2026-07-31", time: "12:52", url: "https://www.ft.com/content/75ba3055-625c-4cb5-894b-0696a38f5e79" },
@@ -54,10 +60,4 @@ export const FT_ITEMS = [
   { id: "b1267def-3590-4482-9833-d09f0b1230b8", title: "What Warsh is (probably) up to", date: "2026-07-31", time: "06:30", url: "https://www.ft.com/content/b1267def-3590-4482-9833-d09f0b1230b8" },
   { id: "e7a03462-3d77-464a-b268-386d75f8ff47", title: "FTAV’s further reading", date: "2026-07-31", time: "06:30", url: "https://www.ft.com/content/e7a03462-3d77-464a-b268-386d75f8ff47" },
   { id: "d4f3134b-1e04-4c0b-a1be-7bdaa6a44c64", title: "Iceland’s EU referendum on knife-edge as bloc braces for enlargement litmus test", date: "2026-07-31", time: "06:00", url: "https://www.ft.com/content/d4f3134b-1e04-4c0b-a1be-7bdaa6a44c64" },
-  { id: "67e045bb-76cc-404f-a04c-073411eedfc5", title: "FirstFT: Europe vows World Cup boycott in Fifa protest", date: "2026-07-31", time: "05:44", url: "https://www.ft.com/content/67e045bb-76cc-404f-a04c-073411eedfc5" },
-  { id: "51ed81fb-0361-4a5f-8d48-a2352be7e543", title: "The Fed will face a pivotal meeting in September unless there is a durable ceasefire", date: "2026-07-31", time: "05:30", url: "https://www.ft.com/content/51ed81fb-0361-4a5f-8d48-a2352be7e543" },
-  { id: "1119df7d-8994-4077-99fb-817400416d2d", title: "Ken Griffin’s Situational Awareness", date: "2026-07-31", time: "05:00", url: "https://www.ft.com/content/1119df7d-8994-4077-99fb-817400416d2d" },
-  { id: "e5cb0cce-c2f5-4dae-8126-a2d3e9063dde", title: "Rhine drought strands ships and forces German production shutdowns", date: "2026-07-31", time: "05:00", url: "https://www.ft.com/content/e5cb0cce-c2f5-4dae-8126-a2d3e9063dde" },
-  { id: "6a35508c-c0bd-4000-81b3-7c7383fb24fd", title: "We’ve moved from income world to wealth world", date: "2026-07-31", time: "05:00", url: "https://www.ft.com/content/6a35508c-c0bd-4000-81b3-7c7383fb24fd" },
-  { id: "7a5c560a-862b-47e4-9896-196ee9494739", title: "How investors should brace portfolios for tech volatility", date: "2026-07-31", time: "05:00", url: "https://www.ft.com/content/7a5c560a-862b-47e4-9896-196ee9494739" },
 ];
