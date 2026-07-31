@@ -32,6 +32,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-cnt-restaurantofweek-20260731",
+    publication: "Condé Nast Traveller",
+    series: "Restaurant of the Week",
+    title: "The best new restaurant in London is...",
+    date: "2026-07-31",
+    time: "08:00",
+    summary: "This week's pick: an East London BBQ opening serving sticky Sichuan-glazed beef short ribs.",
+    url: "https://link.cntraveller.com/view/69aad66ceb56cb62e611cb3brvhsr.v6o/14e0165a",
+  },
+  {
     id: "nl-econ-worldinbrief-20260731",
     publication: "The Economist",
     series: "The World in Brief",

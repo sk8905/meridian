@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "e874feaf-38de-479d-937b-05daa5a021a9", title: "Sainsbury’s strikes deal to sell Argos for £120mn to Swift Partners", date: "2026-07-31", time: "07:47", url: "https://www.ft.com/content/e874feaf-38de-479d-937b-05daa5a021a9" },
+  { id: "c14b255c-cdda-4ba8-8139-f10e862a4235", title: "British Airways owner IAG ditches growth plans amid Iran conflict", date: "2026-07-31", time: "07:36", url: "https://www.ft.com/content/c14b255c-cdda-4ba8-8139-f10e862a4235" },
+  { id: "e4cec5e1-a4e9-449b-a411-da1c025af2e8", title: "Donald Trump says Hamas has agreed to disarm over time", date: "2026-07-31", time: "07:13", url: "https://www.ft.com/content/e4cec5e1-a4e9-449b-a411-da1c025af2e8" },
   { id: "420ea1bc-6f85-4065-ad76-61e685aa1de2", title: "BP puts its UK North Sea business up for sale", date: "2026-07-31", time: "07:11", url: "https://www.ft.com/content/420ea1bc-6f85-4065-ad76-61e685aa1de2" },
   { id: "b1267def-3590-4482-9833-d09f0b1230b8", title: "What Warsh is (probably) up to", date: "2026-07-31", time: "06:30", url: "https://www.ft.com/content/b1267def-3590-4482-9833-d09f0b1230b8" },
   { id: "e7a03462-3d77-464a-b268-386d75f8ff47", title: "FTAV’s further reading", date: "2026-07-31", time: "06:30", url: "https://www.ft.com/content/e7a03462-3d77-464a-b268-386d75f8ff47" },
@@ -60,5 +63,4 @@ export const FT_ITEMS = [
   { id: "67238e48-57dd-4701-8294-0a11036c8742", title: "Can Vance square his Catholicism with Trump’s Republican Party?", date: "2026-07-30", time: "14:32", url: "https://www.ft.com/content/67238e48-57dd-4701-8294-0a11036c8742" },
   { id: "783dfe9a-4643-4b2b-b69c-a46e5229d707", title: "US economy grew less than expected at 1.5% rate in second quarter", date: "2026-07-30", time: "14:05", url: "https://www.ft.com/content/783dfe9a-4643-4b2b-b69c-a46e5229d707" },
   { id: "aca5b974-1447-4cd2-9d94-f4150c3d4d7e", title: "Antwerp cocaine gangs sentenced in ‘exceptionally large’ case", date: "2026-07-30", time: "13:48", url: "https://www.ft.com/content/aca5b974-1447-4cd2-9d94-f4150c3d4d7e" },
-  { id: "d2807eaf-8310-4099-bb4d-b9b2d2889f2a", title: "Fifa not ‘selling the World Cup’ in $20bn commercial plan, says adviser", date: "2026-07-30", time: "13:36", url: "https://www.ft.com/content/d2807eaf-8310-4099-bb4d-b9b2d2889f2a" },
 ];
