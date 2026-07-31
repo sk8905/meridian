@@ -902,7 +902,7 @@ export const MATWALL = {
 // two_year, core_cpi, services_pmi, wages, unemployment). Absent = no sourced
 // move (the rail shows nothing). Routine-maintained; see docs/refresh-routines.md.
 export const IND_KEYMOMENTS = {
-  "US:two_year": { text: "Rose after the FOMC held at 3.50–3.75% but three members dissented for a hike — the first three-way hawkish dissent since September 2016 — a more hawkish outcome than markets had priced, which sent the Dow to its worst session of the year.", src: "https://www.cnbc.com/2026/07/29/fed-rate-decision-july-2026.html", srcName: "CNBC", date: "2026-07-29" },
+  "US:two_year": { text: "Rate-path calls diverged on 30 July: J.P. Morgan brought forward its Fed hike call to December 2026 (from H2 2027), citing doubts over Chair Warsh's inflation resolve, while Goldman Sachs held its call for no move through the rest of 2026 — leaving the two-year's path genuinely contested a day after the FOMC's hawkish hold.", src: "https://www.kitco.com/news/off-the-wire/2026-07-30/jpmorgan-brings-forward-fed-rate-hike-call-december-after-july-hold", srcName: "Kitco News", date: "2026-07-30" },
   "UK:two_year": { text: "Fell 11bp to 4.34% — the steepest drop since 12 June — after Governor Bailey told reporters not to read the MPC's narrower 6-3 hold as \"edging toward a hike\", a dovish steer that also pulled the 10-year yield down 6.1bp to 4.989%.", src: "https://www.bloomberg.com/news/articles/2026-07-30/short-gilts-surge-as-traders-slash-bets-on-boe-hike-in-september", srcName: "Bloomberg", date: "2026-07-30" },
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
