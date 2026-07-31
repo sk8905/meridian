@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d4f3134b-1e04-4c0b-a1be-7bdaa6a44c64", title: "Iceland’s EU referendum on knife-edge as bloc braces for enlargement litmus test", date: "2026-07-31", time: "06:00", url: "https://www.ft.com/content/d4f3134b-1e04-4c0b-a1be-7bdaa6a44c64" },
+  { id: "67e045bb-76cc-404f-a04c-073411eedfc5", title: "FirstFT: Europe vows World Cup boycott in Fifa protest", date: "2026-07-31", time: "05:44", url: "https://www.ft.com/content/67e045bb-76cc-404f-a04c-073411eedfc5" },
+  { id: "51ed81fb-0361-4a5f-8d48-a2352be7e543", title: "The Fed will face a pivotal meeting in September unless there is a durable ceasefire", date: "2026-07-31", time: "05:30", url: "https://www.ft.com/content/51ed81fb-0361-4a5f-8d48-a2352be7e543" },
   { id: "1119df7d-8994-4077-99fb-817400416d2d", title: "Ken Griffin’s Situational Awareness", date: "2026-07-31", time: "05:00", url: "https://www.ft.com/content/1119df7d-8994-4077-99fb-817400416d2d" },
   { id: "e5cb0cce-c2f5-4dae-8126-a2d3e9063dde", title: "Rhine drought strands ships and forces German production shutdowns", date: "2026-07-31", time: "05:00", url: "https://www.ft.com/content/e5cb0cce-c2f5-4dae-8126-a2d3e9063dde" },
   { id: "6a35508c-c0bd-4000-81b3-7c7383fb24fd", title: "We’ve moved from income world to wealth world", date: "2026-07-31", time: "05:00", url: "https://www.ft.com/content/6a35508c-c0bd-4000-81b3-7c7383fb24fd" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "d2807eaf-8310-4099-bb4d-b9b2d2889f2a", title: "Fifa not ‘selling the World Cup’ in $20bn commercial plan, says adviser", date: "2026-07-30", time: "13:36", url: "https://www.ft.com/content/d2807eaf-8310-4099-bb4d-b9b2d2889f2a" },
   { id: "6620ab3c-c46a-4d96-aede-0fce80a2b588", title: "Saudi economy shrinks as Middle East conflict takes heavy toll", date: "2026-07-30", time: "13:20", url: "https://www.ft.com/content/6620ab3c-c46a-4d96-aede-0fce80a2b588" },
   { id: "17bcdc30-a59f-4a1f-afa7-f2c759fe588b", title: "Trying to make sense of Warsh", date: "2026-07-30", time: "13:18", url: "https://www.ft.com/content/17bcdc30-a59f-4a1f-afa7-f2c759fe588b" },
-  { id: "4b39365f-841d-45d3-81ae-31db7f9d8f8f", title: "NYSE owner to buy bond platform MarketAxess in $5.7bn deal", date: "2026-07-30", time: "13:02", url: "https://www.ft.com/content/4b39365f-841d-45d3-81ae-31db7f9d8f8f" },
-  { id: "5e74c47f-b029-4b94-8c66-d88df40a150f", title: "Albanians don’t want their islands sold off to Trump and Kushner", date: "2026-07-30", time: "13:00", url: "https://www.ft.com/content/5e74c47f-b029-4b94-8c66-d88df40a150f" },
-  { id: "68274800-2971-4d50-922f-ff2b6780dc31", title: "Bank of England holds rates amid volatile energy prices", date: "2026-07-30", time: "12:44", url: "https://www.ft.com/content/68274800-2971-4d50-922f-ff2b6780dc31" },
 ];
