@@ -949,7 +949,24 @@ export function initNavActions() {
     // Register/refresh the service worker on every visit — it carries Web Push
     // AND the app-shell cache that makes page switches paint instantly.
     if ("serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js").catch(() => {});
+      // Self-heal a stuck installed PWA: if the page is already controlled by a
+      // worker and a NEW one takes over (skipWaiting + clients.claim on deploy),
+      // reload ONCE so stale in-memory modules (e.g. a pre-fix Profiles bundle) are
+      // replaced by the fresh build. Guarded so it never loops and never fires on
+      // the first-ever install (no prior controller).
+      if (navigator.serviceWorker.controller) {
+        let _swReloaded = false;
+        navigator.serviceWorker.addEventListener("controllerchange", () => {
+          if (_swReloaded) return; _swReloaded = true; location.reload();
+        });
+      }
+      navigator.serviceWorker.register("/sw.js").then((reg) => {
+        // Force an update check every launch — iOS standalone PWAs otherwise let an
+        // old worker linger for a day+. sw.js is no-cache, so this is a cheap 304
+        // when unchanged; a changed sw.js installs → activates → claims → the
+        // one-time reload above.
+        try { reg.update(); } catch { /* */ }
+      }).catch(() => {});
     }
     // Tidy the Access re-auth marker (?__net=1 forces the navigation past the
     // app-shell cache so Access can round-trip through login).
