@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "67db9b64-ec26-442e-8356-6c4411eba66e", title: "Data centres vs housing: how London became a central battleground", date: "2026-07-31", time: "12:00", url: "https://www.ft.com/content/67db9b64-ec26-442e-8356-6c4411eba66e" },
+  { id: "0f9b2fe7-bde4-4f5f-b49e-93ccb5da9ea8", title: "Bank of Japan governor vows not to ‘fall behind the curve’", date: "2026-07-31", time: "11:47", url: "https://www.ft.com/content/0f9b2fe7-bde4-4f5f-b49e-93ccb5da9ea8" },
+  { id: "7e0e8281-4f14-4d6f-98c1-ea21b8c0543e", title: "Universal Music shares plunge by a quarter on streaming growth fears", date: "2026-07-31", time: "11:40", url: "https://www.ft.com/content/7e0e8281-4f14-4d6f-98c1-ea21b8c0543e" },
+  { id: "a417eb44-bffe-4584-b14e-570e76d3fb23", title: "Chevron and Exxon earnings soar as Trump threatens price interventions", date: "2026-07-31", time: "11:30", url: "https://www.ft.com/content/a417eb44-bffe-4584-b14e-570e76d3fb23" },
+  { id: "4ee1e8b0-3d48-44b6-8d9a-e71ce5b458bf", title: "Rising Eurozone inflation keeps rate rise on the table", date: "2026-07-31", time: "11:13", url: "https://www.ft.com/content/4ee1e8b0-3d48-44b6-8d9a-e71ce5b458bf" },
   { id: "4b90b384-47d7-40ff-8b0d-7a33420ea29f", title: "Ares secures biggest flagship credit fund commitments in three years", date: "2026-07-31", time: "11:03", url: "https://www.ft.com/content/4b90b384-47d7-40ff-8b0d-7a33420ea29f" },
   { id: "babf4c89-1a6f-447f-a17e-7e3e48f359b8", title: "Coal back in favour as US plant bidding war highlights rising demand to power AI", date: "2026-07-31", time: "11:00", url: "https://www.ft.com/content/babf4c89-1a6f-447f-a17e-7e3e48f359b8" },
   { id: "34917d6f-c8ec-4e13-890a-4d8475806bb7", title: "Spain says 49,000 migrants entered Ceuta enclave in one day", date: "2026-07-31", time: "10:59", url: "https://www.ft.com/content/34917d6f-c8ec-4e13-890a-4d8475806bb7" },
@@ -59,6 +64,4 @@ export const FT_ITEMS = [
   { id: "4adacb3e-cf24-4474-bfa1-c62a99676e21", title: "Potato chips and the silicon kind are surprisingly similar", date: "2026-07-31", time: "04:00", url: "https://www.ft.com/content/4adacb3e-cf24-4474-bfa1-c62a99676e21" },
   { id: "aa292d6f-3b12-4b7a-b558-7306e8d03b9e", title: "Sandwich maker Jersey Mike’s and retailer Reformation fail to excite IPO investors", date: "2026-07-30", time: "20:20", url: "https://www.ft.com/content/aa292d6f-3b12-4b7a-b558-7306e8d03b9e" },
   { id: "6d206b85-bc50-4c89-973b-f18cd84e2a15", title: "Mark Zuckerberg is becoming the king of the ‘side quest’", date: "2026-07-30", time: "19:16", url: "https://www.ft.com/content/6d206b85-bc50-4c89-973b-f18cd84e2a15" },
-  { id: "3cbee183-fd1f-4afc-8376-2115e66dda6c", title: "Kevin Warsh’s concerning communication style", date: "2026-07-30", time: "18:35", url: "https://www.ft.com/content/3cbee183-fd1f-4afc-8376-2115e66dda6c" },
-  { id: "d6df67d4-b8be-4e14-b856-29852e249577", title: "China is not the solution to the US chipflation problem", date: "2026-07-30", time: "18:24", url: "https://www.ft.com/content/d6df67d4-b8be-4e14-b856-29852e249577" },
 ];
