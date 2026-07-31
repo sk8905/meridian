@@ -90,7 +90,23 @@ export async function mount(host, ctx) {
   // the same location.hash and must not trip this router (mirrors the desks).
   window.addEventListener("hashchange", () => { if (document.documentElement.dataset.v2tab === "profiles") router(); });
 
-  // ---- clicks --------------------------------------------------------------
+  // ---- activation (clicks AND touch taps) ----------------------------------
+  // Navigate to a [data-href] row's target: an external/absolute href opens a
+  // new tab, an internal hash route renders the profile in place NOW (not via
+  // the hashchange event + active-tab guard, which can silently miss).
+  const goRow = (row) => {
+    const href = row.getAttribute("data-href");
+    if (!href) return;
+    if (row.dataset.ext === "1" || /^https?:/i.test(href)) { window.open(href, "_blank", "noopener"); return; }
+    if (location.hash !== href) location.hash = href;
+    router();
+  };
+  const goLink = (link) => {
+    const h = link.getAttribute("href");
+    if (location.hash !== h) location.hash = h;
+    router();
+  };
+
   // Chip taps switch the list pane. Row taps (list league rows AND the detail
   // views' .clickable rows) drive the hash router; a click on a cell's own link
   // (AUM source, 13F, SLS chip, breadcrumb) defers to that anchor. External /
@@ -116,19 +132,40 @@ export async function mount(host, ctx) {
     // Law firms section chips, and the detail views' own sub-entity anchors (a
     // manager's funds/CLOs, a fund's manager, etc.). Route HERE, synchronously,
     // rather than leaving it to the anchor's native hashchange + the active-tab
-    // guard, which can silently miss on some devices/timings (the recurring
-    // "tapping a name does nothing" report).
+    // guard, which can silently miss on some devices/timings.
     const link = e.target.closest('a[href^="#/"]');
-    if (link) { e.preventDefault(); const h = link.getAttribute("href"); if (location.hash !== h) location.hash = h; router(); return; }
+    if (link) { e.preventDefault(); goLink(link); return; }
     const row = e.target.closest("[data-href]");
     if (!row || e.target.closest("a")) return;
-    const href = row.getAttribute("data-href");
-    if (row.dataset.ext === "1" || /^https?:/i.test(href)) { window.open(href, "_blank", "noopener"); return; }
-    // Keep the URL in sync (back button / deep links) AND render NOW — do not
-    // depend on the hashchange event firing or the dataset.v2tab guard passing.
-    if (location.hash !== href) location.hash = href;
-    router();
+    goRow(row);
   });
+
+  // TOUCH TAP FALLBACK — the actual fix for "tapping a name does nothing" on
+  // iPhone. iOS Safari only synthesises a `click` on a tap when the tapped
+  // element (or an ancestor) is genuinely interactive — a link, a button, a
+  // form control. Our league rows are plain <tr data-href> with plain <td> text
+  // (cursor:pointer is NOT sufficient on iOS), so a tap fires NO click and the
+  // delegated handler above never runs — while a long-press still offers the
+  // text callout. Real <button>/<a> children (chips, source links) DO fire click
+  // and stay on the path above; here we add the one thing iOS misses: a genuine
+  // tap (finger didn't move → not a scroll) on a [data-href] row. preventDefault
+  // suppresses the would-be ghost click and the text-selection callout.
+  let tStart = null;
+  host.addEventListener("touchstart", (e) => {
+    const t = e.changedTouches && e.changedTouches[0];
+    tStart = t ? { x: t.clientX, y: t.clientY } : null;
+  }, { passive: true });
+  host.addEventListener("touchend", (e) => {
+    const start = tStart; tStart = null;
+    const t = e.changedTouches && e.changedTouches[0];
+    if (!start || !t) return;
+    if (Math.abs(t.clientX - start.x) + Math.abs(t.clientY - start.y) > 12) return; // a scroll, not a tap
+    if (e.target.closest("a")) return;                 // inner links keep native behaviour
+    const row = e.target.closest("[data-href]");
+    if (!row) return;                                  // buttons/links/inputs: leave to click
+    e.preventDefault();
+    goRow(row);
+  }, { passive: false });
   // Each list's search box filters its rows in place by the row's data-name.
   // Scoped to this host so it never touches the desks' own (hidden) copies.
   host.addEventListener("input", (e) => {
