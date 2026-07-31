@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "4b90b384-47d7-40ff-8b0d-7a33420ea29f", title: "Ares secures biggest flagship credit fund commitments in three years", date: "2026-07-31", time: "11:03", url: "https://www.ft.com/content/4b90b384-47d7-40ff-8b0d-7a33420ea29f" },
+  { id: "babf4c89-1a6f-447f-a17e-7e3e48f359b8", title: "Coal back in favour as US plant bidding war highlights rising demand to power AI", date: "2026-07-31", time: "11:00", url: "https://www.ft.com/content/babf4c89-1a6f-447f-a17e-7e3e48f359b8" },
+  { id: "34917d6f-c8ec-4e13-890a-4d8475806bb7", title: "Spain says 49,000 migrants entered Ceuta enclave in one day", date: "2026-07-31", time: "10:59", url: "https://www.ft.com/content/34917d6f-c8ec-4e13-890a-4d8475806bb7" },
+  { id: "3fa19368-0cb3-4802-8651-aca61c3f9fba", title: "FTAV’s Friday charts quiz", date: "2026-07-31", time: "10:30", url: "https://www.ft.com/content/3fa19368-0cb3-4802-8651-aca61c3f9fba" },
+  { id: "cb149846-6032-4883-8695-685e4e8dd886", title: "Bank of Japan holds rates with hawkish guidance", date: "2026-07-31", time: "10:28", url: "https://www.ft.com/content/cb149846-6032-4883-8695-685e4e8dd886" },
+  { id: "f1fecefc-7de6-40e3-9bc9-a58d5b653386", title: "Taylor Wimpey cuts shareholder returns as weak housing market squeezes builders", date: "2026-07-31", time: "10:13", url: "https://www.ft.com/content/f1fecefc-7de6-40e3-9bc9-a58d5b653386" },
   { id: "f54e632e-f8b4-4554-9f2e-c8a2ded0555b", title: "Eurozone inflation rises to 2.9% in July", date: "2026-07-31", time: "10:01", url: "https://www.ft.com/content/f54e632e-f8b4-4554-9f2e-c8a2ded0555b" },
   { id: "26da67f5-e630-4552-b327-f01d45b6c7c5", title: "Mayoral scrutiny is a pressing issue", date: "2026-07-31", time: "09:30", url: "https://www.ft.com/content/26da67f5-e630-4552-b327-f01d45b6c7c5" },
   { id: "160a686b-6573-4192-9281-7cf28912f1ed", title: "Andy Burnham to give English mayors share of income tax from 2028", date: "2026-07-31", time: "08:44", url: "https://www.ft.com/content/160a686b-6573-4192-9281-7cf28912f1ed" },
@@ -55,9 +61,4 @@ export const FT_ITEMS = [
   { id: "6d206b85-bc50-4c89-973b-f18cd84e2a15", title: "Mark Zuckerberg is becoming the king of the ‘side quest’", date: "2026-07-30", time: "19:16", url: "https://www.ft.com/content/6d206b85-bc50-4c89-973b-f18cd84e2a15" },
   { id: "3cbee183-fd1f-4afc-8376-2115e66dda6c", title: "Kevin Warsh’s concerning communication style", date: "2026-07-30", time: "18:35", url: "https://www.ft.com/content/3cbee183-fd1f-4afc-8376-2115e66dda6c" },
   { id: "d6df67d4-b8be-4e14-b856-29852e249577", title: "China is not the solution to the US chipflation problem", date: "2026-07-30", time: "18:24", url: "https://www.ft.com/content/d6df67d4-b8be-4e14-b856-29852e249577" },
-  { id: "00d91e68-9508-42bd-b1e3-124bf7dd390b", title: "Are investors really getting cold feet about the AI boom?", date: "2026-07-30", time: "18:15", url: "https://www.ft.com/content/00d91e68-9508-42bd-b1e3-124bf7dd390b" },
-  { id: "5546b044-0582-4ed9-8e61-bd1732f3063e", title: "Thousands of Moroccans swim to Spanish enclave", date: "2026-07-30", time: "17:51", url: "https://www.ft.com/content/5546b044-0582-4ed9-8e61-bd1732f3063e" },
-  { id: "655a05ff-ec45-492d-a70e-4f8ba8dc141f", title: "Data suggests fears of UK ‘non-dom’ exodus overblown", date: "2026-07-30", time: "17:31", url: "https://www.ft.com/content/655a05ff-ec45-492d-a70e-4f8ba8dc141f" },
-  { id: "928f3d86-32ff-4410-99a9-7a41e49624bd", title: "Donald Trump says he could withdraw Todd Blanche’s nomination for attorney-general", date: "2026-07-30", time: "17:21", url: "https://www.ft.com/content/928f3d86-32ff-4410-99a9-7a41e49624bd" },
-  { id: "da7c4472-cb30-4b82-b321-d82c1859419e", title: "Microsoft surges 15% as results and data centre leases cheer investors", date: "2026-07-30", time: "16:50", url: "https://www.ft.com/content/da7c4472-cb30-4b82-b321-d82c1859419e" },
 ];
