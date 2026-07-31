@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7c487af9-53a2-4088-bf14-1f2deb4247e9", title: "How 60,000 people swam to Spanish territory", date: "2026-07-31", time: "21:02", url: "https://www.ft.com/content/7c487af9-53a2-4088-bf14-1f2deb4247e9" },
+  { id: "664f7b45-d92a-44c4-9824-9008001e887e", title: "KKR nears deal to buy medical device maker Integer for more than $4bn", date: "2026-07-31", time: "20:12", url: "https://www.ft.com/content/664f7b45-d92a-44c4-9824-9008001e887e" },
   { id: "15de7725-ff09-4b17-bd88-42117a3404d1", title: "Is Kevin Warsh the Lionel Messi of monetary policy?", date: "2026-07-31", time: "18:22", url: "https://www.ft.com/content/15de7725-ff09-4b17-bd88-42117a3404d1" },
   { id: "97fd8d2a-3959-4dd6-8fbf-1e443ab793d3", title: "Warsh goes blank", date: "2026-07-31", time: "18:01", url: "https://www.ft.com/content/97fd8d2a-3959-4dd6-8fbf-1e443ab793d3" },
   { id: "5a74e0e6-fa68-4298-884a-4b738185911b", title: "Directors’ Deals: M&S directors cash out as shares climb", date: "2026-07-31", time: "18:00", url: "https://www.ft.com/content/5a74e0e6-fa68-4298-884a-4b738185911b" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "67db9b64-ec26-442e-8356-6c4411eba66e", title: "Data centres vs housing: how London became a central battleground", date: "2026-07-31", time: "12:00", url: "https://www.ft.com/content/67db9b64-ec26-442e-8356-6c4411eba66e" },
   { id: "67e045bb-76cc-404f-a04c-073411eedfc5", title: "FirstFT: The fight for football's future", date: "2026-07-31", time: "11:50", url: "https://www.ft.com/content/67e045bb-76cc-404f-a04c-073411eedfc5" },
   { id: "7e0e8281-4f14-4d6f-98c1-ea21b8c0543e", title: "Universal Music shares plunge by a quarter on streaming growth fears", date: "2026-07-31", time: "11:40", url: "https://www.ft.com/content/7e0e8281-4f14-4d6f-98c1-ea21b8c0543e" },
-  { id: "a417eb44-bffe-4584-b14e-570e76d3fb23", title: "Chevron and Exxon earnings soar as Trump threatens price interventions", date: "2026-07-31", time: "11:30", url: "https://www.ft.com/content/a417eb44-bffe-4584-b14e-570e76d3fb23" },
 ];
