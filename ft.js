@@ -60,6 +60,4 @@ export const FT_ITEMS = [
   { id: "34917d6f-c8ec-4e13-890a-4d8475806bb7", title: "Spanish prime minister condemns influx of 60,000 migrants", date: "2026-07-31", time: "15:21", url: "https://www.ft.com/content/34917d6f-c8ec-4e13-890a-4d8475806bb7" },
   { id: "c03baa4b-e279-4201-acda-80361632334a", title: "Fifa stake sale could work — but not at this price", date: "2026-07-31", time: "15:16", url: "https://www.ft.com/content/c03baa4b-e279-4201-acda-80361632334a" },
   { id: "23eb1fd4-8301-4c0e-89b3-2647389e6226", title: "South Korean stock market soars 18% as investors pile back into AI", date: "2026-07-31", time: "15:12", url: "https://www.ft.com/content/23eb1fd4-8301-4c0e-89b3-2647389e6226" },
-  { id: "762a504e-fca8-49d0-9f2e-b2f142fd749a", title: "Apple shares tumble as AI build-out hits supply chains and growth", date: "2026-07-31", time: "15:07", url: "https://www.ft.com/content/762a504e-fca8-49d0-9f2e-b2f142fd749a" },
-  { id: "395afe31-3c86-4911-af05-54ca5aa2d41b", title: "Federal Reserve rate dissenters warn of challenges in taming inflation", date: "2026-07-31", time: "15:01", url: "https://www.ft.com/content/395afe31-3c86-4911-af05-54ca5aa2d41b" },
 ];

@@ -691,18 +691,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-08-01",
   us: [
-    { title: "Trump orders fresh strikes with aim of forcing Iran to surrender — WSJ", source: "The Times of Israel (via WSJ)", date: "2026-08-01", time: "05:12", url: "https://www.timesofisrael.com/liveblog_entry/trump-orders-fresh-strikes-with-aim-of-forcing-iran-to-surrender-wsj/" },
-    { title: "Live updates: US-Iran war; Trump admin plans fresh strikes as soon as this weekend, officials say", source: "CNN", date: "2026-07-31", time: "05:12", url: "https://edition.cnn.com/2026/07/31/world/live-news/iran-war-trump" },
-    { title: "Oil prices rise after Iran says it attacked two tankers transiting Strait of Hormuz", source: "CNBC", date: "2026-07-31", time: "05:12", url: "https://www.cnbc.com/2026/07/31/oil-prices-today-brent-wti-hormuz-trump-iran-.html" },
-    { title: "Markets heard a dovish Kevin Warsh. The Fed chairman's own words suggest a rate hike", source: "CNBC", date: "2026-07-31", time: "05:12", url: "https://www.cnbc.com/2026/07/31/kevin-warsh-fed-inflation-rate-hike-markets.html" },
-    { title: "How major US stock indexes fared Friday", source: "The Washington Post (AP)", date: "2026-07-31", time: "05:12", url: "https://www.washingtonpost.com/business/2026/07/31/wall-street-stocks-dow-nasdaq/ee08da40-8d1d-11f1-8912-d71e69d679d7_story.html" },
+    { title: "Live updates: US plans fresh strikes on Iran as soon as this weekend, officials say", source: "CNN", date: "2026-08-01", time: "09:09", url: "https://edition.cnn.com/2026/08/01/world/live-news/iran-war-trump" },
+    { title: "Trump Orders Attacks on Iran as Soon as This Weekend, WSJ Says", source: "Bloomberg", date: "2026-07-31", time: "09:09", url: "https://www.bloomberg.com/news/articles/2026-07-31/trump-orders-attacks-on-iran-as-soon-as-this-weekend-wsj-says" },
+    { title: "Trump considering strikes on Iranian energy targets within days", source: "Axios", date: "2026-07-31", time: "09:09", url: "https://www.axios.com/2026/07/31/trump-iran-strikes-energy-infrastructure-war" },
+    { title: "Iran war powers resolution blocked in Senate as conflict heats up", source: "Roll Call", date: "2026-07-30", time: "09:09", url: "https://rollcall.com/2026/07/30/iran-war-powers-resolution-blocked-in-senate-as-conflict-heats-up/" },
+    { title: "Teetering US stock market faces jobs report, big earnings week", source: "Reuters (via Investing.com)", date: "2026-07-31", time: "09:09", url: "https://www.investing.com/news/economy-news/teetering-us-stock-market-faces-jobs-report-big-earnings-week-4827318" },
   ],
   uk: [
-    { title: "Healey announces early Budget", source: "CityAM", date: "2026-07-31", time: "05:12", url: "https://www.cityam.com/healey-announces-early-budget/" },
-    { title: "FTSE 100 records biggest monthly rise since February, lifted by earnings and energy", source: "Reuters (via MarketScreener)", date: "2026-07-31", time: "05:12", url: "https://www.marketscreener.com/news/ftse-100-records-biggest-monthly-rise-since-february-lifted-by-earnings-and-energy-ce7f50d8d88bf425" },
-    { title: "Pound Sterling Price News and Forecast: GBP/USD holds firm as USD rebounds from intervention rout", source: "FXStreet", date: "2026-07-31", time: "05:12", url: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-holds-firm-as-usd-rebounds-from-intervention-rout-202607311759" },
-    { title: "A Big Week Of UK Earnings Kicks Off August 3rd", source: "Finimize", date: "2026-07-31", time: "05:12", url: "https://finimize.com/content/a-big-week-of-uk-earnings-kicks-off-august-3rd" },
-    { title: "UK House Prices Edge Higher in July, Nationwide Says", source: "Bloomberg", date: "2026-07-31", time: "05:12", url: "https://www.bloomberg.com/news/articles/2026-07-31/uk-house-prices-edge-higher-in-july-nationwide-says" },
+    { title: "Healey announces early Budget", source: "CityAM", date: "2026-07-31", time: "09:09", url: "https://www.cityam.com/healey-announces-early-budget/" },
+    { title: "A Big Week Of UK Earnings Kicks Off August 3rd", source: "Finimize", date: "2026-07-31", time: "09:09", url: "https://finimize.com/content/a-big-week-of-uk-earnings-kicks-off-august-3rd" },
+    { title: "Pound Sterling Price News and Forecast: GBP/USD holds firm as USD rebounds from intervention rout", source: "FXStreet", date: "2026-07-31", time: "09:09", url: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-holds-firm-as-usd-rebounds-from-intervention-rout-202607311759" },
+    { title: "Slowdown in UK annual house price growth to 1.8% in July – Nationwide", source: "Mortgage Solutions", date: "2026-07-31", time: "09:09", url: "https://www.mortgagesolutions.co.uk/mortgage-news/2026/07/31/slowdown-in-uk-annual-house-price-growth-to-1-8-in-july-nationwide/" },
+    { title: "FTSE 100 records biggest monthly rise since February, lifted by earnings and energy", source: "Reuters (via MarketScreener)", date: "2026-07-31", time: "09:09", url: "https://www.marketscreener.com/news/ftse-100-records-biggest-monthly-rise-since-february-lifted-by-earnings-and-energy-ce7f50d8d88bf425" },
   ],
 };
 
