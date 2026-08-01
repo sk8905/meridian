@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f0581480-8129-413c-823f-4b5c85b1419e", title: "Gianni Infantino’s gamble fails", date: "2026-08-01", time: "09:00", url: "https://www.ft.com/content/f0581480-8129-413c-823f-4b5c85b1419e" },
+  { id: "016ad17d-0cab-48f1-8d7f-d3eb1634be63", title: "Six teenagers, a brutal murder and the story they couldn’t take back", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/016ad17d-0cab-48f1-8d7f-d3eb1634be63" },
+  { id: "0c4fe0ea-0892-488f-8981-29e200e3f51b", title: "Sorry you were late. Here’s my invoice", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/0c4fe0ea-0892-488f-8981-29e200e3f51b" },
+  { id: "b76acfdd-787d-4eb9-bb4d-597af3e3d2c1", title: "Beating Berlin’s Sunday blues", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/b76acfdd-787d-4eb9-bb4d-597af3e3d2c1" },
+  { id: "a6ddd9b6-d461-4c04-b804-5524538c084b", title: "Get your fix of 1066", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/a6ddd9b6-d461-4c04-b804-5524538c084b" },
   { id: "65f46ae0-8a3a-4f43-bc85-5eb9938d2d09", title: "Special edition: Wall Street’s wild week", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/65f46ae0-8a3a-4f43-bc85-5eb9938d2d09" },
   { id: "75fb1035-542b-43f3-88d4-ba8d4053d919", title: "Andy Burnham grabs the narrative in first fortnight of power", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/75fb1035-542b-43f3-88d4-ba8d4053d919" },
   { id: "92c4d77e-7a32-48e9-af5a-88243945b2a5", title: "Surging UK stocks prompt flurry of trades on investment platforms", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/92c4d77e-7a32-48e9-af5a-88243945b2a5" },
@@ -57,7 +62,4 @@ export const FT_ITEMS = [
   { id: "23eb1fd4-8301-4c0e-89b3-2647389e6226", title: "South Korean stock market soars 18% as investors pile back into AI", date: "2026-07-31", time: "15:12", url: "https://www.ft.com/content/23eb1fd4-8301-4c0e-89b3-2647389e6226" },
   { id: "762a504e-fca8-49d0-9f2e-b2f142fd749a", title: "Apple shares tumble as AI build-out hits supply chains and growth", date: "2026-07-31", time: "15:07", url: "https://www.ft.com/content/762a504e-fca8-49d0-9f2e-b2f142fd749a" },
   { id: "395afe31-3c86-4911-af05-54ca5aa2d41b", title: "Federal Reserve rate dissenters warn of challenges in taming inflation", date: "2026-07-31", time: "15:01", url: "https://www.ft.com/content/395afe31-3c86-4911-af05-54ca5aa2d41b" },
-  { id: "fddc42a9-4c57-4689-abde-75bbe79622e9", title: "Amazon increases AI infrastructure spending to $220bn this year", date: "2026-07-31", time: "14:47", url: "https://www.ft.com/content/fddc42a9-4c57-4689-abde-75bbe79622e9" },
-  { id: "0f47fc94-d039-4561-936e-55b5fc34541d", title: "US nuclear reactor company Westinghouse files for IPO", date: "2026-07-31", time: "14:34", url: "https://www.ft.com/content/0f47fc94-d039-4561-936e-55b5fc34541d" },
-  { id: "570ecb5c-68de-4844-9e73-cf32463dbcac", title: "The twilight of Dr Fauci", date: "2026-07-31", time: "14:00", url: "https://www.ft.com/content/570ecb5c-68de-4844-9e73-cf32463dbcac" },
 ];
