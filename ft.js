@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "72e4bd53-2e4f-420a-aa44-4de486a0ab19", title: "Burnham says devolution plan paves the way for a written UK constitution", date: "2026-08-01", time: "19:14", url: "https://www.ft.com/content/72e4bd53-2e4f-420a-aa44-4de486a0ab19" },
   { id: "c0d97297-98ed-452f-bdfd-1f16d53d4eb3", title: "Gianni Infantino’s U-turn fuels doubts about his future at Fifa", date: "2026-08-01", time: "14:00", url: "https://www.ft.com/content/c0d97297-98ed-452f-bdfd-1f16d53d4eb3" },
   { id: "6abf82dc-6b66-4fc7-8bf7-aa196dbd8e97", title: "Massive US tungsten discovery could run into Nasa roadblock", date: "2026-08-01", time: "13:00", url: "https://www.ft.com/content/6abf82dc-6b66-4fc7-8bf7-aa196dbd8e97" },
   { id: "1b3f09b5-897e-4b7a-9949-2c4d9a32929e", title: "Sánchez hits out at EU leaders over criticism of Spain’s migrant crisis", date: "2026-08-01", time: "11:46", url: "https://www.ft.com/content/1b3f09b5-897e-4b7a-9949-2c4d9a32929e" },
@@ -59,6 +60,4 @@ export const FT_ITEMS = [
   { id: "a1c7a1ed-3687-492c-9170-48ae07d7ead3", title: "I helped bring in US bank stress tests. Now it is time to drop them", date: "2026-07-31", time: "17:00", url: "https://www.ft.com/content/a1c7a1ed-3687-492c-9170-48ae07d7ead3" },
   { id: "71f9031c-71a4-4e1b-ab25-216ff34dc87d", title: "John Healey to deliver Budget on October 28", date: "2026-07-31", time: "16:28", url: "https://www.ft.com/content/71f9031c-71a4-4e1b-ab25-216ff34dc87d" },
   { id: "0f9b2fe7-bde4-4f5f-b49e-93ccb5da9ea8", title: "US Treasury warns banks it may intervene in yen", date: "2026-07-31", time: "15:50", url: "https://www.ft.com/content/0f9b2fe7-bde4-4f5f-b49e-93ccb5da9ea8" },
-  { id: "9171610d-395b-4e58-9257-7fa08d459c28", title: "Brazilian police launch graft probe into President Lula’s son", date: "2026-07-31", time: "15:40", url: "https://www.ft.com/content/9171610d-395b-4e58-9257-7fa08d459c28" },
-  { id: "0d40281a-9525-4326-95d5-1920c6742688", title: "The Bank of England gets with the programme on QT", date: "2026-07-31", time: "15:35", url: "https://www.ft.com/content/0d40281a-9525-4326-95d5-1920c6742688" },
 ];
