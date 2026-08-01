@@ -32,6 +32,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-econ-worldinbrief-20260801",
+    publication: "The Economist",
+    series: "The World in Brief",
+    title: "The World in Brief: Spain’s latest migrant crisis",
+    date: "2026-08-01",
+    time: "04:27",
+    summary: "Spain says over 50,000 migrants stormed the Ceuta border in a day, deploying troops after at least 57 died crossing, as FIFA scraps Gianni Infantino's plan to sell stakes in a World Cup venture.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-moneystuffpodcast-nokiddiepool-20260731",
     publication: "Bloomberg",
     author: "Matt Levine",
@@ -428,15 +438,5 @@ export const NEWSLETTERS = [
     time: "20:20",
     summary: "Exec committee co-chair Bill Savitt leads Wachtell group moving to Gibson Dunn in latest in series of once-rare departures from elite US firm.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMQwVDWegbNsmPjenI/wv",
-  },
-  {
-    id: "nl-bbg-marketsdaily-aigreedfear-20260728",
-    publication: "Bloomberg",
-    series: "Markets Daily",
-    title: "Markets Daily: AI greed turns into fear",
-    date: "2026-07-28",
-    time: "11:04",
-    summary: "Traders are looking for any excuse to sell chipmakers.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-07-28/ai-greed-turns-into-fear-as-tech-stocks-keep-sinking",
   },
 ];
