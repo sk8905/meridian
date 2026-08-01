@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c0d97297-98ed-452f-bdfd-1f16d53d4eb3", title: "Gianni Infantino’s U-turn fuels doubts about his future at Fifa", date: "2026-08-01", time: "14:00", url: "https://www.ft.com/content/c0d97297-98ed-452f-bdfd-1f16d53d4eb3" },
   { id: "6abf82dc-6b66-4fc7-8bf7-aa196dbd8e97", title: "Massive US tungsten discovery could run into Nasa roadblock", date: "2026-08-01", time: "13:00", url: "https://www.ft.com/content/6abf82dc-6b66-4fc7-8bf7-aa196dbd8e97" },
   { id: "1b3f09b5-897e-4b7a-9949-2c4d9a32929e", title: "Sánchez hits out at EU leaders over criticism of Spain’s migrant crisis", date: "2026-08-01", time: "11:46", url: "https://www.ft.com/content/1b3f09b5-897e-4b7a-9949-2c4d9a32929e" },
   { id: "42257873-e801-49b8-967f-a15ea1129541", title: "Chart of the Week: Warsh spooks long bonds", date: "2026-08-01", time: "10:30", url: "https://www.ft.com/content/42257873-e801-49b8-967f-a15ea1129541" },
