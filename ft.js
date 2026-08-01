@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "58400cf0-20df-46ef-975b-7414806e09de", title: "Fifa abandons $20bn investment plan after global backlash", date: "2026-08-01", time: "09:44", url: "https://www.ft.com/content/58400cf0-20df-46ef-975b-7414806e09de" },
   { id: "f0581480-8129-413c-823f-4b5c85b1419e", title: "Gianni Infantino’s gamble fails", date: "2026-08-01", time: "09:00", url: "https://www.ft.com/content/f0581480-8129-413c-823f-4b5c85b1419e" },
   { id: "016ad17d-0cab-48f1-8d7f-d3eb1634be63", title: "Six teenagers, a brutal murder and the story they couldn’t take back", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/016ad17d-0cab-48f1-8d7f-d3eb1634be63" },
   { id: "0c4fe0ea-0892-488f-8981-29e200e3f51b", title: "Sorry you were late. Here’s my invoice", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/0c4fe0ea-0892-488f-8981-29e200e3f51b" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "e5cb0cce-c2f5-4dae-8126-a2d3e9063dde", title: "Rhine drought strands ships and forces German production shutdowns", date: "2026-07-31", time: "15:26", url: "https://www.ft.com/content/e5cb0cce-c2f5-4dae-8126-a2d3e9063dde" },
   { id: "34917d6f-c8ec-4e13-890a-4d8475806bb7", title: "Spanish prime minister condemns influx of 60,000 migrants", date: "2026-07-31", time: "15:21", url: "https://www.ft.com/content/34917d6f-c8ec-4e13-890a-4d8475806bb7" },
   { id: "c03baa4b-e279-4201-acda-80361632334a", title: "Fifa stake sale could work — but not at this price", date: "2026-07-31", time: "15:16", url: "https://www.ft.com/content/c03baa4b-e279-4201-acda-80361632334a" },
-  { id: "23eb1fd4-8301-4c0e-89b3-2647389e6226", title: "South Korean stock market soars 18% as investors pile back into AI", date: "2026-07-31", time: "15:12", url: "https://www.ft.com/content/23eb1fd4-8301-4c0e-89b3-2647389e6226" },
 ];
