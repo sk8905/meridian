@@ -13,7 +13,7 @@ export const UPDATED = "1 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-01",
-  lastCheckedTime: "09:25 BST",
+  lastCheckedTime: "12:18 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -695,12 +695,12 @@ export const NEWS = {
     { title: "Live updates: US plans fresh strikes on Iran as soon as this weekend, officials say", source: "CNN", date: "2026-08-01", time: "09:09", url: "https://edition.cnn.com/2026/08/01/world/live-news/iran-war-trump" },
     { title: "Trump Orders Attacks on Iran as Soon as This Weekend, WSJ Says", source: "Bloomberg", date: "2026-07-31", time: "09:09", url: "https://www.bloomberg.com/news/articles/2026-07-31/trump-orders-attacks-on-iran-as-soon-as-this-weekend-wsj-says" },
     { title: "Trump considering strikes on Iranian energy targets within days", source: "Axios", date: "2026-07-31", time: "09:09", url: "https://www.axios.com/2026/07/31/trump-iran-strikes-energy-infrastructure-war" },
-    { title: "Iran war powers resolution blocked in Senate as conflict heats up", source: "Roll Call", date: "2026-07-30", time: "09:09", url: "https://rollcall.com/2026/07/30/iran-war-powers-resolution-blocked-in-senate-as-conflict-heats-up/" },
+    { title: "J.P.Morgan brings forward Fed rate hike call to December after July hold", source: "Reuters (via Kitco)", date: "2026-07-30", time: "12:10", url: "https://www.kitco.com/news/off-the-wire/2026-07-30/jpmorgan-brings-forward-fed-rate-hike-call-december-after-july-hold" },
     { title: "Teetering US stock market faces jobs report, big earnings week", source: "Reuters (via Investing.com)", date: "2026-07-31", time: "09:09", url: "https://www.investing.com/news/economy-news/teetering-us-stock-market-faces-jobs-report-big-earnings-week-4827318" },
   ],
   uk: [
     { title: "Healey announces early Budget", source: "CityAM", date: "2026-07-31", time: "09:09", url: "https://www.cityam.com/healey-announces-early-budget/" },
-    { title: "A Big Week Of UK Earnings Kicks Off August 3rd", source: "Finimize", date: "2026-07-31", time: "09:09", url: "https://finimize.com/content/a-big-week-of-uk-earnings-kicks-off-august-3rd" },
+    { title: "Bank of England holds UK interest rate steady at 3.75% — but policymakers see upside inflation risk", source: "CNBC", date: "2026-07-30", time: "12:10", url: "https://www.cnbc.com/2026/07/30/interest-rates-inflation-bank-of-england.html" },
     { title: "Pound Sterling Price News and Forecast: GBP/USD holds firm as USD rebounds from intervention rout", source: "FXStreet", date: "2026-07-31", time: "09:09", url: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-holds-firm-as-usd-rebounds-from-intervention-rout-202607311759" },
     { title: "Slowdown in UK annual house price growth to 1.8% in July – Nationwide", source: "Mortgage Solutions", date: "2026-07-31", time: "09:09", url: "https://www.mortgagesolutions.co.uk/mortgage-news/2026/07/31/slowdown-in-uk-annual-house-price-growth-to-1-8-in-july-nationwide/" },
     { title: "FTSE 100 records biggest monthly rise since February, lifted by earnings and energy", source: "Reuters (via MarketScreener)", date: "2026-07-31", time: "09:09", url: "https://www.marketscreener.com/news/ftse-100-records-biggest-monthly-rise-since-february-lifted-by-earnings-and-energy-ce7f50d8d88bf425" },
