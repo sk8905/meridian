@@ -32,6 +32,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-thebrink-crudedispute-20260801",
+    publication: "Bloomberg",
+    author: "Constantine Courcoulas",
+    series: "The Brink",
+    title: "The Brink: A crude dispute over $230 million",
+    date: "2026-08-01",
+    time: "15:00",
+    summary: "Glencore says it was duped by an oil refiner it accused of fraud, applying to sue Prax Lindsey Oil Refinery to cancel supply contracts for over $230 million of unpaid crude.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-01/glencore-pursues-legal-fight-over-230-million-in-unpaid-oil",
+  },
+  {
     id: "nl-econ-worldinbrief-20260801",
     publication: "The Economist",
     series: "The World in Brief",
@@ -429,14 +440,5 @@ export const NEWSLETTERS = [
     time: "05:04",
     summary: "The equal-weighted S&P 500 hits an all-time high and overtakes the Nasdaq 100 (down almost 10% from its peak) as WTI crude jumps 5% on an Iranian attack ahead of Wednesday's FOMC decision.",
     url: "https://bloom.bg/3TuSodi",
-  },
-  {
-    id: "nl-lb-gibsondunnwachtell-20260728",
-    publication: "Legal Business",
-    title: "Six-partner Wachtell team led by co-chair leaves for Gibson Dunn",
-    date: "2026-07-28",
-    time: "20:20",
-    summary: "Exec committee co-chair Bill Savitt leads Wachtell group moving to Gibson Dunn in latest in series of once-rare departures from elite US firm.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQwVDWegbNsmPjenI/wv",
   },
 ];
