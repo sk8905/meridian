@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "4ce36d22-571d-4532-8a8f-078e8fba34ff", title: "Monte dei Paschi explores Banco BPM takeover after ‘merger of equals’ talks collapse", date: "2026-08-02", time: "18:32", url: "https://www.ft.com/content/4ce36d22-571d-4532-8a8f-078e8fba34ff" },
+  { id: "21896669-cce4-43cb-8e7b-e40520e9ac91", title: "Earnings season reaches a peak", date: "2026-08-02", time: "18:15", url: "https://www.ft.com/content/21896669-cce4-43cb-8e7b-e40520e9ac91" },
   { id: "162287ce-0267-47e9-aeee-16f93d3fc309", title: "A red card for the boss of world football", date: "2026-08-02", time: "17:17", url: "https://www.ft.com/content/162287ce-0267-47e9-aeee-16f93d3fc309" },
   { id: "b4f150ea-9ea3-4bb4-b1e0-014cf1f0df26", title: "America’s biggest companies report ‘rock solid’ profits as consumers face higher costs", date: "2026-08-02", time: "17:00", url: "https://www.ft.com/content/b4f150ea-9ea3-4bb4-b1e0-014cf1f0df26" },
   { id: "8faf28df-bb76-49e6-a916-55faa8a5d4a8", title: "Europe’s weak reaction to Spain’s migrant crisis", date: "2026-08-02", time: "16:53", url: "https://www.ft.com/content/8faf28df-bb76-49e6-a916-55faa8a5d4a8" },
@@ -57,7 +59,4 @@ export const FT_ITEMS = [
   { id: "f0581480-8129-413c-823f-4b5c85b1419e", title: "Gianni Infantino’s gamble fails", date: "2026-08-01", time: "09:00", url: "https://www.ft.com/content/f0581480-8129-413c-823f-4b5c85b1419e" },
   { id: "016ad17d-0cab-48f1-8d7f-d3eb1634be63", title: "Six teenagers, a brutal murder and the story they couldn’t take back", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/016ad17d-0cab-48f1-8d7f-d3eb1634be63" },
   { id: "0c4fe0ea-0892-488f-8981-29e200e3f51b", title: "Sorry you were late. Here’s my invoice", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/0c4fe0ea-0892-488f-8981-29e200e3f51b" },
-  { id: "b76acfdd-787d-4eb9-bb4d-597af3e3d2c1", title: "Beating Berlin’s Sunday blues", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/b76acfdd-787d-4eb9-bb4d-597af3e3d2c1" },
-  { id: "a6ddd9b6-d461-4c04-b804-5524538c084b", title: "Get your fix of 1066", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/a6ddd9b6-d461-4c04-b804-5524538c084b" },
-  { id: "65f46ae0-8a3a-4f43-bc85-5eb9938d2d09", title: "Special edition: Wall Street’s wild week", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/65f46ae0-8a3a-4f43-bc85-5eb9938d2d09" },
 ];
