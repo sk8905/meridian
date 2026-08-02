@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b4f150ea-9ea3-4bb4-b1e0-014cf1f0df26", title: "America’s biggest companies report ‘rock solid’ profits as consumers face higher costs", date: "2026-08-02", time: "17:00", url: "https://www.ft.com/content/b4f150ea-9ea3-4bb4-b1e0-014cf1f0df26" },
+  { id: "8faf28df-bb76-49e6-a916-55faa8a5d4a8", title: "Europe’s weak reaction to Spain’s migrant crisis", date: "2026-08-02", time: "16:53", url: "https://www.ft.com/content/8faf28df-bb76-49e6-a916-55faa8a5d4a8" },
+  { id: "a01171e8-f8a1-4e2c-b3f7-f79f9cd11651", title: "Morocco counts its dead and missing after mass swim to Ceuta", date: "2026-08-02", time: "16:21", url: "https://www.ft.com/content/a01171e8-f8a1-4e2c-b3f7-f79f9cd11651" },
   { id: "f438f3c0-d309-4687-b265-ba775b24044d", title: "How to save the British high street", date: "2026-08-02", time: "16:00", url: "https://www.ft.com/content/f438f3c0-d309-4687-b265-ba775b24044d" },
   { id: "a4539dc2-dcb0-4b57-9a78-c32cb1f9eda1", title: "Hungary braced for power cuts amid extreme drought", date: "2026-08-02", time: "15:18", url: "https://www.ft.com/content/a4539dc2-dcb0-4b57-9a78-c32cb1f9eda1" },
   { id: "9dea3dc5-2045-430b-81fb-02b9c3126e90", title: "Rupert Lowe offers to find ‘common way forward’ with Reform UK", date: "2026-08-02", time: "13:24", url: "https://www.ft.com/content/9dea3dc5-2045-430b-81fb-02b9c3126e90" },
@@ -57,8 +60,4 @@ export const FT_ITEMS = [
   { id: "a6ddd9b6-d461-4c04-b804-5524538c084b", title: "Get your fix of 1066", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/a6ddd9b6-d461-4c04-b804-5524538c084b" },
   { id: "65f46ae0-8a3a-4f43-bc85-5eb9938d2d09", title: "Special edition: Wall Street’s wild week", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/65f46ae0-8a3a-4f43-bc85-5eb9938d2d09" },
   { id: "75fb1035-542b-43f3-88d4-ba8d4053d919", title: "Andy Burnham grabs the narrative in first fortnight of power", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/75fb1035-542b-43f3-88d4-ba8d4053d919" },
-  { id: "92c4d77e-7a32-48e9-af5a-88243945b2a5", title: "Surging UK stocks prompt flurry of trades on investment platforms", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/92c4d77e-7a32-48e9-af5a-88243945b2a5" },
-  { id: "ca97d754-a509-43eb-b7ce-df91e4e1edb8", title: "Greece’s island fires expose risks of tourism boom", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/ca97d754-a509-43eb-b7ce-df91e4e1edb8" },
-  { id: "e14d11b4-d4c9-41f1-b5c6-1b2e349fa9ed", title: "Labour has harmed universities as much as Trump, London School of Economics head says", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/e14d11b4-d4c9-41f1-b5c6-1b2e349fa9ed" },
-  { id: "dabd9888-b7ed-4c06-9986-e6705835ef31", title: "Abhijeet Dipke, the face of India’s victorious ‘cockroach’ protests", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/dabd9888-b7ed-4c06-9986-e6705835ef31" },
 ];
