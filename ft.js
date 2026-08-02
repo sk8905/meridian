@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b3042c38-c38c-48f9-aa8c-99901ed440a9", title: "Will July’s US employment data prompt a rethink on rates?", date: "2026-08-02", time: "12:00", url: "https://www.ft.com/content/b3042c38-c38c-48f9-aa8c-99901ed440a9" },
+  { id: "9f81d98b-ac0f-4650-8d3b-6b596c50bae2", title: "What percentage of UK households are net contributors?", date: "2026-08-02", time: "12:00", url: "https://www.ft.com/content/9f81d98b-ac0f-4650-8d3b-6b596c50bae2" },
   { id: "889c551a-88ab-451a-87f5-cdec65467a64", title: "‘Voters have had it’: influence of pro-Israel lobby group sparks backlash in the US", date: "2026-08-02", time: "11:00", url: "https://www.ft.com/content/889c551a-88ab-451a-87f5-cdec65467a64" },
   { id: "3f651fa0-3362-4a16-9ac1-992291c5f68a", title: "Morgan Stanley’s IPO after-party: a wealth management bonanza", date: "2026-08-02", time: "11:00", url: "https://www.ft.com/content/3f651fa0-3362-4a16-9ac1-992291c5f68a" },
   { id: "a29819ef-ffb9-4d2a-9925-e3d6e6e6e797", title: "Iran sets the pace in war with Trump", date: "2026-08-02", time: "06:37", url: "https://www.ft.com/content/a29819ef-ffb9-4d2a-9925-e3d6e6e6e797" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "a7c97a31-0d4b-4578-acb6-3406d04003ba", title: "Venezuela divided over US-brokered election talks", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/a7c97a31-0d4b-4578-acb6-3406d04003ba" },
   { id: "e41dadef-c473-48ff-9fa5-30b56d40af34", title: "Humbling times for markets", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/e41dadef-c473-48ff-9fa5-30b56d40af34" },
   { id: "1d75978f-7813-46dc-86aa-67d08204c0ba", title: "The second funeral of Serhiy Kulyk", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/1d75978f-7813-46dc-86aa-67d08204c0ba" },
-  { id: "2ac61eb8-8d28-42f8-8a60-6159f3b3913e", title: "The end of ‘The Magnificent 7’: the problem with stock nicknames", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/2ac61eb8-8d28-42f8-8a60-6159f3b3913e" },
 ];
