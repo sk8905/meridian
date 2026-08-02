@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c9bd508c-2915-4b34-a5a5-553bff9548a5", title: "Iran says deal with Oman to manage shipping through Hormuz is close", date: "2026-08-02", time: "20:00", url: "https://www.ft.com/content/c9bd508c-2915-4b34-a5a5-553bff9548a5" },
+  { id: "e9027253-e13c-460a-a4b1-f9047e5a6ca7", title: "AstraZeneca holds talks with Bristol Myers Squibb on $400bn megadeal", date: "2026-08-02", time: "19:30", url: "https://www.ft.com/content/e9027253-e13c-460a-a4b1-f9047e5a6ca7" },
   { id: "4ce36d22-571d-4532-8a8f-078e8fba34ff", title: "Monte dei Paschi explores Banco BPM takeover after ‘merger of equals’ talks collapse", date: "2026-08-02", time: "18:32", url: "https://www.ft.com/content/4ce36d22-571d-4532-8a8f-078e8fba34ff" },
   { id: "21896669-cce4-43cb-8e7b-e40520e9ac91", title: "Earnings season reaches a peak", date: "2026-08-02", time: "18:15", url: "https://www.ft.com/content/21896669-cce4-43cb-8e7b-e40520e9ac91" },
   { id: "162287ce-0267-47e9-aeee-16f93d3fc309", title: "A red card for the boss of world football", date: "2026-08-02", time: "17:17", url: "https://www.ft.com/content/162287ce-0267-47e9-aeee-16f93d3fc309" },
@@ -58,5 +60,4 @@ export const FT_ITEMS = [
   { id: "58400cf0-20df-46ef-975b-7414806e09de", title: "Fifa abandons $20bn investment plan after global backlash", date: "2026-08-01", time: "09:44", url: "https://www.ft.com/content/58400cf0-20df-46ef-975b-7414806e09de" },
   { id: "f0581480-8129-413c-823f-4b5c85b1419e", title: "Gianni Infantino’s gamble fails", date: "2026-08-01", time: "09:00", url: "https://www.ft.com/content/f0581480-8129-413c-823f-4b5c85b1419e" },
   { id: "016ad17d-0cab-48f1-8d7f-d3eb1634be63", title: "Six teenagers, a brutal murder and the story they couldn’t take back", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/016ad17d-0cab-48f1-8d7f-d3eb1634be63" },
-  { id: "0c4fe0ea-0892-488f-8981-29e200e3f51b", title: "Sorry you were late. Here’s my invoice", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/0c4fe0ea-0892-488f-8981-29e200e3f51b" },
 ];
