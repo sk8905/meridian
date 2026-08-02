@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "9dea3dc5-2045-430b-81fb-02b9c3126e90", title: "Rupert Lowe offers to find ‘common way forward’ with Reform UK", date: "2026-08-02", time: "13:24", url: "https://www.ft.com/content/9dea3dc5-2045-430b-81fb-02b9c3126e90" },
   { id: "06ec1b03-d4af-40cf-b12a-4ba5a410f6d2", title: "‘Crush this lady’: how eBay harassment campaign led to $56mn payout", date: "2026-08-02", time: "13:00", url: "https://www.ft.com/content/06ec1b03-d4af-40cf-b12a-4ba5a410f6d2" },
   { id: "18ccb15a-f8ed-41ba-a948-7c62cd757274", title: "Walter insurers paid millions of dollars to credit rating provider Egan-Jones", date: "2026-08-02", time: "13:00", url: "https://www.ft.com/content/18ccb15a-f8ed-41ba-a948-7c62cd757274" },
   { id: "b3042c38-c38c-48f9-aa8c-99901ed440a9", title: "Will July’s US employment data prompt a rethink on rates?", date: "2026-08-02", time: "12:00", url: "https://www.ft.com/content/b3042c38-c38c-48f9-aa8c-99901ed440a9" },
