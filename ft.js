@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f438f3c0-d309-4687-b265-ba775b24044d", title: "How to save the British high street", date: "2026-08-02", time: "16:00", url: "https://www.ft.com/content/f438f3c0-d309-4687-b265-ba775b24044d" },
+  { id: "a4539dc2-dcb0-4b57-9a78-c32cb1f9eda1", title: "Hungary braced for power cuts amid extreme drought", date: "2026-08-02", time: "15:18", url: "https://www.ft.com/content/a4539dc2-dcb0-4b57-9a78-c32cb1f9eda1" },
   { id: "9dea3dc5-2045-430b-81fb-02b9c3126e90", title: "Rupert Lowe offers to find ‘common way forward’ with Reform UK", date: "2026-08-02", time: "13:24", url: "https://www.ft.com/content/9dea3dc5-2045-430b-81fb-02b9c3126e90" },
   { id: "06ec1b03-d4af-40cf-b12a-4ba5a410f6d2", title: "‘Crush this lady’: how eBay harassment campaign led to $56mn payout", date: "2026-08-02", time: "13:00", url: "https://www.ft.com/content/06ec1b03-d4af-40cf-b12a-4ba5a410f6d2" },
   { id: "18ccb15a-f8ed-41ba-a948-7c62cd757274", title: "Walter insurers paid millions of dollars to credit rating provider Egan-Jones", date: "2026-08-02", time: "13:00", url: "https://www.ft.com/content/18ccb15a-f8ed-41ba-a948-7c62cd757274" },
@@ -59,6 +61,4 @@ export const FT_ITEMS = [
   { id: "ca97d754-a509-43eb-b7ce-df91e4e1edb8", title: "Greece’s island fires expose risks of tourism boom", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/ca97d754-a509-43eb-b7ce-df91e4e1edb8" },
   { id: "e14d11b4-d4c9-41f1-b5c6-1b2e349fa9ed", title: "Labour has harmed universities as much as Trump, London School of Economics head says", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/e14d11b4-d4c9-41f1-b5c6-1b2e349fa9ed" },
   { id: "dabd9888-b7ed-4c06-9986-e6705835ef31", title: "Abhijeet Dipke, the face of India’s victorious ‘cockroach’ protests", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/dabd9888-b7ed-4c06-9986-e6705835ef31" },
-  { id: "f7b1e230-72a4-49b7-8339-2f693d7ebef5", title: "Higher earners warned over taper tax trap on pensions", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/f7b1e230-72a4-49b7-8339-2f693d7ebef5" },
-  { id: "44d14a83-45b2-4d2e-94f0-8eb86dceab86", title: "Is Lloyds Bank’s techie boss a secret AI contrarian?", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/44d14a83-45b2-4d2e-94f0-8eb86dceab86" },
 ];
