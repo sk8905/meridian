@@ -453,7 +453,7 @@ async function loadSaved(body, headCount) {
   const render = async () => {
     chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _svTab));
     try {
-      const mod = await import("/saved.js?v=20260724-2");
+      const mod = await import("/saved.js?v=20260802-1");
       // Watchlist tab = SAVED items that relate to a followed/starred profile
       // (the intersection), NOT all of a followed profile's news.
       const list = _svTab === "saved" ? mod.resolveSaved() : mod.resolveSavedWatchlist();
@@ -589,7 +589,7 @@ let _ntTab = "all";
 let _menuTab = "search";
 async function ensureNotifs() {
   if (_notifItems) return _notifItems;
-  const { buildNotifs } = await import("/saved.js?v=20260724-2");
+  const { buildNotifs } = await import("/saved.js?v=20260802-1");
   _notifItems = (await buildNotifs()).slice(0, 60);
   return _notifItems;
 }
@@ -1044,7 +1044,7 @@ export function initNavActions() {
         } else {
           tb.innerHTML = '<div class="na-load">Loading…</div>';
           try {
-            const mod = await import("/saved.js?v=20260724-2");
+            const mod = await import("/saved.js?v=20260802-1");
             const list = mod.resolveWatchlistNews();
             tb.innerHTML = list.length
               ? list.map(savedRow).join("")

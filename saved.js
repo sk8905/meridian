@@ -129,28 +129,6 @@ export async function buildNotifs() {
   return [...creditNotif(), ...legalNotif()].sort(byDateDesc);
 }
 
-// ---- Watchlist (managers + law firms) ---------------------------------------
-// Reads the same follow store the Credit app's stars write ("meridian.follows");
-// firm follows are added by the Home row menu. Resolved to profile links.
-export function resolveWatchlist() {
-  let f = {};
-  try { f = JSON.parse(localStorage.getItem("meridian.follows") || "{}") || {}; } catch { /* ignore */ }
-  const out = [];
-  (Array.isArray(f.manager) ? f.manager : []).forEach((id) => {
-    const m = _mgrById.get(id);
-    if (m) out.push({ desk: "c", kind: "Manager", title: m.name, href: "/credit/#/manager/" + encodeURIComponent(id) });
-  });
-  (Array.isArray(f.hf) ? f.hf : []).forEach((id) => {
-    const hf = _hfById.get(id);
-    if (hf) out.push({ desk: "c", kind: "Hedge fund", title: hf.name, href: "/credit/#/hf/" + encodeURIComponent(id) });
-  });
-  (Array.isArray(f.firm) ? f.firm : []).forEach((id) => {
-    const fm = _firmById.get(id);
-    if (fm) out.push({ desk: "l", kind: "Law firm", title: fm.name, href: "/legal/#/firm/" + encodeURIComponent(id) });
-  });
-  return out.sort((a, b) => a.title.localeCompare(b.title));
-}
-
 // Watchlist NEWS — every dated item for the followed managers (deals,
 // fundraising/intel, manager press) and law firms (alerts, scheme/plan
 // analyses), newest first. Rendered by the Bookmarks panel's Watchlist tab.

@@ -6,7 +6,7 @@ const srv = await serve();
 const b = await launchChromium();
 const base = `http://localhost:${srv.port}`;
 
-// HOME: filter by a source, scroll deep — bar pinned at header + 30px chips row.
+// HOME: filter by a source, scroll deep — bar pinned at header + the chip-row height.
 {
   const { ctx, pg, errs } = await open(b, PHONE, base + "/");
   await pg.waitForTimeout(2000);
@@ -23,8 +23,9 @@ const base = `http://localhost:${srv.port}`;
     window.scrollTo(0, 2000); await sleep(400);
     const r = bar.getBoundingClientRect();
     const head = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--wire-head-h")) || 53;
+    const chipH = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--chip-h")) || 34;
     const clear = bar.querySelector(".g-feed-srcclear");
-    const out = { top: Math.round(r.top), want: Math.round(head + 30), scrolled: window.scrollY > 0, hasClear: !!clear };
+    const out = { top: Math.round(r.top), want: Math.round(head + chipH), scrolled: window.scrollY > 0, hasClear: !!clear };
     if (clear) { clear.click(); await sleep(400); out.cleared = !document.querySelector(".g-feed-srcbar"); }
     return out;
   });

@@ -130,7 +130,7 @@
 .dsh-lgl-chips { display:flex; flex-wrap:wrap; align-items:center; gap:6px; margin:0 0 10px; }
 .dsh-lgl-lbl { color:var(--t-mut); font-size:.7rem; font-weight:600; margin-right:2px; }
 .dsh-lgl-chip { display:inline-flex; align-items:center; height:var(--chip-h,34px); border:1px solid var(--t-grid2); background:transparent; color:var(--t-mut); font:inherit;
-  font-size:.72rem; font-weight:600; padding:0 9px; border-radius:999px; cursor:pointer; }
+  font-size:.72rem; font-weight:600; padding:0 9px; border-radius:0; cursor:pointer; }
 .dsh-lgl-chip:hover { color:var(--t-ink); }
 .dsh-lgl-chip.is-on { color:var(--t-ink); font-weight:700; box-shadow: inset 0 -2px 0 var(--chip-ul, #000); }
 [data-theme="dark"] .dsh-lgl-chip.is-on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff); }

@@ -144,14 +144,14 @@ html[data-theme="light"] .mcmdk{--t-mac:#6a4fa3;--t-crd:#fb8b1e;--t-lex:#2b8a5f;
 .mcmdk-code.macro{color:var(--t-mac,#9b83e2);background:color-mix(in srgb,var(--t-mac,#9b83e2) 16%,transparent)}
 .mcmdk-code.credit{color:var(--t-crd,#fb8b1e);background:color-mix(in srgb,var(--t-crd,#fb8b1e) 16%,transparent)}
 .mcmdk-code.legal{color:var(--t-lex,#2fbf8a);background:color-mix(in srgb,var(--t-lex,#2fbf8a) 16%,transparent)}
-.mcmdk-code.view{color:var(--faint,#5c6a86);background:color-mix(in srgb,#5c6a86 22%,transparent)}
+.mcmdk-code.view{color:var(--faint,#5c6a86);background:color-mix(in srgb,var(--faint,#5c6a86) 22%,transparent)}
 .mcmdk-code.ft{color:var(--t-ft,#e0708e);background:color-mix(in srgb,var(--t-ft,#e0708e) 16%,transparent)}
 .mcmdk-code.letter{color:var(--t-amber,#d9a441);background:color-mix(in srgb,var(--t-amber,#d9a441) 16%,transparent)}
-.mcmdk-code.news{color:#8aa0c8;background:color-mix(in srgb,#8aa0c8 16%,transparent)}
-.mcmdk-code.bbg{color:#e0873a;background:color-mix(in srgb,#e0873a 16%,transparent)}
-.mcmdk-code.econ{color:#e0524d;background:color-mix(in srgb,#e0524d 16%,transparent)}
-.mcmdk-code.substack{color:#9b8cf5;background:color-mix(in srgb,#9b8cf5 16%,transparent)}
-.mcmdk-code.brew{color:#2fb6a8;background:color-mix(in srgb,#2fb6a8 16%,transparent)}
+.mcmdk-code.news{color:var(--t-news,#8aa0c8);background:color-mix(in srgb,var(--t-news,#8aa0c8) 16%,transparent)}
+.mcmdk-code.bbg{color:var(--t-bbg,#e0873a);background:color-mix(in srgb,var(--t-bbg,#e0873a) 16%,transparent)}
+.mcmdk-code.econ{color:var(--t-econ,#e0524d);background:color-mix(in srgb,var(--t-econ,#e0524d) 16%,transparent)}
+.mcmdk-code.substack{color:var(--t-sub,#9b8cf5);background:color-mix(in srgb,var(--t-sub,#9b8cf5) 16%,transparent)}
+.mcmdk-code.brew{color:var(--t-brew,#2fb6a8);background:color-mix(in srgb,var(--t-brew,#2fb6a8) 16%,transparent)}
 .mcmdk-s{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .mcmdk-foot{border-top:1px solid var(--border,#232f47);padding:.5rem .8rem;color:var(--muted,#8592ad);font-size:.72rem;display:flex;gap:1rem}
 .mcmdk-foot kbd{background:var(--panel2,rgba(255,255,255,.06));border-radius:0;padding:.05rem .3rem;font-family:inherit;font-weight:700}

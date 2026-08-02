@@ -97,15 +97,15 @@ function wireDays(rows, rowFn, getDate) {
   }).join("");
 }
 
-// Insert a gentle day-break divider whenever the day changes from the previous
-// item (a subtle visual gap between each day's rows; rows carry their own date).
+// Insert the standard day-break header (HOUSE_STYLE R6, same look as .tw-day /
+// .g-feed-dayhdr) whenever the day changes from the previous item.
 function withDayBreaks(items, rowFn) {
   let prevDay = null;
   return items.map((x) => {
     const day = String(x.date || "").slice(0, 10);
-    const sep = prevDay !== null && day !== prevDay ? '<div class="day-sep" aria-hidden="true"></div>' : "";
+    const hdr = day && day !== prevDay ? `<div class="tw-day">${esc(fmtDate(day))}</div>` : "";
     prevDay = day;
-    return sep + rowFn(x);
+    return hdr + rowFn(x);
   }).join("");
 }
 
