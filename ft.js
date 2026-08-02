@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "162287ce-0267-47e9-aeee-16f93d3fc309", title: "A red card for the boss of world football", date: "2026-08-02", time: "17:17", url: "https://www.ft.com/content/162287ce-0267-47e9-aeee-16f93d3fc309" },
   { id: "b4f150ea-9ea3-4bb4-b1e0-014cf1f0df26", title: "America’s biggest companies report ‘rock solid’ profits as consumers face higher costs", date: "2026-08-02", time: "17:00", url: "https://www.ft.com/content/b4f150ea-9ea3-4bb4-b1e0-014cf1f0df26" },
   { id: "8faf28df-bb76-49e6-a916-55faa8a5d4a8", title: "Europe’s weak reaction to Spain’s migrant crisis", date: "2026-08-02", time: "16:53", url: "https://www.ft.com/content/8faf28df-bb76-49e6-a916-55faa8a5d4a8" },
   { id: "a01171e8-f8a1-4e2c-b3f7-f79f9cd11651", title: "Morocco counts its dead and missing after mass swim to Ceuta", date: "2026-08-02", time: "16:21", url: "https://www.ft.com/content/a01171e8-f8a1-4e2c-b3f7-f79f9cd11651" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "b76acfdd-787d-4eb9-bb4d-597af3e3d2c1", title: "Beating Berlin’s Sunday blues", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/b76acfdd-787d-4eb9-bb4d-597af3e3d2c1" },
   { id: "a6ddd9b6-d461-4c04-b804-5524538c084b", title: "Get your fix of 1066", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/a6ddd9b6-d461-4c04-b804-5524538c084b" },
   { id: "65f46ae0-8a3a-4f43-bc85-5eb9938d2d09", title: "Special edition: Wall Street’s wild week", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/65f46ae0-8a3a-4f43-bc85-5eb9938d2d09" },
-  { id: "75fb1035-542b-43f3-88d4-ba8d4053d919", title: "Andy Burnham grabs the narrative in first fortnight of power", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/75fb1035-542b-43f3-88d4-ba8d4053d919" },
 ];
