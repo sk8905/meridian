@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a29819ef-ffb9-4d2a-9925-e3d6e6e6e797", title: "Iran sets the pace in war with Trump", date: "2026-08-02", time: "06:37", url: "https://www.ft.com/content/a29819ef-ffb9-4d2a-9925-e3d6e6e6e797" },
   { id: "fbc26742-c2a8-4509-ad13-8ad61139f41f", title: "Who needs junior markets like Aim anyway?", date: "2026-08-02", time: "05:00", url: "https://www.ft.com/content/fbc26742-c2a8-4509-ad13-8ad61139f41f" },
   { id: "43ecc4d5-202b-42f5-beb9-9aecca919f6d", title: "Air France-KLM targets easyJet passengers during takeover turmoil", date: "2026-08-02", time: "05:00", url: "https://www.ft.com/content/43ecc4d5-202b-42f5-beb9-9aecca919f6d" },
   { id: "6a987490-f3f8-45f7-8b1c-fd09d9fa874d", title: "Italy’s Giorgia Meloni bets big on nuclear power revival", date: "2026-08-02", time: "05:00", url: "https://www.ft.com/content/6a987490-f3f8-45f7-8b1c-fd09d9fa874d" },
@@ -34,6 +35,7 @@ export const FT_ITEMS = [
   { id: "e6e4d553-2474-43e4-bc25-0f1cb952f66d", title: "Chinese VC firms rush to raise funds after 3-year drought", date: "2026-08-02", time: "03:00", url: "https://www.ft.com/content/e6e4d553-2474-43e4-bc25-0f1cb952f66d" },
   { id: "a551d1be-80a1-4d3c-8498-b1f82fdb0e41", title: "Spain pushes migrants home as Ceuta vents over ‘invasion’", date: "2026-08-01", time: "23:43", url: "https://www.ft.com/content/a551d1be-80a1-4d3c-8498-b1f82fdb0e41" },
   { id: "72e4bd53-2e4f-420a-aa44-4de486a0ab19", title: "Burnham says devolution plan paves the way for a written UK constitution", date: "2026-08-01", time: "19:14", url: "https://www.ft.com/content/72e4bd53-2e4f-420a-aa44-4de486a0ab19" },
+  { id: "0f9b2fe7-bde4-4f5f-b49e-93ccb5da9ea8", title: "US Treasury undertakes historic intervention in yen market", date: "2026-08-01", time: "16:26", url: "https://www.ft.com/content/0f9b2fe7-bde4-4f5f-b49e-93ccb5da9ea8" },
   { id: "c0d97297-98ed-452f-bdfd-1f16d53d4eb3", title: "Gianni Infantino’s U-turn fuels doubts about his future at Fifa", date: "2026-08-01", time: "14:00", url: "https://www.ft.com/content/c0d97297-98ed-452f-bdfd-1f16d53d4eb3" },
   { id: "6abf82dc-6b66-4fc7-8bf7-aa196dbd8e97", title: "Massive US tungsten discovery could run into Nasa roadblock", date: "2026-08-01", time: "13:00", url: "https://www.ft.com/content/6abf82dc-6b66-4fc7-8bf7-aa196dbd8e97" },
   { id: "1b3f09b5-897e-4b7a-9949-2c4d9a32929e", title: "Sánchez hits out at EU leaders over criticism of Spain’s migrant crisis", date: "2026-08-01", time: "11:46", url: "https://www.ft.com/content/1b3f09b5-897e-4b7a-9949-2c4d9a32929e" },
@@ -56,5 +58,4 @@ export const FT_ITEMS = [
   { id: "e41dadef-c473-48ff-9fa5-30b56d40af34", title: "Humbling times for markets", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/e41dadef-c473-48ff-9fa5-30b56d40af34" },
   { id: "1d75978f-7813-46dc-86aa-67d08204c0ba", title: "The second funeral of Serhiy Kulyk", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/1d75978f-7813-46dc-86aa-67d08204c0ba" },
   { id: "2ac61eb8-8d28-42f8-8a60-6159f3b3913e", title: "The end of ‘The Magnificent 7’: the problem with stock nicknames", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/2ac61eb8-8d28-42f8-8a60-6159f3b3913e" },
-  { id: "818bb542-3777-4c9f-9f25-535199563fb3", title: "How the West End’s landlords are preparing London for Saudi summers", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/818bb542-3777-4c9f-9f25-535199563fb3" },
 ];
