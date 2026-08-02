@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "06ec1b03-d4af-40cf-b12a-4ba5a410f6d2", title: "‘Crush this lady’: how eBay harassment campaign led to $56mn payout", date: "2026-08-02", time: "13:00", url: "https://www.ft.com/content/06ec1b03-d4af-40cf-b12a-4ba5a410f6d2" },
+  { id: "18ccb15a-f8ed-41ba-a948-7c62cd757274", title: "Walter insurers paid millions of dollars to credit rating provider Egan-Jones", date: "2026-08-02", time: "13:00", url: "https://www.ft.com/content/18ccb15a-f8ed-41ba-a948-7c62cd757274" },
   { id: "b3042c38-c38c-48f9-aa8c-99901ed440a9", title: "Will July’s US employment data prompt a rethink on rates?", date: "2026-08-02", time: "12:00", url: "https://www.ft.com/content/b3042c38-c38c-48f9-aa8c-99901ed440a9" },
   { id: "9f81d98b-ac0f-4650-8d3b-6b596c50bae2", title: "What percentage of UK households are net contributors?", date: "2026-08-02", time: "12:00", url: "https://www.ft.com/content/9f81d98b-ac0f-4650-8d3b-6b596c50bae2" },
   { id: "889c551a-88ab-451a-87f5-cdec65467a64", title: "‘Voters have had it’: influence of pro-Israel lobby group sparks backlash in the US", date: "2026-08-02", time: "11:00", url: "https://www.ft.com/content/889c551a-88ab-451a-87f5-cdec65467a64" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "dabd9888-b7ed-4c06-9986-e6705835ef31", title: "Abhijeet Dipke, the face of India’s victorious ‘cockroach’ protests", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/dabd9888-b7ed-4c06-9986-e6705835ef31" },
   { id: "f7b1e230-72a4-49b7-8339-2f693d7ebef5", title: "Higher earners warned over taper tax trap on pensions", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/f7b1e230-72a4-49b7-8339-2f693d7ebef5" },
   { id: "44d14a83-45b2-4d2e-94f0-8eb86dceab86", title: "Is Lloyds Bank’s techie boss a secret AI contrarian?", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/44d14a83-45b2-4d2e-94f0-8eb86dceab86" },
-  { id: "a7c97a31-0d4b-4578-acb6-3406d04003ba", title: "Venezuela divided over US-brokered election talks", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/a7c97a31-0d4b-4578-acb6-3406d04003ba" },
-  { id: "e41dadef-c473-48ff-9fa5-30b56d40af34", title: "Humbling times for markets", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/e41dadef-c473-48ff-9fa5-30b56d40af34" },
-  { id: "1d75978f-7813-46dc-86aa-67d08204c0ba", title: "The second funeral of Serhiy Kulyk", date: "2026-08-01", time: "05:00", url: "https://www.ft.com/content/1d75978f-7813-46dc-86aa-67d08204c0ba" },
 ];
