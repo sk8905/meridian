@@ -12,8 +12,8 @@ export const UPDATED = "1 August 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-08-01",
-  lastCheckedTime: "21:17 BST",
+  lastChecked: "2026-08-02",
+  lastCheckedTime: "05:09 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -779,6 +779,8 @@ export const RELEASES = [
   { date: "2026-08-19", country: "US", title: "FOMC minutes (28–29 July meeting)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-08-19", country: "UK", title: "CPI inflation (July)", url: "https://www.ons.gov.uk/releases/consumerpriceinflationukjuly2026" },
   { date: "2026-08-21", country: "UK", title: "Retail sales (July)", url: "https://www.ons.gov.uk/releases/retailsalesgreatbritainjuly2026" },
+  { date: "2026-08-26", country: "US", title: "GDP, Second Estimate (Q2 2026)", url: "https://www.bea.gov/data/gdp/gross-domestic-product" },
+  { date: "2026-08-26", country: "US", title: "Personal Income and Outlays / PCE Price Index (July)", url: "https://www.bea.gov/data/income-saving/personal-income-and-outlays" },
   { date: "2026-08-27", country: "US", title: "Jackson Hole Economic Policy Symposium begins (Kansas City Fed)", url: "https://www.kansascityfed.org/research/jackson-hole-economic-symposium/" },
 ];
 
