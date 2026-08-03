@@ -32,6 +32,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bizpost-cairndcc-20260803",
+    publication: "Business Post",
+    series: "Commercial Real Estate",
+    title: "Cairn blasts Dublin City Council",
+    date: "2026-08-03",
+    time: "07:00",
+    summary: "'Wholly unwarranted': Cairn Homes blasts new Dublin City Council levies. Plus: hotel permission granted in Howth, and noise objections sink McCloskey's third Donnybrook beer-garden bid.",
+    url: "https://bpm.businesspost.ie/w/JRvWWjanSo3LAEBad7J763UQ/Pe5PTEw0pLHXiV2kox0pPw/xej5g0FUfI8TfF2nk1WU1A",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-20260803",
     publication: "Bloomberg",
     author: "Jill Disis",
@@ -431,14 +441,5 @@ export const NEWSLETTERS = [
     time: "09:04",
     summary: "Clifford Chance becomes the first non-US firm to break into New York private equity buyout rankings, and Mayer Brown doubles down on London private capital.",
     url: "https://non-billable.beehiiv.com/p/b-c787",
-  },
-  {
-    id: "nl-lb-felsensteingodfather-20260729",
-    publication: "Legal Business",
-    title: "Latham's Oliver Felsenstein on The Godfather, client call car crashes and becoming a PE lawyer by accident",
-    date: "2026-07-29",
-    time: "09:01",
-    summary: "Germany private equity heavyweight Oliver Felsenstein reflects on decades of dealmaking, from dreams of becoming Don Corleone's consigliere to his retirement plans for a champagne bar.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQx07tWw1KtFt6cca/wv",
   },
 ];
