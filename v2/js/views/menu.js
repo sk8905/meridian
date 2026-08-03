@@ -28,6 +28,8 @@ function applyTheme(pref) {
   r.setAttribute("data-theme", t);
   r.setAttribute("data-theme-choice", pref);
   try { localStorage.setItem("m_theme_pref", pref); } catch { /* ignore */ }
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute("content", t === "dark" ? "#05080f" : "#ffffff");
 }
 function recents() {
   try { const a = JSON.parse(localStorage.getItem("wire.recentSearches") || "[]"); return Array.isArray(a) ? a.filter((q) => typeof q === "string").slice(0, 8) : []; }
