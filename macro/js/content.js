@@ -13,7 +13,7 @@ export const UPDATED = "2 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-03",
-  lastCheckedTime: "05:33 BST",
+  lastCheckedTime: "09:24 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -711,7 +711,7 @@ export const NEWS = {
     { title: "Trump says Iran talks to resume Monday after calling off planned strikes", source: "CNBC", date: "2026-08-03", time: "05:10", url: "https://www.cnbc.com/2026/08/03/trump-iran-us-negotiations-peace-proposals-.html" },
     { title: "FTSE 100 Earnings This Week: BP, HSBC, Diageo & Next Results to Watch", source: "AskTraders", date: "2026-08-03", time: "05:10", url: "https://www.asktraders.com/analysis/ftse-100-earnings-this-week-bp-hsbc-diageo-next-results-to-watch/" },
     { title: "Next week on the stock market", source: "Hargreaves Lansdown", date: "2026-08-03", time: "05:10", url: "https://www.hl.co.uk/shares/share-research/next-week-on-the-stock-market-03-08-2026" },
-    { title: "Pound to Euro Forecast 2026–2028: Latest Survey Poll Shows GBP Easing From 1.17", source: "Exchange Rates UK", date: "2026-08-01", time: "09:00", url: "https://www.exchangerates.org.uk/news/46686/2026-08-01-pound-to-euro-forecast-2026-2028-latest-survey-poll-shows-gbp-easing-from-1-17.html" },
+    { title: "Flutter Entertainment to delist from London Stock Exchange, NYSE listing to remain", source: "Investing.com", date: "2026-08-03", time: "09:24", url: "https://www.investing.com/news/company-news/flutter-entertainment-to-delist-from-london-stock-exchange-93CH-4738938" },
   ],
 };
 
@@ -725,6 +725,7 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-03",
   items: [
+    {"title":"Flutter Entertainment to delist from London Stock Exchange, NYSE listing to remain","source":"Investing.com","date":"2026-08-03","time":"09:24","url":"https://www.investing.com/news/company-news/flutter-entertainment-to-delist-from-london-stock-exchange-93CH-4738938","blurb":"Flutter's ordinary shares cease trading on the LSE effective today, with the FanDuel owner citing thin UK trading activity and the added cost/regulatory burden of a dual listing; shares continue trading solely on the NYSE under FLUT."},
     {"title":"Japan confirms joint yen intervention with U.S., signaling readiness for more action","source":"The Japan Times","date":"2026-08-03","time":"05:10","url":"https://www.japantimes.co.jp/business/2026/08/03/markets/japan-us-joint-yen-intervention/","blurb":"Tokyo confirmed it acted alongside Washington to shore up a slumping yen — the first joint US-Japan intervention since 2011 — as authorities warned they stand ready for further coordinated action; the yen strengthened more than 1% against both the dollar and euro on the news."},
     {"title":"Market moving news for Asian trading on 3 August: Oil slumps on Trump's Iran claims","source":"InvestingLive","date":"2026-08-03","time":"05:10","url":"https://investinglive.com/news/market-moving-news-for-asian-trading-on-3-august-oil-slumps-on-trump-s-iran-claims/","blurb":"Brent fell as much as 6% at the open after Trump said he had cancelled planned Iran strikes and hinted at a Hormuz reopening deal, even as unconfirmed reports of a fresh Iranian attack near a US tanker undercut the de-escalation narrative; Japan's Nikkei and South Korea's Kospi both sold off on a stronger yen and chip-valuation jitters."},
     {"title":"Trump says Iran talks to resume Monday after calling off planned strikes","source":"CNBC","date":"2026-08-03","time":"05:10","url":"https://www.cnbc.com/2026/08/03/trump-iran-us-negotiations-peace-proposals-.html","blurb":"Trump said negotiations with Iran will resume Monday, a day after cancelling a planned attack he called the biggest since World War Two, partly in response to pleas from Gulf allies including Saudi Arabia; Monday's talks are expected to cover the Strait of Hormuz before leading into nuclear negotiations."},
