@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "06f8f1a1-50a1-43d0-a236-c2d65ff38e87", title: "Iranian tanker tolls: totally legit after all?", date: "2026-08-03", time: "15:30", url: "https://www.ft.com/content/06f8f1a1-50a1-43d0-a236-c2d65ff38e87" },
+  { id: "2cc9c96a-0e5b-4c33-a95a-3d11072a145c", title: "Apple launches legal challenge to UK attempt to access encrypted user data", date: "2026-08-03", time: "15:11", url: "https://www.ft.com/content/2cc9c96a-0e5b-4c33-a95a-3d11072a145c" },
   { id: "f1d1214e-59e8-4024-92f3-5a0a32dd0bc6", title: "And the FTAV charts quiz winner isn’t…", date: "2026-08-03", time: "15:01", url: "https://www.ft.com/content/f1d1214e-59e8-4024-92f3-5a0a32dd0bc6" },
   { id: "1419a5f5-1bd7-4b89-b667-45c2789769ef", title: "Time for Andy Burnham to smile on UK science", date: "2026-08-03", time: "14:50", url: "https://www.ft.com/content/1419a5f5-1bd7-4b89-b667-45c2789769ef" },
   { id: "eddbdc29-5206-4c79-9ea7-f1a06ff040f1", title: "Struggling to make sense of AstraZeneca-BMS", date: "2026-08-03", time: "14:21", url: "https://www.ft.com/content/eddbdc29-5206-4c79-9ea7-f1a06ff040f1" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "4ce36d22-571d-4532-8a8f-078e8fba34ff", title: "Monte dei Paschi explores Banco BPM takeover after ‘merger of equals’ talks collapse", date: "2026-08-02", time: "18:32", url: "https://www.ft.com/content/4ce36d22-571d-4532-8a8f-078e8fba34ff" },
   { id: "21896669-cce4-43cb-8e7b-e40520e9ac91", title: "Earnings season reaches a peak", date: "2026-08-02", time: "18:15", url: "https://www.ft.com/content/21896669-cce4-43cb-8e7b-e40520e9ac91" },
   { id: "162287ce-0267-47e9-aeee-16f93d3fc309", title: "A red card for the boss of world football", date: "2026-08-02", time: "17:17", url: "https://www.ft.com/content/162287ce-0267-47e9-aeee-16f93d3fc309" },
-  { id: "b4f150ea-9ea3-4bb4-b1e0-014cf1f0df26", title: "America’s biggest companies report ‘rock solid’ profits as consumers face higher costs", date: "2026-08-02", time: "17:00", url: "https://www.ft.com/content/b4f150ea-9ea3-4bb4-b1e0-014cf1f0df26" },
-  { id: "8faf28df-bb76-49e6-a916-55faa8a5d4a8", title: "Europe’s weak reaction to Spain’s migrant crisis", date: "2026-08-02", time: "16:53", url: "https://www.ft.com/content/8faf28df-bb76-49e6-a916-55faa8a5d4a8" },
-  { id: "a01171e8-f8a1-4e2c-b3f7-f79f9cd11651", title: "Morocco counts its dead and missing after mass swim to Ceuta", date: "2026-08-02", time: "16:21", url: "https://www.ft.com/content/a01171e8-f8a1-4e2c-b3f7-f79f9cd11651" },
 ];
