@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f1d1214e-59e8-4024-92f3-5a0a32dd0bc6", title: "And the FTAV charts quiz winner isn’t…", date: "2026-08-03", time: "15:01", url: "https://www.ft.com/content/f1d1214e-59e8-4024-92f3-5a0a32dd0bc6" },
+  { id: "1419a5f5-1bd7-4b89-b667-45c2789769ef", title: "Time for Andy Burnham to smile on UK science", date: "2026-08-03", time: "14:50", url: "https://www.ft.com/content/1419a5f5-1bd7-4b89-b667-45c2789769ef" },
+  { id: "eddbdc29-5206-4c79-9ea7-f1a06ff040f1", title: "Struggling to make sense of AstraZeneca-BMS", date: "2026-08-03", time: "14:21", url: "https://www.ft.com/content/eddbdc29-5206-4c79-9ea7-f1a06ff040f1" },
   { id: "0eec21be-80c4-4fca-991a-32fbd58cc653", title: "Can Democrats win over the working class?", date: "2026-08-03", time: "14:00", url: "https://www.ft.com/content/0eec21be-80c4-4fca-991a-32fbd58cc653" },
   { id: "547bc3c3-6778-42d3-9bed-fcc3d0c28068", title: "Why Burnham is wrong about education and opportunity", date: "2026-08-03", time: "14:00", url: "https://www.ft.com/content/547bc3c3-6778-42d3-9bed-fcc3d0c28068" },
   { id: "c268f3ed-664c-4fc9-82f9-2b2af8118106", title: "Chess: Geneva to host 2026 world title match with holder Gukesh the underdog against Sindarov", date: "2026-08-03", time: "13:23", url: "https://www.ft.com/content/c268f3ed-664c-4fc9-82f9-2b2af8118106" },
@@ -58,7 +61,4 @@ export const FT_ITEMS = [
   { id: "b4f150ea-9ea3-4bb4-b1e0-014cf1f0df26", title: "America’s biggest companies report ‘rock solid’ profits as consumers face higher costs", date: "2026-08-02", time: "17:00", url: "https://www.ft.com/content/b4f150ea-9ea3-4bb4-b1e0-014cf1f0df26" },
   { id: "8faf28df-bb76-49e6-a916-55faa8a5d4a8", title: "Europe’s weak reaction to Spain’s migrant crisis", date: "2026-08-02", time: "16:53", url: "https://www.ft.com/content/8faf28df-bb76-49e6-a916-55faa8a5d4a8" },
   { id: "a01171e8-f8a1-4e2c-b3f7-f79f9cd11651", title: "Morocco counts its dead and missing after mass swim to Ceuta", date: "2026-08-02", time: "16:21", url: "https://www.ft.com/content/a01171e8-f8a1-4e2c-b3f7-f79f9cd11651" },
-  { id: "f438f3c0-d309-4687-b265-ba775b24044d", title: "How to save the British high street", date: "2026-08-02", time: "16:00", url: "https://www.ft.com/content/f438f3c0-d309-4687-b265-ba775b24044d" },
-  { id: "a4539dc2-dcb0-4b57-9a78-c32cb1f9eda1", title: "Hungary braced for power cuts amid extreme drought", date: "2026-08-02", time: "15:18", url: "https://www.ft.com/content/a4539dc2-dcb0-4b57-9a78-c32cb1f9eda1" },
-  { id: "9dea3dc5-2045-430b-81fb-02b9c3126e90", title: "Rupert Lowe offers to find ‘common way forward’ with Reform UK", date: "2026-08-02", time: "13:24", url: "https://www.ft.com/content/9dea3dc5-2045-430b-81fb-02b9c3126e90" },
 ];
