@@ -32,6 +32,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-pointsofreturn-boj-20260803",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "If anyone needs an intervention, it's the BOJ",
+    date: "2026-08-03",
+    time: "05:01",
+    summary: "Japan and the US intervened to strengthen the yen, real Treasury yields hit a post-2008 high after the Fed meeting, and oil fell once Trump delayed further Iran strikes for peace talks.",
+    url: "https://bloom.bg/3TpVn6X",
+  },
+  {
     id: "nl-bbg-thebrink-crudedispute-20260801",
     publication: "Bloomberg",
     author: "Constantine Courcoulas",
