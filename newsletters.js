@@ -32,6 +32,26 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-cf-marketupdate-20260803",
+    publication: "Chatham Financial",
+    title: "Growth cools, but inflation keeps markets on edge",
+    date: "2026-08-03",
+    time: "19:01",
+    summary: "Markets ended higher last week, but inflation remained the dominant theme; investors watch ISM surveys, the July jobs report and energy markets this week.",
+    url: "https://go.chathamfinancial.com/e3t/Ctc/ZZ+113/d5Z2Pb04/VW1jRb3xtt1jW9dk7gY3_PVCWW7xsyK95SgxxpN2x86xg5nR3bW50kH_H6lZ3l7W5-F5Ph129Kw3VYCnZg65xCFQW3fD2g313Js88W27g_Cs8tZx0wN62kbLM5LSjVW95wMFH2X1ybwW7dMqnd12KRWbW8n1ZMD5nNVMgW2QL7jS93511HW2RPBxs8gr1C1W1ssWdy6Z_bBXW1hz-Z34jxbjTW4808kH7_TpfMW11bBxp6zpXjwW1YC68H6Kp46lW5n69XK6nBZnQN2yJr46_p8rmN5VMgCBzC1n2VgLJbf2yRPJPW1Q0dLs3yB_NbVzl7_m2MlYHjW3tLfrR6P2vhWW1Hb0Mx2K7spFW4b6CyM1l4k1tW2rh5lG7H8HmhW2dgkpD2BBfdHW8t9b-Y5JzHXLW25NJzW8MDwXsW69yt6w4xNtvVN39ygKkcWT6qW1hKL3y6157gKW19XYcV5Hh082f3ZX63z04",
+  },
+  {
+    id: "nl-bbg-moneystuff-hedgehog-20260803",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: Hedgehog Hedge Fund",
+    date: "2026-08-03",
+    time: "18:14",
+    summary: "Hedging, margin, agents, wallets, hacks.",
+    url: "https://bloom.bg/4h7QMA3",
+  },
+  {
     id: "nl-bbg-millennium-20260803",
     publication: "Bloomberg",
     author: "Nishant Kumar",
@@ -419,26 +439,5 @@ export const NEWSLETTERS = [
     time: "21:01",
     summary: "US shares tumbled and long yields hit multi-decade peaks after the Fed held rates, as the South Korean stock rout deepened on SK Hynix earnings.",
     url: "https://www.reuters.com/commentary/reuters-open-interest/could-an-ai-market-crash-rival-2000-or-2008-unlikely-2026-07-29/",
-  },
-  {
-    id: "nl-bbg-moneystuff-spacexcrash-20260729",
-    publication: "Bloomberg",
-    author: "Matt Levine",
-    series: "Money Stuff",
-    title: "Money Stuff: SpaceX Crash Insurance",
-    date: "2026-07-29",
-    time: "18:57",
-    summary: "Structured notes, sports, ETFs, slop.",
-    url: "https://bloom.bg/4h4BQCM",
-  },
-  {
-    id: "nl-bbg-authoralert-nkumar-20260729",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    title: "Millennium’s New Capital Raise Targets a Record $20 Billion",
-    date: "2026-07-29",
-    time: "16:40",
-    summary: "Millennium Management is in talks with investors to raise an unprecedented $20 billion to reinforce its stronghold in the multistrategy hedge fund industry.",
-    url: "https://www.bloomberg.com/news/articles/2026-07-29/millennium-s-new-capital-raise-targets-a-record-20-billion",
   },
 ];

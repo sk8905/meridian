@@ -20,9 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "e279135e-cd6e-46d4-b80b-2e6b0c0901a9", title: "How big was the American JPY intervention?", date: "2026-08-03", time: "18:14", url: "https://www.ft.com/content/e279135e-cd6e-46d4-b80b-2e6b0c0901a9" },
   { id: "c300b4dd-984a-4845-86a1-d1332dafe8bc", title: "Texas law firm agrees $15mn settlement over judicial scandal", date: "2026-08-03", time: "17:34", url: "https://www.ft.com/content/c300b4dd-984a-4845-86a1-d1332dafe8bc" },
   { id: "6282b88a-6f49-40cc-b1d8-5e147e7e37f1", title: "AstraZeneca and Bristol-Myers: when Big Pharma isn't big enough", date: "2026-08-03", time: "17:33", url: "https://www.ft.com/content/6282b88a-6f49-40cc-b1d8-5e147e7e37f1" },
   { id: "6d40c74b-ac40-42f1-9387-957925f48daa", title: "AstraZeneca investors raise concerns over mega-merger talks", date: "2026-08-03", time: "17:24", url: "https://www.ft.com/content/6d40c74b-ac40-42f1-9387-957925f48daa" },
+  { id: "016ad17d-0cab-48f1-8d7f-d3eb1634be63", title: "Six teenagers, a brutal murder and the story they couldn't take back", date: "2026-08-03", time: "17:11", url: "https://www.ft.com/content/016ad17d-0cab-48f1-8d7f-d3eb1634be63" },
   { id: "03c413f2-6ad5-45d1-b5ac-fdb6ed8b4cff", title: "UBS fined $125mn over lax money laundering controls", date: "2026-08-03", time: "16:53", url: "https://www.ft.com/content/03c413f2-6ad5-45d1-b5ac-fdb6ed8b4cff" },
   { id: "06f8f1a1-50a1-43d0-a236-c2d65ff38e87", title: "Iranian tanker tolls: totally legit after all?", date: "2026-08-03", time: "15:30", url: "https://www.ft.com/content/06f8f1a1-50a1-43d0-a236-c2d65ff38e87" },
   { id: "2cc9c96a-0e5b-4c33-a95a-3d11072a145c", title: "Apple launches legal challenge to UK attempt to access encrypted user data", date: "2026-08-03", time: "15:11", url: "https://www.ft.com/content/2cc9c96a-0e5b-4c33-a95a-3d11072a145c" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "c9bd508c-2915-4b34-a5a5-553bff9548a5", title: "Trump says Iran talks to resume after US called off major attack", date: "2026-08-03", time: "02:24", url: "https://www.ft.com/content/c9bd508c-2915-4b34-a5a5-553bff9548a5" },
   { id: "5de204a4-4db6-458c-aa9a-324e6bd5e766", title: "Japan vows to intervene again with US over yen if needed", date: "2026-08-03", time: "01:48", url: "https://www.ft.com/content/5de204a4-4db6-458c-aa9a-324e6bd5e766" },
   { id: "e9027253-e13c-460a-a4b1-f9047e5a6ca7", title: "AstraZeneca holds talks with Bristol Myers Squibb over $400bn tie-up", date: "2026-08-03", time: "00:59", url: "https://www.ft.com/content/e9027253-e13c-460a-a4b1-f9047e5a6ca7" },
-  { id: "5391353e-3e03-4170-a289-497019a5d615", title: "UK graduate job openings fall to lowest level since pandemic", date: "2026-08-03", time: "00:01", url: "https://www.ft.com/content/5391353e-3e03-4170-a289-497019a5d615" },
-  { id: "ddb7c0d4-c156-48a0-b30f-d03f605a1a9c", title: "Uefa threatens legal action over Infantino’s failed Fifa commercialisation", date: "2026-08-02", time: "23:01", url: "https://www.ft.com/content/ddb7c0d4-c156-48a0-b30f-d03f605a1a9c" },
 ];
