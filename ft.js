@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "ebfc7f0f-d176-4da7-9136-b8703388decc", title: "Football has given Europe a rare geopolitical victory", date: "2026-08-03", time: "12:54", url: "https://www.ft.com/content/ebfc7f0f-d176-4da7-9136-b8703388decc" },
+  { id: "c519970a-dd04-4f4a-aa1d-3db1a3c9e69a", title: "Plurilateral deals are last best hope for world trading system", date: "2026-08-03", time: "12:31", url: "https://www.ft.com/content/c519970a-dd04-4f4a-aa1d-3db1a3c9e69a" },
   { id: "6a8c1d6c-63c7-4d3d-8882-eb5c67b2f9e1", title: "SpaceX’s staggered lock-up release prolongs the pain", date: "2026-08-03", time: "12:00", url: "https://www.ft.com/content/6a8c1d6c-63c7-4d3d-8882-eb5c67b2f9e1" },
   { id: "08b4af67-27d5-4d38-91cd-3ae81250cf59", title: "Myanmar releases photos of Aung San Suu Kyi amid health concerns", date: "2026-08-03", time: "11:25", url: "https://www.ft.com/content/08b4af67-27d5-4d38-91cd-3ae81250cf59" },
   { id: "f2180678-aebb-44c5-b7ad-483db9b5ee28", title: "Reform’s Richard Tice probed over alleged failure to declare an interest", date: "2026-08-03", time: "11:14", url: "https://www.ft.com/content/f2180678-aebb-44c5-b7ad-483db9b5ee28" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "06ec1b03-d4af-40cf-b12a-4ba5a410f6d2", title: "‘Crush this lady’: how eBay harassment campaign led to $56mn payout", date: "2026-08-02", time: "13:00", url: "https://www.ft.com/content/06ec1b03-d4af-40cf-b12a-4ba5a410f6d2" },
   { id: "18ccb15a-f8ed-41ba-a948-7c62cd757274", title: "Walter insurers paid millions of dollars to credit rating provider Egan-Jones", date: "2026-08-02", time: "13:00", url: "https://www.ft.com/content/18ccb15a-f8ed-41ba-a948-7c62cd757274" },
   { id: "b3042c38-c38c-48f9-aa8c-99901ed440a9", title: "Will July’s US employment data prompt a rethink on rates?", date: "2026-08-02", time: "12:00", url: "https://www.ft.com/content/b3042c38-c38c-48f9-aa8c-99901ed440a9" },
-  { id: "9f81d98b-ac0f-4650-8d3b-6b596c50bae2", title: "What percentage of UK households are net contributors?", date: "2026-08-02", time: "12:00", url: "https://www.ft.com/content/9f81d98b-ac0f-4650-8d3b-6b596c50bae2" },
 ];
