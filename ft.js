@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "0eec21be-80c4-4fca-991a-32fbd58cc653", title: "Can Democrats win over the working class?", date: "2026-08-03", time: "14:00", url: "https://www.ft.com/content/0eec21be-80c4-4fca-991a-32fbd58cc653" },
+  { id: "547bc3c3-6778-42d3-9bed-fcc3d0c28068", title: "Why Burnham is wrong about education and opportunity", date: "2026-08-03", time: "14:00", url: "https://www.ft.com/content/547bc3c3-6778-42d3-9bed-fcc3d0c28068" },
+  { id: "c268f3ed-664c-4fc9-82f9-2b2af8118106", title: "Chess: Geneva to host 2026 world title match with holder Gukesh the underdog against Sindarov", date: "2026-08-03", time: "13:23", url: "https://www.ft.com/content/c268f3ed-664c-4fc9-82f9-2b2af8118106" },
   { id: "ebfc7f0f-d176-4da7-9136-b8703388decc", title: "Football has given Europe a rare geopolitical victory", date: "2026-08-03", time: "12:54", url: "https://www.ft.com/content/ebfc7f0f-d176-4da7-9136-b8703388decc" },
   { id: "c519970a-dd04-4f4a-aa1d-3db1a3c9e69a", title: "Plurilateral deals are last best hope for world trading system", date: "2026-08-03", time: "12:31", url: "https://www.ft.com/content/c519970a-dd04-4f4a-aa1d-3db1a3c9e69a" },
   { id: "6a8c1d6c-63c7-4d3d-8882-eb5c67b2f9e1", title: "SpaceX’s staggered lock-up release prolongs the pain", date: "2026-08-03", time: "12:00", url: "https://www.ft.com/content/6a8c1d6c-63c7-4d3d-8882-eb5c67b2f9e1" },
@@ -58,7 +61,4 @@ export const FT_ITEMS = [
   { id: "f438f3c0-d309-4687-b265-ba775b24044d", title: "How to save the British high street", date: "2026-08-02", time: "16:00", url: "https://www.ft.com/content/f438f3c0-d309-4687-b265-ba775b24044d" },
   { id: "a4539dc2-dcb0-4b57-9a78-c32cb1f9eda1", title: "Hungary braced for power cuts amid extreme drought", date: "2026-08-02", time: "15:18", url: "https://www.ft.com/content/a4539dc2-dcb0-4b57-9a78-c32cb1f9eda1" },
   { id: "9dea3dc5-2045-430b-81fb-02b9c3126e90", title: "Rupert Lowe offers to find ‘common way forward’ with Reform UK", date: "2026-08-02", time: "13:24", url: "https://www.ft.com/content/9dea3dc5-2045-430b-81fb-02b9c3126e90" },
-  { id: "06ec1b03-d4af-40cf-b12a-4ba5a410f6d2", title: "‘Crush this lady’: how eBay harassment campaign led to $56mn payout", date: "2026-08-02", time: "13:00", url: "https://www.ft.com/content/06ec1b03-d4af-40cf-b12a-4ba5a410f6d2" },
-  { id: "18ccb15a-f8ed-41ba-a948-7c62cd757274", title: "Walter insurers paid millions of dollars to credit rating provider Egan-Jones", date: "2026-08-02", time: "13:00", url: "https://www.ft.com/content/18ccb15a-f8ed-41ba-a948-7c62cd757274" },
-  { id: "b3042c38-c38c-48f9-aa8c-99901ed440a9", title: "Will July’s US employment data prompt a rethink on rates?", date: "2026-08-02", time: "12:00", url: "https://www.ft.com/content/b3042c38-c38c-48f9-aa8c-99901ed440a9" },
 ];
