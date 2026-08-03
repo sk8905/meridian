@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "518d4dea-01b4-4030-85c1-916e91661580", title: "Todd Blanche confirms scrapping of $1.8bn ‘slush fund’ ahead of confirmation vote", date: "2026-08-03", time: "08:47", url: "https://www.ft.com/content/518d4dea-01b4-4030-85c1-916e91661580" },
+  { id: "c816eecb-d6fd-4817-aa76-739a7ac198d5", title: "FTAV’s further reading", date: "2026-08-03", time: "08:23", url: "https://www.ft.com/content/c816eecb-d6fd-4817-aa76-739a7ac198d5" },
   { id: "f6d563ee-9238-4f82-a848-79f2478326bd", title: "Team America: Yen police", date: "2026-08-03", time: "06:30", url: "https://www.ft.com/content/f6d563ee-9238-4f82-a848-79f2478326bd" },
   { id: "942fa156-1316-47d0-ade1-7fe6efa11840", title: "Beefing with the Big Mac Index", date: "2026-08-03", time: "06:00", url: "https://www.ft.com/content/942fa156-1316-47d0-ade1-7fe6efa11840" },
   { id: "8cf8bbb2-e286-4824-8ec3-6404d2756bc3", title: "FirstFT: AstraZeneca and Bristol Myers Squibb discuss $400bn tie-up", date: "2026-08-03", time: "05:35", url: "https://www.ft.com/content/8cf8bbb2-e286-4824-8ec3-6404d2756bc3" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "a29819ef-ffb9-4d2a-9925-e3d6e6e6e797", title: "Iran sets the pace in war with Trump", date: "2026-08-02", time: "06:37", url: "https://www.ft.com/content/a29819ef-ffb9-4d2a-9925-e3d6e6e6e797" },
   { id: "fbc26742-c2a8-4509-ad13-8ad61139f41f", title: "Who needs junior markets like Aim anyway?", date: "2026-08-02", time: "05:00", url: "https://www.ft.com/content/fbc26742-c2a8-4509-ad13-8ad61139f41f" },
   { id: "43ecc4d5-202b-42f5-beb9-9aecca919f6d", title: "Air France-KLM targets easyJet passengers during takeover turmoil", date: "2026-08-02", time: "05:00", url: "https://www.ft.com/content/43ecc4d5-202b-42f5-beb9-9aecca919f6d" },
-  { id: "6a987490-f3f8-45f7-8b1c-fd09d9fa874d", title: "Italy’s Giorgia Meloni bets big on nuclear power revival", date: "2026-08-02", time: "05:00", url: "https://www.ft.com/content/6a987490-f3f8-45f7-8b1c-fd09d9fa874d" },
-  { id: "b15dbbf8-d479-4be6-ba3c-c7e6831fbcca", title: "MPs call for routine lead testing for children near abandoned mines", date: "2026-08-02", time: "05:00", url: "https://www.ft.com/content/b15dbbf8-d479-4be6-ba3c-c7e6831fbcca" },
 ];

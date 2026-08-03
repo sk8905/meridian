@@ -32,6 +32,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-nonbillable-fakework-20260803",
+    publication: "Non-Billable",
+    title: "The ex-CC lawyer taking aim at 'fake work'",
+    date: "2026-08-03",
+    time: "09:05",
+    summary: "Ex-Clifford Chance associate Jamie Tso on 'fake work' and legal quants at his startup LegalQuants, as CC leads on Kuwait's $16bn oil megadeal and a viral TikTok video derails a Wachtell partner's Gibson Dunn move.",
+    url: "https://non-billable.beehiiv.com/p/lawfront-s-awkward-lawsuit-2",
+  },
+  {
     id: "nl-bizpost-cairndcc-20260803",
     publication: "Business Post",
     series: "Commercial Real Estate",
@@ -432,14 +441,5 @@ export const NEWSLETTERS = [
     time: "10:50",
     summary: "Macfarlanes posts a 4.9% revenue increase to close in on £400m as profit per equity partner stays flat in a 'transitional year'.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMQx4B1ELRIodQsNan/wv",
-  },
-  {
-    id: "nl-nonbillable-ccnype-20260729",
-    publication: "Non-Billable",
-    title: "How CC broke into New York's private equity elite",
-    date: "2026-07-29",
-    time: "09:04",
-    summary: "Clifford Chance becomes the first non-US firm to break into New York private equity buyout rankings, and Mayer Brown doubles down on London private capital.",
-    url: "https://non-billable.beehiiv.com/p/b-c787",
   },
 ];
