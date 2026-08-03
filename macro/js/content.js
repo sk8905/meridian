@@ -12,8 +12,8 @@ export const UPDATED = "2 August 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-08-02",
-  lastCheckedTime: "21:20 BST",
+  lastChecked: "2026-08-03",
+  lastCheckedTime: "05:33 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -925,7 +925,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "GBP/USD held little changed near $1.3458 as the dollar clawed back losses from the Bank of Japan's yen-intervention-driven rout earlier in the session — sterling caught between the Fed's hawkish hold and the BoE's own narrower 6-3 vote two days earlier.", src: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-holds-firm-as-usd-rebounds-from-intervention-rout-202607311759", srcName: "FXStreet", date: "2026-07-31" };
+export const FX_KEYMOMENT = { text: "Japan confirmed it intervened jointly with the US to shore up a slumping yen — the first coordinated US-Japan intervention since 2011 — with Tokyo estimated to have sold as much as $58.97bn to buy yen; authorities warned they stand ready for further coordinated action, and the yen strengthened more than 1% against both the dollar and euro.", src: "https://www.japantimes.co.jp/business/2026/08/03/markets/japan-us-joint-yen-intervention/", srcName: "The Japan Times", date: "2026-08-03" };
 
 export const EARNINGS = {
   weeks: [
