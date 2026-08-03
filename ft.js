@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "942fa156-1316-47d0-ade1-7fe6efa11840", title: "Beefing with the Big Mac Index", date: "2026-08-03", time: "06:00", url: "https://www.ft.com/content/942fa156-1316-47d0-ade1-7fe6efa11840" },
+  { id: "8cf8bbb2-e286-4824-8ec3-6404d2756bc3", title: "FirstFT: AstraZeneca and Bristol Myers Squibb discuss $400bn tie-up", date: "2026-08-03", time: "05:35", url: "https://www.ft.com/content/8cf8bbb2-e286-4824-8ec3-6404d2756bc3" },
+  { id: "e752b560-064b-4f9b-8284-99fcaae9202f", title: "Spain’s migrant crisis reopens deep EU rifts", date: "2026-08-03", time: "05:00", url: "https://www.ft.com/content/e752b560-064b-4f9b-8284-99fcaae9202f" },
   { id: "ef7f88ca-3dc0-49c7-b995-05b1de69cc74", title: "Europe’s fire costs this year mount to beyond €3bn, FT analysis shows", date: "2026-08-03", time: "05:00", url: "https://www.ft.com/content/ef7f88ca-3dc0-49c7-b995-05b1de69cc74" },
   { id: "34ea6eac-6fad-4edd-b78a-6ff20bc7a63d", title: "French banks warm to election financing in potential boost for Marine Le Pen", date: "2026-08-03", time: "05:00", url: "https://www.ft.com/content/34ea6eac-6fad-4edd-b78a-6ff20bc7a63d" },
   { id: "90550cee-2dd4-437f-8bda-b1ff41317d23", title: "A digital iron curtain is threatening the global economy", date: "2026-08-03", time: "05:00", url: "https://www.ft.com/content/90550cee-2dd4-437f-8bda-b1ff41317d23" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "6a987490-f3f8-45f7-8b1c-fd09d9fa874d", title: "Italy’s Giorgia Meloni bets big on nuclear power revival", date: "2026-08-02", time: "05:00", url: "https://www.ft.com/content/6a987490-f3f8-45f7-8b1c-fd09d9fa874d" },
   { id: "b15dbbf8-d479-4be6-ba3c-c7e6831fbcca", title: "MPs call for routine lead testing for children near abandoned mines", date: "2026-08-02", time: "05:00", url: "https://www.ft.com/content/b15dbbf8-d479-4be6-ba3c-c7e6831fbcca" },
   { id: "edf72126-a478-4d2d-9825-761a9562fd47", title: "Freemasons seek a new generation of members", date: "2026-08-02", time: "05:00", url: "https://www.ft.com/content/edf72126-a478-4d2d-9825-761a9562fd47" },
-  { id: "cf204cc3-fe8e-4950-a84d-6884f54b7248", title: "Foreign bidders woo UK companies with ‘bear hug’ takeover offers", date: "2026-08-02", time: "05:00", url: "https://www.ft.com/content/cf204cc3-fe8e-4950-a84d-6884f54b7248" },
-  { id: "4532122d-90f2-4433-9df6-ca99d8a141d2", title: "Apple struggles to keep pace with AI ‘bug’ hunters", date: "2026-08-02", time: "05:00", url: "https://www.ft.com/content/4532122d-90f2-4433-9df6-ca99d8a141d2" },
-  { id: "e345d51f-11f7-4d4d-8f09-86dd3a225597", title: "German carmakers flood jobs market with managers after wielding axe", date: "2026-08-02", time: "05:00", url: "https://www.ft.com/content/e345d51f-11f7-4d4d-8f09-86dd3a225597" },
 ];
