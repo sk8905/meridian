@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d0fb3d34-cb05-44e5-8fea-ac3753aecb7a", title: "Reform UK promises large-scale ‘military operation’ to block small boat crossings", date: "2026-08-03", time: "10:00", url: "https://www.ft.com/content/d0fb3d34-cb05-44e5-8fea-ac3753aecb7a" },
+  { id: "d65cbd70-dc0b-4026-b80f-feeb8c152b0c", title: "Don’t let tax rows eclipse the fundamentals of social care", date: "2026-08-03", time: "09:30", url: "https://www.ft.com/content/d65cbd70-dc0b-4026-b80f-feeb8c152b0c" },
   { id: "518d4dea-01b4-4030-85c1-916e91661580", title: "Todd Blanche confirms scrapping of $1.8bn ‘slush fund’ ahead of confirmation vote", date: "2026-08-03", time: "08:47", url: "https://www.ft.com/content/518d4dea-01b4-4030-85c1-916e91661580" },
   { id: "c816eecb-d6fd-4817-aa76-739a7ac198d5", title: "FTAV’s further reading", date: "2026-08-03", time: "08:23", url: "https://www.ft.com/content/c816eecb-d6fd-4817-aa76-739a7ac198d5" },
   { id: "f6d563ee-9238-4f82-a848-79f2478326bd", title: "Team America: Yen police", date: "2026-08-03", time: "06:30", url: "https://www.ft.com/content/f6d563ee-9238-4f82-a848-79f2478326bd" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "889c551a-88ab-451a-87f5-cdec65467a64", title: "‘Voters have had it’: influence of pro-Israel lobby group sparks backlash in the US", date: "2026-08-02", time: "11:00", url: "https://www.ft.com/content/889c551a-88ab-451a-87f5-cdec65467a64" },
   { id: "3f651fa0-3362-4a16-9ac1-992291c5f68a", title: "Morgan Stanley’s IPO after-party: a wealth management bonanza", date: "2026-08-02", time: "11:00", url: "https://www.ft.com/content/3f651fa0-3362-4a16-9ac1-992291c5f68a" },
   { id: "a29819ef-ffb9-4d2a-9925-e3d6e6e6e797", title: "Iran sets the pace in war with Trump", date: "2026-08-02", time: "06:37", url: "https://www.ft.com/content/a29819ef-ffb9-4d2a-9925-e3d6e6e6e797" },
-  { id: "fbc26742-c2a8-4509-ad13-8ad61139f41f", title: "Who needs junior markets like Aim anyway?", date: "2026-08-02", time: "05:00", url: "https://www.ft.com/content/fbc26742-c2a8-4509-ad13-8ad61139f41f" },
-  { id: "43ecc4d5-202b-42f5-beb9-9aecca919f6d", title: "Air France-KLM targets easyJet passengers during takeover turmoil", date: "2026-08-02", time: "05:00", url: "https://www.ft.com/content/43ecc4d5-202b-42f5-beb9-9aecca919f6d" },
 ];

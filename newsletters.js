@@ -32,6 +32,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-lathamhg-20260803",
+    publication: "Legal Business",
+    title: "Latham hires Hg general counsel as London PE partner",
+    date: "2026-08-03",
+    time: "08:33",
+    summary: "Hire from longstanding client Hg marks latest in-house to private practice move.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQzapNmbahkbfDSic/wv",
+  },
+  {
     id: "nl-nonbillable-fakework-20260803",
     publication: "Non-Billable",
     title: "The ex-CC lawyer taking aim at 'fake work'",
@@ -432,14 +441,5 @@ export const NEWSLETTERS = [
     time: "11:16",
     summary: "Welcome to the new tight-lipped era under Warsh.",
     url: "https://www.bloomberg.com/news/newsletters/2026-07-29/markets-brace-for-one-of-the-most-uncertain-fed-days-in-years",
-  },
-  {
-    id: "nl-lb-macfarlanespep-20260729",
-    publication: "Legal Business",
-    title: "Macfarlanes closes in on £400m as PEP stays flat",
-    date: "2026-07-29",
-    time: "10:50",
-    summary: "Macfarlanes posts a 4.9% revenue increase to close in on £400m as profit per equity partner stays flat in a 'transitional year'.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQx4B1ELRIodQsNan/wv",
   },
 ];
