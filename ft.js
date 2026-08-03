@@ -60,5 +60,4 @@ export const FT_ITEMS = [
   { id: "43636916-1879-4315-9ed3-9437d7526179", title: "Labour overtakes Reform UK in polls for first time in more than a year", date: "2026-08-02", time: "22:20", url: "https://www.ft.com/content/43636916-1879-4315-9ed3-9437d7526179" },
   { id: "4ce36d22-571d-4532-8a8f-078e8fba34ff", title: "Monte dei Paschi explores Banco BPM takeover after ‘merger of equals’ talks collapse", date: "2026-08-02", time: "18:32", url: "https://www.ft.com/content/4ce36d22-571d-4532-8a8f-078e8fba34ff" },
   { id: "21896669-cce4-43cb-8e7b-e40520e9ac91", title: "Earnings season reaches a peak", date: "2026-08-02", time: "18:15", url: "https://www.ft.com/content/21896669-cce4-43cb-8e7b-e40520e9ac91" },
-  { id: "162287ce-0267-47e9-aeee-16f93d3fc309", title: "A red card for the boss of world football", date: "2026-08-02", time: "17:17", url: "https://www.ft.com/content/162287ce-0267-47e9-aeee-16f93d3fc309" },
 ];

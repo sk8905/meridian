@@ -13,7 +13,7 @@ export const UPDATED = "2 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-03",
-  lastCheckedTime: "12:10 BST",
+  lastCheckedTime: "17:10 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -702,18 +702,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-08-03",
   us: [
-    { title: "Iran denies Trump claim that new talks will start Monday after he called off attacks", source: "NBC News", date: "2026-08-03", time: "11:30", url: "https://www.nbcnews.com/world/iran/trump-iran-talks-attacks-canceled-hormuz-nuclear-rcna590535" },
+    { title: "Wall Street shrugs off global slump as Trump promises (yet another) imminent deal with Iran", source: "Fortune", date: "2026-08-03", time: "17:10", url: "https://fortune.com/2026/08/03/wall-street-stocks-trump-deal-with-iran/" },
+    { title: "AstraZeneca slides after reports of Bristol Myers merger talks leave analysts 'perplexed'", source: "CNBC", date: "2026-08-03", time: "17:10", url: "https://www.cnbc.com/2026/08/03/astrazeneca-bristol-myers-squibb-merger-talks.html" },
+    { title: "Stock Market Today (Aug. 3, 2026): Nasdaq climbs as oil slides on renewed Iran talks", source: "TheStreet", date: "2026-08-03", time: "17:10", url: "https://www.thestreet.com/stock-market-today/stock-market-today-aug-3-2026-dow-futures-climb-as-oil-slides-on-renewed-iran-talks" },
     { title: "Gold firms as oil prices slump after Trump holds off on Iran attack", source: "CNBC", date: "2026-08-03", time: "10:15", url: "https://www.cnbc.com/2026/08/03/gold-firms-as-oil-prices-slump-after-trump-holds-off-on-iran-attack.html" },
     { title: "US dollar weakens sharply against the Japanese yen after market interventions", source: "NPR (Houston Public Media)", date: "2026-08-03", time: "09:40", url: "https://www.houstonpublicmedia.org/npr/2026/08/03/g-s1-136866/u-s-dollar-weakens-sharply-against-the-japanese-yen-after-market-interventions/" },
-    { title: "Stock market today: Dow, S&P 500, Nasdaq futures rise as Trump calls off Iran attack, oil and bond yields ease", source: "Yahoo Finance", date: "2026-08-03", time: "09:25", url: "https://finance.yahoo.com/markets/live/stock-market-today-monday-august-3-dow-sp-500-nasdaq-092516872.html" },
-    { title: "Weekly Market Navigator: US NFP, SpaceX earnings dominate week ahead", source: "IG International", date: "2026-08-03", time: "06:00", url: "https://www.ig.com/en/news-and-trade-ideas/weekly-market-navigator-3-aug-2026-260803" },
   ],
   uk: [
+    { title: "FTSE 100 Live: UK stocks lag, gilts rise as US-Iran optimism weighs on oil", source: "Bloomberg", date: "2026-08-03", time: "17:10", url: "https://www.bloomberg.com/news/live-blog/2026-08-03/ftse-100-live-astrazeneca-pound-bonds-trump-iran-hormuz-oil-prices-pmi-data-what-s-moving-uk-markets-right-now-markets-today-msctgg9g" },
+    { title: "Iran war could 'halt growth' across UK economy", source: "CityAM", date: "2026-08-03", time: "17:10", url: "https://www.cityam.com/iran-war-could-halt-growth-across-uk-economy/" },
+    { title: "AstraZeneca, Bristol Myers Squibb held tie-up talks, FT says", source: "Bloomberg", date: "2026-08-02", time: "09:21", url: "https://www.bloomberg.com/news/articles/2026-08-02/astrazeneca-bristol-myers-squibb-held-talks-for-tie-up-ft-says" },
     { title: "UK bond yields fall to one-week low as oil prices retreat", source: "Reuters (via LSE.co.uk)", date: "2026-08-03", time: "10:05", url: "https://www.lse.co.uk/news/uk-bond-yields-fall-to-one-week-low-as-oil-prices-retreat-lq55khkk4vjd8di.html" },
     { title: "FTSE 100 seen up on US-Iran diplomacy hopes", source: "MarketScreener (Alliance News)", date: "2026-08-03", time: "07:15", url: "https://www.marketscreener.com/news/ftse-100-seen-up-on-us-iran-diplomacy-hopes-ce7f50d8d18af521" },
-    { title: "Iran war live: Trump says talks set to begin, Tehran urges US to honour MoU", source: "Al Jazeera", date: "2026-08-03", time: "05:10", url: "https://www.aljazeera.com/news/liveblog/2026/8/3/iran-war-live-trump-says-talks-set-to-begin-tehran-urges-us-to-honour-mou" },
-    { title: "Iran denies Trump claim that new talks will start Monday after he called off attacks", source: "NBC News", date: "2026-08-03", time: "11:30", url: "https://www.nbcnews.com/world/iran/trump-iran-talks-attacks-canceled-hormuz-nuclear-rcna590535" },
-    { title: "FTSE 100 Live: index opened steady at 10,861.34 amid relief in US-Iran conflict as Brent crude declined 4.66%", source: "Analytics Insight", date: "2026-08-03", time: "08:45", url: "https://www.analyticsinsight.net/stocks/ftse-100-live-index-opened-steady-at-1086134-amid-relief-in-us-iran-conflict-as-brent-crude-declined-466" },
   ],
 };
 
@@ -727,6 +727,10 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-03",
   items: [
+    {"title":"Wall Street shrugs off global slump as Trump promises (yet another) imminent deal with Iran","source":"Fortune","date":"2026-08-03","time":"17:10","url":"https://fortune.com/2026/08/03/wall-street-stocks-trump-deal-with-iran/","blurb":"Stocks climbed and oil fell as investors looked past a five-month pattern of unfulfilled Trump deal claims, with Capital.com's Daniela Hathorn noting global equities \"kicked off the week on the front foot\" even though Iranian state media gave no sign Tehran had actually asked for the strikes to be called off."},
+    {"title":"AstraZeneca slides after reports of Bristol Myers merger talks leave analysts 'perplexed'","source":"CNBC","date":"2026-08-03","time":"17:10","url":"https://www.cnbc.com/2026/08/03/astrazeneca-bristol-myers-squibb-merger-talks.html","blurb":"AstraZeneca shares fell despite FT reports of tie-up talks with Bristol Myers Squibb on a deal that could value the combined group near $400bn, with analysts questioning the strategic logic and regulatory odds of a mega-merger between two large-cap pharma names."},
+    {"title":"FTSE 100 Live: UK stocks lag, gilts rise as US-Iran optimism weighs on oil","source":"Bloomberg","date":"2026-08-03","time":"17:10","url":"https://www.bloomberg.com/news/live-blog/2026-08-03/ftse-100-live-astrazeneca-pound-bonds-trump-iran-hormuz-oil-prices-pmi-data-what-s-moving-uk-markets-right-now-markets-today-msctgg9g","blurb":"UK gilts rallied and the 10-year yield fell to 4.99% as retreating oil prices eased inflation worries, even as the FTSE 100 lagged global peers on AstraZeneca's slide following the Bristol Myers Squibb tie-up reports."},
+    {"title":"Iran war could 'halt growth' across UK economy","source":"CityAM","date":"2026-08-03","time":"17:10","url":"https://www.cityam.com/iran-war-could-halt-growth-across-uk-economy/","blurb":"City economists warned a prolonged Iran conflict risks choking off the UK's fragile recovery via higher energy costs and shipping disruption, even as Monday's diplomatic overtures offered a tentative reprieve for growth-sensitive sectors."},
     {"title":"Iran denies Trump claim that new talks will start Monday after he called off attacks","source":"NBC News","date":"2026-08-03","time":"11:30","url":"https://www.nbcnews.com/world/iran/trump-iran-talks-attacks-canceled-hormuz-nuclear-rcna590535","blurb":"Foreign ministry spokesperson Esmaeil Baghaei said Iran \"currently do[es] not have negotiations with America\" and has no plans to host or send delegations in the coming days, directly contradicting Trump's claim that talks would resume Monday afternoon; Baghaei said Tehran's only active discussions are with Oman, on a temporary safe route through the Strait of Hormuz."},
     {"title":"UK bond yields fall to one-week low as oil prices retreat","source":"Reuters (via LSE.co.uk)","date":"2026-08-03","time":"10:05","url":"https://www.lse.co.uk/news/uk-bond-yields-fall-to-one-week-low-as-oil-prices-retreat-lq55khkk4vjd8di.html","blurb":"Gilt yields eased as oil pulled back sharply from last week's highs above $100/bbl following the US pause on Iran strikes; no economist in a Reuters poll expects the BoE to move off 3.75% at the next meeting, though markets still price roughly even odds of a hike by September."},
     {"title":"Gold firms as oil prices slump after Trump holds off on Iran attack","source":"CNBC","date":"2026-08-03","time":"10:15","url":"https://www.cnbc.com/2026/08/03/gold-firms-as-oil-prices-slump-after-trump-holds-off-on-iran-attack.html","blurb":"UBS's Giovanni Staunovo said the lower oil price is modestly reducing US rate-hike expectations and supporting bullion; the dollar also came under pressure, hitting its lowest since mid-June after the US-Japan yen intervention, while the 10-year Treasury yield eased."},
@@ -763,10 +767,7 @@ export const ARTICLES = {
     {"title":"John Healey's first Budget date confirmed as Britons brace for tax rises","source":"GB News","date":"2026-07-31","time":"09:19","url":"https://www.gbnews.com/money/john-healey-s-first-budget-date-confirmed","blurb":"Chancellor Healey confirmed his maiden Budget for Wednesday 28 October, pledging it will be \"built on fiscal discipline\"; independent economists including Julian Jessop call sizeable tax rises \"pretty much guaranteed\" given the roughly £22bn fiscal hole City AM estimates from Burnham and Healey's early spending pledges."},
     {"title":"Top FTSE 100 shares to watch: HSBC, BP, Glencore, Legal & General, Diageo","source":"Invezz","date":"2026-07-31","time":"09:19","url":"https://invezz.com/au/news/2026/07/31/top-ftse-100-shares-to-watch-hsbc-bp-glencore-legal-andamp-general-diageo/","blurb":"A rundown of the coming week's big FTSE 100 reporters, with HSBC's Tuesday interim results in focus after the bank raised net-interest-income guidance twice in 2026 and peer Standard Chartered's recent cost-discipline beat raised the bar."},
     {"title":"Week Ahead: BP, HSBC, L&G, Glencore, Diageo, Persimmon","source":"interactive investor","date":"2026-07-31","time":"09:19","url":"https://www.ii.co.uk/analysis-commentary/week-ahead-bp-hsbc-lg-glencore-diageo-persimmon-ii539854","blurb":"ii's earnings-week preview flags BP and HSBC on Tuesday, with the July US jobs report and the ongoing Strait of Hormuz standoff as the backdrop investors are watching alongside the domestic reporting calendar."},
-    {"title":"U.S., Israel preparing to bombard energy-related targets in Iran, sources say","source":"CBS News","date":"2026-08-01","time":"21:17","url":"https://www.cbsnews.com/news/us-israel-iran-war-energy-related-targets-trump/","blurb":"The US and Israel are said to be planning one of the harshest bombing campaigns yet against Iranian energy infrastructure, with strikes possible throughout the weekend; officials have discussed concluding before markets open Monday given the economic fallout, though Trump has not yet given the final go-ahead."},
     {"title":"US economy slowed to 1.5% growth rate in Q2; June core inflation at 3.3%","source":"CNBC","date":"2026-07-30","time":"21:17","url":"https://www.cnbc.com/2026/07/30/us-economy-slowed-to-1point5percent-growth-rate-in-q2-june-core-inflation-at-3point3percent.html","blurb":"The Commerce Department's advance Q2 estimate showed GDP growth slowing to a 1.5% annualised pace (from 2.1% in Q1) as a widening trade deficit weighed on output, even as consumer spending accelerated to 3.2%; core PCE held at 3.3% y/y, above the Fed's 2% target."},
-    {"title":"Live updates: US plans fresh strikes on Iran as soon as this weekend, officials say","source":"CNN","date":"2026-08-01","time":"09:09","url":"https://edition.cnn.com/2026/08/01/world/live-news/iran-war-trump","blurb":"Trump previewed a renewed wave of heavy strikes at a Camp David cabinet meeting, saying 'we will be hitting them very hard' over the next four to eight weeks; US officials say fresh strikes on Iranian energy infrastructure could begin as soon as this weekend, with Israel potentially joining for the first time in weeks."},
-    {"title":"U.S. and Israel Reportedly Planning New Strikes on Iran Energy Targets","source":"Haaretz","date":"2026-08-01","time":"09:09","url":"https://www.haaretz.com/middle-east-news/iran/2026-08-01/ty-article/u-s-and-israel-reportedly-planning-new-strikes-on-iran-energy-targets/0000019f-ba19-dfac-a5df-bbd976940000","blurb":"Washington and Israel are said to be weighing a joint bombing campaign against Iranian energy infrastructure as soon as this weekend, aimed at forcing Tehran back to the table; Iran's Revolutionary Guards have called the plan 'an act of madness' and threatened to hit US energy infrastructure in the region in response."},
   ],
 };
 
@@ -777,8 +778,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-08-03", country: "UK", title: "S&P Global/CIPS Manufacturing PMI, final (July)", url: "https://www.pmi.spglobal.com/Public/Home/PressReleases" },
-  { date: "2026-08-03", country: "US", title: "ISM Manufacturing PMI (July)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
   { date: "2026-08-05", country: "UK", title: "S&P Global/CIPS Services & Composite PMI, final (July)", url: "https://www.pmi.spglobal.com/Public/Home/PressReleases" },
   { date: "2026-08-05", country: "US", title: "ISM Services PMI (July)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
   { date: "2026-08-07", country: "US", title: "Jobs report / Nonfarm payrolls (July)", url: "https://www.bls.gov/schedule/news_release/empsit.htm" },
@@ -933,6 +932,9 @@ export const FX_KEYMOMENT = { text: "Japan confirmed it intervened jointly with 
 export const EARNINGS = {
   weeks: [
     { label: "This week \u00b7 3\u20137 Aug", days: [
+      { date: "2026-08-03", rows: [
+        { t: "PLTR", n: "Palantir Technologies", tag: "AI software \u00b7 Nasdaq 100", when: "After close", estEps: "$0.34-0.35 adj", estRev: "~$1.81bn", actEps: null, actRev: null, px: null, note: "Consensus implies ~81% y/y revenue growth; has beaten EPS estimates eight straight quarters, though Q1 2026's beat (85% revenue growth) was followed by a ~7% next-day share drop \u2014 options price a ~12% swing on the print." },
+      ] },
       { date: "2026-08-04", rows: [
         { t: "HSBA", n: "HSBC Holdings", tag: "Banks/brokers \u00b7 UK", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$2.24", estRev: "$18.66bn", actEps: null, actRev: null, px: null, note: "Interim (Q2) results; management raised NII guidance twice already in 2026, setting a high bar, with peer Standard Chartered's recent cost-discipline beat raising the stakes further; watch the core capital buffer for signs the self-imposed buyback halt (tied to digesting Hang Seng Bank) can lift." },
         { t: "BP", n: "BP", tag: "Energy \u00b7 UK", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: null, estRev: null, km: { l: "Underlying RC profit", est: "~$9bn (HL forecast, +71% y/y)", act: null }, actEps: null, actRev: null, px: null, note: "Q2 trading statement; production expected to dip to 2.17-2.22m boe/d on maintenance and Middle East disruption, offset by stronger oil prices and refining margins; consensus EPS estimates range $1.87-1.99/ADS across sources." },
@@ -970,6 +972,7 @@ export const EARNINGS = {
     ] },
   ],
   srcs: [
+    { name: "TradingKey (Palantir Q2 2026 preview)", url: "https://www.tradingkey.com/analysis/stocks/us-stocks/262068882-palantir-pltr-earnings-preview-august-3-2026-options-swing-triangle-tradingkey" },
     { name: "MarketBeat (HSBC Q2 2026 preview)", url: "https://www.marketbeat.com/instant-alerts/hsbc-hsbc-expected-to-post-earnings-on-tuesday-2026-07-28/" },
     { name: "Hargreaves Lansdown \u2014 Next week on the stock market (3 Aug)", url: "https://www.hl.co.uk/shares/share-research/next-week-on-the-stock-market-03-08-2026" },
     { name: "AskTraders \u2014 FTSE 100 earnings this week (BP, HSBC, Diageo, Next)", url: "https://www.asktraders.com/analysis/ftse-100-earnings-this-week-bp-hsbc-diageo-next-results-to-watch/" },
