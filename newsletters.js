@@ -32,6 +32,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-anthropicgc-20260803",
+    publication: "Legal Business",
+    title: "'I absolutely rely on Claude' - how Anthropic's lawyers use AI to keep pace with the company's explosive growth",
+    date: "2026-08-03",
+    time: "16:11",
+    summary: "Associate GC at AI giant Anthropic Mark Pike on how his company's own tech helps him get his legal work done.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQAb5plKTyWD1Yudf/wv",
+  },
+  {
     id: "nl-bbg-economicsdaily-bessentchess-20260803",
     publication: "Bloomberg",
     author: "Chris Anstey",
@@ -430,16 +439,5 @@ export const NEWSLETTERS = [
     time: "14:50",
     summary: "Blackstone, Brookfield, and KKR line up for deal that marks Kuwait's largest ever FDI.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMQxvshWiTm3L1kqgi/wv",
-  },
-  {
-    id: "nl-bbg-goingprivate-cerberuspentagon-20260729",
-    publication: "Bloomberg",
-    author: "Sinead Cruise",
-    series: "Going Private",
-    title: "Going Private: Cerberus alum remodels Pentagon’s $1 trillion defense spending",
-    date: "2026-07-29",
-    time: "12:18",
-    summary: "From Wall Street to War Room: Stephen Feinberg ushers in new era for US national security.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-07-29/private-equity-alum-remodels-pentagon-s-spending-from-within",
   },
 ];
