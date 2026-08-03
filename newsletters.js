@@ -32,6 +32,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-millennium-20260803",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    title: "Millennium Lost 2% Last Month as AI Trade Whipsawed Hedge Funds",
+    date: "2026-08-03",
+    time: "17:41",
+    summary: "Multistrategy hedge fund giant Millennium Management lost 2.1% last month as a selloff in AI stocks took a toll on equity portfolios.",
+    url: "https://www.bloomberg.com/news/articles/2026-08-03/millennium-lost-2-last-month-as-ai-trade-whipsawed-hedge-funds",
+  },
+  {
     id: "nl-lb-anthropicgc-20260803",
     publication: "Legal Business",
     title: "'I absolutely rely on Claude' - how Anthropic's lawyers use AI to keep pace with the company's explosive growth",
@@ -430,14 +440,5 @@ export const NEWSLETTERS = [
     time: "16:40",
     summary: "Millennium Management is in talks with investors to raise an unprecedented $20 billion to reinforce its stronghold in the multistrategy hedge fund industry.",
     url: "https://www.bloomberg.com/news/articles/2026-07-29/millennium-s-new-capital-raise-targets-a-record-20-billion",
-  },
-  {
-    id: "nl-lb-kuwaitoiljv-20260729",
-    publication: "Legal Business",
-    title: "Top UK and US firms advise major asset management trio on $16bn Kuwait oil JV",
-    date: "2026-07-29",
-    time: "14:50",
-    summary: "Blackstone, Brookfield, and KKR line up for deal that marks Kuwait's largest ever FDI.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQxvshWiTm3L1kqgi/wv",
   },
 ];
