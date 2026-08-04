@@ -13,7 +13,7 @@ export const UPDATED = "2 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-04",
-  lastCheckedTime: "05:12 BST",
+  lastCheckedTime: "09:23 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -702,16 +702,16 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-08-04",
   us: [
-    { title: "Bloomberg: Asian stocks lag Wall Street's rally as Kospi volatility keeps AI-trade doubts alive", source: "Bloomberg", date: "2026-08-04", time: "05:12", url: "https://www.bloomberg.com/news/articles/2026-08-03/stock-market-today-dow-s-p-live-updates" },
     { title: "Palantir smashes Q2 estimates as US commercial revenue surges 149%, shares jump", source: "CNBC", date: "2026-08-03", time: "21:15", url: "https://www.cnbc.com/2026/08/03/palantir-pltr-earnings-q2-2026.html" },
-    { title: "Forex Today: Oil collapses on Iran talks, Yen holds gains", source: "FXStreet", date: "2026-08-03", time: "21:43", url: "https://www.fxstreet.com/news/forex-today-oil-collapses-on-iran-talks-yen-holds-gains-202608032043" },
     { title: "Manufacturing PMI® at 55.6%; July 2026 ISM® Manufacturing PMI® Report", source: "PR Newswire / ISM", date: "2026-08-03", time: "15:05", url: "https://www.prnewswire.com/news-releases/manufacturing-pmi-at-55-6-july-2026-ism-manufacturing-pmi-report-302840669.html" },
-    { title: "August jobs report looms as Fed uncertainty deepens: what to watch this week", source: "Yahoo Finance", date: "2026-08-02", time: "05:12", url: "https://finance.yahoo.com/news/august-jobs-report-due-out-as-fed-uncertainty-looms-what-to-watch-this-week-125350194.html" },
+    { title: "Amazon (AMZN) Tops $3 Trillion in Market Value for First Time", source: "Bloomberg", date: "2026-08-03", time: "09:23", url: "https://www.bloomberg.com/news/articles/2026-08-03/amazon-joins-elite-list-of-stocks-to-top-3-trillion-in-value" },
+    { title: "Fed holds interest rates steady after cliffhanger meeting, but three officials dissent", source: "CNN Business", date: "2026-07-29", time: "09:23", url: "https://www.cnn.com/2026/07/29/business/live-news/federal-reserve-interest-rate-07-29-26" },
+    { title: "Fed decision redline: here's what changed in the second statement under Warsh", source: "CNBC", date: "2026-07-29", time: "09:23", url: "https://www.cnbc.com/2026/07/29/fed-decision-redline-heres-what-changed-in-the-second-statement-under-warsh.html" },
   ],
   uk: [
-    { title: "UK Stocks-Factors to watch on August 4 (HSBC, BP interim results; North Sea sale in focus)", source: "MarketScreener (Alliance News)", date: "2026-08-04", time: "05:12", url: "https://www.marketscreener.com/news/uk-stocks-factors-to-watch-on-august-4-ce7c5edad88cf724" },
-    { title: "Weekly Currency Forecast: GBP/EUR & GBP/USD Outlook, 3–7 August 2026", source: "Cambridge Currencies", date: "2026-08-04", time: "05:12", url: "https://cambridgecurrencies.com/weekly-currency-forecast-4-august-2026/" },
-    { title: "Forex Signals August 4: SpaceX, AMD, HSBC, BP, Spotify and McDonald's Earnings Preview", source: "FX Leaders", date: "2026-08-03", time: "05:12", url: "https://www.fxleaders.com/news/2026/08/03/forex-signals-august-4-spacex-amd-hsbc-bp-spot-and-mcdonalds-earnings-preview-tuesday/" },
+    { title: "BP profit more than doubles as Trump blasts Big Oil for 'making too much money'", source: "CNBC", date: "2026-08-04", time: "09:23", url: "https://www.cnbc.com/2026/08/04/bp-2q-earnings-oil-iran-war.html" },
+    { title: "HSBC resumes share buybacks as quarterly profits soar to $10.1bn", source: "Financial Times", date: "2026-08-04", time: "06:39", url: "https://www.ft.com/content/0da95788-cde6-4e1a-af89-1faced91178e" },
+    { title: "FTSE 100 Live: Second attempt to make some August gains, as HSBC and BP report", source: "Yahoo Finance UK", date: "2026-08-04", time: "09:23", url: "https://uk.finance.yahoo.com/news/ftse-100-live-second-attempt-061700861.html" },
     { title: "UK bond yields fall to one-week low as oil prices retreat", source: "Reuters (via LSE.co.uk)", date: "2026-08-03", time: "10:05", url: "https://www.lse.co.uk/news/uk-bond-yields-fall-to-one-week-low-as-oil-prices-retreat-lq55khkk4vjd8di.html" },
     { title: "BP puts North Sea oil and gas business up for sale as CEO pushes overhaul", source: "RTÉ News", date: "2026-07-31", time: "05:12", url: "https://www.rte.ie/news/business/2026/0731/1585940-bp-puts-uk-north-sea-assets-up-for-sale/" },
   ],
@@ -727,6 +727,11 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-04",
   items: [
+    {"title":"BP profit more than doubles as Trump blasts Big Oil for 'making too much money'","source":"CNBC","date":"2026-08-04","time":"09:23","url":"https://www.cnbc.com/2026/08/04/bp-2q-earnings-oil-iran-war.html","blurb":"BP's underlying replacement-cost profit more than doubled versus a year earlier as the Middle East conflict pushed oil prices higher, even as President Trump accused major oil companies of profiteering from the crisis."},
+    {"title":"HSBC resumes share buybacks as quarterly profits soar to $10.1bn","source":"Financial Times","date":"2026-08-04","time":"06:39","url":"https://www.ft.com/content/0da95788-cde6-4e1a-af89-1faced91178e","blurb":"HSBC's quarterly pre-tax profit jumped to $10.1bn, beating estimates, prompting the bank to resume share buybacks as it flagged continued strength across its Asian and wealth-management franchises."},
+    {"title":"FTSE 100 Live: Second attempt to make some August gains, as HSBC and BP report","source":"Yahoo Finance UK","date":"2026-08-04","time":"09:23","url":"https://uk.finance.yahoo.com/news/ftse-100-live-second-attempt-061700861.html","blurb":"London's blue-chip index looked to build on July's gains as HSBC and BP both beat profit estimates, though AstraZeneca's slide on Bristol Myers Squibb merger-talk reports continued to cap the index."},
+    {"title":"Amazon (AMZN) Tops $3 Trillion in Market Value for First Time","source":"Bloomberg","date":"2026-08-03","time":"09:23","url":"https://www.bloomberg.com/news/articles/2026-08-03/amazon-joins-elite-list-of-stocks-to-top-3-trillion-in-value","blurb":"Amazon joined the small club of $3tn-plus companies after a post-earnings rally driven by an AWS/cloud beat, extending the AI-trade-fuelled surge in mega-cap valuations."},
+    {"title":"Latest Oil Market News and Analysis for Aug. 4","source":"Bloomberg","date":"2026-08-03","time":"09:23","url":"https://www.bloomberg.com/news/articles/2026-08-03/latest-oil-market-news-and-analysis-for-aug-4","blurb":"Brent and WTI swung on Trump's framing of a 'last chance' Iran offer and hopes for a reopening of safe passage through the Strait of Hormuz, keeping crude markets on edge ahead of the week's data."},
     {"title":"Stock Market Today: Dow, S&P Live Updates for August 4","source":"Bloomberg","date":"2026-08-04","time":"05:12","url":"https://www.bloomberg.com/news/articles/2026-08-03/stock-market-today-dow-s-p-live-updates","blurb":"Asian stocks failed to follow Wall Street's tech-led rally into Tuesday's session, with MSCI's broad Asia gauge down 0.5% as persistent volatility in South Korea's Kospi Index underscored lingering investor doubts over the AI trade."},
     {"title":"Weekly Currency Forecast: GBP/EUR & GBP/USD Outlook, 3–7 August 2026","source":"Cambridge Currencies","date":"2026-08-04","time":"05:12","url":"https://cambridgecurrencies.com/weekly-currency-forecast-4-august-2026/","blurb":"Bank forecasters see the pound's direction this week hinging on Friday's US jobs report and Wednesday's Fed speakers, with GBP/USD holding a yield advantage from the BoE's 3.75% Bank Rate but facing headwinds from the UK's sticky services inflation and fiscal-flexibility concerns under PM Burnham."},
     {"title":"UK Stocks-Factors to watch on August 4","source":"MarketScreener (Alliance News)","date":"2026-08-04","time":"05:12","url":"https://www.marketscreener.com/news/uk-stocks-factors-to-watch-on-august-4-ce7c5edad88cf724","blurb":"HSBC's interim results (5am BST) and BP's Q2 report (6am BST, underlying profit seen near $9bn, +71% y/y) headline a heavy Tuesday earnings slate, with BP's newly launched North Sea sale process adding extra scrutiny to its numbers."},
@@ -764,7 +769,6 @@ export const ARTICLES = {
     {"title":"Oil Slumps, US Futures Rise on Iran Talks Optimism: Markets Wrap","source":"Bloomberg","date":"2026-08-02","time":"09:21","url":"https://www.bloomberg.com/news/articles/2026-08-02/oil-slumps-us-futures-rise-on-iran-talks-optimism-markets-wrap","blurb":"Brent crude and US equity futures both moved on Trump's weekend announcement that he is cancelling planned strikes on Iranian energy infrastructure, with traders weighing whether the claimed 'perimeters of a deal' framework can hold given Iran's repeated past denials of similar claims."},
     {"title":"After canceling Iran strikes, Trump says negotiations will resume Monday afternoon while Tehran continues Hormuz talks with Oman","source":"Fortune","date":"2026-08-02","time":"09:21","url":"https://fortune.com/2026/08/02/iran-war-trump-negotiations-resume-monday-tehran-hormuz-talks-oman/","blurb":"Officials had discussed concluding the planned campaign before markets reopened Monday given concern over the economic fallout; separately, Iran's foreign minister described Oman-mediated talks on a new Hormuz maritime corridor as entering their 'final stages'."},
     {"title":"Iran says negotiations with Oman over Strait of Hormuz in final stages","source":"Al Jazeera","date":"2026-08-02","time":"09:21","url":"https://www.aljazeera.com/news/2026/8/2/iran-says-negotiations-with-oman-over-strait-of-hormuz-in-final-stages","blurb":"Foreign minister Abbas Araghchi told Tehran's cabinet the talks with Muscat are 'on the way to being finalised'; under the Omani proposal Iran would not exercise sole control of the strait and ships would pay only voluntary fees, modelled on the Strait of Malacca system."},
-    {"title":"Pound to Euro Forecast 2026–2028: Latest Survey Poll Shows GBP Easing From 1.17","source":"Exchange Rates UK","date":"2026-08-01","time":"09:00","url":"https://www.exchangerates.org.uk/news/46686/2026-08-01-pound-to-euro-forecast-2026-2028-latest-survey-poll-shows-gbp-easing-from-1-17.html","blurb":"A poll of bank forecasters sees GBP/EUR drifting back from its current one-year high near 1.17 toward 1.14-1.16 through 2027, as BoE hike pricing and UK fiscal-flexibility concerns are weighed against the euro area's own growth outlook."},
   ],
 };
 
@@ -789,6 +793,7 @@ export const RELEASES = [
   { date: "2026-08-26", country: "US", title: "GDP, Second Estimate (Q2 2026)", url: "https://www.bea.gov/data/gdp/gross-domestic-product" },
   { date: "2026-08-26", country: "US", title: "Personal Income and Outlays / PCE Price Index (July)", url: "https://www.bea.gov/data/income-saving/personal-income-and-outlays" },
   { date: "2026-08-27", country: "US", title: "Jackson Hole Economic Policy Symposium begins (Kansas City Fed)", url: "https://www.kansascityfed.org/research/jackson-hole-economic-symposium/" },
+  { date: "2026-09-04", country: "US", title: "Jobs report / Nonfarm payrolls (August)", url: "https://www.bls.gov/schedule/news_release/empsit.htm" },
 ];
 
 // ---- Wall of maturities — corporate credit due over the next five years ----
