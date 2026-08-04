@@ -32,6 +32,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-20260804",
+    publication: "Bloomberg",
+    author: "Victoria Batchelor",
+    series: "Morning Briefing Europe",
+    title: "HSBC Resumes Share Buybacks on Earnings Beat",
+    date: "2026-08-04",
+    time: "07:24",
+    summary: "HSBC's earnings top estimates and it resumes share buybacks, the Rhine's water levels drop to the lowest in nearly 150 years, and Turkey seeks to attract the rich as instability hits wealth hubs from London to Dubai.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-04/hsbc-resumes-share-buybacks-on-earnings-beat",
+  },
+  {
     id: "nl-econ-worldinbrief-20260804",
     publication: "The Economist",
     series: "The World in Brief",

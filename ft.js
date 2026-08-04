@@ -20,7 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "1d8ac0ff-8ff0-44fd-bd92-5fd18983f31e", title: "Segro recommends £14bn takeover bid from US bidder", date: "2026-08-04", time: "08:03", url: "https://www.ft.com/content/1d8ac0ff-8ff0-44fd-bd92-5fd18983f31e" },
+  { id: "fa298199-b824-4ca9-a3a0-440eb320ac61", title: "BP to sell US biogas business as profits soar", date: "2026-08-04", time: "07:23", url: "https://www.ft.com/content/fa298199-b824-4ca9-a3a0-440eb320ac61" },
+  { id: "8a703d1e-99d4-4a04-a08a-761489d33da3", title: "Toyota plans $6.3bn buyback as weak yen boosts outlook", date: "2026-08-04", time: "07:17", url: "https://www.ft.com/content/8a703d1e-99d4-4a04-a08a-761489d33da3" },
   { id: "41ecd9e9-26d3-49a4-8c88-39a187ea697d", title: "FTAV’s further reading", date: "2026-08-04", time: "07:09", url: "https://www.ft.com/content/41ecd9e9-26d3-49a4-8c88-39a187ea697d" },
+  { id: "04b34467-dab0-4646-97dc-8c3d3e44e5e2", title: "Yen intervention = US self-preservation", date: "2026-08-04", time: "06:30", url: "https://www.ft.com/content/04b34467-dab0-4646-97dc-8c3d3e44e5e2" },
   { id: "bbcf5c49-0ca3-4af4-a408-e0a723227042", title: "FirstFT: Russia expands shadow LNG fleet", date: "2026-08-04", time: "05:32", url: "https://www.ft.com/content/bbcf5c49-0ca3-4af4-a408-e0a723227042" },
   { id: "0da95788-cde6-4e1a-af89-1faced91178e", title: "HSBC quarterly profit soars to $10.1bn", date: "2026-08-04", time: "05:11", url: "https://www.ft.com/content/0da95788-cde6-4e1a-af89-1faced91178e" },
   { id: "b2440aa5-be3e-40ae-ad2d-ad5893de79d3", title: "The king who outfoxed Pedro Sánchez", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/b2440aa5-be3e-40ae-ad2d-ad5893de79d3" },
@@ -57,7 +61,4 @@ export const FT_ITEMS = [
   { id: "547bc3c3-6778-42d3-9bed-fcc3d0c28068", title: "Why Burnham is wrong about education and opportunity", date: "2026-08-03", time: "14:00", url: "https://www.ft.com/content/547bc3c3-6778-42d3-9bed-fcc3d0c28068" },
   { id: "c268f3ed-664c-4fc9-82f9-2b2af8118106", title: "Chess: Geneva to host 2026 world title match with holder Gukesh the underdog against Sindarov", date: "2026-08-03", time: "13:23", url: "https://www.ft.com/content/c268f3ed-664c-4fc9-82f9-2b2af8118106" },
   { id: "ebfc7f0f-d176-4da7-9136-b8703388decc", title: "Football has given Europe a rare geopolitical victory", date: "2026-08-03", time: "12:54", url: "https://www.ft.com/content/ebfc7f0f-d176-4da7-9136-b8703388decc" },
-  { id: "c519970a-dd04-4f4a-aa1d-3db1a3c9e69a", title: "Plurilateral deals are last best hope for world trading system", date: "2026-08-03", time: "12:31", url: "https://www.ft.com/content/c519970a-dd04-4f4a-aa1d-3db1a3c9e69a" },
-  { id: "6a8c1d6c-63c7-4d3d-8882-eb5c67b2f9e1", title: "SpaceX’s staggered lock-up release prolongs the pain", date: "2026-08-03", time: "12:00", url: "https://www.ft.com/content/6a8c1d6c-63c7-4d3d-8882-eb5c67b2f9e1" },
-  { id: "08b4af67-27d5-4d38-91cd-3ae81250cf59", title: "Myanmar releases photos of Aung San Suu Kyi amid health concerns", date: "2026-08-03", time: "11:25", url: "https://www.ft.com/content/08b4af67-27d5-4d38-91cd-3ae81250cf59" },
 ];
