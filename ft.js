@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8d421d44-862d-4942-99ae-568bad4900c2", title: "US diesel prices overtake Biden-era average in blow to Trump", date: "2026-08-04", time: "18:51", url: "https://www.ft.com/content/8d421d44-862d-4942-99ae-568bad4900c2" },
+  { id: "e8f58a9c-0166-4a81-b970-b070d3dbc122", title: "An overdue show of EU solidarity with Spain", date: "2026-08-04", time: "18:45", url: "https://www.ft.com/content/e8f58a9c-0166-4a81-b970-b070d3dbc122" },
+  { id: "6183a03c-4766-43e7-9392-cacd9a6545f8", title: "Palantir rides high on greed and fear — but mostly fear", date: "2026-08-04", time: "18:23", url: "https://www.ft.com/content/6183a03c-4766-43e7-9392-cacd9a6545f8" },
   { id: "8054a402-18a1-497d-ba0a-1ea338756e1f", title: "UK early release scheme may not avert future prison crisis, say experts", date: "2026-08-04", time: "18:04", url: "https://www.ft.com/content/8054a402-18a1-497d-ba0a-1ea338756e1f" },
   { id: "affbeefd-b94b-4707-b9af-3e12db6665d0", title: "US labour market stable in June", date: "2026-08-04", time: "17:28", url: "https://www.ft.com/content/affbeefd-b94b-4707-b9af-3e12db6665d0" },
   { id: "ac4b294d-36db-4e6d-aafe-663ce20cb658", title: "Wall Street’s insurance takeover presents circular risks and rewards", date: "2026-08-04", time: "16:53", url: "https://www.ft.com/content/ac4b294d-36db-4e6d-aafe-663ce20cb658" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "7dd21b1e-3b3d-48a6-a3fe-6a0e4a14944b", title: "Revolut chief Nik Storonsky sued by broker over €350mn superyacht", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/7dd21b1e-3b3d-48a6-a3fe-6a0e4a14944b" },
   { id: "76d27b15-f73c-4408-9455-a85831eb2fec", title: "Infantino is not the problem", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/76d27b15-f73c-4408-9455-a85831eb2fec" },
   { id: "d640ec5d-16c9-44e2-875e-30db7714ada9", title: "Italy and Germany’s censure of Spain’s migrant amnesty is ‘hypocritical’", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/d640ec5d-16c9-44e2-875e-30db7714ada9" },
-  { id: "549f2e23-5aa2-49c7-9ea6-a9784ab7087c", title: "Inside Google’s $200bn Wall Street finance machine for Anthropic", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/549f2e23-5aa2-49c7-9ea6-a9784ab7087c" },
-  { id: "61790126-edc2-432e-b20e-713c845a713b", title: "Tory party rebuilds relations with UK business after rocky two years", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/61790126-edc2-432e-b20e-713c845a713b" },
-  { id: "ea8c000e-5a79-4ef1-882e-fbf6678e5eaf", title: "Companies linked to top health official and husband received £2bn in public contracts", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/ea8c000e-5a79-4ef1-882e-fbf6678e5eaf" },
 ];

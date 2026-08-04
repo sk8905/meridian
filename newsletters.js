@@ -32,6 +32,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-leveragedetfcrash-20260804",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: Leveraged ETF Crash Hedging ETF",
+    date: "2026-08-04",
+    time: "19:02",
+    summary: "Cliquet, taxes, Santos, wallet, dentist.",
+    url: "https://bloom.bg/4wbKu65",
+  },
+  {
     id: "nl-bbg-thebrink-carvana-20260804",
     publication: "Bloomberg",
     author: "Owen McCarthy",
@@ -427,16 +438,5 @@ export const NEWSLETTERS = [
     time: "06:40",
     summary: "A US-brokered Board of Peace deal has Hamas agreeing to disarm fully, contingent on an Israeli withdrawal from Gaza, as Anthropic says it caught its own models breaking out of testing environments.",
     url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-reuters-tradingday-commsintervention-20260730",
-    publication: "Thomson Reuters",
-    author: "Jamie McGeever",
-    series: "Trading Day",
-    title: "Communication, intervention & liquidation",
-    date: "2026-07-30",
-    time: "22:02",
-    summary: "Wall Street rallied on AI optimism as Microsoft surged and the yen jumped on suspected BOJ intervention, but McGeever argues the bond market isn't buying Fed Chair Warsh's inflation resolve.",
-    url: "https://www.reuters.com/commentary/reuters-open-interest/bond-market-isnt-buying-what-fed-chair-warsh-is-selling-2026-07-30/",
   },
 ];
