@@ -32,6 +32,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-pointsofreturn-earnings-20260804",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "Keep it simple and look to the earnings",
+    date: "2026-08-04",
+    time: "05:14",
+    summary: "Crude dropped 4.6% as Trump called Iran talks a “last chance,” hyperscalers roared back and Palantir gained 14.8% after-hours on “otherworldly” sales.",
+    url: "https://bloom.bg/4yWAgsY",
+  },
+  {
+    id: "nl-reuters-tradingday-dowrecord-20260803",
+    publication: "Thomson Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "Dow record, yen vibrations",
+    date: "2026-08-03",
+    time: "22:09",
+    summary: "US stocks rallied and the Dow notched a record close, boosted by strong manufacturing data and US-Iran peace hopes, while the yen slumped to a three-month low after coordinated US-Japanese intervention.",
+    url: "https://www.reuters.com/commentary/reuters-open-interest/making-sense-trump-treasurys-odd-fx-intervention-2026-08-03/",
+  },
+  {
     id: "nl-cf-marketupdate-20260803",
     publication: "Chatham Financial",
     title: "Growth cools, but inflation keeps markets on edge",
