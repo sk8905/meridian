@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "63b79c58-a497-4359-a3c7-03a36fead622", title: "Water companies feel squeeze of extraction limits as drought deepens", date: "2026-08-04", time: "16:10", url: "https://www.ft.com/content/63b79c58-a497-4359-a3c7-03a36fead622" },
+  { id: "c56d21b4-1738-4b53-ad78-79f29b5de798", title: "Saudi-Israel tensions could frustrate India’s IMEC dreams", date: "2026-08-04", time: "16:09", url: "https://www.ft.com/content/c56d21b4-1738-4b53-ad78-79f29b5de798" },
+  { id: "c1e80ff0-4566-4a15-9e7b-397abe6e5b5c", title: "In Venezuela, legitimacy matters more than continuity", date: "2026-08-04", time: "15:37", url: "https://www.ft.com/content/c1e80ff0-4566-4a15-9e7b-397abe6e5b5c" },
   { id: "07ba66d4-ceaf-497d-8bb2-19df27853a26", title: "Todd Blanche secures key Republican support to clear way for A-G confirmation", date: "2026-08-04", time: "14:00", url: "https://www.ft.com/content/07ba66d4-ceaf-497d-8bb2-19df27853a26" },
   { id: "33c20c4e-6a25-42da-9f1e-6664c8388957", title: "Developing countries have ‘less to fear’ from AI than rich nations", date: "2026-08-04", time: "14:00", url: "https://www.ft.com/content/33c20c4e-6a25-42da-9f1e-6664c8388957" },
   { id: "30d55ac8-d363-42e6-a711-016aa83ced80", title: "South African court hears challenge to land seizure law opposed by US", date: "2026-08-04", time: "13:54", url: "https://www.ft.com/content/30d55ac8-d363-42e6-a711-016aa83ced80" },
@@ -58,7 +61,4 @@ export const FT_ITEMS = [
   { id: "29f1af13-ecc3-4f26-a479-e6088c67231b", title: "US midterm elections 2026: The FT’s guide", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b" },
   { id: "cebc2dfc-1b9e-4119-b1e0-b9b514550d23", title: "Russia expands shadow LNG fleet ahead of EU ban", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/cebc2dfc-1b9e-4119-b1e0-b9b514550d23" },
   { id: "6691c87d-707a-4b8e-8c9c-56d0621f83aa", title: "UK wildfires spark calls for guaranteed access to aerial support", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/6691c87d-707a-4b8e-8c9c-56d0621f83aa" },
-  { id: "498713a3-dbef-46f7-978e-c2d3b748f0ac", title: "How to end the cycle of mistrust between the Treasury and everybody else", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/498713a3-dbef-46f7-978e-c2d3b748f0ac" },
-  { id: "2b3b51c5-57ca-4456-aeb0-057df95c51a3", title: "Inside the Aldeburgh renovation that marries accessibility and aesthetics", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/2b3b51c5-57ca-4456-aeb0-057df95c51a3" },
-  { id: "1dc7cd77-5fd6-4b72-a99c-46100904871f", title: "In Hungary, a wetland paradise lost", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/1dc7cd77-5fd6-4b72-a99c-46100904871f" },
 ];

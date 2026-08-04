@@ -32,6 +32,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-sidleyfundfinance-20260804",
+    publication: "Legal Business",
+    title: "Sidley hires 11-strong fund finance team from Hogan Lovells Cadwalader",
+    date: "2026-08-04",
+    time: "15:30",
+    summary: "Team hire comes weeks after five-partner move from Clifford Chance as finance buildout continues.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQBCChCREAto8c9kw/wv",
+  },
+  {
     id: "nl-lb-burgessalmon-20260804",
     publication: "Legal Business",
     title: "'Some firms have lost sight of what it's all about' - Burges Salmon banks on clarity of vision in new five-year strategy",
