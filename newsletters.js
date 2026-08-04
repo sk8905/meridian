@@ -32,6 +32,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-thebrink-carvana-20260804",
+    publication: "Bloomberg",
+    author: "Owen McCarthy",
+    series: "The Brink",
+    title: "The Brink: Carvana’s irreplicable LME",
+    date: "2026-08-04",
+    time: "17:17",
+    summary: "Three years after its debt restructuring, Carvana is the poster child of LMEs — an out-of-court deal that was “a bridge to somewhere.”",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-04/three-years-after-its-debt-restructuring-carvana-is-the-posterchild-of-lmes",
+  },
+  {
     id: "nl-lb-sidleyfundfinance-20260804",
     publication: "Legal Business",
     title: "Sidley hires 11-strong fund finance team from Hogan Lovells Cadwalader",
@@ -427,26 +438,5 @@ export const NEWSLETTERS = [
     time: "22:02",
     summary: "Wall Street rallied on AI optimism as Microsoft surged and the yen jumped on suspected BOJ intervention, but McGeever argues the bond market isn't buying Fed Chair Warsh's inflation resolve.",
     url: "https://www.reuters.com/commentary/reuters-open-interest/bond-market-isnt-buying-what-fed-chair-warsh-is-selling-2026-07-30/",
-  },
-  {
-    id: "nl-bbg-authoralert-nkumar-20260731",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    title: "The 24-Hour Race to Salvage Situational Awareness' Souring Bets",
-    date: "2026-07-31",
-    time: "01:00",
-    summary: "The frantic scramble to shore up positions after the AI-forecasting fund manager hailed as a young 'Nostradamus' saw his bold predictions sour.",
-    url: "https://www.bloomberg.com/news/articles/2026-07-30/the-24-hour-race-to-salvage-situational-awareness-souring-bets",
-  },
-  {
-    id: "nl-bbg-moneystuff-situationdeteriorated-20260730",
-    publication: "Bloomberg",
-    author: "Matt Levine",
-    series: "Money Stuff",
-    title: "Money Stuff: The Situation Deteriorated",
-    date: "2026-07-30",
-    time: "19:03",
-    summary: "Elections, PBCs, Ionic, WLFI.",
-    url: "https://bloom.bg/44TMQvs",
   },
 ];

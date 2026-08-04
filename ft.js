@@ -60,5 +60,4 @@ export const FT_ITEMS = [
   { id: "ea8c000e-5a79-4ef1-882e-fbf6678e5eaf", title: "Companies linked to top health official and husband received £2bn in public contracts", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/ea8c000e-5a79-4ef1-882e-fbf6678e5eaf" },
   { id: "98458d3a-8cba-47db-a178-e5319813f4f8", title: "Offshore firm Mourant sells stake in  private equity rush for legal deals", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/98458d3a-8cba-47db-a178-e5319813f4f8" },
   { id: "b3a35855-9430-4761-8a45-114b33e12e4a", title: "‘Cursed island’: the $100bn luxury development hosting tech nomads and scammers", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/b3a35855-9430-4761-8a45-114b33e12e4a" },
-  { id: "d44d9139-c6ac-41de-851d-ab30b6085ce2", title: "‘Arrogance kills’: Novo chief injects risk-taking into Ozempic maker", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/d44d9139-c6ac-41de-851d-ab30b6085ce2" },
 ];
