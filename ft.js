@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "07ba66d4-ceaf-497d-8bb2-19df27853a26", title: "Todd Blanche secures key Republican support to clear way for A-G confirmation", date: "2026-08-04", time: "14:00", url: "https://www.ft.com/content/07ba66d4-ceaf-497d-8bb2-19df27853a26" },
+  { id: "33c20c4e-6a25-42da-9f1e-6664c8388957", title: "Developing countries have ‘less to fear’ from AI than rich nations", date: "2026-08-04", time: "14:00", url: "https://www.ft.com/content/33c20c4e-6a25-42da-9f1e-6664c8388957" },
+  { id: "30d55ac8-d363-42e6-a711-016aa83ced80", title: "South African court hears challenge to land seizure law opposed by US", date: "2026-08-04", time: "13:54", url: "https://www.ft.com/content/30d55ac8-d363-42e6-a711-016aa83ced80" },
+  { id: "1ed68c71-e1e8-4ae5-a965-5380cbdeaa22", title: "Oil falls after Bessent says deal to reopen Strait of Hormuz is imminent", date: "2026-08-04", time: "13:28", url: "https://www.ft.com/content/1ed68c71-e1e8-4ae5-a965-5380cbdeaa22" },
   { id: "cbc7297a-647f-44be-9124-4fba662b15e5", title: "The Federal Reserve goes Wacko", date: "2026-08-04", time: "12:30", url: "https://www.ft.com/content/cbc7297a-647f-44be-9124-4fba662b15e5" },
   { id: "d0fc4477-21b9-4cc4-9033-52f995350627", title: "Fifa executive criticises Gianni Infantino’s ‘reproachable’ stake sale plan", date: "2026-08-04", time: "12:28", url: "https://www.ft.com/content/d0fc4477-21b9-4cc4-9033-52f995350627" },
   { id: "981becc2-8d7d-428a-93d3-405fc44e3ca5", title: "Japan’s fusion industry seeks state backing amid Middle East energy strain", date: "2026-08-04", time: "12:00", url: "https://www.ft.com/content/981becc2-8d7d-428a-93d3-405fc44e3ca5" },
@@ -57,7 +61,4 @@ export const FT_ITEMS = [
   { id: "498713a3-dbef-46f7-978e-c2d3b748f0ac", title: "How to end the cycle of mistrust between the Treasury and everybody else", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/498713a3-dbef-46f7-978e-c2d3b748f0ac" },
   { id: "2b3b51c5-57ca-4456-aeb0-057df95c51a3", title: "Inside the Aldeburgh renovation that marries accessibility and aesthetics", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/2b3b51c5-57ca-4456-aeb0-057df95c51a3" },
   { id: "1dc7cd77-5fd6-4b72-a99c-46100904871f", title: "In Hungary, a wetland paradise lost", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/1dc7cd77-5fd6-4b72-a99c-46100904871f" },
-  { id: "e279135e-cd6e-46d4-b80b-2e6b0c0901a9", title: "How big was the American JPY intervention?", date: "2026-08-03", time: "18:14", url: "https://www.ft.com/content/e279135e-cd6e-46d4-b80b-2e6b0c0901a9" },
-  { id: "c300b4dd-984a-4845-86a1-d1332dafe8bc", title: "Texas law firm agrees $15mn settlement over judicial scandal", date: "2026-08-03", time: "17:34", url: "https://www.ft.com/content/c300b4dd-984a-4845-86a1-d1332dafe8bc" },
-  { id: "6282b88a-6f49-40cc-b1d8-5e147e7e37f1", title: "AstraZeneca and Bristol-Myers: when Big Pharma isn't big enough", date: "2026-08-03", time: "17:33", url: "https://www.ft.com/content/6282b88a-6f49-40cc-b1d8-5e147e7e37f1" },
 ];

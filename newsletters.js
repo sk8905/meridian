@@ -32,6 +32,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-burgessalmon-20260804",
+    publication: "Legal Business",
+    title: "'Some firms have lost sight of what it's all about' - Burges Salmon banks on clarity of vision in new five-year strategy",
+    date: "2026-08-04",
+    time: "14:05",
+    summary: "Legal Business Law Firm of the Year Burges Salmon looks to build on five years of strong growth with a new strategy that doubles down on what makes the firm distinctive.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQBtFcclYHk2AbQRn/wv",
+  },
+  {
     id: "nl-bbg-economicsdaily-asiadark-20260804",
     publication: "Bloomberg",
     author: "Claire Jiao",
@@ -430,15 +439,5 @@ export const NEWSLETTERS = [
     time: "19:03",
     summary: "Elections, PBCs, Ionic, WLFI.",
     url: "https://bloom.bg/44TMQvs",
-  },
-  {
-    id: "nl-bbg-authoralert-nkumar-20260730",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    title: "Hedge Fund Trader Kassam Readies a Billion-Dollar Millennium Cub",
-    date: "2026-07-30",
-    time: "17:13",
-    summary: "Farzad Kassam, a senior macro portfolio manager at Millennium Management, is preparing to start his own outfit with backing from Izzy Englander's multistrategy firm.",
-    url: "https://www.bloomberg.com/news/articles/2026-07-30/hedge-fund-trader-kassam-readies-a-billion-dollar-millennium-cub",
   },
 ];
