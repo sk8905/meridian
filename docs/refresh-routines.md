@@ -183,7 +183,21 @@ of his hedge-fund stories belong in `HEDGE_INTEL` (HDG), fund-linked or not.
     Monitor**, **Aurum**, **Nishant Kumar (Bloomberg)**, **PE Wire**, **Paul
     Krugman**, **Moody's**, **S&P (Global Ratings)** and **Morningstar**. When §8
     gains a source, it is in-scope for the next refresh without editing this file.
-- **Cache-busters.** Each app has `?v=YYYYMMDD-N` tokens that MUST move in
+- **Cache-busters — SUPERSEDED by HOUSE_STYLE T1, keep reading before acting.**
+  As of the `no-cache` rollout recorded in `_headers` and HOUSE_STYLE.md §7 T1,
+  `credit/js/data.js`, `legal/js/data.js`, `macro/js/content.js`,
+  `dashboard/js/data.js`, `newsletters.js`, `ft.js`, `briefings.js` and
+  `allocations.js` are imported with **NO `?v=` token anywhere** and served
+  `Cache-Control: no-cache` — freshness comes from ETag revalidation, not a
+  hand-bumped token. **A routine that only edits these data files does NOT need
+  to touch any `?v=` token** (Credit/Legal/Macro's four-token dance described
+  below is now dead weight for a pure data refresh). Still bump a token when you
+  edit actual CODE (CSS/JS views, engines, chrome) per T1, and still bump the
+  `/api/macro?v=N` edge-cache key in `src/index.js` on every run (that one is a
+  server-side cache key, not an import token, and is unaffected by this). The
+  detail below is kept for the code-token case; do not apply it to data files.
+- **Cache-busters (CODE files only — see the note just above for data files).**
+  Each app has `?v=YYYYMMDD-N` tokens that MUST move in
   lockstep or the browser serves a stale `app.js`.
   - **⚠️ THE LIVE SURFACE IS `v2/` — bump the v2 importers, not just the legacy
     files.** The `data.js` / `content.js` files are shared, but the modules that
