@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "cbc7297a-647f-44be-9124-4fba662b15e5", title: "The Federal Reserve goes Wacko", date: "2026-08-04", time: "12:30", url: "https://www.ft.com/content/cbc7297a-647f-44be-9124-4fba662b15e5" },
+  { id: "d0fc4477-21b9-4cc4-9033-52f995350627", title: "Fifa executive criticises Gianni Infantino’s ‘reproachable’ stake sale plan", date: "2026-08-04", time: "12:28", url: "https://www.ft.com/content/d0fc4477-21b9-4cc4-9033-52f995350627" },
   { id: "981becc2-8d7d-428a-93d3-405fc44e3ca5", title: "Japan’s fusion industry seeks state backing amid Middle East energy strain", date: "2026-08-04", time: "12:00", url: "https://www.ft.com/content/981becc2-8d7d-428a-93d3-405fc44e3ca5" },
   { id: "1be83506-b897-4c26-97cc-445d7354ee6f", title: "Scott Bessent’s yen intervention signals new era of US ‘currency activism’", date: "2026-08-04", time: "11:37", url: "https://www.ft.com/content/1be83506-b897-4c26-97cc-445d7354ee6f" },
   { id: "b1f9689d-a31e-4b6e-8a13-38e7caf7d92d", title: "Apollo misses out on big asset sales that have boosted rivals", date: "2026-08-04", time: "11:33", url: "https://www.ft.com/content/b1f9689d-a31e-4b6e-8a13-38e7caf7d92d" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "e279135e-cd6e-46d4-b80b-2e6b0c0901a9", title: "How big was the American JPY intervention?", date: "2026-08-03", time: "18:14", url: "https://www.ft.com/content/e279135e-cd6e-46d4-b80b-2e6b0c0901a9" },
   { id: "c300b4dd-984a-4845-86a1-d1332dafe8bc", title: "Texas law firm agrees $15mn settlement over judicial scandal", date: "2026-08-03", time: "17:34", url: "https://www.ft.com/content/c300b4dd-984a-4845-86a1-d1332dafe8bc" },
   { id: "6282b88a-6f49-40cc-b1d8-5e147e7e37f1", title: "AstraZeneca and Bristol-Myers: when Big Pharma isn't big enough", date: "2026-08-03", time: "17:33", url: "https://www.ft.com/content/6282b88a-6f49-40cc-b1d8-5e147e7e37f1" },
-  { id: "6d40c74b-ac40-42f1-9387-957925f48daa", title: "AstraZeneca investors raise concerns over mega-merger talks", date: "2026-08-03", time: "17:24", url: "https://www.ft.com/content/6d40c74b-ac40-42f1-9387-957925f48daa" },
-  { id: "016ad17d-0cab-48f1-8d7f-d3eb1634be63", title: "Six teenagers, a brutal murder and the story they couldn't take back", date: "2026-08-03", time: "17:11", url: "https://www.ft.com/content/016ad17d-0cab-48f1-8d7f-d3eb1634be63" },
 ];
