@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "4d9d5f1a-df3e-490e-9567-f7f7f968f3a4", title: "Ukrainian drones hit Wildberries warehouses in overnight strikes", date: "2026-08-04", time: "09:57", url: "https://www.ft.com/content/4d9d5f1a-df3e-490e-9567-f7f7f968f3a4" },
+  { id: "96f5e56c-a8bf-44ca-8750-0448b19e0903", title: "Andy Burnham bars serious sex offenders from early prison release scheme", date: "2026-08-04", time: "09:36", url: "https://www.ft.com/content/96f5e56c-a8bf-44ca-8750-0448b19e0903" },
   { id: "1d8ac0ff-8ff0-44fd-bd92-5fd18983f31e", title: "Segro recommends £14bn takeover bid from US bidder", date: "2026-08-04", time: "08:03", url: "https://www.ft.com/content/1d8ac0ff-8ff0-44fd-bd92-5fd18983f31e" },
   { id: "fa298199-b824-4ca9-a3a0-440eb320ac61", title: "BP to sell US biogas business as profits soar", date: "2026-08-04", time: "07:23", url: "https://www.ft.com/content/fa298199-b824-4ca9-a3a0-440eb320ac61" },
   { id: "8a703d1e-99d4-4a04-a08a-761489d33da3", title: "Toyota plans $6.3bn buyback as weak yen boosts outlook", date: "2026-08-04", time: "07:17", url: "https://www.ft.com/content/8a703d1e-99d4-4a04-a08a-761489d33da3" },
@@ -59,6 +61,4 @@ export const FT_ITEMS = [
   { id: "eddbdc29-5206-4c79-9ea7-f1a06ff040f1", title: "Struggling to make sense of AstraZeneca-BMS", date: "2026-08-03", time: "14:21", url: "https://www.ft.com/content/eddbdc29-5206-4c79-9ea7-f1a06ff040f1" },
   { id: "0eec21be-80c4-4fca-991a-32fbd58cc653", title: "Can Democrats win over the working class?", date: "2026-08-03", time: "14:00", url: "https://www.ft.com/content/0eec21be-80c4-4fca-991a-32fbd58cc653" },
   { id: "547bc3c3-6778-42d3-9bed-fcc3d0c28068", title: "Why Burnham is wrong about education and opportunity", date: "2026-08-03", time: "14:00", url: "https://www.ft.com/content/547bc3c3-6778-42d3-9bed-fcc3d0c28068" },
-  { id: "c268f3ed-664c-4fc9-82f9-2b2af8118106", title: "Chess: Geneva to host 2026 world title match with holder Gukesh the underdog against Sindarov", date: "2026-08-03", time: "13:23", url: "https://www.ft.com/content/c268f3ed-664c-4fc9-82f9-2b2af8118106" },
-  { id: "ebfc7f0f-d176-4da7-9136-b8703388decc", title: "Football has given Europe a rare geopolitical victory", date: "2026-08-03", time: "12:54", url: "https://www.ft.com/content/ebfc7f0f-d176-4da7-9136-b8703388decc" },
 ];
