@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8054a402-18a1-497d-ba0a-1ea338756e1f", title: "UK early release scheme may not avert future prison crisis, say experts", date: "2026-08-04", time: "18:04", url: "https://www.ft.com/content/8054a402-18a1-497d-ba0a-1ea338756e1f" },
+  { id: "affbeefd-b94b-4707-b9af-3e12db6665d0", title: "US labour market stable in June", date: "2026-08-04", time: "17:28", url: "https://www.ft.com/content/affbeefd-b94b-4707-b9af-3e12db6665d0" },
   { id: "ac4b294d-36db-4e6d-aafe-663ce20cb658", title: "Wall Street’s insurance takeover presents circular risks and rewards", date: "2026-08-04", time: "16:53", url: "https://www.ft.com/content/ac4b294d-36db-4e6d-aafe-663ce20cb658" },
   { id: "f7fb388d-5826-409a-8dd6-43e828da6ba1", title: "MFS administrators sue Barclays after accounts access frozen", date: "2026-08-04", time: "16:53", url: "https://www.ft.com/content/f7fb388d-5826-409a-8dd6-43e828da6ba1" },
   { id: "4bfbce82-52ae-425f-8c11-57b2b30f2de7", title: "Trump’s pick for US attorney-general clears key Senate hurdle", date: "2026-08-04", time: "16:41", url: "https://www.ft.com/content/4bfbce82-52ae-425f-8c11-57b2b30f2de7" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "549f2e23-5aa2-49c7-9ea6-a9784ab7087c", title: "Inside Google’s $200bn Wall Street finance machine for Anthropic", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/549f2e23-5aa2-49c7-9ea6-a9784ab7087c" },
   { id: "61790126-edc2-432e-b20e-713c845a713b", title: "Tory party rebuilds relations with UK business after rocky two years", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/61790126-edc2-432e-b20e-713c845a713b" },
   { id: "ea8c000e-5a79-4ef1-882e-fbf6678e5eaf", title: "Companies linked to top health official and husband received £2bn in public contracts", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/ea8c000e-5a79-4ef1-882e-fbf6678e5eaf" },
-  { id: "98458d3a-8cba-47db-a178-e5319813f4f8", title: "Offshore firm Mourant sells stake in  private equity rush for legal deals", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/98458d3a-8cba-47db-a178-e5319813f4f8" },
-  { id: "b3a35855-9430-4761-8a45-114b33e12e4a", title: "‘Cursed island’: the $100bn luxury development hosting tech nomads and scammers", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/b3a35855-9430-4761-8a45-114b33e12e4a" },
 ];
