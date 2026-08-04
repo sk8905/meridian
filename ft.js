@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "ac4b294d-36db-4e6d-aafe-663ce20cb658", title: "Wall Street’s insurance takeover presents circular risks and rewards", date: "2026-08-04", time: "16:53", url: "https://www.ft.com/content/ac4b294d-36db-4e6d-aafe-663ce20cb658" },
+  { id: "f7fb388d-5826-409a-8dd6-43e828da6ba1", title: "MFS administrators sue Barclays after accounts access frozen", date: "2026-08-04", time: "16:53", url: "https://www.ft.com/content/f7fb388d-5826-409a-8dd6-43e828da6ba1" },
+  { id: "4bfbce82-52ae-425f-8c11-57b2b30f2de7", title: "Trump’s pick for US attorney-general clears key Senate hurdle", date: "2026-08-04", time: "16:41", url: "https://www.ft.com/content/4bfbce82-52ae-425f-8c11-57b2b30f2de7" },
+  { id: "7ff5dd5c-dc45-4db3-ab75-8ab1c844f7be", title: "Japan LLC trading update", date: "2026-08-04", time: "16:39", url: "https://www.ft.com/content/7ff5dd5c-dc45-4db3-ab75-8ab1c844f7be" },
   { id: "63b79c58-a497-4359-a3c7-03a36fead622", title: "Water companies feel squeeze of extraction limits as drought deepens", date: "2026-08-04", time: "16:10", url: "https://www.ft.com/content/63b79c58-a497-4359-a3c7-03a36fead622" },
   { id: "c56d21b4-1738-4b53-ad78-79f29b5de798", title: "Saudi-Israel tensions could frustrate India’s IMEC dreams", date: "2026-08-04", time: "16:09", url: "https://www.ft.com/content/c56d21b4-1738-4b53-ad78-79f29b5de798" },
   { id: "c1e80ff0-4566-4a15-9e7b-397abe6e5b5c", title: "In Venezuela, legitimacy matters more than continuity", date: "2026-08-04", time: "15:37", url: "https://www.ft.com/content/c1e80ff0-4566-4a15-9e7b-397abe6e5b5c" },
@@ -57,8 +61,4 @@ export const FT_ITEMS = [
   { id: "98458d3a-8cba-47db-a178-e5319813f4f8", title: "Offshore firm Mourant sells stake in  private equity rush for legal deals", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/98458d3a-8cba-47db-a178-e5319813f4f8" },
   { id: "b3a35855-9430-4761-8a45-114b33e12e4a", title: "‘Cursed island’: the $100bn luxury development hosting tech nomads and scammers", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/b3a35855-9430-4761-8a45-114b33e12e4a" },
   { id: "d44d9139-c6ac-41de-851d-ab30b6085ce2", title: "‘Arrogance kills’: Novo chief injects risk-taking into Ozempic maker", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/d44d9139-c6ac-41de-851d-ab30b6085ce2" },
-  { id: "a4c6e5da-dc9f-43b0-a794-c3f6bb9bca7d", title: "The UAE’s imperial push into Africa", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/a4c6e5da-dc9f-43b0-a794-c3f6bb9bca7d" },
-  { id: "29f1af13-ecc3-4f26-a479-e6088c67231b", title: "US midterm elections 2026: The FT’s guide", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b" },
-  { id: "cebc2dfc-1b9e-4119-b1e0-b9b514550d23", title: "Russia expands shadow LNG fleet ahead of EU ban", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/cebc2dfc-1b9e-4119-b1e0-b9b514550d23" },
-  { id: "6691c87d-707a-4b8e-8c9c-56d0621f83aa", title: "UK wildfires spark calls for guaranteed access to aerial support", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/6691c87d-707a-4b8e-8c9c-56d0621f83aa" },
 ];
