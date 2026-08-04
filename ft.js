@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "41f7963b-dd50-4f27-a085-771ddec4a8ca", title: "SpaceX posts 92% rise in revenue in debut earnings report", date: "2026-08-04", time: "21:14", url: "https://www.ft.com/content/41f7963b-dd50-4f27-a085-771ddec4a8ca" },
   { id: "4bc98c31-d430-4e84-9353-6b9a6154d4d6", title: "US cannot ‘stay isolated’ from Chinese EV competition, warns Lucid CEO", date: "2026-08-04", time: "21:10", url: "https://www.ft.com/content/4bc98c31-d430-4e84-9353-6b9a6154d4d6" },
   { id: "9878a2e4-3ac5-43b0-b2c9-b1fe1a4b65e7", title: "UK to strip back procurement rules to focus on job creation, says Louise Haigh", date: "2026-08-04", time: "21:00", url: "https://www.ft.com/content/9878a2e4-3ac5-43b0-b2c9-b1fe1a4b65e7" },
   { id: "237bfa1a-e1af-493c-a6a6-ef2f36b519f8", title: "P&G seals $3.8bn deal for supplements company Thorne", date: "2026-08-04", time: "19:32", url: "https://www.ft.com/content/237bfa1a-e1af-493c-a6a6-ef2f36b519f8" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "0da95788-cde6-4e1a-af89-1faced91178e", title: "HSBC quarterly profit soars to $10.1bn", date: "2026-08-04", time: "05:11", url: "https://www.ft.com/content/0da95788-cde6-4e1a-af89-1faced91178e" },
   { id: "b2440aa5-be3e-40ae-ad2d-ad5893de79d3", title: "The king who outfoxed Pedro Sánchez", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/b2440aa5-be3e-40ae-ad2d-ad5893de79d3" },
   { id: "450555e6-f4b6-4c4d-b9fa-c4f48c833c57", title: "The $400bn megadeal brewing in big pharma", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/450555e6-f4b6-4c4d-b9fa-c4f48c833c57" },
-  { id: "90a0828c-1074-4609-b378-bfd410b7ec19", title: "Spanish stocks offer a sunny escape for tech-weary investors", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/90a0828c-1074-4609-b378-bfd410b7ec19" },
 ];
