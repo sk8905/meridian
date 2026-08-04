@@ -16,8 +16,8 @@ import {
 } from "/credit/js/data.js";
 import { esc } from "/util.js?v=20260719-1";
 import {
-  eur, pct, fmtDate, link, sources, raiseDisplay, nameCell, saveBtn, newsSaveId,
-  metaDate, notFound, applyPendingFocus, commitmentsForLp, commitmentsForManager,
+  eur, pct, fmtDate, link, sources, raiseDisplay, nameCell,
+  notFound, applyPendingFocus, commitmentsForLp, commitmentsForManager,
   investorsForFund, pageList, feedDedupKey, creditSource,
   _chipMem, chipMemKey,
 } from "/credit/js/shared.js?v=20260730-2";

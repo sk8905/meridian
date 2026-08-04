@@ -104,7 +104,7 @@ h1, h2, h3, .kpi-label { text-wrap: balance; }
   background: var(--surface); color: var(--primary);
   border: 1px solid var(--border); border-radius: 8px; padding: .55rem 1.1rem;
 }
-.load-more:hover { border-color: var(--ink); background: rgba(29, 78, 216, .06); }
+.load-more:hover { border-color: var(--ink); background: color-mix(in srgb, var(--ink) 6%, transparent); }
 .load-more .lm-rem { color: var(--muted); font-weight: 400; }
 
 /* Mobile "Filters" toggle: the checkbox is visually hidden; the label shows
