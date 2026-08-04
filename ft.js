@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "981becc2-8d7d-428a-93d3-405fc44e3ca5", title: "Japan’s fusion industry seeks state backing amid Middle East energy strain", date: "2026-08-04", time: "12:00", url: "https://www.ft.com/content/981becc2-8d7d-428a-93d3-405fc44e3ca5" },
+  { id: "1be83506-b897-4c26-97cc-445d7354ee6f", title: "Scott Bessent’s yen intervention signals new era of US ‘currency activism’", date: "2026-08-04", time: "11:37", url: "https://www.ft.com/content/1be83506-b897-4c26-97cc-445d7354ee6f" },
+  { id: "b1f9689d-a31e-4b6e-8a13-38e7caf7d92d", title: "Apollo misses out on big asset sales that have boosted rivals", date: "2026-08-04", time: "11:33", url: "https://www.ft.com/content/b1f9689d-a31e-4b6e-8a13-38e7caf7d92d" },
+  { id: "7da4af42-178d-431a-91db-7e82eecc98dd", title: "OpenAI hits back at Apple over ‘oddly personal’ trade secrets fight", date: "2026-08-04", time: "11:31", url: "https://www.ft.com/content/7da4af42-178d-431a-91db-7e82eecc98dd" },
+  { id: "07aed955-d8c7-4ba4-b7b0-14e996bb9bc8", title: "The Democrats’ civil war over Israel is getting worse", date: "2026-08-04", time: "11:30", url: "https://www.ft.com/content/07aed955-d8c7-4ba4-b7b0-14e996bb9bc8" },
   { id: "78756a27-817e-450d-9bab-33214efbd804", title: "Tax consumption, not income or AI", date: "2026-08-04", time: "11:00", url: "https://www.ft.com/content/78756a27-817e-450d-9bab-33214efbd804" },
   { id: "2906dfd6-ff5b-4f80-b575-661930ea9695", title: "India seeks to widen tax exemptions to woo investors such as Apple", date: "2026-08-04", time: "10:41", url: "https://www.ft.com/content/2906dfd6-ff5b-4f80-b575-661930ea9695" },
   { id: "4d9d5f1a-df3e-490e-9567-f7f7f968f3a4", title: "Ukrainian drones hit Wildberries warehouses in overnight strikes", date: "2026-08-04", time: "09:57", url: "https://www.ft.com/content/4d9d5f1a-df3e-490e-9567-f7f7f968f3a4" },
@@ -55,9 +60,4 @@ export const FT_ITEMS = [
   { id: "6282b88a-6f49-40cc-b1d8-5e147e7e37f1", title: "AstraZeneca and Bristol-Myers: when Big Pharma isn't big enough", date: "2026-08-03", time: "17:33", url: "https://www.ft.com/content/6282b88a-6f49-40cc-b1d8-5e147e7e37f1" },
   { id: "6d40c74b-ac40-42f1-9387-957925f48daa", title: "AstraZeneca investors raise concerns over mega-merger talks", date: "2026-08-03", time: "17:24", url: "https://www.ft.com/content/6d40c74b-ac40-42f1-9387-957925f48daa" },
   { id: "016ad17d-0cab-48f1-8d7f-d3eb1634be63", title: "Six teenagers, a brutal murder and the story they couldn't take back", date: "2026-08-03", time: "17:11", url: "https://www.ft.com/content/016ad17d-0cab-48f1-8d7f-d3eb1634be63" },
-  { id: "03c413f2-6ad5-45d1-b5ac-fdb6ed8b4cff", title: "UBS fined $125mn over lax money laundering controls", date: "2026-08-03", time: "16:53", url: "https://www.ft.com/content/03c413f2-6ad5-45d1-b5ac-fdb6ed8b4cff" },
-  { id: "06f8f1a1-50a1-43d0-a236-c2d65ff38e87", title: "Iranian tanker tolls: totally legit after all?", date: "2026-08-03", time: "15:30", url: "https://www.ft.com/content/06f8f1a1-50a1-43d0-a236-c2d65ff38e87" },
-  { id: "2cc9c96a-0e5b-4c33-a95a-3d11072a145c", title: "Apple launches legal challenge to UK attempt to access encrypted user data", date: "2026-08-03", time: "15:11", url: "https://www.ft.com/content/2cc9c96a-0e5b-4c33-a95a-3d11072a145c" },
-  { id: "f1d1214e-59e8-4024-92f3-5a0a32dd0bc6", title: "And the FTAV charts quiz winner isn’t…", date: "2026-08-03", time: "15:01", url: "https://www.ft.com/content/f1d1214e-59e8-4024-92f3-5a0a32dd0bc6" },
-  { id: "1419a5f5-1bd7-4b89-b667-45c2789769ef", title: "Time for Andy Burnham to smile on UK science", date: "2026-08-03", time: "14:50", url: "https://www.ft.com/content/1419a5f5-1bd7-4b89-b667-45c2789769ef" },
 ];
