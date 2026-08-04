@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "78756a27-817e-450d-9bab-33214efbd804", title: "Tax consumption, not income or AI", date: "2026-08-04", time: "11:00", url: "https://www.ft.com/content/78756a27-817e-450d-9bab-33214efbd804" },
+  { id: "2906dfd6-ff5b-4f80-b575-661930ea9695", title: "India seeks to widen tax exemptions to woo investors such as Apple", date: "2026-08-04", time: "10:41", url: "https://www.ft.com/content/2906dfd6-ff5b-4f80-b575-661930ea9695" },
   { id: "4d9d5f1a-df3e-490e-9567-f7f7f968f3a4", title: "Ukrainian drones hit Wildberries warehouses in overnight strikes", date: "2026-08-04", time: "09:57", url: "https://www.ft.com/content/4d9d5f1a-df3e-490e-9567-f7f7f968f3a4" },
   { id: "96f5e56c-a8bf-44ca-8750-0448b19e0903", title: "Andy Burnham bars serious sex offenders from early prison release scheme", date: "2026-08-04", time: "09:36", url: "https://www.ft.com/content/96f5e56c-a8bf-44ca-8750-0448b19e0903" },
   { id: "1d8ac0ff-8ff0-44fd-bd92-5fd18983f31e", title: "Segro recommends £14bn takeover bid from US bidder", date: "2026-08-04", time: "08:03", url: "https://www.ft.com/content/1d8ac0ff-8ff0-44fd-bd92-5fd18983f31e" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "2cc9c96a-0e5b-4c33-a95a-3d11072a145c", title: "Apple launches legal challenge to UK attempt to access encrypted user data", date: "2026-08-03", time: "15:11", url: "https://www.ft.com/content/2cc9c96a-0e5b-4c33-a95a-3d11072a145c" },
   { id: "f1d1214e-59e8-4024-92f3-5a0a32dd0bc6", title: "And the FTAV charts quiz winner isn’t…", date: "2026-08-03", time: "15:01", url: "https://www.ft.com/content/f1d1214e-59e8-4024-92f3-5a0a32dd0bc6" },
   { id: "1419a5f5-1bd7-4b89-b667-45c2789769ef", title: "Time for Andy Burnham to smile on UK science", date: "2026-08-03", time: "14:50", url: "https://www.ft.com/content/1419a5f5-1bd7-4b89-b667-45c2789769ef" },
-  { id: "eddbdc29-5206-4c79-9ea7-f1a06ff040f1", title: "Struggling to make sense of AstraZeneca-BMS", date: "2026-08-03", time: "14:21", url: "https://www.ft.com/content/eddbdc29-5206-4c79-9ea7-f1a06ff040f1" },
-  { id: "0eec21be-80c4-4fca-991a-32fbd58cc653", title: "Can Democrats win over the working class?", date: "2026-08-03", time: "14:00", url: "https://www.ft.com/content/0eec21be-80c4-4fca-991a-32fbd58cc653" },
-  { id: "547bc3c3-6778-42d3-9bed-fcc3d0c28068", title: "Why Burnham is wrong about education and opportunity", date: "2026-08-03", time: "14:00", url: "https://www.ft.com/content/547bc3c3-6778-42d3-9bed-fcc3d0c28068" },
 ];

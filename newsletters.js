@@ -32,6 +32,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-authoralert-nkumar-20260804",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    title: "Ex-Citadel Duo’s Hedge Fund Soars 8.6% During July Stock Swings",
+    date: "2026-08-04",
+    time: "11:03",
+    summary: "The global market turmoil of the past few months came in handy for former Citadel money managers Niall O'Keeffe and Tio Charbaghi.",
+    url: "https://www.bloomberg.com/news/articles/2026-08-04/ex-citadel-duo-s-hedge-fund-soars-8-6-during-july-stock-swings",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-20260804",
     publication: "Bloomberg",
     author: "Victoria Batchelor",
@@ -439,16 +449,5 @@ export const NEWSLETTERS = [
     time: "09:58",
     summary: "CC, Linklaters and Simpson Thacher also in the mix on Swedish PE giant's £10.9bn acquisition of FTSE 100 company.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMQxNmsNkfb2dk3UFR/wv",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-20260730",
-    publication: "Bloomberg",
-    author: "Abhishek Shanker and Victoria Batchelor",
-    series: "Morning Briefing Europe",
-    title: "US Launches Fresh Strikes on Iran Hitting Military Targets",
-    date: "2026-07-30",
-    time: "07:40",
-    summary: "The US launches a fresh wave of strikes on Iran; Andy Burnham unveils an £8.4bn Dreadnought submarine investment; and a family feud threatens Leonardo Del Vecchio's €40bn empire.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-07-30/us-launches-fresh-strikes-on-iran-hitting-military-targets",
   },
 ];
