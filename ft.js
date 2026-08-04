@@ -20,22 +20,23 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "237bfa1a-e1af-493c-a6a6-ef2f36b519f8", title: "P&G seals $3.8bn deal for supplements company Thorne", date: "2026-08-04", time: "19:32", url: "https://www.ft.com/content/237bfa1a-e1af-493c-a6a6-ef2f36b519f8" },
+  { id: "4bfbce82-52ae-425f-8c11-57b2b30f2de7", title: "Donald Trump’s ex-lawyer poised to become attorney-general after ‘slush fund’ U-turn", date: "2026-08-04", time: "19:05", url: "https://www.ft.com/content/4bfbce82-52ae-425f-8c11-57b2b30f2de7" },
   { id: "8d421d44-862d-4942-99ae-568bad4900c2", title: "US diesel prices overtake Biden-era average in blow to Trump", date: "2026-08-04", time: "18:51", url: "https://www.ft.com/content/8d421d44-862d-4942-99ae-568bad4900c2" },
   { id: "e8f58a9c-0166-4a81-b970-b070d3dbc122", title: "An overdue show of EU solidarity with Spain", date: "2026-08-04", time: "18:45", url: "https://www.ft.com/content/e8f58a9c-0166-4a81-b970-b070d3dbc122" },
+  { id: "1ed68c71-e1e8-4ae5-a965-5380cbdeaa22", title: "US stocks jump after Bessent says deal to reopen Hormuz is imminent", date: "2026-08-04", time: "18:37", url: "https://www.ft.com/content/1ed68c71-e1e8-4ae5-a965-5380cbdeaa22" },
   { id: "6183a03c-4766-43e7-9392-cacd9a6545f8", title: "Palantir rides high on greed and fear — but mostly fear", date: "2026-08-04", time: "18:23", url: "https://www.ft.com/content/6183a03c-4766-43e7-9392-cacd9a6545f8" },
   { id: "8054a402-18a1-497d-ba0a-1ea338756e1f", title: "UK early release scheme may not avert future prison crisis, say experts", date: "2026-08-04", time: "18:04", url: "https://www.ft.com/content/8054a402-18a1-497d-ba0a-1ea338756e1f" },
   { id: "affbeefd-b94b-4707-b9af-3e12db6665d0", title: "US labour market stable in June", date: "2026-08-04", time: "17:28", url: "https://www.ft.com/content/affbeefd-b94b-4707-b9af-3e12db6665d0" },
   { id: "ac4b294d-36db-4e6d-aafe-663ce20cb658", title: "Wall Street’s insurance takeover presents circular risks and rewards", date: "2026-08-04", time: "16:53", url: "https://www.ft.com/content/ac4b294d-36db-4e6d-aafe-663ce20cb658" },
   { id: "f7fb388d-5826-409a-8dd6-43e828da6ba1", title: "MFS administrators sue Barclays after accounts access frozen", date: "2026-08-04", time: "16:53", url: "https://www.ft.com/content/f7fb388d-5826-409a-8dd6-43e828da6ba1" },
-  { id: "4bfbce82-52ae-425f-8c11-57b2b30f2de7", title: "Trump’s pick for US attorney-general clears key Senate hurdle", date: "2026-08-04", time: "16:41", url: "https://www.ft.com/content/4bfbce82-52ae-425f-8c11-57b2b30f2de7" },
   { id: "7ff5dd5c-dc45-4db3-ab75-8ab1c844f7be", title: "Japan LLC trading update", date: "2026-08-04", time: "16:39", url: "https://www.ft.com/content/7ff5dd5c-dc45-4db3-ab75-8ab1c844f7be" },
-  { id: "63b79c58-a497-4359-a3c7-03a36fead622", title: "Water companies feel squeeze of extraction limits as drought deepens", date: "2026-08-04", time: "16:10", url: "https://www.ft.com/content/63b79c58-a497-4359-a3c7-03a36fead622" },
+  { id: "63b79c58-a497-4359-a3c7-03a36fead622", title: "Water companies feel squeeze of abstraction limits as drought deepens", date: "2026-08-04", time: "16:10", url: "https://www.ft.com/content/63b79c58-a497-4359-a3c7-03a36fead622" },
   { id: "c56d21b4-1738-4b53-ad78-79f29b5de798", title: "Saudi-Israel tensions could frustrate India’s IMEC dreams", date: "2026-08-04", time: "16:09", url: "https://www.ft.com/content/c56d21b4-1738-4b53-ad78-79f29b5de798" },
   { id: "c1e80ff0-4566-4a15-9e7b-397abe6e5b5c", title: "In Venezuela, legitimacy matters more than continuity", date: "2026-08-04", time: "15:37", url: "https://www.ft.com/content/c1e80ff0-4566-4a15-9e7b-397abe6e5b5c" },
   { id: "07ba66d4-ceaf-497d-8bb2-19df27853a26", title: "Todd Blanche secures key Republican support to clear way for A-G confirmation", date: "2026-08-04", time: "14:00", url: "https://www.ft.com/content/07ba66d4-ceaf-497d-8bb2-19df27853a26" },
   { id: "33c20c4e-6a25-42da-9f1e-6664c8388957", title: "Developing countries have ‘less to fear’ from AI than rich nations", date: "2026-08-04", time: "14:00", url: "https://www.ft.com/content/33c20c4e-6a25-42da-9f1e-6664c8388957" },
   { id: "30d55ac8-d363-42e6-a711-016aa83ced80", title: "South African court hears challenge to land seizure law opposed by US", date: "2026-08-04", time: "13:54", url: "https://www.ft.com/content/30d55ac8-d363-42e6-a711-016aa83ced80" },
-  { id: "1ed68c71-e1e8-4ae5-a965-5380cbdeaa22", title: "Oil falls after Bessent says deal to reopen Strait of Hormuz is imminent", date: "2026-08-04", time: "13:28", url: "https://www.ft.com/content/1ed68c71-e1e8-4ae5-a965-5380cbdeaa22" },
   { id: "cbc7297a-647f-44be-9124-4fba662b15e5", title: "The Federal Reserve goes Wacko", date: "2026-08-04", time: "12:30", url: "https://www.ft.com/content/cbc7297a-647f-44be-9124-4fba662b15e5" },
   { id: "d0fc4477-21b9-4cc4-9033-52f995350627", title: "Fifa executive criticises Gianni Infantino’s ‘reproachable’ stake sale plan", date: "2026-08-04", time: "12:28", url: "https://www.ft.com/content/d0fc4477-21b9-4cc4-9033-52f995350627" },
   { id: "981becc2-8d7d-428a-93d3-405fc44e3ca5", title: "Japan’s fusion industry seeks state backing amid Middle East energy strain", date: "2026-08-04", time: "12:00", url: "https://www.ft.com/content/981becc2-8d7d-428a-93d3-405fc44e3ca5" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "90a0828c-1074-4609-b378-bfd410b7ec19", title: "Spanish stocks offer a sunny escape for tech-weary investors", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/90a0828c-1074-4609-b378-bfd410b7ec19" },
   { id: "7dd21b1e-3b3d-48a6-a3fe-6a0e4a14944b", title: "Revolut chief Nik Storonsky sued by broker over €350mn superyacht", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/7dd21b1e-3b3d-48a6-a3fe-6a0e4a14944b" },
   { id: "76d27b15-f73c-4408-9455-a85831eb2fec", title: "Infantino is not the problem", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/76d27b15-f73c-4408-9455-a85831eb2fec" },
-  { id: "d640ec5d-16c9-44e2-875e-30db7714ada9", title: "Italy and Germany’s censure of Spain’s migrant amnesty is ‘hypocritical’", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/d640ec5d-16c9-44e2-875e-30db7714ada9" },
 ];
