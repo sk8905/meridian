@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "41ecd9e9-26d3-49a4-8c88-39a187ea697d", title: "FTAV’s further reading", date: "2026-08-04", time: "07:09", url: "https://www.ft.com/content/41ecd9e9-26d3-49a4-8c88-39a187ea697d" },
   { id: "bbcf5c49-0ca3-4af4-a408-e0a723227042", title: "FirstFT: Russia expands shadow LNG fleet", date: "2026-08-04", time: "05:32", url: "https://www.ft.com/content/bbcf5c49-0ca3-4af4-a408-e0a723227042" },
   { id: "0da95788-cde6-4e1a-af89-1faced91178e", title: "HSBC quarterly profit soars to $10.1bn", date: "2026-08-04", time: "05:11", url: "https://www.ft.com/content/0da95788-cde6-4e1a-af89-1faced91178e" },
   { id: "b2440aa5-be3e-40ae-ad2d-ad5893de79d3", title: "The king who outfoxed Pedro Sánchez", date: "2026-08-04", time: "05:00", url: "https://www.ft.com/content/b2440aa5-be3e-40ae-ad2d-ad5893de79d3" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "c519970a-dd04-4f4a-aa1d-3db1a3c9e69a", title: "Plurilateral deals are last best hope for world trading system", date: "2026-08-03", time: "12:31", url: "https://www.ft.com/content/c519970a-dd04-4f4a-aa1d-3db1a3c9e69a" },
   { id: "6a8c1d6c-63c7-4d3d-8882-eb5c67b2f9e1", title: "SpaceX’s staggered lock-up release prolongs the pain", date: "2026-08-03", time: "12:00", url: "https://www.ft.com/content/6a8c1d6c-63c7-4d3d-8882-eb5c67b2f9e1" },
   { id: "08b4af67-27d5-4d38-91cd-3ae81250cf59", title: "Myanmar releases photos of Aung San Suu Kyi amid health concerns", date: "2026-08-03", time: "11:25", url: "https://www.ft.com/content/08b4af67-27d5-4d38-91cd-3ae81250cf59" },
-  { id: "f2180678-aebb-44c5-b7ad-483db9b5ee28", title: "Reform’s Richard Tice probed over alleged failure to declare an interest", date: "2026-08-03", time: "11:14", url: "https://www.ft.com/content/f2180678-aebb-44c5-b7ad-483db9b5ee28" },
 ];
