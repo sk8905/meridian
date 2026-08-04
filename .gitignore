@@ -1,0 +1,3 @@
+# Local agent-worktree scratch space (created by background subagents during
+# this session's refresh run) — not repo content, never commit.
+.claude/worktrees/
