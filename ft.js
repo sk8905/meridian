@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "3a1ef902-8926-46a7-98f6-a75acd0511fc", title: "US bans exports of various used critical minerals", date: "2026-08-05", time: "10:10", url: "https://www.ft.com/content/3a1ef902-8926-46a7-98f6-a75acd0511fc" },
+  { id: "65b5e1b7-c90c-4c85-bc12-17c00ef4bdd3", title: "Andy Burnham rewires the ‘unaccountable’ state", date: "2026-08-05", time: "09:40", url: "https://www.ft.com/content/65b5e1b7-c90c-4c85-bc12-17c00ef4bdd3" },
   { id: "36b7f8a7-5062-4211-90e0-d89b6c32ca15", title: "Solid wage growth keeps BoJ on course for tightening", date: "2026-08-05", time: "08:30", url: "https://www.ft.com/content/36b7f8a7-5062-4211-90e0-d89b6c32ca15" },
   { id: "7dc728e5-74d3-45e9-bae8-c2cd6284e136", title: "India raises $40bn from diaspora to support sagging rupee", date: "2026-08-05", time: "08:24", url: "https://www.ft.com/content/7dc728e5-74d3-45e9-bae8-c2cd6284e136" },
   { id: "c2eb9800-b8df-41f6-aad9-e25c2ebe43d6", title: "Russian bombardment kills 15 in Kyiv", date: "2026-08-05", time: "07:52", url: "https://www.ft.com/content/c2eb9800-b8df-41f6-aad9-e25c2ebe43d6" },
@@ -58,5 +60,4 @@ export const FT_ITEMS = [
   { id: "8054a402-18a1-497d-ba0a-1ea338756e1f", title: "UK early release scheme may not avert future prison crisis, say experts", date: "2026-08-04", time: "18:04", url: "https://www.ft.com/content/8054a402-18a1-497d-ba0a-1ea338756e1f" },
   { id: "affbeefd-b94b-4707-b9af-3e12db6665d0", title: "US labour market stable in June", date: "2026-08-04", time: "17:28", url: "https://www.ft.com/content/affbeefd-b94b-4707-b9af-3e12db6665d0" },
   { id: "ac4b294d-36db-4e6d-aafe-663ce20cb658", title: "Wall Street’s insurance takeover presents circular risks and rewards", date: "2026-08-04", time: "16:53", url: "https://www.ft.com/content/ac4b294d-36db-4e6d-aafe-663ce20cb658" },
-  { id: "f7fb388d-5826-409a-8dd6-43e828da6ba1", title: "MFS administrators sue Barclays after accounts access frozen", date: "2026-08-04", time: "16:53", url: "https://www.ft.com/content/f7fb388d-5826-409a-8dd6-43e828da6ba1" },
 ];
