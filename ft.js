@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "38e11309-9cb6-4cd4-a5b6-fc9a239ad6b3", title: "China hits back at US with sanctions and tighter drone export rules", date: "2026-08-05", time: "14:23", url: "https://www.ft.com/content/38e11309-9cb6-4cd4-a5b6-fc9a239ad6b3" },
+  { id: "eee4bbbf-1d94-4910-9a61-2faefef61d55", title: "Russia drone company chief injured in car bombing", date: "2026-08-05", time: "13:59", url: "https://www.ft.com/content/eee4bbbf-1d94-4910-9a61-2faefef61d55" },
+  { id: "33d4b478-b608-490f-9b15-534089d51499", title: "Flutter chief steps down as gambling group cuts guidance", date: "2026-08-05", time: "13:44", url: "https://www.ft.com/content/33d4b478-b608-490f-9b15-534089d51499" },
+  { id: "fc7f75f9-73b5-4ce6-8a27-f819aa7f361b", title: "Eli Lilly and Novo Nordisk raise profit outlook as weight-loss drug demand soars", date: "2026-08-05", time: "13:40", url: "https://www.ft.com/content/fc7f75f9-73b5-4ce6-8a27-f819aa7f361b" },
   { id: "51606605-c861-475d-82f6-c9495f5d32d0", title: "The bureaucratic misery of India’s voter revision", date: "2026-08-05", time: "13:20", url: "https://www.ft.com/content/51606605-c861-475d-82f6-c9495f5d32d0" },
   { id: "a47aa815-ba40-4ab6-8631-d0c6c11011ed", title: "Europe and the eternal north-south rift", date: "2026-08-05", time: "12:46", url: "https://www.ft.com/content/a47aa815-ba40-4ab6-8631-d0c6c11011ed" },
   { id: "5506dcd6-4333-4c4a-a471-80d865bd0038", title: "Remember when the US Treasury caused that major yen rally in ‘98?", date: "2026-08-05", time: "12:39", url: "https://www.ft.com/content/5506dcd6-4333-4c4a-a471-80d865bd0038" },
@@ -57,7 +61,4 @@ export const FT_ITEMS = [
   { id: "1aec6153-a264-4d04-8a8a-c2500c7a952d", title: "The global green transition won’t be driven by self-interest alone", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/1aec6153-a264-4d04-8a8a-c2500c7a952d" },
   { id: "9a59bb55-d060-4002-bc4f-4563aa598b02", title: "European carmakers turn to Chinese rivals to fill factory floors", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/9a59bb55-d060-4002-bc4f-4563aa598b02" },
   { id: "41f7963b-dd50-4f27-a085-771ddec4a8ca", title: "SpaceX posts 92% rise in revenue in debut earnings report", date: "2026-08-04", time: "21:14", url: "https://www.ft.com/content/41f7963b-dd50-4f27-a085-771ddec4a8ca" },
-  { id: "4bc98c31-d430-4e84-9353-6b9a6154d4d6", title: "US cannot ‘stay isolated’ from Chinese EV competition, warns Lucid CEO", date: "2026-08-04", time: "21:10", url: "https://www.ft.com/content/4bc98c31-d430-4e84-9353-6b9a6154d4d6" },
-  { id: "9878a2e4-3ac5-43b0-b2c9-b1fe1a4b65e7", title: "UK to strip back procurement rules to focus on job creation, says Louise Haigh", date: "2026-08-04", time: "21:00", url: "https://www.ft.com/content/9878a2e4-3ac5-43b0-b2c9-b1fe1a4b65e7" },
-  { id: "237bfa1a-e1af-493c-a6a6-ef2f36b519f8", title: "P&G seals $3.8bn deal for supplements company Thorne", date: "2026-08-04", time: "19:32", url: "https://www.ft.com/content/237bfa1a-e1af-493c-a6a6-ef2f36b519f8" },
 ];
