@@ -32,6 +32,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-nonbillable-mourantpe-20260805",
+    publication: "Non-Billable",
+    title: "A major law firm just took private equity investment",
+    date: "2026-08-05",
+    time: "09:05",
+    summary: "Offshore heavyweight Mourant sells a minority stake to private equity firm MML to fund AI, technology and international expansion, plus Latham hires Hg general counsel Samantha McGonigle as a London partner.",
+    url: "https://www.nonbillable.co.uk/news/mourant-taps-private-equity",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-20260805",
     publication: "Bloomberg",
     author: "Victoria Batchelor",
@@ -431,15 +440,5 @@ export const NEWSLETTERS = [
     time: "12:01",
     summary: "Direct lenders offer no-growth, no-repayment loans to creators seeking the next cult concept.",
     url: "https://www.bloomberg.com/news/newsletters/2026-07-31/mobile-app-debt-demand-carves-high-risk-private-credit-niche",
-  },
-  {
-    id: "nl-bbg-marketsdaily-weekofdrama-20260731",
-    publication: "Bloomberg",
-    series: "Markets Daily",
-    title: "Markets Daily: A week of drama",
-    date: "2026-07-31",
-    time: "11:46",
-    summary: "Market swings are turning severe.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-07-31/traders-got-hit-with-drama-everywhere-this-week",
   },
 ];

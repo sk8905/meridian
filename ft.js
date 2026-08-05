@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "36b7f8a7-5062-4211-90e0-d89b6c32ca15", title: "Solid wage growth keeps BoJ on course for tightening", date: "2026-08-05", time: "08:30", url: "https://www.ft.com/content/36b7f8a7-5062-4211-90e0-d89b6c32ca15" },
+  { id: "7dc728e5-74d3-45e9-bae8-c2cd6284e136", title: "India raises $40bn from diaspora to support sagging rupee", date: "2026-08-05", time: "08:24", url: "https://www.ft.com/content/7dc728e5-74d3-45e9-bae8-c2cd6284e136" },
   { id: "c2eb9800-b8df-41f6-aad9-e25c2ebe43d6", title: "Russian bombardment kills 15 in Kyiv", date: "2026-08-05", time: "07:52", url: "https://www.ft.com/content/c2eb9800-b8df-41f6-aad9-e25c2ebe43d6" },
   { id: "f447bd94-8541-4176-acdf-f16e2be4289a", title: "Glencore explores secondary listing in Australia", date: "2026-08-05", time: "07:22", url: "https://www.ft.com/content/f447bd94-8541-4176-acdf-f16e2be4289a" },
   { id: "8bbcfe7e-d3a8-4ea8-ad43-a88f0a48b69e", title: "Bank of England: QT bye?", date: "2026-08-05", time: "06:30", url: "https://www.ft.com/content/8bbcfe7e-d3a8-4ea8-ad43-a88f0a48b69e" },
@@ -57,8 +59,4 @@ export const FT_ITEMS = [
   { id: "affbeefd-b94b-4707-b9af-3e12db6665d0", title: "US labour market stable in June", date: "2026-08-04", time: "17:28", url: "https://www.ft.com/content/affbeefd-b94b-4707-b9af-3e12db6665d0" },
   { id: "ac4b294d-36db-4e6d-aafe-663ce20cb658", title: "Wall Street’s insurance takeover presents circular risks and rewards", date: "2026-08-04", time: "16:53", url: "https://www.ft.com/content/ac4b294d-36db-4e6d-aafe-663ce20cb658" },
   { id: "f7fb388d-5826-409a-8dd6-43e828da6ba1", title: "MFS administrators sue Barclays after accounts access frozen", date: "2026-08-04", time: "16:53", url: "https://www.ft.com/content/f7fb388d-5826-409a-8dd6-43e828da6ba1" },
-  { id: "7ff5dd5c-dc45-4db3-ab75-8ab1c844f7be", title: "Japan LLC trading update", date: "2026-08-04", time: "16:39", url: "https://www.ft.com/content/7ff5dd5c-dc45-4db3-ab75-8ab1c844f7be" },
-  { id: "63b79c58-a497-4359-a3c7-03a36fead622", title: "Water companies feel squeeze of abstraction limits as drought deepens", date: "2026-08-04", time: "16:10", url: "https://www.ft.com/content/63b79c58-a497-4359-a3c7-03a36fead622" },
-  { id: "c56d21b4-1738-4b53-ad78-79f29b5de798", title: "Saudi-Israel tensions could frustrate India’s IMEC dreams", date: "2026-08-04", time: "16:09", url: "https://www.ft.com/content/c56d21b4-1738-4b53-ad78-79f29b5de798" },
-  { id: "c1e80ff0-4566-4a15-9e7b-397abe6e5b5c", title: "In Venezuela, legitimacy matters more than continuity", date: "2026-08-04", time: "15:37", url: "https://www.ft.com/content/c1e80ff0-4566-4a15-9e7b-397abe6e5b5c" },
 ];
