@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "62b70b3a-88c9-4d6c-bc0c-b840586af91a", title: "JPMorgan poaches M&A banker Amy Lissauer from Bank of America", date: "2026-08-05", time: "20:10", url: "https://www.ft.com/content/62b70b3a-88c9-4d6c-bc0c-b840586af91a" },
+  { id: "61d41764-f2f7-4906-a112-ff3073972c51", title: "Google DeepMind CEO Demis Hassabis steps down in shake-up of AI lab", date: "2026-08-05", time: "19:24", url: "https://www.ft.com/content/61d41764-f2f7-4906-a112-ff3073972c51" },
   { id: "124950d0-1d2f-4da5-8dbc-33912e939298", title: "Kemi Badenoch ‘sad’ over withdrawal of former antisemite as Tory council candidate", date: "2026-08-05", time: "19:03", url: "https://www.ft.com/content/124950d0-1d2f-4da5-8dbc-33912e939298" },
   { id: "2f32de35-697e-4f56-ac57-e44006a09d0f", title: "How to solve Britain’s prisons crisis", date: "2026-08-05", time: "18:52", url: "https://www.ft.com/content/2f32de35-697e-4f56-ac57-e44006a09d0f" },
   { id: "e0b10cad-3e46-4a6d-9227-eba6fe11c676", title: "Iran says it has reached agreement with Oman on Hormuz shipping route", date: "2026-08-05", time: "18:24", url: "https://www.ft.com/content/e0b10cad-3e46-4a6d-9227-eba6fe11c676" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "ae77f88d-7cde-43aa-ac03-204eae25edc2", title: "The Story of Money", date: "2026-08-05", time: "05:03", url: "https://www.ft.com/content/ae77f88d-7cde-43aa-ac03-204eae25edc2" },
   { id: "15f69a0c-30d5-4d6f-b53f-3f20a8fc8c49", title: "The big power of small annoyances", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/15f69a0c-30d5-4d6f-b53f-3f20a8fc8c49" },
   { id: "4d42a5ec-7f71-46e4-8ca9-b5bed789c83b", title: "Can I keep our dog when we get divorced?", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/4d42a5ec-7f71-46e4-8ca9-b5bed789c83b" },
-  { id: "d1f10ede-f73f-4bdf-9aa6-b6ac028f63ce", title: "The earthquake at Wachtell", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/d1f10ede-f73f-4bdf-9aa6-b6ac028f63ce" },
 ];
