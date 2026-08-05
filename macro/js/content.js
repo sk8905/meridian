@@ -5,15 +5,15 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "4 August 2026";
+export const UPDATED = "5 August 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-08-04",
-  lastCheckedTime: "21:32 BST",
+  lastChecked: "2026-08-05",
+  lastCheckedTime: "05:16 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -713,20 +713,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-08-04",
+  updated: "2026-08-05",
   us: [
-    { title: "Stock Market Today (Aug. 4, 2026): Record closes for S&P 500, Dow as tech comeback continues; SpaceX and AMD report earnings", source: "TheStreet", date: "2026-08-04", time: "21:13", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-4-2026" },
-    { title: "A Fresh Record Looms for the Unsinkable S&P 500", source: "Bloomberg", date: "2026-08-04", time: "21:13", url: "https://www.bloomberg.com/news/newsletters/2026-08-04/a-fresh-record-looms-for-the-unsinkable-s-p-500" },
-    { title: "JOLTs job openings 7.359M vs 7.400M estimate. Lower than last month.", source: "ForexLive (investinglive.com)", date: "2026-08-04", time: "21:13", url: "https://investinglive.com/news/jolts-job-openings-7-359m-vs-7-400m-estimate-lower-than-last-month/" },
-    { title: "US Dollar: JOLTS openings seen retreating – TD Securities", source: "FXStreet", date: "2026-08-04", time: "21:13", url: "https://www.fxstreet.com/news/us-dollar-jolts-openings-seen-retreating-td-securities-202608041149" },
+    { title: "Qatar Signals Progress Toward Short-Term Deal Between US, Iran", source: "Bloomberg", date: "2026-08-04", time: "23:40", url: "https://www.bloomberg.com/news/articles/2026-08-04/qatar-signals-progress-toward-short-term-deal-between-us-iran" },
+    { title: "US Trade Deficit Shrinks to $73.3 Billion as Imports Decline in June", source: "Bloomberg", date: "2026-08-04", time: "22:00", url: "https://www.bloomberg.com/news/articles/2026-08-04/us-trade-deficit-narrows-to-73-3-billion-on-drop-in-imports" },
     { title: "Philadelphia Fed President Paulson content with rates at current level, but keeping an open mind", source: "CNBC", date: "2026-08-04", time: "21:13", url: "https://www.cnbc.com/2026/08/04/philadelphia-fed-president-paulson-content-with-current-rates-but-keeping-an-open-mind.html" },
+    { title: "JOLTs job openings 7.359M vs 7.400M estimate. Lower than last month.", source: "ForexLive (investinglive.com)", date: "2026-08-04", time: "21:13", url: "https://investinglive.com/news/jolts-job-openings-7-359m-vs-7-400m-estimate-lower-than-last-month/" },
+    { title: "Manufacturing PMI® at 55.6%; July 2026 ISM® Manufacturing PMI® Report", source: "PR Newswire / ISM", date: "2026-08-03", time: "15:05", url: "https://www.prnewswire.com/news-releases/manufacturing-pmi-at-55-6-july-2026-ism-manufacturing-pmi-report-302840669.html" },
   ],
   uk: [
-    { title: "Prologis Agrees Final Terms for $14 Billion Segro Takeover", source: "Bloomberg", date: "2026-08-04", time: "21:13", url: "https://www.bloomberg.com/news/articles/2026-08-04/prologis-agrees-final-terms-for-14-billion-segro-takeover" },
-    { title: "HSBC pretax profit beats estimates, boosted by higher net interest income and fees", source: "CNBC", date: "2026-08-04", time: "12:19", url: "https://www.cnbc.com/2026/08/04/hsbc-profit-beats-estimates-higher-net-interest-income-fees.html" },
-    { title: "AstraZeneca slides after reports of Bristol Myers merger talks leave analysts 'perplexed'", source: "CNBC", date: "2026-08-03", time: "21:13", url: "https://www.cnbc.com/2026/08/03/astrazeneca-bristol-myers-squibb-merger-talks.html" },
-    { title: "FTSE 100 Live: Mining surge offsets BP slide, while HSBC buyback 'too small'", source: "Proactive Investors", date: "2026-08-04", time: "17:16", url: "https://www.proactiveinvestors.co.uk/companies/news/1096469/ftse-100-live-mining-surge-offsets-bp-slide-while-hsbc-buyback-too-small-1096469.html" },
-    { title: "British Pound mid-year outlook: Where the Pound is headed as war, fiscal cracks and central banks collide", source: "FXStreet", date: "2026-08-03", time: "21:13", url: "https://www.fxstreet.com/analysis/british-pound-mid-year-outlook-where-the-pound-is-headed-as-war-fiscal-cracks-and-central-banks-collide-202608031055" },
+    { title: "UK Chancellor John Healey to Deliver First Budget on October 28", source: "Bloomberg", date: "2026-07-31", time: "12:00", url: "https://www.bloomberg.com/news/articles/2026-07-31/uk-chancellor-john-healey-to-deliver-first-budget-on-october-28" },
+    { title: "HSBC profit jumps as bank unveils major share buyback plan", source: "Euronews", date: "2026-08-04", time: "21:45", url: "https://www.euronews.com/business/2026/08/04/hsbc-profit-jumps-as-bank-unveils-major-share-buyback-plan" },
+    { title: "British Pound Forecast: GBP's Summer Rally Could Face An Autumn Fiscal Shock", source: "ExchangeRates.org.uk", date: "2026-08-04", time: "21:13", url: "https://www.exchangerates.org.uk/news/46721/2026-08-04-british-pound-forecast-gbp-s-summer-rally-could-face-an-autumn-fiscal-shock.html" },
+    { title: "BP and HSBC in focus, as Yen rally takes a break", source: "FXStreet", date: "2026-08-04", time: "07:19", url: "https://www.fxstreet.com/analysis/bp-and-hsbc-in-focus-as-yen-rally-takes-a-break-202608040719" },
+    { title: "BP's Q2 Profit Doubles Amid Middle East Conflict, but It Cuts Production, Capex Outlook", source: "Benzinga", date: "2026-08-04", time: "21:50", url: "https://www.benzinga.com/markets/earnings/26/08/60913053/bps-q2-profit-doubles-amid-middle-east-conflict-but-it-cuts-production-capex-outlook" },
   ],
 };
 
@@ -738,8 +738,14 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-08-04",
+  updated: "2026-08-05",
   items: [
+    {"title":"Qatar Signals Progress Toward Short-Term Deal Between US, Iran","source":"Bloomberg","date":"2026-08-04","time":"23:40","url":"https://www.bloomberg.com/news/articles/2026-08-04/qatar-signals-progress-toward-short-term-deal-between-us-iran","blurb":"Qatar's foreign ministry said draft proposals for a short-term Hormuz-focused deal are being exchanged between US and Iranian officials via Qatari, Omani and Pakistani mediators, with Rubio and Bessent both sounding cautiously optimistic — though Qatar and Bessent cautioned no agreement is yet final and Iran has not confirmed progress."},
+    {"title":"Oil Holds Two-Day Drop on Signs of Progress Toward Hormuz Deal","source":"Bloomberg","date":"2026-08-04","time":"23:15","url":"https://www.bloomberg.com/news/articles/2026-08-04/latest-oil-market-news-and-analysis-for-aug-5","blurb":"Brent extended its slide below $79/bbl and WTI toward $75, down more than 10% over two sessions, as hopes built for a deal to reopen the Strait of Hormuz and free up supply trapped in the Persian Gulf."},
+    {"title":"US Trade Deficit Shrinks to $73.3 Billion as Imports Decline in June","source":"Bloomberg","date":"2026-08-04","time":"22:00","url":"https://www.bloomberg.com/news/articles/2026-08-04/us-trade-deficit-narrows-to-73-3-billion-on-drop-in-imports","blurb":"The goods-and-services deficit narrowed to $73.3bn in June (from a revised $77.6bn in May) as imports fell more than exports, leaving the year-to-date deficit down nearly 34% versus the same period in 2025."},
+    {"title":"BP's Q2 Profit Doubles Amid Middle East Conflict, but It Cuts Production, Capex Outlook","source":"Benzinga","date":"2026-08-04","time":"21:50","url":"https://www.benzinga.com/markets/earnings/26/08/60913053/bps-q2-profit-doubles-amid-middle-east-conflict-but-it-cuts-production-capex-outlook","blurb":"BP's underlying replacement-cost profit more than doubled to $5.73bn as the Iran war pushed Brent roughly 20% higher year-on-year and refining margins boomed, even as the company trimmed its production and capex outlook alongside its North Sea sale process."},
+    {"title":"HSBC profit jumps as bank unveils major share buyback plan","source":"Euronews","date":"2026-08-04","time":"21:45","url":"https://www.euronews.com/business/2026/08/04/hsbc-profit-jumps-as-bank-unveils-major-share-buyback-plan","blurb":"HSBC's H1 pre-tax profit rose 27% to $14.6bn, with Q2 net interest income up 9% on elevated global rates, prompting a fresh $1bn buyback — its first since taking Hong Kong's Hang Seng Bank private."},
+    {"title":"UK Chancellor John Healey to Deliver First Budget on October 28","source":"Bloomberg","date":"2026-07-31","time":"12:00","url":"https://www.bloomberg.com/news/articles/2026-07-31/uk-chancellor-john-healey-to-deliver-first-budget-on-october-28","blurb":"Healey confirmed the earliest Autumn Budget date since 2021, aiming to limit speculation over the scale of tax rises needed to close the fiscal gap after a run of cost-of-living spending commitments including the VAT cut on household electricity."},
     {"title":"Advanced Micro Devices Inc Stock (AMD) Moved Up by 5.32% on Aug 4: Drivers Behind the Movement","source":"TradingKey","date":"2026-08-04","time":"21:13","url":"https://www.tradingkey.com/news/market-movers/262073815-market-movers-amd-20260804","blurb":"AMD's Q2 2026 revenue of $11.536bn topped the ~$11.3bn Street estimate as Data Center revenue of $6.718bn (58% of sales) more than doubled year-on-year on EPYC and Instinct MI-series demand; shares rose about 5% after hours even as GAAP EPS of $1.38 missed the $1.62 consensus, with Q3 revenue guided to ~$13bn."},
     {"title":"SpaceX revenue jumps 92% in first earnings report since IPO: Live updates","source":"CNBC","date":"2026-08-04","time":"21:13","url":"https://www.cnbc.com/2026/08/04/spacex-spcx-earnings-live-updates-q2-2026.html","blurb":"In its first earnings report since June's IPO, SpaceX posted revenue of $7.81bn (+92% y/y) and a narrower-than-expected loss of $0.09/share, beating estimates on both lines, but shares still fell as investors focused on the imminent August 6 lock-up expiration and continued heavy AI-infrastructure spending."},
     {"title":"Prologis Agrees Final Terms for $14 Billion Segro Takeover","source":"Bloomberg","date":"2026-08-04","time":"21:13","url":"https://www.bloomberg.com/news/articles/2026-08-04/prologis-agrees-final-terms-for-14-billion-segro-takeover","blurb":"US industrial-property giant Prologis agreed final terms for a roughly £14bn takeover of Segro, the UK's largest REIT, ending a four-bid pursuit and marking one of the year's largest London-listed real-estate deals."},
@@ -775,10 +781,6 @@ export const ARTICLES = {
     {"title":"Manufacturing PMI® at 55.6%; July 2026 ISM® Manufacturing PMI® Report","source":"PR Newswire / ISM","date":"2026-08-03","time":"15:05","url":"https://www.prnewswire.com/news-releases/manufacturing-pmi-at-55-6-july-2026-ism-manufacturing-pmi-report-302840669.html","blurb":"US manufacturing activity expanded for a seventh straight month, with the headline index up 2.3 points to 55.6% — its highest since May 2022 — as the New Orders Index rose to 56.7% and the Employment Index improved to 52.8% from 49.7%, beating the ~54% consensus."},
     {"title":"Sterling today: Pound slips as dollar holds ground despite joint yen intervention","source":"Investing.com","date":"2026-08-03","time":"12:00","url":"https://www.investing.com/news/forex-news/sterling-today-pound-slips-as-dollar-holds-ground-despite-joint-yen-intervention-4829946","blurb":"GBP/USD eased even as the US and Japan's coordinated yen-buying intervention rattled FX markets, with the dollar's broader resilience tied to still-firm Fed rate-hike expectations for September rather than any UK-specific driver."},
     {"title":"U.S., Japan confirm coordinated yen intervention, signal readiness for more","source":"CNBC","date":"2026-08-03","time":"13:00","url":"https://www.cnbc.com/2026/08/03/yen-intervention-us-japan-trump-bessent-katayama.html","blurb":"Japan's finance ministry confirmed a coordinated yen-buying operation with the US Treasury after the yen fell to a roughly four-decade low near 164/dollar; Treasury Secretary Bessent said the action \"countered disorderly yen movements\" and both sides signalled openness to further intervention."},
-    {"title":"Wall Street shrugs off global slump as Trump promises (yet another) imminent deal with Iran","source":"Fortune","date":"2026-08-03","time":"17:10","url":"https://fortune.com/2026/08/03/wall-street-stocks-trump-deal-with-iran/","blurb":"Stocks climbed and oil fell as investors looked past a five-month pattern of unfulfilled Trump deal claims, with Capital.com's Daniela Hathorn noting global equities \"kicked off the week on the front foot\" even though Iranian state media gave no sign Tehran had actually asked for the strikes to be called off."},
-    {"title":"AstraZeneca slides after reports of Bristol Myers merger talks leave analysts 'perplexed'","source":"CNBC","date":"2026-08-03","time":"17:10","url":"https://www.cnbc.com/2026/08/03/astrazeneca-bristol-myers-squibb-merger-talks.html","blurb":"AstraZeneca shares fell despite FT reports of tie-up talks with Bristol Myers Squibb on a deal that could value the combined group near $400bn, with analysts questioning the strategic logic and regulatory odds of a mega-merger between two large-cap pharma names."},
-    {"title":"FTSE 100 Live: UK stocks lag, gilts rise as US-Iran optimism weighs on oil","source":"Bloomberg","date":"2026-08-03","time":"17:10","url":"https://www.bloomberg.com/news/live-blog/2026-08-03/ftse-100-live-astrazeneca-pound-bonds-trump-iran-hormuz-oil-prices-pmi-data-what-s-moving-uk-markets-right-now-markets-today-msctgg9g","blurb":"UK gilts rallied and the 10-year yield fell to 4.99% as retreating oil prices eased inflation worries, even as the FTSE 100 lagged global peers on AstraZeneca's slide following the Bristol Myers Squibb tie-up reports."},
-    {"title":"Iran war could 'halt growth' across UK economy","source":"CityAM","date":"2026-08-03","time":"17:10","url":"https://www.cityam.com/iran-war-could-halt-growth-across-uk-economy/","blurb":"City economists warned a prolonged Iran conflict risks choking off the UK's fragile recovery via higher energy costs and shipping disruption, even as Monday's diplomatic overtures offered a tentative reprieve for growth-sensitive sectors."},
   ],
 };
 
@@ -803,6 +805,7 @@ export const RELEASES = [
   { date: "2026-08-26", country: "US", title: "GDP, Second Estimate (Q2 2026)", url: "https://www.bea.gov/data/gdp/gross-domestic-product" },
   { date: "2026-08-26", country: "US", title: "Personal Income and Outlays / PCE Price Index (July)", url: "https://www.bea.gov/data/income-saving/personal-income-and-outlays" },
   { date: "2026-08-27", country: "US", title: "Jackson Hole Economic Policy Symposium begins (Kansas City Fed)", url: "https://www.kansascityfed.org/research/jackson-hole-economic-symposium/" },
+  { date: "2026-09-01", country: "US", title: "ISM Manufacturing PMI (August)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
   { date: "2026-09-04", country: "US", title: "Jobs report / Nonfarm payrolls (August)", url: "https://www.bls.gov/schedule/news_release/empsit.htm" },
   { date: "2026-09-16", country: "US", title: "FOMC rate decision (with Summary of Economic Projections)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-09-17", country: "UK", title: "BoE MPC rate decision", url: "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates" },
