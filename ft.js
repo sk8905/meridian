@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "1fcca000-d9ac-4b3b-9d31-2fef0d1f55f3", title: "Big US hedge funds hit by wave of cyber attacks", date: "2026-08-05", time: "20:47", url: "https://www.ft.com/content/1fcca000-d9ac-4b3b-9d31-2fef0d1f55f3" },
+  { id: "3cf185ad-3aea-4d15-8fae-36940da57219", title: "Bikemaker Accell files for insolvency four years after €1.8bn KKR-led buyout", date: "2026-08-05", time: "20:11", url: "https://www.ft.com/content/3cf185ad-3aea-4d15-8fae-36940da57219" },
   { id: "62b70b3a-88c9-4d6c-bc0c-b840586af91a", title: "JPMorgan poaches M&A banker Amy Lissauer from Bank of America", date: "2026-08-05", time: "20:10", url: "https://www.ft.com/content/62b70b3a-88c9-4d6c-bc0c-b840586af91a" },
   { id: "61d41764-f2f7-4906-a112-ff3073972c51", title: "Google DeepMind CEO Demis Hassabis steps down in shake-up of AI lab", date: "2026-08-05", time: "19:24", url: "https://www.ft.com/content/61d41764-f2f7-4906-a112-ff3073972c51" },
   { id: "124950d0-1d2f-4da5-8dbc-33912e939298", title: "Kemi Badenoch ‘sad’ over withdrawal of former antisemite as Tory council candidate", date: "2026-08-05", time: "19:03", url: "https://www.ft.com/content/124950d0-1d2f-4da5-8dbc-33912e939298" },
@@ -59,6 +61,4 @@ export const FT_ITEMS = [
   { id: "30e02828-a59e-4121-8956-8cb1c29742d6", title: "FirstFT: SpaceX’s AI spending plans rattle investors", date: "2026-08-05", time: "05:30", url: "https://www.ft.com/content/30e02828-a59e-4121-8956-8cb1c29742d6" },
   { id: "24bddb7e-9064-4d1b-80b1-d2dc59eed574", title: "Shares in Chinese AI darlings slide on US ban fears", date: "2026-08-05", time: "05:15", url: "https://www.ft.com/content/24bddb7e-9064-4d1b-80b1-d2dc59eed574" },
   { id: "ae77f88d-7cde-43aa-ac03-204eae25edc2", title: "The Story of Money", date: "2026-08-05", time: "05:03", url: "https://www.ft.com/content/ae77f88d-7cde-43aa-ac03-204eae25edc2" },
-  { id: "15f69a0c-30d5-4d6f-b53f-3f20a8fc8c49", title: "The big power of small annoyances", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/15f69a0c-30d5-4d6f-b53f-3f20a8fc8c49" },
-  { id: "4d42a5ec-7f71-46e4-8ca9-b5bed789c83b", title: "Can I keep our dog when we get divorced?", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/4d42a5ec-7f71-46e4-8ca9-b5bed789c83b" },
 ];
