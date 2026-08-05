@@ -1575,7 +1575,7 @@ const MACRO_SERIES = [
   { country: "US", key: "core_cpi", label: "Core inflation", unit: "%", sub: "Core CPI · YoY", src: "fred", id: "CPILFESL", tf: "yoy", href: "https://fred.stlouisfed.org/series/CPILFESL", source: "FRED / BLS" },
   // DBnomics' ISM mirror lags (~Aug 2025); recent months curated from ISM's own
   // monthly releases keep it current (merged onto the real history).
-  { country: "US", key: "services_pmi", label: "Services PMI", unit: "", sub: "ISM Services PMI", src: "dbnomics", id: "ISM/nm-pmi/pm", curated: [["2025-09", 50.0], ["2025-10", 52.4], ["2026-02", 56.1], ["2026-03", 54.0], ["2026-04", 53.6], ["2026-05", 54.5], ["2026-06", 54.0]], tf: "level", href: "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-report-on-business/services/", source: "ISM" },
+  { country: "US", key: "services_pmi", label: "Services PMI", unit: "", sub: "ISM Services PMI", src: "dbnomics", id: "ISM/nm-pmi/pm", curated: [["2025-09", 50.0], ["2025-10", 52.4], ["2026-02", 56.1], ["2026-03", 54.0], ["2026-04", 53.6], ["2026-05", 54.5], ["2026-06", 54.0], ["2026-07", 54.1]], tf: "level", href: "https://www.ismworld.org/supply-management-news-and-reports/reports/ism-report-on-business/services/", source: "ISM" },
   { country: "US", key: "wages", label: "Wage growth", unit: "%", sub: "Avg hourly earnings · YoY", src: "fred", id: "CES0500000003", tf: "yoy", href: "https://fred.stlouisfed.org/series/CES0500000003", source: "FRED / BLS" },
   { country: "US", key: "unemployment", label: "Unemployment", unit: "%", sub: "Unemployment rate", src: "fred", id: "UNRATE", tf: "level", href: "https://fred.stlouisfed.org/series/UNRATE", source: "FRED / BLS" },
   // UK Bank Rate is a published MPC step function; curated here as the full,
@@ -1727,7 +1727,7 @@ async function handleMacro(request, env, ctx) {
     return new Response(JSON.stringify({ probes }, null, 2), { headers: { "content-type": "application/json", "cache-control": "no-store" } });
   }
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/macro?v=153", request.url).toString());
+  const cacheKey = new Request(new URL("/api/macro?v=154", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const series = await Promise.all(MACRO_SERIES.map(async (s) => {

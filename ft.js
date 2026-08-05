@@ -21,6 +21,7 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   { id: "258c5cba-e65a-4990-82b1-3c5e7fc2bb10", title: "Bodycote gets twin private equity bids as buyers feast on London market", date: "2026-08-05", time: "17:11", url: "https://www.ft.com/content/258c5cba-e65a-4990-82b1-3c5e7fc2bb10" },
+  { id: "235a98f8-7833-450f-a9aa-f5049d361d30", title: "Partners Group nears €2bn deal for beauty group Aroma-Zone", date: "2026-08-05", time: "17:01", url: "https://www.ft.com/content/235a98f8-7833-450f-a9aa-f5049d361d30" },
   { id: "4abf8011-5570-4ad7-9170-fa655295070a", title: "Reform repaid Tice loan on same day £1mn donated by mother of Farage aide Cottrell", date: "2026-08-05", time: "16:30", url: "https://www.ft.com/content/4abf8011-5570-4ad7-9170-fa655295070a" },
   { id: "bc02657f-4cd7-49a7-a498-9bcef286b1b7", title: "Drone carrying explosives found at Leipzig airport, say German police", date: "2026-08-05", time: "15:59", url: "https://www.ft.com/content/bc02657f-4cd7-49a7-a498-9bcef286b1b7" },
   { id: "41f7963b-dd50-4f27-a085-771ddec4a8ca", title: "Elon Musk’s SpaceX unnerves investors with lavish AI spending plans", date: "2026-08-05", time: "15:36", url: "https://www.ft.com/content/41f7963b-dd50-4f27-a085-771ddec4a8ca" },
@@ -29,6 +30,7 @@ export const FT_ITEMS = [
   { id: "eee4bbbf-1d94-4910-9a61-2faefef61d55", title: "Russia drone company chief injured in car bombing", date: "2026-08-05", time: "13:59", url: "https://www.ft.com/content/eee4bbbf-1d94-4910-9a61-2faefef61d55" },
   { id: "33d4b478-b608-490f-9b15-534089d51499", title: "Flutter chief steps down as gambling group cuts guidance", date: "2026-08-05", time: "13:44", url: "https://www.ft.com/content/33d4b478-b608-490f-9b15-534089d51499" },
   { id: "fc7f75f9-73b5-4ce6-8a27-f819aa7f361b", title: "Eli Lilly and Novo Nordisk raise profit outlook as weight-loss drug demand soars", date: "2026-08-05", time: "13:40", url: "https://www.ft.com/content/fc7f75f9-73b5-4ce6-8a27-f819aa7f361b" },
+  { id: "2b5e1ab6-9c41-4df8-8391-29d428fa5d2a", title: "Strong box office for ‘Toy Story 5’ boosts Disney as US theme parks rebound", date: "2026-08-05", time: "13:22", url: "https://www.ft.com/content/2b5e1ab6-9c41-4df8-8391-29d428fa5d2a" },
   { id: "51606605-c861-475d-82f6-c9495f5d32d0", title: "The bureaucratic misery of India’s voter revision", date: "2026-08-05", time: "13:20", url: "https://www.ft.com/content/51606605-c861-475d-82f6-c9495f5d32d0" },
   { id: "a47aa815-ba40-4ab6-8631-d0c6c11011ed", title: "Europe and the eternal north-south rift", date: "2026-08-05", time: "12:46", url: "https://www.ft.com/content/a47aa815-ba40-4ab6-8631-d0c6c11011ed" },
   { id: "5506dcd6-4333-4c4a-a471-80d865bd0038", title: "Remember when the US Treasury caused that major yen rally in ‘98?", date: "2026-08-05", time: "12:39", url: "https://www.ft.com/content/5506dcd6-4333-4c4a-a471-80d865bd0038" },
@@ -47,10 +49,10 @@ export const FT_ITEMS = [
   { id: "4a4b442c-7ae4-4553-bcab-d744d8d46c79", title: "Time travellers are using LinkedIn to teach us about artificial intelligence", date: "2026-08-05", time: "06:00", url: "https://www.ft.com/content/4a4b442c-7ae4-4553-bcab-d744d8d46c79" },
   { id: "17750174-a864-4f84-ada8-e509387f8558", title: "FTAV’s further reading", date: "2026-08-05", time: "06:00", url: "https://www.ft.com/content/17750174-a864-4f84-ada8-e509387f8558" },
   { id: "30e02828-a59e-4121-8956-8cb1c29742d6", title: "FirstFT: SpaceX’s AI spending plans rattle investors", date: "2026-08-05", time: "05:30", url: "https://www.ft.com/content/30e02828-a59e-4121-8956-8cb1c29742d6" },
+  { id: "24bddb7e-9064-4d1b-80b1-d2dc59eed574", title: "Shares in Chinese AI darlings slide on US ban fears", date: "2026-08-05", time: "05:15", url: "https://www.ft.com/content/24bddb7e-9064-4d1b-80b1-d2dc59eed574" },
   { id: "ae77f88d-7cde-43aa-ac03-204eae25edc2", title: "The Story of Money", date: "2026-08-05", time: "05:03", url: "https://www.ft.com/content/ae77f88d-7cde-43aa-ac03-204eae25edc2" },
   { id: "15f69a0c-30d5-4d6f-b53f-3f20a8fc8c49", title: "The big power of small annoyances", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/15f69a0c-30d5-4d6f-b53f-3f20a8fc8c49" },
   { id: "4d42a5ec-7f71-46e4-8ca9-b5bed789c83b", title: "Can I keep our dog when we get divorced?", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/4d42a5ec-7f71-46e4-8ca9-b5bed789c83b" },
-  { id: "24bddb7e-9064-4d1b-80b1-d2dc59eed574", title: "Shares in Chinese AI darlings slide on US ban fears", date: "2026-08-05", time: "05:15", url: "https://www.ft.com/content/24bddb7e-9064-4d1b-80b1-d2dc59eed574" },
   { id: "d1f10ede-f73f-4bdf-9aa6-b6ac028f63ce", title: "The earthquake at Wachtell", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/d1f10ede-f73f-4bdf-9aa6-b6ac028f63ce" },
   { id: "6b91e575-9d43-4339-9ad5-eea81aef67e0", title: "SpaceX bolsters the case against quarterly earnings", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/6b91e575-9d43-4339-9ad5-eea81aef67e0" },
   { id: "8cd8ba50-cd90-4ce6-ba06-e0ce98b10511", title: "UK’s ability to make medicines and missiles hit by decline of chemicals industry", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/8cd8ba50-cd90-4ce6-ba06-e0ce98b10511" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "0b1675a0-72e3-47ff-9ab2-de1ca64a6b6a", title: "Pressure on UK bank earnings peeks out from behind the hedge", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/0b1675a0-72e3-47ff-9ab2-de1ca64a6b6a" },
   { id: "c492ce6b-483b-4196-8f2a-9bd1afda92d3", title: "Banks to offload $15bn of debt for Anthropic data centre backed by Google", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/c492ce6b-483b-4196-8f2a-9bd1afda92d3" },
   { id: "7a284485-f648-45da-9f0b-a8b19bbdb99b", title: "Nik Storonsky in talks over new share award if Revolut hits $500bn valuation", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/7a284485-f648-45da-9f0b-a8b19bbdb99b" },
-  { id: "86dbf0c1-d127-4255-85af-602afc30228e", title: "The real message in the yen intervention", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/86dbf0c1-d127-4255-85af-602afc30228e" },
-  { id: "b067244f-744d-49ae-89e7-eb47ba61ee87", title: "Greece turns to space in fight against wildfires", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/b067244f-744d-49ae-89e7-eb47ba61ee87" },
-  { id: "e17912c0-7691-42f7-8920-b43268930e41", title: "China launches global tax hunt going back decades", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/e17912c0-7691-42f7-8920-b43268930e41" },
 ];
