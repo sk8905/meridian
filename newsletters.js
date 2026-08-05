@@ -32,6 +32,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-spacexunlocks-20260805",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: SpaceX Unlocks Tomorrow",
+    date: "2026-08-05",
+    time: "19:08",
+    summary: "SpaceX, SALP, sports.",
+    url: "https://bloom.bg/4wO8HAU",
+  },
+  {
     id: "nl-bbg-authoralert-nkumar-balyasnyverition-20260805",
     publication: "Bloomberg",
     author: "Nishant Kumar",
@@ -426,14 +437,5 @@ export const NEWSLETTERS = [
     time: "18:47",
     summary: "Guest co-host Silvia Killingsworth on the Situational Awareness situation, record dates, CVRs and weird retail volatility.",
     url: "https://bloom.bg/4nhTnYV",
-  },
-  {
-    id: "nl-lb-anglotecklawyer-20260731",
-    publication: "Legal Business",
-    title: "Anglo American and Teck name top lawyer for $69bn mining mega-merger",
-    date: "2026-07-31",
-    time: "16:34",
-    summary: "Former BHP group general counsel named on executive leadership team as mining merger gears up for completion.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQyABrE8sIIN3CGpC/wv",
   },
 ];

@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "124950d0-1d2f-4da5-8dbc-33912e939298", title: "Kemi Badenoch ‘sad’ over withdrawal of former antisemite as Tory council candidate", date: "2026-08-05", time: "19:03", url: "https://www.ft.com/content/124950d0-1d2f-4da5-8dbc-33912e939298" },
+  { id: "2f32de35-697e-4f56-ac57-e44006a09d0f", title: "How to solve Britain’s prisons crisis", date: "2026-08-05", time: "18:52", url: "https://www.ft.com/content/2f32de35-697e-4f56-ac57-e44006a09d0f" },
+  { id: "e0b10cad-3e46-4a6d-9227-eba6fe11c676", title: "Iran says it has reached agreement with Oman on Hormuz shipping route", date: "2026-08-05", time: "18:24", url: "https://www.ft.com/content/e0b10cad-3e46-4a6d-9227-eba6fe11c676" },
   { id: "65576911-f6ee-46b3-b5a8-f423df723879", title: "Europe must do more to harness its AI ambitions", date: "2026-08-05", time: "18:01", url: "https://www.ft.com/content/65576911-f6ee-46b3-b5a8-f423df723879" },
   { id: "45df9a1f-7400-4ef8-85e5-aa519a627e66", title: "Israel launches strikes on Lebanon in new flare-up", date: "2026-08-05", time: "17:58", url: "https://www.ft.com/content/45df9a1f-7400-4ef8-85e5-aa519a627e66" },
   { id: "258c5cba-e65a-4990-82b1-3c5e7fc2bb10", title: "Bodycote gets twin private equity bids as buyers feast on London market", date: "2026-08-05", time: "17:11", url: "https://www.ft.com/content/258c5cba-e65a-4990-82b1-3c5e7fc2bb10" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "15f69a0c-30d5-4d6f-b53f-3f20a8fc8c49", title: "The big power of small annoyances", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/15f69a0c-30d5-4d6f-b53f-3f20a8fc8c49" },
   { id: "4d42a5ec-7f71-46e4-8ca9-b5bed789c83b", title: "Can I keep our dog when we get divorced?", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/4d42a5ec-7f71-46e4-8ca9-b5bed789c83b" },
   { id: "d1f10ede-f73f-4bdf-9aa6-b6ac028f63ce", title: "The earthquake at Wachtell", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/d1f10ede-f73f-4bdf-9aa6-b6ac028f63ce" },
-  { id: "6b91e575-9d43-4339-9ad5-eea81aef67e0", title: "SpaceX bolsters the case against quarterly earnings", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/6b91e575-9d43-4339-9ad5-eea81aef67e0" },
-  { id: "8cd8ba50-cd90-4ce6-ba06-e0ce98b10511", title: "UK’s ability to make medicines and missiles hit by decline of chemicals industry", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/8cd8ba50-cd90-4ce6-ba06-e0ce98b10511" },
-  { id: "db1f029b-c7e2-4b11-b0b7-ebf96cd37dcf", title: "Paradise Papers law firm explores private equity sale", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/db1f029b-c7e2-4b11-b0b7-ebf96cd37dcf" },
 ];
