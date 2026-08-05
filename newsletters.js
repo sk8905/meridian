@@ -32,6 +32,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-authoralert-nkumar-balyasnyverition-20260805",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    title: "Balyasny, Verition Join Hedge Funds Losing in Brutal July",
+    date: "2026-08-05",
+    time: "16:45",
+    summary: "Multistrategy giants Balyasny Asset Management and Verition Fund Management lost money last month as a selloff in artificial intelligence stocks roiled markets and many hedge funds.",
+    url: "https://www.bloomberg.com/news/articles/2026-08-05/balyasny-verition-join-hedge-funds-losing-money-in-brutal-july",
+  },
+  {
     id: "nl-lb-hsfkramerbrownrudnick-20260805",
     publication: "Legal Business",
     title: "HSF Kramer Silicon Valley partners depart for Brown Rudnick",
@@ -425,25 +435,5 @@ export const NEWSLETTERS = [
     time: "16:34",
     summary: "Former BHP group general counsel named on executive leadership team as mining merger gears up for completion.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMQyABrE8sIIN3CGpC/wv",
-  },
-  {
-    id: "nl-bbg-wheretoinvest-elnino-20260731",
-    publication: "Bloomberg",
-    author: "John Stepek",
-    series: "Where to Invest",
-    title: "Where to Invest with El Niño",
-    date: "2026-07-31",
-    time: "14:34",
-    summary: "How can you position a portfolio to weather its effects?",
-    url: "https://www.bloomberg.com/news/articles/2026-07-31/where-to-invest-now-as-el-nino-hits-the-global-economy",
-  },
-  {
-    id: "nl-lb-lathamcityhq-20260731",
-    publication: "Legal Business",
-    title: "'A mark of where we want to go' – Latham sets out growth plan for new City HQ",
-    date: "2026-07-31",
-    time: "14:14",
-    summary: "London managing partner Ed Barnett on lateral priorities and what's next for the US firm's $1bn-revenue City operation.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQyrEmdCMD5TdzxJR/wv",
   },
 ];

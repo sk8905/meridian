@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "258c5cba-e65a-4990-82b1-3c5e7fc2bb10", title: "Bodycote gets twin private equity bids as buyers feast on London market", date: "2026-08-05", time: "17:11", url: "https://www.ft.com/content/258c5cba-e65a-4990-82b1-3c5e7fc2bb10" },
+  { id: "4abf8011-5570-4ad7-9170-fa655295070a", title: "Reform repaid Tice loan on same day £1mn donated by mother of Farage aide Cottrell", date: "2026-08-05", time: "16:30", url: "https://www.ft.com/content/4abf8011-5570-4ad7-9170-fa655295070a" },
   { id: "bc02657f-4cd7-49a7-a498-9bcef286b1b7", title: "Drone carrying explosives found at Leipzig airport, say German police", date: "2026-08-05", time: "15:59", url: "https://www.ft.com/content/bc02657f-4cd7-49a7-a498-9bcef286b1b7" },
   { id: "41f7963b-dd50-4f27-a085-771ddec4a8ca", title: "Elon Musk’s SpaceX unnerves investors with lavish AI spending plans", date: "2026-08-05", time: "15:36", url: "https://www.ft.com/content/41f7963b-dd50-4f27-a085-771ddec4a8ca" },
   { id: "535dba4e-4e05-4792-940f-47969fbd4702", title: "Zack Polanski calls for higher taxes on oil and gas profits to fund wildfire prevention", date: "2026-08-05", time: "15:17", url: "https://www.ft.com/content/535dba4e-4e05-4792-940f-47969fbd4702" },
@@ -59,6 +61,4 @@ export const FT_ITEMS = [
   { id: "86dbf0c1-d127-4255-85af-602afc30228e", title: "The real message in the yen intervention", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/86dbf0c1-d127-4255-85af-602afc30228e" },
   { id: "b067244f-744d-49ae-89e7-eb47ba61ee87", title: "Greece turns to space in fight against wildfires", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/b067244f-744d-49ae-89e7-eb47ba61ee87" },
   { id: "e17912c0-7691-42f7-8920-b43268930e41", title: "China launches global tax hunt going back decades", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/e17912c0-7691-42f7-8920-b43268930e41" },
-  { id: "789fcd07-50d0-4db2-8185-a8c8f1461d84", title: "From ‘Top Gun’ to Ghost Bats: the future of aerial combat", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/789fcd07-50d0-4db2-8185-a8c8f1461d84" },
-  { id: "683d1d19-985c-49c5-9813-78d27bca0350", title: "Can the UK’s newest rail station escape the problems of HS2?", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/683d1d19-985c-49c5-9813-78d27bca0350" },
 ];
