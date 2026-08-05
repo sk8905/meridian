@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "bc02657f-4cd7-49a7-a498-9bcef286b1b7", title: "Drone carrying explosives found at Leipzig airport, say German police", date: "2026-08-05", time: "15:59", url: "https://www.ft.com/content/bc02657f-4cd7-49a7-a498-9bcef286b1b7" },
+  { id: "41f7963b-dd50-4f27-a085-771ddec4a8ca", title: "Elon Musk’s SpaceX unnerves investors with lavish AI spending plans", date: "2026-08-05", time: "15:36", url: "https://www.ft.com/content/41f7963b-dd50-4f27-a085-771ddec4a8ca" },
   { id: "535dba4e-4e05-4792-940f-47969fbd4702", title: "Zack Polanski calls for higher taxes on oil and gas profits to fund wildfire prevention", date: "2026-08-05", time: "15:17", url: "https://www.ft.com/content/535dba4e-4e05-4792-940f-47969fbd4702" },
   { id: "38e11309-9cb6-4cd4-a5b6-fc9a239ad6b3", title: "China hits back at US with sanctions and tighter drone export rules", date: "2026-08-05", time: "14:23", url: "https://www.ft.com/content/38e11309-9cb6-4cd4-a5b6-fc9a239ad6b3" },
   { id: "eee4bbbf-1d94-4910-9a61-2faefef61d55", title: "Russia drone company chief injured in car bombing", date: "2026-08-05", time: "13:59", url: "https://www.ft.com/content/eee4bbbf-1d94-4910-9a61-2faefef61d55" },
@@ -59,6 +61,4 @@ export const FT_ITEMS = [
   { id: "e17912c0-7691-42f7-8920-b43268930e41", title: "China launches global tax hunt going back decades", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/e17912c0-7691-42f7-8920-b43268930e41" },
   { id: "789fcd07-50d0-4db2-8185-a8c8f1461d84", title: "From ‘Top Gun’ to Ghost Bats: the future of aerial combat", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/789fcd07-50d0-4db2-8185-a8c8f1461d84" },
   { id: "683d1d19-985c-49c5-9813-78d27bca0350", title: "Can the UK’s newest rail station escape the problems of HS2?", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/683d1d19-985c-49c5-9813-78d27bca0350" },
-  { id: "1aec6153-a264-4d04-8a8a-c2500c7a952d", title: "The global green transition won’t be driven by self-interest alone", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/1aec6153-a264-4d04-8a8a-c2500c7a952d" },
-  { id: "9a59bb55-d060-4002-bc4f-4563aa598b02", title: "European carmakers turn to Chinese rivals to fill factory floors", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/9a59bb55-d060-4002-bc4f-4563aa598b02" },
 ];
