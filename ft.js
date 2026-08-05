@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "dcb0fd01-43c1-45a6-aeac-5951dd0c027b", title: "As airlines struggle, their suppliers are flying high", date: "2026-08-05", time: "12:19", url: "https://www.ft.com/content/dcb0fd01-43c1-45a6-aeac-5951dd0c027b" },
+  { id: "ae7acfa8-32d6-496a-a1df-28206fa1661d", title: "Citadel surges 6% after swoop on Situational Awareness", date: "2026-08-05", time: "12:05", url: "https://www.ft.com/content/ae7acfa8-32d6-496a-a1df-28206fa1661d" },
+  { id: "65633475-0a89-4522-9c2c-5cbd22fd9aac", title: "High-stakes Michigan Democratic Senate primary too close to call", date: "2026-08-05", time: "11:59", url: "https://www.ft.com/content/65633475-0a89-4522-9c2c-5cbd22fd9aac" },
+  { id: "04d6fcb4-03e4-4ee5-9017-ccaa7808c934", title: "Uber pledges $10bn to win robotaxi race", date: "2026-08-05", time: "11:55", url: "https://www.ft.com/content/04d6fcb4-03e4-4ee5-9017-ccaa7808c934" },
+  { id: "a15d2b01-a2ba-4b3e-b871-d72a5b11f58b", title: "Jacques Marie Mage – Patti Smith’s favoured optical shop", date: "2026-08-05", time: "11:00", url: "https://www.ft.com/content/a15d2b01-a2ba-4b3e-b871-d72a5b11f58b" },
+  { id: "4a44c5da-7716-47d3-bfe9-221c3e39bf90", title: "The hottest garden furniture for high summer", date: "2026-08-05", time: "11:00", url: "https://www.ft.com/content/4a44c5da-7716-47d3-bfe9-221c3e39bf90" },
   { id: "71e1a474-4e57-4cbf-a35e-d612476f5aaa", title: "Where are they now? The ex-Trump lawyers in plum US government posts", date: "2026-08-05", time: "11:00", url: "https://www.ft.com/content/71e1a474-4e57-4cbf-a35e-d612476f5aaa" },
   { id: "3a1ef902-8926-46a7-98f6-a75acd0511fc", title: "US bans exports of various used critical minerals", date: "2026-08-05", time: "10:10", url: "https://www.ft.com/content/3a1ef902-8926-46a7-98f6-a75acd0511fc" },
   { id: "65b5e1b7-c90c-4c85-bc12-17c00ef4bdd3", title: "Andy Burnham rewires the ‘unaccountable’ state", date: "2026-08-05", time: "09:40", url: "https://www.ft.com/content/65b5e1b7-c90c-4c85-bc12-17c00ef4bdd3" },
@@ -54,10 +60,4 @@ export const FT_ITEMS = [
   { id: "9878a2e4-3ac5-43b0-b2c9-b1fe1a4b65e7", title: "UK to strip back procurement rules to focus on job creation, says Louise Haigh", date: "2026-08-04", time: "21:00", url: "https://www.ft.com/content/9878a2e4-3ac5-43b0-b2c9-b1fe1a4b65e7" },
   { id: "237bfa1a-e1af-493c-a6a6-ef2f36b519f8", title: "P&G seals $3.8bn deal for supplements company Thorne", date: "2026-08-04", time: "19:32", url: "https://www.ft.com/content/237bfa1a-e1af-493c-a6a6-ef2f36b519f8" },
   { id: "4bfbce82-52ae-425f-8c11-57b2b30f2de7", title: "Donald Trump’s ex-lawyer poised to become attorney-general after ‘slush fund’ U-turn", date: "2026-08-04", time: "19:05", url: "https://www.ft.com/content/4bfbce82-52ae-425f-8c11-57b2b30f2de7" },
-  { id: "8d421d44-862d-4942-99ae-568bad4900c2", title: "US diesel prices overtake Biden-era average in blow to Trump", date: "2026-08-04", time: "18:51", url: "https://www.ft.com/content/8d421d44-862d-4942-99ae-568bad4900c2" },
-  { id: "e8f58a9c-0166-4a81-b970-b070d3dbc122", title: "An overdue show of EU solidarity with Spain", date: "2026-08-04", time: "18:45", url: "https://www.ft.com/content/e8f58a9c-0166-4a81-b970-b070d3dbc122" },
-  { id: "1ed68c71-e1e8-4ae5-a965-5380cbdeaa22", title: "US stocks jump after Bessent says deal to reopen Hormuz is imminent", date: "2026-08-04", time: "18:37", url: "https://www.ft.com/content/1ed68c71-e1e8-4ae5-a965-5380cbdeaa22" },
-  { id: "6183a03c-4766-43e7-9392-cacd9a6545f8", title: "Palantir rides high on greed and fear — but mostly fear", date: "2026-08-04", time: "18:23", url: "https://www.ft.com/content/6183a03c-4766-43e7-9392-cacd9a6545f8" },
-  { id: "8054a402-18a1-497d-ba0a-1ea338756e1f", title: "UK early release scheme may not avert future prison crisis, say experts", date: "2026-08-04", time: "18:04", url: "https://www.ft.com/content/8054a402-18a1-497d-ba0a-1ea338756e1f" },
-  { id: "affbeefd-b94b-4707-b9af-3e12db6665d0", title: "US labour market stable in June", date: "2026-08-04", time: "17:28", url: "https://www.ft.com/content/affbeefd-b94b-4707-b9af-3e12db6665d0" },
 ];
