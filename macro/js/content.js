@@ -13,7 +13,7 @@ export const UPDATED = "5 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-05",
-  lastCheckedTime: "17:25 BST",
+  lastCheckedTime: "21:25 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -314,6 +314,7 @@ export const OUTLOOK = {
 export const COMMENTARY = {
   updated: "2026-08-05",
   us: [
+    { title: "Wall Street's Record Fed Funds Short Unravels After Rates Held", source: "Bloomberg News", author: "Bloomberg", date: "2026-07-30", url: "https://www.bloomberg.com/news/articles/2026-07-30/wall-street-s-record-fed-funds-short-unravels-after-rates-held" },
     { title: "ADP July hiring slows as private payroll growth misses expectations", source: "Traders Union", author: "Pantheon Macroeconomics — Samuel Tombs", date: "2026-08-05", url: "https://tradersunion.com/news/financial-news/show/2908903-adp-july-hiring-slows-private-payroll/" },
     { title: "Allianz' Mohamed El-Erian: There was no reason for Fed to hike at this meeting", source: "CNBC", author: "Mohamed El-Erian (Allianz)", date: "2026-07-31", url: "https://www.cnbc.com/video/2026/07/31/allianz-mohamed-el-erian-there-was-no-reason-for-fed-to-hike-at-this-meeting.html" },
     { title: "J.P.Morgan brings forward Fed rate hike call to December after July hold", source: "Kitco News", author: "J.P. Morgan — Bruce Kasman", date: "2026-07-30", time: "09:19", url: "https://www.kitco.com/news/off-the-wire/2026-07-30/jpmorgan-brings-forward-fed-rate-hike-call-december-after-july-hold" },
@@ -725,8 +726,8 @@ export const NEWS = {
     { title: "US Companies Added 44,000 Jobs in July, ADP Data Show", source: "Bloomberg", date: "2026-08-05", time: "13:15", url: "https://www.bloomberg.com/news/articles/2026-08-05/us-companies-added-44-000-jobs-in-july-adp-data-show" },
     { title: "Fed's Kashkari says 'now is the time to start slowly moving' rates up", source: "CNBC", date: "2026-08-05", time: "13:00", url: "https://www.cnbc.com/2026/08/05/feds-kashkari-says-now-is-the-time-to-start-slowly-moving-rates-up.html" },
     { title: "U.S. services sector growth edges higher in July - ISM", source: "Investing.com", date: "2026-08-05", time: "15:00", url: "https://www.investing.com/news/economic-indicators/us-services-sector-growth-edges-higher-in-july--ism-4838202" },
-    { title: "Stock Market News for Aug 5, 2026", source: "Yahoo Finance", date: "2026-08-05", time: "10:03", url: "https://finance.yahoo.com/markets/stocks/articles/stock-market-news-aug-5-100300808.html" },
     { title: "US nears Iran deal to reopen Strait of Hormuz", source: "Axios", date: "2026-08-05", time: "12:30", url: "https://www.axios.com/2026/08/05/us-iran-strait-of-hormuz-deal-nears" },
+    { title: "Oil prices move higher after Yemen's Iran-backed Houthis claim Saudi tanker strike", source: "CNBC", date: "2026-08-05", time: "18:30", url: "https://www.cnbc.com/2026/08/05/oil-prices-iran-war-houthis-saudi-tanker.html" },
   ],
   uk: [
     { title: "FTSE 100 Climbs on Glencore, Next Earnings & Iran Deal Hopes", source: "Global Banking & Finance Review", date: "2026-08-05", time: "09:47", url: "https://www.globalbankingandfinance.com/ftse-100-climbs-glencore-next-earnings-iran-deal-hopes/" },
@@ -747,6 +748,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-05",
   items: [
+    {"title":"Hormuz Toll: 'Oil in Our Time' May Be as Good as This Get","source":"Bloomberg Opinion","author":"John Authers","date":"2026-08-05","time":"18:45","url":"https://www.bloomberg.com/opinion/newsletters/2026-08-05/hormuz-toll-oil-in-our-time-may-be-as-good-as-this-get","blurb":"Authers argues the current oil-and-markets equilibrium, propped up by an uneasy Hormuz truce, may be as good as conditions get from here."},
+    {"title":"Oil prices rebound after Houthis say they attacked Saudi tanker","source":"RTÉ","date":"2026-08-05","time":"18:20","url":"https://www.rte.ie/news/business/2026/0805/1586566-world-oil-prices/","blurb":"Crude rebounds after Yemen's Houthi rebels claim a strike on a Saudi tanker off Yanbu, denting hopes for a durable Hormuz ceasefire."},
     {"title":"US Companies Added 44,000 Jobs in July, ADP Data Show","source":"Bloomberg","date":"2026-08-05","time":"13:15","url":"https://www.bloomberg.com/news/articles/2026-08-05/us-companies-added-44-000-jobs-in-july-adp-data-show","blurb":"Private payrolls rose just 44,000 in July, well below the ~65-70k consensus and the least since the start of the year, with job-changer pay growth accelerating to a near one-year high even as hiring broadly cooled."},
     {"title":"Fed's Kashkari says 'now is the time to start slowly moving' rates up","source":"CNBC","date":"2026-08-05","time":"13:00","url":"https://www.cnbc.com/2026/08/05/feds-kashkari-says-now-is-the-time-to-start-slowly-moving-rates-up.html","blurb":"Minneapolis Fed president Neel Kashkari — one of three dissenters at the July hold — said he'd rather raise rates gradually now than risk letting inflation become entrenched and having to tighten aggressively later."},
     {"title":"U.S. services sector growth edges higher in July - ISM","source":"Investing.com","date":"2026-08-05","time":"15:00","url":"https://www.investing.com/news/economic-indicators/us-services-sector-growth-edges-higher-in-july--ism-4838202","blurb":"The ISM Services PMI rose to 54.1 in July (from 54.0 in June) but missed the 54.5 consensus, as a jump in prices paid to 70.3 and a slide in the employment index back below 50 offset firmer new orders and business activity."},
@@ -796,8 +799,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-08-05", country: "UK", title: "S&P Global/CIPS Services & Composite PMI, final (July)", url: "https://www.pmi.spglobal.com/Public/Home/PressReleases" },
-  { date: "2026-08-05", country: "US", title: "ISM Services PMI (July)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
   { date: "2026-08-07", country: "US", title: "Jobs report / Nonfarm payrolls (July)", url: "https://www.bls.gov/schedule/news_release/empsit.htm" },
   { date: "2026-08-12", country: "US", title: "CPI (July)", url: "https://www.bls.gov/schedule/news_release/cpi.htm" },
   { date: "2026-08-13", country: "US", title: "PPI (July)", url: "https://www.bls.gov/schedule/news_release/ppi.htm" },
@@ -811,6 +812,7 @@ export const RELEASES = [
   { date: "2026-08-26", country: "US", title: "Personal Income and Outlays / PCE Price Index (July)", url: "https://www.bea.gov/data/income-saving/personal-income-and-outlays" },
   { date: "2026-08-27", country: "US", title: "Jackson Hole Economic Policy Symposium begins (Kansas City Fed)", url: "https://www.kansascityfed.org/research/jackson-hole-economic-symposium/" },
   { date: "2026-09-01", country: "US", title: "ISM Manufacturing PMI (August)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
+  { date: "2026-09-03", country: "US", title: "ISM Services PMI (August)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
   { date: "2026-09-04", country: "US", title: "Jobs report / Nonfarm payrolls (August)", url: "https://www.bls.gov/schedule/news_release/empsit.htm" },
   { date: "2026-09-16", country: "US", title: "FOMC rate decision (with Summary of Economic Projections)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-09-17", country: "UK", title: "BoE MPC rate decision", url: "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates" },
