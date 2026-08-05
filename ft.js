@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "65576911-f6ee-46b3-b5a8-f423df723879", title: "Europe must do more to harness its AI ambitions", date: "2026-08-05", time: "18:01", url: "https://www.ft.com/content/65576911-f6ee-46b3-b5a8-f423df723879" },
+  { id: "45df9a1f-7400-4ef8-85e5-aa519a627e66", title: "Israel launches strikes on Lebanon in new flare-up", date: "2026-08-05", time: "17:58", url: "https://www.ft.com/content/45df9a1f-7400-4ef8-85e5-aa519a627e66" },
   { id: "258c5cba-e65a-4990-82b1-3c5e7fc2bb10", title: "Bodycote gets twin private equity bids as buyers feast on London market", date: "2026-08-05", time: "17:11", url: "https://www.ft.com/content/258c5cba-e65a-4990-82b1-3c5e7fc2bb10" },
   { id: "235a98f8-7833-450f-a9aa-f5049d361d30", title: "Partners Group nears €2bn deal for beauty group Aroma-Zone", date: "2026-08-05", time: "17:01", url: "https://www.ft.com/content/235a98f8-7833-450f-a9aa-f5049d361d30" },
   { id: "4abf8011-5570-4ad7-9170-fa655295070a", title: "Reform repaid Tice loan on same day £1mn donated by mother of Farage aide Cottrell", date: "2026-08-05", time: "16:30", url: "https://www.ft.com/content/4abf8011-5570-4ad7-9170-fa655295070a" },
@@ -34,6 +36,7 @@ export const FT_ITEMS = [
   { id: "51606605-c861-475d-82f6-c9495f5d32d0", title: "The bureaucratic misery of India’s voter revision", date: "2026-08-05", time: "13:20", url: "https://www.ft.com/content/51606605-c861-475d-82f6-c9495f5d32d0" },
   { id: "a47aa815-ba40-4ab6-8631-d0c6c11011ed", title: "Europe and the eternal north-south rift", date: "2026-08-05", time: "12:46", url: "https://www.ft.com/content/a47aa815-ba40-4ab6-8631-d0c6c11011ed" },
   { id: "5506dcd6-4333-4c4a-a471-80d865bd0038", title: "Remember when the US Treasury caused that major yen rally in ‘98?", date: "2026-08-05", time: "12:39", url: "https://www.ft.com/content/5506dcd6-4333-4c4a-a471-80d865bd0038" },
+  { id: "e17912c0-7691-42f7-8920-b43268930e41", title: "China launches global tax hunt going back decades", date: "2026-08-05", time: "12:35", url: "https://www.ft.com/content/e17912c0-7691-42f7-8920-b43268930e41" },
   { id: "dcb0fd01-43c1-45a6-aeac-5951dd0c027b", title: "As airlines struggle, their suppliers are flying high", date: "2026-08-05", time: "12:19", url: "https://www.ft.com/content/dcb0fd01-43c1-45a6-aeac-5951dd0c027b" },
   { id: "ae7acfa8-32d6-496a-a1df-28206fa1661d", title: "Citadel surges 6% after swoop on Situational Awareness", date: "2026-08-05", time: "12:05", url: "https://www.ft.com/content/ae7acfa8-32d6-496a-a1df-28206fa1661d" },
   { id: "65633475-0a89-4522-9c2c-5cbd22fd9aac", title: "High-stakes Michigan Democratic Senate primary too close to call", date: "2026-08-05", time: "11:59", url: "https://www.ft.com/content/65633475-0a89-4522-9c2c-5cbd22fd9aac" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "6b91e575-9d43-4339-9ad5-eea81aef67e0", title: "SpaceX bolsters the case against quarterly earnings", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/6b91e575-9d43-4339-9ad5-eea81aef67e0" },
   { id: "8cd8ba50-cd90-4ce6-ba06-e0ce98b10511", title: "UK’s ability to make medicines and missiles hit by decline of chemicals industry", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/8cd8ba50-cd90-4ce6-ba06-e0ce98b10511" },
   { id: "db1f029b-c7e2-4b11-b0b7-ebf96cd37dcf", title: "Paradise Papers law firm explores private equity sale", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/db1f029b-c7e2-4b11-b0b7-ebf96cd37dcf" },
-  { id: "0b1675a0-72e3-47ff-9ab2-de1ca64a6b6a", title: "Pressure on UK bank earnings peeks out from behind the hedge", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/0b1675a0-72e3-47ff-9ab2-de1ca64a6b6a" },
-  { id: "c492ce6b-483b-4196-8f2a-9bd1afda92d3", title: "Banks to offload $15bn of debt for Anthropic data centre backed by Google", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/c492ce6b-483b-4196-8f2a-9bd1afda92d3" },
-  { id: "7a284485-f648-45da-9f0b-a8b19bbdb99b", title: "Nik Storonsky in talks over new share award if Revolut hits $500bn valuation", date: "2026-08-05", time: "05:00", url: "https://www.ft.com/content/7a284485-f648-45da-9f0b-a8b19bbdb99b" },
 ];
