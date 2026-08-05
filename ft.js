@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c2eb9800-b8df-41f6-aad9-e25c2ebe43d6", title: "Russian bombardment kills 15 in Kyiv", date: "2026-08-05", time: "07:52", url: "https://www.ft.com/content/c2eb9800-b8df-41f6-aad9-e25c2ebe43d6" },
+  { id: "f447bd94-8541-4176-acdf-f16e2be4289a", title: "Glencore explores secondary listing in Australia", date: "2026-08-05", time: "07:22", url: "https://www.ft.com/content/f447bd94-8541-4176-acdf-f16e2be4289a" },
   { id: "8bbcfe7e-d3a8-4ea8-ad43-a88f0a48b69e", title: "Bank of England: QT bye?", date: "2026-08-05", time: "06:30", url: "https://www.ft.com/content/8bbcfe7e-d3a8-4ea8-ad43-a88f0a48b69e" },
   { id: "4a4b442c-7ae4-4553-bcab-d744d8d46c79", title: "Time travellers are using LinkedIn to teach us about artificial intelligence", date: "2026-08-05", time: "06:00", url: "https://www.ft.com/content/4a4b442c-7ae4-4553-bcab-d744d8d46c79" },
   { id: "17750174-a864-4f84-ada8-e509387f8558", title: "FTAV’s further reading", date: "2026-08-05", time: "06:00", url: "https://www.ft.com/content/17750174-a864-4f84-ada8-e509387f8558" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "63b79c58-a497-4359-a3c7-03a36fead622", title: "Water companies feel squeeze of abstraction limits as drought deepens", date: "2026-08-04", time: "16:10", url: "https://www.ft.com/content/63b79c58-a497-4359-a3c7-03a36fead622" },
   { id: "c56d21b4-1738-4b53-ad78-79f29b5de798", title: "Saudi-Israel tensions could frustrate India’s IMEC dreams", date: "2026-08-04", time: "16:09", url: "https://www.ft.com/content/c56d21b4-1738-4b53-ad78-79f29b5de798" },
   { id: "c1e80ff0-4566-4a15-9e7b-397abe6e5b5c", title: "In Venezuela, legitimacy matters more than continuity", date: "2026-08-04", time: "15:37", url: "https://www.ft.com/content/c1e80ff0-4566-4a15-9e7b-397abe6e5b5c" },
-  { id: "07ba66d4-ceaf-497d-8bb2-19df27853a26", title: "Todd Blanche secures key Republican support to clear way for A-G confirmation", date: "2026-08-04", time: "14:00", url: "https://www.ft.com/content/07ba66d4-ceaf-497d-8bb2-19df27853a26" },
 ];
