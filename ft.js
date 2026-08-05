@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "71e1a474-4e57-4cbf-a35e-d612476f5aaa", title: "Where are they now? The ex-Trump lawyers in plum US government posts", date: "2026-08-05", time: "11:00", url: "https://www.ft.com/content/71e1a474-4e57-4cbf-a35e-d612476f5aaa" },
   { id: "3a1ef902-8926-46a7-98f6-a75acd0511fc", title: "US bans exports of various used critical minerals", date: "2026-08-05", time: "10:10", url: "https://www.ft.com/content/3a1ef902-8926-46a7-98f6-a75acd0511fc" },
   { id: "65b5e1b7-c90c-4c85-bc12-17c00ef4bdd3", title: "Andy Burnham rewires the ‘unaccountable’ state", date: "2026-08-05", time: "09:40", url: "https://www.ft.com/content/65b5e1b7-c90c-4c85-bc12-17c00ef4bdd3" },
   { id: "36b7f8a7-5062-4211-90e0-d89b6c32ca15", title: "Solid wage growth keeps BoJ on course for tightening", date: "2026-08-05", time: "08:30", url: "https://www.ft.com/content/36b7f8a7-5062-4211-90e0-d89b6c32ca15" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "6183a03c-4766-43e7-9392-cacd9a6545f8", title: "Palantir rides high on greed and fear — but mostly fear", date: "2026-08-04", time: "18:23", url: "https://www.ft.com/content/6183a03c-4766-43e7-9392-cacd9a6545f8" },
   { id: "8054a402-18a1-497d-ba0a-1ea338756e1f", title: "UK early release scheme may not avert future prison crisis, say experts", date: "2026-08-04", time: "18:04", url: "https://www.ft.com/content/8054a402-18a1-497d-ba0a-1ea338756e1f" },
   { id: "affbeefd-b94b-4707-b9af-3e12db6665d0", title: "US labour market stable in June", date: "2026-08-04", time: "17:28", url: "https://www.ft.com/content/affbeefd-b94b-4707-b9af-3e12db6665d0" },
-  { id: "ac4b294d-36db-4e6d-aafe-663ce20cb658", title: "Wall Street’s insurance takeover presents circular risks and rewards", date: "2026-08-04", time: "16:53", url: "https://www.ft.com/content/ac4b294d-36db-4e6d-aafe-663ce20cb658" },
 ];

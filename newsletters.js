@@ -32,6 +32,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-authoralert-nkumar-citadeljumps-20260805",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    title: "Ken Griffin’s Citadel Jumps 6% After Situational Awareness Deal",
+    date: "2026-08-05",
+    time: "11:09",
+    summary: "Citadel’s flagship fund surged 5.9% in July, after the firm bought a discounted portfolio of artificial-intelligence stocks from troubled hedge fund Situational Awareness.",
+    url: "https://www.bloomberg.com/news/articles/2026-08-05/citadel-s-hedge-fund-soars-after-situational-awareness-bet",
+  },
+  {
     id: "nl-nonbillable-mourantpe-20260805",
     publication: "Non-Billable",
     title: "A major law firm just took private equity investment",
@@ -429,16 +439,5 @@ export const NEWSLETTERS = [
     time: "12:02",
     summary: "Japan steps in with rare yen intervention as currency weakness complicates Takaichi’s policy path.",
     url: "https://www.bloomberg.com/news/newsletters/2026-07-31/yen-at-levels-when-top-gun-topped-box-office-sparks-currency-dogfight",
-  },
-  {
-    id: "nl-bbg-goingprivate-mobileappdebt-20260731",
-    publication: "Bloomberg",
-    author: "Sinead Cruise",
-    series: "Going Private",
-    title: "Going Private: Mobile app debt demand carves out high-risk private credit niche",
-    date: "2026-07-31",
-    time: "12:01",
-    summary: "Direct lenders offer no-growth, no-repayment loans to creators seeking the next cult concept.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-07-31/mobile-app-debt-demand-carves-high-risk-private-credit-niche",
   },
 ];
