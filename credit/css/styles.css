@@ -352,7 +352,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
 
 /* ---------- detail ---------- */
 .breadcrumb { font-size: .8rem; margin-bottom: .9rem; color: var(--muted); }
-.breadcrumb .sep { margin: 0 .4rem; color: #cbd5e1; }
+.breadcrumb .sep { margin: 0 .4rem; color: var(--muted); }
 .detail-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; margin-bottom: .75rem; }
 .facts { display: grid; grid-template-columns: 1fr 1fr; gap: .4rem 1.5rem; margin: .75rem 0 0; }
 .facts div { display: flex; justify-content: space-between; gap: 1rem; padding: .35rem 0; border-bottom: 1px dashed var(--border); }

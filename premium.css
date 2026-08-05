@@ -775,28 +775,6 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 [data-theme="dark"] .save-btn:hover { background: rgba(255,255,255,.12); color: var(--ink); }
 [data-theme="dark"] .save-btn.is-saved { background: rgba(251,146,60,.16); border-color: rgba(251,146,60,.42); color: #fbbf24; }
 
-/* ---- Day-break separator in date-sorted feeds (Credit news/deals/…, Macro News):
-        a clear break between one day's items and the next — a generous gap with a
-        centred slate rule that's more prominent than the thin per-row borders. ---- */
-.day-sep { height: 1.6rem; position: relative; }
-.day-sep::before { content: ""; position: absolute; left: 0; right: 0; top: calc(50% - 1px);
-  border-top: 2px solid var(--border, var(--line, #e4e7ef)); }
-/* Drop the row's own faint bottom border when a day-break rule follows it, so the
-   two don't stack into a double line. */
-.intel-row:has(+ .day-sep), .feed-row:has(+ .day-sep) { border-bottom: 0; }
-
-/* ---- Dated day header for the news / commentary feeds (Macro Commentary,
-   Credit News & Commentary) — mirrors the home feed's dated day breaks: an
-   uppercase date label with a 2px rule above each group except the first. ---- */
-.day-hdr { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em;
-  color: var(--muted); padding: .62rem 0 .45rem; }
-.day-hdr:first-child { padding-top: .1rem; }
-.day-hdr:not(:first-child) { border-top: 2px solid var(--border, var(--line, #e4e7ef)); margin-top: .15rem; }
-.intel-row:has(+ .day-hdr), .feed-row:has(+ .day-hdr) { border-bottom: 0; }
-/* Light theme: match the terminal day breaks — blue label text on a white band
-   with a single grey bottom border (drop the heavy 2px top rule). */
-:root[data-theme="light"] .day-hdr { color: #2f6cae; background: var(--surface); padding: .4rem .5rem;
-  border-top: 0; margin-top: 0; border-bottom: 1px solid var(--border, var(--line, #e4e7ef)); }
 /* When an item carries no publish time (e.g. some commentary), drop the empty
    time cell so the headline sits flush left instead of behind a blank column. */
 .intel-row .intel-date:empty { display: none; }

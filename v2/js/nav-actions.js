@@ -19,11 +19,10 @@
 import { esc, MONTHS } from "/util.js?v=20260719-1";
 import { BRIEFINGS } from "/briefings.js";
 import { FX_KEYMOMENT } from "/macro/js/content.js";
+import { DESK_CLASS, DESK_CODE as NF_CODE } from "/feed.js?v=20260729-2";
 const fmtNum = (v) => { v = +v; if (!isFinite(v)) return "—"; const a = Math.abs(v); if (a >= 1000) return v.toLocaleString(undefined, { maximumFractionDigits: a >= 10000 ? 0 : 1 }); if (a >= 100) return v.toFixed(1); if (a >= 1) return v.toFixed(2); return v.toFixed(4); };
 const fmtRateVal = (v, unit) => { v = +v; if (!isFinite(v)) return "—"; if (unit === "bp") return v.toFixed(0) + " bp"; return v.toFixed(2) + "%"; };
 function fmtDate(d) { if (!d) return ""; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : String(d).slice(0, 10); const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(s); if (!m) return String(d); return `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}`; }
-
-const DESK_CLASS = { m: "macro", c: "credit", l: "legal", n: "newsletter", f: "ft", s: "substack", b: "brew", news: "news", bbg: "bbg", econ: "econ", comm: "comm", deal: "deal", fund: "fund", clo: "clo", alert: "alert", case: "case", scheme: "scheme", rp: "rp" };
 
 const ICO_MKT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>';
 const ICO_BRIEF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="M8 12h8M8 16h6"/></svg>';
@@ -31,9 +30,6 @@ const ICO_SAVED = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" st
 const ICO_MAG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.6" y1="15.6" x2="21" y2="21"/></svg>';
 
 const isPhone = () => matchMedia("(max-width:760px)").matches;
-// Menu is a PAGE (/menu/) — reached through the tab bar exactly like the other
-// pages, not an overlay. On that page the menu panel mounts permanently open.
-const ON_MENU_PAGE = /^\/menu\/?$/.test(location.pathname);
 
 // ---- Diagnostics ------------------------------------------------------------
 // Build stamp (the premium.css token this document loaded — shown in the Menu
@@ -426,7 +422,6 @@ function portfolioPane(d) {
 }
 
 // ---- Saved rows — shared news-feed row (headline, then code · date · source) --
-const NF_CODE = { m: "MAC", c: "CRD", l: "LEX", n: "LTR", f: "FT", s: "SUBS", b: "BREW", news: "NEWS", bbg: "BBG", econ: "ECON", comm: "COMM", deal: "DEAL", fund: "FUND", clo: "CLO", alert: "ALERT", case: "CASE", scheme: "SCHEME", rp: "RP" };
 function savedRow(x) {
   // Every saved story gets a desk code — general wire items (desk "news"/bbg/econ
   // /substack/…) used to fall through the old m/c/l/n/f-only map and show blank.
@@ -585,8 +580,6 @@ function notifRow(x, fresh) {
 let _notifItems = null;
 // Active notifications tab: "all" | "watch" (mirrors the Bookmarks panel).
 let _ntTab = "all";
-// Active /menu/ page tab: "search" | "notifs" | "display".
-let _menuTab = "search";
 async function ensureNotifs() {
   if (_notifItems) return _notifItems;
   const { buildNotifs } = await import("/saved.js?v=20260802-1");
@@ -731,7 +724,7 @@ export function initNavActions() {
       // hidden there); opens the command palette via the shared [data-open-search].
       (isPhone() ? `<button type="button" class="na-btn" id="na-search" data-open-search aria-label="Search" title="Search">${ICO_MAG}</button>` : "") +
       // Theme toggle lives in the nav bar on desktop; on phones it moves into the
-      // /menu/ page (see fillMenu) so the nav bar stays uncluttered.
+      // Menu tab's own control so the nav bar stays uncluttered.
       (isPhone() ? "" : `<button type="button" class="na-btn" id="na-theme" aria-label="Switch theme" title="${THEME_TITLE[themeChoice()] || "Switch theme"}">${themeIcon()}</button>`);
     if (notif && notif.parentElement) {
       notif.parentElement.insertBefore(wrap, notif);
@@ -819,133 +812,6 @@ export function initNavActions() {
     const mktPanel = mkPanel("na-mkt-panel", "Markets");
     const savedPanel = mkPanel("na-saved-panel", "Bookmarks");
     const notifPanel = mkPanel("na-notif-panel", "Notifications");
-    const menuPanel = ON_MENU_PAGE ? mkPanel("na-menu-panel", "Menu") : null;
-
-    // Menu (bottom tab bar, phones): the search bar plus the account block
-    // (Signed in as … · Sign out / Last refresh …) that used to sit in the page
-    // footer. Content is re-read on every open so it reflects the live sign-in
-    // state; the search row carries data-open-search, so the page's existing
-    // search overlay opens over the menu unchanged.
-    const ICO_SEARCH = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.6" y1="15.6" x2="21" y2="21"/></svg>';
-    const fillMenu = (p) => {
-      const acct = document.getElementById("account-nav") || document.querySelector(".g-user");
-      const stat = document.getElementById("data-status") || document.querySelector(".g-refresh");
-      // Only show the account row once a verified email is present (Home's copy
-      // omits the "Signed in as" prefix — add it so the row reads the same on
-      // every page).
-      let acctHtml = "";
-      if (acct && acct.innerHTML.trim()) {
-        const email = acct.querySelector("strong");
-        const signed = /signed in/i.test(acct.textContent);
-        if (signed || (email && email.textContent.trim())) {
-          acctHtml = `<div class="na-menu-row na-menu-acct">${signed ? "" : "<span>Signed in as&nbsp;</span>"}${acct.innerHTML}</div>`;
-        }
-      }
-      // Footer (account · refresh/build · push toggle) — shown under every tab.
-      const foot = `<div class="na-menu-foot"><div class="na-menu-foot-l">`
-        + acctHtml
-        // One compact line: refresh date/time (prefix + year dropped) · build.
-        // The sw/no-sw suffix answers "is the app-shell cache actually serving
-        // this device?" at a glance.
-        + (() => {
-          const t = stat ? stat.textContent.trim().replace(/^Last refresh\s*/i, "").replace(/\s+\d{4}\b/, "") : "";
-          const sw = "serviceWorker" in navigator && navigator.serviceWorker.controller ? "sw" : "no-sw";
-          return `<div class="na-menu-row na-menu-stat">${t ? esc(t) + " · " : ""}Build ${esc(BUILD_TOKEN)} · ${sw}</div>`;
-        })()
-        + `</div></div>`;
-
-      // Active pane — chosen by the menu bar chips (Search · Notifications · Display).
-      let pane;
-      if (_menuTab === "notifs") {
-        // Just the push on/off toggle — NOT the notifications themselves.
-        pane = `<div class="na-menu-recent-h">Notifications</div>`
-          + `<div class="na-menu-row na-menu-pushrow"><span>Push notifications</span><button type="button" class="na-menu-push" id="na-push" title="Push notifications">${ICO_BELL}<span class="na-push-state">…</span></button></div>`;
-      } else if (_menuTab === "display") {
-        // Theme — a single labelled row with a chip on the right, mirroring the
-        // Push-notifications row. The chip shows the current mode and cycles
-        // System → Light → Dark on tap.
-        pane = `<div class="na-menu-recent-h">Appearance</div>`
-          + `<div class="na-menu-row na-menu-pushrow"><span>Theme</span>`
-            + `<button type="button" class="na-menu-push na-theme-pill" id="na-theme-pill" aria-label="Theme — tap to change" title="Tap to change theme">${themePillInner()}</button>`
-          + `</div>`;
-      } else {
-        // Search — the search launcher + recent searches (shared localStorage key).
-        let recents = [];
-        try { const a = JSON.parse(localStorage.getItem("wire.recentSearches") || "[]"); if (Array.isArray(a)) recents = a.filter((q) => typeof q === "string").slice(0, 8); } catch { /* */ }
-        pane = `<button type="button" class="na-menu-row na-menu-search" data-open-search>${ICO_SEARCH}<span>Search everything…</span></button>`
-          + (recents.length
-            ? `<div class="na-menu-recent-h">Recent searches</div>`
-              + recents.map((q) => `<button type="button" class="na-menu-row na-recent-row" data-q="${esc(q)}">${ICO_SEARCH}<span>${esc(q)}</span></button>`).join("")
-            : "");
-      }
-      p.querySelector(".na-body").innerHTML = pane + foot;
-
-      if (_menuTab === "display") {
-        // Theme chip → cycle System → Light → Dark (persisted; the head script
-        // applies it before paint on the next load).
-        const pill = p.querySelector("#na-theme-pill");
-        if (pill) pill.addEventListener("click", () => {
-          if (!_applyThemeChoice) return;
-          _applyThemeChoice(themeChoice() === "system" ? otherPref() : "system");
-        });
-      }
-      wirePushRow(p);
-    };
-
-    // --- Push notifications (iOS 16.4+ Home-Screen web app / desktop) --------
-    const pushB64ToU8 = (s) => {
-      s = s.replace(/-/g, "+").replace(/_/g, "/");
-      const pad = s.length % 4 ? "====".slice(s.length % 4) : "";
-      const bin = atob(s + pad);
-      const u = new Uint8Array(bin.length);
-      for (let i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i);
-      return u;
-    };
-    const pushSupported = () => "serviceWorker" in navigator && "PushManager" in window && "Notification" in window;
-    const isStandalone = () => (window.matchMedia && matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true;
-    const pushState = async () => {
-      if (!pushSupported()) {
-        return /iphone|ipad|ipod/i.test(navigator.userAgent) && !isStandalone() ? "install" : "unsupported";
-      }
-      if (Notification.permission === "denied") return "denied";
-      try {
-        const reg = await navigator.serviceWorker.getRegistration("/");
-        const sub = reg && (await reg.pushManager.getSubscription());
-        return sub ? "on" : "off";
-      } catch { return "off"; }
-    };
-    const pushEnable = async () => {
-      const reg = await navigator.serviceWorker.register("/sw.js");
-      if (await Notification.requestPermission() !== "granted") return "denied";
-      const { publicKey } = await (await fetch("/api/push/vapid", { headers: { accept: "application/json" } })).json();
-      const sub = await reg.pushManager.subscribe({ userVisibleOnly: true, applicationServerKey: pushB64ToU8(publicKey) });
-      await fetch("/api/push/subscribe", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(sub.toJSON()) });
-      return "on";
-    };
-    const pushDisable = async () => {
-      const reg = await navigator.serviceWorker.getRegistration("/");
-      const sub = reg && (await reg.pushManager.getSubscription());
-      if (sub) {
-        fetch("/api/push/subscribe", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ unsubscribe: true, endpoint: sub.endpoint }) }).catch(() => {});
-        await sub.unsubscribe();
-      }
-      return "off";
-    };
-    const PUSH_LABEL = { on: "On", off: "Enable", denied: "Blocked", install: "Add to Home Screen", unsupported: "N/A" };
-    const wirePushRow = (p) => {
-      const row = p.querySelector("#na-push");
-      if (!row) return;
-      const stateEl = row.querySelector(".na-push-state");
-      const paint = (st) => { stateEl.textContent = PUSH_LABEL[st] || st; row.dataset.st = st; };
-      pushState().then(paint);
-      row.addEventListener("click", async () => {
-        const st = row.dataset.st;
-        if (st !== "on" && st !== "off") return;
-        stateEl.textContent = "…";
-        try { paint(st === "off" ? await pushEnable() : await pushDisable()); }
-        catch { paint(await pushState()); }
-      });
-    };
     // Register/refresh the service worker on every visit — it carries Web Push
     // AND the app-shell cache that makes page switches paint instantly.
     if ("serviceWorker" in navigator) {
@@ -973,42 +839,6 @@ export function initNavActions() {
     if (/(^|[?&])__net=/.test(location.search)) {
       try { history.replaceState(null, "", location.pathname); } catch { /* */ }
     }
-    // Tapping a recent search re-opens the page's search overlay seeded with it.
-    if (menuPanel) {
-      menuPanel.addEventListener("click", (e) => {
-        const r = e.target.closest(".na-recent-row");
-        if (r) document.dispatchEvent(new CustomEvent("wire:search", { detail: { q: r.dataset.q || "" } }));
-      });
-      // /menu/ = the panel permanently open: no scrim, no body lock, no close
-      // paths — leaving happens through the tab bar like any other page.
-      menuPanel.classList.add("na-menu-static");
-      // The panel head is the same segmented chip strip the other pages pin
-      // under the header — one chip for now (Search); tapping it opens search.
-      const mh = menuPanel.querySelector(".na-head");
-      const menuChip = (k, label) => `<button type="button" class="tchip${_menuTab === k ? " is-on" : ""}" data-menutab="${k}">${label}</button>`;
-      if (mh) mh.outerHTML = `<div class="na-menu-bar"><div class="tchips">${menuChip("search", "Search")}${menuChip("notifs", "Notifications")}${menuChip("display", "Display")}</div></div>`;
-      const menuBar = menuPanel.querySelector(".na-menu-bar");
-      if (menuBar) menuBar.addEventListener("click", (e) => {
-        const c = e.target.closest(".tchip[data-menutab]");
-        if (!c || c.dataset.menutab === _menuTab) return;
-        _menuTab = c.dataset.menutab;
-        menuBar.querySelectorAll(".tchip").forEach((x) => x.classList.toggle("is-on", x.dataset.menutab === _menuTab));
-        fillMenu(menuPanel);
-      });
-      fillMenu(menuPanel);
-      menuPanel.hidden = false;
-      const acct = document.getElementById("account-nav");
-      const stat = document.getElementById("data-status");
-      const jobs = [];
-      if (acct) jobs.push(fetch("/api/me", { headers: { accept: "application/json" } }).then((r) => (r.ok ? r.json() : null)).then((d) => {
-        if (d && d.email) { acct.innerHTML = `<span class="si-prefix">Signed in as </span><strong>${esc(d.email)}</strong> · <a href="/cdn-cgi/access/logout">Sign out</a>`; acct.hidden = false; }
-      }).catch(() => {}));
-      if (stat) jobs.push(import("/credit/js/data.js").then((m) => {
-        stat.textContent = `Last refresh ${fmtDate(m.LAST_CHECKED)}${m.LAST_CHECKED_TIME ? `, ${m.LAST_CHECKED_TIME}` : ""}`;
-      }).catch(() => {}));
-      if (jobs.length) Promise.allSettled(jobs).then(() => fillMenu(menuPanel));
-    }
-
     const notifBtn = wrap.querySelector("#na-notif");
     const clearBadge = () => { const b = notifBtn.querySelector(".na-badge"); if (b) b.hidden = true; };
     // Show ONLY what's genuinely new since last opened (matching the badge). When
