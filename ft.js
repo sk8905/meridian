@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8bbcfe7e-d3a8-4ea8-ad43-a88f0a48b69e", title: "Bank of England: QT bye?", date: "2026-08-05", time: "06:30", url: "https://www.ft.com/content/8bbcfe7e-d3a8-4ea8-ad43-a88f0a48b69e" },
   { id: "4a4b442c-7ae4-4553-bcab-d744d8d46c79", title: "Time travellers are using LinkedIn to teach us about artificial intelligence", date: "2026-08-05", time: "06:00", url: "https://www.ft.com/content/4a4b442c-7ae4-4553-bcab-d744d8d46c79" },
   { id: "17750174-a864-4f84-ada8-e509387f8558", title: "FTAV’s further reading", date: "2026-08-05", time: "06:00", url: "https://www.ft.com/content/17750174-a864-4f84-ada8-e509387f8558" },
   { id: "30e02828-a59e-4121-8956-8cb1c29742d6", title: "FirstFT: SpaceX’s AI spending plans rattle investors", date: "2026-08-05", time: "05:30", url: "https://www.ft.com/content/30e02828-a59e-4121-8956-8cb1c29742d6" },
@@ -59,6 +60,4 @@ export const FT_ITEMS = [
   { id: "c56d21b4-1738-4b53-ad78-79f29b5de798", title: "Saudi-Israel tensions could frustrate India’s IMEC dreams", date: "2026-08-04", time: "16:09", url: "https://www.ft.com/content/c56d21b4-1738-4b53-ad78-79f29b5de798" },
   { id: "c1e80ff0-4566-4a15-9e7b-397abe6e5b5c", title: "In Venezuela, legitimacy matters more than continuity", date: "2026-08-04", time: "15:37", url: "https://www.ft.com/content/c1e80ff0-4566-4a15-9e7b-397abe6e5b5c" },
   { id: "07ba66d4-ceaf-497d-8bb2-19df27853a26", title: "Todd Blanche secures key Republican support to clear way for A-G confirmation", date: "2026-08-04", time: "14:00", url: "https://www.ft.com/content/07ba66d4-ceaf-497d-8bb2-19df27853a26" },
-  { id: "33c20c4e-6a25-42da-9f1e-6664c8388957", title: "Developing countries have ‘less to fear’ from AI than rich nations", date: "2026-08-04", time: "14:00", url: "https://www.ft.com/content/33c20c4e-6a25-42da-9f1e-6664c8388957" },
-  { id: "30d55ac8-d363-42e6-a711-016aa83ced80", title: "South African court hears challenge to land seizure law opposed by US", date: "2026-08-04", time: "13:54", url: "https://www.ft.com/content/30d55ac8-d363-42e6-a711-016aa83ced80" },
 ];
