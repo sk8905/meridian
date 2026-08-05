@@ -32,6 +32,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-hsfkramerbrownrudnick-20260805",
+    publication: "Legal Business",
+    title: "HSF Kramer Silicon Valley partners depart for Brown Rudnick",
+    date: "2026-08-05",
+    time: "15:04",
+    summary: "Seven-partner IP litigation team exits across New York and Silicon Valley as Brown Rudnick opens second California office after LA launch last year.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQDRo8KMCLCS7swW5/wv",
+  },
+  {
     id: "nl-lb-magiccirclefinancials-20260805",
     publication: "Legal Business",
     title: "The key takeaways from the magic circle financials",
