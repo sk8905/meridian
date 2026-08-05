@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "51606605-c861-475d-82f6-c9495f5d32d0", title: "The bureaucratic misery of India’s voter revision", date: "2026-08-05", time: "13:20", url: "https://www.ft.com/content/51606605-c861-475d-82f6-c9495f5d32d0" },
+  { id: "a47aa815-ba40-4ab6-8631-d0c6c11011ed", title: "Europe and the eternal north-south rift", date: "2026-08-05", time: "12:46", url: "https://www.ft.com/content/a47aa815-ba40-4ab6-8631-d0c6c11011ed" },
+  { id: "5506dcd6-4333-4c4a-a471-80d865bd0038", title: "Remember when the US Treasury caused that major yen rally in ‘98?", date: "2026-08-05", time: "12:39", url: "https://www.ft.com/content/5506dcd6-4333-4c4a-a471-80d865bd0038" },
   { id: "dcb0fd01-43c1-45a6-aeac-5951dd0c027b", title: "As airlines struggle, their suppliers are flying high", date: "2026-08-05", time: "12:19", url: "https://www.ft.com/content/dcb0fd01-43c1-45a6-aeac-5951dd0c027b" },
   { id: "ae7acfa8-32d6-496a-a1df-28206fa1661d", title: "Citadel surges 6% after swoop on Situational Awareness", date: "2026-08-05", time: "12:05", url: "https://www.ft.com/content/ae7acfa8-32d6-496a-a1df-28206fa1661d" },
   { id: "65633475-0a89-4522-9c2c-5cbd22fd9aac", title: "High-stakes Michigan Democratic Senate primary too close to call", date: "2026-08-05", time: "11:59", url: "https://www.ft.com/content/65633475-0a89-4522-9c2c-5cbd22fd9aac" },
@@ -57,5 +60,4 @@ export const FT_ITEMS = [
   { id: "4bc98c31-d430-4e84-9353-6b9a6154d4d6", title: "US cannot ‘stay isolated’ from Chinese EV competition, warns Lucid CEO", date: "2026-08-04", time: "21:10", url: "https://www.ft.com/content/4bc98c31-d430-4e84-9353-6b9a6154d4d6" },
   { id: "9878a2e4-3ac5-43b0-b2c9-b1fe1a4b65e7", title: "UK to strip back procurement rules to focus on job creation, says Louise Haigh", date: "2026-08-04", time: "21:00", url: "https://www.ft.com/content/9878a2e4-3ac5-43b0-b2c9-b1fe1a4b65e7" },
   { id: "237bfa1a-e1af-493c-a6a6-ef2f36b519f8", title: "P&G seals $3.8bn deal for supplements company Thorne", date: "2026-08-04", time: "19:32", url: "https://www.ft.com/content/237bfa1a-e1af-493c-a6a6-ef2f36b519f8" },
-  { id: "4bfbce82-52ae-425f-8c11-57b2b30f2de7", title: "Donald Trump’s ex-lawyer poised to become attorney-general after ‘slush fund’ U-turn", date: "2026-08-04", time: "19:05", url: "https://www.ft.com/content/4bfbce82-52ae-425f-8c11-57b2b30f2de7" },
 ];

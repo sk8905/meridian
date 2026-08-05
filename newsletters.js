@@ -32,6 +32,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-magiccirclefinancials-20260805",
+    publication: "Legal Business",
+    title: "The key takeaways from the magic circle financials",
+    date: "2026-08-05",
+    time: "13:16",
+    summary: "From growth and profitability to US inroads - what we've learned from the latest results from A&O Shearman, CC and Linklaters.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQDDXvC16UyYc5DuJ/wv",
+  },
+  {
     id: "nl-bbg-goingprivate-wanderlust-20260805",
     publication: "Bloomberg",
     series: "Going Private",
@@ -427,15 +436,5 @@ export const NEWSLETTERS = [
     time: "14:14",
     summary: "London managing partner Ed Barnett on lateral priorities and what's next for the US firm's $1bn-revenue City operation.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMQyrEmdCMD5TdzxJR/wv",
-  },
-  {
-    id: "nl-mailbrew-fridaybrew-20260731-6",
-    publication: "Mailbrew",
-    series: "Friday Brew",
-    title: "Friday Brew #6",
-    date: "2026-07-31",
-    time: "13:58",
-    summary: "Conspiracies and Ireland's stalled rail upgrade, Norges Bank's AI playbook for CRE, private credit's 'durable income' delusion, and Kevin Warsh on Fed guidance vs basis trades.",
-    url: "https://app.mailbrew.com/stevedkennedy/friday-brew-03bEHcNb3hHB/6",
   },
 ];
