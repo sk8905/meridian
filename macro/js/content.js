@@ -13,7 +13,7 @@ export const UPDATED = "6 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-06",
-  lastCheckedTime: "12:31 BST",
+  lastCheckedTime: "17:36 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -724,18 +724,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-08-06",
   us: [
+    { title: "Treasury yields edge higher as traders sharpen focus on rates", source: "CNBC", date: "2026-08-06", time: "17:29", url: "https://www.cnbc.com/2026/08/06/treasury-yields-interest-rates-inflation-fed.html" },
+    { title: "Stock Market Today (Aug. 6, 2026): S&P 500 declines as investors weigh jobs data, earnings ahead", source: "TheStreet", date: "2026-08-06", time: "17:29", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-6-2026" },
+    { title: "Stock market today: Nasdaq slips, Dow and S&P 500 futures inch up as earnings roll on", source: "Yahoo Finance", date: "2026-08-06", time: "14:16", url: "https://finance.yahoo.com/markets/live/stock-market-today-thursday-august-6-dow-sp-nasdaq-091620000.html" },
     { title: "Weekly U.S. initial jobless claims rise to 226,000", source: "Investing.com", date: "2026-08-06", time: "09:24", url: "https://in.investing.com/news/economic-indicators/weekly-us-initial-jobless-claims-rise-to-226000-4950376" },
     { title: "Gold Price Surges to Seven-Week High: XAU/USD Eyes $4,334 as Dollar Slides", source: "FX Leaders", date: "2026-08-06", time: "09:24", url: "https://www.fxleaders.com/news/2026/08/06/gold-price-surges-seven-week-high-xau-usd-eyes-4334-dollar-slides/" },
-    { title: "Fed's Kashkari says 'now is the time to start slowly moving' rates up", source: "CNBC", date: "2026-08-05", time: "13:00", url: "https://www.cnbc.com/2026/08/05/feds-kashkari-says-now-is-the-time-to-start-slowly-moving-rates-up.html" },
-    { title: "Private companies added just 44,000 workers in July, below expectations, ADP reports", source: "CNBC", date: "2026-08-05", time: "13:15", url: "https://www.cnbc.com/2026/08/05/private-companies-added-just-44000-workers-in-july-below-expectations-adp-reports.html" },
-    { title: "Fed's Cook Warns Rate Hike Possible If Inflation Fails to Slow", source: "Bloomberg", date: "2026-08-05", time: "17:30", url: "https://www.bloomberg.com/news/articles/2026-08-05/fed-s-cook-says-ready-to-raise-rates-if-inflation-doesn-t-cool" },
   ],
   uk: [
     { title: "FTSE 100 Live: Gold miners provide boost, but Pru and HSBC hit by China tax report", source: "Proactive Investors", date: "2026-08-06", time: "09:24", url: "https://www.proactiveinvestors.com/companies/news/1096553/ftse-100-live-next-and-glencore-provide-results-boost-spacex-tumbles-1096553.html" },
+    { title: "FTSE 100 Today: UK Stocks Gain on Strong Earnings, Lower Oil Prices and Improved Market Sentiment", source: "Sunday Guardian Live", date: "2026-08-06", time: "17:29", url: "https://sundayguardianlive.com/business/ftse-100-today-uk-stocks-gain-on-strong-earnings-lower-oil-prices-and-improved-market-sentiment-what-should-investors-know-254937/" },
     { title: "FTSE 100 Climbs on Glencore, Next Earnings & Iran Deal Hopes", source: "Global Banking & Finance Review", date: "2026-08-05", time: "09:47", url: "https://www.globalbankingandfinance.com/ftse-100-climbs-glencore-next-earnings-iran-deal-hopes/" },
     { title: "UK Services PMI Returns to Growth, but Record Job Losses Cast Shadow", source: "ActionForex", date: "2026-08-05", time: "10:00", url: "https://www.actionforex.com/live-comments/649605-uk-services-pmi-returns-to-growth-but-record-job-losses-cast-shadow/" },
     { title: "UK's Tough Jobs Market Threatens Burnham's Aim to 'Bring Back Hope'", source: "Bloomberg", date: "2026-08-05", time: "06:00", url: "https://www.bloomberg.com/news/newsletters/2026-08-05/uk-s-tough-jobs-market-threatens-burnham-s-aim-to-bring-back-hope" },
-    { title: "Glencore Profit Jumps on Trading Boom and Record Copper", source: "Bloomberg", date: "2026-08-05", time: "08:15", url: "https://www.bloomberg.com/news/articles/2026-08-05/glencore-profit-jumps-on-trading-boom-and-record-copper" },
   ],
 };
 
@@ -749,6 +749,11 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-06",
   items: [
+    {"title":"Treasury yields edge higher as traders sharpen focus on rates","source":"CNBC","date":"2026-08-06","time":"17:29","url":"https://www.cnbc.com/2026/08/06/treasury-yields-interest-rates-inflation-fed.html","blurb":"The 2-year Treasury yield ticked more than 2bp higher to 4.204% as traders weighed the prospect of further rate rises ahead of Friday's jobs report."},
+    {"title":"5 things to know before the stock market opens Thursday","source":"CNBC","date":"2026-08-06","time":"17:29","url":"https://www.cnbc.com/2026/08/06/5-things-to-know-before-the-stock-market-opens.html","blurb":"BofA's Brian Moynihan flags leveraged-market risk, Fed Chair Warsh floats fewer policy meetings, and $166bn of 'liberation day' tariff refunds near completion."},
+    {"title":"Stock Market Today (Aug. 6, 2026): S&P 500 declines as investors weigh jobs data, earnings ahead","source":"TheStreet","date":"2026-08-06","time":"17:29","url":"https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-6-2026","blurb":"US indices slipped from record levels as investors positioned ahead of Friday's July jobs report and a fresh round of earnings."},
+    {"title":"Stock market today: Nasdaq slips, Dow and S&P 500 futures inch up as earnings roll on","source":"Yahoo Finance","date":"2026-08-06","time":"14:16","url":"https://finance.yahoo.com/markets/live/stock-market-today-thursday-august-6-dow-sp-nasdaq-091620000.html","blurb":"US stocks were mixed as Wall Street digested a fresh batch of earnings, with SpaceX's first share lockup expiry and continued AI-capex scrutiny in focus."},
+    {"title":"FTSE 100 Today: UK Stocks Gain on Strong Earnings, Lower Oil Prices and Improved Market Sentiment","source":"Sunday Guardian Live","date":"2026-08-06","time":"17:29","url":"https://sundayguardianlive.com/business/ftse-100-today-uk-stocks-gain-on-strong-earnings-lower-oil-prices-and-improved-market-sentiment-what-should-investors-know-254937/","blurb":"London's blue-chip index pushed toward fresh record territory on strong corporate results, softer oil prices and improving sentiment around a possible Hormuz shipping deal."},
     {"title":"Current price of gold: August 6, 2026","source":"Fortune","date":"2026-08-06","time":"11:30","url":"https://fortune.com/article/current-price-of-gold-08-06-2026/","blurb":"Gold extends its historic run as a weaker dollar and safe-haven demand keep pushing bullion higher."},
     {"title":"Kevin Warsh to stick with lean Fed messaging despite market backlash","source":"Financial Times","date":"2026-08-06","time":"12:00","url":"https://www.ft.com/content/debe096f-ec89-424f-a8ca-d3843ef53549","blurb":"Fed Chair Warsh signals no change to his sparse communication style even as markets whipsaw on parsing his signals."},
     {"title":"Gold Price Surges to Seven-Week High: XAU/USD Eyes $4,334 as Dollar Slides","source":"FX Leaders","date":"2026-08-06","time":"09:24","url":"https://www.fxleaders.com/news/2026/08/06/gold-price-surges-seven-week-high-xau-usd-eyes-4334-dollar-slides/","blurb":"Gold climbed toward a seven-week high near $4,300, up roughly 6% on the week, as a softer dollar and Hormuz de-escalation hopes offset a fresh chorus of hawkish Fed commentary."},
@@ -784,8 +789,6 @@ export const ARTICLES = {
     {"title":"Oil Holds Two-Day Drop on Signs of Progress Toward Hormuz Deal","source":"Bloomberg","date":"2026-08-04","time":"23:15","url":"https://www.bloomberg.com/news/articles/2026-08-04/latest-oil-market-news-and-analysis-for-aug-5","blurb":"Brent extended its slide below $79/bbl and WTI toward $75, down more than 10% over two sessions, as hopes built for a deal to reopen the Strait of Hormuz and free up supply trapped in the Persian Gulf."},
     {"title":"US Trade Deficit Shrinks to $73.3 Billion as Imports Decline in June","source":"Bloomberg","date":"2026-08-04","time":"22:00","url":"https://www.bloomberg.com/news/articles/2026-08-04/us-trade-deficit-narrows-to-73-3-billion-on-drop-in-imports","blurb":"The goods-and-services deficit narrowed to $73.3bn in June (from a revised $77.6bn in May) as imports fell more than exports, leaving the year-to-date deficit down nearly 34% versus the same period in 2025."},
     {"title":"BP's Q2 Profit Doubles Amid Middle East Conflict, but It Cuts Production, Capex Outlook","source":"Benzinga","date":"2026-08-04","time":"21:50","url":"https://www.benzinga.com/markets/earnings/26/08/60913053/bps-q2-profit-doubles-amid-middle-east-conflict-but-it-cuts-production-capex-outlook","blurb":"BP's underlying replacement-cost profit more than doubled to $5.73bn as the Iran war pushed Brent roughly 20% higher year-on-year and refining margins boomed, even as the company trimmed its production and capex outlook alongside its North Sea sale process."},
-    {"title":"HSBC profit jumps as bank unveils major share buyback plan","source":"Euronews","date":"2026-08-04","time":"21:45","url":"https://www.euronews.com/business/2026/08/04/hsbc-profit-jumps-as-bank-unveils-major-share-buyback-plan","blurb":"HSBC's H1 pre-tax profit rose 27% to $14.6bn, with Q2 net interest income up 9% on elevated global rates, prompting a fresh $1bn buyback — its first since taking Hong Kong's Hang Seng Bank private."},
-    {"title":"UK Chancellor John Healey to Deliver First Budget on October 28","source":"Bloomberg","date":"2026-07-31","time":"12:00","url":"https://www.bloomberg.com/news/articles/2026-07-31/uk-chancellor-john-healey-to-deliver-first-budget-on-october-28","blurb":"Healey confirmed the earliest Autumn Budget date since 2021, aiming to limit speculation over the scale of tax rises needed to close the fiscal gap after a run of cost-of-living spending commitments including the VAT cut on household electricity."},
   ],
 };
 
