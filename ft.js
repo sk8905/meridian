@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "91fd7e49-6fdb-4f49-bd2a-c72e2f380911", title: "Only 1 in 7 of England’s rivers, lakes and estuaries meet ecological standards", date: "2026-08-06", time: "11:00", url: "https://www.ft.com/content/91fd7e49-6fdb-4f49-bd2a-c72e2f380911" },
+  { id: "4822d451-d850-48c2-b30d-35bf6667a005", title: "How not to do an M&A league table", date: "2026-08-06", time: "10:42", url: "https://www.ft.com/content/4822d451-d850-48c2-b30d-35bf6667a005" },
   { id: "b214e9c8-615b-400e-8c53-97f16d0ddcec", title: "SoftBank’s stakes in Intel and ByteDance help it beat expectations", date: "2026-08-06", time: "08:39", url: "https://www.ft.com/content/b214e9c8-615b-400e-8c53-97f16d0ddcec" },
   { id: "4c849c74-887f-4393-80b4-b6a1118feeeb", title: "FTAV’s further reading", date: "2026-08-06", time: "07:35", url: "https://www.ft.com/content/4c849c74-887f-4393-80b4-b6a1118feeeb" },
   { id: "d9e9cbbe-8443-4c10-821a-1834e4965236", title: "OpenAI says Apple’s trade secrets lawsuit aims to stop employees leaving", date: "2026-08-06", time: "07:09", url: "https://www.ft.com/content/d9e9cbbe-8443-4c10-821a-1834e4965236" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "235a98f8-7833-450f-a9aa-f5049d361d30", title: "Partners Group nears €2bn deal for beauty group Aroma-Zone", date: "2026-08-05", time: "17:01", url: "https://www.ft.com/content/235a98f8-7833-450f-a9aa-f5049d361d30" },
   { id: "4abf8011-5570-4ad7-9170-fa655295070a", title: "Reform repaid Tice loan on same day £1mn donated by mother of Farage aide Cottrell", date: "2026-08-05", time: "16:30", url: "https://www.ft.com/content/4abf8011-5570-4ad7-9170-fa655295070a" },
   { id: "bc02657f-4cd7-49a7-a498-9bcef286b1b7", title: "Drone carrying explosives found at Leipzig airport, say German police", date: "2026-08-05", time: "15:59", url: "https://www.ft.com/content/bc02657f-4cd7-49a7-a498-9bcef286b1b7" },
-  { id: "41f7963b-dd50-4f27-a085-771ddec4a8ca", title: "Elon Musk’s SpaceX unnerves investors with lavish AI spending plans", date: "2026-08-05", time: "15:36", url: "https://www.ft.com/content/41f7963b-dd50-4f27-a085-771ddec4a8ca" },
 ];

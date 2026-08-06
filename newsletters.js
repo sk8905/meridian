@@ -32,6 +32,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-marketsdaily-doublewhammy-20260806",
+    publication: "Bloomberg",
+    series: "Markets Daily",
+    title: "Markets Daily: The Bessent-Warsh ‘double whammy’",
+    date: "2026-08-06",
+    time: "11:08",
+    summary: "Dollar weakens, yields rise.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-06/bonds-dollar-weighed-down-by-washington-policy-decisions",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-20260806",
     publication: "Bloomberg",
     author: "Jill Disis",
@@ -427,15 +437,5 @@ export const NEWSLETTERS = [
     time: "06:41",
     summary: "Spain's Pedro Sánchez grows isolated among EU peers over the Ceuta migrant crisis as the yen surges on bets of more joint US-Japan intervention and Trump calls off further Iran strikes for Monday talks.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-03/spain-s-sanchez-left-politically-exposed-amid-migrant-crisis",
-  },
-  {
-    id: "nl-econ-worldinbrief-20260803",
-    publication: "The Economist",
-    series: "The World in Brief",
-    title: "The World in Brief: Trump says Iran talks start Monday",
-    date: "2026-08-03",
-    time: "06:39",
-    summary: "Trump says Iran talks resume Monday after calling off further strikes, sending oil down over 4%, as the Ceuta migrant death toll reaches at least 72 and UEFA threatens to sue Infantino over FIFA's stake-sale plan.",
-    url: "https://www.economist.com/the-world-in-brief",
   },
 ];
