@@ -33,6 +33,27 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-econworld-treacherousvoyages-20260806",
+    publication: "Thomson Reuters",
+    author: "Carmel Crimmins",
+    series: "Econ World",
+    title: "Treacherous voyages",
+    date: "2026-08-06",
+    time: "14:59",
+    summary: "Strait of Hormuz reopening talk and escalating Black Sea shipping attacks are reshaping oil markets and trade costs, plus the economics of sick leave.",
+    url: "https://www.reuters.com/newsletters/reuters-econ-world",
+  },
+  {
+    id: "nl-bbg-authoralert-nkumar-anthropic-20260806",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    title: "Millennium Partners With Anthropic to Develop AI Risk Analyst",
+    date: "2026-08-06",
+    time: "13:49",
+    summary: "Millennium Management is partnering with Anthropic to build an AI-powered risk analyst and expand use of its models across the hedge fund firm.",
+    url: "https://www.bloomberg.com/news/articles/2026-08-06/millennium-partners-with-anthropic-to-develop-ai-risk-analyst",
+  },
+  {
     id: "nl-gi-macromarketspodcast-ep90-20260805",
     publication: "Guggenheim Investments",
     series: "Macro Markets Podcast",
@@ -429,24 +450,5 @@ export const NEWSLETTERS = [
     time: "11:00",
     summary: "US operations in Japanese yen may ultimately be tied to concerns over rising Treasury yields.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-03/bessent-plays-currency-market-chess-with-likely-eye-on-us-treasury-yields",
-  },
-  {
-    id: "nl-bbg-marketsdaily-yenintervention-20260803",
-    publication: "Bloomberg",
-    series: "Markets Daily",
-    title: "Markets Daily: Why is the US acting on the yen?",
-    date: "2026-08-03",
-    time: "10:50",
-    summary: "The US action in bolstering the yen is a big deal.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-03/the-us-has-a-lot-at-stake-in-rare-intervention-to-prop-up-yen",
-  },
-  {
-    id: "nl-lb-lathamhg-20260803",
-    publication: "Legal Business",
-    title: "Latham hires Hg general counsel as London PE partner",
-    date: "2026-08-03",
-    time: "08:33",
-    summary: "Hire from longstanding client Hg marks latest in-house to private practice move.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQzapNmbahkbfDSic/wv",
   },
 ];
