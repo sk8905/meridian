@@ -8,20 +8,14 @@ import { esc } from "/util.js?v=20260719-1";
 
 const ICO_SEARCH = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.6" y1="15.6" x2="21" y2="21"/></svg>';
 const ICO_BELL = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>';
-const ICO_SUN = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg>';
-const ICO_MOON = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>';
-const ICO_AUTO = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg>';
 
 const storedPref = () => { const c = document.documentElement.getAttribute("data-theme-choice"); return (c === "light" || c === "dark") ? c : "system"; };
 const osDark = () => !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
-// TWO options only — "System" (follow the OS) and "Other" (the opposite; a
-// remembered manual choice). Same model as the desktop header toggle
-// (nav-actions.js), so the pref (data-theme-choice / m_theme_pref) stays a
-// concrete system|light|dark that the inline boot script already understands.
-const themeChoice = () => (storedPref() === "system" ? "system" : "other");
-const otherPref = () => { const p = storedPref(); return p === "system" ? (osDark() ? "light" : "dark") : p; };
-const themeIco = () => (themeChoice() === "system" ? ICO_AUTO : (document.documentElement.getAttribute("data-theme") === "dark" ? ICO_MOON : ICO_SUN));
-const themePill = () => `${themeIco()}<span class="na-push-state">${themeChoice() === "system" ? "System" : "Other"}</span>`;
+// THREE explicit options — System · Light · Dark — surfaced as a segmented
+// control. The stored pref (data-theme-choice / m_theme_pref) stays a concrete
+// system|light|dark that the inline boot script already understands.
+const THEME_LABEL = { system: "System", light: "Light", dark: "Dark" };
+const THEME_ORDER = ["system", "light", "dark"];
 function applyTheme(pref) {
   const r = document.documentElement;
   const t = pref === "system" ? (osDark() ? "dark" : "light") : pref;
@@ -49,7 +43,9 @@ function paneHTML(sec) {
   if (sec === "display") {
     return `<div class="na-menu-recent-h">Appearance</div>`
       + `<div class="na-menu-row na-menu-pushrow"><span>Theme</span>`
-      + `<button type="button" class="na-menu-push na-theme-pill" id="v2-theme" aria-label="Theme — tap to change" title="Tap to change theme">${themePill()}</button></div>`;
+      + `<div class="na-theme-seg" id="v2-theme-seg" role="group" aria-label="Theme">`
+      + THEME_ORDER.map((pf) => `<button type="button" class="na-theme-opt${storedPref() === pf ? " is-on" : ""}" data-pref="${pf}" aria-pressed="${storedPref() === pf ? "true" : "false"}">${THEME_LABEL[pf]}</button>`).join("")
+      + `</div></div>`;
   }
   const rs = recents();
   return `<button type="button" class="na-menu-row na-menu-search" data-open-search>${ICO_SEARCH}<span>Search everything…</span></button>`
@@ -90,8 +86,8 @@ export function mount(host, ctx) {
   host.addEventListener("click", (e) => {
     const chip = e.target.closest(".na-menu-bar .tchip");
     if (chip) { sec = chip.dataset.sec; render(); return; }
-    const theme = e.target.closest("#v2-theme");
-    if (theme) { applyTheme(themeChoice() === "system" ? otherPref() : "system"); theme.innerHTML = themePill(); return; }
+    const opt = e.target.closest("#v2-theme-seg .na-theme-opt");
+    if (opt) { applyTheme(opt.dataset.pref); render(); return; }
     const rec = e.target.closest(".na-recent-row");
     if (rec) { document.dispatchEvent(new CustomEvent("wire:search", { detail: { q: rec.dataset.q } })); return; }
     const push = e.target.closest("#v2-push");

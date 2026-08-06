@@ -550,18 +550,17 @@ const themeChoice = () => (storedPref() === "system" ? "system" : "other");
 const resolveTheme = (pref) => (pref === "system" ? (osDark() ? "dark" : "light") : pref);
 // The concrete theme "Other" should switch to: keep a remembered manual choice,
 // else the opposite of the current OS theme.
-const otherPref = () => { const p = storedPref(); return p === "system" ? (osDark() ? "light" : "dark") : p; };
 // Button reflects the CURRENT state: the monitor glyph while following the
 // system, otherwise the sun/moon of whatever theme is showing.
 const themeIcon = () => (themeChoice() === "system" ? ICO_AUTO : (document.documentElement.getAttribute("data-theme") === "dark" ? ICO_MOON : ICO_SUN));
-const THEME_TITLE = { system: "Theme: System — tap to override", other: "Theme: Manual — tap to follow system" };
-// Phone /menu/ "Appearance" pill — TWO options only, System ↔ Other (same model
-// as the nav-bar button), styled like the Push-notifications row's chip.
-const themePillIco = () => (themeChoice() === "system" ? ICO_AUTO : (document.documentElement.getAttribute("data-theme") === "dark" ? ICO_MOON : ICO_SUN));
-const themePillInner = () => `${themePillIco()}<span class="na-push-state">${themeChoice() === "system" ? "System" : "Other"}</span>`;
-// Set by initNavActions so the /menu/ segmented control can drive the same
-// apply logic as the nav-bar button.
-let _applyThemeChoice = null;
+// Three explicit theme options — System · Light · Dark. The stored preference is
+// one of these three; "system" follows the OS live, "light"/"dark" are concrete
+// remembered choices. Surfaced as a segmented control in the phone /menu/
+// Appearance row, and cycled by the desktop nav-bar button.
+const THEME_LABEL = { system: "System", light: "Light", dark: "Dark" };
+const THEME_ORDER = ["system", "light", "dark"];
+const themeNext = () => THEME_ORDER[(THEME_ORDER.indexOf(storedPref()) + 1) % THEME_ORDER.length];
+const themeTitle = () => `Theme: ${THEME_LABEL[storedPref()] || "System"} — tap to change`;
 // Two desks only: the bell is limited to Credit + Legal deal-flow (saved.js
 // buildNotifs) — macro items no longer appear, so no macro seen-state to sync.
 const NOTIF_KEYS = { c: "meridian.credit.notifSeen", l: "meridian.legal.notifSeen" };
@@ -725,7 +724,7 @@ export function initNavActions() {
       (isPhone() ? `<button type="button" class="na-btn" id="na-search" data-open-search aria-label="Search" title="Search">${ICO_MAG}</button>` : "") +
       // Theme toggle lives in the nav bar on desktop; on phones it moves into the
       // Menu tab's own control so the nav bar stays uncluttered.
-      (isPhone() ? "" : `<button type="button" class="na-btn" id="na-theme" aria-label="Switch theme" title="${THEME_TITLE[themeChoice()] || "Switch theme"}">${themeIcon()}</button>`);
+      (isPhone() ? "" : `<button type="button" class="na-btn" id="na-theme" aria-label="Switch theme" title="${themeTitle()}">${themeIcon()}</button>`);
     if (notif && notif.parentElement) {
       notif.parentElement.insertBefore(wrap, notif);
     } else if (bar) {
@@ -747,16 +746,11 @@ export function initNavActions() {
       try { localStorage.setItem("m_theme_pref", pref); } catch { /* */ }
       const meta = document.querySelector('meta[name="theme-color"]');
       if (meta) meta.setAttribute("content", t === "dark" ? "#05080f" : "#ffffff");
-      if (themeBtn) { themeBtn.innerHTML = themeIcon(); themeBtn.setAttribute("title", THEME_TITLE[themeChoice()] || "Switch theme"); }
-      // Keep the phone /menu/ theme chip in sync with the new state.
-      const pill = document.getElementById("na-theme-pill");
-      if (pill) pill.innerHTML = themePillInner();
+      if (themeBtn) { themeBtn.innerHTML = themeIcon(); themeBtn.setAttribute("title", themeTitle()); }
     };
-    _applyThemeChoice = applyThemeChoice;   // expose for the /menu/ segmented control
-    if (themeBtn) themeBtn.addEventListener("click", () => {
-      // System → Other (opposite of OS, then remembered); Other → System.
-      applyThemeChoice(themeChoice() === "system" ? otherPref() : "system");
-    });
+    // Desktop nav-bar button cycles through all three: System → Light → Dark → …
+    // (the phone theme control is the /v2/menu/ view's own segmented control).
+    if (themeBtn) themeBtn.addEventListener("click", () => applyThemeChoice(themeNext()));
     // Only re-apply on OS light/dark change when following the system; a
     // concrete choice is remembered and must not drift.
     if (window.matchMedia) {
@@ -833,6 +827,41 @@ export function initNavActions() {
         // one-time reload above.
         try { reg.update(); } catch { /* */ }
       }).catch(() => {});
+    }
+    // BUILD-TOKEN SELF-HEAL (independent of the service worker). The SW reload
+    // above only fires when sw.js itself changes; a module-only deploy (a fix to
+    // a view's JS) does NOT change sw.js, so a resumed iOS PWA — which never
+    // re-navigates and so never re-fetches the shell — keeps running the OLD
+    // in-memory modules across many deploys. That is the "the fix never reaches
+    // the phone" trap behind repeated 'still broken' reports. Fix: on launch and
+    // on every foreground, fetch the shell fresh (no-store, bypasses the SW as a
+    // non-navigation same-origin GET) and compare the runtime build token it
+    // serves NOW against the one THIS document actually loaded. If they differ,
+    // our code is stale — reload once to pull the new build.
+    {
+      const runningBuild = () => {
+        const s = document.querySelector('script[src*="/v2/js/runtime.js"]');
+        const m = s && /[?&]v=([^&"']+)/.exec(s.getAttribute("src") || "");
+        return m ? m[1] : null;
+      };
+      let checking = false, reloaded = false, lastAt = 0;
+      const checkFreshBuild = async () => {
+        if (checking || reloaded) return;
+        const mine = runningBuild(); if (!mine) return;
+        const t = (typeof performance !== "undefined" && performance.now) ? performance.now() : 0;
+        if (lastAt && t - lastAt < 15000) return;   // throttle rapid foregrounds
+        lastAt = t; checking = true;
+        try {
+          const res = await fetch("/v2/", { cache: "no-store" });
+          if (res && res.ok) {
+            const m = /\/v2\/js\/runtime\.js\?v=([^"'&]+)/.exec(await res.text());
+            if (m && m[1] && m[1] !== mine) { reloaded = true; location.reload(); return; }
+          }
+        } catch { /* offline / Access redirect — keep the working build */ }
+        finally { checking = false; }
+      };
+      checkFreshBuild();
+      document.addEventListener("visibilitychange", () => { if (!document.hidden) checkFreshBuild(); });
     }
     // Tidy the Access re-auth marker (?__net=1 forces the navigation past the
     // app-shell cache so Access can round-trip through login).

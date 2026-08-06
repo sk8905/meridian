@@ -28,7 +28,7 @@
 // stale-while-revalidate path would otherwise serve once more. Bumped to flush
 // the pre-PTR /menu/ shell (it had no ptr.js, so its dark inline html showed as
 // a black band on pull and it couldn't self-update).
-const CACHE = "wire-shell-v7";   // bumped: pairs with the app's new controllerchange auto-reload — a stuck PWA installs this worker, it claims + reloads the page, and the fresh Profiles bundle loads
+const CACHE = "wire-shell-v8";   // bumped: forces a fresh SW activation → controllerchange reload onto the build that carries the foreground build-token self-heal (nav-actions.js), so a stuck PWA lands on current code once and stays current thereafter
 // The no-cache data modules (see _headers). Cached under their bare pathname —
 // importers reference them with assorted stale ?v= tokens; the bodies are
 // identical, so all variants map to one entry.
