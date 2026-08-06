@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "5fb71aeb-f4a3-484b-b958-89842252c59b", title: "Could over-investment in natural gas drive up US electricity bills?", date: "2026-08-06", time: "12:00", url: "https://www.ft.com/content/5fb71aeb-f4a3-484b-b958-89842252c59b" },
+  { id: "debe096f-ec89-424f-a8ca-d3843ef53549", title: "Kevin Warsh to stick with lean Fed messaging despite market backlash", date: "2026-08-06", time: "12:00", url: "https://www.ft.com/content/debe096f-ec89-424f-a8ca-d3843ef53549" },
+  { id: "9d38db74-98a5-46ee-b9ed-4e553ff41025", title: "US public pension funds and business groups clash on SEC climate risk disclosure shift", date: "2026-08-06", time: "11:40", url: "https://www.ft.com/content/9d38db74-98a5-46ee-b9ed-4e553ff41025" },
+  { id: "53920df1-f6b4-4214-9936-b9eed83d3548", title: "Both Trump and young Americans are warming to China", date: "2026-08-06", time: "11:31", url: "https://www.ft.com/content/53920df1-f6b4-4214-9936-b9eed83d3548" },
   { id: "91fd7e49-6fdb-4f49-bd2a-c72e2f380911", title: "Only 1 in 7 of England’s rivers, lakes and estuaries meet ecological standards", date: "2026-08-06", time: "11:00", url: "https://www.ft.com/content/91fd7e49-6fdb-4f49-bd2a-c72e2f380911" },
   { id: "4822d451-d850-48c2-b30d-35bf6667a005", title: "How not to do an M&A league table", date: "2026-08-06", time: "10:42", url: "https://www.ft.com/content/4822d451-d850-48c2-b30d-35bf6667a005" },
   { id: "b214e9c8-615b-400e-8c53-97f16d0ddcec", title: "SoftBank’s stakes in Intel and ByteDance help it beat expectations", date: "2026-08-06", time: "08:39", url: "https://www.ft.com/content/b214e9c8-615b-400e-8c53-97f16d0ddcec" },
@@ -57,8 +61,4 @@ export const FT_ITEMS = [
   { id: "e0b10cad-3e46-4a6d-9227-eba6fe11c676", title: "Iran says it has reached agreement with Oman on Hormuz shipping route", date: "2026-08-05", time: "18:24", url: "https://www.ft.com/content/e0b10cad-3e46-4a6d-9227-eba6fe11c676" },
   { id: "65576911-f6ee-46b3-b5a8-f423df723879", title: "Europe must do more to harness its AI ambitions", date: "2026-08-05", time: "18:01", url: "https://www.ft.com/content/65576911-f6ee-46b3-b5a8-f423df723879" },
   { id: "45df9a1f-7400-4ef8-85e5-aa519a627e66", title: "Israel launches strikes on Lebanon in new flare-up", date: "2026-08-05", time: "17:58", url: "https://www.ft.com/content/45df9a1f-7400-4ef8-85e5-aa519a627e66" },
-  { id: "258c5cba-e65a-4990-82b1-3c5e7fc2bb10", title: "Bodycote gets twin private equity bids as buyers feast on London market", date: "2026-08-05", time: "17:11", url: "https://www.ft.com/content/258c5cba-e65a-4990-82b1-3c5e7fc2bb10" },
-  { id: "235a98f8-7833-450f-a9aa-f5049d361d30", title: "Partners Group nears €2bn deal for beauty group Aroma-Zone", date: "2026-08-05", time: "17:01", url: "https://www.ft.com/content/235a98f8-7833-450f-a9aa-f5049d361d30" },
-  { id: "4abf8011-5570-4ad7-9170-fa655295070a", title: "Reform repaid Tice loan on same day £1mn donated by mother of Farage aide Cottrell", date: "2026-08-05", time: "16:30", url: "https://www.ft.com/content/4abf8011-5570-4ad7-9170-fa655295070a" },
-  { id: "bc02657f-4cd7-49a7-a498-9bcef286b1b7", title: "Drone carrying explosives found at Leipzig airport, say German police", date: "2026-08-05", time: "15:59", url: "https://www.ft.com/content/bc02657f-4cd7-49a7-a498-9bcef286b1b7" },
 ];

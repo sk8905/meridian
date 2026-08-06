@@ -32,6 +32,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-economicsdaily-landofai-20260806",
+    publication: "Bloomberg",
+    author: "Malcolm Scott",
+    series: "Economics Daily",
+    title: "Economics Daily: Land of AI",
+    date: "2026-08-06",
+    time: "12:02",
+    summary: "Chip workers are the new social elite as South Korea finds itself in the epicenter of the AI boom.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-06/how-the-ai-chip-boom-is-reshaping-south-korea-s-markets-economy-and-society",
+  },
+  {
     id: "nl-bbg-marketsdaily-doublewhammy-20260806",
     publication: "Bloomberg",
     series: "Markets Daily",
