@@ -20,12 +20,18 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "15857866-5274-41cc-90a6-b4f696c60a13", title: "ConocoPhillips chief Ryan Lance to step down after 14 years", date: "2026-08-06", time: "13:25", url: "https://www.ft.com/content/15857866-5274-41cc-90a6-b4f696c60a13" },
+  { id: "4b3f2499-6f1a-46df-81c0-fbcb651b2c60", title: "The good, the bad and the green of Badenoch", date: "2026-08-06", time: "12:37", url: "https://www.ft.com/content/4b3f2499-6f1a-46df-81c0-fbcb651b2c60" },
+  { id: "9f46db72-0a1e-42b0-8efe-974a04fa0fc7", title: "Latest savings rates", date: "2026-08-06", time: "12:32", url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7" },
+  { id: "75ba3055-625c-4cb5-894b-0696a38f5e79", title: "Latest Isa rates", date: "2026-08-06", time: "12:28", url: "https://www.ft.com/content/75ba3055-625c-4cb5-894b-0696a38f5e79" },
+  { id: "5a6340ac-0850-4fc0-a3eb-261a1f7e78d4", title: "Russia targets Maga influencers ahead of German state vote", date: "2026-08-06", time: "12:25", url: "https://www.ft.com/content/5a6340ac-0850-4fc0-a3eb-261a1f7e78d4" },
   { id: "5fb71aeb-f4a3-484b-b958-89842252c59b", title: "Could over-investment in natural gas drive up US electricity bills?", date: "2026-08-06", time: "12:00", url: "https://www.ft.com/content/5fb71aeb-f4a3-484b-b958-89842252c59b" },
   { id: "debe096f-ec89-424f-a8ca-d3843ef53549", title: "Kevin Warsh to stick with lean Fed messaging despite market backlash", date: "2026-08-06", time: "12:00", url: "https://www.ft.com/content/debe096f-ec89-424f-a8ca-d3843ef53549" },
   { id: "9d38db74-98a5-46ee-b9ed-4e553ff41025", title: "US public pension funds and business groups clash on SEC climate risk disclosure shift", date: "2026-08-06", time: "11:40", url: "https://www.ft.com/content/9d38db74-98a5-46ee-b9ed-4e553ff41025" },
   { id: "53920df1-f6b4-4214-9936-b9eed83d3548", title: "Both Trump and young Americans are warming to China", date: "2026-08-06", time: "11:31", url: "https://www.ft.com/content/53920df1-f6b4-4214-9936-b9eed83d3548" },
   { id: "91fd7e49-6fdb-4f49-bd2a-c72e2f380911", title: "Only 1 in 7 of England’s rivers, lakes and estuaries meet ecological standards", date: "2026-08-06", time: "11:00", url: "https://www.ft.com/content/91fd7e49-6fdb-4f49-bd2a-c72e2f380911" },
   { id: "4822d451-d850-48c2-b30d-35bf6667a005", title: "How not to do an M&A league table", date: "2026-08-06", time: "10:42", url: "https://www.ft.com/content/4822d451-d850-48c2-b30d-35bf6667a005" },
+  { id: "235a98f8-7833-450f-a9aa-f5049d361d30", title: "Partners Group nears €2bn deal for beauty group Aroma-Zone", date: "2026-08-06", time: "08:11", url: "https://www.ft.com/content/235a98f8-7833-450f-a9aa-f5049d361d30" },
   { id: "b214e9c8-615b-400e-8c53-97f16d0ddcec", title: "SoftBank’s stakes in Intel and ByteDance help it beat expectations", date: "2026-08-06", time: "08:39", url: "https://www.ft.com/content/b214e9c8-615b-400e-8c53-97f16d0ddcec" },
   { id: "4c849c74-887f-4393-80b4-b6a1118feeeb", title: "FTAV’s further reading", date: "2026-08-06", time: "07:35", url: "https://www.ft.com/content/4c849c74-887f-4393-80b4-b6a1118feeeb" },
   { id: "d9e9cbbe-8443-4c10-821a-1834e4965236", title: "OpenAI says Apple’s trade secrets lawsuit aims to stop employees leaving", date: "2026-08-06", time: "07:09", url: "https://www.ft.com/content/d9e9cbbe-8443-4c10-821a-1834e4965236" },
@@ -53,12 +59,4 @@ export const FT_ITEMS = [
   { id: "285bf286-07c3-49b1-9b6d-7df9664e73c0", title: "Stop assuming GDP is an indicator of prosperity", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/285bf286-07c3-49b1-9b6d-7df9664e73c0" },
   { id: "dee0188b-54b5-4bfe-b9cf-9c4893d9c7f2", title: "‘People are going to kill me’: Haitians fear deportation as US revokes protected status", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/dee0188b-54b5-4bfe-b9cf-9c4893d9c7f2" },
   { id: "1fcca000-d9ac-4b3b-9d31-2fef0d1f55f3", title: "Big US hedge funds hit by wave of cyber attacks", date: "2026-08-05", time: "20:47", url: "https://www.ft.com/content/1fcca000-d9ac-4b3b-9d31-2fef0d1f55f3" },
-  { id: "3cf185ad-3aea-4d15-8fae-36940da57219", title: "Bikemaker Accell files for insolvency four years after €1.8bn KKR-led buyout", date: "2026-08-05", time: "20:11", url: "https://www.ft.com/content/3cf185ad-3aea-4d15-8fae-36940da57219" },
-  { id: "62b70b3a-88c9-4d6c-bc0c-b840586af91a", title: "JPMorgan poaches M&A banker Amy Lissauer from Bank of America", date: "2026-08-05", time: "20:10", url: "https://www.ft.com/content/62b70b3a-88c9-4d6c-bc0c-b840586af91a" },
-  { id: "61d41764-f2f7-4906-a112-ff3073972c51", title: "Google DeepMind CEO Demis Hassabis steps down in shake-up of AI lab", date: "2026-08-05", time: "19:24", url: "https://www.ft.com/content/61d41764-f2f7-4906-a112-ff3073972c51" },
-  { id: "124950d0-1d2f-4da5-8dbc-33912e939298", title: "Kemi Badenoch ‘sad’ over withdrawal of former antisemite as Tory council candidate", date: "2026-08-05", time: "19:03", url: "https://www.ft.com/content/124950d0-1d2f-4da5-8dbc-33912e939298" },
-  { id: "2f32de35-697e-4f56-ac57-e44006a09d0f", title: "How to solve Britain’s prisons crisis", date: "2026-08-05", time: "18:52", url: "https://www.ft.com/content/2f32de35-697e-4f56-ac57-e44006a09d0f" },
-  { id: "e0b10cad-3e46-4a6d-9227-eba6fe11c676", title: "Iran says it has reached agreement with Oman on Hormuz shipping route", date: "2026-08-05", time: "18:24", url: "https://www.ft.com/content/e0b10cad-3e46-4a6d-9227-eba6fe11c676" },
-  { id: "65576911-f6ee-46b3-b5a8-f423df723879", title: "Europe must do more to harness its AI ambitions", date: "2026-08-05", time: "18:01", url: "https://www.ft.com/content/65576911-f6ee-46b3-b5a8-f423df723879" },
-  { id: "45df9a1f-7400-4ef8-85e5-aa519a627e66", title: "Israel launches strikes on Lebanon in new flare-up", date: "2026-08-05", time: "17:58", url: "https://www.ft.com/content/45df9a1f-7400-4ef8-85e5-aa519a627e66" },
 ];
