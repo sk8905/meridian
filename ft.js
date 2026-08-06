@@ -20,9 +20,14 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7252ef68-a886-4cd0-a450-b5a6cff3a526", title: "Insurance and bank stocks slide amid China tax crackdown fears", date: "2026-08-06", time: "06:07", url: "https://www.ft.com/content/7252ef68-a886-4cd0-a450-b5a6cff3a526" },
+  { id: "95c0b20c-0f9e-492b-9c0d-64b451654415", title: "More moaning about UK monthly GDP", date: "2026-08-06", time: "06:00", url: "https://www.ft.com/content/95c0b20c-0f9e-492b-9c0d-64b451654415" },
+  { id: "4709fbd3-5a10-46b0-84cf-9fed6c9a10b0", title: "FirstFT: US law firms weigh stake sale to private equity", date: "2026-08-06", time: "05:31", url: "https://www.ft.com/content/4709fbd3-5a10-46b0-84cf-9fed6c9a10b0" },
+  { id: "2a348cff-9946-40c4-8268-d0ff8d970447", title: "The trends in central bank research papers", date: "2026-08-06", time: "05:30", url: "https://www.ft.com/content/2a348cff-9946-40c4-8268-d0ff8d970447" },
   { id: "1e041e56-e2b6-4320-9dd7-1db8fdd7bc9c", title: "BP North Sea exit presents wake-up call on Scottish energy", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/1e041e56-e2b6-4320-9dd7-1db8fdd7bc9c" },
   { id: "2c94a7a2-abaf-45f9-9e1c-c7e469287ee7", title: "Citadel ‘makes a killing’", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/2c94a7a2-abaf-45f9-9e1c-c7e469287ee7" },
   { id: "2c741c41-403a-4157-b118-d6ccb9ce9aa8", title: "At least half a dozen senior NHS leaders linked to Palantir", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/2c741c41-403a-4157-b118-d6ccb9ce9aa8" },
+  { id: "46508023-900e-4f46-a2eb-dae928d55e55", title: "Get ready to endure an act of penance at Salzburg’s Saint François d’Assise", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/46508023-900e-4f46-a2eb-dae928d55e55" },
   { id: "938851c7-2fa9-4e2c-912a-ca4971f796c2", title: "Iceland demands fisheries control in any EU membership deal", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/938851c7-2fa9-4e2c-912a-ca4971f796c2" },
   { id: "ba3f0141-93f0-4c47-88bf-14aadf0c21a8", title: "‘They have to focus on delivering’: Abigail Spanberger urges Democrats to unite on affordability", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/ba3f0141-93f0-4c47-88bf-14aadf0c21a8" },
   { id: "aa3b6f86-38b7-459d-9c21-a1ea1a23dd7c", title: "Despot or conquering hero? Revisiting the rule of India’s last great Mughal emperor", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/aa3b6f86-38b7-459d-9c21-a1ea1a23dd7c" },
@@ -55,9 +60,4 @@ export const FT_ITEMS = [
   { id: "38e11309-9cb6-4cd4-a5b6-fc9a239ad6b3", title: "China hits back at US with sanctions and tighter drone export rules", date: "2026-08-05", time: "14:23", url: "https://www.ft.com/content/38e11309-9cb6-4cd4-a5b6-fc9a239ad6b3" },
   { id: "eee4bbbf-1d94-4910-9a61-2faefef61d55", title: "Russia drone company chief injured in car bombing", date: "2026-08-05", time: "13:59", url: "https://www.ft.com/content/eee4bbbf-1d94-4910-9a61-2faefef61d55" },
   { id: "33d4b478-b608-490f-9b15-534089d51499", title: "Flutter chief steps down as gambling group cuts guidance", date: "2026-08-05", time: "13:44", url: "https://www.ft.com/content/33d4b478-b608-490f-9b15-534089d51499" },
-  { id: "fc7f75f9-73b5-4ce6-8a27-f819aa7f361b", title: "Eli Lilly and Novo Nordisk raise profit outlook as weight-loss drug demand soars", date: "2026-08-05", time: "13:40", url: "https://www.ft.com/content/fc7f75f9-73b5-4ce6-8a27-f819aa7f361b" },
-  { id: "2b5e1ab6-9c41-4df8-8391-29d428fa5d2a", title: "Strong box office for ‘Toy Story 5’ boosts Disney as US theme parks rebound", date: "2026-08-05", time: "13:22", url: "https://www.ft.com/content/2b5e1ab6-9c41-4df8-8391-29d428fa5d2a" },
-  { id: "51606605-c861-475d-82f6-c9495f5d32d0", title: "The bureaucratic misery of India’s voter revision", date: "2026-08-05", time: "13:20", url: "https://www.ft.com/content/51606605-c861-475d-82f6-c9495f5d32d0" },
-  { id: "a47aa815-ba40-4ab6-8631-d0c6c11011ed", title: "Europe and the eternal north-south rift", date: "2026-08-05", time: "12:46", url: "https://www.ft.com/content/a47aa815-ba40-4ab6-8631-d0c6c11011ed" },
-  { id: "5506dcd6-4333-4c4a-a471-80d865bd0038", title: "Remember when the US Treasury caused that major yen rally in ‘98?", date: "2026-08-05", time: "12:39", url: "https://www.ft.com/content/5506dcd6-4333-4c4a-a471-80d865bd0038" },
 ];
