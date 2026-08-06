@@ -33,6 +33,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-macfarlanes-easyjet-20260806",
+    publication: "Legal Business",
+    title: "Macfarlanes advises founder as easyJet accepts £5.7bn Apollo takeover bid",
+    date: "2026-08-06",
+    time: "17:03",
+    summary: "UK firm lands role as budget airline readies for takeoff with Apollo after Castlelake withdraws rival bid.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQFAPbSUJlcgyuGtw/wv",
+  },
+  {
     id: "nl-reuters-econworld-treacherousvoyages-20260806",
     publication: "Thomson Reuters",
     author: "Carmel Crimmins",
@@ -430,25 +439,5 @@ export const NEWSLETTERS = [
     time: "17:41",
     summary: "Multistrategy hedge fund giant Millennium Management lost 2.1% last month as a selloff in AI stocks took a toll on equity portfolios.",
     url: "https://www.bloomberg.com/news/articles/2026-08-03/millennium-lost-2-last-month-as-ai-trade-whipsawed-hedge-funds",
-  },
-  {
-    id: "nl-lb-anthropicgc-20260803",
-    publication: "Legal Business",
-    title: "'I absolutely rely on Claude' - how Anthropic's lawyers use AI to keep pace with the company's explosive growth",
-    date: "2026-08-03",
-    time: "16:11",
-    summary: "Associate GC at AI giant Anthropic Mark Pike on how his company's own tech helps him get his legal work done.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQAb5plKTyWD1Yudf/wv",
-  },
-  {
-    id: "nl-bbg-economicsdaily-bessentchess-20260803",
-    publication: "Bloomberg",
-    author: "Chris Anstey",
-    series: "Economics Daily",
-    title: "Economics Daily: Bessent’s chess game",
-    date: "2026-08-03",
-    time: "11:00",
-    summary: "US operations in Japanese yen may ultimately be tied to concerns over rising Treasury yields.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-03/bessent-plays-currency-market-chess-with-likely-eye-on-us-treasury-yields",
   },
 ];

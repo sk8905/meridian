@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b7a47cff-29e3-45a7-a0c0-5f41ab72f49e", title: "Donald Trump allowed to delay release of financial details in $10bn BBC defamation case", date: "2026-08-06", time: "17:21", url: "https://www.ft.com/content/b7a47cff-29e3-45a7-a0c0-5f41ab72f49e" },
+  { id: "a71ca216-2e96-4c43-b269-11c8210e9a31", title: "Uefa doubles down on World Cup boycott in effort to oust Gianni Infantino", date: "2026-08-06", time: "17:19", url: "https://www.ft.com/content/a71ca216-2e96-4c43-b269-11c8210e9a31" },
+  { id: "030898ed-4fa2-4669-9970-c587c669ee4f", title: "Manchester power failure causes severe train disruption in northern England", date: "2026-08-06", time: "17:05", url: "https://www.ft.com/content/030898ed-4fa2-4669-9970-c587c669ee4f" },
+  { id: "2be98761-ca44-49ad-af3e-5204af338a64", title: "Congress should hold Trump’s feet to the fire on chips", date: "2026-08-06", time: "17:00", url: "https://www.ft.com/content/2be98761-ca44-49ad-af3e-5204af338a64" },
   { id: "9110ffe1-0737-4bb6-8e95-c7603b0e2fba", title: "Castlelake walks away from easyJet takeover battle", date: "2026-08-06", time: "14:20", url: "https://www.ft.com/content/9110ffe1-0737-4bb6-8e95-c7603b0e2fba" },
   { id: "510ed26f-165b-4961-8a46-b9064775ab67", title: "Abdul El-Sayed defeats establishment candidate in Michigan's Senate primary", date: "2026-08-06", time: "14:00", url: "https://www.ft.com/content/510ed26f-165b-4961-8a46-b9064775ab67" },
   { id: "15663487-0501-405f-9c2a-d87368a2fffa", title: "Paramount agrees safeguards for UK approval of $110bn WBD deal", date: "2026-08-06", time: "13:39", url: "https://www.ft.com/content/15663487-0501-405f-9c2a-d87368a2fffa" },
@@ -56,10 +60,4 @@ export const FT_ITEMS = [
   { id: "aa3b6f86-38b7-459d-9c21-a1ea1a23dd7c", title: "Despot or conquering hero? Revisiting the rule of India’s last great Mughal emperor", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/aa3b6f86-38b7-459d-9c21-a1ea1a23dd7c" },
   { id: "0d600619-6521-4de2-963e-c6f44f6e5468", title: "Who needs consultants in the age of AI?", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/0d600619-6521-4de2-963e-c6f44f6e5468" },
   { id: "b0b7db1d-5c9e-42d7-8aed-176e0acd00a9", title: "Scammers pose as watchdogs to prey on EU crypto rule changes", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/b0b7db1d-5c9e-42d7-8aed-176e0acd00a9" },
-  { id: "76646dc7-c24b-45fb-8667-9617714a122b", title: "Ares scales back blockbuster private credit vehicle after valuation pushback", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/76646dc7-c24b-45fb-8667-9617714a122b" },
-  { id: "77ece212-2768-4abe-9af1-b40a0db27c8f", title: "Inside Intel: how America’s chip champion came back from the brink", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/77ece212-2768-4abe-9af1-b40a0db27c8f" },
-  { id: "0b86e59e-6386-4e04-b581-a9486ecc2ead", title: "EU is finally changing on banks: this is how it needs to deliver", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/0b86e59e-6386-4e04-b581-a9486ecc2ead" },
-  { id: "33303552-64c0-444f-8d43-e853cfd09a41", title: "Kevin McGurn, the executive turning Trump’s posts into a media empire", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/33303552-64c0-444f-8d43-e853cfd09a41" },
-  { id: "5c9b566a-b0b1-473c-86d4-16aff1627953", title: "Jim Ratcliffe’s Ineos doubles down on European chemical sector shares", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/5c9b566a-b0b1-473c-86d4-16aff1627953" },
-  { id: "475d573a-886d-4b75-b07c-f74c38b093f2", title: "Biggest US law firms explore selling stakes to private equity", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/475d573a-886d-4b75-b07c-f74c38b093f2" },
 ];
