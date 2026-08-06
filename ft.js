@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "77f00cf3-f2e6-4dcb-bf0d-1631ca45dd9c", title: "California sues DuPont over alleged effort to avoid 'forever chemicals' liabilities", date: "2026-08-06", time: "19:09", url: "https://www.ft.com/content/77f00cf3-f2e6-4dcb-bf0d-1631ca45dd9c" },
+  { id: "8b2d8925-7fb9-44c8-8093-48442455ebe0", title: "Airtable's cut-price sale is just the start for software also-rans", date: "2026-08-06", time: "18:13", url: "https://www.ft.com/content/8b2d8925-7fb9-44c8-8093-48442455ebe0" },
   { id: "0aee7523-09d7-4831-bc20-711d7191822e", title: "The shrinking space for democracy in Africa", date: "2026-08-06", time: "18:12", url: "https://www.ft.com/content/0aee7523-09d7-4831-bc20-711d7191822e" },
   { id: "3989b6a0-ba02-412b-8f35-b6817c3e42f6", title: "Honeywell Aerospace shares plunge on failure to overcome supply constraints", date: "2026-08-06", time: "18:07", url: "https://www.ft.com/content/3989b6a0-ba02-412b-8f35-b6817c3e42f6" },
   { id: "f860d189-7def-4c7a-8ce3-4e96b3371d1f", title: "Google seeks a sharper focus in AI after Hassabis move", date: "2026-08-06", time: "17:55", url: "https://www.ft.com/content/f860d189-7def-4c7a-8ce3-4e96b3371d1f" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "2c94a7a2-abaf-45f9-9e1c-c7e469287ee7", title: "Citadel ‘makes a killing’", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/2c94a7a2-abaf-45f9-9e1c-c7e469287ee7" },
   { id: "2c741c41-403a-4157-b118-d6ccb9ce9aa8", title: "At least half a dozen senior NHS leaders linked to Palantir", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/2c741c41-403a-4157-b118-d6ccb9ce9aa8" },
   { id: "46508023-900e-4f46-a2eb-dae928d55e55", title: "Get ready to endure an act of penance at Salzburg’s Saint François d’Assise", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/46508023-900e-4f46-a2eb-dae928d55e55" },
-  { id: "938851c7-2fa9-4e2c-912a-ca4971f796c2", title: "Iceland demands fisheries control in any EU membership deal", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/938851c7-2fa9-4e2c-912a-ca4971f796c2" },
-  { id: "ba3f0141-93f0-4c47-88bf-14aadf0c21a8", title: "‘They have to focus on delivering’: Abigail Spanberger urges Democrats to unite on affordability", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/ba3f0141-93f0-4c47-88bf-14aadf0c21a8" },
-  { id: "aa3b6f86-38b7-459d-9c21-a1ea1a23dd7c", title: "Despot or conquering hero? Revisiting the rule of India’s last great Mughal emperor", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/aa3b6f86-38b7-459d-9c21-a1ea1a23dd7c" },
 ];
