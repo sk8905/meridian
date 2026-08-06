@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "9110ffe1-0737-4bb6-8e95-c7603b0e2fba", title: "Castlelake walks away from easyJet takeover battle", date: "2026-08-06", time: "14:20", url: "https://www.ft.com/content/9110ffe1-0737-4bb6-8e95-c7603b0e2fba" },
+  { id: "510ed26f-165b-4961-8a46-b9064775ab67", title: "Abdul El-Sayed defeats establishment candidate in Michigan's Senate primary", date: "2026-08-06", time: "14:00", url: "https://www.ft.com/content/510ed26f-165b-4961-8a46-b9064775ab67" },
+  { id: "15663487-0501-405f-9c2a-d87368a2fffa", title: "Paramount agrees safeguards for UK approval of $110bn WBD deal", date: "2026-08-06", time: "13:39", url: "https://www.ft.com/content/15663487-0501-405f-9c2a-d87368a2fffa" },
+  { id: "0e960930-db68-48dc-ba74-af2c253f78d7", title: "Referrals to Prevent anti-radicalisation scheme jump after Southport attacks", date: "2026-08-06", time: "13:34", url: "https://www.ft.com/content/0e960930-db68-48dc-ba74-af2c253f78d7" },
+  { id: "00cc32f2-f392-40af-9484-decc85b7e9fe", title: "The confounding 'compounding' of 'compounding'", date: "2026-08-06", time: "13:30", url: "https://www.ft.com/content/00cc32f2-f392-40af-9484-decc85b7e9fe" },
   { id: "15857866-5274-41cc-90a6-b4f696c60a13", title: "ConocoPhillips chief Ryan Lance to step down after 14 years", date: "2026-08-06", time: "13:25", url: "https://www.ft.com/content/15857866-5274-41cc-90a6-b4f696c60a13" },
   { id: "4b3f2499-6f1a-46df-81c0-fbcb651b2c60", title: "The good, the bad and the green of Badenoch", date: "2026-08-06", time: "12:37", url: "https://www.ft.com/content/4b3f2499-6f1a-46df-81c0-fbcb651b2c60" },
   { id: "9f46db72-0a1e-42b0-8efe-974a04fa0fc7", title: "Latest savings rates", date: "2026-08-06", time: "12:32", url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7" },
@@ -55,8 +60,4 @@ export const FT_ITEMS = [
   { id: "33303552-64c0-444f-8d43-e853cfd09a41", title: "Kevin McGurn, the executive turning Trump’s posts into a media empire", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/33303552-64c0-444f-8d43-e853cfd09a41" },
   { id: "5c9b566a-b0b1-473c-86d4-16aff1627953", title: "Jim Ratcliffe’s Ineos doubles down on European chemical sector shares", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/5c9b566a-b0b1-473c-86d4-16aff1627953" },
   { id: "475d573a-886d-4b75-b07c-f74c38b093f2", title: "Biggest US law firms explore selling stakes to private equity", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/475d573a-886d-4b75-b07c-f74c38b093f2" },
-  { id: "6fe70fa1-1173-4f7b-9eb9-d8ad9b2f5694", title: "The one climate issue uniting Greens and Reform in Kent", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/6fe70fa1-1173-4f7b-9eb9-d8ad9b2f5694" },
-  { id: "285bf286-07c3-49b1-9b6d-7df9664e73c0", title: "Stop assuming GDP is an indicator of prosperity", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/285bf286-07c3-49b1-9b6d-7df9664e73c0" },
-  { id: "dee0188b-54b5-4bfe-b9cf-9c4893d9c7f2", title: "‘People are going to kill me’: Haitians fear deportation as US revokes protected status", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/dee0188b-54b5-4bfe-b9cf-9c4893d9c7f2" },
-  { id: "1fcca000-d9ac-4b3b-9d31-2fef0d1f55f3", title: "Big US hedge funds hit by wave of cyber attacks", date: "2026-08-05", time: "20:47", url: "https://www.ft.com/content/1fcca000-d9ac-4b3b-9d31-2fef0d1f55f3" },
 ];

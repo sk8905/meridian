@@ -28,9 +28,20 @@ export const PUBLISHERS = {
   "newsletter.mail.gs.com": "Goldman Sachs",
   "businesspost.ie": "Business Post",
   "cf.com": "Chatham Financial",
+  "guggenheiminvestments.com": "Guggenheim Investments",
 };
 
 export const NEWSLETTERS = [
+  {
+    id: "nl-gi-macromarketspodcast-ep90-20260805",
+    publication: "Guggenheim Investments",
+    series: "Macro Markets Podcast",
+    title: "Fixed-Income Strategy While the Market Tests the Fed",
+    date: "2026-08-05",
+    time: "19:29",
+    summary: "CIO Anne Walsh on fixed-income portfolio strategy and ETFs as an impatient bond market tests the Warsh Fed, and why 2026 won't repeat 2022 for bonds.",
+    url: "https://go.pardot.com/webmail/104832/1420223268/287c4ed51fc2b2589758ecb9046100386634ee931bab5194da4486b8b5f3f006",
+  },
   {
     id: "nl-bbg-authoralert-nkumar-albar-20260806",
     publication: "Bloomberg",
