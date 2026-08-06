@@ -32,6 +32,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-20260806",
+    publication: "Bloomberg",
+    author: "Jill Disis",
+    series: "Morning Briefing Europe",
+    title: "Wall Street Firms Targeted by Attempted Cyberattacks",
+    date: "2026-08-06",
+    time: "07:42",
+    summary: "Hackers launched a cyberattack on major Wall Street firms using voice phishing, the Strait of Hormuz may be moving closer toward reopening, and expats are starting to head back to Hong Kong.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-06/wall-street-firms-targeted-by-attempted-cyberattacks",
+  },
+  {
     id: "nl-econ-worldinbrief-20260806",
     publication: "The Economist",
     series: "The World in Brief",
@@ -426,16 +437,5 @@ export const NEWSLETTERS = [
     time: "06:39",
     summary: "Trump says Iran talks resume Monday after calling off further strikes, sending oil down over 4%, as the Ceuta migrant death toll reaches at least 72 and UEFA threatens to sue Infantino over FIFA's stake-sale plan.",
     url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-bbg-pointsofreturn-boj-20260803",
-    publication: "Bloomberg",
-    author: "John Authers",
-    series: "Points of Return",
-    title: "If anyone needs an intervention, it's the BOJ",
-    date: "2026-08-03",
-    time: "05:01",
-    summary: "Japan and the US intervened to strengthen the yen, real Treasury yields hit a post-2008 high after the Fed meeting, and oil fell once Trump delayed further Iran strikes for peace talks.",
-    url: "https://bloom.bg/3TpVn6X",
   },
 ];
