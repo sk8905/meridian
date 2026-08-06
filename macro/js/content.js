@@ -13,7 +13,7 @@ export const UPDATED = "6 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-06",
-  lastCheckedTime: "05:15 BST",
+  lastCheckedTime: "09:27 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -724,16 +724,16 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-08-06",
   us: [
+    { title: "Weekly U.S. initial jobless claims rise to 226,000", source: "Investing.com", date: "2026-08-06", time: "09:24", url: "https://in.investing.com/news/economic-indicators/weekly-us-initial-jobless-claims-rise-to-226000-4950376" },
+    { title: "Gold Price Surges to Seven-Week High: XAU/USD Eyes $4,334 as Dollar Slides", source: "FX Leaders", date: "2026-08-06", time: "09:24", url: "https://www.fxleaders.com/news/2026/08/06/gold-price-surges-seven-week-high-xau-usd-eyes-4334-dollar-slides/" },
     { title: "Fed's Kashkari says 'now is the time to start slowly moving' rates up", source: "CNBC", date: "2026-08-05", time: "13:00", url: "https://www.cnbc.com/2026/08/05/feds-kashkari-says-now-is-the-time-to-start-slowly-moving-rates-up.html" },
     { title: "Fed's Schmid Says Tighter Policy Needed to Reduce Inflation", source: "Bloomberg", date: "2026-08-05", time: "16:00", url: "https://www.bloomberg.com/news/articles/2026-08-05/fed-s-schmid-says-tighter-policy-needed-to-reduce-inflation" },
     { title: "Fed's Cook Warns Rate Hike Possible If Inflation Fails to Slow", source: "Bloomberg", date: "2026-08-05", time: "17:30", url: "https://www.bloomberg.com/news/articles/2026-08-05/fed-s-cook-says-ready-to-raise-rates-if-inflation-doesn-t-cool" },
-    { title: "U.S. services sector growth edges higher in July - ISM", source: "Investing.com", date: "2026-08-05", time: "15:00", url: "https://www.investing.com/news/economic-indicators/us-services-sector-growth-edges-higher-in-july--ism-4838202" },
-    { title: "Stock market today: Dow posts record on hopes for Iran deal, S&P 500 and Nasdaq snap 4-day rally", source: "Yahoo Finance", date: "2026-08-05", time: "20:00", url: "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-august-5-dow-sp-500-nasdaq-oil-hormuz-093653327.html" },
   ],
   uk: [
+    { title: "FTSE 100 Live: Gold miners provide boost, but Pru and HSBC hit by China tax report", source: "Proactive Investors", date: "2026-08-06", time: "09:24", url: "https://www.proactiveinvestors.com/companies/news/1096553/ftse-100-live-next-and-glencore-provide-results-boost-spacex-tumbles-1096553.html" },
     { title: "FTSE 100 Climbs on Glencore, Next Earnings & Iran Deal Hopes", source: "Global Banking & Finance Review", date: "2026-08-05", time: "09:47", url: "https://www.globalbankingandfinance.com/ftse-100-climbs-glencore-next-earnings-iran-deal-hopes/" },
     { title: "UK Services PMI Returns to Growth, but Record Job Losses Cast Shadow", source: "ActionForex", date: "2026-08-05", time: "10:00", url: "https://www.actionforex.com/live-comments/649605-uk-services-pmi-returns-to-growth-but-record-job-losses-cast-shadow/" },
-    { title: "FX Daily Briefing: Pound Sterling Mixed As Yen Intervention Reshapes FX Markets", source: "ExchangeRates.org.uk", date: "2026-08-05", time: "09:00", url: "https://www.exchangerates.org.uk/news/46734/2026-08-05-fx-daily-briefing-pound-sterling-mixed-as-yen-intervention-reshapes-fx-markets.html" },
     { title: "Next Raises Profit Outlook After Strong Sales in UK and Middle East", source: "Bloomberg", date: "2026-08-05", time: "08:30", url: "https://www.bloomberg.com/news/articles/2026-08-05/next-lifts-outlook-as-demand-bucks-downbeat-consumer-outlook" },
     { title: "Glencore Profit Jumps on Trading Boom and Record Copper", source: "Bloomberg", date: "2026-08-05", time: "08:15", url: "https://www.bloomberg.com/news/articles/2026-08-05/glencore-profit-jumps-on-trading-boom-and-record-copper" },
   ],
@@ -749,6 +749,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-06",
   items: [
+    {"title":"Gold Price Surges to Seven-Week High: XAU/USD Eyes $4,334 as Dollar Slides","source":"FX Leaders","date":"2026-08-06","time":"09:24","url":"https://www.fxleaders.com/news/2026/08/06/gold-price-surges-seven-week-high-xau-usd-eyes-4334-dollar-slides/","blurb":"Gold climbed toward a seven-week high near $4,300, up roughly 6% on the week, as a softer dollar and Hormuz de-escalation hopes offset a fresh chorus of hawkish Fed commentary."},
+    {"title":"Weekly U.S. initial jobless claims rise to 226,000","source":"Investing.com","date":"2026-08-06","time":"09:24","url":"https://in.investing.com/news/economic-indicators/weekly-us-initial-jobless-claims-rise-to-226000-4950376","blurb":"Claims for the week ended August 2 topped the 221,000 consensus, while continuing claims climbed to 1.974 million — the highest since November 2021."},
+    {"title":"UK Stock Market Forecast Today (August 6): FTSE 100 Eyes Further Gains","source":"Sunday Guardian Live","date":"2026-08-06","time":"09:24","url":"https://sundayguardianlive.com/business/uk-stock-market-forecast-today-august-6-ftse-100-eyes-further-gains-as-strong-corporate-results-and-improved-market-sentiment-boost-outlook-check-stocks-to-watch-today-254837/","blurb":"The FTSE 100 looked to extend its record run on strong corporate earnings and improving sentiment around a possible Hormuz shipping-route deal."},
     {"title":"Gold is waking up to the Warsh Fed","source":"Bloomberg Opinion","author":"John Authers","date":"2026-08-06","time":"05:01","url":"https://bloom.bg/4pYDok1","blurb":"Gold jumped more than 4% in its best day in six months as investors concluded Fed Chair Kevin Warsh is less inclined to fight inflation, despite a succession of Fed officials this week saying they remain ready to raise rates."},
     {"title":"Fed's Schmid Says Tighter Policy Needed to Reduce Inflation","source":"Bloomberg","date":"2026-08-05","time":"16:00","url":"https://www.bloomberg.com/news/articles/2026-08-05/fed-s-schmid-says-tighter-policy-needed-to-reduce-inflation","blurb":"Kansas City Fed president Jeff Schmid said the current policy stance isn't restrictive enough to bring inflation back to 2%, adding to a run of hawkish comments from sitting Fed officials this week."},
     {"title":"Fed's Cook Warns Rate Hike Possible If Inflation Fails to Slow","source":"Bloomberg","date":"2026-08-05","time":"17:30","url":"https://www.bloomberg.com/news/articles/2026-08-05/fed-s-cook-says-ready-to-raise-rates-if-inflation-doesn-t-cool","blurb":"Fed Governor Lisa Cook said she is ready to support a rate increase if inflation doesn't cool, following the most divided FOMC vote since 2016 at the July meeting."},
@@ -786,9 +789,6 @@ export const ARTICLES = {
     {"title":"BP's Q2 profit more than doubles from a year ago","source":"RTÉ News","date":"2026-08-04","time":"17:16","url":"https://www.rte.ie/news/business/2026/0804/1586347-bp-quarterly-results/","blurb":"BP's underlying replacement-cost profit rose 78% quarter-on-quarter to $5.7bn as new CEO Meg O'Neill unveiled plans to cut ~700 jobs and raise $8-9bn from divestments, including roughly $6bn from a Castrol sale."},
     {"title":"HSBC pretax profit beats estimates, boosted by higher net interest income and fees","source":"CNBC","date":"2026-08-04","time":"12:19","url":"https://www.cnbc.com/2026/08/04/hsbc-profit-beats-estimates-higher-net-interest-income-fees.html","blurb":"HSBC's H1 2026 pre-tax profit rose 23% to $19.5bn (beating the $18.9bn consensus), with Q2 profit up 60% to $10.1bn versus a $9.51bn estimate, as the bank's Asian wealth and cross-border banking overhaul kept paying off."},
     {"title":"HSBC sets $1 billion buyback after profit beats forecast","source":"RTÉ News","date":"2026-08-04","time":"12:19","url":"https://www.rte.ie/news/business/2026/0804/1586346-hsbc-half-year-results/","blurb":"HSBC resumed share buybacks — its first since taking Hong Kong's Hang Seng Bank private — and raised its 2026 net-interest-income guidance to above $46bn as wealth revenue jumped 18% year-on-year on strong Asian demand."},
-    {"title":"Trump warns Iran talks are 'last chance' to end war — oil prices rise as Tehran denies negotiations","source":"CNBC","date":"2026-08-04","time":"12:19","url":"https://www.cnbc.com/2026/08/04/us-iran-war-trump-hormuz.html","blurb":"Trump said the current round of talks is Tehran's 'last chance before decapitation', floating a two-phase deal reopening the Strait of Hormuz before later denuclearisation talks, even as Iran's foreign ministry continued to deny any direct US negotiations are under way."},
-    {"title":"FTSE 100 Live: London stocks open higher as miners offset HSBC slide","source":"Proactive Investors","date":"2026-08-04","time":"12:19","url":"https://www.proactiveinvestors.co.uk/companies/news/1096469/ftse-100-live-london-stocks-open-higher-as-miners-offset-hsbc-slide-1096469.html","blurb":"London's blue-chip index edged higher as mining and defensive stocks offset an early HSBC dip despite its profit beat, with BP's results and the retreat in oil prices from last week's highs also in focus."},
-    {"title":"FTSE 100 Live: Second attempt to make some August gains, as HSBC and BP report","source":"Yahoo Finance UK","date":"2026-08-04","time":"09:23","url":"https://uk.finance.yahoo.com/news/ftse-100-live-second-attempt-061700861.html","blurb":"London's blue-chip index looked to build on July's gains as HSBC and BP both beat profit estimates, though AstraZeneca's slide on Bristol Myers Squibb merger-talk reports continued to cap the index."},
   ],
 };
 
@@ -966,7 +966,7 @@ export const EARNINGS = {
         { t: "SPCX", n: "SpaceX", tag: "Aerospace \u00b7 newly public", when: "After close", estEps: "-$0.26 (avg analyst est)", estRev: "$6.93bn (avg analyst est)", actEps: "-$0.09 (loss, narrower than est)", actRev: "$7.81bn (+92% y/y from $4.1bn, beat est)", px: "-~15% AH", note: "First-ever quarterly results as a public company (Q2, ended 30 June), following its June 12 IPO at $135/share; revenue and loss both beat estimates but shares fell on the imminent lock-up unlock from 6 Aug (up to ~911.5m additional shares becoming tradable) and continued heavy AI-infrastructure capex." },
       ] },
       { date: "2026-08-05", rows: [
-        { t: "LLY", n: "Eli Lilly", tag: "Pharma \u00b7 Dow", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$6.71", estRev: "$20.26bn", actEps: null, actRev: null, px: null, note: "Consensus revenue implies +30.2% y/y, powered by the Mounjaro/Zepbound GLP-1 franchise." },
+        { t: "LLY", n: "Eli Lilly", tag: "Pharma \u00b7 Dow", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$6.71", estRev: "$20.26bn", actEps: "$8.38 adj non-GAAP (+33% y/y; $7.94 GAAP, beat)", actRev: "$23.0bn (+48% y/y, beat)", px: "+~6%", note: "Q2 revenue jumped 48% on Mounjaro (+91% to $9.9bn) and Zepbound demand; raised FY26 revenue guidance to $85-87bn (from $82-85bn)." },
       ] },
       { date: "2026-08-06", rows: [
         { t: "DGE", n: "Diageo", tag: "Consumer staples \u00b7 UK", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$0.638", estRev: "$9.15bn", actEps: null, actRev: null, px: null, note: "FY26 (year to 30 June) results \u2014 the week's most scrutinised UK print given a new CEO's turnaround plan, soft North American demand and above-peer-average FTSE 100 debt levels." },
