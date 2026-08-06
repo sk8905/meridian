@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d9e9cbbe-8443-4c10-821a-1834e4965236", title: "OpenAI says Apple’s trade secrets lawsuit aims to stop employees leaving", date: "2026-08-06", time: "07:09", url: "https://www.ft.com/content/d9e9cbbe-8443-4c10-821a-1834e4965236" },
+  { id: "b3a21bd2-e92f-428f-a81e-8299f5502dea", title: "Is the AI trade back?", date: "2026-08-06", time: "06:30", url: "https://www.ft.com/content/b3a21bd2-e92f-428f-a81e-8299f5502dea" },
   { id: "7252ef68-a886-4cd0-a450-b5a6cff3a526", title: "Insurance and bank stocks slide amid China tax crackdown fears", date: "2026-08-06", time: "06:07", url: "https://www.ft.com/content/7252ef68-a886-4cd0-a450-b5a6cff3a526" },
   { id: "95c0b20c-0f9e-492b-9c0d-64b451654415", title: "More moaning about UK monthly GDP", date: "2026-08-06", time: "06:00", url: "https://www.ft.com/content/95c0b20c-0f9e-492b-9c0d-64b451654415" },
   { id: "4709fbd3-5a10-46b0-84cf-9fed6c9a10b0", title: "FirstFT: US law firms weigh stake sale to private equity", date: "2026-08-06", time: "05:31", url: "https://www.ft.com/content/4709fbd3-5a10-46b0-84cf-9fed6c9a10b0" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "535dba4e-4e05-4792-940f-47969fbd4702", title: "Zack Polanski calls for higher taxes on oil and gas profits to fund wildfire prevention", date: "2026-08-05", time: "15:17", url: "https://www.ft.com/content/535dba4e-4e05-4792-940f-47969fbd4702" },
   { id: "38e11309-9cb6-4cd4-a5b6-fc9a239ad6b3", title: "China hits back at US with sanctions and tighter drone export rules", date: "2026-08-05", time: "14:23", url: "https://www.ft.com/content/38e11309-9cb6-4cd4-a5b6-fc9a239ad6b3" },
   { id: "eee4bbbf-1d94-4910-9a61-2faefef61d55", title: "Russia drone company chief injured in car bombing", date: "2026-08-05", time: "13:59", url: "https://www.ft.com/content/eee4bbbf-1d94-4910-9a61-2faefef61d55" },
-  { id: "33d4b478-b608-490f-9b15-534089d51499", title: "Flutter chief steps down as gambling group cuts guidance", date: "2026-08-05", time: "13:44", url: "https://www.ft.com/content/33d4b478-b608-490f-9b15-534089d51499" },
 ];

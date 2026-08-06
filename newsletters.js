@@ -32,6 +32,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-econ-worldinbrief-20260806",
+    publication: "The Economist",
+    series: "The World in Brief",
+    title: "The World in Brief: Iran and Oman agree on proposed Hormuz route",
+    date: "2026-08-06",
+    time: "06:41",
+    summary: "Iran and Oman agree a proposed new shipping route through the Strait of Hormuz, Abdul El-Sayed narrowly beats Haley Stevens in Michigan's Democratic Senate primary, and SpaceX shares fall almost 14% on its first earnings report since going public.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-pointsofreturn-goldwarshfed-20260806",
     publication: "Bloomberg",
     author: "John Authers",
@@ -427,16 +437,5 @@ export const NEWSLETTERS = [
     time: "05:01",
     summary: "Japan and the US intervened to strengthen the yen, real Treasury yields hit a post-2008 high after the Fed meeting, and oil fell once Trump delayed further Iran strikes for peace talks.",
     url: "https://bloom.bg/3TpVn6X",
-  },
-  {
-    id: "nl-bbg-thebrink-crudedispute-20260801",
-    publication: "Bloomberg",
-    author: "Constantine Courcoulas",
-    series: "The Brink",
-    title: "The Brink: A crude dispute over $230 million",
-    date: "2026-08-01",
-    time: "15:00",
-    summary: "Glencore says it was duped by an oil refiner it accused of fraud, applying to sue Prax Lindsey Oil Refinery to cancel supply contracts for over $230 million of unpaid crude.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-01/glencore-pursues-legal-fight-over-230-million-in-unpaid-oil",
   },
 ];
