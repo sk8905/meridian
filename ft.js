@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "80f5fede-a34a-4069-a751-f9523e3c6e00", title: "Jane Street in talks to shift its $11bn in debt to investors including Pimco", date: "2026-08-06", time: "21:10", url: "https://www.ft.com/content/80f5fede-a34a-4069-a751-f9523e3c6e00" },
+  { id: "051e6fbf-e796-4b92-9c6e-7b85c74e8edc", title: "Argentine company accuses US of meddling in Huawei data centre project", date: "2026-08-06", time: "20:44", url: "https://www.ft.com/content/051e6fbf-e796-4b92-9c6e-7b85c74e8edc" },
+  { id: "f6f53b98-9661-4d50-bf25-b32738643cac", title: "US halts imports of Mexico avocados over security concerns", date: "2026-08-06", time: "20:43", url: "https://www.ft.com/content/f6f53b98-9661-4d50-bf25-b32738643cac" },
   { id: "77f00cf3-f2e6-4dcb-bf0d-1631ca45dd9c", title: "California sues DuPont over alleged effort to avoid 'forever chemicals' liabilities", date: "2026-08-06", time: "19:09", url: "https://www.ft.com/content/77f00cf3-f2e6-4dcb-bf0d-1631ca45dd9c" },
   { id: "8b2d8925-7fb9-44c8-8093-48442455ebe0", title: "Airtable's cut-price sale is just the start for software also-rans", date: "2026-08-06", time: "18:13", url: "https://www.ft.com/content/8b2d8925-7fb9-44c8-8093-48442455ebe0" },
   { id: "0aee7523-09d7-4831-bc20-711d7191822e", title: "The shrinking space for democracy in Africa", date: "2026-08-06", time: "18:12", url: "https://www.ft.com/content/0aee7523-09d7-4831-bc20-711d7191822e" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "4709fbd3-5a10-46b0-84cf-9fed6c9a10b0", title: "FirstFT: US law firms weigh stake sale to private equity", date: "2026-08-06", time: "05:31", url: "https://www.ft.com/content/4709fbd3-5a10-46b0-84cf-9fed6c9a10b0" },
   { id: "2a348cff-9946-40c4-8268-d0ff8d970447", title: "The trends in central bank research papers", date: "2026-08-06", time: "05:30", url: "https://www.ft.com/content/2a348cff-9946-40c4-8268-d0ff8d970447" },
   { id: "1e041e56-e2b6-4320-9dd7-1db8fdd7bc9c", title: "BP North Sea exit presents wake-up call on Scottish energy", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/1e041e56-e2b6-4320-9dd7-1db8fdd7bc9c" },
-  { id: "2c94a7a2-abaf-45f9-9e1c-c7e469287ee7", title: "Citadel ‘makes a killing’", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/2c94a7a2-abaf-45f9-9e1c-c7e469287ee7" },
-  { id: "2c741c41-403a-4157-b118-d6ccb9ce9aa8", title: "At least half a dozen senior NHS leaders linked to Palantir", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/2c741c41-403a-4157-b118-d6ccb9ce9aa8" },
-  { id: "46508023-900e-4f46-a2eb-dae928d55e55", title: "Get ready to endure an act of penance at Salzburg’s Saint François d’Assise", date: "2026-08-06", time: "05:00", url: "https://www.ft.com/content/46508023-900e-4f46-a2eb-dae928d55e55" },
 ];
