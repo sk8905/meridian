@@ -121,51 +121,13 @@ export function initGlance() {
 // everything the user has starred across Macro, Credit and Legal in one place.
 function _savedHash(s) { let h = 0; for (let i = 0; i < s.length; i++) h = (Math.imul(h, 31) + s.charCodeAt(i)) | 0; return (h >>> 0).toString(36); }
 function _savedBase(x) { return (x.url || x.title || "").toLowerCase().split(/[?#]/)[0].replace(/\/+$/, ""); }
-// ---- Entity cross-linking ----------------------------------------------------
-// A manager/firm named in ANY feed headline (macro, credit or legal) gets a small
-// chip linking straight to its Credit profile. We reduce each manager's full name
-// to a short brand key ("Bridgepoint Credit" → "Bridgepoint", "ICG (Intermediate
-// Capital Group)" → "ICG") and word-boundary match it against the headline.
-const _ENT_GENERIC = new Set(["credit", "management", "capital", "global", "partners", "advisors", "advisers", "asset", "alternatives", "group", "investment", "investments", "private", "holdings", "llp", "llc", "inc", "co", "company", "the", "and"]);
-function _entKey(name) {
-  let toks = String(name || "").split("(")[0].replace(/&/g, " ").trim().split(/\s+/).filter(Boolean);
-  while (toks.length > 1 && _ENT_GENERIC.has(toks[toks.length - 1].toLowerCase().replace(/[^a-z]/gi, ""))) toks.pop();
-  return toks.join(" ");
-}
-// Single-word brand keys that collide with common English words (or plain
-// numbers) would light up on unrelated headlines ("one-year high", "400bps"),
-// so they're excluded from matching.
-const _ENT_STOPKEYS = new Set(["one", "signal", "arrow", "orbit", "metric", "trinity", "crescent", "fortress"]);
-let _entIndex = null;
-function entityIndex() {
-  if (_entIndex) return _entIndex;
-  _entIndex = managers.map((m) => ({ id: m.id, name: m.name, key: _entKey(m.name) }))
-    .filter((e) => e.key && e.key.replace(/[^a-z0-9]/gi, "").length >= 3
-      && !_ENT_GENERIC.has(e.key.toLowerCase()) && !_ENT_STOPKEYS.has(e.key.toLowerCase())
-      && !/^\d+$/.test(e.key))
-    .sort((a, b) => b.key.length - a.key.length);   // longest key wins (Park Square before Park)
-  return _entIndex;
-}
-function matchEntity(title) {
-  const t = String(title || "");
-  for (const e of entityIndex()) {
-    const re = new RegExp("(^|[^A-Za-z0-9])" + e.key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "($|[^A-Za-z0-9])", "i");
-    if (re.test(t)) return e;
-  }
-  return null;
-}
-// One delegated handler: a click (or Enter/Space) on an entity chip navigates to
-// the manager's Credit profile without triggering the row's own story link.
+// One delegated handler: a click (or Enter/Space) on the source name (filter by
+// that newsroom) or the source-filter clear pill, without triggering the row's
+// own story link.
 function initFeedEntityNav() {
-  const go = (el) => { const h = el.getAttribute("data-href"); if (h) location.href = h; };
   const feed = document.getElementById("g-feed");
   if (!feed) return;
-  // A single delegated handler serves three in-row controls that must NOT trigger
-  // the row's link-to-article: entity chips (navigate), the source name (filter by
-  // that newsroom) and the source-filter clear pill.
   const handle = (e) => {
-    const ent = e.target.closest(".g-feed-ent");
-    if (ent) { e.preventDefault(); e.stopPropagation(); go(ent); return; }
     const src = e.target.closest(".g-feed-src");
     if (src) { e.preventDefault(); e.stopPropagation(); _feedSrc = src.dataset.src; _feedDesk = "all"; renderFeed(); return; }
     const clr = e.target.closest("[data-clearsrc]");

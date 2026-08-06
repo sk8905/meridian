@@ -444,7 +444,7 @@ html.wire-boot #out { visibility: hidden; }
 
 /* /menu/ head strip: the same segmented chip bar the other pages pin under
    the header (one chip for now — Search). tui.css styles the chips. */
-.na-menu-bar { height: 34px; flex: 0 0 auto; display: flex;
+.na-menu-bar { height: var(--chip-h, 34px); flex: 0 0 auto; display: flex;
   background: var(--head, #0a0a0a); border-bottom: 1px solid var(--border, #262626); }
 /* One chip so far: size it like a single tab in the four-chip bars (¼ width),
    not full-bleed. */
@@ -803,11 +803,11 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .topbar .ps-btn { display: inline-flex; align-items: center; padding: 6px 12px; border: 0; border-radius: 0; font-size: 12px; font-weight: 600; color: #fff; cursor: pointer; }
 .topbar .ps-btn:hover { background: rgba(255,255,255,.06); color: #fff; }
 /* Selected platform: no filled background — just an orange bottom border. */
-.topbar .ps-btn.is-active, .topbar .ps-btn.is-active:hover { background: transparent; color: #fff; font-weight: 600; box-shadow: inset 0 -2px 0 #fb8b1e; }
+.topbar .ps-btn.is-active, .topbar .ps-btn.is-active:hover { background: transparent; color: #fff; font-weight: 600; box-shadow: inset 0 -2px 0 var(--accent, #fb8b1e); }
 .topbar .mainnav { align-self: stretch; align-items: stretch; gap: 0; }
 .topbar .nav-link { display: inline-flex; align-items: center; padding: 0 12px; border-radius: 0; font-size: 12px; font-weight: 500; color: #9fb0cc; }
 .topbar .nav-link:hover, .topbar .nav-link:focus-visible { background: rgba(255,255,255,.05); color: #fff; }
-.topbar .nav-link.active { background: rgba(74,168,240,.14); color: #fff; font-weight: 600; box-shadow: inset 0 -2px 0 #fb8b1e; }
+.topbar .nav-link.active { background: rgba(74,168,240,.14); color: #fff; font-weight: 600; box-shadow: inset 0 -2px 0 var(--accent, #fb8b1e); }
 .topbar .nav-link.nav-primary { color: #dbe5f5; }
 .topbar .nav-link.nav-primary.active { color: #fff; }
 .topbar .nav-sep { background: rgba(255,255,255,.14); align-self: center; }

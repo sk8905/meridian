@@ -17,14 +17,14 @@
   --t-grid:#1a1a1a; --t-grid2:#262626;
   --t-ink:#eaf0fb; --t-dim:#b7c2da; --t-mut:#8592ad; --t-faint:#5c6a86;
   --t-accent:#fb8b1e;
-  --t-mac:#9b83e2; --t-crd:#fb8b1e; --t-lex:#2fbf8a; --t-amber:#d9a441; --t-ft:#e0708e; --t-hdg:#4aa3f0;
+  --t-mac:#9b83e2; --t-crd:#fb8b1e; --t-lex:#2fbf8a; --t-amber:#d9a441; --t-ft:#e0708e; --t-hdg:#4aa3f0; --t-news:#8aa0c8;
 }
 :root[data-theme="light"] .g-feed-wrap {
   --t-ground:#e7ebf2; --t-panel:#ffffff; --t-panel2:#f3f6fb; --t-head:#f4f7fb;
   --t-grid:#e0e6ef; --t-grid2:#cdd6e3;
   --t-ink:#131b2c; --t-dim:#3b475f; --t-mut:#5e6a84; --t-faint:#8b96ac;
   --t-accent:#fb8b1e;
-  --t-mac:#6a4fa3; --t-crd:#fb8b1e; --t-lex:#2b8a5f; --t-amber:#b3760f; --t-ft:#990f3d; --t-hdg:#1f6fd0;
+  --t-mac:#6a4fa3; --t-crd:#fb8b1e; --t-lex:#2b8a5f; --t-amber:#b3760f; --t-ft:#990f3d; --t-hdg:#1f6fd0; --t-news:#8aa0c8;
 }
 .g-feed-wrap { --t-mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace; }
 
@@ -82,7 +82,7 @@
    Desktop: the feed itself scrolls, so top:0. Phone: the page scrolls beneath
    the fixed chrome, so pin below it (--wire-head-h). Solid band so rows don't
    bleed through. */
-.g-feed-dayhdr { position:sticky; top:0; z-index:3; padding:6px 12px; background:var(--t-ground); border-top:0; margin:0;
+.g-feed-dayhdr { position:sticky; top:0; z-index:3; padding:6px 12px; background:var(--t-head); border-top:0; margin:0;
   border-bottom:1px solid var(--t-grid);
   font-size:10px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--t-accent); }
 :root[data-theme="light"] .g-feed-dayhdr { background:var(--t-head, #f4f7fb); color:#2f6cae;

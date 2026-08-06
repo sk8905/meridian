@@ -118,7 +118,8 @@ notification badge red (`#ef4444`).
   | Legal | `--t-lex` | `NEWS` · `ALERT` · `CASE` |
   | (neutral) | `--t-news` | `NEWS` — item not in any desk above |
 
-  `--t-hdg` (`#9a86f2`) is a named token (promoted from the old raw hex).
+  `--t-hdg` (`#4aa3f0` dark / `#1f6fd0` light) is a named token (promoted from
+  the old raw hex).
   **Every wire row carries a label**; anything not clearly classifiable is `NEWS`
   in the neutral domain. The label engine (`feed.js`) resolves colour from the
   item's `dom` (domain) and text from its `desk` (type) — see its "Desk
