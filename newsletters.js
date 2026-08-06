@@ -33,6 +33,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-fakespacex-20260806",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: Fake SpaceX Stock Isn't Worth as Much",
+    date: "2026-08-06",
+    time: "19:24",
+    summary: "SPV, margin, ticks, SALP VC and HUCG.",
+    url: "https://bloom.bg/45LCHBe",
+  },
+  {
     id: "nl-lb-macfarlanes-easyjet-20260806",
     publication: "Legal Business",
     title: "Macfarlanes advises founder as easyJet accepts £5.7bn Apollo takeover bid",
@@ -429,15 +440,5 @@ export const NEWSLETTERS = [
     time: "18:14",
     summary: "Hedging, margin, agents, wallets, hacks.",
     url: "https://bloom.bg/4h7QMA3",
-  },
-  {
-    id: "nl-bbg-millennium-20260803",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    title: "Millennium Lost 2% Last Month as AI Trade Whipsawed Hedge Funds",
-    date: "2026-08-03",
-    time: "17:41",
-    summary: "Multistrategy hedge fund giant Millennium Management lost 2.1% last month as a selloff in AI stocks took a toll on equity portfolios.",
-    url: "https://www.bloomberg.com/news/articles/2026-08-03/millennium-lost-2-last-month-as-ai-trade-whipsawed-hedge-funds",
   },
 ];
