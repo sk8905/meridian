@@ -5,15 +5,15 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "5 August 2026";
+export const UPDATED = "6 August 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-08-05",
-  lastCheckedTime: "21:25 BST",
+  lastChecked: "2026-08-06",
+  lastCheckedTime: "05:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -60,6 +60,7 @@ export const OUTLOOK = {
       "Thursday 30 July brought the first hard data since the decision: the BEA's advance estimate put <strong>Q2 GDP growth at 1.5% annualised</strong> — below the ~1.8% consensus and down from Q1's 2.1% — even as consumer spending accelerated to a 3.2% pace (from 0.5% in Q1). The same morning's <strong>June core PCE</strong>, the Fed's preferred gauge, cooled slightly to <strong>3.3% y/y</strong> (from 3.4% in May, in line with forecast), its fourth straight month at or above 3.3% — the longest such stretch since late 2023. The mixed growth-miss/inflation-still-sticky combination left CME FedWatch-implied odds of a 15–16 September hike little changed at roughly <strong>81%</strong>; the 10-year Treasury yield ticked up 2bp to ~4.70% and the 30-year to ~5.23%, extending Wednesday's post-decision move to its highest level since July 2007.",
       "The weekend brought the first potential break in the oil-driven inflation risk since the war reignited: after a Camp David cabinet meeting Friday weighing one of the harshest US/Israeli bombing campaigns yet against Iranian energy infrastructure — and hours after Kuwait's air defences intercepted Iranian drones on 1 August — Trump announced late Saturday he is cancelling the planned strikes, saying Iran and other Middle Eastern countries asked to 'hold off' because 'the perimeters of a deal has been agreed to', covering a full reopening of the Strait of Hormuz; he added the US remains 'locked and loaded' if the deal collapses. Iran's Fars news agency again disputed that any text has been finalised, continuing the pattern of unconfirmed deal claims that have recurred through the war. J.P. Morgan's Michael Feroli separately flagged that Chair Warsh's post-meeting remarks 'involved a lot of well-turned phrases but little in the way of a coherent macro view', reinforcing the bank's December hike call as markets head into Friday's July jobs report with September-hike odds still near 81%.",
       "The de-escalation held through Monday 3 August — Brent fell nearly 5% and equities rallied to fresh records — but Trump hardened his rhetoric again on 4 August, calling the current window Iran's 'last chance before decapitation' and outlining a two-phase deal (an immediate Hormuz reopening, then later denuclearisation talks), even as Iran's foreign ministry continued to deny any direct US negotiations are under way. The still-unresolved oil-shock risk, alongside J.P. Morgan's December hike call and Goldman Sachs' no-move call, leaves the 15-16 September FOMC meeting a genuinely contested decision heading into Friday's July jobs report.",
+      "The hawkish chorus swelled further on 5 August: Minneapolis Fed President Neel Kashkari said 'now is the time to start slowly moving' rates up rather than risk a more painful tightening later, Kansas City Fed's Jeff Schmid said the current stance isn't restrictive enough to hit 2% inflation, and Governor Lisa Cook said she is ready to support a hike if inflation doesn't cool — three sitting officials publicly arguing for tightening within hours of each other. The same day's ISM Services PMI rose to 54.1 in July (from 54.0, missing the 54.5 consensus) as prices paid climbed to 70.3, while Iran and Oman said they had reached an agreement on a Strait of Hormuz shipping-transit charge, adding a tentative de-escalation counterweight. Gold jumped more than 4% overnight into 6 August — its best day in six months — as investors concluded Chair Warsh's Fed is, for now, tolerating the inflation risk rather than moving pre-emptively to contain it.",
     ],
     bottomLine: "The FOMC held at 3.50–3.75% on 29 July, but three members dissented for a hike — the first three-way hawkish hold-dissent since September 2016 — underscoring how live the September tightening debate remains. Equities sold off hard on the decision: the Dow posted its worst day of the year and the Nasdaq 100 closed in correction territory (-1.8% on the day, >11% off its June peak), while Brent settled up 7.9% at $90.74/bbl after Iran resumed strikes on US forces overnight. Thursday's advance Q2 GDP print (+1.5% annualised, below the ~1.8% consensus) and a slightly cooler June core PCE (3.3% y/y, from 3.4%) left the picture little changed: CME FedWatch-implied odds of a hike at the 15–16 September meeting sit near ~81%, and the 30-year Treasury yield extended its move to the highest since July 2007. Goldman Sachs' Kay Haigh said the Fed 'appears to be running out of patience' and flagged September as a finely balanced call.",
     // Market-implied odds for the next FOMC decision (CME FedWatch) and the FOMC's
@@ -312,12 +313,12 @@ export const OUTLOOK = {
 //   commentary. Keep each item's real headline + source link; never fabricate —
 //   only add pieces that exist and are dated.
 export const COMMENTARY = {
-  updated: "2026-08-05",
+  updated: "2026-08-06",
   us: [
+    { title: "US Inflation: Fed Needs to Start Listening to Normal People", source: "Bloomberg Opinion", author: "Claudia Sahm (New Century Advisors)", date: "2026-08-03", url: "https://www.bloomberg.com/opinion/articles/2026-08-03/us-inflation-fed-needs-to-start-listening-to-normal-people" },
     { title: "Wall Street's Record Fed Funds Short Unravels After Rates Held", source: "Bloomberg News", author: "Bloomberg", date: "2026-07-30", url: "https://www.bloomberg.com/news/articles/2026-07-30/wall-street-s-record-fed-funds-short-unravels-after-rates-held" },
     { title: "ADP July hiring slows as private payroll growth misses expectations", source: "Traders Union", author: "Pantheon Macroeconomics — Samuel Tombs", date: "2026-08-05", url: "https://tradersunion.com/news/financial-news/show/2908903-adp-july-hiring-slows-private-payroll/" },
     { title: "Allianz' Mohamed El-Erian: There was no reason for Fed to hike at this meeting", source: "CNBC", author: "Mohamed El-Erian (Allianz)", date: "2026-07-31", url: "https://www.cnbc.com/video/2026/07/31/allianz-mohamed-el-erian-there-was-no-reason-for-fed-to-hike-at-this-meeting.html" },
-    { title: "J.P.Morgan brings forward Fed rate hike call to December after July hold", source: "Kitco News", author: "J.P. Morgan — Bruce Kasman", date: "2026-07-30", time: "09:19", url: "https://www.kitco.com/news/off-the-wire/2026-07-30/jpmorgan-brings-forward-fed-rate-hike-call-december-after-july-hold" },
     { title: "Goldman Sachs Breaks With Market on Fed Rate Path", source: "Yahoo Finance (UK)", author: "Goldman Sachs — Kay Haigh", date: "2026-07-30", time: "09:19", url: "https://uk.finance.yahoo.com/news/goldman-sachs-breaks-market-fed-202506684.html" },
   ],
   uk: [
@@ -721,13 +722,13 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-08-05",
+  updated: "2026-08-06",
   us: [
-    { title: "US Companies Added 44,000 Jobs in July, ADP Data Show", source: "Bloomberg", date: "2026-08-05", time: "13:15", url: "https://www.bloomberg.com/news/articles/2026-08-05/us-companies-added-44-000-jobs-in-july-adp-data-show" },
     { title: "Fed's Kashkari says 'now is the time to start slowly moving' rates up", source: "CNBC", date: "2026-08-05", time: "13:00", url: "https://www.cnbc.com/2026/08/05/feds-kashkari-says-now-is-the-time-to-start-slowly-moving-rates-up.html" },
+    { title: "Fed's Schmid Says Tighter Policy Needed to Reduce Inflation", source: "Bloomberg", date: "2026-08-05", time: "16:00", url: "https://www.bloomberg.com/news/articles/2026-08-05/fed-s-schmid-says-tighter-policy-needed-to-reduce-inflation" },
+    { title: "Fed's Cook Warns Rate Hike Possible If Inflation Fails to Slow", source: "Bloomberg", date: "2026-08-05", time: "17:30", url: "https://www.bloomberg.com/news/articles/2026-08-05/fed-s-cook-says-ready-to-raise-rates-if-inflation-doesn-t-cool" },
     { title: "U.S. services sector growth edges higher in July - ISM", source: "Investing.com", date: "2026-08-05", time: "15:00", url: "https://www.investing.com/news/economic-indicators/us-services-sector-growth-edges-higher-in-july--ism-4838202" },
-    { title: "US nears Iran deal to reopen Strait of Hormuz", source: "Axios", date: "2026-08-05", time: "12:30", url: "https://www.axios.com/2026/08/05/us-iran-strait-of-hormuz-deal-nears" },
-    { title: "Oil prices move higher after Yemen's Iran-backed Houthis claim Saudi tanker strike", source: "CNBC", date: "2026-08-05", time: "18:30", url: "https://www.cnbc.com/2026/08/05/oil-prices-iran-war-houthis-saudi-tanker.html" },
+    { title: "Stock market today: Dow posts record on hopes for Iran deal, S&P 500 and Nasdaq snap 4-day rally", source: "Yahoo Finance", date: "2026-08-05", time: "20:00", url: "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-august-5-dow-sp-500-nasdaq-oil-hormuz-093653327.html" },
   ],
   uk: [
     { title: "FTSE 100 Climbs on Glencore, Next Earnings & Iran Deal Hopes", source: "Global Banking & Finance Review", date: "2026-08-05", time: "09:47", url: "https://www.globalbankingandfinance.com/ftse-100-climbs-glencore-next-earnings-iran-deal-hopes/" },
@@ -746,8 +747,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-08-05",
+  updated: "2026-08-06",
   items: [
+    {"title":"Gold is waking up to the Warsh Fed","source":"Bloomberg Opinion","author":"John Authers","date":"2026-08-06","time":"05:01","url":"https://bloom.bg/4pYDok1","blurb":"Gold jumped more than 4% in its best day in six months as investors concluded Fed Chair Kevin Warsh is less inclined to fight inflation, despite a succession of Fed officials this week saying they remain ready to raise rates."},
+    {"title":"Fed's Schmid Says Tighter Policy Needed to Reduce Inflation","source":"Bloomberg","date":"2026-08-05","time":"16:00","url":"https://www.bloomberg.com/news/articles/2026-08-05/fed-s-schmid-says-tighter-policy-needed-to-reduce-inflation","blurb":"Kansas City Fed president Jeff Schmid said the current policy stance isn't restrictive enough to bring inflation back to 2%, adding to a run of hawkish comments from sitting Fed officials this week."},
+    {"title":"Fed's Cook Warns Rate Hike Possible If Inflation Fails to Slow","source":"Bloomberg","date":"2026-08-05","time":"17:30","url":"https://www.bloomberg.com/news/articles/2026-08-05/fed-s-cook-says-ready-to-raise-rates-if-inflation-doesn-t-cool","blurb":"Fed Governor Lisa Cook said she is ready to support a rate increase if inflation doesn't cool, following the most divided FOMC vote since 2016 at the July meeting."},
     {"title":"Hormuz Toll: 'Oil in Our Time' May Be as Good as This Get","source":"Bloomberg Opinion","author":"John Authers","date":"2026-08-05","time":"18:45","url":"https://www.bloomberg.com/opinion/newsletters/2026-08-05/hormuz-toll-oil-in-our-time-may-be-as-good-as-this-get","blurb":"Authers argues the current oil-and-markets equilibrium, propped up by an uneasy Hormuz truce, may be as good as conditions get from here."},
     {"title":"Oil prices rebound after Houthis say they attacked Saudi tanker","source":"RTÉ","date":"2026-08-05","time":"18:20","url":"https://www.rte.ie/news/business/2026/0805/1586566-world-oil-prices/","blurb":"Crude rebounds after Yemen's Houthi rebels claim a strike on a Saudi tanker off Yanbu, denting hopes for a durable Hormuz ceasefire."},
     {"title":"US Companies Added 44,000 Jobs in July, ADP Data Show","source":"Bloomberg","date":"2026-08-05","time":"13:15","url":"https://www.bloomberg.com/news/articles/2026-08-05/us-companies-added-44-000-jobs-in-july-adp-data-show","blurb":"Private payrolls rose just 44,000 in July, well below the ~65-70k consensus and the least since the start of the year, with job-changer pay growth accelerating to a near one-year high even as hiring broadly cooled."},
@@ -783,11 +787,7 @@ export const ARTICLES = {
     {"title":"HSBC pretax profit beats estimates, boosted by higher net interest income and fees","source":"CNBC","date":"2026-08-04","time":"12:19","url":"https://www.cnbc.com/2026/08/04/hsbc-profit-beats-estimates-higher-net-interest-income-fees.html","blurb":"HSBC's H1 2026 pre-tax profit rose 23% to $19.5bn (beating the $18.9bn consensus), with Q2 profit up 60% to $10.1bn versus a $9.51bn estimate, as the bank's Asian wealth and cross-border banking overhaul kept paying off."},
     {"title":"HSBC sets $1 billion buyback after profit beats forecast","source":"RTÉ News","date":"2026-08-04","time":"12:19","url":"https://www.rte.ie/news/business/2026/0804/1586346-hsbc-half-year-results/","blurb":"HSBC resumed share buybacks — its first since taking Hong Kong's Hang Seng Bank private — and raised its 2026 net-interest-income guidance to above $46bn as wealth revenue jumped 18% year-on-year on strong Asian demand."},
     {"title":"Trump warns Iran talks are 'last chance' to end war — oil prices rise as Tehran denies negotiations","source":"CNBC","date":"2026-08-04","time":"12:19","url":"https://www.cnbc.com/2026/08/04/us-iran-war-trump-hormuz.html","blurb":"Trump said the current round of talks is Tehran's 'last chance before decapitation', floating a two-phase deal reopening the Strait of Hormuz before later denuclearisation talks, even as Iran's foreign ministry continued to deny any direct US negotiations are under way."},
-    {"title":"US stocks near record high, oil falls as Trump claims Iran talks under way","source":"Al Jazeera","date":"2026-08-04","time":"12:19","url":"https://www.aljazeera.com/economy/2026/8/4/us-stocks-near-record-high-oil-falls-as-trump-claims-iran-talks-underway","blurb":"The S&P 500 sat just shy of its June closing record and the Dow held near Monday's all-time high as Brent steadied near $84/bbl after its biggest one-day drop in a week, with Washington and Tehran still offering conflicting accounts of any direct contact."},
-    {"title":"Wall Street is about to get SpaceX's first-ever earnings report","source":"CNN Business","date":"2026-08-04","time":"12:19","url":"https://www.cnn.com/2026/08/04/business/spacex-earnings-elon-musk","blurb":"SpaceX reports its maiden results as a public company after Tuesday's close, two days before its first lock-up expiration, with investors focused on Starlink profitability and AI-linked capital spending after the stock fell more than 45% from its June peak."},
     {"title":"FTSE 100 Live: London stocks open higher as miners offset HSBC slide","source":"Proactive Investors","date":"2026-08-04","time":"12:19","url":"https://www.proactiveinvestors.co.uk/companies/news/1096469/ftse-100-live-london-stocks-open-higher-as-miners-offset-hsbc-slide-1096469.html","blurb":"London's blue-chip index edged higher as mining and defensive stocks offset an early HSBC dip despite its profit beat, with BP's results and the retreat in oil prices from last week's highs also in focus."},
-    {"title":"BP profit more than doubles as Trump blasts Big Oil for 'making too much money'","source":"CNBC","date":"2026-08-04","time":"09:23","url":"https://www.cnbc.com/2026/08/04/bp-2q-earnings-oil-iran-war.html","blurb":"BP's underlying replacement-cost profit more than doubled versus a year earlier as the Middle East conflict pushed oil prices higher, even as President Trump accused major oil companies of profiteering from the crisis."},
-    {"title":"HSBC resumes share buybacks as quarterly profits soar to $10.1bn","source":"Financial Times","date":"2026-08-04","time":"06:39","url":"https://www.ft.com/content/0da95788-cde6-4e1a-af89-1faced91178e","blurb":"HSBC's quarterly pre-tax profit jumped to $10.1bn, beating estimates, prompting the bank to resume share buybacks as it flagged continued strength across its Asian and wealth-management franchises."},
     {"title":"FTSE 100 Live: Second attempt to make some August gains, as HSBC and BP report","source":"Yahoo Finance UK","date":"2026-08-04","time":"09:23","url":"https://uk.finance.yahoo.com/news/ftse-100-live-second-attempt-061700861.html","blurb":"London's blue-chip index looked to build on July's gains as HSBC and BP both beat profit estimates, though AstraZeneca's slide on Bristol Myers Squibb merger-talk reports continued to cap the index."},
   ],
 };
@@ -951,7 +951,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "The dollar held near a six-week low and G10 currencies stayed fragmented rather than staging a clean risk-on rally: the yen kept most of its intervention-driven gains even as traders doubt the US-Japan support can hold, while sterling struggled for momentum, clawing back losses against the yen to near 212.25 GBP/JPY.", src: "https://www.exchangerates.org.uk/news/46734/2026-08-05-fx-daily-briefing-pound-sterling-mixed-as-yen-intervention-reshapes-fx-markets.html", srcName: "ExchangeRates.org.uk (FX Daily Briefing)", date: "2026-08-05" };
+export const FX_KEYMOMENT = { text: "The dollar stabilised as Hormuz de-escalation signs, a soft ADP print and a run of hawkish Fed dissents (Kashkari, Schmid, Cook all calling for tightening within hours of each other) pulled FX markets in different directions at once, while gold surged over 4% overnight as investors bet Chair Warsh's Fed is tolerating inflation risk rather than pre-emptively containing it.", src: "https://www.babypips.com/news/financial-forex-market-recap-2026-08-05", srcName: "BabyPips (Forex Market Recap)", date: "2026-08-05" };
 
 export const EARNINGS = {
   weeks: [
