@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "122c7788-8f8b-4f42-bc42-119a49396f91", title: "Britain curbs power exports to Europe to preserve supplies", date: "2026-08-07", time: "11:03", url: "https://www.ft.com/content/122c7788-8f8b-4f42-bc42-119a49396f91" },
+  { id: "0edbd013-dc35-494b-b7e7-9a745af01c9d", title: "MFS collapse prompts UK watchdog to crack down on financial crime", date: "2026-08-07", time: "10:56", url: "https://www.ft.com/content/0edbd013-dc35-494b-b7e7-9a745af01c9d" },
+  { id: "2e00d86e-27bf-4c16-9f5a-64acf8967763", title: "Rare earth access: still a thing", date: "2026-08-07", time: "10:30", url: "https://www.ft.com/content/2e00d86e-27bf-4c16-9f5a-64acf8967763" },
+  { id: "9d9e8f82-1626-429c-9434-a8540ca2ed64", title: "CMA moves to stop Aldi and Lidl blocking rival UK store openings", date: "2026-08-07", time: "10:21", url: "https://www.ft.com/content/9d9e8f82-1626-429c-9434-a8540ca2ed64" },
   { id: "c01d3ee6-9755-43e5-94e8-b1221a39558e", title: "The Manchester roots of Andy Burnham's skills revolution", date: "2026-08-07", time: "10:00", url: "https://www.ft.com/content/c01d3ee6-9755-43e5-94e8-b1221a39558e" },
   { id: "7c028aa0-cb64-4f71-9605-f63b83df7af4", title: "DR Congo launches probe into uranium-contaminated cobalt exports", date: "2026-08-07", time: "09:48", url: "https://www.ft.com/content/7c028aa0-cb64-4f71-9605-f63b83df7af4" },
   { id: "538b3457-4bef-4012-89b9-3c068b900e6e", title: "Submit your questions: Wildfires, droughts and heat — is this summer our new normal?", date: "2026-08-07", time: "09:34", url: "https://www.ft.com/content/538b3457-4bef-4012-89b9-3c068b900e6e" },
@@ -57,7 +61,4 @@ export const FT_ITEMS = [
   { id: "b7a47cff-29e3-45a7-a0c0-5f41ab72f49e", title: "Donald Trump allowed to delay release of financial details in $10bn BBC defamation case", date: "2026-08-06", time: "17:21", url: "https://www.ft.com/content/b7a47cff-29e3-45a7-a0c0-5f41ab72f49e" },
   { id: "a71ca216-2e96-4c43-b269-11c8210e9a31", title: "Uefa doubles down on World Cup boycott in effort to oust Gianni Infantino", date: "2026-08-06", time: "17:19", url: "https://www.ft.com/content/a71ca216-2e96-4c43-b269-11c8210e9a31" },
   { id: "030898ed-4fa2-4669-9970-c587c669ee4f", title: "Manchester power failure causes severe train disruption in northern England", date: "2026-08-06", time: "17:05", url: "https://www.ft.com/content/030898ed-4fa2-4669-9970-c587c669ee4f" },
-  { id: "2be98761-ca44-49ad-af3e-5204af338a64", title: "Congress should hold Trump’s feet to the fire on chips", date: "2026-08-06", time: "17:00", url: "https://www.ft.com/content/2be98761-ca44-49ad-af3e-5204af338a64" },
-  { id: "9110ffe1-0737-4bb6-8e95-c7603b0e2fba", title: "Castlelake walks away from easyJet takeover battle", date: "2026-08-06", time: "14:20", url: "https://www.ft.com/content/9110ffe1-0737-4bb6-8e95-c7603b0e2fba" },
-  { id: "510ed26f-165b-4961-8a46-b9064775ab67", title: "Abdul El-Sayed defeats establishment candidate in Michigan's Senate primary", date: "2026-08-06", time: "14:00", url: "https://www.ft.com/content/510ed26f-165b-4961-8a46-b9064775ab67" },
 ];
