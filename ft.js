@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a988ae61-a218-4872-a4d7-a3061c6ca7ab", title: "Saudi Arabia, Turkey and Pakistan sign defence pact in Mecca", date: "2026-08-07", time: "12:18", url: "https://www.ft.com/content/a988ae61-a218-4872-a4d7-a3061c6ca7ab" },
+  { id: "6afa0d5c-d252-4644-822f-44514576148e", title: "Exxon nears peak impunity on climate obligations", date: "2026-08-07", time: "12:07", url: "https://www.ft.com/content/6afa0d5c-d252-4644-822f-44514576148e" },
+  { id: "dabdeae3-9855-484b-9369-e74176352107", title: "UK shares: hotter than below decks in a heatwave", date: "2026-08-07", time: "12:00", url: "https://www.ft.com/content/dabdeae3-9855-484b-9369-e74176352107" },
   { id: "122c7788-8f8b-4f42-bc42-119a49396f91", title: "Britain curbs power exports to Europe to preserve supplies", date: "2026-08-07", time: "11:03", url: "https://www.ft.com/content/122c7788-8f8b-4f42-bc42-119a49396f91" },
   { id: "0edbd013-dc35-494b-b7e7-9a745af01c9d", title: "MFS collapse prompts UK watchdog to crack down on financial crime", date: "2026-08-07", time: "10:56", url: "https://www.ft.com/content/0edbd013-dc35-494b-b7e7-9a745af01c9d" },
   { id: "2e00d86e-27bf-4c16-9f5a-64acf8967763", title: "Rare earth access: still a thing", date: "2026-08-07", time: "10:30", url: "https://www.ft.com/content/2e00d86e-27bf-4c16-9f5a-64acf8967763" },
@@ -57,8 +60,4 @@ export const FT_ITEMS = [
   { id: "8b2d8925-7fb9-44c8-8093-48442455ebe0", title: "Airtable's cut-price sale is just the start for software also-rans", date: "2026-08-06", time: "18:13", url: "https://www.ft.com/content/8b2d8925-7fb9-44c8-8093-48442455ebe0" },
   { id: "0aee7523-09d7-4831-bc20-711d7191822e", title: "The shrinking space for democracy in Africa", date: "2026-08-06", time: "18:12", url: "https://www.ft.com/content/0aee7523-09d7-4831-bc20-711d7191822e" },
   { id: "3989b6a0-ba02-412b-8f35-b6817c3e42f6", title: "Honeywell Aerospace shares plunge on failure to overcome supply constraints", date: "2026-08-06", time: "18:07", url: "https://www.ft.com/content/3989b6a0-ba02-412b-8f35-b6817c3e42f6" },
-  { id: "f860d189-7def-4c7a-8ce3-4e96b3371d1f", title: "Google seeks a sharper focus in AI after Hassabis move", date: "2026-08-06", time: "17:55", url: "https://www.ft.com/content/f860d189-7def-4c7a-8ce3-4e96b3371d1f" },
-  { id: "b7a47cff-29e3-45a7-a0c0-5f41ab72f49e", title: "Donald Trump allowed to delay release of financial details in $10bn BBC defamation case", date: "2026-08-06", time: "17:21", url: "https://www.ft.com/content/b7a47cff-29e3-45a7-a0c0-5f41ab72f49e" },
-  { id: "a71ca216-2e96-4c43-b269-11c8210e9a31", title: "Uefa doubles down on World Cup boycott in effort to oust Gianni Infantino", date: "2026-08-06", time: "17:19", url: "https://www.ft.com/content/a71ca216-2e96-4c43-b269-11c8210e9a31" },
-  { id: "030898ed-4fa2-4669-9970-c587c669ee4f", title: "Manchester power failure causes severe train disruption in northern England", date: "2026-08-06", time: "17:05", url: "https://www.ft.com/content/030898ed-4fa2-4669-9970-c587c669ee4f" },
 ];
