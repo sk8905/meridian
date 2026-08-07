@@ -33,6 +33,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-nonbillable-knightsbeech-20260807",
+    publication: "Non-Billable",
+    title: "How David Beech built Knights into a £200m law firm",
+    date: "2026-08-07",
+    time: "09:05",
+    summary: "Knights chief David Beech on why culture has to come before financial performance, and how his time in private equity shaped his approach to leadership.",
+    url: "https://www.nonbillable.co.uk/podcasts/david-beech",
+  },
+  {
     id: "nl-bbg-morningemea-hormuz-20260807",
     publication: "Bloomberg",
     author: "Abhishek Shanker",
@@ -418,27 +427,6 @@ export const NEWSLETTERS = [
     time: "11:03",
     summary: "The global market turmoil of the past few months came in handy for former Citadel money managers Niall O'Keeffe and Tio Charbaghi.",
     url: "https://www.bloomberg.com/news/articles/2026-08-04/ex-citadel-duo-s-hedge-fund-soars-8-6-during-july-stock-swings",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-20260804",
-    publication: "Bloomberg",
-    author: "Victoria Batchelor",
-    series: "Morning Briefing Europe",
-    title: "HSBC Resumes Share Buybacks on Earnings Beat",
-    date: "2026-08-04",
-    time: "07:24",
-    summary: "HSBC's earnings top estimates and it resumes share buybacks, the Rhine's water levels drop to the lowest in nearly 150 years, and Turkey seeks to attract the rich as instability hits wealth hubs from London to Dubai.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-04/hsbc-resumes-share-buybacks-on-earnings-beat",
-  },
-  {
-    id: "nl-econ-worldinbrief-20260804",
-    publication: "The Economist",
-    series: "The World in Brief",
-    title: "The World in Brief: Von der Leyen calls for “united action” on EU migration",
-    date: "2026-08-04",
-    time: "06:47",
-    summary: "EU interior ministers call emergency talks on border security after von der Leyen urges “united action” on migration, Palantir lifts its revenue forecast to $8.15bn on “staggering” Q2 growth, and Trump brands Iran “unbelievably duplicitous” as talks resume.",
-    url: "https://www.economist.com/the-world-in-brief",
   },
   {
     id: "nl-bbg-pointsofreturn-earnings-20260804",
