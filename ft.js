@@ -21,6 +21,8 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   { id: "54adfc90-f555-44d3-8a81-4f39a07b5473", title: "US economy unexpectedly shed 23,000 jobs in July", date: "2026-08-07", time: "13:39", url: "https://www.ft.com/content/54adfc90-f555-44d3-8a81-4f39a07b5473" },
+  { id: "dba784cb-a197-4576-b533-597d5eb12a51", title: "Mixed July payrolls report takes pressure off the Fed to tighten", date: "2026-08-07", time: "14:37", url: "https://www.ft.com/content/dba784cb-a197-4576-b533-597d5eb12a51" },
+  { id: "d981326d-3d4c-4248-aed2-c5c1c0e8cab5", title: "The meaning of Michigan", date: "2026-08-07", time: "14:00", url: "https://www.ft.com/content/d981326d-3d4c-4248-aed2-c5c1c0e8cab5" },
   { id: "81aff420-0ce3-4e69-9608-31b81d406be9", title: "Will Farage’s gamble pay off?", date: "2026-08-07", time: "13:36", url: "https://www.ft.com/content/81aff420-0ce3-4e69-9608-31b81d406be9" },
   { id: "2434fbcc-b8b5-4bda-a82d-1b08c6a015f8", title: "UK housing market in ‘suspended animation’", date: "2026-08-07", time: "13:33", url: "https://www.ft.com/content/2434fbcc-b8b5-4bda-a82d-1b08c6a015f8" },
   { id: "6bc9c93d-1b75-4512-8bc2-ba33cc3c4a53", title: "Iran’s oil exports stall and Kharg Island idles under US blockade", date: "2026-08-07", time: "13:29", url: "https://www.ft.com/content/6bc9c93d-1b75-4512-8bc2-ba33cc3c4a53" },
@@ -59,6 +61,4 @@ export const FT_ITEMS = [
   { id: "cef4e506-00c1-4892-bedd-9bf1489a7014", title: "Billionaire's financial data group Ion chased by landlords for overdue rent", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/cef4e506-00c1-4892-bedd-9bf1489a7014" },
   { id: "1cc700ca-730a-4138-a1a3-f69defa62945", title: "How leaving Opec unleashed Adnoc's global ambitions", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/1cc700ca-730a-4138-a1a3-f69defa62945" },
   { id: "5d6b7dcf-fe0e-4cb1-ad1d-0157407296cc", title: "Starlink mobile threat has been exaggerated, says T-Mobile CEO", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/5d6b7dcf-fe0e-4cb1-ad1d-0157407296cc" },
-  { id: "e9d4cabe-b95f-41da-9159-322e4ccbd6db", title: "UK's 'staycation' summer fails to lift hotel profits as costs climb", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/e9d4cabe-b95f-41da-9159-322e4ccbd6db" },
-  { id: "7c35f5dd-7c40-4748-a103-f47ab44c858d", title: "El Nino threatens to disrupt the world's most-traded commodities", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/7c35f5dd-7c40-4748-a103-f47ab44c858d" },
 ];

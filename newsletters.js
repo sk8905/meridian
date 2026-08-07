@@ -33,6 +33,25 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-mb-fridaybrew7-20260807",
+    publication: "Mailbrew",
+    title: "Friday Brew #7",
+    date: "2026-08-07",
+    time: "13:58",
+    summary: "Weekly links digest: AI adoption in CRE, private credit's boogeyman era, Burry's latest trades, and El-Erian's global economy outlook.",
+    url: "https://app.mailbrew.com/stevedkennedy/friday-brew-03bEHcNb3hHB/7",
+  },
+  {
+    id: "nl-gs-briefings-geopoliticsgdp-20260807",
+    publication: "Goldman Sachs",
+    series: "Briefings",
+    title: "How Geopolitics Affect Global GDP",
+    date: "2026-08-07",
+    time: "13:55",
+    summary: "Geopolitical fragmentation has a lasting, substantial impact on economic growth, plus the yen intervention's effect on Japanese stocks and the $500bn AI-debt number.",
+    url: "https://www.goldmansachs.com/briefings",
+  },
+  {
     id: "nl-jpm-topmarkettakeaways-aitrade-20260807",
     publication: "JP Morgan Private Bank",
     series: "Top Market Takeaways",
@@ -414,26 +433,5 @@ export const NEWSLETTERS = [
     time: "05:23",
     summary: "The S&P 500 is back at an all-time high, its first in two months.",
     url: "https://bloom.bg/4yYN6Hk",
-  },
-  {
-    id: "nl-bbg-authoralert-nkumar-whalerock-20260804",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    title: "Whale Rock Sank 22% as AI Selloff Crippled Hedge Fund Returns",
-    date: "2026-08-04",
-    time: "22:36",
-    summary: "Whale Rock Capital Management’s flagship hedge fund is one of the biggest losers in last month’s AI selloff, with a 21.7% drop in July erasing about half of its gains for the year.",
-    url: "https://www.bloomberg.com/news/articles/2026-08-04/whale-rock-sank-22-as-ai-selloff-crippled-hedge-fund-returns",
-  },
-  {
-    id: "nl-reuters-tradingday-onlywayisup-20260804",
-    publication: "Thomson Reuters",
-    author: "Jamie McGeever",
-    series: "Trading Day",
-    title: "The only way is up",
-    date: "2026-08-04",
-    time: "22:21",
-    summary: "World stocks leaped to record highs, boosted by a relentless stream of strong US and global earnings, with another slump in oil prices on Middle East peace hopes pushing down bond yields and lifting investor sentiment.",
-    url: "https://www.reuters.com/commentary/reuters-open-interest/us-yen-intervention-signals-perfect-storm-rising-fx-bond-markets-2026-08-04/",
   },
 ];
