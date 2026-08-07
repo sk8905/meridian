@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "22a6bce7-ccec-4e7d-a31b-ca8d67b1bcb6", title: "The curious case of the Japanese government bond yields", date: "2026-08-07", time: "06:00", url: "https://www.ft.com/content/22a6bce7-ccec-4e7d-a31b-ca8d67b1bcb6" },
+  { id: "ade0df5d-c341-4d3a-b1d0-a4bee09dd2fc", title: "FTAV's further reading", date: "2026-08-07", time: "06:00", url: "https://www.ft.com/content/ade0df5d-c341-4d3a-b1d0-a4bee09dd2fc" },
+  { id: "9c99a309-e133-4882-8cea-f21aa1eea0e1", title: "FirstFT: Google shakes up AI leadership", date: "2026-08-07", time: "05:40", url: "https://www.ft.com/content/9c99a309-e133-4882-8cea-f21aa1eea0e1" },
+  { id: "6bbddd45-5f39-4140-8218-66b66b7d08a6", title: "Revisiting our estimates for Japan's neutral rate", date: "2026-08-07", time: "05:30", url: "https://www.ft.com/content/6bbddd45-5f39-4140-8218-66b66b7d08a6" },
   { id: "9387ed2c-837a-4ea1-8d5f-180513292c9a", title: "Big Law's new private equity era", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/9387ed2c-837a-4ea1-8d5f-180513292c9a" },
   { id: "8e481c49-b95b-442b-a88a-f0cc402b1bf9", title: "'I'll support him all the way': Clacton voters rally to Nigel Farage despite heightened scrutiny", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/8e481c49-b95b-442b-a88a-f0cc402b1bf9" },
   { id: "4a99c7bd-6da4-4a07-915b-e0e889e8c73d", title: "Britain's incoming CEOs enjoy the 'new boss bounce'", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/4a99c7bd-6da4-4a07-915b-e0e889e8c73d" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "15857866-5274-41cc-90a6-b4f696c60a13", title: "ConocoPhillips chief Ryan Lance to step down after 14 years", date: "2026-08-06", time: "13:25", url: "https://www.ft.com/content/15857866-5274-41cc-90a6-b4f696c60a13" },
   { id: "4b3f2499-6f1a-46df-81c0-fbcb651b2c60", title: "The good, the bad and the green of Badenoch", date: "2026-08-06", time: "12:37", url: "https://www.ft.com/content/4b3f2499-6f1a-46df-81c0-fbcb651b2c60" },
   { id: "9f46db72-0a1e-42b0-8efe-974a04fa0fc7", title: "Latest savings rates", date: "2026-08-06", time: "12:32", url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7" },
-  { id: "75ba3055-625c-4cb5-894b-0696a38f5e79", title: "Latest Isa rates", date: "2026-08-06", time: "12:28", url: "https://www.ft.com/content/75ba3055-625c-4cb5-894b-0696a38f5e79" },
-  { id: "5a6340ac-0850-4fc0-a3eb-261a1f7e78d4", title: "Russia targets Maga influencers ahead of German state vote", date: "2026-08-06", time: "12:25", url: "https://www.ft.com/content/5a6340ac-0850-4fc0-a3eb-261a1f7e78d4" },
-  { id: "5fb71aeb-f4a3-484b-b958-89842252c59b", title: "Could over-investment in natural gas drive up US electricity bills?", date: "2026-08-06", time: "12:00", url: "https://www.ft.com/content/5fb71aeb-f4a3-484b-b958-89842252c59b" },
-  { id: "debe096f-ec89-424f-a8ca-d3843ef53549", title: "Kevin Warsh to stick with lean Fed messaging despite market backlash", date: "2026-08-06", time: "12:00", url: "https://www.ft.com/content/debe096f-ec89-424f-a8ca-d3843ef53549" },
 ];
