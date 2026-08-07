@@ -14,7 +14,7 @@ import {
 } from "/legal/js/shared.js?v=20260730-2";
 import { viewItem, viewFirm , __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/legal/detail.js?v=v2-10";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc, onLiveWire } from "/feed.js?v=20260729-2";
-import { esc, MONTHS, byDateDesc } from "/util.js?v=20260719-1";
+import { esc, MONTHS, byDateDesc, JUDGMENT_SOURCES } from "/util.js?v=20260719-1";
 
 export function mount(host, ctx) {
   const app = host;
@@ -1129,10 +1129,6 @@ let notifSeen = null;    // resolved array of acknowledged ids (null until known
 let notifCloud = false;  // true once the per-user seen-set API responds
 // Source label for a case-law / restructuring judgment link (BAILII, the
 // National Archives, or the Supreme Court site). Alerts & RPs use the firm name.
-const JUDGMENT_SOURCES = {
-  "bailii.org": "BAILII", "caselaw.nationalarchives.gov.uk": "National Archives",
-  "supremecourt.uk": "Supreme Court", "judiciary.uk": "Judiciary",
-};
 function judgmentSource(url) {
   try { const h = new URL(url).hostname.replace(/^www\./, ""); return JUDGMENT_SOURCES[h] || "Judgment"; }
   catch { return "Judgment"; }

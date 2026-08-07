@@ -749,69 +749,6 @@ function viewDashboard() {
 
   // Credit tab = the manager universe ranked by AUM. General news now lives on
   // Home; drilling into a manager shows its news / funds / CLOs / people.
-  const cloMgrIds = new Set([...deals, ...intel].filter((x) => x.clo && x.managerId).map((x) => x.managerId));
-  const fst = filterState.managers;
-  const q0 = (fst.q || "").toLowerCase();
-  const mrows = league.filter((r) =>
-    (!q0 || r.m.name.toLowerCase().includes(q0) || String(r.m.hq || "").toLowerCase().includes(q0))
-    && (!fst.strategy.length || fst.strategy.some((s) => r.m.strategies.includes(s))));
-  const mgrMetrics = [
-    ["Managers", managers.length], ["AUM", fmtAum(Math.round(totalAum))],
-    ["Funds", funds.length], ["In market", funds.filter(inMkt).length], ["CLO managers", cloMgrIds.size],
-  ];
-  // Secondaries & structured-liquidity chips (sell-side) from each manager's
-  // sourced `structured` items (data.js). One chip per type present, fixed
-  // order; the tooltip carries every item's label, note and attribution. No
-  // sourced item → em-dash (a sparse column is correct — chips are never
-  // inferred here).
-  const SLS_ORDER = ["CONT", "SEC", "STRIP", "CFO", "NAV", "SRT", "OTH"];
-  const slsChips = (m) => {
-    const items = m.structured || [];
-    if (!items.length) return "—";
-    return SLS_ORDER.filter((t) => items.some((s) => s.type === t)).map((t) => {
-      const ofType = items.filter((s) => s.type === t);
-      const tip = ofType.map((s) => `${s.label} — ${s.note} (${s.outlet}, ${s.date})`).join(" · ");
-      // Click → straight to the source article (newest item of the type opens in
-      // a new tab; the tooltip lists them all). An <a>, so the row's data-href
-      // navigation defers to it.
-      const src = ofType.slice().sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")))[0];
-      return `<a class="sls-chip" href="${esc(src.url)}" target="_blank" rel="noopener noreferrer" title="${esc(tip)}">${esc(t)}</a>`;
-    }).join("");
-  };
-  const mgrRow = (r) => `<tr class="clickable" data-href="#/manager/${r.m.id}" data-focus="${r.focus ? 1 : 0}" data-name="${esc((r.m.name + " " + (r.m.hq || "") + " " + (r.m.strategies || []).join(" ")).toLowerCase())}">`
-    + `<td class="tl-nm">${esc(r.m.name)}</td>`
-    + `<td class="tl-hq">${esc(r.m.hq || "")}</td>`
-    + `<td class="tl-n">${r.aum == null ? "n/a" : esc(fmtAum(r.aum))}</td>`
-    + `<td class="tl-n">${r.m.aumCredit != null ? esc(fmtAum(r.m.aumCredit)) : "—"}</td>`
-    + `<td class="tl-n">${r.nf}</td>`
-    + `<td class="tl-n">${r.live || ""}</td>`
-    + `<td class="tl-cl">${cloMgrIds.has(r.m.id) ? "●" : ""}</td>`
-    + `<td class="tl-sls">${slsChips(r.m)}</td></tr>`;
-  // Hedge Funds league table — largest managers across US / UK / Europe, sorted
-  // by (approximate) AUM. Rows open the firm's own site in a new tab.
-  const hfRows = [...HEDGE_FUNDS].sort((a, b) => (b.aum || 0) - (a.aum || 0));
-  // Live-linked source URLs in the row: the AUM figure opens its citable source,
-  // the Latest-13F cell opens the fund's most recent SEC 13F filing list (or, for
-  // a non-US filer, the equivalent EDGAR/registry filing). The row itself (empty
-  // space) opens the in-app fund detail with the live top-10 holdings.
-  const hfSec = (cik) => `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${cik}&type=13F-HR&dateb=&owner=include&count=40`;
-  const hfAum = (f) => f.aum == null ? "—"
-    : (f.aumSource
-      ? `<a href="${esc(f.aumSource)}" target="_blank" rel="noopener noreferrer" title="AUM source (${esc(f.aumAsOf || "")})">$${esc(f.aum.toFixed(2))}bn</a>`
-      : `$${esc(f.aum.toFixed(2))}bn`);
-  const hfFiling = (f) => f.cik
-    ? `<a href="${esc(hfSec(f.cik))}" target="_blank" rel="noopener noreferrer" title="Latest SEC 13F-HR (CIK ${esc(f.cik)})">13F-HR</a>`
-    : (f.filing
-      ? `<a href="${esc(f.filing.url)}" target="_blank" rel="noopener noreferrer" title="Latest filing (no US 13F-HR)">${esc(f.filing.label)}</a>`
-      : `<span class="muted">—</span>`);
-  const hfRow = (f) => `<tr class="clickable" data-href="#/hf/${esc(f.id)}" data-focus="${inFocusAum(f.aum) ? 1 : 0}" data-name="${esc((f.name + " " + f.hq + " " + f.strategy + " " + f.region).toLowerCase())}">`
-    + `<td class="tl-nm">${esc(f.name)}</td>`
-    + `<td class="tl-hq">${esc(f.hq)}</td>`
-    + `<td class="tl-aum">${hfAum(f)}</td>`
-    + `<td>${esc(f.strategy)}</td>`
-    + `<td>${esc(f.founder || "—")}</td>`
-    + `<td>${f.founded || "—"}</td>`
-    + `<td class="tl-fil">${hfFiling(f)}</td></tr>`;
   app.innerHTML = `
     <div class="tdash">
       <div class="tdash-grid tdash-1">
