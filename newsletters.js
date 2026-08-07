@@ -33,6 +33,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-cnt-restaurantofweek-20260807",
+    publication: "Condé Nast Traveller",
+    series: "Restaurant of the Week",
+    title: "The best new restaurant in London is...",
+    date: "2026-08-07",
+    time: "10:00",
+    summary: "A confidently simple South London opening.",
+    url: "https://www.cntraveller.com/article/new-london-restaurants",
+  },
+  {
     id: "nl-nonbillable-knightsbeech-20260807",
     publication: "Non-Billable",
     title: "How David Beech built Knights into a £200m law firm",

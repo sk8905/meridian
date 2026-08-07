@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c01d3ee6-9755-43e5-94e8-b1221a39558e", title: "The Manchester roots of Andy Burnham's skills revolution", date: "2026-08-07", time: "10:00", url: "https://www.ft.com/content/c01d3ee6-9755-43e5-94e8-b1221a39558e" },
+  { id: "7c028aa0-cb64-4f71-9605-f63b83df7af4", title: "DR Congo launches probe into uranium-contaminated cobalt exports", date: "2026-08-07", time: "09:48", url: "https://www.ft.com/content/7c028aa0-cb64-4f71-9605-f63b83df7af4" },
+  { id: "538b3457-4bef-4012-89b9-3c068b900e6e", title: "Submit your questions: Wildfires, droughts and heat — is this summer our new normal?", date: "2026-08-07", time: "09:34", url: "https://www.ft.com/content/538b3457-4bef-4012-89b9-3c068b900e6e" },
+  { id: "857508f3-028b-4b10-b7c1-e56aa07b5b2b", title: "Tories vow to ban foreign nationals from accessing UK social housing", date: "2026-08-07", time: "09:32", url: "https://www.ft.com/content/857508f3-028b-4b10-b7c1-e56aa07b5b2b" },
   { id: "d9922d0b-51a0-48be-811b-42e08f90985a", title: "US euro sale to prop up yen blindsided ECB", date: "2026-08-07", time: "09:08", url: "https://www.ft.com/content/d9922d0b-51a0-48be-811b-42e08f90985a" },
   { id: "4c756bd3-a7b8-45ef-aaee-1bfd48fc1439", title: "After the great deleveraging", date: "2026-08-07", time: "06:30", url: "https://www.ft.com/content/4c756bd3-a7b8-45ef-aaee-1bfd48fc1439" },
   { id: "22a6bce7-ccec-4e7d-a31b-ca8d67b1bcb6", title: "The curious case of the Japanese government bond yields", date: "2026-08-07", time: "06:00", url: "https://www.ft.com/content/22a6bce7-ccec-4e7d-a31b-ca8d67b1bcb6" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "2be98761-ca44-49ad-af3e-5204af338a64", title: "Congress should hold Trump’s feet to the fire on chips", date: "2026-08-06", time: "17:00", url: "https://www.ft.com/content/2be98761-ca44-49ad-af3e-5204af338a64" },
   { id: "9110ffe1-0737-4bb6-8e95-c7603b0e2fba", title: "Castlelake walks away from easyJet takeover battle", date: "2026-08-06", time: "14:20", url: "https://www.ft.com/content/9110ffe1-0737-4bb6-8e95-c7603b0e2fba" },
   { id: "510ed26f-165b-4961-8a46-b9064775ab67", title: "Abdul El-Sayed defeats establishment candidate in Michigan's Senate primary", date: "2026-08-06", time: "14:00", url: "https://www.ft.com/content/510ed26f-165b-4961-8a46-b9064775ab67" },
-  { id: "15663487-0501-405f-9c2a-d87368a2fffa", title: "Paramount agrees safeguards for UK approval of $110bn WBD deal", date: "2026-08-06", time: "13:39", url: "https://www.ft.com/content/15663487-0501-405f-9c2a-d87368a2fffa" },
-  { id: "0e960930-db68-48dc-ba74-af2c253f78d7", title: "Referrals to Prevent anti-radicalisation scheme jump after Southport attacks", date: "2026-08-06", time: "13:34", url: "https://www.ft.com/content/0e960930-db68-48dc-ba74-af2c253f78d7" },
-  { id: "00cc32f2-f392-40af-9484-decc85b7e9fe", title: "The confounding 'compounding' of 'compounding'", date: "2026-08-06", time: "13:30", url: "https://www.ft.com/content/00cc32f2-f392-40af-9484-decc85b7e9fe" },
-  { id: "15857866-5274-41cc-90a6-b4f696c60a13", title: "ConocoPhillips chief Ryan Lance to step down after 14 years", date: "2026-08-06", time: "13:25", url: "https://www.ft.com/content/15857866-5274-41cc-90a6-b4f696c60a13" },
 ];
