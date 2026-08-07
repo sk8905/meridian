@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8b61001e-6d7c-4ca9-8c4b-853b4555f318", title: "Passing the Clarity Act on digital assets is a matter of national security", date: "2026-08-07", time: "18:00", url: "https://www.ft.com/content/8b61001e-6d7c-4ca9-8c4b-853b4555f318" },
+  { id: "145df661-bee4-4242-8671-75e1268b3676", title: "Directors’ Deals: Man Group’s finance chief divests even as assets swell", date: "2026-08-07", time: "18:00", url: "https://www.ft.com/content/145df661-bee4-4242-8671-75e1268b3676" },
+  { id: "daa12453-278d-4353-8db5-e9a56fec35f8", title: "Stockpickers: XP Power, Intertek, Clarkson", date: "2026-08-07", time: "18:00", url: "https://www.ft.com/content/daa12453-278d-4353-8db5-e9a56fec35f8" },
+  { id: "822f8902-1808-469f-97e0-634c552a7aa4", title: "Taming AI’s wild frontier", date: "2026-08-07", time: "17:54", url: "https://www.ft.com/content/822f8902-1808-469f-97e0-634c552a7aa4" },
   { id: "2b9f249a-53f1-4755-88ec-3e316d3c965d", title: "FTAV Friday chart quiz", date: "2026-08-07", time: "15:19", url: "https://www.ft.com/content/2b9f249a-53f1-4755-88ec-3e316d3c965d" },
   { id: "0fd301d9-7e47-46ff-89b9-b666a8a1c148", title: "Cambridge university to review appointments process after Jason Arday affair", date: "2026-08-07", time: "14:47", url: "https://www.ft.com/content/0fd301d9-7e47-46ff-89b9-b666a8a1c148" },
   { id: "54adfc90-f555-44d3-8a81-4f39a07b5473", title: "US economy unexpectedly shed 23,000 jobs in July", date: "2026-08-07", time: "13:39", url: "https://www.ft.com/content/54adfc90-f555-44d3-8a81-4f39a07b5473" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "daec1a03-d1a2-4f17-8dda-ede4140a88c2", title: "Yen intervention illustrates the dangers of monetary experiments", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/daec1a03-d1a2-4f17-8dda-ede4140a88c2" },
   { id: "aea25d0e-f7f8-484c-b186-57775e635aa7", title: "Warsh is being misread", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/aea25d0e-f7f8-484c-b186-57775e635aa7" },
   { id: "1e749b77-db33-4281-91f3-13e8bf6bf433", title: "Glenn Youngkin's swing-state school campaign fuels White House speculation", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/1e749b77-db33-4281-91f3-13e8bf6bf433" },
-  { id: "e7585052-7fd6-419a-9c6e-3c6984da0f3d", title: "Refining crunch keeps fuel prices high as crude retreats", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/e7585052-7fd6-419a-9c6e-3c6984da0f3d" },
-  { id: "83f594d8-5878-4ecf-a274-4a4ae9eeb30c", title: "Naval parts supplier Goodwin explores sale of defence business", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/83f594d8-5878-4ecf-a274-4a4ae9eeb30c" },
-  { id: "30fe8c0a-5022-46d4-be53-101c4af0185e", title: "Parents haggle with private schools over fees as VAT pushes up costs", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/30fe8c0a-5022-46d4-be53-101c4af0185e" },
-  { id: "1c4a641c-42f4-429e-94c2-7d16cac96d49", title: "To fix education, fix the economy first", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/1c4a641c-42f4-429e-94c2-7d16cac96d49" },
 ];
