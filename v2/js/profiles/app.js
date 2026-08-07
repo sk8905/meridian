@@ -38,9 +38,11 @@ export async function mount(host, ctx) {
         </section>
       </div>
     </div>
+    <div id="pf-back-bar" class="pf-back-bar" hidden><button type="button" id="pf-back" class="pf-back">‹ Back to list</button></div>
     <div id="pf-detail" hidden></div>`;
   const pfList = host.querySelector("#pf-list");
   const pfDetail = host.querySelector("#pf-detail");
+  const backBar = host.querySelector("#pf-back-bar");
   const panes = host.querySelector("#pf-panes");
   const chips = host.querySelector("#pf-chips");
 
@@ -52,6 +54,7 @@ export async function mount(host, ctx) {
   };
   function showList(tab) {
     pfDetail.hidden = true; pfDetail.innerHTML = "";
+    backBar.hidden = true;
     pfList.hidden = false;
     if (tab) selectChip(tab);
     window.scrollTo(0, 0);
@@ -60,8 +63,8 @@ export async function mount(host, ctx) {
   // detail host at #pf-detail and flip that module into Profiles mode (so its
   // top nav is the Profiles chips, not the desk sections) right before the
   // synchronous render — only one tab renders at a time, so the last writer wins.
-  const renderCredit = (fn) => { pfList.hidden = true; pfDetail.hidden = false; setCreditHost(pfDetail); setCreditPfMode(true); window.scrollTo(0, 0); fn(); };
-  const renderLegal = (fn) => { pfList.hidden = true; pfDetail.hidden = false; setLegalHost(pfDetail); setLegalPfMode(true); window.scrollTo(0, 0); fn(); };
+  const renderCredit = (fn) => { pfList.hidden = true; backBar.hidden = false; pfDetail.hidden = false; setCreditHost(pfDetail); setCreditPfMode(true); window.scrollTo(0, 0); fn(); };
+  const renderLegal = (fn) => { pfList.hidden = true; backBar.hidden = false; pfDetail.hidden = false; setLegalHost(pfDetail); setLegalPfMode(true); window.scrollTo(0, 0); fn(); };
 
   // Hash router (Profiles owns /v2/profiles/#/…). No route → the list, honouring
   // ?tab=; a detail route renders the matching desk view in place.
@@ -112,6 +115,15 @@ export async function mount(host, ctx) {
   // (AUM source, 13F, SLS chip, breadcrumb) defers to that anchor. External /
   // absolute rows open in a new tab.
   host.addEventListener("click", (e) => {
+    // Back button on an open profile → return to the list pane it came from.
+    const back = e.target.closest("#pf-back");
+    if (back) {
+      const on = chips.querySelector(".tchip.is-on");
+      const h = "#/?tab=" + (on ? on.dataset.p : "managers");
+      if (location.hash !== h) location.hash = h;
+      router();
+      return;
+    }
     const chip = e.target.closest("#pf-chips .tchip");
     if (chip) { selectChip(chip.dataset.p); return; }
     // League $1–10bn AUM focus toggles + the hedge-fund Cross-holdings (13F

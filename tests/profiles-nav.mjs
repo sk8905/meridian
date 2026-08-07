@@ -49,15 +49,38 @@ async function tapRow(pane, kind, hrefRe) {
   check(hrefRe.test(box.href || ""), `${kind}: row targets a ${kind} profile (${box.href})`);
   await tapAt(box.x, box.y);
   await pg.waitForTimeout(800);
-  const after = await pg.evaluate(() => ({
-    hash: location.hash,
-    detailShown: document.querySelector("#pf-detail") && !document.querySelector("#pf-detail").hidden,
-    listHidden: document.querySelector("#pf-list") && document.querySelector("#pf-list").hidden,
-    len: document.querySelector("#pf-detail") ? document.querySelector("#pf-detail").textContent.trim().length : 0,
-  }));
+  // Assert VISUAL state (computed display), not just the .hidden property: the
+  // list carries .tdash{display:flex}, whose author specificity beat the UA
+  // [hidden] rule, so the profile opened BELOW the still-visible list. .hidden
+  // was true yet the list stayed on screen — the property check missed it.
+  const after = await pg.evaluate(() => {
+    const list = document.querySelector("#pf-list");
+    const detail = document.querySelector("#pf-detail");
+    const back = document.querySelector("#pf-back-bar");
+    return {
+      hash: location.hash,
+      listDisplay: list ? getComputedStyle(list).display : null,
+      detailDisplay: detail ? getComputedStyle(detail).display : null,
+      backShown: !!(back && getComputedStyle(back).display !== "none"),
+      len: detail ? detail.textContent.trim().length : 0,
+    };
+  });
   check(after.hash === box.href, `${kind}: tapping the name routes to ${box.href} (got ${after.hash})`);
-  check(after.detailShown && after.listHidden, `${kind}: the profile detail is shown (list hidden)`);
+  check(after.listDisplay === "none", `${kind}: the list is VISUALLY hidden — profile opens as its own page (list display=${after.listDisplay})`);
+  check(after.detailDisplay !== "none", `${kind}: the profile detail is shown (display=${after.detailDisplay})`);
+  check(after.backShown, `${kind}: a Back-to-list button is shown on the profile`);
   check(after.len > 300, `${kind}: the profile page renders content (${after.len} chars)`);
+
+  // The Back button returns to the list (list visible again, detail gone).
+  await pg.evaluate(() => { const b = document.querySelector("#pf-back"); if (b) b.click(); });
+  await pg.waitForTimeout(400);
+  const backState = await pg.evaluate(() => {
+    const list = document.querySelector("#pf-list");
+    const detail = document.querySelector("#pf-detail");
+    return { listDisplay: list ? getComputedStyle(list).display : null, detailDisplay: detail ? getComputedStyle(detail).display : null };
+  });
+  check(backState.listDisplay !== "none", `${kind}: Back returns to the visible list (list display=${backState.listDisplay})`);
+  check(backState.detailDisplay === "none", `${kind}: Back hides the profile detail`);
 }
 
 await tapRow("managers", "manager", /^#\/manager\//);

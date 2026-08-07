@@ -397,6 +397,17 @@
 .tpanes { flex: 1 1 auto; min-height: 0; overflow-y: auto; background: var(--surface); }
 .tpanes .twire { overflow: visible; flex: none; }
 .tpane[hidden] { display: none; }
+/* Profiles list/detail: #pf-list carries .tdash (display:flex), whose author
+   specificity beats the UA [hidden]{display:none} rule — so the bare hidden
+   attribute did NOT hide the list, and an opened profile rendered BELOW the
+   still-visible list. Force both to honour [hidden] (id+attr beats .tdash), so a
+   profile opens as its own full page. */
+#pf-list[hidden], #pf-detail[hidden] { display: none !important; }
+/* Back-to-list bar shown above an open profile (Profiles tab). */
+.pf-back-bar { flex: 0 0 auto; padding: 8px 12px; border-bottom: 1px solid var(--border); background: var(--head); }
+.pf-back-bar[hidden] { display: none; }
+.pf-back { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border); color: var(--ink); font-family: var(--t-mono); font-size: 11px; letter-spacing: .03em; padding: 5px 12px; cursor: pointer; border-radius: 0; }
+.pf-back:hover { border-color: var(--accent); color: var(--accent); }
 .tpg { border-bottom: 1px solid var(--border); }
 .tpg-h { font-size: 9px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); font-weight: 600; padding: 9px 12px 4px; }
 @media (max-width: 900px) {
