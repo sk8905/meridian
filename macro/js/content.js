@@ -12,8 +12,8 @@ export const UPDATED = "6 August 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-08-06",
-  lastCheckedTime: "21:20 BST",
+  lastChecked: "2026-08-07",
+  lastCheckedTime: "05:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -722,20 +722,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-08-06",
+  updated: "2026-08-07",
   us: [
-    { title: "Treasury yields edge higher as traders sharpen focus on rates", source: "CNBC", date: "2026-08-06", time: "17:29", url: "https://www.cnbc.com/2026/08/06/treasury-yields-interest-rates-inflation-fed.html" },
-    { title: "Stock Market Today (Aug. 6, 2026): S&P 500 declines as investors weigh jobs data, earnings ahead", source: "TheStreet", date: "2026-08-06", time: "17:29", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-6-2026" },
-    { title: "Stock market today: Nasdaq slips, Dow and S&P 500 futures inch up as earnings roll on", source: "Yahoo Finance", date: "2026-08-06", time: "14:16", url: "https://finance.yahoo.com/markets/live/stock-market-today-thursday-august-6-dow-sp-nasdaq-091620000.html" },
-    { title: "Weekly U.S. initial jobless claims rise to 226,000", source: "Investing.com", date: "2026-08-06", time: "09:24", url: "https://in.investing.com/news/economic-indicators/weekly-us-initial-jobless-claims-rise-to-226000-4950376" },
-    { title: "Gold Price Surges to Seven-Week High: XAU/USD Eyes $4,334 as Dollar Slides", source: "FX Leaders", date: "2026-08-06", time: "09:24", url: "https://www.fxleaders.com/news/2026/08/06/gold-price-surges-seven-week-high-xau-usd-eyes-4334-dollar-slides/" },
+    { title: "Gold consolidates below recent highs as USD strength and Fed hike bets cap ahead of US NFP", source: "FXStreet", date: "2026-08-07", time: "02:35", url: "https://www.fxstreet.com/news/gold-consolidates-below-recent-highs-as-usd-strength-and-fed-hike-bets-cap-ahead-of-us-nfp-202608070135" },
+    { title: "Economic and event calendar in Asia Friday, August 7, 2026 - Fed speaker, Chinese trade data", source: "investingLive", date: "2026-08-07", url: "https://investinglive.com/news/economic-and-event-calendar-in-asia-friday-august-7-2026-fed-speaker-chinese-trade-data/" },
+    { title: "The July jobs numbers are due out Friday. Here's what to expect", source: "CNBC", date: "2026-08-06", url: "https://www.cnbc.com/2026/08/06/the-july-jobs-numbers-are-due-out-friday-heres-what-to-expect.html" },
+    { title: "Oil prices jump after Iran publishes restrictive draft plan for Strait of Hormuz", source: "CNBC", date: "2026-08-06", url: "https://www.cnbc.com/2026/08/06/oil-price-iran-war-strait-hormuz-oman-deal.html" },
+    { title: "Nonfarm payrolls, unemployment rate, and average hourly earnings due Friday", source: "Investing.com", date: "2026-08-06", url: "https://ng.investing.com/news/stock-market-news/nonfarm-payrolls-unemployment-rate-and-average-hourly-earnings-due-friday-93CH-2645235" },
   ],
   uk: [
-    { title: "FTSE 100 Live: Gold miners provide boost, but Pru and HSBC hit by China tax report", source: "Proactive Investors", date: "2026-08-06", time: "09:24", url: "https://www.proactiveinvestors.com/companies/news/1096553/ftse-100-live-next-and-glencore-provide-results-boost-spacex-tumbles-1096553.html" },
-    { title: "FTSE 100 Today: UK Stocks Gain on Strong Earnings, Lower Oil Prices and Improved Market Sentiment", source: "Sunday Guardian Live", date: "2026-08-06", time: "17:29", url: "https://sundayguardianlive.com/business/ftse-100-today-uk-stocks-gain-on-strong-earnings-lower-oil-prices-and-improved-market-sentiment-what-should-investors-know-254937/" },
-    { title: "FTSE 100 Climbs on Glencore, Next Earnings & Iran Deal Hopes", source: "Global Banking & Finance Review", date: "2026-08-05", time: "09:47", url: "https://www.globalbankingandfinance.com/ftse-100-climbs-glencore-next-earnings-iran-deal-hopes/" },
-    { title: "UK Services PMI Returns to Growth, but Record Job Losses Cast Shadow", source: "ActionForex", date: "2026-08-05", time: "10:00", url: "https://www.actionforex.com/live-comments/649605-uk-services-pmi-returns-to-growth-but-record-job-losses-cast-shadow/" },
-    { title: "UK's Tough Jobs Market Threatens Burnham's Aim to 'Bring Back Hope'", source: "Bloomberg", date: "2026-08-05", time: "06:00", url: "https://www.bloomberg.com/news/newsletters/2026-08-05/uk-s-tough-jobs-market-threatens-burnham-s-aim-to-bring-back-hope" },
+    { title: "FTSE 100 today: Stocks tick up on Hormuz hopes, earnings watch", source: "Investing.com", date: "2026-08-06", time: "07:13", url: "https://ng.investing.com/news/stock-market-news/ftse-100-today-stocks-tick-up-on-hormuz-hopes-earnings-watch-2641806" },
+    { title: "LONDON BRIEFING: Persimmon profit rises; Metlen backs guidance", source: "LSE.co.uk", date: "2026-08-06", url: "https://www.lse.co.uk/news/london-briefing-persimmon-profit-rises-metlen-backs-guidance-354ysusfanf65qw.html" },
+    { title: "FTSE 100 Live: London index hovers higher as Metlen, Admiral and Persimmon rise", source: "Proactive Investors", date: "2026-08-06", url: "https://www.proactiveinvestors.co.uk/companies/news/1096632/ftse-100-live-london-index-hovers-higher-as-metlen-admiral-and-persimmon-rise-1096632.html" },
+    { title: "UK Business News Today: 6 August 2026 | Economy, Markets & Insolvencies", source: "Credit Protection Association", date: "2026-08-06", url: "https://cpa.co.uk/uk-business-news-today-6-august-2026-economy-markets-insolvencies/" },
+    { title: "Pound Sterling Price News and Forecast: GBP/USD steadies despite strong US jobs data ahead of NFP", source: "FXStreet", date: "2026-08-06", time: "18:50", url: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-steadies-despite-strong-us-jobs-data-ahead-of-nfp-202608061750" },
   ],
 };
 
@@ -747,8 +747,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-08-06",
+  updated: "2026-08-07",
   items: [
+    {"title":"Gold consolidates below recent highs as USD strength and Fed hike bets cap ahead of US NFP","source":"FXStreet","date":"2026-08-07","time":"02:35","url":"https://www.fxstreet.com/news/gold-consolidates-below-recent-highs-as-usd-strength-and-fed-hike-bets-cap-ahead-of-us-nfp-202608070135","blurb":"Gold consolidates below $4,250 in the Asian session as dollar strength and lingering Fed rate-hike bets cap further upside ahead of Friday's US nonfarm payrolls."},
+    {"title":"China's exports jump 23% in July, beating estimates; imports cool","source":"CNBC","date":"2026-08-07","time":"02:00","url":"https://www.cnbc.com/2026/08/07/china-july-trade-exports-imports-surplus-imbalance-tariffs-.html","blurb":"China's exports rose 23.9% year-on-year in July, beating forecasts on strong high-tech demand, while the trade surplus narrowed to $112.5bn from $125.62bn in June as import growth also picked up."},
+    {"title":"Economic and event calendar in Asia Friday, August 7, 2026 - Fed speaker, Chinese trade data","source":"investingLive","date":"2026-08-07","url":"https://investinglive.com/news/economic-and-event-calendar-in-asia-friday-august-7-2026-fed-speaker-chinese-trade-data/","blurb":"Asia's Friday docket features a Fed speaker and China's July trade data, with markets otherwise marking time ahead of the day's main event — the US July jobs report."},
     {"title":"Treasury yields edge higher as traders sharpen focus on rates","source":"CNBC","date":"2026-08-06","time":"17:29","url":"https://www.cnbc.com/2026/08/06/treasury-yields-interest-rates-inflation-fed.html","blurb":"The 2-year Treasury yield ticked more than 2bp higher to 4.204% as traders weighed the prospect of further rate rises ahead of Friday's jobs report."},
     {"title":"5 things to know before the stock market opens Thursday","source":"CNBC","date":"2026-08-06","time":"17:29","url":"https://www.cnbc.com/2026/08/06/5-things-to-know-before-the-stock-market-opens.html","blurb":"BofA's Brian Moynihan flags leveraged-market risk, Fed Chair Warsh floats fewer policy meetings, and $166bn of 'liberation day' tariff refunds near completion."},
     {"title":"Stock Market Today (Aug. 6, 2026): S&P 500 declines as investors weigh jobs data, earnings ahead","source":"TheStreet","date":"2026-08-06","time":"17:29","url":"https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-6-2026","blurb":"US indices slipped from record levels as investors positioned ahead of Friday's July jobs report and a fresh round of earnings."},
@@ -786,9 +789,6 @@ export const ARTICLES = {
     {"title":"ADP in Focus Ahead of Friday's Jobs Report","source":"FXStreet","date":"2026-08-05","time":"05:31","url":"https://www.fxstreet.com/analysis/adp-in-focus-ahead-of-fridays-jobs-report-202608050531","blurb":"US private employers added an average of just 16,500 jobs a week in the four weeks to 4 July — a fourth straight slowdown — setting up Wednesday's ADP report (forecast +120k, prior +98k) as a key read ahead of Friday's July nonfarm payrolls."},
     {"title":"Bessent Says US-Iran Hormuz Deal Could Be Reached Within Days","source":"Bloomberg","date":"2026-08-04","time":"23:55","url":"https://www.bloomberg.com/news/articles/2026-08-04/bessent-suggests-us-iran-hormuz-deal-possible-in-coming-days","blurb":"Treasury Secretary Scott Bessent said on CNBC there is a chance of a deal within a day or two to reopen the Strait of Hormuz, sending Brent below $79/bbl, even as analysts cautioned Iran is unlikely to cede full control of the waterway."},
     {"title":"Qatar Signals Progress Toward Short-Term Deal Between US, Iran","source":"Bloomberg","date":"2026-08-04","time":"23:40","url":"https://www.bloomberg.com/news/articles/2026-08-04/qatar-signals-progress-toward-short-term-deal-between-us-iran","blurb":"Qatar's foreign ministry said draft proposals for a short-term Hormuz-focused deal are being exchanged between US and Iranian officials via Qatari, Omani and Pakistani mediators, with Rubio and Bessent both sounding cautiously optimistic — though Qatar and Bessent cautioned no agreement is yet final and Iran has not confirmed progress."},
-    {"title":"Oil Holds Two-Day Drop on Signs of Progress Toward Hormuz Deal","source":"Bloomberg","date":"2026-08-04","time":"23:15","url":"https://www.bloomberg.com/news/articles/2026-08-04/latest-oil-market-news-and-analysis-for-aug-5","blurb":"Brent extended its slide below $79/bbl and WTI toward $75, down more than 10% over two sessions, as hopes built for a deal to reopen the Strait of Hormuz and free up supply trapped in the Persian Gulf."},
-    {"title":"US Trade Deficit Shrinks to $73.3 Billion as Imports Decline in June","source":"Bloomberg","date":"2026-08-04","time":"22:00","url":"https://www.bloomberg.com/news/articles/2026-08-04/us-trade-deficit-narrows-to-73-3-billion-on-drop-in-imports","blurb":"The goods-and-services deficit narrowed to $73.3bn in June (from a revised $77.6bn in May) as imports fell more than exports, leaving the year-to-date deficit down nearly 34% versus the same period in 2025."},
-    {"title":"BP's Q2 Profit Doubles Amid Middle East Conflict, but It Cuts Production, Capex Outlook","source":"Benzinga","date":"2026-08-04","time":"21:50","url":"https://www.benzinga.com/markets/earnings/26/08/60913053/bps-q2-profit-doubles-amid-middle-east-conflict-but-it-cuts-production-capex-outlook","blurb":"BP's underlying replacement-cost profit more than doubled to $5.73bn as the Iran war pushed Brent roughly 20% higher year-on-year and refining margins boomed, even as the company trimmed its production and capex outlook alongside its North Sea sale process."},
   ],
 };
 
