@@ -33,6 +33,26 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-simpsonthacherchicago-20260806",
+    publication: "Legal Business",
+    title: "Simpson Thacher opens in Chicago with five-partner hire from Kirkland",
+    date: "2026-08-06",
+    time: "21:33",
+    summary: "Team move marks firm's second office launch with ex-Kirkland partners this year.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQFSJmJW5aaIReaT5/wv",
+  },
+  {
+    id: "nl-reuters-tradingday-pausebeforejobs-20260806",
+    publication: "Thomson Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "Pause before jobs",
+    date: "2026-08-06",
+    time: "22:00",
+    summary: "The S&P 500 and Dow pulled back from record highs as Treasury yields and the dollar rose ahead of Friday's US jobs report; McGeever on the SpaceX lockup expiry's test of retail investors' resolve.",
+    url: "https://www.reuters.com/commentary/reuters-open-interest/spacex-lockup-expiry-test-retails-iron-stomach-2026-08-06/",
+  },
+  {
     id: "nl-bbg-moneystuff-fakespacex-20260806",
     publication: "Bloomberg",
     author: "Matt Levine",
