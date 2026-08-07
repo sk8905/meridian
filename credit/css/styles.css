@@ -789,7 +789,7 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 .hf-fform.hf-fl-ins { color: var(--t-accent, #fb8b1e); border-color: var(--t-accent, #fb8b1e); }/* insider */
 
 /* Manager listed-vehicles (BDC / CEF) holdings panel */
-.veh { border: 1px solid var(--border, #262626); border-radius: 8px; padding: 9px 11px; margin: 8px 0; background: var(--surface2, #131313); }
+.veh { border: 1px solid var(--border, #262626); border-radius: 0; padding: 9px 11px; margin: 8px 0; background: var(--surface); }
 .veh-h { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .veh-nm { color: var(--ink); font-weight: 600; font-size: 13px; }
 .veh-tk { font-family: var(--t-mono); font-size: 11px; color: var(--t-accent, #fb8b1e); font-variant-numeric: tabular-nums; }

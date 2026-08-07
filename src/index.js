@@ -1361,7 +1361,7 @@ async function handleBDC(request, env, ctx) {
   const cik = raw.padStart(10, "0");
   const cikNoPad = String(Number(cik));
   const cache = caches.default;
-  const cacheKey = new Request(new URL(`/api/bdc?cik=${cik}&v=1`, request.url).toString());
+  const cacheKey = new Request(new URL(`/api/bdc?cik=${cik}&v=2`, request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const linkOnly = (dir, accession, asOf, err) => json({ cik, kind: "bdc", asOf, source: dir ? `${dir}/${accession}-index.htm` : null, holdings: null, error: err });
@@ -1386,38 +1386,81 @@ async function handleBDC(request, env, ctx) {
       const sn = (xmlFirst(rep, "ShortName") || "").toLowerCase();
       const htm = xmlFirst(rep, "HtmlFileName");
       if (!htm) continue;
-      if (/schedule of investment/.test(sn) && !/change|summar|geograph|industr/.test(sn)) { file = htm; if (/consolidated/.test(sn)) break; }
+      if (/schedule of investment/.test(sn) && !/change|summar|geograph|industr|parenthetical/.test(sn)) { file = htm; if (/consolidated/.test(sn)) break; }
     }
-    if (!file) return linkOnly(dir, accession, asOf, "SOI report not found");
-    const soiRes = await secFetch(`${dir}/${file}`);
-    if (!soiRes.ok) return linkOnly(dir, accession, asOf, `SOI ${soiRes.status}`);
-    const html = await soiRes.text();
-    // Parse the report table into rows of plain-text cells.
-    const rows = [...html.matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr>/gi)].map((m) =>
-      [...m[1].matchAll(/<t[dh]\b[^>]*>([\s\S]*?)<\/t[dh]>/gi)].map((c) => stripHtml(c[1])));
-    // Aggregate fair value by issuer: the label column is the first non-empty text
-    // cell; fair value is taken as the LAST large positive number on the row (BDC
-    // SOI tables end with Cost, Fair Value, %-of-net-assets — fair value is the
-    // right-most $ column before the %). We sum across a company's tranche rows.
-    const agg = new Map();
-    let totFV = 0;
-    for (const cells of rows) {
-      if (cells.length < 3) continue;
-      const label = (cells.find((c) => c && !/^[\d.,()$%\s-]+$/.test(c)) || "").trim();
-      if (!label || /^total|^net assets|^schedule|^\(|companies?$|investments?$|portfolio/i.test(label)) continue;
-      if (label.length < 3 || label.length > 80) continue;
-      // numeric cells (ignore the trailing % column, values <=100 with a % sibling)
-      const nums = cells.map(parseNum).filter((n) => n != null && n > 1000);
-      if (!nums.length) continue;
-      const fv = nums[nums.length - 1];   // right-most large $ column ≈ fair value
-      if (!(fv > 0)) continue;
-      const key = label.replace(/,?\s*(inc|llc|lp|ltd|corp|co|holdings?|group|the)\.?$/i, "").trim().toUpperCase().slice(0, 60);
-      let e = agg.get(key); if (!e) { e = { name: label, value: 0 }; agg.set(key, e); }
-      e.value += fv; totFV += fv;
+    // Parse a Schedule-of-Investments HTML table into fair-value-by-issuer. A BDC
+    // SOI row ends with [… , Fair Value, % of Net Assets]: Fair Value is the
+    // SECOND-to-last numeric cell and "% of Net Assets" the LAST (a small number).
+    // The OLD "right-most large number" rule mis-read equity rows, where the
+    // Par/Units column (a share count, e.g. 14,907,400) is the largest number —
+    // that put a worthless equity stub at the top with a bn-sized value. Tranches
+    // of one issuer are summed.
+    const parseSOI = (docHtml) => {
+      const agg = new Map(); let totFV = 0;
+      for (const m of docHtml.matchAll(/<tr\b[^>]*>([\s\S]*?)<\/tr>/gi)) {
+        const cells = [...m[1].matchAll(/<t[dh]\b[^>]*>([\s\S]*?)<\/t[dh]>/gi)]
+          .map((c) => stripHtml(c[1])).filter((c) => c && c !== "$");
+        if (cells.length < 3) continue;
+        const label = (cells[0] || "").trim();
+        if (!label || /^[\d.,()$%\s-]+$/.test(label)) continue;
+        if (/^total|^net assets|^schedule|^cash|^investments?$|reference rate|portfolio|^first[- ]lien|^second[- ]lien|^unsecured|^subordinated|^equity|^preferred|^warrant/i.test(label)) continue;
+        if (label.length < 3 || label.length > 90) continue;
+        const lastN = parseNum(cells[cells.length - 1]);
+        const prevN = parseNum(cells[cells.length - 2]);
+        let fv = null;
+        if (lastN != null && Math.abs(lastN) <= 50 && prevN != null) fv = prevN;   // last cell = % of net assets
+        else if (lastN != null && lastN > 50) fv = lastN;                          // no %-column: last cell is fair value
+        if (fv == null || !(fv > 0)) continue;
+        const key = label.replace(/\s*\(.*$/, "").replace(/\s*-\s.*$/, "").replace(/,?\s*(inc|llc|l\.?p|ltd|corp|co|holdings?|group|the)\.?$/i, "").trim().toUpperCase().slice(0, 50);
+        const disp = label.replace(/\s*-\s(class|series|lp interest|warrant|preferred|common|units|revolver|delayed).*$/i, "").trim();
+        let e = agg.get(key); if (!e) { e = { name: disp, value: 0 }; agg.set(key, e); }
+        e.value += fv; totFV += fv;
+      }
+      return { agg, totFV };
+    };
+    const scaleOf = (h) => /in thousands/i.test(h) ? 1000 : (/in millions/i.test(h) ? 1e6 : 1);
+    let parsed = null, scale = 1;
+    // 1) The FilingSummary SOI report — small/mid BDCs render it inline (cheap).
+    if (file) {
+      const soiRes = await secFetch(`${dir}/${file}`);
+      if (soiRes.ok) {
+        const soiHtml = await soiRes.text();
+        // Large BDCs stub this report ("<BODY>Not available</BODY>", ~186 bytes).
+        if (soiHtml.length > 1500 && !/not available/i.test(soiHtml)) {
+          const p = parseSOI(soiHtml);
+          if (p.agg.size >= 3) { parsed = p; scale = scaleOf(soiHtml); }
+        }
+      }
     }
-    if (!agg.size) return linkOnly(dir, accession, asOf, "SOI positions not parsed");
-    const top = [...agg.values()].sort((a, b) => b.value - a.value).slice(0, 10)
-      .map((h) => ({ name: h.name, value: h.value, weight: totFV ? h.value / totFV : null }));
+    // 2) Fallback: parse the SOI out of the primary inline-XBRL 10-Q, scoped to
+    // the Schedule-of-Investments section (bounded so we never regex the whole
+    // multi-MB document, and never wander into the fair-value-hierarchy notes).
+    if (!parsed) {
+      const primaryDoc = (r.primaryDocument || [])[idx];
+      const mainRes = primaryDoc ? await secFetch(`${dir}/${primaryDoc}`) : null;
+      if (mainRes && mainRes.ok) {
+        const full = await mainRes.text();
+        // Cap the primary-doc parse: the largest non-traded BDC 10-Qs (e.g. BCRED
+        // ~33MB) are still worth parsing, but stop well short of pathological sizes
+        // so a single request can't exhaust the Worker's memory.
+        if (full.length < 45000000) {
+          const lc = full.toLowerCase();
+          let s = lc.indexOf("reference rate and spread");
+          if (s < 0) s = lc.indexOf("schedule of investments");
+          if (s >= 0) {
+            const winlc = lc.slice(s, s + 8000000);
+            let lastTot = -1, q = 0; while ((q = winlc.indexOf("total investments", q)) >= 0) { lastTot = q; q += 6; }
+            const region = full.slice(s, s + (lastTot >= 0 ? lastTot + 3000 : 8000000));
+            const p = parseSOI(region);
+            if (p.agg.size >= 3) { parsed = p; scale = scaleOf(full.slice(Math.max(0, s - 40000), s + 50000)); }
+          }
+        }
+      }
+    }
+    if (!parsed || !parsed.agg.size) return linkOnly(dir, accession, asOf, "SOI positions not parsed");
+    const totFV = parsed.totFV;
+    const top = [...parsed.agg.values()].sort((a, b) => b.value - a.value).slice(0, 10)
+      .map((h) => ({ name: h.name, value: h.value * scale, weight: totFV ? h.value / totFV : null }));
     const resp = json({ cik, kind: "bdc", asOf, filedAt, form: forms[idx], source: `${dir}/${accession}-index.htm`, totalFV: totFV, holdings: top });
     resp.headers.set("cache-control", "public, max-age=86400");
     if (ctx && ctx.waitUntil) ctx.waitUntil(cache.put(cacheKey, resp.clone()));
