@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d14cac62-bd68-44e5-8fb5-0637b412fdf7", title: "Mike Ashley says Harvey Nichols is in a 'death spiral'", date: "2026-08-07", time: "21:05", url: "https://www.ft.com/content/d14cac62-bd68-44e5-8fb5-0637b412fdf7" },
   { id: "cf508e70-5bc2-495e-8b9b-21f15e60ad58", title: "Burnham's UK tour to focus on cutting cost of living and helping high streets", date: "2026-08-07", time: "19:01", url: "https://www.ft.com/content/cf508e70-5bc2-495e-8b9b-21f15e60ad58" },
   { id: "0012c7c9-fb31-4c90-a2e7-e65bd4629b22", title: "Donald Trump revives threat to sack Fed governor Lisa Cook", date: "2026-08-07", time: "18:29", url: "https://www.ft.com/content/0012c7c9-fb31-4c90-a2e7-e65bd4629b22" },
   { id: "8b61001e-6d7c-4ca9-8c4b-853b4555f318", title: "Passing the Clarity Act on digital assets is a matter of national security", date: "2026-08-07", time: "18:00", url: "https://www.ft.com/content/8b61001e-6d7c-4ca9-8c4b-853b4555f318" },
@@ -59,6 +60,4 @@ export const FT_ITEMS = [
   { id: "8e481c49-b95b-442b-a88a-f0cc402b1bf9", title: "'I'll support him all the way': Clacton voters rally to Nigel Farage despite heightened scrutiny", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/8e481c49-b95b-442b-a88a-f0cc402b1bf9" },
   { id: "4a99c7bd-6da4-4a07-915b-e0e889e8c73d", title: "Britain's incoming CEOs enjoy the 'new boss bounce'", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/4a99c7bd-6da4-4a07-915b-e0e889e8c73d" },
   { id: "f8fc56ba-7088-4f73-87c1-13b11eee80ec", title: "'It's now or never.' Is the EU serious about letting in new members?", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/f8fc56ba-7088-4f73-87c1-13b11eee80ec" },
-  { id: "daec1a03-d1a2-4f17-8dda-ede4140a88c2", title: "Yen intervention illustrates the dangers of monetary experiments", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/daec1a03-d1a2-4f17-8dda-ede4140a88c2" },
-  { id: "aea25d0e-f7f8-484c-b186-57775e635aa7", title: "Warsh is being misread", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/aea25d0e-f7f8-484c-b186-57775e635aa7" },
 ];
