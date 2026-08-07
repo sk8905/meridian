@@ -1055,7 +1055,7 @@
       font-size:12px; font-weight:500; color:#9fb0cc; box-shadow:none; }
     .g-top .ps-btn:hover{ background:rgba(255,255,255,.05); color:#fff; }
     .g-top .ps-btn.is-active,.g-top .ps-btn.is-active:hover{ background:transparent; color:#fff;
-      font-weight:600; box-shadow:inset 0 -2px 0 #fb8b1e; }
+      font-weight:600; box-shadow:inset 0 -2px 0 var(--accent, #fb8b1e); }
     .g-top .g-search-btn{ border-radius:0; font-size:.8rem; padding:.42rem .7rem; }
     .g-top .g-search-btn kbd{ border-radius:0; font-size:.74rem; }
     .g-top .g-actions button,.g-top .theme-toggle,.g-top .g-sv-btn,.g-top .g-mkt-btn{ border-radius:0; }

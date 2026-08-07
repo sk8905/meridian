@@ -142,7 +142,7 @@ a.macro-tile:hover .macro-src { color: var(--ink); text-decoration: none; }
 .mainnav::-webkit-scrollbar { display: none; }
 .nav-link { color: #cbd5e1; padding: .5rem .85rem; border-radius: 6px; font-weight: 500; white-space: nowrap; }
 .nav-link:hover { color: #fff; text-decoration: none; background: rgba(255,255,255,.08); }
-.nav-link.active { color: #fff; background: rgba(255,255,255,.15); }
+.nav-link.active { color: #fff; }
 /* Primary views emphasised (bold white); a thin divider separates them from the
    secondary views — mirrors the Credit/Legal nav. */
 .nav-link.nav-primary { color: #fff; font-weight: 700; }
@@ -485,10 +485,10 @@ a.intel-head:hover { text-decoration: none; }
 .ew-etf { display: inline-block; margin-left: 6px; padding: 1px 4px; vertical-align: 1px;
   border: 0; font-family: var(--t-mono); font-size: 8.5px; font-weight: 700;
   letter-spacing: .05em; font-variant-numeric: tabular-nums; }
-.ew-etf-igwd { color: #4aa8f0; background: color-mix(in srgb, #4aa8f0 16%, transparent); }
-.ew-etf-wmvg { color: #2fbf8a; background: color-mix(in srgb, #2fbf8a 16%, transparent); }
-.ew-etf-emee { color: #9b83e2; background: color-mix(in srgb, #9b83e2 16%, transparent); }
-.ew-etf-comm { color: #d9a441; background: color-mix(in srgb, #d9a441 16%, transparent); }
+.ew-etf-igwd { color: var(--t-hdg, #4aa3f0); background: color-mix(in srgb, var(--t-hdg, #4aa3f0) 16%, transparent); }
+.ew-etf-wmvg { color: var(--t-lex, #2fbf8a); background: color-mix(in srgb, var(--t-lex, #2fbf8a) 16%, transparent); }
+.ew-etf-emee { color: var(--t-mac, #9b83e2); background: color-mix(in srgb, var(--t-mac, #9b83e2) 16%, transparent); }
+.ew-etf-comm { color: var(--t-amber, #d9a441); background: color-mix(in srgb, var(--t-amber, #d9a441) 16%, transparent); }
 /* Sources tucked behind a collapse — the press-hold menu still reads the
    .ew-srcs links from the DOM whether or not the details is open. */
 .ew-srcwrap { margin-top: 10px; }

@@ -277,9 +277,9 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .provenance .dim:last-child { border-bottom: 0; }
 .provenance .dim-icon { font-weight: 700; text-align: center; border-radius: 50%; }
 .provenance .dim-key { font-weight: 600; }
-.dim-yes .dim-icon { color: #16a34a; }
+.dim-yes .dim-icon { color: var(--t-up, #3fc08d); }
 .dim-est .dim-icon, .dim-indicative .dim-icon { color: var(--accent); }
-.dim-no .dim-icon { color: #b91c1c; }
+.dim-no .dim-icon { color: var(--t-down, #f26d84); }
 .dim-na .dim-icon { color: #9ca3af; }
 .dim-no .dim-key { color: #6b7280; }
 @media (max-width: 640px) { .provenance .dim { grid-template-columns: 1.4rem 1fr; } .provenance .dim-detail { grid-column: 2; } }
