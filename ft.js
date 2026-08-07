@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "2b9f249a-53f1-4755-88ec-3e316d3c965d", title: "FTAV Friday chart quiz", date: "2026-08-07", time: "15:19", url: "https://www.ft.com/content/2b9f249a-53f1-4755-88ec-3e316d3c965d" },
+  { id: "0fd301d9-7e47-46ff-89b9-b666a8a1c148", title: "Cambridge university to review appointments process after Jason Arday affair", date: "2026-08-07", time: "14:47", url: "https://www.ft.com/content/0fd301d9-7e47-46ff-89b9-b666a8a1c148" },
   { id: "54adfc90-f555-44d3-8a81-4f39a07b5473", title: "US economy unexpectedly shed 23,000 jobs in July", date: "2026-08-07", time: "13:39", url: "https://www.ft.com/content/54adfc90-f555-44d3-8a81-4f39a07b5473" },
   { id: "dba784cb-a197-4576-b533-597d5eb12a51", title: "Mixed July payrolls report takes pressure off the Fed to tighten", date: "2026-08-07", time: "14:37", url: "https://www.ft.com/content/dba784cb-a197-4576-b533-597d5eb12a51" },
   { id: "d981326d-3d4c-4248-aed2-c5c1c0e8cab5", title: "The meaning of Michigan", date: "2026-08-07", time: "14:00", url: "https://www.ft.com/content/d981326d-3d4c-4248-aed2-c5c1c0e8cab5" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "83f594d8-5878-4ecf-a274-4a4ae9eeb30c", title: "Naval parts supplier Goodwin explores sale of defence business", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/83f594d8-5878-4ecf-a274-4a4ae9eeb30c" },
   { id: "30fe8c0a-5022-46d4-be53-101c4af0185e", title: "Parents haggle with private schools over fees as VAT pushes up costs", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/30fe8c0a-5022-46d4-be53-101c4af0185e" },
   { id: "1c4a641c-42f4-429e-94c2-7d16cac96d49", title: "To fix education, fix the economy first", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/1c4a641c-42f4-429e-94c2-7d16cac96d49" },
-  { id: "cef4e506-00c1-4892-bedd-9bf1489a7014", title: "Billionaire's financial data group Ion chased by landlords for overdue rent", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/cef4e506-00c1-4892-bedd-9bf1489a7014" },
-  { id: "1cc700ca-730a-4138-a1a3-f69defa62945", title: "How leaving Opec unleashed Adnoc's global ambitions", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/1cc700ca-730a-4138-a1a3-f69defa62945" },
-  { id: "5d6b7dcf-fe0e-4cb1-ad1d-0157407296cc", title: "Starlink mobile threat has been exaggerated, says T-Mobile CEO", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/5d6b7dcf-fe0e-4cb1-ad1d-0157407296cc" },
 ];
