@@ -13,7 +13,7 @@ export const UPDATED = "6 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-07",
-  lastCheckedTime: "12:33 BST",
+  lastCheckedTime: "17:29 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -724,18 +724,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-08-07",
   us: [
-    { title: "Stock Market Today: Dow, S&P Live Updates for August 7", source: "Bloomberg", date: "2026-08-07", url: "https://www.bloomberg.com/news/articles/2026-08-06/stock-market-today-dow-s-p-live-updates" },
-    { title: "Stock market today: Nasdaq futures rise, Dow and S&P 500 waver ahead of July jobs report", source: "Yahoo Finance (UK)", date: "2026-08-07", url: "https://uk.finance.yahoo.com/news/stock-market-today-friday-august-7-nasdaq-dow-sp-500-jobs-report-100009572.html" },
-    { title: "Stock Market Today: Dow Jones Futures Slip, S&P 500 Gains Ahead of July Jobs Report—Atlassian, Trade Desk, Cloudflare In Focus", source: "Benzinga", date: "2026-08-07", url: "https://www.benzinga.com/markets/equities/26/08/61031224/stock-market-today-dow-jones-futures-slip-sp-500-gains-ahead-of-july-jobs-report-atlassian-trade-desk-cloudflare-in-focus" },
-    { title: "Gold Slips as Hormuz Tensions Cool; Silver Falls Harder", source: "Rio Times Online", date: "2026-08-07", url: "https://www.riotimesonline.com/gold-silver-precious-metals-friday-august-7-2026/" },
-    { title: "Forex Forecast & Trading Signals – Friday 7 August 2026", source: "FX Premiere", date: "2026-08-07", url: "https://www.fxpremiere.com/forex-forecast-trading-signals-friday-7-august-2026/" },
+    { title: "US economy unexpectedly shed 23,000 jobs in July", source: "Financial Times", date: "2026-08-07", url: "https://www.ft.com/content/54adfc90-f555-44d3-8a81-4f39a07b5473" },
+    { title: "Soft July jobs report fuels skepticism over possible Fed rate hike", source: "Reuters (via Yahoo Finance)", date: "2026-08-07", url: "https://finance.yahoo.com/economy/policy/articles/soft-july-jobs-report-fuels-130642877.html" },
+    { title: "U.S. payrolls fell 23,000 in July 2026, first drop in months", source: "Quartz", date: "2026-08-07", url: "https://qz.com/us-payrolls-july-2026-jobs-report-080726" },
+    { title: "Treasuries Rally as Soft Jobs Data Trims Fed Rate-Hike Bets", source: "Bloomberg", date: "2026-08-07", url: "https://www.bloomberg.com/news/articles/2026-08-07/us-treasuries-rally-as-soft-jobs-data-trims-fed-rate-hike-bets" },
+    { title: "U.S. economy lost 23,000 jobs in July; analysts expected gains", source: "UPI", date: "2026-08-07", url: "https://www.upi.com/Top_News/US/2026/08/07/nonfarm-payrolls-unemployment-rate/7511786110465/" },
   ],
   uk: [
+    { title: "UK housing market in 'suspended animation'", source: "Financial Times", date: "2026-08-07", url: "https://www.ft.com/content/2434fbcc-b8b5-4bda-a82d-1b08c6a015f8" },
+    { title: "UK manages record share of assets on behalf of overseas clients", source: "Financial Times", date: "2026-08-07", url: "https://www.ft.com/content/6d258069-e935-446c-b112-753c6c2bdfb2" },
+    { title: "Britain curbs power exports to Europe to preserve supplies", source: "Financial Times", date: "2026-08-07", url: "https://www.ft.com/content/122c7788-8f8b-4f42-bc42-119a49396f91" },
     { title: "Pound Sterling Price News and Forecast: GBP/USD remains weaker as UK-US yields narrow", source: "FXStreet", date: "2026-08-07", time: "03:36", url: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-remains-weaker-as-uk-us-yields-narrow-202608070336" },
-    { title: "LONDON MARKET EARLY CALL: FTSE 100 seen down as Brent rises", source: "LSE.co.uk", date: "2026-08-07", url: "https://www.lse.co.uk/news/london-market-early-call-ftse-100-seen-down-as-brent-rises-rhz7rucxbc3fk1y.html" },
-    { title: "FTSE 100 Today: UK Stock Index Rises 0.61% as Mining, Energy Shares Leads Gain – What Should Investors Know", source: "Sunday Guardian Live", date: "2026-08-07", url: "https://sundayguardianlive.com/business/ftse-100-today-uk-stock-index-rises-061-as-mining-energy-shares-leads-gain-what-should-investors-know-255721/" },
-    { title: "FTSE 100 Set for Softer Open as Investors Await US Jobs Report", source: "Share Talk", date: "2026-08-07", url: "https://www.share-talk.com/ftse-100-set-for-softer-open-as-investors-await-us-jobs-report/" },
-    { title: "UK Stock Market Forecast Today (August 7): FTSE 100 Expected to Start in Cautious Mode Ahead of US Jobs Data", source: "Sunday Guardian Live", date: "2026-08-07", url: "https://sundayguardianlive.com/business/uk-stock-market-forecast-today-august-7-ftse-100-expected-to-start-in-cautious-mode-ahead-of-us-jobs-data-check-stocks-to-watch-today-255551/" },
+    { title: "UK services sector returns to growth, optimism picks up, PMI shows", source: "Reuters (via Investing.com)", date: "2026-08-05", url: "https://www.investing.com/news/economic-indicators/uk-services-sector-returns-to-growth-optimism-picks-up-pmi-shows-4836659" },
   ],
 };
 
@@ -749,6 +749,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-07",
   items: [
+    {"title":"Treasuries Rally as Soft Jobs Data Trims Fed Rate-Hike Bets","source":"Bloomberg","date":"2026-08-07","time":"15:00","url":"https://www.bloomberg.com/news/articles/2026-08-07/us-treasuries-rally-as-soft-jobs-data-trims-fed-rate-hike-bets","blurb":"Two-year Treasury yields fall as traders price out a September Fed hike after payrolls unexpectedly fell 23,000 in July, with large downward revisions to May and June."},
+    {"title":"US Employers Unexpectedly Shed Jobs, Unemployment Rate Falls","source":"Bloomberg","date":"2026-08-07","time":"14:30","url":"https://www.bloomberg.com/news/articles/2026-08-07/us-employers-unexpectedly-shed-jobs-unemployment-rate-falls","blurb":"Nonfarm payrolls fell 23,000 in July, the first drop in months, even as the unemployment rate eased to 4.1% and wage growth slowed to 3.2% year-on-year, the softest since 2021."},
+    {"title":"Mixed July payrolls report takes pressure off the Fed to tighten","source":"Financial Times","date":"2026-08-07","time":"14:37","url":"https://www.ft.com/content/dba784cb-a197-4576-b533-597d5eb12a51","blurb":"A weaker-than-expected US jobs report complicates the case for a September rate hike, even as the unemployment rate ticked down and the hawkish wing of the FOMC continued to press for tighter policy."},
     {"title":"UK Stock Market Forecast Today (August 7): FTSE 100 Expected to Start in Cautious Mode Ahead of US Jobs Data","source":"Sunday Guardian Live","date":"2026-08-07","time":"09:00","url":"https://sundayguardianlive.com/business/uk-stock-market-forecast-today-august-7-ftse-100-expected-to-start-in-cautious-mode-ahead-of-us-jobs-data-check-stocks-to-watch-today-255551/","blurb":"The FTSE 100 was expected to open slightly lower as investors stayed cautious ahead of US jobs data, rising oil prices and mixed corporate developments."},
     {"title":"FTSE 100 Today: UK Stock Index Rises 0.61% as Mining, Energy Shares Lead Gain","source":"Sunday Guardian Live","date":"2026-08-07","time":"10:30","url":"https://sundayguardianlive.com/business/ftse-100-today-uk-stock-index-rises-061-as-mining-energy-shares-leads-gain-what-should-investors-know-255721/","blurb":"London's blue-chip index rose 0.61% in mid-morning trade as a rebound in energy prices — Brent above $83/bbl on renewed Hormuz shipping-lane uncertainty — and strong domestic earnings lifted the mining and energy sectors."},
     {"title":"LONDON MARKET EARLY CALL: FTSE 100 seen down as Brent rises","source":"LSE.co.uk","date":"2026-08-07","time":"07:00","url":"https://www.lse.co.uk/news/london-market-early-call-ftse-100-seen-down-as-brent-rises-rhz7rucxbc3fk1y.html","blurb":"London's early call pointed lower as Brent crude firmed, with investors positioning defensively ahead of the day's main event — the US July jobs report."},
@@ -787,7 +790,6 @@ export const ARTICLES = {
     {"title":"Hormuz Toll: 'Oil in Our Time' May Be as Good as This Get","source":"Bloomberg Opinion","author":"John Authers","date":"2026-08-05","time":"18:45","url":"https://www.bloomberg.com/opinion/newsletters/2026-08-05/hormuz-toll-oil-in-our-time-may-be-as-good-as-this-get","blurb":"Authers argues the current oil-and-markets equilibrium, propped up by an uneasy Hormuz truce, may be as good as conditions get from here."},
     {"title":"Oil prices rebound after Houthis say they attacked Saudi tanker","source":"RTÉ","date":"2026-08-05","time":"18:20","url":"https://www.rte.ie/news/business/2026/0805/1586566-world-oil-prices/","blurb":"Crude rebounds after Yemen's Houthi rebels claim a strike on a Saudi tanker off Yanbu, denting hopes for a durable Hormuz ceasefire."},
     {"title":"US Companies Added 44,000 Jobs in July, ADP Data Show","source":"Bloomberg","date":"2026-08-05","time":"13:15","url":"https://www.bloomberg.com/news/articles/2026-08-05/us-companies-added-44-000-jobs-in-july-adp-data-show","blurb":"Private payrolls rose just 44,000 in July, well below the ~65-70k consensus and the least since the start of the year, with job-changer pay growth accelerating to a near one-year high even as hiring broadly cooled."},
-    {"title":"Fed's Kashkari says 'now is the time to start slowly moving' rates up","source":"CNBC","date":"2026-08-05","time":"13:00","url":"https://www.cnbc.com/2026/08/05/feds-kashkari-says-now-is-the-time-to-start-slowly-moving-rates-up.html","blurb":"Minneapolis Fed president Neel Kashkari — one of three dissenters at the July hold — said he'd rather raise rates gradually now than risk letting inflation become entrenched and having to tighten aggressively later."},
     {"title":"U.S. services sector growth edges higher in July - ISM","source":"Investing.com","date":"2026-08-05","time":"15:00","url":"https://www.investing.com/news/economic-indicators/us-services-sector-growth-edges-higher-in-july--ism-4838202","blurb":"The ISM Services PMI rose to 54.1 in July (from 54.0 in June) but missed the 54.5 consensus, as a jump in prices paid to 70.3 and a slide in the employment index back below 50 offset firmer new orders and business activity."},
     {"title":"UK Services PMI Returns to Growth, but Record Job Losses Cast Shadow","source":"ActionForex","date":"2026-08-05","time":"10:00","url":"https://www.actionforex.com/live-comments/649605-uk-services-pmi-returns-to-growth-but-record-job-losses-cast-shadow/","blurb":"The final S&P Global/CIPS UK Services PMI confirmed a rise to 52.1 in July (from 48.8), even as staffing fell for a 22nd straight month — a joint-record losing streak — though business confidence hit its highest since February."},
   ],
@@ -800,7 +802,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-08-07", country: "US", title: "Jobs report / Nonfarm payrolls (July)", url: "https://www.bls.gov/schedule/news_release/empsit.htm" },
   { date: "2026-08-12", country: "US", title: "CPI (July)", url: "https://www.bls.gov/schedule/news_release/cpi.htm" },
   { date: "2026-08-13", country: "US", title: "PPI (July)", url: "https://www.bls.gov/schedule/news_release/ppi.htm" },
   { date: "2026-08-13", country: "UK", title: "GDP monthly estimate (June)", url: "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/latest" },
@@ -947,13 +948,13 @@ export const MATWALL = {
 // two_year, core_cpi, services_pmi, wages, unemployment). Absent = no sourced
 // move (the rail shows nothing). Routine-maintained; see docs/refresh-routines.md.
 export const IND_KEYMOMENTS = {
-  "US:two_year": { text: "Eased to 4.254% (from 4.289% Friday) as Trump's cancellation of planned Iran strikes and the coordinated US-Japan yen intervention drove a broad risk-on, yields-lower session — Treasuries rallied across the curve even as September Fed hike odds stayed elevated.", src: "https://www.marketscreener.com/news/us-treasury-closing-levels-ce7f50d9dc88f326", srcName: "MarketScreener", date: "2026-08-03" },
+  "US:two_year": { text: "Fell as much as 9bp on the day after nonfarm payrolls unexpectedly dropped 23,000 in July with large downward May/June revisions, as traders trimmed bets on a September Fed rate hike.", src: "https://www.bloomberg.com/news/articles/2026-08-07/us-treasuries-rally-as-soft-jobs-data-trims-fed-rate-hike-bets", srcName: "Bloomberg", date: "2026-08-07" },
   "US:wages": { text: "The Employment Cost Index rose 0.9% q/q (vs 0.8% expected) and 3.4% y/y in Q2 — the first hard labour-cost data since Wednesday's hawkish Fed hold, keeping the wage-inflation channel live heading into September.", src: "https://www.933thedrive.com/2026/07/31/us-labor-costs-increase-in-second-quarter-as-wage-growth-picks-up/", srcName: "AP News", date: "2026-07-31" },
   "UK:two_year": { text: "Gilt yields eased to a one-week low across the curve (30-year -9bp to 5.69%, 5-year -10bp to 4.51%) as oil's retreat from last week's highs above $100/bbl eased the near-term inflation case for a BoE hike; a Reuters poll found no economist expects the MPC to move off 3.75% at its next meeting.", src: "https://www.lse.co.uk/news/uk-bond-yields-fall-to-one-week-low-as-oil-prices-retreat-lq55khkk4vjd8di.html", srcName: "Reuters (via LSE.co.uk)", date: "2026-08-03" },
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "The dollar firmed and gold consolidated below its recent seven-week high as Fed rate-hike bets capped further gains, with traders keeping FX and bullion positioning tight ahead of Friday's US July jobs report.", src: "https://www.fxstreet.com/news/gold-consolidates-below-recent-highs-as-usd-strength-and-fed-hike-bets-cap-ahead-of-us-nfp-202608070135", srcName: "FXStreet", date: "2026-08-07" };
+export const FX_KEYMOMENT = { text: "The dollar eased and Treasury yields fell after the July jobs report unexpectedly showed a 23,000 payrolls decline, with sterling still soft against the dollar as UK-US yield differentials narrow.", src: "https://www.ft.com/content/dba784cb-a197-4576-b533-597d5eb12a51", srcName: "Financial Times", date: "2026-08-07" };
 
 export const EARNINGS = {
   weeks: [
