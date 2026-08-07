@@ -952,7 +952,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "The dollar slid further as gold pushed toward a seven-week high near $4,300 (up ~6% on the week), with the softer greenback outweighing another round of hawkish Fed commentary from Kashkari, Schmid and Cook, all flagging a possible rate hike if inflation doesn't cool.", src: "https://www.fxleaders.com/news/2026/08/06/gold-price-surges-seven-week-high-xau-usd-eyes-4334-dollar-slides/", srcName: "FX Leaders", date: "2026-08-06" };
+export const FX_KEYMOMENT = { text: "The dollar firmed and gold consolidated below its recent seven-week high as Fed rate-hike bets capped further gains, with traders keeping FX and bullion positioning tight ahead of Friday's US July jobs report.", src: "https://www.fxstreet.com/news/gold-consolidates-below-recent-highs-as-usd-strength-and-fed-hike-bets-cap-ahead-of-us-nfp-202608070135", srcName: "FXStreet", date: "2026-08-07" };
 
 export const EARNINGS = {
   weeks: [
