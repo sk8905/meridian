@@ -33,6 +33,25 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-jpm-topmarkettakeaways-aitrade-20260807",
+    publication: "JP Morgan Private Bank",
+    series: "Top Market Takeaways",
+    title: "AI’s next act doesn’t choose",
+    date: "2026-08-07",
+    time: "13:03",
+    summary: "A rare shift is underway as semiconductor and hyperscaler stocks rally together, reflecting a broadening belief in AI's commercial viability and multi-year growth prospects.",
+    url: "https://go-pb.jpmorgan.com/v/MzkyLUhLQy04NzYAAAGjexRZinHEa8xqGbYCg_FPd6cJkoVREwZioDNqgMM476ymYyqYrSw8n2dWOqvD_rON9JsdVhE=",
+  },
+  {
+    id: "nl-lb-rotorkabb-20260807",
+    publication: "Legal Business",
+    title: "Slaughters and Freshfields in line for over £25m in fees from Rotork-ABB deal",
+    date: "2026-08-07",
+    time: "12:31",
+    summary: "Magic circle duo set for £10m+ payout each following FTSE 250 company's £4.1bn sale.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQFXcUsbV7c1v18Hx/wv",
+  },
+  {
     id: "nl-bbg-goingprivate-books-20260807",
     publication: "Bloomberg",
     series: "Going Private",
@@ -416,27 +435,5 @@ export const NEWSLETTERS = [
     time: "22:21",
     summary: "World stocks leaped to record highs, boosted by a relentless stream of strong US and global earnings, with another slump in oil prices on Middle East peace hopes pushing down bond yields and lifting investor sentiment.",
     url: "https://www.reuters.com/commentary/reuters-open-interest/us-yen-intervention-signals-perfect-storm-rising-fx-bond-markets-2026-08-04/",
-  },
-  {
-    id: "nl-bbg-moneystuff-leveragedetfcrash-20260804",
-    publication: "Bloomberg",
-    author: "Matt Levine",
-    series: "Money Stuff",
-    title: "Money Stuff: Leveraged ETF Crash Hedging ETF",
-    date: "2026-08-04",
-    time: "19:02",
-    summary: "Cliquet, taxes, Santos, wallet, dentist.",
-    url: "https://bloom.bg/4wbKu65",
-  },
-  {
-    id: "nl-bbg-thebrink-carvana-20260804",
-    publication: "Bloomberg",
-    author: "Owen McCarthy",
-    series: "The Brink",
-    title: "The Brink: Carvana’s irreplicable LME",
-    date: "2026-08-04",
-    time: "17:17",
-    summary: "Three years after its debt restructuring, Carvana is the poster child of LMEs — an out-of-court deal that was “a bridge to somewhere.”",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-04/three-years-after-its-debt-restructuring-carvana-is-the-posterchild-of-lmes",
   },
 ];

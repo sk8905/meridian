@@ -20,8 +20,16 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "54adfc90-f555-44d3-8a81-4f39a07b5473", title: "US economy unexpectedly shed 23,000 jobs in July", date: "2026-08-07", time: "13:39", url: "https://www.ft.com/content/54adfc90-f555-44d3-8a81-4f39a07b5473" },
+  { id: "81aff420-0ce3-4e69-9608-31b81d406be9", title: "Will Farage’s gamble pay off?", date: "2026-08-07", time: "13:36", url: "https://www.ft.com/content/81aff420-0ce3-4e69-9608-31b81d406be9" },
+  { id: "2434fbcc-b8b5-4bda-a82d-1b08c6a015f8", title: "UK housing market in ‘suspended animation’", date: "2026-08-07", time: "13:33", url: "https://www.ft.com/content/2434fbcc-b8b5-4bda-a82d-1b08c6a015f8" },
+  { id: "6bc9c93d-1b75-4512-8bc2-ba33cc3c4a53", title: "Iran’s oil exports stall and Kharg Island idles under US blockade", date: "2026-08-07", time: "13:29", url: "https://www.ft.com/content/6bc9c93d-1b75-4512-8bc2-ba33cc3c4a53" },
+  { id: "acc1df39-eccc-4f04-affd-f3aca4839669", title: "Apollo’s upmarket plans for easyJet after £5.7bn takeover", date: "2026-08-07", time: "13:18", url: "https://www.ft.com/content/acc1df39-eccc-4f04-affd-f3aca4839669" },
+  { id: "6d258069-e935-446c-b112-753c6c2bdfb2", title: "UK manages record share of assets on behalf of overseas clients", date: "2026-08-07", time: "13:09", url: "https://www.ft.com/content/6d258069-e935-446c-b112-753c6c2bdfb2" },
+  { id: "67412944-136f-401c-9fd7-2d68552832f1", title: "Explosive drone at German airport raises ‘hybrid threat’ alarm", date: "2026-08-07", time: "13:02", url: "https://www.ft.com/content/67412944-136f-401c-9fd7-2d68552832f1" },
   { id: "a988ae61-a218-4872-a4d7-a3061c6ca7ab", title: "Saudi Arabia, Turkey and Pakistan sign defence pact in Mecca", date: "2026-08-07", time: "12:18", url: "https://www.ft.com/content/a988ae61-a218-4872-a4d7-a3061c6ca7ab" },
   { id: "6afa0d5c-d252-4644-822f-44514576148e", title: "Exxon nears peak impunity on climate obligations", date: "2026-08-07", time: "12:07", url: "https://www.ft.com/content/6afa0d5c-d252-4644-822f-44514576148e" },
+  { id: "53a1d205-ca31-48fe-a535-86bf4a7ca5b7", title: "Stop feeding my cat!", date: "2026-08-07", time: "12:00", url: "https://www.ft.com/content/53a1d205-ca31-48fe-a535-86bf4a7ca5b7" },
   { id: "dabdeae3-9855-484b-9369-e74176352107", title: "UK shares: hotter than below decks in a heatwave", date: "2026-08-07", time: "12:00", url: "https://www.ft.com/content/dabdeae3-9855-484b-9369-e74176352107" },
   { id: "122c7788-8f8b-4f42-bc42-119a49396f91", title: "Britain curbs power exports to Europe to preserve supplies", date: "2026-08-07", time: "11:03", url: "https://www.ft.com/content/122c7788-8f8b-4f42-bc42-119a49396f91" },
   { id: "0edbd013-dc35-494b-b7e7-9a745af01c9d", title: "MFS collapse prompts UK watchdog to crack down on financial crime", date: "2026-08-07", time: "10:56", url: "https://www.ft.com/content/0edbd013-dc35-494b-b7e7-9a745af01c9d" },
@@ -53,11 +61,4 @@ export const FT_ITEMS = [
   { id: "5d6b7dcf-fe0e-4cb1-ad1d-0157407296cc", title: "Starlink mobile threat has been exaggerated, says T-Mobile CEO", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/5d6b7dcf-fe0e-4cb1-ad1d-0157407296cc" },
   { id: "e9d4cabe-b95f-41da-9159-322e4ccbd6db", title: "UK's 'staycation' summer fails to lift hotel profits as costs climb", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/e9d4cabe-b95f-41da-9159-322e4ccbd6db" },
   { id: "7c35f5dd-7c40-4748-a103-f47ab44c858d", title: "El Nino threatens to disrupt the world's most-traded commodities", date: "2026-08-07", time: "05:00", url: "https://www.ft.com/content/7c35f5dd-7c40-4748-a103-f47ab44c858d" },
-  { id: "80f5fede-a34a-4069-a751-f9523e3c6e00", title: "Jane Street in talks to shift its $11bn in debt to investors including Pimco", date: "2026-08-06", time: "21:10", url: "https://www.ft.com/content/80f5fede-a34a-4069-a751-f9523e3c6e00" },
-  { id: "051e6fbf-e796-4b92-9c6e-7b85c74e8edc", title: "Argentine company accuses US of meddling in Huawei data centre project", date: "2026-08-06", time: "20:44", url: "https://www.ft.com/content/051e6fbf-e796-4b92-9c6e-7b85c74e8edc" },
-  { id: "f6f53b98-9661-4d50-bf25-b32738643cac", title: "US halts imports of Mexico avocados over security concerns", date: "2026-08-06", time: "20:43", url: "https://www.ft.com/content/f6f53b98-9661-4d50-bf25-b32738643cac" },
-  { id: "77f00cf3-f2e6-4dcb-bf0d-1631ca45dd9c", title: "California sues DuPont over alleged effort to avoid 'forever chemicals' liabilities", date: "2026-08-06", time: "19:09", url: "https://www.ft.com/content/77f00cf3-f2e6-4dcb-bf0d-1631ca45dd9c" },
-  { id: "8b2d8925-7fb9-44c8-8093-48442455ebe0", title: "Airtable's cut-price sale is just the start for software also-rans", date: "2026-08-06", time: "18:13", url: "https://www.ft.com/content/8b2d8925-7fb9-44c8-8093-48442455ebe0" },
-  { id: "0aee7523-09d7-4831-bc20-711d7191822e", title: "The shrinking space for democracy in Africa", date: "2026-08-06", time: "18:12", url: "https://www.ft.com/content/0aee7523-09d7-4831-bc20-711d7191822e" },
-  { id: "3989b6a0-ba02-412b-8f35-b6817c3e42f6", title: "Honeywell Aerospace shares plunge on failure to overcome supply constraints", date: "2026-08-06", time: "18:07", url: "https://www.ft.com/content/3989b6a0-ba02-412b-8f35-b6817c3e42f6" },
 ];
