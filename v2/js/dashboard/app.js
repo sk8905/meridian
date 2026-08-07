@@ -78,17 +78,6 @@ export function mount(host, ctx) {
     };
     return `<div class="dsh-sectors" data-view="bars">${rows.map(bar).join("")}</div>`;
   }
-  // Finviz-style sector heatmap: tiles sized evenly, coloured by YTD magnitude/sign.
-  function sectorHeatHTML() {
-    const rows = [...EQ_SECTORS.rows].filter((r) => r.ytd != null).sort((a, b) => b.ytd - a.ytd);
-    const max = Math.max(1, ...rows.map((r) => Math.abs(r.ytd)));
-    const tile = (r) => {
-      const a = (Math.abs(r.ytd) / max) * 0.5 + 0.14;
-      const col = r.ytd >= 0 ? `rgba(63,192,141,${a.toFixed(2)})` : `rgba(242,109,132,${a.toFixed(2)})`;
-      return `<div class="dsh-heat-t" style="background:${col}"><span>${esc(r.name)}</span><b>${pct1(r.ytd)}</b></div>`;
-    };
-    return `<div class="dsh-heat" data-view="heat" hidden>${rows.map(tile).join("")}</div>`;
-  }
   function volBand(level) {
     if (level == null) return ["—", ""];
     if (level < 15) return ["Low", "up"];
@@ -135,7 +124,7 @@ export function mount(host, ctx) {
       if (est == null && act == null) return "";
       const lab = tag ? `<span class="dsh-earn-metric">${esc(label)}</span>` : `<i class="dsh-earn-ml">${esc(label)}</i>`;
       const a = act ? `<b class="dsh-earn-act">${esc(act)}</b>` : `<span class="dsh-earn-await">awaited</span>`;
-      return `<span class="dsh-earn-m">${lab} <span class="dsh-earn-fct">${est ? esc(est) : "—"}</span> <span class="dsh-earn-arw">&rarr;</span> ${a}</span>`;
+      return `<span class="dsh-earn-m">${lab} <span class="dsh-earn-fct">${est ? esc(est) : "—"}</span> <span class="dsh-earn-arw">·</span> ${a}</span>`;
     };
     const rel = (r, date) => {
       const k = km(r);
@@ -807,15 +796,6 @@ export function mount(host, ctx) {
     if (pane === "fixed-income") { loadSpreads(); wireYields(); loadGovYields(); }
     if (pane === "hedge-funds") wireHedgeFunds();
     if (pane === "legal") wireLegal();
-  }
-  function wireSectorToggle() {
-    host.querySelectorAll(".dsh-tgl").forEach((b) => b.addEventListener("click", () => {
-      const v = b.dataset.secview;
-      host.querySelectorAll(".dsh-tgl").forEach((x) => x.classList.toggle("is-on", x === b));
-      const bars = host.querySelector('.dsh-sectors'), heat = host.querySelector('.dsh-heat');
-      if (bars) bars.hidden = v !== "bars";
-      if (heat) heat.hidden = v !== "heat";
-    }));
   }
   function wireStressSort() {
     host.querySelectorAll(".dsh-sortchip").forEach((btn) => btn.addEventListener("click", () => {
