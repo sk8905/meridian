@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "9a1ab09b-82d7-43c2-b44a-ebb41d352dab", title: "Iranian missile targets UAE tanker despite talks to reopen strait", date: "2026-08-08", time: "14:27", url: "https://www.ft.com/content/9a1ab09b-82d7-43c2-b44a-ebb41d352dab" },
   { id: "e164e244-f6de-4e3b-8a67-6bebee1b7bf4", title: "Greg Abel finally puts Buffett’s cash pile to work", date: "2026-08-08", time: "13:57", url: "https://www.ft.com/content/e164e244-f6de-4e3b-8a67-6bebee1b7bf4" },
   { id: "352a15ac-53c4-46eb-b75e-957f0388dc79", title: "Landmark crypto bill stalls in US Senate despite $225mn spending push", date: "2026-08-08", time: "11:00", url: "https://www.ft.com/content/352a15ac-53c4-46eb-b75e-957f0388dc79" },
   { id: "e1f2e2b9-6f52-44fc-a659-e981d2fc923e", title: "First Brands urges court to approve bankruptcy settlement", date: "2026-08-08", time: "11:00", url: "https://www.ft.com/content/e1f2e2b9-6f52-44fc-a659-e981d2fc923e" },
@@ -58,7 +59,5 @@ export const FT_ITEMS = [
   { id: "2434fbcc-b8b5-4bda-a82d-1b08c6a015f8", title: "UK housing market in ‘suspended animation’", date: "2026-08-07", time: "13:33", url: "https://www.ft.com/content/2434fbcc-b8b5-4bda-a82d-1b08c6a015f8" },
   { id: "6bc9c93d-1b75-4512-8bc2-ba33cc3c4a53", title: "Iran’s oil exports stall and Kharg Island idles under US blockade", date: "2026-08-07", time: "13:29", url: "https://www.ft.com/content/6bc9c93d-1b75-4512-8bc2-ba33cc3c4a53" },
   { id: "acc1df39-eccc-4f04-affd-f3aca4839669", title: "Apollo’s upmarket plans for easyJet after £5.7bn takeover", date: "2026-08-07", time: "13:18", url: "https://www.ft.com/content/acc1df39-eccc-4f04-affd-f3aca4839669" },
-  { id: "6d258069-e935-446c-b112-753c6c2bdfb2", title: "UK manages record share of assets on behalf of overseas clients", date: "2026-08-07", time: "13:09", url: "https://www.ft.com/content/6d258069-e935-446c-b112-753c6c2bdfb2" },
   { id: "67412944-136f-401c-9fd7-2d68552832f1", title: "Explosive drone at German airport raises ‘hybrid threat’ alarm", date: "2026-08-07", time: "13:02", url: "https://www.ft.com/content/67412944-136f-401c-9fd7-2d68552832f1" },
-  { id: "a988ae61-a218-4872-a4d7-a3061c6ca7ab", title: "Saudi Arabia, Turkey and Pakistan sign defence pact in Mecca", date: "2026-08-07", time: "12:18", url: "https://www.ft.com/content/a988ae61-a218-4872-a4d7-a3061c6ca7ab" },
 ];
