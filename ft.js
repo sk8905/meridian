@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a371dc43-0584-4fcc-b064-80596727d5b5", title: "Pfizer grapples with ‘a world of hurt’ after Covid triumph", date: "2026-08-08", time: "11:00", url: "https://www.ft.com/content/a371dc43-0584-4fcc-b064-80596727d5b5" },
+  { id: "f3050d94-6b78-4cf2-8b07-cf8903aacc7f", title: "Spain reinstates border controls on Italy as tensions rise over migrants", date: "2026-08-08", time: "10:45", url: "https://www.ft.com/content/f3050d94-6b78-4cf2-8b07-cf8903aacc7f" },
+  { id: "d2248ee9-edb5-445c-b89b-425e033a19fa", title: "Chart of the Week: Currency interventions have a mixed record", date: "2026-08-08", time: "10:30", url: "https://www.ft.com/content/d2248ee9-edb5-445c-b89b-425e033a19fa" },
+  { id: "4f1f4150-3e5b-4015-ad44-5f596e0287a5", title: "US Senate narrowly confirms Todd Blanche as US attorney-general", date: "2026-08-08", time: "10:16", url: "https://www.ft.com/content/4f1f4150-3e5b-4015-ad44-5f596e0287a5" },
   { id: "d92204d1-e13b-4e90-96b5-8fd2db7436f0", title: "Gianni Infantino’s fight for survival", date: "2026-08-08", time: "09:00", url: "https://www.ft.com/content/d92204d1-e13b-4e90-96b5-8fd2db7436f0" },
   { id: "798623be-8da1-490d-9494-11b3d5f58ac8", title: "Widdecombe murder probe reopens inquiry into attempted burglary at Farage’s house", date: "2026-08-08", time: "08:27", url: "https://www.ft.com/content/798623be-8da1-490d-9494-11b3d5f58ac8" },
   { id: "c2b7e004-3097-4d64-8b68-c48a360a1878", title: "An American farewell to China", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/c2b7e004-3097-4d64-8b68-c48a360a1878" },
@@ -59,6 +63,4 @@ export const FT_ITEMS = [
   { id: "dabdeae3-9855-484b-9369-e74176352107", title: "UK shares: hotter than below decks in a heatwave", date: "2026-08-07", time: "12:00", url: "https://www.ft.com/content/dabdeae3-9855-484b-9369-e74176352107" },
   { id: "122c7788-8f8b-4f42-bc42-119a49396f91", title: "Britain curbs power exports to Europe to preserve supplies", date: "2026-08-07", time: "11:03", url: "https://www.ft.com/content/122c7788-8f8b-4f42-bc42-119a49396f91" },
   { id: "0edbd013-dc35-494b-b7e7-9a745af01c9d", title: "MFS collapse prompts UK watchdog to crack down on financial crime", date: "2026-08-07", time: "10:56", url: "https://www.ft.com/content/0edbd013-dc35-494b-b7e7-9a745af01c9d" },
-  { id: "2e00d86e-27bf-4c16-9f5a-64acf8967763", title: "Rare earth access: still a thing", date: "2026-08-07", time: "10:30", url: "https://www.ft.com/content/2e00d86e-27bf-4c16-9f5a-64acf8967763" },
-  { id: "9d9e8f82-1626-429c-9434-a8540ca2ed64", title: "CMA moves to stop Aldi and Lidl blocking rival UK store openings", date: "2026-08-07", time: "10:21", url: "https://www.ft.com/content/9d9e8f82-1626-429c-9434-a8540ca2ed64" },
 ];
