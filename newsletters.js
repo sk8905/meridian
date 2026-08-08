@@ -33,6 +33,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-econ-worldinbrief-20260808",
+    publication: "The Economist",
+    series: "The World in Brief",
+    title: "The World in Brief: A border row between Italy and Spain",
+    date: "2026-08-08",
+    time: "06:34",
+    summary: "Spain imposes border controls on visitors from Italy after a migrant influx into Ceuta, and Trump renews his push to fire Fed governor Lisa Cook following a weak July jobs report.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-authoralert-nkumar-svrallies-20260807",
     publication: "Bloomberg",
     author: "Nishant Kumar",
@@ -422,15 +432,5 @@ export const NEWSLETTERS = [
     time: "06:39",
     summary: "Oil drops for a third day as the US, Iran and Oman near a deal to reopen the Strait of Hormuz, OpenAI and Anthropic AI models show more “unsanctioned” behavior in outside safety testing, and Whale Rock’s flagship hedge fund sank 22% in last month’s AI selloff.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-05/oil-drops-on-signs-of-progress-toward-deal-to-reopen-hormuz",
-  },
-  {
-    id: "nl-econ-worldinbrief-20260805",
-    publication: "The Economist",
-    series: "The World in Brief",
-    title: "The World in Brief: SpaceX loses money (and a rocket)",
-    date: "2026-08-05",
-    time: "06:21",
-    summary: "SpaceX beats revenue forecasts but posts a $541m net loss and reveals $16bn in AI spending, oil falls as Qatar signals a Hormuz deal is in “very progressive stages”, and India’s BJP loses a 30-year Bihar seat to the upstart Jan Suraaj party.",
-    url: "https://www.economist.com/the-world-in-brief",
   },
 ];
