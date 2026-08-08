@@ -5,7 +5,7 @@
 // it via macroDashPane() and repaints via cockpitInds()/loadYieldCurve().
 // =============================================================================
 import { esc } from "/util.js?v=20260719-1";
-import { YIELD_CURVE, OUTLOOK, CYCLE, BUBBLE, EARNINGS, MATWALL } from "./content.js";
+import { YIELD_CURVE, OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, EARNINGS, MATWALL } from "./content.js";
 import { fmtDate, fmtWeekday, trackGauge, CYCLE_ZONES, BUBBLE_ZONES,
   bubbleComposite, bubbleBand, MACRO_DATA, macroMatrixHtml, MAC_MATRIX_KEYS_FULL } from "./shared.js?v=20260728-2";
 
@@ -353,12 +353,22 @@ export function macroDashPane() {
     <div class="ck-ov-c">
     <div class="ck-ov-h">Regime</div>
     <section class="ck-panel">
-      <header class="ck-h"><span>Cycle — long-term debt cycle</span><a class="ck-more" href="#/cycle">Cycle →</a></header>
+      <header class="ck-h"><span>Debt cycle — Ray Dalio</span><a class="ck-more" href="#/cycle">Cycle →</a></header>
       <div class="ck-body">
         ${trackGauge(CYCLE_ZONES, [{ label: "US", pos: CYCLE.us.pos }, { label: "UK", pos: CYCLE.uk.pos }], "Long-term debt cycle position, 0 early to 100 crisis")}
         <div class="ck-stats">
           ${stat("US", `${CYCLE.us.pos}/100`, cyc(CYCLE.us))}
           ${stat("UK", `${CYCLE.uk.pos}/100`, cyc(CYCLE.uk))}
+        </div>
+      </div>
+    </section>
+
+    <section class="ck-panel">
+      <header class="ck-h"><span>Market cycle — Howard Marks</span><a class="ck-more" href="#/cycle">Cycle →</a></header>
+      <div class="ck-body">
+        ${trackGauge(MARKET_CYCLE.zones, [{ label: "Equities", pos: MARKET_CYCLE.pos }], "Market cycle position, 0 capitulation to 100 mania")}
+        <div class="ck-stats">
+          ${stat("Position", `${MARKET_CYCLE.pos}/100`, MARKET_CYCLE.short)}
         </div>
       </div>
     </section>

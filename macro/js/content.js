@@ -379,6 +379,37 @@ export const CYCLE = {
   ],
 };
 
+// ---- Market cycle, Howard Marks framework (Cycle tab, below the debt cycle) --
+// pos: stylised 0 (capitulation / max fear — best opportunity) → 100 (mania /
+// max greed). Wire synthesis of Marks' books + memos, NOT a number he publishes.
+export const MARKET_CYCLE = {
+  pos: 68,
+  stage: "Late expansion, tilting to euphoria — the pendulum well toward greed on US large-cap & AI",
+  short: "Late expansion → euphoria",
+  // Own gauge zones (the despair→euphoria pendulum), kept here so the shared
+  // gauge module needs no new export.
+  zones: [[10, "Capitulation"], [33, "Recovery"], [56, "Expansion"], [80, "Euphoria"], [96, "Mania"]],
+  framework: [
+    "Howard Marks (Oaktree) frames investing around <strong>cycles</strong> rather than forecasts. In <em>The Most Important Thing</em> (2011) and <em>Mastering the Market Cycle</em> (2018) he argues markets are driven less by fundamentals than by the <strong>pendulum of investor psychology</strong>, which swings between greed and fear, optimism and pessimism, and — most powerfully — risk tolerance and risk aversion. The pendulum “spends very little time at the happy medium”, instead arcing toward one extreme and then back.",
+    "The market cycle nests several cycles that feed on one another — the economy, corporate profits, the <strong>credit cycle</strong> (for Marks the most volatile and consequential), and the psychology above them. Excess builds on excess: good times breed confidence, cheap and plentiful capital, compressed risk premia and a “race to the bottom” in lending standards — until the process reverses. A rough anatomy runs <strong>recovery → expansion → euphoria</strong> (prices detach from value) → decline → <strong>capitulation</strong>, where the best opportunities appear.",
+    "The pay-off is not prediction but positioning: <em>“we can't predict but we can prepare.”</em> The discipline is to <strong>take the market's temperature</strong> — to judge where we stand — and calibrate aggressiveness versus defensiveness accordingly: lean in when prices are low relative to value and psychology is fearful; turn defensive when the opposite holds.",
+  ],
+  stand: [
+    "<strong>Regime — a “Sea Change”.</strong> Marks' central macro call (<em>Sea Change</em>, Dec 2022, and <em>Further Thoughts</em>, 2023) is that the ~40-year tailwind of falling interest rates ended in 2022. In the higher-for-longer world that followed, the cost of capital is structurally higher and <strong>lending / credit looks more attractive relative to owning equities</strong> than it did across the 2009–21 easy-money era — a different regime, not a return to the old one.",
+    "<strong>Psychology — toward the greedy end.</strong> In <em>On Bubble Watch</em> (Jan 2025) Marks flagged above-average S&amp;P 500 valuations, the US premium to the rest of the world, AI enthusiasm and heavy concentration in the “Magnificent Seven”. Cautionary signs — though he stressed the market looked high-priced rather than “nutty”, and he did not hear investors claiming “there's no price too high”.",
+    "<strong>AI — an “inflection”, not yet a mania.</strong> His latest memo, <em>Is It a Bubble?</em> (9 Dec 2025), notes AI-linked names drove roughly <strong>75% of the S&amp;P 500's gains, ~80% of its earnings and ~90% of capex</strong>, and warns on “circular” financing and the aggressive debt funding a projected ~$5tn of AI infrastructure — while distinguishing self-correcting “mean-reversion” bubbles from “inflection” bubbles built around genuine breakthroughs. His read: elevated risk and rich prices, but not (yet) a definitive bubble.",
+    "<strong>Net read (Wire synthesis of his memos):</strong> late in the psychology cycle — the pendulum has swung well toward greed on US large-cap and AI, which argues for <strong>defensiveness</strong> there — even as the post-Sea-Change credit cycle is more disciplined (higher rates, positive real yields) than the 2021 peak, which is why Marks leans toward <strong>credit</strong> over equity ownership. The gauge sits in late expansion, tilting to euphoria.",
+  ],
+  note: "The 0–100 market-cycle position is Wire's synthesis of Howard Marks' published memos and books, not a figure he publishes. Educational only — not investment advice.",
+  sources: [
+    ["Marks — Mastering the Market Cycle (2018)", "https://www.amazon.com/Mastering-Market-Cycle-Getting-Odds/dp/1328479250"],
+    ["Marks — Sea Change (Oaktree, Dec 2022)", "https://www.oaktreecapital.com/insights/memo/sea-change"],
+    ["Marks — On Bubble Watch (Oaktree, Jan 2025)", "https://www.oaktreecapital.com/insights/memo/on-bubble-watch"],
+    ["Marks — Is It a Bubble? (Oaktree, Dec 2025)", "https://www.oaktreecapital.com/insights/memo/is-it-a-bubble"],
+    ["CNBC — Marks: AI frenzy isn't a bubble, at least not yet (Oct 2025)", "https://www.cnbc.com/2025/10/13/oaktrees-howard-marks-says-ai-frenzy-isnt-a-bubble-at-least-not-yet.html"],
+  ],
+};
+
 // ---- Stock-market bubble risk (Bubble tab) ---------------------------------
 // Three workhorse dimensions — valuation, credit/leverage/policy, and
 // breadth/speculation. Sub-scores (0 = no signal, 100 = extreme) are Wire

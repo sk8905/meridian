@@ -100,6 +100,9 @@ a.rel-item:hover .cal-title, a.rel-item:hover .cal-country { color: var(--ink); 
 .macro-groups { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem 1.5rem; align-items: start; margin-bottom: 1.6rem; }
 .macro-group { margin-bottom: 0; }
 .macro-country { font-size: 1.02rem; font-weight: 700; color: var(--ink); margin: 0 0 .6rem; padding-bottom: .4rem; border-bottom: 2px solid var(--macro); display: inline-block; }
+/* Section divider heading inside the Cycle view (Debt cycle · Market cycle). */
+.macro-section-h { font-size: 1.1rem; font-weight: 700; color: var(--ink); margin: 1.8rem 0 .9rem; padding-top: 1.3rem; border-top: 1px solid var(--border, #262626); }
+.macro-section-h:first-of-type { border-top: 0; padding-top: 0; margin-top: .2rem; }
 .macro-grid { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .4rem; }
 .macro-tile { position: relative; border: 1px solid var(--border); border-radius: 9px; padding: .48rem .5rem .55rem; background: var(--surface); box-shadow: var(--shadow); display: flex; flex-direction: column; gap: .26rem; }
 /* Deep-link highlight when a data-alert notification focuses a tile. */

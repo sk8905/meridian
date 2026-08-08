@@ -2,13 +2,13 @@
 // shell wiring changed: injected container, no chrome boot, active-tab-guarded
 // listeners. Hash sub-routing unchanged.
 
-import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, IND_KEYMOMENTS } from "/macro/js/content.js";
+import { UPDATED, META, OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, IND_KEYMOMENTS } from "/macro/js/content.js";
 import { reportRefresh } from "/v2/js/status.js?v=v2-2";
 import { esc } from "/util.js?v=20260719-1";
 import { MONTHS, isoToDate, fmtDay, fmtDayGB, fmtDate,
   trackGauge, CYCLE_ZONES, BUBBLE_ZONES, bubbleComposite, bubbleBand,
   MAC_IND_ORDER, MACRO_DATA, setMacroData, macroMatrixHtml, macroDetailHtml } from "/macro/js/shared.js?v=20260730-2";
-import { macroDashPane, loadYieldCurve, cockpitInds } from "/macro/js/dashboard.js?v=20260730-2";
+import { macroDashPane, loadYieldCurve, cockpitInds } from "/macro/js/dashboard.js?v=20260730-3";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, onLiveWire, liveDesk } from "/feed.js?v=20260808-1";
 
 export function mount(host, ctx) {
@@ -616,9 +616,10 @@ function viewCycle() {
     </section>`;
   return `
     <div class="page-head">
-      <h1>Cycle stage — a Dalio reading</h1>
-      <p class="muted">Where the US and UK sit in Ray Dalio's nested cycles — the <strong>short-term business/debt cycle</strong> and the <strong>long-term “Big Cycle”</strong> (the changing world order: debt, internal order and great-power rivalry around a reserve currency). As of ${esc(UPDATED)}. Educational only — not investment advice.</p>
+      <h1>Cycle stage</h1>
+      <p class="muted">Two lenses on where we are. First, <strong>Ray Dalio's debt cycle</strong> — the nested short-term business/debt cycle and long-term “Big Cycle” (the changing world order). Below it, <strong>Howard Marks' market cycle</strong> — the pendulum of investor psychology between fear and greed. As of ${esc(UPDATED)}. Educational only — not investment advice.</p>
     </div>
+    <h2 class="macro-section-h">Debt cycle — a Ray Dalio reading</h2>
     <section class="card macro-gauge-card">
       <div class="macro-gauge-head">
         <div class="macro-gauge-head-main">
@@ -636,7 +637,26 @@ function viewCycle() {
       ${country("United States", CYCLE.us)}
       ${country("United Kingdom", CYCLE.uk)}
     </div>
-    ${sourceList(CYCLE.sources)}`;
+    ${sourceList(CYCLE.sources)}
+    <h2 class="macro-section-h">Market cycle — a Howard Marks reading</h2>
+    <section class="card macro-gauge-card">
+      <div class="macro-gauge-head">
+        <div class="macro-gauge-head-main">
+          <h2 class="macro-country">Market-cycle position</h2>
+          <p class="macro-gauge-updated muted small">${esc(MARKET_CYCLE.stage)}</p>
+        </div>
+        ${trackGauge(MARKET_CYCLE.zones, [{ label: "US / global equities", pos: MARKET_CYCLE.pos }], "Market cycle position, 0 capitulation to 100 mania")}
+      </div>
+      <div class="macro-framework">
+        ${MARKET_CYCLE.framework.map((p) => `<p class="macro-para">${p}</p>`).join("")}
+      </div>
+      <p class="muted small macro-gauge-note">${esc(MARKET_CYCLE.note)}</p>
+    </section>
+    <section class="card macro-note">
+      <div class="macro-dim-head"><h2 class="macro-country">Where we stand</h2></div>
+      ${MARKET_CYCLE.stand.map((p) => `<p class="macro-para">${p}</p>`).join("")}
+    </section>
+    ${sourceList(MARKET_CYCLE.sources)}`;
 }
 
 function viewBubble() {
