@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "e164e244-f6de-4e3b-8a67-6bebee1b7bf4", title: "Greg Abel finally puts Buffett’s cash pile to work", date: "2026-08-08", time: "13:57", url: "https://www.ft.com/content/e164e244-f6de-4e3b-8a67-6bebee1b7bf4" },
   { id: "352a15ac-53c4-46eb-b75e-957f0388dc79", title: "Landmark crypto bill stalls in US Senate despite $225mn spending push", date: "2026-08-08", time: "11:00", url: "https://www.ft.com/content/352a15ac-53c4-46eb-b75e-957f0388dc79" },
   { id: "e1f2e2b9-6f52-44fc-a659-e981d2fc923e", title: "First Brands urges court to approve bankruptcy settlement", date: "2026-08-08", time: "11:00", url: "https://www.ft.com/content/e1f2e2b9-6f52-44fc-a659-e981d2fc923e" },
   { id: "a371dc43-0584-4fcc-b064-80596727d5b5", title: "Pfizer grapples with ‘a world of hurt’ after Covid triumph", date: "2026-08-08", time: "11:00", url: "https://www.ft.com/content/a371dc43-0584-4fcc-b064-80596727d5b5" },
@@ -60,8 +61,4 @@ export const FT_ITEMS = [
   { id: "6d258069-e935-446c-b112-753c6c2bdfb2", title: "UK manages record share of assets on behalf of overseas clients", date: "2026-08-07", time: "13:09", url: "https://www.ft.com/content/6d258069-e935-446c-b112-753c6c2bdfb2" },
   { id: "67412944-136f-401c-9fd7-2d68552832f1", title: "Explosive drone at German airport raises ‘hybrid threat’ alarm", date: "2026-08-07", time: "13:02", url: "https://www.ft.com/content/67412944-136f-401c-9fd7-2d68552832f1" },
   { id: "a988ae61-a218-4872-a4d7-a3061c6ca7ab", title: "Saudi Arabia, Turkey and Pakistan sign defence pact in Mecca", date: "2026-08-07", time: "12:18", url: "https://www.ft.com/content/a988ae61-a218-4872-a4d7-a3061c6ca7ab" },
-  { id: "6afa0d5c-d252-4644-822f-44514576148e", title: "Exxon nears peak impunity on climate obligations", date: "2026-08-07", time: "12:07", url: "https://www.ft.com/content/6afa0d5c-d252-4644-822f-44514576148e" },
-  { id: "53a1d205-ca31-48fe-a535-86bf4a7ca5b7", title: "Stop feeding my cat!", date: "2026-08-07", time: "12:00", url: "https://www.ft.com/content/53a1d205-ca31-48fe-a535-86bf4a7ca5b7" },
-  { id: "dabdeae3-9855-484b-9369-e74176352107", title: "UK shares: hotter than below decks in a heatwave", date: "2026-08-07", time: "12:00", url: "https://www.ft.com/content/dabdeae3-9855-484b-9369-e74176352107" },
-  { id: "122c7788-8f8b-4f42-bc42-119a49396f91", title: "Britain curbs power exports to Europe to preserve supplies", date: "2026-08-07", time: "11:03", url: "https://www.ft.com/content/122c7788-8f8b-4f42-bc42-119a49396f91" },
 ];
