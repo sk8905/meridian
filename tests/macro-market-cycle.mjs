@@ -70,12 +70,12 @@ const cardVisible = (sel) => d.pg.evaluate((s) => {
   const el = document.querySelector(s);
   return !!(el && el.offsetParent !== null);
 }, sel);
-const tabs = await d.pg.evaluate(() => Array.from(document.querySelectorAll(".dsh-msub .dsh-msub-b")).map((b) => b.textContent.trim()));
+const tabs = await d.pg.evaluate(() => Array.from(document.querySelectorAll(".dsh-msub .tchip")).map((b) => b.textContent.trim()));
 check(tabs.join(",") === "Policy rates,Cycle", `Macro has two sub-tabs: Policy rates · Cycle (got ${tabs.join(",")})`);
 check(await cardVisible('[data-mgrp="rates"] .dsh-h'), "default sub-tab shows Policy-rates cards");
 check(!(await cardVisible('[data-mgrp="cycle"]')), "the Cycle card is hidden on the Policy rates sub-tab");
 // Switch to Cycle.
-await d.pg.evaluate(() => { const b = document.querySelector('.dsh-msub-b[data-msub="cycle"]'); if (b) b.click(); });
+await d.pg.evaluate(() => { const b = document.querySelector('[data-msub="cycle"]'); if (b) b.click(); });
 await d.pg.waitForTimeout(250);
 check(await cardVisible('[data-mgrp="cycle"] .dsh-cyc'), "tapping Cycle shows the cycle card");
 check(!(await cardVisible('[data-mgrp="rates"]')), "tapping Cycle hides the Policy-rates cards");

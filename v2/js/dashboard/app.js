@@ -524,10 +524,11 @@ export function mount(host, ctx) {
   function macroHTML() {
     const fed = fedHTML();
     const boe = boeHTML();
-    const sub = (k, l) => `<button type="button" class="dsh-msub-b${_macroSub === k ? " is-on" : ""}" data-msub="${k}">${l}</button>`;
+    // Same segmented-chip style as the dashboard's top sub-tabs (.tchips/.tchip).
+    const sub = (k, l) => `<button type="button" class="tchip${_macroSub === k ? " is-on" : ""}" data-msub="${k}">${l}</button>`;
     return `<div class="dsh-pane dsh-macro dsh-macro-${_macroSub}">
       <section class="dsh-card dsh-span">${regimePillsHTML()}</section>
-      <div class="dsh-span dsh-msub" role="tablist">${sub("rates", "Policy rates")}${sub("cycle", "Cycle")}</div>
+      <div class="dsh-span dsh-msub"><div class="tchips">${sub("rates", "Policy rates")}${sub("cycle", "Cycle")}</div></div>
       ${fed ? `<section class="dsh-card dsh-span" data-mgrp="rates"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
       ${boe ? `<section class="dsh-card dsh-span" data-mgrp="rates"><h3 class="dsh-h">BoE path — MPC votes &amp; SONIA/OIS curve</h3>${boe}</section>` : ""}
       <section class="dsh-card" data-mgrp="rates"><h3 class="dsh-h">Rate outlook</h3>${rateOutlookHTML()}</section>
