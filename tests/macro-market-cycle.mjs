@@ -31,17 +31,38 @@ check(cyc.mentionsWhereStand, "market cycle has a 'Where we stand' read");
 check(cyc.hasOaktree, "market cycle links a real Oaktree/Howard Marks memo");
 check(cyc.gaugeCount >= 2, `both cycles render a gauge (${cyc.gaugeCount} gauges)`);
 
-// Dashboard cockpit Regime column carries a compact Market-cycle card.
-await pg.evaluate(() => { location.hash = "#/dashboard"; });
-await pg.waitForTimeout(1400);
-const dash = await pg.evaluate(() => {
-  const heads = Array.from(document.querySelectorAll(".ck-panel .ck-h span")).map((s) => s.textContent.trim());
-  return { hasMarks: heads.some((h) => /market cycle/i.test(h) && /marks/i.test(h)), hasDalio: heads.some((h) => /debt cycle/i.test(h)) };
-});
-check(dash.hasDalio, "dashboard Regime keeps the debt-cycle card");
-check(dash.hasMarks, "dashboard Regime adds the Howard Marks market-cycle card");
-
 checkErrs(errs, "macro market cycle");
 await ctx.close();
+
+// The PRIMARY surface: the Dashboard tab (bottom nav) → Macro sub-tab, where the
+// user actually looks. It must show a cycle card with BOTH the Dalio debt cycle
+// and the Howard Marks market cycle (the Macro desk view above is a deep link,
+// not in the bottom tab bar).
+const d = await open(b, PHONE, `http://localhost:${srv.port}/v2/dashboard/`);
+await d.pg.evaluate(() => localStorage.setItem("m_signed_in", "1"));
+await d.pg.waitForTimeout(1800);
+const dash = await d.pg.evaluate(() => {
+  const tab = document.querySelector('.dsh-subtabs [data-p="macro"], [data-sub="macro"], .dsh-subtab[data-p="macro"]');
+  if (tab) tab.click();
+  const txt = (document.querySelector("#app") || document.body).textContent || "";
+  const heads = Array.from(document.querySelectorAll(".dsh-cyc-hd")).map((h) => h.textContent.trim());
+  const links = Array.from(document.querySelectorAll("#app .dsh-cyc-src")).map((a) => a.getAttribute("href"));
+  return {
+    hasDebt: heads.some((h) => /debt cycle/i.test(h) && /dalio/i.test(h)),
+    hasMarket: heads.some((h) => /market cycle/i.test(h) && /marks/i.test(h)),
+    mentionsPendulum: /pendulum/i.test(txt),
+    mentionsStand: /where we stand/i.test(txt),
+    hasOaktree: links.some((h) => /oaktreecapital\.com/i.test(h || "")),
+    meters: document.querySelectorAll(".dsh-cyc .dsh-fw-bar").length,
+  };
+});
+check(dash.hasDebt, "Dashboard→Macro shows the Dalio debt-cycle block");
+check(dash.hasMarket, "Dashboard→Macro shows the Howard Marks market-cycle block");
+check(dash.mentionsPendulum, "Dashboard→Macro market cycle explains the pendulum");
+check(dash.mentionsStand, "Dashboard→Macro market cycle has a 'where we stand' read");
+check(dash.hasOaktree, "Dashboard→Macro market cycle links a real Oaktree memo");
+check(dash.meters >= 3, `Dashboard→Macro renders position meters (${dash.meters})`);
+checkErrs(d.errs, "dashboard macro cycle");
+await d.ctx.close();
 await b.close(); srv.close();
 finish();

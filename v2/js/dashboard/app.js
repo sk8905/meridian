@@ -12,7 +12,7 @@
 // =============================================================================
 import { esc, MONTHS } from "/util.js?v=20260719-1";
 import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, WORLD_INDICES, GOVT_YIELDS, GOVT_YIELD_CHG, PRIVATE_CREDIT } from "/dashboard/js/data.js";
-import { OUTLOOK, CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS, IND_KEYMOMENTS } from "/macro/js/content.js";
+import { OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS, IND_KEYMOMENTS } from "/macro/js/content.js";
 import { deals, intel, HEDGE_FUNDS, HF_13F } from "/credit/js/data.js";
 import { SECTOR_FLOWS } from "/allocations.js";
 import { items as LGL_ITEMS, cases as LGL_CASES, practiceAreas as LGL_AREAS, areaById as LGL_AREA_BY_ID, firmById as LGL_FIRM_BY_ID, caseSummaries as LGL_CASE_SUMMARIES } from "/legal/js/data.js";
@@ -493,11 +493,34 @@ export function mount(host, ctx) {
       + (x.source ? `<span class="dsh-news-s">${esc(x.source)}</span>` : "") + `</li>`;
     return `<ul class="dsh-news">${items.map(row).join("")}</ul>`;
   }
+  // Two readings of where we are: Ray Dalio's debt cycle (US/UK position on the
+  // 0 early → 100 crisis track) and Howard Marks' market cycle (the pendulum of
+  // investor psychology, 0 capitulation → 100 mania), with his sourced framework
+  // and "where we stand". Reuses the FedWatch meter bars; every claim is linked.
+  function cyclesHTML() {
+    const meter = (label, pos) => `<div class="dsh-fw"><span class="dsh-fw-l">${esc(label)}</span>`
+      + `<span class="dsh-fw-track"><span class="dsh-fw-bar" style="width:${Math.max(2, Math.min(100, pos || 0))}%"></span></span>`
+      + `<span class="dsh-fw-p">${pos}/100</span></div>`;
+    const mc = MARKET_CYCLE || {};
+    const paras = (arr) => (arr || []).map((p) => `<p class="dsh-cyc-note">${p}</p>`).join("");
+    const debt = `<div class="dsh-cyc-blk"><div class="dsh-cyc-hd">Debt cycle <span>Ray Dalio · 0 early → 100 crisis</span></div>`
+      + meter("US", CYCLE.us.pos) + meter("UK", CYCLE.uk.pos)
+      + `<p class="dsh-cyc-note dsh-mut">${esc(stripTags(String(CYCLE.us.shortStage || "")))} (US) · ${esc(stripTags(String(CYCLE.uk.shortStage || "")))} (UK)</p></div>`;
+    const srcs = (mc.sources || []).map(([l, u]) => `<a class="dsh-cyc-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(l)} ↗</a>`).join("");
+    const market = `<div class="dsh-cyc-blk"><div class="dsh-cyc-hd">Market cycle <span>Howard Marks · 0 capitulation → 100 mania</span></div>`
+      + meter("Equities", mc.pos) + `<p class="dsh-cyc-note"><strong>${esc(mc.stage || "")}</strong></p>`
+      + paras(mc.framework)
+      + `<p class="dsh-cyc-sub">Where we stand</p>` + paras(mc.stand)
+      + (srcs ? `<div class="dsh-cyc-srcs">${srcs}</div>` : "")
+      + `<p class="dsh-cyc-note dsh-mut">${esc(mc.note || "")}</p></div>`;
+    return `<div class="dsh-cyc">${debt}${market}</div>`;
+  }
   function macroHTML() {
     const fed = fedHTML();
     const boe = boeHTML();
     return `<div class="dsh-pane">
       <section class="dsh-card dsh-span">${regimePillsHTML()}</section>
+      <section class="dsh-card dsh-span"><h3 class="dsh-h">Where we are in the cycle — debt &amp; market</h3>${cyclesHTML()}</section>
       ${fed ? `<section class="dsh-card dsh-span"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
       ${boe ? `<section class="dsh-card dsh-span"><h3 class="dsh-h">BoE path — MPC votes &amp; SONIA/OIS curve</h3>${boe}</section>` : ""}
       <section class="dsh-card"><h3 class="dsh-h">Rate outlook</h3>${rateOutlookHTML()}</section>
