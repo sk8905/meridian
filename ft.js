@@ -20,14 +20,14 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
-  { id: "9a1ab09b-82d7-43c2-b44a-ebb41d352dab", title: "Iranian missile targets UAE tanker despite talks to reopen strait", date: "2026-08-08", time: "14:27", url: "https://www.ft.com/content/9a1ab09b-82d7-43c2-b44a-ebb41d352dab" },
-  { id: "e164e244-f6de-4e3b-8a67-6bebee1b7bf4", title: "Greg Abel finally puts Buffett’s cash pile to work", date: "2026-08-08", time: "13:57", url: "https://www.ft.com/content/e164e244-f6de-4e3b-8a67-6bebee1b7bf4" },
-  { id: "352a15ac-53c4-46eb-b75e-957f0388dc79", title: "Landmark crypto bill stalls in US Senate despite $225mn spending push", date: "2026-08-08", time: "11:00", url: "https://www.ft.com/content/352a15ac-53c4-46eb-b75e-957f0388dc79" },
-  { id: "e1f2e2b9-6f52-44fc-a659-e981d2fc923e", title: "First Brands urges court to approve bankruptcy settlement", date: "2026-08-08", time: "11:00", url: "https://www.ft.com/content/e1f2e2b9-6f52-44fc-a659-e981d2fc923e" },
+  { id: "9a1ab09b-82d7-43c2-b44a-ebb41d352dab", title: "Tehran says US must ‘rectify its behaviour’ before Iran reopens strait", date: "2026-08-08", time: "17:20", url: "https://www.ft.com/content/9a1ab09b-82d7-43c2-b44a-ebb41d352dab" },
+  { id: "e164e244-f6de-4e3b-8a67-6bebee1b7bf4", title: "Greg Abel finally puts Buffett’s cash pile to work", date: "2026-08-08", time: "16:36", url: "https://www.ft.com/content/e164e244-f6de-4e3b-8a67-6bebee1b7bf4" },
+  { id: "4f1f4150-3e5b-4015-ad44-5f596e0287a5", title: "US Senate narrowly confirms Todd Blanche as US attorney-general", date: "2026-08-08", time: "15:24", url: "https://www.ft.com/content/4f1f4150-3e5b-4015-ad44-5f596e0287a5" },
+  { id: "e1f2e2b9-6f52-44fc-a659-e981d2fc923e", title: "First Brands urges court to approve bankruptcy settlement", date: "2026-08-08", time: "12:21", url: "https://www.ft.com/content/e1f2e2b9-6f52-44fc-a659-e981d2fc923e" },
+  { id: "352a15ac-53c4-46eb-b75e-957f0388dc79", title: "Landmark crypto bill stalls in US Senate despite $225mn spending push", date: "2026-08-08", time: "12:00", url: "https://www.ft.com/content/352a15ac-53c4-46eb-b75e-957f0388dc79" },
   { id: "a371dc43-0584-4fcc-b064-80596727d5b5", title: "Pfizer grapples with ‘a world of hurt’ after Covid triumph", date: "2026-08-08", time: "11:00", url: "https://www.ft.com/content/a371dc43-0584-4fcc-b064-80596727d5b5" },
   { id: "f3050d94-6b78-4cf2-8b07-cf8903aacc7f", title: "Spain reinstates border controls on Italy as tensions rise over migrants", date: "2026-08-08", time: "10:45", url: "https://www.ft.com/content/f3050d94-6b78-4cf2-8b07-cf8903aacc7f" },
   { id: "d2248ee9-edb5-445c-b89b-425e033a19fa", title: "Chart of the Week: Currency interventions have a mixed record", date: "2026-08-08", time: "10:30", url: "https://www.ft.com/content/d2248ee9-edb5-445c-b89b-425e033a19fa" },
-  { id: "4f1f4150-3e5b-4015-ad44-5f596e0287a5", title: "US Senate narrowly confirms Todd Blanche as US attorney-general", date: "2026-08-08", time: "10:16", url: "https://www.ft.com/content/4f1f4150-3e5b-4015-ad44-5f596e0287a5" },
   { id: "d92204d1-e13b-4e90-96b5-8fd2db7436f0", title: "Gianni Infantino’s fight for survival", date: "2026-08-08", time: "09:00", url: "https://www.ft.com/content/d92204d1-e13b-4e90-96b5-8fd2db7436f0" },
   { id: "798623be-8da1-490d-9494-11b3d5f58ac8", title: "Widdecombe murder probe reopens inquiry into attempted burglary at Farage’s house", date: "2026-08-08", time: "08:27", url: "https://www.ft.com/content/798623be-8da1-490d-9494-11b3d5f58ac8" },
   { id: "c2b7e004-3097-4d64-8b68-c48a360a1878", title: "An American farewell to China", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/c2b7e004-3097-4d64-8b68-c48a360a1878" },
