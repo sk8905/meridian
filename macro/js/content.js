@@ -12,8 +12,8 @@ export const UPDATED = "7 August 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-08-07",
-  lastCheckedTime: "21:20 BST",
+  lastChecked: "2026-08-08",
+  lastCheckedTime: "05:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -725,20 +725,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-08-07",
+  updated: "2026-08-08",
   us: [
     { title: "Odds the Fed will hike in September tumble following big July jobs miss", source: "CNBC", date: "2026-08-07", url: "https://www.cnbc.com/2026/08/07/odds-the-fed-hikes-in-september-tumble-following-big-july-jobs-miss.html" },
+    { title: "Fed Split on Rate Hikes Deepens as Five Years of High Inflation Tests Patience", source: "Bloomberg", date: "2026-08-07", url: "https://www.bloomberg.com/news/articles/2026-08-07/fed-split-on-rate-hikes-deepens-as-high-inflation-tests-patience" },
     { title: "US economy unexpectedly shed 23,000 jobs in July", source: "Financial Times", date: "2026-08-07", url: "https://www.ft.com/content/54adfc90-f555-44d3-8a81-4f39a07b5473" },
-    { title: "Treasuries Rally as Soft Jobs Data Trims Fed Rate-Hike Bets", source: "Bloomberg", date: "2026-08-07", url: "https://www.bloomberg.com/news/articles/2026-08-07/us-treasuries-rally-as-soft-jobs-data-trims-fed-rate-hike-bets" },
-    { title: "Stock Market Today (Aug. 7, 2026): Nasdaq rises after July jobs report shows unexpected losses", source: "TheStreet", date: "2026-08-07", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-7-2026" },
-    { title: "Soft July jobs report fuels skepticism over possible Fed rate hike", source: "Reuters (via Yahoo Finance)", date: "2026-08-07", url: "https://finance.yahoo.com/economy/policy/articles/soft-july-jobs-report-fuels-130642877.html" },
+    { title: "US Consumers More Optimistic on Jobs, Inflation in NY Fed Survey", source: "Bloomberg", date: "2026-08-07", url: "https://www.bloomberg.com/news/articles/2026-08-07/us-consumers-more-optimistic-on-jobs-inflation-in-ny-fed-survey" },
+    { title: "Oil prices rise as market waits on deal to open Strait of Hormuz", source: "CNBC", date: "2026-08-07", url: "https://www.cnbc.com/2026/08/07/oil-rises-supply-fears-iran-draft-plan-strait-hormuz.html" },
   ],
   uk: [
     { title: "UK housing market in 'suspended animation'", source: "Financial Times", date: "2026-08-07", url: "https://www.ft.com/content/2434fbcc-b8b5-4bda-a82d-1b08c6a015f8" },
     { title: "UK manages record share of assets on behalf of overseas clients", source: "Financial Times", date: "2026-08-07", url: "https://www.ft.com/content/6d258069-e935-446c-b112-753c6c2bdfb2" },
     { title: "Britain curbs power exports to Europe to preserve supplies", source: "Financial Times", date: "2026-08-07", url: "https://www.ft.com/content/122c7788-8f8b-4f42-bc42-119a49396f91" },
     { title: "Pound Sterling Price News and Forecast: GBP/USD remains weaker as UK-US yields narrow", source: "FXStreet", date: "2026-08-07", time: "03:36", url: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-remains-weaker-as-uk-us-yields-narrow-202608070336" },
-    { title: "UK services sector returns to growth, optimism picks up, PMI shows", source: "Reuters (via Investing.com)", date: "2026-08-05", url: "https://www.investing.com/news/economic-indicators/uk-services-sector-returns-to-growth-optimism-picks-up-pmi-shows-4836659" },
+    { title: "Why Is the UK Stock Market Up Today? FTSE 100 Rises 0.16% as FTSE 250 Slips, Other London Stocks Gain", source: "Sunday Guardian Live", date: "2026-08-07", url: "https://sundayguardianlive.com/business/why-is-the-uk-stock-market-up-today-ftse-100-rises-016-as-ftse-250-slips-other-london-stocks-gain-255642/" },
   ],
 };
 

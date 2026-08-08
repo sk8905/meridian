@@ -33,6 +33,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-authoralert-nkumar-svrallies-20260807",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    title: "Silicon Valley Rallies Around AI Whiz Kid After Situational Awareness Turmoil",
+    date: "2026-08-07",
+    time: "21:51",
+    summary: "One week after Leopold Aschenbrenner's hedge fund Situational Awareness nearly blew up, he's already getting requests from investors looking to place more money with the AI wunderkind.",
+    url: "https://www.bloomberg.com/news/articles/2026-08-07/silicon-valley-rallies-around-ai-whiz-kid-after-situational-awareness-turmoil",
+  },
+  {
     id: "nl-mb-fridaybrew7-20260807",
     publication: "Mailbrew",
     title: "Friday Brew #7",
@@ -422,16 +432,5 @@ export const NEWSLETTERS = [
     time: "06:21",
     summary: "SpaceX beats revenue forecasts but posts a $541m net loss and reveals $16bn in AI spending, oil falls as Qatar signals a Hormuz deal is in “very progressive stages”, and India’s BJP loses a 30-year Bihar seat to the upstart Jan Suraaj party.",
     url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-bbg-pointsofreturn-oilinourtime-20260805",
-    publication: "Bloomberg",
-    author: "John Authers",
-    series: "Points of Return",
-    title: "‘Oil in our time’ may be as good as this gets",
-    date: "2026-08-05",
-    time: "05:23",
-    summary: "The S&P 500 is back at an all-time high, its first in two months.",
-    url: "https://bloom.bg/4yYN6Hk",
   },
 ];
