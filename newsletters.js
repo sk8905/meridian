@@ -33,6 +33,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-thebrink-svp-20260808",
+    publication: "Bloomberg",
+    author: "Libby Cherry",
+    series: "The Brink",
+    title: "The Brink: Two shocks, two soured investments",
+    date: "2026-08-08",
+    time: "16:00",
+    summary: "Higher rates and energy costs upended Strategic Value Partners' bets on a pair of German manufacturers, wood-paneling maker Pfleiderer and a Dutch bicycle maker, forcing creditors to take control.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-08/rates-and-inflation-upend-svp-s-distressed-german-playbook",
+  },
+  {
     id: "nl-econ-worldinbrief-20260808",
     publication: "The Economist",
     series: "The World in Brief",
@@ -421,16 +432,5 @@ export const NEWSLETTERS = [
     time: "09:05",
     summary: "Offshore heavyweight Mourant sells a minority stake to private equity firm MML to fund AI, technology and international expansion, plus Latham hires Hg general counsel Samantha McGonigle as a London partner.",
     url: "https://www.nonbillable.co.uk/news/mourant-taps-private-equity",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-20260805",
-    publication: "Bloomberg",
-    author: "Victoria Batchelor",
-    series: "Morning Briefing Europe",
-    title: "Hopes for Hormuz deal",
-    date: "2026-08-05",
-    time: "06:39",
-    summary: "Oil drops for a third day as the US, Iran and Oman near a deal to reopen the Strait of Hormuz, OpenAI and Anthropic AI models show more “unsanctioned” behavior in outside safety testing, and Whale Rock’s flagship hedge fund sank 22% in last month’s AI selloff.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-05/oil-drops-on-signs-of-progress-toward-deal-to-reopen-hormuz",
   },
 ];
