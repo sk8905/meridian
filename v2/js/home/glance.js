@@ -8,9 +8,9 @@ import { items, cases, restructurings, firmById } from "/legal/js/data.js";
 import { NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js";
 import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
-import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
+import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, MONTHS } from "/util.js?v=20260719-1";
 import { DESK, STRICT_MACRO_RE, deskFor, nlDesk,
-  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML } from "/feed.js?v=20260729-2";
+  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML } from "/feed.js?v=20260808-1";
 
 const __KEY = "home";
 const __ROOT = document.documentElement;
@@ -48,8 +48,7 @@ const PREMIUM_NEWS = new Set([
 // tracked universe and are left untouched).
 // (The low-tier source list + general-news relevance gate now live server-side in
 // the Worker's /api/feed assembly — the wire arrives pre-culled for every surface.)
-const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-const fmt = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ""); return m ? `${+m[3]} ${MON[+m[2] - 1]} ${m[1]}` : (iso || ""); };
+const fmt = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ""); return m ? `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}` : (iso || ""); };
 const mgrName = (id) => (managers.find((m) => m.id === id) || {}).name || "";
 
 // ---- Notification source labels (kept in sync with each app's copy) --------
@@ -659,7 +658,7 @@ function renderMacroSnapshot() {
 // The same live series the Macro dashboard shows (Base rate, 2-year yield, Core
 // inflation, Services PMI, Wage growth, Unemployment) fetched from /api/macro and
 // rendered as a compact 3×2 grid per country — value + change + source, no chart.
-const monY = (iso) => { const m = /^(\d{4})-(\d{2})/.exec(iso || ""); return m ? `${MON[+m[2] - 1]} ${m[1]}` : ""; };
+const monY = (iso) => { const m = /^(\d{4})-(\d{2})/.exec(iso || ""); return m ? `${MONTHS[+m[2] - 1]} ${m[1]}` : ""; };
 const IND_ORDER = ["base_rate", "two_year", "core_cpi", "services_pmi", "wages", "unemployment"];
 // Rendered as a .rate-tile row to match the Markets / Key-rates bands: the whole
 // row links to the source; the as-of / source detail lives in the hover tooltip.

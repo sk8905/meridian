@@ -7,7 +7,7 @@
 // same build. Pure module — no page-specific imports; loaded site-absolute
 // ("/feed.js?v=…") with the usual cache-token discipline.
 // =============================================================================
-import { esc } from "/util.js?v=20260719-1";
+import { esc, MONTHS } from "/util.js?v=20260719-1";
 
 // ---- Desk vocabulary --------------------------------------------------------
 // A "desk" is the label a row carries. Home merges the cross-desk streams
@@ -120,9 +120,8 @@ export function onLiveWire(fn) {
 }
 
 // ---- Formatting / sorting ---------------------------------------------------
-const MON = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 // The one day-header formatter — every wire's date breaks read "20 Jul 2026".
-export const fmtDay = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ""); return m ? `${+m[3]} ${MON[+m[2] - 1]} ${m[1]}` : (iso || ""); };
+export const fmtDay = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ""); return m ? `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}` : (iso || ""); };
 export const dayOf = (x) => String(x.date || "").slice(0, 10);
 // Newest-first by day then publish time; untimed items sort at midday to match
 // their "12:00" display.
