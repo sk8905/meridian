@@ -36,6 +36,7 @@ export function mount(host, ctx) {
   let pane = "macro";
   let _gyLive = null;                    // live yields overlay (/api/govyields), keyed by country
   let _yldTenor = "y10";                 // tenor selected in the yield-change heatmap dropdown
+  let _macroSub = "rates";               // Macro nested sub-tab: "rates" | "cycle"
   let _legalQuery = "";                 // Legal database keyword (persist across re-renders)
   const _legalAreas = new Set();        // practice areas the search is limited to (empty = all)
   const _legalTypes = new Set();        // item types the search is limited to (empty = all): "alert" | "case"
@@ -515,17 +516,24 @@ export function mount(host, ctx) {
       + `<p class="dsh-cyc-note dsh-mut">${esc(mc.note || "")}</p></div>`;
     return `<div class="dsh-cyc">${debt}${market}</div>`;
   }
+  // The Macro pane splits into two nested sub-tabs — Policy rates (Fed/BoE paths,
+  // rate outlook, yield curve, macro wire) and Cycle (Dalio debt + Marks market
+  // cycle) — so neither is an over-long single page. The regime pills stay above
+  // both as a shared read. Toggling swaps a class on the pane (cards stay direct
+  // grid children), so no re-render and no loss of scroll/state.
   function macroHTML() {
     const fed = fedHTML();
     const boe = boeHTML();
-    return `<div class="dsh-pane">
+    const sub = (k, l) => `<button type="button" class="dsh-msub-b${_macroSub === k ? " is-on" : ""}" data-msub="${k}">${l}</button>`;
+    return `<div class="dsh-pane dsh-macro dsh-macro-${_macroSub}">
       <section class="dsh-card dsh-span">${regimePillsHTML()}</section>
-      <section class="dsh-card dsh-span"><h3 class="dsh-h">Where we are in the cycle — debt &amp; market</h3>${cyclesHTML()}</section>
-      ${fed ? `<section class="dsh-card dsh-span"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
-      ${boe ? `<section class="dsh-card dsh-span"><h3 class="dsh-h">BoE path — MPC votes &amp; SONIA/OIS curve</h3>${boe}</section>` : ""}
-      <section class="dsh-card"><h3 class="dsh-h">Rate outlook</h3>${rateOutlookHTML()}</section>
-      <section class="dsh-card"><h3 class="dsh-h">Yield curve ${asOf(YIELD_CURVE && YIELD_CURVE.asOf)}</h3>${yieldCurveHTML()}</section>
-      <section class="dsh-card dsh-span"><h3 class="dsh-h">Macro wire — US &amp; UK headlines</h3>${macroNewsHTML()}</section>
+      <div class="dsh-span dsh-msub" role="tablist">${sub("rates", "Policy rates")}${sub("cycle", "Cycle")}</div>
+      ${fed ? `<section class="dsh-card dsh-span" data-mgrp="rates"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
+      ${boe ? `<section class="dsh-card dsh-span" data-mgrp="rates"><h3 class="dsh-h">BoE path — MPC votes &amp; SONIA/OIS curve</h3>${boe}</section>` : ""}
+      <section class="dsh-card" data-mgrp="rates"><h3 class="dsh-h">Rate outlook</h3>${rateOutlookHTML()}</section>
+      <section class="dsh-card" data-mgrp="rates"><h3 class="dsh-h">Yield curve ${asOf(YIELD_CURVE && YIELD_CURVE.asOf)}</h3>${yieldCurveHTML()}</section>
+      <section class="dsh-card dsh-span" data-mgrp="rates"><h3 class="dsh-h">Macro wire — US &amp; UK headlines</h3>${macroNewsHTML()}</section>
+      <section class="dsh-card dsh-span" data-mgrp="cycle"><h3 class="dsh-h">Where we are in the cycle — debt &amp; market</h3>${cyclesHTML()}</section>
     </div>`;
   }
 
@@ -829,6 +837,16 @@ export function mount(host, ctx) {
     }));
   }
   host.addEventListener("click", (e) => {
+    // Macro nested sub-tabs (Policy rates / Cycle): toggle in place — swap the
+    // pane class + button state, no re-render (keeps scroll and any loaded data).
+    const ms = e.target.closest("[data-msub]");
+    if (ms) {
+      _macroSub = ms.dataset.msub;
+      const wrap = host.querySelector(".dsh-macro");
+      if (wrap) { wrap.classList.remove("dsh-macro-rates", "dsh-macro-cycle"); wrap.classList.add("dsh-macro-" + _macroSub); }
+      host.querySelectorAll("[data-msub]").forEach((b) => b.classList.toggle("is-on", b.dataset.msub === _macroSub));
+      return;
+    }
     const a = e.target.closest(".tchip[data-sub]");
     if (a) { e.preventDefault(); e.stopPropagation(); pane = a.dataset.sub; render(); try { history.replaceState(null, "", a.getAttribute("href")); } catch { /* */ } }
   });

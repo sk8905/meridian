@@ -62,6 +62,23 @@ check(dash.mentionsPendulum, "Dashboard→Macro market cycle explains the pendul
 check(dash.mentionsStand, "Dashboard→Macro market cycle has a 'where we stand' read");
 check(dash.hasOaktree, "Dashboard→Macro market cycle links a real Oaktree memo");
 check(dash.meters >= 3, `Dashboard→Macro renders position meters (${dash.meters})`);
+
+// Nested Macro sub-tabs: Policy rates (default) and Cycle. The cycle card is
+// hidden until you switch to the Cycle sub-tab; the Fed-path card is a Policy-
+// rates card, hidden on the Cycle sub-tab.
+const cardVisible = (sel) => d.pg.evaluate((s) => {
+  const el = document.querySelector(s);
+  return !!(el && el.offsetParent !== null);
+}, sel);
+const tabs = await d.pg.evaluate(() => Array.from(document.querySelectorAll(".dsh-msub .dsh-msub-b")).map((b) => b.textContent.trim()));
+check(tabs.join(",") === "Policy rates,Cycle", `Macro has two sub-tabs: Policy rates · Cycle (got ${tabs.join(",")})`);
+check(await cardVisible('[data-mgrp="rates"] .dsh-h'), "default sub-tab shows Policy-rates cards");
+check(!(await cardVisible('[data-mgrp="cycle"]')), "the Cycle card is hidden on the Policy rates sub-tab");
+// Switch to Cycle.
+await d.pg.evaluate(() => { const b = document.querySelector('.dsh-msub-b[data-msub="cycle"]'); if (b) b.click(); });
+await d.pg.waitForTimeout(250);
+check(await cardVisible('[data-mgrp="cycle"] .dsh-cyc'), "tapping Cycle shows the cycle card");
+check(!(await cardVisible('[data-mgrp="rates"]')), "tapping Cycle hides the Policy-rates cards");
 checkErrs(d.errs, "dashboard macro cycle");
 await d.ctx.close();
 await b.close(); srv.close();
