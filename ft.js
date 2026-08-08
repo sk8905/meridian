@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "352a15ac-53c4-46eb-b75e-957f0388dc79", title: "Landmark crypto bill stalls in US Senate despite $225mn spending push", date: "2026-08-08", time: "11:00", url: "https://www.ft.com/content/352a15ac-53c4-46eb-b75e-957f0388dc79" },
+  { id: "e1f2e2b9-6f52-44fc-a659-e981d2fc923e", title: "First Brands urges court to approve bankruptcy settlement", date: "2026-08-08", time: "11:00", url: "https://www.ft.com/content/e1f2e2b9-6f52-44fc-a659-e981d2fc923e" },
   { id: "a371dc43-0584-4fcc-b064-80596727d5b5", title: "Pfizer grapples with ‘a world of hurt’ after Covid triumph", date: "2026-08-08", time: "11:00", url: "https://www.ft.com/content/a371dc43-0584-4fcc-b064-80596727d5b5" },
   { id: "f3050d94-6b78-4cf2-8b07-cf8903aacc7f", title: "Spain reinstates border controls on Italy as tensions rise over migrants", date: "2026-08-08", time: "10:45", url: "https://www.ft.com/content/f3050d94-6b78-4cf2-8b07-cf8903aacc7f" },
   { id: "d2248ee9-edb5-445c-b89b-425e033a19fa", title: "Chart of the Week: Currency interventions have a mixed record", date: "2026-08-08", time: "10:30", url: "https://www.ft.com/content/d2248ee9-edb5-445c-b89b-425e033a19fa" },
@@ -62,5 +64,4 @@ export const FT_ITEMS = [
   { id: "53a1d205-ca31-48fe-a535-86bf4a7ca5b7", title: "Stop feeding my cat!", date: "2026-08-07", time: "12:00", url: "https://www.ft.com/content/53a1d205-ca31-48fe-a535-86bf4a7ca5b7" },
   { id: "dabdeae3-9855-484b-9369-e74176352107", title: "UK shares: hotter than below decks in a heatwave", date: "2026-08-07", time: "12:00", url: "https://www.ft.com/content/dabdeae3-9855-484b-9369-e74176352107" },
   { id: "122c7788-8f8b-4f42-bc42-119a49396f91", title: "Britain curbs power exports to Europe to preserve supplies", date: "2026-08-07", time: "11:03", url: "https://www.ft.com/content/122c7788-8f8b-4f42-bc42-119a49396f91" },
-  { id: "0edbd013-dc35-494b-b7e7-9a745af01c9d", title: "MFS collapse prompts UK watchdog to crack down on financial crime", date: "2026-08-07", time: "10:56", url: "https://www.ft.com/content/0edbd013-dc35-494b-b7e7-9a745af01c9d" },
 ];
