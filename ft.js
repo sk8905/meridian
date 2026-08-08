@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d92204d1-e13b-4e90-96b5-8fd2db7436f0", title: "Gianni Infantino’s fight for survival", date: "2026-08-08", time: "09:00", url: "https://www.ft.com/content/d92204d1-e13b-4e90-96b5-8fd2db7436f0" },
+  { id: "798623be-8da1-490d-9494-11b3d5f58ac8", title: "Widdecombe murder probe reopens inquiry into attempted burglary at Farage’s house", date: "2026-08-08", time: "08:27", url: "https://www.ft.com/content/798623be-8da1-490d-9494-11b3d5f58ac8" },
   { id: "5c74c644-1491-4514-93b5-0a203c3b8a95", title: "Parents of UK students dig deep to fund university costs", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/5c74c644-1491-4514-93b5-0a203c3b8a95" },
   { id: "45730a94-cb43-42cb-ae8f-da0f39f37d67", title: "Venezuelans take to the streets as country hit by daily blackouts", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/45730a94-cb43-42cb-ae8f-da0f39f37d67" },
   { id: "0a843a71-8418-4c18-a19d-de47688818e8", title: "Sainsbury’s needs a dose of Big Tech’s boldness", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/0a843a71-8418-4c18-a19d-de47688818e8" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "2e00d86e-27bf-4c16-9f5a-64acf8967763", title: "Rare earth access: still a thing", date: "2026-08-07", time: "10:30", url: "https://www.ft.com/content/2e00d86e-27bf-4c16-9f5a-64acf8967763" },
   { id: "9d9e8f82-1626-429c-9434-a8540ca2ed64", title: "CMA moves to stop Aldi and Lidl blocking rival UK store openings", date: "2026-08-07", time: "10:21", url: "https://www.ft.com/content/9d9e8f82-1626-429c-9434-a8540ca2ed64" },
   { id: "c01d3ee6-9755-43e5-94e8-b1221a39558e", title: "The Manchester roots of Andy Burnham's skills revolution", date: "2026-08-07", time: "10:00", url: "https://www.ft.com/content/c01d3ee6-9755-43e5-94e8-b1221a39558e" },
-  { id: "7c028aa0-cb64-4f71-9605-f63b83df7af4", title: "DR Congo launches probe into uranium-contaminated cobalt exports", date: "2026-08-07", time: "09:48", url: "https://www.ft.com/content/7c028aa0-cb64-4f71-9605-f63b83df7af4" },
 ];
