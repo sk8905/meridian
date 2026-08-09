@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "df62a69e-aa53-4cde-8a02-4d2cd465a370", title: "Syria makes deal to take control of Russian bases", date: "2026-08-09", time: "17:26", url: "https://www.ft.com/content/df62a69e-aa53-4cde-8a02-4d2cd465a370" },
   { id: "4fc0fdda-0919-4584-9bdd-855e2aaa5c09", title: "Donald Trump is dismantling US guardrails, warn former security officials", date: "2026-08-09", time: "17:00", url: "https://www.ft.com/content/4fc0fdda-0919-4584-9bdd-855e2aaa5c09" },
   { id: "03736b77-347b-4e07-bcb2-ced2d36737dc", title: "Britain needs to redefine what it considers cutting-edge", date: "2026-08-09", time: "17:00", url: "https://www.ft.com/content/03736b77-347b-4e07-bcb2-ced2d36737dc" },
   { id: "e4650e97-be1f-479d-8959-c892785abf49", title: "Netanyahu rejects Trump’s Gaza disarmament plan", date: "2026-08-09", time: "16:17", url: "https://www.ft.com/content/e4650e97-be1f-479d-8959-c892785abf49" },
@@ -59,8 +60,4 @@ export const FT_ITEMS = [
   { id: "0a843a71-8418-4c18-a19d-de47688818e8", title: "Sainsbury’s needs a dose of Big Tech’s boldness", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/0a843a71-8418-4c18-a19d-de47688818e8" },
   { id: "d9e0c81c-9160-48e7-9309-01f21de5fe5d", title: "Kids, flats and student loans: Why UK first-time buyers are getting older", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/d9e0c81c-9160-48e7-9309-01f21de5fe5d" },
   { id: "10f9922c-4667-4fb9-b2a0-6f3264ef0b09", title: "The exciting boring decade", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/10f9922c-4667-4fb9-b2a0-6f3264ef0b09" },
-  { id: "779cbfdc-e259-4008-8dea-80b23878d6c7", title: "London’s dejected housebuilders finally catch a break", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/779cbfdc-e259-4008-8dea-80b23878d6c7" },
-  { id: "5da56bdb-07d5-4ab7-be03-4bf303400a90", title: "Burnham urged to rule out changes to pension lump sums in next Budget", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/5da56bdb-07d5-4ab7-be03-4bf303400a90" },
-  { id: "fb49381a-3e09-4666-85b0-7a171e01394e", title: "The US bares its financial weak spot", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/fb49381a-3e09-4666-85b0-7a171e01394e" },
-  { id: "43af0b33-4c2d-4c10-8948-c77082f70935", title: "How to fix Britain’s housing crisis", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/43af0b33-4c2d-4c10-8948-c77082f70935" },
 ];
