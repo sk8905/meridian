@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "e7f0c7af-b170-4cb5-a16e-671efa62e605", title: "Will US inflation be cool enough to trim bets on a September rate rise?", date: "2026-08-09", time: "12:00", url: "https://www.ft.com/content/e7f0c7af-b170-4cb5-a16e-671efa62e605" },
+  { id: "b25139e3-e748-407f-bc49-7389b3434455", title: "US social security could soon be insolvent", date: "2026-08-09", time: "12:00", url: "https://www.ft.com/content/b25139e3-e748-407f-bc49-7389b3434455" },
+  { id: "29d6cef0-72db-4348-aa85-b7c3dcf94e60", title: "Enforcing the duty of candour is harder than it seems", date: "2026-08-09", time: "12:00", url: "https://www.ft.com/content/29d6cef0-72db-4348-aa85-b7c3dcf94e60" },
   { id: "c15abecc-5f9a-4f7b-92e2-8c99f9ea3ae5", title: "Asian carmakers cash in as high petrol prices lift US demand for hybrids", date: "2026-08-09", time: "11:00", url: "https://www.ft.com/content/c15abecc-5f9a-4f7b-92e2-8c99f9ea3ae5" },
   { id: "69c573e0-9c24-451d-bb13-ae7a7c3104c0", title: "Impatient yacht owners make for a hot new asset class", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/69c573e0-9c24-451d-bb13-ae7a7c3104c0" },
   { id: "7dc75493-84e1-4b84-af2a-ef5375fd9736", title: "Career satisfaction in an uncertain world? Dream on", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/7dc75493-84e1-4b84-af2a-ef5375fd9736" },
@@ -58,6 +61,4 @@ export const FT_ITEMS = [
   { id: "79f4255d-7f61-48d8-8209-c9560a35021b", title: "Can British bike makers get back on track?", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/79f4255d-7f61-48d8-8209-c9560a35021b" },
   { id: "2472ef5a-798d-4e7b-b4be-020855cf387e", title: "America’s new oligarchy", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/2472ef5a-798d-4e7b-b4be-020855cf387e" },
   { id: "d14cac62-bd68-44e5-8fb5-0637b412fdf7", title: "Mike Ashley says Harvey Nichols is in a 'death spiral'", date: "2026-08-07", time: "21:05", url: "https://www.ft.com/content/d14cac62-bd68-44e5-8fb5-0637b412fdf7" },
-  { id: "cf508e70-5bc2-495e-8b9b-21f15e60ad58", title: "Burnham's UK tour to focus on cutting cost of living and helping high streets", date: "2026-08-07", time: "19:01", url: "https://www.ft.com/content/cf508e70-5bc2-495e-8b9b-21f15e60ad58" },
-  { id: "0012c7c9-fb31-4c90-a2e7-e65bd4629b22", title: "Donald Trump revives threat to sack Fed governor Lisa Cook", date: "2026-08-07", time: "18:29", url: "https://www.ft.com/content/0012c7c9-fb31-4c90-a2e7-e65bd4629b22" },
 ];
