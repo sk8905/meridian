@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c15abecc-5f9a-4f7b-92e2-8c99f9ea3ae5", title: "Asian carmakers cash in as high petrol prices lift US demand for hybrids", date: "2026-08-09", time: "11:00", url: "https://www.ft.com/content/c15abecc-5f9a-4f7b-92e2-8c99f9ea3ae5" },
   { id: "69c573e0-9c24-451d-bb13-ae7a7c3104c0", title: "Impatient yacht owners make for a hot new asset class", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/69c573e0-9c24-451d-bb13-ae7a7c3104c0" },
   { id: "7dc75493-84e1-4b84-af2a-ef5375fd9736", title: "Career satisfaction in an uncertain world? Dream on", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/7dc75493-84e1-4b84-af2a-ef5375fd9736" },
   { id: "d45a8e1b-1d45-4a3d-a3d2-5a3ce15b0e9d", title: "The Bayeux Tapestry loan is a model for the Parthenon Marbles", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/d45a8e1b-1d45-4a3d-a3d2-5a3ce15b0e9d" },
@@ -59,7 +60,4 @@ export const FT_ITEMS = [
   { id: "d14cac62-bd68-44e5-8fb5-0637b412fdf7", title: "Mike Ashley says Harvey Nichols is in a 'death spiral'", date: "2026-08-07", time: "21:05", url: "https://www.ft.com/content/d14cac62-bd68-44e5-8fb5-0637b412fdf7" },
   { id: "cf508e70-5bc2-495e-8b9b-21f15e60ad58", title: "Burnham's UK tour to focus on cutting cost of living and helping high streets", date: "2026-08-07", time: "19:01", url: "https://www.ft.com/content/cf508e70-5bc2-495e-8b9b-21f15e60ad58" },
   { id: "0012c7c9-fb31-4c90-a2e7-e65bd4629b22", title: "Donald Trump revives threat to sack Fed governor Lisa Cook", date: "2026-08-07", time: "18:29", url: "https://www.ft.com/content/0012c7c9-fb31-4c90-a2e7-e65bd4629b22" },
-  { id: "8b61001e-6d7c-4ca9-8c4b-853b4555f318", title: "Passing the Clarity Act on digital assets is a matter of national security", date: "2026-08-07", time: "18:00", url: "https://www.ft.com/content/8b61001e-6d7c-4ca9-8c4b-853b4555f318" },
-  { id: "145df661-bee4-4242-8671-75e1268b3676", title: "Directors’ Deals: Man Group’s finance chief divests even as assets swell", date: "2026-08-07", time: "18:00", url: "https://www.ft.com/content/145df661-bee4-4242-8671-75e1268b3676" },
-  { id: "daa12453-278d-4353-8db5-e9a56fec35f8", title: "Stockpickers: XP Power, Intertek, Clarkson", date: "2026-08-07", time: "18:00", url: "https://www.ft.com/content/daa12453-278d-4353-8db5-e9a56fec35f8" },
 ];
