@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7dc75493-84e1-4b84-af2a-ef5375fd9736", title: "Career satisfaction in an uncertain world? Dream on", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/7dc75493-84e1-4b84-af2a-ef5375fd9736" },
+  { id: "d45a8e1b-1d45-4a3d-a3d2-5a3ce15b0e9d", title: "The Bayeux Tapestry loan is a model for the Parthenon Marbles", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/d45a8e1b-1d45-4a3d-a3d2-5a3ce15b0e9d" },
   { id: "7aafc76c-c381-4381-a89c-e92c9db60671", title: "Andy Burnham failed to end rough sleeping as a mayor — can he succeed as prime minister?", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/7aafc76c-c381-4381-a89c-e92c9db60671" },
   { id: "560ff425-c1ac-4eef-b8da-e6cdb0a412a3", title: "UK state subsidies soar as post-Brexit grants boost energy projects", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/560ff425-c1ac-4eef-b8da-e6cdb0a412a3" },
   { id: "0a6249a2-e28b-4e58-ab2d-2b8615b832dc", title: "Turkey’s cyber law shifts sweeping powers to presidency", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/0a6249a2-e28b-4e58-ab2d-2b8615b832dc" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "8b61001e-6d7c-4ca9-8c4b-853b4555f318", title: "Passing the Clarity Act on digital assets is a matter of national security", date: "2026-08-07", time: "18:00", url: "https://www.ft.com/content/8b61001e-6d7c-4ca9-8c4b-853b4555f318" },
   { id: "145df661-bee4-4242-8671-75e1268b3676", title: "Directors’ Deals: Man Group’s finance chief divests even as assets swell", date: "2026-08-07", time: "18:00", url: "https://www.ft.com/content/145df661-bee4-4242-8671-75e1268b3676" },
   { id: "daa12453-278d-4353-8db5-e9a56fec35f8", title: "Stockpickers: XP Power, Intertek, Clarkson", date: "2026-08-07", time: "18:00", url: "https://www.ft.com/content/daa12453-278d-4353-8db5-e9a56fec35f8" },
-  { id: "822f8902-1808-469f-97e0-634c552a7aa4", title: "Taming AI’s wild frontier", date: "2026-08-07", time: "17:54", url: "https://www.ft.com/content/822f8902-1808-469f-97e0-634c552a7aa4" },
 ];
