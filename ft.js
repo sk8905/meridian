@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "af06cfa1-0ea8-40a6-ad2c-81fe47a63e7b", title: "A very British by-election reaches its finale", date: "2026-08-09", time: "18:15", url: "https://www.ft.com/content/af06cfa1-0ea8-40a6-ad2c-81fe47a63e7b" },
   { id: "df62a69e-aa53-4cde-8a02-4d2cd465a370", title: "Syria makes deal to take control of Russian bases", date: "2026-08-09", time: "17:26", url: "https://www.ft.com/content/df62a69e-aa53-4cde-8a02-4d2cd465a370" },
   { id: "4fc0fdda-0919-4584-9bdd-855e2aaa5c09", title: "Donald Trump is dismantling US guardrails, warn former security officials", date: "2026-08-09", time: "17:00", url: "https://www.ft.com/content/4fc0fdda-0919-4584-9bdd-855e2aaa5c09" },
   { id: "03736b77-347b-4e07-bcb2-ced2d36737dc", title: "Britain needs to redefine what it considers cutting-edge", date: "2026-08-09", time: "17:00", url: "https://www.ft.com/content/03736b77-347b-4e07-bcb2-ced2d36737dc" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "45730a94-cb43-42cb-ae8f-da0f39f37d67", title: "Venezuelans take to the streets as country hit by daily blackouts", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/45730a94-cb43-42cb-ae8f-da0f39f37d67" },
   { id: "0a843a71-8418-4c18-a19d-de47688818e8", title: "Sainsbury’s needs a dose of Big Tech’s boldness", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/0a843a71-8418-4c18-a19d-de47688818e8" },
   { id: "d9e0c81c-9160-48e7-9309-01f21de5fe5d", title: "Kids, flats and student loans: Why UK first-time buyers are getting older", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/d9e0c81c-9160-48e7-9309-01f21de5fe5d" },
-  { id: "10f9922c-4667-4fb9-b2a0-6f3264ef0b09", title: "The exciting boring decade", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/10f9922c-4667-4fb9-b2a0-6f3264ef0b09" },
 ];
