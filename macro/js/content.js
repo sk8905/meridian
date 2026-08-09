@@ -5,7 +5,7 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "7 August 2026";
+export const UPDATED = "9 August 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
@@ -13,7 +13,7 @@ export const UPDATED = "7 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-09",
-  lastCheckedTime: "05:24 BST",
+  lastCheckedTime: "09:16 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -603,6 +603,7 @@ export const YIELD_CURVE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-iran-demands-list-2026-08-08", kind: "Markets", title: "Iran's national security chief Mohammad Bagher Zolghadr set out formal demands for reopening the Strait of Hormuz — lifting the US naval blockade, withdrawing forces, ending the war, compensation and releasing frozen Iranian assets — while Iran and Oman said a temporary transit-route deal is 'very close' but won't mean an immediate reopening; Gen. Dan Caine has privately signalled the Pentagon wants an off-ramp.", href: "#/bubble", date: "2026-08-08" },
   { id: "g-mecca-defence-pact-2026-08-07", kind: "Markets", title: "Saudi Arabia, Turkey and Pakistan signed a 'Mecca Joint Defence Pact' in Mecca — a NATO Article 5-style mutual-defence agreement treating an attack on any one signatory as an attack on all — as escalating Iran-war strikes on Gulf oil exporters and near-total Strait of Hormuz shipping disruption push Saudi Arabia to broaden its security guarantees beyond the US umbrella.", href: "#/bubble", date: "2026-08-07" },
   { id: "g-trump-war-cant-go-much-longer-2026-08-07", kind: "Markets", title: "Trump said he believes the Iran war is 'nearing an end' and petrol prices will fall once it does, as Tehran and Oman edge toward a framework on Strait of Hormuz shipping routes; Iran's negotiators dismissed Washington's approach as 'theater diplomacy', keeping the timeline for a full reopening genuinely uncertain.", href: "#/bubble", date: "2026-08-07" },
   { id: "g-sp500-record-jobs-miss-2026-08-07", kind: "Bubble risk", title: "The S&P 500 closed at a fresh record 7,757.64 (+0.62%) and the Nasdaq Composite jumped 1.3% to 26,690.62, capping a second straight week of gains (S&P 500 +3.6%, Nasdaq +5.2%), as markets read July's shock 23,000 payrolls decline as taking a September Fed hike largely off the table.", href: "#/bubble", date: "2026-08-07" },
@@ -759,9 +760,9 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-08-09",
   us: [
+    { title: "The Week Ahead: CPI and Earnings Test the Stock Market Rally Near Record Highs", source: "FXEmpire", date: "2026-08-09", time: "09:16", url: "https://www.fxempire.com/forecasts/article/the-week-ahead-cpi-and-earnings-test-the-stock-market-rally-near-record-highs-1615629" },
+    { title: "Live updates: Tehran insists on US concessions before opening Strait of Hormuz", source: "CNN", date: "2026-08-09", url: "https://us.cnn.com/2026/08/09/world/live-news/iran-war-trump" },
     { title: "Stocks rise, Treasury yields fall after jobs cut report", source: "AP (Arkansas Democrat-Gazette)", date: "2026-08-08", url: "https://www.arkansasonline.com/news/2026/aug/08/stocks-rise-treasury-yields-fall-after-jobs-cut/" },
-    { title: "Week ahead August 10th 2026", source: "IG", date: "2026-08-07", url: "https://www.ig.com/ae/news-and-trade-ideas/week-ahead-august-10th-2026-260807" },
-    { title: "Forecasting the upcoming week: US inflation takes center stage next week", source: "FXStreet", date: "2026-08-07", time: "19:33", url: "https://www.fxstreet.com/news/forecasting-the-upcoming-week-us-inflation-takes-center-stage-next-week-202608071933" },
     { title: "This Job Report Has High Stakes for Investors", source: "Bloomberg (The Readout newsletter)", date: "2026-08-07", url: "https://www.bloomberg.com/news/newsletters/2026-08-07/this-job-reports-has-high-stakes-for-investors" },
     { title: "Saudi Arabia, Turkey and Pakistan pledge mutual defense as Middle East turmoil escalates", source: "NBC News", date: "2026-08-07", time: "22:00", url: "https://www.nbcnews.com/world/middle-east/saudi-arabia-turkey-pakistan-pledge-mutual-defense-rcna591330" },
   ],
@@ -784,6 +785,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-09",
   items: [
+    {"title":"Live updates: Tehran insists on US concessions before opening Strait of Hormuz","source":"CNN","date":"2026-08-09","url":"https://us.cnn.com/2026/08/09/world/live-news/iran-war-trump","blurb":"Iran's national security chief Mohammad Bagher Zolghadr lists demands for reopening the Strait — lifting the US naval blockade, withdrawing forces, ending the war, compensation and releasing frozen Iranian assets — as Gen. Dan Caine privately signals the Pentagon wants an off-ramp."},
+    {"title":"The Week Ahead: CPI and Earnings Test the Stock Market Rally Near Record Highs","source":"FXEmpire","date":"2026-08-09","url":"https://www.fxempire.com/forecasts/article/the-week-ahead-cpi-and-earnings-test-the-stock-market-rally-near-record-highs-1615629","blurb":"Stocks enter the week near record highs (S&P 500 +3.58% last week) as Wednesday's CPI and Thursday's PPI test reduced expectations for further Fed tightening, alongside earnings from CoreWeave, Cisco and Applied Materials."},
+    {"title":"Iran Says Hormuz Deal Close But Its Conditions Must Be Met","source":"Bloomberg","date":"2026-08-08","url":"https://www.bloomberg.com/news/articles/2026-08-08/iran-says-hormuz-deal-close-but-that-its-conditions-must-be-met","blurb":"Foreign Minister Araghchi says Iran and Oman are 'very close' on a temporary Strait of Hormuz transit route, but cautions any deal won't mean an immediate reopening — a limited near-term respite for oil supply."},
     {"title":"Iran says agreement with Oman for Strait of Hormuz prohibits U.S. and Israeli vessels","source":"NPR","date":"2026-08-07","url":"https://www.npr.org/2026/08/07/nx-s1-5923962/iran-says-agreement-with-oman-for-strait-of-hormuz-prohibits-u-s-and-israeli-vessels","blurb":"Tehran says its near-final shipping-transit deal with Oman would still bar US- and Israel-linked vessels from the Strait of Hormuz and fine other violators up to 20% of cargo value, even as talks reach the final drafting stage."},
     {"title":"Hormuz deal 'close': What's the latest on each side's positions?","source":"Al Jazeera","date":"2026-08-06","url":"https://www.aljazeera.com/news/2026/8/6/hormuz-deal-close-whats-the-latest-on-each-sides-positions","blurb":"A side-by-side of the US, Iranian and Omani negotiating positions as an interim Strait of Hormuz shipping agreement nears a joint final statement."},
     {"title":"Week ahead August 10th 2026","source":"IG","date":"2026-08-07","url":"https://www.ig.com/ae/news-and-trade-ideas/week-ahead-august-10th-2026-260807","blurb":"US equities head into the week at fresh records on falling oil prices and resilient earnings, with the Nasdaq 100 more than 10% off its clearing-event low, as traders eye Wednesday's US CPI print."},
@@ -821,8 +825,6 @@ export const ARTICLES = {
     {"title":"FTSE 100 Today: UK Stock Index Rises 0.61% as Mining, Energy Shares Lead Gain","source":"Sunday Guardian Live","date":"2026-08-07","time":"10:30","url":"https://sundayguardianlive.com/business/ftse-100-today-uk-stock-index-rises-061-as-mining-energy-shares-leads-gain-what-should-investors-know-255721/","blurb":"London's blue-chip index rose 0.61% in mid-morning trade as a rebound in energy prices — Brent above $83/bbl on renewed Hormuz shipping-lane uncertainty — and strong domestic earnings lifted the mining and energy sectors."},
     {"title":"Global Economy Briefing — August 7, 2026","source":"Rio Times Online","date":"2026-08-07","time":"05:30","url":"https://www.riotimesonline.com/global-economy-briefing-august-7-2026/","blurb":"Wall Street indices held near record highs and the dollar was broadly steady into the July jobs report, with the 10-year Treasury yield near 4.68% pricing in a labour market that could keep the Fed on hold."},
     {"title":"Pound Sterling Price News and Forecast: GBP/USD remains weaker as UK-US yields narrow","source":"FXStreet","date":"2026-08-07","time":"03:36","url":"https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-remains-weaker-as-uk-us-yields-narrow-202608070336","blurb":"GBP/USD trades softer near 1.3450 as UK-US bond-yield differentials narrow, with markets fully focused on Friday's US nonfarm payrolls for the next directional cue."},
-    {"title":"Gold Price Forecast Today: XAU/USD Holds Above $4,250 as NFP Takes Center Stage","source":"FX Leaders","date":"2026-08-07","url":"https://www.fxleaders.com/news/2026/08/07/gold-price-forecast-today-xau-usd-holds-above-4250-ahead-of-nfp/","blurb":"Gold holds above $4,250 and is on track for its best weekly close since January, with markets awaiting the July jobs report for the next steer on Fed policy."},
-    {"title":"FTSE 100 Set for Softer Open as Investors Await US Jobs Report","source":"Share Talk","date":"2026-08-07","url":"https://www.share-talk.com/ftse-100-set-for-softer-open-as-investors-await-us-jobs-report/","blurb":"London's blue-chip index is set to open marginally lower as fresh US tariffs on polysilicon imports and firmer oil prices offset optimism ahead of the closely watched US jobs report."},
   ],
 };
 
