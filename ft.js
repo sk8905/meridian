@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "69c573e0-9c24-451d-bb13-ae7a7c3104c0", title: "Impatient yacht owners make for a hot new asset class", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/69c573e0-9c24-451d-bb13-ae7a7c3104c0" },
   { id: "7dc75493-84e1-4b84-af2a-ef5375fd9736", title: "Career satisfaction in an uncertain world? Dream on", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/7dc75493-84e1-4b84-af2a-ef5375fd9736" },
   { id: "d45a8e1b-1d45-4a3d-a3d2-5a3ce15b0e9d", title: "The Bayeux Tapestry loan is a model for the Parthenon Marbles", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/d45a8e1b-1d45-4a3d-a3d2-5a3ce15b0e9d" },
   { id: "7aafc76c-c381-4381-a89c-e92c9db60671", title: "Andy Burnham failed to end rough sleeping as a mayor — can he succeed as prime minister?", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/7aafc76c-c381-4381-a89c-e92c9db60671" },
