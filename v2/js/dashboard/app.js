@@ -507,7 +507,7 @@ export function mount(host, ctx) {
     const debt = `<div class="dsh-cyc-blk"><div class="dsh-cyc-hd">Debt cycle <span>Ray Dalio · 0 early → 100 crisis</span></div>`
       + meter("US", CYCLE.us.pos) + meter("UK", CYCLE.uk.pos)
       + `<p class="dsh-cyc-note dsh-mut">${esc(stripTags(String(CYCLE.us.shortStage || "")))} (US) · ${esc(stripTags(String(CYCLE.uk.shortStage || "")))} (UK)</p></div>`;
-    const srcs = (mc.sources || []).map(([l, u]) => `<a class="dsh-cyc-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(l)} ↗</a>`).join("");
+    const srcs = (mc.sources || []).map(([l, u]) => `<a class="dsh-cyc-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(l)}</a>`).join("");
     const market = `<div class="dsh-cyc-blk"><div class="dsh-cyc-hd">Market cycle <span>Howard Marks · 0 capitulation → 100 mania</span></div>`
       + meter("Equities", mc.pos) + `<p class="dsh-cyc-note"><strong>${esc(mc.stage || "")}</strong></p>`
       + paras(mc.framework)

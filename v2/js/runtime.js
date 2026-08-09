@@ -25,7 +25,7 @@ const BASE = "/v2";
 // hand-bumping each link in the import chain. (Per-view CSS, detail.js and the
 // shared/data modules keep their own tokens — they change on their own cadence.)
 const V = (() => { try { return new URL(import.meta.url).searchParams.get("v") || ""; } catch { return ""; } })();
-export const vurl = (p) => p + (p.includes("?") ? "&" : "?") + "v=" + V;
+const vurl = (p) => p + (p.includes("?") ? "&" : "?") + "v=" + V;
 
 // The top-level tabs. `load` is a lazy import → the view's code (and, later, its
 // heavy data) is fetched only when the tab is first opened, then cached by the
@@ -46,7 +46,7 @@ const ROUTE_BY_KEY = Object.fromEntries(ROUTES.map((r) => [r.key, r]));
 // ---- URL <-> tab -----------------------------------------------------------
 // /v2/ → home ; /v2/macro/… → macro ; etc. Everything after the tab segment is
 // the sub-route (a view's own detail routing), handed to the view on enter.
-export function tabPath(key) { return key === "home" ? BASE + "/" : BASE + "/" + key + "/"; }
+function tabPath(key) { return key === "home" ? BASE + "/" : BASE + "/" + key + "/"; }
 function parse(pathname) {
   let p = pathname;
   if (p.startsWith(BASE)) p = p.slice(BASE.length);
@@ -139,7 +139,7 @@ function mountView(key) {
 const TOUCH = (typeof navigator !== "undefined" && (navigator.maxTouchPoints || 0) > 0)
   || (typeof matchMedia === "function" && matchMedia("(pointer: coarse)").matches);
 let _pending = null;                               // latest tap requested mid-swap
-export async function navigate(path, { push = true, replace = false } = {}) {
+async function navigate(path, { push = true, replace = false } = {}) {
   const url = new URL(path, location.origin);
   const { key, sub } = parse(url.pathname);
   const same = key === _active;
