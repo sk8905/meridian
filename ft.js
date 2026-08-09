@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "4fc0fdda-0919-4584-9bdd-855e2aaa5c09", title: "Donald Trump is dismantling US guardrails, warn former security officials", date: "2026-08-09", time: "17:00", url: "https://www.ft.com/content/4fc0fdda-0919-4584-9bdd-855e2aaa5c09" },
+  { id: "03736b77-347b-4e07-bcb2-ced2d36737dc", title: "Britain needs to redefine what it considers cutting-edge", date: "2026-08-09", time: "17:00", url: "https://www.ft.com/content/03736b77-347b-4e07-bcb2-ced2d36737dc" },
+  { id: "e4650e97-be1f-479d-8959-c892785abf49", title: "Netanyahu rejects Trump’s Gaza disarmament plan", date: "2026-08-09", time: "16:17", url: "https://www.ft.com/content/e4650e97-be1f-479d-8959-c892785abf49" },
   { id: "3dd0cbcb-26e0-4eef-af1f-b16812cae6ac", title: "America’s hidden M&A boom", date: "2026-08-09", time: "16:00", url: "https://www.ft.com/content/3dd0cbcb-26e0-4eef-af1f-b16812cae6ac" },
   { id: "a6a000a4-3578-41d0-a898-aeef5f1dbaa0", title: "Organised crime suspect Daniel Kinahan extradited from Dubai", date: "2026-08-09", time: "13:01", url: "https://www.ft.com/content/a6a000a4-3578-41d0-a898-aeef5f1dbaa0" },
   { id: "ddf44cf7-0ab5-4e7e-9b1f-e5e8e34181e6", title: "Could AI create a ‘permanent underclass’?", date: "2026-08-09", time: "12:30", url: "https://www.ft.com/content/ddf44cf7-0ab5-4e7e-9b1f-e5e8e34181e6" },
