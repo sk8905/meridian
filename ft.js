@@ -20,6 +20,16 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7aafc76c-c381-4381-a89c-e92c9db60671", title: "Andy Burnham failed to end rough sleeping as a mayor — can he succeed as prime minister?", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/7aafc76c-c381-4381-a89c-e92c9db60671" },
+  { id: "560ff425-c1ac-4eef-b8da-e6cdb0a412a3", title: "UK state subsidies soar as post-Brexit grants boost energy projects", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/560ff425-c1ac-4eef-b8da-e6cdb0a412a3" },
+  { id: "0a6249a2-e28b-4e58-ab2d-2b8615b832dc", title: "Turkey’s cyber law shifts sweeping powers to presidency", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/0a6249a2-e28b-4e58-ab2d-2b8615b832dc" },
+  { id: "590e468a-1eb7-4d1b-a7a5-80541c3ff35a", title: "Hargreaves Lansdown orders staff back to office", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/590e468a-1eb7-4d1b-a7a5-80541c3ff35a" },
+  { id: "0ac50644-398f-49ec-895d-a2494254dabd", title: "France faces budget showdown as presidential election looms", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/0ac50644-398f-49ec-895d-a2494254dabd" },
+  { id: "297a8bf7-ce8b-44fe-bc51-3e2ec2e47699", title: "Investors return to European stocks as strong earnings lift Iran war gloom", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/297a8bf7-ce8b-44fe-bc51-3e2ec2e47699" },
+  { id: "15c56de6-c884-4c7f-a91c-6d1aa59ce1c6", title: "China’s monthly inflation cools as impact from Iran war eases", date: "2026-08-09", time: "04:05", url: "https://www.ft.com/content/15c56de6-c884-4c7f-a91c-6d1aa59ce1c6" },
+  { id: "ff321dc1-41d6-473d-b7e7-2a58224a18e7", title: "One of the world’s biggest coal producers battles to keep lights on", date: "2026-08-09", time: "03:05", url: "https://www.ft.com/content/ff321dc1-41d6-473d-b7e7-2a58224a18e7" },
+  { id: "2be78a9f-1431-4519-b5c4-c4dd5026dd3c", title: "Deadly protests in Kashmir test Pakistan’s military rulers", date: "2026-08-09", time: "02:50", url: "https://www.ft.com/content/2be78a9f-1431-4519-b5c4-c4dd5026dd3c" },
+  { id: "657249de-f5bd-4648-9a1c-77315cd5a1c9", title: "The bank behind China’s AI listings bonanza", date: "2026-08-09", time: "02:22", url: "https://www.ft.com/content/657249de-f5bd-4648-9a1c-77315cd5a1c9" },
   { id: "9a1ab09b-82d7-43c2-b44a-ebb41d352dab", title: "Tehran says US must ‘rectify its behaviour’ before Iran reopens strait", date: "2026-08-08", time: "17:20", url: "https://www.ft.com/content/9a1ab09b-82d7-43c2-b44a-ebb41d352dab" },
   { id: "e164e244-f6de-4e3b-8a67-6bebee1b7bf4", title: "Greg Abel finally puts Buffett’s cash pile to work", date: "2026-08-08", time: "16:36", url: "https://www.ft.com/content/e164e244-f6de-4e3b-8a67-6bebee1b7bf4" },
   { id: "4f1f4150-3e5b-4015-ad44-5f596e0287a5", title: "US Senate narrowly confirms Todd Blanche as US attorney-general", date: "2026-08-08", time: "15:24", url: "https://www.ft.com/content/4f1f4150-3e5b-4015-ad44-5f596e0287a5" },
@@ -50,14 +60,4 @@ export const FT_ITEMS = [
   { id: "145df661-bee4-4242-8671-75e1268b3676", title: "Directors’ Deals: Man Group’s finance chief divests even as assets swell", date: "2026-08-07", time: "18:00", url: "https://www.ft.com/content/145df661-bee4-4242-8671-75e1268b3676" },
   { id: "daa12453-278d-4353-8db5-e9a56fec35f8", title: "Stockpickers: XP Power, Intertek, Clarkson", date: "2026-08-07", time: "18:00", url: "https://www.ft.com/content/daa12453-278d-4353-8db5-e9a56fec35f8" },
   { id: "822f8902-1808-469f-97e0-634c552a7aa4", title: "Taming AI’s wild frontier", date: "2026-08-07", time: "17:54", url: "https://www.ft.com/content/822f8902-1808-469f-97e0-634c552a7aa4" },
-  { id: "2b9f249a-53f1-4755-88ec-3e316d3c965d", title: "FTAV Friday chart quiz", date: "2026-08-07", time: "15:19", url: "https://www.ft.com/content/2b9f249a-53f1-4755-88ec-3e316d3c965d" },
-  { id: "0fd301d9-7e47-46ff-89b9-b666a8a1c148", title: "Cambridge university to review appointments process after Jason Arday affair", date: "2026-08-07", time: "14:47", url: "https://www.ft.com/content/0fd301d9-7e47-46ff-89b9-b666a8a1c148" },
-  { id: "54adfc90-f555-44d3-8a81-4f39a07b5473", title: "US economy unexpectedly shed 23,000 jobs in July", date: "2026-08-07", time: "13:39", url: "https://www.ft.com/content/54adfc90-f555-44d3-8a81-4f39a07b5473" },
-  { id: "dba784cb-a197-4576-b533-597d5eb12a51", title: "Mixed July payrolls report takes pressure off the Fed to tighten", date: "2026-08-07", time: "14:37", url: "https://www.ft.com/content/dba784cb-a197-4576-b533-597d5eb12a51" },
-  { id: "d981326d-3d4c-4248-aed2-c5c1c0e8cab5", title: "The meaning of Michigan", date: "2026-08-07", time: "14:00", url: "https://www.ft.com/content/d981326d-3d4c-4248-aed2-c5c1c0e8cab5" },
-  { id: "81aff420-0ce3-4e69-9608-31b81d406be9", title: "Will Farage’s gamble pay off?", date: "2026-08-07", time: "13:36", url: "https://www.ft.com/content/81aff420-0ce3-4e69-9608-31b81d406be9" },
-  { id: "2434fbcc-b8b5-4bda-a82d-1b08c6a015f8", title: "UK housing market in ‘suspended animation’", date: "2026-08-07", time: "13:33", url: "https://www.ft.com/content/2434fbcc-b8b5-4bda-a82d-1b08c6a015f8" },
-  { id: "6bc9c93d-1b75-4512-8bc2-ba33cc3c4a53", title: "Iran’s oil exports stall and Kharg Island idles under US blockade", date: "2026-08-07", time: "13:29", url: "https://www.ft.com/content/6bc9c93d-1b75-4512-8bc2-ba33cc3c4a53" },
-  { id: "acc1df39-eccc-4f04-affd-f3aca4839669", title: "Apollo’s upmarket plans for easyJet after £5.7bn takeover", date: "2026-08-07", time: "13:18", url: "https://www.ft.com/content/acc1df39-eccc-4f04-affd-f3aca4839669" },
-  { id: "67412944-136f-401c-9fd7-2d68552832f1", title: "Explosive drone at German airport raises ‘hybrid threat’ alarm", date: "2026-08-07", time: "13:02", url: "https://www.ft.com/content/67412944-136f-401c-9fd7-2d68552832f1" },
 ];
