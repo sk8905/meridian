@@ -13,7 +13,7 @@ export const UPDATED = "9 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-09",
-  lastCheckedTime: "09:16 BST",
+  lastCheckedTime: "12:26 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -760,17 +760,17 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-08-09",
   us: [
+    { title: "Live updates: Tehran insists on US concessions before opening Strait of Hormuz", source: "CNN", date: "2026-08-09", time: "09:00", url: "https://us.cnn.com/2026/08/09/world/live-news/iran-war-trump" },
     { title: "The Week Ahead: CPI and Earnings Test the Stock Market Rally Near Record Highs", source: "FXEmpire", date: "2026-08-09", time: "09:16", url: "https://www.fxempire.com/forecasts/article/the-week-ahead-cpi-and-earnings-test-the-stock-market-rally-near-record-highs-1615629" },
-    { title: "Live updates: Tehran insists on US concessions before opening Strait of Hormuz", source: "CNN", date: "2026-08-09", url: "https://us.cnn.com/2026/08/09/world/live-news/iran-war-trump" },
-    { title: "Stocks rise, Treasury yields fall after jobs cut report", source: "AP (Arkansas Democrat-Gazette)", date: "2026-08-08", url: "https://www.arkansasonline.com/news/2026/aug/08/stocks-rise-treasury-yields-fall-after-jobs-cut/" },
-    { title: "This Job Report Has High Stakes for Investors", source: "Bloomberg (The Readout newsletter)", date: "2026-08-07", url: "https://www.bloomberg.com/news/newsletters/2026-08-07/this-job-reports-has-high-stakes-for-investors" },
-    { title: "Saudi Arabia, Turkey and Pakistan pledge mutual defense as Middle East turmoil escalates", source: "NBC News", date: "2026-08-07", time: "22:00", url: "https://www.nbcnews.com/world/middle-east/saudi-arabia-turkey-pakistan-pledge-mutual-defense-rcna591330" },
+    { title: "Iran makes new strait demands, the UAE says a ship was targeted and other Middle East news", source: "NBC News", date: "2026-08-08", url: "https://www.nbcnews.com/world/iran/iran-says-deal-strait-hormuz-close-will-not-open-waterway-rcna591476" },
+    { title: "Iran Says Hormuz Deal Close But Its Conditions Must Be Met", source: "Bloomberg", date: "2026-08-08", url: "https://www.bloomberg.com/news/articles/2026-08-08/iran-says-hormuz-deal-close-but-that-its-conditions-must-be-met" },
+    { title: "September Fed Hike Drops to 38% From 50% After Colossal Payroll Miss", source: "Interactive Brokers Campus", date: "2026-08-07", url: "https://www.interactivebrokers.com/campus/traders-insight/prediction-market/september-fed-hike-drops-to-38-from-50-after-colossal-payroll-miss/" },
   ],
   uk: [
-    { title: "British Pound Forecast: GBP's Summer Rally Could Face An Autumn Fiscal Shock", source: "Exchange Rates UK", date: "2026-08-04", url: "https://www.exchangerates.org.uk/news/46721/2026-08-04-british-pound-forecast-gbp-s-summer-rally-could-face-an-autumn-fiscal-shock.html" },
+    { title: "Iran, Oman, US 'close' to Hormuz deal: What do they all want?", source: "Al Jazeera", date: "2026-08-05", url: "https://www.aljazeera.com/news/2026/8/5/iran-oman-us-close-to-hormuz-deal-what-do-they-all-want" },
     { title: "UK debt 'hits £3 trillion' milestone", source: "CityAM", date: "2026-08-06", url: "https://www.cityam.com/uk-debt-hits-3-trillion-milestone/" },
     { title: "Business insights and impact on the UK economy: 6 August 2026", source: "ONS", date: "2026-08-06", url: "https://www.ons.gov.uk/releases/businessinsightsandimpactontheukeconomy6august2026" },
-    { title: "Pound Sterling Price News and Forecast: GBP/USD remains weaker as UK-US yields narrow", source: "FXStreet", date: "2026-08-07", time: "03:36", url: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-remains-weaker-as-uk-us-yields-narrow-202608070336" },
+    { title: "British Pound Forecast: GBP's Summer Rally Could Face An Autumn Fiscal Shock", source: "Exchange Rates UK", date: "2026-08-04", url: "https://www.exchangerates.org.uk/news/46721/2026-08-04-british-pound-forecast-gbp-s-summer-rally-could-face-an-autumn-fiscal-shock.html" },
     { title: "UK house prices stagnant amid high mortgage costs", source: "Yahoo Finance UK", date: "2026-08-07", url: "https://uk.finance.yahoo.com/news/uk-house-prices-stagnant-amid-070710355.html" },
   ],
 };
@@ -788,6 +788,8 @@ export const ARTICLES = {
     {"title":"Live updates: Tehran insists on US concessions before opening Strait of Hormuz","source":"CNN","date":"2026-08-09","url":"https://us.cnn.com/2026/08/09/world/live-news/iran-war-trump","blurb":"Iran's national security chief Mohammad Bagher Zolghadr lists demands for reopening the Strait — lifting the US naval blockade, withdrawing forces, ending the war, compensation and releasing frozen Iranian assets — as Gen. Dan Caine privately signals the Pentagon wants an off-ramp."},
     {"title":"The Week Ahead: CPI and Earnings Test the Stock Market Rally Near Record Highs","source":"FXEmpire","date":"2026-08-09","url":"https://www.fxempire.com/forecasts/article/the-week-ahead-cpi-and-earnings-test-the-stock-market-rally-near-record-highs-1615629","blurb":"Stocks enter the week near record highs (S&P 500 +3.58% last week) as Wednesday's CPI and Thursday's PPI test reduced expectations for further Fed tightening, alongside earnings from CoreWeave, Cisco and Applied Materials."},
     {"title":"Iran Says Hormuz Deal Close But Its Conditions Must Be Met","source":"Bloomberg","date":"2026-08-08","url":"https://www.bloomberg.com/news/articles/2026-08-08/iran-says-hormuz-deal-close-but-that-its-conditions-must-be-met","blurb":"Foreign Minister Araghchi says Iran and Oman are 'very close' on a temporary Strait of Hormuz transit route, but cautions any deal won't mean an immediate reopening — a limited near-term respite for oil supply."},
+    {"title":"Iran sets conditions for opening Strait of Hormuz after UAE says one of its ships was targeted by airstrike","source":"CNBC","date":"2026-08-08","url":"https://www.cnbc.com/2026/08/08/uae-ship-targeted-missile-us-iran-tensions-stay-high.html","blurb":"An ADNOC-owned vessel was hit transiting the Strait of Hormuz, underscoring the shipping-lane risk still underlying the oil-price and inflation channel even as a transit-route deal is described as close."},
+    {"title":"Iran demands concessions from US as it nears Strait of Hormuz deal with Oman","source":"CNN","date":"2026-08-08","url":"https://www.cnn.com/2026/08/08/world/live-news/iran-war-trump","blurb":"Tehran's national-security chief lists conditions — lifting the US naval blockade, troop withdrawal, compensation — as the Pentagon privately signals it wants an off-ramp from the conflict."},
     {"title":"Iran says agreement with Oman for Strait of Hormuz prohibits U.S. and Israeli vessels","source":"NPR","date":"2026-08-07","url":"https://www.npr.org/2026/08/07/nx-s1-5923962/iran-says-agreement-with-oman-for-strait-of-hormuz-prohibits-u-s-and-israeli-vessels","blurb":"Tehran says its near-final shipping-transit deal with Oman would still bar US- and Israel-linked vessels from the Strait of Hormuz and fine other violators up to 20% of cargo value, even as talks reach the final drafting stage."},
     {"title":"Hormuz deal 'close': What's the latest on each side's positions?","source":"Al Jazeera","date":"2026-08-06","url":"https://www.aljazeera.com/news/2026/8/6/hormuz-deal-close-whats-the-latest-on-each-sides-positions","blurb":"A side-by-side of the US, Iranian and Omani negotiating positions as an interim Strait of Hormuz shipping agreement nears a joint final statement."},
     {"title":"Week ahead August 10th 2026","source":"IG","date":"2026-08-07","url":"https://www.ig.com/ae/news-and-trade-ideas/week-ahead-august-10th-2026-260807","blurb":"US equities head into the week at fresh records on falling oil prices and resilient earnings, with the Nasdaq 100 more than 10% off its clearing-event low, as traders eye Wednesday's US CPI print."},
