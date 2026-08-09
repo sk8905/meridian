@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "3dd0cbcb-26e0-4eef-af1f-b16812cae6ac", title: "America’s hidden M&A boom", date: "2026-08-09", time: "16:00", url: "https://www.ft.com/content/3dd0cbcb-26e0-4eef-af1f-b16812cae6ac" },
   { id: "a6a000a4-3578-41d0-a898-aeef5f1dbaa0", title: "Organised crime suspect Daniel Kinahan extradited from Dubai", date: "2026-08-09", time: "13:01", url: "https://www.ft.com/content/a6a000a4-3578-41d0-a898-aeef5f1dbaa0" },
   { id: "ddf44cf7-0ab5-4e7e-9b1f-e5e8e34181e6", title: "Could AI create a ‘permanent underclass’?", date: "2026-08-09", time: "12:30", url: "https://www.ft.com/content/ddf44cf7-0ab5-4e7e-9b1f-e5e8e34181e6" },
   { id: "e7f0c7af-b170-4cb5-a16e-671efa62e605", title: "Will US inflation be cool enough to trim bets on a September rate rise?", date: "2026-08-09", time: "12:00", url: "https://www.ft.com/content/e7f0c7af-b170-4cb5-a16e-671efa62e605" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "5da56bdb-07d5-4ab7-be03-4bf303400a90", title: "Burnham urged to rule out changes to pension lump sums in next Budget", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/5da56bdb-07d5-4ab7-be03-4bf303400a90" },
   { id: "fb49381a-3e09-4666-85b0-7a171e01394e", title: "The US bares its financial weak spot", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/fb49381a-3e09-4666-85b0-7a171e01394e" },
   { id: "43af0b33-4c2d-4c10-8948-c77082f70935", title: "How to fix Britain’s housing crisis", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/43af0b33-4c2d-4c10-8948-c77082f70935" },
-  { id: "5ef8cb99-deae-4c9a-be1f-be791ae6b1cd", title: "A short history of valuing stocks", date: "2026-08-08", time: "05:00", url: "https://www.ft.com/content/5ef8cb99-deae-4c9a-be1f-be791ae6b1cd" },
 ];
