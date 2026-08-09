@@ -13,7 +13,7 @@ export const UPDATED = "9 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-09",
-  lastCheckedTime: "17:13 BST",
+  lastCheckedTime: "21:24 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -786,6 +786,7 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-09",
   items: [
+    {"title":"Iran denies any direct talks with U.S. on opening Strait of Hormuz as Houthis claim attack on Saudi refinery","source":"CNBC","date":"2026-08-09","url":"https://www.cnbc.com/2026/08/09/saudi-aramco-extinguishes-refinery-fire-houthis-claim-attack.html","blurb":"A fire at a Saudi Aramco refinery, claimed by Houthi rebels, added fresh supply-risk premium to oil even as Iran denied direct US talks on reopening the Strait of Hormuz."},
     {"title":"Pentagon pushes defense companies to boost weapons production after concerns of depleted stocks","source":"CNBC","date":"2026-08-09","url":"https://www.cnbc.com/2026/08/09/pentagon-defense-contractors-weapons-production.html","blurb":"Deputy Defense Secretary Steve Feinberg gave major US defence contractors 21 days to lay out faster delivery schedules for air-defense sensors, interceptors and missile-tracking systems, after the Patriot-interceptor stockpile fell more than 65% since before the Iran war to an estimated 759-827 units."},
     {"title":"Iran Rejects US Talks for Now as Wait for Hormuz Deal Drags On","source":"Bloomberg","date":"2026-08-09","url":"https://www.bloomberg.com/news/articles/2026-08-09/wait-for-hormuz-deal-stretches-on-as-iran-says-terms-must-be-met","blurb":"Iran's Supreme National Security Council says the Strait of Hormuz will not fully reopen until the US 'corrects its behaviour', even as Tehran and Oman describe a separate transit-route deal as nearing its final stages."},
     {"title":"Stock Market Today: Live Updates 09.08.2026","source":"ts2.tech","date":"2026-08-09","url":"https://ts2.tech/en/stock-market-today-09-08-2026/","blurb":"A rundown of the week-ahead setup for US and global equities as traders position for Wednesday's CPI print, with major indices heading into the new week just off record highs."},
