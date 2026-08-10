@@ -651,6 +651,10 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 /* ---- Shared news-feed row — used by the Saved list AND the Notifications list
         so both read exactly like the Home news wire: bold headline on top, then a
         colour-coded desk tag + mono "time · source" line, hairline dividers. ---- */
+/* Group headings in the Notifications pane — "New" (unseen, at the top) then
+   "Earlier". Shown only on the first view while there are fresh items. */
+.nf-grp { padding: 9px 12px 4px; font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted, #8592ad); background: var(--head, #0a0a0a); }
+.nf-grp.nf-grp-earlier { border-top: 1px solid var(--border, #262626); }
 .nf-row { display: block; padding: 9px 12px; border-bottom: 1px solid var(--border, #262626); text-decoration: none; color: inherit; }
 .nf-row:hover { background: var(--head, #0a0a0a); }
 /* Notifications panel section headers — the "N new updates" / "Recent" bands read

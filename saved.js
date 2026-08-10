@@ -82,7 +82,7 @@ export function resolveSaved() {
 // one consistent list on every page (rendered by the nav-actions.js bell).
 // =============================================================================
 const judgmentSource = (url) => JUDGMENT_SOURCES[srcHost(url)] || "Judgment";
-const NOTIF_WINDOW_DAYS = 7;
+const NOTIF_WINDOW_DAYS = 3;
 const notifTime = (d) => { if (!d) return null; const s = /^\d{4}-\d{2}$/.test(d) ? d + "-01" : d; const t = Date.parse(s); return isNaN(t) ? null : t; };
 function recentNotif(list) {
   const times = list.map((x) => notifTime(x.date)).filter((t) => t != null);

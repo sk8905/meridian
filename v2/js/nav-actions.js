@@ -448,7 +448,7 @@ async function loadSaved(body, headCount) {
   const render = async () => {
     chips.querySelectorAll(".na-chip").forEach((c) => c.classList.toggle("is-on", c.dataset.k === _svTab));
     try {
-      const mod = await import("/saved.js?v=20260802-1");
+      const mod = await import("/saved.js?v=20260802-2");
       // Watchlist tab = SAVED items that relate to a followed/starred profile
       // (the intersection), NOT all of a followed profile's news.
       const list = _svTab === "saved" ? mod.resolveSaved() : mod.resolveSavedWatchlist();
@@ -581,7 +581,7 @@ let _notifItems = null;
 let _ntTab = "all";
 async function ensureNotifs() {
   if (_notifItems) return _notifItems;
-  const { buildNotifs } = await import("/saved.js?v=20260802-1");
+  const { buildNotifs } = await import("/saved.js?v=20260802-2");
   _notifItems = (await buildNotifs()).slice(0, 60);
   return _notifItems;
 }
@@ -898,12 +898,27 @@ export function initNavActions() {
           // next open nothing is marked new, but the whole list stays visible.
           const seen = { c: readSeen("c"), l: readSeen("l") };
           const isFresh = (x) => { const s = seen[x.desk]; return s ? !s.has(x.id) : false; };
-          tb.innerHTML = items.length ? items.map((x) => notifRow(x, isFresh(x))).join("") : '<div class="na-empty">Nothing yet.</div>';
+          // The FIRST time new (unseen, orange) items are viewed they group at the
+          // TOP under a "New" heading, ahead of everything else; the rest keep their
+          // date order under "Earlier". Opening marks them seen, so on the next open
+          // none are fresh — the grouping/headers drop and they assimilate into the
+          // single date-sorted list. (items is already sorted newest-first, so each
+          // group stays in date order.)
+          const fresh = items.filter(isFresh);
+          const rest = items.filter((x) => !isFresh(x));
+          if (!items.length) {
+            tb.innerHTML = '<div class="na-empty">Nothing yet.</div>';
+          } else if (fresh.length) {
+            tb.innerHTML = `<div class="nf-grp">New</div>` + fresh.map((x) => notifRow(x, true)).join("")
+              + (rest.length ? `<div class="nf-grp nf-grp-earlier">Earlier</div>` + rest.map((x) => notifRow(x, false)).join("") : "");
+          } else {
+            tb.innerHTML = items.map((x) => notifRow(x, false)).join("");
+          }
           markNotifSeen(items); clearBadge();
         } else {
           tb.innerHTML = '<div class="na-load">Loading…</div>';
           try {
-            const mod = await import("/saved.js?v=20260802-1");
+            const mod = await import("/saved.js?v=20260802-2");
             const list = mod.resolveWatchlistNews();
             tb.innerHTML = list.length
               ? list.map(savedRow).join("")
