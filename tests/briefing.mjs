@@ -77,22 +77,26 @@ check(km.srcs === km.count, `every Key moment links its source (${km.srcs}/${km.
 const earn = await pg.evaluate(() => {
   const rels = [...document.querySelectorAll(".dsh-earn .dsh-earn-rel")];
   const eps = rels.some((r) => [...r.querySelectorAll(".dsh-earn-ml")].some((i) => /EPS/i.test(i.textContent)));
-  const barc = rels.find((r) => /BARC/.test((r.querySelector(".dsh-earn-tk") || {}).textContent || ""));
-  const barcAct = barc ? (barc.querySelector(".dsh-earn-act") || {}).textContent : "";
+  // A reported key-metric row (bank/energy pre-tax or RC profit) surfaces its
+  // actual: a measure carrying BOTH a metric tag and a reported value (not
+  // "awaited"). Generalised so it survives the earnings calendar rolling forward
+  // (it used to pin a specific ticker/figure that ages out each week).
+  const kmReported = rels.some((r) => [...r.querySelectorAll(".dsh-earn-m")]
+    .some((m) => m.querySelector(".dsh-earn-metric") && m.querySelector(".dsh-earn-act")));
   return {
     cards: rels.length,
     epsLabel: eps,
     fctArrow: rels.some((r) => r.querySelector(".dsh-earn-arw")),
     notes: document.querySelectorAll(".dsh-earn .dsh-earn-note").length,
     metricTags: document.querySelectorAll(".dsh-earn-metric").length,
-    kmReported: !!barcAct && /£6\.1bn/.test(barcAct),
+    kmReported,
   };
 });
 check(earn.cards > 10, `Earnings: releases render as stacked cards (${earn.cards})`);
 check(earn.epsLabel && earn.fctArrow, "Earnings: each release shows a forecast → actual EPS measure");
 check(earn.notes > 5, `Earnings: a note line renders under each release (${earn.notes})`);
 check(earn.metricTags >= 1, `Earnings: non-EPS rows tag their metric (${earn.metricTags})`);
-check(earn.kmReported, "Earnings: a reported key-metric row (BARC pre-tax) shows its actual");
+check(earn.kmReported, "Earnings: a reported key-metric row (bank/energy pre-tax) shows its actual");
 
 // Rates/FX Key Moments render only with live /api data (absent in the harness),
 // so guard the grounded data contract instead: every entry must carry text + a
