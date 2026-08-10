@@ -33,6 +33,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-gowlingceo-20260810",
+    publication: "Legal Business",
+    title: "‘You can be ultra-high-performing and nice’: Gowling WLG’s new CEO sets out his vision",
+    date: "2026-08-10",
+    time: "15:16",
+    summary: "Three months in, new UK CEO Chris Towle sets out his plans for continuity over revolution — integrating the global platform, focusing on key sectors and why the firm can do better.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQGx1gaeCL8W6u7wF/wv",
+  },
+  {
     id: "nl-bbg-economicsdaily-summerjobblues-20260810",
     publication: "Bloomberg",
     series: "Economics Daily",
@@ -426,15 +435,5 @@ export const NEWSLETTERS = [
     time: "19:08",
     summary: "SpaceX, SALP, sports.",
     url: "https://bloom.bg/4wO8HAU",
-  },
-  {
-    id: "nl-bbg-authoralert-nkumar-balyasnyverition-20260805",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    title: "Balyasny, Verition Join Hedge Funds Losing in Brutal July",
-    date: "2026-08-05",
-    time: "16:45",
-    summary: "Multistrategy giants Balyasny Asset Management and Verition Fund Management lost money last month as a selloff in artificial intelligence stocks roiled markets and many hedge funds.",
-    url: "https://www.bloomberg.com/news/articles/2026-08-05/balyasny-verition-join-hedge-funds-losing-money-in-brutal-july",
   },
 ];

@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "49103d68-85be-4af6-9dfd-90d66dc78f38", title: "Jeff Bezos investor group closing in on Liverpool FC stake", date: "2026-08-10", time: "15:29", url: "https://www.ft.com/content/49103d68-85be-4af6-9dfd-90d66dc78f38" },
   { id: "d7eb9cd2-7eb9-4c31-8f8d-59446f0f1743", title: "The ICC is all the women of Afghanistan have left", date: "2026-08-10", time: "15:23", url: "https://www.ft.com/content/d7eb9cd2-7eb9-4c31-8f8d-59446f0f1743" },
   { id: "62d3a32d-8a38-4136-b32c-36f25099b91f", title: "Shein IPO pitched to investors at sub-$30bn valuation", date: "2026-08-10", time: "15:15", url: "https://www.ft.com/content/62d3a32d-8a38-4136-b32c-36f25099b91f" },
   { id: "061a0cf8-f40d-4c9d-b173-a9ef78ff9daa", title: "Comms trouble", date: "2026-08-10", time: "14:30", url: "https://www.ft.com/content/061a0cf8-f40d-4c9d-b173-a9ef78ff9daa" },
@@ -59,7 +60,4 @@ export const FT_ITEMS = [
   { id: "af06cfa1-0ea8-40a6-ad2c-81fe47a63e7b", title: "A very British by-election reaches its finale", date: "2026-08-09", time: "18:15", url: "https://www.ft.com/content/af06cfa1-0ea8-40a6-ad2c-81fe47a63e7b" },
   { id: "df62a69e-aa53-4cde-8a02-4d2cd465a370", title: "Syria makes deal to take control of Russian bases", date: "2026-08-09", time: "17:26", url: "https://www.ft.com/content/df62a69e-aa53-4cde-8a02-4d2cd465a370" },
   { id: "4fc0fdda-0919-4584-9bdd-855e2aaa5c09", title: "Donald Trump is dismantling US guardrails, warn former security officials", date: "2026-08-09", time: "17:00", url: "https://www.ft.com/content/4fc0fdda-0919-4584-9bdd-855e2aaa5c09" },
-  { id: "03736b77-347b-4e07-bcb2-ced2d36737dc", title: "Britain needs to redefine what it considers cutting-edge", date: "2026-08-09", time: "17:00", url: "https://www.ft.com/content/03736b77-347b-4e07-bcb2-ced2d36737dc" },
-  { id: "e4650e97-be1f-479d-8959-c892785abf49", title: "Netanyahu rejects Trump’s Gaza disarmament plan", date: "2026-08-09", time: "16:17", url: "https://www.ft.com/content/e4650e97-be1f-479d-8959-c892785abf49" },
-  { id: "3dd0cbcb-26e0-4eef-af1f-b16812cae6ac", title: "America’s hidden M&A boom", date: "2026-08-09", time: "16:00", url: "https://www.ft.com/content/3dd0cbcb-26e0-4eef-af1f-b16812cae6ac" },
 ];
