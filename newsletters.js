@@ -33,6 +33,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-cf-marketupdate-softjobs-20260810",
+    publication: "Chatham Financial",
+    series: "Market Update",
+    title: "Soft jobs, hard policy choices",
+    date: "2026-08-10",
+    time: "19:32",
+    summary: "Markets moved higher last week as softer labor data and lower oil prices eased rate concerns; this week investors watch CPI, PPI, retail sales and geopolitical developments for signals on the Fed's next move.",
+    url: "https://www.chathamfinancial.com/insights",
+  },
+  {
     id: "nl-bbg-authoralert-nkumar-vara-20260810",
     publication: "Bloomberg",
     author: "Nishant Kumar",
@@ -423,16 +433,5 @@ export const NEWSLETTERS = [
     time: "06:41",
     summary: "Iran and Oman agree a proposed new shipping route through the Strait of Hormuz, Abdul El-Sayed narrowly beats Haley Stevens in Michigan's Democratic Senate primary, and SpaceX shares fall almost 14% on its first earnings report since going public.",
     url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-bbg-pointsofreturn-goldwarshfed-20260806",
-    publication: "Bloomberg",
-    author: "John Authers",
-    series: "Points of Return",
-    title: "Gold is waking up to the Warsh Fed",
-    date: "2026-08-06",
-    time: "05:01",
-    summary: "Gold jumped more than 4% in its best day in six months as investors concluded Chairman Kevin Warsh's Fed is less inclined to fight inflation.",
-    url: "https://bloom.bg/4pYDok1",
   },
 ];

@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8f16a902-3e80-462c-add8-b841494d1808", title: "AI will boost oil and gas production more than green energy, report finds", date: "2026-08-10", time: "18:38", url: "https://www.ft.com/content/8f16a902-3e80-462c-add8-b841494d1808" },
+  { id: "63718844-91f6-46c9-beae-fc3906f4dbb4", title: "Ukraine needs more help in the battle of the sky", date: "2026-08-10", time: "18:32", url: "https://www.ft.com/content/63718844-91f6-46c9-beae-fc3906f4dbb4" },
   { id: "ba95957a-e4fa-4caf-8ddb-ad0e203eef29", title: "Glencore-backed group looks to rescue cobalt refiner Sherritt", date: "2026-08-10", time: "18:12", url: "https://www.ft.com/content/ba95957a-e4fa-4caf-8ddb-ad0e203eef29" },
   { id: "689c0487-af77-4e18-8b63-fa26ed373ce8", title: "FanDuel and DraftKings hedge their bets with a predictions pivot", date: "2026-08-10", time: "17:48", url: "https://www.ft.com/content/689c0487-af77-4e18-8b63-fa26ed373ce8" },
   { id: "98a8fd17-15b6-4f67-9cb4-825722b11348", title: "Wall Street giants partner with Nvidia on $500bn AI financing deal", date: "2026-08-10", time: "17:41", url: "https://www.ft.com/content/98a8fd17-15b6-4f67-9cb4-825722b11348" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "61a23058-730d-4b13-bbbe-d491770d2a76", title: "Hong Kong builds its next chapter — and closer ties with China", date: "2026-08-10", time: "04:26", url: "https://www.ft.com/content/61a23058-730d-4b13-bbbe-d491770d2a76" },
   { id: "e7493801-7973-4915-90d4-ad4f9ff93048", title: "Have you considered awarding yourself the Fifa Peace Prize, Gianni?", date: "2026-08-10", time: "04:00", url: "https://www.ft.com/content/e7493801-7973-4915-90d4-ad4f9ff93048" },
   { id: "ce343513-5514-4519-95c8-19832ed46d16", title: "Iran replaces top security official at crucial moment in talks over Strait of Hormuz", date: "2026-08-09", time: "23:23", url: "https://www.ft.com/content/ce343513-5514-4519-95c8-19832ed46d16" },
-  { id: "82922307-311d-499b-9798-0292d5f6b7ed", title: "Andy Burnham promises to tackle false discounts in latest cost-of-living pledge", date: "2026-08-09", time: "22:30", url: "https://www.ft.com/content/82922307-311d-499b-9798-0292d5f6b7ed" },
-  { id: "6e943917-2eeb-4654-b4ad-a4af76b4b946", title: "FirstFT: Ex-CIA officials warn Donald Trump is dismantling US guardrails", date: "2026-08-09", time: "22:16", url: "https://www.ft.com/content/6e943917-2eeb-4654-b4ad-a4af76b4b946" },
 ];
