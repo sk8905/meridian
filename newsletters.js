@@ -33,6 +33,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-pointsofreturn-aindicators-20260810",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "AIndicators hint at doubts in credit markets",
+    date: "2026-08-10",
+    time: "05:01",
+    summary: "Credit spreads on major AI players are rising, echoing how 19th-century railroad-bond spreads flagged trouble long before the Panic of 1873 — a warning sign for today's debt-financed AI buildout.",
+    url: "https://bloom.bg/4qf8NyY",
+  },
+  {
     id: "nl-bbg-thebrink-svp-20260808",
     publication: "Bloomberg",
     author: "Libby Cherry",
@@ -423,14 +434,5 @@ export const NEWSLETTERS = [
     time: "11:09",
     summary: "Citadel’s flagship fund surged 5.9% in July, after the firm bought a discounted portfolio of artificial-intelligence stocks from troubled hedge fund Situational Awareness.",
     url: "https://www.bloomberg.com/news/articles/2026-08-05/citadel-s-hedge-fund-soars-after-situational-awareness-bet",
-  },
-  {
-    id: "nl-nonbillable-mourantpe-20260805",
-    publication: "Non-Billable",
-    title: "A major law firm just took private equity investment",
-    date: "2026-08-05",
-    time: "09:05",
-    summary: "Offshore heavyweight Mourant sells a minority stake to private equity firm MML to fund AI, technology and international expansion, plus Latham hires Hg general counsel Samantha McGonigle as a London partner.",
-    url: "https://www.nonbillable.co.uk/news/mourant-taps-private-equity",
   },
 ];
