@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "061a0cf8-f40d-4c9d-b173-a9ef78ff9daa", title: "Comms trouble", date: "2026-08-10", time: "14:30", url: "https://www.ft.com/content/061a0cf8-f40d-4c9d-b173-a9ef78ff9daa" },
+  { id: "c1715272-ed0b-4494-b45b-9c94289beadd", title: "Wildfire smoke threatens to cloud the ‘Pure Michigan’ brand", date: "2026-08-10", time: "14:19", url: "https://www.ft.com/content/c1715272-ed0b-4494-b45b-9c94289beadd" },
   { id: "a0a07cce-6d19-4b1e-a73b-9855a06ba7b3", title: "Just how big is the hidden leverage of AI hyperscalers?", date: "2026-08-10", time: "13:27", url: "https://www.ft.com/content/a0a07cce-6d19-4b1e-a73b-9855a06ba7b3" },
   { id: "eeeb2fbe-990f-4a9c-bd61-62613b6e0e52", title: "Arrival of 230 people in single boat shows smuggling gangs’ ‘reckless’ tactics, says UK’s Home Office", date: "2026-08-10", time: "13:23", url: "https://www.ft.com/content/eeeb2fbe-990f-4a9c-bd61-62613b6e0e52" },
   { id: "47d2ab3c-0423-49ed-89ca-68683761ed98", title: "Yen sinks as effect of US-Japan intervention fades", date: "2026-08-10", time: "13:13", url: "https://www.ft.com/content/47d2ab3c-0423-49ed-89ca-68683761ed98" },
@@ -60,7 +62,4 @@ export const FT_ITEMS = [
   { id: "3dd0cbcb-26e0-4eef-af1f-b16812cae6ac", title: "America’s hidden M&A boom", date: "2026-08-09", time: "16:00", url: "https://www.ft.com/content/3dd0cbcb-26e0-4eef-af1f-b16812cae6ac" },
   { id: "ddf44cf7-0ab5-4e7e-9b1f-e5e8e34181e6", title: "Could AI create a ‘permanent underclass’?", date: "2026-08-09", time: "12:30", url: "https://www.ft.com/content/ddf44cf7-0ab5-4e7e-9b1f-e5e8e34181e6" },
   { id: "e7f0c7af-b170-4cb5-a16e-671efa62e605", title: "Will US inflation be cool enough to trim bets on a September rate rise?", date: "2026-08-09", time: "12:00", url: "https://www.ft.com/content/e7f0c7af-b170-4cb5-a16e-671efa62e605" },
-  { id: "b25139e3-e748-407f-bc49-7389b3434455", title: "US social security could soon be insolvent", date: "2026-08-09", time: "12:00", url: "https://www.ft.com/content/b25139e3-e748-407f-bc49-7389b3434455" },
-  { id: "29d6cef0-72db-4348-aa85-b7c3dcf94e60", title: "Enforcing the duty of candour is harder than it seems", date: "2026-08-09", time: "12:00", url: "https://www.ft.com/content/29d6cef0-72db-4348-aa85-b7c3dcf94e60" },
-  { id: "c15abecc-5f9a-4f7b-92e2-8c99f9ea3ae5", title: "Asian carmakers cash in as high petrol prices lift US demand for hybrids", date: "2026-08-09", time: "11:00", url: "https://www.ft.com/content/c15abecc-5f9a-4f7b-92e2-8c99f9ea3ae5" },
 ];
