@@ -762,18 +762,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-08-10",
   us: [
-    { title: "Emerging-Market Stocks, Currencies Gain After Soft US Jobs Data", source: "Bloomberg", date: "2026-08-10", url: "https://www.bloomberg.com/news/articles/2026-08-10/emerging-market-stocks-currencies-gain-after-soft-us-jobs-data" },
-    { title: "Oil rises amid uncertainty over U.S.-Iran Strait of Hormuz deal", source: "CNBC", date: "2026-08-10", url: "https://www.cnbc.com/2026/08/10/oil-prices-today-brent-wti-hormuz-trump-iran.html" },
-    { title: "Oil Extends Gain as Oman-Iran Accord on Hormuz Remains Elusive", source: "Bloomberg", date: "2026-08-10", url: "https://www.bloomberg.com/news/articles/2026-08-09/latest-oil-market-news-and-analysis-for-aug-10" },
-    { title: "Here are the 2 big things we're watching in the stock market in the week ahead", source: "CNBC", date: "2026-08-09", url: "https://www.cnbc.com/2026/08/09/here-are-the-2-big-things-were-watching-in-the-stock-market-in-the-week-ahead.html" },
-    { title: "Wall St Week Ahead – Inflation data to test record-setting US stocks, Fed rate views", source: "Reuters", date: "2026-08-07", url: "https://www.investing.com/news/economy-news/inflation-data-to-test-recordsetting-us-stocks-fed-rate-views-4847738" },
+    { title: "Emerging-Market Stocks, Currencies Gain After Soft US Jobs Data", source: "Bloomberg", date: "2026-08-10", time: "12:26", url: "https://www.bloomberg.com/news/articles/2026-08-10/emerging-market-stocks-currencies-gain-after-soft-us-jobs-data" },
+    { title: "Oil rises amid uncertainty over U.S.-Iran Strait of Hormuz deal", source: "CNBC", date: "2026-08-10", time: "12:26", url: "https://www.cnbc.com/2026/08/10/oil-prices-today-brent-wti-hormuz-trump-iran.html" },
+    { title: "Five things to watch in markets in the week ahead", source: "Investing.com (Reuters)", date: "2026-08-10", time: "12:26", url: "https://www.investing.com/news/economy-news/five-things-to-watch-in-markets-in-the-week-ahead-4848255" },
+    { title: "Stock Futures Mixed Ahead of Busy Earnings Week and CPI Data", source: "TipRanks", date: "2026-08-10", time: "12:26", url: "https://www.tipranks.com/news/stock-futures-mixed-ahead-of-busy-earnings-week-and-cpi-data" },
+    { title: "Inflation Date, Earnings Momentum and Other Key Things to Watch this Week", source: "Barchart", date: "2026-08-09", time: "12:26", url: "https://www.barchart.com/story/news/3745506/inflation-date-earnings-momentum-and-other-key-things-to-watch-this-week" },
   ],
   uk: [
-    { title: "UK Hiring Turns a Corner After Longest Slump on Record, REC Says", source: "Bloomberg", date: "2026-08-09", url: "https://www.bloomberg.com/news/articles/2026-08-09/uk-hiring-turns-a-corner-after-longest-slump-on-record-rec-says" },
-    { title: "Andy Burnham is on course to rack up the second highest debt interest bill on record", source: "CityAM", date: "2026-08-06", url: "https://www.cityam.com/andy-burnham-is-on-course-to-rack-up-the-highest-debt-interest-bill-on-record/" },
-    { title: "UK house prices stagnant amid high mortgage costs", source: "Yahoo Finance UK", date: "2026-08-07", url: "https://uk.finance.yahoo.com/news/uk-house-prices-stagnant-amid-070710355.html" },
-    { title: "Bank of England holds UK interest rate steady at 3.75% — but policymakers see upside inflation risk", source: "CNBC", date: "2026-07-30", url: "https://www.cnbc.com/2026/07/30/interest-rates-inflation-bank-of-england.html" },
-    { title: "UK Gilt Yield Falls as Oil Slump Eases Inflation Fears", source: "Trading Economics", date: "2026-08-05", url: "https://tradingeconomics.com/united-kingdom/government-bond-yield/news/572924" },
+    { title: "Pound To Dollar Week-Ahead Forecast: GBP Eyes Move Beyond $1.35", source: "Exchange Rates UK", date: "2026-08-10", time: "12:26", url: "https://www.exchangerates.org.uk/news/46765/2026-08-10-pound-to-dollar-week-ahead-forecast-gbp-eyes-move-beyond-1-35.html" },
+    { title: "UK Hiring Turns a Corner After Longest Slump on Record, REC Says", source: "Bloomberg", date: "2026-08-09", time: "12:26", url: "https://www.bloomberg.com/news/articles/2026-08-09/uk-hiring-turns-a-corner-after-longest-slump-on-record-rec-says" },
+    { title: "UK house prices stagnant amid high mortgage costs", source: "Yahoo Finance UK", date: "2026-08-07", time: "12:26", url: "https://uk.finance.yahoo.com/news/uk-house-prices-stagnant-amid-070710355.html" },
+    { title: "Andy Burnham is on course to rack up the second highest debt interest bill on record", source: "CityAM", date: "2026-08-06", time: "12:26", url: "https://www.cityam.com/andy-burnham-is-on-course-to-rack-up-the-highest-debt-interest-bill-on-record/" },
+    { title: "UK Gilt Yield Falls as Oil Slump Eases Inflation Fears", source: "Trading Economics", date: "2026-08-05", time: "12:26", url: "https://tradingeconomics.com/united-kingdom/government-bond-yield/news/572924" },
   ],
 };
 
