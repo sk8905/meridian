@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a36fa9a6-5676-4401-9359-890916424cbd", title: "Lessons in letter writing for the Bank of England", date: "2026-08-10", time: "06:00", url: "https://www.ft.com/content/a36fa9a6-5676-4401-9359-890916424cbd" },
+  { id: "d88b7e46-6806-4286-94d7-3bb16facee41", title: "US backs Australian rare earth miner to cut out China", date: "2026-08-10", time: "05:37", url: "https://www.ft.com/content/d88b7e46-6806-4286-94d7-3bb16facee41" },
   { id: "581a7c18-5deb-4cd4-b014-f4d275ba73d2", title: "German economy minister warns AfD’s rise could deter investors", date: "2026-08-10", time: "05:00", url: "https://www.ft.com/content/581a7c18-5deb-4cd4-b014-f4d275ba73d2" },
   { id: "28b389f5-5f74-4993-a9b3-edd0c500d49a", title: "Senior UK detective under investigation for alleged misuse of AI", date: "2026-08-10", time: "05:00", url: "https://www.ft.com/content/28b389f5-5f74-4993-a9b3-edd0c500d49a" },
   { id: "da888f06-b9bc-4d83-8020-e82f5d5fa609", title: "UK government increases cost projections for Palantir’s NHS data platform", date: "2026-08-10", time: "05:00", url: "https://www.ft.com/content/da888f06-b9bc-4d83-8020-e82f5d5fa609" },
@@ -40,7 +42,6 @@ export const FT_ITEMS = [
   { id: "03736b77-347b-4e07-bcb2-ced2d36737dc", title: "Britain needs to redefine what it considers cutting-edge", date: "2026-08-09", time: "17:00", url: "https://www.ft.com/content/03736b77-347b-4e07-bcb2-ced2d36737dc" },
   { id: "e4650e97-be1f-479d-8959-c892785abf49", title: "Netanyahu rejects Trump’s Gaza disarmament plan", date: "2026-08-09", time: "16:17", url: "https://www.ft.com/content/e4650e97-be1f-479d-8959-c892785abf49" },
   { id: "3dd0cbcb-26e0-4eef-af1f-b16812cae6ac", title: "America’s hidden M&A boom", date: "2026-08-09", time: "16:00", url: "https://www.ft.com/content/3dd0cbcb-26e0-4eef-af1f-b16812cae6ac" },
-  { id: "a6a000a4-3578-41d0-a898-aeef5f1dbaa0", title: "Organised crime suspect Daniel Kinahan extradited from Dubai", date: "2026-08-09", time: "13:01", url: "https://www.ft.com/content/a6a000a4-3578-41d0-a898-aeef5f1dbaa0" },
   { id: "ddf44cf7-0ab5-4e7e-9b1f-e5e8e34181e6", title: "Could AI create a ‘permanent underclass’?", date: "2026-08-09", time: "12:30", url: "https://www.ft.com/content/ddf44cf7-0ab5-4e7e-9b1f-e5e8e34181e6" },
   { id: "e7f0c7af-b170-4cb5-a16e-671efa62e605", title: "Will US inflation be cool enough to trim bets on a September rate rise?", date: "2026-08-09", time: "12:00", url: "https://www.ft.com/content/e7f0c7af-b170-4cb5-a16e-671efa62e605" },
   { id: "b25139e3-e748-407f-bc49-7389b3434455", title: "US social security could soon be insolvent", date: "2026-08-09", time: "12:00", url: "https://www.ft.com/content/b25139e3-e748-407f-bc49-7389b3434455" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "ff321dc1-41d6-473d-b7e7-2a58224a18e7", title: "One of the world’s biggest coal producers battles to keep lights on", date: "2026-08-09", time: "03:05", url: "https://www.ft.com/content/ff321dc1-41d6-473d-b7e7-2a58224a18e7" },
   { id: "2be78a9f-1431-4519-b5c4-c4dd5026dd3c", title: "Deadly protests in Kashmir test Pakistan’s military rulers", date: "2026-08-09", time: "02:50", url: "https://www.ft.com/content/2be78a9f-1431-4519-b5c4-c4dd5026dd3c" },
   { id: "657249de-f5bd-4648-9a1c-77315cd5a1c9", title: "The bank behind China’s AI listings bonanza", date: "2026-08-09", time: "02:22", url: "https://www.ft.com/content/657249de-f5bd-4648-9a1c-77315cd5a1c9" },
-  { id: "9a1ab09b-82d7-43c2-b44a-ebb41d352dab", title: "Tehran says US must ‘rectify its behaviour’ before Iran reopens strait", date: "2026-08-08", time: "17:20", url: "https://www.ft.com/content/9a1ab09b-82d7-43c2-b44a-ebb41d352dab" },
 ];
