@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a0a07cce-6d19-4b1e-a73b-9855a06ba7b3", title: "Just how big is the hidden leverage of AI hyperscalers?", date: "2026-08-10", time: "13:27", url: "https://www.ft.com/content/a0a07cce-6d19-4b1e-a73b-9855a06ba7b3" },
+  { id: "eeeb2fbe-990f-4a9c-bd61-62613b6e0e52", title: "Arrival of 230 people in single boat shows smuggling gangs’ ‘reckless’ tactics, says UK’s Home Office", date: "2026-08-10", time: "13:23", url: "https://www.ft.com/content/eeeb2fbe-990f-4a9c-bd61-62613b6e0e52" },
+  { id: "47d2ab3c-0423-49ed-89ca-68683761ed98", title: "Yen sinks as effect of US-Japan intervention fades", date: "2026-08-10", time: "13:13", url: "https://www.ft.com/content/47d2ab3c-0423-49ed-89ca-68683761ed98" },
+  { id: "1a7a6919-b056-4155-9520-1088564f7119", title: "Trump and the failure of the Fafo doctrine", date: "2026-08-10", time: "12:51", url: "https://www.ft.com/content/1a7a6919-b056-4155-9520-1088564f7119" },
+  { id: "90a16da7-f8fa-4140-8b00-bf44b1747241", title: "Whither Trump’s tariffs?", date: "2026-08-10", time: "12:31", url: "https://www.ft.com/content/90a16da7-f8fa-4140-8b00-bf44b1747241" },
   { id: "eae5a1cc-5d15-48c9-9d24-2b7094fda5ba", title: "Start-up bank backed by Palmer Luckey set to raise $1.5bn", date: "2026-08-10", time: "12:00", url: "https://www.ft.com/content/eae5a1cc-5d15-48c9-9d24-2b7094fda5ba" },
   { id: "0cc564c0-b69f-4e67-ac5d-15147ee31ac1", title: "Barrick and Newmont gold mining truce clears way for IPO", date: "2026-08-10", time: "11:07", url: "https://www.ft.com/content/0cc564c0-b69f-4e67-ac5d-15147ee31ac1" },
   { id: "ad0602c3-224f-422c-b052-ff96e2f9054c", title: "Ukrainian drone strike on oil-refining city in central Russia kills 13", date: "2026-08-10", time: "10:55", url: "https://www.ft.com/content/ad0602c3-224f-422c-b052-ff96e2f9054c" },
@@ -58,6 +63,4 @@ export const FT_ITEMS = [
   { id: "b25139e3-e748-407f-bc49-7389b3434455", title: "US social security could soon be insolvent", date: "2026-08-09", time: "12:00", url: "https://www.ft.com/content/b25139e3-e748-407f-bc49-7389b3434455" },
   { id: "29d6cef0-72db-4348-aa85-b7c3dcf94e60", title: "Enforcing the duty of candour is harder than it seems", date: "2026-08-09", time: "12:00", url: "https://www.ft.com/content/29d6cef0-72db-4348-aa85-b7c3dcf94e60" },
   { id: "c15abecc-5f9a-4f7b-92e2-8c99f9ea3ae5", title: "Asian carmakers cash in as high petrol prices lift US demand for hybrids", date: "2026-08-09", time: "11:00", url: "https://www.ft.com/content/c15abecc-5f9a-4f7b-92e2-8c99f9ea3ae5" },
-  { id: "69c573e0-9c24-451d-bb13-ae7a7c3104c0", title: "Impatient yacht owners make for a hot new asset class", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/69c573e0-9c24-451d-bb13-ae7a7c3104c0" },
-  { id: "7dc75493-84e1-4b84-af2a-ef5375fd9736", title: "Career satisfaction in an uncertain world? Dream on", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/7dc75493-84e1-4b84-af2a-ef5375fd9736" },
 ];
