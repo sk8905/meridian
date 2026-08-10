@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "5fb02f66-1faa-41e4-97f7-b791501da41d", title: "Reform vows to deport all foreign prisoners from British jails", date: "2026-08-10", time: "09:55", url: "https://www.ft.com/content/5fb02f66-1faa-41e4-97f7-b791501da41d" },
+  { id: "0c2b4143-571c-4339-962c-ecc9efd7a05d", title: "Nigel Farage’s biggest threat is a divided right", date: "2026-08-10", time: "09:30", url: "https://www.ft.com/content/0c2b4143-571c-4339-962c-ecc9efd7a05d" },
+  { id: "cfa061f4-83dc-4e4b-9a51-0142caacaff6", title: "Summary of opinions suggests Bank of Japan set for more tightening", date: "2026-08-10", time: "09:19", url: "https://www.ft.com/content/cfa061f4-83dc-4e4b-9a51-0142caacaff6" },
   { id: "5ae7381b-2b01-448e-af9e-c141bf6870e2", title: "Prabowo Subianto nominates new leader for Indonesia’s central bank", date: "2026-08-10", time: "06:36", url: "https://www.ft.com/content/5ae7381b-2b01-448e-af9e-c141bf6870e2" },
   { id: "8ca25b96-f8eb-49b1-a259-b7314ef4741a", title: "Your move, BoJ", date: "2026-08-10", time: "06:30", url: "https://www.ft.com/content/8ca25b96-f8eb-49b1-a259-b7314ef4741a" },
   { id: "95ae557f-5c22-4512-a595-d957ca0e0005", title: "FTAV’s further reading", date: "2026-08-10", time: "06:30", url: "https://www.ft.com/content/95ae557f-5c22-4512-a595-d957ca0e0005" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "560ff425-c1ac-4eef-b8da-e6cdb0a412a3", title: "UK state subsidies soar as post-Brexit grants boost energy projects", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/560ff425-c1ac-4eef-b8da-e6cdb0a412a3" },
   { id: "0a6249a2-e28b-4e58-ab2d-2b8615b832dc", title: "Turkey’s cyber law shifts sweeping powers to presidency", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/0a6249a2-e28b-4e58-ab2d-2b8615b832dc" },
   { id: "590e468a-1eb7-4d1b-a7a5-80541c3ff35a", title: "Hargreaves Lansdown orders staff back to office", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/590e468a-1eb7-4d1b-a7a5-80541c3ff35a" },
-  { id: "0ac50644-398f-49ec-895d-a2494254dabd", title: "France faces budget showdown as presidential election looms", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/0ac50644-398f-49ec-895d-a2494254dabd" },
-  { id: "297a8bf7-ce8b-44fe-bc51-3e2ec2e47699", title: "Investors return to European stocks as strong earnings lift Iran war gloom", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/297a8bf7-ce8b-44fe-bc51-3e2ec2e47699" },
-  { id: "15c56de6-c884-4c7f-a91c-6d1aa59ce1c6", title: "China’s monthly inflation cools as impact from Iran war eases", date: "2026-08-09", time: "04:05", url: "https://www.ft.com/content/15c56de6-c884-4c7f-a91c-6d1aa59ce1c6" },
 ];
