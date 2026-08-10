@@ -12,8 +12,8 @@ export const UPDATED = "9 August 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-08-09",
-  lastCheckedTime: "21:24 BST",
+  lastChecked: "2026-08-10",
+  lastCheckedTime: "06:10 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -603,6 +603,7 @@ export const YIELD_CURVE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-oil-hormuz-elusive-2026-08-10", kind: "Markets", title: "Brent held above $84/bbl (WTI near $79) after climbing more than 5% over the prior three sessions, as Iran's foreign minister Abbas Araghchi ruled out direct US talks for now over 'violations' of June's interim ceasefire, even while describing a shipping-route accord with Oman as 'very close'.", href: "#/bubble", date: "2026-08-10" },
   { id: "g-pentagon-arms-production-2026-08-09", kind: "Markets", title: "Deputy Defense Secretary Steve Feinberg gave major US defence contractors 21 days to lay out faster delivery schedules for air-defense sensors, interceptors and missile-tracking systems, after depleted munitions stockpiles from the Iran war — Patriot interceptors down more than 65% since before the conflict to an estimated 759-827 — pushed the Pentagon to press for a production surge.", href: "#/bubble", date: "2026-08-09" },
   { id: "g-iran-demands-list-2026-08-08", kind: "Markets", title: "Iran's national security chief Mohammad Bagher Zolghadr set out formal demands for reopening the Strait of Hormuz — lifting the US naval blockade, withdrawing forces, ending the war, compensation and releasing frozen Iranian assets — while Iran and Oman said a temporary transit-route deal is 'very close' but won't mean an immediate reopening; Gen. Dan Caine has privately signalled the Pentagon wants an off-ramp.", href: "#/bubble", date: "2026-08-08" },
   { id: "g-mecca-defence-pact-2026-08-07", kind: "Markets", title: "Saudi Arabia, Turkey and Pakistan signed a 'Mecca Joint Defence Pact' in Mecca — a NATO Article 5-style mutual-defence agreement treating an attack on any one signatory as an attack on all — as escalating Iran-war strikes on Gulf oil exporters and near-total Strait of Hormuz shipping disruption push Saudi Arabia to broaden its security guarantees beyond the US umbrella.", href: "#/bubble", date: "2026-08-07" },
