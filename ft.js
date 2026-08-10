@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "5ae7381b-2b01-448e-af9e-c141bf6870e2", title: "Prabowo Subianto nominates new leader for Indonesia’s central bank", date: "2026-08-10", time: "06:36", url: "https://www.ft.com/content/5ae7381b-2b01-448e-af9e-c141bf6870e2" },
   { id: "8ca25b96-f8eb-49b1-a259-b7314ef4741a", title: "Your move, BoJ", date: "2026-08-10", time: "06:30", url: "https://www.ft.com/content/8ca25b96-f8eb-49b1-a259-b7314ef4741a" },
   { id: "95ae557f-5c22-4512-a595-d957ca0e0005", title: "FTAV’s further reading", date: "2026-08-10", time: "06:30", url: "https://www.ft.com/content/95ae557f-5c22-4512-a595-d957ca0e0005" },
   { id: "a36fa9a6-5676-4401-9359-890916424cbd", title: "Lessons in letter writing for the Bank of England", date: "2026-08-10", time: "06:00", url: "https://www.ft.com/content/a36fa9a6-5676-4401-9359-890916424cbd" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "0ac50644-398f-49ec-895d-a2494254dabd", title: "France faces budget showdown as presidential election looms", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/0ac50644-398f-49ec-895d-a2494254dabd" },
   { id: "297a8bf7-ce8b-44fe-bc51-3e2ec2e47699", title: "Investors return to European stocks as strong earnings lift Iran war gloom", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/297a8bf7-ce8b-44fe-bc51-3e2ec2e47699" },
   { id: "15c56de6-c884-4c7f-a91c-6d1aa59ce1c6", title: "China’s monthly inflation cools as impact from Iran war eases", date: "2026-08-09", time: "04:05", url: "https://www.ft.com/content/15c56de6-c884-4c7f-a91c-6d1aa59ce1c6" },
-  { id: "ff321dc1-41d6-473d-b7e7-2a58224a18e7", title: "One of the world’s biggest coal producers battles to keep lights on", date: "2026-08-09", time: "03:05", url: "https://www.ft.com/content/ff321dc1-41d6-473d-b7e7-2a58224a18e7" },
 ];

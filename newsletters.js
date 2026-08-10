@@ -33,6 +33,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bp-cre-anthropicdublinoffice-20260810",
+    publication: "Business Post",
+    series: "CRE",
+    title: "Anthropic’s new Dublin office",
+    date: "2026-08-10",
+    time: "08:00",
+    summary: "Anthropic takes a lease at the Iput building in Dublin 2, as Bank of Ireland closes its Baggot Street branch and State Street plans to move its Dublin HQ to Denis O’Brien’s dockland development.",
+    url: "https://bpm.businesspost.ie/w/JRvWWjanSo3LAEBad7J763UQ/Pe5PTEw0pLHXiV2kox0pPw/wetq1n8nfxk4sBK763Nt892bqQ",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-20260810",
     publication: "Bloomberg",
     author: "Victoria Batchelor",
@@ -425,15 +435,5 @@ export const NEWSLETTERS = [
     time: "12:14",
     summary: "Private capital players pause for a summer lull before a pivotal final quarter.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-05/wanderlust-on-wall-street-private-capital-high-flyers-take-summer-breather",
-  },
-  {
-    id: "nl-bbg-marketsdaily-techmeltup-20260805",
-    publication: "Bloomberg",
-    series: "Markets Daily",
-    title: "Markets Daily: Tech meltup",
-    date: "2026-08-05",
-    time: "12:01",
-    summary: "Nasdaq 100’s four-day, $3.5 trillion rally.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-05/tech-euphoria-has-come-back-in-just-four-days",
   },
 ];
