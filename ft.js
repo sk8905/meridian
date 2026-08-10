@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "ba95957a-e4fa-4caf-8ddb-ad0e203eef29", title: "Glencore-backed group looks to rescue cobalt refiner Sherritt", date: "2026-08-10", time: "18:12", url: "https://www.ft.com/content/ba95957a-e4fa-4caf-8ddb-ad0e203eef29" },
+  { id: "689c0487-af77-4e18-8b63-fa26ed373ce8", title: "FanDuel and DraftKings hedge their bets with a predictions pivot", date: "2026-08-10", time: "17:48", url: "https://www.ft.com/content/689c0487-af77-4e18-8b63-fa26ed373ce8" },
+  { id: "98a8fd17-15b6-4f67-9cb4-825722b11348", title: "Wall Street giants partner with Nvidia on $500bn AI financing deal", date: "2026-08-10", time: "17:41", url: "https://www.ft.com/content/98a8fd17-15b6-4f67-9cb4-825722b11348" },
   { id: "49103d68-85be-4af6-9dfd-90d66dc78f38", title: "Jeff Bezos investor group closing in on Liverpool FC stake", date: "2026-08-10", time: "15:29", url: "https://www.ft.com/content/49103d68-85be-4af6-9dfd-90d66dc78f38" },
   { id: "d7eb9cd2-7eb9-4c31-8f8d-59446f0f1743", title: "The ICC is all the women of Afghanistan have left", date: "2026-08-10", time: "15:23", url: "https://www.ft.com/content/d7eb9cd2-7eb9-4c31-8f8d-59446f0f1743" },
   { id: "62d3a32d-8a38-4136-b32c-36f25099b91f", title: "Shein IPO pitched to investors at sub-$30bn valuation", date: "2026-08-10", time: "15:15", url: "https://www.ft.com/content/62d3a32d-8a38-4136-b32c-36f25099b91f" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "ce343513-5514-4519-95c8-19832ed46d16", title: "Iran replaces top security official at crucial moment in talks over Strait of Hormuz", date: "2026-08-09", time: "23:23", url: "https://www.ft.com/content/ce343513-5514-4519-95c8-19832ed46d16" },
   { id: "82922307-311d-499b-9798-0292d5f6b7ed", title: "Andy Burnham promises to tackle false discounts in latest cost-of-living pledge", date: "2026-08-09", time: "22:30", url: "https://www.ft.com/content/82922307-311d-499b-9798-0292d5f6b7ed" },
   { id: "6e943917-2eeb-4654-b4ad-a4af76b4b946", title: "FirstFT: Ex-CIA officials warn Donald Trump is dismantling US guardrails", date: "2026-08-09", time: "22:16", url: "https://www.ft.com/content/6e943917-2eeb-4654-b4ad-a4af76b4b946" },
-  { id: "af06cfa1-0ea8-40a6-ad2c-81fe47a63e7b", title: "A very British by-election reaches its finale", date: "2026-08-09", time: "18:15", url: "https://www.ft.com/content/af06cfa1-0ea8-40a6-ad2c-81fe47a63e7b" },
-  { id: "df62a69e-aa53-4cde-8a02-4d2cd465a370", title: "Syria makes deal to take control of Russian bases", date: "2026-08-09", time: "17:26", url: "https://www.ft.com/content/df62a69e-aa53-4cde-8a02-4d2cd465a370" },
-  { id: "4fc0fdda-0919-4584-9bdd-855e2aaa5c09", title: "Donald Trump is dismantling US guardrails, warn former security officials", date: "2026-08-09", time: "17:00", url: "https://www.ft.com/content/4fc0fdda-0919-4584-9bdd-855e2aaa5c09" },
 ];
