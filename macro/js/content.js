@@ -827,9 +827,6 @@ export const ARTICLES = {
     {"title":"US Consumers More Optimistic on Jobs, Inflation in NY Fed Survey","source":"Bloomberg","date":"2026-08-07","time":"11:00","url":"https://www.bloomberg.com/news/articles/2026-08-07/us-consumers-more-optimistic-on-jobs-inflation-in-ny-fed-survey","blurb":"The New York Fed's July survey showed households' perceived probability of finding a new job, if unemployed, rose to 46.2% — the highest this year — alongside softer year-ahead inflation expectations."},
     {"title":"Fed Split on Rate Hikes Deepens as Five Years of High Inflation Tests Patience","source":"Bloomberg","date":"2026-08-07","time":"09:00","url":"https://www.bloomberg.com/news/articles/2026-08-07/fed-split-on-rate-hikes-deepens-as-high-inflation-tests-patience","blurb":"Governor Lisa Cook repeated she is ready to raise rates if inflation doesn't slow, while New York Fed president John Williams said rates remain well positioned — a widening divide among policymakers heading into the contested 16 September meeting."},
     {"title":"Odds the Fed will hike in September tumble following big July jobs miss","source":"CNBC","date":"2026-08-07","time":"21:00","url":"https://www.cnbc.com/2026/08/07/odds-the-fed-hikes-in-september-tumble-following-big-july-jobs-miss.html","blurb":"CME FedWatch-implied odds of a September Fed hike fell to roughly 44% (from 45% hold odds a day earlier and ~81% hike odds on 30 July) after July payrolls unexpectedly fell 23,000, with economists split on whether next week's CPI print can still revive the case for tightening."},
-    {"title":"Stock Market Today (Aug. 7, 2026): Nasdaq rises after July jobs report shows unexpected losses","source":"TheStreet","date":"2026-08-07","time":"21:00","url":"https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-7-2026","blurb":"The S&P 500 closed at a fresh record 7,757.64 (+0.62%), the Nasdaq Composite jumped 1.3% to 26,690.62 and the Dow added 151.83 points to 54,036.93, capping a second straight week of gains as investors read the soft jobs report as taking a September hike off the table."},
-    {"title":"Treasuries Rally as Soft Jobs Data Trims Fed Rate-Hike Bets","source":"Bloomberg","date":"2026-08-07","time":"15:00","url":"https://www.bloomberg.com/news/articles/2026-08-07/us-treasuries-rally-as-soft-jobs-data-trims-fed-rate-hike-bets","blurb":"Two-year Treasury yields fall as traders price out a September Fed hike after payrolls unexpectedly fell 23,000 in July, with large downward revisions to May and June."},
-    {"title":"Mixed July payrolls report takes pressure off the Fed to tighten","source":"Financial Times","date":"2026-08-07","time":"14:37","url":"https://www.ft.com/content/dba784cb-a197-4576-b533-597d5eb12a51","blurb":"A weaker-than-expected US jobs report complicates the case for a September rate hike, even as the unemployment rate ticked down and the hawkish wing of the FOMC continued to press for tighter policy."},
   ],
 };
 
@@ -996,7 +993,19 @@ export const FX_KEYMOMENT = { text: "The dollar eased and Treasury yields fell a
 
 export const EARNINGS = {
   weeks: [
-    { label: "This week \u00b7 3\u20137 Aug", days: [
+    { label: "This week \u00b7 10\u201314 Aug", days: [
+      { date: "2026-08-11", rows: [
+        { t: "CRWV", n: "CoreWeave", tag: "AI cloud/infrastructure \u00b7 Nasdaq", when: "After close", estEps: "-$1.27 (avg est; range -$1.22 to -$1.40)", estRev: "$2.55-2.56bn (+~111% y/y)", actEps: null, actRev: null, px: null, note: null },
+        { t: "SMCI", n: "Super Micro Computer", tag: "AI servers \u00b7 S&P 500", when: "After close", held: [{ etf: "IGWD", w: null }], estEps: "$0.92-0.96 (avg est)", estRev: "$11.55-11.60bn (+~101% y/y; co. guide $11.0-12.5bn)", actEps: null, actRev: null, px: null, note: "backlog at record levels; total new orders exceeded $60bn in fiscal Q4." },
+      ] },
+      { date: "2026-08-12", rows: [
+        { t: "CSCO", n: "Cisco Systems", tag: "Networking/AI infrastructure \u00b7 Nasdaq 100", when: "After close", held: [{ etf: "IGWD", w: null }], estEps: "$1.17 (co. guide $1.16-1.18)", estRev: "$16.83bn (co. guide $16.7-16.9bn, +14.7% y/y)", actEps: null, actRev: null, px: null, km: { l: "AI infrastructure orders (FY26 YTD)", est: "co. raised FY26 AI-order outlook to $9bn (from prior guide)", act: null } },
+      ] },
+      { date: "2026-08-13", rows: [
+        { t: "AMAT", n: "Applied Materials", tag: "Chip equipment \u00b7 Nasdaq 100", when: "After close", held: [{ etf: "IGWD", w: null }], estEps: "$3.36 (co. guide $3.36 \u00b1$0.20)", estRev: "$9.0bn (co. guide $8.95bn \u00b1$500m, +23% y/y)", actEps: null, actRev: null, px: null, note: "has beaten estimates for five straight quarters; Q2 (May) revenue was $7.91bn (+11% y/y), EPS $3.51." },
+      ] },
+    ] },
+    { label: "Last week \u00b7 3\u20137 Aug", days: [
       { date: "2026-08-03", rows: [
         { t: "PLTR", n: "Palantir Technologies", tag: "AI software \u00b7 Nasdaq 100", when: "After close", estEps: "$0.34-0.35 adj", estRev: "~$1.81bn", actEps: "$0.41 adj GAAP (beat)", actRev: "$1.94bn (+93% y/y, beat)", px: "+~12-15% AH", note: "ninth straight EPS/revenue beat; US commercial revenue +149% y/y to $764m; raised FY26 revenue guide to $8.15-8.16bn (82% y/y growth, from ~$7.66bn prior top end) and FY26 adjusted FCF guide to $4.5-4.7bn." },
       ] },
@@ -1011,28 +1020,6 @@ export const EARNINGS = {
       ] },
       { date: "2026-08-06", rows: [
         { t: "DGE", n: "Diageo", tag: "Consumer staples \u00b7 UK", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$0.638", estRev: "$9.15bn", actEps: "165.3\u00a2 basic EPS before exceptionals (+0.7% y/y)", actRev: "$19.643bn reported net sales (-3.0% y/y; organic -2.0%)", px: "+6.4%, led the FTSE 100", note: "FY26 (year to 30 June): reported operating profit fell 27.2% to $3.156bn on $0.9bn restructuring and $1.5bn impairment charges, but adjusted operating profit rose 2.0% to $5.683bn (28.9% margin); free cash flow up $463m to $3.2bn; full-year dividend held at 50\u00a2/share under the new policy; shares jumped as CEO Sir Dave Lewis outlined a new medium-term growth strategy at a same-day Capital Markets Day." },
-      ] },
-    ] },
-    { label: "Last week \u00b7 27\u201331 Jul", days: [
-      { date: "2026-07-28", rows: [
-        { t: "KO", n: "Coca-Cola", tag: "Consumer staples \u00b7 Dow", when: "Pre-mkt", estEps: "$0.92", estRev: "$13.05bn", actEps: "$0.97 comparable ($1.03 GAAP, +16%)", actRev: "$13.4bn (+7%)", px: "+~5%", note: "beat on both lines; raised FY26 guide to comparable EPS growth 9-10% (from 8-9%) and organic revenue ~5% (from 4-5%)" },
-        { t: "BA", n: "Boeing", tag: "Aerospace \u00b7 Dow", when: "Pre-mkt", estEps: "-$0.31", estRev: "$24.1bn", actEps: "-$0.76 core (-$0.67 GAAP)", actRev: "$24.6bn", px: "+3.98% to $219.92", note: "revenue beat but core loss/share missed badly (vs -$0.31 est) on a $280m Air Force One charge; deliveries +14% y/y to 171, record $715bn backlog, FCF turned positive (+$0.6bn)" },
-        { t: "F", n: "Ford", tag: "Autos \u00b7 S&P 500", when: "After close", estEps: "$0.36", estRev: "$45.66bn auto", actEps: "$0.42 adj", actRev: "$44.89bn auto", px: "+1.87%", note: "EPS beat (adj EBIT $2.5bn vs $2.15bn est) despite a slight revenue miss; raised FY26 adj EBIT guide to $10-11bn (from $8.5-10.5bn)" },
-        { t: "BARC", n: "Barclays", tag: "Banks/brokers \u00b7 UK", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: null, estRev: null, km: { l: "Pre-tax profit", est: "\u00a35.9bn", act: "\u00a36.1bn" }, actEps: "EPS missed est (RoTE 16.1%)", actRev: null, px: "-5.1% to 503p", note: "H1 pre-tax profit \u00a36.1bn beat \u00a35.9bn consensus (up from \u00a35.2bn H1 2025); UK bank income +8% to \u00a34.5bn, investment bank +11% to \u00a38bn; upgraded income target and announced \u00a31bn buyback, but shares fell on an EPS shortfall and higher credit-impairment charges (loss rate 62bps vs 52bps)" },
-      ] },
-      { date: "2026-07-29", rows: [
-        { t: "MSFT", n: "Microsoft", tag: "Mag 7 \u00b7 hyperscaler", when: "After close", estEps: "$4.24", estRev: "$87.62bn", actEps: "$4.74 adj", actRev: "$90.01bn (+18%)", px: "+~8% after hours", note: "fiscal Q4 FY26 beat on both lines; Azure grew 43% and topped $100bn in FY26 revenue, commercial RPO surged 84% to $678bn, Microsoft 365 Copilot passed 30m paid seats" },
-        { t: "META", n: "Meta Platforms", tag: "Mag 7", when: "After close", estEps: "$7.23", estRev: "$60.26bn", actEps: "$6.18 (missed est)", actRev: "$60.80bn (+28%, beat)", px: "-~8% after hours", note: "revenue beat but EPS missed on $2.4bn legal charges and $1.18bn severance tied to May 2026 layoffs; capex $31.08bn in the quarter, guided FY26 capex to $130-145bn and Q3 revenue to $61-64bn" },
-      ] },
-      { date: "2026-07-30", rows: [
-        { t: "AAPL", n: "Apple", tag: "Mag 7", when: "After close", estEps: "$1.89", estRev: "$108.9bn", actEps: "$2.02 (+29% y/y)", actRev: "$109.4bn (+16% y/y)", px: "-6.65% AH to $311.25", guide: { est: null, act: "Sept-quarter revenue guided +9-11% y/y (vs +16% in June quarter); flagged rising supply constraints and memory costs" }, note: "beat on both lines (EPS beat $1.88-1.89 est, revenue beat ~$108.8-108.9bn est) with June-quarter records for total revenue, EPS, iPhone, Mac and Services \u2014 but shares fell on weaker forward guidance, a Services miss ($30.74bn vs $31.22bn est) and Greater China revenue of $18.8bn missing the ~$19.5bn estimate" },
-        { t: "AMZN", n: "Amazon", tag: "Mag 7 \u00b7 hyperscaler", when: "After close", estEps: "$1.82", estRev: "$196bn", km: { l: "AWS growth", est: "~31%", act: "37% (fastest in 18 quarters)" }, actEps: "$5.75 (>3x consensus)", actRev: "$200.6bn (+20% y/y)", px: "+~7-10% AH", guide: { est: "FY26 capex ~$200bn", act: "FY26 capex raised to ~$220bn" }, note: "AWS revenue $42.2bn (vs ~$40.5bn est, +37% y/y, fastest AWS growth in 18 quarters) at a 39.4% operating margin ($16.6bn AWS operating income, up from $10.2bn a year earlier); total net sales $200.6bn beat the $196.47bn consensus; raised FY26 capex guidance to ~$220bn from ~$200bn" },
-        { t: "LLOY", n: "Lloyds Banking Group", tag: "Banks/brokers \u00b7 UK", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: null, estRev: null, km: { l: "Pre-tax profit", est: "\u00a32.09bn (Q2)", act: "\u00a32.27bn (Q2, +14% y/y)" }, actEps: null, actRev: "Underlying NII \u00a37.3bn (+9% y/y); NIM 3.19%", px: null, note: "H1 2026 statutory pre-tax profit \u00a34.3bn (vs \u00a33.5bn H1 2025); Q2 pre-tax profit \u00a32.27bn beat \u00a32.09bn consensus; interim dividend 1.58p/share (+30% y/y); unveiled new 5-year plan targeting ~20% RoTE by 2030 (>18% by 2028)" },
-      ] },
-      { date: "2026-07-31", rows: [
-        { t: "XOM", n: "ExxonMobil", tag: "Energy \u00b7 Dow", when: "Pre-mkt", estEps: "$3.76", estRev: "$101bn", actEps: "$3.48 GAAP ($3.52 adj)", actRev: "$94.9bn", px: "-1.4%", note: "adjusted EPS missed the $3.76 estimate (scheduled refinery maintenance offset record margins); highest production in two decades ex-Middle East disruption (4.514m boe/d, Permian record >1.8m boe/d); op cash flow $23.6bn, FCF $17.2bn, shareholder distributions $9.4bn" },
-        { t: "CVX", n: "Chevron", tag: "Energy \u00b7 Dow", when: "Pre-mkt", estEps: "$5.79", estRev: null, actEps: "$6.11 GAAP ($6.06 adj)", actRev: "$70.1bn (+56% y/y)", px: "+1.3%", note: "adjusted EPS and revenue both beat consensus on higher realizations, refining margins and Hess-driven output (+20% y/y worldwide); Hess synergies hit $1.5bn (ahead of schedule) and the $3bn cost-reduction target was reached six months early; op cash flow $19.7bn, adj FCF $15.4bn" },
-        { t: "NWG", n: "NatWest Group", tag: "Banks/brokers \u00b7 UK", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: null, estRev: null, km: { l: "Pre-tax profit", est: null, act: "\u00a34.32bn (from \u00a33.59bn)" }, actEps: null, actRev: "NII +12.6% y/y", note: "H1 2026 pre-tax profit rose to \u00a34.32bn on a 12.6% NII jump; RoTE guidance upgraded to >19% (from >17%) alongside a \u00a32.2bn Evelyn Partners acquisition." },
       ] },
     ] },
   ],
@@ -1128,5 +1115,13 @@ export const EARNINGS = {
     { name: "TradingKey — AMD stock moved up 5.32% on Aug 4", url: "https://www.tradingkey.com/news/market-movers/262073815-market-movers-amd-20260804" },
     { name: "CNBC — SpaceX Q2 2026 earnings live updates (revenue $7.81bn, beat)", url: "https://www.cnbc.com/2026/08/04/spacex-spcx-earnings-live-updates-q2-2026.html" },
     { name: "CNBC — SpaceX lock-up expiration (Aug 6 unlock)", url: "https://www.cnbc.com/2026/07/21/spacex-spcx-earnings-lock-up-expiration.html" },
+    { name: "Yahoo Finance — CoreWeave (CRWV) Q2 earnings preview", url: "https://finance.yahoo.com/markets/stocks/articles/earnings-preview-coreweave-crwv-q2-140004181.html" },
+    { name: "Benzinga — CoreWeave Q2 preview, 108% revenue growth expected", url: "https://www.benzinga.com/analyst-stock-ratings/analyst-color/26/07/60556444/coreweave-q2-preview-strong-revenue-growth-108-margin-may-disappoint" },
+    { name: "Yahoo Finance — Super Micro Computer Q4 FY26 earnings preview", url: "https://finance.yahoo.com/markets/stocks/articles/super-micro-q4-earnings-preview-122414694.html" },
+    { name: "Businesswire — Supermicro Q4 FY26 preliminary business update ($60bn+ orders)", url: "https://www.businesswire.com/news/home/20260721109492/en/Supermicro-Provides-Fourth-Quarter-of-Fiscal-Year-2026-Preliminary-Business-Update" },
+    { name: "Alphastreet — Cisco Q4 FY26 earnings preview, Aug 12, Street expects $1.17 EPS", url: "https://news.alphastreet.com/cisco-systems-q4-2026-earnings-preview-august-12-street-expects-1-17-eps/amp/" },
+    { name: "Yahoo Finance — Cisco Systems quarterly earnings preview (AI infrastructure orders)", url: "https://finance.yahoo.com/technology/ai/articles/cisco-systems-report-amid-expectations-200500901.html" },
+    { name: "24/7 Wall St. — Applied Materials Aug 13 earnings resilience preview", url: "https://247wallst.com/investing/2026/08/05/what-determines-applied-materials-resilience-on-aug-13-earnings/" },
+    { name: "Benzinga — Applied Materials Q3 FY26 earnings preview", url: "https://www.benzinga.com/markets/equities/26/08/61064204/applied-materials-stock-what-to-expect-from-q3-earnings-on-august-13" },
   ],
 };
