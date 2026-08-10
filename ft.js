@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "0cc564c0-b69f-4e67-ac5d-15147ee31ac1", title: "Barrick and Newmont gold mining truce clears way for IPO", date: "2026-08-10", time: "11:07", url: "https://www.ft.com/content/0cc564c0-b69f-4e67-ac5d-15147ee31ac1" },
+  { id: "ad0602c3-224f-422c-b052-ff96e2f9054c", title: "Ukrainian drone strike on oil-refining city in central Russia kills 13", date: "2026-08-10", time: "10:55", url: "https://www.ft.com/content/ad0602c3-224f-422c-b052-ff96e2f9054c" },
+  { id: "1f5e2807-5110-47bc-baf1-757c7b675cb0", title: "Revolut wins French banking licence", date: "2026-08-10", time: "10:43", url: "https://www.ft.com/content/1f5e2807-5110-47bc-baf1-757c7b675cb0" },
+  { id: "488d82d2-037d-455f-8668-22df647cde1d", title: "And the FTAV chart quiz winner is . . .", date: "2026-08-10", time: "10:30", url: "https://www.ft.com/content/488d82d2-037d-455f-8668-22df647cde1d" },
   { id: "5fb02f66-1faa-41e4-97f7-b791501da41d", title: "Reform vows to deport all foreign prisoners from British jails", date: "2026-08-10", time: "09:55", url: "https://www.ft.com/content/5fb02f66-1faa-41e4-97f7-b791501da41d" },
   { id: "0c2b4143-571c-4339-962c-ecc9efd7a05d", title: "Nigel Farage’s biggest threat is a divided right", date: "2026-08-10", time: "09:30", url: "https://www.ft.com/content/0c2b4143-571c-4339-962c-ecc9efd7a05d" },
   { id: "cfa061f4-83dc-4e4b-9a51-0142caacaff6", title: "Summary of opinions suggests Bank of Japan set for more tightening", date: "2026-08-10", time: "09:19", url: "https://www.ft.com/content/cfa061f4-83dc-4e4b-9a51-0142caacaff6" },
@@ -58,6 +62,4 @@ export const FT_ITEMS = [
   { id: "d45a8e1b-1d45-4a3d-a3d2-5a3ce15b0e9d", title: "The Bayeux Tapestry loan is a model for the Parthenon Marbles", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/d45a8e1b-1d45-4a3d-a3d2-5a3ce15b0e9d" },
   { id: "7aafc76c-c381-4381-a89c-e92c9db60671", title: "Andy Burnham failed to end rough sleeping as a mayor — can he succeed as prime minister?", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/7aafc76c-c381-4381-a89c-e92c9db60671" },
   { id: "560ff425-c1ac-4eef-b8da-e6cdb0a412a3", title: "UK state subsidies soar as post-Brexit grants boost energy projects", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/560ff425-c1ac-4eef-b8da-e6cdb0a412a3" },
-  { id: "0a6249a2-e28b-4e58-ab2d-2b8615b832dc", title: "Turkey’s cyber law shifts sweeping powers to presidency", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/0a6249a2-e28b-4e58-ab2d-2b8615b832dc" },
-  { id: "590e468a-1eb7-4d1b-a7a5-80541c3ff35a", title: "Hargreaves Lansdown orders staff back to office", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/590e468a-1eb7-4d1b-a7a5-80541c3ff35a" },
 ];
