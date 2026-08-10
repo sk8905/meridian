@@ -107,7 +107,7 @@
       .g-footer .g-idblock { align-items:center; }
       .g-footer .g-user { color:var(--muted); font-size:.82rem; }
       .g-footer .g-user strong { color:var(--ink); }
-      .g-footer .g-user a { color:#fff; }
+      .g-footer .g-user a { color:var(--muted); }
       .g-footer .g-refresh { color:var(--muted); font-size:.72rem; }
     }
 

@@ -21,6 +21,7 @@ const macroCss = read("macro/css/styles.css");
 const headerCss = read("header.css");
 const creditCss = read("credit/css/styles.css");
 const legalCss = read("legal/css/styles.css");
+const premiumCss = read("premium.css");
 
 // R8 — --t-news must be a REAL declared custom property (dark + light), not
 // just a var(--t-news, #fallback) with nothing ever setting it.
@@ -51,6 +52,28 @@ check(/\.data-status\s*\{[^}]*color:\s*var\(--muted/.test(headerCss),
 for (const [label, src] of [["credit/css/styles.css", creditCss], ["legal/css/styles.css", legalCss], ["macro/css/styles.css", macroCss]]) {
   const bodyRule = src.match(/body\s*\{[^}]*\}/);
   check(!!bodyRule && !/font-size\s*:\s*16px/.test(bodyRule[0]), `${label} body{} does not hardcode font-size:16px over --fs-content`);
+}
+
+// R10 — the phone-footer / menu "Sign out" link uses the shared muted token,
+// not a hardcoded #fff that vanishes on an on-surface (non-navy) background.
+check(/\.na-menu-acct a\s*\{[^}]*color:\s*var\(--muted/.test(premiumCss),
+  "premium.css .na-menu-acct a reads var(--muted), not a hardcoded #fff");
+check(/\.acct-foot \.account-nav a\s*\{[^}]*color:\s*var\(--muted\)/.test(premiumCss),
+  "premium.css .acct-foot .account-nav a reads var(--muted), not a hardcoded #fff");
+check(/\.g-footer \.g-user a\s*\{[^}]*color:var\(--muted\)/.test(homeCss),
+  "home.css .g-footer .g-user a reads var(--muted), not a hardcoded #fff");
+
+// R10 — the mobile tab bar's light background reuses the --bg token instead of
+// a bespoke one-off grey that drifts from the app's actual light --bg.
+check(/\.mobile-tabbar\s*\{[^}]*background:\s*var\(--bg/.test(premiumCss),
+  "premium.css .mobile-tabbar background reads var(--bg), not a one-off hex grey");
+
+// R11 — numeric columns in Credit's KPI cards and league tables use
+// tabular-nums so digits don't jitter width as values update.
+for (const [label, sel] of [[".kpi-value", /\.kpi-value\s*\{[^}]*font-variant-numeric:\s*tabular-nums/],
+  [".data-table .rank", /\.data-table \.rank\s*\{[^}]*font-variant-numeric:\s*tabular-nums/],
+  [".data-table .num", /\.data-table \.num\s*\{[^}]*font-variant-numeric:\s*tabular-nums/]]) {
+  check(sel.test(creditCss), `credit/css/styles.css ${label} uses tabular-nums`);
 }
 
 finish();

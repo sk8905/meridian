@@ -374,7 +374,7 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   grid-template-columns: repeat(5, 1fr);
   border-radius: 0;
   padding: 6px 0 calc(6px + env(safe-area-inset-bottom, 0px));
-  background: #f6f8fc;
+  background: var(--bg, #f4f6fb);
   border: 0; border-top: 1px solid rgba(15,23,42,.12);
   -webkit-backdrop-filter: none; backdrop-filter: none;
   box-shadow: none;
@@ -469,7 +469,7 @@ html.wire-boot #out { visibility: hidden; }
 .na-menu-search svg { width: 16px; height: 16px; flex: 0 0 auto; }
 .na-menu-acct { display: block; font-size: 12px; color: var(--muted, #8592ad); }
 .na-menu-acct strong { color: var(--ink, #eaf0fb); font-weight: 600; }
-.na-menu-acct a { color: #fff; font-weight: 600; text-decoration: none; margin-left: .2em; }
+.na-menu-acct a { color: var(--muted, #8592ad); font-weight: 600; text-decoration: none; margin-left: .2em; }
 .na-menu-stat { display: block; font-family: var(--t-mono, ui-monospace, monospace);
   font-size: 11px; color: var(--faint, #5c6a86); border-bottom: 0; }
 /* Recent searches sit under the search bar; the account/refresh block is the
@@ -717,7 +717,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
   .acct-foot .account-nav { position: static; color: var(--muted); font-size: .82rem; }
   .acct-foot .account-nav[hidden] { display: none; }
   .acct-foot .account-nav strong { color: var(--ink); font-weight: 600; }
-  .acct-foot .account-nav a { color: #fff; }
+  .acct-foot .account-nav a { color: var(--muted); }
   .acct-foot .account-nav .si-prefix { display: inline; }
   .acct-foot .data-status { color: var(--muted); font-size: .78rem; }
   /* ---- Phones: Markets / Saved / Notifications each open as a FULL-SCREEN page
