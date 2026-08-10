@@ -33,6 +33,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-nonbillable-dentonsvbillionaire-20260810",
+    publication: "Non-Billable",
+    title: "Dentons v billionaire",
+    date: "2026-08-10",
+    time: "09:05",
+    summary: "Dentons acts for a broker suing Revolut billionaire Nik Storonsky for €17.5m over a disputed superyacht commission, plus Macfarlanes and Clifford Chance line up on Apollo's £5.7bn easyJet takeover.",
+    url: "https://www.nonbillable.co.uk/news/dentons-revolut-ceo-superyacht-commissions-cecil-wrigh",
+  },
+  {
     id: "nl-bp-cre-anthropicdublinoffice-20260810",
     publication: "Business Post",
     series: "CRE",
@@ -425,15 +434,5 @@ export const NEWSLETTERS = [
     time: "13:16",
     summary: "From growth and profitability to US inroads - what we've learned from the latest results from A&O Shearman, CC and Linklaters.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMQDDXvC16UyYc5DuJ/wv",
-  },
-  {
-    id: "nl-bbg-goingprivate-wanderlust-20260805",
-    publication: "Bloomberg",
-    series: "Going Private",
-    title: "Going Private: Wanderlust on Wall Street",
-    date: "2026-08-05",
-    time: "12:14",
-    summary: "Private capital players pause for a summer lull before a pivotal final quarter.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-05/wanderlust-on-wall-street-private-capital-high-flyers-take-summer-breather",
   },
 ];
