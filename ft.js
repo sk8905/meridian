@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "eae5a1cc-5d15-48c9-9d24-2b7094fda5ba", title: "Start-up bank backed by Palmer Luckey set to raise $1.5bn", date: "2026-08-10", time: "12:00", url: "https://www.ft.com/content/eae5a1cc-5d15-48c9-9d24-2b7094fda5ba" },
   { id: "0cc564c0-b69f-4e67-ac5d-15147ee31ac1", title: "Barrick and Newmont gold mining truce clears way for IPO", date: "2026-08-10", time: "11:07", url: "https://www.ft.com/content/0cc564c0-b69f-4e67-ac5d-15147ee31ac1" },
   { id: "ad0602c3-224f-422c-b052-ff96e2f9054c", title: "Ukrainian drone strike on oil-refining city in central Russia kills 13", date: "2026-08-10", time: "10:55", url: "https://www.ft.com/content/ad0602c3-224f-422c-b052-ff96e2f9054c" },
   { id: "1f5e2807-5110-47bc-baf1-757c7b675cb0", title: "Revolut wins French banking licence", date: "2026-08-10", time: "10:43", url: "https://www.ft.com/content/1f5e2807-5110-47bc-baf1-757c7b675cb0" },
@@ -59,7 +60,4 @@ export const FT_ITEMS = [
   { id: "c15abecc-5f9a-4f7b-92e2-8c99f9ea3ae5", title: "Asian carmakers cash in as high petrol prices lift US demand for hybrids", date: "2026-08-09", time: "11:00", url: "https://www.ft.com/content/c15abecc-5f9a-4f7b-92e2-8c99f9ea3ae5" },
   { id: "69c573e0-9c24-451d-bb13-ae7a7c3104c0", title: "Impatient yacht owners make for a hot new asset class", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/69c573e0-9c24-451d-bb13-ae7a7c3104c0" },
   { id: "7dc75493-84e1-4b84-af2a-ef5375fd9736", title: "Career satisfaction in an uncertain world? Dream on", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/7dc75493-84e1-4b84-af2a-ef5375fd9736" },
-  { id: "d45a8e1b-1d45-4a3d-a3d2-5a3ce15b0e9d", title: "The Bayeux Tapestry loan is a model for the Parthenon Marbles", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/d45a8e1b-1d45-4a3d-a3d2-5a3ce15b0e9d" },
-  { id: "7aafc76c-c381-4381-a89c-e92c9db60671", title: "Andy Burnham failed to end rough sleeping as a mayor — can he succeed as prime minister?", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/7aafc76c-c381-4381-a89c-e92c9db60671" },
-  { id: "560ff425-c1ac-4eef-b8da-e6cdb0a412a3", title: "UK state subsidies soar as post-Brexit grants boost energy projects", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/560ff425-c1ac-4eef-b8da-e6cdb0a412a3" },
 ];

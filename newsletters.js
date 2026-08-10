@@ -33,6 +33,26 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-economicsdaily-summerjobblues-20260810",
+    publication: "Bloomberg",
+    series: "Economics Daily",
+    title: "Economics Daily: Summer job blues",
+    date: "2026-08-10",
+    time: "12:00",
+    summary: "It's shaping up as a third straight summertime US jobs bust.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-10/us-job-market-signals-a-third-straight-cruel-summer",
+  },
+  {
+    id: "nl-bbg-marketsdaily-goldrallies-20260810",
+    publication: "Bloomberg",
+    series: "Markets Daily",
+    title: "Markets Daily: Gold rallies again",
+    date: "2026-08-10",
+    time: "11:20",
+    summary: "ETFs are buying bullion in a big way.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-10/gold-is-rallying-again-thanks-to-some-deep-pocketed-buyers",
+  },
+  {
     id: "nl-nonbillable-dentonsvbillionaire-20260810",
     publication: "Non-Billable",
     title: "Dentons v billionaire",
@@ -416,23 +436,5 @@ export const NEWSLETTERS = [
     time: "16:45",
     summary: "Multistrategy giants Balyasny Asset Management and Verition Fund Management lost money last month as a selloff in artificial intelligence stocks roiled markets and many hedge funds.",
     url: "https://www.bloomberg.com/news/articles/2026-08-05/balyasny-verition-join-hedge-funds-losing-money-in-brutal-july",
-  },
-  {
-    id: "nl-lb-hsfkramerbrownrudnick-20260805",
-    publication: "Legal Business",
-    title: "HSF Kramer Silicon Valley partners depart for Brown Rudnick",
-    date: "2026-08-05",
-    time: "15:04",
-    summary: "Seven-partner IP litigation team exits across New York and Silicon Valley as Brown Rudnick opens second California office after LA launch last year.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQDRo8KMCLCS7swW5/wv",
-  },
-  {
-    id: "nl-lb-magiccirclefinancials-20260805",
-    publication: "Legal Business",
-    title: "The key takeaways from the magic circle financials",
-    date: "2026-08-05",
-    time: "13:16",
-    summary: "From growth and profitability to US inroads - what we've learned from the latest results from A&O Shearman, CC and Linklaters.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQDDXvC16UyYc5DuJ/wv",
   },
 ];
