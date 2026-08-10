@@ -759,19 +759,19 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-08-09",
+  updated: "2026-08-10",
   us: [
-    { title: "Pentagon pushes defense companies to boost weapons production after concerns of depleted stocks", source: "CNBC", date: "2026-08-09", url: "https://www.cnbc.com/2026/08/09/pentagon-defense-contractors-weapons-production.html" },
-    { title: "Iran Rejects US Talks for Now as Wait for Hormuz Deal Drags On", source: "Bloomberg", date: "2026-08-09", url: "https://www.bloomberg.com/news/articles/2026-08-09/wait-for-hormuz-deal-stretches-on-as-iran-says-terms-must-be-met" },
-    { title: "Stock Market Today: Live Updates 09.08.2026", source: "ts2.tech", date: "2026-08-09", url: "https://ts2.tech/en/stock-market-today-09-08-2026/" },
-    { title: "Iran War Updates: Iran says strait won't open until the U.S. \"corrects\" behavior", source: "CBS News", date: "2026-08-09", url: "https://www.cbsnews.com/live-updates/iran-war-yemen-saudi-arabia-houthis-donald-trump-deadly-attacks/" },
+    { title: "Oil Extends Gain as Oman-Iran Accord on Hormuz Remains Elusive", source: "Bloomberg", date: "2026-08-10", url: "https://www.bloomberg.com/news/articles/2026-08-09/latest-oil-market-news-and-analysis-for-aug-10" },
+    { title: "Monday open indicative forex prices, August 10, 2026", source: "investinglive.com", date: "2026-08-10", url: "https://investinglive.com/forex/monday-open-indicative-forex-prices-august-10-2026/" },
+    { title: "Here are the 2 big things we're watching in the stock market in the week ahead", source: "CNBC", date: "2026-08-09", url: "https://www.cnbc.com/2026/08/09/here-are-the-2-big-things-were-watching-in-the-stock-market-in-the-week-ahead.html" },
+    { title: "The Week Ahead: US CPI and PPI in Focus as Market Eyes CRWV and AMAT Earnings", source: "TradingKey", date: "2026-08-09", url: "https://www.tradingkey.com/analysis/stocks/us-stocks/262090642-weekly-preview-us-cpi-ppi-data-market-focus-crwv-amat-earnings-reports-tradingkey" },
     { title: "The Week Ahead: CPI and Earnings Test the Stock Market Rally Near Record Highs", source: "FXEmpire", date: "2026-08-09", time: "09:16", url: "https://www.fxempire.com/forecasts/article/the-week-ahead-cpi-and-earnings-test-the-stock-market-rally-near-record-highs-1615629" },
   ],
   uk: [
     { title: "Share Talk Weekly Stock Market News Review, Sunday 9th August 2026", source: "Share Talk", date: "2026-08-09", url: "https://www.share-talk.com/share-talk-weekly-stock-market-news-review-sunday-9th-august-2026/" },
+    { title: "Andy Burnham is on course to rack up the second highest debt interest bill on record", source: "CityAM", date: "2026-08-06", url: "https://www.cityam.com/andy-burnham-is-on-course-to-rack-up-the-highest-debt-interest-bill-on-record/" },
     { title: "UK debt 'hits £3 trillion' milestone", source: "CityAM", date: "2026-08-06", url: "https://www.cityam.com/uk-debt-hits-3-trillion-milestone/" },
     { title: "UK house prices stagnant amid high mortgage costs", source: "Yahoo Finance UK", date: "2026-08-07", url: "https://uk.finance.yahoo.com/news/uk-house-prices-stagnant-amid-070710355.html" },
-    { title: "Business insights and impact on the UK economy: 6 August 2026", source: "ONS", date: "2026-08-06", url: "https://www.ons.gov.uk/releases/businessinsightsandimpactontheukeconomy6august2026" },
     { title: "UK Gilt Yield Falls as Oil Slump Eases Inflation Fears", source: "Trading Economics", date: "2026-08-05", url: "https://tradingeconomics.com/united-kingdom/government-bond-yield/news/572924" },
   ],
 };
@@ -784,8 +784,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-08-09",
+  updated: "2026-08-10",
   items: [
+    {"title":"Oil Extends Gain as Oman-Iran Accord on Hormuz Remains Elusive","source":"Bloomberg","date":"2026-08-10","url":"https://www.bloomberg.com/news/articles/2026-08-09/latest-oil-market-news-and-analysis-for-aug-10","blurb":"Brent held above $84/bbl after climbing more than 5% over three sessions as Iran's foreign minister ruled out direct US talks for now, even as he described a shipping-route accord with Oman as 'very close'."},
+    {"title":"Monday open indicative forex prices, August 10, 2026","source":"investinglive.com","date":"2026-08-10","url":"https://investinglive.com/forex/monday-open-indicative-forex-prices-august-10-2026/","blurb":"Thin Monday-morning liquidity left gold, the dollar and sterling swinging in early Asia trade as markets opened the CPI-heavy week just off last week's record highs."},
+    {"title":"The Federal Reserve Just Released Its August Inflation Forecast, and It Could Put the FOMC on a Collision Course for Its September Meeting","source":"The Motley Fool","date":"2026-08-09","url":"https://www.fool.com/investing/2026/08/09/federal-reserve-just-released-august-inflation/","blurb":"CME FedWatch shows the 16 September decision as close to a coin flip, with Wednesday's July CPI print now the swing factor for whether Chair Warsh's hawks can still make a hike case stick."},
     {"title":"Iran denies any direct talks with U.S. on opening Strait of Hormuz as Houthis claim attack on Saudi refinery","source":"CNBC","date":"2026-08-09","url":"https://www.cnbc.com/2026/08/09/saudi-aramco-extinguishes-refinery-fire-houthis-claim-attack.html","blurb":"A fire at a Saudi Aramco refinery, claimed by Houthi rebels, added fresh supply-risk premium to oil even as Iran denied direct US talks on reopening the Strait of Hormuz."},
     {"title":"Pentagon pushes defense companies to boost weapons production after concerns of depleted stocks","source":"CNBC","date":"2026-08-09","url":"https://www.cnbc.com/2026/08/09/pentagon-defense-contractors-weapons-production.html","blurb":"Deputy Defense Secretary Steve Feinberg gave major US defence contractors 21 days to lay out faster delivery schedules for air-defense sensors, interceptors and missile-tracking systems, after the Patriot-interceptor stockpile fell more than 65% since before the Iran war to an estimated 759-827 units."},
     {"title":"Iran Rejects US Talks for Now as Wait for Hormuz Deal Drags On","source":"Bloomberg","date":"2026-08-09","url":"https://www.bloomberg.com/news/articles/2026-08-09/wait-for-hormuz-deal-stretches-on-as-iran-says-terms-must-be-met","blurb":"Iran's Supreme National Security Council says the Strait of Hormuz will not fully reopen until the US 'corrects its behaviour', even as Tehran and Oman describe a separate transit-route deal as nearing its final stages."},
