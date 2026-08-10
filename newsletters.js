@@ -33,6 +33,27 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-20260810",
+    publication: "Bloomberg",
+    author: "Victoria Batchelor",
+    series: "Morning Briefing Europe",
+    title: "Shunning direct diplomacy",
+    date: "2026-08-10",
+    time: "07:30",
+    summary: "Iran rules out direct US talks for now and promotes a hardline ex-commander as its top security official, while UK hiring turns a corner and Europe's hot stock market draws investor buzz.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-10/iran-rules-out-direct-us-talks-as-trump-awaits-shift-in-stance",
+  },
+  {
+    id: "nl-econ-worldinbrief-20260810",
+    publication: "The Economist",
+    series: "The World in Brief",
+    title: "The World in Brief: Iran says deal with Oman \"very close\"",
+    date: "2026-08-10",
+    time: "06:37",
+    summary: "Iran and Oman edge toward a Hormuz shipping-route deal as Tehran also shakes up its security leadership; Typhoon Dolphin forces over a million evacuations in China, and Daniel Kinahan appears in a Dublin court after extradition from Dubai.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-pointsofreturn-aindicators-20260810",
     publication: "Bloomberg",
     author: "John Authers",
@@ -406,16 +427,6 @@ export const NEWSLETTERS = [
     url: "https://www.bloomberg.com/news/newsletters/2026-08-05/wanderlust-on-wall-street-private-capital-high-flyers-take-summer-breather",
   },
   {
-    id: "nl-bbg-economicsdaily-elnino-20260805",
-    publication: "Bloomberg",
-    series: "Economics Daily",
-    title: "Economics Daily: El Niño fallout",
-    date: "2026-08-05",
-    time: "12:01",
-    summary: "El Niño is no longer just a weather event — it has become a significant macroeconomic variable.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-05/el-nino-raises-risk-of-weather-shocks-across-global-economies",
-  },
-  {
     id: "nl-bbg-marketsdaily-techmeltup-20260805",
     publication: "Bloomberg",
     series: "Markets Daily",
@@ -424,15 +435,5 @@ export const NEWSLETTERS = [
     time: "12:01",
     summary: "Nasdaq 100’s four-day, $3.5 trillion rally.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-05/tech-euphoria-has-come-back-in-just-four-days",
-  },
-  {
-    id: "nl-bbg-authoralert-nkumar-citadeljumps-20260805",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    title: "Ken Griffin’s Citadel Jumps 6% After Situational Awareness Deal",
-    date: "2026-08-05",
-    time: "11:09",
-    summary: "Citadel’s flagship fund surged 5.9% in July, after the firm bought a discounted portfolio of artificial-intelligence stocks from troubled hedge fund Situational Awareness.",
-    url: "https://www.bloomberg.com/news/articles/2026-08-05/citadel-s-hedge-fund-soars-after-situational-awareness-bet",
   },
 ];

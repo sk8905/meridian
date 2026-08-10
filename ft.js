@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8ca25b96-f8eb-49b1-a259-b7314ef4741a", title: "Your move, BoJ", date: "2026-08-10", time: "06:30", url: "https://www.ft.com/content/8ca25b96-f8eb-49b1-a259-b7314ef4741a" },
+  { id: "95ae557f-5c22-4512-a595-d957ca0e0005", title: "FTAV’s further reading", date: "2026-08-10", time: "06:30", url: "https://www.ft.com/content/95ae557f-5c22-4512-a595-d957ca0e0005" },
   { id: "a36fa9a6-5676-4401-9359-890916424cbd", title: "Lessons in letter writing for the Bank of England", date: "2026-08-10", time: "06:00", url: "https://www.ft.com/content/a36fa9a6-5676-4401-9359-890916424cbd" },
   { id: "d88b7e46-6806-4286-94d7-3bb16facee41", title: "US backs Australian rare earth miner to cut out China", date: "2026-08-10", time: "05:37", url: "https://www.ft.com/content/d88b7e46-6806-4286-94d7-3bb16facee41" },
   { id: "581a7c18-5deb-4cd4-b014-f4d275ba73d2", title: "German economy minister warns AfD’s rise could deter investors", date: "2026-08-10", time: "05:00", url: "https://www.ft.com/content/581a7c18-5deb-4cd4-b014-f4d275ba73d2" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "297a8bf7-ce8b-44fe-bc51-3e2ec2e47699", title: "Investors return to European stocks as strong earnings lift Iran war gloom", date: "2026-08-09", time: "05:00", url: "https://www.ft.com/content/297a8bf7-ce8b-44fe-bc51-3e2ec2e47699" },
   { id: "15c56de6-c884-4c7f-a91c-6d1aa59ce1c6", title: "China’s monthly inflation cools as impact from Iran war eases", date: "2026-08-09", time: "04:05", url: "https://www.ft.com/content/15c56de6-c884-4c7f-a91c-6d1aa59ce1c6" },
   { id: "ff321dc1-41d6-473d-b7e7-2a58224a18e7", title: "One of the world’s biggest coal producers battles to keep lights on", date: "2026-08-09", time: "03:05", url: "https://www.ft.com/content/ff321dc1-41d6-473d-b7e7-2a58224a18e7" },
-  { id: "2be78a9f-1431-4519-b5c4-c4dd5026dd3c", title: "Deadly protests in Kashmir test Pakistan’s military rulers", date: "2026-08-09", time: "02:50", url: "https://www.ft.com/content/2be78a9f-1431-4519-b5c4-c4dd5026dd3c" },
-  { id: "657249de-f5bd-4648-9a1c-77315cd5a1c9", title: "The bank behind China’s AI listings bonanza", date: "2026-08-09", time: "02:22", url: "https://www.ft.com/content/657249de-f5bd-4648-9a1c-77315cd5a1c9" },
 ];
