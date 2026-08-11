@@ -764,7 +764,7 @@ export const NEWS = {
   us: [
     { title: "Nvidia lines up $500 billion in financing as CEO Jensen Huang tells CNBC his chips are 'investable asset'", source: "CNBC", date: "2026-08-10", time: "05:22", url: "https://www.cnbc.com/2026/08/10/nvidia-wall-street-asset-managers-500-billion-ai-push.html" },
     { title: "Inflation Data, Earnings Momentum and Other Key Things to Watch this Week", source: "Yahoo Finance", date: "2026-08-10", time: "05:22", url: "https://finance.yahoo.com/economy/articles/inflation-date-earnings-momentum-other-170002840.html" },
-    { title: "Gold Price Forecast: Gold Rises as Nonfarm Payrolls Unexpectedly Turn Negative; Can CPI and PPI Help Break $4,500?", source: "TradingKey", date: "2026-08-10", time: "05:22", url: "https://www.tradingkey.com/analysis/commodities/metal/262091732-gold-price-forecast-nfp-cpi-ppi-4500-tradingkey" },
+    { title: "Stock Market Today: Dow, S&P Live Updates for August 11", source: "Bloomberg", date: "2026-08-10", time: "09:22", url: "https://www.bloomberg.com/news/articles/2026-08-10/stock-market-today-dow-s-p-live-updates" },
     { title: "US Dollar: Positioning-driven softness ahead of CPI – BNY", source: "FXStreet", date: "2026-08-10", time: "14:09", url: "https://www.fxstreet.com/news/us-dollar-positioning-driven-softness-ahead-of-cpi-bny-202608101409" },
     { title: "Oil prices today: Uncertainty over U.S.-Iran Strait of Hormuz deal", source: "CNBC", date: "2026-08-10", time: "05:22", url: "https://www.cnbc.com/2026/08/10/oil-prices-today-brent-wti-hormuz-trump-iran.html" },
   ],
@@ -773,7 +773,7 @@ export const NEWS = {
     { title: "UK Hiring Holds Steady in July After Four-Year Slump", source: "Bloomberg", date: "2026-08-10", time: "05:22", url: "https://www.bloomberg.com/news/newsletters/2026-08-10/uk-hiring-holds-steady-in-july-after-four-year-slump" },
     { title: "UK Business News Today: 10 August 2026 — Economy, Markets & Insolvencies", source: "Credit Protection Association", date: "2026-08-10", time: "05:22", url: "https://cpa.co.uk/uk-business-news-today-10-august-2026-economy-markets-insolvencies/" },
     { title: "Pound To Dollar Week-Ahead Forecast: GBP Eyes Move Beyond $1.35", source: "Exchange Rates UK", date: "2026-08-10", time: "12:26", url: "https://www.exchangerates.org.uk/news/46765/2026-08-10-pound-to-dollar-week-ahead-forecast-gbp-eyes-move-beyond-1-35.html" },
-    { title: "Burnham Begins UK Cost-of-Living Tour Amid Row Over Prisoners", source: "Bloomberg", date: "2026-08-09", time: "17:27", url: "https://www.bloomberg.com/news/articles/2026-08-09/burnham-begins-uk-cost-of-living-tour-amid-row-over-prisoners" },
+    { title: "FTSE 100 Live: stocks set to dip as Middle East jitters add to listless market", source: "Yahoo Finance UK", date: "2026-08-11", time: "09:22", url: "https://uk.finance.yahoo.com/news/ftse-100-live-stocks-set-060200099.html" },
   ],
 };
 
@@ -787,6 +787,7 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-11",
   items: [
+    {"title":"FTSE 100 Live: stocks set to dip as Middle East jitters add to listless market","source":"Yahoo Finance UK","date":"2026-08-11","time":"09:22","url":"https://uk.finance.yahoo.com/news/ftse-100-live-stocks-set-060200099.html","blurb":"London futures point modestly lower as stalled Hormuz talks and thin summer volumes keep the FTSE 100 listless heading into Tuesday's open."},
     {"title":"Nvidia lines up $500 billion in financing as CEO Jensen Huang tells CNBC his chips are 'investable asset'","source":"CNBC","date":"2026-08-10","time":"05:22","url":"https://www.cnbc.com/2026/08/10/nvidia-wall-street-asset-managers-500-billion-ai-push.html","blurb":"Nvidia partners with Apollo, BlackRock, Blackstone, Brookfield, Goldman Sachs and KKR on financing platforms aiming to mobilise over $500bn of third-party capital for AI-compute infrastructure buildout."},
     {"title":"Inflation Data, Earnings Momentum and Other Key Things to Watch this Week","source":"Yahoo Finance","date":"2026-08-10","time":"05:22","url":"https://finance.yahoo.com/economy/articles/inflation-date-earnings-momentum-other-170002840.html","blurb":"Wednesday's July CPI is framed as the week's most critical release, with Thursday's PPI and Friday's retail sales also in focus alongside a heavy earnings slate."},
     {"title":"Gold Price Forecast: Gold Rises as Nonfarm Payrolls Unexpectedly Turn Negative; Can CPI and PPI Help Break $4,500?","source":"TradingKey","date":"2026-08-10","time":"05:22","url":"https://www.tradingkey.com/analysis/commodities/metal/262091732-gold-price-forecast-nfp-cpi-ppi-4500-tradingkey","blurb":"Gold holds above $4,300 after last week's weak July payrolls print, with this week's CPI and PPI seen as the next directional catalyst for bullion."},
