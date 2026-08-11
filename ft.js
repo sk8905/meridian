@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "21acee15-501b-45b6-9fc2-4202d9a66c76", title: "Andy Burnham vows to stop early release of PC Harper’s killers", date: "2026-08-11", time: "10:33", url: "https://www.ft.com/content/21acee15-501b-45b6-9fc2-4202d9a66c76" },
   { id: "d891285a-e581-45b7-8cb0-80411669c1eb", title: "Deutsche becomes first European clearing bank for renminbi", date: "2026-08-11", time: "10:00", url: "https://www.ft.com/content/d891285a-e581-45b7-8cb0-80411669c1eb" },
   { id: "a2dadec1-173f-40a9-89c0-2cf83f78de2a", title: "Donald Trump warns ditching Gianni Infantino would be ‘terrible mistake’", date: "2026-08-11", time: "09:21", url: "https://www.ft.com/content/a2dadec1-173f-40a9-89c0-2cf83f78de2a" },
   { id: "248cdbf4-b047-45d3-b543-a343135132b0", title: "Goldman Sachs staff named as suspects in Brazil investigation", date: "2026-08-11", time: "08:47", url: "https://www.ft.com/content/248cdbf4-b047-45d3-b543-a343135132b0" },
@@ -60,5 +61,4 @@ export const FT_ITEMS = [
   { id: "a0a07cce-6d19-4b1e-a73b-9855a06ba7b3", title: "Just how big is the hidden leverage of AI hyperscalers?", date: "2026-08-10", time: "13:27", url: "https://www.ft.com/content/a0a07cce-6d19-4b1e-a73b-9855a06ba7b3" },
   { id: "eeeb2fbe-990f-4a9c-bd61-62613b6e0e52", title: "Arrival of 230 people in single boat shows smuggling gangs’ ‘reckless’ tactics, says UK’s Home Office", date: "2026-08-10", time: "13:23", url: "https://www.ft.com/content/eeeb2fbe-990f-4a9c-bd61-62613b6e0e52" },
   { id: "47d2ab3c-0423-49ed-89ca-68683761ed98", title: "Yen sinks as effect of US-Japan intervention fades", date: "2026-08-10", time: "13:13", url: "https://www.ft.com/content/47d2ab3c-0423-49ed-89ca-68683761ed98" },
-  { id: "1a7a6919-b056-4155-9520-1088564f7119", title: "Trump and the failure of the Fafo doctrine", date: "2026-08-10", time: "12:51", url: "https://www.ft.com/content/1a7a6919-b056-4155-9520-1088564f7119" },
 ];

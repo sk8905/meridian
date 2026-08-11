@@ -33,6 +33,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-marketsdaily-europesweetspot-20260811",
+    publication: "Bloomberg",
+    series: "Markets Daily",
+    title: "Markets Daily: Europe hits the sweet spot",
+    date: "2026-08-11",
+    time: "10:57",
+    summary: "European stocks extend a 12% rally to record highs on the fastest earnings growth in four years, defying stagflation fears from the Iran standoff, while Bessent's yen-defense firepower looks limited against Japan's own intervention scale.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-11/europe-is-ticking-a-lot-of-boxes-for-investors-right-now",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-20260811",
     publication: "Bloomberg",
     author: "Victoria Batchelor",
@@ -425,15 +435,5 @@ export const NEWSLETTERS = [
     time: "19:29",
     summary: "CIO Anne Walsh on fixed-income portfolio strategy and ETFs as an impatient bond market tests the Warsh Fed, and why 2026 won't repeat 2022 for bonds.",
     url: "https://go.pardot.com/webmail/104832/1420223268/287c4ed51fc2b2589758ecb9046100386634ee931bab5194da4486b8b5f3f006",
-  },
-  {
-    id: "nl-bbg-authoralert-nkumar-albar-20260806",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    title: "Hedge Fund Albar Is Returning Cash to Run Only Millennium Money",
-    date: "2026-08-06",
-    time: "13:14",
-    summary: "Javier Velazquez is returning external clients' cash from his hedge fund to manage money exclusively for his former employer and biggest backer, Millennium Management.",
-    url: "https://www.bloomberg.com/news/articles/2026-08-06/hedge-fund-albar-is-returning-cash-to-run-only-millennium-money",
   },
 ];
