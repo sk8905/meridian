@@ -91,6 +91,30 @@ await d.pg.evaluate(() => { const b = document.querySelector('[data-msub="cycle"
 await d.pg.waitForTimeout(250);
 check(await cardVisible('[data-mgrp="cycle"] .dsh-cyc'), "tapping Cycle shows the cycle card");
 check(!(await cardVisible('[data-mgrp="rates"]')), "tapping Cycle hides the Policy-rates cards");
+
+// Both cycle blocks (debt + market) carry a collapsible narrative, collapsed by
+// default; expanding one reveals its framework prose.
+// Collapse is native <details> (content-visibility:hidden when closed — visually
+// collapsed for the reader; headless still reports a layout box, so assert the
+// semantic `open` state, not pixels).
+const collapse = await d.pg.evaluate(() => {
+  const exps = Array.from(document.querySelectorAll('[data-mgrp="cycle"] .dsh-cyc-exp'));
+  return { count: exps.length, anyOpenByDefault: exps.some((e) => e.open), bothHaveProse: exps.every((e) => { const b = e.querySelector(".dsh-cyc-body"); return b && (b.textContent || "").trim().length > 200; }) };
+});
+check(collapse.count === 2, `both cycles have an expand/collapse toggle (${collapse.count})`);
+check(!collapse.anyOpenByDefault, "both narratives are collapsed by default (details not open)");
+check(collapse.bothHaveProse, "both blocks carry their narrative behind the toggle");
+// Expand the first (debt cycle) narrative.
+await d.pg.evaluate(() => { const s = document.querySelector('[data-mgrp="cycle"] .dsh-cyc-exp .dsh-cyc-sum'); if (s) s.click(); });
+await d.pg.waitForTimeout(250);
+const expanded = await d.pg.evaluate(() => {
+  const e = document.querySelector('[data-mgrp="cycle"] .dsh-cyc-exp');
+  const bd = e && e.querySelector(".dsh-cyc-body");
+  return { open: !!(e && e.open), hasProse: !!(bd && /pendulum|Dalio|cycle/i.test(bd.textContent || "")) };
+});
+check(expanded.open, "clicking the toggle expands the narrative (details open)");
+check(expanded.hasProse, "the narrative shows the framework prose");
+
 checkErrs(d.errs, "dashboard macro cycle");
 await d.ctx.close();
 await b.close(); srv.close();

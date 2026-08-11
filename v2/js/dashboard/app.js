@@ -504,16 +504,28 @@ export function mount(host, ctx) {
       + `<span class="dsh-fw-p">${pos}/100</span></div>`;
     const mc = MARKET_CYCLE || {};
     const paras = (arr) => (arr || []).map((p) => `<p class="dsh-cyc-note">${p}</p>`).join("");
+    const srcRow = (sources) => { const s = (sources || []).map(([l, u]) => `<a class="dsh-cyc-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(l)}</a>`).join(""); return s ? `<div class="dsh-cyc-srcs">${s}</div>` : ""; };
+    // The full narrative sits behind a per-block expand/collapse, collapsed by
+    // default (native <details>; the dashboard click handler ignores <summary>).
+    const details = (body) => `<details class="dsh-cyc-exp"><summary class="dsh-cyc-sum"><span class="dsh-cyc-more">Show detail</span><span class="dsh-cyc-less">Hide detail</span></summary><div class="dsh-cyc-body">${body}</div></details>`;
+
+    const debtNarr = paras(CYCLE.framework)
+      + `<p class="dsh-cyc-sub">United States</p>` + paras(CYCLE.us.body)
+      + `<p class="dsh-cyc-sub">United Kingdom</p>` + paras(CYCLE.uk.body)
+      + srcRow(CYCLE.sources)
+      + `<p class="dsh-cyc-note dsh-mut">${esc(CYCLE.note || "")}</p>`;
     const debt = `<div class="dsh-cyc-blk"><div class="dsh-cyc-hd">Debt cycle <span>Ray Dalio · 0 early → 100 crisis</span></div>`
       + meter("US", CYCLE.us.pos) + meter("UK", CYCLE.uk.pos)
-      + `<p class="dsh-cyc-note dsh-mut">${esc(stripTags(String(CYCLE.us.shortStage || "")))} (US) · ${esc(stripTags(String(CYCLE.uk.shortStage || "")))} (UK)</p></div>`;
-    const srcs = (mc.sources || []).map(([l, u]) => `<a class="dsh-cyc-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(l)}</a>`).join("");
+      + `<p class="dsh-cyc-note dsh-mut">${esc(stripTags(String(CYCLE.us.shortStage || "")))} (US) · ${esc(stripTags(String(CYCLE.uk.shortStage || "")))} (UK)</p>`
+      + details(debtNarr) + `</div>`;
+
+    const mktNarr = paras(mc.framework)
+      + `<p class="dsh-cyc-sub">Where we stand</p>` + paras(mc.stand)
+      + srcRow(mc.sources)
+      + `<p class="dsh-cyc-note dsh-mut">${esc(mc.note || "")}</p>`;
     const market = `<div class="dsh-cyc-blk"><div class="dsh-cyc-hd">Market cycle <span>Howard Marks · 0 capitulation → 100 mania</span></div>`
       + meter("Equities", mc.pos) + `<p class="dsh-cyc-note"><strong>${esc(mc.stage || "")}</strong></p>`
-      + paras(mc.framework)
-      + `<p class="dsh-cyc-sub">Where we stand</p>` + paras(mc.stand)
-      + (srcs ? `<div class="dsh-cyc-srcs">${srcs}</div>` : "")
-      + `<p class="dsh-cyc-note dsh-mut">${esc(mc.note || "")}</p></div>`;
+      + details(mktNarr) + `</div>`;
     return `<div class="dsh-cyc">${debt}${market}</div>`;
   }
   // The Macro pane splits into two nested sub-tabs — Policy rates (Fed/BoE paths,

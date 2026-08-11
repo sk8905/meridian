@@ -344,3 +344,15 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 .dsh-cyc-srcs { display:flex; flex-wrap:wrap; gap:5px 14px; margin-top:10px; }
 .dsh-cyc-src { font-size:.72rem; color:var(--t-accent); text-decoration:none; }
 .dsh-cyc-src:hover { text-decoration:underline; }
+/* Per-block expand/collapse for the cycle narrative (collapsed by default). */
+.dsh-cyc-exp { margin-top:10px; }
+.dsh-cyc-sum { list-style:none; cursor:pointer; user-select:none; display:inline-flex; align-items:center; gap:6px;
+  font-size:.76rem; font-weight:600; color:var(--t-accent); padding:4px 0; }
+.dsh-cyc-sum::-webkit-details-marker { display:none; }
+.dsh-cyc-sum::before { content:"\25B8"; font-size:.7rem; transition:transform .15s ease; }
+.dsh-cyc-exp[open] .dsh-cyc-sum::before { transform:rotate(90deg); }
+.dsh-cyc-more { display:inline; }
+.dsh-cyc-less { display:none; }
+.dsh-cyc-exp[open] .dsh-cyc-more { display:none; }
+.dsh-cyc-exp[open] .dsh-cyc-less { display:inline; }
+.dsh-cyc-body { margin-top:2px; }
