@@ -33,6 +33,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-thebrink-hertzredemption-20260811",
+    publication: "Bloomberg",
+    author: "Soma Biswas",
+    series: "The Brink",
+    title: "The Brink: Hertz's $5 billion baggage",
+    date: "2026-08-11",
+    time: "15:02",
+    summary: "Hertz's $5 billion debt-fueled buybacks complicate its path to recovery, as 777 Partners files for bankruptcy and BDCs signal private credit is holding up.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-11/hertz-gets-shot-at-redemption-after-5-billion-buyback-binge",
+  },
+  {
     id: "nl-bbg-economicsdaily-beyondtariffs-20260811",
     publication: "Bloomberg",
     author: "Chris Anstey",
