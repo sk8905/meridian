@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "99824437-8173-4320-b84b-242c726ab437", title: "Chinese robot maker’s IPO 5,500 times oversubscribed by retail investors", date: "2026-08-11", time: "08:12", url: "https://www.ft.com/content/99824437-8173-4320-b84b-242c726ab437" },
+  { id: "ebaae3f1-2d2c-4703-8bf7-5c40684c3eee", title: "José Mourinho dishes the dirt and quotes Nietzsche in new Netflix doc", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/ebaae3f1-2d2c-4703-8bf7-5c40684c3eee" },
+  { id: "ae51df74-5be1-48d3-8efc-e61f12dc9edd", title: "The American factory, a romance", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/ae51df74-5be1-48d3-8efc-e61f12dc9edd" },
+  { id: "6f50d572-5c14-4085-b7cc-cb81544fb4ae", title: "Setting sail from Copenhagen . . . on a 1906 schooner", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/6f50d572-5c14-4085-b7cc-cb81544fb4ae" },
   { id: "c27150f4-24e7-4def-9461-0a4849a0ea81", title: "Investing in the forgotten lands", date: "2026-08-11", time: "06:30", url: "https://www.ft.com/content/c27150f4-24e7-4def-9461-0a4849a0ea81" },
   { id: "5e9812a7-ee70-46c2-9aa3-1a74b33a25de", title: "FTAV’s further reading", date: "2026-08-11", time: "06:30", url: "https://www.ft.com/content/5e9812a7-ee70-46c2-9aa3-1a74b33a25de" },
   { id: "a5d5239c-9206-418c-822a-ace82d47f05c", title: "Confessions of a former star M&A reporter", date: "2026-08-11", time: "06:00", url: "https://www.ft.com/content/a5d5239c-9206-418c-822a-ace82d47f05c" },
@@ -56,10 +60,4 @@ export const FT_ITEMS = [
   { id: "1a7a6919-b056-4155-9520-1088564f7119", title: "Trump and the failure of the Fafo doctrine", date: "2026-08-10", time: "12:51", url: "https://www.ft.com/content/1a7a6919-b056-4155-9520-1088564f7119" },
   { id: "90a16da7-f8fa-4140-8b00-bf44b1747241", title: "Whither Trump’s tariffs?", date: "2026-08-10", time: "12:31", url: "https://www.ft.com/content/90a16da7-f8fa-4140-8b00-bf44b1747241" },
   { id: "eae5a1cc-5d15-48c9-9d24-2b7094fda5ba", title: "Start-up bank backed by Palmer Luckey set to raise $1.5bn", date: "2026-08-10", time: "12:00", url: "https://www.ft.com/content/eae5a1cc-5d15-48c9-9d24-2b7094fda5ba" },
-  { id: "0cc564c0-b69f-4e67-ac5d-15147ee31ac1", title: "Barrick and Newmont gold mining truce clears way for IPO", date: "2026-08-10", time: "11:07", url: "https://www.ft.com/content/0cc564c0-b69f-4e67-ac5d-15147ee31ac1" },
-  { id: "ad0602c3-224f-422c-b052-ff96e2f9054c", title: "Ukrainian drone strike on oil-refining city in central Russia kills 13", date: "2026-08-10", time: "10:55", url: "https://www.ft.com/content/ad0602c3-224f-422c-b052-ff96e2f9054c" },
-  { id: "1f5e2807-5110-47bc-baf1-757c7b675cb0", title: "Revolut wins French banking licence", date: "2026-08-10", time: "10:43", url: "https://www.ft.com/content/1f5e2807-5110-47bc-baf1-757c7b675cb0" },
-  { id: "488d82d2-037d-455f-8668-22df647cde1d", title: "And the FTAV chart quiz winner is . . .", date: "2026-08-10", time: "10:30", url: "https://www.ft.com/content/488d82d2-037d-455f-8668-22df647cde1d" },
-  { id: "5fb02f66-1faa-41e4-97f7-b791501da41d", title: "Reform vows to deport all foreign prisoners from British jails", date: "2026-08-10", time: "09:55", url: "https://www.ft.com/content/5fb02f66-1faa-41e4-97f7-b791501da41d" },
-  { id: "0c2b4143-571c-4339-962c-ecc9efd7a05d", title: "Nigel Farage’s biggest threat is a divided right", date: "2026-08-10", time: "09:30", url: "https://www.ft.com/content/0c2b4143-571c-4339-962c-ecc9efd7a05d" },
 ];
