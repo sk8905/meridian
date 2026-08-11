@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "39fde44e-9a63-401e-8f8e-ddf5d7f512e4", title: "Volatility tumbles as markets shrug off Middle East risks", date: "2026-08-11", time: "13:20", url: "https://www.ft.com/content/39fde44e-9a63-401e-8f8e-ddf5d7f512e4" },
+  { id: "e4b66f65-ae0d-45cd-aede-8662de3495b1", title: "How to stop Kevin Warsh becoming a lame duck", date: "2026-08-11", time: "12:30", url: "https://www.ft.com/content/e4b66f65-ae0d-45cd-aede-8662de3495b1" },
   { id: "aa5ea665-2c80-490f-b410-ea48cbdaf9cd", title: "For prisons to work, we need to look at what is happening inside them", date: "2026-08-11", time: "12:09", url: "https://www.ft.com/content/aa5ea665-2c80-490f-b410-ea48cbdaf9cd" },
   { id: "97812a6a-b8ae-4b53-9b67-397250bc5c80", title: "Intel investors are banking on a comeback — and then some", date: "2026-08-11", time: "12:00", url: "https://www.ft.com/content/97812a6a-b8ae-4b53-9b67-397250bc5c80" },
   { id: "908794d7-2c91-44e0-b0b8-d259396a9796", title: "How a darling of the clean energy transition stumbled", date: "2026-08-11", time: "12:00", url: "https://www.ft.com/content/908794d7-2c91-44e0-b0b8-d259396a9796" },
@@ -57,7 +59,4 @@ export const FT_ITEMS = [
   { id: "ba95957a-e4fa-4caf-8ddb-ad0e203eef29", title: "Glencore-backed group looks to rescue cobalt refiner Sherritt", date: "2026-08-10", time: "18:12", url: "https://www.ft.com/content/ba95957a-e4fa-4caf-8ddb-ad0e203eef29" },
   { id: "689c0487-af77-4e18-8b63-fa26ed373ce8", title: "FanDuel and DraftKings hedge their bets with a predictions pivot", date: "2026-08-10", time: "17:48", url: "https://www.ft.com/content/689c0487-af77-4e18-8b63-fa26ed373ce8" },
   { id: "98a8fd17-15b6-4f67-9cb4-825722b11348", title: "Wall Street giants partner with Nvidia on $500bn AI financing deal", date: "2026-08-10", time: "17:41", url: "https://www.ft.com/content/98a8fd17-15b6-4f67-9cb4-825722b11348" },
-  { id: "49103d68-85be-4af6-9dfd-90d66dc78f38", title: "Jeff Bezos investor group closing in on Liverpool FC stake", date: "2026-08-10", time: "15:29", url: "https://www.ft.com/content/49103d68-85be-4af6-9dfd-90d66dc78f38" },
-  { id: "d7eb9cd2-7eb9-4c31-8f8d-59446f0f1743", title: "The ICC is all the women of Afghanistan have left", date: "2026-08-10", time: "15:23", url: "https://www.ft.com/content/d7eb9cd2-7eb9-4c31-8f8d-59446f0f1743" },
-  { id: "62d3a32d-8a38-4136-b32c-36f25099b91f", title: "Shein IPO pitched to investors at sub-$30bn valuation", date: "2026-08-10", time: "15:15", url: "https://www.ft.com/content/62d3a32d-8a38-4136-b32c-36f25099b91f" },
 ];
