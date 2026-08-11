@@ -326,7 +326,7 @@ export function macroDashPane() {
     </section>
 
     <section class="ck-panel">
-      <header class="ck-h"><span>Market-implied Fed path</span><a class="ck-more" href="#/policy">Policy →</a></header>
+      <header class="ck-h"><span>Market-implied Fed path</span><a class="ck-more" href="#/policy">Policy</a></header>
       <div class="ck-body">
         <div class="ck-fed2">
           <div class="ck-fed-col">
@@ -342,7 +342,7 @@ export function macroDashPane() {
     </section>
 
     <section class="ck-panel ck-strip">
-      <header class="ck-h"><span>Rate outlook</span><a class="ck-more" href="#/policy">Policy →</a></header>
+      <header class="ck-h"><span>Rate outlook</span><a class="ck-more" href="#/policy">Policy</a></header>
       <div class="ck-body ck-stats2">
         ${stat("US", OUTLOOK.us.rate, `${OUTLOOK.us.stance || ""}${OUTLOOK.us.next ? " · next " + OUTLOOK.us.next : ""}`)}
         ${stat("UK", OUTLOOK.uk.rate, `${OUTLOOK.uk.stance || ""}${OUTLOOK.uk.next ? " · next " + OUTLOOK.uk.next : ""}`)}
@@ -353,7 +353,7 @@ export function macroDashPane() {
     <div class="ck-ov-c">
     <div class="ck-ov-h">Regime</div>
     <section class="ck-panel">
-      <header class="ck-h"><span>Debt cycle — Ray Dalio</span><a class="ck-more" href="#/cycle">Cycle →</a></header>
+      <header class="ck-h"><span>Debt cycle — Ray Dalio</span><a class="ck-more" href="#/cycle">Cycle</a></header>
       <div class="ck-body">
         ${trackGauge(CYCLE_ZONES, [{ label: "US", pos: CYCLE.us.pos }, { label: "UK", pos: CYCLE.uk.pos }], "Long-term debt cycle position, 0 early to 100 crisis")}
         <div class="ck-stats">
@@ -364,7 +364,7 @@ export function macroDashPane() {
     </section>
 
     <section class="ck-panel">
-      <header class="ck-h"><span>Market cycle — Howard Marks</span><a class="ck-more" href="#/cycle">Cycle →</a></header>
+      <header class="ck-h"><span>Market cycle — Howard Marks</span><a class="ck-more" href="#/cycle">Cycle</a></header>
       <div class="ck-body">
         ${trackGauge(MARKET_CYCLE.zones, [{ label: "Equities", pos: MARKET_CYCLE.pos }], "Market cycle position, 0 capitulation to 100 mania")}
         <div class="ck-stats">
@@ -374,7 +374,7 @@ export function macroDashPane() {
     </section>
 
     <section class="ck-panel">
-      <header class="ck-h"><span>Bubble risk</span><span class="ck-x">${esc(BUBBLE.market)} · ${esc(band)} · ${comp}/100</span><a class="ck-more" href="#/bubble">Bubble →</a></header>
+      <header class="ck-h"><span>Bubble risk</span><span class="ck-x">${esc(BUBBLE.market)} · ${esc(band)} · ${comp}/100</span><a class="ck-more" href="#/bubble">Bubble</a></header>
       <div class="ck-body">
         ${trackGauge(BUBBLE_ZONES, [{ label: band, pos: comp }], "US equity bubble-risk score, 0 low to 100 extreme")}
         ${bubVal.length ? `<div class="ck-stats">${bubVal.map(([l, v, sub]) => stat(l, v, "")).join("")}</div>` : ""}

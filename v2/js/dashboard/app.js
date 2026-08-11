@@ -728,9 +728,8 @@ export function mount(host, ctx) {
     const F = HF_13F || {};
     const yh = (t) => `https://finance.yahoo.com/quote/${encodeURIComponent(t)}`;
     const tkr = (t) => `<a class="dsh-hf-t" href="${yh(t)}" target="_blank" rel="noopener noreferrer">${esc(t)}</a>`;
-    const src = (u) => u ? ` <a class="dsh-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer">src</a>` : "";
-    const conRow = (x) => `<div class="dsh-hf-i"><div class="dsh-hf-i-h">${tkr(x.t)} <span class="dsh-hf-nm">${esc(x.name)}</span>${src(x.src)}</div><div class="dsh-hf-note">${esc(x.note)}</div></div>`;
-    const mvRow = (x) => `<div class="dsh-hf-i"><div class="dsh-hf-i-h"><span class="dsh-hf-dir dsh-hf-${esc(x.dir)}">${esc(_hfDir[x.dir] || x.dir)}</span> ${tkr(x.t)} <span class="dsh-hf-nm">${esc(x.name)}</span> <span class="dsh-hf-by">${esc(x.by)}</span>${src(x.src)}</div><div class="dsh-hf-note">${esc(x.note)}</div></div>`;
+    const conRow = (x) => `<div class="dsh-hf-i"><div class="dsh-hf-i-h">${tkr(x.t)} <span class="dsh-hf-nm">${esc(x.name)}</span>${srcLink(x.src)}</div><div class="dsh-hf-note">${esc(x.note)}</div></div>`;
+    const mvRow = (x) => `<div class="dsh-hf-i"><div class="dsh-hf-i-h"><span class="dsh-hf-dir dsh-hf-${esc(x.dir)}">${esc(_hfDir[x.dir] || x.dir)}</span> ${tkr(x.t)} <span class="dsh-hf-nm">${esc(x.name)}</span> <span class="dsh-hf-by">${esc(x.by)}</span>${srcLink(x.src)}</div><div class="dsh-hf-note">${esc(x.note)}</div></div>`;
     const filers = (HEDGE_FUNDS || []).filter((f) => f.cik).sort((a, b) => a.name.localeCompare(b.name));
     const opts = filers.map((f) => `<option value="${esc(f.cik)}">${esc(f.name)}</option>`).join("");
     return `<div class="dsh-pane">

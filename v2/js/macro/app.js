@@ -8,7 +8,7 @@ import { esc } from "/util.js?v=20260719-1";
 import { MONTHS, isoToDate, fmtDay, fmtDayGB, fmtDate,
   trackGauge, CYCLE_ZONES, BUBBLE_ZONES, bubbleComposite, bubbleBand,
   MAC_IND_ORDER, MACRO_DATA, setMacroData, macroMatrixHtml, macroDetailHtml } from "/macro/js/shared.js?v=20260730-2";
-import { macroDashPane, loadYieldCurve, cockpitInds } from "/macro/js/dashboard.js?v=20260730-3";
+import { macroDashPane, loadYieldCurve, cockpitInds } from "/macro/js/dashboard.js?v=20260811-1";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, onLiveWire, liveDesk } from "/feed.js?v=20260808-1";
 
 export function mount(host, ctx) {
