@@ -20,12 +20,16 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "de50af68-1d2d-4d03-aa4b-c0f7cdcc61d2", title: "Why Washington views Abu Dhabi as one of its most capable Middle East allies", date: "2026-08-11", time: "14:00", url: "https://www.ft.com/content/de50af68-1d2d-4d03-aa4b-c0f7cdcc61d2" },
+  { id: "565bd314-0803-40a2-88b3-9070f574d933", title: "Democratic socialist leads Wisconsin governor’s race as progressives gain ground", date: "2026-08-11", time: "14:00", url: "https://www.ft.com/content/565bd314-0803-40a2-88b3-9070f574d933" },
+  { id: "9f700b37-ac05-434c-9b70-3a7fe065c87e", title: "China tightens grip on Europe’s car supply chain", date: "2026-08-11", time: "13:44", url: "https://www.ft.com/content/9f700b37-ac05-434c-9b70-3a7fe065c87e" },
   { id: "39fde44e-9a63-401e-8f8e-ddf5d7f512e4", title: "Volatility tumbles as markets shrug off Middle East risks", date: "2026-08-11", time: "13:20", url: "https://www.ft.com/content/39fde44e-9a63-401e-8f8e-ddf5d7f512e4" },
   { id: "e4b66f65-ae0d-45cd-aede-8662de3495b1", title: "How to stop Kevin Warsh becoming a lame duck", date: "2026-08-11", time: "12:30", url: "https://www.ft.com/content/e4b66f65-ae0d-45cd-aede-8662de3495b1" },
   { id: "aa5ea665-2c80-490f-b410-ea48cbdaf9cd", title: "For prisons to work, we need to look at what is happening inside them", date: "2026-08-11", time: "12:09", url: "https://www.ft.com/content/aa5ea665-2c80-490f-b410-ea48cbdaf9cd" },
   { id: "97812a6a-b8ae-4b53-9b67-397250bc5c80", title: "Intel investors are banking on a comeback — and then some", date: "2026-08-11", time: "12:00", url: "https://www.ft.com/content/97812a6a-b8ae-4b53-9b67-397250bc5c80" },
   { id: "908794d7-2c91-44e0-b0b8-d259396a9796", title: "How a darling of the clean energy transition stumbled", date: "2026-08-11", time: "12:00", url: "https://www.ft.com/content/908794d7-2c91-44e0-b0b8-d259396a9796" },
   { id: "d4750e01-78a9-46eb-8f84-16b80f853dfa", title: "SpaceX’s ‘very achievable’ $100bn revenue run rate target", date: "2026-08-11", time: "12:00", url: "https://www.ft.com/content/d4750e01-78a9-46eb-8f84-16b80f853dfa" },
+  { id: "f789a20e-967d-4a58-bad0-52ccdd2a79da", title: "Sky City by Jacqueline Crooks — tuning into trauma", date: "2026-08-11", time: "12:00", url: "https://www.ft.com/content/f789a20e-967d-4a58-bad0-52ccdd2a79da" },
   { id: "21acee15-501b-45b6-9fc2-4202d9a66c76", title: "Andy Burnham vows to stop early release of PC Harper’s killers", date: "2026-08-11", time: "10:33", url: "https://www.ft.com/content/21acee15-501b-45b6-9fc2-4202d9a66c76" },
   { id: "d891285a-e581-45b7-8cb0-80411669c1eb", title: "Deutsche becomes first European clearing bank for renminbi", date: "2026-08-11", time: "10:00", url: "https://www.ft.com/content/d891285a-e581-45b7-8cb0-80411669c1eb" },
   { id: "a2dadec1-173f-40a9-89c0-2cf83f78de2a", title: "Donald Trump warns ditching Gianni Infantino would be ‘terrible mistake’", date: "2026-08-11", time: "09:21", url: "https://www.ft.com/content/a2dadec1-173f-40a9-89c0-2cf83f78de2a" },
@@ -56,7 +60,4 @@ export const FT_ITEMS = [
   { id: "d5abcd42-b3b4-4241-8fd1-1c53217ea81e", title: "Maga ignores the many meanings of Mount Rushmore", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/d5abcd42-b3b4-4241-8fd1-1c53217ea81e" },
   { id: "8f16a902-3e80-462c-add8-b841494d1808", title: "AI will boost oil and gas production more than green energy, report finds", date: "2026-08-10", time: "18:38", url: "https://www.ft.com/content/8f16a902-3e80-462c-add8-b841494d1808" },
   { id: "63718844-91f6-46c9-beae-fc3906f4dbb4", title: "Ukraine needs more help in the battle of the sky", date: "2026-08-10", time: "18:32", url: "https://www.ft.com/content/63718844-91f6-46c9-beae-fc3906f4dbb4" },
-  { id: "ba95957a-e4fa-4caf-8ddb-ad0e203eef29", title: "Glencore-backed group looks to rescue cobalt refiner Sherritt", date: "2026-08-10", time: "18:12", url: "https://www.ft.com/content/ba95957a-e4fa-4caf-8ddb-ad0e203eef29" },
-  { id: "689c0487-af77-4e18-8b63-fa26ed373ce8", title: "FanDuel and DraftKings hedge their bets with a predictions pivot", date: "2026-08-10", time: "17:48", url: "https://www.ft.com/content/689c0487-af77-4e18-8b63-fa26ed373ce8" },
-  { id: "98a8fd17-15b6-4f67-9cb4-825722b11348", title: "Wall Street giants partner with Nvidia on $500bn AI financing deal", date: "2026-08-10", time: "17:41", url: "https://www.ft.com/content/98a8fd17-15b6-4f67-9cb4-825722b11348" },
 ];
