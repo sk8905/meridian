@@ -24,7 +24,6 @@ export const FT_ITEMS = [
   { id: "97812a6a-b8ae-4b53-9b67-397250bc5c80", title: "Intel investors are banking on a comeback — and then some", date: "2026-08-11", time: "12:00", url: "https://www.ft.com/content/97812a6a-b8ae-4b53-9b67-397250bc5c80" },
   { id: "908794d7-2c91-44e0-b0b8-d259396a9796", title: "How a darling of the clean energy transition stumbled", date: "2026-08-11", time: "12:00", url: "https://www.ft.com/content/908794d7-2c91-44e0-b0b8-d259396a9796" },
   { id: "d4750e01-78a9-46eb-8f84-16b80f853dfa", title: "SpaceX’s ‘very achievable’ $100bn revenue run rate target", date: "2026-08-11", time: "12:00", url: "https://www.ft.com/content/d4750e01-78a9-46eb-8f84-16b80f853dfa" },
-  { id: "f789a20e-967d-4a58-bad0-52ccdd2a79da", title: "Sky City by Jacqueline Crooks — tuning into trauma", date: "2026-08-11", time: "12:00", url: "https://www.ft.com/content/f789a20e-967d-4a58-bad0-52ccdd2a79da" },
   { id: "21acee15-501b-45b6-9fc2-4202d9a66c76", title: "Andy Burnham vows to stop early release of PC Harper’s killers", date: "2026-08-11", time: "10:33", url: "https://www.ft.com/content/21acee15-501b-45b6-9fc2-4202d9a66c76" },
   { id: "d891285a-e581-45b7-8cb0-80411669c1eb", title: "Deutsche becomes first European clearing bank for renminbi", date: "2026-08-11", time: "10:00", url: "https://www.ft.com/content/d891285a-e581-45b7-8cb0-80411669c1eb" },
   { id: "a2dadec1-173f-40a9-89c0-2cf83f78de2a", title: "Donald Trump warns ditching Gianni Infantino would be ‘terrible mistake’", date: "2026-08-11", time: "09:21", url: "https://www.ft.com/content/a2dadec1-173f-40a9-89c0-2cf83f78de2a" },
@@ -60,4 +59,5 @@ export const FT_ITEMS = [
   { id: "98a8fd17-15b6-4f67-9cb4-825722b11348", title: "Wall Street giants partner with Nvidia on $500bn AI financing deal", date: "2026-08-10", time: "17:41", url: "https://www.ft.com/content/98a8fd17-15b6-4f67-9cb4-825722b11348" },
   { id: "49103d68-85be-4af6-9dfd-90d66dc78f38", title: "Jeff Bezos investor group closing in on Liverpool FC stake", date: "2026-08-10", time: "15:29", url: "https://www.ft.com/content/49103d68-85be-4af6-9dfd-90d66dc78f38" },
   { id: "d7eb9cd2-7eb9-4c31-8f8d-59446f0f1743", title: "The ICC is all the women of Afghanistan have left", date: "2026-08-10", time: "15:23", url: "https://www.ft.com/content/d7eb9cd2-7eb9-4c31-8f8d-59446f0f1743" },
+  { id: "62d3a32d-8a38-4136-b32c-36f25099b91f", title: "Shein IPO pitched to investors at sub-$30bn valuation", date: "2026-08-10", time: "15:15", url: "https://www.ft.com/content/62d3a32d-8a38-4136-b32c-36f25099b91f" },
 ];
