@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c1296b77-a8a4-4cfc-aebc-a2f0d62af25f", title: "Moscow releases former US Marine Robert Gilman after four-year stint in Russian prison", date: "2026-08-11", time: "18:51", url: "https://www.ft.com/content/c1296b77-a8a4-4cfc-aebc-a2f0d62af25f" },
+  { id: "5010fd54-5982-47c7-801a-e0a354a71c31", title: "US judge cites ‘concerning’ irregularities in Adani fraud case", date: "2026-08-11", time: "18:29", url: "https://www.ft.com/content/5010fd54-5982-47c7-801a-e0a354a71c31" },
+  { id: "b7ee9a48-8d99-4d47-8234-68218072fa3b", title: "Arday case poses awkward questions for Cambridge", date: "2026-08-11", time: "18:17", url: "https://www.ft.com/content/b7ee9a48-8d99-4d47-8234-68218072fa3b" },
+  { id: "df4d2721-d84b-475a-8139-d58d7418a881", title: "Ari Emanuel buys West End and Broadway theatre group ATG for £4.5bn", date: "2026-08-11", time: "14:00", url: "https://www.ft.com/content/df4d2721-d84b-475a-8139-d58d7418a881" },
   { id: "3e3de835-0a9e-43cc-bd7a-1043a5cf4266", title: "Deputy PM Matteo Salvini proposes windfall tax on Italian bank profits", date: "2026-08-11", time: "17:59", url: "https://www.ft.com/content/3e3de835-0a9e-43cc-bd7a-1043a5cf4266" },
   { id: "a87d7d98-92b8-48cc-8b8d-868bb1f79034", title: "UK letting agents under pressure from AI-assisted tenant complaints", date: "2026-08-11", time: "17:54", url: "https://www.ft.com/content/a87d7d98-92b8-48cc-8b8d-868bb1f79034" },
   { id: "42194267-cda2-4dcc-9487-02c5f239e034", title: "Heatwaves push European gas prices close to Iran war highs", date: "2026-08-11", time: "17:53", url: "https://www.ft.com/content/42194267-cda2-4dcc-9487-02c5f239e034" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "2eb0a79c-f5cd-415c-9f72-3c8d576329c1", title: "How AstraZeneca’s $400bn tie-up with US rival Bristol Myers unravelled", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/2eb0a79c-f5cd-415c-9f72-3c8d576329c1" },
   { id: "884d643c-15e6-474d-99ca-6bab23811c7f", title: "German states suspend Sunday lorry ban as low Rhine levels disrupt supply chains", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/884d643c-15e6-474d-99ca-6bab23811c7f" },
   { id: "763128ff-8287-49f7-8369-039822f3bbfb", title: "Carbon tax will hit EU’s budget airlines where it hurts", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/763128ff-8287-49f7-8369-039822f3bbfb" },
-  { id: "291635b9-b401-47ed-a1aa-c9879147b883", title: "Banks’ refusal to take on crypto firms risks stunting UK industry’s growth, lawmakers say", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/291635b9-b401-47ed-a1aa-c9879147b883" },
-  { id: "b6680b19-183d-4758-8e2c-8f7ec0be79a4", title: "Morocco’s two-speed economy leaves young workers behind", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/b6680b19-183d-4758-8e2c-8f7ec0be79a4" },
-  { id: "7c13bb4b-9f9f-40fe-b77b-b874a8285b92", title: "Spain’s migrant amnesty a ‘very bad idea’, says Swedish PM", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/7c13bb4b-9f9f-40fe-b77b-b874a8285b92" },
-  { id: "45241ea6-b01e-4077-938c-a47a14d8fcdc", title: "The activists battling solar panel cowboy installers", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/45241ea6-b01e-4077-938c-a47a14d8fcdc" },
 ];
