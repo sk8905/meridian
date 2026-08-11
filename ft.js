@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "248cdbf4-b047-45d3-b543-a343135132b0", title: "Goldman Sachs staff named as suspects in Brazil investigation", date: "2026-08-11", time: "08:47", url: "https://www.ft.com/content/248cdbf4-b047-45d3-b543-a343135132b0" },
   { id: "99824437-8173-4320-b84b-242c726ab437", title: "Chinese robot maker’s IPO 5,500 times oversubscribed by retail investors", date: "2026-08-11", time: "08:12", url: "https://www.ft.com/content/99824437-8173-4320-b84b-242c726ab437" },
   { id: "ebaae3f1-2d2c-4703-8bf7-5c40684c3eee", title: "José Mourinho dishes the dirt and quotes Nietzsche in new Netflix doc", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/ebaae3f1-2d2c-4703-8bf7-5c40684c3eee" },
   { id: "ae51df74-5be1-48d3-8efc-e61f12dc9edd", title: "The American factory, a romance", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/ae51df74-5be1-48d3-8efc-e61f12dc9edd" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "47d2ab3c-0423-49ed-89ca-68683761ed98", title: "Yen sinks as effect of US-Japan intervention fades", date: "2026-08-10", time: "13:13", url: "https://www.ft.com/content/47d2ab3c-0423-49ed-89ca-68683761ed98" },
   { id: "1a7a6919-b056-4155-9520-1088564f7119", title: "Trump and the failure of the Fafo doctrine", date: "2026-08-10", time: "12:51", url: "https://www.ft.com/content/1a7a6919-b056-4155-9520-1088564f7119" },
   { id: "90a16da7-f8fa-4140-8b00-bf44b1747241", title: "Whither Trump’s tariffs?", date: "2026-08-10", time: "12:31", url: "https://www.ft.com/content/90a16da7-f8fa-4140-8b00-bf44b1747241" },
-  { id: "eae5a1cc-5d15-48c9-9d24-2b7094fda5ba", title: "Start-up bank backed by Palmer Luckey set to raise $1.5bn", date: "2026-08-10", time: "12:00", url: "https://www.ft.com/content/eae5a1cc-5d15-48c9-9d24-2b7094fda5ba" },
 ];
