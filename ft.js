@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c27150f4-24e7-4def-9461-0a4849a0ea81", title: "Investing in the forgotten lands", date: "2026-08-11", time: "06:30", url: "https://www.ft.com/content/c27150f4-24e7-4def-9461-0a4849a0ea81" },
+  { id: "5e9812a7-ee70-46c2-9aa3-1a74b33a25de", title: "FTAV’s further reading", date: "2026-08-11", time: "06:30", url: "https://www.ft.com/content/5e9812a7-ee70-46c2-9aa3-1a74b33a25de" },
   { id: "a5d5239c-9206-418c-822a-ace82d47f05c", title: "Confessions of a former star M&A reporter", date: "2026-08-11", time: "06:00", url: "https://www.ft.com/content/a5d5239c-9206-418c-822a-ace82d47f05c" },
   { id: "b957441e-ac7d-4dbd-a024-3af989ef7a44", title: "FirstFT: EU border checks double waiting times", date: "2026-08-11", time: "05:31", url: "https://www.ft.com/content/b957441e-ac7d-4dbd-a024-3af989ef7a44" },
   { id: "45af4235-1bd1-4734-966a-1f513d25361c", title: "What will Warsh do to favour Main Street over Wall Street?", date: "2026-08-11", time: "05:30", url: "https://www.ft.com/content/45af4235-1bd1-4734-966a-1f513d25361c" },
