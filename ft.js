@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a5d5239c-9206-418c-822a-ace82d47f05c", title: "Confessions of a former star M&A reporter", date: "2026-08-11", time: "06:00", url: "https://www.ft.com/content/a5d5239c-9206-418c-822a-ace82d47f05c" },
+  { id: "b957441e-ac7d-4dbd-a024-3af989ef7a44", title: "FirstFT: EU border checks double waiting times", date: "2026-08-11", time: "05:31", url: "https://www.ft.com/content/b957441e-ac7d-4dbd-a024-3af989ef7a44" },
+  { id: "45af4235-1bd1-4734-966a-1f513d25361c", title: "What will Warsh do to favour Main Street over Wall Street?", date: "2026-08-11", time: "05:30", url: "https://www.ft.com/content/45af4235-1bd1-4734-966a-1f513d25361c" },
   { id: "42137dd8-8fdc-4d66-b193-ca52d51bd929", title: "EU border checks double queues at major airports", date: "2026-08-11", time: "05:01", url: "https://www.ft.com/content/42137dd8-8fdc-4d66-b193-ca52d51bd929" },
   { id: "4c93c894-04b8-49dc-be41-98ae79f540f8", title: "Nvidia becomes the bank of AI", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/4c93c894-04b8-49dc-be41-98ae79f540f8" },
   { id: "2eb0a79c-f5cd-415c-9f72-3c8d576329c1", title: "How AstraZeneca’s $400bn tie-up with US rival Bristol Myers unravelled", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/2eb0a79c-f5cd-415c-9f72-3c8d576329c1" },
@@ -57,6 +60,4 @@ export const FT_ITEMS = [
   { id: "488d82d2-037d-455f-8668-22df647cde1d", title: "And the FTAV chart quiz winner is . . .", date: "2026-08-10", time: "10:30", url: "https://www.ft.com/content/488d82d2-037d-455f-8668-22df647cde1d" },
   { id: "5fb02f66-1faa-41e4-97f7-b791501da41d", title: "Reform vows to deport all foreign prisoners from British jails", date: "2026-08-10", time: "09:55", url: "https://www.ft.com/content/5fb02f66-1faa-41e4-97f7-b791501da41d" },
   { id: "0c2b4143-571c-4339-962c-ecc9efd7a05d", title: "Nigel Farage’s biggest threat is a divided right", date: "2026-08-10", time: "09:30", url: "https://www.ft.com/content/0c2b4143-571c-4339-962c-ecc9efd7a05d" },
-  { id: "cfa061f4-83dc-4e4b-9a51-0142caacaff6", title: "Summary of opinions suggests Bank of Japan set for more tightening", date: "2026-08-10", time: "09:19", url: "https://www.ft.com/content/cfa061f4-83dc-4e4b-9a51-0142caacaff6" },
-  { id: "5ae7381b-2b01-448e-af9e-c141bf6870e2", title: "Prabowo Subianto nominates new leader for Indonesia’s central bank", date: "2026-08-10", time: "06:36", url: "https://www.ft.com/content/5ae7381b-2b01-448e-af9e-c141bf6870e2" },
 ];
