@@ -33,6 +33,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-pickandshovel-20260811",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: Pick-and-Shovel Seller Financing",
+    date: "2026-08-11",
+    time: "19:31",
+    summary: "Nvidia, Tesla, SPVs, taxes.",
+    url: "https://bloom.bg/4i3fMJ2",
+  },
+  {
     id: "nl-bbg-thebrink-hertzredemption-20260811",
     publication: "Bloomberg",
     author: "Soma Biswas",
@@ -426,26 +437,5 @@ export const NEWSLETTERS = [
     time: "17:03",
     summary: "UK firm lands role as budget airline readies for takeoff with Apollo after Castlelake withdraws rival bid.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMQFAPbSUJlcgyuGtw/wv",
-  },
-  {
-    id: "nl-reuters-econworld-treacherousvoyages-20260806",
-    publication: "Thomson Reuters",
-    author: "Carmel Crimmins",
-    series: "Econ World",
-    title: "Treacherous voyages",
-    date: "2026-08-06",
-    time: "14:59",
-    summary: "Strait of Hormuz reopening talk and escalating Black Sea shipping attacks are reshaping oil markets and trade costs, plus the economics of sick leave.",
-    url: "https://www.reuters.com/newsletters/reuters-econ-world",
-  },
-  {
-    id: "nl-bbg-authoralert-nkumar-anthropic-20260806",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    title: "Millennium Partners With Anthropic to Develop AI Risk Analyst",
-    date: "2026-08-06",
-    time: "13:49",
-    summary: "Millennium Management is partnering with Anthropic to build an AI-powered risk analyst and expand use of its models across the hedge fund firm.",
-    url: "https://www.bloomberg.com/news/articles/2026-08-06/millennium-partners-with-anthropic-to-develop-ai-risk-analyst",
   },
 ];

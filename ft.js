@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "386903c4-9b22-4c30-9b92-e173946898f9", title: "Climate change an ‘existential threat’ to England’s green spaces, study finds", date: "2026-08-11", time: "19:22", url: "https://www.ft.com/content/386903c4-9b22-4c30-9b92-e173946898f9" },
+  { id: "9bc922b6-47b3-47f5-9793-209731717d60", title: "Andy Burnham faces first real test over his handling of prisons crisis", date: "2026-08-11", time: "19:19", url: "https://www.ft.com/content/9bc922b6-47b3-47f5-9793-209731717d60" },
   { id: "c1296b77-a8a4-4cfc-aebc-a2f0d62af25f", title: "Moscow releases former US Marine Robert Gilman after four-year stint in Russian prison", date: "2026-08-11", time: "18:51", url: "https://www.ft.com/content/c1296b77-a8a4-4cfc-aebc-a2f0d62af25f" },
   { id: "5010fd54-5982-47c7-801a-e0a354a71c31", title: "US judge cites ‘concerning’ irregularities in Adani fraud case", date: "2026-08-11", time: "18:29", url: "https://www.ft.com/content/5010fd54-5982-47c7-801a-e0a354a71c31" },
   { id: "b7ee9a48-8d99-4d47-8234-68218072fa3b", title: "Arday case poses awkward questions for Cambridge", date: "2026-08-11", time: "18:17", url: "https://www.ft.com/content/b7ee9a48-8d99-4d47-8234-68218072fa3b" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "42137dd8-8fdc-4d66-b193-ca52d51bd929", title: "EU border checks double queues at major airports", date: "2026-08-11", time: "05:01", url: "https://www.ft.com/content/42137dd8-8fdc-4d66-b193-ca52d51bd929" },
   { id: "4c93c894-04b8-49dc-be41-98ae79f540f8", title: "Nvidia becomes the bank of AI", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/4c93c894-04b8-49dc-be41-98ae79f540f8" },
   { id: "2eb0a79c-f5cd-415c-9f72-3c8d576329c1", title: "How AstraZeneca’s $400bn tie-up with US rival Bristol Myers unravelled", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/2eb0a79c-f5cd-415c-9f72-3c8d576329c1" },
-  { id: "884d643c-15e6-474d-99ca-6bab23811c7f", title: "German states suspend Sunday lorry ban as low Rhine levels disrupt supply chains", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/884d643c-15e6-474d-99ca-6bab23811c7f" },
-  { id: "763128ff-8287-49f7-8369-039822f3bbfb", title: "Carbon tax will hit EU’s budget airlines where it hurts", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/763128ff-8287-49f7-8369-039822f3bbfb" },
 ];
