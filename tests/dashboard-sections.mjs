@@ -99,13 +99,6 @@ check(hf.sourced, "Hedge Funds: every consensus/move entry links a source");
 check(hf.moves >= 1, `Hedge Funds: notable moves tagged buy/sell/new/trim (${hf.moves})`);
 check(hf.picker, "Hedge Funds: per-fund 13F picker lists the tracked filers");
 
-// Macro cockpit: panel-header "more" links must never carry a decorative arrow (R7a).
-await pg.evaluate(() => { const t = [...document.querySelectorAll(".dsh-nav .tchip[data-sub]")].find((c) => c.dataset.sub === "macro"); t && t.click(); });
-await pg.waitForTimeout(700);
-const mc = await pg.evaluate(() => [...document.querySelectorAll(".ck-more")].map((a) => a.textContent));
-check(mc.length > 0, `Macro: cockpit panel-header "more" links render (${mc.length})`);
-check(mc.every((t) => !/[→↗➚»]/.test(t)), "Macro: panel-header 'more' links carry no decorative arrow glyph (R7a)");
-
 checkErrs(errs, "dashboard fixed-income + legal + hedge funds");
 await ctx.close();
 await b.close(); srv.close();

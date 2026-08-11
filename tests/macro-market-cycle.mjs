@@ -31,6 +31,18 @@ check(cyc.mentionsWhereStand, "market cycle has a 'Where we stand' read");
 check(cyc.hasOaktree, "market cycle links a real Oaktree/Howard Marks memo");
 check(cyc.gaugeCount >= 2, `both cycles render a gauge (${cyc.gaugeCount} gauges)`);
 
+// The wire's "Dashboard" chip (Macro tab, default view) swaps in the cockpit
+// (macroDashPane) — its panel headers link out to the Policy/Cycle/Bubble deep
+// dives via .ck-more. R7a bans decorative arrow glyphs on links; a past
+// regression appended " →" to five of these labels.
+await pg.evaluate(() => { location.hash = "#/dashboard"; });
+await pg.waitForTimeout(400);
+await pg.evaluate(() => { const b = document.querySelector('#mac-chips [data-k="dash"]'); if (b) b.click(); });
+await pg.waitForTimeout(300);
+const ck = await pg.evaluate(() => [...document.querySelectorAll("#mac-dash .ck-more")].map((a) => a.textContent));
+check(ck.length > 0, `cockpit panel-header "more" links render (${ck.length})`);
+check(ck.every((t) => !/[→↗➚»]/.test(t)), "cockpit panel-header 'more' links carry no decorative arrow glyph (R7a)");
+
 checkErrs(errs, "macro market cycle");
 await ctx.close();
 
