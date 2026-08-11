@@ -13,7 +13,7 @@ export const UPDATED = "11 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-11",
-  lastCheckedTime: "17:39 BST",
+  lastCheckedTime: "21:29 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -767,18 +767,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-08-11",
   us: [
-    { title: "Trump Hardens Stance on Iran, Clouding Hopes for Hormuz Deal", source: "Bloomberg", date: "2026-08-11", time: "17:21", url: "https://www.bloomberg.com/news/articles/2026-08-11/trump-hardens-stance-iran-clouding-hopes-hormuz-deal" },
-    { title: "Pakistan Says US-Iran Are Close to Some Arrangement on Peace", source: "Bloomberg", date: "2026-08-11", time: "17:21", url: "https://www.bloomberg.com/news/articles/2026-08-11/pakistan-said-us-iran-are-close-to-some-arrangement-on-peace" },
-    { title: "U.S. oil price hovers around $82 as traders weigh conflicting signals on Strait of Hormuz deal", source: "CNBC", date: "2026-08-11", time: "17:21", url: "https://www.cnbc.com/2026/08/11/oil-prices-today-us-crude-84.html" },
-    { title: "Stock market today: Dow, S&P 500, Nasdaq edge higher as US, Iran reach impasse", source: "Yahoo Finance", date: "2026-08-11", time: "17:21", url: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-august-11-dow-sp-500-nasdaq-102827503.html" },
-    { title: "Markets are still trying to figure out the Fed's next move", source: "CNN Business", date: "2026-08-11", time: "12:33", url: "https://us.cnn.com/2026/08/11/business/fed-markets-kevin-warsh" },
+    { title: "An inflation report Wednesday should be a big deal for the Fed. Here's what to expect", source: "CNBC", date: "2026-08-11", time: "21:15", url: "https://www.cnbc.com/2026/08/11/an-inflation-report-wednesday-should-be-a-big-deal-for-the-fed-heres-what-to-expect.html" },
+    { title: "Stock market today: Dow, S&P 500, Nasdaq slip amid US-Iran impasse, Alphabet stock sinks", source: "Yahoo Finance", date: "2026-08-11", time: "21:15", url: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-august-11-dow-sp-500-nasdaq-102827503.html" },
+    { title: "Treasury yields up as oil prices jump and investors await inflation data", source: "CNBC", date: "2026-08-11", time: "21:15", url: "https://www.cnbc.com/amp/2026/08/11/treasury-yields-up-as-oil-prices-jump-investors-await-inflation-data-.html" },
+    { title: "Strait of Hormuz: What Have Iran, US Said as Efforts to Restore Traffic Stall", source: "Bloomberg", date: "2026-08-11", time: "21:15", url: "https://www.bloomberg.com/news/articles/2026-08-11/strait-of-hormuz-what-have-iran-us-said-as-efforts-to-restore-traffic-stall" },
+    { title: "5 things to know before the stock market opens Tuesday", source: "CNBC", date: "2026-08-11", time: "21:15", url: "https://www.cnbc.com/amp/2026/08/11/5-things-to-know-before-the-stock-market-opens.html" },
   ],
   uk: [
-    { title: "GBP/USD Market Analysis: Inflation and GDP in Focus", source: "TIOmarkets", date: "2026-08-11", time: "17:21", url: "https://tiomarkets.com/article/gbp-usd-market-analysis-price-forecast-2026-08-11" },
-    { title: "EUR/GBP Price Forecast: Under growing bearish pressure below 0.8550", source: "FXStreet", date: "2026-08-11", time: "08:35", url: "https://www.fxstreet.com/news/eur-gbp-price-forecast-under-growing-bearish-pressure-below-08550-202608110835" },
+    { title: "Andy Burnham plots £25billion tax raid on pensioners and entrepreneurs in first Budget, economists warn", source: "GB News", date: "2026-08-11", time: "21:15", url: "https://www.gbnews.com/money/andy-burnham-tax-raid-wealth-pensioners-entrepreneurs-budget" },
+    { title: "FTSE 100 Live: Gilts Drop as Oil Rally Revives Inflation Worries", source: "Bloomberg", date: "2026-08-11", time: "21:15", url: "https://www.bloomberg.com/news/live-blog/2026-08-11/ftse-100-live-pound-gilts-ai-stocks-trump-iran-oil-prices-gold-bonds-what-s-moving-uk-markets-right-now-markets-today-mso8nw1x" },
+    { title: "Drought declared in 'almost three-quarters' of England, UK government says", source: "Euronews", date: "2026-08-10", time: "17:27", url: "https://www.euronews.com/my-europe/2026/08/10/drought-declared-in-almost-three-quarters-of-england-uk-government-says" },
     { title: "Why Strong UK Growth Figures This Week Will Bring Little Cheer", source: "Bloomberg", date: "2026-08-10", time: "17:27", url: "https://www.bloomberg.com/news/articles/2026-08-10/why-strong-uk-growth-figures-this-week-will-bring-little-cheer" },
-    { title: "FTSE 100 Live: stocks set to dip as Middle East jitters add to listless market", source: "Yahoo Finance UK", date: "2026-08-11", time: "09:22", url: "https://uk.finance.yahoo.com/news/ftse-100-live-stocks-set-060200099.html" },
-    { title: "HSBC cuts mortgage rates", source: "Mortgage Solutions", date: "2026-08-10", time: "12:33", url: "https://www.mortgagesolutions.co.uk/mortgage-news/2026/08/10/hsbc-cuts-mortgage-rates-3/" },
+    { title: "Iran war could 'halt growth' across UK economy", source: "CityAM", date: "2026-08-03", time: "21:15", url: "https://www.cityam.com/iran-war-could-halt-growth-across-uk-economy/" },
   ],
 };
 
@@ -792,6 +792,11 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-11",
   items: [
+    {"title":"An inflation report Wednesday should be a big deal for the Fed. Here's what to expect","source":"CNBC","date":"2026-08-11","time":"21:15","url":"https://www.cnbc.com/2026/08/11/an-inflation-report-wednesday-should-be-a-big-deal-for-the-fed-heres-what-to-expect.html","blurb":"Wednesday's July CPI print is the week's decisive catalyst for Fed rate-path bets, with economists watching for tariff pass-through into core goods prices."},
+    {"title":"Gold Touches $4,400 as Traders Turn Focus to US Inflation Data","source":"Bloomberg","date":"2026-08-10","time":"21:15","url":"https://www.bloomberg.com/news/articles/2026-08-10/gold-touches-4-400-as-traders-turn-focus-to-us-inflation-data","blurb":"Gold hit a fresh high as investors hedged ahead of Wednesday's CPI print and weighed a more hawkish Fed under Chair Kevin Warsh."},
+    {"title":"Oil prices today: Uncertainty over U.S.-Iran Strait of Hormuz deal","source":"CNBC","date":"2026-08-10","time":"21:15","url":"https://www.cnbc.com/2026/08/10/oil-prices-today-brent-wti-hormuz-trump-iran.html","blurb":"Brent and WTI swung on conflicting signals over whether Washington and Tehran will reach a deal to reopen the blockaded strait."},
+    {"title":"Fed Split on Rate Hikes Deepens as Five Years of High Inflation Tests Patience","source":"Bloomberg","date":"2026-08-07","time":"21:15","url":"https://www.bloomberg.com/news/articles/2026-08-07/fed-split-on-rate-hikes-deepens-as-high-inflation-tests-patience","blurb":"Half a decade of above-target inflation is fraying FOMC consensus between the hold-and-wait and hike-now camps."},
+    {"title":"Fed's Cook Warns Rate Hike Possible If Inflation Fails to Slow","source":"Bloomberg","date":"2026-08-05","time":"21:15","url":"https://www.bloomberg.com/news/articles/2026-08-05/fed-s-cook-says-ready-to-raise-rates-if-inflation-doesn-t-cool","blurb":"Fed governor Lisa Cook signalled openness to hiking if inflation doesn't cool, deepening the FOMC's internal hawk/dove split."},
     {"title":"Trump Hardens Stance on Iran, Clouding Hopes for Hormuz Deal","source":"Bloomberg","date":"2026-08-11","time":"17:21","url":"https://www.bloomberg.com/news/articles/2026-08-11/trump-hardens-stance-iran-clouding-hopes-hormuz-deal","blurb":"Trump demanded Iran compensate the US and Middle Eastern countries for decades of attacks, a fresh escalation that clouds prospects for a Strait of Hormuz reopening deal even as tanker-hire costs approach $500,000 a day."},
     {"title":"Pakistan Says US-Iran Are Close to Some Arrangement on Peace","source":"Bloomberg","date":"2026-08-11","time":"17:21","url":"https://www.bloomberg.com/news/articles/2026-08-11/pakistan-said-us-iran-are-close-to-some-arrangement-on-peace","blurb":"Pakistan's defence minister Khawaja Asif told Bloomberg in Islamabad that 'things are shaping up again in favor of a peace arrangement or a deal', a more optimistic signal than Trump's hardened public rhetoric the same day."},
     {"title":"U.S. oil price hovers around $82 as traders weigh conflicting signals on Strait of Hormuz deal","source":"CNBC","date":"2026-08-11","time":"17:21","url":"https://www.cnbc.com/2026/08/11/oil-prices-today-us-crude-84.html","blurb":"WTI pared an earlier 3% gain after Pakistan's defence minister said the US and Iran are close to an arrangement, even as the US Strategic Petroleum Reserve fell below 300 million barrels, its lowest since January 1983."},
@@ -828,11 +833,6 @@ export const ARTICLES = {
     {"title":"Iran denies any direct talks with U.S. on opening Strait of Hormuz as Houthis claim attack on Saudi refinery","source":"CNBC","date":"2026-08-09","url":"https://www.cnbc.com/2026/08/09/saudi-aramco-extinguishes-refinery-fire-houthis-claim-attack.html","blurb":"A fire at a Saudi Aramco refinery, claimed by Houthi rebels, added fresh supply-risk premium to oil even as Iran denied direct US talks on reopening the Strait of Hormuz."},
     {"title":"Pentagon pushes defense companies to boost weapons production after concerns of depleted stocks","source":"CNBC","date":"2026-08-09","url":"https://www.cnbc.com/2026/08/09/pentagon-defense-contractors-weapons-production.html","blurb":"Deputy Defense Secretary Steve Feinberg gave major US defence contractors 21 days to lay out faster delivery schedules for air-defense sensors, interceptors and missile-tracking systems, after the Patriot-interceptor stockpile fell more than 65% since before the Iran war to an estimated 759-827 units."},
     {"title":"Iran Rejects US Talks for Now as Wait for Hormuz Deal Drags On","source":"Bloomberg","date":"2026-08-09","url":"https://www.bloomberg.com/news/articles/2026-08-09/wait-for-hormuz-deal-stretches-on-as-iran-says-terms-must-be-met","blurb":"Iran's Supreme National Security Council says the Strait of Hormuz will not fully reopen until the US 'corrects its behaviour', even as Tehran and Oman describe a separate transit-route deal as nearing its final stages."},
-    {"title":"Stock Market Today: Live Updates 09.08.2026","source":"ts2.tech","date":"2026-08-09","url":"https://ts2.tech/en/stock-market-today-09-08-2026/","blurb":"A rundown of the week-ahead setup for US and global equities as traders position for Wednesday's CPI print, with major indices heading into the new week just off record highs."},
-    {"title":"Live updates: Tehran insists on US concessions before opening Strait of Hormuz","source":"CNN","date":"2026-08-09","url":"https://us.cnn.com/2026/08/09/world/live-news/iran-war-trump","blurb":"Iran's national security chief Mohammad Bagher Zolghadr lists demands for reopening the Strait — lifting the US naval blockade, withdrawing forces, ending the war, compensation and releasing frozen Iranian assets — as Gen. Dan Caine privately signals the Pentagon wants an off-ramp."},
-    {"title":"The Week Ahead: CPI and Earnings Test the Stock Market Rally Near Record Highs","source":"FXEmpire","date":"2026-08-09","url":"https://www.fxempire.com/forecasts/article/the-week-ahead-cpi-and-earnings-test-the-stock-market-rally-near-record-highs-1615629","blurb":"Stocks enter the week near record highs (S&P 500 +3.58% last week) as Wednesday's CPI and Thursday's PPI test reduced expectations for further Fed tightening, alongside earnings from CoreWeave, Cisco and Applied Materials."},
-    {"title":"UK economy set for another quarter of growth as 'big picture' shows resilience","source":"Yahoo Finance UK","date":"2026-08-09","url":"https://uk.finance.yahoo.com/news/uk-economy-set-another-quarter-080033072.html","blurb":"Pantheon's Rob Wood says Thursday's Q2 GDP figures (consensus ~0.4%) should show the economy weathered the Iran-war shock, though June data may look softer.","author":"Rob Wood (Pantheon Macroeconomics), quoted"},
-    {"title":"Burnham Begins UK Cost-of-Living Tour Amid Row Over Prisoners","source":"Bloomberg","date":"2026-08-09","url":"https://www.bloomberg.com/news/articles/2026-08-09/burnham-begins-uk-cost-of-living-tour-amid-row-over-prisoners","blurb":"The PM opens an August national listening tour promising 'everyday fixes' on bills, alongside a consultation on misleading discount pricing and a crackdown on hard-to-cancel subscriptions."},
   ],
 };
 
@@ -857,6 +857,8 @@ export const RELEASES = [
   { date: "2026-09-01", country: "US", title: "ISM Manufacturing PMI (August)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
   { date: "2026-09-03", country: "US", title: "ISM Services PMI (August)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
   { date: "2026-09-04", country: "US", title: "Jobs report / Nonfarm payrolls (August)", url: "https://www.bls.gov/schedule/news_release/empsit.htm" },
+  { date: "2026-09-10", country: "US", title: "PPI (August)", url: "https://www.bls.gov/schedule/news_release/ppi.htm" },
+  { date: "2026-09-11", country: "US", title: "CPI (August)", url: "https://www.bls.gov/schedule/news_release/cpi.htm" },
   { date: "2026-09-16", country: "US", title: "FOMC rate decision (with Summary of Economic Projections)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-09-17", country: "UK", title: "BoE MPC rate decision", url: "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates" },
   { date: "2026-10-28", country: "UK", title: "Autumn Budget 2026 (Chancellor John Healey)", url: "https://www.gov.uk/government/publications/chancellor-letter-to-the-treasury-select-committee-tsc-budget-2026-date" },
@@ -995,7 +997,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "The dollar stayed firm and the 30-year Treasury yield pushed back above 5% for the first time in about six weeks as Trump hardened his compensation demand on Iran, even as oil pared its earlier gain and Pakistan's defence minister Khawaja Asif said the US and Iran are “close to some sort of arrangement” on reopening the Strait of Hormuz — leaving Wednesday's US CPI print as the week's decisive catalyst.", src: "https://www.bloomberg.com/news/articles/2026-08-11/pakistan-said-us-iran-are-close-to-some-arrangement-on-peace", srcName: "Bloomberg", date: "2026-08-11" };
+export const FX_KEYMOMENT = { text: "Treasury yields firmed and oil jumped as the Strait-of-Hormuz standoff between Washington and Tehran remained unresolved, with investors positioning ahead of Wednesday's July CPI print — seen as pivotal for the Fed's rate path — while UK gilts fell on reports PM Andy Burnham is weighing a £25bn tax-raising first Budget.", src: "https://www.cnbc.com/2026/08/11/an-inflation-report-wednesday-should-be-a-big-deal-for-the-fed-heres-what-to-expect.html", srcName: "CNBC", date: "2026-08-11" };
 
 export const EARNINGS = {
   weeks: [
