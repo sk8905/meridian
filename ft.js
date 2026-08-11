@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "3e3de835-0a9e-43cc-bd7a-1043a5cf4266", title: "Deputy PM Matteo Salvini proposes windfall tax on Italian bank profits", date: "2026-08-11", time: "17:59", url: "https://www.ft.com/content/3e3de835-0a9e-43cc-bd7a-1043a5cf4266" },
+  { id: "a87d7d98-92b8-48cc-8b8d-868bb1f79034", title: "UK letting agents under pressure from AI-assisted tenant complaints", date: "2026-08-11", time: "17:54", url: "https://www.ft.com/content/a87d7d98-92b8-48cc-8b8d-868bb1f79034" },
+  { id: "42194267-cda2-4dcc-9487-02c5f239e034", title: "Heatwaves push European gas prices close to Iran war highs", date: "2026-08-11", time: "17:53", url: "https://www.ft.com/content/42194267-cda2-4dcc-9487-02c5f239e034" },
+  { id: "29f1af13-ecc3-4f26-a479-e6088c67231b", title: "US midterm elections 2026: The FT’s guide", date: "2026-08-11", time: "17:24", url: "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b" },
+  { id: "5bdb67a5-5c53-46aa-8a04-d0480e700ee4", title: "Will failure in Iran reshape how the US fights?", date: "2026-08-11", time: "17:23", url: "https://www.ft.com/content/5bdb67a5-5c53-46aa-8a04-d0480e700ee4" },
   { id: "a061e46e-705c-44f6-a036-20e6cb56d19a", title: "Rooftop panels in cities cannot replace solar farms", date: "2026-08-11", time: "16:37", url: "https://www.ft.com/content/a061e46e-705c-44f6-a036-20e6cb56d19a" },
   { id: "eae42796-43f5-408b-a735-1873e1fcbbe5", title: "When trouble strikes, who shadow-banks the shadow bankers?", date: "2026-08-11", time: "16:21", url: "https://www.ft.com/content/eae42796-43f5-408b-a735-1873e1fcbbe5" },
   { id: "16906e35-f031-4bb7-9aa3-b16da4d78b87", title: "Long-term sickness may be smaller problem for UK than thought, says ONS", date: "2026-08-11", time: "14:54", url: "https://www.ft.com/content/16906e35-f031-4bb7-9aa3-b16da4d78b87" },
@@ -55,10 +60,4 @@ export const FT_ITEMS = [
   { id: "b6680b19-183d-4758-8e2c-8f7ec0be79a4", title: "Morocco’s two-speed economy leaves young workers behind", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/b6680b19-183d-4758-8e2c-8f7ec0be79a4" },
   { id: "7c13bb4b-9f9f-40fe-b77b-b874a8285b92", title: "Spain’s migrant amnesty a ‘very bad idea’, says Swedish PM", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/7c13bb4b-9f9f-40fe-b77b-b874a8285b92" },
   { id: "45241ea6-b01e-4077-938c-a47a14d8fcdc", title: "The activists battling solar panel cowboy installers", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/45241ea6-b01e-4077-938c-a47a14d8fcdc" },
-  { id: "9254c73f-ac4f-47c0-ba0e-bece705036df", title: "Canary Wharf boom fuels row over council’s unspent developer funds", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/9254c73f-ac4f-47c0-ba0e-bece705036df" },
-  { id: "02e29d7f-9e3e-4977-a5d3-ea3f2d9efd10", title: "Can a 30-person start-up build Britain’s answer to OpenAI?", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/02e29d7f-9e3e-4977-a5d3-ea3f2d9efd10" },
-  { id: "dee4bd2c-fbad-4713-9b14-22d441967ce4", title: "The AI threat to India’s IT jobs machine", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/dee4bd2c-fbad-4713-9b14-22d441967ce4" },
-  { id: "76be8ae0-ecad-4e47-a168-2f2ceaf64eb2", title: "Why the BoE needs more parliamentary attention", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/76be8ae0-ecad-4e47-a168-2f2ceaf64eb2" },
-  { id: "6069de36-4e15-4b5f-b9e1-dd85c2b29673", title: "Does Africa have too few people?", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/6069de36-4e15-4b5f-b9e1-dd85c2b29673" },
-  { id: "d5abcd42-b3b4-4241-8fd1-1c53217ea81e", title: "Maga ignores the many meanings of Mount Rushmore", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/d5abcd42-b3b4-4241-8fd1-1c53217ea81e" },
 ];
