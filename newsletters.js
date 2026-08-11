@@ -33,6 +33,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-economicsdaily-beyondtariffs-20260811",
+    publication: "Bloomberg",
+    author: "Chris Anstey",
+    series: "Economics Daily",
+    title: "Economics Daily: Beyond tariffs",
+    date: "2026-08-11",
+    time: "12:00",
+    summary: "Washington shifts from headline tariffs to subsidies and import curbs meant to wean US supply chains off China, as Trump hardens his stance on Iran reparations and Beijing slaps 54% levies on US pecans.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-11/us-moves-past-tariffs-to-focus-on-supply-chain-revamps-in-china-trade-policy",
+  },
+  {
     id: "nl-bbg-marketsdaily-europesweetspot-20260811",
     publication: "Bloomberg",
     series: "Markets Daily",
@@ -425,15 +436,5 @@ export const NEWSLETTERS = [
     time: "13:49",
     summary: "Millennium Management is partnering with Anthropic to build an AI-powered risk analyst and expand use of its models across the hedge fund firm.",
     url: "https://www.bloomberg.com/news/articles/2026-08-06/millennium-partners-with-anthropic-to-develop-ai-risk-analyst",
-  },
-  {
-    id: "nl-gi-macromarketspodcast-ep90-20260805",
-    publication: "Guggenheim Investments",
-    series: "Macro Markets Podcast",
-    title: "Fixed-Income Strategy While the Market Tests the Fed",
-    date: "2026-08-05",
-    time: "19:29",
-    summary: "CIO Anne Walsh on fixed-income portfolio strategy and ETFs as an impatient bond market tests the Warsh Fed, and why 2026 won't repeat 2022 for bonds.",
-    url: "https://go.pardot.com/webmail/104832/1420223268/287c4ed51fc2b2589758ecb9046100386634ee931bab5194da4486b8b5f3f006",
   },
 ];
