@@ -989,7 +989,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "The dollar eased and Treasury yields fell after the July jobs report unexpectedly showed a 23,000 payrolls decline, with sterling still soft against the dollar as UK-US yield differentials narrow.", src: "https://www.ft.com/content/dba784cb-a197-4576-b533-597d5eb12a51", srcName: "Financial Times", date: "2026-08-07" };
+export const FX_KEYMOMENT = { text: "The dollar stayed positioning-driven soft ahead of Wednesday's US CPI print (per BNY), while sterling climbed as talks on reopening the Strait of Hormuz stayed stalled, keeping a risk premium bid through FX.", src: "https://www.fxstreet.com/news/british-pound-climbs-as-hormuz-talks-stall-us-cpi-up-next-202608101616", srcName: "FXStreet", date: "2026-08-10" };
 
 export const EARNINGS = {
   weeks: [
