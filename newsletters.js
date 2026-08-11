@@ -33,6 +33,38 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-pointsofreturn-earningsparty-20260811",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "Welcoming everyone else to the earnings party",
+    date: "2026-08-11",
+    time: "05:23",
+    summary: "US CPI looms Wednesday as Q2 earnings growth broadens beyond Big Tech, oil rises on Trump's compensation demand from Iran, and the yen resumes its slide back toward 160/dollar a week after coordinated intervention.",
+    url: "https://bloom.bg/4glpfKx",
+  },
+  {
+    id: "nl-bbg-authoralert-jduggan-exponent-20260811",
+    publication: "Bloomberg",
+    author: "Jennifer Duggan",
+    title: "Exponent Closes €750 Million Continuation Fund for H&MV",
+    date: "2026-08-11",
+    time: "05:12",
+    summary: "European private equity firm Exponent closes a €750m ($866m) continuation fund extending its investment in H&MV Engineering, a high-voltage projects specialist expanding in the US.",
+    url: "https://www.bloomberg.com/news/articles/2026-08-11/exponent-closes-750-million-continuation-fund-for-h-mv",
+  },
+  {
+    id: "nl-reuters-tradingday-straittalking-20260810",
+    publication: "Thomson Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "Strait talking",
+    date: "2026-08-10",
+    time: "22:04",
+    summary: "The dollar-yen pair crossed back above 159 as speculators unwound a record short-yen position, oil jumped 5% and gold hit a nine-week high as Hormuz reopening hopes faded, and McGeever argues the falling unemployment rate still points the Fed toward a hike.",
+    url: "https://www.reuters.com/commentary/reuters-open-interest/unemployment-rate-remains-feds-labor-market-lodestar-2026-08-10/",
+  },
+  {
     id: "nl-cf-marketupdate-softjobs-20260810",
     publication: "Chatham Financial",
     series: "Market Update",
