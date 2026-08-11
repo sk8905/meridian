@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a061e46e-705c-44f6-a036-20e6cb56d19a", title: "Rooftop panels in cities cannot replace solar farms", date: "2026-08-11", time: "16:37", url: "https://www.ft.com/content/a061e46e-705c-44f6-a036-20e6cb56d19a" },
   { id: "eae42796-43f5-408b-a735-1873e1fcbbe5", title: "When trouble strikes, who shadow-banks the shadow bankers?", date: "2026-08-11", time: "16:21", url: "https://www.ft.com/content/eae42796-43f5-408b-a735-1873e1fcbbe5" },
   { id: "16906e35-f031-4bb7-9aa3-b16da4d78b87", title: "Long-term sickness may be smaller problem for UK than thought, says ONS", date: "2026-08-11", time: "14:54", url: "https://www.ft.com/content/16906e35-f031-4bb7-9aa3-b16da4d78b87" },
   { id: "de50af68-1d2d-4d03-aa4b-c0f7cdcc61d2", title: "Why Washington views Abu Dhabi as one of its most capable Middle East allies", date: "2026-08-11", time: "14:00", url: "https://www.ft.com/content/de50af68-1d2d-4d03-aa4b-c0f7cdcc61d2" },
@@ -60,5 +61,4 @@ export const FT_ITEMS = [
   { id: "76be8ae0-ecad-4e47-a168-2f2ceaf64eb2", title: "Why the BoE needs more parliamentary attention", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/76be8ae0-ecad-4e47-a168-2f2ceaf64eb2" },
   { id: "6069de36-4e15-4b5f-b9e1-dd85c2b29673", title: "Does Africa have too few people?", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/6069de36-4e15-4b5f-b9e1-dd85c2b29673" },
   { id: "d5abcd42-b3b4-4241-8fd1-1c53217ea81e", title: "Maga ignores the many meanings of Mount Rushmore", date: "2026-08-11", time: "05:00", url: "https://www.ft.com/content/d5abcd42-b3b4-4241-8fd1-1c53217ea81e" },
-  { id: "8f16a902-3e80-462c-add8-b841494d1808", title: "AI will boost oil and gas production more than green energy, report finds", date: "2026-08-10", time: "18:38", url: "https://www.ft.com/content/8f16a902-3e80-462c-add8-b841494d1808" },
 ];
