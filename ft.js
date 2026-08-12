@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "ca40af31-2446-45e7-8e6a-7554d759a6ca", title: "Goldman Sachs to acquire ETF provider Neos for up to $2.3bn", date: "2026-08-12", time: "13:34", url: "https://www.ft.com/content/ca40af31-2446-45e7-8e6a-7554d759a6ca" },
+  { id: "52727749-4360-4463-8822-dc3bfd8ef279", title: "US inflation falls to 3.4% in July", date: "2026-08-12", time: "13:33", url: "https://www.ft.com/content/52727749-4360-4463-8822-dc3bfd8ef279" },
+  { id: "dc0d5a3f-8bcc-483e-8787-18fd27ddab3f", title: "Scottish North Sea tax revenues drop, fuelling debate on oil and gas industry’s future", date: "2026-08-12", time: "13:11", url: "https://www.ft.com/content/dc0d5a3f-8bcc-483e-8787-18fd27ddab3f" },
+  { id: "de0e971c-0223-4d52-9f52-b703ef5ac467", title: "Switzerland pushes ahead with post-Credit Suisse crackdown", date: "2026-08-12", time: "13:05", url: "https://www.ft.com/content/de0e971c-0223-4d52-9f52-b703ef5ac467" },
+  { id: "c7ac41f1-d755-4024-9101-e206dfbcddd7", title: "India plans to tighten rules on foreign-funded NGOs", date: "2026-08-12", time: "12:44", url: "https://www.ft.com/content/c7ac41f1-d755-4024-9101-e206dfbcddd7" },
+  { id: "1b0a8ed9-d55a-49ea-971e-39e01e588632", title: "Why must a socialist also be woke?", date: "2026-08-12", time: "12:30", url: "https://www.ft.com/content/1b0a8ed9-d55a-49ea-971e-39e01e588632" },
   { id: "4469e5f8-1839-45a5-9e1d-b63ea58b8763", title: "How will El Niño hit the world economy?", date: "2026-08-12", time: "12:00", url: "https://www.ft.com/content/4469e5f8-1839-45a5-9e1d-b63ea58b8763" },
   { id: "b93d8030-203b-4445-b4a7-49e52d9b17a5", title: "Who is Anthropic’s auditor — and why should we care?", date: "2026-08-12", time: "12:00", url: "https://www.ft.com/content/b93d8030-203b-4445-b4a7-49e52d9b17a5" },
   { id: "dfa69996-4427-4eef-8c60-a97a562debf5", title: "Colombian earthquake disrupts key coffee export road", date: "2026-08-12", time: "10:53", url: "https://www.ft.com/content/dfa69996-4427-4eef-8c60-a97a562debf5" },
@@ -55,10 +61,4 @@ export const FT_ITEMS = [
   { id: "20f44f32-6566-4373-b6d8-9551be58d762", title: "How a bad trade pushed a US mortgage giant into a $2bn lifeline", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/20f44f32-6566-4373-b6d8-9551be58d762" },
   { id: "7bbfc48c-74fd-48e4-bdad-d6b1c9cf0914", title: "The mother of all professional wardrobes", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/7bbfc48c-74fd-48e4-bdad-d6b1c9cf0914" },
   { id: "99bbb4e9-32de-40cb-aa15-537937d70889", title: "Europe’s carbon mechanism is a tariff by another name", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/99bbb4e9-32de-40cb-aa15-537937d70889" },
-  { id: "618a3ed2-caab-4c58-9685-39cbba874e3b", title: "Europe’s farmers move to the night shift to beat the heat", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/618a3ed2-caab-4c58-9685-39cbba874e3b" },
-  { id: "386903c4-9b22-4c30-9b92-e173946898f9", title: "Climate change an ‘existential threat’ to England’s green spaces, study finds", date: "2026-08-11", time: "19:22", url: "https://www.ft.com/content/386903c4-9b22-4c30-9b92-e173946898f9" },
-  { id: "9bc922b6-47b3-47f5-9793-209731717d60", title: "Andy Burnham faces first real test over his handling of prisons crisis", date: "2026-08-11", time: "19:19", url: "https://www.ft.com/content/9bc922b6-47b3-47f5-9793-209731717d60" },
-  { id: "c1296b77-a8a4-4cfc-aebc-a2f0d62af25f", title: "Moscow releases former US Marine Robert Gilman after four-year stint in Russian prison", date: "2026-08-11", time: "18:51", url: "https://www.ft.com/content/c1296b77-a8a4-4cfc-aebc-a2f0d62af25f" },
-  { id: "5010fd54-5982-47c7-801a-e0a354a71c31", title: "US judge cites ‘concerning’ irregularities in Adani fraud case", date: "2026-08-11", time: "18:29", url: "https://www.ft.com/content/5010fd54-5982-47c7-801a-e0a354a71c31" },
-  { id: "b7ee9a48-8d99-4d47-8234-68218072fa3b", title: "Arday case poses awkward questions for Cambridge", date: "2026-08-11", time: "18:17", url: "https://www.ft.com/content/b7ee9a48-8d99-4d47-8234-68218072fa3b" },
 ];
