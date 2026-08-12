@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "4469e5f8-1839-45a5-9e1d-b63ea58b8763", title: "How will El Niño hit the world economy?", date: "2026-08-12", time: "12:00", url: "https://www.ft.com/content/4469e5f8-1839-45a5-9e1d-b63ea58b8763" },
+  { id: "b93d8030-203b-4445-b4a7-49e52d9b17a5", title: "Who is Anthropic’s auditor — and why should we care?", date: "2026-08-12", time: "12:00", url: "https://www.ft.com/content/b93d8030-203b-4445-b4a7-49e52d9b17a5" },
   { id: "dfa69996-4427-4eef-8c60-a97a562debf5", title: "Colombian earthquake disrupts key coffee export road", date: "2026-08-12", time: "10:53", url: "https://www.ft.com/content/dfa69996-4427-4eef-8c60-a97a562debf5" },
   { id: "14430047-c8b9-4e7b-89db-aed36244ad71", title: "Cambridge to carry out independent probe into Jason Arday appointment", date: "2026-08-12", time: "10:51", url: "https://www.ft.com/content/14430047-c8b9-4e7b-89db-aed36244ad71" },
   { id: "99c86e8e-02d5-4c7c-9eef-27ad9bb5b7c6", title: "Bank of America commits $250bn to support Donald Trump’s ‘America First’ agenda", date: "2026-08-12", time: "10:00", url: "https://www.ft.com/content/99c86e8e-02d5-4c7c-9eef-27ad9bb5b7c6" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "c1296b77-a8a4-4cfc-aebc-a2f0d62af25f", title: "Moscow releases former US Marine Robert Gilman after four-year stint in Russian prison", date: "2026-08-11", time: "18:51", url: "https://www.ft.com/content/c1296b77-a8a4-4cfc-aebc-a2f0d62af25f" },
   { id: "5010fd54-5982-47c7-801a-e0a354a71c31", title: "US judge cites ‘concerning’ irregularities in Adani fraud case", date: "2026-08-11", time: "18:29", url: "https://www.ft.com/content/5010fd54-5982-47c7-801a-e0a354a71c31" },
   { id: "b7ee9a48-8d99-4d47-8234-68218072fa3b", title: "Arday case poses awkward questions for Cambridge", date: "2026-08-11", time: "18:17", url: "https://www.ft.com/content/b7ee9a48-8d99-4d47-8234-68218072fa3b" },
-  { id: "3e3de835-0a9e-43cc-bd7a-1043a5cf4266", title: "Deputy PM Matteo Salvini proposes windfall tax on Italian bank profits", date: "2026-08-11", time: "17:59", url: "https://www.ft.com/content/3e3de835-0a9e-43cc-bd7a-1043a5cf4266" },
 ];
