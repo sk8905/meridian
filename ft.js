@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c9d5c256-0e93-4978-b312-354cb7bd7487", title: "Andy Burnham to hold emergency Cobra meeting in response to heatwaves", date: "2026-08-12", time: "08:54", url: "https://www.ft.com/content/c9d5c256-0e93-4978-b312-354cb7bd7487" },
   { id: "007b5ff6-e8fe-47f6-ba34-40cd6520e9fd", title: "World prepares for one of nature’s greatest spectacles: a total solar eclipse", date: "2026-08-12", time: "08:17", url: "https://www.ft.com/content/007b5ff6-e8fe-47f6-ba34-40cd6520e9fd" },
   { id: "565bd314-0803-40a2-88b3-9070f574d933", title: "Democratic socialist locked in unexpectedly tight Wisconsin primary race", date: "2026-08-12", time: "07:17", url: "https://www.ft.com/content/565bd314-0803-40a2-88b3-9070f574d933" },
   { id: "57e3a478-f9d5-444f-91ae-12838b1f1929", title: "HSBC’s global head of insurance steps down", date: "2026-08-12", time: "07:13", url: "https://www.ft.com/content/57e3a478-f9d5-444f-91ae-12838b1f1929" },
@@ -60,5 +61,4 @@ export const FT_ITEMS = [
   { id: "29f1af13-ecc3-4f26-a479-e6088c67231b", title: "US midterm elections 2026: The FT’s guide", date: "2026-08-11", time: "17:24", url: "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b" },
   { id: "5bdb67a5-5c53-46aa-8a04-d0480e700ee4", title: "Will failure in Iran reshape how the US fights?", date: "2026-08-11", time: "17:23", url: "https://www.ft.com/content/5bdb67a5-5c53-46aa-8a04-d0480e700ee4" },
   { id: "a061e46e-705c-44f6-a036-20e6cb56d19a", title: "Rooftop panels in cities cannot replace solar farms", date: "2026-08-11", time: "16:37", url: "https://www.ft.com/content/a061e46e-705c-44f6-a036-20e6cb56d19a" },
-  { id: "eae42796-43f5-408b-a735-1873e1fcbbe5", title: "When trouble strikes, who shadow-banks the shadow bankers?", date: "2026-08-11", time: "16:21", url: "https://www.ft.com/content/eae42796-43f5-408b-a735-1873e1fcbbe5" },
 ];

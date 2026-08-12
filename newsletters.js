@@ -33,6 +33,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-nonbillable-goldrush-20260812",
+    publication: "Non-Billable",
+    title: "Big Law's new gold rush",
+    date: "2026-08-12",
+    time: "09:05",
+    summary: "Law firms race to build out lucrative \"capital solutions\" practices as private equity hunts for creative ways to extract cash, while Big Law's ransomware bill hits $50m this year.",
+    url: "https://www.nonbillable.co.uk/posts/law-firms-chase-capital-solutions-gold-rush",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-20260812",
     publication: "Bloomberg",
     author: "Samson Ellis",
@@ -430,15 +439,5 @@ export const NEWSLETTERS = [
     time: "07:04",
     summary: "Iran seeks to bar US and Israeli ships from the Strait of Hormuz even as Trump says talks are \"moving along good\".",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-07/iran-seeks-hormuz-shipping-restrictions",
-  },
-  {
-    id: "nl-econ-worldinbrief-20260807",
-    publication: "The Economist",
-    series: "The World in Brief",
-    title: "The World in Brief: Iran's America-free plan for Hormuz",
-    date: "2026-08-07",
-    time: "06:33",
-    summary: "Iran's parliament reviews a plan to reopen the Strait of Hormuz while barring American and Israeli vessels.",
-    url: "https://www.economist.com/the-world-in-brief",
   },
 ];
