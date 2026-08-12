@@ -33,6 +33,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-20260812",
+    publication: "Bloomberg",
+    author: "Samson Ellis",
+    series: "Morning Briefing Europe",
+    title: "Tata Sons Chairman to Step Down After Reappointment Deadlock",
+    date: "2026-08-12",
+    time: "08:05",
+    summary: "Tata Sons chairman Natarajan Chandrasekaran plans to step down in February 2027 after a reappointment deadlock, Nvidia's $500bn financing coalition calms jittery credit markets, and record labels battle Suno over the future of AI-generated music.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-12/tata-sons-chairman-to-step-down-after-reappointment-deadlock",
+  },
+  {
     id: "nl-econ-worldinbrief-20260812",
     publication: "The Economist",
     series: "The World in Brief",
@@ -429,14 +440,5 @@ export const NEWSLETTERS = [
     time: "06:33",
     summary: "Iran's parliament reviews a plan to reopen the Strait of Hormuz while barring American and Israeli vessels.",
     url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-lb-simpsonthacherchicago-20260806",
-    publication: "Legal Business",
-    title: "Simpson Thacher opens in Chicago with five-partner hire from Kirkland",
-    date: "2026-08-06",
-    time: "21:33",
-    summary: "Team move marks firm's second office launch with ex-Kirkland partners this year.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQFSJmJW5aaIReaT5/wv",
   },
 ];
