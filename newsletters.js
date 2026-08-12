@@ -33,6 +33,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-simmonschief-20260812",
+    publication: "Legal Business",
+    title: "'Louder, more bold, more ambitious' – Simmons chief on taking the firm forward without losing its edge",
+    date: "2026-08-12",
+    time: "14:55",
+    summary: "Simmons managing partner Emily Monastiriotis on shedding the firm's 'sleepy' image, the Dubai office coming under fire, and her stance on transatlantic mergers.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQHbj9Axam79lK4af/wv",
+  },
+  {
     id: "nl-bbg-goingprivate-nvidiainnovation-20260812",
     publication: "Bloomberg",
     author: "Michelle Cheng",
@@ -431,15 +440,5 @@ export const NEWSLETTERS = [
     time: "11:26",
     summary: "A good jobs report could be bad news for markets.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-07/this-job-reports-has-high-stakes-for-investors",
-  },
-  {
-    id: "nl-bbg-parisedition-cinema-20260807",
-    publication: "Bloomberg",
-    series: "Paris Edition",
-    title: "Paris Edition: Cinema rebound gets political",
-    date: "2026-08-07",
-    time: "11:15",
-    summary: "Viewership is up, but revenue is not.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-07/france-s-cinema-rebound-can-t-escape-politics",
   },
 ];

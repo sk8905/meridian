@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "22534413-a23e-4ecb-b68f-c9f1105c8953", title: "Bob Iger and Josh Kushner in $12bn deal for Lakers basketball franchise", date: "2026-08-12", time: "15:59", url: "https://www.ft.com/content/22534413-a23e-4ecb-b68f-c9f1105c8953" },
+  { id: "813b7646-3d3d-4f38-9b02-3c1fc564dc30", title: "Poor numeracy is a blind spot in the age of AI", date: "2026-08-12", time: "15:58", url: "https://www.ft.com/content/813b7646-3d3d-4f38-9b02-3c1fc564dc30" },
+  { id: "422010c3-ac6e-427f-88cf-e6c878b96637", title: "Investor Nelson Peltz prepares bid for US burger chain Wendy’s", date: "2026-08-12", time: "15:49", url: "https://www.ft.com/content/422010c3-ac6e-427f-88cf-e6c878b96637" },
+  { id: "c14d737a-a148-49da-8cb5-ba223c8a9fc5", title: "Greenland oil wildcatters delay controversial drilling plan", date: "2026-08-12", time: "15:33", url: "https://www.ft.com/content/c14d737a-a148-49da-8cb5-ba223c8a9fc5" },
   { id: "a44e8854-3f42-46bb-81e3-613dea89b802", title: "Smile, you're on camera: when the boss wants to read your mood", date: "2026-08-12", time: "15:07", url: "https://www.ft.com/content/a44e8854-3f42-46bb-81e3-613dea89b802" },
   { id: "d76aabd7-55a1-43d8-b87a-0f812815a28a", title: "July inflation decline does not mean Fed's September rise is off the table", date: "2026-08-12", time: "15:02", url: "https://www.ft.com/content/d76aabd7-55a1-43d8-b87a-0f812815a28a" },
   { id: "17de7308-9e97-405a-ab5e-9b0dddab36b4", title: "Vestas shares soar as wind turbine orders bounce back", date: "2026-08-12", time: "14:48", url: "https://www.ft.com/content/17de7308-9e97-405a-ab5e-9b0dddab36b4" },
@@ -56,9 +60,4 @@ export const FT_ITEMS = [
   { id: "add47783-31f8-486f-b073-d547aafe6de0", title: "Private equity can score top marks with education deals", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/add47783-31f8-486f-b073-d547aafe6de0" },
   { id: "81275343-db07-430d-9cc3-26fdee31f150", title: "‘Time billionaires’ are hungry for risk — will it be their undoing?", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/81275343-db07-430d-9cc3-26fdee31f150" },
   { id: "a541a8dc-89df-464a-9b9f-fbffcfe7cca1", title: "Reform UK figure previously accompanied the BNP on the campaign trail", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/a541a8dc-89df-464a-9b9f-fbffcfe7cca1" },
-  { id: "b3cbe615-5e60-43cf-9685-e64afabcfb30", title: "Why everyone wants a one-carat ring", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/b3cbe615-5e60-43cf-9685-e64afabcfb30" },
-  { id: "ff77bb63-b1a3-4c9f-81ba-09eced8700e3", title: "Is it too late to save liberal democracy?", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/ff77bb63-b1a3-4c9f-81ba-09eced8700e3" },
-  { id: "92b5d535-73e4-48f6-a60a-475c32aa7e79", title: "Nudge or tax? At last, some data", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/92b5d535-73e4-48f6-a60a-475c32aa7e79" },
-  { id: "a3803e70-cb4d-444f-a31e-05be2f2c44f6", title: "China’s great jobs squeeze", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/a3803e70-cb4d-444f-a31e-05be2f2c44f6" },
-  { id: "25bc2df2-7ab8-4b1a-a30f-2fe4d47806ce", title: "How Israel is making southern Lebanon ‘unliveable’", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/25bc2df2-7ab8-4b1a-a30f-2fe4d47806ce" },
 ];
