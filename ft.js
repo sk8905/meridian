@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "5924d083-b5a4-4f95-8c2d-400f2b914159", title: "The west has given China the keys to the medicine cabinet", date: "2026-08-12", time: "14:00", url: "https://www.ft.com/content/5924d083-b5a4-4f95-8c2d-400f2b914159" },
   { id: "ca40af31-2446-45e7-8e6a-7554d759a6ca", title: "Goldman Sachs to acquire ETF provider Neos for up to $2.3bn", date: "2026-08-12", time: "13:34", url: "https://www.ft.com/content/ca40af31-2446-45e7-8e6a-7554d759a6ca" },
   { id: "52727749-4360-4463-8822-dc3bfd8ef279", title: "US inflation falls to 3.4% in July", date: "2026-08-12", time: "13:33", url: "https://www.ft.com/content/52727749-4360-4463-8822-dc3bfd8ef279" },
   { id: "dc0d5a3f-8bcc-483e-8787-18fd27ddab3f", title: "Scottish North Sea tax revenues drop, fuelling debate on oil and gas industry’s future", date: "2026-08-12", time: "13:11", url: "https://www.ft.com/content/dc0d5a3f-8bcc-483e-8787-18fd27ddab3f" },
@@ -59,6 +60,4 @@ export const FT_ITEMS = [
   { id: "2f9ffe4c-b307-4f32-a8f8-c1c8759bbf5b", title: "Is my architect liable for extra costs?", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/2f9ffe4c-b307-4f32-a8f8-c1c8759bbf5b" },
   { id: "d36e4a0a-88b2-4707-b447-5eb7e0d5da8f", title: "What to plant to light up summer evenings", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/d36e4a0a-88b2-4707-b447-5eb7e0d5da8f" },
   { id: "20f44f32-6566-4373-b6d8-9551be58d762", title: "How a bad trade pushed a US mortgage giant into a $2bn lifeline", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/20f44f32-6566-4373-b6d8-9551be58d762" },
-  { id: "7bbfc48c-74fd-48e4-bdad-d6b1c9cf0914", title: "The mother of all professional wardrobes", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/7bbfc48c-74fd-48e4-bdad-d6b1c9cf0914" },
-  { id: "99bbb4e9-32de-40cb-aa15-537937d70889", title: "Europe’s carbon mechanism is a tariff by another name", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/99bbb4e9-32de-40cb-aa15-537937d70889" },
 ];
