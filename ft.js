@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "3da49f90-75a1-4a01-bc6e-0716d57c1ddc", title: "Karoline Leavitt to step down as White House press secretary", date: "2026-08-12", time: "20:42", url: "https://www.ft.com/content/3da49f90-75a1-4a01-bc6e-0716d57c1ddc" },
   { id: "ab5f7160-68f5-4396-a5a2-f97f770e8634", title: "Mark Walter’s insurers rush to unwind affiliated investments", date: "2026-08-12", time: "19:44", url: "https://www.ft.com/content/ab5f7160-68f5-4396-a5a2-f97f770e8634" },
   { id: "699929b6-ce31-4d0b-9828-c0fe96e59d9d", title: "Crackdown on zero-hours contracts could cost UK firms up to £3bn per year", date: "2026-08-12", time: "18:42", url: "https://www.ft.com/content/699929b6-ce31-4d0b-9828-c0fe96e59d9d" },
   { id: "21c7d2e9-29ff-47f7-ae06-173a1f1d3684", title: "The Amazon of used cars gets a balance sheet tune-up", date: "2026-08-12", time: "18:07", url: "https://www.ft.com/content/21c7d2e9-29ff-47f7-ae06-173a1f1d3684" },
@@ -60,5 +61,4 @@ export const FT_ITEMS = [
   { id: "7cd5f1c5-1097-4bd4-bd00-8006759da28d", title: "FirstFT: Vance asked Ukraine to halt strikes on tankers", date: "2026-08-12", time: "05:31", url: "https://www.ft.com/content/7cd5f1c5-1097-4bd4-bd00-8006759da28d" },
   { id: "a96c07f8-0b61-4322-b5ef-1ae5b445706f", title: "How AstraZeneca’s $400bn deal unravelled", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/a96c07f8-0b61-4322-b5ef-1ae5b445706f" },
   { id: "56c300d3-3632-476e-96d6-da84d4558bda", title: "Poorer Americans are struggling to make ‘ends meet’, top Fed official says", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/56c300d3-3632-476e-96d6-da84d4558bda" },
-  { id: "14b245d4-281a-4a9f-b1a8-a2cb252f4335", title: "Britain needs more investors, not higher taxes on investment", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/14b245d4-281a-4a9f-b1a8-a2cb252f4335" },
 ];
