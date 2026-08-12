@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "e0ca4cab-c8ba-47d6-9465-13e2d73285fc", title: "Taiwan hits out at China over naval drill with Indonesia", date: "2026-08-12", time: "06:14", url: "https://www.ft.com/content/e0ca4cab-c8ba-47d6-9465-13e2d73285fc" },
+  { id: "acd38b11-0cd7-40c2-a779-e26c95b59048", title: "Business development companies are paying more to borrow. But why?", date: "2026-08-12", time: "06:00", url: "https://www.ft.com/content/acd38b11-0cd7-40c2-a779-e26c95b59048" },
+  { id: "7cd5f1c5-1097-4bd4-bd00-8006759da28d", title: "FirstFT: Vance asked Ukraine to halt strikes on tankers", date: "2026-08-12", time: "05:31", url: "https://www.ft.com/content/7cd5f1c5-1097-4bd4-bd00-8006759da28d" },
   { id: "a96c07f8-0b61-4322-b5ef-1ae5b445706f", title: "How AstraZeneca’s $400bn deal unravelled", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/a96c07f8-0b61-4322-b5ef-1ae5b445706f" },
   { id: "56c300d3-3632-476e-96d6-da84d4558bda", title: "Poorer Americans are struggling to make ‘ends meet’, top Fed official says", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/56c300d3-3632-476e-96d6-da84d4558bda" },
   { id: "14b245d4-281a-4a9f-b1a8-a2cb252f4335", title: "Britain needs more investors, not higher taxes on investment", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/14b245d4-281a-4a9f-b1a8-a2cb252f4335" },
@@ -57,8 +60,4 @@ export const FT_ITEMS = [
   { id: "de50af68-1d2d-4d03-aa4b-c0f7cdcc61d2", title: "Why Washington views Abu Dhabi as one of its most capable Middle East allies", date: "2026-08-11", time: "14:00", url: "https://www.ft.com/content/de50af68-1d2d-4d03-aa4b-c0f7cdcc61d2" },
   { id: "565bd314-0803-40a2-88b3-9070f574d933", title: "Democratic socialist leads Wisconsin governor’s race as progressives gain ground", date: "2026-08-11", time: "14:00", url: "https://www.ft.com/content/565bd314-0803-40a2-88b3-9070f574d933" },
   { id: "9f700b37-ac05-434c-9b70-3a7fe065c87e", title: "China tightens grip on Europe’s car supply chain", date: "2026-08-11", time: "13:44", url: "https://www.ft.com/content/9f700b37-ac05-434c-9b70-3a7fe065c87e" },
-  { id: "39fde44e-9a63-401e-8f8e-ddf5d7f512e4", title: "Volatility tumbles as markets shrug off Middle East risks", date: "2026-08-11", time: "13:20", url: "https://www.ft.com/content/39fde44e-9a63-401e-8f8e-ddf5d7f512e4" },
-  { id: "e4b66f65-ae0d-45cd-aede-8662de3495b1", title: "How to stop Kevin Warsh becoming a lame duck", date: "2026-08-11", time: "12:30", url: "https://www.ft.com/content/e4b66f65-ae0d-45cd-aede-8662de3495b1" },
-  { id: "aa5ea665-2c80-490f-b410-ea48cbdaf9cd", title: "For prisons to work, we need to look at what is happening inside them", date: "2026-08-11", time: "12:09", url: "https://www.ft.com/content/aa5ea665-2c80-490f-b410-ea48cbdaf9cd" },
-  { id: "97812a6a-b8ae-4b53-9b67-397250bc5c80", title: "Intel investors are banking on a comeback — and then some", date: "2026-08-11", time: "12:00", url: "https://www.ft.com/content/97812a6a-b8ae-4b53-9b67-397250bc5c80" },
 ];
