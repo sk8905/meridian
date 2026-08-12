@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "ab5f7160-68f5-4396-a5a2-f97f770e8634", title: "Mark Walter’s insurers rush to unwind affiliated investments", date: "2026-08-12", time: "19:44", url: "https://www.ft.com/content/ab5f7160-68f5-4396-a5a2-f97f770e8634" },
   { id: "699929b6-ce31-4d0b-9828-c0fe96e59d9d", title: "Crackdown on zero-hours contracts could cost UK firms up to £3bn per year", date: "2026-08-12", time: "18:42", url: "https://www.ft.com/content/699929b6-ce31-4d0b-9828-c0fe96e59d9d" },
   { id: "21c7d2e9-29ff-47f7-ae06-173a1f1d3684", title: "The Amazon of used cars gets a balance sheet tune-up", date: "2026-08-12", time: "18:07", url: "https://www.ft.com/content/21c7d2e9-29ff-47f7-ae06-173a1f1d3684" },
   { id: "c24d71f7-d270-486a-be6f-55b0a97f6850", title: "China is winning the race for the Ice Silk Road", date: "2026-08-12", time: "17:40", url: "https://www.ft.com/content/c24d71f7-d270-486a-be6f-55b0a97f6850" },

@@ -33,6 +33,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-aibackedsecurities-20260812",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: AI-Backed Securities",
+    date: "2026-08-12",
+    time: "18:13",
+    summary: "DCS, API, CEA, Suno.",
+    url: "https://bloom.bg/4hwU4gn",
+  },
+  {
     id: "nl-lb-simmonschief-20260812",
     publication: "Legal Business",
     title: "'Louder, more bold, more ambitious' – Simmons chief on taking the firm forward without losing its edge",
@@ -430,15 +441,5 @@ export const NEWSLETTERS = [
     time: "11:32",
     summary: "Tech earnings hogged the spotlight this week, as SpaceX and AMD both failed to impress investors despite revenue beats, with concerns remaining about the durability of the AI spending spree.",
     url: "https://www.reuters.com/business/media-telecom/spacex-slides-ai-spending-worries-overshadow-early-returns-2026-08-05/",
-  },
-  {
-    id: "nl-bbg-marketsdaily-jobsreport-20260807",
-    publication: "Bloomberg",
-    series: "Markets Daily",
-    title: "Markets Daily: High-stakes jobs report",
-    date: "2026-08-07",
-    time: "11:26",
-    summary: "A good jobs report could be bad news for markets.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-07/this-job-reports-has-high-stakes-for-investors",
   },
 ];
