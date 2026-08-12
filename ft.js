@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7129f44d-460a-49f6-acc7-293d512ad74e", title: "Is university still worth it?", date: "2026-08-12", time: "17:15", url: "https://www.ft.com/content/7129f44d-460a-49f6-acc7-293d512ad74e" },
   { id: "22534413-a23e-4ecb-b68f-c9f1105c8953", title: "Bob Iger and Josh Kushner in $12bn deal for Lakers basketball franchise", date: "2026-08-12", time: "15:59", url: "https://www.ft.com/content/22534413-a23e-4ecb-b68f-c9f1105c8953" },
   { id: "813b7646-3d3d-4f38-9b02-3c1fc564dc30", title: "Poor numeracy is a blind spot in the age of AI", date: "2026-08-12", time: "15:58", url: "https://www.ft.com/content/813b7646-3d3d-4f38-9b02-3c1fc564dc30" },
   { id: "422010c3-ac6e-427f-88cf-e6c878b96637", title: "Investor Nelson Peltz prepares bid for US burger chain Wendy’s", date: "2026-08-12", time: "15:49", url: "https://www.ft.com/content/422010c3-ac6e-427f-88cf-e6c878b96637" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "725b4d15-bd8d-4083-a04e-db016338af2e", title: "JD Vance asked Ukraine to halt strikes on tankers using Russian port", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/725b4d15-bd8d-4083-a04e-db016338af2e" },
   { id: "add47783-31f8-486f-b073-d547aafe6de0", title: "Private equity can score top marks with education deals", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/add47783-31f8-486f-b073-d547aafe6de0" },
   { id: "81275343-db07-430d-9cc3-26fdee31f150", title: "‘Time billionaires’ are hungry for risk — will it be their undoing?", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/81275343-db07-430d-9cc3-26fdee31f150" },
-  { id: "a541a8dc-89df-464a-9b9f-fbffcfe7cca1", title: "Reform UK figure previously accompanied the BNP on the campaign trail", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/a541a8dc-89df-464a-9b9f-fbffcfe7cca1" },
 ];
