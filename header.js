@@ -30,7 +30,6 @@ function headerHTML(active) {
   <header class="topbar">
     <div class="topbar-inner">
       <a class="brand" href="/" aria-label="Wire Home">
-        <span class="logo" aria-hidden="true">/</span>
         <span class="brand-text"><strong aria-hidden="true">W<span class="brand-i">/</span>RE</strong></span>
       </a>
       <div class="platform-switch" role="group" aria-label="Switch platform">${tabs}</div>
