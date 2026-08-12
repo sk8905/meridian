@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "21c7d2e9-29ff-47f7-ae06-173a1f1d3684", title: "The Amazon of used cars gets a balance sheet tune-up", date: "2026-08-12", time: "18:07", url: "https://www.ft.com/content/21c7d2e9-29ff-47f7-ae06-173a1f1d3684" },
+  { id: "c24d71f7-d270-486a-be6f-55b0a97f6850", title: "China is winning the race for the Ice Silk Road", date: "2026-08-12", time: "17:40", url: "https://www.ft.com/content/c24d71f7-d270-486a-be6f-55b0a97f6850" },
+  { id: "3309f3ea-c633-4727-887b-540a929d63e7", title: "US press groups sue Donald Trump over fast access to Truth Social posts", date: "2026-08-12", time: "17:35", url: "https://www.ft.com/content/3309f3ea-c633-4727-887b-540a929d63e7" },
+  { id: "c25a1ce8-7fed-48ce-8dc5-9853d33d0f87", title: "‘Glorious 12th’ kicks off shooting season as debate rages about its future", date: "2026-08-12", time: "17:26", url: "https://www.ft.com/content/c25a1ce8-7fed-48ce-8dc5-9853d33d0f87" },
   { id: "7129f44d-460a-49f6-acc7-293d512ad74e", title: "Is university still worth it?", date: "2026-08-12", time: "17:15", url: "https://www.ft.com/content/7129f44d-460a-49f6-acc7-293d512ad74e" },
   { id: "22534413-a23e-4ecb-b68f-c9f1105c8953", title: "Bob Iger and Josh Kushner in $12bn deal for Lakers basketball franchise", date: "2026-08-12", time: "15:59", url: "https://www.ft.com/content/22534413-a23e-4ecb-b68f-c9f1105c8953" },
   { id: "813b7646-3d3d-4f38-9b02-3c1fc564dc30", title: "Poor numeracy is a blind spot in the age of AI", date: "2026-08-12", time: "15:58", url: "https://www.ft.com/content/813b7646-3d3d-4f38-9b02-3c1fc564dc30" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "56c300d3-3632-476e-96d6-da84d4558bda", title: "Poorer Americans are struggling to make ‘ends meet’, top Fed official says", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/56c300d3-3632-476e-96d6-da84d4558bda" },
   { id: "14b245d4-281a-4a9f-b1a8-a2cb252f4335", title: "Britain needs more investors, not higher taxes on investment", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/14b245d4-281a-4a9f-b1a8-a2cb252f4335" },
   { id: "e16ec916-08ad-4f87-9b62-e42e9f28a59c", title: "How to stop global warming", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/e16ec916-08ad-4f87-9b62-e42e9f28a59c" },
-  { id: "13ca1246-faa7-4a0e-8117-439aee14d3d7", title: "Revolut cuts back WeWork access for premium customers after price rises", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/13ca1246-faa7-4a0e-8117-439aee14d3d7" },
-  { id: "725b4d15-bd8d-4083-a04e-db016338af2e", title: "JD Vance asked Ukraine to halt strikes on tankers using Russian port", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/725b4d15-bd8d-4083-a04e-db016338af2e" },
-  { id: "add47783-31f8-486f-b073-d547aafe6de0", title: "Private equity can score top marks with education deals", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/add47783-31f8-486f-b073-d547aafe6de0" },
-  { id: "81275343-db07-430d-9cc3-26fdee31f150", title: "‘Time billionaires’ are hungry for risk — will it be their undoing?", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/81275343-db07-430d-9cc3-26fdee31f150" },
 ];
