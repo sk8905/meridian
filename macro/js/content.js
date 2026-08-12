@@ -13,7 +13,7 @@ export const UPDATED = "12 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-12",
-  lastCheckedTime: "17:32 BST",
+  lastCheckedTime: "21:22 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -785,7 +785,7 @@ export const NEWS = {
     { title: "British Pound holds steady above 1.3500 vs USD as traders eye US CPI ahead of UK GDP", source: "FXStreet", date: "2026-08-12", time: "09:03", url: "https://www.fxstreet.com/news/british-pound-holds-steady-above-13500-vs-usd-as-traders-eye-us-cpi-ahead-of-uk-gdp-202608120903" },
     { title: "FTSE 100 Today (August 12, 2026): UK Stocks Flat as Investors Await US Inflation Data Amid Hormuz Tensions", source: "Sunday Guardian Live", date: "2026-08-12", time: "10:00", url: "https://sundayguardianlive.com/business/ftse-100-today-august-12-2026-uk-stocks-flat-as-investors-await-us-inflation-data-amid-hormuz-tensions-259630/" },
     { title: "FTSE 100 subdued ahead of US inflation data, Balfour Beatty jumps to record high", source: "Reuters (via Investing.com)", date: "2026-08-12", time: "11:30", url: "https://www.investing.com/news/economy-news/ftse-100-subdued-ahead-of-us-inflation-data-balfour-beatty-jumps-to-record-high-4854298" },
-    { title: "FTSE 100 Live: UK blue-chips as Wall Street opens higher; US inflation print damps rate hike fears", source: "Proactive Investors", date: "2026-08-12", time: "14:45", url: "https://www.proactiveinvestors.co.uk/companies/news/1096920/ftse-100-live-uk-blue-chips-set-for-softer-open-as-traders-brace-for-us-inflation-test-1096920.html" },
+    { title: "Economic Cost Of Summer Heatwaves Highlighted In New Research", source: "Forbes", date: "2026-08-12", time: "21:21", url: "https://www.forbes.com/sites/jamiehailstone/2026/08/12/economic-cost-of-summer-heatwaves-highlighted-in-new-research/" },
   ],
 };
 
