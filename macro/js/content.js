@@ -767,18 +767,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-08-12",
   us: [
-    { title: "Stock market today: Live updates", source: "CNBC", date: "2026-08-12", time: "07:30", url: "https://www.cnbc.com/2026/08/11/stock-market-today-live-updates.html" },
+    { title: "Stock market today: Dow and S&P 500 futures muted ahead of CPI data, Nasdaq rises", source: "Yahoo Finance", date: "2026-08-12", time: "09:15", url: "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-august-12-dow-sp-500-nasdaq-cpi-report-091555133.html" },
     { title: "July inflation report to provide crucial signs of where prices are headed", source: "The Washington Post", date: "2026-08-12", time: "06:00", url: "https://www.washingtonpost.com/politics/2026/08/12/consumer-prices-inflation-fed-interest-rates/99d3ce06-9602-11f1-9ef9-1be722184483_story.html" },
-    { title: "S&P 500 Eyes Records, Fed Hike Odds Near 51% Before CPI", source: "Benzinga", date: "2026-08-12", time: "08:00", url: "https://www.benzinga.com/trading-ideas/movers/26/08/61118609/sp500-eyes-record-highs-september-fed-hike-odds-cpi-preview" },
+    { title: "Morning Bid: Hot spots sizzle, CPI looms", source: "Reuters (via Investing.com)", date: "2026-08-12", time: "07:00", url: "https://www.investing.com/news/economy-news/morning-bid-hot-spots-sizzle-cpi-looms-4853649" },
+    { title: "Tesla, Palantir and 3 stocks to watch after July CPI", source: "Invezz", date: "2026-08-12", time: "05:00", url: "https://invezz.com/nz/news/2026/08/12/tesla-palantir-and-3-stocks-that-could-swing-wildly-after-july-cpi/" },
     { title: "Gold Forecast: XAU/USD awaits US CPI inflation for the next big move", source: "FXStreet", date: "2026-08-12", time: "02:41", url: "https://www.fxstreet.com/analysis/gold-price-forecast-xau-usd-awaits-us-cpi-inflation-for-the-next-big-move-202608120241" },
-    { title: "Global Economy Briefing — August 12, 2026", source: "Rio Times Online", date: "2026-08-12", time: "06:00", url: "https://www.riotimesonline.com/global-economy-briefing-august-12-2026/" },
   ],
   uk: [
-    { title: "FTSE 100 Live: UK Stocks Set to Fall Again, Pound Steadies", source: "Bloomberg", date: "2026-08-12", time: "07:00", url: "https://www.bloomberg.com/news/live-blog/2026-08-12/ftse-100-live-updates-pound-gilts-us-iran-trump-oil-prices-gold-ai-stocks-what-s-moving-uk-markets-right-now-markets-today-mspo1di9" },
+    { title: "FTSE 100 Live: UK Stocks Fall For Third Day as Defensives Drop", source: "Bloomberg", date: "2026-08-12", time: "07:00", url: "https://www.bloomberg.com/news/live-blog/2026-08-12/ftse-100-live-updates-pound-gilts-us-iran-trump-oil-prices-gold-ai-stocks-what-s-moving-uk-markets-right-now-markets-today-mspo1di9" },
+    { title: "GBP/USD Price Forecast: Continues to remain flat ahead of US CPI data", source: "FXStreet", date: "2026-08-12", time: "06:47", url: "https://www.fxstreet.com/news/gbp-usd-price-forecast-continues-to-remain-flat-ahead-of-us-cpi-data-202608120647" },
     { title: "PM to chair emergency Cobra meeting amid 'extreme heat' warning and wildfires", source: "ITV News", date: "2026-08-12", time: "06:00", url: "https://www.itv.com/news/2026-08-12/pm-to-chair-emergency-cobra-meeting-amid-extreme-heat-warning-and-wildfires" },
-    { title: "British Pound holds near 1.3500 as US CPI, UK GDP loom", source: "FXStreet", date: "2026-08-11", time: "15:25", url: "https://www.fxstreet.com/news/british-pound-holds-near-13500-as-us-cpi-uk-gdp-loom-202608111525" },
-    { title: "Andy Burnham plots £25billion tax raid on pensioners and entrepreneurs in first Budget, economists warn", source: "GB News", date: "2026-08-11", time: "21:15", url: "https://www.gbnews.com/money/andy-burnham-tax-raid-wealth-pensioners-entrepreneurs-budget" },
-    { title: "Retail sales rise by modest 1.3% in July as World Cup boosts food sales", source: "The Retail Bulletin", date: "2026-08-11", time: "00:00", url: "https://www.theretailbulletin.com/general-merchandise/retail-sales-rise-by-modest-1-3-in-july-as-world-cup-boosts-food-sales-11-08-2026/" },
+    { title: "Pound Holds Near 1.3500 as Markets Await US CPI, UK GDP", source: "Tradingpedia", date: "2026-08-11", time: "00:00", url: "https://www.tradingpedia.com/2026/08/11/pound-holds-near-1-3500-as-markets-await-us-cpi-uk-gdp/" },
+    { title: "Investors 'may be less than impressed' by John Healey's £9bn borrowing plans", source: "CityAM", date: "2026-08-05", time: "00:00", url: "https://www.cityam.com/investors-may-be-less-than-impressed-by-john-healeys-9bn-borrowing-plans/" },
   ],
 };
 
