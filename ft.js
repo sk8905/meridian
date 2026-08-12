@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "57e3a478-f9d5-444f-91ae-12838b1f1929", title: "HSBC’s global head of insurance steps down", date: "2026-08-12", time: "07:13", url: "https://www.ft.com/content/57e3a478-f9d5-444f-91ae-12838b1f1929" },
+  { id: "d3c55471-0e3d-4798-8355-2b661880d8b9", title: "Kevin Warsh’s monetary hall of mirrors", date: "2026-08-12", time: "06:30", url: "https://www.ft.com/content/d3c55471-0e3d-4798-8355-2b661880d8b9" },
+  { id: "08ef25cc-c51d-457f-84c5-33303c6ed118", title: "FTAV’s further reading", date: "2026-08-12", time: "06:30", url: "https://www.ft.com/content/08ef25cc-c51d-457f-84c5-33303c6ed118" },
   { id: "e0ca4cab-c8ba-47d6-9465-13e2d73285fc", title: "Taiwan hits out at China over naval drill with Indonesia", date: "2026-08-12", time: "06:14", url: "https://www.ft.com/content/e0ca4cab-c8ba-47d6-9465-13e2d73285fc" },
   { id: "acd38b11-0cd7-40c2-a779-e26c95b59048", title: "Business development companies are paying more to borrow. But why?", date: "2026-08-12", time: "06:00", url: "https://www.ft.com/content/acd38b11-0cd7-40c2-a779-e26c95b59048" },
   { id: "7cd5f1c5-1097-4bd4-bd00-8006759da28d", title: "FirstFT: Vance asked Ukraine to halt strikes on tankers", date: "2026-08-12", time: "05:31", url: "https://www.ft.com/content/7cd5f1c5-1097-4bd4-bd00-8006759da28d" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "a061e46e-705c-44f6-a036-20e6cb56d19a", title: "Rooftop panels in cities cannot replace solar farms", date: "2026-08-11", time: "16:37", url: "https://www.ft.com/content/a061e46e-705c-44f6-a036-20e6cb56d19a" },
   { id: "eae42796-43f5-408b-a735-1873e1fcbbe5", title: "When trouble strikes, who shadow-banks the shadow bankers?", date: "2026-08-11", time: "16:21", url: "https://www.ft.com/content/eae42796-43f5-408b-a735-1873e1fcbbe5" },
   { id: "16906e35-f031-4bb7-9aa3-b16da4d78b87", title: "Long-term sickness may be smaller problem for UK than thought, says ONS", date: "2026-08-11", time: "14:54", url: "https://www.ft.com/content/16906e35-f031-4bb7-9aa3-b16da4d78b87" },
-  { id: "de50af68-1d2d-4d03-aa4b-c0f7cdcc61d2", title: "Why Washington views Abu Dhabi as one of its most capable Middle East allies", date: "2026-08-11", time: "14:00", url: "https://www.ft.com/content/de50af68-1d2d-4d03-aa4b-c0f7cdcc61d2" },
-  { id: "565bd314-0803-40a2-88b3-9070f574d933", title: "Democratic socialist leads Wisconsin governor’s race as progressives gain ground", date: "2026-08-11", time: "14:00", url: "https://www.ft.com/content/565bd314-0803-40a2-88b3-9070f574d933" },
-  { id: "9f700b37-ac05-434c-9b70-3a7fe065c87e", title: "China tightens grip on Europe’s car supply chain", date: "2026-08-11", time: "13:44", url: "https://www.ft.com/content/9f700b37-ac05-434c-9b70-3a7fe065c87e" },
 ];
