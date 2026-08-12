@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "dfa69996-4427-4eef-8c60-a97a562debf5", title: "Colombian earthquake disrupts key coffee export road", date: "2026-08-12", time: "10:53", url: "https://www.ft.com/content/dfa69996-4427-4eef-8c60-a97a562debf5" },
+  { id: "14430047-c8b9-4e7b-89db-aed36244ad71", title: "Cambridge to carry out independent probe into Jason Arday appointment", date: "2026-08-12", time: "10:51", url: "https://www.ft.com/content/14430047-c8b9-4e7b-89db-aed36244ad71" },
   { id: "99c86e8e-02d5-4c7c-9eef-27ad9bb5b7c6", title: "Bank of America commits $250bn to support Donald Trump’s ‘America First’ agenda", date: "2026-08-12", time: "10:00", url: "https://www.ft.com/content/99c86e8e-02d5-4c7c-9eef-27ad9bb5b7c6" },
   { id: "c4c5cbb1-4b7c-4d29-b382-b38c494dcecc", title: "Andy Burnham has more to lose from an early election, but we should not rule it out", date: "2026-08-12", time: "09:30", url: "https://www.ft.com/content/c4c5cbb1-4b7c-4d29-b382-b38c494dcecc" },
   { id: "68dcb0e8-a15b-436a-9a57-c4c2abfba2d3", title: "UK power supplies likely to be stretched during solar eclipse", date: "2026-08-12", time: "09:20", url: "https://www.ft.com/content/68dcb0e8-a15b-436a-9a57-c4c2abfba2d3" },
@@ -57,7 +59,5 @@ export const FT_ITEMS = [
   { id: "c1296b77-a8a4-4cfc-aebc-a2f0d62af25f", title: "Moscow releases former US Marine Robert Gilman after four-year stint in Russian prison", date: "2026-08-11", time: "18:51", url: "https://www.ft.com/content/c1296b77-a8a4-4cfc-aebc-a2f0d62af25f" },
   { id: "5010fd54-5982-47c7-801a-e0a354a71c31", title: "US judge cites ‘concerning’ irregularities in Adani fraud case", date: "2026-08-11", time: "18:29", url: "https://www.ft.com/content/5010fd54-5982-47c7-801a-e0a354a71c31" },
   { id: "b7ee9a48-8d99-4d47-8234-68218072fa3b", title: "Arday case poses awkward questions for Cambridge", date: "2026-08-11", time: "18:17", url: "https://www.ft.com/content/b7ee9a48-8d99-4d47-8234-68218072fa3b" },
-  { id: "df4d2721-d84b-475a-8139-d58d7418a881", title: "Ari Emanuel buys West End and Broadway theatre group ATG for £4.5bn", date: "2026-08-11", time: "14:00", url: "https://www.ft.com/content/df4d2721-d84b-475a-8139-d58d7418a881" },
   { id: "3e3de835-0a9e-43cc-bd7a-1043a5cf4266", title: "Deputy PM Matteo Salvini proposes windfall tax on Italian bank profits", date: "2026-08-11", time: "17:59", url: "https://www.ft.com/content/3e3de835-0a9e-43cc-bd7a-1043a5cf4266" },
-  { id: "a87d7d98-92b8-48cc-8b8d-868bb1f79034", title: "UK letting agents under pressure from AI-assisted tenant complaints", date: "2026-08-11", time: "17:54", url: "https://www.ft.com/content/a87d7d98-92b8-48cc-8b8d-868bb1f79034" },
 ];
