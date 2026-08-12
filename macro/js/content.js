@@ -845,7 +845,7 @@ export const ARTICLES = {
 export const RELEASES = [
   { date: "2026-08-12", country: "US", title: "CPI (July)", url: "https://www.bls.gov/schedule/news_release/cpi.htm" },
   { date: "2026-08-13", country: "US", title: "PPI (July)", url: "https://www.bls.gov/schedule/news_release/ppi.htm" },
-  { date: "2026-08-13", country: "UK", title: "GDP monthly estimate (June)", url: "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/latest" },
+  { date: "2026-08-13", country: "UK", title: "GDP first quarterly estimate (Q2) & monthly estimate (June)", url: "https://www.ons.gov.uk/releases/gdpfirstquarterlyestimateukapriltojune2026" },
   { date: "2026-08-14", country: "US", title: "Retail sales (July)", url: "https://www.census.gov/retail/release_schedule.html" },
   { date: "2026-08-18", country: "UK", title: "ONS labour market & average earnings (August release)", url: "https://www.gov.uk/government/statistics/announcements/uk-labour-market-august-2026" },
   { date: "2026-08-19", country: "US", title: "FOMC minutes (28–29 July meeting)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
