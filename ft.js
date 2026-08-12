@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a44e8854-3f42-46bb-81e3-613dea89b802", title: "Smile, you're on camera: when the boss wants to read your mood", date: "2026-08-12", time: "15:07", url: "https://www.ft.com/content/a44e8854-3f42-46bb-81e3-613dea89b802" },
+  { id: "d76aabd7-55a1-43d8-b87a-0f812815a28a", title: "July inflation decline does not mean Fed's September rise is off the table", date: "2026-08-12", time: "15:02", url: "https://www.ft.com/content/d76aabd7-55a1-43d8-b87a-0f812815a28a" },
+  { id: "17de7308-9e97-405a-ab5e-9b0dddab36b4", title: "Vestas shares soar as wind turbine orders bounce back", date: "2026-08-12", time: "14:48", url: "https://www.ft.com/content/17de7308-9e97-405a-ab5e-9b0dddab36b4" },
+  { id: "0a4794fa-7112-436f-a311-9077fcba14b8", title: "America's largest home lender falls out of the hamster wheel", date: "2026-08-12", time: "14:44", url: "https://www.ft.com/content/0a4794fa-7112-436f-a311-9077fcba14b8" },
   { id: "5924d083-b5a4-4f95-8c2d-400f2b914159", title: "The west has given China the keys to the medicine cabinet", date: "2026-08-12", time: "14:00", url: "https://www.ft.com/content/5924d083-b5a4-4f95-8c2d-400f2b914159" },
   { id: "ca40af31-2446-45e7-8e6a-7554d759a6ca", title: "Goldman Sachs to acquire ETF provider Neos for up to $2.3bn", date: "2026-08-12", time: "13:34", url: "https://www.ft.com/content/ca40af31-2446-45e7-8e6a-7554d759a6ca" },
   { id: "52727749-4360-4463-8822-dc3bfd8ef279", title: "US inflation falls to 3.4% in July", date: "2026-08-12", time: "13:33", url: "https://www.ft.com/content/52727749-4360-4463-8822-dc3bfd8ef279" },
@@ -57,7 +61,4 @@ export const FT_ITEMS = [
   { id: "92b5d535-73e4-48f6-a60a-475c32aa7e79", title: "Nudge or tax? At last, some data", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/92b5d535-73e4-48f6-a60a-475c32aa7e79" },
   { id: "a3803e70-cb4d-444f-a31e-05be2f2c44f6", title: "China’s great jobs squeeze", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/a3803e70-cb4d-444f-a31e-05be2f2c44f6" },
   { id: "25bc2df2-7ab8-4b1a-a30f-2fe4d47806ce", title: "How Israel is making southern Lebanon ‘unliveable’", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/25bc2df2-7ab8-4b1a-a30f-2fe4d47806ce" },
-  { id: "2f9ffe4c-b307-4f32-a8f8-c1c8759bbf5b", title: "Is my architect liable for extra costs?", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/2f9ffe4c-b307-4f32-a8f8-c1c8759bbf5b" },
-  { id: "d36e4a0a-88b2-4707-b447-5eb7e0d5da8f", title: "What to plant to light up summer evenings", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/d36e4a0a-88b2-4707-b447-5eb7e0d5da8f" },
-  { id: "20f44f32-6566-4373-b6d8-9551be58d762", title: "How a bad trade pushed a US mortgage giant into a $2bn lifeline", date: "2026-08-12", time: "05:00", url: "https://www.ft.com/content/20f44f32-6566-4373-b6d8-9551be58d762" },
 ];
