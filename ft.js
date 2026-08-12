@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "99c86e8e-02d5-4c7c-9eef-27ad9bb5b7c6", title: "Bank of America commits $250bn to support Donald Trump’s ‘America First’ agenda", date: "2026-08-12", time: "10:00", url: "https://www.ft.com/content/99c86e8e-02d5-4c7c-9eef-27ad9bb5b7c6" },
+  { id: "c4c5cbb1-4b7c-4d29-b382-b38c494dcecc", title: "Andy Burnham has more to lose from an early election, but we should not rule it out", date: "2026-08-12", time: "09:30", url: "https://www.ft.com/content/c4c5cbb1-4b7c-4d29-b382-b38c494dcecc" },
+  { id: "68dcb0e8-a15b-436a-9a57-c4c2abfba2d3", title: "UK power supplies likely to be stretched during solar eclipse", date: "2026-08-12", time: "09:20", url: "https://www.ft.com/content/68dcb0e8-a15b-436a-9a57-c4c2abfba2d3" },
   { id: "c9d5c256-0e93-4978-b312-354cb7bd7487", title: "Andy Burnham to hold emergency Cobra meeting in response to heatwaves", date: "2026-08-12", time: "08:54", url: "https://www.ft.com/content/c9d5c256-0e93-4978-b312-354cb7bd7487" },
   { id: "007b5ff6-e8fe-47f6-ba34-40cd6520e9fd", title: "World prepares for one of nature’s greatest spectacles: a total solar eclipse", date: "2026-08-12", time: "08:17", url: "https://www.ft.com/content/007b5ff6-e8fe-47f6-ba34-40cd6520e9fd" },
   { id: "565bd314-0803-40a2-88b3-9070f574d933", title: "Democratic socialist locked in unexpectedly tight Wisconsin primary race", date: "2026-08-12", time: "07:17", url: "https://www.ft.com/content/565bd314-0803-40a2-88b3-9070f574d933" },
@@ -57,8 +60,4 @@ export const FT_ITEMS = [
   { id: "df4d2721-d84b-475a-8139-d58d7418a881", title: "Ari Emanuel buys West End and Broadway theatre group ATG for £4.5bn", date: "2026-08-11", time: "14:00", url: "https://www.ft.com/content/df4d2721-d84b-475a-8139-d58d7418a881" },
   { id: "3e3de835-0a9e-43cc-bd7a-1043a5cf4266", title: "Deputy PM Matteo Salvini proposes windfall tax on Italian bank profits", date: "2026-08-11", time: "17:59", url: "https://www.ft.com/content/3e3de835-0a9e-43cc-bd7a-1043a5cf4266" },
   { id: "a87d7d98-92b8-48cc-8b8d-868bb1f79034", title: "UK letting agents under pressure from AI-assisted tenant complaints", date: "2026-08-11", time: "17:54", url: "https://www.ft.com/content/a87d7d98-92b8-48cc-8b8d-868bb1f79034" },
-  { id: "42194267-cda2-4dcc-9487-02c5f239e034", title: "Heatwaves push European gas prices close to Iran war highs", date: "2026-08-11", time: "17:53", url: "https://www.ft.com/content/42194267-cda2-4dcc-9487-02c5f239e034" },
-  { id: "29f1af13-ecc3-4f26-a479-e6088c67231b", title: "US midterm elections 2026: The FT’s guide", date: "2026-08-11", time: "17:24", url: "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b" },
-  { id: "5bdb67a5-5c53-46aa-8a04-d0480e700ee4", title: "Will failure in Iran reshape how the US fights?", date: "2026-08-11", time: "17:23", url: "https://www.ft.com/content/5bdb67a5-5c53-46aa-8a04-d0480e700ee4" },
-  { id: "a061e46e-705c-44f6-a036-20e6cb56d19a", title: "Rooftop panels in cities cannot replace solar farms", date: "2026-08-11", time: "16:37", url: "https://www.ft.com/content/a061e46e-705c-44f6-a036-20e6cb56d19a" },
 ];
