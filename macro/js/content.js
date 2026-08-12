@@ -12,8 +12,8 @@ export const UPDATED = "11 August 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-08-11",
-  lastCheckedTime: "21:29 BST",
+  lastChecked: "2026-08-12",
+  lastCheckedTime: "05:24 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -765,20 +765,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-08-11",
+  updated: "2026-08-12",
   us: [
     { title: "An inflation report Wednesday should be a big deal for the Fed. Here's what to expect", source: "CNBC", date: "2026-08-11", time: "21:15", url: "https://www.cnbc.com/2026/08/11/an-inflation-report-wednesday-should-be-a-big-deal-for-the-fed-heres-what-to-expect.html" },
+    { title: "Markets are still trying to figure out the Fed's next move", source: "CNN Business", date: "2026-08-11", time: "12:33", url: "https://us.cnn.com/2026/08/11/business/fed-markets-kevin-warsh" },
+    { title: "Here's how the market may react to July's CPI report, according to JPMorgan", source: "CNBC", date: "2026-08-10", time: "18:00", url: "https://www.cnbc.com/2026/08/10/how-the-market-may-react-to-julys-cpi-report-according-to-jpmorgan.html" },
+    { title: "Forex Today: US CPI data and the RBA meeting will be the salient events", source: "FXStreet", date: "2026-08-11", time: "18:58", url: "https://www.fxstreet.com/news/forex-today-us-cpi-data-and-the-rba-meeting-will-be-the-salient-events-202508111858" },
     { title: "Stock market today: Dow, S&P 500, Nasdaq slip amid US-Iran impasse, Alphabet stock sinks", source: "Yahoo Finance", date: "2026-08-11", time: "21:15", url: "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-august-11-dow-sp-500-nasdaq-102827503.html" },
-    { title: "Treasury yields up as oil prices jump and investors await inflation data", source: "CNBC", date: "2026-08-11", time: "21:15", url: "https://www.cnbc.com/amp/2026/08/11/treasury-yields-up-as-oil-prices-jump-investors-await-inflation-data-.html" },
-    { title: "Strait of Hormuz: What Have Iran, US Said as Efforts to Restore Traffic Stall", source: "Bloomberg", date: "2026-08-11", time: "21:15", url: "https://www.bloomberg.com/news/articles/2026-08-11/strait-of-hormuz-what-have-iran-us-said-as-efforts-to-restore-traffic-stall" },
-    { title: "5 things to know before the stock market opens Tuesday", source: "CNBC", date: "2026-08-11", time: "21:15", url: "https://www.cnbc.com/amp/2026/08/11/5-things-to-know-before-the-stock-market-opens.html" },
   ],
   uk: [
     { title: "Andy Burnham plots £25billion tax raid on pensioners and entrepreneurs in first Budget, economists warn", source: "GB News", date: "2026-08-11", time: "21:15", url: "https://www.gbnews.com/money/andy-burnham-tax-raid-wealth-pensioners-entrepreneurs-budget" },
     { title: "FTSE 100 Live: Gilts Drop as Oil Rally Revives Inflation Worries", source: "Bloomberg", date: "2026-08-11", time: "21:15", url: "https://www.bloomberg.com/news/live-blog/2026-08-11/ftse-100-live-pound-gilts-ai-stocks-trump-iran-oil-prices-gold-bonds-what-s-moving-uk-markets-right-now-markets-today-mso8nw1x" },
+    { title: "GBP/USD Market Analysis: Inflation and GDP in Focus", source: "TIOmarkets", date: "2026-08-11", time: "17:21", url: "https://tiomarkets.com/article/gbp-usd-market-analysis-price-forecast-2026-08-11" },
     { title: "Drought declared in 'almost three-quarters' of England, UK government says", source: "Euronews", date: "2026-08-10", time: "17:27", url: "https://www.euronews.com/my-europe/2026/08/10/drought-declared-in-almost-three-quarters-of-england-uk-government-says" },
     { title: "Why Strong UK Growth Figures This Week Will Bring Little Cheer", source: "Bloomberg", date: "2026-08-10", time: "17:27", url: "https://www.bloomberg.com/news/articles/2026-08-10/why-strong-uk-growth-figures-this-week-will-bring-little-cheer" },
-    { title: "Iran war could 'halt growth' across UK economy", source: "CityAM", date: "2026-08-03", time: "21:15", url: "https://www.cityam.com/iran-war-could-halt-growth-across-uk-economy/" },
   ],
 };
 
@@ -790,8 +790,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-08-11",
+  updated: "2026-08-12",
   items: [
+    {"title":"Asia stocks edge higher, oil up amid Gulf confusion","source":"Reuters","date":"2026-08-12","time":"05:00","url":"https://finance.yahoo.com/news/asia-stocks-edge-higher-oil-002532883.html","blurb":"MSCI's Asia-Pacific ex-Japan gauge rose 0.5% and Brent gained 0.3% to $89.10/bbl for a sixth straight day of gains as investors awaited the July CPI print, with fresh Houthi shipping attacks and a North Korean missile launch adding to the risk backdrop."},
+    {"title":"Markets are still trying to figure out the Fed's next move","source":"CNN Business","date":"2026-08-11","time":"12:33","url":"https://us.cnn.com/2026/08/11/business/fed-markets-kevin-warsh","blurb":"CME-implied odds of a September hike have swung toward roughly even with a hold as traders await Wednesday's CPI, with Wall Street economists split — BofA and PGIM expect hikes at each remaining 2026 meeting, while Barclays, Jefferies, Morgan Stanley, Truist and UBS see the Fed on hold."},
+    {"title":"Here's how the market may react to July's CPI report, according to JPMorgan","source":"CNBC","date":"2026-08-10","time":"18:00","url":"https://www.cnbc.com/2026/08/10/how-the-market-may-react-to-julys-cpi-report-according-to-jpmorgan.html","blurb":"JPMorgan lays out how equities and rates markets are likely to react to Wednesday's July CPI print under upside-surprise, in-line and downside-surprise scenarios."},
     {"title":"An inflation report Wednesday should be a big deal for the Fed. Here's what to expect","source":"CNBC","date":"2026-08-11","time":"21:15","url":"https://www.cnbc.com/2026/08/11/an-inflation-report-wednesday-should-be-a-big-deal-for-the-fed-heres-what-to-expect.html","blurb":"Wednesday's July CPI print is the week's decisive catalyst for Fed rate-path bets, with economists watching for tariff pass-through into core goods prices."},
     {"title":"Gold Touches $4,400 as Traders Turn Focus to US Inflation Data","source":"Bloomberg","date":"2026-08-10","time":"21:15","url":"https://www.bloomberg.com/news/articles/2026-08-10/gold-touches-4-400-as-traders-turn-focus-to-us-inflation-data","blurb":"Gold hit a fresh high as investors hedged ahead of Wednesday's CPI print and weighed a more hawkish Fed under Chair Kevin Warsh."},
     {"title":"Oil prices today: Uncertainty over U.S.-Iran Strait of Hormuz deal","source":"CNBC","date":"2026-08-10","time":"21:15","url":"https://www.cnbc.com/2026/08/10/oil-prices-today-brent-wti-hormuz-trump-iran.html","blurb":"Brent and WTI swung on conflicting signals over whether Washington and Tehran will reach a deal to reopen the blockaded strait."},
@@ -997,7 +1000,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "Treasury yields firmed and oil jumped as the Strait-of-Hormuz standoff between Washington and Tehran remained unresolved, with investors positioning ahead of Wednesday's July CPI print — seen as pivotal for the Fed's rate path — while UK gilts fell on reports PM Andy Burnham is weighing a £25bn tax-raising first Budget.", src: "https://www.cnbc.com/2026/08/11/an-inflation-report-wednesday-should-be-a-big-deal-for-the-fed-heres-what-to-expect.html", srcName: "CNBC", date: "2026-08-11" };
+export const FX_KEYMOMENT = { text: "The dollar held little-changed in Asia trade below the 100.00 DXY level, with Asia-Pacific desks sitting on their hands ahead of Wednesday's July CPI print — the swing factor for the Fed's 16 September decision — while Brent extended a sixth day of gains and UK gilts stayed pressured by the £25bn tax-raising first-Budget speculation.", src: "https://www.fxstreet.com/news/forex-today-us-cpi-data-and-the-rba-meeting-will-be-the-salient-events-202508111858", srcName: "FXStreet", date: "2026-08-12" };
 
 export const EARNINGS = {
   weeks: [
