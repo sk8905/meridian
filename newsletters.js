@@ -33,6 +33,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-pointsofreturn-wisdomofcrowds-20260812",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "Invest in the wisdom of crowds after they go home",
+    date: "2026-08-12",
+    time: "05:01",
+    summary: "Stock markets wobble on the eve of July CPI as Brent crude tops $89, and Europe's earnings and valuation gap with the US looks ready to close.",
+    url: "https://bloom.bg/45m6dxq",
+  },
+  {
+    id: "nl-reuters-tradingday-peacefog-20260811",
+    publication: "Thomson Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "Peace fog",
+    date: "2026-08-11",
+    time: "22:18",
+    summary: "US inflation up next — yield curve twists expose Trump's and Bessent's rate dilemma as private-credit giants KKR and Apollo surge on Nvidia's $500bn AI financing deal.",
+    url: "https://www.reuters.com/newsletters/trading-day",
+  },
+  {
     id: "nl-bbg-moneystuff-pickandshovel-20260811",
     publication: "Bloomberg",
     author: "Matt Levine",
