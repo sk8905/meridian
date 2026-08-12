@@ -117,7 +117,8 @@ function buildHeader(onTab) {
   <header class="topbar">
     <div class="topbar-inner">
       <a class="brand" href="${location.origin}/v2/" aria-label="Wire Home" data-key="home">
-        <span class="brand-text"><strong aria-hidden="true">W<span class="brand-i">/</span>RE</strong></span>
+        <span class="logo" aria-hidden="true">/</span>
+        <span class="brand-text"><strong>Wire</strong></span>
       </a>
       <div class="platform-switch" role="group" aria-label="Switch platform">${pills}</div>
       <button class="nav-search" data-open-search type="button" aria-label="Search Wire">

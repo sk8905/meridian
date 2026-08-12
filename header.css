@@ -36,10 +36,6 @@
 .brand:hover { text-decoration: none; }
 .brand-text { display: flex; flex-direction: column; }
 .brand-text strong { font-size: 1.05rem; letter-spacing: .3px; }
-/* Wordmark "W/RE": the slash stands in for the "i" (the box "/" is reserved as
-   the standalone app icon, not shown here). Inherits the wordmark's colour and
-   font; the link's aria-label keeps the accessible/written name "Wire". */
-.brand-i { margin: 0 -0.02em; }
 .logo { display: inline-flex; align-items: center; justify-content: center; width: 1.5em; height: 1.5em; box-sizing: border-box; border: 1px solid var(--border, #262626); background: #000; color: #fff; font-family: var(--t-mono, ui-monospace, monospace); font-weight: 700; font-size: 1.15rem; line-height: 1; border-radius: 0; }
 
 /* Platform switch (Home / Macro / Credit / Legal) */
