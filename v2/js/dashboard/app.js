@@ -303,12 +303,12 @@ export function mount(host, ctx) {
   // Embedded credit news — the desk's freshest sourced deals/intel, linked out.
   function creditNewsHTML() {
     const items = [...(deals || []), ...(intel || [])]
-      .filter((x) => x && x.date && (x.headline || x.title))
+      .filter((x) => x && x.date && (x.headline || x.title) && (x.sourceUrl || x.url))
       .sort((a, b) => String(b.date).localeCompare(String(a.date)))
       .slice(0, 12);
     if (!items.length) return "";
     const row = (x) => { const u = x.sourceUrl || x.url; return `<li class="dsh-news-i"><span class="dsh-news-d">${esc(fmtDate(x.date))}</span>`
-      + (u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(x.headline || x.title)}</a>` : `<span>${esc(x.headline || x.title)}</span>`) + `</li>`; };
+      + `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(x.headline || x.title)}</a>` + `</li>`; };
     return `<ul class="dsh-news">${items.map(row).join("")}</ul>`;
   }
   // Private credit pulse — Fitch's Private Credit Default Rate + market context, a

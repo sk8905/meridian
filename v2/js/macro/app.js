@@ -88,7 +88,7 @@ function sparkline(data, { color = MACRO_COLOR, unit = "" } = {}) {
   const area = `${path} L ${last[0].toFixed(1)} ${top + plotH} L ${pts[0][0].toFixed(1)} ${top + plotH} Z`;
   const yr = (l) => String(l).slice(0, 4);
   const spk = data.map((d) => [d.label, +(+d.value).toFixed(2)]);
-  return `<svg viewBox="0 0 ${W} ${H}" class="spark" role="img" data-spark='${JSON.stringify(spk)}' data-unit="${esc(unit)}">
+  return `<svg viewBox="0 0 ${W} ${H}" class="spark" role="img" data-spark="${esc(JSON.stringify(spk))}" data-unit="${esc(unit)}"
     <rect x="0" y="0" width="${W}" height="${H}" fill="transparent"/>
     <path d="${area}" fill="${color}" fill-opacity="0.10"/>
     <path d="${path}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linejoin="round"/>

@@ -43,7 +43,7 @@ h2 { font-size: 1.05rem; margin: 0 0 .75rem; }
 h3 { font-size: 1rem; margin: 0; }
 .muted { color: var(--muted); }
 .small { font-size: .8rem; }
-.lead { font-size: .98rem; color: #334155; }
+.lead { font-size: .98rem; color: var(--muted); }
 /* Neater multi-line wrapping: balance short headings; use "pretty" on feed
    headlines & prose so a single word never wraps alone on the last line.
    Progressive enhancement — ignored where unsupported. */
@@ -171,7 +171,7 @@ h1, h2, h3, .kpi-label { text-wrap: balance; }
   border-radius: var(--radius); padding: 1rem 1.1rem; box-shadow: var(--shadow); }
 .kpi-value { font-size: 1.7rem; font-weight: 700; color: var(--primary-ink); line-height: 1.1; font-variant-numeric: tabular-nums; }
 .kpi-value.kpi-aum { font-size: 1.15rem; }
-.kpi-label { font-size: .82rem; color: #334155; margin-top: .2rem; }
+.kpi-label { font-size: .82rem; color: var(--muted); margin-top: .2rem; }
 .kpi-sub { font-size: .72rem; }
 
 /* ---------- chips ---------- */
@@ -204,7 +204,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
 /* Divider that demotes fundraising to a clearly-secondary band on the dashboard. */
 .section-divider { display: flex; align-items: center; gap: .9rem; margin: 2rem 0 .25rem; }
 .section-divider::before, .section-divider::after { content: ""; height: 1px; background: var(--border); flex: 1; }
-.section-divider span { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #64748b; white-space: nowrap; }
+.section-divider span { font-size: .78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); white-space: nowrap; }
 .section-intro { margin: 0 0 1rem; }
 
 /* ---------- watchlist / follow stars ---------- */
@@ -234,7 +234,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
 
 /* ---------- deployment / dry powder ---------- */
 .deploy { margin-top: .85rem; padding-top: .75rem; border-top: 1px solid var(--border); }
-.deploy-head { display: flex; justify-content: space-between; gap: 1rem; font-size: .8rem; font-weight: 600; color: #334155; margin-bottom: .4rem; }
+.deploy-head { display: flex; justify-content: space-between; gap: 1rem; font-size: .8rem; font-weight: 600; color: var(--muted); margin-bottom: .4rem; }
 .deploy-bar { background: #eef2f7; border: 1px solid var(--border); border-radius: 6px; height: 16px; overflow: hidden; }
 .deploy-fill { height: 100%; background: linear-gradient(90deg, #16a34a, #22c55e); }
 .deploy-stats { display: flex; gap: 1.25rem; margin-top: .5rem; font-size: .82rem; flex-wrap: wrap; }
@@ -259,8 +259,8 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .dim-yes .dim-icon { color: var(--t-up, #3fc08d); }
 .dim-est .dim-icon, .dim-indicative .dim-icon { color: var(--accent); }
 .dim-no .dim-icon { color: var(--t-down, #f26d84); }
-.dim-na .dim-icon { color: #9ca3af; }
-.dim-no .dim-key { color: #6b7280; }
+.dim-na .dim-icon { color: var(--faint, #8b96ac); }
+.dim-no .dim-key { color: var(--faint, #8b96ac); }
 @media (max-width: 640px) { .provenance .dim { grid-template-columns: 1.4rem 1fr; } .provenance .dim-detail { grid-column: 2; } }
 
 /* ---------- source citations ---------- */
@@ -640,7 +640,7 @@ a.compact-mgr:hover { color: var(--ink); text-decoration: none; }
 /* ---------- year section breaks (manager feeds) ---------- */
 .year-group + .year-group { margin-top: .5rem; }
 .year-head {
-  font-size: .8rem; font-weight: 700; color: #64748b; text-transform: uppercase;
+  font-size: .8rem; font-weight: 700; color: var(--muted); text-transform: uppercase;
   letter-spacing: 1px; margin: 1rem 0 .1rem; padding-bottom: .35rem;
   border-bottom: 2px solid var(--border);
 }

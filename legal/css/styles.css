@@ -657,10 +657,10 @@ a.compact-head:hover { text-decoration: none; }
 .lg-sc-type { color: var(--muted); }
 .lg-sc-debt { font-variant-numeric: tabular-nums; white-space: nowrap; }
 .lg-sc-status { display: inline-block; font-size: 9.5px; font-weight: 600; padding: 1px 6px; border: 1px solid var(--border); border-radius: 2px; white-space: nowrap; color: var(--muted); }
-.lg-sc-status.s-sanctioned { color: var(--t-up); border-color: rgba(63,192,141,.4); }
-.lg-sc-status.s-refused, .lg-sc-status.s-appealallowed { color: var(--t-down); border-color: rgba(242,109,132,.4); }
-.lg-sc-status.s-appealdismissed { color: var(--t-up); border-color: rgba(63,192,141,.4); }
-.lg-sc-status.s-convened { color: var(--accent); border-color: rgba(251,139,30,.4); }
+.lg-sc-status.s-sanctioned { color: var(--t-up); border-color: color-mix(in srgb, var(--t-up) 40%, transparent); }
+.lg-sc-status.s-refused, .lg-sc-status.s-appealallowed { color: var(--t-down); border-color: color-mix(in srgb, var(--t-down) 40%, transparent); }
+.lg-sc-status.s-appealdismissed { color: var(--t-up); border-color: color-mix(in srgb, var(--t-up) 40%, transparent); }
+.lg-sc-status.s-convened { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
 .lg-mini-list, .lg-doc-list { margin: 0; padding: 0; list-style: none; }
 .lg-mini-list li { margin-bottom: 3px; line-height: 1.35; color: var(--muted); font-size: 10.5px; }
 .lg-mini-list li:last-child { margin-bottom: 0; }
@@ -669,7 +669,7 @@ a.compact-head:hover { text-decoration: none; }
 .lg-doc-list a:hover { text-decoration: none; }
 
 /* Row highlight when an 'All' scheme/RP headline jumps into the table. */
-@keyframes lgScFlash { 0% { background: rgba(251,139,30,.22); } 100% { background: transparent; } }
+@keyframes lgScFlash { 0% { background: color-mix(in srgb, var(--accent) 22%, transparent); } 100% { background: transparent; } }
 .lg-sc-flash td { animation: lgScFlash 1.6s ease-out; }
 
 /* Law Firms league table (dashboard "Law Firms" tab). ALL columns and headers

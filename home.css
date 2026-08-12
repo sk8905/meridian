@@ -303,7 +303,7 @@
        the right of the change, not on a new line). */
     .rate-chg-line { display:inline-flex; align-items:baseline; flex-wrap:wrap; gap:.3rem; }
     /* Futures-implied open shown beside a closed market's (stale) daily change. */
-    .mkt-fut { font-size:.66rem; font-weight:600; opacity:.85; }
+    .mkt-fut { font-size:.66rem; font-weight:600; opacity:.85; font-variant-numeric:tabular-nums; }
     .mkt-fut.up { color:var(--t-up); } .mkt-fut.down { color:var(--t-down); } .mkt-fut.flat { color:var(--muted); }
     .mkt-dot { display:inline-block; width:4px; height:4px; border-radius:50%; vertical-align:middle; margin:0 0 .05rem .1rem; opacity:.8; }
     .mkt-dot.open { background:var(--t-up); }
