@@ -33,6 +33,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-simmonsschulte-20260813",
+    publication: "Legal Business",
+    title: "Simmons hires former Schulte funds partner in post-merger exit from McDermott",
+    date: "2026-08-13",
+    time: "09:06",
+    summary: "Simmons swipes partner from merged firm's top-tier City practice in third funds hire in three months.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQHtdkryw7wAIb1WM/wv",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-20260813",
     publication: "Bloomberg",
     author: "Jill Disis",
@@ -434,24 +443,5 @@ export const NEWSLETTERS = [
     time: "13:03",
     summary: "A rare shift is underway as semiconductor and hyperscaler stocks rally together, reflecting a broadening belief in AI's commercial viability and multi-year growth prospects.",
     url: "https://go-pb.jpmorgan.com/v/MzkyLUhLQy04NzYAAAGjexRZinHEa8xqGbYCg_FPd6cJkoVREwZioDNqgMM476ymYyqYrSw8n2dWOqvD_rON9JsdVhE=",
-  },
-  {
-    id: "nl-lb-rotorkabb-20260807",
-    publication: "Legal Business",
-    title: "Slaughters and Freshfields in line for over £25m in fees from Rotork-ABB deal",
-    date: "2026-08-07",
-    time: "12:31",
-    summary: "Magic circle duo set for £10m+ payout each following FTSE 250 company's £4.1bn sale.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQFXcUsbV7c1v18Hx/wv",
-  },
-  {
-    id: "nl-bbg-goingprivate-books-20260807",
-    publication: "Bloomberg",
-    series: "Going Private",
-    title: "Going Private: The books with returns no market can price",
-    date: "2026-08-07",
-    time: "12:14",
-    summary: "Pep up a long-haul trip or August commute with reads that will leave their mark long beyond summer.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-07/the-books-with-returns-no-market-can-price",
   },
 ];

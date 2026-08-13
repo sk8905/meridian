@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "e90128dc-9a22-4fd1-933c-e344f38255a8", title: "UK growth resilient in second quarter", date: "2026-08-13", time: "09:01", url: "https://www.ft.com/content/e90128dc-9a22-4fd1-933c-e344f38255a8" },
+  { id: "05e95d34-dcc3-437d-85cc-cc1c12fdaa23", title: "Maersk lifts full-year profit guidance after smashing estimates", date: "2026-08-13", time: "08:59", url: "https://www.ft.com/content/05e95d34-dcc3-437d-85cc-cc1c12fdaa23" },
+  { id: "db647513-af64-417c-8c2d-8af957f16a6c", title: "Record number of UK students opt for degrees in engineering and tech", date: "2026-08-13", time: "08:53", url: "https://www.ft.com/content/db647513-af64-417c-8c2d-8af957f16a6c" },
+  { id: "1ad56cc8-747e-4e2c-8e4a-f0144450b4c4", title: "South Korea orders new investors to take classes after single-stock trading frenzy", date: "2026-08-13", time: "08:44", url: "https://www.ft.com/content/1ad56cc8-747e-4e2c-8e4a-f0144450b4c4" },
   { id: "f35f8c3d-3c9f-4209-b8a7-e4038dfc528f", title: "UK economy grew 0.4% in second quarter", date: "2026-08-13", time: "07:02", url: "https://www.ft.com/content/f35f8c3d-3c9f-4209-b8a7-e4038dfc528f" },
   { id: "d8b52073-c847-48c9-b432-50e989c4b8f0", title: "‘The most difficult dilemma’", date: "2026-08-13", time: "06:30", url: "https://www.ft.com/content/d8b52073-c847-48c9-b432-50e989c4b8f0" },
   { id: "3fc16b44-8463-4235-87e8-057a350397a8", title: "FTAV’s further reading", date: "2026-08-13", time: "06:30", url: "https://www.ft.com/content/3fc16b44-8463-4235-87e8-057a350397a8" },
@@ -57,8 +61,4 @@ export const FT_ITEMS = [
   { id: "c14d737a-a148-49da-8cb5-ba223c8a9fc5", title: "Greenland oil wildcatters delay controversial drilling plan", date: "2026-08-12", time: "15:33", url: "https://www.ft.com/content/c14d737a-a148-49da-8cb5-ba223c8a9fc5" },
   { id: "a44e8854-3f42-46bb-81e3-613dea89b802", title: "Smile, you're on camera: when the boss wants to read your mood", date: "2026-08-12", time: "15:07", url: "https://www.ft.com/content/a44e8854-3f42-46bb-81e3-613dea89b802" },
   { id: "d76aabd7-55a1-43d8-b87a-0f812815a28a", title: "July inflation decline does not mean Fed's September rise is off the table", date: "2026-08-12", time: "15:02", url: "https://www.ft.com/content/d76aabd7-55a1-43d8-b87a-0f812815a28a" },
-  { id: "17de7308-9e97-405a-ab5e-9b0dddab36b4", title: "Vestas shares soar as wind turbine orders bounce back", date: "2026-08-12", time: "14:48", url: "https://www.ft.com/content/17de7308-9e97-405a-ab5e-9b0dddab36b4" },
-  { id: "0a4794fa-7112-436f-a311-9077fcba14b8", title: "America's largest home lender falls out of the hamster wheel", date: "2026-08-12", time: "14:44", url: "https://www.ft.com/content/0a4794fa-7112-436f-a311-9077fcba14b8" },
-  { id: "5924d083-b5a4-4f95-8c2d-400f2b914159", title: "The west has given China the keys to the medicine cabinet", date: "2026-08-12", time: "14:00", url: "https://www.ft.com/content/5924d083-b5a4-4f95-8c2d-400f2b914159" },
-  { id: "ca40af31-2446-45e7-8e6a-7554d759a6ca", title: "Goldman Sachs to acquire ETF provider Neos for up to $2.3bn", date: "2026-08-12", time: "13:34", url: "https://www.ft.com/content/ca40af31-2446-45e7-8e6a-7554d759a6ca" },
 ];
