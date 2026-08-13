@@ -40,7 +40,7 @@ export const NEWSLETTERS = [
     title: "Economics Daily: UK growth surprise",
     date: "2026-08-13",
     time: "12:00",
-    summary: "Sizzling weather and World Cup fever helped the UK economy comfortably outperform expectations.",
+    summary: "Sizzling weather and World Cup fever helped the UK economy comfortably outperform expectations, expanding 0.4% in Q2 and 1% in H1 despite the Iran war shock.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-13/uk-economy-shrugs-off-iran-war-shock-for-now",
   },
   {
@@ -446,14 +446,5 @@ export const NEWSLETTERS = [
     time: "21:51",
     summary: "One week after Leopold Aschenbrenner's hedge fund Situational Awareness nearly blew up, he's already getting requests from investors looking to place more money with the AI wunderkind.",
     url: "https://www.bloomberg.com/news/articles/2026-08-07/silicon-valley-rallies-around-ai-whiz-kid-after-situational-awareness-turmoil",
-  },
-  {
-    id: "nl-mb-fridaybrew7-20260807",
-    publication: "Mailbrew",
-    title: "Friday Brew #7",
-    date: "2026-08-07",
-    time: "13:58",
-    summary: "Weekly links digest: AI adoption in CRE, private credit's boogeyman era, Burry's latest trades, and El-Erian's global economy outlook.",
-    url: "https://app.mailbrew.com/stevedkennedy/friday-brew-03bEHcNb3hHB/7",
   },
 ];

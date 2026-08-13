@@ -13,7 +13,7 @@ export const UPDATED = "12 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-13",
-  lastCheckedTime: "09:27 BST",
+  lastCheckedTime: "12:31 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -774,18 +774,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-08-13",
   us: [
+    { title: "Preview: Due August 13 - U.S. July PPI - Prices seen subdued when data was surveyed", source: "Continuum Economics", date: "2026-08-13", time: "12:31", url: "https://continuumeconomics.com/a/b6e8faf2/preview-due-august-13-us-july-ppi-prices-seen-subdued-when-data-was-surveyed" },
+    { title: "Oil prices today: WTI, Brent, Red Sea", source: "CNBC", date: "2026-08-12", time: "12:31", url: "https://www.cnbc.com/2026/08/12/oil-prices-today-wti-brent-red-sea.html" },
+    { title: "CPI inflation report July 2026: Prices rose 0.1%, annual rate 3.4%", source: "CNBC", date: "2026-08-12", time: "13:35", url: "https://www.cnbc.com/2026/08/12/cpi-inflation-report-july-2026.html" },
+    { title: "Bond Traders Keep Wagers on a September Fed Hike After Tame CPI", source: "Bloomberg", date: "2026-08-12", time: "15:00", url: "https://www.bloomberg.com/news/articles/2026-08-12/bond-traders-keep-cointoss-wager-on-september-fed-hike-post-cpi" },
     { title: "Asian stocks rise as US inflation data dents Fed's September rate hike bets", source: "Business Standard", date: "2026-08-13", time: "06:00", url: "https://www.business-standard.com/markets/news/asian-stocks-rise-as-us-inflation-data-dents-fed-s-september-rate-hike-bets-126081300063_1.html" },
-    { title: "Asian stocks rise on soft US CPI, AI earnings rally", source: "FXStreet", date: "2026-08-13", time: "03:51", url: "https://www.fxstreet.com/news/asian-stocks-rise-on-soft-us-cpi-ai-earnings-rally-202608130351" },
-    { title: "Live updates: Strait of Hormuz traffic remains low as world rapidly burns through oil stockpiles", source: "CNN", date: "2026-08-13", time: "09:20", url: "https://www.cnn.com/2026/08/13/world/live-news/iran-war-trump" },
-    { title: "Trump Asserts US Control Over Hormuz as Tensions With Iran Intensify", source: "Bloomberg", date: "2026-08-12", time: "14:00", url: "https://www.bloomberg.com/news/articles/2026-08-12/trump-claims-hormuz-control-as-us-iran-harden-their-positions" },
-    { title: "Week Ahead, 10–14 August 2026: July CPI Wednesday, PPI Thursday, And Retail Sales Friday Headline An Inflation-Heavy US Data Week After A Shock Jobs Contraction Flips The Fed Narrative", source: "Capital Street FX", date: "2026-08-10", time: "09:20", url: "https://capitalstreetfx.com/market-analysis/week-ahead-1014-august-2026-july/" },
   ],
   uk: [
     { title: "UK Economy Grows 0.4% in Second Quarter Despite Iran War Disruptions", source: "Bloomberg", date: "2026-08-13", time: "07:15", url: "https://www.bloomberg.com/news/articles/2026-08-13/uk-economy-weathers-early-months-of-iran-war-with-0-4-growth" },
-    { title: "UK economy set for another quarter of growth as 'big picture' shows resilience", source: "PA Media (via Yahoo Finance UK)", date: "2026-08-13", time: "08:00", url: "https://uk.finance.yahoo.com/news/uk-economy-set-another-quarter-080033072.html" },
+    { title: "FTSE 100 Live: UK Stocks Set to Join in Global Rally, Pound Steadies", source: "Bloomberg", date: "2026-08-13", time: "12:31", url: "https://www.bloomberg.com/news/live-blog/2026-08-13/ftse-100-live-uk-gdp-pound-gilts-trump-iran-oil-prices-hormuz-jlr-ai-stocks-what-s-moving-uk-markets-right-now-markets-today-msr3mc9u" },
+    { title: "UK economy grew by 0.4% between April and June, figures show", source: "PA Media (via Yahoo Finance)", date: "2026-08-13", time: "12:31", url: "https://finance.yahoo.com/economy/articles/latest-uk-economic-growth-figures-054146255.html" },
+    { title: "GDP monthly estimate, UK: June 2026", source: "Office for National Statistics", date: "2026-08-13", time: "07:00", url: "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/june2026" },
     { title: "UK Preliminary GDP grows by 0.4% QoQ in Q2, as expected", source: "FXStreet", date: "2026-08-13", time: "07:05", url: "https://www.fxstreet.com/news/uk-gdp-expected-to-show-moderate-q2-growth-202608130200" },
-    { title: "UK GDP growth slows in Q2, but June rebound offers brighter signal", source: "Investing.com", date: "2026-08-13", time: "07:45", url: "https://ca.investing.com/news/economy-news/uk-gdp-growth-slows-in-q2-but-june-rebound-offers-brighter-signal-4797220" },
-    { title: "FTSE 100 Set to Rebound as Investors Await UK GDP Data", source: "Share Talk", date: "2026-08-13", time: "06:30", url: "https://www.share-talk.com/ftse-100-set-to-rebound-as-investors-await-uk-gdp-data/" },
   ],
 };
 
@@ -799,6 +799,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-13",
   items: [
+    {"title":"FTSE 100 Live: UK Stocks Set to Join in Global Rally, Pound Steadies","source":"Bloomberg","date":"2026-08-13","time":"12:31","url":"https://www.bloomberg.com/news/live-blog/2026-08-13/ftse-100-live-uk-gdp-pound-gilts-trump-iran-oil-prices-hormuz-jlr-ai-stocks-what-s-moving-uk-markets-right-now-markets-today-msr3mc9u","blurb":"The FTSE 100 tracked a global rally and the pound steadied after the in-line Q2 GDP print, with traders also weighing gilts, the Hormuz standoff and Jaguar Land Rover headlines."},
+    {"title":"Preview: Due August 13 - U.S. July PPI - Prices seen subdued when data was surveyed","source":"Continuum Economics","date":"2026-08-13","time":"12:31","url":"https://continuumeconomics.com/a/b6e8faf2/preview-due-august-13-us-july-ppi-prices-seen-subdued-when-data-was-surveyed","blurb":"Economists expect a subdued July PPI print later Thursday, the last inflation data point before the Fed's 16 September decision, following Wednesday's in-line CPI."},
     {"title":"UK Economy Grows 0.4% in Second Quarter Despite Iran War Disruptions","source":"Bloomberg","date":"2026-08-13","time":"07:15","url":"https://www.bloomberg.com/news/articles/2026-08-13/uk-economy-weathers-early-months-of-iran-war-with-0-4-growth","blurb":"ONS preliminary figures showed UK GDP up 0.4% q/q in Q2 (1.2% y/y), a slowdown from Q1's 0.6% but a sign the economy has largely weathered the Iran-war energy shock and political transition to PM Burnham."},
     {"title":"UK economy set for another quarter of growth as 'big picture' shows resilience","source":"PA Media (via Yahoo Finance UK)","date":"2026-08-13","time":"08:00","url":"https://uk.finance.yahoo.com/news/uk-economy-set-another-quarter-080033072.html","blurb":"Pantheon Macroeconomics' Rob Wood said the data show 'the big picture is that the economy has remained resilient to the hit from the war in Iran', even as higher National Insurance costs, the minimum-wage rise and tariff-hit exports dented the pace of growth within the quarter."},
     {"title":"UK Preliminary GDP grows by 0.4% QoQ in Q2, as expected","source":"FXStreet","date":"2026-08-13","time":"07:05","url":"https://www.fxstreet.com/news/uk-gdp-expected-to-show-moderate-q2-growth-202608130200","blurb":"The in-line print left sterling little changed near $1.3495 as traders weighed the GDP data against Thursday's US PPI release and the still-unresolved Strait of Hormuz standoff."},
@@ -838,8 +840,6 @@ export const ARTICLES = {
     {"title":"July inflation report to provide crucial signs of where prices are headed","source":"The Washington Post","date":"2026-08-12","time":"06:00","url":"https://www.washingtonpost.com/politics/2026/08/12/consumer-prices-inflation-fed-interest-rates/99d3ce06-9602-11f1-9ef9-1be722184483_story.html","blurb":"Economists expect July headline CPI at 3.4% y/y and core at 2.5% y/y, both a tenth lower than June, in a report that could shape whether Chair Warsh's Fed leans toward a September hike."},
     {"title":"Oil Holds Gain as Pakistan Says US and Iran Close to Hormuz Deal","source":"Bloomberg","date":"2026-08-12","time":"05:30","url":"https://www.bloomberg.com/news/articles/2026-08-11/latest-oil-market-news-and-analysis-for-aug-12","blurb":"Brent held above $89/bbl after a sixth straight session of gains, with futures swinging on conflicting Hormuz-deal headlines even as Pakistan's defence minister struck an optimistic tone."},
     {"title":"Asia stocks edge higher, oil up amid Gulf confusion","source":"Reuters","date":"2026-08-12","time":"05:00","url":"https://finance.yahoo.com/news/asia-stocks-edge-higher-oil-002532883.html","blurb":"MSCI's Asia-Pacific ex-Japan gauge rose 0.5% and Brent gained 0.3% to $89.10/bbl for a sixth straight day of gains as investors awaited the July CPI print, with fresh Houthi shipping attacks and a North Korean missile launch adding to the risk backdrop."},
-    {"title":"Markets are still trying to figure out the Fed's next move","source":"CNN Business","date":"2026-08-11","time":"12:33","url":"https://us.cnn.com/2026/08/11/business/fed-markets-kevin-warsh","blurb":"CME-implied odds of a September hike have swung toward roughly even with a hold as traders await Wednesday's CPI, with Wall Street economists split — BofA and PGIM expect hikes at each remaining 2026 meeting, while Barclays, Jefferies, Morgan Stanley, Truist and UBS see the Fed on hold."},
-    {"title":"An inflation report Wednesday should be a big deal for the Fed. Here's what to expect","source":"CNBC","date":"2026-08-11","time":"21:15","url":"https://www.cnbc.com/2026/08/11/an-inflation-report-wednesday-should-be-a-big-deal-for-the-fed-heres-what-to-expect.html","blurb":"Wednesday's July CPI print is the week's decisive catalyst for Fed rate-path bets, with economists watching for tariff pass-through into core goods prices."},
   ],
 };
 

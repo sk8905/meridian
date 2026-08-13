@@ -60,4 +60,6 @@ export const FT_ITEMS = [
   { id: "c24d71f7-d270-486a-be6f-55b0a97f6850", title: "China is winning the race for the Ice Silk Road", date: "2026-08-12", time: "17:40", url: "https://www.ft.com/content/c24d71f7-d270-486a-be6f-55b0a97f6850" },
   { id: "3309f3ea-c633-4727-887b-540a929d63e7", title: "US press groups sue Donald Trump over fast access to Truth Social posts", date: "2026-08-12", time: "17:35", url: "https://www.ft.com/content/3309f3ea-c633-4727-887b-540a929d63e7" },
   { id: "c25a1ce8-7fed-48ce-8dc5-9853d33d0f87", title: "‘Glorious 12th’ kicks off shooting season as debate rages about its future", date: "2026-08-12", time: "17:26", url: "https://www.ft.com/content/c25a1ce8-7fed-48ce-8dc5-9853d33d0f87" },
+  { id: "7129f44d-460a-49f6-acc7-293d512ad74e", title: "Is university still worth it?", date: "2026-08-12", time: "17:15", url: "https://www.ft.com/content/7129f44d-460a-49f6-acc7-293d512ad74e" },
+  { id: "22534413-a23e-4ecb-b68f-c9f1105c8953", title: "Bob Iger and Josh Kushner in $12bn deal for Lakers basketball franchise", date: "2026-08-12", time: "15:59", url: "https://www.ft.com/content/22534413-a23e-4ecb-b68f-c9f1105c8953" },
 ];
