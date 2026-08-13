@@ -33,6 +33,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-marketsdaily-koreabullsback-20260813",
+    publication: "Bloomberg",
+    series: "Markets Daily",
+    title: "Markets Daily: Korea's bulls are back",
+    date: "2026-08-13",
+    time: "10:57",
+    summary: "South Korea's Kospi has soared 22% in ten sessions back into a bull market on AI-chip optimism, and strong US earnings growth makes the case for a further stocks rally.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-13/korean-stocks-are-on-fire-again-with-a-bit-less-excess-this-time",
+  },
+  {
     id: "nl-lb-simmonsschulte-20260813",
     publication: "Legal Business",
     title: "Simmons hires former Schulte funds partner in post-merger exit from McDermott",
@@ -72,6 +82,17 @@ export const NEWSLETTERS = [
     time: "05:01",
     summary: "US inflation was no higher or lower than expected in July.",
     url: "https://bloom.bg/3TT6uWg",
+  },
+  {
+    id: "nl-reuters-tradingday-aicheer-20260812",
+    publication: "Thomson Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "AI cheer, new highs near",
+    date: "2026-08-12",
+    time: "22:02",
+    summary: "Upbeat tech earnings and in-line US inflation push the Nasdaq and S&P 500 close to record highs, while soaring AI hyperscaler default hedges overstate the real credit risk.",
+    url: "https://www.reuters.com/newsletters/trading-day",
   },
   {
     id: "nl-bbg-moneystuff-aibackedsecurities-20260812",
@@ -423,25 +444,5 @@ export const NEWSLETTERS = [
     time: "13:58",
     summary: "Weekly links digest: AI adoption in CRE, private credit's boogeyman era, Burry's latest trades, and El-Erian's global economy outlook.",
     url: "https://app.mailbrew.com/stevedkennedy/friday-brew-03bEHcNb3hHB/7",
-  },
-  {
-    id: "nl-gs-briefings-geopoliticsgdp-20260807",
-    publication: "Goldman Sachs",
-    series: "Briefings",
-    title: "How Geopolitics Affect Global GDP",
-    date: "2026-08-07",
-    time: "13:55",
-    summary: "Geopolitical fragmentation has a lasting, substantial impact on economic growth, plus the yen intervention's effect on Japanese stocks and the $500bn AI-debt number.",
-    url: "https://www.goldmansachs.com/briefings",
-  },
-  {
-    id: "nl-jpm-topmarkettakeaways-aitrade-20260807",
-    publication: "JP Morgan Private Bank",
-    series: "Top Market Takeaways",
-    title: "AI’s next act doesn’t choose",
-    date: "2026-08-07",
-    time: "13:03",
-    summary: "A rare shift is underway as semiconductor and hyperscaler stocks rally together, reflecting a broadening belief in AI's commercial viability and multi-year growth prospects.",
-    url: "https://go-pb.jpmorgan.com/v/MzkyLUhLQy04NzYAAAGjexRZinHEa8xqGbYCg_FPd6cJkoVREwZioDNqgMM476ymYyqYrSw8n2dWOqvD_rON9JsdVhE=",
   },
 ];

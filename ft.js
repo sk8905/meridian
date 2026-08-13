@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d0464e03-c3fd-4e8b-9ffa-573762e97e16", title: "Sun, sea and bombs in Odesa", date: "2026-08-13", time: "11:00", url: "https://www.ft.com/content/d0464e03-c3fd-4e8b-9ffa-573762e97e16" },
+  { id: "538b3457-4bef-4012-89b9-3c068b900e6e", title: "Submit your questions: Wildfires, droughts and heat — is this summer our new normal?", date: "2026-08-13", time: "10:16", url: "https://www.ft.com/content/538b3457-4bef-4012-89b9-3c068b900e6e" },
   { id: "e90128dc-9a22-4fd1-933c-e344f38255a8", title: "UK growth resilient in second quarter", date: "2026-08-13", time: "09:01", url: "https://www.ft.com/content/e90128dc-9a22-4fd1-933c-e344f38255a8" },
   { id: "05e95d34-dcc3-437d-85cc-cc1c12fdaa23", title: "Maersk lifts full-year profit guidance after smashing estimates", date: "2026-08-13", time: "08:59", url: "https://www.ft.com/content/05e95d34-dcc3-437d-85cc-cc1c12fdaa23" },
   { id: "db647513-af64-417c-8c2d-8af957f16a6c", title: "Record number of UK students opt for degrees in engineering and tech", date: "2026-08-13", time: "08:53", url: "https://www.ft.com/content/db647513-af64-417c-8c2d-8af957f16a6c" },
@@ -59,6 +61,4 @@ export const FT_ITEMS = [
   { id: "813b7646-3d3d-4f38-9b02-3c1fc564dc30", title: "Poor numeracy is a blind spot in the age of AI", date: "2026-08-12", time: "15:58", url: "https://www.ft.com/content/813b7646-3d3d-4f38-9b02-3c1fc564dc30" },
   { id: "422010c3-ac6e-427f-88cf-e6c878b96637", title: "Investor Nelson Peltz prepares bid for US burger chain Wendy’s", date: "2026-08-12", time: "15:49", url: "https://www.ft.com/content/422010c3-ac6e-427f-88cf-e6c878b96637" },
   { id: "c14d737a-a148-49da-8cb5-ba223c8a9fc5", title: "Greenland oil wildcatters delay controversial drilling plan", date: "2026-08-12", time: "15:33", url: "https://www.ft.com/content/c14d737a-a148-49da-8cb5-ba223c8a9fc5" },
-  { id: "a44e8854-3f42-46bb-81e3-613dea89b802", title: "Smile, you're on camera: when the boss wants to read your mood", date: "2026-08-12", time: "15:07", url: "https://www.ft.com/content/a44e8854-3f42-46bb-81e3-613dea89b802" },
-  { id: "d76aabd7-55a1-43d8-b87a-0f812815a28a", title: "July inflation decline does not mean Fed's September rise is off the table", date: "2026-08-12", time: "15:02", url: "https://www.ft.com/content/d76aabd7-55a1-43d8-b87a-0f812815a28a" },
 ];
