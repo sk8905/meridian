@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "3b67ce5d-3f1a-41a8-8d87-7356876ede14", title: "Passenger train derails near Lewes in East Sussex", date: "2026-08-13", time: "17:34", url: "https://www.ft.com/content/3b67ce5d-3f1a-41a8-8d87-7356876ede14" },
+  { id: "a468c20b-cf1d-4a36-87b8-4eb15666e6c4", title: "Donald Trump enlists corporate America in fight against cyber crime", date: "2026-08-13", time: "17:28", url: "https://www.ft.com/content/a468c20b-cf1d-4a36-87b8-4eb15666e6c4" },
+  { id: "5d5ed2dd-8326-4cad-aac3-5816448ceccf", title: "US accuses more than 40 countries of helping China avoid Trump’s tariffs", date: "2026-08-13", time: "16:55", url: "https://www.ft.com/content/5d5ed2dd-8326-4cad-aac3-5816448ceccf" },
+  { id: "09c1ed51-8e69-4e39-bab3-392e1e9f9f6b", title: "UK government considers aid for drought-hit farmers", date: "2026-08-13", time: "16:54", url: "https://www.ft.com/content/09c1ed51-8e69-4e39-bab3-392e1e9f9f6b" },
   { id: "36ec3c60-43b4-4c94-9a7b-8b5dba798ee8", title: "Retail parks are the real threat to the British high street", date: "2026-08-13", time: "16:37", url: "https://www.ft.com/content/36ec3c60-43b4-4c94-9a7b-8b5dba798ee8" },
   { id: "e7aee58f-a068-468d-b584-49807b413016", title: "Israeli settlers besiege Palestinian homes", date: "2026-08-13", time: "16:28", url: "https://www.ft.com/content/e7aee58f-a068-468d-b584-49807b413016" },
   { id: "a547d965-eb3b-412a-9896-7d5cc37eb054", title: "Axes of Evil: office space edition", date: "2026-08-13", time: "16:17", url: "https://www.ft.com/content/a547d965-eb3b-412a-9896-7d5cc37eb054" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "840ac156-af1c-4a82-b260-ae791072fcfa", title: "Anthropic investors bet on $2tn valuation in record IPO", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/840ac156-af1c-4a82-b260-ae791072fcfa" },
   { id: "df4fc235-f6a0-4297-9625-ac60ac225589", title: "Rhine drought exposes 34-year delay in tackling major German bottleneck", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/df4fc235-f6a0-4297-9625-ac60ac225589" },
   { id: "fcfacc72-8ed8-4bb4-ab23-16986abf0f5a", title: "Shock Wisconsin vote triggers doubt over US election polling", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/fcfacc72-8ed8-4bb4-ab23-16986abf0f5a" },
-  { id: "f2f6766a-c249-4557-866e-d9bb23429047", title: "Iranians opt to ‘buy now, pay later’ as cost of living spirals", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/f2f6766a-c249-4557-866e-d9bb23429047" },
-  { id: "71907c96-b99b-4d74-8065-3b48a3752183", title: "Alarm bells are ringing for investors on climate", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/71907c96-b99b-4d74-8065-3b48a3752183" },
-  { id: "7ff4321e-3f96-4f7b-8f2d-4fefa4773a5d", title: "Trump is taxing the dark matter that pays America’s way", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/7ff4321e-3f96-4f7b-8f2d-4fefa4773a5d" },
-  { id: "e07b9e5e-2970-438b-8997-986f00346f45", title: "How Aston Martin showed bondholders the hard shoulder", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/e07b9e5e-2970-438b-8997-986f00346f45" },
 ];
