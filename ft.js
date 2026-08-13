@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c92400d8-15d8-44fb-a069-37c29141c5ae", title: "FBI seized phone of Guggenheim executive in probe of Mark Walter’s business empire", date: "2026-08-13", time: "21:04", url: "https://www.ft.com/content/c92400d8-15d8-44fb-a069-37c29141c5ae" },
+  { id: "b293b66c-8719-4956-9e76-9468dfeaa890", title: "UK houses caught up in wildfires during hottest day of the year", date: "2026-08-13", time: "20:54", url: "https://www.ft.com/content/b293b66c-8719-4956-9e76-9468dfeaa890" },
+  { id: "9c9c948f-dc8b-4385-a9b9-4b98dc1eadd9", title: "US sells 30-year bonds at highest borrowing costs since 2001", date: "2026-08-13", time: "20:51", url: "https://www.ft.com/content/9c9c948f-dc8b-4385-a9b9-4b98dc1eadd9" },
+  { id: "2f713878-37c6-4224-9b60-0082bb79290f", title: "EY vaults from bottom to top of Big Four US audit quality league table", date: "2026-08-13", time: "20:26", url: "https://www.ft.com/content/2f713878-37c6-4224-9b60-0082bb79290f" },
   { id: "9eca25f2-85ca-4654-a02e-ccbc638ff9eb", title: "Billionaires are taking over sports teams — and that’s a risk for fans", date: "2026-08-13", time: "19:18", url: "https://www.ft.com/content/9eca25f2-85ca-4654-a02e-ccbc638ff9eb" },
   { id: "9f299fc0-b3ed-4a60-b228-9b2cc097f222", title: "Buyers should beware the dangers of new ETFs", date: "2026-08-13", time: "18:29", url: "https://www.ft.com/content/9f299fc0-b3ed-4a60-b228-9b2cc097f222" },
   { id: "a91356ef-67bd-4bd9-947b-b272423f1318", title: "Nearly 14,000 crypto holders face security risk after data breach", date: "2026-08-13", time: "18:11", url: "https://www.ft.com/content/a91356ef-67bd-4bd9-947b-b272423f1318" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "ec651ee9-0f3c-411a-9cde-d326acf89cee", title: "FirstFT: Anthropic investors bet on $2tn valuation", date: "2026-08-13", time: "05:31", url: "https://www.ft.com/content/ec651ee9-0f3c-411a-9cde-d326acf89cee" },
   { id: "c0805c3c-0c3b-4a72-8fd7-999a3c0a992e", title: "Wall Street’s basketball billionaire mess", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/c0805c3c-0c3b-4a72-8fd7-999a3c0a992e" },
   { id: "f2f2a881-1d4d-47db-a7d9-c6c50ee29a6a", title: "Russian ghost fleet tankers use ‘Mad Max’ nets to fend off Ukraine’s drones", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/f2f2a881-1d4d-47db-a7d9-c6c50ee29a6a" },
-  { id: "8202960d-ec90-4709-96e0-ab9cbddb5258", title: "Legal AI start-up Legora seeks funds at more than $10bn valuation", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/8202960d-ec90-4709-96e0-ab9cbddb5258" },
-  { id: "091b214d-231b-414a-8f3e-9ef9fc021926", title: "Total cost of privately educating a child in the UK rises to £216,000", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/091b214d-231b-414a-8f3e-9ef9fc021926" },
-  { id: "145f1b61-0a68-45b4-afb8-62fc74381ce4", title: "US justice department shifts focus to government programme fraud", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/145f1b61-0a68-45b4-afb8-62fc74381ce4" },
-  { id: "8cd394ef-c829-4905-bced-33250966c70b", title: "Everybody loves Nvidia — but then, they can’t afford not to", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/8cd394ef-c829-4905-bced-33250966c70b" },
 ];
