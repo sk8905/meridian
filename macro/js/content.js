@@ -13,7 +13,7 @@ export const UPDATED = "12 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-13",
-  lastCheckedTime: "05:24 BST",
+  lastCheckedTime: "09:27 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1003,7 +1003,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "Oil eased in Thursday's Asia-Pacific session on reports of a UAE–Iran asset transfer, while gold clung to its 100-day moving average with upside risks intact as the dollar consolidated ahead of the US PPI print and UK Q2 GDP release.", src: "https://investinglive.com/news/investinglive-asia-pacific-market-news-oil-eases-as-uae-iran-asset-transfer-reported/", srcName: "investingLive", date: "2026-08-13" };
+export const FX_KEYMOMENT = { text: "Sterling held steady as the ONS confirmed UK Q2 GDP grew 0.4% q/q despite Iran-war disruption, while the dollar stayed on the back foot as soft US CPI data and an AI-earnings rally lifted Asian stocks ahead of today's US PPI print.", src: "https://www.bloomberg.com/news/articles/2026-08-13/uk-economy-weathers-early-months-of-iran-war-with-0-4-growth", srcName: "Bloomberg", date: "2026-08-13" };
 
 export const EARNINGS = {
   weeks: [
