@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f35f8c3d-3c9f-4209-b8a7-e4038dfc528f", title: "UK economy grew 0.4% in second quarter", date: "2026-08-13", time: "07:02", url: "https://www.ft.com/content/f35f8c3d-3c9f-4209-b8a7-e4038dfc528f" },
+  { id: "d8b52073-c847-48c9-b432-50e989c4b8f0", title: "‘The most difficult dilemma’", date: "2026-08-13", time: "06:30", url: "https://www.ft.com/content/d8b52073-c847-48c9-b432-50e989c4b8f0" },
+  { id: "3fc16b44-8463-4235-87e8-057a350397a8", title: "FTAV’s further reading", date: "2026-08-13", time: "06:30", url: "https://www.ft.com/content/3fc16b44-8463-4235-87e8-057a350397a8" },
   { id: "1fbe47a6-bbf1-4de1-973b-8ce5baea591d", title: "The hyperscalers’ exploding purchase commitments", date: "2026-08-13", time: "06:00", url: "https://www.ft.com/content/1fbe47a6-bbf1-4de1-973b-8ce5baea591d" },
   { id: "ec651ee9-0f3c-411a-9cde-d326acf89cee", title: "FirstFT: Anthropic investors bet on $2tn valuation", date: "2026-08-13", time: "05:31", url: "https://www.ft.com/content/ec651ee9-0f3c-411a-9cde-d326acf89cee" },
   { id: "c0805c3c-0c3b-4a72-8fd7-999a3c0a992e", title: "Wall Street’s basketball billionaire mess", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/c0805c3c-0c3b-4a72-8fd7-999a3c0a992e" },
@@ -58,6 +61,4 @@ export const FT_ITEMS = [
   { id: "0a4794fa-7112-436f-a311-9077fcba14b8", title: "America's largest home lender falls out of the hamster wheel", date: "2026-08-12", time: "14:44", url: "https://www.ft.com/content/0a4794fa-7112-436f-a311-9077fcba14b8" },
   { id: "5924d083-b5a4-4f95-8c2d-400f2b914159", title: "The west has given China the keys to the medicine cabinet", date: "2026-08-12", time: "14:00", url: "https://www.ft.com/content/5924d083-b5a4-4f95-8c2d-400f2b914159" },
   { id: "ca40af31-2446-45e7-8e6a-7554d759a6ca", title: "Goldman Sachs to acquire ETF provider Neos for up to $2.3bn", date: "2026-08-12", time: "13:34", url: "https://www.ft.com/content/ca40af31-2446-45e7-8e6a-7554d759a6ca" },
-  { id: "52727749-4360-4463-8822-dc3bfd8ef279", title: "US inflation falls to 3.4% in July", date: "2026-08-12", time: "13:33", url: "https://www.ft.com/content/52727749-4360-4463-8822-dc3bfd8ef279" },
-  { id: "dc0d5a3f-8bcc-483e-8787-18fd27ddab3f", title: "Scottish North Sea tax revenues drop, fuelling debate on oil and gas industry’s future", date: "2026-08-12", time: "13:11", url: "https://www.ft.com/content/dc0d5a3f-8bcc-483e-8787-18fd27ddab3f" },
 ];

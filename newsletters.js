@@ -33,6 +33,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-econ-worldinbrief-20260813",
+    publication: "The Economist",
+    series: "The World in Brief",
+    title: "The World in Brief: Trump claims \"total control\" of Hormuz",
+    date: "2026-08-13",
+    time: "07:06",
+    summary: "Trump says America has \"total control\" of the Strait of Hormuz as Iran vows to keep it shut, South Korea's KOSPI enters a bull market, and US inflation eases to 3.4%.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-pointsofreturn-warshbreathingroom-20260813",
     publication: "Bloomberg",
     author: "John Authers",
@@ -432,25 +442,5 @@ export const NEWSLETTERS = [
     time: "12:14",
     summary: "Pep up a long-haul trip or August commute with reads that will leave their mark long beyond summer.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-07/the-books-with-returns-no-market-can-price",
-  },
-  {
-    id: "nl-bbg-economicsdaily-bessent-20260807",
-    publication: "Bloomberg",
-    series: "Economics Daily",
-    title: "Economics Daily: 'Buy-side' Bessent",
-    date: "2026-08-07",
-    time: "12:00",
-    summary: "Treasury Secretary Bessent has demonstrated a willingness to adopt unorthodox methods.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-07/how-bessent-brings-a-buy-side-mindset-to-economic-statecraft",
-  },
-  {
-    id: "nl-reuters-morningbidweekend-dealjavu-20260807",
-    publication: "Thomson Reuters",
-    series: "Morning Bid Weekend",
-    title: "Dealjà vu",
-    date: "2026-08-07",
-    time: "11:32",
-    summary: "Tech earnings hogged the spotlight this week, as SpaceX and AMD both failed to impress investors despite revenue beats, with concerns remaining about the durability of the AI spending spree.",
-    url: "https://www.reuters.com/business/media-telecom/spacex-slides-ai-spending-worries-overshadow-early-returns-2026-08-05/",
   },
 ];
