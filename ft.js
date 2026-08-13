@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8e6cecd4-f0ce-4463-a238-37ecd73cbc81", title: "Frasers buys Harvey Nichols as Mike Ashley pushes into upmarket retail", date: "2026-08-13", time: "13:27", url: "https://www.ft.com/content/8e6cecd4-f0ce-4463-a238-37ecd73cbc81" },
+  { id: "3f3abc19-1a0a-439a-90ee-971861cc144e", title: "Shein loses UK copyright lawsuit against Temu", date: "2026-08-13", time: "13:02", url: "https://www.ft.com/content/3f3abc19-1a0a-439a-90ee-971861cc144e" },
   { id: "382b1d01-8bfe-4933-a460-819bbc32eb59", title: "Canary Wharf Group sells SocGen office in £625mn deal", date: "2026-08-13", time: "12:10", url: "https://www.ft.com/content/382b1d01-8bfe-4933-a460-819bbc32eb59" },
   { id: "fdf1b9fc-3179-409e-9f07-949a78392f4b", title: "The right must fight its own woke wing", date: "2026-08-13", time: "12:02", url: "https://www.ft.com/content/fdf1b9fc-3179-409e-9f07-949a78392f4b" },
   { id: "395650e6-7963-428b-9d86-b39c36453f5d", title: "Price of niche rare earth jumps on fears of renewed Chinese export controls", date: "2026-08-13", time: "12:00", url: "https://www.ft.com/content/395650e6-7963-428b-9d86-b39c36453f5d" },
@@ -58,8 +60,4 @@ export const FT_ITEMS = [
   { id: "699929b6-ce31-4d0b-9828-c0fe96e59d9d", title: "Crackdown on zero-hours contracts could cost UK firms up to £3bn per year", date: "2026-08-12", time: "18:42", url: "https://www.ft.com/content/699929b6-ce31-4d0b-9828-c0fe96e59d9d" },
   { id: "21c7d2e9-29ff-47f7-ae06-173a1f1d3684", title: "The Amazon of used cars gets a balance sheet tune-up", date: "2026-08-12", time: "18:07", url: "https://www.ft.com/content/21c7d2e9-29ff-47f7-ae06-173a1f1d3684" },
   { id: "c24d71f7-d270-486a-be6f-55b0a97f6850", title: "China is winning the race for the Ice Silk Road", date: "2026-08-12", time: "17:40", url: "https://www.ft.com/content/c24d71f7-d270-486a-be6f-55b0a97f6850" },
-  { id: "3309f3ea-c633-4727-887b-540a929d63e7", title: "US press groups sue Donald Trump over fast access to Truth Social posts", date: "2026-08-12", time: "17:35", url: "https://www.ft.com/content/3309f3ea-c633-4727-887b-540a929d63e7" },
-  { id: "c25a1ce8-7fed-48ce-8dc5-9853d33d0f87", title: "‘Glorious 12th’ kicks off shooting season as debate rages about its future", date: "2026-08-12", time: "17:26", url: "https://www.ft.com/content/c25a1ce8-7fed-48ce-8dc5-9853d33d0f87" },
-  { id: "7129f44d-460a-49f6-acc7-293d512ad74e", title: "Is university still worth it?", date: "2026-08-12", time: "17:15", url: "https://www.ft.com/content/7129f44d-460a-49f6-acc7-293d512ad74e" },
-  { id: "22534413-a23e-4ecb-b68f-c9f1105c8953", title: "Bob Iger and Josh Kushner in $12bn deal for Lakers basketball franchise", date: "2026-08-12", time: "15:59", url: "https://www.ft.com/content/22534413-a23e-4ecb-b68f-c9f1105c8953" },
 ];
