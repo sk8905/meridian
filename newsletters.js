@@ -33,6 +33,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-20260813",
+    publication: "Bloomberg",
+    author: "Jill Disis",
+    series: "Morning Briefing Europe",
+    title: "Europe's Latest Heat Wave Set to Peak as Extreme Weather Strains",
+    date: "2026-08-13",
+    time: "07:33",
+    summary: "Europe's latest heat wave is set to peak, the Trump administration leans on economic pressure against Iran, and Nigel Farage faces a trash-can rival in the Clacton by-election.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-13/europe-s-latest-heat-wave-set-to-peak-as-extreme-weather-strains",
+  },
+  {
     id: "nl-econ-worldinbrief-20260813",
     publication: "The Economist",
     series: "The World in Brief",
