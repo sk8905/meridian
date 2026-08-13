@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "9eca25f2-85ca-4654-a02e-ccbc638ff9eb", title: "Billionaires are taking over sports teams — and that’s a risk for fans", date: "2026-08-13", time: "19:18", url: "https://www.ft.com/content/9eca25f2-85ca-4654-a02e-ccbc638ff9eb" },
+  { id: "9f299fc0-b3ed-4a60-b228-9b2cc097f222", title: "Buyers should beware the dangers of new ETFs", date: "2026-08-13", time: "18:29", url: "https://www.ft.com/content/9f299fc0-b3ed-4a60-b228-9b2cc097f222" },
   { id: "a91356ef-67bd-4bd9-947b-b272423f1318", title: "Nearly 14,000 crypto holders face security risk after data breach", date: "2026-08-13", time: "18:11", url: "https://www.ft.com/content/a91356ef-67bd-4bd9-947b-b272423f1318" },
   { id: "f3f3c945-6a75-4663-b8ec-d5251438c1c5", title: "Seoul soars past Dubai as world’s busiest international airport", date: "2026-08-13", time: "17:46", url: "https://www.ft.com/content/f3f3c945-6a75-4663-b8ec-d5251438c1c5" },
   { id: "3b67ce5d-3f1a-41a8-8d87-7356876ede14", title: "Passenger train derails near Lewes in East Sussex", date: "2026-08-13", time: "17:34", url: "https://www.ft.com/content/3b67ce5d-3f1a-41a8-8d87-7356876ede14" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "091b214d-231b-414a-8f3e-9ef9fc021926", title: "Total cost of privately educating a child in the UK rises to £216,000", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/091b214d-231b-414a-8f3e-9ef9fc021926" },
   { id: "145f1b61-0a68-45b4-afb8-62fc74381ce4", title: "US justice department shifts focus to government programme fraud", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/145f1b61-0a68-45b4-afb8-62fc74381ce4" },
   { id: "8cd394ef-c829-4905-bced-33250966c70b", title: "Everybody loves Nvidia — but then, they can’t afford not to", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/8cd394ef-c829-4905-bced-33250966c70b" },
-  { id: "531b41af-3913-4ad4-baa2-7f0f55188bf8", title: "A reality check is needed on Arctic shipping", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/531b41af-3913-4ad4-baa2-7f0f55188bf8" },
-  { id: "840ac156-af1c-4a82-b260-ae791072fcfa", title: "Anthropic investors bet on $2tn valuation in record IPO", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/840ac156-af1c-4a82-b260-ae791072fcfa" },
 ];

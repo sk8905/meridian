@@ -33,6 +33,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-guggenheim-nonagencyrmbs-20260813",
+    publication: "Guggenheim Investments",
+    series: "Structured Credit Outlook",
+    title: "Non-Agency RMBS: Income, Convexity, and a Rebuilt Market",
+    date: "2026-08-13",
+    time: "19:11",
+    summary: "Guggenheim's new quarterly Structured Credit Outlook flags non-Agency RMBS as a highest-conviction allocation, citing strong borrower fundamentals and tightening spreads despite rate and Iran-conflict volatility.",
+    url: "https://go.pardot.com/webmail/104832/1426111885/287c4ed51fc2b2589758ecb9046100386634ee931bab5194da4486b8b5f3f006",
+  },
+  {
     id: "nl-reuters-econworld-joblessyouth-20260813",
     publication: "Thomson Reuters",
     author: "Mark John",
