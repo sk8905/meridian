@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "1f609a52-8b6e-4bc9-a851-c05c099c7029", title: "Starmer allies warn John Healey against blowing ‘strong’ economic inheritance", date: "2026-08-13", time: "14:23", url: "https://www.ft.com/content/1f609a52-8b6e-4bc9-a851-c05c099c7029" },
+  { id: "b1ae24bd-af8b-4d98-985a-85213213b5f0", title: "How Jason Arday’s appointment became a reckoning for Cambridge", date: "2026-08-13", time: "14:03", url: "https://www.ft.com/content/b1ae24bd-af8b-4d98-985a-85213213b5f0" },
+  { id: "fc7afa9c-6a99-4cb2-8982-da230d2845dd", title: "Fierce Trump ally Leavitt shocks Washington and leaves White House", date: "2026-08-13", time: "14:00", url: "https://www.ft.com/content/fc7afa9c-6a99-4cb2-8982-da230d2845dd" },
+  { id: "6bc10fb1-7b09-4580-82b4-5a723768e4d7", title: "Japan needs deterrence and renewal — not managed decline", date: "2026-08-13", time: "13:42", url: "https://www.ft.com/content/6bc10fb1-7b09-4580-82b4-5a723768e4d7" },
   { id: "8e6cecd4-f0ce-4463-a238-37ecd73cbc81", title: "Frasers buys Harvey Nichols as Mike Ashley pushes into upmarket retail", date: "2026-08-13", time: "13:27", url: "https://www.ft.com/content/8e6cecd4-f0ce-4463-a238-37ecd73cbc81" },
   { id: "3f3abc19-1a0a-439a-90ee-971861cc144e", title: "Shein loses UK copyright lawsuit against Temu", date: "2026-08-13", time: "13:02", url: "https://www.ft.com/content/3f3abc19-1a0a-439a-90ee-971861cc144e" },
   { id: "382b1d01-8bfe-4933-a460-819bbc32eb59", title: "Canary Wharf Group sells SocGen office in £625mn deal", date: "2026-08-13", time: "12:10", url: "https://www.ft.com/content/382b1d01-8bfe-4933-a460-819bbc32eb59" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "7fa9d282-6049-40f3-b3a2-226b9ec33ed5", title: "The Spectre of Pep — has football reached peak Guardiolismo?", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/7fa9d282-6049-40f3-b3a2-226b9ec33ed5" },
   { id: "aa0ca006-5af4-4f94-9789-3e56f9f53e1d", title: "Wealth managers cut fees to win AI’s paper millionaires", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/aa0ca006-5af4-4f94-9789-3e56f9f53e1d" },
   { id: "3da49f90-75a1-4a01-bc6e-0716d57c1ddc", title: "Karoline Leavitt to step down as White House press secretary", date: "2026-08-12", time: "20:42", url: "https://www.ft.com/content/3da49f90-75a1-4a01-bc6e-0716d57c1ddc" },
-  { id: "ab5f7160-68f5-4396-a5a2-f97f770e8634", title: "Mark Walter’s insurers rush to unwind affiliated investments", date: "2026-08-12", time: "19:44", url: "https://www.ft.com/content/ab5f7160-68f5-4396-a5a2-f97f770e8634" },
-  { id: "699929b6-ce31-4d0b-9828-c0fe96e59d9d", title: "Crackdown on zero-hours contracts could cost UK firms up to £3bn per year", date: "2026-08-12", time: "18:42", url: "https://www.ft.com/content/699929b6-ce31-4d0b-9828-c0fe96e59d9d" },
-  { id: "21c7d2e9-29ff-47f7-ae06-173a1f1d3684", title: "The Amazon of used cars gets a balance sheet tune-up", date: "2026-08-12", time: "18:07", url: "https://www.ft.com/content/21c7d2e9-29ff-47f7-ae06-173a1f1d3684" },
-  { id: "c24d71f7-d270-486a-be6f-55b0a97f6850", title: "China is winning the race for the Ice Silk Road", date: "2026-08-12", time: "17:40", url: "https://www.ft.com/content/c24d71f7-d270-486a-be6f-55b0a97f6850" },
 ];
