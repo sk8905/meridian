@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "36ec3c60-43b4-4c94-9a7b-8b5dba798ee8", title: "Retail parks are the real threat to the British high street", date: "2026-08-13", time: "16:37", url: "https://www.ft.com/content/36ec3c60-43b4-4c94-9a7b-8b5dba798ee8" },
+  { id: "e7aee58f-a068-468d-b584-49807b413016", title: "Israeli settlers besiege Palestinian homes", date: "2026-08-13", time: "16:28", url: "https://www.ft.com/content/e7aee58f-a068-468d-b584-49807b413016" },
+  { id: "a547d965-eb3b-412a-9896-7d5cc37eb054", title: "Axes of Evil: office space edition", date: "2026-08-13", time: "16:17", url: "https://www.ft.com/content/a547d965-eb3b-412a-9896-7d5cc37eb054" },
+  { id: "01c3117d-1c8b-4b57-b271-aea0ed607adc", title: "Andy Burnham warns water companies against treating customers like ‘blank cheque’", date: "2026-08-13", time: "15:53", url: "https://www.ft.com/content/01c3117d-1c8b-4b57-b271-aea0ed607adc" },
   { id: "c8b5605f-209c-4513-9111-1ccc00f3a07e", title: "In charts: Private schools widen lead over state rivals on A-level results day", date: "2026-08-13", time: "14:49", url: "https://www.ft.com/content/c8b5605f-209c-4513-9111-1ccc00f3a07e" },
   { id: "1f609a52-8b6e-4bc9-a851-c05c099c7029", title: "Starmer allies warn John Healey against blowing ‘strong’ economic inheritance", date: "2026-08-13", time: "14:23", url: "https://www.ft.com/content/1f609a52-8b6e-4bc9-a851-c05c099c7029" },
   { id: "b1ae24bd-af8b-4d98-985a-85213213b5f0", title: "How Jason Arday’s appointment became a reckoning for Cambridge", date: "2026-08-13", time: "14:03", url: "https://www.ft.com/content/b1ae24bd-af8b-4d98-985a-85213213b5f0" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "71907c96-b99b-4d74-8065-3b48a3752183", title: "Alarm bells are ringing for investors on climate", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/71907c96-b99b-4d74-8065-3b48a3752183" },
   { id: "7ff4321e-3f96-4f7b-8f2d-4fefa4773a5d", title: "Trump is taxing the dark matter that pays America’s way", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/7ff4321e-3f96-4f7b-8f2d-4fefa4773a5d" },
   { id: "e07b9e5e-2970-438b-8997-986f00346f45", title: "How Aston Martin showed bondholders the hard shoulder", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/e07b9e5e-2970-438b-8997-986f00346f45" },
-  { id: "8349e039-a02c-4586-92d8-7f95d3fcd15a", title: "Wanted: a leader to rescue the UN", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/8349e039-a02c-4586-92d8-7f95d3fcd15a" },
-  { id: "7d443952-1cfb-4254-a615-188c25849789", title: "From classic to static: J Crew tries to recapture its sense of style", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/7d443952-1cfb-4254-a615-188c25849789" },
-  { id: "7fa9d282-6049-40f3-b3a2-226b9ec33ed5", title: "The Spectre of Pep — has football reached peak Guardiolismo?", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/7fa9d282-6049-40f3-b3a2-226b9ec33ed5" },
-  { id: "aa0ca006-5af4-4f94-9789-3e56f9f53e1d", title: "Wealth managers cut fees to win AI’s paper millionaires", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/aa0ca006-5af4-4f94-9789-3e56f9f53e1d" },
 ];
