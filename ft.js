@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "382b1d01-8bfe-4933-a460-819bbc32eb59", title: "Canary Wharf Group sells SocGen office in £625mn deal", date: "2026-08-13", time: "12:10", url: "https://www.ft.com/content/382b1d01-8bfe-4933-a460-819bbc32eb59" },
+  { id: "fdf1b9fc-3179-409e-9f07-949a78392f4b", title: "The right must fight its own woke wing", date: "2026-08-13", time: "12:02", url: "https://www.ft.com/content/fdf1b9fc-3179-409e-9f07-949a78392f4b" },
+  { id: "395650e6-7963-428b-9d86-b39c36453f5d", title: "Price of niche rare earth jumps on fears of renewed Chinese export controls", date: "2026-08-13", time: "12:00", url: "https://www.ft.com/content/395650e6-7963-428b-9d86-b39c36453f5d" },
+  { id: "1545729c-d9c0-431b-a045-eb71cdd0c261", title: "Sanae Takaichi slams Vladimir Putin’s visit to disputed Pacific islands", date: "2026-08-13", time: "11:47", url: "https://www.ft.com/content/1545729c-d9c0-431b-a045-eb71cdd0c261" },
   { id: "d0464e03-c3fd-4e8b-9ffa-573762e97e16", title: "Sun, sea and bombs in Odesa", date: "2026-08-13", time: "11:00", url: "https://www.ft.com/content/d0464e03-c3fd-4e8b-9ffa-573762e97e16" },
   { id: "538b3457-4bef-4012-89b9-3c068b900e6e", title: "Submit your questions: Wildfires, droughts and heat — is this summer our new normal?", date: "2026-08-13", time: "10:16", url: "https://www.ft.com/content/538b3457-4bef-4012-89b9-3c068b900e6e" },
   { id: "e90128dc-9a22-4fd1-933c-e344f38255a8", title: "UK growth resilient in second quarter", date: "2026-08-13", time: "09:01", url: "https://www.ft.com/content/e90128dc-9a22-4fd1-933c-e344f38255a8" },
@@ -56,9 +60,4 @@ export const FT_ITEMS = [
   { id: "c24d71f7-d270-486a-be6f-55b0a97f6850", title: "China is winning the race for the Ice Silk Road", date: "2026-08-12", time: "17:40", url: "https://www.ft.com/content/c24d71f7-d270-486a-be6f-55b0a97f6850" },
   { id: "3309f3ea-c633-4727-887b-540a929d63e7", title: "US press groups sue Donald Trump over fast access to Truth Social posts", date: "2026-08-12", time: "17:35", url: "https://www.ft.com/content/3309f3ea-c633-4727-887b-540a929d63e7" },
   { id: "c25a1ce8-7fed-48ce-8dc5-9853d33d0f87", title: "‘Glorious 12th’ kicks off shooting season as debate rages about its future", date: "2026-08-12", time: "17:26", url: "https://www.ft.com/content/c25a1ce8-7fed-48ce-8dc5-9853d33d0f87" },
-  { id: "7129f44d-460a-49f6-acc7-293d512ad74e", title: "Is university still worth it?", date: "2026-08-12", time: "17:15", url: "https://www.ft.com/content/7129f44d-460a-49f6-acc7-293d512ad74e" },
-  { id: "22534413-a23e-4ecb-b68f-c9f1105c8953", title: "Bob Iger and Josh Kushner in $12bn deal for Lakers basketball franchise", date: "2026-08-12", time: "15:59", url: "https://www.ft.com/content/22534413-a23e-4ecb-b68f-c9f1105c8953" },
-  { id: "813b7646-3d3d-4f38-9b02-3c1fc564dc30", title: "Poor numeracy is a blind spot in the age of AI", date: "2026-08-12", time: "15:58", url: "https://www.ft.com/content/813b7646-3d3d-4f38-9b02-3c1fc564dc30" },
-  { id: "422010c3-ac6e-427f-88cf-e6c878b96637", title: "Investor Nelson Peltz prepares bid for US burger chain Wendy’s", date: "2026-08-12", time: "15:49", url: "https://www.ft.com/content/422010c3-ac6e-427f-88cf-e6c878b96637" },
-  { id: "c14d737a-a148-49da-8cb5-ba223c8a9fc5", title: "Greenland oil wildcatters delay controversial drilling plan", date: "2026-08-12", time: "15:33", url: "https://www.ft.com/content/c14d737a-a148-49da-8cb5-ba223c8a9fc5" },
 ];

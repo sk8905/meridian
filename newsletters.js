@@ -33,6 +33,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-economicsdaily-ukgrowthsurprise-20260813",
+    publication: "Bloomberg",
+    author: "Tom Rees",
+    series: "Economics Daily",
+    title: "Economics Daily: UK growth surprise",
+    date: "2026-08-13",
+    time: "12:00",
+    summary: "Sizzling weather and World Cup fever helped the UK economy comfortably outperform expectations.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-13/uk-economy-shrugs-off-iran-war-shock-for-now",
+  },
+  {
     id: "nl-bbg-marketsdaily-koreabullsback-20260813",
     publication: "Bloomberg",
     series: "Markets Daily",
