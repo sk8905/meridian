@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a91356ef-67bd-4bd9-947b-b272423f1318", title: "Nearly 14,000 crypto holders face security risk after data breach", date: "2026-08-13", time: "18:11", url: "https://www.ft.com/content/a91356ef-67bd-4bd9-947b-b272423f1318" },
+  { id: "f3f3c945-6a75-4663-b8ec-d5251438c1c5", title: "Seoul soars past Dubai as world’s busiest international airport", date: "2026-08-13", time: "17:46", url: "https://www.ft.com/content/f3f3c945-6a75-4663-b8ec-d5251438c1c5" },
   { id: "3b67ce5d-3f1a-41a8-8d87-7356876ede14", title: "Passenger train derails near Lewes in East Sussex", date: "2026-08-13", time: "17:34", url: "https://www.ft.com/content/3b67ce5d-3f1a-41a8-8d87-7356876ede14" },
   { id: "a468c20b-cf1d-4a36-87b8-4eb15666e6c4", title: "Donald Trump enlists corporate America in fight against cyber crime", date: "2026-08-13", time: "17:28", url: "https://www.ft.com/content/a468c20b-cf1d-4a36-87b8-4eb15666e6c4" },
   { id: "5d5ed2dd-8326-4cad-aac3-5816448ceccf", title: "US accuses more than 40 countries of helping China avoid Trump’s tariffs", date: "2026-08-13", time: "16:55", url: "https://www.ft.com/content/5d5ed2dd-8326-4cad-aac3-5816448ceccf" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "8cd394ef-c829-4905-bced-33250966c70b", title: "Everybody loves Nvidia — but then, they can’t afford not to", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/8cd394ef-c829-4905-bced-33250966c70b" },
   { id: "531b41af-3913-4ad4-baa2-7f0f55188bf8", title: "A reality check is needed on Arctic shipping", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/531b41af-3913-4ad4-baa2-7f0f55188bf8" },
   { id: "840ac156-af1c-4a82-b260-ae791072fcfa", title: "Anthropic investors bet on $2tn valuation in record IPO", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/840ac156-af1c-4a82-b260-ae791072fcfa" },
-  { id: "df4fc235-f6a0-4297-9625-ac60ac225589", title: "Rhine drought exposes 34-year delay in tackling major German bottleneck", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/df4fc235-f6a0-4297-9625-ac60ac225589" },
-  { id: "fcfacc72-8ed8-4bb4-ab23-16986abf0f5a", title: "Shock Wisconsin vote triggers doubt over US election polling", date: "2026-08-13", time: "05:00", url: "https://www.ft.com/content/fcfacc72-8ed8-4bb4-ab23-16986abf0f5a" },
 ];
