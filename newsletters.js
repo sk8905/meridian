@@ -33,6 +33,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-econworld-joblessyouth-20260813",
+    publication: "Thomson Reuters",
+    author: "Mark John",
+    series: "Econ World",
+    title: "Econ World: Jobless youth: the one in eight",
+    date: "2026-08-13",
+    time: "15:23",
+    summary: "A new ILO report finds global youth unemployment climbed to 12.4% last year, worsening even in advanced economies as AI threatens the entry-level jobs young workers rely on.",
+    url: "https://www.reuters.com/newsletters/reuters-econ-world",
+  },
+  {
     id: "nl-bbg-economicsdaily-ukgrowthsurprise-20260813",
     publication: "Bloomberg",
     author: "Tom Rees",
