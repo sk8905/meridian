@@ -33,6 +33,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-pointsofreturn-warshbreathingroom-20260813",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "Warsh gets breathing room, but not enough to cut",
+    date: "2026-08-13",
+    time: "05:01",
+    summary: "US inflation was no higher or lower than expected in July.",
+    url: "https://bloom.bg/3TT6uWg",
+  },
+  {
     id: "nl-bbg-moneystuff-aibackedsecurities-20260812",
     publication: "Bloomberg",
     author: "Matt Levine",
