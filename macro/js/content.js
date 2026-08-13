@@ -12,8 +12,8 @@ export const UPDATED = "12 August 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-08-12",
-  lastCheckedTime: "21:22 BST",
+  lastChecked: "2026-08-13",
+  lastCheckedTime: "05:24 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -997,7 +997,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "The DXY barely budged near 99.83 in Wednesday's Asian session as gold held above $4,400 — the Strait of Hormuz flashpoint's brief push toward $90 oil fed a safe-haven bid before traders squared books ahead of the US July CPI print, the swing factor for the Fed's 16 September decision.", src: "https://www.fxstreet.com/analysis/gold-price-forecast-xau-usd-awaits-us-cpi-inflation-for-the-next-big-move-202608120241", srcName: "FXStreet", date: "2026-08-12" };
+export const FX_KEYMOMENT = { text: "Oil eased in Thursday's Asia-Pacific session on reports of a UAE–Iran asset transfer, while gold clung to its 100-day moving average with upside risks intact as the dollar consolidated ahead of the US PPI print and UK Q2 GDP release.", src: "https://investinglive.com/news/investinglive-asia-pacific-market-news-oil-eases-as-uae-iran-asset-transfer-reported/", srcName: "investingLive", date: "2026-08-13" };
 
 export const EARNINGS = {
   weeks: [
