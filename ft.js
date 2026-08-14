@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "adb47166-29f0-4630-bf8e-b9d0b8d0f2ed", title: "Stockpickers: Persimmon, Savills, Caledonia Mining", date: "2026-08-14", time: "18:00", url: "https://www.ft.com/content/adb47166-29f0-4630-bf8e-b9d0b8d0f2ed" },
+  { id: "87d2bbd8-a799-4d6c-8907-2709cdcf0a31", title: "Directors’ Deals: British American Tobacco’s newest director buys the dip", date: "2026-08-14", time: "18:00", url: "https://www.ft.com/content/87d2bbd8-a799-4d6c-8907-2709cdcf0a31" },
+  { id: "11126975-e2ba-4510-8b9e-2f2bc82b43a5", title: "Biotech VCs have become like bankers and we might all pay the price", date: "2026-08-14", time: "18:00", url: "https://www.ft.com/content/11126975-e2ba-4510-8b9e-2f2bc82b43a5" },
+  { id: "20f44f32-6566-4373-b6d8-9551be58d762", title: "How a bad trade pushed a US mortgage giant into a $2bn lifeline", date: "2026-08-14", time: "17:47", url: "https://www.ft.com/content/20f44f32-6566-4373-b6d8-9551be58d762" },
   { id: "98cd55c6-8692-47f0-882a-f81de2351130", title: "Bezos-backed group strikes deal for stake in Liverpool FC", date: "2026-08-14", time: "17:00", url: "https://www.ft.com/content/98cd55c6-8692-47f0-882a-f81de2351130" },
   { id: "68873521-58fa-435d-b46f-6309612964b2", title: "Luigi Mangione pleads guilty over death of UnitedHealth chief executive", date: "2026-08-14", time: "16:51", url: "https://www.ft.com/content/68873521-58fa-435d-b46f-6309612964b2" },
   { id: "71f95452-4493-4795-bfe2-26d0c89b2a93", title: "Activists are giving British M&A targets a helpful shove", date: "2026-08-14", time: "16:42", url: "https://www.ft.com/content/71f95452-4493-4795-bfe2-26d0c89b2a93" },
@@ -57,7 +61,4 @@ export const FT_ITEMS = [
   { id: "4e3774b6-52e5-4b8a-be76-0bb87495e1f0", title: "JPMorgan debanked Polymarket over regulatory concerns", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/4e3774b6-52e5-4b8a-be76-0bb87495e1f0" },
   { id: "5eb087c6-7a53-4f94-9588-d12f30d221df", title: "Venezuela and its opposition want gold back from Bank of England vaults", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/5eb087c6-7a53-4f94-9588-d12f30d221df" },
   { id: "ef45786a-aa0c-478f-b1bb-741e6abd8aaf", title: "Fragile states in Africa and Middle East hit by more than 40% cut in UK direct aid", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/ef45786a-aa0c-478f-b1bb-741e6abd8aaf" },
-  { id: "df8ee1b1-f1bc-4c8a-a17e-f8f92a746989", title: "Owner of collapsed lender MFS to pay £3mn to his lawyers at Mishcon de Reya", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/df8ee1b1-f1bc-4c8a-a17e-f8f92a746989" },
-  { id: "d4dbc028-08ac-4e49-a04d-79396f872758", title: "Banks’ private credit disclosures highlight value of sunlight", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/d4dbc028-08ac-4e49-a04d-79396f872758" },
-  { id: "22f91f8b-c331-4512-a208-2b8b1a472ab4", title: "Activist Cevian calls for higher pay for UK board members", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/22f91f8b-c331-4512-a208-2b8b1a472ab4" },
 ];

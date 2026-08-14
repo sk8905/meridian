@@ -33,6 +33,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-liverpoolfcbezos-20260814",
+    publication: "Legal Business",
+    title: "Transatlantic duo up front as Liverpool FC owners sell stake to Bezos-backed consortium",
+    date: "2026-08-14",
+    time: "17:49",
+    summary: "Latham and A&O Shearman advise as a Jeff Bezos-backed consortium buys a 'strategic minority stake' in Liverpool FC.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQJ3Hi9aX35X5YCGX/wv",
+  },
+  {
     id: "nl-gs-briefings-aicapex1trillion-20260814",
     publication: "Goldman Sachs",
     title: "$1 Trillion: AI Capex in 2026",
@@ -433,26 +442,5 @@ export const NEWSLETTERS = [
     time: "12:00",
     summary: "Washington shifts from headline tariffs to subsidies and import curbs meant to wean US supply chains off China, as Trump hardens his stance on Iran reparations and Beijing slaps 54% levies on US pecans.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-11/us-moves-past-tariffs-to-focus-on-supply-chain-revamps-in-china-trade-policy",
-  },
-  {
-    id: "nl-bbg-marketsdaily-europesweetspot-20260811",
-    publication: "Bloomberg",
-    series: "Markets Daily",
-    title: "Markets Daily: Europe hits the sweet spot",
-    date: "2026-08-11",
-    time: "10:57",
-    summary: "European stocks extend a 12% rally to record highs on the fastest earnings growth in four years, defying stagflation fears from the Iran standoff, while Bessent's yen-defense firepower looks limited against Japan's own intervention scale.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-11/europe-is-ticking-a-lot-of-boxes-for-investors-right-now",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-20260811",
-    publication: "Bloomberg",
-    author: "Victoria Batchelor",
-    series: "Morning Briefing Europe",
-    title: "Trump Makes New Demands on Iran as Deal Hopes Dim",
-    date: "2026-08-11",
-    time: "07:06",
-    summary: "Deal hopes dim as Donald Trump makes compensation demands on Iran, almost three quarters of England is in drought, and Germany's auto brands have a China problem.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-11/trump-makes-new-demands-on-iran-as-deal-hopes-dim",
   },
 ];
