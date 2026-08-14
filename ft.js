@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b8c7e538-22cc-4d2f-a974-66e45a11a425", title: "Why nationalise the railways if nothing really changes?", date: "2026-08-14", time: "09:33", url: "https://www.ft.com/content/b8c7e538-22cc-4d2f-a974-66e45a11a425" },
+  { id: "bb62cffe-8985-4407-b555-bdbcd2d18ec5", title: "Swiss economy grows at fastest rate since 2021 despite trade turmoil", date: "2026-08-14", time: "09:31", url: "https://www.ft.com/content/bb62cffe-8985-4407-b555-bdbcd2d18ec5" },
+  { id: "c061415a-791d-42e5-9907-736563c7f938", title: "Indonesia’s Prabowo Subianto retreats on commodities reform amid market pressure", date: "2026-08-14", time: "09:05", url: "https://www.ft.com/content/c061415a-791d-42e5-9907-736563c7f938" },
   { id: "8278a799-8289-47c3-8d53-72de93ededdc", title: "Karthik Sankaran on the case for yen intervention", date: "2026-08-14", time: "06:30", url: "https://www.ft.com/content/8278a799-8289-47c3-8d53-72de93ededdc" },
   { id: "7b1117a2-ffea-4754-9da8-342db07fe963", title: "FTAV’s further reading", date: "2026-08-14", time: "06:30", url: "https://www.ft.com/content/7b1117a2-ffea-4754-9da8-342db07fe963" },
   { id: "1bc8c77b-f3e2-4ad4-aefc-94b3f48426c6", title: "Nigel Farage wins Clacton by-election", date: "2026-08-14", time: "06:08", url: "https://www.ft.com/content/1bc8c77b-f3e2-4ad4-aefc-94b3f48426c6" },
@@ -59,5 +62,4 @@ export const FT_ITEMS = [
   { id: "1f609a52-8b6e-4bc9-a851-c05c099c7029", title: "Starmer allies warn John Healey against blowing ‘strong’ economic inheritance", date: "2026-08-13", time: "14:23", url: "https://www.ft.com/content/1f609a52-8b6e-4bc9-a851-c05c099c7029" },
   { id: "b1ae24bd-af8b-4d98-985a-85213213b5f0", title: "How Jason Arday’s appointment became a reckoning for Cambridge", date: "2026-08-13", time: "14:03", url: "https://www.ft.com/content/b1ae24bd-af8b-4d98-985a-85213213b5f0" },
   { id: "fc7afa9c-6a99-4cb2-8982-da230d2845dd", title: "Fierce Trump ally Leavitt shocks Washington and leaves White House", date: "2026-08-13", time: "14:00", url: "https://www.ft.com/content/fc7afa9c-6a99-4cb2-8982-da230d2845dd" },
-  { id: "6bc10fb1-7b09-4580-82b4-5a723768e4d7", title: "Japan needs deterrence and renewal — not managed decline", date: "2026-08-13", time: "13:42", url: "https://www.ft.com/content/6bc10fb1-7b09-4580-82b4-5a723768e4d7" },
 ];

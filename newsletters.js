@@ -33,6 +33,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-nonbillable-headhuntingfee-20260814",
+    publication: "Non-Billable",
+    title: "Headhunting's £2m payday",
+    date: "2026-08-14",
+    time: "09:05",
+    summary: "A London recruiter earns a £2m fee headhunting a top corporate real estate lawyer, Akin and Kirkland land roles on ATG Entertainment's £4.5bn sale, and law firms race for office space as legal-sector demand rises 6.1%.",
+    url: "https://non-billable.beehiiv.com/p/big-law-s-new-gold-rush-1",
+  },
+  {
     id: "nl-econ-worldinbrief-20260814",
     publication: "The Economist",
     series: "The World in Brief",
