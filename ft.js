@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8278a799-8289-47c3-8d53-72de93ededdc", title: "Karthik Sankaran on the case for yen intervention", date: "2026-08-14", time: "06:30", url: "https://www.ft.com/content/8278a799-8289-47c3-8d53-72de93ededdc" },
+  { id: "7b1117a2-ffea-4754-9da8-342db07fe963", title: "FTAV’s further reading", date: "2026-08-14", time: "06:30", url: "https://www.ft.com/content/7b1117a2-ffea-4754-9da8-342db07fe963" },
+  { id: "1bc8c77b-f3e2-4ad4-aefc-94b3f48426c6", title: "Nigel Farage wins Clacton by-election", date: "2026-08-14", time: "06:08", url: "https://www.ft.com/content/1bc8c77b-f3e2-4ad4-aefc-94b3f48426c6" },
+  { id: "a650dbf4-1028-428f-a4cd-e4ee91f3498a", title: "FirstFT: Cheaper Chinese models push OpenAI and Anthropic into price war", date: "2026-08-14", time: "05:30", url: "https://www.ft.com/content/a650dbf4-1028-428f-a4cd-e4ee91f3498a" },
   { id: "5d2003dc-3e04-40ac-8339-805cbd9763c8", title: "The trillion-dollar IPO vibes continue", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/5d2003dc-3e04-40ac-8339-805cbd9763c8" },
   { id: "9c0fe32f-056e-4bdc-84b4-9d72d9da9d1c", title: "New Forest blaze points to challenge for under-pressure fire services", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/9c0fe32f-056e-4bdc-84b4-9d72d9da9d1c" },
   { id: "319d874b-6d71-4802-ad4b-e2aac04fdf40", title: "Mortgage costs pushed higher by US stand-off with Iran", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/319d874b-6d71-4802-ad4b-e2aac04fdf40" },
@@ -56,9 +60,4 @@ export const FT_ITEMS = [
   { id: "b1ae24bd-af8b-4d98-985a-85213213b5f0", title: "How Jason Arday’s appointment became a reckoning for Cambridge", date: "2026-08-13", time: "14:03", url: "https://www.ft.com/content/b1ae24bd-af8b-4d98-985a-85213213b5f0" },
   { id: "fc7afa9c-6a99-4cb2-8982-da230d2845dd", title: "Fierce Trump ally Leavitt shocks Washington and leaves White House", date: "2026-08-13", time: "14:00", url: "https://www.ft.com/content/fc7afa9c-6a99-4cb2-8982-da230d2845dd" },
   { id: "6bc10fb1-7b09-4580-82b4-5a723768e4d7", title: "Japan needs deterrence and renewal — not managed decline", date: "2026-08-13", time: "13:42", url: "https://www.ft.com/content/6bc10fb1-7b09-4580-82b4-5a723768e4d7" },
-  { id: "8e6cecd4-f0ce-4463-a238-37ecd73cbc81", title: "Frasers buys Harvey Nichols as Mike Ashley pushes into upmarket retail", date: "2026-08-13", time: "13:27", url: "https://www.ft.com/content/8e6cecd4-f0ce-4463-a238-37ecd73cbc81" },
-  { id: "3f3abc19-1a0a-439a-90ee-971861cc144e", title: "Shein loses UK copyright lawsuit against Temu", date: "2026-08-13", time: "13:02", url: "https://www.ft.com/content/3f3abc19-1a0a-439a-90ee-971861cc144e" },
-  { id: "382b1d01-8bfe-4933-a460-819bbc32eb59", title: "Canary Wharf Group sells SocGen office in £625mn deal", date: "2026-08-13", time: "12:10", url: "https://www.ft.com/content/382b1d01-8bfe-4933-a460-819bbc32eb59" },
-  { id: "fdf1b9fc-3179-409e-9f07-949a78392f4b", title: "The right must fight its own woke wing", date: "2026-08-13", time: "12:02", url: "https://www.ft.com/content/fdf1b9fc-3179-409e-9f07-949a78392f4b" },
-  { id: "395650e6-7963-428b-9d86-b39c36453f5d", title: "Price of niche rare earth jumps on fears of renewed Chinese export controls", date: "2026-08-13", time: "12:00", url: "https://www.ft.com/content/395650e6-7963-428b-9d86-b39c36453f5d" },
 ];
