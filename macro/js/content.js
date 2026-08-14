@@ -13,7 +13,7 @@ export const UPDATED = "14 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-14",
-  lastCheckedTime: "13:15 BST",
+  lastCheckedTime: "17:46 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -324,15 +324,15 @@ export const OUTLOOK = {
 //   commentary. Keep each item's real headline + source link; never fabricate —
 //   only add pieces that exist and are dated.
 export const COMMENTARY = {
-  updated: "2026-08-13",
+  updated: "2026-08-14",
   us: [
+    { title: "Retail sales unexpectedly fall in July as government tax refunds fade", source: "MSN (syndicated)", author: "Capital Economics — Stephen Brown; Oxford Economics — Bernard Yaros", date: "2026-08-14", url: "https://www.msn.com/en-us/money/markets/retail-sales-unexpectedly-fall-in-july-what-s-behind-the-slump/ar-AA2a7dOP" },
     { title: "Wholesale prices didn't accelerate in July, but they weren't cool either", source: "Yahoo Finance", author: "Capital Economics — Stephen Brown; Fwdbonds — Chris Rupkey", date: "2026-08-13", url: "https://finance.yahoo.com/economy/policy/article/wholesale-prices-didnt-accelerate-in-july-but-they-werent-cool-either-134319478.html" },
     { title: "Reaction roundup: Experts, analysts weigh in on in-line July CPI report", source: "Investing.com", author: "Pantheon Macroeconomics — Oliver Allen; Morgan Stanley Wealth Management — Ellen Zentner", date: "2026-08-12", url: "https://ca.investing.com/news/economy-news/reaction-roundup-experts-analysts-weigh-in-on-inline-july-cpi-report-4795873" },
-    { title: "Instant View: Market shrugs off in-line July CPI report", source: "Reuters (via Investing.com)", author: "Natixis — Christopher Hodge; Moody's — Mark Zandi", date: "2026-08-12", url: "https://www.investing.com/news/economic-indicators/market-shrugs-off-inline-july-cpi-report-4855116" },
   ],
   uk: [
+    { title: "A Popular UK Bond Trade Suggests Markets Trust Burnham for Now", source: "Bloomberg", author: "Bloomberg", date: "2026-08-14", url: "https://www.bloomberg.com/news/articles/2026-08-14/a-popular-uk-bond-trade-suggests-markets-trust-burnham-for-now" },
     { title: "British Pound: Strong Q2 may give way to flat growth", source: "FXStreet", author: "TD Securities", date: "2026-08-12", time: "11:37", url: "https://www.fxstreet.com/news/british-pound-strong-q2-may-give-way-to-flat-growth-td-securities-202608121137" },
-    { title: "UK July final services PMI 52.1 vs 51.8 prelim", source: "investingLive", author: "Pantheon Macroeconomics — Rob Wood", date: "2026-08-05", time: "12:15", url: "https://investinglive.com/news/uk-july-final-services-pmi-xx-vs-51-8-prelim/" },
     { title: "Bank Rate maintained at 3.75% — MPC votes 6–3 to hold", source: "Bank of England", author: "Bank of England (MPC)", date: "2026-07-30", time: "12:00", url: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/july-2026" },
   ],
 };
@@ -779,18 +779,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-08-14",
   us: [
-    { title: "Oil moves higher as U.S. threatens 'economic isolation' of Iran", source: "CNBC", date: "2026-08-14", time: "13:03", url: "https://www.cnbc.com/2026/08/14/oil-prices-today-brent-wti-hormuz.html" },
-    { title: "US warns Iran of indefinite naval blockade as Strait of Hormuz deadlock continues", source: "Reuters (via Onmanorama)", date: "2026-08-14", time: "13:03", url: "https://www.onmanorama.com/news/world/2026/08/14/us-warns-iran-of-indefinite-naval-blockade-as-strait-of-hormuz-deadlock-continues.html" },
-    { title: "Stock Market Today (Aug. 14, 2026): S&P 500 edges higher following record close", source: "TheStreet", date: "2026-08-14", time: "13:03", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-14-2026" },
-    { title: "S&P 500 notches record-high close as rate-hike worries ease", source: "AP News (via Jefferson City News Tribune)", date: "2026-08-14", time: "13:03", url: "https://www.newstribune.com/news/2026/aug/14/sp-500-notches-record-high-close-as-rate-hike/" },
-    { title: "Stock market today: Dow, S&P 500, Nasdaq futures waver after stocks hit record high", source: "Yahoo Finance", date: "2026-08-14", time: "13:03", url: "https://finance.yahoo.com/markets/live/stock-market-today-friday-august-14-dow-sp-500-nasdaq-102635519.html" },
+    { title: "US consumers cut retail spending sharply in July", source: "CNN", date: "2026-08-14", time: "17:46", url: "https://www.cnn.com/2026/08/14/economy/us-retail-sales-july" },
+    { title: "Retail Sales Unexpectedly Fall in July as Government Tax Refunds Fade", source: "US News", date: "2026-08-14", time: "17:46", url: "https://www.usnews.com/news/business/articles/2026-08-14/retail-sales-unexpectedly-fall-in-july-as-government-tax-refunds-fade" },
+    { title: "US Consumer Sentiment Drops as Inflation Concerns Weigh on Households", source: "Bloomberg", date: "2026-08-14", time: "17:46", url: "https://www.bloomberg.com/news/articles/2026-08-14/us-consumer-sentiment-declines-for-first-time-in-three-months" },
+    { title: "'It's not lights out for the economy': U.S. retail sales drop 0.6% in July", source: "Fortune", date: "2026-08-14", time: "17:46", url: "https://fortune.com/2026/08/14/its-not-lights-out-for-the-economy-u-s-retail-sales-drop-0-6-in-july/" },
+    { title: "2 UAE Tankers Attacked While Transiting Strait of Hormuz, and Other News From the Middle East", source: "Washington Post (via US News)", date: "2026-08-14", time: "17:46", url: "https://www.usnews.com/news/world/articles/2026-08-14/2-uae-tankers-attacked-while-transiting-strait-of-hormuz-and-other-news-from-the-middle-east" },
   ],
   uk: [
-    { title: "FTSE 100 today: Stocks down as miners drag index lower, Hormuz oil risk weighs", source: "Investing.com", date: "2026-08-14", time: "13:03", url: "https://www.investing.com/news/stock-market-news/ftse-100-today-stocks-down-as-miners-drag-index-lower-hormuz-oil-risk-weighs-4859864" },
-    { title: "Why Is the UK Stock Market Down Today? FTSE 100 Slips 0.17% as Mining Stocks Slide Amid Geopolitical Uncertainty", source: "Sunday Guardian Live", date: "2026-08-14", time: "13:03", url: "https://sundayguardianlive.com/business/why-is-the-uk-stock-market-down-today-ftse-100-slips-017-as-mining-stocks-slide-amid-geopolitical-uncertainty-261018/" },
+    { title: "A Popular UK Bond Trade Suggests Markets Trust Burnham for Now", source: "Bloomberg", date: "2026-08-14", time: "17:46", url: "https://www.bloomberg.com/news/articles/2026-08-14/a-popular-uk-bond-trade-suggests-markets-trust-burnham-for-now" },
+    { title: "UK Stock Market Forecast Today (August 14): FTSE 100 Set to Open Higher After Four-Day Losing Streak", source: "Sunday Guardian Live", date: "2026-08-14", time: "17:46", url: "https://sundayguardianlive.com/business/uk-stock-market-forecast-today-august-14-ftse-100-set-to-open-higher-after-four-day-losing-streak-check-market-outlook-and-stocks-to-watch-260911/" },
     { title: "Sterling today: Pound rises as dollar weakens on dovish Fed expectations", source: "Investing.com", date: "2026-08-14", time: "13:03", url: "https://www.investing.com/news/forex-news/sterling-today-pound-rises-as-dollar-weakens-on-dovish-fed-expectations-4860004" },
-    { title: "Pound To Dollar Price News, Forecast: GBP Eyes $1.35 As Fed Bets Fade", source: "Exchange Rates UK", date: "2026-08-14", time: "13:03", url: "https://www.exchangerates.org.uk/news/46829/2026-08-14-pound-to-dollar-price-news-forecast-gbp-eyes-1-35-as-fed-bets-fade.html" },
     { title: "FTSE 100 Slips as Mining Stocks Fall and Hormuz Oil Risks Persist", source: "Yahoo Finance UK", date: "2026-08-14", time: "13:03", url: "https://uk.finance.yahoo.com/news/ftse-100-slips-mining-stocks-085315221.html" },
+    { title: "FTSE 100 today: Stocks down as miners drag index lower, Hormuz oil risk weighs", source: "Investing.com", date: "2026-08-14", time: "13:03", url: "https://www.investing.com/news/stock-market-news/ftse-100-today-stocks-down-as-miners-drag-index-lower-hormuz-oil-risk-weighs-4859864" },
   ],
 };
 
@@ -804,6 +804,12 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-14",
   items: [
+    {"title":"US consumers cut retail spending sharply in July","source":"CNN","date":"2026-08-14","time":"17:46","url":"https://www.cnn.com/2026/08/14/economy/us-retail-sales-july","blurb":"July retail sales fell 0.6% m/m to $763.6bn against a +0.1% consensus, the Census Bureau's advance estimate showed, as fading government tax refunds and softer discretionary spending weighed on the headline."},
+    {"title":"US Consumer Sentiment Drops as Inflation Concerns Weigh on Households","source":"Bloomberg","date":"2026-08-14","time":"17:46","url":"https://www.bloomberg.com/news/articles/2026-08-14/us-consumer-sentiment-declines-for-first-time-in-three-months","blurb":"The University of Michigan's preliminary August sentiment gauge fell to 51.0 (vs 54.5 expected) from July's final 55.2, with year-ahead inflation expectations rising to 4.3%."},
+    {"title":"A Popular UK Bond Trade Suggests Markets Trust Burnham for Now","source":"Bloomberg","date":"2026-08-14","time":"17:46","url":"https://www.bloomberg.com/news/articles/2026-08-14/a-popular-uk-bond-trade-suggests-markets-trust-burnham-for-now","blurb":"UK asset-swap spreads have held steady less than three months before PM Andy Burnham's government delivers its debut Budget, a reversal from July's fiscal-flexibility scare."},
+    {"title":"2 UAE Tankers Attacked While Transiting Strait of Hormuz, and Other News From the Middle East","source":"Washington Post (via US News)","date":"2026-08-14","time":"17:46","url":"https://www.usnews.com/news/world/articles/2026-08-14/2-uae-tankers-attacked-while-transiting-strait-of-hormuz-and-other-news-from-the-middle-east","blurb":"The Navig8 Messi and Tarif were hit by UAVs on 13 August in the Strait of Hormuz; the UAE and Bahrain condemned the attacks, which they attributed to Iran's IRGC."},
+    {"title":"China's High-Tech Boom Seen Failing to Halt Slowdown of Economy","source":"Bloomberg","date":"2026-08-14","time":"17:46","url":"https://www.bloomberg.com/news/articles/2026-08-14/china-s-high-tech-boom-seen-failing-to-halt-slowdown-of-economy","blurb":"China's Q2 GDP growth slowed to 4.3% y/y, its weakest pace since late 2022, as weak domestic demand offsets strength in the high-tech manufacturing sector."},
+    {"title":"US July Retail Sales Unexpectedly Fall 0.6% as Spending Cools, Hitting Fed Rate-Hike Expectations Again","source":"TradingKey","date":"2026-08-14","time":"17:46","url":"https://www.tradingkey.com/analysis/economic/indicators/262108173-us-retail-sales-fell-july-fed-rate-hike-expectations-tradingkey","blurb":"The weaker-than-expected retail sales print added to Thursday's soft PPI in reinforcing bets that the Fed holds rates at its 16 September meeting."},
     {"title":"S&P 500 notches record-high close as rate-hike worries ease","source":"AP News (via Jefferson City News Tribune)","date":"2026-08-14","time":"13:03","url":"https://www.newstribune.com/news/2026/aug/14/sp-500-notches-record-high-close-as-rate-hike/","blurb":"CME FedWatch-implied odds of a 16 September Fed hike fell to roughly 34% (from ~55% a week earlier) after Wednesday's in-line CPI and Thursday's soft PPI, as the S&P 500 closed above 7,800 for the first time."},
     {"title":"Stock Market Today (Aug. 14, 2026): S&P 500 edges higher following record close","source":"TheStreet","date":"2026-08-14","time":"13:03","url":"https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-14-2026","blurb":"US equity futures traded roughly flat Friday as investors awaited the July retail-sales report, the last major US data point before the Fed's blackout period ahead of the 16 September decision."},
     {"title":"US warns Iran of indefinite naval blockade as Strait of Hormuz deadlock continues","source":"Reuters (via Onmanorama)","date":"2026-08-14","time":"13:03","url":"https://www.onmanorama.com/news/world/2026/08/14/us-warns-iran-of-indefinite-naval-blockade-as-strait-of-hormuz-deadlock-continues.html","blurb":"Defense Secretary Pete Hegseth said the US Navy can maintain its blockade of Iran 'indefinitely' by rotating ships in and out, while Treasury Secretary Bessent previewed an 'economic isolation' sanctions package for next week."},
@@ -839,9 +845,6 @@ export const ARTICLES = {
     {"title":"investingLive Asia-Pacific Market news: Oil eases as UAE-Iran asset transfer reported","source":"investingLive","date":"2026-08-13","time":"05:17","url":"https://investinglive.com/news/investinglive-asia-pacific-market-news-oil-eases-as-uae-iran-asset-transfer-reported/","blurb":"Oil edged lower after reports the UAE released a further tranche of Iran's frozen assets — including gold worth roughly $212m — transferred 11–12 August, a tentative de-escalation signal for the Hormuz standoff."},
     {"title":"Economic and event calendar in Asia Thursday, August 13, 2026 - RBNZ inflation expectations","source":"investingLive","date":"2026-08-13","time":"05:17","url":"https://investinglive.com/news/economic-and-event-calendar-in-asia-thursday-august-13-2026/","blurb":"Asia's session calendar leads with the RBNZ's Q3 inflation-expectations survey, plus Japan's July PPI (7.2% y/y) — a reminder the US July PPI print later today is one of several central-bank-relevant inflation reads this week."},
     {"title":"Latest Oil Market News and Analysis for Aug. 13","source":"Bloomberg","date":"2026-08-12","time":"05:17","url":"https://www.bloomberg.com/news/articles/2026-08-12/latest-oil-market-news-and-analysis-for-aug-13","blurb":"Brent held most of a six-session, roughly 12% gain near $88/bbl as traders waited for concrete signs of progress on reopening the Strait of Hormuz."},
-    {"title":"PPI and jobless claims highlight economic data due Thursday","source":"Investing.com","date":"2026-08-12","time":"05:17","url":"https://www.investing.com/news/stock-market-news/ppi-and-jobless-claims-highlight-economic-data-due-thursday-93CH-4855846","blurb":"July PPI (consensus +0.2% m/m) and weekly jobless claims (forecast 202k) land at 8:30am ET Thursday, the last inflation data point before the 16 September FOMC decision."},
-    {"title":"The Post Market Wrap: August 12, 2026","source":"CNBC","date":"2026-08-12","time":"05:17","url":"https://www.cnbc.com/video/2026/08/12/the-post-market-wrap-august-12-2026.html","blurb":"CNBC's closing-bell wrap on a session where the S&P 500 (+0.26%), Nasdaq (+0.54%) and a nearly flat Dow digested the in-line July CPI print alongside strong CoreWeave and Super Micro earnings."},
-    {"title":"FTSE 100 Live: UK Stocks Fall For Third Day as Defensives Drop","source":"Bloomberg","date":"2026-08-12","time":"05:17","url":"https://www.bloomberg.com/news/live-blog/2026-08-12/ftse-100-live-updates-pound-gilts-us-iran-trump-oil-prices-gold-ai-stocks-what-s-moving-uk-markets-right-now-markets-today-mspo1di9","blurb":"The FTSE 100 slipped for a third straight session (-0.1% to 10,833.15) as Burberry and Tesco led fallers, with investors cautious ahead of the US CPI print and continued Hormuz tensions."},
   ],
 };
 
