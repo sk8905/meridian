@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "98cd55c6-8692-47f0-882a-f81de2351130", title: "Bezos-backed group strikes deal for stake in Liverpool FC", date: "2026-08-14", time: "17:00", url: "https://www.ft.com/content/98cd55c6-8692-47f0-882a-f81de2351130" },
   { id: "68873521-58fa-435d-b46f-6309612964b2", title: "Luigi Mangione pleads guilty over death of UnitedHealth chief executive", date: "2026-08-14", time: "16:51", url: "https://www.ft.com/content/68873521-58fa-435d-b46f-6309612964b2" },
   { id: "71f95452-4493-4795-bfe2-26d0c89b2a93", title: "Activists are giving British M&A targets a helpful shove", date: "2026-08-14", time: "16:42", url: "https://www.ft.com/content/71f95452-4493-4795-bfe2-26d0c89b2a93" },
   { id: "e288709a-36f2-459e-9d59-f9a59a3891c2", title: "Farage wins… and donation probe resumes", date: "2026-08-14", time: "16:25", url: "https://www.ft.com/content/e288709a-36f2-459e-9d59-f9a59a3891c2" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "df8ee1b1-f1bc-4c8a-a17e-f8f92a746989", title: "Owner of collapsed lender MFS to pay £3mn to his lawyers at Mishcon de Reya", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/df8ee1b1-f1bc-4c8a-a17e-f8f92a746989" },
   { id: "d4dbc028-08ac-4e49-a04d-79396f872758", title: "Banks’ private credit disclosures highlight value of sunlight", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/d4dbc028-08ac-4e49-a04d-79396f872758" },
   { id: "22f91f8b-c331-4512-a208-2b8b1a472ab4", title: "Activist Cevian calls for higher pay for UK board members", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/22f91f8b-c331-4512-a208-2b8b1a472ab4" },
-  { id: "4fccf8b5-5e32-4322-9435-d996a0273dff", title: "Farage aide Cottrell had secret Polymarket account that placed bets on Trump victory", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/4fccf8b5-5e32-4322-9435-d996a0273dff" },
 ];
