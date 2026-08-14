@@ -12,8 +12,8 @@ export const UPDATED = "13 August 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-08-13",
-  lastCheckedTime: "21:36 BST",
+  lastChecked: "2026-08-14",
+  lastCheckedTime: "05:23 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -776,20 +776,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-08-13",
+  updated: "2026-08-14",
   us: [
-    { title: "Wholesale prices were flat in July, below expectations for 0.2% increase", source: "CNBC", date: "2026-08-13", time: "17:41", url: "https://www.cnbc.com/2026/08/13/wholesale-prices-were-flat-in-july-below-expectations-for-0point2percent-increase.html" },
-    { title: "US Producer Price Growth Decelerates by More Than Forecast", source: "Bloomberg", date: "2026-08-13", time: "17:41", url: "https://www.bloomberg.com/news/articles/2026-08-13/us-producer-price-growth-decelerates-by-more-than-forecast" },
-    { title: "S&P 500 hits record high, oil prices, producer inflation ease", source: "AP (Detroit News)", date: "2026-08-13", time: "21:21", url: "https://www.detroitnews.com/story/business/2026/08/13/sp-500-hits-record-high-as-oil-producer-inflation-weaken/91285508007/" },
-    { title: "Stock Market Today (Aug. 13, 2026): S&P 500 sets new record, clearing 7,800 for the first time", source: "TheStreet", date: "2026-08-13", time: "17:41", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-13-2026" },
-    { title: "Treasury yields ease after lighter-than-expected wholesale inflation", source: "CNBC", date: "2026-08-13", time: "17:41", url: "https://www.cnbc.com/2026/08/13/treasury-yields-wall-street-inflation-data.html" },
+    { title: "U.S. to use economic tactics on Iran 'that have never been seen'; Navy works to relieve troubled carrier USS Abraham Lincoln", source: "CNBC", date: "2026-08-14", time: "05:23", url: "https://www.cnbc.com/2026/08/14/us-iran-war-trump-hormuz-carrier-abraham-lincoln-george-washington.html" },
+    { title: "Trump admin to roll out 'economic isolation' plan for Iran next week", source: "Business Standard", date: "2026-08-14", time: "05:23", url: "https://www.business-standard.com/world-news/trump-admin-to-roll-out-economic-isolation-plan-for-iran-next-week-126081400117_1.html" },
+    { title: "Iran war live: US eyes indefinite Iran naval blockade", source: "Al Jazeera", date: "2026-08-14", time: "05:23", url: "https://www.aljazeera.com/news/liveblog/2026/8/14/iran-war-live-us-eyes-indefinite-iran-naval-blockade" },
+    { title: "investingLive Asia-Pacific Market news: Oil edges up, small move", source: "investingLive", date: "2026-08-14", time: "05:23", url: "https://investinglive.com/news/investinglive-asia-pacific-market-news-oil-edges-up-small-move/" },
+    { title: "Retail sales and core retail sales among economic data due Friday", source: "Investing.com", date: "2026-08-13", time: "17:41", url: "https://www.investing.com/news/stock-market-news/retail-sales-and-core-retail-sales-among-economic-data-due-friday-93CH-4858936" },
   ],
   uk: [
-    { title: "UK Economy Grows 0.4% in Second Quarter Despite Iran War Disruptions", source: "Bloomberg", date: "2026-08-13", time: "07:15", url: "https://www.bloomberg.com/news/articles/2026-08-13/uk-economy-weathers-early-months-of-iran-war-with-0-4-growth" },
-    { title: "The FTSE 100 Index Closes 0.76% Lower", source: "TradingEconomics", date: "2026-08-13", time: "21:21", url: "https://tradingeconomics.com/united-kingdom/stock-market/news/525435" },
-    { title: "Pound Sterling Today: UK GDP Beats Forecasts But GBP Reaction Muted", source: "Exchange Rates UK", date: "2026-08-13", time: "17:41", url: "https://www.exchangerates.org.uk/news/46822/2026-08-13-pound-sterling-today-uk-gdp-beats-forecasts-but-gbp-reaction-muted.html" },
-    { title: "UK Preliminary GDP grows by 0.4% QoQ in Q2, as expected", source: "FXStreet", date: "2026-08-13", time: "07:05", url: "https://www.fxstreet.com/news/uk-gdp-expected-to-show-moderate-q2-growth-202608130200" },
-    { title: "GDP monthly estimate, UK: June 2026", source: "Office for National Statistics", date: "2026-08-13", time: "07:00", url: "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpmonthlyestimateuk/june2026" },
+    { title: "FTSE 100: London Benchmark Falls 0.56% to 10,772.67 Amid US-Iran Tensions", source: "BBNTimes", date: "2026-08-13", time: "21:21", url: "https://www.bbntimes.com/financial/ftse-100-london-benchmark-falls-0-56-to-10-772-67-amid-us-iran-tensions" },
+    { title: "UK economy set for another quarter of growth as 'big picture' shows resilience", source: "PA Media (via Yahoo Finance UK)", date: "2026-08-13", time: "08:00", url: "https://uk.finance.yahoo.com/news/uk-economy-set-another-quarter-080033072.html" },
+    { title: "FTSE 100 today: Stocks slip as GDP cools, Hormuz tensions simmer", source: "Investing.com", date: "2026-08-13", time: "17:41", url: "https://au.investing.com/news/stock-market-news/ftse-100-today-stocks-slip-as-gdp-cools-hormuz-tensions-simmer-4596583" },
+    { title: "Gilt yields forecast to fall before 28 October budget", source: "Business Matters Magazine", date: "2026-08-10", time: "05:23", url: "https://bmmagazine.co.uk/finance/gilt-yields-forecast-fall-autumn-budget/" },
+    { title: "UK's jobs market shows signs of stabilisation, REC/KPMG say", source: "Reuters (via Investing.com)", date: "2026-08-09", time: "05:23", url: "https://www.investing.com/news/economic-indicators/uks-jobs-market-shows-signs-of-stabilisation-reckpmg-say-4847763" },
   ],
 };
 
@@ -801,8 +801,12 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-08-13",
+  updated: "2026-08-14",
   items: [
+    {"title":"U.S. to use economic tactics on Iran 'that have never been seen'; Navy works to relieve troubled carrier USS Abraham Lincoln","source":"CNBC","date":"2026-08-14","time":"05:23","url":"https://www.cnbc.com/2026/08/14/us-iran-war-trump-hormuz-carrier-abraham-lincoln-george-washington.html","blurb":"Treasury Secretary Scott Bessent said Washington will apply economic isolation on Iran 'like the world has never seen' alongside the continued Strait of Hormuz blockade, as the Navy works to relieve the USS Abraham Lincoln carrier group."},
+    {"title":"investingLive Asia-Pacific Market news: Oil edges up, small move","source":"investingLive","date":"2026-08-14","time":"05:23","url":"https://investinglive.com/news/investinglive-asia-pacific-market-news-oil-edges-up-small-move/","blurb":"Oil ticked higher in the Asian session after the US floated an indefinite naval blockade of Iran, a day after crude fell on a weak demand outlook and a large US inventory build; Trump also ordered fresh tariffs of up to 100% on drone imports."},
+    {"title":"Iran war live: US eyes indefinite Iran naval blockade","source":"Al Jazeera","date":"2026-08-14","time":"05:23","url":"https://www.aljazeera.com/news/liveblog/2026/8/14/iran-war-live-us-eyes-indefinite-iran-naval-blockade","blurb":"Defense Secretary Pete Hegseth said the US Navy can sustain its blockade of Iran 'indefinitely' by rotating ships in and out, as Iran's military continued to dispute US claims that vessels are transiting the Strait of Hormuz."},
+    {"title":"Trump admin to roll out 'economic isolation' plan for Iran next week","source":"Business Standard","date":"2026-08-14","time":"05:23","url":"https://www.business-standard.com/world-news/trump-admin-to-roll-out-economic-isolation-plan-for-iran-next-week-126081400117_1.html","blurb":"Bessent previewed a combination of unprecedented financial sanctions and the continued Hormuz blockade, saying details of the economic-isolation package will be announced next week."},
     {"title":"S&P 500 hits record high, oil prices, producer inflation ease","source":"AP (Detroit News)","date":"2026-08-13","time":"21:21","url":"https://www.detroitnews.com/story/business/2026/08/13/sp-500-hits-record-high-as-oil-producer-inflation-weaken/91285508007/","blurb":"The S&P 500 closed at a fresh record 7,798.99 (+0.65%), topping 7,800 intraday for the first time, as Brent and WTI both fell over 2% and the flat July PPI print reinforced bets the Fed stays on hold in September."},
     {"title":"The FTSE 100 Index Closes 0.76% Lower","source":"TradingEconomics","date":"2026-08-13","time":"21:21","url":"https://tradingeconomics.com/united-kingdom/stock-market/news/525435","blurb":"The FTSE 100 fell for a fourth straight session as mining stocks (Rio Tinto, Antofagasta, Anglo American) dragged the index down despite the stronger-than-expected Q2 GDP print."},
     {"title":"Brent Crude Oil Falls on Thursday","source":"TradingEconomics","date":"2026-08-13","time":"21:21","url":"https://tradingeconomics.com/commodity/brent-crude-oil/news/525383","blurb":"Brent crude futures fell about 2% to near $87/bbl on demand concerns and a large EIA-reported build in US crude inventories, even as the US-Iran standoff over the Strait of Hormuz continued."},
@@ -838,10 +842,6 @@ export const ARTICLES = {
     {"title":"Reaction roundup: Experts, analysts weigh in on in-line July CPI report","source":"Investing.com","date":"2026-08-12","time":"05:17","url":"https://ca.investing.com/news/economy-news/reaction-roundup-experts-analysts-weigh-in-on-inline-july-cpi-report-4795873","blurb":"Pantheon Macroeconomics' Oliver Allen said the report keeps the FOMC in wait-and-see mode as September-hike odds 'dipped back a bit further', while Morgan Stanley's Ellen Zentner said in-line inflation keeps the no-need-to-hike narrative intact."},
     {"title":"British Pound: Strong Q2 may give way to flat growth","source":"FXStreet","date":"2026-08-12","time":"11:37","url":"https://www.fxstreet.com/news/british-pound-strong-q2-may-give-way-to-flat-growth-td-securities-202608121137","blurb":"TD Securities flags a likely slowdown after Q2, expecting Thursday's monthly GDP print to disappoint even if the quarterly headline holds up — a swing factor for sterling and BoE hike pricing."},
     {"title":"South Korean Memory Duo Surges Over 8% as Temasek Seeks Direct Stakes in Samsung, SK Hynix","source":"TradingKey","date":"2026-08-12","time":"05:17","url":"https://www.tradingkey.com/analysis/stocks/more/262098129-temasek-samsung-sk-hynix-direct-stake-kospi-storage-rally-tradingkey","blurb":"Singapore's Temasek is reportedly planning its first direct South Korean equity stakes, in Samsung and SK Hynix, lifting the KOSPI over 4% and adding to the AI-chip-cycle optimism feeding into US chip-stock sentiment."},
-    {"title":"CPI inflation report July 2026: Prices rose 0.1%, annual rate 3.4%","source":"CNBC","date":"2026-08-12","time":"13:35","url":"https://www.cnbc.com/2026/08/12/cpi-inflation-report-july-2026.html","blurb":"Headline CPI rose 0.1% m/m and 3.4% y/y (down a tenth from June); core CPI rose 0.2% m/m and 2.5% y/y — both in line with Dow Jones consensus, narrowly favouring a September Fed hold."},
-    {"title":"Instant View: Market shrugs off in-line July CPI report","source":"Reuters (via Investing.com)","date":"2026-08-12","time":"13:50","url":"https://www.investing.com/news/economic-indicators/market-shrugs-off-inline-july-cpi-report-4855116","blurb":"Natixis' Christopher Hodge called it 'a third straight encouraging core CPI print' and Moody's Mark Zandi termed it 'right down the strike zone', as economists weigh a fourth month of easing three-month-annualised inflation against the still-live Iran oil shock."},
-    {"title":"Bond Traders Keep Wagers on a September Fed Hike After Tame CPI","source":"Bloomberg","date":"2026-08-12","time":"15:00","url":"https://www.bloomberg.com/news/articles/2026-08-12/bond-traders-keep-cointoss-wager-on-september-fed-hike-post-cpi","blurb":"CME FedWatch-implied odds of a 16 September hike fell to roughly 38-42% (from near 50/50 the day before) as the 10-year Treasury yield eased 3bp to 4.66% and the 2-year fell a similar amount to 4.18%."},
-    {"title":"British Pound holds steady above 1.3500 vs USD as traders eye US CPI ahead of UK GDP","source":"FXStreet","date":"2026-08-12","time":"09:03","url":"https://www.fxstreet.com/news/british-pound-holds-steady-above-13500-vs-usd-as-traders-eye-us-cpi-ahead-of-uk-gdp-202608120903","blurb":"Sterling held a narrow range near $1.3500 as traders positioned for the US CPI print and Thursday's UK Q2 GDP first estimate, the pair's next directional catalysts."},
   ],
 };
 
