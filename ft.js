@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "5d5ed2dd-8326-4cad-aac3-5816448ceccf", title: "US accuses more than 40 countries of helping China avoid Donald Trump’s tariffs", date: "2026-08-14", time: "19:54", url: "https://www.ft.com/content/5d5ed2dd-8326-4cad-aac3-5816448ceccf" },
+  { id: "66d3a2de-6591-443d-83b0-94f2224edbbf", title: "Americans sour on Donald Trump’s economy as affordability strains intensify", date: "2026-08-14", time: "19:49", url: "https://www.ft.com/content/66d3a2de-6591-443d-83b0-94f2224edbbf" },
+  { id: "2066e73b-be66-4df0-822a-b694d8f66535", title: "Claudia Sheinbaum slams US for revoking visa of former Mexican president’s son", date: "2026-08-14", time: "19:14", url: "https://www.ft.com/content/2066e73b-be66-4df0-822a-b694d8f66535" },
   { id: "8e790ba0-0c3d-47dd-9955-0b98a808ae0c", title: "Burnham warns of ‘tinderbox’ Britain after week of intense heat", date: "2026-08-14", time: "18:51", url: "https://www.ft.com/content/8e790ba0-0c3d-47dd-9955-0b98a808ae0c" },
   { id: "adb47166-29f0-4630-bf8e-b9d0b8d0f2ed", title: "Stockpickers: Persimmon, Savills, Caledonia Mining", date: "2026-08-14", time: "18:00", url: "https://www.ft.com/content/adb47166-29f0-4630-bf8e-b9d0b8d0f2ed" },
   { id: "87d2bbd8-a799-4d6c-8907-2709cdcf0a31", title: "Directors’ Deals: British American Tobacco’s newest director buys the dip", date: "2026-08-14", time: "18:00", url: "https://www.ft.com/content/87d2bbd8-a799-4d6c-8907-2709cdcf0a31" },
@@ -57,9 +60,4 @@ export const FT_ITEMS = [
   { id: "1bc8c77b-f3e2-4ad4-aefc-94b3f48426c6", title: "Nigel Farage wins Clacton by-election", date: "2026-08-14", time: "06:08", url: "https://www.ft.com/content/1bc8c77b-f3e2-4ad4-aefc-94b3f48426c6" },
   { id: "a650dbf4-1028-428f-a4cd-e4ee91f3498a", title: "FirstFT: Cheaper Chinese models push OpenAI and Anthropic into price war", date: "2026-08-14", time: "05:30", url: "https://www.ft.com/content/a650dbf4-1028-428f-a4cd-e4ee91f3498a" },
   { id: "5d2003dc-3e04-40ac-8339-805cbd9763c8", title: "The trillion-dollar IPO vibes continue", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/5d2003dc-3e04-40ac-8339-805cbd9763c8" },
-  { id: "9c0fe32f-056e-4bdc-84b4-9d72d9da9d1c", title: "New Forest blaze points to challenge for under-pressure fire services", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/9c0fe32f-056e-4bdc-84b4-9d72d9da9d1c" },
-  { id: "319d874b-6d71-4802-ad4b-e2aac04fdf40", title: "Mortgage costs pushed higher by US stand-off with Iran", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/319d874b-6d71-4802-ad4b-e2aac04fdf40" },
-  { id: "4e3774b6-52e5-4b8a-be76-0bb87495e1f0", title: "JPMorgan debanked Polymarket over regulatory concerns", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/4e3774b6-52e5-4b8a-be76-0bb87495e1f0" },
-  { id: "5eb087c6-7a53-4f94-9588-d12f30d221df", title: "Venezuela and its opposition want gold back from Bank of England vaults", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/5eb087c6-7a53-4f94-9588-d12f30d221df" },
-  { id: "ef45786a-aa0c-478f-b1bb-741e6abd8aaf", title: "Fragile states in Africa and Middle East hit by more than 40% cut in UK direct aid", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/ef45786a-aa0c-478f-b1bb-741e6abd8aaf" },
 ];
