@@ -33,6 +33,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-tradingday-hikingpressureeases-20260813",
+    publication: "Thomson Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "Hiking pressure eases",
+    date: "2026-08-13",
+    time: "22:14",
+    summary: "S&P 500 hits a fresh high as benign US inflation data eases pressure on the Fed to raise rates, while central banks spearhead a renewed gold rush.",
+    url: "https://www.reuters.com/newsletters/trading-day",
+  },
+  {
     id: "nl-bbg-moneystuff-goathedge-20260813",
     publication: "Bloomberg",
     author: "Matt Levine",
@@ -436,16 +447,5 @@ export const NEWSLETTERS = [
     time: "06:37",
     summary: "Iran and Oman edge toward a Hormuz shipping-route deal as Tehran also shakes up its security leadership; Typhoon Dolphin forces over a million evacuations in China, and Daniel Kinahan appears in a Dublin court after extradition from Dubai.",
     url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-bbg-pointsofreturn-aindicators-20260810",
-    publication: "Bloomberg",
-    author: "John Authers",
-    series: "Points of Return",
-    title: "AIndicators hint at doubts in credit markets",
-    date: "2026-08-10",
-    time: "05:01",
-    summary: "Credit spreads on major AI players are rising, echoing how 19th-century railroad-bond spreads flagged trouble long before the Panic of 1873 — a warning sign for today's debt-financed AI buildout.",
-    url: "https://bloom.bg/4qf8NyY",
   },
 ];
