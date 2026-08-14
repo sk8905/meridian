@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d4897d94-0d69-445a-9466-5150840c801e", title: "Investors pile back into US stocks as bullishness returns to Wall Street", date: "2026-08-14", time: "15:35", url: "https://www.ft.com/content/d4897d94-0d69-445a-9466-5150840c801e" },
+  { id: "236f9d28-f89d-4991-b066-8d2ea47a0def", title: "Reader callout: Do you earn more than your siblings?", date: "2026-08-14", time: "15:20", url: "https://www.ft.com/content/236f9d28-f89d-4991-b066-8d2ea47a0def" },
+  { id: "0095afa5-5945-49cf-b21e-cd502abd1d87", title: "Daniel Kinahan, Ireland’s most wanted man, faces his day in court", date: "2026-08-14", time: "13:45", url: "https://www.ft.com/content/0095afa5-5945-49cf-b21e-cd502abd1d87" },
+  { id: "e5137402-162a-4b21-a175-d86af03c378b", title: "Financier fined and banned over false claims in bids for bank and football club", date: "2026-08-14", time: "13:41", url: "https://www.ft.com/content/e5137402-162a-4b21-a175-d86af03c378b" },
+  { id: "28a51284-98cc-4767-a306-0540d265687f", title: "Jane Street has paid up large to avoid its numbers leaking out", date: "2026-08-14", time: "13:20", url: "https://www.ft.com/content/28a51284-98cc-4767-a306-0540d265687f" },
+  { id: "2a2a8eed-3986-42b5-acde-230dcdffaf25", title: "Why Homer will outlast us all", date: "2026-08-14", time: "13:19", url: "https://www.ft.com/content/2a2a8eed-3986-42b5-acde-230dcdffaf25" },
   { id: "45f65d72-b90a-4dd9-a7b7-43bdf511c194", title: "Safety inspection of track carried out day before train crash south of London", date: "2026-08-14", time: "12:36", url: "https://www.ft.com/content/45f65d72-b90a-4dd9-a7b7-43bdf511c194" },
   { id: "c2aac8e1-62a7-4738-84c1-031266f0dc69", title: "US nuclear negotiator Ernest Moniz: ‘Iran has the home-court advantage’", date: "2026-08-14", time: "12:30", url: "https://www.ft.com/content/c2aac8e1-62a7-4738-84c1-031266f0dc69" },
   { id: "37855917-cf5b-42a9-ad73-f8428a50c0b4", title: "All aboard the wind power rollercoaster", date: "2026-08-14", time: "12:00", url: "https://www.ft.com/content/37855917-cf5b-42a9-ad73-f8428a50c0b4" },
@@ -56,8 +62,4 @@ export const FT_ITEMS = [
   { id: "9c9c948f-dc8b-4385-a9b9-4b98dc1eadd9", title: "US sells 30-year bonds at highest borrowing costs since 2001", date: "2026-08-13", time: "20:51", url: "https://www.ft.com/content/9c9c948f-dc8b-4385-a9b9-4b98dc1eadd9" },
   { id: "2f713878-37c6-4224-9b60-0082bb79290f", title: "EY vaults from bottom to top of Big Four US audit quality league table", date: "2026-08-13", time: "20:26", url: "https://www.ft.com/content/2f713878-37c6-4224-9b60-0082bb79290f" },
   { id: "9eca25f2-85ca-4654-a02e-ccbc638ff9eb", title: "Billionaires are taking over sports teams — and that’s a risk for fans", date: "2026-08-13", time: "19:18", url: "https://www.ft.com/content/9eca25f2-85ca-4654-a02e-ccbc638ff9eb" },
-  { id: "9f299fc0-b3ed-4a60-b228-9b2cc097f222", title: "Buyers should beware the dangers of new ETFs", date: "2026-08-13", time: "18:29", url: "https://www.ft.com/content/9f299fc0-b3ed-4a60-b228-9b2cc097f222" },
-  { id: "a91356ef-67bd-4bd9-947b-b272423f1318", title: "Nearly 14,000 crypto holders face security risk after data breach", date: "2026-08-13", time: "18:11", url: "https://www.ft.com/content/a91356ef-67bd-4bd9-947b-b272423f1318" },
-  { id: "f3f3c945-6a75-4663-b8ec-d5251438c1c5", title: "Seoul soars past Dubai as world’s busiest international airport", date: "2026-08-13", time: "17:46", url: "https://www.ft.com/content/f3f3c945-6a75-4663-b8ec-d5251438c1c5" },
-  { id: "3b67ce5d-3f1a-41a8-8d87-7356876ede14", title: "Passenger train derails near Lewes in East Sussex", date: "2026-08-13", time: "17:34", url: "https://www.ft.com/content/3b67ce5d-3f1a-41a8-8d87-7356876ede14" },
 ];
