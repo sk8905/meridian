@@ -326,7 +326,7 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 /* Macro nested sub-tabs: Policy rates · Cycle. Reuses the dashboard's top
    sub-tab chip style (.tchips/.tchip) so it reads identically; the active class
    on .dsh-macro shows only that group's cards. */
-.dsh-msub { border-bottom:1px solid var(--t-line,#262626); margin:2px 0 4px; }
+.dsh-msub { border-bottom:1px solid var(--t-grid2,#262626); margin:2px 0 4px; }
 .dsh-msub .tchips { height:var(--chip-h,34px); }
 .dsh-macro-rates > [data-mgrp="cycle"] { display:none; }
 .dsh-macro-cycle > [data-mgrp="rates"] { display:none; }
@@ -336,7 +336,7 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 .dsh-cyc { display:grid; grid-template-columns:1fr 1fr; gap:14px 18px; align-items:start; }
 @media (max-width:760px){ .dsh-cyc { grid-template-columns:1fr; } }
 .dsh-cyc-blk { min-width:0; }
-.dsh-cyc-hd { font-size:.9rem; font-weight:700; color:var(--t-ink); margin:0 0 8px; padding-bottom:5px; border-bottom:1px solid var(--t-line,#262626); }
+.dsh-cyc-hd { font-size:.9rem; font-weight:700; color:var(--t-ink); margin:0 0 8px; padding-bottom:5px; border-bottom:1px solid var(--t-grid2,#262626); }
 .dsh-cyc-hd span { display:block; font-size:.7rem; font-weight:400; color:var(--t-mut); margin-top:2px; }
 .dsh-cyc-sub { font-size:.72rem; font-weight:700; letter-spacing:.03em; text-transform:uppercase; color:var(--t-mut); margin:12px 0 0; }
 .dsh-cyc-note { font-size:.82rem; line-height:1.55; color:var(--t-ink); margin:8px 0 0; }

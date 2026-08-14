@@ -711,7 +711,7 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 .tpane[data-pane="hedgefunds"] .tleague th,
 .tpane[data-pane="hedgefunds"] .tleague td { text-align: left; }
 .tpane[data-pane="hedgefunds"] .tleague th.tl-aum,
-.tpane[data-pane="hedgefunds"] .tleague td.tl-aum { text-align: left; white-space: nowrap; font-family: var(--t-mono); color: var(--ink); }
+.tpane[data-pane="hedgefunds"] .tleague td.tl-aum { text-align: left; white-space: nowrap; font-family: var(--t-mono); color: var(--ink); font-variant-numeric: tabular-nums; }
 /* AUM figure links to its source but reads as normal text, not an orange link. */
 .tpane[data-pane="hedgefunds"] .tleague td.tl-aum a { color: inherit; }
 .tpane[data-pane="hedgefunds"] .tleague td.tl-fil a { font-family: var(--t-mono); font-size: 10px; }
