@@ -33,6 +33,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-cnt-newlondonrestaurants-20260814",
+    publication: "Condé Nast Traveller",
+    title: "The best new restaurant in London is...",
+    date: "2026-08-14",
+    time: "10:00",
+    summary: "Restaurant of the week: the BBQ spot serving wagyu brisket with Texas naan that's become London's toughest reservation.",
+    url: "https://www.cntraveller.com/article/new-london-restaurants",
+  },
+  {
     id: "nl-nonbillable-headhuntingfee-20260814",
     publication: "Non-Billable",
     title: "Headhunting's £2m payday",
@@ -437,24 +446,5 @@ export const NEWSLETTERS = [
     time: "11:20",
     summary: "ETFs are buying bullion in a big way.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-10/gold-is-rallying-again-thanks-to-some-deep-pocketed-buyers",
-  },
-  {
-    id: "nl-nonbillable-dentonsvbillionaire-20260810",
-    publication: "Non-Billable",
-    title: "Dentons v billionaire",
-    date: "2026-08-10",
-    time: "09:05",
-    summary: "Dentons acts for a broker suing Revolut billionaire Nik Storonsky for €17.5m over a disputed superyacht commission, plus Macfarlanes and Clifford Chance line up on Apollo's £5.7bn easyJet takeover.",
-    url: "https://www.nonbillable.co.uk/news/dentons-revolut-ceo-superyacht-commissions-cecil-wrigh",
-  },
-  {
-    id: "nl-bp-cre-anthropicdublinoffice-20260810",
-    publication: "Business Post",
-    series: "CRE",
-    title: "Anthropic’s new Dublin office",
-    date: "2026-08-10",
-    time: "08:00",
-    summary: "Anthropic takes a lease at the Iput building in Dublin 2, as Bank of Ireland closes its Baggot Street branch and State Street plans to move its Dublin HQ to Denis O’Brien’s dockland development.",
-    url: "https://bpm.businesspost.ie/w/JRvWWjanSo3LAEBad7J763UQ/Pe5PTEw0pLHXiV2kox0pPw/wetq1n8nfxk4sBK763Nt892bqQ",
   },
 ];
