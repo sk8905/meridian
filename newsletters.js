@@ -33,6 +33,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-gs-briefings-aicapex1trillion-20260814",
+    publication: "Goldman Sachs",
+    title: "$1 Trillion: AI Capex in 2026",
+    date: "2026-08-14",
+    time: "16:32",
+    summary: "Goldman Sachs Research puts 2026 global AI investment at $1.02tn, well above the widely cited $800bn hyperscaler capex consensus.",
+    url: "https://www.goldmansachs.com/insights/articles/global-investment-is-forecast-to-exceed-1-trillion-in-2026",
+  },
+  {
     id: "nl-bbg-authoralert-nkumar-rokosmultistrats-20260814",
     publication: "Bloomberg",
     author: "Nishant Kumar",

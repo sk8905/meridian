@@ -20,6 +20,14 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "68873521-58fa-435d-b46f-6309612964b2", title: "Luigi Mangione pleads guilty over death of UnitedHealth chief executive", date: "2026-08-14", time: "16:51", url: "https://www.ft.com/content/68873521-58fa-435d-b46f-6309612964b2" },
+  { id: "71f95452-4493-4795-bfe2-26d0c89b2a93", title: "Activists are giving British M&A targets a helpful shove", date: "2026-08-14", time: "16:42", url: "https://www.ft.com/content/71f95452-4493-4795-bfe2-26d0c89b2a93" },
+  { id: "e288709a-36f2-459e-9d59-f9a59a3891c2", title: "Farage wins… and donation probe resumes", date: "2026-08-14", time: "16:25", url: "https://www.ft.com/content/e288709a-36f2-459e-9d59-f9a59a3891c2" },
+  { id: "7cd266e7-8278-4e26-945d-d7412afa9152", title: "Top French court blocks social media ban for children", date: "2026-08-14", time: "16:24", url: "https://www.ft.com/content/7cd266e7-8278-4e26-945d-d7412afa9152" },
+  { id: "9f46db72-0a1e-42b0-8efe-974a04fa0fc7", title: "Latest savings rates", date: "2026-08-14", time: "16:23", url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7" },
+  { id: "75ba3055-625c-4cb5-894b-0696a38f5e79", title: "Latest Isa rates", date: "2026-08-14", time: "16:20", url: "https://www.ft.com/content/75ba3055-625c-4cb5-894b-0696a38f5e79" },
+  { id: "e95e8b45-474b-4305-b3b5-83036fa3a06c", title: "Warsh and wait", date: "2026-08-14", time: "16:19", url: "https://www.ft.com/content/e95e8b45-474b-4305-b3b5-83036fa3a06c" },
+  { id: "68b36b6d-71e7-4f44-bbfb-a202e36603a4", title: "Latest National Savings & Investments rates", date: "2026-08-14", time: "16:16", url: "https://www.ft.com/content/68b36b6d-71e7-4f44-bbfb-a202e36603a4" },
   { id: "d4897d94-0d69-445a-9466-5150840c801e", title: "Investors pile back into US stocks as bullishness returns to Wall Street", date: "2026-08-14", time: "15:35", url: "https://www.ft.com/content/d4897d94-0d69-445a-9466-5150840c801e" },
   { id: "236f9d28-f89d-4991-b066-8d2ea47a0def", title: "Reader callout: Do you earn more than your siblings?", date: "2026-08-14", time: "15:20", url: "https://www.ft.com/content/236f9d28-f89d-4991-b066-8d2ea47a0def" },
   { id: "0095afa5-5945-49cf-b21e-cd502abd1d87", title: "Daniel Kinahan, Ireland’s most wanted man, faces his day in court", date: "2026-08-14", time: "13:45", url: "https://www.ft.com/content/0095afa5-5945-49cf-b21e-cd502abd1d87" },
@@ -52,14 +60,4 @@ export const FT_ITEMS = [
   { id: "d4dbc028-08ac-4e49-a04d-79396f872758", title: "Banks’ private credit disclosures highlight value of sunlight", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/d4dbc028-08ac-4e49-a04d-79396f872758" },
   { id: "22f91f8b-c331-4512-a208-2b8b1a472ab4", title: "Activist Cevian calls for higher pay for UK board members", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/22f91f8b-c331-4512-a208-2b8b1a472ab4" },
   { id: "4fccf8b5-5e32-4322-9435-d996a0273dff", title: "Farage aide Cottrell had secret Polymarket account that placed bets on Trump victory", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/4fccf8b5-5e32-4322-9435-d996a0273dff" },
-  { id: "a9573d72-7bb2-462f-83d7-c0fe36f8c98d", title: "Pakistan and the new great game of Risk", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/a9573d72-7bb2-462f-83d7-c0fe36f8c98d" },
-  { id: "2f06eb04-beaf-40e6-b2cc-9eedd0df1748", title: "Mike Ashley promises ‘Dunkirk spirit’ as he barrels into the luxury industry", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/2f06eb04-beaf-40e6-b2cc-9eedd0df1748" },
-  { id: "7a833951-9700-46e1-bc08-d47716504138", title: "The exodus from Israel", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/7a833951-9700-46e1-bc08-d47716504138" },
-  { id: "e3cd352e-5202-4748-952f-ed623ccdc774", title: "The Treasury market’s toxic codependency", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/e3cd352e-5202-4748-952f-ed623ccdc774" },
-  { id: "d0cf28db-bc8d-4fc1-85b6-7b59ab67a451", title: "US investment giant T Rowe says it will take years to stem outflows", date: "2026-08-14", time: "05:00", url: "https://www.ft.com/content/d0cf28db-bc8d-4fc1-85b6-7b59ab67a451" },
-  { id: "c92400d8-15d8-44fb-a069-37c29141c5ae", title: "FBI seized phone of Guggenheim executive in probe of Mark Walter’s business empire", date: "2026-08-13", time: "21:04", url: "https://www.ft.com/content/c92400d8-15d8-44fb-a069-37c29141c5ae" },
-  { id: "b293b66c-8719-4956-9e76-9468dfeaa890", title: "UK houses caught up in wildfires during hottest day of the year", date: "2026-08-13", time: "20:54", url: "https://www.ft.com/content/b293b66c-8719-4956-9e76-9468dfeaa890" },
-  { id: "9c9c948f-dc8b-4385-a9b9-4b98dc1eadd9", title: "US sells 30-year bonds at highest borrowing costs since 2001", date: "2026-08-13", time: "20:51", url: "https://www.ft.com/content/9c9c948f-dc8b-4385-a9b9-4b98dc1eadd9" },
-  { id: "2f713878-37c6-4224-9b60-0082bb79290f", title: "EY vaults from bottom to top of Big Four US audit quality league table", date: "2026-08-13", time: "20:26", url: "https://www.ft.com/content/2f713878-37c6-4224-9b60-0082bb79290f" },
-  { id: "9eca25f2-85ca-4654-a02e-ccbc638ff9eb", title: "Billionaires are taking over sports teams — and that’s a risk for fans", date: "2026-08-13", time: "19:18", url: "https://www.ft.com/content/9eca25f2-85ca-4654-a02e-ccbc638ff9eb" },
 ];
