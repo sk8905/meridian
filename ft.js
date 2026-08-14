@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "45f65d72-b90a-4dd9-a7b7-43bdf511c194", title: "Safety inspection of track carried out day before train crash south of London", date: "2026-08-14", time: "12:36", url: "https://www.ft.com/content/45f65d72-b90a-4dd9-a7b7-43bdf511c194" },
+  { id: "c2aac8e1-62a7-4738-84c1-031266f0dc69", title: "US nuclear negotiator Ernest Moniz: ‘Iran has the home-court advantage’", date: "2026-08-14", time: "12:30", url: "https://www.ft.com/content/c2aac8e1-62a7-4738-84c1-031266f0dc69" },
+  { id: "37855917-cf5b-42a9-ad73-f8428a50c0b4", title: "All aboard the wind power rollercoaster", date: "2026-08-14", time: "12:00", url: "https://www.ft.com/content/37855917-cf5b-42a9-ad73-f8428a50c0b4" },
+  { id: "2ff9ed49-89fa-4b10-b754-ecf1bc396aad", title: "A-level results are in. But are next-step university digs out?", date: "2026-08-14", time: "12:00", url: "https://www.ft.com/content/2ff9ed49-89fa-4b10-b754-ecf1bc396aad" },
+  { id: "63ac111b-c841-4134-9751-f7cc419ae5c5", title: "Everyone but me is getting excited about European equities", date: "2026-08-14", time: "11:59", url: "https://www.ft.com/content/63ac111b-c841-4134-9751-f7cc419ae5c5" },
+  { id: "7f886b9c-c2f4-4561-96a3-9fe2736122c5", title: "FTAV’s Friday charts quiz", date: "2026-08-14", time: "11:52", url: "https://www.ft.com/content/7f886b9c-c2f4-4561-96a3-9fe2736122c5" },
   { id: "d32e8159-7460-44d1-8ed1-f1c3d27d40c8", title: "Israel moves to give police powers in occupied West Bank", date: "2026-08-14", time: "11:21", url: "https://www.ft.com/content/d32e8159-7460-44d1-8ed1-f1c3d27d40c8" },
   { id: "a61433b2-902e-4299-b546-bc0efd9aa53a", title: "Farage won in Clacton. But there are bigger tests to come", date: "2026-08-14", time: "11:10", url: "https://www.ft.com/content/a61433b2-902e-4299-b546-bc0efd9aa53a" },
   { id: "74ab7668-719b-439a-b6c8-c215e520eb2c", title: "Is Andy Burnham the new Money Saving Expert?", date: "2026-08-14", time: "11:00", url: "https://www.ft.com/content/74ab7668-719b-439a-b6c8-c215e520eb2c" },
@@ -54,11 +60,4 @@ export const FT_ITEMS = [
   { id: "a91356ef-67bd-4bd9-947b-b272423f1318", title: "Nearly 14,000 crypto holders face security risk after data breach", date: "2026-08-13", time: "18:11", url: "https://www.ft.com/content/a91356ef-67bd-4bd9-947b-b272423f1318" },
   { id: "f3f3c945-6a75-4663-b8ec-d5251438c1c5", title: "Seoul soars past Dubai as world’s busiest international airport", date: "2026-08-13", time: "17:46", url: "https://www.ft.com/content/f3f3c945-6a75-4663-b8ec-d5251438c1c5" },
   { id: "3b67ce5d-3f1a-41a8-8d87-7356876ede14", title: "Passenger train derails near Lewes in East Sussex", date: "2026-08-13", time: "17:34", url: "https://www.ft.com/content/3b67ce5d-3f1a-41a8-8d87-7356876ede14" },
-  { id: "a468c20b-cf1d-4a36-87b8-4eb15666e6c4", title: "Donald Trump enlists corporate America in fight against cyber crime", date: "2026-08-13", time: "17:28", url: "https://www.ft.com/content/a468c20b-cf1d-4a36-87b8-4eb15666e6c4" },
-  { id: "5d5ed2dd-8326-4cad-aac3-5816448ceccf", title: "US accuses more than 40 countries of helping China avoid Trump’s tariffs", date: "2026-08-13", time: "16:55", url: "https://www.ft.com/content/5d5ed2dd-8326-4cad-aac3-5816448ceccf" },
-  { id: "09c1ed51-8e69-4e39-bab3-392e1e9f9f6b", title: "UK government considers aid for drought-hit farmers", date: "2026-08-13", time: "16:54", url: "https://www.ft.com/content/09c1ed51-8e69-4e39-bab3-392e1e9f9f6b" },
-  { id: "36ec3c60-43b4-4c94-9a7b-8b5dba798ee8", title: "Retail parks are the real threat to the British high street", date: "2026-08-13", time: "16:37", url: "https://www.ft.com/content/36ec3c60-43b4-4c94-9a7b-8b5dba798ee8" },
-  { id: "e7aee58f-a068-468d-b584-49807b413016", title: "Israeli settlers besiege Palestinian homes", date: "2026-08-13", time: "16:28", url: "https://www.ft.com/content/e7aee58f-a068-468d-b584-49807b413016" },
-  { id: "a547d965-eb3b-412a-9896-7d5cc37eb054", title: "Axes of Evil: office space edition", date: "2026-08-13", time: "16:17", url: "https://www.ft.com/content/a547d965-eb3b-412a-9896-7d5cc37eb054" },
-  { id: "01c3117d-1c8b-4b57-b271-aea0ed607adc", title: "Andy Burnham warns water companies against treating customers like ‘blank cheque’", date: "2026-08-13", time: "15:53", url: "https://www.ft.com/content/01c3117d-1c8b-4b57-b271-aea0ed607adc" },
 ];
