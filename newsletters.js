@@ -33,6 +33,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-marketsdaily-highestinterestrate-20260814",
+    publication: "Bloomberg",
+    series: "Markets Daily",
+    title: "Markets Daily: Highest interest rate in 25 years",
+    date: "2026-08-14",
+    time: "11:10",
+    summary: "The bond market warns Bessent on deficits after the US sells 30-year bonds at 5.216%, the highest rate in a quarter century, plus crypto exchanges look beyond crypto.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-14/bessent-gets-a-warning-on-deficits-from-the-bond-market",
+  },
+  {
     id: "nl-cnt-newlondonrestaurants-20260814",
     publication: "Condé Nast Traveller",
     title: "The best new restaurant in London is...",
@@ -436,15 +446,5 @@ export const NEWSLETTERS = [
     time: "12:00",
     summary: "It's shaping up as a third straight summertime US jobs bust.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-10/us-job-market-signals-a-third-straight-cruel-summer",
-  },
-  {
-    id: "nl-bbg-marketsdaily-goldrallies-20260810",
-    publication: "Bloomberg",
-    series: "Markets Daily",
-    title: "Markets Daily: Gold rallies again",
-    date: "2026-08-10",
-    time: "11:20",
-    summary: "ETFs are buying bullion in a big way.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-10/gold-is-rallying-again-thanks-to-some-deep-pocketed-buyers",
   },
 ];

@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d32e8159-7460-44d1-8ed1-f1c3d27d40c8", title: "Israel moves to give police powers in occupied West Bank", date: "2026-08-14", time: "11:21", url: "https://www.ft.com/content/d32e8159-7460-44d1-8ed1-f1c3d27d40c8" },
+  { id: "a61433b2-902e-4299-b546-bc0efd9aa53a", title: "Farage won in Clacton. But there are bigger tests to come", date: "2026-08-14", time: "11:10", url: "https://www.ft.com/content/a61433b2-902e-4299-b546-bc0efd9aa53a" },
+  { id: "74ab7668-719b-439a-b6c8-c215e520eb2c", title: "Is Andy Burnham the new Money Saving Expert?", date: "2026-08-14", time: "11:00", url: "https://www.ft.com/content/74ab7668-719b-439a-b6c8-c215e520eb2c" },
   { id: "b8c7e538-22cc-4d2f-a974-66e45a11a425", title: "Why nationalise the railways if nothing really changes?", date: "2026-08-14", time: "09:33", url: "https://www.ft.com/content/b8c7e538-22cc-4d2f-a974-66e45a11a425" },
   { id: "bb62cffe-8985-4407-b555-bdbcd2d18ec5", title: "Swiss economy grows at fastest rate since 2021 despite trade turmoil", date: "2026-08-14", time: "09:31", url: "https://www.ft.com/content/bb62cffe-8985-4407-b555-bdbcd2d18ec5" },
   { id: "c061415a-791d-42e5-9907-736563c7f938", title: "Indonesia’s Prabowo Subianto retreats on commodities reform amid market pressure", date: "2026-08-14", time: "09:05", url: "https://www.ft.com/content/c061415a-791d-42e5-9907-736563c7f938" },
@@ -58,8 +61,4 @@ export const FT_ITEMS = [
   { id: "e7aee58f-a068-468d-b584-49807b413016", title: "Israeli settlers besiege Palestinian homes", date: "2026-08-13", time: "16:28", url: "https://www.ft.com/content/e7aee58f-a068-468d-b584-49807b413016" },
   { id: "a547d965-eb3b-412a-9896-7d5cc37eb054", title: "Axes of Evil: office space edition", date: "2026-08-13", time: "16:17", url: "https://www.ft.com/content/a547d965-eb3b-412a-9896-7d5cc37eb054" },
   { id: "01c3117d-1c8b-4b57-b271-aea0ed607adc", title: "Andy Burnham warns water companies against treating customers like ‘blank cheque’", date: "2026-08-13", time: "15:53", url: "https://www.ft.com/content/01c3117d-1c8b-4b57-b271-aea0ed607adc" },
-  { id: "c8b5605f-209c-4513-9111-1ccc00f3a07e", title: "In charts: Private schools widen lead over state rivals on A-level results day", date: "2026-08-13", time: "14:49", url: "https://www.ft.com/content/c8b5605f-209c-4513-9111-1ccc00f3a07e" },
-  { id: "1f609a52-8b6e-4bc9-a851-c05c099c7029", title: "Starmer allies warn John Healey against blowing ‘strong’ economic inheritance", date: "2026-08-13", time: "14:23", url: "https://www.ft.com/content/1f609a52-8b6e-4bc9-a851-c05c099c7029" },
-  { id: "b1ae24bd-af8b-4d98-985a-85213213b5f0", title: "How Jason Arday’s appointment became a reckoning for Cambridge", date: "2026-08-13", time: "14:03", url: "https://www.ft.com/content/b1ae24bd-af8b-4d98-985a-85213213b5f0" },
-  { id: "fc7afa9c-6a99-4cb2-8982-da230d2845dd", title: "Fierce Trump ally Leavitt shocks Washington and leaves White House", date: "2026-08-13", time: "14:00", url: "https://www.ft.com/content/fc7afa9c-6a99-4cb2-8982-da230d2845dd" },
 ];
