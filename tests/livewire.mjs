@@ -9,11 +9,21 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".svg": "image/svg+xml", ".webmanifest": "application/manifest+json", ".png": "image/png" };
+// Fixed dates go stale: Home's "all" feed only backfills its newest ~500 rows
+// (glance.js CAP/GUARD + the HEAVY per-desk slice), and the live Credit/Legal
+// desks add real dated rows every refresh run — so a hardcoded absolute date
+// here eventually ages out of that reach-back window and the row silently
+// stops rendering (not a classification bug, just a stale fixture). Use a
+// date relative to "now" instead, so the fixture always lands a few days back
+// — comfortably inside the backfill window — no matter how much real content
+// has since been added.
+const daysAgo = (n) => { const d = new Date(); d.setDate(d.getDate() - n); return d.toISOString().slice(0, 10); };
+const MOCK_DATE = daysAgo(2);
 const feed = { asOf: new Date().toISOString(), items: [
-  { title: "United States GDP Growth Rate Revised Higher", url: "https://tradingeconomics.com/us/gdp", source: "TradingEconomics", region: "GEN", date: "2026-07-21", time: "13:30" },
-  { title: "WSJ Exclusive: Big Banks Brace For New Capital Rules", url: "https://www.wsj.com/x1", source: "The Wall Street Journal", region: "US", date: "2026-07-21", time: "11:10" },
-  { title: "Global Markets Digest A Quiet Session", url: "https://www.bloomberg.com/x2", source: "Bloomberg", region: "GEN", date: "2026-07-21", time: "10:00" },
-  { title: "Why Widgets Are Suddenly Everywhere", url: "https://www.economist.com/x3", source: "The Economist", region: "GEN", date: "2026-07-21", time: "09:00" },
+  { title: "United States GDP Growth Rate Revised Higher", url: "https://tradingeconomics.com/us/gdp", source: "TradingEconomics", region: "GEN", date: MOCK_DATE, time: "13:30" },
+  { title: "WSJ Exclusive: Big Banks Brace For New Capital Rules", url: "https://www.wsj.com/x1", source: "The Wall Street Journal", region: "US", date: MOCK_DATE, time: "11:10" },
+  { title: "Global Markets Digest A Quiet Session", url: "https://www.bloomberg.com/x2", source: "Bloomberg", region: "GEN", date: MOCK_DATE, time: "10:00" },
+  { title: "Why Widgets Are Suddenly Everywhere", url: "https://www.economist.com/x3", source: "The Economist", region: "GEN", date: MOCK_DATE, time: "09:00" },
 ]};
 // Bespoke server (not lib.serve) so /api/feed returns EXACTLY these four items.
 const srv = http.createServer((q, r) => {

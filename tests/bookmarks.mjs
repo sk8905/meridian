@@ -10,9 +10,14 @@ import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const MIME = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".svg": "image/svg+xml", ".webmanifest": "application/manifest+json", ".png": "image/png" };
+// See livewire.mjs for why this is relative-to-now rather than a hardcoded
+// date: Home's "all" feed only backfills its newest ~500 rows, so a fixed
+// absolute date eventually ages out of that window as real content accrues.
+const daysAgo = (n) => { const d = new Date(); d.setDate(d.getDate() - n); return d.toISOString().slice(0, 10); };
+const MOCK_DATE = daysAgo(2);
 const feed = { asOf: new Date().toISOString(), items: [
-  { title: "WSJ Exclusive: Big Banks Brace For New Capital Rules", url: "https://www.wsj.com/x1", source: "The Wall Street Journal", region: "US", date: "2026-07-21", time: "11:10" },
-  { title: "United States GDP Growth Rate Revised Higher", url: "https://tradingeconomics.com/us/gdp", source: "TradingEconomics", region: "GEN", date: "2026-07-21", time: "13:30" },
+  { title: "WSJ Exclusive: Big Banks Brace For New Capital Rules", url: "https://www.wsj.com/x1", source: "The Wall Street Journal", region: "US", date: MOCK_DATE, time: "11:10" },
+  { title: "United States GDP Growth Rate Revised Higher", url: "https://tradingeconomics.com/us/gdp", source: "TradingEconomics", region: "GEN", date: MOCK_DATE, time: "13:30" },
 ]};
 // In-memory per-user KV — the piece under test.
 let hsvStore = [];
