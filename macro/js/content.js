@@ -13,7 +13,7 @@ export const UPDATED = "15 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-15",
-  lastCheckedTime: "17:13 BST",
+  lastCheckedTime: "21:12 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -782,10 +782,10 @@ export const NEWS = {
   updated: "2026-08-15",
   us: [
     { title: "Hormuz Ship Attacks Mount as US Vows to Cripple Iran's Economy", source: "Bloomberg", date: "2026-08-15", time: "17:13", url: "https://www.bloomberg.com/news/articles/2026-08-15/hormuz-ship-attacks-mount-as-us-vows-to-cripple-iran-s-economy" },
-    { title: "Iran rejects 'delusions' after Trump says he wants the Strait of Hormuz to be a U.S. territory", source: "NBC News", date: "2026-08-15", time: "17:13", url: "https://www.nbcnews.com/world/iran/iran-rejects-delusions-trump-strait-hormuz-us-territory-rcna592666" },
+    { title: "Iran war live: Tehran says Hormuz under its control, Lebanon slams Israel", source: "Al Jazeera", date: "2026-08-15", time: "21:12", url: "https://www.aljazeera.com/news/liveblog/2026/8/15/iran-war-live-trump-vows-to-make-hormuz-us-territory-pretty-soon" },
     { title: "Iran rebuffs Trump's claim over Strait of Hormuz amid report of another ship being struck", source: "CNBC", date: "2026-08-15", time: "17:13", url: "https://www.cnbc.com/2026/08/15/iran-rebuffs-trumps-claim-over-hormuz-amid-report-of-ship-strike.html" },
     { title: "Forecasting the upcoming week: Focus shifts to the FOMC Minutes and the Jackson Hole symposium", source: "FXStreet", date: "2026-08-15", time: "09:22", url: "https://www.fxstreet.com/analysis/forecasting-the-upcoming-week-focus-shifts-to-the-fomc-minutes-and-the-jackson-hole-symposium-202508151843" },
-    { title: "S&P 500 notches record-high close as rate-hike worries ease", source: "AP News (via Jefferson City News Tribune)", date: "2026-08-14", time: "13:03", url: "https://www.newstribune.com/news/2026/aug/14/sp-500-notches-record-high-close-as-rate-hike/" },
+    { title: "Iran rejects 'delusions' after Trump says he wants the Strait of Hormuz to be a U.S. territory", source: "NBC News", date: "2026-08-15", time: "17:13", url: "https://www.nbcnews.com/world/iran/iran-rejects-delusions-trump-strait-hormuz-us-territory-rcna592666" },
   ],
   uk: [
     { title: "UK retains high Fitch rating, but rising energy prices set to tame economic growth", source: "The National", date: "2026-08-15", time: "17:13", url: "https://www.thenationalnews.com/business/economy/2026/08/15/uk-retains-high-fitch-rating-but-rising-energy-prices-set-to-tame-economic-growth/" },
@@ -806,6 +806,7 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-15",
   items: [
+    {"title":"Iran war live: Tehran says Hormuz under its control, Lebanon slams Israel","source":"Al Jazeera","date":"2026-08-15","time":"21:12","url":"https://www.aljazeera.com/news/liveblog/2026/8/15/iran-war-live-trump-vows-to-make-hormuz-us-territory-pretty-soon","blurb":"Iran's Chief Justice said the 'owner and ruler of the Strait of Hormuz is Islamic Iran' as Tehran and Beirut traded fresh accusations, keeping the blockade and the oil-driven inflation risk live into the weekend."},
     {"title":"Hormuz Ship Attacks Mount as US Vows to Cripple Iran's Economy","source":"Bloomberg","date":"2026-08-15","time":"17:13","url":"https://www.bloomberg.com/news/articles/2026-08-15/hormuz-ship-attacks-mount-as-us-vows-to-cripple-iran-s-economy","blurb":"UAE-flagged ADNOC tankers were hit for a third straight day as Washington previews a sweeping sanctions package, keeping the oil-driven inflation risk to Fed and BoE policy live into the weekend."},
     {"title":"Iran, Oman Home In on Hormuz Strait Deal as Ship Attacks Mount","source":"Bloomberg","date":"2026-08-15","time":"17:13","url":"https://www.bloomberg.com/news/articles/2026-08-15/iran-oman-hone-in-on-hormuz-strait-deal-as-ship-attacks-mount","blurb":"Tehran and Muscat have reached broad agreement on inbound/outbound shipping routes through the Strait after three weeks of talks, though Iran says the waterway stays shut until the US 'corrects its behaviour'."},
     {"title":"Iran rejects 'delusions' after Trump says he wants the Strait of Hormuz to be a U.S. territory","source":"NBC News","date":"2026-08-15","time":"17:13","url":"https://www.nbcnews.com/world/iran/iran-rejects-delusions-trump-strait-hormuz-us-territory-rcna592666","blurb":"Trump said he will 'soon' declare the Strait a US territory once Iran is defeated; Deputy FM Gharibabadi retorted the waterway 'cannot be seized with a tweet' and vowed Iran will keep enforcing its blockade."},
@@ -845,7 +846,6 @@ export const ARTICLES = {
     {"title":"The Iran war risks bringing the G7's fastest-growing economy to a halt","source":"CNBC","date":"2026-08-13","time":"09:22","url":"https://www.cnbc.com/2026/08/13/iran-war-g7s-fastest-growing-economy.html","blurb":"Strong Q2 GDP masks mounting downside risk from prolonged Strait of Hormuz disruption and elevated energy prices."},
     {"title":"Live updates: Strait of Hormuz traffic remains low as world rapidly burns through oil stockpiles","source":"CNN","date":"2026-08-13","time":"09:20","url":"https://www.cnn.com/2026/08/13/world/live-news/iran-war-trump","blurb":"Iran's Persian Gulf Strait Authority again said the waterway remains blocked despite Trump's repeated claims of US 'total control', as the IEA warns global oil stockpiles are being drawn down at an unsustainable pace."},
     {"title":"UK economy set for another quarter of growth as 'big picture' shows resilience","source":"PA Media (via Yahoo Finance UK)","date":"2026-08-13","time":"08:00","url":"https://uk.finance.yahoo.com/news/uk-economy-set-another-quarter-080033072.html","blurb":"Pantheon Macroeconomics' Rob Wood said the data show 'the big picture is that the economy has remained resilient to the hit from the war in Iran', even as higher National Insurance costs, the minimum-wage rise and tariff-hit exports dented the pace of growth within the quarter."},
-    {"title":"UK Economy Grows 0.4% in Second Quarter Despite Iran War Disruptions","source":"Bloomberg","date":"2026-08-13","time":"07:15","url":"https://www.bloomberg.com/news/articles/2026-08-13/uk-economy-weathers-early-months-of-iran-war-with-0-4-growth","blurb":"ONS preliminary figures showed UK GDP up 0.4% q/q in Q2 (1.2% y/y), a slowdown from Q1's 0.6% but a sign the economy has largely weathered the Iran-war energy shock and political transition to PM Burnham."},
   ],
 };
 
