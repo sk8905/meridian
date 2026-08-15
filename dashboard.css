@@ -73,11 +73,6 @@
 .dsh-heat-t span{ color:var(--t-ink); font-size:.72rem; line-height:1.15; }
 .dsh-heat-t b{ color:var(--t-ink); font-size:.82rem; font-variant-numeric:tabular-nums; }
 
-.dsh-toggle { display:inline-flex; border:1px solid var(--t-grid2); border-radius:5px; overflow:hidden; }
-.dsh-tgl { border:0; background:transparent; color:var(--t-mut); font:inherit; font-size:.72rem; padding:2px 8px; cursor:pointer; }
-.dsh-tgl.is-on { background:var(--t-panel2); color:var(--t-ink); }
-@media (max-width:760px){ .dsh-toggle{ display:none; } }
-
 .up { color:var(--t-up); } .down { color:var(--t-down); }
 
 /* World-indices + government-yield heatmaps reuse the ETF-flows table look

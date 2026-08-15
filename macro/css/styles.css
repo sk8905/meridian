@@ -638,7 +638,7 @@ circle.yc-uk { fill: #6fa3d6; }
 .chart-ind input { accent-color: var(--macro); }
 .chart-ind-sw { width: 16px; height: 0; border-top: 3px solid var(--c); flex: 0 0 auto; }
 .chart-ind-sw.dash { border-top-style: dashed; }
-#chart-count.is-max { color: #c2410c; font-weight: 800; }
+#chart-count.is-max { color: var(--t-down); font-weight: 800; }
 .chart-main { position: relative; }
 .chart-svg { width: 100%; height: auto; display: block; }
 .chart-grid { stroke: var(--border); stroke-width: 1; }

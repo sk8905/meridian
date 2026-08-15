@@ -26,7 +26,7 @@ const upcls = (n) => (n == null ? "" : n > 0 ? "up" : n < 0 ? "down" : "");
 const asOf = (d) => (d ? `<span class="dsh-asof">as of ${esc(d)}</span>` : "");
 const srcLink = (u, label) => (u ? ` <a class="dsh-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer" title="${esc(label || "Source")}">src</a>` : "");
 const stripTags = (s) => String(s || "").replace(/<[^>]+>/g, "");
-const fmtDate = (d) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? `${+m[3]} ${MONTHS[+m[2]-1]}` : (d || ""); };
+const fmtDate = (d) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? `${+m[3]} ${MONTHS[+m[2]-1]} ${m[1]}` : (d || ""); };
 // Search normaliser: lowercase and drop apostrophes so "director's" / "directors'"
 // / "directors" all collapse to the same token. Used to build each legal item's
 // search haystack and to tokenise the query (word-by-word AND match).

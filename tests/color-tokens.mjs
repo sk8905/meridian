@@ -22,6 +22,8 @@ const headerCss = read("header.css");
 const creditCss = read("credit/css/styles.css");
 const legalCss = read("legal/css/styles.css");
 const premiumCss = read("premium.css");
+const paletteJs = read("palette.js");
+const dashboardApp = read(path.join("v2", "js", "dashboard", "app.js"));
 
 // R8 — --t-news must be a REAL declared custom property (dark + light), not
 // just a var(--t-news, #fallback) with nothing ever setting it.
@@ -75,5 +77,35 @@ for (const [label, sel] of [[".kpi-value", /\.kpi-value\s*\{[^}]*font-variant-nu
   [".data-table .num", /\.data-table \.num\s*\{[^}]*font-variant-numeric:\s*tabular-nums/]]) {
   check(sel.test(creditCss), `credit/css/styles.css ${label} uses tabular-nums`);
 }
+
+// R14a — the portfolio Daily/Total and prediction-market Up/Down toggles are
+// part of the ONE selection-marker family named by R14a ("the prediction and
+// markets chips"); their .on state must use the shared underline, not a
+// fill/colour-swap.
+check(/\.g-pf-tgl\.on,\s*\.tui \.g-pred-dir\.on\{[^}]*box-shadow:inset 0 -2px 0 var\(--chip-ul/.test(homeCss),
+  "home.css .g-pf-tgl.on/.g-pred-dir.on use the chip-underline box-shadow, not a background fill");
+check(!/\.g-pf-tgl\.on,\s*\.tui \.g-pred-dir\.on\{\s*background:var\(--t-panel2\)/.test(homeCss),
+  "home.css .g-pf-tgl.on/.g-pred-dir.on no longer swap background on select");
+check(/\.na-pf-tgl\.on,\s*\.na-pred-dir\.on\s*\{[^}]*box-shadow:\s*inset 0 -2px 0 var\(--chip-ul/.test(premiumCss),
+  "premium.css .na-pf-tgl.on/.na-pred-dir.on use the chip-underline box-shadow, not a background fill");
+check(!/\.na-pf-tgl\.on,\s*\.na-pred-dir\.on\s*\{\s*background:\s*color-mix/.test(premiumCss),
+  "premium.css .na-pf-tgl.on/.na-pred-dir.on no longer swap background via color-mix on select");
+
+// R10a — the command palette's Bloomberg/econ-release/newsletter code chips
+// must key off the domain tokens (Macro/Newsletters), not invent their own
+// per-type hex (BBG/ECON are Macro-domain label types; SUBS/BREW are
+// Newsletters-domain label types, matching feed.css's .g-feed-code.*).
+check(/\.mcmdk-code\.bbg\{color:var\(--t-mac,/.test(paletteJs), "palette.js .mcmdk-code.bbg keys off --t-mac, not an invented --t-bbg");
+check(/\.mcmdk-code\.econ\{color:var\(--t-mac,/.test(paletteJs), "palette.js .mcmdk-code.econ keys off --t-mac, not an invented --t-econ");
+check(/\.mcmdk-code\.substack\{color:var\(--t-amber,/.test(paletteJs), "palette.js .mcmdk-code.substack keys off --t-amber, not an invented --t-sub");
+check(/\.mcmdk-code\.brew\{color:var\(--t-amber,/.test(paletteJs), "palette.js .mcmdk-code.brew keys off --t-amber, not an invented --t-brew");
+
+// Dashboard date formatter must include the year — the Legal tile's keyword
+// search spans case law from multiple years (legal/js/data.js dates back to
+// 2020), so a year-less "14 Mar" is ambiguous between a 2021 case and a 2026
+// one. Every other date-stamped list in the app (feed.js fmtDay, nav-actions.js
+// fmtDate) includes the year; this one silently didn't.
+check(/const fmtDate = \(d\) => \{.*\$\{\+m\[3\]\} \$\{MONTHS\[\+m\[2\]-1\]\} \$\{m\[1\]\}/.test(dashboardApp),
+  "v2/js/dashboard/app.js fmtDate() includes the year in its output");
 
 finish();
