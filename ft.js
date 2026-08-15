@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "2674cacd-3f32-4f4e-97a9-9e825e7f0737", title: "What the Lakers’ $12.5bn sale says about sports ownership", date: "2026-08-15", time: "09:00", url: "https://www.ft.com/content/2674cacd-3f32-4f4e-97a9-9e825e7f0737" },
+  { id: "0beb674b-0979-4897-b86d-ce222033adcf", title: "Meet luxury firms’ new branding tool: the intellectual influencer", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/0beb674b-0979-4897-b86d-ce222033adcf" },
   { id: "f41686a7-4d3c-4f49-8d21-29d3577747a7", title: "Modi promises free exam coaching after India’s ‘cockroach’ protests", date: "2026-08-15", time: "06:08", url: "https://www.ft.com/content/f41686a7-4d3c-4f49-8d21-29d3577747a7" },
   { id: "fa479d50-7c79-4b6d-99c3-3830e37c1503", title: "China poised to lift travel ban on Manus founders", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/fa479d50-7c79-4b6d-99c3-3830e37c1503" },
   { id: "543b1ab2-6203-412d-ae3b-f4439d1e9d47", title: "Traders are spoiling for a fight over the yen", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/543b1ab2-6203-412d-ae3b-f4439d1e9d47" },
@@ -58,8 +60,4 @@ export const FT_ITEMS = [
   { id: "28a51284-98cc-4767-a306-0540d265687f", title: "Jane Street has paid up large to avoid its numbers leaking out", date: "2026-08-14", time: "13:20", url: "https://www.ft.com/content/28a51284-98cc-4767-a306-0540d265687f" },
   { id: "2a2a8eed-3986-42b5-acde-230dcdffaf25", title: "Why Homer will outlast us all", date: "2026-08-14", time: "13:19", url: "https://www.ft.com/content/2a2a8eed-3986-42b5-acde-230dcdffaf25" },
   { id: "45f65d72-b90a-4dd9-a7b7-43bdf511c194", title: "Safety inspection of track carried out day before train crash south of London", date: "2026-08-14", time: "12:36", url: "https://www.ft.com/content/45f65d72-b90a-4dd9-a7b7-43bdf511c194" },
-  { id: "c2aac8e1-62a7-4738-84c1-031266f0dc69", title: "US nuclear negotiator Ernest Moniz: ‘Iran has the home-court advantage’", date: "2026-08-14", time: "12:30", url: "https://www.ft.com/content/c2aac8e1-62a7-4738-84c1-031266f0dc69" },
-  { id: "37855917-cf5b-42a9-ad73-f8428a50c0b4", title: "All aboard the wind power rollercoaster", date: "2026-08-14", time: "12:00", url: "https://www.ft.com/content/37855917-cf5b-42a9-ad73-f8428a50c0b4" },
-  { id: "2ff9ed49-89fa-4b10-b754-ecf1bc396aad", title: "A-level results are in. But are next-step university digs out?", date: "2026-08-14", time: "12:00", url: "https://www.ft.com/content/2ff9ed49-89fa-4b10-b754-ecf1bc396aad" },
-  { id: "63ac111b-c841-4134-9751-f7cc419ae5c5", title: "Everyone but me is getting excited about European equities", date: "2026-08-14", time: "11:59", url: "https://www.ft.com/content/63ac111b-c841-4134-9751-f7cc419ae5c5" },
 ];
