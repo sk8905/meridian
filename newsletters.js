@@ -33,6 +33,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-thebrink-ardaghcashin-20260815",
+    publication: "Bloomberg",
+    author: "Edward Clark",
+    series: "The Brink",
+    title: "The Brink: Cashing in on Ardagh",
+    date: "2026-08-15",
+    time: "16:00",
+    summary: "Arini and Canyon led the takeover of Ardagh, and now want to sell its most valuable asset.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-15/ardagh-s-new-owners-arini-and-canyon-are-ready-to-cash-in",
+  },
+  {
     id: "nl-econ-worldinbrief-20260815",
     publication: "The Economist",
     series: "The World in Brief",
@@ -429,16 +440,5 @@ export const NEWSLETTERS = [
     time: "22:18",
     summary: "US inflation up next — yield curve twists expose Trump's and Bessent's rate dilemma as private-credit giants KKR and Apollo surge on Nvidia's $500bn AI financing deal.",
     url: "https://www.reuters.com/newsletters/trading-day",
-  },
-  {
-    id: "nl-bbg-moneystuff-pickandshovel-20260811",
-    publication: "Bloomberg",
-    author: "Matt Levine",
-    series: "Money Stuff",
-    title: "Money Stuff: Pick-and-Shovel Seller Financing",
-    date: "2026-08-11",
-    time: "19:31",
-    summary: "Nvidia, Tesla, SPVs, taxes.",
-    url: "https://bloom.bg/4i3fMJ2",
   },
 ];
