@@ -5,7 +5,7 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "14 August 2026";
+export const UPDATED = "15 August 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
@@ -13,7 +13,7 @@ export const UPDATED = "14 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-15",
-  lastCheckedTime: "09:22 BST",
+  lastCheckedTime: "17:13 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -612,6 +612,8 @@ export const YIELD_CURVE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-trump-hormuz-us-territory-2026-08-15", kind: "Markets", title: "President Trump said he will 'soon' declare the Strait of Hormuz a US territory once Iran is defeated ('We have the blockade. No ships get through unless we want them to'); Iran's deputy foreign minister Kazem Gharibabadi rejected the claim as 'delusions', saying the waterway 'cannot be seized with a tweet'. A third UAE-flagged (ADNOC) tanker was struck in as many days, even as Iran and Oman reportedly reached broad agreement on Hormuz shipping routes.", href: "#/bubble", date: "2026-08-15" },
+  { id: "g-fitch-uk-aa-minus-2026-08-15", kind: "Cycle", title: "Fitch affirmed the UK's sovereign rating at AA- but cut its growth forecasts to 0.9% (2026) and 1.2% (2027) and now sees inflation ending 2026 near 3.7% on Middle East-driven energy costs, while crediting sterling's reserve-currency status and saying it expects no near-term change to fiscal rules or macro-policy under PM Burnham.", href: "#/cycle", date: "2026-08-15" },
   { id: "g-iran-indefinite-blockade-2026-08-14", kind: "Markets", title: "Defense Secretary Hegseth said the US Navy can maintain its blockade of Iran 'indefinitely' by rotating ships in and out, while Treasury Secretary Bessent previewed an 'economic isolation' sanctions package 'like the world has never seen', to be detailed next week; Brent rose roughly 1.7-1.8% to ~$88.60/bbl on the news even as US equity futures held little changed ahead of Friday's July retail-sales report.", href: "#/bubble", date: "2026-08-14" },
   { id: "g-sp500-record-7800-2026-08-13", kind: "Bubble risk", title: "The S&P 500 set a fresh intraday record above 7,800 for the first time (+0.29%), with the Dow (+0.24%) and Nasdaq (+0.23%) also higher, as a cooler-than-expected July PPI reading pulled the 10-year Treasury yield down over 7bp to 4.621% — even as Cisco's post-earnings ~4.6% after-hours slide (on margin-guidance concerns despite a beat) kept the AI-capex debate live ahead of Applied Materials' results after Thursday's close.", href: "#/bubble", date: "2026-08-13" },
   { id: "g-ppi-flat-hike-odds-2026-08-13", kind: "Rate guidance", title: "July PPI was flat month-on-month (vs +0.2% expected) and the annual rate cooled to 4.7% from 5.5%, though the narrower core measure (ex food/energy/trade services) rose 0.4%, its fastest pace since March. Capital Economics' Stephen Brown said the data 'means a September interest rate hike ... is now looking unlikely'; CME FedWatch-implied odds of a 16 September hike fell to roughly 35% (from ~50% earlier in the week).", href: "#/policy", date: "2026-08-13" },
@@ -779,18 +781,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-08-15",
   us: [
+    { title: "Hormuz Ship Attacks Mount as US Vows to Cripple Iran's Economy", source: "Bloomberg", date: "2026-08-15", time: "17:13", url: "https://www.bloomberg.com/news/articles/2026-08-15/hormuz-ship-attacks-mount-as-us-vows-to-cripple-iran-s-economy" },
+    { title: "Iran rejects 'delusions' after Trump says he wants the Strait of Hormuz to be a U.S. territory", source: "NBC News", date: "2026-08-15", time: "17:13", url: "https://www.nbcnews.com/world/iran/iran-rejects-delusions-trump-strait-hormuz-us-territory-rcna592666" },
+    { title: "Iran rebuffs Trump's claim over Strait of Hormuz amid report of another ship being struck", source: "CNBC", date: "2026-08-15", time: "17:13", url: "https://www.cnbc.com/2026/08/15/iran-rebuffs-trumps-claim-over-hormuz-amid-report-of-ship-strike.html" },
     { title: "Forecasting the upcoming week: Focus shifts to the FOMC Minutes and the Jackson Hole symposium", source: "FXStreet", date: "2026-08-15", time: "09:22", url: "https://www.fxstreet.com/analysis/forecasting-the-upcoming-week-focus-shifts-to-the-fomc-minutes-and-the-jackson-hole-symposium-202508151843" },
-    { title: "Consumer sentiment dips, especially among Republicans", source: "Axios", date: "2026-08-14", time: "09:22", url: "https://www.axios.com/2026/08/14/consumer-sentiment-republicans" },
-    { title: "Asian Stocks Set for Gains as US Inflation Cools: Markets Wrap", source: "Bloomberg", date: "2026-08-13", time: "09:22", url: "https://www.bloomberg.com/news/articles/2026-08-13/asian-stocks-set-for-gains-as-us-inflation-cools-markets-wrap" },
-    { title: "CPI inflation report July 2026: Prices rose 0.1%, annual rate 3.4%", source: "CNBC", date: "2026-08-12", time: "09:22", url: "https://www.cnbc.com/2026/08/12/cpi-inflation-report-july-2026.html" },
-    { title: "Hormuz deadlock: Oil price outlook as U.S.-Iran standoff drags on", source: "CNBC", date: "2026-08-11", time: "09:22", url: "https://www.cnbc.com/2026/08/11/hormuz-oil-prices-us-iran.html" },
+    { title: "S&P 500 notches record-high close as rate-hike worries ease", source: "AP News (via Jefferson City News Tribune)", date: "2026-08-14", time: "13:03", url: "https://www.newstribune.com/news/2026/aug/14/sp-500-notches-record-high-close-as-rate-hike/" },
   ],
   uk: [
+    { title: "UK retains high Fitch rating, but rising energy prices set to tame economic growth", source: "The National", date: "2026-08-15", time: "17:13", url: "https://www.thenationalnews.com/business/economy/2026/08/15/uk-retains-high-fitch-rating-but-rising-energy-prices-set-to-tame-economic-growth/" },
+    { title: "Iran says Strait of Hormuz 'will remain Iranian' after Trump warning", source: "Euronews", date: "2026-08-15", time: "17:13", url: "https://www.euronews.com/2026/08/15/iran-says-strait-of-hormuz-will-remain-iranian-after-trump-warning" },
+    { title: "A Popular UK Bond Trade Suggests Markets Trust Burnham for Now", source: "Bloomberg", date: "2026-08-14", time: "17:46", url: "https://www.bloomberg.com/news/articles/2026-08-14/a-popular-uk-bond-trade-suggests-markets-trust-burnham-for-now" },
+    { title: "FTSE 100 drifts lower in mixed day for Europe", source: "Yahoo Finance UK", date: "2026-08-14", time: "17:13", url: "https://uk.finance.yahoo.com/news/ftse-100-drifts-lower-mixed-162506807.html" },
     { title: "GDP first quarterly estimate, UK: April to June 2026", source: "ONS", date: "2026-08-13", time: "09:22", url: "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpfirstquarterlyestimateuk/apriltojune2026" },
-    { title: "UK Economy Grows 0.4% in Second Quarter Despite Iran War Disruptions", source: "Bloomberg", date: "2026-08-13", time: "09:22", url: "https://www.bloomberg.com/news/articles/2026-08-13/uk-economy-weathers-early-months-of-iran-war-with-0-4-growth" },
-    { title: "The Iran war risks bringing the G7's fastest-growing economy to a halt", source: "CNBC", date: "2026-08-13", time: "09:22", url: "https://www.cnbc.com/2026/08/13/iran-war-g7s-fastest-growing-economy.html" },
-    { title: "UK Economy Faces Weak Growth in 2026, Treasury Forecasts Show", source: "Bloomberg", date: "2026-08-12", time: "09:22", url: "https://www.bloomberg.com/news/articles/2026-08-12/internal-uk-forecasts-raise-risk-of-growth-downgrade-due-to-war" },
-    { title: "Economy slows but doesn't stall as the UK leads the G7 on growth", source: "Resolution Foundation", date: "2026-08-13", time: "09:22", url: "https://www.resolutionfoundation.org/press-releases/economy-slows-but-doesnt-stall-as-the-uk-economy-leads-the-g7-on-growth/" },
   ],
 };
 
@@ -804,6 +806,10 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-15",
   items: [
+    {"title":"Hormuz Ship Attacks Mount as US Vows to Cripple Iran's Economy","source":"Bloomberg","date":"2026-08-15","time":"17:13","url":"https://www.bloomberg.com/news/articles/2026-08-15/hormuz-ship-attacks-mount-as-us-vows-to-cripple-iran-s-economy","blurb":"UAE-flagged ADNOC tankers were hit for a third straight day as Washington previews a sweeping sanctions package, keeping the oil-driven inflation risk to Fed and BoE policy live into the weekend."},
+    {"title":"Iran, Oman Home In on Hormuz Strait Deal as Ship Attacks Mount","source":"Bloomberg","date":"2026-08-15","time":"17:13","url":"https://www.bloomberg.com/news/articles/2026-08-15/iran-oman-hone-in-on-hormuz-strait-deal-as-ship-attacks-mount","blurb":"Tehran and Muscat have reached broad agreement on inbound/outbound shipping routes through the Strait after three weeks of talks, though Iran says the waterway stays shut until the US 'corrects its behaviour'."},
+    {"title":"Iran rejects 'delusions' after Trump says he wants the Strait of Hormuz to be a U.S. territory","source":"NBC News","date":"2026-08-15","time":"17:13","url":"https://www.nbcnews.com/world/iran/iran-rejects-delusions-trump-strait-hormuz-us-territory-rcna592666","blurb":"Trump said he will 'soon' declare the Strait a US territory once Iran is defeated; Deputy FM Gharibabadi retorted the waterway 'cannot be seized with a tweet' and vowed Iran will keep enforcing its blockade."},
+    {"title":"UK retains high Fitch rating, but rising energy prices set to tame economic growth","source":"The National","date":"2026-08-15","time":"17:13","url":"https://www.thenationalnews.com/business/economy/2026/08/15/uk-retains-high-fitch-rating-but-rising-energy-prices-set-to-tame-economic-growth/","blurb":"Fitch held the UK at AA- but cut 2026/2027 growth forecasts to 0.9%/1.2% and now sees inflation ending 2026 near 3.7% on Middle East-driven energy costs, while crediting Burnham's fiscal continuity."},
     {"title":"Forecasting the upcoming week: Focus shifts to the FOMC Minutes and the Jackson Hole symposium","source":"FXStreet","date":"2026-08-15","time":"05:13","url":"https://www.fxstreet.com/analysis/forecasting-the-upcoming-week-focus-shifts-to-the-fomc-minutes-and-the-jackson-hole-symposium-202508151843","blurb":"With markets closed for the weekend, next week's calendar is headlined by the FOMC's 28–29 July minutes (19 August) and the run-up to the Fed's Jackson Hole symposium later in the month, alongside a heavy US housing/retail-earnings slate."},
     {"title":"US consumers cut retail spending sharply in July","source":"CNN","date":"2026-08-14","time":"17:46","url":"https://www.cnn.com/2026/08/14/economy/us-retail-sales-july","blurb":"July retail sales fell 0.6% m/m to $763.6bn against a +0.1% consensus, the Census Bureau's advance estimate showed, as fading government tax refunds and softer discretionary spending weighed on the headline."},
     {"title":"US Consumer Sentiment Drops as Inflation Concerns Weigh on Households","source":"Bloomberg","date":"2026-08-14","time":"17:46","url":"https://www.bloomberg.com/news/articles/2026-08-14/us-consumer-sentiment-declines-for-first-time-in-three-months","blurb":"The University of Michigan's preliminary August sentiment gauge fell to 51.0 (vs 54.5 expected) from July's final 55.2, with year-ahead inflation expectations rising to 4.3%."},
@@ -839,11 +845,7 @@ export const ARTICLES = {
     {"title":"The Iran war risks bringing the G7's fastest-growing economy to a halt","source":"CNBC","date":"2026-08-13","time":"09:22","url":"https://www.cnbc.com/2026/08/13/iran-war-g7s-fastest-growing-economy.html","blurb":"Strong Q2 GDP masks mounting downside risk from prolonged Strait of Hormuz disruption and elevated energy prices."},
     {"title":"Live updates: Strait of Hormuz traffic remains low as world rapidly burns through oil stockpiles","source":"CNN","date":"2026-08-13","time":"09:20","url":"https://www.cnn.com/2026/08/13/world/live-news/iran-war-trump","blurb":"Iran's Persian Gulf Strait Authority again said the waterway remains blocked despite Trump's repeated claims of US 'total control', as the IEA warns global oil stockpiles are being drawn down at an unsustainable pace."},
     {"title":"UK economy set for another quarter of growth as 'big picture' shows resilience","source":"PA Media (via Yahoo Finance UK)","date":"2026-08-13","time":"08:00","url":"https://uk.finance.yahoo.com/news/uk-economy-set-another-quarter-080033072.html","blurb":"Pantheon Macroeconomics' Rob Wood said the data show 'the big picture is that the economy has remained resilient to the hit from the war in Iran', even as higher National Insurance costs, the minimum-wage rise and tariff-hit exports dented the pace of growth within the quarter."},
-    {"title":"UK GDP growth slows in Q2, but June rebound offers brighter signal","source":"Investing.com","date":"2026-08-13","time":"07:45","url":"https://ca.investing.com/news/economy-news/uk-gdp-growth-slows-in-q2-but-june-rebound-offers-brighter-signal-4797220","blurb":"June's standalone GDP rose 0.3% (vs an expected small decline) on a Gulf-conflict energy-price respite, World Cup hospitality demand and hot weather, offsetting a weaker quarterly headline."},
     {"title":"UK Economy Grows 0.4% in Second Quarter Despite Iran War Disruptions","source":"Bloomberg","date":"2026-08-13","time":"07:15","url":"https://www.bloomberg.com/news/articles/2026-08-13/uk-economy-weathers-early-months-of-iran-war-with-0-4-growth","blurb":"ONS preliminary figures showed UK GDP up 0.4% q/q in Q2 (1.2% y/y), a slowdown from Q1's 0.6% but a sign the economy has largely weathered the Iran-war energy shock and political transition to PM Burnham."},
-    {"title":"UK Preliminary GDP grows by 0.4% QoQ in Q2, as expected","source":"FXStreet","date":"2026-08-13","time":"07:05","url":"https://www.fxstreet.com/news/uk-gdp-expected-to-show-moderate-q2-growth-202608130200","blurb":"The in-line print left sterling little changed near $1.3495 as traders weighed the GDP data against Thursday's US PPI release and the still-unresolved Strait of Hormuz standoff."},
-    {"title":"Asian stocks rise as US inflation data dents Fed's September rate hike bets","source":"Business Standard","date":"2026-08-13","time":"06:00","url":"https://www.business-standard.com/markets/news/asian-stocks-rise-as-us-inflation-data-dents-fed-s-september-rate-hike-bets-126081300063_1.html","blurb":"MSCI's Asia-Pacific ex-Japan gauge rose almost 1% and South Korean shares jumped 4.4% as Wednesday's in-line July CPI pulled CME FedWatch-implied odds of a 16 September Fed hike down to roughly 40%, from 54% a week earlier."},
-    {"title":"investingLive Asia-Pacific Market news: Oil eases as UAE-Iran asset transfer reported","source":"investingLive","date":"2026-08-13","time":"05:17","url":"https://investinglive.com/news/investinglive-asia-pacific-market-news-oil-eases-as-uae-iran-asset-transfer-reported/","blurb":"Oil edged lower after reports the UAE released a further tranche of Iran's frozen assets — including gold worth roughly $212m — transferred 11–12 August, a tentative de-escalation signal for the Hormuz standoff."},
   ],
 };
 
@@ -854,6 +856,7 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
+  { date: "2026-08-17", country: "US", title: "Empire State Manufacturing Survey (August)", url: "https://www.newyorkfed.org/survey/empire/empiresurvey_overview" },
   { date: "2026-08-18", country: "UK", title: "ONS labour market & average earnings (August release)", url: "https://www.ons.gov.uk/releases/uklabourmarketaugust2026" },
   { date: "2026-08-19", country: "US", title: "FOMC minutes (28–29 July meeting)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-08-19", country: "UK", title: "CPI inflation (July)", url: "https://www.ons.gov.uk/releases/consumerpriceinflationukjuly2026" },
@@ -1001,7 +1004,7 @@ export const MATWALL = {
 export const IND_KEYMOMENTS = {
   "US:two_year": { text: "Fell more than 6bp to 4.134% after July PPI came in flat month-on-month (vs +0.2% expected), with the annual rate cooling to 4.7% from 5.5%; the 10-year fell over 7bp to 4.621% on the same print, pulling CME FedWatch-implied odds of a 16 September hike down to roughly 35%.", src: "https://www.cnbc.com/2026/08/13/treasury-yields-wall-street-inflation-data.html", srcName: "CNBC", date: "2026-08-13" },
   "US:wages": { text: "The Employment Cost Index rose 0.9% q/q (vs 0.8% expected) and 3.4% y/y in Q2 — the first hard labour-cost data since Wednesday's hawkish Fed hold, keeping the wage-inflation channel live heading into September.", src: "https://www.933thedrive.com/2026/07/31/us-labor-costs-increase-in-second-quarter-as-wage-growth-picks-up/", srcName: "AP News", date: "2026-07-31" },
-  "UK:two_year": { text: "The 2-year gilt yield held steady at 4.33% on 14 August, while the 10-year (5.04%) and 30-year (5.73%) stayed elevated on fiscal-credibility concerns tied to the Burnham/Healey government's pending Autumn Budget.", src: "https://tradingeconomics.com/united-kingdom/2-year-note-yield", srcName: "TradingEconomics", date: "2026-08-14" },
+  "UK:two_year": { text: "Fitch affirmed the UK at AA- on 15 August but trimmed its growth forecasts to 0.9% (2026) and 1.2% (2027) and now sees inflation ending 2026 near 3.7% on Middle East energy costs — while saying it expects no near-term change to fiscal rules under PM Burnham, leaving gilt yields anchored ahead of the Autumn Budget.", src: "https://www.thenationalnews.com/business/economy/2026/08/15/uk-retains-high-fitch-rating-but-rising-energy-prices-set-to-tame-economic-growth/", srcName: "The National", date: "2026-08-15" },
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.

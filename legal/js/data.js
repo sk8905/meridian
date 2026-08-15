@@ -21,7 +21,7 @@ export const LAST_CHECKED = "2026-08-15";
 // Time-of-day the routine last ran, pre-formatted WITH a timezone label (e.g.
 // "05:22 BST") so it renders the same regardless of the viewer's browser timezone.
 // Set every run alongside LAST_CHECKED — five runs a day (~05:00 / ~09:00 / ~12:00 / ~17:00 / ~21:00).
-export const LAST_CHECKED_TIME = "09:22 BST";
+export const LAST_CHECKED_TIME = "17:13 BST";
 
 // ---- Practice areas ---------------------------------------------------------
 export const practiceAreas = [
@@ -7955,6 +7955,10 @@ export const cases = [
   { id: "c184", name: "Alliance Petrochemical Investment (Singapore) Pte Ltd v Mazzagatti & Anor", citation: "[2026] EWHC 2178 (Comm)", court: "High Court (Comm)",
     date: "2026-08-14", time: "05:20", area: "banking", url: "https://caselaw.nationalarchives.gov.uk/ewhc/comm/2026/2178",
     summary: "API, a Singapore petrochemical company, alleges its former CEO Francesco Mazzagatti and a former CFO misappropriated more than €143m through diverted customer payments, misappropriated profits routed via an intermediary, and unauthorised bank transfers, including sums allegedly used toward the RockRose acquisition via forged Abu Dhabi loan facilities; the defendants deny the claims and contend a third individual in fact controlled API. Mr Lionel Persey KC, sitting as a High Court Judge, ruled on four applications: to strike out the forged-loan-facility allegations, for non-party disclosure from H&P Advisory, to join Viaro Energy Limited to oppose that disclosure, and for a worldwide freezing order.",
+    counsel: [] },
+  { id: "c185", name: "Developstate Limited v Alexander Luxury (Yorkshire) Limited", citation: "[2026] EWHC 2170 (Ch)", court: "High Court (Ch)",
+    date: "2026-08-14", time: "17:13", area: "ri", url: "https://caselaw.nationalarchives.gov.uk/ewhc/ch/2026/2170",
+    summary: "A construction-sector debtor company applied to restrain advertisement of, and strike out, a winding-up petition presented by Developstate Limited over £27,341.80 of unpaid invoices, arguing the debt was genuinely disputed and that defective works gave rise to a cross-claim of around £29,076 exceeding the petition debt. HHJ Richard Carter, sitting in the Insolvency and Companies List of the Business and Property Courts in Leeds, dismissed the application, applying the Construction Act's Pay Less notice regime and finding the company's defect allegations lacked credibility given the absence of contemporaneous complaints and inconsistencies with inspection records.",
     counsel: [] },
 ];
 
