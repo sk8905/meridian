@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "57d098e2-7cb7-426b-90b9-38bbd2a37eb3", title: "Chart of the Week: South Korea’s inverse correlation", date: "2026-08-15", time: "10:30", url: "https://www.ft.com/content/57d098e2-7cb7-426b-90b9-38bbd2a37eb3" },
   { id: "2674cacd-3f32-4f4e-97a9-9e825e7f0737", title: "What the Lakers’ $12.5bn sale says about sports ownership", date: "2026-08-15", time: "09:00", url: "https://www.ft.com/content/2674cacd-3f32-4f4e-97a9-9e825e7f0737" },
   { id: "0beb674b-0979-4897-b86d-ce222033adcf", title: "Meet luxury firms’ new branding tool: the intellectual influencer", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/0beb674b-0979-4897-b86d-ce222033adcf" },
   { id: "f41686a7-4d3c-4f49-8d21-29d3577747a7", title: "Modi promises free exam coaching after India’s ‘cockroach’ protests", date: "2026-08-15", time: "06:08", url: "https://www.ft.com/content/f41686a7-4d3c-4f49-8d21-29d3577747a7" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "e5137402-162a-4b21-a175-d86af03c378b", title: "Financier fined and banned over false claims in bids for bank and football club", date: "2026-08-14", time: "13:41", url: "https://www.ft.com/content/e5137402-162a-4b21-a175-d86af03c378b" },
   { id: "28a51284-98cc-4767-a306-0540d265687f", title: "Jane Street has paid up large to avoid its numbers leaking out", date: "2026-08-14", time: "13:20", url: "https://www.ft.com/content/28a51284-98cc-4767-a306-0540d265687f" },
   { id: "2a2a8eed-3986-42b5-acde-230dcdffaf25", title: "Why Homer will outlast us all", date: "2026-08-14", time: "13:19", url: "https://www.ft.com/content/2a2a8eed-3986-42b5-acde-230dcdffaf25" },
-  { id: "45f65d72-b90a-4dd9-a7b7-43bdf511c194", title: "Safety inspection of track carried out day before train crash south of London", date: "2026-08-14", time: "12:36", url: "https://www.ft.com/content/45f65d72-b90a-4dd9-a7b7-43bdf511c194" },
 ];
