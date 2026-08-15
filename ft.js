@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f41686a7-4d3c-4f49-8d21-29d3577747a7", title: "Modi promises free exam coaching after India’s ‘cockroach’ protests", date: "2026-08-15", time: "06:08", url: "https://www.ft.com/content/f41686a7-4d3c-4f49-8d21-29d3577747a7" },
   { id: "fa479d50-7c79-4b6d-99c3-3830e37c1503", title: "China poised to lift travel ban on Manus founders", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/fa479d50-7c79-4b6d-99c3-3830e37c1503" },
   { id: "543b1ab2-6203-412d-ae3b-f4439d1e9d47", title: "Traders are spoiling for a fight over the yen", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/543b1ab2-6203-412d-ae3b-f4439d1e9d47" },
   { id: "31bcfd50-740c-497c-9104-db9d21efdb69", title: "How John Henry took Liverpool from crisis club to $7bn juggernaut", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/31bcfd50-740c-497c-9104-db9d21efdb69" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "7f886b9c-c2f4-4561-96a3-9fe2736122c5", title: "FTAV’s Friday charts quiz", date: "2026-08-14", time: "11:52", url: "https://www.ft.com/content/7f886b9c-c2f4-4561-96a3-9fe2736122c5" },
   { id: "d32e8159-7460-44d1-8ed1-f1c3d27d40c8", title: "Israel moves to give police powers in occupied West Bank", date: "2026-08-14", time: "11:21", url: "https://www.ft.com/content/d32e8159-7460-44d1-8ed1-f1c3d27d40c8" },
   { id: "a61433b2-902e-4299-b546-bc0efd9aa53a", title: "Farage won in Clacton. But there are bigger tests to come", date: "2026-08-14", time: "11:10", url: "https://www.ft.com/content/a61433b2-902e-4299-b546-bc0efd9aa53a" },
-  { id: "74ab7668-719b-439a-b6c8-c215e520eb2c", title: "Is Andy Burnham the new Money Saving Expert?", date: "2026-08-14", time: "11:00", url: "https://www.ft.com/content/74ab7668-719b-439a-b6c8-c215e520eb2c" },
 ];
