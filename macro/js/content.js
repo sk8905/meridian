@@ -12,8 +12,8 @@ export const UPDATED = "14 August 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-08-14",
-  lastCheckedTime: "17:46 BST",
+  lastChecked: "2026-08-15",
+  lastCheckedTime: "05:23 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -777,20 +777,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-08-14",
+  updated: "2026-08-15",
   us: [
-    { title: "US consumers cut retail spending sharply in July", source: "CNN", date: "2026-08-14", time: "17:46", url: "https://www.cnn.com/2026/08/14/economy/us-retail-sales-july" },
-    { title: "Retail Sales Unexpectedly Fall in July as Government Tax Refunds Fade", source: "US News", date: "2026-08-14", time: "17:46", url: "https://www.usnews.com/news/business/articles/2026-08-14/retail-sales-unexpectedly-fall-in-july-as-government-tax-refunds-fade" },
-    { title: "US Consumer Sentiment Drops as Inflation Concerns Weigh on Households", source: "Bloomberg", date: "2026-08-14", time: "17:46", url: "https://www.bloomberg.com/news/articles/2026-08-14/us-consumer-sentiment-declines-for-first-time-in-three-months" },
-    { title: "'It's not lights out for the economy': U.S. retail sales drop 0.6% in July", source: "Fortune", date: "2026-08-14", time: "17:46", url: "https://fortune.com/2026/08/14/its-not-lights-out-for-the-economy-u-s-retail-sales-drop-0-6-in-july/" },
-    { title: "2 UAE Tankers Attacked While Transiting Strait of Hormuz, and Other News From the Middle East", source: "Washington Post (via US News)", date: "2026-08-14", time: "17:46", url: "https://www.usnews.com/news/world/articles/2026-08-14/2-uae-tankers-attacked-while-transiting-strait-of-hormuz-and-other-news-from-the-middle-east" },
+    { title: "Stock market next week: Outlook for Aug. 17-21, 2026", source: "CNBC", date: "2026-08-14", time: "05:13", url: "https://www.cnbc.com/2026/08/14/stock-market-next-week-outlook-for-aug-17-21-2026.html" },
+    { title: "Forecasting the upcoming week: Focus shifts to the FOMC Minutes and the Jackson Hole symposium", source: "FXStreet", date: "2026-08-15", time: "05:13", url: "https://www.fxstreet.com/analysis/forecasting-the-upcoming-week-focus-shifts-to-the-fomc-minutes-and-the-jackson-hole-symposium-202508151843" },
+    { title: "US Readies Unprecedented 'Economic Isolation' Plan for Iran", source: "Bloomberg", date: "2026-08-14", time: "05:13", url: "https://www.bloomberg.com/news/articles/2026-08-14/us-to-roll-out-economic-isolation-plan-for-iran-next-week" },
+    { title: "Stock market today: S&P 500 slips from record high but caps third straight week of gains", source: "Yahoo Finance", date: "2026-08-14", time: "05:13", url: "https://finance.yahoo.com/markets/live/stock-market-today-friday-august-14-dow-sp-500-nasdaq-102635519.html" },
+    { title: "We learned 5 important things about the economy this week", source: "NPR", date: "2026-08-14", time: "05:13", url: "https://www.npr.org/2026/08/14/nx-s1-5929422/inflation-spending-economy-groceries-gas" },
   ],
   uk: [
-    { title: "A Popular UK Bond Trade Suggests Markets Trust Burnham for Now", source: "Bloomberg", date: "2026-08-14", time: "17:46", url: "https://www.bloomberg.com/news/articles/2026-08-14/a-popular-uk-bond-trade-suggests-markets-trust-burnham-for-now" },
-    { title: "UK Stock Market Forecast Today (August 14): FTSE 100 Set to Open Higher After Four-Day Losing Streak", source: "Sunday Guardian Live", date: "2026-08-14", time: "17:46", url: "https://sundayguardianlive.com/business/uk-stock-market-forecast-today-august-14-ftse-100-set-to-open-higher-after-four-day-losing-streak-check-market-outlook-and-stocks-to-watch-260911/" },
-    { title: "Sterling today: Pound rises as dollar weakens on dovish Fed expectations", source: "Investing.com", date: "2026-08-14", time: "13:03", url: "https://www.investing.com/news/forex-news/sterling-today-pound-rises-as-dollar-weakens-on-dovish-fed-expectations-4860004" },
-    { title: "FTSE 100 Slips as Mining Stocks Fall and Hormuz Oil Risks Persist", source: "Yahoo Finance UK", date: "2026-08-14", time: "13:03", url: "https://uk.finance.yahoo.com/news/ftse-100-slips-mining-stocks-085315221.html" },
-    { title: "FTSE 100 today: Stocks down as miners drag index lower, Hormuz oil risk weighs", source: "Investing.com", date: "2026-08-14", time: "13:03", url: "https://www.investing.com/news/stock-market-news/ftse-100-today-stocks-down-as-miners-drag-index-lower-hormuz-oil-risk-weighs-4859864" },
+    { title: "UK economy races ahead of G7 pack in first half of 2026 despite Gulf war", source: "ITV News", date: "2026-08-13", time: "05:13", url: "https://www.itv.com/news/2026-08-13/uk-economy-races-ahead-of-g7-pack-in-first-half-of-2026-despite-gulf-war" },
+    { title: "War and tax: How the UK economy could get knocked off course", source: "CityAM", date: "2026-08-13", time: "05:13", url: "https://www.cityam.com/war-and-tax-how-the-uk-economy-could-get-knocked-off-course/" },
+    { title: "Economy slows but doesn't stall as the UK leads the G7 on growth", source: "Resolution Foundation", date: "2026-08-13", time: "05:13", url: "https://www.resolutionfoundation.org/press-releases/economy-slows-but-doesnt-stall-as-the-uk-economy-leads-the-g7-on-growth/" },
+    { title: "UK BRC Retail Sales Growth Cools to 1.0% in July, Signalling Softer Consumer Momentum", source: "FX.co", date: "2026-08-10", time: "05:13", url: "https://www.fx.co/en/forex-news/3089030" },
+    { title: "The Iran war risks bringing the G7's fastest-growing economy to a halt", source: "CNBC", date: "2026-08-13", time: "05:13", url: "https://www.cnbc.com/2026/08/13/iran-war-g7s-fastest-growing-economy.html" },
   ],
 };
 
@@ -802,8 +802,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-08-14",
+  updated: "2026-08-15",
   items: [
+    {"title":"Forecasting the upcoming week: Focus shifts to the FOMC Minutes and the Jackson Hole symposium","source":"FXStreet","date":"2026-08-15","time":"05:13","url":"https://www.fxstreet.com/analysis/forecasting-the-upcoming-week-focus-shifts-to-the-fomc-minutes-and-the-jackson-hole-symposium-202508151843","blurb":"With markets closed for the weekend, next week's calendar is headlined by the FOMC's 28–29 July minutes (19 August) and the run-up to the Fed's Jackson Hole symposium later in the month, alongside a heavy US housing/retail-earnings slate."},
+    {"title":"US Readies Unprecedented 'Economic Isolation' Plan for Iran","source":"Bloomberg","date":"2026-08-14","time":"05:13","url":"https://www.bloomberg.com/news/articles/2026-08-14/us-to-roll-out-economic-isolation-plan-for-iran-next-week","blurb":"Treasury Secretary Scott Bessent said Washington will roll out sanctions \"like the world has never seen\" alongside the continued Strait of Hormuz naval blockade, part of a \"one-two punch\" meant to pressure Tehran back to the negotiating table."},
+    {"title":"Live updates: Trump says he'll 'never apologize' for war against Iran, arguing higher US gas prices are worth it","source":"CNN","date":"2026-08-14","time":"05:13","url":"https://www.cnn.com/2026/08/14/world/live-news/iran-war-trump","blurb":"Trump defended the economic cost of the five-month conflict as the Strait of Hormuz standoff and naval blockade continued into the weekend with no resolution in sight."},
     {"title":"US consumers cut retail spending sharply in July","source":"CNN","date":"2026-08-14","time":"17:46","url":"https://www.cnn.com/2026/08/14/economy/us-retail-sales-july","blurb":"July retail sales fell 0.6% m/m to $763.6bn against a +0.1% consensus, the Census Bureau's advance estimate showed, as fading government tax refunds and softer discretionary spending weighed on the headline."},
     {"title":"US Consumer Sentiment Drops as Inflation Concerns Weigh on Households","source":"Bloomberg","date":"2026-08-14","time":"17:46","url":"https://www.bloomberg.com/news/articles/2026-08-14/us-consumer-sentiment-declines-for-first-time-in-three-months","blurb":"The University of Michigan's preliminary August sentiment gauge fell to 51.0 (vs 54.5 expected) from July's final 55.2, with year-ahead inflation expectations rising to 4.3%."},
     {"title":"A Popular UK Bond Trade Suggests Markets Trust Burnham for Now","source":"Bloomberg","date":"2026-08-14","time":"17:46","url":"https://www.bloomberg.com/news/articles/2026-08-14/a-popular-uk-bond-trade-suggests-markets-trust-burnham-for-now","blurb":"UK asset-swap spreads have held steady less than three months before PM Andy Burnham's government delivers its debut Budget, a reversal from July's fiscal-flexibility scare."},
@@ -839,12 +842,8 @@ export const ARTICLES = {
     {"title":"Asian stocks rise as US inflation data dents Fed's September rate hike bets","source":"Business Standard","date":"2026-08-13","time":"06:00","url":"https://www.business-standard.com/markets/news/asian-stocks-rise-as-us-inflation-data-dents-fed-s-september-rate-hike-bets-126081300063_1.html","blurb":"MSCI's Asia-Pacific ex-Japan gauge rose almost 1% and South Korean shares jumped 4.4% as Wednesday's in-line July CPI pulled CME FedWatch-implied odds of a 16 September Fed hike down to roughly 40%, from 54% a week earlier."},
     {"title":"Asian stocks rise on soft US CPI, AI earnings rally","source":"FXStreet","date":"2026-08-13","time":"03:51","url":"https://www.fxstreet.com/news/asian-stocks-rise-on-soft-us-cpi-ai-earnings-rally-202608130351","blurb":"A rally in megacap chipmakers lifted the Nasdaq 100 to a one-month high after Wednesday's tame CPI, with SK Hynix and Samsung both surging in Seoul on continued AI-hardware demand optimism."},
     {"title":"Live updates: Strait of Hormuz traffic remains low as world rapidly burns through oil stockpiles","source":"CNN","date":"2026-08-13","time":"09:20","url":"https://www.cnn.com/2026/08/13/world/live-news/iran-war-trump","blurb":"Iran's Persian Gulf Strait Authority again said the waterway remains blocked despite Trump's repeated claims of US 'total control', as the IEA warns global oil stockpiles are being drawn down at an unsustainable pace."},
-    {"title":"Trump Asserts US Control Over Hormuz as Tensions With Iran Intensify","source":"Bloomberg","date":"2026-08-12","time":"14:00","url":"https://www.bloomberg.com/news/articles/2026-08-12/trump-claims-hormuz-control-as-us-iran-harden-their-positions","blurb":"Trump said 'we own it' and floated keeping US forces in the strait indefinitely, while Iran said it still effectively controls much of the waterway and intends to impose its own transit-toll system — a further hardening of both sides' positions."},
-    {"title":"Week Ahead, 10–14 August 2026: July CPI Wednesday, PPI Thursday, And Retail Sales Friday Headline An Inflation-Heavy US Data Week After A Shock Jobs Contraction Flips The Fed Narrative","source":"Capital Street FX","date":"2026-08-10","time":"09:20","url":"https://capitalstreetfx.com/market-analysis/week-ahead-1014-august-2026-july/","blurb":"A preview of the week's US data slate — CPI, PPI and retail sales — framed against July's shock 23,000 nonfarm-payrolls contraction, which flipped the Fed narrative from hike-risk toward a possible September pause."},
     {"title":"Gold Price Forecast: XAU/USD clings to 100-day SMA, with upside risks intact","source":"FXStreet","date":"2026-08-13","time":"03:26","url":"https://www.fxstreet.com/analysis/gold-price-forecast-xau-usd-clings-to-100-day-sma-with-upside-risks-intact-202608130326","blurb":"Gold traded near $4,408 in early Asian dealing on Thursday as traders looked ahead to the July PPI print for further confirmation of cooling inflation after a mild CPI reading."},
     {"title":"investingLive Asia-Pacific Market news: Oil eases as UAE-Iran asset transfer reported","source":"investingLive","date":"2026-08-13","time":"05:17","url":"https://investinglive.com/news/investinglive-asia-pacific-market-news-oil-eases-as-uae-iran-asset-transfer-reported/","blurb":"Oil edged lower after reports the UAE released a further tranche of Iran's frozen assets — including gold worth roughly $212m — transferred 11–12 August, a tentative de-escalation signal for the Hormuz standoff."},
-    {"title":"Economic and event calendar in Asia Thursday, August 13, 2026 - RBNZ inflation expectations","source":"investingLive","date":"2026-08-13","time":"05:17","url":"https://investinglive.com/news/economic-and-event-calendar-in-asia-thursday-august-13-2026/","blurb":"Asia's session calendar leads with the RBNZ's Q3 inflation-expectations survey, plus Japan's July PPI (7.2% y/y) — a reminder the US July PPI print later today is one of several central-bank-relevant inflation reads this week."},
-    {"title":"Latest Oil Market News and Analysis for Aug. 13","source":"Bloomberg","date":"2026-08-12","time":"05:17","url":"https://www.bloomberg.com/news/articles/2026-08-12/latest-oil-market-news-and-analysis-for-aug-13","blurb":"Brent held most of a six-session, roughly 12% gain near $88/bbl as traders waited for concrete signs of progress on reopening the Strait of Hormuz."},
   ],
 };
 
@@ -855,7 +854,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-08-14", country: "US", title: "Retail sales (July)", url: "https://www.census.gov/retail/release_schedule.html" },
   { date: "2026-08-18", country: "UK", title: "ONS labour market & average earnings (August release)", url: "https://www.ons.gov.uk/releases/uklabourmarketaugust2026" },
   { date: "2026-08-19", country: "US", title: "FOMC minutes (28–29 July meeting)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-08-19", country: "UK", title: "CPI inflation (July)", url: "https://www.ons.gov.uk/releases/consumerpriceinflationukjuly2026" },
@@ -868,6 +866,7 @@ export const RELEASES = [
   { date: "2026-09-04", country: "US", title: "Jobs report / Nonfarm payrolls (August)", url: "https://www.bls.gov/schedule/news_release/empsit.htm" },
   { date: "2026-09-10", country: "US", title: "PPI (August)", url: "https://www.bls.gov/schedule/news_release/ppi.htm" },
   { date: "2026-09-11", country: "US", title: "CPI (August)", url: "https://www.bls.gov/schedule/news_release/cpi.htm" },
+  { date: "2026-09-11", country: "UK", title: "GDP monthly estimate (July)", url: "https://www.ons.gov.uk/releases/gdpmonthlyestimateukjuly2026" },
   { date: "2026-09-16", country: "US", title: "FOMC rate decision (with Summary of Economic Projections)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-09-17", country: "UK", title: "BoE MPC rate decision", url: "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates" },
   { date: "2026-10-28", country: "UK", title: "Autumn Budget 2026 (Chancellor John Healey)", url: "https://www.gov.uk/government/publications/chancellor-letter-to-the-treasury-select-committee-tsc-budget-2026-date" },

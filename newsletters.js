@@ -33,6 +33,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-authoralert-nkumar-micronsandisk-20260814",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    title: "Situational Awareness Boosted Micron, Sandisk Ahead of Turmoil",
+    date: "2026-08-14",
+    time: "23:30",
+    summary: "Situational Awareness increased its exposure to semiconductor firms Micron and Sandisk in Q2, while cutting options positions against Nvidia, Broadcom and AMD.",
+    url: "https://www.bloomberg.com/news/articles/2026-08-14/situational-awareness-boosted-micron-sandisk-ahead-of-turmoil",
+  },
+  {
     id: "nl-lb-liverpoolfcbezos-20260814",
     publication: "Legal Business",
     title: "Transatlantic duo up front as Liverpool FC owners sell stake to Bezos-backed consortium",
@@ -431,16 +441,5 @@ export const NEWSLETTERS = [
     time: "15:02",
     summary: "Hertz's $5 billion debt-fueled buybacks complicate its path to recovery, as 777 Partners files for bankruptcy and BDCs signal private credit is holding up.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-11/hertz-gets-shot-at-redemption-after-5-billion-buyback-binge",
-  },
-  {
-    id: "nl-bbg-economicsdaily-beyondtariffs-20260811",
-    publication: "Bloomberg",
-    author: "Chris Anstey",
-    series: "Economics Daily",
-    title: "Economics Daily: Beyond tariffs",
-    date: "2026-08-11",
-    time: "12:00",
-    summary: "Washington shifts from headline tariffs to subsidies and import curbs meant to wean US supply chains off China, as Trump hardens his stance on Iran reparations and Beijing slaps 54% levies on US pecans.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-11/us-moves-past-tariffs-to-focus-on-supply-chain-revamps-in-china-trade-policy",
   },
 ];
