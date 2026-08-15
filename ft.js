@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "4bd6537f-db17-4013-be3f-c70a1299183c", title: "US aircraft carrier furore is emblem of growing disquiet over Iran war", date: "2026-08-15", time: "13:00", url: "https://www.ft.com/content/4bd6537f-db17-4013-be3f-c70a1299183c" },
+  { id: "6448b0af-f2ed-4067-b814-73f41b56fa78", title: "Ukraine left exposed as Patriot launchers run empty", date: "2026-08-15", time: "13:00", url: "https://www.ft.com/content/6448b0af-f2ed-4067-b814-73f41b56fa78" },
+  { id: "cdec2138-2272-450e-81b8-2fdc9fa61983", title: "Burnham calls for ‘reflection’ over death of Jason Arday", date: "2026-08-15", time: "12:45", url: "https://www.ft.com/content/cdec2138-2272-450e-81b8-2fdc9fa61983" },
   { id: "1c5f8995-ee2f-47cf-977b-69e65f0a8ccc", title: "Labour’s rental reforms disrupt student market and lengthen lettings process", date: "2026-08-15", time: "12:00", url: "https://www.ft.com/content/1c5f8995-ee2f-47cf-977b-69e65f0a8ccc" },
   { id: "57d098e2-7cb7-426b-90b9-38bbd2a37eb3", title: "Chart of the Week: South Korea’s inverse correlation", date: "2026-08-15", time: "10:30", url: "https://www.ft.com/content/57d098e2-7cb7-426b-90b9-38bbd2a37eb3" },
   { id: "2674cacd-3f32-4f4e-97a9-9e825e7f0737", title: "What the Lakers’ $12.5bn sale says about sports ownership", date: "2026-08-15", time: "09:00", url: "https://www.ft.com/content/2674cacd-3f32-4f4e-97a9-9e825e7f0737" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "68b36b6d-71e7-4f44-bbfb-a202e36603a4", title: "Latest National Savings & Investments rates", date: "2026-08-14", time: "16:16", url: "https://www.ft.com/content/68b36b6d-71e7-4f44-bbfb-a202e36603a4" },
   { id: "d4897d94-0d69-445a-9466-5150840c801e", title: "Investors pile back into US stocks as bullishness returns to Wall Street", date: "2026-08-14", time: "15:35", url: "https://www.ft.com/content/d4897d94-0d69-445a-9466-5150840c801e" },
   { id: "236f9d28-f89d-4991-b066-8d2ea47a0def", title: "Reader callout: Do you earn more than your siblings?", date: "2026-08-14", time: "15:20", url: "https://www.ft.com/content/236f9d28-f89d-4991-b066-8d2ea47a0def" },
-  { id: "0095afa5-5945-49cf-b21e-cd502abd1d87", title: "Daniel Kinahan, Ireland’s most wanted man, faces his day in court", date: "2026-08-14", time: "13:45", url: "https://www.ft.com/content/0095afa5-5945-49cf-b21e-cd502abd1d87" },
-  { id: "e5137402-162a-4b21-a175-d86af03c378b", title: "Financier fined and banned over false claims in bids for bank and football club", date: "2026-08-14", time: "13:41", url: "https://www.ft.com/content/e5137402-162a-4b21-a175-d86af03c378b" },
-  { id: "28a51284-98cc-4767-a306-0540d265687f", title: "Jane Street has paid up large to avoid its numbers leaking out", date: "2026-08-14", time: "13:20", url: "https://www.ft.com/content/28a51284-98cc-4767-a306-0540d265687f" },
 ];
