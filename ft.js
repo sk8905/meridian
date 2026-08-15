@@ -20,9 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "1c5f8995-ee2f-47cf-977b-69e65f0a8ccc", title: "Labour’s rental reforms disrupt student market and lengthen lettings process", date: "2026-08-15", time: "12:00", url: "https://www.ft.com/content/1c5f8995-ee2f-47cf-977b-69e65f0a8ccc" },
   { id: "57d098e2-7cb7-426b-90b9-38bbd2a37eb3", title: "Chart of the Week: South Korea’s inverse correlation", date: "2026-08-15", time: "10:30", url: "https://www.ft.com/content/57d098e2-7cb7-426b-90b9-38bbd2a37eb3" },
   { id: "2674cacd-3f32-4f4e-97a9-9e825e7f0737", title: "What the Lakers’ $12.5bn sale says about sports ownership", date: "2026-08-15", time: "09:00", url: "https://www.ft.com/content/2674cacd-3f32-4f4e-97a9-9e825e7f0737" },
-  { id: "0beb674b-0979-4897-b86d-ce222033adcf", title: "Meet luxury firms’ new branding tool: the intellectual influencer", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/0beb674b-0979-4897-b86d-ce222033adcf" },
   { id: "f41686a7-4d3c-4f49-8d21-29d3577747a7", title: "Modi promises free exam coaching after India’s ‘cockroach’ protests", date: "2026-08-15", time: "06:08", url: "https://www.ft.com/content/f41686a7-4d3c-4f49-8d21-29d3577747a7" },
   { id: "fa479d50-7c79-4b6d-99c3-3830e37c1503", title: "China poised to lift travel ban on Manus founders", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/fa479d50-7c79-4b6d-99c3-3830e37c1503" },
   { id: "543b1ab2-6203-412d-ae3b-f4439d1e9d47", title: "Traders are spoiling for a fight over the yen", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/543b1ab2-6203-412d-ae3b-f4439d1e9d47" },
@@ -34,7 +34,12 @@ export const FT_ITEMS = [
   { id: "e1eb3638-cd1a-4a1a-857d-133fe4be468c", title: "Pandemic lockdowns never ended for some people", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/e1eb3638-cd1a-4a1a-857d-133fe4be468c" },
   { id: "936c1856-a049-4d3e-be1c-7cd6269f6bcf", title: "How Burnham can curb Britain’s tax-dodging shops", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/936c1856-a049-4d3e-be1c-7cd6269f6bcf" },
   { id: "f6e4008a-5dab-4248-8fd9-50105cf7d182", title: "School fees are outpacing inflation — here’s how grandparents can help", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/f6e4008a-5dab-4248-8fd9-50105cf7d182" },
+  { id: "0beb674b-0979-4897-b86d-ce222033adcf", title: "Meet luxury firms’ new branding tool: the intellectual influencer", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/0beb674b-0979-4897-b86d-ce222033adcf" },
+  { id: "8990c227-a05d-434b-9f60-87ba995d1183", title: "‘Rich, comforting and bloody clever’ — Jay Rayner reviews Cépage[s], Notting Hill", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/8990c227-a05d-434b-9f60-87ba995d1183" },
+  { id: "388d68e4-ca88-48dd-aad8-fa5976a5452a", title: "Smoke, social media and the shame of the perfect holiday shot", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/388d68e4-ca88-48dd-aad8-fa5976a5452a" },
+  { id: "df5eb544-44ee-4242-a316-21671b85d260", title: "Influencers are transforming travel", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/df5eb544-44ee-4242-a316-21671b85d260" },
   { id: "32592ab6-4385-4f43-95b7-f29cb2abab32", title: "The mercenaries fighting in Africa’s forgotten war", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/32592ab6-4385-4f43-95b7-f29cb2abab32" },
+  { id: "6716d4c7-356c-472d-b1cb-1720964fea02", title: "Six great novelists and the places that inspire them", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/6716d4c7-356c-472d-b1cb-1720964fea02" },
   { id: "5f8858b8-7468-4438-b269-e1b1947b1926", title: "America’s AI election", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/5f8858b8-7468-4438-b269-e1b1947b1926" },
   { id: "ca8c9b92-e4cb-4b88-b10e-1fe722aaa7a8", title: "Why we’re all Wile E Coyote now", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/ca8c9b92-e4cb-4b88-b10e-1fe722aaa7a8" },
   { id: "5d5ed2dd-8326-4cad-aac3-5816448ceccf", title: "US accuses more than 40 countries of helping China avoid Donald Trump’s tariffs", date: "2026-08-14", time: "19:54", url: "https://www.ft.com/content/5d5ed2dd-8326-4cad-aac3-5816448ceccf" },
@@ -56,8 +61,4 @@ export const FT_ITEMS = [
   { id: "68b36b6d-71e7-4f44-bbfb-a202e36603a4", title: "Latest National Savings & Investments rates", date: "2026-08-14", time: "16:16", url: "https://www.ft.com/content/68b36b6d-71e7-4f44-bbfb-a202e36603a4" },
   { id: "d4897d94-0d69-445a-9466-5150840c801e", title: "Investors pile back into US stocks as bullishness returns to Wall Street", date: "2026-08-14", time: "15:35", url: "https://www.ft.com/content/d4897d94-0d69-445a-9466-5150840c801e" },
   { id: "236f9d28-f89d-4991-b066-8d2ea47a0def", title: "Reader callout: Do you earn more than your siblings?", date: "2026-08-14", time: "15:20", url: "https://www.ft.com/content/236f9d28-f89d-4991-b066-8d2ea47a0def" },
-  { id: "0095afa5-5945-49cf-b21e-cd502abd1d87", title: "Daniel Kinahan, Ireland’s most wanted man, faces his day in court", date: "2026-08-14", time: "13:45", url: "https://www.ft.com/content/0095afa5-5945-49cf-b21e-cd502abd1d87" },
-  { id: "e5137402-162a-4b21-a175-d86af03c378b", title: "Financier fined and banned over false claims in bids for bank and football club", date: "2026-08-14", time: "13:41", url: "https://www.ft.com/content/e5137402-162a-4b21-a175-d86af03c378b" },
-  { id: "28a51284-98cc-4767-a306-0540d265687f", title: "Jane Street has paid up large to avoid its numbers leaking out", date: "2026-08-14", time: "13:20", url: "https://www.ft.com/content/28a51284-98cc-4767-a306-0540d265687f" },
-  { id: "2a2a8eed-3986-42b5-acde-230dcdffaf25", title: "Why Homer will outlast us all", date: "2026-08-14", time: "13:19", url: "https://www.ft.com/content/2a2a8eed-3986-42b5-acde-230dcdffaf25" },
 ];
