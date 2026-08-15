@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "1bd69e67-266f-4a4a-9c49-eb3c83bcb295", title: "Israeli strikes kill 11 in Lebanon two months into truce", date: "2026-08-15", time: "17:13", url: "https://www.ft.com/content/1bd69e67-266f-4a4a-9c49-eb3c83bcb295" },
   { id: "4bd6537f-db17-4013-be3f-c70a1299183c", title: "US aircraft carrier furore is emblem of growing disquiet over Iran war", date: "2026-08-15", time: "13:00", url: "https://www.ft.com/content/4bd6537f-db17-4013-be3f-c70a1299183c" },
   { id: "6448b0af-f2ed-4067-b814-73f41b56fa78", title: "Ukraine left exposed as Patriot launchers run empty", date: "2026-08-15", time: "13:00", url: "https://www.ft.com/content/6448b0af-f2ed-4067-b814-73f41b56fa78" },
   { id: "cdec2138-2272-450e-81b8-2fdc9fa61983", title: "Burnham calls for ‘reflection’ over death of Jason Arday", date: "2026-08-15", time: "12:45", url: "https://www.ft.com/content/cdec2138-2272-450e-81b8-2fdc9fa61983" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "e95e8b45-474b-4305-b3b5-83036fa3a06c", title: "Warsh and wait", date: "2026-08-14", time: "16:19", url: "https://www.ft.com/content/e95e8b45-474b-4305-b3b5-83036fa3a06c" },
   { id: "68b36b6d-71e7-4f44-bbfb-a202e36603a4", title: "Latest National Savings & Investments rates", date: "2026-08-14", time: "16:16", url: "https://www.ft.com/content/68b36b6d-71e7-4f44-bbfb-a202e36603a4" },
   { id: "d4897d94-0d69-445a-9466-5150840c801e", title: "Investors pile back into US stocks as bullishness returns to Wall Street", date: "2026-08-14", time: "15:35", url: "https://www.ft.com/content/d4897d94-0d69-445a-9466-5150840c801e" },
-  { id: "236f9d28-f89d-4991-b066-8d2ea47a0def", title: "Reader callout: Do you earn more than your siblings?", date: "2026-08-14", time: "15:20", url: "https://www.ft.com/content/236f9d28-f89d-4991-b066-8d2ea47a0def" },
 ];
