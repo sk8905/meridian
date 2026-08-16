@@ -13,7 +13,7 @@ export const UPDATED = "16 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-16",
-  lastCheckedTime: "12:26 BST",
+  lastCheckedTime: "17:15 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -785,12 +785,12 @@ export const NEWS = {
     { title: "Markets bet on a pause for September, but Fed hawks may not be swayed ahead of Jackson Hole", source: "Yahoo Finance", date: "2026-08-15", time: "17:59", url: "https://finance.yahoo.com/economy/policy/article/markets-bet-on-a-pause-for-september-but-fed-hawks-may-not-be-swayed-ahead-of-jackson-hole-175928197.html" },
     { title: "Stock market next week: Outlook for Aug. 17-21, 2026", source: "CNBC", date: "2026-08-14", url: "https://www.cnbc.com/2026/08/14/stock-market-next-week-outlook-for-aug-17-21-2026.html" },
     { title: "Retail Sales Take a Dip, Stocks Eye Weekly Gain", source: "Charles Schwab", date: "2026-08-14", time: "09:13", url: "https://www.schwab.com/learn/story/stock-market-update-open" },
-    { title: "August 15, 2026 — Shipping faces more disruptions in the Middle East", source: "CNN", date: "2026-08-15", url: "https://www.cnn.com/2026/08/15/world/live-news/iran-war-trump" },
+    { title: "Iran rebuffs Trump's claim over Strait of Hormuz amid report of another ship being struck", source: "CNBC", date: "2026-08-15", url: "https://www.cnbc.com/2026/08/15/iran-rebuffs-trumps-claim-over-hormuz-amid-report-of-ship-strike.html" },
   ],
   uk: [
-    { title: "UK 10Y Bond Yield Hits 14-month High", source: "Trading Economics", date: "2026-08-14", time: "17:00", url: "https://tradingeconomics.com/united-kingdom/government-bond-yield/news/535078" },
+    { title: "AI 'Chipflation' Washes Ashore in the UK Economy", source: "Bloomberg", date: "2026-08-15", url: "https://www.bloomberg.com/news/articles/2026-08-15/ai-chipflation-washes-ashore-in-the-uk-economy" },
     { title: "UK retains high Fitch rating, but rising energy prices set to tame economic growth", source: "The National", date: "2026-08-15", time: "17:13", url: "https://www.thenationalnews.com/business/economy/2026/08/15/uk-retains-high-fitch-rating-but-rising-energy-prices-set-to-tame-economic-growth/" },
-    { title: "Iran says Strait of Hormuz 'will remain Iranian' after Trump warning", source: "Euronews", date: "2026-08-15", time: "17:13", url: "https://www.euronews.com/2026/08/15/iran-says-strait-of-hormuz-will-remain-iranian-after-trump-warning" },
+    { title: "UK 10Y Bond Yield Hits 14-month High", source: "Trading Economics", date: "2026-08-14", time: "17:00", url: "https://tradingeconomics.com/united-kingdom/government-bond-yield/news/535078" },
     { title: "Sterling today: Pound rises as dollar weakens on dovish Fed expectations", source: "Investing.com", date: "2026-08-14", time: "13:03", url: "https://www.investing.com/news/forex-news/sterling-today-pound-rises-as-dollar-weakens-on-dovish-fed-expectations-4860004" },
     { title: "FTSE 100 drifts lower in mixed day for Europe", source: "Yahoo Finance UK", date: "2026-08-14", time: "17:13", url: "https://uk.finance.yahoo.com/news/ftse-100-drifts-lower-mixed-162506807.html" },
   ],
