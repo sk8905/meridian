@@ -20,14 +20,14 @@ export const BRIEFINGS = {
   slots: {
     morning: {
       label: "Morning",
-      date: "2026-08-15",
-      time: "09:27 BST",
-      lede: "CVC Credit priced a $550m CLO and Apollo agreed a $2.6bn financing deal with the New York Yankees as the private-credit desk stayed busy into the weekend, ONS confirmed the UK economy grew 0.4% in Q2 despite Iran-war disruption, and Elliott escalated its activist campaign at Northern Star Resources.",
+      date: "2026-08-16",
+      time: "05:25 BST",
+      lede: "Pemberton took ownership of Danish contractor Nordstern after a lender-led restructuring, UK 10-year gilt yields hit a 14-month high on PM Burnham's fiscal-flexibility rhetoric, US markets are pricing a September Fed pause even as hawks eye Jackson Hole, and a weak US retail-sales print added to signs of cooling demand.",
       bullets: [
-        { html: "<strong>Credit &mdash; CVC</strong>: CVC Credit priced Apidos LVIII, a $550m CLO and its fourth new-issue CLO globally in 2026, with Bank of America as lead arranger, pricing at market tights with strong demand across the capital stack.", src: "https://alternativecreditinvestor.com/2026/08/13/cvc-credit-prices-550m-clo/", srcName: "Alternative Credit Investor" },
-        { html: "<strong>Credit &mdash; Apollo/Yankees</strong>: Apollo Sports Capital agreed a $2.6bn debt-and-equity financing with Yankee Global Enterprises, its largest US sports investment to date, with Apollo Sports Capital CEO Al Tylis joining YGE's board.", src: "https://www.bloomberg.com/news/articles/2026-08-11/apollo-inks-2-6-billion-financing-deal-with-new-york-yankees", srcName: "Bloomberg" },
-        { html: "<strong>UK &mdash; GDP</strong>: ONS preliminary figures showed UK GDP up 0.4% q/q in Q2 2026 (1.2% y/y), a slowdown from Q1's 0.6% but a sign the economy has largely weathered the Iran-war energy shock and the political transition to PM Burnham.", src: "https://www.ons.gov.uk/economy/grossdomesticproductgdp/bulletins/gdpfirstquarterlyestimateuk/apriltojune2026", srcName: "ONS" },
-        { html: "<strong>Markets &mdash; Elliott/Northern Star</strong>: Elliott Investment Management, a c.5.6% holder, escalated its activist campaign at Northern Star Resources, calling the board's response to its renewal and strategic-review demands \"entrenchment\".", src: "https://www.prnewswire.com/news-releases/elliott-management-sends-letter-to-northern-star-resources-ltd-board-of-directors-302849202.html", srcName: "PR Newswire" },
+        { html: "<strong>Credit &mdash; Pemberton/Nordstern</strong>: Pemberton Asset Management, previously the main lender, took ownership of Danish construction and property group Nordstern from ActivumSG after a DKK 1.6bn asset writedown pushed the holding company's equity negative.", src: "https://byensejendom.dk/article/engelsk-laangiver-overtager-entreprenoren-nordstern---5-milliarder-44181", srcName: "Byens Ejendom" },
+        { html: "<strong>UK &mdash; gilts</strong>: UK 10-year gilt yields climbed to a 14-month high as new PM Andy Burnham's looser approach to the fiscal rules and Middle East-driven energy costs weighed on the long end, ahead of his government's first Budget.", src: "https://tradingeconomics.com/united-kingdom/government-bond-yield/news/535078", srcName: "Trading Economics" },
+        { html: "<strong>US &mdash; Fed outlook</strong>: cooling CPI and PPI prints have pushed markets toward pricing a September hold, but Fed Chair Kevin Warsh's Jackson Hole speech and the incoming August CPI print could still reopen the case for a hike, given three regional presidents dissented in favour of one in July.", src: "https://finance.yahoo.com/economy/policy/article/markets-bet-on-a-pause-for-september-but-fed-hawks-may-not-be-swayed-ahead-of-jackson-hole-175928197.html", srcName: "Yahoo Finance" },
+        { html: "<strong>US &mdash; retail sales</strong>: July retail sales fell 0.6% m/m against a +0.1% consensus, the Census Bureau's advance estimate showed, as fading government tax refunds and softer discretionary spending weighed on the headline.", src: "https://www.fxstreet.com/news/united-states-retail-sales-contracted-by-06-mom-in-july-202608141235", srcName: "FXStreet" },
       ],
     },
     afternoon: {
