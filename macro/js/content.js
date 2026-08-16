@@ -13,7 +13,7 @@ export const UPDATED = "16 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-16",
-  lastCheckedTime: "17:15 BST",
+  lastCheckedTime: "21:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -782,10 +782,10 @@ export const NEWS = {
   updated: "2026-08-16",
   us: [
     { title: "Iran War Updates: Iran strikes another ship in Strait of Hormuz as Israel steps up Lebanon attacks", source: "CBS News", date: "2026-08-16", time: "10:15", url: "https://www.cbsnews.com/live-updates/iran-war-donald-trump-strait-of-hormuz-uae-accuses-attacks-vance-oil-gas/" },
+    { title: "Here are the 2 big things we're watching in the stock market in the week ahead", source: "CNBC", date: "2026-08-16", url: "https://www.cnbc.com/2026/08/16/here-are-the-2-big-things-were-watching-in-the-stock-market-in-the-week-ahead.html" },
+    { title: "NY Empire State Manufacturing Index among economic data due Monday", source: "Investing.com", date: "2026-08-16", url: "https://www.investing.com/news/stock-market-news/ny-empire-state-manufacturing-index-among-economic-data-due-monday-93CH-4861389" },
     { title: "Markets bet on a pause for September, but Fed hawks may not be swayed ahead of Jackson Hole", source: "Yahoo Finance", date: "2026-08-15", time: "17:59", url: "https://finance.yahoo.com/economy/policy/article/markets-bet-on-a-pause-for-september-but-fed-hawks-may-not-be-swayed-ahead-of-jackson-hole-175928197.html" },
-    { title: "Stock market next week: Outlook for Aug. 17-21, 2026", source: "CNBC", date: "2026-08-14", url: "https://www.cnbc.com/2026/08/14/stock-market-next-week-outlook-for-aug-17-21-2026.html" },
     { title: "Retail Sales Take a Dip, Stocks Eye Weekly Gain", source: "Charles Schwab", date: "2026-08-14", time: "09:13", url: "https://www.schwab.com/learn/story/stock-market-update-open" },
-    { title: "Iran rebuffs Trump's claim over Strait of Hormuz amid report of another ship being struck", source: "CNBC", date: "2026-08-15", url: "https://www.cnbc.com/2026/08/15/iran-rebuffs-trumps-claim-over-hormuz-amid-report-of-ship-strike.html" },
   ],
   uk: [
     { title: "AI 'Chipflation' Washes Ashore in the UK Economy", source: "Bloomberg", date: "2026-08-15", url: "https://www.bloomberg.com/news/articles/2026-08-15/ai-chipflation-washes-ashore-in-the-uk-economy" },
@@ -806,6 +806,7 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-16",
   items: [
+    {"title":"Here are the 2 big things we're watching in the stock market in the week ahead","source":"CNBC","date":"2026-08-16","time":"12:00","url":"https://www.cnbc.com/2026/08/16/here-are-the-2-big-things-were-watching-in-the-stock-market-in-the-week-ahead.html","blurb":"With the S&P 500 sitting just below its record and no FOMC meeting until 15-16 September, Wednesday's minutes from the contentious 28-29 July meeting and a heavy retail-earnings slate (Home Depot, Walmart) headline a data-light week."},
     {"title":"Live updates: US-Iran war; Yemen port suspends operations as Hormuz stalemate continues","source":"CNN","date":"2026-08-16","time":"11:35","url":"https://www.cnn.com/2026/08/16/world/live-news/iran-war-trump","blurb":"Yemen suspended operations at a strategic Red Sea port after fresh Houthi attacks (seven killed, ~$16m in losses) as Trump and Iran continue trading claims over control of the Strait of Hormuz."},
     {"title":"Iran War Updates: Iran strikes another ship in Strait of Hormuz as Israel steps up Lebanon attacks","source":"CBS News","date":"2026-08-16","time":"10:15","url":"https://www.cbsnews.com/live-updates/iran-war-donald-trump-strait-of-hormuz-uae-accuses-attacks-vance-oil-gas/","blurb":"Treasury Secretary Bessent previewed an 'economic isolation' sanctions package for Iran due next week, as VP Vance said the top US war priority is bringing oil and petrol prices down for Americans."},
     {"title":"Iran war live: Talks on Hormuz Strait continue; Israel kills 11 in Lebanon","source":"Al Jazeera","date":"2026-08-16","time":"09:19","url":"https://www.aljazeera.com/news/liveblog/2026/8/16/iran-war-live-talks-on-hormuz-strait-continue-israel-kills-11-in-lebanon","blurb":"Iran's FM Araghchi said Hormuz reopening still hinges on the US honouring June's MoU, as Israeli strikes killed 11 in Lebanon in the deadliest raid since the truce."},
@@ -845,7 +846,6 @@ export const ARTICLES = {
     {"title":"Wholesale prices were flat in July, below expectations for 0.2% increase","source":"CNBC","date":"2026-08-13","time":"17:41","url":"https://www.cnbc.com/2026/08/13/wholesale-prices-were-flat-in-july-below-expectations-for-0point2percent-increase.html","blurb":"July PPI for final demand was unchanged m/m (vs +0.2% expected) and rose 4.7% y/y, down from 5.5% in June, though the narrower core measure (ex food/energy/trade services) rose 0.4% on a jump in portfolio-management prices."},
     {"title":"US Producer Price Growth Decelerates by More Than Forecast","source":"Bloomberg","date":"2026-08-13","time":"17:41","url":"https://www.bloomberg.com/news/articles/2026-08-13/us-producer-price-growth-decelerates-by-more-than-forecast","blurb":"The softer PPI print, following Wednesday's in-line CPI, added to evidence that wholesale inflation pressures are cooling even as tariff and Iran-war-linked cost risks remain live."},
     {"title":"Wholesale prices didn't accelerate in July, but they weren't cool either","source":"Yahoo Finance","date":"2026-08-13","time":"17:41","url":"https://finance.yahoo.com/economy/policy/article/wholesale-prices-didnt-accelerate-in-july-but-they-werent-cool-either-134319478.html","blurb":"Capital Economics' Stephen Brown said the PPI data, together with Wednesday's CPI, means a September Fed hike 'is now looking unlikely'; Fwdbonds' Chris Rupkey called flat pipeline prices 'good news' for consumers."},
-    {"title":"US wholesale inflation slowed more than expected in July","source":"CNN Business","date":"2026-08-13","time":"17:41","url":"https://www.cnn.com/2026/08/13/economy/us-ppi-wholesale-inflation-july","blurb":"CNN's rundown of the July PPI report and its implications for the Fed's 16 September rate decision, alongside Wednesday's in-line CPI print."},
   ],
 };
 
