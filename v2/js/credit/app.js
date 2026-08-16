@@ -18,7 +18,7 @@ import {
   PAGE, pageShown, pageCount, pageReset, loadMoreBtn,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
 } from "/credit/js/shared.js?v=20260730-2";
-import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js?v=v2-17";
+import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js?v=v2-18";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260808-1";
 import { esc } from "/util.js?v=20260719-1";
 
@@ -646,13 +646,6 @@ function viewDashboard() {
     .sort((a, b) => String(b.date).localeCompare(String(a.date)));
   // Latest press across the tracked universe (manager news + webNews), deduped.
   const newsByDate = aggregateNews().filter((x) => !targetFocus || midInFocus(x._mid));
-  // Match the deal/fundraising sleeves: the headline opens the item in the News
-  // tab, with a link to the original source below it.
-  const newsCompact = (x) => {
-    const src = x.url ? ` · <a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer" class="muted small">source</a>` : "";
-    const mgr = x._mid && x._mname ? ` · ${link(`#/manager/${x._mid}`, x._mname, "compact-mgr")}` : (x._mname ? ` · ${esc(x._mname)}` : "");
-    return `<li class="compact-item"><a href="#/news" data-goto="news:${x._id}" class="compact-head">${esc(x.title)}</a><div class="compact-meta muted small">${x.date ? esc(fmtDate(x.date)) : ""}${mgr}${x.outlet ? ` · ${esc(x.outlet)}` : ""}${src}</div></li>`;
-  };
   // ---- combined "Latest activity" feed: manager press + deals + fundraising +
   // CLO items, newest first. An event captured BOTH as press and as a structured
   // deal/intel record (same source URL) collapses to one row: the structured
@@ -674,7 +667,6 @@ function viewDashboard() {
   [...(research || [])].sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")))
     .forEach((r) => pushAct(r, "comm", "research"));
   activity.sort((a, b) => String(b.item.date || "").localeCompare(String(a.item.date || "")));
-  const activityCompact = (a) => a.kind === "news" ? newsCompact(a.item) : compactRow(a.item, a.view);
 
   // ---- dense terminal screen ----------------------------------------------
   // Metrics ticker + manager league table (left) + a filterable activity wire
@@ -856,16 +848,6 @@ function multiFilter(viewKey, label, options, selected) {
       ${opts.map((o) => `<label class="ms-opt"><input type="checkbox" value="${esc(o.value)}" ${selected.includes(o.value) ? "checked" : ""}> ${esc(o.label)}</label>`).join("")}
     </div>
   </div>`;
-}
-
-// Compact feed row for the dashboard: headline (links to the item on its feed
-// page) + date and source only — no summary.
-function compactRow(rec, view) {
-  const head = `<a href="#/${view}" data-goto="${view}:${rec.id}" class="compact-head">${esc(rec.headline)}</a>`;
-  const m = rec.managerId ? managerById[rec.managerId] : null;
-  const mgr = m ? ` · ${link(`#/manager/${m.id}`, m.name, "compact-mgr")}` : "";
-  const src = rec.sourceUrl ? ` · <a href="${esc(rec.sourceUrl)}" target="_blank" rel="noopener noreferrer" class="muted small">source</a>` : "";
-  return `<li class="compact-item">${head}<div class="compact-meta muted small">${fmtDate(rec.date)}${mgr}${src}</div></li>`;
 }
 
 // Aggregate manager/investor press (news + webNews) across the universe, deduped,

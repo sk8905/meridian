@@ -32,17 +32,10 @@ const ICO_MAG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stro
 const isPhone = () => matchMedia("(max-width:760px)").matches;
 
 // ---- Diagnostics ------------------------------------------------------------
-// Build stamp (the premium.css token this document loaded — shown in the Menu
-// footer so "am I on the current build?" is answerable at a glance) and a
-// navigation detective: the last few input events are persisted across unload,
+// Navigation detective: the last few input events are persisted across unload,
 // and when a page load arrives via HISTORY traversal (back_forward — what the
 // iOS edge swipe gestures produce, invisible to page code) a diagnostic toast
 // says so, with the previous page and its final touches.
-const BUILD_TOKEN = (() => {
-  const link = document.querySelector('link[href*="premium.css"]');
-  const m = String((link && link.getAttribute("href")) || "").match(/premium\.css\?v=([\w.-]+)/);
-  return m ? m[1] : "dev";
-})();
 const NAV_TYPE = (() => {
   try { const e = performance.getEntriesByType("navigation")[0]; return e ? e.type : "unknown"; } catch { return "unknown"; }
 })();

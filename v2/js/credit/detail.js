@@ -118,30 +118,6 @@ function crWireRow(x, inline) {
 }
 
 // ================================== FUNDS ===================================
-// Indicative LP fit — shown while a fund is raising (open / first close / evergreen).
-// Explicitly NOT confirmed commitments.
-function potentialFitCard(x) {
-  const interestedLps = lps.filter((l) => l.strategies.includes(x.strategy) && l.mandateStatus !== "Not currently active");
-  return `<section class="card">
-    <h2>Potential investor fit <span class="muted">(${interestedLps.length})</span></h2>
-    <p class="muted small">LPs whose stated interests include ${esc(x.strategy)} — indicative fit while the fund is open, not confirmed commitments.</p>
-    <ul class="link-list">
-      ${interestedLps.slice(0, 6).map((l) => `<li>${link(`#/lp/${l.id}`, l.name)} <span class="muted small">${esc(l.type)} · ${l.typicalTicket != null ? eur(l.typicalTicket) + " typical ticket" : "ticket undisclosed"}</span></li>`).join("") || '<li class="muted">No active LPs flagged.</li>'}
-    </ul>
-  </section>`;
-}
-
-// Actual, publicly-disclosed investors — shown for funds that have reached final
-// close (and evergreen funds). Honest empty-state when no LPs are public.
-function actualInvestorsCard(x) {
-  const inv = investorsForFund(x);
-  const body = inv.length
-    ? `<ul class="link-list">${inv.map((i) => `<li>${i.lpId ? link(`#/lp/${i.lpId}`, i.name) : `<strong>${esc(i.name)}</strong>`}${i.note ? ` <span class="muted small">— ${esc(i.note)}</span>` : ""}${i.url ? ` · <a href="${esc(i.url)}" target="_blank" rel="noopener noreferrer" class="muted small">source</a>` : ""}</li>`).join("")}</ul>`
-    : `<p class="muted small">No specific LP commitments to this fund have been disclosed publicly. (Most private funds do not name investors; where cornerstone/anchor LPs are announced — e.g. public pensions, the EIF / British Business Bank, sovereign wealth funds — they are listed here with sources.)</p>`;
-  return `<section class="card"><h2>Investors <span class="muted">(${inv.length})</span></h2>
-    <p class="muted small">Limited partners publicly disclosed as having committed to this fund.</p>${body}</section>`;
-}
-
 // ---- Data provenance & completeness -----------------------------------------
 // Honest, at-a-glance view of WHICH data points are disclosed for a fund, which
 // are estimates/indicative, and which are simply not public — so gaps are
@@ -202,10 +178,6 @@ export function viewFund(id) {
   // While raising (open/first close/pre-marketing) or evergreen → indicative fit.
   // At final close (and for evergreen) → actual disclosed investor list.
   const showPotential = x.evergreen || x.status === "Open" || x.status === "First Close" || x.status === "Pre-marketing";
-  const hasActualInvestors = investorsForFund(x).length > 0;
-  const investorCard = showPotential ? potentialFitCard(x) : actualInvestorsCard(x);
-  // Evergreen funds show both; a still-raising fund also shows actual investors if any are disclosed.
-  const extraInvestorCard = (x.evergreen || (showPotential && hasActualInvestors)) ? actualInvestorsCard(x) : "";
 
   // Combined, date-sorted activity wire for this fund: fundraising intel + deals.
   const fdeals = dealsForFund(x.id);
