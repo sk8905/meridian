@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d3e785fd-fbda-41d8-9c07-5275ad30fce6", title: "Angela Rayner makes planning changes to protect England’s pubs and boost housebuilding", date: "2026-08-16", time: "17:35", url: "https://www.ft.com/content/d3e785fd-fbda-41d8-9c07-5275ad30fce6" },
   { id: "c2ee0910-ee7d-4a36-bf5e-697c7ade93a2", title: "Don’t dismiss the mini-middle powers", date: "2026-08-16", time: "16:00", url: "https://www.ft.com/content/c2ee0910-ee7d-4a36-bf5e-697c7ade93a2" },
   { id: "9dc2ffa4-d40f-4236-91f0-e1ba664040bd", title: "British farmers need more help to cope with brutal heat", date: "2026-08-16", time: "14:06", url: "https://www.ft.com/content/9dc2ffa4-d40f-4236-91f0-e1ba664040bd" },
   { id: "e34c097f-0f5d-49b8-8142-967842ba6c42", title: "Reform UK vows to cut £50bn from welfare bill if it wins power", date: "2026-08-16", time: "13:39", url: "https://www.ft.com/content/e34c097f-0f5d-49b8-8142-967842ba6c42" },
@@ -60,5 +61,4 @@ export const FT_ITEMS = [
   { id: "e1eb3638-cd1a-4a1a-857d-133fe4be468c", title: "Pandemic lockdowns never ended for some people", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/e1eb3638-cd1a-4a1a-857d-133fe4be468c" },
   { id: "936c1856-a049-4d3e-be1c-7cd6269f6bcf", title: "How Burnham can curb Britain’s tax-dodging shops", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/936c1856-a049-4d3e-be1c-7cd6269f6bcf" },
   { id: "f6e4008a-5dab-4248-8fd9-50105cf7d182", title: "School fees are outpacing inflation — here’s how grandparents can help", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/f6e4008a-5dab-4248-8fd9-50105cf7d182" },
-  { id: "32592ab6-4385-4f43-95b7-f29cb2abab32", title: "The mercenaries fighting in Africa’s forgotten war", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/32592ab6-4385-4f43-95b7-f29cb2abab32" },
 ];
