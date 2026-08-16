@@ -21,6 +21,7 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   { id: "ea4d4326-878d-4e9e-9303-466c8a382c60", title: "How economics is changing", date: "2026-08-16", time: "12:00", url: "https://www.ft.com/content/ea4d4326-878d-4e9e-9303-466c8a382c60" },
+  { id: "8791db73-09d0-4fe9-a11e-1a9e0ce48739", title: "How Ralph Lauren won the workwear wars as America returned to the office", date: "2026-08-16", time: "12:00", url: "https://www.ft.com/content/8791db73-09d0-4fe9-a11e-1a9e0ce48739" },
   { id: "f9eb497c-f8e0-4cba-8edc-619e55b74a59", title: "Will the Fed minutes reveal any forward guidance?", date: "2026-08-16", time: "12:00", url: "https://www.ft.com/content/f9eb497c-f8e0-4cba-8edc-619e55b74a59" },
   { id: "a71bcea9-b0eb-4ed2-8bc9-f4dace738e37", title: "Ukraine presses drone attacks on Moscow and Russian logistics", date: "2026-08-16", time: "11:52", url: "https://www.ft.com/content/a71bcea9-b0eb-4ed2-8bc9-f4dace738e37" },
   { id: "cf87b6cd-f940-4b09-b072-7da36faa183f", title: "How a sports billionaire threatens to upend Wall Street", date: "2026-08-16", time: "11:00", url: "https://www.ft.com/content/cf87b6cd-f940-4b09-b072-7da36faa183f" },
@@ -58,8 +59,4 @@ export const FT_ITEMS = [
   { id: "32592ab6-4385-4f43-95b7-f29cb2abab32", title: "The mercenaries fighting in Africa’s forgotten war", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/32592ab6-4385-4f43-95b7-f29cb2abab32" },
   { id: "5f8858b8-7468-4438-b269-e1b1947b1926", title: "America’s AI election", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/5f8858b8-7468-4438-b269-e1b1947b1926" },
   { id: "ca8c9b92-e4cb-4b88-b10e-1fe722aaa7a8", title: "Why we’re all Wile E Coyote now", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/ca8c9b92-e4cb-4b88-b10e-1fe722aaa7a8" },
-  { id: "5d5ed2dd-8326-4cad-aac3-5816448ceccf", title: "US accuses more than 40 countries of helping China avoid Donald Trump’s tariffs", date: "2026-08-14", time: "19:54", url: "https://www.ft.com/content/5d5ed2dd-8326-4cad-aac3-5816448ceccf" },
-  { id: "66d3a2de-6591-443d-83b0-94f2224edbbf", title: "Americans sour on Donald Trump’s economy as affordability strains intensify", date: "2026-08-14", time: "19:49", url: "https://www.ft.com/content/66d3a2de-6591-443d-83b0-94f2224edbbf" },
-  { id: "2066e73b-be66-4df0-822a-b694d8f66535", title: "Claudia Sheinbaum slams US for revoking visa of former Mexican president’s son", date: "2026-08-14", time: "19:14", url: "https://www.ft.com/content/2066e73b-be66-4df0-822a-b694d8f66535" },
-  { id: "8e790ba0-0c3d-47dd-9955-0b98a808ae0c", title: "Burnham warns of ‘tinderbox’ Britain after week of intense heat", date: "2026-08-14", time: "18:51", url: "https://www.ft.com/content/8e790ba0-0c3d-47dd-9955-0b98a808ae0c" },
 ];
