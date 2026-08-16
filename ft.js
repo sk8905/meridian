@@ -20,6 +20,16 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "fd40a98d-2a7f-4246-a296-73e956bf03c0", title: "Most US voters say they are worse off under Trump — FT poll", date: "2026-08-16", time: "05:01", url: "https://www.ft.com/content/fd40a98d-2a7f-4246-a296-73e956bf03c0" },
+  { id: "729477cd-3551-4345-8c7c-33603b293556", title: "Harvey Nicks deal hints at department stores’ hidden potential", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/729477cd-3551-4345-8c7c-33603b293556" },
+  { id: "161ee092-d2b6-4375-a853-e7a6fbee60e2", title: "World’s largest carmakers seek to avert motor oil crisis", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/161ee092-d2b6-4375-a853-e7a6fbee60e2" },
+  { id: "b56a910a-c2b4-41e5-9f8f-18e6fe7b2efd", title: "Are Americans making peace with the spectre of socialism?", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/b56a910a-c2b4-41e5-9f8f-18e6fe7b2efd" },
+  { id: "1419012f-feca-4efd-a817-dc0392cd76e3", title: "European companies count the costs and gains of extreme heat", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/1419012f-feca-4efd-a817-dc0392cd76e3" },
+  { id: "1b318ce4-75ef-4f68-8db5-f148dd00fe9f", title: "Miner Ferrexpo caught up in dispute between oligarch and Kyiv", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/1b318ce4-75ef-4f68-8db5-f148dd00fe9f" },
+  { id: "ec03d429-acd7-4121-a22e-daeff3d84cf4", title: "The Italian university benefiting from the post-Brexit student shift", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/ec03d429-acd7-4121-a22e-daeff3d84cf4" },
+  { id: "c4e45f2a-593f-445a-bd3b-66df91465bb7", title: "UK housebuilder profits set to fall 12% as ‘relentless grind’ drags on", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/c4e45f2a-593f-445a-bd3b-66df91465bb7" },
+  { id: "f063b38e-61c0-449b-aca3-968b903091a1", title: "Malaysia profits from data centre boom", date: "2026-08-16", time: "04:08", url: "https://www.ft.com/content/f063b38e-61c0-449b-aca3-968b903091a1" },
+  { id: "7d2969fd-85aa-43fb-ae04-97d1d0ee2463", title: "Singapore Inc hopes AI access will stop finance high-flyers moving to Hong Kong", date: "2026-08-16", time: "02:52", url: "https://www.ft.com/content/7d2969fd-85aa-43fb-ae04-97d1d0ee2463" },
   { id: "1bd69e67-266f-4a4a-9c49-eb3c83bcb295", title: "Israeli strikes kill 11 in Lebanon two months into truce", date: "2026-08-15", time: "17:13", url: "https://www.ft.com/content/1bd69e67-266f-4a4a-9c49-eb3c83bcb295" },
   { id: "4bd6537f-db17-4013-be3f-c70a1299183c", title: "US aircraft carrier furore is emblem of growing disquiet over Iran war", date: "2026-08-15", time: "13:00", url: "https://www.ft.com/content/4bd6537f-db17-4013-be3f-c70a1299183c" },
   { id: "6448b0af-f2ed-4067-b814-73f41b56fa78", title: "Ukraine left exposed as Patriot launchers run empty", date: "2026-08-15", time: "13:00", url: "https://www.ft.com/content/6448b0af-f2ed-4067-b814-73f41b56fa78" },
@@ -50,14 +60,4 @@ export const FT_ITEMS = [
   { id: "87d2bbd8-a799-4d6c-8907-2709cdcf0a31", title: "Directors’ Deals: British American Tobacco’s newest director buys the dip", date: "2026-08-14", time: "18:00", url: "https://www.ft.com/content/87d2bbd8-a799-4d6c-8907-2709cdcf0a31" },
   { id: "11126975-e2ba-4510-8b9e-2f2bc82b43a5", title: "Biotech VCs have become like bankers and we might all pay the price", date: "2026-08-14", time: "18:00", url: "https://www.ft.com/content/11126975-e2ba-4510-8b9e-2f2bc82b43a5" },
   { id: "20f44f32-6566-4373-b6d8-9551be58d762", title: "How a bad trade pushed a US mortgage giant into a $2bn lifeline", date: "2026-08-14", time: "17:47", url: "https://www.ft.com/content/20f44f32-6566-4373-b6d8-9551be58d762" },
-  { id: "98cd55c6-8692-47f0-882a-f81de2351130", title: "Bezos-backed group strikes deal for stake in Liverpool FC", date: "2026-08-14", time: "17:00", url: "https://www.ft.com/content/98cd55c6-8692-47f0-882a-f81de2351130" },
-  { id: "68873521-58fa-435d-b46f-6309612964b2", title: "Luigi Mangione pleads guilty over death of UnitedHealth chief executive", date: "2026-08-14", time: "16:51", url: "https://www.ft.com/content/68873521-58fa-435d-b46f-6309612964b2" },
-  { id: "71f95452-4493-4795-bfe2-26d0c89b2a93", title: "Activists are giving British M&A targets a helpful shove", date: "2026-08-14", time: "16:42", url: "https://www.ft.com/content/71f95452-4493-4795-bfe2-26d0c89b2a93" },
-  { id: "e288709a-36f2-459e-9d59-f9a59a3891c2", title: "Farage wins… and donation probe resumes", date: "2026-08-14", time: "16:25", url: "https://www.ft.com/content/e288709a-36f2-459e-9d59-f9a59a3891c2" },
-  { id: "7cd266e7-8278-4e26-945d-d7412afa9152", title: "Top French court blocks social media ban for children", date: "2026-08-14", time: "16:24", url: "https://www.ft.com/content/7cd266e7-8278-4e26-945d-d7412afa9152" },
-  { id: "9f46db72-0a1e-42b0-8efe-974a04fa0fc7", title: "Latest savings rates", date: "2026-08-14", time: "16:23", url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7" },
-  { id: "75ba3055-625c-4cb5-894b-0696a38f5e79", title: "Latest Isa rates", date: "2026-08-14", time: "16:20", url: "https://www.ft.com/content/75ba3055-625c-4cb5-894b-0696a38f5e79" },
-  { id: "e95e8b45-474b-4305-b3b5-83036fa3a06c", title: "Warsh and wait", date: "2026-08-14", time: "16:19", url: "https://www.ft.com/content/e95e8b45-474b-4305-b3b5-83036fa3a06c" },
-  { id: "68b36b6d-71e7-4f44-bbfb-a202e36603a4", title: "Latest National Savings & Investments rates", date: "2026-08-14", time: "16:16", url: "https://www.ft.com/content/68b36b6d-71e7-4f44-bbfb-a202e36603a4" },
-  { id: "d4897d94-0d69-445a-9466-5150840c801e", title: "Investors pile back into US stocks as bullishness returns to Wall Street", date: "2026-08-14", time: "15:35", url: "https://www.ft.com/content/d4897d94-0d69-445a-9466-5150840c801e" },
 ];
