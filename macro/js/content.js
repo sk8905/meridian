@@ -13,7 +13,7 @@ export const UPDATED = "16 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-16",
-  lastCheckedTime: "05:25 BST",
+  lastCheckedTime: "09:19 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -784,7 +784,7 @@ export const NEWS = {
     { title: "Markets bet on a pause for September, but Fed hawks may not be swayed ahead of Jackson Hole", source: "Yahoo Finance", date: "2026-08-15", time: "17:59", url: "https://finance.yahoo.com/economy/policy/article/markets-bet-on-a-pause-for-september-but-fed-hawks-may-not-be-swayed-ahead-of-jackson-hole-175928197.html" },
     { title: "Stock market today: S&P 500 slips from record high but caps third straight week of gains", source: "Yahoo Finance", date: "2026-08-14", time: "21:00", url: "https://finance.yahoo.com/markets/live/stock-market-today-friday-august-14-dow-sp-500-nasdaq-102635519.html" },
     { title: "United States Retail Sales contracted by 0.6% MoM in July", source: "FXStreet", date: "2026-08-14", time: "12:35", url: "https://www.fxstreet.com/news/united-states-retail-sales-contracted-by-06-mom-in-july-202608141235" },
-    { title: "Wholesale prices were flat in July, below expectations for 0.2% increase", source: "CNBC", date: "2026-08-13", time: "13:30", url: "https://www.cnbc.com/2026/08/13/wholesale-prices-were-flat-in-july-below-expectations-for-0point2percent-increase.html" },
+    { title: "Wall Street week ahead: Home Depot and Walmart report earnings, minutes of Fed meeting are released", source: "AP News", date: "2026-08-15", time: "09:19", url: "https://abcnews.com/Business/wireStory/wall-street-week-ahead-home-depot-walmart-report-135668245" },
     { title: "Hormuz Ship Attacks Mount as US Vows to Cripple Iran's Economy", source: "Bloomberg", date: "2026-08-15", time: "17:13", url: "https://www.bloomberg.com/news/articles/2026-08-15/hormuz-ship-attacks-mount-as-us-vows-to-cripple-iran-s-economy" },
   ],
   uk: [
@@ -806,6 +806,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-16",
   items: [
+    {"title":"Iran war live: Talks on Hormuz Strait continue; Israel kills 11 in Lebanon","source":"Al Jazeera","date":"2026-08-16","time":"09:19","url":"https://www.aljazeera.com/news/liveblog/2026/8/16/iran-war-live-talks-on-hormuz-strait-continue-israel-kills-11-in-lebanon","blurb":"Iran's FM Araghchi said Hormuz reopening still hinges on the US honouring June's MoU, as Israeli strikes killed 11 in Lebanon in the deadliest raid since the truce."},
+    {"title":"Wall Street week ahead: Home Depot and Walmart report earnings, minutes of Fed meeting are released","source":"AP News","date":"2026-08-15","time":"09:19","url":"https://abcnews.com/Business/wireStory/wall-street-week-ahead-home-depot-walmart-report-135668245","blurb":"Home Depot, Target, Lowe's and Walmart earnings plus Wednesday's 28-29 July FOMC minutes headline a week that will test how consumers and the Fed are reading still-elevated inflation."},
     {"title":"Charting the Global Economy: US CPI Softens, UK Economy Expands","source":"Bloomberg","date":"2026-08-15","time":"12:00","url":"https://www.bloomberg.com/news/articles/2026-08-15/world-economy-latest-us-cpi-softens-uk-economy-expands","blurb":"Weekly global-macro roundup: US July CPI cooled a tenth to 3.4%/2.5% core, UK GDP expanded in June, and bond yields plus Middle East tensions remain the swing factor for both economies."},
     {"title":"CFTC Report: FX repositioning dominates as commodities diverge","source":"FXStreet","date":"2026-08-15","time":"15:13","url":"https://www.fxstreet.com/analysis/cftc-report-fx-repositioning-dominates-as-commodities-diverge-202608151513","blurb":"Speculative positioning turned selective in the week to 11 August: gold saw the strongest inflow among the majors tracked, while WTI and the VIX saw the largest cuts."},
     {"title":"Markets bet on a pause for September, but Fed hawks may not be swayed ahead of Jackson Hole","source":"Yahoo Finance","date":"2026-08-15","time":"17:59","url":"https://finance.yahoo.com/economy/policy/article/markets-bet-on-a-pause-for-september-but-fed-hawks-may-not-be-swayed-ahead-of-jackson-hole-175928197.html","blurb":"Cooling CPI and PPI prints have pushed Wall Street toward pricing a September hold, but Fed Chair Kevin Warsh's Jackson Hole speech and the incoming August CPI print could still reopen the case for a hike."},
@@ -844,8 +846,6 @@ export const ARTICLES = {
     {"title":"US wholesale inflation slowed more than expected in July","source":"CNN Business","date":"2026-08-13","time":"17:41","url":"https://www.cnn.com/2026/08/13/economy/us-ppi-wholesale-inflation-july","blurb":"CNN's rundown of the July PPI report and its implications for the Fed's 16 September rate decision, alongside Wednesday's in-line CPI print."},
     {"title":"Stock Market Today (Aug. 13, 2026): S&P 500 sets new record, clearing 7,800 for the first time","source":"TheStreet","date":"2026-08-13","time":"17:41","url":"https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-13-2026","blurb":"The S&P 500 gained 0.29% to a fresh intraday record above 7,800, the Dow added 0.24% and the Nasdaq 0.23%, as cooler PPI data pulled Treasury yields lower even as Cisco slid on margin-guidance concerns."},
     {"title":"Treasury yields ease after lighter-than-expected wholesale inflation","source":"CNBC","date":"2026-08-13","time":"17:41","url":"https://www.cnbc.com/2026/08/13/treasury-yields-wall-street-inflation-data.html","blurb":"The 10-year Treasury yield fell more than 7bp to 4.621% and the 2-year fell over 6bp to 4.134% as the flat July PPI print reinforced bets the Fed stays on hold in September."},
-    {"title":"FTSE 100 today: Stocks slip as GDP cools, Hormuz tensions simmer","source":"Investing.com","date":"2026-08-13","time":"17:41","url":"https://au.investing.com/news/stock-market-news/ftse-100-today-stocks-slip-as-gdp-cools-hormuz-tensions-simmer-4596583","blurb":"The FTSE 100 fell about 0.23% to 10,807.89 as a softer June monthly GDP print and simmering Strait of Hormuz tensions offset the in-line Q2 quarterly headline."},
-    {"title":"Pound Sterling Today: UK GDP Beats Forecasts But GBP Reaction Muted","source":"Exchange Rates UK","date":"2026-08-13","time":"17:41","url":"https://www.exchangerates.org.uk/news/46822/2026-08-13-pound-sterling-today-uk-gdp-beats-forecasts-but-gbp-reaction-muted.html","blurb":"GBP/USD held near $1.348 after the Q2 GDP beat, with the muted reaction attributed to persistent Middle East-driven risk aversion capping the pound's upside."},
   ],
 };
 
