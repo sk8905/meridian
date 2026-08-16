@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "44c08ae9-f209-4992-8744-cfff430eca07", title: "Jamie Dimon warns UK chancellor against higher bank taxes", date: "2026-08-16", time: "20:00", url: "https://www.ft.com/content/44c08ae9-f209-4992-8744-cfff430eca07" },
+  { id: "f6b953fc-a6ad-48cd-bed1-d42619b57d94", title: "Far-right Israeli minister advocates killing ‘30 to 40’ Gazans each night", date: "2026-08-16", time: "19:43", url: "https://www.ft.com/content/f6b953fc-a6ad-48cd-bed1-d42619b57d94" },
   { id: "0a2db2ce-b89f-4d2b-a93b-794e4e422141", title: "London’s flood-defence system may need urgent replacement as extreme weather worsens", date: "2026-08-16", time: "19:00", url: "https://www.ft.com/content/0a2db2ce-b89f-4d2b-a93b-794e4e422141" },
   { id: "10aba768-20fc-46eb-8503-4658181bffc5", title: "California billionaires add millions to bolster fight against wealth tax", date: "2026-08-16", time: "18:55", url: "https://www.ft.com/content/10aba768-20fc-46eb-8503-4658181bffc5" },
   { id: "4bfa3d64-cf64-448d-823e-44c4577370b4", title: "US considers sanctions on Brazil judge in new test of diplomatic ties", date: "2026-08-16", time: "18:26", url: "https://www.ft.com/content/4bfa3d64-cf64-448d-823e-44c4577370b4" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "543b1ab2-6203-412d-ae3b-f4439d1e9d47", title: "Traders are spoiling for a fight over the yen", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/543b1ab2-6203-412d-ae3b-f4439d1e9d47" },
   { id: "31bcfd50-740c-497c-9104-db9d21efdb69", title: "How John Henry took Liverpool from crisis club to $7bn juggernaut", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/31bcfd50-740c-497c-9104-db9d21efdb69" },
   { id: "0db6a598-687b-4e6c-9ff8-c1b1f858a5a0", title: "The experience economy is a blockbuster phenomenon", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/0db6a598-687b-4e6c-9ff8-c1b1f858a5a0" },
-  { id: "c0d1c0ce-96c0-4824-a211-139acbddd200", title: "Geneva super-rich rocked by luxury home burglary spree", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/c0d1c0ce-96c0-4824-a211-139acbddd200" },
 ];
