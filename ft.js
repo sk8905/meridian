@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c2ee0910-ee7d-4a36-bf5e-697c7ade93a2", title: "Don’t dismiss the mini-middle powers", date: "2026-08-16", time: "16:00", url: "https://www.ft.com/content/c2ee0910-ee7d-4a36-bf5e-697c7ade93a2" },
   { id: "9dc2ffa4-d40f-4236-91f0-e1ba664040bd", title: "British farmers need more help to cope with brutal heat", date: "2026-08-16", time: "14:06", url: "https://www.ft.com/content/9dc2ffa4-d40f-4236-91f0-e1ba664040bd" },
   { id: "e34c097f-0f5d-49b8-8142-967842ba6c42", title: "Reform UK vows to cut £50bn from welfare bill if it wins power", date: "2026-08-16", time: "13:39", url: "https://www.ft.com/content/e34c097f-0f5d-49b8-8142-967842ba6c42" },
   { id: "757c4938-614c-4829-9d8f-7320917e6753", title: "Farage’s fruitless by-election gambit", date: "2026-08-16", time: "13:35", url: "https://www.ft.com/content/757c4938-614c-4829-9d8f-7320917e6753" },
@@ -60,5 +61,4 @@ export const FT_ITEMS = [
   { id: "936c1856-a049-4d3e-be1c-7cd6269f6bcf", title: "How Burnham can curb Britain’s tax-dodging shops", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/936c1856-a049-4d3e-be1c-7cd6269f6bcf" },
   { id: "f6e4008a-5dab-4248-8fd9-50105cf7d182", title: "School fees are outpacing inflation — here’s how grandparents can help", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/f6e4008a-5dab-4248-8fd9-50105cf7d182" },
   { id: "32592ab6-4385-4f43-95b7-f29cb2abab32", title: "The mercenaries fighting in Africa’s forgotten war", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/32592ab6-4385-4f43-95b7-f29cb2abab32" },
-  { id: "5f8858b8-7468-4438-b269-e1b1947b1926", title: "America’s AI election", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/5f8858b8-7468-4438-b269-e1b1947b1926" },
 ];
