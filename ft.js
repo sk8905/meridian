@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "0a2db2ce-b89f-4d2b-a93b-794e4e422141", title: "London’s flood-defence system may need urgent replacement as extreme weather worsens", date: "2026-08-16", time: "19:00", url: "https://www.ft.com/content/0a2db2ce-b89f-4d2b-a93b-794e4e422141" },
+  { id: "10aba768-20fc-46eb-8503-4658181bffc5", title: "California billionaires add millions to bolster fight against wealth tax", date: "2026-08-16", time: "18:55", url: "https://www.ft.com/content/10aba768-20fc-46eb-8503-4658181bffc5" },
+  { id: "4bfa3d64-cf64-448d-823e-44c4577370b4", title: "US considers sanctions on Brazil judge in new test of diplomatic ties", date: "2026-08-16", time: "18:26", url: "https://www.ft.com/content/4bfa3d64-cf64-448d-823e-44c4577370b4" },
+  { id: "d14b21c8-6a63-4593-b455-480b18792ac8", title: "Canadian business braced for 50% US tariffs", date: "2026-08-16", time: "18:15", url: "https://www.ft.com/content/d14b21c8-6a63-4593-b455-480b18792ac8" },
   { id: "d3e785fd-fbda-41d8-9c07-5275ad30fce6", title: "Angela Rayner makes planning changes to protect England’s pubs and boost housebuilding", date: "2026-08-16", time: "17:35", url: "https://www.ft.com/content/d3e785fd-fbda-41d8-9c07-5275ad30fce6" },
   { id: "c2ee0910-ee7d-4a36-bf5e-697c7ade93a2", title: "Don’t dismiss the mini-middle powers", date: "2026-08-16", time: "16:00", url: "https://www.ft.com/content/c2ee0910-ee7d-4a36-bf5e-697c7ade93a2" },
   { id: "9dc2ffa4-d40f-4236-91f0-e1ba664040bd", title: "British farmers need more help to cope with brutal heat", date: "2026-08-16", time: "14:06", url: "https://www.ft.com/content/9dc2ffa4-d40f-4236-91f0-e1ba664040bd" },
@@ -56,9 +60,4 @@ export const FT_ITEMS = [
   { id: "31bcfd50-740c-497c-9104-db9d21efdb69", title: "How John Henry took Liverpool from crisis club to $7bn juggernaut", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/31bcfd50-740c-497c-9104-db9d21efdb69" },
   { id: "0db6a598-687b-4e6c-9ff8-c1b1f858a5a0", title: "The experience economy is a blockbuster phenomenon", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/0db6a598-687b-4e6c-9ff8-c1b1f858a5a0" },
   { id: "c0d1c0ce-96c0-4824-a211-139acbddd200", title: "Geneva super-rich rocked by luxury home burglary spree", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/c0d1c0ce-96c0-4824-a211-139acbddd200" },
-  { id: "53082739-7714-4aae-9816-e55ab423cbee", title: "OpenAI upheaval mounts as Sam Altman readies IPO push", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/53082739-7714-4aae-9816-e55ab423cbee" },
-  { id: "bf7b4e9b-6017-4525-a0e7-10c3b7bfec30", title: "UK universities offer fee discounts to overseas students in ‘pricing war’", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/bf7b4e9b-6017-4525-a0e7-10c3b7bfec30" },
-  { id: "e1eb3638-cd1a-4a1a-857d-133fe4be468c", title: "Pandemic lockdowns never ended for some people", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/e1eb3638-cd1a-4a1a-857d-133fe4be468c" },
-  { id: "936c1856-a049-4d3e-be1c-7cd6269f6bcf", title: "How Burnham can curb Britain’s tax-dodging shops", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/936c1856-a049-4d3e-be1c-7cd6269f6bcf" },
-  { id: "f6e4008a-5dab-4248-8fd9-50105cf7d182", title: "School fees are outpacing inflation — here’s how grandparents can help", date: "2026-08-15", time: "05:00", url: "https://www.ft.com/content/f6e4008a-5dab-4248-8fd9-50105cf7d182" },
 ];
