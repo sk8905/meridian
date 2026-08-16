@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "ea4d4326-878d-4e9e-9303-466c8a382c60", title: "How economics is changing", date: "2026-08-16", time: "12:00", url: "https://www.ft.com/content/ea4d4326-878d-4e9e-9303-466c8a382c60" },
+  { id: "f9eb497c-f8e0-4cba-8edc-619e55b74a59", title: "Will the Fed minutes reveal any forward guidance?", date: "2026-08-16", time: "12:00", url: "https://www.ft.com/content/f9eb497c-f8e0-4cba-8edc-619e55b74a59" },
+  { id: "a71bcea9-b0eb-4ed2-8bc9-f4dace738e37", title: "Ukraine presses drone attacks on Moscow and Russian logistics", date: "2026-08-16", time: "11:52", url: "https://www.ft.com/content/a71bcea9-b0eb-4ed2-8bc9-f4dace738e37" },
   { id: "cf87b6cd-f940-4b09-b072-7da36faa183f", title: "How a sports billionaire threatens to upend Wall Street", date: "2026-08-16", time: "11:00", url: "https://www.ft.com/content/cf87b6cd-f940-4b09-b072-7da36faa183f" },
   { id: "8158cb5a-4bbd-43fd-b329-15a54e8422c8", title: "Big Tech’s data centre boom poised to drive up carbon emissions", date: "2026-08-16", time: "11:00", url: "https://www.ft.com/content/8158cb5a-4bbd-43fd-b329-15a54e8422c8" },
   { id: "fd40a98d-2a7f-4246-a296-73e956bf03c0", title: "Most US voters say they are worse off under Trump — FT poll", date: "2026-08-16", time: "05:01", url: "https://www.ft.com/content/fd40a98d-2a7f-4246-a296-73e956bf03c0" },
@@ -59,5 +62,4 @@ export const FT_ITEMS = [
   { id: "66d3a2de-6591-443d-83b0-94f2224edbbf", title: "Americans sour on Donald Trump’s economy as affordability strains intensify", date: "2026-08-14", time: "19:49", url: "https://www.ft.com/content/66d3a2de-6591-443d-83b0-94f2224edbbf" },
   { id: "2066e73b-be66-4df0-822a-b694d8f66535", title: "Claudia Sheinbaum slams US for revoking visa of former Mexican president’s son", date: "2026-08-14", time: "19:14", url: "https://www.ft.com/content/2066e73b-be66-4df0-822a-b694d8f66535" },
   { id: "8e790ba0-0c3d-47dd-9955-0b98a808ae0c", title: "Burnham warns of ‘tinderbox’ Britain after week of intense heat", date: "2026-08-14", time: "18:51", url: "https://www.ft.com/content/8e790ba0-0c3d-47dd-9955-0b98a808ae0c" },
-  { id: "adb47166-29f0-4630-bf8e-b9d0b8d0f2ed", title: "Stockpickers: Persimmon, Savills, Caledonia Mining", date: "2026-08-14", time: "18:00", url: "https://www.ft.com/content/adb47166-29f0-4630-bf8e-b9d0b8d0f2ed" },
 ];
