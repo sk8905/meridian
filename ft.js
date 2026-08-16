@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "cf87b6cd-f940-4b09-b072-7da36faa183f", title: "How a sports billionaire threatens to upend Wall Street", date: "2026-08-16", time: "11:00", url: "https://www.ft.com/content/cf87b6cd-f940-4b09-b072-7da36faa183f" },
+  { id: "8158cb5a-4bbd-43fd-b329-15a54e8422c8", title: "Big Tech’s data centre boom poised to drive up carbon emissions", date: "2026-08-16", time: "11:00", url: "https://www.ft.com/content/8158cb5a-4bbd-43fd-b329-15a54e8422c8" },
   { id: "fd40a98d-2a7f-4246-a296-73e956bf03c0", title: "Most US voters say they are worse off under Trump — FT poll", date: "2026-08-16", time: "05:01", url: "https://www.ft.com/content/fd40a98d-2a7f-4246-a296-73e956bf03c0" },
   { id: "729477cd-3551-4345-8c7c-33603b293556", title: "Harvey Nicks deal hints at department stores’ hidden potential", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/729477cd-3551-4345-8c7c-33603b293556" },
   { id: "161ee092-d2b6-4375-a853-e7a6fbee60e2", title: "World’s largest carmakers seek to avert motor oil crisis", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/161ee092-d2b6-4375-a853-e7a6fbee60e2" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "2066e73b-be66-4df0-822a-b694d8f66535", title: "Claudia Sheinbaum slams US for revoking visa of former Mexican president’s son", date: "2026-08-14", time: "19:14", url: "https://www.ft.com/content/2066e73b-be66-4df0-822a-b694d8f66535" },
   { id: "8e790ba0-0c3d-47dd-9955-0b98a808ae0c", title: "Burnham warns of ‘tinderbox’ Britain after week of intense heat", date: "2026-08-14", time: "18:51", url: "https://www.ft.com/content/8e790ba0-0c3d-47dd-9955-0b98a808ae0c" },
   { id: "adb47166-29f0-4630-bf8e-b9d0b8d0f2ed", title: "Stockpickers: Persimmon, Savills, Caledonia Mining", date: "2026-08-14", time: "18:00", url: "https://www.ft.com/content/adb47166-29f0-4630-bf8e-b9d0b8d0f2ed" },
-  { id: "87d2bbd8-a799-4d6c-8907-2709cdcf0a31", title: "Directors’ Deals: British American Tobacco’s newest director buys the dip", date: "2026-08-14", time: "18:00", url: "https://www.ft.com/content/87d2bbd8-a799-4d6c-8907-2709cdcf0a31" },
-  { id: "11126975-e2ba-4510-8b9e-2f2bc82b43a5", title: "Biotech VCs have become like bankers and we might all pay the price", date: "2026-08-14", time: "18:00", url: "https://www.ft.com/content/11126975-e2ba-4510-8b9e-2f2bc82b43a5" },
-  { id: "20f44f32-6566-4373-b6d8-9551be58d762", title: "How a bad trade pushed a US mortgage giant into a $2bn lifeline", date: "2026-08-14", time: "17:47", url: "https://www.ft.com/content/20f44f32-6566-4373-b6d8-9551be58d762" },
 ];
