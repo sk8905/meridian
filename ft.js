@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "e15d3b98-47d0-4a26-9dae-f3147815981e", title: "Mark Carney in last-ditch effort to avoid Donald Trump's latest tariffs", date: "2026-08-17", time: "20:42", url: "https://www.ft.com/content/e15d3b98-47d0-4a26-9dae-f3147815981e" },
   { id: "b3ad4338-21a1-42ab-86ce-4912c7df2f96", title: "Labour MP suspended amid investigation into Covid loans", date: "2026-08-17", time: "19:39", url: "https://www.ft.com/content/b3ad4338-21a1-42ab-86ce-4912c7df2f96" },
   { id: "fc94e1f6-3f22-4fb9-b4a5-682c425e4d49", title: "The UK is going the wrong way about protecting pubs", date: "2026-08-17", time: "19:03", url: "https://www.ft.com/content/fc94e1f6-3f22-4fb9-b4a5-682c425e4d49" },
   { id: "61b8162e-6c50-4775-8bb5-fff1259a9cf3", title: "ExxonMobil advances Mozambique gas project despite terrorist threat", date: "2026-08-17", time: "18:24", url: "https://www.ft.com/content/61b8162e-6c50-4775-8bb5-fff1259a9cf3" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "ec594b62-1453-4044-9a0b-129ecdf86150", title: "Air conditioning becomes ‘must-have’ for overheated London office workers", date: "2026-08-17", time: "05:00", url: "https://www.ft.com/content/ec594b62-1453-4044-9a0b-129ecdf86150" },
   { id: "5f6cdb7a-3b05-487f-a02e-3b9fb0b42e00", title: "America and the politics of respect", date: "2026-08-17", time: "05:00", url: "https://www.ft.com/content/5f6cdb7a-3b05-487f-a02e-3b9fb0b42e00" },
   { id: "ff2186b0-be40-4b8e-8b5c-80ece92a30b2", title: "The wrong lessons are being drawn over worries on public equities", date: "2026-08-17", time: "05:00", url: "https://www.ft.com/content/ff2186b0-be40-4b8e-8b5c-80ece92a30b2" },
-  { id: "c5e27ffb-cfb1-421b-8121-a402cf2d84ac", title: "How Maga came for Europe", date: "2026-08-17", time: "05:00", url: "https://www.ft.com/content/c5e27ffb-cfb1-421b-8121-a402cf2d84ac" },
 ];
