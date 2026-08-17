@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "49e5c44c-fa4b-4534-809a-dc91969ba86f", title: "FTAV’s further reading", date: "2026-08-17", time: "06:00", url: "https://www.ft.com/content/49e5c44c-fa4b-4534-809a-dc91969ba86f" },
+  { id: "1d319839-1c40-4035-b058-5ca2389cafd0", title: "Japan’s 10-year bond yield hits three-decade high", date: "2026-08-17", time: "05:35", url: "https://www.ft.com/content/1d319839-1c40-4035-b058-5ca2389cafd0" },
   { id: "719c8108-f4ae-466b-80f4-96f26558d642", title: "Higgsfield valued at $5.4bn as Goldman and Intel back AI video start-up", date: "2026-08-17", time: "05:00", url: "https://www.ft.com/content/719c8108-f4ae-466b-80f4-96f26558d642" },
   { id: "67acde0d-4154-4332-b33b-2d03d3a86007", title: "Private credit under strain as troubled loans swell", date: "2026-08-17", time: "05:00", url: "https://www.ft.com/content/67acde0d-4154-4332-b33b-2d03d3a86007" },
   { id: "2fb7f9b7-58dc-4909-94fa-8e753b7be47d", title: "War and climate change drive surge in cost of shipping through global chokepoints", date: "2026-08-17", time: "05:00", url: "https://www.ft.com/content/2fb7f9b7-58dc-4909-94fa-8e753b7be47d" },
@@ -58,8 +60,4 @@ export const FT_ITEMS = [
   { id: "b56a910a-c2b4-41e5-9f8f-18e6fe7b2efd", title: "Are Americans making peace with the spectre of socialism?", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/b56a910a-c2b4-41e5-9f8f-18e6fe7b2efd" },
   { id: "1419012f-feca-4efd-a817-dc0392cd76e3", title: "European companies count the costs and gains of extreme heat", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/1419012f-feca-4efd-a817-dc0392cd76e3" },
   { id: "1b318ce4-75ef-4f68-8db5-f148dd00fe9f", title: "Miner Ferrexpo caught up in dispute between oligarch and Kyiv", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/1b318ce4-75ef-4f68-8db5-f148dd00fe9f" },
-  { id: "ec03d429-acd7-4121-a22e-daeff3d84cf4", title: "The Italian university benefiting from the post-Brexit student shift", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/ec03d429-acd7-4121-a22e-daeff3d84cf4" },
-  { id: "c4e45f2a-593f-445a-bd3b-66df91465bb7", title: "UK housebuilder profits set to fall 12% as ‘relentless grind’ drags on", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/c4e45f2a-593f-445a-bd3b-66df91465bb7" },
-  { id: "8c9e43d2-636a-449e-a376-b4b262143e38", title: "Can we stop with the public ‘blasterbating’, actually?", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/8c9e43d2-636a-449e-a376-b4b262143e38" },
-  { id: "f063b38e-61c0-449b-aca3-968b903091a1", title: "Malaysia profits from data centre boom", date: "2026-08-16", time: "04:08", url: "https://www.ft.com/content/f063b38e-61c0-449b-aca3-968b903091a1" },
 ];
