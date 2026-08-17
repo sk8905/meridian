@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "fc94e1f6-3f22-4fb9-b4a5-682c425e4d49", title: "The UK is going the wrong way about protecting pubs", date: "2026-08-17", time: "19:03", url: "https://www.ft.com/content/fc94e1f6-3f22-4fb9-b4a5-682c425e4d49" },
+  { id: "61b8162e-6c50-4775-8bb5-fff1259a9cf3", title: "ExxonMobil advances Mozambique gas project despite terrorist threat", date: "2026-08-17", time: "18:24", url: "https://www.ft.com/content/61b8162e-6c50-4775-8bb5-fff1259a9cf3" },
   { id: "71a498fa-4ce7-4c0b-ab14-7b7f46b2b9c6", title: "Chelsea shareholders Mark Walter and Todd Boehly in talks to sell their stakes to Clearlake", date: "2026-08-17", time: "18:06", url: "https://www.ft.com/content/71a498fa-4ce7-4c0b-ab14-7b7f46b2b9c6" },
   { id: "a1b720e3-e1e6-4a13-bdb0-9cc27399ceb4", title: "Russia fires economist over Ukraine war warning", date: "2026-08-17", time: "17:32", url: "https://www.ft.com/content/a1b720e3-e1e6-4a13-bdb0-9cc27399ceb4" },
   { id: "01b0ac67-3e80-42eb-b0f6-3128f484101a", title: "Monzo chair Gary Hoffman to step down months after shareholder revolt", date: "2026-08-17", time: "16:29", url: "https://www.ft.com/content/01b0ac67-3e80-42eb-b0f6-3128f484101a" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "c5e27ffb-cfb1-421b-8121-a402cf2d84ac", title: "How Maga came for Europe", date: "2026-08-17", time: "05:00", url: "https://www.ft.com/content/c5e27ffb-cfb1-421b-8121-a402cf2d84ac" },
   { id: "e2f72d88-28b5-461c-b0b5-0448b6209362", title: "The Ritz-Carlton, Melbourne: luxury with altitude", date: "2026-08-17", time: "05:00", url: "https://www.ft.com/content/e2f72d88-28b5-461c-b0b5-0448b6209362" },
   { id: "37734db7-93d6-4302-934b-41430f808c10", title: "Author Helena Attlee: ‘We British live with dogs and cats and junk on every surface’", date: "2026-08-17", time: "05:00", url: "https://www.ft.com/content/37734db7-93d6-4302-934b-41430f808c10" },
-  { id: "3163af73-e7d0-4e21-81af-963d6c2fce45", title: "Portugal and Spain struggle as EU housing black spots", date: "2026-08-17", time: "05:00", url: "https://www.ft.com/content/3163af73-e7d0-4e21-81af-963d6c2fce45" },
 ];
