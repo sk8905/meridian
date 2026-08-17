@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b9b1c9d7-a7a1-4b6f-bcb0-910ceb025f2b", title: "UK government to pay KPMG and EY up to £456mn to train civil servants", date: "2026-08-17", time: "13:42", url: "https://www.ft.com/content/b9b1c9d7-a7a1-4b6f-bcb0-910ceb025f2b" },
+  { id: "35be5ef3-4ea3-444d-b509-2fb00a9940c9", title: "Barclays shakes up investment bank less than 3 years since last overhaul", date: "2026-08-17", time: "13:40", url: "https://www.ft.com/content/35be5ef3-4ea3-444d-b509-2fb00a9940c9" },
+  { id: "29f1af13-ecc3-4f26-a479-e6088c67231b", title: "US midterm elections 2026: The FT’s guide", date: "2026-08-17", time: "12:44", url: "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b" },
+  { id: "83d287ed-43e2-466d-9490-06879efb04fc", title: "Donald Trump’s war on customs fraud will be costly and difficult", date: "2026-08-17", time: "12:31", url: "https://www.ft.com/content/83d287ed-43e2-466d-9490-06879efb04fc" },
   { id: "d4d07198-498d-48d1-9e54-85f1febcd070", title: "Trump threatens to bomb Oman if it ‘gets in the way’ of US-Iran negotiations", date: "2026-08-17", time: "12:25", url: "https://www.ft.com/content/d4d07198-498d-48d1-9e54-85f1febcd070" },
   { id: "51089f41-6f8b-4381-aab5-a83bbe4048c4", title: "Smoking is back, brilliant new road bikes and the rise of the one-carat ring – don’t miss HTSI’s most popular reads", date: "2026-08-17", time: "10:55", url: "https://www.ft.com/content/51089f41-6f8b-4381-aab5-a83bbe4048c4" },
   { id: "6529c240-13a6-4923-bb76-17d2baf2c733", title: "And the FTAV chart quiz winner is . . .", date: "2026-08-17", time: "10:24", url: "https://www.ft.com/content/6529c240-13a6-4923-bb76-17d2baf2c733" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "4bfa3d64-cf64-448d-823e-44c4577370b4", title: "US considers sanctions on Brazil judge in new test of diplomatic ties", date: "2026-08-16", time: "18:26", url: "https://www.ft.com/content/4bfa3d64-cf64-448d-823e-44c4577370b4" },
   { id: "d14b21c8-6a63-4593-b455-480b18792ac8", title: "Canadian business braced for 50% US tariffs", date: "2026-08-16", time: "18:15", url: "https://www.ft.com/content/d14b21c8-6a63-4593-b455-480b18792ac8" },
   { id: "d3e785fd-fbda-41d8-9c07-5275ad30fce6", title: "Angela Rayner makes planning changes to protect England’s pubs and boost housebuilding", date: "2026-08-16", time: "17:35", url: "https://www.ft.com/content/d3e785fd-fbda-41d8-9c07-5275ad30fce6" },
-  { id: "c2ee0910-ee7d-4a36-bf5e-697c7ade93a2", title: "Don’t dismiss the mini-middle powers", date: "2026-08-16", time: "16:00", url: "https://www.ft.com/content/c2ee0910-ee7d-4a36-bf5e-697c7ade93a2" },
-  { id: "9dc2ffa4-d40f-4236-91f0-e1ba664040bd", title: "British farmers need more help to cope with brutal heat", date: "2026-08-16", time: "14:06", url: "https://www.ft.com/content/9dc2ffa4-d40f-4236-91f0-e1ba664040bd" },
-  { id: "e34c097f-0f5d-49b8-8142-967842ba6c42", title: "Reform UK vows to cut £50bn from welfare bill if it wins power", date: "2026-08-16", time: "13:39", url: "https://www.ft.com/content/e34c097f-0f5d-49b8-8142-967842ba6c42" },
-  { id: "757c4938-614c-4829-9d8f-7320917e6753", title: "Farage’s fruitless by-election gambit", date: "2026-08-16", time: "13:35", url: "https://www.ft.com/content/757c4938-614c-4829-9d8f-7320917e6753" },
 ];
