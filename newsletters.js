@@ -33,6 +33,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-pointsofreturn-sargasso-20260817",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "Markets are serene in their summer Sargasso Sea",
+    date: "2026-08-17",
+    time: "05:00",
+    summary: "S&P 500 volatility has dropped to its lowest of the year as great earnings, calm data and an absence of news keep markets in the summer doldrums.",
+    url: "https://bloom.bg/4xaC1Sk",
+  },
+  {
     id: "nl-bbg-thebrink-ardaghcashin-20260815",
     publication: "Bloomberg",
     author: "Edward Clark",
@@ -462,15 +473,5 @@ export const NEWSLETTERS = [
     time: "14:59",
     summary: "Make sense of global economic trends and what they mean for the world — this issue: the economics of sick leave.",
     url: "https://www.reuters.com/newsletters/reuters-econ-world",
-  },
-  {
-    id: "nl-guggenheim-macromarkets-fedtest-20260805",
-    publication: "Guggenheim Investments",
-    series: "Macro Markets Podcast",
-    title: "Fixed-Income Strategy While the Market Tests the Fed",
-    date: "2026-08-05",
-    time: "19:29",
-    summary: "Guggenheim CIO Anne Walsh discusses portfolio strategy, ETFs and why 2026 won't repeat 2022 for bonds as an impatient market tests the Warsh-led Fed's credibility.",
-    url: "https://go.pardot.com/webmail/104832/1420223268/287c4ed51fc2b2589758ecb9046100386634ee931bab5194da4486b8b5f3f006",
   },
 ];
