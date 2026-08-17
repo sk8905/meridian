@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a1079593-c334-444e-84a1-2ef65839f1a7", title: "Andy Burnham exchanged text messages with White House spoofer", date: "2026-08-17", time: "09:11", url: "https://www.ft.com/content/a1079593-c334-444e-84a1-2ef65839f1a7" },
+  { id: "8889375a-bcaa-4539-a000-c89b73dbcf4c", title: "Donald Trump orders Pentagon to scale back military drills with South Korea", date: "2026-08-17", time: "08:39", url: "https://www.ft.com/content/8889375a-bcaa-4539-a000-c89b73dbcf4c" },
   { id: "340bf9e7-0e67-4d19-b671-3dc8186efb99", title: "A leaderboard of the biggest trading losses of all time*", date: "2026-08-17", time: "08:28", url: "https://www.ft.com/content/340bf9e7-0e67-4d19-b671-3dc8186efb99" },
   { id: "09a8a200-e572-486e-9bff-1f57933aebfc", title: "China’s economy shows signs of weakness in July", date: "2026-08-17", time: "08:23", url: "https://www.ft.com/content/09a8a200-e572-486e-9bff-1f57933aebfc" },
   { id: "d794e389-2122-481d-8fa3-328e33480ee5", title: "FirstFT: Dimon warns UK against higher bank taxes", date: "2026-08-17", time: "07:00", url: "https://www.ft.com/content/d794e389-2122-481d-8fa3-328e33480ee5" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "a71bcea9-b0eb-4ed2-8bc9-f4dace738e37", title: "Ukraine presses drone attacks on Moscow and Russian logistics", date: "2026-08-16", time: "11:52", url: "https://www.ft.com/content/a71bcea9-b0eb-4ed2-8bc9-f4dace738e37" },
   { id: "cf87b6cd-f940-4b09-b072-7da36faa183f", title: "How a sports billionaire threatens to upend Wall Street", date: "2026-08-16", time: "11:00", url: "https://www.ft.com/content/cf87b6cd-f940-4b09-b072-7da36faa183f" },
   { id: "8158cb5a-4bbd-43fd-b329-15a54e8422c8", title: "Big Tech’s data centre boom poised to drive up carbon emissions", date: "2026-08-16", time: "11:00", url: "https://www.ft.com/content/8158cb5a-4bbd-43fd-b329-15a54e8422c8" },
-  { id: "fd40a98d-2a7f-4246-a296-73e956bf03c0", title: "Most US voters say they are worse off under Trump — FT poll", date: "2026-08-16", time: "05:01", url: "https://www.ft.com/content/fd40a98d-2a7f-4246-a296-73e956bf03c0" },
-  { id: "729477cd-3551-4345-8c7c-33603b293556", title: "Harvey Nicks deal hints at department stores’ hidden potential", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/729477cd-3551-4345-8c7c-33603b293556" },
 ];

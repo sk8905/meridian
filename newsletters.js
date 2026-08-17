@@ -33,6 +33,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-nonbillable-aiwatermark-20260817",
+    publication: "Non-Billable",
+    title: "AI gets a watermark",
+    date: "2026-08-17",
+    time: "09:05",
+    summary: "Anthropic begins watermarking Claude-generated text to meet EU AI Act rules, while A&O Shearman, Latham, Clifford Chance, Orrick and Cleary advise as a Bezos-backed consortium buys a third of Liverpool FC at a $7bn valuation.",
+    url: "https://non-billable.beehiiv.com/p/headhunting-s-2m-payday-1",
+  },
+  {
     id: "nl-bp-indeedsublet-20260817",
     publication: "Business Post",
     series: "CRE",
@@ -430,34 +439,5 @@ export const NEWSLETTERS = [
     time: "11:00",
     summary: "Beijing steps up a tax-collection crackdown on offshore trusts used by the mega-rich and strips high-tech status from thousands of firms, a fiscal-sustainability push Bank of America says marks a shift away from tax relief.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-12/china-steps-up-tax-collection-push-targets-mega-rich-in-sign-of-fiscal-worry",
-  },
-  {
-    id: "nl-bbg-marketsdaily-pivotalinflation-20260812",
-    publication: "Bloomberg",
-    series: "Markets Daily",
-    title: "Markets Daily: Pivotal inflation report",
-    date: "2026-08-12",
-    time: "10:22",
-    summary: "Traders brace for a pivotal July CPI print that could decide the Fed's next move, as CoreWeave surges 17% on AI-computing demand and Nvidia's $500bn Wall Street financing coalition eases credit-market anxiety.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-12/cpi-day-and-what-katsu-curry-says-about-the-level-of-the-yen",
-  },
-  {
-    id: "nl-nonbillable-goldrush-20260812",
-    publication: "Non-Billable",
-    title: "Big Law's new gold rush",
-    date: "2026-08-12",
-    time: "09:05",
-    summary: "Law firms race to build out lucrative \"capital solutions\" practices as private equity hunts for creative ways to extract cash, while Big Law's ransomware bill hits $50m this year.",
-    url: "https://www.nonbillable.co.uk/posts/law-firms-chase-capital-solutions-gold-rush",
-  },
-  {
-    id: "nl-econ-worldinbrief-20260812",
-    publication: "The Economist",
-    series: "The World in Brief",
-    title: "The World in Brief: Iran threatens to keep Hormuz shut",
-    date: "2026-08-12",
-    time: "06:45",
-    summary: "Iran's new security chief says the Strait of Hormuz stays shut until America \"changes its behaviour\", as US forces fire on a cargo ship nearing Iran and Colombia's earthquake death toll tops 250.",
-    url: "https://www.economist.com/the-world-in-brief",
   },
 ];
