@@ -33,6 +33,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-cf-growthcoolslongend-20260817",
+    publication: "Chatham Financial",
+    series: "Market Update",
+    title: "Growth cools, but the long end remains unconvinced",
+    date: "2026-08-17",
+    time: "17:27",
+    summary: "S&P 500 gains 0.4% as inflation eases, the 10-year Treasury yield rises to 4.68%, and Brent crude climbs 6.0% amid geopolitical risks, with FOMC minutes due this week.",
+    url: "https://go.chathamfinancial.com/e3t/Ctc/ZZ+113/d5Z2Pb04/MVsLPcTDXgYW3-zlCB1hbcW5W8QwHkG5SRjwsN2C5cxF5nR3bW50kH_H6lZ3mCW5x4jt02_F1j1W5GhkXK1kxzzBW5qkryS5PVQMWN5STWWtVGfB_W7PMNn_8ngDfMW57_24n6B7V3TVvj3J-1rRY69W2Xm7JZ2Mj4GnW7Jybsj92-0hNW7mns6q7z_F4hN1nnBVvJHcWXW4J28F_2d-yhFN6pGG83nd8pbN5WRCgfDssYYW4t3jQg5yDlvDW1jyWBS1T9n8ZW8XyCGJ8lRBYMVxs56r99hY30W4JQGBM5Dq2yYW8HQM9P62y5bvVK4nT56GHQ2qW5Ch2vh1Wxy4jW8wvSLr88XDnmN90y2QhgRXSDW6Yh2-g2D5RsZW5r04mS886dW2W79mwdT3h5p7xW76v5dv1Vm-2cW2KJHVP3M_s0vW7F62Hv3R98tpW4CF-QD9bP7kpW42y-rQ8FFWYdf41CDSg04",
+  },
+  {
     id: "nl-bbg-economicsdaily-japaninflationbargain-20260817",
     publication: "Bloomberg",
     author: "Rebecca Choong Wilkins",
