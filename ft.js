@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "e04f286c-f5ed-46d1-8e3f-0bbe4cce4d3e", title: "People are worried about America’s solvency", date: "2026-08-17", time: "10:15", url: "https://www.ft.com/content/e04f286c-f5ed-46d1-8e3f-0bbe4cce4d3e" },
   { id: "eea1da3e-1c1c-4957-ad9d-f0372b2694f0", title: "Jared Kushner holds talks with Benjamin Netanyahu after meeting Hamas leader", date: "2026-08-17", time: "09:26", url: "https://www.ft.com/content/eea1da3e-1c1c-4957-ad9d-f0372b2694f0" },
   { id: "a1079593-c334-444e-84a1-2ef65839f1a7", title: "Andy Burnham exchanged text messages with White House spoofer", date: "2026-08-17", time: "09:11", url: "https://www.ft.com/content/a1079593-c334-444e-84a1-2ef65839f1a7" },
   { id: "8889375a-bcaa-4539-a000-c89b73dbcf4c", title: "Donald Trump orders Pentagon to scale back military drills with South Korea", date: "2026-08-17", time: "08:39", url: "https://www.ft.com/content/8889375a-bcaa-4539-a000-c89b73dbcf4c" },
@@ -60,5 +61,4 @@ export const FT_ITEMS = [
   { id: "f9eb497c-f8e0-4cba-8edc-619e55b74a59", title: "Will the Fed minutes reveal any forward guidance?", date: "2026-08-16", time: "12:00", url: "https://www.ft.com/content/f9eb497c-f8e0-4cba-8edc-619e55b74a59" },
   { id: "a71bcea9-b0eb-4ed2-8bc9-f4dace738e37", title: "Ukraine presses drone attacks on Moscow and Russian logistics", date: "2026-08-16", time: "11:52", url: "https://www.ft.com/content/a71bcea9-b0eb-4ed2-8bc9-f4dace738e37" },
   { id: "cf87b6cd-f940-4b09-b072-7da36faa183f", title: "How a sports billionaire threatens to upend Wall Street", date: "2026-08-16", time: "11:00", url: "https://www.ft.com/content/cf87b6cd-f940-4b09-b072-7da36faa183f" },
-  { id: "8158cb5a-4bbd-43fd-b329-15a54e8422c8", title: "Big Tech’s data centre boom poised to drive up carbon emissions", date: "2026-08-16", time: "11:00", url: "https://www.ft.com/content/8158cb5a-4bbd-43fd-b329-15a54e8422c8" },
 ];
