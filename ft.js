@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "eea1da3e-1c1c-4957-ad9d-f0372b2694f0", title: "Jared Kushner holds talks with Benjamin Netanyahu after meeting Hamas leader", date: "2026-08-17", time: "09:26", url: "https://www.ft.com/content/eea1da3e-1c1c-4957-ad9d-f0372b2694f0" },
   { id: "a1079593-c334-444e-84a1-2ef65839f1a7", title: "Andy Burnham exchanged text messages with White House spoofer", date: "2026-08-17", time: "09:11", url: "https://www.ft.com/content/a1079593-c334-444e-84a1-2ef65839f1a7" },
   { id: "8889375a-bcaa-4539-a000-c89b73dbcf4c", title: "Donald Trump orders Pentagon to scale back military drills with South Korea", date: "2026-08-17", time: "08:39", url: "https://www.ft.com/content/8889375a-bcaa-4539-a000-c89b73dbcf4c" },
   { id: "340bf9e7-0e67-4d19-b671-3dc8186efb99", title: "A leaderboard of the biggest trading losses of all time*", date: "2026-08-17", time: "08:28", url: "https://www.ft.com/content/340bf9e7-0e67-4d19-b671-3dc8186efb99" },

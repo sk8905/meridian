@@ -13,7 +13,7 @@ export const UPDATED = "16 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-17",
-  lastCheckedTime: "05:24 BST",
+  lastCheckedTime: "09:28 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -324,10 +324,10 @@ export const OUTLOOK = {
 //   commentary. Keep each item's real headline + source link; never fabricate —
 //   only add pieces that exist and are dated.
 export const COMMENTARY = {
-  updated: "2026-08-15",
+  updated: "2026-08-17",
   us: [
+    { title: "Goldman Says Markets Too Hawkish on Betting Fed Will Hike Rates", source: "Bloomberg", author: "Goldman Sachs", date: "2026-08-17", url: "https://www.bloomberg.com/news/articles/2026-08-17/goldman-says-markets-too-hawkish-on-betting-fed-will-hike-rates" },
     { title: "Retail sales unexpectedly fall in July as government tax refunds fade", source: "MSN (syndicated)", author: "Capital Economics — Stephen Brown; Oxford Economics — Bernard Yaros", date: "2026-08-14", url: "https://www.msn.com/en-us/money/markets/retail-sales-unexpectedly-fall-in-july-what-s-behind-the-slump/ar-AA2a7dOP" },
-    { title: "Wholesale prices didn't accelerate in July, but they weren't cool either", source: "Yahoo Finance", author: "Capital Economics — Stephen Brown; Fwdbonds — Chris Rupkey", date: "2026-08-13", url: "https://finance.yahoo.com/economy/policy/article/wholesale-prices-didnt-accelerate-in-july-but-they-werent-cool-either-134319478.html" },
     { title: "The World Economy Is Swerving, and the Destination Is Unknown", source: "Project Syndicate", author: "Mohamed A. El-Erian", date: "2026-08-13", url: "https://www.project-syndicate.org/commentary/global-economy-in-transition-destination-unknown-by-mohamed-a-el-erian-2026-08" },
   ],
   uk: [
@@ -782,18 +782,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-08-17",
   us: [
+    { title: "Goldman Says Markets Too Hawkish on Betting Fed Will Hike Rates", source: "Bloomberg", date: "2026-08-17", url: "https://www.bloomberg.com/news/articles/2026-08-17/goldman-says-markets-too-hawkish-on-betting-fed-will-hike-rates" },
     { title: "Asian shares mark time as West Asia war keeps oil prices elevated", source: "Reuters (via Business Standard)", date: "2026-08-17", url: "https://www.business-standard.com/markets/news/asian-shares-mark-time-as-west-asia-war-keeps-oil-prices-elevated-126081700046_1.html" },
     { title: "Stock Market Today: Dow, S&P Live Updates for August 17", source: "Bloomberg", date: "2026-08-16", url: "https://www.bloomberg.com/news/articles/2026-08-16/stock-market-today-dow-s-p-live-updates" },
-    { title: "US-Iran MoU is set to expire: What to know", source: "Al Jazeera", date: "2026-08-16", url: "https://www.aljazeera.com/news/2026/8/16/us-iran-mou-is-set-to-expire-what-to-know" },
     { title: "NY Empire State Manufacturing Index among economic data due Monday", source: "Investing.com", date: "2026-08-16", url: "https://www.investing.com/news/stock-market-news/ny-empire-state-manufacturing-index-among-economic-data-due-monday-93CH-4861389" },
     { title: "Markets bet on a pause for September, but Fed hawks may not be swayed ahead of Jackson Hole", source: "Yahoo Finance", date: "2026-08-15", time: "17:59", url: "https://finance.yahoo.com/economy/policy/article/markets-bet-on-a-pause-for-september-but-fed-hawks-may-not-be-swayed-ahead-of-jackson-hole-175928197.html" },
   ],
   uk: [
     { title: "Scotiabank Pound To Dollar Forecast: Yield Support Lifts GBP Towards 1.36", source: "Exchange Rates UK", date: "2026-08-17", url: "https://www.exchangerates.org.uk/news/46876/2026-08-17-scotiabank-pound-to-dollar-forecast-yield-support-lifts-gbp-towards-1-36.html" },
     { title: "Next week on the stock market", source: "Hargreaves Lansdown", date: "2026-08-17", url: "https://www.hl.co.uk/shares/share-research/next-week-on-the-stock-market-17-08-2026" },
+    { title: "Bank of England Hawks Appear Isolated as Deputies Shift Ground", source: "Bloomberg", date: "2026-07-31", url: "https://www.bloomberg.com/news/articles/2026-07-31/bank-of-england-hawks-appear-isolated-as-deputies-shift-ground" },
     { title: "A Popular UK Bond Trade Suggests Markets Trust Burnham for Now", source: "Bloomberg", date: "2026-08-14", url: "https://www.bloomberg.com/news/articles/2026-08-14/a-popular-uk-bond-trade-suggests-markets-trust-burnham-for-now" },
     { title: "UK retains high Fitch rating, but rising energy prices set to tame economic growth", source: "The National", date: "2026-08-15", time: "17:13", url: "https://www.thenationalnews.com/business/economy/2026/08/15/uk-retains-high-fitch-rating-but-rising-energy-prices-set-to-tame-economic-growth/" },
-    { title: "UK 10Y Bond Yield Hits 14-month High", source: "Trading Economics", date: "2026-08-14", time: "17:00", url: "https://tradingeconomics.com/united-kingdom/government-bond-yield/news/535078" },
   ],
 };
 
@@ -807,6 +807,7 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-17",
   items: [
+    {"title":"Goldman Says Markets Too Hawkish on Betting Fed Will Hike Rates","source":"Bloomberg","date":"2026-08-17","time":"09:28","url":"https://www.bloomberg.com/news/articles/2026-08-17/goldman-says-markets-too-hawkish-on-betting-fed-will-hike-rates","blurb":"Goldman Sachs argues traders have gone too far pricing a Fed hike, with a September rate rise now 'very unlikely' given softer retail sales, disappointing payrolls and cooling inflation prints, even as energy-driven price risk keeps the debate alive."},
     {"title":"Asian shares mark time as West Asia war keeps oil prices elevated","source":"Reuters (via Business Standard)","date":"2026-08-17","time":"06:00","url":"https://www.business-standard.com/markets/news/asian-shares-mark-time-as-west-asia-war-keeps-oil-prices-elevated-126081700046_1.html","blurb":"Asian shares drifted sideways Monday as Brent held near $89/bbl after last week's gains, with the 60-day US-Iran memorandum of understanding on Hormuz set to expire and the week's main data point the flash August S&P Global PMIs."},
     {"title":"Market braces for cautious start as oil stays elevated","source":"Business Standard","date":"2026-08-17","time":"06:00","url":"https://www.business-standard.com/markets/capital-market-news/market-braces-for-cautious-start-as-oil-stays-elevated-126081700101_1.html","blurb":"Global markets opened cautiously as elevated oil prices and the expiring US-Iran ceasefire memorandum kept risk sentiment in check heading into the new week."},
     {"title":"Scotiabank Pound To Dollar Forecast: Yield Support Lifts GBP Towards 1.36","source":"Exchange Rates UK","date":"2026-08-17","time":"05:00","url":"https://www.exchangerates.org.uk/news/46876/2026-08-17-scotiabank-pound-to-dollar-forecast-yield-support-lifts-gbp-towards-1-36.html","blurb":"GBP/USD pushed back toward its August highs near 1.3545 as yield-support and improving positioning left sterling testing how far above $1.35 it can go, even as Goldman Sachs still sees fiscal risk dragging the pair toward 1.28."},
@@ -1003,7 +1004,7 @@ export const MATWALL = {
 // two_year, core_cpi, services_pmi, wages, unemployment). Absent = no sourced
 // move (the rail shows nothing). Routine-maintained; see docs/refresh-routines.md.
 export const IND_KEYMOMENTS = {
-  "US:two_year": { text: "Fell more than 6bp to 4.134% after July PPI came in flat month-on-month (vs +0.2% expected), with the annual rate cooling to 4.7% from 5.5%; the 10-year fell over 7bp to 4.621% on the same print, pulling CME FedWatch-implied odds of a 16 September hike down to roughly 35%.", src: "https://www.cnbc.com/2026/08/13/treasury-yields-wall-street-inflation-data.html", srcName: "CNBC", date: "2026-08-13" },
+  "US:two_year": { text: "Goldman Sachs argued markets remain too hawkish on Fed-hike risk, calling a September rate rise 'very unlikely' given softer retail sales, weak payrolls and cooling inflation — even as the 2-year still reflects some residual hike premium from the energy-driven inflation scare.", src: "https://www.bloomberg.com/news/articles/2026-08-17/goldman-says-markets-too-hawkish-on-betting-fed-will-hike-rates", srcName: "Bloomberg", date: "2026-08-17" },
   "US:wages": { text: "The Employment Cost Index rose 0.9% q/q (vs 0.8% expected) and 3.4% y/y in Q2 — the first hard labour-cost data since Wednesday's hawkish Fed hold, keeping the wage-inflation channel live heading into September.", src: "https://www.933thedrive.com/2026/07/31/us-labor-costs-increase-in-second-quarter-as-wage-growth-picks-up/", srcName: "AP News", date: "2026-07-31" },
   "UK:two_year": { text: "Fitch affirmed the UK at AA- on 15 August but trimmed its growth forecasts to 0.9% (2026) and 1.2% (2027) and now sees inflation ending 2026 near 3.7% on Middle East energy costs — while saying it expects no near-term change to fiscal rules under PM Burnham, leaving gilt yields anchored ahead of the Autumn Budget.", src: "https://www.thenationalnews.com/business/economy/2026/08/15/uk-retains-high-fitch-rating-but-rising-energy-prices-set-to-tame-economic-growth/", srcName: "The National", date: "2026-08-15" },
 };
