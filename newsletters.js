@@ -33,6 +33,27 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-econ-worldinbrief-20260817",
+    publication: "The Economist",
+    series: "The World in Brief",
+    title: "The World in Brief: Jared Kushner meets Hamas",
+    date: "2026-08-17",
+    time: "06:42",
+    summary: "Jared Kushner holds ceasefire talks with Hamas in Egypt, Trump says he's cutting joint military drills with South Korea over its stance on Iran, and Japan's economy grows a weaker-than-expected 1.1% in Q2.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
+    id: "nl-bbg-morningbriefingeurope-israelstrikeslebanon-20260817",
+    publication: "Bloomberg",
+    author: "Lily Nonomiya",
+    series: "Morning Briefing Europe",
+    title: "Israel Strikes Lebanon, Adding Pressure to Stalled US-Iran Talks",
+    date: "2026-08-17",
+    time: "07:13",
+    summary: "Deadly Israeli strikes in Lebanon add pressure to stalled US-Iran talks, a large wildfire burns through Belgium's biggest nature reserve, and Ferrari's first EV sells for $40 million.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-17/israel-strikes-lebanon-adding-pressure-to-stalled-us-iran-talks",
+  },
+  {
     id: "nl-bbg-authoralert-nkumar-jainglobal-20260817",
     publication: "Bloomberg",
     author: "Nishant Kumar",
@@ -418,17 +439,6 @@ export const NEWSLETTERS = [
     time: "09:05",
     summary: "Law firms race to build out lucrative \"capital solutions\" practices as private equity hunts for creative ways to extract cash, while Big Law's ransomware bill hits $50m this year.",
     url: "https://www.nonbillable.co.uk/posts/law-firms-chase-capital-solutions-gold-rush",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-20260812",
-    publication: "Bloomberg",
-    author: "Samson Ellis",
-    series: "Morning Briefing Europe",
-    title: "Tata Sons Chairman to Step Down After Reappointment Deadlock",
-    date: "2026-08-12",
-    time: "08:05",
-    summary: "Tata Sons chairman Natarajan Chandrasekaran plans to step down in February 2027 after a reappointment deadlock, Nvidia's $500bn financing coalition calms jittery credit markets, and record labels battle Suno over the future of AI-generated music.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-12/tata-sons-chairman-to-step-down-after-reappointment-deadlock",
   },
   {
     id: "nl-econ-worldinbrief-20260812",

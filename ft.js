@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d794e389-2122-481d-8fa3-328e33480ee5", title: "FirstFT: Dimon warns UK against higher bank taxes", date: "2026-08-17", time: "07:00", url: "https://www.ft.com/content/d794e389-2122-481d-8fa3-328e33480ee5" },
+  { id: "1b767cbb-a71c-47ca-b5ed-a8942cd94e39", title: "Broken FIMA", date: "2026-08-17", time: "06:30", url: "https://www.ft.com/content/1b767cbb-a71c-47ca-b5ed-a8942cd94e39" },
   { id: "49e5c44c-fa4b-4534-809a-dc91969ba86f", title: "FTAV’s further reading", date: "2026-08-17", time: "06:00", url: "https://www.ft.com/content/49e5c44c-fa4b-4534-809a-dc91969ba86f" },
   { id: "1d319839-1c40-4035-b058-5ca2389cafd0", title: "Japan’s 10-year bond yield hits three-decade high", date: "2026-08-17", time: "05:35", url: "https://www.ft.com/content/1d319839-1c40-4035-b058-5ca2389cafd0" },
   { id: "719c8108-f4ae-466b-80f4-96f26558d642", title: "Higgsfield valued at $5.4bn as Goldman and Intel back AI video start-up", date: "2026-08-17", time: "05:00", url: "https://www.ft.com/content/719c8108-f4ae-466b-80f4-96f26558d642" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "161ee092-d2b6-4375-a853-e7a6fbee60e2", title: "World’s largest carmakers seek to avert motor oil crisis", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/161ee092-d2b6-4375-a853-e7a6fbee60e2" },
   { id: "b56a910a-c2b4-41e5-9f8f-18e6fe7b2efd", title: "Are Americans making peace with the spectre of socialism?", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/b56a910a-c2b4-41e5-9f8f-18e6fe7b2efd" },
   { id: "1419012f-feca-4efd-a817-dc0392cd76e3", title: "European companies count the costs and gains of extreme heat", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/1419012f-feca-4efd-a817-dc0392cd76e3" },
-  { id: "1b318ce4-75ef-4f68-8db5-f148dd00fe9f", title: "Miner Ferrexpo caught up in dispute between oligarch and Kyiv", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/1b318ce4-75ef-4f68-8db5-f148dd00fe9f" },
 ];
