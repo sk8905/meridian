@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "895ca028-33c7-4295-bf8c-13a3121b80ac", title: "The realignment of the Middle East", date: "2026-08-17", time: "15:12", url: "https://www.ft.com/content/895ca028-33c7-4295-bf8c-13a3121b80ac" },
+  { id: "49eac9fc-1b9c-4e80-8ed0-c52afc3aa376", title: "Reform UK’s deputy leader tells Britons to ‘enjoy’ heat amid record drought", date: "2026-08-17", time: "15:00", url: "https://www.ft.com/content/49eac9fc-1b9c-4e80-8ed0-c52afc3aa376" },
+  { id: "a33467c0-ef18-4ff8-9f56-b5c7a79dbc85", title: "Manchester’s towering ambition shows in its new skyline", date: "2026-08-17", time: "14:58", url: "https://www.ft.com/content/a33467c0-ef18-4ff8-9f56-b5c7a79dbc85" },
+  { id: "82a4b183-7201-4789-95b7-e39e81c827bc", title: "Nvidia to invest $100bn for OpenAI data centre in Ohio", date: "2026-08-17", time: "14:57", url: "https://www.ft.com/content/82a4b183-7201-4789-95b7-e39e81c827bc" },
+  { id: "e34c097f-0f5d-49b8-8142-967842ba6c42", title: "Reform UK vows to block foreign nationals from claiming benefits if it wins power", date: "2026-08-17", time: "12:15", url: "https://www.ft.com/content/e34c097f-0f5d-49b8-8142-967842ba6c42" },
   { id: "b9b1c9d7-a7a1-4b6f-bcb0-910ceb025f2b", title: "UK government to pay KPMG and EY up to £456mn to train civil servants", date: "2026-08-17", time: "13:42", url: "https://www.ft.com/content/b9b1c9d7-a7a1-4b6f-bcb0-910ceb025f2b" },
   { id: "35be5ef3-4ea3-444d-b509-2fb00a9940c9", title: "Barclays shakes up investment bank less than 3 years since last overhaul", date: "2026-08-17", time: "13:40", url: "https://www.ft.com/content/35be5ef3-4ea3-444d-b509-2fb00a9940c9" },
   { id: "29f1af13-ecc3-4f26-a479-e6088c67231b", title: "US midterm elections 2026: The FT’s guide", date: "2026-08-17", time: "12:44", url: "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b" },
@@ -55,9 +60,4 @@ export const FT_ITEMS = [
   { id: "2f705a5a-2c4e-4bca-b08a-ed9372ef3b2e", title: "The next China shock will come from open-source AI", date: "2026-08-17", time: "02:00", url: "https://www.ft.com/content/2f705a5a-2c4e-4bca-b08a-ed9372ef3b2e" },
   { id: "44c08ae9-f209-4992-8744-cfff430eca07", title: "Jamie Dimon warns UK chancellor against higher bank taxes", date: "2026-08-16", time: "20:00", url: "https://www.ft.com/content/44c08ae9-f209-4992-8744-cfff430eca07" },
   { id: "f6b953fc-a6ad-48cd-bed1-d42619b57d94", title: "Far-right Israeli minister advocates killing ‘30 to 40’ Gazans each night", date: "2026-08-16", time: "19:43", url: "https://www.ft.com/content/f6b953fc-a6ad-48cd-bed1-d42619b57d94" },
-  { id: "0a2db2ce-b89f-4d2b-a93b-794e4e422141", title: "London’s flood-defence system may need urgent replacement as extreme weather worsens", date: "2026-08-16", time: "19:00", url: "https://www.ft.com/content/0a2db2ce-b89f-4d2b-a93b-794e4e422141" },
-  { id: "10aba768-20fc-46eb-8503-4658181bffc5", title: "California billionaires add millions to bolster fight against wealth tax", date: "2026-08-16", time: "18:55", url: "https://www.ft.com/content/10aba768-20fc-46eb-8503-4658181bffc5" },
-  { id: "4bfa3d64-cf64-448d-823e-44c4577370b4", title: "US considers sanctions on Brazil judge in new test of diplomatic ties", date: "2026-08-16", time: "18:26", url: "https://www.ft.com/content/4bfa3d64-cf64-448d-823e-44c4577370b4" },
-  { id: "d14b21c8-6a63-4593-b455-480b18792ac8", title: "Canadian business braced for 50% US tariffs", date: "2026-08-16", time: "18:15", url: "https://www.ft.com/content/d14b21c8-6a63-4593-b455-480b18792ac8" },
-  { id: "d3e785fd-fbda-41d8-9c07-5275ad30fce6", title: "Angela Rayner makes planning changes to protect England’s pubs and boost housebuilding", date: "2026-08-16", time: "17:35", url: "https://www.ft.com/content/d3e785fd-fbda-41d8-9c07-5275ad30fce6" },
 ];
