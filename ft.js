@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b3ad4338-21a1-42ab-86ce-4912c7df2f96", title: "Labour MP suspended amid investigation into Covid loans", date: "2026-08-17", time: "19:39", url: "https://www.ft.com/content/b3ad4338-21a1-42ab-86ce-4912c7df2f96" },
   { id: "fc94e1f6-3f22-4fb9-b4a5-682c425e4d49", title: "The UK is going the wrong way about protecting pubs", date: "2026-08-17", time: "19:03", url: "https://www.ft.com/content/fc94e1f6-3f22-4fb9-b4a5-682c425e4d49" },
   { id: "61b8162e-6c50-4775-8bb5-fff1259a9cf3", title: "ExxonMobil advances Mozambique gas project despite terrorist threat", date: "2026-08-17", time: "18:24", url: "https://www.ft.com/content/61b8162e-6c50-4775-8bb5-fff1259a9cf3" },
   { id: "71a498fa-4ce7-4c0b-ab14-7b7f46b2b9c6", title: "Chelsea shareholders Mark Walter and Todd Boehly in talks to sell their stakes to Clearlake", date: "2026-08-17", time: "18:06", url: "https://www.ft.com/content/71a498fa-4ce7-4c0b-ab14-7b7f46b2b9c6" },
@@ -59,6 +60,4 @@ export const FT_ITEMS = [
   { id: "5f6cdb7a-3b05-487f-a02e-3b9fb0b42e00", title: "America and the politics of respect", date: "2026-08-17", time: "05:00", url: "https://www.ft.com/content/5f6cdb7a-3b05-487f-a02e-3b9fb0b42e00" },
   { id: "ff2186b0-be40-4b8e-8b5c-80ece92a30b2", title: "The wrong lessons are being drawn over worries on public equities", date: "2026-08-17", time: "05:00", url: "https://www.ft.com/content/ff2186b0-be40-4b8e-8b5c-80ece92a30b2" },
   { id: "c5e27ffb-cfb1-421b-8121-a402cf2d84ac", title: "How Maga came for Europe", date: "2026-08-17", time: "05:00", url: "https://www.ft.com/content/c5e27ffb-cfb1-421b-8121-a402cf2d84ac" },
-  { id: "e2f72d88-28b5-461c-b0b5-0448b6209362", title: "The Ritz-Carlton, Melbourne: luxury with altitude", date: "2026-08-17", time: "05:00", url: "https://www.ft.com/content/e2f72d88-28b5-461c-b0b5-0448b6209362" },
-  { id: "37734db7-93d6-4302-934b-41430f808c10", title: "Author Helena Attlee: ‘We British live with dogs and cats and junk on every surface’", date: "2026-08-17", time: "05:00", url: "https://www.ft.com/content/37734db7-93d6-4302-934b-41430f808c10" },
 ];

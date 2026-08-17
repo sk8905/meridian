@@ -33,6 +33,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-guggenheim-cre-recovery-20260817",
+    publication: "Guggenheim Investments",
+    author: "Tom Christopoul",
+    series: "Macro Markets Podcast",
+    title: "Commercial Real Estate: An Uneven but Genuine Recovery",
+    date: "2026-08-17",
+    time: "19:22",
+    summary: "Guggenheim's Tom Christopoul says commercial real estate has turned a genuine corner post-pandemic, but the recovery varies sharply by sector, geography and position in the capital stack.",
+    url: "https://go.pardot.com/webmail/104832/1427209659/287c4ed51fc2b2589758ecb9046100386634ee931bab5194da4486b8b5f3f006",
+  },
+  {
     id: "nl-cf-growthcoolslongend-20260817",
     publication: "Chatham Financial",
     series: "Market Update",
@@ -428,25 +439,5 @@ export const NEWSLETTERS = [
     time: "22:02",
     summary: "Upbeat tech earnings and in-line US inflation push the Nasdaq and S&P 500 close to record highs, while soaring AI hyperscaler default hedges overstate the real credit risk.",
     url: "https://www.reuters.com/newsletters/trading-day",
-  },
-  {
-    id: "nl-bbg-moneystuff-aibackedsecurities-20260812",
-    publication: "Bloomberg",
-    author: "Matt Levine",
-    series: "Money Stuff",
-    title: "Money Stuff: AI-Backed Securities",
-    date: "2026-08-12",
-    time: "18:13",
-    summary: "DCS, API, CEA, Suno.",
-    url: "https://bloom.bg/4hwU4gn",
-  },
-  {
-    id: "nl-lb-simmonschief-20260812",
-    publication: "Legal Business",
-    title: "'Louder, more bold, more ambitious' – Simmons chief on taking the firm forward without losing its edge",
-    date: "2026-08-12",
-    time: "14:55",
-    summary: "Simmons managing partner Emily Monastiriotis on shedding the firm's 'sleepy' image, the Dubai office coming under fire, and her stance on transatlantic mergers.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQHbj9Axam79lK4af/wv",
   },
 ];
