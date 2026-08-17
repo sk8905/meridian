@@ -3,7 +3,7 @@
 // owns chrome + search), and listeners self-guard on the active tab.
 
 import { deals, intel, managers, funds, research, HEDGE_INTEL, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js";
-import { reportRefresh } from "/v2/js/status.js?v=v2-2";
+import { reportRefresh } from "/v2/js/status.js?v=v2-3";
 import { items, cases, restructurings, firmById } from "/legal/js/data.js";
 import { NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js";
 import { NEWSLETTERS } from "/newsletters.js";

@@ -1,5 +1,7 @@
+import { esc } from "/util.js?v=20260719-1";
+
 // App-wide "Last refresh" — ONE value for the whole app, not split by desk.
-// Wire's data is refreshed together by the four-times-daily routine, so the
+// Wire's data is refreshed together by the five-times-daily routine, so the
 // header should show a single refresh time that doesn't change just because you
 // switched tabs. Each desk reports its data stamp when it loads; the MOST RECENT
 // wins (monotonic), and every report renders into the shared #data-status. So
@@ -36,6 +38,6 @@ function render() {
   // Render into every refresh slot — the header #data-status (desktop
   // rail/footer) AND the phone bottom-meta strip — so the one app-wide value
   // shows wherever the current breakpoint surfaces it.
-  const html = `<span class="ds-text" title="Wire data is refreshed together by the four-times-daily routine (05:00, 12:00, 17:00 &amp; 21:00 London)."><span class="ds-part">Last refresh ${_label}</span></span>`;
+  const html = `<span class="ds-text" title="Wire data is refreshed together by the five-times-daily routine (05:00, 09:00, 12:00, 17:00 &amp; 21:00 London)."><span class="ds-part">Last refresh ${esc(_label)}</span></span>`;
   document.querySelectorAll("[data-refresh-slot]").forEach((el) => { el.innerHTML = html; });
 }

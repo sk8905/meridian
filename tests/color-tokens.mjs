@@ -24,6 +24,7 @@ const legalCss = read("legal/css/styles.css");
 const premiumCss = read("premium.css");
 const paletteJs = read("palette.js");
 const dashboardApp = read(path.join("v2", "js", "dashboard", "app.js"));
+const statusJs = read(path.join("v2", "js", "status.js"));
 
 // R8 — --t-news must be a REAL declared custom property (dark + light), not
 // just a var(--t-news, #fallback) with nothing ever setting it.
@@ -107,5 +108,19 @@ check(/\.mcmdk-code\.brew\{color:var\(--t-amber,/.test(paletteJs), "palette.js .
 // fmtDate) includes the year; this one silently didn't.
 check(/const fmtDate = \(d\) => \{.*\$\{\+m\[3\]\} \$\{MONTHS\[\+m\[2\]-1\]\} \$\{m\[1\]\}/.test(dashboardApp),
   "v2/js/dashboard/app.js fmtDate() includes the year in its output");
+
+// R8 — the mobile-tab active underline's light-mode colour reads the shared
+// --chip-ul token (like every other selection marker), not a bare hardcoded
+// hex that can drift from the token if it's ever retuned.
+check(/\.mtab\.is-active::before\s*\{[^}]*background:\s*var\(--chip-ul,\s*#000\)/.test(premiumCss),
+  "premium.css .mtab.is-active::before reads var(--chip-ul, #000), not a bare #000");
+
+// R15 — the "Last refresh" tooltip must describe the real five-times-daily
+// schedule (05:00/09:00/12:00/17:00/21:00 London), not a stale four-times
+// description missing 09:00.
+check(/five-times-daily/.test(statusJs) && !/four-times-daily/.test(statusJs),
+  "v2/js/status.js describes the five-times-daily refresh schedule, not a stale four-times one");
+check(/05:00, 09:00, 12:00, 17:00/.test(statusJs),
+  "v2/js/status.js refresh tooltip lists all five London refresh times, including 09:00");
 
 finish();

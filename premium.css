@@ -402,7 +402,7 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
    (the view-nav underlines etc. all use black); dark mode keeps the orange
    accent, which reads on the black bar. */
 .mtab.is-active { color: var(--ink, #1f2733); background: none; }
-.mtab.is-active::before { content: ""; position: absolute; top: -6px; left: 0; right: 0; height: 2px; background: #000; }
+.mtab.is-active::before { content: ""; position: absolute; top: -6px; left: 0; right: 0; height: 2px; background: var(--chip-ul, #000); }
 .mtab-ico { display: block; font-size: 1.42rem; line-height: 1; }   /* diamond glyph → optically match the SVG icons */
 svg.mtab-ico { width: 22px; height: 22px; }
 /* Dark variant — home dashboard + every app share it (one override covers all). */

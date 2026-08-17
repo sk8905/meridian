@@ -18,7 +18,7 @@ const vurl = (p) => p + (p.includes("?") ? "&" : "?") + "v=" + V;
 // The app-wide "Last refresh" reporter — same singleton the desks report into
 // (its own leaf token, not V; see runtime.js), so chrome's boot-time value and a
 // desk's real stamp share one monotonic keep-latest state.
-import { reportRefresh } from "./status.js?v=v2-2";
+import { reportRefresh } from "./status.js?v=v2-3";
 import { esc } from "/util.js?v=20260719-1";
 
 // Mobile bottom tab bar: Home/Macro/Credit/Legal/Profiles/Menu (six equal
