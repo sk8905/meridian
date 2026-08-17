@@ -13,7 +13,7 @@ export const UPDATED = "16 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-17",
-  lastCheckedTime: "12:39 BST",
+  lastCheckedTime: "17:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -787,7 +787,7 @@ export const NEWS = {
     { title: "Goldman Says Markets Too Hawkish on Betting Fed Will Hike Rates", source: "Bloomberg", date: "2026-08-17", url: "https://www.bloomberg.com/news/articles/2026-08-17/goldman-says-markets-too-hawkish-on-betting-fed-will-hike-rates" },
     { title: "Stock Market Today (Aug. 17, 2026): S&P 500 futures edge higher ahead of retail earnings reports", source: "TheStreet", date: "2026-08-17", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-17-2026" },
     { title: "Stock market today: Dow, S&P 500, Nasdaq futures waver ahead of retail earnings", source: "Yahoo Finance", date: "2026-08-17", time: "09:44", url: "https://finance.yahoo.com/markets/live/stock-market-today-monday-august-17-dow-sp-500-nasdaq-094421171.html" },
-    { title: "Anthropic revenue reportedly jumps to more than $11.5 billion in second quarter", source: "CNBC", date: "2026-08-15", url: "https://www.cnbc.com/2026/08/15/anthropic-revenue-jumps-to-over-11point5-billion-in-q2-report.html" },
+    { title: "Empire State Manufacturing Index Surges, Surpassing Expectations", source: "Investing.com", date: "2026-08-17", time: "13:30", url: "https://www.investing.com/news/economic-indicators/empire-state-manufacturing-index-surges-surpassing-expectations-93CH-4863068" },
   ],
   uk: [
     { title: "US bond market jitters spark UK economy recession warning", source: "City AM", date: "2026-08-17", time: "05:00", url: "https://www.cityam.com/us-bond-market-jitters-spark-uk-economy-recession-warning/" },
@@ -856,7 +856,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-08-17", country: "US", title: "Empire State Manufacturing Survey (August)", url: "https://www.newyorkfed.org/survey/empire/empiresurvey_overview" },
   { date: "2026-08-18", country: "UK", title: "ONS labour market & average earnings (August release)", url: "https://www.ons.gov.uk/releases/uklabourmarketaugust2026" },
   { date: "2026-08-19", country: "US", title: "FOMC minutes (28–29 July meeting)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-08-19", country: "UK", title: "CPI inflation (July)", url: "https://www.ons.gov.uk/releases/consumerpriceinflationukjuly2026" },
@@ -1008,7 +1007,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "GBP/USD pushed toward $1.35 as the dollar stayed on the back foot on fading Fed-hike bets, even as sterling itself traded mixed against a weaker greenback amid the Strait of Hormuz standoff.", src: "https://www.exchangerates.org.uk/news/46829/2026-08-14-pound-to-dollar-price-news-forecast-gbp-eyes-1-35-as-fed-bets-fade.html", srcName: "Exchange Rates UK", date: "2026-08-14" };
+export const FX_KEYMOMENT = { text: "GBP/USD pushed back toward its August highs near 1.3545 on yield support and improving positioning, even as Goldman Sachs still sees UK fiscal risk dragging the pair toward 1.28.", src: "https://www.exchangerates.org.uk/news/46876/2026-08-17-scotiabank-pound-to-dollar-forecast-yield-support-lifts-gbp-towards-1-36.html", srcName: "Exchange Rates UK", date: "2026-08-17" };
 
 export const EARNINGS = {
   weeks: [
