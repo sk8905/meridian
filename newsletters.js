@@ -33,6 +33,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bp-indeedsublet-20260817",
+    publication: "Business Post",
+    series: "CRE",
+    title: "Indeed to sublet large chunk of Dublin HQ",
+    date: "2026-08-17",
+    time: "08:00",
+    summary: "Indeed to sublet large chunk of Dublin HQ as tech firms scale back office needs; plus could you manage Tesco's Irish stores?",
+    url: "https://bpm.businesspost.ie/w/JRvWWjanSo3LAEBad7J763UQ/Pe5PTEw0pLHXiV2kox0pPw/PHCESB0Hj7tHqIeRfNYVQw",
+  },
+  {
     id: "nl-econ-worldinbrief-20260817",
     publication: "The Economist",
     series: "The World in Brief",

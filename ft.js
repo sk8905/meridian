@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "340bf9e7-0e67-4d19-b671-3dc8186efb99", title: "A leaderboard of the biggest trading losses of all time*", date: "2026-08-17", time: "08:28", url: "https://www.ft.com/content/340bf9e7-0e67-4d19-b671-3dc8186efb99" },
+  { id: "09a8a200-e572-486e-9bff-1f57933aebfc", title: "China’s economy shows signs of weakness in July", date: "2026-08-17", time: "08:23", url: "https://www.ft.com/content/09a8a200-e572-486e-9bff-1f57933aebfc" },
   { id: "d794e389-2122-481d-8fa3-328e33480ee5", title: "FirstFT: Dimon warns UK against higher bank taxes", date: "2026-08-17", time: "07:00", url: "https://www.ft.com/content/d794e389-2122-481d-8fa3-328e33480ee5" },
   { id: "1b767cbb-a71c-47ca-b5ed-a8942cd94e39", title: "Broken FIMA", date: "2026-08-17", time: "06:30", url: "https://www.ft.com/content/1b767cbb-a71c-47ca-b5ed-a8942cd94e39" },
   { id: "49e5c44c-fa4b-4534-809a-dc91969ba86f", title: "FTAV’s further reading", date: "2026-08-17", time: "06:00", url: "https://www.ft.com/content/49e5c44c-fa4b-4534-809a-dc91969ba86f" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "8158cb5a-4bbd-43fd-b329-15a54e8422c8", title: "Big Tech’s data centre boom poised to drive up carbon emissions", date: "2026-08-16", time: "11:00", url: "https://www.ft.com/content/8158cb5a-4bbd-43fd-b329-15a54e8422c8" },
   { id: "fd40a98d-2a7f-4246-a296-73e956bf03c0", title: "Most US voters say they are worse off under Trump — FT poll", date: "2026-08-16", time: "05:01", url: "https://www.ft.com/content/fd40a98d-2a7f-4246-a296-73e956bf03c0" },
   { id: "729477cd-3551-4345-8c7c-33603b293556", title: "Harvey Nicks deal hints at department stores’ hidden potential", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/729477cd-3551-4345-8c7c-33603b293556" },
-  { id: "161ee092-d2b6-4375-a853-e7a6fbee60e2", title: "World’s largest carmakers seek to avert motor oil crisis", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/161ee092-d2b6-4375-a853-e7a6fbee60e2" },
-  { id: "b56a910a-c2b4-41e5-9f8f-18e6fe7b2efd", title: "Are Americans making peace with the spectre of socialism?", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/b56a910a-c2b4-41e5-9f8f-18e6fe7b2efd" },
-  { id: "1419012f-feca-4efd-a817-dc0392cd76e3", title: "European companies count the costs and gains of extreme heat", date: "2026-08-16", time: "05:00", url: "https://www.ft.com/content/1419012f-feca-4efd-a817-dc0392cd76e3" },
 ];
