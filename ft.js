@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d4d07198-498d-48d1-9e54-85f1febcd070", title: "Trump threatens to bomb Oman if it ‘gets in the way’ of US-Iran negotiations", date: "2026-08-17", time: "12:25", url: "https://www.ft.com/content/d4d07198-498d-48d1-9e54-85f1febcd070" },
+  { id: "51089f41-6f8b-4381-aab5-a83bbe4048c4", title: "Smoking is back, brilliant new road bikes and the rise of the one-carat ring – don’t miss HTSI’s most popular reads", date: "2026-08-17", time: "10:55", url: "https://www.ft.com/content/51089f41-6f8b-4381-aab5-a83bbe4048c4" },
+  { id: "6529c240-13a6-4923-bb76-17d2baf2c733", title: "And the FTAV chart quiz winner is . . .", date: "2026-08-17", time: "10:24", url: "https://www.ft.com/content/6529c240-13a6-4923-bb76-17d2baf2c733" },
   { id: "3bfdcb4f-3342-4fec-bdcf-ca92e13474da", title: "Japanese second-quarter growth weaker than expected", date: "2026-08-17", time: "10:19", url: "https://www.ft.com/content/3bfdcb4f-3342-4fec-bdcf-ca92e13474da" },
   { id: "e04f286c-f5ed-46d1-8e3f-0bbe4cce4d3e", title: "People are worried about America’s solvency", date: "2026-08-17", time: "10:15", url: "https://www.ft.com/content/e04f286c-f5ed-46d1-8e3f-0bbe4cce4d3e" },
   { id: "eea1da3e-1c1c-4957-ad9d-f0372b2694f0", title: "Jared Kushner holds talks with Benjamin Netanyahu after meeting Hamas leader", date: "2026-08-17", time: "09:26", url: "https://www.ft.com/content/eea1da3e-1c1c-4957-ad9d-f0372b2694f0" },
@@ -57,8 +60,4 @@ export const FT_ITEMS = [
   { id: "9dc2ffa4-d40f-4236-91f0-e1ba664040bd", title: "British farmers need more help to cope with brutal heat", date: "2026-08-16", time: "14:06", url: "https://www.ft.com/content/9dc2ffa4-d40f-4236-91f0-e1ba664040bd" },
   { id: "e34c097f-0f5d-49b8-8142-967842ba6c42", title: "Reform UK vows to cut £50bn from welfare bill if it wins power", date: "2026-08-16", time: "13:39", url: "https://www.ft.com/content/e34c097f-0f5d-49b8-8142-967842ba6c42" },
   { id: "757c4938-614c-4829-9d8f-7320917e6753", title: "Farage’s fruitless by-election gambit", date: "2026-08-16", time: "13:35", url: "https://www.ft.com/content/757c4938-614c-4829-9d8f-7320917e6753" },
-  { id: "ea4d4326-878d-4e9e-9303-466c8a382c60", title: "How economics is changing", date: "2026-08-16", time: "12:00", url: "https://www.ft.com/content/ea4d4326-878d-4e9e-9303-466c8a382c60" },
-  { id: "8791db73-09d0-4fe9-a11e-1a9e0ce48739", title: "How Ralph Lauren won the workwear wars as America returned to the office", date: "2026-08-16", time: "12:00", url: "https://www.ft.com/content/8791db73-09d0-4fe9-a11e-1a9e0ce48739" },
-  { id: "f9eb497c-f8e0-4cba-8edc-619e55b74a59", title: "Will the Fed minutes reveal any forward guidance?", date: "2026-08-16", time: "12:00", url: "https://www.ft.com/content/f9eb497c-f8e0-4cba-8edc-619e55b74a59" },
-  { id: "a71bcea9-b0eb-4ed2-8bc9-f4dace738e37", title: "Ukraine presses drone attacks on Moscow and Russian logistics", date: "2026-08-16", time: "11:52", url: "https://www.ft.com/content/a71bcea9-b0eb-4ed2-8bc9-f4dace738e37" },
 ];
