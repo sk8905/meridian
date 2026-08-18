@@ -13,7 +13,7 @@ export const UPDATED = "16 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-18",
-  lastCheckedTime: "09:23 BST",
+  lastCheckedTime: "12:25 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -785,9 +785,9 @@ export const NEWS = {
   updated: "2026-08-18",
   us: [
     { title: "CNBC Daily Open: Higher oil, higher yields, lower volatility", source: "CNBC", date: "2026-08-18", url: "https://www.cnbc.com/2026/08/18/daily-open-oil-yields-volatility-iran-war.html" },
-    { title: "Stock Market Today: Dow, S&P Live Updates for August 18", source: "Bloomberg", date: "2026-08-18", url: "https://www.bloomberg.com/news/articles/2026-08-17/stock-market-today-dow-s-p-live-updates" },
+    { title: "US Bond Selloff Drives 30-Year Yields to Highest Since 2007", source: "Bloomberg", date: "2026-08-17", url: "https://www.bloomberg.com/news/articles/2026-08-17/us-bond-selloff-drives-30-year-yields-to-the-highest-since-2007" },
     { title: "Trump threatens to bomb Oman as Iran vows to escalate conflict over Hormuz", source: "ABC News (Australia)", date: "2026-08-18", url: "https://www.abc.net.au/news/2026-08-18/iran-us-memorandum-hormuz-strait/107048074" },
-    { title: "Economists agree: Fed to leave interest rates unchanged this year – Reuters poll", source: "FXStreet", date: "2026-08-17", time: "11:45", url: "https://www.fxstreet.com/news/economists-agree-fed-to-leave-interest-rates-unchanged-this-year-reuters-poll-202608171145" },
+    { title: "Goldman Says Markets Too Hawkish on Betting Fed Will Hike Rates", source: "Bloomberg", date: "2026-08-17", time: "09:28", url: "https://www.bloomberg.com/news/articles/2026-08-17/goldman-says-markets-too-hawkish-on-betting-fed-will-hike-rates" },
     { title: "Empire State Manufacturing Index Surges, Surpassing Expectations", source: "Investing.com", date: "2026-08-17", url: "https://www.investing.com/news/economic-indicators/empire-state-manufacturing-index-surges-surpassing-expectations-93CH-4863068" },
   ],
   uk: [
@@ -809,6 +809,7 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-18",
   items: [
+    {"title":"US Bond Selloff Drives 30-Year Yields to Highest Since 2007","source":"Bloomberg","date":"2026-08-17","url":"https://www.bloomberg.com/news/articles/2026-08-17/us-bond-selloff-drives-30-year-yields-to-the-highest-since-2007","blurb":"Long-dated Treasury yields extended their climb on heavy issuance and sticky-inflation worries, with the 30-year hitting its highest level since 2007 as global sovereign borrowing costs rise in tandem."},
     {"title":"CNBC Daily Open: Higher oil, higher yields, lower volatility","source":"CNBC","date":"2026-08-18","url":"https://www.cnbc.com/2026/08/18/daily-open-oil-yields-volatility-iran-war.html","blurb":"The VIX fell to its lowest level of 2026 even as oil, Treasury yields and geopolitical risk all pushed higher: attacks on Strait of Hormuz shipping resumed after the US-Iran ceasefire expired, with a cargo ship struck and a crew member killed."},
     {"title":"Stock Market Today: Dow, S&P Live Updates for August 18","source":"Bloomberg","date":"2026-08-18","url":"https://www.bloomberg.com/news/articles/2026-08-17/stock-market-today-dow-s-p-live-updates","blurb":"Brent settled near $91 a barrel and the 30-year Treasury yield hit its highest level since 2007 as hopes dimmed for a lasting US-Iran peace deal, even as CME FedWatch-implied odds of a September Fed hike eased to roughly 30% (from about 50% a week earlier)."},
     {"title":"UK Payroll Employment Falls as Unemployment Holds at 4.9%","source":"ActionForex","date":"2026-08-18","url":"https://www.actionforex.com/live-comments/650961-uk-payroll-employment-falls-as-unemployment-holds-at-4-9/","blurb":"UK payrolled employment fell 13,000 in July (June revised to the same) and the ILO unemployment rate held at 4.9% (vs 4.8% expected), while the claimant count unexpectedly fell 11,000 and regular pay growth firmed to 3.5% y/y from 3.4% — the first labour-market data of the Burnham government's tenure."},
@@ -856,6 +857,7 @@ export const RELEASES = [
   { date: "2026-08-19", country: "US", title: "FOMC minutes (28–29 July meeting)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-08-19", country: "UK", title: "CPI inflation (July)", url: "https://www.ons.gov.uk/releases/consumerpriceinflationukjuly2026" },
   { date: "2026-08-21", country: "UK", title: "Retail sales (July)", url: "https://www.ons.gov.uk/releases/retailsalesgreatbritainjuly2026" },
+  { date: "2026-08-21", country: "UK", title: "S&P Global/CIPS flash Manufacturing, Services & Composite PMI (August)", url: "https://www.pmi.spglobal.com/Public/Home/PDF/UK_Rel_Dates" },
   { date: "2026-08-26", country: "US", title: "GDP, Second Estimate (Q2 2026)", url: "https://www.bea.gov/data/gdp/gross-domestic-product" },
   { date: "2026-08-26", country: "US", title: "Personal Income and Outlays / PCE Price Index (July)", url: "https://www.bea.gov/data/income-saving/personal-income-and-outlays" },
   { date: "2026-08-27", country: "US", title: "Jackson Hole Economic Policy Symposium begins (Kansas City Fed)", url: "https://www.kansascityfed.org/research/jackson-hole-economic-symposium/" },
