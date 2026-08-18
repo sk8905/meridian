@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "3b211986-f6ea-47f9-8b7c-b58f261ad483", title: "UK pay weakness allays fears of second-round inflation effects", date: "2026-08-18", time: "08:51", url: "https://www.ft.com/content/3b211986-f6ea-47f9-8b7c-b58f261ad483" },
   { id: "13b9ac91-e7f2-4d70-b302-93f6b7b4c26a", title: "Mike Ashley's Frasers grows stake in Hugo Boss to 48%", date: "2026-08-18", time: "08:06", url: "https://www.ft.com/content/13b9ac91-e7f2-4d70-b302-93f6b7b4c26a" },
   { id: "1e9a7365-ee1f-489c-9dea-39a6fc33837b", title: "UK employers shed jobs as labour market weakens further", date: "2026-08-18", time: "08:01", url: "https://www.ft.com/content/1e9a7365-ee1f-489c-9dea-39a6fc33837b" },
   { id: "4cfc3208-b7cb-415c-8648-0f97d92e8527", title: "You have ONE more chance to win our charts quiz champion T-shirt because the prize will soon be this hat", date: "2026-08-18", time: "07:20", url: "https://www.ft.com/content/4cfc3208-b7cb-415c-8648-0f97d92e8527" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "a33467c0-ef18-4ff8-9f56-b5c7a79dbc85", title: "Manchester’s towering ambition shows in its new skyline", date: "2026-08-17", time: "14:58", url: "https://www.ft.com/content/a33467c0-ef18-4ff8-9f56-b5c7a79dbc85" },
   { id: "82a4b183-7201-4789-95b7-e39e81c827bc", title: "Nvidia to invest $100bn for OpenAI data centre in Ohio", date: "2026-08-17", time: "14:57", url: "https://www.ft.com/content/82a4b183-7201-4789-95b7-e39e81c827bc" },
   { id: "e34c097f-0f5d-49b8-8142-967842ba6c42", title: "Reform UK vows to block foreign nationals from claiming benefits if it wins power", date: "2026-08-17", time: "12:15", url: "https://www.ft.com/content/e34c097f-0f5d-49b8-8142-967842ba6c42" },
-  { id: "b9b1c9d7-a7a1-4b6f-bcb0-910ceb025f2b", title: "UK government to pay KPMG and EY up to £456mn to train civil servants", date: "2026-08-17", time: "13:42", url: "https://www.ft.com/content/b9b1c9d7-a7a1-4b6f-bcb0-910ceb025f2b" },
 ];
