@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "13b9ac91-e7f2-4d70-b302-93f6b7b4c26a", title: "Mike Ashley's Frasers grows stake in Hugo Boss to 48%", date: "2026-08-18", time: "08:06", url: "https://www.ft.com/content/13b9ac91-e7f2-4d70-b302-93f6b7b4c26a" },
+  { id: "1e9a7365-ee1f-489c-9dea-39a6fc33837b", title: "UK employers shed jobs as labour market weakens further", date: "2026-08-18", time: "08:01", url: "https://www.ft.com/content/1e9a7365-ee1f-489c-9dea-39a6fc33837b" },
+  { id: "4cfc3208-b7cb-415c-8648-0f97d92e8527", title: "You have ONE more chance to win our charts quiz champion T-shirt because the prize will soon be this hat", date: "2026-08-18", time: "07:20", url: "https://www.ft.com/content/4cfc3208-b7cb-415c-8648-0f97d92e8527" },
   { id: "8cafeb3f-f11b-41ba-a67c-61072823eeb4", title: "FirstFT: Asian doubts over US resolve", date: "2026-08-18", time: "07:01", url: "https://www.ft.com/content/8cafeb3f-f11b-41ba-a67c-61072823eeb4" },
   { id: "c3223b7c-6683-42df-9e60-9dbd2dbdfe07", title: "China’s 10-year bond yield falls to 13-month low", date: "2026-08-18", time: "06:45", url: "https://www.ft.com/content/c3223b7c-6683-42df-9e60-9dbd2dbdfe07" },
   { id: "b2cbbab2-a51a-48f2-a9da-86d858cd4e86", title: "AI: like a debt machine", date: "2026-08-18", time: "06:30", url: "https://www.ft.com/content/b2cbbab2-a51a-48f2-a9da-86d858cd4e86" },
@@ -57,10 +60,4 @@ export const FT_ITEMS = [
   { id: "82a4b183-7201-4789-95b7-e39e81c827bc", title: "Nvidia to invest $100bn for OpenAI data centre in Ohio", date: "2026-08-17", time: "14:57", url: "https://www.ft.com/content/82a4b183-7201-4789-95b7-e39e81c827bc" },
   { id: "e34c097f-0f5d-49b8-8142-967842ba6c42", title: "Reform UK vows to block foreign nationals from claiming benefits if it wins power", date: "2026-08-17", time: "12:15", url: "https://www.ft.com/content/e34c097f-0f5d-49b8-8142-967842ba6c42" },
   { id: "b9b1c9d7-a7a1-4b6f-bcb0-910ceb025f2b", title: "UK government to pay KPMG and EY up to £456mn to train civil servants", date: "2026-08-17", time: "13:42", url: "https://www.ft.com/content/b9b1c9d7-a7a1-4b6f-bcb0-910ceb025f2b" },
-  { id: "35be5ef3-4ea3-444d-b509-2fb00a9940c9", title: "Barclays shakes up investment bank less than 3 years since last overhaul", date: "2026-08-17", time: "13:40", url: "https://www.ft.com/content/35be5ef3-4ea3-444d-b509-2fb00a9940c9" },
-  { id: "29f1af13-ecc3-4f26-a479-e6088c67231b", title: "US midterm elections 2026: The FT’s guide", date: "2026-08-17", time: "12:44", url: "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b" },
-  { id: "83d287ed-43e2-466d-9490-06879efb04fc", title: "Donald Trump’s war on customs fraud will be costly and difficult", date: "2026-08-17", time: "12:31", url: "https://www.ft.com/content/83d287ed-43e2-466d-9490-06879efb04fc" },
-  { id: "d4d07198-498d-48d1-9e54-85f1febcd070", title: "Trump threatens to bomb Oman if it ‘gets in the way’ of US-Iran negotiations", date: "2026-08-17", time: "12:25", url: "https://www.ft.com/content/d4d07198-498d-48d1-9e54-85f1febcd070" },
-  { id: "51089f41-6f8b-4381-aab5-a83bbe4048c4", title: "Smoking is back, brilliant new road bikes and the rise of the one-carat ring – don’t miss HTSI’s most popular reads", date: "2026-08-17", time: "10:55", url: "https://www.ft.com/content/51089f41-6f8b-4381-aab5-a83bbe4048c4" },
-  { id: "6529c240-13a6-4923-bb76-17d2baf2c733", title: "And the FTAV chart quiz winner is . . .", date: "2026-08-17", time: "10:24", url: "https://www.ft.com/content/6529c240-13a6-4923-bb76-17d2baf2c733" },
 ];
