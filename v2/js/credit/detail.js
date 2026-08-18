@@ -14,7 +14,7 @@ import {
   fundsByManager, intelForFund, dealsForFund, dealsForManager, intelForManager,
   HEDGE_FUNDS, HEDGE_INTEL, VEHICLES,
 } from "/credit/js/data.js";
-import { esc } from "/util.js?v=20260719-1";
+import { esc } from "/util.js?v=20260818-1";
 import {
   eur, pct, fmtDate, link, sources, raiseDisplay, nameCell,
   notFound, applyPendingFocus, commitmentsForLp, commitmentsForManager,

@@ -7,7 +7,7 @@
 // into each app's initial load. Mirrors glance.js resolveSaved().
 // =============================================================================
 import { ARTICLES, NEWS, COMMENTARY } from "/macro/js/content.js";
-import { byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
+import { byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260818-1";
 import { deals, intel, managers, HEDGE_FUNDS, HEDGE_INTEL } from "/credit/js/data.js";
 import { items, cases, restructurings, firms } from "/legal/js/data.js";
 

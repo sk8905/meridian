@@ -4,7 +4,7 @@
 // v2-native re-implementation of the same controls: search + recent searches
 // (shared "wire.recentSearches" key), the theme cycle (System → Light → Dark,
 // the same keys the inline boot reads), account identity and build info.
-import { esc } from "/util.js?v=20260719-1";
+import { esc, setThemeColorMeta } from "/util.js?v=20260818-1";
 
 const ICO_SEARCH = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.6" y1="15.6" x2="21" y2="21"/></svg>';
 const ICO_BELL = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>';
@@ -22,8 +22,7 @@ function applyTheme(pref) {
   r.setAttribute("data-theme", t);
   r.setAttribute("data-theme-choice", pref);
   try { localStorage.setItem("m_theme_pref", pref); } catch { /* ignore */ }
-  const meta = document.querySelector('meta[name="theme-color"]');
-  if (meta) meta.setAttribute("content", t === "dark" ? "#05080f" : "#ffffff");
+  setThemeColorMeta(t);
 }
 function recents() {
   try { const a = JSON.parse(localStorage.getItem("wire.recentSearches") || "[]"); return Array.isArray(a) ? a.filter((q) => typeof q === "string").slice(0, 8) : []; }

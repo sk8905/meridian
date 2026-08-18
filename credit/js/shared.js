@@ -10,7 +10,7 @@
 // or the browser loads data.js twice as separate module instances (blank page).
 // =============================================================================
 import { managers, managerById, lpById, commitments } from "./data.js";
-import { esc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
+import { esc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260818-1";
 
 // ----------------------------- formatting utils ----------------------------
 export const eur = (m) => (m == null ? "Undisclosed" : "€" + (m >= 1000 ? (m / 1000).toFixed(m % 1000 === 0 ? 0 : 1) + "bn" : m + "m"));

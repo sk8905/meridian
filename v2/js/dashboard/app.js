@@ -10,7 +10,7 @@
 // desk's own OUTLOOK/CYCLE/BUBBLE/YIELD_CURVE/NEWS/MATWALL so there is ONE source
 // of truth. Every figure keeps a real outbound source link. mount → {enter,leave}.
 // =============================================================================
-import { esc, MONTHS } from "/util.js?v=20260719-1";
+import { esc, MONTHS } from "/util.js?v=20260818-1";
 import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, WORLD_INDICES, GOVT_YIELDS, GOVT_YIELD_CHG, PRIVATE_CREDIT } from "/dashboard/js/data.js";
 import { OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS, IND_KEYMOMENTS } from "/macro/js/content.js";
 import { deals, intel, HEDGE_FUNDS, HF_13F } from "/credit/js/data.js";

@@ -8,7 +8,7 @@ import { items, cases, restructurings, firmById } from "/legal/js/data.js";
 import { NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js";
 import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
-import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, MONTHS } from "/util.js?v=20260719-1";
+import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, MONTHS } from "/util.js?v=20260818-1";
 import { DESK, STRICT_MACRO_RE, deskFor, nlDesk,
   feedBodyHTML, feedSrcBarHTML, feedEmptyHTML } from "/feed.js?v=20260808-1";
 

@@ -9,7 +9,7 @@
 // look. mount(host, ctx) → {enter,leave}.
 // =============================================================================
 import { managers, deals, intel } from "/credit/js/data.js";
-import { esc } from "/util.js?v=20260719-1";
+import { esc, fmtAum } from "/util.js?v=20260818-1";
 
 // ---- Target universe: managers running a flexible / solutions-capital strategy
 // (not vanilla senior-only). AUM is a FILTER, not a gate — "mid-market" is about
@@ -45,13 +45,6 @@ function latestOf(m) {
   return best;
 }
 const aumOf = (m) => (m.aumTotal != null ? m.aumTotal : m.aum);
-// Same figure formatting the Managers table uses (v2/js/credit/app.js fmtAum).
-const fmtAum = (n) => {
-  if (n == null) return "—";
-  if (n >= 1000) return `€${(n / 1000).toFixed(n % 1000 === 0 ? 0 : 1)}tn`;
-  if (n < 1) return `€${Math.round(n * 1000)}m`;
-  return `€${n}bn`;
-};
 function aumBand(a) {
   if (a == null) return { key: "na", label: "n/a", mid: false };
   if (a < 1) return { key: "sub1", label: "<$1bn", mid: false };

@@ -10,7 +10,7 @@ import {
   managerById, fundById, lpById, funds, lps, intel, deals,
   fundsByManager, intelForFund, dealsForFund, dealsForManager, intelForManager,
 } from "./data.js";
-import { esc } from "/util.js?v=20260719-1";
+import { esc } from "/util.js?v=20260818-1";
 import {
   eur, pct, fmtDate, link, sources, raiseDisplay, nameCell, saveBtn, newsSaveId,
   metaDate, notFound, applyPendingFocus, commitmentsForLp, commitmentsForManager,

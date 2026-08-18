@@ -558,13 +558,13 @@ a.intel-head:hover { text-decoration: none; }
 .yc-line { fill: none; stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
 path.yc-us { stroke: var(--macro); }
 circle.yc-us { fill: var(--macro); }
-path.yc-uk { stroke: #6fa3d6; stroke-dasharray: 4 3; }
-circle.yc-uk { fill: #6fa3d6; }
+path.yc-uk { stroke: var(--ind-2y); stroke-dasharray: 4 3; }
+circle.yc-uk { fill: var(--ind-2y); }
 .yc-legend { display: flex; gap: 14px; padding: 0 0 2px; }
 .yc-key { font-size: 9.5px; color: var(--muted); display: inline-flex; align-items: center; gap: 5px; }
 .yc-key::before { content: ""; width: 15px; border-top: 2px solid var(--kc, #888); }
 .yc-key-us { --kc: var(--macro); }
-.yc-key-uk { --kc: #6fa3d6; }
+.yc-key-uk { --kc: var(--ind-2y); }
 .yc-key-uk::before { border-top-style: dashed; }
 @media (max-width: 760px) {
   .mac-cockpit { grid-template-columns: 1fr; }

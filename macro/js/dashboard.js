@@ -4,7 +4,7 @@
 // gauges, earnings wall, maturity wall). Extracted from app.js, which renders
 // it via macroDashPane() and repaints via cockpitInds()/loadYieldCurve().
 // =============================================================================
-import { esc } from "/util.js?v=20260719-1";
+import { esc } from "/util.js?v=20260818-1";
 import { YIELD_CURVE, OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, EARNINGS, MATWALL } from "./content.js";
 import { fmtDate, fmtWeekday, trackGauge, CYCLE_ZONES, BUBBLE_ZONES,
   bubbleComposite, bubbleBand, MACRO_DATA, macroMatrixHtml, MAC_MATRIX_KEYS_FULL } from "./shared.js?v=20260728-2";

@@ -20,7 +20,7 @@ import {
 } from "/credit/js/shared.js?v=20260730-2";
 import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js?v=v2-18";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260808-1";
-import { esc } from "/util.js?v=20260719-1";
+import { esc, fmtAum } from "/util.js?v=20260818-1";
 
 export function mount(host, ctx) {
   const app = host;
@@ -64,14 +64,6 @@ on(window, "hashchange", () => {
 });
 
 // ----------------------------- formatting utils ----------------------------
-// Format a €bn AUM figure: €Xtn above 1,000bn, €Xm below 1bn, else €Xbn.
-
-const fmtAum = (n) => {
-  if (n == null) return "—";
-  if (n >= 1000) return `€${(n / 1000).toFixed(n % 1000 === 0 ? 0 : 1)}tn`;
-  if (n < 1) return `€${Math.round(n * 1000)}m`;
-  return `€${n}bn`;
-};
 // Calendar quarter (e.g. "2025-Q2") from a fund's close/as-of date; null if only
 // the year is known (we don't invent a quarter).
 const fundQuarter = (f) => {

@@ -4,7 +4,7 @@
 
 import { UPDATED, META, OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, IND_KEYMOMENTS } from "/macro/js/content.js";
 import { reportRefresh } from "/v2/js/status.js?v=v2-3";
-import { esc } from "/util.js?v=20260719-1";
+import { esc } from "/util.js?v=20260818-1";
 import { MONTHS, isoToDate, fmtDay, fmtDayGB, fmtDate,
   trackGauge, CYCLE_ZONES, BUBBLE_ZONES, bubbleComposite, bubbleBand,
   MAC_IND_ORDER, MACRO_DATA, setMacroData, macroMatrixHtml, macroDetailHtml } from "/macro/js/shared.js?v=20260730-2";

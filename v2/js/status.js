@@ -1,4 +1,4 @@
-import { esc } from "/util.js?v=20260719-1";
+import { esc } from "/util.js?v=20260818-1";
 
 // App-wide "Last refresh" — ONE value for the whole app, not split by desk.
 // Wire's data is refreshed together by the five-times-daily routine, so the

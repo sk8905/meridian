@@ -37,3 +37,21 @@ export const JUDGMENT_SOURCES = {
 };
 export const srcHost = (url) => { try { return new URL(url).hostname.replace(/^www\./, ""); } catch { return ""; } };
 export const tidyDomain = (host) => { const l = host.split(".").slice(-2, -1)[0] || host; return l ? l.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()) : ""; };
+
+// Sync the browser-chrome theme-color meta tag to the resolved theme ("dark"/
+// "light"). Shared by the desktop nav-bar theme toggle and the phone Menu
+// view's segmented theme control — each owns its own theme-apply logic, but
+// both must paint the same OS chrome colour.
+export const setThemeColorMeta = (t) => {
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute("content", t === "dark" ? "#05080f" : "#ffffff");
+};
+
+// Format a €bn AUM figure: €Xtn above 1,000bn, €Xm below 1bn, else €Xbn.
+// Shared by the Credit Managers table and the Origination Radar target table.
+export const fmtAum = (n) => {
+  if (n == null) return "—";
+  if (n >= 1000) return `€${(n / 1000).toFixed(n % 1000 === 0 ? 0 : 1)}tn`;
+  if (n < 1) return `€${Math.round(n * 1000)}m`;
+  return `€${n}bn`;
+};

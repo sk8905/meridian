@@ -16,7 +16,7 @@
 // owned here; the bell keeps its own per-app content/seen-state but is layered
 // with the same full-screen presentation on mobile.
 // =============================================================================
-import { esc, MONTHS } from "/util.js?v=20260719-1";
+import { esc, MONTHS, setThemeColorMeta } from "/util.js?v=20260818-1";
 import { BRIEFINGS } from "/briefings.js";
 import { FX_KEYMOMENT } from "/macro/js/content.js";
 import { DESK_CLASS, DESK_CODE as NF_CODE } from "/feed.js?v=20260808-1";
@@ -737,8 +737,7 @@ export function initNavActions() {
       r.setAttribute("data-theme", t);
       r.setAttribute("data-theme-choice", pref);
       try { localStorage.setItem("m_theme_pref", pref); } catch { /* */ }
-      const meta = document.querySelector('meta[name="theme-color"]');
-      if (meta) meta.setAttribute("content", t === "dark" ? "#05080f" : "#ffffff");
+      setThemeColorMeta(t);
       if (themeBtn) { themeBtn.innerHTML = themeIcon(); themeBtn.setAttribute("title", themeTitle()); }
     };
     // Desktop nav-bar button cycles through all three: System → Light → Dark → …

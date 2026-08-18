@@ -6,7 +6,7 @@
 // Bookmark, Add/Remove Watchlist (manager & law-firm rows), Show all from
 // <source>, Share, Cancel. Mounted once per page by nav-actions.js.
 // =============================================================================
-import { esc } from "/util.js?v=20260719-1";
+import { esc } from "/util.js?v=20260818-1";
 
 // Profile table rows (Managers / Hedge Funds / Law Firms leagues) — a long-press
 // on the row itself offers "Add to Watchlist" for that profile. Only these three

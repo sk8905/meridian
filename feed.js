@@ -7,7 +7,7 @@
 // same build. Pure module — no page-specific imports; loaded site-absolute
 // ("/feed.js?v=…") with the usual cache-token discipline.
 // =============================================================================
-import { esc, MONTHS } from "/util.js?v=20260719-1";
+import { esc, MONTHS } from "/util.js?v=20260818-1";
 
 // ---- Desk vocabulary --------------------------------------------------------
 // A "desk" is the label a row carries. Home merges the cross-desk streams

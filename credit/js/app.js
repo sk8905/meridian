@@ -51,7 +51,7 @@ window.addEventListener("hashchange", () => {
 });
 
 // ----------------------------- formatting utils ----------------------------
-import { esc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
+import { esc, NEWS_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260818-1";
 // Format a €bn AUM figure: €Xtn above 1,000bn, €Xm below 1bn, else €Xbn.
 
 // Day-break separator rows in the wire (same scanning aid as the Home feed),

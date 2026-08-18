@@ -69,7 +69,7 @@ window.addEventListener("hashchange", () => {
 });
 
 // ---- Small helpers ----------------------------------------------------------
-import { esc, MONTHS, byDateDesc } from "/util.js?v=20260719-1";
+import { esc, MONTHS, byDateDesc } from "/util.js?v=20260818-1";
 
 function ym(iso) { return iso.slice(0, 7); } // "2025-03"
 

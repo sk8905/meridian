@@ -12,7 +12,7 @@
 import {
   items, cases, restructurings, firmById, areaById, typeById,
 } from "/legal/js/data.js";
-import { esc, byDateDesc } from "/util.js?v=20260719-1";
+import { esc, byDateDesc } from "/util.js?v=20260818-1";
 import {
   fmtDate, itemDate, isNew, getSaved, areaChip, tierLabel, firmLink,
   _chipMem, chipMemKey,

@@ -15,7 +15,7 @@ import { NEWS, ALERTS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/mac
 import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
 
-import { esc, byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260719-1";
+import { esc, byDateDesc, NEWS_SOURCES, JUDGMENT_SOURCES, srcHost, tidyDomain } from "/util.js?v=20260818-1";
 // The shared news-wire engine — row/day-header/chip/source-filter markup + the
 // desk vocabulary. Home assembles its cross-desk streams below and hands them to
 // these helpers; Macro/Credit/Legal use the same module, so every wire is one

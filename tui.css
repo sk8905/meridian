@@ -499,7 +499,8 @@
 .mac-mtx-r { cursor: pointer; }
 .mac-mtx-r:hover td, .mac-mtx-r:hover th { background: var(--surface2, rgba(127,140,166,.10)); }
 .mac-mtx-r.on td, .mac-mtx-r.on th { background: var(--surface2, rgba(127,140,166,.16)); }
-.mac-mtx-r.on .mac-mtx-c { color: var(--accent); box-shadow: inset 2px 0 0 var(--chip-ul, var(--accent)); }
+.mac-mtx-r.on .mac-mtx-c { color: var(--accent); box-shadow: inset 2px 0 0 var(--chip-ul, #000); }
+[data-theme="dark"] .mac-mtx-r.on .mac-mtx-c { box-shadow: inset 2px 0 0 var(--chip-ul, #fff); }
 /* Denser rail rows — tighter vertical rhythm in the left/right data rails so
    more policy/indicator/release lines fit on screen. Scoped to the rails so the
    centre wire, the Cycle-view indicator matrix (shared .mac-ind/.mac-mtx) and the

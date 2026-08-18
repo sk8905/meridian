@@ -6,7 +6,7 @@
 // =============================================================================
 import { UPDATED, META, OUTLOOK, CYCLE, BUBBLE, SUMMARY, YIELD_CURVE, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, MATWALL, EARNINGS } from "./content.js";
 
-import { esc } from "/util.js?v=20260719-1";
+import { esc } from "/util.js?v=20260818-1";
 import { MONTHS, MONTHS_FULL, WEEKDAYS, isoToDate, fmtDay, fmtDayGB, fmtWeekday, fmtDate,
   trackGauge, CYCLE_ZONES, BUBBLE_ZONES, bubbleComposite, bubbleBand,
   MAC_IND_ORDER, MACRO_DATA, setMacroData, macroMatrixHtml, macroDetailHtml } from "./shared.js?v=20260728-2";

@@ -19,7 +19,7 @@ const vurl = (p) => p + (p.includes("?") ? "&" : "?") + "v=" + V;
 // (its own leaf token, not V; see runtime.js), so chrome's boot-time value and a
 // desk's real stamp share one monotonic keep-latest state.
 import { reportRefresh } from "./status.js?v=v2-3";
-import { esc } from "/util.js?v=20260719-1";
+import { esc } from "/util.js?v=20260818-1";
 
 // Mobile bottom tab bar: Home/Macro/Credit/Legal/Profiles/Menu (six equal
 // columns). Profiles also sits in the desktop platform switch below ("| Profiles").
@@ -82,7 +82,7 @@ export function initChrome({ onTab }) {
   //   • pull-to-refresh (ptr.js) — self-guards, touch-only
   // All are idempotent single inits; failures never block the shell.
   import("/brief.js?v=7").then((m) => m.initBrief()).catch(() => {});
-  import("/palette.js?v=20260815-1").then((m) => m.mountPalette()).catch(() => {});
+  import("/palette.js?v=20260818-1").then((m) => m.mountPalette()).catch(() => {});
   import("/ptr.js?v=20260725-1").then((m) => m.initPullToRefresh()).catch(() => {});
   // Header action cluster + panels (Markets / Saved / Notifications / Search, the
   // notif bell, saved + markets loaders), ported from nav-actions with its own
@@ -181,14 +181,15 @@ function buildFooter() {
 }
 
 // Populate the app-wide "Last refresh" right away, independent of which tab
-// loads first. Wire's data lands on a fixed London schedule (05:00, 12:00,
-// 17:00, 21:00), so the most recent slot is a good immediate value — and
-// status.js keeps the LATEST report, so a desk's real stamp (e.g. "05:22 BST")
-// supersedes this as soon as any desk mounts. This just closes the gap where a
-// tab with no data (e.g. Menu) would otherwise show a blank refresh.
+// loads first. Wire's data lands on a fixed London schedule (05:00, 09:00,
+// 12:00, 17:00, 21:00), so the most recent slot is a good immediate value —
+// and status.js keeps the LATEST report, so a desk's real stamp (e.g.
+// "05:22 BST") supersedes this as soon as any desk mounts. This just closes
+// the gap where a tab with no data (e.g. Menu) would otherwise show a blank
+// refresh.
 function bootRefreshFallback() {
   try {
-    const slots = [5, 12, 17, 21];
+    const slots = [5, 9, 12, 17, 21];
     const partsIn = (d) => new Intl.DateTimeFormat("en-GB", { timeZone: "Europe/London", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", hour12: false }).formatToParts(d);
     const val = (p, t) => p.find((x) => x.type === t).value;
     const p = partsIn(new Date());

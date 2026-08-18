@@ -6,7 +6,7 @@
 // NB macro MONTHS/MONTHS_FULL are 1-INDEXED (element 0 is "") — deliberately
 // different from the 0-indexed MONTHS in /util.js.
 // =============================================================================
-import { esc } from "/util.js?v=20260719-1";
+import { esc } from "/util.js?v=20260818-1";
 import { BUBBLE } from "./content.js";
 
 export const MONTHS = ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
