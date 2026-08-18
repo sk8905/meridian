@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8cafeb3f-f11b-41ba-a67c-61072823eeb4", title: "FirstFT: Asian doubts over US resolve", date: "2026-08-18", time: "07:01", url: "https://www.ft.com/content/8cafeb3f-f11b-41ba-a67c-61072823eeb4" },
+  { id: "c3223b7c-6683-42df-9e60-9dbd2dbdfe07", title: "China’s 10-year bond yield falls to 13-month low", date: "2026-08-18", time: "06:45", url: "https://www.ft.com/content/c3223b7c-6683-42df-9e60-9dbd2dbdfe07" },
+  { id: "b2cbbab2-a51a-48f2-a9da-86d858cd4e86", title: "AI: like a debt machine", date: "2026-08-18", time: "06:30", url: "https://www.ft.com/content/b2cbbab2-a51a-48f2-a9da-86d858cd4e86" },
   { id: "b2c808ec-a67f-4a72-b5b7-a05a5a3036c3", title: "FTAV’s further reading", date: "2026-08-18", time: "06:00", url: "https://www.ft.com/content/b2c808ec-a67f-4a72-b5b7-a05a5a3036c3" },
   { id: "ba3782d6-709b-472c-aa02-e0ffb1c89d87", title: "Mark Walter’s empire of assets and liabilities", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/ba3782d6-709b-472c-aa02-e0ffb1c89d87" },
   { id: "1d713822-e68f-4476-be94-ffab3418bfe4", title: "Donald Trump’s cuts to military drills stir doubts about US resolve in Asia", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/1d713822-e68f-4476-be94-ffab3418bfe4" },

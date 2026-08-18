@@ -34,6 +34,27 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-trumpoman-20260818",
+    publication: "The Economist",
+    series: "The World in Brief",
+    title: "The World in Brief: Trump threatens to bomb Oman",
+    date: "2026-08-18",
+    time: "06:02",
+    summary: "Trump threatens to bomb Oman over stalled Iran talks, Jared Kushner meets Netanyahu in Jerusalem, and BHP profits rise 9% on record copper output.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
+    id: "nl-bbg-morningbriefingeurope-bondslump-20260818",
+    publication: "Bloomberg",
+    author: "Victoria Batchelor",
+    series: "Morning Briefing Europe",
+    title: "Bond Slump Sends Long-Term Borrowing Costs to Highest in Decades",
+    date: "2026-08-18",
+    time: "06:02",
+    summary: "A global bond selloff pushes long-term borrowing costs to decades-highs; oil extends gains after a fresh Strait of Hormuz vessel attack; a UK survey finds AI is starting to create jobs.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-18/bond-slump-sends-long-term-borrowing-costs-to-highest-in-decades",
+  },
+  {
     id: "nl-bbg-pointsofreturn-30yearitch-20260818",
     publication: "Bloomberg",
     author: "John Authers",
