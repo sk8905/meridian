@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "9f640f97-75bf-4ce6-8fcd-35ce1594a88d", title: "BHP’s copper pivot is paying off", date: "2026-08-18", time: "19:03", url: "https://www.ft.com/content/9f640f97-75bf-4ce6-8fcd-35ce1594a88d" },
   { id: "ca2a00fc-5af0-49c1-aae9-8a04c546a836", title: "Can Burnham save Britain’s high streets?", date: "2026-08-18", time: "18:14", url: "https://www.ft.com/content/ca2a00fc-5af0-49c1-aae9-8a04c546a836" },
   { id: "90c16b57-5ea6-4cce-b4d5-5f537a79da47", title: "Israeli strikes on Syrian air base criticised by US and Turkey", date: "2026-08-18", time: "17:20", url: "https://www.ft.com/content/90c16b57-5ea6-4cce-b4d5-5f537a79da47" },
   { id: "a5b733dd-b369-489e-877d-6b16f6d5aa27", title: "Andy Burnham hails shake-up of bus services in West Midlands", date: "2026-08-18", time: "16:49", url: "https://www.ft.com/content/a5b733dd-b369-489e-877d-6b16f6d5aa27" },
@@ -60,6 +61,4 @@ export const FT_ITEMS = [
   { id: "71541304-d965-415d-82a3-387775cdb773", title: "Libya seeks up to $40bn to develop oil resources", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/71541304-d965-415d-82a3-387775cdb773" },
   { id: "3ed7fb42-2402-4439-a76d-081d9c084c64", title: "EU defence executives are no longer as safe as they were", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/3ed7fb42-2402-4439-a76d-081d9c084c64" },
   { id: "9d8f4215-4d19-43df-ab81-b9f8adb057c8", title: "Airlines in ‘stand-off’ over price cuts as jet fuel costs ease", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/9d8f4215-4d19-43df-ab81-b9f8adb057c8" },
-  { id: "f12c330e-bed7-4f9d-9b37-c301ffd78b03", title: "The German far right’s difficult dance with Maga", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/f12c330e-bed7-4f9d-9b37-c301ffd78b03" },
-  { id: "8891d59f-f4e0-4f81-bfae-b686cd1c4d98", title: "Big pharma warns Germany’s attempts to curb drug prices will backfire", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/8891d59f-f4e0-4f81-bfae-b686cd1c4d98" },
 ];
