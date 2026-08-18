@@ -34,6 +34,25 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-lb100results-20260818",
+    publication: "Legal Business",
+    title: "LB100 results so far – which firms are setting the pace for revenue and PEP?",
+    date: "2026-08-18",
+    time: "15:00",
+    summary: "National and regional firms saw the fastest revenue growth last year, but international players are pulling further ahead on PEP, preliminary LB100 data shows.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQKN8lhj47Reg7SJV/wv",
+  },
+  {
+    id: "nl-bbg-authoralert-nkumar-schonfeld-20260818",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    title: "Hedge Fund Schonfeld Taps Kedalion's Longo for Delta One Trading",
+    date: "2026-08-18",
+    time: "14:55",
+    summary: "Schonfeld Strategic Advisors has hired Lorenzo Longo to join its ranks of portfolio managers, according to people familiar with the matter.",
+    url: "https://www.bloomberg.com/news/articles/2026-08-18/hedge-fund-schonfeld-taps-kedalion-s-longo-for-delta-one-trading",
+  },
+  {
     id: "nl-bbg-economicsdaily-yenhistory-20260818",
     publication: "Bloomberg",
     author: "Chris Anstey",
@@ -419,26 +438,5 @@ export const NEWSLETTERS = [
     time: "22:14",
     summary: "S&P 500 hits a fresh high as benign US inflation data eases pressure on the Fed to raise rates, while central banks spearhead a renewed gold rush.",
     url: "https://www.reuters.com/newsletters/trading-day",
-  },
-  {
-    id: "nl-bbg-moneystuff-goathedge-20260813",
-    publication: "Bloomberg",
-    author: "Matt Levine",
-    series: "Money Stuff",
-    title: "Money Stuff: Bilateral OTC Goat Hedge",
-    date: "2026-08-13",
-    time: "19:26",
-    summary: "Goat herding, fake comments, SpaceX lockup.",
-    url: "https://bloom.bg/4wwrtf5",
-  },
-  {
-    id: "nl-guggenheim-nonagencyrmbs-20260813",
-    publication: "Guggenheim Investments",
-    series: "Structured Credit Outlook",
-    title: "Non-Agency RMBS: Income, Convexity, and a Rebuilt Market",
-    date: "2026-08-13",
-    time: "19:11",
-    summary: "Guggenheim's new quarterly Structured Credit Outlook flags non-Agency RMBS as a highest-conviction allocation, citing strong borrower fundamentals and tightening spreads despite rate and Iran-conflict volatility.",
-    url: "https://go.pardot.com/webmail/104832/1426111885/287c4ed51fc2b2589758ecb9046100386634ee931bab5194da4486b8b5f3f006",
   },
 ];
