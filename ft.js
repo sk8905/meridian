@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8a5cd515-191d-42f9-9b0c-1b817a1bc044", title: "Soaring diesel prices rip across US economy", date: "2026-08-18", time: "20:33", url: "https://www.ft.com/content/8a5cd515-191d-42f9-9b0c-1b817a1bc044" },
   { id: "9f640f97-75bf-4ce6-8fcd-35ce1594a88d", title: "BHP’s copper pivot is paying off", date: "2026-08-18", time: "19:03", url: "https://www.ft.com/content/9f640f97-75bf-4ce6-8fcd-35ce1594a88d" },
   { id: "ca2a00fc-5af0-49c1-aae9-8a04c546a836", title: "Can Burnham save Britain’s high streets?", date: "2026-08-18", time: "18:14", url: "https://www.ft.com/content/ca2a00fc-5af0-49c1-aae9-8a04c546a836" },
   { id: "90c16b57-5ea6-4cce-b4d5-5f537a79da47", title: "Israeli strikes on Syrian air base criticised by US and Turkey", date: "2026-08-18", time: "17:20", url: "https://www.ft.com/content/90c16b57-5ea6-4cce-b4d5-5f537a79da47" },
@@ -60,5 +61,4 @@ export const FT_ITEMS = [
   { id: "351cf8e1-cdef-46a9-ac32-b2e76c72ed1a", title: "Chris Hohn’s hedge fund TCI bets on Italian luxury hotels", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/351cf8e1-cdef-46a9-ac32-b2e76c72ed1a" },
   { id: "71541304-d965-415d-82a3-387775cdb773", title: "Libya seeks up to $40bn to develop oil resources", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/71541304-d965-415d-82a3-387775cdb773" },
   { id: "3ed7fb42-2402-4439-a76d-081d9c084c64", title: "EU defence executives are no longer as safe as they were", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/3ed7fb42-2402-4439-a76d-081d9c084c64" },
-  { id: "9d8f4215-4d19-43df-ab81-b9f8adb057c8", title: "Airlines in ‘stand-off’ over price cuts as jet fuel costs ease", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/9d8f4215-4d19-43df-ab81-b9f8adb057c8" },
 ];
