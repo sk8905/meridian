@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f30010b5-a702-4fdd-914e-44c69d37814a", title: "Signature Group founder banned as company director for five years", date: "2026-08-18", time: "14:19", url: "https://www.ft.com/content/f30010b5-a702-4fdd-914e-44c69d37814a" },
+  { id: "c61e12bb-2ff1-4862-9217-38bdada90ecc", title: "Disney sues Trump administration over ‘retaliatory’ ABC licence review", date: "2026-08-18", time: "14:13", url: "https://www.ft.com/content/c61e12bb-2ff1-4862-9217-38bdada90ecc" },
+  { id: "09e23587-1b06-45b3-ad19-1e5d1ec9d7de", title: "Canada makes final attempt to avoid US tariffs on $20bn of goods", date: "2026-08-18", time: "14:00", url: "https://www.ft.com/content/09e23587-1b06-45b3-ad19-1e5d1ec9d7de" },
+  { id: "01165fdb-4957-45de-b612-85fac4836220", title: "Here’s Apollo’s big First Brands short presentation", date: "2026-08-18", time: "13:55", url: "https://www.ft.com/content/01165fdb-4957-45de-b612-85fac4836220" },
+  { id: "811850d2-01c9-4ea5-8af8-86b22c41a284", title: "Klarna overhauls leadership as it targets US banking licence", date: "2026-08-18", time: "13:54", url: "https://www.ft.com/content/811850d2-01c9-4ea5-8af8-86b22c41a284" },
   { id: "e57f1e66-578e-42c9-8e59-37fe05067032", title: "Fund managers are in party mode", date: "2026-08-18", time: "13:04", url: "https://www.ft.com/content/e57f1e66-578e-42c9-8e59-37fe05067032" },
   { id: "4e58775a-4c71-4945-895a-5dc31306ddd6", title: "Reform UK suspends Tory defector Tim Montgomerie after criticism of Nigel Farage", date: "2026-08-18", time: "13:02", url: "https://www.ft.com/content/4e58775a-4c71-4945-895a-5dc31306ddd6" },
   { id: "be40ad57-a847-43a3-8ade-9282914b965e", title: "The UK Treasury can’t avoid the Bank of England’s losses", date: "2026-08-18", time: "12:30", url: "https://www.ft.com/content/be40ad57-a847-43a3-8ade-9282914b965e" },
@@ -55,9 +60,4 @@ export const FT_ITEMS = [
   { id: "f12c330e-bed7-4f9d-9b37-c301ffd78b03", title: "The German far right’s difficult dance with Maga", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/f12c330e-bed7-4f9d-9b37-c301ffd78b03" },
   { id: "8891d59f-f4e0-4f81-bfae-b686cd1c4d98", title: "Big pharma warns Germany’s attempts to curb drug prices will backfire", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/8891d59f-f4e0-4f81-bfae-b686cd1c4d98" },
   { id: "e15d3b98-47d0-4a26-9dae-f3147815981e", title: "Mark Carney in last-ditch effort to avoid Donald Trump's latest tariffs", date: "2026-08-17", time: "20:42", url: "https://www.ft.com/content/e15d3b98-47d0-4a26-9dae-f3147815981e" },
-  { id: "b3ad4338-21a1-42ab-86ce-4912c7df2f96", title: "Labour MP suspended amid investigation into Covid loans", date: "2026-08-17", time: "19:39", url: "https://www.ft.com/content/b3ad4338-21a1-42ab-86ce-4912c7df2f96" },
-  { id: "fc94e1f6-3f22-4fb9-b4a5-682c425e4d49", title: "The UK is going the wrong way about protecting pubs", date: "2026-08-17", time: "19:03", url: "https://www.ft.com/content/fc94e1f6-3f22-4fb9-b4a5-682c425e4d49" },
-  { id: "61b8162e-6c50-4775-8bb5-fff1259a9cf3", title: "ExxonMobil advances Mozambique gas project despite terrorist threat", date: "2026-08-17", time: "18:24", url: "https://www.ft.com/content/61b8162e-6c50-4775-8bb5-fff1259a9cf3" },
-  { id: "71a498fa-4ce7-4c0b-ab14-7b7f46b2b9c6", title: "Chelsea shareholders Mark Walter and Todd Boehly in talks to sell their stakes to Clearlake", date: "2026-08-17", time: "18:06", url: "https://www.ft.com/content/71a498fa-4ce7-4c0b-ab14-7b7f46b2b9c6" },
-  { id: "a1b720e3-e1e6-4a13-bdb0-9cc27399ceb4", title: "Russia fires economist over Ukraine war warning", date: "2026-08-17", time: "17:32", url: "https://www.ft.com/content/a1b720e3-e1e6-4a13-bdb0-9cc27399ceb4" },
 ];
