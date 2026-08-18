@@ -34,6 +34,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-thebrink-ballysbronx-20260818",
+    publication: "Bloomberg",
+    author: "Katherine Schwartz",
+    series: "The Brink",
+    title: "The Brink: Bally’s debt roulette",
+    date: "2026-08-18",
+    time: "16:45",
+    summary: "Bally’s debt-fueled bet in the Bronx becomes an existential crisis.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-18/bally-s-gambles-on-a-bronx-casino-and-its-future",
+  },
+  {
     id: "nl-legalbusiness-lb100results-20260818",
     publication: "Legal Business",
     title: "LB100 results so far – which firms are setting the pace for revenue and PEP?",
@@ -427,16 +438,5 @@ export const NEWSLETTERS = [
     time: "06:59",
     summary: "OpenAI is on track for more than $40bn in annualized revenue, roughly doubling its run rate from the end of 2025, as it battles Anthropic to sign business customers ahead of both firms' IPOs.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-14/openai-revenue-run-rate-tops-40-billion-doubling-from-2025",
-  },
-  {
-    id: "nl-reuters-tradingday-hikingpressureeases-20260813",
-    publication: "Thomson Reuters",
-    author: "Jamie McGeever",
-    series: "Trading Day",
-    title: "Hiking pressure eases",
-    date: "2026-08-13",
-    time: "22:14",
-    summary: "S&P 500 hits a fresh high as benign US inflation data eases pressure on the Fed to raise rates, while central banks spearhead a renewed gold rush.",
-    url: "https://www.reuters.com/newsletters/trading-day",
   },
 ];

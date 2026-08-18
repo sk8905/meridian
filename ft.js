@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a5b733dd-b369-489e-877d-6b16f6d5aa27", title: "Andy Burnham hails shake-up of bus services in West Midlands", date: "2026-08-18", time: "16:49", url: "https://www.ft.com/content/a5b733dd-b369-489e-877d-6b16f6d5aa27" },
   { id: "f30010b5-a702-4fdd-914e-44c69d37814a", title: "Signature Group founder banned as company director for five years", date: "2026-08-18", time: "14:19", url: "https://www.ft.com/content/f30010b5-a702-4fdd-914e-44c69d37814a" },
   { id: "c61e12bb-2ff1-4862-9217-38bdada90ecc", title: "Disney sues Trump administration over ‘retaliatory’ ABC licence review", date: "2026-08-18", time: "14:13", url: "https://www.ft.com/content/c61e12bb-2ff1-4862-9217-38bdada90ecc" },
   { id: "09e23587-1b06-45b3-ad19-1e5d1ec9d7de", title: "Canada makes final attempt to avoid US tariffs on $20bn of goods", date: "2026-08-18", time: "14:00", url: "https://www.ft.com/content/09e23587-1b06-45b3-ad19-1e5d1ec9d7de" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "9d8f4215-4d19-43df-ab81-b9f8adb057c8", title: "Airlines in ‘stand-off’ over price cuts as jet fuel costs ease", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/9d8f4215-4d19-43df-ab81-b9f8adb057c8" },
   { id: "f12c330e-bed7-4f9d-9b37-c301ffd78b03", title: "The German far right’s difficult dance with Maga", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/f12c330e-bed7-4f9d-9b37-c301ffd78b03" },
   { id: "8891d59f-f4e0-4f81-bfae-b686cd1c4d98", title: "Big pharma warns Germany’s attempts to curb drug prices will backfire", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/8891d59f-f4e0-4f81-bfae-b686cd1c4d98" },
-  { id: "e15d3b98-47d0-4a26-9dae-f3147815981e", title: "Mark Carney in last-ditch effort to avoid Donald Trump's latest tariffs", date: "2026-08-17", time: "20:42", url: "https://www.ft.com/content/e15d3b98-47d0-4a26-9dae-f3147815981e" },
 ];
