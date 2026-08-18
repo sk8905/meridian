@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "9eccad94-56f5-4adf-aa61-c39e2e542226", title: "OpenAI limits teens to dedicated version of ChatGPT promising more safeguards", date: "2026-08-18", time: "12:00", url: "https://www.ft.com/content/9eccad94-56f5-4adf-aa61-c39e2e542226" },
+  { id: "7d5f7e30-88de-4dcb-9fd5-f41a4ff03804", title: "AI phobia is America’s new consensus", date: "2026-08-18", time: "11:57", url: "https://www.ft.com/content/7d5f7e30-88de-4dcb-9fd5-f41a4ff03804" },
+  { id: "3a96c015-2c9f-4897-97ea-d3f13571aa71", title: "Russia warns UK of ‘consequences’ over Ukraine’s use of British-made drones", date: "2026-08-18", time: "11:40", url: "https://www.ft.com/content/3a96c015-2c9f-4897-97ea-d3f13571aa71" },
   { id: "61354e68-c4ba-4716-b849-b332608c8c65", title: "Global bond sell-off deepens amid fears over inflation and AI issuance", date: "2026-08-18", time: "10:13", url: "https://www.ft.com/content/61354e68-c4ba-4716-b849-b332608c8c65" },
   { id: "bfc3fbe6-7bd8-41d5-b185-0865cf22ae95", title: "Labour has no good options on prisons", date: "2026-08-18", time: "09:30", url: "https://www.ft.com/content/bfc3fbe6-7bd8-41d5-b185-0865cf22ae95" },
   { id: "3b211986-f6ea-47f9-8b7c-b58f261ad483", title: "UK pay weakness allays fears of second-round inflation effects", date: "2026-08-18", time: "08:51", url: "https://www.ft.com/content/3b211986-f6ea-47f9-8b7c-b58f261ad483" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "01b0ac67-3e80-42eb-b0f6-3128f484101a", title: "Monzo chair Gary Hoffman to step down months after shareholder revolt", date: "2026-08-17", time: "16:29", url: "https://www.ft.com/content/01b0ac67-3e80-42eb-b0f6-3128f484101a" },
   { id: "377d4c1c-1cbc-46b2-8c34-f2d578c6d595", title: "Seoul rattled by threat to drills at heart of US-Korean alliance", date: "2026-08-17", time: "16:25", url: "https://www.ft.com/content/377d4c1c-1cbc-46b2-8c34-f2d578c6d595" },
   { id: "cb4b22ab-4183-4d19-be60-6d2fab86d86d", title: "US tech stock correction likely, warn ECB economists", date: "2026-08-17", time: "15:40", url: "https://www.ft.com/content/cb4b22ab-4183-4d19-be60-6d2fab86d86d" },
-  { id: "895ca028-33c7-4295-bf8c-13a3121b80ac", title: "The realignment of the Middle East", date: "2026-08-17", time: "15:12", url: "https://www.ft.com/content/895ca028-33c7-4295-bf8c-13a3121b80ac" },
-  { id: "49eac9fc-1b9c-4e80-8ed0-c52afc3aa376", title: "Reform UK’s deputy leader tells Britons to ‘enjoy’ heat amid record drought", date: "2026-08-17", time: "15:00", url: "https://www.ft.com/content/49eac9fc-1b9c-4e80-8ed0-c52afc3aa376" },
-  { id: "a33467c0-ef18-4ff8-9f56-b5c7a79dbc85", title: "Manchester’s towering ambition shows in its new skyline", date: "2026-08-17", time: "14:58", url: "https://www.ft.com/content/a33467c0-ef18-4ff8-9f56-b5c7a79dbc85" },
 ];
