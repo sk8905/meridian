@@ -858,6 +858,7 @@ export const RELEASES = [
   { date: "2026-08-19", country: "UK", title: "CPI inflation (July)", url: "https://www.ons.gov.uk/releases/consumerpriceinflationukjuly2026" },
   { date: "2026-08-21", country: "UK", title: "Retail sales (July)", url: "https://www.ons.gov.uk/releases/retailsalesgreatbritainjuly2026" },
   { date: "2026-08-21", country: "UK", title: "S&P Global/CIPS flash Manufacturing, Services & Composite PMI (August)", url: "https://www.pmi.spglobal.com/Public/Home/PDF/UK_Rel_Dates" },
+  { date: "2026-08-21", country: "US", title: "S&P Global flash Manufacturing, Services & Composite PMI (August)", url: "https://www.pmi.spglobal.com/Public/Home/ReleaseSchedule" },
   { date: "2026-08-26", country: "US", title: "GDP, Second Estimate (Q2 2026)", url: "https://www.bea.gov/data/gdp/gross-domestic-product" },
   { date: "2026-08-26", country: "US", title: "Personal Income and Outlays / PCE Price Index (July)", url: "https://www.bea.gov/data/income-saving/personal-income-and-outlays" },
   { date: "2026-08-27", country: "US", title: "Jackson Hole Economic Policy Symposium begins (Kansas City Fed)", url: "https://www.kansascityfed.org/research/jackson-hole-economic-symposium/" },
