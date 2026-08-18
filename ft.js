@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "e57f1e66-578e-42c9-8e59-37fe05067032", title: "Fund managers are in party mode", date: "2026-08-18", time: "13:04", url: "https://www.ft.com/content/e57f1e66-578e-42c9-8e59-37fe05067032" },
+  { id: "4e58775a-4c71-4945-895a-5dc31306ddd6", title: "Reform UK suspends Tory defector Tim Montgomerie after criticism of Nigel Farage", date: "2026-08-18", time: "13:02", url: "https://www.ft.com/content/4e58775a-4c71-4945-895a-5dc31306ddd6" },
+  { id: "be40ad57-a847-43a3-8ade-9282914b965e", title: "The UK Treasury can’t avoid the Bank of England’s losses", date: "2026-08-18", time: "12:30", url: "https://www.ft.com/content/be40ad57-a847-43a3-8ade-9282914b965e" },
   { id: "9eccad94-56f5-4adf-aa61-c39e2e542226", title: "OpenAI limits teens to dedicated version of ChatGPT promising more safeguards", date: "2026-08-18", time: "12:00", url: "https://www.ft.com/content/9eccad94-56f5-4adf-aa61-c39e2e542226" },
   { id: "7d5f7e30-88de-4dcb-9fd5-f41a4ff03804", title: "AI phobia is America’s new consensus", date: "2026-08-18", time: "11:57", url: "https://www.ft.com/content/7d5f7e30-88de-4dcb-9fd5-f41a4ff03804" },
   { id: "3a96c015-2c9f-4897-97ea-d3f13571aa71", title: "Russia warns UK of ‘consequences’ over Ukraine’s use of British-made drones", date: "2026-08-18", time: "11:40", url: "https://www.ft.com/content/3a96c015-2c9f-4897-97ea-d3f13571aa71" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "61b8162e-6c50-4775-8bb5-fff1259a9cf3", title: "ExxonMobil advances Mozambique gas project despite terrorist threat", date: "2026-08-17", time: "18:24", url: "https://www.ft.com/content/61b8162e-6c50-4775-8bb5-fff1259a9cf3" },
   { id: "71a498fa-4ce7-4c0b-ab14-7b7f46b2b9c6", title: "Chelsea shareholders Mark Walter and Todd Boehly in talks to sell their stakes to Clearlake", date: "2026-08-17", time: "18:06", url: "https://www.ft.com/content/71a498fa-4ce7-4c0b-ab14-7b7f46b2b9c6" },
   { id: "a1b720e3-e1e6-4a13-bdb0-9cc27399ceb4", title: "Russia fires economist over Ukraine war warning", date: "2026-08-17", time: "17:32", url: "https://www.ft.com/content/a1b720e3-e1e6-4a13-bdb0-9cc27399ceb4" },
-  { id: "01b0ac67-3e80-42eb-b0f6-3128f484101a", title: "Monzo chair Gary Hoffman to step down months after shareholder revolt", date: "2026-08-17", time: "16:29", url: "https://www.ft.com/content/01b0ac67-3e80-42eb-b0f6-3128f484101a" },
-  { id: "377d4c1c-1cbc-46b2-8c34-f2d578c6d595", title: "Seoul rattled by threat to drills at heart of US-Korean alliance", date: "2026-08-17", time: "16:25", url: "https://www.ft.com/content/377d4c1c-1cbc-46b2-8c34-f2d578c6d595" },
-  { id: "cb4b22ab-4183-4d19-be60-6d2fab86d86d", title: "US tech stock correction likely, warn ECB economists", date: "2026-08-17", time: "15:40", url: "https://www.ft.com/content/cb4b22ab-4183-4d19-be60-6d2fab86d86d" },
 ];
