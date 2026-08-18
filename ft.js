@@ -20,11 +20,13 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b2c808ec-a67f-4a72-b5b7-a05a5a3036c3", title: "FTAV’s further reading", date: "2026-08-18", time: "06:00", url: "https://www.ft.com/content/b2c808ec-a67f-4a72-b5b7-a05a5a3036c3" },
   { id: "ba3782d6-709b-472c-aa02-e0ffb1c89d87", title: "Mark Walter’s empire of assets and liabilities", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/ba3782d6-709b-472c-aa02-e0ffb1c89d87" },
   { id: "1d713822-e68f-4476-be94-ffab3418bfe4", title: "Donald Trump’s cuts to military drills stir doubts about US resolve in Asia", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/1d713822-e68f-4476-be94-ffab3418bfe4" },
   { id: "418e0159-d2d1-4432-a7b3-de0cc446ef08", title: "UK examines economic hit from loss of access to frontier AI models", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/418e0159-d2d1-4432-a7b3-de0cc446ef08" },
   { id: "748b1e8c-63f4-4eca-8103-d9d148cac00c", title: "Andy Burnham faces EU clash over youth scheme as summit looms", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/748b1e8c-63f4-4eca-8103-d9d148cac00c" },
   { id: "6913fe7f-3ad8-47e6-8310-7caba5f5d58c", title: "Top UK civil servant received record £500,000 payout after Starmer sacking", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/6913fe7f-3ad8-47e6-8310-7caba5f5d58c" },
+  { id: "5f927594-03a1-4652-8189-2aa7a19dcec4", title: "The difficult truth about Jason Arday", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/5f927594-03a1-4652-8189-2aa7a19dcec4" },
   { id: "03c8edc6-92ee-4eb9-a83a-441e839a6317", title: "Burger King is taking a bite out of McDonald’s lunch", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/03c8edc6-92ee-4eb9-a83a-441e839a6317" },
   { id: "4fcd8647-e3ba-4cd8-8dc0-4b0ff473cf39", title: "Why eyewear stores are taking over London’s high streets", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/4fcd8647-e3ba-4cd8-8dc0-4b0ff473cf39" },
   { id: "d88a8878-425d-4225-bda4-576c6c42734e", title: "Trump ballroom official held quiet Kremlin talks", date: "2026-08-18", time: "05:00", url: "https://www.ft.com/content/d88a8878-425d-4225-bda4-576c6c42734e" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "d4d07198-498d-48d1-9e54-85f1febcd070", title: "Trump threatens to bomb Oman if it ‘gets in the way’ of US-Iran negotiations", date: "2026-08-17", time: "12:25", url: "https://www.ft.com/content/d4d07198-498d-48d1-9e54-85f1febcd070" },
   { id: "51089f41-6f8b-4381-aab5-a83bbe4048c4", title: "Smoking is back, brilliant new road bikes and the rise of the one-carat ring – don’t miss HTSI’s most popular reads", date: "2026-08-17", time: "10:55", url: "https://www.ft.com/content/51089f41-6f8b-4381-aab5-a83bbe4048c4" },
   { id: "6529c240-13a6-4923-bb76-17d2baf2c733", title: "And the FTAV chart quiz winner is . . .", date: "2026-08-17", time: "10:24", url: "https://www.ft.com/content/6529c240-13a6-4923-bb76-17d2baf2c733" },
-  { id: "3bfdcb4f-3342-4fec-bdcf-ca92e13474da", title: "Japanese second-quarter growth weaker than expected", date: "2026-08-17", time: "10:19", url: "https://www.ft.com/content/3bfdcb4f-3342-4fec-bdcf-ca92e13474da" },
-  { id: "e04f286c-f5ed-46d1-8e3f-0bbe4cce4d3e", title: "People are worried about America’s solvency", date: "2026-08-17", time: "10:15", url: "https://www.ft.com/content/e04f286c-f5ed-46d1-8e3f-0bbe4cce4d3e" },
-  { id: "eea1da3e-1c1c-4957-ad9d-f0372b2694f0", title: "Jared Kushner holds talks with Benjamin Netanyahu after meeting Hamas leader", date: "2026-08-17", time: "09:26", url: "https://www.ft.com/content/eea1da3e-1c1c-4957-ad9d-f0372b2694f0" },
 ];
