@@ -34,6 +34,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-authoralert-nkumar-dymon-20260818",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    title: "Hedge Fund Dymon Raises $1 Billion From ADIC, Ramps Up Hires",
+    date: "2026-08-18",
+    time: "08:46",
+    summary: "Singapore hedge fund Dymon Asia Capital has scored a roughly $1 billion commitment from sovereign wealth giant Abu Dhabi Investment Council, fuelling its expansion from London to Hong Kong.",
+    url: "https://www.bloomberg.com/news/articles/2026-08-18/hedge-fund-dymon-raises-1-billion-from-adic-ramps-up-hires",
+  },
+  {
     id: "nl-economist-worldinbrief-trumpoman-20260818",
     publication: "The Economist",
     series: "The World in Brief",
@@ -441,25 +451,5 @@ export const NEWSLETTERS = [
     time: "10:57",
     summary: "South Korea's Kospi has soared 22% in ten sessions back into a bull market on AI-chip optimism, and strong US earnings growth makes the case for a further stocks rally.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-13/korean-stocks-are-on-fire-again-with-a-bit-less-excess-this-time",
-  },
-  {
-    id: "nl-lb-simmonsschulte-20260813",
-    publication: "Legal Business",
-    title: "Simmons hires former Schulte funds partner in post-merger exit from McDermott",
-    date: "2026-08-13",
-    time: "09:06",
-    summary: "Simmons swipes partner from merged firm's top-tier City practice in third funds hire in three months.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQHtdkryw7wAIb1WM/wv",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-20260813",
-    publication: "Bloomberg",
-    author: "Jill Disis",
-    series: "Morning Briefing Europe",
-    title: "Europe's Latest Heat Wave Set to Peak as Extreme Weather Strains",
-    date: "2026-08-13",
-    time: "07:33",
-    summary: "Europe's latest heat wave is set to peak, the Trump administration leans on economic pressure against Iran, and Nigel Farage faces a trash-can rival in the Clacton by-election.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-13/europe-s-latest-heat-wave-set-to-peak-as-extreme-weather-strains",
   },
 ];
