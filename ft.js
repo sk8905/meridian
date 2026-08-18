@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "61354e68-c4ba-4716-b849-b332608c8c65", title: "Global bond sell-off deepens amid fears over inflation and AI issuance", date: "2026-08-18", time: "10:13", url: "https://www.ft.com/content/61354e68-c4ba-4716-b849-b332608c8c65" },
   { id: "bfc3fbe6-7bd8-41d5-b185-0865cf22ae95", title: "Labour has no good options on prisons", date: "2026-08-18", time: "09:30", url: "https://www.ft.com/content/bfc3fbe6-7bd8-41d5-b185-0865cf22ae95" },
   { id: "3b211986-f6ea-47f9-8b7c-b58f261ad483", title: "UK pay weakness allays fears of second-round inflation effects", date: "2026-08-18", time: "08:51", url: "https://www.ft.com/content/3b211986-f6ea-47f9-8b7c-b58f261ad483" },
   { id: "13b9ac91-e7f2-4d70-b302-93f6b7b4c26a", title: "Mike Ashley's Frasers grows stake in Hugo Boss to 48%", date: "2026-08-18", time: "08:06", url: "https://www.ft.com/content/13b9ac91-e7f2-4d70-b302-93f6b7b4c26a" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "895ca028-33c7-4295-bf8c-13a3121b80ac", title: "The realignment of the Middle East", date: "2026-08-17", time: "15:12", url: "https://www.ft.com/content/895ca028-33c7-4295-bf8c-13a3121b80ac" },
   { id: "49eac9fc-1b9c-4e80-8ed0-c52afc3aa376", title: "Reform UK’s deputy leader tells Britons to ‘enjoy’ heat amid record drought", date: "2026-08-17", time: "15:00", url: "https://www.ft.com/content/49eac9fc-1b9c-4e80-8ed0-c52afc3aa376" },
   { id: "a33467c0-ef18-4ff8-9f56-b5c7a79dbc85", title: "Manchester’s towering ambition shows in its new skyline", date: "2026-08-17", time: "14:58", url: "https://www.ft.com/content/a33467c0-ef18-4ff8-9f56-b5c7a79dbc85" },
-  { id: "82a4b183-7201-4789-95b7-e39e81c827bc", title: "Nvidia to invest $100bn for OpenAI data centre in Ohio", date: "2026-08-17", time: "14:57", url: "https://www.ft.com/content/82a4b183-7201-4789-95b7-e39e81c827bc" },
 ];
