@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8fc1f72a-c3e5-4f40-a28b-c0cb59e39256", title: "Israel-Turkey rivalry bursts into open over Syria strikes", date: "2026-08-19", time: "17:10", url: "https://www.ft.com/content/8fc1f72a-c3e5-4f40-a28b-c0cb59e39256" },
+  { id: "0fdb094c-fc03-4d3c-8da6-bd11af88ff63", title: "Google strikes $12bn AI chip deal with Marvell", date: "2026-08-19", time: "17:05", url: "https://www.ft.com/content/0fdb094c-fc03-4d3c-8da6-bd11af88ff63" },
+  { id: "e7fdcb9f-7560-4b6f-9524-8766f752dfcf", title: "Charlesbank nears law firm deal as private equity pushes deeper into US legal sector", date: "2026-08-19", time: "17:05", url: "https://www.ft.com/content/e7fdcb9f-7560-4b6f-9524-8766f752dfcf" },
   { id: "bed337a0-8917-4026-a406-b5ed832f36e6", title: "Putin pledges help for Wildberries warehouses hit by Ukraine", date: "2026-08-19", time: "16:45", url: "https://www.ft.com/content/bed337a0-8917-4026-a406-b5ed832f36e6" },
   { id: "d8ff1233-01ff-496d-aa18-91233c1db051", title: "Moderna’s cancer shot: exciting for investors, inconclusive for patients", date: "2026-08-19", time: "15:33", url: "https://www.ft.com/content/d8ff1233-01ff-496d-aa18-91233c1db051" },
   { id: "7a9c6019-bd0b-44b4-9a2d-db02ee881266", title: "Price of olive oil doubles in five years: how UK inflation has hit shoppers", date: "2026-08-19", time: "15:19", url: "https://www.ft.com/content/7a9c6019-bd0b-44b4-9a2d-db02ee881266" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "82bf560f-7803-41e7-9391-95c42b42e3b4", title: "Why the story of the Vegetable Lamb was believed", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/82bf560f-7803-41e7-9391-95c42b42e3b4" },
   { id: "6af7701e-a9ab-4a9f-bb67-ca7ab8f78fff", title: "Can Mexicans be weaned off an addiction to cash?", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/6af7701e-a9ab-4a9f-bb67-ca7ab8f78fff" },
   { id: "a1e7a6e3-f7b9-4ed4-a823-b5e6274aab9b", title: "Revolut to let Nik Storonsky borrow up to $250mn against his stake", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/a1e7a6e3-f7b9-4ed4-a823-b5e6274aab9b" },
-  { id: "fb585c9d-5dc8-4beb-99a1-fb2c843ecd5a", title: "‘Manchesterism’ must honour the city’s global outlook", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/fb585c9d-5dc8-4beb-99a1-fb2c843ecd5a" },
-  { id: "1c4adb24-3e01-4548-93e2-e13f175b3c92", title: "Are ‘dodgy’ vape shops choking Britain’s high streets?", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/1c4adb24-3e01-4548-93e2-e13f175b3c92" },
-  { id: "51d68f38-df09-4f78-bb80-02a4b4684235", title: "Venezuela abandons Nicolás Maduro to fate in US jail", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/51d68f38-df09-4f78-bb80-02a4b4684235" },
 ];
