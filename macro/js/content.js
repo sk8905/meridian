@@ -13,7 +13,7 @@ export const UPDATED = "19 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-19",
-  lastCheckedTime: "09:20 BST",
+  lastCheckedTime: "12:34 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -799,18 +799,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-08-19",
   us: [
+    { title: "Dollar Drifts Near Multi-Month Lows as Treasury Yields Ease; Fed Minutes Awaited", source: "Reuters (via CNBC)", date: "2026-08-19", time: "08:00", url: "https://www.cnbc.com/amp/2026/08/19/dollar-drifts-near-multi-month-low-as-yields-ease-fed-minutes-awaited.html" },
     { title: "Japanese Stocks Slide as Bond Market Anxiety Hits AI Sentiment", source: "Bloomberg", date: "2026-08-19", time: "05:00", url: "https://www.bloomberg.com/news/articles/2026-08-19/japanese-stocks-slide-as-bond-market-anxiety-hits-ai-sentiment" },
-    { title: "Korea Bears Brunt as Higher Bond Yields Weigh on Chip Stocks", source: "Bloomberg", date: "2026-08-19", time: "05:00", url: "https://www.bloomberg.com/news/articles/2026-08-19/korea-bears-brunt-as-higher-bond-yields-weigh-on-chip-stocks" },
-    { title: "Oil Advances for Fourth Day With US and Iran Locked in Stalemate", source: "Bloomberg", date: "2026-08-19", time: "04:30", url: "https://www.bloomberg.com/news/articles/2026-08-18/latest-oil-market-news-and-analysis-for-aug-19" },
-    { title: "Dollar Feeble as Rate Hike Bets Dwindle, Iran War Worries Grow", source: "Reuters (via CNBC)", date: "2026-08-18", url: "https://www.cnbc.com/2026/08/18/dollar-feeble-as-rate-hike-bets-dwindle-iran-war-worries-grow.html" },
+    { title: "US Single-Family Housing Starts Slide in July", source: "Reuters (via Investing.com)", date: "2026-08-18", time: "17:20", url: "https://www.investing.com/news/economy-news/us-singlefamily-housing-starts-slide-in-july-4865342" },
+    { title: "What Rising Treasury Yields Are Telling Us", source: "Axios", date: "2026-08-17", url: "https://www.axios.com/2026/08/17/treasury-yields-warsh-bonds" },
     { title: "PREVIEW: FOMC Minutes due Wednesday 19th August, 2026", source: "Newsquawk", date: "2026-08-18", url: "https://www.newsquawk.com/headlines/preview-fomc-minutes-due-wednesday-19th-august-2026-at-1900bst1400edt" },
   ],
   uk: [
     { title: "Jump in energy bills drives inflation to 2.9% - the highest rate for four months", source: "Yahoo Finance UK", date: "2026-08-19", time: "07:09", url: "https://finance.yahoo.com/economy/articles/uk-inflation-rate-rises-2-060931194.html" },
+    { title: "UK inflation picks up after July surge in household energy bills", source: "Reuters (via Investing.com)", date: "2026-08-19", url: "https://au.investing.com/news/economy-news/uk-inflation-picks-up-after-july-surge-in-household-energy-bills-4606673" },
+    { title: "UK inflation hits four-month high of 2.9% as energy bills soar", source: "Euronews", date: "2026-08-19", url: "https://www.euronews.com/business/2026/08/19/uk-inflation-hits-four-month-high-of-29-as-energy-bills-soar" },
     { title: "British Pound edges up within range following hotter UK inflation data", source: "FXStreet", date: "2026-08-19", time: "06:31", url: "https://www.fxstreet.com/news/british-pound-edges-up-within-range-following-hotter-uk-inflation-data-202608190631" },
-    { title: "United Kingdom Core Consumer Price Index (YoY) above expectations (2.5%) in July: Actual (2.6%)", source: "FXStreet", date: "2026-08-19", time: "06:00", url: "https://www.fxstreet.com/news/united-kingdom-core-consumer-price-index-yoy-above-expectations-25-in-july-actual-26-202608190600" },
-    { title: "FTSE 100 Live: UK Blue-Chips Set for Flat Open as Rising Oil and Inflation Jitters Weigh", source: "Yahoo Finance UK", date: "2026-08-19", time: "05:25", url: "https://uk.finance.yahoo.com/news/ftse-100-live-uk-blue-052500789.html" },
-    { title: "Economic and Event Calendar in Asia, Wednesday, August 19, 2026", source: "investingLive (ForexLive)", date: "2026-08-19", url: "https://investinglive.com/news/economic-and-event-calendar-in-asia-wednesday-august-19-2026/" },
+    { title: "UK inflation jumps to 2.9 per cent after £221 energy bill hike", source: "GB News", date: "2026-08-19", url: "https://www.gbnews.com/money/inflation-uk-cpi-energy-bill-rise" },
   ],
 };
 
@@ -824,6 +824,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-19",
   items: [
+    {"title":"Dollar Drifts Near Multi-Month Lows as Treasury Yields Ease; Fed Minutes Awaited","source":"Reuters (via CNBC)","date":"2026-08-19","time":"08:00","url":"https://www.cnbc.com/amp/2026/08/19/dollar-drifts-near-multi-month-low-as-yields-ease-fed-minutes-awaited.html","blurb":"The dollar drifted near multi-month lows and the 10-year Treasury yield eased to 4.702% (30-year to 5.282%) as traders awaited the July FOMC minutes, with the euro holding near a two-month high at $1.1577."},
+    {"title":"UK inflation picks up after July surge in household energy bills","source":"Reuters (via Investing.com)","date":"2026-08-19","url":"https://au.investing.com/news/economy-news/uk-inflation-picks-up-after-july-surge-in-household-energy-bills-4606673","blurb":"ONS data confirmed UK CPI accelerated to 2.9% y/y in July, mostly on the largest gas-price rise in almost four years as Ofgem's 13% price-cap increase fed through, with the BoE having pencilled in a smaller 2.8% rise."},
     {"title":"Jump in energy bills drives inflation to 2.9% - the highest rate for four months","source":"Yahoo Finance UK","date":"2026-08-19","time":"07:09","url":"https://finance.yahoo.com/economy/articles/uk-inflation-rate-rises-2-060931194.html","blurb":"UK CPI accelerated to 2.9% y/y in July (from 2.6%), a four-month high driven by a 14.7% jump in gas prices as the 13% Ofgem price-cap rise fed through, with Chancellor Healey citing 'Iran war inflation' even as core CPI ran hotter than forecast at 2.6%."},
     {"title":"British Pound edges up within range following hotter UK inflation data","source":"FXStreet","date":"2026-08-19","time":"06:31","url":"https://www.fxstreet.com/news/british-pound-edges-up-within-range-following-hotter-uk-inflation-data-202608190631","blurb":"Sterling's reaction to the in-line-but-hot core UK CPI print was muted, with traders still pricing no Bank of England move before year-end despite core inflation beating the 2.5% forecast at 2.6%."},
     {"title":"United Kingdom CPI inflation jumps to 2.9% YoY in July, as expected","source":"FXStreet","date":"2026-08-19","time":"02:00","url":"https://www.fxstreet.com/news/uk-cpi-set-to-show-inflation-rebounding-to-four-month-high-due-to-higher-energy-bill-202608190200","blurb":"A pre-release preview flagging that July's UK CPI was set to rebound to a four-month high on the Ofgem energy-cap rise, which the 07:00 print confirmed exactly at 2.9% y/y."},
@@ -861,9 +863,7 @@ export const ARTICLES = {
     {"title":"CNBC Daily Open: Markets caught between Mideast worries and AI optimism","source":"CNBC","date":"2026-08-18","url":"https://www.cnbc.com/2026/08/18/cnbc-daily-open-trump-iran-war-nvidia-oil-markets.html","blurb":"Markets weighed Trump's threat to 'bomb' Oman if it 'gets in the way' of a Strait of Hormuz deal against continued AI-led optimism, as the 60-day US-Iran ceasefire memorandum lapsed with no extension in sight."},
     {"title":"Iran war live: Trump rejects MoU extension as US claims control of Hormuz","source":"Al Jazeera","date":"2026-08-18","url":"https://www.aljazeera.com/news/liveblog/2026/8/18/iran-war-live-trump-rejects-mou-extension-as-us-claims-control-of-hormuz","blurb":"Trump said the US is not seeking to extend the expired memorandum of understanding with Iran and told Tehran to 'put up the white flag of surrender', as the IRGC denied his separate claim that his team is in direct talks with the Guard."},
     {"title":"Trump threatens to bomb Oman as Iran vows to escalate conflict over Hormuz","source":"ABC News (Australia)","date":"2026-08-18","url":"https://www.abc.net.au/news/2026-08-18/iran-us-memorandum-hormuz-strait/107048074","blurb":"Trump threatened to 'bomb' US ally Oman if it 'gets in the way' of a Hormuz shipping-transit deal it is negotiating with Iran, as President Pezeshkian warned any 'aggressive action' by Washington would draw a 'harsh and regrettable' response."},
-    {"title":"Economists agree: Fed to leave interest rates unchanged this year – Reuters poll","source":"FXStreet","date":"2026-08-17","url":"https://www.fxstreet.com/news/economists-agree-fed-to-leave-interest-rates-unchanged-this-year-reuters-poll-202608171145","blurb":"A Reuters poll of 104 economists (12-17 August) found 94 expect the Fed to hold at 3.50-3.75% in September and 80 see no change through year-end, as soft July payrolls, cooler CPI and weaker retail sales reinforce the hold case."},
     {"title":"Empire State Manufacturing Index Surges, Surpassing Expectations","source":"Investing.com","date":"2026-08-17","url":"https://www.investing.com/news/economic-indicators/empire-state-manufacturing-index-surges-surpassing-expectations-93CH-4863068","blurb":"The New York Fed's headline general-business-conditions index jumped to 20.6 in August (from 15.6) — its strongest reading in more than four years — nearly doubling the 11.0 consensus, with the future-conditions index rising to 32.1."},
-    {"title":"Trump threatens to 'bomb' Oman if it 'gets in the way' as U.S.-Iran ceasefire expires","source":"CNBC","date":"2026-08-17","time":"21:10","url":"https://www.cnbc.com/2026/08/17/us-iran-war-trump-hormuz.html","blurb":"Trump said the US would 'bomb the ... out of' Oman if it 'gets in the way', as Washington's 60-day ceasefire memorandum with Iran expired Monday with no extension agreed and Strait of Hormuz shipping traffic sank to a fresh low."},
     {"title":"Stock market today: Dow, S&P 500, Nasdaq fall as oil rises amid US-Iran tensions, 30-year yield hits highest level in decades","source":"Yahoo Finance","date":"2026-08-17","time":"21:10","url":"https://finance.yahoo.com/markets/live/stock-market-today-monday-august-17-dow-sp-500-nasdaq-094421171.html","blurb":"US stocks fell and the 30-year Treasury yield pushed to its highest level in decades as oil prices and yields rose on renewed fears the US-Iran conflict could reignite after Monday's ceasefire memorandum lapsed."},
   ],
 };
@@ -1024,7 +1024,7 @@ export const MATWALL = {
 // two_year, core_cpi, services_pmi, wages, unemployment). Absent = no sourced
 // move (the rail shows nothing). Routine-maintained; see docs/refresh-routines.md.
 export const IND_KEYMOMENTS = {
-  "US:two_year": { text: "The dollar stayed feeble as rate-hike bets continued to dwindle and Iran war worries grew, with markets pricing Wednesday's FOMC minutes as the next catalyst for the front end after a run of softer data.", src: "https://www.cnbc.com/2026/08/18/dollar-feeble-as-rate-hike-bets-dwindle-iran-war-worries-grow.html", srcName: "CNBC", date: "2026-08-18" },
+  "US:two_year": { text: "The dollar drifted near multi-month lows and Treasury yields eased as markets awaited this evening's FOMC minutes for clues on the Fed's next move, extending the softer front-end tone of the past week.", src: "https://www.cnbc.com/amp/2026/08/19/dollar-drifts-near-multi-month-low-as-yields-ease-fed-minutes-awaited.html", srcName: "Reuters (via CNBC)", date: "2026-08-19" },
   "US:wages": { text: "July's jobs report showed average hourly earnings up 3.2% y/y — the smallest annual gain since May 2021 — alongside the surprise 23,000 payrolls decline, reinforcing the softer wage-inflation read markets have leaned on since the report.", src: "https://www.cnbc.com/2026/08/07/jobs-report-july-2026.html", srcName: "CNBC", date: "2026-08-07" },
   "UK:two_year": { text: "Fitch affirmed the UK at AA- on 15 August but trimmed its growth forecasts to 0.9% (2026) and 1.2% (2027) and now sees inflation ending 2026 near 3.7% on Middle East energy costs — while saying it expects no near-term change to fiscal rules under PM Burnham, leaving gilt yields anchored ahead of the Autumn Budget.", src: "https://www.thenationalnews.com/business/economy/2026/08/15/uk-retains-high-fitch-rating-but-rising-energy-prices-set-to-tame-economic-growth/", srcName: "The National", date: "2026-08-15" },
   "UK:wages": { text: "UK payroll employment fell again in July while the unemployment rate held at 4.9%, ONS data showed — a soft labour market print that reinforces the case for the Bank of England to keep rates on hold.", src: "https://www.actionforex.com/live-comments/650961-uk-payroll-employment-falls-as-uk-unemployment-holds-at-4-9/", srcName: "ActionForex", date: "2026-08-18" },
@@ -1032,7 +1032,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "The dollar stayed feeble against major peers as rate-hike bets continued to dwindle and Iran war worries grew, with traders looking to Wednesday's FOMC minutes for the next directional catalyst.", src: "https://www.cnbc.com/2026/08/18/dollar-feeble-as-rate-hike-bets-dwindle-iran-war-worries-grow.html", srcName: "CNBC", date: "2026-08-18" };
+export const FX_KEYMOMENT = { text: "The dollar drifted near multi-month lows against major peers and Treasury yields eased, with traders looking to this evening's FOMC minutes for the next directional catalyst.", src: "https://www.cnbc.com/amp/2026/08/19/dollar-drifts-near-multi-month-low-as-yields-ease-fed-minutes-awaited.html", srcName: "Reuters (via CNBC)", date: "2026-08-19" };
 
 export const EARNINGS = {
   weeks: [

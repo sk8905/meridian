@@ -24,7 +24,6 @@ export const FT_ITEMS = [
   { id: "8b4a32a0-f14b-4069-a2e5-5e4d55b0906d", title: "We need to rethink how we pay for water", date: "2026-08-19", time: "12:00", url: "https://www.ft.com/content/8b4a32a0-f14b-4069-a2e5-5e4d55b0906d" },
   { id: "0632931b-1c3b-4ef8-aa18-038afe5d7761", title: "The US economy is running hot", date: "2026-08-19", time: "12:00", url: "https://www.ft.com/content/0632931b-1c3b-4ef8-aa18-038afe5d7761" },
   { id: "b36d4655-b05f-46a9-87b2-145437dbdc3b", title: "UK software group Pinewood agrees £545mn PE takeover by Ridgeview", date: "2026-08-19", time: "11:55", url: "https://www.ft.com/content/b36d4655-b05f-46a9-87b2-145437dbdc3b" },
-  { id: "0ff3c190-725a-47a5-afcc-e369135c0a60", title: "Death stalks the Irish pub", date: "2026-08-19", time: "11:30", url: "https://www.ft.com/content/0ff3c190-725a-47a5-afcc-e369135c0a60" },
   { id: "4112da7f-3809-450b-900d-4934bb7c2bab", title: "Feuding Reform fuels Tory party’s faith in a comeback", date: "2026-08-19", time: "09:30", url: "https://www.ft.com/content/4112da7f-3809-450b-900d-4934bb7c2bab" },
   { id: "115fc315-66f3-4eee-b717-4105f13f4d9a", title: "Democratic socialist unexpectedly wins Florida primary", date: "2026-08-19", time: "09:28", url: "https://www.ft.com/content/115fc315-66f3-4eee-b717-4105f13f4d9a" },
   { id: "032f5586-b958-41b3-a21e-6799269bd589", title: "Sweden’s EQT buys Australian rugby league club in first sports foray", date: "2026-08-19", time: "09:00", url: "https://www.ft.com/content/032f5586-b958-41b3-a21e-6799269bd589" },
