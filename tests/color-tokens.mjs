@@ -115,6 +115,28 @@ check(/const fmtDate = \(d\) => \{.*\$\{\+m\[3\]\} \$\{MONTHS\[\+m\[2\]-1\]\} \$
 check(/\.mtab\.is-active::before\s*\{[^}]*background:\s*var\(--chip-ul,\s*#000\)/.test(premiumCss),
   "premium.css .mtab.is-active::before reads var(--chip-ul, #000), not a bare #000");
 
+// R9 — Credit's listed-vehicle ticker is plain data text, not accent-coloured
+// (the sibling .veh-nm vehicle name already reads --t-ink; the ticker had
+// drifted to the accent orange, the same bug class as .macro-val above).
+check(/\.veh-tk\s*\{[^}]*color:\s*var\(--t-ink,/.test(creditCss),
+  "credit/css/styles.css .veh-tk uses --t-ink, not the accent (--t-accent) orange");
+
+// R9/R10 — Credit's data-completeness meter (dm-hi/dm-mid/dm-lo) reuses the
+// shared semantic tokens, matching its own .dim-yes/.dim-est/.dim-no/.dim-na
+// sibling a few lines below, instead of a one-off green/amber/grey hex triad.
+check(/\.data-meter\.dm-hi \.dm-fill\s*\{\s*background:\s*var\(--t-up,/.test(creditCss),
+  "credit/css/styles.css .data-meter.dm-hi uses --t-up, not a one-off green hex");
+check(/\.data-meter\.dm-mid \.dm-fill\s*\{\s*background:\s*var\(--accent\)/.test(creditCss),
+  "credit/css/styles.css .data-meter.dm-mid uses --accent, not a one-off amber hex");
+check(/\.data-meter\.dm-lo \.dm-fill\s*\{\s*background:\s*var\(--faint,/.test(creditCss),
+  "credit/css/styles.css .data-meter.dm-lo uses --faint, not a one-off grey hex");
+
+// T12 — the IPO table's status pill must not throw/blank the Dashboard tile if
+// a future EQ_IPO entry omits `status` (every other field in the same row is
+// escaped defensively; `status.toLowerCase()` was the one unguarded access).
+check(/dsh-tag-\$\{\(x\.status \|\| ""\)\.toLowerCase\(\)\}/.test(dashboardApp),
+  "v2/js/dashboard/app.js ipoHTML() guards x.status before .toLowerCase()");
+
 // R15 — the "Last refresh" tooltip must describe the real five-times-daily
 // schedule (05:00/09:00/12:00/17:00/21:00 London), not a stale four-times
 // description missing 09:00.

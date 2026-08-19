@@ -578,7 +578,7 @@
 :root[data-theme="dark"] .data-table .chip { background: transparent; border: 1px solid var(--border); color: var(--muted); }
 .active-filter, .srcfilter-bar { border: 1px solid var(--border); background: var(--head);
   font-family: var(--t-mono); font-size: 11px; padding: 6px 10px; border-radius: 0; }
-.card > h2, .card > h3, .panel h2 { font-size: 12.5px; }
+.card > h2, .card > h3, .panel h2 { font-size: 12px; }
 
 /* Day-break separator rows in the wires — the same scanning aid as the Home
    feed: a darker mono band marking where one day ends and the next begins. */

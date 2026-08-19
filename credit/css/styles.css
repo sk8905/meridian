@@ -246,10 +246,10 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .data-meter { display: inline-flex; align-items: center; gap: .4rem; font-size: .74rem; font-weight: 600; white-space: nowrap; }
 .data-meter .dm-bar { width: 42px; height: 7px; border-radius: 4px; background: #e5e7eb; overflow: hidden; display: inline-block; }
 .data-meter .dm-fill { display: block; height: 100%; }
-.data-meter.dm-hi .dm-fill { background: #16a34a; }
-.data-meter.dm-mid .dm-fill { background: #d97706; }
-.data-meter.dm-lo .dm-fill { background: #9ca3af; }
-.data-meter.dm-hi { color: #15803d; } .data-meter.dm-mid { color: #b45309; } .data-meter.dm-lo { color: #6b7280; }
+.data-meter.dm-hi .dm-fill { background: var(--t-up, #3fc08d); }
+.data-meter.dm-mid .dm-fill { background: var(--accent); }
+.data-meter.dm-lo .dm-fill { background: var(--faint, #8b96ac); }
+.data-meter.dm-hi { color: var(--t-up, #3fc08d); } .data-meter.dm-mid { color: var(--accent); } .data-meter.dm-lo { color: var(--faint, #8b96ac); }
 .fund-sub { display: flex; align-items: center; gap: .35rem; flex-wrap: wrap; }
 .provenance .dim-list { list-style: none; margin: .6rem 0; padding: 0; display: grid; gap: .3rem; }
 .provenance .dim { display: grid; grid-template-columns: 1.4rem 11rem 1fr; align-items: baseline; gap: .5rem; padding: .35rem .2rem; border-bottom: 1px solid var(--border); }
@@ -771,7 +771,7 @@ a.sls-chip:hover { color: var(--ink); text-decoration: none;
 .veh { border: 1px solid var(--border, #262626); border-radius: 0; padding: 9px 11px; margin: 8px 0; background: var(--surface); }
 .veh-h { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .veh-nm { color: var(--ink); font-weight: 600; font-size: 13px; }
-.veh-tk { font-family: var(--t-mono); font-size: 11px; color: var(--t-accent, #fb8b1e); font-variant-numeric: tabular-nums; }
+.veh-tk { font-family: var(--t-mono); font-size: 11px; color: var(--t-ink, #eaf0fb); font-variant-numeric: tabular-nums; }
 .veh-tag { font-size: 9.5px; letter-spacing: .03em; text-transform: uppercase; border: 1px solid var(--border, #262626); border-radius: 3px; padding: 1px 5px; color: var(--muted); }
 .veh-tag.veh-bdc { color: var(--t-crd, #fb8b1e); border-color: var(--t-crd, #fb8b1e); }
 .veh-tag.veh-cef { color: var(--t-mac, #9b83e2); border-color: var(--t-mac, #9b83e2); }
