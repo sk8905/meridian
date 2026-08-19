@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d8ff1233-01ff-496d-aa18-91233c1db051", title: "Moderna’s cancer shot: exciting for investors, inconclusive for patients", date: "2026-08-19", time: "15:33", url: "https://www.ft.com/content/d8ff1233-01ff-496d-aa18-91233c1db051" },
+  { id: "7a9c6019-bd0b-44b4-9a2d-db02ee881266", title: "Price of olive oil doubles in five years: how UK inflation has hit shoppers", date: "2026-08-19", time: "15:19", url: "https://www.ft.com/content/7a9c6019-bd0b-44b4-9a2d-db02ee881266" },
   { id: "14787634-6345-4446-aab6-1a3f1f519ba5", title: "Mike Ashley’s luxury retail empire is going cheap", date: "2026-08-19", time: "14:34", url: "https://www.ft.com/content/14787634-6345-4446-aab6-1a3f1f519ba5" },
   { id: "34a99573-0fa1-422b-9263-147f9ed7be6c", title: "Mass expulsion was once a taboo idea in Europe. Then came Maga", date: "2026-08-19", time: "13:27", url: "https://www.ft.com/content/34a99573-0fa1-422b-9263-147f9ed7be6c" },
   { id: "777c9014-2f12-45cf-8224-6bbe808c62cb", title: "US Treasury to double buybacks of long-term government debt", date: "2026-08-19", time: "13:59", url: "https://www.ft.com/content/777c9014-2f12-45cf-8224-6bbe808c62cb" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "1c4adb24-3e01-4548-93e2-e13f175b3c92", title: "Are ‘dodgy’ vape shops choking Britain’s high streets?", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/1c4adb24-3e01-4548-93e2-e13f175b3c92" },
   { id: "51d68f38-df09-4f78-bb80-02a4b4684235", title: "Venezuela abandons Nicolás Maduro to fate in US jail", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/51d68f38-df09-4f78-bb80-02a4b4684235" },
   { id: "ec2e966d-a281-42a2-9ceb-b14b3be2f4d0", title: "The key inflation signal for investors", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/ec2e966d-a281-42a2-9ceb-b14b3be2f4d0" },
-  { id: "72bd7b70-1dcb-4b29-8c16-fe0a820c1379", title: "Clean energy booms under Donald Trump despite effort to undercut renewables", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/72bd7b70-1dcb-4b29-8c16-fe0a820c1379" },
-  { id: "a2e965ee-31be-40ad-ab13-75861b6df838", title: "Global food security may be collateral in Ukraine war", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/a2e965ee-31be-40ad-ab13-75861b6df838" },
 ];
