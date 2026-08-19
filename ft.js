@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "4112da7f-3809-450b-900d-4934bb7c2bab", title: "Feuding Reform fuels Tory party’s faith in a comeback", date: "2026-08-19", time: "09:30", url: "https://www.ft.com/content/4112da7f-3809-450b-900d-4934bb7c2bab" },
+  { id: "115fc315-66f3-4eee-b717-4105f13f4d9a", title: "Democratic socialist unexpectedly wins Florida primary", date: "2026-08-19", time: "09:28", url: "https://www.ft.com/content/115fc315-66f3-4eee-b717-4105f13f4d9a" },
   { id: "032f5586-b958-41b3-a21e-6799269bd589", title: "Sweden’s EQT buys Australian rugby league club in first sports foray", date: "2026-08-19", time: "09:00", url: "https://www.ft.com/content/032f5586-b958-41b3-a21e-6799269bd589" },
   { id: "a888e3d8-e0c3-40ea-96fb-cd3e22e9e6d1", title: "July inflation keeps BoE on course to hold rates in September", date: "2026-08-19", time: "08:20", url: "https://www.ft.com/content/a888e3d8-e0c3-40ea-96fb-cd3e22e9e6d1" },
   { id: "bba9ad75-bc9c-4ca3-af41-77e6714fdce1", title: "Chinese automaker Chery to open UK R&D centre", date: "2026-08-19", time: "07:00", url: "https://www.ft.com/content/bba9ad75-bc9c-4ca3-af41-77e6714fdce1" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "c61e12bb-2ff1-4862-9217-38bdada90ecc", title: "Disney sues Trump administration over ‘retaliatory’ ABC licence review", date: "2026-08-18", time: "14:13", url: "https://www.ft.com/content/c61e12bb-2ff1-4862-9217-38bdada90ecc" },
   { id: "09e23587-1b06-45b3-ad19-1e5d1ec9d7de", title: "Canada makes final attempt to avoid US tariffs on $20bn of goods", date: "2026-08-18", time: "14:00", url: "https://www.ft.com/content/09e23587-1b06-45b3-ad19-1e5d1ec9d7de" },
   { id: "01165fdb-4957-45de-b612-85fac4836220", title: "Here’s Apollo’s big First Brands short presentation", date: "2026-08-18", time: "13:55", url: "https://www.ft.com/content/01165fdb-4957-45de-b612-85fac4836220" },
-  { id: "811850d2-01c9-4ea5-8af8-86b22c41a284", title: "Klarna overhauls leadership as it targets US banking licence", date: "2026-08-18", time: "13:54", url: "https://www.ft.com/content/811850d2-01c9-4ea5-8af8-86b22c41a284" },
 ];
