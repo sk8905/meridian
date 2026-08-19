@@ -20,10 +20,17 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "ec9afdc4-5fc8-4333-83a7-80b25e1009bb", title: "Investigators discover track 'irregularity' near site of UK train derailment", date: "2026-08-19", time: "13:17", url: "https://www.ft.com/content/ec9afdc4-5fc8-4333-83a7-80b25e1009bb" },
+  { id: "a98a77e2-5156-4189-b971-974a7e60130f", title: "Moderna share price doubles on melanoma vaccine trial success", date: "2026-08-19", time: "13:08", url: "https://www.ft.com/content/a98a77e2-5156-4189-b971-974a7e60130f" },
+  { id: "c5551f25-74d5-441f-8eb0-ef7ef20c7ec4", title: "Target profits double after $1bn tariff refund", date: "2026-08-19", time: "12:59", url: "https://www.ft.com/content/c5551f25-74d5-441f-8eb0-ef7ef20c7ec4" },
+  { id: "9d9d4388-2b90-48c7-8294-9c2183ba6ba6", title: "France to expel two Iranian officials in diplomatic row", date: "2026-08-19", time: "12:49", url: "https://www.ft.com/content/9d9d4388-2b90-48c7-8294-9c2183ba6ba6" },
+  { id: "c15ce62d-fc69-4c2f-ae3b-0dc4dac8a49a", title: "British free speech group hit by unease over Maga links", date: "2026-08-19", time: "12:35", url: "https://www.ft.com/content/c15ce62d-fc69-4c2f-ae3b-0dc4dac8a49a" },
+  { id: "763bf6a1-31de-4c6a-9591-963440f0562b", title: "Europe should wish Marco Rubio a bright future", date: "2026-08-19", time: "12:20", url: "https://www.ft.com/content/763bf6a1-31de-4c6a-9591-963440f0562b" },
   { id: "5799e5fa-c836-443b-935d-eb9fb58681b6", title: "Ukraine anti-corruption team raids home of top Zelenskyy aide", date: "2026-08-19", time: "12:16", url: "https://www.ft.com/content/5799e5fa-c836-443b-935d-eb9fb58681b6" },
   { id: "8b4a32a0-f14b-4069-a2e5-5e4d55b0906d", title: "We need to rethink how we pay for water", date: "2026-08-19", time: "12:00", url: "https://www.ft.com/content/8b4a32a0-f14b-4069-a2e5-5e4d55b0906d" },
   { id: "0632931b-1c3b-4ef8-aa18-038afe5d7761", title: "The US economy is running hot", date: "2026-08-19", time: "12:00", url: "https://www.ft.com/content/0632931b-1c3b-4ef8-aa18-038afe5d7761" },
   { id: "b36d4655-b05f-46a9-87b2-145437dbdc3b", title: "UK software group Pinewood agrees £545mn PE takeover by Ridgeview", date: "2026-08-19", time: "11:55", url: "https://www.ft.com/content/b36d4655-b05f-46a9-87b2-145437dbdc3b" },
+  { id: "0ff3c190-725a-47a5-afcc-e369135c0a60", title: "Death stalks the Irish pub", date: "2026-08-19", time: "11:30", url: "https://www.ft.com/content/0ff3c190-725a-47a5-afcc-e369135c0a60" },
   { id: "4112da7f-3809-450b-900d-4934bb7c2bab", title: "Feuding Reform fuels Tory party’s faith in a comeback", date: "2026-08-19", time: "09:30", url: "https://www.ft.com/content/4112da7f-3809-450b-900d-4934bb7c2bab" },
   { id: "115fc315-66f3-4eee-b717-4105f13f4d9a", title: "Democratic socialist unexpectedly wins Florida primary", date: "2026-08-19", time: "09:28", url: "https://www.ft.com/content/115fc315-66f3-4eee-b717-4105f13f4d9a" },
   { id: "032f5586-b958-41b3-a21e-6799269bd589", title: "Sweden’s EQT buys Australian rugby league club in first sports foray", date: "2026-08-19", time: "09:00", url: "https://www.ft.com/content/032f5586-b958-41b3-a21e-6799269bd589" },
@@ -54,11 +61,4 @@ export const FT_ITEMS = [
   { id: "07b8f94d-5705-47f3-aacf-52829681b8f8", title: "Mussolini’s Ghost — the strange, lasting legacy of Il Duce", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/07b8f94d-5705-47f3-aacf-52829681b8f8" },
   { id: "34a99573-0fa1-422b-9263-147f9ed7be6c", title: "Remigration binds Maga to Europe’s far right", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/34a99573-0fa1-422b-9263-147f9ed7be6c" },
   { id: "17625ee5-4bcc-4ef4-aec8-6e4b513e223a", title: "Kazakh tenge soars as foreigners pile into government debt", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/17625ee5-4bcc-4ef4-aec8-6e4b513e223a" },
-  { id: "739b7e0a-01e0-4798-966d-f1d60e62647b", title: "BlackRock and Oaktree take keys of top supplier to Hollywood studios", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/739b7e0a-01e0-4798-966d-f1d60e62647b" },
-  { id: "8a5cd515-191d-42f9-9b0c-1b817a1bc044", title: "Soaring diesel prices rip across US economy", date: "2026-08-18", time: "20:33", url: "https://www.ft.com/content/8a5cd515-191d-42f9-9b0c-1b817a1bc044" },
-  { id: "9f640f97-75bf-4ce6-8fcd-35ce1594a88d", title: "BHP’s copper pivot is paying off", date: "2026-08-18", time: "19:03", url: "https://www.ft.com/content/9f640f97-75bf-4ce6-8fcd-35ce1594a88d" },
-  { id: "b1042a5b-23b6-49c6-a5b3-c36db59703e8", title: "Barbie box office smash isn’t yet a boon for Mattel", date: "2026-08-18", time: "19:02", url: "https://www.ft.com/content/b1042a5b-23b6-49c6-a5b3-c36db59703e8" },
-  { id: "ca2a00fc-5af0-49c1-aae9-8a04c546a836", title: "Can Burnham save Britain’s high streets?", date: "2026-08-18", time: "18:14", url: "https://www.ft.com/content/ca2a00fc-5af0-49c1-aae9-8a04c546a836" },
-  { id: "90c16b57-5ea6-4cce-b4d5-5f537a79da47", title: "Israeli strikes on Syrian air base criticised by US and Turkey", date: "2026-08-18", time: "17:20", url: "https://www.ft.com/content/90c16b57-5ea6-4cce-b4d5-5f537a79da47" },
-  { id: "a5b733dd-b369-489e-877d-6b16f6d5aa27", title: "Andy Burnham hails shake-up of bus services in West Midlands", date: "2026-08-18", time: "16:49", url: "https://www.ft.com/content/a5b733dd-b369-489e-877d-6b16f6d5aa27" },
 ];

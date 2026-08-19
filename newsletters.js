@@ -34,6 +34,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-rokosbrevan-julyhavoc-20260819",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    title: "Rokos, Brevan Join Hedge Fund Peers Wrongfooted in July Havoc",
+    date: "2026-08-19",
+    time: "13:06",
+    summary: "Rokos Capital Management and Brevan Howard Asset Management joined peers that lost money in July as hedge funds faced a volatile market following a widespread selloff and sudden recovery in AI stocks.",
+    url: "https://www.bloomberg.com/news/articles/2026-08-19/rokos-brevan-join-hedge-fund-peers-wrongfooted-in-july-havoc",
+  },
+  {
     id: "nl-bbg-goingprivate-zombiefirms-20260819",
     publication: "Bloomberg",
     author: "Sinead Cruise",
