@@ -22,6 +22,9 @@
 export const FT_ITEMS = [
   { id: "5a606279-3473-4c5b-a16e-ad9db6debafb", title: "UK inflation accelerated to 2.9% in July amid Middle East energy shock", date: "2026-08-19", time: "07:02", url: "https://www.ft.com/content/5a606279-3473-4c5b-a16e-ad9db6debafb" },
   { id: "b2d9e5a2-22ce-4267-98b0-62ab78906509", title: "FirstFT: Iran weighs Europe strikes if US restarts war", date: "2026-08-19", time: "07:01", url: "https://www.ft.com/content/b2d9e5a2-22ce-4267-98b0-62ab78906509" },
+  { id: "14cd8246-7fb1-4f8f-81b4-8de11ced79e5", title: "Chinese humanoid robot maker surges 600% in trading debut", date: "2026-08-19", time: "06:37", url: "https://www.ft.com/content/14cd8246-7fb1-4f8f-81b4-8de11ced79e5" },
+  { id: "8f896be1-dd04-4476-ae70-8d67a6627ccd", title: "The defence stocks aren’t defensive", date: "2026-08-19", time: "06:30", url: "https://www.ft.com/content/8f896be1-dd04-4476-ae70-8d67a6627ccd" },
+  { id: "7775e64c-10aa-41bc-b670-c895e0bd3a41", title: "FTAV’s further reading", date: "2026-08-19", time: "06:30", url: "https://www.ft.com/content/7775e64c-10aa-41bc-b670-c895e0bd3a41" },
   { id: "6b62e9fb-d2e4-4739-9b71-8771d7e36a2d", title: "Singapore unveils tax cuts for asset managers amid global talent tussle", date: "2026-08-19", time: "06:07", url: "https://www.ft.com/content/6b62e9fb-d2e4-4739-9b71-8771d7e36a2d" },
   { id: "fe3a8ce6-e348-4588-aba0-bb88650f87b9", title: "Craig Wright, academic publishing phenomenon", date: "2026-08-19", time: "06:00", url: "https://www.ft.com/content/fe3a8ce6-e348-4588-aba0-bb88650f87b9" },
   { id: "41c9e4c9-4d02-4ad5-b31f-afef9cd0346e", title: "Venomous sea creatures plague Europe’s warming beaches", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/41c9e4c9-4d02-4ad5-b31f-afef9cd0346e" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "4e58775a-4c71-4945-895a-5dc31306ddd6", title: "Reform UK suspends Tory defector Tim Montgomerie after criticism of Nigel Farage", date: "2026-08-18", time: "13:02", url: "https://www.ft.com/content/4e58775a-4c71-4945-895a-5dc31306ddd6" },
   { id: "be40ad57-a847-43a3-8ade-9282914b965e", title: "The UK Treasury can’t avoid the Bank of England’s losses", date: "2026-08-18", time: "12:30", url: "https://www.ft.com/content/be40ad57-a847-43a3-8ade-9282914b965e" },
   { id: "9eccad94-56f5-4adf-aa61-c39e2e542226", title: "OpenAI limits teens to dedicated version of ChatGPT promising more safeguards", date: "2026-08-18", time: "12:00", url: "https://www.ft.com/content/9eccad94-56f5-4adf-aa61-c39e2e542226" },
-  { id: "7d5f7e30-88de-4dcb-9fd5-f41a4ff03804", title: "AI phobia is America’s new consensus", date: "2026-08-18", time: "11:57", url: "https://www.ft.com/content/7d5f7e30-88de-4dcb-9fd5-f41a4ff03804" },
-  { id: "3a96c015-2c9f-4897-97ea-d3f13571aa71", title: "Russia warns UK of ‘consequences’ over Ukraine’s use of British-made drones", date: "2026-08-18", time: "11:40", url: "https://www.ft.com/content/3a96c015-2c9f-4897-97ea-d3f13571aa71" },
-  { id: "61354e68-c4ba-4716-b849-b332608c8c65", title: "Global bond sell-off deepens amid fears over inflation and AI issuance", date: "2026-08-18", time: "10:13", url: "https://www.ft.com/content/61354e68-c4ba-4716-b849-b332608c8c65" },
 ];

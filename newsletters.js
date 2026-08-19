@@ -34,6 +34,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-chipselloff-20260819",
+    publication: "Bloomberg",
+    author: "Samson Ellis",
+    series: "Morning Briefing Europe",
+    title: "Investors Ditch Chip Stocks After Global Bond Selloff",
+    date: "2026-08-19",
+    time: "07:28",
+    summary: "A global selloff in semiconductor stocks deepens as bond yields stay elevated, Trump pauses 50% Canada tariffs for three days pending a deal, and Ukraine's ex-defense minister calls for wartime elections.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-19/investors-ditch-chip-stocks-after-global-bond-selloff",
+  },
+  {
     id: "nl-econ-worldinbrief-20260819",
     publication: "The Economist",
     series: "The World in Brief",
@@ -431,14 +442,5 @@ export const NEWSLETTERS = [
     time: "11:10",
     summary: "The bond market warns Bessent on deficits after the US sells 30-year bonds at 5.216%, the highest rate in a quarter century, plus crypto exchanges look beyond crypto.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-14/bessent-gets-a-warning-on-deficits-from-the-bond-market",
-  },
-  {
-    id: "nl-cnt-newlondonrestaurants-20260814",
-    publication: "Condé Nast Traveller",
-    title: "The best new restaurant in London is...",
-    date: "2026-08-14",
-    time: "10:00",
-    summary: "Restaurant of the week: the BBQ spot serving wagyu brisket with Texas naan that's become London's toughest reservation.",
-    url: "https://www.cntraveller.com/article/new-london-restaurants",
   },
 ];
