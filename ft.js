@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d30247d9-6e9e-4c2b-a6fc-9e751a9f7110", title: "Don’t mess up London’s knowledge economy", date: "2026-08-19", time: "18:07", url: "https://www.ft.com/content/d30247d9-6e9e-4c2b-a6fc-9e751a9f7110" },
+  { id: "91f17b0f-9c31-483e-b828-d90dad931a2f", title: "Grain prices surge as Ukraine war chokes off Black Sea ports", date: "2026-08-19", time: "17:55", url: "https://www.ft.com/content/91f17b0f-9c31-483e-b828-d90dad931a2f" },
+  { id: "d7c1c90d-8b85-4044-a6b0-2a085f96714e", title: "The US munitions crisis goes back further than Iran", date: "2026-08-19", time: "17:51", url: "https://www.ft.com/content/d7c1c90d-8b85-4044-a6b0-2a085f96714e" },
   { id: "8fc1f72a-c3e5-4f40-a28b-c0cb59e39256", title: "Israel-Turkey rivalry bursts into open over Syria strikes", date: "2026-08-19", time: "17:10", url: "https://www.ft.com/content/8fc1f72a-c3e5-4f40-a28b-c0cb59e39256" },
   { id: "0fdb094c-fc03-4d3c-8da6-bd11af88ff63", title: "Google strikes $12bn AI chip deal with Marvell", date: "2026-08-19", time: "17:05", url: "https://www.ft.com/content/0fdb094c-fc03-4d3c-8da6-bd11af88ff63" },
   { id: "e7fdcb9f-7560-4b6f-9524-8766f752dfcf", title: "Charlesbank nears law firm deal as private equity pushes deeper into US legal sector", date: "2026-08-19", time: "17:05", url: "https://www.ft.com/content/e7fdcb9f-7560-4b6f-9524-8766f752dfcf" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "ade8f80e-a5aa-4696-a6ca-40865c77229f", title: "Private credit’s mounting strains", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/ade8f80e-a5aa-4696-a6ca-40865c77229f" },
   { id: "9ea0cde8-129e-4d88-976f-e367b7dd4d2c", title: "Iran eyes military targets in Europe if Donald Trump escalates war, insiders say", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/9ea0cde8-129e-4d88-976f-e367b7dd4d2c" },
   { id: "117e3a76-0b5c-4e99-a6da-3421cb8d5da7", title: "Why Britain needs a Messi budget", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/117e3a76-0b5c-4e99-a6da-3421cb8d5da7" },
-  { id: "82bf560f-7803-41e7-9391-95c42b42e3b4", title: "Why the story of the Vegetable Lamb was believed", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/82bf560f-7803-41e7-9391-95c42b42e3b4" },
-  { id: "6af7701e-a9ab-4a9f-bb67-ca7ab8f78fff", title: "Can Mexicans be weaned off an addiction to cash?", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/6af7701e-a9ab-4a9f-bb67-ca7ab8f78fff" },
-  { id: "a1e7a6e3-f7b9-4ed4-a823-b5e6274aab9b", title: "Revolut to let Nik Storonsky borrow up to $250mn against his stake", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/a1e7a6e3-f7b9-4ed4-a823-b5e6274aab9b" },
 ];
