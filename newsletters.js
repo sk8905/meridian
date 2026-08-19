@@ -34,6 +34,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-econ-worldinbrief-20260819",
+    publication: "The Economist",
+    series: "The World in Brief",
+    title: "The World in Brief: Trump pauses tariffs on Canada",
+    date: "2026-08-19",
+    time: "07:01",
+    summary: "Trump pauses a 50% Canada tariff for three days as Carney says work remains, government borrowing costs jump to multi-year highs in Britain, Japan, France and Germany, and Unitree shares surge 600% in a Shanghai debut valuing the robotmaker at $66bn.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-pointsofreturn-fundmanagerssummer-20260819",
     publication: "Bloomberg",
     author: "John Authers",
@@ -430,14 +440,5 @@ export const NEWSLETTERS = [
     time: "10:00",
     summary: "Restaurant of the week: the BBQ spot serving wagyu brisket with Texas naan that's become London's toughest reservation.",
     url: "https://www.cntraveller.com/article/new-london-restaurants",
-  },
-  {
-    id: "nl-nonbillable-headhuntingfee-20260814",
-    publication: "Non-Billable",
-    title: "Headhunting's £2m payday",
-    date: "2026-08-14",
-    time: "09:05",
-    summary: "A London recruiter earns a £2m fee headhunting a top corporate real estate lawyer, Akin and Kirkland land roles on ATG Entertainment's £4.5bn sale, and law firms race for office space as legal-sector demand rises 6.1%.",
-    url: "https://non-billable.beehiiv.com/p/big-law-s-new-gold-rush-1",
   },
 ];

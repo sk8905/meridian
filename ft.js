@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "5a606279-3473-4c5b-a16e-ad9db6debafb", title: "UK inflation accelerated to 2.9% in July amid Middle East energy shock", date: "2026-08-19", time: "07:02", url: "https://www.ft.com/content/5a606279-3473-4c5b-a16e-ad9db6debafb" },
+  { id: "b2d9e5a2-22ce-4267-98b0-62ab78906509", title: "FirstFT: Iran weighs Europe strikes if US restarts war", date: "2026-08-19", time: "07:01", url: "https://www.ft.com/content/b2d9e5a2-22ce-4267-98b0-62ab78906509" },
   { id: "6b62e9fb-d2e4-4739-9b71-8771d7e36a2d", title: "Singapore unveils tax cuts for asset managers amid global talent tussle", date: "2026-08-19", time: "06:07", url: "https://www.ft.com/content/6b62e9fb-d2e4-4739-9b71-8771d7e36a2d" },
   { id: "fe3a8ce6-e348-4588-aba0-bb88650f87b9", title: "Craig Wright, academic publishing phenomenon", date: "2026-08-19", time: "06:00", url: "https://www.ft.com/content/fe3a8ce6-e348-4588-aba0-bb88650f87b9" },
   { id: "41c9e4c9-4d02-4ad5-b31f-afef9cd0346e", title: "Venomous sea creatures plague Europe’s warming beaches", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/41c9e4c9-4d02-4ad5-b31f-afef9cd0346e" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "7d5f7e30-88de-4dcb-9fd5-f41a4ff03804", title: "AI phobia is America’s new consensus", date: "2026-08-18", time: "11:57", url: "https://www.ft.com/content/7d5f7e30-88de-4dcb-9fd5-f41a4ff03804" },
   { id: "3a96c015-2c9f-4897-97ea-d3f13571aa71", title: "Russia warns UK of ‘consequences’ over Ukraine’s use of British-made drones", date: "2026-08-18", time: "11:40", url: "https://www.ft.com/content/3a96c015-2c9f-4897-97ea-d3f13571aa71" },
   { id: "61354e68-c4ba-4716-b849-b332608c8c65", title: "Global bond sell-off deepens amid fears over inflation and AI issuance", date: "2026-08-18", time: "10:13", url: "https://www.ft.com/content/61354e68-c4ba-4716-b849-b332608c8c65" },
-  { id: "bfc3fbe6-7bd8-41d5-b185-0865cf22ae95", title: "Labour has no good options on prisons", date: "2026-08-18", time: "09:30", url: "https://www.ft.com/content/bfc3fbe6-7bd8-41d5-b185-0865cf22ae95" },
-  { id: "3b211986-f6ea-47f9-8b7c-b58f261ad483", title: "UK pay weakness allays fears of second-round inflation effects", date: "2026-08-18", time: "08:51", url: "https://www.ft.com/content/3b211986-f6ea-47f9-8b7c-b58f261ad483" },
 ];
