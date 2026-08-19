@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "032f5586-b958-41b3-a21e-6799269bd589", title: "Sweden’s EQT buys Australian rugby league club in first sports foray", date: "2026-08-19", time: "09:00", url: "https://www.ft.com/content/032f5586-b958-41b3-a21e-6799269bd589" },
+  { id: "a888e3d8-e0c3-40ea-96fb-cd3e22e9e6d1", title: "July inflation keeps BoE on course to hold rates in September", date: "2026-08-19", time: "08:20", url: "https://www.ft.com/content/a888e3d8-e0c3-40ea-96fb-cd3e22e9e6d1" },
+  { id: "bba9ad75-bc9c-4ca3-af41-77e6714fdce1", title: "Chinese automaker Chery to open UK R&D centre", date: "2026-08-19", time: "07:00", url: "https://www.ft.com/content/bba9ad75-bc9c-4ca3-af41-77e6714fdce1" },
   { id: "5a606279-3473-4c5b-a16e-ad9db6debafb", title: "UK inflation accelerated to 2.9% in July amid Middle East energy shock", date: "2026-08-19", time: "07:02", url: "https://www.ft.com/content/5a606279-3473-4c5b-a16e-ad9db6debafb" },
   { id: "b2d9e5a2-22ce-4267-98b0-62ab78906509", title: "FirstFT: Iran weighs Europe strikes if US restarts war", date: "2026-08-19", time: "07:01", url: "https://www.ft.com/content/b2d9e5a2-22ce-4267-98b0-62ab78906509" },
   { id: "14cd8246-7fb1-4f8f-81b4-8de11ced79e5", title: "Chinese humanoid robot maker surges 600% in trading debut", date: "2026-08-19", time: "06:37", url: "https://www.ft.com/content/14cd8246-7fb1-4f8f-81b4-8de11ced79e5" },
@@ -32,6 +35,7 @@ export const FT_ITEMS = [
   { id: "ade8f80e-a5aa-4696-a6ca-40865c77229f", title: "Private credit’s mounting strains", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/ade8f80e-a5aa-4696-a6ca-40865c77229f" },
   { id: "9ea0cde8-129e-4d88-976f-e367b7dd4d2c", title: "Iran eyes military targets in Europe if Donald Trump escalates war, insiders say", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/9ea0cde8-129e-4d88-976f-e367b7dd4d2c" },
   { id: "117e3a76-0b5c-4e99-a6da-3421cb8d5da7", title: "Why Britain needs a Messi budget", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/117e3a76-0b5c-4e99-a6da-3421cb8d5da7" },
+  { id: "82bf560f-7803-41e7-9391-95c42b42e3b4", title: "Why the story of the Vegetable Lamb was believed", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/82bf560f-7803-41e7-9391-95c42b42e3b4" },
   { id: "6af7701e-a9ab-4a9f-bb67-ca7ab8f78fff", title: "Can Mexicans be weaned off an addiction to cash?", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/6af7701e-a9ab-4a9f-bb67-ca7ab8f78fff" },
   { id: "a1e7a6e3-f7b9-4ed4-a823-b5e6274aab9b", title: "Revolut to let Nik Storonsky borrow up to $250mn against his stake", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/a1e7a6e3-f7b9-4ed4-a823-b5e6274aab9b" },
   { id: "fb585c9d-5dc8-4beb-99a1-fb2c843ecd5a", title: "‘Manchesterism’ must honour the city’s global outlook", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/fb585c9d-5dc8-4beb-99a1-fb2c843ecd5a" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "09e23587-1b06-45b3-ad19-1e5d1ec9d7de", title: "Canada makes final attempt to avoid US tariffs on $20bn of goods", date: "2026-08-18", time: "14:00", url: "https://www.ft.com/content/09e23587-1b06-45b3-ad19-1e5d1ec9d7de" },
   { id: "01165fdb-4957-45de-b612-85fac4836220", title: "Here’s Apollo’s big First Brands short presentation", date: "2026-08-18", time: "13:55", url: "https://www.ft.com/content/01165fdb-4957-45de-b612-85fac4836220" },
   { id: "811850d2-01c9-4ea5-8af8-86b22c41a284", title: "Klarna overhauls leadership as it targets US banking licence", date: "2026-08-18", time: "13:54", url: "https://www.ft.com/content/811850d2-01c9-4ea5-8af8-86b22c41a284" },
-  { id: "e57f1e66-578e-42c9-8e59-37fe05067032", title: "Fund managers are in party mode", date: "2026-08-18", time: "13:04", url: "https://www.ft.com/content/e57f1e66-578e-42c9-8e59-37fe05067032" },
-  { id: "4e58775a-4c71-4945-895a-5dc31306ddd6", title: "Reform UK suspends Tory defector Tim Montgomerie after criticism of Nigel Farage", date: "2026-08-18", time: "13:02", url: "https://www.ft.com/content/4e58775a-4c71-4945-895a-5dc31306ddd6" },
-  { id: "be40ad57-a847-43a3-8ade-9282914b965e", title: "The UK Treasury can’t avoid the Bank of England’s losses", date: "2026-08-18", time: "12:30", url: "https://www.ft.com/content/be40ad57-a847-43a3-8ade-9282914b965e" },
-  { id: "9eccad94-56f5-4adf-aa61-c39e2e542226", title: "OpenAI limits teens to dedicated version of ChatGPT promising more safeguards", date: "2026-08-18", time: "12:00", url: "https://www.ft.com/content/9eccad94-56f5-4adf-aa61-c39e2e542226" },
 ];

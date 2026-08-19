@@ -34,6 +34,24 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-nonbillable-legalengineer-20260819",
+    publication: "Non-Billable",
+    title: "The rise of the legal engineer",
+    date: "2026-08-19",
+    time: "09:05",
+    summary: "Harvey launches a legal-engineer certification as Kirkland eases its retirement-vote rule, Knights buys THP Solicitors, the SRA warns partners over juniors' AI use, and Clifford Chance accuses ex-partners of trying to 'hijack' a $5.8m pay dispute.",
+    url: "https://non-billable.beehiiv.com/p/ai-gets-a-watermark-1",
+  },
+  {
+    id: "nl-lb-pinsentspep-20260819",
+    publication: "Legal Business",
+    title: "Pinsents PEP drops 7.2% after 'bumper year of investments'",
+    date: "2026-08-19",
+    time: "09:02",
+    summary: "Pinsent Masons' profit per equity partner falls 7.2% despite 3% revenue growth, a year that saw the firm spend heavily on laterals, tech and international expansion.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQLit9h5VLdPhvn7z/wv",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-chipselloff-20260819",
     publication: "Bloomberg",
     author: "Samson Ellis",
@@ -421,26 +439,5 @@ export const NEWSLETTERS = [
     time: "11:39",
     summary: "As repeated heat waves hit France, the country is looking at an impact running into the billions.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-14/france-is-counting-the-costs-of-repeated-scorching-heat-waves",
-  },
-  {
-    id: "nl-reuters-morningbidweekend-stayofexecution-20260814",
-    publication: "Thomson Reuters",
-    author: "Mike Dolan",
-    series: "Morning Bid Weekend",
-    title: "Stay of execution?",
-    date: "2026-08-14",
-    time: "11:30",
-    summary: "Your weekly market recap, with reading, watching and listening recommendations from the ROI team.",
-    url: "https://www.reuters.com/newsletters/morning-bid-us",
-  },
-  {
-    id: "nl-bbg-marketsdaily-highestinterestrate-20260814",
-    publication: "Bloomberg",
-    series: "Markets Daily",
-    title: "Markets Daily: Highest interest rate in 25 years",
-    date: "2026-08-14",
-    time: "11:10",
-    summary: "The bond market warns Bessent on deficits after the US sells 30-year bonds at 5.216%, the highest rate in a quarter century, plus crypto exchanges look beyond crypto.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-14/bessent-gets-a-warning-on-deficits-from-the-bond-market",
   },
 ];
