@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "14787634-6345-4446-aab6-1a3f1f519ba5", title: "Mike Ashley’s luxury retail empire is going cheap", date: "2026-08-19", time: "14:34", url: "https://www.ft.com/content/14787634-6345-4446-aab6-1a3f1f519ba5" },
+  { id: "34a99573-0fa1-422b-9263-147f9ed7be6c", title: "Mass expulsion was once a taboo idea in Europe. Then came Maga", date: "2026-08-19", time: "13:27", url: "https://www.ft.com/content/34a99573-0fa1-422b-9263-147f9ed7be6c" },
   { id: "777c9014-2f12-45cf-8224-6bbe808c62cb", title: "US Treasury to double buybacks of long-term government debt", date: "2026-08-19", time: "13:59", url: "https://www.ft.com/content/777c9014-2f12-45cf-8224-6bbe808c62cb" },
   { id: "ec9afdc4-5fc8-4333-83a7-80b25e1009bb", title: "Investigators discover track 'irregularity' near site of UK train derailment", date: "2026-08-19", time: "13:17", url: "https://www.ft.com/content/ec9afdc4-5fc8-4333-83a7-80b25e1009bb" },
   { id: "a98a77e2-5156-4189-b971-974a7e60130f", title: "Moderna share price doubles on melanoma vaccine trial success", date: "2026-08-19", time: "13:08", url: "https://www.ft.com/content/a98a77e2-5156-4189-b971-974a7e60130f" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "ec2e966d-a281-42a2-9ceb-b14b3be2f4d0", title: "The key inflation signal for investors", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/ec2e966d-a281-42a2-9ceb-b14b3be2f4d0" },
   { id: "72bd7b70-1dcb-4b29-8c16-fe0a820c1379", title: "Clean energy booms under Donald Trump despite effort to undercut renewables", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/72bd7b70-1dcb-4b29-8c16-fe0a820c1379" },
   { id: "a2e965ee-31be-40ad-ab13-75861b6df838", title: "Global food security may be collateral in Ukraine war", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/a2e965ee-31be-40ad-ab13-75861b6df838" },
-  { id: "59ed10fc-0e58-454c-9f93-d4d258ccfd9c", title: "America’s brands lose their magic", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/59ed10fc-0e58-454c-9f93-d4d258ccfd9c" },
-  { id: "07b8f94d-5705-47f3-aacf-52829681b8f8", title: "Mussolini’s Ghost — the strange, lasting legacy of Il Duce", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/07b8f94d-5705-47f3-aacf-52829681b8f8" },
 ];

@@ -34,6 +34,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-eqtpanel-20260819",
+    publication: "Legal Business",
+    title: "Latham and Paul Weiss among eight new winners as EQT finalises panel",
+    date: "2026-08-19",
+    time: "15:18",
+    summary: "Eight firms join European buyout house's 'gold' panel as new details around line-up and expectations emerge.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQLvTMpRrDaYWrTIG/wv",
+  },
+  {
     id: "nl-bbg-rokosbrevan-julyhavoc-20260819",
     publication: "Bloomberg",
     author: "Nishant Kumar",
@@ -439,14 +448,5 @@ export const NEWSLETTERS = [
     time: "12:32",
     summary: "Barclays has grown notional trades with hedge fund QRT to over $100 billion, a marker of the fund's growing prime brokerage business.",
     url: "https://www.bloomberg.com/news/articles/2026-08-14/barclays-grows-trades-with-hedge-fund-qrt-to-over-100-billion",
-  },
-  {
-    id: "nl-jpmpb-fedhike-20260814",
-    publication: "JP Morgan Private Bank",
-    title: "When will the Fed hike? It doesn't matter",
-    date: "2026-08-14",
-    time: "12:03",
-    summary: "The question isn't when the Fed moves — it's how far, with modest hikes already priced in.",
-    url: "https://go-pb.jpmorgan.com/dc/ObLtiJo2Gt8WTjWlG02OL5_NolIQIPKB0yRo_rwWgfE=/MzkyLUhLQy04NzYAAAGjnyD_whWt9_mphTebKG6oeFFnhdtm6bM6plKjtiMoDkBi5gYn8TkW6M_d7c9t6QxOO6aMI9M=",
   },
 ];
