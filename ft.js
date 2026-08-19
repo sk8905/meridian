@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "6b62e9fb-d2e4-4739-9b71-8771d7e36a2d", title: "Singapore unveils tax cuts for asset managers amid global talent tussle", date: "2026-08-19", time: "06:07", url: "https://www.ft.com/content/6b62e9fb-d2e4-4739-9b71-8771d7e36a2d" },
+  { id: "fe3a8ce6-e348-4588-aba0-bb88650f87b9", title: "Craig Wright, academic publishing phenomenon", date: "2026-08-19", time: "06:00", url: "https://www.ft.com/content/fe3a8ce6-e348-4588-aba0-bb88650f87b9" },
+  { id: "41c9e4c9-4d02-4ad5-b31f-afef9cd0346e", title: "Venomous sea creatures plague Europe’s warming beaches", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/41c9e4c9-4d02-4ad5-b31f-afef9cd0346e" },
   { id: "de2449f0-c6be-42df-9650-b61a42547651", title: "What high streets can learn from the success of retail parks", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/de2449f0-c6be-42df-9650-b61a42547651" },
   { id: "ade8f80e-a5aa-4696-a6ca-40865c77229f", title: "Private credit’s mounting strains", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/ade8f80e-a5aa-4696-a6ca-40865c77229f" },
   { id: "9ea0cde8-129e-4d88-976f-e367b7dd4d2c", title: "Iran eyes military targets in Europe if Donald Trump escalates war, insiders say", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/9ea0cde8-129e-4d88-976f-e367b7dd4d2c" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "61354e68-c4ba-4716-b849-b332608c8c65", title: "Global bond sell-off deepens amid fears over inflation and AI issuance", date: "2026-08-18", time: "10:13", url: "https://www.ft.com/content/61354e68-c4ba-4716-b849-b332608c8c65" },
   { id: "bfc3fbe6-7bd8-41d5-b185-0865cf22ae95", title: "Labour has no good options on prisons", date: "2026-08-18", time: "09:30", url: "https://www.ft.com/content/bfc3fbe6-7bd8-41d5-b185-0865cf22ae95" },
   { id: "3b211986-f6ea-47f9-8b7c-b58f261ad483", title: "UK pay weakness allays fears of second-round inflation effects", date: "2026-08-18", time: "08:51", url: "https://www.ft.com/content/3b211986-f6ea-47f9-8b7c-b58f261ad483" },
-  { id: "13b9ac91-e7f2-4d70-b302-93f6b7b4c26a", title: "Mike Ashley's Frasers grows stake in Hugo Boss to 48%", date: "2026-08-18", time: "08:06", url: "https://www.ft.com/content/13b9ac91-e7f2-4d70-b302-93f6b7b4c26a" },
-  { id: "1e9a7365-ee1f-489c-9dea-39a6fc33837b", title: "UK employers shed jobs as labour market weakens further", date: "2026-08-18", time: "08:01", url: "https://www.ft.com/content/1e9a7365-ee1f-489c-9dea-39a6fc33837b" },
-  { id: "4cfc3208-b7cb-415c-8648-0f97d92e8527", title: "You have ONE more chance to win our charts quiz champion T-shirt because the prize will soon be this hat", date: "2026-08-18", time: "07:20", url: "https://www.ft.com/content/4cfc3208-b7cb-415c-8648-0f97d92e8527" },
 ];
