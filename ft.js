@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "bed337a0-8917-4026-a406-b5ed832f36e6", title: "Putin pledges help for Wildberries warehouses hit by Ukraine", date: "2026-08-19", time: "16:45", url: "https://www.ft.com/content/bed337a0-8917-4026-a406-b5ed832f36e6" },
   { id: "d8ff1233-01ff-496d-aa18-91233c1db051", title: "Moderna’s cancer shot: exciting for investors, inconclusive for patients", date: "2026-08-19", time: "15:33", url: "https://www.ft.com/content/d8ff1233-01ff-496d-aa18-91233c1db051" },
   { id: "7a9c6019-bd0b-44b4-9a2d-db02ee881266", title: "Price of olive oil doubles in five years: how UK inflation has hit shoppers", date: "2026-08-19", time: "15:19", url: "https://www.ft.com/content/7a9c6019-bd0b-44b4-9a2d-db02ee881266" },
   { id: "14787634-6345-4446-aab6-1a3f1f519ba5", title: "Mike Ashley’s luxury retail empire is going cheap", date: "2026-08-19", time: "14:34", url: "https://www.ft.com/content/14787634-6345-4446-aab6-1a3f1f519ba5" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "fb585c9d-5dc8-4beb-99a1-fb2c843ecd5a", title: "‘Manchesterism’ must honour the city’s global outlook", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/fb585c9d-5dc8-4beb-99a1-fb2c843ecd5a" },
   { id: "1c4adb24-3e01-4548-93e2-e13f175b3c92", title: "Are ‘dodgy’ vape shops choking Britain’s high streets?", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/1c4adb24-3e01-4548-93e2-e13f175b3c92" },
   { id: "51d68f38-df09-4f78-bb80-02a4b4684235", title: "Venezuela abandons Nicolás Maduro to fate in US jail", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/51d68f38-df09-4f78-bb80-02a4b4684235" },
-  { id: "ec2e966d-a281-42a2-9ceb-b14b3be2f4d0", title: "The key inflation signal for investors", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/ec2e966d-a281-42a2-9ceb-b14b3be2f4d0" },
 ];
