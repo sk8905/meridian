@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "6e83ce44-1bff-4a07-86ad-5355c0d240ff", title: "Stripe to buy start-up OpenRouter in $8bn deal", date: "2026-08-19", time: "20:02", url: "https://www.ft.com/content/6e83ce44-1bff-4a07-86ad-5355c0d240ff" },
+  { id: "89d82561-089a-4723-9111-2fdd30552412", title: "Meet Gregory Fenelon, the (self-declared) $14bn man", date: "2026-08-19", time: "19:34", url: "https://www.ft.com/content/89d82561-089a-4723-9111-2fdd30552412" },
+  { id: "aad0fdbb-f3bf-4b99-b826-7bde552b9d81", title: "Federal Reserve officials express rising concern over persistently high US inflation", date: "2026-08-19", time: "19:31", url: "https://www.ft.com/content/aad0fdbb-f3bf-4b99-b826-7bde552b9d81" },
   { id: "739b7e0a-01e0-4798-966d-f1d60e62647b", title: "BlackRock and Oaktree take keys of top supplier to Hollywood studios", date: "2026-08-19", time: "18:58", url: "https://www.ft.com/content/739b7e0a-01e0-4798-966d-f1d60e62647b" },
   { id: "b58c7ea1-1b97-4f1f-b19d-2544041ec0a8", title: "Private credit risks remain at large", date: "2026-08-19", time: "18:17", url: "https://www.ft.com/content/b58c7ea1-1b97-4f1f-b19d-2544041ec0a8" },
   { id: "d30247d9-6e9e-4c2b-a6fc-9e751a9f7110", title: "Don’t mess up London’s knowledge economy", date: "2026-08-19", time: "18:07", url: "https://www.ft.com/content/d30247d9-6e9e-4c2b-a6fc-9e751a9f7110" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "8f896be1-dd04-4476-ae70-8d67a6627ccd", title: "The defence stocks aren’t defensive", date: "2026-08-19", time: "06:30", url: "https://www.ft.com/content/8f896be1-dd04-4476-ae70-8d67a6627ccd" },
   { id: "7775e64c-10aa-41bc-b670-c895e0bd3a41", title: "FTAV’s further reading", date: "2026-08-19", time: "06:30", url: "https://www.ft.com/content/7775e64c-10aa-41bc-b670-c895e0bd3a41" },
   { id: "6b62e9fb-d2e4-4739-9b71-8771d7e36a2d", title: "Singapore unveils tax cuts for asset managers amid global talent tussle", date: "2026-08-19", time: "06:07", url: "https://www.ft.com/content/6b62e9fb-d2e4-4739-9b71-8771d7e36a2d" },
-  { id: "fe3a8ce6-e348-4588-aba0-bb88650f87b9", title: "Craig Wright, academic publishing phenomenon", date: "2026-08-19", time: "06:00", url: "https://www.ft.com/content/fe3a8ce6-e348-4588-aba0-bb88650f87b9" },
-  { id: "41c9e4c9-4d02-4ad5-b31f-afef9cd0346e", title: "Venomous sea creatures plague Europe’s warming beaches", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/41c9e4c9-4d02-4ad5-b31f-afef9cd0346e" },
-  { id: "de2449f0-c6be-42df-9650-b61a42547651", title: "What high streets can learn from the success of retail parks", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/de2449f0-c6be-42df-9650-b61a42547651" },
 ];
