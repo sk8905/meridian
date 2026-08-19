@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "739b7e0a-01e0-4798-966d-f1d60e62647b", title: "BlackRock and Oaktree take keys of top supplier to Hollywood studios", date: "2026-08-19", time: "18:58", url: "https://www.ft.com/content/739b7e0a-01e0-4798-966d-f1d60e62647b" },
+  { id: "b58c7ea1-1b97-4f1f-b19d-2544041ec0a8", title: "Private credit risks remain at large", date: "2026-08-19", time: "18:17", url: "https://www.ft.com/content/b58c7ea1-1b97-4f1f-b19d-2544041ec0a8" },
   { id: "d30247d9-6e9e-4c2b-a6fc-9e751a9f7110", title: "Don’t mess up London’s knowledge economy", date: "2026-08-19", time: "18:07", url: "https://www.ft.com/content/d30247d9-6e9e-4c2b-a6fc-9e751a9f7110" },
   { id: "91f17b0f-9c31-483e-b828-d90dad931a2f", title: "Grain prices surge as Ukraine war chokes off Black Sea ports", date: "2026-08-19", time: "17:55", url: "https://www.ft.com/content/91f17b0f-9c31-483e-b828-d90dad931a2f" },
   { id: "d7c1c90d-8b85-4044-a6b0-2a085f96714e", title: "The US munitions crisis goes back further than Iran", date: "2026-08-19", time: "17:51", url: "https://www.ft.com/content/d7c1c90d-8b85-4044-a6b0-2a085f96714e" },
@@ -34,6 +36,7 @@ export const FT_ITEMS = [
   { id: "777c9014-2f12-45cf-8224-6bbe808c62cb", title: "US Treasury to double buybacks of long-term government debt", date: "2026-08-19", time: "13:59", url: "https://www.ft.com/content/777c9014-2f12-45cf-8224-6bbe808c62cb" },
   { id: "ec9afdc4-5fc8-4333-83a7-80b25e1009bb", title: "Investigators discover track 'irregularity' near site of UK train derailment", date: "2026-08-19", time: "13:17", url: "https://www.ft.com/content/ec9afdc4-5fc8-4333-83a7-80b25e1009bb" },
   { id: "a98a77e2-5156-4189-b971-974a7e60130f", title: "Moderna share price doubles on melanoma vaccine trial success", date: "2026-08-19", time: "13:08", url: "https://www.ft.com/content/a98a77e2-5156-4189-b971-974a7e60130f" },
+  { id: "08658423-c59c-4dea-9844-cf5a7575b269", title: "Don’t take that summer trip for granted", date: "2026-08-19", time: "13:03", url: "https://www.ft.com/content/08658423-c59c-4dea-9844-cf5a7575b269" },
   { id: "c5551f25-74d5-441f-8eb0-ef7ef20c7ec4", title: "Target profits double after $1bn tariff refund", date: "2026-08-19", time: "12:59", url: "https://www.ft.com/content/c5551f25-74d5-441f-8eb0-ef7ef20c7ec4" },
   { id: "9d9d4388-2b90-48c7-8294-9c2183ba6ba6", title: "France to expel two Iranian officials in diplomatic row", date: "2026-08-19", time: "12:49", url: "https://www.ft.com/content/9d9d4388-2b90-48c7-8294-9c2183ba6ba6" },
   { id: "c15ce62d-fc69-4c2f-ae3b-0dc4dac8a49a", title: "British free speech group hit by unease over Maga links", date: "2026-08-19", time: "12:35", url: "https://www.ft.com/content/c15ce62d-fc69-4c2f-ae3b-0dc4dac8a49a" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "fe3a8ce6-e348-4588-aba0-bb88650f87b9", title: "Craig Wright, academic publishing phenomenon", date: "2026-08-19", time: "06:00", url: "https://www.ft.com/content/fe3a8ce6-e348-4588-aba0-bb88650f87b9" },
   { id: "41c9e4c9-4d02-4ad5-b31f-afef9cd0346e", title: "Venomous sea creatures plague Europe’s warming beaches", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/41c9e4c9-4d02-4ad5-b31f-afef9cd0346e" },
   { id: "de2449f0-c6be-42df-9650-b61a42547651", title: "What high streets can learn from the success of retail parks", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/de2449f0-c6be-42df-9650-b61a42547651" },
-  { id: "ade8f80e-a5aa-4696-a6ca-40865c77229f", title: "Private credit’s mounting strains", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/ade8f80e-a5aa-4696-a6ca-40865c77229f" },
-  { id: "9ea0cde8-129e-4d88-976f-e367b7dd4d2c", title: "Iran eyes military targets in Europe if Donald Trump escalates war, insiders say", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/9ea0cde8-129e-4d88-976f-e367b7dd4d2c" },
-  { id: "117e3a76-0b5c-4e99-a6da-3421cb8d5da7", title: "Why Britain needs a Messi budget", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/117e3a76-0b5c-4e99-a6da-3421cb8d5da7" },
 ];
