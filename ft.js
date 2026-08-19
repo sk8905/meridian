@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "777c9014-2f12-45cf-8224-6bbe808c62cb", title: "US Treasury to double buybacks of long-term government debt", date: "2026-08-19", time: "13:59", url: "https://www.ft.com/content/777c9014-2f12-45cf-8224-6bbe808c62cb" },
   { id: "ec9afdc4-5fc8-4333-83a7-80b25e1009bb", title: "Investigators discover track 'irregularity' near site of UK train derailment", date: "2026-08-19", time: "13:17", url: "https://www.ft.com/content/ec9afdc4-5fc8-4333-83a7-80b25e1009bb" },
   { id: "a98a77e2-5156-4189-b971-974a7e60130f", title: "Moderna share price doubles on melanoma vaccine trial success", date: "2026-08-19", time: "13:08", url: "https://www.ft.com/content/a98a77e2-5156-4189-b971-974a7e60130f" },
   { id: "c5551f25-74d5-441f-8eb0-ef7ef20c7ec4", title: "Target profits double after $1bn tariff refund", date: "2026-08-19", time: "12:59", url: "https://www.ft.com/content/c5551f25-74d5-441f-8eb0-ef7ef20c7ec4" },
@@ -59,6 +60,4 @@ export const FT_ITEMS = [
   { id: "a2e965ee-31be-40ad-ab13-75861b6df838", title: "Global food security may be collateral in Ukraine war", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/a2e965ee-31be-40ad-ab13-75861b6df838" },
   { id: "59ed10fc-0e58-454c-9f93-d4d258ccfd9c", title: "America’s brands lose their magic", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/59ed10fc-0e58-454c-9f93-d4d258ccfd9c" },
   { id: "07b8f94d-5705-47f3-aacf-52829681b8f8", title: "Mussolini’s Ghost — the strange, lasting legacy of Il Duce", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/07b8f94d-5705-47f3-aacf-52829681b8f8" },
-  { id: "34a99573-0fa1-422b-9263-147f9ed7be6c", title: "Remigration binds Maga to Europe’s far right", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/34a99573-0fa1-422b-9263-147f9ed7be6c" },
-  { id: "17625ee5-4bcc-4ef4-aec8-6e4b513e223a", title: "Kazakh tenge soars as foreigners pile into government debt", date: "2026-08-19", time: "05:00", url: "https://www.ft.com/content/17625ee5-4bcc-4ef4-aec8-6e4b513e223a" },
 ];
