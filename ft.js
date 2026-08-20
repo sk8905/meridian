@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b536b114-8a82-41ef-8e44-42df0716dd03", title: "Stripe bets that an AI world still needs middlemen", date: "2026-08-20", time: "18:07", url: "https://www.ft.com/content/b536b114-8a82-41ef-8e44-42df0716dd03" },
+  { id: "ecafb9a8-b9a6-48a4-8d3c-a626b26fe82b", title: "Monte dei Paschi readies twin takeover bids for Banca Generali and Banco BPM", date: "2026-08-20", time: "18:06", url: "https://www.ft.com/content/ecafb9a8-b9a6-48a4-8d3c-a626b26fe82b" },
   { id: "89d82561-089a-4723-9111-2fdd30552412", title: "Meet Gregory Fenelon, the (self-declared) $14bn man", date: "2026-08-20", time: "17:03", url: "https://www.ft.com/content/89d82561-089a-4723-9111-2fdd30552412" },
   { id: "785aafd1-705a-47da-b016-032d66e449c0", title: "Donald Trump announces fresh ‘economic warfare’ on Iran", date: "2026-08-20", time: "16:29", url: "https://www.ft.com/content/785aafd1-705a-47da-b016-032d66e449c0" },
   { id: "fe17490c-084c-4e25-beae-225a0b6c3ad2", title: "Trump’s South Korea defence flip reminds Japan that it has no Plan B", date: "2026-08-20", time: "16:28", url: "https://www.ft.com/content/fe17490c-084c-4e25-beae-225a0b6c3ad2" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "6c358cee-d7ec-4542-9c1b-f922b13d48ae", title: "UK finally showing signs of productivity boost, say economists", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/6c358cee-d7ec-4542-9c1b-f922b13d48ae" },
   { id: "30ff2e38-38a2-4e4b-8c63-af84a8d1ece4", title: "Premier League summer transfer spending set to break record", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/30ff2e38-38a2-4e4b-8c63-af84a8d1ece4" },
   { id: "4bf0e154-b028-4ddf-b1c7-5269a8c58ebe", title: "Two-thirds of UK students run out of money before the end of term", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/4bf0e154-b028-4ddf-b1c7-5269a8c58ebe" },
-  { id: "5ca20d4b-1ec1-4e6d-8994-ba906c7cfd33", title: "Will Barclays’ latest Wall Street reset finally work?", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/5ca20d4b-1ec1-4e6d-8994-ba906c7cfd33" },
 ];
