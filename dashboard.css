@@ -245,9 +245,9 @@
 .dsh-pill-k { color:var(--t-ink); font-size:.61rem; font-weight:600; text-transform:uppercase; letter-spacing:.05em; flex:0 0 auto; }
 .dsh-pill-v { color:var(--t-mut); font-size:.72rem; font-weight:500; line-height:1.25; text-align:right; flex:1 1 auto; min-width:0; }
 
-/* Rate-outlook grid (Macro) — one card per economy */
-.dsh-rogrid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-@media (max-width:560px){ .dsh-rogrid{ grid-template-columns:1fr; } }
+/* Rate-outlook grid (Macro) — one card per economy, stacked vertically so the
+   Rate-outlook card fills the height of the taller Yield-curve card beside it. */
+.dsh-rogrid { display:grid; grid-template-columns:1fr; gap:10px; }
 .dsh-ro { border:1px solid var(--t-grid); border-radius:6px; padding:9px 10px; background:var(--t-panel2); }
 .dsh-ro-h { display:flex; align-items:baseline; justify-content:space-between; gap:8px; }
 .dsh-ro-nm { color:var(--t-mut); font-size:.74rem; }

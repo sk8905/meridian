@@ -1071,20 +1071,22 @@ async function handlePredict(request, env, ctx) {
 }
 
 // Live government yield curves for the Macro dashboard: the US Treasury par curve
-// (one CSV fetch) and the UK gilt curve (Tullett Prebon benchmarks via MarketWatch).
-// Any maturity that can't be sourced comes back null and the client falls back to
-// its compiled value, so the chart never breaks. Cached 30 min (yields are daily).
+// (one CSV fetch) and the UK gilt curve (CNBC's keyless bond quotes — the same
+// reachable source the live UK 2Y tile uses; MarketWatch's CSV is now bot-blocked
+// to the Worker). Any maturity that can't be sourced comes back null and the
+// client falls back to its compiled value, so the chart never breaks. CNBC has no
+// UK 3M gilt symbol, so that point stays on the compiled fallback. Cached 30 min.
 const YC_MATS = ["3M", "2Y", "5Y", "10Y", "30Y"];
 const YC_US_COL = { "3M": "3 Mo", "2Y": "2 Yr", "5Y": "5 Yr", "10Y": "10 Yr", "30Y": "30 Yr" };
-const YC_UK_TICKER = { "2Y": "tmbmkgb-02y", "5Y": "tmbmkgb-05y", "10Y": "tmbmkgb-10y", "30Y": "tmbmkgb-30y" };
+const YC_UK_CNBC = { "2Y": "UK2Y-GB", "5Y": "UK5Y-GB", "10Y": "UK10Y-GB", "30Y": "UK30Y-GB" };
 async function handleYieldCurve(request, env, ctx) {
   const cache = caches.default;
-  const cacheKey = new Request(new URL("/api/yield-curve?v=1", request.url).toString());
+  const cacheKey = new Request(new URL("/api/yield-curve?v=2", request.url).toString());
   const cached = await cache.match(cacheKey);
   if (cached) return cached;
   const [usc, ...uk] = await Promise.all([
     treasuryCurve(YC_MATS.map((m) => YC_US_COL[m])),
-    ...YC_MATS.map((m) => (YC_UK_TICKER[m] ? marketwatchBondYield(YC_UK_TICKER[m]) : Promise.resolve(null))),
+    ...YC_MATS.map((m) => (YC_UK_CNBC[m] ? cnbcYield(YC_UK_CNBC[m]) : Promise.resolve(null))),
   ]);
   const us = YC_MATS.map((m) => { const v = usc.values[YC_US_COL[m]]; return Number.isFinite(v) ? +(+v).toFixed(2) : null; });
   const ukArr = YC_MATS.map((m, i) => (Number.isFinite(uk[i]) ? +(+uk[i]).toFixed(2) : null));
@@ -1092,7 +1094,7 @@ async function handleYieldCurve(request, env, ctx) {
     maturities: YC_MATS, us, uk: ukArr, asOf: usc.asOf,
     sources: [
       ["US Treasury — daily par yield curve", "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"],
-      ["UK gilt benchmarks (Tullett Prebon via MarketWatch)", "https://www.marketwatch.com/investing/bond/tmbmkgb-10y?countrycode=bx"],
+      ["UK gilt benchmarks (CNBC)", "https://www.cnbc.com/quotes/UK10Y-GB"],
     ],
   };
   const resp = new Response(JSON.stringify(body), { headers: { "content-type": "application/json", "cache-control": "public, max-age=1800" } });

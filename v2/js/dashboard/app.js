@@ -35,6 +35,7 @@ const _norm = (s) => String(s || "").toLowerCase().replace(/['’‘]/g, "");
 export function mount(host, ctx) {
   let pane = "macro";
   let _gyLive = null;                    // live yields overlay (/api/govyields), keyed by country
+  let _ycLive = null;                    // live US/UK yield curve overlay (/api/yield-curve)
   let _yldTenor = "y10";                 // tenor selected in the yield-change heatmap dropdown
   let _macroSub = "rates";               // Macro nested sub-tab: "rates" | "cycle"
   let _legalQuery = "";                 // Legal database keyword (persist across re-renders)
@@ -427,8 +428,19 @@ export function mount(host, ctx) {
   }
   // Yield curve — a small SVG line for US & UK across the standard maturities,
   // plus the underlying table (used by the Macro pane). Refinitiv-style read.
+  // Live US Treasury + UK gilt curves (/api/yield-curve) merged over the compiled
+  // YIELD_CURVE per maturity, so a point that can't be sourced keeps its fallback
+  // and the freshest available "as of" date wins. _ycLive is filled by loadYieldCurve().
+  function mergedYC() {
+    const base = YIELD_CURVE || {};
+    if (!_ycLive) return base;
+    const merge = (live, stat) => (stat || []).map((v, i) => (live && Number.isFinite(live[i]) ? live[i] : v));
+    const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(_ycLive.asOf || "");
+    const asOf = m ? `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}` : (base.asOf || "");
+    return { ...base, us: merge(_ycLive.us, base.us), uk: merge(_ycLive.uk, base.uk), asOf };
+  }
   function yieldCurveHTML() {
-    const yc = YIELD_CURVE; if (!yc || !yc.maturities) return "";
+    const yc = mergedYC(); if (!yc || !yc.maturities) return "";
     const mats = yc.maturities, us = yc.us || [], uk = yc.uk || [];
     const all = [...us, ...uk].filter((v) => v != null);
     const lo = Math.floor(Math.min(...all) * 2) / 2 - 0.25, hi = Math.ceil(Math.max(...all) * 2) / 2 + 0.25;
@@ -445,6 +457,24 @@ export function mount(host, ctx) {
     const table = `<table class="dsh-tbl"><thead><tr><th>Curve</th>${mats.map((m) => `<th class="dsh-r">${esc(m)}</th>`).join("")}</tr></thead><tbody>${rowFor(us, "US Treasury", "dsh-yc-us")}${rowFor(uk, "UK gilts", "dsh-yc-uk")}</tbody></table>`;
     const src = (yc.sources && yc.sources[0]) || null;
     return `<div class="dsh-yc">${svg}</div>${table}` + (src ? `<div class="dsh-ladder-cap">${esc(yc.asOf || "")} · <a href="${esc(src[1])}" target="_blank" rel="noopener noreferrer">${esc(src[0])}</a></div>` : "");
+  }
+  // The whole Yield-curve card (header "as of" + body) so loadYieldCurve() can
+  // repaint it in place once the live curve lands — header date included.
+  function yieldCurveCardHTML() {
+    return `<h3 class="dsh-h">Yield curve ${asOf(mergedYC().asOf)}</h3>${yieldCurveHTML()}`;
+  }
+  // Pull the live US Treasury + UK gilt curves and repaint the card. Never throws —
+  // on any failure the compiled curve (and its July date) simply stays.
+  async function loadYieldCurve() {
+    try {
+      const r = await fetch("/api/yield-curve", { headers: { accept: "application/json" } });
+      if (!r.ok) return;
+      const d = await r.json();
+      if (!d || !Array.isArray(d.us)) return;
+      _ycLive = d;
+      const card = host.querySelector("#dsh-yc-card");
+      if (card) card.innerHTML = yieldCurveCardHTML();
+    } catch { /* keep the compiled curve */ }
   }
   // Multi-country yield curve (Fixed Income pane) — every country in the heatmap
   // plotted across 2Y/5Y/10Y/30Y from the GOVT_YIELDS levels, as a multi-line SVG
@@ -544,7 +574,7 @@ export function mount(host, ctx) {
       ${fed ? `<section class="dsh-card dsh-span" data-mgrp="rates"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
       ${boe ? `<section class="dsh-card dsh-span" data-mgrp="rates"><h3 class="dsh-h">BoE path — MPC votes &amp; SONIA/OIS curve</h3>${boe}</section>` : ""}
       <section class="dsh-card" data-mgrp="rates"><h3 class="dsh-h">Rate outlook</h3>${rateOutlookHTML()}</section>
-      <section class="dsh-card" data-mgrp="rates"><h3 class="dsh-h">Yield curve ${asOf(YIELD_CURVE && YIELD_CURVE.asOf)}</h3>${yieldCurveHTML()}</section>
+      <section class="dsh-card" data-mgrp="rates" id="dsh-yc-card">${yieldCurveCardHTML()}</section>
       <section class="dsh-card dsh-span" data-mgrp="rates"><h3 class="dsh-h">Macro wire — US &amp; UK headlines</h3>${macroNewsHTML()}</section>
       <section class="dsh-card dsh-span" data-mgrp="cycle"><h3 class="dsh-h">Where we are in the cycle — debt &amp; market</h3>${cyclesHTML()}</section>
     </div>`;
@@ -834,6 +864,7 @@ export function mount(host, ctx) {
       : pane === "legal" ? legalHTML()
       : macroHTML();
     host.innerHTML = `<div class="dsh"><header class="dsh-nav tdet-secnav"><div class="tchips">${nav}</div></header>${body}</div>`;
+    if (pane === "macro") loadYieldCurve();
     if (pane === "equities") loadWorldIndices();
     if (pane === "credit") { loadSpreads(); wireStressSort(); }
     if (pane === "fixed-income") { loadSpreads(); wireYields(); loadGovYields(); }

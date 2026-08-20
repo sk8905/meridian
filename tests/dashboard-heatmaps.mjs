@@ -100,5 +100,31 @@ const base = `http://localhost:${srv.port}`;
   await ctx.close();
 }
 
+// ---- Macro: Rate outlook (stacked) + US/UK Yield curve card ----
+{
+  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/dashboard/macro/");
+  await pg.waitForTimeout(1600);
+  const m = await pg.evaluate(() => {
+    const rogrid = document.querySelector(".dsh-rogrid");
+    const ycCard = document.querySelector("#dsh-yc-card");
+    const cols = rogrid ? getComputedStyle(rogrid).gridTemplateColumns.trim() : "";
+    const rowLabels = ycCard ? [...ycCard.querySelectorAll("table tbody tr .dsh-nm")].map((t) => t.textContent.trim()) : [];
+    return {
+      economies: rogrid ? rogrid.querySelectorAll(".dsh-ro").length : 0,
+      stacked: cols && !/\s/.test(cols),                          // one grid track → cells stacked vertically
+      ycHeader: ycCard ? /Yield curve/.test(ycCard.querySelector(".dsh-h").textContent) : false,
+      ycLines: ycCard ? ycCard.querySelectorAll(".dsh-yc-svg path").length : 0,
+      rowLabels,
+    };
+  });
+  checkEq(m.economies, 2, "Macro: Rate outlook renders both economies (US · Fed, UK · BoE)");
+  check(m.stacked, "Macro: Rate-outlook cells stack in a single column (fills the gap)");
+  check(m.ycHeader, "Macro: Yield-curve card renders with its header");
+  checkEq(m.ycLines, 2, "Macro: Yield curve draws US Treasury + UK gilt lines");
+  check(m.rowLabels.some((l) => /US Treasury/.test(l)) && m.rowLabels.some((l) => /UK gilts/.test(l)), "Macro: Yield-curve table has US Treasury + UK gilts rows");
+  checkErrs(errs, "macro rate outlook + yield curve");
+  await ctx.close();
+}
+
 await b.close(); srv.close();
 finish();
