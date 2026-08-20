@@ -1037,7 +1037,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "Sterling extended its rally toward a three-month peak against a broadly weak dollar, though UOB flagged firm resistance at 1.3655 (a break below 1.3535 would signal the upside push has stalled), as fading Fed hike bets and the Treasury's expanded long-bond buybacks keep the greenback under pressure.", src: "https://www.fxstreet.com/news/british-pound-further-gains-face-13655-cap-against-us-dollar-uob-202608200615", srcName: "FXStreet", date: "2026-08-20" };
+export const FX_KEYMOMENT = { text: "The dollar index slipped to its lowest since mid-May near 98.7 — with the euro pushing toward $1.17 — as the Treasury's expanded long-bond buyback programme eased worries over the recent spike in the 30-year Treasury yield to a 19-year high, keeping sterling's rally toward a three-month peak against the dollar intact.", src: "https://www.cnbc.com/amp/2026/08/20/dollar-hugs-three-month-lows-as-treasury-aims-to-sooth-the-bond-market.html", srcName: "Reuters (via CNBC)", date: "2026-08-20" };
 
 export const EARNINGS = {
   weeks: [
