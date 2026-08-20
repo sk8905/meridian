@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "40fdc4d1-53d8-4def-b1a1-3fda6c4f8553", title: "Djokovic vs Jordan: getting into the minds of sporting GOATs", date: "2026-08-20", time: "13:08", url: "https://www.ft.com/content/40fdc4d1-53d8-4def-b1a1-3fda6c4f8553" },
+  { id: "90bd90e5-5161-4f56-8dfb-e737479fbb99", title: "Europe, the secret outperformer", date: "2026-08-20", time: "13:00", url: "https://www.ft.com/content/90bd90e5-5161-4f56-8dfb-e737479fbb99" },
   { id: "79f1f638-1fd5-40e1-845b-b4a787a12883", title: "Walmart pledges to use US tariff refund to cut grocery prices", date: "2026-08-20", time: "12:03", url: "https://www.ft.com/content/79f1f638-1fd5-40e1-845b-b4a787a12883" },
   { id: "d15d68d5-291b-44d2-8fdf-3afc95308e9e", title: "North Korea launches missile barrage after dismissing Donald Trump’s overture", date: "2026-08-20", time: "11:43", url: "https://www.ft.com/content/d15d68d5-291b-44d2-8fdf-3afc95308e9e" },
   { id: "f72df19f-29f2-4330-8e27-c69919d56972", title: "‘Treasury demand has become materially more valuation-sensitive’", date: "2026-08-20", time: "11:18", url: "https://www.ft.com/content/f72df19f-29f2-4330-8e27-c69919d56972" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "565f7434-f648-45a8-b0d4-b04a529c39cd", title: "War comes to Vladimir Putin’s favourite Black Sea resort", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/565f7434-f648-45a8-b0d4-b04a529c39cd" },
   { id: "41e4528d-0d87-4be3-9c59-46f37cec8136", title: "Meloni and Maga: a cautionary tale", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/41e4528d-0d87-4be3-9c59-46f37cec8136" },
   { id: "b88c3466-4525-4e16-b3fe-e10e713a2025", title: "The box that built globalisation", date: "2026-08-20", time: "04:00", url: "https://www.ft.com/content/b88c3466-4525-4e16-b3fe-e10e713a2025" },
-  { id: "5799e5fa-c836-443b-935d-eb9fb58681b6", title: "Volodymyr Zelenskyy fires top aide as corruption allegations pile up", date: "2026-08-19", time: "20:06", url: "https://www.ft.com/content/5799e5fa-c836-443b-935d-eb9fb58681b6" },
-  { id: "6e83ce44-1bff-4a07-86ad-5355c0d240ff", title: "Stripe to buy start-up OpenRouter in $8bn deal", date: "2026-08-19", time: "20:02", url: "https://www.ft.com/content/6e83ce44-1bff-4a07-86ad-5355c0d240ff" },
-  { id: "89d82561-089a-4723-9111-2fdd30552412", title: "Meet Gregory Fenelon, the (self-declared) $14bn man", date: "2026-08-19", time: "19:34", url: "https://www.ft.com/content/89d82561-089a-4723-9111-2fdd30552412" },
 ];
