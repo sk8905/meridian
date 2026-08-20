@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a355db7d-19f6-469a-a528-8376ca4db5ce", title: "Moderna breakthrough brings back memories of pandemic mania", date: "2026-08-20", time: "16:13", url: "https://www.ft.com/content/a355db7d-19f6-469a-a528-8376ca4db5ce" },
+  { id: "eae8bbc5-7946-4fdc-8e0a-3215f7e56dd2", title: "Western oil refinery closures set to continue despite war shock", date: "2026-08-20", time: "15:29", url: "https://www.ft.com/content/eae8bbc5-7946-4fdc-8e0a-3215f7e56dd2" },
   { id: "6aea64b8-9e9b-401a-9582-7753cbef17c5", title: "America’s national debt hits record $40tn", date: "2026-08-20", time: "13:00", url: "https://www.ft.com/content/6aea64b8-9e9b-401a-9582-7753cbef17c5" },
   { id: "93992d7a-e20d-4f35-a958-c7a9f3b84c02", title: "Investors cut bets on US and UK interest rate rises", date: "2026-08-20", time: "12:55", url: "https://www.ft.com/content/93992d7a-e20d-4f35-a958-c7a9f3b84c02" },
   { id: "0c01cdd9-93e8-469c-8f09-a6d68c91fbc3", title: "US long-term bonds slide as Bessent intervention fails to soothe investors", date: "2026-08-20", time: "12:52", url: "https://www.ft.com/content/0c01cdd9-93e8-469c-8f09-a6d68c91fbc3" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "57a4cf95-e510-4349-804e-81e7679ccac7", title: "The UK power system is stuck between a rock and a hard place", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/57a4cf95-e510-4349-804e-81e7679ccac7" },
   { id: "cd52173f-5863-4996-93b2-c4adb81ad210", title: "Moderna pins hopes on mRNA ‘game-changer’ for cancer vaccines", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/cd52173f-5863-4996-93b2-c4adb81ad210" },
   { id: "e1d82f18-0555-445b-b595-72c54d1dc940", title: "The growing cost to the UK of the nuclear deterrent", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/e1d82f18-0555-445b-b595-72c54d1dc940" },
-  { id: "f1d8ba1d-d3eb-453b-b2b7-45e1c299291f", title: "Nearly nine in 10 leasehold flats still on the market after six months", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/f1d8ba1d-d3eb-453b-b2b7-45e1c299291f" },
-  { id: "77a035d2-0e83-4dad-8c88-a0256f91fdce", title: "I’m a garden designer. Here’s why I hired a gardener", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/77a035d2-0e83-4dad-8c88-a0256f91fdce" },
 ];

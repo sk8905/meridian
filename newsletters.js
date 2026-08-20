@@ -34,6 +34,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-mailbrew-fridaybrew-9-20260820",
+    publication: "Mailbrew",
+    series: "Friday Brew",
+    title: "Friday Brew #9",
+    date: "2026-08-20",
+    time: "15:52",
+    summary: "Digest round-up: Blackstone and Starwood’s retail property machines, Jane Street and CDS spreads, Michael Burry, El-Erian’s weekly markets look and FT Alphaville.",
+    url: "https://app.mailbrew.com/stevedkennedy/friday-brew-03bEHcNb3hHB/9",
+  },
+  {
     id: "nl-bbg-economicsdaily-bondvigilant-20260820",
     publication: "Bloomberg",
     author: "Chris Anstey",
@@ -435,16 +445,5 @@ export const NEWSLETTERS = [
     time: "05:00",
     summary: "S&P 500 volatility has dropped to its lowest of the year as great earnings, calm data and an absence of news keep markets in the summer doldrums.",
     url: "https://bloom.bg/4xaC1Sk",
-  },
-  {
-    id: "nl-bbg-thebrink-ardaghcashin-20260815",
-    publication: "Bloomberg",
-    author: "Edward Clark",
-    series: "The Brink",
-    title: "The Brink: Cashing in on Ardagh",
-    date: "2026-08-15",
-    time: "16:00",
-    summary: "Arini and Canyon led the takeover of Ardagh, and now want to sell its most valuable asset.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-15/ardagh-s-new-owners-arini-and-canyon-are-ready-to-cash-in",
   },
 ];
