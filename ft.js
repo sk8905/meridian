@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "736418a3-6d0d-4425-91df-9671db4c9b7d", title: "Russian missile attack kills at least 13 in Kyiv", date: "2026-08-20", time: "07:57", url: "https://www.ft.com/content/736418a3-6d0d-4425-91df-9671db4c9b7d" },
+  { id: "63781160-8d91-4e88-802c-6c8aac41d32a", title: "Google’s China shift and the battle over AI models", date: "2026-08-20", time: "07:50", url: "https://www.ft.com/content/63781160-8d91-4e88-802c-6c8aac41d32a" },
   { id: "832a6431-5af9-4dd5-aa72-1d4f570527cf", title: "FirstFT: Backlash over law firms’ ‘crazy’ early hiring", date: "2026-08-20", time: "07:07", url: "https://www.ft.com/content/832a6431-5af9-4dd5-aa72-1d4f570527cf" },
   { id: "b1e9ad81-7600-4ee3-8651-7891796d767e", title: "Starmer lacked ‘vision’ and needed ‘bigger people’ around him, says Sue Gray", date: "2026-08-20", time: "07:00", url: "https://www.ft.com/content/b1e9ad81-7600-4ee3-8651-7891796d767e" },
   { id: "895d78fc-ce60-4cb6-a8d5-db3ab01d1ebf", title: "Founder of collapsed Chinese property giant given life sentence", date: "2026-08-20", time: "06:49", url: "https://www.ft.com/content/895d78fc-ce60-4cb6-a8d5-db3ab01d1ebf" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "91f17b0f-9c31-483e-b828-d90dad931a2f", title: "Grain prices surge as Ukraine war chokes off Black Sea ports", date: "2026-08-19", time: "17:55", url: "https://www.ft.com/content/91f17b0f-9c31-483e-b828-d90dad931a2f" },
   { id: "d7c1c90d-8b85-4044-a6b0-2a085f96714e", title: "The US munitions crisis goes back further than Iran", date: "2026-08-19", time: "17:51", url: "https://www.ft.com/content/d7c1c90d-8b85-4044-a6b0-2a085f96714e" },
   { id: "8fc1f72a-c3e5-4f40-a28b-c0cb59e39256", title: "Israel-Turkey rivalry bursts into the open over Syria strikes", date: "2026-08-19", time: "17:10", url: "https://www.ft.com/content/8fc1f72a-c3e5-4f40-a28b-c0cb59e39256" },
-  { id: "0fdb094c-fc03-4d3c-8da6-bd11af88ff63", title: "Google strikes $12bn AI chip deal with Marvell", date: "2026-08-19", time: "17:05", url: "https://www.ft.com/content/0fdb094c-fc03-4d3c-8da6-bd11af88ff63" },
-  { id: "e7fdcb9f-7560-4b6f-9524-8766f752dfcf", title: "Charlesbank nears law firm deal as private equity pushes deeper into US legal sector", date: "2026-08-19", time: "17:05", url: "https://www.ft.com/content/e7fdcb9f-7560-4b6f-9524-8766f752dfcf" },
 ];

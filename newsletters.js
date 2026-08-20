@@ -34,6 +34,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-marketsrise-20260820",
+    publication: "Bloomberg",
+    author: "Jill Disis",
+    series: "Morning Briefing Europe",
+    title: "Markets Rise After Bessent’s Bond Bet",
+    date: "2026-08-20",
+    time: "06:26",
+    summary: "US bond buyback plans boost global markets, Trump renews threats of an “economic D-Day” squeeze on Iran, and Prince Harry and Meghan plan a return to the UK from California.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-20/markets-rise-after-bessent-s-bond-bet",
+  },
+  {
     id: "nl-econ-worldinbrief-debt40trn-20260820",
     publication: "The Economist",
     series: "The World in Brief",
@@ -433,24 +444,5 @@ export const NEWSLETTERS = [
     time: "17:49",
     summary: "Latham and A&O Shearman advise as a Jeff Bezos-backed consortium buys a 'strategic minority stake' in Liverpool FC.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMQJ3Hi9aX35X5YCGX/wv",
-  },
-  {
-    id: "nl-gs-briefings-aicapex1trillion-20260814",
-    publication: "Goldman Sachs",
-    title: "$1 Trillion: AI Capex in 2026",
-    date: "2026-08-14",
-    time: "16:32",
-    summary: "Goldman Sachs Research puts 2026 global AI investment at $1.02tn, well above the widely cited $800bn hyperscaler capex consensus.",
-    url: "https://www.goldmansachs.com/insights/articles/global-investment-is-forecast-to-exceed-1-trillion-in-2026",
-  },
-  {
-    id: "nl-bbg-authoralert-nkumar-rokosmultistrats-20260814",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    title: "Rokos Joins Multistrats in Move to Extend Client Exit to 3 Years",
-    date: "2026-08-14",
-    time: "14:25",
-    summary: "Rokos triples investor lock-up time to three years, following larger multistrategy peers.",
-    url: "https://www.bloomberg.com/news/articles/2026-08-14/rokos-joins-multistrats-in-move-to-extend-client-exit-to-3-years",
   },
 ];
