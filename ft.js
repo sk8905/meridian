@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "89d82561-089a-4723-9111-2fdd30552412", title: "Meet Gregory Fenelon, the (self-declared) $14bn man", date: "2026-08-20", time: "17:03", url: "https://www.ft.com/content/89d82561-089a-4723-9111-2fdd30552412" },
+  { id: "fe17490c-084c-4e25-beae-225a0b6c3ad2", title: "Trump’s South Korea defence flip reminds Japan that it has no Plan B", date: "2026-08-20", time: "16:28", url: "https://www.ft.com/content/fe17490c-084c-4e25-beae-225a0b6c3ad2" },
   { id: "a355db7d-19f6-469a-a528-8376ca4db5ce", title: "Moderna breakthrough brings back memories of pandemic mania", date: "2026-08-20", time: "16:13", url: "https://www.ft.com/content/a355db7d-19f6-469a-a528-8376ca4db5ce" },
   { id: "eae8bbc5-7946-4fdc-8e0a-3215f7e56dd2", title: "Western oil refinery closures set to continue despite war shock", date: "2026-08-20", time: "15:29", url: "https://www.ft.com/content/eae8bbc5-7946-4fdc-8e0a-3215f7e56dd2" },
   { id: "6aea64b8-9e9b-401a-9582-7753cbef17c5", title: "America’s national debt hits record $40tn", date: "2026-08-20", time: "13:00", url: "https://www.ft.com/content/6aea64b8-9e9b-401a-9582-7753cbef17c5" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "d70655c1-63b8-4142-aae8-82db916bc045", title: "Top US law firms hit by backlash over ‘crazy’ hiring of first-year students", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/d70655c1-63b8-4142-aae8-82db916bc045" },
   { id: "6181c22c-731a-4044-9720-fc4e0d500403", title: "The slow sucking sound of AI", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/6181c22c-731a-4044-9720-fc4e0d500403" },
   { id: "57a4cf95-e510-4349-804e-81e7679ccac7", title: "The UK power system is stuck between a rock and a hard place", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/57a4cf95-e510-4349-804e-81e7679ccac7" },
-  { id: "cd52173f-5863-4996-93b2-c4adb81ad210", title: "Moderna pins hopes on mRNA ‘game-changer’ for cancer vaccines", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/cd52173f-5863-4996-93b2-c4adb81ad210" },
-  { id: "e1d82f18-0555-445b-b595-72c54d1dc940", title: "The growing cost to the UK of the nuclear deterrent", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/e1d82f18-0555-445b-b595-72c54d1dc940" },
 ];
