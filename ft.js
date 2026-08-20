@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "832a6431-5af9-4dd5-aa72-1d4f570527cf", title: "FirstFT: Backlash over law firms’ ‘crazy’ early hiring", date: "2026-08-20", time: "07:07", url: "https://www.ft.com/content/832a6431-5af9-4dd5-aa72-1d4f570527cf" },
+  { id: "b1e9ad81-7600-4ee3-8651-7891796d767e", title: "Starmer lacked ‘vision’ and needed ‘bigger people’ around him, says Sue Gray", date: "2026-08-20", time: "07:00", url: "https://www.ft.com/content/b1e9ad81-7600-4ee3-8651-7891796d767e" },
+  { id: "895d78fc-ce60-4cb6-a8d5-db3ab01d1ebf", title: "Founder of collapsed Chinese property giant given life sentence", date: "2026-08-20", time: "06:49", url: "https://www.ft.com/content/895d78fc-ce60-4cb6-a8d5-db3ab01d1ebf" },
+  { id: "f8880b82-7283-4a3c-b000-06e5d0c87993", title: "Big Brother Bessent is watching you", date: "2026-08-20", time: "06:30", url: "https://www.ft.com/content/f8880b82-7283-4a3c-b000-06e5d0c87993" },
+  { id: "32f71c02-9abd-4c5b-8f74-9b31303bf386", title: "FTAV’s further reading", date: "2026-08-20", time: "06:30", url: "https://www.ft.com/content/32f71c02-9abd-4c5b-8f74-9b31303bf386" },
   { id: "bcc9a461-b131-4676-8c55-f822152e1189", title: "140 years of banking crises and bailouts", date: "2026-08-20", time: "06:00", url: "https://www.ft.com/content/bcc9a461-b131-4676-8c55-f822152e1189" },
   { id: "91e95fcd-00ac-45d0-a4cf-a28a941f8a2c", title: "Singapore police look into iron ore trader Radiant World", date: "2026-08-20", time: "05:39", url: "https://www.ft.com/content/91e95fcd-00ac-45d0-a4cf-a28a941f8a2c" },
   { id: "f366abee-4017-49a0-899c-cd93609ff5da", title: "Federal Reserve policymakers are becoming more hawkish", date: "2026-08-20", time: "05:30", url: "https://www.ft.com/content/f366abee-4017-49a0-899c-cd93609ff5da" },
@@ -55,10 +60,4 @@ export const FT_ITEMS = [
   { id: "8fc1f72a-c3e5-4f40-a28b-c0cb59e39256", title: "Israel-Turkey rivalry bursts into the open over Syria strikes", date: "2026-08-19", time: "17:10", url: "https://www.ft.com/content/8fc1f72a-c3e5-4f40-a28b-c0cb59e39256" },
   { id: "0fdb094c-fc03-4d3c-8da6-bd11af88ff63", title: "Google strikes $12bn AI chip deal with Marvell", date: "2026-08-19", time: "17:05", url: "https://www.ft.com/content/0fdb094c-fc03-4d3c-8da6-bd11af88ff63" },
   { id: "e7fdcb9f-7560-4b6f-9524-8766f752dfcf", title: "Charlesbank nears law firm deal as private equity pushes deeper into US legal sector", date: "2026-08-19", time: "17:05", url: "https://www.ft.com/content/e7fdcb9f-7560-4b6f-9524-8766f752dfcf" },
-  { id: "bed337a0-8917-4026-a406-b5ed832f36e6", title: "Putin pledges help for Wildberries warehouses hit by Ukraine", date: "2026-08-19", time: "16:45", url: "https://www.ft.com/content/bed337a0-8917-4026-a406-b5ed832f36e6" },
-  { id: "ec9afdc4-5fc8-4333-83a7-80b25e1009bb", title: "Investigators discover track ‘irregularity’ near site of UK train derailment", date: "2026-08-19", time: "16:32", url: "https://www.ft.com/content/ec9afdc4-5fc8-4333-83a7-80b25e1009bb" },
-  { id: "d8ff1233-01ff-496d-aa18-91233c1db051", title: "Moderna’s cancer shot: exciting for investors, inconclusive for patients", date: "2026-08-19", time: "15:33", url: "https://www.ft.com/content/d8ff1233-01ff-496d-aa18-91233c1db051" },
-  { id: "c5551f25-74d5-441f-8eb0-ef7ef20c7ec4", title: "Target profits double after $1bn tariff refund", date: "2026-08-19", time: "15:21", url: "https://www.ft.com/content/c5551f25-74d5-441f-8eb0-ef7ef20c7ec4" },
-  { id: "7a9c6019-bd0b-44b4-9a2d-db02ee881266", title: "Price of olive oil doubles in five years: how UK inflation has hit shoppers", date: "2026-08-19", time: "15:19", url: "https://www.ft.com/content/7a9c6019-bd0b-44b4-9a2d-db02ee881266" },
-  { id: "41c9e4c9-4d02-4ad5-b31f-afef9cd0346e", title: "Portuguese men o’ war plague Europe’s warming beaches", date: "2026-08-19", time: "15:16", url: "https://www.ft.com/content/41c9e4c9-4d02-4ad5-b31f-afef9cd0346e" },
 ];

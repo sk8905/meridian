@@ -34,6 +34,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-econ-worldinbrief-debt40trn-20260820",
+    publication: "The Economist",
+    series: "The World in Brief",
+    title: "The World in Brief: America's government debt passes $40trn",
+    date: "2026-08-20",
+    time: "06:05",
+    summary: "America's federal-government debt passes $40trn as the Treasury doubles long-bond buybacks, Evergrande's founder is sentenced to life in prison, and Kim Yo Jong casts doubt on Trump's claim of contact with Kim Jong Un.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-pointsofreturn-bondburner-20260820",
     publication: "Bloomberg",
     author: "John Authers",
