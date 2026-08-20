@@ -34,6 +34,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-guggenheim-aidebtcapacity-20260820",
+    publication: "Guggenheim Investments",
+    series: "Corporate Credit Quarterly",
+    title: "A Quantum of AI Debt Tests Credit Market Capacity",
+    date: "2026-08-20",
+    time: "18:22",
+    summary: "3Q26 corporate credit outlook: AI financing needs are testing investor appetite for issuer and sector concentration, widening hyperscaler spreads with limited spillover to the IG index.",
+    url: "https://go.pardot.com/webmail/104832/1429978858/287c4ed51fc2b2589758ecb9046100386634ee931bab5194da4486b8b5f3f006",
+  },
+  {
     id: "nl-mailbrew-fridaybrew-9-20260820",
     publication: "Mailbrew",
     series: "Friday Brew",
@@ -434,16 +444,5 @@ export const NEWSLETTERS = [
     time: "05:57",
     summary: "Jain Global is hiring more people in Asia and expanding its Hong Kong office space as it prepares to replace existing external capital with money from Millennium Management.",
     url: "https://www.bloomberg.com/news/articles/2026-08-17/jain-global-adds-staff-space-in-asia-as-millennium-tie-up-looms",
-  },
-  {
-    id: "nl-bbg-pointsofreturn-sargasso-20260817",
-    publication: "Bloomberg",
-    author: "John Authers",
-    series: "Points of Return",
-    title: "Markets are serene in their summer Sargasso Sea",
-    date: "2026-08-17",
-    time: "05:00",
-    summary: "S&P 500 volatility has dropped to its lowest of the year as great earnings, calm data and an absence of news keep markets in the summer doldrums.",
-    url: "https://bloom.bg/4xaC1Sk",
   },
 ];
