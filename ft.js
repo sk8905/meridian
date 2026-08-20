@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "6aea64b8-9e9b-401a-9582-7753cbef17c5", title: "America’s national debt hits record $40tn", date: "2026-08-20", time: "13:00", url: "https://www.ft.com/content/6aea64b8-9e9b-401a-9582-7753cbef17c5" },
+  { id: "93992d7a-e20d-4f35-a958-c7a9f3b84c02", title: "Investors cut bets on US and UK interest rate rises", date: "2026-08-20", time: "12:55", url: "https://www.ft.com/content/93992d7a-e20d-4f35-a958-c7a9f3b84c02" },
+  { id: "0c01cdd9-93e8-469c-8f09-a6d68c91fbc3", title: "US long-term bonds slide as Bessent intervention fails to soothe investors", date: "2026-08-20", time: "12:52", url: "https://www.ft.com/content/0c01cdd9-93e8-469c-8f09-a6d68c91fbc3" },
   { id: "40fdc4d1-53d8-4def-b1a1-3fda6c4f8553", title: "Djokovic vs Jordan: getting into the minds of sporting GOATs", date: "2026-08-20", time: "13:08", url: "https://www.ft.com/content/40fdc4d1-53d8-4def-b1a1-3fda6c4f8553" },
   { id: "90bd90e5-5161-4f56-8dfb-e737479fbb99", title: "Europe, the secret outperformer", date: "2026-08-20", time: "13:00", url: "https://www.ft.com/content/90bd90e5-5161-4f56-8dfb-e737479fbb99" },
   { id: "79f1f638-1fd5-40e1-845b-b4a787a12883", title: "Walmart pledges to use US tariff refund to cut grocery prices", date: "2026-08-20", time: "12:03", url: "https://www.ft.com/content/79f1f638-1fd5-40e1-845b-b4a787a12883" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "e1d82f18-0555-445b-b595-72c54d1dc940", title: "The growing cost to the UK of the nuclear deterrent", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/e1d82f18-0555-445b-b595-72c54d1dc940" },
   { id: "f1d8ba1d-d3eb-453b-b2b7-45e1c299291f", title: "Nearly nine in 10 leasehold flats still on the market after six months", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/f1d8ba1d-d3eb-453b-b2b7-45e1c299291f" },
   { id: "77a035d2-0e83-4dad-8c88-a0256f91fdce", title: "I’m a garden designer. Here’s why I hired a gardener", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/77a035d2-0e83-4dad-8c88-a0256f91fdce" },
-  { id: "565f7434-f648-45a8-b0d4-b04a529c39cd", title: "War comes to Vladimir Putin’s favourite Black Sea resort", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/565f7434-f648-45a8-b0d4-b04a529c39cd" },
-  { id: "41e4528d-0d87-4be3-9c59-46f37cec8136", title: "Meloni and Maga: a cautionary tale", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/41e4528d-0d87-4be3-9c59-46f37cec8136" },
-  { id: "b88c3466-4525-4e16-b3fe-e10e713a2025", title: "The box that built globalisation", date: "2026-08-20", time: "04:00", url: "https://www.ft.com/content/b88c3466-4525-4e16-b3fe-e10e713a2025" },
 ];
