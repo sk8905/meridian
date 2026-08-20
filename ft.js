@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "2e59ab7f-ed8f-4cbe-9faf-b2cb408768d5", title: "Harold Hamm launches multibillion-dollar plan to drill Argentine shale", date: "2026-08-20", time: "11:00", url: "https://www.ft.com/content/2e59ab7f-ed8f-4cbe-9faf-b2cb408768d5" },
+  { id: "a26812af-663c-486a-9955-bb392763403c", title: "Trump-aligned oil group touts ‘sealskin diplomacy’ to win over Greenland", date: "2026-08-20", time: "11:00", url: "https://www.ft.com/content/a26812af-663c-486a-9955-bb392763403c" },
+  { id: "201a86a6-3597-4efb-b575-39172c729fe1", title: "Trump is losing his war of independence on rare earths", date: "2026-08-20", time: "11:00", url: "https://www.ft.com/content/201a86a6-3597-4efb-b575-39172c729fe1" },
+  { id: "f72bb58c-d0a9-43a5-adaf-a68338a1db1e", title: "GCSE results show worsening pass rates among students who resit", date: "2026-08-20", time: "10:13", url: "https://www.ft.com/content/f72bb58c-d0a9-43a5-adaf-a68338a1db1e" },
   { id: "c000ba8f-2642-4099-80b6-5b7e227adf72", title: "Zack Polanski remade the Greens — but at the risk of a backlash", date: "2026-08-20", time: "10:01", url: "https://www.ft.com/content/c000ba8f-2642-4099-80b6-5b7e227adf72" },
   { id: "785aafd1-705a-47da-b016-032d66e449c0", title: "Donald Trump announces new drive to isolate and crush Iranian economy", date: "2026-08-20", time: "10:01", url: "https://www.ft.com/content/785aafd1-705a-47da-b016-032d66e449c0" },
   { id: "07573ffc-5c7b-448e-867e-c3b8840b11ce", title: "Taiwan proposes record defence budget to resist China pressure", date: "2026-08-20", time: "09:21", url: "https://www.ft.com/content/07573ffc-5c7b-448e-867e-c3b8840b11ce" },
@@ -57,7 +61,4 @@ export const FT_ITEMS = [
   { id: "aad0fdbb-f3bf-4b99-b826-7bde552b9d81", title: "Federal Reserve officials express rising concern over persistently high US inflation", date: "2026-08-19", time: "19:31", url: "https://www.ft.com/content/aad0fdbb-f3bf-4b99-b826-7bde552b9d81" },
   { id: "777c9014-2f12-45cf-8224-6bbe808c62cb", title: "US Treasury to boost long-term bond purchases in bid to steady market", date: "2026-08-19", time: "19:02", url: "https://www.ft.com/content/777c9014-2f12-45cf-8224-6bbe808c62cb" },
   { id: "739b7e0a-01e0-4798-966d-f1d60e62647b", title: "BlackRock and Oaktree take keys of top supplier to Hollywood studios", date: "2026-08-19", time: "18:58", url: "https://www.ft.com/content/739b7e0a-01e0-4798-966d-f1d60e62647b" },
-  { id: "b58c7ea1-1b97-4f1f-b19d-2544041ec0a8", title: "Private credit risks remain at large", date: "2026-08-19", time: "18:17", url: "https://www.ft.com/content/b58c7ea1-1b97-4f1f-b19d-2544041ec0a8" },
-  { id: "d30247d9-6e9e-4c2b-a6fc-9e751a9f7110", title: "Don’t mess up London’s knowledge economy", date: "2026-08-19", time: "18:07", url: "https://www.ft.com/content/d30247d9-6e9e-4c2b-a6fc-9e751a9f7110" },
-  { id: "a98a77e2-5156-4189-b971-974a7e60130f", title: "Moderna shares double on skin cancer vaccine success", date: "2026-08-19", time: "17:58", url: "https://www.ft.com/content/a98a77e2-5156-4189-b971-974a7e60130f" },
 ];
