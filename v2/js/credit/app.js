@@ -1175,19 +1175,14 @@ function viewClos() {
 // stay distinguishable via a tag at the end of the row. Newest first, no day
 // breaks — the published date sits inline at the start of each row.
 function mergedNewsItems() {
-  // The newsroom name (outlet / institution) is a clickable filter; the manager
-  // link and the "type" tail stay plain.
-  const srcChip = (name) => `<span class="src-filter muted small" role="button" tabindex="0" data-srcfilter="${esc(name)}" title="Show all ${esc(name)} items">${esc(name)}</span>`;
   const news = aggregateNews().map((x) => ({
     _type: "News", _id: "n:" + (x._id || x.url || x.title), _mid: x._mid, _fkey: feedDedupKey(x),
     date: x.date || "", time: x.time || "", title: x.title, url: x.url, _srcName: x.outlet || "",
-    src: `${link(`#/manager/${x._mid}`, x._mname, "muted small")}${x.outlet ? ` · ${srcChip(x.outlet)}` : ""}`,
     hay: `${x.title || ""} ${x.outlet || ""} ${x._mname || ""}`.toLowerCase(),
   }));
   const comm = (research || []).map((r) => ({
     _type: "Commentary", _id: "r:" + r.id, _mid: null,
     date: r.date || "", time: r.time || "", title: r.title, url: r.url, _srcName: r.institution || "",
-    src: `${r.institution ? srcChip(r.institution) : ""}${r.type ? ` · <span class="muted small">${esc(r.type)}</span>` : ""}`,
     hay: `${r.title || ""} ${r.institution || ""} ${r.type || ""}`.toLowerCase(),
   }));
   return [...news, ...comm].sort((a, b) => `${b.date} ${b.time}`.localeCompare(`${a.date} ${a.time}`));
