@@ -34,6 +34,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-econworld-elnino-20260820",
+    publication: "Thomson Reuters",
+    author: "Francesco Canepa",
+    series: "Econ World",
+    title: "What El Niño could cost the world",
+    date: "2026-08-20",
+    time: "20:03",
+    summary: "Forecasters see a greater-than-90% chance of the most disruptive El Niño since 1950, threatening coffee, cocoa and corn harvests and risking 49 million more people in acute hunger — as US public debt also crosses $40 trillion.",
+    url: "https://www.reuters.com/newsletters/econ-world",
+  },
+  {
     id: "nl-guggenheim-aidebtcapacity-20260820",
     publication: "Guggenheim Investments",
     series: "Corporate Credit Quarterly",

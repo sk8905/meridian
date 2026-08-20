@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "402d716a-0cf1-46e6-b09b-e37d6ea428a5", title: "Tory peer’s free speech group urged Vance to lobby UK government", date: "2026-08-20", time: "19:59", url: "https://www.ft.com/content/402d716a-0cf1-46e6-b09b-e37d6ea428a5" },
+  { id: "7069ffff-9534-489d-bf25-9965a1bc48bc", title: "Guggenheim loan trades in distressed territory after investor call", date: "2026-08-20", time: "19:43", url: "https://www.ft.com/content/7069ffff-9534-489d-bf25-9965a1bc48bc" },
   { id: "d3fbfcb7-ce89-4b46-8267-c2fed9c67134", title: "Quant hedge funds suffer worst day in 2 years as Treasury boosts buyback and Moderna shares leap", date: "2026-08-20", time: "19:00", url: "https://www.ft.com/content/d3fbfcb7-ce89-4b46-8267-c2fed9c67134" },
   { id: "8bce59a1-d0e7-4f66-b2bd-da45de5a3c4e", title: "Brazilian municipalities join BHP and Vale dam collapse payout scheme", date: "2026-08-20", time: "18:52", url: "https://www.ft.com/content/8bce59a1-d0e7-4f66-b2bd-da45de5a3c4e" },
   { id: "47c8bc3b-c1b6-4fae-add9-e55898778936", title: "Today’s China could learn from Jiang and Zhu", date: "2026-08-20", time: "18:46", url: "https://www.ft.com/content/47c8bc3b-c1b6-4fae-add9-e55898778936" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "bcc9a461-b131-4676-8c55-f822152e1189", title: "140 years of banking crises and bailouts", date: "2026-08-20", time: "06:00", url: "https://www.ft.com/content/bcc9a461-b131-4676-8c55-f822152e1189" },
   { id: "91e95fcd-00ac-45d0-a4cf-a28a941f8a2c", title: "Singapore police look into iron ore trader Radiant World", date: "2026-08-20", time: "05:39", url: "https://www.ft.com/content/91e95fcd-00ac-45d0-a4cf-a28a941f8a2c" },
   { id: "f366abee-4017-49a0-899c-cd93609ff5da", title: "Federal Reserve policymakers are becoming more hawkish", date: "2026-08-20", time: "05:30", url: "https://www.ft.com/content/f366abee-4017-49a0-899c-cd93609ff5da" },
-  { id: "073612bf-ba7c-4642-ad64-38fe17a55489", title: "China hits out at EU probe into JD.com bid for German retailer", date: "2026-08-20", time: "05:06", url: "https://www.ft.com/content/073612bf-ba7c-4642-ad64-38fe17a55489" },
 ];
