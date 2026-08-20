@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c000ba8f-2642-4099-80b6-5b7e227adf72", title: "Zack Polanski remade the Greens — but at the risk of a backlash", date: "2026-08-20", time: "10:01", url: "https://www.ft.com/content/c000ba8f-2642-4099-80b6-5b7e227adf72" },
+  { id: "785aafd1-705a-47da-b016-032d66e449c0", title: "Donald Trump announces new drive to isolate and crush Iranian economy", date: "2026-08-20", time: "10:01", url: "https://www.ft.com/content/785aafd1-705a-47da-b016-032d66e449c0" },
+  { id: "07573ffc-5c7b-448e-867e-c3b8840b11ce", title: "Taiwan proposes record defence budget to resist China pressure", date: "2026-08-20", time: "09:21", url: "https://www.ft.com/content/07573ffc-5c7b-448e-867e-c3b8840b11ce" },
   { id: "736418a3-6d0d-4425-91df-9671db4c9b7d", title: "Russian missile attack kills at least 13 in Kyiv", date: "2026-08-20", time: "07:57", url: "https://www.ft.com/content/736418a3-6d0d-4425-91df-9671db4c9b7d" },
   { id: "63781160-8d91-4e88-802c-6c8aac41d32a", title: "Google’s China shift and the battle over AI models", date: "2026-08-20", time: "07:50", url: "https://www.ft.com/content/63781160-8d91-4e88-802c-6c8aac41d32a" },
   { id: "832a6431-5af9-4dd5-aa72-1d4f570527cf", title: "FirstFT: Backlash over law firms’ ‘crazy’ early hiring", date: "2026-08-20", time: "07:07", url: "https://www.ft.com/content/832a6431-5af9-4dd5-aa72-1d4f570527cf" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "b58c7ea1-1b97-4f1f-b19d-2544041ec0a8", title: "Private credit risks remain at large", date: "2026-08-19", time: "18:17", url: "https://www.ft.com/content/b58c7ea1-1b97-4f1f-b19d-2544041ec0a8" },
   { id: "d30247d9-6e9e-4c2b-a6fc-9e751a9f7110", title: "Don’t mess up London’s knowledge economy", date: "2026-08-19", time: "18:07", url: "https://www.ft.com/content/d30247d9-6e9e-4c2b-a6fc-9e751a9f7110" },
   { id: "a98a77e2-5156-4189-b971-974a7e60130f", title: "Moderna shares double on skin cancer vaccine success", date: "2026-08-19", time: "17:58", url: "https://www.ft.com/content/a98a77e2-5156-4189-b971-974a7e60130f" },
-  { id: "91f17b0f-9c31-483e-b828-d90dad931a2f", title: "Grain prices surge as Ukraine war chokes off Black Sea ports", date: "2026-08-19", time: "17:55", url: "https://www.ft.com/content/91f17b0f-9c31-483e-b828-d90dad931a2f" },
-  { id: "d7c1c90d-8b85-4044-a6b0-2a085f96714e", title: "The US munitions crisis goes back further than Iran", date: "2026-08-19", time: "17:51", url: "https://www.ft.com/content/d7c1c90d-8b85-4044-a6b0-2a085f96714e" },
-  { id: "8fc1f72a-c3e5-4f40-a28b-c0cb59e39256", title: "Israel-Turkey rivalry bursts into the open over Syria strikes", date: "2026-08-19", time: "17:10", url: "https://www.ft.com/content/8fc1f72a-c3e5-4f40-a28b-c0cb59e39256" },
 ];
