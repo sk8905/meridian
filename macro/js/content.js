@@ -12,8 +12,8 @@ export const UPDATED = "19 August 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-08-19",
-  lastCheckedTime: "21:27 BST",
+  lastChecked: "2026-08-20",
+  lastCheckedTime: "05:24 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -329,11 +329,11 @@ export const OUTLOOK = {
 //   commentary. Keep each item's real headline + source link; never fabricate —
 //   only add pieces that exist and are dated.
 export const COMMENTARY = {
-  updated: "2026-08-19",
+  updated: "2026-08-20",
   us: [
+    { title: "Warsh Under Spotlight Amid Bond Market Selloff: The Jackson Hole Preview", source: "Seeking Alpha", author: "Damir Tokic", date: "2026-08-19", url: "https://seekingalpha.com/article/4938156-warsh-under-spotlight-amid-bond-market-selloff-the-jackson-hole-preview" },
     { title: "Citadel Securities Warns Fed Policy Keeps US Bond Yields Near 19-Year Highs", source: "Bloomberg", author: "Citadel Securities — Nohshad Shah", date: "2026-08-17", url: "https://www.bloomberg.com/news/articles/2026-08-17/citadel-securities-says-spiking-yields-reflect-fed-policy-risk" },
     { title: "Goldman Says Markets Too Hawkish on Betting Fed Will Hike Rates", source: "Bloomberg", author: "Goldman Sachs", date: "2026-08-17", url: "https://www.bloomberg.com/news/articles/2026-08-17/goldman-says-markets-too-hawkish-on-betting-fed-will-hike-rates" },
-    { title: "Bank of America Securities' Aditya Bhave reaffirms Fed rate hike call", source: "CNBC", author: "BofA — Aditya Bhave", date: "2026-08-12", url: "https://www.cnbc.com/video/2026/08/12/bank-of-america-securities-aditya-bhave-reaffirms-fed-rate-hike-call.html" },
   ],
   uk: [
     { title: "UK Inflation Jumps to 2.9% in July on Energy Costs", source: "Capital Economics (newsroom)", author: "Capital Economics — Ruth Gregory", date: "2026-08-19", url: "https://www.capitaleconomics.com/newsroom/uk-inflation-jumps-3-blow-rachel-reeves" },
@@ -799,20 +799,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-08-19",
+  updated: "2026-08-20",
   us: [
-    { title: "Fed minutes: officials saw need for rate hike if inflation doesn't cool", source: "CNBC", date: "2026-08-19", time: "19:00", url: "https://www.cnbc.com/2026/08/19/fed-minutes-july-2026-officials-saw-need-for-rate-hike-if-inflation-doesnt-cool.html" },
-    { title: "Bessent Boosts Debt Buybacks After Climb in Treasury Yields", source: "Bloomberg", date: "2026-08-19", time: "19:30", url: "https://www.bloomberg.com/news/articles/2026-08-19/long-dated-treasuries-rally-as-treasury-boosts-bond-buybacks" },
-    { title: "Bond market takes a breather after surprise move by Treasury Department", source: "CNN Business", date: "2026-08-19", url: "https://www.cnn.com/2026/08/19/investing/bond-market-treasury-bessent" },
-    { title: "Stock Market Today (Aug. 19, 2026): S&P 500 Rises on Treasury Buyback", source: "TheStreet", date: "2026-08-19", time: "17:17", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-19-2026" },
-    { title: "Target Shares Dip 3% as Tariff Refund Supplies 40% of Q2 EPS", source: "ts2.tech", date: "2026-08-19", time: "17:17", url: "https://ts2.tech/en/target-stock-falls-3-as-tariff-refund-supplies-40-of-q2-eps/" },
+    { title: "Dollar risks are mounting. Here's what could weaken the greenback", source: "CNBC", date: "2026-08-19", url: "https://www.cnbc.com/2026/08/19/inflation-dollar-risks-fed.html" },
+    { title: "Analysis: Bond market pressure is squeezing Main Street as Wall Street waits on Warsh", source: "CNBC", date: "2026-08-18", url: "https://www.cnbc.com/2026/08/18/bond-market-treasury-yields-warsh-main-street.html" },
+    { title: "Global bond markets are getting hammered. Here's why that could make your life more expensive", source: "CNN Business", date: "2026-08-18", url: "https://www.cnn.com/2026/08/18/investing/global-bond-market" },
+    { title: "WTI Oil climbs as US-Iran standoff keeps Middle East supply risks elevated", source: "FXStreet", date: "2026-08-19", time: "17:36", url: "https://www.fxstreet.com/news/wti-oil-climbs-as-us-iran-standoff-keeps-middle-east-supply-risks-elevated-202608191736" },
+    { title: "US Empire Manufacturing index 20.60 vs 11.00 estimate", source: "investingLive (ForexLive)", date: "2026-08-17", url: "https://investinglive.com/news/us-empire-manufacturing-index-20-60-vs-11-00-estimate/" },
   ],
   uk: [
-    { title: "UK Household Energy Costs Forecast to Climb to a Three-Year High", source: "Bloomberg", date: "2026-08-19", time: "17:17", url: "https://www.bloomberg.com/news/articles/2026-08-19/uk-household-energy-costs-forecast-to-climb-to-a-three-year-high" },
-    { title: "UK inflation jumps to 2.9%: warning for shoppers, savers and mortgage holders", source: "The Scotsman", date: "2026-08-19", url: "https://www.scotsman.com/business/uk-inflation-jumps-to-29-warning-for-shoppers-savers-and-mortgage-holders-8928676" },
-    { title: "UK inflation rises to 2.9%", source: "MoneyWeek", date: "2026-08-19", url: "https://moneyweek.com/economy/news/live/inflation-cpi-july-2026-report" },
-    { title: "Jump in energy bills drives inflation to 2.9% - the highest rate for four months", source: "Yahoo Finance UK", date: "2026-08-19", time: "07:09", url: "https://finance.yahoo.com/economy/articles/uk-inflation-rate-rises-2-060931194.html" },
-    { title: "British Pound edges up within range following hotter UK inflation data", source: "FXStreet", date: "2026-08-19", time: "06:31", url: "https://www.fxstreet.com/news/british-pound-edges-up-within-range-following-hotter-uk-inflation-data-202608190631" },
+    { title: "What are gilts and should I buy them? A guide as UK government bonds rise above 5%", source: "Yahoo Finance UK", date: "2026-08-19", url: "https://uk.finance.yahoo.com/news/gilts-buy-them-guide-uk-104401466.html" },
+    { title: "United Kingdom 10Y Bond Yield traded above 5 percent", source: "TradingEconomics", date: "2026-08-19", url: "https://tradingeconomics.com/united-kingdom/government-bond-yield/news/535461" },
+    { title: "UK Payrolls Fall, Vacancies at 5-Year Low in Weak Job Market", source: "Bloomberg", date: "2026-08-18", url: "https://www.bloomberg.com/news/articles/2026-08-18/uk-firms-shed-employees-wage-growth-slows-in-tepid-labor-market" },
+    { title: "UK Sells £4 Billion of 10-Year Gilts at 5.156% Yield", source: "Investing.com", date: "2026-08-18", time: "19:00", url: "https://uk.investing.com/news/stock-market-news/uk-sells-4-billion-of-10year-gilts-at-5156-yield-93CH-4836586" },
+    { title: "British Pound Trades Lower Against US Dollar After Soft UK Employment Data", source: "FXStreet", date: "2026-08-18", time: "09:16", url: "https://www.fxstreet.com/news/british-pound-trades-lower-against-us-dollar-after-soft-uk-employment-data-202608180916" },
   ],
 };
 
@@ -824,8 +824,14 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-08-19",
+  updated: "2026-08-20",
   items: [
+    {"title":"Dollar risks are mounting. Here's what could weaken the greenback","source":"CNBC","date":"2026-08-19","url":"https://www.cnbc.com/2026/08/19/inflation-dollar-risks-fed.html","blurb":"Currency strategists say growing fiscal risk, softer US data and uncertainty over the Fed's inflation reaction function could crack the dollar's 2026 resilience even after last week's yield-driven rally."},
+    {"title":"Warsh Under Spotlight Amid Bond Market Selloff: The Jackson Hole Preview","source":"Seeking Alpha","date":"2026-08-19","url":"https://seekingalpha.com/article/4938156-warsh-under-spotlight-amid-bond-market-selloff-the-jackson-hole-preview","author":"Damir Tokic","blurb":"A preview of Fed Chair Kevin Warsh's August 28 Jackson Hole keynote — his first as chair — argues the bond-market selloff in rising real rates puts him under pressure ahead of the 16 September FOMC."},
+    {"title":"What are gilts and should I buy them? A guide as UK government bonds rise above 5%","source":"Yahoo Finance UK","date":"2026-08-19","url":"https://uk.finance.yahoo.com/news/gilts-buy-them-guide-uk-104401466.html","blurb":"A reader's guide to UK government bonds as the 10-year gilt yield pushes back above 5%, covering coupons, maturities and how they compare with other low-risk income options."},
+    {"title":"United Kingdom 10Y Bond Yield traded above 5 percent","source":"TradingEconomics","date":"2026-08-19","url":"https://tradingeconomics.com/united-kingdom/government-bond-yield/news/535461","blurb":"The 10-year gilt yield touched its highest since 23 July as renewed Iran-conflict concerns lifted oil prices and inflation risk, even as a cooling labour market capped the move."},
+    {"title":"WTI Oil climbs as US-Iran standoff keeps Middle East supply risks elevated","source":"FXStreet","date":"2026-08-19","time":"17:36","url":"https://www.fxstreet.com/news/wti-oil-climbs-as-us-iran-standoff-keeps-middle-east-supply-risks-elevated-202608191736","blurb":"WTI held firm near $84-85 a barrel as the lapsed 60-day Hormuz memorandum left no sign of fresh US-Iran talks, keeping a supply-risk premium in crude."},
+    {"title":"Analysis: Bond market pressure is squeezing Main Street as Wall Street waits on Warsh","source":"CNBC","date":"2026-08-18","url":"https://www.cnbc.com/2026/08/18/bond-market-treasury-yields-warsh-main-street.html","blurb":"Rising long-end Treasury yields are feeding through to mortgage and consumer borrowing costs, sharpening the stakes for Fed Chair Warsh's Jackson Hole remarks later this month."},
     {"title":"Bessent Boosts Debt Buybacks After Climb in Treasury Yields","source":"Bloomberg","date":"2026-08-19","time":"19:30","url":"https://www.bloomberg.com/news/articles/2026-08-19/long-dated-treasuries-rally-as-treasury-boosts-bond-buybacks","blurb":"The US Treasury doubled long-bond buyback operations after the 30-year yield hit its highest level since 2007, sending yields sharply lower into the close."},
     {"title":"Fed minutes: officials saw need for rate hike if inflation doesn't cool","source":"CNBC","date":"2026-08-19","time":"19:00","url":"https://www.cnbc.com/2026/08/19/fed-minutes-july-2026-officials-saw-need-for-rate-hike-if-inflation-doesnt-cool.html","blurb":"Minutes from the 28-29 July FOMC meeting showed hawkish sentiment running well beyond the three dissenting regional presidents, keeping a September hike live."},
     {"title":"Oil edges up on uncertainty over exports through Hormuz","source":"CNBC","date":"2026-08-19","time":"18:30","url":"https://www.cnbc.com/amp/2026/08/19/oil-edges-up-on-uncertainty-over-exports-through-hormuz.html","blurb":"Brent extended a fourth day of gains as Tehran and Washington gave conflicting signals on whether the Strait of Hormuz remains open to shipping."},
@@ -860,14 +866,6 @@ export const ARTICLES = {
     {"title":"Bond Rout Pushes US 10-Year Yields to Highest Level Since Early 2025","source":"Bloomberg","date":"2026-08-18","time":"17:20","url":"https://www.bloomberg.com/news/articles/2026-08-18/us-10-year-yields-climb-to-highest-since-2025-as-rout-deepens","blurb":"US 10-year Treasury yields climbed to their highest level since early 2025 as a deepening global bond selloff met thin August trading, mounting federal deficits and fading hopes for a lasting Strait of Hormuz deal."},
     {"title":"30-Year Treasury Yield Tops 5.33%, New 19-Year High on Inflation, Spending Concerns","source":"CNBC","date":"2026-08-18","time":"17:20","url":"https://www.cnbc.com/2026/08/18/treasury-yields-.html","blurb":"The 30-year Treasury yield climbed to a fresh 19-year high near its highest since 2007, as worries about the US fiscal deficit and above-target inflation compounded a renewed spike in oil prices tied to the Strait of Hormuz standoff."},
     {"title":"Global Bond Yields Hit Multi-Decade Highs as Governments Pay the Price for U.S.-Iran Stalemate","source":"CNBC","date":"2026-08-18","time":"17:20","url":"https://www.cnbc.com/2026/08/18/bond-yields-government-us10y-treasury-note-iran.html","blurb":"Long-dated government bond yields surged worldwide — Japan's 10-year hit a 30-year high and Germany's 30-year its highest since 2011 — as the lapsed US-Iran ceasefire and elevated oil prices revived inflation fears across major economies."},
-    {"title":"UK Payrolls Fall, Vacancies at 5-Year Low in Weak Job Market","source":"Bloomberg","date":"2026-08-18","time":"17:20","url":"https://www.bloomberg.com/news/articles/2026-08-18/uk-firms-shed-employees-wage-growth-slows-in-tepid-labor-market","blurb":"UK payrolled employment fell 13,000 in July for a second straight monthly decline and job vacancies dropped to a five-year low of 707,000, while private-sector pay growth slowed to its weakest in almost six years."},
-    {"title":"British Pound Trades Lower Against US Dollar After Soft UK Employment Data","source":"FXStreet","date":"2026-08-18","time":"09:16","url":"https://www.fxstreet.com/news/british-pound-trades-lower-against-us-dollar-after-soft-uk-employment-data-202608180916","blurb":"GBP/USD slipped to around 1.3526 after UK payrolled employment fell and vacancies hit a five-year low, easing pressure on the Bank of England to raise rates even as broader dollar strength on US-Iran tensions added to sterling's retreat."},
-    {"title":"Stock Market Today (Aug. 18, 2026): Dow, S&P 500 Slips on Higher Oil Prices, Treasury Yields","source":"TheStreet","date":"2026-08-18","time":"17:20","url":"https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-18-2026","blurb":"US equities pulled back as Brent crude traded near $91 a barrel and the 30-year Treasury yield tested multi-decade highs on renewed fears the Iran conflict could reignite after the ceasefire memorandum lapsed."},
-    {"title":"Stock Market Today: Dow, S&P 500, Nasdaq Fall as Chip Stocks Sell Off, Bond Yields Remain High","source":"Yahoo Finance","date":"2026-08-18","time":"17:20","url":"https://finance.yahoo.com/markets/live/stock-market-today-tuesday-august-18-dow-sp-500-nasdaq-080822735.html","blurb":"Semiconductor stocks led US equity losses — Western Digital, SanDisk, Marvell and Seagate all fell sharply — as elevated Treasury yields and oil prices drained risk appetite."},
-    {"title":"US Single-Family Housing Starts Slide in July","source":"Reuters (via Investing.com)","date":"2026-08-18","time":"17:20","url":"https://www.investing.com/news/economy-news/us-singlefamily-housing-starts-slide-in-july-4865342","blurb":"US single-family housing starts fell 9.9% in July to an annualized 808,000 units, down 15.7% year-on-year, as elevated mortgage rates and unsold-home inventory weighed on homebuilding."},
-    {"title":"CNBC Daily Open: Higher oil, higher yields, lower volatility","source":"CNBC","date":"2026-08-18","url":"https://www.cnbc.com/2026/08/18/daily-open-oil-yields-volatility-iran-war.html","blurb":"The VIX fell to its lowest level of 2026 even as oil, Treasury yields and geopolitical risk all pushed higher: attacks on Strait of Hormuz shipping resumed after the US-Iran ceasefire expired, with a cargo ship struck and a crew member killed."},
-    {"title":"Stock Market Today: Dow, S&P Live Updates for August 18","source":"Bloomberg","date":"2026-08-18","url":"https://www.bloomberg.com/news/articles/2026-08-17/stock-market-today-dow-s-p-live-updates","blurb":"Brent settled near $91 a barrel and the 30-year Treasury yield hit its highest level since 2007 as hopes dimmed for a lasting US-Iran peace deal, even as CME FedWatch-implied odds of a September Fed hike eased to roughly 30% (from about 50% a week earlier)."},
-    {"title":"UK Payroll Employment Falls as Unemployment Holds at 4.9%","source":"ActionForex","date":"2026-08-18","url":"https://www.actionforex.com/live-comments/650961-uk-payroll-employment-falls-as-unemployment-holds-at-4-9/","blurb":"UK payrolled employment fell 13,000 in July (June revised to the same) and the ILO unemployment rate held at 4.9% (vs 4.8% expected), while the claimant count unexpectedly fell 11,000 and regular pay growth firmed to 3.5% y/y from 3.4% — the first labour-market data of the Burnham government's tenure."},
   ],
 };
 
