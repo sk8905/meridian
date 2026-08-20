@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "bcc9a461-b131-4676-8c55-f822152e1189", title: "140 years of banking crises and bailouts", date: "2026-08-20", time: "06:00", url: "https://www.ft.com/content/bcc9a461-b131-4676-8c55-f822152e1189" },
+  { id: "91e95fcd-00ac-45d0-a4cf-a28a941f8a2c", title: "Singapore police look into iron ore trader Radiant World", date: "2026-08-20", time: "05:39", url: "https://www.ft.com/content/91e95fcd-00ac-45d0-a4cf-a28a941f8a2c" },
+  { id: "f366abee-4017-49a0-899c-cd93609ff5da", title: "Federal Reserve policymakers are becoming more hawkish", date: "2026-08-20", time: "05:30", url: "https://www.ft.com/content/f366abee-4017-49a0-899c-cd93609ff5da" },
   { id: "073612bf-ba7c-4642-ad64-38fe17a55489", title: "China hits out at EU probe into JD.com bid for German retailer", date: "2026-08-20", time: "05:06", url: "https://www.ft.com/content/073612bf-ba7c-4642-ad64-38fe17a55489" },
   { id: "65d1e0f3-f056-49dc-907a-b76a7f2794c8", title: "Private equity’s escapades in the legal market", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/65d1e0f3-f056-49dc-907a-b76a7f2794c8" },
   { id: "a8056598-14dd-4a9e-a21d-ad68e9891cc1", title: "Demand for tankers soars as Gulf oil producers search for ways to export cargoes", date: "2026-08-20", time: "05:00", url: "https://www.ft.com/content/a8056598-14dd-4a9e-a21d-ad68e9891cc1" },
@@ -58,6 +61,4 @@ export const FT_ITEMS = [
   { id: "c5551f25-74d5-441f-8eb0-ef7ef20c7ec4", title: "Target profits double after $1bn tariff refund", date: "2026-08-19", time: "15:21", url: "https://www.ft.com/content/c5551f25-74d5-441f-8eb0-ef7ef20c7ec4" },
   { id: "7a9c6019-bd0b-44b4-9a2d-db02ee881266", title: "Price of olive oil doubles in five years: how UK inflation has hit shoppers", date: "2026-08-19", time: "15:19", url: "https://www.ft.com/content/7a9c6019-bd0b-44b4-9a2d-db02ee881266" },
   { id: "41c9e4c9-4d02-4ad5-b31f-afef9cd0346e", title: "Portuguese men o’ war plague Europe’s warming beaches", date: "2026-08-19", time: "15:16", url: "https://www.ft.com/content/41c9e4c9-4d02-4ad5-b31f-afef9cd0346e" },
-  { id: "14787634-6345-4446-aab6-1a3f1f519ba5", title: "Mike Ashley’s luxury retail empire is going cheap", date: "2026-08-19", time: "14:34", url: "https://www.ft.com/content/14787634-6345-4446-aab6-1a3f1f519ba5" },
-  { id: "34a99573-0fa1-422b-9263-147f9ed7be6c", title: "Mass expulsion was once a taboo idea in Europe. Then came Maga", date: "2026-08-19", time: "13:27", url: "https://www.ft.com/content/34a99573-0fa1-422b-9263-147f9ed7be6c" },
 ];
