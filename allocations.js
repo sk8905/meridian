@@ -23,34 +23,34 @@
 // needs no `?v=` bump. Maintained by the refresh routine; see docs/refresh-routines.md.
 // =============================================================================
 export const SECTOR_FLOWS = {
-  asOf: "2026-08-04",           // ETFdb snapshot date for the 1W–1Y windows
+  asOf: "2026-08-20",           // ETFdb snapshot date for the 1W–1Y windows
   unit: "$M",
   source: "https://etfdb.com/etf-fund-flows/",
   // [dataKey, columnLabel] in display order. (No 1-day column — see header.)
   windows: [["w1", "1W"], ["m1", "1M"], ["m3", "3M"], ["m6", "6M"], ["y1", "1Y"]],
   sectors: [
     // Broad equity
-    { t: "SPY",  name: "S&P 500",      short: "S&P 500",     w1: 3640,    m1: 6660,    m3: 30480,  m6: 29710,  y1: 22790, src: "https://etfdb.com/etf/SPY/" },
-    { t: "QQQ",  name: "Nasdaq 100",   short: "Nasdaq 100",  w1: -6230,   m1: -8770,   m3: 4450,   m6: 5100,   y1: 17990, src: "https://etfdb.com/etf/QQQ/" },
-    { t: "IWM",  name: "Small caps",   short: "Small caps",  w1: -363.35, m1: -1240,   m3: -2320,  m6: -2790,  y1: -1830, src: "https://etfdb.com/etf/IWM/" },
+    { t: "SPY",  name: "S&P 500",      short: "S&P 500",     w1: -4810,   m1: 4770,    m3: 13090,  m6: 23620,  y1: 19590, src: "https://etfdb.com/etf/SPY/" },
+    { t: "QQQ",  name: "Nasdaq 100",   short: "Nasdaq 100",  w1: 11140,   m1: 12570,   m3: 22480,  m6: 20870,  y1: 31100, src: "https://etfdb.com/etf/QQQ/" },
+    { t: "IWM",  name: "Small caps",   short: "Small caps",  w1: 413.59,  m1: -2540,   m3: -626.53, m6: -4490, y1: -333.59, src: "https://etfdb.com/etf/IWM/" },
     // Equity sectors (+ semiconductors)
-    { t: "XLK",  name: "Technology",   short: "Tech",        w1: 702.89,  m1: 1390,    m3: 1510,   m6: 3160,   y1: 2690,  src: "https://etfdb.com/etf/XLK/" },
-    { t: "SMH",  name: "Semis",        short: "Semis",       w1: 4260,    m1: 4210,    m3: 3830,   m6: 7160,   y1: 13070, src: "https://etfdb.com/etf/SMH/" },
-    { t: "XLF",  name: "Financials",   short: "Financials",  w1: 1330,    m1: 3630,    m3: 1940,   m6: -644.91, y1: 1280, src: "https://etfdb.com/etf/XLF/" },
-    { t: "XLV",  name: "Health Care",  short: "Health",      w1: 319.52,  m1: 476.64,  m3: -875.76, m6: -728.77, y1: 1520, src: "https://etfdb.com/etf/XLV/" },
-    { t: "XLE",  name: "Energy",       short: "Energy",      w1: 249.2,   m1: 121.52,  m3: -1730,  m6: 1170,   y1: 2360,  src: "https://etfdb.com/etf/XLE/" },
-    { t: "XLI",  name: "Industrials",  short: "Industrials", w1: -15.78,  m1: 470.54,  m3: 1770,   m6: 2430,   y1: 5180,  src: "https://etfdb.com/etf/XLI/" },
-    { t: "XLP",  name: "Cons. Staples", short: "Staples",    w1: 181.53,  m1: 387.94,  m3: -136.88, m6: -1550, y1: -2020, src: "https://etfdb.com/etf/XLP/" },
-    { t: "XLY",  name: "Cons. Discr.", short: "Cons Disc",   w1: 57.78,   m1: 333.96,  m3: 67.23,  m6: -352.81, y1: -768.26, src: "https://etfdb.com/etf/XLY/" },
-    { t: "XLU",  name: "Utilities",    short: "Utilities",   w1: 262.48,  m1: 234.28,  m3: 272.57, m6: 375.43, y1: 1270,  src: "https://etfdb.com/etf/XLU/" },
-    { t: "XLRE", name: "Real Estate",  short: "Real Est",    w1: 194.05,  m1: 215.61,  m3: 296.59, m6: 135,    y1: 315.06, src: "https://etfdb.com/etf/XLRE/" },
+    { t: "XLK",  name: "Technology",   short: "Tech",        w1: -840.6,  m1: 204,     m3: -311.1, m6: 3360,   y1: 1730,  src: "https://etfdb.com/etf/XLK/" },
+    { t: "SMH",  name: "Semis",        short: "Semis",       w1: -775.22, m1: 672.02,  m3: 4610,   m6: 5210,   y1: 12120, src: "https://etfdb.com/etf/SMH/" },
+    { t: "XLF",  name: "Financials",   short: "Financials",  w1: -81.13,  m1: 3670,    m3: 1520,   m6: 105.57, y1: 1740,  src: "https://etfdb.com/etf/XLF/" },
+    { t: "XLV",  name: "Health Care",  short: "Health",      w1: -3.89,   m1: 389.15,  m3: 734.26, m6: -848.75, y1: 2400, src: "https://etfdb.com/etf/XLV/" },
+    { t: "XLE",  name: "Energy",       short: "Energy",      w1: 329.9,   m1: -113.68, m3: -2800,  m6: -356.13, y1: 2060, src: "https://etfdb.com/etf/XLE/" },
+    { t: "XLI",  name: "Industrials",  short: "Industrials", w1: 92.2,    m1: 535.82,  m3: 1840,   m6: 2530,   y1: 6130,  src: "https://etfdb.com/etf/XLI/" },
+    { t: "XLP",  name: "Cons. Staples", short: "Staples",    w1: 656.01,  m1: 816.69,  m3: 469.8,  m6: -587.71, y1: -1840, src: "https://etfdb.com/etf/XLP/" },
+    { t: "XLY",  name: "Cons. Discr.", short: "Cons Disc",   w1: -19.36,  m1: 467.17,  m3: 954.92, m6: 682.87, y1: -5.27, src: "https://etfdb.com/etf/XLY/" },
+    { t: "XLU",  name: "Utilities",    short: "Utilities",   w1: -106.26, m1: -81.75,  m3: 448.26, m6: 628.44, y1: 1060,  src: "https://etfdb.com/etf/XLU/" },
+    { t: "XLRE", name: "Real Estate",  short: "Real Est",    w1: -9.03,   m1: 140.1,   m3: 605.66, m6: 855.52, y1: 462.81, src: "https://etfdb.com/etf/XLRE/" },
     // Bonds / rates
-    { t: "TLT",  name: "Long Treasuries", short: "Long Tsy", w1: 972.14,  m1: 2230,    m3: 1240,   m6: -2670,  y1: -4580, src: "https://etfdb.com/etf/TLT/" },
-    { t: "HYG",  name: "High Yield",   short: "High Yield",  w1: -461.03, m1: 244.07,  m3: -536.84, m6: -1820, y1: -648.9, src: "https://etfdb.com/etf/HYG/" },
+    { t: "TLT",  name: "Long Treasuries", short: "Long Tsy", w1: 173.26,  m1: 2860,    m3: 1340,   m6: -1170,  y1: -4010, src: "https://etfdb.com/etf/TLT/" },
+    { t: "HYG",  name: "High Yield",   short: "High Yield",  w1: -16.07,  m1: 988.1,   m3: 1230,   m6: 574.04, y1: -142.45, src: "https://etfdb.com/etf/HYG/" },
     // Commodities
-    { t: "GLD",  name: "Gold",         short: "Gold",        w1: -445.39, m1: 625.27,  m3: -3940,  m6: -11630, y1: 5800,  src: "https://etfdb.com/etf/GLD/" },
-    { t: "USO",  name: "Oil",          short: "Oil",         w1: -47.61,  m1: 349.77,  m3: 244.12, m6: 323.83, y1: 304.83, src: "https://etfdb.com/etf/USO/" },
+    { t: "GLD",  name: "Gold",         short: "Gold",        w1: 1220,    m1: 2820,    m3: -2010,  m6: -7580,  y1: 6940,  src: "https://etfdb.com/etf/GLD/" },
+    { t: "USO",  name: "Oil",          short: "Oil",         w1: 299.56,  m1: -212.28, m3: 366.49, m6: 25.82,  y1: 115.02, src: "https://etfdb.com/etf/USO/" },
     // Crypto
-    { t: "IBIT", name: "Bitcoin",      short: "Bitcoin",     w1: 154.5,   m1: -1830,   m3: -3910,  m6: -3070,  y1: 5140,  src: "https://etfdb.com/etf/IBIT/" },
+    { t: "IBIT", name: "Bitcoin",      short: "Bitcoin",     w1: 197.32,  m1: 958.31,  m3: -4930,  m6: -616.11, y1: 3230, src: "https://etfdb.com/etf/IBIT/" },
   ],
 };

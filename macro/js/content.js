@@ -13,7 +13,7 @@ export const UPDATED = "20 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-20",
-  lastCheckedTime: "05:24 BST",
+  lastCheckedTime: "09:32 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1033,7 +1033,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "The dollar stayed soft after the hawkish-leaning FOMC minutes kept a September hike live, while the Treasury's move to double long-bond buybacks pulled yields sharply lower into the close, with traders now looking to the 26 August core PCE print for the next directional catalyst.", src: "https://www.bloomberg.com/news/articles/2026-08-19/long-dated-treasuries-rally-as-treasury-boosts-bond-buybacks", srcName: "Bloomberg", date: "2026-08-19" };
+export const FX_KEYMOMENT = { text: "Sterling extended its rally toward a three-month peak against a broadly weak dollar, though UOB flagged firm resistance at 1.3655 (a break below 1.3535 would signal the upside push has stalled), as fading Fed hike bets and the Treasury's expanded long-bond buybacks keep the greenback under pressure.", src: "https://www.fxstreet.com/news/british-pound-further-gains-face-13655-cap-against-us-dollar-uob-202608200615", srcName: "FXStreet", date: "2026-08-20" };
 
 export const EARNINGS = {
   weeks: [
