@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "79f1f638-1fd5-40e1-845b-b4a787a12883", title: "Walmart pledges to use US tariff refund to cut grocery prices", date: "2026-08-20", time: "12:03", url: "https://www.ft.com/content/79f1f638-1fd5-40e1-845b-b4a787a12883" },
+  { id: "d15d68d5-291b-44d2-8fdf-3afc95308e9e", title: "North Korea launches missile barrage after dismissing Donald Trump’s overture", date: "2026-08-20", time: "11:43", url: "https://www.ft.com/content/d15d68d5-291b-44d2-8fdf-3afc95308e9e" },
+  { id: "f72df19f-29f2-4330-8e27-c69919d56972", title: "‘Treasury demand has become materially more valuation-sensitive’", date: "2026-08-20", time: "11:18", url: "https://www.ft.com/content/f72df19f-29f2-4330-8e27-c69919d56972" },
   { id: "2e59ab7f-ed8f-4cbe-9faf-b2cb408768d5", title: "Harold Hamm launches multibillion-dollar plan to drill Argentine shale", date: "2026-08-20", time: "11:00", url: "https://www.ft.com/content/2e59ab7f-ed8f-4cbe-9faf-b2cb408768d5" },
   { id: "a26812af-663c-486a-9955-bb392763403c", title: "Trump-aligned oil group touts ‘sealskin diplomacy’ to win over Greenland", date: "2026-08-20", time: "11:00", url: "https://www.ft.com/content/a26812af-663c-486a-9955-bb392763403c" },
   { id: "201a86a6-3597-4efb-b575-39172c729fe1", title: "Trump is losing his war of independence on rare earths", date: "2026-08-20", time: "11:00", url: "https://www.ft.com/content/201a86a6-3597-4efb-b575-39172c729fe1" },
@@ -58,7 +61,4 @@ export const FT_ITEMS = [
   { id: "5799e5fa-c836-443b-935d-eb9fb58681b6", title: "Volodymyr Zelenskyy fires top aide as corruption allegations pile up", date: "2026-08-19", time: "20:06", url: "https://www.ft.com/content/5799e5fa-c836-443b-935d-eb9fb58681b6" },
   { id: "6e83ce44-1bff-4a07-86ad-5355c0d240ff", title: "Stripe to buy start-up OpenRouter in $8bn deal", date: "2026-08-19", time: "20:02", url: "https://www.ft.com/content/6e83ce44-1bff-4a07-86ad-5355c0d240ff" },
   { id: "89d82561-089a-4723-9111-2fdd30552412", title: "Meet Gregory Fenelon, the (self-declared) $14bn man", date: "2026-08-19", time: "19:34", url: "https://www.ft.com/content/89d82561-089a-4723-9111-2fdd30552412" },
-  { id: "aad0fdbb-f3bf-4b99-b826-7bde552b9d81", title: "Federal Reserve officials express rising concern over persistently high US inflation", date: "2026-08-19", time: "19:31", url: "https://www.ft.com/content/aad0fdbb-f3bf-4b99-b826-7bde552b9d81" },
-  { id: "777c9014-2f12-45cf-8224-6bbe808c62cb", title: "US Treasury to boost long-term bond purchases in bid to steady market", date: "2026-08-19", time: "19:02", url: "https://www.ft.com/content/777c9014-2f12-45cf-8224-6bbe808c62cb" },
-  { id: "739b7e0a-01e0-4798-966d-f1d60e62647b", title: "BlackRock and Oaktree take keys of top supplier to Hollywood studios", date: "2026-08-19", time: "18:58", url: "https://www.ft.com/content/739b7e0a-01e0-4798-966d-f1d60e62647b" },
 ];
