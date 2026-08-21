@@ -35,6 +35,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-nonbillable-restructuringtransatlantic-20260821",
+    publication: "Non-Billable",
+    title: "London's restructuring rush",
+    date: "2026-08-21",
+    time: "17:10",
+    summary: "US companies are increasingly using English restructuring plans over Chapter 11, plus Au Vodka's £500m sale to Sazerac, Pinsent Masons' profits slip, and Lewis Silkin's Jo Farmer on co-leadership.",
+    url: "https://non-billable.beehiiv.com/p/london-s-restructuring-rush",
+  },
+  {
     id: "nl-gs-outlookfed-20260821",
     publication: "Goldman Sachs",
     title: "The Outlook for the Fed",
@@ -428,25 +437,5 @@ export const NEWSLETTERS = [
     time: "15:00",
     summary: "National and regional firms saw the fastest revenue growth last year, but international players are pulling further ahead on PEP, preliminary LB100 data shows.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMQKN8lhj47Reg7SJV/wv",
-  },
-  {
-    id: "nl-bbg-marketsdaily-globalbondselloff-20260818",
-    publication: "Bloomberg",
-    series: "Markets Daily",
-    title: "Bond Yields Are Hitting Multidecade Highs Around the World",
-    date: "2026-08-18",
-    time: "11:23",
-    summary: "Plus, Apple stock sinks.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-18/bond-yields-are-hitting-multidecade-highs-around-the-world",
-  },
-  {
-    id: "nl-bbg-authoralert-nkumar-dymon-20260818",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    title: "Hedge Fund Dymon Raises $1 Billion From ADIC, Ramps Up Hires",
-    date: "2026-08-18",
-    time: "08:46",
-    summary: "Singapore hedge fund Dymon Asia Capital has scored a roughly $1 billion commitment from sovereign wealth giant Abu Dhabi Investment Council, fuelling its expansion from London to Hong Kong.",
-    url: "https://www.bloomberg.com/news/articles/2026-08-18/hedge-fund-dymon-raises-1-billion-from-adic-ramps-up-hires",
   },
 ];

@@ -20,6 +20,13 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7b162fb4-8889-4f9c-9d5b-878850d6e8af", title: "Jim O’Neill declines job in Andy Burnham’s government", date: "2026-08-21", time: "17:05", url: "https://www.ft.com/content/7b162fb4-8889-4f9c-9d5b-878850d6e8af" },
+  { id: "9f46db72-0a1e-42b0-8efe-974a04fa0fc7", title: "Latest savings rates", date: "2026-08-21", time: "16:55", url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7" },
+  { id: "105b8b46-7109-402d-84cf-2616b17bfac1", title: "The US techlash is real", date: "2026-08-21", time: "16:44", url: "https://www.ft.com/content/105b8b46-7109-402d-84cf-2616b17bfac1" },
+  { id: "75ba3055-625c-4cb5-894b-0696a38f5e79", title: "Latest Isa rates", date: "2026-08-21", time: "16:42", url: "https://www.ft.com/content/75ba3055-625c-4cb5-894b-0696a38f5e79" },
+  { id: "68b36b6d-71e7-4f44-bbfb-a202e36603a4", title: "Latest National Savings & Investments rates", date: "2026-08-21", time: "16:38", url: "https://www.ft.com/content/68b36b6d-71e7-4f44-bbfb-a202e36603a4" },
+  { id: "3b463c96-9799-4b1c-856a-978f48b04eff", title: "Bessent dissent", date: "2026-08-21", time: "16:30", url: "https://www.ft.com/content/3b463c96-9799-4b1c-856a-978f48b04eff" },
+  { id: "0eb4e7ce-42e3-49af-ae27-645eb7676fad", title: "Natalie Harp, the devoted ‘human printer’ in Trump’s entourage", date: "2026-08-21", time: "16:22", url: "https://www.ft.com/content/0eb4e7ce-42e3-49af-ae27-645eb7676fad" },
   { id: "1603577e-89d8-4cfa-884b-b83fbb8dd20e", title: "Citadel offloads 80% of portfolio scooped up from Situational Awareness", date: "2026-08-21", time: "15:50", url: "https://www.ft.com/content/1603577e-89d8-4cfa-884b-b83fbb8dd20e" },
   { id: "ac3f252d-bd49-4340-8565-f27a29652759", title: "Apollo says hackers accessed personal data in latest Wall Street breach", date: "2026-08-21", time: "15:31", url: "https://www.ft.com/content/ac3f252d-bd49-4340-8565-f27a29652759" },
   { id: "6a068501-ec65-4061-9716-49c4124025d6", title: "Uber set for €825mn Dutch fine over automating driver suspensions", date: "2026-08-21", time: "15:25", url: "https://www.ft.com/content/6a068501-ec65-4061-9716-49c4124025d6" },
@@ -53,11 +60,4 @@ export const FT_ITEMS = [
   { id: "17583c3f-f8f4-44f8-bb2e-277a8304f252", title: "The historic coffee port in the Houthis’ crosshairs", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/17583c3f-f8f4-44f8-bb2e-277a8304f252" },
   { id: "7353d4b4-23f5-4886-83b3-717f8e70bb4f", title: "Poland’s former PM accuses Kaczyński of radicalising PiS", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/7353d4b4-23f5-4886-83b3-717f8e70bb4f" },
   { id: "d286cb7f-c63e-42a6-86db-d0a9ad0f296a", title: "The battle over golf’s future", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/d286cb7f-c63e-42a6-86db-d0a9ad0f296a" },
-  { id: "7f2d4be3-5879-439e-8060-339bac53ab40", title: "London’s cabbies prepare to battle the robotaxis", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/7f2d4be3-5879-439e-8060-339bac53ab40" },
-  { id: "ff536e6e-dc56-45e3-b5e0-2dfb28148cb6", title: "Ukraine seeks Musk’s help to hit Russian missile launchers", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/ff536e6e-dc56-45e3-b5e0-2dfb28148cb6" },
-  { id: "496b8f06-ffcd-4a14-a3d1-ecd398ce89ba", title: "‘Nobody has automated the kitchen’: the tech billionaire disrupting restaurants", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/496b8f06-ffcd-4a14-a3d1-ecd398ce89ba" },
-  { id: "2a791f9d-1036-4ef9-a232-5993b91c554d", title: "Art market money laundering rules catch interior designers and toy-soldier sellers", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/2a791f9d-1036-4ef9-a232-5993b91c554d" },
-  { id: "d8bc75ee-77c6-4810-967c-0c2cff69bf7a", title: "HSBC spends $68mn on biggest cull of senior bankers since financial crisis", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/d8bc75ee-77c6-4810-967c-0c2cff69bf7a" },
-  { id: "e5512d10-6ade-4e40-97df-9f7d24a01d04", title: "Why the energy crisis won’t save western oil refineries", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/e5512d10-6ade-4e40-97df-9f7d24a01d04" },
-  { id: "182f8161-b1a8-43f7-8918-f78f34e03cab", title: "North Korea’s economy enjoys rare ‘dash for flash’", date: "2026-08-21", time: "04:21", url: "https://www.ft.com/content/182f8161-b1a8-43f7-8918-f78f34e03cab" },
 ];
