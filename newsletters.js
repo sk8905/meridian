@@ -34,6 +34,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-cnt-newlondonrestaurants-20260821",
+    publication: "Condé Nast Traveller",
+    author: null,
+    series: "Restaurant of the Week",
+    title: "The best new restaurant in London is...",
+    date: "2026-08-21",
+    time: "10:00",
+    summary: "A somewhat unexpected location is home to London's buzziest opening.",
+    url: "https://www.cntraveller.com/article/new-london-restaurants",
+  },
+  {
     id: "nl-econ-worldinbrief-chinairan-20260821",
     publication: "The Economist",
     author: null,
@@ -439,15 +450,5 @@ export const NEWSLETTERS = [
     time: "12:00",
     summary: "Japan's escape from deflation is delivering stronger wages and record stocks but squeezing pensioners and lower earners, complicating the BOJ's case for a September hike.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-17/japan-s-cure-for-deflation-is-creating-problems-of-its-own",
-  },
-  {
-    id: "nl-bbg-marketsdaily-aidebtbinge-20260817",
-    publication: "Bloomberg",
-    series: "Markets Daily",
-    title: "Markets Daily: AI debt binge",
-    date: "2026-08-17",
-    time: "11:19",
-    summary: "Hyperscalers' AI borrowing spree is keeping Treasury yields near 25-year highs as investors debate a bond-market crowding-out reversal, while Anthropic tells investors Q2 revenue jumped at least 14-fold ahead of its IPO.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-17/ai-debt-sales-are-keeping-us-treasury-yields-high",
   },
 ];
