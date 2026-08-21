@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a301daae-05dd-4cf9-b78c-7879e4da55ba", title: "What retail investors need to know before jumping into Anthropic’s IPO", date: "2026-08-21", time: "12:00", url: "https://www.ft.com/content/a301daae-05dd-4cf9-b78c-7879e4da55ba" },
+  { id: "7e0c8dc0-e957-420a-bba3-d33666d919b8", title: "Bitcoin and gold surge as Bessent’s bond market intervention weighs on dollar", date: "2026-08-21", time: "11:37", url: "https://www.ft.com/content/7e0c8dc0-e957-420a-bba3-d33666d919b8" },
+  { id: "f1a1ea48-f7d3-4582-9a03-25d884741623", title: "Food inflation adds pressure for Bank of Japan to act", date: "2026-08-21", time: "11:13", url: "https://www.ft.com/content/f1a1ea48-f7d3-4582-9a03-25d884741623" },
   { id: "de7fad8f-f5a5-4233-819a-492511a1d3c8", title: "Waymo doubles spending on lobbying in robotaxi battle with Uber", date: "2026-08-21", time: "11:00", url: "https://www.ft.com/content/de7fad8f-f5a5-4233-819a-492511a1d3c8" },
   { id: "17a27f16-8c0b-4f21-a348-512bb787994d", title: "FTAV Q&A: Darrell Duffie", date: "2026-08-21", time: "10:27", url: "https://www.ft.com/content/17a27f16-8c0b-4f21-a348-512bb787994d" },
   { id: "d434a48b-4b6c-4071-bf16-da16a6b95bda", title: "Samsung to return record $80bn to shareholders", date: "2026-08-21", time: "10:19", url: "https://www.ft.com/content/d434a48b-4b6c-4071-bf16-da16a6b95bda" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "b536b114-8a82-41ef-8e44-42df0716dd03", title: "Stripe bets that an AI world still needs middlemen", date: "2026-08-20", time: "18:07", url: "https://www.ft.com/content/b536b114-8a82-41ef-8e44-42df0716dd03" },
   { id: "ecafb9a8-b9a6-48a4-8d3c-a626b26fe82b", title: "Monte dei Paschi readies twin takeover bids for Banca Generali and Banco BPM", date: "2026-08-20", time: "18:06", url: "https://www.ft.com/content/ecafb9a8-b9a6-48a4-8d3c-a626b26fe82b" },
   { id: "89d82561-089a-4723-9111-2fdd30552412", title: "Meet Gregory Fenelon, the (self-declared) $14bn man", date: "2026-08-20", time: "17:03", url: "https://www.ft.com/content/89d82561-089a-4723-9111-2fdd30552412" },
-  { id: "785aafd1-705a-47da-b016-032d66e449c0", title: "Donald Trump announces fresh ‘economic warfare’ on Iran", date: "2026-08-20", time: "16:29", url: "https://www.ft.com/content/785aafd1-705a-47da-b016-032d66e449c0" },
-  { id: "fe17490c-084c-4e25-beae-225a0b6c3ad2", title: "Trump’s South Korea defence flip reminds Japan that it has no Plan B", date: "2026-08-20", time: "16:28", url: "https://www.ft.com/content/fe17490c-084c-4e25-beae-225a0b6c3ad2" },
-  { id: "79f1f638-1fd5-40e1-845b-b4a787a12883", title: "Walmart shares tumble as sales growth slows to six-year low", date: "2026-08-20", time: "16:19", url: "https://www.ft.com/content/79f1f638-1fd5-40e1-845b-b4a787a12883" },
 ];
