@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "1603577e-89d8-4cfa-884b-b83fbb8dd20e", title: "Citadel offloads 80% of portfolio scooped up from Situational Awareness", date: "2026-08-21", time: "15:50", url: "https://www.ft.com/content/1603577e-89d8-4cfa-884b-b83fbb8dd20e" },
+  { id: "ac3f252d-bd49-4340-8565-f27a29652759", title: "Apollo says hackers accessed personal data in latest Wall Street breach", date: "2026-08-21", time: "15:31", url: "https://www.ft.com/content/ac3f252d-bd49-4340-8565-f27a29652759" },
+  { id: "6a068501-ec65-4061-9716-49c4124025d6", title: "Uber set for €825mn Dutch fine over automating driver suspensions", date: "2026-08-21", time: "15:25", url: "https://www.ft.com/content/6a068501-ec65-4061-9716-49c4124025d6" },
+  { id: "24f9c08e-e23f-434e-b0f4-fc1eb55a7b04", title: "US and Canada haggle over trade deal as midnight tariffs threat looms", date: "2026-08-21", time: "15:24", url: "https://www.ft.com/content/24f9c08e-e23f-434e-b0f4-fc1eb55a7b04" },
   { id: "5b459fd3-8170-4c43-8db3-3f76d4ab891d", title: "The bond scare and the balance of power", date: "2026-08-21", time: "15:10", url: "https://www.ft.com/content/5b459fd3-8170-4c43-8db3-3f76d4ab891d" },
   { id: "447f83f6-af6c-493d-87ed-bf4c12d69391", title: "FTAV’s Friday charts quiz", date: "2026-08-21", time: "14:48", url: "https://www.ft.com/content/447f83f6-af6c-493d-87ed-bf4c12d69391" },
   { id: "34d3874f-062a-499d-b5b6-a72ccbd0b8d6", title: "Prince Harry and other privacy claimants told to pay £9.5mn to Daily Mail publisher", date: "2026-08-21", time: "14:27", url: "https://www.ft.com/content/34d3874f-062a-499d-b5b6-a72ccbd0b8d6" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "d8bc75ee-77c6-4810-967c-0c2cff69bf7a", title: "HSBC spends $68mn on biggest cull of senior bankers since financial crisis", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/d8bc75ee-77c6-4810-967c-0c2cff69bf7a" },
   { id: "e5512d10-6ade-4e40-97df-9f7d24a01d04", title: "Why the energy crisis won’t save western oil refineries", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/e5512d10-6ade-4e40-97df-9f7d24a01d04" },
   { id: "182f8161-b1a8-43f7-8918-f78f34e03cab", title: "North Korea’s economy enjoys rare ‘dash for flash’", date: "2026-08-21", time: "04:21", url: "https://www.ft.com/content/182f8161-b1a8-43f7-8918-f78f34e03cab" },
-  { id: "83500ff8-31df-4031-9edd-8b3de5aff3e3", title: "Shanghai’s answer to Nasdaq outstrips Hong Kong amid Chinese tech frenzy", date: "2026-08-21", time: "03:16", url: "https://www.ft.com/content/83500ff8-31df-4031-9edd-8b3de5aff3e3" },
-  { id: "684e18ff-aecf-4d0e-af66-cb17fd80c231", title: "‘The government’s chart is misleading by a factor of more than 23 million percent’", date: "2026-08-21", time: "02:34", url: "https://www.ft.com/content/684e18ff-aecf-4d0e-af66-cb17fd80c231" },
-  { id: "402d716a-0cf1-46e6-b09b-e37d6ea428a5", title: "Tory peer’s free speech group urged Vance to lobby UK government", date: "2026-08-20", time: "19:59", url: "https://www.ft.com/content/402d716a-0cf1-46e6-b09b-e37d6ea428a5" },
-  { id: "7069ffff-9534-489d-bf25-9965a1bc48bc", title: "Guggenheim loan trades in distressed territory after investor call", date: "2026-08-20", time: "19:43", url: "https://www.ft.com/content/7069ffff-9534-489d-bf25-9965a1bc48bc" },
 ];

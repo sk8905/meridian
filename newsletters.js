@@ -35,6 +35,24 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-gs-outlookfed-20260821",
+    publication: "Goldman Sachs",
+    title: "The Outlook for the Fed",
+    date: "2026-08-21",
+    time: "15:51",
+    summary: "Chief Economist Jan Hatzius forecasts softer inflation and slower growth in the US will keep the Fed on hold in the second half of 2026.",
+    url: "https://www.goldmansachs.com/briefings",
+  },
+  {
+    id: "nl-lb-weilpe-paulweiss-20260821",
+    publication: "Legal Business",
+    title: "Weil private equity co-head set to leave for Paul Weiss",
+    date: "2026-08-21",
+    time: "15:32",
+    summary: "Departure comes 18 months after his appointment to US firm's new-look leadership team.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQP7IY6DkRWFEzltj/wv",
+  },
+  {
     id: "nl-lb-starbucksgc-20260821",
     publication: "Legal Business",
     title: "Starbucks EMEA GC on leadership, business turnarounds and traveling the 'bumpy road'",
@@ -410,27 +428,6 @@ export const NEWSLETTERS = [
     time: "15:00",
     summary: "National and regional firms saw the fastest revenue growth last year, but international players are pulling further ahead on PEP, preliminary LB100 data shows.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMQKN8lhj47Reg7SJV/wv",
-  },
-  {
-    id: "nl-bbg-authoralert-nkumar-schonfeld-20260818",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    title: "Hedge Fund Schonfeld Taps Kedalion's Longo for Delta One Trading",
-    date: "2026-08-18",
-    time: "14:55",
-    summary: "Schonfeld Strategic Advisors has hired Lorenzo Longo to join its ranks of portfolio managers, according to people familiar with the matter.",
-    url: "https://www.bloomberg.com/news/articles/2026-08-18/hedge-fund-schonfeld-taps-kedalion-s-longo-for-delta-one-trading",
-  },
-  {
-    id: "nl-bbg-economicsdaily-yenhistory-20260818",
-    publication: "Bloomberg",
-    author: "Chris Anstey",
-    series: "Economics Daily",
-    title: "History Suggests Not to Dismiss Bessent's Move on the Yen",
-    date: "2026-08-18",
-    time: "12:00",
-    summary: "What history says about Bessent and the yen.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-18/bessent-s-japan-yen-move-echoes-past-us-currency-interventions",
   },
   {
     id: "nl-bbg-marketsdaily-globalbondselloff-20260818",
