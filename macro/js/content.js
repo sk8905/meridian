@@ -13,7 +13,7 @@ export const UPDATED = "21 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-21",
-  lastCheckedTime: "17:21 BST",
+  lastCheckedTime: "21:25 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -335,16 +335,16 @@ export const OUTLOOK = {
 //   commentary. Keep each item's real headline + source link; never fabricate —
 //   only add pieces that exist and are dated.
 export const COMMENTARY = {
-  updated: "2026-08-20",
+  updated: "2026-08-21",
   us: [
+    { title: "It Didn't Take Long for the White House to Undermine the Fed", source: "Bloomberg Opinion", author: "Jonathan Levin", date: "2026-08-21", url: "https://www.bloomberg.com/opinion/articles/2026-08-21/federal-reserve-undermined-by-treasury-s-aggressive-buyback-strategy" },
     { title: "Bessent's Bond-Burner Wasn't the Big Move He Hoped", source: "Bloomberg Opinion", author: null, date: "2026-08-20", time: "17:25", url: "https://www.bloomberg.com/opinion/newsletters/2026-08-20/bessent-s-bond-burner-wasn-t-the-big-move-he-hoped" },
     { title: "Warsh Under Spotlight Amid Bond Market Selloff: The Jackson Hole Preview", source: "Seeking Alpha", author: "Damir Tokic", date: "2026-08-19", url: "https://seekingalpha.com/article/4938156-warsh-under-spotlight-amid-bond-market-selloff-the-jackson-hole-preview" },
-    { title: "Goldman Says Markets Too Hawkish on Betting Fed Will Hike Rates", source: "Bloomberg", author: "Goldman Sachs \u2014 Jan Hatzius", date: "2026-08-17", url: "https://www.bloomberg.com/news/articles/2026-08-17/goldman-says-markets-too-hawkish-on-betting-fed-will-hike-rates" },
   ],
   uk: [
+    { title: "UK retail sales retreat after strong summer start", source: "Exchange Rates UK (live coverage)", author: "Pantheon Macroeconomics \u2014 Robert Wood", date: "2026-08-21", url: "https://www.exchangerates.org.uk/news/46947/2026-08-21-pound-sterling-today-uk-retail-sales-retreat-after-strong-summer-start.html" },
     { title: "United Kingdom: Upside risks building for inflation \u2013 Deutsche Bank", source: "FXStreet (via TMGM)", author: "Deutsche Bank \u2014 Sanjay Raja (Chief UK Economist)", date: "2026-08-19", time: "17:25", url: "https://www.tmgm.com/en/analysis/market-news/article/united-kingdom-upside-risks-building-for-inflation-deutsche-bank-202608190929" },
     { title: "UK Inflation Jumps to 2.9% in July on Energy Costs", source: "Capital Economics (newsroom)", author: "Capital Economics \u2014 Ruth Gregory", date: "2026-08-19", url: "https://www.capitaleconomics.com/newsroom/uk-inflation-jumps-3-blow-rachel-reeves" },
-    { title: "Pantheon Macroeconomics on July UK CPI \u2014 inflation heading to around 3.5% in November", source: "MoneyWeek (live coverage)", author: "Pantheon Macroeconomics \u2014 Robert Wood", date: "2026-08-19", url: "https://moneyweek.com/economy/news/live/inflation-cpi-july-2026-report" },
   ],
 };
 
@@ -842,6 +842,8 @@ export const ARTICLES = {
     {"title":"UK Posts Deficit, Retail Sales Fall Ahead of Labour Autumn Budget","source":"Bloomberg","date":"2026-08-21","time":"17:21","url":"https://www.bloomberg.com/news/newsletters/2026-08-21/uk-posts-deficit-retail-sales-fall-ahead-of-labour-autumn-budget","blurb":"ONS data showed public-sector net borrowing of £1.8bn in July — against expectations for a broadly balanced month — leaving Chancellor Healey with a fresh fiscal headache ahead of his 28 October Budget."},
     {"title":"UK borrowing reaches unexpected £1.8billion as John Healey faces 'difficult decisions' at Budget","source":"GB News","date":"2026-08-21","time":"17:21","url":"https://www.gbnews.com/money/uk-borrowing-chancellor-john-healey-budget-tax-rises","blurb":"July borrowing came in £1.8bn above the year-earlier month despite record self-assessed income-tax receipts of £17.1bn, leaving the financial-year deficit over £2bn above the OBR's own forecast."},
     {"title":"Bessent vows 'toughest sanctions in history' on Iran, warns allies","source":"CNBC","date":"2026-08-21","time":"11:15","url":"https://www.cnbc.com/video/2026/08/21/bessent-vows-atoughest-sanctions-in-historya-on-iran-warns-allies.html","blurb":"Treasury Secretary Scott Bessent said Washington will detail a 'greatest co-ordinated economic isolation in the history of the world' at a Monday press conference, urging allies including China to cooperate as oil holds above $93/bbl."},
+    {"title":"Oil prices head for second weekly rise as U.S. vows to turn up economic pressure on Iran","source":"CNBC","date":"2026-08-21","url":"https://www.cnbc.com/amp/2026/08/21/oil-prices-us-iran.html","blurb":"Brent held near $94 and WTI near $87 after Bessent's sanctions pledge, with Strait of Hormuz tanker traffic still running at roughly 40% of its pre-war volume."},
+    {"title":"It Didn't Take Long for the White House to Undermine the Fed","source":"Bloomberg Opinion","author":"Jonathan Levin","date":"2026-08-21","url":"https://www.bloomberg.com/opinion/articles/2026-08-21/federal-reserve-undermined-by-treasury-s-aggressive-buyback-strategy","blurb":"Argues the Treasury's aggressive bond-buyback strategy politically undercuts Fed Chair Kevin Warsh only three months into his term, blurring the line between fiscal and monetary policy."},
     {"title":"Stock market today: Dow, S&P 500, Nasdaq futures drift higher despite Treasury yield pressures persisting","source":"Yahoo Finance","date":"2026-08-21","time":"08:05","url":"https://finance.yahoo.com/markets/live/stock-market-today-friday-august-21-dow-sp-500-nasdaq-080533702.html","blurb":"US equity futures firmed (Dow +0.4%, S&P 500 +0.3%, Nasdaq-100 +0.6%) as Wall Street tried to stabilise after Thursday's yield-driven selloff, with the flash August PMIs due later in the session."},
     {"title":"Gold Breaks $4,525: XAU/USD Bulls Eye $4,625 as Dollar Slides","source":"FX Leaders","date":"2026-08-21","time":"07:30","url":"https://www.fxleaders.com/news/2026/08/21/gold-breaks-4525-xau-usd-bulls-eye-4625-dollar-slides/","blurb":"Spot gold extended its advance toward a third straight weekly gain as the dollar index stayed pinned near multi-month lows on fading September Fed hike bets and the Treasury's buyback-driven yield relief."},
     {"title":"UK retail sales soften in July after June World Cup boost","source":"RTÉ","date":"2026-08-21","time":"07:10","url":"https://www.rte.ie/news/business/2026/0821/1588727-uk-retail-sales/","blurb":"ONS data showed retail sales volumes fell 0.5% month-on-month in July (in line with forecast) as a summer heatwave kept shoppers off the high street, with June's rise revised down to 0.7% from 1.0%."},
