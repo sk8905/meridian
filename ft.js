@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "ead7f466-1d6e-42e3-bedf-0ce5135372c9", title: "Directors’ Deals: Pearson executive cashes in as digital growth boosts shares", date: "2026-08-21", time: "18:00", url: "https://www.ft.com/content/ead7f466-1d6e-42e3-bedf-0ce5135372c9" },
+  { id: "fc1fc5b9-e73e-4e24-9495-4f9b16853be5", title: "Stockpickers: Costain, Oxford Nanopore Technologies, BHP", date: "2026-08-21", time: "18:00", url: "https://www.ft.com/content/fc1fc5b9-e73e-4e24-9495-4f9b16853be5" },
+  { id: "ef7a32c6-c999-407a-9970-979bf1f3b103", title: "Italy’s MPS thinks three takeovers are better than one", date: "2026-08-21", time: "17:24", url: "https://www.ft.com/content/ef7a32c6-c999-407a-9970-979bf1f3b103" },
+  { id: "7aabb591-ca73-4d87-96ad-dac9a210e1d0", title: "Donald Trump claims deal to cut beef import tariffs in push to curb high prices", date: "2026-08-21", time: "17:18", url: "https://www.ft.com/content/7aabb591-ca73-4d87-96ad-dac9a210e1d0" },
   { id: "7b162fb4-8889-4f9c-9d5b-878850d6e8af", title: "Jim O’Neill declines job in Andy Burnham’s government", date: "2026-08-21", time: "17:05", url: "https://www.ft.com/content/7b162fb4-8889-4f9c-9d5b-878850d6e8af" },
   { id: "9f46db72-0a1e-42b0-8efe-974a04fa0fc7", title: "Latest savings rates", date: "2026-08-21", time: "16:55", url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7" },
   { id: "105b8b46-7109-402d-84cf-2616b17bfac1", title: "The US techlash is real", date: "2026-08-21", time: "16:44", url: "https://www.ft.com/content/105b8b46-7109-402d-84cf-2616b17bfac1" },
@@ -57,10 +61,4 @@ export const FT_ITEMS = [
   { id: "4b7b8d3f-5625-4dba-ad90-66192c101956", title: "Feminism didn’t kill the male breadwinner model, the economy did", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/4b7b8d3f-5625-4dba-ad90-66192c101956" },
   { id: "f01ff762-3e68-4bac-bb73-6f35a6bf2771", title: "Scott Bessent takes on bond vigilantes in $32tn Treasury market", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/f01ff762-3e68-4bac-bb73-6f35a6bf2771" },
   { id: "61a06f4b-f661-4a05-9b73-bc43f22f86db", title: "Burnham should beware the perils of cost of living policy", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/61a06f4b-f661-4a05-9b73-bc43f22f86db" },
-  { id: "17583c3f-f8f4-44f8-bb2e-277a8304f252", title: "The historic coffee port in the Houthis’ crosshairs", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/17583c3f-f8f4-44f8-bb2e-277a8304f252" },
-  { id: "7353d4b4-23f5-4886-83b3-717f8e70bb4f", title: "Poland’s former PM accuses Kaczyński of radicalising PiS", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/7353d4b4-23f5-4886-83b3-717f8e70bb4f" },
-  { id: "d286cb7f-c63e-42a6-86db-d0a9ad0f296a", title: "The battle over golf’s future", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/d286cb7f-c63e-42a6-86db-d0a9ad0f296a" },
-  { id: "7f2d4be3-5879-439e-8060-339bac53ab40", title: "London’s cabbies prepare to battle the robotaxis", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/7f2d4be3-5879-439e-8060-339bac53ab40" },
-  { id: "ff536e6e-dc56-45e3-b5e0-2dfb28148cb6", title: "Ukraine seeks Musk’s help to hit Russian missile launchers", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/ff536e6e-dc56-45e3-b5e0-2dfb28148cb6" },
-  { id: "496b8f06-ffcd-4a14-a3d1-ecd398ce89ba", title: "‘Nobody has automated the kitchen’: the tech billionaire disrupting restaurants", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/496b8f06-ffcd-4a14-a3d1-ecd398ce89ba" },
 ];
