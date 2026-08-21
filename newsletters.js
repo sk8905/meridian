@@ -34,6 +34,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningeurope-iporace-20260821",
+    publication: "Bloomberg",
+    author: "Victoria Batchelor",
+    series: "Morning Briefing Europe",
+    title: "IPO Race",
+    date: "2026-08-21",
+    time: "07:12",
+    summary: "Anthropic expects to match or top SpaceX's record $75 billion IPO size, plus how Germany lost its industrial edge.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-21/anthropic-expects-to-match-or-top-spacex-s-record-ipo-size",
+  },
+  {
     id: "nl-bbg-authoralert-nkumar-arini-20260820",
     publication: "Bloomberg",
     author: "Nishant Kumar",
@@ -438,15 +449,5 @@ export const NEWSLETTERS = [
     time: "07:13",
     summary: "Deadly Israeli strikes in Lebanon add pressure to stalled US-Iran talks, a large wildfire burns through Belgium's biggest nature reserve, and Ferrari's first EV sells for $40 million.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-17/israel-strikes-lebanon-adding-pressure-to-stalled-us-iran-talks",
-  },
-  {
-    id: "nl-bbg-authoralert-nkumar-jainglobal-20260817",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    title: "Jain Global Adds Staff, Space in Asia as Millennium Tie-Up Looms",
-    date: "2026-08-17",
-    time: "05:57",
-    summary: "Jain Global is hiring more people in Asia and expanding its Hong Kong office space as it prepares to replace existing external capital with money from Millennium Management.",
-    url: "https://www.bloomberg.com/news/articles/2026-08-17/jain-global-adds-staff-space-in-asia-as-millennium-tie-up-looms",
   },
 ];

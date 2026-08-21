@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "3d6256cc-cd21-461a-b4c4-2b368d59d696", title: "Nellie Liang: 'Ultimately the goal is to signal that high rates are a concern'", date: "2026-08-21", time: "06:30", url: "https://www.ft.com/content/3d6256cc-cd21-461a-b4c4-2b368d59d696" },
+  { id: "8a53dbaa-66dc-48de-affa-0a650228117c", title: "FTAV's further reading", date: "2026-08-21", time: "06:30", url: "https://www.ft.com/content/8a53dbaa-66dc-48de-affa-0a650228117c" },
+  { id: "130f404e-6303-49a8-89d6-3368e3fc70b6", title: "FirstFT: Scott Bessent battles bond vigilantes", date: "2026-08-21", time: "06:18", url: "https://www.ft.com/content/130f404e-6303-49a8-89d6-3368e3fc70b6" },
   { id: "a079e741-9104-4557-8772-470fe12f46ba", title: "How money-market funds are providing stock market rocket fuel", date: "2026-08-21", time: "06:00", url: "https://www.ft.com/content/a079e741-9104-4557-8772-470fe12f46ba" },
   { id: "4e128c45-b84c-4fc3-98bf-c5033c201ea6", title: "Japanese inflation rises as BoJ weighs rate rise", date: "2026-08-21", time: "05:54", url: "https://www.ft.com/content/4e128c45-b84c-4fc3-98bf-c5033c201ea6" },
   { id: "3c085ab6-7128-4073-bc65-5482a47fb016", title: "The new age of Big Law recruiting", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/3c085ab6-7128-4073-bc65-5482a47fb016" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "eae8bbc5-7946-4fdc-8e0a-3215f7e56dd2", title: "Western oil refinery closures set to continue despite war shock", date: "2026-08-20", time: "15:29", url: "https://www.ft.com/content/eae8bbc5-7946-4fdc-8e0a-3215f7e56dd2" },
   { id: "6aea64b8-9e9b-401a-9582-7753cbef17c5", title: "America’s national debt hits record $40tn", date: "2026-08-20", time: "14:00", url: "https://www.ft.com/content/6aea64b8-9e9b-401a-9582-7753cbef17c5" },
   { id: "93992d7a-e20d-4f35-a958-c7a9f3b84c02", title: "Investors cut bets on US and UK interest rate rises", date: "2026-08-20", time: "13:55", url: "https://www.ft.com/content/93992d7a-e20d-4f35-a958-c7a9f3b84c02" },
-  { id: "40fdc4d1-53d8-4def-b1a1-3fda6c4f8553", title: "Djokovic vs Jordan: getting into the minds of sporting GOATs", date: "2026-08-20", time: "13:08", url: "https://www.ft.com/content/40fdc4d1-53d8-4def-b1a1-3fda6c4f8553" },
-  { id: "90bd90e5-5161-4f56-8dfb-e737479fbb99", title: "Europe, the secret outperformer", date: "2026-08-20", time: "13:00", url: "https://www.ft.com/content/90bd90e5-5161-4f56-8dfb-e737479fbb99" },
-  { id: "832a6431-5af9-4dd5-aa72-1d4f570527cf", title: "FirstFT: Backlash over law firms’ ‘crazy’ early hiring", date: "2026-08-20", time: "11:49", url: "https://www.ft.com/content/832a6431-5af9-4dd5-aa72-1d4f570527cf" },
 ];
