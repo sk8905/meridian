@@ -13,7 +13,7 @@ export const UPDATED = "20 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-21",
-  lastCheckedTime: "05:35 BST",
+  lastCheckedTime: "09:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -815,7 +815,7 @@ export const NEWS = {
   uk: [
     { title: "UK Inflation Rises to Four-Month High as Energy Bills Jump 13% in July", source: "Bloomberg", date: "2026-08-19", time: "05:11", url: "https://www.bloomberg.com/news/articles/2026-08-19/uk-inflation-climbs-to-four-month-high-as-energy-bills-rise" },
     { title: "FTSE 100 falls as JD Sports tumbles on profit warning", source: "Reuters (via Business Recorder)", date: "2026-08-20", time: "05:11", url: "https://www.brecorder.com/news/40435766/ftse-100-falls-as-jd-sports-tumbles-on-profit-warning" },
-    { title: "UK Stocks-Factors to watch on August 20", source: "Reuters (via MarketScreener)", date: "2026-08-20", time: "05:11", url: "https://www.marketscreener.com/news/uk-stocks-factors-to-watch-on-august-20-ce7859d2d18cff27" },
+    { title: "UK Preliminary Services PMI leaps to 53.6 in August vs. 51.8 expected", source: "FXStreet", date: "2026-08-21", time: "08:33", url: "https://www.fxstreet.com/news/uk-preliminary-services-pmi-leaps-to-536-in-august-vs-518-expected-202508210833" },
     { title: "British Pound: Further gains face 1.3655 cap against US Dollar \u2013 UOB", source: "FXStreet", date: "2026-08-20", time: "05:11", url: "https://www.fxstreet.com/news/british-pound-further-gains-face-13655-cap-against-us-dollar-uob-202608200615" },
     { title: "Retail Sales, Great Britain: July 2026", source: "Office for National Statistics", date: "2026-08-21", time: "05:11", url: "https://www.ons.gov.uk/releases/retailsalesgreatbritainjuly2026" },
   ],
@@ -831,6 +831,7 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-21",
   items: [
+    {"title":"UK Preliminary Services PMI leaps to 53.6 in August vs. 51.8 expected","source":"FXStreet","date":"2026-08-21","time":"08:33","url":"https://www.fxstreet.com/news/uk-preliminary-services-pmi-leaps-to-536-in-august-vs-518-expected-202508210833","blurb":"The flash Composite PMI climbed to 53.0 (from 51.5) as services strength offset a manufacturing dip to 47.3, taking UK growth to a one-year high and lifting the pound toward 1.3466 versus the dollar."},
     {"title":"Stock Market Today: Dow, S&P Live Updates for August 21","source":"Bloomberg","date":"2026-08-21","time":"05:11","url":"https://www.bloomberg.com/news/articles/2026-08-20/stock-market-today-dow-s-p-live-updates","blurb":"Asian bonds fell and the dollar stayed under pressure as investors bet that the US Treasury's buyback push offers only a temporary reprieve from the long-end selloff, with Australian and New Zealand yields opening higher after Thursday's 30-year US move."},
     {"title":"US S&P Global PMI likely to signal modest business activity slowdown in August","source":"FXStreet","date":"2026-08-21","time":"05:11","url":"https://www.fxstreet.com/news/us-sp-global-pmi-likely-to-signal-modest-business-activity-slowdown-in-august-202508210800","blurb":"Economists expect today's flash Composite PMI to ease modestly from July's pace, with services cooling even as manufacturing extends its recent pickup."},
     {"title":"Retail Sales, Great Britain: July 2026","source":"Office for National Statistics","date":"2026-08-21","time":"05:11","url":"https://www.ons.gov.uk/releases/retailsalesgreatbritainjuly2026","blurb":"ONS's first estimate of July retail sales volumes and values, the next data point after June's 1.0% monthly rise and a resilient Q2."},
@@ -1038,7 +1039,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "The dollar stayed under pressure into Friday as investors bet the Treasury's expanded long-bond buyback programme is only a temporary circuit-breaker for the bond slump — Thursday's renewed 30-year yield climb toward 5.27% overshadowed Wednesday's buyback-driven relief, keeping sterling's recent gains toward the 1.3655 area intact.", src: "https://www.bloomberg.com/news/articles/2026-08-20/bessent-s-plan-at-best-circuit-breaker-for-global-bond-slump", srcName: "Bloomberg", date: "2026-08-20" };
+export const FX_KEYMOMENT = { text: "Sterling picked up fresh bids after the flash UK Composite PMI jumped to a one-year high of 53.0 in August (services 53.6 vs 51.8 expected), pushing GBP/USD toward 1.3466, even as the dollar stays broadly pressured on bets that the Treasury's expanded long-bond buyback programme is only a temporary circuit-breaker for the bond slump.", src: "https://www.fxstreet.com/news/uk-preliminary-services-pmi-leaps-to-536-in-august-vs-518-expected-202508210833", srcName: "FXStreet", date: "2026-08-21" };
 
 export const EARNINGS = {
   weeks: [
