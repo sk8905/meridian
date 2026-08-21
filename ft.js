@@ -60,4 +60,7 @@ export const FT_ITEMS = [
   { id: "17583c3f-f8f4-44f8-bb2e-277a8304f252", title: "The historic coffee port in the Houthis’ crosshairs", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/17583c3f-f8f4-44f8-bb2e-277a8304f252" },
   { id: "7353d4b4-23f5-4886-83b3-717f8e70bb4f", title: "Poland’s former PM accuses Kaczyński of radicalising PiS", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/7353d4b4-23f5-4886-83b3-717f8e70bb4f" },
   { id: "d286cb7f-c63e-42a6-86db-d0a9ad0f296a", title: "The battle over golf’s future", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/d286cb7f-c63e-42a6-86db-d0a9ad0f296a" },
+  { id: "7f2d4be3-5879-439e-8060-339bac53ab40", title: "London’s cabbies prepare to battle the robotaxis", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/7f2d4be3-5879-439e-8060-339bac53ab40" },
+  { id: "ff536e6e-dc56-45e3-b5e0-2dfb28148cb6", title: "Ukraine seeks Musk’s help to hit Russian missile launchers", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/ff536e6e-dc56-45e3-b5e0-2dfb28148cb6" },
+  { id: "496b8f06-ffcd-4a14-a3d1-ecd398ce89ba", title: "‘Nobody has automated the kitchen’: the tech billionaire disrupting restaurants", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/496b8f06-ffcd-4a14-a3d1-ecd398ce89ba" },
 ];

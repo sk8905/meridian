@@ -31,6 +31,7 @@ export const PUBLISHERS = {
   "guggenheiminvestments.com": "Guggenheim Investments",
   "newsletter.newyorker.com": "The New Yorker",
   "pe-insights.com": "Private Equity Insights",
+  "getmatter.com": "Matter",
 };
 
 export const NEWSLETTERS = [
@@ -42,6 +43,17 @@ export const NEWSLETTERS = [
     time: "17:10",
     summary: "US companies are increasingly using English restructuring plans over Chapter 11, plus Au Vodka's £500m sale to Sazerac, Pinsent Masons' profits slip, and Lewis Silkin's Jo Farmer on co-leadership.",
     url: "https://non-billable.beehiiv.com/p/london-s-restructuring-rush",
+  },
+  {
+    id: "nl-matter-popularweek-20260821",
+    publication: "Matter",
+    author: null,
+    series: "Popular on Matter",
+    title: "10 Most Popular This Week: The Scientist Who Lived with Dozens of Children from the Pacific Islands",
+    date: "2026-08-21",
+    time: "17:14",
+    summary: "The 10 most saved articles this week, Aug 14-20.",
+    url: "https://getmatter.com",
   },
   {
     id: "nl-gs-outlookfed-20260821",
