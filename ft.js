@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a079e741-9104-4557-8772-470fe12f46ba", title: "How money-market funds are providing stock market rocket fuel", date: "2026-08-21", time: "06:00", url: "https://www.ft.com/content/a079e741-9104-4557-8772-470fe12f46ba" },
+  { id: "4e128c45-b84c-4fc3-98bf-c5033c201ea6", title: "Japanese inflation rises as BoJ weighs rate rise", date: "2026-08-21", time: "05:54", url: "https://www.ft.com/content/4e128c45-b84c-4fc3-98bf-c5033c201ea6" },
   { id: "3c085ab6-7128-4073-bc65-5482a47fb016", title: "The new age of Big Law recruiting", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/3c085ab6-7128-4073-bc65-5482a47fb016" },
   { id: "2d7e64e8-386a-4987-ae4d-04b6bf2a5e6a", title: "John Healey warned to limit Budget borrowing amid bond sell-off", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/2d7e64e8-386a-4987-ae4d-04b6bf2a5e6a" },
   { id: "4b7b8d3f-5625-4dba-ad90-66192c101956", title: "Feminism didn’t kill the male breadwinner model, the economy did", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/4b7b8d3f-5625-4dba-ad90-66192c101956" },
@@ -58,5 +60,4 @@ export const FT_ITEMS = [
   { id: "40fdc4d1-53d8-4def-b1a1-3fda6c4f8553", title: "Djokovic vs Jordan: getting into the minds of sporting GOATs", date: "2026-08-20", time: "13:08", url: "https://www.ft.com/content/40fdc4d1-53d8-4def-b1a1-3fda6c4f8553" },
   { id: "90bd90e5-5161-4f56-8dfb-e737479fbb99", title: "Europe, the secret outperformer", date: "2026-08-20", time: "13:00", url: "https://www.ft.com/content/90bd90e5-5161-4f56-8dfb-e737479fbb99" },
   { id: "832a6431-5af9-4dd5-aa72-1d4f570527cf", title: "FirstFT: Backlash over law firms’ ‘crazy’ early hiring", date: "2026-08-20", time: "11:49", url: "https://www.ft.com/content/832a6431-5af9-4dd5-aa72-1d4f570527cf" },
-  { id: "d15d68d5-291b-44d2-8fdf-3afc95308e9e", title: "North Korea launches missile barrage after dismissing Donald Trump’s overture", date: "2026-08-20", time: "11:43", url: "https://www.ft.com/content/d15d68d5-291b-44d2-8fdf-3afc95308e9e" },
 ];
