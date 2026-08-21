@@ -12,8 +12,8 @@ export const UPDATED = "20 August 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-08-20",
-  lastCheckedTime: "21:20 BST",
+  lastChecked: "2026-08-21",
+  lastCheckedTime: "05:35 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -804,20 +804,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-08-20",
+  updated: "2026-08-21",
   us: [
-    { title: "Wall St slips on rising bond yields; Walmart results weigh", source: "Reuters (via Detroit News)", date: "2026-08-20", time: "21:16", url: "https://www.detroitnews.com/story/business/2026/08/20/wall-st-slips-on-rising-bond-yields-walmart-results-weigh/91384966007/" },
-    { title: "Walmart shares tumble on weakest US sales growth in six years, soft profit outlook", source: "Yahoo Finance", date: "2026-08-20", time: "21:16", url: "https://finance.yahoo.com/markets/stocks/articles/walmart-shares-tumble-weakest-us-144400613.html" },
-    { title: "Stock Market Today (Aug. 20, 2026): Nasdaq, S&P 500 slip as Treasury rally fades", source: "TheStreet", date: "2026-08-20", time: "21:16", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-20-2026" },
-    { title: "Pressure builds anew in the bond market as Walmart drags the U.S. stock market lower", source: "Washington Times", date: "2026-08-20", time: "21:16", url: "https://www.washingtontimes.com/news/2026/aug/20/pressure-builds-anew-bond-market-walmart-pulls-us-stock-market-lower/" },
-    { title: "US Stock Futures Drop as Oil Prices, Treasury Yields Rise Before Open", source: "Bloomberg", date: "2026-08-20", time: "17:25", url: "https://www.bloomberg.com/news/articles/2026-08-20/us-stock-futures-fall-as-oil-yields-climb-while-walmart-slumps" },
+    { title: "Bessent's Plan at Best a 'Circuit Breaker' for Global Bond Slump", source: "Bloomberg", date: "2026-08-20", time: "05:11", url: "https://www.bloomberg.com/news/articles/2026-08-20/bessent-s-plan-at-best-circuit-breaker-for-global-bond-slump" },
+    { title: "Treasury bond buybacks ease long-term yields, but analysts see limited relief", source: "CNBC", date: "2026-08-20", time: "05:11", url: "https://www.cnbc.com/2026/08/20/treasury-bond-buybacks-long-term-yields.html" },
+    { title: "Stock Market Today (Aug. 20, 2026): Nasdaq, S&P 500 slip as Treasury rally fades", source: "TheStreet", date: "2026-08-20", time: "05:11", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-20-2026" },
+    { title: "Philly Fed Index Unexpectedly Climbs To Five-Year High In August", source: "RTTNews", date: "2026-08-20", time: "05:11", url: "https://www.rttnews.com/story.aspx?Id=3682745" },
+    { title: "US S&P Global PMI likely to signal modest business activity slowdown in August", source: "FXStreet", date: "2026-08-21", time: "05:11", url: "https://www.fxstreet.com/news/us-sp-global-pmi-likely-to-signal-modest-business-activity-slowdown-in-august-202508210800" },
   ],
   uk: [
-    { title: "FTSE 100 falls as JD Sports tumbles on profit warning", source: "Reuters (via Business Recorder)", date: "2026-08-20", time: "21:16", url: "https://www.brecorder.com/news/40435766/ftse-100-falls-as-jd-sports-tumbles-on-profit-warning" },
-    { title: "JD cuts guidance; Standard Life expands UK pensions", source: "Reuters (via MarketScreener)", date: "2026-08-20", time: "21:16", url: "https://www.marketscreener.com/news/jd-cuts-guidance-standard-life-expands-uk-pensions-ce7859d2d08df020" },
-    { title: "UK's FTSE 100 flat as mining and oil gains counter broader weakness", source: "Reuters (via MarketScreener)", date: "2026-08-20", time: "21:16", url: "https://www.marketscreener.com/news/uk-s-ftse-100-flat-as-mining-and-oil-gains-counter-broader-weakness-ce7859d3dc8bf122" },
-    { title: "British Pound: Further gains face 1.3655 cap against US Dollar \u2013 UOB", source: "FXStreet", date: "2026-08-20", time: "06:15", url: "https://www.fxstreet.com/news/british-pound-further-gains-face-13655-cap-against-us-dollar-uob-202608200615" },
-    { title: "UK Inflation Rises to Four-Month High as Energy Bills Jump 13% in July", source: "Bloomberg", date: "2026-08-19", time: "17:25", url: "https://www.bloomberg.com/news/articles/2026-08-19/uk-inflation-climbs-to-four-month-high-as-energy-bills-rise" },
+    { title: "UK Inflation Rises to Four-Month High as Energy Bills Jump 13% in July", source: "Bloomberg", date: "2026-08-19", time: "05:11", url: "https://www.bloomberg.com/news/articles/2026-08-19/uk-inflation-climbs-to-four-month-high-as-energy-bills-rise" },
+    { title: "FTSE 100 falls as JD Sports tumbles on profit warning", source: "Reuters (via Business Recorder)", date: "2026-08-20", time: "05:11", url: "https://www.brecorder.com/news/40435766/ftse-100-falls-as-jd-sports-tumbles-on-profit-warning" },
+    { title: "UK Stocks-Factors to watch on August 20", source: "Reuters (via MarketScreener)", date: "2026-08-20", time: "05:11", url: "https://www.marketscreener.com/news/uk-stocks-factors-to-watch-on-august-20-ce7859d2d18cff27" },
+    { title: "British Pound: Further gains face 1.3655 cap against US Dollar \u2013 UOB", source: "FXStreet", date: "2026-08-20", time: "05:11", url: "https://www.fxstreet.com/news/british-pound-further-gains-face-13655-cap-against-us-dollar-uob-202608200615" },
+    { title: "Retail Sales, Great Britain: July 2026", source: "Office for National Statistics", date: "2026-08-21", time: "05:11", url: "https://www.ons.gov.uk/releases/retailsalesgreatbritainjuly2026" },
   ],
 };
 
@@ -829,8 +829,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-08-20",
+  updated: "2026-08-21",
   items: [
+    {"title":"Stock Market Today: Dow, S&P Live Updates for August 21","source":"Bloomberg","date":"2026-08-21","time":"05:11","url":"https://www.bloomberg.com/news/articles/2026-08-20/stock-market-today-dow-s-p-live-updates","blurb":"Asian bonds fell and the dollar stayed under pressure as investors bet that the US Treasury's buyback push offers only a temporary reprieve from the long-end selloff, with Australian and New Zealand yields opening higher after Thursday's 30-year US move."},
+    {"title":"US S&P Global PMI likely to signal modest business activity slowdown in August","source":"FXStreet","date":"2026-08-21","time":"05:11","url":"https://www.fxstreet.com/news/us-sp-global-pmi-likely-to-signal-modest-business-activity-slowdown-in-august-202508210800","blurb":"Economists expect today's flash Composite PMI to ease modestly from July's pace, with services cooling even as manufacturing extends its recent pickup."},
+    {"title":"Retail Sales, Great Britain: July 2026","source":"Office for National Statistics","date":"2026-08-21","time":"05:11","url":"https://www.ons.gov.uk/releases/retailsalesgreatbritainjuly2026","blurb":"ONS's first estimate of July retail sales volumes and values, the next data point after June's 1.0% monthly rise and a resilient Q2."},
     {"title":"Wall St slips on rising bond yields; Walmart results weigh","source":"Reuters (via Detroit News)","date":"2026-08-20","time":"21:16","url":"https://www.detroitnews.com/story/business/2026/08/20/wall-st-slips-on-rising-bond-yields-walmart-results-weigh/91384966007/","blurb":"The Dow shed nearly 700 points (-1.3%) and the S&P 500 and Nasdaq fell as the Treasury's buyback-driven yield relief proved short-lived and Trump vowed to squeeze Iran economically, sending oil back up."},
     {"title":"Walmart shares tumble on weakest US sales growth in six years, soft profit outlook","source":"Yahoo Finance","date":"2026-08-20","time":"21:16","url":"https://finance.yahoo.com/markets/stocks/articles/walmart-shares-tumble-weakest-us-144400613.html","blurb":"Walmart fell as much as 9.7% — its worst day since 2022 — after US comparable sales rose just 2.6% (vs 3.7% expected) and Q3 EPS guidance of $0.62-0.64 missed the $0.68 consensus."},
     {"title":"FTSE 100 falls as JD Sports tumbles on profit warning","source":"Reuters (via Business Recorder)","date":"2026-08-20","time":"21:16","url":"https://www.brecorder.com/news/40435766/ftse-100-falls-as-jd-sports-tumbles-on-profit-warning","blurb":"JD Sports shed over 14% — the FTSE 100's biggest decliner — after cutting FY27 profit guidance to £700m-£800m on a 3.1% like-for-like sales fall, with North American sales down 6.8%."},
@@ -868,8 +871,6 @@ export const ARTICLES = {
     {"title":"Dollar Drifts Near Multi-Month Lows as Treasury Yields Ease; Fed Minutes Awaited","source":"Reuters (via CNBC)","date":"2026-08-19","time":"08:00","url":"https://www.cnbc.com/amp/2026/08/19/dollar-drifts-near-multi-month-low-as-yields-ease-fed-minutes-awaited.html","blurb":"The dollar drifted near multi-month lows and the 10-year Treasury yield eased to 4.702% (30-year to 5.282%) as traders awaited the July FOMC minutes, with the euro holding near a two-month high at $1.1577."},
     {"title":"UK inflation picks up after July surge in household energy bills","source":"Reuters (via Investing.com)","date":"2026-08-19","url":"https://au.investing.com/news/economy-news/uk-inflation-picks-up-after-july-surge-in-household-energy-bills-4606673","blurb":"ONS data confirmed UK CPI accelerated to 2.9% y/y in July, mostly on the largest gas-price rise in almost four years as Ofgem's 13% price-cap increase fed through, with the BoE having pencilled in a smaller 2.8% rise."},
     {"title":"Jump in energy bills drives inflation to 2.9% - the highest rate for four months","source":"Yahoo Finance UK","date":"2026-08-19","time":"07:09","url":"https://finance.yahoo.com/economy/articles/uk-inflation-rate-rises-2-060931194.html","blurb":"UK CPI accelerated to 2.9% y/y in July (from 2.6%), a four-month high driven by a 14.7% jump in gas prices as the 13% Ofgem price-cap rise fed through, with Chancellor Healey citing 'Iran war inflation' even as core CPI ran hotter than forecast at 2.6%."},
-    {"title":"Jackson Hole hype outruns Warsh playbook of saying as little as possible","source":"investingLive (ForexLive)","date":"2026-08-19","time":"09:00","url":"https://investinglive.com/central-banks/jackson-hole-hype-outruns-warsh-playbook-of-saying-as-little-as-possible/","blurb":"A preview of Fed Chair Kevin Warsh's first Jackson Hole speech (27-29 August symposium) argues markets are over-reading how much directional signal the historically tight-lipped chair will give, 19 days before the 16 September FOMC."},
-    {"title":"Japanese Stocks Slide as Bond Market Anxiety Hits AI Sentiment","source":"Bloomberg","date":"2026-08-19","time":"05:00","url":"https://www.bloomberg.com/news/articles/2026-08-19/japanese-stocks-slide-as-bond-market-anxiety-hits-ai-sentiment","blurb":"Japan's Nikkei 225 slumped for a second day, falling as much as 3.1%, as anxiety over surging Japanese government bond yields — the 10-year hit its highest since 1996 — sapped risk appetite from the AI trade, with Kioxia and Furukawa Electric among the biggest decliners."},
   ],
 };
 
@@ -1037,7 +1038,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "The dollar index slipped to its lowest since mid-May near 98.7 — with the euro pushing toward $1.17 — as the Treasury's expanded long-bond buyback programme eased worries over the recent spike in the 30-year Treasury yield to a 19-year high, keeping sterling's rally toward a three-month peak against the dollar intact.", src: "https://www.cnbc.com/amp/2026/08/20/dollar-hugs-three-month-lows-as-treasury-aims-to-sooth-the-bond-market.html", srcName: "Reuters (via CNBC)", date: "2026-08-20" };
+export const FX_KEYMOMENT = { text: "The dollar stayed under pressure into Friday as investors bet the Treasury's expanded long-bond buyback programme is only a temporary circuit-breaker for the bond slump — Thursday's renewed 30-year yield climb toward 5.27% overshadowed Wednesday's buyback-driven relief, keeping sterling's recent gains toward the 1.3655 area intact.", src: "https://www.bloomberg.com/news/articles/2026-08-20/bessent-s-plan-at-best-circuit-breaker-for-global-bond-slump", srcName: "Bloomberg", date: "2026-08-20" };
 
 export const EARNINGS = {
   weeks: [
