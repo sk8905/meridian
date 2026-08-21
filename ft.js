@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "ff536e6e-dc56-45e3-b5e0-2dfb28148cb6", title: "Ukraine seeks Elon Musk’s help to hit Russian missile launchers", date: "2026-08-21", time: "19:57", url: "https://www.ft.com/content/ff536e6e-dc56-45e3-b5e0-2dfb28148cb6" },
+  { id: "9a094571-604d-4f1e-b5ff-c0b5dc032dc1", title: "Iran’s president calls to end war with US from ‘position of strength’", date: "2026-08-21", time: "19:51", url: "https://www.ft.com/content/9a094571-604d-4f1e-b5ff-c0b5dc032dc1" },
   { id: "ead7f466-1d6e-42e3-bedf-0ce5135372c9", title: "Directors’ Deals: Pearson executive cashes in as digital growth boosts shares", date: "2026-08-21", time: "18:00", url: "https://www.ft.com/content/ead7f466-1d6e-42e3-bedf-0ce5135372c9" },
   { id: "fc1fc5b9-e73e-4e24-9495-4f9b16853be5", title: "Stockpickers: Costain, Oxford Nanopore Technologies, BHP", date: "2026-08-21", time: "18:00", url: "https://www.ft.com/content/fc1fc5b9-e73e-4e24-9495-4f9b16853be5" },
   { id: "ef7a32c6-c999-407a-9970-979bf1f3b103", title: "Italy’s MPS thinks three takeovers are better than one", date: "2026-08-21", time: "17:24", url: "https://www.ft.com/content/ef7a32c6-c999-407a-9970-979bf1f3b103" },
@@ -59,6 +61,4 @@ export const FT_ITEMS = [
   { id: "3c085ab6-7128-4073-bc65-5482a47fb016", title: "The new age of Big Law recruiting", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/3c085ab6-7128-4073-bc65-5482a47fb016" },
   { id: "2d7e64e8-386a-4987-ae4d-04b6bf2a5e6a", title: "John Healey warned to limit Budget borrowing amid bond sell-off", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/2d7e64e8-386a-4987-ae4d-04b6bf2a5e6a" },
   { id: "4b7b8d3f-5625-4dba-ad90-66192c101956", title: "Feminism didn’t kill the male breadwinner model, the economy did", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/4b7b8d3f-5625-4dba-ad90-66192c101956" },
-  { id: "f01ff762-3e68-4bac-bb73-6f35a6bf2771", title: "Scott Bessent takes on bond vigilantes in $32tn Treasury market", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/f01ff762-3e68-4bac-bb73-6f35a6bf2771" },
-  { id: "61a06f4b-f661-4a05-9b73-bc43f22f86db", title: "Burnham should beware the perils of cost of living policy", date: "2026-08-21", time: "05:00", url: "https://www.ft.com/content/61a06f4b-f661-4a05-9b73-bc43f22f86db" },
 ];
