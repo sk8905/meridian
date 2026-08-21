@@ -545,7 +545,7 @@ a.intel-head:hover { text-decoration: none; }
 .ck-dim { border: 1px solid var(--border); padding: 8px 10px; min-width: 0; }
 .ck-dim-h { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; margin-bottom: 4px; }
 .ck-dim-n { font-size: 10.5px; font-weight: 600; color: var(--ink); }
-.ck-dim-s { font-family: var(--t-mono); font-size: 15px; font-weight: 700; color: var(--macro); line-height: 1; }
+.ck-dim-s { font-family: var(--t-mono); font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1; }
 .ck-dim-max { font-size: 9px; color: var(--muted); font-weight: 400; }
 .ck-dim-note { margin: 0; font-size: 10px; line-height: 1.45; }
 /* Gauge inside a cockpit panel — capped so the zone labels don't balloon on a

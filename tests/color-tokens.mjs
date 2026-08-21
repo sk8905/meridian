@@ -145,4 +145,34 @@ check(/five-times-daily/.test(statusJs) && !/four-times-daily/.test(statusJs),
 check(/05:00, 09:00, 12:00, 17:00/.test(statusJs),
   "v2/js/status.js refresh tooltip lists all five London refresh times, including 09:00");
 
+// R12 — home.css must not carry an unscoped .ps-btn.is-active rule: it loads
+// after header.css (which correctly draws the active platform tab as an
+// orange bottom-border, no fill) in v2/index.html, so an unscoped copy here
+// wins the cascade for the live v2 #wire-header and repaints the tab as a
+// blue-filled pill. header.css alone owns .ps-btn.is-active.
+check(!/(^|\n)\s*\.ps-btn\.is-active/.test(homeCss),
+  "home.css does not redeclare an unscoped .ps-btn.is-active (header.css R12 owns it)");
+check(/\.ps-btn\.is-active,\s*\.ps-btn\.is-active:hover\s*\{[^}]*border-bottom:\s*2px solid var\(--accent,/.test(headerCss),
+  "header.css .ps-btn.is-active is border-bottom-only, no fill");
+
+// R10a — the command-bar's Substack/Brewed/Bloomberg/Econ wire pills must key
+// off a real, declared domain token (Newsletters -> --t-amber, Macro ->
+// --t-mac), not an undeclared --t-sub/--t-brew/--t-bbg/--t-econ that only
+// ever resolves to its var() fallback hex (i.e. a hardcoded per-type colour
+// in disguise).
+for (const cls of ["substack", "brew"]) {
+  check(new RegExp(`\\.cmdk-code\\.${cls}\\s*\\{[^}]*color:var\\(--t-amber,`).test(homeCss),
+    `home.css .cmdk-code.${cls} uses the declared --t-amber token, not an undeclared --t-${cls === "brew" ? "brew" : "sub"}`);
+}
+for (const cls of ["bbg", "econ"]) {
+  check(new RegExp(`\\.cmdk-code\\.${cls}\\s*\\{[^}]*color:var\\(--t-mac,`).test(homeCss),
+    `home.css .cmdk-code.${cls} uses the declared --t-mac token, not an undeclared --t-${cls}`);
+}
+
+// R9 — the Macro checklist's per-dimension score (a data value, e.g. "72/100")
+// is plain data text, not accent-coloured (same bug class as .macro-val /
+// .veh-tk above; its sibling .ck-dim-n label already reads --ink).
+check(/\.ck-dim-s\s*\{[^}]*color:\s*var\(--ink\)/.test(macroCss),
+  "macro/css/styles.css .ck-dim-s uses --ink, not the accent (--macro) orange");
+
 finish();

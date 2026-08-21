@@ -91,7 +91,7 @@ export function mount(host, ctx) {
     if (rec) { document.dispatchEvent(new CustomEvent("wire:search", { detail: { q: rec.dataset.q } })); return; }
     const push = e.target.closest("#v2-push");
     if (push && typeof Notification !== "undefined" && Notification.requestPermission) {
-      Notification.requestPermission().then(() => render());
+      Notification.requestPermission().then(() => render()).catch(() => {});
     }
   });
 

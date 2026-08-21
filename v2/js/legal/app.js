@@ -14,7 +14,7 @@ import {
 } from "/legal/js/shared.js?v=20260730-2";
 import { viewItem, viewFirm , __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/legal/detail.js?v=v2-10";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc, onLiveWire } from "/feed.js?v=20260808-1";
-import { esc, MONTHS, byDateDesc, JUDGMENT_SOURCES } from "/util.js?v=20260818-1";
+import { esc, MONTHS, byDateDesc, JUDGMENT_SOURCES, srcHost } from "/util.js?v=20260818-1";
 
 export function mount(host, ctx) {
   const app = host;
@@ -1130,8 +1130,7 @@ let notifCloud = false;  // true once the per-user seen-set API responds
 // Source label for a case-law / restructuring judgment link (BAILII, the
 // National Archives, or the Supreme Court site). Alerts & RPs use the firm name.
 function judgmentSource(url) {
-  try { const h = new URL(url).hostname.replace(/^www\./, ""); return JUDGMENT_SOURCES[h] || "Judgment"; }
-  catch { return "Judgment"; }
+  return JUDGMENT_SOURCES[srcHost(url)] || "Judgment";
 }
 function firmName(id) { return (firmById[id] || {}).name || id || ""; }
 function notifReadLocal() {
@@ -1157,7 +1156,7 @@ function notifItems() {
   items.forEach((it) => out.push({ id: "u:" + it.id, date: it.date || "", kind: (typeById[it.type] || {}).name || it.type, title: it.title, source: firmName(it.firm), href: it.url || ("#/item/" + it.id), ext: !!it.url }));
   cases.forEach((c) => out.push({ id: "c:" + c.id, date: c.date || "", kind: c.court || "Case", title: c.name, source: judgmentSource(c.url), href: c.url || "#/", ext: !!c.url }));
   restructurings.forEach((r) => { const u = r.judgmentUrl || r.articleUrl; out.push({ id: "r:" + r.id, date: r.date || "", kind: r.type === "scheme" ? "Scheme" : "Plan", title: r.company, source: r.firm ? firmName(r.firm) : (r.judgmentUrl ? judgmentSource(r.judgmentUrl) : ""), href: u || "#/", ext: !!u }); });
-  return recentNotif(out).sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  return recentNotif(out).sort(byDateDesc);
 }
 function closeNotif() {
   const p = document.getElementById("notif-panel"), b = document.getElementById("notif-bell");

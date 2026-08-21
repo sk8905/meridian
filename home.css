@@ -53,14 +53,12 @@
     .g-brand-text { display:flex; flex-direction:column; }
     .g-brand-text strong { font-size:1rem; letter-spacing:.2px; font-weight:700; }
     .g-brand-text .sub { font-size:.62rem; color:#8ea6c8; text-transform:uppercase; letter-spacing:1.2px; }
-    /* Modern segmented switch: no outer box; active tab is an accent-tinted pill. */
-    .platform-switch { display:inline-flex; align-items:center; gap:1px; background:transparent;
-      border:0; border-radius:0; padding:0; flex:0 0 auto; }
-    .ps-btn { padding:.36rem .72rem; border-radius:7px; font-size:.82rem; font-weight:500; color:#9fb0cc;
-      text-decoration:none; white-space:nowrap; transition:background .12s, color .12s; }
-    .ps-btn:hover { color:#fff; background:rgba(255,255,255,.07); }
-    .ps-btn.is-active, .ps-btn.is-active:hover { background:rgba(74,168,240,.18); color:#fff;
-      box-shadow:inset 0 0 0 1px rgba(74,168,240,.38); font-weight:600; }
+    /* .platform-switch / .ps-btn styling now lives solely in header.css (the
+       single source of truth for both the pre-v2 .topbar header and the v2
+       #wire-header, which share identical markup) — see R12/T9. A stray
+       unscoped copy here used to win the cascade (loaded after header.css)
+       and paint the active tab as a blue-filled pill instead of header.css's
+       orange bottom-border-only state. */
     /* Section jump-links — occupy the slot the app top bars give their view-nav
        (.mainnav), so the Glance top bar matches them in size. Styled identically
        to .nav-link; each anchor smooth-scrolls to a section of the briefing. */
@@ -673,10 +671,10 @@
     .cmdk-code.view { color:var(--t-faint, #5c6a86); background:color-mix(in srgb, var(--t-faint, #5c6a86) 18%, transparent); }
     .cmdk-code.ft { color:var(--t-ft, #e0708e); background:color-mix(in srgb, var(--t-ft, #e0708e) 16%, transparent); }
     .cmdk-code.letter { color:var(--t-amber, #d9a441); background:color-mix(in srgb, var(--t-amber, #d9a441) 16%, transparent); }
-    .cmdk-code.substack { color:var(--t-sub, #9b8cf5); background:color-mix(in srgb, var(--t-sub, #9b8cf5) 16%, transparent); }
-    .cmdk-code.brew { color:var(--t-brew, #2fb6a8); background:color-mix(in srgb, var(--t-brew, #2fb6a8) 16%, transparent); }
-    .cmdk-code.bbg { color:var(--t-bbg, #e0873a); background:color-mix(in srgb, var(--t-bbg, #e0873a) 16%, transparent); }
-    .cmdk-code.econ { color:var(--t-econ, #e0524d); background:color-mix(in srgb, var(--t-econ, #e0524d) 16%, transparent); }
+    .cmdk-code.substack { color:var(--t-amber, #d9a441); background:color-mix(in srgb, var(--t-amber, #d9a441) 16%, transparent); }
+    .cmdk-code.brew { color:var(--t-amber, #d9a441); background:color-mix(in srgb, var(--t-amber, #d9a441) 16%, transparent); }
+    .cmdk-code.bbg { color:var(--t-mac, #9b83e2); background:color-mix(in srgb, var(--t-mac, #9b83e2) 16%, transparent); }
+    .cmdk-code.econ { color:var(--t-mac, #9b83e2); background:color-mix(in srgb, var(--t-mac, #9b83e2) 16%, transparent); }
     .cmdk-s { min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .cmdk-foot { border-top:1px solid var(--t-grid2, #262626); padding:.5rem .8rem; color:var(--t-faint, #5c6a86); font-size:.72rem;
       display:flex; gap:1rem; }
