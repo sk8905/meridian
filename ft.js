@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "481b3fd0-6b2d-4bbe-b6e3-b99146df827c", title: "UK posts surprise budget deficit of £1.8bn in July", date: "2026-08-21", time: "07:38", url: "https://www.ft.com/content/481b3fd0-6b2d-4bbe-b6e3-b99146df827c" },
   { id: "3d6256cc-cd21-461a-b4c4-2b368d59d696", title: "Nellie Liang: 'Ultimately the goal is to signal that high rates are a concern'", date: "2026-08-21", time: "06:30", url: "https://www.ft.com/content/3d6256cc-cd21-461a-b4c4-2b368d59d696" },
   { id: "8a53dbaa-66dc-48de-affa-0a650228117c", title: "FTAV's further reading", date: "2026-08-21", time: "06:30", url: "https://www.ft.com/content/8a53dbaa-66dc-48de-affa-0a650228117c" },
   { id: "130f404e-6303-49a8-89d6-3368e3fc70b6", title: "FirstFT: Scott Bessent battles bond vigilantes", date: "2026-08-21", time: "06:18", url: "https://www.ft.com/content/130f404e-6303-49a8-89d6-3368e3fc70b6" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "0c01cdd9-93e8-469c-8f09-a6d68c91fbc3", title: "US long-term bonds slide as Bessent intervention fails to soothe investors", date: "2026-08-20", time: "16:09", url: "https://www.ft.com/content/0c01cdd9-93e8-469c-8f09-a6d68c91fbc3" },
   { id: "eae8bbc5-7946-4fdc-8e0a-3215f7e56dd2", title: "Western oil refinery closures set to continue despite war shock", date: "2026-08-20", time: "15:29", url: "https://www.ft.com/content/eae8bbc5-7946-4fdc-8e0a-3215f7e56dd2" },
   { id: "6aea64b8-9e9b-401a-9582-7753cbef17c5", title: "America’s national debt hits record $40tn", date: "2026-08-20", time: "14:00", url: "https://www.ft.com/content/6aea64b8-9e9b-401a-9582-7753cbef17c5" },
-  { id: "93992d7a-e20d-4f35-a958-c7a9f3b84c02", title: "Investors cut bets on US and UK interest rate rises", date: "2026-08-20", time: "13:55", url: "https://www.ft.com/content/93992d7a-e20d-4f35-a958-c7a9f3b84c02" },
 ];

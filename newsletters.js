@@ -34,6 +34,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-econ-worldinbrief-chinairan-20260821",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: China pushes back at America on Iran",
+    date: "2026-08-21",
+    time: "07:29",
+    summary: "China warns US threats of \"economic warfare\" over Iran trade won't work, as Treasury yields climb despite Bessent's buyback.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-morningeurope-iporace-20260821",
     publication: "Bloomberg",
     author: "Victoria Batchelor",
@@ -438,16 +449,5 @@ export const NEWSLETTERS = [
     time: "11:19",
     summary: "Hyperscalers' AI borrowing spree is keeping Treasury yields near 25-year highs as investors debate a bond-market crowding-out reversal, while Anthropic tells investors Q2 revenue jumped at least 14-fold ahead of its IPO.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-17/ai-debt-sales-are-keeping-us-treasury-yields-high",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-israelstrikeslebanon-20260817",
-    publication: "Bloomberg",
-    author: "Lily Nonomiya",
-    series: "Morning Briefing Europe",
-    title: "Israel Strikes Lebanon, Adding Pressure to Stalled US-Iran Talks",
-    date: "2026-08-17",
-    time: "07:13",
-    summary: "Deadly Israeli strikes in Lebanon add pressure to stalled US-Iran talks, a large wildfire burns through Belgium's biggest nature reserve, and Ferrari's first EV sells for $40 million.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-17/israel-strikes-lebanon-adding-pressure-to-stalled-us-iran-talks",
   },
 ];
