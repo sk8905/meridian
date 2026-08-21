@@ -35,6 +35,16 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-mailbrew-fridaybrew-10-20260821",
+    publication: "Mailbrew",
+    series: "Friday Brew",
+    title: "Friday Brew #10",
+    date: "2026-08-21",
+    time: "13:58",
+    summary: "Digest round-up: a BDC tender offers podcast, Michael Burry's Trading Post on the AI buildout and small language models, and FT Alphaville's 'silicon god delusion'.",
+    url: "https://app.mailbrew.com/stevedkennedy/friday-brew-03bEHcNb3hHB/10",
+  },
+  {
     id: "nl-bbg-goingprivate-aiscamzero-20260821",
     publication: "Bloomberg",
     author: "Sinead Cruise",

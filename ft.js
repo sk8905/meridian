@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "08a5dde7-34ae-4165-b16f-79e2ff0d44bc", title: "Burnham: To drill or not to drill?", date: "2026-08-21", time: "14:19", url: "https://www.ft.com/content/08a5dde7-34ae-4165-b16f-79e2ff0d44bc" },
+  { id: "2aaa71c8-6321-4b0f-a6c2-2971c28b5b17", title: "UK retail investors snap up gilts in wake of bond sell-off", date: "2026-08-21", time: "14:01", url: "https://www.ft.com/content/2aaa71c8-6321-4b0f-a6c2-2971c28b5b17" },
+  { id: "65fb0ad1-e4d5-43be-9dcf-f7aba1bea3a6", title: "Apple paid $17bn in taxes to Ireland after court ruling on back levies", date: "2026-08-21", time: "13:34", url: "https://www.ft.com/content/65fb0ad1-e4d5-43be-9dcf-f7aba1bea3a6" },
+  { id: "ef1d7530-a514-4b18-9a0f-8843cac02929", title: "What is Jane Street?", date: "2026-08-21", time: "13:30", url: "https://www.ft.com/content/ef1d7530-a514-4b18-9a0f-8843cac02929" },
   { id: "ff13d879-8dbc-419c-9c5f-ceb3bbe564c9", title: "Andy Burnham’s summer tour turns into a cut-price honeymoon", date: "2026-08-21", time: "12:52", url: "https://www.ft.com/content/ff13d879-8dbc-419c-9c5f-ceb3bbe564c9" },
   { id: "a301daae-05dd-4cf9-b78c-7879e4da55ba", title: "What retail investors need to know before jumping into Anthropic’s IPO", date: "2026-08-21", time: "12:00", url: "https://www.ft.com/content/a301daae-05dd-4cf9-b78c-7879e4da55ba" },
   { id: "7e0c8dc0-e957-420a-bba3-d33666d919b8", title: "Bitcoin and gold surge as Bessent’s bond market intervention weighs on dollar", date: "2026-08-21", time: "11:37", url: "https://www.ft.com/content/7e0c8dc0-e957-420a-bba3-d33666d919b8" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "d3fbfcb7-ce89-4b46-8267-c2fed9c67134", title: "Quant hedge funds suffer worst day in 2 years as Treasury boosts buyback and Moderna shares leap", date: "2026-08-20", time: "19:00", url: "https://www.ft.com/content/d3fbfcb7-ce89-4b46-8267-c2fed9c67134" },
   { id: "8bce59a1-d0e7-4f66-b2bd-da45de5a3c4e", title: "Brazilian municipalities join BHP and Vale dam collapse payout scheme", date: "2026-08-20", time: "18:52", url: "https://www.ft.com/content/8bce59a1-d0e7-4f66-b2bd-da45de5a3c4e" },
   { id: "47c8bc3b-c1b6-4fae-add9-e55898778936", title: "Today’s China could learn from Jiang and Zhu", date: "2026-08-20", time: "18:46", url: "https://www.ft.com/content/47c8bc3b-c1b6-4fae-add9-e55898778936" },
-  { id: "150aa8bf-54d1-448f-bdc9-14152ce3d76c", title: "The US Treasury is buying long bonds, but not very many", date: "2026-08-20", time: "18:37", url: "https://www.ft.com/content/150aa8bf-54d1-448f-bdc9-14152ce3d76c" },
-  { id: "b388be2e-67bd-4056-abd2-234e17819a98", title: "Nvidia looks well placed to benefit from the next stage of the AI boom", date: "2026-08-20", time: "18:17", url: "https://www.ft.com/content/b388be2e-67bd-4056-abd2-234e17819a98" },
-  { id: "b536b114-8a82-41ef-8e44-42df0716dd03", title: "Stripe bets that an AI world still needs middlemen", date: "2026-08-20", time: "18:07", url: "https://www.ft.com/content/b536b114-8a82-41ef-8e44-42df0716dd03" },
-  { id: "ecafb9a8-b9a6-48a4-8d3c-a626b26fe82b", title: "Monte dei Paschi readies twin takeover bids for Banca Generali and Banco BPM", date: "2026-08-20", time: "18:06", url: "https://www.ft.com/content/ecafb9a8-b9a6-48a4-8d3c-a626b26fe82b" },
 ];
