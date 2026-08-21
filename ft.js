@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "5b459fd3-8170-4c43-8db3-3f76d4ab891d", title: "The bond scare and the balance of power", date: "2026-08-21", time: "15:10", url: "https://www.ft.com/content/5b459fd3-8170-4c43-8db3-3f76d4ab891d" },
+  { id: "447f83f6-af6c-493d-87ed-bf4c12d69391", title: "FTAV’s Friday charts quiz", date: "2026-08-21", time: "14:48", url: "https://www.ft.com/content/447f83f6-af6c-493d-87ed-bf4c12d69391" },
+  { id: "34d3874f-062a-499d-b5b6-a72ccbd0b8d6", title: "Prince Harry and other privacy claimants told to pay £9.5mn to Daily Mail publisher", date: "2026-08-21", time: "14:27", url: "https://www.ft.com/content/34d3874f-062a-499d-b5b6-a72ccbd0b8d6" },
   { id: "08a5dde7-34ae-4165-b16f-79e2ff0d44bc", title: "Burnham: To drill or not to drill?", date: "2026-08-21", time: "14:19", url: "https://www.ft.com/content/08a5dde7-34ae-4165-b16f-79e2ff0d44bc" },
   { id: "2aaa71c8-6321-4b0f-a6c2-2971c28b5b17", title: "UK retail investors snap up gilts in wake of bond sell-off", date: "2026-08-21", time: "14:01", url: "https://www.ft.com/content/2aaa71c8-6321-4b0f-a6c2-2971c28b5b17" },
   { id: "65fb0ad1-e4d5-43be-9dcf-f7aba1bea3a6", title: "Apple paid $17bn in taxes to Ireland after court ruling on back levies", date: "2026-08-21", time: "13:34", url: "https://www.ft.com/content/65fb0ad1-e4d5-43be-9dcf-f7aba1bea3a6" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "684e18ff-aecf-4d0e-af66-cb17fd80c231", title: "‘The government’s chart is misleading by a factor of more than 23 million percent’", date: "2026-08-21", time: "02:34", url: "https://www.ft.com/content/684e18ff-aecf-4d0e-af66-cb17fd80c231" },
   { id: "402d716a-0cf1-46e6-b09b-e37d6ea428a5", title: "Tory peer’s free speech group urged Vance to lobby UK government", date: "2026-08-20", time: "19:59", url: "https://www.ft.com/content/402d716a-0cf1-46e6-b09b-e37d6ea428a5" },
   { id: "7069ffff-9534-489d-bf25-9965a1bc48bc", title: "Guggenheim loan trades in distressed territory after investor call", date: "2026-08-20", time: "19:43", url: "https://www.ft.com/content/7069ffff-9534-489d-bf25-9965a1bc48bc" },
-  { id: "d3fbfcb7-ce89-4b46-8267-c2fed9c67134", title: "Quant hedge funds suffer worst day in 2 years as Treasury boosts buyback and Moderna shares leap", date: "2026-08-20", time: "19:00", url: "https://www.ft.com/content/d3fbfcb7-ce89-4b46-8267-c2fed9c67134" },
-  { id: "8bce59a1-d0e7-4f66-b2bd-da45de5a3c4e", title: "Brazilian municipalities join BHP and Vale dam collapse payout scheme", date: "2026-08-20", time: "18:52", url: "https://www.ft.com/content/8bce59a1-d0e7-4f66-b2bd-da45de5a3c4e" },
-  { id: "47c8bc3b-c1b6-4fae-add9-e55898778936", title: "Today’s China could learn from Jiang and Zhu", date: "2026-08-20", time: "18:46", url: "https://www.ft.com/content/47c8bc3b-c1b6-4fae-add9-e55898778936" },
 ];

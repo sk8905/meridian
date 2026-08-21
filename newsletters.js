@@ -35,6 +35,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-starbucksgc-20260821",
+    publication: "Legal Business",
+    title: "Starbucks EMEA GC on leadership, business turnarounds and traveling the 'bumpy road'",
+    date: "2026-08-21",
+    time: "14:33",
+    summary: "Huma Allana van Reesch on joining the coffee giant at a time of crisis, the importance of being a business leader first, and making a name for herself working in-house.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQP3fqonuT8RxD7ll/wv",
+  },
+  {
     id: "nl-mailbrew-fridaybrew-10-20260821",
     publication: "Mailbrew",
     series: "Friday Brew",
@@ -442,26 +451,5 @@ export const NEWSLETTERS = [
     time: "08:46",
     summary: "Singapore hedge fund Dymon Asia Capital has scored a roughly $1 billion commitment from sovereign wealth giant Abu Dhabi Investment Council, fuelling its expansion from London to Hong Kong.",
     url: "https://www.bloomberg.com/news/articles/2026-08-18/hedge-fund-dymon-raises-1-billion-from-adic-ramps-up-hires",
-  },
-  {
-    id: "nl-economist-worldinbrief-trumpoman-20260818",
-    publication: "The Economist",
-    series: "The World in Brief",
-    title: "The World in Brief: Trump threatens to bomb Oman",
-    date: "2026-08-18",
-    time: "06:02",
-    summary: "Trump threatens to bomb Oman over stalled Iran talks, Jared Kushner meets Netanyahu in Jerusalem, and BHP profits rise 9% on record copper output.",
-    url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-bondslump-20260818",
-    publication: "Bloomberg",
-    author: "Victoria Batchelor",
-    series: "Morning Briefing Europe",
-    title: "Bond Slump Sends Long-Term Borrowing Costs to Highest in Decades",
-    date: "2026-08-18",
-    time: "06:02",
-    summary: "A global bond selloff pushes long-term borrowing costs to decades-highs; oil extends gains after a fresh Strait of Hormuz vessel attack; a UK survey finds AI is starting to create jobs.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-18/bond-slump-sends-long-term-borrowing-costs-to-highest-in-decades",
   },
 ];
