@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "ad87fbc6-831a-4a8e-84d8-bd62cf373ac0", title: "Is sport safe from AI?", date: "2026-08-22", time: "09:00", url: "https://www.ft.com/content/ad87fbc6-831a-4a8e-84d8-bd62cf373ac0" },
   { id: "24f9c08e-e23f-434e-b0f4-fc1eb55a7b04", title: "Canada vows to match US tariffs as trade talks collapse", date: "2026-08-22", time: "05:51", url: "https://www.ft.com/content/24f9c08e-e23f-434e-b0f4-fc1eb55a7b04" },
   { id: "b9e7a620-1018-4004-a3b0-3c85d494d21d", title: "Bossing the bond market around never works", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/b9e7a620-1018-4004-a3b0-3c85d494d21d" },
   { id: "2099aab6-2492-4b86-b028-38e103d9104d", title: "The man selling the Lakers: Mark Walter’s unravelling empire", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/2099aab6-2492-4b86-b028-38e103d9104d" },
@@ -60,6 +61,4 @@ export const FT_ITEMS = [
   { id: "2aaa71c8-6321-4b0f-a6c2-2971c28b5b17", title: "UK retail investors snap up gilts in wake of bond sell-off", date: "2026-08-21", time: "14:01", url: "https://www.ft.com/content/2aaa71c8-6321-4b0f-a6c2-2971c28b5b17" },
   { id: "65fb0ad1-e4d5-43be-9dcf-f7aba1bea3a6", title: "Apple paid $17bn in taxes to Ireland after court ruling on back levies", date: "2026-08-21", time: "13:34", url: "https://www.ft.com/content/65fb0ad1-e4d5-43be-9dcf-f7aba1bea3a6" },
   { id: "ef1d7530-a514-4b18-9a0f-8843cac02929", title: "What is Jane Street?", date: "2026-08-21", time: "13:30", url: "https://www.ft.com/content/ef1d7530-a514-4b18-9a0f-8843cac02929" },
-  { id: "ff13d879-8dbc-419c-9c5f-ceb3bbe564c9", title: "Andy Burnham’s summer tour turns into a cut-price honeymoon", date: "2026-08-21", time: "12:52", url: "https://www.ft.com/content/ff13d879-8dbc-419c-9c5f-ceb3bbe564c9" },
-  { id: "a301daae-05dd-4cf9-b78c-7879e4da55ba", title: "What retail investors need to know before jumping into Anthropic’s IPO", date: "2026-08-21", time: "12:00", url: "https://www.ft.com/content/a301daae-05dd-4cf9-b78c-7879e4da55ba" },
 ];
