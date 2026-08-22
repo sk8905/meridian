@@ -36,6 +36,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-singaporeedition-taxrace-20260822",
+    publication: "Bloomberg",
+    author: "David Ramli",
+    series: "Singapore Edition",
+    title: "Singapore Edition: $10 trillion race",
+    date: "2026-08-22",
+    time: "02:00",
+    summary: "Hong Kong’s proposed tax cuts for money managers fuel Singapore response.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-22/singapore-and-hong-kong-weigh-tax-cut-race-to-secure-money-managers",
+  },
+  {
     id: "nl-nonbillable-restructuringtransatlantic-20260821",
     publication: "Non-Billable",
     title: "London's restructuring rush",
@@ -440,14 +451,5 @@ export const NEWSLETTERS = [
     time: "16:45",
     summary: "Bally’s debt-fueled bet in the Bronx becomes an existential crisis.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-18/bally-s-gambles-on-a-bronx-casino-and-its-future",
-  },
-  {
-    id: "nl-legalbusiness-lb100results-20260818",
-    publication: "Legal Business",
-    title: "LB100 results so far – which firms are setting the pace for revenue and PEP?",
-    date: "2026-08-18",
-    time: "15:00",
-    summary: "National and regional firms saw the fastest revenue growth last year, but international players are pulling further ahead on PEP, preliminary LB100 data shows.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQKN8lhj47Reg7SJV/wv",
   },
 ];
