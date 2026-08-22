@@ -36,6 +36,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-thebrink-markwalter-20260822",
+    publication: "Bloomberg",
+    author: "Reshmi Basu",
+    series: "The Brink",
+    title: "The Brink: Mark Walter’s tough month",
+    date: "2026-08-22",
+    time: "16:00",
+    summary: "The billionaire is shedding some of his sports holdings to raise cash after multiple probes.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-22/mark-walter-s-financial-empire-faces-scrutiny-after-probes",
+  },
+  {
     id: "nl-econ-worldinbrief-canadatariff-20260822",
     publication: "The Economist",
     author: null,
@@ -440,16 +451,5 @@ export const NEWSLETTERS = [
     time: "05:02",
     summary: "Out of sync with oil and the midterms?",
     url: "https://www.bloomberg.com/opinion/newsletters/2026-08-19/sentiment-fund-managers-are-acting-like-summer-will-never-end",
-  },
-  {
-    id: "nl-reuters-tradingday-bondsslamstocks-20260818",
-    publication: "Thomson Reuters",
-    author: "Jamie McGeever",
-    series: "Trading Day",
-    title: "Bonds slam stocks",
-    date: "2026-08-18",
-    time: "22:00",
-    summary: "A widespread global bond selloff pushes long-dated yields to fresh multi-decade highs and rattles stocks, while oil hits a three-week high and foreign private demand for Treasuries wanes ahead of Fed minutes.",
-    url: "https://www.reuters.com/newsletters/trading-day",
   },
 ];
