@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b48dd083-0cdb-4f48-8be3-c73c000e3cdf", title: "Chart of the Week: Who owns government bonds?", date: "2026-08-22", time: "10:30", url: "https://www.ft.com/content/b48dd083-0cdb-4f48-8be3-c73c000e3cdf" },
   { id: "a7837e1c-6865-42bd-9902-3d4c4b7f37ef", title: "Russian ‘double-tap’ attack on Ukrainian shopping mall kills at least 16", date: "2026-08-22", time: "09:44", url: "https://www.ft.com/content/a7837e1c-6865-42bd-9902-3d4c4b7f37ef" },
   { id: "ad87fbc6-831a-4a8e-84d8-bd62cf373ac0", title: "Is sport safe from AI?", date: "2026-08-22", time: "09:00", url: "https://www.ft.com/content/ad87fbc6-831a-4a8e-84d8-bd62cf373ac0" },
   { id: "24f9c08e-e23f-434e-b0f4-fc1eb55a7b04", title: "Canada vows to match US tariffs as trade talks collapse", date: "2026-08-22", time: "05:51", url: "https://www.ft.com/content/24f9c08e-e23f-434e-b0f4-fc1eb55a7b04" },
