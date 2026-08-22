@@ -10,7 +10,7 @@ import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
 import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, MONTHS } from "/util.js?v=20260818-1";
 import { DESK, STRICT_MACRO_RE, deskFor, nlDesk,
-  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML } from "/feed.js?v=20260808-1";
+  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, fmtDay as fmt } from "/feed.js?v=20260808-1";
 
 const __KEY = "home";
 const __ROOT = document.documentElement;
@@ -48,7 +48,6 @@ const PREMIUM_NEWS = new Set([
 // tracked universe and are left untouched).
 // (The low-tier source list + general-news relevance gate now live server-side in
 // the Worker's /api/feed assembly — the wire arrives pre-culled for every surface.)
-const fmt = (iso) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso || ""); return m ? `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}` : (iso || ""); };
 const mgrName = (id) => (managers.find((m) => m.id === id) || {}).name || "";
 
 // ---- Notification source labels (kept in sync with each app's copy) --------

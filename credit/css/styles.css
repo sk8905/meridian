@@ -236,7 +236,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .deploy { margin-top: .85rem; padding-top: .75rem; border-top: 1px solid var(--border); }
 .deploy-head { display: flex; justify-content: space-between; gap: 1rem; font-size: .8rem; font-weight: 600; color: var(--muted); margin-bottom: .4rem; }
 .deploy-bar { background: #eef2f7; border: 1px solid var(--border); border-radius: 6px; height: 16px; overflow: hidden; }
-.deploy-fill { height: 100%; background: linear-gradient(90deg, #16a34a, #22c55e); }
+.deploy-fill { height: 100%; background: var(--t-up, #3fc08d); }
 .deploy-stats { display: flex; gap: 1.25rem; margin-top: .5rem; font-size: .82rem; flex-wrap: wrap; }
 .deploy-stats strong { color: var(--primary-ink); }
 .deploy-note { margin-top: .4rem; }
@@ -266,7 +266,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
 /* ---------- source citations ---------- */
 .sources { margin: .4rem 0 .25rem; line-height: 1.6; }
 .sources .src-label { font-weight: 600; }
-.sources a { word-break: break-word; }
+.sources a { word-break: break-word; color: var(--muted); }
 
 /* ---------- filters ---------- */
 .filters { display: flex; flex-wrap: wrap; gap: .75rem; margin-bottom: 1rem; align-items: flex-end; }
@@ -406,7 +406,7 @@ a.intel-head:hover { text-decoration: none; }
 .kpi-card.clickable { cursor: pointer; transition: border-color .15s, transform .1s, box-shadow .15s; }
 .kpi-card.clickable:hover { border-left-color: var(--ink); box-shadow: 0 6px 16px rgba(15,23,42,.08); }
 .chart-label { font-size: 11px; fill: var(--muted); }
-.chart-value { font-size: 11px; fill: var(--ink); font-weight: 600; }
+.chart-value { font-size: 11px; fill: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
 /* Faint full-scale track behind each bar so proportions read at a glance. */
 .bar-track { fill: #eef1f5; }
 /* ---------- Trends page ---------- */
@@ -422,7 +422,7 @@ a.intel-head:hover { text-decoration: none; }
 .chart-grid { stroke: #eef2f7; stroke-width: 1; }
 .donut-wrap { display: flex; gap: 1.25rem; align-items: center; flex-wrap: wrap; }
 .donut { width: 200px; height: 200px; flex: 0 0 auto; }
-.donut-total { font-size: 26px; font-weight: 700; fill: var(--primary-ink); }
+.donut-total { font-size: 26px; font-weight: 700; fill: var(--primary-ink); font-variant-numeric: tabular-nums; }
 .donut-sub { font-size: 10px; fill: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
 .legend { display: flex; flex-direction: column; gap: .4rem; font-size: .82rem; min-width: 190px; }
 .legend-item { display: flex; align-items: center; gap: .55rem; }

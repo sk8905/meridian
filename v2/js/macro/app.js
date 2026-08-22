@@ -714,7 +714,6 @@ const IND_SHORT = {
   base_rate: "Rate", two_year: "2Y", core_cpi: "CPI",
   services_pmi: "PMI", wages: "Wage", unemployment: "U/E",
 };
-const MON3 = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const INDICATORS = [
   ["base_rate", "Base rate"], ["two_year", "2-year yield"], ["core_cpi", "Core inflation"],
   ["services_pmi", "Services PMI"], ["wages", "Wage growth"], ["unemployment", "Unemployment"],
@@ -892,7 +891,7 @@ function drawChart() {
   for (let mi = Math.ceil(m0 / stepM) * stepM; mi <= m1; mi += stepM) {
     if (mi < m0) continue;
     const x = xFor(mi), mo = ((mi % 12) + 12) % 12, isJan = mo === 0;
-    const label = isJan ? String(Math.floor(mi / 12)) : MON3[mo];
+    const label = isJan ? String(Math.floor(mi / 12)) : MONTHS[mo];
     xticks += `<line x1="${x.toFixed(1)}" y1="${plotT}" x2="${x.toFixed(1)}" y2="${plotB}" class="chart-grid${isJan ? " chart-grid-yr" : ""}"/><text x="${x.toFixed(1)}" y="${plotB + 15}" class="chart-xlab${isJan ? " chart-xlab-yr" : ""}" text-anchor="middle">${label}</text>`;
   }
   // Every in-window event shows as a dot along the top; hovering reveals its

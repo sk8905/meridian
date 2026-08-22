@@ -12,7 +12,7 @@
 import {
   viewManager, viewFund, viewClo, viewLp, viewHedgeFund,
   __setHost as setCreditHost, __setProfilesMode as setCreditPfMode,
-} from "/v2/js/credit/detail.js?v=v2-18";
+} from "/v2/js/credit/detail.js?v=v2-19";
 import {
   viewFirm, viewItem,
   __setHost as setLegalHost, __setProfilesMode as setLegalPfMode,

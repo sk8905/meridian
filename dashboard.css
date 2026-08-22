@@ -136,7 +136,7 @@
 .dsh-lgl-i-h { display:flex; align-items:center; gap:8px; margin-bottom:2px; }
 .dsh-lgl-d { color:var(--t-mut); font-size:.7rem; font-family:var(--t-mono); }
 .dsh-lgl-badge { font-size:.6rem; font-weight:700; text-transform:uppercase; letter-spacing:.04em; padding:1px 5px; border-radius:3px; border:1px solid var(--t-grid2); }
-.dsh-lgl-case { color:var(--t-mac); border-color:var(--t-mac); }
+.dsh-lgl-case { color:var(--t-lex); border-color:var(--t-lex); }
 .dsh-lgl-alert { color:var(--t-lex); border-color:var(--t-lex); }
 .dsh-lgl-t { display:block; color:var(--t-ink); font-size:.84rem; line-height:1.35; font-weight:500; }
 .dsh-lgl-t:hover { color:var(--t-accent); }
@@ -337,8 +337,8 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 .dsh-cyc-note { font-size:.82rem; line-height:1.55; color:var(--t-ink); margin:8px 0 0; }
 .dsh-cyc-note.dsh-mut { color:var(--t-mut); font-size:.75rem; }
 .dsh-cyc-srcs { display:flex; flex-wrap:wrap; gap:5px 14px; margin-top:10px; }
-.dsh-cyc-src { font-size:.72rem; color:var(--t-accent); text-decoration:none; }
-.dsh-cyc-src:hover { text-decoration:underline; }
+.dsh-cyc-src { font-size:.72rem; color:var(--t-mut); text-decoration:none; }
+.dsh-cyc-src:hover { color:var(--t-accent); text-decoration:underline; }
 /* Per-block expand/collapse for the cycle narrative (collapsed by default). */
 .dsh-cyc-exp { margin-top:10px; }
 .dsh-cyc-sum { list-style:none; cursor:pointer; user-select:none; display:inline-flex; align-items:center; gap:6px;

@@ -164,7 +164,7 @@ img, svg { max-width: 100%; }
 }
 .kpi-link { text-decoration: none; color: inherit; display: block; transition: border-color .15s, box-shadow .15s; }
 .kpi-link:hover, .kpi-link:focus-visible { box-shadow: 0 6px 16px rgba(15,23,42,.08); text-decoration: none; }
-.kpi-num { display: block; font-size: 1.7rem; font-weight: 700; color: var(--primary-ink); line-height: 1.1; }
+.kpi-num { display: block; font-size: 1.7rem; font-weight: 700; color: var(--primary-ink); line-height: 1.1; font-variant-numeric: tabular-nums; }
 .kpi-label { display: block; font-size: .82rem; color: var(--ink-soft); margin-top: .2rem; }
 .kpi-sub { display: block; font-size: .72rem; color: var(--muted); margin-top: .1rem; }
 .kpi.accent { border-left-color: var(--accent); }
@@ -257,7 +257,7 @@ a.firm:hover, a.firm-big:hover { text-decoration: none; }
 .panel h2 { color: var(--ink-soft); }
 .chart { width: 100%; height: auto; }
 .chart-label { font-size: 12px; fill: var(--ink-soft); }
-.chart-value { font-size: 12px; fill: var(--muted); font-weight: 600; }
+.chart-value { font-size: 12px; fill: var(--muted); font-weight: 600; font-variant-numeric: tabular-nums; }
 .chart-axis { font-size: 11px; fill: var(--muted); }
 .chart-grid { stroke: var(--line); stroke-width: 1; }
 .clickable, .bar-row.clickable { cursor: pointer; }
@@ -267,7 +267,7 @@ a.firm:hover, a.firm-big:hover { text-decoration: none; }
 .chart g.col.clickable:focus-visible { outline: 2px solid var(--primary); }
 .donut-wrap { display: flex; gap: 1.2rem; align-items: center; flex-wrap: wrap; }
 .donut { width: 180px; flex: 0 0 auto; }
-.donut-total { font-size: 26px; font-weight: 700; fill: var(--ink); }
+.donut-total { font-size: 26px; font-weight: 700; fill: var(--ink); font-variant-numeric: tabular-nums; }
 .donut-sub { font-size: 11px; fill: var(--muted); }
 .legend { display: flex; flex-direction: column; gap: .4rem; }
 .legend-item { display: flex; align-items: center; gap: .5rem; font-size: .85rem; color: var(--ink-soft); }

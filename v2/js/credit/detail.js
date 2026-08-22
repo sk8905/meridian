@@ -110,10 +110,10 @@ function crWireRow(x, inline) {
     ? `<a href="${esc(url || "#")}"${url ? ' target="_blank" rel="noopener noreferrer"' : ""} class="tw-head">${esc(title)}</a>`
     : `<a href="#/${x._kind === "deal" ? "deals" : "intel"}" data-goto="${x._kind === "deal" ? "deals" : "intel"}:${x.id}" class="tw-head">${esc(title)}</a>`;
   return `<li class="compact-item tw-row" data-kind="${x._kind}"${isNews ? ` data-fkey="${esc(feedDedupKey(x))}"` : ` id="row-${esc(x.id)}"`}>`
-    + `<span class="tw-date">${x.date ? esc(fmtDate(x.date)) : ""}</span>`
+    + `<span class="tw-date">${x.date ? esc(fmtDate(x.date)) : "undated"}</span>`
     + `<span class="tw-tag ${x._kind}">${CR_KIND[x._kind]}</span>`
     + `<span class="tw-body">${head}${inline ? `<span class="tw-mgr-w">${inline}</span>` : ""}</span>`
-    + `<span class="tw-src">${url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(src || "source")}</a>` : esc(src || "")}</span>`
+    + `<span class="tw-src">${src ? (url ? `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(src)}</a>` : esc(src)) : ""}</span>`
     + `</li>`;
 }
 

@@ -318,7 +318,7 @@ function caseRow(c) {
   const saved = getSaved().has(c.id);
   return `<div class="feed-row" id="row-${esc(c.id)}">
     <div class="feed-meta">
-      <span class="feed-date">${fmtDate(c.date)}</span>
+      <span class="feed-date">${c.date ? fmtDate(c.date) : "undated"}</span>
     </div>
     <div class="feed-body">
       <div class="rx-title-line">
