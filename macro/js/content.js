@@ -13,7 +13,7 @@ export const UPDATED = "21 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-22",
-  lastCheckedTime: "12:20 BST",
+  lastCheckedTime: "17:25 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -338,7 +338,7 @@ export const COMMENTARY = {
   updated: "2026-08-22",
   us: [
     { title: "It Didn't Take Long for the White House to Undermine the Fed", source: "Bloomberg Opinion", author: "Jonathan Levin", date: "2026-08-21", url: "https://www.bloomberg.com/opinion/articles/2026-08-21/federal-reserve-undermined-by-treasury-s-aggressive-buyback-strategy" },
-    { title: "Bessent's Bond-Burner Wasn't the Big Move He Hoped", source: "Bloomberg Opinion", author: null, date: "2026-08-20", time: "17:25", url: "https://www.bloomberg.com/opinion/newsletters/2026-08-20/bessent-s-bond-burner-wasn-t-the-big-move-he-hoped" },
+    { title: "Bessent Must Envy When the Grownups Were in Charge", source: "Bloomberg Opinion", author: "John Authers", date: "2026-08-21", url: "https://www.bloomberg.com/opinion/articles/2026-08-21/bessent-must-envy-when-the-grownups-were-in-charge" },
     { title: "Goldman says markets too hawkish on betting Fed will hike rates", source: "Bloomberg", author: "Goldman Sachs — Jan Hatzius", date: "2026-08-17", url: "https://www.bloomberg.com/news/articles/2026-08-17/goldman-says-markets-too-hawkish-on-betting-fed-will-hike-rates" },
   ],
   uk: [
@@ -812,18 +812,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-08-22",
   us: [
-    { title: "Ahead of tough new U.S. sanctions, Iran criticizes 'extraterritorial sovereignty'", source: "CNBC", date: "2026-08-22", time: "12:11", url: "https://www.cnbc.com/2026/08/22/iran-criticizes-us-sanctions-extraterritorial-sovereignty.html" },
-    { title: "S&P Global Flash Manufacturing PMI comes in at 53.2 in August", source: "CNBC", date: "2026-08-21", time: "09:19", url: "https://www.cnbc.com/video/2026/08/21/sp-global-flash-manufacturing-pmi-comes-in-at-53-point-2-in-august.html" },
-    { title: "Stock market today: Dow, S&P 500, Nasdaq post weekly losses as bond volatility remains in focus, bitcoin soars", source: "Yahoo Finance", date: "2026-08-21", time: "09:19", url: "https://finance.yahoo.com/markets/live/stock-market-today-friday-august-21-dow-sp-500-nasdaq-bitcoin-080533702.html" },
-    { title: "Gold Reaches Highest Price In Three Months As Dollar Weakens", source: "Forbes", date: "2026-08-21", time: "17:10", url: "https://www.forbes.com/sites/conormurray/2026/08/21/gold-reaches-highest-price-in-three-months-as-dollar-weakens/" },
-    { title: "Big week coming up with PCE, Nvidia earnings and then Jackson Hole. Here's what to expect", source: "CNBC", date: "2026-08-21", time: "12:11", url: "https://www.cnbc.com/2026/08/21/stock-market-next-week-outlook-for-aug-24-28-2026.html" },
+    { title: "Ahead of tough new U.S. sanctions, Iran criticizes 'extraterritorial sovereignty'", source: "CNBC", date: "2026-08-22", time: "17:10", url: "https://www.cnbc.com/2026/08/22/iran-criticizes-us-sanctions-extraterritorial-sovereignty.html" },
+    { title: "Wall Street posts worst week in over a month amid bond sell-off, rising oil prices", source: "Reuters (via Investing.com)", date: "2026-08-21", time: "17:10", url: "https://www.investing.com/news/stock-market-news/us-stock-futures-steady-after-wall-st-slides-on-rising-treasury-yields-4870666" },
+    { title: "Stock Market Today (Aug. 21, 2026): S&P 500, Russell 2000 jump after tumultuous week for Treasurys", source: "TheStreet (via Yahoo Finance)", date: "2026-08-21", time: "17:10", url: "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-aug-21-131738699.html" },
+    { title: "Democratic Lawmakers Press Fed's Warsh to Reveal Calls With Trump", source: "Bloomberg", date: "2026-08-20", time: "17:10", url: "https://www.bloomberg.com/news/articles/2026-08-20/democratic-lawmakers-urge-fed-s-warsh-to-disclose-trump-calls" },
+    { title: "Bessent moves to curb Treasury yields, putting new pressure on Warsh's Fed", source: "CNBC", date: "2026-08-19", time: "17:10", url: "https://www.cnbc.com/2026/08/19/bessent-treasury-buybacks-yields-warsh-fed.html" },
   ],
   uk: [
-    { title: "Consumer price inflation, UK: July 2026", source: "Office for National Statistics", date: "2026-08-19", time: "09:19", url: "https://www.ons.gov.uk/economy/inflationandpriceindices/bulletins/consumerpriceinflation/july2026" },
-    { title: "UK Economy Speeds Up as Firms and Shoppers Splash Out, PMI Shows", source: "Bloomberg", date: "2026-08-21", time: "05:16", url: "https://www.bloomberg.com/news/articles/2026-08-21/uk-economy-speeds-up-as-firms-and-shoppers-splash-out-pmi-shows" },
-    { title: "Healey oversees unexpected rise in borrowing in first month as Chancellor", source: "CityAM", date: "2026-08-21", time: "05:16", url: "https://www.cityam.com/healey-oversees-unexpected-deficit-in-first-month-as-chancellor/" },
-    { title: "UK Consumer Confidence Climbs to Two-Year High, GfK Survey Shows", source: "Bloomberg", date: "2026-08-20", time: "05:16", url: "https://www.bloomberg.com/news/articles/2026-08-20/uk-consumer-confidence-climbs-to-two-year-high-gfk-survey-shows" },
-    { title: "Bank of England to hold rates for remainder of year despite inflation risks: Reuters poll", source: "Reuters (via Investing.com)", date: "2026-08-18", time: "05:16", url: "https://ca.investing.com/news/economy-news/bank-of-england-to-hold-rates-for-remainder-of-year-despite-inflation-risks-reuters-poll-4806349" },
+    { title: "World Economy Latest: UK Employment Declines While Price Pressures Mount", source: "Bloomberg", date: "2026-08-22", time: "17:10", url: "https://www.bloomberg.com/news/articles/2026-08-22/world-economy-latest-uk-employment-declines-while-price-pressures-mount" },
+    { title: "UK Retail Sales Drop for the First Time in Three Months", source: "Bloomberg", date: "2026-08-21", time: "17:10", url: "https://www.bloomberg.com/news/articles/2026-08-21/uk-retail-sales-drop-for-the-first-time-in-three-months" },
+    { title: "UK economy hands Burnham surprise boost before first budget", source: "Reuters (via Investing.com)", date: "2026-08-21", time: "17:10", url: "https://www.investing.com/news/economic-indicators/uk-economy-hands-burnham-surprise-boost-before-first-budget-4871859" },
+    { title: "UK service sector perks up in August, adding to resilience signs", source: "Reuters", date: "2026-08-21", time: "17:10", url: "https://www.933thedrive.com/2026/08/21/uk-service-sector-perks-up-in-august-adding-to-resilience-signs/" },
+    { title: "US bond market jitters spark UK economy recession warning", source: "CityAM", date: "2026-08-17", time: "17:10", url: "https://www.cityam.com/us-bond-market-jitters-spark-uk-economy-recession-warning/" },
   ],
 };
 
@@ -837,6 +837,12 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-22",
   items: [
+    {"title":"Where are central banks keeping their gold?","source":"Investing.com","author":"Simon Mugo","date":"2026-08-22","time":"17:10","url":"https://www.investing.com/news/economy-news/where-are-central-banks-keeping-their-gold-4872312","blurb":"Central banks are diversifying gold storage beyond London and New York to cut political/legal risk, with Goldman flagging accelerating official-sector buying (57 tonnes in June vs a 17-tonne pre-2022 average)."},
+    {"title":"Iran lets Iraqi oil tankers pass Hormuz as Trump claims 'total control'","source":"Investing.com","author":"Simon Mugo","date":"2026-08-22","time":"17:10","url":"https://www.investing.com/news/economy-news/us-iran-trade-warnings-as-new-sanctions-loom-and-hormuz-oil-flows-stall-4872251","blurb":"Iran permitted Iraqi tankers through the Strait of Hormuz even as Trump asserted US dominance of the waterway, keeping oil-supply risk elevated ahead of Monday's sanctions announcement."},
+    {"title":"Canada to match U.S. tariffs dollar for dollar after trade talks collapse","source":"Investing.com","author":"Navamya Acharya","date":"2026-08-22","time":"17:10","url":"https://www.investing.com/news/economy-news/canada-to-match-us-tariffs-dollar-for-dollar-after-trade-talks-collapse-4872372","blurb":"Ottawa will impose retaliatory tariffs on $20 billion of Canadian goods after US-Canada trade negotiations broke down."},
+    {"title":"Bessent's Bond Maneuvers Giving Global Debasement Trade New Life","source":"Bloomberg","date":"2026-08-21","time":"17:10","url":"https://www.bloomberg.com/news/articles/2026-08-21/bessent-s-bond-maneuvers-giving-global-debasement-trade-new-life","blurb":"Treasury's aggressive buyback push to cap long yields is reviving the 'dollar debasement' trade, with gold and bitcoin both rallying."},
+    {"title":"Is the Fed's stock valuation model working again?","source":"Investing.com","author":"Simon Mugo","date":"2026-08-21","time":"17:10","url":"https://www.investing.com/news/stock-market-news/is-the-feds-stock-valuation-model-working-again-4872237","blurb":"Yardeni Research argues the Fed's equity-vs-Treasury-yield valuation model is regaining relevance now that QE no longer distorts bond yields — a direct read on stretched equity valuations."},
+    {"title":"30-year Treasury yield tops 5.31%, the highest in 19 years","source":"CNBC","date":"2026-08-17","time":"17:10","url":"https://www.cnbc.com/2026/08/17/treasury-yields-federal-reserve-fomc-minutes.html","blurb":"Long bond yields hit a 19-year high after hawkish FOMC minutes, deepening the bond-market selloff Bessent later moved to counter."},
     {"title":"Ahead of tough new U.S. sanctions, Iran criticizes 'extraterritorial sovereignty'","source":"CNBC","date":"2026-08-22","time":"12:11","url":"https://www.cnbc.com/2026/08/22/iran-criticizes-us-sanctions-extraterritorial-sovereignty.html","blurb":"Iran's foreign ministry called Washington's looming new sanctions package an assertion of 'extraterritorial sovereignty' days before Treasury Secretary Bessent's Monday press conference detailing the coordinated economic-isolation campaign."},
     {"title":"US-Iran war latest: Trump calls Iran war 'a little detour' as Tehran keeps up defiance ahead of looming sanctions","source":"CNN","date":"2026-08-22","time":"12:11","url":"https://www.cnn.com/2026/08/22/world/live-news/iran-war-trump","blurb":"Live coverage of the standoff as the White House prepares its sanctions package and Tehran signals it will not back down, with oil markets watching the Strait of Hormuz risk premium."},
     {"title":"Iran war live: Tehran says US sanctions 'declaration of war' on all nations","source":"Al Jazeera","date":"2026-08-22","time":"12:11","url":"https://www.aljazeera.com/news/liveblog/2026/8/22/iran-war-live-trump-says-tehran-not-ready-to-make-right-deal-to-end-war","blurb":"Iranian foreign ministry spokesman Esmaeil Baghaei called the incoming US sanctions a 'recipe for... colonialism,' as Brent crude holds above $93/bbl on the escalation."},
@@ -874,9 +880,6 @@ export const ARTICLES = {
     {"title":"Walmart shares tumble on weakest US sales growth in six years, soft profit outlook","source":"Yahoo Finance","date":"2026-08-20","time":"21:16","url":"https://finance.yahoo.com/markets/stocks/articles/walmart-shares-tumble-weakest-us-144400613.html","blurb":"Walmart fell as much as 9.7% — its worst day since 2022 — after US comparable sales rose just 2.6% (vs 3.7% expected) and Q3 EPS guidance of $0.62-0.64 missed the $0.68 consensus."},
     {"title":"FTSE 100 falls as JD Sports tumbles on profit warning","source":"Reuters (via Business Recorder)","date":"2026-08-20","time":"21:16","url":"https://www.brecorder.com/news/40435766/ftse-100-falls-as-jd-sports-tumbles-on-profit-warning","blurb":"JD Sports shed over 14% — the FTSE 100's biggest decliner — after cutting FY27 profit guidance to £700m-£800m on a 3.1% like-for-like sales fall, with North American sales down 6.8%."},
     {"title":"Stock Market Today (Aug. 20, 2026): Nasdaq, S&P 500 slip as Treasury rally fades","source":"TheStreet","date":"2026-08-20","time":"21:16","url":"https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-20-2026","blurb":"The Dow closed at 52,759.21 (-703.84, -1.32%) and the Nasdaq at 26,067.17 (-1.00%) as the 30-year Treasury yield resumed its climb toward 5.24% despite Wednesday's buyback boost."},
-    {"title":"Treasury bond buybacks ease long-term yields, but analysts see limited relief","source":"CNBC","date":"2026-08-20","time":"17:25","url":"https://www.cnbc.com/2026/08/20/treasury-bond-buybacks-long-term-yields.html","blurb":"Doubling long-end repurchases bought a day's relief, but strategists say it does nothing about term premium or the deficit."},
-    {"title":"Scott Bessent Is Moving Markets Everywhere, With a Lot at Stake","source":"Bloomberg","date":"2026-08-20","time":"17:25","url":"https://www.bloomberg.com/news/newsletters/2026-08-20/scott-bessent-is-moving-markets-everywhere-with-a-lot-at-stake","blurb":"The Treasury secretary has become the single biggest swing factor for global rates, currencies and risk assets."},
-    {"title":"US Treasury: Scott Bessent's bond plan like 'rearranging deckchairs on the Titanic,' ING says","source":"Fortune","date":"2026-08-20","time":"17:25","url":"https://fortune.com/2026/08/20/scott-bessent-us-treasury-4-billion-bond-buyback-plan-rearranging-deckchairs-on-the-titanic-ing/","blurb":"ING argues a $4bn-per-operation buyback is trivial against a $40tn debt stock and will not arrest the long-end selloff."},
   ],
 };
 
