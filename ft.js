@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "ccd02363-0e4d-4fca-8bd1-46a153d19aee", title: "‘Appeasement is not a strategy’: how media is fighting back against Trump’s legal threats", date: "2026-08-22", time: "14:45", url: "https://www.ft.com/content/ccd02363-0e4d-4fca-8bd1-46a153d19aee" },
   { id: "da43f854-8083-4ec1-86da-76b47c84e64a", title: "Lula turns to Donald Trump as unlikely ally in Brazil's clash with Marco Rubio", date: "2026-08-22", time: "12:00", url: "https://www.ft.com/content/da43f854-8083-4ec1-86da-76b47c84e64a" },
   { id: "b48dd083-0cdb-4f48-8be3-c73c000e3cdf", title: "Chart of the Week: Who owns government bonds?", date: "2026-08-22", time: "10:30", url: "https://www.ft.com/content/b48dd083-0cdb-4f48-8be3-c73c000e3cdf" },
   { id: "a7837e1c-6865-42bd-9902-3d4c4b7f37ef", title: "Russian ‘double-tap’ attack on Ukrainian shopping mall kills at least 16", date: "2026-08-22", time: "09:44", url: "https://www.ft.com/content/a7837e1c-6865-42bd-9902-3d4c4b7f37ef" },
@@ -59,6 +60,4 @@ export const FT_ITEMS = [
   { id: "6a068501-ec65-4061-9716-49c4124025d6", title: "Uber set for €825mn Dutch fine over automating driver suspensions", date: "2026-08-21", time: "15:25", url: "https://www.ft.com/content/6a068501-ec65-4061-9716-49c4124025d6" },
   { id: "5b459fd3-8170-4c43-8db3-3f76d4ab891d", title: "The bond scare and the balance of power", date: "2026-08-21", time: "15:10", url: "https://www.ft.com/content/5b459fd3-8170-4c43-8db3-3f76d4ab891d" },
   { id: "447f83f6-af6c-493d-87ed-bf4c12d69391", title: "FTAV’s Friday charts quiz", date: "2026-08-21", time: "14:48", url: "https://www.ft.com/content/447f83f6-af6c-493d-87ed-bf4c12d69391" },
-  { id: "34d3874f-062a-499d-b5b6-a72ccbd0b8d6", title: "Prince Harry and other privacy claimants told to pay £9.5mn to Daily Mail publisher", date: "2026-08-21", time: "14:27", url: "https://www.ft.com/content/34d3874f-062a-499d-b5b6-a72ccbd0b8d6" },
-  { id: "08a5dde7-34ae-4165-b16f-79e2ff0d44bc", title: "Burnham: To drill or not to drill?", date: "2026-08-21", time: "14:19", url: "https://www.ft.com/content/08a5dde7-34ae-4165-b16f-79e2ff0d44bc" },
 ];
