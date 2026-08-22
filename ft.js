@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "24f9c08e-e23f-434e-b0f4-fc1eb55a7b04", title: "Canada vows to match US tariffs as trade talks collapse", date: "2026-08-22", time: "05:51", url: "https://www.ft.com/content/24f9c08e-e23f-434e-b0f4-fc1eb55a7b04" },
   { id: "b9e7a620-1018-4004-a3b0-3c85d494d21d", title: "Bossing the bond market around never works", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/b9e7a620-1018-4004-a3b0-3c85d494d21d" },
   { id: "2099aab6-2492-4b86-b028-38e103d9104d", title: "The man selling the Lakers: Mark Walter’s unravelling empire", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/2099aab6-2492-4b86-b028-38e103d9104d" },
   { id: "6cb399fa-9fba-4806-98a3-9572fe319622", title: "The Trump economy: $40tn debt, 6.7% mortgages and $5 diesel", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/6cb399fa-9fba-4806-98a3-9572fe319622" },
@@ -27,9 +28,13 @@ export const FT_ITEMS = [
   { id: "ff65daca-59bb-48f2-a6d1-e177a6409459", title: "Europe’s fatal beauty", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/ff65daca-59bb-48f2-a6d1-e177a6409459" },
   { id: "73755e41-8a6d-4fb4-9f4e-5d768450fc54", title: "Klarna’s stock crash shows the price of being a small fish in a big pond", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/73755e41-8a6d-4fb4-9f4e-5d768450fc54" },
   { id: "acfe49a7-3b6d-4930-a37a-5f1b91ed6dc8", title: "Burnham must reveal his hand on immigration", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/acfe49a7-3b6d-4930-a37a-5f1b91ed6dc8" },
+  { id: "ecf78c16-4b85-4cfe-9b34-dc9cf9f699bc", title: "Edinburgh festivals demand more money from Scotland’s first tourist tax", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/ecf78c16-4b85-4cfe-9b34-dc9cf9f699bc" },
+  { id: "cb586cff-57dd-4ec3-bd93-2b93b11e4789", title: "The financial question most couples cannot answer", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/cb586cff-57dd-4ec3-bd93-2b93b11e4789" },
   { id: "7c9cd212-58c6-44e1-b515-022271e4390d", title: "Who counts in Trump’s America?", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/7c9cd212-58c6-44e1-b515-022271e4390d" },
   { id: "efe10069-cbe3-4071-a091-26afa74fb4b3", title: "Qatar cuts state spending at home and abroad as war shrinks economy", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/efe10069-cbe3-4071-a091-26afa74fb4b3" },
   { id: "c6220205-ee40-4b71-95c0-d53399a17cd1", title: "EU slips further behind US in race for critical minerals", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/c6220205-ee40-4b71-95c0-d53399a17cd1" },
+  { id: "9399b276-d8b7-401f-a615-d46a32235b3e", title: "The fight to save England’s rivers", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/9399b276-d8b7-401f-a615-d46a32235b3e" },
+  { id: "4709af27-5da9-4b12-bacc-32cc1a65a602", title: "From Dagenham Motors to Monzo: the changing face of football shirt sponsorship", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/4709af27-5da9-4b12-bacc-32cc1a65a602" },
   { id: "bacf81cc-3340-417b-bb6d-c1dc89fb3a34", title: "The age of the populist financial scam", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/bacf81cc-3340-417b-bb6d-c1dc89fb3a34" },
   { id: "00342102-98ee-47a7-b2cf-7878b9131afd", title: "How Germany’s doctors, lawyers and dentists got burnt by private markets bets", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/00342102-98ee-47a7-b2cf-7878b9131afd" },
   { id: "ff536e6e-dc56-45e3-b5e0-2dfb28148cb6", title: "Ukraine seeks Elon Musk’s help to hit Russian missile launchers", date: "2026-08-21", time: "19:57", url: "https://www.ft.com/content/ff536e6e-dc56-45e3-b5e0-2dfb28148cb6" },
@@ -48,7 +53,6 @@ export const FT_ITEMS = [
   { id: "1603577e-89d8-4cfa-884b-b83fbb8dd20e", title: "Citadel offloads 80% of portfolio scooped up from Situational Awareness", date: "2026-08-21", time: "15:50", url: "https://www.ft.com/content/1603577e-89d8-4cfa-884b-b83fbb8dd20e" },
   { id: "ac3f252d-bd49-4340-8565-f27a29652759", title: "Apollo says hackers accessed personal data in latest Wall Street breach", date: "2026-08-21", time: "15:31", url: "https://www.ft.com/content/ac3f252d-bd49-4340-8565-f27a29652759" },
   { id: "6a068501-ec65-4061-9716-49c4124025d6", title: "Uber set for €825mn Dutch fine over automating driver suspensions", date: "2026-08-21", time: "15:25", url: "https://www.ft.com/content/6a068501-ec65-4061-9716-49c4124025d6" },
-  { id: "24f9c08e-e23f-434e-b0f4-fc1eb55a7b04", title: "US and Canada haggle over trade deal as midnight tariffs threat looms", date: "2026-08-21", time: "15:24", url: "https://www.ft.com/content/24f9c08e-e23f-434e-b0f4-fc1eb55a7b04" },
   { id: "5b459fd3-8170-4c43-8db3-3f76d4ab891d", title: "The bond scare and the balance of power", date: "2026-08-21", time: "15:10", url: "https://www.ft.com/content/5b459fd3-8170-4c43-8db3-3f76d4ab891d" },
   { id: "447f83f6-af6c-493d-87ed-bf4c12d69391", title: "FTAV’s Friday charts quiz", date: "2026-08-21", time: "14:48", url: "https://www.ft.com/content/447f83f6-af6c-493d-87ed-bf4c12d69391" },
   { id: "34d3874f-062a-499d-b5b6-a72ccbd0b8d6", title: "Prince Harry and other privacy claimants told to pay £9.5mn to Daily Mail publisher", date: "2026-08-21", time: "14:27", url: "https://www.ft.com/content/34d3874f-062a-499d-b5b6-a72ccbd0b8d6" },
@@ -58,7 +62,4 @@ export const FT_ITEMS = [
   { id: "ef1d7530-a514-4b18-9a0f-8843cac02929", title: "What is Jane Street?", date: "2026-08-21", time: "13:30", url: "https://www.ft.com/content/ef1d7530-a514-4b18-9a0f-8843cac02929" },
   { id: "ff13d879-8dbc-419c-9c5f-ceb3bbe564c9", title: "Andy Burnham’s summer tour turns into a cut-price honeymoon", date: "2026-08-21", time: "12:52", url: "https://www.ft.com/content/ff13d879-8dbc-419c-9c5f-ceb3bbe564c9" },
   { id: "a301daae-05dd-4cf9-b78c-7879e4da55ba", title: "What retail investors need to know before jumping into Anthropic’s IPO", date: "2026-08-21", time: "12:00", url: "https://www.ft.com/content/a301daae-05dd-4cf9-b78c-7879e4da55ba" },
-  { id: "7e0c8dc0-e957-420a-bba3-d33666d919b8", title: "Bitcoin and gold surge as Bessent’s bond market intervention weighs on dollar", date: "2026-08-21", time: "11:37", url: "https://www.ft.com/content/7e0c8dc0-e957-420a-bba3-d33666d919b8" },
-  { id: "f1a1ea48-f7d3-4582-9a03-25d884741623", title: "Food inflation adds pressure for Bank of Japan to act", date: "2026-08-21", time: "11:13", url: "https://www.ft.com/content/f1a1ea48-f7d3-4582-9a03-25d884741623" },
-  { id: "de7fad8f-f5a5-4233-819a-492511a1d3c8", title: "Waymo doubles spending on lobbying in robotaxi battle with Uber", date: "2026-08-21", time: "11:00", url: "https://www.ft.com/content/de7fad8f-f5a5-4233-819a-492511a1d3c8" },
 ];
