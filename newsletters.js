@@ -36,6 +36,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-econ-worldinbrief-canadatariff-20260822",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: America imposes tariff on Canadian goods",
+    date: "2026-08-22",
+    time: "06:38",
+    summary: "America slaps a 50% tariff on Canadian goods as talks collapse, while Iran's president says now is the time to end the war from a \"position of power\".",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-singaporeedition-taxrace-20260822",
     publication: "Bloomberg",
     author: "David Ramli",
@@ -440,16 +451,5 @@ export const NEWSLETTERS = [
     time: "22:00",
     summary: "A widespread global bond selloff pushes long-dated yields to fresh multi-decade highs and rattles stocks, while oil hits a three-week high and foreign private demand for Treasuries wanes ahead of Fed minutes.",
     url: "https://www.reuters.com/newsletters/trading-day",
-  },
-  {
-    id: "nl-bbg-thebrink-ballysbronx-20260818",
-    publication: "Bloomberg",
-    author: "Katherine Schwartz",
-    series: "The Brink",
-    title: "The Brink: Bally’s debt roulette",
-    date: "2026-08-18",
-    time: "16:45",
-    summary: "Bally’s debt-fueled bet in the Bronx becomes an existential crisis.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-18/bally-s-gambles-on-a-bronx-casino-and-its-future",
   },
 ];
