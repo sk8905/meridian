@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "524004a3-d0b4-4ffd-a00d-9aa74cd734c2", title: "Healey’s first Budget is a chance for radical change", date: "2026-08-23", time: "13:00", url: "https://www.ft.com/content/524004a3-d0b4-4ffd-a00d-9aa74cd734c2" },
+  { id: "14eeeead-647f-486a-a8dc-7ca2610f3d35", title: "Zelenskyy rejects election call from fired defence minister", date: "2026-08-23", time: "12:26", url: "https://www.ft.com/content/14eeeead-647f-486a-a8dc-7ca2610f3d35" },
   { id: "a4147c6b-5634-4035-b1a8-ac7bf1eb497d", title: "Government can bring robotics to life", date: "2026-08-23", time: "12:15", url: "https://www.ft.com/content/a4147c6b-5634-4035-b1a8-ac7bf1eb497d" },
   { id: "22530c4a-65b7-49f7-890d-1c8900f63853", title: "Trump’s South Korea snub raises questions in the Asia-Pacific", date: "2026-08-23", time: "12:00", url: "https://www.ft.com/content/22530c4a-65b7-49f7-890d-1c8900f63853" },
   { id: "65e41dc2-aeb6-4a2b-976a-cc3f5f990dd5", title: "Occidental tries to free itself from the messy legacy of Anadarko deal", date: "2026-08-23", time: "11:00", url: "https://www.ft.com/content/65e41dc2-aeb6-4a2b-976a-cc3f5f990dd5" },
@@ -60,5 +62,4 @@ export const FT_ITEMS = [
   { id: "00342102-98ee-47a7-b2cf-7878b9131afd", title: "How Germany’s doctors, lawyers and dentists got burnt by private markets bets", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/00342102-98ee-47a7-b2cf-7878b9131afd" },
   { id: "ff536e6e-dc56-45e3-b5e0-2dfb28148cb6", title: "Ukraine seeks Elon Musk’s help to hit Russian missile launchers", date: "2026-08-21", time: "19:57", url: "https://www.ft.com/content/ff536e6e-dc56-45e3-b5e0-2dfb28148cb6" },
   { id: "9a094571-604d-4f1e-b5ff-c0b5dc032dc1", title: "Iran’s president calls to end war with US from ‘position of strength’", date: "2026-08-21", time: "19:51", url: "https://www.ft.com/content/9a094571-604d-4f1e-b5ff-c0b5dc032dc1" },
-  { id: "ead7f466-1d6e-42e3-bedf-0ce5135372c9", title: "Directors’ Deals: Pearson executive cashes in as digital growth boosts shares", date: "2026-08-21", time: "18:00", url: "https://www.ft.com/content/ead7f466-1d6e-42e3-bedf-0ce5135372c9" },
 ];
