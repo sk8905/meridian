@@ -13,7 +13,7 @@ export const UPDATED = "21 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-23",
-  lastCheckedTime: "05:22 BST",
+  lastCheckedTime: "09:18 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -902,7 +902,7 @@ export const RELEASES = [
   { date: "2026-09-15", country: "UK", title: "ONS labour market & average earnings (September release)", url: "https://www.ons.gov.uk/releases/uklabourmarketseptember2026" },
   { date: "2026-09-16", country: "US", title: "FOMC rate decision (with Summary of Economic Projections)", url: "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
   { date: "2026-09-16", country: "UK", title: "CPI inflation (August)", url: "https://www.ons.gov.uk/releases/consumerpriceinflationukaugust2026" },
-  { date: "2026-09-16", country: "US", title: "Retail sales (August)", url: "https://www.census.gov/retail/marts/www/marts_current.pdf" },
+  { date: "2026-09-14", country: "US", title: "Retail sales (August)", url: "https://www.census.gov/retail/marts/www/marts_current.pdf" },
   { date: "2026-09-17", country: "UK", title: "BoE MPC rate decision", url: "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates" },
   { date: "2026-09-18", country: "UK", title: "Retail sales (August)", url: "https://www.gov.uk/government/statistics/announcements/retail-sales-great-britain-august-2026" },
   { date: "2026-10-28", country: "UK", title: "Autumn Budget 2026 (Chancellor John Healey)", url: "https://www.gov.uk/government/publications/chancellor-letter-to-the-treasury-select-committee-tsc-budget-2026-date" },
