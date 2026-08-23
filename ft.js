@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "22530c4a-65b7-49f7-890d-1c8900f63853", title: "Trump’s South Korea snub raises questions in the Asia-Pacific", date: "2026-08-23", time: "12:00", url: "https://www.ft.com/content/22530c4a-65b7-49f7-890d-1c8900f63853" },
   { id: "65e41dc2-aeb6-4a2b-976a-cc3f5f990dd5", title: "Occidental tries to free itself from the messy legacy of Anadarko deal", date: "2026-08-23", time: "11:00", url: "https://www.ft.com/content/65e41dc2-aeb6-4a2b-976a-cc3f5f990dd5" },
   { id: "8ac695be-2803-4e91-84b3-9cffe2e6d0e3", title: "Burnham to allow English mayors to ‘call in’ big local planning decisions", date: "2026-08-23", time: "10:29", url: "https://www.ft.com/content/8ac695be-2803-4e91-84b3-9cffe2e6d0e3" },
   { id: "dd605c6f-8a6e-4664-970b-f4c07ea7a4d2", title: "US buyers snap up Europe’s asset managers at fastest rate in decades", date: "2026-08-23", time: "05:30", url: "https://www.ft.com/content/dd605c6f-8a6e-4664-970b-f4c07ea7a4d2" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "ff536e6e-dc56-45e3-b5e0-2dfb28148cb6", title: "Ukraine seeks Elon Musk’s help to hit Russian missile launchers", date: "2026-08-21", time: "19:57", url: "https://www.ft.com/content/ff536e6e-dc56-45e3-b5e0-2dfb28148cb6" },
   { id: "9a094571-604d-4f1e-b5ff-c0b5dc032dc1", title: "Iran’s president calls to end war with US from ‘position of strength’", date: "2026-08-21", time: "19:51", url: "https://www.ft.com/content/9a094571-604d-4f1e-b5ff-c0b5dc032dc1" },
   { id: "ead7f466-1d6e-42e3-bedf-0ce5135372c9", title: "Directors’ Deals: Pearson executive cashes in as digital growth boosts shares", date: "2026-08-21", time: "18:00", url: "https://www.ft.com/content/ead7f466-1d6e-42e3-bedf-0ce5135372c9" },
-  { id: "fc1fc5b9-e73e-4e24-9495-4f9b16853be5", title: "Stockpickers: Costain, Oxford Nanopore Technologies, BHP", date: "2026-08-21", time: "18:00", url: "https://www.ft.com/content/fc1fc5b9-e73e-4e24-9495-4f9b16853be5" },
 ];
