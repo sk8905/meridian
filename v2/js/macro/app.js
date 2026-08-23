@@ -188,8 +188,8 @@ function summaryCards() {
   const card = (icon, title, href, cta, us, uk) => `
     <a class="macro-sum" href="${href}">
       <div class="macro-sum-head"><span class="macro-sum-icon" aria-hidden="true">${icon}</span><span class="macro-sum-title">${esc(title)}</span></div>
-      <p class="macro-sum-line"><span class="macro-flag">US</span><span class="macro-sum-txt">${us}</span></p>
-      <p class="macro-sum-line"><span class="macro-flag">UK</span><span class="macro-sum-txt">${uk}</span></p>
+      <p class="macro-sum-line"><span class="macro-flag">US</span><span class="macro-sum-txt">${esc(us)}</span></p>
+      <p class="macro-sum-line"><span class="macro-flag">UK</span><span class="macro-sum-txt">${esc(uk)}</span></p>
       <span class="macro-sum-cta">${esc(cta)}</span>
     </a>`;
   return `<section class="macro-summary">
@@ -590,8 +590,8 @@ function viewPolicy() {
     <section class="card macro-note">
       <h2 class="macro-country">${esc(name)}</h2>
       <p class="macro-note-sub"><strong>${esc(o.rate)}</strong> · ${esc(o.stance)}</p>
-      ${o.body.map((p) => `<p class="macro-para">${p}</p>`).join("")}
-      <p class="macro-bottomline"><strong>Bottom line.</strong> ${o.bottomLine}</p>
+      ${o.body.map((p) => `<p class="macro-para">${esc(p)}</p>`).join("")}
+      <p class="macro-bottomline"><strong>Bottom line.</strong> ${esc(o.bottomLine)}</p>
     </section>`;
   return `
     <div class="page-head">
@@ -612,7 +612,7 @@ function viewCycle() {
     <section class="card macro-note">
       <h2 class="macro-country">${esc(name)}</h2>
       <p class="macro-note-sub"><strong>${esc(c.shortStage)}</strong> · ${esc(c.longStage)}${c.worldStage ? " · " + esc(c.worldStage) : ""}</p>
-      ${c.body.map((p) => `<p class="macro-para">${p}</p>`).join("")}
+      ${c.body.map((p) => `<p class="macro-para">${esc(p)}</p>`).join("")}
     </section>`;
   return `
     <div class="page-head">
@@ -629,7 +629,7 @@ function viewCycle() {
         ${trackGauge(CYCLE_ZONES, [{ label: "US", pos: CYCLE.us.pos }, { label: "UK", pos: CYCLE.uk.pos }], "Long-term debt cycle position, 0 early to 100 crisis")}
       </div>
       <div class="macro-framework">
-        ${CYCLE.framework.map((p) => `<p class="macro-para">${p}</p>`).join("")}
+        ${CYCLE.framework.map((p) => `<p class="macro-para">${esc(p)}</p>`).join("")}
       </div>
       <p class="muted small macro-gauge-note">${esc(CYCLE.note)}</p>
     </section>
@@ -648,13 +648,13 @@ function viewCycle() {
         ${trackGauge(MARKET_CYCLE.zones, [{ label: "US / global equities", pos: MARKET_CYCLE.pos }], "Market cycle position, 0 capitulation to 100 mania")}
       </div>
       <div class="macro-framework">
-        ${MARKET_CYCLE.framework.map((p) => `<p class="macro-para">${p}</p>`).join("")}
+        ${MARKET_CYCLE.framework.map((p) => `<p class="macro-para">${esc(p)}</p>`).join("")}
       </div>
       <p class="muted small macro-gauge-note">${esc(MARKET_CYCLE.note)}</p>
     </section>
     <section class="card macro-note">
       <div class="macro-dim-head"><h2 class="macro-country">Where we stand</h2></div>
-      ${MARKET_CYCLE.stand.map((p) => `<p class="macro-para">${p}</p>`).join("")}
+      ${MARKET_CYCLE.stand.map((p) => `<p class="macro-para">${esc(p)}</p>`).join("")}
     </section>
     ${sourceList(MARKET_CYCLE.sources)}`;
 }
@@ -687,7 +687,7 @@ function viewBubble() {
         ${trackGauge(BUBBLE_ZONES, [{ label: band, pos: composite }], "US equity bubble-risk score, 0 low to 100 extreme")}
       </div>
       <div class="macro-framework">
-        ${BUBBLE.summary.map((p) => `<p class="macro-para">${p}</p>`).join("")}
+        ${BUBBLE.summary.map((p) => `<p class="macro-para">${esc(p)}</p>`).join("")}
       </div>
       <p class="muted small macro-gauge-note">${esc(BUBBLE.note)}</p>
     </section>

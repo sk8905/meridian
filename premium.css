@@ -406,7 +406,7 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 .mtab-ico { display: block; font-size: 1.42rem; line-height: 1; }   /* diamond glyph → optically match the SVG icons */
 svg.mtab-ico { width: 22px; height: 22px; }
 /* Dark variant — home dashboard + every app share it (one override covers all). */
-[data-theme="dark"] .mobile-tabbar { background: #000; border-top: 1px solid var(--border, #262626); box-shadow: none; }
+[data-theme="dark"] .mobile-tabbar { background: var(--bg, #000); border-top: 1px solid var(--border, #262626); box-shadow: none; }
 [data-theme="dark"] .mtab { color: var(--muted, #7f8ca6); }
 [data-theme="dark"] .mtab:hover { color: var(--ink-soft, #cdd6e6); }
 [data-theme="dark"] .mtab.is-active { color: #fff; background: none; }
@@ -799,7 +799,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
    after each section's styles.css, so these win; scoped under .topbar so the
    Home command bar (.g-top) is untouched. Deep, hairline-bordered surface with
    an accent-tinted active tab and a refined search field. */
-.topbar { background: #000000; border-bottom: 1px solid rgba(255,255,255,.07); }
+.topbar { background: var(--navy, #000000); border-bottom: 1px solid rgba(255,255,255,.07); }
 @media (min-width: 901px) { .topbar .topbar-inner { height: 54px; } }
 .topbar .logo { color: #fff; }
 .topbar .brand-text strong { font-size: .92rem; font-weight: 600; }

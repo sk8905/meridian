@@ -44,7 +44,7 @@
        far-left corner and the row is indented to the page container's left edge,
        so the switch lines up with the page content; the search sits at the
        content's right margin — the same slot the apps give Watchlist). ---- */
-    .g-top { position:sticky; top:0; z-index:20; background:#000000; color:#fff; border-bottom:1px solid rgba(255,255,255,.08); }
+    .g-top { position:sticky; top:0; z-index:20; background:var(--navy, #000000); color:#fff; border-bottom:1px solid rgba(255,255,255,.08); }
     .g-top-inner { position:relative; display:flex; align-items:center; gap:1.6rem; padding:0 1.5rem; height:54px; }
     .g-brand { display:flex; align-items:center; gap:.55rem; flex:0 0 auto; color:#fff; }
     .g-logo { display:inline-flex; align-items:center; justify-content:center; width:1.5em; height:1.5em;

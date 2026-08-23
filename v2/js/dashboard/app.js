@@ -533,7 +533,7 @@ export function mount(host, ctx) {
       + `<span class="dsh-fw-track"><span class="dsh-fw-bar" style="width:${Math.max(2, Math.min(100, pos || 0))}%"></span></span>`
       + `<span class="dsh-fw-p">${pos}/100</span></div>`;
     const mc = MARKET_CYCLE || {};
-    const paras = (arr) => (arr || []).map((p) => `<p class="dsh-cyc-note">${p}</p>`).join("");
+    const paras = (arr) => (arr || []).map((p) => `<p class="dsh-cyc-note">${esc(p)}</p>`).join("");
     const srcRow = (sources) => { const s = (sources || []).map(([l, u]) => `<a class="dsh-cyc-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(l)}</a>`).join(""); return s ? `<div class="dsh-cyc-srcs">${s}</div>` : ""; };
     // The full narrative sits behind a per-block expand/collapse, collapsed by
     // default (native <details>; the dashboard click handler ignores <summary>).
