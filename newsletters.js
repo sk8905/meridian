@@ -32,9 +32,21 @@ export const PUBLISHERS = {
   "newsletter.newyorker.com": "The New Yorker",
   "pe-insights.com": "Private Equity Insights",
   "getmatter.com": "Matter",
+  "editorial.theguardian.com": "The Guardian",
 };
 
 export const NEWSLETTERS = [
+  {
+    id: "nl-guardian-therecap-20260823",
+    publication: "The Guardian",
+    author: null,
+    series: "The Recap",
+    title: "Baseball’s 3ft 7in pinch-hitter, extreme heat and a celebratory KFC",
+    date: "2026-08-23",
+    time: "08:05",
+    summary: "Weekly roundup of editors' picks from Guardian Sport's coverage over the past seven days.",
+    url: "https://www.theguardian.com/sport",
+  },
   {
     id: "nl-bbg-thebrink-markwalter-20260822",
     publication: "Bloomberg",
