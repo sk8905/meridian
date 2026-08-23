@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "e05718e3-fa3b-4a0f-8d85-0c7f0f826c96", title: "How worried should the bond market be about US inflation?", date: "2026-08-23", time: "15:09", url: "https://www.ft.com/content/e05718e3-fa3b-4a0f-8d85-0c7f0f826c96" },
   { id: "524004a3-d0b4-4ffd-a00d-9aa74cd734c2", title: "Healey’s first Budget is a chance for radical change", date: "2026-08-23", time: "13:00", url: "https://www.ft.com/content/524004a3-d0b4-4ffd-a00d-9aa74cd734c2" },
   { id: "14eeeead-647f-486a-a8dc-7ca2610f3d35", title: "Zelenskyy rejects election call from fired defence minister", date: "2026-08-23", time: "12:26", url: "https://www.ft.com/content/14eeeead-647f-486a-a8dc-7ca2610f3d35" },
   { id: "a4147c6b-5634-4035-b1a8-ac7bf1eb497d", title: "Government can bring robotics to life", date: "2026-08-23", time: "12:15", url: "https://www.ft.com/content/a4147c6b-5634-4035-b1a8-ac7bf1eb497d" },
@@ -60,6 +61,4 @@ export const FT_ITEMS = [
   { id: "4709af27-5da9-4b12-bacc-32cc1a65a602", title: "From Dagenham Motors to Monzo: the changing face of football shirt sponsorship", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/4709af27-5da9-4b12-bacc-32cc1a65a602" },
   { id: "bacf81cc-3340-417b-bb6d-c1dc89fb3a34", title: "The age of the populist financial scam", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/bacf81cc-3340-417b-bb6d-c1dc89fb3a34" },
   { id: "00342102-98ee-47a7-b2cf-7878b9131afd", title: "How Germany’s doctors, lawyers and dentists got burnt by private markets bets", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/00342102-98ee-47a7-b2cf-7878b9131afd" },
-  { id: "ff536e6e-dc56-45e3-b5e0-2dfb28148cb6", title: "Ukraine seeks Elon Musk’s help to hit Russian missile launchers", date: "2026-08-21", time: "19:57", url: "https://www.ft.com/content/ff536e6e-dc56-45e3-b5e0-2dfb28148cb6" },
-  { id: "9a094571-604d-4f1e-b5ff-c0b5dc032dc1", title: "Iran’s president calls to end war with US from ‘position of strength’", date: "2026-08-21", time: "19:51", url: "https://www.ft.com/content/9a094571-604d-4f1e-b5ff-c0b5dc032dc1" },
 ];
