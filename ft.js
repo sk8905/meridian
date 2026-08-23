@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "552b8fca-6dad-4b41-a0be-54d2cd70e3cb", title: "Keir Starmer considered letting 100,000 young Europeans come to UK every year", date: "2026-08-23", time: "15:24", url: "https://www.ft.com/content/552b8fca-6dad-4b41-a0be-54d2cd70e3cb" },
   { id: "e05718e3-fa3b-4a0f-8d85-0c7f0f826c96", title: "How worried should the bond market be about US inflation?", date: "2026-08-23", time: "15:09", url: "https://www.ft.com/content/e05718e3-fa3b-4a0f-8d85-0c7f0f826c96" },
   { id: "524004a3-d0b4-4ffd-a00d-9aa74cd734c2", title: "Healey’s first Budget is a chance for radical change", date: "2026-08-23", time: "13:00", url: "https://www.ft.com/content/524004a3-d0b4-4ffd-a00d-9aa74cd734c2" },
   { id: "14eeeead-647f-486a-a8dc-7ca2610f3d35", title: "Zelenskyy rejects election call from fired defence minister", date: "2026-08-23", time: "12:26", url: "https://www.ft.com/content/14eeeead-647f-486a-a8dc-7ca2610f3d35" },
@@ -60,5 +61,4 @@ export const FT_ITEMS = [
   { id: "9399b276-d8b7-401f-a615-d46a32235b3e", title: "The fight to save England’s rivers", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/9399b276-d8b7-401f-a615-d46a32235b3e" },
   { id: "4709af27-5da9-4b12-bacc-32cc1a65a602", title: "From Dagenham Motors to Monzo: the changing face of football shirt sponsorship", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/4709af27-5da9-4b12-bacc-32cc1a65a602" },
   { id: "bacf81cc-3340-417b-bb6d-c1dc89fb3a34", title: "The age of the populist financial scam", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/bacf81cc-3340-417b-bb6d-c1dc89fb3a34" },
-  { id: "00342102-98ee-47a7-b2cf-7878b9131afd", title: "How Germany’s doctors, lawyers and dentists got burnt by private markets bets", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/00342102-98ee-47a7-b2cf-7878b9131afd" },
 ];
