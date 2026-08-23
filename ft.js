@@ -20,6 +20,15 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c202d7aa-481a-466b-b34f-2c4451f787a5", title: "Coffee chain Blank Street raises funds from General Atlantic to fuel expansion and ice cream push", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/c202d7aa-481a-466b-b34f-2c4451f787a5" },
+  { id: "ef65c99c-b58c-430c-b6be-8036f042cc1e", title: "Why is the far right so obsessed with knights?", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/ef65c99c-b58c-430c-b6be-8036f042cc1e" },
+  { id: "6f664a31-ca24-4a16-a6e9-5978fdf2512c", title: "Are America’s vast Gulf bases worth rebuilding?", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/6f664a31-ca24-4a16-a6e9-5978fdf2512c" },
+  { id: "be3c0c6c-0a65-4add-b675-7a5876f625be", title: "India’s reliance on Russian oil hits all-time high", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/be3c0c6c-0a65-4add-b675-7a5876f625be" },
+  { id: "6fc8d072-5a2c-4431-895a-e3d4eb03329d", title: "Railway enthusiasts split over plan to restore train services in rural areas", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/6fc8d072-5a2c-4431-895a-e3d4eb03329d" },
+  { id: "72783ac2-d6d4-4507-b50f-88861506ad76", title: "‘I don’t have any close friends in business’: Euronext CEO on a decade shaping Europe’s markets", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/72783ac2-d6d4-4507-b50f-88861506ad76" },
+  { id: "5e8072a7-cb99-47a6-9478-e46e7de3b4a2", title: "Investors try to catch ‘falling knife’ with bets on risky funds during chip rout", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/5e8072a7-cb99-47a6-9478-e46e7de3b4a2" },
+  { id: "434ff8df-d436-4001-b781-3cf0c8ad0b64", title: "‘Juggernaut’ BT’s decade-long turnaround hits crunch time", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/434ff8df-d436-4001-b781-3cf0c8ad0b64" },
+  { id: "d8279eab-023e-4403-8f0f-b0b64393dcbb", title: "Data centres drive Ireland to reopen nuclear power debate", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/d8279eab-023e-4403-8f0f-b0b64393dcbb" },
   { id: "d770cdbf-46b1-4928-9ec7-e1155db679d2", title: "Israel’s Syria strike may have been bid to provoke Turkey conflict, US envoy says", date: "2026-08-22", time: "19:17", url: "https://www.ft.com/content/d770cdbf-46b1-4928-9ec7-e1155db679d2" },
   { id: "e3b5c236-bd5f-45c2-8ddf-5279a7375d3f", title: "Mark Carney says Canada is now ‘at war’ with US over trade", date: "2026-08-22", time: "18:22", url: "https://www.ft.com/content/e3b5c236-bd5f-45c2-8ddf-5279a7375d3f" },
   { id: "ccd02363-0e4d-4fca-8bd1-46a153d19aee", title: "‘Appeasement is not a strategy’: how media is fighting back against Trump’s legal threats", date: "2026-08-22", time: "14:45", url: "https://www.ft.com/content/ccd02363-0e4d-4fca-8bd1-46a153d19aee" },
@@ -52,12 +61,4 @@ export const FT_ITEMS = [
   { id: "7aabb591-ca73-4d87-96ad-dac9a210e1d0", title: "Donald Trump claims deal to cut beef import tariffs in push to curb high prices", date: "2026-08-21", time: "17:18", url: "https://www.ft.com/content/7aabb591-ca73-4d87-96ad-dac9a210e1d0" },
   { id: "7b162fb4-8889-4f9c-9d5b-878850d6e8af", title: "Jim O’Neill declines job in Andy Burnham’s government", date: "2026-08-21", time: "17:05", url: "https://www.ft.com/content/7b162fb4-8889-4f9c-9d5b-878850d6e8af" },
   { id: "9f46db72-0a1e-42b0-8efe-974a04fa0fc7", title: "Latest savings rates", date: "2026-08-21", time: "16:55", url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7" },
-  { id: "105b8b46-7109-402d-84cf-2616b17bfac1", title: "The US techlash is real", date: "2026-08-21", time: "16:44", url: "https://www.ft.com/content/105b8b46-7109-402d-84cf-2616b17bfac1" },
-  { id: "75ba3055-625c-4cb5-894b-0696a38f5e79", title: "Latest Isa rates", date: "2026-08-21", time: "16:42", url: "https://www.ft.com/content/75ba3055-625c-4cb5-894b-0696a38f5e79" },
-  { id: "68b36b6d-71e7-4f44-bbfb-a202e36603a4", title: "Latest National Savings & Investments rates", date: "2026-08-21", time: "16:38", url: "https://www.ft.com/content/68b36b6d-71e7-4f44-bbfb-a202e36603a4" },
-  { id: "3b463c96-9799-4b1c-856a-978f48b04eff", title: "Bessent dissent", date: "2026-08-21", time: "16:30", url: "https://www.ft.com/content/3b463c96-9799-4b1c-856a-978f48b04eff" },
-  { id: "0eb4e7ce-42e3-49af-ae27-645eb7676fad", title: "Natalie Harp, the devoted ‘human printer’ in Trump’s entourage", date: "2026-08-21", time: "16:22", url: "https://www.ft.com/content/0eb4e7ce-42e3-49af-ae27-645eb7676fad" },
-  { id: "1603577e-89d8-4cfa-884b-b83fbb8dd20e", title: "Citadel offloads 80% of portfolio scooped up from Situational Awareness", date: "2026-08-21", time: "15:50", url: "https://www.ft.com/content/1603577e-89d8-4cfa-884b-b83fbb8dd20e" },
-  { id: "ac3f252d-bd49-4340-8565-f27a29652759", title: "Apollo says hackers accessed personal data in latest Wall Street breach", date: "2026-08-21", time: "15:31", url: "https://www.ft.com/content/ac3f252d-bd49-4340-8565-f27a29652759" },
-  { id: "6a068501-ec65-4061-9716-49c4124025d6", title: "Uber set for €825mn Dutch fine over automating driver suspensions", date: "2026-08-21", time: "15:25", url: "https://www.ft.com/content/6a068501-ec65-4061-9716-49c4124025d6" },
 ];
