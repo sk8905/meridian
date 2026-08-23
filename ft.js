@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "40ae9cd3-fbc8-4a55-adaa-c24bc80481c9", title: "Kevin Warsh seeks to soothe investors’ nerves as signs of economic strain mount", date: "2026-08-23", time: "19:00", url: "https://www.ft.com/content/40ae9cd3-fbc8-4a55-adaa-c24bc80481c9" },
+  { id: "50c666af-1979-4411-9d62-34e18cc0ecc9", title: "Yahoo, the internet’s ‘OG’, wants to win over Gen Z", date: "2026-08-23", time: "19:00", url: "https://www.ft.com/content/50c666af-1979-4411-9d62-34e18cc0ecc9" },
+  { id: "252df40a-48c0-47b8-850d-698a3d7a6dfd", title: "Why every French politician is now a Gaullist", date: "2026-08-23", time: "18:58", url: "https://www.ft.com/content/252df40a-48c0-47b8-850d-698a3d7a6dfd" },
+  { id: "39baf33e-3238-4923-9fe9-f1db48bb54e4", title: "Trump accused of risking more pain for Americans with Canada trade war", date: "2026-08-23", time: "18:28", url: "https://www.ft.com/content/39baf33e-3238-4923-9fe9-f1db48bb54e4" },
+  { id: "6aa04f24-c216-467e-834a-7b4af3ef660e", title: "A week of keynote speeches", date: "2026-08-23", time: "18:15", url: "https://www.ft.com/content/6aa04f24-c216-467e-834a-7b4af3ef660e" },
   { id: "552b8fca-6dad-4b41-a0be-54d2cd70e3cb", title: "Keir Starmer considered letting 100,000 young Europeans come to UK every year", date: "2026-08-23", time: "15:24", url: "https://www.ft.com/content/552b8fca-6dad-4b41-a0be-54d2cd70e3cb" },
   { id: "e05718e3-fa3b-4a0f-8d85-0c7f0f826c96", title: "How worried should the bond market be about US inflation?", date: "2026-08-23", time: "15:09", url: "https://www.ft.com/content/e05718e3-fa3b-4a0f-8d85-0c7f0f826c96" },
   { id: "524004a3-d0b4-4ffd-a00d-9aa74cd734c2", title: "Healey’s first Budget is a chance for radical change", date: "2026-08-23", time: "13:00", url: "https://www.ft.com/content/524004a3-d0b4-4ffd-a00d-9aa74cd734c2" },
@@ -55,10 +60,4 @@ export const FT_ITEMS = [
   { id: "acfe49a7-3b6d-4930-a37a-5f1b91ed6dc8", title: "Burnham must reveal his hand on immigration", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/acfe49a7-3b6d-4930-a37a-5f1b91ed6dc8" },
   { id: "ecf78c16-4b85-4cfe-9b34-dc9cf9f699bc", title: "Edinburgh festivals demand more money from Scotland’s first tourist tax", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/ecf78c16-4b85-4cfe-9b34-dc9cf9f699bc" },
   { id: "cb586cff-57dd-4ec3-bd93-2b93b11e4789", title: "The financial question most couples cannot answer", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/cb586cff-57dd-4ec3-bd93-2b93b11e4789" },
-  { id: "7c9cd212-58c6-44e1-b515-022271e4390d", title: "Who counts in Trump’s America?", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/7c9cd212-58c6-44e1-b515-022271e4390d" },
-  { id: "efe10069-cbe3-4071-a091-26afa74fb4b3", title: "Qatar cuts state spending at home and abroad as war shrinks economy", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/efe10069-cbe3-4071-a091-26afa74fb4b3" },
-  { id: "c6220205-ee40-4b71-95c0-d53399a17cd1", title: "EU slips further behind US in race for critical minerals", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/c6220205-ee40-4b71-95c0-d53399a17cd1" },
-  { id: "9399b276-d8b7-401f-a615-d46a32235b3e", title: "The fight to save England’s rivers", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/9399b276-d8b7-401f-a615-d46a32235b3e" },
-  { id: "4709af27-5da9-4b12-bacc-32cc1a65a602", title: "From Dagenham Motors to Monzo: the changing face of football shirt sponsorship", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/4709af27-5da9-4b12-bacc-32cc1a65a602" },
-  { id: "bacf81cc-3340-417b-bb6d-c1dc89fb3a34", title: "The age of the populist financial scam", date: "2026-08-22", time: "05:00", url: "https://www.ft.com/content/bacf81cc-3340-417b-bb6d-c1dc89fb3a34" },
 ];
