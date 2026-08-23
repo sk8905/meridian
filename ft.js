@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a4147c6b-5634-4035-b1a8-ac7bf1eb497d", title: "Government can bring robotics to life", date: "2026-08-23", time: "12:15", url: "https://www.ft.com/content/a4147c6b-5634-4035-b1a8-ac7bf1eb497d" },
   { id: "22530c4a-65b7-49f7-890d-1c8900f63853", title: "Trump’s South Korea snub raises questions in the Asia-Pacific", date: "2026-08-23", time: "12:00", url: "https://www.ft.com/content/22530c4a-65b7-49f7-890d-1c8900f63853" },
   { id: "65e41dc2-aeb6-4a2b-976a-cc3f5f990dd5", title: "Occidental tries to free itself from the messy legacy of Anadarko deal", date: "2026-08-23", time: "11:00", url: "https://www.ft.com/content/65e41dc2-aeb6-4a2b-976a-cc3f5f990dd5" },
   { id: "8ac695be-2803-4e91-84b3-9cffe2e6d0e3", title: "Burnham to allow English mayors to ‘call in’ big local planning decisions", date: "2026-08-23", time: "10:29", url: "https://www.ft.com/content/8ac695be-2803-4e91-84b3-9cffe2e6d0e3" },
