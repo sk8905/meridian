@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "dd605c6f-8a6e-4664-970b-f4c07ea7a4d2", title: "US buyers snap up Europe’s asset managers at fastest rate in decades", date: "2026-08-23", time: "05:30", url: "https://www.ft.com/content/dd605c6f-8a6e-4664-970b-f4c07ea7a4d2" },
   { id: "c202d7aa-481a-466b-b34f-2c4451f787a5", title: "Coffee chain Blank Street raises funds from General Atlantic to fuel expansion and ice cream push", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/c202d7aa-481a-466b-b34f-2c4451f787a5" },
   { id: "ef65c99c-b58c-430c-b6be-8036f042cc1e", title: "Why is the far right so obsessed with knights?", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/ef65c99c-b58c-430c-b6be-8036f042cc1e" },
   { id: "6f664a31-ca24-4a16-a6e9-5978fdf2512c", title: "Are America’s vast Gulf bases worth rebuilding?", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/6f664a31-ca24-4a16-a6e9-5978fdf2512c" },
@@ -60,5 +61,4 @@ export const FT_ITEMS = [
   { id: "ef7a32c6-c999-407a-9970-979bf1f3b103", title: "Italy’s MPS thinks three takeovers are better than one", date: "2026-08-21", time: "17:24", url: "https://www.ft.com/content/ef7a32c6-c999-407a-9970-979bf1f3b103" },
   { id: "7aabb591-ca73-4d87-96ad-dac9a210e1d0", title: "Donald Trump claims deal to cut beef import tariffs in push to curb high prices", date: "2026-08-21", time: "17:18", url: "https://www.ft.com/content/7aabb591-ca73-4d87-96ad-dac9a210e1d0" },
   { id: "7b162fb4-8889-4f9c-9d5b-878850d6e8af", title: "Jim O’Neill declines job in Andy Burnham’s government", date: "2026-08-21", time: "17:05", url: "https://www.ft.com/content/7b162fb4-8889-4f9c-9d5b-878850d6e8af" },
-  { id: "9f46db72-0a1e-42b0-8efe-974a04fa0fc7", title: "Latest savings rates", date: "2026-08-21", time: "16:55", url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7" },
 ];
