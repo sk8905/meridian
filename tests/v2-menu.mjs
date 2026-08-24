@@ -15,7 +15,7 @@ async function menuState(pg) {
     const cs = getComputedStyle(m);
     const chips = [...document.querySelectorAll('.v2-view[data-view="menu"] .na-menu-bar .tchip')]
       .map((c) => { const cr = c.getBoundingClientRect(); return cr.width > 0 && cr.height > 0; });
-    return { hasMenu: true, w: Math.round(r.width), h: Math.round(r.height), display: cs.display, visible: chips.length === 3 && chips.every(Boolean) };
+    return { hasMenu: true, w: Math.round(r.width), h: Math.round(r.height), display: cs.display, visible: chips.length === 4 && chips.every(Boolean) };
   });
 }
 
@@ -27,7 +27,7 @@ async function menuState(pg) {
   check(s.hasMenu, "direct /v2/menu/: menu container present");
   check(s.w >= 300, `direct /v2/menu/: menu is full-width (${s.w}px), not a dropdown sliver`);
   check(s.h > 80, `direct /v2/menu/: menu has height (${s.h}px)`);
-  check(s.visible, "direct /v2/menu/: all three chips (Search/Notifications/Display) are visible");
+  check(s.visible, "direct /v2/menu/: all four chips (Search/Notifications/Network/Display) are visible");
   checkErrs(errs, "direct menu");
   await ctx.close();
 }

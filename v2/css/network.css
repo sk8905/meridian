@@ -1,0 +1,74 @@
+/* =============================================================================
+   network.css — the LinkedIn-connections importer (menu ▸ Network) and the
+   "N connections here" badge on entity profiles. Self-contained theme tokens
+   scoped to .wire-net (the header.css pattern), so the block styles identically
+   wherever it mounts — the menu pane and the Profiles detail host — without
+   depending on whichever --t-* scope happens to be in effect there.
+   ============================================================================= */
+.wire-net {
+  --wn-accent:#fb8b1e; --wn-ink:#131b2c; --wn-mut:#5e6a84;
+  --wn-bd:#e4e7ef; --wn-surface:#ffffff; --wn-surface2:#f3f6fb;
+  color:var(--wn-ink);
+}
+:root[data-theme="dark"] .wire-net {
+  --wn-ink:#eaf0fb; --wn-mut:#8592ad;
+  --wn-bd:#262626; --wn-surface:#0d0d0d; --wn-surface2:#191919;
+}
+
+/* ---- import controls ---- */
+.wn-intro, .wn-how { color:var(--wn-mut); font-size:.85rem; line-height:1.5; margin:6px 0 10px; }
+.wn-how { margin-top:12px; font-size:.78rem; }
+.wn-how code { background:var(--wn-surface2); border:1px solid var(--wn-bd); border-radius:4px; padding:0 4px; font-size:.92em; }
+.wn-import { display:flex; flex-direction:column; gap:8px; margin:8px 0; }
+.wn-btn { display:inline-block; align-self:flex-start; background:var(--wn-accent); color:#1b1200; font-weight:600;
+  font-size:.82rem; border:0; border-radius:7px; padding:.5rem .8rem; cursor:pointer; }
+.wn-btn:hover { filter:brightness(1.05); }
+.wn-paste { font-size:.82rem; }
+.wn-paste > summary { cursor:pointer; color:var(--wn-accent); font-weight:600; list-style:none; padding:2px 0; }
+.wn-paste > summary::-webkit-details-marker { display:none; }
+.wn-paste textarea { width:100%; box-sizing:border-box; margin:6px 0; background:var(--wn-surface); color:var(--wn-ink);
+  border:1px solid var(--wn-bd); border-radius:7px; padding:.5rem .6rem; font:inherit; font-size:.82rem; resize:vertical; }
+.wn-status { color:var(--wn-mut); font-size:.8rem; min-height:1.1em; }
+
+/* ---- summary + confirm ---- */
+.wn-sum { color:var(--wn-mut); font-size:.82rem; line-height:1.5; margin:4px 0 12px; }
+.wn-sum strong { color:var(--wn-ink); }
+.wn-hint { color:var(--wn-mut); font-size:.78rem; margin:2px 0 8px; }
+.wn-pending { margin:8px 0 14px; }
+.wn-pend { border:1px solid var(--wn-bd); border-radius:8px; padding:9px 11px; margin-bottom:8px; background:var(--wn-surface2); }
+.wn-pend-q { font-size:.86rem; }
+.wn-pend-co { font-weight:600; }
+.wn-pend-nm { color:var(--wn-accent); font-weight:600; }
+.wn-pend-people { color:var(--wn-mut); font-size:.78rem; line-height:1.45; margin:5px 0 8px; }
+.wn-pend-acts { display:flex; gap:8px; }
+.wn-yes, .wn-no { font-size:.78rem; font-weight:600; border-radius:6px; padding:.34rem .7rem; cursor:pointer; border:1px solid var(--wn-bd); background:var(--wn-surface); color:var(--wn-ink); }
+.wn-yes { background:var(--wn-accent); color:#1b1200; border-color:var(--wn-accent); }
+
+/* ---- "My network" list ---- */
+.wn-list { margin-top:6px; }
+.wn-grp { margin-bottom:14px; }
+.wn-grp-h { color:var(--wn-accent); font-size:.7rem; font-weight:700; letter-spacing:.05em; text-transform:uppercase; margin-bottom:6px; }
+.wn-grp-ct { color:var(--wn-mut); font-weight:600; }
+.wn-ent { border-top:1px solid var(--wn-bd); padding:8px 0; }
+.wn-ent:first-of-type { border-top:0; }
+.wn-ent-nm { display:flex; align-items:baseline; justify-content:space-between; gap:10px; text-decoration:none; color:var(--wn-ink); font-weight:600; font-size:.9rem; }
+.wn-ent-nm:hover .wn-ent-t { color:var(--wn-accent); }
+.wn-ent-ct { flex:0 0 auto; min-width:1.4em; text-align:center; background:var(--wn-surface2); border:1px solid var(--wn-bd); border-radius:10px; color:var(--wn-mut); font-size:.72rem; font-weight:700; padding:0 6px; }
+.wn-ent-people { color:var(--wn-mut); font-size:.78rem; line-height:1.5; margin-top:3px; }
+.wn-empty { color:var(--wn-mut); font-size:.85rem; margin:6px 0; }
+
+/* ---- footer (re-import + clear) ---- */
+.wn-foot { margin-top:14px; padding-top:12px; border-top:1px solid var(--wn-bd); display:flex; flex-direction:column; gap:10px; align-items:flex-start; }
+.wn-reimport > summary { cursor:pointer; color:var(--wn-accent); font-weight:600; font-size:.82rem; list-style:none; }
+.wn-reimport > summary::-webkit-details-marker { display:none; }
+.wn-clear { background:none; border:1px solid var(--wn-bd); color:var(--wn-mut); font-size:.78rem; border-radius:6px; padding:.34rem .7rem; cursor:pointer; }
+.wn-clear:hover { color:#df4763; border-color:#df4763; }
+
+/* ---- profile badge (prepended to #pf-detail) ---- */
+.wn-badge { margin:0 0 12px; padding:9px 12px; border:1px solid var(--wn-accent);
+  border-radius:8px; background:rgba(251,139,30,.10); }
+.wn-badge-h { font-size:.85rem; font-weight:600; color:var(--wn-ink); display:flex; align-items:center; gap:7px; }
+.wn-badge-h strong { color:var(--wn-accent); }
+.wn-badge-ic { display:inline-flex; align-items:center; justify-content:center; width:1.25em; height:1.25em;
+  background:#0a66c2; color:#fff; border-radius:3px; font-size:.62rem; font-weight:700; text-transform:lowercase; }
+.wn-badge-people { color:var(--wn-mut); font-size:.78rem; line-height:1.5; margin-top:5px; }

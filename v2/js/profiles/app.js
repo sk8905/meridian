@@ -17,6 +17,8 @@ import {
   viewFirm, viewItem,
   __setHost as setLegalHost, __setProfilesMode as setLegalPfMode,
 } from "/v2/js/legal/detail.js?v=v2-10";
+import { esc } from "/util.js?v=20260818-1";
+import { matchesFor } from "/v2/js/network/store.js?v=v2-1";
 
 export async function mount(host, ctx) {
   // Borrow Credit's and Legal's list builders (mounts them off-screen if needed).
@@ -66,6 +68,22 @@ export async function mount(host, ctx) {
   const renderCredit = (fn) => { pfList.hidden = true; backBar.hidden = false; pfDetail.hidden = false; setCreditHost(pfDetail); setCreditPfMode(true); window.scrollTo(0, 0); fn(); };
   const renderLegal = (fn) => { pfList.hidden = true; backBar.hidden = false; pfDetail.hidden = false; setLegalHost(pfDetail); setLegalPfMode(true); window.scrollTo(0, 0); fn(); };
 
+  // If the viewer has imported their LinkedIn connections (menu ▸ Network) and
+  // knows anyone at this entity, prepend a slim "N connections here" badge to the
+  // freshly-rendered profile. Reads localStorage by "<kind>:<id>" — no roster
+  // load, never throws; the profile renders unchanged when there's no match.
+  function decorateNet(kind, id) {
+    try {
+      const people = matchesFor(kind, id);
+      if (!people.length || !pfDetail.firstChild) return;
+      const el = document.createElement("div");
+      el.className = "wire-net wn-badge";
+      const names = people.map((p) => esc(p.name) + (p.position ? ` · ${esc(p.position)}` : "")).join("<br>");
+      el.innerHTML = `<div class="wn-badge-h"><span class="wn-badge-ic" aria-hidden="true">in</span> <strong>${people.length}</strong> LinkedIn connection${people.length === 1 ? "" : "s"} here</div><div class="wn-badge-people">${names}</div>`;
+      pfDetail.prepend(el);
+    } catch { /* the badge is optional — never block the profile */ }
+  }
+
   // Hash router (Profiles owns /v2/profiles/#/…). No route → the list, honouring
   // ?tab=; a detail route renders the matching desk view in place.
   const dec = (s) => { try { return decodeURIComponent(s); } catch { return s; } };
@@ -79,12 +97,12 @@ export async function mount(host, ctx) {
     const seg = raw.split("?")[0].replace(/^#/, "").split("/").filter(Boolean);
     const route = seg[0], arg = seg[1];
     switch (route) {
-      case "manager": return renderCredit(() => viewManager(arg));
+      case "manager": renderCredit(() => viewManager(arg)); return decorateNet("manager", arg);
       case "fund": return renderCredit(() => viewFund(arg));
       case "clo": return renderCredit(() => viewClo(arg, seg[2] ? dec(seg[2]) : ""));
       case "lp": return renderCredit(() => viewLp(arg));
-      case "hf": return renderCredit(() => viewHedgeFund(arg));
-      case "firm": return renderLegal(() => viewFirm(dec(arg)));
+      case "hf": renderCredit(() => viewHedgeFund(arg)); return decorateNet("hf", arg);
+      case "firm": renderLegal(() => viewFirm(dec(arg))); return decorateNet("firm", dec(arg));
       case "item": return renderLegal(() => viewItem(dec(arg)));
       default: return showList(readTab());
     }

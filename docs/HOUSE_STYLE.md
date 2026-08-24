@@ -191,6 +191,13 @@ notification badge red (`#ef4444`).
   Oxford Economics, TS Lombard, Alpine Macro, Variant Perception, ING,
   Bloomberg Opinion, Project Syndicate, El-Erian, Authers, …). Real headline +
   source link only; never fabricate (see R7).
+- **R19 — On-device personal data stays on-device.** The LinkedIn-connections
+  importer (menu ▸ Network, `v2/js/network/store.js`) parses the user's
+  `Connections.csv` **in the browser**, keeps only rows that match a roster
+  entity (manager / hedge fund / law firm), and persists them in `localStorage`
+  (`wire.li.v1`) — never to the Worker or any third party. There is no fetch in
+  that module. Any future personal-data import must follow the same rule:
+  client-side parse, minimal on-device persistence, no egress.
 
 ---
 
