@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7fbcf7e0-7a44-4b07-9ea1-f16b5f4946e7", title: "Policing needs independence — but politicians must still set priorities", date: "2026-08-24", time: "09:34", url: "https://www.ft.com/content/7fbcf7e0-7a44-4b07-9ea1-f16b5f4946e7" },
   { id: "38d95298-8b9b-486a-96d3-0c6616972abb", title: "Bitcoin is great (for systemic theft of aid money)", date: "2026-08-24", time: "09:04", url: "https://www.ft.com/content/38d95298-8b9b-486a-96d3-0c6616972abb" },
   { id: "edeb19be-e89c-4f86-8a9f-8875dfa4817e", title: "FTAV’s further reading", date: "2026-08-24", time: "07:37", url: "https://www.ft.com/content/edeb19be-e89c-4f86-8a9f-8875dfa4817e" },
   { id: "f160c7b8-d322-4b5f-b5c9-f6861c62e3db", title: "Thames Water creditors plan board shake-up if utility avoids nationalisation", date: "2026-08-24", time: "07:35", url: "https://www.ft.com/content/f160c7b8-d322-4b5f-b5c9-f6861c62e3db" },
