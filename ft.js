@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "52978bad-2b91-41e3-be94-7fb6776fbb91", title: "Trump says US to increase tariffs on Canadian cars to 50%", date: "2026-08-24", time: "14:55", url: "https://www.ft.com/content/52978bad-2b91-41e3-be94-7fb6776fbb91" },
+  { id: "34c145b1-651a-4725-a65f-ea594a49ea06", title: "As dieters slim down, protein prices bulk up", date: "2026-08-24", time: "14:39", url: "https://www.ft.com/content/34c145b1-651a-4725-a65f-ea594a49ea06" },
   { id: "21190130-bb8e-460e-b64c-ef1532f6c673", title: "Reform UK’s ‘Farage Fest’ went ahead without permission from council", date: "2026-08-24", time: "14:02", url: "https://www.ft.com/content/21190130-bb8e-460e-b64c-ef1532f6c673" },
   { id: "f16e4ad3-d61f-4b98-b427-c5bcb1df1972", title: "Class wars and the midterms", date: "2026-08-24", time: "14:00", url: "https://www.ft.com/content/f16e4ad3-d61f-4b98-b427-c5bcb1df1972" },
   { id: "94d78bef-d118-420b-85a0-b1e5bcaf2405", title: "FT Financial Literacy and Inclusion Campaign", date: "2026-08-24", time: "13:06", url: "https://www.ft.com/content/94d78bef-d118-420b-85a0-b1e5bcaf2405" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "cb865200-1a06-40be-86a3-10ee2bb05804", title: "Scott Bessent: an economic D-Day is coming for Iran", date: "2026-08-23", time: "22:30", url: "https://www.ft.com/content/cb865200-1a06-40be-86a3-10ee2bb05804" },
   { id: "50c666af-1979-4411-9d62-34e18cc0ecc9", title: "Yahoo, the internet’s ‘OG’, wants to win over Gen Z", date: "2026-08-23", time: "19:00", url: "https://www.ft.com/content/50c666af-1979-4411-9d62-34e18cc0ecc9" },
   { id: "252df40a-48c0-47b8-850d-698a3d7a6dfd", title: "Why every French politician is now a Gaullist", date: "2026-08-23", time: "18:58", url: "https://www.ft.com/content/252df40a-48c0-47b8-850d-698a3d7a6dfd" },
-  { id: "39baf33e-3238-4923-9fe9-f1db48bb54e4", title: "Trump accused of risking more pain for Americans with Canada trade war", date: "2026-08-23", time: "18:28", url: "https://www.ft.com/content/39baf33e-3238-4923-9fe9-f1db48bb54e4" },
-  { id: "6aa04f24-c216-467e-834a-7b4af3ef660e", title: "A week of keynote speeches", date: "2026-08-23", time: "18:15", url: "https://www.ft.com/content/6aa04f24-c216-467e-834a-7b4af3ef660e" },
-  { id: "552b8fca-6dad-4b41-a0be-54d2cd70e3cb", title: "Keir Starmer considered letting 100,000 young Europeans come to UK every year", date: "2026-08-23", time: "15:24", url: "https://www.ft.com/content/552b8fca-6dad-4b41-a0be-54d2cd70e3cb" },
 ];

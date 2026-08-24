@@ -37,6 +37,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-milbankchicago-20260824",
+    publication: "Legal Business",
+    title: "Milbank launches in Chicago with White & Case projects co-head",
+    date: "2026-08-24",
+    time: "15:11",
+    summary: "New office marks firm’s fourth in the US and its 12th globally.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQQzfQnK5TtqKN0AA/wv",
+  },
+  {
     id: "nl-lb-sheinhkipo-20260824",
     publication: "Legal Business",
     title: "Latham and Skadden lead on Shein’s Hong Kong IPO as retailer targets $1.8bn",
@@ -446,24 +455,5 @@ export const NEWSLETTERS = [
     time: "22:01",
     summary: "Gold leaps above $4,500 as long-dated US yields tumble and the dollar slides after the Treasury doubles planned bond buybacks, while Fed minutes show growing hawkish unease over inflation.",
     url: "https://www.reuters.com/newsletters/trading-day",
-  },
-  {
-    id: "nl-lb-eqtpanel-20260819",
-    publication: "Legal Business",
-    title: "Latham and Paul Weiss among eight new winners as EQT finalises panel",
-    date: "2026-08-19",
-    time: "15:18",
-    summary: "Eight firms join European buyout house's 'gold' panel as new details around line-up and expectations emerge.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQLvTMpRrDaYWrTIG/wv",
-  },
-  {
-    id: "nl-bbg-rokosbrevan-julyhavoc-20260819",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    title: "Rokos, Brevan Join Hedge Fund Peers Wrongfooted in July Havoc",
-    date: "2026-08-19",
-    time: "13:06",
-    summary: "Rokos Capital Management and Brevan Howard Asset Management joined peers that lost money in July as hedge funds faced a volatile market following a widespread selloff and sudden recovery in AI stocks.",
-    url: "https://www.bloomberg.com/news/articles/2026-08-19/rokos-brevan-join-hedge-fund-peers-wrongfooted-in-july-havoc",
   },
 ];
