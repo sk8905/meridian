@@ -37,6 +37,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-cf-treasuryintervention-20260824",
+    publication: "Chatham Financial",
+    title: "Treasury intervention tests the bond market",
+    date: "2026-08-24",
+    time: "16:42",
+    summary: "S&P 500 fell 1% and the 10-year hit 4.74% as markets turn to PCE inflation and Jackson Hole this week.",
+    url: "https://go.chathamfinancial.com/e3t/Ctc/ZZ+113/d5Z2Pb04/MW8RTwRRBQ-W32ZYGc1pQlg5W1KLHGL5T5kT9N5l4bkC3prCCW95jsWP6lZ3mtW8NlMxj7jzK0SN1FtQwWH6dfbW230YMr5gmkHPW8Z035058C-zCW6_SmLr4Rp6pDN1PNJQHp4scxVZ03WC1GBGmBW58PDr58yhgygW3ssBNK1YYfJ6My7DHWcYXBWW2fL6rS10q2ssW4lqwFf5S1sJbW2VVS_l8S11wZW1RZb8d1zKZ4PW5wb1wg3M-13ZW7686fl1q9xhQVlcKjV4zgfLWW6Ntmgv7gHb4pW5dW2hZ1DzT_zW1chHB61dhxTJW6FYqnQ6P8K-SW5bkhRL1D7H8TW3lWvcY6rQ51DV-tszJ2W08pHW4ltmkx4M3rrPW3yWX494LdZHtW6Lcjv46X93QHW7cqmnK7Ntj-yW3-Ys0f8w22JSW6dKnqk1Yg4c5f4HCbtl04",
+  },
+  {
     id: "nl-lb-milbankchicago-20260824",
     publication: "Legal Business",
     title: "Milbank launches in Chicago with White & Case projects co-head",

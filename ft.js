@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "063dbdd2-fb5a-4ece-9152-74e791e4835c", title: "Britain gains access to Ukraine battlefield data", date: "2026-08-24", time: "18:00", url: "https://www.ft.com/content/063dbdd2-fb5a-4ece-9152-74e791e4835c" },
+  { id: "dcf20385-21a5-4328-9bc6-98a666caaaf6", title: "Meloni wants a snap election to hide her economic failures", date: "2026-08-24", time: "18:00", url: "https://www.ft.com/content/dcf20385-21a5-4328-9bc6-98a666caaaf6" },
   { id: "29f1af13-ecc3-4f26-a479-e6088c67231b", title: "US midterm elections 2026: The FT’s guide", date: "2026-08-24", time: "16:15", url: "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b" },
   { id: "7522bdde-49f8-4bf0-a930-6591b40eb5e4", title: "Canadian businesses fear ‘vortex of downward pressures’ from Donald Trump’s tariffs", date: "2026-08-24", time: "16:05", url: "https://www.ft.com/content/7522bdde-49f8-4bf0-a930-6591b40eb5e4" },
   { id: "5c8aaa6d-5170-4688-beeb-f1319e5ff29e", title: "How Shein’s IPO lost its shine", date: "2026-08-24", time: "16:00", url: "https://www.ft.com/content/5c8aaa6d-5170-4688-beeb-f1319e5ff29e" },
@@ -59,7 +61,4 @@ export const FT_ITEMS = [
   { id: "77b94c4a-4b4b-4983-9138-7db6926150f4", title: "US widens AI-driven investment gap with Europe", date: "2026-08-24", time: "05:00", url: "https://www.ft.com/content/77b94c4a-4b4b-4983-9138-7db6926150f4" },
   { id: "fb2e6718-161c-4f40-8a98-983dc61d1ab2", title: "African nations join the space race", date: "2026-08-24", time: "05:00", url: "https://www.ft.com/content/fb2e6718-161c-4f40-8a98-983dc61d1ab2" },
   { id: "7c88554e-8e08-4d9e-a696-daeb82817876", title: "Germany must ditch doubts over private capital, says investment tsar", date: "2026-08-24", time: "05:00", url: "https://www.ft.com/content/7c88554e-8e08-4d9e-a696-daeb82817876" },
-  { id: "1d310566-94ee-48e2-acfa-25de646fc41a", title: "Shein seeks $27bn valuation from Hong Kong IPO", date: "2026-08-24", time: "03:55", url: "https://www.ft.com/content/1d310566-94ee-48e2-acfa-25de646fc41a" },
-  { id: "a70fda49-a76a-45bc-add7-221f7fc307db", title: "Treasury brings in expert to review business rates for UK pubs and hotels", date: "2026-08-24", time: "00:01", url: "https://www.ft.com/content/a70fda49-a76a-45bc-add7-221f7fc307db" },
-  { id: "9f72dc1b-bb4b-4672-8197-73b899a2bc5d", title: "Scottish state bank records £138mn loss on back of failed investments", date: "2026-08-24", time: "00:01", url: "https://www.ft.com/content/9f72dc1b-bb4b-4672-8197-73b899a2bc5d" },
 ];
