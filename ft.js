@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "ec7c91bb-358b-44ad-bced-8c901f7339e2", title: "South American trade bloc mounts dealmaking push to hedge geopolitical risks", date: "2026-08-24", time: "11:00", url: "https://www.ft.com/content/ec7c91bb-358b-44ad-bced-8c901f7339e2" },
+  { id: "2e51b70d-fc3c-4bd5-be08-9c4dd46dca32", title: "The new world order? Every man for himself", date: "2026-08-24", time: "11:00", url: "https://www.ft.com/content/2e51b70d-fc3c-4bd5-be08-9c4dd46dca32" },
+  { id: "9ebcd1d7-9959-468b-af96-987ef5bf83a8", title: "Iran threatens 46 ships in Strait of Hormuz transit crackdown", date: "2026-08-24", time: "10:48", url: "https://www.ft.com/content/9ebcd1d7-9959-468b-af96-987ef5bf83a8" },
+  { id: "9425f056-89c0-4a6b-80c7-0de6c527d916", title: "Hedge fund Saba takes on Baillie Gifford in new board battle", date: "2026-08-24", time: "10:24", url: "https://www.ft.com/content/9425f056-89c0-4a6b-80c7-0de6c527d916" },
   { id: "7fbcf7e0-7a44-4b07-9ea1-f16b5f4946e7", title: "Policing needs independence — but politicians must still set priorities", date: "2026-08-24", time: "09:34", url: "https://www.ft.com/content/7fbcf7e0-7a44-4b07-9ea1-f16b5f4946e7" },
   { id: "38d95298-8b9b-486a-96d3-0c6616972abb", title: "Bitcoin is great (for systemic theft of aid money)", date: "2026-08-24", time: "09:04", url: "https://www.ft.com/content/38d95298-8b9b-486a-96d3-0c6616972abb" },
   { id: "edeb19be-e89c-4f86-8a9f-8875dfa4817e", title: "FTAV’s further reading", date: "2026-08-24", time: "07:37", url: "https://www.ft.com/content/edeb19be-e89c-4f86-8a9f-8875dfa4817e" },
@@ -56,7 +60,4 @@ export const FT_ITEMS = [
   { id: "22530c4a-65b7-49f7-890d-1c8900f63853", title: "Trump’s South Korea snub raises questions in the Asia-Pacific", date: "2026-08-23", time: "12:00", url: "https://www.ft.com/content/22530c4a-65b7-49f7-890d-1c8900f63853" },
   { id: "65e41dc2-aeb6-4a2b-976a-cc3f5f990dd5", title: "Occidental tries to free itself from the messy legacy of Anadarko deal", date: "2026-08-23", time: "11:00", url: "https://www.ft.com/content/65e41dc2-aeb6-4a2b-976a-cc3f5f990dd5" },
   { id: "8ac695be-2803-4e91-84b3-9cffe2e6d0e3", title: "Burnham to allow English mayors to ‘call in’ big local planning decisions", date: "2026-08-23", time: "10:29", url: "https://www.ft.com/content/8ac695be-2803-4e91-84b3-9cffe2e6d0e3" },
-  { id: "dd605c6f-8a6e-4664-970b-f4c07ea7a4d2", title: "US buyers snap up Europe’s asset managers at fastest rate in decades", date: "2026-08-23", time: "05:30", url: "https://www.ft.com/content/dd605c6f-8a6e-4664-970b-f4c07ea7a4d2" },
-  { id: "c202d7aa-481a-466b-b34f-2c4451f787a5", title: "Coffee chain Blank Street raises funds from General Atlantic to fuel expansion and ice cream push", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/c202d7aa-481a-466b-b34f-2c4451f787a5" },
-  { id: "ef65c99c-b58c-430c-b6be-8036f042cc1e", title: "Why is the far right so obsessed with knights?", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/ef65c99c-b58c-430c-b6be-8036f042cc1e" },
 ];
