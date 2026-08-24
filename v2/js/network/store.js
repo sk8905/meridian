@@ -35,6 +35,18 @@ export function matchesFor(kind, id) {
   const e = s && s.confident && s.confident[kind + ":" + id];
   return (e && Array.isArray(e.people)) ? e.people : [];
 }
+// Still-unconfirmed (ambiguous) matches for one entity — so the profile can
+// surface "possible" connections too, clearly labelled, instead of the person
+// silently vanishing until they visit Menu ▸ Network. Each carries its raw
+// company so the label can disambiguate ("… (Citadel Securities)").
+export function pendingFor(kind, id) {
+  const s = load();
+  if (!s || !Array.isArray(s.pending)) return [];
+  const key = kind + ":" + id;
+  const out = [];
+  s.pending.filter((p) => p.key === key).forEach((p) => (p.people || []).forEach((person) => out.push({ name: person.name, position: person.position, company: p.company })));
+  return out;
+}
 
 // ---- CSV ------------------------------------------------------------------
 // RFC-4180-ish parser: handles quoted fields, "" escapes and quoted newlines,
@@ -105,25 +117,35 @@ async function rosterIndex() {
   (legal.firms || []).forEach((f) => add("firm", f.id, f.name));
   return idx;
 }
-// Classify one company against the roster:
-//   exact    — normalised names equal (confident)
-//   prefix   — one is a whole-token prefix of the other (ambiguous → confirm),
-//              e.g. "Citadel Securities" vs "Citadel", or a bare "Kirkland".
-// Returns { entity, kind:"exact"|"prefix" } or null.
+// Classify one company against the roster. One name is a whole-token prefix of
+// the other (after normalisation) — the question is how much to trust it:
+//   exact   — normalised names equal → confident.
+//   strong  — the SHORTER name is ≥2 tokens and is a full leading prefix of the
+//             longer → confident. This is the "same firm, extra qualifier" case:
+//             "Signal Capital Partners (London)" / "Signal Capital Partners Real
+//             Estate" both carry the full "Signal Capital Partners"; and a
+//             truncated "Apollo Global" clearly means "Apollo Global Management".
+//   prefix  — the shorter name is a single token → genuinely ambiguous, queued
+//             for confirmation: "Citadel Securities" vs "Citadel", a bare
+//             "Apollo" or "Millennium". A common word shared by distinct firms.
+// Returns { entity, kind:"exact"|"strong"|"prefix" } or null (no relationship).
 function classify(company, idx) {
   const nc = norm(company);
   if (nc.length < 3) return null;
-  let exact = null, prefix = null, prefixLen = -1;
+  let exact = null, strong = null, strongLen = -1, weak = null, weakLen = -1;
   for (const e of idx) {
     if (e.norm === nc) { exact = e; break; }
     const a = nc, b = e.norm;
     const short = a.length <= b.length ? a : b, long = a.length <= b.length ? b : a;
-    if (short.length >= 3 && (long === short || long.startsWith(short + " "))) {
-      if (short.length > prefixLen) { prefix = e; prefixLen = short.length; }
+    if (long === short || long.startsWith(short + " ")) {
+      const tokens = short.split(" ").length;
+      if (tokens >= 2) { if (short.length > strongLen) { strong = e; strongLen = short.length; } }
+      else if (short.length >= 3) { if (short.length > weakLen) { weak = e; weakLen = short.length; } }
     }
   }
   if (exact) return { entity: exact, kind: "exact" };
-  if (prefix) return { entity: prefix, kind: "prefix" };
+  if (strong) return { entity: strong, kind: "strong" };
+  if (weak) return { entity: weak, kind: "prefix" };
   return null;
 }
 
@@ -152,7 +174,7 @@ export async function importCSV(text) {
     if (!m) continue;
     const person = { name: c.name, position: c.position };
     const forced = confirmedOK[norm(c.company)];
-    if (m.kind === "exact" || forced === m.entity.key) {
+    if (m.kind === "exact" || m.kind === "strong" || forced === m.entity.key) {
       put(byEntity, m.entity, person);
     } else {
       const g = pendingBy[c.company] || (pendingBy[c.company] = { company: c.company, key: m.entity.key, kind: m.entity.kind, id: m.entity.id, name: m.entity.name, route: m.entity.route, people: [] });

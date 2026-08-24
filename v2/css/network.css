@@ -64,11 +64,21 @@
 .wn-clear { background:none; border:1px solid var(--wn-bd); color:var(--wn-mut); font-size:.78rem; border-radius:6px; padding:.34rem .7rem; cursor:pointer; }
 .wn-clear:hover { color:#df4763; border-color:#df4763; }
 
-/* ---- profile badge (prepended to #pf-detail) ---- */
+/* ---- profile badge (a collapsible <details>, prepended to #pf-detail) ---- */
 .wn-badge { margin:0 0 12px; padding:9px 12px; border:1px solid var(--wn-accent);
   border-radius:8px; background:rgba(251,139,30,.10); }
-.wn-badge-h { font-size:.85rem; font-weight:600; color:var(--wn-ink); display:flex; align-items:center; gap:7px; }
+.wn-badge-h { display:flex; align-items:center; gap:7px; cursor:pointer; list-style:none;
+  font-size:.85rem; font-weight:600; color:var(--wn-ink); }
+.wn-badge-h::-webkit-details-marker { display:none; }
 .wn-badge-h strong { color:var(--wn-accent); }
 .wn-badge-ic { display:inline-flex; align-items:center; justify-content:center; width:1.25em; height:1.25em;
   background:#0a66c2; color:#fff; border-radius:3px; font-size:.62rem; font-weight:700; text-transform:lowercase; }
-.wn-badge-people { color:var(--wn-mut); font-size:.78rem; line-height:1.5; margin-top:5px; }
+/* Chevron on the right, rotating down when the badge is open. */
+.wn-badge-chev { margin-left:auto; width:.7em; height:.7em; border-right:2px solid var(--wn-accent);
+  border-bottom:2px solid var(--wn-accent); transform:rotate(-45deg); transition:transform .15s ease; }
+.wn-badge[open] .wn-badge-chev { transform:rotate(45deg); }
+.wn-badge-body { margin-top:7px; }
+.wn-badge-people { color:var(--wn-mut); font-size:.78rem; line-height:1.5; }
+.wn-badge-pending { margin-top:8px; padding-top:7px; border-top:1px dashed var(--wn-bd); color:var(--wn-mut); font-size:.78rem; line-height:1.5; }
+.wn-badge-plbl { display:block; color:var(--wn-accent); font-size:.68rem; font-weight:700; letter-spacing:.02em; text-transform:uppercase; margin-bottom:3px; }
+.wn-badge-co { color:var(--wn-mut); opacity:.85; }

@@ -17,7 +17,9 @@ const CSV = [
   '"Some preamble line about your data export."',
   "",
   "First Name,Last Name,URL,Email Address,Company,Position,Connected On",
-  "Jane,Doe,https://lnkd.in/a,,Bridgewater Associates,Portfolio Manager,15 Jun 2024",
+  // A full firm name carrying an extra qualifier must still match confidently
+  // (the "strong" tier) — it resolves to the roster entity, not the confirm queue.
+  'Jane,Doe,https://lnkd.in/a,,"Bridgewater Associates (Westport)",Portfolio Manager,15 Jun 2024',
   'John,Smith,https://lnkd.in/b,,"Kirkland & Ellis LLP",Partner,02 Feb 2023',
   "Ana,Lopez,https://lnkd.in/c,,Bridgepoint Credit,Principal,10 Jan 2025",
   "Bo,Ng,https://lnkd.in/d,,Citadel Securities,Quant,11 Mar 2022",
@@ -70,15 +72,21 @@ const afterAccept = await pg.evaluate(() => {
 });
 check(afterAccept.includes("Citadel"), `Network: accepting an ambiguous match adds it to the list (${afterAccept.join(", ")})`);
 
-// Navigate to a matched hedge fund's profile → the badge appears.
+// Navigate to a matched hedge fund's profile → the collapsible badge appears.
 await pg.evaluate(() => document.querySelector('.wn-ent-nm[data-net-route="#/hf/h1"]').click());
 await pg.waitForSelector("#pf-detail .wn-badge", { timeout: 8000 });
 const badge = await pg.evaluate(() => {
   const el = document.querySelector("#pf-detail .wn-badge");
-  return { text: el ? el.textContent : "", count: el ? el.querySelectorAll(".wn-badge-h strong").length : 0, hasPerson: el ? /Jane Doe/.test(el.textContent) : false };
+  return { text: el ? el.textContent : "", tag: el ? el.tagName : "", open: el ? el.open : null, hasPerson: el ? /Jane Doe/.test(el.textContent) : false };
 });
 check(/connection/.test(badge.text), "Profile badge: renders 'N connection(s) here' on the matched profile");
 check(badge.hasPerson, `Profile badge: names the known connection (${badge.text.replace(/\s+/g, " ").slice(0, 80)})`);
+checkEq(badge.tag, "DETAILS", "Profile badge: is a collapsible <details> element");
+checkEq(badge.open, false, "Profile badge: collapsed by default");
+// Clicking the summary expands it.
+await pg.evaluate(() => document.querySelector("#pf-detail .wn-badge > summary").click());
+const opened = await pg.evaluate(() => { const el = document.querySelector("#pf-detail .wn-badge"); return el ? el.open : null; });
+checkEq(opened, true, "Profile badge: clicking the summary expands it");
 
 // A profile with no known connection shows no badge.
 await pg.goto(base + "/v2/profiles/#/hf/h3", { waitUntil: "load" });

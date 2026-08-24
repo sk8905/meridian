@@ -5,7 +5,7 @@
 // (shared "wire.recentSearches" key), the theme cycle (System → Light → Dark,
 // the same keys the inline boot reads), account identity and build info.
 import { esc, setThemeColorMeta } from "/util.js?v=20260818-1";
-import { load as netLoad, importCSV as netImport, accept as netAccept, dismiss as netDismiss, clearAll as netClear } from "/v2/js/network/store.js?v=v2-1";
+import { load as netLoad, importCSV as netImport, accept as netAccept, dismiss as netDismiss, clearAll as netClear } from "/v2/js/network/store.js?v=v2-2";
 
 const ICO_SEARCH = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.6" y1="15.6" x2="21" y2="21"/></svg>';
 const ICO_BELL = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>';

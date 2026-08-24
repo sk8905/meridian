@@ -18,7 +18,7 @@ import {
   __setHost as setLegalHost, __setProfilesMode as setLegalPfMode,
 } from "/v2/js/legal/detail.js?v=v2-10";
 import { esc } from "/util.js?v=20260818-1";
-import { matchesFor } from "/v2/js/network/store.js?v=v2-1";
+import { matchesFor, pendingFor } from "/v2/js/network/store.js?v=v2-2";
 
 export async function mount(host, ctx) {
   // Borrow Credit's and Legal's list builders (mounts them off-screen if needed).
@@ -69,17 +69,28 @@ export async function mount(host, ctx) {
   const renderLegal = (fn) => { pfList.hidden = true; backBar.hidden = false; pfDetail.hidden = false; setLegalHost(pfDetail); setLegalPfMode(true); window.scrollTo(0, 0); fn(); };
 
   // If the viewer has imported their LinkedIn connections (menu ▸ Network) and
-  // knows anyone at this entity, prepend a slim "N connections here" badge to the
-  // freshly-rendered profile. Reads localStorage by "<kind>:<id>" — no roster
-  // load, never throws; the profile renders unchanged when there's no match.
+  // knows anyone at this entity, prepend a COLLAPSIBLE badge to the freshly-
+  // rendered profile: a clickable "N connections here" summary that expands to the
+  // people. Confident matches are asserted; still-ambiguous ones are surfaced too
+  // (so nobody silently goes missing) but clearly labelled "possible". Reads
+  // localStorage by "<kind>:<id>" — no roster load, never throws.
   function decorateNet(kind, id) {
     try {
       const people = matchesFor(kind, id);
-      if (!people.length || !pfDetail.firstChild) return;
-      const el = document.createElement("div");
+      const pend = pendingFor(kind, id);
+      if ((!people.length && !pend.length) || !pfDetail.firstChild) return;
+      const line = (p) => esc(p.name) + (p.position ? ` · ${esc(p.position)}` : "");
+      const confHTML = people.length ? `<div class="wn-badge-people">${people.map(line).join("<br>")}</div>` : "";
+      const pendHTML = pend.length
+        ? `<div class="wn-badge-pending"><span class="wn-badge-plbl">Possible — confirm in Menu ▸ Network</span>${pend.map((p) => line(p) + (p.company ? ` <span class="wn-badge-co">(${esc(p.company)})</span>` : "")).join("<br>")}</div>`
+        : "";
+      const n = people.length;
+      const label = n
+        ? `<strong>${n}</strong> LinkedIn connection${n === 1 ? "" : "s"} here`
+        : `<strong>${pend.length}</strong> possible connection${pend.length === 1 ? "" : "s"}`;
+      const el = document.createElement("details");
       el.className = "wire-net wn-badge";
-      const names = people.map((p) => esc(p.name) + (p.position ? ` · ${esc(p.position)}` : "")).join("<br>");
-      el.innerHTML = `<div class="wn-badge-h"><span class="wn-badge-ic" aria-hidden="true">in</span> <strong>${people.length}</strong> LinkedIn connection${people.length === 1 ? "" : "s"} here</div><div class="wn-badge-people">${names}</div>`;
+      el.innerHTML = `<summary class="wn-badge-h"><span class="wn-badge-ic" aria-hidden="true">in</span> ${label}<span class="wn-badge-chev" aria-hidden="true"></span></summary><div class="wn-badge-body">${confHTML}${pendHTML}</div>`;
       pfDetail.prepend(el);
     } catch { /* the badge is optional — never block the profile */ }
   }
