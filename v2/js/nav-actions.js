@@ -965,55 +965,6 @@ export function initNavActions() {
       rec.panel.addEventListener("click", (e) => { if (e.target.closest("[data-na-close]")) closeAll(); });
     });
 
-    // ---- Bottom tab bar input ----------------------------------------------
-    // A tap is confirmed with pointer events: down and up on the SAME button
-    // with minimal movement. Page buttons navigate via location.replace — the
-    // app keeps no cross-page history, so iOS's edge back/forward swipes (the
-    // Menu button borders the right screen edge, where a tap with a tiny drag
-    // can fire a SYSTEM history navigation no page code sees) have nowhere to
-    // go. Raw clicks inside the bar are inert; keyboard activation (click
-    // detail 0) still acts. A tap on the already-active tab is a no-op.
-    {
-      const tabbar = null;   // v2: the runtime handles tab navigation; do not wire nav-actions to its bar
-      const act = (btn) => {
-        const dest = btn.getAttribute("data-nav");
-        if (!dest) return;
-        if (btn.classList.contains("is-active")) {
-          // Tapping the tab for the page you're already ON was a silent no-op —
-          // which read as "the button is broken" whenever a full-screen overlay
-          // (Markets / Saved / Notifications panel, or the search palette; both
-          // layered UNDER the always-on-top tab bar) was covering the page.
-          // Dismiss any such overlay so the tap always returns you to the page.
-          if (anyOpen()) closeAll();
-          const pal = document.querySelector(".mcmdk.open");
-          if (pal) { pal.classList.remove("open"); if (document.activeElement && pal.contains(document.activeElement)) document.activeElement.blur(); }
-          return;
-        }
-        // Client-side same-document transition when available (app↔app): avoids
-        // the full page load that flashes a white inter-document blank on iOS
-        // (which has no cross-document view transitions). Returns false for Home
-        // / off-scope / unsupported → fall through to a normal navigation.
-        if (typeof window.__spaNavigate === "function" && window.__spaNavigate(dest)) return;
-        location.replace(dest);
-      };
-      if (tabbar) {
-        let pBtn = null, pX = 0, pY = 0;
-        tabbar.addEventListener("pointerdown", (e) => { pBtn = e.target.closest(".mtab"); pX = e.clientX; pY = e.clientY; }, { passive: true });
-        tabbar.addEventListener("pointerup", (e) => {
-          const b = e.target.closest(".mtab");
-          const ok = b && b === pBtn && Math.hypot(e.clientX - pX, e.clientY - pY) <= 14;
-          pBtn = null;
-          if (ok) act(b);
-        });
-        tabbar.addEventListener("click", (e) => {
-          e.preventDefault(); e.stopPropagation();
-          const b = e.target.closest(".mtab");
-          if (b && e.detail === 0) act(b);           // keyboard only
-        }, true);
-        tabbar.addEventListener("touchend", (e) => { if (e.cancelable) e.preventDefault(); }, { passive: false });
-      }
-    }
-
     document.addEventListener("click", (e) => {
       if (!anyOpen()) return;
       if (e.target.closest(".na-panel") || e.target.closest(".na-actions")) return;

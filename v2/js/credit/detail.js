@@ -14,7 +14,7 @@ import {
   fundsByManager, intelForFund, dealsForFund, dealsForManager, intelForManager,
   HEDGE_FUNDS, HEDGE_INTEL, VEHICLES,
 } from "/credit/js/data.js";
-import { esc } from "/util.js?v=20260818-1";
+import { esc, byDateDesc } from "/util.js?v=20260818-1";
 import {
   eur, pct, fmtDate, link, sources, raiseDisplay, nameCell,
   notFound, applyPendingFocus, commitmentsForLp, commitmentsForManager,
@@ -184,7 +184,7 @@ export function viewFund(id) {
   const fundFeed = [
     ...related.map((i) => ({ ...i, _kind: "intel" })),
     ...fdeals.map((d) => ({ ...d, _kind: "deal" })),
-  ].sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+  ].sort(byDateDesc);
   const inv = investorsForFund(x);
   const interestedLps = lps.filter((l) => l.strategies.includes(x.strategy) && l.mandateStatus !== "Not currently active");
   // The manager is the natural inline entity on a fund's activity rows.
@@ -322,7 +322,7 @@ function cloRosterFor(items) {
     let size = null;
     byDate.some((it) => (size = cloSize(it.headline) || cloSize(it.summary)));
     return { name: e.name, items: e.items, date: e.date, vintage, size };
-  }).sort((a, b) => String(b.vintage).localeCompare(String(a.vintage)) || String(b.date).localeCompare(String(a.date)));
+  }).sort((a, b) => String(b.vintage).localeCompare(String(a.vintage)) || byDateDesc(a, b));
 }
 
 // "Book & business" — additive, render-if-present manager detail (docs/
@@ -388,7 +388,7 @@ export function viewManager(id) {
     const seen = new Set();
     return items
       .filter((x) => { const k = feedDedupKey(x); if (seen.has(k)) return false; seen.add(k); return true; })
-      .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+      .sort(byDateDesc);
   })();
 
   const commits = commitmentsForManager(m.id);
@@ -512,7 +512,7 @@ export function viewClo(mid, encName) {
   const roster = cloRosterFor(mgrClo);
   const c = roster.find((x) => x.name === name) || roster.find((x) => x.name.toLowerCase() === name.toLowerCase());
   if (!c) return notFound(app);
-  const items = [...c.items].sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+  const items = [...c.items].sort(byDateDesc);
   const otherClos = roster.filter((r) => r.name !== c.name);
   const metrics = [
     ["Vintage", c.vintage || "—"], ["Size", c.size || "—"],
@@ -675,7 +675,7 @@ export function viewHedgeFund(id) {
   // shaped into the shared credit wire row, newest first.
   const news = (HEDGE_INTEL || []).filter((h) => h.hfId === f.id)
     .map((h) => ({ _kind: "news", title: h.headline, outlet: h.outlet, url: h.url, date: h.date || "", time: h.time || "" }))
-    .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    .sort(byDateDesc);
 
   const newsPane = news.length
     ? `<ul class="twire compact-list" id="hf-news">${news.map((x) => crWireRow(x, "")).join("")}</ul>`

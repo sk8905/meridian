@@ -4,7 +4,7 @@
 
 import { UPDATED, META, OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, IND_KEYMOMENTS } from "/macro/js/content.js";
 import { reportRefresh } from "/v2/js/status.js?v=v2-3";
-import { esc } from "/util.js?v=20260818-1";
+import { esc, byDateDesc } from "/util.js?v=20260818-1";
 import { MONTHS, isoToDate, fmtDay, fmtDayGB, fmtDate,
   trackGauge, CYCLE_ZONES, BUBBLE_ZONES, bubbleComposite, bubbleBand,
   MAC_IND_ORDER, MACRO_DATA, setMacroData, macroMatrixHtml, macroDetailHtml } from "/macro/js/shared.js?v=20260730-2";
@@ -211,7 +211,7 @@ function renderNews() {
   // Merge US + UK into one newest-first list (no country split) and show 10 as
   // 2×5. Prefer items ≤ 3 days old but fall back to whatever exists to fill 10.
   const all = [...((NEWS && NEWS.us) || []), ...((NEWS && NEWS.uk) || [])]
-    .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    .sort(byDateDesc);
   const fresh = all.filter((n) => { const d = isoToDate(n.date); return d && d >= cutoff; });
   const items = (fresh.length >= 10 ? fresh : all).slice(0, 10);
   const row = (n) => `
@@ -241,7 +241,7 @@ function renderCommentaryFeed() {
       <div class="compact-meta muted small">${esc(fmtDay(n.date))} · ${esc(n.source)}${n.author ? " · " + esc(n.author) : ""}</div>
     </li>`;
   const col = (name, arr) => {
-    const items = [...(arr || [])].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    const items = [...(arr || [])].sort(byDateDesc);
     const list = items.length
       ? `<ul class="compact-list">${items.map(row).join("")}</ul>`
       : `<p class="muted small">No commentary available right now.</p>`;
@@ -493,7 +493,7 @@ function sortedArticles() {
   // COMMENTARY set (author-attributed bank & economist views), US + UK merged,
   // newest first.
   return [...((COMMENTARY && COMMENTARY.us) || []), ...((COMMENTARY && COMMENTARY.uk) || [])]
-    .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    .sort(byDateDesc);
 }
 // Map a curated commentary article to a standard wire item so it renders through
 // the shared feed engine (one-line row + standard day breaks, R5/R6). Author is
@@ -1247,7 +1247,7 @@ function notifItems() {
   // Guidance alerts (rate outlook / cycle / bubble) are Wire's own editorial
   // synthesis — note their proprietary source; data alerts carry the provider.
   const guidance = ALERTS.map((a) => ({ ...a, source: "Wire analysis" }));
-  return [...guidance, ...data].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  return [...guidance, ...data].sort(byDateDesc);
 }
 function closeNotif() {
   const p = document.getElementById("notif-panel"), b = document.getElementById("notif-bell");

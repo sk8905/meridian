@@ -10,7 +10,7 @@
 // desk's own OUTLOOK/CYCLE/BUBBLE/YIELD_CURVE/NEWS/MATWALL so there is ONE source
 // of truth. Every figure keeps a real outbound source link. mount → {enter,leave}.
 // =============================================================================
-import { esc, MONTHS } from "/util.js?v=20260818-1";
+import { esc, MONTHS, byDateDesc } from "/util.js?v=20260818-1";
 import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, WORLD_INDICES, GOVT_YIELDS, GOVT_YIELD_CHG, PRIVATE_CREDIT } from "/dashboard/js/data.js";
 import { OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS, IND_KEYMOMENTS } from "/macro/js/content.js";
 import { deals, intel, HEDGE_FUNDS, HF_13F } from "/credit/js/data.js";
@@ -305,7 +305,7 @@ export function mount(host, ctx) {
   function creditNewsHTML() {
     const items = [...(deals || []), ...(intel || [])]
       .filter((x) => x && x.date && (x.headline || x.title) && (x.sourceUrl || x.url))
-      .sort((a, b) => String(b.date).localeCompare(String(a.date)))
+      .sort(byDateDesc)
       .slice(0, 12);
     if (!items.length) return "";
     const row = (x) => { const u = x.sourceUrl || x.url; return `<li class="dsh-news-i"><span class="dsh-news-d">${esc(fmtDate(x.date))}</span>`
@@ -516,7 +516,7 @@ export function mount(host, ctx) {
   function macroNewsHTML() {
     const items = [...((NEWS && NEWS.us) || []), ...((NEWS && NEWS.uk) || [])]
       .filter((x) => x && x.title && x.url)
-      .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")) || String(b.time || "").localeCompare(String(a.time || "")))
+      .sort((a, b) => byDateDesc(a, b) || String(b.time || "").localeCompare(String(a.time || "")))
       .slice(0, 12);
     if (!items.length) return "";
     const row = (x) => `<li class="dsh-news-i"><span class="dsh-news-d">${esc(fmtDate(x.date))}</span>`
@@ -715,7 +715,7 @@ export function mount(host, ctx) {
       if (k && byKey.has(k)) { const kept = byKey.get(k); kept.hay += " " + r.hay; kept.thay += " " + r.thay; return; }
       if (k) byKey.set(k, r); all.push(r);
     });
-    _legalCache = all.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+    _legalCache = all.sort(byDateDesc);
     return _legalCache;
   }
   function legalListHTML() {
@@ -745,7 +745,7 @@ export function mount(host, ctx) {
       + (tokens.every((t) => x.thay.includes(t)) ? 100 : 0)
       + tokens.filter((t) => x.thay.includes(t)).length * 10;
     list.forEach((x) => { x._score = score(x); });
-    list.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")) || (b._score - a._score));
+    list.sort((a, b) => byDateDesc(a, b) || (b._score - a._score));
     const badge = (t) => t === "case" ? `<span class="dsh-lgl-badge dsh-lgl-case">Case</span>` : `<span class="dsh-lgl-badge dsh-lgl-alert">Alert</span>`;
     const row = (x) => {
       const area = LGL_AREA_BY_ID[x.area];

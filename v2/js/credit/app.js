@@ -20,7 +20,7 @@ import {
 } from "/credit/js/shared.js?v=20260730-2";
 import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js?v=v2-19";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260808-1";
-import { esc, fmtAum } from "/util.js?v=20260818-1";
+import { esc, fmtAum, byDateDesc } from "/util.js?v=20260818-1";
 
 export function mount(host, ctx) {
   const app = host;
@@ -211,7 +211,7 @@ function notifItems() {
   deals.forEach((d) => out.push({ id: "d:" + d.id, date: d.date || "", kind: d.type, title: d.headline, source: creditSource(d), href: d.managerId ? "#/manager/" + d.managerId : "#/" }));
   intel.forEach((i) => out.push({ id: "i:" + i.id, date: i.date || "", kind: i.type, title: i.headline, source: creditSource(i), href: i.managerId ? "#/manager/" + i.managerId : "#/" }));
   managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", kind: "News", title: w.title, source: w.outlet || m.name || "", href: "#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey(w)) })));
-  return recentNotif(out).sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  return recentNotif(out).sort(byDateDesc);
 }
 function closeNotif() {
   const p = document.getElementById("notif-panel"), b = document.getElementById("notif-bell");
@@ -463,7 +463,7 @@ function managersPaneHTML() {
     return SLS_ORDER.filter((t) => items.some((s) => s.type === t)).map((t) => {
       const ofType = items.filter((s) => s.type === t);
       const tip = ofType.map((s) => `${s.label} — ${s.note} (${s.outlet}, ${s.date})`).join(" · ");
-      const src = ofType.slice().sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")))[0];
+      const src = ofType.slice().sort(byDateDesc)[0];
       return `<a class="sls-chip" href="${esc(src.url)}" target="_blank" rel="noopener noreferrer" title="${esc(tip)}">${esc(t)}</a>`;
     }).join("");
   };
@@ -630,12 +630,12 @@ function viewDashboard() {
   ];
 
   // ---- latest feeds (headlines + links only; click → item on its feed page) ----
-  const dealsByDate = [...dealsNoClo].sort((a, b) => String(b.date).localeCompare(String(a.date)));
-  const intelByDate = [...intelNoClo].sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  const dealsByDate = [...dealsNoClo].sort(byDateDesc);
+  const intelByDate = [...intelNoClo].sort(byDateDesc);
   // CLO items live in their own #/clos section; surface the most recent here too.
   const cloByDate = [...deals.filter((d) => d.clo), ...intel.filter((i) => i.clo)]
     .filter((c) => !targetFocus || midInFocus(c.managerId))
-    .sort((a, b) => String(b.date).localeCompare(String(a.date)));
+    .sort(byDateDesc);
   // Latest press across the tracked universe (manager news + webNews), deduped.
   const newsByDate = aggregateNews().filter((x) => !targetFocus || midInFocus(x._mid));
   // ---- combined "Latest activity" feed: manager press + deals + fundraising +
@@ -656,7 +656,7 @@ function viewDashboard() {
   cloByDate.forEach((c) => pushAct(c, "clo", "clos"));
   newsByDate.forEach((x) => pushAct(x, "news", "news"));
   // Credit research / white papers become the "Commentary" kind in the wire.
-  [...(research || [])].sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")))
+  [...(research || [])].sort(byDateDesc)
     .forEach((r) => pushAct(r, "comm", "research"));
   activity.sort((a, b) => String(b.item.date || "").localeCompare(String(a.item.date || "")));
 
@@ -857,7 +857,7 @@ function aggregateNews() {
       out.push({ ...w, _mid: m.id, _mname: m.name, _id: "news-" + out.length });
     });
   });
-  return out.sort((a, b) => String(b.date).localeCompare(String(a.date)));
+  return out.sort(byDateDesc);
 }
 
 
@@ -1065,7 +1065,7 @@ function viewIntel() {
     (!f.q || (i.headline + i.summary).toLowerCase().includes(f.q.toLowerCase())) &&
     (!f.type.length || f.type.includes(i.type)) &&
     (!f.year.length || f.year.includes(yearOf(i.date)))
-  ).sort((a, b) => String(b.date).localeCompare(String(a.date))); // newest first
+  ).sort(byDateDesc); // newest first
 
   app.innerHTML = `
     <div class="page-head"><div class="ph-head-top"><h1>Fundraising Intelligence</h1>${focusToggle()}</div><p class="muted">${rows.length} of ${base.length} items · European private credit capital formation</p></div>
@@ -1106,7 +1106,7 @@ function viewDeals() {
     (!f.type.length || f.type.includes(d.type)) &&
     (!f.year.length || f.year.includes(yearOf(d.date))) &&
     (!f.period || quarterOf(d.date) === f.period)
-  ).sort((a, b) => String(b.date).localeCompare(String(a.date))); // newest first
+  ).sort(byDateDesc); // newest first
 
   app.innerHTML = `
     <div class="page-head"><div class="ph-head-top"><h1>Deal Activity</h1>${focusToggle()}</div><p class="muted">${rows.length} of ${base.length} transactions · investments, exits, refinancings, restructurings &amp; distress${f.period ? ` · <strong>${esc(f.period)}</strong> <button type="button" class="link-btn" id="clear-period">clear quarter ✕</button>` : ""}</p></div>
@@ -1142,7 +1142,7 @@ function viewClos() {
     (!f.kind.length || f.kind.includes(x._kind === "deal" ? "Deal" : "Fundraising")) &&
     (!f.year.length || f.year.includes(yearOf(x.date))) &&
     (!f.period || quarterOf(x.date) === f.period)
-  ).sort((a, b) => String(b.date).localeCompare(String(a.date))); // newest first
+  ).sort(byDateDesc); // newest first
 
   app.innerHTML = `
     <div class="page-head"><div class="ph-head-top"><h1>CLOs</h1>${focusToggle()}</div><p class="muted">${rows.length} of ${all.length} items · collateralised loan obligation pricings, platforms, funds, ETFs &amp; personnel${f.period ? ` · <strong>${esc(f.period)}</strong> <button type="button" class="link-btn" id="clear-period">clear quarter ✕</button>` : ""}</p></div>
@@ -1220,7 +1220,7 @@ function savedSectionHtml() {
     else if (iById[id]) items.push({ ...iById[id], _kind: "intel" });
     else if (nById[id]) items.push({ ...nById[id], _kind: "news" });
   });
-  items.sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+  items.sort(byDateDesc);
   return `<section class="card" id="saved-section"><h2>Saved items <span class="muted">(${items.length})</span></h2>${items.length
     ? crFeed(items)
     : '<p class="muted small">No saved items yet.</p>'}</section>`;
@@ -1268,7 +1268,7 @@ function viewWatchlist() {
   // otherwise feedHtml slices the first 25 of a kind-ordered concatenation
   // (all news, then deals, …) and recent deals/CLOs get pushed off page one.
   const feed = [...newsItems, ...hfItems, ...dealItems, ...intelItems, ...cloItems]
-    .sort((a, b) => String(b.date || "").localeCompare(String(a.date || "")));
+    .sort(byDateDesc);
 
   if (fm.length + ff.length + fl.length + fh.length === 0) {
     app.innerHTML = `<div class="page-head"><h1>My Watchlist</h1></div>
