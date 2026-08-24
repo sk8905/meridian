@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "67c74e64-5c37-4a5d-ae6c-d3c002f99628", title: "Scott Bessent threatens wider US sanctions on Iran’s economic partners", date: "2026-08-24", time: "18:30", url: "https://www.ft.com/content/67c74e64-5c37-4a5d-ae6c-d3c002f99628" },
+  { id: "b0b233bd-882b-43a9-b55f-e2cf33ec09b7", title: "Andy Burnham rules out early election as he admits UK faces ‘challenging’ financial outlook", date: "2026-08-24", time: "18:24", url: "https://www.ft.com/content/b0b233bd-882b-43a9-b55f-e2cf33ec09b7" },
+  { id: "d6c9e705-ef30-4896-880b-8e88941e0f58", title: "Treasury market interventions are only a band-aid", date: "2026-08-24", time: "18:16", url: "https://www.ft.com/content/d6c9e705-ef30-4896-880b-8e88941e0f58" },
+  { id: "3d46e4cb-4dee-4f49-adc1-0bb0f63d4c49", title: "UK seeks to tighten security of supply chains after Iran-linked cyber attack", date: "2026-08-24", time: "18:13", url: "https://www.ft.com/content/3d46e4cb-4dee-4f49-adc1-0bb0f63d4c49" },
   { id: "063dbdd2-fb5a-4ece-9152-74e791e4835c", title: "Britain gains access to Ukraine battlefield data", date: "2026-08-24", time: "18:00", url: "https://www.ft.com/content/063dbdd2-fb5a-4ece-9152-74e791e4835c" },
   { id: "dcf20385-21a5-4328-9bc6-98a666caaaf6", title: "Meloni wants a snap election to hide her economic failures", date: "2026-08-24", time: "18:00", url: "https://www.ft.com/content/dcf20385-21a5-4328-9bc6-98a666caaaf6" },
   { id: "29f1af13-ecc3-4f26-a479-e6088c67231b", title: "US midterm elections 2026: The FT’s guide", date: "2026-08-24", time: "16:15", url: "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b" },
@@ -56,9 +60,4 @@ export const FT_ITEMS = [
   { id: "d6f1eb66-1684-4b4f-8e4f-cc429d5dd4b0", title: "Shell draws Exxon interest in $8bn US chemical assets sale", date: "2026-08-24", time: "05:00", url: "https://www.ft.com/content/d6f1eb66-1684-4b4f-8e4f-cc429d5dd4b0" },
   { id: "f3f51071-3c6e-49ee-a984-92d8d7af99b2", title: "A ‘democratised’ financial crisis is still a crisis", date: "2026-08-24", time: "05:00", url: "https://www.ft.com/content/f3f51071-3c6e-49ee-a984-92d8d7af99b2" },
   { id: "4a26bc38-1634-4804-81f7-11124c1e3008", title: "How climate is driving new geostrategy", date: "2026-08-24", time: "05:00", url: "https://www.ft.com/content/4a26bc38-1634-4804-81f7-11124c1e3008" },
-  { id: "d6e40d1a-8d0c-44da-befb-9ed35de38f8a", title: "UBS concern over private markets push by manager of $1bn sustainable finance fund", date: "2026-08-24", time: "05:00", url: "https://www.ft.com/content/d6e40d1a-8d0c-44da-befb-9ed35de38f8a" },
-  { id: "48539819-9e46-4a98-9ef6-5db5255379c0", title: "Top UK university graduates owe the most in student loans", date: "2026-08-24", time: "05:00", url: "https://www.ft.com/content/48539819-9e46-4a98-9ef6-5db5255379c0" },
-  { id: "77b94c4a-4b4b-4983-9138-7db6926150f4", title: "US widens AI-driven investment gap with Europe", date: "2026-08-24", time: "05:00", url: "https://www.ft.com/content/77b94c4a-4b4b-4983-9138-7db6926150f4" },
-  { id: "fb2e6718-161c-4f40-8a98-983dc61d1ab2", title: "African nations join the space race", date: "2026-08-24", time: "05:00", url: "https://www.ft.com/content/fb2e6718-161c-4f40-8a98-983dc61d1ab2" },
-  { id: "7c88554e-8e08-4d9e-a696-daeb82817876", title: "Germany must ditch doubts over private capital, says investment tsar", date: "2026-08-24", time: "05:00", url: "https://www.ft.com/content/7c88554e-8e08-4d9e-a696-daeb82817876" },
 ];
