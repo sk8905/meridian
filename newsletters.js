@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-pointsofreturn-elbow-20260824",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "An elbow in the face may get America’s attention",
+    date: "2026-08-24",
+    time: "05:01",
+    summary: "Uglier from here?",
+    url: "https://www.bloomberg.com/opinion/newsletters/2026-08-24/canada-trade-war-an-elbow-in-the-face-may-get-us-attention",
+  },
+  {
     id: "nl-guardian-therecap-20260823",
     publication: "The Guardian",
     author: null,
@@ -452,16 +463,5 @@ export const NEWSLETTERS = [
     time: "07:01",
     summary: "Trump pauses a 50% Canada tariff for three days as Carney says work remains, government borrowing costs jump to multi-year highs in Britain, Japan, France and Germany, and Unitree shares surge 600% in a Shanghai debut valuing the robotmaker at $66bn.",
     url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-bbg-pointsofreturn-fundmanagerssummer-20260819",
-    publication: "Bloomberg",
-    author: "John Authers",
-    series: "Points of Return",
-    title: "Fund managers are acting like summer will never end",
-    date: "2026-08-19",
-    time: "05:02",
-    summary: "Out of sync with oil and the midterms?",
-    url: "https://www.bloomberg.com/opinion/newsletters/2026-08-19/sentiment-fund-managers-are-acting-like-summer-will-never-end",
   },
 ];
