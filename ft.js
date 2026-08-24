@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "29f1af13-ecc3-4f26-a479-e6088c67231b", title: "US midterm elections 2026: The FT’s guide", date: "2026-08-24", time: "16:15", url: "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b" },
+  { id: "7522bdde-49f8-4bf0-a930-6591b40eb5e4", title: "Canadian businesses fear ‘vortex of downward pressures’ from Donald Trump’s tariffs", date: "2026-08-24", time: "16:05", url: "https://www.ft.com/content/7522bdde-49f8-4bf0-a930-6591b40eb5e4" },
+  { id: "5c8aaa6d-5170-4688-beeb-f1319e5ff29e", title: "How Shein’s IPO lost its shine", date: "2026-08-24", time: "16:00", url: "https://www.ft.com/content/5c8aaa6d-5170-4688-beeb-f1319e5ff29e" },
+  { id: "552b8fca-6dad-4b41-a0be-54d2cd70e3cb", title: "Keir Starmer considered letting 100,000 young Europeans come to UK every year", date: "2026-08-24", time: "15:14", url: "https://www.ft.com/content/552b8fca-6dad-4b41-a0be-54d2cd70e3cb" },
   { id: "52978bad-2b91-41e3-be94-7fb6776fbb91", title: "Trump says US to increase tariffs on Canadian cars to 50%", date: "2026-08-24", time: "14:55", url: "https://www.ft.com/content/52978bad-2b91-41e3-be94-7fb6776fbb91" },
   { id: "34c145b1-651a-4725-a65f-ea594a49ea06", title: "As dieters slim down, protein prices bulk up", date: "2026-08-24", time: "14:39", url: "https://www.ft.com/content/34c145b1-651a-4725-a65f-ea594a49ea06" },
   { id: "21190130-bb8e-460e-b64c-ef1532f6c673", title: "Reform UK’s ‘Farage Fest’ went ahead without permission from council", date: "2026-08-24", time: "14:02", url: "https://www.ft.com/content/21190130-bb8e-460e-b64c-ef1532f6c673" },
@@ -27,6 +31,7 @@ export const FT_ITEMS = [
   { id: "94d78bef-d118-420b-85a0-b1e5bcaf2405", title: "FT Financial Literacy and Inclusion Campaign", date: "2026-08-24", time: "13:06", url: "https://www.ft.com/content/94d78bef-d118-420b-85a0-b1e5bcaf2405" },
   { id: "7a9f5756-bf18-4a42-80d1-653c955447aa", title: "High asset prices, not low interest rates, are driving inflation", date: "2026-08-24", time: "13:00", url: "https://www.ft.com/content/7a9f5756-bf18-4a42-80d1-653c955447aa" },
   { id: "91b3e407-daca-40b3-8572-47cf3de9dd1a", title: "French finance minister warns tax on big businesses may be extended", date: "2026-08-24", time: "12:49", url: "https://www.ft.com/content/91b3e407-daca-40b3-8572-47cf3de9dd1a" },
+  { id: "f1727461-4923-4893-a625-8c63a0714d2a", title: "Cold Sunset — the entertaining return of William Boyd’s reluctant spy", date: "2026-08-24", time: "12:00", url: "https://www.ft.com/content/f1727461-4923-4893-a625-8c63a0714d2a" },
   { id: "02c73478-c32b-44e5-baab-f81b9db98f04", title: "Harry Potter and the risk of geopolitics", date: "2026-08-24", time: "11:33", url: "https://www.ft.com/content/02c73478-c32b-44e5-baab-f81b9db98f04" },
   { id: "c806d2ce-efed-47a0-9abb-508e218b62b5", title: "An offer Canada could only refuse", date: "2026-08-24", time: "11:31", url: "https://www.ft.com/content/c806d2ce-efed-47a0-9abb-508e218b62b5" },
   { id: "353032d0-4031-40fe-83ab-958d473401f0", title: "Ukraine hits Russia’s second-largest online retailer", date: "2026-08-24", time: "11:27", url: "https://www.ft.com/content/353032d0-4031-40fe-83ab-958d473401f0" },
@@ -57,7 +62,4 @@ export const FT_ITEMS = [
   { id: "a70fda49-a76a-45bc-add7-221f7fc307db", title: "Treasury brings in expert to review business rates for UK pubs and hotels", date: "2026-08-24", time: "00:01", url: "https://www.ft.com/content/a70fda49-a76a-45bc-add7-221f7fc307db" },
   { id: "4e3c99fe-1a8d-4fb2-b99a-da1c1da4db8e", title: "Burnham to pledge support for long-range missile construction in Ukraine", date: "2026-08-24", time: "00:01", url: "https://www.ft.com/content/4e3c99fe-1a8d-4fb2-b99a-da1c1da4db8e" },
   { id: "9f72dc1b-bb4b-4672-8197-73b899a2bc5d", title: "Scottish state bank records £138mn loss on back of failed investments", date: "2026-08-24", time: "00:01", url: "https://www.ft.com/content/9f72dc1b-bb4b-4672-8197-73b899a2bc5d" },
-  { id: "cb865200-1a06-40be-86a3-10ee2bb05804", title: "Scott Bessent: an economic D-Day is coming for Iran", date: "2026-08-23", time: "22:30", url: "https://www.ft.com/content/cb865200-1a06-40be-86a3-10ee2bb05804" },
-  { id: "50c666af-1979-4411-9d62-34e18cc0ecc9", title: "Yahoo, the internet’s ‘OG’, wants to win over Gen Z", date: "2026-08-23", time: "19:00", url: "https://www.ft.com/content/50c666af-1979-4411-9d62-34e18cc0ecc9" },
-  { id: "252df40a-48c0-47b8-850d-698a3d7a6dfd", title: "Why every French politician is now a Gaullist", date: "2026-08-23", time: "18:58", url: "https://www.ft.com/content/252df40a-48c0-47b8-850d-698a3d7a6dfd" },
 ];
