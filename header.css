@@ -69,6 +69,18 @@
 .ds-part { white-space: nowrap; }
 .notif { position: relative; flex: 0 0 auto; }
 
+/* Desktop Menu affordance — Menu isn't a platform pill (those are Home/Dashboard/
+   Profiles/Radar) and the bottom tab bar that carries it is phone-only, so the
+   desktop terminal reaches Menu (settings · theme · Network importer) via this
+   icon button in the right cluster. Hidden on phones, where the bottom bar owns it. */
+.nav-menu-btn { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
+  width: 34px; height: 34px; padding: 0; margin-left: .35rem; background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.18); border-radius: 9px; color: #c8d6ef; cursor: pointer; }
+.nav-menu-btn:hover { background: rgba(255,255,255,.18); color: #fff; border-color: rgba(255,255,255,.3); }
+.nav-menu-btn.is-active { color: #fff; border-color: var(--accent, #fb8b1e); }
+.nav-menu-btn .mtab-ico { width: 20px; height: 20px; }
+@media (max-width: 760px) { .nav-menu-btn { display: none; } }
+
 /* Phone: platform switch + search move to the bottom tab bar (injected by
    nav-actions); the top bar keeps brand · identity · bell. The identity/refresh
    block is relocated into the footer by a small inline script, so the grid's

@@ -103,6 +103,9 @@ export function initChrome({ onTab }) {
       b.classList.toggle("is-active", on);
       if (on) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current");
     });
+    // Desktop-only Menu icon in the right cluster (Menu isn't a platform pill).
+    const mb = document.querySelector("#wire-header .nav-menu-btn");
+    if (mb) { const on = key === "menu"; mb.classList.toggle("is-active", on); if (on) mb.setAttribute("aria-current", "page"); else mb.removeAttribute("aria-current"); }
   };
 }
 
@@ -129,6 +132,7 @@ function buildHeader(onTab) {
         <div id="data-status" class="data-status" data-refresh-slot></div>
       </div>
       <div id="notif" class="notif"></div>
+      <button type="button" class="nav-menu-btn" data-key="menu" aria-label="Menu" title="Menu">${TAB_ICONS.menu}</button>
     </div>
   </header>
   <div class="wticker" id="wticker"></div>
