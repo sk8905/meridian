@@ -457,14 +457,4 @@ export const NEWSLETTERS = [
     summary: "US home sales and residential construction figures are sliding as homebuyers disappear.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-19/us-housing-is-a-buyer-s-market-trouble-is-there-aren-t-many-buyers",
   },
-  {
-    id: "nl-bbg-marketsdaily-shortdatedbonds-20260819",
-    publication: "Bloomberg",
-    series: "Markets Daily",
-    title: "Shorter Is Better to Bond Traders Seeking Shelter",
-    date: "2026-08-19",
-    time: "11:10",
-    summary: "Plus, the first humanoid robot stock.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-19/shorter-is-better-to-bond-traders-seeking-shelter",
-  },
 ];
