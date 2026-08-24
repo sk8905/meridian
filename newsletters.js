@@ -37,6 +37,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-sheinhkipo-20260824",
+    publication: "Legal Business",
+    title: "Latham and Skadden lead on Shein’s Hong Kong IPO as retailer targets $1.8bn",
+    date: "2026-08-24",
+    time: "12:44",
+    summary: "US-headquartered firms in the lead as fast fashion giant Shein readies for Hong Kong listing next week.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQPM0RwVSsUSTPi6T/wv",
+  },
+  {
     id: "nl-bbg-economicsdaily-tarifflation-20260824",
     publication: "Bloomberg",
     author: "Chris Anstey",
