@@ -13,7 +13,7 @@ export const UPDATED = "21 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-24",
-  lastCheckedTime: "09:24 BST",
+  lastCheckedTime: "12:24 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -813,18 +813,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-08-24",
   us: [
-    { title: "Live updates: US set to unveil 'economic D-Day' sanctions on Iran", source: "CNN", date: "2026-08-24", time: "09:22", url: "https://www.cnn.com/2026/08/24/world/live-news/iran-war-trump" },
-    { title: "Iran warns of Hormuz ship seizures ahead of Bessent's planned sanctions push", source: "CNBC", date: "2026-08-24", time: "09:22", url: "https://www.cnbc.com/2026/08/24/us-iran-war-trump-hormuz-bessent-economic-sanctions-.html" },
-    { title: "Oil prices fall as investors await 'toughest' U.S. sanctions on Iran", source: "CNBC", date: "2026-08-24", time: "05:22", url: "https://www.cnbc.com/2026/08/24/oil-price-today-wti-brent-us-sanctions-iran.html" },
-    { title: "Stock futures slip after Dow posts back-to-back weekly declines: Live updates", source: "CNBC", date: "2026-08-23", time: "09:22", url: "https://www.cnbc.com/2026/08/23/stock-market-today-live-updates.html" },
+    { title: "Oil prices fall as investors await 'toughest' U.S. sanctions on Iran", source: "CNBC", date: "2026-08-24", time: "12:24", url: "https://www.cnbc.com/2026/08/24/oil-price-today-wti-brent-us-sanctions-iran.html" },
+    { title: "Live updates: US set to unveil 'economic D-Day' sanctions on Iran", source: "CNN", date: "2026-08-24", time: "12:24", url: "https://www.cnn.com/2026/08/24/world/live-news/iran-war-trump" },
+    { title: "Stock market today: Dow, S&P 500, Nasdaq futures mixed after US-Canada talks break down", source: "Yahoo Finance", date: "2026-08-24", time: "12:24", url: "https://finance.yahoo.com/markets/live/stock-market-today-monday-august-24-dow-sp-500-nasdaq-080306047.html" },
+    { title: "Economic data releases on tap for Monday, August 24", source: "Investing.com", date: "2026-08-24", time: "12:24", url: "https://www.investing.com/news/stock-market-news/economic-data-releases-on-tap-for-monday-august-24-93CH-4872006" },
     { title: "Bessent Has No Easy Fix for What's Really Driving Bond Yields Up", source: "Bloomberg", date: "2026-08-23", time: "05:22", url: "https://www.bloomberg.com/news/articles/2026-08-23/bessent-has-no-easy-fix-for-what-s-really-driving-bond-yields-up" },
   ],
   uk: [
+    { title: "AI Is Fixing UK Productivity. But There's a Cost", source: "Bloomberg Opinion", date: "2026-08-24", time: "12:24", url: "https://www.bloomberg.com/opinion/articles/2026-08-24/ai-is-fixing-uk-productivity-but-there-s-a-cost" },
     { title: "UK Budget: Burnham's Poetic Beginning Will Soon Turn to Prose", source: "Bloomberg Opinion", date: "2026-08-24", time: "09:22", url: "https://www.bloomberg.com/opinion/articles/2026-08-24/uk-budget-burnham-s-poetic-beginning-will-soon-turn-to-prose" },
     { title: "Ofgem to reveal new energy price cap and how it will impact household bills", source: "ITV News", date: "2026-08-23", time: "05:22", url: "https://www.itv.com/news/2026-08-23/ofgem-to-reveal-new-energy-price-cap-and-how-it-will-impact-household-bills" },
     { title: "World Economy Latest: UK Employment Declines While Price Pressures Mount", source: "Bloomberg", date: "2026-08-22", time: "17:10", url: "https://www.bloomberg.com/news/articles/2026-08-22/world-economy-latest-uk-employment-declines-while-price-pressures-mount" },
-    { title: "UK August flash services PMI 52.8 vs 51.8 expected", source: "investinglive", date: "2026-08-21", time: "05:22", url: "https://investinglive.com/news/uk-august-flash-services-pmi-xx-vs-51-8-expected/" },
-    { title: "Economists agree: BoE will hold rates through year-end – Reuters poll", source: "Reuters (via TMGM)", date: "2026-08-18", time: "05:22", url: "https://www.tmgm.com/en/analysis/market-news/article/economists-agree-boe-will-hold-rates-through-year-end-reuters-poll-202608181809" },
+    { title: "Bank of England Faces Inflation Above 3%. Economists Predict No Rate Change in 2026.", source: "IBTimes", date: "2026-08-19", time: "12:24", url: "https://www.ibtimes.com/bank-england-faces-inflation-above-3-economists-predict-no-rate-change-2026-3806549" },
   ],
 };
 
@@ -838,6 +838,10 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-24",
   items: [
+    {"title":"Oil prices fall as investors await 'toughest' U.S. sanctions on Iran","source":"CNBC","date":"2026-08-24","time":"12:24","url":"https://www.cnbc.com/2026/08/24/oil-price-today-wti-brent-us-sanctions-iran.html","blurb":"Brent slipped roughly 1.3% to about $93.16 and WTI fell to $85.70 as markets awaited Treasury Secretary Bessent's 2pm ET press conference detailing new sanctions on Iran and its trading partners."},
+    {"title":"Stock market today: Dow, S&P 500, Nasdaq futures mixed after US-Canada talks break down","source":"Yahoo Finance","date":"2026-08-24","time":"12:24","url":"https://finance.yahoo.com/markets/live/stock-market-today-monday-august-24-dow-sp-500-nasdaq-080306047.html","blurb":"Dow futures edged lower and Nasdaq futures slipped 0.5% as Ottawa vowed dollar-for-dollar retaliatory tariffs after US-Canada trade talks collapsed, ahead of a week headlined by Nvidia earnings and Jackson Hole."},
+    {"title":"AI Is Fixing UK Productivity. But There's a Cost","source":"Bloomberg Opinion","date":"2026-08-24","time":"12:24","url":"https://www.bloomberg.com/opinion/articles/2026-08-24/ai-is-fixing-uk-productivity-but-there-s-a-cost","blurb":"A columnist argues AI adoption is finally moving the needle on Britain's chronic productivity problem, but warns the labour-market disruption accompanying it carries its own economic cost."},
+    {"title":"Economic data releases on tap for Monday, August 24","source":"Investing.com","date":"2026-08-24","time":"12:24","url":"https://www.investing.com/news/stock-market-news/economic-data-releases-on-tap-for-monday-august-24-93CH-4872006","blurb":"A quiet US data day (Chicago Fed National Activity Index aside) ahead of Tuesday's consumer confidence and new-home-sales prints, Wednesday's Nvidia earnings, and Wednesday-Friday's Jackson Hole symposium."},
     {"title":"Live updates: US set to unveil 'economic D-Day' sanctions on Iran","source":"CNN","date":"2026-08-24","time":"09:22","url":"https://www.cnn.com/2026/08/24/world/live-news/iran-war-trump","blurb":"Treasury Secretary Bessent detailed the 'toughest sanctions in history' on Iran and its trading partners at a Monday press conference, as Iran's leadership showed visible internal splits over whether to keep fighting."},
     {"title":"Iran warns of Hormuz ship seizures ahead of Bessent's planned sanctions push","source":"CNBC","date":"2026-08-24","time":"09:22","url":"https://www.cnbc.com/2026/08/24/us-iran-war-trump-hormuz-bessent-economic-sanctions-.html","blurb":"Tehran threatened to seize tankers transiting the Strait of Hormuz in apparent retaliation for the incoming US sanctions package."},
     {"title":"UK Budget: Burnham's Poetic Beginning Will Soon Turn to Prose","source":"Bloomberg Opinion","date":"2026-08-24","time":"09:22","url":"https://www.bloomberg.com/opinion/articles/2026-08-24/uk-budget-burnham-s-poetic-beginning-will-soon-turn-to-prose","blurb":"With the 28 October Budget two months out, a columnist argues PM Burnham's early poll bounce will collide with the hard fiscal arithmetic Chancellor Healey must now navigate."},
@@ -874,10 +878,6 @@ export const ARTICLES = {
     {"title":"S&P Global Flash Manufacturing PMI comes in at 53.2 in August","source":"CNBC","date":"2026-08-21","time":"09:19","url":"https://www.cnbc.com/video/2026/08/21/sp-global-flash-manufacturing-pmi-comes-in-at-53-point-2-in-august.html","blurb":"The US flash composite PMI hit a four-year high in August as services jumped to 56.8, even as manufacturing eased slightly to 53.2."},
     {"title":"Stock market today: Dow, S&P 500, Nasdaq post weekly losses as bond volatility remains in focus, bitcoin soars","source":"Yahoo Finance","date":"2026-08-21","time":"09:19","url":"https://finance.yahoo.com/markets/live/stock-market-today-friday-august-21-dow-sp-500-nasdaq-bitcoin-080533702.html","blurb":"Major indices closed out a losing week as Treasury-yield volatility weighed on sentiment, even as bitcoin logged its best week in roughly three years."},
     {"title":"UK PMI: Services strengthen in August, but manufacturing momentum fades","source":"ActionForex","date":"2026-08-21","time":"08:33","url":"https://www.actionforex.com/live-comments/651355-uk-pmi-services-strengthen-in-august-but-manufacturing-momentum-fades/","blurb":"The flash Composite PMI climbed to a 4-month high of 52.5 (from 52.2) as services strength (52.8, a 6-month high) offset a manufacturing dip to a 5-month low of 51.5, lifting the pound toward 1.3466 versus the dollar."},
-    {"title":"Gold Breaks $4,525: XAU/USD Bulls Eye $4,625 as Dollar Slides","source":"FX Leaders","date":"2026-08-21","time":"07:30","url":"https://www.fxleaders.com/news/2026/08/21/gold-breaks-4525-xau-usd-bulls-eye-4625-dollar-slides/","blurb":"Spot gold extended its advance toward a third straight weekly gain as the dollar index stayed pinned near multi-month lows on fading September Fed hike bets and the Treasury's buyback-driven yield relief."},
-    {"title":"UK retail sales soften in July after June World Cup boost","source":"RTÉ","date":"2026-08-21","time":"07:10","url":"https://www.rte.ie/news/business/2026/0821/1588727-uk-retail-sales/","blurb":"ONS data showed retail sales volumes fell 0.5% month-on-month in July (in line with forecast) as a summer heatwave kept shoppers off the high street, with June's rise revised down to 0.7% from 1.0%."},
-    {"title":"UK Economy Speeds Up as Firms and Shoppers Splash Out, PMI Shows","source":"Bloomberg","date":"2026-08-21","time":"05:16","url":"https://www.bloomberg.com/news/articles/2026-08-21/uk-economy-speeds-up-as-firms-and-shoppers-splash-out-pmi-shows","blurb":"Britain's private sector expanded at its fastest pace in four months as sunny weather and a resilient service sector encouraged households and businesses to keep spending, even as inflation and energy-cost risks linger."},
-    {"title":"Healey oversees unexpected rise in borrowing in first month as Chancellor","source":"CityAM","date":"2026-08-21","time":"05:16","url":"https://www.cityam.com/healey-oversees-unexpected-deficit-in-first-month-as-chancellor/","blurb":"Chancellor John Healey faced an unexpected £1.8bn public-sector deficit in July, tightening fiscal constraints ahead of his first Autumn Budget more than initially anticipated."},
   ],
 };
 
