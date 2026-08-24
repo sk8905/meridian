@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "edeb19be-e89c-4f86-8a9f-8875dfa4817e", title: "FTAV’s further reading", date: "2026-08-24", time: "07:37", url: "https://www.ft.com/content/edeb19be-e89c-4f86-8a9f-8875dfa4817e" },
+  { id: "f160c7b8-d322-4b5f-b5c9-f6861c62e3db", title: "Thames Water creditors plan board shake-up if utility avoids nationalisation", date: "2026-08-24", time: "07:35", url: "https://www.ft.com/content/f160c7b8-d322-4b5f-b5c9-f6861c62e3db" },
   { id: "40ae9cd3-fbc8-4a55-adaa-c24bc80481c9", title: "Kevin Warsh seeks to soothe investors’ nerves as signs of economic strain mount", date: "2026-08-24", time: "07:07", url: "https://www.ft.com/content/40ae9cd3-fbc8-4a55-adaa-c24bc80481c9" },
   { id: "7f8574f5-f909-4226-b96f-5d5d9a5f0798", title: "The great re-equitisation and the dollar", date: "2026-08-24", time: "06:30", url: "https://www.ft.com/content/7f8574f5-f909-4226-b96f-5d5d9a5f0798" },
   { id: "63e11e59-1f21-488a-b89b-de4abbdd7396", title: "FirstFT: Europe trails as AI drives US investment", date: "2026-08-24", time: "06:15", url: "https://www.ft.com/content/63e11e59-1f21-488a-b89b-de4abbdd7396" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "c202d7aa-481a-466b-b34f-2c4451f787a5", title: "Coffee chain Blank Street raises funds from General Atlantic to fuel expansion and ice cream push", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/c202d7aa-481a-466b-b34f-2c4451f787a5" },
   { id: "ef65c99c-b58c-430c-b6be-8036f042cc1e", title: "Why is the far right so obsessed with knights?", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/ef65c99c-b58c-430c-b6be-8036f042cc1e" },
   { id: "6f664a31-ca24-4a16-a6e9-5978fdf2512c", title: "Are America’s vast Gulf bases worth rebuilding?", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/6f664a31-ca24-4a16-a6e9-5978fdf2512c" },
-  { id: "be3c0c6c-0a65-4add-b675-7a5876f625be", title: "India’s reliance on Russian oil hits all-time high", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/be3c0c6c-0a65-4add-b675-7a5876f625be" },
-  { id: "6fc8d072-5a2c-4431-895a-e3d4eb03329d", title: "Railway enthusiasts split over plan to restore train services in rural areas", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/6fc8d072-5a2c-4431-895a-e3d4eb03329d" },
 ];

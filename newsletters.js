@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-businesspost-dublinofficesqueeze-20260824",
+    publication: "Business Post",
+    author: null,
+    series: "CRE",
+    title: "Dublin’s office squeeze",
+    date: "2026-08-24",
+    time: "08:00",
+    summary: "Plus: plans for a funeral home at the former Regency Hotel blocked, and can Ireland’s €3bn property market keep the recovery going?",
+    url: "https://bpm.businesspost.ie/w/JRvWWjanSo3LAEBad7J763UQ/Pe5PTEw0pLHXiV2kox0pPw/jz1KrK892LYjQIHjr1wCNl6A",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-canadatariffs-20260824",
     publication: "Bloomberg",
     author: "Lily Nonomiya, Abhishek Shanker",
@@ -446,34 +457,5 @@ export const NEWSLETTERS = [
     time: "11:10",
     summary: "Plus, the first humanoid robot stock.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-19/shorter-is-better-to-bond-traders-seeking-shelter",
-  },
-  {
-    id: "nl-nonbillable-legalengineer-20260819",
-    publication: "Non-Billable",
-    title: "The rise of the legal engineer",
-    date: "2026-08-19",
-    time: "09:05",
-    summary: "Harvey launches a legal-engineer certification as Kirkland eases its retirement-vote rule, Knights buys THP Solicitors, the SRA warns partners over juniors' AI use, and Clifford Chance accuses ex-partners of trying to 'hijack' a $5.8m pay dispute.",
-    url: "https://non-billable.beehiiv.com/p/ai-gets-a-watermark-1",
-  },
-  {
-    id: "nl-lb-pinsentspep-20260819",
-    publication: "Legal Business",
-    title: "Pinsents PEP drops 7.2% after 'bumper year of investments'",
-    date: "2026-08-19",
-    time: "09:02",
-    summary: "Pinsent Masons' profit per equity partner falls 7.2% despite 3% revenue growth, a year that saw the firm spend heavily on laterals, tech and international expansion.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQLit9h5VLdPhvn7z/wv",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-chipselloff-20260819",
-    publication: "Bloomberg",
-    author: "Samson Ellis",
-    series: "Morning Briefing Europe",
-    title: "Investors Ditch Chip Stocks After Global Bond Selloff",
-    date: "2026-08-19",
-    time: "07:28",
-    summary: "A global selloff in semiconductor stocks deepens as bond yields stay elevated, Trump pauses 50% Canada tariffs for three days pending a deal, and Ukraine's ex-defense minister calls for wartime elections.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-19/investors-ditch-chip-stocks-after-global-bond-selloff",
   },
 ];
