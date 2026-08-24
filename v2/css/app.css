@@ -72,6 +72,11 @@ a { color: var(--primary); text-decoration: none; }
      desktop the shell is fixed (body overflow:hidden), so it scrolls INTERNALLY or
      long content clips. Its sticky sub-nav (.dsh-nav) pins to the top of it. */
   .v2-view .dsh { height: 100%; overflow-y: auto; }
+  /* Menu: like the dashboard, a plain column with no internal terminal layout —
+     the fixed desktop shell (body overflow:hidden) means it must scroll
+     INTERNALLY, else a long pane (e.g. the Network connections list) clips with
+     no way to reach the bottom. Scroll the view; .v2-menu keeps its centred column. */
+  .v2-view[data-view="menu"] { height: 100%; overflow-y: auto; }
   /* Newsletters: make the FEED the single internal scroller (filter bar pinned).
      A bare overflow-y:auto on .nl-wrap left #nl-feed ALSO an auto-overflow box at
      full content height — some browsers then trap the wheel on it (nothing to

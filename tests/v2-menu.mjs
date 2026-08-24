@@ -68,6 +68,10 @@ async function menuState(pg) {
   }));
   checkEq(after.active, "menu", "desktop: clicking the Menu button opens the Menu view");
   check(after.marked, "desktop: Menu button shows the active state on the menu tab");
+  // The fixed desktop shell (body overflow:hidden) means the menu must scroll
+  // internally, else a long pane (e.g. the Network list) clips with no way down.
+  const ov = await pg.evaluate(() => { const v = document.querySelector('.v2-view[data-view="menu"]'); return v ? getComputedStyle(v).overflowY : ""; });
+  checkEq(ov, "auto", "desktop: menu view scrolls internally (overflow-y:auto), so a long pane isn't clipped");
   checkErrs(errs, "desktop menu button");
   await ctx.close();
 }
