@@ -13,7 +13,7 @@ export const UPDATED = "21 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-24",
-  lastCheckedTime: "12:24 BST",
+  lastCheckedTime: "17:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1044,7 +1044,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "The dollar stayed pressured into the weekend as gold reached its highest price in three months, with the relief from Bessent's expanded Treasury-buyback programme fading as longer-dated yields resumed climbing — even as sterling drew support from an accelerating UK private sector and consumer confidence at a 2-year high.", src: "https://www.forbes.com/sites/conormurray/2026/08/21/gold-reaches-highest-price-in-three-months-as-dollar-weakens/", srcName: "Forbes", date: "2026-08-21" };
+export const FX_KEYMOMENT = { text: "Sterling slipped against the dollar as dollar policy jitters and the incoming Iran sanctions package weighed, even as gold held its multi-month highs and the pound continued to draw some support from a resilient UK private sector.", src: "https://www.investing.com/news/forex-news/sterling-today-pound-slips-as-dollar-policy-jitters-iran-sanctions-weigh-4872845", srcName: "Reuters (via Investing.com)", date: "2026-08-24" };
 
 export const EARNINGS = {
   weeks: [
