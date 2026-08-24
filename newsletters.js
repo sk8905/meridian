@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-anthropicgovernance-20260824",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: Who Should Control Anthropic?",
+    date: "2026-08-24",
+    time: "19:19",
+    summary: "LETF, Duke, interns, interests.",
+    url: "https://bloom.bg/4qzQ9BL",
+  },
+  {
     id: "nl-cf-treasuryintervention-20260824",
     publication: "Chatham Financial",
     title: "Treasury intervention tests the bond market",
