@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "680b2d66-5f69-497f-9cb8-9d010ae64f69", title: "European allies flock to Kyiv to pledge more defences against Russian bombardment", date: "2026-08-24", time: "06:00", url: "https://www.ft.com/content/680b2d66-5f69-497f-9cb8-9d010ae64f69" },
+  { id: "35c2bdcf-110e-456a-a3c1-ba973837b9b9", title: "Analysts’ views: forecasters continue to see Fed and Bank of England on hold this year", date: "2026-08-24", time: "05:29", url: "https://www.ft.com/content/35c2bdcf-110e-456a-a3c1-ba973837b9b9" },
   { id: "b153db68-a361-4217-9cc5-b766a15c1922", title: "UK statistics agency turns to AI to cut costs and improve data", date: "2026-08-24", time: "05:00", url: "https://www.ft.com/content/b153db68-a361-4217-9cc5-b766a15c1922" },
   { id: "3f25f892-2de2-40e6-9592-a7ac18682c6c", title: "AI is coming for your glasses", date: "2026-08-24", time: "05:00", url: "https://www.ft.com/content/3f25f892-2de2-40e6-9592-a7ac18682c6c" },
   { id: "d6f1eb66-1684-4b4f-8e4f-cc429d5dd4b0", title: "Shell draws Exxon interest in $8bn US chemical assets sale", date: "2026-08-24", time: "05:00", url: "https://www.ft.com/content/d6f1eb66-1684-4b4f-8e4f-cc429d5dd4b0" },
@@ -31,6 +33,7 @@ export const FT_ITEMS = [
   { id: "fb2e6718-161c-4f40-8a98-983dc61d1ab2", title: "African nations join the space race", date: "2026-08-24", time: "05:00", url: "https://www.ft.com/content/fb2e6718-161c-4f40-8a98-983dc61d1ab2" },
   { id: "7c88554e-8e08-4d9e-a696-daeb82817876", title: "Germany must ditch doubts over private capital, says investment tsar", date: "2026-08-24", time: "05:00", url: "https://www.ft.com/content/7c88554e-8e08-4d9e-a696-daeb82817876" },
   { id: "1d310566-94ee-48e2-acfa-25de646fc41a", title: "Shein seeks $27bn valuation from Hong Kong IPO", date: "2026-08-24", time: "03:55", url: "https://www.ft.com/content/1d310566-94ee-48e2-acfa-25de646fc41a" },
+  { id: "a70fda49-a76a-45bc-add7-221f7fc307db", title: "Treasury brings in expert to review business rates for UK pubs and hotels", date: "2026-08-24", time: "00:01", url: "https://www.ft.com/content/a70fda49-a76a-45bc-add7-221f7fc307db" },
   { id: "4e3c99fe-1a8d-4fb2-b99a-da1c1da4db8e", title: "Burnham to pledge support for long-range missile construction in Ukraine", date: "2026-08-24", time: "00:01", url: "https://www.ft.com/content/4e3c99fe-1a8d-4fb2-b99a-da1c1da4db8e" },
   { id: "9f72dc1b-bb4b-4672-8197-73b899a2bc5d", title: "Scottish state bank records £138mn loss on back of failed investments", date: "2026-08-24", time: "00:01", url: "https://www.ft.com/content/9f72dc1b-bb4b-4672-8197-73b899a2bc5d" },
   { id: "cb865200-1a06-40be-86a3-10ee2bb05804", title: "Scott Bessent: an economic D-Day is coming for Iran", date: "2026-08-23", time: "22:30", url: "https://www.ft.com/content/cb865200-1a06-40be-86a3-10ee2bb05804" },
@@ -58,6 +61,4 @@ export const FT_ITEMS = [
   { id: "5e8072a7-cb99-47a6-9478-e46e7de3b4a2", title: "Investors try to catch ‘falling knife’ with bets on risky funds during chip rout", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/5e8072a7-cb99-47a6-9478-e46e7de3b4a2" },
   { id: "434ff8df-d436-4001-b781-3cf0c8ad0b64", title: "‘Juggernaut’ BT’s decade-long turnaround hits crunch time", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/434ff8df-d436-4001-b781-3cf0c8ad0b64" },
   { id: "d8279eab-023e-4403-8f0f-b0b64393dcbb", title: "Data centres drive Ireland to reopen nuclear power debate", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/d8279eab-023e-4403-8f0f-b0b64393dcbb" },
-  { id: "d770cdbf-46b1-4928-9ec7-e1155db679d2", title: "Israel’s Syria strike may have been bid to provoke Turkey conflict, US envoy says", date: "2026-08-22", time: "19:17", url: "https://www.ft.com/content/d770cdbf-46b1-4928-9ec7-e1155db679d2" },
-  { id: "e3b5c236-bd5f-45c2-8ddf-5279a7375d3f", title: "Mark Carney says Canada is now ‘at war’ with US over trade", date: "2026-08-22", time: "18:22", url: "https://www.ft.com/content/e3b5c236-bd5f-45c2-8ddf-5279a7375d3f" },
 ];
