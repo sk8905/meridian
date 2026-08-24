@@ -37,6 +37,15 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-nonbillable-citylawbeach-20260824",
+    publication: "Non-Billable",
+    title: "Swapping City law for the beach",
+    date: "2026-08-24",
+    time: "09:06",
+    summary: "Knights lands its second-biggest acquisition yet with deal for Moore Barlow, Big Law taps into the pensions boom, and KPMG Australia confirms staff cuts amid its data leak scandal.",
+    url: "https://non-billable.beehiiv.com/p/london-s-restructuring-rush-1",
+  },
+  {
     id: "nl-businesspost-dublinofficesqueeze-20260824",
     publication: "Business Post",
     author: null,
