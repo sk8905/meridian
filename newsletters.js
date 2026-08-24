@@ -37,6 +37,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-canadatariffs-20260824",
+    publication: "Bloomberg",
+    author: "Lily Nonomiya, Abhishek Shanker",
+    series: "Morning Briefing Europe",
+    title: "Carney vs. Trump",
+    date: "2026-08-24",
+    time: "06:58",
+    summary: "Canada hits back with $20 billion in counter-tariffs as trade talks collapse, Shein moves closer to a Hong Kong IPO, and recruiters grapple with the perfect AI-written resume.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-24/canada-to-hit-us-with-20-billion-counter-tariffs",
+  },
+  {
+    id: "nl-econ-worldinbrief-sanctionsdday-20260824",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: America’s sanctions D-Day",
+    date: "2026-08-24",
+    time: "06:19",
+    summary: "Bessent is set to unveil new Iran sanctions, Zelensky says wartime elections would \"destroy\" Ukraine, and Shein starts book-building for its Hong Kong IPO.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-pointsofreturn-elbow-20260824",
     publication: "Bloomberg",
     author: "John Authers",
@@ -453,15 +475,5 @@ export const NEWSLETTERS = [
     time: "07:28",
     summary: "A global selloff in semiconductor stocks deepens as bond yields stay elevated, Trump pauses 50% Canada tariffs for three days pending a deal, and Ukraine's ex-defense minister calls for wartime elections.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-19/investors-ditch-chip-stocks-after-global-bond-selloff",
-  },
-  {
-    id: "nl-econ-worldinbrief-20260819",
-    publication: "The Economist",
-    series: "The World in Brief",
-    title: "The World in Brief: Trump pauses tariffs on Canada",
-    date: "2026-08-19",
-    time: "07:01",
-    summary: "Trump pauses a 50% Canada tariff for three days as Carney says work remains, government borrowing costs jump to multi-year highs in Britain, Japan, France and Germany, and Unitree shares surge 600% in a Shanghai debut valuing the robotmaker at $66bn.",
-    url: "https://www.economist.com/the-world-in-brief",
   },
 ];

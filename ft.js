@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "40ae9cd3-fbc8-4a55-adaa-c24bc80481c9", title: "Kevin Warsh seeks to soothe investors’ nerves as signs of economic strain mount", date: "2026-08-24", time: "07:07", url: "https://www.ft.com/content/40ae9cd3-fbc8-4a55-adaa-c24bc80481c9" },
+  { id: "7f8574f5-f909-4226-b96f-5d5d9a5f0798", title: "The great re-equitisation and the dollar", date: "2026-08-24", time: "06:30", url: "https://www.ft.com/content/7f8574f5-f909-4226-b96f-5d5d9a5f0798" },
+  { id: "63e11e59-1f21-488a-b89b-de4abbdd7396", title: "FirstFT: Europe trails as AI drives US investment", date: "2026-08-24", time: "06:15", url: "https://www.ft.com/content/63e11e59-1f21-488a-b89b-de4abbdd7396" },
   { id: "680b2d66-5f69-497f-9cb8-9d010ae64f69", title: "European allies flock to Kyiv to pledge more defences against Russian bombardment", date: "2026-08-24", time: "06:00", url: "https://www.ft.com/content/680b2d66-5f69-497f-9cb8-9d010ae64f69" },
   { id: "35c2bdcf-110e-456a-a3c1-ba973837b9b9", title: "Analysts’ views: forecasters continue to see Fed and Bank of England on hold this year", date: "2026-08-24", time: "05:29", url: "https://www.ft.com/content/35c2bdcf-110e-456a-a3c1-ba973837b9b9" },
   { id: "b153db68-a361-4217-9cc5-b766a15c1922", title: "UK statistics agency turns to AI to cut costs and improve data", date: "2026-08-24", time: "05:00", url: "https://www.ft.com/content/b153db68-a361-4217-9cc5-b766a15c1922" },
@@ -57,8 +60,4 @@ export const FT_ITEMS = [
   { id: "6f664a31-ca24-4a16-a6e9-5978fdf2512c", title: "Are America’s vast Gulf bases worth rebuilding?", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/6f664a31-ca24-4a16-a6e9-5978fdf2512c" },
   { id: "be3c0c6c-0a65-4add-b675-7a5876f625be", title: "India’s reliance on Russian oil hits all-time high", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/be3c0c6c-0a65-4add-b675-7a5876f625be" },
   { id: "6fc8d072-5a2c-4431-895a-e3d4eb03329d", title: "Railway enthusiasts split over plan to restore train services in rural areas", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/6fc8d072-5a2c-4431-895a-e3d4eb03329d" },
-  { id: "72783ac2-d6d4-4507-b50f-88861506ad76", title: "‘I don’t have any close friends in business’: Euronext CEO on a decade shaping Europe’s markets", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/72783ac2-d6d4-4507-b50f-88861506ad76" },
-  { id: "5e8072a7-cb99-47a6-9478-e46e7de3b4a2", title: "Investors try to catch ‘falling knife’ with bets on risky funds during chip rout", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/5e8072a7-cb99-47a6-9478-e46e7de3b4a2" },
-  { id: "434ff8df-d436-4001-b781-3cf0c8ad0b64", title: "‘Juggernaut’ BT’s decade-long turnaround hits crunch time", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/434ff8df-d436-4001-b781-3cf0c8ad0b64" },
-  { id: "d8279eab-023e-4403-8f0f-b0b64393dcbb", title: "Data centres drive Ireland to reopen nuclear power debate", date: "2026-08-23", time: "05:00", url: "https://www.ft.com/content/d8279eab-023e-4403-8f0f-b0b64393dcbb" },
 ];
