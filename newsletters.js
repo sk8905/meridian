@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-marketsdaily-nvidialosingstreak-20260825",
+    publication: "Bloomberg",
+    author: "Lynn Thomasson, Dina Bass, Ian King",
+    series: "Markets Daily",
+    title: "Nvidia Stock Bulls Get Punished in the Run-Up to Earnings",
+    date: "2026-08-25",
+    time: "10:31",
+    summary: "Seven days of stock losses.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-25/nvidia-stock-bulls-get-punished-in-the-run-up-to-earnings",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-burnhamtrump-20260825",
     publication: "Bloomberg",
     author: "Samson Ellis",
@@ -445,16 +456,5 @@ export const NEWSLETTERS = [
     time: "15:52",
     summary: "Digest round-up: Blackstone and Starwood’s retail property machines, Jane Street and CDS spreads, Michael Burry, El-Erian’s weekly markets look and FT Alphaville.",
     url: "https://app.mailbrew.com/stevedkennedy/friday-brew-03bEHcNb3hHB/9",
-  },
-  {
-    id: "nl-bbg-economicsdaily-bondvigilant-20260820",
-    publication: "Bloomberg",
-    author: "Chris Anstey",
-    series: "Economics Daily",
-    title: "A ‘Bond Vigilant’ Bessent Moves to Head Off the Bond Vigilantes",
-    date: "2026-08-20",
-    time: "11:00",
-    summary: "Bessent contains bond-market pressure as US public debt tops $40 trillion and the Treasury doubles long-bond buybacks.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-20/a-bond-vigilant-bessent-moves-to-head-off-the-bond-vigilantes",
   },
 ];

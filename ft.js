@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "58142179-593e-4525-bc4e-4c3f766a1a3a", title: "Embattled housebuilder Vistry boosted by £350mn UK government contract", date: "2026-08-25", time: "10:54", url: "https://www.ft.com/content/58142179-593e-4525-bc4e-4c3f766a1a3a" },
+  { id: "b532ed0f-af32-4b56-8a5a-f13d4b6eb8c4", title: "And the FTAV Friday charts quiz winner is . . . ", date: "2026-08-25", time: "10:46", url: "https://www.ft.com/content/b532ed0f-af32-4b56-8a5a-f13d4b6eb8c4" },
+  { id: "d8162910-af1e-4a8a-93e5-a3309252337d", title: "UK backs Devon tungsten mine in effort to secure critical mineral supplies", date: "2026-08-25", time: "10:35", url: "https://www.ft.com/content/d8162910-af1e-4a8a-93e5-a3309252337d" },
+  { id: "aa7ba671-8175-4b53-b6a5-28803a851493", title: "China warns US it could retaliate over Iran sanctions", date: "2026-08-25", time: "10:27", url: "https://www.ft.com/content/aa7ba671-8175-4b53-b6a5-28803a851493" },
+  { id: "9d61ca14-6939-4efa-a6fe-0ec1b283d77a", title: "Bessent gets Drucked", date: "2026-08-25", time: "10:17", url: "https://www.ft.com/content/9d61ca14-6939-4efa-a6fe-0ec1b283d77a" },
   { id: "80e7dfea-1dae-4ab7-ad56-5ba8dee2e5fd", title: "Andy Burnham is right to rule out an early election", date: "2026-08-25", time: "09:38", url: "https://www.ft.com/content/80e7dfea-1dae-4ab7-ad56-5ba8dee2e5fd" },
   { id: "d66a71ea-e181-4579-85c7-00760d4a3166", title: "FTAV’s further reading", date: "2026-08-25", time: "07:48", url: "https://www.ft.com/content/d66a71ea-e181-4579-85c7-00760d4a3166" },
   { id: "af815e45-b132-4db4-96bc-428f8e0b76f3", title: "Nvidia employee charged with smuggling advanced chips into China", date: "2026-08-25", time: "06:31", url: "https://www.ft.com/content/af815e45-b132-4db4-96bc-428f8e0b76f3" },
@@ -57,7 +62,4 @@ export const FT_ITEMS = [
   { id: "52978bad-2b91-41e3-be94-7fb6776fbb91", title: "Trump says US to increase tariffs on Canadian cars to 50%", date: "2026-08-24", time: "14:55", url: "https://www.ft.com/content/52978bad-2b91-41e3-be94-7fb6776fbb91" },
   { id: "34c145b1-651a-4725-a65f-ea594a49ea06", title: "As dieters slim down, protein prices bulk up", date: "2026-08-24", time: "14:39", url: "https://www.ft.com/content/34c145b1-651a-4725-a65f-ea594a49ea06" },
   { id: "21190130-bb8e-460e-b64c-ef1532f6c673", title: "Reform UK’s ‘Farage Fest’ went ahead without permission from council", date: "2026-08-24", time: "14:02", url: "https://www.ft.com/content/21190130-bb8e-460e-b64c-ef1532f6c673" },
-  { id: "f16e4ad3-d61f-4b98-b427-c5bcb1df1972", title: "Class wars and the midterms", date: "2026-08-24", time: "14:00", url: "https://www.ft.com/content/f16e4ad3-d61f-4b98-b427-c5bcb1df1972" },
-  { id: "94d78bef-d118-420b-85a0-b1e5bcaf2405", title: "FT Financial Literacy and Inclusion Campaign", date: "2026-08-24", time: "13:06", url: "https://www.ft.com/content/94d78bef-d118-420b-85a0-b1e5bcaf2405" },
-  { id: "7a9f5756-bf18-4a42-80d1-653c955447aa", title: "High asset prices, not low interest rates, are driving inflation", date: "2026-08-24", time: "13:00", url: "https://www.ft.com/content/7a9f5756-bf18-4a42-80d1-653c955447aa" },
 ];
