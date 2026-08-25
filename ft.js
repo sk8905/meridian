@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "af815e45-b132-4db4-96bc-428f8e0b76f3", title: "Nvidia employee charged with smuggling advanced chips into China", date: "2026-08-25", time: "06:31", url: "https://www.ft.com/content/af815e45-b132-4db4-96bc-428f8e0b76f3" },
+  { id: "121a5db7-f9b9-42c4-b216-542cc4114fe5", title: "The problem with buying the dip in bonds", date: "2026-08-25", time: "06:30", url: "https://www.ft.com/content/121a5db7-f9b9-42c4-b216-542cc4114fe5" },
+  { id: "c8f9886c-8b23-472a-aa43-58907668bb1f", title: "Is Northampton an emerging market?", date: "2026-08-25", time: "06:30", url: "https://www.ft.com/content/c8f9886c-8b23-472a-aa43-58907668bb1f" },
+  { id: "5162b0a3-e7b1-460d-95a0-9a8e27eddb5a", title: "FirstFT: Iran war punishes US farmers", date: "2026-08-25", time: "06:17", url: "https://www.ft.com/content/5162b0a3-e7b1-460d-95a0-9a8e27eddb5a" },
   { id: "705bb093-f491-4a2c-90bb-1804be8c1426", title: "EU leaders begin heart-to-heart budget talks as year-end deadline looms large", date: "2026-08-25", time: "06:00", url: "https://www.ft.com/content/705bb093-f491-4a2c-90bb-1804be8c1426" },
   { id: "6f01973c-3e9f-41d0-9140-709bfea3cb22", title: "The unravelling of Mark Walter", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/6f01973c-3e9f-41d0-9140-709bfea3cb22" },
   { id: "d18b330f-1cc2-4f83-9720-5ab5b13981e4", title: "JPMorgan eases approach on lending against shares to court AI’s new wealth", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/d18b330f-1cc2-4f83-9720-5ab5b13981e4" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "7a9f5756-bf18-4a42-80d1-653c955447aa", title: "High asset prices, not low interest rates, are driving inflation", date: "2026-08-24", time: "13:00", url: "https://www.ft.com/content/7a9f5756-bf18-4a42-80d1-653c955447aa" },
   { id: "91b3e407-daca-40b3-8572-47cf3de9dd1a", title: "French finance minister warns tax on big businesses may be extended", date: "2026-08-24", time: "12:49", url: "https://www.ft.com/content/91b3e407-daca-40b3-8572-47cf3de9dd1a" },
   { id: "f1727461-4923-4893-a625-8c63a0714d2a", title: "Cold Sunset — the entertaining return of William Boyd’s reluctant spy", date: "2026-08-24", time: "12:00", url: "https://www.ft.com/content/f1727461-4923-4893-a625-8c63a0714d2a" },
-  { id: "02c73478-c32b-44e5-baab-f81b9db98f04", title: "Harry Potter and the risk of geopolitics", date: "2026-08-24", time: "11:33", url: "https://www.ft.com/content/02c73478-c32b-44e5-baab-f81b9db98f04" },
-  { id: "c806d2ce-efed-47a0-9abb-508e218b62b5", title: "An offer Canada could only refuse", date: "2026-08-24", time: "11:31", url: "https://www.ft.com/content/c806d2ce-efed-47a0-9abb-508e218b62b5" },
-  { id: "353032d0-4031-40fe-83ab-958d473401f0", title: "Ukraine hits Russia’s second-largest online retailer", date: "2026-08-24", time: "11:27", url: "https://www.ft.com/content/353032d0-4031-40fe-83ab-958d473401f0" },
-  { id: "4e3c99fe-1a8d-4fb2-b99a-da1c1da4db8e", title: "Andy Burnham condemns Russia’s ‘outrageous threats’ to UK during Kyiv visit", date: "2026-08-24", time: "11:01", url: "https://www.ft.com/content/4e3c99fe-1a8d-4fb2-b99a-da1c1da4db8e" },
 ];
