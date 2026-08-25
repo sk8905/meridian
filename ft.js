@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "6a76e78b-c493-409a-8694-6fa4ba9a674e", title: "AI to fuel global growth as investment spreads beyond US, IMF says", date: "2026-08-25", time: "19:00", url: "https://www.ft.com/content/6a76e78b-c493-409a-8694-6fa4ba9a674e" },
+  { id: "8f1a392a-b43c-4124-916e-61695fffa0da", title: "European LNG prices surge to highest level since 2023", date: "2026-08-25", time: "18:41", url: "https://www.ft.com/content/8f1a392a-b43c-4124-916e-61695fffa0da" },
+  { id: "3bce2d44-0067-455a-9b8d-d5e1a27fbf0a", title: "America’s economic war on Iran has a China problem", date: "2026-08-25", time: "18:11", url: "https://www.ft.com/content/3bce2d44-0067-455a-9b8d-d5e1a27fbf0a" },
   { id: "b3e4d264-55f0-485e-8e1a-0ba0cbe006b6", title: "Iran and Oman edge towards deal on Strait of Hormuz", date: "2026-08-25", time: "18:04", url: "https://www.ft.com/content/b3e4d264-55f0-485e-8e1a-0ba0cbe006b6" },
   { id: "1e50ca97-b54d-4686-aee6-4edecc8ce1f7", title: "Will Iceland join the EU?", date: "2026-08-25", time: "18:00", url: "https://www.ft.com/content/1e50ca97-b54d-4686-aee6-4edecc8ce1f7" },
   { id: "d290366c-160e-419e-8685-668cd1fcabfb", title: "How First Brands’ billion-dollar rescue hit the skids", date: "2026-08-25", time: "17:58", url: "https://www.ft.com/content/d290366c-160e-419e-8685-668cd1fcabfb" },
@@ -58,7 +61,4 @@ export const FT_ITEMS = [
   { id: "d18b330f-1cc2-4f83-9720-5ab5b13981e4", title: "JPMorgan eases approach on lending against shares to court AI’s new wealth", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/d18b330f-1cc2-4f83-9720-5ab5b13981e4" },
   { id: "e08d7f0e-f9fb-45a4-a1ef-025a75a5b776", title: "Iranians queue for petrol as US blockade bites", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/e08d7f0e-f9fb-45a4-a1ef-025a75a5b776" },
   { id: "910288e8-5ad1-4f09-90fb-36c3efe275e0", title: "Austerity denial and the mystery of Britain’s shrunken state", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/910288e8-5ad1-4f09-90fb-36c3efe275e0" },
-  { id: "02e197fb-e6dc-426b-a952-72cc906a2733", title: "Socialists and Maga are both wrong about economic liberalism", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/02e197fb-e6dc-426b-a952-72cc906a2733" },
-  { id: "7b7d407c-98b8-450f-a8d4-3776608ae67b", title: "China could rescue the oil market again — if it wanted to", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/7b7d407c-98b8-450f-a8d4-3776608ae67b" },
-  { id: "5d54c148-861e-45f3-b867-821705c212a7", title: "Superpowers are discovering their limits, says UN chief", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/5d54c148-861e-45f3-b867-821705c212a7" },
 ];
