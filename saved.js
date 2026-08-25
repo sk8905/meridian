@@ -118,9 +118,42 @@ function creditNotif() {
   managers.forEach((m) => (m.webNews || []).forEach((w) => out.push({ desk: "c", id: "w:" + m.id + ":" + (w.url || w.title), date: w.date || "", title: w.title, source: w.outlet || m.name || "", href: "/credit/#/manager/" + m.id + "?focus=k:" + encodeURIComponent(feedDedupKey(w)), ext: false })));
   return recentNotif(dedupNotif(out));
 }
+// A "[law firm] advised …" deal announcement is noise for the NOTIFICATION bell
+// UNLESS the deal involves a manager / hedge fund the app covers (then it's a
+// signal worth surfacing). This gates ONLY the bell — the item still appears in
+// the app's legal feeds/content, a silent addition. Relevance is a whole-word
+// match of the headline against each covered entity's name or its distinctive
+// lead (name minus generic tails), so "White & Case advises Apollo …" is kept.
+const _ADVISED_RX = /\badvis(?:ed|es|ing)\b/i;
+const _GENERIC_TAIL = new Set(["management", "capital", "partners", "associates", "group", "advisors", "advisers", "global", "holdings", "asset", "investors", "investment", "investments", "credit", "llp", "llc", "lp", "inc", "ltd", "limited", "co"]);
+const _normText = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").replace(/\s+/g, " ").trim();
+function _entityKeys(name) {
+  const full = _normText(name); const keys = [];
+  if (full.length >= 4) keys.push(full);
+  const t = full.split(" ").filter(Boolean);
+  while (t.length > 1 && _GENERIC_TAIL.has(t[t.length - 1])) t.pop();
+  const lead = t.join(" ");
+  if (lead.length >= 4 && !(t.length === 1 && _GENERIC_TAIL.has(t[0]))) keys.push(lead);
+  return keys;
+}
+const _COVERED_KEYS = (() => {
+  const set = new Set();
+  [...managers, ...(HEDGE_FUNDS || [])].forEach((e) => _entityKeys(e.name).forEach((k) => set.add(k)));
+  return [...set];
+})();
+function _mentionsCovered(title) {
+  const hay = " " + _normText(title) + " ";
+  return _COVERED_KEYS.some((k) => hay.includes(" " + k + " "));
+}
+// True → drop from the bell (law-firm-advised deal with no covered manager/HF).
+function _suppressedAdvised(title) {
+  return _ADVISED_RX.test(title || "") && !_mentionsCovered(title);
+}
+// Test hook (see tests/notifications-advised-filter.mjs).
+export const __suppressedAdvised = _suppressedAdvised;
 function legalNotif() {
   const out = [];
-  items.forEach((it) => out.push({ desk: "l", id: "u:" + it.id, date: it.date || "", title: it.title, source: firmName(it.firm), href: it.url || "/legal/#/item/" + encodeURIComponent(it.id), ext: !!it.url }));
+  items.forEach((it) => { if (_suppressedAdvised(it.title)) return; out.push({ desk: "l", id: "u:" + it.id, date: it.date || "", title: it.title, source: firmName(it.firm), href: it.url || "/legal/#/item/" + encodeURIComponent(it.id), ext: !!it.url }); });
   cases.forEach((c) => out.push({ desk: "l", id: "c:" + c.id, date: c.date || "", title: c.name, source: c.url ? judgmentSource(c.url) : (c.citation || "Case"), href: c.url || "/legal/#/", ext: !!c.url }));
   restructurings.forEach((r) => { const u = r.judgmentUrl || r.articleUrl; out.push({ desk: "l", id: "x:" + r.id, date: r.date || "", title: r.company, source: r.firm ? firmName(r.firm) : (r.judgmentUrl ? judgmentSource(r.judgmentUrl) : (r.type === "scheme" ? "Scheme" : "Restructuring plan")), href: u || "/legal/#/", ext: !!u }); });
   return recentNotif(dedupNotif(out));

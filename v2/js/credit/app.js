@@ -353,20 +353,20 @@ on(document, "click", (e) => {
   window.scrollTo(0, y);
 });
 
-// ---- Target focus (€1–10bn AUM) --------------------------------------------
+// ---- Target focus (€1–15bn AUM) --------------------------------------------
 // A global toggle that narrows the News/Deals/Fundraising/CLOs/Managers pages to
-// managers (or content whose manager sits) in the €1–10bn AUM band. Persists.
+// managers (or content whose manager sits) in the €1–15bn AUM band. Persists.
 let targetFocus = false;
 try { targetFocus = localStorage.getItem("meridian.focus") === "1"; } catch { /* ignore */ }
-const inFocusAum = (aum) => aum != null && aum >= 1 && aum <= 10;
+const inFocusAum = (aum) => aum != null && aum >= 1 && aum <= 15;
 // Gate on total group/parent AUM, not the (often credit-only) sleeve figure, so
-// a boutique inside a large group falls outside the €1–10bn target band. Banks/
+// a boutique inside a large group falls outside the €1–15bn target band. Banks/
 // originators (notAum) carry no AUM and never qualify.
 const focusAumOf = (m) => (!m || m.notAum ? null : (m.aumTotal != null ? m.aumTotal : m.aum));
 const mInFocus = (m) => inFocusAum(focusAumOf(m));
 const midInFocus = (mid) => mInFocus(managerById[mid]);
 function focusToggle() {
-  return `<label class="focus-toggle"><input type="checkbox" class="focus-cb" ${targetFocus ? "checked" : ""} aria-label="Target focus: €1–10bn AUM managers"><span class="focus-sw" aria-hidden="true"></span><span>Target focus <span class="muted">· €1–10bn AUM</span></span></label>`;
+  return `<label class="focus-toggle"><input type="checkbox" class="focus-cb" ${targetFocus ? "checked" : ""} aria-label="Target focus: €1–15bn AUM managers"><span class="focus-sw" aria-hidden="true"></span><span>Target focus <span class="muted">· €1–15bn AUM</span></span></label>`;
 }
 // Toggling re-renders the current page with the focus filter applied.
 on(document, "change", (e) => {
@@ -479,7 +479,7 @@ function managersPaneHTML() {
   return `<div class="tpane" data-pane="managers" hidden>
               <header class="tpanel-h thead-search"><span>Managers</span>
                 <input type="search" id="mgr-q" class="tsearch" placeholder="Search name, HQ or strategy…" value="${esc(fst.q || "")}" aria-label="Search managers">
-                <button type="button" class="tfocus-btn" id="cr-lg-focus" aria-pressed="false" title="Show only $1–10bn AUM managers">$1–10bn</button>
+                <button type="button" class="tfocus-btn" id="cr-lg-focus" aria-pressed="false" title="Show only $1–15bn AUM managers">$1–15bn</button>
               </header>
               <div class="tleague-wrap">
               <table class="tleague tleague-full">
@@ -514,7 +514,7 @@ function hedgeFundsPaneHTML() {
   return `<div class="tpane" data-pane="hedgefunds" hidden>
               <header class="tpanel-h thead-search"><span>Hedge Funds</span>
                 <input type="search" id="hf-q" class="tsearch" placeholder="Search name, HQ or strategy…" aria-label="Search hedge funds">
-                <button type="button" class="tfocus-btn" id="cr-hf-focus" aria-pressed="false" title="Show only $1–10bn AUM hedge funds">$1–10bn</button>
+                <button type="button" class="tfocus-btn" id="cr-hf-focus" aria-pressed="false" title="Show only $1–15bn AUM hedge funds">$1–15bn</button>
                 <button type="button" class="tfocus-btn" id="hf-cons-btn" title="Most-crowded holdings — aggregate the latest 13F top-10 across all ${withCik} tracked funds that file one">Cross-holdings</button>
               </header>
               <section class="hf-cons">
@@ -606,7 +606,7 @@ function viewDashboard() {
   // Credit-only universe for the headline aggregates (equity-strategy funds are
   // tracked and listed elsewhere but excluded from private-credit market stats).
   // The Target-focus toggle narrows every aggregate/feed below to managers in the
-  // €1–10bn AUM band.
+  // €1–15bn AUM band.
   const creditFunds = funds.filter((f) => !targetFocus || midInFocus(f.managerId));
   const nowD = new Date();
   const curQ = `${nowD.getFullYear()}-Q${Math.floor(nowD.getMonth() / 3) + 1}`;
@@ -668,9 +668,9 @@ function viewDashboard() {
   const mgrFundList = (id) => funds.filter((f) => f.managerId === id);
   const uni = managers.filter((m) => !targetFocus || midInFocus(m.id));
   // League table shows the FULL manager universe ranked by credit AUM; its own
-  // €1–10bn toggle filters it in place (independent of the page-level focus).
+  // €1–15bn toggle filters it in place (independent of the page-level focus).
   // AUM = the manager's total AUM (aumTotal ?? aum), the same measure the old
-  // Managers table and the €1–10bn band use — aumCredit is missing for many.
+  // Managers table and the €1–15bn band use — aumCredit is missing for many.
   const league = [...managers]
     .map((m) => ({ m, aum: focusAumOf(m), nf: mgrFundList(m.id).length, live: mgrFundList(m.id).filter(inMkt).length, focus: mInFocus(m) }))
     .sort((a, b) => (b.aum == null ? -1 : b.aum) - (a.aum == null ? -1 : a.aum));

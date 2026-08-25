@@ -182,7 +182,10 @@ notification badge red (`#ef4444`).
   21:00.** Last-refresh reflects the actual slot.
 - **R16 — Notifications:** badge = genuinely-unseen count; opening the panel
   shows fresh rows (left accent bar) then marks them seen; no "N New
-  Notifications" chrome text.
+  Notifications" chrome text. **Law-firm "advised" deal announcements are
+  suppressed from the bell** (they remain in the legal feeds — a silent
+  addition) **unless the headline names a manager / hedge fund the app covers**,
+  in which case the notification stays. See `saved.js` `_suppressedAdvised`.
 - **R17 — Cache-first render:** show last-good from cache immediately, then pull
   a live refresh.
 - **R18 — Macro commentary coverage:** at least **10 commentary items per day**

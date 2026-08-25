@@ -155,7 +155,7 @@ export async function mount(host, ctx) {
     }
     const chip = e.target.closest("#pf-chips .tchip");
     if (chip) { selectChip(chip.dataset.p); return; }
-    // League $1–10bn AUM focus toggles + the hedge-fund Cross-holdings (13F
+    // League $1–15bn AUM focus toggles + the hedge-fund Cross-holdings (13F
     // consensus) button. These live inside the borrowed panes, whose ids are
     // duplicated in the Credit desk — wire OUR copies here, scoped to this host.
     const focus = e.target.closest("#cr-hf-focus, #cr-lg-focus");

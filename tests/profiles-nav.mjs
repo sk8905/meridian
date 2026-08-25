@@ -23,6 +23,14 @@ await tapAt(tb.x, tb.y);
 await pg.waitForTimeout(1500);
 checkEq(await pg.evaluate(() => document.documentElement.dataset.v2tab), "profiles", "Profiles tab is active after tapping it");
 
+// The Managers / Hedge Funds AUM "target focus" toggle band is $1–15bn.
+const focusLbl = await pg.evaluate(() => {
+  const hf = document.querySelector("#cr-hf-focus"); const lg = document.querySelector("#cr-lg-focus");
+  return { hf: hf ? hf.textContent.trim() : "(missing)", lg: lg ? lg.textContent.trim() : "(missing)" };
+});
+checkEq(focusLbl.lg, "$1–15bn", "managers AUM focus toggle reads $1–15bn");
+checkEq(focusLbl.hf, "$1–15bn", "hedge-funds AUM focus toggle reads $1–15bn");
+
 async function tapRow(pane, kind, hrefRe) {
   await pg.evaluate(() => { location.hash = ""; });
   await pg.waitForTimeout(200);
