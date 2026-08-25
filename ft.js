@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b3e4d264-55f0-485e-8e1a-0ba0cbe006b6", title: "Iran and Oman edge towards deal on Strait of Hormuz", date: "2026-08-25", time: "18:04", url: "https://www.ft.com/content/b3e4d264-55f0-485e-8e1a-0ba0cbe006b6" },
+  { id: "1e50ca97-b54d-4686-aee6-4edecc8ce1f7", title: "Will Iceland join the EU?", date: "2026-08-25", time: "18:00", url: "https://www.ft.com/content/1e50ca97-b54d-4686-aee6-4edecc8ce1f7" },
+  { id: "d290366c-160e-419e-8685-668cd1fcabfb", title: "How First Brands’ billion-dollar rescue hit the skids", date: "2026-08-25", time: "17:58", url: "https://www.ft.com/content/d290366c-160e-419e-8685-668cd1fcabfb" },
   { id: "ef62e345-2a76-46b4-8a69-9d02a306126b", title: "Iranian tankers gather off Sri Lankan coast", date: "2026-08-25", time: "17:22", url: "https://www.ft.com/content/ef62e345-2a76-46b4-8a69-9d02a306126b" },
   { id: "1b066355-4412-43bd-b832-74956d3c0a52", title: "Foot Locker owner plunges after warning nervous consumers are cutting spending", date: "2026-08-25", time: "16:29", url: "https://www.ft.com/content/1b066355-4412-43bd-b832-74956d3c0a52" },
   { id: "7588a11f-ff57-4c1a-b4cf-2a55a6d8c6b2", title: "The drip-drip US debt crisis", date: "2026-08-25", time: "16:20", url: "https://www.ft.com/content/7588a11f-ff57-4c1a-b4cf-2a55a6d8c6b2" },
@@ -58,7 +61,4 @@ export const FT_ITEMS = [
   { id: "02e197fb-e6dc-426b-a952-72cc906a2733", title: "Socialists and Maga are both wrong about economic liberalism", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/02e197fb-e6dc-426b-a952-72cc906a2733" },
   { id: "7b7d407c-98b8-450f-a8d4-3776608ae67b", title: "China could rescue the oil market again — if it wanted to", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/7b7d407c-98b8-450f-a8d4-3776608ae67b" },
   { id: "5d54c148-861e-45f3-b867-821705c212a7", title: "Superpowers are discovering their limits, says UN chief", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/5d54c148-861e-45f3-b867-821705c212a7" },
-  { id: "3bcae42c-b784-400e-9f2d-3bb00c4b0d85", title: "Skipton tries to show that building societies still matter", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/3bcae42c-b784-400e-9f2d-3bb00c4b0d85" },
-  { id: "940339db-b5b5-4b53-95e6-cfbc42eb6c06", title: "NatWest plots push into US market", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/940339db-b5b5-4b53-95e6-cfbc42eb6c06" },
-  { id: "acb64e29-a3ce-4282-82b0-6b7b5dd4f63e", title: "US grain farmers face worst crisis in decades as Iran war sends costs spiralling", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/acb64e29-a3ce-4282-82b0-6b7b5dd4f63e" },
 ];
