@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-sraaiwarning-20260825",
+    publication: "Legal Business",
+    author: null,
+    series: null,
+    title: "'Shocked it has taken them so long' - top AI lawyers weigh in on SRA's AI warning",
+    date: "2026-08-25",
+    time: "14:09",
+    summary: "Partners and experts break down the merits and pitfalls of the SRA's new AI guidance.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQS9JO5mwG8fMQhLb/wv",
+  },
+  {
     id: "nl-bbg-economicsdaily-congressbessent-20260825",
     publication: "Bloomberg",
     author: "Chris Anstey",
@@ -447,25 +458,5 @@ export const NEWSLETTERS = [
     time: "20:03",
     summary: "Forecasters see a greater-than-90% chance of the most disruptive El Niño since 1950, threatening coffee, cocoa and corn harvests and risking 49 million more people in acute hunger — as US public debt also crosses $40 trillion.",
     url: "https://www.reuters.com/newsletters/econ-world",
-  },
-  {
-    id: "nl-guggenheim-aidebtcapacity-20260820",
-    publication: "Guggenheim Investments",
-    series: "Corporate Credit Quarterly",
-    title: "A Quantum of AI Debt Tests Credit Market Capacity",
-    date: "2026-08-20",
-    time: "18:22",
-    summary: "3Q26 corporate credit outlook: AI financing needs are testing investor appetite for issuer and sector concentration, widening hyperscaler spreads with limited spillover to the IG index.",
-    url: "https://go.pardot.com/webmail/104832/1429978858/287c4ed51fc2b2589758ecb9046100386634ee931bab5194da4486b8b5f3f006",
-  },
-  {
-    id: "nl-mailbrew-fridaybrew-9-20260820",
-    publication: "Mailbrew",
-    series: "Friday Brew",
-    title: "Friday Brew #9",
-    date: "2026-08-20",
-    time: "15:52",
-    summary: "Digest round-up: Blackstone and Starwood’s retail property machines, Jane Street and CDS spreads, Michael Burry, El-Erian’s weekly markets look and FT Alphaville.",
-    url: "https://app.mailbrew.com/stevedkennedy/friday-brew-03bEHcNb3hHB/9",
   },
 ];
