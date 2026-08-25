@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "80e7dfea-1dae-4ab7-ad56-5ba8dee2e5fd", title: "Andy Burnham is right to rule out an early election", date: "2026-08-25", time: "09:38", url: "https://www.ft.com/content/80e7dfea-1dae-4ab7-ad56-5ba8dee2e5fd" },
   { id: "d66a71ea-e181-4579-85c7-00760d4a3166", title: "FTAV’s further reading", date: "2026-08-25", time: "07:48", url: "https://www.ft.com/content/d66a71ea-e181-4579-85c7-00760d4a3166" },
   { id: "af815e45-b132-4db4-96bc-428f8e0b76f3", title: "Nvidia employee charged with smuggling advanced chips into China", date: "2026-08-25", time: "06:31", url: "https://www.ft.com/content/af815e45-b132-4db4-96bc-428f8e0b76f3" },
   { id: "121a5db7-f9b9-42c4-b216-542cc4114fe5", title: "The problem with buying the dip in bonds", date: "2026-08-25", time: "06:30", url: "https://www.ft.com/content/121a5db7-f9b9-42c4-b216-542cc4114fe5" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "f16e4ad3-d61f-4b98-b427-c5bcb1df1972", title: "Class wars and the midterms", date: "2026-08-24", time: "14:00", url: "https://www.ft.com/content/f16e4ad3-d61f-4b98-b427-c5bcb1df1972" },
   { id: "94d78bef-d118-420b-85a0-b1e5bcaf2405", title: "FT Financial Literacy and Inclusion Campaign", date: "2026-08-24", time: "13:06", url: "https://www.ft.com/content/94d78bef-d118-420b-85a0-b1e5bcaf2405" },
   { id: "7a9f5756-bf18-4a42-80d1-653c955447aa", title: "High asset prices, not low interest rates, are driving inflation", date: "2026-08-24", time: "13:00", url: "https://www.ft.com/content/7a9f5756-bf18-4a42-80d1-653c955447aa" },
-  { id: "91b3e407-daca-40b3-8572-47cf3de9dd1a", title: "French finance minister warns tax on big businesses may be extended", date: "2026-08-24", time: "12:49", url: "https://www.ft.com/content/91b3e407-daca-40b3-8572-47cf3de9dd1a" },
 ];
