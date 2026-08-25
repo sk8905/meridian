@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7a83b577-8d67-4435-9798-1e53d7fad4e9", title: "Sizewell C access roads project delayed after contractor dropped", date: "2026-08-25", time: "16:03", url: "https://www.ft.com/content/7a83b577-8d67-4435-9798-1e53d7fad4e9" },
+  { id: "7ced71c2-03b8-4569-a68d-14624a7e83f2", title: "Canada announces $20bn retaliatory tariffs as US trade war escalates", date: "2026-08-25", time: "16:03", url: "https://www.ft.com/content/7ced71c2-03b8-4569-a68d-14624a7e83f2" },
+  { id: "3b7ac1fe-4761-4b4a-8fff-95c8c28566b9", title: "'Embarrassing': Republicans and ex-military leaders recoil at Trump officials' Canada attacks", date: "2026-08-25", time: "15:55", url: "https://www.ft.com/content/3b7ac1fe-4761-4b4a-8fff-95c8c28566b9" },
+  { id: "7a889a33-1af5-4704-a57f-7890d169d94e", title: "Boss of Trump Jr-backed start-up donated to Republicans after winning US contract", date: "2026-08-25", time: "15:25", url: "https://www.ft.com/content/7a889a33-1af5-4704-a57f-7890d169d94e" },
   { id: "21ef2743-2cc2-41ef-8329-84adce69d975", title: "Waymo picks Munich for first EU robotaxi launch", date: "2026-08-25", time: "15:00", url: "https://www.ft.com/content/21ef2743-2cc2-41ef-8329-84adce69d975" },
   { id: "b6009dd2-7e97-4bbc-941d-cd0b8fc046b6", title: "Can Trump’s ‘economic D-day’ force Iran to capitulate?", date: "2026-08-25", time: "14:58", url: "https://www.ft.com/content/b6009dd2-7e97-4bbc-941d-cd0b8fc046b6" },
   { id: "b7a62337-c0f8-41f2-b4d4-7afbe6d63af1", title: "Scott Bessent fires warning shot at Iran’s economic partners", date: "2026-08-25", time: "14:00", url: "https://www.ft.com/content/b7a62337-c0f8-41f2-b4d4-7afbe6d63af1" },
@@ -55,9 +59,4 @@ export const FT_ITEMS = [
   { id: "940339db-b5b5-4b53-95e6-cfbc42eb6c06", title: "NatWest plots push into US market", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/940339db-b5b5-4b53-95e6-cfbc42eb6c06" },
   { id: "acb64e29-a3ce-4282-82b0-6b7b5dd4f63e", title: "US grain farmers face worst crisis in decades as Iran war sends costs spiralling", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/acb64e29-a3ce-4282-82b0-6b7b5dd4f63e" },
   { id: "a56403b3-aff2-4f33-a4e1-a01ff03275f2", title: "10 hot new haircare products to buy now", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/a56403b3-aff2-4f33-a4e1-a01ff03275f2" },
-  { id: "e9b9f2d5-79c0-4c61-ae71-d70208068a2c", title: "The seven stages of a facelift", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/e9b9f2d5-79c0-4c61-ae71-d70208068a2c" },
-  { id: "db7494b8-c590-4a50-8644-211d154a8f7b", title: "The threats to ‘Swiss Made’", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/db7494b8-c590-4a50-8644-211d154a8f7b" },
-  { id: "801163f1-901f-4955-8537-47fd9373f4f4", title: "Would you put rendered cow fat on your face?", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/801163f1-901f-4955-8537-47fd9373f4f4" },
-  { id: "35a82994-31cf-4aaa-b0ee-03002a53fe0b", title: "Private equity growth funds attract record first-half inflows as sector rebounds", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/35a82994-31cf-4aaa-b0ee-03002a53fe0b" },
-  { id: "cc2b3ce8-3953-408b-a25d-705049a7eff9", title: "Want shiny, manageable hair? Maybe you need a mask", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/cc2b3ce8-3953-408b-a25d-705049a7eff9" },
 ];
