@@ -20,6 +20,14 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "5811d9e6-f48d-43ac-bc05-c273287a27d0", title: "Store water and tinned food to prepare for emergencies, UK citizens to be told", date: "2026-08-25", time: "12:20", url: "https://www.ft.com/content/5811d9e6-f48d-43ac-bc05-c273287a27d0" },
+  { id: "6b396499-d71d-4e8f-b2a4-66318b1d9426", title: "Germany on track for strongest GDP growth since 2022", date: "2026-08-25", time: "12:06", url: "https://www.ft.com/content/6b396499-d71d-4e8f-b2a4-66318b1d9426" },
+  { id: "3e54336f-cffc-44b7-947d-59f6e4999de1", title: "How extreme weather threatens energy security — from jellyfish swarms to ‘Super El Niño’", date: "2026-08-25", time: "12:00", url: "https://www.ft.com/content/3e54336f-cffc-44b7-947d-59f6e4999de1" },
+  { id: "42323310-3dba-4703-9aa4-77ae40d6c3d0", title: "Deutsche banker charged with embezzling €600,000 from wealthy clients", date: "2026-08-25", time: "11:48", url: "https://www.ft.com/content/42323310-3dba-4703-9aa4-77ae40d6c3d0" },
+  { id: "c63adc81-43ca-4f2d-9593-95fda8813a16", title: "Aston Martin creditors file for information ahead of UK suit against carmaker", date: "2026-08-25", time: "11:42", url: "https://www.ft.com/content/c63adc81-43ca-4f2d-9593-95fda8813a16" },
+  { id: "875bc9d9-4bcf-4494-94b2-993dfe44d8e1", title: "Tokio Marine plots multibillion-dollar deal after Berkshire takes stake", date: "2026-08-25", time: "11:41", url: "https://www.ft.com/content/875bc9d9-4bcf-4494-94b2-993dfe44d8e1" },
+  { id: "18c7de31-a049-4533-bbeb-6ba6e2a096b2", title: "Andy Burnham set for first meeting with Trump in September", date: "2026-08-25", time: "11:36", url: "https://www.ft.com/content/18c7de31-a049-4533-bbeb-6ba6e2a096b2" },
+  { id: "d926671a-4f27-44f3-a2bf-4a0743c67534", title: "Another drone found at Leipzig airport as Germany warns of ‘unscrupulous’ attacks", date: "2026-08-25", time: "11:16", url: "https://www.ft.com/content/d926671a-4f27-44f3-a2bf-4a0743c67534" },
   { id: "58142179-593e-4525-bc4e-4c3f766a1a3a", title: "Embattled housebuilder Vistry boosted by £350mn UK government contract", date: "2026-08-25", time: "10:54", url: "https://www.ft.com/content/58142179-593e-4525-bc4e-4c3f766a1a3a" },
   { id: "b532ed0f-af32-4b56-8a5a-f13d4b6eb8c4", title: "And the FTAV Friday charts quiz winner is . . . ", date: "2026-08-25", time: "10:46", url: "https://www.ft.com/content/b532ed0f-af32-4b56-8a5a-f13d4b6eb8c4" },
   { id: "d8162910-af1e-4a8a-93e5-a3309252337d", title: "UK backs Devon tungsten mine in effort to secure critical mineral supplies", date: "2026-08-25", time: "10:35", url: "https://www.ft.com/content/d8162910-af1e-4a8a-93e5-a3309252337d" },
@@ -53,13 +61,4 @@ export const FT_ITEMS = [
   { id: "b0b233bd-882b-43a9-b55f-e2cf33ec09b7", title: "Andy Burnham rules out early election as he admits UK faces ‘challenging’ financial outlook", date: "2026-08-24", time: "18:24", url: "https://www.ft.com/content/b0b233bd-882b-43a9-b55f-e2cf33ec09b7" },
   { id: "d6c9e705-ef30-4896-880b-8e88941e0f58", title: "Treasury market interventions are only a band-aid", date: "2026-08-24", time: "18:16", url: "https://www.ft.com/content/d6c9e705-ef30-4896-880b-8e88941e0f58" },
   { id: "3d46e4cb-4dee-4f49-adc1-0bb0f63d4c49", title: "UK seeks to tighten security of supply chains after Iran-linked cyber attack", date: "2026-08-24", time: "18:13", url: "https://www.ft.com/content/3d46e4cb-4dee-4f49-adc1-0bb0f63d4c49" },
-  { id: "063dbdd2-fb5a-4ece-9152-74e791e4835c", title: "Britain gains access to Ukraine battlefield data", date: "2026-08-24", time: "18:00", url: "https://www.ft.com/content/063dbdd2-fb5a-4ece-9152-74e791e4835c" },
-  { id: "dcf20385-21a5-4328-9bc6-98a666caaaf6", title: "Meloni wants a snap election to hide her economic failures", date: "2026-08-24", time: "18:00", url: "https://www.ft.com/content/dcf20385-21a5-4328-9bc6-98a666caaaf6" },
-  { id: "29f1af13-ecc3-4f26-a479-e6088c67231b", title: "US midterm elections 2026: The FT’s guide", date: "2026-08-24", time: "16:15", url: "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b" },
-  { id: "7522bdde-49f8-4bf0-a930-6591b40eb5e4", title: "Canadian businesses fear ‘vortex of downward pressures’ from Donald Trump’s tariffs", date: "2026-08-24", time: "16:05", url: "https://www.ft.com/content/7522bdde-49f8-4bf0-a930-6591b40eb5e4" },
-  { id: "5c8aaa6d-5170-4688-beeb-f1319e5ff29e", title: "How Shein’s IPO lost its shine", date: "2026-08-24", time: "16:00", url: "https://www.ft.com/content/5c8aaa6d-5170-4688-beeb-f1319e5ff29e" },
-  { id: "552b8fca-6dad-4b41-a0be-54d2cd70e3cb", title: "Keir Starmer considered letting 100,000 young Europeans come to UK every year", date: "2026-08-24", time: "15:14", url: "https://www.ft.com/content/552b8fca-6dad-4b41-a0be-54d2cd70e3cb" },
-  { id: "52978bad-2b91-41e3-be94-7fb6776fbb91", title: "Trump says US to increase tariffs on Canadian cars to 50%", date: "2026-08-24", time: "14:55", url: "https://www.ft.com/content/52978bad-2b91-41e3-be94-7fb6776fbb91" },
-  { id: "34c145b1-651a-4725-a65f-ea594a49ea06", title: "As dieters slim down, protein prices bulk up", date: "2026-08-24", time: "14:39", url: "https://www.ft.com/content/34c145b1-651a-4725-a65f-ea594a49ea06" },
-  { id: "21190130-bb8e-460e-b64c-ef1532f6c673", title: "Reform UK’s ‘Farage Fest’ went ahead without permission from council", date: "2026-08-24", time: "14:02", url: "https://www.ft.com/content/21190130-bb8e-460e-b64c-ef1532f6c673" },
 ];

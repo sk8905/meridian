@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-economicsdaily-congressbessent-20260825",
+    publication: "Bloomberg",
+    author: "Chris Anstey",
+    series: "Economics Daily",
+    title: "Coming US Fiscal Plan Will Confront a Spendthrift Congress",
+    date: "2026-08-25",
+    time: "12:00",
+    summary: "To achieve budget consolidation, the US Treasury secretary will need to get lawmakers on side.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-25/bessent-latest-treasury-secretary-needs-congress-to-help-out-with-fiscal-repair",
+  },
+  {
     id: "nl-bbg-marketsdaily-nvidialosingstreak-20260825",
     publication: "Bloomberg",
     author: "Lynn Thomasson, Dina Bass, Ian King",
