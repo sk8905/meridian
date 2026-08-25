@@ -13,7 +13,7 @@ export const UPDATED = "25 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-25",
-  lastCheckedTime: "09:23 BST",
+  lastCheckedTime: "12:38 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1050,7 +1050,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "GBP/USD held near 1.3640 into Tuesday as the dollar stayed on the defensive ahead of Fed Chair Warsh's Friday Jackson Hole keynote, with no UK data due this week leaving sterling a largely dollar-driven story; the 10-year Treasury yield eased to ~4.71% as investors positioned for Wednesday's Nvidia earnings/PCE cluster.", src: "https://www.exchangerates.org.uk/news/46949/2026-08-24-pound-to-dollar-week-ahead-forecast-jackson-hole-and-payrolls.html", srcName: "ExchangeRates.org.uk", date: "2026-08-24" };
+export const FX_KEYMOMENT = { text: "The dollar recovered only modestly against a basket of majors as markets assessed the latest developments in the Middle East, keeping GBP/USD's rally shallow near six-month highs ahead of Wednesday's Nvidia earnings and Friday's Jackson Hole keynote.", src: "https://www.fxstreet.com/news/forex-today-us-dollar-recovers-modestly-as-markets-assess-developments-in-mideast-202608250723", srcName: "FXStreet", date: "2026-08-25" };
 
 export const EARNINGS = {
   weeks: [
