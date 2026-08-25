@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "705bb093-f491-4a2c-90bb-1804be8c1426", title: "EU leaders begin heart-to-heart budget talks as year-end deadline looms large", date: "2026-08-25", time: "06:00", url: "https://www.ft.com/content/705bb093-f491-4a2c-90bb-1804be8c1426" },
   { id: "6f01973c-3e9f-41d0-9140-709bfea3cb22", title: "The unravelling of Mark Walter", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/6f01973c-3e9f-41d0-9140-709bfea3cb22" },
   { id: "d18b330f-1cc2-4f83-9720-5ab5b13981e4", title: "JPMorgan eases approach on lending against shares to court AI’s new wealth", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/d18b330f-1cc2-4f83-9720-5ab5b13981e4" },
   { id: "e08d7f0e-f9fb-45a4-a1ef-025a75a5b776", title: "Iranians queue for petrol as US blockade bites", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/e08d7f0e-f9fb-45a4-a1ef-025a75a5b776" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "c806d2ce-efed-47a0-9abb-508e218b62b5", title: "An offer Canada could only refuse", date: "2026-08-24", time: "11:31", url: "https://www.ft.com/content/c806d2ce-efed-47a0-9abb-508e218b62b5" },
   { id: "353032d0-4031-40fe-83ab-958d473401f0", title: "Ukraine hits Russia’s second-largest online retailer", date: "2026-08-24", time: "11:27", url: "https://www.ft.com/content/353032d0-4031-40fe-83ab-958d473401f0" },
   { id: "4e3c99fe-1a8d-4fb2-b99a-da1c1da4db8e", title: "Andy Burnham condemns Russia’s ‘outrageous threats’ to UK during Kyiv visit", date: "2026-08-24", time: "11:01", url: "https://www.ft.com/content/4e3c99fe-1a8d-4fb2-b99a-da1c1da4db8e" },
-  { id: "ec7c91bb-358b-44ad-bced-8c901f7339e2", title: "South American trade bloc mounts dealmaking push to hedge geopolitical risks", date: "2026-08-24", time: "11:00", url: "https://www.ft.com/content/ec7c91bb-358b-44ad-bced-8c901f7339e2" },
 ];
