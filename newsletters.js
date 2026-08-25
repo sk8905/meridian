@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-thebrink-bankruptcydisruptors-20260825",
+    publication: "Bloomberg",
+    author: "Jonathan Randles",
+    series: "The Brink",
+    title: "The Brink: Bankruptcy disruptors",
+    date: "2026-08-25",
+    time: "16:30",
+    summary: "Spirit bankruptcy auction draws AI interest.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-25/ai-firms-go-shopping-in-bankruptcy-court",
+  },
+  {
     id: "nl-lb-sraaiwarning-20260825",
     publication: "Legal Business",
     author: null,

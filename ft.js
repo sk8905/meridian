@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "1b066355-4412-43bd-b832-74956d3c0a52", title: "Foot Locker owner plunges after warning nervous consumers are cutting spending", date: "2026-08-25", time: "16:29", url: "https://www.ft.com/content/1b066355-4412-43bd-b832-74956d3c0a52" },
+  { id: "7588a11f-ff57-4c1a-b4cf-2a55a6d8c6b2", title: "The drip-drip US debt crisis", date: "2026-08-25", time: "16:20", url: "https://www.ft.com/content/7588a11f-ff57-4c1a-b4cf-2a55a6d8c6b2" },
   { id: "7a83b577-8d67-4435-9798-1e53d7fad4e9", title: "Sizewell C access roads project delayed after contractor dropped", date: "2026-08-25", time: "16:03", url: "https://www.ft.com/content/7a83b577-8d67-4435-9798-1e53d7fad4e9" },
   { id: "7ced71c2-03b8-4569-a68d-14624a7e83f2", title: "Canada announces $20bn retaliatory tariffs as US trade war escalates", date: "2026-08-25", time: "16:03", url: "https://www.ft.com/content/7ced71c2-03b8-4569-a68d-14624a7e83f2" },
   { id: "3b7ac1fe-4761-4b4a-8fff-95c8c28566b9", title: "'Embarrassing': Republicans and ex-military leaders recoil at Trump officials' Canada attacks", date: "2026-08-25", time: "15:55", url: "https://www.ft.com/content/3b7ac1fe-4761-4b4a-8fff-95c8c28566b9" },
