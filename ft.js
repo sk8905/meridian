@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "2a5ddf7f-ca14-4073-af2b-eaf79ffbabe8", title: "Jackson Hole could further formalise emerging Fed-Treasury accord", date: "2026-08-25", time: "12:30", url: "https://www.ft.com/content/2a5ddf7f-ca14-4073-af2b-eaf79ffbabe8" },
   { id: "5811d9e6-f48d-43ac-bc05-c273287a27d0", title: "Store water and tinned food to prepare for emergencies, UK citizens to be told", date: "2026-08-25", time: "12:20", url: "https://www.ft.com/content/5811d9e6-f48d-43ac-bc05-c273287a27d0" },
   { id: "6b396499-d71d-4e8f-b2a4-66318b1d9426", title: "Germany on track for strongest GDP growth since 2022", date: "2026-08-25", time: "12:06", url: "https://www.ft.com/content/6b396499-d71d-4e8f-b2a4-66318b1d9426" },
   { id: "3e54336f-cffc-44b7-947d-59f6e4999de1", title: "How extreme weather threatens energy security — from jellyfish swarms to ‘Super El Niño’", date: "2026-08-25", time: "12:00", url: "https://www.ft.com/content/3e54336f-cffc-44b7-947d-59f6e4999de1" },
@@ -60,5 +61,4 @@ export const FT_ITEMS = [
   { id: "67c74e64-5c37-4a5d-ae6c-d3c002f99628", title: "Scott Bessent threatens wider US sanctions on Iran’s economic partners", date: "2026-08-24", time: "18:30", url: "https://www.ft.com/content/67c74e64-5c37-4a5d-ae6c-d3c002f99628" },
   { id: "b0b233bd-882b-43a9-b55f-e2cf33ec09b7", title: "Andy Burnham rules out early election as he admits UK faces ‘challenging’ financial outlook", date: "2026-08-24", time: "18:24", url: "https://www.ft.com/content/b0b233bd-882b-43a9-b55f-e2cf33ec09b7" },
   { id: "d6c9e705-ef30-4896-880b-8e88941e0f58", title: "Treasury market interventions are only a band-aid", date: "2026-08-24", time: "18:16", url: "https://www.ft.com/content/d6c9e705-ef30-4896-880b-8e88941e0f58" },
-  { id: "3d46e4cb-4dee-4f49-adc1-0bb0f63d4c49", title: "UK seeks to tighten security of supply chains after Iran-linked cyber attack", date: "2026-08-24", time: "18:13", url: "https://www.ft.com/content/3d46e4cb-4dee-4f49-adc1-0bb0f63d4c49" },
 ];
