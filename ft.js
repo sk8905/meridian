@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "21ef2743-2cc2-41ef-8329-84adce69d975", title: "Waymo picks Munich for first EU robotaxi launch", date: "2026-08-25", time: "15:00", url: "https://www.ft.com/content/21ef2743-2cc2-41ef-8329-84adce69d975" },
+  { id: "b6009dd2-7e97-4bbc-941d-cd0b8fc046b6", title: "Can Trump’s ‘economic D-day’ force Iran to capitulate?", date: "2026-08-25", time: "14:58", url: "https://www.ft.com/content/b6009dd2-7e97-4bbc-941d-cd0b8fc046b6" },
   { id: "b7a62337-c0f8-41f2-b4d4-7afbe6d63af1", title: "Scott Bessent fires warning shot at Iran’s economic partners", date: "2026-08-25", time: "14:00", url: "https://www.ft.com/content/b7a62337-c0f8-41f2-b4d4-7afbe6d63af1" },
   { id: "2a5ddf7f-ca14-4073-af2b-eaf79ffbabe8", title: "Jackson Hole could further formalise emerging Fed-Treasury accord", date: "2026-08-25", time: "12:30", url: "https://www.ft.com/content/2a5ddf7f-ca14-4073-af2b-eaf79ffbabe8" },
   { id: "5811d9e6-f48d-43ac-bc05-c273287a27d0", title: "Store water and tinned food to prepare for emergencies, UK citizens to be told", date: "2026-08-25", time: "12:20", url: "https://www.ft.com/content/5811d9e6-f48d-43ac-bc05-c273287a27d0" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "801163f1-901f-4955-8537-47fd9373f4f4", title: "Would you put rendered cow fat on your face?", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/801163f1-901f-4955-8537-47fd9373f4f4" },
   { id: "35a82994-31cf-4aaa-b0ee-03002a53fe0b", title: "Private equity growth funds attract record first-half inflows as sector rebounds", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/35a82994-31cf-4aaa-b0ee-03002a53fe0b" },
   { id: "cc2b3ce8-3953-408b-a25d-705049a7eff9", title: "Want shiny, manageable hair? Maybe you need a mask", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/cc2b3ce8-3953-408b-a25d-705049a7eff9" },
-  { id: "126eeb20-a403-46cf-8ec0-680c10dd84ad", title: "Swimming in the shadow of Scottish castles ", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/126eeb20-a403-46cf-8ec0-680c10dd84ad" },
-  { id: "67c74e64-5c37-4a5d-ae6c-d3c002f99628", title: "Scott Bessent threatens wider US sanctions on Iran’s economic partners", date: "2026-08-24", time: "18:30", url: "https://www.ft.com/content/67c74e64-5c37-4a5d-ae6c-d3c002f99628" },
 ];
