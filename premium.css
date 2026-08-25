@@ -409,7 +409,7 @@ svg.mtab-ico { width: 22px; height: 22px; }
 [data-theme="dark"] .mobile-tabbar { background: var(--bg, #000); border-top: 1px solid var(--border, #262626); box-shadow: none; }
 [data-theme="dark"] .mtab { color: var(--muted, #7f8ca6); }
 [data-theme="dark"] .mtab:hover { color: var(--ink-soft, #cdd6e6); }
-[data-theme="dark"] .mtab.is-active { color: #fff; background: none; }
+[data-theme="dark"] .mtab.is-active { color: var(--ink, #eaf0fb); background: none; }
 [data-theme="dark"] .mtab.is-active::before { background: var(--accent, #fb8b1e); }
 /* Menu as a page (/menu/): the panel is permanently open — phones use the
    existing full-screen #na-menu-panel rules; desktop gets a centred column. */

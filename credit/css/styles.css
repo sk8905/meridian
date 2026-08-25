@@ -212,7 +212,7 @@ h3.sub:first-of-type { margin-top: .2rem; }
 .follow-btn {
   display: inline-block; width: 1.25em; min-width: 1.25em; text-align: center;
   background: none; border: none; cursor: pointer; padding: 0; margin-right: .3rem;
-  font-size: 1rem; line-height: 1; color: #cbd5e1; vertical-align: middle;
+  font-size: 1rem; line-height: 1; color: var(--muted); vertical-align: middle;
 }
 .follow-btn:hover { color: var(--ink); }
 .follow-btn.on { color: var(--accent); }
