@@ -44,7 +44,7 @@ export const NEWSLETTERS = [
     title: "The Brink: Bankruptcy disruptors",
     date: "2026-08-25",
     time: "16:30",
-    summary: "Spirit bankruptcy auction draws AI interest.",
+    summary: "Spirit bankruptcy auction draws AI interest, as Braskem strikes an $11bn debt-rework deal and First Brands is forced into Chapter 7.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-25/ai-firms-go-shopping-in-bankruptcy-court",
   },
   {
@@ -458,16 +458,5 @@ export const NEWSLETTERS = [
     time: "21:00",
     summary: "Wednesday's Treasury-buyback bond relief fizzled Thursday as yields resumed climbing, Walmart posted its worst day in four years and Fed minutes showed a September rate hike is still very much on the table.",
     url: "https://www.reuters.com/newsletters/trading-day",
-  },
-  {
-    id: "nl-reuters-econworld-elnino-20260820",
-    publication: "Thomson Reuters",
-    author: "Francesco Canepa",
-    series: "Econ World",
-    title: "What El Niño could cost the world",
-    date: "2026-08-20",
-    time: "20:03",
-    summary: "Forecasters see a greater-than-90% chance of the most disruptive El Niño since 1950, threatening coffee, cocoa and corn harvests and risking 49 million more people in acute hunger — as US public debt also crosses $40 trillion.",
-    url: "https://www.reuters.com/newsletters/econ-world",
   },
 ];

@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "ef62e345-2a76-46b4-8a69-9d02a306126b", title: "Iranian tankers gather off Sri Lankan coast", date: "2026-08-25", time: "17:22", url: "https://www.ft.com/content/ef62e345-2a76-46b4-8a69-9d02a306126b" },
   { id: "1b066355-4412-43bd-b832-74956d3c0a52", title: "Foot Locker owner plunges after warning nervous consumers are cutting spending", date: "2026-08-25", time: "16:29", url: "https://www.ft.com/content/1b066355-4412-43bd-b832-74956d3c0a52" },
   { id: "7588a11f-ff57-4c1a-b4cf-2a55a6d8c6b2", title: "The drip-drip US debt crisis", date: "2026-08-25", time: "16:20", url: "https://www.ft.com/content/7588a11f-ff57-4c1a-b4cf-2a55a6d8c6b2" },
   { id: "7a83b577-8d67-4435-9798-1e53d7fad4e9", title: "Sizewell C access roads project delayed after contractor dropped", date: "2026-08-25", time: "16:03", url: "https://www.ft.com/content/7a83b577-8d67-4435-9798-1e53d7fad4e9" },
@@ -60,5 +61,4 @@ export const FT_ITEMS = [
   { id: "3bcae42c-b784-400e-9f2d-3bb00c4b0d85", title: "Skipton tries to show that building societies still matter", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/3bcae42c-b784-400e-9f2d-3bb00c4b0d85" },
   { id: "940339db-b5b5-4b53-95e6-cfbc42eb6c06", title: "NatWest plots push into US market", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/940339db-b5b5-4b53-95e6-cfbc42eb6c06" },
   { id: "acb64e29-a3ce-4282-82b0-6b7b5dd4f63e", title: "US grain farmers face worst crisis in decades as Iran war sends costs spiralling", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/acb64e29-a3ce-4282-82b0-6b7b5dd4f63e" },
-  { id: "a56403b3-aff2-4f33-a4e1-a01ff03275f2", title: "10 hot new haircare products to buy now", date: "2026-08-25", time: "05:00", url: "https://www.ft.com/content/a56403b3-aff2-4f33-a4e1-a01ff03275f2" },
 ];
