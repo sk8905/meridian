@@ -5,15 +5,15 @@
 // Each claim carries a source link — verify against it before relying on it.
 // =============================================================================
 
-export const UPDATED = "24 August 2026";
+export const UPDATED = "25 August 2026";
 
 // ---- Refresh stamp (bumped every routine run, like Credit/Legal data.js) ----
 // LAST_CHECKED is the "Last refresh" date shown in the top bar; LAST_CHECKED_TIME
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-08-24",
-  lastCheckedTime: "21:26 BST",
+  lastChecked: "2026-08-25",
+  lastCheckedTime: "05:21 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
