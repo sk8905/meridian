@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-lebronbonds-20260825",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: LeBron Bonds",
+    date: "2026-08-25",
+    time: "19:10",
+    summary: "LeBron's $300m bond deal, Mark Walter's insurer-disclosure probe, and what AI margin loans have in common with Archegos.",
+    url: "https://bloom.bg/4zCngsZ",
+  },
+  {
     id: "nl-bbg-thebrink-bankruptcydisruptors-20260825",
     publication: "Bloomberg",
     author: "Jonathan Randles",

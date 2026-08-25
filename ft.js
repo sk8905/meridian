@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "0c59f1d7-2197-406b-ba9b-6592c12bcb3d", title: "SpaceX commits $100bn to Louisiana space base", date: "2026-08-25", time: "19:57", url: "https://www.ft.com/content/0c59f1d7-2197-406b-ba9b-6592c12bcb3d" },
   { id: "6a76e78b-c493-409a-8694-6fa4ba9a674e", title: "AI to fuel global growth as investment spreads beyond US, IMF says", date: "2026-08-25", time: "19:00", url: "https://www.ft.com/content/6a76e78b-c493-409a-8694-6fa4ba9a674e" },
   { id: "8f1a392a-b43c-4124-916e-61695fffa0da", title: "European LNG prices surge to highest level since 2023", date: "2026-08-25", time: "18:41", url: "https://www.ft.com/content/8f1a392a-b43c-4124-916e-61695fffa0da" },
   { id: "3bce2d44-0067-455a-9b8d-d5e1a27fbf0a", title: "America’s economic war on Iran has a China problem", date: "2026-08-25", time: "18:11", url: "https://www.ft.com/content/3bce2d44-0067-455a-9b8d-d5e1a27fbf0a" },
