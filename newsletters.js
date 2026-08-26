@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-nonbillable-ainativebiglaw-20260826",
+    publication: "Non-Billable",
+    author: null,
+    series: null,
+    title: "The AI-native Big Law challenger",
+    date: "2026-08-26",
+    time: "09:05",
+    summary: "Norm Law's AI-native model gains ground in New York as Google and Thomson Reuters push further into legal AI.",
+    url: "https://non-billable.beehiiv.com/p/swapping-city-law-for-the-beach-1",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-titfortat-20260826",
     publication: "Bloomberg",
     author: "Jill Disis",
@@ -447,16 +458,5 @@ export const NEWSLETTERS = [
     time: "10:39",
     summary: "This week's top PE news: Silver Lake in talks for Workday, Liverpool stake sale to Bezos-backed group, KKR-BookMyShow, Thoma Bravo-Accelerant and more.",
     url: "https://pe-insights.com/news/",
-  },
-  {
-    id: "nl-cnt-newlondonrestaurants-20260821",
-    publication: "Condé Nast Traveller",
-    author: null,
-    series: "Restaurant of the Week",
-    title: "The best new restaurant in London is...",
-    date: "2026-08-21",
-    time: "10:00",
-    summary: "A somewhat unexpected location is home to London's buzziest opening.",
-    url: "https://www.cntraveller.com/article/new-london-restaurants",
   },
 ];
