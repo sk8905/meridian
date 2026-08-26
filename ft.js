@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "3fc189d6-28e7-4a2b-b77e-5c94bf513955", title: "OpenAI says it took a week to detect its AI models had hacked Hugging Face", date: "2026-08-26", time: "20:00", url: "https://www.ft.com/content/3fc189d6-28e7-4a2b-b77e-5c94bf513955" },
+  { id: "857fb8e1-eec6-443e-97e8-f6876302aabc", title: "Trump administration pauses immigrant visa applications", date: "2026-08-26", time: "19:37", url: "https://www.ft.com/content/857fb8e1-eec6-443e-97e8-f6876302aabc" },
   { id: "d9b7300a-d67a-4a64-871b-70e5a89d23af", title: "US labels Palestine Action a ‘terrorist group’", date: "2026-08-26", time: "18:47", url: "https://www.ft.com/content/d9b7300a-d67a-4a64-871b-70e5a89d23af" },
   { id: "7650d84f-4750-48c4-9a9e-ca899e608931", title: "Ministers tell Bank of England to boost innovation in digital currencies", date: "2026-08-26", time: "18:27", url: "https://www.ft.com/content/7650d84f-4750-48c4-9a9e-ca899e608931" },
   { id: "46bfb72c-6bb5-449b-ba81-87868d44526b", title: "El Niño’s looming threat to the global food system", date: "2026-08-26", time: "17:49", url: "https://www.ft.com/content/46bfb72c-6bb5-449b-ba81-87868d44526b" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "12aa9298-ea67-4099-89df-4d1b0489cb74", title: "Shein: from TikTok haul to IPO stall", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/12aa9298-ea67-4099-89df-4d1b0489cb74" },
   { id: "a50df99b-0621-44ea-a7c7-c9c685e2eba1", title: "Scott Bessent’s bond intervention puts US Treasury on collision course with Fed", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/a50df99b-0621-44ea-a7c7-c9c685e2eba1" },
   { id: "d910845e-a886-45a8-a43e-4ca1c5afa4e0", title: "British Business Bank’s small business loans hit £4bn", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/d910845e-a886-45a8-a43e-4ca1c5afa4e0" },
-  { id: "04bad7f3-1b5d-4982-9967-229886be0beb", title: "Insurers pile into deals allowing banks to offload default risk", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/04bad7f3-1b5d-4982-9967-229886be0beb" },
-  { id: "624ae50c-3501-4f03-8ee8-a79d1c64a374", title: "Ignore Jane Austen, income investing has big drawbacks", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/624ae50c-3501-4f03-8ee8-a79d1c64a374" },
-  { id: "c96c25c1-b27c-4c08-a2ba-21821b39dd78", title: "Why today’s markets are not as contradictory as they seem", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/c96c25c1-b27c-4c08-a2ba-21821b39dd78" },
 ];
