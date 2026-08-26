@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-canadastrikesback-20260826",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: Canada strikes back",
+    date: "2026-08-26",
+    time: "06:11",
+    summary: "Catch up quickly on the global stories that matter.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-reuters-tradingday-oilyieldsslide-20260825",
     publication: "Thomson Reuters",
     author: "Jamie McGeever",
@@ -447,27 +458,5 @@ export const NEWSLETTERS = [
     time: "07:29",
     summary: "China warns US threats of \"economic warfare\" over Iran trade won't work, as Treasury yields climb despite Bessent's buyback.",
     url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-bbg-morningeurope-iporace-20260821",
-    publication: "Bloomberg",
-    author: "Victoria Batchelor",
-    series: "Morning Briefing Europe",
-    title: "IPO Race",
-    date: "2026-08-21",
-    time: "07:12",
-    summary: "Anthropic expects to match or top SpaceX's record $75 billion IPO size, plus how Germany lost its industrial edge.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-21/anthropic-expects-to-match-or-top-spacex-s-record-ipo-size",
-  },
-  {
-    id: "nl-bbg-authoralert-nkumar-arini-20260820",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    series: "Author alert",
-    title: "Lemssouguer’s Hedge Fund Loses 8% in July on Soured Credit Bets",
-    date: "2026-08-20",
-    time: "22:47",
-    summary: "Hamza Lemssouguer’s Arini Capital Management lost roughly 8% in July on soured credit bets, according to people familiar with the matter.",
-    url: "https://www.bloomberg.com/news/articles/2026-08-20/lemssouguer-s-hedge-fund-loses-8-in-july-on-soured-credit-bets",
   },
 ];

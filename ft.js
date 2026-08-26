@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "49f9f010-9ac9-4f6b-8b41-e8d959558785", title: "FirstFT: US Treasury on collision course with Fed", date: "2026-08-26", time: "06:16", url: "https://www.ft.com/content/49f9f010-9ac9-4f6b-8b41-e8d959558785" },
+  { id: "53157379-e404-4798-bc86-dd76927e0497", title: "Spain’s Ceuta crisis festers as Madrid faces allegations of failing to tackle fallout", date: "2026-08-26", time: "06:00", url: "https://www.ft.com/content/53157379-e404-4798-bc86-dd76927e0497" },
+  { id: "9a6947bf-9d4e-4489-80b9-2178ea657a67", title: "Nvidia’s $200bn ‘balance sheet-as-a-service’", date: "2026-08-26", time: "06:00", url: "https://www.ft.com/content/9a6947bf-9d4e-4489-80b9-2178ea657a67" },
   { id: "b56a910a-c2b4-41e5-9f8f-18e6fe7b2efd", title: "‘Capitalism’s not working’: why Democrats are turning to socialism", date: "2026-08-26", time: "05:19", url: "https://www.ft.com/content/b56a910a-c2b4-41e5-9f8f-18e6fe7b2efd" },
   { id: "12aa9298-ea67-4099-89df-4d1b0489cb74", title: "Shein: from TikTok haul to IPO stall", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/12aa9298-ea67-4099-89df-4d1b0489cb74" },
   { id: "a50df99b-0621-44ea-a7c7-c9c685e2eba1", title: "Scott Bessent’s bond intervention puts US Treasury on collision course with Fed", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/a50df99b-0621-44ea-a7c7-c9c685e2eba1" },
@@ -35,6 +38,7 @@ export const FT_ITEMS = [
   { id: "6b355049-3122-4167-8a8a-ce37da73463d", title: "Institutional investors back Blackstone and KKR funds for wealthy individuals", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/6b355049-3122-4167-8a8a-ce37da73463d" },
   { id: "435b12f7-9fee-4f33-9f07-076074b8bc3c", title: "Britain can’t afford to fail on social care reform", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/435b12f7-9fee-4f33-9f07-076074b8bc3c" },
   { id: "083d21f8-ac03-4d72-b149-e8ded11c11a9", title: "Heatwaves spark interest in Gulf-style extreme cooling", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/083d21f8-ac03-4d72-b149-e8ded11c11a9" },
+  { id: "fa2462dc-d3e6-4084-8d59-ad9bc639b55b", title: "Rob Armstrong’s guide to wearing colour", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/fa2462dc-d3e6-4084-8d59-ad9bc639b55b" },
   { id: "a30e563e-0bbb-45ed-a7b3-55ff595d4e66", title: "Launch date for London robotaxis slips amid TfL uncertainty", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/a30e563e-0bbb-45ed-a7b3-55ff595d4e66" },
   { id: "2fe2913f-24b7-4074-9278-3253b5b8a61e", title: "Berlin’s defence push draws global groups to set up shop in Germany", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/2fe2913f-24b7-4074-9278-3253b5b8a61e" },
   { id: "6cbabfff-c549-42ce-b4a8-4a6535bf165b", title: "How chicken conquered the world", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/6cbabfff-c549-42ce-b4a8-4a6535bf165b" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "21ef2743-2cc2-41ef-8329-84adce69d975", title: "Waymo picks Munich for first EU robotaxi launch", date: "2026-08-25", time: "15:00", url: "https://www.ft.com/content/21ef2743-2cc2-41ef-8329-84adce69d975" },
   { id: "b6009dd2-7e97-4bbc-941d-cd0b8fc046b6", title: "Can Trump’s ‘economic D-day’ force Iran to capitulate?", date: "2026-08-25", time: "14:58", url: "https://www.ft.com/content/b6009dd2-7e97-4bbc-941d-cd0b8fc046b6" },
   { id: "b7a62337-c0f8-41f2-b4d4-7afbe6d63af1", title: "Scott Bessent fires warning shot at Iran’s economic partners", date: "2026-08-25", time: "14:00", url: "https://www.ft.com/content/b7a62337-c0f8-41f2-b4d4-7afbe6d63af1" },
-  { id: "2a5ddf7f-ca14-4073-af2b-eaf79ffbabe8", title: "Jackson Hole could further formalise emerging Fed-Treasury accord", date: "2026-08-25", time: "12:30", url: "https://www.ft.com/content/2a5ddf7f-ca14-4073-af2b-eaf79ffbabe8" },
-  { id: "5811d9e6-f48d-43ac-bc05-c273287a27d0", title: "Store water and tinned food to prepare for emergencies, UK citizens to be told", date: "2026-08-25", time: "12:20", url: "https://www.ft.com/content/5811d9e6-f48d-43ac-bc05-c273287a27d0" },
-  { id: "6b396499-d71d-4e8f-b2a4-66318b1d9426", title: "Germany on track for strongest GDP growth since 2022", date: "2026-08-25", time: "12:06", url: "https://www.ft.com/content/6b396499-d71d-4e8f-b2a4-66318b1d9426" },
-  { id: "3e54336f-cffc-44b7-947d-59f6e4999de1", title: "How extreme weather threatens energy security — from jellyfish swarms to ‘Super El Niño’", date: "2026-08-25", time: "12:00", url: "https://www.ft.com/content/3e54336f-cffc-44b7-947d-59f6e4999de1" },
 ];
