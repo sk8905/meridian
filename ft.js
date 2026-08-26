@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "56750716-10a5-4c43-88bc-ed69f591da28", title: "London is worst area in England and Wales for heat-related deaths", date: "2026-08-26", time: "14:23", url: "https://www.ft.com/content/56750716-10a5-4c43-88bc-ed69f591da28" },
+  { id: "70949883-f543-4444-a330-503b8e4c141a", title: "Mark Walter’s group insists there is no ‘fire sale’ and ‘no fraud’", date: "2026-08-26", time: "13:59", url: "https://www.ft.com/content/70949883-f543-4444-a330-503b8e4c141a" },
+  { id: "4ec53450-122a-4663-b280-5e7d80ef5e70", title: "Andy Burnham pledges to ‘take pressure off’ business ahead of October Budget", date: "2026-08-26", time: "13:57", url: "https://www.ft.com/content/4ec53450-122a-4663-b280-5e7d80ef5e70" },
   { id: "e9b2231e-79b0-40b3-a72e-6c594839e157", title: "Iran war approaching Ukraine-style stalemate, says shipping boss", date: "2026-08-26", time: "13:48", url: "https://www.ft.com/content/e9b2231e-79b0-40b3-a72e-6c594839e157" },
   { id: "230aa124-18ae-4d43-8444-78ab4a87471b", title: "Samsung must pay Swatch $11.6mn over copycat smartwatch apps", date: "2026-08-26", time: "12:57", url: "https://www.ft.com/content/230aa124-18ae-4d43-8444-78ab4a87471b" },
   { id: "7ee0ae41-db32-453d-ac30-80660ee9b60f", title: "Ukraine awards Elon Musk medal as it seeks Starlink approval", date: "2026-08-26", time: "12:54", url: "https://www.ft.com/content/7ee0ae41-db32-453d-ac30-80660ee9b60f" },
@@ -30,6 +33,7 @@ export const FT_ITEMS = [
   { id: "f2b0345c-f3bc-476e-b5a9-9ed48ac2de42", title: "Edinburgh Fringe sifts unbelievable fact from nonsensical fiction", date: "2026-08-26", time: "12:00", url: "https://www.ft.com/content/f2b0345c-f3bc-476e-b5a9-9ed48ac2de42" },
   { id: "64fe84f0-0b78-4c8b-a220-1aa2466179f6", title: "Reform UK pledges to cut data rules and curb liabilities for non-executives", date: "2026-08-26", time: "11:46", url: "https://www.ft.com/content/64fe84f0-0b78-4c8b-a220-1aa2466179f6" },
   { id: "21080ecd-b261-4b35-994c-20d510fbf3d6", title: "Argentines struggle to repay debts in Javier Milei’s painful economic overhaul", date: "2026-08-26", time: "11:00", url: "https://www.ft.com/content/21080ecd-b261-4b35-994c-20d510fbf3d6" },
+  { id: "ef62e345-2a76-46b4-8a69-9d02a306126b", title: "Iranian tankers gather off Sri Lankan coast", date: "2026-08-26", time: "10:06", url: "https://www.ft.com/content/ef62e345-2a76-46b4-8a69-9d02a306126b" },
   { id: "27f60c74-38b8-4a76-9cdc-144ae54f45f3", title: "Britain needs a new way to pay for healthcare", date: "2026-08-26", time: "09:51", url: "https://www.ft.com/content/27f60c74-38b8-4a76-9cdc-144ae54f45f3" },
   { id: "930f2c92-f0e3-4609-b0ad-cdd3d791ab70", title: "Liquidators can pursue PwC globally over Chinese property giant’s collapse, court rules", date: "2026-08-26", time: "08:52", url: "https://www.ft.com/content/930f2c92-f0e3-4609-b0ad-cdd3d791ab70" },
   { id: "42c449c6-03f6-4097-9eae-e119447e8aa5", title: "Bill Gates calls for ‘human reserved’ jobs to protect labour force from AI", date: "2026-08-26", time: "08:01", url: "https://www.ft.com/content/42c449c6-03f6-4097-9eae-e119447e8aa5" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "083d21f8-ac03-4d72-b149-e8ded11c11a9", title: "Heatwaves spark interest in Gulf-style extreme cooling", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/083d21f8-ac03-4d72-b149-e8ded11c11a9" },
   { id: "fa2462dc-d3e6-4084-8d59-ad9bc639b55b", title: "Rob Armstrong’s guide to wearing colour", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/fa2462dc-d3e6-4084-8d59-ad9bc639b55b" },
   { id: "a30e563e-0bbb-45ed-a7b3-55ff595d4e66", title: "Launch date for London robotaxis slips amid TfL uncertainty", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/a30e563e-0bbb-45ed-a7b3-55ff595d4e66" },
-  { id: "2fe2913f-24b7-4074-9278-3253b5b8a61e", title: "Berlin’s defence push draws global groups to set up shop in Germany", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/2fe2913f-24b7-4074-9278-3253b5b8a61e" },
-  { id: "6cbabfff-c549-42ce-b4a8-4a6535bf165b", title: "How chicken conquered the world", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/6cbabfff-c549-42ce-b4a8-4a6535bf165b" },
-  { id: "3cb40de7-89f5-4c64-b769-70da374dcd4a", title: "How four Russian bankers made millions from EU sanctions", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/3cb40de7-89f5-4c64-b769-70da374dcd4a" },
-  { id: "0c59f1d7-2197-406b-ba9b-6592c12bcb3d", title: "SpaceX commits $100bn to Louisiana space base", date: "2026-08-25", time: "19:57", url: "https://www.ft.com/content/0c59f1d7-2197-406b-ba9b-6592c12bcb3d" },
 ];
