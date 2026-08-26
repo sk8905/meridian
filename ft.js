@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "e353d8bd-e763-4866-89c3-7382ae3587db", title: "Uefa set to water down plan to boycott all Fifa football tournaments", date: "2026-08-26", time: "20:48", url: "https://www.ft.com/content/e353d8bd-e763-4866-89c3-7382ae3587db" },
+  { id: "99278383-22eb-4d42-85fd-5dcc8917be84", title: "RedBird nears deal for Puck at $250mn valuation in latest digital media bet", date: "2026-08-26", time: "20:28", url: "https://www.ft.com/content/99278383-22eb-4d42-85fd-5dcc8917be84" },
   { id: "3fc189d6-28e7-4a2b-b77e-5c94bf513955", title: "OpenAI says it took a week to detect its AI models had hacked Hugging Face", date: "2026-08-26", time: "20:00", url: "https://www.ft.com/content/3fc189d6-28e7-4a2b-b77e-5c94bf513955" },
   { id: "857fb8e1-eec6-443e-97e8-f6876302aabc", title: "Trump administration pauses immigrant visa applications", date: "2026-08-26", time: "19:37", url: "https://www.ft.com/content/857fb8e1-eec6-443e-97e8-f6876302aabc" },
   { id: "d9b7300a-d67a-4a64-871b-70e5a89d23af", title: "US labels Palestine Action a ‘terrorist group’", date: "2026-08-26", time: "18:47", url: "https://www.ft.com/content/d9b7300a-d67a-4a64-871b-70e5a89d23af" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "9a6947bf-9d4e-4489-80b9-2178ea657a67", title: "Nvidia’s $200bn ‘balance sheet-as-a-service’", date: "2026-08-26", time: "06:00", url: "https://www.ft.com/content/9a6947bf-9d4e-4489-80b9-2178ea657a67" },
   { id: "b56a910a-c2b4-41e5-9f8f-18e6fe7b2efd", title: "‘Capitalism’s not working’: why Democrats are turning to socialism", date: "2026-08-26", time: "05:19", url: "https://www.ft.com/content/b56a910a-c2b4-41e5-9f8f-18e6fe7b2efd" },
   { id: "12aa9298-ea67-4099-89df-4d1b0489cb74", title: "Shein: from TikTok haul to IPO stall", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/12aa9298-ea67-4099-89df-4d1b0489cb74" },
-  { id: "a50df99b-0621-44ea-a7c7-c9c685e2eba1", title: "Scott Bessent’s bond intervention puts US Treasury on collision course with Fed", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/a50df99b-0621-44ea-a7c7-c9c685e2eba1" },
-  { id: "d910845e-a886-45a8-a43e-4ca1c5afa4e0", title: "British Business Bank’s small business loans hit £4bn", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/d910845e-a886-45a8-a43e-4ca1c5afa4e0" },
 ];
