@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "21dcbd96-ee57-445c-a9ba-0938c49b91c0", title: "Meta to pay up to $16.7bn to settle children’s social media harm case", date: "2026-08-26", time: "14:57", url: "https://www.ft.com/content/21dcbd96-ee57-445c-a9ba-0938c49b91c0" },
+  { id: "1809a163-07b8-46fd-b056-7ee25d5023d4", title: "Victory Capital to acquire First Eagle in $7bn deal", date: "2026-08-26", time: "14:38", url: "https://www.ft.com/content/1809a163-07b8-46fd-b056-7ee25d5023d4" },
   { id: "56750716-10a5-4c43-88bc-ed69f591da28", title: "London is worst area in England and Wales for heat-related deaths", date: "2026-08-26", time: "14:23", url: "https://www.ft.com/content/56750716-10a5-4c43-88bc-ed69f591da28" },
   { id: "70949883-f543-4444-a330-503b8e4c141a", title: "Mark Walter’s group insists there is no ‘fire sale’ and ‘no fraud’", date: "2026-08-26", time: "13:59", url: "https://www.ft.com/content/70949883-f543-4444-a330-503b8e4c141a" },
   { id: "4ec53450-122a-4663-b280-5e7d80ef5e70", title: "Andy Burnham pledges to ‘take pressure off’ business ahead of October Budget", date: "2026-08-26", time: "13:57", url: "https://www.ft.com/content/4ec53450-122a-4663-b280-5e7d80ef5e70" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "435b12f7-9fee-4f33-9f07-076074b8bc3c", title: "Britain can’t afford to fail on social care reform", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/435b12f7-9fee-4f33-9f07-076074b8bc3c" },
   { id: "083d21f8-ac03-4d72-b149-e8ded11c11a9", title: "Heatwaves spark interest in Gulf-style extreme cooling", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/083d21f8-ac03-4d72-b149-e8ded11c11a9" },
   { id: "fa2462dc-d3e6-4084-8d59-ad9bc639b55b", title: "Rob Armstrong’s guide to wearing colour", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/fa2462dc-d3e6-4084-8d59-ad9bc639b55b" },
-  { id: "a30e563e-0bbb-45ed-a7b3-55ff595d4e66", title: "Launch date for London robotaxis slips amid TfL uncertainty", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/a30e563e-0bbb-45ed-a7b3-55ff595d4e66" },
 ];
