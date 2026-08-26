@@ -12,8 +12,8 @@ export const UPDATED = "25 August 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-08-25",
-  lastCheckedTime: "21:16 BST",
+  lastChecked: "2026-08-26",
+  lastCheckedTime: "05:21 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -820,20 +820,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-08-25",
+  updated: "2026-08-26",
   us: [
-    { title: "Treasuries Gain as Oil Drop Eases Pressure on Inflation, Bessent", source: "Bloomberg", date: "2026-08-25", time: "21:16", url: "https://www.bloomberg.com/news/articles/2026-08-25/treasuries-gain-as-oil-drop-eases-pressure-on-inflation-bessent" },
+    { title: "Oil Extends Declines as Iran, Oman Push Talks to Reopen Hormuz", source: "Bloomberg", date: "2026-08-26", time: "05:13", url: "https://www.bloomberg.com/news/articles/2026-08-25/latest-oil-market-news-and-analysis-for-aug-26" },
+    { title: "Forex Today: US Dollar stays on the back foot ahead of PCE", source: "FXStreet", date: "2026-08-25", time: "18:43", url: "https://www.fxstreet.com/news/forex-today-us-dollar-stays-on-the-back-foot-ahead-of-pce-202608251843" },
+    { title: "Bessent unveils sweeping new Iran sanctions but delays toughest blow", source: "Washington Post", date: "2026-08-24", time: "21:21", url: "https://www.washingtonpost.com/business/2026/08/24/bessent-unveil-economic-d-day-sanctions-against-iran/" },
     { title: "US Consumer Confidence Hits Seven-Month Low on Worse Outlook", source: "Bloomberg", date: "2026-08-25", time: "21:16", url: "https://www.bloomberg.com/news/articles/2026-08-25/us-consumer-confidence-falls-on-outlook-for-business-and-jobs" },
     { title: "Jackson Hole Offers Warsh High-Profile Slot to Rebut His Critics", source: "Bloomberg", date: "2026-08-25", time: "21:16", url: "https://www.bloomberg.com/news/articles/2026-08-25/jackson-hole-offers-warsh-high-profile-slot-to-rebut-his-critics" },
-    { title: "Stock Market Today (Aug. 25, 2026): Nasdaq, Russell 2000 climb ahead of Nvidia earnings, Fed symposium", source: "TheStreet", date: "2026-08-25", time: "21:16", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-aug-25-2026" },
-    { title: "US consumer confidence falls in August, Conference Board says", source: "Investing.com (Reuters)", date: "2026-08-25", time: "21:16", url: "https://www.investing.com/news/economic-indicators/us-consumer-confidence-falls-in-august-conference-board-says-4875645" },
   ],
   uk: [
     { title: "British Pound hovers near six-month highs with investors awaiting key US events", source: "FXStreet", date: "2026-08-25", time: "11:35", url: "https://www.fxstreet.com/news/british-pound-hovers-near-six-month-highs-with-investors-awaiting-key-us-events-202608251135" },
-    { title: "UK's Burnham to Lobby President Trump For Ukraine Access to Patriot Missiles", source: "Bloomberg", date: "2026-08-25", time: "21:16", url: "https://www.bloomberg.com/news/newsletters/2026-08-25/uk-s-burnham-to-lobby-president-trump-for-ukraine-access-to-patriot-missiles" },
+    { title: "Andy Burnham hints at tax rises in Autumn Budget", source: "CityAM", date: "2026-08-25", time: "12:00", url: "https://www.cityam.com/andy-burnham-hints-at-tax-rises-in-autumn-budget/" },
     { title: "Housebuilder shares soar on Burnham council housing plans", source: "CityAM", date: "2026-08-25", time: "17:17", url: "https://www.cityam.com/vistry-shares-soar-on-burnham-council-housing-plans/" },
     { title: "Ofgem to reveal new energy price cap and how it impacts household bills", source: "ITV News", date: "2026-08-23", time: "09:00", url: "https://www.itv.com/news/2026-08-23/ofgem-to-reveal-new-energy-price-cap-and-how-it-will-impact-household-bills" },
-    { title: "UK economy hands Burnham surprise boost before first budget", source: "Reuters (via Investing.com)", date: "2026-08-21", time: "09:00", url: "https://www.investing.com/news/economic-indicators/uk-economy-hands-burnham-surprise-boost-before-first-budget-4871859" },
+    { title: "Budget 2026: Which taxes will Burnham and Healey hike?", source: "CityAM", date: "2026-08-25", time: "09:23", url: "https://www.cityam.com/budget-2026-which-taxes-will-burnham-and-healey-hike/" },
   ],
 };
 
@@ -845,8 +845,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-08-25",
+  updated: "2026-08-26",
   items: [
+    {"title":"Oil Extends Declines as Iran, Oman Push Talks to Reopen Hormuz","source":"Bloomberg","date":"2026-08-26","time":"05:13","url":"https://www.bloomberg.com/news/articles/2026-08-25/latest-oil-market-news-and-analysis-for-aug-26","blurb":"Crude fell toward $80/bbl, extending losses into a third session, after reports that Iran and Oman discussed a 'temporary joint maritime corridor' through the Strait of Hormuz and Washington's latest Iran measures proved less aggressive than markets had expected."},
+    {"title":"Asia Stock Market Today 26/08/2026","source":"ts2.tech","date":"2026-08-26","time":"00:03","url":"https://ts2.tech/en/stock-market-today-08-26-2026-asia/","blurb":"Asian shares were mixed in early Wednesday trade — Korea held above its previous close while Tokyo opened lower on Kioxia and Tokyo Electron weakness — as lower US Treasury yields and cheaper crude eased overnight rate and input-cost pressure ahead of Nvidia's results and Jackson Hole."},
+    {"title":"CPI rose 3.5% in the year to July 2026","source":"Australian Bureau of Statistics","date":"2026-08-26","time":"02:30","url":"https://www.abs.gov.au/media-centre/media-releases/cpi-rose-35-year-july-2026","blurb":"Australia's monthly CPI indicator eased to 3.5% annual inflation in July (from 3.8% in June), with trimmed mean at 3.6%; housing (+5.0%) was the largest contributor, ahead of food (+3.2%) and recreation/culture (+2.6%)."},
     {"title":"Treasuries Gain as Oil Drop Eases Pressure on Inflation, Bessent","source":"Bloomberg","date":"2026-08-25","time":"21:16","url":"https://www.bloomberg.com/news/articles/2026-08-25/treasuries-gain-as-oil-drop-eases-pressure-on-inflation-bessent","blurb":"Treasury yields eased as a pullback in oil prices took some pressure off the inflation outlook, giving Bessent's buyback-driven yield-suppression strategy breathing room into Wednesday's PCE print and Friday's Jackson Hole keynote."},
     {"title":"US Consumer Confidence Hits Seven-Month Low on Worse Outlook","source":"Bloomberg","date":"2026-08-25","time":"21:16","url":"https://www.bloomberg.com/news/articles/2026-08-25/us-consumer-confidence-falls-on-outlook-for-business-and-jobs","blurb":"The Conference Board's index fell to 89.4 from a revised 90.2, with the expectations sub-index sliding to 68.2, as households grew more pessimistic about business conditions and the labour market."},
     {"title":"Is the Trump Treasury Panicking?","source":"Project Syndicate","date":"2026-08-25","time":"21:16","url":"https://www.project-syndicate.org/commentary/trump-treasury-secretary-bessent-bond-market-intervention-is-backfiring-by-kenneth-rogoff-2026-08","blurb":"Kenneth Rogoff argues Bessent's bond-maturity manoeuvring cannot fix a deficit near 6% of GDP and debt above $40tn, and risks undermining confidence in Treasury markets.","author":"Kenneth Rogoff"},
@@ -885,8 +888,6 @@ export const ARTICLES = {
     {"title":"The Iran war could last 'deep into 2027' as the Strait of Hormuz isn't that closed","source":"Fortune","date":"2026-08-23","time":"17:20","url":"https://fortune.com/2026/08/23/iran-war-outlook-2027-strait-of-hormuz-oil-exports-blockade-oman-corridor-escalation/","blurb":"Energy analysts say oil is still flowing around the blockade via an Oman corridor, but a further escalation of the six-month conflict looks likely."},
     {"title":"Canada, US and tit-for-tat tariffs: How will they impact their economies?","source":"Al Jazeera","date":"2026-08-23","time":"17:20","url":"https://www.aljazeera.com/news/2026/8/23/canada-us-and-tit-for-tat-tariffs-how-will-it-impact-their-economies","blurb":"A breakdown of the economic stakes of Washington's 50% tariffs on Canadian goods and Ottawa's dollar-for-dollar retaliation."},
     {"title":"Charting the Global Economy: UK Payrolls Slide, Inflation Rises","source":"Bloomberg","date":"2026-08-22","time":"17:20","url":"https://www.bloomberg.com/news/articles/2026-08-22/world-economy-latest-uk-employment-declines-while-price-pressures-mount","blurb":"A weekly global-data roundup showing UK employment falling even as price pressures build."},
-    {"title":"Oil prices fall as investors await 'toughest' U.S. sanctions on Iran","source":"CNBC","date":"2026-08-24","time":"12:24","url":"https://www.cnbc.com/2026/08/24/oil-price-today-wti-brent-us-sanctions-iran.html","blurb":"Brent slipped roughly 1.3% to about $93.16 and WTI fell to $85.70 as markets awaited Treasury Secretary Bessent's 2pm ET press conference detailing new sanctions on Iran and its trading partners."},
-    {"title":"Stock market today: Dow, S&P 500, Nasdaq futures mixed after US-Canada talks break down","source":"Yahoo Finance","date":"2026-08-24","time":"12:24","url":"https://finance.yahoo.com/markets/live/stock-market-today-monday-august-24-dow-sp-500-nasdaq-080306047.html","blurb":"Dow futures edged lower and Nasdaq futures slipped 0.5% as Ottawa vowed dollar-for-dollar retaliatory tariffs after US-Canada trade talks collapsed, ahead of a week headlined by Nvidia earnings and Jackson Hole."},
   ],
 };
 
@@ -1053,7 +1054,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "GBP/USD's rally paused below 1.3700, with the pound edging up near 1.3640 against a marginally firmer dollar — the technical backdrop stays 'solidly bullish' as traders await Wednesday's core PCE print and Friday's Jackson Hole keynote.", src: "https://www.fxstreet.com/news/gbp-usd-price-forecast-rally-pauses-below-13700-202608250757", srcName: "FXStreet", date: "2026-08-25" };
+export const FX_KEYMOMENT = { text: "The dollar stayed on the back foot into Wednesday's GDP-second-estimate and core-PCE cluster, with USD/JPY easing to around 159.24 in early Asian trade as lower Treasury yields and cheaper crude reduced overnight rate and input-cost pressure.", src: "https://www.fxstreet.com/news/forex-today-us-dollar-stays-on-the-back-foot-ahead-of-pce-202608251843", srcName: "FXStreet", date: "2026-08-25" };
 
 export const EARNINGS = {
   weeks: [

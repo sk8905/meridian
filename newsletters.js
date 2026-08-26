@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-tradingday-oilyieldsslide-20260825",
+    publication: "Thomson Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "Oil, yields slide",
+    date: "2026-08-25",
+    time: "22:00",
+    summary: "Nvidia earnings up next.",
+    url: "https://www.reuters.com/commentary/reuters-open-interest/world-braces-trumps-canada-tariff-stand-off-escalates-2026-08-25/",
+  },
+  {
     id: "nl-bbg-moneystuff-lebronbonds-20260825",
     publication: "Bloomberg",
     author: "Matt Levine",
@@ -458,16 +469,5 @@ export const NEWSLETTERS = [
     time: "22:47",
     summary: "Hamza Lemssouguer’s Arini Capital Management lost roughly 8% in July on soured credit bets, according to people familiar with the matter.",
     url: "https://www.bloomberg.com/news/articles/2026-08-20/lemssouguer-s-hedge-fund-loses-8-in-july-on-soured-credit-bets",
-  },
-  {
-    id: "nl-reuters-tradingday-cantgetnorelief-20260820",
-    publication: "Thomson Reuters",
-    author: "Jamie McGeever",
-    series: "Trading Day",
-    title: "Can't get no relief",
-    date: "2026-08-20",
-    time: "21:00",
-    summary: "Wednesday's Treasury-buyback bond relief fizzled Thursday as yields resumed climbing, Walmart posted its worst day in four years and Fed minutes showed a September rate hike is still very much on the table.",
-    url: "https://www.reuters.com/newsletters/trading-day",
   },
 ];
