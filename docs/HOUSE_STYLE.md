@@ -39,14 +39,15 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
 | Section | Left rail (`.g-side`) | Centre (`.g-feed-wrap`) | Right rail (`.g-side2`) |
 |---|---|---|---|
 | Home   | Rates band + Top movers (`#g-movers`), panel fills to bottom | Live wire/feed (only scrolling region) | FX matrix (`.g-fx-card`) + Prediction markets (`.na-pred`), stretched to bottom |
-| Macro  | Context indicators / snapshot | Wire | Section widgets, filled to bottom |
-| Credit | Movers / context | Wire | Section widgets, filled to bottom |
-| Legal  | Context / movers | Wire (incl. Case Law list) | Section widgets, filled to bottom |
+| Macro / Credit / Legal | — (rails removed) | Wire (incl. Case Law list on Legal), full width | — (rails removed) |
 
-Rule: **left rail = movers + context; centre = the one scrolling wire; right
-rail = FX / prediction markets / section widgets.** Both rails are pinned and
-fill to the feed's full height. On phone both rails are hidden (the shared
-Markets dropdown carries the same numbers).
+Rule: **on Home, left rail = movers + context; centre = the one scrolling
+wire; right rail = FX / prediction markets.** Both Home rails are pinned and
+fill to the feed's full height; on phone both are hidden (the shared Markets
+dropdown carries the same numbers). **Macro/Credit/Legal are single-column:**
+`.tcol-l`/`.tcol-r` are `display:none` platform-wide (see `tui.css`) and the
+central wire owns the full width on every viewport — there are no data rails
+to keep pinned/full-height on these three sections.
 
 ---
 
