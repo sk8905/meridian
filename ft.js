@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "e9b2231e-79b0-40b3-a72e-6c594839e157", title: "Iran war approaching Ukraine-style stalemate, says shipping boss", date: "2026-08-26", time: "13:48", url: "https://www.ft.com/content/e9b2231e-79b0-40b3-a72e-6c594839e157" },
+  { id: "230aa124-18ae-4d43-8444-78ab4a87471b", title: "Samsung must pay Swatch $11.6mn over copycat smartwatch apps", date: "2026-08-26", time: "12:57", url: "https://www.ft.com/content/230aa124-18ae-4d43-8444-78ab4a87471b" },
+  { id: "7ee0ae41-db32-453d-ac30-80660ee9b60f", title: "Ukraine awards Elon Musk medal as it seeks Starlink approval", date: "2026-08-26", time: "12:54", url: "https://www.ft.com/content/7ee0ae41-db32-453d-ac30-80660ee9b60f" },
+  { id: "ab0315bb-2657-4126-80b4-611bc83ec58f", title: "Life inside an American coal mine", date: "2026-08-26", time: "12:54", url: "https://www.ft.com/content/ab0315bb-2657-4126-80b4-611bc83ec58f" },
   { id: "ea6efd7b-83c3-40ed-803a-e86402aa3aeb", title: "The end of Trumpsplaining", date: "2026-08-26", time: "12:26", url: "https://www.ft.com/content/ea6efd7b-83c3-40ed-803a-e86402aa3aeb" },
   { id: "6f756f69-0790-405d-b044-2b1dfb8cc6d4", title: "The battle to redraw the global tax map", date: "2026-08-26", time: "12:00", url: "https://www.ft.com/content/6f756f69-0790-405d-b044-2b1dfb8cc6d4" },
   { id: "a8641cf5-d139-4ae9-854d-c88f246e1667", title: "Russia’s long war with the west — and with itself", date: "2026-08-26", time: "12:00", url: "https://www.ft.com/content/a8641cf5-d139-4ae9-854d-c88f246e1667" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "6cbabfff-c549-42ce-b4a8-4a6535bf165b", title: "How chicken conquered the world", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/6cbabfff-c549-42ce-b4a8-4a6535bf165b" },
   { id: "3cb40de7-89f5-4c64-b769-70da374dcd4a", title: "How four Russian bankers made millions from EU sanctions", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/3cb40de7-89f5-4c64-b769-70da374dcd4a" },
   { id: "0c59f1d7-2197-406b-ba9b-6592c12bcb3d", title: "SpaceX commits $100bn to Louisiana space base", date: "2026-08-25", time: "19:57", url: "https://www.ft.com/content/0c59f1d7-2197-406b-ba9b-6592c12bcb3d" },
-  { id: "6a76e78b-c493-409a-8694-6fa4ba9a674e", title: "AI to fuel global growth as investment spreads beyond US, IMF says", date: "2026-08-25", time: "19:00", url: "https://www.ft.com/content/6a76e78b-c493-409a-8694-6fa4ba9a674e" },
-  { id: "8f1a392a-b43c-4124-916e-61695fffa0da", title: "European LNG prices surge to highest level since 2023", date: "2026-08-25", time: "18:41", url: "https://www.ft.com/content/8f1a392a-b43c-4124-916e-61695fffa0da" },
-  { id: "3bce2d44-0067-455a-9b8d-d5e1a27fbf0a", title: "America’s economic war on Iran has a China problem", date: "2026-08-25", time: "18:11", url: "https://www.ft.com/content/3bce2d44-0067-455a-9b8d-d5e1a27fbf0a" },
-  { id: "b3e4d264-55f0-485e-8e1a-0ba0cbe006b6", title: "Iran and Oman edge towards deal on Strait of Hormuz", date: "2026-08-25", time: "18:04", url: "https://www.ft.com/content/b3e4d264-55f0-485e-8e1a-0ba0cbe006b6" },
 ];
