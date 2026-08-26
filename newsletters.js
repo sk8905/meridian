@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-lb-addleshawspepractice-20260826",
+    publication: "Legal Business",
+    author: null,
+    series: null,
+    title: "How Addleshaws is targeting large-cap PE without neglecting its roots",
+    date: "2026-08-26",
+    time: "15:50",
+    summary: "Partners in the firm's 'crown jewel' PE practice on relationship building, portfolio companies, and opportunities in the mid-market.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQSJy9Npek5aojgAj/wv",
+  },
+  {
     id: "nl-bbg-goingprivate-peexitlifeline-20260826",
     publication: "Bloomberg",
     author: "Sinead Cruise",

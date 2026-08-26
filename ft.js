@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c6a15b69-fc74-406e-a006-9e669e11aea0", title: "Slightly hotter than expected PCE inflation keeps Fed’s September rate rise in play", date: "2026-08-26", time: "15:45", url: "https://www.ft.com/content/c6a15b69-fc74-406e-a006-9e669e11aea0" },
   { id: "21dcbd96-ee57-445c-a9ba-0938c49b91c0", title: "Meta to pay up to $16.7bn to settle children’s social media harm case", date: "2026-08-26", time: "14:57", url: "https://www.ft.com/content/21dcbd96-ee57-445c-a9ba-0938c49b91c0" },
   { id: "1809a163-07b8-46fd-b056-7ee25d5023d4", title: "Victory Capital to acquire First Eagle in $7bn deal", date: "2026-08-26", time: "14:38", url: "https://www.ft.com/content/1809a163-07b8-46fd-b056-7ee25d5023d4" },
   { id: "56750716-10a5-4c43-88bc-ed69f591da28", title: "London is worst area in England and Wales for heat-related deaths", date: "2026-08-26", time: "14:23", url: "https://www.ft.com/content/56750716-10a5-4c43-88bc-ed69f591da28" },
