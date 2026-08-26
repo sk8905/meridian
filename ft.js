@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "27f60c74-38b8-4a76-9cdc-144ae54f45f3", title: "Britain needs a new way to pay for healthcare", date: "2026-08-26", time: "09:51", url: "https://www.ft.com/content/27f60c74-38b8-4a76-9cdc-144ae54f45f3" },
   { id: "930f2c92-f0e3-4609-b0ad-cdd3d791ab70", title: "Liquidators can pursue PwC globally over Chinese property giant’s collapse, court rules", date: "2026-08-26", time: "08:52", url: "https://www.ft.com/content/930f2c92-f0e3-4609-b0ad-cdd3d791ab70" },
   { id: "42c449c6-03f6-4097-9eae-e119447e8aa5", title: "Bill Gates calls for ‘human reserved’ jobs to protect labour force from AI", date: "2026-08-26", time: "08:01", url: "https://www.ft.com/content/42c449c6-03f6-4097-9eae-e119447e8aa5" },
   { id: "c89182ba-283f-43ae-abda-7828bfcef07a", title: "UK household energy price cap to rise by 4% from October", date: "2026-08-26", time: "07:19", url: "https://www.ft.com/content/c89182ba-283f-43ae-abda-7828bfcef07a" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "1b066355-4412-43bd-b832-74956d3c0a52", title: "Foot Locker owner plunges after warning nervous consumers are cutting spending", date: "2026-08-25", time: "16:29", url: "https://www.ft.com/content/1b066355-4412-43bd-b832-74956d3c0a52" },
   { id: "7588a11f-ff57-4c1a-b4cf-2a55a6d8c6b2", title: "The drip-drip US debt crisis", date: "2026-08-25", time: "16:20", url: "https://www.ft.com/content/7588a11f-ff57-4c1a-b4cf-2a55a6d8c6b2" },
   { id: "7a83b577-8d67-4435-9798-1e53d7fad4e9", title: "Sizewell C access roads project delayed after contractor dropped", date: "2026-08-25", time: "16:03", url: "https://www.ft.com/content/7a83b577-8d67-4435-9798-1e53d7fad4e9" },
-  { id: "7ced71c2-03b8-4569-a68d-14624a7e83f2", title: "Canada announces $20bn retaliatory tariffs as US trade war escalates", date: "2026-08-25", time: "16:03", url: "https://www.ft.com/content/7ced71c2-03b8-4569-a68d-14624a7e83f2" },
 ];
