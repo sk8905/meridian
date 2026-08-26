@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-predictthekpis-20260826",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: Predict the KPIs",
+    date: "2026-08-26",
+    time: "19:02",
+    summary: "Whether KPI-linked binary options are securities, TWG's 'no victim here' defense of its insurers, and a wedding toast thanking Ken Griffin.",
+    url: "https://bloom.bg/46mwSdR",
+  },
+  {
     id: "nl-lb-addleshawspepractice-20260826",
     publication: "Legal Business",
     author: null,
@@ -447,27 +458,5 @@ export const NEWSLETTERS = [
     time: "12:11",
     summary: "Firms ramp up efforts to protect investors from a surge in AI-enabled identity theft targeting private capital clients.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-21/ai-enabled-scammers-zero-in-on-private-capital-clients",
-  },
-  {
-    id: "nl-bbg-econdaily-sellamerica-20260821",
-    publication: "Bloomberg",
-    author: "Enda Curran",
-    series: "Economics Daily",
-    title: "Economics Daily: 'Sell America' for real?",
-    date: "2026-08-21",
-    time: "12:00",
-    summary: "Bessent's move to bring down bond yields is rattling investors and nudging the 'Sell America' narrative closer to reality.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-21/why-sell-america-is-a-real-risk-for-us-markets-and-the-dollar",
-  },
-  {
-    id: "nl-bbg-parisedition-budgetblues-20260821",
-    publication: "Bloomberg",
-    author: "Alan Katz",
-    series: "Paris Edition",
-    title: "Paris Edition: Budget blues",
-    date: "2026-08-21",
-    time: "11:55",
-    summary: "With next year's election set to roll France's budget legislation over into 2027, bond investors are spooked.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-21/france-s-budget-battles-ahead-of-elections-are-bumming-out-bond-investors",
   },
 ];

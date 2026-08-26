@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d9b7300a-d67a-4a64-871b-70e5a89d23af", title: "US labels Palestine Action a ‘terrorist group’", date: "2026-08-26", time: "18:47", url: "https://www.ft.com/content/d9b7300a-d67a-4a64-871b-70e5a89d23af" },
+  { id: "7650d84f-4750-48c4-9a9e-ca899e608931", title: "Ministers tell Bank of England to boost innovation in digital currencies", date: "2026-08-26", time: "18:27", url: "https://www.ft.com/content/7650d84f-4750-48c4-9a9e-ca899e608931" },
   { id: "46bfb72c-6bb5-449b-ba81-87868d44526b", title: "El Niño’s looming threat to the global food system", date: "2026-08-26", time: "17:49", url: "https://www.ft.com/content/46bfb72c-6bb5-449b-ba81-87868d44526b" },
   { id: "5b479f2e-6b34-4373-b65b-531b92bac816", title: "Charting the trillion-dollar TAM wars", date: "2026-08-26", time: "17:16", url: "https://www.ft.com/content/5b479f2e-6b34-4373-b65b-531b92bac816" },
   { id: "083d21f8-ac03-4d72-b149-e8ded11c11a9", title: "Heatwaves spark interest in Gulf-style extreme cooling", date: "2026-08-26", time: "17:09", url: "https://www.ft.com/content/083d21f8-ac03-4d72-b149-e8ded11c11a9" },
@@ -59,6 +61,4 @@ export const FT_ITEMS = [
   { id: "04bad7f3-1b5d-4982-9967-229886be0beb", title: "Insurers pile into deals allowing banks to offload default risk", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/04bad7f3-1b5d-4982-9967-229886be0beb" },
   { id: "624ae50c-3501-4f03-8ee8-a79d1c64a374", title: "Ignore Jane Austen, income investing has big drawbacks", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/624ae50c-3501-4f03-8ee8-a79d1c64a374" },
   { id: "c96c25c1-b27c-4c08-a2ba-21821b39dd78", title: "Why today’s markets are not as contradictory as they seem", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/c96c25c1-b27c-4c08-a2ba-21821b39dd78" },
-  { id: "8dda77e2-626f-49b8-9f18-c68162c454fc", title: "Random is as random does", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/8dda77e2-626f-49b8-9f18-c68162c454fc" },
-  { id: "c3dc6390-8d37-47b5-9687-bb77e149a6d5", title: "Burnham looks at giving mayors in England power to block sale of council homes", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/c3dc6390-8d37-47b5-9687-bb77e149a6d5" },
 ];
