@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "42c449c6-03f6-4097-9eae-e119447e8aa5", title: "Bill Gates calls for ‘human reserved’ jobs to protect labour force from AI", date: "2026-08-26", time: "08:01", url: "https://www.ft.com/content/42c449c6-03f6-4097-9eae-e119447e8aa5" },
   { id: "c89182ba-283f-43ae-abda-7828bfcef07a", title: "UK household energy price cap to rise by 4% from October", date: "2026-08-26", time: "07:19", url: "https://www.ft.com/content/c89182ba-283f-43ae-abda-7828bfcef07a" },
   { id: "3a1e302b-bcfd-4bdb-afd4-cb18678acb21", title: "FTAV’s further reading", date: "2026-08-26", time: "07:04", url: "https://www.ft.com/content/3a1e302b-bcfd-4bdb-afd4-cb18678acb21" },
   { id: "ccc16455-b316-4c36-86c3-93c01ac3bfa6", title: "Prediction markets revisited", date: "2026-08-26", time: "06:30", url: "https://www.ft.com/content/ccc16455-b316-4c36-86c3-93c01ac3bfa6" },
@@ -59,6 +60,4 @@ export const FT_ITEMS = [
   { id: "7a83b577-8d67-4435-9798-1e53d7fad4e9", title: "Sizewell C access roads project delayed after contractor dropped", date: "2026-08-25", time: "16:03", url: "https://www.ft.com/content/7a83b577-8d67-4435-9798-1e53d7fad4e9" },
   { id: "7ced71c2-03b8-4569-a68d-14624a7e83f2", title: "Canada announces $20bn retaliatory tariffs as US trade war escalates", date: "2026-08-25", time: "16:03", url: "https://www.ft.com/content/7ced71c2-03b8-4569-a68d-14624a7e83f2" },
   { id: "3b7ac1fe-4761-4b4a-8fff-95c8c28566b9", title: "'Embarrassing': Republicans and ex-military leaders recoil at Trump officials' Canada attacks", date: "2026-08-25", time: "15:55", url: "https://www.ft.com/content/3b7ac1fe-4761-4b4a-8fff-95c8c28566b9" },
-  { id: "7a889a33-1af5-4704-a57f-7890d169d94e", title: "Boss of Trump Jr-backed start-up donated to Republicans after winning US contract", date: "2026-08-25", time: "15:25", url: "https://www.ft.com/content/7a889a33-1af5-4704-a57f-7890d169d94e" },
-  { id: "21ef2743-2cc2-41ef-8329-84adce69d975", title: "Waymo picks Munich for first EU robotaxi launch", date: "2026-08-25", time: "15:00", url: "https://www.ft.com/content/21ef2743-2cc2-41ef-8329-84adce69d975" },
 ];
