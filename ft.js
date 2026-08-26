@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "ea6efd7b-83c3-40ed-803a-e86402aa3aeb", title: "The end of Trumpsplaining", date: "2026-08-26", time: "12:26", url: "https://www.ft.com/content/ea6efd7b-83c3-40ed-803a-e86402aa3aeb" },
+  { id: "6f756f69-0790-405d-b044-2b1dfb8cc6d4", title: "The battle to redraw the global tax map", date: "2026-08-26", time: "12:00", url: "https://www.ft.com/content/6f756f69-0790-405d-b044-2b1dfb8cc6d4" },
+  { id: "a8641cf5-d139-4ae9-854d-c88f246e1667", title: "Russia’s long war with the west — and with itself", date: "2026-08-26", time: "12:00", url: "https://www.ft.com/content/a8641cf5-d139-4ae9-854d-c88f246e1667" },
+  { id: "f2b0345c-f3bc-476e-b5a9-9ed48ac2de42", title: "Edinburgh Fringe sifts unbelievable fact from nonsensical fiction", date: "2026-08-26", time: "12:00", url: "https://www.ft.com/content/f2b0345c-f3bc-476e-b5a9-9ed48ac2de42" },
+  { id: "64fe84f0-0b78-4c8b-a220-1aa2466179f6", title: "Reform UK pledges to cut data rules and curb liabilities for non-executives", date: "2026-08-26", time: "11:46", url: "https://www.ft.com/content/64fe84f0-0b78-4c8b-a220-1aa2466179f6" },
   { id: "21080ecd-b261-4b35-994c-20d510fbf3d6", title: "Argentines struggle to repay debts in Javier Milei’s painful economic overhaul", date: "2026-08-26", time: "11:00", url: "https://www.ft.com/content/21080ecd-b261-4b35-994c-20d510fbf3d6" },
   { id: "27f60c74-38b8-4a76-9cdc-144ae54f45f3", title: "Britain needs a new way to pay for healthcare", date: "2026-08-26", time: "09:51", url: "https://www.ft.com/content/27f60c74-38b8-4a76-9cdc-144ae54f45f3" },
   { id: "930f2c92-f0e3-4609-b0ad-cdd3d791ab70", title: "Liquidators can pursue PwC globally over Chinese property giant’s collapse, court rules", date: "2026-08-26", time: "08:52", url: "https://www.ft.com/content/930f2c92-f0e3-4609-b0ad-cdd3d791ab70" },
@@ -55,9 +60,4 @@ export const FT_ITEMS = [
   { id: "8f1a392a-b43c-4124-916e-61695fffa0da", title: "European LNG prices surge to highest level since 2023", date: "2026-08-25", time: "18:41", url: "https://www.ft.com/content/8f1a392a-b43c-4124-916e-61695fffa0da" },
   { id: "3bce2d44-0067-455a-9b8d-d5e1a27fbf0a", title: "America’s economic war on Iran has a China problem", date: "2026-08-25", time: "18:11", url: "https://www.ft.com/content/3bce2d44-0067-455a-9b8d-d5e1a27fbf0a" },
   { id: "b3e4d264-55f0-485e-8e1a-0ba0cbe006b6", title: "Iran and Oman edge towards deal on Strait of Hormuz", date: "2026-08-25", time: "18:04", url: "https://www.ft.com/content/b3e4d264-55f0-485e-8e1a-0ba0cbe006b6" },
-  { id: "1e50ca97-b54d-4686-aee6-4edecc8ce1f7", title: "Will Iceland join the EU?", date: "2026-08-25", time: "18:00", url: "https://www.ft.com/content/1e50ca97-b54d-4686-aee6-4edecc8ce1f7" },
-  { id: "d290366c-160e-419e-8685-668cd1fcabfb", title: "How First Brands’ billion-dollar rescue hit the skids", date: "2026-08-25", time: "17:58", url: "https://www.ft.com/content/d290366c-160e-419e-8685-668cd1fcabfb" },
-  { id: "ef62e345-2a76-46b4-8a69-9d02a306126b", title: "Iranian tankers gather off Sri Lankan coast", date: "2026-08-25", time: "17:22", url: "https://www.ft.com/content/ef62e345-2a76-46b4-8a69-9d02a306126b" },
-  { id: "1b066355-4412-43bd-b832-74956d3c0a52", title: "Foot Locker owner plunges after warning nervous consumers are cutting spending", date: "2026-08-25", time: "16:29", url: "https://www.ft.com/content/1b066355-4412-43bd-b832-74956d3c0a52" },
-  { id: "7588a11f-ff57-4c1a-b4cf-2a55a6d8c6b2", title: "The drip-drip US debt crisis", date: "2026-08-25", time: "16:20", url: "https://www.ft.com/content/7588a11f-ff57-4c1a-b4cf-2a55a6d8c6b2" },
 ];
