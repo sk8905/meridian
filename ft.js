@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "46bfb72c-6bb5-449b-ba81-87868d44526b", title: "El Niño’s looming threat to the global food system", date: "2026-08-26", time: "17:49", url: "https://www.ft.com/content/46bfb72c-6bb5-449b-ba81-87868d44526b" },
+  { id: "5b479f2e-6b34-4373-b65b-531b92bac816", title: "Charting the trillion-dollar TAM wars", date: "2026-08-26", time: "17:16", url: "https://www.ft.com/content/5b479f2e-6b34-4373-b65b-531b92bac816" },
+  { id: "083d21f8-ac03-4d72-b149-e8ded11c11a9", title: "Heatwaves spark interest in Gulf-style extreme cooling", date: "2026-08-26", time: "17:09", url: "https://www.ft.com/content/083d21f8-ac03-4d72-b149-e8ded11c11a9" },
   { id: "284f83f5-b6af-41a9-909d-26ca5693e5a9", title: "Andy Burnham seeks to bridge gap with nervous business community", date: "2026-08-26", time: "17:08", url: "https://www.ft.com/content/284f83f5-b6af-41a9-909d-26ca5693e5a9" },
   { id: "d7b89b34-8961-484d-b776-707520e942c5", title: "CIA chief makes rare visit to Moscow", date: "2026-08-26", time: "16:52", url: "https://www.ft.com/content/d7b89b34-8961-484d-b776-707520e942c5" },
   { id: "0ebde4be-b080-4c64-97a5-6daa2f33299a", title: "Fed set to be data dependent in the months ahead", date: "2026-08-26", time: "16:30", url: "https://www.ft.com/content/0ebde4be-b080-4c64-97a5-6daa2f33299a" },
@@ -58,6 +61,4 @@ export const FT_ITEMS = [
   { id: "c96c25c1-b27c-4c08-a2ba-21821b39dd78", title: "Why today’s markets are not as contradictory as they seem", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/c96c25c1-b27c-4c08-a2ba-21821b39dd78" },
   { id: "8dda77e2-626f-49b8-9f18-c68162c454fc", title: "Random is as random does", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/8dda77e2-626f-49b8-9f18-c68162c454fc" },
   { id: "c3dc6390-8d37-47b5-9687-bb77e149a6d5", title: "Burnham looks at giving mayors in England power to block sale of council homes", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/c3dc6390-8d37-47b5-9687-bb77e149a6d5" },
-  { id: "904416db-c0e9-46ba-942c-ce77169420b7", title: "Will Andy Burnham’s northern vibes put off southern voters?", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/904416db-c0e9-46ba-942c-ce77169420b7" },
-  { id: "9cb63980-cd43-419d-a7e5-42039b9fd01e", title: "The multiplying risks of financing data centres", date: "2026-08-26", time: "05:00", url: "https://www.ft.com/content/9cb63980-cd43-419d-a7e5-42039b9fd01e" },
 ];
