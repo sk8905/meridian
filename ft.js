@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c89182ba-283f-43ae-abda-7828bfcef07a", title: "UK household energy price cap to rise by 4% from October", date: "2026-08-26", time: "07:19", url: "https://www.ft.com/content/c89182ba-283f-43ae-abda-7828bfcef07a" },
+  { id: "3a1e302b-bcfd-4bdb-afd4-cb18678acb21", title: "FTAV’s further reading", date: "2026-08-26", time: "07:04", url: "https://www.ft.com/content/3a1e302b-bcfd-4bdb-afd4-cb18678acb21" },
+  { id: "ccc16455-b316-4c36-86c3-93c01ac3bfa6", title: "Prediction markets revisited", date: "2026-08-26", time: "06:30", url: "https://www.ft.com/content/ccc16455-b316-4c36-86c3-93c01ac3bfa6" },
   { id: "49f9f010-9ac9-4f6b-8b41-e8d959558785", title: "FirstFT: US Treasury on collision course with Fed", date: "2026-08-26", time: "06:16", url: "https://www.ft.com/content/49f9f010-9ac9-4f6b-8b41-e8d959558785" },
   { id: "53157379-e404-4798-bc86-dd76927e0497", title: "Spain’s Ceuta crisis festers as Madrid faces allegations of failing to tackle fallout", date: "2026-08-26", time: "06:00", url: "https://www.ft.com/content/53157379-e404-4798-bc86-dd76927e0497" },
   { id: "9a6947bf-9d4e-4489-80b9-2178ea657a67", title: "Nvidia’s $200bn ‘balance sheet-as-a-service’", date: "2026-08-26", time: "06:00", url: "https://www.ft.com/content/9a6947bf-9d4e-4489-80b9-2178ea657a67" },
@@ -58,6 +61,4 @@ export const FT_ITEMS = [
   { id: "3b7ac1fe-4761-4b4a-8fff-95c8c28566b9", title: "'Embarrassing': Republicans and ex-military leaders recoil at Trump officials' Canada attacks", date: "2026-08-25", time: "15:55", url: "https://www.ft.com/content/3b7ac1fe-4761-4b4a-8fff-95c8c28566b9" },
   { id: "7a889a33-1af5-4704-a57f-7890d169d94e", title: "Boss of Trump Jr-backed start-up donated to Republicans after winning US contract", date: "2026-08-25", time: "15:25", url: "https://www.ft.com/content/7a889a33-1af5-4704-a57f-7890d169d94e" },
   { id: "21ef2743-2cc2-41ef-8329-84adce69d975", title: "Waymo picks Munich for first EU robotaxi launch", date: "2026-08-25", time: "15:00", url: "https://www.ft.com/content/21ef2743-2cc2-41ef-8329-84adce69d975" },
-  { id: "b6009dd2-7e97-4bbc-941d-cd0b8fc046b6", title: "Can Trump’s ‘economic D-day’ force Iran to capitulate?", date: "2026-08-25", time: "14:58", url: "https://www.ft.com/content/b6009dd2-7e97-4bbc-941d-cd0b8fc046b6" },
-  { id: "b7a62337-c0f8-41f2-b4d4-7afbe6d63af1", title: "Scott Bessent fires warning shot at Iran’s economic partners", date: "2026-08-25", time: "14:00", url: "https://www.ft.com/content/b7a62337-c0f8-41f2-b4d4-7afbe6d63af1" },
 ];

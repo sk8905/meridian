@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-titfortat-20260826",
+    publication: "Bloomberg",
+    author: "Jill Disis",
+    series: "Morning Briefing Europe",
+    title: "Tit-for-tat",
+    date: "2026-08-26",
+    time: "07:28",
+    summary: "Canada unveils dollar-for-dollar retaliatory tariffs against the US as the trade war escalates.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-26/canada-retaliates-with-us-tariffs-trump-weighs-more-levies",
+  },
+  {
     id: "nl-economist-worldinbrief-canadastrikesback-20260826",
     publication: "The Economist",
     author: null,
@@ -447,16 +458,5 @@ export const NEWSLETTERS = [
     time: "10:00",
     summary: "A somewhat unexpected location is home to London's buzziest opening.",
     url: "https://www.cntraveller.com/article/new-london-restaurants",
-  },
-  {
-    id: "nl-econ-worldinbrief-chinairan-20260821",
-    publication: "The Economist",
-    author: null,
-    series: "The World in Brief",
-    title: "The World in Brief: China pushes back at America on Iran",
-    date: "2026-08-21",
-    time: "07:29",
-    summary: "China warns US threats of \"economic warfare\" over Iran trade won't work, as Treasury yields climb despite Bessent's buyback.",
-    url: "https://www.economist.com/the-world-in-brief",
   },
 ];
