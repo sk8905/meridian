@@ -1053,7 +1053,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "The dollar stayed on the back foot into Wednesday's GDP-second-estimate and core-PCE cluster, with USD/JPY easing to around 159.24 in early Asian trade as lower Treasury yields and cheaper crude reduced overnight rate and input-cost pressure.", src: "https://www.fxstreet.com/news/forex-today-us-dollar-stays-on-the-back-foot-ahead-of-pce-202608251843", srcName: "FXStreet", date: "2026-08-25" };
+export const FX_KEYMOMENT = { text: "Sterling edged lower below 1.3650 as traders awaited the US core-PCE release and Fed Chair Warsh's remarks, with hedge funds having stepped up bearish dollar bets this week as details of Bessent's fiscal-consolidation plan emerged — the dollar's biggest one-day decline in almost three weeks.", src: "https://www.fxstreet.com/news/british-pound-edges-lower-below-13650-as-traders-await-us-pce-release-202608260656", srcName: "FXStreet", date: "2026-08-26" };
 
 export const EARNINGS = {
   weeks: [
