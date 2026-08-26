@@ -500,7 +500,7 @@ html.wire-boot #out { visibility: hidden; }
 
 /* History-navigation diagnostic toast (nav-actions navDiag) */
 .wire-navdiag { position: fixed; left: 10px; right: 10px; bottom: calc(84px + env(safe-area-inset-bottom, 0px));
-  z-index: 9600; background: #0a0a0a; border: 1px solid var(--border, #262626); color: var(--muted, #8592ad);
+  z-index: 9600; background: var(--head, #0a0a0a); border: 1px solid var(--border, #262626); color: var(--muted, #8592ad);
   font-family: var(--t-mono, ui-monospace, monospace); font-size: 10.5px; line-height: 1.55; padding: 9px 11px; }
 .wire-navdiag strong { color: var(--accent, #fb8b1e); font-weight: 700; }
 

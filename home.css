@@ -456,7 +456,7 @@
     .g-snap-colh-c { text-align:center; }
     .g-snap-colh-r { text-align:right; }
     .g-snap-cc { color:var(--muted); font-weight:700; font-size:.66rem; }
-    .g-snap-pv { font-weight:700; color:var(--ink); white-space:nowrap; }
+    .g-snap-pv { font-weight:700; color:var(--ink); white-space:nowrap; font-variant-numeric:tabular-nums; }
     .g-snap-nx { color:var(--ink); font-weight:600; white-space:nowrap; font-variant-numeric:tabular-nums; text-align:center; }
     .g-snap-ps { min-width:0; font-size:.72rem; text-align:right; white-space:nowrap;
       display:inline-flex; align-items:baseline; justify-content:flex-end; gap:.32rem; }
