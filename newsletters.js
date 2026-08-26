@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-marketsdaily-bessentput-20260826",
+    publication: "Bloomberg",
+    author: "Lynn Thomasson",
+    series: "Markets Daily",
+    title: "Markets Daily: Is Bessent’s plan working?",
+    date: "2026-08-26",
+    time: "10:55",
+    summary: "A look at markets one week later.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-26/the-bessent-put-might-actually-be-working-for-the-bond-market",
+  },
+  {
     id: "nl-nonbillable-ainativebiglaw-20260826",
     publication: "Non-Billable",
     author: null,
@@ -447,16 +458,5 @@ export const NEWSLETTERS = [
     time: "11:08",
     summary: "Gold and Bitcoin rally as debasement-trade chatter picks up on Bessent's buyback plans, plus Europe's surprising equity rally.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-21/gold-and-bitcoin-are-rallying-as-debasement-chatter-picks-up",
-  },
-  {
-    id: "nl-pei-workday-buyout-20260821",
-    publication: "Private Equity Insights",
-    author: null,
-    series: "Weekly PE News",
-    title: "Silver Lake to take Workday private in one of software's biggest buyouts",
-    date: "2026-08-21",
-    time: "10:39",
-    summary: "This week's top PE news: Silver Lake in talks for Workday, Liverpool stake sale to Bezos-backed group, KKR-BookMyShow, Thoma Bravo-Accelerant and more.",
-    url: "https://pe-insights.com/news/",
   },
 ];

@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "21080ecd-b261-4b35-994c-20d510fbf3d6", title: "Argentines struggle to repay debts in Javier Milei’s painful economic overhaul", date: "2026-08-26", time: "11:00", url: "https://www.ft.com/content/21080ecd-b261-4b35-994c-20d510fbf3d6" },
   { id: "27f60c74-38b8-4a76-9cdc-144ae54f45f3", title: "Britain needs a new way to pay for healthcare", date: "2026-08-26", time: "09:51", url: "https://www.ft.com/content/27f60c74-38b8-4a76-9cdc-144ae54f45f3" },
   { id: "930f2c92-f0e3-4609-b0ad-cdd3d791ab70", title: "Liquidators can pursue PwC globally over Chinese property giant’s collapse, court rules", date: "2026-08-26", time: "08:52", url: "https://www.ft.com/content/930f2c92-f0e3-4609-b0ad-cdd3d791ab70" },
   { id: "42c449c6-03f6-4097-9eae-e119447e8aa5", title: "Bill Gates calls for ‘human reserved’ jobs to protect labour force from AI", date: "2026-08-26", time: "08:01", url: "https://www.ft.com/content/42c449c6-03f6-4097-9eae-e119447e8aa5" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "ef62e345-2a76-46b4-8a69-9d02a306126b", title: "Iranian tankers gather off Sri Lankan coast", date: "2026-08-25", time: "17:22", url: "https://www.ft.com/content/ef62e345-2a76-46b4-8a69-9d02a306126b" },
   { id: "1b066355-4412-43bd-b832-74956d3c0a52", title: "Foot Locker owner plunges after warning nervous consumers are cutting spending", date: "2026-08-25", time: "16:29", url: "https://www.ft.com/content/1b066355-4412-43bd-b832-74956d3c0a52" },
   { id: "7588a11f-ff57-4c1a-b4cf-2a55a6d8c6b2", title: "The drip-drip US debt crisis", date: "2026-08-25", time: "16:20", url: "https://www.ft.com/content/7588a11f-ff57-4c1a-b4cf-2a55a6d8c6b2" },
-  { id: "7a83b577-8d67-4435-9798-1e53d7fad4e9", title: "Sizewell C access roads project delayed after contractor dropped", date: "2026-08-25", time: "16:03", url: "https://www.ft.com/content/7a83b577-8d67-4435-9798-1e53d7fad4e9" },
 ];
