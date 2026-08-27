@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "1b0b58b2-3e0f-4f03-9019-266aeff94907", title: "Thames Water saga undermines case for more market solutions", date: "2026-08-27", time: "09:38", url: "https://www.ft.com/content/1b0b58b2-3e0f-4f03-9019-266aeff94907" },
   { id: "dbf42a47-2162-476c-a52a-713e3a9ec2f9", title: "FTAV’s further reading", date: "2026-08-27", time: "07:39", url: "https://www.ft.com/content/dbf42a47-2162-476c-a52a-713e3a9ec2f9" },
   { id: "a9145db8-18c1-4476-aac5-d1b4fcf70040", title: "AI revenue reporting: slop", date: "2026-08-27", time: "06:30", url: "https://www.ft.com/content/a9145db8-18c1-4476-aac5-d1b4fcf70040" },
   { id: "0176cab1-04f8-4535-84d2-8e9df271ff02", title: "FirstFT: Nvidia results beat Wall Street expectations", date: "2026-08-27", time: "06:15", url: "https://www.ft.com/content/0176cab1-04f8-4535-84d2-8e9df271ff02" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "c6a15b69-fc74-406e-a006-9e669e11aea0", title: "Slightly hotter than expected PCE inflation keeps Fed’s September rate rise in play", date: "2026-08-26", time: "15:45", url: "https://www.ft.com/content/c6a15b69-fc74-406e-a006-9e669e11aea0" },
   { id: "21dcbd96-ee57-445c-a9ba-0938c49b91c0", title: "Meta to pay up to $16.7bn to settle children’s social media harm case", date: "2026-08-26", time: "14:57", url: "https://www.ft.com/content/21dcbd96-ee57-445c-a9ba-0938c49b91c0" },
   { id: "1809a163-07b8-46fd-b056-7ee25d5023d4", title: "Victory Capital to acquire First Eagle in $7bn deal", date: "2026-08-26", time: "14:38", url: "https://www.ft.com/content/1809a163-07b8-46fd-b056-7ee25d5023d4" },
-  { id: "56750716-10a5-4c43-88bc-ed69f591da28", title: "London is worst area in England and Wales for heat-related deaths", date: "2026-08-26", time: "14:23", url: "https://www.ft.com/content/56750716-10a5-4c43-88bc-ed69f591da28" },
 ];
