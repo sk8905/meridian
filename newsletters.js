@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-tradingday-hotinflationcoolssentiment-20260826",
+    publication: "Thomson Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "Hot inflation cools sentiment",
+    date: "2026-08-26",
+    time: "22:01",
+    summary: "Sticky US PCE inflation and a strong Q2 corporate-profits share of GDP set against Nvidia's post-earnings dip on thinner Q3 gross margin guidance.",
+    url: "https://finance.yahoo.com/economy/policy/articles/trading-day-hot-inflation-cools-210808527.html",
+  },
+  {
     id: "nl-bbg-moneystuff-predictthekpis-20260826",
     publication: "Bloomberg",
     author: "Matt Levine",
@@ -447,16 +458,5 @@ export const NEWSLETTERS = [
     time: "13:58",
     summary: "Digest round-up: a BDC tender offers podcast, Michael Burry's Trading Post on the AI buildout and small language models, and FT Alphaville's 'silicon god delusion'.",
     url: "https://app.mailbrew.com/stevedkennedy/friday-brew-03bEHcNb3hHB/10",
-  },
-  {
-    id: "nl-bbg-goingprivate-aiscamzero-20260821",
-    publication: "Bloomberg",
-    author: "Sinead Cruise",
-    series: "Going Private",
-    title: "Going Private: AI scammers zero in on private capital clients",
-    date: "2026-08-21",
-    time: "12:11",
-    summary: "Firms ramp up efforts to protect investors from a surge in AI-enabled identity theft targeting private capital clients.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-21/ai-enabled-scammers-zero-in-on-private-capital-clients",
   },
 ];
