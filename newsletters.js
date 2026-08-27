@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-marketsdaily-nvidiasgoldenage-20260827",
+    publication: "Bloomberg",
+    author: "Lynn Thomasson, Ian King",
+    series: "Markets Daily",
+    title: "Markets Daily: Nvidia's golden age",
+    date: "2026-08-27",
+    time: "10:08",
+    summary: "Nvidia's blowout guidance reinforces the AI trade as investors also pile into gold and Bitcoin as fiscal-anxiety hedges.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-27/nvidia-s-100-billion-shows-why-ai-is-still-the-trade",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-flooddevastatesnepal-20260827",
     publication: "Bloomberg",
     author: "Lily Nonomiya",

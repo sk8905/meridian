@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "e5fe61b7-ceb2-4b36-90c5-26a6aa736444", title: "The battle plans in Trump's tariff wars look more witless each time", date: "2026-08-27", time: "11:00", url: "https://www.ft.com/content/e5fe61b7-ceb2-4b36-90c5-26a6aa736444" },
+  { id: "4d7010e3-7e54-457f-b2e1-ea44cc1fddd3", title: "'Neets' numbers dip below 1mn as Andy Burnham prepares fresh push on welfare reform", date: "2026-08-27", time: "10:54", url: "https://www.ft.com/content/4d7010e3-7e54-457f-b2e1-ea44cc1fddd3" },
+  { id: "bbb5acbe-c833-4a19-8437-3f5260cc6700", title: "Have you discovered the magic of Merlin?", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/bbb5acbe-c833-4a19-8437-3f5260cc6700" },
   { id: "1b0b58b2-3e0f-4f03-9019-266aeff94907", title: "Thames Water saga undermines case for more market solutions", date: "2026-08-27", time: "09:38", url: "https://www.ft.com/content/1b0b58b2-3e0f-4f03-9019-266aeff94907" },
   { id: "dbf42a47-2162-476c-a52a-713e3a9ec2f9", title: "FTAV’s further reading", date: "2026-08-27", time: "07:39", url: "https://www.ft.com/content/dbf42a47-2162-476c-a52a-713e3a9ec2f9" },
   { id: "a9145db8-18c1-4476-aac5-d1b4fcf70040", title: "AI revenue reporting: slop", date: "2026-08-27", time: "06:30", url: "https://www.ft.com/content/a9145db8-18c1-4476-aac5-d1b4fcf70040" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "284f83f5-b6af-41a9-909d-26ca5693e5a9", title: "Andy Burnham seeks to bridge gap with nervous business community", date: "2026-08-26", time: "17:08", url: "https://www.ft.com/content/284f83f5-b6af-41a9-909d-26ca5693e5a9" },
   { id: "d7b89b34-8961-484d-b776-707520e942c5", title: "CIA chief makes rare visit to Moscow", date: "2026-08-26", time: "16:52", url: "https://www.ft.com/content/d7b89b34-8961-484d-b776-707520e942c5" },
   { id: "0ebde4be-b080-4c64-97a5-6daa2f33299a", title: "Fed set to be data dependent in the months ahead", date: "2026-08-26", time: "16:30", url: "https://www.ft.com/content/0ebde4be-b080-4c64-97a5-6daa2f33299a" },
-  { id: "c6a15b69-fc74-406e-a006-9e669e11aea0", title: "Slightly hotter than expected PCE inflation keeps Fed’s September rate rise in play", date: "2026-08-26", time: "15:45", url: "https://www.ft.com/content/c6a15b69-fc74-406e-a006-9e669e11aea0" },
-  { id: "21dcbd96-ee57-445c-a9ba-0938c49b91c0", title: "Meta to pay up to $16.7bn to settle children’s social media harm case", date: "2026-08-26", time: "14:57", url: "https://www.ft.com/content/21dcbd96-ee57-445c-a9ba-0938c49b91c0" },
-  { id: "1809a163-07b8-46fd-b056-7ee25d5023d4", title: "Victory Capital to acquire First Eagle in $7bn deal", date: "2026-08-26", time: "14:38", url: "https://www.ft.com/content/1809a163-07b8-46fd-b056-7ee25d5023d4" },
 ];
