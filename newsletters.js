@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-econworld-warshsaddlesup-20260827",
+    publication: "Thomson Reuters",
+    author: "Carmel Crimmins",
+    series: "Econ World",
+    title: "Warsh saddles up",
+    date: "2026-08-27",
+    time: "13:01",
+    summary: "Kevin Warsh faces his first Jackson Hole test as bond markets clash with Bessent's 'Treasury twist' on rates.",
+    url: "https://www.reuters.com/newsletters/reuters-econ-world",
+  },
+  {
     id: "nl-bbg-burnthebonds-20260827",
     publication: "Bloomberg",
     author: "Simon White",
@@ -456,16 +467,5 @@ export const NEWSLETTERS = [
     time: "06:38",
     summary: "America slaps a 50% tariff on Canadian goods as talks collapse, while Iran's president says now is the time to end the war from a \"position of power\".",
     url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-bbg-singaporeedition-taxrace-20260822",
-    publication: "Bloomberg",
-    author: "David Ramli",
-    series: "Singapore Edition",
-    title: "Singapore Edition: $10 trillion race",
-    date: "2026-08-22",
-    time: "02:00",
-    summary: "Hong Kong’s proposed tax cuts for money managers fuel Singapore response.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-22/singapore-and-hong-kong-weigh-tax-cut-race-to-secure-money-managers",
   },
 ];

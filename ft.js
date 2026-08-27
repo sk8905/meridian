@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "fbf566f0-eb3a-484e-9f3d-5189c4730180", title: "Kevin Warsh's peculiar challenge", date: "2026-08-27", time: "14:00", url: "https://www.ft.com/content/fbf566f0-eb3a-484e-9f3d-5189c4730180" },
+  { id: "1f3c2038-0087-4335-bc8f-d9c75e3a6963", title: "ECB will return to data dependence after a September rate rise", date: "2026-08-27", time: "14:00", url: "https://www.ft.com/content/1f3c2038-0087-4335-bc8f-d9c75e3a6963" },
+  { id: "80fd2ed5-fb7f-4494-b7fe-a2a7d9253a49", title: "US corporate intelligence firm drops legal claim against sanctioned oil trader", date: "2026-08-27", time: "13:55", url: "https://www.ft.com/content/80fd2ed5-fb7f-4494-b7fe-a2a7d9253a49" },
   { id: "a81a4556-0c22-4d94-a105-31e3acb6912e", title: "Autumn can't come soon enough for home sellers", date: "2026-08-27", time: "13:00", url: "https://www.ft.com/content/a81a4556-0c22-4d94-a105-31e3acb6912e" },
   { id: "e291cbfe-726c-4d38-9ab5-66c5afa86cd5", title: "'It's like playing on concrete': drought leaves sports pitches across England unplayable", date: "2026-08-27", time: "12:53", url: "https://www.ft.com/content/e291cbfe-726c-4d38-9ab5-66c5afa86cd5" },
   { id: "5250dd00-5bfc-44ce-80d6-2295c020efb8", title: "Jes Staley told Congress it was 'incredible' Epstein's abuse continued after jail", date: "2026-08-27", time: "12:37", url: "https://www.ft.com/content/5250dd00-5bfc-44ce-80d6-2295c020efb8" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "4e00d916-7668-4981-8db6-3ccecae7a5c7", title: "Trump jolts Iceland’s EU debate back to life", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/4e00d916-7668-4981-8db6-3ccecae7a5c7" },
   { id: "9fe777d8-49df-4986-9af9-01a30ebb7030", title: "The tower at the heart of US-Mexico cartel spat", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/9fe777d8-49df-4986-9af9-01a30ebb7030" },
   { id: "e353d8bd-e763-4866-89c3-7382ae3587db", title: "Uefa set to water down plan to boycott all Fifa football tournaments", date: "2026-08-26", time: "20:48", url: "https://www.ft.com/content/e353d8bd-e763-4866-89c3-7382ae3587db" },
-  { id: "99278383-22eb-4d42-85fd-5dcc8917be84", title: "RedBird nears deal for Puck at $250mn valuation in latest digital media bet", date: "2026-08-26", time: "20:28", url: "https://www.ft.com/content/99278383-22eb-4d42-85fd-5dcc8917be84" },
-  { id: "3fc189d6-28e7-4a2b-b77e-5c94bf513955", title: "OpenAI says it took a week to detect its AI models had hacked Hugging Face", date: "2026-08-26", time: "20:00", url: "https://www.ft.com/content/3fc189d6-28e7-4a2b-b77e-5c94bf513955" },
-  { id: "857fb8e1-eec6-443e-97e8-f6876302aabc", title: "Trump administration pauses immigrant visa applications", date: "2026-08-26", time: "19:37", url: "https://www.ft.com/content/857fb8e1-eec6-443e-97e8-f6876302aabc" },
 ];
