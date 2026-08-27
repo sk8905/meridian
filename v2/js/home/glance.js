@@ -10,7 +10,7 @@ import { NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/co
 import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
 import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, MONTHS } from "/util.js?v=20260818-1";
-import { DESK, STRICT_MACRO_RE, deskFor, nlDesk,
+import { DESK, DESK_CODE, STRICT_MACRO_RE, deskFor, nlDesk, feedRow,
   feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, fmtDay as fmt } from "/feed.js?v=20260808-1";
 
 const __KEY = "home";
@@ -366,6 +366,9 @@ let _feedDesk = "all";
 // Second-level TYPE filter within the active desk (e.g. Credit ▸ Deals). "all"
 // shows every type. Reset to "all" whenever the primary desk changes.
 let _feedType = "all";
+// Group-by-type view: when on, the wire is grouped by row label (ALERT, MAC,
+// BBG, myFT, …) over a rolling 3-day window instead of the day-by-day stream.
+let _feedGroup = false;
 // Secondary type chips per domain: [labelKey (matches item.type||item.desk), text].
 // Domains without sub-types (Newsletters, myFT) get no second row.
 const TYPE_CHIPS = {
@@ -621,8 +624,28 @@ function renderFeed() {
   // filters the feed below.
   renderBrief(byDesk, counts, day);
 
-  let feed;
-  if (_feedSrc) {
+  let feed, groupedBody = null;
+  if (_feedGroup && !_feedSrc) {
+    // Group-by-type: a rolling 3-day window across the wire (or the selected
+    // desk), grouped by each row's label (ALERT / MAC / BBG / myFT / …). Groups
+    // are ordered by size; day-by-day ordering is replaced by label headers.
+    const cut3 = (() => { const d = new Date(maxDay + "T00:00:00"); if (isNaN(d)) return ""; d.setDate(d.getDate() - 2); return d.toISOString().slice(0, 10); })();
+    const corpus = _feedDesk === "all"
+      ? dedupe([...news, ...macro, ...credit, ...hdg, ...legal, ...newsletter, ...ft, ...substacks, ...brew, ...fixedincome].sort(byDateDesc))
+      : (byDesk[_feedDesk] || []);
+    feed = corpus.filter((x) => !cut3 || day(x) >= cut3);
+    const groups = new Map();
+    feed.forEach((x) => {
+      const codeKey = x.desk === "hdg" ? "hdg" : (x.type || x.desk);
+      const label = DESK_CODE[codeKey] || "NEWS";
+      if (!groups.has(label)) groups.set(label, []);
+      groups.get(label).push(x);
+    });
+    const ordered = [...groups.entries()].sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]));
+    groupedBody = ordered.map(([label, items]) =>
+      `<div class="g-feed-dayhdr">${esc(label)} · ${items.length}</div>` + items.map(feedRow).join("")
+    ).join("") + `<div class="g-feed-end">· end of wire ·</div>`;
+  } else if (_feedSrc) {
     // Source filter wins over the desk chips: every story from that newsroom,
     // across all three desks, newest first.
     feed = dedupe([...news, ...macro, ...credit, ...hdg, ...legal, ...ft, ...substacks, ...brew, ...fixedincome].sort(byDateDesc)).filter((x) => x.src === _feedSrc).slice(0, CAP);
@@ -662,7 +685,7 @@ function renderFeed() {
 
   // Row + day-header + source-bar + empty markup all come from the shared wire
   // engine (feed.js) — the same builders the Macro/Credit/Legal wires use.
-  const body = feedBodyHTML(feed);
+  const body = groupedBody != null ? groupedBody : feedBodyHTML(feed);
   const srcBar = _feedSrc ? feedSrcBarHTML(_feedSrc) : "";
   const empty = feedEmptyHTML(`No ${_feedSrc ? _feedSrc + " stories" : _feedDesk === "all" ? "news yet today" : (FEED_DESK_LABEL[_feedDesk] || DESK[_feedDesk]) + " items"} — check back shortly.`);
   setHTML("g-feed", srcBar + (feed.length ? body : empty));
@@ -679,13 +702,13 @@ function renderFeed() {
       + `<select class="g-feed-sel" id="g-feed-desk-sel" aria-label="Filter news by desk">`
       + DESK_OPTS.map(([k, l]) => `<option value="${esc(k)}"${selVal === k ? " selected" : ""}>${esc(l)}</option>`).join("")
       + `</select>`
-      + `<button type="button" class="g-feed-nlbtn${_feedDesk === "n" ? " is-on" : ""}" aria-pressed="${_feedDesk === "n"}" aria-label="Filter to newsletters">`
-      + `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1.6"/><path d="M3.5 6.5 12 12.5 20.5 6.5"/></svg>`
-      + `<span>Newsletters</span></button></div>`;
+      + `<button type="button" class="g-feed-nlbtn g-feed-grpbtn${_feedGroup ? " is-on" : ""}" aria-pressed="${_feedGroup}" aria-label="Group the wire by type (last 3 days)">`
+      + `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg>`
+      + `<span>Group by type</span></button></div>`;
     // Second-level type chips for the active desk (when it has sub-types and no
     // source filter is overriding). Same .g-feed-chip style (HOUSE_STYLE R14),
     // marked data-type so its handler is distinct from the desk selector.
-    const subDefs = !_feedSrc && TYPE_CHIPS[_feedDesk];
+    const subDefs = !_feedSrc && !_feedGroup && TYPE_CHIPS[_feedDesk];
     const secondary = subDefs
       ? `<span class="g-feed-chips g-feed-subchips" role="group" aria-label="Filter by type">`
         + subDefs.map(([k, l]) => `<button type="button" class="g-feed-chip${_feedType === k ? " is-on" : ""}" data-type="${esc(k)}" aria-pressed="${_feedType === k}">${esc(l)}</button>`).join("")
@@ -695,13 +718,13 @@ function renderFeed() {
     // Desk change clears any source filter, switches desks and resets the type.
     const sel = document.getElementById("g-feed-desk-sel");
     if (sel) sel.addEventListener("change", () => { _feedSrc = null; _feedDesk = sel.value; _feedType = "all"; renderFeed(); });
-    // Newsletters button is an in-feed FILTER on every device — toggles the
-    // Newsletters desk (no data-nav-tab, so it never routes to the tab).
-    const nlBtn = head.querySelector(".g-feed-nlbtn");
-    if (nlBtn) nlBtn.addEventListener("click", (e) => {
+    // Group-by-type toggle: switches the wire between the day-by-day stream and a
+    // by-label grouping over a rolling 3-day window (see the render branch above).
+    const grpBtn = head.querySelector(".g-feed-grpbtn");
+    if (grpBtn) grpBtn.addEventListener("click", (e) => {
       e.preventDefault(); e.stopPropagation();
       _feedSrc = null; _feedType = "all";
-      _feedDesk = _feedDesk === "n" ? "all" : "n";
+      _feedGroup = !_feedGroup;
       renderFeed();
     });
     // A type chip narrows within the current desk.
