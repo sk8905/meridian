@@ -13,7 +13,7 @@ export const UPDATED = "27 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-27",
-  lastCheckedTime: "05:23 BST",
+  lastCheckedTime: "12:39 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -822,11 +822,11 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-08-27",
   us: [
-    { title: "Stock futures rise as Nvidia shares gain over 4% after earnings: Live updates", source: "CNBC", date: "2026-08-27", time: "06:30", url: "https://www.cnbc.com/2026/08/26/stock-market-today-live-updates.html" },
+    { title: "Treasury yields ease ahead of jobs data and Jackson Hole", source: "CNBC", date: "2026-08-27", time: "11:30", url: "https://www.cnbc.com/2026/08/27/us-bonds-us10y-jackson-hold.html" },
+    { title: "Dollar and bond markets 'on edge' ahead of Jackson Hole as Bessent's market intervention piles pressure on Warsh", source: "CNBC", date: "2026-08-26", time: "16:00", url: "https://www.cnbc.com/2026/08/26/jackson-hole-warsh-bessent-bonds-treasury-dollar.html" },
     { title: "Nasdaq Futures Rise on Bullish Nvidia Sales Growth: Markets Wrap", source: "Bloomberg", date: "2026-08-27", time: "05:00", url: "https://www.bloomberg.com/news/articles/2026-08-26/nasdaq-futures-rise-on-bullish-nvidia-sales-growth-markets-wrap" },
     { title: "Nvidia Pops 4.7% After Hours as Earnings Blowout Lifts Dow Futures 180 Points", source: "Benzinga", date: "2026-08-26", time: "22:00", url: "https://www.benzinga.com/markets/tech/26/08/61452353/nvidia-earnings-blowout-after-hours-stock-dow-futures-jensen-huang" },
     { title: "Warsh's Peers to Highlight Global Inflation Risk at Jackson Hole", source: "Bloomberg", date: "2026-08-27", time: "01:00", url: "https://www.bloomberg.com/news/articles/2026-08-26/warsh-s-peers-to-highlight-global-inflation-risk-at-jackson-hole" },
-    { title: "Latest Oil Market News and Analysis for Aug. 27", source: "Bloomberg", date: "2026-08-27", time: "00:30", url: "https://www.bloomberg.com/news/articles/2026-08-26/latest-oil-market-news-and-analysis-for-aug-27" },
   ],
   uk: [
     { title: "UK Stocks-Factors to watch on August 27", source: "Reuters (via MarketScreener)", date: "2026-08-27", time: "07:00", url: "https://www.marketscreener.com/news/uk-stocks-factors-to-watch-on-august-27-ce7c50ded881fe23" },
@@ -847,6 +847,7 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-27",
   items: [
+    {"title":"Treasury yields ease ahead of jobs data and Jackson Hole","source":"CNBC","date":"2026-08-27","time":"11:30","url":"https://www.cnbc.com/2026/08/27/us-bonds-us10y-jackson-hold.html","blurb":"The 10-year Treasury yield eased 2bp to 4.645% and the 30-year 2bp to 5.161% as markets awaited weekly jobless claims and the start of the Fed's Jackson Hole symposium, the first under Chair Kevin Warsh, with CME FedWatch pricing a 36% chance of a September rate hike."},
     {"title":"Nasdaq Futures Rise on Bullish Nvidia Sales Growth: Markets Wrap","source":"Bloomberg","date":"2026-08-27","time":"05:00","url":"https://www.bloomberg.com/news/articles/2026-08-26/nasdaq-futures-rise-on-bullish-nvidia-sales-growth-markets-wrap","blurb":"Nasdaq 100 futures rose about 1% in early Thursday trading after Nvidia CFO Colette Kress signalled strong sales growth into fiscal 2028, with Asian equity futures mixed (Kospi higher, Nikkei and Australia's ASX 200 lower) ahead of Friday's Jackson Hole keynote."},
     {"title":"Stock futures rise as Nvidia shares gain over 4% after earnings: Live updates","source":"CNBC","date":"2026-08-27","time":"06:30","url":"https://www.cnbc.com/2026/08/26/stock-market-today-live-updates.html","blurb":"US stock futures firmed after Nvidia beat on both lines (EPS $2.22 vs $2.09 est, revenue $96.2bn vs $92.2bn est) and guided Q3 revenue to $105.84-110.16bn; Salesforce (+~13% after hours) and CrowdStrike (+~10.5%) also topped estimates on their own reports."},
     {"title":"Warsh's Peers to Highlight Global Inflation Risk at Jackson Hole","source":"Bloomberg","date":"2026-08-27","time":"01:00","url":"https://www.bloomberg.com/news/articles/2026-08-26/warsh-s-peers-to-highlight-global-inflation-risk-at-jackson-hole","blurb":"As the Kansas City Fed's symposium opens in Wyoming, central bankers from other major economies are expected to stress a global rethink on inflation risk and the prospect of higher-for-longer borrowing costs, framing the backdrop for Chair Warsh's Friday keynote."},
@@ -886,7 +887,6 @@ export const ARTICLES = {
     {"title":"Stock market today: S&P 500, Nasdaq futures recover in countdown to Nvidia earnings, Fed Jackson Hole summit","source":"Yahoo Finance","date":"2026-08-25","time":"12:27","url":"https://finance.yahoo.com/markets/live/stock-market-today-tuesday-august-25-dow-sp-500-nasdaq-080527092.html","blurb":"Dow, S&P 500 and Nasdaq-100 futures firmed Tuesday morning as investors weighed new US trade measures against Canada and Iran alongside Wednesday's Nvidia earnings and Fed Chair Kevin Warsh's looming Jackson Hole keynote."},
     {"title":"Jackson Hole Offers Warsh High Profile Slot to Rebut His Critics","source":"Bloomberg (via Yahoo Finance)","date":"2026-08-25","time":"12:27","url":"https://finance.yahoo.com/economy/policy/articles/jackson-hole-offers-warsh-high-100000541.html","blurb":"Kevin Warsh's first major speech as Fed chair has become an unplanned trial of his slimmed-down communications style, with Friday's keynote his chance to rebut critics who say his July press conference showed a lack of inflation-fighting resolve."},
     {"title":"Dow Jones, Nasdaq, S&P 500 preview: Nvidia results, Jackson Hole take center stage","source":"Investing.com","date":"2026-08-25","time":"12:27","url":"https://www.investing.com/news/stock-market-news/dow-jones-nasdaq-sp-500-preview-nvidia-results-jackson-hole-take-center-stage-4873523","blurb":"A look ahead to the week's two dominant catalysts — Wednesday's Nvidia earnings (consensus revenue $93-95bn) and Friday's Warsh Jackson Hole keynote — against a backdrop of near-20-year-high long bond yields."},
-    {"title":"Forex Today: US Dollar recovers modestly as markets assess developments in Mideast","source":"FXStreet","date":"2026-08-25","time":"08:23","url":"https://www.fxstreet.com/news/forex-today-us-dollar-recovers-modestly-as-markets-assess-developments-in-mideast-202608250723","blurb":"The Dollar Index edged back above 99 in early Tuesday trading as traders weighed the latest Iran-sanctions developments and positioned ahead of Wednesday's Nvidia earnings and core PCE print."},
   ],
 };
 
