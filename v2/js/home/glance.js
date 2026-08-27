@@ -3,6 +3,7 @@
 // owns chrome + search), and listeners self-guard on the active tab.
 
 import { deals, intel, managers, funds, research, HEDGE_INTEL, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js";
+import { managerWire, CAT_LABEL } from "/v2/js/manager-signals.js?v=v2-1";
 import { reportRefresh } from "/v2/js/status.js?v=v2-3";
 import { items, cases, restructurings, firmById } from "/legal/js/data.js";
 import { NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js";
@@ -91,6 +92,7 @@ export function initGlance() {
   if (_inited) return; _inited = true;
   _liveFeed = ((readCache("feed") || {}).items) || [];  // instant last-good merge
   renderFeed();
+  renderManagerWire();
   refreshLiveFeed();                                     // then pull fresh headlines
   renderMacroSnapshot();
   initMacroIndicators();
@@ -375,6 +377,41 @@ const TYPE_CHIPS = {
 // Active source filter (e.g. "Financial Times"): when set, the feed shows every
 // story from that newsroom across all three desks. Cleared by the pill or a chip.
 let _feedSrc = null;
+// ---- Manager wire (Home manager column) -----------------------------------
+// Watchlist-first, then most-recently-active covered managers. Each row leads to
+// the manager profile; the latest event + fundraising status are the preview.
+function _mgrFollows() {
+  try { const f = JSON.parse(localStorage.getItem("meridian.follows") || "{}"); return new Set(Array.isArray(f.manager) ? f.manager : []); }
+  catch { return new Set(); }
+}
+function _mwWhen(d) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || "");
+  if (m) return `${+m[3]} ${MONTHS[+m[2] - 1]}`;
+  const mm = /^(\d{4})-(\d{2})$/.exec(d || "");
+  return mm ? `${MONTHS[+mm[2] - 1]} ${mm[1]}` : "";
+}
+function renderManagerWire() {
+  const box = document.getElementById("g-mgrwire"); if (!box) return;
+  const rows = managerWire(_mgrFollows(), { limit: 24 });
+  if (!rows.length) { box.innerHTML = `<div class="g-mw-empty">No manager activity yet.</div>`; return; }
+  const row = (r) => {
+    const cat = (r.latest && CAT_LABEL[r.latest.cat]) || "NEWS";
+    const title = r.latest ? esc(r.latest.title) : "";
+    return `<a class="g-mw-row" href="/credit/#/manager/${encodeURIComponent(r.id)}">`
+      + `<div class="g-mw-r1">${r.watched ? '<span class="g-mw-star" aria-label="Watchlisted">★</span>' : ""}`
+      + `<span class="g-mw-name">${esc(r.name)}</span>`
+      + `${r.inMarket ? `<span class="g-mw-raise">In mkt·${r.inMarket}</span>` : ""}`
+      + `<span class="g-mw-when">${_mwWhen(r.lastDate)}</span></div>`
+      + `<div class="g-mw-r2"><span class="g-mw-cat">${cat}</span><span class="g-mw-title">${title}</span></div>`
+      + `<div class="g-mw-r3">${r.count30} update${r.count30 === 1 ? "" : "s"} · 30d${r.count90 > r.count30 ? ` · ${r.count90} · 90d` : ""}</div></a>`;
+  };
+  const watched = rows.filter((r) => r.watched), active = rows.filter((r) => !r.watched);
+  let html = "";
+  if (watched.length) html += `<div class="g-mw-grp">Watchlist</div>` + watched.map(row).join("");
+  if (active.length) html += `<div class="g-mw-grp">${watched.length ? "Most active" : "Active managers"}</div>` + active.map(row).join("");
+  box.innerHTML = html;
+}
+
 function renderFeed() {
   // `time` is the article's publish time (e.g. "14:05", Europe/London) when the
   // data carries one — the four-times-daily routine populates it; rows lead with

@@ -50,6 +50,19 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
           <div class="g-feed wire-ptr-list" id="g-feed"><div class="g-loading">Loading today's news…</div></div>
         </section>
 
+        <!-- MANAGER FEED: watchlist-first manager activity wire (its own column,
+             separate from the aggregated news feed). Only its list scrolls. -->
+        <aside class="g-side3">
+          <div class="g-mw-scroll">
+            <section class="tui-pnl g-mw">
+              <header class="tui-ph g-mw-head"><span>Manager wire</span><span class="tui-px" id="g-mw-meta">watchlist · active</span></header>
+              <div class="g-mw-body">
+                <div id="g-mgrwire" class="g-mw-pane" aria-label="Manager activity wire"><div class="g-loading">Loading managers…</div></div>
+              </div>
+            </section>
+          </div>
+        </aside>
+
         <!-- RIGHT: macroeconomic data, macro read, cross-desk counts -->
         <aside class="g-side2">
           <section class="tui-pnl g-anchor" id="jump-macro">

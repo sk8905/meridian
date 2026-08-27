@@ -25,21 +25,24 @@ surface exists under `v2/js/`, that ported copy is authoritative (see T9).
   the footer is pinned to the viewport bottom on desktop; on phone the bottom
   nav/tab bar is `position:fixed` and the signed-in/last-refresh strip sits
   directly above it. None of these scroll with content.
-- **R3 — Three-column reading frame** on desktop; **both rails are exactly the
-  viewport height** — pinned data panels at top/bottom, no dead grey gap under
-  the last panel, and **the rail itself never scrolls.** Only the one designated
-  overflow region inside each rail scrolls (left: Top movers `#g-movers`; right:
+- **R3 — Four-column reading frame on Home** (desktop): markets rail
+  (`.g-side`) · aggregated feed (`.g-feed-wrap`) · manager wire (`.g-side3`) ·
+  macro rail (`.g-side2`). **Every rail is exactly the viewport height** — pinned
+  panels at top/bottom, no dead grey gap under the last panel, and **the rail
+  itself never scrolls.** Only the one designated overflow region inside each
+  scrolls (left: Top movers `#g-movers`; manager wire: `.g-mw-body`; right:
   Prediction markets `.g-flow-body`), and it *shrinks* to fit rather than pushing
-  the rail past the screen. A rail that scrolls as a whole is a bug.
+  the column past the screen. A rail that scrolls as a whole is a bug. On phone
+  the columns stack (feed → manager wire → markets → macro).
 - **R4 — Panels stretch, don't float.** Sibling panels in a column share equal
   height; the last panel grows to fill remaining space (no ragged bottoms).
 
 ### Rail contents — what goes where
 
-| Section | Left rail (`.g-side`) | Centre (`.g-feed-wrap`) | Right rail (`.g-side2`) |
-|---|---|---|---|
-| Home   | Rates band + Top movers (`#g-movers`), panel fills to bottom | Live wire/feed (only scrolling region) | FX matrix (`.g-fx-card`) + Prediction markets (`.na-pred`), stretched to bottom |
-| Macro / Credit / Legal | — (rails removed) | Wire (incl. Case Law list on Legal), full width | — (rails removed) |
+| Section | Left rail (`.g-side`) | Centre (`.g-feed-wrap`) | Manager wire (`.g-side3`) | Right rail (`.g-side2`) |
+|---|---|---|---|---|
+| Home   | Rates band + Top movers (`#g-movers`), panel fills to bottom | Live wire/feed (a scrolling region) | Watchlist-first manager activity (`.g-mw-body` scrolls) | FX matrix (`.g-fx-card`) + Prediction markets (`.na-pred`), stretched to bottom |
+| Macro / Credit / Legal | — (rails removed) | Wire (incl. Case Law list on Legal), full width | — | — (rails removed) |
 
 Rule: **on Home, left rail = movers + context; centre = the one scrolling
 wire; right rail = FX / prediction markets.** Both Home rails are pinned and
