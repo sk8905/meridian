@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "6f0cdf31-de96-4058-92a9-f6684b5e1ef6", title: "Donald Trump orders Lake Ontario to be renamed 'Lake America' in new slight to Canada", date: "2026-08-27", time: "19:12", url: "https://www.ft.com/content/6f0cdf31-de96-4058-92a9-f6684b5e1ef6" },
   { id: "4f76326d-3d29-4b3c-b7cf-b339ee4134ae", title: "Warsh goes to Jackson Hole", date: "2026-08-27", time: "18:24", url: "https://www.ft.com/content/4f76326d-3d29-4b3c-b7cf-b339ee4134ae" },
   { id: "a7a5fadb-8e81-4047-9dc7-40feda9bacd0", title: "In asset management, the race for scale is becoming urgent", date: "2026-08-27", time: "18:07", url: "https://www.ft.com/content/a7a5fadb-8e81-4047-9dc7-40feda9bacd0" },
   { id: "febba6ee-9abd-47d4-bac4-3bbe8b64be7f", title: "'Headless software' signals further AI-led shake-up", date: "2026-08-27", time: "18:01", url: "https://www.ft.com/content/febba6ee-9abd-47d4-bac4-3bbe8b64be7f" },
@@ -28,6 +29,7 @@ export const FT_ITEMS = [
   { id: "8cc488a5-54c2-41f9-8b87-327ff591be6a", title: "Canada poaches 48 US-based top academics", date: "2026-08-27", time: "17:11", url: "https://www.ft.com/content/8cc488a5-54c2-41f9-8b87-327ff591be6a" },
   { id: "fb082509-a00b-44b0-9d55-a7f34b6f7b41", title: "Why 5% Treasuries aren't crushing emerging markets", date: "2026-08-27", time: "16:56", url: "https://www.ft.com/content/fb082509-a00b-44b0-9d55-a7f34b6f7b41" },
   { id: "a919761d-dab1-4a6e-93fe-f69910192c1c", title: "Don't draw the wrong conclusion from Treasury yields", date: "2026-08-27", time: "15:45", url: "https://www.ft.com/content/a919761d-dab1-4a6e-93fe-f69910192c1c" },
+  { id: "6d272811-8d26-46f0-ae24-abed61aa1bf3", title: "EU states revive plan to use frozen Russian assets for Ukraine", date: "2026-08-27", time: "15:45", url: "https://www.ft.com/content/6d272811-8d26-46f0-ae24-abed61aa1bf3" },
   { id: "7db89ce2-ca7c-43e2-b06b-07c0d3c269ca", title: "Cyber attack on UK's largest airport group exposes data of 8.7mn customers", date: "2026-08-27", time: "15:42", url: "https://www.ft.com/content/7db89ce2-ca7c-43e2-b06b-07c0d3c269ca" },
   { id: "dc3607ab-741a-4878-9a9e-ba88e4b5143d", title: "Ratko Mladić dies in prison aged 84", date: "2026-08-27", time: "15:30", url: "https://www.ft.com/content/dc3607ab-741a-4878-9a9e-ba88e4b5143d" },
   { id: "7729314c-4928-485e-bfe8-5d6749d65cd2", title: "Uefa prepares criminal complaint against Fifa's Infantino", date: "2026-08-27", time: "15:29", url: "https://www.ft.com/content/7729314c-4928-485e-bfe8-5d6749d65cd2" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "294ad859-7db7-4783-a5b6-d89c7fdabf10", title: "Yen weakness and rising inflation put pressure on the Bank of Japan for earlier tightening", date: "2026-08-27", time: "05:30", url: "https://www.ft.com/content/294ad859-7db7-4783-a5b6-d89c7fdabf10" },
   { id: "6ff4d774-ff25-4387-b026-6584de640fe1", title: "Jane Street’s $15bn wake-up call", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/6ff4d774-ff25-4387-b026-6584de640fe1" },
   { id: "e9312df9-8bbf-401d-896b-06eb2141677c", title: "Israel considers expelling British officials from postwar Gaza headquarters", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/e9312df9-8bbf-401d-896b-06eb2141677c" },
-  { id: "f8eb3df2-5924-4fa6-a35d-046640ec94da", title: "Thames Water creditors and government in stand-off over future", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/f8eb3df2-5924-4fa6-a35d-046640ec94da" },
-  { id: "33c01971-4140-4e5c-a685-6ab03ab84c2d", title: "Burnham’s energy challenge: getting more UK households off gas", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/33c01971-4140-4e5c-a685-6ab03ab84c2d" },
-  { id: "ce910f62-6119-4d5f-97a4-77bbad03318d", title: "The US is gambling with its role as the world’s investment hub", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/ce910f62-6119-4d5f-97a4-77bbad03318d" },
 ];

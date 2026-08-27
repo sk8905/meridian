@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-twosigmaarbitration-20260827",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    series: null,
+    title: "Two Sigma's Feuding Founders Head to Arbitration in Fresh Battle",
+    date: "2026-08-27",
+    time: "19:30",
+    summary: "Two Sigma Investments' billionaire founders are headed to another round of arbitration, the latest front in intractable infighting at the quant trading giant.",
+    url: "https://www.bloomberg.com/news/articles/2026-08-27/two-sigma-s-feuding-founders-head-to-arbitration-in-fresh-battle",
+  },
+  {
     id: "nl-bbg-moneystuff-airefi-20260827",
     publication: "Bloomberg",
     author: "Matt Levine",
@@ -456,16 +467,5 @@ export const NEWSLETTERS = [
     time: "08:05",
     summary: "Weekly roundup of editors' picks from Guardian Sport's coverage over the past seven days.",
     url: "https://www.theguardian.com/sport",
-  },
-  {
-    id: "nl-bbg-thebrink-markwalter-20260822",
-    publication: "Bloomberg",
-    author: "Reshmi Basu",
-    series: "The Brink",
-    title: "The Brink: Mark Walter’s tough month",
-    date: "2026-08-22",
-    time: "16:00",
-    summary: "The billionaire is shedding some of his sports holdings to raise cash after multiple probes.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-22/mark-walter-s-financial-empire-faces-scrutiny-after-probes",
   },
 ];
