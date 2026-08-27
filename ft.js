@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "de99f952-c29a-4c79-ac53-6026f8fcd56a", title: "Von der Leyen reiterates EU competitiveness focus as economic woes mount", date: "2026-08-27", time: "06:07", url: "https://www.ft.com/content/de99f952-c29a-4c79-ac53-6026f8fcd56a" },
+  { id: "0a50dff4-27f4-46f1-9bdd-9dc047842b2e", title: "What a century of data tells us about today’s corporate bond spreads", date: "2026-08-27", time: "06:00", url: "https://www.ft.com/content/0a50dff4-27f4-46f1-9bdd-9dc047842b2e" },
+  { id: "294ad859-7db7-4783-a5b6-d89c7fdabf10", title: "Yen weakness and rising inflation put pressure on the Bank of Japan for earlier tightening", date: "2026-08-27", time: "05:30", url: "https://www.ft.com/content/294ad859-7db7-4783-a5b6-d89c7fdabf10" },
   { id: "6ff4d774-ff25-4387-b026-6584de640fe1", title: "Jane Street’s $15bn wake-up call", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/6ff4d774-ff25-4387-b026-6584de640fe1" },
   { id: "e9312df9-8bbf-401d-896b-06eb2141677c", title: "Israel considers expelling British officials from postwar Gaza headquarters", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/e9312df9-8bbf-401d-896b-06eb2141677c" },
   { id: "f8eb3df2-5924-4fa6-a35d-046640ec94da", title: "Thames Water creditors and government in stand-off over future", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/f8eb3df2-5924-4fa6-a35d-046640ec94da" },
@@ -33,6 +36,7 @@ export const FT_ITEMS = [
   { id: "f0fae869-6139-489c-9b96-5ec05c3fcfb3", title: "Donald Trump’s Bronx loyalists stand by him as approval ratings sink", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/f0fae869-6139-489c-9b96-5ec05c3fcfb3" },
   { id: "48371986-4bc6-4396-8f81-63b2983d2f3a", title: "The Iranian cleric tightening Khamenei’s grip at home", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/48371986-4bc6-4396-8f81-63b2983d2f3a" },
   { id: "ea9c073d-4e9d-4e8a-98c0-68e278faa081", title: "Jane Street’s growing pains", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/ea9c073d-4e9d-4e8a-98c0-68e278faa081" },
+  { id: "1a1408b0-8f55-454a-b7ad-3c740463eab5", title: "City trader develops AI ‘SOS’ bracelet for women and children at risk of domestic abuse", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/1a1408b0-8f55-454a-b7ad-3c740463eab5" },
   { id: "79884de5-774a-4633-ba92-be4184eb22c1", title: "Bitcoin treasury companies shed $80bn in value as business model unwinds", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/79884de5-774a-4633-ba92-be4184eb22c1" },
   { id: "1239bc3e-35cc-42d7-91cb-95c1542e5e51", title: "Big Tobacco turns to more potent nicotine pouches in battle for US", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/1239bc3e-35cc-42d7-91cb-95c1542e5e51" },
   { id: "4e00d916-7668-4981-8db6-3ccecae7a5c7", title: "Trump jolts Iceland’s EU debate back to life", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/4e00d916-7668-4981-8db6-3ccecae7a5c7" },
@@ -57,7 +61,4 @@ export const FT_ITEMS = [
   { id: "4ec53450-122a-4663-b280-5e7d80ef5e70", title: "Andy Burnham pledges to ‘take pressure off’ business ahead of October Budget", date: "2026-08-26", time: "13:57", url: "https://www.ft.com/content/4ec53450-122a-4663-b280-5e7d80ef5e70" },
   { id: "e9b2231e-79b0-40b3-a72e-6c594839e157", title: "Iran war approaching Ukraine-style stalemate, says shipping boss", date: "2026-08-26", time: "13:48", url: "https://www.ft.com/content/e9b2231e-79b0-40b3-a72e-6c594839e157" },
   { id: "230aa124-18ae-4d43-8444-78ab4a87471b", title: "Samsung must pay Swatch $11.6mn over copycat smartwatch apps", date: "2026-08-26", time: "12:57", url: "https://www.ft.com/content/230aa124-18ae-4d43-8444-78ab4a87471b" },
-  { id: "7ee0ae41-db32-453d-ac30-80660ee9b60f", title: "Ukraine awards Elon Musk medal as it seeks Starlink approval", date: "2026-08-26", time: "12:54", url: "https://www.ft.com/content/7ee0ae41-db32-453d-ac30-80660ee9b60f" },
-  { id: "ab0315bb-2657-4126-80b4-611bc83ec58f", title: "Life inside an American coal mine", date: "2026-08-26", time: "12:54", url: "https://www.ft.com/content/ab0315bb-2657-4126-80b4-611bc83ec58f" },
-  { id: "ea6efd7b-83c3-40ed-803a-e86402aa3aeb", title: "The end of Trumpsplaining", date: "2026-08-26", time: "12:26", url: "https://www.ft.com/content/ea6efd7b-83c3-40ed-803a-e86402aa3aeb" },
 ];
