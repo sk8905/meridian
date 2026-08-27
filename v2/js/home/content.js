@@ -71,18 +71,25 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
               <div class="g-loading">Loading policy rate…</div>
             </div>
           </section>
-          <section class="tui-pnl g-anchor" id="jump-indicators">
-            <header class="tui-ph"><span>Economic indicators</span><span class="tui-px">US · UK</span></header>
-            <div id="g-indicators" class="rates-band" aria-label="Key macroeconomic indicators">
-              <div class="g-loading">Loading indicators…</div>
-            </div>
-          </section>
+          <!-- Yield curve sits directly beneath Policy rate (the full economic-
+               indicators grid lives on the Macro dashboard, /v2/macro/). -->
           <section class="tui-pnl g-anchor" id="jump-curve">
             <header class="tui-ph"><span>Yield curve</span><span class="tui-px">UST</span></header>
             <div id="g-curve" class="rates-band" aria-label="US Treasury yield curve and 2s10s slope">
               <div class="g-loading">Loading curve…</div>
             </div>
           </section>
+          <!-- This week's corporate earnings — date · pre/post-market · forecast
+               → outcome. Fills the space freed by moving indicators to the Macro
+               dashboard. Its list scrolls internally. -->
+          <div class="g-earn-scroll">
+            <section class="tui-pnl g-earn">
+              <header class="tui-ph g-earn-head"><span>This week's earnings</span><span class="tui-px">est → act</span></header>
+              <div class="g-earn-body">
+                <div id="g-earn" class="g-earn-pane" aria-label="This week's corporate earnings"><div class="g-loading">Loading earnings…</div></div>
+              </div>
+            </section>
+          </div>
           <!-- Prediction markets — finance & finance-adjacent implied odds
                (Polymarket). Only this list scrolls, so the macro data pinned
                above it never moves. -->

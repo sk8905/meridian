@@ -6,7 +6,7 @@ import { deals, intel, managers, funds, research, HEDGE_INTEL, LAST_CHECKED, LAS
 import { managerWire, CAT_LABEL } from "/v2/js/manager-signals.js?v=v2-2";
 import { reportRefresh } from "/v2/js/status.js?v=v2-3";
 import { items, cases, restructurings, firmById } from "/legal/js/data.js";
-import { NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js";
+import { NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK, EARNINGS } from "/macro/js/content.js";
 import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
 import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, MONTHS } from "/util.js?v=20260818-1";
@@ -96,6 +96,7 @@ export function initGlance() {
   refreshLiveFeed();                                     // then pull fresh headlines
   renderMacroSnapshot();
   initMacroIndicators();
+  renderEarnings();
   initMarkets();
   initRates();
   initPulse();
@@ -805,10 +806,15 @@ function indTile(s) {
     + `<span class="rate-val">${val}</span>`
     + chg + `</${tag}>`;
 }
+// Pulls /api/macro once and drives the Home Yield-curve panel; if the Economic-
+// indicators panel is present it fills that too. (Indicators were moved to the
+// Macro dashboard, so on Home only the curve consumes this now — but the fetch
+// stays here since the curve reads the same series.)
 function initMacroIndicators() {
   const el = document.getElementById("g-indicators");
-  if (!el) return;
-  const fail = () => { el.innerHTML = '<div class="g-loading">Indicators unavailable right now.</div>'; };
+  const curve = document.getElementById("g-curve");
+  if (!el && !curve) return;
+  const fail = () => { if (el) el.innerHTML = '<div class="g-loading">Indicators unavailable right now.</div>'; };
   fetch("/api/macro")
     .then((r) => (r.ok ? r.json() : Promise.reject()))
     .then((d) => {
@@ -816,15 +822,50 @@ function initMacroIndicators() {
       if (!series.length) return fail();
       _macroSeries = series;
       renderYieldCurve();
-      const rowsFor = (c) => IND_ORDER.map((k) => series.find((s) => s.country === c && s.key === k)).filter(Boolean);
-      const block = (label, c) => { const r = rowsFor(c); return r.length ? `<div class="rate-sub">${label}</div>${r.map(indTile).join("")}` : ""; };
-      const html = block("United States", "US") + block("United Kingdom", "UK");
-      if (!html) return fail();
-      el.innerHTML = html;
+      if (el) {
+        const rowsFor = (c) => IND_ORDER.map((k) => series.find((s) => s.country === c && s.key === k)).filter(Boolean);
+        const block = (label, c) => { const r = rowsFor(c); return r.length ? `<div class="rate-sub">${label}</div>${r.map(indTile).join("")}` : ""; };
+        const html = block("United States", "US") + block("United Kingdom", "UK");
+        if (html) el.innerHTML = html;
+      }
     })
     .catch(fail);
 }
 const setHTML = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+
+// ---- This week's corporate earnings (right sidebar) ------------------------
+// From EARNINGS.weeks[0] (macro/js/content.js): per company — date, pre/post-
+// market timing, the consensus forecast (Est) and, once reported, the outcome
+// (Act) with the share-price reaction. Every figure is curated + sourced there.
+function renderEarnings() {
+  const box = document.getElementById("g-earn"); if (!box) return;
+  const wk = EARNINGS && EARNINGS.weeks && EARNINGS.weeks[0];
+  const rows = [];
+  ((wk && wk.days) || []).forEach((d) => (d.rows || []).forEach((r) => rows.push({ ...r, date: r.date || d.date })));
+  if (!rows.length) { box.innerHTML = `<div class="g-earn-empty">No earnings scheduled this week.</div>`; return; }
+  rows.sort((a, b) => String(a.date).localeCompare(String(b.date)) || String(a.when || "").localeCompare(String(b.when || "")));
+  const dshort = (d) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? `${+m[3]} ${MONTHS[+m[2] - 1]}` : (d || ""); };
+  const whenTag = (w) => (/after|post|close/i.test(w || "") ? "Post" : /before|pre|open/i.test(w || "") ? "Pre" : (w || ""));
+  const clean = (s) => String(s || "").split(" (")[0].replace(/\s*adjusted\b/i, "").replace(/\s{2,}/g, " ").trim();
+  const pxOf = (s) => { const m = /([+-]\d+(?:\.\d+)?%)/.exec(s || ""); return m ? m[1] : ""; };
+  const row = (r) => {
+    const reported = !!(r.actEps || r.actRev);
+    const px = pxOf(r.px), pxc = px.startsWith("+") ? "up" : px.startsWith("-") ? "down" : "";
+    const est = [clean(r.estEps), clean(r.estRev)].filter(Boolean).join(" · ");
+    const act = [clean(r.actEps), clean(r.actRev)].filter(Boolean).join(" · ");
+    const tail = px ? `<span class="g-earn-px ${pxc}">${esc(px)}</span>` : (reported ? "" : `<span class="g-earn-await">awaiting</span>`);
+    return `<div class="g-earn-row">`
+      + `<div class="g-earn-r1"><span class="g-earn-date">${esc(dshort(r.date))}</span>`
+      + `<span class="g-earn-tkr">${esc(r.t || r.n || "")}</span>`
+      + (r.n && r.t ? `<span class="g-earn-nm">${esc(r.n)}</span>` : "")
+      + (whenTag(r.when) ? `<span class="g-earn-when">${esc(whenTag(r.when))}</span>` : "")
+      + tail + `</div>`
+      + (est ? `<div class="g-earn-l"><span class="g-earn-k">Est</span> ${esc(est)}</div>` : "")
+      + (reported && act ? `<div class="g-earn-l g-earn-act"><span class="g-earn-k">Act</span> ${esc(act)}</div>` : "")
+      + `</div>`;
+  };
+  box.innerHTML = rows.map(row).join("");
+}
 
 // ---- Key rates & credit spreads (ported from Credit) -----------------------
 function fmtRate(v, unit) {

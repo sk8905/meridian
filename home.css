@@ -835,7 +835,13 @@
          and only its internal list scrolls. */
       .tui .g-side2{ display:flex; flex-direction:column; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
       .tui .g-side2 > .tui-pnl{ flex:0 0 auto; }
-      .tui .g-flow-scroll{ flex:1 1 auto; min-height:240px; display:flex; flex-direction:column; overflow:hidden; }
+      /* This-week's-earnings well: like the prediction well, its list scrolls
+         while the header pins. It shares the rail's flex space with prediction. */
+      .tui .g-earn-scroll{ flex:1 1 auto; min-height:160px; display:flex; flex-direction:column; overflow:hidden; }
+      .tui .g-earn{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
+      .tui .g-earn-head{ flex:0 0 auto; }
+      .tui .g-earn-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+      .tui .g-flow-scroll{ flex:1 1 auto; min-height:200px; display:flex; flex-direction:column; overflow:hidden; }
       .tui .g-flow{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
       .tui .g-flow-head{ flex:0 0 auto; }
       .tui .g-flow-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
@@ -904,6 +910,23 @@
     .g-mw-exp:hover{ text-decoration:underline; }
     .g-mw-events{ display:flex; flex-direction:column; }
     .g-mw-empty{ padding:.9rem .7rem; color:var(--t-mut); font-size:.8rem; }
+
+    /* ---- This week's earnings (right rail) ---- */
+    .g-earn-pane{ display:flex; flex-direction:column; }
+    .g-earn-row{ padding:6px 12px; border-bottom:1px solid var(--t-grid); }
+    .g-earn-r1{ display:flex; align-items:baseline; gap:.35rem; }
+    .g-earn-date{ flex:0 0 auto; font-family:var(--t-mono); font-size:10.5px; color:var(--t-mut); font-variant-numeric:tabular-nums; }
+    .g-earn-tkr{ flex:0 0 auto; font-weight:700; font-size:12px; color:var(--t-ink); }
+    .g-earn-nm{ flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:11px; color:var(--t-mut); }
+    .g-earn-when{ flex:0 0 auto; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.02em; color:var(--t-dim);
+      border:1px solid var(--t-grid2); border-radius:3px; padding:0 .28rem; }
+    .g-earn-px{ flex:0 0 auto; margin-left:auto; font-size:11px; font-variant-numeric:tabular-nums; }
+    .g-earn-px.up{ color:var(--t-up); } .g-earn-px.down{ color:var(--t-down); }
+    .g-earn-await{ flex:0 0 auto; margin-left:auto; font-size:10px; color:var(--t-faint); font-style:italic; }
+    .g-earn-l{ font-size:11px; color:var(--t-dim); margin-top:2px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-variant-numeric:tabular-nums; }
+    .g-earn-l.g-earn-act{ color:var(--t-ink); }
+    .g-earn-k{ color:var(--t-faint); font-size:9.5px; font-weight:700; text-transform:uppercase; letter-spacing:.03em; margin-right:.25rem; }
+    .g-earn-empty{ padding:.9rem .7rem; color:var(--t-mut); font-size:.8rem; }
 
     @media (max-width:900px){ .tui .g-layout{ grid-template-columns:1fr; }
       /* content-first on phones: the news wire leads, the data rails follow —
