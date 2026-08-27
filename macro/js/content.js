@@ -13,7 +13,7 @@ export const UPDATED = "27 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-27",
-  lastCheckedTime: "12:39 BST",
+  lastCheckedTime: "17:16 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -834,11 +834,11 @@ export const NEWS = {
     { title: "Warsh's Peers to Highlight Global Inflation Risk at Jackson Hole", source: "Bloomberg", date: "2026-08-27", time: "01:00", url: "https://www.bloomberg.com/news/articles/2026-08-26/warsh-s-peers-to-highlight-global-inflation-risk-at-jackson-hole" },
   ],
   uk: [
+    { title: "FTSE 100 Live: London index stays subdued; Nasdaq set to start strongly", source: "Proactive Investors", date: "2026-08-27", time: "17:16", url: "https://www.proactiveinvestors.co.uk/companies/news/1097689/ftse-100-live-london-index-stays-subdued-nasdaq-set-to-start-strongly-1097689.html" },
     { title: "UK Stocks-Factors to watch on August 27", source: "Reuters (via MarketScreener)", date: "2026-08-27", time: "07:00", url: "https://www.marketscreener.com/news/uk-stocks-factors-to-watch-on-august-27-ce7c50ded881fe23" },
     { title: "British Pound retreats as sticky PCE revives Fed hike bets", source: "FXStreet", date: "2026-08-26", time: "16:34", url: "https://www.fxstreet.com/news/british-pound-retreats-as-sticky-pce-revives-fed-hike-bets-202608261634" },
     { title: "FTSE 100 Live: London set to rise as copper hits record and oil slides", source: "Proactive Investors", date: "2026-08-26", time: "09:22", url: "https://www.proactiveinvestors.co.uk/companies/news/1097607/ftse-100-live-london-set-to-rise-as-copper-hits-record-and-oil-slides-1097607.html" },
     { title: "Vistry Shares Have Record Rally on Affordable Homes Funding", source: "Bloomberg", date: "2026-08-25", time: "17:00", url: "https://www.bloomberg.com/news/articles/2026-08-25/vistry-shares-rally-most-since-2020-on-affordable-homes-funding" },
-    { title: "Budget 2026: Which taxes will Burnham and Healey hike?", source: "CityAM", date: "2026-08-25", time: "09:23", url: "https://www.cityam.com/budget-2026-which-taxes-will-burnham-and-healey-hike/" },
   ],
 };
 
@@ -852,6 +852,7 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-27",
   items: [
+    {"title":"FTSE 100 Live: London index stays subdued; Nasdaq set to start strongly","source":"Proactive Investors","date":"2026-08-27","time":"17:16","url":"https://www.proactiveinvestors.co.uk/companies/news/1097689/ftse-100-live-london-index-stays-subdued-nasdaq-set-to-start-strongly-1097689.html","blurb":"The FTSE 100 held down around 40 points near 10,839 at lunch and the FTSE 250 was roughly flat near 24,893, with Computacenter (+4.6%) the top blue-chip riser and Halfords (+11.3%) leading mid-caps after upgrading profit guidance, as US futures pointed to a strong Wall Street open on Nvidia's earnings beat."},
     {"title":"Treasury yields ease ahead of jobs data and Jackson Hole","source":"CNBC","date":"2026-08-27","time":"11:30","url":"https://www.cnbc.com/2026/08/27/us-bonds-us10y-jackson-hold.html","blurb":"The 10-year Treasury yield eased 2bp to 4.645% and the 30-year 2bp to 5.161% as markets awaited weekly jobless claims and the start of the Fed's Jackson Hole symposium, the first under Chair Kevin Warsh, with CME FedWatch pricing a 36% chance of a September rate hike."},
     {"title":"Nasdaq Futures Rise on Bullish Nvidia Sales Growth: Markets Wrap","source":"Bloomberg","date":"2026-08-27","time":"05:00","url":"https://www.bloomberg.com/news/articles/2026-08-26/nasdaq-futures-rise-on-bullish-nvidia-sales-growth-markets-wrap","blurb":"Nasdaq 100 futures rose about 1% in early Thursday trading after Nvidia CFO Colette Kress signalled strong sales growth into fiscal 2028, with Asian equity futures mixed (Kospi higher, Nikkei and Australia's ASX 200 lower) ahead of Friday's Jackson Hole keynote."},
     {"title":"Stock futures rise as Nvidia shares gain over 4% after earnings: Live updates","source":"CNBC","date":"2026-08-27","time":"06:30","url":"https://www.cnbc.com/2026/08/26/stock-market-today-live-updates.html","blurb":"US stock futures firmed after Nvidia beat on both lines (EPS $2.22 vs $2.09 est, revenue $96.2bn vs $92.2bn est) and guided Q3 revenue to $105.84-110.16bn; Salesforce (+~13% after hours) and CrowdStrike (+~10.5%) also topped estimates on their own reports."},
