@@ -795,7 +795,7 @@
 
     /* ---- workspace shell ---- */
     .g-main.tui{ padding:0; background:var(--t-ground); color:var(--t-ink); max-width:none; }
-    .tui .g-layout{ display:grid; grid-template-columns:322px minmax(0,1fr) 344px 340px; gap:0;
+    .tui .g-layout{ display:grid; grid-template-columns:322px minmax(0,1fr) minmax(0,1fr) 340px; gap:0;
       margin:0; align-items:start; }
     .tui .g-side{ order:1; display:block; border-right:1px solid var(--t-grid2); }
     .tui .g-feed-wrap{ order:2; min-width:0; }
@@ -862,29 +862,17 @@
       .tui .g-feed-head{ flex:0 0 auto; }
       .tui .g-feed{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; }
     }
-    /* ---- Manager wire rows (Home manager column) ---- */
+    /* ---- Manager wire (Home manager column) ---- */
+    /* Rows reuse the news-wire row engine (.g-feed-row → time · code · title ·
+       src) so the two centre columns read as symmetric wires. These are just the
+       small manager-first cues that live inside the title cell. */
     .g-mw-pane{ display:flex; flex-direction:column; }
-    .g-mw-grp{ display:flex; align-items:center; gap:.4rem; padding:.4rem .7rem .3rem; font-size:.62rem; font-weight:800;
-      letter-spacing:.06em; text-transform:uppercase; color:var(--t-accent); background:var(--t-panel2);
-      border-bottom:1px solid var(--t-grid); position:sticky; top:0; z-index:1; }
-    .g-mw-row{ display:block; text-decoration:none; padding:.5rem .7rem; border-bottom:1px solid var(--t-grid); }
-    .g-mw-row:hover{ background:var(--t-panel2); }
-    .g-mw-r1{ display:flex; align-items:baseline; gap:.35rem; }
-    .g-mw-star{ flex:0 0 auto; color:var(--t-accent); font-size:.72rem; line-height:1; }
-    .g-mw-name{ flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
-      font-weight:700; font-size:.82rem; color:var(--t-ink); }
-    .g-mw-raise{ flex:0 0 auto; font-size:.6rem; font-weight:800; letter-spacing:.02em; color:var(--t-up);
-      border:1px solid var(--t-up); border-radius:4px; padding:0 .28rem; text-transform:uppercase; }
-    .g-mw-when{ flex:0 0 auto; margin-left:auto; color:var(--t-faint); font-size:.7rem; white-space:nowrap;
-      font-variant-numeric:tabular-nums; }
-    .g-mw-r2{ display:flex; align-items:baseline; gap:.4rem; margin-top:.22rem; }
-    .g-mw-cat{ flex:0 0 auto; font-size:.58rem; font-weight:800; letter-spacing:.03em; color:var(--t-crd);
-      border:1px solid color-mix(in srgb, var(--t-crd) 40%, transparent); border-radius:3px; padding:0 .28rem; }
-    .g-mw-title{ flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
-      color:var(--t-dim); font-size:.78rem; line-height:1.3; }
-    .g-mw-r3{ margin-top:.2rem; color:var(--t-faint); font-size:.68rem; }
+    .g-mw-star{ color:var(--t-accent); font-size:.72rem; margin-right:.28rem; }
+    .g-mw-inmkt{ color:var(--t-up); font-weight:700; font-size:9px; letter-spacing:.02em; text-transform:uppercase;
+      border:1px solid var(--t-up); border-radius:4px; padding:0 .28rem; margin:0 .32rem; white-space:nowrap; }
+    .g-mw-nm{ font-weight:700; color:var(--t-ink); }
+    .g-mw-ctx{ color:var(--t-mut); }
     .g-mw-empty{ padding:.9rem .7rem; color:var(--t-mut); font-size:.8rem; }
-    @media (max-width:760px){ .g-mw-title{ white-space:normal; } }
 
     @media (max-width:900px){ .tui .g-layout{ grid-template-columns:1fr; }
       /* content-first on phones: the news wire leads, the data rails follow —

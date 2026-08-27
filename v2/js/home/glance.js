@@ -390,25 +390,36 @@ function _mwWhen(d) {
   const mm = /^(\d{4})-(\d{2})$/.exec(d || "");
   return mm ? `${MONTHS[+mm[2] - 1]} ${mm[1]}` : "";
 }
+// Source label for a manager event — the press outlet, else the source domain.
+function _mwSrc(e) {
+  if (!e) return "";
+  if (e.outlet) return e.outlet;
+  const h = srcHost(e.source);
+  return h ? (NEWS_SOURCES[h] || tidyDomain(h)) : "";
+}
+// Rows conform to the news-wire row engine (.g-feed-row → time · code · title ·
+// src) so the two centre columns read as symmetric wires; the manager name leads
+// the title cell (manager-first) with the latest headline as muted context.
 function renderManagerWire() {
   const box = document.getElementById("g-mgrwire"); if (!box) return;
   const rows = managerWire(_mgrFollows(), { limit: 24 });
   if (!rows.length) { box.innerHTML = `<div class="g-mw-empty">No manager activity yet.</div>`; return; }
   const row = (r) => {
-    const cat = (r.latest && CAT_LABEL[r.latest.cat]) || "NEWS";
-    const title = r.latest ? esc(r.latest.title) : "";
-    return `<a class="g-mw-row" href="/credit/#/manager/${encodeURIComponent(r.id)}">`
-      + `<div class="g-mw-r1">${r.watched ? '<span class="g-mw-star" aria-label="Watchlisted">★</span>' : ""}`
-      + `<span class="g-mw-name">${esc(r.name)}</span>`
-      + `${r.inMarket ? `<span class="g-mw-raise">In mkt·${r.inMarket}</span>` : ""}`
-      + `<span class="g-mw-when">${_mwWhen(r.lastDate)}</span></div>`
-      + `<div class="g-mw-r2"><span class="g-mw-cat">${cat}</span><span class="g-mw-title">${title}</span></div>`
-      + `<div class="g-mw-r3">${r.count30} update${r.count30 === 1 ? "" : "s"} · 30d${r.count90 > r.count30 ? ` · ${r.count90} · 90d` : ""}</div></a>`;
+    const e = r.latest || {};
+    const code = CAT_LABEL[e.cat] || "NEWS";
+    const star = r.watched ? '<span class="g-mw-star" aria-label="Watchlisted">★</span>' : "";
+    const inmkt = r.inMarket ? `<span class="g-mw-inmkt">In mkt·${r.inMarket}</span>` : "";
+    const ctx = e.title ? `<span class="g-mw-ctx"> · ${esc(e.title)}</span>` : "";
+    return `<a class="g-feed-row g-desk-c" href="/credit/#/manager/${encodeURIComponent(r.id)}">`
+      + `<span class="g-feed-time">${_mwWhen(r.lastDate)}</span>`
+      + `<span class="g-feed-code credit">${code}</span>`
+      + `<span class="g-feed-title">${star}<span class="g-mw-nm">${esc(r.name)}</span>${inmkt}${ctx}</span>`
+      + `<span class="g-feed-src">${esc(_mwSrc(e))}</span></a>`;
   };
   const watched = rows.filter((r) => r.watched), active = rows.filter((r) => !r.watched);
   let html = "";
-  if (watched.length) html += `<div class="g-mw-grp">Watchlist</div>` + watched.map(row).join("");
-  if (active.length) html += `<div class="g-mw-grp">${watched.length ? "Most active" : "Active managers"}</div>` + active.map(row).join("");
+  if (watched.length) html += `<div class="g-feed-dayhdr">Watchlist</div>` + watched.map(row).join("");
+  if (active.length) html += `<div class="g-feed-dayhdr">${watched.length ? "Most active" : "Active managers"}</div>` + active.map(row).join("");
   box.innerHTML = html;
 }
 
