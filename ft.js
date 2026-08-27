@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b4868658-52e2-48a4-b065-d77c82a2d6d1", title: "US bank regulators to narrow enforcement focus to financial risks", date: "2026-08-27", time: "20:50", url: "https://www.ft.com/content/b4868658-52e2-48a4-b065-d77c82a2d6d1" },
+  { id: "1d990ab8-bb28-43b6-b9bc-daeb8a32c58f", title: "Alphabet agrees to pay £260mn to settle UK class action lawsuit", date: "2026-08-27", time: "20:42", url: "https://www.ft.com/content/1d990ab8-bb28-43b6-b9bc-daeb8a32c58f" },
+  { id: "dd069af7-a2a2-4984-8d9a-5edeaf54f2f8", title: "Anthropic launches tool that can manipulate laboratory tools", date: "2026-08-27", time: "20:20", url: "https://www.ft.com/content/dd069af7-a2a2-4984-8d9a-5edeaf54f2f8" },
   { id: "6f0cdf31-de96-4058-92a9-f6684b5e1ef6", title: "Donald Trump orders Lake Ontario to be renamed 'Lake America' in new slight to Canada", date: "2026-08-27", time: "19:12", url: "https://www.ft.com/content/6f0cdf31-de96-4058-92a9-f6684b5e1ef6" },
   { id: "4f76326d-3d29-4b3c-b7cf-b339ee4134ae", title: "Warsh goes to Jackson Hole", date: "2026-08-27", time: "18:24", url: "https://www.ft.com/content/4f76326d-3d29-4b3c-b7cf-b339ee4134ae" },
   { id: "a7a5fadb-8e81-4047-9dc7-40feda9bacd0", title: "In asset management, the race for scale is becoming urgent", date: "2026-08-27", time: "18:07", url: "https://www.ft.com/content/a7a5fadb-8e81-4047-9dc7-40feda9bacd0" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "0176cab1-04f8-4535-84d2-8e9df271ff02", title: "FirstFT: Nvidia results beat Wall Street expectations", date: "2026-08-27", time: "06:15", url: "https://www.ft.com/content/0176cab1-04f8-4535-84d2-8e9df271ff02" },
   { id: "de99f952-c29a-4c79-ac53-6026f8fcd56a", title: "Von der Leyen reiterates EU competitiveness focus as economic woes mount", date: "2026-08-27", time: "06:07", url: "https://www.ft.com/content/de99f952-c29a-4c79-ac53-6026f8fcd56a" },
   { id: "0a50dff4-27f4-46f1-9bdd-9dc047842b2e", title: "What a century of data tells us about today’s corporate bond spreads", date: "2026-08-27", time: "06:00", url: "https://www.ft.com/content/0a50dff4-27f4-46f1-9bdd-9dc047842b2e" },
-  { id: "294ad859-7db7-4783-a5b6-d89c7fdabf10", title: "Yen weakness and rising inflation put pressure on the Bank of Japan for earlier tightening", date: "2026-08-27", time: "05:30", url: "https://www.ft.com/content/294ad859-7db7-4783-a5b6-d89c7fdabf10" },
-  { id: "6ff4d774-ff25-4387-b026-6584de640fe1", title: "Jane Street’s $15bn wake-up call", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/6ff4d774-ff25-4387-b026-6584de640fe1" },
-  { id: "e9312df9-8bbf-401d-896b-06eb2141677c", title: "Israel considers expelling British officials from postwar Gaza headquarters", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/e9312df9-8bbf-401d-896b-06eb2141677c" },
 ];
