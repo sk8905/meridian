@@ -344,16 +344,16 @@ export const OUTLOOK = {
 //   commentary. Keep each item's real headline + source link; never fabricate —
 //   only add pieces that exist and are dated.
 export const COMMENTARY = {
-  updated: "2026-08-26",
+  updated: "2026-08-27",
   us: [
     { title: "Economists want Warsh to share more on his view of the economy at Jackson Hole, says CNBC survey", source: "CNBC", author: "CNBC Fed Survey", date: "2026-08-26", url: "https://www.cnbc.com/2026/08/26/fed-survey-warsh-economy-view.html" },
     { title: "Is the Trump Treasury Panicking?", source: "Project Syndicate", author: "Kenneth Rogoff", date: "2026-08-25", url: "https://www.project-syndicate.org/commentary/trump-treasury-secretary-bessent-bond-market-intervention-is-backfiring-by-kenneth-rogoff-2026-08" },
     { title: "Jackson Hole FX playbook: Can Warsh revive the dollar?", source: "Saxo Bank", author: "Saxo Bank — Strategy Team", date: "2026-08-24", url: "https://www.home.saxo/en-sg/content/articles/forex/jackson-hole-24082026" },
   ],
   uk: [
+    { title: "Deutsche Bank Sees UK Growth Upside as Spending Lifts Pace, Supporting Sterling and Higher Yields", source: "VT Markets", author: "Deutsche Bank \u2014 Sanjay Raja (Chief UK Economist)", date: "2026-08-22", url: "https://www.vtmarkets.com/en-eu/live-updates/deutsche-bank-sees-uk-growth-upside-as-spending-lifts-pace-supporting-sterling-and-higher-yields/" },
     { title: "'Friendly' Dollar Selloff Expected by ING", source: "Pound Sterling Live", author: "ING", date: "2026-08-21", url: "https://www.poundsterlinglive.com/usd/23581-friendly-dollar-selloff-expected-by-ing" },
     { title: "UK retail sales retreat after strong summer start", source: "Exchange Rates UK (live coverage)", author: "Pantheon Macroeconomics \u2014 Robert Wood", date: "2026-08-21", url: "https://www.exchangerates.org.uk/news/46947/2026-08-21-pound-sterling-today-uk-retail-sales-retreat-after-strong-summer-start.html" },
-    { title: "United Kingdom: Upside risks building for inflation \u2013 Deutsche Bank", source: "FXStreet (via TMGM)", author: "Deutsche Bank \u2014 Sanjay Raja (Chief UK Economist)", date: "2026-08-19", time: "17:25", url: "https://www.tmgm.com/en/analysis/market-news/article/united-kingdom-upside-risks-building-for-inflation-deutsche-bank-202608190929" },
   ],
 };
 
