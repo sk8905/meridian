@@ -23,6 +23,10 @@ const r = await pg.evaluate(() => {
     anyEst: document.querySelectorAll("#g-earn .g-earn-l:not(.g-earn-act)").length,
     anyAct: document.querySelectorAll("#g-earn .g-earn-act").length,
     anyPx: document.querySelectorAll("#g-earn .g-earn-px").length,
+    // the well hugs its content (no gap) — with <=5 items, no forced max-height,
+    // and the well bottom sits just under the last row.
+    wellHugs: (() => { const w = document.querySelector(".g-earn-scroll"), last = document.querySelector("#g-earn .g-earn-row:last-child"); return w && last ? (w.getBoundingClientRect().bottom - last.getBoundingClientRect().bottom) < 6 : false; })(),
+    bodyMax: (document.querySelector(".g-earn-body") || {}).style ? document.querySelector(".g-earn-body").style.maxHeight : "",
   };
 });
 
@@ -33,6 +37,7 @@ check(r.firstHasDate && r.firstHasTkr && r.firstHasWhen, "earnings: a row shows 
 check(r.anyEst > 0, `earnings: forecast (Est) shown (${r.anyEst})`);
 check(r.anyAct > 0, `earnings: outcome (Act) shown for reported names (${r.anyAct})`);
 check(r.anyPx > 0, `earnings: price reaction shown for reported names (${r.anyPx})`);
+check(r.earnRows <= 5 ? r.wellHugs && !r.bodyMax : true, "earnings: the pane fits its items with no gap (<=5 shows uncapped)");
 
 checkErrs(errs, "home right rail");
 await ctx.close();

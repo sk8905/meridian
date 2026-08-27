@@ -865,6 +865,19 @@ function renderEarnings() {
       + `</div>`;
   };
   box.innerHTML = rows.map(row).join("");
+  // Fit the pane to its items, capped at 5 companies — beyond that the body
+  // scrolls. Measured from the 6th row so the cap lands exactly on 5 rows.
+  const body = box.parentElement;
+  const kids = box.querySelectorAll(".g-earn-row");
+  if (body) {
+    if (kids.length > 5) {
+      let cap = kids[5].getBoundingClientRect().top - box.getBoundingClientRect().top;
+      if (!(cap > 0)) cap = 5 * 58;               // fallback if not yet laid out
+      body.style.maxHeight = Math.round(cap) + "px";
+    } else {
+      body.style.maxHeight = "";
+    }
+  }
 }
 
 // ---- Key rates & credit spreads (ported from Credit) -----------------------

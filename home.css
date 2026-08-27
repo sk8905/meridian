@@ -837,13 +837,14 @@
       .tui .g-side2 > .tui-pnl{ flex:0 0 auto; }
       /* This-week's-earnings well: like the prediction well, its list scrolls
          while the header pins. It shares the rail's flex space with prediction. */
-      .tui .g-earn-scroll{ flex:1 1 0; min-height:160px; display:flex; flex-direction:column; overflow:hidden; }
-      .tui .g-earn{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
+      /* Earnings well HUGS its content — capped at 5 companies (renderEarnings
+         sets a max-height on the body for the rest to scroll), so a short list
+         leaves no gap. Prediction markets then takes the remaining rail height. */
+      .tui .g-earn-scroll{ flex:0 0 auto; display:flex; flex-direction:column; overflow:hidden; }
+      .tui .g-earn{ flex:0 0 auto; min-height:0; display:flex; flex-direction:column; }
       .tui .g-earn-head{ flex:0 0 auto; }
-      .tui .g-earn-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
-      /* flex-basis:0 on both wells → they split the rail's remaining height evenly
-         (equal height), regardless of how much content each holds. */
-      .tui .g-flow-scroll{ flex:1 1 0; min-height:160px; display:flex; flex-direction:column; overflow:hidden; }
+      .tui .g-earn-body{ overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+      .tui .g-flow-scroll{ flex:1 1 auto; min-height:160px; display:flex; flex-direction:column; overflow:hidden; }
       .tui .g-flow{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; }
       .tui .g-flow-head{ flex:0 0 auto; }
       .tui .g-flow-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
