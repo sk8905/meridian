@@ -25,6 +25,13 @@ const base = `http://localhost:${srv.port}`;
       cols: tracks.length,
       feedEqManager: tracks.length === 4 && tracks[1] === tracks[2],
       side3: !!document.querySelector(".g-side3 #g-mgrwire"),
+      // monitoring detail
+      metas: box.querySelectorAll(".g-mw-item .g-mw-meta").length,
+      fundLines: box.querySelectorAll(".g-mw-fund").length,
+      activity: [...box.querySelectorAll(".g-mw-meta .g-mw-m")].some((s) => /·30d/.test(s.textContent)),
+      aum: box.querySelectorAll(".g-mw-aum").length,
+      mixChips: box.querySelectorAll(".g-mw-mix").length,
+      expanders: box.querySelectorAll(".g-mw-exp").length,
     };
   });
   check(r.side3, "Home: manager wire lives in its own column (.g-side3)");
@@ -35,6 +42,21 @@ const base = `http://localhost:${srv.port}`;
   check(r.groups.includes("Active managers"), `Home: rows grouped under an activity heading (${r.groups.join(", ")})`);
   check(r.firstFeedStyled, "Home: rows use the news-wire row engine (time · code · title)");
   check(r.firstName, "Home: the manager name leads the row (manager-first)");
+  check(r.metas >= r.rows, `Home: every row carries a monitoring meta line (${r.metas}/${r.rows})`);
+  check(r.activity, "Home: rows show activity count (·30d) + trend");
+  check(r.aum > 0 && r.mixChips > 0, `Home: rows show AUM + signal-mix chips (aum ${r.aum}, mix ${r.mixChips})`);
+  check(r.fundLines > 0, `Home: managers in market show a fundraising line (${r.fundLines})`);
+
+  // Expand a row → its recent-events list becomes visible.
+  const expanded = await pg.evaluate(() => {
+    const btn = document.querySelector("#g-mgrwire .g-mw-exp"); if (!btn) return null;
+    const item = btn.closest(".g-mw-item");
+    const before = item.querySelector(".g-mw-events") && item.querySelector(".g-mw-events").hasAttribute("hidden");
+    btn.click();
+    const evs = item.querySelector(".g-mw-events");
+    return { before, after: evs ? evs.hasAttribute("hidden") : null, rows: evs ? evs.querySelectorAll(".g-mw-ev").length : 0 };
+  });
+  check(expanded && expanded.before === true && expanded.after === false && expanded.rows > 0, `Home: a row expands to its recent events (${expanded && expanded.rows})`);
   checkErrs(errs, "manager wire default");
   await ctx.close();
 }

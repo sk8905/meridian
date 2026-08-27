@@ -59,22 +59,49 @@ export function managerFundsInMarket(managerId) {
   return funds.filter((f) => f.managerId === managerId && IN_MARKET.has(f.status));
 }
 
-// A compact activity summary for one manager (Home wire row + what-changed).
+// Whole months between a "YYYY-MM(-DD)" date and now (for AUM staleness).
+function monthsSince(dateStr, now) {
+  const m = /^(\d{4})-(\d{2})/.exec(dateStr || "");
+  if (!m) return null;
+  const then = Date.UTC(+m[1], +m[2] - 1, 1);
+  return (now - then) / (30.44 * 864e5);
+}
+
+// A compact activity summary for one manager — the monitoring payload for the
+// Home wire row and (later) the profile "what changed" panel:
+//   • activity: count7/30/90 + prev30 + trend (rising / quiet / flat)
+//   • mix: {category → count} over 90 days
+//   • fundraising: fundsInMarket (raw fund records) + count
+//   • AUM: value + currency symbol (parsed from aumText) + asOf + staleness
+//   • strategies, and a team-change flag (a hire/departure in the last 90d)
 export function managerSummary(managerId, nowTs) {
   const ev = managerEvents(managerId);
   const now = nowTs || Date.now();
   const inWin = (days) => ev.filter((e) => e.ts && e.ts >= now - days * 864e5).length;
+  const between = (a, b) => ev.filter((e) => e.ts && e.ts < now - a * 864e5 && e.ts >= now - b * 864e5).length;
+  const count30 = inWin(30), prev30 = between(30, 60);
+  const mix = {};
+  ev.forEach((e) => { if (e.ts && e.ts >= now - 90 * 864e5) mix[e.cat] = (mix[e.cat] || 0) + 1; });
+  const m = _mById.get(managerId) || {};
   const inMkt = managerFundsInMarket(managerId);
+  const aumVal = (m.aumTotal != null) ? m.aumTotal : (m.aum != null ? m.aum : null);
+  const aumSym = (String(m.aumText || "").match(/[$€£]/) || [""])[0];
+  const ageM = m.asOf ? monthsSince(m.asOf, now) : null;
   return {
     id: managerId,
-    name: managerName(managerId),
+    name: m.name || managerName(managerId),
     lastTs: ev[0] ? ev[0].ts : 0,
     lastDate: ev[0] ? ev[0].date : "",
     latest: ev[0] || null,
-    count7: inWin(7), count30: inWin(30), count90: inWin(90),
     events: ev,
+    count7: inWin(7), count30, prev30, count90: inWin(90),
+    trend: count30 > prev30 ? "up" : (count30 < prev30 ? "down" : "flat"),
+    mix,
+    hasTeamChange: ev.some((e) => e.cat === "team" && e.ts && e.ts >= now - 90 * 864e5),
     inMarket: inMkt.length,
     fundsInMarket: inMkt,
+    aum: aumVal, aumSym, asOf: m.asOf || null, aumStale: (ageM != null && ageM > 9),
+    strategies: Array.isArray(m.strategies) ? m.strategies : [],
   };
 }
 

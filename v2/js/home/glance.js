@@ -3,7 +3,7 @@
 // owns chrome + search), and listeners self-guard on the active tab.
 
 import { deals, intel, managers, funds, research, HEDGE_INTEL, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js";
-import { managerWire, CAT_LABEL } from "/v2/js/manager-signals.js?v=v2-1";
+import { managerWire, CAT_LABEL } from "/v2/js/manager-signals.js?v=v2-2";
 import { reportRefresh } from "/v2/js/status.js?v=v2-3";
 import { items, cases, restructurings, firmById } from "/legal/js/data.js";
 import { NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK } from "/macro/js/content.js";
@@ -397,30 +397,86 @@ function _mwSrc(e) {
   const h = srcHost(e.source);
   return h ? (NEWS_SOURCES[h] || tidyDomain(h)) : "";
 }
-// Rows conform to the news-wire row engine (.g-feed-row → time · code · title ·
-// src) so the two centre columns read as symmetric wires; the manager name leads
-// the title cell (manager-first) with the latest headline as muted context.
+// Formatters for the monitoring meta line.
+const _eurAmt = (n) => (n == null ? "" : (n >= 1000 ? "€" + (n / 1000).toFixed(n % 1000 ? 1 : 0) + "bn" : "€" + n + "m"));
+const _aumAmt = (sym, val) => (val == null ? "" : (val >= 1000 ? `${sym}${(val / 1000).toFixed(2).replace(/\.?0+$/, "")}tn` : `${sym}${val}bn`));
+const _asOfShort = (d) => { const m = /^(\d{4})-(\d{2})/.exec(d || ""); return m ? `${MONTHS[+m[2] - 1]} '${m[1].slice(2)}` : ""; };
+const _mixStr = (mix) => Object.entries(mix || {}).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([c, n]) => `${CAT_LABEL[c] || c.toUpperCase()}×${n}`).join(" · ");
+function _fundStr(f) {
+  if (!f) return "";
+  const prog = (f.raised != null && f.targetSize != null) ? `${_eurAmt(f.raised)}/${_eurAmt(f.targetSize)}`
+    : (f.raised != null ? `${_eurAmt(f.raised)} raised` : (f.targetSize != null ? `target ${_eurAmt(f.targetSize)}` : ""));
+  return `${f.name} · ${f.status}${prog ? ` · ${prog}` : ""}`;
+}
+// Per-manager "seen" baseline (localStorage) → the "+N new" delta on watchlisted
+// managers. First sight of a manager sets the baseline (no wall of "new").
+function _mgrSeen() { try { const o = JSON.parse(localStorage.getItem("meridian.mgrSeen") || "{}"); return (o && typeof o === "object") ? o : {}; } catch { return {}; } }
+function _saveMgrSeen(o) { try { localStorage.setItem("meridian.mgrSeen", JSON.stringify(o)); } catch { /* ignore */ } }
+
+// Each row is a monitor: the news-wire top line (time · code · manager · latest)
+// plus a meta line — fundraising stage · activity+trend · signal mix · AUM+as-of
+// · strategies — and it expands to the last few events. Rows read as symmetric
+// with the aggregated feed (shared .g-feed-row engine).
 function renderManagerWire() {
   const box = document.getElementById("g-mgrwire"); if (!box) return;
   const rows = managerWire(_mgrFollows(), { limit: 24 });
   if (!rows.length) { box.innerHTML = `<div class="g-mw-empty">No manager activity yet.</div>`; return; }
-  const row = (r) => {
+  const seen = _mgrSeen();
+  rows.forEach((r) => { const p = seen[r.id]; r.newCount = (p != null) ? r.events.filter((e) => e.ts && e.ts > p).length : 0; });
+
+  const item = (r) => {
     const e = r.latest || {};
-    const code = CAT_LABEL[e.cat] || "NEWS";
+    const href = `/credit/#/manager/${encodeURIComponent(r.id)}`;
     const star = r.watched ? '<span class="g-mw-star" aria-label="Watchlisted">★</span>' : "";
-    const inmkt = r.inMarket ? `<span class="g-mw-inmkt">In mkt·${r.inMarket}</span>` : "";
+    const nu = (r.watched && r.newCount) ? `<span class="g-mw-new">+${r.newCount} new</span>` : "";
+    const team = r.hasTeamChange ? '<span class="g-mw-team" title="Recent senior hire/departure">⇄</span>' : "";
     const ctx = e.title ? `<span class="g-mw-ctx"> · ${esc(e.title)}</span>` : "";
-    return `<a class="g-feed-row g-desk-c" href="/credit/#/manager/${encodeURIComponent(r.id)}">`
+    const top = `<a class="g-feed-row g-desk-c g-mw-top" href="${href}">`
       + `<span class="g-feed-time">${_mwWhen(r.lastDate)}</span>`
-      + `<span class="g-feed-code credit">${code}</span>`
-      + `<span class="g-feed-title">${star}<span class="g-mw-nm">${esc(r.name)}</span>${inmkt}${ctx}</span>`
+      + `<span class="g-feed-code credit">${CAT_LABEL[e.cat] || "NEWS"}</span>`
+      + `<span class="g-feed-title">${star}<span class="g-mw-nm">${esc(r.name)}</span>${nu}${team}${ctx}</span>`
       + `<span class="g-feed-src">${esc(_mwSrc(e))}</span></a>`;
+
+    const trend = r.trend === "up" ? '<span class="g-mw-up">▲</span>' : r.trend === "down" ? '<span class="g-mw-dn">▼</span>' : '<span class="g-mw-fl">·</span>';
+    const mix = _mixStr(r.mix), aum = _aumAmt(r.aumSym, r.aum), strat = (r.strategies || []).slice(0, 2).map(esc).join(" · ");
+    const meta = `<div class="g-mw-meta">`
+      + (r.inMarket ? `<span class="g-mw-m g-mw-fund" title="Funds in market">◆ ${esc(_fundStr(r.fundsInMarket[0]))}${r.inMarket > 1 ? ` +${r.inMarket - 1}` : ""}</span>` : "")
+      + `<span class="g-mw-m" title="Events last 30 days (▲ rising vs prior 30d)">${r.count30}·30d ${trend}</span>`
+      + (mix ? `<span class="g-mw-m g-mw-mix" title="Signal mix, last 90 days">${mix}</span>` : "")
+      + (aum ? `<span class="g-mw-m g-mw-aum${r.aumStale ? " is-stale" : ""}" title="AUM${r.aumStale ? " — as-of date is >9 months old" : ""}">AUM ${esc(aum)}${r.asOf ? ` · ${_asOfShort(r.asOf)}` : ""}</span>` : "")
+      + (strat ? `<span class="g-mw-m g-mw-strat" title="Primary strategies">${strat}</span>` : "")
+      + (r.events.length > 1 ? `<button type="button" class="g-mw-exp" aria-expanded="false">More</button>` : "")
+      + `</div>`;
+
+    const more = r.events.slice(1, 4).map((x) => `<a class="g-mw-ev" href="${esc(x.ext ? x.source : href)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
+      + `<span class="g-mw-ev-d">${_mwWhen(x.date)}</span><span class="g-mw-ev-c">${CAT_LABEL[x.cat] || "NEWS"}</span><span class="g-mw-ev-t">${esc(x.title)}</span></a>`).join("");
+    const events = more ? `<div class="g-mw-events" hidden>${more}</div>` : "";
+
+    return `<div class="g-mw-item">${top}${meta}${events}</div>`;
   };
+
   const watched = rows.filter((r) => r.watched), active = rows.filter((r) => !r.watched);
   let html = "";
-  if (watched.length) html += `<div class="g-feed-dayhdr">Watchlist</div>` + watched.map(row).join("");
-  if (active.length) html += `<div class="g-feed-dayhdr">${watched.length ? "Most active" : "Active managers"}</div>` + active.map(row).join("");
+  if (watched.length) html += `<div class="g-feed-dayhdr">Watchlist</div>` + watched.map(item).join("");
+  if (active.length) html += `<div class="g-feed-dayhdr">${watched.length ? "Most active" : "Active managers"}</div>` + active.map(item).join("");
   box.innerHTML = html;
+
+  // Update the seen baseline for shown managers (so this session's items aren't
+  // "new" next load); expand toggle is delegated once on the container.
+  const next = { ...seen }; rows.forEach((r) => { next[r.id] = r.lastTs; }); _saveMgrSeen(next);
+  if (!box.dataset.wired) {
+    box.dataset.wired = "1";
+    box.addEventListener("click", (e) => {
+      const btn = e.target.closest(".g-mw-exp"); if (!btn) return;
+      e.preventDefault();
+      const evbox = btn.closest(".g-mw-item") && btn.closest(".g-mw-item").querySelector(".g-mw-events");
+      if (!evbox) return;
+      const opening = evbox.hasAttribute("hidden");
+      if (opening) evbox.removeAttribute("hidden"); else evbox.setAttribute("hidden", "");
+      btn.setAttribute("aria-expanded", opening ? "true" : "false");
+      btn.textContent = opening ? "Less" : "More";
+    });
+  }
 }
 
 function renderFeed() {
