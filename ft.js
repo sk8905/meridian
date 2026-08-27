@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a919761d-dab1-4a6e-93fe-f69910192c1c", title: "Don't draw the wrong conclusion from Treasury yields", date: "2026-08-27", time: "15:45", url: "https://www.ft.com/content/a919761d-dab1-4a6e-93fe-f69910192c1c" },
+  { id: "7db89ce2-ca7c-43e2-b06b-07c0d3c269ca", title: "Cyber attack on UK's largest airport group exposes data of 8.7mn customers", date: "2026-08-27", time: "15:42", url: "https://www.ft.com/content/7db89ce2-ca7c-43e2-b06b-07c0d3c269ca" },
+  { id: "dc3607ab-741a-4878-9a9e-ba88e4b5143d", title: "Ratko Mladić dies in prison aged 84", date: "2026-08-27", time: "15:30", url: "https://www.ft.com/content/dc3607ab-741a-4878-9a9e-ba88e4b5143d" },
+  { id: "7729314c-4928-485e-bfe8-5d6749d65cd2", title: "Uefa prepares criminal complaint against Fifa's Infantino", date: "2026-08-27", time: "15:29", url: "https://www.ft.com/content/7729314c-4928-485e-bfe8-5d6749d65cd2" },
+  { id: "1123d1a4-bdb7-425f-b27c-73f1b5249939", title: "Andy Burnham's high street plan is 'delusional', says Mike Ashley", date: "2026-08-27", time: "15:22", url: "https://www.ft.com/content/1123d1a4-bdb7-425f-b27c-73f1b5249939" },
   { id: "88395752-1301-44a2-961c-124f5270209c", title: "Minutes from ECB's July meeting more positive on inflation outlook", date: "2026-08-27", time: "14:44", url: "https://www.ft.com/content/88395752-1301-44a2-961c-124f5270209c" },
   { id: "52e03e5d-12f7-41e2-a62e-3822200ea7b7", title: "Humanoid robots will be useful, just not as we imagined", date: "2026-08-27", time: "14:36", url: "https://www.ft.com/content/52e03e5d-12f7-41e2-a62e-3822200ea7b7" },
   { id: "a41bf5b0-2cf1-4a0e-98dc-200e8a9e8ebf", title: "Flat owners win 'right to manage' case at UK Supreme Court", date: "2026-08-27", time: "14:35", url: "https://www.ft.com/content/a41bf5b0-2cf1-4a0e-98dc-200e8a9e8ebf" },
@@ -56,8 +61,4 @@ export const FT_ITEMS = [
   { id: "19530193-b1b3-4f04-adc2-ecd7526bbfa8", title: "Ulrich Siegmund and the eastern German state the AfD thinks it can win", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/19530193-b1b3-4f04-adc2-ecd7526bbfa8" },
   { id: "f0fae869-6139-489c-9b96-5ec05c3fcfb3", title: "Donald Trump’s Bronx loyalists stand by him as approval ratings sink", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/f0fae869-6139-489c-9b96-5ec05c3fcfb3" },
   { id: "48371986-4bc6-4396-8f81-63b2983d2f3a", title: "The Iranian cleric tightening Khamenei’s grip at home", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/48371986-4bc6-4396-8f81-63b2983d2f3a" },
-  { id: "ea9c073d-4e9d-4e8a-98c0-68e278faa081", title: "Jane Street’s growing pains", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/ea9c073d-4e9d-4e8a-98c0-68e278faa081" },
-  { id: "1a1408b0-8f55-454a-b7ad-3c740463eab5", title: "City trader develops AI ‘SOS’ bracelet for women and children at risk of domestic abuse", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/1a1408b0-8f55-454a-b7ad-3c740463eab5" },
-  { id: "79884de5-774a-4633-ba92-be4184eb22c1", title: "Bitcoin treasury companies shed $80bn in value as business model unwinds", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/79884de5-774a-4633-ba92-be4184eb22c1" },
-  { id: "1239bc3e-35cc-42d7-91cb-95c1542e5e51", title: "Big Tobacco turns to more potent nicotine pouches in battle for US", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/1239bc3e-35cc-42d7-91cb-95c1542e5e51" },
 ];
