@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "817369ed-a886-4cfe-8324-5391b7187591", title: "HMRC records record capital gains tax haul after Reeves’ rate rise", date: "2026-08-27", time: "12:11", url: "https://www.ft.com/content/817369ed-a886-4cfe-8324-5391b7187591" },
+  { id: "f84a4bbe-e489-4822-8644-95b4454b968d", title: "Private equity carried interest payouts soared ahead of UK tax changes", date: "2026-08-27", time: "11:59", url: "https://www.ft.com/content/f84a4bbe-e489-4822-8644-95b4454b968d" },
+  { id: "5b2cc821-b15d-4292-82a6-149e48530c0a", title: "UK asylum claims drop sharply as ministers curb hotel use", date: "2026-08-27", time: "10:38", url: "https://www.ft.com/content/5b2cc821-b15d-4292-82a6-149e48530c0a" },
   { id: "e5fe61b7-ceb2-4b36-90c5-26a6aa736444", title: "The battle plans in Trump's tariff wars look more witless each time", date: "2026-08-27", time: "11:00", url: "https://www.ft.com/content/e5fe61b7-ceb2-4b36-90c5-26a6aa736444" },
   { id: "4d7010e3-7e54-457f-b2e1-ea44cc1fddd3", title: "'Neets' numbers dip below 1mn as Andy Burnham prepares fresh push on welfare reform", date: "2026-08-27", time: "10:54", url: "https://www.ft.com/content/4d7010e3-7e54-457f-b2e1-ea44cc1fddd3" },
   { id: "bbb5acbe-c833-4a19-8437-3f5260cc6700", title: "Have you discovered the magic of Merlin?", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/bbb5acbe-c833-4a19-8437-3f5260cc6700" },
@@ -58,6 +61,4 @@ export const FT_ITEMS = [
   { id: "5b479f2e-6b34-4373-b65b-531b92bac816", title: "Charting the trillion-dollar TAM wars", date: "2026-08-26", time: "17:16", url: "https://www.ft.com/content/5b479f2e-6b34-4373-b65b-531b92bac816" },
   { id: "083d21f8-ac03-4d72-b149-e8ded11c11a9", title: "Heatwaves spark interest in Gulf-style extreme cooling", date: "2026-08-26", time: "17:09", url: "https://www.ft.com/content/083d21f8-ac03-4d72-b149-e8ded11c11a9" },
   { id: "284f83f5-b6af-41a9-909d-26ca5693e5a9", title: "Andy Burnham seeks to bridge gap with nervous business community", date: "2026-08-26", time: "17:08", url: "https://www.ft.com/content/284f83f5-b6af-41a9-909d-26ca5693e5a9" },
-  { id: "d7b89b34-8961-484d-b776-707520e942c5", title: "CIA chief makes rare visit to Moscow", date: "2026-08-26", time: "16:52", url: "https://www.ft.com/content/d7b89b34-8961-484d-b776-707520e942c5" },
-  { id: "0ebde4be-b080-4c64-97a5-6daa2f33299a", title: "Fed set to be data dependent in the months ahead", date: "2026-08-26", time: "16:30", url: "https://www.ft.com/content/0ebde4be-b080-4c64-97a5-6daa2f33299a" },
 ];
