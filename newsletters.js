@@ -37,6 +37,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-flooddevastatesnepal-20260827",
+    publication: "Bloomberg",
+    author: "Lily Nonomiya",
+    series: "Morning Briefing Europe",
+    title: "Flood devastates Nepal",
+    date: "2026-08-27",
+    time: "06:59",
+    summary: "A devastating flash flood in Nepal kills at least 165 people, Nvidia gives a bullish sales outlook for fiscal 2028, and artist Yayoi Kusama dies at 97.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-27/nepal-flash-flood-death-toll-rises-hundreds-missing",
+  },
+  {
+    id: "nl-economist-worldinbrief-nvidiadefiesaibubble-20260827",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: Nvidia defies AI bubble fears",
+    date: "2026-08-27",
+    time: "06:31",
+    summary: "Catch up quickly on the global stories that matter.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-reuters-tradingday-hotinflationcoolssentiment-20260826",
     publication: "Thomson Reuters",
     author: "Jamie McGeever",
@@ -439,24 +461,5 @@ export const NEWSLETTERS = [
     time: "15:32",
     summary: "Departure comes 18 months after his appointment to US firm's new-look leadership team.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMQP7IY6DkRWFEzltj/wv",
-  },
-  {
-    id: "nl-lb-starbucksgc-20260821",
-    publication: "Legal Business",
-    title: "Starbucks EMEA GC on leadership, business turnarounds and traveling the 'bumpy road'",
-    date: "2026-08-21",
-    time: "14:33",
-    summary: "Huma Allana van Reesch on joining the coffee giant at a time of crisis, the importance of being a business leader first, and making a name for herself working in-house.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQP3fqonuT8RxD7ll/wv",
-  },
-  {
-    id: "nl-mailbrew-fridaybrew-10-20260821",
-    publication: "Mailbrew",
-    series: "Friday Brew",
-    title: "Friday Brew #10",
-    date: "2026-08-21",
-    time: "13:58",
-    summary: "Digest round-up: a BDC tender offers podcast, Michael Burry's Trading Post on the AI buildout and small language models, and FT Alphaville's 'silicon god delusion'.",
-    url: "https://app.mailbrew.com/stevedkennedy/friday-brew-03bEHcNb3hHB/10",
   },
 ];
