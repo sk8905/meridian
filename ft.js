@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "88395752-1301-44a2-961c-124f5270209c", title: "Minutes from ECB's July meeting more positive on inflation outlook", date: "2026-08-27", time: "14:44", url: "https://www.ft.com/content/88395752-1301-44a2-961c-124f5270209c" },
+  { id: "52e03e5d-12f7-41e2-a62e-3822200ea7b7", title: "Humanoid robots will be useful, just not as we imagined", date: "2026-08-27", time: "14:36", url: "https://www.ft.com/content/52e03e5d-12f7-41e2-a62e-3822200ea7b7" },
+  { id: "a41bf5b0-2cf1-4a0e-98dc-200e8a9e8ebf", title: "Flat owners win 'right to manage' case at UK Supreme Court", date: "2026-08-27", time: "14:35", url: "https://www.ft.com/content/a41bf5b0-2cf1-4a0e-98dc-200e8a9e8ebf" },
   { id: "fbf566f0-eb3a-484e-9f3d-5189c4730180", title: "Kevin Warsh's peculiar challenge", date: "2026-08-27", time: "14:00", url: "https://www.ft.com/content/fbf566f0-eb3a-484e-9f3d-5189c4730180" },
   { id: "1f3c2038-0087-4335-bc8f-d9c75e3a6963", title: "ECB will return to data dependence after a September rate rise", date: "2026-08-27", time: "14:00", url: "https://www.ft.com/content/1f3c2038-0087-4335-bc8f-d9c75e3a6963" },
   { id: "80fd2ed5-fb7f-4494-b7fe-a2a7d9253a49", title: "US corporate intelligence firm drops legal claim against sanctioned oil trader", date: "2026-08-27", time: "13:55", url: "https://www.ft.com/content/80fd2ed5-fb7f-4494-b7fe-a2a7d9253a49" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "1a1408b0-8f55-454a-b7ad-3c740463eab5", title: "City trader develops AI ‘SOS’ bracelet for women and children at risk of domestic abuse", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/1a1408b0-8f55-454a-b7ad-3c740463eab5" },
   { id: "79884de5-774a-4633-ba92-be4184eb22c1", title: "Bitcoin treasury companies shed $80bn in value as business model unwinds", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/79884de5-774a-4633-ba92-be4184eb22c1" },
   { id: "1239bc3e-35cc-42d7-91cb-95c1542e5e51", title: "Big Tobacco turns to more potent nicotine pouches in battle for US", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/1239bc3e-35cc-42d7-91cb-95c1542e5e51" },
-  { id: "4e00d916-7668-4981-8db6-3ccecae7a5c7", title: "Trump jolts Iceland’s EU debate back to life", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/4e00d916-7668-4981-8db6-3ccecae7a5c7" },
-  { id: "9fe777d8-49df-4986-9af9-01a30ebb7030", title: "The tower at the heart of US-Mexico cartel spat", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/9fe777d8-49df-4986-9af9-01a30ebb7030" },
-  { id: "e353d8bd-e763-4866-89c3-7382ae3587db", title: "Uefa set to water down plan to boycott all Fifa football tournaments", date: "2026-08-26", time: "20:48", url: "https://www.ft.com/content/e353d8bd-e763-4866-89c3-7382ae3587db" },
 ];
