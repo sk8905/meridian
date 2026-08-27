@@ -425,34 +425,32 @@ function renderManagerWire() {
   rows.forEach((r) => { const p = seen[r.id]; r.newCount = (p != null) ? r.events.filter((e) => e.ts && e.ts > p).length : 0; });
 
   const item = (r) => {
-    const e = r.latest || {};
     const href = `/credit/#/manager/${encodeURIComponent(r.id)}`;
     const star = r.watched ? '<span class="g-mw-star" aria-label="Watchlisted">★</span>' : "";
     const nu = (r.watched && r.newCount) ? `<span class="g-mw-new">+${r.newCount} new</span>` : "";
     const team = r.hasTeamChange ? '<span class="g-mw-team" title="Recent senior hire/departure">⇄</span>' : "";
-    const ctx = e.title ? `<span class="g-mw-ctx"> · ${esc(e.title)}</span>` : "";
-    const top = `<a class="g-feed-row g-desk-c g-mw-top" href="${href}">`
-      + `<span class="g-feed-time">${_mwWhen(r.lastDate)}</span>`
-      + `<span class="g-feed-code credit">${CAT_LABEL[e.cat] || "NEWS"}</span>`
-      + `<span class="g-feed-title">${star}<span class="g-mw-nm">${esc(r.name)}</span>${nu}${team}${ctx}</span>`
-      + `<span class="g-feed-src">${esc(_mwSrc(e))}</span></a>`;
+    const fund = r.inMarket ? `<span class="g-mw-fund" title="Funds in market">◆ ${esc(_fundStr(r.fundsInMarket[0]))}${r.inMarket > 1 ? ` +${r.inMarket - 1}` : ""}</span>` : "";
+    const hdr = `<div class="g-mw-hdr">${star}<a class="g-mw-nm" href="${href}">${esc(r.name)}</a>${nu}${team}${fund}</div>`;
 
     const trend = r.trend === "up" ? '<span class="g-mw-up">▲</span>' : r.trend === "down" ? '<span class="g-mw-dn">▼</span>' : '<span class="g-mw-fl">·</span>';
     const mix = _mixStr(r.mix), aum = _aumAmt(r.aumSym, r.aum), strat = (r.strategies || []).slice(0, 2).map(esc).join(" · ");
-    const meta = `<div class="g-mw-meta">`
-      + (r.inMarket ? `<span class="g-mw-m g-mw-fund" title="Funds in market">◆ ${esc(_fundStr(r.fundsInMarket[0]))}${r.inMarket > 1 ? ` +${r.inMarket - 1}` : ""}</span>` : "")
+    const activity = `<div class="g-mw-meta">`
       + `<span class="g-mw-m" title="Events last 30 days (▲ rising vs prior 30d)">${r.count30}·30d ${trend}</span>`
       + (mix ? `<span class="g-mw-m g-mw-mix" title="Signal mix, last 90 days">${mix}</span>` : "")
       + (aum ? `<span class="g-mw-m g-mw-aum${r.aumStale ? " is-stale" : ""}" title="AUM${r.aumStale ? " — as-of date is >9 months old" : ""}">AUM ${esc(aum)}${r.asOf ? ` · ${_asOfShort(r.asOf)}` : ""}</span>` : "")
       + (strat ? `<span class="g-mw-m g-mw-strat" title="Primary strategies">${strat}</span>` : "")
-      + (r.events.length > 1 ? `<button type="button" class="g-mw-exp" aria-expanded="false">More</button>` : "")
       + `</div>`;
 
-    const more = r.events.slice(1, 4).map((x) => `<a class="g-mw-ev" href="${esc(x.ext ? x.source : href)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
-      + `<span class="g-mw-ev-d">${_mwWhen(x.date)}</span><span class="g-mw-ev-c">${CAT_LABEL[x.cat] || "NEWS"}</span><span class="g-mw-ev-t">${esc(x.title)}</span></a>`).join("");
-    const events = more ? `<div class="g-mw-events" hidden>${more}</div>` : "";
+    // All the manager's news stories together, feed-styled, beneath the activity line.
+    const ev = (x) => `<a class="g-mw-ev" href="${esc(x.ext ? x.source : href)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
+      + `<span class="g-mw-ev-d">${_mwWhen(x.date)}</span><span class="g-mw-ev-c">${CAT_LABEL[x.cat] || "NEWS"}</span>`
+      + `<span class="g-mw-ev-t">${esc(x.title)}</span><span class="g-mw-ev-s">${esc(_mwSrc(x))}</span></a>`;
+    const SHOWN = 3;
+    const shown = r.events.slice(0, SHOWN).map(ev).join("");
+    const rest = r.events.slice(SHOWN, 8);
+    const more = rest.length ? `<div class="g-mw-events" hidden>${rest.map(ev).join("")}</div><button type="button" class="g-mw-exp" aria-expanded="false">More</button>` : "";
 
-    return `<div class="g-mw-item">${top}${meta}${events}</div>`;
+    return `<div class="g-mw-item">${hdr}${activity}<div class="g-mw-stories">${shown}${more}</div></div>`;
   };
 
   const watched = rows.filter((r) => r.watched), active = rows.filter((r) => !r.watched);

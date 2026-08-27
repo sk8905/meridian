@@ -863,44 +863,46 @@
       .tui .g-feed{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; }
     }
     /* ---- Manager wire (Home manager column) ---- */
-    /* The top line reuses the news-wire row engine (.g-feed-row → time · code ·
-       title · src); a monitoring meta line and an expandable event list sit under
-       it inside .g-mw-item. */
+    /* Each manager is a mini-section: a header (name + fundraising to the right) ·
+       an activity line · then its news stories together, feed-sized to match the
+       aggregated wire (14px headline, 11px time/source, 9.5px code pill). */
     .g-mw-pane{ display:flex; flex-direction:column; }
-    .g-mw-item{ border-bottom:1px solid var(--t-grid); }
-    /* Tighter grid than the wide news feed (narrower column) + a single-line
-       title so the manager name + headline ellipsis instead of wrapping word by
-       word. */
-    .g-mw-item .g-mw-top{ border-bottom:0; padding-bottom:2px;
-      grid-template-columns:38px 30px minmax(0,1fr) minmax(0,86px); gap:8px; }
-    .g-mw-item .g-mw-top .g-feed-title{ white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-    .g-mw-star{ color:var(--t-accent); font-size:.72rem; margin-right:.28rem; }
-    .g-mw-nm{ font-weight:700; color:var(--t-ink); }
-    .g-mw-ctx{ color:var(--t-mut); }
-    .g-mw-new{ margin:0 .3rem; color:var(--t-accent); font-weight:800; font-size:9px; letter-spacing:.02em;
+    .g-mw-item{ border-bottom:1px solid var(--t-grid); padding:3px 0 6px; }
+    .g-mw-hdr{ display:flex; align-items:baseline; gap:.3rem; padding:5px 12px 2px; }
+    .g-mw-star{ flex:0 0 auto; color:var(--t-accent); font-size:.8rem; }
+    .g-mw-nm{ flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
+      font-weight:700; font-size:14px; color:var(--t-ink); text-decoration:none; }
+    .g-mw-nm:hover{ color:var(--t-accent); }
+    .g-mw-new{ flex:0 0 auto; color:var(--t-accent); font-weight:800; font-size:9px; letter-spacing:.02em;
       border:1px solid var(--t-accent); border-radius:4px; padding:0 .28rem; white-space:nowrap; }
-    .g-mw-team{ margin-left:.28rem; color:var(--t-hdg); font-size:.72rem; }
-    /* Monitoring meta line: fundraising · activity+trend · signal mix · AUM · strategies. */
-    .g-mw-meta{ display:flex; flex-wrap:wrap; align-items:baseline; gap:.15rem .55rem; padding:0 12px 6px 12px;
-      font-size:10.5px; color:var(--t-mut); line-height:1.5; }
+    .g-mw-team{ flex:0 0 auto; color:var(--t-hdg); font-size:.8rem; }
+    /* Green fundraising text sits to the RIGHT of the manager name. */
+    .g-mw-fund{ flex:0 1 auto; min-width:0; margin-left:auto; text-align:right; overflow:hidden; text-overflow:ellipsis;
+      white-space:nowrap; color:var(--t-up); font-size:11px; font-variant-numeric:tabular-nums; }
+    /* Activity line: count+trend · signal mix · AUM · strategies. */
+    .g-mw-meta{ display:flex; flex-wrap:wrap; align-items:baseline; gap:.15rem .5rem; padding:0 12px 4px;
+      font-size:11px; color:var(--t-mut); line-height:1.5; }
     .g-mw-m{ white-space:nowrap; font-variant-numeric:tabular-nums; }
-    .g-mw-fund{ flex:1 1 100%; min-width:0; overflow:hidden; text-overflow:ellipsis; color:var(--t-up); }
     .g-mw-mix{ color:var(--t-dim); }
     .g-mw-aum{ color:var(--t-dim); }
     .g-mw-aum.is-stale{ color:var(--t-amber); }
     .g-mw-strat{ min-width:0; overflow:hidden; text-overflow:ellipsis; color:var(--t-faint); }
     .g-mw-up{ color:var(--t-up); } .g-mw-dn{ color:var(--t-down); } .g-mw-fl{ color:var(--t-faint); }
-    .g-mw-exp{ margin-left:auto; background:none; border:0; color:var(--t-accent); font:inherit; font-size:10px;
-      font-weight:700; cursor:pointer; padding:0; }
+    /* Story rows — all together beneath the activity line, sized like the feed. */
+    .g-mw-stories{ display:flex; flex-direction:column; }
+    .g-mw-ev{ display:grid; grid-template-columns:42px 30px minmax(0,1fr) minmax(0,66px); gap:8px; align-items:baseline;
+      text-decoration:none; padding:4px 12px; }
+    .g-mw-ev:hover{ background:var(--t-panel2); }
+    .g-mw-ev-d{ font-family:var(--t-mono); font-size:11px; color:var(--t-mut); font-variant-numeric:tabular-nums; }
+    .g-mw-ev-c{ font-family:var(--t-mono); font-size:9.5px; font-weight:700; color:var(--t-crd); letter-spacing:.04em; }
+    /* Headline wraps like the news feed (up to two lines) so the full story shows. */
+    .g-mw-ev-t{ font-size:14px; color:var(--t-ink); line-height:1.35; overflow:hidden;
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; }
+    .g-mw-ev-s{ font-family:var(--t-mono); font-size:11px; color:var(--t-faint); text-align:left; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .g-mw-exp{ align-self:flex-start; margin:2px 12px 0; background:none; border:0; color:var(--t-accent); font:inherit;
+      font-size:11px; font-weight:700; cursor:pointer; padding:0; }
     .g-mw-exp:hover{ text-decoration:underline; }
-    /* Expanded event list (last few events beyond the headline). */
-    .g-mw-events{ padding:0 12px 7px 12px; display:flex; flex-direction:column; gap:2px; }
-    .g-mw-ev{ display:grid; grid-template-columns:40px 30px minmax(0,1fr); gap:8px; align-items:baseline;
-      text-decoration:none; padding:1px 0; }
-    .g-mw-ev:hover .g-mw-ev-t{ color:var(--t-ink); }
-    .g-mw-ev-d{ font-family:var(--t-mono); font-size:10px; color:var(--t-faint); }
-    .g-mw-ev-c{ font-family:var(--t-mono); font-size:8.5px; font-weight:700; color:var(--t-crd); }
-    .g-mw-ev-t{ font-size:11px; color:var(--t-dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .g-mw-events{ display:flex; flex-direction:column; }
     .g-mw-empty{ padding:.9rem .7rem; color:var(--t-mut); font-size:.8rem; }
 
     @media (max-width:900px){ .tui .g-layout{ grid-template-columns:1fr; }
