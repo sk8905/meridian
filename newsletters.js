@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-airefi-20260827",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: AI Refi",
+    date: "2026-08-27",
+    time: "19:04",
+    summary: "Mortgages, evergreens, gazumping.",
+    url: "https://bloom.bg/4y9rJSs",
+  },
+  {
     id: "nl-reuters-econworld-warshsaddlesup-20260827",
     publication: "Thomson Reuters",
     author: "Carmel Crimmins",
@@ -456,16 +467,5 @@ export const NEWSLETTERS = [
     time: "16:00",
     summary: "The billionaire is shedding some of his sports holdings to raise cash after multiple probes.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-22/mark-walter-s-financial-empire-faces-scrutiny-after-probes",
-  },
-  {
-    id: "nl-econ-worldinbrief-canadatariff-20260822",
-    publication: "The Economist",
-    author: null,
-    series: "The World in Brief",
-    title: "The World in Brief: America imposes tariff on Canadian goods",
-    date: "2026-08-22",
-    time: "06:38",
-    summary: "America slaps a 50% tariff on Canadian goods as talks collapse, while Iran's president says now is the time to end the war from a \"position of power\".",
-    url: "https://www.economist.com/the-world-in-brief",
   },
 ];

@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "4f76326d-3d29-4b3c-b7cf-b339ee4134ae", title: "Warsh goes to Jackson Hole", date: "2026-08-27", time: "18:24", url: "https://www.ft.com/content/4f76326d-3d29-4b3c-b7cf-b339ee4134ae" },
   { id: "a7a5fadb-8e81-4047-9dc7-40feda9bacd0", title: "In asset management, the race for scale is becoming urgent", date: "2026-08-27", time: "18:07", url: "https://www.ft.com/content/a7a5fadb-8e81-4047-9dc7-40feda9bacd0" },
   { id: "febba6ee-9abd-47d4-bac4-3bbe8b64be7f", title: "'Headless software' signals further AI-led shake-up", date: "2026-08-27", time: "18:01", url: "https://www.ft.com/content/febba6ee-9abd-47d4-bac4-3bbe8b64be7f" },
   { id: "05408fe6-e7f4-44b2-ac5d-2fd2a7d04a0f", title: "US rebukes Europeans over 'sea of red' military gaps", date: "2026-08-27", time: "17:56", url: "https://www.ft.com/content/05408fe6-e7f4-44b2-ac5d-2fd2a7d04a0f" },
@@ -60,6 +61,4 @@ export const FT_ITEMS = [
   { id: "f8eb3df2-5924-4fa6-a35d-046640ec94da", title: "Thames Water creditors and government in stand-off over future", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/f8eb3df2-5924-4fa6-a35d-046640ec94da" },
   { id: "33c01971-4140-4e5c-a685-6ab03ab84c2d", title: "Burnham’s energy challenge: getting more UK households off gas", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/33c01971-4140-4e5c-a685-6ab03ab84c2d" },
   { id: "ce910f62-6119-4d5f-97a4-77bbad03318d", title: "The US is gambling with its role as the world’s investment hub", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/ce910f62-6119-4d5f-97a4-77bbad03318d" },
-  { id: "6d272811-8d26-46f0-ae24-abed61aa1bf3", title: "EU states revive plan to use frozen Russian assets for Ukraine", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/6d272811-8d26-46f0-ae24-abed61aa1bf3" },
-  { id: "62480805-a8e1-42c0-8d64-8af2e6309d2a", title: "‘Drill, baby, drill’ rings out in Norway", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/62480805-a8e1-42c0-8d64-8af2e6309d2a" },
 ];
