@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8cc488a5-54c2-41f9-8b87-327ff591be6a", title: "Canada poaches 48 US-based top academics", date: "2026-08-27", time: "17:11", url: "https://www.ft.com/content/8cc488a5-54c2-41f9-8b87-327ff591be6a" },
+  { id: "fb082509-a00b-44b0-9d55-a7f34b6f7b41", title: "Why 5% Treasuries aren't crushing emerging markets", date: "2026-08-27", time: "16:56", url: "https://www.ft.com/content/fb082509-a00b-44b0-9d55-a7f34b6f7b41" },
   { id: "a919761d-dab1-4a6e-93fe-f69910192c1c", title: "Don't draw the wrong conclusion from Treasury yields", date: "2026-08-27", time: "15:45", url: "https://www.ft.com/content/a919761d-dab1-4a6e-93fe-f69910192c1c" },
   { id: "7db89ce2-ca7c-43e2-b06b-07c0d3c269ca", title: "Cyber attack on UK's largest airport group exposes data of 8.7mn customers", date: "2026-08-27", time: "15:42", url: "https://www.ft.com/content/7db89ce2-ca7c-43e2-b06b-07c0d3c269ca" },
   { id: "dc3607ab-741a-4878-9a9e-ba88e4b5143d", title: "Ratko Mladić dies in prison aged 84", date: "2026-08-27", time: "15:30", url: "https://www.ft.com/content/dc3607ab-741a-4878-9a9e-ba88e4b5143d" },
@@ -60,5 +62,4 @@ export const FT_ITEMS = [
   { id: "4fbeebda-e40d-423a-8564-e410fbfb6e9f", title: "Harvard Business School explored European outpost after Trump’s visa threats", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/4fbeebda-e40d-423a-8564-e410fbfb6e9f" },
   { id: "19530193-b1b3-4f04-adc2-ecd7526bbfa8", title: "Ulrich Siegmund and the eastern German state the AfD thinks it can win", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/19530193-b1b3-4f04-adc2-ecd7526bbfa8" },
   { id: "f0fae869-6139-489c-9b96-5ec05c3fcfb3", title: "Donald Trump’s Bronx loyalists stand by him as approval ratings sink", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/f0fae869-6139-489c-9b96-5ec05c3fcfb3" },
-  { id: "48371986-4bc6-4396-8f81-63b2983d2f3a", title: "The Iranian cleric tightening Khamenei’s grip at home", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/48371986-4bc6-4396-8f81-63b2983d2f3a" },
 ];
