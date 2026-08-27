@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a81a4556-0c22-4d94-a105-31e3acb6912e", title: "Autumn can't come soon enough for home sellers", date: "2026-08-27", time: "13:00", url: "https://www.ft.com/content/a81a4556-0c22-4d94-a105-31e3acb6912e" },
+  { id: "e291cbfe-726c-4d38-9ab5-66c5afa86cd5", title: "'It's like playing on concrete': drought leaves sports pitches across England unplayable", date: "2026-08-27", time: "12:53", url: "https://www.ft.com/content/e291cbfe-726c-4d38-9ab5-66c5afa86cd5" },
+  { id: "5250dd00-5bfc-44ce-80d6-2295c020efb8", title: "Jes Staley told Congress it was 'incredible' Epstein's abuse continued after jail", date: "2026-08-27", time: "12:37", url: "https://www.ft.com/content/5250dd00-5bfc-44ce-80d6-2295c020efb8" },
+  { id: "797e289f-a94c-413a-8f56-e2d975c5d540", title: "Can the City of London remain a leading financial centre?", date: "2026-08-27", time: "12:25", url: "https://www.ft.com/content/797e289f-a94c-413a-8f56-e2d975c5d540" },
   { id: "817369ed-a886-4cfe-8324-5391b7187591", title: "HMRC records record capital gains tax haul after Reeves' rate rise", date: "2026-08-27", time: "12:11", url: "https://www.ft.com/content/817369ed-a886-4cfe-8324-5391b7187591" },
   { id: "f84a4bbe-e489-4822-8644-95b4454b968d", title: "Private equity carried interest payouts soared ahead of UK tax changes", date: "2026-08-27", time: "11:59", url: "https://www.ft.com/content/f84a4bbe-e489-4822-8644-95b4454b968d" },
   { id: "e7128b98-b4f3-4f86-b9de-f1c830cac1b1", title: "Askar Baitassov explores the spas, Soviet design and sausages of Almaty", date: "2026-08-27", time: "11:00", url: "https://www.ft.com/content/e7128b98-b4f3-4f86-b9de-f1c830cac1b1" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "99278383-22eb-4d42-85fd-5dcc8917be84", title: "RedBird nears deal for Puck at $250mn valuation in latest digital media bet", date: "2026-08-26", time: "20:28", url: "https://www.ft.com/content/99278383-22eb-4d42-85fd-5dcc8917be84" },
   { id: "3fc189d6-28e7-4a2b-b77e-5c94bf513955", title: "OpenAI says it took a week to detect its AI models had hacked Hugging Face", date: "2026-08-26", time: "20:00", url: "https://www.ft.com/content/3fc189d6-28e7-4a2b-b77e-5c94bf513955" },
   { id: "857fb8e1-eec6-443e-97e8-f6876302aabc", title: "Trump administration pauses immigrant visa applications", date: "2026-08-26", time: "19:37", url: "https://www.ft.com/content/857fb8e1-eec6-443e-97e8-f6876302aabc" },
-  { id: "d9b7300a-d67a-4a64-871b-70e5a89d23af", title: "US labels Palestine Action a ‘terrorist group’", date: "2026-08-26", time: "18:47", url: "https://www.ft.com/content/d9b7300a-d67a-4a64-871b-70e5a89d23af" },
-  { id: "7650d84f-4750-48c4-9a9e-ca899e608931", title: "Ministers tell Bank of England to boost innovation in digital currencies", date: "2026-08-26", time: "18:27", url: "https://www.ft.com/content/7650d84f-4750-48c4-9a9e-ca899e608931" },
-  { id: "46bfb72c-6bb5-449b-ba81-87868d44526b", title: "El Niño’s looming threat to the global food system", date: "2026-08-26", time: "17:49", url: "https://www.ft.com/content/46bfb72c-6bb5-449b-ba81-87868d44526b" },
-  { id: "5b479f2e-6b34-4373-b65b-531b92bac816", title: "Charting the trillion-dollar TAM wars", date: "2026-08-26", time: "17:16", url: "https://www.ft.com/content/5b479f2e-6b34-4373-b65b-531b92bac816" },
 ];

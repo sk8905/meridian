@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-burnthebonds-20260827",
+    publication: "Bloomberg",
+    author: "Simon White",
+    series: null,
+    title: "The 'Burn the Bonds' Stage of the Debt Cycle Is Here",
+    date: "2026-08-27",
+    time: "11:39",
+    summary: "A French call to cancel public debt points to a wider 'burn the bonds' drift toward inflating away sovereign debt.",
+    url: "https://www.bloomberg.com/news/articles/2026-08-27/the-burn-the-bonds-stage-of-the-debt-cycle-is-here",
+  },
+  {
     id: "nl-lb-kkrantitrustpenalty-20260827",
     publication: "Legal Business",
     author: null,
