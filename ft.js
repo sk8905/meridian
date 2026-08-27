@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a7a5fadb-8e81-4047-9dc7-40feda9bacd0", title: "In asset management, the race for scale is becoming urgent", date: "2026-08-27", time: "18:07", url: "https://www.ft.com/content/a7a5fadb-8e81-4047-9dc7-40feda9bacd0" },
+  { id: "febba6ee-9abd-47d4-bac4-3bbe8b64be7f", title: "'Headless software' signals further AI-led shake-up", date: "2026-08-27", time: "18:01", url: "https://www.ft.com/content/febba6ee-9abd-47d4-bac4-3bbe8b64be7f" },
+  { id: "05408fe6-e7f4-44b2-ac5d-2fd2a7d04a0f", title: "US rebukes Europeans over 'sea of red' military gaps", date: "2026-08-27", time: "17:56", url: "https://www.ft.com/content/05408fe6-e7f4-44b2-ac5d-2fd2a7d04a0f" },
+  { id: "f87d893e-24db-4ccd-af90-1f7f0abeb57e", title: "Polish Olympic chief arrested in spreading crypto scandal", date: "2026-08-27", time: "17:50", url: "https://www.ft.com/content/f87d893e-24db-4ccd-af90-1f7f0abeb57e" },
   { id: "8cc488a5-54c2-41f9-8b87-327ff591be6a", title: "Canada poaches 48 US-based top academics", date: "2026-08-27", time: "17:11", url: "https://www.ft.com/content/8cc488a5-54c2-41f9-8b87-327ff591be6a" },
   { id: "fb082509-a00b-44b0-9d55-a7f34b6f7b41", title: "Why 5% Treasuries aren't crushing emerging markets", date: "2026-08-27", time: "16:56", url: "https://www.ft.com/content/fb082509-a00b-44b0-9d55-a7f34b6f7b41" },
   { id: "a919761d-dab1-4a6e-93fe-f69910192c1c", title: "Don't draw the wrong conclusion from Treasury yields", date: "2026-08-27", time: "15:45", url: "https://www.ft.com/content/a919761d-dab1-4a6e-93fe-f69910192c1c" },
@@ -58,8 +62,4 @@ export const FT_ITEMS = [
   { id: "ce910f62-6119-4d5f-97a4-77bbad03318d", title: "The US is gambling with its role as the world’s investment hub", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/ce910f62-6119-4d5f-97a4-77bbad03318d" },
   { id: "6d272811-8d26-46f0-ae24-abed61aa1bf3", title: "EU states revive plan to use frozen Russian assets for Ukraine", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/6d272811-8d26-46f0-ae24-abed61aa1bf3" },
   { id: "62480805-a8e1-42c0-8d64-8af2e6309d2a", title: "‘Drill, baby, drill’ rings out in Norway", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/62480805-a8e1-42c0-8d64-8af2e6309d2a" },
-  { id: "2b780776-d8f3-4bd3-9daa-f601b5d4206a", title: "France replaces Italy as European bond investors’ biggest worry", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/2b780776-d8f3-4bd3-9daa-f601b5d4206a" },
-  { id: "4fbeebda-e40d-423a-8564-e410fbfb6e9f", title: "Harvard Business School explored European outpost after Trump’s visa threats", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/4fbeebda-e40d-423a-8564-e410fbfb6e9f" },
-  { id: "19530193-b1b3-4f04-adc2-ecd7526bbfa8", title: "Ulrich Siegmund and the eastern German state the AfD thinks it can win", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/19530193-b1b3-4f04-adc2-ecd7526bbfa8" },
-  { id: "f0fae869-6139-489c-9b96-5ec05c3fcfb3", title: "Donald Trump’s Bronx loyalists stand by him as approval ratings sink", date: "2026-08-27", time: "05:00", url: "https://www.ft.com/content/f0fae869-6139-489c-9b96-5ec05c3fcfb3" },
 ];
