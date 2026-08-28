@@ -150,7 +150,7 @@ export function mount(host, ctx) {
         + `<td class="org-wallet">${walletChips(r.wallet)}</td>`
         + `<td class="org-adv">${adv}</td>`
         + `<td class="org-latest">${lt}</td>`
-        + `<td><button type="button" class="org-warm-btn${rel !== "none" ? " on" : ""}" data-id="${esc(id)}" title="Cycle relationship warmth">${rel === "none" ? "☆" : "★"}<span class="org-warm-lbl">${relLabel[rel]}</span></button></td>`
+        + `<td><button type="button" class="org-warm-btn${rel !== "none" ? " on" : ""}" data-id="${esc(id)}" title="Cycle relationship warmth" aria-label="Cycle relationship warmth${rel === "none" ? "" : " (currently " + relLabel[rel] + ")"}">${rel === "none" ? "☆" : "★"}<span class="org-warm-lbl">${relLabel[rel]}</span></button></td>`
         + `<td class="org-tier-c"><select class="org-tier" data-id="${esc(id)}" aria-label="Tier for ${esc(r.m.name)}">${TIERS.map((v) => `<option value="${v}"${v === (t.tier || "") ? " selected" : ""}>${v || "—"}</option>`).join("")}</select></td>`
         + `</tr>`;
     }).join("") || `<tr><td colspan="10" class="tw-empty muted small">No targets match these filters.</td></tr>`;
