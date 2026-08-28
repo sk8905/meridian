@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "caf9084f-8166-48c3-abab-0e801dd7a456", title: "FTAV’s further reading", date: "2026-08-28", time: "07:14", url: "https://www.ft.com/content/caf9084f-8166-48c3-abab-0e801dd7a456" },
+  { id: "fc925436-4bcb-444c-b929-83014f6da44d", title: "Healey to shelve his own defence spending target of 3% of GDP by 2030", date: "2026-08-28", time: "07:13", url: "https://www.ft.com/content/fc925436-4bcb-444c-b929-83014f6da44d" },
+  { id: "c377139e-b53c-4043-86b2-36b9d73cde9a", title: "The US consumer is showing some strain", date: "2026-08-28", time: "06:30", url: "https://www.ft.com/content/c377139e-b53c-4043-86b2-36b9d73cde9a" },
+  { id: "5e6db1ad-6ea5-44db-80fd-fd7073d9e676", title: "FirstFT: US corporate profits surge as wages lag", date: "2026-08-28", time: "06:15", url: "https://www.ft.com/content/5e6db1ad-6ea5-44db-80fd-fd7073d9e676" },
+  { id: "bfdaff1c-07a3-4b53-9b47-7e69e6c197b6", title: "Puig’s José Manuel Albesa talks taste", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/bfdaff1c-07a3-4b53-9b47-7e69e6c197b6" },
+  { id: "007e0862-ffe7-4b8f-a540-05a19d1a45dc", title: "The cowboy clinics selling unproven longevity treatments", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/007e0862-ffe7-4b8f-a540-05a19d1a45dc" },
   { id: "75d1b474-7885-42ee-a08b-d221c5e96d1c", title: "US assesses European allies’ allegiance in pointed Nato questionnaire", date: "2026-08-28", time: "06:00", url: "https://www.ft.com/content/75d1b474-7885-42ee-a08b-d221c5e96d1c" },
   { id: "a95aebcf-6cfe-418c-8c11-ddf05f3aef4d", title: "Harvard and the Cloudflare governance fight", date: "2026-08-28", time: "06:00", url: "https://www.ft.com/content/a95aebcf-6cfe-418c-8c11-ddf05f3aef4d" },
   { id: "4f5a0247-7f56-48e7-b97e-87fbe8945e49", title: "The great junior consultant reskilling", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/4f5a0247-7f56-48e7-b97e-87fbe8945e49" },
@@ -53,11 +59,4 @@ export const FT_ITEMS = [
   { id: "dc3607ab-741a-4878-9a9e-ba88e4b5143d", title: "Ratko Mladić dies in prison aged 84", date: "2026-08-27", time: "15:30", url: "https://www.ft.com/content/dc3607ab-741a-4878-9a9e-ba88e4b5143d" },
   { id: "7729314c-4928-485e-bfe8-5d6749d65cd2", title: "Uefa prepares criminal complaint against Fifa's Infantino", date: "2026-08-27", time: "15:29", url: "https://www.ft.com/content/7729314c-4928-485e-bfe8-5d6749d65cd2" },
   { id: "1123d1a4-bdb7-425f-b27c-73f1b5249939", title: "Andy Burnham's high street plan is 'delusional', says Mike Ashley", date: "2026-08-27", time: "15:22", url: "https://www.ft.com/content/1123d1a4-bdb7-425f-b27c-73f1b5249939" },
-  { id: "88395752-1301-44a2-961c-124f5270209c", title: "Minutes from ECB's July meeting more positive on inflation outlook", date: "2026-08-27", time: "14:44", url: "https://www.ft.com/content/88395752-1301-44a2-961c-124f5270209c" },
-  { id: "52e03e5d-12f7-41e2-a62e-3822200ea7b7", title: "Humanoid robots will be useful, just not as we imagined", date: "2026-08-27", time: "14:36", url: "https://www.ft.com/content/52e03e5d-12f7-41e2-a62e-3822200ea7b7" },
-  { id: "a41bf5b0-2cf1-4a0e-98dc-200e8a9e8ebf", title: "Flat owners win 'right to manage' case at UK Supreme Court", date: "2026-08-27", time: "14:35", url: "https://www.ft.com/content/a41bf5b0-2cf1-4a0e-98dc-200e8a9e8ebf" },
-  { id: "fbf566f0-eb3a-484e-9f3d-5189c4730180", title: "Kevin Warsh's peculiar challenge", date: "2026-08-27", time: "14:00", url: "https://www.ft.com/content/fbf566f0-eb3a-484e-9f3d-5189c4730180" },
-  { id: "1f3c2038-0087-4335-bc8f-d9c75e3a6963", title: "ECB will return to data dependence after a September rate rise", date: "2026-08-27", time: "14:00", url: "https://www.ft.com/content/1f3c2038-0087-4335-bc8f-d9c75e3a6963" },
-  { id: "80fd2ed5-fb7f-4494-b7fe-a2a7d9253a49", title: "US corporate intelligence firm drops legal claim against sanctioned oil trader", date: "2026-08-27", time: "13:55", url: "https://www.ft.com/content/80fd2ed5-fb7f-4494-b7fe-a2a7d9253a49" },
-  { id: "a81a4556-0c22-4d94-a105-31e3acb6912e", title: "Autumn can't come soon enough for home sellers", date: "2026-08-27", time: "13:00", url: "https://www.ft.com/content/a81a4556-0c22-4d94-a105-31e3acb6912e" },
 ];
