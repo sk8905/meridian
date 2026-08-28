@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-matter-popularweek-20260828",
+    publication: "Matter",
+    author: null,
+    series: "Popular on Matter",
+    title: "10 Most Popular This Week: The choices we make about AI now are critical",
+    date: "2026-08-28",
+    time: "17:17",
+    summary: "The 10 most saved articles this week, Aug 21-27.",
+    url: "https://getmatter.com",
+  },
+  {
     id: "nl-mailbrew-fridaybrew11-20260828",
     publication: "Mailbrew",
     author: null,

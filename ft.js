@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "6b9afdfb-26f5-4746-8ff9-027a8d04cb1f", title: "Submit your questions: is Trump losing his touch?", date: "2026-08-28", time: "18:00", url: "https://www.ft.com/content/6b9afdfb-26f5-4746-8ff9-027a8d04cb1f" },
+  { id: "68652016-adb7-48c3-a7ad-5e0303575717", title: "Stockpickers: Chesnara, Hays, Macfarlane", date: "2026-08-28", time: "18:00", url: "https://www.ft.com/content/68652016-adb7-48c3-a7ad-5e0303575717" },
+  { id: "b625e314-ecf9-4385-a687-7a8f8c1bec23", title: "US manufacturing is booming — but it’s no thanks to Trump’s tariffs", date: "2026-08-28", time: "18:00", url: "https://www.ft.com/content/b625e314-ecf9-4385-a687-7a8f8c1bec23" },
+  { id: "f2c511ff-4505-4f4e-83d4-055fa0b9c56f", title: "Directors’ Deals: IWG boss buys in as debt concerns hit shares", date: "2026-08-28", time: "18:00", url: "https://www.ft.com/content/f2c511ff-4505-4f4e-83d4-055fa0b9c56f" },
+  { id: "5f0af00c-7f75-48fc-b89e-1a31978273c3", title: "FTAV’s Friday chart quiz", date: "2026-08-28", time: "17:51", url: "https://www.ft.com/content/5f0af00c-7f75-48fc-b89e-1a31978273c3" },
+  { id: "646b812e-c9de-49ba-90f3-f9d12205f876", title: "Warsh settles some nerves at Jackson Hole", date: "2026-08-28", time: "17:38", url: "https://www.ft.com/content/646b812e-c9de-49ba-90f3-f9d12205f876" },
   { id: "69b00e4b-e558-4534-8c78-ed145413cec2", title: "Warsh’s mildly hawkish speech helped fill in the blanks", date: "2026-08-28", time: "16:52", url: "https://www.ft.com/content/69b00e4b-e558-4534-8c78-ed145413cec2" },
   { id: "4791413a-bf31-407f-9ef6-3fbaa153085f", title: "The age of the e-bike", date: "2026-08-28", time: "16:01", url: "https://www.ft.com/content/4791413a-bf31-407f-9ef6-3fbaa153085f" },
   { id: "d0a485ea-af87-4834-aa9a-3611028a7b6e", title: "Walmart settles lawsuit over painkiller prescriptions", date: "2026-08-28", time: "15:59", url: "https://www.ft.com/content/d0a485ea-af87-4834-aa9a-3611028a7b6e" },
@@ -54,9 +60,4 @@ export const FT_ITEMS = [
   { id: "75d1b474-7885-42ee-a08b-d221c5e96d1c", title: "US assesses European allies’ allegiance in pointed Nato questionnaire", date: "2026-08-28", time: "06:00", url: "https://www.ft.com/content/75d1b474-7885-42ee-a08b-d221c5e96d1c" },
   { id: "a95aebcf-6cfe-418c-8c11-ddf05f3aef4d", title: "Harvard and the Cloudflare governance fight", date: "2026-08-28", time: "06:00", url: "https://www.ft.com/content/a95aebcf-6cfe-418c-8c11-ddf05f3aef4d" },
   { id: "4f5a0247-7f56-48e7-b97e-87fbe8945e49", title: "The great junior consultant reskilling", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/4f5a0247-7f56-48e7-b97e-87fbe8945e49" },
-  { id: "6f3ada65-c56c-499c-8eb6-008fac58949d", title: "US corporate profits surge to record as worker payouts wilt", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/6f3ada65-c56c-499c-8eb6-008fac58949d" },
-  { id: "7783b779-7ed5-4816-a7e3-38eba4a8987e", title: "Andy Burnham retreats from backing return of Parthenon sculptures to Greece", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/7783b779-7ed5-4816-a7e3-38eba4a8987e" },
-  { id: "8faac5d4-af01-4c36-949f-bb059acee910", title: "Healey could suffer £4bn headroom hit because of lower immigration forecasts", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/8faac5d4-af01-4c36-949f-bb059acee910" },
-  { id: "9a60246e-30de-4c12-911a-c57cf31f4ced", title: "Burnham’s devolution push delays police merger plans", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/9a60246e-30de-4c12-911a-c57cf31f4ced" },
-  { id: "8e93c159-2c02-444a-9f22-dcda14bc451f", title: "Zero-interest convertible bonds set for record year", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/8e93c159-2c02-444a-9f22-dcda14bc451f" },
 ];
