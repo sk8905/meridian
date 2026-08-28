@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d15d2086-49bd-4a44-9508-b4c6e27971da", title: "South Korea to review 310,000 closed missing people cases", date: "2026-08-28", time: "08:32", url: "https://www.ft.com/content/d15d2086-49bd-4a44-9508-b4c6e27971da" },
   { id: "b0c90571-6619-4ac4-8d6e-f0dd295eaf15", title: "Bank of England likely to respond to high energy prices by end of the year", date: "2026-08-28", time: "07:41", url: "https://www.ft.com/content/b0c90571-6619-4ac4-8d6e-f0dd295eaf15" },
   { id: "caf9084f-8166-48c3-abab-0e801dd7a456", title: "FTAV’s further reading", date: "2026-08-28", time: "07:14", url: "https://www.ft.com/content/caf9084f-8166-48c3-abab-0e801dd7a456" },
   { id: "fc925436-4bcb-444c-b929-83014f6da44d", title: "Healey to shelve his own defence spending target of 3% of GDP by 2030", date: "2026-08-28", time: "07:13", url: "https://www.ft.com/content/fc925436-4bcb-444c-b929-83014f6da44d" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "7db89ce2-ca7c-43e2-b06b-07c0d3c269ca", title: "Cyber attack on UK's largest airport group exposes data of 8.7mn customers", date: "2026-08-27", time: "15:42", url: "https://www.ft.com/content/7db89ce2-ca7c-43e2-b06b-07c0d3c269ca" },
   { id: "dc3607ab-741a-4878-9a9e-ba88e4b5143d", title: "Ratko Mladić dies in prison aged 84", date: "2026-08-27", time: "15:30", url: "https://www.ft.com/content/dc3607ab-741a-4878-9a9e-ba88e4b5143d" },
   { id: "7729314c-4928-485e-bfe8-5d6749d65cd2", title: "Uefa prepares criminal complaint against Fifa's Infantino", date: "2026-08-27", time: "15:29", url: "https://www.ft.com/content/7729314c-4928-485e-bfe8-5d6749d65cd2" },
-  { id: "1123d1a4-bdb7-425f-b27c-73f1b5249939", title: "Andy Burnham's high street plan is 'delusional', says Mike Ashley", date: "2026-08-27", time: "15:22", url: "https://www.ft.com/content/1123d1a4-bdb7-425f-b27c-73f1b5249939" },
 ];

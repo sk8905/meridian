@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-cnt-newlondonrestaurant-20260828",
+    publication: "Condé Nast Traveller",
+    author: null,
+    series: "Restaurant of the Week",
+    title: "The best new restaurant in London is...",
+    date: "2026-08-28",
+    time: "09:00",
+    summary: "A starry Brummie chef opens in London for the first time.",
+    url: "https://www.cntraveller.com/article/new-london-restaurants",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-warshtakescenterstage-20260828",
     publication: "Bloomberg",
     author: "Lily Nonomiya",
@@ -456,16 +467,5 @@ export const NEWSLETTERS = [
     time: "08:00",
     summary: "Plus: plans for a funeral home at the former Regency Hotel blocked, and can Ireland’s €3bn property market keep the recovery going?",
     url: "https://bpm.businesspost.ie/w/JRvWWjanSo3LAEBad7J763UQ/Pe5PTEw0pLHXiV2kox0pPw/jz1KrK892LYjQIHjr1wCNl6A",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-canadatariffs-20260824",
-    publication: "Bloomberg",
-    author: "Lily Nonomiya, Abhishek Shanker",
-    series: "Morning Briefing Europe",
-    title: "Carney vs. Trump",
-    date: "2026-08-24",
-    time: "06:58",
-    summary: "Canada hits back with $20 billion in counter-tariffs as trade talks collapse, Shein moves closer to a Hong Kong IPO, and recruiters grapple with the perfect AI-written resume.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-24/canada-to-hit-us-with-20-billion-counter-tariffs",
   },
 ];
