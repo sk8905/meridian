@@ -20,7 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "69b00e4b-e558-4534-8c78-ed145413cec2", title: "Warsh’s mildly hawkish speech helped fill in the blanks", date: "2026-08-28", time: "16:52", url: "https://www.ft.com/content/69b00e4b-e558-4534-8c78-ed145413cec2" },
+  { id: "4791413a-bf31-407f-9ef6-3fbaa153085f", title: "The age of the e-bike", date: "2026-08-28", time: "16:01", url: "https://www.ft.com/content/4791413a-bf31-407f-9ef6-3fbaa153085f" },
   { id: "d0a485ea-af87-4834-aa9a-3611028a7b6e", title: "Walmart settles lawsuit over painkiller prescriptions", date: "2026-08-28", time: "15:59", url: "https://www.ft.com/content/d0a485ea-af87-4834-aa9a-3611028a7b6e" },
+  { id: "9f46db72-0a1e-42b0-8efe-974a04fa0fc7", title: "Latest savings rates", date: "2026-08-28", time: "15:56", url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7" },
+  { id: "75ba3055-625c-4cb5-894b-0696a38f5e79", title: "Latest Isa rates", date: "2026-08-28", time: "15:51", url: "https://www.ft.com/content/75ba3055-625c-4cb5-894b-0696a38f5e79" },
+  { id: "68b36b6d-71e7-4f44-bbfb-a202e36603a4", title: "Latest National Savings & Investments rates", date: "2026-08-28", time: "15:47", url: "https://www.ft.com/content/68b36b6d-71e7-4f44-bbfb-a202e36603a4" },
   { id: "d3eead8b-7b38-45bd-8fba-489d02a3e440", title: "Aberdeen fund takes £200mn hit on failure of UK broadband provider", date: "2026-08-28", time: "15:09", url: "https://www.ft.com/content/d3eead8b-7b38-45bd-8fba-489d02a3e440" },
   { id: "d15851dc-9177-4bfe-9039-8d9994a2e4b3", title: "Kevin Warsh says Fed will have ‘work to do’ if inflation does not fall soon", date: "2026-08-28", time: "15:00", url: "https://www.ft.com/content/d15851dc-9177-4bfe-9039-8d9994a2e4b3" },
   { id: "40d1e3df-f220-4740-8c57-cf5e78890bb3", title: "US Treasury imposes limits on Egyptian bank for doing business with Iran", date: "2026-08-28", time: "15:00", url: "https://www.ft.com/content/40d1e3df-f220-4740-8c57-cf5e78890bb3" },
@@ -35,7 +40,6 @@ export const FT_ITEMS = [
   { id: "0cdeb545-f6fe-4d97-aa1a-5933e58773c6", title: "The first Aman in Mexico is $6,000 a night. Is it worth it?", date: "2026-08-28", time: "11:00", url: "https://www.ft.com/content/0cdeb545-f6fe-4d97-aa1a-5933e58773c6" },
   { id: "3f170d25-190f-4deb-9906-431916b1eb1d", title: "How batteries are reshaping the solar power business model", date: "2026-08-28", time: "12:01", url: "https://www.ft.com/content/3f170d25-190f-4deb-9906-431916b1eb1d" },
   { id: "0d573fd7-ec74-4cb0-a8c2-a86ce6eab5bd", title: "Alleged vandalism on Trump golf course linked to terrorism, Scottish prosecutors say", date: "2026-08-28", time: "11:58", url: "https://www.ft.com/content/0d573fd7-ec74-4cb0-a8c2-a86ce6eab5bd" },
-  { id: "d3eead8b-7b38-45bd-8fba-489d02a3e440", title: "Aberdeen fund takes £200mn hit on failure of UK broadband provider", date: "2026-08-28", time: "11:28", url: "https://www.ft.com/content/d3eead8b-7b38-45bd-8fba-489d02a3e440" },
   { id: "a5c1460d-631a-4c4e-8c51-32536de09b80", title: "SpaceX considered as a leasing company", date: "2026-08-28", time: "11:13", url: "https://www.ft.com/content/a5c1460d-631a-4c4e-8c51-32536de09b80" },
   { id: "693d9b24-b4d1-42db-a978-3264a27bc83c", title: "‘I am still extremely angry’: the Woodford collapse continues to confound investors", date: "2026-08-28", time: "10:53", url: "https://www.ft.com/content/693d9b24-b4d1-42db-a978-3264a27bc83c" },
   { id: "670b2b1d-7e4c-480e-9ed4-9f7f095d7860", title: "Ministers embraced the ‘world’s safest phone’. Then it unravelled", date: "2026-08-28", time: "09:30", url: "https://www.ft.com/content/670b2b1d-7e4c-480e-9ed4-9f7f095d7860" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "8faac5d4-af01-4c36-949f-bb059acee910", title: "Healey could suffer £4bn headroom hit because of lower immigration forecasts", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/8faac5d4-af01-4c36-949f-bb059acee910" },
   { id: "9a60246e-30de-4c12-911a-c57cf31f4ced", title: "Burnham’s devolution push delays police merger plans", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/9a60246e-30de-4c12-911a-c57cf31f4ced" },
   { id: "8e93c159-2c02-444a-9f22-dcda14bc451f", title: "Zero-interest convertible bonds set for record year", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/8e93c159-2c02-444a-9f22-dcda14bc451f" },
-  { id: "ef0e436b-5a9f-4284-8df5-1f6bbddf6167", title: "Meta’s $18bn settlement shows the wrong way to keep kids safe", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/ef0e436b-5a9f-4284-8df5-1f6bbddf6167" },
-  { id: "25121087-b57c-4a50-ae83-f09399e2e84d", title: "UK venture capital investment rebounds as software and biotech attract funding", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/25121087-b57c-4a50-ae83-f09399e2e84d" },
-  { id: "42009512-6b88-4808-adbb-1418995429e1", title: "Letting tax cheats off the hook is costing America", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/42009512-6b88-4808-adbb-1418995429e1" },
-  { id: "42935d28-2998-4c1b-a2f3-82ec0e462ec4", title: "Is China’s ‘wise camel’ the winner from the US-Iran war?", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/42935d28-2998-4c1b-a2f3-82ec0e462ec4" },
 ];
