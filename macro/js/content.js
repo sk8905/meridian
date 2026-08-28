@@ -12,8 +12,8 @@ export const UPDATED = "28 August 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-08-27",
-  lastCheckedTime: "21:23 BST",
+  lastChecked: "2026-08-28",
+  lastCheckedTime: "05:27 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1051,15 +1051,15 @@ export const MATWALL = {
 // two_year, core_cpi, services_pmi, wages, unemployment). Absent = no sourced
 // move (the rail shows nothing). Routine-maintained; see docs/refresh-routines.md.
 export const IND_KEYMOMENTS = {
-  "US:two_year": { text: "The 28–29 July FOMC minutes, released 19:00 BST, showed hawkish sentiment running well beyond the three dissenters — 'many participants' said tightening would likely be needed if inflation doesn't cool, keeping a 16 September hike genuinely live.", src: "https://www.cnbc.com/2026/08/19/fed-minutes-july-2026-officials-saw-need-for-rate-hike-if-inflation-doesnt-cool.html", srcName: "CNBC", date: "2026-08-19" },
+  "US:two_year": { text: "Investors braced for Fed Chair Kevin Warsh's first Jackson Hole keynote as chair, expected to focus on inflation, with strategists flagging it could give long-dated Treasuries a boost if he leans dovish; the 28–29 July FOMC minutes had shown hawkish sentiment running well beyond the three dissenters, keeping a 16 September hike genuinely live.", src: "https://www.bloomberg.com/news/articles/2026-08-28/an-inflation-focused-warsh-speech-can-give-long-bonds-a-boost", srcName: "Bloomberg", date: "2026-08-28" },
   "US:wages": { text: "July's jobs report showed average hourly earnings up 3.2% y/y — the smallest annual gain since May 2021 — alongside the surprise 23,000 payrolls decline, reinforcing the softer wage-inflation read markets have leaned on since the report.", src: "https://www.cnbc.com/2026/08/07/jobs-report-july-2026.html", srcName: "CNBC", date: "2026-08-07" },
-  "UK:two_year": { text: "Chancellor Healey faced an unexpected £1.8bn public-sector deficit in July — against expectations for a broadly balanced month — tightening fiscal constraints ahead of his first Autumn Budget more than initially anticipated.", src: "https://www.cityam.com/healey-oversees-unexpected-deficit-in-first-month-as-chancellor/", srcName: "CityAM", date: "2026-08-21" },
+  "UK:two_year": { text: "Investors' expectations for the Bank of England's next rate hike drifted further out into 2027, gilt markets showed, even as Chancellor Healey's unexpected £1.8bn July public-sector deficit kept fiscal constraints tight ahead of his first Autumn Budget.", src: "https://www.aol.com/articles/investors-expectations-next-bank-england-080922000.html", srcName: "Reuters (via AOL)", date: "2026-08-27" },
   "UK:wages": { text: "UK payroll employment fell again in July while the unemployment rate held at 4.9%, ONS data showed — a soft labour market print that reinforces the case for the Bank of England to keep rates on hold.", src: "https://www.actionforex.com/live-comments/650961-uk-payroll-employment-falls-as-uk-unemployment-holds-at-4-9/", srcName: "ActionForex", date: "2026-08-18" },
   "UK:core_cpi": { text: "July CPI rose to 2.9% y/y (from 2.6%), a four-month high in line with consensus, with core CPI hotter than forecast at 2.6% (vs 2.5% expected) on a 14.7% jump in gas prices as the Ofgem energy-cap rise fed through — sterling's reaction stayed muted.", src: "https://finance.yahoo.com/economy/articles/uk-inflation-rate-rises-2-060931194.html", srcName: "Yahoo Finance UK", date: "2026-08-19" },
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "The dollar posted its biggest gain in four weeks, recouping roughly half its prior buyback-driven losses, after July core PCE held in line with consensus (3.3% y/y) while headline PCE ran a touch hot (3.7% y/y) on stalling consumer spending, doing little to shift September Fed rate-hike odds either way.", src: "https://www.bloomberg.com/news/articles/2026-08-26/usd-rises-after-pce-data-recoups-half-of-buyback-losses", srcName: "Bloomberg", date: "2026-08-26" };
+export const FX_KEYMOMENT = { text: "Sterling stalled against the dollar ahead of Fed Chair Kevin Warsh's first Jackson Hole keynote, with GBP/USD forecasts on hold as investors also pushed their expectations for the Bank of England's next rate hike further out into 2027.", src: "https://www.currencynews.co.uk/forecast/20260827-47031_pound-sterling-to-dollar-forecast-gbp-stalls-ahead-of-jackson-hole.html", srcName: "Currency News UK", date: "2026-08-27" };
 
 export const EARNINGS = {
   weeks: [
