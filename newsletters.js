@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-warshtakescenterstage-20260828",
+    publication: "Bloomberg",
+    author: "Lily Nonomiya",
+    series: "Morning Briefing Europe",
+    title: "Warsh takes center stage",
+    date: "2026-08-28",
+    time: "07:38",
+    summary: "Investors brace for Kevin Warsh's Jackson Hole remarks, Venezuela weighs leaving OPEC, and a Spanish heist sees Bronze Age gold stolen in minutes.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-28/investors-brace-for-warsh-s-jackson-hole-speech",
+  },
+  {
     id: "nl-economist-worldinbrief-fearsofmorefloodinginnepalandtibet-20260828",
     publication: "The Economist",
     author: null,
@@ -456,16 +467,5 @@ export const NEWSLETTERS = [
     time: "06:58",
     summary: "Canada hits back with $20 billion in counter-tariffs as trade talks collapse, Shein moves closer to a Hong Kong IPO, and recruiters grapple with the perfect AI-written resume.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-24/canada-to-hit-us-with-20-billion-counter-tariffs",
-  },
-  {
-    id: "nl-econ-worldinbrief-sanctionsdday-20260824",
-    publication: "The Economist",
-    author: null,
-    series: "The World in Brief",
-    title: "The World in Brief: America’s sanctions D-Day",
-    date: "2026-08-24",
-    time: "06:19",
-    summary: "Bessent is set to unveil new Iran sanctions, Zelensky says wartime elections would \"destroy\" Ukraine, and Shein starts book-building for its Hong Kong IPO.",
-    url: "https://www.economist.com/the-world-in-brief",
   },
 ];
