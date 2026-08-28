@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "9ef0db10-548d-44a3-a739-432a9c211bbb", title: "What Burnham told the FT", date: "2026-08-28", time: "12:56", url: "https://www.ft.com/content/9ef0db10-548d-44a3-a739-432a9c211bbb" },
+  { id: "ffd31938-b94c-448a-a493-950b99d992a3", title: "Why banks find it so hard to manage reputational risk", date: "2026-08-28", time: "12:41", url: "https://www.ft.com/content/ffd31938-b94c-448a-a493-950b99d992a3" },
+  { id: "dece2ef6-88cb-497d-a919-0e9e3c2e3b10", title: "Violence rocks Ceuta as migrant crisis smoulders", date: "2026-08-28", time: "12:41", url: "https://www.ft.com/content/dece2ef6-88cb-497d-a919-0e9e3c2e3b10" },
+  { id: "f983d0be-e58b-4e61-bd67-59e487dad9fe", title: "Former IMF deputy Gita Gopinath: ‘It’s straight-out protectionism’", date: "2026-08-28", time: "12:30", url: "https://www.ft.com/content/f983d0be-e58b-4e61-bd67-59e487dad9fe" },
+  { id: "abbc3601-9ebc-4f3a-a317-0b1eee96e5a8", title: "Can Netflix remake Jersey Shore — and its property market?", date: "2026-08-28", time: "12:00", url: "https://www.ft.com/content/abbc3601-9ebc-4f3a-a317-0b1eee96e5a8" },
+  { id: "0cdeb545-f6fe-4d97-aa1a-5933e58773c6", title: "The first Aman in Mexico is $6,000 a night. Is it worth it?", date: "2026-08-28", time: "11:00", url: "https://www.ft.com/content/0cdeb545-f6fe-4d97-aa1a-5933e58773c6" },
   { id: "3f170d25-190f-4deb-9906-431916b1eb1d", title: "How batteries are reshaping the solar power business model", date: "2026-08-28", time: "12:01", url: "https://www.ft.com/content/3f170d25-190f-4deb-9906-431916b1eb1d" },
   { id: "0d573fd7-ec74-4cb0-a8c2-a86ce6eab5bd", title: "Alleged vandalism on Trump golf course linked to terrorism, Scottish prosecutors say", date: "2026-08-28", time: "11:58", url: "https://www.ft.com/content/0d573fd7-ec74-4cb0-a8c2-a86ce6eab5bd" },
   { id: "d3eead8b-7b38-45bd-8fba-489d02a3e440", title: "Aberdeen fund takes £200mn hit on failure of UK broadband provider", date: "2026-08-28", time: "11:28", url: "https://www.ft.com/content/d3eead8b-7b38-45bd-8fba-489d02a3e440" },
@@ -55,7 +61,4 @@ export const FT_ITEMS = [
   { id: "dd069af7-a2a2-4984-8d9a-5edeaf54f2f8", title: "Anthropic launches tool that can manipulate laboratory tools", date: "2026-08-27", time: "20:20", url: "https://www.ft.com/content/dd069af7-a2a2-4984-8d9a-5edeaf54f2f8" },
   { id: "6f0cdf31-de96-4058-92a9-f6684b5e1ef6", title: "Donald Trump orders Lake Ontario to be renamed 'Lake America' in new slight to Canada", date: "2026-08-27", time: "19:12", url: "https://www.ft.com/content/6f0cdf31-de96-4058-92a9-f6684b5e1ef6" },
   { id: "4f76326d-3d29-4b3c-b7cf-b339ee4134ae", title: "Warsh goes to Jackson Hole", date: "2026-08-27", time: "18:24", url: "https://www.ft.com/content/4f76326d-3d29-4b3c-b7cf-b339ee4134ae" },
-  { id: "a7a5fadb-8e81-4047-9dc7-40feda9bacd0", title: "In asset management, the race for scale is becoming urgent", date: "2026-08-27", time: "18:07", url: "https://www.ft.com/content/a7a5fadb-8e81-4047-9dc7-40feda9bacd0" },
-  { id: "febba6ee-9abd-47d4-bac4-3bbe8b64be7f", title: "'Headless software' signals further AI-led shake-up", date: "2026-08-27", time: "18:01", url: "https://www.ft.com/content/febba6ee-9abd-47d4-bac4-3bbe8b64be7f" },
-  { id: "05408fe6-e7f4-44b2-ac5d-2fd2a7d04a0f", title: "US rebukes Europeans over 'sea of red' military gaps", date: "2026-08-27", time: "17:56", url: "https://www.ft.com/content/05408fe6-e7f4-44b2-ac5d-2fd2a7d04a0f" },
 ];
