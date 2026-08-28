@@ -4,6 +4,14 @@
 export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
 
       <div class="g-layout">
+        <!-- Mobile-only segmented control: on phones the news wire and the
+             manager (watchlist) wire can't sit side by side, so a chip pair at
+             the very top swaps between them. Hidden on desktop, where both
+             columns show at once. -->
+        <div class="g-wiretabs" role="tablist" aria-label="News or watchlist wire">
+          <button type="button" class="g-wiretab is-on" data-wire="news" role="tab" aria-selected="true">News</button>
+          <button type="button" class="g-wiretab" data-wire="watch" role="tab" aria-selected="false">Watchlist</button>
+        </div>
         <!-- LEFT RAIL: markets / rates data, with Top movers filling the base -->
         <aside class="g-side">
           <section class="tui-pnl g-anchor" id="jump-markets">

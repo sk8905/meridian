@@ -39,6 +39,23 @@ check(g.groups >= 3, `newsfeed: the wire splits into label groups (${g.groups}: 
 check(g.labelled, "newsfeed: each group header is 'LABEL · count'");
 check(g.rows > 0 && g.span <= 2.01, `newsfeed: grouped content is limited to a rolling 3-day window (span ${g.span.toFixed(1)}d)`);
 
+// Within each type group the rows still run newest → oldest (day then publish
+// time), exactly as the ungrouped wire does — grouping must not scramble order.
+const ord = await pg.evaluate(() => {
+  const feed = document.getElementById("g-feed");
+  const groups = []; let cur = null;
+  [...feed.children].forEach((el) => {
+    if (el.classList.contains("g-feed-dayhdr")) { cur = []; groups.push(cur); }
+    else if (el.classList.contains("g-feed-row") && cur) {
+      cur.push((el.getAttribute("data-date") || "") + " " + (el.getAttribute("data-time") || ""));
+    }
+  });
+  const desc = (a) => a.every((v, i) => i === 0 || a[i - 1] >= v);
+  const bad = groups.map((g, i) => ({ i, g })).filter((x) => !desc(x.g));
+  return { n: groups.length, allDesc: groups.length > 0 && bad.length === 0, sample: bad[0] ? bad[0].g.slice(0, 4) : [] };
+});
+check(ord.allDesc, `newsfeed: within each type group, items run newest→oldest (${ord.n} groups${ord.sample.length ? "; out of order: " + ord.sample.join(" / ") : ""})`);
+
 // Toggle off → back to the day-by-day stream (date headers, not label groups).
 await pg.evaluate(() => document.querySelector(".g-feed-grpbtn").click());
 await pg.waitForTimeout(300);

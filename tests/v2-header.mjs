@@ -78,15 +78,29 @@ const anchored = await pg.evaluate(async () => {
   window.scrollTo(0, 600);
   await new Promise((r) => setTimeout(r, 300));
   const top1 = Math.round(bar.getBoundingClientRect().top);
+  // On mobile Home the News / Watchlist chip bar is the FIRST sticky sub-nav
+  // under the fixed header; the feed head then pins flush beneath the chips.
+  const chips = document.querySelector(".g-wiretabs");
+  const chipsVisible = chips && getComputedStyle(chips).display !== "none";
+  const chipsTop = chipsVisible ? Math.round(chips.getBoundingClientRect().top) : null;
+  const chipsH = chipsVisible ? Math.round(chips.getBoundingClientRect().height) : 0;
   const fh = document.querySelector(".g-feed-head, .g-feed-chips");
   const headVar = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--wire-head-h")) || 0;
   const fhTop = fh ? Math.round(fh.getBoundingClientRect().top) : null;
   window.scrollTo(0, 0);
-  return { top0, top1, headVar, fhTop, barH: Math.round(bar.getBoundingClientRect().height) };
+  return { top0, top1, headVar, fhTop, chipsTop, chipsH, barH: Math.round(bar.getBoundingClientRect().height) };
 });
 check(anchored.top0 === 0 && anchored.top1 === 0, `top bar stays anchored at top through scroll (top ${anchored.top0}→${anchored.top1})`);
 check(anchored.headVar > 0, `--wire-head-h is set for sub-nav offsets (${anchored.headVar}px)`);
-if (anchored.fhTop !== null) check(Math.abs(anchored.fhTop - anchored.headVar) <= 2, `sub-nav pins flush under the header (feed head ${anchored.fhTop} ≈ head ${Math.round(anchored.headVar)})`);
+// The topmost sticky sub-nav pins flush under the header (no content bleeds
+// through the seam). On mobile Home that is the News/Watchlist chip bar, and the
+// feed head pins flush under the chips; elsewhere the feed head pins under the header.
+if (anchored.chipsTop !== null) {
+  check(Math.abs(anchored.chipsTop - anchored.headVar) <= 2, `sub-nav pins flush under the header (chips ${anchored.chipsTop} ≈ head ${Math.round(anchored.headVar)})`);
+  if (anchored.fhTop !== null) check(Math.abs(anchored.fhTop - (anchored.headVar + anchored.chipsH)) <= 2, `feed head pins flush under the chip bar (feed head ${anchored.fhTop} ≈ chips bottom ${Math.round(anchored.headVar) + anchored.chipsH})`);
+} else if (anchored.fhTop !== null) {
+  check(Math.abs(anchored.fhTop - anchored.headVar) <= 2, `sub-nav pins flush under the header (feed head ${anchored.fhTop} ≈ head ${Math.round(anchored.headVar)})`);
+}
 
 // Each button opens its panel (click → the matching .na-panel becomes visible).
 const opens = async (btnId, panelId) => {

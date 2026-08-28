@@ -11,7 +11,7 @@ import { NEWSLETTERS } from "/newsletters.js";
 import { FT_ITEMS } from "/ft.js";
 import { esc, byDateDesc, NEWS_SOURCES, srcHost, tidyDomain, MONTHS } from "/util.js?v=20260818-1";
 import { DESK, DESK_CODE, STRICT_MACRO_RE, deskFor, nlDesk, feedRow,
-  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, fmtDay as fmt } from "/feed.js?v=20260808-1";
+  feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, byFeedDesc, stampAddedTimes, fmtDay as fmt } from "/feed.js?v=20260808-1";
 
 const __KEY = "home";
 const __ROOT = document.documentElement;
@@ -110,6 +110,7 @@ export function initGlance() {
   renderPredict();
   initFeedEntityNav();
   initFeedHeadLock();
+  initMobileWireTabs();
   initJumpNav();
   // v2: search is the shell palette (palette.js); glance palette skipped
   startLiveRefresh();
@@ -136,6 +137,28 @@ function initFeedEntityNav() {
   };
   feed.addEventListener("click", handle);
   feed.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") handle(e); });
+}
+
+// Mobile-only News / Watchlist swap. On phones the aggregated news wire and the
+// manager (watchlist) wire can't sit side by side, so a chip pair at the top of
+// the workspace toggles which one is on screen (a `.wire-watch` class on the
+// grid drives the CSS show/hide). Inert on desktop, where the chips are hidden
+// and both columns show at once.
+function initMobileWireTabs() {
+  const tabs = document.querySelector(".g-wiretabs");
+  const layout = document.querySelector(".g-layout");
+  if (!tabs || !layout) return;
+  tabs.addEventListener("click", (e) => {
+    const btn = e.target.closest(".g-wiretab");
+    if (!btn) return;
+    const k = btn.dataset.wire;
+    layout.classList.toggle("wire-watch", k === "watch");
+    tabs.querySelectorAll(".g-wiretab").forEach((t) => {
+      const on = t.dataset.wire === k;
+      t.classList.toggle("is-on", on);
+      t.setAttribute("aria-selected", on ? "true" : "false");
+    });
+  });
 }
 
 // On phones the ticker chips are collapsed behind a chevron at the end of each
@@ -635,6 +658,9 @@ function renderFeed() {
       ? dedupe([...news, ...macro, ...credit, ...hdg, ...legal, ...newsletter, ...ft, ...substacks, ...brew, ...fixedincome].sort(byDateDesc))
       : (byDesk[_feedDesk] || []);
     feed = corpus.filter((x) => !cut3 || day(x) >= cut3);
+    // Stamp untimed rows with their "added" time so each group can order by
+    // publish time within a day, not by the concat order of the source streams.
+    stampAddedTimes(feed);
     const groups = new Map();
     feed.forEach((x) => {
       const codeKey = x.desk === "hdg" ? "hdg" : (x.type || x.desk);
@@ -643,8 +669,11 @@ function renderFeed() {
       groups.get(label).push(x);
     });
     const ordered = [...groups.entries()].sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]));
+    // Within each type group, keep the wire's own newest→oldest order (day then
+    // publish time), exactly as the ungrouped feed does via byFeedDesc.
     groupedBody = ordered.map(([label, items]) =>
-      `<div class="g-feed-dayhdr">${esc(label)} · ${items.length}</div>` + items.map(feedRow).join("")
+      `<div class="g-feed-dayhdr">${esc(label)} · ${items.length}</div>`
+      + items.slice().sort(byFeedDesc).map(feedRow).join("")
     ).join("") + `<div class="g-feed-end">· end of wire ·</div>`;
   } else if (_feedSrc) {
     // Source filter wins over the desk chips: every story from that newsroom,
