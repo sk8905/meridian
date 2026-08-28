@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-tradingday-techonatearattentionfedchair-20260827",
+    publication: "Thomson Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "Tech on a tear, attention Fed chair",
+    date: "2026-08-27",
+    time: "22:03",
+    summary: "Nvidia's earnings beat lifts Wall Street to a record close as markets brace for Fed Chair Kevin Warsh's first Jackson Hole address.",
+    url: "https://www.reuters.com/commentary/reuters-open-interest/us-public-finances-crumble-private-sector-thrives-2026-08-27/",
+  },
+  {
     id: "nl-bbg-twosigmaarbitration-20260827",
     publication: "Bloomberg",
     author: "Nishant Kumar",
@@ -456,16 +467,5 @@ export const NEWSLETTERS = [
     time: "05:01",
     summary: "Uglier from here?",
     url: "https://www.bloomberg.com/opinion/newsletters/2026-08-24/canada-trade-war-an-elbow-in-the-face-may-get-us-attention",
-  },
-  {
-    id: "nl-guardian-therecap-20260823",
-    publication: "The Guardian",
-    author: null,
-    series: "The Recap",
-    title: "Baseball’s 3ft 7in pinch-hitter, extreme heat and a celebratory KFC",
-    date: "2026-08-23",
-    time: "08:05",
-    summary: "Weekly roundup of editors' picks from Guardian Sport's coverage over the past seven days.",
-    url: "https://www.theguardian.com/sport",
   },
 ];
