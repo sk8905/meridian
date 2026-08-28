@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d3eead8b-7b38-45bd-8fba-489d02a3e440", title: "Aberdeen fund takes £200mn hit on failure of UK broadband provider", date: "2026-08-28", time: "15:09", url: "https://www.ft.com/content/d3eead8b-7b38-45bd-8fba-489d02a3e440" },
+  { id: "d15851dc-9177-4bfe-9039-8d9994a2e4b3", title: "Kevin Warsh says Fed will have ‘work to do’ if inflation does not fall soon", date: "2026-08-28", time: "15:00", url: "https://www.ft.com/content/d15851dc-9177-4bfe-9039-8d9994a2e4b3" },
+  { id: "40d1e3df-f220-4740-8c57-cf5e78890bb3", title: "US Treasury imposes limits on Egyptian bank for doing business with Iran", date: "2026-08-28", time: "15:00", url: "https://www.ft.com/content/40d1e3df-f220-4740-8c57-cf5e78890bb3" },
+  { id: "0f256a6d-4706-4703-87db-eb0d1a96010b", title: "Asda hopes fresh tech push can reverse fortunes", date: "2026-08-28", time: "14:57", url: "https://www.ft.com/content/0f256a6d-4706-4703-87db-eb0d1a96010b" },
+  { id: "d2d6b13d-b141-499e-9c7a-a7a0caf6cad2", title: "Gatwick airport water supply hit by burst pipe", date: "2026-08-28", time: "14:43", url: "https://www.ft.com/content/d2d6b13d-b141-499e-9c7a-a7a0caf6cad2" },
   { id: "9be1c027-0c94-4cf6-a84f-3193a347858c", title: "Trump has put himself on the midterm ballot — should Republicans be worried?", date: "2026-08-28", time: "14:00", url: "https://www.ft.com/content/9be1c027-0c94-4cf6-a84f-3193a347858c" },
   { id: "9ef0db10-548d-44a3-a739-432a9c211bbb", title: "What Burnham told the FT", date: "2026-08-28", time: "12:56", url: "https://www.ft.com/content/9ef0db10-548d-44a3-a739-432a9c211bbb" },
   { id: "ffd31938-b94c-448a-a493-950b99d992a3", title: "Why banks find it so hard to manage reputational risk", date: "2026-08-28", time: "12:41", url: "https://www.ft.com/content/ffd31938-b94c-448a-a493-950b99d992a3" },
@@ -55,9 +60,4 @@ export const FT_ITEMS = [
   { id: "42009512-6b88-4808-adbb-1418995429e1", title: "Letting tax cheats off the hook is costing America", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/42009512-6b88-4808-adbb-1418995429e1" },
   { id: "42935d28-2998-4c1b-a2f3-82ec0e462ec4", title: "Is China’s ‘wise camel’ the winner from the US-Iran war?", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/42935d28-2998-4c1b-a2f3-82ec0e462ec4" },
   { id: "c25c1bdf-8acf-4ccc-bc67-c31bc9fb83bc", title: "Liechtenstein prince tightens grip in succession shake-up", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/c25c1bdf-8acf-4ccc-bc67-c31bc9fb83bc" },
-  { id: "257f7067-c3d6-435d-87a8-3f7252182975", title: "Sunak at 10 by Anthony Seldon — the reluctant prime minister", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/257f7067-c3d6-435d-87a8-3f7252182975" },
-  { id: "71745a1a-fc83-43f5-a29e-18d9a5725b5d", title: "Watchdog probes law firm over work linked to collapsed lender MFS", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/71745a1a-fc83-43f5-a29e-18d9a5725b5d" },
-  { id: "b4868658-52e2-48a4-b065-d77c82a2d6d1", title: "US bank regulators to narrow enforcement focus to financial risks", date: "2026-08-27", time: "20:50", url: "https://www.ft.com/content/b4868658-52e2-48a4-b065-d77c82a2d6d1" },
-  { id: "1d990ab8-bb28-43b6-b9bc-daeb8a32c58f", title: "Alphabet agrees to pay £260mn to settle UK class action lawsuit", date: "2026-08-27", time: "20:42", url: "https://www.ft.com/content/1d990ab8-bb28-43b6-b9bc-daeb8a32c58f" },
-  { id: "dd069af7-a2a2-4984-8d9a-5edeaf54f2f8", title: "Anthropic launches tool that can manipulate laboratory tools", date: "2026-08-27", time: "20:20", url: "https://www.ft.com/content/dd069af7-a2a2-4984-8d9a-5edeaf54f2f8" },
 ];
