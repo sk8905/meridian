@@ -13,7 +13,7 @@ export const UPDATED = "28 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-28",
-  lastCheckedTime: "05:27 BST",
+  lastCheckedTime: "09:19 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -830,9 +830,9 @@ export const NEWS = {
   us: [
     { title: "Warsh Speech on Inflation May Lift US 30-Year Bonds, Investors Say", source: "Bloomberg", date: "2026-08-28", time: "05:18", url: "https://www.bloomberg.com/news/articles/2026-08-28/an-inflation-focused-warsh-speech-can-give-long-bonds-a-boost" },
     { title: "For Kevin Warsh, 'big questions' and few easy answers at Fed's Jackson Hole", source: "NBC News", date: "2026-08-28", time: "05:18", url: "https://www.nbcnews.com/business/economy/kevin-warsh-jackson-hole-inflation-bonds-rcna594133" },
-    { title: "Friday's big stock stories: What's likely to move the market in the next trading session", source: "CNBC", date: "2026-08-27", time: "05:18", url: "https://www.cnbc.com/2026/08/27/fridays-big-stock-stories-whats-likely-to-move-the-market.html" },
+    { title: "Nvidia agrees to buy Hugging Face for $12.9 billion, report says", source: "CNBC", date: "2026-08-27", time: "09:19", url: "https://www.cnbc.com/2026/08/27/nvidia-hugging-face-acquisition.html" },
     { title: "Gold Holds Near $4,600 as Investors Focus on Fed Rate-Hike Path", source: "Bloomberg", date: "2026-08-27", time: "05:18", url: "https://www.bloomberg.com/news/articles/2026-08-27/gold-holds-near-4-600-as-investors-focus-on-fed-rate-hike-path" },
-    { title: "Marvell earnings beat, revenue topped estimates", source: "Investing.com", date: "2026-08-27", time: "05:18", url: "https://www.investing.com/news/earnings/marvell-earnings-beat-revenue-topped-estimates-4880167" },
+    { title: "Nasdaq, S&P 500 close higher on Nvidia beat as market awaits Jackson Hole", source: "CNBC", date: "2026-08-27", time: "09:19", url: "https://www.cnbc.com/2026/08/26/stock-market-today-live-updates.html" },
   ],
   uk: [
     { title: "UK Stocks-Factors to watch on August 28", source: "Reuters (via MarketScreener)", date: "2026-08-28", time: "05:18", url: "https://www.marketscreener.com/news/uk-stocks-factors-to-watch-on-august-28-ce7c50dfdb88f321" },
@@ -854,6 +854,7 @@ export const ARTICLES = {
   updated: "2026-08-28",
   items: [
     {"title":"Warsh Speech on Inflation May Lift US 30-Year Bonds, Investors Say","source":"Bloomberg","date":"2026-08-28","time":"05:18","url":"https://www.bloomberg.com/news/articles/2026-08-28/an-inflation-focused-warsh-speech-can-give-long-bonds-a-boost","blurb":"Investors are urging Fed Chair Kevin Warsh to give a clear rebuke of high inflation in his first Jackson Hole keynote, arguing that would trigger buying of 30-year Treasuries (yields near a 2007 high) and aid Treasury Secretary Bessent's effort to arrest the long-bond selloff."},
+    {"title":"Nvidia agrees to buy Hugging Face for $12.9 billion, report says","source":"CNBC","date":"2026-08-27","time":"09:19","url":"https://www.cnbc.com/2026/08/27/nvidia-hugging-face-acquisition.html","blurb":"Nvidia has reportedly agreed to acquire open-source AI model repository Hugging Face for $12.9bn, per The Information, deepening its push into the AI software ecosystem after earlier investing at a $4.5bn valuation in 2023 and a rejected $500m stake offer this year."},
     {"title":"For Kevin Warsh, 'big questions' and few easy answers at Fed's Jackson Hole","source":"NBC News","date":"2026-08-28","time":"05:18","url":"https://www.nbcnews.com/business/economy/kevin-warsh-jackson-hole-inflation-bonds-rcna594133","blurb":"Warsh faces his first major test as Fed chair at Jackson Hole, with investors and former officials pressing him for clarity on his tolerance for above-target inflation ahead of the 16 September FOMC."},
     {"title":"Jackson Hole Fed summit live: Kevin Warsh's keynote speech comes at a pivotal moment for the Federal Reserve","source":"Yahoo Finance","date":"2026-08-28","time":"05:18","url":"https://finance.yahoo.com/economy/live/jackson-hole-fed-summit-live-kevin-warsh-keynote-speech-180442096.html","blurb":"Live coverage of the Kansas City Fed's Jackson Hole symposium as Warsh prepares his first keynote as Fed chair at 10am ET, with markets pricing roughly one-in-three odds of a 16 September rate hike."},
     {"title":"UK Stocks-Factors to watch on August 28","source":"Reuters (via MarketScreener)","date":"2026-08-28","time":"05:18","url":"https://www.marketscreener.com/news/uk-stocks-factors-to-watch-on-august-28-ce7c50dfdb88f321","blurb":"London was seen opening modestly higher (futures +0.1%), with a Barclays joint-venture stake sale among the stock-specific factors, as traders positioned ahead of Warsh's Jackson Hole keynote."},
