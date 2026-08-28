@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d0a485ea-af87-4834-aa9a-3611028a7b6e", title: "Walmart settles lawsuit over painkiller prescriptions", date: "2026-08-28", time: "15:59", url: "https://www.ft.com/content/d0a485ea-af87-4834-aa9a-3611028a7b6e" },
   { id: "d3eead8b-7b38-45bd-8fba-489d02a3e440", title: "Aberdeen fund takes £200mn hit on failure of UK broadband provider", date: "2026-08-28", time: "15:09", url: "https://www.ft.com/content/d3eead8b-7b38-45bd-8fba-489d02a3e440" },
   { id: "d15851dc-9177-4bfe-9039-8d9994a2e4b3", title: "Kevin Warsh says Fed will have ‘work to do’ if inflation does not fall soon", date: "2026-08-28", time: "15:00", url: "https://www.ft.com/content/d15851dc-9177-4bfe-9039-8d9994a2e4b3" },
   { id: "40d1e3df-f220-4740-8c57-cf5e78890bb3", title: "US Treasury imposes limits on Egyptian bank for doing business with Iran", date: "2026-08-28", time: "15:00", url: "https://www.ft.com/content/40d1e3df-f220-4740-8c57-cf5e78890bb3" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "25121087-b57c-4a50-ae83-f09399e2e84d", title: "UK venture capital investment rebounds as software and biotech attract funding", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/25121087-b57c-4a50-ae83-f09399e2e84d" },
   { id: "42009512-6b88-4808-adbb-1418995429e1", title: "Letting tax cheats off the hook is costing America", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/42009512-6b88-4808-adbb-1418995429e1" },
   { id: "42935d28-2998-4c1b-a2f3-82ec0e462ec4", title: "Is China’s ‘wise camel’ the winner from the US-Iran war?", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/42935d28-2998-4c1b-a2f3-82ec0e462ec4" },
-  { id: "c25c1bdf-8acf-4ccc-bc67-c31bc9fb83bc", title: "Liechtenstein prince tightens grip in succession shake-up", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/c25c1bdf-8acf-4ccc-bc67-c31bc9fb83bc" },
 ];
