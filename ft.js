@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7af605e0-b528-46f6-b86e-b90b46f03c4c", title: "Neoclouds show how to amplify risks in AI ecosystems", date: "2026-08-28", time: "19:09", url: "https://www.ft.com/content/7af605e0-b528-46f6-b86e-b90b46f03c4c" },
+  { id: "aa929cd9-b4b4-4858-9160-4d6f885ebc5f", title: "Middlesbrough crisis highlights challenges for small police forces", date: "2026-08-28", time: "18:57", url: "https://www.ft.com/content/aa929cd9-b4b4-4858-9160-4d6f885ebc5f" },
+  { id: "14564843-5960-44c6-8683-944422c042a4", title: "Donald Trump loses bid to challenge hush-money conviction in federal court", date: "2026-08-28", time: "18:54", url: "https://www.ft.com/content/14564843-5960-44c6-8683-944422c042a4" },
+  { id: "0d135ccd-f8cf-4178-a7d8-0a0dfbb705e8", title: "Warsh the line", date: "2026-08-28", time: "18:30", url: "https://www.ft.com/content/0d135ccd-f8cf-4178-a7d8-0a0dfbb705e8" },
   { id: "6b9afdfb-26f5-4746-8ff9-027a8d04cb1f", title: "Submit your questions: is Trump losing his touch?", date: "2026-08-28", time: "18:00", url: "https://www.ft.com/content/6b9afdfb-26f5-4746-8ff9-027a8d04cb1f" },
   { id: "68652016-adb7-48c3-a7ad-5e0303575717", title: "Stockpickers: Chesnara, Hays, Macfarlane", date: "2026-08-28", time: "18:00", url: "https://www.ft.com/content/68652016-adb7-48c3-a7ad-5e0303575717" },
   { id: "b625e314-ecf9-4385-a687-7a8f8c1bec23", title: "US manufacturing is booming — but it’s no thanks to Trump’s tariffs", date: "2026-08-28", time: "18:00", url: "https://www.ft.com/content/b625e314-ecf9-4385-a687-7a8f8c1bec23" },
@@ -55,9 +59,5 @@ export const FT_ITEMS = [
   { id: "fc925436-4bcb-444c-b929-83014f6da44d", title: "Healey to shelve his own defence spending target of 3% of GDP by 2030", date: "2026-08-28", time: "07:13", url: "https://www.ft.com/content/fc925436-4bcb-444c-b929-83014f6da44d" },
   { id: "c377139e-b53c-4043-86b2-36b9d73cde9a", title: "The US consumer is showing some strain", date: "2026-08-28", time: "06:30", url: "https://www.ft.com/content/c377139e-b53c-4043-86b2-36b9d73cde9a" },
   { id: "5e6db1ad-6ea5-44db-80fd-fd7073d9e676", title: "FirstFT: US corporate profits surge as wages lag", date: "2026-08-28", time: "06:15", url: "https://www.ft.com/content/5e6db1ad-6ea5-44db-80fd-fd7073d9e676" },
-  { id: "bfdaff1c-07a3-4b53-9b47-7e69e6c197b6", title: "Puig’s José Manuel Albesa talks taste", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/bfdaff1c-07a3-4b53-9b47-7e69e6c197b6" },
-  { id: "007e0862-ffe7-4b8f-a540-05a19d1a45dc", title: "The cowboy clinics selling unproven longevity treatments", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/007e0862-ffe7-4b8f-a540-05a19d1a45dc" },
   { id: "75d1b474-7885-42ee-a08b-d221c5e96d1c", title: "US assesses European allies’ allegiance in pointed Nato questionnaire", date: "2026-08-28", time: "06:00", url: "https://www.ft.com/content/75d1b474-7885-42ee-a08b-d221c5e96d1c" },
-  { id: "a95aebcf-6cfe-418c-8c11-ddf05f3aef4d", title: "Harvard and the Cloudflare governance fight", date: "2026-08-28", time: "06:00", url: "https://www.ft.com/content/a95aebcf-6cfe-418c-8c11-ddf05f3aef4d" },
-  { id: "4f5a0247-7f56-48e7-b97e-87fbe8945e49", title: "The great junior consultant reskilling", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/4f5a0247-7f56-48e7-b97e-87fbe8945e49" },
 ];
