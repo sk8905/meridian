@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "75d1b474-7885-42ee-a08b-d221c5e96d1c", title: "US assesses European allies’ allegiance in pointed Nato questionnaire", date: "2026-08-28", time: "06:00", url: "https://www.ft.com/content/75d1b474-7885-42ee-a08b-d221c5e96d1c" },
+  { id: "a95aebcf-6cfe-418c-8c11-ddf05f3aef4d", title: "Harvard and the Cloudflare governance fight", date: "2026-08-28", time: "06:00", url: "https://www.ft.com/content/a95aebcf-6cfe-418c-8c11-ddf05f3aef4d" },
   { id: "4f5a0247-7f56-48e7-b97e-87fbe8945e49", title: "The great junior consultant reskilling", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/4f5a0247-7f56-48e7-b97e-87fbe8945e49" },
   { id: "6f3ada65-c56c-499c-8eb6-008fac58949d", title: "US corporate profits surge to record as worker payouts wilt", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/6f3ada65-c56c-499c-8eb6-008fac58949d" },
   { id: "dedd5e48-2825-4218-a8bd-16df80fe761d", title: "Sanjeev Gupta’s family takes out £24mn mortgage on Belgravia mansion", date: "2026-08-28", time: "05:00", url: "https://www.ft.com/content/dedd5e48-2825-4218-a8bd-16df80fe761d" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "1f3c2038-0087-4335-bc8f-d9c75e3a6963", title: "ECB will return to data dependence after a September rate rise", date: "2026-08-27", time: "14:00", url: "https://www.ft.com/content/1f3c2038-0087-4335-bc8f-d9c75e3a6963" },
   { id: "80fd2ed5-fb7f-4494-b7fe-a2a7d9253a49", title: "US corporate intelligence firm drops legal claim against sanctioned oil trader", date: "2026-08-27", time: "13:55", url: "https://www.ft.com/content/80fd2ed5-fb7f-4494-b7fe-a2a7d9253a49" },
   { id: "a81a4556-0c22-4d94-a105-31e3acb6912e", title: "Autumn can't come soon enough for home sellers", date: "2026-08-27", time: "13:00", url: "https://www.ft.com/content/a81a4556-0c22-4d94-a105-31e3acb6912e" },
-  { id: "e291cbfe-726c-4d38-9ab5-66c5afa86cd5", title: "'It's like playing on concrete': drought leaves sports pitches across England unplayable", date: "2026-08-27", time: "12:53", url: "https://www.ft.com/content/e291cbfe-726c-4d38-9ab5-66c5afa86cd5" },
-  { id: "5250dd00-5bfc-44ce-80d6-2295c020efb8", title: "Jes Staley told Congress it was 'incredible' Epstein's abuse continued after jail", date: "2026-08-27", time: "12:37", url: "https://www.ft.com/content/5250dd00-5bfc-44ce-80d6-2295c020efb8" },
 ];

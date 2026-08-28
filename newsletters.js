@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-fearsofmorefloodinginnepalandtibet-20260828",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: Fears of more flooding in Nepal and Tibet",
+    date: "2026-08-28",
+    time: "05:50",
+    summary: "Catch up quickly on the global stories that matter.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-reuters-tradingday-techonatearattentionfedchair-20260827",
     publication: "Thomson Reuters",
     author: "Jamie McGeever",
@@ -456,16 +467,5 @@ export const NEWSLETTERS = [
     time: "06:19",
     summary: "Bessent is set to unveil new Iran sanctions, Zelensky says wartime elections would \"destroy\" Ukraine, and Shein starts book-building for its Hong Kong IPO.",
     url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-bbg-pointsofreturn-elbow-20260824",
-    publication: "Bloomberg",
-    author: "John Authers",
-    series: "Points of Return",
-    title: "An elbow in the face may get America’s attention",
-    date: "2026-08-24",
-    time: "05:01",
-    summary: "Uglier from here?",
-    url: "https://www.bloomberg.com/opinion/newsletters/2026-08-24/canada-trade-war-an-elbow-in-the-face-may-get-us-attention",
   },
 ];
