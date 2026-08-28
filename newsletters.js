@@ -37,6 +37,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-parisedition-electionseason-20260828",
+    publication: "Bloomberg",
+    author: "Alan Katz",
+    series: "Paris Edition",
+    title: "Paris Edition: It’s election season",
+    date: "2026-08-28",
+    time: "11:03",
+    summary: "France is in for a long, cacophonous few months ahead of the presidential vote next year.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-28/election-fever-starts-to-take-hold-in-france-as-debt-woes-loom",
+  },
+  {
+    id: "nl-pei-generalatlanticblankstreet-20260828",
+    publication: "Private Equity Insights",
+    author: null,
+    series: null,
+    title: "General Atlantic leads $75m round in Blank Street at $650m valuation",
+    date: "2026-08-28",
+    time: "10:39",
+    summary: "Read this week's most relevant news from the Private Equity industry.",
+    url: "https://peinsights.substack.com/p/general-atlantic-leads-75m-round",
+  },
+  {
     id: "nl-cnt-newlondonrestaurant-20260828",
     publication: "Condé Nast Traveller",
     author: null,
@@ -456,16 +478,5 @@ export const NEWSLETTERS = [
     time: "09:06",
     summary: "Knights lands its second-biggest acquisition yet with deal for Moore Barlow, Big Law taps into the pensions boom, and KPMG Australia confirms staff cuts amid its data leak scandal.",
     url: "https://non-billable.beehiiv.com/p/london-s-restructuring-rush-1",
-  },
-  {
-    id: "nl-businesspost-dublinofficesqueeze-20260824",
-    publication: "Business Post",
-    author: null,
-    series: "CRE",
-    title: "Dublin’s office squeeze",
-    date: "2026-08-24",
-    time: "08:00",
-    summary: "Plus: plans for a funeral home at the former Regency Hotel blocked, and can Ireland’s €3bn property market keep the recovery going?",
-    url: "https://bpm.businesspost.ie/w/JRvWWjanSo3LAEBad7J763UQ/Pe5PTEw0pLHXiV2kox0pPw/jz1KrK892LYjQIHjr1wCNl6A",
   },
 ];

@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "693d9b24-b4d1-42db-a978-3264a27bc83c", title: "‘I am still extremely angry’: the Woodford collapse continues to confound investors", date: "2026-08-28", time: "10:53", url: "https://www.ft.com/content/693d9b24-b4d1-42db-a978-3264a27bc83c" },
   { id: "670b2b1d-7e4c-480e-9ed4-9f7f095d7860", title: "Ministers embraced the ‘world’s safest phone’. Then it unravelled", date: "2026-08-28", time: "09:30", url: "https://www.ft.com/content/670b2b1d-7e4c-480e-9ed4-9f7f095d7860" },
   { id: "d15d2086-49bd-4a44-9508-b4c6e27971da", title: "South Korea to review 310,000 closed missing people cases", date: "2026-08-28", time: "08:32", url: "https://www.ft.com/content/d15d2086-49bd-4a44-9508-b4c6e27971da" },
   { id: "b0c90571-6619-4ac4-8d6e-f0dd295eaf15", title: "Bank of England likely to respond to high energy prices by end of the year", date: "2026-08-28", time: "07:41", url: "https://www.ft.com/content/b0c90571-6619-4ac4-8d6e-f0dd295eaf15" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "a919761d-dab1-4a6e-93fe-f69910192c1c", title: "Don't draw the wrong conclusion from Treasury yields", date: "2026-08-27", time: "15:45", url: "https://www.ft.com/content/a919761d-dab1-4a6e-93fe-f69910192c1c" },
   { id: "6d272811-8d26-46f0-ae24-abed61aa1bf3", title: "EU states revive plan to use frozen Russian assets for Ukraine", date: "2026-08-27", time: "15:45", url: "https://www.ft.com/content/6d272811-8d26-46f0-ae24-abed61aa1bf3" },
   { id: "7db89ce2-ca7c-43e2-b06b-07c0d3c269ca", title: "Cyber attack on UK's largest airport group exposes data of 8.7mn customers", date: "2026-08-27", time: "15:42", url: "https://www.ft.com/content/7db89ce2-ca7c-43e2-b06b-07c0d3c269ca" },
-  { id: "dc3607ab-741a-4878-9a9e-ba88e4b5143d", title: "Ratko Mladić dies in prison aged 84", date: "2026-08-27", time: "15:30", url: "https://www.ft.com/content/dc3607ab-741a-4878-9a9e-ba88e4b5143d" },
 ];
