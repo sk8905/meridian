@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "9be1c027-0c94-4cf6-a84f-3193a347858c", title: "Trump has put himself on the midterm ballot — should Republicans be worried?", date: "2026-08-28", time: "14:00", url: "https://www.ft.com/content/9be1c027-0c94-4cf6-a84f-3193a347858c" },
   { id: "9ef0db10-548d-44a3-a739-432a9c211bbb", title: "What Burnham told the FT", date: "2026-08-28", time: "12:56", url: "https://www.ft.com/content/9ef0db10-548d-44a3-a739-432a9c211bbb" },
   { id: "ffd31938-b94c-448a-a493-950b99d992a3", title: "Why banks find it so hard to manage reputational risk", date: "2026-08-28", time: "12:41", url: "https://www.ft.com/content/ffd31938-b94c-448a-a493-950b99d992a3" },
   { id: "dece2ef6-88cb-497d-a919-0e9e3c2e3b10", title: "Violence rocks Ceuta as migrant crisis smoulders", date: "2026-08-28", time: "12:41", url: "https://www.ft.com/content/dece2ef6-88cb-497d-a919-0e9e3c2e3b10" },
@@ -59,6 +60,4 @@ export const FT_ITEMS = [
   { id: "b4868658-52e2-48a4-b065-d77c82a2d6d1", title: "US bank regulators to narrow enforcement focus to financial risks", date: "2026-08-27", time: "20:50", url: "https://www.ft.com/content/b4868658-52e2-48a4-b065-d77c82a2d6d1" },
   { id: "1d990ab8-bb28-43b6-b9bc-daeb8a32c58f", title: "Alphabet agrees to pay £260mn to settle UK class action lawsuit", date: "2026-08-27", time: "20:42", url: "https://www.ft.com/content/1d990ab8-bb28-43b6-b9bc-daeb8a32c58f" },
   { id: "dd069af7-a2a2-4984-8d9a-5edeaf54f2f8", title: "Anthropic launches tool that can manipulate laboratory tools", date: "2026-08-27", time: "20:20", url: "https://www.ft.com/content/dd069af7-a2a2-4984-8d9a-5edeaf54f2f8" },
-  { id: "6f0cdf31-de96-4058-92a9-f6684b5e1ef6", title: "Donald Trump orders Lake Ontario to be renamed 'Lake America' in new slight to Canada", date: "2026-08-27", time: "19:12", url: "https://www.ft.com/content/6f0cdf31-de96-4058-92a9-f6684b5e1ef6" },
-  { id: "4f76326d-3d29-4b3c-b7cf-b339ee4134ae", title: "Warsh goes to Jackson Hole", date: "2026-08-27", time: "18:24", url: "https://www.ft.com/content/4f76326d-3d29-4b3c-b7cf-b339ee4134ae" },
 ];

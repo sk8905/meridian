@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-mailbrew-fridaybrew11-20260828",
+    publication: "Mailbrew",
+    author: null,
+    series: "Friday Brew",
+    title: "Friday Brew #11",
+    date: "2026-08-28",
+    time: "13:58",
+    summary: "This week's roundup: distressed-debt markets, Michael Burry's latest trades, El-Erian's economy look-back, and FT Alphaville.",
+    url: "https://app.mailbrew.com/stevedkennedy/friday-brew-03bEHcNb3hHB/11",
+  },
+  {
     id: "nl-bbg-wheretoinvestcopper-20260828",
     publication: "Bloomberg",
     author: "Zijia Song",
