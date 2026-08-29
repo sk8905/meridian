@@ -13,7 +13,7 @@ export const UPDATED = "28 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-29",
-  lastCheckedTime: "12:17 BST",
+  lastCheckedTime: "17:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -839,8 +839,8 @@ export const NEWS = {
   ],
   uk: [
     { title: "UK's FTSE 100 Closes Week in Green; Shell Gains", source: "Yahoo Finance UK", date: "2026-08-28", time: "21:16", url: "https://uk.finance.yahoo.com/news/uk-apos-ftse-100-closes-154607397.html" },
-    { title: "Tories Blast Healey Over Defence Spending Target Delay", source: "Guido Fawkes (Order-Order)", date: "2026-08-28", time: "21:16", url: "https://order-order.com/2026/08/28/tories-blast-healey-over-defence-spending-target-delay/" },
-    { title: "UK Stock Market Today 28/08/2026 [SSE Leads FTSE Close as Warsh Lifts Gilt Yields]", source: "ts2.tech", date: "2026-08-28", time: "21:16", url: "https://ts2.tech/en/stock-market-today-08-28-2026-uk/" },
+    { title: "Bailey Says UK Not Seeing Significant Second-Round Inflation Before BOE Meeting", source: "Bloomberg", date: "2026-08-28", time: "17:19", url: "https://www.bloomberg.com/news/articles/2026-08-28/boe-s-bailey-downplays-second-round-effects-before-rate-decision" },
+    { title: "UK Household Inflation Worries Pick Up Again in August", source: "Bloomberg", date: "2026-08-25", time: "17:19", url: "https://www.bloomberg.com/news/articles/2026-08-25/uk-household-inflation-worries-pick-up-again-in-august" },
     { title: "Sterling heads for weekly loss, focus on Jackson Hole symposium", source: "Reuters (via TradingView)", date: "2026-08-28", time: "17:19", url: "https://www.tradingview.com/news/reuters.com,2026:newsml_L4N44P0QP:0-sterling-heads-for-weekly-loss-focus-on-jackson-hole-symposium/" },
     { title: "British Pound edges higher despite delaying BoE rate hike expectations", source: "FXStreet", date: "2026-08-28", time: "01:40", url: "https://www.fxstreet.com/news/british-pound-edges-higher-despite-delaying-boe-rate-hike-expectations-202608280140" },
   ],
@@ -856,6 +856,7 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-08-29",
   items: [
+    {"title":"Warsh puts Fed on collision course with Trump ahead of midterms","source":"Financial Times","date":"2026-08-29","time":"12:57","url":"https://www.ft.com/content/69452aea-cee0-47de-be8a-dc790fed3db1","blurb":"Fed chair Kevin Warsh's hawkish Jackson Hole debut has set the central bank on a path that could clash with President Trump's preference for lower rates heading into the midterm elections.","author":null},
     {"title":"Risk of a new age of financial repression is rising","source":"Financial Times","date":"2026-08-29","time":"05:00","url":"https://www.ft.com/content/ba4b940e-4a44-473b-9846-eaba9434b65f","blurb":"As sovereign debt loads climb, governments are edging back toward financial-repression policies — holding rates below inflation to erode public debt in real terms — reversing decades of financial liberalisation.","author":null},
     {"title":"US campaign to isolate Iran closes in on Dubai","source":"Financial Times","date":"2026-08-29","time":"05:00","url":"https://www.ft.com/content/930386eb-b5d4-4a62-a258-f7ab46401655","blurb":"The Treasury's 'economic D-Day' sanctions push to isolate Iran is increasingly targeting Dubai-based banks and trade networks accused of serving as financial conduits for Tehran, following fresh sanctions on Banque Misr's UAE branches.","author":null},
     {"title":"Analysis: Kevin Warsh sharpens inflation warning at Jackson Hole, signaling possible rate hike","source":"CNBC","date":"2026-08-28","time":"21:16","url":"https://www.cnbc.com/2026/08/28/kevin-warsh-jackson-hole-fed-inflation-rate-hike.html","blurb":"Warsh used his Jackson Hole debut to answer critics of his muddled July press conference, saying this summer's cooler CPI/PCE readings 'do not tell me that underlying trends have meaningfully improved' and that the Fed still has 'work to do' on inflation."},
