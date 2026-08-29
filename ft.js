@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "33fa2e4a-2c35-42e2-9e32-494f9505f0ff", title: "American Scoundrel — Roy Cohn’s long shadow over the White House", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/33fa2e4a-2c35-42e2-9e32-494f9505f0ff" },
   { id: "359d4ea5-59b6-425f-ac66-c9836cec04f9", title: "Glencore threatened with $1.4bn lawsuit from embattled trader Radiant", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/359d4ea5-59b6-425f-ac66-c9836cec04f9" },
   { id: "ba4b940e-4a44-473b-9846-eaba9434b65f", title: "Risk of a new age of financial repression is rising", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/ba4b940e-4a44-473b-9846-eaba9434b65f" },
   { id: "6249139a-6ca6-4888-86e2-f2f381e9b8a8", title: "Football clubs' race for data creates bright spot in Britain labour market", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/6249139a-6ca6-4888-86e2-f2f381e9b8a8" },
@@ -60,8 +61,4 @@ export const FT_ITEMS = [
   { id: "abbc3601-9ebc-4f3a-a317-0b1eee96e5a8", title: "Can Netflix remake Jersey Shore — and its property market?", date: "2026-08-28", time: "12:00", url: "https://www.ft.com/content/abbc3601-9ebc-4f3a-a317-0b1eee96e5a8" },
   { id: "0cdeb545-f6fe-4d97-aa1a-5933e58773c6", title: "The first Aman in Mexico is $6,000 a night. Is it worth it?", date: "2026-08-28", time: "11:00", url: "https://www.ft.com/content/0cdeb545-f6fe-4d97-aa1a-5933e58773c6" },
   { id: "3f170d25-190f-4deb-9906-431916b1eb1d", title: "How batteries are reshaping the solar power business model", date: "2026-08-28", time: "12:01", url: "https://www.ft.com/content/3f170d25-190f-4deb-9906-431916b1eb1d" },
-  { id: "0d573fd7-ec74-4cb0-a8c2-a86ce6eab5bd", title: "Alleged vandalism on Trump golf course linked to terrorism, Scottish prosecutors say", date: "2026-08-28", time: "11:58", url: "https://www.ft.com/content/0d573fd7-ec74-4cb0-a8c2-a86ce6eab5bd" },
-  { id: "a5c1460d-631a-4c4e-8c51-32536de09b80", title: "SpaceX considered as a leasing company", date: "2026-08-28", time: "11:13", url: "https://www.ft.com/content/a5c1460d-631a-4c4e-8c51-32536de09b80" },
-  { id: "693d9b24-b4d1-42db-a978-3264a27bc83c", title: "‘I am still extremely angry’: the Woodford collapse continues to confound investors", date: "2026-08-28", time: "10:53", url: "https://www.ft.com/content/693d9b24-b4d1-42db-a978-3264a27bc83c" },
-  { id: "670b2b1d-7e4c-480e-9ed4-9f7f095d7860", title: "Ministers embraced the ‘world’s safest phone’. Then it unravelled", date: "2026-08-28", time: "09:30", url: "https://www.ft.com/content/670b2b1d-7e4c-480e-9ed4-9f7f095d7860" },
 ];
