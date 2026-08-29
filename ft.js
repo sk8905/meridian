@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "0d24c0e8-eb65-4009-a236-f2dbf1eaa416", title: "Trump deportations take a bite out of an unexpected industry: US fast food", date: "2026-08-29", time: "10:00", url: "https://www.ft.com/content/0d24c0e8-eb65-4009-a236-f2dbf1eaa416" },
+  { id: "40eaeba7-9514-4e6b-9bd3-4a9381618c84", title: "Dozens killed in Russian strike on ammunition depot near Kyiv", date: "2026-08-29", time: "09:54", url: "https://www.ft.com/content/40eaeba7-9514-4e6b-9bd3-4a9381618c84" },
+  { id: "59955452-1de0-40f0-a8d1-62139d502484", title: "Chart of the Week: Is the 60-40 portfolio dead?", date: "2026-08-29", time: "09:30", url: "https://www.ft.com/content/59955452-1de0-40f0-a8d1-62139d502484" },
   { id: "4f9bd1ed-f783-45c9-8542-addd8b57ee9f", title: "What the Indiana state fair reveals about Trump's America", date: "2026-08-29", time: "08:37", url: "https://www.ft.com/content/4f9bd1ed-f783-45c9-8542-addd8b57ee9f" },
   { id: "33fa2e4a-2c35-42e2-9e32-494f9505f0ff", title: "American Scoundrel — Roy Cohn’s long shadow over the White House", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/33fa2e4a-2c35-42e2-9e32-494f9505f0ff" },
   { id: "359d4ea5-59b6-425f-ac66-c9836cec04f9", title: "Glencore threatened with $1.4bn lawsuit from embattled trader Radiant", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/359d4ea5-59b6-425f-ac66-c9836cec04f9" },
@@ -57,8 +60,4 @@ export const FT_ITEMS = [
   { id: "9be1c027-0c94-4cf6-a84f-3193a347858c", title: "Trump has put himself on the midterm ballot — should Republicans be worried?", date: "2026-08-28", time: "14:00", url: "https://www.ft.com/content/9be1c027-0c94-4cf6-a84f-3193a347858c" },
   { id: "9ef0db10-548d-44a3-a739-432a9c211bbb", title: "What Burnham told the FT", date: "2026-08-28", time: "12:56", url: "https://www.ft.com/content/9ef0db10-548d-44a3-a739-432a9c211bbb" },
   { id: "ffd31938-b94c-448a-a493-950b99d992a3", title: "Why banks find it so hard to manage reputational risk", date: "2026-08-28", time: "12:41", url: "https://www.ft.com/content/ffd31938-b94c-448a-a493-950b99d992a3" },
-  { id: "dece2ef6-88cb-497d-a919-0e9e3c2e3b10", title: "Violence rocks Ceuta as migrant crisis smoulders", date: "2026-08-28", time: "12:41", url: "https://www.ft.com/content/dece2ef6-88cb-497d-a919-0e9e3c2e3b10" },
-  { id: "f983d0be-e58b-4e61-bd67-59e487dad9fe", title: "Former IMF deputy Gita Gopinath: ‘It’s straight-out protectionism’", date: "2026-08-28", time: "12:30", url: "https://www.ft.com/content/f983d0be-e58b-4e61-bd67-59e487dad9fe" },
-  { id: "abbc3601-9ebc-4f3a-a317-0b1eee96e5a8", title: "Can Netflix remake Jersey Shore — and its property market?", date: "2026-08-28", time: "12:00", url: "https://www.ft.com/content/abbc3601-9ebc-4f3a-a317-0b1eee96e5a8" },
-  { id: "0cdeb545-f6fe-4d97-aa1a-5933e58773c6", title: "The first Aman in Mexico is $6,000 a night. Is it worth it?", date: "2026-08-28", time: "11:00", url: "https://www.ft.com/content/0cdeb545-f6fe-4d97-aa1a-5933e58773c6" },
 ];
