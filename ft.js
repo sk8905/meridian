@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "2f88581f-4fbc-46a2-8127-830bb630c2f2", title: "Trump says US to take control of 65bn barrels of Venezuelan oil", date: "2026-08-29", time: "15:20", url: "https://www.ft.com/content/2f88581f-4fbc-46a2-8127-830bb630c2f2" },
   { id: "69452aea-cee0-47de-be8a-dc790fed3db1", title: "Warsh puts Fed on collision course with Trump ahead of midterms", date: "2026-08-29", time: "13:57", url: "https://www.ft.com/content/69452aea-cee0-47de-be8a-dc790fed3db1" },
   { id: "4822389d-5bb2-4e31-a627-bcda849630c8", title: "Swiss wealth managers urge delay to ownership register after Liechtenstein hack", date: "2026-08-29", time: "12:00", url: "https://www.ft.com/content/4822389d-5bb2-4e31-a627-bcda849630c8" },
   { id: "c1c79d47-31c0-4e4e-85b6-57527e31d78f", title: "Alex Gerko earned a record £895mn from trading firm XTX in 2025", date: "2026-08-29", time: "11:12", url: "https://www.ft.com/content/c1c79d47-31c0-4e4e-85b6-57527e31d78f" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "d15851dc-9177-4bfe-9039-8d9994a2e4b3", title: "Kevin Warsh says Fed will have ‘work to do’ if inflation does not fall soon", date: "2026-08-28", time: "15:00", url: "https://www.ft.com/content/d15851dc-9177-4bfe-9039-8d9994a2e4b3" },
   { id: "40d1e3df-f220-4740-8c57-cf5e78890bb3", title: "US Treasury imposes limits on Egyptian bank for doing business with Iran", date: "2026-08-28", time: "15:00", url: "https://www.ft.com/content/40d1e3df-f220-4740-8c57-cf5e78890bb3" },
   { id: "0f256a6d-4706-4703-87db-eb0d1a96010b", title: "Asda hopes fresh tech push can reverse fortunes", date: "2026-08-28", time: "14:57", url: "https://www.ft.com/content/0f256a6d-4706-4703-87db-eb0d1a96010b" },
-  { id: "d2d6b13d-b141-499e-9c7a-a7a0caf6cad2", title: "Gatwick airport water supply hit by burst pipe", date: "2026-08-28", time: "14:43", url: "https://www.ft.com/content/d2d6b13d-b141-499e-9c7a-a7a0caf6cad2" },
 ];
