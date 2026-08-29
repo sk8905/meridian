@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "4319c6b7-5a25-41a7-836f-ca068ac4fe60", title: "Warsh charts a forward-looking path for the Fed at Jackson Hole", date: "2026-08-29", time: "17:28", url: "https://www.ft.com/content/4319c6b7-5a25-41a7-836f-ca068ac4fe60" },
   { id: "2f88581f-4fbc-46a2-8127-830bb630c2f2", title: "Trump says US to take control of 65bn barrels of Venezuelan oil", date: "2026-08-29", time: "15:20", url: "https://www.ft.com/content/2f88581f-4fbc-46a2-8127-830bb630c2f2" },
   { id: "69452aea-cee0-47de-be8a-dc790fed3db1", title: "Warsh puts Fed on collision course with Trump ahead of midterms", date: "2026-08-29", time: "13:57", url: "https://www.ft.com/content/69452aea-cee0-47de-be8a-dc790fed3db1" },
   { id: "4822389d-5bb2-4e31-a627-bcda849630c8", title: "Swiss wealth managers urge delay to ownership register after Liechtenstein hack", date: "2026-08-29", time: "12:00", url: "https://www.ft.com/content/4822389d-5bb2-4e31-a627-bcda849630c8" },
@@ -36,6 +37,7 @@ export const FT_ITEMS = [
   { id: "95379ab9-8483-4e0a-a71e-e22b68dacc46", title: "Raphaël Glucksmann, the French left's new hope", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/95379ab9-8483-4e0a-a71e-e22b68dacc46" },
   { id: "492134e9-49eb-4f13-b70a-b2b595ed0e2a", title: "Zero-sum thinking will fuel resentment and scarcity", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/492134e9-49eb-4f13-b70a-b2b595ed0e2a" },
   { id: "63981a46-5849-4c1b-b5df-bfacd85c9d93", title: "How finance redeemed itself", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/63981a46-5849-4c1b-b5df-bfacd85c9d93" },
+  { id: "cf608abf-fb69-4f0b-a579-028cac78a8c9", title: "The Cumbrian shepherds racing sunrise to beat the heat", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/cf608abf-fb69-4f0b-a579-028cac78a8c9" },
   { id: "930386eb-b5d4-4a62-a258-f7ab46401655", title: "US campaign to isolate Iran closes in on Dubai", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/930386eb-b5d4-4a62-a258-f7ab46401655" },
   { id: "5516fa6b-1cbf-4b50-944b-57b42cbcac93", title: "Fancy lattes whip up their own mini investment boom", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/5516fa6b-1cbf-4b50-944b-57b42cbcac93" },
   { id: "f100c90b-c138-4125-aaa7-853b77690db9", title: "Did AI write this? It's getting harder to tell", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/f100c90b-c138-4125-aaa7-853b77690db9" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "68b36b6d-71e7-4f44-bbfb-a202e36603a4", title: "Latest National Savings & Investments rates", date: "2026-08-28", time: "15:47", url: "https://www.ft.com/content/68b36b6d-71e7-4f44-bbfb-a202e36603a4" },
   { id: "d3eead8b-7b38-45bd-8fba-489d02a3e440", title: "Aberdeen fund takes £200mn hit on failure of UK broadband provider", date: "2026-08-28", time: "15:09", url: "https://www.ft.com/content/d3eead8b-7b38-45bd-8fba-489d02a3e440" },
   { id: "d15851dc-9177-4bfe-9039-8d9994a2e4b3", title: "Kevin Warsh says Fed will have ‘work to do’ if inflation does not fall soon", date: "2026-08-28", time: "15:00", url: "https://www.ft.com/content/d15851dc-9177-4bfe-9039-8d9994a2e4b3" },
-  { id: "40d1e3df-f220-4740-8c57-cf5e78890bb3", title: "US Treasury imposes limits on Egyptian bank for doing business with Iran", date: "2026-08-28", time: "15:00", url: "https://www.ft.com/content/40d1e3df-f220-4740-8c57-cf5e78890bb3" },
-  { id: "0f256a6d-4706-4703-87db-eb0d1a96010b", title: "Asda hopes fresh tech push can reverse fortunes", date: "2026-08-28", time: "14:57", url: "https://www.ft.com/content/0f256a6d-4706-4703-87db-eb0d1a96010b" },
 ];
