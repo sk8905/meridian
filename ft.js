@@ -39,6 +39,7 @@ export const FT_ITEMS = [
   { id: "492134e9-49eb-4f13-b70a-b2b595ed0e2a", title: "Zero-sum thinking will fuel resentment and scarcity", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/492134e9-49eb-4f13-b70a-b2b595ed0e2a" },
   { id: "63981a46-5849-4c1b-b5df-bfacd85c9d93", title: "How finance redeemed itself", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/63981a46-5849-4c1b-b5df-bfacd85c9d93" },
   { id: "cf608abf-fb69-4f0b-a579-028cac78a8c9", title: "The Cumbrian shepherds racing sunrise to beat the heat", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/cf608abf-fb69-4f0b-a579-028cac78a8c9" },
+  { id: "d3924170-6978-4b0a-8357-a621c0d3e1fd", title: "English wine reaps rewards of heatwave but extreme weather brings risk", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/d3924170-6978-4b0a-8357-a621c0d3e1fd" },
   { id: "930386eb-b5d4-4a62-a258-f7ab46401655", title: "US campaign to isolate Iran closes in on Dubai", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/930386eb-b5d4-4a62-a258-f7ab46401655" },
   { id: "5516fa6b-1cbf-4b50-944b-57b42cbcac93", title: "Fancy lattes whip up their own mini investment boom", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/5516fa6b-1cbf-4b50-944b-57b42cbcac93" },
   { id: "f100c90b-c138-4125-aaa7-853b77690db9", title: "Did AI write this? It's getting harder to tell", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/f100c90b-c138-4125-aaa7-853b77690db9" },

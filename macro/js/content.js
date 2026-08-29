@@ -13,7 +13,7 @@ export const UPDATED = "28 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-29",
-  lastCheckedTime: "17:20 BST",
+  lastCheckedTime: "21:17 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -831,18 +831,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-08-29",
   us: [
-    { title: "Analysis: Kevin Warsh sharpens inflation warning at Jackson Hole, signaling possible rate hike", source: "CNBC", date: "2026-08-28", time: "21:16", url: "https://www.cnbc.com/2026/08/28/kevin-warsh-jackson-hole-fed-inflation-rate-hike.html" },
-    { title: "Stock market today: Dow, S&P 500, Nasdaq end week on down note as rate-hike bets jump", source: "Yahoo Finance", date: "2026-08-28", time: "21:16", url: "https://finance.yahoo.com/markets/live/stock-market-today-friday-august-28-dow-sp-500-nasdaq-dip-fed-warsh-jackson-hole-speech-081514091.html" },
-    { title: "Fed chair Warsh, concerned about inflation, says bank 'has more work to do'", source: "The Washington Post", date: "2026-08-28", time: "21:16", url: "https://www.washingtonpost.com/business/2026/08/28/fed-chair-warsh-speaks-jackson-hole-conference/" },
-    { title: "Fed's Kevin Warsh warns inflation is too high, sparking bets rate hikes are coming", source: "NPR", date: "2026-08-28", time: "21:16", url: "https://www.npr.org/2026/08/28/nx-s1-5947903/federal-reserve-inflation-jackson-hole-interest-rates" },
-    { title: "Kevin Warsh at Jackson Hole: Wall Street at last has a glimpse on Fed thinking", source: "Fortune", date: "2026-08-28", time: "21:16", url: "https://fortune.com/2026/08/28/kevin-warsh-jackson-hole-clarity-inflation-employment-mandate/" },
+    { title: "America In Focus: key inflation gauge remains high; Fed's Warsh signals rate hikes may be needed", source: "The Washington Post", date: "2026-08-29", time: "21:17", url: "https://www.washingtonpost.com/business/2026/08/29/inflation-economy-iran-trump-fed-warsh/81be75d2-a3b3-11f1-8606-1d40ad00172e_story.html" },
+    { title: "September Fed decision is now a coin flip as rate hike odds increase post Warsh", source: "CNBC", date: "2026-08-28", time: "21:17", url: "https://www.cnbc.com/2026/08/28/-september-fed-decision-now-a-coin-flip-as-rate-hike-odds-increase.html" },
+    { title: "Warsh Says Inflation Isn't Slowing, Vows to Reach 2% Target", source: "Bloomberg", date: "2026-08-28", time: "21:17", url: "https://www.bloomberg.com/news/articles/2026-08-28/warsh-says-inflation-isn-t-slowing-vows-to-hit-to-2-target" },
+    { title: "Fed's Kevin Warsh warns inflation is too high, sparking bets rate hikes are coming", source: "NPR", date: "2026-08-28", time: "21:17", url: "https://www.npr.org/2026/08/28/nx-s1-5947903/federal-reserve-inflation-jackson-hole-interest-rates" },
+    { title: "Stock market today: Dow, S&P 500, Nasdaq end week on down note as rate-hike bets jump", source: "Yahoo Finance", date: "2026-08-28", time: "21:17", url: "https://finance.yahoo.com/markets/live/stock-market-today-friday-august-28-dow-sp-500-nasdaq-dip-fed-warsh-jackson-hole-speech-081514091.html" },
   ],
   uk: [
-    { title: "UK's FTSE 100 Closes Week in Green; Shell Gains", source: "Yahoo Finance UK", date: "2026-08-28", time: "21:16", url: "https://uk.finance.yahoo.com/news/uk-apos-ftse-100-closes-154607397.html" },
-    { title: "Bailey Says UK Not Seeing Significant Second-Round Inflation Before BOE Meeting", source: "Bloomberg", date: "2026-08-28", time: "17:19", url: "https://www.bloomberg.com/news/articles/2026-08-28/boe-s-bailey-downplays-second-round-effects-before-rate-decision" },
-    { title: "UK Household Inflation Worries Pick Up Again in August", source: "Bloomberg", date: "2026-08-25", time: "17:19", url: "https://www.bloomberg.com/news/articles/2026-08-25/uk-household-inflation-worries-pick-up-again-in-august" },
-    { title: "Sterling heads for weekly loss, focus on Jackson Hole symposium", source: "Reuters (via TradingView)", date: "2026-08-28", time: "17:19", url: "https://www.tradingview.com/news/reuters.com,2026:newsml_L4N44P0QP:0-sterling-heads-for-weekly-loss-focus-on-jackson-hole-symposium/" },
-    { title: "British Pound edges higher despite delaying BoE rate hike expectations", source: "FXStreet", date: "2026-08-28", time: "01:40", url: "https://www.fxstreet.com/news/british-pound-edges-higher-despite-delaying-boe-rate-hike-expectations-202608280140" },
+    { title: "UK's FTSE 100 Closes Week in Green; Shell Gains", source: "Yahoo Finance UK", date: "2026-08-28", time: "21:17", url: "https://uk.finance.yahoo.com/news/uk-apos-ftse-100-closes-154607397.html" },
+    { title: "Bailey Says UK Not Seeing Significant Second-Round Inflation Before BOE Meeting", source: "Bloomberg", date: "2026-08-28", time: "21:17", url: "https://www.bloomberg.com/news/articles/2026-08-28/boe-s-bailey-downplays-second-round-effects-before-rate-decision" },
+    { title: "British Pound edges higher despite delaying BoE rate hike expectations", source: "FXStreet", date: "2026-08-28", time: "21:17", url: "https://www.fxstreet.com/news/british-pound-edges-higher-despite-delaying-boe-rate-hike-expectations-202608280140" },
+    { title: "UK gilt yields fall to lowest since mid-August as oil price slides", source: "Reuters (via TradingView)", date: "2026-08-25", time: "21:17", url: "https://www.tradingview.com/news/reuters.com,2026:newsml_S8N42Q0C3:0-uk-gilt-yields-fall-to-lowest-since-mid-august-as-oil-price-slides/" },
+    { title: "UK Household Inflation Worries Pick Up Again in August", source: "Bloomberg", date: "2026-08-25", time: "21:17", url: "https://www.bloomberg.com/news/articles/2026-08-25/uk-household-inflation-worries-pick-up-again-in-august" },
   ],
 };
 
