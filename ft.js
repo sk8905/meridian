@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "4f9bd1ed-f783-45c9-8542-addd8b57ee9f", title: "What the Indiana state fair reveals about Trump's America", date: "2026-08-29", time: "08:37", url: "https://www.ft.com/content/4f9bd1ed-f783-45c9-8542-addd8b57ee9f" },
   { id: "33fa2e4a-2c35-42e2-9e32-494f9505f0ff", title: "American Scoundrel — Roy Cohn’s long shadow over the White House", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/33fa2e4a-2c35-42e2-9e32-494f9505f0ff" },
   { id: "359d4ea5-59b6-425f-ac66-c9836cec04f9", title: "Glencore threatened with $1.4bn lawsuit from embattled trader Radiant", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/359d4ea5-59b6-425f-ac66-c9836cec04f9" },
   { id: "ba4b940e-4a44-473b-9846-eaba9434b65f", title: "Risk of a new age of financial repression is rising", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/ba4b940e-4a44-473b-9846-eaba9434b65f" },
@@ -60,5 +61,4 @@ export const FT_ITEMS = [
   { id: "f983d0be-e58b-4e61-bd67-59e487dad9fe", title: "Former IMF deputy Gita Gopinath: ‘It’s straight-out protectionism’", date: "2026-08-28", time: "12:30", url: "https://www.ft.com/content/f983d0be-e58b-4e61-bd67-59e487dad9fe" },
   { id: "abbc3601-9ebc-4f3a-a317-0b1eee96e5a8", title: "Can Netflix remake Jersey Shore — and its property market?", date: "2026-08-28", time: "12:00", url: "https://www.ft.com/content/abbc3601-9ebc-4f3a-a317-0b1eee96e5a8" },
   { id: "0cdeb545-f6fe-4d97-aa1a-5933e58773c6", title: "The first Aman in Mexico is $6,000 a night. Is it worth it?", date: "2026-08-28", time: "11:00", url: "https://www.ft.com/content/0cdeb545-f6fe-4d97-aa1a-5933e58773c6" },
-  { id: "3f170d25-190f-4deb-9906-431916b1eb1d", title: "How batteries are reshaping the solar power business model", date: "2026-08-28", time: "12:01", url: "https://www.ft.com/content/3f170d25-190f-4deb-9906-431916b1eb1d" },
 ];
