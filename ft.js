@@ -20,8 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
-  { id: "4822389d-5bb2-4e31-a627-bcda849630c8", title: "Swiss wealth managers urge delay to ownership register after Liechtenstein hack", date: "2026-08-29", time: "11:00", url: "https://www.ft.com/content/4822389d-5bb2-4e31-a627-bcda849630c8" },
-  { id: "c1c79d47-31c0-4e4e-85b6-57527e31d78f", title: "Alex Gerko earned a record £895mn from trading firm XTX in 2025", date: "2026-08-29", time: "10:12", url: "https://www.ft.com/content/c1c79d47-31c0-4e4e-85b6-57527e31d78f" },
+  { id: "4822389d-5bb2-4e31-a627-bcda849630c8", title: "Swiss wealth managers urge delay to ownership register after Liechtenstein hack", date: "2026-08-29", time: "12:00", url: "https://www.ft.com/content/4822389d-5bb2-4e31-a627-bcda849630c8" },
+  { id: "c1c79d47-31c0-4e4e-85b6-57527e31d78f", title: "Alex Gerko earned a record £895mn from trading firm XTX in 2025", date: "2026-08-29", time: "11:12", url: "https://www.ft.com/content/c1c79d47-31c0-4e4e-85b6-57527e31d78f" },
   { id: "0d24c0e8-eb65-4009-a236-f2dbf1eaa416", title: "Trump deportations take a bite out of an unexpected industry: US fast food", date: "2026-08-29", time: "10:00", url: "https://www.ft.com/content/0d24c0e8-eb65-4009-a236-f2dbf1eaa416" },
   { id: "40eaeba7-9514-4e6b-9bd3-4a9381618c84", title: "Dozens killed in Russian strike on ammunition depot near Kyiv", date: "2026-08-29", time: "09:54", url: "https://www.ft.com/content/40eaeba7-9514-4e6b-9bd3-4a9381618c84" },
   { id: "59955452-1de0-40f0-a8d1-62139d502484", title: "Chart of the Week: Is the 60-40 portfolio dead?", date: "2026-08-29", time: "09:30", url: "https://www.ft.com/content/59955452-1de0-40f0-a8d1-62139d502484" },
@@ -59,4 +59,6 @@ export const FT_ITEMS = [
   { id: "40d1e3df-f220-4740-8c57-cf5e78890bb3", title: "US Treasury imposes limits on Egyptian bank for doing business with Iran", date: "2026-08-28", time: "15:00", url: "https://www.ft.com/content/40d1e3df-f220-4740-8c57-cf5e78890bb3" },
   { id: "0f256a6d-4706-4703-87db-eb0d1a96010b", title: "Asda hopes fresh tech push can reverse fortunes", date: "2026-08-28", time: "14:57", url: "https://www.ft.com/content/0f256a6d-4706-4703-87db-eb0d1a96010b" },
   { id: "d2d6b13d-b141-499e-9c7a-a7a0caf6cad2", title: "Gatwick airport water supply hit by burst pipe", date: "2026-08-28", time: "14:43", url: "https://www.ft.com/content/d2d6b13d-b141-499e-9c7a-a7a0caf6cad2" },
+  { id: "9be1c027-0c94-4cf6-a84f-3193a347858c", title: "Trump has put himself on the midterm ballot — should Republicans be worried?", date: "2026-08-28", time: "14:00", url: "https://www.ft.com/content/9be1c027-0c94-4cf6-a84f-3193a347858c" },
+  { id: "9ef0db10-548d-44a3-a739-432a9c211bbb", title: "What Burnham told the FT", date: "2026-08-28", time: "12:56", url: "https://www.ft.com/content/9ef0db10-548d-44a3-a739-432a9c211bbb" },
 ];
