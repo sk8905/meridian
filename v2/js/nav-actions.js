@@ -331,7 +331,7 @@ const naFmtFx = (v) => (v >= 100 ? v.toFixed(1) : v >= 1 ? v.toFixed(3) : v.toFi
 function naFxHeat(chg) {
   const a = Math.min(Math.abs(chg) / 1.0, 1) * 0.18;
   if (!(a > 0.015)) return "";
-  return ` style="background:rgba(${chg > 0 ? "5,150,105" : "220,38,38"},${a.toFixed(3)})"`;
+  return ` style="background:color-mix(in srgb, var(--t-${chg > 0 ? "up" : "down"}) ${(a * 100).toFixed(1)}%, transparent)"`;
 }
 function naFxMatrix(d) {
   const fx = naFxData(d);

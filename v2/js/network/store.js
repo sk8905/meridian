@@ -202,7 +202,7 @@ export function accept(company) {
   p.people.forEach((person) => { if (!slot.people.some((q) => q.name === person.name && q.position === person.position)) slot.people.push(person); });
   s.pending = s.pending.filter((x) => x.company !== company);
   s.confirmedMap = s.confirmedMap || {};
-  s.confirmedMap[normPub(company)] = p.key;
+  s.confirmedMap[norm(company)] = p.key;
   save(s); return s;
 }
 export function dismiss(company) {
@@ -210,5 +210,3 @@ export function dismiss(company) {
   s.pending = (s.pending || []).filter((x) => x.company !== company);
   save(s); return s;
 }
-// normalise() is internal; expose the same transform for the accept() bookkeeping.
-function normPub(s) { return norm(s); }

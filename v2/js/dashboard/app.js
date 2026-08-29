@@ -769,7 +769,7 @@ export function mount(host, ctx) {
   function hedgeFundsHTML() {
     const F = HF_13F || {};
     const yh = (t) => `https://finance.yahoo.com/quote/${encodeURIComponent(t)}`;
-    const tkr = (t) => `<a class="dsh-hf-t" href="${yh(t)}" target="_blank" rel="noopener noreferrer">${esc(t)}</a>`;
+    const tkr = (t) => `<a class="dsh-hf-t" href="${esc(yh(t))}" target="_blank" rel="noopener noreferrer">${esc(t)}</a>`;
     const conRow = (x) => `<div class="dsh-hf-i"><div class="dsh-hf-i-h">${tkr(x.t)} <span class="dsh-hf-nm">${esc(x.name)}</span>${srcLink(x.src)}</div><div class="dsh-hf-note">${esc(x.note)}</div></div>`;
     const mvRow = (x) => `<div class="dsh-hf-i"><div class="dsh-hf-i-h"><span class="dsh-hf-dir dsh-hf-${esc(x.dir)}">${esc(_hfDir[x.dir] || x.dir)}</span> ${tkr(x.t)} <span class="dsh-hf-nm">${esc(x.name)}</span> <span class="dsh-hf-by">${esc(x.by)}</span>${srcLink(x.src)}</div><div class="dsh-hf-note">${esc(x.note)}</div></div>`;
     const filers = (HEDGE_FUNDS || []).filter((f) => f.cik).sort((a, b) => a.name.localeCompare(b.name));
@@ -801,7 +801,7 @@ export function mount(host, ctx) {
     const yh = (t) => `https://finance.yahoo.com/quote/${encodeURIComponent(t)}`;
     const rows = d.holdings.slice(0, 10).map((h, i) => `<tr><td class="dsh-r">${i + 1}</td>`
       + `<td>${esc(h.name || "—")}</td>`
-      + `<td>${h.ticker ? `<a href="${yh(h.ticker)}" target="_blank" rel="noopener noreferrer">${esc(h.ticker)}</a>` : "—"}</td>`
+      + `<td>${h.ticker ? `<a href="${esc(yh(h.ticker))}" target="_blank" rel="noopener noreferrer">${esc(h.ticker)}</a>` : "—"}</td>`
       + `<td class="dsh-r">${esc(hfUsd(h.value))}</td>`
       + `<td class="dsh-r">${h.weight != null && isFinite(h.weight) ? (h.weight * 100).toFixed(1) + "%" : "—"}</td></tr>`).join("");
     body.innerHTML = `<table class="dsh-tbl"><thead><tr><th class="dsh-r">#</th><th>Holding</th><th>Ticker</th><th class="dsh-r">Value</th><th class="dsh-r">Weight</th></tr></thead><tbody>${rows}</tbody></table>`

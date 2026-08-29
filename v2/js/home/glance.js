@@ -457,7 +457,7 @@ function renderManagerWire() {
     const nu = (r.watched && r.newCount) ? `<span class="g-mw-new">+${r.newCount} new</span>` : "";
     const team = r.hasTeamChange ? '<span class="g-mw-team" title="Recent senior hire/departure">⇄</span>' : "";
     const fund = r.inMarket ? `<span class="g-mw-fund" title="Funds in market">◆ ${esc(_fundStr(r.fundsInMarket[0]))}${r.inMarket > 1 ? ` +${r.inMarket - 1}` : ""}</span>` : "";
-    const hdr = `<div class="g-mw-hdr">${star}<a class="g-mw-nm" href="${href}">${esc(r.name)}</a>${nu}${team}${fund}</div>`;
+    const hdr = `<div class="g-mw-hdr">${star}<a class="g-mw-nm" href="${esc(href)}">${esc(r.name)}</a>${nu}${team}${fund}</div>`;
 
     const trend = r.trend === "up" ? '<span class="g-mw-up">▲</span>' : r.trend === "down" ? '<span class="g-mw-dn">▼</span>' : '<span class="g-mw-fl">·</span>';
     const mix = _mixStr(r.mix), aum = _aumAmt(r.aumSym, r.aum), strat = (r.strategies || []).slice(0, 2).map(esc).join(" · ");
@@ -1330,7 +1330,7 @@ const fmtFx = (v) => (v >= 100 ? v.toFixed(1) : v >= 1 ? v.toFixed(3) : v.toFixe
 function fxHeat(chg) {
   const a = Math.min(Math.abs(chg) / 1.0, 1) * 0.18;
   if (!(a > 0.015)) return "";
-  return ` style="background:rgba(${chg > 0 ? "5,150,105" : "220,38,38"},${a.toFixed(3)})"`;
+  return ` style="background:color-mix(in srgb, var(--t-${chg > 0 ? "up" : "down"}) ${(a * 100).toFixed(1)}%, transparent)"`;
 }
 function renderFxMatrix(d) {
   const el = document.getElementById("g-fx");

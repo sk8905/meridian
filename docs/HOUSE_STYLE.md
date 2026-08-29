@@ -228,7 +228,7 @@ notification badge red (`#ef4444`).
 - **T2 — ES modules, no bundler.** One runtime loads once; each view
   lazy-loads its own CSS array; switching tabs swaps a keep-alive view in
   memory (no document reload).
-- **T3 — Full suite green before deploy.** `node tests/run.mjs` (17 specs) must
+- **T3 — Full suite green before deploy.** `node tests/run.mjs` (39 specs) must
   pass; any new user-visible behaviour gets a spec.
 - **T4 — Zero console/page errors** on every view (enforced by the page-error
   checks).
