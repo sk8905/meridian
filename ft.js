@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8eaa49a6-6722-46fc-be4c-cce25ed449ca", title: "James Cleverly steps down from shadow cabinet to run for London mayor", date: "2026-08-29", time: "18:22", url: "https://www.ft.com/content/8eaa49a6-6722-46fc-be4c-cce25ed449ca" },
   { id: "4319c6b7-5a25-41a7-836f-ca068ac4fe60", title: "Warsh charts a forward-looking path for the Fed at Jackson Hole", date: "2026-08-29", time: "17:28", url: "https://www.ft.com/content/4319c6b7-5a25-41a7-836f-ca068ac4fe60" },
   { id: "2f88581f-4fbc-46a2-8127-830bb630c2f2", title: "Trump says US to take control of 65bn barrels of Venezuelan oil", date: "2026-08-29", time: "15:20", url: "https://www.ft.com/content/2f88581f-4fbc-46a2-8127-830bb630c2f2" },
   { id: "69452aea-cee0-47de-be8a-dc790fed3db1", title: "Warsh puts Fed on collision course with Trump ahead of midterms", date: "2026-08-29", time: "13:57", url: "https://www.ft.com/content/69452aea-cee0-47de-be8a-dc790fed3db1" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "75ba3055-625c-4cb5-894b-0696a38f5e79", title: "Latest Isa rates", date: "2026-08-28", time: "15:51", url: "https://www.ft.com/content/75ba3055-625c-4cb5-894b-0696a38f5e79" },
   { id: "68b36b6d-71e7-4f44-bbfb-a202e36603a4", title: "Latest National Savings & Investments rates", date: "2026-08-28", time: "15:47", url: "https://www.ft.com/content/68b36b6d-71e7-4f44-bbfb-a202e36603a4" },
   { id: "d3eead8b-7b38-45bd-8fba-489d02a3e440", title: "Aberdeen fund takes £200mn hit on failure of UK broadband provider", date: "2026-08-28", time: "15:09", url: "https://www.ft.com/content/d3eead8b-7b38-45bd-8fba-489d02a3e440" },
-  { id: "d15851dc-9177-4bfe-9039-8d9994a2e4b3", title: "Kevin Warsh says Fed will have ‘work to do’ if inflation does not fall soon", date: "2026-08-28", time: "15:00", url: "https://www.ft.com/content/d15851dc-9177-4bfe-9039-8d9994a2e4b3" },
 ];
