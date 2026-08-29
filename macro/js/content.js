@@ -13,7 +13,7 @@ export const UPDATED = "28 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-08-29",
-  lastCheckedTime: "05:19 BST",
+  lastCheckedTime: "09:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -920,6 +920,8 @@ export const RELEASES = [
   { date: "2026-09-16", country: "US", title: "Retail sales (August)", url: "https://www.census.gov/retail/marts/www/marts_current.pdf" },
   { date: "2026-09-17", country: "UK", title: "BoE MPC rate decision", url: "https://www.bankofengland.co.uk/monetary-policy/upcoming-mpc-dates" },
   { date: "2026-09-18", country: "UK", title: "Retail sales (August)", url: "https://www.gov.uk/government/statistics/announcements/retail-sales-great-britain-august-2026" },
+  { date: "2026-09-23", country: "US", title: "S&P Global Flash PMIs (September)", url: "https://www.pmi.spglobal.com/Public/Home/PressRelease" },
+  { date: "2026-09-23", country: "UK", title: "S&P Global/CIPS Flash PMIs (September)", url: "https://www.pmi.spglobal.com/Public/Home/PressRelease" },
   { date: "2026-09-30", country: "US", title: "Personal Income and Outlays / PCE inflation (August)", url: "https://www.bea.gov/news/schedule" },
   { date: "2026-10-28", country: "UK", title: "Autumn Budget 2026 (Chancellor John Healey)", url: "https://www.gov.uk/government/publications/chancellor-letter-to-the-treasury-select-committee-tsc-budget-2026-date" },
 ];
