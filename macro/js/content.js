@@ -12,8 +12,8 @@ export const UPDATED = "28 August 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-08-28",
-  lastCheckedTime: "21:16 BST",
+  lastChecked: "2026-08-29",
+  lastCheckedTime: "05:19 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -829,7 +829,7 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-08-28",
+  updated: "2026-08-29",
   us: [
     { title: "Analysis: Kevin Warsh sharpens inflation warning at Jackson Hole, signaling possible rate hike", source: "CNBC", date: "2026-08-28", time: "21:16", url: "https://www.cnbc.com/2026/08/28/kevin-warsh-jackson-hole-fed-inflation-rate-hike.html" },
     { title: "Stock market today: Dow, S&P 500, Nasdaq end week on down note as rate-hike bets jump", source: "Yahoo Finance", date: "2026-08-28", time: "21:16", url: "https://finance.yahoo.com/markets/live/stock-market-today-friday-august-28-dow-sp-500-nasdaq-dip-fed-warsh-jackson-hole-speech-081514091.html" },
@@ -854,8 +854,10 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-08-28",
+  updated: "2026-08-29",
   items: [
+    {"title":"Risk of a new age of financial repression is rising","source":"Financial Times","date":"2026-08-29","time":"05:00","url":"https://www.ft.com/content/ba4b940e-4a44-473b-9846-eaba9434b65f","blurb":"As sovereign debt loads climb, governments are edging back toward financial-repression policies — holding rates below inflation to erode public debt in real terms — reversing decades of financial liberalisation.","author":null},
+    {"title":"US campaign to isolate Iran closes in on Dubai","source":"Financial Times","date":"2026-08-29","time":"05:00","url":"https://www.ft.com/content/930386eb-b5d4-4a62-a258-f7ab46401655","blurb":"The Treasury's 'economic D-Day' sanctions push to isolate Iran is increasingly targeting Dubai-based banks and trade networks accused of serving as financial conduits for Tehran, following fresh sanctions on Banque Misr's UAE branches.","author":null},
     {"title":"Analysis: Kevin Warsh sharpens inflation warning at Jackson Hole, signaling possible rate hike","source":"CNBC","date":"2026-08-28","time":"21:16","url":"https://www.cnbc.com/2026/08/28/kevin-warsh-jackson-hole-fed-inflation-rate-hike.html","blurb":"Warsh used his Jackson Hole debut to answer critics of his muddled July press conference, saying this summer's cooler CPI/PCE readings 'do not tell me that underlying trends have meaningfully improved' and that the Fed still has 'work to do' on inflation."},
     {"title":"Stock market today: Dow, S&P 500, Nasdaq end week on down note as rate-hike bets jump","source":"Yahoo Finance","date":"2026-08-28","time":"21:16","url":"https://finance.yahoo.com/markets/live/stock-market-today-friday-august-28-dow-sp-500-nasdaq-dip-fed-warsh-jackson-hole-speech-081514091.html","blurb":"US stocks closed lower Friday (S&P 500 -0.25% to 7,711.76, Nasdaq -0.52% to 26,402.42, Dow -0.02% to 53,559.99) as traders digested Warsh's hawkish keynote, even as all three indices finished the week higher; 30-day fed-funds futures priced a 57.5% chance of a September hike, up from 35.5% the day before.","author":null},
     {"title":"Tories Blast Healey Over Defence Spending Target Delay","source":"Guido Fawkes (Order-Order)","date":"2026-08-28","time":"21:16","url":"https://order-order.com/2026/08/28/tories-blast-healey-over-defence-spending-target-delay/","blurb":"Chancellor John Healey — who resigned as defence secretary in June accusing the Treasury of being 'unwilling' to fund the armed forces — has now deferred setting a date for the 3%-of-GDP defence-spending target he once championed, drawing Conservative criticism ahead of his 28 October Budget."},

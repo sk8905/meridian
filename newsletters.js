@@ -37,6 +37,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-warshsaysinflationtoohigh-20260829",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: Warsh says inflation is too high",
+    date: "2026-08-29",
+    time: "05:09",
+    summary: "Kevin Warsh says the Fed has \"work to do\" on inflation as flood rescue resumes in Nepal-Tibet and BYD's Q2 profit jumps 30%.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
+    id: "nl-bbg-singaporeedition-hazereturns-20260829",
+    publication: "Bloomberg",
+    author: "Eko Listiyorini",
+    series: "Singapore Edition",
+    title: "Singapore Edition: Haze season is back",
+    date: "2026-08-29",
+    time: "02:12",
+    summary: "Haze returns to Southeast Asia as Indonesia's dry season fuels forest fires, pushing air quality to worst-in-world levels in parts of Malaysia and Indonesia.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-08-29/southeast-asia-haze-indonesia-fires-spread-as-el-nino-heightens-risk",
+  },
+  {
     id: "nl-matter-popularweek-20260828",
     publication: "Matter",
     author: null,

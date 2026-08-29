@@ -20,6 +20,17 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "359d4ea5-59b6-425f-ac66-c9836cec04f9", title: "Glencore threatened with $1.4bn lawsuit from embattled trader Radiant", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/359d4ea5-59b6-425f-ac66-c9836cec04f9" },
+  { id: "ba4b940e-4a44-473b-9846-eaba9434b65f", title: "Risk of a new age of financial repression is rising", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/ba4b940e-4a44-473b-9846-eaba9434b65f" },
+  { id: "6249139a-6ca6-4888-86e2-f2f381e9b8a8", title: "Football clubs' race for data creates bright spot in Britain labour market", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/6249139a-6ca6-4888-86e2-f2f381e9b8a8" },
+  { id: "c2609ef8-1592-4c04-a3b6-37437627ff8e", title: "The end of cheap food has costs far beyond the grocery store", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/c2609ef8-1592-4c04-a3b6-37437627ff8e" },
+  { id: "95379ab9-8483-4e0a-a71e-e22b68dacc46", title: "Raphaël Glucksmann, the French left's new hope", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/95379ab9-8483-4e0a-a71e-e22b68dacc46" },
+  { id: "492134e9-49eb-4f13-b70a-b2b595ed0e2a", title: "Zero-sum thinking will fuel resentment and scarcity", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/492134e9-49eb-4f13-b70a-b2b595ed0e2a" },
+  { id: "63981a46-5849-4c1b-b5df-bfacd85c9d93", title: "How finance redeemed itself", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/63981a46-5849-4c1b-b5df-bfacd85c9d93" },
+  { id: "930386eb-b5d4-4a62-a258-f7ab46401655", title: "US campaign to isolate Iran closes in on Dubai", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/930386eb-b5d4-4a62-a258-f7ab46401655" },
+  { id: "5516fa6b-1cbf-4b50-944b-57b42cbcac93", title: "Fancy lattes whip up their own mini investment boom", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/5516fa6b-1cbf-4b50-944b-57b42cbcac93" },
+  { id: "f100c90b-c138-4125-aaa7-853b77690db9", title: "Did AI write this? It's getting harder to tell", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/f100c90b-c138-4125-aaa7-853b77690db9" },
+  { id: "38a05881-ebfc-47ac-b326-96142edd1bb7", title: "FT stock picking game results: the unexpected triumph of fundamentals", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/38a05881-ebfc-47ac-b326-96142edd1bb7" },
   { id: "7af605e0-b528-46f6-b86e-b90b46f03c4c", title: "Neoclouds show how to amplify risks in AI ecosystems", date: "2026-08-28", time: "19:09", url: "https://www.ft.com/content/7af605e0-b528-46f6-b86e-b90b46f03c4c" },
   { id: "aa929cd9-b4b4-4858-9160-4d6f885ebc5f", title: "Middlesbrough crisis highlights challenges for small police forces", date: "2026-08-28", time: "18:57", url: "https://www.ft.com/content/aa929cd9-b4b4-4858-9160-4d6f885ebc5f" },
   { id: "14564843-5960-44c6-8683-944422c042a4", title: "Donald Trump loses bid to challenge hush-money conviction in federal court", date: "2026-08-28", time: "18:54", url: "https://www.ft.com/content/14564843-5960-44c6-8683-944422c042a4" },
@@ -53,11 +64,4 @@ export const FT_ITEMS = [
   { id: "a5c1460d-631a-4c4e-8c51-32536de09b80", title: "SpaceX considered as a leasing company", date: "2026-08-28", time: "11:13", url: "https://www.ft.com/content/a5c1460d-631a-4c4e-8c51-32536de09b80" },
   { id: "693d9b24-b4d1-42db-a978-3264a27bc83c", title: "‘I am still extremely angry’: the Woodford collapse continues to confound investors", date: "2026-08-28", time: "10:53", url: "https://www.ft.com/content/693d9b24-b4d1-42db-a978-3264a27bc83c" },
   { id: "670b2b1d-7e4c-480e-9ed4-9f7f095d7860", title: "Ministers embraced the ‘world’s safest phone’. Then it unravelled", date: "2026-08-28", time: "09:30", url: "https://www.ft.com/content/670b2b1d-7e4c-480e-9ed4-9f7f095d7860" },
-  { id: "d15d2086-49bd-4a44-9508-b4c6e27971da", title: "South Korea to review 310,000 closed missing people cases", date: "2026-08-28", time: "08:32", url: "https://www.ft.com/content/d15d2086-49bd-4a44-9508-b4c6e27971da" },
-  { id: "b0c90571-6619-4ac4-8d6e-f0dd295eaf15", title: "Bank of England likely to respond to high energy prices by end of the year", date: "2026-08-28", time: "07:41", url: "https://www.ft.com/content/b0c90571-6619-4ac4-8d6e-f0dd295eaf15" },
-  { id: "caf9084f-8166-48c3-abab-0e801dd7a456", title: "FTAV’s further reading", date: "2026-08-28", time: "07:14", url: "https://www.ft.com/content/caf9084f-8166-48c3-abab-0e801dd7a456" },
-  { id: "fc925436-4bcb-444c-b929-83014f6da44d", title: "Healey to shelve his own defence spending target of 3% of GDP by 2030", date: "2026-08-28", time: "07:13", url: "https://www.ft.com/content/fc925436-4bcb-444c-b929-83014f6da44d" },
-  { id: "c377139e-b53c-4043-86b2-36b9d73cde9a", title: "The US consumer is showing some strain", date: "2026-08-28", time: "06:30", url: "https://www.ft.com/content/c377139e-b53c-4043-86b2-36b9d73cde9a" },
-  { id: "5e6db1ad-6ea5-44db-80fd-fd7073d9e676", title: "FirstFT: US corporate profits surge as wages lag", date: "2026-08-28", time: "06:15", url: "https://www.ft.com/content/5e6db1ad-6ea5-44db-80fd-fd7073d9e676" },
-  { id: "75d1b474-7885-42ee-a08b-d221c5e96d1c", title: "US assesses European allies’ allegiance in pointed Nato questionnaire", date: "2026-08-28", time: "06:00", url: "https://www.ft.com/content/75d1b474-7885-42ee-a08b-d221c5e96d1c" },
 ];
