@@ -32,6 +32,8 @@ export const FT_ITEMS = [
   { id: "a1bfac83-5310-4fdb-bbc7-1efb983a83a0", title: "Claridge’s operator bets on US and UK visitors to offset Middle East", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/a1bfac83-5310-4fdb-bbc7-1efb983a83a0" },
   { id: "0a5e4343-2a91-4e76-affd-b6b369249658", title: "The Dutch city where Europe’s electricity grid crunch hits home", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/0a5e4343-2a91-4e76-affd-b6b369249658" },
   { id: "952920f9-429d-451a-9913-a360880ead41", title: "Grindr bets wealthy gay men will pay more to find the right match", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/952920f9-429d-451a-9913-a360880ead41" },
+  { id: "16a76475-cb9d-4fa5-acb2-cf353d85b7ca", title: "The Gazan amputees turning to football", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/16a76475-cb9d-4fa5-acb2-cf353d85b7ca" },
+  { id: "7dbc5c59-c13b-4f2d-afd6-14e3033c7732", title: "Norway vs the world’s favourite chicken", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/7dbc5c59-c13b-4f2d-afd6-14e3033c7732" },
   { id: "b3c98ca2-fe67-459d-89ff-4728993110b7", title: "US oil deal denounced by both sides of Venezuelan politics", date: "2026-08-29", time: "23:38", url: "https://www.ft.com/content/b3c98ca2-fe67-459d-89ff-4728993110b7" },
   { id: "8eaa49a6-6722-46fc-be4c-cce25ed449ca", title: "James Cleverly steps down from shadow cabinet to run for London mayor", date: "2026-08-29", time: "18:22", url: "https://www.ft.com/content/8eaa49a6-6722-46fc-be4c-cce25ed449ca" },
   { id: "4319c6b7-5a25-41a7-836f-ca068ac4fe60", title: "Warsh charts a forward-looking path for the Fed at Jackson Hole", date: "2026-08-29", time: "17:28", url: "https://www.ft.com/content/4319c6b7-5a25-41a7-836f-ca068ac4fe60" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "38a05881-ebfc-47ac-b326-96142edd1bb7", title: "FT stock picking game results: the unexpected triumph of fundamentals", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/38a05881-ebfc-47ac-b326-96142edd1bb7" },
   { id: "7af605e0-b528-46f6-b86e-b90b46f03c4c", title: "Neoclouds show how to amplify risks in AI ecosystems", date: "2026-08-28", time: "19:09", url: "https://www.ft.com/content/7af605e0-b528-46f6-b86e-b90b46f03c4c" },
   { id: "aa929cd9-b4b4-4858-9160-4d6f885ebc5f", title: "Middlesbrough crisis highlights challenges for small police forces", date: "2026-08-28", time: "18:57", url: "https://www.ft.com/content/aa929cd9-b4b4-4858-9160-4d6f885ebc5f" },
-  { id: "14564843-5960-44c6-8683-944422c042a4", title: "Donald Trump loses bid to challenge hush-money conviction in federal court", date: "2026-08-28", time: "18:54", url: "https://www.ft.com/content/14564843-5960-44c6-8683-944422c042a4" },
 ];
