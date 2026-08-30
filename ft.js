@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "458940e7-0754-42e3-aa33-f1f9e3e710b7", title: "Controversial Venezuelan executive courts investors after Trump oil deal", date: "2026-08-30", time: "13:12", url: "https://www.ft.com/content/458940e7-0754-42e3-aa33-f1f9e3e710b7" },
+  { id: "5729b32c-8b7a-42b1-b1e2-b8b0106739cb", title: "Meta’s settlement is a starting point", date: "2026-08-30", time: "13:00", url: "https://www.ft.com/content/5729b32c-8b7a-42b1-b1e2-b8b0106739cb" },
   { id: "ce3139ac-e88e-4c0d-ab92-b36e79052836", title: "Friends with fiscal benefits", date: "2026-08-30", time: "12:00", url: "https://www.ft.com/content/ce3139ac-e88e-4c0d-ab92-b36e79052836" },
   { id: "c2682d2b-c5a4-4f98-8f04-cf93883fb9b6", title: "Will the Fed’s hawkish stance survive contact with jobs data?", date: "2026-08-30", time: "12:00", url: "https://www.ft.com/content/c2682d2b-c5a4-4f98-8f04-cf93883fb9b6" },
   { id: "3dd189e1-1af6-45a5-8993-0973af74f8e4", title: "Andy Burnham tightens prisoner release scheme and insists he is ‘tough on crime’", date: "2026-08-30", time: "11:01", url: "https://www.ft.com/content/3dd189e1-1af6-45a5-8993-0973af74f8e4" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "359d4ea5-59b6-425f-ac66-c9836cec04f9", title: "Glencore threatened with $1.4bn lawsuit from embattled trader Radiant", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/359d4ea5-59b6-425f-ac66-c9836cec04f9" },
   { id: "ba4b940e-4a44-473b-9846-eaba9434b65f", title: "Risk of a new age of financial repression is rising", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/ba4b940e-4a44-473b-9846-eaba9434b65f" },
   { id: "6249139a-6ca6-4888-86e2-f2f381e9b8a8", title: "Football clubs' race for data creates bright spot in Britain labour market", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/6249139a-6ca6-4888-86e2-f2f381e9b8a8" },
-  { id: "c2609ef8-1592-4c04-a3b6-37437627ff8e", title: "The end of cheap food has costs far beyond the grocery store", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/c2609ef8-1592-4c04-a3b6-37437627ff8e" },
-  { id: "95379ab9-8483-4e0a-a71e-e22b68dacc46", title: "Raphaël Glucksmann, the French left's new hope", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/95379ab9-8483-4e0a-a71e-e22b68dacc46" },
 ];
