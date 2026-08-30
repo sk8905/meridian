@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "ce3139ac-e88e-4c0d-ab92-b36e79052836", title: "Friends with fiscal benefits", date: "2026-08-30", time: "12:00", url: "https://www.ft.com/content/ce3139ac-e88e-4c0d-ab92-b36e79052836" },
+  { id: "c2682d2b-c5a4-4f98-8f04-cf93883fb9b6", title: "Will the Fed’s hawkish stance survive contact with jobs data?", date: "2026-08-30", time: "12:00", url: "https://www.ft.com/content/c2682d2b-c5a4-4f98-8f04-cf93883fb9b6" },
   { id: "3dd189e1-1af6-45a5-8993-0973af74f8e4", title: "Andy Burnham tightens prisoner release scheme and insists he is ‘tough on crime’", date: "2026-08-30", time: "11:01", url: "https://www.ft.com/content/3dd189e1-1af6-45a5-8993-0973af74f8e4" },
   { id: "25f48fea-ada2-41e1-ba33-07a864a8674a", title: "‘New York loves Canada’: US cities want their Canadian tourists back", date: "2026-08-30", time: "11:00", url: "https://www.ft.com/content/25f48fea-ada2-41e1-ba33-07a864a8674a" },
   { id: "2c65a745-8169-4192-971a-022bdfc0e7ad", title: "Pharma stocks soar as investors seek AI alternatives", date: "2026-08-30", time: "11:00", url: "https://www.ft.com/content/2c65a745-8169-4192-971a-022bdfc0e7ad" },
@@ -31,6 +33,7 @@ export const FT_ITEMS = [
   { id: "407f90ed-fe14-4ed5-bfa8-50696b126c46", title: "Nicotine pouch sales jump in UK as companies step up marketing", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/407f90ed-fe14-4ed5-bfa8-50696b126c46" },
   { id: "43718673-5c3f-46cc-a459-b0334e80aeb2", title: "Andy Burnham’s summer of quietly backing away from radical pledges", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/43718673-5c3f-46cc-a459-b0334e80aeb2" },
   { id: "e29502c0-50a9-4f77-ac87-4ba46d1ba98c", title: "One fix for UK plc’s underperformance: equity for all", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/e29502c0-50a9-4f77-ac87-4ba46d1ba98c" },
+  { id: "ba323075-bf96-4acf-af32-1e5967be0590", title: "Summer might be ending, but we can hold on to some of its magic", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/ba323075-bf96-4acf-af32-1e5967be0590" },
   { id: "bbe90db5-64ac-441d-87e4-e984c5ef8629", title: "Rising bond yields add tens of billions to G7 countries’ debt costs", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/bbe90db5-64ac-441d-87e4-e984c5ef8629" },
   { id: "60be9ebd-f1be-4f36-b907-c1a99718e2b7", title: "‘SmashCos’: Europe’s oil majors create new generation of independent companies", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/60be9ebd-f1be-4f36-b907-c1a99718e2b7" },
   { id: "38abcff2-241c-4bc1-83a1-8cc135dcaa90", title: "The companies desperate to hire graduates", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/38abcff2-241c-4bc1-83a1-8cc135dcaa90" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "c2609ef8-1592-4c04-a3b6-37437627ff8e", title: "The end of cheap food has costs far beyond the grocery store", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/c2609ef8-1592-4c04-a3b6-37437627ff8e" },
   { id: "95379ab9-8483-4e0a-a71e-e22b68dacc46", title: "Raphaël Glucksmann, the French left's new hope", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/95379ab9-8483-4e0a-a71e-e22b68dacc46" },
   { id: "492134e9-49eb-4f13-b70a-b2b595ed0e2a", title: "Zero-sum thinking will fuel resentment and scarcity", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/492134e9-49eb-4f13-b70a-b2b595ed0e2a" },
-  { id: "63981a46-5849-4c1b-b5df-bfacd85c9d93", title: "How finance redeemed itself", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/63981a46-5849-4c1b-b5df-bfacd85c9d93" },
-  { id: "cf608abf-fb69-4f0b-a579-028cac78a8c9", title: "The Cumbrian shepherds racing sunrise to beat the heat", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/cf608abf-fb69-4f0b-a579-028cac78a8c9" },
-  { id: "d3924170-6978-4b0a-8357-a621c0d3e1fd", title: "English wine reaps rewards of heatwave but extreme weather brings risk", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/d3924170-6978-4b0a-8357-a621c0d3e1fd" },
 ];
