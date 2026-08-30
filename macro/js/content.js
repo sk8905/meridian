@@ -12,8 +12,8 @@ export const UPDATED = "28 August 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-08-29",
-  lastCheckedTime: "21:17 BST",
+  lastChecked: "2026-08-30",
+  lastCheckedTime: "05:11 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -829,7 +829,7 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-08-29",
+  updated: "2026-08-30",
   us: [
     { title: "America In Focus: key inflation gauge remains high; Fed's Warsh signals rate hikes may be needed", source: "The Washington Post", date: "2026-08-29", time: "21:17", url: "https://www.washingtonpost.com/business/2026/08/29/inflation-economy-iran-trump-fed-warsh/81be75d2-a3b3-11f1-8606-1d40ad00172e_story.html" },
     { title: "September Fed decision is now a coin flip as rate hike odds increase post Warsh", source: "CNBC", date: "2026-08-28", time: "21:17", url: "https://www.cnbc.com/2026/08/28/-september-fed-decision-now-a-coin-flip-as-rate-hike-odds-increase.html" },
@@ -838,11 +838,11 @@ export const NEWS = {
     { title: "Stock market today: Dow, S&P 500, Nasdaq end week on down note as rate-hike bets jump", source: "Yahoo Finance", date: "2026-08-28", time: "21:17", url: "https://finance.yahoo.com/markets/live/stock-market-today-friday-august-28-dow-sp-500-nasdaq-dip-fed-warsh-jackson-hole-speech-081514091.html" },
   ],
   uk: [
+    { title: "John Healey Seeks Drama-Free UK Budget as Economic Heat Rises on Burnham", source: "Bloomberg", date: "2026-08-29", time: "05:11", url: "https://www.bloomberg.com/news/articles/2026-08-29/john-healey-seeks-drama-free-uk-budget-as-economic-heat-rises-on-burnham" },
     { title: "UK's FTSE 100 Closes Week in Green; Shell Gains", source: "Yahoo Finance UK", date: "2026-08-28", time: "21:17", url: "https://uk.finance.yahoo.com/news/uk-apos-ftse-100-closes-154607397.html" },
     { title: "Bailey Says UK Not Seeing Significant Second-Round Inflation Before BOE Meeting", source: "Bloomberg", date: "2026-08-28", time: "21:17", url: "https://www.bloomberg.com/news/articles/2026-08-28/boe-s-bailey-downplays-second-round-effects-before-rate-decision" },
     { title: "British Pound edges higher despite delaying BoE rate hike expectations", source: "FXStreet", date: "2026-08-28", time: "21:17", url: "https://www.fxstreet.com/news/british-pound-edges-higher-despite-delaying-boe-rate-hike-expectations-202608280140" },
     { title: "UK gilt yields fall to lowest since mid-August as oil price slides", source: "Reuters (via TradingView)", date: "2026-08-25", time: "21:17", url: "https://www.tradingview.com/news/reuters.com,2026:newsml_S8N42Q0C3:0-uk-gilt-yields-fall-to-lowest-since-mid-august-as-oil-price-slides/" },
-    { title: "UK Household Inflation Worries Pick Up Again in August", source: "Bloomberg", date: "2026-08-25", time: "21:17", url: "https://www.bloomberg.com/news/articles/2026-08-25/uk-household-inflation-worries-pick-up-again-in-august" },
   ],
 };
 
@@ -854,8 +854,9 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-08-29",
+  updated: "2026-08-30",
   items: [
+    {"title":"John Healey Seeks Drama-Free UK Budget as Economic Heat Rises on Burnham","source":"Bloomberg","date":"2026-08-29","time":"05:11","url":"https://www.bloomberg.com/news/articles/2026-08-29/john-healey-seeks-drama-free-uk-budget-as-economic-heat-rises-on-burnham","blurb":"Chancellor John Healey is preparing a low-drama 28 October Budget built on fiscal discipline even as political heat rises around Health Secretary Andy Burnham's higher-spending instincts, with Labour's economic strategy under growing internal strain.","author":null},
     {"title":"Warsh puts Fed on collision course with Trump ahead of midterms","source":"Financial Times","date":"2026-08-29","time":"12:57","url":"https://www.ft.com/content/69452aea-cee0-47de-be8a-dc790fed3db1","blurb":"Fed chair Kevin Warsh's hawkish Jackson Hole debut has set the central bank on a path that could clash with President Trump's preference for lower rates heading into the midterm elections.","author":null},
     {"title":"Risk of a new age of financial repression is rising","source":"Financial Times","date":"2026-08-29","time":"05:00","url":"https://www.ft.com/content/ba4b940e-4a44-473b-9846-eaba9434b65f","blurb":"As sovereign debt loads climb, governments are edging back toward financial-repression policies — holding rates below inflation to erode public debt in real terms — reversing decades of financial liberalisation.","author":null},
     {"title":"US campaign to isolate Iran closes in on Dubai","source":"Financial Times","date":"2026-08-29","time":"05:00","url":"https://www.ft.com/content/930386eb-b5d4-4a62-a258-f7ab46401655","blurb":"The Treasury's 'economic D-Day' sanctions push to isolate Iran is increasingly targeting Dubai-based banks and trade networks accused of serving as financial conduits for Tehran, following fresh sanctions on Banque Misr's UAE branches.","author":null},
