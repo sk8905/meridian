@@ -38,6 +38,7 @@ export const FT_ITEMS = [
   { id: "60be9ebd-f1be-4f36-b907-c1a99718e2b7", title: "‘SmashCos’: Europe’s oil majors create new generation of independent companies", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/60be9ebd-f1be-4f36-b907-c1a99718e2b7" },
   { id: "38abcff2-241c-4bc1-83a1-8cc135dcaa90", title: "The companies desperate to hire graduates", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/38abcff2-241c-4bc1-83a1-8cc135dcaa90" },
   { id: "a1bfac83-5310-4fdb-bbc7-1efb983a83a0", title: "Claridge’s operator bets on US and UK visitors to offset Middle East", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/a1bfac83-5310-4fdb-bbc7-1efb983a83a0" },
+  { id: "c4c13303-bc80-41de-81fc-65e9a70791c9", title: "EU to help tourism hotspots crack down on Airbnb-style holiday rentals", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/c4c13303-bc80-41de-81fc-65e9a70791c9" },
   { id: "0a5e4343-2a91-4e76-affd-b6b369249658", title: "The Dutch city where Europe’s electricity grid crunch hits home", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/0a5e4343-2a91-4e76-affd-b6b369249658" },
   { id: "952920f9-429d-451a-9913-a360880ead41", title: "Grindr bets wealthy gay men will pay more to find the right match", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/952920f9-429d-451a-9913-a360880ead41" },
   { id: "16a76475-cb9d-4fa5-acb2-cf353d85b7ca", title: "The Gazan amputees turning to football", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/16a76475-cb9d-4fa5-acb2-cf353d85b7ca" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "6249139a-6ca6-4888-86e2-f2f381e9b8a8", title: "Football clubs' race for data creates bright spot in Britain labour market", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/6249139a-6ca6-4888-86e2-f2f381e9b8a8" },
   { id: "c2609ef8-1592-4c04-a3b6-37437627ff8e", title: "The end of cheap food has costs far beyond the grocery store", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/c2609ef8-1592-4c04-a3b6-37437627ff8e" },
   { id: "95379ab9-8483-4e0a-a71e-e22b68dacc46", title: "Raphaël Glucksmann, the French left's new hope", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/95379ab9-8483-4e0a-a71e-e22b68dacc46" },
-  { id: "492134e9-49eb-4f13-b70a-b2b595ed0e2a", title: "Zero-sum thinking will fuel resentment and scarcity", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/492134e9-49eb-4f13-b70a-b2b595ed0e2a" },
 ];
