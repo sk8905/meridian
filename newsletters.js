@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-guardian-therecap-20260830",
+    publication: "The Guardian",
+    author: null,
+    series: "The Recap",
+    title: "Gihan Arnolda’s incredible journey, Cole Palmer and The Secret Cricket Coach",
+    date: "2026-08-30",
+    time: "08:05",
+    summary: "The week in sport recapped: England's Women's Rugby World Cup triumph, Ryder Cup chants fallout and Palace's late win over Liverpool.",
+    url: "https://www.theguardian.com/sport",
+  },
+  {
     id: "nl-bbg-thebrink-goingnonprofitisthefix-20260829",
     publication: "Bloomberg",
     author: "Soma Biswas",
@@ -464,16 +475,5 @@ export const NEWSLETTERS = [
     time: "14:09",
     summary: "Partners and experts break down the merits and pitfalls of the SRA's new AI guidance.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMQS9JO5mwG8fMQhLb/wv",
-  },
-  {
-    id: "nl-bbg-economicsdaily-congressbessent-20260825",
-    publication: "Bloomberg",
-    author: "Chris Anstey",
-    series: "Economics Daily",
-    title: "Coming US Fiscal Plan Will Confront a Spendthrift Congress",
-    date: "2026-08-25",
-    time: "12:00",
-    summary: "To achieve budget consolidation, the US Treasury secretary will need to get lawmakers on side.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-25/bessent-latest-treasury-secretary-needs-congress-to-help-out-with-fiscal-repair",
   },
 ];

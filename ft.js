@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "53b5abd8-2919-4dc6-8dd6-81fc054e8b6f", title: "Iceland rejects reopening talks on EU entry", date: "2026-08-30", time: "09:02", url: "https://www.ft.com/content/53b5abd8-2919-4dc6-8dd6-81fc054e8b6f" },
   { id: "5579f0e8-c19c-46ad-8272-f7678bf3a6b9", title: "CEO of India’s largest private bank to step down", date: "2026-08-30", time: "07:10", url: "https://www.ft.com/content/5579f0e8-c19c-46ad-8272-f7678bf3a6b9" },
   { id: "63311687-676b-4548-9bd8-3d7ad96d7ce5", title: "What’s the fiscal hit from higher yields?", date: "2026-08-30", time: "05:12", url: "https://www.ft.com/content/63311687-676b-4548-9bd8-3d7ad96d7ce5" },
   { id: "17c61dd3-fa39-4061-b3a1-2d2333d1eb7f", title: "Incoming Swiss banking chief warns against regulatory over-reach", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/17c61dd3-fa39-4061-b3a1-2d2333d1eb7f" },
@@ -59,6 +60,4 @@ export const FT_ITEMS = [
   { id: "930386eb-b5d4-4a62-a258-f7ab46401655", title: "US campaign to isolate Iran closes in on Dubai", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/930386eb-b5d4-4a62-a258-f7ab46401655" },
   { id: "5516fa6b-1cbf-4b50-944b-57b42cbcac93", title: "Fancy lattes whip up their own mini investment boom", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/5516fa6b-1cbf-4b50-944b-57b42cbcac93" },
   { id: "f100c90b-c138-4125-aaa7-853b77690db9", title: "Did AI write this? It's getting harder to tell", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/f100c90b-c138-4125-aaa7-853b77690db9" },
-  { id: "38a05881-ebfc-47ac-b326-96142edd1bb7", title: "FT stock picking game results: the unexpected triumph of fundamentals", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/38a05881-ebfc-47ac-b326-96142edd1bb7" },
-  { id: "7af605e0-b528-46f6-b86e-b90b46f03c4c", title: "Neoclouds show how to amplify risks in AI ecosystems", date: "2026-08-28", time: "19:09", url: "https://www.ft.com/content/7af605e0-b528-46f6-b86e-b90b46f03c4c" },
 ];
