@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "5579f0e8-c19c-46ad-8272-f7678bf3a6b9", title: "CEO of India’s largest private bank to step down", date: "2026-08-30", time: "07:10", url: "https://www.ft.com/content/5579f0e8-c19c-46ad-8272-f7678bf3a6b9" },
   { id: "63311687-676b-4548-9bd8-3d7ad96d7ce5", title: "What’s the fiscal hit from higher yields?", date: "2026-08-30", time: "05:12", url: "https://www.ft.com/content/63311687-676b-4548-9bd8-3d7ad96d7ce5" },
   { id: "17c61dd3-fa39-4061-b3a1-2d2333d1eb7f", title: "Incoming Swiss banking chief warns against regulatory over-reach", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/17c61dd3-fa39-4061-b3a1-2d2333d1eb7f" },
   { id: "bcb35264-a96c-49c0-984f-4b379d088581", title: "Anglo Teck up against Glencore’s ‘hardball’ negotiators to deliver merger gains", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/bcb35264-a96c-49c0-984f-4b379d088581" },
@@ -60,5 +61,4 @@ export const FT_ITEMS = [
   { id: "f100c90b-c138-4125-aaa7-853b77690db9", title: "Did AI write this? It's getting harder to tell", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/f100c90b-c138-4125-aaa7-853b77690db9" },
   { id: "38a05881-ebfc-47ac-b326-96142edd1bb7", title: "FT stock picking game results: the unexpected triumph of fundamentals", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/38a05881-ebfc-47ac-b326-96142edd1bb7" },
   { id: "7af605e0-b528-46f6-b86e-b90b46f03c4c", title: "Neoclouds show how to amplify risks in AI ecosystems", date: "2026-08-28", time: "19:09", url: "https://www.ft.com/content/7af605e0-b528-46f6-b86e-b90b46f03c4c" },
-  { id: "aa929cd9-b4b4-4858-9160-4d6f885ebc5f", title: "Middlesbrough crisis highlights challenges for small police forces", date: "2026-08-28", time: "18:57", url: "https://www.ft.com/content/aa929cd9-b4b4-4858-9160-4d6f885ebc5f" },
 ];
