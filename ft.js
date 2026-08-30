@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c9d10aeb-163e-46a3-b7ca-376ce6be9f8e", title: "Ukraine’s ex-defence minister touts ‘new history’ in war against Russia with planned tech fund", date: "2026-08-30", time: "18:57", url: "https://www.ft.com/content/c9d10aeb-163e-46a3-b7ca-376ce6be9f8e" },
+  { id: "da5d96c1-c491-41a2-9db5-48bd952da4b4", title: "Return of the politicians", date: "2026-08-30", time: "18:15", url: "https://www.ft.com/content/da5d96c1-c491-41a2-9db5-48bd952da4b4" },
   { id: "63e8a4f3-7c18-4ddc-b3b7-e472159a7adf", title: "Americans feel they have lost their agency", date: "2026-08-30", time: "16:00", url: "https://www.ft.com/content/63e8a4f3-7c18-4ddc-b3b7-e472159a7adf" },
   { id: "4eb02822-d691-48a4-966f-45c6501bccb2", title: "Niger regains control of military base after coup attempt", date: "2026-08-30", time: "15:43", url: "https://www.ft.com/content/4eb02822-d691-48a4-966f-45c6501bccb2" },
   { id: "458940e7-0754-42e3-aa33-f1f9e3e710b7", title: "Controversial Venezuelan executive courts investors after Trump oil deal", date: "2026-08-30", time: "13:12", url: "https://www.ft.com/content/458940e7-0754-42e3-aa33-f1f9e3e710b7" },
