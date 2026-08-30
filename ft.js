@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a5a0081f-e998-4c80-b967-cc535cbc4933", title: "Big Tech profits get $160bn boost from gains on stakes in other AI companies", date: "2026-08-30", time: "20:00", url: "https://www.ft.com/content/a5a0081f-e998-4c80-b967-cc535cbc4933" },
   { id: "c9d10aeb-163e-46a3-b7ca-376ce6be9f8e", title: "Ukraine’s ex-defence minister touts ‘new history’ in war against Russia with planned tech fund", date: "2026-08-30", time: "18:57", url: "https://www.ft.com/content/c9d10aeb-163e-46a3-b7ca-376ce6be9f8e" },
   { id: "da5d96c1-c491-41a2-9db5-48bd952da4b4", title: "Return of the politicians", date: "2026-08-30", time: "18:15", url: "https://www.ft.com/content/da5d96c1-c491-41a2-9db5-48bd952da4b4" },
   { id: "63e8a4f3-7c18-4ddc-b3b7-e472159a7adf", title: "Americans feel they have lost their agency", date: "2026-08-30", time: "16:00", url: "https://www.ft.com/content/63e8a4f3-7c18-4ddc-b3b7-e472159a7adf" },
@@ -60,6 +61,4 @@ export const FT_ITEMS = [
   { id: "40eaeba7-9514-4e6b-9bd3-4a9381618c84", title: "Dozens killed in Russian strike on ammunition depot near Kyiv", date: "2026-08-29", time: "09:54", url: "https://www.ft.com/content/40eaeba7-9514-4e6b-9bd3-4a9381618c84" },
   { id: "59955452-1de0-40f0-a8d1-62139d502484", title: "Chart of the Week: Is the 60-40 portfolio dead?", date: "2026-08-29", time: "09:30", url: "https://www.ft.com/content/59955452-1de0-40f0-a8d1-62139d502484" },
   { id: "4f9bd1ed-f783-45c9-8542-addd8b57ee9f", title: "What the Indiana state fair reveals about Trump's America", date: "2026-08-29", time: "08:37", url: "https://www.ft.com/content/4f9bd1ed-f783-45c9-8542-addd8b57ee9f" },
-  { id: "33fa2e4a-2c35-42e2-9e32-494f9505f0ff", title: "American Scoundrel — Roy Cohn’s long shadow over the White House", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/33fa2e4a-2c35-42e2-9e32-494f9505f0ff" },
-  { id: "359d4ea5-59b6-425f-ac66-c9836cec04f9", title: "Glencore threatened with $1.4bn lawsuit from embattled trader Radiant", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/359d4ea5-59b6-425f-ac66-c9836cec04f9" },
 ];
