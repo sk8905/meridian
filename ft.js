@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "63e8a4f3-7c18-4ddc-b3b7-e472159a7adf", title: "Americans feel they have lost their agency", date: "2026-08-30", time: "16:00", url: "https://www.ft.com/content/63e8a4f3-7c18-4ddc-b3b7-e472159a7adf" },
+  { id: "4eb02822-d691-48a4-966f-45c6501bccb2", title: "Niger regains control of military base after coup attempt", date: "2026-08-30", time: "15:43", url: "https://www.ft.com/content/4eb02822-d691-48a4-966f-45c6501bccb2" },
   { id: "458940e7-0754-42e3-aa33-f1f9e3e710b7", title: "Controversial Venezuelan executive courts investors after Trump oil deal", date: "2026-08-30", time: "13:12", url: "https://www.ft.com/content/458940e7-0754-42e3-aa33-f1f9e3e710b7" },
   { id: "5729b32c-8b7a-42b1-b1e2-b8b0106739cb", title: "Meta’s settlement is a starting point", date: "2026-08-30", time: "13:00", url: "https://www.ft.com/content/5729b32c-8b7a-42b1-b1e2-b8b0106739cb" },
   { id: "ce3139ac-e88e-4c0d-ab92-b36e79052836", title: "Friends with fiscal benefits", date: "2026-08-30", time: "12:00", url: "https://www.ft.com/content/ce3139ac-e88e-4c0d-ab92-b36e79052836" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "4f9bd1ed-f783-45c9-8542-addd8b57ee9f", title: "What the Indiana state fair reveals about Trump's America", date: "2026-08-29", time: "08:37", url: "https://www.ft.com/content/4f9bd1ed-f783-45c9-8542-addd8b57ee9f" },
   { id: "33fa2e4a-2c35-42e2-9e32-494f9505f0ff", title: "American Scoundrel — Roy Cohn’s long shadow over the White House", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/33fa2e4a-2c35-42e2-9e32-494f9505f0ff" },
   { id: "359d4ea5-59b6-425f-ac66-c9836cec04f9", title: "Glencore threatened with $1.4bn lawsuit from embattled trader Radiant", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/359d4ea5-59b6-425f-ac66-c9836cec04f9" },
-  { id: "ba4b940e-4a44-473b-9846-eaba9434b65f", title: "Risk of a new age of financial repression is rising", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/ba4b940e-4a44-473b-9846-eaba9434b65f" },
-  { id: "6249139a-6ca6-4888-86e2-f2f381e9b8a8", title: "Football clubs' race for data creates bright spot in Britain labour market", date: "2026-08-29", time: "05:00", url: "https://www.ft.com/content/6249139a-6ca6-4888-86e2-f2f381e9b8a8" },
 ];
