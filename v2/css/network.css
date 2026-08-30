@@ -6,12 +6,12 @@
    depending on whichever --t-* scope happens to be in effect there.
    ============================================================================= */
 .wire-net {
-  --wn-accent:#fb8b1e; --wn-ink:#131b2c; --wn-mut:#5e6a84;
+  --wn-accent:#fb8b1e; --wn-ink:#131b2c; --wn-mut:#5e6a84; --wn-down:#df4763;
   --wn-bd:#e4e7ef; --wn-surface:#ffffff; --wn-surface2:#f3f6fb;
   color:var(--wn-ink);
 }
 :root[data-theme="dark"] .wire-net {
-  --wn-ink:#eaf0fb; --wn-mut:#8592ad;
+  --wn-ink:#eaf0fb; --wn-mut:#8592ad; --wn-down:#f26d84;
   --wn-bd:#262626; --wn-surface:#0d0d0d; --wn-surface2:#191919;
 }
 
@@ -62,7 +62,7 @@
 .wn-reimport > summary { cursor:pointer; color:var(--wn-accent); font-weight:600; font-size:.82rem; list-style:none; }
 .wn-reimport > summary::-webkit-details-marker { display:none; }
 .wn-clear { background:none; border:1px solid var(--wn-bd); color:var(--wn-mut); font-size:.78rem; border-radius:6px; padding:.34rem .7rem; cursor:pointer; }
-.wn-clear:hover { color:#df4763; border-color:#df4763; }
+.wn-clear:hover { color:var(--wn-down, #df4763); border-color:var(--wn-down, #df4763); }
 
 /* ---- profile badge (a collapsible <details>, prepended to #pf-detail) ---- */
 .wn-badge { margin:0 0 12px; padding:9px 12px; border:1px solid var(--wn-accent);

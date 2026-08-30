@@ -7,8 +7,8 @@
      signature lavender is kept only for the logo and the iPhone bottom-bar tab. */
   --bg: #f4f6fb;
   --surface: #ffffff;
-  --ink: #131a2b;
-  --muted: #66708a;
+  --ink: #131b2c;
+  --muted: #5e6a84;
   --border: #e4e7ef;
   --navy: #000000;          /* top bar (matches Glance) */
   --macro: #fb8b1e;         /* accent (Wire orange) */
@@ -215,6 +215,7 @@ a.intel-head:hover { text-decoration: none; }
 .save-btn { background: #f1f5f9; border: 1px solid var(--border); color: var(--muted); border-radius: 7px; padding: .2rem .6rem; font-size: .74rem; font-weight: 600; cursor: pointer; white-space: nowrap; }
 .save-btn:hover { background: #e8edf5; color: var(--ink); }
 .save-btn.is-saved { background: #eef2f8; border-color: #c8d5e6; color: var(--macro-ink); }
+[data-theme="dark"] .save-btn.is-saved { background: rgba(139,126,200,.16); border-color: rgba(139,126,200,.4); color: var(--macro-ink); }
 .comm-foot { padding-top: .9rem; text-align: center; }
 .load-more-btn { font: inherit; font-size: .85rem; font-weight: 600; color: var(--macro); background: none; border: 1px solid var(--border); border-radius: 8px; padding: .5rem 1.1rem; cursor: pointer; }
 .load-more-btn:hover { background: #f4f1fb; border-color: var(--ink); }

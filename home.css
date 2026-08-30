@@ -8,7 +8,7 @@
    ============================================================================= */
     :root {
       --navy:#000000; --brand:#1c3a5e; --brand-2:#fb8b1e; --accent:#fb8b1e;
-      --ink:#131a2b; --muted:#66708a; --line:#e4e7ef; --bg:#f4f6fb; --surface:#fff;
+      --ink:#131b2c; --muted:#5e6a84; --line:#e4e7ef; --bg:#f4f6fb; --surface:#fff;
       /* Per-section accents — each visibly distinct so the ◆ (and the section's
          "Open →" link, tags and hovers) reads at a glance: Macro purple, Credit
          grey, Legal green. */
@@ -1005,7 +1005,7 @@
     .tui-pnl{ border-bottom:1px solid var(--t-grid2); background:var(--t-panel); }
     .tui-ph{ display:flex; align-items:center; gap:8px; height:30px; padding:0 12px;
       background:var(--t-head); border-bottom:1px solid var(--t-grid); }
-    .tui-ph > span:first-child{ font-size:11.5px; font-weight:600; letter-spacing:.005em; color:var(--t-dim); }
+    .tui-ph > span:first-child{ font-size:12px; font-weight:600; letter-spacing:.005em; color:var(--t-dim); }
     .tui-px{ margin-left:auto; font-size:10px; letter-spacing:.01em; color:var(--t-faint); }
     .tui .g-loading,.tui .g-empty{ padding:11px 12px; font-size:11.5px; color:var(--t-faint); background:var(--t-panel); }
 

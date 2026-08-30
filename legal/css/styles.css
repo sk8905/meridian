@@ -8,9 +8,9 @@
      signature teal is kept only for the logo and the iPhone bottom-bar tab. */
   --bg: #f4f6fb;
   --surface: #ffffff;
-  --ink: #131a2b;
+  --ink: #131b2c;
   --ink-soft: #334155;
-  --muted: #66708a;
+  --muted: #5e6a84;
   --line: #e4e7ef;
   --border: #e4e7ef;        /* light-mode row/table borders. Without this, every
                                `1px solid var(--border)` on the Legal page (the
@@ -603,7 +603,8 @@ a.compact-head:hover { text-decoration: none; }
 .rx-expand .feed-foot { margin-top: .7rem; }
 
 /* Dark-mode accent (shared surfaces/shadows live in premium.css). */
-:root[data-theme="dark"] { --accent: #fb8b1e; --primary: #fb8b1e; }
+:root[data-theme="dark"] { --accent: #fb8b1e; --primary: #fb8b1e; --primary-ink: #c9d3e6; }
+[data-theme="dark"] .save-btn.is-saved { background: rgba(251,146,60,.16); border-color: rgba(251,146,60,.42); color: #fbbf24; }
 
 /* ---- Compact metric tiles: the number sits to the LEFT of the label+sub instead of
         above them, roughly halving each tile's height. ---- */
