@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8b09b3fc-bb61-4d9f-aac6-bcef9883fa16", title: "Donald Trump says US will hit Iran ‘hard’ as conflict reignites", date: "2026-08-31", time: "14:22", url: "https://www.ft.com/content/8b09b3fc-bb61-4d9f-aac6-bcef9883fa16" },
+  { id: "88447c72-5510-4847-9908-cf630acfcc1f", title: "India’s GDP beats growth forecast at 7.8%", date: "2026-08-31", time: "14:21", url: "https://www.ft.com/content/88447c72-5510-4847-9908-cf630acfcc1f" },
   { id: "f16c178f-b07c-4b79-a8fc-2bf4c70d43e2", title: "Mel Stride sacked as shadow chancellor", date: "2026-08-31", time: "13:30", url: "https://www.ft.com/content/f16c178f-b07c-4b79-a8fc-2bf4c70d43e2" },
   { id: "306358c2-3597-40dd-b2cd-534073c35fde", title: "Spain’s Sánchez accuses Russia and Israel of inflaming migrant crisis", date: "2026-08-31", time: "13:28", url: "https://www.ft.com/content/306358c2-3597-40dd-b2cd-534073c35fde" },
   { id: "c0341d15-482e-41a6-abe1-ef3e5e9a0d0b", title: "Happy birthday to the First Index Investment Trust", date: "2026-08-31", time: "13:23", url: "https://www.ft.com/content/c0341d15-482e-41a6-abe1-ef3e5e9a0d0b" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "9f8a9a56-8fa9-456a-9b05-561320a9863c", title: "Mainland Europe seizes edge in global student race", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/9f8a9a56-8fa9-456a-9b05-561320a9863c" },
   { id: "a5a0081f-e998-4c80-b967-cc535cbc4933", title: "Big Tech profits get $160bn boost from gains on stakes in other AI companies", date: "2026-08-30", time: "20:00", url: "https://www.ft.com/content/a5a0081f-e998-4c80-b967-cc535cbc4933" },
   { id: "c9d10aeb-163e-46a3-b7ca-376ce6be9f8e", title: "Ukraine’s ex-defence minister touts ‘new history’ in war against Russia with planned tech fund", date: "2026-08-30", time: "18:57", url: "https://www.ft.com/content/c9d10aeb-163e-46a3-b7ca-376ce6be9f8e" },
-  { id: "da5d96c1-c491-41a2-9db5-48bd952da4b4", title: "Return of the politicians", date: "2026-08-30", time: "18:15", url: "https://www.ft.com/content/da5d96c1-c491-41a2-9db5-48bd952da4b4" },
-  { id: "63e8a4f3-7c18-4ddc-b3b7-e472159a7adf", title: "Americans feel they have lost their agency", date: "2026-08-30", time: "16:00", url: "https://www.ft.com/content/63e8a4f3-7c18-4ddc-b3b7-e472159a7adf" },
-  { id: "4eb02822-d691-48a4-966f-45c6501bccb2", title: "Niger regains control of military base after coup attempt", date: "2026-08-30", time: "15:43", url: "https://www.ft.com/content/4eb02822-d691-48a4-966f-45c6501bccb2" },
 ];
