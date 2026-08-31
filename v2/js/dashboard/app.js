@@ -11,6 +11,7 @@
 // of truth. Every figure keeps a real outbound source link. mount → {enter,leave}.
 // =============================================================================
 import { esc, MONTHS, byDateDesc } from "/util.js?v=20260818-1";
+import { fmtDay as fmtDate } from "/feed.js?v=20260808-1";
 import { EQ_INDICES, EQ_SECTORS, EQ_VALUATION, EQ_VOL, EQ_IPO, CR_STRESS, WORLD_INDICES, GOVT_YIELDS, GOVT_YIELD_CHG, PRIVATE_CREDIT } from "/dashboard/js/data.js";
 import { OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, MATWALL, YIELD_CURVE, NEWS, EARNINGS, IND_KEYMOMENTS } from "/macro/js/content.js";
 import { deals, intel, HEDGE_FUNDS, HF_13F } from "/credit/js/data.js";
@@ -26,7 +27,6 @@ const upcls = (n) => (n == null ? "" : n > 0 ? "up" : n < 0 ? "down" : "");
 const asOf = (d) => (d ? `<span class="dsh-asof">as of ${esc(d)}</span>` : "");
 const srcLink = (u, label) => (u ? ` <a class="dsh-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer" title="${esc(label || "Source")}">src</a>` : "");
 const stripTags = (s) => String(s || "").replace(/<[^>]+>/g, "");
-const fmtDate = (d) => { const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(d || ""); return m ? `${+m[3]} ${MONTHS[+m[2]-1]} ${m[1]}` : (d || ""); };
 // Search normaliser: lowercase and drop apostrophes so "director's" / "directors'"
 // / "directors" all collapse to the same token. Used to build each legal item's
 // search haystack and to tokenise the query (word-by-word AND match).

@@ -23,6 +23,7 @@ const creditCss = read("credit/css/styles.css");
 const legalCss = read("legal/css/styles.css");
 const premiumCss = read("premium.css");
 const paletteJs = read("palette.js");
+const feedJs = read("feed.js");
 const dashboardApp = read(path.join("v2", "js", "dashboard", "app.js"));
 const statusJs = read(path.join("v2", "js", "status.js"));
 
@@ -105,9 +106,13 @@ check(/\.mcmdk-code\.brew\{color:var\(--t-amber,/.test(paletteJs), "palette.js .
 // search spans case law from multiple years (legal/js/data.js dates back to
 // 2020), so a year-less "14 Mar" is ambiguous between a 2021 case and a 2026
 // one. Every other date-stamped list in the app (feed.js fmtDay, nav-actions.js
-// fmtDate) includes the year; this one silently didn't.
-check(/const fmtDate = \(d\) => \{.*\$\{\+m\[3\]\} \$\{MONTHS\[\+m\[2\]-1\]\} \$\{m\[1\]\}/.test(dashboardApp),
-  "v2/js/dashboard/app.js fmtDate() includes the year in its output");
+// fmtDate) includes the year; this one silently didn't. Dashboard now reuses
+// feed.js's canonical fmtDay (T9 — one day-header formatter) instead of a local
+// reimplementation, so both guards below stand in for the old inline check.
+check(/import \{ fmtDay as fmtDate \} from "\/feed\.js/.test(dashboardApp),
+  "v2/js/dashboard/app.js reuses feed.js's fmtDay (single source of truth), not a local reimplementation");
+check(/export const fmtDay = \(iso\) => \{.*\$\{\+m\[3\]\} \$\{MONTHS\[\+m\[2\] - 1\]\} \$\{m\[1\]\}/.test(feedJs),
+  "feed.js fmtDay() includes the year in its output");
 
 // R8 — the mobile-tab active underline's light-mode colour reads the shared
 // --chip-ul token (like every other selection marker), not a bare hardcoded
