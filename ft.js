@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "ed723a59-a889-40e0-b601-0c1f16c92f65", title: "Andrew Bailey warns G20 of danger AI poses to financial system", date: "2026-08-31", time: "07:02", url: "https://www.ft.com/content/ed723a59-a889-40e0-b601-0c1f16c92f65" },
   { id: "b7d182b3-837f-4161-bd3c-ec9b78b41c45", title: "Iceland tarnishes EU’s dreams of being a defence and security hegemon", date: "2026-08-31", time: "06:00", url: "https://www.ft.com/content/b7d182b3-837f-4161-bd3c-ec9b78b41c45" },
   { id: "bddb9558-a00f-4407-8e77-dbf5549fbd0b", title: "Jane Street’s AI bets go sour", date: "2026-08-31", time: "06:00", url: "https://www.ft.com/content/bddb9558-a00f-4407-8e77-dbf5549fbd0b" },
   { id: "ff42d33c-9cb9-4707-8250-677af16fb0b6", title: "FTAV’s further reading", date: "2026-08-31", time: "06:00", url: "https://www.ft.com/content/ff42d33c-9cb9-4707-8250-677af16fb0b6" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "5579f0e8-c19c-46ad-8272-f7678bf3a6b9", title: "CEO of India’s largest private bank to step down", date: "2026-08-30", time: "07:10", url: "https://www.ft.com/content/5579f0e8-c19c-46ad-8272-f7678bf3a6b9" },
   { id: "63311687-676b-4548-9bd8-3d7ad96d7ce5", title: "What’s the fiscal hit from higher yields?", date: "2026-08-30", time: "05:12", url: "https://www.ft.com/content/63311687-676b-4548-9bd8-3d7ad96d7ce5" },
   { id: "17c61dd3-fa39-4061-b3a1-2d2333d1eb7f", title: "Incoming Swiss banking chief warns against regulatory over-reach", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/17c61dd3-fa39-4061-b3a1-2d2333d1eb7f" },
-  { id: "bcb35264-a96c-49c0-984f-4b379d088581", title: "Anglo Teck up against Glencore’s ‘hardball’ negotiators to deliver merger gains", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/bcb35264-a96c-49c0-984f-4b379d088581" },
 ];
