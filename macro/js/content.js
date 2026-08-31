@@ -12,8 +12,8 @@ export const UPDATED = "28 August 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-08-30",
-  lastCheckedTime: "21:11 BST",
+  lastChecked: "2026-08-31",
+  lastCheckedTime: "05:19 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -830,13 +830,13 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-08-30",
+  updated: "2026-08-31",
   us: [
+    { title: "US strikes Iranian rocket launchers on the Strait of Hormuz in first military action in weeks", source: "Bloomberg", date: "2026-08-30", time: "05:00", url: "https://www.bloomberg.com/news/articles/2026-08-30/us-strikes-iranian-rocket-launchers-in-first-attack-in-weeks" },
     { title: "Here are the 3 big things we're watching in the stock market in the week ahead", source: "CNBC", date: "2026-08-30", time: "09:00", url: "https://www.cnbc.com/2026/08/30/here-are-the-3-big-things-were-watching-in-the-stock-market-in-the-week-ahead.html" },
+    { title: "Fed Rate Hike Odds Rise After Warsh's Jackson Hole Speech", source: "Forbes", date: "2026-08-30", time: "05:00", url: "https://www.forbes.com/sites/bill_stone/2026/08/30/fed-rate-hike-odds-rise-after-warshs-jackson-hole-speech/" },
     { title: "Jobs report, Broadcom results pose next hurdles for stock market rally", source: "Reuters (via Yahoo Finance)", date: "2026-08-30", time: "07:00", url: "https://finance.yahoo.com/markets/stocks/articles/jobs-report-broadcom-results-pose-100141778.html" },
     { title: "America In Focus: key inflation gauge remains high; Fed's Warsh signals rate hikes may be needed", source: "The Washington Post", date: "2026-08-29", time: "21:11", url: "https://www.washingtonpost.com/business/2026/08/29/inflation-economy-iran-trump-fed-warsh/81be75d2-a3b3-11f1-8606-1d40ad00172e_story.html" },
-    { title: "Gold drops as Fed's Warsh comments lift rate hike bets", source: "CNBC", date: "2026-08-28", time: "21:11", url: "https://www.cnbc.com/2026/08/28/gold-slips-as-fed-chief-warshs-jackson-hole-speech-looms.html" },
-    { title: "Warsh Says Inflation Isn't Slowing, Vows to Reach 2% Target", source: "Bloomberg", date: "2026-08-28", time: "21:11", url: "https://www.bloomberg.com/news/articles/2026-08-28/warsh-says-inflation-isn-t-slowing-vows-to-hit-to-2-target" },
   ],
   uk: [
     { title: "British Pound Forecast: BoE To Hold Despite Rising November Hike Risk", source: "Exchange Rates UK", date: "2026-08-30", time: "21:11", url: "https://www.exchangerates.org.uk/news/47047/2026-08-30-british-pound-forecast-boe-to-hold-despite-rising-november-hike-risk.html" },
@@ -855,8 +855,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-08-30",
+  updated: "2026-08-31",
   items: [
+    {"title":"US strikes Iranian rocket launchers on the Strait of Hormuz in first military action in weeks","source":"Bloomberg","date":"2026-08-30","time":"05:00","url":"https://www.bloomberg.com/news/articles/2026-08-30/us-strikes-iranian-rocket-launchers-in-first-attack-in-weeks","blurb":"The US carried out its first military strike in the Hormuz corridor in weeks, hitting Iranian rocket launchers, sending Brent above $90 and WTI to around $86 as Tehran vowed retaliation.","author":null},
+    {"title":"Latest Oil Market News and Analysis for Aug. 31","source":"Bloomberg","date":"2026-08-30","time":"05:00","url":"https://www.bloomberg.com/news/articles/2026-08-30/latest-oil-market-news-and-analysis-for-aug-31","blurb":"Oil jumped in early Asia trading after the US struck Iranian rocket launchers near the Strait of Hormuz, reviving supply-risk premia after weeks of relative calm.","author":null},
+    {"title":"Fed Rate Hike Odds Rise After Warsh's Jackson Hole Speech","source":"Forbes","date":"2026-08-30","time":"05:00","url":"https://www.forbes.com/sites/bill_stone/2026/08/30/fed-rate-hike-odds-rise-after-warshs-jackson-hole-speech/","blurb":"CME/Kalshi-derived odds of a 25bp September hike climbed toward a coin flip after Chair Warsh's hawkish Jackson Hole tone, though Goldman Sachs and JPMorgan economists say the call still hinges on the incoming August CPI and payrolls prints.","author":null},
     {"title":"British Pound Forecast: BoE To Hold Despite Rising November Hike Risk","source":"Exchange Rates UK","date":"2026-08-30","time":"21:11","url":"https://www.exchangerates.org.uk/news/47047/2026-08-30-british-pound-forecast-boe-to-hold-despite-rising-november-hike-risk.html","blurb":"Sterling ended August broadly flat versus the euro and modestly higher versus the dollar (GBP/USD 1.3534) as Pantheon Macroeconomics reiterated its Bank Rate-on-hold-until-end-2027 call, even as economists flag a rising risk of a November hike on a higher inflation peak and solid growth.","author":null},
     {"title":"Here are the 3 big things we're watching in the stock market in the week ahead","source":"CNBC","date":"2026-08-30","time":"09:00","url":"https://www.cnbc.com/2026/08/30/here-are-the-3-big-things-were-watching-in-the-stock-market-in-the-week-ahead.html","blurb":"ISM Manufacturing PMI and July JOLTS (Tue), ADP employment (Wed) and Broadcom's after-the-bell AI-spending read (Wed), ISM Services PMI (Thu) and the August jobs report (Fri, unemployment seen holding at 4.1%) all test a rally that has lifted stocks near record highs.","author":null},
     {"title":"What's in store for the week ahead","source":"Investing.com","date":"2026-08-30","time":"09:00","url":"https://www.investing.com/news/economy-news/whats-in-store-for-the-week-ahead-4881996","blurb":"Investors face a pivotal test of the global economic trajectory this week, headlined by Friday's US August nonfarm payrolls report alongside ISM Manufacturing and Services PMIs, eurozone August inflation and a Bank of Canada rate decision.","author":null},
@@ -893,10 +896,6 @@ export const ARTICLES = {
     {"title":"Pound Sterling to Dollar Forecast: GBP Stalls Ahead of Jackson Hole","source":"Currency News UK","date":"2026-08-27","time":"05:18","url":"https://www.currencynews.co.uk/forecast/20260827-47031_pound-sterling-to-dollar-forecast-gbp-stalls-ahead-of-jackson-hole.html","blurb":"Sterling stalled against the dollar as traders squared positions ahead of Warsh's Jackson Hole keynote, seen as the most consequential FX event of the quarter."},
     {"title":"US Merchandise-Trade Deficit Hits $118.8 Billion, Largest Since March 2025","source":"Bloomberg","date":"2026-08-27","time":"21:11","url":"https://www.bloomberg.com/news/articles/2026-08-27/us-merchandise-trade-deficit-widens-to-largest-since-march-2025","blurb":"The US goods-trade deficit jumped 17.2% m/m to $118.8bn in July, its widest since March 2025, as imports of AI-related capital goods surged 3.7% while exports fell for a third straight month."},
     {"title":"Alphabet Stock Sheds $692 Billion as AI Delays and Talent Loss Hit Shares","source":"Bloomberg","date":"2026-08-27","time":"21:11","url":"https://www.bloomberg.com/news/articles/2026-08-27/alphabet-loses-692-billion-in-market-value-as-ai-questions-rise","blurb":"Alphabet shares reversed sharply on questions about a brain drain at Google's AI unit and delivery delays, wiping $692bn off its market cap and underscoring how narrow the AI-led equity rally remains."},
-    {"title":"Hormuz Oil Shipments Rise as Gulf Producers Boost Exports Despite Security Risks","source":"Bloomberg","date":"2026-08-27","time":"21:11","url":"https://www.bloomberg.com/news/articles/2026-08-27/hormuz-oil-flows-rising-as-gulf-giants-ramp-up-accelerates","blurb":"Crude flows through the Strait of Hormuz are climbing back toward 6-8m barrels/day as Gulf producers ramp up exports, even as attacks on tankers continue and Iran-Oman talks on a joint-management deal for the strait proceed."},
-    {"title":"ECB saw a further hike as likely at July meeting","source":"Reuters (via Investing.com)","date":"2026-08-27","time":"21:11","url":"https://www.investing.com/news/economy-news/ecb-saw-a-future-hike-as-likely-at-july-meeting-4879079","blurb":"The ECB's account of its July meeting, released Thursday, showed policymakers already pencilling in another rate rise — possibly to 2.50% at the 9-10 September meeting — twice describing the July hold as merely a 'pause', with inflation near 3% amid the ongoing Iran conflict."},
-    {"title":"China's Industrial Profit Growth Slows to Weakest This Year","source":"Bloomberg","date":"2026-08-27","time":"21:11","url":"https://www.bloomberg.com/news/articles/2026-08-27/china-s-industrial-profit-growth-slows-to-weakest-this-year","blurb":"Chinese industrial profits rose 11.2% y/y in July, down from 15.1% in June and the third straight month of slowing growth, adding to pressure on Beijing to support activity as output, retail sales and investment all missed forecasts earlier in August."},
-    {"title":"Budget 2026: Which taxes will Burnham and Healey hike?","source":"City AM","date":"2026-08-25","time":"21:11","url":"https://www.cityam.com/budget-2026-which-taxes-will-burnham-and-healey-hike/","blurb":"Speculation is mounting that stamp duty and council tax could be replaced by an annual land-value tax, alongside possible capital-gains changes, as Chancellor Healey squares his defence, welfare and no-manifesto-tax-rise pledges against a challenging fiscal inheritance ahead of the 28 October Budget.","author":null},
   ],
 };
 
