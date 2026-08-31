@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "5bb22de2-f4ca-4f04-b8c0-85cda99d8576", title: "It’s not insider trading, it’s offshore gambling!", date: "2026-08-31", time: "09:09", url: "https://www.ft.com/content/5bb22de2-f4ca-4f04-b8c0-85cda99d8576" },
+  { id: "1c4f488f-32bc-4b49-a0c8-c55d95f5422b", title: "Japanese bonds and yen come under pressure after Jackson Hole meeting", date: "2026-08-31", time: "08:32", url: "https://www.ft.com/content/1c4f488f-32bc-4b49-a0c8-c55d95f5422b" },
   { id: "bb4182ee-1fb9-4374-a557-c3d36d66ace0", title: "South Korea jails Unification Church leader over luxury bag bribery scandal", date: "2026-08-31", time: "08:21", url: "https://www.ft.com/content/bb4182ee-1fb9-4374-a557-c3d36d66ace0" },
   { id: "ed723a59-a889-40e0-b601-0c1f16c92f65", title: "Andrew Bailey warns G20 of danger AI poses to financial system", date: "2026-08-31", time: "07:02", url: "https://www.ft.com/content/ed723a59-a889-40e0-b601-0c1f16c92f65" },
   { id: "b7d182b3-837f-4161-bd3c-ec9b78b41c45", title: "Iceland tarnishes EU’s dreams of being a defence and security hegemon", date: "2026-08-31", time: "06:00", url: "https://www.ft.com/content/b7d182b3-837f-4161-bd3c-ec9b78b41c45" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "25f48fea-ada2-41e1-ba33-07a864a8674a", title: "‘New York loves Canada’: US cities want their Canadian tourists back", date: "2026-08-30", time: "11:00", url: "https://www.ft.com/content/25f48fea-ada2-41e1-ba33-07a864a8674a" },
   { id: "2c65a745-8169-4192-971a-022bdfc0e7ad", title: "Pharma stocks soar as investors seek AI alternatives", date: "2026-08-30", time: "11:00", url: "https://www.ft.com/content/2c65a745-8169-4192-971a-022bdfc0e7ad" },
   { id: "53b5abd8-2919-4dc6-8dd6-81fc054e8b6f", title: "Iceland rejects reopening talks on EU entry", date: "2026-08-30", time: "09:02", url: "https://www.ft.com/content/53b5abd8-2919-4dc6-8dd6-81fc054e8b6f" },
-  { id: "5579f0e8-c19c-46ad-8272-f7678bf3a6b9", title: "CEO of India’s largest private bank to step down", date: "2026-08-30", time: "07:10", url: "https://www.ft.com/content/5579f0e8-c19c-46ad-8272-f7678bf3a6b9" },
-  { id: "63311687-676b-4548-9bd8-3d7ad96d7ce5", title: "What’s the fiscal hit from higher yields?", date: "2026-08-30", time: "05:12", url: "https://www.ft.com/content/63311687-676b-4548-9bd8-3d7ad96d7ce5" },
 ];
