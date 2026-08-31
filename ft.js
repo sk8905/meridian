@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "865e4bd5-f960-423c-a1bc-931074c74157", title: "KKR is the rare private equity firm that bets on itself", date: "2026-08-31", time: "18:38", url: "https://www.ft.com/content/865e4bd5-f960-423c-a1bc-931074c74157" },
+  { id: "744c448c-858e-4398-85dc-a66cecd02abb", title: "Trump says data centre critics ‘want to end up backwards and poor’", date: "2026-08-31", time: "18:19", url: "https://www.ft.com/content/744c448c-858e-4398-85dc-a66cecd02abb" },
   { id: "4b2b79ad-f909-489b-a8d7-01a126f64bae", title: "Messi announces retirement from international football", date: "2026-08-31", time: "17:48", url: "https://www.ft.com/content/4b2b79ad-f909-489b-a8d7-01a126f64bae" },
   { id: "eddde22c-aa99-468d-9fb0-36f3edd6e04f", title: "Prediction platform Kalshi bans ex-US Congress member for manipulation", date: "2026-08-31", time: "17:14", url: "https://www.ft.com/content/eddde22c-aa99-468d-9fb0-36f3edd6e04f" },
   { id: "96691b37-1360-4f32-b267-ec8fc3a05370", title: "Israel’s de facto annexation of the West Bank", date: "2026-08-31", time: "16:57", url: "https://www.ft.com/content/96691b37-1360-4f32-b267-ec8fc3a05370" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "18f9f4ce-e437-435e-ad8e-a043ea181161", title: "Argentina battles flood of contraband goods as Milei opens economy", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/18f9f4ce-e437-435e-ad8e-a043ea181161" },
   { id: "b3e84c50-c761-4179-beac-68641e61207e", title: "Crypto groups spend record $640mn buying back their own tokens", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/b3e84c50-c761-4179-beac-68641e61207e" },
   { id: "fc3fce3b-18d2-4340-ac0f-aa2964aa6147", title: "Trump’s threats against Canada are self-defeating", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/fc3fce3b-18d2-4340-ac0f-aa2964aa6147" },
-  { id: "94b17d45-0a07-41e0-9597-57ca8918b8bd", title: "After years of losses, Victoria Beckham marks her brand’s turnaround", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/94b17d45-0a07-41e0-9597-57ca8918b8bd" },
 ];
