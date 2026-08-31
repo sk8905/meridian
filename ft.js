@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b7d182b3-837f-4161-bd3c-ec9b78b41c45", title: "Iceland tarnishes EU’s dreams of being a defence and security hegemon", date: "2026-08-31", time: "06:00", url: "https://www.ft.com/content/b7d182b3-837f-4161-bd3c-ec9b78b41c45" },
+  { id: "bddb9558-a00f-4407-8e77-dbf5549fbd0b", title: "Jane Street’s AI bets go sour", date: "2026-08-31", time: "06:00", url: "https://www.ft.com/content/bddb9558-a00f-4407-8e77-dbf5549fbd0b" },
+  { id: "ff42d33c-9cb9-4707-8250-677af16fb0b6", title: "FTAV’s further reading", date: "2026-08-31", time: "06:00", url: "https://www.ft.com/content/ff42d33c-9cb9-4707-8250-677af16fb0b6" },
+  { id: "51c907e1-1177-4489-b4b8-fb044f5b257d", title: "FirstFT: Ukraine’s ex-defence minister pitches tech fund", date: "2026-08-31", time: "05:31", url: "https://www.ft.com/content/51c907e1-1177-4489-b4b8-fb044f5b257d" },
+  { id: "f270814f-e836-44e8-80c2-ec1034f80519", title: "US and Iran exchange fire for the first time in more than a month", date: "2026-08-31", time: "05:15", url: "https://www.ft.com/content/f270814f-e836-44e8-80c2-ec1034f80519" },
   { id: "5051e92f-371f-4a46-bdee-e8877b68caf8", title: "LIV Golf prepares for bankruptcy filing in September", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/5051e92f-371f-4a46-bdee-e8877b68caf8" },
   { id: "c07c2073-5003-4edf-b274-1aafd446730b", title: "Scramble for gas assets pushes dealmaking to decade high", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/c07c2073-5003-4edf-b274-1aafd446730b" },
   { id: "febfe4ef-95d4-4bf7-8c48-0fca02671661", title: "UK investment trusts struggle to keep up the liquidity illusion", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/febfe4ef-95d4-4bf7-8c48-0fca02671661" },
@@ -55,7 +60,4 @@ export const FT_ITEMS = [
   { id: "63311687-676b-4548-9bd8-3d7ad96d7ce5", title: "What’s the fiscal hit from higher yields?", date: "2026-08-30", time: "05:12", url: "https://www.ft.com/content/63311687-676b-4548-9bd8-3d7ad96d7ce5" },
   { id: "17c61dd3-fa39-4061-b3a1-2d2333d1eb7f", title: "Incoming Swiss banking chief warns against regulatory over-reach", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/17c61dd3-fa39-4061-b3a1-2d2333d1eb7f" },
   { id: "bcb35264-a96c-49c0-984f-4b379d088581", title: "Anglo Teck up against Glencore’s ‘hardball’ negotiators to deliver merger gains", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/bcb35264-a96c-49c0-984f-4b379d088581" },
-  { id: "407f90ed-fe14-4ed5-bfa8-50696b126c46", title: "Nicotine pouch sales jump in UK as companies step up marketing", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/407f90ed-fe14-4ed5-bfa8-50696b126c46" },
-  { id: "43718673-5c3f-46cc-a459-b0334e80aeb2", title: "Andy Burnham’s summer of quietly backing away from radical pledges", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/43718673-5c3f-46cc-a459-b0334e80aeb2" },
-  { id: "e29502c0-50a9-4f77-ac87-4ba46d1ba98c", title: "One fix for UK plc’s underperformance: equity for all", date: "2026-08-30", time: "05:00", url: "https://www.ft.com/content/e29502c0-50a9-4f77-ac87-4ba46d1ba98c" },
 ];
