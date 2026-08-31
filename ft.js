@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "0f74b589-3fdf-447d-aa44-9570496bf7c7", title: "Whose fiscal problems would you prefer?", date: "2026-08-31", time: "15:17", url: "https://www.ft.com/content/0f74b589-3fdf-447d-aa44-9570496bf7c7" },
   { id: "8b09b3fc-bb61-4d9f-aac6-bcef9883fa16", title: "Donald Trump says US will hit Iran ‘hard’ as conflict reignites", date: "2026-08-31", time: "14:22", url: "https://www.ft.com/content/8b09b3fc-bb61-4d9f-aac6-bcef9883fa16" },
   { id: "88447c72-5510-4847-9908-cf630acfcc1f", title: "India’s GDP beats growth forecast at 7.8%", date: "2026-08-31", time: "14:21", url: "https://www.ft.com/content/88447c72-5510-4847-9908-cf630acfcc1f" },
   { id: "f16c178f-b07c-4b79-a8fc-2bf4c70d43e2", title: "Mel Stride sacked as shadow chancellor", date: "2026-08-31", time: "13:30", url: "https://www.ft.com/content/f16c178f-b07c-4b79-a8fc-2bf4c70d43e2" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "114a2f47-11b8-4b96-ba6a-ac0d8e4d1393", title: "Long-term investors turn to shipping as Middle East conflict boosts returns", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/114a2f47-11b8-4b96-ba6a-ac0d8e4d1393" },
   { id: "9f8a9a56-8fa9-456a-9b05-561320a9863c", title: "Mainland Europe seizes edge in global student race", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/9f8a9a56-8fa9-456a-9b05-561320a9863c" },
   { id: "a5a0081f-e998-4c80-b967-cc535cbc4933", title: "Big Tech profits get $160bn boost from gains on stakes in other AI companies", date: "2026-08-30", time: "20:00", url: "https://www.ft.com/content/a5a0081f-e998-4c80-b967-cc535cbc4933" },
-  { id: "c9d10aeb-163e-46a3-b7ca-376ce6be9f8e", title: "Ukraine’s ex-defence minister touts ‘new history’ in war against Russia with planned tech fund", date: "2026-08-30", time: "18:57", url: "https://www.ft.com/content/c9d10aeb-163e-46a3-b7ca-376ce6be9f8e" },
 ];
