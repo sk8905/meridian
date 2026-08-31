@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "6af706a3-6e63-46c2-926b-85461a355e9b", title: "ChatGPT faces tougher rules under EU online safety regime", date: "2026-08-31", time: "12:06", url: "https://www.ft.com/content/6af706a3-6e63-46c2-926b-85461a355e9b" },
+  { id: "485a3d1c-d282-4921-9dee-c644c5856030", title: "Software companies pay steep price to buy time against AI threat", date: "2026-08-31", time: "12:00", url: "https://www.ft.com/content/485a3d1c-d282-4921-9dee-c644c5856030" },
+  { id: "23125dd8-2d09-4c6a-8e55-3245741fba45", title: "KKR to net giant windfall from $17bn sale of USI to Aon", date: "2026-08-31", time: "11:31", url: "https://www.ft.com/content/23125dd8-2d09-4c6a-8e55-3245741fba45" },
+  { id: "5a10fc78-9a3e-4f12-81e3-dc843b529948", title: "UK offers homegrown AI start-ups £100mn to improve public services", date: "2026-08-31", time: "11:24", url: "https://www.ft.com/content/5a10fc78-9a3e-4f12-81e3-dc843b529948" },
   { id: "35921f10-fdbd-4ca6-b616-694bdaab50a6", title: "And the FTAV chart quiz winner is . . .", date: "2026-08-31", time: "11:11", url: "https://www.ft.com/content/35921f10-fdbd-4ca6-b616-694bdaab50a6" },
   { id: "f060d145-3c1f-4a91-9ed8-ccc364df9c63", title: "The missing piece in the US oil and gas boom: jobs", date: "2026-08-31", time: "11:00", url: "https://www.ft.com/content/f060d145-3c1f-4a91-9ed8-ccc364df9c63" },
   { id: "5bb22de2-f4ca-4f04-b8c0-85cda99d8576", title: "It’s not insider trading, it’s offshore gambling!", date: "2026-08-31", time: "09:09", url: "https://www.ft.com/content/5bb22de2-f4ca-4f04-b8c0-85cda99d8576" },
@@ -58,6 +62,4 @@ export const FT_ITEMS = [
   { id: "5729b32c-8b7a-42b1-b1e2-b8b0106739cb", title: "Meta’s settlement is a starting point", date: "2026-08-30", time: "13:00", url: "https://www.ft.com/content/5729b32c-8b7a-42b1-b1e2-b8b0106739cb" },
   { id: "ce3139ac-e88e-4c0d-ab92-b36e79052836", title: "Friends with fiscal benefits", date: "2026-08-30", time: "12:00", url: "https://www.ft.com/content/ce3139ac-e88e-4c0d-ab92-b36e79052836" },
   { id: "c2682d2b-c5a4-4f98-8f04-cf93883fb9b6", title: "Will the Fed’s hawkish stance survive contact with jobs data?", date: "2026-08-30", time: "12:00", url: "https://www.ft.com/content/c2682d2b-c5a4-4f98-8f04-cf93883fb9b6" },
-  { id: "3dd189e1-1af6-45a5-8993-0973af74f8e4", title: "Andy Burnham tightens prisoner release scheme and insists he is ‘tough on crime’", date: "2026-08-30", time: "11:01", url: "https://www.ft.com/content/3dd189e1-1af6-45a5-8993-0973af74f8e4" },
-  { id: "2c65a745-8169-4192-971a-022bdfc0e7ad", title: "Pharma stocks soar as investors seek AI alternatives", date: "2026-08-30", time: "11:00", url: "https://www.ft.com/content/2c65a745-8169-4192-971a-022bdfc0e7ad" },
 ];
