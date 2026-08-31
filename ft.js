@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "bafde798-4860-45bb-9226-633a211e8508", title: "US regulator sues Amazon for manipulating advertising prices", date: "2026-08-31", time: "20:09", url: "https://www.ft.com/content/bafde798-4860-45bb-9226-633a211e8508" },
+  { id: "8b09b3fc-bb61-4d9f-aac6-bcef9883fa16", title: "Donald Trump says US will hit Iran ‘hard’ as conflict reignites", date: "2026-08-31", time: "19:58", url: "https://www.ft.com/content/8b09b3fc-bb61-4d9f-aac6-bcef9883fa16" },
+  { id: "1bdafff4-3e78-4099-be47-755e6b643408", title: "Swiss lawmakers call for softer regulation in victory for UBS", date: "2026-08-31", time: "19:24", url: "https://www.ft.com/content/1bdafff4-3e78-4099-be47-755e6b643408" },
   { id: "865e4bd5-f960-423c-a1bc-931074c74157", title: "KKR is the rare private equity firm that bets on itself", date: "2026-08-31", time: "18:38", url: "https://www.ft.com/content/865e4bd5-f960-423c-a1bc-931074c74157" },
   { id: "744c448c-858e-4398-85dc-a66cecd02abb", title: "Trump says data centre critics ‘want to end up backwards and poor’", date: "2026-08-31", time: "18:19", url: "https://www.ft.com/content/744c448c-858e-4398-85dc-a66cecd02abb" },
   { id: "4b2b79ad-f909-489b-a8d7-01a126f64bae", title: "Messi announces retirement from international football", date: "2026-08-31", time: "17:48", url: "https://www.ft.com/content/4b2b79ad-f909-489b-a8d7-01a126f64bae" },
@@ -28,9 +31,8 @@ export const FT_ITEMS = [
   { id: "369558d0-357c-41e7-aa1e-dc1c1c07457d", title: "Don’t write off Russia’s defence industry yet", date: "2026-08-31", time: "16:53", url: "https://www.ft.com/content/369558d0-357c-41e7-aa1e-dc1c1c07457d" },
   { id: "46bf442d-175b-4347-8ef6-e3d80ae6ea63", title: "Trump’s tariff fix leaves US trade policy in permanent flux", date: "2026-08-31", time: "16:07", url: "https://www.ft.com/content/46bf442d-175b-4347-8ef6-e3d80ae6ea63" },
   { id: "0f74b589-3fdf-447d-aa44-9570496bf7c7", title: "Whose fiscal problems would you prefer?", date: "2026-08-31", time: "15:17", url: "https://www.ft.com/content/0f74b589-3fdf-447d-aa44-9570496bf7c7" },
-  { id: "8b09b3fc-bb61-4d9f-aac6-bcef9883fa16", title: "Donald Trump says US will hit Iran ‘hard’ as conflict reignites", date: "2026-08-31", time: "14:22", url: "https://www.ft.com/content/8b09b3fc-bb61-4d9f-aac6-bcef9883fa16" },
+  { id: "f16c178f-b07c-4b79-a8fc-2bf4c70d43e2", title: "Kemi Badenoch sacks Mel Stride as shadow chancellor", date: "2026-08-31", time: "15:00", url: "https://www.ft.com/content/f16c178f-b07c-4b79-a8fc-2bf4c70d43e2" },
   { id: "88447c72-5510-4847-9908-cf630acfcc1f", title: "India’s GDP beats growth forecast at 7.8%", date: "2026-08-31", time: "14:21", url: "https://www.ft.com/content/88447c72-5510-4847-9908-cf630acfcc1f" },
-  { id: "f16c178f-b07c-4b79-a8fc-2bf4c70d43e2", title: "Mel Stride sacked as shadow chancellor", date: "2026-08-31", time: "13:30", url: "https://www.ft.com/content/f16c178f-b07c-4b79-a8fc-2bf4c70d43e2" },
   { id: "306358c2-3597-40dd-b2cd-534073c35fde", title: "Spain’s Sánchez accuses Russia and Israel of inflaming migrant crisis", date: "2026-08-31", time: "13:28", url: "https://www.ft.com/content/306358c2-3597-40dd-b2cd-534073c35fde" },
   { id: "c0341d15-482e-41a6-abe1-ef3e5e9a0d0b", title: "Happy birthday to the First Index Investment Trust", date: "2026-08-31", time: "13:23", url: "https://www.ft.com/content/c0341d15-482e-41a6-abe1-ef3e5e9a0d0b" },
   { id: "6af706a3-6e63-46c2-926b-85461a355e9b", title: "ChatGPT faces tougher rules under EU online safety regime", date: "2026-08-31", time: "12:06", url: "https://www.ft.com/content/6af706a3-6e63-46c2-926b-85461a355e9b" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "e89c9f04-b574-4a09-b123-02dac8335ba4", title: "UK fintech Allica looks to Sweden to kick-start European expansion", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/e89c9f04-b574-4a09-b123-02dac8335ba4" },
   { id: "886acdbf-7a9d-4af3-a2e7-3c4a2e446370", title: "Tim Cook’s legacy by the numbers", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/886acdbf-7a9d-4af3-a2e7-3c4a2e446370" },
   { id: "fc8f86f2-96ad-4bfb-bba4-75326115aa24", title: "The rise of physical AI: can robots save US manufacturing?", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/fc8f86f2-96ad-4bfb-bba4-75326115aa24" },
-  { id: "18f9f4ce-e437-435e-ad8e-a043ea181161", title: "Argentina battles flood of contraband goods as Milei opens economy", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/18f9f4ce-e437-435e-ad8e-a043ea181161" },
-  { id: "b3e84c50-c761-4179-beac-68641e61207e", title: "Crypto groups spend record $640mn buying back their own tokens", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/b3e84c50-c761-4179-beac-68641e61207e" },
-  { id: "fc3fce3b-18d2-4340-ac0f-aa2964aa6147", title: "Trump’s threats against Canada are self-defeating", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/fc3fce3b-18d2-4340-ac0f-aa2964aa6147" },
 ];
