@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "35921f10-fdbd-4ca6-b616-694bdaab50a6", title: "And the FTAV chart quiz winner is . . .", date: "2026-08-31", time: "11:11", url: "https://www.ft.com/content/35921f10-fdbd-4ca6-b616-694bdaab50a6" },
+  { id: "f060d145-3c1f-4a91-9ed8-ccc364df9c63", title: "The missing piece in the US oil and gas boom: jobs", date: "2026-08-31", time: "11:00", url: "https://www.ft.com/content/f060d145-3c1f-4a91-9ed8-ccc364df9c63" },
   { id: "5bb22de2-f4ca-4f04-b8c0-85cda99d8576", title: "It’s not insider trading, it’s offshore gambling!", date: "2026-08-31", time: "09:09", url: "https://www.ft.com/content/5bb22de2-f4ca-4f04-b8c0-85cda99d8576" },
   { id: "1c4f488f-32bc-4b49-a0c8-c55d95f5422b", title: "Japanese bonds and yen come under pressure after Jackson Hole meeting", date: "2026-08-31", time: "08:32", url: "https://www.ft.com/content/1c4f488f-32bc-4b49-a0c8-c55d95f5422b" },
   { id: "bb4182ee-1fb9-4374-a557-c3d36d66ace0", title: "South Korea jails Unification Church leader over luxury bag bribery scandal", date: "2026-08-31", time: "08:21", url: "https://www.ft.com/content/bb4182ee-1fb9-4374-a557-c3d36d66ace0" },
@@ -57,7 +59,5 @@ export const FT_ITEMS = [
   { id: "ce3139ac-e88e-4c0d-ab92-b36e79052836", title: "Friends with fiscal benefits", date: "2026-08-30", time: "12:00", url: "https://www.ft.com/content/ce3139ac-e88e-4c0d-ab92-b36e79052836" },
   { id: "c2682d2b-c5a4-4f98-8f04-cf93883fb9b6", title: "Will the Fed’s hawkish stance survive contact with jobs data?", date: "2026-08-30", time: "12:00", url: "https://www.ft.com/content/c2682d2b-c5a4-4f98-8f04-cf93883fb9b6" },
   { id: "3dd189e1-1af6-45a5-8993-0973af74f8e4", title: "Andy Burnham tightens prisoner release scheme and insists he is ‘tough on crime’", date: "2026-08-30", time: "11:01", url: "https://www.ft.com/content/3dd189e1-1af6-45a5-8993-0973af74f8e4" },
-  { id: "25f48fea-ada2-41e1-ba33-07a864a8674a", title: "‘New York loves Canada’: US cities want their Canadian tourists back", date: "2026-08-30", time: "11:00", url: "https://www.ft.com/content/25f48fea-ada2-41e1-ba33-07a864a8674a" },
   { id: "2c65a745-8169-4192-971a-022bdfc0e7ad", title: "Pharma stocks soar as investors seek AI alternatives", date: "2026-08-30", time: "11:00", url: "https://www.ft.com/content/2c65a745-8169-4192-971a-022bdfc0e7ad" },
-  { id: "53b5abd8-2919-4dc6-8dd6-81fc054e8b6f", title: "Iceland rejects reopening talks on EU entry", date: "2026-08-30", time: "09:02", url: "https://www.ft.com/content/53b5abd8-2919-4dc6-8dd6-81fc054e8b6f" },
 ];
