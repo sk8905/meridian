@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "3d30f551-53af-4fab-8271-3f7fd75d5cfd", title: "Elliott builds stake in French group Air Liquide", date: "2026-08-31", time: "21:02", url: "https://www.ft.com/content/3d30f551-53af-4fab-8271-3f7fd75d5cfd" },
   { id: "bafde798-4860-45bb-9226-633a211e8508", title: "US regulator sues Amazon for manipulating advertising prices", date: "2026-08-31", time: "20:09", url: "https://www.ft.com/content/bafde798-4860-45bb-9226-633a211e8508" },
   { id: "8b09b3fc-bb61-4d9f-aac6-bcef9883fa16", title: "Donald Trump says US will hit Iran ‘hard’ as conflict reignites", date: "2026-08-31", time: "19:58", url: "https://www.ft.com/content/8b09b3fc-bb61-4d9f-aac6-bcef9883fa16" },
   { id: "1bdafff4-3e78-4099-be47-755e6b643408", title: "Swiss lawmakers call for softer regulation in victory for UBS", date: "2026-08-31", time: "19:24", url: "https://www.ft.com/content/1bdafff4-3e78-4099-be47-755e6b643408" },
@@ -33,9 +34,11 @@ export const FT_ITEMS = [
   { id: "0f74b589-3fdf-447d-aa44-9570496bf7c7", title: "Whose fiscal problems would you prefer?", date: "2026-08-31", time: "15:17", url: "https://www.ft.com/content/0f74b589-3fdf-447d-aa44-9570496bf7c7" },
   { id: "f16c178f-b07c-4b79-a8fc-2bf4c70d43e2", title: "Kemi Badenoch sacks Mel Stride as shadow chancellor", date: "2026-08-31", time: "15:00", url: "https://www.ft.com/content/f16c178f-b07c-4b79-a8fc-2bf4c70d43e2" },
   { id: "88447c72-5510-4847-9908-cf630acfcc1f", title: "India’s GDP beats growth forecast at 7.8%", date: "2026-08-31", time: "14:21", url: "https://www.ft.com/content/88447c72-5510-4847-9908-cf630acfcc1f" },
+  { id: "4bb264f2-73f1-4c9b-a9d7-4d792294c281", title: "Sixty years of Notting Hill Carnival", date: "2026-08-31", time: "14:00", url: "https://www.ft.com/content/4bb264f2-73f1-4c9b-a9d7-4d792294c281" },
   { id: "306358c2-3597-40dd-b2cd-534073c35fde", title: "Spain’s Sánchez accuses Russia and Israel of inflaming migrant crisis", date: "2026-08-31", time: "13:28", url: "https://www.ft.com/content/306358c2-3597-40dd-b2cd-534073c35fde" },
   { id: "c0341d15-482e-41a6-abe1-ef3e5e9a0d0b", title: "Happy birthday to the First Index Investment Trust", date: "2026-08-31", time: "13:23", url: "https://www.ft.com/content/c0341d15-482e-41a6-abe1-ef3e5e9a0d0b" },
   { id: "6af706a3-6e63-46c2-926b-85461a355e9b", title: "ChatGPT faces tougher rules under EU online safety regime", date: "2026-08-31", time: "12:06", url: "https://www.ft.com/content/6af706a3-6e63-46c2-926b-85461a355e9b" },
+  { id: "487db354-2a78-4c16-bd1b-5ef189a16dd3", title: "The City Without Jews — Douglas Smith on life inside Vienna’s catastrophe", date: "2026-08-31", time: "12:00", url: "https://www.ft.com/content/487db354-2a78-4c16-bd1b-5ef189a16dd3" },
   { id: "485a3d1c-d282-4921-9dee-c644c5856030", title: "Software companies pay steep price to buy time against AI threat", date: "2026-08-31", time: "12:00", url: "https://www.ft.com/content/485a3d1c-d282-4921-9dee-c644c5856030" },
   { id: "23125dd8-2d09-4c6a-8e55-3245741fba45", title: "KKR to net giant windfall from $17bn sale of USI to Aon", date: "2026-08-31", time: "11:31", url: "https://www.ft.com/content/23125dd8-2d09-4c6a-8e55-3245741fba45" },
   { id: "5a10fc78-9a3e-4f12-81e3-dc843b529948", title: "UK offers homegrown AI start-ups £100mn to improve public services", date: "2026-08-31", time: "11:24", url: "https://www.ft.com/content/5a10fc78-9a3e-4f12-81e3-dc843b529948" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "2ca855a9-be0d-4915-b4f0-b48355c6aa4a", title: "The face of America’s socialist insurgency", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/2ca855a9-be0d-4915-b4f0-b48355c6aa4a" },
   { id: "1481e787-77dc-4d54-8871-8ffb369e5dd3", title: "Will financial innovation dethrone the dollar?", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/1481e787-77dc-4d54-8871-8ffb369e5dd3" },
   { id: "de28524f-0085-4d2a-90f3-4d555e93c7bc", title: "Labour shelves plan to restrict foreigners buying new flats", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/de28524f-0085-4d2a-90f3-4d555e93c7bc" },
-  { id: "e89c9f04-b574-4a09-b123-02dac8335ba4", title: "UK fintech Allica looks to Sweden to kick-start European expansion", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/e89c9f04-b574-4a09-b123-02dac8335ba4" },
-  { id: "886acdbf-7a9d-4af3-a2e7-3c4a2e446370", title: "Tim Cook’s legacy by the numbers", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/886acdbf-7a9d-4af3-a2e7-3c4a2e446370" },
-  { id: "fc8f86f2-96ad-4bfb-bba4-75326115aa24", title: "The rise of physical AI: can robots save US manufacturing?", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/fc8f86f2-96ad-4bfb-bba4-75326115aa24" },
 ];
