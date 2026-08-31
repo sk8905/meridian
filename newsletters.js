@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-businesspost-canirelandsolveitsstudenthousingshortage-20260831",
+    publication: "Business Post",
+    author: "Colm Lauder",
+    series: "CRE",
+    title: "Can Ireland solve its student housing shortage?",
+    date: "2026-08-31",
+    time: "08:00",
+    summary: "Does Ireland finally have the means to start solving its student housing shortage?",
+    url: "https://bpm.businesspost.ie/w/JRvWWjanSo3LAEBad7J763UQ/Pe5PTEw0pLHXiV2kox0pPw/JQD5IXWRNYM3seHFUNcM6g",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-adivisivereferendum-20260831",
     publication: "Bloomberg",
     author: "Lily Nonomiya",
@@ -464,16 +475,5 @@ export const NEWSLETTERS = [
     time: "22:00",
     summary: "Nvidia earnings up next.",
     url: "https://www.reuters.com/commentary/reuters-open-interest/world-braces-trumps-canada-tariff-stand-off-escalates-2026-08-25/",
-  },
-  {
-    id: "nl-bbg-moneystuff-lebronbonds-20260825",
-    publication: "Bloomberg",
-    author: "Matt Levine",
-    series: "Money Stuff",
-    title: "Money Stuff: LeBron Bonds",
-    date: "2026-08-25",
-    time: "19:10",
-    summary: "LeBron's $300m bond deal, Mark Walter's insurer-disclosure probe, and what AI margin loans have in common with Archegos.",
-    url: "https://bloom.bg/4zCngsZ",
   },
 ];
