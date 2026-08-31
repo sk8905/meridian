@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "eddde22c-aa99-468d-9fb0-36f3edd6e04f", title: "Prediction platform Kalshi bans ex-US Congress member for manipulation", date: "2026-08-31", time: "17:14", url: "https://www.ft.com/content/eddde22c-aa99-468d-9fb0-36f3edd6e04f" },
+  { id: "96691b37-1360-4f32-b267-ec8fc3a05370", title: "Israel’s de facto annexation of the West Bank", date: "2026-08-31", time: "16:57", url: "https://www.ft.com/content/96691b37-1360-4f32-b267-ec8fc3a05370" },
+  { id: "369558d0-357c-41e7-aa1e-dc1c1c07457d", title: "Don’t write off Russia’s defence industry yet", date: "2026-08-31", time: "16:53", url: "https://www.ft.com/content/369558d0-357c-41e7-aa1e-dc1c1c07457d" },
   { id: "46bf442d-175b-4347-8ef6-e3d80ae6ea63", title: "Trump’s tariff fix leaves US trade policy in permanent flux", date: "2026-08-31", time: "16:07", url: "https://www.ft.com/content/46bf442d-175b-4347-8ef6-e3d80ae6ea63" },
   { id: "0f74b589-3fdf-447d-aa44-9570496bf7c7", title: "Whose fiscal problems would you prefer?", date: "2026-08-31", time: "15:17", url: "https://www.ft.com/content/0f74b589-3fdf-447d-aa44-9570496bf7c7" },
   { id: "8b09b3fc-bb61-4d9f-aac6-bcef9883fa16", title: "Donald Trump says US will hit Iran ‘hard’ as conflict reignites", date: "2026-08-31", time: "14:22", url: "https://www.ft.com/content/8b09b3fc-bb61-4d9f-aac6-bcef9883fa16" },
@@ -58,6 +61,4 @@ export const FT_ITEMS = [
   { id: "94b17d45-0a07-41e0-9597-57ca8918b8bd", title: "After years of losses, Victoria Beckham marks her brand’s turnaround", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/94b17d45-0a07-41e0-9597-57ca8918b8bd" },
   { id: "53d35170-2b41-4c21-8b41-345158ef0be1", title: "German gunmaker with loaded history sets sights on British army’s next rifle", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/53d35170-2b41-4c21-8b41-345158ef0be1" },
   { id: "55a5df36-4f1a-4ff3-8986-3a06db58a39a", title: "London’s Aim market faces existential crisis", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/55a5df36-4f1a-4ff3-8986-3a06db58a39a" },
-  { id: "114a2f47-11b8-4b96-ba6a-ac0d8e4d1393", title: "Long-term investors turn to shipping as Middle East conflict boosts returns", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/114a2f47-11b8-4b96-ba6a-ac0d8e4d1393" },
-  { id: "9f8a9a56-8fa9-456a-9b05-561320a9863c", title: "Mainland Europe seizes edge in global student race", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/9f8a9a56-8fa9-456a-9b05-561320a9863c" },
 ];
