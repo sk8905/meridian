@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "4b2b79ad-f909-489b-a8d7-01a126f64bae", title: "Messi announces retirement from international football", date: "2026-08-31", time: "17:48", url: "https://www.ft.com/content/4b2b79ad-f909-489b-a8d7-01a126f64bae" },
   { id: "eddde22c-aa99-468d-9fb0-36f3edd6e04f", title: "Prediction platform Kalshi bans ex-US Congress member for manipulation", date: "2026-08-31", time: "17:14", url: "https://www.ft.com/content/eddde22c-aa99-468d-9fb0-36f3edd6e04f" },
   { id: "96691b37-1360-4f32-b267-ec8fc3a05370", title: "Israel’s de facto annexation of the West Bank", date: "2026-08-31", time: "16:57", url: "https://www.ft.com/content/96691b37-1360-4f32-b267-ec8fc3a05370" },
   { id: "369558d0-357c-41e7-aa1e-dc1c1c07457d", title: "Don’t write off Russia’s defence industry yet", date: "2026-08-31", time: "16:53", url: "https://www.ft.com/content/369558d0-357c-41e7-aa1e-dc1c1c07457d" },
@@ -59,6 +60,4 @@ export const FT_ITEMS = [
   { id: "b3e84c50-c761-4179-beac-68641e61207e", title: "Crypto groups spend record $640mn buying back their own tokens", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/b3e84c50-c761-4179-beac-68641e61207e" },
   { id: "fc3fce3b-18d2-4340-ac0f-aa2964aa6147", title: "Trump’s threats against Canada are self-defeating", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/fc3fce3b-18d2-4340-ac0f-aa2964aa6147" },
   { id: "94b17d45-0a07-41e0-9597-57ca8918b8bd", title: "After years of losses, Victoria Beckham marks her brand’s turnaround", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/94b17d45-0a07-41e0-9597-57ca8918b8bd" },
-  { id: "53d35170-2b41-4c21-8b41-345158ef0be1", title: "German gunmaker with loaded history sets sights on British army’s next rifle", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/53d35170-2b41-4c21-8b41-345158ef0be1" },
-  { id: "55a5df36-4f1a-4ff3-8986-3a06db58a39a", title: "London’s Aim market faces existential crisis", date: "2026-08-31", time: "05:00", url: "https://www.ft.com/content/55a5df36-4f1a-4ff3-8986-3a06db58a39a" },
 ];
