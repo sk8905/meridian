@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f16c178f-b07c-4b79-a8fc-2bf4c70d43e2", title: "Mel Stride sacked as shadow chancellor", date: "2026-08-31", time: "13:30", url: "https://www.ft.com/content/f16c178f-b07c-4b79-a8fc-2bf4c70d43e2" },
+  { id: "306358c2-3597-40dd-b2cd-534073c35fde", title: "Spain’s Sánchez accuses Russia and Israel of inflaming migrant crisis", date: "2026-08-31", time: "13:28", url: "https://www.ft.com/content/306358c2-3597-40dd-b2cd-534073c35fde" },
+  { id: "c0341d15-482e-41a6-abe1-ef3e5e9a0d0b", title: "Happy birthday to the First Index Investment Trust", date: "2026-08-31", time: "13:23", url: "https://www.ft.com/content/c0341d15-482e-41a6-abe1-ef3e5e9a0d0b" },
   { id: "6af706a3-6e63-46c2-926b-85461a355e9b", title: "ChatGPT faces tougher rules under EU online safety regime", date: "2026-08-31", time: "12:06", url: "https://www.ft.com/content/6af706a3-6e63-46c2-926b-85461a355e9b" },
   { id: "485a3d1c-d282-4921-9dee-c644c5856030", title: "Software companies pay steep price to buy time against AI threat", date: "2026-08-31", time: "12:00", url: "https://www.ft.com/content/485a3d1c-d282-4921-9dee-c644c5856030" },
   { id: "23125dd8-2d09-4c6a-8e55-3245741fba45", title: "KKR to net giant windfall from $17bn sale of USI to Aon", date: "2026-08-31", time: "11:31", url: "https://www.ft.com/content/23125dd8-2d09-4c6a-8e55-3245741fba45" },
@@ -58,8 +61,4 @@ export const FT_ITEMS = [
   { id: "da5d96c1-c491-41a2-9db5-48bd952da4b4", title: "Return of the politicians", date: "2026-08-30", time: "18:15", url: "https://www.ft.com/content/da5d96c1-c491-41a2-9db5-48bd952da4b4" },
   { id: "63e8a4f3-7c18-4ddc-b3b7-e472159a7adf", title: "Americans feel they have lost their agency", date: "2026-08-30", time: "16:00", url: "https://www.ft.com/content/63e8a4f3-7c18-4ddc-b3b7-e472159a7adf" },
   { id: "4eb02822-d691-48a4-966f-45c6501bccb2", title: "Niger regains control of military base after coup attempt", date: "2026-08-30", time: "15:43", url: "https://www.ft.com/content/4eb02822-d691-48a4-966f-45c6501bccb2" },
-  { id: "458940e7-0754-42e3-aa33-f1f9e3e710b7", title: "Controversial Venezuelan executive courts investors after Trump oil deal", date: "2026-08-30", time: "13:12", url: "https://www.ft.com/content/458940e7-0754-42e3-aa33-f1f9e3e710b7" },
-  { id: "5729b32c-8b7a-42b1-b1e2-b8b0106739cb", title: "Meta’s settlement is a starting point", date: "2026-08-30", time: "13:00", url: "https://www.ft.com/content/5729b32c-8b7a-42b1-b1e2-b8b0106739cb" },
-  { id: "ce3139ac-e88e-4c0d-ab92-b36e79052836", title: "Friends with fiscal benefits", date: "2026-08-30", time: "12:00", url: "https://www.ft.com/content/ce3139ac-e88e-4c0d-ab92-b36e79052836" },
-  { id: "c2682d2b-c5a4-4f98-8f04-cf93883fb9b6", title: "Will the Fed’s hawkish stance survive contact with jobs data?", date: "2026-08-30", time: "12:00", url: "https://www.ft.com/content/c2682d2b-c5a4-4f98-8f04-cf93883fb9b6" },
 ];
