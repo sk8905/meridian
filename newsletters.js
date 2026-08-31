@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-irelandtoallowsharesetfsinnewtaxfreesavingsaccounts-20260831",
+    publication: "Bloomberg",
+    author: "Jennifer Duggan",
+    series: null,
+    title: "Ireland to Allow Shares, ETFs in New Tax-Free Savings Accounts",
+    date: "2026-08-31",
+    time: "09:47",
+    summary: "Ireland unveiled details of new savings accounts that aim to encourage retail investment with tax incentives and unlock some of the large proportion of household assets held in cash.",
+    url: "https://www.bloomberg.com/news/articles/2026-08-31/ireland-to-allow-shares-etfs-in-new-tax-free-savings-accounts",
+  },
+  {
     id: "nl-businesspost-canirelandsolveitsstudenthousingshortage-20260831",
     publication: "Business Post",
     author: "Colm Lauder",
@@ -453,17 +464,6 @@ export const NEWSLETTERS = [
     time: "07:28",
     summary: "Canada unveils dollar-for-dollar retaliatory tariffs against the US as the trade war escalates.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-26/canada-retaliates-with-us-tariffs-trump-weighs-more-levies",
-  },
-  {
-    id: "nl-economist-worldinbrief-canadastrikesback-20260826",
-    publication: "The Economist",
-    author: null,
-    series: "The World in Brief",
-    title: "The World in Brief: Canada strikes back",
-    date: "2026-08-26",
-    time: "06:11",
-    summary: "Catch up quickly on the global stories that matter.",
-    url: "https://www.economist.com/the-world-in-brief",
   },
   {
     id: "nl-reuters-tradingday-oilyieldsslide-20260825",
