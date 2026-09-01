@@ -803,7 +803,7 @@ function renderFeed() {
       + `<span>Group by type</span></button>`;
     // Group-by-type + Open desk share the right edge of the desk row, both as the
     // outlined accent control.
-    const deskrow = `<div class="g-feed-deskrow"><div class="g-feed-desks" role="tablist" aria-label="Filter the wire by desk">${chips}</div><div class="g-feed-ctl">${grpBtn}${openBtn}</div></div>`;
+    const deskrow = `<div class="g-feed-deskrow"><div class="g-feed-desks" role="tablist" aria-label="Filter the wire by desk">${chips}</div><div class="g-feed-ctl">${openBtn}${grpBtn}</div></div>`;
     // Second-level type chips for the active desk (Credit / Hedge / Legal).
     const subDefs = !_feedSrc && !_feedGroup && TYPE_CHIPS[_feedDesk];
     const secondary = subDefs
