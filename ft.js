@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "02f5e957-2545-4155-a558-afc4cef90158", title: "‘Wimp’ particle offers clue to identity of dark matter", date: "2026-09-01", time: "15:33", url: "https://www.ft.com/content/02f5e957-2545-4155-a558-afc4cef90158" },
   { id: "9e63bde5-c677-4ce5-82dc-1a684d9169c8", title: "Swiss finance minister hits out at move to water down UBS capital plans", date: "2026-09-01", time: "14:06", url: "https://www.ft.com/content/9e63bde5-c677-4ce5-82dc-1a684d9169c8" },
   { id: "1ddd0d4a-34bc-4919-a6fb-68dc514b84e9", title: "Trump touts data centre build-out despite voter backlash", date: "2026-09-01", time: "14:00", url: "https://www.ft.com/content/1ddd0d4a-34bc-4919-a6fb-68dc514b84e9" },
   { id: "697253e0-01d3-44fe-85e5-d4d9af207a3c", title: "Donald Trump summons US refiners as Iran war pushes up fuel prices", date: "2026-09-01", time: "14:00", url: "https://www.ft.com/content/697253e0-01d3-44fe-85e5-d4d9af207a3c" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "58840205-448b-4d17-9dd7-0313c8b8ed81", title: "Can Donald Trump’s 65bn-barrel deal revive Venezuela’s oil industry?", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/58840205-448b-4d17-9dd7-0313c8b8ed81" },
   { id: "7499413f-1bc2-44d5-b44a-a14d879b9b8a", title: "UK growth figures are set for another end-of-year slump. Why?", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/7499413f-1bc2-44d5-b44a-a14d879b9b8a" },
   { id: "b359c765-29e2-4f5f-b72c-cd36668621e1", title: "Disasters to cost world $450bn a year from climate change and development", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/b359c765-29e2-4f5f-b72c-cd36668621e1" },
-  { id: "76086bda-04fd-41c9-a924-c5392258d3af", title: "Glasgow, the UK’s asylum hub, finds itself a target for the far right", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/76086bda-04fd-41c9-a924-c5392258d3af" },
 ];
