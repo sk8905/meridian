@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "6cf367bc-95b0-4f1f-b149-a25684adefc3", title: "Russia secretly helping Iran develop supersonic cruise missiles", date: "2026-09-01", time: "21:00", url: "https://www.ft.com/content/6cf367bc-95b0-4f1f-b149-a25684adefc3" },
   { id: "9334212a-3cc4-426c-9cbe-57cb48033603", title: "AI hits college graduates in the heart of America’s data centre boom", date: "2026-09-01", time: "19:28", url: "https://www.ft.com/content/9334212a-3cc4-426c-9cbe-57cb48033603" },
   { id: "c557ccc2-9fe7-4725-8a1c-c40a0948e8d3", title: "US launches further strikes on Iran as conflict flares up", date: "2026-09-01", time: "17:55", url: "https://www.ft.com/content/c557ccc2-9fe7-4725-8a1c-c40a0948e8d3" },
   { id: "239063eb-90c2-4086-8db3-a9f11a029209", title: "Andy Burnham promises to ‘bring back hope’ in first Commons appearance as PM", date: "2026-09-01", time: "17:49", url: "https://www.ft.com/content/239063eb-90c2-4086-8db3-a9f11a029209" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "9bb0d48d-9715-4e59-a45d-0324590763f9", title: "South Korea unveils record budget increase to cash in on AI boom", date: "2026-09-01", time: "06:33", url: "https://www.ft.com/content/9bb0d48d-9715-4e59-a45d-0324590763f9" },
   { id: "bcc5aa85-4d23-4a7c-9147-c52aa69027bc", title: "More Warshology", date: "2026-09-01", time: "06:30", url: "https://www.ft.com/content/bcc5aa85-4d23-4a7c-9147-c52aa69027bc" },
   { id: "4da00f00-5c75-4eae-b0da-9770a999dedc", title: "EU diplomatic chief faces up to calls for powers to shift to Commission", date: "2026-09-01", time: "06:00", url: "https://www.ft.com/content/4da00f00-5c75-4eae-b0da-9770a999dedc" },
-  { id: "476d21cd-f759-4245-a439-f5b1330c8b30", title: "FTAV’s further reading", date: "2026-09-01", time: "06:00", url: "https://www.ft.com/content/476d21cd-f759-4245-a439-f5b1330c8b30" },
 ];
