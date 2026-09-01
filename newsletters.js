@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-americasarmychiefresigns-20260901",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: America’s army chief resigns",
+    date: "2026-09-01",
+    time: "06:05",
+    summary: "Dan Driscoll, America's army secretary, resigned after repeated clashes with Pete Hegseth over the war secretary's ousting of military leaders.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-newyorker-mahacustodybattle-20260901",
     publication: "The New Yorker",
     author: null,

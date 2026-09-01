@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "4da00f00-5c75-4eae-b0da-9770a999dedc", title: "EU diplomatic chief faces up to calls for powers to shift to Commission", date: "2026-09-01", time: "06:00", url: "https://www.ft.com/content/4da00f00-5c75-4eae-b0da-9770a999dedc" },
+  { id: "476d21cd-f759-4245-a439-f5b1330c8b30", title: "FTAV’s further reading", date: "2026-09-01", time: "06:00", url: "https://www.ft.com/content/476d21cd-f759-4245-a439-f5b1330c8b30" },
+  { id: "e6f5f97a-b199-444e-aaec-b8199359b08e", title: "Japan’s benchmark bond yield hits 3% for first time since 1996", date: "2026-09-01", time: "05:47", url: "https://www.ft.com/content/e6f5f97a-b199-444e-aaec-b8199359b08e" },
+  { id: "06e22622-3e92-46a5-842f-bfa269687aaa", title: "Shein shares slide 10% in Hong Kong trading debut", date: "2026-09-01", time: "05:36", url: "https://www.ft.com/content/06e22622-3e92-46a5-842f-bfa269687aaa" },
+  { id: "d39b3d1e-cf49-4990-9991-355f6585ca3a", title: "FirstFT: Big Law urged to cut fees amid AI", date: "2026-09-01", time: "05:31", url: "https://www.ft.com/content/d39b3d1e-cf49-4990-9991-355f6585ca3a" },
+  { id: "15de7725-234a-448a-9cc6-12500a47aada", title: "This time it really was different", date: "2026-09-01", time: "05:30", url: "https://www.ft.com/content/15de7725-234a-448a-9cc6-12500a47aada" },
   { id: "e7015d4a-fe58-4b9d-a414-6815b0d7e634", title: "‘Conflict of attrition’ in Iran could keep inflation high, ECB policymaker warns", date: "2026-09-01", time: "05:07", url: "https://www.ft.com/content/e7015d4a-fe58-4b9d-a414-6815b0d7e634" },
   { id: "0d8cb572-de82-4e67-b745-8200a95545f8", title: "Apple’s new boss starts out asset-light and option-rich", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/0d8cb572-de82-4e67-b745-8200a95545f8" },
   { id: "986af514-adb7-4fe1-9490-e1ceba63be24", title: "A bankruptcy brawl on the golf course", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/986af514-adb7-4fe1-9490-e1ceba63be24" },
@@ -58,7 +64,4 @@ export const FT_ITEMS = [
   { id: "487db354-2a78-4c16-bd1b-5ef189a16dd3", title: "The City Without Jews — Douglas Smith on life inside Vienna’s catastrophe", date: "2026-08-31", time: "12:00", url: "https://www.ft.com/content/487db354-2a78-4c16-bd1b-5ef189a16dd3" },
   { id: "485a3d1c-d282-4921-9dee-c644c5856030", title: "Software companies pay steep price to buy time against AI threat", date: "2026-08-31", time: "12:00", url: "https://www.ft.com/content/485a3d1c-d282-4921-9dee-c644c5856030" },
   { id: "23125dd8-2d09-4c6a-8e55-3245741fba45", title: "KKR to net giant windfall from $17bn sale of USI to Aon", date: "2026-08-31", time: "11:31", url: "https://www.ft.com/content/23125dd8-2d09-4c6a-8e55-3245741fba45" },
-  { id: "5a10fc78-9a3e-4f12-81e3-dc843b529948", title: "UK offers homegrown AI start-ups £100mn to improve public services", date: "2026-08-31", time: "11:24", url: "https://www.ft.com/content/5a10fc78-9a3e-4f12-81e3-dc843b529948" },
-  { id: "35921f10-fdbd-4ca6-b616-694bdaab50a6", title: "And the FTAV chart quiz winner is . . .", date: "2026-08-31", time: "11:11", url: "https://www.ft.com/content/35921f10-fdbd-4ca6-b616-694bdaab50a6" },
-  { id: "f060d145-3c1f-4a91-9ed8-ccc364df9c63", title: "The missing piece in the US oil and gas boom: jobs", date: "2026-08-31", time: "11:00", url: "https://www.ft.com/content/f060d145-3c1f-4a91-9ed8-ccc364df9c63" },
 ];
