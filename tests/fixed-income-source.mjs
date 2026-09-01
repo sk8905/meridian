@@ -18,8 +18,7 @@ await pg.waitForTimeout(2500);
 
 // The Fixed Income filter surfaces the Bond Vigilantes item, badged FI.
 const fi = await pg.evaluate((title) => {
-  const sel = document.querySelector("#g-feed-desk-sel");
-  sel.value = "fi"; sel.dispatchEvent(new Event("change"));
+  document.querySelector('.g-feed-deskchip[data-desk="fi"]').click();
   const rows = [...document.querySelectorAll("#g-feed .g-feed-row")];
   const row = rows.find((r) => (r.querySelector(".g-feed-title") || {}).textContent === title);
   return {
@@ -34,8 +33,7 @@ check(/Bond Vigilantes/.test(fi.src || ""), "Bond Vigilantes item shows its sour
 
 // It also appears in the All-news wire (it's a real source, not only a keyword view).
 const inAll = await pg.evaluate((title) => {
-  const sel = document.querySelector("#g-feed-desk-sel");
-  sel.value = "all"; sel.dispatchEvent(new Event("change"));
+  document.querySelector('.g-feed-deskchip[data-desk="all"]').click();
   return [...document.querySelectorAll("#g-feed .g-feed-title")].some((t) => t.textContent === title);
 }, BV.title);
 check(inAll, "Bond Vigilantes item is folded into the All-news wire");

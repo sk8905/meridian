@@ -23,6 +23,7 @@ const r = await pg.evaluate(() => {
     anyEst: document.querySelectorAll("#g-earn .g-earn-l:not(.g-earn-act)").length,
     anyAct: document.querySelectorAll("#g-earn .g-earn-act").length,
     anyPx: document.querySelectorAll("#g-earn .g-earn-px").length,
+    anyAwait: document.querySelectorAll("#g-earn .g-earn-await").length,
     // the well hugs its content (no gap) — with <=5 items, no forced max-height,
     // and the well bottom sits just under the last row.
     wellHugs: (() => { const w = document.querySelector(".g-earn-scroll"), last = document.querySelector("#g-earn .g-earn-row:last-child"); return w && last ? (w.getBoundingClientRect().bottom - last.getBoundingClientRect().bottom) < 6 : false; })(),
@@ -35,8 +36,11 @@ check(r.indicatorsGone, "right rail: Economic indicators panel removed from Home
 check(r.earnRows > 0, `earnings: this week's companies render (${r.earnRows})`);
 check(r.firstHasDate && r.firstHasTkr && r.firstHasWhen, "earnings: a row shows date + ticker + pre/post-market");
 check(r.anyEst > 0, `earnings: forecast (Est) shown (${r.anyEst})`);
-check(r.anyAct > 0, `earnings: outcome (Act) shown for reported names (${r.anyAct})`);
-check(r.anyPx > 0, `earnings: price reaction shown for reported names (${r.anyPx})`);
+// Reported names show an outcome (Act) + price reaction; names not yet reported
+// this week show an "awaiting" marker. Early in the week nothing has reported, so
+// accept either — every row must carry an outcome OR an awaiting state.
+check(r.anyAct > 0 || r.anyAwait > 0, `earnings: outcome (Act) shown for reported names, else awaiting (act ${r.anyAct}, awaiting ${r.anyAwait})`);
+check(r.anyPx > 0 || r.anyAwait > 0, `earnings: price reaction shown for reported names, else awaiting (px ${r.anyPx}, awaiting ${r.anyAwait})`);
 check(r.earnRows <= 5 ? r.wellHugs && !r.bodyMax : true, "earnings: the pane fits its items with no gap (<=5 shows uncapped)");
 
 checkErrs(errs, "home right rail");

@@ -1028,6 +1028,33 @@
       box-shadow:inset 0 -2px 0 var(--chip-ul, #000); }
     [data-theme="dark"] .tui .g-feed-chip.is-on{ box-shadow:inset 0 -2px 0 var(--chip-ul, #fff); }
     .tui .g-feed-chip.is-on .g-feed-chip-n{ opacity:.85; }
+    /* ---- Home wire desk switcher (F3/F6): the hidden <select> is now a visible,
+       colour-anchored chip row; the group toggle sits at the right; a real desk
+       gets an "Open …" link into its full view. ---- */
+    .tui .g-feed-deskrow{ flex:0 0 100%; width:100%; display:flex; align-items:stretch; min-height:var(--chip-h,34px); border-bottom:1px solid var(--t-grid); }
+    .tui .g-feed-desks{ flex:1 1 auto; min-width:0; display:flex; align-items:stretch; overflow-x:auto; scrollbar-width:none; }
+    .tui .g-feed-desks::-webkit-scrollbar{ display:none; }
+    .tui .g-feed-deskchip{ flex:0 0 auto; display:inline-flex; align-items:center; gap:6px; padding:0 12px;
+      min-height:var(--chip-h,34px); border:0; background:transparent; color:var(--t-mut); font:inherit;
+      font-size:11px; font-weight:600; white-space:nowrap; cursor:pointer; }
+    .tui .g-feed-deskchip:hover{ color:var(--t-ink); }
+    .tui .g-feed-deskchip.is-on{ color:var(--t-ink); box-shadow:inset 0 -2px 0 var(--chip-ul, #000); }
+    [data-theme="dark"] .tui .g-feed-deskchip.is-on{ box-shadow:inset 0 -2px 0 var(--chip-ul, #fff); }
+    .tui .g-feed-deskdot{ width:6px; height:6px; border-radius:50%; flex:0 0 auto; }
+    .tui .g-dot-mac{ background:var(--t-mac); } .tui .g-dot-crd{ background:var(--t-crd); }
+    .tui .g-dot-hdg{ background:var(--t-hdg); } .tui .g-dot-lex{ background:var(--t-lex); }
+    .tui .g-feed-deskrow .g-feed-grpbtn{ flex:0 0 auto; align-self:center; margin:0 8px 0 6px; }
+    .tui .g-feed-subrow{ flex:0 0 100%; width:100%; display:flex; align-items:stretch; gap:8px; }
+    .tui .g-feed-subrow .g-feed-subchips{ border-top:0; background:transparent; }
+    .tui .g-feed-subgap{ flex:1 1 auto; }
+    .tui .g-feed-openbtn{ flex:0 0 auto; align-self:center; margin:0 12px 0 auto; padding:2px 10px;
+      background:transparent; border:1px solid var(--t-grid2); border-radius:5px; color:var(--t-accent);
+      font:inherit; font-size:11px; font-weight:700; letter-spacing:.01em; cursor:pointer; white-space:nowrap; }
+    .tui .g-feed-openbtn:hover{ border-color:var(--t-accent); }
+    /* The source name in a wire row filters the feed by that newsroom — make it
+       read as clickable (F6). Home wire only: on the desk views it isn't wired. */
+    .tui #g-feed .g-feed-src{ cursor:pointer; }
+    .tui #g-feed a.g-feed-row:hover .g-feed-src{ text-decoration:underline; text-underline-offset:2px; }
     .tui .g-pf-tgl-wrap{ display:inline-flex; gap:2px; }
     .tui .g-pf-tgl, .tui .g-pred-dir{ font:inherit; font-size:9.5px; font-weight:600; letter-spacing:.02em; text-transform:uppercase;
       padding:1px 6px; border:1px solid var(--t-grid); background:transparent; color:var(--t-faint); cursor:pointer; }

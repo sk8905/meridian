@@ -10,7 +10,7 @@ export function mount(host, ctx) {
     host.innerHTML = content.HOME_HTML;
     // Render on mount (revisits keep this DOM alive). initGlance self-guards
     // (runs once) and is wrapped so a render error keeps the briefing shell.
-    try { glance.initGlance(); } catch { /* keep shell */ }
+    try { glance.initGlance(ctx); } catch { /* keep shell */ }
     return { enter() {}, leave() {} };
   });
 }

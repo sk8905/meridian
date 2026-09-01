@@ -1,7 +1,8 @@
-// Home news-feed primary filter mirrors the Dashboard sections: a single-select
-// with All news · Macro · Equities · Fixed Income · Credit · Hedge Funds · Legal.
-// Macro/Credit/Hedge/Legal are their own desks; Equities & Fixed Income are keyword
-// views over the macro stream, so the filter set lines up with the dashboard.
+// Home news-feed primary filter is a VISIBLE, colour-anchored desk chip row
+// (F6 — was a hidden <select>): All · Macro · Equities · Fixed Income · Credit ·
+// Hedge · Legal. Macro/Credit/Hedge/Legal are their own desks; Equities & Fixed
+// Income are keyword views over the macro stream. Selecting a real desk reveals an
+// "Open <desk>" link into its full view (F3).
 import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
 const srv = await serve();
@@ -10,26 +11,56 @@ const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v
 await pg.evaluate(() => localStorage.setItem("m_signed_in", "1"));
 await pg.waitForTimeout(2500);
 
-const opts = await pg.evaluate(() => {
-  const sel = document.querySelector("#g-feed-desk-sel");
-  return sel ? [...sel.options].map((o) => o.textContent) : [];
-});
-checkEq(opts.join(" · "), "All news · Macro · Equities · Fixed Income · Credit · Hedge Funds · Legal",
-  "home feed has the six ordered, labelled filters (mirrors the Dashboard)");
+// The chip row replaces the dropdown and lists every desk, in order.
+const chips = await pg.evaluate(() => ({
+  labels: [...document.querySelectorAll(".g-feed-deskchip")].map((c) => c.textContent.trim()),
+  keys: [...document.querySelectorAll(".g-feed-deskchip")].map((c) => c.dataset.desk),
+  noSelect: !document.querySelector("#g-feed-desk-sel"),
+  dots: [...document.querySelectorAll(".g-feed-deskchip")].filter((c) => c.querySelector(".g-feed-deskdot")).length,
+}));
+checkEq(chips.labels.join(" · "), "All · Macro · Equities · Fixed Income · Credit · Hedge · Legal",
+  "home feed desk chips: the ordered, labelled desks (mirrors the Dashboard)");
+check(chips.noSelect, "the hidden <select> desk filter is gone (chips are the visible control)");
+check(chips.dots === 6, `six desks carry a colour dot; All has none (${chips.dots})`);
 
-// Switching to each new filter re-renders without error and reflects the selection.
+// Switching desks activates the chip (aria-selected + is-on) and re-renders.
 const switched = await pg.evaluate(() => {
-  const sel = document.querySelector("#g-feed-desk-sel");
   const out = {};
-  for (const v of ["eq", "fi", "hdg", "m"]) {
-    sel.value = v; sel.dispatchEvent(new Event("change"));
-    out[v] = document.querySelector("#g-feed-desk-sel").value;
+  for (const k of ["eq", "fi", "hdg", "m", "c", "l"]) {
+    const chip = document.querySelector(`.g-feed-deskchip[data-desk="${k}"]`);
+    chip.click();
+    const now = document.querySelector(`.g-feed-deskchip[data-desk="${k}"]`);
+    out[k] = now.classList.contains("is-on") && now.getAttribute("aria-selected") === "true";
   }
   return out;
 });
-check(switched.eq === "eq" && switched.fi === "fi" && switched.hdg === "hdg", "Equities / Fixed Income / Hedge Funds filters activate");
+check(Object.values(switched).every(Boolean), `every desk chip activates on click (${Object.entries(switched).map(([k, v]) => k + (v ? "✓" : "✗")).join(" ")})`);
 
-checkErrs(errs, "home feed filters");
+// F3 — a real desk shows an "Open <desk>" control that routes to its full view.
+const openBtn = await pg.evaluate(() => {
+  document.querySelector('.g-feed-deskchip[data-desk="c"]').click();
+  const b = document.querySelector(".g-feed-openbtn");
+  return { present: !!b, text: b ? b.textContent.trim() : "", route: b ? b.dataset.openDesk : "" };
+});
+check(openBtn.present, "Credit desk selected: an 'Open …' link into the full desk view appears");
+checkEq(openBtn.route, "/v2/credit/", "the Open link routes to the Credit desk view");
+
+// Clicking it navigates to the Credit view (SPA route via the router).
+await pg.evaluate(() => document.querySelector(".g-feed-openbtn").click());
+await pg.waitForTimeout(900);
+checkEq(await pg.evaluate(() => new URL(location.href).pathname), "/v2/credit/", "Open Credit navigates to /v2/credit/");
+checkEq(await pg.evaluate(() => (document.querySelector(".v2-view:not([hidden])") || {}).dataset?.view), "credit", "the Credit desk view is now active");
+
+// "All" (the default) has no Open link — there's no single desk to open.
+await pg.evaluate(() => { history.pushState({ v2: true }, "", "/v2/"); dispatchEvent(new PopStateEvent("popstate")); });
+await pg.waitForTimeout(700);
+const allNoOpen = await pg.evaluate(() => {
+  document.querySelector('.g-feed-deskchip[data-desk="all"]').click();
+  return !document.querySelector(".g-feed-openbtn");
+});
+check(allNoOpen, "the All-news view shows no Open link (nothing single to open)");
+
+checkErrs(errs, "home feed desk switcher");
 await ctx.close();
 await b.close(); srv.close();
 finish();

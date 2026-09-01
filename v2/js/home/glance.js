@@ -88,7 +88,8 @@ function initHomeMarketsRails() {
   mq.addEventListener("change", place);
 }
 
-export function initGlance() {
+export function initGlance(ctx) {
+  _ctx = ctx || _ctx;
   if (_inited) return; _inited = true;
   _liveFeed = ((readCache("feed") || {}).items) || [];  // instant last-good merge
   renderFeed();
@@ -386,6 +387,9 @@ const FEED_DESK_LABEL = { all: "All news", m: "Macro", eq: "Equities", fi: "Fixe
 const FEED_EQ_RE = /\b(stocks?|shares?|equit\w+|\bindex\b|indices|nasdaq|s&p ?500|s&p|dow(\s?jones)?|ftse|russell|nikkei|kospi|hang seng|\bdax\b|earnings|\bipo\b|semiconductors?|\bchips?\b|nvidia|mega-?cap|magnificent|rally|sell-?off|bull market|bear market)\b/i;
 const FEED_FI_RE = /\b(bonds?|yields?|treasur\w+|gilts?|bunds?|coupon|duration|yield curve|credit spread|\boas\b|sovereign debt|rate (cut|hike|rise|path|decision)|interest rates?|\bfed\b|\bfomc\b|bank of england|\bboe\b|\becb\b|\bmpc\b|monetary policy|high[- ]yield|investment[- ]grade)\b/i;
 
+// The router handle (from the Home view's mount), used to open a full desk view
+// from the wire's desk switcher. Set once at init; survives keep-alive revisits.
+let _ctx = null;
 let _feedDesk = "all";
 // Second-level TYPE filter within the active desk (e.g. Credit ▸ Deals). "all"
 // shows every type. Reset to "all" whenever the primary desk changes.
@@ -721,37 +725,47 @@ function renderFeed() {
   setHTML("g-feed", srcBar + (feed.length ? body : empty));
   const head = document.getElementById("g-feed-head");
   if (head) {
-    // Primary desk filter as a single-select dropdown (All / Newsletters / Macro /
-    // Credit / Hedge / Legal). Compact, one control — replaces the chip row.
-    // Newsletters is no longer a desk-filter option — it has its own reading
-    // surface, reached via the right-edge button below (which routes to the
-    // Newsletters tab). The "All" feed still blends newsletter items in.
-    const DESK_OPTS = [["all", "All news"], ["m", "Macro"], ["eq", "Equities"], ["fi", "Fixed Income"], ["c", "Credit"], ["hdg", "Hedge Funds"], ["l", "Legal"]];
-    const selVal = _feedSrc ? "all" : (DESK_OPTS.some(([k]) => k === _feedDesk) ? _feedDesk : "all");
-    const primary = `<div class="g-feed-filterbar"><label class="g-feed-sel-lbl">Filter</label>`
-      + `<select class="g-feed-sel" id="g-feed-desk-sel" aria-label="Filter news by desk">`
-      + DESK_OPTS.map(([k, l]) => `<option value="${esc(k)}"${selVal === k ? " selected" : ""}>${esc(l)}</option>`).join("")
-      + `</select>`
-      + `<button type="button" class="g-feed-nlbtn g-feed-grpbtn${_feedGroup ? " is-on" : ""}" aria-pressed="${_feedGroup}" aria-label="Group the wire by type (last 3 days)">`
+    // Primary desk filter as a VISIBLE, colour-anchored chip row (was a hidden
+    // <select>) — the wire's desks now read as controls, not inert text. Macro /
+    // Credit / Hedge / Legal are their own desks (with full views one tap away via
+    // "Open …"); Equities & Fixed Income are keyword slices of the macro stream, so
+    // they share the macro colour. The row scrolls horizontally on narrow screens.
+    const DESK_OPTS = [["all", "All"], ["m", "Macro"], ["eq", "Equities"], ["fi", "Fixed Income"], ["c", "Credit"], ["hdg", "Hedge"], ["l", "Legal"]];
+    const DESK_DOT = { m: "mac", eq: "mac", fi: "mac", c: "crd", hdg: "hdg", l: "lex" };   // pill-hue anchor
+    const DESK_ROUTE = { m: "/v2/macro/", eq: "/v2/macro/", fi: "/v2/macro/", c: "/v2/credit/", hdg: "/v2/credit/", l: "/v2/legal/" };
+    const activeDesk = _feedSrc ? "all" : (DESK_OPTS.some(([k]) => k === _feedDesk) ? _feedDesk : "all");
+    const chips = DESK_OPTS.map(([k, l]) => {
+      const on = activeDesk === k;
+      const dot = DESK_DOT[k] ? `<span class="g-feed-deskdot g-dot-${DESK_DOT[k]}" aria-hidden="true"></span>` : "";
+      return `<button type="button" class="g-feed-deskchip${on ? " is-on" : ""}" data-desk="${esc(k)}" role="tab" aria-selected="${on}">${dot}${esc(l)}</button>`;
+    }).join("");
+    const grpBtn = `<button type="button" class="g-feed-nlbtn g-feed-grpbtn${_feedGroup ? " is-on" : ""}" aria-pressed="${_feedGroup}" aria-label="Group the wire by type (last 3 days)">`
       + `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg>`
-      + `<span>Group by type</span></button></div>`;
-    // Second-level type chips for the active desk (when it has sub-types and no
-    // source filter is overriding). Same .g-feed-chip style (HOUSE_STYLE R14),
-    // marked data-type so its handler is distinct from the desk selector.
+      + `<span>Group by type</span></button>`;
+    const deskrow = `<div class="g-feed-deskrow"><div class="g-feed-desks" role="tablist" aria-label="Filter the wire by desk">${chips}</div>${grpBtn}</div>`;
+    // Second-level type chips for the active desk, plus (for a real desk) a link
+    // into its full view — the discoverability path to Credit / Legal / Macro.
     const subDefs = !_feedSrc && !_feedGroup && TYPE_CHIPS[_feedDesk];
-    const secondary = subDefs
-      ? `<span class="g-feed-chips g-feed-subchips" role="group" aria-label="Filter by type">`
-        + subDefs.map(([k, l]) => `<button type="button" class="g-feed-chip${_feedType === k ? " is-on" : ""}" data-type="${esc(k)}" aria-pressed="${_feedType === k}">${esc(l)}</button>`).join("")
-        + `</span>`
+    const openRoute = !_feedSrc && DESK_ROUTE[activeDesk];
+    const openBtn = openRoute
+      ? `<button type="button" class="g-feed-openbtn" data-open-desk="${esc(openRoute)}">Open ${esc(FEED_DESK_LABEL[activeDesk] || "desk")}</button>`
       : "";
-    head.innerHTML = primary + secondary;
-    // Desk change clears any source filter, switches desks and resets the type.
-    const sel = document.getElementById("g-feed-desk-sel");
-    if (sel) sel.addEventListener("change", () => { _feedSrc = null; _feedDesk = sel.value; _feedType = "all"; renderFeed(); });
-    // Group-by-type toggle: switches the wire between the day-by-day stream and a
-    // by-label grouping over a rolling 3-day window (see the render branch above).
-    const grpBtn = head.querySelector(".g-feed-grpbtn");
-    if (grpBtn) grpBtn.addEventListener("click", (e) => {
+    const secondary = (subDefs || openBtn)
+      ? `<div class="g-feed-subrow">`
+        + (subDefs
+            ? `<span class="g-feed-chips g-feed-subchips" role="group" aria-label="Filter by type">`
+              + subDefs.map(([k, l]) => `<button type="button" class="g-feed-chip${_feedType === k ? " is-on" : ""}" data-type="${esc(k)}" aria-pressed="${_feedType === k}">${esc(l)}</button>`).join("")
+              + `</span>`
+            : `<span class="g-feed-subgap"></span>`)
+        + openBtn
+        + `</div>`
+      : "";
+    head.innerHTML = deskrow + secondary;
+    // Desk chip: clears any source filter, switches desks and resets the type.
+    head.querySelectorAll(".g-feed-deskchip").forEach((b) => b.addEventListener("click", () => { _feedSrc = null; _feedDesk = b.dataset.desk; _feedType = "all"; renderFeed(); }));
+    // Group-by-type toggle: day-by-day stream ⇄ by-label grouping (rolling 3 days).
+    const grp = head.querySelector(".g-feed-grpbtn");
+    if (grp) grp.addEventListener("click", (e) => {
       e.preventDefault(); e.stopPropagation();
       _feedSrc = null; _feedType = "all";
       _feedGroup = !_feedGroup;
@@ -759,6 +773,9 @@ function renderFeed() {
     });
     // A type chip narrows within the current desk.
     head.querySelectorAll(".g-feed-chip[data-type]").forEach((b) => b.addEventListener("click", () => { _feedType = b.dataset.type; renderFeed(); }));
+    // Open the full desk view (SPA navigation via the router; hard nav as a fallback).
+    const ob = head.querySelector("[data-open-desk]");
+    if (ob) ob.addEventListener("click", () => { const p = ob.dataset.openDesk; if (_ctx && _ctx.navigate) _ctx.navigate(p); else window.location.href = p; });
   }
 }
 // ---- Macro snapshot (right sidebar) ----------------------------------------
