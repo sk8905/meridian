@@ -233,15 +233,23 @@ export function mount(host, ctx) {
     } catch { /* keep the sourced snapshot */ }
   }
   function equitiesHTML() {
-    return `<div class="dsh-pane">
+    // Terminal (option 4): Key moments strip, then a three-column workspace that
+    // fills the viewport — each column scrolls internally, minimal page scroll.
+    return `<div class="dsh-pane dsh-term">
       ${keyMomentsHTML()}
-      <section class="dsh-card dsh-span"><h3 class="dsh-h">World indices — major benchmarks by jurisdiction <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-wi-box">${worldIndicesHeatHTML()}</div></section>
-      <section class="dsh-card dsh-span"><h3 class="dsh-h">ETF flows — net fund flows ${asOf(SECTOR_FLOWS.asOf)}</h3><div class="dsh-scroll" id="dsh-flows-box">${sectorFlowsHTML()}</div></section>
-      <section class="dsh-card"><h3 class="dsh-h">S&amp;P 500 sectors — YTD ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
-      <section class="dsh-card"><h3 class="dsh-h">Valuation &amp; volatility</h3>${valVolHTML()}</section>
-      <div class="dsh-span dsh-pair">
-        <section class="dsh-card"><h3 class="dsh-h">Earnings calendar${srcLink(earnSrc, "Earnings week-ahead source")}</h3><div class="dsh-scroll">${earningsHTML()}</div></section>
-        <section class="dsh-card"><h3 class="dsh-h">IPO / ECM pipeline</h3><div class="dsh-scroll">${ipoHTML()}</div></section>
+      <div class="dsh-term-ws">
+        <div class="dsh-term-col">
+          <section class="dsh-card"><h3 class="dsh-h">World indices — major benchmarks by jurisdiction <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-wi-box">${worldIndicesHeatHTML()}</div></section>
+          <section class="dsh-card"><h3 class="dsh-h">S&amp;P 500 sectors — YTD ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
+        </div>
+        <div class="dsh-term-col">
+          <section class="dsh-card"><h3 class="dsh-h">ETF flows — net fund flows ${asOf(SECTOR_FLOWS.asOf)}</h3><div class="dsh-scroll" id="dsh-flows-box">${sectorFlowsHTML()}</div></section>
+          <section class="dsh-card"><h3 class="dsh-h">Valuation &amp; volatility</h3>${valVolHTML()}</section>
+        </div>
+        <div class="dsh-term-col">
+          <section class="dsh-card"><h3 class="dsh-h">Earnings calendar${srcLink(earnSrc, "Earnings week-ahead source")}</h3><div class="dsh-scroll">${earningsHTML()}</div></section>
+          <section class="dsh-card"><h3 class="dsh-h">IPO / ECM pipeline</h3><div class="dsh-scroll">${ipoHTML()}</div></section>
+        </div>
       </div>
     </div>`;
   }
@@ -682,11 +690,22 @@ export function mount(host, ctx) {
     return `<section class="dsh-card dsh-span"><h3 class="dsh-h">Key moments <span class="dsh-n">why it moved</span></h3>${keys.map(row).join("")}</section>`;
   }
   function fixedIncomeHTML() {
-    return `<div class="dsh-pane">
+    // Terminal (option 4): the three sovereign/corporate tables become columns
+    // that fill the viewport and scroll internally, so the whole fixed-income
+    // picture reads at once. Wide tables keep a horizontal scroll inside a column.
+    return `<div class="dsh-pane dsh-term">
       ${fixedKeyMomentsHTML()}
-      <section class="dsh-card dsh-span"><h3 class="dsh-h">Government bond yields — change over 1W · 1M · 3M · 6M · 1Y <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
-      <section class="dsh-card dsh-span"><h3 class="dsh-h">Government / sovereign — yield curves (all countries) ${asOf(GOVT_YIELDS && GOVT_YIELDS.asOf)}</h3><div class="dsh-scroll">${worldYieldCurveHTML()}</div></section>
-      <section class="dsh-card dsh-span"><h3 class="dsh-h">Corporate — credit spreads (ICE BofA OAS) <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div><p class="dsh-fl-note">Option-adjusted spreads over Treasuries, by rating cohort — the corporate risk premium. Live from FRED (ICE BofA indices).</p></section>
+      <div class="dsh-term-ws">
+        <div class="dsh-term-col">
+          <section class="dsh-card"><h3 class="dsh-h">Government bond yields — change over 1W · 1M · 3M · 6M · 1Y <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
+        </div>
+        <div class="dsh-term-col">
+          <section class="dsh-card"><h3 class="dsh-h">Government / sovereign — yield curves (all countries) ${asOf(GOVT_YIELDS && GOVT_YIELDS.asOf)}</h3><div class="dsh-scroll">${worldYieldCurveHTML()}</div></section>
+        </div>
+        <div class="dsh-term-col">
+          <section class="dsh-card"><h3 class="dsh-h">Corporate — credit spreads (ICE BofA OAS) <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div><p class="dsh-fl-note">Option-adjusted spreads over Treasuries, by rating cohort — the corporate risk premium. Live from FRED (ICE BofA indices).</p></section>
+        </div>
+      </div>
     </div>`;
   }
 
@@ -793,23 +812,33 @@ export function mount(host, ctx) {
     const mvRow = (x) => `<div class="dsh-hf-i"><div class="dsh-hf-i-h"><span class="dsh-hf-dir dsh-hf-${esc(x.dir)}">${esc(_hfDir[x.dir] || x.dir)}</span> ${tkr(x.t)} <span class="dsh-hf-nm">${esc(x.name)}</span> <span class="dsh-hf-by">${esc(x.by)}</span>${srcLink(x.src)}</div><div class="dsh-hf-note">${esc(x.note)}</div></div>`;
     const filers = (HEDGE_FUNDS || []).filter((f) => f.cik).sort((a, b) => a.name.localeCompare(b.name));
     const opts = filers.map((f) => `<option value="${esc(f.cik)}">${esc(f.name)}</option>`).join("");
-    return `<div class="dsh-pane">
-      <section class="dsh-card">
-        <h3 class="dsh-h">Consensus longs <span class="dsh-n">(${esc(F.quarter || "")} 13Fs)</span></h3>
-        <div class="dsh-hf-list">${(F.consensus || []).map(conRow).join("")}</div>
-        <p class="dsh-fl-note">Most widely-held names across major hedge funds, from public ${esc(F.quarter || "")} 13F coverage — each links its source. ${esc(F.filed || "")}</p>
-      </section>
-      <section class="dsh-card">
-        <h3 class="dsh-h">Notable ${esc(F.quarter || "")} moves</h3>
-        <div class="dsh-hf-list">${(F.moves || []).map(mvRow).join("")}</div>
-        <p class="dsh-fl-note">Selected buys, new stakes, trims and exits disclosed in the ${esc(F.quarter || "")} 13Fs — sourced, illustrative not exhaustive.</p>
-      </section>
-      <section class="dsh-card dsh-span">
-        <h3 class="dsh-h">Per-fund holdings <span class="dsh-live">live · SEC 13F</span></h3>
-        <div class="dsh-hf-pick"><label class="dsh-lgl-lbl" for="dsh-hf-sel">Fund</label>
-          <select id="dsh-hf-sel" class="dsh-hf-sel">${opts}</select></div>
-        <div id="dsh-hf-body" class="dsh-hf-body"><p class="dsh-load">Loading latest 13F…</p></div>
-      </section>
+    // Terminal (option 4): consensus · notable moves · per-fund holdings tile into
+    // three columns filling the viewport, each scrolling internally.
+    return `<div class="dsh-pane dsh-term">
+      <div class="dsh-term-ws">
+        <div class="dsh-term-col">
+          <section class="dsh-card">
+            <h3 class="dsh-h">Consensus longs <span class="dsh-n">(${esc(F.quarter || "")} 13Fs)</span></h3>
+            <div class="dsh-hf-list">${(F.consensus || []).map(conRow).join("")}</div>
+            <p class="dsh-fl-note">Most widely-held names across major hedge funds, from public ${esc(F.quarter || "")} 13F coverage — each links its source. ${esc(F.filed || "")}</p>
+          </section>
+        </div>
+        <div class="dsh-term-col">
+          <section class="dsh-card">
+            <h3 class="dsh-h">Notable ${esc(F.quarter || "")} moves</h3>
+            <div class="dsh-hf-list">${(F.moves || []).map(mvRow).join("")}</div>
+            <p class="dsh-fl-note">Selected buys, new stakes, trims and exits disclosed in the ${esc(F.quarter || "")} 13Fs — sourced, illustrative not exhaustive.</p>
+          </section>
+        </div>
+        <div class="dsh-term-col">
+          <section class="dsh-card">
+            <h3 class="dsh-h">Per-fund holdings <span class="dsh-live">live · SEC 13F</span></h3>
+            <div class="dsh-hf-pick"><label class="dsh-lgl-lbl" for="dsh-hf-sel">Fund</label>
+              <select id="dsh-hf-sel" class="dsh-hf-sel">${opts}</select></div>
+            <div id="dsh-hf-body" class="dsh-hf-body"><p class="dsh-load">Loading latest 13F…</p></div>
+          </section>
+        </div>
+      </div>
     </div>`;
   }
   function renderHfHoldings(body, d) {
@@ -849,8 +878,11 @@ export function mount(host, ctx) {
     const achip = (a) => `<button type="button" class="dsh-lgl-chip${_legalAreas.has(a.id) ? " is-on" : ""}" data-area="${esc(a.id)}">${esc(a.short || a.name)}</button>`;
     const typeChips = `<div class="dsh-lgl-chips"><span class="dsh-lgl-lbl">Type</span>${TYPES.map(tchip).join("")}</div>`;
     const areaChips = `<div class="dsh-lgl-chips"><span class="dsh-lgl-lbl">Practice area</span>${(LGL_AREAS || []).map(achip).join("")}</div>`;
-    return `<div class="dsh-pane">
-      <section class="dsh-card dsh-span">
+    // Terminal (option 4): a single full-height panel — the search box and filter
+    // chips pin at the top and the results list scrolls internally, so the page
+    // itself doesn't scroll.
+    return `<div class="dsh-pane dsh-term dsh-term-solo">
+      <section class="dsh-card">
         <h3 class="dsh-h">Legal — case law &amp; alerts <span class="dsh-n">(${total}) · search</span></h3>
         <input type="search" class="dsh-lgl-search" id="dsh-lgl-q" placeholder="Search all legal alerts &amp; case law — party, court, citation, firm…" value="${esc(_legalQuery)}" autocomplete="off" spellcheck="false">
         ${typeChips}${areaChips}

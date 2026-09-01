@@ -56,6 +56,24 @@ checkEq(c.cols, 3, "Credit terminal: the workspace is a three-column grid");
 check(c.hasWire && /(auto|scroll)/.test(c.railOv), `Credit terminal: the credit-wire rail scrolls internally (${c.railOv})`);
 checkErrs(errs, "dashboard terminal credit");
 
+// Every pane is a terminal that fills the viewport (the page doesn't scroll).
+for (const key of ["equities", "fixed-income", "hedge-funds", "legal"]) {
+  await pg.goto(`http://localhost:${srv.port}/v2/dashboard/${key}`, { waitUntil: "load" });
+  await pg.waitForSelector(".dsh-term", { timeout: 8000 });
+  await pg.waitForTimeout(400);
+  const p = await pg.evaluate(() => ({
+    isTerm: !!document.querySelector(".dsh-term"),
+    dshFlex: (() => { const d = document.querySelector(".dsh"); return d ? getComputedStyle(d).display : ""; })(),
+    pageScroll: document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight,
+    solo: !!document.querySelector(".dsh-term-solo"),
+    ws: !!document.querySelector(".dsh-term-ws"),
+  }));
+  check(p.isTerm && p.dshFlex === "flex", `${key}: pane is a fixed-viewport terminal`);
+  check(p.pageScroll <= 4, `${key}: the page itself doesn't scroll (overflow ${p.pageScroll}px)`);
+  check(key === "legal" ? p.solo : p.ws, `${key}: uses the ${key === "legal" ? "solo full-height panel" : "column workspace"}`);
+}
+checkErrs(errs, "dashboard terminal all panes");
+
 await ctx.close();
 await b.close(); srv.close();
 finish();

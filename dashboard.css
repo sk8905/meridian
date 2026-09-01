@@ -67,6 +67,13 @@
   .dsh-term-rail .dsh-news{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; margin:0; }
   /* Cycle sub-tab keeps the normal stacked layout. */
   .dsh-macro-cycle.dsh-term{ overflow-y:auto; }
+  /* Solo terminal panel (Legal): one card fills the viewport; its heading, search
+     box and filter chips pin, and only the results list scrolls. */
+  .dsh-term-solo > .dsh-card:first-child{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
+  .dsh-term-solo > .dsh-card > .dsh-h,
+  .dsh-term-solo > .dsh-card > .dsh-lgl-search,
+  .dsh-term-solo > .dsh-card > .dsh-lgl-chips{ flex:0 0 auto; }
+  .dsh-term-solo .dsh-lgl-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
 }
 
 .dsh-card { background:var(--t-panel); border:1px solid var(--t-grid); border-radius:8px; padding:12px; }
