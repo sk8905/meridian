@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c557ccc2-9fe7-4725-8a1c-c40a0948e8d3", title: "US launches further strikes on Iran as conflict flares up", date: "2026-09-01", time: "17:55", url: "https://www.ft.com/content/c557ccc2-9fe7-4725-8a1c-c40a0948e8d3" },
+  { id: "066b0d08-421b-46a1-8bf1-7698aec161d2", title: "Politics keeps European stocks in America’s shadow", date: "2026-09-01", time: "17:32", url: "https://www.ft.com/content/066b0d08-421b-46a1-8bf1-7698aec161d2" },
   { id: "1edf7290-1289-459f-9f72-2a7d7c3da381", title: "America can’t win the AI race if the rollout lacks public support", date: "2026-09-01", time: "17:06", url: "https://www.ft.com/content/1edf7290-1289-459f-9f72-2a7d7c3da381" },
   { id: "5f643674-bf2b-48f1-bc3e-a7fe54820c99", title: "Action camera maker GoPro to be acquired after decade-long decline", date: "2026-09-01", time: "16:49", url: "https://www.ft.com/content/5f643674-bf2b-48f1-bc3e-a7fe54820c99" },
   { id: "e6f5f97a-b199-444e-aaec-b8199359b08e", title: "Global bond sell-off deepens amid inflation fears", date: "2026-09-01", time: "16:33", url: "https://www.ft.com/content/e6f5f97a-b199-444e-aaec-b8199359b08e" },
@@ -48,7 +50,6 @@ export const FT_ITEMS = [
   { id: "28a1331a-3f3d-4010-94d3-e07ab58970d5", title: "Bodycote agrees £1.84bn takeover by US buyout firm Veritas", date: "2026-09-01", time: "07:48", url: "https://www.ft.com/content/28a1331a-3f3d-4010-94d3-e07ab58970d5" },
   { id: "64511a2c-34e7-4f98-be24-9e8427b65027", title: "LSE prepares to launch tokenised stocks in digital markets push", date: "2026-09-01", time: "07:30", url: "https://www.ft.com/content/64511a2c-34e7-4f98-be24-9e8427b65027" },
   { id: "0d5b67bd-a07f-47da-9e9b-505df1b4ff33", title: "Partners Group replaces chief executive as pressure grows on flagship fund", date: "2026-09-01", time: "07:17", url: "https://www.ft.com/content/0d5b67bd-a07f-47da-9e9b-505df1b4ff33" },
-  { id: "e6f5f97a-b199-444e-aaec-b8199359b08e", title: "Japan’s benchmark yield hits 3% as global bond sell-off deepens", date: "2026-09-01", time: "07:04", url: "https://www.ft.com/content/e6f5f97a-b199-444e-aaec-b8199359b08e" },
   { id: "9bb0d48d-9715-4e59-a45d-0324590763f9", title: "South Korea unveils record budget increase to cash in on AI boom", date: "2026-09-01", time: "06:33", url: "https://www.ft.com/content/9bb0d48d-9715-4e59-a45d-0324590763f9" },
   { id: "bcc5aa85-4d23-4a7c-9147-c52aa69027bc", title: "More Warshology", date: "2026-09-01", time: "06:30", url: "https://www.ft.com/content/bcc5aa85-4d23-4a7c-9147-c52aa69027bc" },
   { id: "4da00f00-5c75-4eae-b0da-9770a999dedc", title: "EU diplomatic chief faces up to calls for powers to shift to Commission", date: "2026-09-01", time: "06:00", url: "https://www.ft.com/content/4da00f00-5c75-4eae-b0da-9770a999dedc" },
@@ -59,8 +60,4 @@ export const FT_ITEMS = [
   { id: "e7015d4a-fe58-4b9d-a414-6815b0d7e634", title: "‘Conflict of attrition’ in Iran could keep inflation high, ECB policymaker warns", date: "2026-09-01", time: "05:07", url: "https://www.ft.com/content/e7015d4a-fe58-4b9d-a414-6815b0d7e634" },
   { id: "0d8cb572-de82-4e67-b745-8200a95545f8", title: "Apple’s new boss starts out asset-light and option-rich", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/0d8cb572-de82-4e67-b745-8200a95545f8" },
   { id: "986af514-adb7-4fe1-9490-e1ceba63be24", title: "A bankruptcy brawl on the golf course", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/986af514-adb7-4fe1-9490-e1ceba63be24" },
-  { id: "87075ed2-3ec3-4a01-9568-0effc4157a11", title: "Andy Burnham signals fresh moves on living costs as political battle lines harden", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/87075ed2-3ec3-4a01-9568-0effc4157a11" },
-  { id: "58840205-448b-4d17-9dd7-0313c8b8ed81", title: "Can Donald Trump’s 65bn-barrel deal revive Venezuela’s oil industry?", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/58840205-448b-4d17-9dd7-0313c8b8ed81" },
-  { id: "7499413f-1bc2-44d5-b44a-a14d879b9b8a", title: "UK growth figures are set for another end-of-year slump. Why?", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/7499413f-1bc2-44d5-b44a-a14d879b9b8a" },
-  { id: "b359c765-29e2-4f5f-b72c-cd36668621e1", title: "Disasters to cost world $450bn a year from climate change and development", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/b359c765-29e2-4f5f-b72c-cd36668621e1" },
 ];
