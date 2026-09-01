@@ -874,6 +874,17 @@
       .tui .g-feed-head{ flex:0 0 auto; }
       .tui .g-feed{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; }
     }
+    /* F10 — short-laptop fallback. On a tall viewport the rails fit exactly and
+       only their one designated region scrolls; on a SHORT viewport the pinned
+       panels can't all fit, so the rails scroll as a whole (each already has
+       overflow-y:auto) and the fill regions give up their tall min-height floors
+       first — so content stays reachable instead of clipping. */
+    @media (min-width:901px) and (max-height:760px){
+      .tui .g-side, .tui .g-side2, .tui .g-side3{ overflow-y:auto; }
+      .tui .g-movers-pnl{ min-height:96px; }
+      .tui .g-flow-scroll{ min-height:96px; }
+      .tui .g-mw-scroll{ min-height:120px; }
+    }
     /* ---- Manager wire (Home manager column) ---- */
     /* Each manager is a mini-section: a header (name + fundraising to the right) ·
        an activity line · then its news stories together, feed-sized to match the
