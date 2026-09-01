@@ -13,7 +13,7 @@ export const UPDATED = "31 August 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-01",
-  lastCheckedTime: "05:14 BST",
+  lastCheckedTime: "09:30 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -841,17 +841,17 @@ export const NEWS = {
   updated: "2026-09-01",
   us: [
     { title: "Manufacturing PMI, ISM PMI, and JOLTs job openings due Tuesday", source: "Investing.com", date: "2026-09-01", time: "05:00", url: "https://www.investing.com/news/stock-market-news/manufacturing-pmi-ism-pmi-and-jolts-job-openings-due-tuesday-93CH-4883128" },
-    { title: "Gold slips as rising Fed hike bets and US-Iran tensions support USD", source: "FXStreet", date: "2026-09-01", time: "03:50", url: "https://www.fxstreet.com/news/gold-declines-as-rising-fed-hike-bets-and-us-iran-tensions-support-usd-202609010350" },
+    { title: "Oil rises to above $90 as US and Iran resume strikes", source: "The National", date: "2026-08-31", time: "23:00", url: "https://www.thenationalnews.com/business/energy/2026/08/31/oil-rises-to-above-90-as-us-and-iran-resume-strikes/" },
+    { title: "Jackson Hole analyst roundup: Warsh's speech sends hike chances higher, may put Fed 'at odds' with Treasury", source: "CNBC", date: "2026-08-31", time: "12:00", url: "https://www.cnbc.com/2026/08/31/jackson-hole-fed-chair-kevin-warsh-hawkish-rate-hikes-analysts.html" },
     { title: "Asian Stocks to Fall as Iran Flare-Up Boosts Oil: Markets Wrap", source: "Bloomberg", date: "2026-08-31", time: "22:00", url: "https://www.bloomberg.com/news/articles/2026-08-31/asian-stocks-to-fall-as-iran-flare-up-boosts-oil-markets-wrap" },
     { title: "Stock futures are little changed after Wall Street closes out winning August: Live updates", source: "CNBC", date: "2026-08-31", time: "21:15", url: "https://www.cnbc.com/2026/08/31/stock-market-today-live-updates.html" },
-    { title: "Forex Today: Attention shifts to US ISM, JOLTs and inflation in Europe", source: "FXStreet", date: "2026-08-31", time: "17:49", url: "https://www.fxstreet.com/news/forex-today-attention-shifts-to-us-ism-jolts-and-inflation-in-europe-202608311749" },
   ],
   uk: [
-    { title: "Gold slips as rising Fed hike bets and US-Iran tensions support USD", source: "FXStreet", date: "2026-09-01", time: "03:50", url: "https://www.fxstreet.com/news/gold-declines-as-rising-fed-hike-bets-and-us-iran-tensions-support-usd-202609010350" },
+    { title: "UK Stock Market Forecast Today (September 1): FTSE 100 Set for Flat Open Near 10,825 as Brent Crude Tops $91", source: "Sunday Guardian Live", date: "2026-09-01", time: "07:30", url: "https://sundayguardianlive.com/business/uk-stock-market-forecast-today-september-1-ftse-100-set-for-flat-open-near-10825-as-brent-crude-tops-91-check-market-outlook-stocks-to-watch-today-274599/" },
+    { title: "House price growth remains subdued at 1.6% in August, Nationwide", source: "The Intermediary", date: "2026-09-01", time: "07:00", url: "https://theintermediary.co.uk/2026/09/house-price-growth-remains-subdued-at-1-6-in-august-nationwide/" },
     { title: "Pound Sterling Price News and Forecast: GBP/USD edges higher as USD softens ahead US jobs data", source: "FXStreet", date: "2026-08-31", time: "16:50", url: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-edges-higher-as-usd-softens-ahead-us-jobs-data-202608311650" },
     { title: "New AI models pose risk to global financial system, Bank of England chief warns", source: "The National", date: "2026-08-31", time: "10:33", url: "https://www.thenationalnews.com/future/technology/2026/08/31/new-ai-models-pose-risk-to-global-financial-system-bank-of-england-chief-warns/" },
     { title: "Bailey Says UK Not Seeing Significant Second-Round Inflation Before BOE Meeting", source: "Bloomberg", date: "2026-08-28", time: "21:11", url: "https://www.bloomberg.com/news/articles/2026-08-28/boe-s-bailey-downplays-second-round-effects-before-rate-decision" },
-    { title: "UK PMI Services Strengthen in August, but Manufacturing Momentum Fades", source: "ActionForex", date: "2026-08-21", time: "09:00", url: "https://www.actionforex.com/live-comments/651355-uk-pmi-services-strengthen-in-august-but-manufacturing-momentum-fades/" },
   ],
 };
 
@@ -865,6 +865,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-01",
   items: [
+    {"title":"UK Stock Market Forecast Today (September 1): FTSE 100 Set for Flat Open Near 10,825 as Brent Crude Tops $91","source":"Sunday Guardian Live","date":"2026-09-01","time":"07:30","url":"https://sundayguardianlive.com/business/uk-stock-market-forecast-today-september-1-ftse-100-set-for-flat-open-near-10825-as-brent-crude-tops-91-check-market-outlook-stocks-to-watch-today-274599/","blurb":"The FTSE 100 was set for a near-flat return from the Summer Bank Holiday around 10,825 as Brent crude crossed $91/bbl on the resumed US-Iran conflict, with higher energy prices supporting oil majors even as they add to inflation concerns.","author":null},
+    {"title":"House price growth remains subdued at 1.6% in August, Nationwide","source":"The Intermediary","date":"2026-09-01","time":"07:00","url":"https://theintermediary.co.uk/2026/09/house-price-growth-remains-subdued-at-1-6-in-august-nationwide/","blurb":"Nationwide's index showed UK annual house-price growth edging up to 1.6% in August (from a revised 1.4% in July, below the ~2.1% consensus), with the average price at £275,465 as chief economist Robert Gardner described activity and prices as muted amid economic uncertainty.","author":null},
+    {"title":"Oil rises to above $90 as US and Iran resume strikes","source":"The National","date":"2026-08-31","time":"23:00","url":"https://www.thenationalnews.com/business/energy/2026/08/31/oil-rises-to-above-90-as-us-and-iran-resume-strikes/","blurb":"Brent futures climbed 3.4% to $91.09/bbl after US forces struck Iranian rocket launchers on Larak Island and President Trump claimed strikes on Kharg Island, Iran's main oil export terminal handling roughly 90% of its exports.","author":null},
     {"title":"Manufacturing PMI, ISM PMI, and JOLTs job openings due Tuesday","source":"Investing.com","date":"2026-09-01","time":"05:00","url":"https://www.investing.com/news/stock-market-news/manufacturing-pmi-ism-pmi-and-jolts-job-openings-due-tuesday-93CH-4883128","blurb":"August's ISM Manufacturing PMI (forecast 55.2, prior 55.6) and JOLTS job openings (forecast 7.33m, prior 7.359m) headline Tuesday's calendar, the first reads on factory activity and labour demand ahead of Friday's nonfarm payrolls report.","author":null},
     {"title":"Gold slips as rising Fed hike bets and US-Iran tensions support USD","source":"FXStreet","date":"2026-09-01","time":"03:50","url":"https://www.fxstreet.com/news/gold-declines-as-rising-fed-hike-bets-and-us-iran-tensions-support-usd-202609010350","blurb":"Gold extended Monday's drop below $4,450/oz as CME FedWatch-implied odds of a 16 September Fed hike pushed toward 65% on Chair Warsh's hawkish Jackson Hole tone, even as the renewed US-Iran exchange over the Strait of Hormuz kept a geopolitical bid under the dollar.","author":null},
     {"title":"investingLive Asia-Pacific market news: Oil steady near highs, gold flat","source":"investingLive","date":"2026-09-01","time":"04:00","url":"https://investinglive.com/news/investinglive-asia-pacific-market-news-oil-steady-near-highs-gold-flat/","blurb":"Oil held Monday's US-Iran-driven gains and gold traded flat in a mixed Asian session — Nikkei briefly turned positive, Kospi eased on light news flow, Hang Seng fell around 1% while the Shanghai Composite added 0.2% on a stronger-than-expected Chinese manufacturing PMI.","author":null},
@@ -1071,7 +1074,7 @@ export const EARNINGS = {
   weeks: [
     { label: "This week \u00b7 31 Aug\u20134 Sep", days: [
       { date: "2026-09-01", rows: [
-        { t: "DELL", n: "Dell Technologies", tag: "AI/servers \u00b7 hardware \u00b7 NYSE", when: "After close", held: [{ etf: "IGWD", w: null }], estEps: "$4.92 (avg est; co. guide ~$4.80)", estRev: "$44.51bn (avg est; co. guide $44-45bn, ~50% y/y)", actEps: null, actRev: null, px: null, note: null },
+        { t: "DELL", n: "Dell Technologies", tag: "AI/servers \u00b7 hardware \u00b7 NYSE", when: "Pre-mkt", held: [{ etf: "IGWD", w: null }], estEps: "$4.92 (avg est; co. guide ~$4.80)", estRev: "$44.51bn (avg est; co. guide $44-45bn, ~50% y/y)", actEps: null, actRev: null, px: null, note: null },
       ] },
       { date: "2026-09-02", rows: [
         { t: "AVGO", n: "Broadcom", tag: "AI/semiconductors \u00b7 Nasdaq 100", when: "After close", held: [{ etf: "IGWD", w: null }], estEps: "$3.24 non-GAAP (avg est)", estRev: "$29.4bn (avg est)", actEps: null, actRev: null, px: null, note: null, km: { l: "AI revenue", est: "expected to exceed $16bn", act: null } },
