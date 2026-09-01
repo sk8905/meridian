@@ -21,7 +21,12 @@
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
   { id: "c557ccc2-9fe7-4725-8a1c-c40a0948e8d3", title: "US launches further strikes on Iran as conflict flares up", date: "2026-09-01", time: "17:55", url: "https://www.ft.com/content/c557ccc2-9fe7-4725-8a1c-c40a0948e8d3" },
+  { id: "239063eb-90c2-4086-8db3-a9f11a029209", title: "Andy Burnham promises to ‘bring back hope’ in first Commons appearance as PM", date: "2026-09-01", time: "17:49", url: "https://www.ft.com/content/239063eb-90c2-4086-8db3-a9f11a029209" },
+  { id: "2ca5dfbf-f48b-4ffb-9ce9-9ff3e787a75e", title: "Germany blames Russia for Leipzig drone attack", date: "2026-09-01", time: "17:33", url: "https://www.ft.com/content/2ca5dfbf-f48b-4ffb-9ce9-9ff3e787a75e" },
+  { id: "e7cc6fc2-74ae-497b-92bf-d8254dd161fa", title: "GoPro: a totally normal, unremarkable piece of merger activity", date: "2026-09-01", time: "17:33", url: "https://www.ft.com/content/e7cc6fc2-74ae-497b-92bf-d8254dd161fa" },
   { id: "066b0d08-421b-46a1-8bf1-7698aec161d2", title: "Politics keeps European stocks in America’s shadow", date: "2026-09-01", time: "17:32", url: "https://www.ft.com/content/066b0d08-421b-46a1-8bf1-7698aec161d2" },
+  { id: "fe0fc9bf-e7dc-4fa1-91d2-4d7bad22c3c3", title: "Governments should heed the bond market’s warning", date: "2026-09-01", time: "17:17", url: "https://www.ft.com/content/fe0fc9bf-e7dc-4fa1-91d2-4d7bad22c3c3" },
+  { id: "9b370f97-2e08-4dd2-8512-fa6aabfd2ec2", title: "IMF agrees $2.2bn bailout for Senegal", date: "2026-09-01", time: "17:15", url: "https://www.ft.com/content/9b370f97-2e08-4dd2-8512-fa6aabfd2ec2" },
   { id: "1edf7290-1289-459f-9f72-2a7d7c3da381", title: "America can’t win the AI race if the rollout lacks public support", date: "2026-09-01", time: "17:06", url: "https://www.ft.com/content/1edf7290-1289-459f-9f72-2a7d7c3da381" },
   { id: "5f643674-bf2b-48f1-bc3e-a7fe54820c99", title: "Action camera maker GoPro to be acquired after decade-long decline", date: "2026-09-01", time: "16:49", url: "https://www.ft.com/content/5f643674-bf2b-48f1-bc3e-a7fe54820c99" },
   { id: "e6f5f97a-b199-444e-aaec-b8199359b08e", title: "Global bond sell-off deepens amid inflation fears", date: "2026-09-01", time: "16:33", url: "https://www.ft.com/content/e6f5f97a-b199-444e-aaec-b8199359b08e" },
@@ -56,8 +61,4 @@ export const FT_ITEMS = [
   { id: "476d21cd-f759-4245-a439-f5b1330c8b30", title: "FTAV’s further reading", date: "2026-09-01", time: "06:00", url: "https://www.ft.com/content/476d21cd-f759-4245-a439-f5b1330c8b30" },
   { id: "06e22622-3e92-46a5-842f-bfa269687aaa", title: "Shein shares slide 10% in Hong Kong trading debut", date: "2026-09-01", time: "05:36", url: "https://www.ft.com/content/06e22622-3e92-46a5-842f-bfa269687aaa" },
   { id: "d39b3d1e-cf49-4990-9991-355f6585ca3a", title: "FirstFT: Big Law urged to cut fees amid AI", date: "2026-09-01", time: "05:31", url: "https://www.ft.com/content/d39b3d1e-cf49-4990-9991-355f6585ca3a" },
-  { id: "15de7725-234a-448a-9cc6-12500a47aada", title: "This time it really was different", date: "2026-09-01", time: "05:30", url: "https://www.ft.com/content/15de7725-234a-448a-9cc6-12500a47aada" },
-  { id: "e7015d4a-fe58-4b9d-a414-6815b0d7e634", title: "‘Conflict of attrition’ in Iran could keep inflation high, ECB policymaker warns", date: "2026-09-01", time: "05:07", url: "https://www.ft.com/content/e7015d4a-fe58-4b9d-a414-6815b0d7e634" },
-  { id: "0d8cb572-de82-4e67-b745-8200a95545f8", title: "Apple’s new boss starts out asset-light and option-rich", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/0d8cb572-de82-4e67-b745-8200a95545f8" },
-  { id: "986af514-adb7-4fe1-9490-e1ceba63be24", title: "A bankruptcy brawl on the golf course", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/986af514-adb7-4fe1-9490-e1ceba63be24" },
 ];
