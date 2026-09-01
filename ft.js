@@ -20,6 +20,13 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "cb0c4fc2-29d6-4465-83a1-7d26fbadff3e", title: "Why Andy Burnham should say: Jackdaw yes, Rosebank no", date: "2026-09-01", time: "12:14", url: "https://www.ft.com/content/cb0c4fc2-29d6-4465-83a1-7d26fbadff3e" },
+  { id: "fa63c508-c202-4327-b24c-fe0ecc1bd684", title: "Thames Water should go into administration, says senior Tory MP", date: "2026-09-01", time: "12:14", url: "https://www.ft.com/content/fa63c508-c202-4327-b24c-fe0ecc1bd684" },
+  { id: "66df7f0e-ce6a-4619-8044-fa23423db3e7", title: "Shein’s unhappy IPO", date: "2026-09-01", time: "12:00", url: "https://www.ft.com/content/66df7f0e-ce6a-4619-8044-fa23423db3e7" },
+  { id: "b189d31a-5e56-471e-91d1-c319aa68f174", title: "How to understand the current puzzle in bonds and equities", date: "2026-09-01", time: "11:57", url: "https://www.ft.com/content/b189d31a-5e56-471e-91d1-c319aa68f174" },
+  { id: "4002eb81-07c0-47d0-a076-a6f6331667b2", title: "Rise in UK borrowing costs adds to pressure on Andy Burnham and John Healey", date: "2026-09-01", time: "11:51", url: "https://www.ft.com/content/4002eb81-07c0-47d0-a076-a6f6331667b2" },
+  { id: "29f1af13-ecc3-4f26-a479-e6088c67231b", title: "US midterm elections 2026: The FT’s guide", date: "2026-09-01", time: "11:37", url: "https://www.ft.com/content/29f1af13-ecc3-4f26-a479-e6088c67231b" },
+  { id: "630c7af3-dab3-47c0-ada3-fd8ed7b75a32", title: "Ukraine eases tensions with Poland over second world war exhumations", date: "2026-09-01", time: "11:14", url: "https://www.ft.com/content/630c7af3-dab3-47c0-ada3-fd8ed7b75a32" },
   { id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2", title: "Inflation and interest rates tracker: see how your country compares", date: "2026-09-01", time: "11:01", url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2" },
   { id: "009a59d1-d797-490c-bbd7-32c95b8acd90", title: "When is an engineer not an engineer?", date: "2026-09-01", time: "11:00", url: "https://www.ft.com/content/009a59d1-d797-490c-bbd7-32c95b8acd90" },
   { id: "1b4d308c-3d49-4794-8280-187615c21876", title: "Eurozone inflation rises to 3.3% in August", date: "2026-09-01", time: "10:01", url: "https://www.ft.com/content/1b4d308c-3d49-4794-8280-187615c21876" },
@@ -53,13 +60,4 @@ export const FT_ITEMS = [
   { id: "241ca2e1-7135-4505-84db-dfa39bde5a1d", title: "How Aston Martin’s latest financing sparked a bondholder revolt", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/241ca2e1-7135-4505-84db-dfa39bde5a1d" },
   { id: "fc2b67d2-f272-40c7-8d75-802cbc251f26", title: "The Ukrainian chicken baron that EU farmers love to hate", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/fc2b67d2-f272-40c7-8d75-802cbc251f26" },
   { id: "5b1762e6-a3b9-4853-8547-1181355970b5", title: "Third of FTSE 350 companies pay less for audits", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/5b1762e6-a3b9-4853-8547-1181355970b5" },
-  { id: "3d30f551-53af-4fab-8271-3f7fd75d5cfd", title: "Elliott builds stake in French group Air Liquide", date: "2026-08-31", time: "21:02", url: "https://www.ft.com/content/3d30f551-53af-4fab-8271-3f7fd75d5cfd" },
-  { id: "bafde798-4860-45bb-9226-633a211e8508", title: "US regulator sues Amazon for manipulating advertising prices", date: "2026-08-31", time: "20:09", url: "https://www.ft.com/content/bafde798-4860-45bb-9226-633a211e8508" },
-  { id: "8b09b3fc-bb61-4d9f-aac6-bcef9883fa16", title: "Donald Trump says US will hit Iran ‘hard’ as conflict reignites", date: "2026-08-31", time: "19:58", url: "https://www.ft.com/content/8b09b3fc-bb61-4d9f-aac6-bcef9883fa16" },
-  { id: "1bdafff4-3e78-4099-be47-755e6b643408", title: "Swiss lawmakers call for softer regulation in victory for UBS", date: "2026-08-31", time: "19:24", url: "https://www.ft.com/content/1bdafff4-3e78-4099-be47-755e6b643408" },
-  { id: "865e4bd5-f960-423c-a1bc-931074c74157", title: "KKR is the rare private equity firm that bets on itself", date: "2026-08-31", time: "18:38", url: "https://www.ft.com/content/865e4bd5-f960-423c-a1bc-931074c74157" },
-  { id: "744c448c-858e-4398-85dc-a66cecd02abb", title: "Trump says data centre critics ‘want to end up backwards and poor’", date: "2026-08-31", time: "18:19", url: "https://www.ft.com/content/744c448c-858e-4398-85dc-a66cecd02abb" },
-  { id: "4b2b79ad-f909-489b-a8d7-01a126f64bae", title: "Messi announces retirement from international football", date: "2026-08-31", time: "17:48", url: "https://www.ft.com/content/4b2b79ad-f909-489b-a8d7-01a126f64bae" },
-  { id: "eddde22c-aa99-468d-9fb0-36f3edd6e04f", title: "George Santos banned from prediction platform Kalshi for manipulation", date: "2026-08-31", time: "17:14", url: "https://www.ft.com/content/eddde22c-aa99-468d-9fb0-36f3edd6e04f" },
-  { id: "96691b37-1360-4f32-b267-ec8fc3a05370", title: "Israel’s de facto annexation of the West Bank", date: "2026-08-31", time: "16:57", url: "https://www.ft.com/content/96691b37-1360-4f32-b267-ec8fc3a05370" },
 ];
