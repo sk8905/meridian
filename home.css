@@ -1065,6 +1065,9 @@
     .tui .g-dot-mac{ background:var(--t-mac); } .tui .g-dot-crd{ background:var(--t-crd); }
     .tui .g-dot-hdg{ background:var(--t-hdg); } .tui .g-dot-lex{ background:var(--t-lex); }
     .tui .g-dot-amber{ background:var(--t-amber); }
+    /* Views is a content lens, not a topic desk — a hairline sets [All · Views]
+       apart from the topic desks that follow. */
+    .tui .g-feed-deskchip-sep{ border-right:1px solid var(--t-grid2); margin-right:2px; }
     .tui .g-feed-deskrow .g-feed-grpbtn{ flex:0 0 auto; align-self:center; margin:0 8px 0 6px; }
     .tui .g-feed-subrow{ flex:0 0 100%; width:100%; display:flex; align-items:stretch; gap:8px; }
     .tui .g-feed-subrow .g-feed-subchips{ border-top:0; background:transparent; }

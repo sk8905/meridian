@@ -18,10 +18,10 @@ const chips = await pg.evaluate(() => ({
   noSelect: !document.querySelector("#g-feed-desk-sel"),
   dots: [...document.querySelectorAll(".g-feed-deskchip")].filter((c) => c.querySelector(".g-feed-deskdot")).length,
 }));
-checkEq(chips.labels.join(" · "), "All · Macro · Equities · Fixed Income · Credit · Hedge · Legal · Newsletters",
-  "home feed desk chips: the ordered, labelled desks incl. Newsletters");
+checkEq(chips.labels.join(" · "), "All · Views · Macro · Equities · Fixed Income · Credit · Hedge · Legal · Newsletters",
+  "home feed chips: All + Views lenses, then the ordered topic desks incl. Newsletters");
 check(chips.noSelect, "the hidden <select> desk filter is gone (chips are the visible control)");
-check(chips.dots === 7, `seven desks carry a colour dot; All has none (${chips.dots})`);
+check(chips.dots === 7, `seven topic desks carry a colour dot; the All/Views lenses have none (${chips.dots})`);
 
 // Switching desks activates the chip (aria-selected + is-on) and re-renders.
 const switched = await pg.evaluate(() => {
@@ -43,6 +43,21 @@ const macroSubs = await pg.evaluate(() => {
   return document.querySelectorAll(".g-feed-chip[data-type]").length;
 });
 checkEq(macroSubs, 0, "Macro shows no All/News/Comm sub-chips");
+
+// F: the cross-desk "Views" commentary lane — serious analysis, not headlines.
+const views = await pg.evaluate(() => {
+  document.querySelector('.g-feed-deskchip[data-desk="views"]').click();
+  const chip = document.querySelector('.g-feed-deskchip[data-desk="views"]');   // re-query: the click rebuilds the chip row
+  return {
+    on: chip.classList.contains("is-on"),
+    sep: chip.classList.contains("g-feed-deskchip-sep"),
+    noOpen: !document.querySelector(".g-feed-openbtn"),
+    rows: document.querySelectorAll("#g-feed .g-feed-row").length,
+  };
+});
+check(views.on && views.sep, "Views is a content lens (activates; set apart from the topic desks by a separator)");
+check(views.noOpen, "Views shows no Open link (a cross-desk lens, not a routable desk)");
+check(views.rows > 0, `Views surfaces commentary/research items (${views.rows})`);
 
 // F3 — a real desk shows an "Open <desk>" control that routes to its full view.
 const openBtn = await pg.evaluate(() => {

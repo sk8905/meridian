@@ -396,7 +396,7 @@ function renderBrief(byDesk, counts, day) {
 // own desks; Equities and Fixed Income are keyword VIEWS over the macro stream
 // (equity-index/stock news vs bond/rates news) so the filter set lines up with the
 // dashboard without inventing a separate desk — items keep their real MAC label.
-const FEED_DESK_LABEL = { all: "All news", m: "Macro", eq: "Equities", fi: "Fixed Income", c: "Credit", hdg: "Hedge Funds", l: "Legal", n: "Newsletters" };
+const FEED_DESK_LABEL = { all: "All news", views: "Views", m: "Macro", eq: "Equities", fi: "Fixed Income", c: "Credit", hdg: "Hedge Funds", l: "Legal", n: "Newsletters" };
 const FEED_EQ_RE = /\b(stocks?|shares?|equit\w+|\bindex\b|indices|nasdaq|s&p ?500|s&p|dow(\s?jones)?|ftse|russell|nikkei|kospi|hang seng|\bdax\b|earnings|\bipo\b|semiconductors?|\bchips?\b|nvidia|mega-?cap|magnificent|rally|sell-?off|bull market|bear market)\b/i;
 const FEED_FI_RE = /\b(bonds?|yields?|treasur\w+|gilts?|bunds?|coupon|duration|yield curve|credit spread|\boas\b|sovereign debt|rate (cut|hike|rise|path|decision)|interest rates?|\bfed\b|\bfomc\b|bank of england|\bboe\b|\becb\b|\bmpc\b|monetary policy|high[- ]yield|investment[- ]grade)\b/i;
 
@@ -429,7 +429,7 @@ let _feedSrc = null;
 const _HOME_PREFS_KEY = "wire.home.v1";
 function _homePrefs() { try { const o = JSON.parse(localStorage.getItem(_HOME_PREFS_KEY) || "{}"); return (o && typeof o === "object") ? o : {}; } catch { return {}; } }
 function _saveHomePref(patch) { try { localStorage.setItem(_HOME_PREFS_KEY, JSON.stringify({ ..._homePrefs(), ...patch })); } catch { /* ignore */ } }
-const _DESK_KEYS = ["all", "m", "eq", "fi", "c", "hdg", "l", "n"];
+const _DESK_KEYS = ["all", "views", "m", "eq", "fi", "c", "hdg", "l", "n"];
 // ---- Manager wire (Home manager column) -----------------------------------
 // Watchlist-first, then most-recently-active covered managers. Each row leads to
 // the manager profile; the latest event + fundraising status are the preview.
@@ -686,6 +686,11 @@ function renderFeed() {
   // label). An item can match both a keyword view and macro; fine for a filter.
   byDesk.eq = byDesk.m.filter((x) => FEED_EQ_RE.test(x.title || ""));
   byDesk.fi = dedupe([...byDesk.fisrc, ...byDesk.m.filter((x) => FEED_FI_RE.test(x.title || ""))].sort(byDateDesc));
+  // "Views" — a cross-desk COMMENTARY lane: serious analysis, not headlines. Every
+  // strategist-commentary and research/white-paper item (tagged type:"comm" on the
+  // Macro and Credit streams) in one filter, so "what the smart people are saying"
+  // reads separately from general news.
+  byDesk.views = dedupe(all.filter((x) => x.type === "comm").sort(byDateDesc));
   const maxDay = all.reduce((m, x) => (day(x) > m ? day(x) : m), "");
   const cutoff = (() => { const d = new Date(maxDay + "T00:00:00"); if (isNaN(d)) return ""; d.setDate(d.getDate() - 1); return d.toISOString().slice(0, 10); })();
   const recentN = (list) => (cutoff ? list.filter((x) => day(x) >= cutoff).length : list.length);
@@ -775,14 +780,17 @@ function renderFeed() {
     // Credit / Hedge / Legal are their own desks (with full views one tap away via
     // "Open …"); Equities & Fixed Income are keyword slices of the macro stream, so
     // they share the macro colour. The row scrolls horizontally on narrow screens.
-    const DESK_OPTS = [["all", "All"], ["m", "Macro"], ["eq", "Equities"], ["fi", "Fixed Income"], ["c", "Credit"], ["hdg", "Hedge"], ["l", "Legal"], ["n", "Newsletters"]];
+    // "All" and "Views" are cross-desk CONTENT lenses (everything / commentary
+    // only); the rest are topic desks. A separator after Views divides the two.
+    const DESK_OPTS = [["all", "All"], ["views", "Views"], ["m", "Macro"], ["eq", "Equities"], ["fi", "Fixed Income"], ["c", "Credit"], ["hdg", "Hedge"], ["l", "Legal"], ["n", "Newsletters"]];
     const DESK_DOT = { m: "mac", eq: "mac", fi: "mac", c: "crd", hdg: "hdg", l: "lex", n: "amber" };   // pill-hue anchor
     const DESK_ROUTE = { m: "/v2/macro/", eq: "/v2/macro/", fi: "/v2/macro/", c: "/v2/credit/", hdg: "/v2/credit/", l: "/v2/legal/", n: "/v2/newsletters/" };
     const activeDesk = _feedSrc ? "all" : (DESK_OPTS.some(([k]) => k === _feedDesk) ? _feedDesk : "all");
     const chips = DESK_OPTS.map(([k, l]) => {
       const on = activeDesk === k;
       const dot = DESK_DOT[k] ? `<span class="g-feed-deskdot g-dot-${DESK_DOT[k]}" aria-hidden="true"></span>` : "";
-      return `<button type="button" class="g-feed-deskchip${on ? " is-on" : ""}" data-desk="${esc(k)}" role="tab" aria-selected="${on}">${dot}${esc(l)}</button>`;
+      const cls = "g-feed-deskchip" + (on ? " is-on" : "") + (k === "views" ? " g-feed-deskchip-sep" : "");
+      return `<button type="button" class="${cls}" data-desk="${esc(k)}" role="tab" aria-selected="${on}">${dot}${esc(l)}</button>`;
     }).join("");
     const grpBtn = `<button type="button" class="g-feed-nlbtn g-feed-grpbtn${_feedGroup ? " is-on" : ""}" aria-pressed="${_feedGroup}" aria-label="Group the wire by type (last 3 days)">`
       + `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg>`
