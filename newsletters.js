@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-yieldshock-20260901",
+    publication: "Bloomberg",
+    author: "Abhishek Shanker",
+    series: "Morning Briefing Europe",
+    title: "Yield shock",
+    date: "2026-09-01",
+    time: "07:38",
+    summary: "Global bond yields hit their highest since 2008 as oil fuels inflation fears, a former beer titan finds a new career in windshields, and Lionel Messi hangs up his Argentina jersey.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-01/global-bond-yields-surge-as-inflation-fears-rise",
+  },
+  {
     id: "nl-economist-worldinbrief-americasarmychiefresigns-20260901",
     publication: "The Economist",
     author: null,
@@ -464,27 +475,5 @@ export const NEWSLETTERS = [
     time: "22:01",
     summary: "Sticky US PCE inflation and a strong Q2 corporate-profits share of GDP set against Nvidia's post-earnings dip on thinner Q3 gross margin guidance.",
     url: "https://finance.yahoo.com/economy/policy/articles/trading-day-hot-inflation-cools-210808527.html",
-  },
-  {
-    id: "nl-bbg-moneystuff-predictthekpis-20260826",
-    publication: "Bloomberg",
-    author: "Matt Levine",
-    series: "Money Stuff",
-    title: "Money Stuff: Predict the KPIs",
-    date: "2026-08-26",
-    time: "19:02",
-    summary: "Whether KPI-linked binary options are securities, TWG's 'no victim here' defense of its insurers, and a wedding toast thanking Ken Griffin.",
-    url: "https://bloom.bg/46mwSdR",
-  },
-  {
-    id: "nl-lb-addleshawspepractice-20260826",
-    publication: "Legal Business",
-    author: null,
-    series: null,
-    title: "How Addleshaws is targeting large-cap PE without neglecting its roots",
-    date: "2026-08-26",
-    time: "15:50",
-    summary: "Partners in the firm's 'crown jewel' PE practice on relationship building, portfolio companies, and opportunities in the mid-market.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQSJy9Npek5aojgAj/wv",
   },
 ];

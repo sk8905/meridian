@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d3dc2303-6c8c-4681-b045-25005537f455", title: "Ikea cuts prices in Europe by €1.2bn to counter cost of living crisis", date: "2026-09-01", time: "08:00", url: "https://www.ft.com/content/d3dc2303-6c8c-4681-b045-25005537f455" },
+  { id: "28a1331a-3f3d-4010-94d3-e07ab58970d5", title: "Bodycote agrees £1.84bn takeover by US buyout firm Veritas", date: "2026-09-01", time: "07:48", url: "https://www.ft.com/content/28a1331a-3f3d-4010-94d3-e07ab58970d5" },
+  { id: "64511a2c-34e7-4f98-be24-9e8427b65027", title: "LSE prepares to launch tokenised stocks in digital markets push", date: "2026-09-01", time: "07:30", url: "https://www.ft.com/content/64511a2c-34e7-4f98-be24-9e8427b65027" },
   { id: "0d5b67bd-a07f-47da-9e9b-505df1b4ff33", title: "Partners Group replaces chief executive as pressure grows on flagship fund", date: "2026-09-01", time: "07:17", url: "https://www.ft.com/content/0d5b67bd-a07f-47da-9e9b-505df1b4ff33" },
   { id: "e6f5f97a-b199-444e-aaec-b8199359b08e", title: "Japan’s benchmark yield hits 3% as global bond sell-off deepens", date: "2026-09-01", time: "07:04", url: "https://www.ft.com/content/e6f5f97a-b199-444e-aaec-b8199359b08e" },
   { id: "9bb0d48d-9715-4e59-a45d-0324590763f9", title: "South Korea unveils record budget increase to cash in on AI boom", date: "2026-09-01", time: "06:33", url: "https://www.ft.com/content/9bb0d48d-9715-4e59-a45d-0324590763f9" },
@@ -57,10 +60,4 @@ export const FT_ITEMS = [
   { id: "96691b37-1360-4f32-b267-ec8fc3a05370", title: "Israel’s de facto annexation of the West Bank", date: "2026-08-31", time: "16:57", url: "https://www.ft.com/content/96691b37-1360-4f32-b267-ec8fc3a05370" },
   { id: "369558d0-357c-41e7-aa1e-dc1c1c07457d", title: "Don’t write off Russia’s defence industry yet", date: "2026-08-31", time: "16:53", url: "https://www.ft.com/content/369558d0-357c-41e7-aa1e-dc1c1c07457d" },
   { id: "46bf442d-175b-4347-8ef6-e3d80ae6ea63", title: "Trump’s tariff fix leaves US trade policy in permanent flux", date: "2026-08-31", time: "16:07", url: "https://www.ft.com/content/46bf442d-175b-4347-8ef6-e3d80ae6ea63" },
-  { id: "0f74b589-3fdf-447d-aa44-9570496bf7c7", title: "Whose fiscal problems would you prefer?", date: "2026-08-31", time: "15:17", url: "https://www.ft.com/content/0f74b589-3fdf-447d-aa44-9570496bf7c7" },
-  { id: "f16c178f-b07c-4b79-a8fc-2bf4c70d43e2", title: "Kemi Badenoch sacks Mel Stride as shadow chancellor", date: "2026-08-31", time: "15:00", url: "https://www.ft.com/content/f16c178f-b07c-4b79-a8fc-2bf4c70d43e2" },
-  { id: "88447c72-5510-4847-9908-cf630acfcc1f", title: "India’s GDP beats growth forecast at 7.8%", date: "2026-08-31", time: "14:21", url: "https://www.ft.com/content/88447c72-5510-4847-9908-cf630acfcc1f" },
-  { id: "4bb264f2-73f1-4c9b-a9d7-4d792294c281", title: "Sixty years of Notting Hill Carnival", date: "2026-08-31", time: "14:00", url: "https://www.ft.com/content/4bb264f2-73f1-4c9b-a9d7-4d792294c281" },
-  { id: "306358c2-3597-40dd-b2cd-534073c35fde", title: "Spain’s Sánchez accuses Russia and Israel of inflaming migrant crisis", date: "2026-08-31", time: "13:28", url: "https://www.ft.com/content/306358c2-3597-40dd-b2cd-534073c35fde" },
-  { id: "c0341d15-482e-41a6-abe1-ef3e5e9a0d0b", title: "Happy birthday to the First Index Investment Trust", date: "2026-08-31", time: "13:23", url: "https://www.ft.com/content/c0341d15-482e-41a6-abe1-ef3e5e9a0d0b" },
 ];
