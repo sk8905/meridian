@@ -881,7 +881,17 @@
     .g-mw-pane{ display:flex; flex-direction:column; }
     .g-mw-item{ border-bottom:1px solid var(--t-grid); padding:3px 0 6px; }
     .g-mw-hdr{ display:flex; align-items:baseline; gap:.3rem; padding:5px 12px 2px; }
-    .g-mw-star{ flex:0 0 auto; color:var(--t-accent); font-size:.8rem; }
+    /* One-tap follow ☆/★ in the wire header — reuses the shared .follow-btn but
+       re-tokenised to the terminal palette (the credit styles use --muted/--accent
+       which don't resolve on Home). */
+    .tui .g-mw-fav{ flex:0 0 auto; display:inline-flex; align-self:center; }
+    .tui .g-mw-fav .follow-btn{ color:var(--t-faint); font-size:.95rem; width:1.15em; min-width:1.15em; margin:0; }
+    .tui .g-mw-fav .follow-btn:hover{ color:var(--t-ink); }
+    .tui .g-mw-fav .follow-btn.on{ color:var(--t-accent); }
+    /* First-run watchlist coaching (F2). */
+    .tui .g-mw-coach{ padding:10px 12px 11px; border-bottom:1px solid var(--t-grid); background:var(--t-panel); }
+    .tui .g-mw-coach-h{ font-size:12.5px; font-weight:700; color:var(--t-ink); margin:0 0 3px; }
+    .tui .g-mw-coach-p{ margin:0; font-size:11.5px; line-height:1.5; color:var(--t-mut); }
     .g-mw-nm{ flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
       font-weight:700; font-size:14px; color:var(--t-ink); text-decoration:none; }
     .g-mw-nm:hover{ color:var(--t-accent); }

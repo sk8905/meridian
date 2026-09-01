@@ -76,13 +76,49 @@ const base = `http://localhost:${srv.port}`;
     return {
       groups,
       firstHref: first ? (first.querySelector(".g-mw-nm") || {}).getAttribute("href") : "",
-      firstStar: !!(first && first.querySelector(".g-mw-star")),
+      firstStar: !!(first && first.querySelector(".g-mw-fav .follow-btn.on")),
       firstName: first ? (first.querySelector(".g-mw-nm") || {}).textContent : "",
+      noCoach: !box.querySelector(".g-mw-coach"),
     };
   });
   check(r.groups[0] === "Watchlist", `Home: a "Watchlist" group leads once a manager is followed (${r.groups.join(", ")})`);
   check(/\/manager\/m7/.test(r.firstHref) && r.firstStar, `Home: the watchlisted manager is first + starred (${r.firstName})`);
+  check(r.noCoach, "Home: the watchlist-coaching banner is gone once you follow someone");
   checkErrs(errs, "manager wire watchlist");
+  await ctx.close();
+}
+
+// ---- F2: empty-watchlist coaching + one-tap follow from the wire ----
+{
+  const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/");
+  await pg.evaluate(() => { try { localStorage.removeItem("meridian.follows"); } catch {} });
+  await pg.reload({ waitUntil: "load" });
+  await pg.waitForSelector("#g-mgrwire .g-mw-item", { timeout: 8000 });
+  const before = await pg.evaluate(() => ({
+    coach: !!document.querySelector("#g-mgrwire .g-mw-coach"),
+    favButtons: document.querySelectorAll("#g-mgrwire .g-mw-fav .follow-btn").length,
+    anyOn: document.querySelectorAll("#g-mgrwire .g-mw-fav .follow-btn.on").length,
+  }));
+  check(before.coach, "Home: with an empty watchlist, a 'Build your watchlist' coaching banner shows");
+  check(before.favButtons > 0 && before.anyOn === 0, `Home: every manager row has a ☆ follow control, none yet followed (${before.favButtons})`);
+
+  // Tap the first ☆ → the manager is followed (persisted) and restacks under Watchlist.
+  const after = await pg.evaluate(() => {
+    const btn = document.querySelector("#g-mgrwire .g-mw-fav .follow-btn");
+    btn.click();
+    let follows = {}; try { follows = JSON.parse(localStorage.getItem("meridian.follows") || "{}"); } catch {}
+    return {
+      followed: Array.isArray(follows.manager) && follows.manager.length === 1,
+      leadGroup: (document.querySelector("#g-mgrwire .g-feed-dayhdr") || {}).textContent?.trim(),
+      coachGone: !document.querySelector("#g-mgrwire .g-mw-coach"),
+      firstOn: !!document.querySelector("#g-mgrwire .g-mw-item .g-mw-fav .follow-btn.on"),
+    };
+  });
+  check(after.followed, "Home: tapping ☆ writes the manager to the watchlist (meridian.follows)");
+  checkEq(after.leadGroup, "Watchlist", "Home: the followed manager restacks under a 'Watchlist' heading");
+  check(after.coachGone, "Home: the coaching banner disappears after the first follow");
+  check(after.firstOn, "Home: the followed manager now shows a filled ★");
+  checkErrs(errs, "manager wire follow");
   await ctx.close();
 }
 

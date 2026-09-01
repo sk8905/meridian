@@ -4,6 +4,10 @@
 
 import { deals, intel, managers, funds, research, HEDGE_INTEL, LAST_CHECKED, LAST_CHECKED_TIME } from "/credit/js/data.js";
 import { managerWire, CAT_LABEL } from "/v2/js/manager-signals.js?v=v2-2";
+// Watchlist read-layer + follow button (shared with the Credit view so the ☆/★
+// and the meridian.follows store are one implementation). The write here mirrors
+// the credit app's localStorage persist; its cloud sync reconciles on next visit.
+import { follows, followList, followBtn } from "/credit/js/shared.js?v=20260730-2";
 import { reportRefresh } from "/v2/js/status.js?v=v2-3";
 import { items, cases, restructurings, firmById } from "/legal/js/data.js";
 import { NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK, EARNINGS } from "/macro/js/content.js";
@@ -457,11 +461,13 @@ function renderManagerWire() {
 
   const item = (r) => {
     const href = `/credit/#/manager/${encodeURIComponent(r.id)}`;
-    const star = r.watched ? '<span class="g-mw-star" aria-label="Watchlisted">★</span>' : "";
+    // One-tap follow ☆/★ (F2) — builds the watchlist straight from the wire, using
+    // the same button/store as the Credit view.
+    const fav = `<span class="g-mw-fav">${followBtn("manager", r.id)}</span>`;
     const nu = (r.watched && r.newCount) ? `<span class="g-mw-new">+${r.newCount} new</span>` : "";
     const team = r.hasTeamChange ? '<span class="g-mw-team" title="Recent senior hire/departure">⇄</span>' : "";
     const fund = r.inMarket ? `<span class="g-mw-fund" title="Funds in market">◆ ${esc(_fundStr(r.fundsInMarket[0]))}${r.inMarket > 1 ? ` +${r.inMarket - 1}` : ""}</span>` : "";
-    const hdr = `<div class="g-mw-hdr">${star}<a class="g-mw-nm" href="${esc(href)}">${esc(r.name)}</a>${nu}${team}${fund}</div>`;
+    const hdr = `<div class="g-mw-hdr">${fav}<a class="g-mw-nm" href="${esc(href)}">${esc(r.name)}</a>${nu}${team}${fund}</div>`;
 
     const trend = r.trend === "up" ? '<span class="g-mw-up">▲</span>' : r.trend === "down" ? '<span class="g-mw-dn">▼</span>' : '<span class="g-mw-fl">·</span>';
     const mix = _mixStr(r.mix), aum = _aumAmt(r.aumSym, r.aum), strat = (r.strategies || []).slice(0, 2).map(esc).join(" · ");
@@ -485,7 +491,13 @@ function renderManagerWire() {
   };
 
   const watched = rows.filter((r) => r.watched), active = rows.filter((r) => !r.watched);
-  let html = "";
+  // First-run coaching (F2): with an empty watchlist, tell the user what following
+  // does and how to start — the active list below doubles as the starter set.
+  const coach = _mgrFollows().size === 0
+    ? `<div class="g-mw-coach"><div class="g-mw-coach-h">Build your watchlist</div>`
+      + `<p class="g-mw-coach-p">Tap ☆ to follow a manager or hedge fund. Your watchlist leads this wire and flags new activity since you last looked — the most active names are shown below to start you off.</p></div>`
+    : "";
+  let html = coach;
   if (watched.length) html += `<div class="g-feed-dayhdr">Watchlist</div>` + watched.map(item).join("");
   if (active.length) html += `<div class="g-feed-dayhdr">${watched.length ? "Most active" : "Active managers"}</div>` + active.map(item).join("");
   box.innerHTML = html;
@@ -496,6 +508,21 @@ function renderManagerWire() {
   if (!box.dataset.wired) {
     box.dataset.wired = "1";
     box.addEventListener("click", (e) => {
+      // One-tap follow ☆/★: mutate the shared follows store + persist to
+      // localStorage (mirrors the credit app's persistLocal; cloud sync reconciles
+      // when the Credit view next loads), then re-render so the row restacks.
+      const fav = e.target.closest("[data-follow]");
+      if (fav) {
+        e.preventDefault(); e.stopPropagation();
+        const [type, id] = String(fav.dataset.follow || "").split(":");
+        if (type && id) {
+          const a = followList(type); const i = a.indexOf(id);
+          if (i >= 0) a.splice(i, 1); else a.push(id);
+          try { localStorage.setItem("meridian.follows", JSON.stringify(follows)); } catch { /* ignore */ }
+          renderManagerWire();
+        }
+        return;
+      }
       const btn = e.target.closest(".g-mw-exp"); if (!btn) return;
       e.preventDefault();
       const evbox = btn.closest(".g-mw-item") && btn.closest(".g-mw-item").querySelector(".g-mw-events");
