@@ -13,7 +13,7 @@ export const UPDATED = "1 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-01",
-  lastCheckedTime: "12:45 BST",
+  lastCheckedTime: "17:23 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -843,17 +843,17 @@ export const NEWS = {
   updated: "2026-09-01",
   us: [
     { title: "Gilts Lead Global Bond Selloff as Traders Play Catch Up", source: "Bloomberg", date: "2026-09-01", time: "12:45", url: "https://www.bloomberg.com/news/articles/2026-09-01/gilts-lead-global-bond-selloff-as-traders-play-catch-up" },
-    { title: "Bond Slide Grips Emerging Markets as Fed Risk Drags Sentiment", source: "Bloomberg", date: "2026-09-01", time: "12:45", url: "https://www.bloomberg.com/news/articles/2026-09-01/bond-slide-grips-emerging-markets-as-fed-risk-drags-sentiment" },
+    { title: "Manufacturing PMI® at 54.6%; August 2026 ISM® Manufacturing PMI® Report", source: "PR Newswire (ISM)", date: "2026-09-01", time: "17:16", url: "https://www.prnewswire.com/news-releases/manufacturing-pmi-at-54-6-august-2026-ism-manufacturing-pmi-report-302865127.html" },
     { title: "Stock Market Today (Sept. 1, 2026): Dow futures slide on renewed U.S.-Iran conflict", source: "TheStreet", date: "2026-09-01", time: "12:45", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-1-2026" },
-    { title: "Gas topped $4 daily in August for the first time. New U.S. strikes on Iran are sending oil prices even higher again", source: "Fortune", date: "2026-08-31", time: "23:00", url: "https://fortune.com/2026/08/31/gas-prices-oil-us-iran-strikes-strait-hormuz/" },
-    { title: "Fed Chairman Warsh expresses concern about inflation, advocates for 'quieter' central bank", source: "CNBC", date: "2026-08-28", time: "21:16", url: "https://www.cnbc.com/2026/08/28/kevin-warsh-jackson-hole-federal-reserve-inflation.html" },
+    { title: "Crude, Yields Flex Muscle, Bruising Stocks Early", source: "Charles Schwab", date: "2026-09-01", time: "17:16", url: "https://www.schwab.com/learn/story/stock-market-update-open" },
+    { title: "Bond Slide Grips Emerging Markets as Fed Risk Drags Sentiment", source: "Bloomberg", date: "2026-09-01", time: "12:45", url: "https://www.bloomberg.com/news/articles/2026-09-01/bond-slide-grips-emerging-markets-as-fed-risk-drags-sentiment" },
   ],
   uk: [
     { title: "FTSE 100 Live: Gilts Lead Bond Selloff on Inflation Worries", source: "Bloomberg", date: "2026-09-01", time: "12:45", url: "https://www.bloomberg.com/news/live-blog/2026-09-01/ftse-100-live-pound-bonds-gilts-gbp-trump-iran-war-oil-prices-hormuz-house-prices-what-s-moving-uk-markets-right-now-markets-today-mti8sy4y" },
     { title: "UK Manufacturing Momentum Eases as August S&P Global PMI Slips to 51.7", source: "FX.co", date: "2026-09-01", time: "12:45", url: "https://www.fx.co/en/forex-news/3132079" },
     { title: "House price growth remains subdued at 1.6% in August, Nationwide", source: "The Intermediary", date: "2026-09-01", time: "07:00", url: "https://theintermediary.co.uk/2026/09/house-price-growth-remains-subdued-at-1-6-in-august-nationwide/" },
-    { title: "UK Energy Price Cap Will Rise By 4% From October, Ofgem Said", source: "Bloomberg", date: "2026-08-26", time: "15:00", url: "https://www.bloomberg.com/news/articles/2026-08-26/uk-households-face-highest-winter-bills-since-january-2024" },
-    { title: "UK Inflation Rises to Four-Month High as Energy Bills Jump 13% in July", source: "Bloomberg", date: "2026-08-19", time: "07:00", url: "https://www.bloomberg.com/news/articles/2026-08-19/uk-inflation-climbs-to-four-month-high-as-energy-bills-rise" },
+    { title: "Pound To Dollar Price Forecast: GBP Holds 1.35 As Fed Hike Debate Intensifies", source: "Exchange Rates UK", date: "2026-09-01", time: "17:16", url: "https://www.exchangerates.org.uk/news/47055/2026-09-01-pound-to-dollar-price-forecast-gbp-holds-1-35-as-fed-hike-debate-intensifies.html" },
+    { title: "UK Stock Market Today (September 1): Why is the UK Stock Market Down Today? FTSE 100 Drops Below 10,800 as Oil Crosses $91", source: "Sunday Guardian Live", date: "2026-09-01", time: "17:16", url: "https://sundayguardianlive.com/business/uk-stock-market-today-september-1-why-is-the-uk-stock-market-down-today-ftse-100-drops-below-10800-as-oil-crosses-dollar-91-check-key-drivers-top-gainers-losers-274697/" },
   ],
 };
 
@@ -867,6 +867,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-01",
   items: [
+    {"title":"Manufacturing PMI® at 54.6%; August 2026 ISM® Manufacturing PMI® Report","source":"PR Newswire (ISM)","date":"2026-09-01","time":"17:16","url":"https://www.prnewswire.com/news-releases/manufacturing-pmi-at-54-6-august-2026-ism-manufacturing-pmi-report-302865127.html","blurb":"August's ISM Manufacturing PMI registered 54.6%, a point below July's 55.6%, marking an eighth straight month of factory-sector expansion even as new orders growth slowed.","author":null},
+    {"title":"Crude, Yields Flex Muscle, Bruising Stocks Early","source":"Charles Schwab","date":"2026-09-01","time":"17:16","url":"https://www.schwab.com/learn/story/stock-market-update-open","blurb":"US stocks opened lower as oil and Treasury yields extended their advance on the renewed US-Iran conflict, with the S&P 500 and Nasdaq both pulling back from last week's highs before paring some of the early losses.","author":null},
     {"title":"Gilts Lead Global Bond Selloff as Traders Play Catch Up","source":"Bloomberg","date":"2026-09-01","time":"12:45","url":"https://www.bloomberg.com/news/articles/2026-09-01/gilts-lead-global-bond-selloff-as-traders-play-catch-up","blurb":"UK, Japanese and other global bond yields led a fresh selloff as traders returning from holidays caught up with a hawkish repricing of Fed and BoE rate expectations, pushing the 10-year gilt yield up 11bp to 5.25% and the 30-year to 5.89%, its highest since 1998.","author":null},
     {"title":"FTSE 100 Live: Gilts Lead Bond Selloff on Inflation Worries","source":"Bloomberg","date":"2026-09-01","time":"12:45","url":"https://www.bloomberg.com/news/live-blog/2026-09-01/ftse-100-live-pound-bonds-gilts-gbp-trump-iran-war-oil-prices-hormuz-house-prices-what-s-moving-uk-markets-right-now-markets-today-mti8sy4y","blurb":"A live UK markets blog tracked gilts leading the global bond selloff alongside sterling, oil and house-price moves as inflation worries dominated trading.","author":null},
     {"title":"Bond Slide Grips Emerging Markets as Fed Risk Drags Sentiment","source":"Bloomberg","date":"2026-09-01","time":"12:45","url":"https://www.bloomberg.com/news/articles/2026-09-01/bond-slide-grips-emerging-markets-as-fed-risk-drags-sentiment","blurb":"Emerging-market bonds sold off in sympathy with developed-market debt as a hawkish repricing of Fed policy expectations weighed on sentiment across the asset class.","author":null},
@@ -905,8 +907,6 @@ export const ARTICLES = {
     {"title":"Risk of a new age of financial repression is rising","source":"Financial Times","date":"2026-08-29","time":"05:00","url":"https://www.ft.com/content/ba4b940e-4a44-473b-9846-eaba9434b65f","blurb":"As sovereign debt loads climb, governments are edging back toward financial-repression policies — holding rates below inflation to erode public debt in real terms — reversing decades of financial liberalisation.","author":null},
     {"title":"US campaign to isolate Iran closes in on Dubai","source":"Financial Times","date":"2026-08-29","time":"05:00","url":"https://www.ft.com/content/930386eb-b5d4-4a62-a258-f7ab46401655","blurb":"The Treasury's 'economic D-Day' sanctions push to isolate Iran is increasingly targeting Dubai-based banks and trade networks accused of serving as financial conduits for Tehran, following fresh sanctions on Banque Misr's UAE branches.","author":null},
     {"title":"Analysis: Kevin Warsh sharpens inflation warning at Jackson Hole, signaling possible rate hike","source":"CNBC","date":"2026-08-28","time":"21:16","url":"https://www.cnbc.com/2026/08/28/kevin-warsh-jackson-hole-fed-inflation-rate-hike.html","blurb":"Warsh used his Jackson Hole debut to answer critics of his muddled July press conference, saying this summer's cooler CPI/PCE readings 'do not tell me that underlying trends have meaningfully improved' and that the Fed still has 'work to do' on inflation."},
-    {"title":"Gold drops as Fed's Warsh comments lift rate hike bets","source":"CNBC","date":"2026-08-28","time":"21:11","url":"https://www.cnbc.com/2026/08/28/gold-slips-as-fed-chief-warshs-jackson-hole-speech-looms.html","blurb":"Gold futures slid roughly 0.8% to $4,627.40 and spot gold pared its gain after Warsh's hawkish Jackson Hole remarks stoked rate-hike bets, boosting Treasury yields and the dollar and interrupting bullion's best monthly run this century.","author":null},
-    {"title":"Stock market today: Dow, S&P 500, Nasdaq end week on down note as rate-hike bets jump","source":"Yahoo Finance","date":"2026-08-28","time":"21:16","url":"https://finance.yahoo.com/markets/live/stock-market-today-friday-august-28-dow-sp-500-nasdaq-dip-fed-warsh-jackson-hole-speech-081514091.html","blurb":"US stocks closed lower Friday (S&P 500 -0.25% to 7,711.76, Nasdaq -0.52% to 26,402.42, Dow -0.02% to 53,559.99) as traders digested Warsh's hawkish keynote, even as all three indices finished the week higher; 30-day fed-funds futures priced a 57.5% chance of a September hike, up from 35.5% the day before.","author":null},
   ],
 };
 
@@ -917,7 +917,6 @@ export const ARTICLES = {
 // the four-times-daily routine keeps this rolling forward (dropping past items and
 // adding newly-confirmed dates). Dates verified from official release calendars.
 export const RELEASES = [
-  { date: "2026-09-01", country: "US", title: "ISM Manufacturing PMI (August)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
   { date: "2026-09-03", country: "US", title: "ISM Services PMI (August)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
   { date: "2026-09-04", country: "US", title: "Jobs report / Nonfarm payrolls (August)", url: "https://www.bls.gov/schedule/news_release/empsit.htm" },
   { date: "2026-09-10", country: "US", title: "PPI (August)", url: "https://www.bls.gov/schedule/news_release/ppi.htm" },
