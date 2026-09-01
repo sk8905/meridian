@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b0bde505-2093-4d72-9f20-b1db23e08261", title: "Warsh clears up his own mess, but US credibility is still stretched", date: "2026-09-01", time: "12:30", url: "https://www.ft.com/content/b0bde505-2093-4d72-9f20-b1db23e08261" },
+  { id: "61c9b686-2db7-4f24-80a0-8b75a144c7b6", title: "Keir Starmer to stand down as MP", date: "2026-09-01", time: "12:27", url: "https://www.ft.com/content/61c9b686-2db7-4f24-80a0-8b75a144c7b6" },
+  { id: "99a48c12-cb13-47dd-8a31-fff9a157d7ea", title: "ECB to raise rates again amid higher Eurozone inflation", date: "2026-09-01", time: "12:23", url: "https://www.ft.com/content/99a48c12-cb13-47dd-8a31-fff9a157d7ea" },
   { id: "cb0c4fc2-29d6-4465-83a1-7d26fbadff3e", title: "Why Andy Burnham should say: Jackdaw yes, Rosebank no", date: "2026-09-01", time: "12:14", url: "https://www.ft.com/content/cb0c4fc2-29d6-4465-83a1-7d26fbadff3e" },
   { id: "fa63c508-c202-4327-b24c-fe0ecc1bd684", title: "Thames Water should go into administration, says senior Tory MP", date: "2026-09-01", time: "12:14", url: "https://www.ft.com/content/fa63c508-c202-4327-b24c-fe0ecc1bd684" },
   { id: "66df7f0e-ce6a-4619-8044-fa23423db3e7", title: "Shein’s unhappy IPO", date: "2026-09-01", time: "12:00", url: "https://www.ft.com/content/66df7f0e-ce6a-4619-8044-fa23423db3e7" },
@@ -55,9 +58,6 @@ export const FT_ITEMS = [
   { id: "e3a8670f-eaf8-4930-ad34-14a2ee071fe9", title: "British banks crack down on Covid loan defaulters after government pressure", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/e3a8670f-eaf8-4930-ad34-14a2ee071fe9" },
   { id: "40ea5643-865a-4443-b591-3ecd0458078b", title: "Illegal streaming costs UK £1.4bn a year, broadcasters and sports bodies warn", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/40ea5643-865a-4443-b591-3ecd0458078b" },
   { id: "5f6b0dc5-04ac-404d-8c84-dce07a11ed74", title: "How Detroit landmark Michigan Central won back its lustre", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/5f6b0dc5-04ac-404d-8c84-dce07a11ed74" },
-  { id: "e9b9a8fa-bbce-44a0-adc4-c1f1cc9f2113", title: "It was billed as effortless London luxury. Then tenants found out the rules", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/e9b9a8fa-bbce-44a0-adc4-c1f1cc9f2113" },
-  { id: "f9f240f9-4077-421f-b320-6dc895d65fd1", title: "Revolut’s mission to dominate banking", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/f9f240f9-4077-421f-b320-6dc895d65fd1" },
-  { id: "241ca2e1-7135-4505-84db-dfa39bde5a1d", title: "How Aston Martin’s latest financing sparked a bondholder revolt", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/241ca2e1-7135-4505-84db-dfa39bde5a1d" },
   { id: "fc2b67d2-f272-40c7-8d75-802cbc251f26", title: "The Ukrainian chicken baron that EU farmers love to hate", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/fc2b67d2-f272-40c7-8d75-802cbc251f26" },
   { id: "5b1762e6-a3b9-4853-8547-1181355970b5", title: "Third of FTSE 350 companies pay less for audits", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/5b1762e6-a3b9-4853-8547-1181355970b5" },
 ];
