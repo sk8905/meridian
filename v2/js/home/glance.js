@@ -413,7 +413,9 @@ let _feedGroup = false;
 // Secondary type chips per domain: [labelKey (matches item.type||item.desk), text].
 // Domains without sub-types (Newsletters, myFT) get no second row.
 const TYPE_CHIPS = {
-  m:   [["all", "All"], ["m", "News"], ["comm", "Comm"]],
+  // Macro's All/News/Comm sub-row was removed — the news-vs-commentary split is
+  // better served by a dedicated filter (see the Commentary lane) than a
+  // Macro-only three-chip toggle with a redundant "All".
   c:   [["all", "All"], ["deal", "Deals"], ["fund", "Raises"], ["comm", "Research"]],
   hdg: [["all", "All"], ["news", "News"], ["fund", "Raises"]],
   l:   [["all", "All"], ["alert", "Alerts"], ["case", "Cases"]],

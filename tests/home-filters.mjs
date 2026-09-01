@@ -36,6 +36,14 @@ const switched = await pg.evaluate(() => {
 });
 check(Object.values(switched).every(Boolean), `every desk chip activates on click (${Object.entries(switched).map(([k, v]) => k + (v ? "✓" : "✗")).join(" ")})`);
 
+// Macro no longer carries the All/News/Comm sub-chip row (removed in favour of a
+// dedicated commentary filter).
+const macroSubs = await pg.evaluate(() => {
+  document.querySelector('.g-feed-deskchip[data-desk="m"]').click();
+  return document.querySelectorAll(".g-feed-chip[data-type]").length;
+});
+checkEq(macroSubs, 0, "Macro shows no All/News/Comm sub-chips");
+
 // F3 — a real desk shows an "Open <desk>" control that routes to its full view.
 const openBtn = await pg.evaluate(() => {
   document.querySelector('.g-feed-deskchip[data-desk="c"]').click();
