@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-amazonchargedthefirstprice-20260901",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: Amazon Charged the First Price",
+    date: "2026-09-01",
+    time: "19:14",
+    summary: "Auctions, meme merger, gambling.",
+    url: "https://bloom.bg/4qLTG02",
+  },
+  {
     id: "nl-bbg-thebrink-cubadoesntpayitslawyers-20260901",
     publication: "Bloomberg",
     author: "Irene García Pérez",
@@ -464,27 +475,5 @@ export const NEWSLETTERS = [
     time: "11:39",
     summary: "A French call to cancel public debt points to a wider 'burn the bonds' drift toward inflating away sovereign debt.",
     url: "https://www.bloomberg.com/news/articles/2026-08-27/the-burn-the-bonds-stage-of-the-debt-cycle-is-here",
-  },
-  {
-    id: "nl-lb-kkrantitrustpenalty-20260827",
-    publication: "Legal Business",
-    author: null,
-    series: null,
-    title: "Quinn and Cleary advise as KKR agrees record $250m antitrust penalty",
-    date: "2026-08-27",
-    time: "11:05",
-    summary: "PE giant says penalty will be 'fully reimbursed by outside law firms'.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQTwN8EdrOcJbzvH2/wv",
-  },
-  {
-    id: "nl-bbg-econdaily-gowesteu-20260827",
-    publication: "Bloomberg",
-    author: "Ott Ummelas",
-    series: "Economics Daily",
-    title: "Economics Daily: Go west, EU?",
-    date: "2026-08-27",
-    time: "11:00",
-    summary: "The bloc faces a test of sentiment over expansion prospects in the middle of the Atlantic.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-27/eu-faces-expansion-question-in-iceland-as-carney-looks-on",
   },
 ];
