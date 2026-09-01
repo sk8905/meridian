@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "bbbce2e1-6542-4806-9c26-d35e8c3b702e", title: "Saudi and South Korean oil tankers hit in Strait of Hormuz", date: "2026-09-01", time: "13:06", url: "https://www.ft.com/content/bbbce2e1-6542-4806-9c26-d35e8c3b702e" },
+  { id: "fa69076c-ca25-4d28-9815-1b1105b51c9c", title: "Far-right Restore Britain receives £500,000 from tech entrepreneur", date: "2026-09-01", time: "13:04", url: "https://www.ft.com/content/fa69076c-ca25-4d28-9815-1b1105b51c9c" },
   { id: "b0bde505-2093-4d72-9f20-b1db23e08261", title: "Warsh clears up his own mess, but US credibility is still stretched", date: "2026-09-01", time: "12:30", url: "https://www.ft.com/content/b0bde505-2093-4d72-9f20-b1db23e08261" },
   { id: "61c9b686-2db7-4f24-80a0-8b75a144c7b6", title: "Keir Starmer to stand down as MP", date: "2026-09-01", time: "12:27", url: "https://www.ft.com/content/61c9b686-2db7-4f24-80a0-8b75a144c7b6" },
   { id: "99a48c12-cb13-47dd-8a31-fff9a157d7ea", title: "ECB to raise rates again amid higher Eurozone inflation", date: "2026-09-01", time: "12:23", url: "https://www.ft.com/content/99a48c12-cb13-47dd-8a31-fff9a157d7ea" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "e3a8670f-eaf8-4930-ad34-14a2ee071fe9", title: "British banks crack down on Covid loan defaulters after government pressure", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/e3a8670f-eaf8-4930-ad34-14a2ee071fe9" },
   { id: "40ea5643-865a-4443-b591-3ecd0458078b", title: "Illegal streaming costs UK £1.4bn a year, broadcasters and sports bodies warn", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/40ea5643-865a-4443-b591-3ecd0458078b" },
   { id: "5f6b0dc5-04ac-404d-8c84-dce07a11ed74", title: "How Detroit landmark Michigan Central won back its lustre", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/5f6b0dc5-04ac-404d-8c84-dce07a11ed74" },
-  { id: "fc2b67d2-f272-40c7-8d75-802cbc251f26", title: "The Ukrainian chicken baron that EU farmers love to hate", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/fc2b67d2-f272-40c7-8d75-802cbc251f26" },
-  { id: "5b1762e6-a3b9-4853-8547-1181355970b5", title: "Third of FTSE 350 companies pay less for audits", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/5b1762e6-a3b9-4853-8547-1181355970b5" },
 ];
