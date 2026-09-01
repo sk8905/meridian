@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-bobbyjainhedgefund-20260901",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    series: null,
+    title: "Bobby Jain’s Hedge Fund Made $1.8 Billion as Millennium Cash Rolls In",
+    date: "2026-09-01",
+    time: "10:07",
+    summary: "Bobby Jain's multistrategy hedge fund generated about $1.8 billion in trading profit before he begins managing money exclusively for Millennium Management.",
+    url: "https://www.bloomberg.com/news/articles/2026-09-01/jain-s-hedge-fund-made-1-8-billion-as-millennium-cash-rolls-in",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-yieldshock-20260901",
     publication: "Bloomberg",
     author: "Abhishek Shanker",
