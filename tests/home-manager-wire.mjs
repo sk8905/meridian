@@ -35,6 +35,8 @@ const base = `http://localhost:${srv.port}`;
       fundLines: box.querySelectorAll(".g-mw-hdr .g-mw-fund").length,
       greenRight,
       evSize: evT ? getComputedStyle(evT).fontSize : "", feedSize: feedT ? getComputedStyle(feedT).fontSize : "",
+      // Story rows carry a hairline divider between them, like the news wire.
+      evDivided: evT ? parseFloat(getComputedStyle(evT.closest(".g-mw-ev")).borderBottomWidth) >= 1 : false,
     };
   });
   check(r.side3, "Home: manager wire lives in its own column (.g-side3)");
@@ -48,6 +50,7 @@ const base = `http://localhost:${srv.port}`;
   check(r.aum > 0 && r.mix > 0, `Home: AUM + signal-mix chips present (aum ${r.aum}, mix ${r.mix})`);
   check(r.stories >= r.items, `Home: news stories are listed together beneath each manager (${r.stories})`);
   checkEq(r.evSize, r.feedSize, "Home: story headline text size matches the news feed");
+  check(r.evDivided, "Home: manager story rows are divided by a hairline, like the news wire");
   check(r.fundLines > 0 && r.greenRight === true, "Home: fundraising (green) sits to the right of the manager name");
 
   // Expand a manager → its remaining stories become visible.

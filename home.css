@@ -924,7 +924,7 @@
     /* Story rows — all together beneath the activity line, sized like the feed. */
     .g-mw-stories{ display:flex; flex-direction:column; }
     .g-mw-ev{ display:grid; grid-template-columns:42px 30px minmax(0,1fr) minmax(0,66px); gap:8px; align-items:baseline;
-      text-decoration:none; padding:4px 12px; }
+      text-decoration:none; padding:4px 12px; border-bottom:1px solid var(--t-grid); }
     .g-mw-ev:hover{ background:var(--t-panel2); }
     .g-mw-ev-d{ font-family:var(--t-mono); font-size:11px; color:var(--t-mut); font-variant-numeric:tabular-nums; }
     .g-mw-ev-c{ font-family:var(--t-mono); font-size:9.5px; font-weight:700; color:var(--t-crd); letter-spacing:.04em; }
