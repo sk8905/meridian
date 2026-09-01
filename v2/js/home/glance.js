@@ -427,7 +427,7 @@ let _feedSrc = null;
 const _HOME_PREFS_KEY = "wire.home.v1";
 function _homePrefs() { try { const o = JSON.parse(localStorage.getItem(_HOME_PREFS_KEY) || "{}"); return (o && typeof o === "object") ? o : {}; } catch { return {}; } }
 function _saveHomePref(patch) { try { localStorage.setItem(_HOME_PREFS_KEY, JSON.stringify({ ..._homePrefs(), ...patch })); } catch { /* ignore */ } }
-const _DESK_KEYS = ["all", "m", "eq", "fi", "c", "hdg", "l"];
+const _DESK_KEYS = ["all", "m", "eq", "fi", "c", "hdg", "l", "n"];
 // ---- Manager wire (Home manager column) -----------------------------------
 // Watchlist-first, then most-recently-active covered managers. Each row leads to
 // the manager profile; the latest event + fundraising status are the preview.
@@ -773,9 +773,9 @@ function renderFeed() {
     // Credit / Hedge / Legal are their own desks (with full views one tap away via
     // "Open …"); Equities & Fixed Income are keyword slices of the macro stream, so
     // they share the macro colour. The row scrolls horizontally on narrow screens.
-    const DESK_OPTS = [["all", "All"], ["m", "Macro"], ["eq", "Equities"], ["fi", "Fixed Income"], ["c", "Credit"], ["hdg", "Hedge"], ["l", "Legal"]];
-    const DESK_DOT = { m: "mac", eq: "mac", fi: "mac", c: "crd", hdg: "hdg", l: "lex" };   // pill-hue anchor
-    const DESK_ROUTE = { m: "/v2/macro/", eq: "/v2/macro/", fi: "/v2/macro/", c: "/v2/credit/", hdg: "/v2/credit/", l: "/v2/legal/" };
+    const DESK_OPTS = [["all", "All"], ["m", "Macro"], ["eq", "Equities"], ["fi", "Fixed Income"], ["c", "Credit"], ["hdg", "Hedge"], ["l", "Legal"], ["n", "Newsletters"]];
+    const DESK_DOT = { m: "mac", eq: "mac", fi: "mac", c: "crd", hdg: "hdg", l: "lex", n: "amber" };   // pill-hue anchor
+    const DESK_ROUTE = { m: "/v2/macro/", eq: "/v2/macro/", fi: "/v2/macro/", c: "/v2/credit/", hdg: "/v2/credit/", l: "/v2/legal/", n: "/v2/newsletters/" };
     const activeDesk = _feedSrc ? "all" : (DESK_OPTS.some(([k]) => k === _feedDesk) ? _feedDesk : "all");
     const chips = DESK_OPTS.map(([k, l]) => {
       const on = activeDesk === k;

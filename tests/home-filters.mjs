@@ -18,15 +18,15 @@ const chips = await pg.evaluate(() => ({
   noSelect: !document.querySelector("#g-feed-desk-sel"),
   dots: [...document.querySelectorAll(".g-feed-deskchip")].filter((c) => c.querySelector(".g-feed-deskdot")).length,
 }));
-checkEq(chips.labels.join(" · "), "All · Macro · Equities · Fixed Income · Credit · Hedge · Legal",
-  "home feed desk chips: the ordered, labelled desks (mirrors the Dashboard)");
+checkEq(chips.labels.join(" · "), "All · Macro · Equities · Fixed Income · Credit · Hedge · Legal · Newsletters",
+  "home feed desk chips: the ordered, labelled desks incl. Newsletters");
 check(chips.noSelect, "the hidden <select> desk filter is gone (chips are the visible control)");
-check(chips.dots === 6, `six desks carry a colour dot; All has none (${chips.dots})`);
+check(chips.dots === 7, `seven desks carry a colour dot; All has none (${chips.dots})`);
 
 // Switching desks activates the chip (aria-selected + is-on) and re-renders.
 const switched = await pg.evaluate(() => {
   const out = {};
-  for (const k of ["eq", "fi", "hdg", "m", "c", "l"]) {
+  for (const k of ["eq", "fi", "hdg", "m", "c", "l", "n"]) {
     const chip = document.querySelector(`.g-feed-deskchip[data-desk="${k}"]`);
     chip.click();
     const now = document.querySelector(`.g-feed-deskchip[data-desk="${k}"]`);
@@ -44,6 +44,18 @@ const openBtn = await pg.evaluate(() => {
 });
 check(openBtn.present, "Credit desk selected: an 'Open …' link into the full desk view appears");
 checkEq(openBtn.route, "/v2/credit/", "the Open link routes to the Credit desk view");
+
+// The Newsletters filter narrows the wire and offers its own reading surface.
+const nl = await pg.evaluate(() => {
+  document.querySelector('.g-feed-deskchip[data-desk="n"]').click();
+  const chip = document.querySelector('.g-feed-deskchip[data-desk="n"]');
+  const b = document.querySelector(".g-feed-openbtn");
+  return { on: chip.classList.contains("is-on"), route: b ? b.dataset.openDesk : "", text: b ? b.textContent.trim() : "" };
+});
+check(nl.on, "Newsletters filter activates");
+checkEq(nl.route, "/v2/newsletters/", "Newsletters shows an Open link to its reading surface");
+// Restore the Credit selection for the navigation test below.
+await pg.evaluate(() => document.querySelector('.g-feed-deskchip[data-desk="c"]').click());
 
 // Clicking it navigates to the Credit view (SPA route via the router).
 await pg.evaluate(() => document.querySelector(".g-feed-openbtn").click());

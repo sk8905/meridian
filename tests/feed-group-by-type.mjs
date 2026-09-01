@@ -12,11 +12,15 @@ await pg.waitForTimeout(400);
 // The button replaced "Newsletters".
 const head = await pg.evaluate(() => {
   const grp = document.querySelector(".g-feed-grpbtn");
-  return { hasGroupBtn: !!grp, label: grp ? grp.textContent.trim() : "", hasNewsletters: /Newsletters/.test(document.getElementById("g-feed-head").textContent) };
+  // The OLD newsletter toggle button (a non-desk-chip control reading
+  // "Newsletters") must be gone — its slot is the Group-by-type button now.
+  // ("Newsletters" as a DESK CHIP is fine and expected.)
+  const oldNlBtn = [...document.querySelectorAll("#g-feed-head button")].some((b) => b.textContent.trim() === "Newsletters" && !b.classList.contains("g-feed-deskchip"));
+  return { hasGroupBtn: !!grp, label: grp ? grp.textContent.trim() : "", oldNlBtn };
 });
 check(head.hasGroupBtn, "newsfeed: a 'Group by type' button is present");
 check(/Group by type/i.test(head.label), `newsfeed: the button reads 'Group by type' (${head.label})`);
-check(!head.hasNewsletters, "newsfeed: the old 'Newsletters' button is gone");
+check(!head.oldNlBtn, "newsfeed: the old 'Newsletters' toggle button is gone (Group by type took its slot)");
 
 // Toggle it on → the feed groups by label with counts, 3-day rolling window.
 await pg.evaluate(() => document.querySelector(".g-feed-grpbtn").click());
