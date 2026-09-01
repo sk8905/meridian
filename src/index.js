@@ -2156,9 +2156,11 @@ const FEED_SOURCES = [
   { url: "https://asia.nikkei.com/rss/feed/nar", source: "Nikkei Asia", region: "GEN", cap: 4 },
   { url: "https://www.scmp.com/rss/92/feed", source: "South China Morning Post", region: "GEN", cap: 4 },
   { url: "https://www.straitstimes.com/news/business/rss.xml", source: "The Straits Times", region: "GEN", cap: 3 },
-  // Global aggregator — capped low. Yahoo Finance removed: its RSS is dominated by
-  // sensational single-company clickbait with no reliable title signature to filter.
-  { url: "https://www.investing.com/rss/news_25.rss", source: "Investing.com", region: "GEN", cap: 3 },
+  // Global aggregators removed: Yahoo Finance (RSS dominated by sensational
+  // single-company clickbait with no reliable title signature to filter) and the
+  // general Investing.com news feed (news_25). Investing.com is retained ONLY as
+  // the TradingEconomics economic-indicator substitute above ("Investing.com
+  // Economics", news_95); it is no longer a general news source.
   // Curated Substacks — reader-chosen credit/macro newsletters. `substack: true`
   // marks the emitted items so the Home page routes them to their own "SUBS"
   // desk label (integrated into the All wire, like the myFT stream). filter:false
@@ -2673,12 +2675,6 @@ async function feedAssemble(env, ctx, trace = null, stats = null) {
   const items = [];
   for (const it of all) {
     if (!it.when || it.when.getTime() < cutoff) continue;
-    // Investing.com is dropped as a source UNLESS the item is a Reuters story
-    // delivered via Investing.com (its title carries the Reuters attribution),
-    // in which case it's relabelled to Reuters.
-    if (it.source === "Investing.com") {
-      if (/\breuters\b/i.test(it.title)) it.source = "Reuters"; else continue;
-    }
     // Quality cull (shared server-side gate) — drop low-tier sources and off-topic
     // general news so every surface consumes the same filtered stream.
     if (!feedQualityKeep(it)) {

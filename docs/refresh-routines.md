@@ -803,7 +803,7 @@ you touch the *rendering code* (`nav-actions.js`, `dashboard/app.js`) or its CSS
 >      markets stories (inflation, central banks, growth, jobs, rates, fiscal) from
 >      reputable financial outlets — wires & majors (Reuters, AP, Bloomberg, Financial
 >      Times, Wall Street Journal, CNBC, The Economist, TradingEconomics, MarketWatch,
->      Yahoo Finance, Investing.com, Briefing.com, MT Newswires (via Koyfin),
+>      Yahoo Finance, Briefing.com, MT Newswires (via Koyfin),
 >      DealBook (NYT), TradingView, Financial News London); fast US
 >      business/policy (Axios, Semafor, Barron's, Politico); UK (The Guardian, BBC,
 >      Sky News, CityAM); and — to fill the quiet overnight / early
