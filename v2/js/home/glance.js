@@ -95,6 +95,10 @@ function initHomeMarketsRails() {
 export function initGlance(ctx) {
   _ctx = ctx || _ctx;
   if (_inited) return; _inited = true;
+  // F8 — restore the last-used wire filter + grouping before the first render.
+  const _hp = _homePrefs();
+  if (_DESK_KEYS.includes(_hp.desk)) _feedDesk = _hp.desk;
+  if (typeof _hp.group === "boolean") _feedGroup = _hp.group;
   _liveFeed = ((readCache("feed") || {}).items) || [];  // instant last-good merge
   renderFeed();
   renderManagerWire();
@@ -153,16 +157,21 @@ function initMobileWireTabs() {
   const tabs = document.querySelector(".g-wiretabs");
   const layout = document.querySelector(".g-layout");
   if (!tabs || !layout) return;
-  tabs.addEventListener("click", (e) => {
-    const btn = e.target.closest(".g-wiretab");
-    if (!btn) return;
-    const k = btn.dataset.wire;
+  const setWire = (k) => {
     layout.classList.toggle("wire-watch", k === "watch");
     tabs.querySelectorAll(".g-wiretab").forEach((t) => {
       const on = t.dataset.wire === k;
       t.classList.toggle("is-on", on);
       t.setAttribute("aria-selected", on ? "true" : "false");
     });
+  };
+  // F8 — restore the last-used wire tab (News vs Watchlist) on load.
+  if (_homePrefs().wire === "watch") setWire("watch");
+  tabs.addEventListener("click", (e) => {
+    const btn = e.target.closest(".g-wiretab");
+    if (!btn) return;
+    setWire(btn.dataset.wire);
+    _saveHomePref({ wire: btn.dataset.wire });
   });
 }
 
@@ -412,6 +421,13 @@ const TYPE_CHIPS = {
 // Active source filter (e.g. "Financial Times"): when set, the feed shows every
 // story from that newsroom across all three desks. Cleared by the pill or a chip.
 let _feedSrc = null;
+// F8 — remembered Home preferences (on-device): the last wire desk filter, the
+// group-by-type toggle, and the mobile News/Watchlist wire tab. So Home reopens
+// exactly where you left it instead of resetting to the author's defaults.
+const _HOME_PREFS_KEY = "wire.home.v1";
+function _homePrefs() { try { const o = JSON.parse(localStorage.getItem(_HOME_PREFS_KEY) || "{}"); return (o && typeof o === "object") ? o : {}; } catch { return {}; } }
+function _saveHomePref(patch) { try { localStorage.setItem(_HOME_PREFS_KEY, JSON.stringify({ ..._homePrefs(), ...patch })); } catch { /* ignore */ } }
+const _DESK_KEYS = ["all", "m", "eq", "fi", "c", "hdg", "l"];
 // ---- Manager wire (Home manager column) -----------------------------------
 // Watchlist-first, then most-recently-active covered managers. Each row leads to
 // the manager profile; the latest event + fundraising status are the preview.
@@ -789,13 +805,14 @@ function renderFeed() {
       : "";
     head.innerHTML = deskrow + secondary;
     // Desk chip: clears any source filter, switches desks and resets the type.
-    head.querySelectorAll(".g-feed-deskchip").forEach((b) => b.addEventListener("click", () => { _feedSrc = null; _feedDesk = b.dataset.desk; _feedType = "all"; renderFeed(); }));
+    head.querySelectorAll(".g-feed-deskchip").forEach((b) => b.addEventListener("click", () => { _feedSrc = null; _feedDesk = b.dataset.desk; _feedType = "all"; _saveHomePref({ desk: _feedDesk }); renderFeed(); }));
     // Group-by-type toggle: day-by-day stream ⇄ by-label grouping (rolling 3 days).
     const grp = head.querySelector(".g-feed-grpbtn");
     if (grp) grp.addEventListener("click", (e) => {
       e.preventDefault(); e.stopPropagation();
       _feedSrc = null; _feedType = "all";
       _feedGroup = !_feedGroup;
+      _saveHomePref({ group: _feedGroup });
       renderFeed();
     });
     // A type chip narrows within the current desk.

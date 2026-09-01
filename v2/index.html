@@ -7,7 +7,7 @@
   <script>
     // Resolve the stored theme choice BEFORE first paint (no flash), exactly as
     // the current app does — one inline script, no dependency.
-    (function(){var r=document.documentElement;var mq=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)");var sd=mq&&mq.matches;var p;try{p=localStorage.getItem("m_theme_pref");}catch(e){}if(p!=="system"&&p!=="light"&&p!=="dark"){p=(p==="other")?(sd?"light":"dark"):"system";}var t=p==="system"?(sd?"dark":"light"):p;r.setAttribute("data-theme",t);r.setAttribute("data-theme-choice",p);})();
+    (function(){var r=document.documentElement;var mq=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)");var sd=mq&&mq.matches;var p;try{p=localStorage.getItem("m_theme_pref");}catch(e){}if(p!=="system"&&p!=="light"&&p!=="dark"){p=(p==="other")?(sd?"light":"dark"):"system";}var t=p==="system"?(sd?"dark":"light"):p;r.setAttribute("data-theme",t);r.setAttribute("data-theme-choice",p);var dz;try{dz=localStorage.getItem("m_density");}catch(e){}r.setAttribute("data-density",dz==="comfortable"?"comfortable":"compact");})();
     ["gesturestart","gesturechange","gestureend"].forEach(function(t){document.addEventListener(t,function(e){e.preventDefault();},{passive:false});});
   </script>
   <style>html{background:#05080f}</style>
@@ -22,7 +22,7 @@
   <!-- Shared visual language (unchanged from the current app so the look is
        identical). Per-view stylesheets are loaded on demand by the runtime when
        a view is first opened, so nothing pays for CSS it never shows. -->
-  <link rel="stylesheet" href="/premium.css?v=20260826-1" />
+  <link rel="stylesheet" href="/premium.css?v=20260901-1" />
   <link rel="stylesheet" href="/tui.css?v=20260819-1" />
   <link rel="stylesheet" href="/header.css?v=20260815-2" />
   <link rel="stylesheet" href="/v2/css/app.css?v=v2-26" />
@@ -42,13 +42,13 @@
   <link rel="stylesheet" href="/legal/css/styles.css?v=20260830-1" />
   <link rel="stylesheet" href="/macro/css/styles.css?v=20260901-1" />
   <link rel="stylesheet" href="/dashboard.css?v=20260822-1" />
-  <link rel="stylesheet" href="/feed.css?v=20260806-1" />
+  <link rel="stylesheet" href="/feed.css?v=20260901-1" />
 
   <!-- ONE runtime, loaded once for the whole app. It owns the router, the shared
        chrome, the in-memory data cache and view lifecycles. There is no
        per-tab document, bundle re-fetch or re-parse — switching tabs swaps a
        view in memory. -->
-  <script type="module" src="/v2/js/runtime.js?v=v2-157"></script>
+  <script type="module" src="/v2/js/runtime.js?v=v2-158"></script>
 </head>
 <body>
   <div id="wire-header"></div>

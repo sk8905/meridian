@@ -397,6 +397,10 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
   -webkit-appearance: none; appearance: none;
 }
 .mtab:hover { color: var(--muted, #4a5566); }
+/* Comfortable density (F7): a taller tab bar with slightly larger labels — an
+   easier touch target than the compact ~9px default. Opt-in via data-density. */
+:root[data-density="comfortable"] .mtab { min-height: 52px; font-size: .64rem; gap: 3px; }
+:root[data-density="comfortable"] svg.mtab-ico { width: 24px; height: 24px; }
 /* Active tab: darker ink + a top line (no pill background). In light mode the
    line is BLACK, matching every other selected-chip marker on a light surface
    (the view-nav underlines etc. all use black); dark mode keeps the orange

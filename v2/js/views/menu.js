@@ -17,6 +17,16 @@ const osDark = () => !!(window.matchMedia && window.matchMedia("(prefers-color-s
 // system|light|dark that the inline boot script already understands.
 const THEME_LABEL = { system: "System", light: "Light", dark: "Dark" };
 const THEME_ORDER = ["system", "light", "dark"];
+// Density (F7): compact (default terminal) vs comfortable (larger touch targets).
+// Persisted as m_density; the inline boot applies data-density before first paint.
+const DENSITY_LABEL = { compact: "Compact", comfortable: "Comfortable" };
+const DENSITY_ORDER = ["compact", "comfortable"];
+const storedDensity = () => { try { return localStorage.getItem("m_density") === "comfortable" ? "comfortable" : "compact"; } catch { return "compact"; } };
+function applyDensity(pref) {
+  const p = pref === "comfortable" ? "comfortable" : "compact";
+  document.documentElement.setAttribute("data-density", p);
+  try { localStorage.setItem("m_density", p); } catch { /* ignore */ }
+}
 function applyTheme(pref) {
   const r = document.documentElement;
   const t = pref === "system" ? (osDark() ? "dark" : "light") : pref;
@@ -100,6 +110,10 @@ function paneHTML(sec) {
       + `<div class="na-menu-row na-menu-pushrow"><span>Theme</span>`
       + `<div class="na-theme-seg" id="v2-theme-seg" role="group" aria-label="Theme">`
       + THEME_ORDER.map((pf) => `<button type="button" class="na-theme-opt${storedPref() === pf ? " is-on" : ""}" data-pref="${pf}" aria-pressed="${storedPref() === pf ? "true" : "false"}">${THEME_LABEL[pf]}</button>`).join("")
+      + `</div></div>`
+      + `<div class="na-menu-row na-menu-pushrow"><span>Density</span>`
+      + `<div class="na-theme-seg" id="v2-density-seg" role="group" aria-label="Density">`
+      + DENSITY_ORDER.map((pf) => `<button type="button" class="na-theme-opt${storedDensity() === pf ? " is-on" : ""}" data-density-opt="${pf}" aria-pressed="${storedDensity() === pf ? "true" : "false"}">${DENSITY_LABEL[pf]}</button>`).join("")
       + `</div></div>`;
   }
   // Notifications is the default pane.
@@ -159,6 +173,8 @@ export function mount(host, ctx) {
     if (chip) { sec = chip.dataset.sec; render(); return; }
     const opt = e.target.closest("#v2-theme-seg .na-theme-opt");
     if (opt) { applyTheme(opt.dataset.pref); render(); return; }
+    const dopt = e.target.closest("#v2-density-seg .na-theme-opt");
+    if (dopt) { applyDensity(dopt.dataset.densityOpt); render(); return; }
     const push = e.target.closest("#v2-push");
     if (push && typeof Notification !== "undefined" && Notification.requestPermission) {
       Notification.requestPermission().then(() => render()).catch(() => {});

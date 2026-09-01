@@ -32,6 +32,12 @@
 /* One canonical chip-row height across the whole app (HOUSE_STYLE T20): slim but
    comfortable, never cramping the label. Every filter/tab chip row reads this. */
 :root { --chip-h:34px; }
+/* Density (F7): "compact" is the default terminal density; "comfortable" is an
+   opt-in that grows chips to a ~44px touch target and loosens the wire rows —
+   easier one-handed on a phone, at the cost of showing fewer rows. Set on <html>
+   as data-density by the inline boot (persisted key m_density). */
+:root[data-density="comfortable"] { --chip-h:44px; }
+:root[data-density="comfortable"] .g-feed-row { padding-top:9px; padding-bottom:9px; }
 /* container-name lets the feed rows respond to the WIRE COLUMN's width (narrow in
    the tablet/desktop 3-column terminal) rather than the viewport — so the stacked
    row layout kicks in on a narrow iPad wire the same way it does on a phone. */
