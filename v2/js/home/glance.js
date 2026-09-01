@@ -792,26 +792,24 @@ function renderFeed() {
       const cls = "g-feed-deskchip" + (on ? " is-on" : "") + (k === "views" ? " g-feed-deskchip-sep" : "");
       return `<button type="button" class="${cls}" data-desk="${esc(k)}" role="tab" aria-selected="${on}">${dot}${esc(l)}</button>`;
     }).join("");
-    const grpBtn = `<button type="button" class="g-feed-nlbtn g-feed-grpbtn${_feedGroup ? " is-on" : ""}" aria-pressed="${_feedGroup}" aria-label="Group the wire by type (last 3 days)">`
-      + `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg>`
-      + `<span>Group by type</span></button>`;
-    const deskrow = `<div class="g-feed-deskrow"><div class="g-feed-desks" role="tablist" aria-label="Filter the wire by desk">${chips}</div>${grpBtn}</div>`;
-    // Second-level type chips for the active desk, plus (for a real desk) a link
-    // into its full view — the discoverability path to Credit / Legal / Macro.
-    const subDefs = !_feedSrc && !_feedGroup && TYPE_CHIPS[_feedDesk];
+    // For a real desk, a link into its full view — the discoverability path to
+    // Credit / Legal / Macro.
     const openRoute = !_feedSrc && DESK_ROUTE[activeDesk];
     const openBtn = openRoute
       ? `<button type="button" class="g-feed-openbtn" data-open-desk="${esc(openRoute)}">Open ${esc(FEED_DESK_LABEL[activeDesk] || "desk")}</button>`
       : "";
-    const secondary = (subDefs || openBtn)
-      ? `<div class="g-feed-subrow">`
-        + (subDefs
-            ? `<span class="g-feed-chips g-feed-subchips" role="group" aria-label="Filter by type">`
-              + subDefs.map(([k, l]) => `<button type="button" class="g-feed-chip${_feedType === k ? " is-on" : ""}" data-type="${esc(k)}" aria-pressed="${_feedType === k}">${esc(l)}</button>`).join("")
-              + `</span>`
-            : `<span class="g-feed-subgap"></span>`)
-        + openBtn
-        + `</div>`
+    const grpBtn = `<button type="button" class="g-feed-openbtn g-feed-grpbtn${_feedGroup ? " is-on" : ""}" aria-pressed="${_feedGroup}" aria-label="Group the wire by type (last 3 days)">`
+      + `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg>`
+      + `<span>Group by type</span></button>`;
+    // Group-by-type + Open desk share the right edge of the desk row, both as the
+    // outlined accent control.
+    const deskrow = `<div class="g-feed-deskrow"><div class="g-feed-desks" role="tablist" aria-label="Filter the wire by desk">${chips}</div><div class="g-feed-ctl">${grpBtn}${openBtn}</div></div>`;
+    // Second-level type chips for the active desk (Credit / Hedge / Legal).
+    const subDefs = !_feedSrc && !_feedGroup && TYPE_CHIPS[_feedDesk];
+    const secondary = subDefs
+      ? `<div class="g-feed-subrow"><span class="g-feed-chips g-feed-subchips" role="group" aria-label="Filter by type">`
+        + subDefs.map(([k, l]) => `<button type="button" class="g-feed-chip${_feedType === k ? " is-on" : ""}" data-type="${esc(k)}" aria-pressed="${_feedType === k}">${esc(l)}</button>`).join("")
+        + `</span></div>`
       : "";
     head.innerHTML = deskrow + secondary;
     // Desk chip: clears any source filter, switches desks and resets the type.

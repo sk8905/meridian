@@ -132,7 +132,7 @@
 .wb-link:hover { color: var(--ink); text-decoration: none; }
 .wb-glance { display: flex; flex-direction: row; flex-wrap: nowrap; gap: 10px; flex: 1 1 auto; min-width: 0; overflow: hidden; }
 .wb-gl { display: flex; column-gap: 7px; align-items: baseline; min-width: 0; font-size: 11.5px; line-height: 1.4; color: var(--wb-txt); overflow: hidden; }
-.wb-gl-l { flex: 0 0 auto; font-size: 9.5px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: var(--muted); opacity: .85; white-space: nowrap; }
+.wb-gl-l { flex: 0 0 auto; font-size: 9.5px; font-weight: 600; letter-spacing: .02em; text-transform: uppercase; color: var(--accent, #fb8b1e); opacity: 1; white-space: nowrap; }
 .wb-gl-v { flex: 1 1 auto; min-width: 0; display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--wb-txt); }
 .wb-gl-v a { color: inherit; text-decoration: none; }
 .wb-gl-v a:hover { color: var(--ink); text-decoration: none; }

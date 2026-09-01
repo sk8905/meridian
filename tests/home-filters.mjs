@@ -51,7 +51,7 @@ const views = await pg.evaluate(() => {
   return {
     on: chip.classList.contains("is-on"),
     sep: chip.classList.contains("g-feed-deskchip-sep"),
-    noOpen: !document.querySelector(".g-feed-openbtn"),
+    noOpen: !document.querySelector(".g-feed-openbtn[data-open-desk]"),
     rows: document.querySelectorAll("#g-feed .g-feed-row").length,
   };
 });
@@ -62,17 +62,34 @@ check(views.rows > 0, `Views surfaces commentary/research items (${views.rows})`
 // F3 — a real desk shows an "Open <desk>" control that routes to its full view.
 const openBtn = await pg.evaluate(() => {
   document.querySelector('.g-feed-deskchip[data-desk="c"]').click();
-  const b = document.querySelector(".g-feed-openbtn");
+  const b = document.querySelector(".g-feed-openbtn[data-open-desk]");
   return { present: !!b, text: b ? b.textContent.trim() : "", route: b ? b.dataset.openDesk : "" };
 });
 check(openBtn.present, "Credit desk selected: an 'Open …' link into the full desk view appears");
 checkEq(openBtn.route, "/v2/credit/", "the Open link routes to the Credit desk view");
 
+// Group-by-type and Open desk sit on the SAME line (the desk row) and share the
+// outlined-accent button styling.
+const ctl = await pg.evaluate(() => {
+  const row = document.querySelector(".g-feed-deskrow");
+  const grp = row && row.querySelector(".g-feed-grpbtn");
+  const open = row && row.querySelector(".g-feed-openbtn:not(.g-feed-grpbtn)");
+  const sameLine = grp && open ? Math.abs(grp.getBoundingClientRect().top - open.getBoundingClientRect().top) <= 2 : false;
+  const accent = (el) => el && getComputedStyle(el).color;
+  return {
+    both: !!grp && !!open, sameLine,
+    grpStyled: grp ? grp.classList.contains("g-feed-openbtn") : false,
+    sameColour: grp && open ? accent(grp) === accent(open) : false,
+  };
+});
+check(ctl.both && ctl.sameLine, "Group-by-type and Open desk are on the same line (the desk row)");
+check(ctl.grpStyled && ctl.sameColour, "both buttons share the outlined-accent styling (Open Macro look)");
+
 // The Newsletters filter narrows the wire and offers its own reading surface.
 const nl = await pg.evaluate(() => {
   document.querySelector('.g-feed-deskchip[data-desk="n"]').click();
   const chip = document.querySelector('.g-feed-deskchip[data-desk="n"]');
-  const b = document.querySelector(".g-feed-openbtn");
+  const b = document.querySelector(".g-feed-openbtn[data-open-desk]");
   return { on: chip.classList.contains("is-on"), route: b ? b.dataset.openDesk : "", text: b ? b.textContent.trim() : "" };
 });
 check(nl.on, "Newsletters filter activates");
@@ -81,7 +98,7 @@ checkEq(nl.route, "/v2/newsletters/", "Newsletters shows an Open link to its rea
 await pg.evaluate(() => document.querySelector('.g-feed-deskchip[data-desk="c"]').click());
 
 // Clicking it navigates to the Credit view (SPA route via the router).
-await pg.evaluate(() => document.querySelector(".g-feed-openbtn").click());
+await pg.evaluate(() => document.querySelector(".g-feed-openbtn[data-open-desk]").click());
 await pg.waitForTimeout(900);
 checkEq(await pg.evaluate(() => new URL(location.href).pathname), "/v2/credit/", "Open Credit navigates to /v2/credit/");
 checkEq(await pg.evaluate(() => (document.querySelector(".v2-view:not([hidden])") || {}).dataset?.view), "credit", "the Credit desk view is now active");
@@ -91,7 +108,7 @@ await pg.evaluate(() => { history.pushState({ v2: true }, "", "/v2/"); dispatchE
 await pg.waitForTimeout(700);
 const allNoOpen = await pg.evaluate(() => {
   document.querySelector('.g-feed-deskchip[data-desk="all"]').click();
-  return !document.querySelector(".g-feed-openbtn");
+  return !document.querySelector(".g-feed-openbtn[data-open-desk]");
 });
 check(allNoOpen, "the All-news view shows no Open link (nothing single to open)");
 

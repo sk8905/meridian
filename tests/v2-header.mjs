@@ -35,9 +35,11 @@ check(present.refresh > 0, `refresh indicator populated ("Last refresh…", ${pr
 const brief = await pg.evaluate(() => {
   const lbl = document.querySelector(".wb-lbl, .g-brief-lbl");
   const link = document.querySelector(".wb-link, .g-brief-link");
-  return { lbl: lbl ? getComputedStyle(lbl).color : null, link: link ? getComputedStyle(link).color : null };
+  const gl = [...document.querySelectorAll(".wb-gl-l")].map((e) => getComputedStyle(e).color);
+  return { lbl: lbl ? getComputedStyle(lbl).color : null, link: link ? getComputedStyle(link).color : null, gl };
 });
-check(brief.lbl === "rgb(251, 139, 30)", `brief kicker labels are Wire orange #fb8b1e (${brief.lbl})`);
+check(brief.lbl === "rgb(251, 139, 30)", `brief 'Top story' kicker is Wire orange #fb8b1e (${brief.lbl})`);
+check(brief.gl.length > 0 && brief.gl.every((c) => c === "rgb(251, 139, 30)"), `Markets / Rates & spreads kickers are Wire orange too (${brief.gl.join(", ")})`);
 check(brief.link !== "rgb(251, 139, 30)", `brief story text is NOT orange (${brief.link})`);
 
 // Bottom meta strip (phone): the signed-in identity + the app-wide last refresh,
