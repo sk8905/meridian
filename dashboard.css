@@ -50,23 +50,29 @@
   .dsh:has(.dsh-term) .dsh-nav{ flex:0 0 auto; }
   .dsh-term{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; align-items:stretch; gap:var(--dsh-gap);
     max-width:none; margin:0; padding:var(--dsh-gap); }
-  .dsh-term > .dsh-card:first-child, .dsh-term > .dsh-msub{ flex:0 0 auto; }
-  .dsh-term > .dsh-msub{ margin:0; }
+  .dsh-term > .dsh-card:first-child, .dsh-term > .dsh-term-top{ flex:0 0 auto; }
+  /* Top strip (Equities): Key moments (wide) beside a companion card (narrow). */
+  .dsh-term-top{ display:grid; grid-template-columns:4fr 1fr; gap:var(--dsh-gap); align-items:stretch; }
+  .dsh-term-top > .dsh-card{ grid-column:auto; min-width:0; min-height:0; overflow-y:auto;
+    overscroll-behavior:contain; scrollbar-width:thin; }
   .dsh-term-ws{ flex:1 1 auto; min-height:0; display:grid;
     grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(320px,380px); gap:var(--dsh-gap); }
   .dsh-term-col{ min-height:0; display:flex; flex-direction:column; gap:var(--dsh-gap);
     overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
   .dsh-term-col > .dsh-card{ flex:0 0 auto; }
+  /* Per-column label above each pane's cards (Macro: Policy rates · Cycle · Wire). */
+  .dsh-term-lbl{ flex:0 0 auto; margin:0; font-size:.7rem; font-weight:700; letter-spacing:.06em;
+    text-transform:uppercase; color:var(--t-mut); padding-bottom:2px; }
   /* Stack the Fed/BoE FedWatch|dot-plot internals in a terminal column so they
      read cleanly at column width instead of cramping side by side. */
   .dsh-term-col .dsh-fed{ grid-template-columns:1fr; }
+  /* The Dalio/Marks cycle pair stacks in a single terminal column. */
+  .dsh-term-col .dsh-cyc{ grid-template-columns:1fr; }
   /* Wire rail: header pins, the headline list scrolls. */
   .dsh-term-rail{ overflow:hidden; }
   .dsh-term-rail > .dsh-card{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
   .dsh-term-rail .dsh-h{ flex:0 0 auto; }
   .dsh-term-rail .dsh-news{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; margin:0; }
-  /* Cycle sub-tab keeps the normal stacked layout. */
-  .dsh-macro-cycle.dsh-term{ overflow-y:auto; }
   /* Solo terminal panel (Legal): one card fills the viewport; its heading, search
      box and filter chips pin, and only the results list scrolls. */
   .dsh-term-solo > .dsh-card:first-child{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
@@ -353,15 +359,7 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 .dsh-fw-bar { position:absolute; left:0; top:0; bottom:0; background:var(--t-accent); border-radius:3px; }
 .dsh-fw-p { text-align:right; font-size:.78rem; font-variant-numeric:tabular-nums; color:var(--t-ink); }
 
-/* Macro nested sub-tabs: Policy rates · Cycle. Reuses the dashboard's top
-   sub-tab chip style (.tchips/.tchip) so it reads identically; the active class
-   on .dsh-macro shows only that group's cards. */
-.dsh-msub { border-bottom:1px solid var(--t-grid2,#262626); margin:2px 0 4px; }
-.dsh-msub .tchips { height:var(--chip-h,34px); }
-.dsh-macro-rates > [data-mgrp="cycle"] { display:none; }
-.dsh-macro-cycle > [data-mgrp="rates"] { display:none; }
-
-/* Cycle card (Macro sub-tab): Dalio debt cycle + Marks market cycle side by side,
+/* Cycle card (Macro): Dalio debt cycle + Marks market cycle side by side,
    each a labelled block with meter bars, framework prose and linked sources. */
 .dsh-cyc { display:grid; grid-template-columns:1fr 1fr; gap:14px 18px; align-items:start; }
 @media (max-width:760px){ .dsh-cyc { grid-template-columns:1fr; } }

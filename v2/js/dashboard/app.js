@@ -37,7 +37,6 @@ export function mount(host, ctx) {
   let _gyLive = null;                    // live yields overlay (/api/govyields), keyed by country
   let _ycLive = null;                    // live US/UK yield curve overlay (/api/yield-curve)
   let _yldTenor = "y10";                 // tenor selected in the yield-change heatmap dropdown
-  let _macroSub = "rates";               // Macro nested sub-tab: "rates" | "cycle"
   let _legalQuery = "";                 // Legal database keyword (persist across re-renders)
   const _legalAreas = new Set();        // practice areas the search is limited to (empty = all)
   const _legalTypes = new Set();        // item types the search is limited to (empty = all): "alert" | "case"
@@ -236,11 +235,13 @@ export function mount(host, ctx) {
     // Terminal (option 4): Key moments strip, then a three-column workspace that
     // fills the viewport — each column scrolls internally, minimal page scroll.
     return `<div class="dsh-pane dsh-term">
-      ${keyMomentsHTML()}
+      <div class="dsh-span dsh-term-top">
+        ${keyMomentsHTML()}
+        <section class="dsh-card"><h3 class="dsh-h">S&amp;P 500 sectors — YTD ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
+      </div>
       <div class="dsh-term-ws">
         <div class="dsh-term-col">
           <section class="dsh-card"><h3 class="dsh-h">World indices — major benchmarks by jurisdiction <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-wi-box">${worldIndicesHeatHTML()}</div></section>
-          <section class="dsh-card"><h3 class="dsh-h">S&amp;P 500 sectors — YTD ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
         </div>
         <div class="dsh-term-col">
           <section class="dsh-card"><h3 class="dsh-h">ETF flows — net fund flows ${asOf(SECTOR_FLOWS.asOf)}</h3><div class="dsh-scroll" id="dsh-flows-box">${sectorFlowsHTML()}</div></section>
@@ -574,36 +575,32 @@ export function mount(host, ctx) {
       + details(mktNarr) + `</div>`;
     return `<div class="dsh-cyc">${debt}${market}</div>`;
   }
-  // The Macro pane splits into two nested sub-tabs — Policy rates (Fed/BoE paths,
-  // rate outlook, yield curve, macro wire) and Cycle (Dalio debt + Marks market
-  // cycle) — so neither is an over-long single page. The regime pills stay above
-  // both as a shared read. Toggling swaps a class on the pane (cards stay direct
-  // grid children), so no re-render and no loss of scroll/state.
+  // The Macro pane is a fixed-viewport terminal (option 4): three side-by-side
+  // panes that fill the screen and each scroll internally — Policy rates (Fed/BoE
+  // paths, rate outlook, yield curve), Cycle (Dalio debt + Marks market cycle) and
+  // the Macro wire rail. The regime pills strip spans the top as a shared read.
   function macroHTML() {
     const fed = fedHTML();
     const boe = boeHTML();
-    // Same segmented-chip style as the dashboard's top sub-tabs (.tchips/.tchip).
-    const sub = (k, l) => `<button type="button" class="tchip${_macroSub === k ? " is-on" : ""}" data-msub="${k}">${l}</button>`;
-    // PROTOTYPE (option 4) — fixed-viewport terminal: the rates cards tile into a
-    // three-column workspace that fills the screen, and the Macro wire is a rail
-    // that scrolls internally instead of the page scrolling.
-    return `<div class="dsh-pane dsh-macro dsh-macro-${_macroSub} dsh-term">
+    return `<div class="dsh-pane dsh-macro dsh-term">
       <section class="dsh-card dsh-span">${regimePillsHTML()}</section>
-      <div class="dsh-span dsh-msub"><div class="tchips">${sub("rates", "Policy rates")}${sub("cycle", "Cycle")}</div></div>
-      <div class="dsh-term-ws" data-mgrp="rates">
+      <div class="dsh-term-ws">
         <div class="dsh-term-col">
+          <h3 class="dsh-term-lbl">Policy rates</h3>
           ${fed ? `<section class="dsh-card"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
           ${boe ? `<section class="dsh-card"><h3 class="dsh-h">BoE path — MPC votes &amp; SONIA/OIS curve</h3>${boe}</section>` : ""}
-        </div>
-        <div class="dsh-term-col">
           <section class="dsh-card"><h3 class="dsh-h">Rate outlook</h3>${rateOutlookHTML()}</section>
           <section class="dsh-card" id="dsh-yc-card">${yieldCurveCardHTML()}</section>
         </div>
+        <div class="dsh-term-col">
+          <h3 class="dsh-term-lbl">Cycle</h3>
+          <section class="dsh-card"><h3 class="dsh-h">Where we are in the cycle — debt &amp; market</h3>${cyclesHTML()}</section>
+        </div>
         <div class="dsh-term-col dsh-term-rail">
+          <h3 class="dsh-term-lbl">Macro wire</h3>
           <section class="dsh-card"><h3 class="dsh-h">Macro wire — US &amp; UK headlines</h3>${macroNewsHTML()}</section>
         </div>
       </div>
-      <section class="dsh-card dsh-span" data-mgrp="cycle"><h3 class="dsh-h">Where we are in the cycle — debt &amp; market</h3>${cyclesHTML()}</section>
     </div>`;
   }
 
@@ -931,16 +928,6 @@ export function mount(host, ctx) {
     }));
   }
   host.addEventListener("click", (e) => {
-    // Macro nested sub-tabs (Policy rates / Cycle): toggle in place — swap the
-    // pane class + button state, no re-render (keeps scroll and any loaded data).
-    const ms = e.target.closest("[data-msub]");
-    if (ms) {
-      _macroSub = ms.dataset.msub;
-      const wrap = host.querySelector(".dsh-macro");
-      if (wrap) { wrap.classList.remove("dsh-macro-rates", "dsh-macro-cycle"); wrap.classList.add("dsh-macro-" + _macroSub); }
-      host.querySelectorAll("[data-msub]").forEach((b) => b.classList.toggle("is-on", b.dataset.msub === _macroSub));
-      return;
-    }
     const a = e.target.closest(".tchip[data-sub]");
     if (a) { e.preventDefault(); e.stopPropagation(); pane = a.dataset.sub; render(); try { history.replaceState(null, "", a.getAttribute("href")); } catch { /* */ } }
   });

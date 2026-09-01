@@ -75,22 +75,17 @@ check(dash.mentionsStand, "Dashboard→Macro market cycle has a 'where we stand'
 check(dash.hasOaktree, "Dashboard→Macro market cycle links a real Oaktree memo");
 check(dash.meters >= 3, `Dashboard→Macro renders position meters (${dash.meters})`);
 
-// Nested Macro sub-tabs: Policy rates (default) and Cycle. The cycle card is
-// hidden until you switch to the Cycle sub-tab; the Fed-path card is a Policy-
-// rates card, hidden on the Cycle sub-tab.
+// The Macro pane is a fixed-viewport terminal with three side-by-side panes —
+// Policy rates, Cycle and the Macro wire — all visible at once (no sub-tabs). The
+// Cycle pane carries the Dalio debt + Marks market blocks and a labelled header.
 const cardVisible = (sel) => d.pg.evaluate((s) => {
   const el = document.querySelector(s);
   return !!(el && el.offsetParent !== null);
 }, sel);
-const tabs = await d.pg.evaluate(() => Array.from(document.querySelectorAll(".dsh-msub .tchip")).map((b) => b.textContent.trim()));
-check(tabs.join(",") === "Policy rates,Cycle", `Macro has two sub-tabs: Policy rates · Cycle (got ${tabs.join(",")})`);
-check(await cardVisible('[data-mgrp="rates"] .dsh-h'), "default sub-tab shows Policy-rates cards");
-check(!(await cardVisible('[data-mgrp="cycle"]')), "the Cycle card is hidden on the Policy rates sub-tab");
-// Switch to Cycle.
-await d.pg.evaluate(() => { const b = document.querySelector('[data-msub="cycle"]'); if (b) b.click(); });
-await d.pg.waitForTimeout(250);
-check(await cardVisible('[data-mgrp="cycle"] .dsh-cyc'), "tapping Cycle shows the cycle card");
-check(!(await cardVisible('[data-mgrp="rates"]')), "tapping Cycle hides the Policy-rates cards");
+const lbls = await d.pg.evaluate(() => Array.from(document.querySelectorAll(".dsh-term-lbl")).map((b) => b.textContent.trim()));
+check(lbls.join(",") === "Policy rates,Cycle,Macro wire", `Macro has three terminal panes: Policy rates · Cycle · Macro wire (got ${lbls.join(",")})`);
+check(await cardVisible(".dsh-macro .dsh-h"), "the Policy-rates pane cards are visible");
+check(await cardVisible(".dsh-macro .dsh-cyc"), "the Cycle pane is visible alongside them");
 
 // Both cycle blocks (debt + market) carry a collapsible narrative, collapsed by
 // default; expanding one reveals its framework prose.
@@ -98,17 +93,17 @@ check(!(await cardVisible('[data-mgrp="rates"]')), "tapping Cycle hides the Poli
 // collapsed for the reader; headless still reports a layout box, so assert the
 // semantic `open` state, not pixels).
 const collapse = await d.pg.evaluate(() => {
-  const exps = Array.from(document.querySelectorAll('[data-mgrp="cycle"] .dsh-cyc-exp'));
+  const exps = Array.from(document.querySelectorAll(".dsh-cyc .dsh-cyc-exp"));
   return { count: exps.length, anyOpenByDefault: exps.some((e) => e.open), bothHaveProse: exps.every((e) => { const b = e.querySelector(".dsh-cyc-body"); return b && (b.textContent || "").trim().length > 200; }) };
 });
 check(collapse.count === 2, `both cycles have an expand/collapse toggle (${collapse.count})`);
 check(!collapse.anyOpenByDefault, "both narratives are collapsed by default (details not open)");
 check(collapse.bothHaveProse, "both blocks carry their narrative behind the toggle");
 // Expand the first (debt cycle) narrative.
-await d.pg.evaluate(() => { const s = document.querySelector('[data-mgrp="cycle"] .dsh-cyc-exp .dsh-cyc-sum'); if (s) s.click(); });
+await d.pg.evaluate(() => { const s = document.querySelector(".dsh-cyc .dsh-cyc-exp .dsh-cyc-sum"); if (s) s.click(); });
 await d.pg.waitForTimeout(250);
 const expanded = await d.pg.evaluate(() => {
-  const e = document.querySelector('[data-mgrp="cycle"] .dsh-cyc-exp');
+  const e = document.querySelector(".dsh-cyc .dsh-cyc-exp");
   const bd = e && e.querySelector(".dsh-cyc-body");
   return { open: !!(e && e.open), hasProse: !!(bd && /pendulum|Dalio|cycle/i.test(bd.textContent || "")) };
 });
