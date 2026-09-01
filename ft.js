@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "9e63bde5-c677-4ce5-82dc-1a684d9169c8", title: "Swiss finance minister hits out at move to water down UBS capital plans", date: "2026-09-01", time: "14:06", url: "https://www.ft.com/content/9e63bde5-c677-4ce5-82dc-1a684d9169c8" },
+  { id: "1ddd0d4a-34bc-4919-a6fb-68dc514b84e9", title: "Trump touts data centre build-out despite voter backlash", date: "2026-09-01", time: "14:00", url: "https://www.ft.com/content/1ddd0d4a-34bc-4919-a6fb-68dc514b84e9" },
+  { id: "697253e0-01d3-44fe-85e5-d4d9af207a3c", title: "Donald Trump summons US refiners as Iran war pushes up fuel prices", date: "2026-09-01", time: "14:00", url: "https://www.ft.com/content/697253e0-01d3-44fe-85e5-d4d9af207a3c" },
   { id: "bbbce2e1-6542-4806-9c26-d35e8c3b702e", title: "Saudi and South Korean oil tankers hit in Strait of Hormuz", date: "2026-09-01", time: "13:06", url: "https://www.ft.com/content/bbbce2e1-6542-4806-9c26-d35e8c3b702e" },
   { id: "fa69076c-ca25-4d28-9815-1b1105b51c9c", title: "Far-right Restore Britain receives £500,000 from tech entrepreneur", date: "2026-09-01", time: "13:04", url: "https://www.ft.com/content/fa69076c-ca25-4d28-9815-1b1105b51c9c" },
   { id: "b0bde505-2093-4d72-9f20-b1db23e08261", title: "Warsh clears up his own mess, but US credibility is still stretched", date: "2026-09-01", time: "12:30", url: "https://www.ft.com/content/b0bde505-2093-4d72-9f20-b1db23e08261" },
@@ -27,6 +30,7 @@ export const FT_ITEMS = [
   { id: "99a48c12-cb13-47dd-8a31-fff9a157d7ea", title: "ECB to raise rates again amid higher Eurozone inflation", date: "2026-09-01", time: "12:23", url: "https://www.ft.com/content/99a48c12-cb13-47dd-8a31-fff9a157d7ea" },
   { id: "cb0c4fc2-29d6-4465-83a1-7d26fbadff3e", title: "Why Andy Burnham should say: Jackdaw yes, Rosebank no", date: "2026-09-01", time: "12:14", url: "https://www.ft.com/content/cb0c4fc2-29d6-4465-83a1-7d26fbadff3e" },
   { id: "fa63c508-c202-4327-b24c-fe0ecc1bd684", title: "Thames Water should go into administration, says senior Tory MP", date: "2026-09-01", time: "12:14", url: "https://www.ft.com/content/fa63c508-c202-4327-b24c-fe0ecc1bd684" },
+  { id: "3d30f551-53af-4fab-8271-3f7fd75d5cfd", title: "Elliott builds stake in French industrial gas group Air Liquide", date: "2026-09-01", time: "12:02", url: "https://www.ft.com/content/3d30f551-53af-4fab-8271-3f7fd75d5cfd" },
   { id: "66df7f0e-ce6a-4619-8044-fa23423db3e7", title: "Shein’s unhappy IPO", date: "2026-09-01", time: "12:00", url: "https://www.ft.com/content/66df7f0e-ce6a-4619-8044-fa23423db3e7" },
   { id: "b189d31a-5e56-471e-91d1-c319aa68f174", title: "How to understand the current puzzle in bonds and equities", date: "2026-09-01", time: "11:57", url: "https://www.ft.com/content/b189d31a-5e56-471e-91d1-c319aa68f174" },
   { id: "4002eb81-07c0-47d0-a076-a6f6331667b2", title: "Rise in UK borrowing costs adds to pressure on Andy Burnham and John Healey", date: "2026-09-01", time: "11:51", url: "https://www.ft.com/content/4002eb81-07c0-47d0-a076-a6f6331667b2" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "7499413f-1bc2-44d5-b44a-a14d879b9b8a", title: "UK growth figures are set for another end-of-year slump. Why?", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/7499413f-1bc2-44d5-b44a-a14d879b9b8a" },
   { id: "b359c765-29e2-4f5f-b72c-cd36668621e1", title: "Disasters to cost world $450bn a year from climate change and development", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/b359c765-29e2-4f5f-b72c-cd36668621e1" },
   { id: "76086bda-04fd-41c9-a924-c5392258d3af", title: "Glasgow, the UK’s asylum hub, finds itself a target for the far right", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/76086bda-04fd-41c9-a924-c5392258d3af" },
-  { id: "5240a6ac-b2e8-4897-a0a4-cbc7fc283bc9", title: "Wall Street banks push Big Law to cut fees because of AI", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/5240a6ac-b2e8-4897-a0a4-cbc7fc283bc9" },
-  { id: "e3a8670f-eaf8-4930-ad34-14a2ee071fe9", title: "British banks crack down on Covid loan defaulters after government pressure", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/e3a8670f-eaf8-4930-ad34-14a2ee071fe9" },
-  { id: "40ea5643-865a-4443-b591-3ecd0458078b", title: "Illegal streaming costs UK £1.4bn a year, broadcasters and sports bodies warn", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/40ea5643-865a-4443-b591-3ecd0458078b" },
-  { id: "5f6b0dc5-04ac-404d-8c84-dce07a11ed74", title: "How Detroit landmark Michigan Central won back its lustre", date: "2026-09-01", time: "05:00", url: "https://www.ft.com/content/5f6b0dc5-04ac-404d-8c84-dce07a11ed74" },
 ];
