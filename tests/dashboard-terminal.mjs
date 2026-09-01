@@ -38,6 +38,24 @@ check(r.regimeW >= r.termW - 24, `Macro terminal: the regime strip fills the ful
 check(r.pageScroll <= 4, `Macro terminal: the page itself doesn't scroll (overflow ${r.pageScroll}px)`);
 
 checkErrs(errs, "dashboard terminal");
+
+// Credit pane is a terminal too — data columns + a credit-wire rail that scrolls.
+await pg.evaluate(() => { const t = [...document.querySelectorAll(".dsh-nav button, .dsh-nav [role=tab]")].find((x) => /^Credit/i.test(x.textContent.trim())); if (t) t.click(); });
+await pg.waitForSelector(".dsh-term-rail .dsh-news", { timeout: 8000 });
+await pg.waitForTimeout(400);
+const c = await pg.evaluate(() => {
+  const ws = document.querySelector(".dsh-term-ws");
+  const rail = document.querySelector(".dsh-term-rail .dsh-news");
+  return {
+    cols: ws ? getComputedStyle(ws).gridTemplateColumns.trim().split(/\s+/).length : 0,
+    railOv: rail ? getComputedStyle(rail).overflowY : "",
+    hasWire: !!rail,
+  };
+});
+checkEq(c.cols, 3, "Credit terminal: the workspace is a three-column grid");
+check(c.hasWire && /(auto|scroll)/.test(c.railOv), `Credit terminal: the credit-wire rail scrolls internally (${c.railOv})`);
+checkErrs(errs, "dashboard terminal credit");
+
 await ctx.close();
 await b.close(); srv.close();
 finish();

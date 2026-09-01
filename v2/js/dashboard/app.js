@@ -323,14 +323,22 @@ export function mount(host, ctx) {
       + `<div class="dsh-kvgrid">${P.metrics.map(kv).join("")}</div>`;
   }
   function creditHTML() {
-    return `<div class="dsh-pane">
-      <section class="dsh-card dsh-span"><h3 class="dsh-h">Private credit <span class="dsh-n">Fitch PCDR &amp; market pulse</span> ${asOf(PRIVATE_CREDIT && PRIVATE_CREDIT.asOf)}</h3>${privateCreditHTML()}</section>
-      <div class="dsh-span dsh-pair">
-        <section class="dsh-card"><h3 class="dsh-h">Credit spreads — ICE BofA OAS <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div></section>
-        <section class="dsh-card"><h3 class="dsh-h">Maturity wall</h3>${maturityHTML()}</section>
+    // Terminal (option 4): private credit + spreads · maturity + stress · a
+    // credit-wire rail that scrolls internally, filling the viewport.
+    return `<div class="dsh-pane dsh-term">
+      <div class="dsh-term-ws">
+        <div class="dsh-term-col">
+          <section class="dsh-card"><h3 class="dsh-h">Private credit <span class="dsh-n">Fitch PCDR &amp; market pulse</span> ${asOf(PRIVATE_CREDIT && PRIVATE_CREDIT.asOf)}</h3>${privateCreditHTML()}</section>
+          <section class="dsh-card"><h3 class="dsh-h">Credit spreads — ICE BofA OAS <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div></section>
+        </div>
+        <div class="dsh-term-col">
+          <section class="dsh-card"><h3 class="dsh-h">Maturity wall</h3>${maturityHTML()}</section>
+          <section class="dsh-card"><h3 class="dsh-h">Stress — situations in focus <span class="dsh-n">(${CR_STRESS.length}) · by debt</span></h3>${stressHTML()}</section>
+        </div>
+        <div class="dsh-term-col dsh-term-rail">
+          <section class="dsh-card"><h3 class="dsh-h">Credit wire — latest deals &amp; intel</h3>${creditNewsHTML()}</section>
+        </div>
       </div>
-      <section class="dsh-card dsh-span"><h3 class="dsh-h">Stress — situations in focus <span class="dsh-n">(${CR_STRESS.length}) · by debt</span></h3>${stressHTML()}</section>
-      <section class="dsh-card dsh-span"><h3 class="dsh-h">Credit wire — latest deals &amp; intel</h3>${creditNewsHTML()}</section>
     </div>`;
   }
   async function loadSpreads() {
