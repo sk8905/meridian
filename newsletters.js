@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-thebrink-cubadoesntpayitslawyers-20260901",
+    publication: "Bloomberg",
+    author: "Irene García Pérez",
+    series: "The Brink",
+    title: "The Brink: Cuba doesn’t pay its lawyers",
+    date: "2026-09-01",
+    time: "16:52",
+    summary: "PCB Byrne bows out of a yearslong saga regarding defaulted Cuban debt.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-01/cuba-s-lawyers-quit-uk-case-after-going-unpaid-for-more-than-a-year",
+  },
+  {
     id: "nl-bbg-econdaily-chinarealestaterevamp-20260901",
     publication: "Bloomberg",
     author: "Chris Anstey",
