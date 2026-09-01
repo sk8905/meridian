@@ -81,6 +81,19 @@ const tabXY = (pg, label) => pg.evaluate((lb) => {
     tabbarBack: (() => { const b = document.querySelector(".mobile-tabbar"); return !!b && b.getClientRects().length > 0; })(),
   }));
   check(closed.gone && !closed.bodyOpen && closed.tabbarBack, "Cancel closes the palette + restores the tab bar");
+
+  // F5 — recent searches now surface in the palette's OWN empty state, so the
+  // Menu's duplicate Search section could be retired (see v2-menu.mjs).
+  await pg.evaluate(() => { try { localStorage.setItem("wire.recentSearches", JSON.stringify(["Marshall Wace", "unitranche"])); } catch { /* ignore */ } });
+  await pg.evaluate(() => { document.querySelector("[data-open-search]")?.click(); });
+  await pg.waitForTimeout(300);
+  const rec = await pg.evaluate(() => ({
+    count: document.querySelectorAll(".mcmdk-recent").length,
+    hasHdr: !!document.querySelector(".mcmdk-recent-h"),
+  }));
+  check(rec.count >= 2 && rec.hasHdr, `palette shows Recent searches in its empty state (${rec.count})`);
+  await pg.evaluate(() => document.querySelector(".mcmdk-cancel")?.click());
+  await pg.waitForTimeout(200);
   checkErrs(errs, "palette dismissal");
   await ctx.close();
 }

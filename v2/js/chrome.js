@@ -32,10 +32,14 @@ import { esc } from "/util.js?v=20260818-1";
 // banner's right-edge button (data-nav-tab="newsletters"); see glance.js. Keeping
 // it off the global bar frees a slot (for the Origination radar) and treats it as
 // the reading surface it is. The view itself stays routable (/v2/newsletters/).
+// "radar" is the ROUTE key (kept stable for deep links); its user-facing label is
+// "Origination" — the workspace it actually is (see the note above; internally it
+// was always the "Origination radar"). The concentric-rings icon stays: a
+// magnifier would read as Search, which is a separate control.
 const TABS = [
-  ["home", "Home"], ["dashboard", "Dashboard"], ["profiles", "Profiles"], ["radar", "Radar"], ["menu", "Menu"],
+  ["home", "Home"], ["dashboard", "Dashboard"], ["profiles", "Profiles"], ["radar", "Origination"], ["menu", "Menu"],
 ];
-const PLATFORMS = [["home", "Home"], ["dashboard", "Dashboard"], ["profiles", "Profiles"], ["radar", "Radar"]];
+const PLATFORMS = [["home", "Home"], ["dashboard", "Dashboard"], ["profiles", "Profiles"], ["radar", "Origination"]];
 
 const TAB_ICONS = {
   home: '<svg class="mtab-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11 12 4l8 7"/><path d="M6 9.5V20h12V9.5"/></svg>',
@@ -82,7 +86,7 @@ export function initChrome({ onTab }) {
   //   • pull-to-refresh (ptr.js) — self-guards, touch-only
   // All are idempotent single inits; failures never block the shell.
   import("/brief.js?v=7").then((m) => m.initBrief()).catch(() => {});
-  import("/palette.js?v=20260822-1").then((m) => m.mountPalette()).catch(() => {});
+  import("/palette.js?v=20260822-2").then((m) => m.mountPalette()).catch(() => {});
   import("/ptr.js?v=20260725-1").then((m) => m.initPullToRefresh()).catch(() => {});
   // Header action cluster + panels (Markets / Saved / Notifications / Search, the
   // notif bell, saved + markets loaders), ported from nav-actions with its own

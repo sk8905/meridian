@@ -133,7 +133,12 @@ html[data-theme="light"] .mcmdk{--t-mac:#6a4fa3;--t-crd:#fb8b1e;--t-lex:#2b8a5f;
 .mcmdk .mcmdk-input{flex:1 1 auto;width:100%;min-width:0;border:0 !important;border-bottom:1px solid var(--border,#232f47) !important;padding:1rem 1.1rem;font:inherit;font-size:1.05rem;color:var(--ink,#eaf0fb);background:transparent !important;outline:none}
 .mcmdk-input::placeholder{color:var(--faint,#5c6a86)}
 .mcmdk-results{max-height:56vh;overflow-y:auto;overscroll-behavior:contain;padding:.35rem}
-.mcmdk-empty{color:var(--muted,#8592ad);font-size:.9rem;padding:1.2rem;text-align:center}
+.mcmdk-empty{color:var(--muted,#8592ad);font-size:.9rem;padding:1.2rem;text-align:center;line-height:1.6}
+.mcmdk-empty kbd{font-family:var(--t-mono,ui-monospace,monospace);font-size:.85em;border:1px solid var(--border,#262626);border-radius:4px;padding:0 5px;color:var(--ink,#eaf0fb)}
+.mcmdk-recent-h{font-size:9.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--faint,#5c6a86);padding:10px 14px 4px}
+.mcmdk-recent{display:flex;align-items:center;gap:9px;width:100%;text-align:left;padding:9px 14px;border:0;border-bottom:1px solid var(--border,#262626);background:transparent;color:var(--dim,#b7c2da);font:inherit;font-size:13px;cursor:pointer}
+.mcmdk-recent:hover{background:var(--head,#0a0a0a);color:var(--ink,#eaf0fb)}
+.mcmdk-recent svg{flex:0 0 auto;color:var(--faint,#5c6a86)}
 .mcmdk-row{display:block;padding:9px 14px;border-radius:0;cursor:pointer;border-bottom:1px solid var(--border,#262626)}
 .mcmdk-row.sel,.mcmdk-row:hover{background:var(--head,#0a0a0a)}
 .mcmdk-t{display:block;font-weight:400;font-size:13px;line-height:1.35;color:var(--ink,#eaf0fb);margin-bottom:4px}
@@ -228,10 +233,23 @@ export function mountPalette() {
         a.e.title.localeCompare(b.e.title))
       .slice(0, (code || prof) ? 60 : 40).map((x) => x.e);
   }
+  // Recent searches (shared key with the retired Menu list). Surfaced in the
+  // palette's OWN empty state so search has a single home — the Menu no longer
+  // carries a duplicate search section.
+  const recentList = () => {
+    try { const a = JSON.parse(localStorage.getItem("wire.recentSearches") || "[]"); return Array.isArray(a) ? a.filter((x) => typeof x === "string").slice(0, 8) : []; }
+    catch { return []; }
+  };
+  const emptyHTML = () => {
+    const r = recentList();
+    if (!r.length) return `<div class="mcmdk-empty">Search managers, funds, deals and the wire.<br>Type <kbd>#</kbd>label or <kbd>/</kbd>profile to narrow.</div>`;
+    return `<div class="mcmdk-recent-h">Recent</div>`
+      + r.map((q) => `<button type="button" class="mcmdk-recent" data-recent="${esc(q)}"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><span>${esc(q)}</span></button>`).join("");
+  };
   function draw() {
     results.innerHTML = current.length
       ? current.map((e, i) => `<div class="mcmdk-row${i === sel ? " sel" : ""}" data-i="${i}"><span class="mcmdk-t">${esc(e.title)}</span><span class="mcmdk-meta"><span class="mcmdk-code ${e.tag}">${esc(DESKCODE[e.tag] || e.label || e.tag)}</span>${e.sub ? `<span class="mcmdk-s">${esc(e.sub)}</span>` : ""}</span></div>`).join("")
-      : (input.value.trim() ? `<div class="mcmdk-empty">No matches.</div>` : "");
+      : (input.value.trim() ? `<div class="mcmdk-empty">No matches.</div>` : emptyHTML());
     const s = results.querySelector(".mcmdk-row.sel"); if (s) s.scrollIntoView({ block: "nearest" });
   }
   const refresh = () => { current = searchIdx(input.value); sel = 0; draw(); };
@@ -273,7 +291,11 @@ export function mountPalette() {
   const syncClr = () => { clr.hidden = !input.value; };
   input.addEventListener("input", () => { refresh(); syncClr(); });
   clr.addEventListener("click", () => { input.value = ""; refresh(); syncClr(); input.focus(); });
-  results.addEventListener("click", (ev) => { const r = ev.target.closest(".mcmdk-row"); if (r) go(current[+r.getAttribute("data-i")]); });
+  results.addEventListener("click", (ev) => {
+    const rec = ev.target.closest(".mcmdk-recent");
+    if (rec) { input.value = rec.dataset.recent || ""; refresh(); syncClr(); input.focus(); return; }
+    const r = ev.target.closest(".mcmdk-row"); if (r) go(current[+r.getAttribute("data-i")]);
+  });
   input.addEventListener("keydown", (ev) => {
     if (ev.key === "ArrowDown") { ev.preventDefault(); sel = Math.min(sel + 1, current.length - 1); draw(); }
     else if (ev.key === "ArrowUp") { ev.preventDefault(); sel = Math.max(sel - 1, 0); draw(); }
