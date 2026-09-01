@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "088d3368-bb8b-4ff3-9df7-a7680d4d81b2", title: "Inflation and interest rates tracker: see how your country compares", date: "2026-09-01", time: "11:01", url: "https://www.ft.com/content/088d3368-bb8b-4ff3-9df7-a7680d4d81b2" },
+  { id: "009a59d1-d797-490c-bbd7-32c95b8acd90", title: "When is an engineer not an engineer?", date: "2026-09-01", time: "11:00", url: "https://www.ft.com/content/009a59d1-d797-490c-bbd7-32c95b8acd90" },
   { id: "1b4d308c-3d49-4794-8280-187615c21876", title: "Eurozone inflation rises to 3.3% in August", date: "2026-09-01", time: "10:01", url: "https://www.ft.com/content/1b4d308c-3d49-4794-8280-187615c21876" },
   { id: "75a3bbb0-258f-4f04-a757-bd3a967fe9bc", title: "Tories reopen Liz Truss wound with new shadow chancellor", date: "2026-09-01", time: "09:30", url: "https://www.ft.com/content/75a3bbb0-258f-4f04-a757-bd3a967fe9bc" },
   { id: "d3dc2303-6c8c-4681-b045-25005537f455", title: "Ikea cuts prices in Europe by €1.2bn to counter cost of living crisis", date: "2026-09-01", time: "08:00", url: "https://www.ft.com/content/d3dc2303-6c8c-4681-b045-25005537f455" },
@@ -60,6 +62,4 @@ export const FT_ITEMS = [
   { id: "4b2b79ad-f909-489b-a8d7-01a126f64bae", title: "Messi announces retirement from international football", date: "2026-08-31", time: "17:48", url: "https://www.ft.com/content/4b2b79ad-f909-489b-a8d7-01a126f64bae" },
   { id: "eddde22c-aa99-468d-9fb0-36f3edd6e04f", title: "George Santos banned from prediction platform Kalshi for manipulation", date: "2026-08-31", time: "17:14", url: "https://www.ft.com/content/eddde22c-aa99-468d-9fb0-36f3edd6e04f" },
   { id: "96691b37-1360-4f32-b267-ec8fc3a05370", title: "Israel’s de facto annexation of the West Bank", date: "2026-08-31", time: "16:57", url: "https://www.ft.com/content/96691b37-1360-4f32-b267-ec8fc3a05370" },
-  { id: "369558d0-357c-41e7-aa1e-dc1c1c07457d", title: "Don’t write off Russia’s defence industry yet", date: "2026-08-31", time: "16:53", url: "https://www.ft.com/content/369558d0-357c-41e7-aa1e-dc1c1c07457d" },
-  { id: "46bf442d-175b-4347-8ef6-e3d80ae6ea63", title: "Trump’s tariff fix leaves US trade policy in permanent flux", date: "2026-08-31", time: "16:07", url: "https://www.ft.com/content/46bf442d-175b-4347-8ef6-e3d80ae6ea63" },
 ];
