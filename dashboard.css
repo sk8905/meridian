@@ -41,6 +41,34 @@
    a centred terminal column so the 2-up card grid and every row stay dense. */
 @media (min-width:1180px){ .dsh-nav > *, .dsh-pane{ max-width:1160px; margin-left:auto; margin-right:auto; } }
 
+/* ---- PROTOTYPE (option 4): fixed-viewport terminal for the Macro pane --------
+   The dashboard fills the viewport; the rates panels tile into three columns and
+   the Macro wire is a rail that scrolls internally, so data + news read at once
+   "above the fold" instead of as one long scroll. Desktop only. */
+@media (min-width:901px){
+  .v2-view .dsh:has(.dsh-term){ overflow:hidden; display:flex; flex-direction:column; }
+  .dsh:has(.dsh-term) .dsh-nav{ flex:0 0 auto; }
+  .dsh-term{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; align-items:stretch; gap:var(--dsh-gap);
+    max-width:none; margin:0; padding:var(--dsh-gap); }
+  .dsh-term > .dsh-card:first-child, .dsh-term > .dsh-msub{ flex:0 0 auto; }
+  .dsh-term > .dsh-msub{ margin:0; }
+  .dsh-term-ws{ flex:1 1 auto; min-height:0; display:grid;
+    grid-template-columns:minmax(0,1fr) minmax(0,1fr) minmax(320px,380px); gap:var(--dsh-gap); }
+  .dsh-term-col{ min-height:0; display:flex; flex-direction:column; gap:var(--dsh-gap);
+    overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+  .dsh-term-col > .dsh-card{ flex:0 0 auto; }
+  /* Stack the Fed/BoE FedWatch|dot-plot internals in a terminal column so they
+     read cleanly at column width instead of cramping side by side. */
+  .dsh-term-col .dsh-fed{ grid-template-columns:1fr; }
+  /* Wire rail: header pins, the headline list scrolls. */
+  .dsh-term-rail{ overflow:hidden; }
+  .dsh-term-rail > .dsh-card{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
+  .dsh-term-rail .dsh-h{ flex:0 0 auto; }
+  .dsh-term-rail .dsh-news{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; margin:0; }
+  /* Cycle sub-tab keeps the normal stacked layout. */
+  .dsh-macro-cycle.dsh-term{ overflow-y:auto; }
+}
+
 .dsh-card { background:var(--t-panel); border:1px solid var(--t-grid); border-radius:8px; padding:12px; }
 .dsh-h { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:0 0 10px; font-size:var(--fs-card-title,1.05rem); font-weight:600; color:var(--t-ink); }
 .dsh-h .dsh-n { color:var(--t-mut); font-weight:400; font-size:.8rem; }

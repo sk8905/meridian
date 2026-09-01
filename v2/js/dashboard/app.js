@@ -568,14 +568,25 @@ export function mount(host, ctx) {
     const boe = boeHTML();
     // Same segmented-chip style as the dashboard's top sub-tabs (.tchips/.tchip).
     const sub = (k, l) => `<button type="button" class="tchip${_macroSub === k ? " is-on" : ""}" data-msub="${k}">${l}</button>`;
-    return `<div class="dsh-pane dsh-macro dsh-macro-${_macroSub}">
+    // PROTOTYPE (option 4) — fixed-viewport terminal: the rates cards tile into a
+    // three-column workspace that fills the screen, and the Macro wire is a rail
+    // that scrolls internally instead of the page scrolling.
+    return `<div class="dsh-pane dsh-macro dsh-macro-${_macroSub} dsh-term">
       <section class="dsh-card dsh-span">${regimePillsHTML()}</section>
       <div class="dsh-span dsh-msub"><div class="tchips">${sub("rates", "Policy rates")}${sub("cycle", "Cycle")}</div></div>
-      ${fed ? `<section class="dsh-card dsh-span" data-mgrp="rates"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
-      ${boe ? `<section class="dsh-card dsh-span" data-mgrp="rates"><h3 class="dsh-h">BoE path — MPC votes &amp; SONIA/OIS curve</h3>${boe}</section>` : ""}
-      <section class="dsh-card" data-mgrp="rates"><h3 class="dsh-h">Rate outlook</h3>${rateOutlookHTML()}</section>
-      <section class="dsh-card" data-mgrp="rates" id="dsh-yc-card">${yieldCurveCardHTML()}</section>
-      <section class="dsh-card dsh-span" data-mgrp="rates"><h3 class="dsh-h">Macro wire — US &amp; UK headlines</h3>${macroNewsHTML()}</section>
+      <div class="dsh-term-ws" data-mgrp="rates">
+        <div class="dsh-term-col">
+          ${fed ? `<section class="dsh-card"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
+          ${boe ? `<section class="dsh-card"><h3 class="dsh-h">BoE path — MPC votes &amp; SONIA/OIS curve</h3>${boe}</section>` : ""}
+        </div>
+        <div class="dsh-term-col">
+          <section class="dsh-card"><h3 class="dsh-h">Rate outlook</h3>${rateOutlookHTML()}</section>
+          <section class="dsh-card" id="dsh-yc-card">${yieldCurveCardHTML()}</section>
+        </div>
+        <div class="dsh-term-col dsh-term-rail">
+          <section class="dsh-card"><h3 class="dsh-h">Macro wire — US &amp; UK headlines</h3>${macroNewsHTML()}</section>
+        </div>
+      </div>
       <section class="dsh-card dsh-span" data-mgrp="cycle"><h3 class="dsh-h">Where we are in the cycle — debt &amp; market</h3>${cyclesHTML()}</section>
     </div>`;
   }
