@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "606e5f9d-44b5-4b45-9ecc-59dd8a66fb5a", title: "Burnham moves to protect British farming and steel in EU reset talks", date: "2026-09-02", time: "21:00", url: "https://www.ft.com/content/606e5f9d-44b5-4b45-9ecc-59dd8a66fb5a" },
+  { id: "75c3179a-5c42-42fd-94e9-6f0c3dfc0c70", title: "Google spared break-up of online advertising monopoly", date: "2026-09-02", time: "20:53", url: "https://www.ft.com/content/75c3179a-5c42-42fd-94e9-6f0c3dfc0c70" },
   { id: "d5d6e4c9-718a-4d98-b094-97157565f336", title: "Trump administration backs OpenAI in New York Times copyright battle", date: "2026-09-02", time: "19:44", url: "https://www.ft.com/content/d5d6e4c9-718a-4d98-b094-97157565f336" },
   { id: "c9390b8a-a453-4014-a5a8-13f8fd518356", title: "Badenoch takes on Burnham after shake-up of her top team", date: "2026-09-02", time: "19:09", url: "https://www.ft.com/content/c9390b8a-a453-4014-a5a8-13f8fd518356" },
   { id: "1749e753-9c90-4ff5-91ec-8df764f3b26d", title: "Dutch central bank moves gold bars out of New York over 'geopolitical unrest'", date: "2026-09-02", time: "18:23", url: "https://www.ft.com/content/1749e753-9c90-4ff5-91ec-8df764f3b26d" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "16081c0e-5471-4c00-8b12-29cac20a69d2", title: "France’s debt crisis-in-waiting", date: "2026-09-02", time: "06:30", url: "https://www.ft.com/content/16081c0e-5471-4c00-8b12-29cac20a69d2" },
   { id: "a8df319d-5733-4adb-ab46-c5f52451e4e3", title: "Germany loses its shine in the EU’s quest for green investment", date: "2026-09-02", time: "06:00", url: "https://www.ft.com/content/a8df319d-5733-4adb-ab46-c5f52451e4e3" },
   { id: "8ffc1886-f06f-4ac6-bb19-b9993d657712", title: "FTAV’s further reading", date: "2026-09-02", time: "06:00", url: "https://www.ft.com/content/8ffc1886-f06f-4ac6-bb19-b9993d657712" },
-  { id: "958aa5ab-78e0-40cb-9a18-25e9fd5de233", title: "So how big *was* Bessent’s yentervention?", date: "2026-09-02", time: "05:30", url: "https://www.ft.com/content/958aa5ab-78e0-40cb-9a18-25e9fd5de233" },
 ];
