@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-tradingday-overandrout-20260901",
+    publication: "Thomson Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "Over and rout",
+    date: "2026-09-01",
+    time: "22:01",
+    summary: "Dell shares surge after hours as the global bond rout deepens — Fed Governor Barr opens the door to a hike, and traders price 66% odds for September.",
+    url: "https://www.reuters.com/newsletters/trading-day/",
+  },
+  {
     id: "nl-bbg-moneystuff-amazonchargedthefirstprice-20260901",
     publication: "Bloomberg",
     author: "Matt Levine",
@@ -465,15 +476,5 @@ export const NEWSLETTERS = [
     summary: "Kevin Warsh faces his first Jackson Hole test as bond markets clash with Bessent's 'Treasury twist' on rates.",
     url: "https://www.reuters.com/newsletters/reuters-econ-world",
   },
-  {
-    id: "nl-bbg-burnthebonds-20260827",
-    publication: "Bloomberg",
-    author: "Simon White",
-    series: null,
-    title: "The 'Burn the Bonds' Stage of the Debt Cycle Is Here",
-    date: "2026-08-27",
-    time: "11:39",
-    summary: "A French call to cancel public debt points to a wider 'burn the bonds' drift toward inflating away sovereign debt.",
-    url: "https://www.bloomberg.com/news/articles/2026-08-27/the-burn-the-bonds-stage-of-the-debt-cycle-is-here",
-  },
+
 ];
