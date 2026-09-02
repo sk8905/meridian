@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-simpsonthacherweilraid-20260902",
+    publication: "Legal Business",
+    author: null,
+    series: null,
+    title: "Simpson Thacher continues Weil raid across London and New York",
+    date: "2026-09-02",
+    time: "17:04",
+    summary: "Departures include co-head of Weil's US private funds practice and London funds partner.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQXztACwoYliWW0z7/wv",
+  },
+  {
     id: "nl-legalbusiness-cravathf1owner-20260902",
     publication: "Legal Business",
     author: null,
@@ -464,16 +475,5 @@ export const NEWSLETTERS = [
     time: "12:00",
     summary: "Keynote speech offers Warsh a chance to explain why he didn't hike rates.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-28/fed-latest-speech-offers-warsh-chance-to-explain-why-he-didn-t-hike-rate",
-  },
-  {
-    id: "nl-reuters-sixmonthscounting-20260828",
-    publication: "Thomson Reuters",
-    author: "Anna Szymanski",
-    series: "Morning Bid Weekend",
-    title: "Six months and counting",
-    date: "2026-08-28",
-    time: "11:31",
-    summary: "Your weekly market recap, with reading, watching and listening recommendations from the ROI team.",
-    url: "https://www.reuters.com/newsletters/morning-bid-us",
   },
 ];

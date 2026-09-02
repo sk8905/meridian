@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b71bfe10-29a0-4213-92a2-22765c44c190", title: "BP gets the chair it wants rather than the one it needed", date: "2026-09-02", time: "17:49", url: "https://www.ft.com/content/b71bfe10-29a0-4213-92a2-22765c44c190" },
+  { id: "5040d26d-520c-455f-a1e8-111d011acdb6", title: "California opines on who profits from wildfires but not on who pays", date: "2026-09-02", time: "17:45", url: "https://www.ft.com/content/5040d26d-520c-455f-a1e8-111d011acdb6" },
+  { id: "3d2590e0-b166-494e-ab6b-e6c20c75c59e", title: "The Restore Britain backer who once gave money to the Lib Dems", date: "2026-09-02", time: "17:30", url: "https://www.ft.com/content/3d2590e0-b166-494e-ab6b-e6c20c75c59e" },
+  { id: "c4f84da3-bfc6-49a0-90bd-9a1611864ac4", title: "AI spots cyber gaps faster than financial firms can fix them", date: "2026-09-02", time: "17:25", url: "https://www.ft.com/content/c4f84da3-bfc6-49a0-90bd-9a1611864ac4" },
   { id: "c9c3a0ef-98d5-4aeb-9d20-e6250d6fcf99", title: "Students and opposition activists targeted with spyware in Serbia", date: "2026-09-02", time: "16:48", url: "https://www.ft.com/content/c9c3a0ef-98d5-4aeb-9d20-e6250d6fcf99" },
   { id: "9fa4fcb7-14f0-4461-87aa-4fbdf1fe64f4", title: "UK mortgage borrowers urged to lock in deals before rates rise", date: "2026-09-02", time: "16:42", url: "https://www.ft.com/content/9fa4fcb7-14f0-4461-87aa-4fbdf1fe64f4" },
   { id: "5b8f840e-f47c-452a-a99b-a79044ddf7c7", title: "Tory attempts to repeal the UK Climate Act are tin-eared", date: "2026-09-02", time: "16:27", url: "https://www.ft.com/content/5b8f840e-f47c-452a-a99b-a79044ddf7c7" },
@@ -57,8 +61,4 @@ export const FT_ITEMS = [
   { id: "80d02797-9a54-47e0-8bc3-a7144354da93", title: "AI sounds the death knell for audit fee inflation", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/80d02797-9a54-47e0-8bc3-a7144354da93" },
   { id: "c51dec0b-977e-463e-9590-daff0d91a8a6", title: "The wheels are coming off the US world order", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/c51dec0b-977e-463e-9590-daff0d91a8a6" },
   { id: "1101d3c3-8355-4fbf-86b9-1761a56c19c2", title: "Notes on campy clothing (and Dolly Parton)", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/1101d3c3-8355-4fbf-86b9-1761a56c19c2" },
-  { id: "7cce7c38-bce2-4718-b6e7-d0f4ae4c8751", title: "Protecting Tower of London views would make skyscrapers unviable, City warns", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/7cce7c38-bce2-4718-b6e7-d0f4ae4c8751" },
-  { id: "1e55d948-98e5-4c1a-8a09-51e1311fcf63", title: "EU accelerates plans to break up diplomatic service", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/1e55d948-98e5-4c1a-8a09-51e1311fcf63" },
-  { id: "8160b331-35c3-4735-a684-f1f2d95fddde", title: "‘Plan 2’ graduates earning less than £45,000 are unlikely to clear debts", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/8160b331-35c3-4735-a684-f1f2d95fddde" },
-  { id: "c4cc661e-cb38-4d40-9d34-950c22e02301", title: "Kylian Mbappé-backed health start-up expands to west Africa", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/c4cc661e-cb38-4d40-9d34-950c22e02301" },
 ];
