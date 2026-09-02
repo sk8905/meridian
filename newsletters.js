@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-exoduspointbluecresttrader-20260902",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    series: null,
+    title: "Ex-BlueCrest Trader to Run $1 Billion Macro Pod at ExodusPoint",
+    date: "2026-09-02",
+    time: "12:21",
+    summary: "Ben Atlas, who left billionaire Michael Platt's private investment firm BlueCrest last year, is joining ExodusPoint Capital Management to run a new trading team with more than $1 billion in initial allocation.",
+    url: "https://www.bloomberg.com/news/articles/2026-09-02/ex-bluecrest-trader-to-run-1-billion-macro-pod-at-exoduspoint",
+  },
+  {
     id: "nl-bbg-goingprivate-extremeheat-20260902",
     publication: "Bloomberg",
     author: "Sinead Cruise",
@@ -464,16 +475,5 @@ export const NEWSLETTERS = [
     time: "11:14",
     summary: "The countdown to Jackson Hole.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-28/traders-expect-to-be-frustrated-by-warsh-s-jackson-hole-speech",
-  },
-  {
-    id: "nl-bbg-parisedition-electionseason-20260828",
-    publication: "Bloomberg",
-    author: "Alan Katz",
-    series: "Paris Edition",
-    title: "Paris Edition: It’s election season",
-    date: "2026-08-28",
-    time: "11:03",
-    summary: "France is in for a long, cacophonous few months ahead of the presidential vote next year.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-28/election-fever-starts-to-take-hold-in-france-as-debt-woes-loom",
   },
 ];

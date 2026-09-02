@@ -20,6 +20,13 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "5eda86fe-1d2c-4a4e-9563-24a50aa734a4", title: "Uber to cut 10% of its global workforce", date: "2026-09-02", time: "13:25", url: "https://www.ft.com/content/5eda86fe-1d2c-4a4e-9563-24a50aa734a4" },
+  { id: "f73d918c-efc4-4cc0-b6d7-be97a2ef3288", title: "Spain demands answers as police blame Morocco for migrant crisis", date: "2026-09-02", time: "13:12", url: "https://www.ft.com/content/f73d918c-efc4-4cc0-b6d7-be97a2ef3288" },
+  { id: "f394d4ca-d035-4753-b7a0-f21eefa08252", title: "Japan’s borrowing costs hit 30-year high: what does it mean for global markets?", date: "2026-09-02", time: "13:03", url: "https://www.ft.com/content/f394d4ca-d035-4753-b7a0-f21eefa08252" },
+  { id: "31885e65-bc12-4d05-9059-aa69c2a225e0", title: "Andy Burnham and Emmanuel Macron to meet as Bayeux Tapestry unveiled", date: "2026-09-02", time: "12:31", url: "https://www.ft.com/content/31885e65-bc12-4d05-9059-aa69c2a225e0" },
+  { id: "978fbb75-14b1-4cb7-96b7-c761b4b9a8a6", title: "Growth is a life-and-death matter for Europe", date: "2026-09-02", time: "12:30", url: "https://www.ft.com/content/978fbb75-14b1-4cb7-96b7-c761b4b9a8a6" },
+  { id: "3cd95c0c-4d62-4a74-8c66-34523bc2567d", title: "Indonesia’s lessons for the global energy transition", date: "2026-09-02", time: "12:00", url: "https://www.ft.com/content/3cd95c0c-4d62-4a74-8c66-34523bc2567d" },
+  { id: "a76721db-36e1-4198-aad8-8c90137aace9", title: "Chevron pledges $7bn to double its Venezuela oil production", date: "2026-09-02", time: "11:56", url: "https://www.ft.com/content/a76721db-36e1-4198-aad8-8c90137aace9" },
   { id: "6436ce90-dd01-44dd-8f7c-b466cd813694", title: "Ford aims for Nato defence deals as it bids to build UK’s new military vehicle", date: "2026-09-02", time: "11:00", url: "https://www.ft.com/content/6436ce90-dd01-44dd-8f7c-b466cd813694" },
   { id: "9877ee0d-8c13-41b4-b102-9f2b280787ea", title: "The best, worst and strangest ways AI is really being used at work", date: "2026-09-02", time: "11:00", url: "https://www.ft.com/content/9877ee0d-8c13-41b4-b102-9f2b280787ea" },
   { id: "806ed56b-f5b2-4ae4-8164-231ccaebdd21", title: "Ukraine tells airlines to stop using Russian airspace", date: "2026-09-02", time: "09:57", url: "https://www.ft.com/content/806ed56b-f5b2-4ae4-8164-231ccaebdd21" },
@@ -57,8 +64,4 @@ export const FT_ITEMS = [
   { id: "c557ccc2-9fe7-4725-8a1c-c40a0948e8d3", title: "US launches further strikes on Iran as conflict flares up", date: "2026-09-01", time: "17:55", url: "https://www.ft.com/content/c557ccc2-9fe7-4725-8a1c-c40a0948e8d3" },
   { id: "239063eb-90c2-4086-8db3-a9f11a029209", title: "Andy Burnham promises to ‘bring back hope’ in first Commons appearance as PM", date: "2026-09-01", time: "17:49", url: "https://www.ft.com/content/239063eb-90c2-4086-8db3-a9f11a029209" },
   { id: "2ca5dfbf-f48b-4ffb-9ce9-9ff3e787a75e", title: "Germany blames Russia for Leipzig drone attack", date: "2026-09-01", time: "17:33", url: "https://www.ft.com/content/2ca5dfbf-f48b-4ffb-9ce9-9ff3e787a75e" },
-  { id: "e7cc6fc2-74ae-497b-92bf-d8254dd161fa", title: "GoPro: a totally normal, unremarkable piece of merger activity", date: "2026-09-01", time: "17:33", url: "https://www.ft.com/content/e7cc6fc2-74ae-497b-92bf-d8254dd161fa" },
-  { id: "066b0d08-421b-46a1-8bf1-7698aec161d2", title: "Politics keeps European stocks in America’s shadow", date: "2026-09-01", time: "17:32", url: "https://www.ft.com/content/066b0d08-421b-46a1-8bf1-7698aec161d2" },
-  { id: "fe0fc9bf-e7dc-4fa1-91d2-4d7bad22c3c3", title: "Governments should heed the bond market’s warning", date: "2026-09-01", time: "17:17", url: "https://www.ft.com/content/fe0fc9bf-e7dc-4fa1-91d2-4d7bad22c3c3" },
-  { id: "9b370f97-2e08-4dd2-8512-fa6aabfd2ec2", title: "IMF agrees $2.2bn bailout for Senegal", date: "2026-09-01", time: "17:15", url: "https://www.ft.com/content/9b370f97-2e08-4dd2-8512-fa6aabfd2ec2" },
 ];
