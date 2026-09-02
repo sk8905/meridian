@@ -173,6 +173,7 @@ export function viewFund(id) {
   const x = fundById[id];
   if (!x) return notFound(app);
   const m = managerById[x.managerId];
+  if (!m) return notFound(app);
   const related = intelForFund(id);
   const peers = funds.filter((p) => p.strategy === x.strategy && p.id !== id).slice(0, 5);
   // While raising (open/first close/pre-marketing) or evergreen → indicative fit.

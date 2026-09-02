@@ -1708,7 +1708,3 @@ function initPulse() {
 // Shared cache of the /api/macro series — populated by the macro snapshot
 // (initMacroSnapshot) and read via findMacro().
 let _macroSeries;
-
-// ---- Unified search index --------------------------------------------------
-// Result priority (rank): managers first, then funds / CLOs, then dated items
-// (deals, intel, legal — newest first), then macro chart shortcuts, then views.

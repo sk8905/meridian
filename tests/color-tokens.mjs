@@ -26,6 +26,7 @@ const paletteJs = read("palette.js");
 const feedJs = read("feed.js");
 const dashboardApp = read(path.join("v2", "js", "dashboard", "app.js"));
 const statusJs = read(path.join("v2", "js", "status.js"));
+const creditDetailJs = read(path.join("v2", "js", "credit", "detail.js"));
 
 // R8 — --t-news must be a REAL declared custom property (dark + light), not
 // just a var(--t-news, #fallback) with nothing ever setting it.
@@ -179,5 +180,19 @@ for (const cls of ["bbg", "econ"]) {
 // .veh-tk above; its sibling .ck-dim-n label already reads --ink).
 check(/\.ck-dim-s\s*\{[^}]*color:\s*var\(--ink\)/.test(macroCss),
   "macro/css/styles.css .ck-dim-s uses --ink, not the accent (--macro) orange");
+
+// R6 — the Macro cockpit's earnings-watch day-break (.ew-day, rendered inside
+// the dark .tui terminal surface) bands on --head (the day-break/panel-header
+// token, #0a0a0a dark), not --bg (the page ground, #000000 dark) — the two
+// resolve close enough to collide, blending the band into the page.
+check(/\.ew-day\s*\{[^}]*background:\s*var\(--head,/.test(macroCss),
+  "macro/css/styles.css .ew-day day-break bands on --head, not --bg");
+
+// T12 — Credit detail's viewFund() must guard a fund whose managerId has no
+// matching manager record (mirrors the null-guard every sibling view function
+// — viewManager/viewClo/viewLp/viewHedgeFund — already has), so a dangling
+// reference renders the empty state instead of throwing on m.id/m.name.
+check(/function viewFund\(id\)\s*\{[^]*?const m = managerById\[x\.managerId\];\s*\n\s*if \(!m\) return notFound\(app\);/.test(creditDetailJs),
+  "v2/js/credit/detail.js viewFund() guards a missing manager record before use");
 
 finish();

@@ -117,14 +117,3 @@ export function managerWire(follows, { limit = 24, nowTs } = {}) {
   rows.sort((a, b) => (b.watched - a.watched) || (b.lastTs - a.lastTs));
   return limit > 0 ? rows.slice(0, limit) : rows;
 }
-
-// Operational coverage metrics (used by the metrics readout later).
-export function coverageMetrics(nowTs) {
-  const now = nowTs || Date.now();
-  const total = managers.length;
-  const withAum = managers.filter((m) => (m.aumTotal != null || m.aum != null) && m.asOf).length;
-  const active30 = managers.filter((m) => managerSummary(m.id, now).count30 > 0).length;
-  const active90 = managers.filter((m) => managerSummary(m.id, now).count90 > 0).length;
-  const inMarket = funds.filter((f) => IN_MARKET.has(f.status)).length;
-  return { total, withAum, active30, active90, inMarket };
-}

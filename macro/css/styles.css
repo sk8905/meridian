@@ -447,7 +447,7 @@ a.intel-head:hover { text-decoration: none; }
 .ew-off { display: none; }
 /* Day-break header — matches the standard wire day-break (R6): sans-serif,
    10px/600, uppercase, a grey band with the accent label (--macro dark / #2f6cae light). */
-.ew-day { margin: 10px -12px 2px; padding: 6px 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; background: var(--bg); border-bottom: 1px solid var(--border); }
+.ew-day { margin: 10px -12px 2px; padding: 6px 12px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; background: var(--head, var(--bg)); border-bottom: 1px solid var(--border); }
 .ew-day:first-child { margin-top: 0; }
 .ew-day strong { color: #2f6cae; font-weight: inherit; }
 [data-theme="dark"] .ew-day strong { color: var(--macro); }
