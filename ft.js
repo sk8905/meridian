@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d5d6e4c9-718a-4d98-b094-97157565f336", title: "Trump administration backs OpenAI in New York Times copyright battle", date: "2026-09-02", time: "19:44", url: "https://www.ft.com/content/d5d6e4c9-718a-4d98-b094-97157565f336" },
+  { id: "c9390b8a-a453-4014-a5a8-13f8fd518356", title: "Badenoch takes on Burnham after shake-up of her top team", date: "2026-09-02", time: "19:09", url: "https://www.ft.com/content/c9390b8a-a453-4014-a5a8-13f8fd518356" },
   { id: "1749e753-9c90-4ff5-91ec-8df764f3b26d", title: "Dutch central bank moves gold bars out of New York over 'geopolitical unrest'", date: "2026-09-02", time: "18:23", url: "https://www.ft.com/content/1749e753-9c90-4ff5-91ec-8df764f3b26d" },
   { id: "1e55d948-98e5-4c1a-8a09-51e1311fcf63", title: "EU accelerates plans to break up diplomatic service", date: "2026-09-02", time: "18:22", url: "https://www.ft.com/content/1e55d948-98e5-4c1a-8a09-51e1311fcf63" },
   { id: "1fef1e44-2a79-4057-89e5-33417e5a7763", title: "The wrong way to revive Venezuela's economy", date: "2026-09-02", time: "18:22", url: "https://www.ft.com/content/1fef1e44-2a79-4057-89e5-33417e5a7763" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "a8df319d-5733-4adb-ab46-c5f52451e4e3", title: "Germany loses its shine in the EU’s quest for green investment", date: "2026-09-02", time: "06:00", url: "https://www.ft.com/content/a8df319d-5733-4adb-ab46-c5f52451e4e3" },
   { id: "8ffc1886-f06f-4ac6-bb19-b9993d657712", title: "FTAV’s further reading", date: "2026-09-02", time: "06:00", url: "https://www.ft.com/content/8ffc1886-f06f-4ac6-bb19-b9993d657712" },
   { id: "958aa5ab-78e0-40cb-9a18-25e9fd5de233", title: "So how big *was* Bessent’s yentervention?", date: "2026-09-02", time: "05:30", url: "https://www.ft.com/content/958aa5ab-78e0-40cb-9a18-25e9fd5de233" },
-  { id: "2a2d9bab-7441-446b-8e2e-7463583738c2", title: "Back to school: meet PE’s new headmasters", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/2a2d9bab-7441-446b-8e2e-7463583738c2" },
-  { id: "638974ef-2f93-4d64-a118-980e9edb56b6", title: "Ukraine considers relaxing curfew rules despite Russian attacks", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/638974ef-2f93-4d64-a118-980e9edb56b6" },
-  { id: "2a41f6a2-468b-44ae-bee7-a6159186c83c", title: "ECB must be prepared to lift interest rates further, says top policymaker", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/2a41f6a2-468b-44ae-bee7-a6159186c83c" },
 ];

@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-etfdividendflip-20260902",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: The ETF Dividend Flip",
+    date: "2026-09-02",
+    time: "18:12",
+    summary: "ETFs, billables, boosters, billionaires.",
+    url: "https://bloom.bg/4clzfkH",
+  },
+  {
     id: "nl-legalbusiness-simpsonthacherweilraid-20260902",
     publication: "Legal Business",
     author: null,
