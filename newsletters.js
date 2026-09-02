@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-marketsdaily-priceofthepump-20260902",
+    publication: "Bloomberg",
+    author: null,
+    series: "Markets Daily",
+    title: "Markets Daily: The price of the pump",
+    date: "2026-09-02",
+    time: "10:12",
+    summary: "It's all revolving around oil.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-02/wall-street-s-direction-is-being-dictated-by-oil",
+  },
+  {
     id: "nl-legalbusiness-marianadambhp-20260902",
     publication: "Legal Business",
     author: null,
@@ -464,27 +475,5 @@ export const NEWSLETTERS = [
     time: "09:00",
     summary: "A starry Brummie chef opens in London for the first time.",
     url: "https://www.cntraveller.com/article/new-london-restaurants",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-warshtakescenterstage-20260828",
-    publication: "Bloomberg",
-    author: "Lily Nonomiya",
-    series: "Morning Briefing Europe",
-    title: "Warsh takes center stage",
-    date: "2026-08-28",
-    time: "07:38",
-    summary: "Investors brace for Kevin Warsh's Jackson Hole remarks, Venezuela weighs leaving OPEC, and a Spanish heist sees Bronze Age gold stolen in minutes.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-28/investors-brace-for-warsh-s-jackson-hole-speech",
-  },
-  {
-    id: "nl-bbg-twosigmaarbitration-20260827",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    series: null,
-    title: "Two Sigma's Feuding Founders Head to Arbitration in Fresh Battle",
-    date: "2026-08-27",
-    time: "19:30",
-    summary: "Two Sigma Investments' billionaire founders are headed to another round of arbitration, the latest front in intractable infighting at the quant trading giant.",
-    url: "https://www.bloomberg.com/news/articles/2026-08-27/two-sigma-s-feuding-founders-head-to-arbitration-in-fresh-battle",
   },
 ];

@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "6436ce90-dd01-44dd-8f7c-b466cd813694", title: "Ford aims for Nato defence deals as it bids to build UK’s new military vehicle", date: "2026-09-02", time: "11:00", url: "https://www.ft.com/content/6436ce90-dd01-44dd-8f7c-b466cd813694" },
+  { id: "9877ee0d-8c13-41b4-b102-9f2b280787ea", title: "The best, worst and strangest ways AI is really being used at work", date: "2026-09-02", time: "11:00", url: "https://www.ft.com/content/9877ee0d-8c13-41b4-b102-9f2b280787ea" },
   { id: "806ed56b-f5b2-4ae4-8164-231ccaebdd21", title: "Ukraine tells airlines to stop using Russian airspace", date: "2026-09-02", time: "09:57", url: "https://www.ft.com/content/806ed56b-f5b2-4ae4-8164-231ccaebdd21" },
   { id: "980bd114-fb96-479c-ac30-41435a9f78d0", title: "How worried should Labour be about holding Keir Starmer’s seat?", date: "2026-09-02", time: "09:30", url: "https://www.ft.com/content/980bd114-fb96-479c-ac30-41435a9f78d0" },
   { id: "69671716-02bb-496c-88ad-10befe4a9d63", title: "Xi Jinping visits Egypt in rare foreign travel flurry ahead of Donald Trump summit", date: "2026-09-02", time: "09:20", url: "https://www.ft.com/content/69671716-02bb-496c-88ad-10befe4a9d63" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "066b0d08-421b-46a1-8bf1-7698aec161d2", title: "Politics keeps European stocks in America’s shadow", date: "2026-09-01", time: "17:32", url: "https://www.ft.com/content/066b0d08-421b-46a1-8bf1-7698aec161d2" },
   { id: "fe0fc9bf-e7dc-4fa1-91d2-4d7bad22c3c3", title: "Governments should heed the bond market’s warning", date: "2026-09-01", time: "17:17", url: "https://www.ft.com/content/fe0fc9bf-e7dc-4fa1-91d2-4d7bad22c3c3" },
   { id: "9b370f97-2e08-4dd2-8512-fa6aabfd2ec2", title: "IMF agrees $2.2bn bailout for Senegal", date: "2026-09-01", time: "17:15", url: "https://www.ft.com/content/9b370f97-2e08-4dd2-8512-fa6aabfd2ec2" },
-  { id: "1edf7290-1289-459f-9f72-2a7d7c3da381", title: "America can’t win the AI race if the rollout lacks public support", date: "2026-09-01", time: "17:06", url: "https://www.ft.com/content/1edf7290-1289-459f-9f72-2a7d7c3da381" },
 ];
