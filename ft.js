@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d7e8d76b-d67b-46af-9d95-a384cb90b5d2", title: "BP names Ian Tyler as chair", date: "2026-09-02", time: "07:09", url: "https://www.ft.com/content/d7e8d76b-d67b-46af-9d95-a384cb90b5d2" },
+  { id: "16081c0e-5471-4c00-8b12-29cac20a69d2", title: "France’s debt crisis-in-waiting", date: "2026-09-02", time: "06:30", url: "https://www.ft.com/content/16081c0e-5471-4c00-8b12-29cac20a69d2" },
   { id: "a8df319d-5733-4adb-ab46-c5f52451e4e3", title: "Germany loses its shine in the EU’s quest for green investment", date: "2026-09-02", time: "06:00", url: "https://www.ft.com/content/a8df319d-5733-4adb-ab46-c5f52451e4e3" },
   { id: "8ffc1886-f06f-4ac6-bb19-b9993d657712", title: "FTAV’s further reading", date: "2026-09-02", time: "06:00", url: "https://www.ft.com/content/8ffc1886-f06f-4ac6-bb19-b9993d657712" },
   { id: "bc2e4206-a702-4a66-8b94-2538fa249862", title: "FirstFT: US-Iran hostilities reignite", date: "2026-09-02", time: "05:31", url: "https://www.ft.com/content/bc2e4206-a702-4a66-8b94-2538fa249862" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "02f5e957-2545-4155-a558-afc4cef90158", title: "‘Wimp’ particle offers clue to identity of dark matter", date: "2026-09-01", time: "15:33", url: "https://www.ft.com/content/02f5e957-2545-4155-a558-afc4cef90158" },
   { id: "9e63bde5-c677-4ce5-82dc-1a684d9169c8", title: "Swiss finance minister hits out at move to water down UBS capital plans", date: "2026-09-01", time: "14:06", url: "https://www.ft.com/content/9e63bde5-c677-4ce5-82dc-1a684d9169c8" },
   { id: "1ddd0d4a-34bc-4919-a6fb-68dc514b84e9", title: "Trump touts data centre build-out despite voter backlash", date: "2026-09-01", time: "14:00", url: "https://www.ft.com/content/1ddd0d4a-34bc-4919-a6fb-68dc514b84e9" },
-  { id: "697253e0-01d3-44fe-85e5-d4d9af207a3c", title: "Donald Trump summons US refiners as Iran war pushes up fuel prices", date: "2026-09-01", time: "14:00", url: "https://www.ft.com/content/697253e0-01d3-44fe-85e5-d4d9af207a3c" },
-  { id: "bbbce2e1-6542-4806-9c26-d35e8c3b702e", title: "Saudi and South Korean oil tankers hit in Strait of Hormuz", date: "2026-09-01", time: "13:06", url: "https://www.ft.com/content/bbbce2e1-6542-4806-9c26-d35e8c3b702e" },
-  { id: "fa69076c-ca25-4d28-9815-1b1105b51c9c", title: "Far-right Restore Britain receives £500,000 from tech entrepreneur", date: "2026-09-01", time: "13:04", url: "https://www.ft.com/content/fa69076c-ca25-4d28-9815-1b1105b51c9c" },
 ];
