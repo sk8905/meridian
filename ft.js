@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a8df319d-5733-4adb-ab46-c5f52451e4e3", title: "Germany loses its shine in the EU’s quest for green investment", date: "2026-09-02", time: "06:00", url: "https://www.ft.com/content/a8df319d-5733-4adb-ab46-c5f52451e4e3" },
+  { id: "8ffc1886-f06f-4ac6-bb19-b9993d657712", title: "FTAV’s further reading", date: "2026-09-02", time: "06:00", url: "https://www.ft.com/content/8ffc1886-f06f-4ac6-bb19-b9993d657712" },
+  { id: "bc2e4206-a702-4a66-8b94-2538fa249862", title: "FirstFT: US-Iran hostilities reignite", date: "2026-09-02", time: "05:31", url: "https://www.ft.com/content/bc2e4206-a702-4a66-8b94-2538fa249862" },
+  { id: "958aa5ab-78e0-40cb-9a18-25e9fd5de233", title: "So how big *was* Bessent’s yentervention?", date: "2026-09-02", time: "05:30", url: "https://www.ft.com/content/958aa5ab-78e0-40cb-9a18-25e9fd5de233" },
   { id: "2a2d9bab-7441-446b-8e2e-7463583738c2", title: "Back to school: meet PE’s new headmasters", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/2a2d9bab-7441-446b-8e2e-7463583738c2" },
   { id: "638974ef-2f93-4d64-a118-980e9edb56b6", title: "Ukraine considers relaxing curfew rules despite Russian attacks", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/638974ef-2f93-4d64-a118-980e9edb56b6" },
   { id: "2a41f6a2-468b-44ae-bee7-a6159186c83c", title: "ECB must be prepared to lift interest rates further, says top policymaker", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/2a41f6a2-468b-44ae-bee7-a6159186c83c" },
@@ -57,7 +61,4 @@ export const FT_ITEMS = [
   { id: "697253e0-01d3-44fe-85e5-d4d9af207a3c", title: "Donald Trump summons US refiners as Iran war pushes up fuel prices", date: "2026-09-01", time: "14:00", url: "https://www.ft.com/content/697253e0-01d3-44fe-85e5-d4d9af207a3c" },
   { id: "bbbce2e1-6542-4806-9c26-d35e8c3b702e", title: "Saudi and South Korean oil tankers hit in Strait of Hormuz", date: "2026-09-01", time: "13:06", url: "https://www.ft.com/content/bbbce2e1-6542-4806-9c26-d35e8c3b702e" },
   { id: "fa69076c-ca25-4d28-9815-1b1105b51c9c", title: "Far-right Restore Britain receives £500,000 from tech entrepreneur", date: "2026-09-01", time: "13:04", url: "https://www.ft.com/content/fa69076c-ca25-4d28-9815-1b1105b51c9c" },
-  { id: "b0bde505-2093-4d72-9f20-b1db23e08261", title: "Warsh clears up his own mess, but US credibility is still stretched", date: "2026-09-01", time: "12:30", url: "https://www.ft.com/content/b0bde505-2093-4d72-9f20-b1db23e08261" },
-  { id: "61c9b686-2db7-4f24-80a0-8b75a144c7b6", title: "Keir Starmer to stand down as MP", date: "2026-09-01", time: "12:27", url: "https://www.ft.com/content/61c9b686-2db7-4f24-80a0-8b75a144c7b6" },
-  { id: "99a48c12-cb13-47dd-8a31-fff9a157d7ea", title: "ECB to raise rates again amid higher Eurozone inflation", date: "2026-09-01", time: "12:23", url: "https://www.ft.com/content/99a48c12-cb13-47dd-8a31-fff9a157d7ea" },
 ];

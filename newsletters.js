@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-americaandiranexchangeblows-20260902",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: America and Iran exchange blows",
+    date: "2026-09-02",
+    time: "05:32",
+    summary: "Iran struck two American bases in Jordan after the ceasefire lapsed, sending oil prices and 30-year Treasury yields higher as G20 finance ministers failed to agree a joint communiqué.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-reuters-tradingday-overandrout-20260901",
     publication: "Thomson Reuters",
     author: "Jamie McGeever",
@@ -465,16 +476,4 @@ export const NEWSLETTERS = [
     summary: "Mortgages, evergreens, gazumping.",
     url: "https://bloom.bg/4y9rJSs",
   },
-  {
-    id: "nl-reuters-econworld-warshsaddlesup-20260827",
-    publication: "Thomson Reuters",
-    author: "Carmel Crimmins",
-    series: "Econ World",
-    title: "Warsh saddles up",
-    date: "2026-08-27",
-    time: "13:01",
-    summary: "Kevin Warsh faces his first Jackson Hole test as bond markets clash with Bessent's 'Treasury twist' on rates.",
-    url: "https://www.reuters.com/newsletters/reuters-econ-world",
-  },
-
 ];
