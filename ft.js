@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "806ed56b-f5b2-4ae4-8164-231ccaebdd21", title: "Ukraine tells airlines to stop using Russian airspace", date: "2026-09-02", time: "09:57", url: "https://www.ft.com/content/806ed56b-f5b2-4ae4-8164-231ccaebdd21" },
+  { id: "980bd114-fb96-479c-ac30-41435a9f78d0", title: "How worried should Labour be about holding Keir Starmer’s seat?", date: "2026-09-02", time: "09:30", url: "https://www.ft.com/content/980bd114-fb96-479c-ac30-41435a9f78d0" },
+  { id: "69671716-02bb-496c-88ad-10befe4a9d63", title: "Xi Jinping visits Egypt in rare foreign travel flurry ahead of Donald Trump summit", date: "2026-09-02", time: "09:20", url: "https://www.ft.com/content/69671716-02bb-496c-88ad-10befe4a9d63" },
   { id: "f73c2c95-5c73-4b2f-9f00-9fa8c12c10c9", title: "European gas prices hit three-year high", date: "2026-09-02", time: "08:39", url: "https://www.ft.com/content/f73c2c95-5c73-4b2f-9f00-9fa8c12c10c9" },
   { id: "ca507448-a79f-4086-a402-5e8b79ebeebc", title: "Bvlgari’s Laura Burdese: ‘We don’t have this anxiety to keep on launching things’", date: "2026-09-02", time: "08:02", url: "https://www.ft.com/content/ca507448-a79f-4086-a402-5e8b79ebeebc" },
   { id: "d7e8d76b-d67b-46af-9d95-a384cb90b5d2", title: "BP names Ian Tyler as chair", date: "2026-09-02", time: "07:09", url: "https://www.ft.com/content/d7e8d76b-d67b-46af-9d95-a384cb90b5d2" },
@@ -57,8 +60,4 @@ export const FT_ITEMS = [
   { id: "fe0fc9bf-e7dc-4fa1-91d2-4d7bad22c3c3", title: "Governments should heed the bond market’s warning", date: "2026-09-01", time: "17:17", url: "https://www.ft.com/content/fe0fc9bf-e7dc-4fa1-91d2-4d7bad22c3c3" },
   { id: "9b370f97-2e08-4dd2-8512-fa6aabfd2ec2", title: "IMF agrees $2.2bn bailout for Senegal", date: "2026-09-01", time: "17:15", url: "https://www.ft.com/content/9b370f97-2e08-4dd2-8512-fa6aabfd2ec2" },
   { id: "1edf7290-1289-459f-9f72-2a7d7c3da381", title: "America can’t win the AI race if the rollout lacks public support", date: "2026-09-01", time: "17:06", url: "https://www.ft.com/content/1edf7290-1289-459f-9f72-2a7d7c3da381" },
-  { id: "5f643674-bf2b-48f1-bc3e-a7fe54820c99", title: "Action camera maker GoPro to be acquired after decade-long decline", date: "2026-09-01", time: "16:49", url: "https://www.ft.com/content/5f643674-bf2b-48f1-bc3e-a7fe54820c99" },
-  { id: "e6f5f97a-b199-444e-aaec-b8199359b08e", title: "Global bond sell-off deepens amid inflation fears", date: "2026-09-01", time: "16:33", url: "https://www.ft.com/content/e6f5f97a-b199-444e-aaec-b8199359b08e" },
-  { id: "02f5e957-2545-4155-a558-afc4cef90158", title: "‘Wimp’ particle offers clue to identity of dark matter", date: "2026-09-01", time: "15:33", url: "https://www.ft.com/content/02f5e957-2545-4155-a558-afc4cef90158" },
-  { id: "9e63bde5-c677-4ce5-82dc-1a684d9169c8", title: "Swiss finance minister hits out at move to water down UBS capital plans", date: "2026-09-01", time: "14:06", url: "https://www.ft.com/content/9e63bde5-c677-4ce5-82dc-1a684d9169c8" },
 ];
