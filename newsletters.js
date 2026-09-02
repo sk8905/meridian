@@ -37,6 +37,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-marianadambhp-20260902",
+    publication: "Legal Business",
+    author: null,
+    series: null,
+    title: "Dispute breaks out over lead role for Mariana Dam group action claimants",
+    date: "2026-09-02",
+    time: "09:06",
+    summary: "Ex-Pogust Goodhead lawyers claim their new firm has won 'unanimous' support to take case forward - a claim Pogust contests.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQWZFeUtHjv8BToAe/wv",
+  },
+  {
+    id: "nl-nonbillable-bhpcoup-20260902",
+    publication: "Non-Billable",
+    author: null,
+    series: null,
+    title: "A new twist in the £36bn BHP case",
+    date: "2026-09-02",
+    time: "09:05",
+    summary: "Things have taken a dramatic twist in the ongoing £36bn Mariana dam group action against BHP after former Pogust Goodhead partners moved to take control of the case.",
+    url: "https://www.nonbillable.co.uk/news/former-pogust-goodhead-partners-attempt-takeover-bhp-case",
+  },
+  {
     id: "nl-bbg-adaptabudhabioffice-20260902",
     publication: "Bloomberg",
     author: "Nishant Kumar",
@@ -464,16 +486,5 @@ export const NEWSLETTERS = [
     time: "19:30",
     summary: "Two Sigma Investments' billionaire founders are headed to another round of arbitration, the latest front in intractable infighting at the quant trading giant.",
     url: "https://www.bloomberg.com/news/articles/2026-08-27/two-sigma-s-feuding-founders-head-to-arbitration-in-fresh-battle",
-  },
-  {
-    id: "nl-bbg-moneystuff-airefi-20260827",
-    publication: "Bloomberg",
-    author: "Matt Levine",
-    series: "Money Stuff",
-    title: "Money Stuff: AI Refi",
-    date: "2026-08-27",
-    time: "19:04",
-    summary: "Mortgages, evergreens, gazumping.",
-    url: "https://bloom.bg/4y9rJSs",
   },
 ];

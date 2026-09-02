@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f73c2c95-5c73-4b2f-9f00-9fa8c12c10c9", title: "European gas prices hit three-year high", date: "2026-09-02", time: "08:39", url: "https://www.ft.com/content/f73c2c95-5c73-4b2f-9f00-9fa8c12c10c9" },
+  { id: "ca507448-a79f-4086-a402-5e8b79ebeebc", title: "Bvlgari’s Laura Burdese: ‘We don’t have this anxiety to keep on launching things’", date: "2026-09-02", time: "08:02", url: "https://www.ft.com/content/ca507448-a79f-4086-a402-5e8b79ebeebc" },
   { id: "d7e8d76b-d67b-46af-9d95-a384cb90b5d2", title: "BP names Ian Tyler as chair", date: "2026-09-02", time: "07:09", url: "https://www.ft.com/content/d7e8d76b-d67b-46af-9d95-a384cb90b5d2" },
   { id: "16081c0e-5471-4c00-8b12-29cac20a69d2", title: "France’s debt crisis-in-waiting", date: "2026-09-02", time: "06:30", url: "https://www.ft.com/content/16081c0e-5471-4c00-8b12-29cac20a69d2" },
   { id: "a8df319d-5733-4adb-ab46-c5f52451e4e3", title: "Germany loses its shine in the EU’s quest for green investment", date: "2026-09-02", time: "06:00", url: "https://www.ft.com/content/a8df319d-5733-4adb-ab46-c5f52451e4e3" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "e6f5f97a-b199-444e-aaec-b8199359b08e", title: "Global bond sell-off deepens amid inflation fears", date: "2026-09-01", time: "16:33", url: "https://www.ft.com/content/e6f5f97a-b199-444e-aaec-b8199359b08e" },
   { id: "02f5e957-2545-4155-a558-afc4cef90158", title: "‘Wimp’ particle offers clue to identity of dark matter", date: "2026-09-01", time: "15:33", url: "https://www.ft.com/content/02f5e957-2545-4155-a558-afc4cef90158" },
   { id: "9e63bde5-c677-4ce5-82dc-1a684d9169c8", title: "Swiss finance minister hits out at move to water down UBS capital plans", date: "2026-09-01", time: "14:06", url: "https://www.ft.com/content/9e63bde5-c677-4ce5-82dc-1a684d9169c8" },
-  { id: "1ddd0d4a-34bc-4919-a6fb-68dc514b84e9", title: "Trump touts data centre build-out despite voter backlash", date: "2026-09-01", time: "14:00", url: "https://www.ft.com/content/1ddd0d4a-34bc-4919-a6fb-68dc514b84e9" },
 ];
