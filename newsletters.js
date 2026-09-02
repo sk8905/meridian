@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-cravathf1owner-20260902",
+    publication: "Legal Business",
+    author: null,
+    series: null,
+    title: "Cravath ex-City head takes in-house role at Formula 1 owner",
+    date: "2026-09-02",
+    time: "15:02",
+    summary: "EMEA capital markets co-head Boeckman retires, set to start as CLO at US media company Liberty next month.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQXm2XtKT6o9hZtY0/wv",
+  },
+  {
     id: "nl-bbg-exoduspointbluecresttrader-20260902",
     publication: "Bloomberg",
     author: "Nishant Kumar",
@@ -464,16 +475,5 @@ export const NEWSLETTERS = [
     time: "11:31",
     summary: "Your weekly market recap, with reading, watching and listening recommendations from the ROI team.",
     url: "https://www.reuters.com/newsletters/morning-bid-us",
-  },
-  {
-    id: "nl-bbg-marketsdaily-warshwatch-20260828",
-    publication: "Bloomberg",
-    author: "Lynn Thomasson",
-    series: "Markets Daily",
-    title: "Markets Daily: Warsh watch",
-    date: "2026-08-28",
-    time: "11:14",
-    summary: "The countdown to Jackson Hole.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-28/traders-expect-to-be-frustrated-by-warsh-s-jackson-hole-speech",
   },
 ];
