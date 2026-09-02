@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "1749e753-9c90-4ff5-91ec-8df764f3b26d", title: "Dutch central bank moves gold bars out of New York over 'geopolitical unrest'", date: "2026-09-02", time: "18:23", url: "https://www.ft.com/content/1749e753-9c90-4ff5-91ec-8df764f3b26d" },
+  { id: "1e55d948-98e5-4c1a-8a09-51e1311fcf63", title: "EU accelerates plans to break up diplomatic service", date: "2026-09-02", time: "18:22", url: "https://www.ft.com/content/1e55d948-98e5-4c1a-8a09-51e1311fcf63" },
+  { id: "1fef1e44-2a79-4057-89e5-33417e5a7763", title: "The wrong way to revive Venezuela's economy", date: "2026-09-02", time: "18:22", url: "https://www.ft.com/content/1fef1e44-2a79-4057-89e5-33417e5a7763" },
   { id: "b71bfe10-29a0-4213-92a2-22765c44c190", title: "BP gets the chair it wants rather than the one it needed", date: "2026-09-02", time: "17:49", url: "https://www.ft.com/content/b71bfe10-29a0-4213-92a2-22765c44c190" },
   { id: "5040d26d-520c-455f-a1e8-111d011acdb6", title: "California opines on who profits from wildfires but not on who pays", date: "2026-09-02", time: "17:45", url: "https://www.ft.com/content/5040d26d-520c-455f-a1e8-111d011acdb6" },
   { id: "3d2590e0-b166-494e-ab6b-e6c20c75c59e", title: "The Restore Britain backer who once gave money to the Lib Dems", date: "2026-09-02", time: "17:30", url: "https://www.ft.com/content/3d2590e0-b166-494e-ab6b-e6c20c75c59e" },
@@ -58,7 +61,4 @@ export const FT_ITEMS = [
   { id: "2a2d9bab-7441-446b-8e2e-7463583738c2", title: "Back to school: meet PE’s new headmasters", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/2a2d9bab-7441-446b-8e2e-7463583738c2" },
   { id: "638974ef-2f93-4d64-a118-980e9edb56b6", title: "Ukraine considers relaxing curfew rules despite Russian attacks", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/638974ef-2f93-4d64-a118-980e9edb56b6" },
   { id: "2a41f6a2-468b-44ae-bee7-a6159186c83c", title: "ECB must be prepared to lift interest rates further, says top policymaker", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/2a41f6a2-468b-44ae-bee7-a6159186c83c" },
-  { id: "80d02797-9a54-47e0-8bc3-a7144354da93", title: "AI sounds the death knell for audit fee inflation", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/80d02797-9a54-47e0-8bc3-a7144354da93" },
-  { id: "c51dec0b-977e-463e-9590-daff0d91a8a6", title: "The wheels are coming off the US world order", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/c51dec0b-977e-463e-9590-daff0d91a8a6" },
-  { id: "1101d3c3-8355-4fbf-86b9-1761a56c19c2", title: "Notes on campy clothing (and Dolly Parton)", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/1101d3c3-8355-4fbf-86b9-1761a56c19c2" },
 ];
