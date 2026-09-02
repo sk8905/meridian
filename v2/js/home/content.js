@@ -12,7 +12,7 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
           <button type="button" class="g-wiretab is-on" data-wire="news" role="tab" aria-selected="true">News</button>
           <button type="button" class="g-wiretab" data-wire="watch" role="tab" aria-selected="false">Watchlist</button>
         </div>
-        <!-- LEFT RAIL: markets / rates data, with Top movers filling the base -->
+        <!-- LEFT RAIL: markets + earnings, with Top movers filling the base -->
         <aside class="g-side">
           <section class="tui-pnl g-anchor" id="jump-markets">
             <header class="tui-ph g-mkt-head">
@@ -26,20 +26,19 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
               <div class="g-loading">Loading markets…</div>
             </div>
           </section>
-          <section class="tui-pnl g-anchor" id="jump-rates">
-            <header class="tui-ph"><span>Key rates &amp; spreads</span><span class="tui-px">bp · %</span></header>
-            <div id="g-rates" class="rates-band" aria-label="Key rates and credit spreads">
-              <div class="g-loading">Loading market rates…</div>
-            </div>
-          </section>
-          <section class="tui-pnl g-anchor" id="jump-vol">
-            <header class="tui-ph"><span>Volatility &amp; risk</span><span class="tui-px">vol · spreads</span></header>
-            <div id="g-vol" class="rates-band" aria-label="Equity volatility and credit risk spreads">
-              <div class="g-loading">Loading risk…</div>
-            </div>
-          </section>
+          <!-- This week's corporate earnings — date · pre/post-market · forecast
+               → outcome. Sits with the equities data (Markets / Top movers). Hugs
+               its content (capped at 5 companies; the rest scroll internally). -->
+          <div class="g-earn-scroll">
+            <section class="tui-pnl g-earn">
+              <header class="tui-ph g-earn-head"><span>This week's earnings</span><span class="tui-px">est → act</span></header>
+              <div class="g-earn-body">
+                <div id="g-earn" class="g-earn-pane" aria-label="This week's corporate earnings"><div class="g-loading">Loading earnings…</div></div>
+              </div>
+            </section>
+          </div>
           <!-- Top movers grows to fill the rail; only its list scrolls, so the
-               data panels around it stay put. -->
+               panels around it stay put. -->
           <section class="tui-pnl g-movers-pnl">
             <header class="tui-ph"><span>Top movers</span><span class="tui-px">1D</span></header>
             <div id="g-movers" aria-label="Top market movers"><div class="g-loading">Loading movers…</div></div>
@@ -87,17 +86,20 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
               <div class="g-loading">Loading curve…</div>
             </div>
           </section>
-          <!-- This week's corporate earnings — date · pre/post-market · forecast
-               → outcome. Fills the space freed by moving indicators to the Macro
-               dashboard. Its list scrolls internally. -->
-          <div class="g-earn-scroll">
-            <section class="tui-pnl g-earn">
-              <header class="tui-ph g-earn-head"><span>This week's earnings</span><span class="tui-px">est → act</span></header>
-              <div class="g-earn-body">
-                <div id="g-earn" class="g-earn-pane" aria-label="This week's corporate earnings"><div class="g-loading">Loading earnings…</div></div>
-              </div>
-            </section>
-          </div>
+          <!-- Key rates & credit spreads and Volatility & risk sit with the macro /
+               rates data they belong to. -->
+          <section class="tui-pnl g-anchor" id="jump-rates">
+            <header class="tui-ph"><span>Key rates &amp; spreads</span><span class="tui-px">bp · %</span></header>
+            <div id="g-rates" class="rates-band" aria-label="Key rates and credit spreads">
+              <div class="g-loading">Loading market rates…</div>
+            </div>
+          </section>
+          <section class="tui-pnl g-anchor" id="jump-vol">
+            <header class="tui-ph"><span>Volatility &amp; risk</span><span class="tui-px">vol · spreads</span></header>
+            <div id="g-vol" class="rates-band" aria-label="Equity volatility and credit risk spreads">
+              <div class="g-loading">Loading risk…</div>
+            </div>
+          </section>
           <!-- Prediction markets — finance & finance-adjacent implied odds
                (Polymarket). Only this list scrolls, so the macro data pinned
                above it never moves. -->
