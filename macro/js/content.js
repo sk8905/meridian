@@ -13,7 +13,7 @@ export const UPDATED = "2 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-02",
-  lastCheckedTime: "09:25 BST",
+  lastCheckedTime: "09:28 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1069,7 +1069,7 @@ export const MATWALL = {
 // two_year, core_cpi, services_pmi, wages, unemployment). Absent = no sourced
 // move (the rail shows nothing). Routine-maintained; see docs/refresh-routines.md.
 export const IND_KEYMOMENTS = {
-  "US:two_year": { text: "CME FedWatch-implied odds of a 16 September Fed hike pushed toward 65% early Tuesday on Chair Warsh's hawkish Jackson Hole tone, up from 60.4% at Monday's open, as the renewed US-Iran exchange over the Strait of Hormuz kept the oil-driven inflation risk — and a geopolitical bid under the dollar — firmly in play.", src: "https://www.fxstreet.com/news/gold-declines-as-rising-fed-hike-bets-and-us-iran-tensions-support-usd-202609010350", srcName: "FXStreet", date: "2026-09-01" },
+  "US:two_year": { text: "Japan's 10-year government bond yield hit 3% for the first time since 1996 as a deepening global bond selloff — tied to the renewed US-Iran conflict, a Strait of Hormuz tanker attack and oil-driven inflation fears — pushed yields across the US, Germany and France to multi-year highs, with Brent crude climbing past $92/bbl.", src: "https://www.investing.com/news/economy-news/japans-benchmark-bond-yield-rises-to-3-for-first-time-in-30-years-4883532", srcName: "Reuters (via Investing.com)", date: "2026-09-01" },
   "US:wages": { text: "July's jobs report showed average hourly earnings up 3.2% y/y — the smallest annual gain since May 2021 — alongside the surprise 23,000 payrolls decline, reinforcing the softer wage-inflation read markets have leaned on since the report.", src: "https://www.cnbc.com/2026/08/07/jobs-report-july-2026.html", srcName: "CNBC", date: "2026-08-07" },
   "UK:two_year": { text: "Gilts led a global bond selloff Tuesday as traders back from the holiday weekend caught up with the hawkish Fed/BoE repricing, sending the 10-year gilt yield up 11bp to 5.25% and the 30-year to 5.89% — its highest since 1998.", src: "https://www.bloomberg.com/news/articles/2026-09-01/gilts-lead-global-bond-selloff-as-traders-play-catch-up", srcName: "Bloomberg", date: "2026-09-01" },
   "UK:wages": { text: "UK payroll employment fell again in July while the unemployment rate held at 4.9%, ONS data showed — a soft labour market print that reinforces the case for the Bank of England to keep rates on hold.", src: "https://www.actionforex.com/live-comments/650961-uk-payroll-employment-falls-as-uk-unemployment-holds-at-4-9/", srcName: "ActionForex", date: "2026-08-18" },
