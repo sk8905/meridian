@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "9a1bc3df-4887-4f92-bc7a-8441d4dd2b45", title: "Businessman acquitted in Maltese journalist's murder trial", date: "2026-09-02", time: "21:23", url: "https://www.ft.com/content/9a1bc3df-4887-4f92-bc7a-8441d4dd2b45" },
   { id: "606e5f9d-44b5-4b45-9ecc-59dd8a66fb5a", title: "Burnham moves to protect British farming and steel in EU reset talks", date: "2026-09-02", time: "21:00", url: "https://www.ft.com/content/606e5f9d-44b5-4b45-9ecc-59dd8a66fb5a" },
   { id: "75c3179a-5c42-42fd-94e9-6f0c3dfc0c70", title: "Google spared break-up of online advertising monopoly", date: "2026-09-02", time: "20:53", url: "https://www.ft.com/content/75c3179a-5c42-42fd-94e9-6f0c3dfc0c70" },
   { id: "d5d6e4c9-718a-4d98-b094-97157565f336", title: "Trump administration backs OpenAI in New York Times copyright battle", date: "2026-09-02", time: "19:44", url: "https://www.ft.com/content/d5d6e4c9-718a-4d98-b094-97157565f336" },
