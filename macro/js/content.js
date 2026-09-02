@@ -13,7 +13,7 @@ export const UPDATED = "2 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-02",
-  lastCheckedTime: "09:28 BST",
+  lastCheckedTime: "12:38 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1070,13 +1070,13 @@ export const MATWALL = {
 export const IND_KEYMOMENTS = {
   "US:two_year": { text: "Japan's 10-year government bond yield hit 3% for the first time since 1996 as a deepening global bond selloff — tied to the renewed US-Iran conflict, a Strait of Hormuz tanker attack and oil-driven inflation fears — pushed yields across the US, Germany and France to multi-year highs, with Brent crude climbing past $92/bbl.", src: "https://www.investing.com/news/economy-news/japans-benchmark-bond-yield-rises-to-3-for-first-time-in-30-years-4883532", srcName: "Reuters (via Investing.com)", date: "2026-09-01" },
   "US:wages": { text: "July's jobs report showed average hourly earnings up 3.2% y/y — the smallest annual gain since May 2021 — alongside the surprise 23,000 payrolls decline, reinforcing the softer wage-inflation read markets have leaned on since the report.", src: "https://www.cnbc.com/2026/08/07/jobs-report-july-2026.html", srcName: "CNBC", date: "2026-08-07" },
-  "UK:two_year": { text: "Gilts led a global bond selloff Tuesday as traders back from the holiday weekend caught up with the hawkish Fed/BoE repricing, sending the 10-year gilt yield up 11bp to 5.25% and the 30-year to 5.89% — its highest since 1998.", src: "https://www.bloomberg.com/news/articles/2026-09-01/gilts-lead-global-bond-selloff-as-traders-play-catch-up", srcName: "Bloomberg", date: "2026-09-01" },
+  "UK:two_year": { text: "The UK 10-year gilt yield extended its climb to its highest since June 2008 on Wednesday, dragging the FTSE 250 to a one-month low, as renewed US-Iran strikes near the Strait of Hormuz kept inflation and rate-path fears elevated across the gilt curve.", src: "https://www.globalbankingandfinance.com/uks-midcaps-hit-nearly-one-month-low-gilt-yields-surge/", srcName: "Global Banking & Finance (Reuters)", date: "2026-09-02" },
   "UK:wages": { text: "UK payroll employment fell again in July while the unemployment rate held at 4.9%, ONS data showed — a soft labour market print that reinforces the case for the Bank of England to keep rates on hold.", src: "https://www.actionforex.com/live-comments/650961-uk-payroll-employment-falls-as-uk-unemployment-holds-at-4-9/", srcName: "ActionForex", date: "2026-08-18" },
   "UK:core_cpi": { text: "July CPI rose to 2.9% y/y (from 2.6%), a four-month high in line with consensus, with core CPI hotter than forecast at 2.6% (vs 2.5% expected) on a 14.7% jump in gas prices as the Ofgem energy-cap rise fed through — sterling's reaction stayed muted.", src: "https://finance.yahoo.com/economy/articles/uk-inflation-rate-rises-2-060931194.html", srcName: "Yahoo Finance UK", date: "2026-08-19" },
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "The dollar stayed bid early Tuesday as CME FedWatch-implied odds of a 16 September Fed hike pushed toward 65% on Chair Warsh's hawkish Jackson Hole tone, with the renewed US-Iran exchange over the Strait of Hormuz adding a geopolitical safe-haven bid; gold extended Monday's drop, sliding below $4,450/oz on the stronger dollar and higher rate-hike expectations.", src: "https://www.fxstreet.com/news/gold-declines-as-rising-fed-hike-bets-and-us-iran-tensions-support-usd-202609010350", srcName: "FXStreet", date: "2026-09-01" };
+export const FX_KEYMOMENT = { text: "EUR/GBP pushed toward 0.8700 on Wednesday as sterling slumped on soaring UK gilt yields, while the dollar stayed broadly firm after Fed Governor Barr said he'd back a rate hike if inflation fails to cool, pushing CME FedWatch-implied odds of a 16 September Fed hike to 66% ahead of the day's ADP employment report.", src: "https://www.fxstreet.com/news/eur-gbp-surges-towards-08700-as-sterling-slumps-on-soaring-uk-bond-yields-202509021100", srcName: "FXStreet", date: "2026-09-02" };
 
 export const EARNINGS = {
   weeks: [
