@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "39224d70-632e-4cac-ae1c-59f7efbbccaf", title: "FT Wealth: September", date: "2026-09-02", time: "13:54", url: "https://www.ft.com/content/39224d70-632e-4cac-ae1c-59f7efbbccaf" },
   { id: "5eda86fe-1d2c-4a4e-9563-24a50aa734a4", title: "Uber to cut 10% of its global workforce", date: "2026-09-02", time: "13:25", url: "https://www.ft.com/content/5eda86fe-1d2c-4a4e-9563-24a50aa734a4" },
   { id: "f73d918c-efc4-4cc0-b6d7-be97a2ef3288", title: "Spain demands answers as police blame Morocco for migrant crisis", date: "2026-09-02", time: "13:12", url: "https://www.ft.com/content/f73d918c-efc4-4cc0-b6d7-be97a2ef3288" },
   { id: "f394d4ca-d035-4753-b7a0-f21eefa08252", title: "Japan’s borrowing costs hit 30-year high: what does it mean for global markets?", date: "2026-09-02", time: "13:03", url: "https://www.ft.com/content/f394d4ca-d035-4753-b7a0-f21eefa08252" },
@@ -63,5 +64,4 @@ export const FT_ITEMS = [
   { id: "9334212a-3cc4-426c-9cbe-57cb48033603", title: "AI hits college graduates in the heart of America’s data centre boom", date: "2026-09-01", time: "19:28", url: "https://www.ft.com/content/9334212a-3cc4-426c-9cbe-57cb48033603" },
   { id: "c557ccc2-9fe7-4725-8a1c-c40a0948e8d3", title: "US launches further strikes on Iran as conflict flares up", date: "2026-09-01", time: "17:55", url: "https://www.ft.com/content/c557ccc2-9fe7-4725-8a1c-c40a0948e8d3" },
   { id: "239063eb-90c2-4086-8db3-a9f11a029209", title: "Andy Burnham promises to ‘bring back hope’ in first Commons appearance as PM", date: "2026-09-01", time: "17:49", url: "https://www.ft.com/content/239063eb-90c2-4086-8db3-a9f11a029209" },
-  { id: "2ca5dfbf-f48b-4ffb-9ce9-9ff3e787a75e", title: "Germany blames Russia for Leipzig drone attack", date: "2026-09-01", time: "17:33", url: "https://www.ft.com/content/2ca5dfbf-f48b-4ffb-9ce9-9ff3e787a75e" },
 ];
