@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c9c3a0ef-98d5-4aeb-9d20-e6250d6fcf99", title: "Students and opposition activists targeted with spyware in Serbia", date: "2026-09-02", time: "16:48", url: "https://www.ft.com/content/c9c3a0ef-98d5-4aeb-9d20-e6250d6fcf99" },
+  { id: "9fa4fcb7-14f0-4461-87aa-4fbdf1fe64f4", title: "UK mortgage borrowers urged to lock in deals before rates rise", date: "2026-09-02", time: "16:42", url: "https://www.ft.com/content/9fa4fcb7-14f0-4461-87aa-4fbdf1fe64f4" },
+  { id: "5b8f840e-f47c-452a-a99b-a79044ddf7c7", title: "Tory attempts to repeal the UK Climate Act are tin-eared", date: "2026-09-02", time: "16:27", url: "https://www.ft.com/content/5b8f840e-f47c-452a-a99b-a79044ddf7c7" },
+  { id: "c04aa126-0764-42e9-b39c-b25997eb2afa", title: "ENRC settles with UK prosecutors and former lawyers over abandoned probe", date: "2026-09-02", time: "16:22", url: "https://www.ft.com/content/c04aa126-0764-42e9-b39c-b25997eb2afa" },
   { id: "bbb04f65-7cdd-4ba2-8f82-96158ff40d63", title: "Rival Ukrainian intelligence agencies reportedly in street shootout in Kyiv", date: "2026-09-02", time: "16:12", url: "https://www.ft.com/content/bbb04f65-7cdd-4ba2-8f82-96158ff40d63" },
   { id: "55ea0ee5-d067-4fc0-81cb-82293e9285de", title: "Andy Burnham seeks to reassure bond markets amid public spending fears", date: "2026-09-02", time: "16:10", url: "https://www.ft.com/content/55ea0ee5-d067-4fc0-81cb-82293e9285de" },
   { id: "38d5c39f-901f-4306-9412-f7e1d7553174", title: "A key tenet of US equity markets is under threat", date: "2026-09-02", time: "15:45", url: "https://www.ft.com/content/38d5c39f-901f-4306-9412-f7e1d7553174" },
@@ -57,7 +61,4 @@ export const FT_ITEMS = [
   { id: "1e55d948-98e5-4c1a-8a09-51e1311fcf63", title: "EU accelerates plans to break up diplomatic service", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/1e55d948-98e5-4c1a-8a09-51e1311fcf63" },
   { id: "8160b331-35c3-4735-a684-f1f2d95fddde", title: "‘Plan 2’ graduates earning less than £45,000 are unlikely to clear debts", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/8160b331-35c3-4735-a684-f1f2d95fddde" },
   { id: "c4cc661e-cb38-4d40-9d34-950c22e02301", title: "Kylian Mbappé-backed health start-up expands to west Africa", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/c4cc661e-cb38-4d40-9d34-950c22e02301" },
-  { id: "2cedfbc4-0519-4373-8de0-63b9e62f1137", title: "I was wrong about Bad Girl Books", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/2cedfbc4-0519-4373-8de0-63b9e62f1137" },
-  { id: "b0ea5b66-73f4-4e82-bacc-855072c0bffa", title: "How UK-Israel relations reached their worst point in decades", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/b0ea5b66-73f4-4e82-bacc-855072c0bffa" },
-  { id: "5a3c1a4f-f6d1-49ef-badc-9a21c4111c93", title: "Want to eat like a real Chicagoan? Go to these three neighbourhoods", date: "2026-09-02", time: "05:00", url: "https://www.ft.com/content/5a3c1a4f-f6d1-49ef-badc-9a21c4111c93" },
 ];
