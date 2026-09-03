@@ -20,6 +20,13 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "1b749103-a006-4fc4-91e2-222d99dc1280", title: "PMQs cannot change Andy Burnham’s political reality", date: "2026-09-03", time: "09:59", url: "https://www.ft.com/content/1b749103-a006-4fc4-91e2-222d99dc1280" },
+  { id: "65c80957-5b37-4ec5-863d-386865796092", title: "Greens leader Zack Polanski to stand in seat vacated by Starmer", date: "2026-09-03", time: "09:48", url: "https://www.ft.com/content/65c80957-5b37-4ec5-863d-386865796092" },
+  { id: "0b1794c0-cba0-4762-90fa-24c7a53f8928", title: "Nobody likes data centres and chips, chips, chips", date: "2026-09-03", time: "09:45", url: "https://www.ft.com/content/0b1794c0-cba0-4762-90fa-24c7a53f8928" },
+  { id: "c8fb5709-cb84-42f6-89db-53e234412f21", title: "Reform UK receives more than £5mn in donations in second quarter", date: "2026-09-03", time: "09:41", url: "https://www.ft.com/content/c8fb5709-cb84-42f6-89db-53e234412f21" },
+  { id: "0c72fee3-a5b8-4b18-9c63-6919618d45b9", title: "Everton FC owners look for investors after football’s summer deal rush", date: "2026-09-03", time: "09:34", url: "https://www.ft.com/content/0c72fee3-a5b8-4b18-9c63-6919618d45b9" },
+  { id: "b2bc5b54-8a8a-4004-a584-91eba3b9d6d8", title: "Vintage Gallet watch brand reboot makes a play for middle market", date: "2026-09-03", time: "09:30", url: "https://www.ft.com/content/b2bc5b54-8a8a-4004-a584-91eba3b9d6d8" },
+  { id: "b2d099c5-696c-4c00-87cc-3848e552763a", title: "Shein shares slide as much as 10% on third day of trading", date: "2026-09-03", time: "09:13", url: "https://www.ft.com/content/b2d099c5-696c-4c00-87cc-3848e552763a" },
   { id: "2d69802f-cdea-4884-ac53-e20001495ada", title: "Why does it even matter if SoftBank’s an investment holding company?", date: "2026-09-03", time: "08:52", url: "https://www.ft.com/content/2d69802f-cdea-4884-ac53-e20001495ada" },
   { id: "16034441-608c-42de-90ff-1a2b7607fc79", title: "Elliott builds stake in Deutsche Telekom and opposes T-Mobile US merger", date: "2026-09-03", time: "08:24", url: "https://www.ft.com/content/16034441-608c-42de-90ff-1a2b7607fc79" },
   { id: "e9f359ba-1822-4d39-8722-e2073dafd4af", title: "Alexia Genta: ‘You cannot kill ambition to protect the past’", date: "2026-09-03", time: "07:58", url: "https://www.ft.com/content/e9f359ba-1822-4d39-8722-e2073dafd4af" },
@@ -53,11 +60,4 @@ export const FT_ITEMS = [
   { id: "75c3179a-5c42-42fd-94e9-6f0c3dfc0c70", title: "Google spared break-up of online advertising monopoly", date: "2026-09-02", time: "20:53", url: "https://www.ft.com/content/75c3179a-5c42-42fd-94e9-6f0c3dfc0c70" },
   { id: "d5d6e4c9-718a-4d98-b094-97157565f336", title: "Trump administration backs OpenAI in New York Times copyright battle", date: "2026-09-02", time: "19:44", url: "https://www.ft.com/content/d5d6e4c9-718a-4d98-b094-97157565f336" },
   { id: "c9390b8a-a453-4014-a5a8-13f8fd518356", title: "Badenoch takes on Burnham after shake-up of her top team", date: "2026-09-02", time: "19:09", url: "https://www.ft.com/content/c9390b8a-a453-4014-a5a8-13f8fd518356" },
-  { id: "1749e753-9c90-4ff5-91ec-8df764f3b26d", title: "Dutch central bank moves gold bars out of New York over 'geopolitical unrest'", date: "2026-09-02", time: "18:23", url: "https://www.ft.com/content/1749e753-9c90-4ff5-91ec-8df764f3b26d" },
-  { id: "1e55d948-98e5-4c1a-8a09-51e1311fcf63", title: "EU accelerates plans to break up diplomatic service", date: "2026-09-02", time: "18:22", url: "https://www.ft.com/content/1e55d948-98e5-4c1a-8a09-51e1311fcf63" },
-  { id: "1fef1e44-2a79-4057-89e5-33417e5a7763", title: "The wrong way to revive Venezuela's economy", date: "2026-09-02", time: "18:22", url: "https://www.ft.com/content/1fef1e44-2a79-4057-89e5-33417e5a7763" },
-  { id: "b71bfe10-29a0-4213-92a2-22765c44c190", title: "BP gets the chair it wants rather than the one it needed", date: "2026-09-02", time: "17:49", url: "https://www.ft.com/content/b71bfe10-29a0-4213-92a2-22765c44c190" },
-  { id: "5040d26d-520c-455f-a1e8-111d011acdb6", title: "California opines on who profits from wildfires but not on who pays", date: "2026-09-02", time: "17:45", url: "https://www.ft.com/content/5040d26d-520c-455f-a1e8-111d011acdb6" },
-  { id: "3d2590e0-b166-494e-ab6b-e6c20c75c59e", title: "The Restore Britain backer who once gave money to the Lib Dems", date: "2026-09-02", time: "17:30", url: "https://www.ft.com/content/3d2590e0-b166-494e-ab6b-e6c20c75c59e" },
-  { id: "c4f84da3-bfc6-49a0-90bd-9a1611864ac4", title: "AI spots cyber gaps faster than financial firms can fix them", date: "2026-09-02", time: "17:25", url: "https://www.ft.com/content/c4f84da3-bfc6-49a0-90bd-9a1611864ac4" },
 ];
