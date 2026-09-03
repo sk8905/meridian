@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "96e8d67a-6f8c-4389-9ab8-d9309f51634e", title: "How AI forces us to rethink the economy", date: "2026-09-03", time: "11:00", url: "https://www.ft.com/content/96e8d67a-6f8c-4389-9ab8-d9309f51634e" },
+  { id: "8252d574-ae2a-4403-9cf9-031295ba67f5", title: "‘People are going to get screwed’: Pennsylvania voters unite against data centres", date: "2026-09-03", time: "11:00", url: "https://www.ft.com/content/8252d574-ae2a-4403-9cf9-031295ba67f5" },
+  { id: "51afa87f-7452-4c5c-8beb-7eed624f6f22", title: "Friedrich Merz sidelined as party fights far right in regional poll", date: "2026-09-03", time: "11:00", url: "https://www.ft.com/content/51afa87f-7452-4c5c-8beb-7eed624f6f22" },
+  { id: "bb80d928-c9c3-493e-8b7f-fb5208fd90b3", title: "How free trade can shield us from El Niño", date: "2026-09-03", time: "11:00", url: "https://www.ft.com/content/bb80d928-c9c3-493e-8b7f-fb5208fd90b3" },
+  { id: "7d416a4e-e9ee-4b9a-a447-fdb1ba29f257", title: "Norway seizes Russian state-owned ship over Ukrainian lawsuit", date: "2026-09-03", time: "10:35", url: "https://www.ft.com/content/7d416a4e-e9ee-4b9a-a447-fdb1ba29f257" },
+  { id: "24ab2170-3db3-4898-ad30-55c0898ab666", title: "Missed flight connections double under EU smart border system", date: "2026-09-03", time: "10:24", url: "https://www.ft.com/content/24ab2170-3db3-4898-ad30-55c0898ab666" },
   { id: "1b749103-a006-4fc4-91e2-222d99dc1280", title: "PMQs cannot change Andy Burnham’s political reality", date: "2026-09-03", time: "09:59", url: "https://www.ft.com/content/1b749103-a006-4fc4-91e2-222d99dc1280" },
   { id: "65c80957-5b37-4ec5-863d-386865796092", title: "Greens leader Zack Polanski to stand in seat vacated by Starmer", date: "2026-09-03", time: "09:48", url: "https://www.ft.com/content/65c80957-5b37-4ec5-863d-386865796092" },
   { id: "0b1794c0-cba0-4762-90fa-24c7a53f8928", title: "Nobody likes data centres and chips, chips, chips", date: "2026-09-03", time: "09:45", url: "https://www.ft.com/content/0b1794c0-cba0-4762-90fa-24c7a53f8928" },
@@ -54,10 +60,4 @@ export const FT_ITEMS = [
   { id: "0fc8494f-96ad-458a-8f0a-e7e4715c7ea0", title: "Cities on screen: 10 takes on Chicago", date: "2026-09-03", time: "05:00", url: "https://www.ft.com/content/0fc8494f-96ad-458a-8f0a-e7e4715c7ea0" },
   { id: "6d6339d1-8fb7-4d5d-886f-6c856de42fb7", title: "The mysterious billionaire and Cuba’s cigar industry", date: "2026-09-03", time: "05:00", url: "https://www.ft.com/content/6d6339d1-8fb7-4d5d-886f-6c856de42fb7" },
   { id: "18e50789-6ba6-4504-a51d-1d1d40ad860d", title: "Is my ex being truthful about their finances?", date: "2026-09-03", time: "05:00", url: "https://www.ft.com/content/18e50789-6ba6-4504-a51d-1d1d40ad860d" },
-  { id: "70fdf5c3-6b3a-494d-a141-85aba60d14d5", title: "VW, Amazon and others name blacklisted groups among potential suppliers", date: "2026-09-03", time: "05:00", url: "https://www.ft.com/content/70fdf5c3-6b3a-494d-a141-85aba60d14d5" },
-  { id: "9a1bc3df-4887-4f92-bc7a-8441d4dd2b45", title: "Businessman acquitted in Maltese journalist's murder trial", date: "2026-09-02", time: "21:23", url: "https://www.ft.com/content/9a1bc3df-4887-4f92-bc7a-8441d4dd2b45" },
-  { id: "606e5f9d-44b5-4b45-9ecc-59dd8a66fb5a", title: "Burnham moves to protect British farming and steel in EU reset talks", date: "2026-09-02", time: "21:00", url: "https://www.ft.com/content/606e5f9d-44b5-4b45-9ecc-59dd8a66fb5a" },
-  { id: "75c3179a-5c42-42fd-94e9-6f0c3dfc0c70", title: "Google spared break-up of online advertising monopoly", date: "2026-09-02", time: "20:53", url: "https://www.ft.com/content/75c3179a-5c42-42fd-94e9-6f0c3dfc0c70" },
-  { id: "d5d6e4c9-718a-4d98-b094-97157565f336", title: "Trump administration backs OpenAI in New York Times copyright battle", date: "2026-09-02", time: "19:44", url: "https://www.ft.com/content/d5d6e4c9-718a-4d98-b094-97157565f336" },
-  { id: "c9390b8a-a453-4014-a5a8-13f8fd518356", title: "Badenoch takes on Burnham after shake-up of her top team", date: "2026-09-02", time: "19:09", url: "https://www.ft.com/content/c9390b8a-a453-4014-a5a8-13f8fd518356" },
 ];
