@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-yensoars-20260903",
+    publication: "Bloomberg",
+    author: "Jill Disis",
+    series: "Morning Briefing Europe",
+    title: "Yen soars",
+    date: "2026-09-03",
+    time: "07:51",
+    summary: "The yen surges with the market on alert for more intervention, Andy Burnham and Emmanuel Macron meet today to discuss the migrant crisis, and Wayve's driverless taxis are now on the streets of London.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-03/yen-surges-as-traders-remain-on-alert-for-intervention",
+  },
+  {
     id: "nl-economist-worldinbrief-trumpsaysiranstrikeswontlastlong-20260903",
     publication: "The Economist",
     author: null,
@@ -464,27 +475,5 @@ export const NEWSLETTERS = [
     time: "13:58",
     summary: "This week's roundup: distressed-debt markets, Michael Burry's latest trades, El-Erian's economy look-back, and FT Alphaville.",
     url: "https://app.mailbrew.com/stevedkennedy/friday-brew-03bEHcNb3hHB/11",
-  },
-  {
-    id: "nl-bbg-wheretoinvestcopper-20260828",
-    publication: "Bloomberg",
-    author: "Zijia Song",
-    series: "Where to Invest",
-    title: "Where to invest in copper",
-    date: "2026-08-28",
-    time: "12:06",
-    summary: "The metal is having quite the year.",
-    url: "https://www.bloomberg.com/news/articles/2026-08-28/ai-data-center-boom-power-grids-strengthen-investment-case-for-copper",
-  },
-  {
-    id: "nl-bbg-capulanewstrategy-20260828",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    series: null,
-    title: "Hedge Fund Capula Launches New Strategy in Diversification Push",
-    date: "2026-08-28",
-    time: "12:06",
-    summary: "Yao Hua Ooi is trying to replicate the $6.3 billion systematic strategy he helped build at Cliff Asness' firm, this time at rival hedge fund Capula.",
-    url: "https://www.bloomberg.com/news/articles/2026-08-28/hedge-fund-capula-launches-new-strategy-in-diversification-push",
   },
 ];

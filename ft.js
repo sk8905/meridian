@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "28676485-9dd8-4c17-8c7b-e062bf50ff7b", title: "Crest Nicholson shares tumble as homebuilder warns of loss", date: "2026-09-03", time: "08:16", url: "https://www.ft.com/content/28676485-9dd8-4c17-8c7b-e062bf50ff7b" },
   { id: "f2f05059-8fbe-47b9-8976-c85bb119bbd0", title: "More on the 60/40 portfolio", date: "2026-09-03", time: "06:30", url: "https://www.ft.com/content/f2f05059-8fbe-47b9-8976-c85bb119bbd0" },
   { id: "70ca0dbc-e9b4-487b-be08-ab7a01c43696", title: "Ireland strives for EU budget breakthrough as December deadline looms", date: "2026-09-03", time: "06:00", url: "https://www.ft.com/content/70ca0dbc-e9b4-487b-be08-ab7a01c43696" },
   { id: "d30b278a-4f73-4d37-932f-43821cb10b82", title: "FTAV’s further reading", date: "2026-09-03", time: "06:00", url: "https://www.ft.com/content/d30b278a-4f73-4d37-932f-43821cb10b82" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "c9c3a0ef-98d5-4aeb-9d20-e6250d6fcf99", title: "Students and opposition activists targeted with spyware in Serbia", date: "2026-09-02", time: "16:48", url: "https://www.ft.com/content/c9c3a0ef-98d5-4aeb-9d20-e6250d6fcf99" },
   { id: "9fa4fcb7-14f0-4461-87aa-4fbdf1fe64f4", title: "UK mortgage borrowers urged to lock in deals before rates rise", date: "2026-09-02", time: "16:42", url: "https://www.ft.com/content/9fa4fcb7-14f0-4461-87aa-4fbdf1fe64f4" },
   { id: "5b8f840e-f47c-452a-a99b-a79044ddf7c7", title: "Tory attempts to repeal the UK Climate Act are tin-eared", date: "2026-09-02", time: "16:27", url: "https://www.ft.com/content/5b8f840e-f47c-452a-a99b-a79044ddf7c7" },
-  { id: "c04aa126-0764-42e9-b39c-b25997eb2afa", title: "ENRC settles with UK prosecutors and former lawyers over abandoned probe", date: "2026-09-02", time: "16:22", url: "https://www.ft.com/content/c04aa126-0764-42e9-b39c-b25997eb2afa" },
 ];
