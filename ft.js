@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f86672dd-5ee5-46f6-8419-3c959814dd1c", title: "Microsoft challenges data centre costs after pledging to protect ratepayers", date: "2026-09-03", time: "21:03", url: "https://www.ft.com/content/f86672dd-5ee5-46f6-8419-3c959814dd1c" },
   { id: "55ab40c0-59e2-4c0b-97c9-4f4f5a71a8bb", title: "OpenAI says it has overtaken Anthropic with its latest AI model", date: "2026-09-03", time: "19:00", url: "https://www.ft.com/content/55ab40c0-59e2-4c0b-97c9-4f4f5a71a8bb" },
   { id: "c5dadf10-7c7e-4035-ae21-e18535d7d609", title: "US oil deal sparks ‘anger’ in Venezuela, says opposition leader", date: "2026-09-03", time: "18:48", url: "https://www.ft.com/content/c5dadf10-7c7e-4035-ae21-e18535d7d609" },
   { id: "5e9db3c2-70c0-40da-8767-88dcbaf8cfc5", title: "EU enters winter with lowest gas stocks on record", date: "2026-09-03", time: "18:46", url: "https://www.ft.com/content/5e9db3c2-70c0-40da-8767-88dcbaf8cfc5" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "96e8d67a-6f8c-4389-9ab8-d9309f51634e", title: "How AI forces us to rethink the economy", date: "2026-09-03", time: "11:00", url: "https://www.ft.com/content/96e8d67a-6f8c-4389-9ab8-d9309f51634e" },
   { id: "8252d574-ae2a-4403-9cf9-031295ba67f5", title: "‘People are going to get screwed’: Pennsylvania voters unite against data centres", date: "2026-09-03", time: "11:00", url: "https://www.ft.com/content/8252d574-ae2a-4403-9cf9-031295ba67f5" },
   { id: "51afa87f-7452-4c5c-8beb-7eed624f6f22", title: "Friedrich Merz sidelined as party fights far right in regional poll", date: "2026-09-03", time: "11:00", url: "https://www.ft.com/content/51afa87f-7452-4c5c-8beb-7eed624f6f22" },
-  { id: "bb80d928-c9c3-493e-8b7f-fb5208fd90b3", title: "How free trade can shield us from El Niño", date: "2026-09-03", time: "11:00", url: "https://www.ft.com/content/bb80d928-c9c3-493e-8b7f-fb5208fd90b3" },
 ];
