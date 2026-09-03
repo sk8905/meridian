@@ -3,14 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-  <meta name="theme-color" content="#05080f">
+  <meta name="theme-color" content="#070707">
   <script>
     // Resolve the stored theme choice BEFORE first paint (no flash), exactly as
     // the current app does — one inline script, no dependency.
     (function(){var r=document.documentElement;var mq=window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)");var sd=mq&&mq.matches;var p;try{p=localStorage.getItem("m_theme_pref");}catch(e){}if(p!=="system"&&p!=="light"&&p!=="dark"){p=(p==="other")?(sd?"light":"dark"):"system";}var t=p==="system"?(sd?"dark":"light"):p;r.setAttribute("data-theme",t);r.setAttribute("data-theme-choice",p);var dz;try{dz=localStorage.getItem("m_density");}catch(e){}r.setAttribute("data-density",dz==="comfortable"?"comfortable":"compact");})();
     ["gesturestart","gesturechange","gestureend"].forEach(function(t){document.addEventListener(t,function(e){e.preventDefault();},{passive:false});});
   </script>
-  <style>html{background:#05080f}</style>
+  <style>html{background:#070707}</style>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=7" />
   <meta name="apple-mobile-web-app-title" content="Wire" />
@@ -22,8 +22,8 @@
   <!-- Shared visual language (unchanged from the current app so the look is
        identical). Per-view stylesheets are loaded on demand by the runtime when
        a view is first opened, so nothing pays for CSS it never shows. -->
-  <link rel="stylesheet" href="/premium.css?v=20260901-1" />
-  <link rel="stylesheet" href="/tui.css?v=20260819-1" />
+  <link rel="stylesheet" href="/premium.css?v=20260903-1" />
+  <link rel="stylesheet" href="/tui.css?v=20260903-1" />
   <link rel="stylesheet" href="/header.css?v=20260901-1" />
   <link rel="stylesheet" href="/v2/css/app.css?v=v2-26" />
   <link rel="stylesheet" href="/v2/css/network.css?v=v2-3" />
@@ -37,12 +37,12 @@
   <!-- feed.css comes LAST: the shared feed engine (.g-feed-row grid) must win over
        any per-view .g-feed rules, exactly as before when each view loaded
        [view.css, feed.css] with feed.css second. -->
-  <link rel="stylesheet" href="/home.css?v=20260901-9" />
+  <link rel="stylesheet" href="/home.css?v=20260903-1" />
   <link rel="stylesheet" href="/credit/css/styles.css?v=20260830-1" />
   <link rel="stylesheet" href="/legal/css/styles.css?v=20260902-1" />
   <link rel="stylesheet" href="/macro/css/styles.css?v=20260902-1" />
-  <link rel="stylesheet" href="/dashboard.css?v=20260901-3" />
-  <link rel="stylesheet" href="/feed.css?v=20260901-2" />
+  <link rel="stylesheet" href="/dashboard.css?v=20260903-1" />
+  <link rel="stylesheet" href="/feed.css?v=20260903-1" />
 
   <!-- ONE runtime, loaded once for the whole app. It owns the router, the shared
        chrome, the in-memory data cache and view lifecycles. There is no

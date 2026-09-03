@@ -11,8 +11,8 @@
    var(--t-crd) bar background would resolve to nothing (invisible bars/ladder).
    Mirrors feed.css's scope and adds --t-up/--t-down (which feed.css omits). */
 :root[data-theme="dark"] .dsh {
-  --t-ground:#000000; --t-panel:#0d0d0d; --t-panel2:#191919; --t-head:#0a0a0a;
-  --t-grid:#1a1a1a; --t-grid2:#262626;
+  --t-ground:#070707; --t-panel:#141414; --t-panel2:#202020; --t-head:#111111;
+  --t-grid:#212121; --t-grid2:#2d2d2d;
   --t-ink:#eaf0fb; --t-dim:#b7c2da; --t-mut:#8592ad; --t-faint:#5c6a86;
   --t-accent:#fb8b1e; --t-up:#3fc08d; --t-down:#f26d84;
   --t-mac:#9b83e2; --t-crd:#fb8b1e; --t-lex:#2fbf8a; --t-amber:#d9a441; --t-ft:#e0708e; --t-hdg:#4aa3f0;

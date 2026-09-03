@@ -213,9 +213,9 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
    ============================================================================= */
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #000000; --surface: #0d0d0d;
+  --bg: #070707; --surface: #141414;
   --ink: #eaf0fb; --ink-soft: #c2ccdd; --muted: #8592ad;
-  --line: #262626; --border: #262626;
+  --line: #2d2d2d; --border: #2d2d2d;
   --brand: #2f4d78; --brand-2: #fb8b1e;
   --primary: #fb8b1e; --primary-ink: #f6ab6e; --macro-ink: #c9d3e6;
   --credit: #9aa3b3; --legal: #4cb488;

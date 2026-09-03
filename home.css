@@ -759,8 +759,8 @@
     /* provisional (to be refined). All terminal styling reads --t-* vars. */
     /* ================================================================= */
     :root[data-theme="dark"] #glance, :root[data-theme="dark"] .na-panel, :root[data-theme="dark"] .g-main.tui, :root[data-theme="dark"] .g-mkt-panel, :root[data-theme="dark"] .g-sv-panel{
-      --t-ground:#000000; --t-panel:#0d0d0d; --t-panel2:#191919; --t-head:#0a0a0a;
-      --t-grid:#1a1a1a; --t-grid2:#262626;
+      --t-ground:#070707; --t-panel:#141414; --t-panel2:#202020; --t-head:#111111;
+      --t-grid:#212121; --t-grid2:#2d2d2d;
       --t-ink:#eaf0fb; --t-dim:#b7c2da; --t-mut:#8592ad; --t-faint:#5c6a86;
       --t-accent:#fb8b1e; --t-accent-dim:#a86020; --t-accent-soft:rgba(251,139,30,.15);
       --t-up:#3fc08d; --t-down:#f26d84;

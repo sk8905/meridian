@@ -29,11 +29,11 @@
 
 /* ---- deep near-black terminal surfaces (dark) to match Home ---- */
 :root[data-theme="dark"] {
-  --bg: #000000;
-  --surface: #0d0d0d;
-  --line: #262626;
-  --border: #262626;
-  --head: #0a0a0a;
+  --bg: #070707;
+  --surface: #141414;
+  --line: #2d2d2d;
+  --border: #2d2d2d;
+  --head: #111111;
   --ink: #eaf0fb;
   --muted: #8592ad;
   --faint: #5c6a86;
