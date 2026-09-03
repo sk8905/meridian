@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-tradingday-yenjumpsoilpumps-20260902",
+    publication: "Thomson Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "Yen jumps, oil pumps",
+    date: "2026-09-02",
+    time: "22:06",
+    summary: "The yen's biggest jump in a month, gilt yields at an 18-year high, and oil up 25% in under a month as bond yields grind higher.",
+    url: "https://www.reuters.com/newsletters/trading-day/",
+  },
+  {
     id: "nl-bbg-etfdividendflip-20260902",
     publication: "Bloomberg",
     author: "Matt Levine",
@@ -464,27 +475,5 @@ export const NEWSLETTERS = [
     time: "12:06",
     summary: "Yao Hua Ooi is trying to replicate the $6.3 billion systematic strategy he helped build at Cliff Asness' firm, this time at rival hedge fund Capula.",
     url: "https://www.bloomberg.com/news/articles/2026-08-28/hedge-fund-capula-launches-new-strategy-in-diversification-push",
-  },
-  {
-    id: "nl-bbg-goingprivate-retailadvisersditchingalts-20260828",
-    publication: "Bloomberg",
-    author: "Sinead Cruise",
-    series: "Going Private",
-    title: "Going Private: Retail advisers ditching alts as workload outstrips fees",
-    date: "2026-08-28",
-    time: "12:03",
-    summary: "Too much time spent managing too few labor-intensive assets, industry observers say.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-28/retail-advisers-ditching-private-assets-as-workload-outstrips-fees",
-  },
-  {
-    id: "nl-bbg-economicsdaily-backwardguidance-20260828",
-    publication: "Bloomberg",
-    author: "Chris Anstey",
-    series: "Economics Daily",
-    title: "Economics Daily: Backward guidance?",
-    date: "2026-08-28",
-    time: "12:00",
-    summary: "Keynote speech offers Warsh a chance to explain why he didn't hike rates.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-28/fed-latest-speech-offers-warsh-chance-to-explain-why-he-didn-t-hike-rate",
   },
 ];
