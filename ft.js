@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "59b1a168-7636-4a23-84e5-b31439b6018d", title: "How US oil companies are expanding as Trump reshapes global energy", date: "2026-09-03", time: "12:00", url: "https://www.ft.com/content/59b1a168-7636-4a23-84e5-b31439b6018d" },
+  { id: "1a4e9dc2-bd0b-40d7-bf56-c113def697c2", title: "Trade World — despite Trump’s tariffs, global commerce just keeps on growing", date: "2026-09-03", time: "12:00", url: "https://www.ft.com/content/1a4e9dc2-bd0b-40d7-bf56-c113def697c2" },
+  { id: "f117f347-e1e0-457c-83fc-ba4745581bb2", title: "Diesel premium in Europe jumps to record high", date: "2026-09-03", time: "11:50", url: "https://www.ft.com/content/f117f347-e1e0-457c-83fc-ba4745581bb2" },
+  { id: "bbb04f65-7cdd-4ba2-8f82-96158ff40d63", title: "Volodymyr Zelenskyy rebukes spy agencies after Kyiv shootout", date: "2026-09-03", time: "11:25", url: "https://www.ft.com/content/bbb04f65-7cdd-4ba2-8f82-96158ff40d63" },
+  { id: "a0d34842-a49c-47ae-b1cc-3fadd8af9d43", title: "Hargreaves Lansdown offers crypto ETNs nearly a year after ban was lifted", date: "2026-09-03", time: "11:24", url: "https://www.ft.com/content/a0d34842-a49c-47ae-b1cc-3fadd8af9d43" },
   { id: "96e8d67a-6f8c-4389-9ab8-d9309f51634e", title: "How AI forces us to rethink the economy", date: "2026-09-03", time: "11:00", url: "https://www.ft.com/content/96e8d67a-6f8c-4389-9ab8-d9309f51634e" },
   { id: "8252d574-ae2a-4403-9cf9-031295ba67f5", title: "‘People are going to get screwed’: Pennsylvania voters unite against data centres", date: "2026-09-03", time: "11:00", url: "https://www.ft.com/content/8252d574-ae2a-4403-9cf9-031295ba67f5" },
   { id: "51afa87f-7452-4c5c-8beb-7eed624f6f22", title: "Friedrich Merz sidelined as party fights far right in regional poll", date: "2026-09-03", time: "11:00", url: "https://www.ft.com/content/51afa87f-7452-4c5c-8beb-7eed624f6f22" },
@@ -55,9 +60,4 @@ export const FT_ITEMS = [
   { id: "5948cb6b-b80d-4808-9336-ba56ffa86b4f", title: "The fatal car crash that spurred Vietnamese Gen Z protests", date: "2026-09-03", time: "05:00", url: "https://www.ft.com/content/5948cb6b-b80d-4808-9336-ba56ffa86b4f" },
   { id: "b6b02edc-980d-45c8-96d1-c4f53cb41daa", title: "Sweden’s election frontrunner vows green reset", date: "2026-09-03", time: "05:00", url: "https://www.ft.com/content/b6b02edc-980d-45c8-96d1-c4f53cb41daa" },
   { id: "575b676e-6ece-480b-bf0e-901af9471015", title: "For sweltering Britons, rising energy prices could spark a shutter boom", date: "2026-09-03", time: "05:00", url: "https://www.ft.com/content/575b676e-6ece-480b-bf0e-901af9471015" },
-  { id: "a44220ed-f93a-47a6-8a06-9d8eb667c6aa", title: "The Newer World — Sebastian Barry’s novel of the Black American slave experience", date: "2026-09-03", time: "05:00", url: "https://www.ft.com/content/a44220ed-f93a-47a6-8a06-9d8eb667c6aa" },
-  { id: "23b084ea-2737-4f50-bc0a-bf6acc3e4962", title: "‘This is where I exhale’ — the renovation of a Swedish summer house", date: "2026-09-03", time: "05:00", url: "https://www.ft.com/content/23b084ea-2737-4f50-bc0a-bf6acc3e4962" },
-  { id: "0fc8494f-96ad-458a-8f0a-e7e4715c7ea0", title: "Cities on screen: 10 takes on Chicago", date: "2026-09-03", time: "05:00", url: "https://www.ft.com/content/0fc8494f-96ad-458a-8f0a-e7e4715c7ea0" },
-  { id: "6d6339d1-8fb7-4d5d-886f-6c856de42fb7", title: "The mysterious billionaire and Cuba’s cigar industry", date: "2026-09-03", time: "05:00", url: "https://www.ft.com/content/6d6339d1-8fb7-4d5d-886f-6c856de42fb7" },
-  { id: "18e50789-6ba6-4504-a51d-1d1d40ad860d", title: "Is my ex being truthful about their finances?", date: "2026-09-03", time: "05:00", url: "https://www.ft.com/content/18e50789-6ba6-4504-a51d-1d1d40ad860d" },
 ];
