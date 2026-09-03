@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8f699fbc-cb01-4846-837c-0d1528a620d0", title: "Struggling Republicans urge Trump to open Maga Inc’s $400mn war chest", date: "2026-09-03", time: "14:19", url: "https://www.ft.com/content/8f699fbc-cb01-4846-837c-0d1528a620d0" },
+  { id: "2e08ef04-b75f-4511-9587-0fbe9b991e37", title: "Milei dials up Argentina’s claim to Falklands", date: "2026-09-03", time: "14:10", url: "https://www.ft.com/content/2e08ef04-b75f-4511-9587-0fbe9b991e37" },
+  { id: "3342fb0a-ff7c-4d57-bf74-9e0bc6dc8de3", title: "Vulnerable Republicans urge Trump to unleash Maga Inc’s $400mn cash pile", date: "2026-09-03", time: "14:06", url: "https://www.ft.com/content/3342fb0a-ff7c-4d57-bf74-9e0bc6dc8de3" },
+  { id: "f3a578e4-5509-4d4e-9981-7127c40b2e31", title: "Oman FM: In an age of impunity, diplomats are more important than ever", date: "2026-09-03", time: "14:00", url: "https://www.ft.com/content/f3a578e4-5509-4d4e-9981-7127c40b2e31" },
+  { id: "8fad4a81-ae66-4248-9669-81138b0d0f2a", title: "Monetary Policy Radar preview: ECB’s September meeting", date: "2026-09-03", time: "13:51", url: "https://www.ft.com/content/8fad4a81-ae66-4248-9669-81138b0d0f2a" },
+  { id: "0a332e3c-e596-4f64-976a-d7746f91a9a9", title: "Federal Reserve’s Chris Waller ‘inclined’ to keep interest rates on hold", date: "2026-09-03", time: "13:30", url: "https://www.ft.com/content/0a332e3c-e596-4f64-976a-d7746f91a9a9" },
   { id: "f058481a-270a-42f1-8032-f4e4b112f36f", title: "Harvey Nichols sale set to cost luxury brands millions", date: "2026-09-03", time: "13:01", url: "https://www.ft.com/content/f058481a-270a-42f1-8032-f4e4b112f36f" },
   { id: "776dcb01-75cd-44df-bc52-63ca76d5718d", title: "Nvidia to buy open-source AI platform Hugging Face for $13bn", date: "2026-09-03", time: "13:00", url: "https://www.ft.com/content/776dcb01-75cd-44df-bc52-63ca76d5718d" },
   { id: "22abbb77-1344-4871-9692-97a779b1ba77", title: "Yen jumps as traders bet on Japan interest rate rises", date: "2026-09-03", time: "12:49", url: "https://www.ft.com/content/22abbb77-1344-4871-9692-97a779b1ba77" },
@@ -54,10 +60,4 @@ export const FT_ITEMS = [
   { id: "9d4cffdc-4d8b-4a8b-98be-42e17200b122", title: "FirstFT: KPMG warned Guggenheim unit over weak controls", date: "2026-09-03", time: "05:36", url: "https://www.ft.com/content/9d4cffdc-4d8b-4a8b-98be-42e17200b122" },
   { id: "bad69b88-da02-4859-8190-37c55039be75", title: "American sailors roll into Thailand’s Pattaya resort after nine months at sea", date: "2026-09-03", time: "05:04", url: "https://www.ft.com/content/bad69b88-da02-4859-8190-37c55039be75" },
   { id: "3249b384-2a27-402b-be12-e3b3bea37440", title: "Accelerating Business", date: "2026-09-03", time: "05:02", url: "https://www.ft.com/content/3249b384-2a27-402b-be12-e3b3bea37440" },
-  { id: "a9d4cdad-c1bf-4bac-be2b-79d152041b76", title: "The new rivalry on Wall Street", date: "2026-09-03", time: "05:00", url: "https://www.ft.com/content/a9d4cdad-c1bf-4bac-be2b-79d152041b76" },
-  { id: "0dac70dc-1098-478d-aa30-cf6c59f86c70", title: "‘Exit tax’ on UK entrepreneurs ruled out by business department", date: "2026-09-03", time: "05:00", url: "https://www.ft.com/content/0dac70dc-1098-478d-aa30-cf6c59f86c70" },
-  { id: "b44fcdbd-4c0e-4032-b81a-98e309991388", title: "VodafoneThree to launch debut TV service in challenge to UK rivals", date: "2026-09-03", time: "05:00", url: "https://www.ft.com/content/b44fcdbd-4c0e-4032-b81a-98e309991388" },
-  { id: "115c886f-23e4-4a8d-9656-5d7fc9480803", title: "Fixing the AI industry’s PR problem", date: "2026-09-03", time: "05:00", url: "https://www.ft.com/content/115c886f-23e4-4a8d-9656-5d7fc9480803" },
-  { id: "589bc3d6-998e-48a9-b863-050fe1044f45", title: "Gold’s run isn’t yet done", date: "2026-09-03", time: "05:00", url: "https://www.ft.com/content/589bc3d6-998e-48a9-b863-050fe1044f45" },
-  { id: "89f06927-5728-4e24-9a28-621869d03392", title: "When is an economist not an economist?", date: "2026-09-03", time: "05:00", url: "https://www.ft.com/content/89f06927-5728-4e24-9a28-621869d03392" },
 ];

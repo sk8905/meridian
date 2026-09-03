@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-econworld-worriedaboutwrongdebt-20260903",
+    publication: "Thomson Reuters",
+    author: "Balazs Koranyi",
+    series: "Econ World",
+    title: "Is the world worried about the wrong debt?",
+    date: "2026-09-03",
+    time: "14:20",
+    summary: "France's high debt, weak growth and volatile election may pose a bigger euro-zone risk than the more closely-watched US debt story.",
+    url: "https://www.reuters.com/newsletters/reuters-econ-world/",
+  },
+  {
     id: "nl-legalbusiness-sidleywachtelltaxpartner-20260903",
     publication: "Legal Business",
     author: null,
@@ -464,17 +475,6 @@ export const NEWSLETTERS = [
     time: "16:00",
     summary: "GoldenTree's Quorum Health wants to find out if turning non-profit can cure its debt woes.",
     url: "https://www.bloomberg.com/news/newsletters/2026-08-29/goldentree-s-quorum-health-sees-going-non-profit-as-the-cure-for-its-woes",
-  },
-  {
-    id: "nl-economist-worldinbrief-warshsaysinflationtoohigh-20260829",
-    publication: "The Economist",
-    author: null,
-    series: "The World in Brief",
-    title: "The World in Brief: Warsh says inflation is too high",
-    date: "2026-08-29",
-    time: "05:09",
-    summary: "Kevin Warsh says the Fed has \"work to do\" on inflation as flood rescue resumes in Nepal-Tibet and BYD's Q2 profit jumps 30%.",
-    url: "https://www.economist.com/the-world-in-brief",
   },
 
 ];
