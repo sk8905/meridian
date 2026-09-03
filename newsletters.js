@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-eurisksfallingbehind-irelandmartin-20260903",
+    publication: "Bloomberg",
+    author: "Jennifer Duggan",
+    series: null,
+    title: "EU Risks Falling Further Behind US, China, Ireland’s Martin Says",
+    date: "2026-09-03",
+    time: "16:48",
+    summary: "Europe needs a change in mindset on innovation and technology and must take bolder action or it will fall further behind the US and China, Ireland's prime minister says.",
+    url: "https://www.bloomberg.com/news/articles/2026-09-03/eu-risks-falling-further-behind-us-china-ireland-s-martin-says",
+  },
+  {
     id: "nl-reuters-econworld-worriedaboutwrongdebt-20260903",
     publication: "Thomson Reuters",
     author: "Balazs Koranyi",
