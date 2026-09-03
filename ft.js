@@ -22,6 +22,7 @@
 export const FT_ITEMS = [
   { id: "2d69802f-cdea-4884-ac53-e20001495ada", title: "Why does it even matter if SoftBank’s an investment holding company?", date: "2026-09-03", time: "08:52", url: "https://www.ft.com/content/2d69802f-cdea-4884-ac53-e20001495ada" },
   { id: "16034441-608c-42de-90ff-1a2b7607fc79", title: "Elliott builds stake in Deutsche Telekom and opposes T-Mobile US merger", date: "2026-09-03", time: "08:24", url: "https://www.ft.com/content/16034441-608c-42de-90ff-1a2b7607fc79" },
+  { id: "e9f359ba-1822-4d39-8722-e2073dafd4af", title: "Alexia Genta: ‘You cannot kill ambition to protect the past’", date: "2026-09-03", time: "07:58", url: "https://www.ft.com/content/e9f359ba-1822-4d39-8722-e2073dafd4af" },
   { id: "28676485-9dd8-4c17-8c7b-e062bf50ff7b", title: "Crest Nicholson shares tumble as homebuilder warns of loss", date: "2026-09-03", time: "08:16", url: "https://www.ft.com/content/28676485-9dd8-4c17-8c7b-e062bf50ff7b" },
   { id: "f2f05059-8fbe-47b9-8976-c85bb119bbd0", title: "More on the 60/40 portfolio", date: "2026-09-03", time: "06:30", url: "https://www.ft.com/content/f2f05059-8fbe-47b9-8976-c85bb119bbd0" },
   { id: "70ca0dbc-e9b4-487b-be08-ab7a01c43696", title: "Ireland strives for EU budget breakthrough as December deadline looms", date: "2026-09-03", time: "06:00", url: "https://www.ft.com/content/70ca0dbc-e9b4-487b-be08-ab7a01c43696" },
@@ -59,7 +60,4 @@ export const FT_ITEMS = [
   { id: "5040d26d-520c-455f-a1e8-111d011acdb6", title: "California opines on who profits from wildfires but not on who pays", date: "2026-09-02", time: "17:45", url: "https://www.ft.com/content/5040d26d-520c-455f-a1e8-111d011acdb6" },
   { id: "3d2590e0-b166-494e-ab6b-e6c20c75c59e", title: "The Restore Britain backer who once gave money to the Lib Dems", date: "2026-09-02", time: "17:30", url: "https://www.ft.com/content/3d2590e0-b166-494e-ab6b-e6c20c75c59e" },
   { id: "c4f84da3-bfc6-49a0-90bd-9a1611864ac4", title: "AI spots cyber gaps faster than financial firms can fix them", date: "2026-09-02", time: "17:25", url: "https://www.ft.com/content/c4f84da3-bfc6-49a0-90bd-9a1611864ac4" },
-  { id: "c9c3a0ef-98d5-4aeb-9d20-e6250d6fcf99", title: "Students and opposition activists targeted with spyware in Serbia", date: "2026-09-02", time: "16:48", url: "https://www.ft.com/content/c9c3a0ef-98d5-4aeb-9d20-e6250d6fcf99" },
-  { id: "9fa4fcb7-14f0-4461-87aa-4fbdf1fe64f4", title: "UK mortgage borrowers urged to lock in deals before rates rise", date: "2026-09-02", time: "16:42", url: "https://www.ft.com/content/9fa4fcb7-14f0-4461-87aa-4fbdf1fe64f4" },
-  { id: "5b8f840e-f47c-452a-a99b-a79044ddf7c7", title: "Tory attempts to repeal the UK Climate Act are tin-eared", date: "2026-09-02", time: "16:27", url: "https://www.ft.com/content/5b8f840e-f47c-452a-a99b-a79044ddf7c7" },
 ];
