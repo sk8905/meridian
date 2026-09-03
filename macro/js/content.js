@@ -13,7 +13,7 @@ export const UPDATED = "3 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-03",
-  lastCheckedTime: "21:16 BST",
+  lastCheckedTime: "21:24 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1090,7 +1090,7 @@ export const MATWALL = {
 // two_year, core_cpi, services_pmi, wages, unemployment). Absent = no sourced
 // move (the rail shows nothing). Routine-maintained; see docs/refresh-routines.md.
 export const IND_KEYMOMENTS = {
-  "US:two_year": { text: "US private payrolls rose just 38,000 in August against a 48,000 forecast, ADP reported Wednesday, adding to the run of soft labour-market prints firming CME FedWatch-implied odds of a 16 September Fed hike as the 10-year Treasury yield climbed to its highest since November 2023.", src: "https://www.cnbc.com/2026/09/02/private-payrolls-rose-by-38000-in-august-fewer-than-expected-adp-reports.html", srcName: "CNBC", date: "2026-09-02" },
+  "US:two_year": { text: "Fed Governor Waller said Thursday his 16 September rate call is 'heavily influenced' by the 11 September CPI report and he'd back a hold if disinflation continues, pulling CME FedWatch-implied hike odds down roughly 12 points to ~54.6% (45.4% hold) from ~66% Wednesday — the most conditional, least-hawkish framing from any FOMC voter since Jackson Hole.", src: "https://www.bloomberg.com/news/articles/2026-09-03/fed-s-waller-says-september-rate-decision-hinges-on-august-cpi", srcName: "Bloomberg", date: "2026-09-03" },
   "US:wages": { text: "July's jobs report showed average hourly earnings up 3.2% y/y — the smallest annual gain since May 2021 — alongside the surprise 23,000 payrolls decline, reinforcing the softer wage-inflation read markets have leaned on since the report.", src: "https://www.cnbc.com/2026/08/07/jobs-report-july-2026.html", srcName: "CNBC", date: "2026-08-07" },
   "UK:two_year": { text: "Gilts steadied on Thursday as the European bond-market turmoil eased and the final S&P Global/CIPS UK services PMI showed activity growing at its fastest pace in months, pulling yields back from the multi-decade highs hit earlier in the week.", src: "https://www.theguardian.com/business/live/2026/sep/03/uk-mortgage-rates-set-to-rise-bond-sell-off-borrowing-costs-latest-news-updates", srcName: "The Guardian", date: "2026-09-03" },
   "UK:wages": { text: "UK payroll employment fell again in July while the unemployment rate held at 4.9%, ONS data showed — a soft labour market print that reinforces the case for the Bank of England to keep rates on hold.", src: "https://www.actionforex.com/live-comments/650961-uk-payroll-employment-falls-as-uk-unemployment-holds-at-4-9/", srcName: "ActionForex", date: "2026-08-18" },
