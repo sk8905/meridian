@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "2d69802f-cdea-4884-ac53-e20001495ada", title: "Why does it even matter if SoftBank’s an investment holding company?", date: "2026-09-03", time: "08:52", url: "https://www.ft.com/content/2d69802f-cdea-4884-ac53-e20001495ada" },
+  { id: "16034441-608c-42de-90ff-1a2b7607fc79", title: "Elliott builds stake in Deutsche Telekom and opposes T-Mobile US merger", date: "2026-09-03", time: "08:24", url: "https://www.ft.com/content/16034441-608c-42de-90ff-1a2b7607fc79" },
   { id: "28676485-9dd8-4c17-8c7b-e062bf50ff7b", title: "Crest Nicholson shares tumble as homebuilder warns of loss", date: "2026-09-03", time: "08:16", url: "https://www.ft.com/content/28676485-9dd8-4c17-8c7b-e062bf50ff7b" },
   { id: "f2f05059-8fbe-47b9-8976-c85bb119bbd0", title: "More on the 60/40 portfolio", date: "2026-09-03", time: "06:30", url: "https://www.ft.com/content/f2f05059-8fbe-47b9-8976-c85bb119bbd0" },
   { id: "70ca0dbc-e9b4-487b-be08-ab7a01c43696", title: "Ireland strives for EU budget breakthrough as December deadline looms", date: "2026-09-03", time: "06:00", url: "https://www.ft.com/content/70ca0dbc-e9b4-487b-be08-ab7a01c43696" },
