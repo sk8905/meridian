@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "70ca0dbc-e9b4-487b-be08-ab7a01c43696", title: "Ireland strives for EU budget breakthrough as December deadline looms", date: "2026-09-03", time: "06:00", url: "https://www.ft.com/content/70ca0dbc-e9b4-487b-be08-ab7a01c43696" },
+  { id: "d30b278a-4f73-4d37-932f-43821cb10b82", title: "FTAV’s further reading", date: "2026-09-03", time: "06:00", url: "https://www.ft.com/content/d30b278a-4f73-4d37-932f-43821cb10b82" },
+  { id: "22abbb77-1344-4871-9692-97a779b1ba77", title: "Yen strengthens as traders bet on Japan interest rate rises", date: "2026-09-03", time: "05:50", url: "https://www.ft.com/content/22abbb77-1344-4871-9692-97a779b1ba77" },
+  { id: "9d4cffdc-4d8b-4a8b-98be-42e17200b122", title: "FirstFT: KPMG warned Guggenheim unit over weak controls", date: "2026-09-03", time: "05:36", url: "https://www.ft.com/content/9d4cffdc-4d8b-4a8b-98be-42e17200b122" },
   { id: "bad69b88-da02-4859-8190-37c55039be75", title: "American sailors roll into Thailand’s Pattaya resort after nine months at sea", date: "2026-09-03", time: "05:04", url: "https://www.ft.com/content/bad69b88-da02-4859-8190-37c55039be75" },
   { id: "3249b384-2a27-402b-be12-e3b3bea37440", title: "Accelerating Business", date: "2026-09-03", time: "05:02", url: "https://www.ft.com/content/3249b384-2a27-402b-be12-e3b3bea37440" },
   { id: "a9d4cdad-c1bf-4bac-be2b-79d152041b76", title: "The new rivalry on Wall Street", date: "2026-09-03", time: "05:00", url: "https://www.ft.com/content/a9d4cdad-c1bf-4bac-be2b-79d152041b76" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "5b8f840e-f47c-452a-a99b-a79044ddf7c7", title: "Tory attempts to repeal the UK Climate Act are tin-eared", date: "2026-09-02", time: "16:27", url: "https://www.ft.com/content/5b8f840e-f47c-452a-a99b-a79044ddf7c7" },
   { id: "c04aa126-0764-42e9-b39c-b25997eb2afa", title: "ENRC settles with UK prosecutors and former lawyers over abandoned probe", date: "2026-09-02", time: "16:22", url: "https://www.ft.com/content/c04aa126-0764-42e9-b39c-b25997eb2afa" },
   { id: "bbb04f65-7cdd-4ba2-8f82-96158ff40d63", title: "Rival Ukrainian intelligence agencies reportedly in street shootout in Kyiv", date: "2026-09-02", time: "16:12", url: "https://www.ft.com/content/bbb04f65-7cdd-4ba2-8f82-96158ff40d63" },
-  { id: "55ea0ee5-d067-4fc0-81cb-82293e9285de", title: "Andy Burnham seeks to reassure bond markets amid public spending fears", date: "2026-09-02", time: "16:10", url: "https://www.ft.com/content/55ea0ee5-d067-4fc0-81cb-82293e9285de" },
-  { id: "38d5c39f-901f-4306-9412-f7e1d7553174", title: "A key tenet of US equity markets is under threat", date: "2026-09-02", time: "15:45", url: "https://www.ft.com/content/38d5c39f-901f-4306-9412-f7e1d7553174" },
-  { id: "5eda86fe-1d2c-4a4e-9563-24a50aa734a4", title: "Uber to axe 10% of its workforce in biggest cuts since pandemic", date: "2026-09-02", time: "15:25", url: "https://www.ft.com/content/5eda86fe-1d2c-4a4e-9563-24a50aa734a4" },
-  { id: "806ed56b-f5b2-4ae4-8164-231ccaebdd21", title: "Ukraine tells airlines to stop using Russian airspace", date: "2026-09-02", time: "14:56", url: "https://www.ft.com/content/806ed56b-f5b2-4ae4-8164-231ccaebdd21" },
 ];

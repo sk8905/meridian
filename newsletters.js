@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-trumpsaysiranstrikeswontlastlong-20260903",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: Trump says Iran strikes won’t last long",
+    date: "2026-09-03",
+    time: "06:06",
+    summary: "America renewed bombing of Iran as Trump vows the strikes “won’t last too long”, Uber cuts 10% of its global workforce, and a federal judge spares Google a break-up of its ad-tech business.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-reuters-tradingday-yenjumpsoilpumps-20260902",
     publication: "Thomson Reuters",
     author: "Jamie McGeever",
