@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-sidleywachtelltaxpartner-20260903",
+    publication: "Legal Business",
+    author: null,
+    series: null,
+    title: "Sidley snaps up NY tax partner in latest Wachtell exit",
+    date: "2026-09-03",
+    time: "12:35",
+    summary: "Legal 500 Hall of Fame partner leaves firm to become Sidley tax co-head.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMQYWwVbnjS9IAt7YQ/wv",
+  },
+  {
     id: "nl-bbg-econdaily-britainsthriftyrich-20260903",
     publication: "Bloomberg",
     author: "Irina Anghel",
@@ -465,15 +476,5 @@ export const NEWSLETTERS = [
     summary: "Kevin Warsh says the Fed has \"work to do\" on inflation as flood rescue resumes in Nepal-Tibet and BYD's Q2 profit jumps 30%.",
     url: "https://www.economist.com/the-world-in-brief",
   },
-  {
-    id: "nl-bbg-singaporeedition-hazereturns-20260829",
-    publication: "Bloomberg",
-    author: "Eko Listiyorini",
-    series: "Singapore Edition",
-    title: "Singapore Edition: Haze season is back",
-    date: "2026-08-29",
-    time: "02:12",
-    summary: "Haze returns to Southeast Asia as Indonesia's dry season fuels forest fires, pushing air quality to worst-in-world levels in parts of Malaysia and Indonesia.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-29/southeast-asia-haze-indonesia-fires-spread-as-el-nino-heightens-risk",
-  },
+
 ];
