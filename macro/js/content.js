@@ -1093,7 +1093,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "EUR/GBP pushed toward 0.8700 on Wednesday as sterling slumped on soaring UK gilt yields, while the dollar stayed broadly firm after Fed Governor Barr said he'd back a rate hike if inflation fails to cool, pushing CME FedWatch-implied odds of a 16 September Fed hike to 66% ahead of the day's ADP employment report.", src: "https://www.fxstreet.com/news/eur-gbp-surges-towards-08700-as-sterling-slumps-on-soaring-uk-bond-yields-202509021100", srcName: "FXStreet", date: "2026-09-02" };
+export const FX_KEYMOMENT = { text: "Sterling held just under $1.3500 early Thursday after a session low near $1.3475 — its worst level in three weeks — as elevated CME-implied odds of a 16 September Fed hike and the renewed US-Iran conflict kept the dollar broadly bid despite this week's surge in UK gilt yields.", src: "https://www.fxstreet.com/news/british-pound-consolidates-near-three-week-low-as-fed-bets-and-iran-tensions-support-usd-202609030112", srcName: "FXStreet", date: "2026-09-03" };
 
 export const EARNINGS = {
   weeks: [
