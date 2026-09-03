@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f2f05059-8fbe-47b9-8976-c85bb119bbd0", title: "More on the 60/40 portfolio", date: "2026-09-03", time: "06:30", url: "https://www.ft.com/content/f2f05059-8fbe-47b9-8976-c85bb119bbd0" },
   { id: "70ca0dbc-e9b4-487b-be08-ab7a01c43696", title: "Ireland strives for EU budget breakthrough as December deadline looms", date: "2026-09-03", time: "06:00", url: "https://www.ft.com/content/70ca0dbc-e9b4-487b-be08-ab7a01c43696" },
   { id: "d30b278a-4f73-4d37-932f-43821cb10b82", title: "FTAV’s further reading", date: "2026-09-03", time: "06:00", url: "https://www.ft.com/content/d30b278a-4f73-4d37-932f-43821cb10b82" },
   { id: "22abbb77-1344-4871-9692-97a779b1ba77", title: "Yen strengthens as traders bet on Japan interest rate rises", date: "2026-09-03", time: "05:50", url: "https://www.ft.com/content/22abbb77-1344-4871-9692-97a779b1ba77" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "9fa4fcb7-14f0-4461-87aa-4fbdf1fe64f4", title: "UK mortgage borrowers urged to lock in deals before rates rise", date: "2026-09-02", time: "16:42", url: "https://www.ft.com/content/9fa4fcb7-14f0-4461-87aa-4fbdf1fe64f4" },
   { id: "5b8f840e-f47c-452a-a99b-a79044ddf7c7", title: "Tory attempts to repeal the UK Climate Act are tin-eared", date: "2026-09-02", time: "16:27", url: "https://www.ft.com/content/5b8f840e-f47c-452a-a99b-a79044ddf7c7" },
   { id: "c04aa126-0764-42e9-b39c-b25997eb2afa", title: "ENRC settles with UK prosecutors and former lawyers over abandoned probe", date: "2026-09-02", time: "16:22", url: "https://www.ft.com/content/c04aa126-0764-42e9-b39c-b25997eb2afa" },
-  { id: "bbb04f65-7cdd-4ba2-8f82-96158ff40d63", title: "Rival Ukrainian intelligence agencies reportedly in street shootout in Kyiv", date: "2026-09-02", time: "16:12", url: "https://www.ft.com/content/bbb04f65-7cdd-4ba2-8f82-96158ff40d63" },
 ];
