@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "6d084723-4938-44be-970e-77358d86e96b", title: "UAE billionaire’s son revealed as buyer of £190mn London mansion", date: "2026-09-03", time: "17:59", url: "https://www.ft.com/content/6d084723-4938-44be-970e-77358d86e96b" },
+  { id: "1a1f6c54-8dbc-4446-a6dc-45a060b7cdc8", title: "Hugging Face attack is a wake-up call about the risks of AI", date: "2026-09-03", time: "17:54", url: "https://www.ft.com/content/1a1f6c54-8dbc-4446-a6dc-45a060b7cdc8" },
+  { id: "dc2f9b7f-6d14-4b15-8ce9-fe2cc86d81f6", title: "Tory plan to fund defence risks rise in homelessness, say charities", date: "2026-09-03", time: "17:33", url: "https://www.ft.com/content/dc2f9b7f-6d14-4b15-8ce9-fe2cc86d81f6" },
+  { id: "29f6cc60-3a46-4d64-af65-d0506cbe2f6b", title: "Giorgia Meloni’s enviable stability — and missed opportunity", date: "2026-09-03", time: "17:31", url: "https://www.ft.com/content/29f6cc60-3a46-4d64-af65-d0506cbe2f6b" },
   { id: "d6c24b34-1520-4dc4-8996-83eab8e81941", title: "Revolut wins provisional US banking licence", date: "2026-09-03", time: "16:17", url: "https://www.ft.com/content/d6c24b34-1520-4dc4-8996-83eab8e81941" },
   { id: "278167ea-e88d-4cf5-b49c-6b043719f429", title: "Andy Burnham raises concerns with Emmanuel Macron over ‘Made in Europe’ scheme", date: "2026-09-03", time: "16:10", url: "https://www.ft.com/content/278167ea-e88d-4cf5-b49c-6b043719f429" },
   { id: "c99a833b-337a-4cb9-913b-ef1e43a96c5c", title: "Leon Black sues US Congress over Jeffrey Epstein probe", date: "2026-09-03", time: "15:56", url: "https://www.ft.com/content/c99a833b-337a-4cb9-913b-ef1e43a96c5c" },
@@ -58,6 +62,4 @@ export const FT_ITEMS = [
   { id: "0c72fee3-a5b8-4b18-9c63-6919618d45b9", title: "Everton FC owners look for investors after football’s summer deal rush", date: "2026-09-03", time: "09:34", url: "https://www.ft.com/content/0c72fee3-a5b8-4b18-9c63-6919618d45b9" },
   { id: "b2bc5b54-8a8a-4004-a584-91eba3b9d6d8", title: "Vintage Gallet watch brand reboot makes a play for middle market", date: "2026-09-03", time: "09:30", url: "https://www.ft.com/content/b2bc5b54-8a8a-4004-a584-91eba3b9d6d8" },
   { id: "2d69802f-cdea-4884-ac53-e20001495ada", title: "Why does it even matter if SoftBank’s an investment holding company?", date: "2026-09-03", time: "08:52", url: "https://www.ft.com/content/2d69802f-cdea-4884-ac53-e20001495ada" },
-  { id: "16034441-608c-42de-90ff-1a2b7607fc79", title: "Elliott builds stake in Deutsche Telekom and opposes T-Mobile US merger", date: "2026-09-03", time: "08:24", url: "https://www.ft.com/content/16034441-608c-42de-90ff-1a2b7607fc79" },
-  { id: "e9f359ba-1822-4d39-8722-e2073dafd4af", title: "Alexia Genta: ‘You cannot kill ambition to protect the past’", date: "2026-09-03", time: "07:58", url: "https://www.ft.com/content/e9f359ba-1822-4d39-8722-e2073dafd4af" },
 ];

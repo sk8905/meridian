@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-slaughtersukmafees-20260903",
+    publication: "Legal Business",
+    author: null,
+    series: null,
+    title: "Slaughters racks up more than £110m in fees on UK's biggest M&A deals",
+    date: "2026-09-03",
+    time: "17:31",
+    summary: "Slaughters advises on five of the top 10 UK target deals announced so far this year, with public filings also highlighting potential fees for Linklaters, Clifford Chance and Freshfields.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMR0o3Nsu53ugM0JPs/wv",
+  },
+  {
     id: "nl-bbg-eurisksfallingbehind-irelandmartin-20260903",
     publication: "Bloomberg",
     author: "Jennifer Duggan",
@@ -464,28 +475,6 @@ export const NEWSLETTERS = [
     time: "06:20",
     summary: "America struck two rocket launchers on Iran's Larak Island near the Strait of Hormuz, its first attack on the country since July, and Iran retaliated with missiles at US targets in Jordan.",
     url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-guardian-therecap-20260830",
-    publication: "The Guardian",
-    author: null,
-    series: "The Recap",
-    title: "Gihan Arnolda’s incredible journey, Cole Palmer and The Secret Cricket Coach",
-    date: "2026-08-30",
-    time: "08:05",
-    summary: "The week in sport recapped: England's Women's Rugby World Cup triumph, Ryder Cup chants fallout and Palace's late win over Liverpool.",
-    url: "https://www.theguardian.com/sport",
-  },
-  {
-    id: "nl-bbg-thebrink-goingnonprofitisthefix-20260829",
-    publication: "Bloomberg",
-    author: "Soma Biswas",
-    series: "The Brink",
-    title: "The Brink: Is going non-profit the fix?",
-    date: "2026-08-29",
-    time: "16:00",
-    summary: "GoldenTree's Quorum Health wants to find out if turning non-profit can cure its debt woes.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-29/goldentree-s-quorum-health-sees-going-non-profit-as-the-cure-for-its-woes",
   },
 
 ];
