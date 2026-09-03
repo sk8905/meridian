@@ -37,6 +37,28 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-cahillbankingexits-20260903",
+    publication: "Legal Business",
+    author: null,
+    series: null,
+    title: "Cahill to see three-partner banking team leave in New York",
+    date: "2026-09-03",
+    time: "20:07",
+    summary: "Partner trio in discussions to join rival in latest finance exits at Cahill.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMR0x0SSZKXwS3AFsm/wv",
+  },
+  {
+    id: "nl-bbg-moneystuff-clippersconsulting-20260903",
+    publication: "Bloomberg",
+    author: "Matt Levine",
+    series: "Money Stuff",
+    title: "Money Stuff: The Clippers Got Some Consulting",
+    date: "2026-09-03",
+    time: "19:25",
+    summary: "Kawhi, DAT, Epstein.",
+    url: "https://bloom.bg/4dgPtMc",
+  },
+  {
     id: "nl-legalbusiness-slaughtersukmafees-20260903",
     publication: "Legal Business",
     author: null,
@@ -454,27 +476,4 @@ export const NEWSLETTERS = [
     summary: "Does Ireland finally have the means to start solving its student housing shortage?",
     url: "https://bpm.businesspost.ie/w/JRvWWjanSo3LAEBad7J763UQ/Pe5PTEw0pLHXiV2kox0pPw/JQD5IXWRNYM3seHFUNcM6g",
   },
-  {
-    id: "nl-bbg-morningbriefingeurope-adivisivereferendum-20260831",
-    publication: "Bloomberg",
-    author: "Lily Nonomiya",
-    series: "Morning Briefing Europe",
-    title: "A divisive referendum",
-    date: "2026-08-31",
-    time: "07:19",
-    summary: "Iceland pledges to honor the result of a divisive referendum as the US and Iran exchange attacks for the first time in a month.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-31/iceland-pledges-to-honor-divisive-referendum-result",
-  },
-  {
-    id: "nl-economist-worldinbrief-theiranwarturnshotagain-20260831",
-    publication: "The Economist",
-    author: null,
-    series: "The World in Brief",
-    title: "The World in Brief: The Iran war turns hot again",
-    date: "2026-08-31",
-    time: "06:20",
-    summary: "America struck two rocket launchers on Iran's Larak Island near the Strait of Hormuz, its first attack on the country since July, and Iran retaliated with missiles at US targets in Jordan.",
-    url: "https://www.economist.com/the-world-in-brief",
-  },
-
 ];

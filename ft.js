@@ -33,6 +33,7 @@ export const FT_ITEMS = [
   { id: "d6c24b34-1520-4dc4-8996-83eab8e81941", title: "Revolut wins provisional US banking licence", date: "2026-09-03", time: "16:17", url: "https://www.ft.com/content/d6c24b34-1520-4dc4-8996-83eab8e81941" },
   { id: "278167ea-e88d-4cf5-b49c-6b043719f429", title: "Andy Burnham raises concerns with Emmanuel Macron over ‘Made in Europe’ scheme", date: "2026-09-03", time: "16:10", url: "https://www.ft.com/content/278167ea-e88d-4cf5-b49c-6b043719f429" },
   { id: "c99a833b-337a-4cb9-913b-ef1e43a96c5c", title: "Leon Black sues US Congress over Jeffrey Epstein probe", date: "2026-09-03", time: "15:56", url: "https://www.ft.com/content/c99a833b-337a-4cb9-913b-ef1e43a96c5c" },
+  { id: "65c80957-5b37-4ec5-863d-386865796092", title: "Green Party leader Zack Polanski to stand in seat vacated by Keir Starmer", date: "2026-09-03", time: "15:48", url: "https://www.ft.com/content/65c80957-5b37-4ec5-863d-386865796092" },
   { id: "24dd9e25-5752-4fbc-8070-b75ae39bc29d", title: "How state control of companies can drive innovation", date: "2026-09-03", time: "15:36", url: "https://www.ft.com/content/24dd9e25-5752-4fbc-8070-b75ae39bc29d" },
   { id: "ba3edfef-011d-4413-b34e-99ac3a86d983", title: "Watch fairs mushroom in face of industry gloom", date: "2026-09-03", time: "15:24", url: "https://www.ft.com/content/ba3edfef-011d-4413-b34e-99ac3a86d983" },
   { id: "41017d78-2d1c-4a41-9dee-c9237179d616", title: "Blackstone stands firm with cap on private credit outflows", date: "2026-09-03", time: "14:47", url: "https://www.ft.com/content/41017d78-2d1c-4a41-9dee-c9237179d616" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "8252d574-ae2a-4403-9cf9-031295ba67f5", title: "‘People are going to get screwed’: Pennsylvania voters unite against data centres", date: "2026-09-03", time: "11:00", url: "https://www.ft.com/content/8252d574-ae2a-4403-9cf9-031295ba67f5" },
   { id: "51afa87f-7452-4c5c-8beb-7eed624f6f22", title: "Friedrich Merz sidelined as party fights far right in regional poll", date: "2026-09-03", time: "11:00", url: "https://www.ft.com/content/51afa87f-7452-4c5c-8beb-7eed624f6f22" },
   { id: "bb80d928-c9c3-493e-8b7f-fb5208fd90b3", title: "How free trade can shield us from El Niño", date: "2026-09-03", time: "11:00", url: "https://www.ft.com/content/bb80d928-c9c3-493e-8b7f-fb5208fd90b3" },
-  { id: "7d416a4e-e9ee-4b9a-a447-fdb1ba29f257", title: "Norway seizes Russian state-owned ship over Ukrainian lawsuit", date: "2026-09-03", time: "10:35", url: "https://www.ft.com/content/7d416a4e-e9ee-4b9a-a447-fdb1ba29f257" },
 ];
