@@ -523,9 +523,12 @@ function renderManagerWire() {
   // manager profile.
   const flatEv = (x) => {
     const to = x.ext ? x.source : `/credit/#/manager/${encodeURIComponent(x.mgrId)}`;
-    return `<a class="g-mw-ev g-mw-fev" href="${esc(to)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
+    // Watchlisted managers are flagged with an orange ★ before the name (not by
+    // colouring the name itself).
+    const star = x.watched ? `<span class="g-mw-fev-star" title="On your watchlist" aria-label="Watchlisted">★</span> ` : "";
+    return `<a class="g-mw-ev g-mw-fev" data-mgr="${esc(x.mgrId)}" href="${esc(to)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
       + `<span class="g-mw-ev-d">${_mwWhen(x.date)}</span><span class="g-mw-ev-c">${CAT_LABEL[x.cat] || "NEWS"}</span>`
-      + `<span class="g-mw-ev-t"><span class="g-mw-fev-m${x.watched ? " is-watched" : ""}">${esc(x.mgrName)}</span> ${esc(x.title)}</span>`
+      + `<span class="g-mw-ev-t">${star}<span class="g-mw-fev-m">${esc(x.mgrName)}</span> ${esc(x.title)}</span>`
       + `<span class="g-mw-ev-s">${esc(_mwSrc(x))}</span></a>`;
   };
 

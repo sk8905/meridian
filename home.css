@@ -938,9 +938,9 @@
     .g-mw-events{ display:flex; flex-direction:column; }
     .g-mw-empty{ padding:.9rem .7rem; color:var(--t-mut); font-size:.8rem; }
     /* Flat (chronological) manager wire — each event row is prefixed by the
-       manager it belongs to (accent when watchlisted). */
-    .g-mw-fev-m{ font-weight:700; color:var(--t-dim); }
-    .g-mw-fev-m.is-watched{ color:var(--t-accent); }
+       manager it belongs to (regular weight), with an orange ★ when watchlisted. */
+    .g-mw-fev-m{ color:var(--t-dim); }
+    .g-mw-fev-star{ color:var(--t-accent); }
     /* Group-by-manager toggle in the wire header — reuses the feed's outlined
        accent control; pushed to the right edge, accent-tinted when active. */
     .tui .g-mw-head .g-mw-grpbtn{ margin-left:auto; }

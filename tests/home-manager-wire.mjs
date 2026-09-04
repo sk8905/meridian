@@ -48,6 +48,40 @@ const MON = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Se
   checkEq(r.evSize, r.feedSize, "Home: story headline text size matches the news feed");
   check(r.evDivided, "Home: flat rows are divided by a hairline, like the news wire");
 
+  // Watchlisted managers are flagged by an orange ★, not by colouring the name;
+  // every manager name is regular weight (not bold). With no follows there are no
+  // stars, and no name is painted in the accent (--t-accent === rgb(251,139,30)).
+  const ACC = "rgb(251, 139, 30)";
+  const preStar = await pg.evaluate((acc) => {
+    const nm = document.querySelector(".g-mw-fev-m");
+    const names = [...document.querySelectorAll(".g-mw-fev-m")];
+    return {
+      stars: document.querySelectorAll(".g-mw-fev-star").length,
+      weight: nm ? getComputedStyle(nm).fontWeight : "",
+      noAccentName: names.every((n) => getComputedStyle(n).color !== acc),
+      firstMgr: (document.querySelector(".g-mw-fev") || {}).getAttribute("data-mgr") || "",
+    };
+  }, ACC);
+  check(preStar.stars === 0, "Home: with no watchlist, no ★ is shown in the flat wire");
+  check(parseInt(preStar.weight, 10) < 700, `Home: manager names are de-bolded (weight ${preStar.weight})`);
+  check(preStar.noAccentName, "Home: manager names are NOT painted in the accent orange");
+
+  // Follow the manager of the first flat row → its rows gain an orange ★ and the
+  // name stays a regular (non-accent) colour.
+  await pg.evaluate((id) => { localStorage.setItem("meridian.follows", JSON.stringify({ manager: [id] })); }, preStar.firstMgr);
+  await pg.reload({ waitUntil: "load" });
+  await pg.waitForSelector("#g-mgrwire .g-mw-fev", { timeout: 8000 });
+  const star = await pg.evaluate(({ id, acc }) => {
+    const row = [...document.querySelectorAll(".g-mw-fev")].find((a) => a.getAttribute("data-mgr") === id);
+    const st = row && row.querySelector(".g-mw-fev-star");
+    return { hasStar: !!st, starAccent: st ? getComputedStyle(st).color === acc : false, nameNotAccent: row ? getComputedStyle(row.querySelector(".g-mw-fev-m")).color !== acc : false };
+  }, { id: preStar.firstMgr, acc: ACC });
+  check(star.hasStar && star.starAccent, "Home: a watchlisted manager's flat rows show an orange ★");
+  check(star.nameNotAccent, "Home: the watchlisted manager's name is not itself orange (the ★ carries the flag)");
+  await pg.evaluate(() => { try { localStorage.removeItem("meridian.follows"); } catch {} });
+  await pg.reload({ waitUntil: "load" });
+  await pg.waitForSelector("#g-mgrwire .g-mw-fev", { timeout: 8000 });
+
   // Toggle → grouped by manager, most-active first.
   await pg.evaluate(() => document.querySelector(".g-mw-grpbtn").click());
   await pg.waitForSelector("#g-mgrwire .g-mw-item", { timeout: 4000 });
