@@ -13,7 +13,7 @@ export const UPDATED = "4 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-04",
-  lastCheckedTime: "21:15 BST",
+  lastCheckedTime: "21:21 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1096,7 +1096,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "The dollar fell to its lowest since May to start September as a surging Japanese yen — on fresh Bank of Japan rate-hike bets — rippled across global currency markets, with swaps now pricing roughly even odds of a September Fed hike, down from about 70% earlier in the week.", src: "https://www.bloomberg.com/news/articles/2026-09-04/us-dollar-slumps-to-start-september-as-yen-surges-on-rate-bets", srcName: "Bloomberg", date: "2026-09-04" };
+export const FX_KEYMOMENT = { text: "Sterling trimmed its losses against the dollar Friday afternoon after whipsawing on the stronger-than-expected August US jobs report, which lifted September Fed-hike odds to roughly 58% and pushed Treasury yields higher into the close.", src: "https://www.fxstreet.com/news/british-pound-trims-losses-against-us-dollar-after-nfp-driven-volatility-202609041346", srcName: "FXStreet", date: "2026-09-04" };
 
 export const EARNINGS = {
   weeks: [
