@@ -13,7 +13,7 @@ export const UPDATED = "3 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-04",
-  lastCheckedTime: "09:20 BST",
+  lastCheckedTime: "12:32 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1090,7 +1090,7 @@ export const MATWALL = {
 export const IND_KEYMOMENTS = {
   "US:two_year": { text: "The 2-year Treasury yield eased 3bp to 4.34% Friday morning as Asian stocks tracked Wall Street higher, with traders continuing to pare bets on a September Fed hike after Governor Waller said he would back holding rates steady if disinflation continues.", src: "https://www.bloomberg.com/news/articles/2026-09-03/stock-market-today-dow-s-p-live-updates", srcName: "Bloomberg", date: "2026-09-04" },
   "US:wages": { text: "July's jobs report showed average hourly earnings up 3.2% y/y — the smallest annual gain since May 2021 — alongside the surprise 23,000 payrolls decline, reinforcing the softer wage-inflation read markets have leaned on since the report.", src: "https://www.cnbc.com/2026/08/07/jobs-report-july-2026.html", srcName: "CNBC", date: "2026-08-07" },
-  "UK:two_year": { text: "Gilts steadied on Thursday as the European bond-market turmoil eased and the final S&P Global/CIPS UK services PMI showed activity growing at its fastest pace in months, pulling yields back from the multi-decade highs hit earlier in the week.", src: "https://www.theguardian.com/business/live/2026/sep/03/uk-mortgage-rates-set-to-rise-bond-sell-off-borrowing-costs-latest-news-updates", srcName: "The Guardian", date: "2026-09-03" },
+  "UK:two_year": { text: "Britain's services PMI climbed to a four-month high in August even as cost pressures intensified, Reuters reported Thursday, keeping a November/December Bank Rate hike in play after gilts steadied from this week's multi-decade-high yield spike.", src: "https://www.investing.com/news/economic-indicators/uk-economy-gathers-pace-but-cost-pressures-intensify-pmi-shows-4887170", srcName: "Reuters (via Investing.com)", date: "2026-09-04" },
   "UK:wages": { text: "UK payroll employment fell again in July while the unemployment rate held at 4.9%, ONS data showed — a soft labour market print that reinforces the case for the Bank of England to keep rates on hold.", src: "https://www.actionforex.com/live-comments/650961-uk-payroll-employment-falls-as-uk-unemployment-holds-at-4-9/", srcName: "ActionForex", date: "2026-08-18" },
   "UK:core_cpi": { text: "July CPI rose to 2.9% y/y (from 2.6%), a four-month high in line with consensus, with core CPI hotter than forecast at 2.6% (vs 2.5% expected) on a 14.7% jump in gas prices as the Ofgem energy-cap rise fed through — sterling's reaction stayed muted.", src: "https://finance.yahoo.com/economy/articles/uk-inflation-rate-rises-2-060931194.html", srcName: "Yahoo Finance UK", date: "2026-08-19" },
 };
