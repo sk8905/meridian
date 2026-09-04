@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-matter-top10-aug28sep3-20260904",
+    publication: "Matter",
+    author: null,
+    series: "Popular on Matter",
+    title: "10 Most Popular This Week: Whatever the AI Future Is, We're in It Right Now",
+    date: "2026-09-04",
+    time: "17:13",
+    summary: "The 10 most-saved articles this week (Aug 28-Sep 3), led by Charlie Warzel's Atlantic piece on AI's promised human oversight versus its reality.",
+    url: "https://getmatter.com/",
+  },
+  {
     id: "nl-bbg-moneystuff-podcast-learnmoregooder-20260904",
     publication: "Bloomberg",
     author: null,
@@ -464,27 +475,5 @@ export const NEWSLETTERS = [
     time: "05:32",
     summary: "Iran struck two American bases in Jordan after the ceasefire lapsed, sending oil prices and 30-year Treasury yields higher as G20 finance ministers failed to agree a joint communiqué.",
     url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-reuters-tradingday-overandrout-20260901",
-    publication: "Thomson Reuters",
-    author: "Jamie McGeever",
-    series: "Trading Day",
-    title: "Over and rout",
-    date: "2026-09-01",
-    time: "22:01",
-    summary: "Dell shares surge after hours as the global bond rout deepens — Fed Governor Barr opens the door to a hike, and traders price 66% odds for September.",
-    url: "https://www.reuters.com/newsletters/trading-day/",
-  },
-  {
-    id: "nl-bbg-moneystuff-amazonchargedthefirstprice-20260901",
-    publication: "Bloomberg",
-    author: "Matt Levine",
-    series: "Money Stuff",
-    title: "Money Stuff: Amazon Charged the First Price",
-    date: "2026-09-01",
-    time: "19:14",
-    summary: "Auctions, meme merger, gambling.",
-    url: "https://bloom.bg/4qLTG02",
   },
 ];
