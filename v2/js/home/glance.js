@@ -522,15 +522,16 @@ function renderManagerWire() {
   // as the news wire (.g-feed-row) so it inherits the identical stacked layout —
   // headline on top, a meta line (code · DATE · source) beneath (the manager
   // column is a narrow feedwrap container, so the stacked layout always applies).
-  // Instead of a publish time the meta shows the event's date; the headline is
-  // prefixed by the manager it belongs to (orange ★ when watchlisted).
+  // Instead of a publish time the meta shows the event's date; the headline already
+  // leads with the manager, so there is no separate manager-name label — just an
+  // orange ★ before the headline when the manager is watchlisted.
   const flatEv = (x) => {
     const to = x.ext ? x.source : `/credit/#/manager/${encodeURIComponent(x.mgrId)}`;
     const star = x.watched ? `<span class="g-mw-fev-star" title="On your watchlist" aria-label="Watchlisted">★</span> ` : "";
     return `<a class="g-feed-row g-mw-fev" data-mgr="${esc(x.mgrId)}" href="${esc(to)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
       + `<span class="g-feed-time">${_mwWhen(x.date)}</span>`
       + `<span class="g-feed-code credit">${CAT_LABEL[x.cat] || "NEWS"}</span>`
-      + `<span class="g-feed-title">${star}<span class="g-mw-fev-m">${esc(x.mgrName)}</span> ${esc(x.title)}</span>`
+      + `<span class="g-feed-title">${star}${esc(x.title)}</span>`
       + `<span class="g-feed-src">${esc(_mwSrc(x))}</span></a>`;
   };
 

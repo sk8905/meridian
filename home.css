@@ -940,10 +940,9 @@
     /* Flat (chronological) manager wire — reuses the news-wire row engine
        (.g-feed-row). The pane is a narrow `feedwrap` container so those rows pick
        up the identical stacked layout (headline over a code · date · source meta
-       line, feed.css @container). Each headline is prefixed by the manager it
-       belongs to (regular weight), with an orange ★ when watchlisted. */
+       line, feed.css @container). No separate manager-name label (the headline
+       leads with the manager); just an orange ★ before it when watchlisted. */
     .tui #g-mgrwire{ container:feedwrap / inline-size; }
-    .g-mw-fev-m{ color:var(--t-dim); }
     .g-mw-fev-star{ color:var(--t-accent); }
     /* Group-by-manager toggle in the wire header — reuses the feed's outlined
        accent control; pushed to the right edge, accent-tinted when active. */

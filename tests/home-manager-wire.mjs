@@ -28,7 +28,8 @@ const MON = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Se
       flatRows: rows.length,
       cols: tracks.length, feedEq: tracks.length === 4 && tracks[1] === tracks[2],
       side3: !!document.querySelector(".g-side3 #g-mgrwire"),
-      everyHasMgr: rows.length > 0 && rows.every((a) => a.querySelector(".g-mw-fev-m") && a.querySelector(".g-mw-fev-m").textContent.trim()),
+      everyHasMgr: rows.length > 0 && rows.every((a) => a.getAttribute("data-mgr")),
+      noNameLabel: box.querySelectorAll(".g-mw-fev-m").length === 0,
       notGrouped: box.querySelectorAll(".g-mw-item").length === 0,
       dates: rows.slice(0, 12).map((a) => (a.querySelector(".g-feed-time") || {}).textContent || ""),
       btnOff: !!btn && !btn.classList.contains("is-on") && btn.getAttribute("aria-pressed") === "false",
@@ -47,7 +48,8 @@ const MON = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Se
   check(r.feedEq, "Home: the aggregated-feed and manager-wire columns are equal width");
   check(r.flatRows >= 8, `Home: the wire defaults to a flat event stream (${r.flatRows} rows)`);
   check(r.notGrouped, "Home: by default the wire is NOT grouped into per-manager cards");
-  check(r.everyHasMgr, "Home: every flat row is attributed to its manager");
+  check(r.everyHasMgr, "Home: every flat row carries its manager id (data-mgr)");
+  check(r.noNameLabel, "Home: the flat wire has NO separate manager-name label (headline only)");
   check(r.isFeedRow && r.hasParts, "Home: flat rows use the shared news-wire row engine (.g-feed-row: code · date · source)");
   check(r.stacked, "Home: manager rows adopt the news wire's stacked layout (headline over the meta line)");
   check(r.btnOff && /group by manager/i.test(r.btnLabel), `Home: a 'Group by manager' toggle is present and off by default (${r.btnLabel})`);
@@ -56,36 +58,27 @@ const MON = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Se
   checkEq(r.evSize, r.feedSize, "Home: story headline text size matches the news feed");
   check(r.evDivided, "Home: flat rows are divided by a hairline, like the news wire");
 
-  // Watchlisted managers are flagged by an orange ★, not by colouring the name;
-  // every manager name is regular weight (not bold). With no follows there are no
-  // stars, and no name is painted in the accent (--t-accent === rgb(251,139,30)).
+  // Watchlisted managers are flagged by an orange ★ before the headline. With no
+  // follows there are no stars (--t-accent === rgb(251,139,30)).
   const ACC = "rgb(251, 139, 30)";
-  const preStar = await pg.evaluate((acc) => {
-    const nm = document.querySelector(".g-mw-fev-m");
-    const names = [...document.querySelectorAll(".g-mw-fev-m")];
-    return {
-      stars: document.querySelectorAll(".g-mw-fev-star").length,
-      weight: nm ? getComputedStyle(nm).fontWeight : "",
-      noAccentName: names.every((n) => getComputedStyle(n).color !== acc),
-      firstMgr: (document.querySelector(".g-mw-fev") || {}).getAttribute("data-mgr") || "",
-    };
-  }, ACC);
+  const preStar = await pg.evaluate(() => ({
+    stars: document.querySelectorAll(".g-mw-fev-star").length,
+    firstMgr: (document.querySelector(".g-mw-fev") || {}).getAttribute("data-mgr") || "",
+  }));
   check(preStar.stars === 0, "Home: with no watchlist, no ★ is shown in the flat wire");
-  check(parseInt(preStar.weight, 10) < 700, `Home: manager names are de-bolded (weight ${preStar.weight})`);
-  check(preStar.noAccentName, "Home: manager names are NOT painted in the accent orange");
 
-  // Follow the manager of the first flat row → its rows gain an orange ★ and the
-  // name stays a regular (non-accent) colour.
+  // Follow the manager of the first flat row → its rows gain an orange ★, and the
+  // headline itself stays a regular (non-accent) colour.
   await pg.evaluate((id) => { localStorage.setItem("meridian.follows", JSON.stringify({ manager: [id] })); }, preStar.firstMgr);
   await pg.reload({ waitUntil: "load" });
   await pg.waitForSelector("#g-mgrwire .g-mw-fev", { timeout: 8000 });
   const star = await pg.evaluate(({ id, acc }) => {
     const row = [...document.querySelectorAll(".g-mw-fev")].find((a) => a.getAttribute("data-mgr") === id);
     const st = row && row.querySelector(".g-mw-fev-star");
-    return { hasStar: !!st, starAccent: st ? getComputedStyle(st).color === acc : false, nameNotAccent: row ? getComputedStyle(row.querySelector(".g-mw-fev-m")).color !== acc : false };
+    return { hasStar: !!st, starAccent: st ? getComputedStyle(st).color === acc : false, titleNotAccent: row ? getComputedStyle(row.querySelector(".g-feed-title")).color !== acc : false };
   }, { id: preStar.firstMgr, acc: ACC });
-  check(star.hasStar && star.starAccent, "Home: a watchlisted manager's flat rows show an orange ★");
-  check(star.nameNotAccent, "Home: the watchlisted manager's name is not itself orange (the ★ carries the flag)");
+  check(star.hasStar && star.starAccent, "Home: a watchlisted manager's flat rows show an orange ★ before the headline");
+  check(star.titleNotAccent, "Home: the headline itself is not orange (the ★ carries the watchlist flag)");
   await pg.evaluate(() => { try { localStorage.removeItem("meridian.follows"); } catch {} });
   await pg.reload({ waitUntil: "load" });
   await pg.waitForSelector("#g-mgrwire .g-mw-fev", { timeout: 8000 });
