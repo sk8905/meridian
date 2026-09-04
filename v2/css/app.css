@@ -35,7 +35,7 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.5;
 }
-a { color: var(--primary); text-decoration: none; }
+a { color: inherit; text-decoration: none; }
 
 /* ---- SPA layout ---------------------------------------------------------- */
 /* One #app holds every visited view as a hidden/shown section — the header
@@ -155,7 +155,7 @@ html[data-theme="dark"][data-v2tab="menu"] .v2-botmeta { background: var(--bg, #
   #v2-footer .v2-foot-acct { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   #v2-footer .v2-foot-acct strong { color: var(--ink, #131a2b); font-weight: 600; }
   /* Sign out reads as the same muted grey as the rest of the line, not orange. */
-  #v2-footer .v2-foot-acct a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+  #v2-footer .v2-foot-acct a { color: inherit; text-decoration: none; }
   #v2-footer .v2-foot-acct a:hover { color: var(--ink, #131a2b); }
   #v2-footer .v2-foot-status { flex: 0 0 auto; white-space: nowrap; }
 }

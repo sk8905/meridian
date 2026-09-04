@@ -238,7 +238,7 @@
     .g-brief b { color:var(--ink); font-weight:700; font-variant-numeric:tabular-nums; }
     .g-brief-sep { margin:0 .5rem; opacity:.5; }
     .g-brief-lead { color:var(--muted); }
-    .g-brief-link { color:var(--brand-2); font-weight:600; text-decoration:none; }
+    .g-brief-link { color:inherit; font-weight:600; text-decoration:none; }
     .g-brief-link:hover { text-decoration:none; }
     :root[data-theme="dark"] .g-brief-link { color:var(--t-dim); }
     /* At-a-glance one-liners (markets + rates), refreshed with the twice-daily
@@ -637,7 +637,7 @@
     .divider { border:0; border-top:1px solid var(--line); margin:1.4rem 0 1rem; }
     .signout { display:inline-block; margin-top:.4rem; color:var(--muted); font-size:.84rem; }
     .hint { color:var(--muted); font-size:.78rem; margin-top:1.2rem; }
-    .hint a { color:var(--brand-2); }
+    .hint a { color:inherit; }
     .spinner { width:26px; height:26px; border:3px solid #dbe4f5; border-top-color:var(--brand-2);
       border-radius:50%; margin:.5rem auto 0; animation:spin .8s linear infinite; }
     @keyframes spin { to { transform:rotate(360deg); } }
@@ -905,7 +905,7 @@
     .tui .g-mw-coach-p{ margin:0; font-size:11.5px; line-height:1.5; color:var(--t-mut); }
     .g-mw-nm{ flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;
       font-weight:700; font-size:14px; color:var(--t-ink); text-decoration:none; }
-    .g-mw-nm:hover{ color:var(--t-accent); }
+    .g-mw-nm:hover{ color:var(--t-ink); }
     .g-mw-new{ flex:0 0 auto; color:var(--t-accent); font-weight:800; font-size:9px; letter-spacing:.02em;
       border:1px solid var(--t-accent); border-radius:4px; padding:0 .28rem; white-space:nowrap; }
     .g-mw-team{ flex:0 0 auto; color:var(--t-hdg); font-size:.8rem; }

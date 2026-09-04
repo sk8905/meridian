@@ -87,7 +87,7 @@
 .dsh-h .dsh-n { color:var(--t-mut); font-weight:400; font-size:.8rem; }
 .dsh-asof { margin-left:auto; color:var(--t-faint); font-size:.72rem; font-weight:400; }
 .dsh-src { color:var(--t-mut); text-decoration:none; font-size:.62rem; text-transform:uppercase; letter-spacing:.03em; border:1px solid var(--t-grid2); border-radius:3px; padding:0 3px; vertical-align:middle; }
-.dsh-src:hover { color:var(--t-accent); border-color:var(--t-accent); }
+.dsh-src:hover { color:var(--t-ink); border-color:var(--t-mut); }
 .dsh-live { color:var(--t-up); font-size:.66rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; border:1px solid var(--t-up); border-radius:4px; padding:0 4px; }
 
 /* Index strip — horizontal scroll on phone, wraps on desktop */
@@ -180,7 +180,7 @@
 .dsh-lgl-case { color:var(--t-lex); border-color:var(--t-lex); }
 .dsh-lgl-alert { color:var(--t-lex); border-color:var(--t-lex); }
 .dsh-lgl-t { display:block; color:var(--t-ink); font-size:.84rem; line-height:1.35; font-weight:500; }
-.dsh-lgl-t:hover { color:var(--t-accent); }
+.dsh-lgl-t:hover { color:var(--t-ink); }
 .dsh-lgl-m { color:var(--t-mut); font-size:.72rem; margin-top:2px; }
 
 /* IPO / generic table */
@@ -211,7 +211,7 @@
 .dsh-earn-wk:first-child { margin-top:0; }
 .dsh-earn-rel { padding:8px 4px; border-bottom:1px solid var(--t-grid); }
 .dsh-earn-hd { display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; }
-.dsh-earn-tk { font-weight:700; font-family:var(--t-mono); color:var(--t-accent); text-decoration:none; font-size:.9rem; }
+.dsh-earn-tk { font-weight:700; font-family:var(--t-mono); color:var(--t-ink); text-decoration:none; font-size:.9rem; }
 .dsh-earn-co { color:var(--t-ink); font-weight:600; font-size:.82rem; min-width:0; }
 .dsh-earn-when { color:var(--t-mut); font-size:.64rem; border:1px solid var(--t-grid2); border-radius:4px; padding:0 5px; }
 .dsh-earn-dt { color:var(--t-faint); font-size:.72rem; margin-left:auto; white-space:nowrap; }
@@ -272,8 +272,8 @@
 [data-theme="dark"] .dsh-sortchip.is-on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff); }
 .dsh-stress-n { color:var(--t-dim); font-size:.8rem; line-height:1.35; }
 
-.dsh-more a { color:var(--t-accent); text-decoration:none; font-size:.85rem; }
-.dsh-more a:hover { text-decoration:underline; }
+.dsh-more a { color:inherit; text-decoration:none; font-size:.85rem; }
+.dsh-more a:hover { text-decoration:none; }
 
 /* A full-width card spanning both desktop columns (hero rows: index strip,
    earnings, IPO, stress, embedded wires). */
@@ -333,7 +333,7 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 .dsh-news-i { display:flex; align-items:baseline; gap:8px; padding:5px 0; border-bottom:1px solid var(--t-grid); font-size:.82rem; }
 .dsh-news-d { flex:0 0 auto; color:var(--t-faint); font-size:.72rem; font-variant-numeric:tabular-nums; min-width:44px; }
 .dsh-news-i a { color:var(--t-dim); text-decoration:none; }
-.dsh-news-i a:hover { color:var(--t-accent); }
+.dsh-news-i a:hover { color:var(--t-ink); }
 .dsh-news-s { flex:0 0 auto; margin-left:auto; color:var(--t-faint); font-size:.7rem; white-space:nowrap; }
 
 /* Sortable Stress league table (Credit) */
@@ -371,7 +371,7 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 .dsh-cyc-note.dsh-mut { color:var(--t-mut); font-size:.75rem; }
 .dsh-cyc-srcs { display:flex; flex-wrap:wrap; gap:5px 14px; margin-top:10px; }
 .dsh-cyc-src { font-size:.72rem; color:var(--t-mut); text-decoration:none; }
-.dsh-cyc-src:hover { color:var(--t-accent); text-decoration:underline; }
+.dsh-cyc-src:hover { color:var(--t-dim); }
 /* Per-block expand/collapse for the cycle narrative (collapsed by default). */
 .dsh-cyc-exp { margin-top:10px; }
 .dsh-cyc-sum { list-style:none; cursor:pointer; user-select:none; display:inline-flex; align-items:center; gap:6px;

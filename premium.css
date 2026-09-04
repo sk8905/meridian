@@ -912,7 +912,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-brief-b { padding: 8px 12px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size: 10.5px; line-height: 1.55; }
 .na-brief-b strong { color: var(--ink, #eaf0fb); font-weight: 700; }
 .na-brief-src { font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 10px; font-weight: 600; letter-spacing: .02em; white-space: nowrap; }
-.na-brief-src:hover { color: var(--accent, #fb8b1e); }
+.na-brief-src:hover { color: var(--ink); }
 .na-brief-foot { padding: 10px 12px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 10px; line-height: 1.45; }
 
 /* ---- House rule: NO hyperlink underlines anywhere on the platform — links
