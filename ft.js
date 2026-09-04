@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a6be8465-63ea-4c5f-8a3e-b46cd5475c7e", title: "Andrew Bailey warns of populist threat to central bank independence", date: "2026-09-04", time: "14:15", url: "https://www.ft.com/content/a6be8465-63ea-4c5f-8a3e-b46cd5475c7e" },
+  { id: "05d66e73-481f-40df-bf38-35ea73f61aee", title: "Markey, Massachusetts and the limits of generational politics", date: "2026-09-04", time: "14:00", url: "https://www.ft.com/content/05d66e73-481f-40df-bf38-35ea73f61aee" },
+  { id: "5f9e4984-e5ec-4baa-928d-7c7772277f92", title: "Burnham vs Badenoch: Commons showdown", date: "2026-09-04", time: "13:32", url: "https://www.ft.com/content/5f9e4984-e5ec-4baa-928d-7c7772277f92" },
+  { id: "a7ce8b2f-98f5-4e96-afa0-ccf4dceef8bd", title: "US economy smashes forecast with 162,000 jobs added in August", date: "2026-09-04", time: "13:32", url: "https://www.ft.com/content/a7ce8b2f-98f5-4e96-afa0-ccf4dceef8bd" },
   { id: "d8f53899-5aaa-4b5d-9b3b-5e2d4775a3aa", title: "Katayama becomes Japan's vital link between Bessent, Takaichi and markets", date: "2026-09-04", time: "13:00", url: "https://www.ft.com/content/d8f53899-5aaa-4b5d-9b3b-5e2d4775a3aa" },
   { id: "723a3a36-3797-4c54-bddf-074d088a10d6", title: "Former Afghan president Hamid Karzai: 'We need a country for everyone'", date: "2026-09-04", time: "12:30", url: "https://www.ft.com/content/723a3a36-3797-4c54-bddf-074d088a10d6" },
   { id: "aa71ca9a-b64f-41b6-8e6f-00ce03a47553", title: "US diesel prices soar to record high", date: "2026-09-04", time: "12:08", url: "https://www.ft.com/content/aa71ca9a-b64f-41b6-8e6f-00ce03a47553" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "ecc15aa6-6e7b-409d-8753-2fb6aadd0592", title: "Manager of Norway’s $2tn oil fund proposes slashing US Treasury holdings", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/ecc15aa6-6e7b-409d-8753-2fb6aadd0592" },
   { id: "f8b2e4ad-6af2-4cf5-aae2-d1d359b31fa4", title: "Why the US and Iran keep escalating", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/f8b2e4ad-6af2-4cf5-aae2-d1d359b31fa4" },
   { id: "9536c7b9-c600-48ec-8fe2-453b0ca187e9", title: "Anthropic’s IPO set to test external trust with power over board", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/9536c7b9-c600-48ec-8fe2-453b0ca187e9" },
-  { id: "61175ac3-4676-4a6f-b5af-f609930793de", title: "A UK bank windfall tax would be a terrible idea", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/61175ac3-4676-4a6f-b5af-f609930793de" },
-  { id: "0e9d714b-f367-4dd7-8ef4-6d4b2c08b79c", title: "Defence officials resist EU plan to curb reliance on US tech giants", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/0e9d714b-f367-4dd7-8ef4-6d4b2c08b79c" },
-  { id: "23489956-0f0a-4ffd-a73b-3f541964aa78", title: "Chime is a winner when consumer finance goes K-shaped", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/23489956-0f0a-4ffd-a73b-3f541964aa78" },
-  { id: "68751904-522a-41cc-85e0-08015fe75059", title: "America must learn AI lessons from Astro Boy", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/68751904-522a-41cc-85e0-08015fe75059" },
 ];

@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-mailbrew-fridaybrew12-20260904",
+    publication: "Mailbrew",
+    author: null,
+    series: "Friday Brew",
+    title: "Friday Brew #12",
+    date: "2026-09-04",
+    time: "12:58",
+    summary: "This week's private credit, CRE and Michael Burry roundup, plus El-Erian on the global economy and BigLaw's pay war.",
+    url: "https://app.mailbrew.com/stevedkennedy/friday-brew-03bEHcNb3hHB/12",
+  },
+  {
     id: "nl-legalbusiness-nvidiahuggingface-20260904",
     publication: "Legal Business",
     author: null,
@@ -464,16 +475,5 @@ export const NEWSLETTERS = [
     time: "12:01",
     summary: "Beijing is clamping down on pre-sales of homes that previously exacerbated its property crash.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-01/china-latest-beijing-revamps-home-sales-system-that-worsened-its-meltdown",
-  },
-  {
-    id: "nl-guardian-thebreakdown-erasmusgreatestrivalry-20260901",
-    publication: "The Guardian",
-    author: "Robert Kitson",
-    series: "The Breakdown",
-    title: "Love or hate him, Erasmus misses nothing in rugby’s ‘Greatest Rivalry’ thriller",
-    date: "2026-09-01",
-    time: "11:45",
-    summary: "Late changes to South Africa's team smacked of mind games, but reinvigorated New Zealand remain in the hunt.",
-    url: "https://www.theguardian.com/sport/rugby-union",
   },
 ];
