@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-authoralert-kirkoswaldemcreditfund-20260904",
+    publication: "Bloomberg",
+    author: "Nishant Kumar",
+    series: null,
+    title: "Coffey's Kirkoswald Set to Launch New EM Credit Hedge Fund",
+    date: "2026-09-04",
+    time: "14:25",
+    summary: "Greg Coffey's Kirkoswald Asset Management is preparing a new product focused on emerging market credit as it capitalizes on soaring investor demand for hedge funds.",
+    url: "https://www.bloomberg.com/news/articles/2026-09-04/coffey-s-kirkoswald-set-to-launch-new-em-credit-hedge-fund",
+  },
+  {
     id: "nl-mailbrew-fridaybrew12-20260904",
     publication: "Mailbrew",
     author: null,

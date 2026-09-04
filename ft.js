@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c1d3bf1b-6a56-4271-ad33-d9279354f083", title: "Pragmatism should define Burnham’s approach to business", date: "2026-09-04", time: "15:00", url: "https://www.ft.com/content/c1d3bf1b-6a56-4271-ad33-d9279354f083" },
+  { id: "546c8b24-a1d6-46f1-a57f-62491c248487", title: "Strong August US payrolls report bolsters odds of September rate rise", date: "2026-09-04", time: "14:29", url: "https://www.ft.com/content/546c8b24-a1d6-46f1-a57f-62491c248487" },
+  { id: "042639e8-89d9-4fe6-9b99-73bf2937a700", title: "The five financing scandals facing Reform", date: "2026-09-04", time: "14:26", url: "https://www.ft.com/content/042639e8-89d9-4fe6-9b99-73bf2937a700" },
   { id: "a6be8465-63ea-4c5f-8a3e-b46cd5475c7e", title: "Andrew Bailey warns of populist threat to central bank independence", date: "2026-09-04", time: "14:15", url: "https://www.ft.com/content/a6be8465-63ea-4c5f-8a3e-b46cd5475c7e" },
   { id: "05d66e73-481f-40df-bf38-35ea73f61aee", title: "Markey, Massachusetts and the limits of generational politics", date: "2026-09-04", time: "14:00", url: "https://www.ft.com/content/05d66e73-481f-40df-bf38-35ea73f61aee" },
   { id: "5f9e4984-e5ec-4baa-928d-7c7772277f92", title: "Burnham vs Badenoch: Commons showdown", date: "2026-09-04", time: "13:32", url: "https://www.ft.com/content/5f9e4984-e5ec-4baa-928d-7c7772277f92" },
