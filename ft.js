@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "70cf4c1e-324f-4b85-b685-f37ba232d532", title: "Top Reform UK advisers step down after donor sting", date: "2026-09-04", time: "08:43", url: "https://www.ft.com/content/70cf4c1e-324f-4b85-b685-f37ba232d532" },
+  { id: "06c157ee-aa37-485c-9e5b-0f3045beb01e", title: "What are the latest claims against Nigel Farage?", date: "2026-09-04", time: "08:37", url: "https://www.ft.com/content/06c157ee-aa37-485c-9e5b-0f3045beb01e" },
   { id: "ed41bea0-4b8d-47dc-9989-018bd85e52fd", title: "More stock ownership, weaker monetary policy?", date: "2026-09-04", time: "06:30", url: "https://www.ft.com/content/ed41bea0-4b8d-47dc-9989-018bd85e52fd" },
   { id: "1686eba7-7b27-44a7-a376-0e9e04105777", title: "Europe struggling to re-arm by 2030 as capitals squander arms spending surge", date: "2026-09-04", time: "06:00", url: "https://www.ft.com/content/1686eba7-7b27-44a7-a376-0e9e04105777" },
   { id: "f9a17854-f0fa-4487-9591-55f8a9112097", title: "FTAV’s further reading", date: "2026-09-04", time: "06:00", url: "https://www.ft.com/content/f9a17854-f0fa-4487-9591-55f8a9112097" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "65c80957-5b37-4ec5-863d-386865796092", title: "Green Party leader Zack Polanski to stand in seat vacated by Keir Starmer", date: "2026-09-03", time: "15:48", url: "https://www.ft.com/content/65c80957-5b37-4ec5-863d-386865796092" },
   { id: "24dd9e25-5752-4fbc-8070-b75ae39bc29d", title: "How state control of companies can drive innovation", date: "2026-09-03", time: "15:36", url: "https://www.ft.com/content/24dd9e25-5752-4fbc-8070-b75ae39bc29d" },
   { id: "ba3edfef-011d-4413-b34e-99ac3a86d983", title: "Watch fairs mushroom in face of industry gloom", date: "2026-09-03", time: "15:24", url: "https://www.ft.com/content/ba3edfef-011d-4413-b34e-99ac3a86d983" },
-  { id: "41017d78-2d1c-4a41-9dee-c9237179d616", title: "Blackstone stands firm with cap on private credit outflows", date: "2026-09-03", time: "14:47", url: "https://www.ft.com/content/41017d78-2d1c-4a41-9dee-c9237179d616" },
 ];

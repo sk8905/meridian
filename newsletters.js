@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-nonbillable-birdbirdaifuture-20260904",
+    publication: "Non-Billable",
+    author: null,
+    series: null,
+    title: "Bird & Bird boss on Big Law's AI future",
+    date: "2026-09-04",
+    time: "08:04",
+    summary: "Bird & Bird's CEO warns generalist firms will struggle in the AI era, Sidley makes an AI seat compulsory for London trainees, and the SRA faces fresh scrutiny over PM Law's collapse.",
+    url: "https://non-billable.beehiiv.com/p/draft-4-sep",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-vwjobcuts-20260904",
     publication: "Bloomberg",
     author: "Lily Nonomiya",
@@ -464,16 +475,5 @@ export const NEWSLETTERS = [
     time: "18:18",
     summary: "KPI, MNPI, LETF, SBF.",
     url: "https://bloom.bg/4gICDHO",
-  },
-  {
-    id: "nl-bbg-econdaily-therightstuff-20260831",
-    publication: "Bloomberg",
-    author: "Chris Anstey",
-    series: "Economics Daily",
-    title: "Economics Daily: The right stuff",
-    date: "2026-08-31",
-    time: "12:12",
-    summary: "Warsh sets up the Fed's September policy meeting as a pivotal moment in its mission.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-08-31/warsh-takes-a-page-from-aerospace-pioneers-to-find-the-right-stuff",
   },
 ];
