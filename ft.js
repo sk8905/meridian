@@ -20,6 +20,13 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "aa71ca9a-b64f-41b6-8e6f-00ce03a47553", title: "US diesel prices soar to record high", date: "2026-09-04", time: "12:08", url: "https://www.ft.com/content/aa71ca9a-b64f-41b6-8e6f-00ce03a47553" },
+  { id: "29655cf5-bf44-4e99-8f26-208f4c44af84", title: "EQT strikes $2bn deal for insurance broker McGill", date: "2026-09-04", time: "12:05", url: "https://www.ft.com/content/29655cf5-bf44-4e99-8f26-208f4c44af84" },
+  { id: "27f62928-927e-4ac3-94e1-4f25310b6ae4", title: "UK set to approve Jackdaw gasfield within weeks", date: "2026-09-04", time: "12:00", url: "https://www.ft.com/content/27f62928-927e-4ac3-94e1-4f25310b6ae4" },
+  { id: "9610992d-c70d-4eb8-934a-1ca97d8f78b1", title: "Lord Somerleyton: ‘I’m offering a £10mn stake in my family’s historic estate’", date: "2026-09-04", time: "12:00", url: "https://www.ft.com/content/9610992d-c70d-4eb8-934a-1ca97d8f78b1" },
+  { id: "3a232341-a470-4270-84a7-5c0e5782db3b", title: "Fear not the bond market skinny dippers", date: "2026-09-04", time: "12:00", url: "https://www.ft.com/content/3a232341-a470-4270-84a7-5c0e5782db3b" },
+  { id: "e252a325-8ee2-43d1-b2f5-002732210395", title: "Reform UK conference: Nigel Farage to address party after donor sting", date: "2026-09-04", time: "11:38", url: "https://www.ft.com/content/e252a325-8ee2-43d1-b2f5-002732210395" },
+  { id: "ec738381-d364-4da3-8173-471d7f3b57b4", title: "Will the ‘glassholes’ finally win?", date: "2026-09-04", time: "11:00", url: "https://www.ft.com/content/ec738381-d364-4da3-8173-471d7f3b57b4" },
   { id: "0df60d9c-00ee-488d-a116-718b36d5d24c", title: "The missing $580,000 that could bring down South Africa’s president", date: "2026-09-04", time: "11:00", url: "https://www.ft.com/content/0df60d9c-00ee-488d-a116-718b36d5d24c" },
   { id: "9f46db72-0a1e-42b0-8efe-974a04fa0fc7", title: "Latest savings rates", date: "2026-09-04", time: "10:54", url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7" },
   { id: "75ba3055-625c-4cb5-894b-0696a38f5e79", title: "Latest Isa rates", date: "2026-09-04", time: "10:49", url: "https://www.ft.com/content/75ba3055-625c-4cb5-894b-0696a38f5e79" },
@@ -58,7 +65,4 @@ export const FT_ITEMS = [
   { id: "55ab40c0-59e2-4c0b-97c9-4f4f5a71a8bb", title: "OpenAI says it has overtaken Anthropic with its latest AI model", date: "2026-09-03", time: "19:00", url: "https://www.ft.com/content/55ab40c0-59e2-4c0b-97c9-4f4f5a71a8bb" },
   { id: "c5dadf10-7c7e-4035-ae21-e18535d7d609", title: "US oil deal sparks ‘anger’ in Venezuela, says opposition leader", date: "2026-09-03", time: "18:48", url: "https://www.ft.com/content/c5dadf10-7c7e-4035-ae21-e18535d7d609" },
   { id: "5e9db3c2-70c0-40da-8767-88dcbaf8cfc5", title: "EU enters winter with lowest gas stocks on record", date: "2026-09-03", time: "18:46", url: "https://www.ft.com/content/5e9db3c2-70c0-40da-8767-88dcbaf8cfc5" },
-  { id: "b4c17a07-f684-44c7-b334-8b7bcb1a21d6", title: "Star Citadel energy trader to step down amid tumult in energy markets", date: "2026-09-03", time: "18:29", url: "https://www.ft.com/content/b4c17a07-f684-44c7-b334-8b7bcb1a21d6" },
-  { id: "35ac0ba7-9cce-4ee3-b5f2-cce744c9f97e", title: "Reform UK woos bond investors as markets shake UK political debate", date: "2026-09-03", time: "18:14", url: "https://www.ft.com/content/35ac0ba7-9cce-4ee3-b5f2-cce744c9f97e" },
-  { id: "89d4575d-c0ca-4ac9-ba2c-5e6016244055", title: "Nvidia’s $13bn deal cements its $5.5tn advantage", date: "2026-09-03", time: "18:09", url: "https://www.ft.com/content/89d4575d-c0ca-4ac9-ba2c-5e6016244055" },
 ];
