@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7347b9fc-ba63-48fb-b06d-b9fe5e9b046a", title: "John Ternus, Apple's new 'wicked calm' CEO", date: "2026-09-04", time: "18:00", url: "https://www.ft.com/content/7347b9fc-ba63-48fb-b06d-b9fe5e9b046a" },
+  { id: "af5b1fd3-194d-4aed-b1ef-0bf662170952", title: "Why Berkshire Hathaway might be an active hedge", date: "2026-09-04", time: "18:00", url: "https://www.ft.com/content/af5b1fd3-194d-4aed-b1ef-0bf662170952" },
+  { id: "87a5e3b3-c042-4a49-b225-ec1e2ba2a2ff", title: "Stockpickers: TT Electronics, Grafton, M&G", date: "2026-09-04", time: "18:00", url: "https://www.ft.com/content/87a5e3b3-c042-4a49-b225-ec1e2ba2a2ff" },
+  { id: "5fa0b726-e45a-4dbd-86e6-397fdec9d5ca", title: "Directors' Deals: Lloyds' CFO banks £10mn through share sales", date: "2026-09-04", time: "18:00", url: "https://www.ft.com/content/5fa0b726-e45a-4dbd-86e6-397fdec9d5ca" },
   { id: "51270bb6-225c-4270-ae4e-fe063dfd2a33", title: "Russian drone strikes Ukraine's security service headquarters", date: "2026-09-04", time: "16:59", url: "https://www.ft.com/content/51270bb6-225c-4270-ae4e-fe063dfd2a33" },
   { id: "60db19ee-ac1f-4b89-9c82-2212e3402aa3", title: "Labour working", date: "2026-09-04", time: "16:47", url: "https://www.ft.com/content/60db19ee-ac1f-4b89-9c82-2212e3402aa3" },
   { id: "623c286b-c973-4488-83f3-97e9016e85f6", title: "Are credit rating agencies getting fed up with hyperscalers?", date: "2026-09-04", time: "16:06", url: "https://www.ft.com/content/623c286b-c973-4488-83f3-97e9016e85f6" },
@@ -56,9 +60,4 @@ export const FT_ITEMS = [
   { id: "1686eba7-7b27-44a7-a376-0e9e04105777", title: "Europe struggling to re-arm by 2030 as capitals squander arms spending surge", date: "2026-09-04", time: "06:00", url: "https://www.ft.com/content/1686eba7-7b27-44a7-a376-0e9e04105777" },
   { id: "f9a17854-f0fa-4487-9591-55f8a9112097", title: "FTAV’s further reading", date: "2026-09-04", time: "06:00", url: "https://www.ft.com/content/f9a17854-f0fa-4487-9591-55f8a9112097" },
   { id: "3f4183c5-72cd-49fb-b4dc-ca3a12287763", title: "FirstFT: UK-EU alignment a ‘problem’ for US", date: "2026-09-04", time: "05:32", url: "https://www.ft.com/content/3f4183c5-72cd-49fb-b4dc-ca3a12287763" },
-  { id: "0ace3335-e3c9-4b75-ae02-0d4655885990", title: "Luckin Coffee killed our lunch spot. Here’s what that says about geopolitics", date: "2026-09-04", time: "05:30", url: "https://www.ft.com/content/0ace3335-e3c9-4b75-ae02-0d4655885990" },
-  { id: "443c247b-88fb-4aa5-9aa0-8b819de4ff27", title: "China warns US that G20 obstruction row threatens upcoming summits", date: "2026-09-04", time: "05:03", url: "https://www.ft.com/content/443c247b-88fb-4aa5-9aa0-8b819de4ff27" },
-  { id: "212311c7-948a-4ee9-b57e-e303eb0eb4f4", title: "The $275mn question from Guggenheim’s auditor", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/212311c7-948a-4ee9-b57e-e303eb0eb4f4" },
-  { id: "0d2beac3-ef62-4cbf-959e-b5c6b9703081", title: "UK-EU alignment is ‘problem’ for US trade deal, says top Trump official", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/0d2beac3-ef62-4cbf-959e-b5c6b9703081" },
-  { id: "dd3bc3fe-bda9-40b0-82c2-dcb54e1439f4", title: "Deutsche Bank led $1bn of troubled lending to Hollywood studio landlord", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/dd3bc3fe-bda9-40b0-82c2-dcb54e1439f4" },
 ];
