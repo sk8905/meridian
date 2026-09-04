@@ -195,4 +195,25 @@ check(/\.ew-day\s*\{[^}]*background:\s*var\(--head,/.test(macroCss),
 check(/function viewFund\(id\)\s*\{[^]*?const m = managerById\[x\.managerId\];\s*\n\s*if \(!m\) return notFound\(app\);/.test(creditDetailJs),
   "v2/js/credit/detail.js viewFund() guards a missing manager record before use");
 
+// R9 — the Dashboard heatmap cells (sector flows, world indices, govt-yield
+// change) must theme-adapt via color-mix(var(--t-up)/var(--t-down)), the same
+// pattern used by the FX-matrix and prediction-market heat helpers
+// (home/glance.js, nav-actions.js). They previously hardcoded the DARK-theme
+// hex of --t-up/--t-down (63,192,141 / 242,109,132) as a raw rgba() triplet,
+// which is wrong under light theme (light --t-up/--t-down are different hex
+// values) — a silent light-mode-only colour bug.
+{
+  const heatMatches = [...dashboardApp.matchAll(/style="background:color-mix\(in srgb, var\(--t-\$\{\w+ ?[<>=]+ ?0 \? "up" : "down"\}\)/g)];
+  check(heatMatches.length === 3, `v2/js/dashboard/app.js all 3 heat() helpers (sector flows, world indices, govt yields) theme-adapt via color-mix(var(--t-up/--t-down)) (found ${heatMatches.length})`);
+  check(!/63,192,141|242,109,132/.test(dashboardApp),
+    "v2/js/dashboard/app.js heat cells no longer hardcode the dark-theme --t-up/--t-down RGB values");
+}
+
+// R6 — the Macro earnings-watch day-break's dark-mode label colour reads the
+// canonical --t-accent token (falling back to the surface's own --macro if
+// --t-accent isn't in scope), matching R6's spec ("label --t-accent"), rather
+// than reading only the local --macro alias.
+check(/\[data-theme="dark"\] \.ew-day strong \{ color: var\(--t-accent, var\(--macro\)\); \}/.test(macroCss),
+  "macro/css/styles.css .ew-day dark label reads var(--t-accent, var(--macro)), the canonical R6 token with a local fallback");
+
 finish();

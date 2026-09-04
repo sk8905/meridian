@@ -175,7 +175,7 @@ export function mount(host, ctx) {
     const heat = (v, max) => {
       if (v == null || !max) return "";
       const a = (Math.abs(v) / max) * 0.62 + 0.10;
-      return ` style="background:rgba(${v >= 0 ? "63,192,141" : "242,109,132"},${a.toFixed(3)})"`;
+      return ` style="background:color-mix(in srgb, var(--t-${v >= 0 ? "up" : "down"}) ${(a * 100).toFixed(1)}%, transparent)"`;
     };
     const head = `<tr><th>Sector</th>${wins.map(([, l]) => `<th class="dsh-r">${esc(l)}</th>`).join("")}</tr>`;
     const row = (s) => {
@@ -204,7 +204,7 @@ export function mount(host, ctx) {
     const valK = (r, k) => { const l = live && live[r.name]; return (l && l[k] != null) ? l[k] : r[k]; };
     const maxAbs = {};
     IDX_WINS.forEach(([k]) => { maxAbs[k] = Math.max(1, ...W.regions.flatMap((g) => (g.rows || []).map((r) => { const v = valK(r, k); return v == null ? 0 : Math.abs(v); }))); });
-    const heat = (v, k) => { if (v == null) return ""; const a = (Math.abs(v) / maxAbs[k]) * 0.62 + 0.10; return ` style="background:rgba(${v >= 0 ? "63,192,141" : "242,109,132"},${a.toFixed(3)})"`; };
+    const heat = (v, k) => { if (v == null) return ""; const a = (Math.abs(v) / maxAbs[k]) * 0.62 + 0.10; return ` style="background:color-mix(in srgb, var(--t-${v >= 0 ? "up" : "down"}) ${(a * 100).toFixed(1)}%, transparent)"`; };
     const fmtLv = (v) => (v == null ? "" : Number(v).toLocaleString("en-GB", { maximumFractionDigits: 2 }));
     const cell = (r, k, l) => { const v = valK(r, k); return v == null ? `<td class="dsh-fl-na">·</td>` : `<td class="dsh-fl"${heat(v, k)} title="${esc(r.name)} · ${esc(l)}: ${pct1(v)}">${pct1(v)}</td>`; };
     // Regions are separated by a thin grey rule (a top border on the first row of
@@ -634,7 +634,7 @@ export function mount(host, ctx) {
     // Shade each window column independently by |change|.
     const maxAbs = {};
     YCHG_WINS.forEach(([w]) => { maxAbs[w] = Math.max(1, ...G.regions.flatMap((g) => (g.rows || []).map((r) => { const c = chgOf(r, w); return c == null ? 0 : Math.abs(c); }))); });
-    const heat = (c, w) => { if (c == null) return ""; const a = (Math.abs(c) / maxAbs[w]) * 0.62 + 0.10; return ` style="background:rgba(${c <= 0 ? "63,192,141" : "242,109,132"},${a.toFixed(3)})"`; };
+    const heat = (c, w) => { if (c == null) return ""; const a = (Math.abs(c) / maxAbs[w]) * 0.62 + 0.10; return ` style="background:color-mix(in srgb, var(--t-${c <= 0 ? "up" : "down"}) ${(a * 100).toFixed(1)}%, transparent)"`; };
     const fmtBp = (c) => (c == null ? "" : (c > 0 ? "+" : "") + Math.round(c));
     const cell = (r, w, l) => { const c = chgOf(r, w); return c == null ? `<td class="dsh-fl-na">·</td>` : `<td class="dsh-fl"${heat(c, w)} title="${esc(r.country)} ${esc(tl)} ${esc(l)}: ${c > 0 ? "+" : ""}${Math.round(c)}bp">${fmtBp(c)}</td>`; };
     const fmtLv = (v) => (v == null ? "" : v.toFixed(2) + "%");

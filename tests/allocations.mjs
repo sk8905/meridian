@@ -24,7 +24,7 @@ const grid = await pg.evaluate(() => {
   const cols = tbl.querySelectorAll("thead th").length;               // label + windows
   const rows = tbl.querySelectorAll("tbody tr").length;
   const cells = [...tbl.querySelectorAll("tbody td.dsh-fl, tbody td.dsh-fl-na")];
-  const colored = cells.filter((c) => c.getAttribute("style") && /rgba?\(/.test(c.getAttribute("style"))).length;
+  const colored = cells.filter((c) => c.getAttribute("style") && /color-mix\(/.test(c.getAttribute("style"))).length;
   const srcLinks = tbl.querySelectorAll('tbody td.dsh-nm a[href^="http"]').length;
   const foot = !!document.querySelector("#dsh-flows-box .dsh-fl-note a[href^='http']");
   return { cols, rows, colored, srcLinks, foot };
