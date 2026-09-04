@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-marianadamdispute-20260904",
+    publication: "Legal Business",
+    author: null,
+    series: null,
+    title: "Mariana dam dispute latest - market reacts to Pogust tussle",
+    date: "2026-09-04",
+    time: "15:01",
+    summary: "Litigators react as ownership battle for £36bn group claim escalates.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMR0ToBsgWKpSJGKQ8/wv",
+  },
+  {
     id: "nl-bbg-authoralert-kirkoswaldemcreditfund-20260904",
     publication: "Bloomberg",
     author: "Nishant Kumar",
@@ -464,27 +475,5 @@ export const NEWSLETTERS = [
     time: "19:14",
     summary: "Auctions, meme merger, gambling.",
     url: "https://bloom.bg/4qLTG02",
-  },
-  {
-    id: "nl-bbg-thebrink-cubadoesntpayitslawyers-20260901",
-    publication: "Bloomberg",
-    author: "Irene García Pérez",
-    series: "The Brink",
-    title: "The Brink: Cuba doesn’t pay its lawyers",
-    date: "2026-09-01",
-    time: "16:52",
-    summary: "PCB Byrne bows out of a yearslong saga regarding defaulted Cuban debt.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-01/cuba-s-lawyers-quit-uk-case-after-going-unpaid-for-more-than-a-year",
-  },
-  {
-    id: "nl-bbg-econdaily-chinarealestaterevamp-20260901",
-    publication: "Bloomberg",
-    author: "Chris Anstey",
-    series: "Economics Daily",
-    title: "Economics Daily: China real estate revamp",
-    date: "2026-09-01",
-    time: "12:01",
-    summary: "Beijing is clamping down on pre-sales of homes that previously exacerbated its property crash.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-01/china-latest-beijing-revamps-home-sales-system-that-worsened-its-meltdown",
   },
 ];

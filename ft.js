@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "623c286b-c973-4488-83f3-97e9016e85f6", title: "Are credit rating agencies getting fed up with hyperscalers?", date: "2026-09-04", time: "16:06", url: "https://www.ft.com/content/623c286b-c973-4488-83f3-97e9016e85f6" },
+  { id: "f84c4053-3e14-4666-9543-7e958a1dadb2", title: "Venezuela’s jumbo oil deal does little to appease its creditors", date: "2026-09-04", time: "15:13", url: "https://www.ft.com/content/f84c4053-3e14-4666-9543-7e958a1dadb2" },
   { id: "c1d3bf1b-6a56-4271-ad33-d9279354f083", title: "Pragmatism should define Burnham’s approach to business", date: "2026-09-04", time: "15:00", url: "https://www.ft.com/content/c1d3bf1b-6a56-4271-ad33-d9279354f083" },
   { id: "546c8b24-a1d6-46f1-a57f-62491c248487", title: "Strong August US payrolls report bolsters odds of September rate rise", date: "2026-09-04", time: "14:29", url: "https://www.ft.com/content/546c8b24-a1d6-46f1-a57f-62491c248487" },
   { id: "042639e8-89d9-4fe6-9b99-73bf2937a700", title: "The five financing scandals facing Reform", date: "2026-09-04", time: "14:26", url: "https://www.ft.com/content/042639e8-89d9-4fe6-9b99-73bf2937a700" },
@@ -58,9 +60,4 @@ export const FT_ITEMS = [
   { id: "0d2beac3-ef62-4cbf-959e-b5c6b9703081", title: "UK-EU alignment is ‘problem’ for US trade deal, says top Trump official", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/0d2beac3-ef62-4cbf-959e-b5c6b9703081" },
   { id: "dd3bc3fe-bda9-40b0-82c2-dcb54e1439f4", title: "Deutsche Bank led $1bn of troubled lending to Hollywood studio landlord", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/dd3bc3fe-bda9-40b0-82c2-dcb54e1439f4" },
   { id: "54cf40cd-149f-40db-b603-21aecd5f66ec", title: "The university degree is losing its lustre", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/54cf40cd-149f-40db-b603-21aecd5f66ec" },
-  { id: "86da564e-aec7-4d53-b7b8-93bbdd240061", title: "Spain pushes for EU oil and gas tax to pay for climate change response", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/86da564e-aec7-4d53-b7b8-93bbdd240061" },
-  { id: "0c1d2ab0-3f3d-468e-92d5-218ddc23d885", title: "Giorgia Meloni celebrates Italy’s longest-serving government since 1945", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/0c1d2ab0-3f3d-468e-92d5-218ddc23d885" },
-  { id: "ecc15aa6-6e7b-409d-8753-2fb6aadd0592", title: "Manager of Norway’s $2tn oil fund proposes slashing US Treasury holdings", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/ecc15aa6-6e7b-409d-8753-2fb6aadd0592" },
-  { id: "f8b2e4ad-6af2-4cf5-aae2-d1d359b31fa4", title: "Why the US and Iran keep escalating", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/f8b2e4ad-6af2-4cf5-aae2-d1d359b31fa4" },
-  { id: "9536c7b9-c600-48ec-8fe2-453b0ca187e9", title: "Anthropic’s IPO set to test external trust with power over board", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/9536c7b9-c600-48ec-8fe2-453b0ca187e9" },
 ];
