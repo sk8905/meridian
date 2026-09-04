@@ -12,8 +12,8 @@ export const UPDATED = "3 September 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-09-03",
-  lastCheckedTime: "21:24 BST",
+  lastChecked: "2026-09-04",
+  lastCheckedTime: "05:23 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -1097,7 +1097,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "The yen surged to a one-month high on Thursday as traders raised bets that the Bank of Japan will raise rates again, with suspicions of fresh intervention adding to the move and Japanese government bond yields sliding back from historic peaks.", src: "https://www.theguardian.com/business/2026/sep/03/yen-soars-bank-of-japan-tipped-to-raise-interest-rates", srcName: "The Guardian", date: "2026-09-03" };
+export const FX_KEYMOMENT = { text: "The dollar fell to its lowest since May to start September as a surging Japanese yen — on fresh Bank of Japan rate-hike bets — rippled across global currency markets, with swaps now pricing roughly even odds of a September Fed hike, down from about 70% earlier in the week.", src: "https://www.bloomberg.com/news/articles/2026-09-04/us-dollar-slumps-to-start-september-as-yen-surges-on-rate-bets", srcName: "Bloomberg", date: "2026-09-04" };
 
 export const EARNINGS = {
   weeks: [
