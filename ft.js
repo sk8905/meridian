@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "51270bb6-225c-4270-ae4e-fe063dfd2a33", title: "Russian drone strikes Ukraine's security service headquarters", date: "2026-09-04", time: "16:59", url: "https://www.ft.com/content/51270bb6-225c-4270-ae4e-fe063dfd2a33" },
+  { id: "60db19ee-ac1f-4b89-9c82-2212e3402aa3", title: "Labour working", date: "2026-09-04", time: "16:47", url: "https://www.ft.com/content/60db19ee-ac1f-4b89-9c82-2212e3402aa3" },
   { id: "623c286b-c973-4488-83f3-97e9016e85f6", title: "Are credit rating agencies getting fed up with hyperscalers?", date: "2026-09-04", time: "16:06", url: "https://www.ft.com/content/623c286b-c973-4488-83f3-97e9016e85f6" },
   { id: "f84c4053-3e14-4666-9543-7e958a1dadb2", title: "Venezuela’s jumbo oil deal does little to appease its creditors", date: "2026-09-04", time: "15:13", url: "https://www.ft.com/content/f84c4053-3e14-4666-9543-7e958a1dadb2" },
   { id: "c1d3bf1b-6a56-4271-ad33-d9279354f083", title: "Pragmatism should define Burnham’s approach to business", date: "2026-09-04", time: "15:00", url: "https://www.ft.com/content/c1d3bf1b-6a56-4271-ad33-d9279354f083" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "212311c7-948a-4ee9-b57e-e303eb0eb4f4", title: "The $275mn question from Guggenheim’s auditor", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/212311c7-948a-4ee9-b57e-e303eb0eb4f4" },
   { id: "0d2beac3-ef62-4cbf-959e-b5c6b9703081", title: "UK-EU alignment is ‘problem’ for US trade deal, says top Trump official", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/0d2beac3-ef62-4cbf-959e-b5c6b9703081" },
   { id: "dd3bc3fe-bda9-40b0-82c2-dcb54e1439f4", title: "Deutsche Bank led $1bn of troubled lending to Hollywood studio landlord", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/dd3bc3fe-bda9-40b0-82c2-dcb54e1439f4" },
-  { id: "54cf40cd-149f-40db-b603-21aecd5f66ec", title: "The university degree is losing its lustre", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/54cf40cd-149f-40db-b603-21aecd5f66ec" },
 ];

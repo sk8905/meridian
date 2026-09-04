@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-podcast-learnmoregooder-20260904",
+    publication: "Bloomberg",
+    author: null,
+    series: "Money Stuff",
+    title: "Money Stuff: The Podcast: Learn More Gooder",
+    date: "2026-09-04",
+    time: "16:59",
+    summary: "Guest host Mary Childs joins to discuss CDS gossip, cheap options and the IVV to VOO pipeline.",
+    url: "https://bloom.bg/4nhTnYV",
+  },
+  {
     id: "nl-legalbusiness-marianadamdispute-20260904",
     publication: "Legal Business",
     author: null,
