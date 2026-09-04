@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "0df60d9c-00ee-488d-a116-718b36d5d24c", title: "The missing $580,000 that could bring down South Africa’s president", date: "2026-09-04", time: "11:00", url: "https://www.ft.com/content/0df60d9c-00ee-488d-a116-718b36d5d24c" },
+  { id: "9f46db72-0a1e-42b0-8efe-974a04fa0fc7", title: "Latest savings rates", date: "2026-09-04", time: "10:54", url: "https://www.ft.com/content/9f46db72-0a1e-42b0-8efe-974a04fa0fc7" },
+  { id: "75ba3055-625c-4cb5-894b-0696a38f5e79", title: "Latest Isa rates", date: "2026-09-04", time: "10:49", url: "https://www.ft.com/content/75ba3055-625c-4cb5-894b-0696a38f5e79" },
+  { id: "68b36b6d-71e7-4f44-bbfb-a202e36603a4", title: "Latest National Savings & Investments rates", date: "2026-09-04", time: "10:42", url: "https://www.ft.com/content/68b36b6d-71e7-4f44-bbfb-a202e36603a4" },
+  { id: "3db791d0-ccab-4aca-a83b-da31563a15af", title: "FTAV’s Friday charts quiz", date: "2026-09-04", time: "10:30", url: "https://www.ft.com/content/3db791d0-ccab-4aca-a83b-da31563a15af" },
   { id: "c3e515b8-2207-4bf2-8a85-d5bce0d6f9df", title: "Fox News presenter and Trump ally Maria Bartiromo departs after 12 years", date: "2026-09-04", time: "10:04", url: "https://www.ft.com/content/c3e515b8-2207-4bf2-8a85-d5bce0d6f9df" },
   { id: "dea30dd4-7102-4931-834a-ac0cac28c5ec", title: "South Korea weighs Hormuz deployment as US pressure mounts", date: "2026-09-04", time: "09:57", url: "https://www.ft.com/content/dea30dd4-7102-4931-834a-ac0cac28c5ec" },
   { id: "d5b33ff5-9aad-4b9a-a7bc-3eff956e7f15", title: "Latest allegations make Reform look ridiculous", date: "2026-09-04", time: "09:30", url: "https://www.ft.com/content/d5b33ff5-9aad-4b9a-a7bc-3eff956e7f15" },
@@ -56,9 +61,4 @@ export const FT_ITEMS = [
   { id: "b4c17a07-f684-44c7-b334-8b7bcb1a21d6", title: "Star Citadel energy trader to step down amid tumult in energy markets", date: "2026-09-03", time: "18:29", url: "https://www.ft.com/content/b4c17a07-f684-44c7-b334-8b7bcb1a21d6" },
   { id: "35ac0ba7-9cce-4ee3-b5f2-cce744c9f97e", title: "Reform UK woos bond investors as markets shake UK political debate", date: "2026-09-03", time: "18:14", url: "https://www.ft.com/content/35ac0ba7-9cce-4ee3-b5f2-cce744c9f97e" },
   { id: "89d4575d-c0ca-4ac9-ba2c-5e6016244055", title: "Nvidia’s $13bn deal cements its $5.5tn advantage", date: "2026-09-03", time: "18:09", url: "https://www.ft.com/content/89d4575d-c0ca-4ac9-ba2c-5e6016244055" },
-  { id: "6d084723-4938-44be-970e-77358d86e96b", title: "UAE billionaire’s son revealed as buyer of £190mn London mansion", date: "2026-09-03", time: "17:59", url: "https://www.ft.com/content/6d084723-4938-44be-970e-77358d86e96b" },
-  { id: "1a1f6c54-8dbc-4446-a6dc-45a060b7cdc8", title: "Hugging Face attack is a wake-up call about the risks of AI", date: "2026-09-03", time: "17:54", url: "https://www.ft.com/content/1a1f6c54-8dbc-4446-a6dc-45a060b7cdc8" },
-  { id: "dc2f9b7f-6d14-4b15-8ce9-fe2cc86d81f6", title: "Tory plan to fund defence risks rise in homelessness, say charities", date: "2026-09-03", time: "17:33", url: "https://www.ft.com/content/dc2f9b7f-6d14-4b15-8ce9-fe2cc86d81f6" },
-  { id: "29f6cc60-3a46-4d64-af65-d0506cbe2f6b", title: "Giorgia Meloni’s enviable stability — and missed opportunity", date: "2026-09-03", time: "17:31", url: "https://www.ft.com/content/29f6cc60-3a46-4d64-af65-d0506cbe2f6b" },
-  { id: "d6c24b34-1520-4dc4-8996-83eab8e81941", title: "Revolut wins provisional US banking licence", date: "2026-09-03", time: "16:17", url: "https://www.ft.com/content/d6c24b34-1520-4dc4-8996-83eab8e81941" },
 ];

@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-peinsights-apolloatlanticaviation-20260904",
+    publication: "Private Equity Insights",
+    author: null,
+    series: null,
+    title: "Apollo buys into Atlantic Aviation at nearly $10bn as KKR doubles its money",
+    date: "2026-09-04",
+    time: "09:39",
+    summary: "This week's biggest news in the private equity and venture capital markets.",
+    url: "https://peinsights.substack.com/p/apollo-buys-into-atlantic-aviation",
+  },
+  {
     id: "nl-cntraveller-westlondonwinebar-20260904",
     publication: "Condé Nast Traveller",
     author: null,
@@ -464,16 +475,5 @@ export const NEWSLETTERS = [
     time: "22:04",
     summary: "Digesting Warsh, G20 — the bond selloff, the dollar's two-week high and what could move markets tomorrow.",
     url: "https://www.reuters.com/newsletters/trading-day/",
-  },
-  {
-    id: "nl-cf-strongearningsstubborninflation-20260831",
-    publication: "Chatham Financial",
-    author: null,
-    series: "Market Update",
-    title: "Strong earnings, stubborn inflation",
-    date: "2026-08-31",
-    time: "19:02",
-    summary: "Nvidia revenue rose 106% while markets priced a 58% chance of a September rate hike.",
-    url: "https://go.cf.com/e3t/Ctc/ZZ+113/d5Z2Pb04/MWKS84v_zD9W3YypW65QHkk2W6tdK5Q5Tnyk9N7KkK2l3prCCW8wLKSR6lZ3n5W6YDj101bmJY4W3VL_Cs1Hm9rfW6Bms_-3hxBrsW2h8v-_8j4vV3Vn7w-397JHMYW9j962w4wRPbdW7lmfSm5yYfZhW4mjxRT86xSt8VfgDGD6XTGDsW7rl2ZK42lCmkW53Z4tH3bVBXJW7-hDVb7CN-gnW4T6fQD86f8p8W6Z2l0g4sSsNJW7Rrd-x8H1XkbW1g6ZG-1BrHt4W1c8R4g5mfcSLW5b-Z5-3KxFDwW2b6L6s3PpdPbW2rSzTB75vshVW7Q8JG293FxykW1g4TY96XCH94W7ysV058Bv018W99DXMJ4cdGYRN2vLTfnfsV6cN6zZNcP31BL1W5JJy-T4mw1ZrF7WyTMKDCsBf1xwS3F04",
   },
 ];
