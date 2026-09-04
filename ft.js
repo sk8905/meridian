@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "1686eba7-7b27-44a7-a376-0e9e04105777", title: "Europe struggling to re-arm by 2030 as capitals squander arms spending surge", date: "2026-09-04", time: "06:00", url: "https://www.ft.com/content/1686eba7-7b27-44a7-a376-0e9e04105777" },
+  { id: "f9a17854-f0fa-4487-9591-55f8a9112097", title: "FTAV’s further reading", date: "2026-09-04", time: "06:00", url: "https://www.ft.com/content/f9a17854-f0fa-4487-9591-55f8a9112097" },
+  { id: "3f4183c5-72cd-49fb-b4dc-ca3a12287763", title: "FirstFT: UK-EU alignment a ‘problem’ for US", date: "2026-09-04", time: "05:32", url: "https://www.ft.com/content/3f4183c5-72cd-49fb-b4dc-ca3a12287763" },
+  { id: "0ace3335-e3c9-4b75-ae02-0d4655885990", title: "Luckin Coffee killed our lunch spot. Here’s what that says about geopolitics", date: "2026-09-04", time: "05:30", url: "https://www.ft.com/content/0ace3335-e3c9-4b75-ae02-0d4655885990" },
   { id: "443c247b-88fb-4aa5-9aa0-8b819de4ff27", title: "China warns US that G20 obstruction row threatens upcoming summits", date: "2026-09-04", time: "05:03", url: "https://www.ft.com/content/443c247b-88fb-4aa5-9aa0-8b819de4ff27" },
   { id: "212311c7-948a-4ee9-b57e-e303eb0eb4f4", title: "The $275mn question from Guggenheim’s auditor", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/212311c7-948a-4ee9-b57e-e303eb0eb4f4" },
   { id: "0d2beac3-ef62-4cbf-959e-b5c6b9703081", title: "UK-EU alignment is ‘problem’ for US trade deal, says top Trump official", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/0d2beac3-ef62-4cbf-959e-b5c6b9703081" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "ba3edfef-011d-4413-b34e-99ac3a86d983", title: "Watch fairs mushroom in face of industry gloom", date: "2026-09-03", time: "15:24", url: "https://www.ft.com/content/ba3edfef-011d-4413-b34e-99ac3a86d983" },
   { id: "41017d78-2d1c-4a41-9dee-c9237179d616", title: "Blackstone stands firm with cap on private credit outflows", date: "2026-09-03", time: "14:47", url: "https://www.ft.com/content/41017d78-2d1c-4a41-9dee-c9237179d616" },
   { id: "8f699fbc-cb01-4846-837c-0d1528a620d0", title: "Struggling Republicans urge Trump to open Maga Inc’s $400mn war chest", date: "2026-09-03", time: "14:19", url: "https://www.ft.com/content/8f699fbc-cb01-4846-837c-0d1528a620d0" },
-  { id: "2e08ef04-b75f-4511-9587-0fbe9b991e37", title: "Milei dials up Argentina’s claim to Falklands", date: "2026-09-03", time: "14:10", url: "https://www.ft.com/content/2e08ef04-b75f-4511-9587-0fbe9b991e37" },
-  { id: "3342fb0a-ff7c-4d57-bf74-9e0bc6dc8de3", title: "Vulnerable Republicans urge Trump to unleash Maga Inc’s $400mn cash pile", date: "2026-09-03", time: "14:06", url: "https://www.ft.com/content/3342fb0a-ff7c-4d57-bf74-9e0bc6dc8de3" },
-  { id: "f3a578e4-5509-4d4e-9981-7127c40b2e31", title: "Oman FM: In an age of impunity, diplomats are more important than ever", date: "2026-09-03", time: "14:00", url: "https://www.ft.com/content/f3a578e4-5509-4d4e-9981-7127c40b2e31" },
-  { id: "8fad4a81-ae66-4248-9669-81138b0d0f2a", title: "Monetary Policy Radar preview: ECB’s September meeting", date: "2026-09-03", time: "13:51", url: "https://www.ft.com/content/8fad4a81-ae66-4248-9669-81138b0d0f2a" },
 ];
