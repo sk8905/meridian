@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "96a69838-e43b-42a0-b30d-4cc7a07b61d8", title: "'There's a desire to see steadiness': Healey sounds pro-business note as he talks up growth", date: "2026-09-04", time: "21:00", url: "https://www.ft.com/content/96a69838-e43b-42a0-b30d-4cc7a07b61d8" },
+  { id: "6d43b599-3d7c-471c-88c2-0f056475a840", title: "John Healey puts Britain on notice for tough Budget in 'more dangerous world'", date: "2026-09-04", time: "21:00", url: "https://www.ft.com/content/6d43b599-3d7c-471c-88c2-0f056475a840" },
+  { id: "966cbb76-93a1-4215-a610-cea5709f3d6a", title: "Maga's favourite combat sport takes off in China", date: "2026-09-04", time: "21:00", url: "https://www.ft.com/content/966cbb76-93a1-4215-a610-cea5709f3d6a" },
+  { id: "3c9d0a82-643b-44ef-96a0-74a00e3c72ba", title: "Anthropic close to awarding Morgan Stanley and Goldman Sachs top roles in $2tn IPO", date: "2026-09-04", time: "20:46", url: "https://www.ft.com/content/3c9d0a82-643b-44ef-96a0-74a00e3c72ba" },
   { id: "5c4f86d2-411f-4b3b-9926-d27432ffc290", title: "Nigel Farage insists Reform has 'broken no law' after key advisers step down", date: "2026-09-04", time: "19:28", url: "https://www.ft.com/content/5c4f86d2-411f-4b3b-9926-d27432ffc290" },
   { id: "7de897f0-a393-47f3-84ce-27aa64a67f07", title: "Nigel Farage's merry band used to enjoy conference. Not this year", date: "2026-09-04", time: "18:40", url: "https://www.ft.com/content/7de897f0-a393-47f3-84ce-27aa64a67f07" },
   { id: "27746b9a-de02-4a83-830a-11cd4b1b1fe4", title: "Nigel Farage's pile of financing scandals", date: "2026-09-04", time: "18:37", url: "https://www.ft.com/content/27746b9a-de02-4a83-830a-11cd4b1b1fe4" },
@@ -56,8 +60,4 @@ export const FT_ITEMS = [
   { id: "3db791d0-ccab-4aca-a83b-da31563a15af", title: "FTAV’s Friday charts quiz", date: "2026-09-04", time: "10:30", url: "https://www.ft.com/content/3db791d0-ccab-4aca-a83b-da31563a15af" },
   { id: "c3e515b8-2207-4bf2-8a85-d5bce0d6f9df", title: "Fox News presenter and Trump ally Maria Bartiromo departs after 12 years", date: "2026-09-04", time: "10:04", url: "https://www.ft.com/content/c3e515b8-2207-4bf2-8a85-d5bce0d6f9df" },
   { id: "dea30dd4-7102-4931-834a-ac0cac28c5ec", title: "South Korea weighs Hormuz deployment as US pressure mounts", date: "2026-09-04", time: "09:57", url: "https://www.ft.com/content/dea30dd4-7102-4931-834a-ac0cac28c5ec" },
-  { id: "d5b33ff5-9aad-4b9a-a7bc-3eff956e7f15", title: "Latest allegations make Reform look ridiculous", date: "2026-09-04", time: "09:30", url: "https://www.ft.com/content/d5b33ff5-9aad-4b9a-a7bc-3eff956e7f15" },
-  { id: "d2d44e3e-f50f-40da-bd83-5c2ebcd323a0", title: "Paul Smith at 80", date: "2026-09-04", time: "09:30", url: "https://www.ft.com/content/d2d44e3e-f50f-40da-bd83-5c2ebcd323a0" },
-  { id: "a5a233bc-1391-4863-a80e-b30356cd5e1a", title: "22 ways to wear polka dots", date: "2026-09-04", time: "09:30", url: "https://www.ft.com/content/a5a233bc-1391-4863-a80e-b30356cd5e1a" },
-  { id: "70cf4c1e-324f-4b85-b685-f37ba232d532", title: "Top Reform UK advisers step down after donor sting", date: "2026-09-04", time: "08:43", url: "https://www.ft.com/content/70cf4c1e-324f-4b85-b685-f37ba232d532" },
 ];
