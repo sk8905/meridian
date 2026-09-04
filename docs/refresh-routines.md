@@ -485,7 +485,14 @@ you touch the *rendering code* (`nav-actions.js`, `dashboard/app.js`) or its CSS
 >    - **Deals** → append to the `deals` array (id `d<next>`): date (YYYY-MM-DD),
 >      managerId (must match an existing manager — skip if not in the dataset),
 >      fundId if applicable, type (reuse an existing deal type), headline, summary,
->      sourceUrl.
+>      sourceUrl. **Transactions tab:** each deal is auto-classified into a
+>      transaction type and its size parsed from the headline/summary by
+>      `credit/js/tx.js` — so keep the headline's currency figure explicit
+>      (e.g. "€400m") and its wording specific. When the sourced wording can't
+>      convey a *specialist* type the classifier keys off (LP-led secondary, NAV
+>      loan, ABL, rescue financing), add a one-line entry to `TX_TAG` in
+>      `credit/js/tx.js` mapping the new deal id → its type key (verified against
+>      the source). Never invent a size — omit the figure and it stays undisclosed.
 >    - **Fundraising / mandates / launches** → append to the `intel` array (id
 >      `i<next>`): date, type (reuse an existing intel type — Fundraising, First
 >      Close, Final Close, Launch, Mandate, Personnel, Strategy, Equity / PE),

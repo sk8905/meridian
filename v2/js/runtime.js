@@ -38,7 +38,7 @@ const ROUTES = [
   { key: "credit", title: "Wire Credit", load: () => import(vurl("./views/credit.js")) },
   { key: "legal",  title: "Wire Legal",  load: () => import(vurl("./views/legal.js")) },
   { key: "profiles", title: "Wire Profiles", load: () => import(vurl("./views/profiles.js")) },
-  { key: "radar",  title: "Wire Radar",  load: () => import(vurl("./views/radar.js")) },
+  { key: "transactions", title: "Wire Transactions", load: () => import(vurl("./views/transactions.js")) },
   { key: "menu",   title: "Wire Menu",   load: () => import(vurl("./views/menu.js")) },
 ];
 const ROUTE_BY_KEY = Object.fromEntries(ROUTES.map((r) => [r.key, r]));

@@ -45,14 +45,13 @@ async function menuState(pg) {
   const s = await menuState(pg);
   check(s.hasMenu && s.visible && s.w >= 300, `tap Menu: renders full-width + visible chips (w=${s.w}, visible=${s.visible})`);
   checkEq(await pg.evaluate(() => (document.querySelector(".v2-view:not([hidden])") || {}).dataset?.view), "menu", "tap Menu: menu is the active view");
-  // F4 — the "radar" route now shows the label "Origination" in the v2 tab bar
-  // (route key unchanged, so deep links still work).
+  // The Origination radar was replaced by the Transactions tab in that slot.
   const tabs = await pg.evaluate(() => ({
     labels: [...document.querySelectorAll(".mobile-tabbar .mtab-lbl")].map((x) => x.textContent.trim()),
-    orig: (document.querySelector('.mobile-tabbar .mtab[data-key="radar"] .mtab-lbl') || {}).textContent?.trim(),
+    tx: (document.querySelector('.mobile-tabbar .mtab[data-key="transactions"] .mtab-lbl') || {}).textContent?.trim(),
   }));
-  checkEq(tabs.orig, "Origination", "bottom tab for the 'radar' route reads 'Origination'");
-  check(!tabs.labels.includes("Radar"), `no bottom tab still reads 'Radar' (${tabs.labels.join("/")})`);
+  checkEq(tabs.tx, "Transactions", "bottom tab for the 'transactions' route reads 'Transactions'");
+  check(!tabs.labels.includes("Origination") && !tabs.labels.includes("Radar"), `no bottom tab still reads 'Origination'/'Radar' (${tabs.labels.join("/")})`);
   checkErrs(errs, "tap menu");
   await ctx.close();
 }
