@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c3e515b8-2207-4bf2-8a85-d5bce0d6f9df", title: "Fox News presenter and Trump ally Maria Bartiromo departs after 12 years", date: "2026-09-04", time: "10:04", url: "https://www.ft.com/content/c3e515b8-2207-4bf2-8a85-d5bce0d6f9df" },
+  { id: "dea30dd4-7102-4931-834a-ac0cac28c5ec", title: "South Korea weighs Hormuz deployment as US pressure mounts", date: "2026-09-04", time: "09:57", url: "https://www.ft.com/content/dea30dd4-7102-4931-834a-ac0cac28c5ec" },
   { id: "d5b33ff5-9aad-4b9a-a7bc-3eff956e7f15", title: "Latest allegations make Reform look ridiculous", date: "2026-09-04", time: "09:30", url: "https://www.ft.com/content/d5b33ff5-9aad-4b9a-a7bc-3eff956e7f15" },
   { id: "d2d44e3e-f50f-40da-bd83-5c2ebcd323a0", title: "Paul Smith at 80", date: "2026-09-04", time: "09:30", url: "https://www.ft.com/content/d2d44e3e-f50f-40da-bd83-5c2ebcd323a0" },
   { id: "a5a233bc-1391-4863-a80e-b30356cd5e1a", title: "22 ways to wear polka dots", date: "2026-09-04", time: "09:30", url: "https://www.ft.com/content/a5a233bc-1391-4863-a80e-b30356cd5e1a" },
@@ -59,6 +61,4 @@ export const FT_ITEMS = [
   { id: "dc2f9b7f-6d14-4b15-8ce9-fe2cc86d81f6", title: "Tory plan to fund defence risks rise in homelessness, say charities", date: "2026-09-03", time: "17:33", url: "https://www.ft.com/content/dc2f9b7f-6d14-4b15-8ce9-fe2cc86d81f6" },
   { id: "29f6cc60-3a46-4d64-af65-d0506cbe2f6b", title: "Giorgia Meloni’s enviable stability — and missed opportunity", date: "2026-09-03", time: "17:31", url: "https://www.ft.com/content/29f6cc60-3a46-4d64-af65-d0506cbe2f6b" },
   { id: "d6c24b34-1520-4dc4-8996-83eab8e81941", title: "Revolut wins provisional US banking licence", date: "2026-09-03", time: "16:17", url: "https://www.ft.com/content/d6c24b34-1520-4dc4-8996-83eab8e81941" },
-  { id: "278167ea-e88d-4cf5-b49c-6b043719f429", title: "Andy Burnham raises concerns with Emmanuel Macron over ‘Made in Europe’ scheme", date: "2026-09-03", time: "16:10", url: "https://www.ft.com/content/278167ea-e88d-4cf5-b49c-6b043719f429" },
-  { id: "c99a833b-337a-4cb9-913b-ef1e43a96c5c", title: "Leon Black sues US Congress over Jeffrey Epstein probe", date: "2026-09-03", time: "15:56", url: "https://www.ft.com/content/c99a833b-337a-4cb9-913b-ef1e43a96c5c" },
 ];
