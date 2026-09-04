@@ -518,18 +518,20 @@ function renderManagerWire() {
     return `<div class="g-mw-item">${hdr}${activity}<div class="g-mw-stories">${shown}${more}</div></div>`;
   };
 
-  // Flat chronological row: a single manager event, prefixed by the manager it
-  // belongs to (accent when watchlisted). Links to the story source, else the
-  // manager profile.
+  // Flat chronological row: a single manager event, rendered with the SAME engine
+  // as the news wire (.g-feed-row) so it inherits the identical stacked layout —
+  // headline on top, a meta line (code · DATE · source) beneath (the manager
+  // column is a narrow feedwrap container, so the stacked layout always applies).
+  // Instead of a publish time the meta shows the event's date; the headline is
+  // prefixed by the manager it belongs to (orange ★ when watchlisted).
   const flatEv = (x) => {
     const to = x.ext ? x.source : `/credit/#/manager/${encodeURIComponent(x.mgrId)}`;
-    // Watchlisted managers are flagged with an orange ★ before the name (not by
-    // colouring the name itself).
     const star = x.watched ? `<span class="g-mw-fev-star" title="On your watchlist" aria-label="Watchlisted">★</span> ` : "";
-    return `<a class="g-mw-ev g-mw-fev" data-mgr="${esc(x.mgrId)}" href="${esc(to)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
-      + `<span class="g-mw-ev-d">${_mwWhen(x.date)}</span><span class="g-mw-ev-c">${CAT_LABEL[x.cat] || "NEWS"}</span>`
-      + `<span class="g-mw-ev-t">${star}<span class="g-mw-fev-m">${esc(x.mgrName)}</span> ${esc(x.title)}</span>`
-      + `<span class="g-mw-ev-s">${esc(_mwSrc(x))}</span></a>`;
+    return `<a class="g-feed-row g-mw-fev" data-mgr="${esc(x.mgrId)}" href="${esc(to)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
+      + `<span class="g-feed-time">${_mwWhen(x.date)}</span>`
+      + `<span class="g-feed-code credit">${CAT_LABEL[x.cat] || "NEWS"}</span>`
+      + `<span class="g-feed-title">${star}<span class="g-mw-fev-m">${esc(x.mgrName)}</span> ${esc(x.title)}</span>`
+      + `<span class="g-feed-src">${esc(_mwSrc(x))}</span></a>`;
   };
 
   let html;
@@ -557,7 +559,7 @@ function renderManagerWire() {
       .filter((e) => e.ts)
       .sort((a, b) => b.ts - a.ts || String(b.date).localeCompare(String(a.date)))
       .slice(0, 50);
-    html = `<div class="g-mw-stories g-mw-flat">${flat.map(flatEv).join("")}</div>`;
+    html = `<div class="g-mw-flat">${flat.map(flatEv).join("")}</div>`;
   }
   box.innerHTML = html;
 

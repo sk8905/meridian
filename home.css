@@ -937,8 +937,12 @@
     .g-mw-exp:hover{ text-decoration:underline; }
     .g-mw-events{ display:flex; flex-direction:column; }
     .g-mw-empty{ padding:.9rem .7rem; color:var(--t-mut); font-size:.8rem; }
-    /* Flat (chronological) manager wire — each event row is prefixed by the
-       manager it belongs to (regular weight), with an orange ★ when watchlisted. */
+    /* Flat (chronological) manager wire — reuses the news-wire row engine
+       (.g-feed-row). The pane is a narrow `feedwrap` container so those rows pick
+       up the identical stacked layout (headline over a code · date · source meta
+       line, feed.css @container). Each headline is prefixed by the manager it
+       belongs to (regular weight), with an orange ★ when watchlisted. */
+    .tui #g-mgrwire{ container:feedwrap / inline-size; }
     .g-mw-fev-m{ color:var(--t-dim); }
     .g-mw-fev-star{ color:var(--t-accent); }
     /* Group-by-manager toggle in the wire header — reuses the feed's outlined

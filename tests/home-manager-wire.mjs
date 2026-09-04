@@ -22,18 +22,24 @@ const MON = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Se
     const rows = [...box.querySelectorAll(".g-mw-fev")];
     const tracks = getComputedStyle(document.querySelector(".g-layout")).gridTemplateColumns.trim().split(/\s+/);
     const btn = document.querySelector(".g-mw-grpbtn");
-    const evT = box.querySelector(".g-mw-fev .g-mw-ev-t"), feedT = document.querySelector("#g-feed .g-feed-title");
+    const evT = box.querySelector(".g-mw-fev .g-feed-title"), feedT = document.querySelector("#g-feed .g-feed-title");
+    const first = box.querySelector(".g-mw-fev");
     return {
       flatRows: rows.length,
       cols: tracks.length, feedEq: tracks.length === 4 && tracks[1] === tracks[2],
       side3: !!document.querySelector(".g-side3 #g-mgrwire"),
       everyHasMgr: rows.length > 0 && rows.every((a) => a.querySelector(".g-mw-fev-m") && a.querySelector(".g-mw-fev-m").textContent.trim()),
       notGrouped: box.querySelectorAll(".g-mw-item").length === 0,
-      dates: rows.slice(0, 12).map((a) => (a.querySelector(".g-mw-ev-d") || {}).textContent || ""),
+      dates: rows.slice(0, 12).map((a) => (a.querySelector(".g-feed-time") || {}).textContent || ""),
       btnOff: !!btn && !btn.classList.contains("is-on") && btn.getAttribute("aria-pressed") === "false",
       btnLabel: btn ? btn.textContent.trim() : "",
       evDivided: evT ? parseFloat(getComputedStyle(evT.closest(".g-mw-fev")).borderBottomWidth) >= 1 : false,
       evSize: evT ? getComputedStyle(evT).fontSize : "", feedSize: feedT ? getComputedStyle(feedT).fontSize : "",
+      // matches the news wire: rows use the shared .g-feed-row engine, stacked
+      // (headline over a code · date · source meta line via the feedwrap container).
+      isFeedRow: !!(first && first.classList.contains("g-feed-row")),
+      hasParts: !!(first && first.querySelector(".g-feed-time") && first.querySelector(".g-feed-code") && first.querySelector(".g-feed-title") && first.querySelector(".g-feed-src")),
+      stacked: first ? /title title/.test(getComputedStyle(first).gridTemplateAreas || "") : false,
     };
   });
   check(r.side3, "Home: manager wire lives in its own column (.g-side3)");
@@ -42,9 +48,11 @@ const MON = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Se
   check(r.flatRows >= 8, `Home: the wire defaults to a flat event stream (${r.flatRows} rows)`);
   check(r.notGrouped, "Home: by default the wire is NOT grouped into per-manager cards");
   check(r.everyHasMgr, "Home: every flat row is attributed to its manager");
+  check(r.isFeedRow && r.hasParts, "Home: flat rows use the shared news-wire row engine (.g-feed-row: code · date · source)");
+  check(r.stacked, "Home: manager rows adopt the news wire's stacked layout (headline over the meta line)");
   check(r.btnOff && /group by manager/i.test(r.btnLabel), `Home: a 'Group by manager' toggle is present and off by default (${r.btnLabel})`);
   const dn = r.dates.map((s) => { const m = /(\d+)\s+(\w+)/.exec(s); return m ? MON[m[2]] * 31 + (+m[1]) : -1; });
-  check(dn.every((v, i) => i === 0 || dn[i - 1] >= v), `Home: flat rows run newest → oldest (${r.dates.join(", ")})`);
+  check(r.dates.every((s) => /^\d+\s+\w+$/.test(s)) && dn.every((v, i) => i === 0 || dn[i - 1] >= v), `Home: the meta line shows the DATE (not a time), newest → oldest (${r.dates.join(", ")})`);
   checkEq(r.evSize, r.feedSize, "Home: story headline text size matches the news feed");
   check(r.evDivided, "Home: flat rows are divided by a hairline, like the news wire");
 
