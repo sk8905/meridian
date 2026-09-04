@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d8f53899-5aaa-4b5d-9b3b-5e2d4775a3aa", title: "Katayama becomes Japan's vital link between Bessent, Takaichi and markets", date: "2026-09-04", time: "13:00", url: "https://www.ft.com/content/d8f53899-5aaa-4b5d-9b3b-5e2d4775a3aa" },
+  { id: "723a3a36-3797-4c54-bddf-074d088a10d6", title: "Former Afghan president Hamid Karzai: 'We need a country for everyone'", date: "2026-09-04", time: "12:30", url: "https://www.ft.com/content/723a3a36-3797-4c54-bddf-074d088a10d6" },
   { id: "aa71ca9a-b64f-41b6-8e6f-00ce03a47553", title: "US diesel prices soar to record high", date: "2026-09-04", time: "12:08", url: "https://www.ft.com/content/aa71ca9a-b64f-41b6-8e6f-00ce03a47553" },
   { id: "29655cf5-bf44-4e99-8f26-208f4c44af84", title: "EQT strikes $2bn deal for insurance broker McGill", date: "2026-09-04", time: "12:05", url: "https://www.ft.com/content/29655cf5-bf44-4e99-8f26-208f4c44af84" },
   { id: "27f62928-927e-4ac3-94e1-4f25310b6ae4", title: "UK set to approve Jackdaw gasfield within weeks", date: "2026-09-04", time: "12:00", url: "https://www.ft.com/content/27f62928-927e-4ac3-94e1-4f25310b6ae4" },
@@ -58,11 +60,4 @@ export const FT_ITEMS = [
   { id: "0e9d714b-f367-4dd7-8ef4-6d4b2c08b79c", title: "Defence officials resist EU plan to curb reliance on US tech giants", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/0e9d714b-f367-4dd7-8ef4-6d4b2c08b79c" },
   { id: "23489956-0f0a-4ffd-a73b-3f541964aa78", title: "Chime is a winner when consumer finance goes K-shaped", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/23489956-0f0a-4ffd-a73b-3f541964aa78" },
   { id: "68751904-522a-41cc-85e0-08015fe75059", title: "America must learn AI lessons from Astro Boy", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/68751904-522a-41cc-85e0-08015fe75059" },
-  { id: "939e55ad-1d5c-45cf-995d-1db6754c8f6b", title: "Trump-linked companies race to secure deals for Venezuela’s oil", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/939e55ad-1d5c-45cf-995d-1db6754c8f6b" },
-  { id: "fff531fc-988c-4016-9b5b-25f2274f4d47", title: "The rise of Texas", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/fff531fc-988c-4016-9b5b-25f2274f4d47" },
-  { id: "239df019-16a0-4c0c-9a38-87f48b2611ed", title: "Can e-bike companies control their rogue riders?", date: "2026-09-04", time: "05:00", url: "https://www.ft.com/content/239df019-16a0-4c0c-9a38-87f48b2611ed" },
-  { id: "f86672dd-5ee5-46f6-8419-3c959814dd1c", title: "Microsoft challenges data centre costs after pledging to protect ratepayers", date: "2026-09-03", time: "21:03", url: "https://www.ft.com/content/f86672dd-5ee5-46f6-8419-3c959814dd1c" },
-  { id: "55ab40c0-59e2-4c0b-97c9-4f4f5a71a8bb", title: "OpenAI says it has overtaken Anthropic with its latest AI model", date: "2026-09-03", time: "19:00", url: "https://www.ft.com/content/55ab40c0-59e2-4c0b-97c9-4f4f5a71a8bb" },
-  { id: "c5dadf10-7c7e-4035-ae21-e18535d7d609", title: "US oil deal sparks ‘anger’ in Venezuela, says opposition leader", date: "2026-09-03", time: "18:48", url: "https://www.ft.com/content/c5dadf10-7c7e-4035-ae21-e18535d7d609" },
-  { id: "5e9db3c2-70c0-40da-8767-88dcbaf8cfc5", title: "EU enters winter with lowest gas stocks on record", date: "2026-09-03", time: "18:46", url: "https://www.ft.com/content/5e9db3c2-70c0-40da-8767-88dcbaf8cfc5" },
 ];
