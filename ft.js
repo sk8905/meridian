@@ -20,8 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "5c4f86d2-411f-4b3b-9926-d27432ffc290", title: "Nigel Farage insists Reform has 'broken no law' after key advisers step down", date: "2026-09-04", time: "19:28", url: "https://www.ft.com/content/5c4f86d2-411f-4b3b-9926-d27432ffc290" },
   { id: "7de897f0-a393-47f3-84ce-27aa64a67f07", title: "Nigel Farage's merry band used to enjoy conference. Not this year", date: "2026-09-04", time: "18:40", url: "https://www.ft.com/content/7de897f0-a393-47f3-84ce-27aa64a67f07" },
   { id: "27746b9a-de02-4a83-830a-11cd4b1b1fe4", title: "Nigel Farage's pile of financing scandals", date: "2026-09-04", time: "18:37", url: "https://www.ft.com/content/27746b9a-de02-4a83-830a-11cd4b1b1fe4" },
+  { id: "89d8bb57-0e59-437e-a25d-d6556dcb42b0", title: "'Clear' breaches of rules by Reform UK pollster, says industry body", date: "2026-09-04", time: "18:35", url: "https://www.ft.com/content/89d8bb57-0e59-437e-a25d-d6556dcb42b0" },
   { id: "be1cecbc-099a-4ab4-ac48-01f966b4c159", title: "Maybe Northampton *is* an emerging market", date: "2026-09-04", time: "18:32", url: "https://www.ft.com/content/be1cecbc-099a-4ab4-ac48-01f966b4c159" },
   { id: "7347b9fc-ba63-48fb-b06d-b9fe5e9b046a", title: "John Ternus, Apple's new 'wicked calm' CEO", date: "2026-09-04", time: "18:00", url: "https://www.ft.com/content/7347b9fc-ba63-48fb-b06d-b9fe5e9b046a" },
   { id: "af5b1fd3-194d-4aed-b1ef-0bf662170952", title: "Why Berkshire Hathaway might be an active hedge", date: "2026-09-04", time: "18:00", url: "https://www.ft.com/content/af5b1fd3-194d-4aed-b1ef-0bf662170952" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "d2d44e3e-f50f-40da-bd83-5c2ebcd323a0", title: "Paul Smith at 80", date: "2026-09-04", time: "09:30", url: "https://www.ft.com/content/d2d44e3e-f50f-40da-bd83-5c2ebcd323a0" },
   { id: "a5a233bc-1391-4863-a80e-b30356cd5e1a", title: "22 ways to wear polka dots", date: "2026-09-04", time: "09:30", url: "https://www.ft.com/content/a5a233bc-1391-4863-a80e-b30356cd5e1a" },
   { id: "70cf4c1e-324f-4b85-b685-f37ba232d532", title: "Top Reform UK advisers step down after donor sting", date: "2026-09-04", time: "08:43", url: "https://www.ft.com/content/70cf4c1e-324f-4b85-b685-f37ba232d532" },
-  { id: "06c157ee-aa37-485c-9e5b-0f3045beb01e", title: "What are the latest claims against Nigel Farage?", date: "2026-09-04", time: "08:37", url: "https://www.ft.com/content/06c157ee-aa37-485c-9e5b-0f3045beb01e" },
-  { id: "ed41bea0-4b8d-47dc-9989-018bd85e52fd", title: "More stock ownership, weaker monetary policy?", date: "2026-09-04", time: "06:30", url: "https://www.ft.com/content/ed41bea0-4b8d-47dc-9989-018bd85e52fd" },
 ];
