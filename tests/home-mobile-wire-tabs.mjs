@@ -43,7 +43,7 @@ const b = await launchChromium();
   const watchState = await pg.evaluate(() => ({
     watchOn: document.querySelector('.g-wiretab[data-wire="watch"]').classList.contains("is-on"),
     aria: document.querySelector('.g-wiretab[data-wire="watch"]').getAttribute("aria-selected"),
-    hasMgr: !!document.querySelector("#g-mgrwire .g-mw-item, #g-mgrwire .g-mw-empty"),
+    hasMgr: !!document.querySelector("#g-mgrwire .g-mw-fev, #g-mgrwire .g-mw-item, #g-mgrwire .g-mw-empty"),
   }));
   check(watchState.watchOn && watchState.aria === "true", "phone: the Watchlist chip is active + aria-selected after tap");
   check(watchState.hasMgr, "phone: the manager wire has rendered content under Watchlist");

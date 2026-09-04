@@ -13,7 +13,7 @@
    #glance (id wins) so these class-scoped copies are inert; on the apps they're
    the source of truth. */
 :root[data-theme="dark"] .g-feed-wrap {
-  --t-ground:#070707; --t-panel:#141414; --t-panel2:#202020; --t-head:#111111;
+  --t-ground:#141414; --t-panel:#141414; --t-panel2:#202020; --t-head:#111111;
   --t-grid:#212121; --t-grid2:#2d2d2d;
   --t-ink:#eaf0fb; --t-dim:#b7c2da; --t-mut:#8592ad; --t-faint:#5c6a86;
   --t-accent:#fb8b1e;

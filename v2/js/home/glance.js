@@ -99,6 +99,7 @@ export function initGlance(ctx) {
   const _hp = _homePrefs();
   if (_DESK_KEYS.includes(_hp.desk)) _feedDesk = _hp.desk;
   if (typeof _hp.group === "boolean") _feedGroup = _hp.group;
+  if (typeof _hp.mgrGroup === "boolean") _mwGroup = _hp.mgrGroup;
   _liveFeed = ((readCache("feed") || {}).items) || [];  // instant last-good merge
   renderFeed();
   renderManagerWire();
@@ -410,6 +411,10 @@ let _feedType = "all";
 // Group-by-type view: when on, the wire is grouped by row label (ALERT, MAC,
 // BBG, myFT, …) over a rolling 3-day window instead of the day-by-day stream.
 let _feedGroup = false;
+// Manager wire grouping: false (default) = one flat chronological stream of every
+// manager's events, newest first, regardless of manager; true = grouped into a
+// mini-section per manager, managers ordered most-active → least-active.
+let _mwGroup = false;
 // Secondary type chips per domain: [labelKey (matches item.type||item.desk), text].
 // Domains without sub-types (Newsletters, myFT) get no second row.
 const TYPE_CHIPS = {
@@ -472,7 +477,12 @@ function _saveMgrSeen(o) { try { localStorage.setItem("meridian.mgrSeen", JSON.s
 // with the aggregated feed (shared .g-feed-row engine).
 function renderManagerWire() {
   const box = document.getElementById("g-mgrwire"); if (!box) return;
-  const rows = managerWire(_mgrFollows(), { limit: 24 });
+  // Reflect the current mode on the header toggle.
+  const grpBtn = document.querySelector(".g-mw-grpbtn");
+  if (grpBtn) { grpBtn.classList.toggle("is-on", _mwGroup); grpBtn.setAttribute("aria-pressed", String(_mwGroup)); }
+  // Pull EVERY covered manager with activity (not a capped 24) so the flat stream
+  // is a true chronological wire and the grouped view can rank the whole universe.
+  const rows = managerWire(_mgrFollows(), { limit: 0 });
   if (!rows.length) { box.innerHTML = `<div class="g-mw-empty">No manager activity yet.</div>`; return; }
   const seen = _mgrSeen();
   rows.forEach((r) => { const p = seen[r.id]; r.newCount = (p != null) ? r.events.filter((e) => e.ts && e.ts > p).length : 0; });
@@ -508,21 +518,59 @@ function renderManagerWire() {
     return `<div class="g-mw-item">${hdr}${activity}<div class="g-mw-stories">${shown}${more}</div></div>`;
   };
 
-  const watched = rows.filter((r) => r.watched), active = rows.filter((r) => !r.watched);
-  // First-run coaching (F2): with an empty watchlist, tell the user what following
-  // does and how to start — the active list below doubles as the starter set.
-  const coach = _mgrFollows().size === 0
-    ? `<div class="g-mw-coach"><div class="g-mw-coach-h">Build your watchlist</div>`
-      + `<p class="g-mw-coach-p">Tap ☆ to follow a manager or hedge fund. Your watchlist leads this wire and flags new activity since you last looked — the most active names are shown below to start you off.</p></div>`
-    : "";
-  let html = coach;
-  if (watched.length) html += `<div class="g-feed-dayhdr">Watchlist</div>` + watched.map(item).join("");
-  if (active.length) html += `<div class="g-feed-dayhdr">${watched.length ? "Most active" : "Active managers"}</div>` + active.map(item).join("");
+  // Flat chronological row: a single manager event, prefixed by the manager it
+  // belongs to (accent when watchlisted). Links to the story source, else the
+  // manager profile.
+  const flatEv = (x) => {
+    const to = x.ext ? x.source : `/credit/#/manager/${encodeURIComponent(x.mgrId)}`;
+    return `<a class="g-mw-ev g-mw-fev" href="${esc(to)}"${x.ext ? ' target="_blank" rel="noopener noreferrer"' : ""}>`
+      + `<span class="g-mw-ev-d">${_mwWhen(x.date)}</span><span class="g-mw-ev-c">${CAT_LABEL[x.cat] || "NEWS"}</span>`
+      + `<span class="g-mw-ev-t"><span class="g-mw-fev-m${x.watched ? " is-watched" : ""}">${esc(x.mgrName)}</span> ${esc(x.title)}</span>`
+      + `<span class="g-mw-ev-s">${esc(_mwSrc(x))}</span></a>`;
+  };
+
+  let html;
+  if (_mwGroup) {
+    // Grouped by manager, ordered most-active → least-active by the 30-day event
+    // count shown on each card (then 90-day, then recency). Watchlisted managers
+    // still lead their section.
+    const byActive = (a, b) => (b.count30 - a.count30) || (b.count90 - a.count90) || (b.lastTs - a.lastTs);
+    const watched = rows.filter((r) => r.watched).sort(byActive);
+    const active = rows.filter((r) => !r.watched).sort(byActive).slice(0, 20);
+    // First-run coaching (F2): with an empty watchlist, tell the user what
+    // following does — the active list below doubles as the starter set.
+    const coach = _mgrFollows().size === 0
+      ? `<div class="g-mw-coach"><div class="g-mw-coach-h">Build your watchlist</div>`
+        + `<p class="g-mw-coach-p">Tap ☆ to follow a manager or hedge fund. Your watchlist leads this wire and flags new activity since you last looked — the most active names are shown below to start you off.</p></div>`
+      : "";
+    html = coach;
+    if (watched.length) html += `<div class="g-feed-dayhdr">Watchlist</div>` + watched.map(item).join("");
+    if (active.length) html += `<div class="g-feed-dayhdr">${watched.length ? "Most active" : "Active managers"}</div>` + active.map(item).join("");
+  } else {
+    // Flat (default): every manager's events merged into ONE stream, newest first,
+    // regardless of manager.
+    const flat = rows
+      .flatMap((r) => r.events.map((e) => ({ ...e, mgrName: r.name, mgrId: r.id, watched: r.watched })))
+      .filter((e) => e.ts)
+      .sort((a, b) => b.ts - a.ts || String(b.date).localeCompare(String(a.date)))
+      .slice(0, 50);
+    html = `<div class="g-mw-stories g-mw-flat">${flat.map(flatEv).join("")}</div>`;
+  }
   box.innerHTML = html;
 
   // Update the seen baseline for shown managers (so this session's items aren't
   // "new" next load); expand toggle is delegated once on the container.
   const next = { ...seen }; rows.forEach((r) => { next[r.id] = r.lastTs; }); _saveMgrSeen(next);
+  // Group-by-manager toggle (lives in the column header, outside #g-mgrwire) —
+  // wired once; flips the mode, persists it, and re-renders.
+  if (grpBtn && !grpBtn.dataset.wired) {
+    grpBtn.dataset.wired = "1";
+    grpBtn.addEventListener("click", () => {
+      _mwGroup = !_mwGroup;
+      _saveHomePref({ mgrGroup: _mwGroup });
+      renderManagerWire();
+    });
+  }
   if (!box.dataset.wired) {
     box.dataset.wired = "1";
     box.addEventListener("click", (e) => {

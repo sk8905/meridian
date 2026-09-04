@@ -759,7 +759,7 @@
     /* provisional (to be refined). All terminal styling reads --t-* vars. */
     /* ================================================================= */
     :root[data-theme="dark"] #glance, :root[data-theme="dark"] .na-panel, :root[data-theme="dark"] .g-main.tui, :root[data-theme="dark"] .g-mkt-panel, :root[data-theme="dark"] .g-sv-panel{
-      --t-ground:#070707; --t-panel:#141414; --t-panel2:#202020; --t-head:#111111;
+      --t-ground:#141414; --t-panel:#141414; --t-panel2:#202020; --t-head:#111111;
       --t-grid:#212121; --t-grid2:#2d2d2d;
       --t-ink:#eaf0fb; --t-dim:#b7c2da; --t-mut:#8592ad; --t-faint:#5c6a86;
       --t-accent:#fb8b1e; --t-accent-dim:#a86020; --t-accent-soft:rgba(251,139,30,.15);
@@ -937,6 +937,14 @@
     .g-mw-exp:hover{ text-decoration:underline; }
     .g-mw-events{ display:flex; flex-direction:column; }
     .g-mw-empty{ padding:.9rem .7rem; color:var(--t-mut); font-size:.8rem; }
+    /* Flat (chronological) manager wire — each event row is prefixed by the
+       manager it belongs to (accent when watchlisted). */
+    .g-mw-fev-m{ font-weight:700; color:var(--t-dim); }
+    .g-mw-fev-m.is-watched{ color:var(--t-accent); }
+    /* Group-by-manager toggle in the wire header — reuses the feed's outlined
+       accent control; pushed to the right edge, accent-tinted when active. */
+    .tui .g-mw-head .g-mw-grpbtn{ margin-left:auto; }
+    .tui .g-mw-grpbtn.is-on{ background:color-mix(in srgb, var(--t-accent) 18%, transparent); }
 
     /* ---- This week's earnings (right rail) ---- */
     .g-earn-pane{ display:flex; flex-direction:column; }

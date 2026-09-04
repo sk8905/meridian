@@ -26,6 +26,12 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
               <div class="g-loading">Loading markets…</div>
             </div>
           </section>
+          <!-- Top movers grows to fill the rail; only its list scrolls, so the
+               panels around it stay put. Sits directly under Markets. -->
+          <section class="tui-pnl g-movers-pnl">
+            <header class="tui-ph"><span>Top movers</span><span class="tui-px">1D</span></header>
+            <div id="g-movers" aria-label="Top market movers"><div class="g-loading">Loading movers…</div></div>
+          </section>
           <!-- This week's corporate earnings — date · pre/post-market · forecast
                → outcome. Sits with the equities data (Markets / Top movers). Hugs
                its content (capped at 5 companies; the rest scroll internally). -->
@@ -37,12 +43,6 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
               </div>
             </section>
           </div>
-          <!-- Top movers grows to fill the rail; only its list scrolls, so the
-               panels around it stay put. -->
-          <section class="tui-pnl g-movers-pnl">
-            <header class="tui-ph"><span>Top movers</span><span class="tui-px">1D</span></header>
-            <div id="g-movers" aria-label="Top market movers"><div class="g-loading">Loading movers…</div></div>
-          </section>
           <section class="tui-pnl g-anchor" id="jump-fx">
             <header class="tui-ph"><span>FX matrix</span><span class="tui-px">spot</span></header>
             <div id="g-fx" class="g-fx-card" aria-label="USD, GBP, EUR and JPY cross rates">
@@ -62,7 +62,7 @@ export const HOME_HTML = `    <main class="g-main tui" id="jump-top">
         <aside class="g-side3">
           <div class="g-mw-scroll">
             <section class="tui-pnl g-mw">
-              <header class="tui-ph g-mw-head"><span>Manager wire</span><span class="tui-px" id="g-mw-meta">watchlist · active</span></header>
+              <header class="tui-ph g-mw-head"><span>Manager wire</span><button type="button" class="g-feed-openbtn g-mw-grpbtn" aria-pressed="false" aria-label="Group the wire by manager (most active first)"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg><span>Group by manager</span></button></header>
               <div class="g-mw-body">
                 <div id="g-mgrwire" class="g-mw-pane" aria-label="Manager activity wire"><div class="g-loading">Loading managers…</div></div>
               </div>
