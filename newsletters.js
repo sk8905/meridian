@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-reuters-tradingday-wallercoolsfedhikehoopla-20260903",
+    publication: "Thomson Reuters",
+    author: "Jamie McGeever",
+    series: "Trading Day",
+    title: "Waller cools Fed hike hoopla",
+    date: "2026-09-03",
+    time: "22:03",
+    summary: "Eyes turn to non-farm payrolls.",
+    url: "https://www.reuters.com/newsletters/trading-day/",
+  },
+  {
     id: "nl-legalbusiness-cahillbankingexits-20260903",
     publication: "Legal Business",
     author: null,
