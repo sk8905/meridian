@@ -11,7 +11,7 @@ const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v
 await pg.waitForTimeout(600);
 
 const r = await pg.evaluate(async () => {
-  const [saved, legal] = await Promise.all([import("/saved.js?v=20260802-3"), import("/legal/js/data.js")]);
+  const [saved, legal] = await Promise.all([import("/saved.js?v=20260904-1"), import("/legal/js/data.js")]);
   const RX = /\badvis(?:ed|es|ing)\b/i;
   const adv = (legal.items || []).filter((x) => RX.test(x.title || ""));
   const suppressed = adv.filter((x) => saved.__suppressedAdvised(x.title));

@@ -190,6 +190,9 @@ notification badge red (`#ef4444`).
   suppressed from the bell** (they remain in the legal feeds — a silent
   addition) **unless the headline names a manager / hedge fund the app covers**,
   in which case the notification stays. See `saved.js` `_suppressedAdvised`.
+  **Case law is delivered silently too** — it stays in the Legal desk/feeds but
+  is kept out of the bell **unless a party to the case is a fund or manager the
+  app covers** (same covered-entity relevance). See `saved.js` `_caseInBell`.
 - **R17 — Cache-first render:** show last-good from cache immediately, then pull
   a live refresh.
 - **R18 — Macro commentary coverage:** at least **10 commentary items per day**

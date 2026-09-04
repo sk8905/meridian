@@ -149,12 +149,19 @@ function _mentionsCovered(title) {
 function _suppressedAdvised(title) {
   return _ADVISED_RX.test(title || "") && !_mentionsCovered(title);
 }
-// Test hook (see tests/notifications-advised-filter.mjs).
+// Case law is delivered SILENTLY — it stays in the Legal desk/feeds but is kept
+// OUT of the notification bell UNLESS a party to the case is a fund or manager the
+// app covers (matched by the same covered-entity relevance as the advised gate).
+function _caseInBell(c) {
+  return _mentionsCovered((c && c.name) || "");
+}
+// Test hooks (see tests/notifications-advised-filter.mjs + notifications-caselaw.mjs).
 export const __suppressedAdvised = _suppressedAdvised;
+export const __caseInBell = _caseInBell;
 function legalNotif() {
   const out = [];
   items.forEach((it) => { if (_suppressedAdvised(it.title)) return; out.push({ desk: "l", id: "u:" + it.id, date: it.date || "", title: it.title, source: firmName(it.firm), href: it.url || "/legal/#/item/" + encodeURIComponent(it.id), ext: !!it.url }); });
-  cases.forEach((c) => out.push({ desk: "l", id: "c:" + c.id, date: c.date || "", title: c.name, source: c.url ? judgmentSource(c.url) : (c.citation || "Case"), href: c.url || "/legal/#/", ext: !!c.url }));
+  cases.forEach((c) => { if (!_caseInBell(c)) return; out.push({ desk: "l", id: "c:" + c.id, date: c.date || "", title: c.name, source: c.url ? judgmentSource(c.url) : (c.citation || "Case"), href: c.url || "/legal/#/", ext: !!c.url }); });
   restructurings.forEach((r) => { const u = r.judgmentUrl || r.articleUrl; out.push({ desk: "l", id: "x:" + r.id, date: r.date || "", title: r.company, source: r.firm ? firmName(r.firm) : (r.judgmentUrl ? judgmentSource(r.judgmentUrl) : (r.type === "scheme" ? "Scheme" : "Restructuring plan")), href: u || "/legal/#/", ext: !!u }); });
   return recentNotif(dedupNotif(out));
 }
