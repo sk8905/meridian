@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "9876d74e-ab17-4b15-a129-2de0c030b1b7", title: "The NBA drops the hammer on Steve Ballmer", date: "2026-09-05", time: "09:00", url: "https://www.ft.com/content/9876d74e-ab17-4b15-a129-2de0c030b1b7" },
   { id: "6bde3e74-9a7c-4528-9b9c-42a14eec0414", title: "Jefferies fund caught with $500mn exposure to second alleged invoice fraud", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/6bde3e74-9a7c-4528-9b9c-42a14eec0414" },
   { id: "18639405-0e49-44e5-be69-cd7988cbdf27", title: "Uber picks a side in driver vs robotaxi wars: its own", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/18639405-0e49-44e5-be69-cd7988cbdf27" },
   { id: "d3f7a1a1-7fc1-4349-a202-a6fee6ef4a5b", title: "The gloves are starting to come off in markets", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/d3f7a1a1-7fc1-4349-a202-a6fee6ef4a5b" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "a7ce8b2f-98f5-4e96-afa0-ccf4dceef8bd", title: "US economy smashes forecast with 162,000 jobs added in August", date: "2026-09-04", time: "13:32", url: "https://www.ft.com/content/a7ce8b2f-98f5-4e96-afa0-ccf4dceef8bd" },
   { id: "d8f53899-5aaa-4b5d-9b3b-5e2d4775a3aa", title: "Katayama becomes Japan's vital link between Bessent, Takaichi and markets", date: "2026-09-04", time: "13:00", url: "https://www.ft.com/content/d8f53899-5aaa-4b5d-9b3b-5e2d4775a3aa" },
   { id: "723a3a36-3797-4c54-bddf-074d088a10d6", title: "Former Afghan president Hamid Karzai: 'We need a country for everyone'", date: "2026-09-04", time: "12:30", url: "https://www.ft.com/content/723a3a36-3797-4c54-bddf-074d088a10d6" },
-  { id: "aa71ca9a-b64f-41b6-8e6f-00ce03a47553", title: "US diesel prices soar to record high", date: "2026-09-04", time: "12:08", url: "https://www.ft.com/content/aa71ca9a-b64f-41b6-8e6f-00ce03a47553" },
 ];
