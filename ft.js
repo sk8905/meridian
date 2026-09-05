@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "c98f4d9b-ec17-4bc0-a137-dbd12a23cba6", title: "Pro-Israel groups fight to help Republicans keep control of Congress", date: "2026-09-05", time: "12:00", url: "https://www.ft.com/content/c98f4d9b-ec17-4bc0-a137-dbd12a23cba6" },
+  { id: "6e096712-5abe-48c5-8e4d-c0042f947639", title: "Treasury sell-off piles pressure on weakest US borrowers", date: "2026-09-05", time: "12:00", url: "https://www.ft.com/content/6e096712-5abe-48c5-8e4d-c0042f947639" },
   { id: "53751b68-5af6-42ec-9d93-bf3daee6acdd", title: "Masked protesters block Dover port roads", date: "2026-09-05", time: "11:01", url: "https://www.ft.com/content/53751b68-5af6-42ec-9d93-bf3daee6acdd" },
   { id: "dd2069b2-9fa0-4b87-95dc-cd7ee75f3096", title: "Europe Express: faces of the ‘new right’", date: "2026-09-05", time: "11:00", url: "https://www.ft.com/content/dd2069b2-9fa0-4b87-95dc-cd7ee75f3096" },
   { id: "9876d74e-ab17-4b15-a129-2de0c030b1b7", title: "The NBA drops the hammer on Steve Ballmer", date: "2026-09-05", time: "09:00", url: "https://www.ft.com/content/9876d74e-ab17-4b15-a129-2de0c030b1b7" },
@@ -58,7 +60,4 @@ export const FT_ITEMS = [
   { id: "546c8b24-a1d6-46f1-a57f-62491c248487", title: "Strong August US payrolls report bolsters odds of September rate rise", date: "2026-09-04", time: "14:29", url: "https://www.ft.com/content/546c8b24-a1d6-46f1-a57f-62491c248487" },
   { id: "042639e8-89d9-4fe6-9b99-73bf2937a700", title: "The five financing scandals facing Reform", date: "2026-09-04", time: "14:26", url: "https://www.ft.com/content/042639e8-89d9-4fe6-9b99-73bf2937a700" },
   { id: "a6be8465-63ea-4c5f-8a3e-b46cd5475c7e", title: "Andrew Bailey warns of populist threat to central bank independence", date: "2026-09-04", time: "14:15", url: "https://www.ft.com/content/a6be8465-63ea-4c5f-8a3e-b46cd5475c7e" },
-  { id: "05d66e73-481f-40df-bf38-35ea73f61aee", title: "Markey, Massachusetts and the limits of generational politics", date: "2026-09-04", time: "14:00", url: "https://www.ft.com/content/05d66e73-481f-40df-bf38-35ea73f61aee" },
-  { id: "5f9e4984-e5ec-4baa-928d-7c7772277f92", title: "Burnham vs Badenoch: Commons showdown", date: "2026-09-04", time: "13:32", url: "https://www.ft.com/content/5f9e4984-e5ec-4baa-928d-7c7772277f92" },
-  { id: "a7ce8b2f-98f5-4e96-afa0-ccf4dceef8bd", title: "US economy smashes forecast with 162,000 jobs added in August", date: "2026-09-04", time: "13:32", url: "https://www.ft.com/content/a7ce8b2f-98f5-4e96-afa0-ccf4dceef8bd" },
 ];
