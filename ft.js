@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "53751b68-5af6-42ec-9d93-bf3daee6acdd", title: "Masked protesters block Dover port roads", date: "2026-09-05", time: "11:01", url: "https://www.ft.com/content/53751b68-5af6-42ec-9d93-bf3daee6acdd" },
+  { id: "dd2069b2-9fa0-4b87-95dc-cd7ee75f3096", title: "Europe Express: faces of the ‘new right’", date: "2026-09-05", time: "11:00", url: "https://www.ft.com/content/dd2069b2-9fa0-4b87-95dc-cd7ee75f3096" },
   { id: "9876d74e-ab17-4b15-a129-2de0c030b1b7", title: "The NBA drops the hammer on Steve Ballmer", date: "2026-09-05", time: "09:00", url: "https://www.ft.com/content/9876d74e-ab17-4b15-a129-2de0c030b1b7" },
   { id: "6bde3e74-9a7c-4528-9b9c-42a14eec0414", title: "Jefferies fund caught with $500mn exposure to second alleged invoice fraud", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/6bde3e74-9a7c-4528-9b9c-42a14eec0414" },
   { id: "18639405-0e49-44e5-be69-cd7988cbdf27", title: "Uber picks a side in driver vs robotaxi wars: its own", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/18639405-0e49-44e5-be69-cd7988cbdf27" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "05d66e73-481f-40df-bf38-35ea73f61aee", title: "Markey, Massachusetts and the limits of generational politics", date: "2026-09-04", time: "14:00", url: "https://www.ft.com/content/05d66e73-481f-40df-bf38-35ea73f61aee" },
   { id: "5f9e4984-e5ec-4baa-928d-7c7772277f92", title: "Burnham vs Badenoch: Commons showdown", date: "2026-09-04", time: "13:32", url: "https://www.ft.com/content/5f9e4984-e5ec-4baa-928d-7c7772277f92" },
   { id: "a7ce8b2f-98f5-4e96-afa0-ccf4dceef8bd", title: "US economy smashes forecast with 162,000 jobs added in August", date: "2026-09-04", time: "13:32", url: "https://www.ft.com/content/a7ce8b2f-98f5-4e96-afa0-ccf4dceef8bd" },
-  { id: "d8f53899-5aaa-4b5d-9b3b-5e2d4775a3aa", title: "Katayama becomes Japan's vital link between Bessent, Takaichi and markets", date: "2026-09-04", time: "13:00", url: "https://www.ft.com/content/d8f53899-5aaa-4b5d-9b3b-5e2d4775a3aa" },
 ];
