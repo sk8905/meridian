@@ -32,6 +32,7 @@ export const FT_ITEMS = [
   { id: "bd134250-00d8-4bfd-bf4b-d32479ac0fed", title: "Rerun or sequel? Naomi Klein and Astra Taylor on end times fascism", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/bd134250-00d8-4bfd-bf4b-d32479ac0fed" },
   { id: "676ae308-3609-4fb8-881f-0e5e3a1af0ca", title: "Q&A: HMRC considers criminalising 'reckless' tax mistakes", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/676ae308-3609-4fb8-881f-0e5e3a1af0ca" },
   { id: "b207536e-6def-4080-878f-d0eba61d11e0", title: "US Republicans revolt against Flock AI surveillance as tech backlash intensifies", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/b207536e-6def-4080-878f-d0eba61d11e0" },
+  { id: "535b7f38-4528-404c-afad-7aa1cef40918", title: "Meet the office influencers", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/535b7f38-4528-404c-afad-7aa1cef40918" },
   { id: "8a7e8202-d800-4fb1-a8f0-eeb4536578f7", title: "The repo market is the 'dark matter' of finance: powerful and perilous", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/8a7e8202-d800-4fb1-a8f0-eeb4536578f7" },
   { id: "18900164-fa33-4d6d-a39e-6898043cd62f", title: "EU counterterror envoy urges pressure on social platforms over youth extremism", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/18900164-fa33-4d6d-a39e-6898043cd62f" },
   { id: "96a69838-e43b-42a0-b30d-4cc7a07b61d8", title: "'There's a desire to see steadiness': Healey sounds pro-business note as he talks up growth", date: "2026-09-04", time: "21:00", url: "https://www.ft.com/content/96a69838-e43b-42a0-b30d-4cc7a07b61d8" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "5f9e4984-e5ec-4baa-928d-7c7772277f92", title: "Burnham vs Badenoch: Commons showdown", date: "2026-09-04", time: "13:32", url: "https://www.ft.com/content/5f9e4984-e5ec-4baa-928d-7c7772277f92" },
   { id: "a7ce8b2f-98f5-4e96-afa0-ccf4dceef8bd", title: "US economy smashes forecast with 162,000 jobs added in August", date: "2026-09-04", time: "13:32", url: "https://www.ft.com/content/a7ce8b2f-98f5-4e96-afa0-ccf4dceef8bd" },
   { id: "d8f53899-5aaa-4b5d-9b3b-5e2d4775a3aa", title: "Katayama becomes Japan's vital link between Bessent, Takaichi and markets", date: "2026-09-04", time: "13:00", url: "https://www.ft.com/content/d8f53899-5aaa-4b5d-9b3b-5e2d4775a3aa" },
-  { id: "723a3a36-3797-4c54-bddf-074d088a10d6", title: "Former Afghan president Hamid Karzai: 'We need a country for everyone'", date: "2026-09-04", time: "12:30", url: "https://www.ft.com/content/723a3a36-3797-4c54-bddf-074d088a10d6" },
 ];

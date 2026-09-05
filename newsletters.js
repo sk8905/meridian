@@ -33,9 +33,21 @@ export const PUBLISHERS = {
   "pe-insights.com": "Private Equity Insights",
   "getmatter.com": "Matter",
   "editorial.theguardian.com": "The Guardian",
+  "taxpolicy.org.uk": "Tax Policy Associates",
 };
 
 export const NEWSLETTERS = [
+  {
+    id: "nl-taxpolicy-srapostoffice-20260905",
+    publication: "Tax Policy Associates",
+    author: "Dan Neidle",
+    series: null,
+    title: "The SRA was going to prosecute the Post Office's lawyers. Then it stopped.",
+    date: "2026-09-05",
+    time: "08:09",
+    summary: "The Post Office told wrongly-accused postmasters their compensation offers were secret; the SRA spent three years investigating its lawyers, planned to prosecute, then dropped the case without saying why.",
+    url: "https://newsletter.taxpolicy.org.uk/campaign/cdadcf8f-705e-4c85-9534-e907129f80a5/e5358a8a-4e5b-4303-a7ce-dcf4d37cc11c",
+  },
   {
     id: "nl-economist-worldinbrief-trumpenvoysukrainerussia-20260905",
     publication: "The Economist",
@@ -464,16 +476,5 @@ export const NEWSLETTERS = [
     time: "09:05",
     summary: "Things have taken a dramatic twist in the ongoing £36bn Mariana dam group action against BHP after former Pogust Goodhead partners moved to take control of the case.",
     url: "https://www.nonbillable.co.uk/news/former-pogust-goodhead-partners-attempt-takeover-bhp-case",
-  },
-  {
-    id: "nl-bbg-adaptabudhabioffice-20260902",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    series: null,
-    title: "Hedge Fund ADAPT Joins Brevan, Rokos in Opening Abu Dhabi Office",
-    date: "2026-09-02",
-    time: "08:13",
-    summary: "Swiss hedge fund ADAPT Investment Managers becomes the latest to open an Abu Dhabi office as the emirate keeps attracting financial firms despite the Middle East conflict.",
-    url: "https://www.bloomberg.com/news/articles/2026-09-02/hedge-fund-adapt-joins-brevan-rokos-in-opening-abu-dhabi-office",
   },
 ];
