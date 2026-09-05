@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-trumpenvoysukrainerussia-20260905",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: Trump sends envoys to Ukraine and Russia",
+    date: "2026-09-05",
+    time: "04:55",
+    summary: "Trump's envoys Steve Witkoff and Jared Kushner will visit Russia and Ukraine this weekend on war-ending proposals, US payrolls smashed forecasts with 162,000 jobs added, and Nigel Farage signed a co-operation pact with France's National Rally.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-bbg-singaporeedition-stablecoinlicense-20260905",
     publication: "Bloomberg",
     author: null,
@@ -464,16 +475,5 @@ export const NEWSLETTERS = [
     time: "08:13",
     summary: "Swiss hedge fund ADAPT Investment Managers becomes the latest to open an Abu Dhabi office as the emirate keeps attracting financial firms despite the Middle East conflict.",
     url: "https://www.bloomberg.com/news/articles/2026-09-02/hedge-fund-adapt-joins-brevan-rokos-in-opening-abu-dhabi-office",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-shruggedoff-20260902",
-    publication: "Bloomberg",
-    author: "Samson Ellis",
-    series: "Morning Briefing Europe",
-    title: "Shrugged off",
-    date: "2026-09-02",
-    time: "07:50",
-    summary: "Trump says he “couldn’t care less” if Iran signs a deal as strikes intensify, Bessent’s bond-buyback gains are wiped out by a fresh 30-year yield surge, and Bessent blames China for blocking a G20 communiqué.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-02/trump-plays-down-hopes-for-iran-deal-as-fighting-escalates",
   },
 ];
