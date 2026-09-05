@@ -37,6 +37,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-singaporeedition-stablecoinlicense-20260905",
+    publication: "Bloomberg",
+    author: null,
+    series: "Singapore Edition",
+    title: "Singapore Edition: Who needs a stablecoin license?",
+    date: "2026-09-05",
+    time: "02:00",
+    summary: "Stablecoin rules are moving ahead, but not every issuer may see enough reason to sign up as MAS opens its licensing consultation.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-05/singapore-stablecoin-license-leaves-issuers-weighing-benefits",
+  },
+  {
     id: "nl-matter-top10-aug28sep3-20260904",
     publication: "Matter",
     author: null,
@@ -464,16 +475,5 @@ export const NEWSLETTERS = [
     time: "07:50",
     summary: "Trump says he “couldn’t care less” if Iran signs a deal as strikes intensify, Bessent’s bond-buyback gains are wiped out by a fresh 30-year yield surge, and Bessent blames China for blocking a G20 communiqué.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-02/trump-plays-down-hopes-for-iran-deal-as-fighting-escalates",
-  },
-  {
-    id: "nl-economist-worldinbrief-americaandiranexchangeblows-20260902",
-    publication: "The Economist",
-    author: null,
-    series: "The World in Brief",
-    title: "The World in Brief: America and Iran exchange blows",
-    date: "2026-09-02",
-    time: "05:32",
-    summary: "Iran struck two American bases in Jordan after the ceasefire lapsed, sending oil prices and 30-year Treasury yields higher as G20 finance ministers failed to agree a joint communiqué.",
-    url: "https://www.economist.com/the-world-in-brief",
   },
 ];
