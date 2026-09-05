@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "7c7c07db-cde5-474d-9a20-8e2c2f273d4e", title: "US strikes three Iranian oil tankers in response to attacks on warships", date: "2026-09-05", time: "16:07", url: "https://www.ft.com/content/7c7c07db-cde5-474d-9a20-8e2c2f273d4e" },
+  { id: "82c20c2f-a3d2-45c0-be50-2bed0bfb52b0", title: "Jenrick seeks to get Reform back on track with tax pledge", date: "2026-09-05", time: "15:59", url: "https://www.ft.com/content/82c20c2f-a3d2-45c0-be50-2bed0bfb52b0" },
   { id: "47ac914f-ab0e-441b-9152-9ef06dc17741", title: "‘Sowing doubt’: Trump’s attempt to change voting causes chaos for state officials", date: "2026-09-05", time: "14:00", url: "https://www.ft.com/content/47ac914f-ab0e-441b-9152-9ef06dc17741" },
   { id: "9ae2c655-bcf7-4ef2-9a9b-0855248d06a0", title: "Trump envoys arrive in Moscow with Ukraine peace proposal", date: "2026-09-05", time: "13:11", url: "https://www.ft.com/content/9ae2c655-bcf7-4ef2-9a9b-0855248d06a0" },
   { id: "c98f4d9b-ec17-4bc0-a137-dbd12a23cba6", title: "Pro-Israel groups fight to help Republicans keep control of Congress", date: "2026-09-05", time: "12:00", url: "https://www.ft.com/content/c98f4d9b-ec17-4bc0-a137-dbd12a23cba6" },
@@ -58,5 +60,4 @@ export const FT_ITEMS = [
   { id: "51270bb6-225c-4270-ae4e-fe063dfd2a33", title: "Russian drone strikes Ukraine's security service headquarters", date: "2026-09-04", time: "16:59", url: "https://www.ft.com/content/51270bb6-225c-4270-ae4e-fe063dfd2a33" },
   { id: "60db19ee-ac1f-4b89-9c82-2212e3402aa3", title: "Labour working", date: "2026-09-04", time: "16:47", url: "https://www.ft.com/content/60db19ee-ac1f-4b89-9c82-2212e3402aa3" },
   { id: "623c286b-c973-4488-83f3-97e9016e85f6", title: "Are credit rating agencies getting fed up with hyperscalers?", date: "2026-09-04", time: "16:06", url: "https://www.ft.com/content/623c286b-c973-4488-83f3-97e9016e85f6" },
-  { id: "f84c4053-3e14-4666-9543-7e958a1dadb2", title: "Venezuela’s jumbo oil deal does little to appease its creditors", date: "2026-09-04", time: "15:13", url: "https://www.ft.com/content/f84c4053-3e14-4666-9543-7e958a1dadb2" },
 ];
