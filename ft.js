@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "47ac914f-ab0e-441b-9152-9ef06dc17741", title: "‘Sowing doubt’: Trump’s attempt to change voting causes chaos for state officials", date: "2026-09-05", time: "14:00", url: "https://www.ft.com/content/47ac914f-ab0e-441b-9152-9ef06dc17741" },
+  { id: "9ae2c655-bcf7-4ef2-9a9b-0855248d06a0", title: "Trump envoys arrive in Moscow with Ukraine peace proposal", date: "2026-09-05", time: "13:11", url: "https://www.ft.com/content/9ae2c655-bcf7-4ef2-9a9b-0855248d06a0" },
   { id: "c98f4d9b-ec17-4bc0-a137-dbd12a23cba6", title: "Pro-Israel groups fight to help Republicans keep control of Congress", date: "2026-09-05", time: "12:00", url: "https://www.ft.com/content/c98f4d9b-ec17-4bc0-a137-dbd12a23cba6" },
   { id: "6e096712-5abe-48c5-8e4d-c0042f947639", title: "Treasury sell-off piles pressure on weakest US borrowers", date: "2026-09-05", time: "12:00", url: "https://www.ft.com/content/6e096712-5abe-48c5-8e4d-c0042f947639" },
   { id: "53751b68-5af6-42ec-9d93-bf3daee6acdd", title: "Masked protesters block Dover port roads", date: "2026-09-05", time: "11:01", url: "https://www.ft.com/content/53751b68-5af6-42ec-9d93-bf3daee6acdd" },
@@ -57,8 +59,4 @@ export const FT_ITEMS = [
   { id: "60db19ee-ac1f-4b89-9c82-2212e3402aa3", title: "Labour working", date: "2026-09-04", time: "16:47", url: "https://www.ft.com/content/60db19ee-ac1f-4b89-9c82-2212e3402aa3" },
   { id: "623c286b-c973-4488-83f3-97e9016e85f6", title: "Are credit rating agencies getting fed up with hyperscalers?", date: "2026-09-04", time: "16:06", url: "https://www.ft.com/content/623c286b-c973-4488-83f3-97e9016e85f6" },
   { id: "f84c4053-3e14-4666-9543-7e958a1dadb2", title: "Venezuela’s jumbo oil deal does little to appease its creditors", date: "2026-09-04", time: "15:13", url: "https://www.ft.com/content/f84c4053-3e14-4666-9543-7e958a1dadb2" },
-  { id: "c1d3bf1b-6a56-4271-ad33-d9279354f083", title: "Pragmatism should define Burnham’s approach to business", date: "2026-09-04", time: "15:00", url: "https://www.ft.com/content/c1d3bf1b-6a56-4271-ad33-d9279354f083" },
-  { id: "546c8b24-a1d6-46f1-a57f-62491c248487", title: "Strong August US payrolls report bolsters odds of September rate rise", date: "2026-09-04", time: "14:29", url: "https://www.ft.com/content/546c8b24-a1d6-46f1-a57f-62491c248487" },
-  { id: "042639e8-89d9-4fe6-9b99-73bf2937a700", title: "The five financing scandals facing Reform", date: "2026-09-04", time: "14:26", url: "https://www.ft.com/content/042639e8-89d9-4fe6-9b99-73bf2937a700" },
-  { id: "a6be8465-63ea-4c5f-8a3e-b46cd5475c7e", title: "Andrew Bailey warns of populist threat to central bank independence", date: "2026-09-04", time: "14:15", url: "https://www.ft.com/content/a6be8465-63ea-4c5f-8a3e-b46cd5475c7e" },
 ];
