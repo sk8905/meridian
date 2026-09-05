@@ -22,6 +22,7 @@ const headerCss = read("header.css");
 const creditCss = read("credit/css/styles.css");
 const legalCss = read("legal/css/styles.css");
 const premiumCss = read("premium.css");
+const dashboardCss = read("dashboard.css");
 const paletteJs = read("palette.js");
 const feedJs = read("feed.js");
 const dashboardApp = read(path.join("v2", "js", "dashboard", "app.js"));
@@ -215,5 +216,24 @@ check(/function viewFund\(id\)\s*\{[^]*?const m = managerById\[x\.managerId\];\s
 // than reading only the local --macro alias.
 check(/\[data-theme="dark"\] \.ew-day strong \{ color: var\(--t-accent, var\(--macro\)\); \}/.test(macroCss),
   "macro/css/styles.css .ew-day dark label reads var(--t-accent, var(--macro)), the canonical R6 token with a local fallback");
+
+// R14a — the phone-only News/Watchlist wire-swap tabs' selected state must use
+// the shared --chip-ul underline (black light / white dark), like every other
+// chip/tab family, not the accent orange (which painted the same colour in
+// both themes since --t-accent doesn't vary by theme).
+check(/\.tui \.g-wiretab\.is-on\{[^}]*box-shadow:inset 0 -2px 0 var\(--chip-ul,\s*#000\)/.test(homeCss),
+  "home.css .g-wiretab.is-on uses the chip-underline var(--chip-ul, #000), not --t-accent");
+check(/\[data-theme="dark"\] \.tui \.g-wiretab\.is-on\{[^}]*box-shadow:inset 0 -2px 0 var\(--chip-ul,\s*#fff\)/.test(homeCss),
+  "home.css has a dark-mode .g-wiretab.is-on override reading var(--chip-ul, #fff)");
+
+// R11 — ticker symbols are mono + tabular-nums, matching every numeric sibling
+// in the same row (Home's earnings-watch row and the Dashboard's earnings/
+// hedge-fund ticker cells had drifted, missing one or both properties).
+check(/\.g-earn-tkr\{[^}]*font-family:var\(--t-mono\)[^}]*font-variant-numeric:tabular-nums/.test(homeCss),
+  "home.css .g-earn-tkr ticker is mono + tabular-nums, matching its row siblings");
+check(/\.dsh-earn-tk \{[^}]*font-variant-numeric:tabular-nums/.test(dashboardCss),
+  "dashboard.css .dsh-earn-tk ticker has tabular-nums, matching its row siblings (.dsh-earn-fct/.dsh-earn-act/.dsh-earn-px)");
+check(/\.dsh-hf-t \{[^}]*font-variant-numeric:tabular-nums/.test(dashboardCss),
+  "dashboard.css .dsh-hf-t hedge-fund ticker has tabular-nums");
 
 finish();

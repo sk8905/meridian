@@ -6,7 +6,7 @@
    colours, fonts or spacing.
 
    STRICT SPEC (dark is the default; light mirrors it via tokens):
-   • Surfaces  ground #000000 · panel/surface #0d0d0d · panel-header #0a0a0a
+   • Surfaces  ground #141414 · panel/surface #141414 · panel-header #111111
    • Ink       primary #eaf0fb · muted #8592ad · faint #5c6a86 · border #262626
    • Accent    #fb8b1e (ONE accent platform-wide; links, active tabs, hovers)
    • Up/Down   green #3fc08d / red #f26d84 (functional only)

@@ -211,7 +211,7 @@
 .dsh-earn-wk:first-child { margin-top:0; }
 .dsh-earn-rel { padding:8px 4px; border-bottom:1px solid var(--t-grid); }
 .dsh-earn-hd { display:flex; align-items:baseline; gap:8px; flex-wrap:wrap; }
-.dsh-earn-tk { font-weight:700; font-family:var(--t-mono); color:var(--t-ink); text-decoration:none; font-size:.9rem; }
+.dsh-earn-tk { font-weight:700; font-family:var(--t-mono); color:var(--t-ink); text-decoration:none; font-size:.9rem; font-variant-numeric:tabular-nums; }
 .dsh-earn-co { color:var(--t-ink); font-weight:600; font-size:.82rem; min-width:0; }
 .dsh-earn-when { color:var(--t-mut); font-size:.64rem; border:1px solid var(--t-grid2); border-radius:4px; padding:0 5px; }
 .dsh-earn-dt { color:var(--t-faint); font-size:.72rem; margin-left:auto; white-space:nowrap; }
@@ -233,7 +233,7 @@
 .dsh-hf-i { padding:7px 0; border-bottom:1px solid var(--t-grid); }
 .dsh-hf-i:last-child { border-bottom:0; }
 .dsh-hf-i-h { display:flex; flex-wrap:wrap; align-items:baseline; gap:6px; margin-bottom:2px; }
-.dsh-hf-t { color:var(--t-ink); font-weight:700; font-family:var(--t-mono); font-size:.8rem; }
+.dsh-hf-t { color:var(--t-ink); font-weight:700; font-family:var(--t-mono); font-size:.8rem; font-variant-numeric:tabular-nums; }
 .dsh-hf-nm { color:var(--t-dim); font-size:.8rem; }
 .dsh-hf-by { color:var(--t-mut); font-size:.72rem; margin-left:auto; }
 .dsh-hf-note { color:var(--t-mut); font-size:.74rem; line-height:1.35; }

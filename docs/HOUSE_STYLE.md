@@ -89,9 +89,9 @@ notification badge red (`#ef4444`).
 
 | Token | Dark | Light | Used for |
 |---|---|---|---|
-| `--t-ground` | `#000000` | `#e7ebf2` | app background |
-| `--t-panel` / `--t-panel2` | `#0d0d0d` / `#191919` | `#ffffff` / `#f3f6fb` | panel surface / hover |
-| `--t-head` | `#0a0a0a` | `#f4f7fb` | header bands, day breaks |
+| `--t-ground` | `#141414` | `#e7ebf2` | app background |
+| `--t-panel` / `--t-panel2` | `#141414` / `#202020` | `#ffffff` / `#f3f6fb` | panel surface / hover |
+| `--t-head` | `#111111` | `#f4f7fb` | header bands, day breaks |
 | `--t-ink` | `#eaf0fb` | `#131b2c` | primary text / values |
 | `--t-dim` / `--t-mut` / `--t-faint` | `#b7c2da` / `#8592ad` / `#5c6a86` | `#3b475f` / `#5e6a84` / `#8b96ac` | secondary → tertiary labels |
 | `--t-accent` | `#fb8b1e` | `#fb8b1e` | active / emphasis only |
