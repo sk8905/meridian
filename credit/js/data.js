@@ -27,7 +27,7 @@ export const LAST_CHECKED = "2026-09-05";
 // label (e.g. "05:22 BST"). Pre-formatted so it renders identically regardless of
 // the viewer's browser timezone. Set every run alongside LAST_CHECKED — there are
 // four runs a day (~05:00, ~12:00, ~17:00 and ~21:00), so the time tells which run is shown.
-export const LAST_CHECKED_TIME = "09:21 BST";
+export const LAST_CHECKED_TIME = "12:16 BST";
 
 export const STRATEGIES = [
   "Senior Direct Lending",
@@ -2513,6 +2513,7 @@ export const HEDGE_INTEL = [
   { id: "hi104", hfId: "h1", date: "2026-07-08", time: "05:18", type: "Personnel", headline: "Bridgewater hires Brevan Howard commodities strategist Kobi Platt", summary: "Bridgewater Associates hired Kobi Platt, a veteran oil-markets investor, as a commodities specialist in its New York office; Platt joins the world's largest hedge fund after serving as head of commodity strategy at Brevan Howard.", outlet: "Hedgeweek", url: "https://www.hedgeweek.com/bridgewater-hires-brevan-howard-commodities-strategist-kobi-platt/" },
   { id: "hi105", hfId: "h17", date: "2026-09-02", time: "09:20", type: "Personnel", headline: "Balyasny hires natural-gas trader Sayan Palchowdhury from DRW", summary: "Balyasny Asset Management hired Sayan Palchowdhury, a natural-gas trader, from proprietary trading firm DRW to its New York office, per Hedgeweek, as hedge funds intensify their search for gas traders ahead of a potentially volatile European winter and tighter supplies widen the opportunity set for energy-focused strategies.", outlet: "Hedgeweek", url: "https://www.hedgeweek.com/hedge-funds-step-up-hiring-of-natural-gas-traders/" },
   { id: "hi106", hfId: "h10", date: "2026-01-14", time: "09:09", type: "Personnel", headline: "Point72 chief strategy officer James Malick departs", summary: "James Malick, chief strategy officer at Steve Cohen's Point72 Asset Management, departed the $41.5bn multistrategy firm, per Hedgeweek. Malick joined Point72 in 2023 from Millennium Management and sat on its senior leadership team, helping evaluate new business opportunities as the firm expanded into private credit (Cohen Private Ventures/Credit), an AI-focused fund (Turion) and a new equities vertical (Valist); he also steps away from his role advising Cohen's New York Mets.", outlet: "Hedgeweek", url: "https://www.hedgeweek.com/point72-chief-strategy-officer-departs-amid-business-expansion/" },
+  { id: "hi107", hfId: "h108", date: "2026-09-04", time: "13:25", type: "Launch", headline: "Coffey's Kirkoswald set to launch new EM credit hedge fund", summary: "Greg Coffey's Kirkoswald Asset Management is preparing a new fund focused on emerging-market credit, per Bloomberg's Nishant Kumar, as the London-based global macro manager capitalises on soaring investor demand for hedge funds.", outlet: "Bloomberg", url: "https://www.bloomberg.com/news/articles/2026-09-04/coffey-s-kirkoswald-set-to-launch-new-em-credit-hedge-fund" },
 ];
 
 // 13F snapshot — the cross-fund read for the Dashboard ▸ Hedge Funds section.

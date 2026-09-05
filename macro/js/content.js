@@ -13,7 +13,7 @@ export const UPDATED = "5 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-05",
-  lastCheckedTime: "09:15 BST",
+  lastCheckedTime: "12:16 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -367,16 +367,16 @@ export const OUTLOOK = {
 //   commentary. Keep each item's real headline + source link; never fabricate —
 //   only add pieces that exist and are dated.
 export const COMMENTARY = {
-  updated: "2026-09-04",
+  updated: "2026-09-05",
   us: [
     { title: "HSBC raises Treasury yield forecasts on more hawkish Fed outlook", source: "Investing.com", author: "HSBC", date: "2026-09-03", url: "https://www.investing.com/news/economy-news/hsbc-raises-treasury-yield-forecasts-on-more-hawkish-fed-outlook-4887479" },
     { title: "Clean sweep or split Congress, these are the trades to make on the midterms outcome, says JPMorgan", source: "MarketWatch", author: "J.P. Morgan", date: "2026-09-03", url: "https://www.marketwatch.com/story/clean-sweep-or-split-congress-these-are-the-trades-to-make-on-the-midterms-outcome-says-jpmorgan-91a1e3ee" },
-    { title: "Barclays predicts two more Fed rate hikes after Warsh speech", source: "CryptoBriefing", author: "Barclays", date: "2026-08-31", url: "https://cryptobriefing.com/barclays-fed-rate-hikes-warsh-speech/" },
+    { title: "Odds of Fed rate hike this year fall as Goldman Sachs warns against hawkish bets", source: "Yahoo Finance", author: "Goldman Sachs \u2014 Jan Hatzius", date: "2026-09-04", url: "https://finance.yahoo.com/economy/policy/articles/odds-fed-rate-hike-fall-083935313.html" },
   ],
   uk: [
     { title: "'Tax hikes on the way': How the global bond rout is boxing in Healey", source: "CityAM", author: "Pantheon Macroeconomics \u2014 Rob Wood & Elliott Jordan-Doak; Capital Economics \u2014 Ruth Gregory", date: "2026-09-02", url: "https://www.cityam.com/large-tax-hikes-on-the-way-how-the-global-bond-rout-is-boxing-in-healey/" },
     { title: "Burnham beware, the bond markets will demand proper answers in the budget", source: "The Guardian", author: "Nils Pratley", date: "2026-09-02", url: "https://www.theguardian.com/business/nils-pratley-on-finance/2026/sep/02/burnham-beware-bond-markets-demand-answers-budget" },
-    { title: "British Pound Forecast: BoE To Hold Despite Rising November Hike Risk", source: "Exchange Rates UK", author: "Pantheon Macroeconomics", date: "2026-08-30", url: "https://www.exchangerates.org.uk/news/47047/2026-08-30-british-pound-forecast-boe-to-hold-despite-rising-november-hike-risk.html" },
+    { title: "UK borrowing costs hit a 28-year high: why Burnham's budget just got harder", source: "Eastern Eye", author: "Deutsche Bank \u2014 Sanjay Raja", date: "2026-09-04", url: "https://www.easterneye.biz/uk-borrowing-costs-burnham-budget/" },
   ],
 };
 
