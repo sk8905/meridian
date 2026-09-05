@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d8fa06e5-5929-47c9-815c-47d2221fc9e9", title: "Trump and Musk Super Pacs boost spending on midterm elections", date: "2026-09-05", time: "18:37", url: "https://www.ft.com/content/d8fa06e5-5929-47c9-815c-47d2221fc9e9" },
   { id: "4826a106-9cd4-45bc-8436-69e2519d0205", title: "Russia-Ukraine peace talks could begin next year, ex-MI6 chief says", date: "2026-09-05", time: "16:50", url: "https://www.ft.com/content/4826a106-9cd4-45bc-8436-69e2519d0205" },
   { id: "7c7c07db-cde5-474d-9a20-8e2c2f273d4e", title: "US strikes three Iranian oil tankers in response to attacks on warships", date: "2026-09-05", time: "16:07", url: "https://www.ft.com/content/7c7c07db-cde5-474d-9a20-8e2c2f273d4e" },
   { id: "82c20c2f-a3d2-45c0-be50-2bed0bfb52b0", title: "Jenrick seeks to get Reform back on track with tax pledge", date: "2026-09-05", time: "15:59", url: "https://www.ft.com/content/82c20c2f-a3d2-45c0-be50-2bed0bfb52b0" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "87a5e3b3-c042-4a49-b225-ec1e2ba2a2ff", title: "Stockpickers: TT Electronics, Grafton, M&G", date: "2026-09-04", time: "18:00", url: "https://www.ft.com/content/87a5e3b3-c042-4a49-b225-ec1e2ba2a2ff" },
   { id: "5fa0b726-e45a-4dbd-86e6-397fdec9d5ca", title: "Directors' Deals: Lloyds' CFO banks £10mn through share sales", date: "2026-09-04", time: "18:00", url: "https://www.ft.com/content/5fa0b726-e45a-4dbd-86e6-397fdec9d5ca" },
   { id: "51270bb6-225c-4270-ae4e-fe063dfd2a33", title: "Russian drone strikes Ukraine's security service headquarters", date: "2026-09-04", time: "16:59", url: "https://www.ft.com/content/51270bb6-225c-4270-ae4e-fe063dfd2a33" },
-  { id: "60db19ee-ac1f-4b89-9c82-2212e3402aa3", title: "Labour working", date: "2026-09-04", time: "16:47", url: "https://www.ft.com/content/60db19ee-ac1f-4b89-9c82-2212e3402aa3" },
 ];
