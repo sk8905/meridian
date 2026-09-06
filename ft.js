@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a69af29e-b2c1-48cf-a6f7-c1f68c141785", title: "Starting gun fired on autumn election campaign season", date: "2026-09-06", time: "18:15", url: "https://www.ft.com/content/a69af29e-b2c1-48cf-a6f7-c1f68c141785" },
   { id: "f244770a-27ba-42b1-8cd5-7631b2c8412b", title: "Police face questions over Dover disruption caused by masked protesters", date: "2026-09-06", time: "17:47", url: "https://www.ft.com/content/f244770a-27ba-42b1-8cd5-7631b2c8412b" },
   { id: "a0229455-1822-4de8-ad2f-7453577d95cd", title: "Far-right AfD surges in German state elections, exit polls show", date: "2026-09-06", time: "17:26", url: "https://www.ft.com/content/a0229455-1822-4de8-ad2f-7453577d95cd" },
   { id: "1e2d9db0-cb2c-4c79-942b-f0aff960e4c5", title: "Trump envoys hold talks with Zelenskyy in Kyiv after meeting Putin in Moscow", date: "2026-09-06", time: "16:06", url: "https://www.ft.com/content/1e2d9db0-cb2c-4c79-942b-f0aff960e4c5" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "9876d74e-ab17-4b15-a129-2de0c030b1b7", title: "The NBA drops the hammer on Steve Ballmer", date: "2026-09-05", time: "09:00", url: "https://www.ft.com/content/9876d74e-ab17-4b15-a129-2de0c030b1b7" },
   { id: "6bde3e74-9a7c-4528-9b9c-42a14eec0414", title: "Jefferies fund caught with $500mn exposure to second alleged invoice fraud", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/6bde3e74-9a7c-4528-9b9c-42a14eec0414" },
   { id: "18639405-0e49-44e5-be69-cd7988cbdf27", title: "Uber picks a side in driver vs robotaxi wars: its own", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/18639405-0e49-44e5-be69-cd7988cbdf27" },
-  { id: "d3f7a1a1-7fc1-4349-a202-a6fee6ef4a5b", title: "The gloves are starting to come off in markets", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/d3f7a1a1-7fc1-4349-a202-a6fee6ef4a5b" },
 ];
