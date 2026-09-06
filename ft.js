@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "1e2d9db0-cb2c-4c79-942b-f0aff960e4c5", title: "Trump envoys expected to arrive in Ukraine after Moscow meeting with Putin", date: "2026-09-06", time: "10:44", url: "https://www.ft.com/content/1e2d9db0-cb2c-4c79-942b-f0aff960e4c5" },
   { id: "c249f75f-a1ed-4174-94f3-320f8e4ef806", title: "German state heads to regional polls in far-right cliffhanger", date: "2026-09-06", time: "09:04", url: "https://www.ft.com/content/c249f75f-a1ed-4174-94f3-320f8e4ef806" },
   { id: "9bcce1fa-997e-49f2-9530-f1255e4cb28b", title: "Donald Trump’s approval rating falls to all-time low in FT poll", date: "2026-09-06", time: "05:01", url: "https://www.ft.com/content/9bcce1fa-997e-49f2-9530-f1255e4cb28b" },
   { id: "a0e69cf2-c3d4-412b-b78b-a6171b7ed020", title: "Insurers pile on risk as payouts fall to lowest level in 20 years", date: "2026-09-06", time: "05:00", url: "https://www.ft.com/content/a0e69cf2-c3d4-412b-b78b-a6171b7ed020" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "b207536e-6def-4080-878f-d0eba61d11e0", title: "US Republicans revolt against Flock AI surveillance as tech backlash intensifies", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/b207536e-6def-4080-878f-d0eba61d11e0" },
   { id: "535b7f38-4528-404c-afad-7aa1cef40918", title: "Meet the office influencers", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/535b7f38-4528-404c-afad-7aa1cef40918" },
   { id: "8a7e8202-d800-4fb1-a8f0-eeb4536578f7", title: "The repo market is the 'dark matter' of finance: powerful and perilous", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/8a7e8202-d800-4fb1-a8f0-eeb4536578f7" },
-  { id: "18900164-fa33-4d6d-a39e-6898043cd62f", title: "EU counterterror envoy urges pressure on social platforms over youth extremism", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/18900164-fa33-4d6d-a39e-6898043cd62f" },
 ];
