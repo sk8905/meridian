@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "87167087-e472-44fe-bfa5-3f13a782e889", title: "Britain is a factory for ideas applied elsewhere", date: "2026-09-06", time: "12:00", url: "https://www.ft.com/content/87167087-e472-44fe-bfa5-3f13a782e889" },
+  { id: "cffea5bc-0255-4029-8e76-0c3671bf4d92", title: "Will US inflation data persuade the Fed to raise rates this month?", date: "2026-09-06", time: "12:00", url: "https://www.ft.com/content/cffea5bc-0255-4029-8e76-0c3671bf4d92" },
+  { id: "eb4c3d77-cb16-4f77-a173-9960481ac716", title: "Nigel Farage urged by Labour to ‘take responsibility’ over TV sting", date: "2026-09-06", time: "11:42", url: "https://www.ft.com/content/eb4c3d77-cb16-4f77-a173-9960481ac716" },
+  { id: "4a751ca7-83ac-4c62-8d3f-3643e74ad92b", title: "Jaguar Land Rover plans up to 4,000 job cuts as Chinese rivals pile on pressure", date: "2026-09-06", time: "11:11", url: "https://www.ft.com/content/4a751ca7-83ac-4c62-8d3f-3643e74ad92b" },
   { id: "1e2d9db0-cb2c-4c79-942b-f0aff960e4c5", title: "Trump envoys expected to arrive in Ukraine after Moscow meeting with Putin", date: "2026-09-06", time: "10:44", url: "https://www.ft.com/content/1e2d9db0-cb2c-4c79-942b-f0aff960e4c5" },
   { id: "c249f75f-a1ed-4174-94f3-320f8e4ef806", title: "German state heads to regional polls in far-right cliffhanger", date: "2026-09-06", time: "09:04", url: "https://www.ft.com/content/c249f75f-a1ed-4174-94f3-320f8e4ef806" },
   { id: "9bcce1fa-997e-49f2-9530-f1255e4cb28b", title: "Donald Trump’s approval rating falls to all-time low in FT poll", date: "2026-09-06", time: "05:01", url: "https://www.ft.com/content/9bcce1fa-997e-49f2-9530-f1255e4cb28b" },
@@ -57,7 +61,4 @@ export const FT_ITEMS = [
   { id: "b190631e-2915-4ce5-827c-df25e50fae52", title: "UK inheritance tax planning: tips to trim your bill", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/b190631e-2915-4ce5-827c-df25e50fae52" },
   { id: "bd134250-00d8-4bfd-bf4b-d32479ac0fed", title: "Rerun or sequel? Naomi Klein and Astra Taylor on end times fascism", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/bd134250-00d8-4bfd-bf4b-d32479ac0fed" },
   { id: "676ae308-3609-4fb8-881f-0e5e3a1af0ca", title: "Q&A: HMRC considers criminalising 'reckless' tax mistakes", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/676ae308-3609-4fb8-881f-0e5e3a1af0ca" },
-  { id: "b207536e-6def-4080-878f-d0eba61d11e0", title: "US Republicans revolt against Flock AI surveillance as tech backlash intensifies", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/b207536e-6def-4080-878f-d0eba61d11e0" },
-  { id: "535b7f38-4528-404c-afad-7aa1cef40918", title: "Meet the office influencers", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/535b7f38-4528-404c-afad-7aa1cef40918" },
-  { id: "8a7e8202-d800-4fb1-a8f0-eeb4536578f7", title: "The repo market is the 'dark matter' of finance: powerful and perilous", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/8a7e8202-d800-4fb1-a8f0-eeb4536578f7" },
 ];
