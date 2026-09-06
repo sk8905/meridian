@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "83e08169-69b5-4997-9bf0-e0622e752eda", title: "Europe failing to deter Russia’s ‘hybrid’ war, warn defence officials", date: "2026-09-06", time: "21:00", url: "https://www.ft.com/content/83e08169-69b5-4997-9bf0-e0622e752eda" },
+  { id: "48e7b92b-affc-4fd0-8de1-ae8765e5c799", title: "Germany’s Merz on the ropes after far right delivers devastating blow", date: "2026-09-06", time: "20:51", url: "https://www.ft.com/content/48e7b92b-affc-4fd0-8de1-ae8765e5c799" },
   { id: "a69af29e-b2c1-48cf-a6f7-c1f68c141785", title: "Starting gun fired on autumn election campaign season", date: "2026-09-06", time: "18:15", url: "https://www.ft.com/content/a69af29e-b2c1-48cf-a6f7-c1f68c141785" },
   { id: "f244770a-27ba-42b1-8cd5-7631b2c8412b", title: "Police face questions over Dover disruption caused by masked protesters", date: "2026-09-06", time: "17:47", url: "https://www.ft.com/content/f244770a-27ba-42b1-8cd5-7631b2c8412b" },
   { id: "a0229455-1822-4de8-ad2f-7453577d95cd", title: "Far-right AfD surges in German state elections, exit polls show", date: "2026-09-06", time: "17:26", url: "https://www.ft.com/content/a0229455-1822-4de8-ad2f-7453577d95cd" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "6e096712-5abe-48c5-8e4d-c0042f947639", title: "Treasury sell-off piles pressure on weakest US borrowers", date: "2026-09-05", time: "12:00", url: "https://www.ft.com/content/6e096712-5abe-48c5-8e4d-c0042f947639" },
   { id: "dd2069b2-9fa0-4b87-95dc-cd7ee75f3096", title: "Europe Express: faces of the ‘new right’", date: "2026-09-05", time: "11:00", url: "https://www.ft.com/content/dd2069b2-9fa0-4b87-95dc-cd7ee75f3096" },
   { id: "9876d74e-ab17-4b15-a129-2de0c030b1b7", title: "The NBA drops the hammer on Steve Ballmer", date: "2026-09-05", time: "09:00", url: "https://www.ft.com/content/9876d74e-ab17-4b15-a129-2de0c030b1b7" },
-  { id: "6bde3e74-9a7c-4528-9b9c-42a14eec0414", title: "Jefferies fund caught with $500mn exposure to second alleged invoice fraud", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/6bde3e74-9a7c-4528-9b9c-42a14eec0414" },
-  { id: "18639405-0e49-44e5-be69-cd7988cbdf27", title: "Uber picks a side in driver vs robotaxi wars: its own", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/18639405-0e49-44e5-be69-cd7988cbdf27" },
 ];
