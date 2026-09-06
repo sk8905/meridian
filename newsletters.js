@@ -38,6 +38,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-guardian-recap-20260906",
+    publication: "The Guardian",
+    author: null,
+    series: "The Recap",
+    title: "Ryan Caldwell’s journey back from the edge and Raygun revisited",
+    date: "2026-09-06",
+    time: "07:06",
+    summary: "The week in sport recapped: England win the Women's Rugby World Cup on home soil, the PGA stays silent on foul-mouthed Ryder Cup chants at McIlroy, and Ben Youngs on family trauma.",
+    url: "https://www.theguardian.com/email-newsletters",
+  },
+  {
     id: "nl-taxpolicy-srapostoffice-20260905",
     publication: "Tax Policy Associates",
     author: "Dan Neidle",
@@ -465,16 +476,5 @@ export const NEWSLETTERS = [
     time: "09:06",
     summary: "Ex-Pogust Goodhead lawyers claim their new firm has won 'unanimous' support to take case forward - a claim Pogust contests.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMQWZFeUtHjv8BToAe/wv",
-  },
-  {
-    id: "nl-nonbillable-bhpcoup-20260902",
-    publication: "Non-Billable",
-    author: null,
-    series: null,
-    title: "A new twist in the £36bn BHP case",
-    date: "2026-09-02",
-    time: "09:05",
-    summary: "Things have taken a dramatic twist in the ongoing £36bn Mariana dam group action against BHP after former Pogust Goodhead partners moved to take control of the case.",
-    url: "https://www.nonbillable.co.uk/news/former-pogust-goodhead-partners-attempt-takeover-bhp-case",
   },
 ];
