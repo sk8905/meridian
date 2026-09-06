@@ -12,8 +12,8 @@ export const UPDATED = "5 September 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-09-05",
-  lastCheckedTime: "21:09 BST",
+  lastChecked: "2026-09-06",
+  lastCheckedTime: "05:19 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -367,11 +367,11 @@ export const OUTLOOK = {
 //   commentary. Keep each item's real headline + source link; never fabricate —
 //   only add pieces that exist and are dated.
 export const COMMENTARY = {
-  updated: "2026-09-05",
+  updated: "2026-09-06",
   us: [
+    { title: "'No Increase in Interest Rates Anytime This Year': JP Morgan vs. Markets Pricing 60% Hike Odds", source: "24/7 Wall St.", author: "J.P. Morgan \u2014 David Kelly", date: "2026-09-04", url: "https://247wallst.com/investing/2026/09/04/no-increase-in-interest-rates-anytime-this-year-jp-morgan-vs-markets-pricing-60-hike-odds/" },
     { title: "HSBC raises Treasury yield forecasts on more hawkish Fed outlook", source: "Investing.com", author: "HSBC", date: "2026-09-03", url: "https://www.investing.com/news/economy-news/hsbc-raises-treasury-yield-forecasts-on-more-hawkish-fed-outlook-4887479" },
     { title: "Clean sweep or split Congress, these are the trades to make on the midterms outcome, says JPMorgan", source: "MarketWatch", author: "J.P. Morgan", date: "2026-09-03", url: "https://www.marketwatch.com/story/clean-sweep-or-split-congress-these-are-the-trades-to-make-on-the-midterms-outcome-says-jpmorgan-91a1e3ee" },
-    { title: "Odds of Fed rate hike this year fall as Goldman Sachs warns against hawkish bets", source: "Yahoo Finance", author: "Goldman Sachs \u2014 Jan Hatzius", date: "2026-09-04", url: "https://finance.yahoo.com/economy/policy/articles/odds-fed-rate-hike-fall-083935313.html" },
   ],
   uk: [
     { title: "'Tax hikes on the way': How the global bond rout is boxing in Healey", source: "CityAM", author: "Pantheon Macroeconomics \u2014 Rob Wood & Elliott Jordan-Doak; Capital Economics \u2014 Ruth Gregory", date: "2026-09-02", url: "https://www.cityam.com/large-tax-hikes-on-the-way-how-the-global-bond-rout-is-boxing-in-healey/" },
@@ -871,20 +871,20 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-09-05",
+  updated: "2026-09-06",
   us: [
+    { title: "'Wow, wow, wow!': CNBC host clearly shocked after US economy adds 162,000 jobs — 3X expectations. Bet on America now", source: "Yahoo Finance", date: "2026-09-05", time: "13:45", url: "https://finance.yahoo.com/economy/articles/wow-wow-wow-cnbc-host-124500252.html" },
     { title: "Trump pushes Fed to cut rates ahead of pivotal September decision", source: "CNBC", date: "2026-09-05", time: "21:09", url: "https://www.cnbc.com/2026/09/05/trump-warsh-fed-september-rate-hike.html" },
     { title: "U.S. attacks 3 Iranian tankers in tit-for-tat response", source: "Axios", date: "2026-09-05", time: "21:09", url: "https://www.axios.com/2026/09/05/us-iran-war-oil-tankers-warships" },
     { title: "Price of diesel hits all-time high as Iran, Ukraine wars constrict global supply", source: "NBC News", date: "2026-09-04", time: "21:09", url: "https://www.nbcnews.com/business/energy/diesel-hits-all-time-high-iran-ukraine-trump-rcna595998" },
-    { title: "Trump Issues Ultimatum to Fed: Cut Rates or Face Trade War With the World", source: "24/7 Wall St.", date: "2026-09-04", time: "21:09", url: "https://247wallst.com/investing/2026/09/04/trump-issues-ultimatum-to-fed-cut-rates-or-face-trade-war-with-the-world/" },
-    { title: "US Dollar Index Price Forecast: Holds steady near 99.00 below key averages before US jobs data", source: "FXStreet", date: "2026-09-04", time: "07:05", url: "https://www.fxstreet.com/news/us-dollar-index-price-forecast-holds-steady-near-9900-below-key-averages-before-us-jobs-data-202609040705" },
+    { title: "Fed's Waller Says September Rate Decision Hinges on August CPI", source: "Bloomberg", date: "2026-09-03", time: "16:10", url: "https://www.bloomberg.com/news/articles/2026-09-03/fed-s-waller-says-september-rate-decision-hinges-on-august-cpi" },
   ],
   uk: [
-    { title: "House price growth remained subdued in August", source: "Nationwide Building Society", date: "2026-09-01", time: "21:09", url: "https://www.nationwide.co.uk/media/hpi/reports/house-price-growth-remained-subdued-in-august" },
-    { title: "Pound Sterling Price News and Forecast: GBP/USD risk aversion takes hold", source: "FXStreet", date: "2026-09-03", time: "11:00", url: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-risk-aversion-takes-hold-202609031100" },
     { title: "BoE's Pill backs rate hike to 4% to limit inflation catch-up effects", source: "FXStreet", date: "2026-09-03", time: "15:44", url: "https://www.fxstreet.com/news/boes-pill-backs-rate-hike-to-4-to-limit-inflation-catch-up-effects-202609031544" },
     { title: "UK Gilts Attract Aviva Investors as Bond Yields Reach Multi-Decade Highs", source: "Bloomberg", date: "2026-09-04", time: "06:00", url: "https://www.bloomberg.com/news/articles/2026-09-04/aviva-investors-boosts-gilts-bet-as-yield-surge-caps-uk-spending" },
     { title: "Healey Should Restore UK Fiscal Buffer, Bloomberg Economics Says", source: "Bloomberg", date: "2026-09-04", time: "06:00", url: "https://www.bloomberg.com/news/articles/2026-09-04/healey-should-restore-uk-fiscal-buffer-bloomberg-economics-says" },
+    { title: "Pound Sterling Price News and Forecast: GBP/USD risk aversion takes hold", source: "FXStreet", date: "2026-09-03", time: "11:00", url: "https://www.fxstreet.com/news/pound-sterling-price-news-and-forecast-gbp-usd-risk-aversion-takes-hold-202609031100" },
+    { title: "Britain's services PMI reaches 4-month high in August", source: "Xinhua", date: "2026-09-04", time: "05:19", url: "https://english.news.cn/europe/20260904/0198482770084ee28528946bd5c840d0/c.html" },
   ],
 };
 
@@ -896,8 +896,9 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-09-05",
+  updated: "2026-09-06",
   items: [
+    {"title": "'Wow, wow, wow!': CNBC host clearly shocked after US economy adds 162,000 jobs — 3X expectations. Bet on America now", "source": "Yahoo Finance", "date": "2026-09-05", "time": "13:45", "url": "https://finance.yahoo.com/economy/articles/wow-wow-wow-cnbc-host-124500252.html", "blurb": "CNBC's Sara Eisen reacted with visible shock live on air as August payrolls came in at 162,000 — triple the ~53-55K consensus — with commentary framing the beat as reason for renewed confidence in the US growth story even as it complicates the Fed's 16 September rate call.", "author": null},
     {"title": "Trump pushes Fed to cut rates ahead of pivotal September decision", "source": "CNBC", "date": "2026-09-05", "time": "21:09", "url": "https://www.cnbc.com/2026/09/05/trump-warsh-fed-september-rate-hike.html", "blurb": "The Trump administration kept up a full-court press on the Fed ahead of the 15-16 September meeting — the president, vice-president, Treasury secretary and a senior economic adviser have all urged the FOMC not to hike, even as markets price roughly 60% odds of a rate rise after Friday's strong jobs report.", "author": null},
     {"title": "U.S. attacks 3 Iranian tankers in tit-for-tat response", "source": "Axios", "date": "2026-09-05", "time": "21:09", "url": "https://www.axios.com/2026/09/05/us-iran-war-oil-tankers-warships", "blurb": "The US military struck three more Iranian tankers over the weekend under its 'tanker for tanker' retaliation policy approved by President Trump, extending the Strait of Hormuz standoff and its oil-driven inflation risk into next week's decisive CPI print.", "author": null},
     {"title": "Price of diesel hits all-time high as Iran, Ukraine wars constrict global supply", "source": "NBC News", "date": "2026-09-04", "time": "21:09", "url": "https://www.nbcnews.com/business/energy/diesel-hits-all-time-high-iran-ukraine-trump-rcna595998", "blurb": "The US average diesel price hit a record $5.85 a gallon Friday — up nearly 60% on a year ago — as the Iran and Ukraine wars knock out refining capacity and disrupt tanker traffic, a fresh transport-cost input to the inflation outlook ahead of the Fed's 16 September decision.", "author": null},
@@ -936,7 +937,6 @@ export const ARTICLES = {
     {"title": "Fed's Waller Says September Rate Decision Hinges on August CPI", "source": "Bloomberg", "date": "2026-09-03", "time": "16:10", "url": "https://www.bloomberg.com/news/articles/2026-09-03/fed-s-waller-says-september-rate-decision-hinges-on-august-cpi", "blurb": "Waller said his call at the 15-16 September FOMC meeting is \"heavily influenced\" by the August CPI report due 11 September, and that he'd back a hike if inflation comes in hot rather than continuing to cool.", "author": null},
     {"title": "Services PMI® at 55.4%; August 2026 ISM® Services PMI® Report", "source": "PR Newswire (ISM)", "date": "2026-09-03", "time": "15:00", "url": "https://www.prnewswire.com/news-releases/services-pmi-at-55-4-august-2026-ism-services-pmi-report-302868046.html", "blurb": "ISM Services PMI jumped 1.3 points to 55.4 in August, well above the 54.3 consensus and marking the 26th straight month of expansion, with prices still elevated.", "author": null},
     {"title": "US Stock Futures Rise as Traders Parse Fedspeak, Earnings", "source": "Bloomberg", "date": "2026-09-03", "time": "13:30", "url": "https://www.bloomberg.com/news/articles/2026-09-03/us-stock-futures-rise-as-traders-parse-fedspeak-earnings", "blurb": "US equity futures edged higher as bond yields stabilised near multi-year highs and investors weighed Governor Waller's remarks alongside Broadcom's post-earnings slide in chip stocks.", "author": null},
-    {"title": "UK Services Activity Expands Modestly in August", "source": "FX.co", "date": "2026-09-03", "time": "09:35", "url": "https://www.fx.co/en/forex-news/3139233", "blurb": "The final S&P Global/CIPS UK Services PMI was revised down to 52.5 from a 52.8 flash but still marked the fastest services growth in four months, with business confidence at its highest since February.", "author": null},
   ],
 };
 
@@ -961,6 +961,8 @@ export const RELEASES = [
   { date: "2026-09-30", country: "US", title: "GDP (Q2 2026, Third Estimate) & Corporate Profits", url: "https://www.bea.gov/news/schedule" },
   { date: "2026-09-30", country: "US", title: "Personal Income and Outlays / PCE inflation (August)", url: "https://www.bea.gov/news/schedule" },
   { date: "2026-10-01", country: "US", title: "ISM Manufacturing PMI (September)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
+  { date: "2026-10-02", country: "US", title: "Employment Situation / Nonfarm payrolls (September)", url: "https://www.bls.gov/schedule/news_release/empsit.htm" },
+  { date: "2026-10-05", country: "US", title: "ISM Services PMI (September)", url: "https://www.ismworld.org/supply-management-news-and-reports/reports/rob-report-calendar/" },
   { date: "2026-10-28", country: "UK", title: "Autumn Budget 2026 (Chancellor John Healey)", url: "https://www.gov.uk/government/publications/chancellor-letter-to-the-treasury-select-committee-tsc-budget-2026-date" },
 ];
 
