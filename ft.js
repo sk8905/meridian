@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "6ea98322-96a3-408a-87e4-eb5e4eb05b52", title: "Pete Hegseth’s Pentagon purge", date: "2026-09-06", time: "14:35", url: "https://www.ft.com/content/6ea98322-96a3-408a-87e4-eb5e4eb05b52" },
+  { id: "1b46baac-10e7-444f-99c5-c661c164b2f1", title: "Lebanon warns of ‘dangerous escalation’ after new Israeli strikes", date: "2026-09-06", time: "14:11", url: "https://www.ft.com/content/1b46baac-10e7-444f-99c5-c661c164b2f1" },
   { id: "cbe3766f-68f1-4167-8cf2-e89cf380ff43", title: "Hostility to Reform UK leaves Farage with a dilemma", date: "2026-09-06", time: "13:04", url: "https://www.ft.com/content/cbe3766f-68f1-4167-8cf2-e89cf380ff43" },
   { id: "9422805f-519c-4b22-839c-cbd7a6464f07", title: "Was Huawei’s rise built on crime? A Brooklyn jury will decide", date: "2026-09-06", time: "13:00", url: "https://www.ft.com/content/9422805f-519c-4b22-839c-cbd7a6464f07" },
   { id: "87167087-e472-44fe-bfa5-3f13a782e889", title: "Britain is a factory for ideas applied elsewhere", date: "2026-09-06", time: "12:00", url: "https://www.ft.com/content/87167087-e472-44fe-bfa5-3f13a782e889" },
@@ -58,5 +60,4 @@ export const FT_ITEMS = [
   { id: "d3f7a1a1-7fc1-4349-a202-a6fee6ef4a5b", title: "The gloves are starting to come off in markets", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/d3f7a1a1-7fc1-4349-a202-a6fee6ef4a5b" },
   { id: "e1afdbf1-eb21-45c0-ad88-1ec0913b1f7c", title: "Is Keynesianism dead?", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/e1afdbf1-eb21-45c0-ad88-1ec0913b1f7c" },
   { id: "1e2ceb39-1e32-41d9-bd49-f3d2c7e0c574", title: "‘What the blazers?’ The long fight over school uniform costs", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/1e2ceb39-1e32-41d9-bd49-f3d2c7e0c574" },
-  { id: "bf518b6c-ca5c-49d3-b16a-4aa5bcf25ed9", title: "Camaraderie and nostalgia: how Germany's far-right AfD is winning the east", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/bf518b6c-ca5c-49d3-b16a-4aa5bcf25ed9" },
 ];
