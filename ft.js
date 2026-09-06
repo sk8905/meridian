@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "cbe3766f-68f1-4167-8cf2-e89cf380ff43", title: "Hostility to Reform UK leaves Farage with a dilemma", date: "2026-09-06", time: "13:04", url: "https://www.ft.com/content/cbe3766f-68f1-4167-8cf2-e89cf380ff43" },
+  { id: "9422805f-519c-4b22-839c-cbd7a6464f07", title: "Was Huawei’s rise built on crime? A Brooklyn jury will decide", date: "2026-09-06", time: "13:00", url: "https://www.ft.com/content/9422805f-519c-4b22-839c-cbd7a6464f07" },
   { id: "87167087-e472-44fe-bfa5-3f13a782e889", title: "Britain is a factory for ideas applied elsewhere", date: "2026-09-06", time: "12:00", url: "https://www.ft.com/content/87167087-e472-44fe-bfa5-3f13a782e889" },
   { id: "cffea5bc-0255-4029-8e76-0c3671bf4d92", title: "Will US inflation data persuade the Fed to raise rates this month?", date: "2026-09-06", time: "12:00", url: "https://www.ft.com/content/cffea5bc-0255-4029-8e76-0c3671bf4d92" },
   { id: "eb4c3d77-cb16-4f77-a173-9960481ac716", title: "Nigel Farage urged by Labour to ‘take responsibility’ over TV sting", date: "2026-09-06", time: "11:42", url: "https://www.ft.com/content/eb4c3d77-cb16-4f77-a173-9960481ac716" },
@@ -57,8 +59,4 @@ export const FT_ITEMS = [
   { id: "e1afdbf1-eb21-45c0-ad88-1ec0913b1f7c", title: "Is Keynesianism dead?", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/e1afdbf1-eb21-45c0-ad88-1ec0913b1f7c" },
   { id: "1e2ceb39-1e32-41d9-bd49-f3d2c7e0c574", title: "‘What the blazers?’ The long fight over school uniform costs", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/1e2ceb39-1e32-41d9-bd49-f3d2c7e0c574" },
   { id: "bf518b6c-ca5c-49d3-b16a-4aa5bcf25ed9", title: "Camaraderie and nostalgia: how Germany's far-right AfD is winning the east", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/bf518b6c-ca5c-49d3-b16a-4aa5bcf25ed9" },
-  { id: "a00520d1-0347-4060-9ac2-09f8a3c5eda0", title: "The prime minister won't cut spending — here's how I'm cutting mine", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/a00520d1-0347-4060-9ac2-09f8a3c5eda0" },
-  { id: "b190631e-2915-4ce5-827c-df25e50fae52", title: "UK inheritance tax planning: tips to trim your bill", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/b190631e-2915-4ce5-827c-df25e50fae52" },
-  { id: "bd134250-00d8-4bfd-bf4b-d32479ac0fed", title: "Rerun or sequel? Naomi Klein and Astra Taylor on end times fascism", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/bd134250-00d8-4bfd-bf4b-d32479ac0fed" },
-  { id: "676ae308-3609-4fb8-881f-0e5e3a1af0ca", title: "Q&A: HMRC considers criminalising 'reckless' tax mistakes", date: "2026-09-05", time: "05:00", url: "https://www.ft.com/content/676ae308-3609-4fb8-881f-0e5e3a1af0ca" },
 ];
