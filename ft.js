@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "cc750a77-fd63-40e9-be6e-99bd7c9a96a5", title: "Africa’s richest man seeks to raise $1.6bn in continent’s biggest IPO", date: "2026-09-07", time: "17:45", url: "https://www.ft.com/content/cc750a77-fd63-40e9-be6e-99bd7c9a96a5" },
+  { id: "4f3566e7-7076-4527-ab8a-5e71416ce5fa", title: "What to do about the UK’s mental health crisis", date: "2026-09-07", time: "17:21", url: "https://www.ft.com/content/4f3566e7-7076-4527-ab8a-5e71416ce5fa" },
   { id: "43efa6c1-6b37-4ddc-9a1d-b085bfbdba06", title: "Billionaire trader Chris Rokos to leave UK for Greece", date: "2026-09-07", time: "17:00", url: "https://www.ft.com/content/43efa6c1-6b37-4ddc-9a1d-b085bfbdba06" },
   { id: "356cf253-7711-4a89-8139-5b0152824975", title: "Belgian-Chinese researcher arrested over suspected theft of chip secrets", date: "2026-09-07", time: "16:55", url: "https://www.ft.com/content/356cf253-7711-4a89-8139-5b0152824975" },
   { id: "c8167dc7-f472-4846-8005-ee18b23736a8", title: "Oil closes in on $100 as renewed supply crunch looms", date: "2026-09-07", time: "16:51", url: "https://www.ft.com/content/c8167dc7-f472-4846-8005-ee18b23736a8" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "f1cd277c-fc9b-454f-8eea-596408ebdd2b", title: "FirstFT: Germany’s far-right AfD surges to first place in state elections", date: "2026-09-07", time: "05:31", url: "https://www.ft.com/content/f1cd277c-fc9b-454f-8eea-596408ebdd2b" },
   { id: "8012b60e-c74e-49bc-9200-d37f13b4a135", title: "China pumps $53bn into banks and insurers", date: "2026-09-07", time: "05:21", url: "https://www.ft.com/content/8012b60e-c74e-49bc-9200-d37f13b4a135" },
   { id: "c8b0fa8c-714d-4563-8f3b-545ad56a5da5", title: "Cape Town has the design talent, it just needs more support", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/c8b0fa8c-714d-4563-8f3b-545ad56a5da5" },
-  { id: "7c0f6eeb-ed05-4bd5-86e7-ff3b1466e196", title: "Narendra Modi fails to dull gold’s lustre in India", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/7c0f6eeb-ed05-4bd5-86e7-ff3b1466e196" },
-  { id: "8827baa7-163d-4122-9ea8-a2c9ff6e8a4d", title: "Why America’s debt binge is starting to matter", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/8827baa7-163d-4122-9ea8-a2c9ff6e8a4d" },
 ];
