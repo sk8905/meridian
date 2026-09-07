@@ -38,6 +38,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-marketsdaily-stocksdefybondslump-20260907",
+    publication: "Bloomberg",
+    author: null,
+    series: "Markets Daily",
+    title: "Markets Daily: Stocks defy bond slump",
+    date: "2026-09-07",
+    time: "10:56",
+    summary: "Plus, Europe hit the most as yields rise.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-07/investors-are-embracing-risk-even-as-global-bond-yields-climb",
+  },
+  {
     id: "nl-nonbillable-hackerscirclebiglaw-20260907",
     publication: "Non-Billable",
     author: null,

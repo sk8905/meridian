@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "da937483-cda9-4417-9257-540c680696c3", title: "High prices at the pump drive home cost concerns in US toss-up district", date: "2026-09-07", time: "11:00", url: "https://www.ft.com/content/da937483-cda9-4417-9257-540c680696c3" },
+  { id: "3edf3717-4737-424c-9162-d330851edcf6", title: "Republicans fear Trump has turned toxic on the campaign trail", date: "2026-09-07", time: "11:00", url: "https://www.ft.com/content/3edf3717-4737-424c-9162-d330851edcf6" },
+  { id: "116cc01f-44b3-41f8-b76c-ae340f38874e", title: "Inside PepsiCo’s battle to remake Gatorade for the Kennedy era", date: "2026-09-07", time: "11:00", url: "https://www.ft.com/content/116cc01f-44b3-41f8-b76c-ae340f38874e" },
+  { id: "1aa587fc-989c-46ea-b140-e59a6ed82ba4", title: "UK seeks to end Northern Ireland budget deadlock", date: "2026-09-07", time: "10:51", url: "https://www.ft.com/content/1aa587fc-989c-46ea-b140-e59a6ed82ba4" },
+  { id: "4826a106-9cd4-45bc-8436-69e2519d0205", title: "Russia-Ukraine peace talks could begin next year, ex-MI6 chief says", date: "2026-09-07", time: "10:41", url: "https://www.ft.com/content/4826a106-9cd4-45bc-8436-69e2519d0205" },
   { id: "15d59180-ea46-4441-9c45-d6be584ae911", title: "Iran to raise petrol prices as US war triggers shortages", date: "2026-09-07", time: "09:34", url: "https://www.ft.com/content/15d59180-ea46-4441-9c45-d6be584ae911" },
   { id: "35b0a1b7-f524-4f49-9e87-ee25d75c8b14", title: "Port demonstrations prompt questions for authorities and government", date: "2026-09-07", time: "09:30", url: "https://www.ft.com/content/35b0a1b7-f524-4f49-9e87-ee25d75c8b14" },
   { id: "4d8d12a0-ed3c-4955-be63-d15225b105b6", title: "John Healey to urge state-owned bodies to boost investment", date: "2026-09-07", time: "08:17", url: "https://www.ft.com/content/4d8d12a0-ed3c-4955-be63-d15225b105b6" },
@@ -56,8 +61,4 @@ export const FT_ITEMS = [
   { id: "1e2d9db0-cb2c-4c79-942b-f0aff960e4c5", title: "Trump envoys hold talks with Zelenskyy in Kyiv after meeting Putin in Moscow", date: "2026-09-06", time: "16:06", url: "https://www.ft.com/content/1e2d9db0-cb2c-4c79-942b-f0aff960e4c5" },
   { id: "6ea98322-96a3-408a-87e4-eb5e4eb05b52", title: "Pete Hegseth’s Pentagon purge", date: "2026-09-06", time: "14:35", url: "https://www.ft.com/content/6ea98322-96a3-408a-87e4-eb5e4eb05b52" },
   { id: "1b46baac-10e7-444f-99c5-c661c164b2f1", title: "Lebanon warns of ‘dangerous escalation’ after Israeli strikes", date: "2026-09-06", time: "14:11", url: "https://www.ft.com/content/1b46baac-10e7-444f-99c5-c661c164b2f1" },
-  { id: "cbe3766f-68f1-4167-8cf2-e89cf380ff43", title: "Hostility to Reform UK leaves Farage with a dilemma", date: "2026-09-06", time: "13:04", url: "https://www.ft.com/content/cbe3766f-68f1-4167-8cf2-e89cf380ff43" },
-  { id: "9422805f-519c-4b22-839c-cbd7a6464f07", title: "Was Huawei’s rise built on crime? A Brooklyn jury will decide", date: "2026-09-06", time: "13:00", url: "https://www.ft.com/content/9422805f-519c-4b22-839c-cbd7a6464f07" },
-  { id: "87167087-e472-44fe-bfa5-3f13a782e889", title: "Britain is a factory for ideas applied elsewhere", date: "2026-09-06", time: "12:00", url: "https://www.ft.com/content/87167087-e472-44fe-bfa5-3f13a782e889" },
-  { id: "cffea5bc-0255-4029-8e76-0c3671bf4d92", title: "Will US inflation data persuade the Fed to raise rates this month?", date: "2026-09-06", time: "12:00", url: "https://www.ft.com/content/cffea5bc-0255-4029-8e76-0c3671bf4d92" },
 ];
