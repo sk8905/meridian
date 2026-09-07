@@ -424,13 +424,16 @@
 .pf-back { display: inline-flex; align-items: center; gap: 6px; background: transparent; border: 1px solid var(--border); color: var(--ink); font-family: var(--t-mono); font-size: 11px; letter-spacing: .03em; padding: 5px 12px; cursor: pointer; border-radius: 0; }
 .pf-back:hover { border-color: var(--accent); color: var(--accent); }
 
+/* ---- AUM focus bar — ONE control, ONE place, everywhere ---------------------
+   The $1–15bn AUM focus toggle always sits in this slim right-aligned bar
+   directly under the tab row: "AUM focus  $1–15bn". Used identically on the
+   Profiles Managers & Hedge Funds panes and the Transactions tab so the control
+   reads and looks the same across the app. */
+.aum-focus { display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding: 4px 11px; background: var(--head); border-bottom: 1px solid var(--border); flex: 0 0 auto; }
+.aum-focus-l { font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; color: var(--faint); }
+.aum-focus .tfocus-btn { margin-left: 0; }
+
 /* ---- Transactions tab (deal flow by transaction type) — Profiles furniture --- */
-/* Slim toolbar under the period chips holding the $1–15bn AUM focus toggle (the
-   period chips fill the header full-width, so the focus control gets its own
-   right-aligned bar). Matches the league toggle used on the Profiles panes. */
-.tx-tools { display: flex; align-items: center; justify-content: flex-end; gap: 8px; padding: 4px 11px; background: var(--head); border-bottom: 1px solid var(--border); flex: 0 0 auto; }
-.tx-tools-l { font-size: 9.5px; font-weight: 600; text-transform: uppercase; letter-spacing: .03em; color: var(--faint); }
-.tx-tools .tfocus-btn { margin-left: 0; }
 .tx-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
 .tx-tbl .tl-nm, .tx-tbl .tx-tnm { max-width: none; color: var(--ink); font-weight: 600; }
 .tx-tbl .tx-top { color: var(--muted); font-weight: 400; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }

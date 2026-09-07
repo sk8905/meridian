@@ -23,13 +23,17 @@ await tapAt(tb.x, tb.y);
 await pg.waitForTimeout(1500);
 checkEq(await pg.evaluate(() => document.documentElement.dataset.v2tab), "profiles", "Profiles tab is active after tapping it");
 
-// The Managers / Hedge Funds AUM "target focus" toggle band is $1–15bn.
+// The AUM focus control is the SAME everywhere: an "AUM focus" label + a
+// "$1–15bn" button, sitting in its own .aum-focus bar at the top of the pane
+// (identical to the Transactions tab), not inline in the search row.
 const focusLbl = await pg.evaluate(() => {
-  const hf = document.querySelector("#cr-hf-focus"); const lg = document.querySelector("#cr-lg-focus");
-  return { hf: hf ? hf.textContent.trim() : "(missing)", lg: lg ? lg.textContent.trim() : "(missing)" };
+  const read = (id) => { const btn = document.querySelector(id); if (!btn) return { btn: "(missing)" }; const bar = btn.closest(".aum-focus"); return { btn: btn.textContent.trim(), inBar: !!bar, label: bar ? (bar.querySelector(".aum-focus-l") || {}).textContent : "", inSearch: !!btn.closest(".thead-search") }; };
+  return { lg: read("#cr-lg-focus"), hf: read("#cr-hf-focus") };
 });
-checkEq(focusLbl.lg, "$1–15bn", "managers AUM focus toggle reads $1–15bn");
-checkEq(focusLbl.hf, "$1–15bn", "hedge-funds AUM focus toggle reads $1–15bn");
+checkEq(focusLbl.lg.btn, "$1–15bn", "managers AUM focus toggle reads $1–15bn");
+checkEq(focusLbl.hf.btn, "$1–15bn", "hedge-funds AUM focus toggle reads $1–15bn");
+check(focusLbl.lg.inBar && focusLbl.lg.label === "AUM focus" && !focusLbl.lg.inSearch, "Managers: the $1–15bn toggle sits in the shared 'AUM focus' bar, not the search row");
+check(focusLbl.hf.inBar && focusLbl.hf.label === "AUM focus" && !focusLbl.hf.inSearch, "Hedge Funds: the $1–15bn toggle sits in the shared 'AUM focus' bar, not the search row");
 
 // The Managers / Hedge Funds / Law firms chips carry the active-tab underline
 // like the Dashboard/Transactions bars — the chip's marker sits in the header's

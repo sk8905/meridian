@@ -104,13 +104,18 @@ const totOff = await pg.evaluate(() => parseInt(((document.querySelector(".tx-to
 const foc = await pg.evaluate(() => {
   const btn = document.querySelector("#tx-focus"); if (!btn) return { present: false };
   btn.click();
+  const bar = btn.closest(".aum-focus");
   return {
     present: true,
     on: btn.getAttribute("aria-pressed") === "true" && btn.classList.contains("is-on"),
+    label: btn.textContent.trim(),
+    inBar: !!bar, barLabel: bar ? (bar.querySelector(".aum-focus-l") || {}).textContent : "",
     tot: parseInt(((document.querySelector(".tx-tot .tl-n") || {}).textContent || "0"), 10),
   };
 });
 check(foc.present && foc.on, "Transactions: a $1–15bn AUM focus toggle is present and turns on (active state marks the filter)");
+// The SAME control as the Profiles panes: an "AUM focus" label + "$1–15bn" button in a .aum-focus bar.
+check(foc.label === "$1–15bn" && foc.inBar && foc.barLabel === "AUM focus", `Transactions: the AUM focus control matches the Profiles panes ("AUM focus" · "${foc.label}")`);
 check(foc.tot > 0 && foc.tot <= totOff, `Transactions: the focus narrows the deal universe to the target band (${foc.tot} ≤ ${totOff})`);
 // with the focus on, every deal listed under a type is by an in-band manager
 const inband = await pg.evaluate(async () => {
