@@ -42,9 +42,14 @@ const ov = await pg.evaluate(() => ({
   // Every league row is the SAME height (matches the Profiles panes — single-line
   // rows are normalised up to the chip-row height), so the vertical rhythm is even.
   rowHs: [...new Set([...document.querySelectorAll(".tx-tbl tbody tr.clickable")].map((tr) => Math.round(tr.getBoundingClientRect().height)))],
+  // Type names render at the same weight as the Profiles league names (regular),
+  // not bold — one type scale across the two tabs.
+  nameFW: (() => { const e = document.querySelector(".tx-tbl tbody tr .tx-tnm"); return e ? getComputedStyle(e).fontWeight : ""; })(),
+  nameFS: (() => { const e = document.querySelector(".tx-tbl tbody tr .tx-tnm"); return e ? getComputedStyle(e).fontSize : ""; })(),
 }));
 check(ov.rows >= 6, `overview lists the transaction types as a league table (${ov.rows})`);
 check(ov.rowHs.length === 1, `overview rows share one uniform height, matching the Profiles league (${ov.rowHs.join(", ")}px)`);
+check(ov.nameFS === "11px" && (ov.nameFW === "400" || ov.nameFW === "normal"), `type names match the Profiles league type (11px regular, got ${ov.nameFS}/${ov.nameFW})`);
 check(ov.hasTotal, "overview carries an 'All types' total row");
 check(ov.hasTrend && ov.hasVol, "overview shows a 12mo-vs-prior momentum mark and a ≈USD volume per type");
 check(ov.chips.join(",") === "Last 12 months,All time", `period chips present (${ov.chips.join(",")})`);

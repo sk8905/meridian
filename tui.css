@@ -445,7 +445,9 @@
 
 /* ---- Transactions tab (deal flow by transaction type) — Profiles furniture --- */
 .tx-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
-.tx-tbl .tl-nm, .tx-tbl .tx-tnm { max-width: none; color: var(--ink); font-weight: 600; }
+.tx-tbl .tl-nm, .tx-tbl .tx-tnm { max-width: none; color: var(--ink); }
+.tx-tbl .tl-nm { font-weight: 600; }        /* the "All types" total row stays emphasised */
+.tx-tbl .tx-tnm { font-weight: 400; }       /* type names render regular, matching the Profiles league names */
 .tx-tbl .tx-top { color: var(--muted); font-weight: 400; max-width: 160px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tx-tbl td.tx-trend { white-space: nowrap; } .tx-vs { color: var(--faint); }
 .tx-up { color: var(--t-up, #3fc08d); } .tx-dn { color: var(--t-down, #f26d84); } .tx-fl { color: var(--faint); }
