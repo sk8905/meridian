@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8ddd3668-5858-45c3-b34f-a6bafc678187", title: "Law schools tell students to put AI away", date: "2026-09-07", time: "15:37", url: "https://www.ft.com/content/8ddd3668-5858-45c3-b34f-a6bafc678187" },
+  { id: "380e0539-c591-4b51-bfa1-91079b18de3a", title: "And the FTAV charts quiz winner is…", date: "2026-09-07", time: "15:22", url: "https://www.ft.com/content/380e0539-c591-4b51-bfa1-91079b18de3a" },
   { id: "6b9afdfb-26f5-4746-8ff9-027a8d04cb1f", title: "Submit your questions: is Trump losing his touch?", date: "2026-09-07", time: "15:04", url: "https://www.ft.com/content/6b9afdfb-26f5-4746-8ff9-027a8d04cb1f" },
   { id: "8c5c7c44-c9fd-4326-b09a-9f58e3f144b9", title: "‘Chimerica’ is now a chimera — and global stability is the victim", date: "2026-09-07", time: "14:00", url: "https://www.ft.com/content/8c5c7c44-c9fd-4326-b09a-9f58e3f144b9" },
   { id: "c6aeaefc-c978-4b0a-8a25-0e336e1872a6", title: "Volkswagen strikes deal to shift plant from cars to air defence", date: "2026-09-07", time: "13:30", url: "https://www.ft.com/content/c6aeaefc-c978-4b0a-8a25-0e336e1872a6" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "e8eb7c0f-a50e-4c77-b7f0-dfe4cb11dac9", title: "Bonds have become bonds again", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/e8eb7c0f-a50e-4c77-b7f0-dfe4cb11dac9" },
   { id: "4d52d097-a4f0-423e-a483-1dfe60fa6ff3", title: "Concerns raised over ‘tick-box’ staff training as UK employers choose short online courses", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/4d52d097-a4f0-423e-a483-1dfe60fa6ff3" },
   { id: "3fd1541c-7e1f-44c0-bd10-0d94174e5c0a", title: "Trump is putting European security in peril", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/3fd1541c-7e1f-44c0-bd10-0d94174e5c0a" },
-  { id: "b2d744cf-de2c-4ef1-84ca-41e897463484", title: "Sweden’s fightback against the gangs", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/b2d744cf-de2c-4ef1-84ca-41e897463484" },
 ];
