@@ -38,6 +38,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-nonbillable-hackerscirclebiglaw-20260907",
+    publication: "Non-Billable",
+    author: null,
+    series: null,
+    title: "Hackers circle Big Law",
+    date: "2026-09-07",
+    time: "09:05",
+    summary: "15% of lawyers at large firms now say they're dependent on AI to do their job, plus Holland & Knight, Greenberg Traurig and Katten confirm fresh cyber incidents in Big Law's ransomware wave.",
+    url: "https://non-billable.beehiiv.com/p/hackers-circle-big-law",
+  },
+  {
     id: "nl-bizpost-oflynnballincollig-20260907",
     publication: "Business Post",
     author: null,
@@ -465,27 +476,5 @@ export const NEWSLETTERS = [
     time: "12:21",
     summary: "Ben Atlas, who left billionaire Michael Platt's private investment firm BlueCrest last year, is joining ExodusPoint Capital Management to run a new trading team with more than $1 billion in initial allocation.",
     url: "https://www.bloomberg.com/news/articles/2026-09-02/ex-bluecrest-trader-to-run-1-billion-macro-pod-at-exoduspoint",
-  },
-  {
-    id: "nl-bbg-goingprivate-extremeheat-20260902",
-    publication: "Bloomberg",
-    author: "Sinead Cruise",
-    series: "Going Private",
-    title: "Going Private: Extreme heat forces climate risk reckoning",
-    date: "2026-09-02",
-    time: "11:07",
-    summary: "Climate adaptation emerges as next frontier for private markets players.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-02/extreme-heat-forces-climate-risk-reckoning-for-private-market-players",
-  },
-  {
-    id: "nl-bbg-marketsdaily-priceofthepump-20260902",
-    publication: "Bloomberg",
-    author: null,
-    series: "Markets Daily",
-    title: "Markets Daily: The price of the pump",
-    date: "2026-09-02",
-    time: "10:12",
-    summary: "It's all revolving around oil.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-02/wall-street-s-direction-is-being-dictated-by-oil",
   },
 ];
