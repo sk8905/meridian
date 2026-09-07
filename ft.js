@@ -20,9 +20,14 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "43efa6c1-6b37-4ddc-9a1d-b085bfbdba06", title: "Billionaire trader Chris Rokos to leave UK for Greece", date: "2026-09-07", time: "17:00", url: "https://www.ft.com/content/43efa6c1-6b37-4ddc-9a1d-b085bfbdba06" },
+  { id: "356cf253-7711-4a89-8139-5b0152824975", title: "Belgian-Chinese researcher arrested over suspected theft of chip secrets", date: "2026-09-07", time: "16:55", url: "https://www.ft.com/content/356cf253-7711-4a89-8139-5b0152824975" },
+  { id: "c8167dc7-f472-4846-8005-ee18b23736a8", title: "Oil closes in on $100 as renewed supply crunch looms", date: "2026-09-07", time: "16:51", url: "https://www.ft.com/content/c8167dc7-f472-4846-8005-ee18b23736a8" },
+  { id: "4275e189-997c-43f0-b702-d3447c9e81ec", title: "What next for Alternative for Germany after its victory in Saxony-Anhalt?", date: "2026-09-07", time: "16:35", url: "https://www.ft.com/content/4275e189-997c-43f0-b702-d3447c9e81ec" },
   { id: "8ddd3668-5858-45c3-b34f-a6bafc678187", title: "Law schools tell students to put AI away", date: "2026-09-07", time: "15:37", url: "https://www.ft.com/content/8ddd3668-5858-45c3-b34f-a6bafc678187" },
   { id: "380e0539-c591-4b51-bfa1-91079b18de3a", title: "And the FTAV charts quiz winner is…", date: "2026-09-07", time: "15:22", url: "https://www.ft.com/content/380e0539-c591-4b51-bfa1-91079b18de3a" },
   { id: "6b9afdfb-26f5-4746-8ff9-027a8d04cb1f", title: "Submit your questions: is Trump losing his touch?", date: "2026-09-07", time: "15:04", url: "https://www.ft.com/content/6b9afdfb-26f5-4746-8ff9-027a8d04cb1f" },
+  { id: "4d8d12a0-ed3c-4955-be63-d15225b105b6", title: "UK must ‘be honest’ about need to control spending, says chancellor", date: "2026-09-07", time: "14:40", url: "https://www.ft.com/content/4d8d12a0-ed3c-4955-be63-d15225b105b6" },
   { id: "8c5c7c44-c9fd-4326-b09a-9f58e3f144b9", title: "‘Chimerica’ is now a chimera — and global stability is the victim", date: "2026-09-07", time: "14:00", url: "https://www.ft.com/content/8c5c7c44-c9fd-4326-b09a-9f58e3f144b9" },
   { id: "c6aeaefc-c978-4b0a-8a25-0e336e1872a6", title: "Volkswagen strikes deal to shift plant from cars to air defence", date: "2026-09-07", time: "13:30", url: "https://www.ft.com/content/c6aeaefc-c978-4b0a-8a25-0e336e1872a6" },
   { id: "c703f1af-f8a6-43c0-94fb-04637259c295", title: "Vox rides high in Spain over Ceuta migrant crisis", date: "2026-09-07", time: "13:16", url: "https://www.ft.com/content/c703f1af-f8a6-43c0-94fb-04637259c295" },
@@ -44,7 +49,6 @@ export const FT_ITEMS = [
   { id: "4826a106-9cd4-45bc-8436-69e2519d0205", title: "Russia-Ukraine peace talks could begin next year, ex-MI6 chief says", date: "2026-09-07", time: "10:41", url: "https://www.ft.com/content/4826a106-9cd4-45bc-8436-69e2519d0205" },
   { id: "15d59180-ea46-4441-9c45-d6be584ae911", title: "Iran to raise petrol prices as US war triggers shortages", date: "2026-09-07", time: "09:34", url: "https://www.ft.com/content/15d59180-ea46-4441-9c45-d6be584ae911" },
   { id: "35b0a1b7-f524-4f49-9e87-ee25d75c8b14", title: "Port demonstrations prompt questions for authorities and government", date: "2026-09-07", time: "09:30", url: "https://www.ft.com/content/35b0a1b7-f524-4f49-9e87-ee25d75c8b14" },
-  { id: "4d8d12a0-ed3c-4955-be63-d15225b105b6", title: "John Healey to urge state-owned bodies to boost investment", date: "2026-09-07", time: "08:17", url: "https://www.ft.com/content/4d8d12a0-ed3c-4955-be63-d15225b105b6" },
   { id: "b122bc9f-9f51-46b8-9f42-dba9fb29244c", title: "Everything is awesome", date: "2026-09-07", time: "06:30", url: "https://www.ft.com/content/b122bc9f-9f51-46b8-9f42-dba9fb29244c" },
   { id: "96e09c24-9587-41fc-9824-fb751f61be40", title: "FTAV’s further reading", date: "2026-09-07", time: "06:30", url: "https://www.ft.com/content/96e09c24-9587-41fc-9824-fb751f61be40" },
   { id: "f8e97cdb-6edb-4cb1-ae38-b3c0ceeba485", title: "EU to table ‘Buy European’ public procurement rules to push out China", date: "2026-09-07", time: "06:00", url: "https://www.ft.com/content/f8e97cdb-6edb-4cb1-ae38-b3c0ceeba485" },
@@ -55,10 +59,5 @@ export const FT_ITEMS = [
   { id: "8012b60e-c74e-49bc-9200-d37f13b4a135", title: "China pumps $53bn into banks and insurers", date: "2026-09-07", time: "05:21", url: "https://www.ft.com/content/8012b60e-c74e-49bc-9200-d37f13b4a135" },
   { id: "c8b0fa8c-714d-4563-8f3b-545ad56a5da5", title: "Cape Town has the design talent, it just needs more support", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/c8b0fa8c-714d-4563-8f3b-545ad56a5da5" },
   { id: "7c0f6eeb-ed05-4bd5-86e7-ff3b1466e196", title: "Narendra Modi fails to dull gold’s lustre in India", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/7c0f6eeb-ed05-4bd5-86e7-ff3b1466e196" },
-  { id: "85960069-75fb-4997-9ff7-9b641ec997cd", title: "Venezuela-US oil deal risks violating local law, say experts", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/85960069-75fb-4997-9ff7-9b641ec997cd" },
   { id: "8827baa7-163d-4122-9ea8-a2c9ff6e8a4d", title: "Why America’s debt binge is starting to matter", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/8827baa7-163d-4122-9ea8-a2c9ff6e8a4d" },
-  { id: "99df992e-0c74-41da-a65a-edd895ebc2c3", title: "How Canadian companies are navigating Trump’s tariffs", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/99df992e-0c74-41da-a65a-edd895ebc2c3" },
-  { id: "e8eb7c0f-a50e-4c77-b7f0-dfe4cb11dac9", title: "Bonds have become bonds again", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/e8eb7c0f-a50e-4c77-b7f0-dfe4cb11dac9" },
-  { id: "4d52d097-a4f0-423e-a483-1dfe60fa6ff3", title: "Concerns raised over ‘tick-box’ staff training as UK employers choose short online courses", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/4d52d097-a4f0-423e-a483-1dfe60fa6ff3" },
-  { id: "3fd1541c-7e1f-44c0-bd10-0d94174e5c0a", title: "Trump is putting European security in peril", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/3fd1541c-7e1f-44c0-bd10-0d94174e5c0a" },
 ];
