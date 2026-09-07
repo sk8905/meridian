@@ -67,10 +67,16 @@ for (const key of ["equities", "fixed-income", "hedge-funds", "legal"]) {
     pageScroll: document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight,
     solo: !!document.querySelector(".dsh-term-solo"),
     ws: !!document.querySelector(".dsh-term-ws"),
+    lbls: document.querySelectorAll(".dsh-term-ws .dsh-term-lbl").length,
+    hSize: (() => { const h = document.querySelector(".dsh-term .dsh-h"); return h ? getComputedStyle(h).fontSize : ""; })(),
   }));
   check(p.isTerm && p.dshFlex === "flex", `${key}: pane is a fixed-viewport terminal`);
   check(p.pageScroll <= 4, `${key}: the page itself doesn't scroll (overflow ${p.pageScroll}px)`);
   check(key === "legal" ? p.solo : p.ws, `${key}: uses the ${key === "legal" ? "solo full-height panel" : "column workspace"}`);
+  // Every column workspace carries per-column labels (Macro-style), and panel
+  // headers sit on the 12px terminal scale (HOUSE_STYLE R11), not the prose scale.
+  if (key !== "legal") check(p.lbls >= 3, `${key}: the workspace columns are labelled (${p.lbls})`);
+  check(p.hSize === "12px", `${key}: panel headers use the 12px terminal scale (got ${p.hSize})`);
 }
 checkErrs(errs, "dashboard terminal all panes");
 

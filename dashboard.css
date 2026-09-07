@@ -61,7 +61,7 @@
     overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
   .dsh-term-col > .dsh-card{ flex:0 0 auto; }
   /* Per-column label above each pane's cards (Macro: Policy rates · Cycle · Wire). */
-  .dsh-term-lbl{ flex:0 0 auto; margin:0; font-size:.7rem; font-weight:700; letter-spacing:.06em;
+  .dsh-term-lbl{ flex:0 0 auto; margin:0; font-size:10px; font-weight:700; letter-spacing:.06em;
     text-transform:uppercase; color:var(--t-mut); padding-bottom:2px; }
   /* Stack the Fed/BoE FedWatch|dot-plot internals in a terminal column so they
      read cleanly at column width instead of cramping side by side. */
@@ -83,8 +83,11 @@
 }
 
 .dsh-card { background:var(--t-panel); border:1px solid var(--t-grid); border-radius:8px; padding:12px; }
-.dsh-h { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:0 0 10px; font-size:var(--fs-card-title,1.05rem); font-weight:600; color:var(--t-ink); }
-.dsh-h .dsh-n { color:var(--t-mut); font-weight:400; font-size:.8rem; }
+/* Panel header on the terminal scale (HOUSE_STYLE R11 — 12px panel headers),
+   matching .tpanel-h across Home / Profiles / Transactions rather than the
+   larger prose --fs-card-title. */
+.dsh-h { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:0 0 10px; font-size:12px; font-weight:600; color:var(--t-ink); }
+.dsh-h .dsh-n { color:var(--t-mut); font-weight:400; font-size:10px; }
 .dsh-asof { margin-left:auto; color:var(--t-faint); font-size:.72rem; font-weight:400; }
 .dsh-src { color:var(--t-mut); text-decoration:none; font-size:.62rem; text-transform:uppercase; letter-spacing:.03em; border:1px solid var(--t-grid2); border-radius:3px; padding:0 3px; vertical-align:middle; }
 .dsh-src:hover { color:var(--t-ink); border-color:var(--t-mut); }
@@ -284,7 +287,10 @@
 /* Regime pills: title on the LEFT (dark ink), value on the RIGHT (muted grey). */
 .dsh-pill { display:flex; flex-direction:row; align-items:baseline; justify-content:space-between; gap:10px; flex:1 1 160px; min-width:0; padding:8px 11px; border:1px solid var(--t-grid2); border-radius:7px; background:var(--t-panel2); }
 .dsh-pill-k { color:var(--t-ink); font-size:.61rem; font-weight:600; text-transform:uppercase; letter-spacing:.05em; flex:0 0 auto; }
-.dsh-pill-v { color:var(--t-mut); font-size:.72rem; font-weight:500; line-height:1.25; text-align:right; flex:1 1 auto; min-width:0; }
+.dsh-pill-v { color:var(--t-mut); font-size:.72rem; font-weight:500; line-height:1.25; text-align:right; flex:1 1 auto; min-width:0; font-variant-numeric:tabular-nums; }
+.dsh-pill-v .dsh-pill-up, .dsh-pill-v.dsh-pill-up { color:var(--t-up); }
+.dsh-pill-v .dsh-pill-dn, .dsh-pill-v.dsh-pill-dn { color:var(--t-down); }
+.dsh-pill-win { color:var(--t-faint); font-size:.58rem; font-weight:600; text-transform:uppercase; letter-spacing:.03em; }
 
 /* Rate-outlook grid (Macro) — one card per economy, stacked vertically so the
    Rate-outlook card fills the height of the taller Yield-curve card beside it. */

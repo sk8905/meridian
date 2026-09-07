@@ -9,7 +9,10 @@ const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v
 await pg.waitForTimeout(1500);
 
 const pc = await pg.evaluate(() => {
-  const card = [...document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-card')].find((c) => /private credit/i.test(c.textContent));
+  // The Private credit DETAIL card (with the sourced metric grid) — identified by
+  // its panel header, so the terminal's top pulse-strip card (whose pills also say
+  // "Private credit default rate") isn't matched instead.
+  const card = [...document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-card')].find((c) => { const h = c.querySelector(".dsh-h"); return h && /private credit/i.test(h.textContent); });
   if (!card) return null;
   const rows = [...card.querySelectorAll(".dsh-kv")];
   return {

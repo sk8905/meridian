@@ -150,12 +150,12 @@ export function mount(host, ctx) {
   // Key moments — a plain-language "why it moved" line for each index that carries
   // a sourced explanation (EQ_INDICES[].keyMoment). Grounded only: an index with no
   // sourced move renders nothing, and the whole card is omitted if none qualify.
-  function keyMomentsHTML() {
+  function keyMomentsBody() {
     const items = EQ_INDICES.filter((x) => x.keyMoment && x.keyMoment.text);
     if (!items.length) return "";
     const row = (x) => `<div class="dsh-km"><span class="dsh-km-t">${esc(x.name)}</span>`
       + `<span class="dsh-km-x">${esc(x.keyMoment.text)}${srcLink(x.keyMoment.src, (x.keyMoment.srcName || "source") + " — source")}</span></div>`;
-    return `<section class="dsh-card dsh-span"><h3 class="dsh-h">Key moments <span class="dsh-n">why it moved</span></h3>${items.map(row).join("")}</section>`;
+    return items.map(row).join("");
   }
   // ETF flows heatmap — net fund flows across the Top Movers cross-asset ETF set
   // across windows (SECTOR_FLOWS, allocations.js). Diverging colour normalised
@@ -231,23 +231,43 @@ export function mount(host, ctx) {
       box.innerHTML = worldIndicesHeatHTML(live);
     } catch { /* keep the sourced snapshot */ }
   }
+  // A compact "market tape" strip (major indices + VIX) for the top of a
+  // terminal pane — the equities analogue of the Macro regime-pills strip.
+  function eqTapeHTML() {
+    const majors = ["S&P 500", "Nasdaq Composite", "Dow Jones", "FTSE 100", "Nikkei 225"];
+    const flat = (WORLD_INDICES.regions || []).flatMap((g) => g.rows || []);
+    const pick = majors.map((nm) => flat.find((r) => r.name === nm)).filter(Boolean);
+    // ONE consistent window (1-month) so the tape never mixes horizons; where a
+    // 1M change is missing (e.g. Dow), show the level alone rather than borrow a
+    // longer window and read as a same-scale move.
+    const tape = (r) => { const v = r.m1, cls = v == null ? "" : (v >= 0 ? "dsh-pill-up" : "dsh-pill-dn"),
+      lv = r.level != null ? Number(r.level).toLocaleString("en-GB", { maximumFractionDigits: 0 }) : "";
+      const chg = v == null ? "" : ` <span class="${cls}">${pct1(v)}</span> <span class="dsh-pill-win">1M</span>`;
+      return `<span class="dsh-pill"><span class="dsh-pill-k">${esc(r.name)}</span><span class="dsh-pill-v">${lv}${chg}</span></span>`; };
+    const vix = EQ_VOL.find((v) => /vix/i.test(v.name));
+    return `<div class="dsh-pills">${pick.map(tape).join("")}${vix ? `<span class="dsh-pill"><span class="dsh-pill-k">${esc(vix.name)}</span><span class="dsh-pill-v">${vix.level != null ? vix.level.toFixed(1) : "—"}</span></span>` : ""}</div>`;
+  }
   function equitiesHTML() {
-    // Terminal (option 4): Key moments strip, then a three-column workspace that
-    // fills the viewport — each column scrolls internally, minimal page scroll.
+    // Terminal: a compact market-tape strip spans the top, then three LABELLED
+    // columns fill the viewport (each scrolls internally) — mirroring the Macro
+    // pane and the Home terminal (regime strip + Policy/Cycle/Wire columns).
+    const km = keyMomentsBody();
     return `<div class="dsh-pane dsh-term">
-      <div class="dsh-span dsh-term-top">
-        ${keyMomentsHTML()}
-        <section class="dsh-card"><h3 class="dsh-h">S&amp;P 500 sectors — YTD ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
-      </div>
+      <section class="dsh-card dsh-span">${eqTapeHTML()}</section>
       <div class="dsh-term-ws">
         <div class="dsh-term-col">
-          <section class="dsh-card"><h3 class="dsh-h">World indices — major benchmarks by jurisdiction <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-wi-box">${worldIndicesHeatHTML()}</div></section>
+          <h3 class="dsh-term-lbl">Indices &amp; movers</h3>
+          <section class="dsh-card"><h3 class="dsh-h">World indices — benchmarks by jurisdiction <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-wi-box">${worldIndicesHeatHTML()}</div></section>
+          <section class="dsh-card"><h3 class="dsh-h">S&amp;P 500 sectors — YTD ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
+          ${km ? `<section class="dsh-card"><h3 class="dsh-h">Key moments <span class="dsh-n">why it moved</span></h3>${km}</section>` : ""}
         </div>
         <div class="dsh-term-col">
+          <h3 class="dsh-term-lbl">Flows &amp; valuation</h3>
           <section class="dsh-card"><h3 class="dsh-h">ETF flows — net fund flows ${asOf(SECTOR_FLOWS.asOf)}</h3><div class="dsh-scroll" id="dsh-flows-box">${sectorFlowsHTML()}</div></section>
           <section class="dsh-card"><h3 class="dsh-h">Valuation &amp; volatility</h3>${valVolHTML()}</section>
         </div>
-        <div class="dsh-term-col">
+        <div class="dsh-term-col dsh-term-rail">
+          <h3 class="dsh-term-lbl">Calendar &amp; pipeline</h3>
           <section class="dsh-card"><h3 class="dsh-h">Earnings calendar${srcLink(earnSrc, "Earnings week-ahead source")}</h3><div class="dsh-scroll">${earningsHTML()}</div></section>
           <section class="dsh-card"><h3 class="dsh-h">IPO / ECM pipeline</h3><div class="dsh-scroll">${ipoHTML()}</div></section>
         </div>
@@ -331,20 +351,33 @@ export function mount(host, ctx) {
     return (P.headline ? `<p class="dsh-fl-note">${esc(P.headline)}</p>` : "")
       + `<div class="dsh-kvgrid">${P.metrics.map(kv).join("")}</div>`;
   }
+  // Compact credit pulse strip — the Fitch PCDR + market-context metrics as pills.
+  function crTapeHTML() {
+    const P = PRIVATE_CREDIT;
+    const m = (P && P.metrics) || [];
+    if (!m.length) return "";
+    const pill = (x) => `<span class="dsh-pill"><span class="dsh-pill-k">${esc(x.k)}</span><span class="dsh-pill-v">${esc(x.v)}</span></span>`;
+    return `<div class="dsh-pills">${m.slice(0, 5).map(pill).join("")}</div>`;
+  }
   function creditHTML() {
-    // Terminal (option 4): private credit + spreads · maturity + stress · a
-    // credit-wire rail that scrolls internally, filling the viewport.
+    // Terminal: a private-credit pulse strip spans the top, then three LABELLED
+    // columns fill the viewport (each scrolls internally) — mirroring Macro/Home.
+    const strip = crTapeHTML();
     return `<div class="dsh-pane dsh-term">
+      ${strip ? `<section class="dsh-card dsh-span">${strip}</section>` : ""}
       <div class="dsh-term-ws">
         <div class="dsh-term-col">
+          <h3 class="dsh-term-lbl">Spreads &amp; pulse</h3>
           <section class="dsh-card"><h3 class="dsh-h">Private credit <span class="dsh-n">Fitch PCDR &amp; market pulse</span> ${asOf(PRIVATE_CREDIT && PRIVATE_CREDIT.asOf)}</h3>${privateCreditHTML()}</section>
           <section class="dsh-card"><h3 class="dsh-h">Credit spreads — ICE BofA OAS <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div></section>
         </div>
         <div class="dsh-term-col">
+          <h3 class="dsh-term-lbl">Maturity &amp; stress</h3>
           <section class="dsh-card"><h3 class="dsh-h">Maturity wall</h3>${maturityHTML()}</section>
           <section class="dsh-card"><h3 class="dsh-h">Stress — situations in focus <span class="dsh-n">(${CR_STRESS.length}) · by debt</span></h3>${stressHTML()}</section>
         </div>
         <div class="dsh-term-col dsh-term-rail">
+          <h3 class="dsh-term-lbl">Credit wire</h3>
           <section class="dsh-card"><h3 class="dsh-h">Credit wire — latest deals &amp; intel</h3>${creditNewsHTML()}</section>
         </div>
       </div>
@@ -676,7 +709,7 @@ export function mount(host, ctx) {
   // sourced per-benchmark notes in IND_KEYMOMENTS (macro/js/content.js). Keys are
   // "<CC>:<tenor>" (e.g. US:two_year); each note is grounded + sourced. The whole
   // card is omitted when nothing qualifies.
-  function fixedKeyMomentsHTML() {
+  function fixedKeyMomentsBody() {
     const KM = IND_KEYMOMENTS || {};
     const keys = Object.keys(KM).filter((k) => KM[k] && KM[k].text);
     if (!keys.length) return "";
@@ -684,23 +717,37 @@ export function mount(host, ctx) {
     const label = (k) => { const [cc, t] = String(k).split(":"); return `${cc}${TEN[t] ? " " + TEN[t] : ""}`; };
     const row = (k) => { const m = KM[k]; return `<div class="dsh-km"><span class="dsh-km-t">${esc(label(k))}</span>`
       + `<span class="dsh-km-x">${esc(m.text)}${srcLink(m.src, (m.srcName || "source") + " — source")}</span></div>`; };
-    return `<section class="dsh-card dsh-span"><h3 class="dsh-h">Key moments <span class="dsh-n">why it moved</span></h3>${keys.map(row).join("")}</section>`;
+    return keys.map(row).join("");
+  }
+  // Compact sovereign-yields tape — headline benchmark levels as pills.
+  function fiTapeHTML() {
+    const flat = (GOVT_YIELDS.regions || []).flatMap((g) => g.rows || []);
+    const find = (c) => flat.find((r) => (r.country || "").toLowerCase() === c.toLowerCase());
+    const specs = [["United States", "y2", "US 2Y"], ["United States", "y10", "US 10Y"], ["United States", "y30", "US 30Y"], ["United Kingdom", "y10", "UK 10Y"], ["Germany", "y10", "DE 10Y"]];
+    const pills = specs.map(([c, tk, lbl]) => { const r = find(c), v = r && r[tk]; return v == null ? "" : `<span class="dsh-pill"><span class="dsh-pill-k">${esc(lbl)}</span><span class="dsh-pill-v">${v.toFixed(2)}%</span></span>`; }).filter(Boolean).join("");
+    return pills ? `<div class="dsh-pills">${pills}</div>` : "";
   }
   function fixedIncomeHTML() {
-    // Terminal (option 4): the three sovereign/corporate tables become columns
-    // that fill the viewport and scroll internally, so the whole fixed-income
-    // picture reads at once. Wide tables keep a horizontal scroll inside a column.
+    // Terminal: a sovereign-yields tape spans the top, then three LABELLED columns
+    // fill the viewport and scroll internally — mirroring Macro/Home. Wide tables
+    // keep a horizontal scroll inside their column.
+    const strip = fiTapeHTML();
+    const km = fixedKeyMomentsBody();
     return `<div class="dsh-pane dsh-term">
-      ${fixedKeyMomentsHTML()}
+      ${strip ? `<section class="dsh-card dsh-span">${strip}</section>` : ""}
       <div class="dsh-term-ws">
         <div class="dsh-term-col">
+          <h3 class="dsh-term-lbl">Sovereign — change</h3>
           <section class="dsh-card"><h3 class="dsh-h">Government bond yields — change over 1W · 1M · 3M · 6M · 1Y <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
         </div>
         <div class="dsh-term-col">
+          <h3 class="dsh-term-lbl">Sovereign — curves</h3>
           <section class="dsh-card"><h3 class="dsh-h">Government / sovereign — yield curves (all countries) ${asOf(GOVT_YIELDS && GOVT_YIELDS.asOf)}</h3><div class="dsh-scroll">${worldYieldCurveHTML()}</div></section>
         </div>
         <div class="dsh-term-col">
+          <h3 class="dsh-term-lbl">Corporate &amp; drivers</h3>
           <section class="dsh-card"><h3 class="dsh-h">Corporate — credit spreads (ICE BofA OAS) <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div><p class="dsh-fl-note">Option-adjusted spreads over Treasuries, by rating cohort — the corporate risk premium. Live from FRED (ICE BofA indices).</p></section>
+          ${km ? `<section class="dsh-card"><h3 class="dsh-h">Rates — why it moved</h3>${km}</section>` : ""}
         </div>
       </div>
     </div>`;
@@ -809,11 +856,13 @@ export function mount(host, ctx) {
     const mvRow = (x) => `<div class="dsh-hf-i"><div class="dsh-hf-i-h"><span class="dsh-hf-dir dsh-hf-${esc(x.dir)}">${esc(_hfDir[x.dir] || x.dir)}</span> ${tkr(x.t)} <span class="dsh-hf-nm">${esc(x.name)}</span> <span class="dsh-hf-by">${esc(x.by)}</span>${srcLink(x.src)}</div><div class="dsh-hf-note">${esc(x.note)}</div></div>`;
     const filers = (HEDGE_FUNDS || []).filter((f) => f.cik).sort((a, b) => a.name.localeCompare(b.name));
     const opts = filers.map((f) => `<option value="${esc(f.cik)}">${esc(f.name)}</option>`).join("");
-    // Terminal (option 4): consensus · notable moves · per-fund holdings tile into
-    // three columns filling the viewport, each scrolling internally.
+    // Terminal: consensus · notable moves · per-fund holdings tile into three
+    // LABELLED columns filling the viewport, each scrolling internally —
+    // mirroring the Macro pane and the Home terminal.
     return `<div class="dsh-pane dsh-term">
       <div class="dsh-term-ws">
         <div class="dsh-term-col">
+          <h3 class="dsh-term-lbl">Consensus longs</h3>
           <section class="dsh-card">
             <h3 class="dsh-h">Consensus longs <span class="dsh-n">(${esc(F.quarter || "")} 13Fs)</span></h3>
             <div class="dsh-hf-list">${(F.consensus || []).map(conRow).join("")}</div>
@@ -821,6 +870,7 @@ export function mount(host, ctx) {
           </section>
         </div>
         <div class="dsh-term-col">
+          <h3 class="dsh-term-lbl">Notable moves</h3>
           <section class="dsh-card">
             <h3 class="dsh-h">Notable ${esc(F.quarter || "")} moves</h3>
             <div class="dsh-hf-list">${(F.moves || []).map(mvRow).join("")}</div>
@@ -828,6 +878,7 @@ export function mount(host, ctx) {
           </section>
         </div>
         <div class="dsh-term-col">
+          <h3 class="dsh-term-lbl">Per-fund holdings</h3>
           <section class="dsh-card">
             <h3 class="dsh-h">Per-fund holdings <span class="dsh-live">live · SEC 13F</span></h3>
             <div class="dsh-hf-pick"><label class="dsh-lgl-lbl" for="dsh-hf-sel">Fund</label>
