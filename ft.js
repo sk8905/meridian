@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "63573658-c54d-44ef-87b8-cfecb1dd1f3c", title: "Germany’s Merz is running out of time", date: "2026-09-07", time: "18:30", url: "https://www.ft.com/content/63573658-c54d-44ef-87b8-cfecb1dd1f3c" },
+  { id: "f7f164ea-83eb-44d6-93e5-ecec8b2648d9", title: "Pricey oil is laying the groundwork for its own decline", date: "2026-09-07", time: "18:17", url: "https://www.ft.com/content/f7f164ea-83eb-44d6-93e5-ecec8b2648d9" },
   { id: "cc750a77-fd63-40e9-be6e-99bd7c9a96a5", title: "Africa’s richest man seeks to raise $1.6bn in continent’s biggest IPO", date: "2026-09-07", time: "17:45", url: "https://www.ft.com/content/cc750a77-fd63-40e9-be6e-99bd7c9a96a5" },
   { id: "4f3566e7-7076-4527-ab8a-5e71416ce5fa", title: "What to do about the UK’s mental health crisis", date: "2026-09-07", time: "17:21", url: "https://www.ft.com/content/4f3566e7-7076-4527-ab8a-5e71416ce5fa" },
   { id: "43efa6c1-6b37-4ddc-9a1d-b085bfbdba06", title: "Billionaire trader Chris Rokos to leave UK for Greece", date: "2026-09-07", time: "17:00", url: "https://www.ft.com/content/43efa6c1-6b37-4ddc-9a1d-b085bfbdba06" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "b08623a1-a976-4c5f-b247-0935643124fb", title: "Could the DMO take the BoE’s long gilts off their hands?", date: "2026-09-07", time: "06:00", url: "https://www.ft.com/content/b08623a1-a976-4c5f-b247-0935643124fb" },
   { id: "cd0f8ee2-7c47-4b23-b8dc-161d4ac96e2b", title: "Few signs of persistent price pressures in UK and Eurozone", date: "2026-09-07", time: "06:00", url: "https://www.ft.com/content/cd0f8ee2-7c47-4b23-b8dc-161d4ac96e2b" },
   { id: "f1cd277c-fc9b-454f-8eea-596408ebdd2b", title: "FirstFT: Germany’s far-right AfD surges to first place in state elections", date: "2026-09-07", time: "05:31", url: "https://www.ft.com/content/f1cd277c-fc9b-454f-8eea-596408ebdd2b" },
-  { id: "8012b60e-c74e-49bc-9200-d37f13b4a135", title: "China pumps $53bn into banks and insurers", date: "2026-09-07", time: "05:21", url: "https://www.ft.com/content/8012b60e-c74e-49bc-9200-d37f13b4a135" },
-  { id: "c8b0fa8c-714d-4563-8f3b-545ad56a5da5", title: "Cape Town has the design talent, it just needs more support", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/c8b0fa8c-714d-4563-8f3b-545ad56a5da5" },
 ];
