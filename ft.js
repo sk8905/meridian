@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d7139a47-2882-4e4c-8c8d-78e3a9a17c03", title: "Canada is fated to try to do deals with Donald Trump", date: "2026-09-07", time: "12:31", url: "https://www.ft.com/content/d7139a47-2882-4e4c-8c8d-78e3a9a17c03" },
+  { id: "b4931617-7116-4bf4-af9a-2cfcbc0424b0", title: "Top Serbian officials attend funeral of Ratko Mladić in Belgrade", date: "2026-09-07", time: "12:21", url: "https://www.ft.com/content/b4931617-7116-4bf4-af9a-2cfcbc0424b0" },
+  { id: "ace61021-f3be-47a7-9117-b9f0c63d40d1", title: "China’s Global Strategy Under Xi Jinping — the plan to shift power from the west", date: "2026-09-07", time: "12:00", url: "https://www.ft.com/content/ace61021-f3be-47a7-9117-b9f0c63d40d1" },
+  { id: "3ff1b017-00b9-47b2-83d1-67a1ef906915", title: "Panama Canal warns of possible transit cuts in further blow to shipping", date: "2026-09-07", time: "12:00", url: "https://www.ft.com/content/3ff1b017-00b9-47b2-83d1-67a1ef906915" },
+  { id: "9ffb0fb3-51f6-4aa8-9270-a949196bf441", title: "Saudi Aramco facility hit in new strikes", date: "2026-09-07", time: "11:52", url: "https://www.ft.com/content/9ffb0fb3-51f6-4aa8-9270-a949196bf441" },
+  { id: "ec1396b9-185e-4a55-86d6-36a560b549fb", title: "Germany’s AfD vows to build on ‘dream result’", date: "2026-09-07", time: "11:31", url: "https://www.ft.com/content/ec1396b9-185e-4a55-86d6-36a560b549fb" },
   { id: "da937483-cda9-4417-9257-540c680696c3", title: "High prices at the pump drive home cost concerns in US toss-up district", date: "2026-09-07", time: "11:00", url: "https://www.ft.com/content/da937483-cda9-4417-9257-540c680696c3" },
   { id: "3edf3717-4737-424c-9162-d330851edcf6", title: "Republicans fear Trump has turned toxic on the campaign trail", date: "2026-09-07", time: "11:00", url: "https://www.ft.com/content/3edf3717-4737-424c-9162-d330851edcf6" },
   { id: "116cc01f-44b3-41f8-b76c-ae340f38874e", title: "Inside PepsiCo’s battle to remake Gatorade for the Kennedy era", date: "2026-09-07", time: "11:00", url: "https://www.ft.com/content/116cc01f-44b3-41f8-b76c-ae340f38874e" },
@@ -56,9 +62,4 @@ export const FT_ITEMS = [
   { id: "83e08169-69b5-4997-9bf0-e0622e752eda", title: "Europe failing to deter Russia’s ‘hybrid’ war, warn defence officials", date: "2026-09-06", time: "21:00", url: "https://www.ft.com/content/83e08169-69b5-4997-9bf0-e0622e752eda" },
   { id: "48e7b92b-affc-4fd0-8de1-ae8765e5c799", title: "Germany’s Merz on the ropes after far right delivers devastating blow", date: "2026-09-06", time: "20:51", url: "https://www.ft.com/content/48e7b92b-affc-4fd0-8de1-ae8765e5c799" },
   { id: "a69af29e-b2c1-48cf-a6f7-c1f68c141785", title: "Starting gun fired on autumn election campaign season", date: "2026-09-06", time: "18:15", url: "https://www.ft.com/content/a69af29e-b2c1-48cf-a6f7-c1f68c141785" },
-  { id: "f244770a-27ba-42b1-8cd5-7631b2c8412b", title: "Police face questions over Dover disruption caused by masked protesters", date: "2026-09-06", time: "17:47", url: "https://www.ft.com/content/f244770a-27ba-42b1-8cd5-7631b2c8412b" },
-  { id: "a0229455-1822-4de8-ad2f-7453577d95cd", title: "Far-right AfD surges in German state elections, exit polls show", date: "2026-09-06", time: "17:26", url: "https://www.ft.com/content/a0229455-1822-4de8-ad2f-7453577d95cd" },
-  { id: "1e2d9db0-cb2c-4c79-942b-f0aff960e4c5", title: "Trump envoys hold talks with Zelenskyy in Kyiv after meeting Putin in Moscow", date: "2026-09-06", time: "16:06", url: "https://www.ft.com/content/1e2d9db0-cb2c-4c79-942b-f0aff960e4c5" },
-  { id: "6ea98322-96a3-408a-87e4-eb5e4eb05b52", title: "Pete Hegseth’s Pentagon purge", date: "2026-09-06", time: "14:35", url: "https://www.ft.com/content/6ea98322-96a3-408a-87e4-eb5e4eb05b52" },
-  { id: "1b46baac-10e7-444f-99c5-c661c164b2f1", title: "Lebanon warns of ‘dangerous escalation’ after Israeli strikes", date: "2026-09-06", time: "14:11", url: "https://www.ft.com/content/1b46baac-10e7-444f-99c5-c661c164b2f1" },
 ];
