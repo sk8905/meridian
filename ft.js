@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "6b9afdfb-26f5-4746-8ff9-027a8d04cb1f", title: "Submit your questions: is Trump losing his touch?", date: "2026-09-07", time: "15:04", url: "https://www.ft.com/content/6b9afdfb-26f5-4746-8ff9-027a8d04cb1f" },
   { id: "8c5c7c44-c9fd-4326-b09a-9f58e3f144b9", title: "‘Chimerica’ is now a chimera — and global stability is the victim", date: "2026-09-07", time: "14:00", url: "https://www.ft.com/content/8c5c7c44-c9fd-4326-b09a-9f58e3f144b9" },
   { id: "c6aeaefc-c978-4b0a-8a25-0e336e1872a6", title: "Volkswagen strikes deal to shift plant from cars to air defence", date: "2026-09-07", time: "13:30", url: "https://www.ft.com/content/c6aeaefc-c978-4b0a-8a25-0e336e1872a6" },
   { id: "c703f1af-f8a6-43c0-94fb-04637259c295", title: "Vox rides high in Spain over Ceuta migrant crisis", date: "2026-09-07", time: "13:16", url: "https://www.ft.com/content/c703f1af-f8a6-43c0-94fb-04637259c295" },
@@ -59,9 +60,4 @@ export const FT_ITEMS = [
   { id: "4d52d097-a4f0-423e-a483-1dfe60fa6ff3", title: "Concerns raised over ‘tick-box’ staff training as UK employers choose short online courses", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/4d52d097-a4f0-423e-a483-1dfe60fa6ff3" },
   { id: "3fd1541c-7e1f-44c0-bd10-0d94174e5c0a", title: "Trump is putting European security in peril", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/3fd1541c-7e1f-44c0-bd10-0d94174e5c0a" },
   { id: "b2d744cf-de2c-4ef1-84ca-41e897463484", title: "Sweden’s fightback against the gangs", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/b2d744cf-de2c-4ef1-84ca-41e897463484" },
-  { id: "8bbc2b5f-d1fc-4d8d-8085-4c27c362653a", title: "John Ternus’s first test at Apple: selling a $2,000 foldable iPhone", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/8bbc2b5f-d1fc-4d8d-8085-4c27c362653a" },
-  { id: "4aba032b-f3f4-48c0-8f56-1c7a739e21ae", title: "Tax losses have become a hot property in sports M&A", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/4aba032b-f3f4-48c0-8f56-1c7a739e21ae" },
-  { id: "738f043b-9d26-401c-aee6-7a64a257fda2", title: "FNZ: the Credit Suisse spinout haemorrhaging cash", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/738f043b-9d26-401c-aee6-7a64a257fda2" },
-  { id: "a5e58e66-25c1-449f-a0bf-ca9a18b67307", title: "The citizen scientists tracking England’s polluted waterways", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/a5e58e66-25c1-449f-a0bf-ca9a18b67307" },
-  { id: "9aa8805c-8b6a-4dfc-9e61-f5181ce07fc8", title: "Big US university endowments outperform S&P 500 index", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/9aa8805c-8b6a-4dfc-9e61-f5181ce07fc8" },
 ];
