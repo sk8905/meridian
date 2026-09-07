@@ -13,7 +13,7 @@ export const UPDATED = "7 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-07",
-  lastCheckedTime: "17:13 BST",
+  lastCheckedTime: "21:20 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -882,7 +882,7 @@ export const NEWS = {
   us: [
     { title: "Stock market news for Sept. 7, 2026", source: "CNBC", date: "2026-09-07", url: "https://www.cnbc.com/2026/09/07/stock-market-today-live-updates.html" },
     { title: "Asian stocks rally as chipmakers surge, oil and Fed bets keep risks in view", source: "Investing.com", date: "2026-09-07", url: "https://www.investing.com/news/stock-market-news/asian-stocks-rally-as-chipmakers-surge-oil-and-fed-bets-keep-risks-in-view-4890351" },
-    { title: "Zelenskyy Calls For Trilateral Negotiations With Russia After 'Substantial' Talks With US Envoys", source: "RFE/RL", date: "2026-09-07", url: "https://www.rferl.org/a/kushner-witkoff-putin-zelenskyy-ukraine-russia/33847622.html" },
+    { title: "Investors Are Embracing Risk Even as Global Bond Yields Climb", source: "Bloomberg", date: "2026-09-07", url: "https://www.bloomberg.com/news/newsletters/2026-09-07/investors-are-embracing-risk-even-as-global-bond-yields-climb" },
     { title: "Iran to declare 'prohibited zone' near Strait of Hormuz in coming days, warns ships entering will face sanctions", source: "Malay Mail", date: "2026-09-07", url: "https://www.malaymail.com/news/world/2026/09/07/iran-to-declare-prohibited-zone-near-strait-of-hormuz-in-coming-days-warns-ships-entering-will-face-sanctions/234223" },
     { title: "What to Look Out for in Economic Data This Week (September 7-11)", source: "Kiplinger", date: "2026-09-07", url: "https://www.kiplinger.com/investing/economy/this-weeks-economic-calendar" },
   ],
@@ -891,7 +891,7 @@ export const NEWS = {
     { title: "'Britain is turning a corner': Chancellor John Healey insists as he vows to rein in spending and 'balance the books' in keynote pre-Budget speech", source: "LBC", date: "2026-09-07", time: "17:13", url: "https://www.lbc.co.uk/article/britain-turning-corner-chancellor-john-healey-insists-5Hjdh5q_2/" },
     { title: "UK Interest Rates: Pill Pushes for 4% as 10-Year Gilt Ends at 5.13%", source: "ts2.tech", date: "2026-09-06", url: "https://ts2.tech/en/uk-interest-rates-pill-pushes-for-4-as-10-year-gilt-ends-at-5-13/" },
     { title: "BoE's Bailey defends central bank flexibility, flags guidance risks", source: "FXStreet", date: "2026-09-04", time: "09:59", url: "https://www.fxstreet.com/news/boes-bailey-defends-central-bank-flexibility-warns-of-bond-market-pressures-202609040959" },
-    { title: "Central banks face 'serious challenge' from populism, says Bank of England boss", source: "Express & Star", date: "2026-09-04", url: "https://www.expressandstar.com/uk-news/central-banks-face-serious-challenge-from-populism-says-bank-of-england-boss-8960197" },
+    { title: "Jaguar Land Rover to layoff thousands of jobs in $2.3 billion cost-saving overhaul", source: "CNBC", date: "2026-09-07", url: "https://www.cnbc.com/2026/09/07/jaguar-land-rover-jlr-job-cuts-autos.html" },
   ],
 };
 
@@ -905,6 +905,8 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-07",
   items: [
+    {"title": "Jaguar Land Rover Plans to Cut 4,000 Jobs to Tackle Costs", "source": "Bloomberg", "date": "2026-09-07", "time": "17:00", "url": "https://www.bloomberg.com/news/articles/2026-09-07/jaguar-land-rover-plans-to-cut-4-000-jobs-in-carmaker-s-overhaul", "blurb": "JLR aims to save £1.7bn over two years — mostly through voluntary head-office redundancies by 4 October — to fund £15-18bn of planned investment in electrification and digital technology, as Chinese competition, US tariffs and a costly cyberattack squeeze the carmaker.", "author": null},
+    {"title": "UK Finance Minister Healey Faces Fiscal Tightrope Before First Budget", "source": "Global Banking & Finance Review", "date": "2026-09-07", "time": "17:13", "url": "https://www.globalbankingandfinance.com/uks-finance-minister-healey-walks-fiscal-tightrope-first/", "blurb": "Healey must square pledges on housing, defence and growth with jittery gilt investors ahead of the 28 October Budget, as elevated yields since June have already eaten into his fiscal headroom for tax changes.", "author": null},
     {"title": "'Britain is turning a corner': Chancellor John Healey insists as he vows to rein in spending and 'balance the books' in keynote pre-Budget speech", "source": "LBC", "date": "2026-09-07", "time": "17:13", "url": "https://www.lbc.co.uk/article/britain-turning-corner-chancellor-john-healey-insists-5Hjdh5q_2/", "blurb": "In his first major Treasury speech, delivered at the Manufacturing Technology Centre in Coventry, Chancellor John Healey pledged to stick to Labour's fiscal rules and 'balance the books' while promising a 'roadmap to fiscal devolution' at October's Budget — even as gilt yields sit near multi-decade highs.", "author": null},
     {"title": "Healey is on a rough turn to economic growth", "source": "CityAM", "date": "2026-09-07", "time": "17:13", "url": "https://www.cityam.com/can-john-healey-deliver-the-growth-the-uk-needs/", "blurb": "CityAM's analysis argues the bond-market turbulence since June means the OBR's Budget forecasts will likely show meaningfully higher debt-servicing costs than if drafted on June's lower yields, complicating Healey's 'turning a corner' framing just as it lands.", "author": null},
     {"title": "UK Gilt Yield Rises to 5.15%; 4.8% Is Only Mid-Curve", "source": "ts2.tech", "date": "2026-09-07", "time": "10:42", "url": "https://ts2.tech/en/uk-gilt-yield-rises-to-5-15-4-8-is-only-mid-curve/", "blurb": "The 10-year gilt yield pushed to 5.15% Monday morning — roughly 140bp over the BoE's 3.75% policy rate — as the DMO's planned £246.2bn of 2026-27 gilt issuance keeps pressure on the curve even as firms' one-year inflation expectations eased to 3.1%.", "author": null},
@@ -943,8 +945,6 @@ export const ARTICLES = {
     {"title": "Sterling's rally stalls as US jobs data reopens Fed debate", "source": "FXStreet", "date": "2026-09-04", "time": "19:52", "url": "https://www.fxstreet.com/news/sterlings-rally-stalls-as-us-jobs-data-reopens-fed-debate-202609041952", "blurb": "GBP/USD gave back its earlier session gains as the stronger-than-expected US payrolls print reopened the Fed-hike debate, pulling the pair back toward Friday's opening levels near 1.3512.", "author": null},
     {"title": "UK Gilts Attract Aviva Investors as Bond Yields Reach Multi-Decade Highs", "source": "Bloomberg", "date": "2026-09-04", "time": "06:00", "url": "https://www.bloomberg.com/news/articles/2026-09-04/aviva-investors-boosts-gilts-bet-as-yield-surge-caps-uk-spending", "blurb": "Aviva Investors and other asset managers have been adding to UK gilt positions, judging the multi-decade-high yields attractive against the UK's fiscal and growth backdrop even as Prime Minister Burnham reaffirmed the government's fiscal discipline.", "author": null},
     {"title": "Healey Should Restore UK Fiscal Buffer, Bloomberg Economics Says", "source": "Bloomberg", "date": "2026-09-04", "time": "06:00", "url": "https://www.bloomberg.com/news/articles/2026-09-04/healey-should-restore-uk-fiscal-buffer-bloomberg-economics-says", "blurb": "Bloomberg Economics estimates Chancellor Healey has already lost roughly half of the £23.6bn fiscal headroom he inherited to the gilt-yield surge, and argues he should look to rebuild a buffer ahead of the 28 October Budget.", "author": null},
-    {"title": "Forecasting the upcoming week: What if the ECB… and US CPI…?", "source": "FXStreet", "date": "2026-09-04", "time": "16:13", "url": "https://www.fxstreet.com/analysis/forecasting-the-upcoming-week-what-if-the-ecb-and-us-cpi-202609041613", "blurb": "A look ahead to next week's decisive US CPI print (11 September) and the ECB decision, with the 16 September FOMC and 17 September BoE MPC meetings both still finely balanced.", "author": null},
-    {"title": "Stock Market Today (Sept. 4, 2026): Yields jump, stocks fall after jobs report surprises to upside", "source": "TheStreet", "date": "2026-09-04", "time": "20:15", "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-04-2026", "blurb": "The Dow closed down 271.86 points (-0.51%) at 53,414.25, the S&P 500 slid 0.38% to 7,718.60 and the Nasdaq fell 0.29% to 26,506.99 as the hotter-than-expected August jobs report lifted September Fed-hike odds to roughly 58%.", "author": null},
   ],
 };
 
