@@ -95,6 +95,37 @@ await pg.waitForTimeout(200);
 const allN = await pg.evaluate(() => { const foot = document.querySelector(".tx-tot"); return { rows: document.querySelectorAll(".tx-tbl tbody tr.clickable").length, total: (foot ? foot.textContent : "") }; });
 check(allN.rows >= twelve, `the All-time period shows at least as many types as last-12-months (${allN.rows} ≥ ${twelve})`);
 
+// ---- 5) $1–15bn AUM focus toggle -----------------------------------------
+// A target-band filter (identical to the Profiles league toggle) narrows every
+// view — overview + type detail — to deals by managers whose group AUM is $1–15bn.
+await pg.evaluate(() => document.querySelector('#tx-period .tchip[data-per="all"]').click());
+await pg.waitForTimeout(150);
+const totOff = await pg.evaluate(() => parseInt(((document.querySelector(".tx-tot .tl-n") || {}).textContent || "0"), 10));
+const foc = await pg.evaluate(() => {
+  const btn = document.querySelector("#tx-focus"); if (!btn) return { present: false };
+  btn.click();
+  return {
+    present: true,
+    on: btn.getAttribute("aria-pressed") === "true" && btn.classList.contains("is-on"),
+    tag: !!document.querySelector(".tx-focus-tag"),
+    tot: parseInt(((document.querySelector(".tx-tot .tl-n") || {}).textContent || "0"), 10),
+  };
+});
+check(foc.present && foc.on, "Transactions: a $1–15bn AUM focus toggle is present and turns on");
+check(foc.tag, "Transactions: the overview flags when the $1–15bn focus is active");
+check(foc.tot > 0 && foc.tot <= totOff, `Transactions: the focus narrows the deal universe to the target band (${foc.tot} ≤ ${totOff})`);
+// with the focus on, every deal listed under a type is by an in-band manager
+const inband = await pg.evaluate(async () => {
+  const D = await import("/credit/js/data.js");
+  const aumOf = (m) => (!m || m.notAum) ? null : (m.aumTotal != null ? m.aumTotal : m.aum);
+  const set = new Set(D.managers.filter((m) => { const a = aumOf(m); return a != null && a >= 1 && a <= 15; }).map((m) => m.id));
+  const r = document.querySelector(".tx-tbl tbody tr.clickable"); if (r) r.click();
+  await new Promise((res) => setTimeout(res, 120));
+  const ids = [...document.querySelectorAll(".tx-list a.tx-mgr")].map((a) => a.dataset.id).filter(Boolean);
+  return { n: ids.length, allIn: ids.length > 0 && ids.every((id) => set.has(id)) };
+});
+check(inband.allIn, `Transactions: with focus on, every listed deal is a $1–15bn manager's (${inband.n} links)`);
+
 checkErrs(errs, "transactions tab");
 await ctx.close();
 await b.close(); srv.close();

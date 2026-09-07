@@ -17,6 +17,14 @@ const _mById = new Map(managers.map((m) => [m.id, m]));
 const mgrName = (id) => (_mById.get(id) || {}).name || "";
 const DAY = 864e5;
 
+// $1–15bn AUM focus — the app-wide "target" band, identical to the Profiles /
+// Credit league toggle. Gate on total group/parent AUM (not a credit-only
+// sleeve), so a boutique inside a large group falls outside the band; banks /
+// originators (notAum) carry no AUM and never qualify.
+const inFocusAum = (aum) => aum != null && aum >= 1 && aum <= 15;
+const focusAumOf = (m) => (!m || m.notAum ? null : (m.aumTotal != null ? m.aumTotal : m.aum));
+const mInFocus = (m) => inFocusAum(focusAumOf(m));
+
 export function mount(host, ctx) {
   // Enrich every dated deal once: { d, tx, amt, usd, ts }.
   const now = Date.now();
@@ -25,13 +33,16 @@ export function mount(host, ctx) {
     .map((d) => { const amt = amountOf(d); return { d, tx: txOf(d), sec: sectorOf(d), amt, usd: toUsd(amt), ts: Date.parse((d.date || "").slice(0, 10)) || 0 }; })
     .filter((r) => r.ts > 0);
 
-  const st = { period: "12m", type: null, sector: "all" };   // type=null → overview
+  const st = { period: "12m", type: null, sector: "all", focus: false };   // type=null → overview
   const inPeriod = (r) => st.period === "all" || r.ts >= now - 365 * DAY;
+  // The $1–15bn AUM focus is an entity filter (orthogonal to the period): a deal
+  // qualifies when its manager sits in the target band. Off → everything.
+  const inFocus = (r) => !st.focus || mInFocus(_mById.get(r.d.managerId));
 
   // ---- per-type stats over the active period -------------------------------
   const median = (arr) => { if (!arr.length) return null; const a = [...arr].sort((x, y) => x - y); const m = a.length >> 1; return a.length % 2 ? a[m] : Math.round((a[m - 1] + a[m]) / 2); };
   function statsFor(key) {
-    const all = rows.filter((r) => r.tx === key);
+    const all = rows.filter((r) => r.tx === key && inFocus(r));
     const inP = all.filter(inPeriod);
     const withAmt = inP.filter((r) => r.usd != null);
     const last12 = all.filter((r) => r.ts >= now - 365 * DAY).length;
@@ -59,6 +70,10 @@ export function mount(host, ctx) {
               <button type="button" class="tchip" data-per="all">All time</button>
             </div>
           </header>
+          <div class="tx-tools">
+            <span class="tx-tools-l">AUM focus</span>
+            <button type="button" class="tfocus-btn" id="tx-focus" aria-pressed="false" title="Show only $1–15bn AUM managers' transactions">$1–15bn</button>
+          </div>
           <div class="tx-scroll" id="tx-body"></div>
         </section>
       </div>
@@ -85,7 +100,7 @@ export function mount(host, ctx) {
         + `<td class="tl-nm tx-top">${s.top ? esc(mgrName(s.top.id)) : "—"}</td></tr>`;
     };
     body.innerHTML = `
-      <p class="tx-intro">Tracked transactions across the covered managers, by type${st.period === "12m" ? " — last 12 months" : ", all time"}. Volumes are the sum of disclosed deal sizes, normalised to <span title="Indicative FX snapshot for aggregation only; each deal shows its native figure">≈USD</span>.</p>
+      <p class="tx-intro">Tracked transactions across the covered managers${st.focus ? ` <span class="tx-focus-tag">· $1–15bn AUM only</span>` : ""}, by type${st.period === "12m" ? " — last 12 months" : ", all time"}. Volumes are the sum of disclosed deal sizes, normalised to <span title="Indicative FX snapshot for aggregation only; each deal shows its native figure">≈USD</span>.</p>
       <div class="tleague-wrap"><table class="tleague tleague-full tx-tbl">
         <thead><tr><th>Transaction type</th><th>Deals</th><th>12mo vs prior</th><th>Volume ≈$</th><th>Median ≈$</th><th>Managers</th><th class="tx-top-h">Most active</th></tr></thead>
         <tbody>${S.map(row).join("")}</tbody>
@@ -151,6 +166,15 @@ export function mount(host, ctx) {
     const b = e.target.closest(".tchip"); if (!b) return;
     st.period = b.dataset.per; st.sector = "all";
     host.querySelectorAll("#tx-period .tchip").forEach((c) => c.classList.toggle("is-on", c === b));
+    render();
+  });
+  // $1–15bn AUM focus toggle — narrows every view (overview + type detail) to the
+  // target-band managers' deal flow, then re-renders in place.
+  host.querySelector("#tx-focus").addEventListener("click", (e) => {
+    const b = e.currentTarget;
+    st.focus = b.getAttribute("aria-pressed") !== "true";
+    b.setAttribute("aria-pressed", st.focus ? "true" : "false");
+    b.classList.toggle("is-on", st.focus);
     render();
   });
   host.addEventListener("click", (e) => {
