@@ -16,9 +16,14 @@ const r = await pg.evaluate(() => {
   const rail = document.querySelector(".dsh-term-rail .dsh-news");
   const regime = document.querySelector(".dsh-term > .dsh-card");   // regime strip (first card)
   const term = document.querySelector(".dsh-term");
-  const cols = ws ? getComputedStyle(ws).gridTemplateColumns.trim().split(/\s+/).length : 0;
+  const colPx = ws ? getComputedStyle(ws).gridTemplateColumns.trim().split(/\s+/).map((x) => Math.round(parseFloat(x))) : [];
+  const nav = document.querySelector(".dsh-nav .tchips");
   return {
-    cols,
+    cols: colPx.length,
+    colPx,
+    navW: nav ? Math.round(nav.getBoundingClientRect().width) : 0,
+    navLeft: nav ? Math.round(nav.getBoundingClientRect().left) : 0,
+    vw: window.innerWidth,
     dshOv: dsh ? getComputedStyle(dsh).overflowY : "",
     dshFlex: dsh ? getComputedStyle(dsh).display : "",
     railOv: rail ? getComputedStyle(rail).overflowY : "",
@@ -31,6 +36,10 @@ const r = await pg.evaluate(() => {
 });
 
 checkEq(r.cols, 3, "Macro terminal: the workspace is a three-column grid");
+// The three section columns share the width evenly (each ~one third).
+check(r.colPx.length === 3 && Math.max(...r.colPx) - Math.min(...r.colPx) <= 2, `Macro terminal: the three columns are equal thirds (${r.colPx.join(" · ")})`);
+// The sub-tab chips stretch the full viewport width, not a centred cluster.
+check(r.navLeft <= 4 && r.navW >= r.vw - 24, `Dashboard: the sub-tab chips span the full screen width (${r.navW}/${r.vw}, left ${r.navLeft})`);
 check(r.dshOv !== "auto" && r.dshFlex === "flex", `Macro terminal: the dashboard fills the viewport (doesn't scroll as a whole) — overflowY=${r.dshOv}, display=${r.dshFlex}`);
 check(/(auto|scroll)/.test(r.railOv), `Macro terminal: the wire rail scrolls internally (overflowY=${r.railOv})`);
 check(r.railScrolls, "Macro terminal: the wire rail actually has more headlines than fit (it scrolls)");

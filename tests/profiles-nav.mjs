@@ -31,6 +31,17 @@ const focusLbl = await pg.evaluate(() => {
 checkEq(focusLbl.lg, "$1–15bn", "managers AUM focus toggle reads $1–15bn");
 checkEq(focusLbl.hf, "$1–15bn", "hedge-funds AUM focus toggle reads $1–15bn");
 
+// The Managers / Hedge Funds / Law firms chips carry the active-tab underline
+// like the Dashboard/Transactions bars — the chip's marker sits in the header's
+// overflow, so the header is lifted into its own stacking level to reveal it.
+const chipUL = await pg.evaluate(() => {
+  const head = document.querySelector("#pf-list .twire-head");
+  const on = document.querySelector("#pf-chips .tchip.is-on");
+  return { pos: head ? getComputedStyle(head).position : "", z: head ? getComputedStyle(head).zIndex : "", shadow: on ? getComputedStyle(on).boxShadow : "" };
+});
+check(chipUL.pos === "relative" && chipUL.z !== "auto" && chipUL.z !== "", `Profiles: the chips header is lifted so the active underline shows (pos ${chipUL.pos}, z ${chipUL.z})`);
+check(/inset/.test(chipUL.shadow), `Profiles: the active chip carries the 2px underline marker`);
+
 async function tapRow(pane, kind, hrefRe) {
   await pg.evaluate(() => { location.hash = ""; });
   await pg.waitForTimeout(200);

@@ -161,6 +161,12 @@
    ON the divider. Box-shadow only — no layout shift. */
 .twire-head .tchip.is-on { box-shadow: inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
 [data-theme="dark"] .twire-head .tchip.is-on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff), 0 1px 0 var(--chip-ul, #fff); }
+/* The Profiles list chips (Managers · Hedge Funds · Law firms) sit in a 28px
+   header while the chip itself is the taller 34px --chip-h, so the active
+   underline lands in the 6px overflow BELOW the header — which the opaque pane
+   below would paint over. Lift the header into its own stacking level so the
+   marker shows, exactly like the Transactions/Dashboard tab bars. */
+#pf-list .twire-head { position: relative; z-index: 1; }
 .twire { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1 1 auto; min-height: 0; }
 /* single line, matching Home: date | CODE | headline (+ inline manager) | source */
 .twire .compact-item { display: grid; grid-template-columns: 70px 30px minmax(0,1fr) auto; column-gap: 10px; padding: 5px 12px; border-bottom: 1px solid var(--border); align-items: baseline; }
