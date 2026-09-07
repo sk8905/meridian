@@ -38,6 +38,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bizpost-oflynnballincollig-20260907",
+    publication: "Business Post",
+    author: null,
+    series: "CRE",
+    title: "Michael O’Flynn lodges complaint against rival’s Ballincollig development",
+    date: "2026-09-07",
+    time: "08:00",
+    summary: "Michael O'Flynn objects to a rival's 300-unit Ballincollig development; plus Niall Molloy strikes a €7 million deal for a major Wicklow development site.",
+    url: "https://bpm.businesspost.ie/w/JRvWWjanSo3LAEBad7J763UQ/Pe5PTEw0pLHXiV2kox0pPw/JndP1F1v28vzaJnpOOzVlw",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-germanfarrightwin-20260907",
     publication: "Bloomberg",
     author: "Victoria Batchelor",
@@ -465,17 +476,6 @@ export const NEWSLETTERS = [
     time: "11:07",
     summary: "Climate adaptation emerges as next frontier for private markets players.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-02/extreme-heat-forces-climate-risk-reckoning-for-private-market-players",
-  },
-  {
-    id: "nl-bbg-econdaily-g20debt-20260902",
-    publication: "Bloomberg",
-    author: "Chris Anstey",
-    series: "Economics Daily",
-    title: "Economics Daily: G20 debt complacency",
-    date: "2026-09-02",
-    time: "11:01",
-    summary: "Finance chiefs focused on developing nations' debt while sidestepping their own borrowing.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-02/g20-examines-debt-distress-in-others-while-ignoring-own-challenges",
   },
   {
     id: "nl-bbg-marketsdaily-priceofthepump-20260902",

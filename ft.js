@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "4d8d12a0-ed3c-4955-be63-d15225b105b6", title: "John Healey to urge state-owned bodies to boost investment", date: "2026-09-07", time: "08:17", url: "https://www.ft.com/content/4d8d12a0-ed3c-4955-be63-d15225b105b6" },
   { id: "b122bc9f-9f51-46b8-9f42-dba9fb29244c", title: "Everything is awesome", date: "2026-09-07", time: "06:30", url: "https://www.ft.com/content/b122bc9f-9f51-46b8-9f42-dba9fb29244c" },
   { id: "96e09c24-9587-41fc-9824-fb751f61be40", title: "FTAV’s further reading", date: "2026-09-07", time: "06:30", url: "https://www.ft.com/content/96e09c24-9587-41fc-9824-fb751f61be40" },
   { id: "f8e97cdb-6edb-4cb1-ae38-b3c0ceeba485", title: "EU to table ‘Buy European’ public procurement rules to push out China", date: "2026-09-07", time: "06:00", url: "https://www.ft.com/content/f8e97cdb-6edb-4cb1-ae38-b3c0ceeba485" },
@@ -59,6 +60,4 @@ export const FT_ITEMS = [
   { id: "cffea5bc-0255-4029-8e76-0c3671bf4d92", title: "Will US inflation data persuade the Fed to raise rates this month?", date: "2026-09-06", time: "12:00", url: "https://www.ft.com/content/cffea5bc-0255-4029-8e76-0c3671bf4d92" },
   { id: "eb4c3d77-cb16-4f77-a173-9960481ac716", title: "Nigel Farage urged by Labour to ‘take responsibility’ over TV sting", date: "2026-09-06", time: "11:42", url: "https://www.ft.com/content/eb4c3d77-cb16-4f77-a173-9960481ac716" },
   { id: "4a751ca7-83ac-4c62-8d3f-3643e74ad92b", title: "Jaguar Land Rover plans up to 4,000 job cuts as Chinese rivals pile on pressure", date: "2026-09-06", time: "11:11", url: "https://www.ft.com/content/4a751ca7-83ac-4c62-8d3f-3643e74ad92b" },
-  { id: "c249f75f-a1ed-4174-94f3-320f8e4ef806", title: "German state heads to regional polls in far-right cliffhanger", date: "2026-09-06", time: "09:04", url: "https://www.ft.com/content/c249f75f-a1ed-4174-94f3-320f8e4ef806" },
-  { id: "9bcce1fa-997e-49f2-9530-f1255e4cb28b", title: "Donald Trump’s approval rating falls to lowest yet in FT poll", date: "2026-09-06", time: "05:01", url: "https://www.ft.com/content/9bcce1fa-997e-49f2-9530-f1255e4cb28b" },
 ];
