@@ -236,7 +236,7 @@ export function viewFund(id) {
   app.innerHTML = `
     <div class="tdash">
       ${breadcrumb([["#/funds", "Funds"], [null, x.name]])}
-      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
+      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${esc(v)}</b> ${esc(l)}</span>`).join("")}</div>
       <div class="tdash-grid tdash-2">
         <section class="tcol tcol-c">
           <div class="tdet-id">
@@ -441,7 +441,7 @@ export function viewManager(id) {
   app.innerHTML = `
     <div class="tdash">
       ${breadcrumb([["#/", "Managers"], [null, m.name]])}
-      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
+      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${esc(v)}</b> ${esc(l)}</span>`).join("")}</div>
       <div class="tdash-grid tdash-1">
         <section class="tcol tcol-c tcol-full">
           <div class="tdet-id">
@@ -529,7 +529,7 @@ export function viewClo(mid, encName) {
   app.innerHTML = `
     <div class="tdash">
       ${breadcrumb([["#/managers", "Managers"], ["#/manager/" + mid, m.name], [null, c.name]])}
-      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
+      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${esc(v)}</b> ${esc(l)}</span>`).join("")}</div>
       <div class="tdash-grid tdash-2">
         <section class="tcol tcol-c">
           <div class="tdet-id">
@@ -578,7 +578,7 @@ export function viewLp(id) {
   app.innerHTML = `
     <div class="tdash">
       ${breadcrumb([["#/lps", "Investors"], [null, l.name]])}
-      <div class="tdash-ticker">${metrics.map(([lab, v]) => `<span class="tmet"><b>${v}</b> ${esc(lab)}</span>`).join("")}</div>
+      <div class="tdash-ticker">${metrics.map(([lab, v]) => `<span class="tmet"><b>${esc(v)}</b> ${esc(lab)}</span>`).join("")}</div>
       <div class="tdash-grid tdash-2">
         <section class="tcol tcol-c">
           <div class="tdet-id">
@@ -694,7 +694,7 @@ export function viewHedgeFund(id) {
   app.innerHTML = `
     <div class="tdash">
       ${breadcrumb([["#/", "Hedge Funds"], [null, f.name]])}
-      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${v}</b> ${esc(l)}</span>`).join("")}</div>
+      <div class="tdash-ticker">${metrics.map(([l, v]) => `<span class="tmet"><b>${esc(v)}</b> ${esc(l)}</span>`).join("")}</div>
       <div class="tdash-grid tdash-1">
         <section class="tcol tcol-c tcol-full">
           <div class="tdet-id">
