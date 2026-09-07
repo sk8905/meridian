@@ -46,10 +46,14 @@ const ov = await pg.evaluate(() => ({
   // not bold — one type scale across the two tabs.
   nameFW: (() => { const e = document.querySelector(".tx-tbl tbody tr .tx-tnm"); return e ? getComputedStyle(e).fontWeight : ""; })(),
   nameFS: (() => { const e = document.querySelector(".tx-tbl tbody tr .tx-tnm"); return e ? getComputedStyle(e).fontSize : ""; })(),
+  // Cells + headers are LEFT-aligned, matching the Profiles league format (which
+  // left-aligns its whole table) rather than right-aligned numeric columns.
+  aligns: [...document.querySelectorAll(".tx-tbl thead th, .tx-tbl tbody tr.clickable:first-child td")].map((c) => getComputedStyle(c).textAlign),
 }));
 check(ov.rows >= 6, `overview lists the transaction types as a league table (${ov.rows})`);
 check(ov.rowHs.length === 1, `overview rows share one uniform height, matching the Profiles league (${ov.rowHs.join(", ")}px)`);
 check(ov.nameFS === "11px" && (ov.nameFW === "400" || ov.nameFW === "normal"), `type names match the Profiles league type (11px regular, got ${ov.nameFS}/${ov.nameFW})`);
+check(ov.aligns.length > 0 && ov.aligns.every((a) => a === "left" || a === "start"), `every header + cell is left-aligned, matching the Profiles league (${[...new Set(ov.aligns)].join(", ")})`);
 check(ov.hasTotal, "overview carries an 'All types' total row");
 check(ov.hasTrend && ov.hasVol, "overview shows a 12mo-vs-prior momentum mark and a ≈USD volume per type");
 check(ov.chips.join(",") === "Last 12 months,All time", `period chips present (${ov.chips.join(",")})`);

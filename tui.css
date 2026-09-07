@@ -445,6 +445,10 @@
 
 /* ---- Transactions tab (deal flow by transaction type) — Profiles furniture --- */
 .tx-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+/* Match the Profiles league format: every header and cell is LEFT-aligned (the
+   Profiles panes do this via .tpane[data-pane] .tleague td), rather than the
+   default right-aligned numeric columns. Id scope wins over the .tleague rules. */
+#tx-body .tleague th, #tx-body .tleague td { text-align: left; }
 .tx-tbl .tl-nm, .tx-tbl .tx-tnm { max-width: none; color: var(--ink); }
 .tx-tbl .tl-nm { font-weight: 600; }        /* the "All types" total row stays emphasised */
 .tx-tbl .tx-tnm { font-weight: 400; }       /* type names render regular, matching the Profiles league names */
