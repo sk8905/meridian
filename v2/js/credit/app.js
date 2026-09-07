@@ -479,7 +479,7 @@ function managersPaneHTML() {
   return `<div class="tpane" data-pane="managers" hidden>
               <header class="tpanel-h thead-search"><span>Managers</span>
                 <input type="search" id="mgr-q" class="tsearch" placeholder="Search name, HQ or strategy…" value="${esc(fst.q || "")}" aria-label="Search managers">
-                <button type="button" class="tfocus-btn" id="cr-lg-focus" aria-pressed="false" title="Show only $1–15bn AUM managers">$1–15bn</button>
+                <button type="button" class="tfocus-btn tfocus-aum" id="cr-lg-focus" aria-pressed="false" title="Show only $1–15bn AUM managers">$1–15bn</button>
               </header>
               <div class="tleague-wrap">
               <table class="tleague tleague-full">
@@ -514,7 +514,7 @@ function hedgeFundsPaneHTML() {
   return `<div class="tpane" data-pane="hedgefunds" hidden>
               <header class="tpanel-h thead-search"><span>Hedge Funds</span>
                 <input type="search" id="hf-q" class="tsearch" placeholder="Search name, HQ or strategy…" aria-label="Search hedge funds">
-                <button type="button" class="tfocus-btn" id="cr-hf-focus" aria-pressed="false" title="Show only $1–15bn AUM hedge funds">$1–15bn</button>
+                <button type="button" class="tfocus-btn tfocus-aum" id="cr-hf-focus" aria-pressed="false" title="Show only $1–15bn AUM hedge funds">$1–15bn</button>
                 <button type="button" class="tfocus-btn" id="hf-cons-btn" title="Most-crowded holdings — aggregate the latest 13F top-10 across all ${withCik} tracked funds that file one">Cross-holdings</button>
               </header>
               <section class="hf-cons">

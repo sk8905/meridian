@@ -72,7 +72,7 @@ export function mount(host, ctx) {
           </header>
           <div class="tx-tools">
             <span class="tx-tools-l">AUM focus</span>
-            <button type="button" class="tfocus-btn" id="tx-focus" aria-pressed="false" title="Show only $1–15bn AUM managers' transactions">$1–15bn</button>
+            <button type="button" class="tfocus-btn tfocus-aum" id="tx-focus" aria-pressed="false" title="Show only $1–15bn AUM managers' transactions">$1–15bn</button>
           </div>
           <div class="tx-scroll" id="tx-body"></div>
         </section>

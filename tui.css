@@ -122,6 +122,13 @@
 .tfocus-btn { margin-left: auto; border: 1px solid var(--border); background: transparent; color: var(--muted); font-size: 9.5px; font-weight: 600; padding: 2px 7px; cursor: pointer; border-radius: 0; font-family: var(--t-mono); }
 .tfocus-btn.is-on { color: var(--ink); font-weight: 700; box-shadow: inset 0 -2px 0 var(--chip-ul, #000); }
 [data-theme="dark"] .tfocus-btn.is-on { box-shadow: inset 0 -2px 0 var(--chip-ul, #fff); }
+/* AUM focus toggles ($1–15bn) wear the orange treatment of the Home "Group by"
+   buttons: accent text + outline, a filled accent tint when active (no
+   underline). One look across Profiles, Transactions and the desks. */
+.tfocus-btn.tfocus-aum { color: var(--accent); font-weight: 700; border-radius: 5px; padding: 2px 8px; }
+.tfocus-btn.tfocus-aum:hover { border-color: var(--accent); }
+.tfocus-btn.tfocus-aum.is-on,
+[data-theme="dark"] .tfocus-btn.tfocus-aum.is-on { color: var(--accent); border-color: var(--accent); background: color-mix(in srgb, var(--accent) 18%, transparent); box-shadow: none; }
 
 /* centre activity wire */
 /* filter chips = full-width segmented tabs (matches the Home feed's tab bar):
