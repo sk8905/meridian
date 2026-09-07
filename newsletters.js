@@ -38,6 +38,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-morningbriefingeurope-germanfarrightwin-20260907",
+    publication: "Bloomberg",
+    author: "Victoria Batchelor",
+    series: "Morning Briefing Europe",
+    title: "German Far-Right Wins Election Landslide in Best State Result",
+    date: "2026-09-07",
+    time: "06:53",
+    summary: "Germany's far-right AfD scores its best-ever result in a state election, the US and Iran trade their largest tanker strikes yet, and Europe notches a space first as a German startup launches satellites into orbit.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-07/german-far-right-wins-election-landslide-in-best-state-result",
+  },
+  {
     id: "nl-economist-worldinbrief-afdgermanyelection-20260907",
     publication: "The Economist",
     author: null,
