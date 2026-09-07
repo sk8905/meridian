@@ -20,6 +20,13 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f8e97cdb-6edb-4cb1-ae38-b3c0ceeba485", title: "EU to table ‘Buy European’ public procurement rules to push out China", date: "2026-09-07", time: "06:00", url: "https://www.ft.com/content/f8e97cdb-6edb-4cb1-ae38-b3c0ceeba485" },
+  { id: "aa7371f6-5f88-4a14-a5d3-aab04a8a6705", title: "Guggenheim unit warned over internal controls", date: "2026-09-07", time: "06:00", url: "https://www.ft.com/content/aa7371f6-5f88-4a14-a5d3-aab04a8a6705" },
+  { id: "b08623a1-a976-4c5f-b247-0935643124fb", title: "Could the DMO take the BoE’s long gilts off their hands?", date: "2026-09-07", time: "06:00", url: "https://www.ft.com/content/b08623a1-a976-4c5f-b247-0935643124fb" },
+  { id: "cd0f8ee2-7c47-4b23-b8dc-161d4ac96e2b", title: "Few signs of persistent price pressures in UK and Eurozone", date: "2026-09-07", time: "06:00", url: "https://www.ft.com/content/cd0f8ee2-7c47-4b23-b8dc-161d4ac96e2b" },
+  { id: "f1cd277c-fc9b-454f-8eea-596408ebdd2b", title: "FirstFT: Germany’s far-right AfD surges to first place in state elections", date: "2026-09-07", time: "05:31", url: "https://www.ft.com/content/f1cd277c-fc9b-454f-8eea-596408ebdd2b" },
+  { id: "8012b60e-c74e-49bc-9200-d37f13b4a135", title: "China pumps $53bn into banks and insurers", date: "2026-09-07", time: "05:21", url: "https://www.ft.com/content/8012b60e-c74e-49bc-9200-d37f13b4a135" },
+  { id: "c8b0fa8c-714d-4563-8f3b-545ad56a5da5", title: "Cape Town has the design talent, it just needs more support", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/c8b0fa8c-714d-4563-8f3b-545ad56a5da5" },
   { id: "7c0f6eeb-ed05-4bd5-86e7-ff3b1466e196", title: "Narendra Modi fails to dull gold’s lustre in India", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/7c0f6eeb-ed05-4bd5-86e7-ff3b1466e196" },
   { id: "85960069-75fb-4997-9ff7-9b641ec997cd", title: "Venezuela-US oil deal risks violating local law, say experts", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/85960069-75fb-4997-9ff7-9b641ec997cd" },
   { id: "8827baa7-163d-4122-9ea8-a2c9ff6e8a4d", title: "Why America’s debt binge is starting to matter", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/8827baa7-163d-4122-9ea8-a2c9ff6e8a4d" },
@@ -53,11 +60,4 @@ export const FT_ITEMS = [
   { id: "c249f75f-a1ed-4174-94f3-320f8e4ef806", title: "German state heads to regional polls in far-right cliffhanger", date: "2026-09-06", time: "09:04", url: "https://www.ft.com/content/c249f75f-a1ed-4174-94f3-320f8e4ef806" },
   { id: "9bcce1fa-997e-49f2-9530-f1255e4cb28b", title: "Donald Trump’s approval rating falls to lowest yet in FT poll", date: "2026-09-06", time: "05:01", url: "https://www.ft.com/content/9bcce1fa-997e-49f2-9530-f1255e4cb28b" },
   { id: "a0e69cf2-c3d4-412b-b78b-a6171b7ed020", title: "Insurers pile on risk as payouts fall to lowest level in 20 years", date: "2026-09-06", time: "05:00", url: "https://www.ft.com/content/a0e69cf2-c3d4-412b-b78b-a6171b7ed020" },
-  { id: "0310460a-b192-4ebf-a55d-cf43706b58b7", title: "Swedish industrialist Wallenberg warns on leftwing opposition’s higher tax plans", date: "2026-09-06", time: "05:00", url: "https://www.ft.com/content/0310460a-b192-4ebf-a55d-cf43706b58b7" },
-  { id: "354ef76f-6a68-4e19-ab2d-7a6853170725", title: "How the UK can stop accidentally exporting its best tech start-ups", date: "2026-09-06", time: "05:00", url: "https://www.ft.com/content/354ef76f-6a68-4e19-ab2d-7a6853170725" },
-  { id: "01bb02eb-ded8-476b-ad10-63da4abe88e6", title: "Twelve English police forces involved in contentious Palantir pilot programmes", date: "2026-09-06", time: "05:00", url: "https://www.ft.com/content/01bb02eb-ded8-476b-ad10-63da4abe88e6" },
-  { id: "646c7152-a720-4ef9-8b84-e37188b9a8f4", title: "Iceland’s ‘no’ exposes EU complacency", date: "2026-09-06", time: "05:00", url: "https://www.ft.com/content/646c7152-a720-4ef9-8b84-e37188b9a8f4" },
-  { id: "04031dbe-7412-441e-8aaa-89a9ee6c7439", title: "The risky mission to de-mine the Strait of Hormuz", date: "2026-09-06", time: "05:00", url: "https://www.ft.com/content/04031dbe-7412-441e-8aaa-89a9ee6c7439" },
-  { id: "1d2449b3-bd85-477a-87ec-a5a12a9128c4", title: "Rival cities vie to ‘poach’ international organisations from Geneva", date: "2026-09-06", time: "05:00", url: "https://www.ft.com/content/1d2449b3-bd85-477a-87ec-a5a12a9128c4" },
-  { id: "b901e51c-b77f-4649-b0e6-2ef57a6969b7", title: "No busking, no drinking: councils hire private groups to enforce growing list of rules", date: "2026-09-06", time: "05:00", url: "https://www.ft.com/content/b901e51c-b77f-4649-b0e6-2ef57a6969b7" },
 ];

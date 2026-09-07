@@ -38,6 +38,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-economist-worldinbrief-afdgermanyelection-20260907",
+    publication: "The Economist",
+    author: null,
+    series: "The World in Brief",
+    title: "The World in Brief: AfD’s big win in Germany",
+    date: "2026-09-07",
+    time: "05:53",
+    summary: "Germany's AfD scored a best-ever regional result in Saxony-Anhalt, Zelensky said he expects the war with Russia to continue into winter after meeting Trump's envoys in Kyiv, and America and Iran escalated tanker attacks in the Gulf.",
+    url: "https://www.economist.com/the-world-in-brief",
+  },
+  {
     id: "nl-guardian-recap-20260906",
     publication: "The Guardian",
     author: null,
@@ -465,16 +476,5 @@ export const NEWSLETTERS = [
     time: "10:12",
     summary: "It's all revolving around oil.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-02/wall-street-s-direction-is-being-dictated-by-oil",
-  },
-  {
-    id: "nl-legalbusiness-marianadambhp-20260902",
-    publication: "Legal Business",
-    author: null,
-    series: null,
-    title: "Dispute breaks out over lead role for Mariana Dam group action claimants",
-    date: "2026-09-02",
-    time: "09:06",
-    summary: "Ex-Pogust Goodhead lawyers claim their new firm has won 'unanimous' support to take case forward - a claim Pogust contests.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMQWZFeUtHjv8BToAe/wv",
   },
 ];
