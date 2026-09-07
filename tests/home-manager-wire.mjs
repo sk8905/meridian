@@ -43,6 +43,12 @@ const MON = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Se
       stacked: first ? /title title/.test(getComputedStyle(first).gridTemplateAreas || "") : false,
       // a month-break band sits beneath the heading (like the news wire's day bands)
       monthBand: ((box.querySelector(".g-mw-flat .g-feed-dayhdr") || {}).textContent || "").trim(),
+      // the whole window: every month band shown + the expected current/previous
+      // month labels (the wire spans the current month to date + all of the
+      // previous month — e.g. September also carries all of August).
+      bands: [...box.querySelectorAll(".g-mw-flat .g-feed-dayhdr")].map((x) => x.textContent.trim()),
+      curMonth: (() => { const d = new Date(), M = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]; return `${M[d.getUTCMonth()]} ${d.getUTCFullYear()}`; })(),
+      prevMonth: (() => { const d = new Date(Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth() - 1, 1)), M = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"]; return `${M[d.getUTCMonth()]} ${d.getUTCFullYear()}`; })(),
     };
   });
   check(r.side3, "Home: manager wire lives in its own column (.g-side3)");
@@ -60,6 +66,10 @@ const MON = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Se
   checkEq(r.evSize, r.feedSize, "Home: story headline text size matches the news feed");
   check(r.evDivided, "Home: flat rows are divided by a hairline, like the news wire");
   check(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b.*\d{4}/i.test(r.monthBand), `Home: a month band sits beneath the Manager wire heading (${r.monthBand})`);
+  // The wire spans two full months: the current month to date + all of the
+  // previous month, and nothing older leaks in (every band is one of those two).
+  check(r.bands.includes(r.prevMonth), `Home: the wire reaches back into the whole previous month (${r.prevMonth} band present in ${r.bands.join(" · ")})`);
+  check(r.bands.length > 0 && r.bands.every((bnd) => bnd === r.curMonth || bnd === r.prevMonth), `Home: the wire shows only the current + previous month, nothing older (${r.bands.join(" · ")})`);
 
   // Watchlisted managers are flagged by an orange ★ before the headline. With no
   // follows there are no stars (--t-accent === rgb(251,139,30)).

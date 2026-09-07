@@ -556,11 +556,14 @@ function renderManagerWire() {
     // Flat (default): every manager's events merged into ONE stream, newest first,
     // regardless of manager, under a month-break band (labelled with the month,
     // like the news wire's day bands) — the first sits beneath the wire heading.
+    // Window: the current month to date + the whole previous month (≈ 2 months —
+    // e.g. in September it runs back through all of August), rather than a fixed
+    // item count, so the wire always shows the same span of history.
+    const _nd = new Date(), _winStart = Date.UTC(_nd.getUTCFullYear(), _nd.getUTCMonth() - 1, 1);
     const flat = rows
       .flatMap((r) => r.events.map((e) => ({ ...e, mgrName: r.name, mgrId: r.id, watched: r.watched })))
-      .filter((e) => e.ts)
-      .sort((a, b) => b.ts - a.ts || String(b.date).localeCompare(String(a.date)))
-      .slice(0, 50);
+      .filter((e) => e.ts && e.ts >= _winStart)
+      .sort((a, b) => b.ts - a.ts || String(b.date).localeCompare(String(a.date)));
     let out = "", lastMonth = "";
     flat.forEach((r) => {
       const mk = String(r.date || "").slice(0, 7);           // YYYY-MM
