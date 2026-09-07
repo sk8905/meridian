@@ -516,12 +516,12 @@ function hedgeFundsPaneHTML() {
   const withCik = HEDGE_FUNDS.filter((f) => f.cik).length;
   return `<div class="tpane" data-pane="hedgefunds" hidden>
               <div class="aum-focus">
+                <button type="button" class="tfocus-btn aum-focus-alt" id="hf-cons-btn" title="Most-crowded holdings — aggregate the latest 13F top-10 across all ${withCik} tracked funds that file one">Cross-holdings</button>
                 <span class="aum-focus-l">AUM focus</span>
                 <button type="button" class="tfocus-btn tfocus-aum" id="cr-hf-focus" aria-pressed="false" title="Show only $1–15bn AUM managers">$1–15bn</button>
               </div>
               <header class="tpanel-h thead-search"><span>Hedge Funds</span>
                 <input type="search" id="hf-q" class="tsearch" placeholder="Search name, HQ or strategy…" aria-label="Search hedge funds">
-                <button type="button" class="tfocus-btn" id="hf-cons-btn" title="Most-crowded holdings — aggregate the latest 13F top-10 across all ${withCik} tracked funds that file one">Cross-holdings</button>
               </header>
               <section class="hf-cons">
                 <div id="hf-cons-body"></div>

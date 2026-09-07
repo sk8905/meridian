@@ -34,6 +34,9 @@ checkEq(focusLbl.lg.btn, "$1–15bn", "managers AUM focus toggle reads $1–15bn
 checkEq(focusLbl.hf.btn, "$1–15bn", "hedge-funds AUM focus toggle reads $1–15bn");
 check(focusLbl.lg.inBar && focusLbl.lg.label === "AUM focus" && !focusLbl.lg.inSearch, "Managers: the $1–15bn toggle sits in the shared 'AUM focus' bar, not the search row");
 check(focusLbl.hf.inBar && focusLbl.hf.label === "AUM focus" && !focusLbl.hf.inSearch, "Hedge Funds: the $1–15bn toggle sits in the shared 'AUM focus' bar, not the search row");
+// The Hedge Funds "Cross-holdings" button shares that same AUM-focus line.
+const cons = await pg.evaluate(() => { const btn = document.querySelector("#hf-cons-btn"); return { present: !!btn, inBar: !!(btn && btn.closest(".aum-focus")), inSearch: !!(btn && btn.closest(".thead-search")) }; });
+check(cons.present && cons.inBar && !cons.inSearch, "Hedge Funds: the Cross-holdings button shares the AUM focus line");
 
 // The Managers / Hedge Funds / Law firms chips carry the active-tab underline
 // like the Dashboard/Transactions bars — the chip's marker sits in the header's

@@ -33,7 +33,7 @@ export function mount(host, ctx) {
     .map((d) => { const amt = amountOf(d); return { d, tx: txOf(d), sec: sectorOf(d), amt, usd: toUsd(amt), ts: Date.parse((d.date || "").slice(0, 10)) || 0 }; })
     .filter((r) => r.ts > 0);
 
-  const st = { period: "12m", type: null, sector: "all", focus: false };   // type=null → overview
+  const st = { period: "12m", type: null, sector: "all", focus: false, q: "" };   // type=null → overview; q set → search
   const inPeriod = (r) => st.period === "all" || r.ts >= now - 365 * DAY;
   // The $1–15bn AUM focus is an entity filter (orthogonal to the period): a deal
   // qualifies when its manager sits in the target band. Off → everything.
@@ -74,6 +74,9 @@ export function mount(host, ctx) {
             <span class="aum-focus-l">AUM focus</span>
             <button type="button" class="tfocus-btn tfocus-aum" id="tx-focus" aria-pressed="false" title="Show only $1–15bn AUM managers">$1–15bn</button>
           </div>
+          <header class="tpanel-h thead-search"><span>Transactions</span>
+            <input type="search" id="tx-q" class="tsearch" placeholder="Search a deal, manager or type…" aria-label="Search transactions">
+          </header>
           <div class="tx-scroll" id="tx-body"></div>
         </section>
       </div>
@@ -110,6 +113,22 @@ export function mount(host, ctx) {
   // ---- type detail: stat tiles + the transaction list ----------------------
   const kpi = (label, val, sub) => `<div class="tx-kpi"><span class="tx-kpi-v">${val}</span><span class="tx-kpi-l">${esc(label)}</span>${sub ? `<span class="tx-kpi-s">${sub}</span>` : ""}</div>`;
   const mgrLink = (id) => id ? `<a href="${esc(ctx.base)}/profiles/#/manager/${esc(id)}" class="tx-mgr" data-id="${esc(id)}">${esc(mgrName(id))}</a>` : "—";
+  // A transaction row + a hidden detail row (borrower/advisers live in the sourced
+  // summary prose; the structured fields — type, lender, amount, date, sub-category
+  // — are laid out beside it). Shared by the type-detail list and the search list.
+  const txRow = (r) => {
+    const d = r.d, u = d.sourceUrl, t = TX_TYPES.find((x) => x.key === r.tx);
+    const head = u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(d.headline || "")}</a>` : esc(d.headline || "");
+    const amtCell = r.amt ? `${esc(fmtAmt(r.amt))}${r.usd != null && r.amt.ccy !== "USD" ? ` <span class="tx-usd">≈${fmtUsd(r.usd)}</span>` : ""}` : "Not disclosed";
+    const fields = [["Type", esc((t && t.label) || "—")], ["Lender / investor", mgrLink(d.managerId)], ["Amount", amtCell], ["Date", esc(fmtDay(d.date))], ["Sub-category", esc(SECTOR_LABEL[r.sec] || "—")]];
+    const detail = `${d.summary ? `<p class="tx-sum">${esc(d.summary)}</p>` : ""}`
+      + `<dl class="tx-fields">${fields.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd></div>`).join("")}</dl>`
+      + (u ? `<a class="tx-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer">Full source ›</a>` : "");
+    return `<tr class="tx-row" data-id="${esc(d.id)}"><td class="tx-dt"><span class="tx-caret" aria-hidden="true">▸</span>${esc(fmtDay(d.date))}</td>`
+      + `<td class="tx-hd">${head}</td><td class="tx-mg">${mgrLink(d.managerId)}</td>`
+      + `<td class="tl-n tx-sz"${r.amt ? ` title="≈ ${fmtUsd(r.usd)}"` : ""}>${r.amt ? esc(fmtAmt(r.amt)) : "—"}</td></tr>`
+      + `<tr class="tx-exp" data-for="${esc(d.id)}" hidden><td colspan="4"><div class="tx-exp-in">${detail}</div></td></tr>`;
+  };
   function renderType(key) {
     st.type = key;
     const t = TX_TYPES.find((x) => x.key === key), s = statsFor(key);
@@ -121,22 +140,6 @@ export function mount(host, ctx) {
     const chips = present.length > 1
       ? `<div class="tx-secfilter" aria-label="Filter by sub-category">${secChip("all", "All", s.list.length, st.sector === "all")}${present.map((x) => secChip(x.key, x.label, secCount[x.key], st.sector === x.key)).join("")}</div>`
       : "";
-    // A transaction row + a hidden detail row (borrower/advisers live in the
-    // sourced summary prose; the structured fields — lender, amount, date,
-    // sub-category — are laid out beside it).
-    const txRow = (r) => {
-      const d = r.d, u = d.sourceUrl;
-      const head = u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(d.headline || "")}</a>` : esc(d.headline || "");
-      const amtCell = r.amt ? `${esc(fmtAmt(r.amt))}${r.usd != null && r.amt.ccy !== "USD" ? ` <span class="tx-usd">≈${fmtUsd(r.usd)}</span>` : ""}` : "Not disclosed";
-      const fields = [["Lender / investor", mgrLink(d.managerId)], ["Amount", amtCell], ["Date", esc(fmtDay(d.date))], ["Sub-category", esc(SECTOR_LABEL[r.sec] || "—")]];
-      const detail = `${d.summary ? `<p class="tx-sum">${esc(d.summary)}</p>` : ""}`
-        + `<dl class="tx-fields">${fields.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd></div>`).join("")}</dl>`
-        + (u ? `<a class="tx-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer">Full source ›</a>` : "");
-      return `<tr class="tx-row" data-id="${esc(d.id)}"><td class="tx-dt"><span class="tx-caret" aria-hidden="true">▸</span>${esc(fmtDay(d.date))}</td>`
-        + `<td class="tx-hd">${head}</td><td class="tx-mg">${mgrLink(d.managerId)}</td>`
-        + `<td class="tl-n tx-sz"${r.amt ? ` title="≈ ${fmtUsd(r.usd)}"` : ""}>${r.amt ? esc(fmtAmt(r.amt)) : "—"}</td></tr>`
-        + `<tr class="tx-exp" data-for="${esc(d.id)}" hidden><td colspan="4"><div class="tx-exp-in">${detail}</div></td></tr>`;
-    };
     body.innerHTML = `
       <div class="tx-back-bar"><button type="button" class="tx-back" id="tx-back">‹ All transaction types</button></div>
       <div class="tx-head">
@@ -158,13 +161,44 @@ export function mount(host, ctx) {
         : `<p class="tw-empty muted small">No ${esc(t.label.toLowerCase())}${st.sector !== "all" ? " · " + esc(SECTOR_LABEL[st.sector]) : ""} transactions ${st.period === "12m" ? "in the last 12 months" : "on record"} yet.</p>`}`;
   }
 
-  function render() { st.type ? renderType(st.type) : renderOverview(); }
+  // ---- search: a flat, dated list of matching deals across ALL types --------
+  // Honours the active period + AUM focus; matches the deal headline, its
+  // manager, the sourced summary, or the transaction-type label.
+  function renderSearch() {
+    const q = st.q.toLowerCase();
+    const hit = (r) => {
+      const d = r.d, t = TX_TYPES.find((x) => x.key === r.tx);
+      return (d.headline || "").toLowerCase().includes(q)
+        || mgrName(d.managerId).toLowerCase().includes(q)
+        || (d.summary || "").toLowerCase().includes(q)
+        || !!(t && t.label.toLowerCase().includes(q));
+    };
+    const list = rows.filter((r) => inPeriod(r) && inFocus(r) && hit(r)).sort((a, b) => b.ts - a.ts);
+    const CAP = 200, shown = list.slice(0, CAP);
+    body.innerHTML = `
+      <div class="tx-head">
+        <h2 class="tx-title">Search</h2>
+        <p class="tx-blurb"><span class="muted">${list.length} transaction${list.length === 1 ? "" : "s"} match “${esc(st.q)}”${st.focus ? " · $1–15bn AUM" : ""}${st.period === "12m" ? " · last 12 months" : ""}${list.length > CAP ? ` — showing the first ${CAP}` : ""}. Tap a row for the full detail.</span></p>
+      </div>
+      ${shown.length ? `<div class="tleague-wrap"><table class="tleague tleague-full tx-list">
+        <thead><tr><th class="tx-dt-h">Date</th><th class="tx-hd-h">Transaction</th><th class="tx-mg-h">Lender / investor</th><th>Amount</th></tr></thead>
+        <tbody>${shown.map(txRow).join("")}</tbody></table></div>`
+        : `<p class="tw-empty muted small">No transactions match “${esc(st.q)}”.</p>`}`;
+  }
+
+  function render() { st.q ? renderSearch() : (st.type ? renderType(st.type) : renderOverview()); }
 
   // ---- events (delegated) --------------------------------------------------
   host.querySelector("#tx-period").addEventListener("click", (e) => {
     const b = e.target.closest(".tchip"); if (!b) return;
     st.period = b.dataset.per; st.sector = "all";
     host.querySelectorAll("#tx-period .tchip").forEach((c) => c.classList.toggle("is-on", c === b));
+    render();
+  });
+  // Search box — typing switches the body to a flat list of matching deals; the
+  // input lives in the shell (outside #tx-body) so it keeps focus across renders.
+  host.querySelector("#tx-q").addEventListener("input", (e) => {
+    st.q = e.target.value.trim();
     render();
   });
   // $1–15bn AUM focus toggle — narrows every view (overview + type detail) to the

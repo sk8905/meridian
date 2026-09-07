@@ -129,6 +129,24 @@ const inband = await pg.evaluate(async () => {
 });
 check(inband.allIn, `Transactions: with focus on, every listed deal is a $1–15bn manager's (${inband.n} links)`);
 
+// ---- 6) search — a flat list of matching deals across all types -----------
+await pg.evaluate(() => { const bk = document.querySelector("#tx-back"); if (bk) bk.click(); }); // back to the overview first
+await pg.waitForTimeout(120);
+const search = await pg.evaluate(async () => {
+  const inp = document.querySelector("#tx-q"); if (!inp) return { present: false };
+  inp.value = "lending"; inp.dispatchEvent(new Event("input", { bubbles: true }));
+  await new Promise((r) => setTimeout(r, 160));
+  return { present: true, rows: document.querySelectorAll(".tx-list tr.tx-row").length, title: (document.querySelector(".tx-title") || {}).textContent || "", overviewGone: !document.querySelector(".tx-tbl tbody tr.clickable") };
+});
+check(search.present, "Transactions: a search box is present");
+check(/search/i.test(search.title) && search.rows > 0 && search.overviewGone, `Transactions: typing filters to a flat list of matching deals (${search.rows} rows)`);
+const cleared = await pg.evaluate(async () => {
+  const inp = document.querySelector("#tx-q"); inp.value = ""; inp.dispatchEvent(new Event("input", { bubbles: true }));
+  await new Promise((r) => setTimeout(r, 160));
+  return { league: document.querySelectorAll(".tx-tbl tbody tr.clickable").length };
+});
+check(cleared.league >= 6, `Transactions: clearing the search restores the type overview (${cleared.league})`);
+
 checkErrs(errs, "transactions tab");
 await ctx.close();
 await b.close(); srv.close();
