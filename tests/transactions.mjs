@@ -39,8 +39,12 @@ const ov = await pg.evaluate(() => ({
   hasTrend: document.querySelectorAll(".tx-tbl .tx-up, .tx-tbl .tx-fl, .tx-tbl .tx-dn").length > 0,
   hasVol: /\$/.test((document.querySelector(".tx-tbl tbody tr") || {}).textContent || ""),
   chips: [...document.querySelectorAll("#tx-period .tchip")].map((c) => c.textContent.trim()),
+  // Every league row is the SAME height (matches the Profiles panes — single-line
+  // rows are normalised up to the chip-row height), so the vertical rhythm is even.
+  rowHs: [...new Set([...document.querySelectorAll(".tx-tbl tbody tr.clickable")].map((tr) => Math.round(tr.getBoundingClientRect().height)))],
 }));
 check(ov.rows >= 6, `overview lists the transaction types as a league table (${ov.rows})`);
+check(ov.rowHs.length === 1, `overview rows share one uniform height, matching the Profiles league (${ov.rowHs.join(", ")}px)`);
 check(ov.hasTotal, "overview carries an 'All types' total row");
 check(ov.hasTrend && ov.hasVol, "overview shows a 12mo-vs-prior momentum mark and a ≈USD volume per type");
 check(ov.chips.join(",") === "Last 12 months,All time", `period chips present (${ov.chips.join(",")})`);

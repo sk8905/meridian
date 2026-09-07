@@ -207,6 +207,12 @@
 .tleague .tl-n { text-align: right; color: var(--muted); font-family: var(--t-mono); }
 .tleague th:not(:first-child) { text-align: right; }
 .tleague tr.clickable { cursor: pointer; }
+/* Uniform league-row height: plain single-line rows grow to match the taller
+   rows that carry a chip (Profiles' Secondaries badges are ~18px, ~3px over a
+   text line), so the vertical rhythm is identical WITHIN a table and ACROSS the
+   Profiles & Transactions tabs. `height` on a <tr> acts as a minimum, so
+   multi-line rows (e.g. the wrapped Transactions headlines) are unaffected. */
+.tleague-full tbody tr { height: 33px; }
 
 /* right rails */
 .tmini { list-style: none; margin: 0; padding: 0; }
@@ -336,6 +342,7 @@
 
   /* league / mini rows: comfier tap targets */
   .tleague td, .tleague th { padding: 8px; }
+  .tleague-full tbody tr { height: 37px; }   /* match the taller chip rows (see above) */
   .tleague .tl-nm { max-width: 52vw; }
   .tmini-row { padding: 9px 14px; }
 
