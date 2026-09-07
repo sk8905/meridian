@@ -554,13 +554,20 @@ function renderManagerWire() {
     if (active.length) html += `<div class="g-feed-dayhdr">${watched.length ? "Most active" : "Active managers"}</div>` + active.map(item).join("");
   } else {
     // Flat (default): every manager's events merged into ONE stream, newest first,
-    // regardless of manager.
+    // regardless of manager, under a month-break band (labelled with the month,
+    // like the news wire's day bands) — the first sits beneath the wire heading.
     const flat = rows
       .flatMap((r) => r.events.map((e) => ({ ...e, mgrName: r.name, mgrId: r.id, watched: r.watched })))
       .filter((e) => e.ts)
       .sort((a, b) => b.ts - a.ts || String(b.date).localeCompare(String(a.date)))
       .slice(0, 50);
-    html = `<div class="g-mw-flat">${flat.map(flatEv).join("")}</div>`;
+    let out = "", lastMonth = "";
+    flat.forEach((r) => {
+      const mk = String(r.date || "").slice(0, 7);           // YYYY-MM
+      if (mk && mk !== lastMonth) { lastMonth = mk; const [y, mo] = mk.split("-"); out += `<div class="g-feed-dayhdr g-mw-month">${esc((MONTHS[(+mo) - 1] || "") + " " + y)}</div>`; }
+      out += flatEv(r);
+    });
+    html = `<div class="g-mw-flat">${out}</div>`;
   }
   box.innerHTML = html;
 
