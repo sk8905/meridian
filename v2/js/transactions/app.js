@@ -100,7 +100,6 @@ export function mount(host, ctx) {
         + `<td class="tl-nm tx-top">${s.top ? esc(mgrName(s.top.id)) : "—"}</td></tr>`;
     };
     body.innerHTML = `
-      <p class="tx-intro">Tracked transactions across the covered managers${st.focus ? ` <span class="tx-focus-tag">· $1–15bn AUM only</span>` : ""}, by type${st.period === "12m" ? " — last 12 months" : ", all time"}. Volumes are the sum of disclosed deal sizes, normalised to <span title="Indicative FX snapshot for aggregation only; each deal shows its native figure">≈USD</span>.</p>
       <div class="tleague-wrap"><table class="tleague tleague-full tx-tbl">
         <thead><tr><th>Transaction type</th><th>Deals</th><th>12mo vs prior</th><th>Volume ≈$</th><th>Median ≈$</th><th>Managers</th><th class="tx-top-h">Most active</th></tr></thead>
         <tbody>${S.map(row).join("")}</tbody>

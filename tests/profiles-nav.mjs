@@ -37,9 +37,17 @@ checkEq(focusLbl.hf, "$1–15bn", "hedge-funds AUM focus toggle reads $1–15bn"
 const chipUL = await pg.evaluate(() => {
   const head = document.querySelector("#pf-list .twire-head");
   const on = document.querySelector("#pf-chips .tchip.is-on");
-  return { pos: head ? getComputedStyle(head).position : "", z: head ? getComputedStyle(head).zIndex : "", shadow: on ? getComputedStyle(on).boxShadow : "" };
+  // the chips must actually paint on TOP at their own coordinates — the pane
+  // sub-header (search + focus toggle) must not cover them (the mobile bug).
+  const chips = document.querySelector("#pf-chips"); const r = chips.getBoundingClientRect();
+  const hit = document.elementFromPoint(r.left + r.width / 2, r.top + r.height / 2);
+  return { pos: head ? getComputedStyle(head).position : "", z: head ? getComputedStyle(head).zIndex : "", shadow: on ? getComputedStyle(on).boxShadow : "", chipsOnTop: !!(hit && hit.closest("#pf-chips")) };
 });
-check(chipUL.pos === "relative" && chipUL.z !== "auto" && chipUL.z !== "", `Profiles: the chips header is lifted so the active underline shows (pos ${chipUL.pos}, z ${chipUL.z})`);
+check(chipUL.chipsOnTop, "Profiles: the Managers/Hedge Funds/Law firms chips are visible on top, not covered by the pane sub-header");
+// The header must be positioned with its own stacking level so the chip's
+// underline (in the header's overflow) shows above the pane below — sticky on
+// mobile (its designed pin), relative on desktop; either way not static/auto.
+check(chipUL.pos !== "static" && chipUL.z !== "auto" && chipUL.z !== "", `Profiles: the chips header is lifted so the active underline shows (pos ${chipUL.pos}, z ${chipUL.z})`);
 check(/inset/.test(chipUL.shadow), `Profiles: the active chip carries the 2px underline marker`);
 
 async function tapRow(pane, kind, hrefRe) {

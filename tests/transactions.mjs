@@ -107,12 +107,10 @@ const foc = await pg.evaluate(() => {
   return {
     present: true,
     on: btn.getAttribute("aria-pressed") === "true" && btn.classList.contains("is-on"),
-    tag: !!document.querySelector(".tx-focus-tag"),
     tot: parseInt(((document.querySelector(".tx-tot .tl-n") || {}).textContent || "0"), 10),
   };
 });
-check(foc.present && foc.on, "Transactions: a $1–15bn AUM focus toggle is present and turns on");
-check(foc.tag, "Transactions: the overview flags when the $1–15bn focus is active");
+check(foc.present && foc.on, "Transactions: a $1–15bn AUM focus toggle is present and turns on (active state marks the filter)");
 check(foc.tot > 0 && foc.tot <= totOff, `Transactions: the focus narrows the deal universe to the target band (${foc.tot} ≤ ${totOff})`);
 // with the focus on, every deal listed under a type is by an in-band manager
 const inband = await pg.evaluate(async () => {
