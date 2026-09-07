@@ -20,6 +20,14 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "8c5c7c44-c9fd-4326-b09a-9f58e3f144b9", title: "‘Chimerica’ is now a chimera — and global stability is the victim", date: "2026-09-07", time: "14:00", url: "https://www.ft.com/content/8c5c7c44-c9fd-4326-b09a-9f58e3f144b9" },
+  { id: "c6aeaefc-c978-4b0a-8a25-0e336e1872a6", title: "Volkswagen strikes deal to shift plant from cars to air defence", date: "2026-09-07", time: "13:30", url: "https://www.ft.com/content/c6aeaefc-c978-4b0a-8a25-0e336e1872a6" },
+  { id: "c703f1af-f8a6-43c0-94fb-04637259c295", title: "Vox rides high in Spain over Ceuta migrant crisis", date: "2026-09-07", time: "13:16", url: "https://www.ft.com/content/c703f1af-f8a6-43c0-94fb-04637259c295" },
+  { id: "314ef6d6-6c82-4f3f-8e47-7aff135a1dbe", title: "Next wins ‘landmark’ ruling in UK retail’s multibillion-pound equal pay claim", date: "2026-09-07", time: "13:13", url: "https://www.ft.com/content/314ef6d6-6c82-4f3f-8e47-7aff135a1dbe" },
+  { id: "06f51592-d259-4f53-b74c-31279414674d", title: "A German election result heard around the world", date: "2026-09-07", time: "13:03", url: "https://www.ft.com/content/06f51592-d259-4f53-b74c-31279414674d" },
+  { id: "eb18eb97-8e68-4d9d-b77c-0b0dedd47c59", title: "Deutsche Bank settles €152mn lawsuit with former executive", date: "2026-09-07", time: "13:01", url: "https://www.ft.com/content/eb18eb97-8e68-4d9d-b77c-0b0dedd47c59" },
+  { id: "4f3d6511-782b-4f10-9459-823a5ba7c669", title: "US shale pioneer takes fracking to Australia’s remote gas frontier", date: "2026-09-07", time: "13:00", url: "https://www.ft.com/content/4f3d6511-782b-4f10-9459-823a5ba7c669" },
+  { id: "d86643d2-c98c-4e19-b066-c97b50819b7e", title: "Yen surges to 6-month high as traders stay alert for signs of intervention", date: "2026-09-07", time: "12:45", url: "https://www.ft.com/content/d86643d2-c98c-4e19-b066-c97b50819b7e" },
   { id: "d7139a47-2882-4e4c-8c8d-78e3a9a17c03", title: "Canada is fated to try to do deals with Donald Trump", date: "2026-09-07", time: "12:31", url: "https://www.ft.com/content/d7139a47-2882-4e4c-8c8d-78e3a9a17c03" },
   { id: "b4931617-7116-4bf4-af9a-2cfcbc0424b0", title: "Top Serbian officials attend funeral of Ratko Mladić in Belgrade", date: "2026-09-07", time: "12:21", url: "https://www.ft.com/content/b4931617-7116-4bf4-af9a-2cfcbc0424b0" },
   { id: "ace61021-f3be-47a7-9117-b9f0c63d40d1", title: "China’s Global Strategy Under Xi Jinping — the plan to shift power from the west", date: "2026-09-07", time: "12:00", url: "https://www.ft.com/content/ace61021-f3be-47a7-9117-b9f0c63d40d1" },
@@ -56,10 +64,4 @@ export const FT_ITEMS = [
   { id: "738f043b-9d26-401c-aee6-7a64a257fda2", title: "FNZ: the Credit Suisse spinout haemorrhaging cash", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/738f043b-9d26-401c-aee6-7a64a257fda2" },
   { id: "a5e58e66-25c1-449f-a0bf-ca9a18b67307", title: "The citizen scientists tracking England’s polluted waterways", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/a5e58e66-25c1-449f-a0bf-ca9a18b67307" },
   { id: "9aa8805c-8b6a-4dfc-9e61-f5181ce07fc8", title: "Big US university endowments outperform S&P 500 index", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/9aa8805c-8b6a-4dfc-9e61-f5181ce07fc8" },
-  { id: "b7117775-81cc-4649-8235-1330891b2276", title: "Russia’s uranium push raises concern over nuclear fuel supply", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/b7117775-81cc-4649-8235-1330891b2276" },
-  { id: "d6b990f3-7cd8-49b6-b310-53356ea14c90", title: "ArcelorMittal faces green steel price test at flagship low-carbon plant", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/d6b990f3-7cd8-49b6-b310-53356ea14c90" },
-  { id: "b8ef3757-6889-455e-9d5f-3c5cc55bf9ce", title: "A foldable iPhone: John Ternus’s first test as Apple CEO", date: "2026-09-07", time: "05:00", url: "https://www.ft.com/content/b8ef3757-6889-455e-9d5f-3c5cc55bf9ce" },
-  { id: "83e08169-69b5-4997-9bf0-e0622e752eda", title: "Europe failing to deter Russia’s ‘hybrid’ war, warn defence officials", date: "2026-09-06", time: "21:00", url: "https://www.ft.com/content/83e08169-69b5-4997-9bf0-e0622e752eda" },
-  { id: "48e7b92b-affc-4fd0-8de1-ae8765e5c799", title: "Germany’s Merz on the ropes after far right delivers devastating blow", date: "2026-09-06", time: "20:51", url: "https://www.ft.com/content/48e7b92b-affc-4fd0-8de1-ae8765e5c799" },
-  { id: "a69af29e-b2c1-48cf-a6f7-c1f68c141785", title: "Starting gun fired on autumn election campaign season", date: "2026-09-06", time: "18:15", url: "https://www.ft.com/content/a69af29e-b2c1-48cf-a6f7-c1f68c141785" },
 ];
