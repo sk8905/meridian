@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "97477741-5227-4783-ab30-2b94090b4d43", title: "UK ministers to be encouraged to take more legal risks to push through policies", date: "2026-09-07", time: "19:30", url: "https://www.ft.com/content/97477741-5227-4783-ab30-2b94090b4d43" },
   { id: "63573658-c54d-44ef-87b8-cfecb1dd1f3c", title: "Germany’s Merz is running out of time", date: "2026-09-07", time: "18:30", url: "https://www.ft.com/content/63573658-c54d-44ef-87b8-cfecb1dd1f3c" },
   { id: "f7f164ea-83eb-44d6-93e5-ecec8b2648d9", title: "Pricey oil is laying the groundwork for its own decline", date: "2026-09-07", time: "18:17", url: "https://www.ft.com/content/f7f164ea-83eb-44d6-93e5-ecec8b2648d9" },
   { id: "cc750a77-fd63-40e9-be6e-99bd7c9a96a5", title: "Africa’s richest man seeks to raise $1.6bn in continent’s biggest IPO", date: "2026-09-07", time: "17:45", url: "https://www.ft.com/content/cc750a77-fd63-40e9-be6e-99bd7c9a96a5" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "aa7371f6-5f88-4a14-a5d3-aab04a8a6705", title: "Guggenheim unit warned over internal controls", date: "2026-09-07", time: "06:00", url: "https://www.ft.com/content/aa7371f6-5f88-4a14-a5d3-aab04a8a6705" },
   { id: "b08623a1-a976-4c5f-b247-0935643124fb", title: "Could the DMO take the BoE’s long gilts off their hands?", date: "2026-09-07", time: "06:00", url: "https://www.ft.com/content/b08623a1-a976-4c5f-b247-0935643124fb" },
   { id: "cd0f8ee2-7c47-4b23-b8dc-161d4ac96e2b", title: "Few signs of persistent price pressures in UK and Eurozone", date: "2026-09-07", time: "06:00", url: "https://www.ft.com/content/cd0f8ee2-7c47-4b23-b8dc-161d4ac96e2b" },
-  { id: "f1cd277c-fc9b-454f-8eea-596408ebdd2b", title: "FirstFT: Germany’s far-right AfD surges to first place in state elections", date: "2026-09-07", time: "05:31", url: "https://www.ft.com/content/f1cd277c-fc9b-454f-8eea-596408ebdd2b" },
 ];
