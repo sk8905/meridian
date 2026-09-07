@@ -9,7 +9,7 @@
 // .tleague) so the two tabs read as one app. mount(host, ctx) → {enter,leave}.
 // =============================================================================
 import { deals, managers } from "/credit/js/data.js";
-import { TX_TYPES, txOf, amountOf, toUsd, fmtAmt, fmtUsd } from "/credit/js/tx.js?v=20260904-1";
+import { TX_TYPES, SECTORS, SECTOR_LABEL, txOf, sectorOf, amountOf, toUsd, fmtAmt, fmtUsd } from "/credit/js/tx.js?v=20260907-1";
 import { esc } from "/util.js?v=20260818-1";
 import { fmtDay } from "/feed.js?v=20260808-1";
 
@@ -22,10 +22,10 @@ export function mount(host, ctx) {
   const now = Date.now();
   const rows = deals
     .filter((d) => d && d.date)
-    .map((d) => { const amt = amountOf(d); return { d, tx: txOf(d), amt, usd: toUsd(amt), ts: Date.parse((d.date || "").slice(0, 10)) || 0 }; })
+    .map((d) => { const amt = amountOf(d); return { d, tx: txOf(d), sec: sectorOf(d), amt, usd: toUsd(amt), ts: Date.parse((d.date || "").slice(0, 10)) || 0 }; })
     .filter((r) => r.ts > 0);
 
-  const st = { period: "12m", type: null };   // type=null → overview
+  const st = { period: "12m", type: null, sector: "all" };   // type=null → overview
   const inPeriod = (r) => st.period === "all" || r.ts >= now - 365 * DAY;
 
   // ---- per-type stats over the active period -------------------------------
@@ -95,22 +95,39 @@ export function mount(host, ctx) {
 
   // ---- type detail: stat tiles + the transaction list ----------------------
   const kpi = (label, val, sub) => `<div class="tx-kpi"><span class="tx-kpi-v">${val}</span><span class="tx-kpi-l">${esc(label)}</span>${sub ? `<span class="tx-kpi-s">${sub}</span>` : ""}</div>`;
+  const mgrLink = (id) => id ? `<a href="${esc(ctx.base)}/profiles/#/manager/${esc(id)}" class="tx-mgr" data-id="${esc(id)}">${esc(mgrName(id))}</a>` : "—";
   function renderType(key) {
     st.type = key;
     const t = TX_TYPES.find((x) => x.key === key), s = statsFor(key);
-    const list = [...s.list].sort((a, b) => b.ts - a.ts);
+    // Asset-class SUB-CATEGORIES present within this type (+ their counts).
+    const secCount = {}; s.list.forEach((r) => { secCount[r.sec] = (secCount[r.sec] || 0) + 1; });
+    const present = SECTORS.filter((x) => secCount[x.key]);
+    const list = s.list.filter((r) => st.sector === "all" || r.sec === st.sector).sort((a, b) => b.ts - a.ts);
+    const secChip = (k, label, n, on) => `<button type="button" class="tx-secchip${on ? " is-on" : ""}" data-sec="${esc(k)}">${esc(label)}<span class="tx-secn">${n}</span></button>`;
+    const chips = present.length > 1
+      ? `<div class="tx-secfilter" aria-label="Filter by sub-category">${secChip("all", "All", s.list.length, st.sector === "all")}${present.map((x) => secChip(x.key, x.label, secCount[x.key], st.sector === x.key)).join("")}</div>`
+      : "";
+    // A transaction row + a hidden detail row (borrower/advisers live in the
+    // sourced summary prose; the structured fields — lender, amount, date,
+    // sub-category — are laid out beside it).
     const txRow = (r) => {
-      const u = r.d.sourceUrl, id = r.d.managerId;
-      const head = u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(r.d.headline || "")}</a>` : esc(r.d.headline || "");
-      const mgr = id ? `<a href="${esc(ctx.base)}/profiles/#/manager/${esc(id)}" class="tx-mgr" data-id="${esc(id)}">${esc(mgrName(id))}</a>` : "—";
-      return `<tr><td class="tx-dt">${esc(fmtDay(r.d.date))}</td><td class="tx-hd">${head}</td>`
-        + `<td class="tx-mg">${mgr}</td><td class="tl-n tx-sz"${r.amt ? ` title="≈ ${fmtUsd(r.usd)}"` : ""}>${r.amt ? esc(fmtAmt(r.amt)) : "—"}</td></tr>`;
+      const d = r.d, u = d.sourceUrl;
+      const head = u ? `<a href="${esc(u)}" target="_blank" rel="noopener noreferrer">${esc(d.headline || "")}</a>` : esc(d.headline || "");
+      const amtCell = r.amt ? `${esc(fmtAmt(r.amt))}${r.usd != null && r.amt.ccy !== "USD" ? ` <span class="tx-usd">≈${fmtUsd(r.usd)}</span>` : ""}` : "Not disclosed";
+      const fields = [["Lender / investor", mgrLink(d.managerId)], ["Amount", amtCell], ["Date", esc(fmtDay(d.date))], ["Sub-category", esc(SECTOR_LABEL[r.sec] || "—")]];
+      const detail = `${d.summary ? `<p class="tx-sum">${esc(d.summary)}</p>` : ""}`
+        + `<dl class="tx-fields">${fields.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd></div>`).join("")}</dl>`
+        + (u ? `<a class="tx-src" href="${esc(u)}" target="_blank" rel="noopener noreferrer">Full source ›</a>` : "");
+      return `<tr class="tx-row" data-id="${esc(d.id)}"><td class="tx-dt"><span class="tx-caret" aria-hidden="true">▸</span>${esc(fmtDay(d.date))}</td>`
+        + `<td class="tx-hd">${head}</td><td class="tx-mg">${mgrLink(d.managerId)}</td>`
+        + `<td class="tl-n tx-sz"${r.amt ? ` title="≈ ${fmtUsd(r.usd)}"` : ""}>${r.amt ? esc(fmtAmt(r.amt)) : "—"}</td></tr>`
+        + `<tr class="tx-exp" data-for="${esc(d.id)}" hidden><td colspan="4"><div class="tx-exp-in">${detail}</div></td></tr>`;
     };
     body.innerHTML = `
       <div class="tx-back-bar"><button type="button" class="tx-back" id="tx-back">‹ All transaction types</button></div>
       <div class="tx-head">
         <h2 class="tx-title">${esc(t.label)}</h2>
-        <p class="tx-blurb">${esc(t.blurb)}</p>
+        <p class="tx-blurb">${esc(t.blurb)} <span class="muted">Tap a row for the borrower, advisers &amp; full detail.</span></p>
         <div class="tx-kpis">
           ${kpi("Deals", String(s.n), st.period === "12m" ? "last 12mo" : "all time")}
           ${kpi("Volume ≈$", fmtUsd(s.usd), `${s.disclosed}% size disclosed`)}
@@ -119,11 +136,12 @@ export function mount(host, ctx) {
           ${kpi("12mo", `${s.last12} ${s.last12 > s.prev12 ? "▲" : s.last12 < s.prev12 ? "▼" : "·"}`, `vs ${s.prev12} prior 12mo`)}
           ${kpi("Most active", s.top ? esc(mgrName(s.top.id)) : "—", s.top ? `${s.top.n} deals` : "")}
         </div>
+        ${chips}
       </div>
       ${list.length ? `<div class="tleague-wrap"><table class="tleague tleague-full tx-list">
-        <thead><tr><th class="tx-dt-h">Date</th><th class="tx-hd-h">Transaction</th><th class="tx-mg-h">Manager</th><th>Size</th></tr></thead>
+        <thead><tr><th class="tx-dt-h">Date</th><th class="tx-hd-h">Transaction</th><th class="tx-mg-h">Lender / investor</th><th>Amount</th></tr></thead>
         <tbody>${list.map(txRow).join("")}</tbody></table></div>`
-        : `<p class="tw-empty muted small">No ${esc(t.label.toLowerCase())} transactions ${st.period === "12m" ? "in the last 12 months" : "on record"} yet.</p>`}`;
+        : `<p class="tw-empty muted small">No ${esc(t.label.toLowerCase())}${st.sector !== "all" ? " · " + esc(SECTOR_LABEL[st.sector]) : ""} transactions ${st.period === "12m" ? "in the last 12 months" : "on record"} yet.</p>`}`;
   }
 
   function render() { st.type ? renderType(st.type) : renderOverview(); }
@@ -131,17 +149,25 @@ export function mount(host, ctx) {
   // ---- events (delegated) --------------------------------------------------
   host.querySelector("#tx-period").addEventListener("click", (e) => {
     const b = e.target.closest(".tchip"); if (!b) return;
-    st.period = b.dataset.per;
+    st.period = b.dataset.per; st.sector = "all";
     host.querySelectorAll("#tx-period .tchip").forEach((c) => c.classList.toggle("is-on", c === b));
     render();
   });
   host.addEventListener("click", (e) => {
     const back = e.target.closest("#tx-back");
-    if (back) { renderOverview(); return; }
+    if (back) { st.sector = "all"; renderOverview(); return; }
     const mgr = e.target.closest(".tx-mgr");
     if (mgr) { e.preventDefault(); ctx.navigate(`${ctx.base}/profiles/#/manager/${mgr.dataset.id}`); return; }
     const trow = e.target.closest("tr.clickable[data-type]");
-    if (trow) { body.scrollTop = 0; renderType(trow.dataset.type); return; }
+    if (trow) { body.scrollTop = 0; st.sector = "all"; renderType(trow.dataset.type); return; }
+    const sec = e.target.closest(".tx-secchip");
+    if (sec) { st.sector = sec.dataset.sec; renderType(st.type); return; }
+    // Expand/collapse a transaction to reveal borrower/advisers/full detail.
+    const row = e.target.closest("tr.tx-row");
+    if (row && !e.target.closest("a")) {
+      const exp = row.nextElementSibling;
+      if (exp && exp.classList.contains("tx-exp")) { const open = exp.hasAttribute("hidden"); exp.hidden = !open; row.classList.toggle("is-open", open); }
+    }
   });
 
   render();

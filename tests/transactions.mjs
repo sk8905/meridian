@@ -12,7 +12,7 @@ await pg.waitForTimeout(400);
 
 // ---- 1) enrichment layer -------------------------------------------------
 const tx = await pg.evaluate(async () => {
-  const [T, D] = await Promise.all([import("/credit/js/tx.js?v=20260904-1"), import("/credit/js/data.js")]);
+  const [T, D] = await Promise.all([import("/credit/js/tx.js?v=20260907-1"), import("/credit/js/data.js")]);
   const keys = new Set(T.TX_TYPES.map((t) => t.key));
   const deals = D.deals.filter((d) => d && d.date);
   const classified = deals.every((d) => keys.has(T.txOf(d)));
@@ -64,6 +64,27 @@ check(dt.mgrLinks > 0 && dt.srcLinks > 0, `each transaction links its manager pr
 // a manager link routes into the Profiles tab
 const nav = await pg.evaluate(() => (document.querySelector(".tx-list a.tx-mgr") || {}).getAttribute("href"));
 check(/\/profiles\/#\/manager\//.test(nav), `manager links point into Profiles (${nav})`);
+
+// ---- 3b) asset-class sub-category chips + expandable detail ---------------
+const sub = await pg.evaluate(() => {
+  const chips = [...document.querySelectorAll(".tx-secchip")];
+  return { n: chips.length, hasAll: chips.some((c) => c.dataset.sec === "all"), labels: chips.slice(0, 5).map((c) => c.textContent.trim()) };
+});
+check(sub.n > 1 && sub.hasAll, `type detail shows asset-class sub-category chips (${sub.n}: ${sub.labels.join(" · ")})`);
+const filt = await pg.evaluate(() => {
+  const before = document.querySelectorAll(".tx-list tr.tx-row").length;
+  const chip = [...document.querySelectorAll(".tx-secchip")].find((c) => c.dataset.sec !== "all");
+  chip.click();
+  return { before, after: document.querySelectorAll(".tx-list tr.tx-row").length, on: [...document.querySelectorAll(".tx-secchip.is-on")].some((c) => c.dataset.sec !== "all") };
+});
+check(filt.on && filt.after > 0 && filt.after <= filt.before, `a sub-category chip filters the list (${filt.after}/${filt.before})`);
+const exp = await pg.evaluate(() => {
+  const allChip = document.querySelector('.tx-secchip[data-sec="all"]'); if (allChip) allChip.click();
+  const row = document.querySelector(".tx-list tr.tx-row"), det = row.nextElementSibling;
+  const before = det.hidden; row.click();
+  return { before, after: row.nextElementSibling.hidden, fields: det.querySelectorAll(".tx-fields dt").length, isExp: det.classList.contains("tx-exp") };
+});
+check(exp.isExp && exp.before === true && exp.after === false && exp.fields >= 4, `a transaction expands to its detail — lender · amount · date · sub-category (${exp.fields} fields)`);
 
 // ---- 4) back to overview + period toggle ---------------------------------
 await pg.evaluate(() => document.querySelector("#tx-back").click());

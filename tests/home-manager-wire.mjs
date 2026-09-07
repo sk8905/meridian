@@ -41,6 +41,8 @@ const MON = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Se
       isFeedRow: !!(first && first.classList.contains("g-feed-row")),
       hasParts: !!(first && first.querySelector(".g-feed-time") && first.querySelector(".g-feed-code") && first.querySelector(".g-feed-title") && first.querySelector(".g-feed-src")),
       stacked: first ? /title title/.test(getComputedStyle(first).gridTemplateAreas || "") : false,
+      // a month-break band sits beneath the heading (like the news wire's day bands)
+      monthBand: ((box.querySelector(".g-mw-flat .g-feed-dayhdr") || {}).textContent || "").trim(),
     };
   });
   check(r.side3, "Home: manager wire lives in its own column (.g-side3)");
@@ -57,6 +59,7 @@ const MON = { Jan: 0, Feb: 1, Mar: 2, Apr: 3, May: 4, Jun: 5, Jul: 6, Aug: 7, Se
   check(r.dates.every((s) => /^\d+\s+\w+$/.test(s)) && dn.every((v, i) => i === 0 || dn[i - 1] >= v), `Home: the meta line shows the DATE (not a time), newest → oldest (${r.dates.join(", ")})`);
   checkEq(r.evSize, r.feedSize, "Home: story headline text size matches the news feed");
   check(r.evDivided, "Home: flat rows are divided by a hairline, like the news wire");
+  check(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\b.*\d{4}/i.test(r.monthBand), `Home: a month band sits beneath the Manager wire heading (${r.monthBand})`);
 
   // Watchlisted managers are flagged by an orange ★ before the headline. With no
   // follows there are no stars (--t-accent === rgb(251,139,30)).

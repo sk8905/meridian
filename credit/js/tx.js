@@ -79,6 +79,38 @@ export function classifyTx(deal) {
 }
 export function txOf(deal) { return TX_TAG[deal && deal.id] || classifyTx(deal); }
 
+// ---- Asset-class SUB-CATEGORY (a second, collateral/sector dimension within a
+// transaction type). Derived from the deal's text; used for the sub-filters on a
+// type's detail. `SEC_TAG` overrides where the wording is ambiguous. ----
+export const SECTORS = [
+  { key: "re", label: "Real estate" },
+  { key: "abf", label: "Asset-backed / ABF" },
+  { key: "consumer", label: "Consumer" },
+  { key: "infra", label: "Infrastructure & energy" },
+  { key: "fund", label: "Fund / financial" },
+  { key: "sponsor", label: "Sponsor / corporate" },
+  { key: "special", label: "Special situations" },
+  { key: "other", label: "Diversified / other" },
+];
+export const SECTOR_LABEL = Object.fromEntries(SECTORS.map((s) => [s.key, s.label]));
+export const SEC_TAG = { /* dealId: sectorKey (curated) */ };
+const _SEC = {
+  re: /real[- ]?estate|\bcre\b|\brmbs\b|\bcmbs\b|property|resi(dential)?|hotel|housing|logistics|office|warehouse|commercial mortgage/i,
+  abf: /asset[- ]based|asset[- ]backed|receivabl|\babl\b|\babf\b|\babs\b|securitis|forward[- ]flow|equipment financ|inventory|trade finance|royalt|aviation (finance|leasing|debt)|fleet|specialty finance/i,
+  consumer: /consumer|credit card|auto (loan|finance|lease)|\bbnpl\b|point[- ]of[- ]sale|student loan|personal loan|prime lending/i,
+  infra: /infrastructure|renewabl|\benergy\b|solar|\bwind\b|\bpower\b|grid|data cent(re|er)|digital infra|utilit|battery|transmission|pipeline|telecom/i,
+  fund: /fund finance|\bnav\b|gp[- ]led|lp[- ]led|continuation|secondar|collateral(ised|ized) fund|\bcfo\b|fund of funds|\bgp stakes?\b|insurer|insurance|bank\b/i,
+  sponsor: /sponsor|private equity|\bpe\b|buyout|\blbo\b|take[- ]private|portfolio company|acquisition financ|unitranche/i,
+  special: /distress|special situation|\brescue\b|restructur|\bnpl(s)?\b|non[- ]performing|turnaround|bankrupt|insolven|debt[- ]for[- ]equity/i,
+};
+const _SEC_ORDER = ["re", "abf", "consumer", "infra", "fund", "sponsor", "special"];
+export function sectorOf(deal) {
+  if (deal && SEC_TAG[deal.id]) return SEC_TAG[deal.id];
+  const s = ((deal && deal.headline) || "") + "  " + ((deal && deal.summary) || "");
+  for (const k of _SEC_ORDER) if (_SEC[k].test(s)) return k;
+  return "other";
+}
+
 // ---- Amount parsing. Pulls the FIRST currency figure from the headline (else
 // the summary). Multi-currency symbols are recognised; the value is normalised to
 // millions in its NATIVE currency. Never invents a figure — no match → null.
