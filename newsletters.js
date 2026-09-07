@@ -38,6 +38,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-econdaily-feddiscord-20260907",
+    publication: "Bloomberg",
+    author: "Chris Anstey",
+    series: "Economics Daily",
+    title: "Economics Daily: Fed discord",
+    date: "2026-09-07",
+    time: "12:00",
+    summary: "Fed Chair Warsh's speech contrasts with New York Fed president's take.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-07/fed-latest-warsh-s-speech-contrasts-with-new-york-fed-president-s-take",
+  },
+  {
     id: "nl-bbg-marketsdaily-stocksdefybondslump-20260907",
     publication: "Bloomberg",
     author: null,
