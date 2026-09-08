@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "2e97fb28-24cf-4ab0-89b1-454b4f97cdbc", title: "Young Americans have never witnessed a functioning foreign policy", date: "2026-09-08", time: "15:24", url: "https://www.ft.com/content/2e97fb28-24cf-4ab0-89b1-454b4f97cdbc" },
   { id: "ef50aed1-e50c-4cb6-a418-266476fb2829", title: "To safeguard Israel’s future, the UK is right to sanction settlers", date: "2026-09-08", time: "15:13", url: "https://www.ft.com/content/ef50aed1-e50c-4cb6-a418-266476fb2829" },
   { id: "f1a7b7be-1444-4f2f-80ca-905c8630f295", title: "Heathrow and Gatwick flights face disruption over air traffic control ‘technical issue’", date: "2026-09-08", time: "15:06", url: "https://www.ft.com/content/f1a7b7be-1444-4f2f-80ca-905c8630f295" },
   { id: "d264136c-8215-4ac6-a1cc-1efeb23ae5cd", title: "Cerberus nears £1bn deal for Goodwin defence unit", date: "2026-09-08", time: "14:43", url: "https://www.ft.com/content/d264136c-8215-4ac6-a1cc-1efeb23ae5cd" },
@@ -58,7 +59,4 @@ export const FT_ITEMS = [
   { id: "c6517e52-b855-487c-8408-7071936cf3b0", title: "Global shipping rules are collapsing, say maritime nations", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/c6517e52-b855-487c-8408-7071936cf3b0" },
   { id: "2f0b8e53-60dc-4d31-b31f-9534908c10ae", title: "The cost of being Apollo", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/2f0b8e53-60dc-4d31-b31f-9534908c10ae" },
   { id: "462fddd0-850d-46e0-b2e7-5804d483ab52", title: "Why Japan Inc can brush off interest-rate hikes — and America can’t", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/462fddd0-850d-46e0-b2e7-5804d483ab52" },
-  { id: "7c53cee9-3066-4722-acf6-17daa2f54631", title: "EU opens door to bigger corporate mergers", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/7c53cee9-3066-4722-acf6-17daa2f54631" },
-  { id: "4f28ef6c-f727-4d36-88a3-bbdbd13ddfbf", title: "The world’s $2tn interest bill", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/4f28ef6c-f727-4d36-88a3-bbdbd13ddfbf" },
-  { id: "f6a26a17-985f-4283-99c4-ba5d54e94e7f", title: "Britain’s grid operator gave Palantir contract without inviting rival bids", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/f6a26a17-985f-4283-99c4-ba5d54e94e7f" },
 ];
