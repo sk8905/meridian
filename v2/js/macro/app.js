@@ -2,7 +2,7 @@
 // shell wiring changed: injected container, no chrome boot, active-tab-guarded
 // listeners. Hash sub-routing unchanged.
 
-import { UPDATED, META, OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, SUMMARY, ALERTS, NEWS, RELEASES, COMMENTARY, ARTICLES, IND_KEYMOMENTS } from "/macro/js/content.js";
+import { UPDATED, META, OUTLOOK, CYCLE, MARKET_CYCLE, BUBBLE, SUMMARY, NEWS, RELEASES, COMMENTARY, ARTICLES, IND_KEYMOMENTS } from "/macro/js/content.js";
 import { reportRefresh } from "/v2/js/status.js?v=v2-3";
 import { esc, byDateDesc } from "/util.js?v=20260818-1";
 import { MONTHS, isoToDate, fmtDay, fmtDayGB, fmtDate,
@@ -1179,8 +1179,7 @@ function syncNav(active) {
   });
 }
 
-// Fetch the live macro data once and reuse it for both the dashboard and the
-// notifications bell (so the bell is populated on any tab).
+// Fetch the live macro data once and reuse it across tabs.
 let MACRO_PROMISE = null;
 function fetchMacro() {
   if (!MACRO_PROMISE) MACRO_PROMISE = (async () => {
@@ -1202,122 +1201,7 @@ async function loadMacro(focus) {
 }
 
 // ---- Topbar: last-refresh line (matches Credit/Legal) ----------------------
-function refreshStamp() {
-  return `${fmtDate(META.lastChecked)}${META.lastCheckedTime ? `, ${META.lastCheckedTime}` : ""}`;
-}
 function renderDataStatus() { reportRefresh(META.lastChecked, META.lastCheckedTime); }   // v2: app-wide refresh
-
-// ---- Notifications bell: economic-data prints + guidance changes -----------
-// "Seen" ids sync per-user across devices via /api/notif-macro (KV keyed on the
-// verified Access email), with localStorage as an instant cache / offline
-// fallback — so acknowledging items on one device clears them on the others.
-const NOTIF_KEY = "meridian.macro.notifSeen";
-const NOTIF_API = "/api/notif-macro";
-let notifSeen = null;    // resolved array of acknowledged ids (null until known)
-let notifCloud = false;  // true once the per-user seen-set API responds
-function notifReadLocal() {
-  try { const p = JSON.parse(localStorage.getItem(NOTIF_KEY) || "null"); return Array.isArray(p) ? p : null; } catch { return null; }
-}
-function notifPersist(ids) {
-  notifSeen = ids;
-  try { localStorage.setItem(NOTIF_KEY, JSON.stringify(ids)); } catch { /* */ }
-  if (notifCloud) fetch(NOTIF_API, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ seen: ids }) }).catch(() => {});
-}
-function dataAlerts(series) {
-  return (series || []).filter((s) => s.value != null).map((s) => {
-    const pct = s.unit === "%";
-    const val = `${(+s.value).toFixed(2)}${pct ? "%" : ""}`;
-    const country = s.country === "US" ? "US" : "UK";
-    let chg = "";
-    if (s.change != null && s.change !== 0) chg = ` · ${s.change > 0 ? "▲" : "▼"} ${Math.abs(s.change).toFixed(2)}${pct ? " pp" : ""} MoM`;
-    else if (s.change === 0) chg = " · unchanged MoM";
-    const flag = (s.key === "services_pmi" && +s.value < 50) ? " — below 50 (contraction)" : "";
-    return {
-      id: `d:${s.country}:${s.key}:${s.asOf}:${(+s.value).toFixed(2)}`,
-      kind: "Economic data",
-      title: `${country} · ${s.label}: ${val}${flag}${chg}`,
-      source: s.source || "",
-      href: `#/dashboard?focus=${s.country}-${s.key}`,
-      date: s.asOf ? `${s.asOf}-01` : "",
-    };
-  });
-}
-function notifItems() {
-  const data = dataAlerts((MACRO_DATA && MACRO_DATA.series) || []);
-  // Guidance alerts (rate outlook / cycle / bubble) are Wire's own editorial
-  // synthesis — note their proprietary source; data alerts carry the provider.
-  const guidance = ALERTS.map((a) => ({ ...a, source: "Wire analysis" }));
-  return [...guidance, ...data].sort(byDateDesc);
-}
-function closeNotif() {
-  const p = document.getElementById("notif-panel"), b = document.getElementById("notif-bell");
-  if (p) p.setAttribute("hidden", "");
-  if (b) b.setAttribute("aria-expanded", "false");
-}
-function renderNotifications() {
-  const wrap = document.getElementById("notif");
-  if (!wrap) return;
-  const all = notifItems();
-  const allIds = all.map((x) => x.id);
-  // Until the seen-set is resolved (local + cross-device), show no "new" badge.
-  const seenSet = notifSeen ? new Set(notifSeen) : null;
-  const fresh = seenSet ? all.filter((x) => !seenSet.has(x.id)) : [];
-  const n = fresh.length;
-  const list = (n ? fresh : all).slice(0, 14);
-  wrap.innerHTML = `
-    <button type="button" class="notif-bell" id="notif-bell" aria-haspopup="true" aria-expanded="false" aria-label="Notifications${n ? ` — ${n} new` : ""}">
-      <span class="notif-ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></span>${n ? `<span class="notif-badge">${n > 9 ? "9+" : n}</span>` : ""}
-    </button>
-    <div class="notif-panel" id="notif-panel" role="menu" hidden>
-      <div class="notif-head">${n ? `${n} new update${n > 1 ? "s" : ""}` : "No new updates"} <span class="muted small">· checked ${esc(refreshStamp())}</span></div>
-      <ul class="notif-list">
-        ${list.length ? list.map((x) => `<li class="notif-item${(n && fresh.includes(x)) ? " is-new" : ""}">
-          <a href="${esc(x.href)}" class="nf-row">
-            <span class="nf-title">${esc(x.title)}</span>
-            <span class="nf-meta"><span class="nf-code macro">MAC</span>${x.date ? `<span class="nf-time">${esc(fmtDate(x.date))}</span>` : ""}${x.source ? `<span class="nf-sep">·</span><span class="nf-src">${esc(x.source)}</span>` : ""}</span>
-          </a>
-        </li>`).join("") : '<li class="notif-empty muted small">Nothing yet.</li>'}
-      </ul>
-    </div>`;
-  const bell = document.getElementById("notif-bell");
-  const panel = document.getElementById("notif-panel");
-  bell.addEventListener("click", (e) => {
-    e.stopPropagation();
-    if (panel.hasAttribute("hidden")) {
-      panel.removeAttribute("hidden"); bell.setAttribute("aria-expanded", "true");
-      notifPersist([...new Set([...(notifSeen || []), ...allIds])]);
-      const badge = bell.querySelector(".notif-badge"); if (badge) badge.remove();
-    } else { closeNotif(); }
-  });
-}
-// Resolve the seen-set: instant render from localStorage, then reconcile with the
-// per-user server copy so items acknowledged on another device drop off here too.
-async function initNotif() {
-  notifSeen = notifReadLocal();
-  renderNotifications();
-  let serverSeen = null;
-  try {
-    const r = await fetch(NOTIF_API, { headers: { accept: "application/json" } });
-    if (r.ok) { const d = await r.json(); serverSeen = Array.isArray(d.seen) ? d.seen : []; notifCloud = true; }
-  } catch { /* not behind Access → local-only */ }
-  const allIds = notifItems().map((x) => x.id);
-  const local = notifReadLocal() || [];
-  const baseline = ((serverSeen && serverSeen.length) || local.length)
-    ? [...new Set([...local, ...(serverSeen || [])])]   // seen on any device
-    : allIds;                                           // first use anywhere → no badge
-  notifSeen = baseline;
-  try { localStorage.setItem(NOTIF_KEY, JSON.stringify(baseline)); } catch { /* */ }
-  if (notifCloud && (!serverSeen || baseline.length !== serverSeen.length)) {
-    fetch(NOTIF_API, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify({ seen: baseline }) }).catch(() => {});
-  }
-  renderNotifications();
-}
-on(document, "click", (e) => {
-  const panel = document.getElementById("notif-panel");
-  const isOpen = panel && !panel.hasAttribute("hidden");
-  if (isOpen && !e.target.closest("#notif")) { e.preventDefault(); e.stopPropagation(); closeNotif(); }
-}, true);
-on(window, "hashchange", closeNotif);
 
 function render() {
   const tab = currentTab();
@@ -1346,20 +1230,6 @@ function render() {
   if (tab === "commentary") wireCommentary();
   if (tab === "chart") { syncChartAll(); fetchMacro().then(() => { if (currentTab() === "chart") drawChart(); }); }
   window.scrollTo(0, 0);
-}
-
-// Signed-in identity chip (behind Cloudflare Access), matching Credit & Legal.
-async function initMe() {
-  try {
-    const r = await fetch("/api/me", { headers: { accept: "application/json" } });
-    if (!r.ok) return;
-    const d = await r.json();
-    const el = document.getElementById("account-nav");
-    if (el && d.email) { el.innerHTML = `<span class="si-prefix">Signed in as </span><strong>${esc(d.email)}</strong> · <a href="/cdn-cgi/access/logout">Sign out</a>`; el.hidden = false; }
-    // Remember verified sign-in so the Glance home can render optimistically
-    // (skip its "Checking your sign-in…" splash) when the user navigates there.
-    if (d.email) { try { localStorage.setItem("m_signed_in", "1"); } catch { /* ignore */ } }
-  } catch { /* not behind Access */ }
 }
 
 // Load the saved chart selection from the server (cross-device). If the server
@@ -1394,9 +1264,8 @@ function initChartPrefs() {
 on(window, "hashchange", render);
 // Unified ⌘K / Ctrl-K search, mounted in-place (opens over the current app).
 render();
-initMe();
 renderDataStatus();
-fetchMacro().then(initNotif);
+fetchMacro();
 initChartPrefs();
 initSavedMSync();
 

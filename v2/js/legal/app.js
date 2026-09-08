@@ -1227,25 +1227,10 @@ on(document, "click", (e) => {
 }, true);
 on(window, "hashchange", closeNotif);
 
+// Signed-in identity is fetched once, app-wide, by chrome.js's fillAccount()
+// (same #account-nav node) — this only needs the desk-specific refresh stamp.
 function initChrome() {
   reportRefresh(LAST_CHECKED, LAST_CHECKED_TIME);   // v2: app-wide refresh
-  // Same pattern as the Wire app / landing page: behind Cloudflare Access
-  // this returns the verified email; otherwise we leave the slot empty.
-  const acct = document.getElementById("account-nav");
-  if (acct) {
-    fetch("/api/me", { headers: { accept: "application/json" } })
-      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-      .then((d) => {
-        if (d && d.email) {
-          acct.innerHTML = `<span class="si-prefix">Signed in as </span><strong>${esc(d.email)}</strong>`
-            + ` · <a href="/cdn-cgi/access/logout">Sign out</a>`;
-          // Remember verified sign-in so the Glance home can render optimistically
-          // (skip its "Checking your sign-in…" splash) when the user navigates there.
-          try { localStorage.setItem("m_signed_in", "1"); } catch { /* ignore */ }
-        }
-      })
-      .catch(() => { /* not behind Access (e.g. local preview) — leave empty */ });
-  }
 }
 
 // Swipe-to-change-section gesture removed by request (pull-to-refresh kept).
