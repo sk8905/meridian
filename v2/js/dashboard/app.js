@@ -351,8 +351,8 @@ export function mount(host, ctx) {
     const strip = crTapeHTML();
     const mid = `${strip ? `<section class="dsh-card dsh-span">${strip}</section>` : ""}
       <h3 class="dsh-term-lbl">Spreads &amp; pulse</h3>
-      <section class="dsh-card"><h3 class="dsh-h">Private credit <span class="dsh-n">Fitch PCDR &amp; market pulse</span> ${asOf(PRIVATE_CREDIT && PRIVATE_CREDIT.asOf)}</h3>${privateCreditHTML()}</section>
-      <section class="dsh-card"><h3 class="dsh-h">Credit spreads — ICE BofA OAS <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div></section>
+      <section class="dsh-card dsh-h2"><h3 class="dsh-h">Private credit <span class="dsh-n">Fitch PCDR &amp; market pulse</span> ${asOf(PRIVATE_CREDIT && PRIVATE_CREDIT.asOf)}</h3>${privateCreditHTML()}</section>
+      <section class="dsh-card dsh-h2"><h3 class="dsh-h">Credit spreads — ICE BofA OAS <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div></section>
       <h3 class="dsh-term-lbl">Maturity &amp; stress</h3>
       <section class="dsh-card"><h3 class="dsh-h">Maturity wall</h3>${maturityHTML()}</section>
       <section class="dsh-card"><h3 class="dsh-h">Stress — situations in focus <span class="dsh-n">(${CR_STRESS.length}) · by debt</span></h3>${stressHTML()}</section>`;
@@ -593,8 +593,8 @@ export function mount(host, ctx) {
     const boe = boeHTML();
     const mid = `<section class="dsh-card dsh-span">${regimePillsHTML()}</section>
       <h3 class="dsh-term-lbl">Policy rates</h3>
-      ${fed ? `<section class="dsh-card"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
-      ${boe ? `<section class="dsh-card"><h3 class="dsh-h">BoE path — MPC votes &amp; SONIA/OIS curve</h3>${boe}</section>` : ""}
+      ${fed ? `<section class="dsh-card dsh-h2"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
+      ${boe ? `<section class="dsh-card dsh-h2"><h3 class="dsh-h">BoE path — MPC votes &amp; SONIA/OIS curve</h3>${boe}</section>` : ""}
       <section class="dsh-card"><h3 class="dsh-h">Rate outlook</h3>${rateOutlookHTML()}</section>
       <section class="dsh-card" id="dsh-yc-card">${yieldCurveCardHTML()}</section>
       <h3 class="dsh-term-lbl">Cycle</h3>

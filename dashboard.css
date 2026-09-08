@@ -129,8 +129,24 @@
     box-shadow:inset 3px 0 0 var(--t-accent); }
   /* Middle + rails: the grid gap spaces the columns; drop the mobile side padding. */
   .dsh-mid, .dsh-newsrail{ padding:0; }
+  /* The middle is a 2-up grid, but conservatively: everything spans the FULL
+     width by default (group labels, the top KPI strip, and every wide table /
+     chart / bar / ladder that needs the room), and only cards explicitly marked
+     `.dsh-h2` drop to a half column. Those are tagged in adjacent pairs — Macro
+     Fed | BoE, Credit Private-credit | Spreads — so two compact panels sit
+     side-by-side for at-a-glance comparison, with no lone half-card leaving an
+     empty gap. Cards keep their natural height (align-items:start), packed from
+     the top. */
   .dsh-mid{ min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
-  .dsh-mid > *{ flex:0 0 auto; }
+  .dsh-3z:not(.dsh-norail) .dsh-mid{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr));
+    grid-auto-rows:min-content; align-items:start; align-content:start; gap:var(--dsh-gap); }
+  .dsh-3z:not(.dsh-norail) .dsh-mid > *{ min-width:0; grid-column:1 / -1; }
+  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-card.dsh-h2{ grid-column:auto; }
+  /* A half card is only ~half the middle wide, so a two-column kv grid that is
+     the card's own body (Private credit's metrics) would cramp — collapse it to
+     one column so each row reads on a single line. Nested grids inside the
+     Fed/BoE split are left alone; they already fit. */
+  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-card.dsh-h2 > .dsh-kvgrid{ grid-template-columns:1fr; }
   /* Right rail: the label pins, the wire card fills and its list scrolls. */
   .dsh-newsrail{ min-height:0; overflow:hidden; }
   .dsh-newsrail > .dsh-term-lbl{ flex:0 0 auto; }
