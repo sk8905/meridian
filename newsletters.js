@@ -38,6 +38,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-thebrink-australiachinaparallel-20260908",
+    publication: "Bloomberg",
+    author: "Manolo Serapio Jr.",
+    series: "The Brink",
+    title: "The Brink: Australia-China parallel",
+    date: "2026-09-08",
+    time: "16:54",
+    summary: "A property developer unravels in Australia and raises a Chinese specter.",
+    url: "https://www.bloomberg.com/news/newsletters/2026-09-08/australia-s-bathla-collapse-raises-fears-of-a-china-style-spiral",
+  },
+  {
     id: "nl-legalbusiness-emeatopfirms-20260908",
     publication: "Legal Business",
     author: null,
@@ -465,16 +476,5 @@ export const NEWSLETTERS = [
     time: "19:25",
     summary: "Kawhi, DAT, Epstein.",
     url: "https://bloom.bg/4dgPtMc",
-  },
-  {
-    id: "nl-legalbusiness-slaughtersukmafees-20260903",
-    publication: "Legal Business",
-    author: null,
-    series: null,
-    title: "Slaughters racks up more than £110m in fees on UK's biggest M&A deals",
-    date: "2026-09-03",
-    time: "17:31",
-    summary: "Slaughters advises on five of the top 10 UK target deals announced so far this year, with public filings also highlighting potential fees for Linklaters, Clifford Chance and Freshfields.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMR0o3Nsu53ugM0JPs/wv",
   },
 ];

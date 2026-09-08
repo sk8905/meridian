@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "76d33021-57c6-4240-ae0b-cd4a79a24980", title: "Putin praises US peace efforts in call with Trump", date: "2026-09-08", time: "16:28", url: "https://www.ft.com/content/76d33021-57c6-4240-ae0b-cd4a79a24980" },
+  { id: "2a69d864-a953-40b1-85ce-b6256ca411fc", title: "UK selects Canada’s statistics chief to run data service", date: "2026-09-08", time: "16:21", url: "https://www.ft.com/content/2a69d864-a953-40b1-85ce-b6256ca411fc" },
   { id: "2e97fb28-24cf-4ab0-89b1-454b4f97cdbc", title: "Young Americans have never witnessed a functioning foreign policy", date: "2026-09-08", time: "15:24", url: "https://www.ft.com/content/2e97fb28-24cf-4ab0-89b1-454b4f97cdbc" },
   { id: "ef50aed1-e50c-4cb6-a418-266476fb2829", title: "To safeguard Israel’s future, the UK is right to sanction settlers", date: "2026-09-08", time: "15:13", url: "https://www.ft.com/content/ef50aed1-e50c-4cb6-a418-266476fb2829" },
   { id: "f1a7b7be-1444-4f2f-80ca-905c8630f295", title: "Heathrow and Gatwick flights face disruption over air traffic control ‘technical issue’", date: "2026-09-08", time: "15:06", url: "https://www.ft.com/content/f1a7b7be-1444-4f2f-80ca-905c8630f295" },
@@ -58,5 +60,4 @@ export const FT_ITEMS = [
   { id: "ed214778-2a6d-4862-99b5-abc256daff92", title: "AI is ushering in an era of mass toe-treading at work", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/ed214778-2a6d-4862-99b5-abc256daff92" },
   { id: "c6517e52-b855-487c-8408-7071936cf3b0", title: "Global shipping rules are collapsing, say maritime nations", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/c6517e52-b855-487c-8408-7071936cf3b0" },
   { id: "2f0b8e53-60dc-4d31-b31f-9534908c10ae", title: "The cost of being Apollo", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/2f0b8e53-60dc-4d31-b31f-9534908c10ae" },
-  { id: "462fddd0-850d-46e0-b2e7-5804d483ab52", title: "Why Japan Inc can brush off interest-rate hikes — and America can’t", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/462fddd0-850d-46e0-b2e7-5804d483ab52" },
 ];
