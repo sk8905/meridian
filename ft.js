@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "4320e779-73ab-4e56-ad13-9d5e9aa48b3c", title: "The yawning gap between ambition and action on nuclear energy", date: "2026-09-08", time: "12:00", url: "https://www.ft.com/content/4320e779-73ab-4e56-ad13-9d5e9aa48b3c" },
+  { id: "53d6b648-ea21-43a9-ba89-f1102462ff9b", title: "Innovation is the answer to Britain’s elusive growth problem", date: "2026-09-08", time: "11:41", url: "https://www.ft.com/content/53d6b648-ea21-43a9-ba89-f1102462ff9b" },
+  { id: "359e9dac-cc19-4a93-8155-3d087adf4103", title: "John Healey faces MPs as pressure on UK public finances mounts", date: "2026-09-08", time: "11:24", url: "https://www.ft.com/content/359e9dac-cc19-4a93-8155-3d087adf4103" },
+  { id: "e8273e59-36e9-42a0-a7f0-8df556480c75", title: "Europe battles to catch US and China in space race", date: "2026-09-08", time: "11:21", url: "https://www.ft.com/content/e8273e59-36e9-42a0-a7f0-8df556480c75" },
   { id: "a5092cb2-1625-47b8-b0b2-7bafefdd05da", title: "Sales of ‘Made in EU’ counterfeit cigarettes surge in Europe", date: "2026-09-08", time: "11:00", url: "https://www.ft.com/content/a5092cb2-1625-47b8-b0b2-7bafefdd05da" },
   { id: "3892b29e-f905-4082-9a2c-4969970d3d35", title: "Liberty Global agrees €670mn towers sale ahead of Ziggo spinoff", date: "2026-09-08", time: "10:55", url: "https://www.ft.com/content/3892b29e-f905-4082-9a2c-4969970d3d35" },
   { id: "b23151c3-b4c1-4f96-a801-f3507d907cc7", title: "UK pays highest borrowing cost since 1998 at gilt sale", date: "2026-09-08", time: "10:50", url: "https://www.ft.com/content/b23151c3-b4c1-4f96-a801-f3507d907cc7" },
@@ -56,9 +60,4 @@ export const FT_ITEMS = [
   { id: "3ba7440d-c4f9-4f13-8e60-98719059d1a7", title: "South Korea’s AI property boom puts pressure on president", date: "2026-09-08", time: "01:35", url: "https://www.ft.com/content/3ba7440d-c4f9-4f13-8e60-98719059d1a7" },
   { id: "1a0d5293-d764-4e2f-82c4-10fdb15e0a70", title: "British voters oppose welfare cuts for disabled people, survey finds", date: "2026-09-08", time: "00:01", url: "https://www.ft.com/content/1a0d5293-d764-4e2f-82c4-10fdb15e0a70" },
   { id: "3b554034-a3e8-43f7-a3f8-27828cf2ed17", title: "UK competition watchdog seeks to work with MoD to curb bid-rigging", date: "2026-09-08", time: "00:01", url: "https://www.ft.com/content/3b554034-a3e8-43f7-a3f8-27828cf2ed17" },
-  { id: "1f71d2d0-d2e2-46da-a96f-99d20936223e", title: "UK set to announce trade ban on Israeli settlements in the West Bank", date: "2026-09-07", time: "23:19", url: "https://www.ft.com/content/1f71d2d0-d2e2-46da-a96f-99d20936223e" },
-  { id: "dc6c9fe1-c400-490a-a4fe-8b3d5cf3334a", title: "FirstFT: Oil prices near $100 as renewed supply crunch looms", date: "2026-09-07", time: "22:45", url: "https://www.ft.com/content/dc6c9fe1-c400-490a-a4fe-8b3d5cf3334a" },
-  { id: "84296a52-8730-456a-b062-f3b8ef847edc", title: "India’s biggest private sector bank grapples with leadership vacuum", date: "2026-09-07", time: "22:00", url: "https://www.ft.com/content/84296a52-8730-456a-b062-f3b8ef847edc" },
-  { id: "a7011878-b0b7-4e7f-8f5a-e7d9d662fd47", title: "Donald Trump calls for US boycott of Canada’s Bombardier jets", date: "2026-09-07", time: "21:06", url: "https://www.ft.com/content/a7011878-b0b7-4e7f-8f5a-e7d9d662fd47" },
-  { id: "ec1396b9-185e-4a55-86d6-36a560b549fb", title: "Friedrich Merz in ‘shock’ as far-right AfD celebrates ‘dream result’", date: "2026-09-07", time: "20:47", url: "https://www.ft.com/content/ec1396b9-185e-4a55-86d6-36a560b549fb" },
 ];
