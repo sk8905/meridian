@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "3ba7440d-c4f9-4f13-8e60-98719059d1a7", title: "South Korea’s AI property boom puts pressure on president", date: "2026-09-08", time: "01:35", url: "https://www.ft.com/content/3ba7440d-c4f9-4f13-8e60-98719059d1a7" },
+  { id: "1a0d5293-d764-4e2f-82c4-10fdb15e0a70", title: "British voters oppose welfare cuts for disabled people, survey finds", date: "2026-09-08", time: "00:01", url: "https://www.ft.com/content/1a0d5293-d764-4e2f-82c4-10fdb15e0a70" },
+  { id: "3b554034-a3e8-43f7-a3f8-27828cf2ed17", title: "UK competition watchdog seeks to work with MoD to curb bid-rigging", date: "2026-09-08", time: "00:01", url: "https://www.ft.com/content/3b554034-a3e8-43f7-a3f8-27828cf2ed17" },
+  { id: "1f71d2d0-d2e2-46da-a96f-99d20936223e", title: "UK set to announce trade ban on Israeli settlements in the West Bank", date: "2026-09-07", time: "23:19", url: "https://www.ft.com/content/1f71d2d0-d2e2-46da-a96f-99d20936223e" },
+  { id: "dc6c9fe1-c400-490a-a4fe-8b3d5cf3334a", title: "FirstFT: Oil prices near $100 as renewed supply crunch looms", date: "2026-09-07", time: "22:45", url: "https://www.ft.com/content/dc6c9fe1-c400-490a-a4fe-8b3d5cf3334a" },
+  { id: "84296a52-8730-456a-b062-f3b8ef847edc", title: "India’s biggest private sector bank grapples with leadership vacuum", date: "2026-09-07", time: "22:00", url: "https://www.ft.com/content/84296a52-8730-456a-b062-f3b8ef847edc" },
   { id: "a7011878-b0b7-4e7f-8f5a-e7d9d662fd47", title: "Donald Trump calls for US boycott of Canada’s Bombardier jets", date: "2026-09-07", time: "21:06", url: "https://www.ft.com/content/a7011878-b0b7-4e7f-8f5a-e7d9d662fd47" },
   { id: "ec1396b9-185e-4a55-86d6-36a560b549fb", title: "Friedrich Merz in ‘shock’ as far-right AfD celebrates ‘dream result’", date: "2026-09-07", time: "20:47", url: "https://www.ft.com/content/ec1396b9-185e-4a55-86d6-36a560b549fb" },
   { id: "97477741-5227-4783-ab30-2b94090b4d43", title: "UK ministers to be encouraged to take more legal risks to push through policies", date: "2026-09-07", time: "19:30", url: "https://www.ft.com/content/97477741-5227-4783-ab30-2b94090b4d43" },
@@ -54,10 +60,4 @@ export const FT_ITEMS = [
   { id: "1aa587fc-989c-46ea-b140-e59a6ed82ba4", title: "UK seeks to end Northern Ireland budget deadlock", date: "2026-09-07", time: "10:51", url: "https://www.ft.com/content/1aa587fc-989c-46ea-b140-e59a6ed82ba4" },
   { id: "4826a106-9cd4-45bc-8436-69e2519d0205", title: "Russia-Ukraine peace talks could begin next year, ex-MI6 chief says", date: "2026-09-07", time: "10:41", url: "https://www.ft.com/content/4826a106-9cd4-45bc-8436-69e2519d0205" },
   { id: "15d59180-ea46-4441-9c45-d6be584ae911", title: "Iran to raise petrol prices as US war triggers shortages", date: "2026-09-07", time: "09:34", url: "https://www.ft.com/content/15d59180-ea46-4441-9c45-d6be584ae911" },
-  { id: "35b0a1b7-f524-4f49-9e87-ee25d75c8b14", title: "Port demonstrations prompt questions for authorities and government", date: "2026-09-07", time: "09:30", url: "https://www.ft.com/content/35b0a1b7-f524-4f49-9e87-ee25d75c8b14" },
-  { id: "b122bc9f-9f51-46b8-9f42-dba9fb29244c", title: "Everything is awesome", date: "2026-09-07", time: "06:30", url: "https://www.ft.com/content/b122bc9f-9f51-46b8-9f42-dba9fb29244c" },
-  { id: "96e09c24-9587-41fc-9824-fb751f61be40", title: "FTAV’s further reading", date: "2026-09-07", time: "06:30", url: "https://www.ft.com/content/96e09c24-9587-41fc-9824-fb751f61be40" },
-  { id: "f8e97cdb-6edb-4cb1-ae38-b3c0ceeba485", title: "EU to table ‘Buy European’ public procurement rules to push out China", date: "2026-09-07", time: "06:00", url: "https://www.ft.com/content/f8e97cdb-6edb-4cb1-ae38-b3c0ceeba485" },
-  { id: "aa7371f6-5f88-4a14-a5d3-aab04a8a6705", title: "Guggenheim unit warned over internal controls", date: "2026-09-07", time: "06:00", url: "https://www.ft.com/content/aa7371f6-5f88-4a14-a5d3-aab04a8a6705" },
-  { id: "b08623a1-a976-4c5f-b247-0935643124fb", title: "Could the DMO take the BoE’s long gilts off their hands?", date: "2026-09-07", time: "06:00", url: "https://www.ft.com/content/b08623a1-a976-4c5f-b247-0935643124fb" },
 ];
