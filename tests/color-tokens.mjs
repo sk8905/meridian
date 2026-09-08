@@ -246,4 +246,19 @@ check(/\.dsh-navchip\.is-on\{[^}]*box-shadow:inset 0 -2px 0 var\(--chip-ul,\s*#0
 check(/\[data-theme="dark"\] \.dsh-navchip\.is-on\{[^}]*box-shadow:inset 0 -2px 0 var\(--chip-ul,\s*#fff\)/.test(dashboardCss),
   "dashboard.css has a dark-mode .dsh-navchip.is-on override reading var(--chip-ul, #fff)");
 
+// Terminal restyle — the Dashboard panels read as a dense grid of flat, square,
+// hairline boxes (the agreed "terminal" look), in our own colour tokens:
+//  · square panels (no radius, no shadow),
+//  · a MUTED section title over a bottom hairline divider (R10/R11 — the title
+//    sits quiet, the data below carries the emphasis),
+//  · monospace data values + tables (tabular figures line up column-to-column).
+check(/\.dsh-card \{[^}]*border-radius:0/.test(dashboardCss),
+  "dashboard.css .dsh-card is a square terminal panel (border-radius:0)");
+check(/\.dsh-h \{[^}]*border-bottom:1px solid var\(--t-grid\)[^}]*color:var\(--t-mut\)/.test(dashboardCss),
+  "dashboard.css .dsh-h is a muted section title over a bottom hairline divider");
+check(/\.dsh-tbl \{[^}]*font-family:var\(--t-mono\)/.test(dashboardCss),
+  "dashboard.css .dsh-tbl data tables render in the mono face");
+check(/\.dsh-kv-v \{[^}]*font-family:var\(--t-mono\)/.test(dashboardCss),
+  "dashboard.css .dsh-kv-v metric values render in the mono face");
+
 finish();

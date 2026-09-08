@@ -151,8 +151,11 @@
      empty gap. Cards keep their natural height (align-items:start), packed from
      the top. */
   .dsh-mid{ min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+  /* align-items:stretch so two panels sharing a row equalise to the taller one —
+     aligned boxes, nothing left short; align-content:start keeps the rows packed
+     to the top of the scroll area rather than spreading down it. */
   .dsh-3z:not(.dsh-norail) .dsh-mid{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr));
-    grid-auto-rows:min-content; align-items:start; align-content:start; gap:var(--dsh-gap); }
+    align-items:stretch; align-content:start; gap:var(--dsh-gap); }
   .dsh-3z:not(.dsh-norail) .dsh-mid > *{ min-width:0; grid-column:1 / -1; }
   .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-card.dsh-h2{ grid-column:auto; }
   /* A half card is only ~half the middle wide, so a two-column kv grid that is
@@ -172,12 +175,16 @@
   .dsh-legal-panel .dsh-lgl-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
 }
 
-.dsh-card { background:var(--t-panel); border:1px solid var(--t-grid); border-radius:8px; padding:12px; }
-/* Panel header on the terminal scale (HOUSE_STYLE R11 — 12px panel headers),
-   matching .tpanel-h across Home / Profiles / Transactions rather than the
-   larger prose --fs-card-title. */
-.dsh-h { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:0 0 10px; font-size:12px; font-weight:600; color:var(--t-ink); }
-.dsh-h .dsh-n { color:var(--t-mut); font-weight:400; font-size:10px; }
+/* Terminal panels: square corners, 1px hairline, flat — no radius or shadow, so
+   the middle reads as a dense grid of aligned boxes (the "CAPITALTERM" look),
+   in our own colour tokens. */
+.dsh-card { background:var(--t-panel); border:1px solid var(--t-grid); border-radius:0; padding:12px 14px; }
+/* Panel title: a small MUTED label over a full-width bottom hairline divider —
+   the section header sits quiet and the data below carries the emphasis
+   (HOUSE_STYLE R10/R11). */
+.dsh-h { display:flex; align-items:center; flex-wrap:wrap; gap:8px; margin:0 0 9px; padding:0 0 7px;
+  border-bottom:1px solid var(--t-grid); font-size:12px; font-weight:500; letter-spacing:.02em; color:var(--t-mut); }
+.dsh-h .dsh-n { color:var(--t-faint); font-weight:400; font-size:10px; }
 .dsh-asof { margin-left:auto; color:var(--t-faint); font-size:.72rem; font-weight:400; }
 .dsh-src { color:var(--t-mut); text-decoration:none; font-size:.62rem; text-transform:uppercase; letter-spacing:.03em; border:1px solid var(--t-grid2); border-radius:3px; padding:0 3px; vertical-align:middle; }
 .dsh-src:hover { color:var(--t-ink); border-color:var(--t-mut); }
@@ -217,16 +224,16 @@
 .dsh-kvgrid { display:grid; grid-template-columns:1fr 1fr; gap:6px 14px; }
 @media (max-width:520px){ .dsh-kvgrid{ grid-template-columns:1fr; } }
 .dsh-kv { display:flex; justify-content:space-between; align-items:baseline; gap:8px; padding:5px 0; border-bottom:1px solid var(--t-grid); }
-.dsh-kv-k { color:var(--t-mut); font-size:.78rem; }
-.dsh-kv-v { color:var(--t-ink); font-size:.86rem; font-weight:600; font-variant-numeric:tabular-nums; text-align:right; }
+.dsh-kv-k { color:var(--t-dim); font-family:var(--t-mono); font-size:.78rem; }
+.dsh-kv-v { color:var(--t-ink); font-family:var(--t-mono); font-size:.82rem; font-weight:600; font-variant-numeric:tabular-nums; text-align:right; }
 .dsh-band { color:var(--t-mut); font-weight:500; font-size:.7rem; border:1px solid var(--t-grid2); border-radius:4px; padding:0 4px; margin-left:4px; }
 .dsh-band.up{ color:var(--t-up); border-color:var(--t-up); } .dsh-band.down{ color:var(--t-down); border-color:var(--t-down); }
 
 /* Spread rows */
 .dsh-spreads { display:flex; flex-direction:column; gap:4px; }
 .dsh-spread { display:flex; align-items:baseline; gap:8px; padding:5px 0; border-bottom:1px solid var(--t-grid); }
-.dsh-spread-nm { flex:1; color:var(--t-dim); font-size:.82rem; }
-.dsh-spread-v { color:var(--t-ink); font-weight:600; font-variant-numeric:tabular-nums; }
+.dsh-spread-nm { flex:1; color:var(--t-dim); font-family:var(--t-mono); font-size:.8rem; }
+.dsh-spread-v { color:var(--t-ink); font-family:var(--t-mono); font-weight:600; font-variant-numeric:tabular-nums; }
 .dsh-spread-u { color:var(--t-faint); font-size:.7rem; margin-left:2px; }
 .dsh-load { color:var(--t-mut); font-size:.8rem; margin:2px 0; }
 
@@ -278,7 +285,7 @@
 
 /* IPO / generic table */
 .dsh-scroll { overflow-x:auto; }
-.dsh-tbl { width:100%; border-collapse:collapse; font-size:.8rem; }
+.dsh-tbl { width:100%; border-collapse:collapse; font-size:.8rem; font-family:var(--t-mono); }
 .dsh-tbl th { text-align:left; color:var(--t-mut); font-weight:500; font-size:.72rem; padding:4px 8px; border-bottom:1px solid var(--t-grid2); white-space:nowrap; vertical-align:top; }
 /* Top-align cells: a wrapping cell (e.g. the Stress "Note") sets the row height,
    and without this the short single-line cells float in the vertical middle of
