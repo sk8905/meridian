@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "5816292b-c36b-4c22-aa50-2680b9970382", title: "Meta unveils AI personal assistant linked to WhatsApp and Instagram", date: "2026-09-08", time: "20:01", url: "https://www.ft.com/content/5816292b-c36b-4c22-aa50-2680b9970382" },
+  { id: "c167b64d-aa04-4e6a-9dda-06ad70a36c52", title: "UK says it will force tech giants to stop children sharing nude images", date: "2026-09-08", time: "19:34", url: "https://www.ft.com/content/c167b64d-aa04-4e6a-9dda-06ad70a36c52" },
+  { id: "d1d0054d-16ae-45b4-b2e1-421ce5461041", title: "Smithsonian head to resign after Donald Trump attacks US slavery exhibits", date: "2026-09-08", time: "19:30", url: "https://www.ft.com/content/d1d0054d-16ae-45b4-b2e1-421ce5461041" },
   { id: "faa622d9-0faa-4578-b908-4e77b72a8d44", title: "War and weather threaten fresh burst of UK inflation, BoE governor warns", date: "2026-09-08", time: "18:48", url: "https://www.ft.com/content/faa622d9-0faa-4578-b908-4e77b72a8d44" },
   { id: "f13d5f54-deaf-4d44-9e8f-e91f5972b064", title: "Growth in every postcode: good politics, dubious economics", date: "2026-09-08", time: "18:03", url: "https://www.ft.com/content/f13d5f54-deaf-4d44-9e8f-e91f5972b064" },
   { id: "944fd36f-8f91-4178-b05a-2b961c44e310", title: "Apple looks to AI capabilities to drive its new foldable phone sales", date: "2026-09-08", time: "17:20", url: "https://www.ft.com/content/944fd36f-8f91-4178-b05a-2b961c44e310" },
@@ -58,6 +61,4 @@ export const FT_ITEMS = [
   { id: "e7f51e7c-d272-436f-b918-3de002bf85d9", title: "FTAV’s further reading", date: "2026-09-08", time: "06:30", url: "https://www.ft.com/content/e7f51e7c-d272-436f-b918-3de002bf85d9" },
   { id: "56bcc2fb-99eb-4ad9-af67-101c8d0382cb", title: "China’s 25% export surge sets stage for record annual trade surplus", date: "2026-09-08", time: "06:15", url: "https://www.ft.com/content/56bcc2fb-99eb-4ad9-af67-101c8d0382cb" },
   { id: "e38fbc18-f0aa-4d0b-84ca-4b8a2dcf419a", title: "Antitrust not the enemy of industrial policy, says EU competition enforcer", date: "2026-09-08", time: "06:00", url: "https://www.ft.com/content/e38fbc18-f0aa-4d0b-84ca-4b8a2dcf419a" },
-  { id: "adbf5262-c4d5-4312-a9b8-4d3cf30c9e00", title: "Mistral raises record €3bn as Europe strains to keep pace in AI race", date: "2026-09-08", time: "06:00", url: "https://www.ft.com/content/adbf5262-c4d5-4312-a9b8-4d3cf30c9e00" },
-  { id: "22792fd1-e089-4e56-9ece-171c56ffe422", title: "Labour’s muddled migration policy won’t stop thuggery", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/22792fd1-e089-4e56-9ece-171c56ffe422" },
 ];

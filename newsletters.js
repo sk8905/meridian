@@ -38,6 +38,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-moneystuff-robinhoodtokenizedamc-20260908",
+    publication: "Bloomberg",
+    author: null,
+    series: "Money Stuff",
+    title: "Money Stuff: Robinhood Tokenized AMC",
+    date: "2026-09-08",
+    time: "19:37",
+    summary: "Tokens, Apollo, pensions, laptop.",
+    url: "https://bloom.bg/4zTLUp0",
+  },
+  {
     id: "nl-cf-marketupdate-growthinflationcenterstage-20260908",
     publication: "Chatham Financial",
     author: null,
