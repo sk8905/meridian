@@ -38,6 +38,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-marianadamhighcourt-20260908",
+    publication: "Legal Business",
+    author: null,
+    series: null,
+    title: "Pogust Goodhead takes Mariana Dam fight to High Court",
+    date: "2026-09-08",
+    time: "12:53",
+    summary: "Firm argues client committee 'does not have the authority' to transfer representation to rival.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMR2QghJazydMd2dUD/wv",
+  },
+  {
     id: "nl-bbg-econdaily-berlinearthquake-20260908",
     publication: "Bloomberg",
     author: "Craig Stirling",

@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "769abc3f-5e34-41b4-946a-16cab58010a7", title: "Is it time for Eurozone GDP ex-Ireland?", date: "2026-09-08", time: "13:15", url: "https://www.ft.com/content/769abc3f-5e34-41b4-946a-16cab58010a7" },
+  { id: "a386c753-9f55-4429-b2c9-251d3bff8f58", title: "Ceuta demands EU help over migrant ‘pressure cooker’", date: "2026-09-08", time: "13:08", url: "https://www.ft.com/content/a386c753-9f55-4429-b2c9-251d3bff8f58" },
   { id: "dda770b2-79b4-48bb-b141-0e1291d08115", title: "The new fiscal threats to monetary policy", date: "2026-09-08", time: "12:30", url: "https://www.ft.com/content/dda770b2-79b4-48bb-b141-0e1291d08115" },
   { id: "4320e779-73ab-4e56-ad13-9d5e9aa48b3c", title: "The yawning gap between ambition and action on nuclear energy", date: "2026-09-08", time: "12:00", url: "https://www.ft.com/content/4320e779-73ab-4e56-ad13-9d5e9aa48b3c" },
   { id: "53d6b648-ea21-43a9-ba89-f1102462ff9b", title: "Innovation is the answer to Britain’s elusive growth problem", date: "2026-09-08", time: "11:41", url: "https://www.ft.com/content/53d6b648-ea21-43a9-ba89-f1102462ff9b" },
@@ -28,8 +30,10 @@ export const FT_ITEMS = [
   { id: "a5092cb2-1625-47b8-b0b2-7bafefdd05da", title: "Sales of ‘Made in EU’ counterfeit cigarettes surge in Europe", date: "2026-09-08", time: "11:00", url: "https://www.ft.com/content/a5092cb2-1625-47b8-b0b2-7bafefdd05da" },
   { id: "3892b29e-f905-4082-9a2c-4969970d3d35", title: "Liberty Global agrees €670mn towers sale ahead of Ziggo spinoff", date: "2026-09-08", time: "10:55", url: "https://www.ft.com/content/3892b29e-f905-4082-9a2c-4969970d3d35" },
   { id: "b23151c3-b4c1-4f96-a801-f3507d907cc7", title: "UK pays highest borrowing cost since 1998 at gilt sale", date: "2026-09-08", time: "10:50", url: "https://www.ft.com/content/b23151c3-b4c1-4f96-a801-f3507d907cc7" },
+  { id: "dc6c9fe1-c400-490a-a4fe-8b3d5cf3334a", title: "FirstFT: Top credit rating sought for Anthropic and OpenAI", date: "2026-09-08", time: "10:48", url: "https://www.ft.com/content/dc6c9fe1-c400-490a-a4fe-8b3d5cf3334a" },
   { id: "d9bc67e2-97f4-47ef-8de5-1ae48d841018", title: "Wave of Houthi strikes halts work at energy facilities in four Saudi cities", date: "2026-09-08", time: "09:48", url: "https://www.ft.com/content/d9bc67e2-97f4-47ef-8de5-1ae48d841018" },
   { id: "10717d24-c247-4522-b6d6-6e4ea0947cc3", title: "The political challenge of Britain’s mounting debt costs", date: "2026-09-08", time: "09:38", url: "https://www.ft.com/content/10717d24-c247-4522-b6d6-6e4ea0947cc3" },
+  { id: "1f71d2d0-d2e2-46da-a96f-99d20936223e", title: "UK set to announce trade ban on Israeli settlements in West Bank", date: "2026-09-08", time: "09:35", url: "https://www.ft.com/content/1f71d2d0-d2e2-46da-a96f-99d20936223e" },
   { id: "98d06e87-83f0-45dc-b69b-418fc789ac96", title: "The complicated implications of the spectacular ‘Apollo premium’", date: "2026-09-08", time: "09:22", url: "https://www.ft.com/content/98d06e87-83f0-45dc-b69b-418fc789ac96" },
   { id: "b5cb6500-89be-42a4-a417-e0d252e5e0e8", title: "DWS embraces Deutsche Bank name eight years after distancing itself", date: "2026-09-08", time: "09:21", url: "https://www.ft.com/content/b5cb6500-89be-42a4-a417-e0d252e5e0e8" },
   { id: "be7c3d20-4e4f-4a73-8927-cc5a4d6cccca", title: "July wage data bolsters case for BoJ tightening this month", date: "2026-09-08", time: "09:18", url: "https://www.ft.com/content/be7c3d20-4e4f-4a73-8927-cc5a4d6cccca" },
@@ -56,9 +60,4 @@ export const FT_ITEMS = [
   { id: "e4853480-b6a6-4ae7-81d5-aa2cf819093e", title: "The world’s approach to sovereign debt needs to change", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/e4853480-b6a6-4ae7-81d5-aa2cf819093e" },
   { id: "410ee6b6-177b-46fb-9e9c-d388322725c5", title: "Who is Britain’s best CEO? You decide", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/410ee6b6-177b-46fb-9e9c-d388322725c5" },
   { id: "ab6233dc-bfdb-48d8-b71c-864ec040e78d", title: "The battle to prove who owns Gaza’s ruins", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/ab6233dc-bfdb-48d8-b71c-864ec040e78d" },
-  { id: "8c7369b7-a803-4978-99bf-8b13a2550563", title: "European ‘wealth’ threatened by decline of region’s carmakers", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/8c7369b7-a803-4978-99bf-8b13a2550563" },
-  { id: "4d088758-d853-484a-8e5d-0413a39212a3", title: "Grenfell’s £1.2bn legal legacy", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/4d088758-d853-484a-8e5d-0413a39212a3" },
-  { id: "3ba7440d-c4f9-4f13-8e60-98719059d1a7", title: "South Korea’s AI property boom puts pressure on president", date: "2026-09-08", time: "01:35", url: "https://www.ft.com/content/3ba7440d-c4f9-4f13-8e60-98719059d1a7" },
-  { id: "1a0d5293-d764-4e2f-82c4-10fdb15e0a70", title: "British voters oppose welfare cuts for disabled people, survey finds", date: "2026-09-08", time: "00:01", url: "https://www.ft.com/content/1a0d5293-d764-4e2f-82c4-10fdb15e0a70" },
-  { id: "3b554034-a3e8-43f7-a3f8-27828cf2ed17", title: "UK competition watchdog seeks to work with MoD to curb bid-rigging", date: "2026-09-08", time: "00:01", url: "https://www.ft.com/content/3b554034-a3e8-43f7-a3f8-27828cf2ed17" },
 ];
