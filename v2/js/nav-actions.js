@@ -149,8 +149,13 @@ let _pfMode = "daily";   // portfolio holdings P&L column: daily (default) | tot
 function briefSlotNow() { const h = new Date().getHours(); return h < 12 ? "morning" : h < 17 ? "afternoon" : "evening"; }
 // Render one briefing slot into the panel body, with Morning/Afternoon/Evening
 // chips to switch. Bullets carry their own source link (grounding — see
-// briefings.js). `html` is authored, trusted content (like the macro narrative),
-// injected as-is; the lede is plain text and escaped.
+// briefings.js). Both the bullet `html` and the `lede` are authored, trusted
+// content (like the macro narrative), injected as-is — so authored typography
+// (£, —, ä …) renders instead of showing raw HTML entities.
+// The briefing is kept to ONE screen: the lede is clamped (see .na-brief-lede in
+// premium.css) and the bullet list is capped, so the panel never becomes a long
+// scroll — it reads at a glance.
+const BRIEF_MAX_BULLETS = 4;
 function renderBriefing(body, slotKey) {
   const B = BRIEFINGS || {};
   const slots = B.slots || {};
@@ -159,10 +164,10 @@ function renderBriefing(body, slotKey) {
   const s = slots[key];
   const chips = order.map((k) => `<button type="button" class="na-chip${k === key ? " is-on" : ""}" data-slot="${esc(k)}">${esc(slots[k].label || k)}</button>`).join("");
   if (!s) { body.innerHTML = `<div class="na-chips">${chips}</div><div class="na-load">No briefing yet.</div>`; return; }
-  const bullets = (s.bullets || []).map((b) => `<li class="na-brief-b">${b.html || ""}${b.src ? ` <a class="na-brief-src" href="${esc(b.src)}" target="_blank" rel="noopener noreferrer">${esc(b.srcName || "source")}</a>` : ""}</li>`).join("");
+  const bullets = (s.bullets || []).slice(0, BRIEF_MAX_BULLETS).map((b) => `<li class="na-brief-b">${b.html || ""}${b.src ? ` <a class="na-brief-src" href="${esc(b.src)}" target="_blank" rel="noopener noreferrer">${esc(b.srcName || "source")}</a>` : ""}</li>`).join("");
   body.innerHTML = `<div class="na-chips">${chips}</div>`
     + `<div class="na-brief-when">${esc(s.label || "")}${s.time ? " · " + esc(s.time) : ""}${s.date ? " · " + esc(s.date) : ""}</div>`
-    + (s.lede ? `<p class="na-brief-lede">${esc(s.lede)}</p>` : "")
+    + (s.lede ? `<p class="na-brief-lede">${s.lede}</p>` : "")
     + `<ul class="na-brief-list">${bullets}</ul>`
     + `<div class="na-brief-foot">AI-generated summary of Wire’s sourced desks — every line links its source.</div>`;
 }

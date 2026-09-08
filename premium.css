@@ -907,7 +907,9 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
    uppercase eyebrow · 12px lede · 10.5px body rows — no ad-hoc sizes, matching the
    Notifications panel's prose block and the .na-sec/.nf-sub chrome. */
 .na-brief-when { padding: 9px 12px 0; font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 10px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; }
-.na-brief-lede { margin: 5px 0 2px; padding: 0 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size: 12px; line-height: 1.5; font-weight: 700; }
+/* Lede is clamped to 3 lines so a long authored summary can never push the panel
+   past one screen (see renderBriefing — the bullet list is capped in lockstep). */
+.na-brief-lede { margin: 5px 0 2px; padding: 0 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size: 12px; line-height: 1.5; font-weight: 700; display: -webkit-box; -webkit-line-clamp: 3; line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
 .na-brief-list { list-style: none; margin: 6px 0 0; padding: 0; }
 .na-brief-b { padding: 8px 12px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size: 10.5px; line-height: 1.55; }
 .na-brief-b strong { color: var(--ink, #eaf0fb); font-weight: 700; }
