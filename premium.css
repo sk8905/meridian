@@ -570,6 +570,12 @@ body.wire-head-pad.wire-bar-pad { padding-top: calc(var(--wire-head-h, 56px) + v
 /* Unread-count badge on the notifications bell. */
 .na-badge { position: absolute; top: -5px; right: -5px; min-width: 15px; height: 15px; padding: 0 3px; border-radius: 999px; background: #ef4444; color: #fff; font-size: 9px; font-weight: 700; line-height: 15px; text-align: center; font-family: var(--t-mono, ui-monospace, monospace); }
 .na-badge[hidden] { display: none; }
+/* Unread-briefing marker: a small accent dot on the Briefing button while the
+   current slot holds a briefing the reader hasn't opened (mirrors how the
+   Notifications panel flags new rows with --accent). Sits in the empty top-right
+   corner clear of the 19px centred icon; cleared once that slot is opened. */
+.na-brief-dot { position: absolute; top: 3px; right: 3px; width: 7px; height: 7px; border-radius: 999px; background: var(--accent, #fb8b1e); pointer-events: none; }
+.na-brief-dot[hidden] { display: none; }
 /* The notification bell is relocated into this cluster by nav-actions.js; match it
    to the Markets / Saved buttons so all three read as one set — square, transparent,
    outline (stroke) icon, same size and muted colour. */

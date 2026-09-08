@@ -147,6 +147,36 @@ let _pfMode = "daily";   // portfolio holdings P&L column: daily (default) | tot
 // 12:00–17:00 · evening ≥ 17:00). Slot content is BST-stamped; each shows its own
 // timestamp so the label is never ambiguous.
 function briefSlotNow() { const h = new Date().getHours(); return h < 12 ? "morning" : h < 17 ? "afternoon" : "evening"; }
+
+// ---- Unread-briefing marker -------------------------------------------------
+// A briefing's identity is its (date · time) stamp — the refresh routine rewrites
+// that whenever it regenerates a slot, so a fresh briefing gets a new identity.
+// We remember, per slot, the identity the reader last OPENED (localStorage), and
+// show an accent dot on the Briefing button while the CURRENT slot holds an
+// identity they haven't opened yet. Opening the panel on that slot clears it.
+const BRIEF_READ_KEY = "m_brief_read";
+function briefIdentity(slotKey) {
+  const s = ((BRIEFINGS || {}).slots || {})[slotKey];
+  return s ? `${s.date || ""}|${s.time || ""}` : "";
+}
+function briefReadMap() {
+  try { return JSON.parse(localStorage.getItem(BRIEF_READ_KEY) || "{}") || {}; } catch { return {}; }
+}
+function markBriefRead(slotKey) {
+  const id = briefIdentity(slotKey);
+  if (!id) return;
+  const m = briefReadMap();
+  if (m[slotKey] === id) return;
+  m[slotKey] = id;
+  try { localStorage.setItem(BRIEF_READ_KEY, JSON.stringify(m)); } catch { /* private mode */ }
+}
+// The current slot carries a briefing the reader hasn't opened since it was written.
+function briefHasUnread() {
+  const slot = briefSlotNow();
+  const id = briefIdentity(slot);
+  return !!id && briefReadMap()[slot] !== id;
+}
+
 // Render one briefing slot into the panel body, with Morning/Afternoon/Evening
 // chips to switch. Bullets carry their own source link (grounding — see
 // briefings.js). Both the bullet `html` and the `lede` are authored, trusted
@@ -713,7 +743,7 @@ export function initNavActions() {
       // Search. Search sits LAST on phones; the desktop theme button takes the
       // trailing slot (search there is the topbar pill, not this cluster).
       `<span class="na-ring" title="Time to next live-feed refresh" aria-hidden="true"><svg viewBox="0 0 18 18"><circle class="na-ring-track" cx="9" cy="9" r="7"/><circle class="na-ring-arc" cx="9" cy="9" r="7"/></svg></span>` +
-      `<button type="button" class="na-btn" id="na-brief" aria-label="Market briefing" aria-haspopup="true" aria-expanded="false" title="Market briefing">${ICO_BRIEF}</button>` +
+      `<button type="button" class="na-btn" id="na-brief" aria-label="Market briefing" aria-haspopup="true" aria-expanded="false" title="Market briefing">${ICO_BRIEF}<span class="na-brief-dot" hidden></span></button>` +
       `<button type="button" class="na-btn" id="na-mkt" aria-label="Markets & key rates" aria-haspopup="true" aria-expanded="false" title="Markets & key rates">${ICO_MKT}</button>` +
       `<button type="button" class="na-btn" id="na-saved" aria-label="Saved" aria-haspopup="true" aria-expanded="false" title="Saved">${ICO_SAVED}</button>` +
       `<button type="button" class="na-btn na-bell" id="na-notif" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">${ICO_BELL}<span class="na-badge" hidden></span></button>` +
@@ -927,15 +957,26 @@ export function initNavActions() {
       paint();
     };
 
+    // Unread-briefing dot: lit while the current slot holds a briefing the reader
+    // hasn't opened. Re-evaluated on load, on a 60s tick (the current slot rolls
+    // over at noon/17:00) and on tab focus; cleared as each slot is opened below.
+    const briefDot = wrap.querySelector("#na-brief .na-brief-dot");
+    const refreshBriefDot = () => { if (briefDot) briefDot.hidden = !briefHasUnread(); };
+    refreshBriefDot();
+    setInterval(refreshBriefDot, 60000);
+    document.addEventListener("visibilitychange", () => { if (!document.hidden) refreshBriefDot(); });
+
     // Briefing panel: chip-switch between slots survives the .na-body re-render
     // because this listener is bound to the persistent panel, not its body.
+    // Opening a slot marks it read and clears the dot when the current slot is
+    // the one that was unread.
     briefPanel.addEventListener("click", (e) => {
       const c = e.target.closest(".na-chip[data-slot]");
-      if (c) { e.stopPropagation(); renderBriefing(briefPanel.querySelector(".na-body"), c.dataset.slot); }
+      if (c) { e.stopPropagation(); renderBriefing(briefPanel.querySelector(".na-body"), c.dataset.slot); markBriefRead(c.dataset.slot); refreshBriefDot(); }
     });
 
     const panels = [
-      { btn: wrap.querySelector("#na-brief"), panel: briefPanel, onOpen: (p) => renderBriefing(p.querySelector(".na-body"), briefSlotNow()) },
+      { btn: wrap.querySelector("#na-brief"), panel: briefPanel, onOpen: (p) => { const slot = briefSlotNow(); renderBriefing(p.querySelector(".na-body"), slot); markBriefRead(slot); refreshBriefDot(); } },
       { btn: wrap.querySelector("#na-mkt"), panel: mktPanel, onOpen: (p) => { if (!_mktLoaded) { _mktLoaded = true; loadMarkets(p.querySelector(".na-body")); } } },
       { btn: wrap.querySelector("#na-saved"), panel: savedPanel, onOpen: (p) => { loadSaved(p.querySelector(".na-body"), p.querySelector(".na-h-n")); } },
       { btn: notifBtn, panel: notifPanel, onOpen: (p) => { const body = p.querySelector(".na-body"); if (_notifItems) renderNotif(body); else { body.innerHTML = '<div class="na-load">Loading…</div>'; ensureNotifs().then(() => renderNotif(body)).catch(() => { body.innerHTML = '<div class="na-load">Notifications unavailable right now.</div>'; }); } } },

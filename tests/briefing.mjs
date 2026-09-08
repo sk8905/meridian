@@ -17,6 +17,15 @@ await pg.waitForTimeout(1800);
 check(await pg.evaluate(() => !!document.getElementById("na-brief")), "Briefing button present in the header cluster");
 check(await pg.evaluate(() => !!document.getElementById("na-brief-panel")), "Briefing panel built");
 
+// Unread-briefing dot: on a fresh visit (empty localStorage) the current slot
+// has never been opened, so the accent dot on the Briefing button is lit.
+const dotBefore = await pg.evaluate(() => {
+  const d = document.querySelector("#na-brief .na-brief-dot");
+  return d ? { present: true, visible: !d.hidden && getComputedStyle(d).display !== "none" } : { present: false };
+});
+check(dotBefore.present, "unread-briefing dot present on the Briefing button");
+check(dotBefore.visible, "unread-briefing dot is lit on a fresh visit (current slot unread)");
+
 await pg.evaluate(() => document.getElementById("na-brief")?.click());
 await pg.waitForTimeout(450);
 const opened = await pg.evaluate(() => {
@@ -37,6 +46,13 @@ check(opened && !!opened.onSlot, `a slot is active by default (${opened ? opened
 check(opened && opened.lede > 0, "active slot shows a lede");
 check(opened && opened.bullets >= 1, `active slot shows briefing bullets (${opened ? opened.bullets : 0})`);
 check(opened && opened.srcs >= 1 && opened.srcs === opened.bullets, `every bullet carries a source link (${opened ? opened.srcs : 0}/${opened ? opened.bullets : 0})`);
+
+// Opening the panel marks the current slot read, so its unread dot clears.
+const dotAfter = await pg.evaluate(() => {
+  const d = document.querySelector("#na-brief .na-brief-dot");
+  return d ? !d.hidden : false;
+});
+check(!dotAfter, "opening the briefing clears the unread dot for the current slot");
 
 // Switching slot re-renders the panel to a DIFFERENT slot's content.
 const switched = await pg.evaluate(() => {

@@ -442,12 +442,24 @@ quiet slot gets a short output, not padding.
   Three slots: `morning` (< 12:00), `afternoon` (12:00–17:00), `evening`
   (≥ 17:00 London). On each run, **regenerate the slot the current run-time falls
   in** (so 05:00 & 09:00 → morning, 12:00 → afternoon, 17:00 & 21:00 → evening);
-  leave the other two as they are. Each slot has a `lede` (one plain-text
-  sentence) and 3–5 `bullets`, each `{ html, src, srcName }` where `html` is
-  authored markup (e.g. `<strong>…</strong>`) and `src` links the wire/desk item
-  it summarises. Update the slot's `date`/`time` to the run stamp. Draw material
-  from `SUMMARY`, `NEWS`, `COMMENTARY`, credit `deals`/`intel`, legal items and
-  the earnings calendar — all of which already carry verified URLs.
+  leave the other two as they are. Each slot has a `lede` (one **authored** HTML
+  sentence — entities like `&pound;`/`&mdash;` render, matching the bullets) and
+  3–5 `bullets`, each `{ html, src, srcName }` where `html` is authored markup
+  (e.g. `<strong>…</strong>`) and `src` links the wire/desk item it summarises.
+  Update the slot's `date`/`time` to the run stamp.
+  **Desk focus — EXCLUSIVELY the three market desks: Macro, Equities, Fixed
+  income.** Every slot covers those three and only those (no Credit or Legal
+  bullets — they have their own surfaces). Tag each bullet's `<strong>` lead with
+  its desk (`Macro — …`, `Equities — …`, `Fixed income — …`). Order the bullets
+  so the first four — the only ones the panel renders (`BRIEF_MAX_BULLETS`, one
+  iPhone screen) — cover all three desks. Draw material from the macro `SUMMARY`/
+  `COMMENTARY`/`IND_KEYMOMENTS`/`FX_KEYMOMENT`, the `EQ_INDICES` key moments and
+  earnings calendar, and public rates/gilt/Treasury items — all already sourced.
+  Keep the lede tight: it is clamped to three lines, so lead with the day's arc,
+  not a comma-spliced list.
+  The Briefing button shows an **accent unread dot** whenever the current slot's
+  `(date · time)` stamp differs from the one the reader last opened, so bumping a
+  slot's `time` on regenerate is what re-lights the dot — always stamp the run.
 - **Key Moments — three grounded maps, each `{ text, src, srcName, date }`, all
   no-cache/tokenless (no `?v=` bump):**
   - **Equity indices** — `keyMoment` on `dashboard/js/data.js` `EQ_INDICES` (per
