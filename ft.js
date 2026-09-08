@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "f06ee0ea-adcf-44ec-80c9-bb616885d8de", title: "Singapore raises PM Lawrence Wong’s pay by $1mn", date: "2026-09-08", time: "08:29", url: "https://www.ft.com/content/f06ee0ea-adcf-44ec-80c9-bb616885d8de" },
   { id: "0815cd34-bf4c-4771-8bf5-710eff286763", title: "Russia launches missile strikes against Kyiv as pause in raids ends", date: "2026-09-08", time: "07:46", url: "https://www.ft.com/content/0815cd34-bf4c-4771-8bf5-710eff286763" },
   { id: "5cc2d577-0418-4728-8657-aa6b2efb6597", title: "The strangely disappointing EM inflows", date: "2026-09-08", time: "06:30", url: "https://www.ft.com/content/5cc2d577-0418-4728-8657-aa6b2efb6597" },
   { id: "e7f51e7c-d272-436f-b918-3de002bf85d9", title: "FTAV’s further reading", date: "2026-09-08", time: "06:30", url: "https://www.ft.com/content/e7f51e7c-d272-436f-b918-3de002bf85d9" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "43efa6c1-6b37-4ddc-9a1d-b085bfbdba06", title: "Billionaire trader Chris Rokos to leave UK for Greece", date: "2026-09-07", time: "17:55", url: "https://www.ft.com/content/43efa6c1-6b37-4ddc-9a1d-b085bfbdba06" },
   { id: "cc750a77-fd63-40e9-be6e-99bd7c9a96a5", title: "Africa’s richest man seeks to raise $1.6bn in continent’s biggest IPO", date: "2026-09-07", time: "17:45", url: "https://www.ft.com/content/cc750a77-fd63-40e9-be6e-99bd7c9a96a5" },
   { id: "4f3566e7-7076-4527-ab8a-5e71416ce5fa", title: "What to do about the UK’s mental health crisis", date: "2026-09-07", time: "17:21", url: "https://www.ft.com/content/4f3566e7-7076-4527-ab8a-5e71416ce5fa" },
-  { id: "356cf253-7711-4a89-8139-5b0152824975", title: "Belgian-Chinese researcher arrested over suspected theft of chip secrets", date: "2026-09-07", time: "16:55", url: "https://www.ft.com/content/356cf253-7711-4a89-8139-5b0152824975" },
 ];
