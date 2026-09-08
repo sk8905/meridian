@@ -236,4 +236,14 @@ check(/\.dsh-earn-tk \{[^}]*font-variant-numeric:tabular-nums/.test(dashboardCss
 check(/\.dsh-hf-t \{[^}]*font-variant-numeric:tabular-nums/.test(dashboardCss),
   "dashboard.css .dsh-hf-t hedge-fund ticker has tabular-nums");
 
+// R8/R14a — the iPhone Dashboard section tab bar matches the Profiles/Home
+// wire-head chips: its active marker is the shared --chip-ul underline (black
+// light / white dark), NOT the accent orange, so the whole chip/tab family
+// selects the same way. (The desktop left rail keeps its own accent side-bar;
+// this is the mobile top bar only.)
+check(/\.dsh-navchip\.is-on\{[^}]*box-shadow:inset 0 -2px 0 var\(--chip-ul,\s*#000\)/.test(dashboardCss),
+  "dashboard.css mobile .dsh-navchip.is-on uses the shared --chip-ul underline, not the accent orange");
+check(/\[data-theme="dark"\] \.dsh-navchip\.is-on\{[^}]*box-shadow:inset 0 -2px 0 var\(--chip-ul,\s*#fff\)/.test(dashboardCss),
+  "dashboard.css has a dark-mode .dsh-navchip.is-on override reading var(--chip-ul, #fff)");
+
 finish();
