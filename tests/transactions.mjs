@@ -49,11 +49,18 @@ const ov = await pg.evaluate(() => ({
   // Cells + headers are LEFT-aligned, matching the Profiles league format (which
   // left-aligns its whole table) rather than right-aligned numeric columns.
   aligns: [...document.querySelectorAll(".tx-tbl thead th, .tx-tbl tbody tr.clickable:first-child td")].map((c) => getComputedStyle(c).textAlign),
+  // The body sits on the opaque surface (like the Profiles panes), not the
+  // transparent grey ground; and the sticky column header sits flush at the top
+  // of the body — no 28px blank band above it.
+  bodyBg: getComputedStyle(document.querySelector("#tx-body")).backgroundColor,
+  headOffset: (() => { const th = document.querySelector(".tx-tbl thead th"), thead = document.querySelector(".tx-tbl thead"); return th && thead ? Math.round(th.getBoundingClientRect().top - thead.getBoundingClientRect().top) : -1; })(),
 }));
 check(ov.rows >= 6, `overview lists the transaction types as a league table (${ov.rows})`);
 check(ov.rowHs.length === 1, `overview rows share one uniform height, matching the Profiles league (${ov.rowHs.join(", ")}px)`);
 check(ov.nameFS === "11px" && (ov.nameFW === "400" || ov.nameFW === "normal"), `type names match the Profiles league type (11px regular, got ${ov.nameFS}/${ov.nameFW})`);
 check(ov.aligns.length > 0 && ov.aligns.every((a) => a === "left" || a === "start"), `every header + cell is left-aligned, matching the Profiles league (${[...new Set(ov.aligns)].join(", ")})`);
+check(ov.bodyBg !== "rgba(0, 0, 0, 0)" && ov.bodyBg !== "transparent", `the table body sits on an opaque surface like the Profiles panes (${ov.bodyBg})`);
+check(ov.headOffset === 0, `the column header sits flush at the top — no blank band above it (offset ${ov.headOffset}px)`);
 check(ov.hasTotal, "overview carries an 'All types' total row");
 check(ov.hasTrend && ov.hasVol, "overview shows a 12mo-vs-prior momentum mark and a ≈USD volume per type");
 check(ov.chips.join(",") === "Last 12 months,All time", `period chips present (${ov.chips.join(",")})`);

@@ -444,7 +444,14 @@
 .aum-focus .aum-focus-alt { margin-right: auto; }
 
 /* ---- Transactions tab (deal flow by transaction type) — Profiles furniture --- */
-.tx-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+/* Sit on the white --surface like the Profiles panes (.tpanes); the body was
+   transparent, so the grey terminal ground showed through the table. */
+.tx-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; background: var(--surface); }
+/* #tx-body is its own scroll container with the tabs + search ABOVE it (the
+   Profiles panes instead include the search inside the scroller), so the league
+   header must stick to the TOP of the body: the shared top:28px left a 28px
+   blank band above the column headers here. */
+#tx-body .tleague th { top: 0; }
 /* Match the Profiles league format: every header and cell is LEFT-aligned (the
    Profiles panes do this via .tpane[data-pane] .tleague td), rather than the
    default right-aligned numeric columns. Id scope wins over the .tleague rules. */
