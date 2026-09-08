@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "e38fbc18-f0aa-4d0b-84ca-4b8a2dcf419a", title: "Antitrust not the enemy of industrial policy, says EU competition enforcer", date: "2026-09-08", time: "06:00", url: "https://www.ft.com/content/e38fbc18-f0aa-4d0b-84ca-4b8a2dcf419a" },
+  { id: "adbf5262-c4d5-4312-a9b8-4d3cf30c9e00", title: "Mistral raises record €3bn as Europe strains to keep pace in AI race", date: "2026-09-08", time: "06:00", url: "https://www.ft.com/content/adbf5262-c4d5-4312-a9b8-4d3cf30c9e00" },
   { id: "22792fd1-e089-4e56-9ece-171c56ffe422", title: "Labour’s muddled migration policy won’t stop thuggery", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/22792fd1-e089-4e56-9ece-171c56ffe422" },
   { id: "ed214778-2a6d-4862-99b5-abc256daff92", title: "AI is ushering in an era of mass toe-treading at work", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/ed214778-2a6d-4862-99b5-abc256daff92" },
   { id: "c6517e52-b855-487c-8408-7071936cf3b0", title: "Global shipping rules are collapsing, say maritime nations", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/c6517e52-b855-487c-8408-7071936cf3b0" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "d86643d2-c98c-4e19-b066-c97b50819b7e", title: "Yen surges to 6-month high as traders stay alert for signs of intervention", date: "2026-09-07", time: "16:46", url: "https://www.ft.com/content/d86643d2-c98c-4e19-b066-c97b50819b7e" },
   { id: "4275e189-997c-43f0-b702-d3447c9e81ec", title: "What next for Alternative for Germany after its victory in Saxony-Anhalt?", date: "2026-09-07", time: "16:35", url: "https://www.ft.com/content/4275e189-997c-43f0-b702-d3447c9e81ec" },
   { id: "3edf3717-4737-424c-9162-d330851edcf6", title: "Republicans fear Trump has turned toxic on the campaign trail", date: "2026-09-07", time: "16:30", url: "https://www.ft.com/content/3edf3717-4737-424c-9162-d330851edcf6" },
-  { id: "8ddd3668-5858-45c3-b34f-a6bafc678187", title: "Law schools tell students to put AI away", date: "2026-09-07", time: "15:37", url: "https://www.ft.com/content/8ddd3668-5858-45c3-b34f-a6bafc678187" },
-  { id: "380e0539-c591-4b51-bfa1-91079b18de3a", title: "And the FTAV charts quiz winner is…", date: "2026-09-07", time: "15:22", url: "https://www.ft.com/content/380e0539-c591-4b51-bfa1-91079b18de3a" },
 ];
