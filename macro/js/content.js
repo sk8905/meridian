@@ -13,7 +13,7 @@ export const UPDATED = "8 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-08",
-  lastCheckedTime: "12:36 BST",
+  lastCheckedTime: "17:13 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -880,18 +880,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-09-08",
   us: [
-    { title: "Oil extends gains as renewed Mideast hostilities raise worries of prolonged conflict", source: "CNBC", date: "2026-09-08", url: "https://www.cnbc.com/2026/09/08/oil-prices-today-brent-wti-hormuz-iran-war.html" },
+    { title: "Canada's retaliatory tariffs worth $27.6 billion take effect as trade rift with U.S. deepens", source: "CNBC", date: "2026-09-08", url: "https://www.cnbc.com/2026/09/08/canada-retaliatory-tariffs.html" },
     { title: "Wall of Political and Economic Risks Is Growing: Taking Stock", source: "Bloomberg", date: "2026-09-08", url: "https://www.bloomberg.com/news/articles/2026-09-08/wall-of-political-and-economic-risks-is-growing-taking-stock" },
-    { title: "Global Markets' Summer Lull to End as Volatility, Risks Mount", source: "Bloomberg", date: "2026-09-08", url: "https://www.bloomberg.com/news/articles/2026-09-08/global-markets-summer-lull-to-end-as-volatility-risks-mount" },
-    { title: "European stocks close mixed and Asia-Pacific markets rise as investors assess renewed Middle East hostilities", source: "CNBC", date: "2026-09-07", url: "https://www.cnbc.com/2026/09/07/stock-market-today-live-updates.html" },
-    { title: "Trump turns up the heat on Warsh as Fed rate hike looms", source: "CNBC", date: "2026-09-05", time: "21:09", url: "https://www.cnbc.com/2026/09/05/trump-warsh-fed-september-rate-hike.html" },
+    { title: "Stock Market Today (Sept. 8, 2026): Dow futures edge lower as oil prices climb, Mideast tensions rise", source: "TheStreet", date: "2026-09-08", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-08-2026" },
+    { title: "Oil extends gains as renewed Mideast hostilities raise worries of prolonged conflict", source: "CNBC", date: "2026-09-08", url: "https://www.cnbc.com/2026/09/08/oil-prices-today-brent-wti-hormuz-iran-war.html" },
+    { title: "Fed rate hike odds rise: What UBS says to buy — and avoid", source: "CNBC", date: "2026-09-07", url: "https://www.cnbc.com/2026/09/07/ubs-federal-reserve-interest-rate-hike-investing.html" },
   ],
   uk: [
+    { title: "Healey Says UK Borrowing Remains High as Fiscal Discipline Takes Priority", source: "Bloomberg", date: "2026-09-08", url: "https://www.bloomberg.com/news/articles/2026-09-08/healey-says-uk-borrowing-too-high-in-signal-of-fiscal-rigor" },
+    { title: "UK Set to Pay Most Since 1998 for Borrowing After Gilt Selloff", source: "Bloomberg", date: "2026-09-08", url: "https://www.bloomberg.com/news/articles/2026-09-08/uk-set-to-pay-most-since-1998-for-borrowing-after-gilt-selloff" },
     { title: "UK Budget 2026: Bond Market Has Already Halved Healey's Fiscal Room for Tax Rises", source: "Tech Times", date: "2026-09-07", url: "https://www.techtimes.com/articles/326863/20260907/uk-budget-2026-bond-market-has-already-halved-healeys-fiscal-room-tax-rises.htm" },
     { title: "UK house prices fall annually for first time since November 2023", source: "The Intermediary", date: "2026-09-07", url: "https://theintermediary.co.uk/2026/09/uk-house-prices-fall-annually-for-first-time-since-november-2023/" },
     { title: "UK retail sales growth slows to 4-month low in August, BRC says", source: "Reuters", date: "2026-09-07", url: "https://www.investing.com/news/economic-indicators/uk-retail-sales-growth-slows-to-4month-low-in-august-brc-says-4890744" },
-    { title: "UK Prime Minister Burnham Commits to Fiscal Rules, Declines Debt Pledge", source: "Bloomberg", date: "2026-09-02", url: "https://www.bloomberg.com/news/articles/2026-09-02/burnham-pledges-fiscal-stability-declines-to-rule-out-more-debt" },
-    { title: "British Pound climbs as USD fades, Hormuz risk keeps Fed in play", source: "FXStreet", date: "2026-09-07", time: "16:51", url: "https://www.fxstreet.com/news/british-pound-climbs-as-usd-fades-hormuz-risk-keeps-fed-in-play-202609071651" },
   ],
 };
 
@@ -905,6 +905,11 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-08",
   items: [
+    {"title": "Healey Says UK Borrowing Remains High as Fiscal Discipline Takes Priority", "source": "Bloomberg", "date": "2026-09-08", "time": "17:13", "url": "https://www.bloomberg.com/news/articles/2026-09-08/healey-says-uk-borrowing-too-high-in-signal-of-fiscal-rigor", "blurb": "In his first Commons Treasury questions since being appointed, Chancellor John Healey said borrowing was 'still too high' even as 'we've started to see the economy turning the corner', declining to rule out tax rises ahead of the 28 October Budget.", "author": null},
+    {"title": "UK Set to Pay Most Since 1998 for Borrowing After Gilt Selloff", "source": "Bloomberg", "date": "2026-09-08", "time": "16:00", "url": "https://www.bloomberg.com/news/articles/2026-09-08/uk-set-to-pay-most-since-1998-for-borrowing-after-gilt-selloff", "blurb": "The DMO marketed a benchmark January 2056 gilt at roughly 0.75-1bp over the outstanding 2055 bond — the highest yield premium on any gilt syndication since the DMO's creation in 1998 — as the global bond selloff keeps squeezing UK government finances.", "author": null},
+    {"title": "Canada's retaliatory tariffs worth $27.6 billion take effect as trade rift with U.S. deepens", "source": "CNBC", "date": "2026-09-08", "time": "14:00", "url": "https://www.cnbc.com/2026/09/08/canada-retaliatory-tariffs.html", "blurb": "Ottawa's counter-tariffs — 15-50% on US steel, dairy, appliances, paper and electronics, with steel/aluminum/furniture/clothing hit hardest at 50% — took effect Tuesday after talks with Washington collapsed, deepening an 18-month-old trade war.", "author": null},
+    {"title": "Stock Market Today (Sept. 8, 2026): Dow futures edge lower as oil prices climb, Mideast tensions rise", "source": "TheStreet", "date": "2026-09-08", "time": "13:37", "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-08-2026", "blurb": "US futures were mixed at the start of a shortened trading week as investors weighed rising oil prices, the renewed Iran-Hormuz standoff and the newly-effective Canada tariffs, with Thursday's PPI and Friday's CPI the next tests before the 16 September FOMC.", "author": null},
+    {"title": "Fed rate hike odds rise: What UBS says to buy — and avoid", "source": "CNBC", "date": "2026-09-07", "time": "19:00", "url": "https://www.cnbc.com/2026/09/07/ubs-federal-reserve-interest-rate-hike-investing.html", "blurb": "With traders pricing roughly 60% odds of a 16 September hike after August's payrolls beat, UBS says a Fed 'responding to economic strength' argues for buying equity dips, longer-duration quality bonds and gold as a hedge, rather than turning defensive.", "author": null},
     {"title": "Oil extends gains as renewed Mideast hostilities raise worries of prolonged conflict", "source": "CNBC", "date": "2026-09-08", "time": "12:20", "url": "https://www.cnbc.com/2026/09/08/oil-prices-today-brent-wti-hormuz-iran-war.html", "blurb": "Brent rose to about $97 and WTI to roughly $92.50 for a third straight session, extending six-week highs after the US and Iran traded strikes over the weekend; Goldman Sachs lifted its December 2026 Brent and WTI forecasts by $5 to $85 and $80 a barrel respectively.", "author": null},
     {"title": "Wall of Political and Economic Risks Is Growing: Taking Stock", "source": "Bloomberg", "date": "2026-09-08", "time": "12:00", "url": "https://www.bloomberg.com/news/articles/2026-09-08/wall-of-political-and-economic-risks-is-growing-taking-stock", "blurb": "Bloomberg's markets column argues equities are caught between resilient earnings and a widening set of macro risks — a possible Fed rate hike, an escalating Middle East conflict and unresolved US midterm-election uncertainty — that together argue for portfolio protection into year-end.", "author": null},
     {"title": "Global Markets' Summer Lull to End as Volatility, Risks Mount", "source": "Bloomberg", "date": "2026-09-08", "time": "11:30", "url": "https://www.bloomberg.com/news/articles/2026-09-08/global-markets-summer-lull-to-end-as-volatility-risks-mount", "blurb": "Strategists see a month-long sideways drift in US and European equities giving way to renewed volatility as interest-rate-hike risk, fiscal-deficit concerns and the Middle East war converge in September.", "author": null},
