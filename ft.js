@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "dda770b2-79b4-48bb-b141-0e1291d08115", title: "The new fiscal threats to monetary policy", date: "2026-09-08", time: "12:30", url: "https://www.ft.com/content/dda770b2-79b4-48bb-b141-0e1291d08115" },
   { id: "4320e779-73ab-4e56-ad13-9d5e9aa48b3c", title: "The yawning gap between ambition and action on nuclear energy", date: "2026-09-08", time: "12:00", url: "https://www.ft.com/content/4320e779-73ab-4e56-ad13-9d5e9aa48b3c" },
   { id: "53d6b648-ea21-43a9-ba89-f1102462ff9b", title: "Innovation is the answer to Britain’s elusive growth problem", date: "2026-09-08", time: "11:41", url: "https://www.ft.com/content/53d6b648-ea21-43a9-ba89-f1102462ff9b" },
   { id: "359e9dac-cc19-4a93-8155-3d087adf4103", title: "John Healey faces MPs as pressure on UK public finances mounts", date: "2026-09-08", time: "11:24", url: "https://www.ft.com/content/359e9dac-cc19-4a93-8155-3d087adf4103" },

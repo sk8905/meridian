@@ -13,7 +13,7 @@ export const UPDATED = "8 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-08",
-  lastCheckedTime: "09:11 BST",
+  lastCheckedTime: "12:36 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -880,18 +880,18 @@ export const SUMMARY = {
 export const NEWS = {
   updated: "2026-09-08",
   us: [
-    { title: "Stock Market Today: Dow, S&P Live Updates for September 8", source: "Bloomberg", date: "2026-09-07", url: "https://www.bloomberg.com/news/articles/2026-09-07/stock-market-today-dow-s-p-live-updates" },
-    { title: "Oil Extends Gain as Iran Says Hormuz Deal With Oman Days Away", source: "Bloomberg", date: "2026-09-07", url: "https://www.bloomberg.com/news/articles/2026-09-07/latest-oil-market-news-and-analysis-for-sept-8" },
-    { title: "U.S. Treasury yields, markets, Scott Bessent", source: "CNBC", date: "2026-09-07", url: "https://www.cnbc.com/2026/09/07/us-treasury-yields-markets-scott-bessent.html" },
-    { title: "Upcoming inflation data could determine if the Federal Reserve hikes interest rates soon, leaving Wall Street on edge", source: "Fortune", date: "2026-09-06", url: "https://fortune.com/2026/09/06/fed-rate-hikes-inflation-data-ppi-cpi-august-tariffs-oil-prices/" },
-    { title: "Trump pushes Fed to cut rates ahead of pivotal September decision", source: "CNBC", date: "2026-09-05", time: "21:09", url: "https://www.cnbc.com/2026/09/05/trump-warsh-fed-september-rate-hike.html" },
+    { title: "Oil extends gains as renewed Mideast hostilities raise worries of prolonged conflict", source: "CNBC", date: "2026-09-08", url: "https://www.cnbc.com/2026/09/08/oil-prices-today-brent-wti-hormuz-iran-war.html" },
+    { title: "Wall of Political and Economic Risks Is Growing: Taking Stock", source: "Bloomberg", date: "2026-09-08", url: "https://www.bloomberg.com/news/articles/2026-09-08/wall-of-political-and-economic-risks-is-growing-taking-stock" },
+    { title: "Global Markets' Summer Lull to End as Volatility, Risks Mount", source: "Bloomberg", date: "2026-09-08", url: "https://www.bloomberg.com/news/articles/2026-09-08/global-markets-summer-lull-to-end-as-volatility-risks-mount" },
+    { title: "European stocks close mixed and Asia-Pacific markets rise as investors assess renewed Middle East hostilities", source: "CNBC", date: "2026-09-07", url: "https://www.cnbc.com/2026/09/07/stock-market-today-live-updates.html" },
+    { title: "Trump turns up the heat on Warsh as Fed rate hike looms", source: "CNBC", date: "2026-09-05", time: "21:09", url: "https://www.cnbc.com/2026/09/05/trump-warsh-fed-september-rate-hike.html" },
   ],
   uk: [
-    { title: "Chancellor keeps Budget under wraps, as he promotes growth, growth, growth", source: "FXStreet", date: "2026-09-07", time: "10:05", url: "https://www.fxstreet.com/analysis/chancellor-keeps-budget-under-wraps-as-he-promotes-growth-growth-growth-202609071005" },
-    { title: "John Healey Bind Deepens as Markets Chip Away at UK Fiscal Buffer", source: "Bloomberg", date: "2026-09-02", url: "https://www.bloomberg.com/news/articles/2026-09-02/healey-bind-deepens-as-markets-chip-away-at-uk-fiscal-buffer" },
-    { title: "Jaguar Land Rover to layoff thousands of jobs in $2.3 billion cost-saving overhaul", source: "CNBC", date: "2026-09-07", url: "https://www.cnbc.com/2026/09/07/jaguar-land-rover-jlr-job-cuts-autos.html" },
+    { title: "UK Budget 2026: Bond Market Has Already Halved Healey's Fiscal Room for Tax Rises", source: "Tech Times", date: "2026-09-07", url: "https://www.techtimes.com/articles/326863/20260907/uk-budget-2026-bond-market-has-already-halved-healeys-fiscal-room-tax-rises.htm" },
+    { title: "UK house prices fall annually for first time since November 2023", source: "The Intermediary", date: "2026-09-07", url: "https://theintermediary.co.uk/2026/09/uk-house-prices-fall-annually-for-first-time-since-november-2023/" },
+    { title: "UK retail sales growth slows to 4-month low in August, BRC says", source: "Reuters", date: "2026-09-07", url: "https://www.investing.com/news/economic-indicators/uk-retail-sales-growth-slows-to-4month-low-in-august-brc-says-4890744" },
+    { title: "UK Prime Minister Burnham Commits to Fiscal Rules, Declines Debt Pledge", source: "Bloomberg", date: "2026-09-02", url: "https://www.bloomberg.com/news/articles/2026-09-02/burnham-pledges-fiscal-stability-declines-to-rule-out-more-debt" },
     { title: "British Pound climbs as USD fades, Hormuz risk keeps Fed in play", source: "FXStreet", date: "2026-09-07", time: "16:51", url: "https://www.fxstreet.com/news/british-pound-climbs-as-usd-fades-hormuz-risk-keeps-fed-in-play-202609071651" },
-    { title: "UK Finance Minister Healey Faces Fiscal Tightrope Before First Budget", source: "Global Banking & Finance Review", date: "2026-09-07", time: "17:13", url: "https://www.globalbankingandfinance.com/uks-finance-minister-healey-walks-fiscal-tightrope-first/" },
   ],
 };
 
@@ -905,6 +905,9 @@ export const NEWS = {
 export const ARTICLES = {
   updated: "2026-09-08",
   items: [
+    {"title": "Oil extends gains as renewed Mideast hostilities raise worries of prolonged conflict", "source": "CNBC", "date": "2026-09-08", "time": "12:20", "url": "https://www.cnbc.com/2026/09/08/oil-prices-today-brent-wti-hormuz-iran-war.html", "blurb": "Brent rose to about $97 and WTI to roughly $92.50 for a third straight session, extending six-week highs after the US and Iran traded strikes over the weekend; Goldman Sachs lifted its December 2026 Brent and WTI forecasts by $5 to $85 and $80 a barrel respectively.", "author": null},
+    {"title": "Wall of Political and Economic Risks Is Growing: Taking Stock", "source": "Bloomberg", "date": "2026-09-08", "time": "12:00", "url": "https://www.bloomberg.com/news/articles/2026-09-08/wall-of-political-and-economic-risks-is-growing-taking-stock", "blurb": "Bloomberg's markets column argues equities are caught between resilient earnings and a widening set of macro risks — a possible Fed rate hike, an escalating Middle East conflict and unresolved US midterm-election uncertainty — that together argue for portfolio protection into year-end.", "author": null},
+    {"title": "Global Markets' Summer Lull to End as Volatility, Risks Mount", "source": "Bloomberg", "date": "2026-09-08", "time": "11:30", "url": "https://www.bloomberg.com/news/articles/2026-09-08/global-markets-summer-lull-to-end-as-volatility-risks-mount", "blurb": "Strategists see a month-long sideways drift in US and European equities giving way to renewed volatility as interest-rate-hike risk, fiscal-deficit concerns and the Middle East war converge in September.", "author": null},
     {"title": "Stock Market Today: Dow, S&P Live Updates for September 8", "source": "Bloomberg", "date": "2026-09-07", "time": "21:00", "url": "https://www.bloomberg.com/news/articles/2026-09-07/stock-market-today-dow-s-p-live-updates", "blurb": "US futures and Asian equities firmed into Tuesday's session as chipmakers extended their AI-driven rally, while Brent crude held its advance on the unresolved Strait of Hormuz standoff ahead of Thursday's PPI and Friday's CPI prints.", "author": null},
     {"title": "Oil Extends Gain as Iran Says Hormuz Deal With Oman Days Away", "source": "Bloomberg", "date": "2026-09-07", "time": "20:00", "url": "https://www.bloomberg.com/news/articles/2026-09-07/latest-oil-market-news-and-analysis-for-sept-8", "blurb": "Brent held near $97 and WTI above $92 as traders awaited details of a reported Iran-Oman accord on managing Hormuz shipping — including a temporary safe route — while it remained unclear how Washington would respond after the weekend's US strikes on Iranian tankers.", "author": null},
     {"title": "U.S. Treasury yields, markets, Scott Bessent", "source": "CNBC", "date": "2026-09-07", "time": "18:00", "url": "https://www.cnbc.com/2026/09/07/us-treasury-yields-markets-scott-bessent.html", "blurb": "Treasury Secretary Scott Bessent's latest remarks on yields and the fiscal outlook came as the market continued to weigh the odds of a 16 September Fed hike against a heavy autumn issuance calendar.", "author": null},
