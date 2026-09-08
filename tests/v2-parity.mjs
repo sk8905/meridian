@@ -33,6 +33,27 @@ async function deepLink(url, view, min, label) {
   await deepLink(`/v2/`, "home", 2000, "home");
 }
 
+// ---- 1c. Detail-page ticker metrics never double-escape entities ----
+// Regression: several `metrics` arrays fed the ticker a value already run through
+// esc() (e.g. a hedge fund's strategy), and the ticker's own template escaped it
+// again, corrupting "&" into the literal text "&amp;" for any real record
+// containing one (Man Group's "Multi (quant & discretionary)" strategy).
+{
+  const { ctx, pg, errs } = await open(b, PHONE, base + "/v2/credit/");
+  await pg.waitForTimeout(1200);
+  const amp = await pg.evaluate(async () => {
+    const c = await import("/credit/js/data.js?v=20260722-5");
+    const hf = c.HEDGE_FUNDS.find((h) => (h.strategy || "").includes("&"));
+    location.hash = "#/hf/" + hf.id;
+    await new Promise((r) => setTimeout(r, 500));
+    const ticker = document.querySelector('.v2-view[data-view="credit"] .tdash-ticker');
+    return { text: ticker ? ticker.textContent : "", html: ticker ? ticker.innerHTML : "" };
+  });
+  check(amp.text.includes("&") && !amp.html.includes("&amp;amp;"), `credit hedge-fund ticker doesn't double-escape "&" (${amp.text.slice(0, 60)})`);
+  checkErrs(errs, "credit ticker escaping");
+  await ctx.close();
+}
+
 // ---- 1b. Each desk cold-loads with feed.css so its wire is styled ----
 // Regression: the desk views loaded only their own styles.css, not feed.css, so
 // a directly-opened desk rendered its wire as raw unstyled orange links until

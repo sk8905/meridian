@@ -194,7 +194,7 @@ export function viewFund(id) {
   const raisedLabel = x.evergreen ? "AUM/NAV" : "Raised";
   const metrics = [
     [x.evergreen ? "AUM" : "Target", x.evergreen ? (x.raised != null ? eur(x.raised) : "—") : eur(x.targetSize)],
-    [raisedLabel, eur(x.raised)], ["Vintage", x.vintage], ["Status", esc(x.status)],
+    [raisedLabel, eur(x.raised)], ["Vintage", x.vintage], ["Status", x.status],
     ["Investors", inv.length], ["Deals", fdeals.length],
   ];
   // Rail: fundraising facts, deployment, returns, investors, notable, peers, provenance.
@@ -397,7 +397,7 @@ export function viewManager(id) {
   const mgrWireRow = (x) => crWireRow(x, x.fundId && fundById[x.fundId]
     ? `<a href="#/fund/${x.fundId}" class="tw-mgr">${esc(fundById[x.fundId].name)}</a>` : "");
   const metrics = [
-    ["AUM", esc(aumHeadline(m))], ["Founded", m.founded], ["Funds", fs.length],
+    ["AUM", aumHeadline(m)], ["Founded", m.founded], ["Funds", fs.length],
     ["In market", liveFunds], ["CLOs", mgrCloRoster.length], ["Investors", commits.length],
   ];
   // ---- panes: News (default) · Funds · CLOs · Key personnel ----
@@ -517,7 +517,7 @@ export function viewClo(mid, encName) {
   const otherClos = roster.filter((r) => r.name !== c.name);
   const metrics = [
     ["Vintage", c.vintage || "—"], ["Size", c.size || "—"],
-    ["Items", c.items.length], ["Manager", esc(m.name)],
+    ["Items", c.items.length], ["Manager", m.name],
   ];
   const kvFig = [
     ["Vintage", c.vintage || "—"], ["Size", c.size || "—"],
@@ -669,8 +669,8 @@ export function viewHedgeFund(id) {
   // so the single-column body below is just the tabbed News / Holdings / Filings.
   const metrics = [
     ["AUM", f.aum == null ? "n.a." : "$" + f.aum.toFixed(2) + "bn"],
-    ["Strategy", esc(f.strategy)], ["Region", esc(f.region)], ["HQ", esc(f.hq)],
-    ["Founded", f.founded || "—"], ["Founder", esc(f.founder || "—")],
+    ["Strategy", f.strategy], ["Region", f.region], ["HQ", f.hq],
+    ["Founded", f.founded || "—"], ["Founder", f.founder || "—"],
   ];
   // News for this fund — the hedge-fund intelligence stream (HEDGE_INTEL),
   // shaped into the shared credit wire row, newest first.
