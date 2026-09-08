@@ -14,7 +14,7 @@ await pg.waitForTimeout(1600);
 
 // Sub-tabs in the requested order, Fixed Income active with both blocks.
 const fi = await pg.evaluate(() => ({
-  tabs: [...document.querySelectorAll(".dsh-nav .tchip[data-sub]")].map((c) => c.dataset.sub),
+  tabs: [...document.querySelectorAll(".dsh-railnav .dsh-navchip[data-sub]")].map((c) => c.dataset.sub),
   yc: !!document.querySelector(".dsh-yc-svg"),
   spreads: !!document.querySelector("#dsh-spreads"),
 }));
@@ -23,7 +23,7 @@ check(fi.yc, "Fixed Income: sovereign yield curve renders (government)");
 check(fi.spreads, "Fixed Income: corporate credit-spreads block present");
 
 // Switch to Legal — a search interface, not a list.
-await pg.evaluate(() => { const t = [...document.querySelectorAll(".dsh-nav .tchip[data-sub]")].find((c) => c.dataset.sub === "legal"); t && t.click(); });
+await pg.evaluate(() => { const t = [...document.querySelectorAll(".dsh-railnav .dsh-navchip[data-sub]")].find((c) => c.dataset.sub === "legal"); t && t.click(); });
 await pg.waitForTimeout(800);
 const lg = await pg.evaluate(() => ({
   search: !!document.querySelector("#dsh-lgl-q"),
@@ -83,7 +83,7 @@ const cleared = await pg.evaluate(() => { const q = document.querySelector("#dsh
 checkEq(cleared, 0, "Legal: clearing the keyword returns to the search prompt");
 
 // Hedge Funds sub-tab: sourced consensus + moves lists, and the live per-fund picker.
-await pg.evaluate(() => { const t = [...document.querySelectorAll(".dsh-nav .tchip[data-sub]")].find((c) => c.dataset.sub === "hedge-funds"); t && t.click(); });
+await pg.evaluate(() => { const t = [...document.querySelectorAll(".dsh-railnav .dsh-navchip[data-sub]")].find((c) => c.dataset.sub === "hedge-funds"); t && t.click(); });
 await pg.waitForTimeout(700);
 const hf = await pg.evaluate(() => {
   const items = [...document.querySelectorAll(".dsh-hf-i")];

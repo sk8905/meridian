@@ -117,11 +117,11 @@ for (const [path, view] of [["/v2/macro/", "macro"], ["/v2/credit/", "credit"], 
   // ---- 4. In-view interactivity: the active view's own (guarded) handlers fire ----
   await tap("dashboard");
   // Dashboard renders its three sub-tabs; Equities shows the ranked sector bars.
-  const dshSubs = await pg.evaluate(() => document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-nav .tchip[data-sub]').length);
+  const dshSubs = await pg.evaluate(() => document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-railnav .dsh-navchip[data-sub]').length);
   checkEq(dshSubs, 6, "in-view: Dashboard has six sub-tabs (Macro/Equities/Fixed Income/Credit/Hedge Funds/Legal)");
-  await pg.evaluate(() => { const e = [...document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-nav .tchip[data-sub]')].find((c) => c.dataset.sub === "equities"); if (e) e.click(); });
+  await pg.evaluate(() => { const e = [...document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-railnav .dsh-navchip[data-sub]')].find((c) => c.dataset.sub === "equities"); if (e) e.click(); });
   await pg.waitForTimeout(300);
-  checkEq(await pg.evaluate(() => (document.querySelector('.v2-view[data-view="dashboard"] .dsh-nav .tchip.is-on') || {}).dataset?.sub), "equities", "in-view: Dashboard sub-tab switches (active handler fires)");
+  checkEq(await pg.evaluate(() => (document.querySelector('.v2-view[data-view="dashboard"] .dsh-railnav .dsh-navchip.is-on') || {}).dataset?.sub), "equities", "in-view: Dashboard sub-tab switches (active handler fires)");
   check(await pg.evaluate(() => document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-sectors .dsh-sec').length) >= 6, "in-view: Dashboard Equities sector bars render");
   checkErrs(errs, "in-view interactivity");
   await ctx.close();

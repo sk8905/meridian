@@ -248,31 +248,19 @@ export function mount(host, ctx) {
     return `<div class="dsh-pills">${pick.map(tape).join("")}${vix ? `<span class="dsh-pill"><span class="dsh-pill-k">${esc(vix.name)}</span><span class="dsh-pill-v">${vix.level != null ? vix.level.toFixed(1) : "—"}</span></span>` : ""}</div>`;
   }
   function equitiesHTML() {
-    // Terminal: a compact market-tape strip spans the top, then three LABELLED
-    // columns fill the viewport (each scrolls internally) — mirroring the Macro
-    // pane and the Home terminal (regime strip + Policy/Cycle/Wire columns).
     const km = keyMomentsBody();
-    return `<div class="dsh-pane dsh-term">
-      <section class="dsh-card dsh-span">${eqTapeHTML()}</section>
-      <div class="dsh-term-ws">
-        <div class="dsh-term-col">
-          <h3 class="dsh-term-lbl">Indices &amp; movers</h3>
-          <section class="dsh-card"><h3 class="dsh-h">World indices — benchmarks by jurisdiction <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-wi-box">${worldIndicesHeatHTML()}</div></section>
-          <section class="dsh-card"><h3 class="dsh-h">S&amp;P 500 sectors — YTD ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
-          ${km ? `<section class="dsh-card"><h3 class="dsh-h">Key moments <span class="dsh-n">why it moved</span></h3>${km}</section>` : ""}
-        </div>
-        <div class="dsh-term-col">
-          <h3 class="dsh-term-lbl">Flows &amp; valuation</h3>
-          <section class="dsh-card"><h3 class="dsh-h">ETF flows — net fund flows ${asOf(SECTOR_FLOWS.asOf)}</h3><div class="dsh-scroll" id="dsh-flows-box">${sectorFlowsHTML()}</div></section>
-          <section class="dsh-card"><h3 class="dsh-h">Valuation &amp; volatility</h3>${valVolHTML()}</section>
-        </div>
-        <div class="dsh-term-col dsh-term-rail">
-          <h3 class="dsh-term-lbl">Calendar &amp; pipeline</h3>
-          <section class="dsh-card"><h3 class="dsh-h">Earnings calendar${srcLink(earnSrc, "Earnings week-ahead source")}</h3><div class="dsh-scroll">${earningsHTML()}</div></section>
-          <section class="dsh-card"><h3 class="dsh-h">IPO / ECM pipeline</h3><div class="dsh-scroll">${ipoHTML()}</div></section>
-        </div>
-      </div>
-    </div>`;
+    const mid = `<section class="dsh-card dsh-span">${eqTapeHTML()}</section>
+      <h3 class="dsh-term-lbl">Indices &amp; sectors</h3>
+      <section class="dsh-card"><h3 class="dsh-h">World indices — benchmarks by jurisdiction <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-wi-box">${worldIndicesHeatHTML()}</div></section>
+      <section class="dsh-card"><h3 class="dsh-h">S&amp;P 500 sectors — YTD ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
+      <h3 class="dsh-term-lbl">Flows &amp; valuation</h3>
+      <section class="dsh-card"><h3 class="dsh-h">ETF flows — net fund flows ${asOf(SECTOR_FLOWS.asOf)}</h3><div class="dsh-scroll" id="dsh-flows-box">${sectorFlowsHTML()}</div></section>
+      <section class="dsh-card"><h3 class="dsh-h">Valuation &amp; volatility</h3>${valVolHTML()}</section>
+      <h3 class="dsh-term-lbl">Calendar &amp; pipeline</h3>
+      <section class="dsh-card"><h3 class="dsh-h">Earnings calendar${srcLink(earnSrc, "Earnings week-ahead source")}</h3><div class="dsh-scroll">${earningsHTML()}</div></section>
+      <section class="dsh-card"><h3 class="dsh-h">IPO / ECM pipeline</h3><div class="dsh-scroll">${ipoHTML()}</div></section>`;
+    const news = km ? `<section class="dsh-card"><h3 class="dsh-h">Key moments <span class="dsh-n">why it moved</span></h3><div class="dsh-news dsh-km-wrap">${km}</div></section>` : "";
+    return { mid, news, newsLabel: "Key moments" };
   }
 
   // ---- Credit -------------------------------------------------------------
@@ -360,28 +348,16 @@ export function mount(host, ctx) {
     return `<div class="dsh-pills">${m.slice(0, 5).map(pill).join("")}</div>`;
   }
   function creditHTML() {
-    // Terminal: a private-credit pulse strip spans the top, then three LABELLED
-    // columns fill the viewport (each scrolls internally) — mirroring Macro/Home.
     const strip = crTapeHTML();
-    return `<div class="dsh-pane dsh-term">
-      ${strip ? `<section class="dsh-card dsh-span">${strip}</section>` : ""}
-      <div class="dsh-term-ws">
-        <div class="dsh-term-col">
-          <h3 class="dsh-term-lbl">Spreads &amp; pulse</h3>
-          <section class="dsh-card"><h3 class="dsh-h">Private credit <span class="dsh-n">Fitch PCDR &amp; market pulse</span> ${asOf(PRIVATE_CREDIT && PRIVATE_CREDIT.asOf)}</h3>${privateCreditHTML()}</section>
-          <section class="dsh-card"><h3 class="dsh-h">Credit spreads — ICE BofA OAS <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div></section>
-        </div>
-        <div class="dsh-term-col">
-          <h3 class="dsh-term-lbl">Maturity &amp; stress</h3>
-          <section class="dsh-card"><h3 class="dsh-h">Maturity wall</h3>${maturityHTML()}</section>
-          <section class="dsh-card"><h3 class="dsh-h">Stress — situations in focus <span class="dsh-n">(${CR_STRESS.length}) · by debt</span></h3>${stressHTML()}</section>
-        </div>
-        <div class="dsh-term-col dsh-term-rail">
-          <h3 class="dsh-term-lbl">Credit wire</h3>
-          <section class="dsh-card"><h3 class="dsh-h">Credit wire — latest deals &amp; intel</h3>${creditNewsHTML()}</section>
-        </div>
-      </div>
-    </div>`;
+    const mid = `${strip ? `<section class="dsh-card dsh-span">${strip}</section>` : ""}
+      <h3 class="dsh-term-lbl">Spreads &amp; pulse</h3>
+      <section class="dsh-card"><h3 class="dsh-h">Private credit <span class="dsh-n">Fitch PCDR &amp; market pulse</span> ${asOf(PRIVATE_CREDIT && PRIVATE_CREDIT.asOf)}</h3>${privateCreditHTML()}</section>
+      <section class="dsh-card"><h3 class="dsh-h">Credit spreads — ICE BofA OAS <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div></section>
+      <h3 class="dsh-term-lbl">Maturity &amp; stress</h3>
+      <section class="dsh-card"><h3 class="dsh-h">Maturity wall</h3>${maturityHTML()}</section>
+      <section class="dsh-card"><h3 class="dsh-h">Stress — situations in focus <span class="dsh-n">(${CR_STRESS.length}) · by debt</span></h3>${stressHTML()}</section>`;
+    const news = `<section class="dsh-card"><h3 class="dsh-h">Credit wire — latest deals &amp; intel</h3>${creditNewsHTML()}</section>`;
+    return { mid, news, newsLabel: "Credit wire" };
   }
   async function loadSpreads() {
     const el = host.querySelector("#dsh-spreads");
@@ -615,26 +591,16 @@ export function mount(host, ctx) {
   function macroHTML() {
     const fed = fedHTML();
     const boe = boeHTML();
-    return `<div class="dsh-pane dsh-macro dsh-term">
-      <section class="dsh-card dsh-span">${regimePillsHTML()}</section>
-      <div class="dsh-term-ws">
-        <div class="dsh-term-col">
-          <h3 class="dsh-term-lbl">Policy rates</h3>
-          ${fed ? `<section class="dsh-card"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
-          ${boe ? `<section class="dsh-card"><h3 class="dsh-h">BoE path — MPC votes &amp; SONIA/OIS curve</h3>${boe}</section>` : ""}
-          <section class="dsh-card"><h3 class="dsh-h">Rate outlook</h3>${rateOutlookHTML()}</section>
-          <section class="dsh-card" id="dsh-yc-card">${yieldCurveCardHTML()}</section>
-        </div>
-        <div class="dsh-term-col">
-          <h3 class="dsh-term-lbl">Cycle</h3>
-          <section class="dsh-card"><h3 class="dsh-h">Where we are in the cycle — debt &amp; market</h3>${cyclesHTML()}</section>
-        </div>
-        <div class="dsh-term-col dsh-term-rail">
-          <h3 class="dsh-term-lbl">Macro wire</h3>
-          <section class="dsh-card"><h3 class="dsh-h">Macro wire — US &amp; UK headlines</h3>${macroNewsHTML()}</section>
-        </div>
-      </div>
-    </div>`;
+    const mid = `<section class="dsh-card dsh-span">${regimePillsHTML()}</section>
+      <h3 class="dsh-term-lbl">Policy rates</h3>
+      ${fed ? `<section class="dsh-card"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
+      ${boe ? `<section class="dsh-card"><h3 class="dsh-h">BoE path — MPC votes &amp; SONIA/OIS curve</h3>${boe}</section>` : ""}
+      <section class="dsh-card"><h3 class="dsh-h">Rate outlook</h3>${rateOutlookHTML()}</section>
+      <section class="dsh-card" id="dsh-yc-card">${yieldCurveCardHTML()}</section>
+      <h3 class="dsh-term-lbl">Cycle</h3>
+      <section class="dsh-card"><h3 class="dsh-h">Where we are in the cycle — debt &amp; market</h3>${cyclesHTML()}</section>`;
+    const news = `<section class="dsh-card"><h3 class="dsh-h">Macro wire — US &amp; UK headlines</h3>${macroNewsHTML()}</section>`;
+    return { mid, news, newsLabel: "Macro wire" };
   }
 
   // ---- Fixed Income -------------------------------------------------------
@@ -728,29 +694,17 @@ export function mount(host, ctx) {
     return pills ? `<div class="dsh-pills">${pills}</div>` : "";
   }
   function fixedIncomeHTML() {
-    // Terminal: a sovereign-yields tape spans the top, then three LABELLED columns
-    // fill the viewport and scroll internally — mirroring Macro/Home. Wide tables
-    // keep a horizontal scroll inside their column.
     const strip = fiTapeHTML();
     const km = fixedKeyMomentsBody();
-    return `<div class="dsh-pane dsh-term">
-      ${strip ? `<section class="dsh-card dsh-span">${strip}</section>` : ""}
-      <div class="dsh-term-ws">
-        <div class="dsh-term-col">
-          <h3 class="dsh-term-lbl">Sovereign — change</h3>
-          <section class="dsh-card"><h3 class="dsh-h">Government bond yields — change over 1W · 1M · 3M · 6M · 1Y <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
-        </div>
-        <div class="dsh-term-col">
-          <h3 class="dsh-term-lbl">Sovereign — curves</h3>
-          <section class="dsh-card"><h3 class="dsh-h">Government / sovereign — yield curves (all countries) ${asOf(GOVT_YIELDS && GOVT_YIELDS.asOf)}</h3><div class="dsh-scroll">${worldYieldCurveHTML()}</div></section>
-        </div>
-        <div class="dsh-term-col">
-          <h3 class="dsh-term-lbl">Corporate &amp; drivers</h3>
-          <section class="dsh-card"><h3 class="dsh-h">Corporate — credit spreads (ICE BofA OAS) <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div><p class="dsh-fl-note">Option-adjusted spreads over Treasuries, by rating cohort — the corporate risk premium. Live from FRED (ICE BofA indices).</p></section>
-          ${km ? `<section class="dsh-card"><h3 class="dsh-h">Rates — why it moved</h3>${km}</section>` : ""}
-        </div>
-      </div>
-    </div>`;
+    const mid = `${strip ? `<section class="dsh-card dsh-span">${strip}</section>` : ""}
+      <h3 class="dsh-term-lbl">Sovereign — change</h3>
+      <section class="dsh-card"><h3 class="dsh-h">Government bond yields — change over 1W · 1M · 3M · 6M · 1Y <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
+      <h3 class="dsh-term-lbl">Sovereign — curves</h3>
+      <section class="dsh-card"><h3 class="dsh-h">Government / sovereign — yield curves (all countries) ${asOf(GOVT_YIELDS && GOVT_YIELDS.asOf)}</h3><div class="dsh-scroll">${worldYieldCurveHTML()}</div></section>
+      <h3 class="dsh-term-lbl">Corporate</h3>
+      <section class="dsh-card"><h3 class="dsh-h">Corporate — credit spreads (ICE BofA OAS) <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div><p class="dsh-fl-note">Option-adjusted spreads over Treasuries, by rating cohort — the corporate risk premium. Live from FRED (ICE BofA indices).</p></section>`;
+    const news = km ? `<section class="dsh-card"><h3 class="dsh-h">Rates — why it moved</h3><div class="dsh-news dsh-km-wrap">${km}</div></section>` : "";
+    return { mid, news, newsLabel: "Why it moved" };
   }
 
   // ---- Legal --------------------------------------------------------------
@@ -856,38 +810,23 @@ export function mount(host, ctx) {
     const mvRow = (x) => `<div class="dsh-hf-i"><div class="dsh-hf-i-h"><span class="dsh-hf-dir dsh-hf-${esc(x.dir)}">${esc(_hfDir[x.dir] || x.dir)}</span> ${tkr(x.t)} <span class="dsh-hf-nm">${esc(x.name)}</span> <span class="dsh-hf-by">${esc(x.by)}</span>${srcLink(x.src)}</div><div class="dsh-hf-note">${esc(x.note)}</div></div>`;
     const filers = (HEDGE_FUNDS || []).filter((f) => f.cik).sort((a, b) => a.name.localeCompare(b.name));
     const opts = filers.map((f) => `<option value="${esc(f.cik)}">${esc(f.name)}</option>`).join("");
-    // Terminal: consensus · notable moves · per-fund holdings tile into three
-    // LABELLED columns filling the viewport, each scrolling internally —
-    // mirroring the Macro pane and the Home terminal.
-    return `<div class="dsh-pane dsh-term">
-      <div class="dsh-term-ws">
-        <div class="dsh-term-col">
-          <h3 class="dsh-term-lbl">Consensus longs</h3>
-          <section class="dsh-card">
-            <h3 class="dsh-h">Consensus longs <span class="dsh-n">(${esc(F.quarter || "")} 13Fs)</span></h3>
-            <div class="dsh-hf-list">${(F.consensus || []).map(conRow).join("")}</div>
-            <p class="dsh-fl-note">Most widely-held names across major hedge funds, from public ${esc(F.quarter || "")} 13F coverage — each links its source. ${esc(F.filed || "")}</p>
-          </section>
-        </div>
-        <div class="dsh-term-col">
-          <h3 class="dsh-term-lbl">Notable moves</h3>
-          <section class="dsh-card">
-            <h3 class="dsh-h">Notable ${esc(F.quarter || "")} moves</h3>
-            <div class="dsh-hf-list">${(F.moves || []).map(mvRow).join("")}</div>
-            <p class="dsh-fl-note">Selected buys, new stakes, trims and exits disclosed in the ${esc(F.quarter || "")} 13Fs — sourced, illustrative not exhaustive.</p>
-          </section>
-        </div>
-        <div class="dsh-term-col">
-          <h3 class="dsh-term-lbl">Per-fund holdings</h3>
-          <section class="dsh-card">
-            <h3 class="dsh-h">Per-fund holdings <span class="dsh-live">live · SEC 13F</span></h3>
-            <div class="dsh-hf-pick"><label class="dsh-lgl-lbl" for="dsh-hf-sel">Fund</label>
-              <select id="dsh-hf-sel" class="dsh-hf-sel">${opts}</select></div>
-            <div id="dsh-hf-body" class="dsh-hf-body"><p class="dsh-load">Loading latest 13F…</p></div>
-          </section>
-        </div>
-      </div>
-    </div>`;
+    const mid = `<h3 class="dsh-term-lbl">Consensus longs</h3>
+      <section class="dsh-card">
+        <h3 class="dsh-h">Consensus longs <span class="dsh-n">(${esc(F.quarter || "")} 13Fs)</span></h3>
+        <div class="dsh-hf-list">${(F.consensus || []).map(conRow).join("")}</div>
+        <p class="dsh-fl-note">Most widely-held names across major hedge funds, from public ${esc(F.quarter || "")} 13F coverage — each links its source. ${esc(F.filed || "")}</p>
+      </section>
+      <h3 class="dsh-term-lbl">Per-fund holdings</h3>
+      <section class="dsh-card">
+        <h3 class="dsh-h">Per-fund holdings <span class="dsh-live">live · SEC 13F</span></h3>
+        <div class="dsh-hf-pick"><label class="dsh-lgl-lbl" for="dsh-hf-sel">Fund</label>
+          <select id="dsh-hf-sel" class="dsh-hf-sel">${opts}</select></div>
+        <div id="dsh-hf-body" class="dsh-hf-body"><p class="dsh-load">Loading latest 13F…</p></div>
+      </section>`;
+    const news = `<section class="dsh-card"><h3 class="dsh-h">Notable ${esc(F.quarter || "")} moves</h3>
+      <div class="dsh-news dsh-hf-list">${(F.moves || []).map(mvRow).join("")}</div>
+      <p class="dsh-fl-note">Selected buys, new stakes, trims and exits disclosed in the ${esc(F.quarter || "")} 13Fs — sourced, illustrative not exhaustive.</p></section>`;
+    return { mid, news, newsLabel: "Notable moves" };
   }
   function renderHfHoldings(body, d) {
     if (!d || !Array.isArray(d.holdings) || !d.holdings.length) {
@@ -926,17 +865,15 @@ export function mount(host, ctx) {
     const achip = (a) => `<button type="button" class="dsh-lgl-chip${_legalAreas.has(a.id) ? " is-on" : ""}" data-area="${esc(a.id)}">${esc(a.short || a.name)}</button>`;
     const typeChips = `<div class="dsh-lgl-chips"><span class="dsh-lgl-lbl">Type</span>${TYPES.map(tchip).join("")}</div>`;
     const areaChips = `<div class="dsh-lgl-chips"><span class="dsh-lgl-lbl">Practice area</span>${(LGL_AREAS || []).map(achip).join("")}</div>`;
-    // Terminal (option 4): a single full-height panel — the search box and filter
-    // chips pin at the top and the results list scrolls internally, so the page
-    // itself doesn't scroll.
-    return `<div class="dsh-pane dsh-term dsh-term-solo">
-      <section class="dsh-card">
+    // Legal is a single full-height search panel — no news rail (the middle
+    // column spans the space); the search box + chips pin and the results scroll.
+    const mid = `<section class="dsh-card dsh-legal-panel">
         <h3 class="dsh-h">Legal — case law &amp; alerts <span class="dsh-n">(${total}) · search</span></h3>
         <input type="search" class="dsh-lgl-search" id="dsh-lgl-q" placeholder="Search all legal alerts &amp; case law — party, court, citation, firm…" value="${esc(_legalQuery)}" autocomplete="off" spellcheck="false">
         ${typeChips}${areaChips}
         <div class="dsh-lgl-body" id="dsh-lgl-body">${legalListHTML()}</div>
-      </section>
-    </div>`;
+      </section>`;
+    return { mid, news: "", newsLabel: "" };
   }
   function wireLegal() {
     const q = host.querySelector("#dsh-lgl-q");
@@ -951,18 +888,27 @@ export function mount(host, ctx) {
   }
 
   // ---- Shell + routing ----------------------------------------------------
+  // The Dashboard is a three-zone workspace: a narrow left rail holding the
+  // section nav, the selected section stacked top-to-bottom in the middle, and
+  // the section's news wire as a right-hand rail (omitted for Legal, which is a
+  // full-width search).
   function render() {
-    const nav = SUBTABS.map(([k, l, s]) => {
-      const label = s ? `<span class="dsh-tab-lg">${l}</span><span class="dsh-tab-sm">${s}</span>` : l;
-      return `<a class="tchip${pane === k ? " is-on" : ""}" href="${ctx.base}/dashboard/${k}" data-sub="${k}">${label}</a>`;
-    }).join("");
-    const body = pane === "equities" ? equitiesHTML()
+    const nav = SUBTABS.map(([k, l]) =>
+      `<a class="dsh-navchip${pane === k ? " is-on" : ""}" href="${ctx.base}/dashboard/${k}" data-sub="${k}">${l}</a>`).join("");
+    const sec = pane === "equities" ? equitiesHTML()
       : pane === "credit" ? creditHTML()
       : pane === "fixed-income" ? fixedIncomeHTML()
       : pane === "hedge-funds" ? hedgeFundsHTML()
       : pane === "legal" ? legalHTML()
       : macroHTML();
-    host.innerHTML = `<div class="dsh"><header class="dsh-nav tdet-secnav"><div class="tchips">${nav}</div></header>${body}</div>`;
+    const rail = sec.news
+      ? `<aside class="dsh-newsrail"><h3 class="dsh-term-lbl">${esc(sec.newsLabel || "Wire")}</h3>${sec.news}</aside>`
+      : "";
+    host.innerHTML = `<div class="dsh"><div class="dsh-3z${sec.news ? "" : " dsh-norail"}">
+      <nav class="dsh-railnav" aria-label="Dashboard sections">${nav}</nav>
+      <main class="dsh-mid">${sec.mid}</main>
+      ${rail}
+    </div></div>`;
     if (pane === "macro") loadYieldCurve();
     if (pane === "equities") loadWorldIndices();
     if (pane === "credit") { loadSpreads(); wireStressSort(); }
@@ -979,7 +925,7 @@ export function mount(host, ctx) {
     }));
   }
   host.addEventListener("click", (e) => {
-    const a = e.target.closest(".tchip[data-sub]");
+    const a = e.target.closest(".dsh-navchip[data-sub], .tchip[data-sub]");
     if (a) { e.preventDefault(); e.stopPropagation(); pane = a.dataset.sub; render(); try { history.replaceState(null, "", a.getAttribute("href")); } catch { /* */ } }
   });
 

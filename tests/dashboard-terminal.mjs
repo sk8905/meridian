@@ -1,93 +1,76 @@
-// Dashboard Macro pane as a fixed-viewport terminal (desktop): the rates panels
-// tile into three columns that fill the screen, and the Macro wire is a rail that
-// scrolls INTERNALLY — the dashboard itself doesn't scroll as a whole. Mobile
-// keeps the stacked card layout (this terminal is desktop-only, ≥901px).
+// Dashboard as a 3-zone workspace (desktop ≥901px): a narrow LEFT nav rail holds
+// the section chips, the selected section STACKS its cards in the middle, and the
+// section's news wire is a RIGHT rail that scrolls internally. The dashboard fills
+// the viewport (it doesn't scroll as a whole). Legal is a full-width search (no rail).
 import { serve, launchChromium, open, DESKTOP, check, checkEq, checkErrs, finish } from "./lib.mjs";
 
 const srv = await serve();
 const b = await launchChromium();
 const { ctx, pg, errs } = await open(b, DESKTOP, `http://localhost:${srv.port}/v2/dashboard/`);
-await pg.waitForSelector(".dsh-term-ws .dsh-card", { timeout: 8000 });
+await pg.waitForSelector(".dsh-3z .dsh-mid .dsh-card", { timeout: 8000 });
 await pg.waitForTimeout(600);
 
 const r = await pg.evaluate(() => {
-  const ws = document.querySelector(".dsh-term-ws");
   const dsh = document.querySelector(".dsh");
-  const rail = document.querySelector(".dsh-term-rail .dsh-news");
-  const regime = document.querySelector(".dsh-term > .dsh-card");   // regime strip (first card)
-  const term = document.querySelector(".dsh-term");
-  const colPx = ws ? getComputedStyle(ws).gridTemplateColumns.trim().split(/\s+/).map((x) => Math.round(parseFloat(x))) : [];
-  const nav = document.querySelector(".dsh-nav .tchips");
+  const nav = document.querySelector(".dsh-railnav");
+  const mid = document.querySelector(".dsh-mid");
+  const rail = document.querySelector(".dsh-newsrail");
+  const wire = document.querySelector(".dsh-newsrail .dsh-news");
+  const navR = nav && nav.getBoundingClientRect(), midR = mid && mid.getBoundingClientRect(), railR = rail && rail.getBoundingClientRect();
   return {
-    cols: colPx.length,
-    colPx,
-    navW: nav ? Math.round(nav.getBoundingClientRect().width) : 0,
-    navLeft: nav ? Math.round(nav.getBoundingClientRect().left) : 0,
-    vw: window.innerWidth,
+    navChips: document.querySelectorAll(".dsh-railnav .dsh-navchip").length,
+    navLeft: navR ? Math.round(navR.left) : -1,
+    navW: navR ? Math.round(navR.width) : -1,
+    navNarrow: navR ? navR.width < 220 : false,
+    // left rail sits left of the middle, which sits left of the news rail
+    order: navR && midR && railR ? (navR.right <= midR.left + 2 && midR.right <= railR.left + 2) : false,
+    midScrolls: mid ? /(auto|scroll)/.test(getComputedStyle(mid).overflowY) : false,
+    hasRail: !!rail,
+    wireOv: wire ? getComputedStyle(wire).overflowY : "",
     dshOv: dsh ? getComputedStyle(dsh).overflowY : "",
     dshFlex: dsh ? getComputedStyle(dsh).display : "",
-    railOv: rail ? getComputedStyle(rail).overflowY : "",
-    railScrolls: rail ? rail.scrollHeight > rail.clientHeight + 2 : false,
-    regimeW: regime ? Math.round(regime.getBoundingClientRect().width) : 0,
-    termW: term ? Math.round(term.getBoundingClientRect().width) : 0,
-    // the dashboard fills the viewport rather than overflowing the page
     pageScroll: document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight,
   };
 });
+checkEq(r.navChips, 6, "Dashboard: the left rail holds the six section chips");
+check(r.navLeft <= 12 && r.navNarrow, `Dashboard: the nav is a narrow LEFT rail (${r.navW}px at x=${r.navLeft})`);
+check(r.order, "Dashboard: the layout reads left-to-right — nav rail · middle · news rail");
+check(r.dshOv !== "auto" && r.dshFlex === "flex", `Dashboard: the workspace fills the viewport (doesn't scroll as a whole) — overflowY=${r.dshOv}`);
+check(r.midScrolls, "Dashboard: the middle section stacks and scrolls internally");
+check(r.hasRail && /(auto|scroll)/.test(r.wireOv), `Macro: the news wire is a right rail that scrolls internally (${r.wireOv})`);
+check(r.pageScroll <= 4, `Dashboard: the page itself doesn't scroll (overflow ${r.pageScroll}px)`);
+checkErrs(errs, "dashboard 3-zone");
 
-checkEq(r.cols, 3, "Macro terminal: the workspace is a three-column grid");
-// The three section columns share the width evenly (each ~one third).
-check(r.colPx.length === 3 && Math.max(...r.colPx) - Math.min(...r.colPx) <= 2, `Macro terminal: the three columns are equal thirds (${r.colPx.join(" · ")})`);
-// The sub-tab chips stretch the full viewport width, not a centred cluster.
-check(r.navLeft <= 4 && r.navW >= r.vw - 24, `Dashboard: the sub-tab chips span the full screen width (${r.navW}/${r.vw}, left ${r.navLeft})`);
-check(r.dshOv !== "auto" && r.dshFlex === "flex", `Macro terminal: the dashboard fills the viewport (doesn't scroll as a whole) — overflowY=${r.dshOv}, display=${r.dshFlex}`);
-check(/(auto|scroll)/.test(r.railOv), `Macro terminal: the wire rail scrolls internally (overflowY=${r.railOv})`);
-check(r.railScrolls, "Macro terminal: the wire rail actually has more headlines than fit (it scrolls)");
-check(r.regimeW >= r.termW - 24, `Macro terminal: the regime strip fills the full width, not shrink-to-content (${r.regimeW}/${r.termW})`);
-check(r.pageScroll <= 4, `Macro terminal: the page itself doesn't scroll (overflow ${r.pageScroll}px)`);
-
-checkErrs(errs, "dashboard terminal");
-
-// Credit pane is a terminal too — data columns + a credit-wire rail that scrolls.
-await pg.evaluate(() => { const t = [...document.querySelectorAll(".dsh-nav button, .dsh-nav [role=tab]")].find((x) => /^Credit/i.test(x.textContent.trim())); if (t) t.click(); });
-await pg.waitForSelector(".dsh-term-rail .dsh-news", { timeout: 8000 });
-await pg.waitForTimeout(400);
+// Credit → its own news wire in the right rail.
+await pg.goto(`http://localhost:${srv.port}/v2/dashboard/credit`, { waitUntil: "load" });
+await pg.waitForSelector(".dsh-newsrail .dsh-news", { timeout: 8000 });
 const c = await pg.evaluate(() => {
-  const ws = document.querySelector(".dsh-term-ws");
-  const rail = document.querySelector(".dsh-term-rail .dsh-news");
-  return {
-    cols: ws ? getComputedStyle(ws).gridTemplateColumns.trim().split(/\s+/).length : 0,
-    railOv: rail ? getComputedStyle(rail).overflowY : "",
-    hasWire: !!rail,
-  };
+  const wire = document.querySelector(".dsh-newsrail .dsh-news");
+  return { hasWire: !!wire, ov: wire ? getComputedStyle(wire).overflowY : "" };
 });
-checkEq(c.cols, 3, "Credit terminal: the workspace is a three-column grid");
-check(c.hasWire && /(auto|scroll)/.test(c.railOv), `Credit terminal: the credit-wire rail scrolls internally (${c.railOv})`);
-checkErrs(errs, "dashboard terminal credit");
+check(c.hasWire && /(auto|scroll)/.test(c.ov), `Credit: the credit-wire is a right rail that scrolls internally (${c.ov})`);
+checkErrs(errs, "dashboard 3-zone credit");
 
-// Every pane is a terminal that fills the viewport (the page doesn't scroll).
+// Every section: nav rail + stacked middle; non-legal keeps a news rail, legal spans full width.
 for (const key of ["equities", "fixed-income", "hedge-funds", "legal"]) {
   await pg.goto(`http://localhost:${srv.port}/v2/dashboard/${key}`, { waitUntil: "load" });
-  await pg.waitForSelector(".dsh-term", { timeout: 8000 });
-  await pg.waitForTimeout(400);
+  await pg.waitForSelector(".dsh-3z .dsh-mid", { timeout: 8000 });
+  await pg.waitForTimeout(300);
   const p = await pg.evaluate(() => ({
-    isTerm: !!document.querySelector(".dsh-term"),
+    threeZone: !!document.querySelector(".dsh-3z"),
+    navChips: document.querySelectorAll(".dsh-railnav .dsh-navchip").length,
     dshFlex: (() => { const d = document.querySelector(".dsh"); return d ? getComputedStyle(d).display : ""; })(),
     pageScroll: document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight,
-    solo: !!document.querySelector(".dsh-term-solo"),
-    ws: !!document.querySelector(".dsh-term-ws"),
-    lbls: document.querySelectorAll(".dsh-term-ws .dsh-term-lbl").length,
-    hSize: (() => { const h = document.querySelector(".dsh-term .dsh-h"); return h ? getComputedStyle(h).fontSize : ""; })(),
+    hasRail: !!document.querySelector(".dsh-newsrail"),
+    norail: !!document.querySelector(".dsh-3z.dsh-norail"),
+    hSize: (() => { const h = document.querySelector(".dsh-mid .dsh-h"); return h ? getComputedStyle(h).fontSize : ""; })(),
   }));
-  check(p.isTerm && p.dshFlex === "flex", `${key}: pane is a fixed-viewport terminal`);
+  check(p.threeZone && p.navChips === 6 && p.dshFlex === "flex", `${key}: renders the 3-zone workspace with the left nav rail`);
   check(p.pageScroll <= 4, `${key}: the page itself doesn't scroll (overflow ${p.pageScroll}px)`);
-  check(key === "legal" ? p.solo : p.ws, `${key}: uses the ${key === "legal" ? "solo full-height panel" : "column workspace"}`);
-  // Every column workspace carries per-column labels (Macro-style), and panel
-  // headers sit on the 12px terminal scale (HOUSE_STYLE R11), not the prose scale.
-  if (key !== "legal") check(p.lbls >= 3, `${key}: the workspace columns are labelled (${p.lbls})`);
+  check(key === "legal" ? (p.norail && !p.hasRail) : p.hasRail, `${key}: ${key === "legal" ? "is a full-width search (no news rail)" : "keeps a news rail on the right"}`);
   check(p.hSize === "12px", `${key}: panel headers use the 12px terminal scale (got ${p.hSize})`);
 }
-checkErrs(errs, "dashboard terminal all panes");
+checkErrs(errs, "dashboard 3-zone all sections");
 
 await ctx.close();
 await b.close(); srv.close();

@@ -83,6 +83,58 @@
   .dsh-term-solo .dsh-lgl-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
 }
 
+/* ---- 3-zone Dashboard: left nav rail · stacked middle · right news rail ------
+   The section nav lives in a narrow left rail; the selected section stacks its
+   cards top-to-bottom in the middle; the section's news wire is a right rail.
+   Mobile stacks all three (a horizontal chip row, the section, then the wire)
+   and the page scrolls; desktop is the fixed-viewport three-column workspace. */
+.dsh-3z { display:flex; flex-direction:column; gap:var(--dsh-gap); padding:var(--dsh-gap); }
+.dsh-railnav { display:flex; flex-flow:row wrap; gap:6px; }
+.dsh-navchip { display:block; padding:7px 13px; font-size:12px; font-weight:600; color:var(--t-mut); text-decoration:none;
+  border:1px solid var(--t-grid2); border-radius:16px; background:var(--t-panel); cursor:pointer; white-space:nowrap; }
+.dsh-navchip.is-on { color:var(--t-ink); border-color:var(--t-accent); background:color-mix(in srgb, var(--t-accent) 12%, transparent); }
+.dsh-mid, .dsh-newsrail { display:flex; flex-direction:column; gap:var(--dsh-gap); min-width:0; }
+/* News-rail items read as a wire: the headline sits on top (full width) with a
+   muted meta line (date · source) beneath, so the narrow rail never squeezes the
+   headline down to one word per line. */
+.dsh-newsrail .dsh-news-i { display:grid; grid-template-columns:auto minmax(0,1fr); grid-template-areas:"head head" "date src"; column-gap:8px; row-gap:1px; align-items:baseline; }
+.dsh-newsrail .dsh-news-i a { grid-area:head; }
+.dsh-newsrail .dsh-news-d { grid-area:date; }
+.dsh-newsrail .dsh-news-s { grid-area:src; margin-left:0; text-align:right; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; }
+/* In the rail, the "heading + body" items (Key moments · Why it moved) stack the
+   heading ABOVE the text, not label-left / text-right. */
+.dsh-newsrail .dsh-km { grid-template-columns:1fr; gap:2px; align-items:start; }
+.dsh-newsrail .dsh-km-t { white-space:normal; }
+/* Section label (also used by the stacked middle) — base rule so it reads right
+   on mobile too, not only inside the desktop terminal block above. */
+.dsh-term-lbl { margin:0; font-size:10px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--t-mut); padding:2px 0 1px; }
+
+@media (min-width:901px){
+  .v2-view .dsh:has(.dsh-3z){ overflow:hidden; display:flex; flex-direction:column; padding:0; }
+  .dsh-3z{ flex:1 1 auto; min-height:0; display:grid; align-items:stretch;
+    grid-template-columns:158px minmax(0,1fr) minmax(360px,440px); gap:var(--dsh-gap); padding:var(--dsh-gap); }
+  .dsh-3z.dsh-norail{ grid-template-columns:158px minmax(0,1fr); }
+  /* Left rail: a vertical stack of section chips, pinned to the top. */
+  .dsh-railnav{ flex-flow:column nowrap; gap:3px; min-height:0; align-self:start; }
+  .dsh-navchip{ border-radius:6px; border-color:transparent; background:transparent; padding:8px 11px; }
+  .dsh-navchip:hover{ color:var(--t-ink); background:var(--t-panel2); }
+  .dsh-navchip.is-on{ color:var(--t-ink); background:var(--t-panel); border-color:var(--t-grid2);
+    box-shadow:inset 3px 0 0 var(--t-accent); }
+  /* Middle: everything stacked, scrolls internally. */
+  .dsh-mid{ min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+  .dsh-mid > *{ flex:0 0 auto; }
+  /* Right rail: the label pins, the wire card fills and its list scrolls. */
+  .dsh-newsrail{ min-height:0; overflow:hidden; }
+  .dsh-newsrail > .dsh-term-lbl{ flex:0 0 auto; }
+  .dsh-newsrail > .dsh-card{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
+  .dsh-newsrail .dsh-h{ flex:0 0 auto; }
+  .dsh-newsrail .dsh-news{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; margin:0; }
+  /* Legal fills the middle (no news rail): its card is full-height, results scroll. */
+  .dsh-mid > .dsh-legal-panel{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
+  .dsh-legal-panel > .dsh-h, .dsh-legal-panel > .dsh-lgl-search, .dsh-legal-panel > .dsh-lgl-chips{ flex:0 0 auto; }
+  .dsh-legal-panel .dsh-lgl-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+}
+
 .dsh-card { background:var(--t-panel); border:1px solid var(--t-grid); border-radius:8px; padding:12px; }
 /* Panel header on the terminal scale (HOUSE_STYLE R11 — 12px panel headers),
    matching .tpanel-h across Home / Profiles / Transactions rather than the

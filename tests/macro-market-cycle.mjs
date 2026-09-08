@@ -83,9 +83,9 @@ const cardVisible = (sel) => d.pg.evaluate((s) => {
   return !!(el && el.offsetParent !== null);
 }, sel);
 const lbls = await d.pg.evaluate(() => Array.from(document.querySelectorAll(".dsh-term-lbl")).map((b) => b.textContent.trim()));
-check(lbls.join(",") === "Policy rates,Cycle,Macro wire", `Macro has three terminal panes: Policy rates · Cycle · Macro wire (got ${lbls.join(",")})`);
-check(await cardVisible(".dsh-macro .dsh-h"), "the Policy-rates pane cards are visible");
-check(await cardVisible(".dsh-macro .dsh-cyc"), "the Cycle pane is visible alongside them");
+check(lbls.join(",") === "Policy rates,Cycle,Macro wire", `Macro is labelled Policy rates · Cycle (stacked middle) + Macro wire (right rail) (got ${lbls.join(",")})`);
+check(await cardVisible(".dsh-mid .dsh-h"), "the stacked Policy-rates cards are visible");
+check(await cardVisible(".dsh-mid .dsh-cyc"), "the Cycle block is visible in the stacked middle");
 
 // Both cycle blocks (debt + market) carry a collapsible narrative, collapsed by
 // default; expanding one reveals its framework prose.
