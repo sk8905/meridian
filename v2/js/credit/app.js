@@ -18,7 +18,7 @@ import {
   PAGE, pageShown, pageCount, pageReset, loadMoreBtn,
   applyPendingFocus, setPendingFocus, _chipMem, chipMemKey,
 } from "/credit/js/shared.js?v=20260730-2";
-import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js?v=v2-20";
+import { viewFund, viewManager, viewClo, viewLp, viewHedgeFund, __setHost as __detailSetHost, __setProfilesMode as __detailSetProfilesMode } from "/v2/js/credit/detail.js?v=v2-21";
 import { feedBodyHTML, feedSrcBarHTML, feedEmptyHTML, attachFeedClicks, byFeedDesc } from "/feed.js?v=20260808-1";
 import { esc, fmtAum, byDateDesc } from "/util.js?v=20260818-1";
 
@@ -86,9 +86,8 @@ function lifecycleBadge(x) {
   const s = typeof x.lifecycle === "string" ? x.lifecycle : x.lifecycle.status;
   return `<span class="fund-status" title="${esc(typeof x.lifecycle === "object" && x.lifecycle.note ? x.lifecycle.note : s)}">${esc(s)}</span>`;
 }
-const mandateClass = (s) => ({
-  "Actively allocating": "st-final", "Selective": "st-first", "Not currently active": "st-pre",
-}[s] || "");
+// LP mandate status shows as plain text (no colour pill), same as fund status above.
+const mandateBadge = (s) => `<span class="fund-status">${esc(s)}</span>`;
 
 
 
@@ -1030,7 +1029,7 @@ function viewLps() {
         ${sorted.map((l) => `<tr class="clickable" data-href="#/lp/${l.id}">
           <td>${nameCell("lp", l.id, `<strong>${esc(l.name)}</strong>`)}</td><td>${esc(l.type)}</td><td>${esc(l.hq)}</td>
           <td>€${l.aum}bn</td><td>${pct(l.pcAllocationPct)}</td><td>${eur(l.typicalTicket)}</td>
-          <td>${chip(l.mandateStatus, mandateClass(l.mandateStatus))}</td>
+          <td>${mandateBadge(l.mandateStatus)}</td>
         </tr>`).join("")}
         ${rows.length === 0 ? '<tr><td colspan="7" class="empty">No investors match these filters.</td></tr>' : ""}
       </tbody>
