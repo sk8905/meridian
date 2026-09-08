@@ -893,8 +893,12 @@ export function mount(host, ctx) {
   // the section's news wire as a right-hand rail (omitted for Legal, which is a
   // full-width search).
   function render() {
-    const nav = SUBTABS.map(([k, l]) =>
-      `<a class="dsh-navchip${pane === k ? " is-on" : ""}" href="${ctx.base}/dashboard/${k}" data-sub="${k}">${l}</a>`).join("");
+    const nav = SUBTABS.map(([k, l, s]) => {
+      // Full label in the desktop rail; a short label appears on the narrow phone
+      // tab bar (see dashboard.css) so "Fixed Income"/"Hedge Funds" don't wrap.
+      const label = s ? `<span class="dsh-tab-lg">${l}</span><span class="dsh-tab-sm">${s}</span>` : l;
+      return `<a class="dsh-navchip${pane === k ? " is-on" : ""}" href="${ctx.base}/dashboard/${k}" data-sub="${k}">${label}</a>`;
+    }).join("");
     const sec = pane === "equities" ? equitiesHTML()
       : pane === "credit" ? creditHTML()
       : pane === "fixed-income" ? fixedIncomeHTML()

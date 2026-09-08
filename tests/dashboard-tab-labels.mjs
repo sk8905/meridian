@@ -1,6 +1,7 @@
-// Dashboard section nav (left rail on desktop, a wrapping chip row on mobile):
-// the chips carry the FULL section label at every width — the rail/row has room,
-// so "Fixed Income" / "Hedge Funds" are never abbreviated.
+// Dashboard section nav: the desktop LEFT rail keeps the full label, while the
+// narrow iPhone TOP tab bar (a full-width segmented bar) shortens the two-word
+// labels ("Fixed Income" -> "Fixed", "Hedge Funds" -> "Hedge") so each fits its
+// equal segment without clipping.
 import { serve, launchChromium, open, PHONE, DESKTOP, checkEq, checkErrs, finish } from "./lib.mjs";
 
 const srv = await serve();
@@ -30,12 +31,12 @@ async function visibleLabels(dev) {
 }
 
 const phone = await visibleLabels(PHONE);
-checkEq(phone.fi, "Fixed Income", "iPhone: Fixed Income chip shows the full label");
-checkEq(phone.hf, "Hedge Funds", "iPhone: Hedge Funds chip shows the full label");
+checkEq(phone.fi, "Fixed", "iPhone top tab bar: Fixed Income shows 'Fixed'");
+checkEq(phone.hf, "Hedge", "iPhone top tab bar: Hedge Funds shows 'Hedge'");
 
 const desk = await visibleLabels(DESKTOP);
-checkEq(desk.fi, "Fixed Income", "Desktop: Fixed Income chip shows the full label");
-checkEq(desk.hf, "Hedge Funds", "Desktop: Hedge Funds chip shows the full label");
+checkEq(desk.fi, "Fixed Income", "Desktop rail: Fixed Income keeps the full label");
+checkEq(desk.hf, "Hedge Funds", "Desktop rail: Hedge Funds keeps the full label");
 
 await b.close(); srv.close();
 finish();
