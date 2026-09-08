@@ -151,18 +151,22 @@
      empty gap. Cards keep their natural height (align-items:start), packed from
      the top. */
   .dsh-mid{ min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
-  /* align-items:stretch so two panels sharing a row equalise to the taller one —
-     aligned boxes, nothing left short; align-content:start keeps the rows packed
-     to the top of the scroll area rather than spreading down it. */
+  /* Aligned 2-up grid: panels tile TWO-ACROSS by default so the middle reads as a
+     grid of boxes, not a stack. align-items:stretch equalises a row's two tiles to
+     the taller one; align-content:start packs the rows to the top of the scroll
+     area. Only the top KPI strip (.dsh-span), the group labels, and panels marked
+     .dsh-wide (genuinely wide tables / charts) take a full-width row of their own. */
   .dsh-3z:not(.dsh-norail) .dsh-mid{ display:grid; grid-template-columns:repeat(2, minmax(0,1fr));
     align-items:stretch; align-content:start; gap:var(--dsh-gap); }
-  .dsh-3z:not(.dsh-norail) .dsh-mid > *{ min-width:0; grid-column:1 / -1; }
-  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-card.dsh-h2{ grid-column:auto; }
-  /* A half card is only ~half the middle wide, so a two-column kv grid that is
-     the card's own body (Private credit's metrics) would cramp — collapse it to
-     one column so each row reads on a single line. Nested grids inside the
-     Fed/BoE split are left alone; they already fit. */
-  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-card.dsh-h2 > .dsh-kvgrid{ grid-template-columns:1fr; }
+  .dsh-3z:not(.dsh-norail) .dsh-mid > *{ min-width:0; grid-column:auto; }
+  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-term-lbl,
+  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-card.dsh-span,
+  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-card.dsh-wide{ grid-column:1 / -1; }
+  /* A tile is only ~half the middle wide, so its inner two-column grids (kv
+     metrics, the Fed/BoE FedWatch|dot-plot split) collapse to one column so every
+     row reads on a single line. Full-width rows keep their two columns. */
+  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-card:not(.dsh-span):not(.dsh-wide) .dsh-kvgrid,
+  .dsh-3z:not(.dsh-norail) .dsh-mid > .dsh-card:not(.dsh-span):not(.dsh-wide) .dsh-fed{ grid-template-columns:1fr; }
   /* Right rail: the label pins, the wire card fills and its list scrolls. */
   .dsh-newsrail{ min-height:0; overflow:hidden; }
   .dsh-newsrail > .dsh-term-lbl{ flex:0 0 auto; }

@@ -250,11 +250,11 @@ export function mount(host, ctx) {
   function equitiesHTML() {
     const km = keyMomentsBody();
     const mid = `<section class="dsh-card dsh-span">${eqTapeHTML()}</section>
-      <h3 class="dsh-term-lbl">Indices &amp; sectors</h3>
-      <section class="dsh-card"><h3 class="dsh-h">World indices — benchmarks by jurisdiction <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-wi-box">${worldIndicesHeatHTML()}</div></section>
+      <h3 class="dsh-term-lbl">Indices &amp; flows</h3>
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">World indices — benchmarks by jurisdiction <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-wi-box">${worldIndicesHeatHTML()}</div></section>
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">ETF flows — net fund flows ${asOf(SECTOR_FLOWS.asOf)}</h3><div class="dsh-scroll" id="dsh-flows-box">${sectorFlowsHTML()}</div></section>
+      <h3 class="dsh-term-lbl">Sectors &amp; valuation</h3>
       <section class="dsh-card"><h3 class="dsh-h">S&amp;P 500 sectors — YTD ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
-      <h3 class="dsh-term-lbl">Flows &amp; valuation</h3>
-      <section class="dsh-card"><h3 class="dsh-h">ETF flows — net fund flows ${asOf(SECTOR_FLOWS.asOf)}</h3><div class="dsh-scroll" id="dsh-flows-box">${sectorFlowsHTML()}</div></section>
       <section class="dsh-card"><h3 class="dsh-h">Valuation &amp; volatility</h3>${valVolHTML()}</section>
       <h3 class="dsh-term-lbl">Calendar &amp; pipeline</h3>
       <section class="dsh-card"><h3 class="dsh-h">Earnings calendar${srcLink(earnSrc, "Earnings week-ahead source")}</h3><div class="dsh-scroll">${earningsHTML()}</div></section>
@@ -351,8 +351,8 @@ export function mount(host, ctx) {
     const strip = crTapeHTML();
     const mid = `${strip ? `<section class="dsh-card dsh-span">${strip}</section>` : ""}
       <h3 class="dsh-term-lbl">Spreads &amp; pulse</h3>
-      <section class="dsh-card dsh-h2"><h3 class="dsh-h">Private credit <span class="dsh-n">Fitch PCDR &amp; market pulse</span> ${asOf(PRIVATE_CREDIT && PRIVATE_CREDIT.asOf)}</h3>${privateCreditHTML()}</section>
-      <section class="dsh-card dsh-h2"><h3 class="dsh-h">Credit spreads — ICE BofA OAS <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div></section>
+      <section class="dsh-card"><h3 class="dsh-h">Private credit <span class="dsh-n">Fitch PCDR &amp; market pulse</span> ${asOf(PRIVATE_CREDIT && PRIVATE_CREDIT.asOf)}</h3>${privateCreditHTML()}</section>
+      <section class="dsh-card"><h3 class="dsh-h">Credit spreads — ICE BofA OAS <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div></section>
       <h3 class="dsh-term-lbl">Maturity &amp; stress</h3>
       <section class="dsh-card"><h3 class="dsh-h">Maturity wall</h3>${maturityHTML()}</section>
       <section class="dsh-card"><h3 class="dsh-h">Stress — situations in focus <span class="dsh-n">(${CR_STRESS.length}) · by debt</span></h3>${stressHTML()}</section>`;
@@ -593,12 +593,12 @@ export function mount(host, ctx) {
     const boe = boeHTML();
     const mid = `<section class="dsh-card dsh-span">${regimePillsHTML()}</section>
       <h3 class="dsh-term-lbl">Policy rates</h3>
-      ${fed ? `<section class="dsh-card dsh-h2"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
-      ${boe ? `<section class="dsh-card dsh-h2"><h3 class="dsh-h">BoE path — MPC votes &amp; SONIA/OIS curve</h3>${boe}</section>` : ""}
+      ${fed ? `<section class="dsh-card"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
+      ${boe ? `<section class="dsh-card"><h3 class="dsh-h">BoE path — MPC votes &amp; SONIA/OIS curve</h3>${boe}</section>` : ""}
       <section class="dsh-card"><h3 class="dsh-h">Rate outlook</h3>${rateOutlookHTML()}</section>
       <section class="dsh-card" id="dsh-yc-card">${yieldCurveCardHTML()}</section>
       <h3 class="dsh-term-lbl">Cycle</h3>
-      <section class="dsh-card"><h3 class="dsh-h">Where we are in the cycle — debt &amp; market</h3>${cyclesHTML()}</section>`;
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Where we are in the cycle — debt &amp; market</h3>${cyclesHTML()}</section>`;
     const news = `<section class="dsh-card"><h3 class="dsh-h">Macro wire — US &amp; UK headlines</h3>${macroNewsHTML()}</section>`;
     return { mid, news, newsLabel: "Macro wire" };
   }
@@ -693,15 +693,36 @@ export function mount(host, ctx) {
     const pills = specs.map(([c, tk, lbl]) => { const r = find(c), v = r && r[tk]; return v == null ? "" : `<span class="dsh-pill"><span class="dsh-pill-k">${esc(lbl)}</span><span class="dsh-pill-v">${v.toFixed(2)}%</span></span>`; }).filter(Boolean).join("");
     return pills ? `<div class="dsh-pills">${pills}</div>` : "";
   }
+  // Curve shape — the 2s10s and 2s30s slope (basis points) for the key sovereigns,
+  // DERIVED from the same sourced GOVT_YIELDS snapshot (y10−y2, y30−y2). A compact
+  // companion tile so Fixed Income reads as a grid; no new data, just arithmetic on
+  // the yields already on the page (each row links the same source).
+  function curveShapeHTML() {
+    const G = GOVT_YIELDS;
+    if (!G || !(G.regions || []).length) return "";
+    const flat = G.regions.flatMap((g) => g.rows || []);
+    const find = (c) => flat.find((r) => (r.country || "").toLowerCase() === c.toLowerCase());
+    const bp = (a, b) => (a == null || b == null) ? null : Math.round((a - b) * 100);
+    const cell = (v) => v == null ? `<td class="dsh-fl-na">·</td>` : `<td class="dsh-r ${v >= 0 ? "up" : "down"}">${v > 0 ? "+" : ""}${v}</td>`;
+    const specs = [["United States", "US"], ["United Kingdom", "UK"], ["Germany", "DE"], ["Japan", "JP"]];
+    const rows = specs.map(([c, lbl]) => {
+      const r = find(c); if (!r) return "";
+      return `<tr><td class="dsh-nm">${esc(lbl)}</td>${cell(bp(r.y10, r.y2))}${cell(bp(r.y30, r.y2))}</tr>`;
+    }).filter(Boolean).join("");
+    if (!rows) return "";
+    const src = (find("United States") || {}).source;
+    return `<table class="dsh-tbl"><thead><tr><th>Sovereign</th><th class="dsh-r">2s10s</th><th class="dsh-r">2s30s</th></tr></thead><tbody>${rows}</tbody></table>`
+      + `<p class="dsh-fl-note">Curve slope in basis points (10Y−2Y, 30Y−2Y), derived from the sovereign yield snapshot${src ? ` · <a href="${esc(src)}" target="_blank" rel="noopener noreferrer">source</a>` : ""}. Positive = upward-sloping.</p>`;
+  }
   function fixedIncomeHTML() {
     const strip = fiTapeHTML();
     const km = fixedKeyMomentsBody();
     const mid = `${strip ? `<section class="dsh-card dsh-span">${strip}</section>` : ""}
-      <h3 class="dsh-term-lbl">Sovereign — change</h3>
-      <section class="dsh-card"><h3 class="dsh-h">Government bond yields — change over 1W · 1M · 3M · 6M · 1Y <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
-      <h3 class="dsh-term-lbl">Sovereign — curves</h3>
-      <section class="dsh-card"><h3 class="dsh-h">Government / sovereign — yield curves (all countries) ${asOf(GOVT_YIELDS && GOVT_YIELDS.asOf)}</h3><div class="dsh-scroll">${worldYieldCurveHTML()}</div></section>
-      <h3 class="dsh-term-lbl">Corporate</h3>
+      <h3 class="dsh-term-lbl">Sovereign</h3>
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Government bond yields — change over 1W · 1M · 3M · 6M · 1Y <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Government / sovereign — yield curves (all countries) ${asOf(GOVT_YIELDS && GOVT_YIELDS.asOf)}</h3><div class="dsh-scroll">${worldYieldCurveHTML()}</div></section>
+      <h3 class="dsh-term-lbl">Corporate &amp; curve</h3>
+      <section class="dsh-card"><h3 class="dsh-h">Curve shape <span class="dsh-n">2s10s · 2s30s</span></h3>${curveShapeHTML()}</section>
       <section class="dsh-card"><h3 class="dsh-h">Corporate — credit spreads (ICE BofA OAS) <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div><p class="dsh-fl-note">Option-adjusted spreads over Treasuries, by rating cohort — the corporate risk premium. Live from FRED (ICE BofA indices).</p></section>`;
     const news = km ? `<section class="dsh-card"><h3 class="dsh-h">Rates — why it moved</h3><div class="dsh-news dsh-km-wrap">${km}</div></section>` : "";
     return { mid, news, newsLabel: "Why it moved" };
@@ -810,18 +831,17 @@ export function mount(host, ctx) {
     const mvRow = (x) => `<div class="dsh-hf-i"><div class="dsh-hf-i-h"><span class="dsh-hf-dir dsh-hf-${esc(x.dir)}">${esc(_hfDir[x.dir] || x.dir)}</span> ${tkr(x.t)} <span class="dsh-hf-nm">${esc(x.name)}</span> <span class="dsh-hf-by">${esc(x.by)}</span>${srcLink(x.src)}</div><div class="dsh-hf-note">${esc(x.note)}</div></div>`;
     const filers = (HEDGE_FUNDS || []).filter((f) => f.cik).sort((a, b) => a.name.localeCompare(b.name));
     const opts = filers.map((f) => `<option value="${esc(f.cik)}">${esc(f.name)}</option>`).join("");
-    const mid = `<h3 class="dsh-term-lbl">Consensus longs</h3>
+    const mid = `<h3 class="dsh-term-lbl">Holdings — SEC 13F</h3>
       <section class="dsh-card">
         <h3 class="dsh-h">Consensus longs <span class="dsh-n">(${esc(F.quarter || "")} 13Fs)</span></h3>
         <div class="dsh-hf-list">${(F.consensus || []).map(conRow).join("")}</div>
         <p class="dsh-fl-note">Most widely-held names across major hedge funds, from public ${esc(F.quarter || "")} 13F coverage — each links its source. ${esc(F.filed || "")}</p>
       </section>
-      <h3 class="dsh-term-lbl">Per-fund holdings</h3>
       <section class="dsh-card">
         <h3 class="dsh-h">Per-fund holdings <span class="dsh-live">live · SEC 13F</span></h3>
         <div class="dsh-hf-pick"><label class="dsh-lgl-lbl" for="dsh-hf-sel">Fund</label>
           <select id="dsh-hf-sel" class="dsh-hf-sel">${opts}</select></div>
-        <div id="dsh-hf-body" class="dsh-hf-body"><p class="dsh-load">Loading latest 13F…</p></div>
+        <div id="dsh-hf-body" class="dsh-hf-body dsh-scroll"><p class="dsh-load">Loading latest 13F…</p></div>
       </section>`;
     const news = `<section class="dsh-card"><h3 class="dsh-h">Notable ${esc(F.quarter || "")} moves</h3>
       <div class="dsh-news dsh-hf-list">${(F.moves || []).map(mvRow).join("")}</div>

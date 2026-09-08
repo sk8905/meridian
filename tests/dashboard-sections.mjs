@@ -13,14 +13,22 @@ const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/dashboard/fixed-inc
 await pg.waitForTimeout(1600);
 
 // Sub-tabs in the requested order, Fixed Income active with both blocks.
-const fi = await pg.evaluate(() => ({
-  tabs: [...document.querySelectorAll(".dsh-railnav .dsh-navchip[data-sub]")].map((c) => c.dataset.sub),
-  yc: !!document.querySelector(".dsh-yc-svg"),
-  spreads: !!document.querySelector("#dsh-spreads"),
-}));
+const fi = await pg.evaluate(() => {
+  const curveCard = [...document.querySelectorAll(".dsh-mid .dsh-card")].find((c) => {
+    const h = c.querySelector(".dsh-h"); return h && /curve shape/i.test(h.textContent);
+  });
+  return {
+    tabs: [...document.querySelectorAll(".dsh-railnav .dsh-navchip[data-sub]")].map((c) => c.dataset.sub),
+    yc: !!document.querySelector(".dsh-yc-svg"),
+    spreads: !!document.querySelector("#dsh-spreads"),
+    // Curve-shape companion tile: a 2s10s/2s30s table derived from the yield snapshot.
+    curve: !!curveCard && /2s10s/i.test(curveCard.textContent) && /\d/.test(curveCard.querySelector("td.dsh-r")?.textContent || ""),
+  };
+});
 checkEq(fi.tabs.join(","), "macro,equities,fixed-income,credit,hedge-funds,legal", "Dashboard sub-tab order (Hedge Funds before Legal)");
 check(fi.yc, "Fixed Income: sovereign yield curve renders (government)");
 check(fi.spreads, "Fixed Income: corporate credit-spreads block present");
+check(fi.curve, "Fixed Income: Curve-shape tile shows 2s10s/2s30s slopes derived from the yields");
 
 // Switch to Legal — a search interface, not a list.
 await pg.evaluate(() => { const t = [...document.querySelectorAll(".dsh-railnav .dsh-navchip[data-sub]")].find((c) => c.dataset.sub === "legal"); t && t.click(); });
