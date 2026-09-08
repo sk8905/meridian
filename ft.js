@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "d9bc67e2-97f4-47ef-8de5-1ae48d841018", title: "Wave of Houthi strikes halts work at energy facilities in four Saudi cities", date: "2026-09-08", time: "09:48", url: "https://www.ft.com/content/d9bc67e2-97f4-47ef-8de5-1ae48d841018" },
+  { id: "10717d24-c247-4522-b6d6-6e4ea0947cc3", title: "The political challenge of Britain’s mounting debt costs", date: "2026-09-08", time: "09:38", url: "https://www.ft.com/content/10717d24-c247-4522-b6d6-6e4ea0947cc3" },
+  { id: "98d06e87-83f0-45dc-b69b-418fc789ac96", title: "The complicated implications of the spectacular ‘Apollo premium’", date: "2026-09-08", time: "09:22", url: "https://www.ft.com/content/98d06e87-83f0-45dc-b69b-418fc789ac96" },
+  { id: "b5cb6500-89be-42a4-a417-e0d252e5e0e8", title: "DWS embraces Deutsche Bank name eight years after distancing itself", date: "2026-09-08", time: "09:21", url: "https://www.ft.com/content/b5cb6500-89be-42a4-a417-e0d252e5e0e8" },
+  { id: "be7c3d20-4e4f-4a73-8927-cc5a4d6cccca", title: "July wage data bolsters case for BoJ tightening this month", date: "2026-09-08", time: "09:18", url: "https://www.ft.com/content/be7c3d20-4e4f-4a73-8927-cc5a4d6cccca" },
   { id: "f06ee0ea-adcf-44ec-80c9-bb616885d8de", title: "Singapore raises PM Lawrence Wong’s pay by $1mn", date: "2026-09-08", time: "08:29", url: "https://www.ft.com/content/f06ee0ea-adcf-44ec-80c9-bb616885d8de" },
   { id: "0815cd34-bf4c-4771-8bf5-710eff286763", title: "Russia launches missile strikes against Kyiv as pause in raids ends", date: "2026-09-08", time: "07:46", url: "https://www.ft.com/content/0815cd34-bf4c-4771-8bf5-710eff286763" },
   { id: "5cc2d577-0418-4728-8657-aa6b2efb6597", title: "The strangely disappointing EM inflows", date: "2026-09-08", time: "06:30", url: "https://www.ft.com/content/5cc2d577-0418-4728-8657-aa6b2efb6597" },
@@ -55,9 +60,4 @@ export const FT_ITEMS = [
   { id: "ec1396b9-185e-4a55-86d6-36a560b549fb", title: "Friedrich Merz in ‘shock’ as far-right AfD celebrates ‘dream result’", date: "2026-09-07", time: "20:47", url: "https://www.ft.com/content/ec1396b9-185e-4a55-86d6-36a560b549fb" },
   { id: "97477741-5227-4783-ab30-2b94090b4d43", title: "UK ministers to be encouraged to take more legal risks to push through policies", date: "2026-09-07", time: "19:30", url: "https://www.ft.com/content/97477741-5227-4783-ab30-2b94090b4d43" },
   { id: "4d8d12a0-ed3c-4955-be63-d15225b105b6", title: "John Healey seeks to reassure bond markets as fiscal problems grow", date: "2026-09-07", time: "18:35", url: "https://www.ft.com/content/4d8d12a0-ed3c-4955-be63-d15225b105b6" },
-  { id: "63573658-c54d-44ef-87b8-cfecb1dd1f3c", title: "Germany’s Merz is running out of time", date: "2026-09-07", time: "18:30", url: "https://www.ft.com/content/63573658-c54d-44ef-87b8-cfecb1dd1f3c" },
-  { id: "f7f164ea-83eb-44d6-93e5-ecec8b2648d9", title: "Pricey oil is laying the groundwork for its own decline", date: "2026-09-07", time: "18:17", url: "https://www.ft.com/content/f7f164ea-83eb-44d6-93e5-ecec8b2648d9" },
-  { id: "43efa6c1-6b37-4ddc-9a1d-b085bfbdba06", title: "Billionaire trader Chris Rokos to leave UK for Greece", date: "2026-09-07", time: "17:55", url: "https://www.ft.com/content/43efa6c1-6b37-4ddc-9a1d-b085bfbdba06" },
-  { id: "cc750a77-fd63-40e9-be6e-99bd7c9a96a5", title: "Africa’s richest man seeks to raise $1.6bn in continent’s biggest IPO", date: "2026-09-07", time: "17:45", url: "https://www.ft.com/content/cc750a77-fd63-40e9-be6e-99bd7c9a96a5" },
-  { id: "4f3566e7-7076-4527-ab8a-5e71416ce5fa", title: "What to do about the UK’s mental health crisis", date: "2026-09-07", time: "17:21", url: "https://www.ft.com/content/4f3566e7-7076-4527-ab8a-5e71416ce5fa" },
 ];
