@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "5cc2d577-0418-4728-8657-aa6b2efb6597", title: "The strangely disappointing EM inflows", date: "2026-09-08", time: "06:30", url: "https://www.ft.com/content/5cc2d577-0418-4728-8657-aa6b2efb6597" },
+  { id: "e7f51e7c-d272-436f-b918-3de002bf85d9", title: "FTAV’s further reading", date: "2026-09-08", time: "06:30", url: "https://www.ft.com/content/e7f51e7c-d272-436f-b918-3de002bf85d9" },
+  { id: "56bcc2fb-99eb-4ad9-af67-101c8d0382cb", title: "China’s 25% export surge sets stage for record annual trade surplus", date: "2026-09-08", time: "06:15", url: "https://www.ft.com/content/56bcc2fb-99eb-4ad9-af67-101c8d0382cb" },
   { id: "e38fbc18-f0aa-4d0b-84ca-4b8a2dcf419a", title: "Antitrust not the enemy of industrial policy, says EU competition enforcer", date: "2026-09-08", time: "06:00", url: "https://www.ft.com/content/e38fbc18-f0aa-4d0b-84ca-4b8a2dcf419a" },
   { id: "adbf5262-c4d5-4312-a9b8-4d3cf30c9e00", title: "Mistral raises record €3bn as Europe strains to keep pace in AI race", date: "2026-09-08", time: "06:00", url: "https://www.ft.com/content/adbf5262-c4d5-4312-a9b8-4d3cf30c9e00" },
   { id: "22792fd1-e089-4e56-9ece-171c56ffe422", title: "Labour’s muddled migration policy won’t stop thuggery", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/22792fd1-e089-4e56-9ece-171c56ffe422" },
@@ -56,8 +59,5 @@ export const FT_ITEMS = [
   { id: "cc750a77-fd63-40e9-be6e-99bd7c9a96a5", title: "Africa’s richest man seeks to raise $1.6bn in continent’s biggest IPO", date: "2026-09-07", time: "17:45", url: "https://www.ft.com/content/cc750a77-fd63-40e9-be6e-99bd7c9a96a5" },
   { id: "4f3566e7-7076-4527-ab8a-5e71416ce5fa", title: "What to do about the UK’s mental health crisis", date: "2026-09-07", time: "17:21", url: "https://www.ft.com/content/4f3566e7-7076-4527-ab8a-5e71416ce5fa" },
   { id: "356cf253-7711-4a89-8139-5b0152824975", title: "Belgian-Chinese researcher arrested over suspected theft of chip secrets", date: "2026-09-07", time: "16:55", url: "https://www.ft.com/content/356cf253-7711-4a89-8139-5b0152824975" },
-  { id: "c8167dc7-f472-4846-8005-ee18b23736a8", title: "Oil closes in on $100 as renewed supply crunch looms", date: "2026-09-07", time: "16:51", url: "https://www.ft.com/content/c8167dc7-f472-4846-8005-ee18b23736a8" },
-  { id: "d86643d2-c98c-4e19-b066-c97b50819b7e", title: "Yen surges to 6-month high as traders stay alert for signs of intervention", date: "2026-09-07", time: "16:46", url: "https://www.ft.com/content/d86643d2-c98c-4e19-b066-c97b50819b7e" },
   { id: "4275e189-997c-43f0-b702-d3447c9e81ec", title: "What next for Alternative for Germany after its victory in Saxony-Anhalt?", date: "2026-09-07", time: "16:35", url: "https://www.ft.com/content/4275e189-997c-43f0-b702-d3447c9e81ec" },
-  { id: "3edf3717-4737-424c-9162-d330851edcf6", title: "Republicans fear Trump has turned toxic on the campaign trail", date: "2026-09-07", time: "16:30", url: "https://www.ft.com/content/3edf3717-4737-424c-9162-d330851edcf6" },
 ];
