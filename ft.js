@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "a5092cb2-1625-47b8-b0b2-7bafefdd05da", title: "Sales of ‘Made in EU’ counterfeit cigarettes surge in Europe", date: "2026-09-08", time: "11:00", url: "https://www.ft.com/content/a5092cb2-1625-47b8-b0b2-7bafefdd05da" },
+  { id: "3892b29e-f905-4082-9a2c-4969970d3d35", title: "Liberty Global agrees €670mn towers sale ahead of Ziggo spinoff", date: "2026-09-08", time: "10:55", url: "https://www.ft.com/content/3892b29e-f905-4082-9a2c-4969970d3d35" },
+  { id: "b23151c3-b4c1-4f96-a801-f3507d907cc7", title: "UK pays highest borrowing cost since 1998 at gilt sale", date: "2026-09-08", time: "10:50", url: "https://www.ft.com/content/b23151c3-b4c1-4f96-a801-f3507d907cc7" },
   { id: "d9bc67e2-97f4-47ef-8de5-1ae48d841018", title: "Wave of Houthi strikes halts work at energy facilities in four Saudi cities", date: "2026-09-08", time: "09:48", url: "https://www.ft.com/content/d9bc67e2-97f4-47ef-8de5-1ae48d841018" },
   { id: "10717d24-c247-4522-b6d6-6e4ea0947cc3", title: "The political challenge of Britain’s mounting debt costs", date: "2026-09-08", time: "09:38", url: "https://www.ft.com/content/10717d24-c247-4522-b6d6-6e4ea0947cc3" },
   { id: "98d06e87-83f0-45dc-b69b-418fc789ac96", title: "The complicated implications of the spectacular ‘Apollo premium’", date: "2026-09-08", time: "09:22", url: "https://www.ft.com/content/98d06e87-83f0-45dc-b69b-418fc789ac96" },
@@ -58,6 +61,4 @@ export const FT_ITEMS = [
   { id: "84296a52-8730-456a-b062-f3b8ef847edc", title: "India’s biggest private sector bank grapples with leadership vacuum", date: "2026-09-07", time: "22:00", url: "https://www.ft.com/content/84296a52-8730-456a-b062-f3b8ef847edc" },
   { id: "a7011878-b0b7-4e7f-8f5a-e7d9d662fd47", title: "Donald Trump calls for US boycott of Canada’s Bombardier jets", date: "2026-09-07", time: "21:06", url: "https://www.ft.com/content/a7011878-b0b7-4e7f-8f5a-e7d9d662fd47" },
   { id: "ec1396b9-185e-4a55-86d6-36a560b549fb", title: "Friedrich Merz in ‘shock’ as far-right AfD celebrates ‘dream result’", date: "2026-09-07", time: "20:47", url: "https://www.ft.com/content/ec1396b9-185e-4a55-86d6-36a560b549fb" },
-  { id: "97477741-5227-4783-ab30-2b94090b4d43", title: "UK ministers to be encouraged to take more legal risks to push through policies", date: "2026-09-07", time: "19:30", url: "https://www.ft.com/content/97477741-5227-4783-ab30-2b94090b4d43" },
-  { id: "4d8d12a0-ed3c-4955-be63-d15225b105b6", title: "John Healey seeks to reassure bond markets as fiscal problems grow", date: "2026-09-07", time: "18:35", url: "https://www.ft.com/content/4d8d12a0-ed3c-4955-be63-d15225b105b6" },
 ];

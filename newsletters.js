@@ -38,6 +38,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-guardian-breakdown-smallerballtrial-20260908",
+    publication: "The Guardian",
+    author: "Sarah Rendell",
+    series: "The Breakdown",
+    title: "How the smaller ball trial in WXV has brought ‘mixed bag of emotions’",
+    date: "2026-09-08",
+    time: "10:33",
+    summary: "The trial has caused heated debate in women’s rugby, with England’s Zoe Harrison calling it the ‘worst decision ever’ but others more open to it.",
+    url: "https://www.theguardian.com/email-newsletters",
+  },
+  {
     id: "nl-bbg-morningbriefingeurope-yenbreaksthrough155-20260908",
     publication: "Bloomberg",
     author: "Victoria Batchelor",
@@ -465,16 +476,5 @@ export const NEWSLETTERS = [
     time: "10:23",
     summary: "Plus, dollar hedges are out of favor.",
     url: "https://www.bloomberg.com/news/newsletters/2026-09-03/so-much-intervention-talk-is-making-markets-jumpy",
-  },
-  {
-    id: "nl-bbg-morningbriefingeurope-yensoars-20260903",
-    publication: "Bloomberg",
-    author: "Jill Disis",
-    series: "Morning Briefing Europe",
-    title: "Yen soars",
-    date: "2026-09-03",
-    time: "07:51",
-    summary: "The yen surges with the market on alert for more intervention, Andy Burnham and Emmanuel Macron meet today to discuss the migrant crisis, and Wayve's driverless taxis are now on the streets of London.",
-    url: "https://www.bloomberg.com/news/newsletters/2026-09-03/yen-surges-as-traders-remain-on-alert-for-intervention",
   },
 ];
