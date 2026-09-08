@@ -63,11 +63,31 @@ each entity's `name` (and any well-known short/alias form) as a search term:
 - **CRD — every credit manager** in `credit/js/data.js` `managers[]`. New,
   verified, dated news for a manager → its `webNews` (manager press) or a `deals`/
   `intel` record (`managerId` set). Renders on the Home wire as **CRD**.
-- **HDG — every hedge fund** in `credit/js/data.js` `HEDGE_FUNDS[]` (currently 150,
+- **HDG — every hedge fund** in `credit/js/data.js` `HEDGE_FUNDS[]` (currently 151,
   US/UK/Europe/Asia). New, verified, dated hedge-fund news (performance, launches,
   fundraising, personnel, wind-downs, AUM milestones) → a `HEDGE_INTEL` record with
   `hfId` set to the matching fund (or `null` when the story names no single fund in
   the roster). Renders as **HDG**.
+  - **Work the roster largest-first, actively, every run.** HDG has historically
+    lagged CRD/LEX — the fix is to treat the biggest funds as standing beats, not
+    to wait for a headline to surface. Each run, sweep the top-AUM names
+    (Renaissance, Tiger Global, TCI, Squarepoint, GoldenTree, Viking, Element,
+    Farallon, Silver Point, Marathon, Diameter, Sona, Arini, Sculptor, Magnetar,
+    Tudor, Pentwater, H2O, CFM, Hudson Bay, Greenwoods, …) plus the activists
+    (Trian, Starboard, ValueAct, Cevian, Pershing Square, Third Point) by name.
+  - **Source playbook (these reliably carry hedge-fund news):** Bloomberg
+    (Nishant Kumar's beat especially), Hedgeweek, Institutional Investor,
+    Alternatives Watch, Pensions & Investments; **fund closes/launches** →
+    Business Wire / PR Newswire firm releases; **year-end performance & the dollar
+    league table** → the LCH Investments / Edmond de Rothschild survey and Forbes'
+    hedge-fund coverage (both usually land early-to-mid January). Prefer the
+    primary/original outlet over scraper republishers (dnyuz, tradingview wrappers,
+    13F aggregators like fintool) — cite those only if no cleaner source exists.
+  - **Quiet ≠ missing — never pad.** A large chunk of the roster is deliberately
+    secretive and rarely makes public, sourceable news (e.g. Adage, Alyeska,
+    Holocene, HBK, AKO, Deerfield, Knighthead). If a run turns up nothing
+    verifiable for a fund, leave it uncovered — do NOT invent an item to "fill"
+    coverage. Coverage tracks what is genuinely reported.
 - **LEX — every law firm** in `legal/js/data.js` `firms[]`. New, verified, dated
   legal news for a firm → a legal `items` record (`firm` set), or a
   `restructurings`/`cases` record where the firm is adviser. Renders as **LEX**.
@@ -675,6 +695,16 @@ you touch the *rendering code* (`nav-actions.js`, `dashboard/app.js`) or its CSS
 >      `Appeal dismissed — plan upheld`), notes. Set unknown fields to `null`/`[]`;
 >      never fabricate creditors, debt figures, advisers or URLs — leave them empty
 >      if unverified. Dedupe by company + citation against the existing array.
+>    - **Pending re-check.** The `restructurings` array can look "stale" simply
+>      because the English Part 26/26A docket is quiet (e.g. the Jul–Sep 2026 summer
+>      lull) — that is NOT a coverage miss and is not a reason to pad it. Carry a
+>      short watch-list of convened-but-not-yet-sanctioned matters and re-check each
+>      run for the sanction judgment. **Currently watching: Schleich (SCUR-Alpha
+>      1092 GmbH)** — Part 26 scheme convened 10 Jun 2026 ([2026] EWHC 1414 (Ch));
+>      look for a sanction judgment on the National Archives caselaw site / GRR /
+>      South Square (expected citation roughly in the [2026] EWHC 1600–2200 (Ch)
+>      range). Add it once — and only once — a real sanction date/citation is
+>      verifiable.
 >    - **Counsel capture (firm profile pages).** The Legal firm pages
 >      (`/legal/#/firm/<id>`) compile every case/scheme/plan whose record text
 >      NAMES a tracked firm. So for every NEW case and scheme/plan you add,
