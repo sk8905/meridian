@@ -251,8 +251,8 @@ export function mount(host, ctx) {
     const km = keyMomentsBody();
     const mid = `<section class="dsh-card dsh-span">${eqTapeHTML()}</section>
       <h3 class="dsh-term-lbl">Indices &amp; flows</h3>
-      <section class="dsh-card dsh-wide"><h3 class="dsh-h">World indices — benchmarks by jurisdiction <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-wi-box">${worldIndicesHeatHTML()}</div></section>
-      <section class="dsh-card dsh-wide"><h3 class="dsh-h">ETF flows — net fund flows ${asOf(SECTOR_FLOWS.asOf)}</h3><div class="dsh-scroll" id="dsh-flows-box">${sectorFlowsHTML()}</div></section>
+      <section class="dsh-card"><h3 class="dsh-h">World indices — benchmarks by jurisdiction <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-wi-box">${worldIndicesHeatHTML()}</div></section>
+      <section class="dsh-card"><h3 class="dsh-h">ETF flows — net fund flows ${asOf(SECTOR_FLOWS.asOf)}</h3><div class="dsh-scroll" id="dsh-flows-box">${sectorFlowsHTML()}</div></section>
       <h3 class="dsh-term-lbl">Sectors &amp; valuation</h3>
       <section class="dsh-card"><h3 class="dsh-h">S&amp;P 500 sectors — YTD ${asOf(EQ_SECTORS.asOf)}${srcLink(EQ_SECTORS.source, "S&P sector performance")}</h3>${sectorBarsHTML()}</section>
       <section class="dsh-card"><h3 class="dsh-h">Valuation &amp; volatility</h3>${valVolHTML()}</section>
@@ -315,6 +315,15 @@ export function mount(host, ctx) {
         + `<span class="dsh-ladder-y">${esc(b.y)}</span></div>`;
       ladder = `<div class="dsh-ladder" role="img" aria-label="Maturity wall by year">${wall.buckets.map(col).join("")}</div>`
         + `<div class="dsh-ladder-cap">Face value maturing by year · ${esc(wall.asOf || "")}${srcLink(wall.src && wall.src.url, "S&P factbook")}</div>`;
+      // Per-year breakdown beneath the bars: the exact figure and the running
+      // cumulative share of the wall — fills the panel and turns the chart into a
+      // scannable table (same sourced buckets, no new data).
+      const tot = wall.buckets.reduce((s, b) => s + (b.amt || 0), 0) || 1;
+      let cum = 0;
+      const trow = (b) => { cum += b.amt || 0; return `<tr><td class="dsh-nm">${esc(b.y)}</td>`
+        + `<td class="dsh-r">$${(b.amt / 1000).toFixed(2)}tn</td>`
+        + `<td class="dsh-r">${Math.round((cum / tot) * 100)}%</td></tr>`; };
+      ladder += `<table class="dsh-tbl dsh-mw-tbl"><thead><tr><th>Year</th><th class="dsh-r">Maturing</th><th class="dsh-r">Cumulative</th></tr></thead><tbody>${wall.buckets.map(trow).join("")}</tbody></table>`;
     }
     return summary + ladder;
   }
@@ -465,24 +474,30 @@ export function mount(host, ctx) {
     const asOf = m ? `${+m[3]} ${MONTHS[+m[2] - 1]} ${m[1]}` : (base.asOf || "");
     return { ...base, us: merge(_ycLive.us, base.us), uk: merge(_ycLive.uk, base.uk), asOf };
   }
+  // Dots, tenor axis labels and the value table all share ONE column grid: a fixed
+  // 92px label column, then N equal tenor columns. The plot stretches to fill
+  // (preserveAspectRatio none) with each point at its column CENTRE, the axis
+  // labels are an N-column grid offset by the same 92px, and the table is
+  // fixed-layout with a 92px first column and N centred value columns — so the 3M
+  // dot, the "3M" label and the 3M yields line up exactly.
   function yieldCurveHTML() {
     const yc = mergedYC(); if (!yc || !yc.maturities) return "";
     const mats = yc.maturities, us = yc.us || [], uk = yc.uk || [];
     const all = [...us, ...uk].filter((v) => v != null);
-    const lo = Math.floor(Math.min(...all) * 2) / 2 - 0.25, hi = Math.ceil(Math.max(...all) * 2) / 2 + 0.25;
-    const W = 600, H = 150, pad = 12;
-    const x = (i) => pad + i * (W - 2 * pad) / (mats.length - 1);
-    const y = (v) => H - pad - ((v - lo) / (hi - lo)) * (H - 2 * pad);
-    const path = (arr) => arr.map((v, i) => (i ? "L" : "M") + x(i).toFixed(1) + "," + y(v).toFixed(1)).join(" ");
-    const dots = (arr, cls) => arr.map((v, i) => `<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="3" class="${cls}"/>`).join("");
-    const svg = `<svg class="dsh-yc-svg" viewBox="0 0 ${W} ${H}" role="img" aria-label="US and UK yield curves">`
-      + `<path d="${path(us)}" class="dsh-yc-us" fill="none"/>${dots(us, "dsh-yc-us-d")}`
-      + `<path d="${path(uk)}" class="dsh-yc-uk" fill="none"/>${dots(uk, "dsh-yc-uk-d")}</svg>`
-      + `<div class="dsh-yc-x">${mats.map((m) => `<span>${esc(m)}</span>`).join("")}</div>`;
-    const rowFor = (arr, lbl, cls) => `<tr><td class="dsh-nm"><span class="dsh-yc-key ${cls}"></span>${lbl}</td>${arr.map((v) => `<td class="dsh-r">${v != null ? esc(v.toFixed(2)) : "—"}</td>`).join("")}</tr>`;
-    const table = `<table class="dsh-tbl"><thead><tr><th>Curve</th>${mats.map((m) => `<th class="dsh-r">${esc(m)}</th>`).join("")}</tr></thead><tbody>${rowFor(us, "US Treasury", "dsh-yc-us")}${rowFor(uk, "UK gilts", "dsh-yc-uk")}</tbody></table>`;
+    const lo = Math.min(...all) - 0.2, hi = Math.max(...all) + 0.2;
+    const N = mats.length, W = 100 * N, H = 120, padY = 10;
+    const x = (i) => (i + 0.5) * (W / N);
+    const y = (v) => padY + (1 - (v - lo) / (hi - lo)) * (H - 2 * padY);
+    const path = (arr) => arr.map((v, i) => v == null ? "" : ((i && arr[i - 1] != null ? "L" : "M") + x(i).toFixed(1) + "," + y(v).toFixed(1))).join(" ");
+    const dots = (arr, cls) => arr.map((v, i) => v == null ? "" : `<circle cx="${x(i).toFixed(1)}" cy="${y(v).toFixed(1)}" r="2.5" class="${cls}" vector-effect="non-scaling-stroke"/>`).join("");
+    const svg = `<div class="dsh-yc2-plot"><svg class="dsh-yc-svg dsh-yc2-svg" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img" aria-label="US and UK yield curves">`
+      + `<path d="${path(us)}" class="dsh-yc-us" fill="none" vector-effect="non-scaling-stroke"/>${dots(us, "dsh-yc-us-d")}`
+      + `<path d="${path(uk)}" class="dsh-yc-uk" fill="none" vector-effect="non-scaling-stroke"/>${dots(uk, "dsh-yc-uk-d")}</svg></div>`
+      + `<div class="dsh-yc2-x" style="--n:${N}">${mats.map((m) => `<span>${esc(m)}</span>`).join("")}</div>`;
+    const rowFor = (arr, lbl, cls) => `<tr><td class="dsh-nm"><span class="dsh-yc-key ${cls}"></span>${lbl}</td>${arr.map((v) => `<td>${v != null ? esc(v.toFixed(2)) : "—"}</td>`).join("")}</tr>`;
+    const table = `<table class="dsh-tbl dsh-yc2-tbl"><thead><tr><th>Curve</th>${mats.map((m) => `<th>${esc(m)}</th>`).join("")}</tr></thead><tbody>${rowFor(us, "US Treasury", "dsh-yc-us")}${rowFor(uk, "UK gilts", "dsh-yc-uk")}</tbody></table>`;
     const src = (yc.sources && yc.sources[0]) || null;
-    return `<div class="dsh-yc">${svg}</div>${table}` + (src ? `<div class="dsh-ladder-cap">${esc(yc.asOf || "")} · <a href="${esc(src[1])}" target="_blank" rel="noopener noreferrer">${esc(src[0])}</a></div>` : "");
+    return `<div class="dsh-yc dsh-yc2">${svg}${table}</div>` + (src ? `<div class="dsh-ladder-cap">${esc(yc.asOf || "")} · <a href="${esc(src[1])}" target="_blank" rel="noopener noreferrer">${esc(src[0])}</a></div>` : "");
   }
   // The whole Yield-curve card (header "as of" + body) so loadYieldCurve() can
   // repaint it in place once the live curve lands — header date included.
@@ -582,7 +597,10 @@ export function mount(host, ctx) {
     const market = `<div class="dsh-cyc-blk"><div class="dsh-cyc-hd">Market cycle <span>Howard Marks · 0 capitulation → 100 mania</span></div>`
       + meter("Equities", mc.pos) + `<p class="dsh-cyc-note"><strong>${esc(mc.stage || "")}</strong></p>`
       + details(mktNarr) + `</div>`;
-    return `<div class="dsh-cyc">${debt}${market}</div>`;
+    // Two blocks, returned separately so the Macro pane can place each in its own
+    // tile (a break down the middle, like the paired rows above) — each keeps the
+    // .dsh-cyc wrapper so the meters/heads/toggles stay scoped as before.
+    return { debt: `<div class="dsh-cyc">${debt}</div>`, market: `<div class="dsh-cyc">${market}</div>` };
   }
   // The Macro pane is a fixed-viewport terminal (option 4): three side-by-side
   // panes that fill the screen and each scroll internally — Policy rates (Fed/BoE
@@ -591,6 +609,7 @@ export function mount(host, ctx) {
   function macroHTML() {
     const fed = fedHTML();
     const boe = boeHTML();
+    const cyc = cyclesHTML();
     const mid = `<section class="dsh-card dsh-span">${regimePillsHTML()}</section>
       <h3 class="dsh-term-lbl">Policy rates</h3>
       ${fed ? `<section class="dsh-card"><h3 class="dsh-h">Fed path — dot plot &amp; CME FedWatch</h3>${fed}</section>` : ""}
@@ -598,7 +617,8 @@ export function mount(host, ctx) {
       <section class="dsh-card"><h3 class="dsh-h">Rate outlook</h3>${rateOutlookHTML()}</section>
       <section class="dsh-card" id="dsh-yc-card">${yieldCurveCardHTML()}</section>
       <h3 class="dsh-term-lbl">Cycle</h3>
-      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Where we are in the cycle — debt &amp; market</h3>${cyclesHTML()}</section>`;
+      <section class="dsh-card">${cyc.debt}</section>
+      <section class="dsh-card">${cyc.market}</section>`;
     const news = `<section class="dsh-card"><h3 class="dsh-h">Macro wire — US &amp; UK headlines</h3>${macroNewsHTML()}</section>`;
     return { mid, news, newsLabel: "Macro wire" };
   }
@@ -719,8 +739,8 @@ export function mount(host, ctx) {
     const km = fixedKeyMomentsBody();
     const mid = `${strip ? `<section class="dsh-card dsh-span">${strip}</section>` : ""}
       <h3 class="dsh-term-lbl">Sovereign</h3>
-      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Government bond yields — change over 1W · 1M · 3M · 6M · 1Y <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
-      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Government / sovereign — yield curves (all countries) ${asOf(GOVT_YIELDS && GOVT_YIELDS.asOf)}</h3><div class="dsh-scroll">${worldYieldCurveHTML()}</div></section>
+      <section class="dsh-card"><h3 class="dsh-h">Government bond yields — change over 1W · 1M · 3M · 6M · 1Y <span class="dsh-live">live</span></h3><div class="dsh-scroll" id="dsh-yld">${govtYieldsHeatHTML()}</div></section>
+      <section class="dsh-card"><h3 class="dsh-h">Government / sovereign — yield curves (all countries) ${asOf(GOVT_YIELDS && GOVT_YIELDS.asOf)}</h3><div class="dsh-scroll">${worldYieldCurveHTML()}</div></section>
       <h3 class="dsh-term-lbl">Corporate &amp; curve</h3>
       <section class="dsh-card"><h3 class="dsh-h">Curve shape <span class="dsh-n">2s10s · 2s30s</span></h3>${curveShapeHTML()}</section>
       <section class="dsh-card"><h3 class="dsh-h">Corporate — credit spreads (ICE BofA OAS) <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div><p class="dsh-fl-note">Option-adjusted spreads over Treasuries, by rating cohort — the corporate risk premium. Live from FRED (ICE BofA indices).</p></section>`;
@@ -876,6 +896,15 @@ export function mount(host, ctx) {
     sel.addEventListener("change", () => load(sel.value));
     if (sel.value) load(sel.value);
   }
+  // Legal wire — the freshest sourced alerts & case law as a right-rail news list
+  // (legalDb() is already newest-first), mirroring the Macro/Credit wires.
+  function legalNewsHTML() {
+    const items = legalDb().filter((x) => x && x.date && x.title && x.url).slice(0, 16);
+    if (!items.length) return "";
+    const row = (x) => `<li class="dsh-news-i"><span class="dsh-news-d">${esc(fmtDate(x.date))}</span>`
+      + `<a href="${esc(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.title)}</a></li>`;
+    return `<ul class="dsh-news">${items.map(row).join("")}</ul>`;
+  }
   function legalHTML() {
     const total = legalDb().length;
     // Toggleable practice-area chips (multi-select) that LIMIT the keyword search;
@@ -885,15 +914,16 @@ export function mount(host, ctx) {
     const achip = (a) => `<button type="button" class="dsh-lgl-chip${_legalAreas.has(a.id) ? " is-on" : ""}" data-area="${esc(a.id)}">${esc(a.short || a.name)}</button>`;
     const typeChips = `<div class="dsh-lgl-chips"><span class="dsh-lgl-lbl">Type</span>${TYPES.map(tchip).join("")}</div>`;
     const areaChips = `<div class="dsh-lgl-chips"><span class="dsh-lgl-lbl">Practice area</span>${(LGL_AREAS || []).map(achip).join("")}</div>`;
-    // Legal is a single full-height search panel — no news rail (the middle
-    // column spans the space); the search box + chips pin and the results scroll.
-    const mid = `<section class="dsh-card dsh-legal-panel">
+    // Legal is a normal 3-zone tab: the search panel is a full-width card in the
+    // middle (white surface on the grey ground, like the other pages) and the
+    // recent alerts & case law ride in a right-hand news wire, just like Macro.
+    const mid = `<section class="dsh-card dsh-legal-panel dsh-span">
         <h3 class="dsh-h">Legal — case law &amp; alerts <span class="dsh-n">(${total}) · search</span></h3>
         <input type="search" class="dsh-lgl-search" id="dsh-lgl-q" placeholder="Search all legal alerts &amp; case law — party, court, citation, firm…" value="${esc(_legalQuery)}" autocomplete="off" spellcheck="false">
         ${typeChips}${areaChips}
         <div class="dsh-lgl-body" id="dsh-lgl-body">${legalListHTML()}</div>
       </section>`;
-    return { mid, news: "", newsLabel: "" };
+    return { mid, news: legalNewsHTML(), newsLabel: "Legal wire" };
   }
   function wireLegal() {
     const q = host.querySelector("#dsh-lgl-q");

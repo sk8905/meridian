@@ -173,10 +173,9 @@
   .dsh-newsrail > .dsh-card{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
   .dsh-newsrail .dsh-h{ flex:0 0 auto; }
   .dsh-newsrail .dsh-news{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; margin:0; }
-  /* Legal fills the middle (no news rail): its card is full-height, results scroll. */
-  .dsh-mid > .dsh-legal-panel{ flex:1 1 auto; min-height:0; display:flex; flex-direction:column; overflow:hidden; }
-  .dsh-legal-panel > .dsh-h, .dsh-legal-panel > .dsh-lgl-search, .dsh-legal-panel > .dsh-lgl-chips{ flex:0 0 auto; }
-  .dsh-legal-panel .dsh-lgl-body{ flex:1 1 auto; min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; }
+  /* Legal is now a normal spanning card beside the Legal wire; its results list
+     scrolls within the pane (base .dsh-lgl-body max-height), like the other tabs. */
+  .dsh-mid > .dsh-legal-panel{ align-self:start; min-height:0; }
 }
 
 /* Terminal panels: square corners, 1px hairline, flat — no radius or shadow, so
@@ -425,6 +424,15 @@
 .dsh-yc-us { stroke:var(--t-accent); stroke-width:2; } .dsh-yc-us-d { fill:var(--t-accent); }
 .dsh-yc-uk { stroke:var(--t-mac); stroke-width:2; } .dsh-yc-uk-d { fill:var(--t-mac); }
 .dsh-yc-x { display:flex; justify-content:space-between; color:var(--t-faint); font-size:.66rem; padding:2px 6px 0; }
+/* Macro yield curve — dots, tenor axis labels and the value table share one
+   column grid (92px label column + N equal tenor columns) so they line up. */
+.dsh-yc2-plot { padding-left:92px; }
+.dsh-yc2-svg { width:100%; height:118px; }
+.dsh-yc2-x { padding-left:92px; display:grid; grid-template-columns:repeat(var(--n,5),1fr); text-align:center;
+  color:var(--t-faint); font-size:.66rem; padding-top:4px; }
+.dsh-yc2-tbl { table-layout:fixed; width:100%; margin-top:8px; }
+.dsh-yc2-tbl th, .dsh-yc2-tbl td { text-align:center; }
+.dsh-yc2-tbl th:first-child, .dsh-yc2-tbl td.dsh-nm { width:92px; text-align:left; }
 .dsh-yc-key { display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:5px; vertical-align:baseline; }
 .dsh-yc-key.dsh-yc-us { background:var(--t-accent); } .dsh-yc-key.dsh-yc-uk { background:var(--t-mac); }
 td .dsh-yc-us, td .dsh-yc-uk { border:0; }
@@ -468,8 +476,9 @@ td .dsh-yc-us, td .dsh-yc-uk { border:0; }
 
 /* Cycle card (Macro): Dalio debt cycle + Marks market cycle side by side,
    each a labelled block with meter bars, framework prose and linked sources. */
-.dsh-cyc { display:grid; grid-template-columns:1fr 1fr; gap:14px 18px; align-items:start; }
-@media (max-width:760px){ .dsh-cyc { grid-template-columns:1fr; } }
+/* One cycle block per tile now (Debt cycle and Market cycle are split into two
+   paired cards with a break between them), so the block fills its card. */
+.dsh-cyc { display:block; }
 .dsh-cyc-blk { min-width:0; }
 .dsh-cyc-hd { font-size:.9rem; font-weight:700; color:var(--t-ink); margin:0 0 8px; padding-bottom:5px; border-bottom:1px solid var(--t-grid2,#262626); }
 .dsh-cyc-hd span { display:block; font-size:.7rem; font-weight:400; color:var(--t-mut); margin-top:2px; }

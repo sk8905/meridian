@@ -51,7 +51,8 @@ const c = await pg.evaluate(() => {
 check(c.hasWire && /(auto|scroll)/.test(c.ov), `Credit: the credit-wire is a right rail that scrolls internally (${c.ov})`);
 checkErrs(errs, "dashboard 3-zone credit");
 
-// Every section: nav rail + stacked middle; non-legal keeps a news rail, legal spans full width.
+// Every section: nav rail + tiled middle + a right-hand news wire (Legal now has
+// a "Legal wire" rail too, like the other tabs).
 for (const key of ["equities", "fixed-income", "hedge-funds", "legal"]) {
   await pg.goto(`http://localhost:${srv.port}/v2/dashboard/${key}`, { waitUntil: "load" });
   await pg.waitForSelector(".dsh-3z .dsh-mid", { timeout: 8000 });
@@ -67,7 +68,7 @@ for (const key of ["equities", "fixed-income", "hedge-funds", "legal"]) {
   }));
   check(p.threeZone && p.navChips === 6 && p.dshFlex === "flex", `${key}: renders the 3-zone workspace with the left nav rail`);
   check(p.pageScroll <= 4, `${key}: the page itself doesn't scroll (overflow ${p.pageScroll}px)`);
-  check(key === "legal" ? (p.norail && !p.hasRail) : p.hasRail, `${key}: ${key === "legal" ? "is a full-width search (no news rail)" : "keeps a news rail on the right"}`);
+  check(p.hasRail && !p.norail, `${key}: keeps a news rail on the right`);
   check(p.hSize === "12px", `${key}: panel headers use the 12px terminal scale (got ${p.hSize})`);
 }
 checkErrs(errs, "dashboard 3-zone all sections");
