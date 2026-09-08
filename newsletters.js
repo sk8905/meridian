@@ -38,6 +38,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-cf-marketupdate-growthinflationcenterstage-20260908",
+    publication: "Chatham Financial",
+    author: null,
+    series: "Market Update",
+    title: "Growth holds as inflation returns to center stage",
+    date: "2026-09-08",
+    time: "18:17",
+    summary: "Stronger payrolls and a 6.3% rise in Brent put inflation and central bank decisions back in focus.",
+    url: "https://go.cf.com/e3t/Ctc/ZZ+113/d5Z2Pb04/VX26NC78JSmCW5Z3wDk4ZNjPqW4nNzqf5TJxQsMSn_pR3prCCW95jsWP6lZ3pDW54DR0H8Sddt5W35cxtC5Tjmd9VYW83W8mKZCDW402VQS1WZ6w5W1xLS3J16kN61W8dtCM85lK2bVW4828KF4WNKHxW3kVdJ279kcTQW5D4d2794MpBNW9jV0Yh5bfvGGW6Q-vqP4ZBVkJVlM5vj5BQtjbN4v_qrwHr5XrW6d9PlJ5S4_p9VKVHj-5fYZHwW4FpMWT9jwwmJW1dcFCF3mVdnFW37r8Mh3_P614N4JKyJfNzXWcW33v07_4BSjg4V1BvHS5bQv4sM-1ZrBn3hdtW4KHKhv61PlyVW4NsCv51_vS78W23fL-c7Vt62kW4x6_Mq6pvzwyW6qp1C04WVBHbW50Hstj284H24W4B49Z67ZrbHfW8BCGJN34zQRNf23xxcT04",
+  },
+  {
     id: "nl-bbg-thebrink-australiachinaparallel-20260908",
     publication: "Bloomberg",
     author: "Manolo Serapio Jr.",
@@ -465,16 +476,5 @@ export const NEWSLETTERS = [
     time: "20:07",
     summary: "Partner trio in discussions to join rival in latest finance exits at Cahill.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMR0x0SSZKXwS3AFsm/wv",
-  },
-  {
-    id: "nl-bbg-moneystuff-clippersconsulting-20260903",
-    publication: "Bloomberg",
-    author: "Matt Levine",
-    series: "Money Stuff",
-    title: "Money Stuff: The Clippers Got Some Consulting",
-    date: "2026-09-03",
-    time: "19:25",
-    summary: "Kawhi, DAT, Epstein.",
-    url: "https://bloom.bg/4dgPtMc",
   },
 ];

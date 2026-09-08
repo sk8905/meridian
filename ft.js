@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "faa622d9-0faa-4578-b908-4e77b72a8d44", title: "War and weather threaten fresh burst of UK inflation, BoE governor warns", date: "2026-09-08", time: "18:48", url: "https://www.ft.com/content/faa622d9-0faa-4578-b908-4e77b72a8d44" },
   { id: "f13d5f54-deaf-4d44-9e8f-e91f5972b064", title: "Growth in every postcode: good politics, dubious economics", date: "2026-09-08", time: "18:03", url: "https://www.ft.com/content/f13d5f54-deaf-4d44-9e8f-e91f5972b064" },
   { id: "944fd36f-8f91-4178-b05a-2b961c44e310", title: "Apple looks to AI capabilities to drive its new foldable phone sales", date: "2026-09-08", time: "17:20", url: "https://www.ft.com/content/944fd36f-8f91-4178-b05a-2b961c44e310" },
   { id: "76d33021-57c6-4240-ae0b-cd4a79a24980", title: "Putin praises US peace efforts in call with Trump", date: "2026-09-08", time: "16:28", url: "https://www.ft.com/content/76d33021-57c6-4240-ae0b-cd4a79a24980" },
@@ -59,6 +60,4 @@ export const FT_ITEMS = [
   { id: "e38fbc18-f0aa-4d0b-84ca-4b8a2dcf419a", title: "Antitrust not the enemy of industrial policy, says EU competition enforcer", date: "2026-09-08", time: "06:00", url: "https://www.ft.com/content/e38fbc18-f0aa-4d0b-84ca-4b8a2dcf419a" },
   { id: "adbf5262-c4d5-4312-a9b8-4d3cf30c9e00", title: "Mistral raises record €3bn as Europe strains to keep pace in AI race", date: "2026-09-08", time: "06:00", url: "https://www.ft.com/content/adbf5262-c4d5-4312-a9b8-4d3cf30c9e00" },
   { id: "22792fd1-e089-4e56-9ece-171c56ffe422", title: "Labour’s muddled migration policy won’t stop thuggery", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/22792fd1-e089-4e56-9ece-171c56ffe422" },
-  { id: "ed214778-2a6d-4862-99b5-abc256daff92", title: "AI is ushering in an era of mass toe-treading at work", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/ed214778-2a6d-4862-99b5-abc256daff92" },
-  { id: "c6517e52-b855-487c-8408-7071936cf3b0", title: "Global shipping rules are collapsing, say maritime nations", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/c6517e52-b855-487c-8408-7071936cf3b0" },
 ];
