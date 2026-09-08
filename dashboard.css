@@ -105,7 +105,11 @@
    desktop left rail (min-width:901px) keeps its own pill look, so scope this to
    the phone width where the segmented top bar actually shows. */
 @media (max-width:900px){
-  .dsh-navchip{ font-size:11px; font-weight:400; }
+  /* Same bar height as the Profiles/Transactions wire-head chips: a fixed
+     --chip-h (34px) row with the chip centred, not the taller 10px-padded pill. */
+  .dsh-railnav{ height:var(--chip-h, 34px); box-sizing:border-box; }
+  .dsh-navchip{ font-size:11px; font-weight:400; padding:0 4px; height:100%;
+    display:flex; align-items:center; justify-content:center; }
   .dsh-navchip.is-on{ font-weight:600;
     box-shadow:inset 0 -2px 0 var(--chip-ul, #000), 0 1px 0 var(--chip-ul, #000); }
   :root[data-theme="dark"] .dsh-navchip.is-on{
