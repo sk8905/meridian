@@ -20,6 +20,12 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "ef50aed1-e50c-4cb6-a418-266476fb2829", title: "To safeguard Israel’s future, the UK is right to sanction settlers", date: "2026-09-08", time: "15:13", url: "https://www.ft.com/content/ef50aed1-e50c-4cb6-a418-266476fb2829" },
+  { id: "f1a7b7be-1444-4f2f-80ca-905c8630f295", title: "Heathrow and Gatwick flights face disruption over air traffic control ‘technical issue’", date: "2026-09-08", time: "15:06", url: "https://www.ft.com/content/f1a7b7be-1444-4f2f-80ca-905c8630f295" },
+  { id: "d264136c-8215-4ac6-a1cc-1efeb23ae5cd", title: "Cerberus nears £1bn deal for Goodwin defence unit", date: "2026-09-08", time: "14:43", url: "https://www.ft.com/content/d264136c-8215-4ac6-a1cc-1efeb23ae5cd" },
+  { id: "a7011878-b0b7-4e7f-8f5a-e7d9d662fd47", title: "Donald Trump calls for Bombardier boycott as Canada hits US with tariffs", date: "2026-09-08", time: "14:38", url: "https://www.ft.com/content/a7011878-b0b7-4e7f-8f5a-e7d9d662fd47" },
+  { id: "700806be-ecba-4c0b-92a9-cc32d7feded4", title: "Former Swiss bank lobby chief convicted of bribery and money laundering", date: "2026-09-08", time: "14:28", url: "https://www.ft.com/content/700806be-ecba-4c0b-92a9-cc32d7feded4" },
+  { id: "22eacb3c-6cab-490d-a117-75ba90a2d35c", title: "Merz’s CDU in crisis after far-right victory in Saxony-Anhalt", date: "2026-09-08", time: "14:28", url: "https://www.ft.com/content/22eacb3c-6cab-490d-a117-75ba90a2d35c" },
   { id: "792e9e30-7a96-402c-a472-d7304f5bc1ef", title: "Iceland summons US ambassador over Trump’s Stars and Stripes map", date: "2026-09-08", time: "14:09", url: "https://www.ft.com/content/792e9e30-7a96-402c-a472-d7304f5bc1ef" },
   { id: "6b9afdfb-26f5-4746-8ff9-027a8d04cb1f", title: "Submit your questions: is Trump losing his touch?", date: "2026-09-08", time: "13:50", url: "https://www.ft.com/content/6b9afdfb-26f5-4746-8ff9-027a8d04cb1f" },
   { id: "990e71e5-bfa3-4ebb-963d-f8693c5ac7b1", title: "UK announces import ban on goods linked to Israeli settlements in West Bank", date: "2026-09-08", time: "13:43", url: "https://www.ft.com/content/990e71e5-bfa3-4ebb-963d-f8693c5ac7b1" },
@@ -55,9 +61,4 @@ export const FT_ITEMS = [
   { id: "7c53cee9-3066-4722-acf6-17daa2f54631", title: "EU opens door to bigger corporate mergers", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/7c53cee9-3066-4722-acf6-17daa2f54631" },
   { id: "4f28ef6c-f727-4d36-88a3-bbdbd13ddfbf", title: "The world’s $2tn interest bill", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/4f28ef6c-f727-4d36-88a3-bbdbd13ddfbf" },
   { id: "f6a26a17-985f-4283-99c4-ba5d54e94e7f", title: "Britain’s grid operator gave Palantir contract without inviting rival bids", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/f6a26a17-985f-4283-99c4-ba5d54e94e7f" },
-  { id: "aa304856-cade-4ad8-a2bf-2dd34fa75b1b", title: "Anthropic and OpenAI bankers push for top-tier credit ratings post-IPO", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/aa304856-cade-4ad8-a2bf-2dd34fa75b1b" },
-  { id: "1de12ab6-0343-4113-a832-b0f11c3a9b7a", title: "Offshore borrowing in renminbi hits record high", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/1de12ab6-0343-4113-a832-b0f11c3a9b7a" },
-  { id: "e4853480-b6a6-4ae7-81d5-aa2cf819093e", title: "The world’s approach to sovereign debt needs to change", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/e4853480-b6a6-4ae7-81d5-aa2cf819093e" },
-  { id: "410ee6b6-177b-46fb-9e9c-d388322725c5", title: "Who is Britain’s best CEO? You decide", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/410ee6b6-177b-46fb-9e9c-d388322725c5" },
-  { id: "ab6233dc-bfdb-48d8-b71c-864ec040e78d", title: "The battle to prove who owns Gaza’s ruins", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/ab6233dc-bfdb-48d8-b71c-864ec040e78d" },
 ];
