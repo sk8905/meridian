@@ -38,6 +38,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-pointsofreturn-endlesssummerbondyields-20260908",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "It's Still Endless Summer for Bond Yields",
+    date: "2026-09-08",
+    time: "05:01",
+    summary: "Long Treasury yields keep rising and stocks keep tolerating them — less a crisis than a return to normality after the post-GFC era, Authers argues, with the September FOMC and Friday's CPI the next tests.",
+    url: "https://www.bloomberg.com/opinion/newsletters/2026-09-08/bond-yields-it-s-still-endless-summer",
+  },
+  {
     id: "nl-bbg-authoralert-rokosukexit-20260907",
     publication: "Bloomberg",
     author: "Nishant Kumar",
