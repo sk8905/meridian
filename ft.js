@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "792e9e30-7a96-402c-a472-d7304f5bc1ef", title: "Iceland summons US ambassador over Trump’s Stars and Stripes map", date: "2026-09-08", time: "14:09", url: "https://www.ft.com/content/792e9e30-7a96-402c-a472-d7304f5bc1ef" },
+  { id: "6b9afdfb-26f5-4746-8ff9-027a8d04cb1f", title: "Submit your questions: is Trump losing his touch?", date: "2026-09-08", time: "13:50", url: "https://www.ft.com/content/6b9afdfb-26f5-4746-8ff9-027a8d04cb1f" },
+  { id: "990e71e5-bfa3-4ebb-963d-f8693c5ac7b1", title: "UK announces import ban on goods linked to Israeli settlements in West Bank", date: "2026-09-08", time: "13:43", url: "https://www.ft.com/content/990e71e5-bfa3-4ebb-963d-f8693c5ac7b1" },
   { id: "769abc3f-5e34-41b4-946a-16cab58010a7", title: "Is it time for Eurozone GDP ex-Ireland?", date: "2026-09-08", time: "13:15", url: "https://www.ft.com/content/769abc3f-5e34-41b4-946a-16cab58010a7" },
   { id: "a386c753-9f55-4429-b2c9-251d3bff8f58", title: "Ceuta demands EU help over migrant ‘pressure cooker’", date: "2026-09-08", time: "13:08", url: "https://www.ft.com/content/a386c753-9f55-4429-b2c9-251d3bff8f58" },
   { id: "dda770b2-79b4-48bb-b141-0e1291d08115", title: "The new fiscal threats to monetary policy", date: "2026-09-08", time: "12:30", url: "https://www.ft.com/content/dda770b2-79b4-48bb-b141-0e1291d08115" },
@@ -49,9 +52,6 @@ export const FT_ITEMS = [
   { id: "c6517e52-b855-487c-8408-7071936cf3b0", title: "Global shipping rules are collapsing, say maritime nations", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/c6517e52-b855-487c-8408-7071936cf3b0" },
   { id: "2f0b8e53-60dc-4d31-b31f-9534908c10ae", title: "The cost of being Apollo", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/2f0b8e53-60dc-4d31-b31f-9534908c10ae" },
   { id: "462fddd0-850d-46e0-b2e7-5804d483ab52", title: "Why Japan Inc can brush off interest-rate hikes — and America can’t", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/462fddd0-850d-46e0-b2e7-5804d483ab52" },
-  { id: "22eacb3c-6cab-490d-a117-75ba90a2d35c", title: "Merz’s CDU in crisis after far-right victory in Saxony-Anhalt", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/22eacb3c-6cab-490d-a117-75ba90a2d35c" },
-  { id: "0facf3c4-147e-4696-9849-d68a4b744bd6", title: "‘Apollo premium’ drives up debt costs for private equity giant’s portfolio companies", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/0facf3c4-147e-4696-9849-d68a4b744bd6" },
-  { id: "200221ed-8712-4e43-8160-23b7b9c40a04", title: "Hedge fund Millennium seeks tax deal to boost Geneva presence", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/200221ed-8712-4e43-8160-23b7b9c40a04" },
   { id: "7c53cee9-3066-4722-acf6-17daa2f54631", title: "EU opens door to bigger corporate mergers", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/7c53cee9-3066-4722-acf6-17daa2f54631" },
   { id: "4f28ef6c-f727-4d36-88a3-bbdbd13ddfbf", title: "The world’s $2tn interest bill", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/4f28ef6c-f727-4d36-88a3-bbdbd13ddfbf" },
   { id: "f6a26a17-985f-4283-99c4-ba5d54e94e7f", title: "Britain’s grid operator gave Palantir contract without inviting rival bids", date: "2026-09-08", time: "05:00", url: "https://www.ft.com/content/f6a26a17-985f-4283-99c4-ba5d54e94e7f" },

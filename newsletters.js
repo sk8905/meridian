@@ -38,6 +38,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-legalbusiness-walkerlatham-20260908",
+    publication: "Legal Business",
+    author: null,
+    series: null,
+    title: "PE heavyweight Walker to leave Latham",
+    date: "2026-09-08",
+    time: "14:14",
+    summary: "Former global vice chair of corporate and co-chair of PE set to depart 13 years after joining from CC.",
+    url: "https://email.legalbusiness.co.uk/q/12H5apPMR2UJPrqpvf4QPbJ5/wv",
+  },
+  {
     id: "nl-legalbusiness-marianadamhighcourt-20260908",
     publication: "Legal Business",
     author: null,
