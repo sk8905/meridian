@@ -43,6 +43,18 @@ const opened = await pg.evaluate(() => {
 check(opened && opened.visible, "Briefing button opens the Briefing panel");
 check(opened && opened.chips.length === 3, `three slot chips — Morning/Afternoon/Evening (${opened ? opened.chips.join(",") : "none"})`);
 check(opened && !!opened.onSlot, `a slot is active by default (${opened ? opened.onSlot : "none"})`);
+// The panel always DEFAULTS to the most recent briefing (newest date · time
+// stamp), not the wall-clock slot — so overnight it never opens a stale slot.
+const latest = await pg.evaluate(async () => {
+  const m = await import("/briefings.js");
+  const B = m.BRIEFINGS || {}; const slots = B.slots || {};
+  const order = (B.order || []).filter((k) => slots[k]);
+  const stamp = (k) => { const s = slots[k]; const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/); return `${s.date || ""} ${t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"}`; };
+  const exp = order.reduce((b, k) => (stamp(k) > stamp(b) ? k : b), order[0]);
+  const on = (document.querySelector("#na-brief-panel .na-chip.is-on") || {}).dataset?.slot;
+  return { exp, on };
+});
+check(latest.on === latest.exp, `default slot is the most recent briefing (${latest.on} = ${latest.exp})`);
 check(opened && opened.lede > 0, "active slot shows a lede");
 check(opened && opened.bullets >= 1, `active slot shows briefing bullets (${opened ? opened.bullets : 0})`);
 check(opened && opened.srcs >= 1 && opened.srcs === opened.bullets, `every bullet carries a source link (${opened ? opened.srcs : 0}/${opened ? opened.bullets : 0})`);

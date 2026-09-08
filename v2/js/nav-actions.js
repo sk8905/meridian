@@ -143,16 +143,31 @@ let _mktLoaded = false;
 // Byte-identical on every page (Home included) — the shared dropdown.
 let _mktTab = "markets";
 let _pfMode = "daily";   // portfolio holdings P&L column: daily (default) | total
-// Current briefing slot by the reader's local clock (morning < 12:00 · afternoon
-// 12:00–17:00 · evening ≥ 17:00). Slot content is BST-stamped; each shows its own
-// timestamp so the label is never ambiguous.
-function briefSlotNow() { const h = new Date().getHours(); return h < 12 ? "morning" : h < 17 ? "afternoon" : "evening"; }
+// The DEFAULT briefing slot is always the MOST RECENT one written — the slot with
+// the newest (date · time) stamp — not the one matching the wall clock. They
+// usually coincide (the refresh routine regenerates the current-by-clock slot),
+// but diverge overnight: at 02:00 the clock reads "morning" while last evening's
+// briefing is genuinely the freshest, so the clock rule would open a stale slot.
+// Comparing "YYYY-MM-DD HH:MM" strings lexicographically orders them chronologically.
+function briefStamp(slotKey) {
+  const s = ((BRIEFINGS || {}).slots || {})[slotKey];
+  if (!s) return "";
+  const t = String(s.time || "").match(/(\d{1,2}):(\d{2})/);
+  return `${s.date || ""} ${t ? t[1].padStart(2, "0") + ":" + t[2] : "00:00"}`;
+}
+function briefLatestSlot() {
+  const B = BRIEFINGS || {};
+  const slots = B.slots || {};
+  const order = (B.order || ["morning", "afternoon", "evening"]).filter((k) => slots[k]);
+  if (!order.length) return "";
+  return order.reduce((best, k) => (briefStamp(k) > briefStamp(best) ? k : best), order[0]);
+}
 
 // ---- Unread-briefing marker -------------------------------------------------
 // A briefing's identity is its (date · time) stamp — the refresh routine rewrites
 // that whenever it regenerates a slot, so a fresh briefing gets a new identity.
 // We remember, per slot, the identity the reader last OPENED (localStorage), and
-// show an accent dot on the Briefing button while the CURRENT slot holds an
+// show an accent dot on the Briefing button while the MOST RECENT slot holds an
 // identity they haven't opened yet. Opening the panel on that slot clears it.
 const BRIEF_READ_KEY = "m_brief_read";
 function briefIdentity(slotKey) {
@@ -170,9 +185,9 @@ function markBriefRead(slotKey) {
   m[slotKey] = id;
   try { localStorage.setItem(BRIEF_READ_KEY, JSON.stringify(m)); } catch { /* private mode */ }
 }
-// The current slot carries a briefing the reader hasn't opened since it was written.
+// The most-recent slot carries a briefing the reader hasn't opened since it was written.
 function briefHasUnread() {
-  const slot = briefSlotNow();
+  const slot = briefLatestSlot();
   const id = briefIdentity(slot);
   return !!id && briefReadMap()[slot] !== id;
 }
@@ -976,7 +991,7 @@ export function initNavActions() {
     });
 
     const panels = [
-      { btn: wrap.querySelector("#na-brief"), panel: briefPanel, onOpen: (p) => { const slot = briefSlotNow(); renderBriefing(p.querySelector(".na-body"), slot); markBriefRead(slot); refreshBriefDot(); } },
+      { btn: wrap.querySelector("#na-brief"), panel: briefPanel, onOpen: (p) => { const slot = briefLatestSlot(); renderBriefing(p.querySelector(".na-body"), slot); markBriefRead(slot); refreshBriefDot(); } },
       { btn: wrap.querySelector("#na-mkt"), panel: mktPanel, onOpen: (p) => { if (!_mktLoaded) { _mktLoaded = true; loadMarkets(p.querySelector(".na-body")); } } },
       { btn: wrap.querySelector("#na-saved"), panel: savedPanel, onOpen: (p) => { loadSaved(p.querySelector(".na-body"), p.querySelector(".na-h-n")); } },
       { btn: notifBtn, panel: notifPanel, onOpen: (p) => { const body = p.querySelector(".na-body"); if (_notifItems) renderNotif(body); else { body.innerHTML = '<div class="na-load">Loading…</div>'; ensureNotifs().then(() => renderNotif(body)).catch(() => { body.innerHTML = '<div class="na-load">Notifications unavailable right now.</div>'; }); } } },
