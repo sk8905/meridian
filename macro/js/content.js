@@ -164,7 +164,7 @@ export const OUTLOOK = {
         { date: "Jul 2026", decision: "Hold 3.75%", tally: "6–3", lean: "3 → hike", dissent: "Greene, Mann, Pill → +25bp", href: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/july-2026" },
         { date: "Jun 2026", decision: "Hold 3.75%", tally: "7–2", lean: "2 → hike", dissent: "Greene, Pill → +25bp", href: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/june-2026" },
         { date: "Apr 2026", decision: "Hold 3.75%", tally: "8–1", lean: "1 → hike", dissent: "Pill → +25bp", href: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/april-2026" },
-        { date: "Mar 2026", decision: "Hold 3.75%", tally: "9–0", lean: null, dissent: null, href: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/march-2026" },
+        { date: "Mar 2026", decision: "Hold 3.75%", tally: "9–0", lean: "9 → hold", dissent: null, href: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/march-2026" },
         { date: "Feb 2026", decision: "Hold 3.75%", tally: "5–4", lean: "4 → cut", dissent: "Breeden, Dhingra, Ramsden, Taylor → −25bp cut", href: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2026/february-2026" },
         { date: "Dec 2025", decision: "Cut −25bp to 3.75%", tally: "5–4", lean: "4 → hold", dissent: "Greene, Lombardelli, Mann, Pill → hold 4.00%", href: "https://www.bankofengland.co.uk/monetary-policy-summary-and-minutes/2025/december-2025" },
       ],
