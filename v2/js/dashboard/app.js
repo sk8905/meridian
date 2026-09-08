@@ -292,13 +292,18 @@ export function mount(host, ctx) {
   // note beneath; a small chip bar keeps the by-debt (and A–Z) sort.
   function stressHTML() {
     const chip = (k, l) => `<button type="button" class="dsh-sortchip${_stressSort.key === k ? " is-on" : ""}" data-sort="${k}">${l}${_stressSort.key === k ? (_stressSort.dir > 0 ? " ▲" : " ▼") : ""}</button>`;
-    const card = (s) => `<div class="dsh-stress">`
-      + `<div class="dsh-stress-h"><span class="dsh-nm">${esc(s.name)}</span><span class="dsh-stress-debt">${esc(s.debt)}</span></div>`
-      + `<div class="dsh-stress-m">${esc(s.sector)} · ${esc(s.hq)} · <span class="dsh-tag dsh-tag-stress">${esc(s.status)}</span>${s.latest ? " · " + esc(s.latest) : ""}</div>`
-      + `<div class="dsh-stress-n">${esc(s.note)}${srcLink(s.source, s.name + " source")}</div></div>`;
+    // Table format (matching the other tiles): debtor + debt + status, and the note
+    // clamped to two lines inline so it fits the space (short is fine — the source
+    // link opens the full story).
+    const row = (s) => `<tr>`
+      + `<td class="dsh-nm">${esc(s.name)}<span class="dsh-stress-sub">${esc(s.sector)} · ${esc(s.hq)}</span></td>`
+      + `<td class="dsh-r">${esc(s.debt)}</td>`
+      + `<td><span class="dsh-tag dsh-tag-stress">${esc(s.status)}</span></td>`
+      + `<td class="dsh-note"><span class="dsh-clamp2">${esc(s.note)}</span>${srcLink(s.source, s.name + " source")}</td></tr>`;
     return `<div class="dsh-stresswrap">`
       + `<div class="dsh-sortbar"><span class="dsh-sortlbl">Sort by</span>${chip("debt", "Debt")}${chip("name", "Debtor")}${chip("sector", "Sector")}</div>`
-      + `<div class="dsh-stresslist" id="dsh-stress-body">${stressRows().map(card).join("")}</div></div>`;
+      + `<table class="dsh-tbl dsh-stresstbl" id="dsh-stress-body"><thead><tr><th>Debtor</th><th class="dsh-r">Debt</th><th>Status</th><th>Note</th></tr></thead>`
+      + `<tbody>${stressRows().map(row).join("")}</tbody></table></div>`;
   }
   function maturityHTML() {
     const w = MATWALL && MATWALL.rated, wall = MATWALL && MATWALL.ratedWall;
@@ -363,8 +368,8 @@ export function mount(host, ctx) {
       <section class="dsh-card"><h3 class="dsh-h">Private credit <span class="dsh-n">Fitch PCDR &amp; market pulse</span> ${asOf(PRIVATE_CREDIT && PRIVATE_CREDIT.asOf)}</h3>${privateCreditHTML()}</section>
       <section class="dsh-card"><h3 class="dsh-h">Credit spreads — ICE BofA OAS <span class="dsh-live">live</span></h3><div id="dsh-spreads" class="dsh-spreads"><p class="dsh-load">Loading live spreads…</p></div></section>
       <h3 class="dsh-term-lbl">Maturity &amp; stress</h3>
-      <section class="dsh-card"><h3 class="dsh-h">Maturity wall</h3>${maturityHTML()}</section>
-      <section class="dsh-card"><h3 class="dsh-h">Stress — situations in focus <span class="dsh-n">(${CR_STRESS.length}) · by debt</span></h3>${stressHTML()}</section>`;
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Maturity wall</h3>${maturityHTML()}</section>
+      <section class="dsh-card dsh-wide"><h3 class="dsh-h">Stress — situations in focus <span class="dsh-n">(${CR_STRESS.length}) · by debt</span></h3>${stressHTML()}</section>`;
     const news = `<section class="dsh-card"><h3 class="dsh-h">Credit wire — latest deals &amp; intel</h3>${creditNewsHTML()}</section>`;
     return { mid, news, newsLabel: "Credit wire" };
   }
@@ -447,18 +452,23 @@ export function mount(host, ctx) {
   }
   // Rate-outlook grid (TradingEconomics-style): current rate, next meeting, stance,
   // one-line read per economy, each with a source link.
+  // A compact table (matching the other tiles) — one row per central bank with the
+  // next meeting, the current rate, and the commentary inline in a wrapping "Read"
+  // column (no expand toggle; the read fits the space, short is fine).
   function rateOutlookHTML() {
-    // Commentary is collapsed by default behind a native <details> toggle.
-    const cell = (o, name) => {
+    const row = (o, name) => {
       if (!o) return "";
-      const body = esc(stripTags(o.bottomLine || o.stance || ""));
-      return `<div class="dsh-ro"><div class="dsh-ro-h"><span class="dsh-ro-nm">${esc(name)}</span><span class="dsh-ro-rate">${esc(stripTags(o.rate || "—"))}</span></div>`
-        + `<div class="dsh-ro-m">${esc(stripTags(o.next || ""))}</div>`
-        + (body ? `<details class="dsh-ro-more"><summary class="dsh-ro-sum">Commentary</summary><div class="dsh-ro-b">${body}</div></details>` : "")
-        + `</div>`;
+      // The per-bank stance is the concise, distinct read (the long bottomLine is a
+      // shared macro narrative that reads identically when clamped).
+      const read = esc(stripTags(o.stance || o.bottomLine || ""));
+      return `<tr><td class="dsh-nm">${esc(name)}</td>`
+        + `<td>${esc(stripTags(o.next || "—"))}</td>`
+        + `<td class="dsh-r">${esc(stripTags(o.rate || "—"))}</td>`
+        + `<td class="dsh-ro-read"><span class="dsh-clamp2">${read || "—"}</span></td></tr>`;
     };
     const src = (OUTLOOK && OUTLOOK.sources && OUTLOOK.sources[0]) || null;
-    return `<div class="dsh-rogrid">${cell(OUTLOOK && OUTLOOK.us, "United States · Fed")}${cell(OUTLOOK && OUTLOOK.uk, "United Kingdom · BoE")}</div>`
+    return `<table class="dsh-tbl dsh-ro-tbl"><thead><tr><th>Policy</th><th>Meeting</th><th class="dsh-r">Rate</th><th>Read</th></tr></thead>`
+      + `<tbody>${row(OUTLOOK && OUTLOOK.us, "US · Fed")}${row(OUTLOOK && OUTLOOK.uk, "UK · BoE")}</tbody></table>`
       + (src ? `<div class="dsh-ladder-cap">Source: <a href="${esc(src[1])}" target="_blank" rel="noopener noreferrer">${esc(src[0])}</a></div>` : "");
   }
   // Yield curve — a small SVG line for US & UK across the standard maturities,
@@ -517,41 +527,20 @@ export function mount(host, ctx) {
       if (card) card.innerHTML = yieldCurveCardHTML();
     } catch { /* keep the compiled curve */ }
   }
-  // Multi-country yield curve (Fixed Income pane) — every country in the heatmap
-  // plotted across 2Y/5Y/10Y/30Y from the GOVT_YIELDS levels, as a multi-line SVG
-  // with a colour legend, plus the full term-structure table. One colour per
-  // country (deterministic HSL by index).
+  // Multi-country term structure (Fixed Income pane) — every country's 2Y/5Y/10Y/
+  // 30Y yields from GOVT_YIELDS as a table, one colour key per country. The old
+  // 14-line overlay chart added little over the numbers in a narrow tile, so it
+  // was dropped in favour of the table alone.
   const YC_TENORS = [["y2", "2Y"], ["y5", "5Y"], ["y10", "10Y"], ["y30", "30Y"]];
   function worldYieldCurveHTML() {
     const G = GOVT_YIELDS; if (!G || !(G.regions || []).length) return "";
     const rows = G.regions.flatMap((g) => (g.rows || []).map((r) => ({ ...r, region: g.region })));
+    if (!rows.length) return "";
     const color = (i) => `hsl(${Math.round((i * 360) / rows.length)},68%,52%)`;
-    const all = rows.flatMap((r) => YC_TENORS.map(([k]) => r[k]).filter((v) => v != null));
-    if (!all.length) return "";
-    // Nice axis bounds + gridline ticks (round yield levels).
-    const min0 = Math.min(...all), max0 = Math.max(...all);
-    const niceStep = (rng) => { const raw = Math.max(rng, 0.5) / 4; const mag = Math.pow(10, Math.floor(Math.log10(raw))); const n = raw / mag; return (n < 1.5 ? 1 : n < 3 ? 2 : n < 7 ? 5 : 10) * mag; };
-    const step = niceStep(max0 - min0);
-    const lo = Math.floor(min0 / step) * step, hi = Math.ceil(max0 / step) * step;
-    const ticks = []; for (let v = lo; v <= hi + 1e-9; v += step) ticks.push(+v.toFixed(4));
-    // viewBox 0..100 both axes; preserveAspectRatio="none" stretches to fill the
-    // full plot width + fixed height. non-scaling-stroke keeps lines/gridlines
-    // crisp under the non-uniform scale. Y-axis value labels are HTML (undistorted).
-    const x = (i) => (i * 100) / (YC_TENORS.length - 1);
-    const y = (v) => 100 - ((v - lo) / (hi - lo)) * 100;
-    const linePath = (r) => { let d = "", on = false; YC_TENORS.forEach(([k], i) => { const v = r[k]; if (v == null) return; d += (on ? "L" : "M") + x(i).toFixed(2) + "," + y(v).toFixed(2) + " "; on = true; }); return d.trim(); };
-    const grid = ticks.map((v) => `<line x1="0" y1="${y(v).toFixed(2)}" x2="100" y2="${y(v).toFixed(2)}" class="dsh-yc-grid" vector-effect="non-scaling-stroke"/>`).join("");
-    const lines = rows.map((r, i) => { const d = linePath(r); return d ? `<path d="${d}" fill="none" stroke="${color(i)}" stroke-width="1.6" opacity="0.9" vector-effect="non-scaling-stroke"/>` : ""; }).join("");
-    const yax = ticks.map((v) => `<span style="top:${y(v).toFixed(1)}%">${v.toFixed(v < 1 ? 2 : 1)}%</span>`).join("");
-    const svg = `<div class="dsh-yc-plot"><div class="dsh-yc-yax">${yax}</div>`
-      + `<svg class="dsh-yc-svg" viewBox="0 0 100 100" preserveAspectRatio="none" role="img" aria-label="Government bond yield curves">${grid}${lines}</svg></div>`
-      + `<div class="dsh-yc-x">${YC_TENORS.map(([, l]) => `<span>${esc(l)}</span>`).join("")}</div>`;
-    const legend = `<div class="dsh-yc-leg">${rows.map((r, i) => `<span class="dsh-yc-lg"><i style="background:${color(i)}"></i>${esc(r.country)}</span>`).join("")}</div>`;
     const rowFor = (r, i) => `<tr><td class="dsh-nm"><span class="dsh-yc-key" style="background:${color(i)}"></span>`
       + `${r.source ? `<a href="${esc(r.source)}" target="_blank" rel="noopener noreferrer">${esc(r.country)}</a>` : esc(r.country)}</td>`
       + `${YC_TENORS.map(([k]) => `<td class="dsh-r">${r[k] != null ? esc(r[k].toFixed(2)) : "—"}</td>`).join("")}</tr>`;
-    const table = `<table class="dsh-tbl"><thead><tr><th>Country</th>${YC_TENORS.map(([, l]) => `<th class="dsh-r">${esc(l)}</th>`).join("")}</tr></thead><tbody>${rows.map(rowFor).join("")}</tbody></table>`;
-    return `<div class="dsh-yc">${svg}</div>${legend}${table}`;
+    return `<table class="dsh-tbl"><thead><tr><th>Country</th>${YC_TENORS.map(([, l]) => `<th class="dsh-r">${esc(l)}</th>`).join("")}</tr></thead><tbody>${rows.map(rowFor).join("")}</tbody></table>`;
   }
   // Embedded macro news wire — the desk's US + UK headlines, linked to source.
   function macroNewsHTML() {

@@ -78,14 +78,14 @@ const base = `http://localhost:${srv.port}`;
   checkEq(after.val, "y2", "Govt yields: selecting a duration switches + re-renders");
   check(after.rows >= 10, `Govt yields: heatmap re-renders on duration change (${after.rows})`);
 
-  // Multi-country yield curve: every country in the heatmap has a line + table row.
+  // Multi-country term structure: a table row per country, each with its colour key.
   const curve = await pg.evaluate(() => {
     const card = [...document.querySelectorAll('.v2-view[data-view="dashboard"] .dsh-card')].find((c) => /yield curves \(all countries\)/i.test(c.textContent));
     if (!card) return null;
-    return { lines: card.querySelectorAll(".dsh-yc-svg path").length, legend: card.querySelectorAll(".dsh-yc-lg").length, rows: card.querySelectorAll("table tbody tr").length };
+    return { keys: card.querySelectorAll(".dsh-yc-key").length, rows: card.querySelectorAll("table tbody tr").length };
   });
-  check(curve && curve.lines >= 10, `Fixed Income: yield curve plots all countries (${curve && curve.lines} lines)`);
-  check(curve && curve.legend >= 10 && curve.rows >= 10, "Fixed Income: yield-curve legend + table cover every country");
+  check(curve && curve.rows >= 10, `Fixed Income: term-structure table covers every country (${curve && curve.rows} rows)`);
+  check(curve && curve.keys >= 10 && curve.keys === curve.rows, "Fixed Income: each country row carries its colour key");
 
   // "Why it moved" box mirrors the Equities Key-moments card, each note sourced.
   const km = await pg.evaluate(() => {
@@ -105,20 +105,22 @@ const base = `http://localhost:${srv.port}`;
   const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/dashboard/macro/");
   await pg.waitForTimeout(1600);
   const m = await pg.evaluate(() => {
-    const rogrid = document.querySelector(".dsh-rogrid");
+    const roTbl = document.querySelector(".dsh-ro-tbl");
     const ycCard = document.querySelector("#dsh-yc-card");
-    const cols = rogrid ? getComputedStyle(rogrid).gridTemplateColumns.trim() : "";
+    const roLabels = roTbl ? [...roTbl.querySelectorAll("tbody tr .dsh-nm")].map((t) => t.textContent.trim()) : [];
     const rowLabels = ycCard ? [...ycCard.querySelectorAll("table tbody tr .dsh-nm")].map((t) => t.textContent.trim()) : [];
     return {
-      economies: rogrid ? rogrid.querySelectorAll(".dsh-ro").length : 0,
-      stacked: cols && !/\s/.test(cols),                          // one grid track → cells stacked vertically
+      economies: roTbl ? roTbl.querySelectorAll("tbody tr").length : 0,
+      roReads: roTbl ? roTbl.querySelectorAll("tbody tr td.dsh-ro-read").length : 0,
+      roLabels,
       ycHeader: ycCard ? /Yield curve/.test(ycCard.querySelector(".dsh-h").textContent) : false,
       ycLines: ycCard ? ycCard.querySelectorAll(".dsh-yc-svg path").length : 0,
       rowLabels,
     };
   });
-  checkEq(m.economies, 2, "Macro: Rate outlook renders both economies (US · Fed, UK · BoE)");
-  check(m.stacked, "Macro: Rate-outlook cells stack in a single column (fills the gap)");
+  checkEq(m.economies, 2, "Macro: Rate outlook renders both economies as table rows");
+  check(m.roLabels.some((l) => /Fed/.test(l)) && m.roLabels.some((l) => /BoE/.test(l)) && m.roReads === 2,
+    "Macro: Rate-outlook table carries US·Fed / UK·BoE with an inline commentary column");
   check(m.ycHeader, "Macro: Yield-curve card renders with its header");
   checkEq(m.ycLines, 2, "Macro: Yield curve draws US Treasury + UK gilt lines");
   check(m.rowLabels.some((l) => /US Treasury/.test(l)) && m.rowLabels.some((l) => /UK gilts/.test(l)), "Macro: Yield-curve table has US Treasury + UK gilts rows");
