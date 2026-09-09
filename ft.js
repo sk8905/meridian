@@ -20,6 +20,8 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "fe0cbcfc-b351-4dac-889f-7b8f11f79102", title: "Norway’s oil fund says what everyone is thinking", date: "2026-09-09", time: "06:30", url: "https://www.ft.com/content/fe0cbcfc-b351-4dac-889f-7b8f11f79102" },
+  { id: "8e950485-7962-4de6-a5b8-a14612e37f7a", title: "FTAV’s further reading", date: "2026-09-09", time: "06:30", url: "https://www.ft.com/content/8e950485-7962-4de6-a5b8-a14612e37f7a" },
   { id: "33d4674f-31db-4551-9ad3-c43d5c94c94c", title: "The clock is ticking on Senegal’s ‘total return swaps’", date: "2026-09-09", time: "06:00", url: "https://www.ft.com/content/33d4674f-31db-4551-9ad3-c43d5c94c94c" },
   { id: "0715a142-311f-422f-a9dd-9e31bc3d7d61", title: "FirstFT: Anthropic withheld AI model from UK testers", date: "2026-09-09", time: "05:31", url: "https://www.ft.com/content/0715a142-311f-422f-a9dd-9e31bc3d7d61" },
   { id: "560e1c8b-f163-4fd6-b604-e905550ac870", title: "Anthropic withheld latest AI model from UK testing agency", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/560e1c8b-f163-4fd6-b604-e905550ac870" },
@@ -59,5 +61,4 @@ export const FT_ITEMS = [
   { id: "769abc3f-5e34-41b4-946a-16cab58010a7", title: "Is it time for Eurozone GDP ex-Ireland?", date: "2026-09-08", time: "13:15", url: "https://www.ft.com/content/769abc3f-5e34-41b4-946a-16cab58010a7" },
   { id: "a386c753-9f55-4429-b2c9-251d3bff8f58", title: "Ceuta demands EU help over migrant ‘pressure cooker’", date: "2026-09-08", time: "13:08", url: "https://www.ft.com/content/a386c753-9f55-4429-b2c9-251d3bff8f58" },
   { id: "dda770b2-79b4-48bb-b141-0e1291d08115", title: "The new fiscal threats to monetary policy", date: "2026-09-08", time: "12:30", url: "https://www.ft.com/content/dda770b2-79b4-48bb-b141-0e1291d08115" },
-  { id: "4320e779-73ab-4e56-ad13-9d5e9aa48b3c", title: "The yawning gap between ambition and action on nuclear energy", date: "2026-09-08", time: "12:00", url: "https://www.ft.com/content/4320e779-73ab-4e56-ad13-9d5e9aa48b3c" },
 ];
