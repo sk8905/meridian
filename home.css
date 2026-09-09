@@ -65,7 +65,7 @@
     .g-jump { display:flex; align-items:center; gap:.25rem; flex:0 1 auto; min-width:0;
       overflow-x:auto; scrollbar-width:none; }
     .g-jump::-webkit-scrollbar { display:none; }
-    .g-jump-link { color:#cbd5e1; padding:.5rem .85rem; border-radius:6px; font-weight:500;
+    .g-jump-link { color:#cbd5e1; padding:.5rem .85rem; border-radius:0; font-weight:500;
       font-size:.9rem; white-space:nowrap; cursor:pointer; }
     .g-jump-link:hover { color:#fff; background:rgba(255,255,255,.08); }
     .g-jump-link.active { color:#fff; background:rgba(255,255,255,.15); }
@@ -77,11 +77,11 @@
     .g-anchor { scroll-margin-top: 76px; }
     .g-search-btn { display:inline-flex; align-items:center; gap:.55rem; min-width:236px; margin-left:auto;
       background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.12); color:#9fb0cc; flex:0 0 auto;
-      font:inherit; font-size:.84rem; padding:.44rem .72rem; border-radius:8px; cursor:pointer; text-align:left;
+      font:inherit; font-size:.84rem; padding:.44rem .72rem; border-radius:0; cursor:pointer; text-align:left;
       transition:background .12s, border-color .12s; }
     .g-search-btn:hover { background:rgba(255,255,255,.11); color:#fff; border-color:rgba(255,255,255,.22); }
     .g-search-btn .g-search-lbl { flex:1 1 auto; }
-    .g-search-btn kbd { background:rgba(255,255,255,.1); border-radius:5px; padding:.02rem .42rem;
+    .g-search-btn kbd { background:rgba(255,255,255,.1); border-radius:0; padding:.02rem .42rem;
       font-family:var(--t-mono, monospace); font-size:.78rem; font-weight:600; line-height:1.5; }
     /* Far-right cluster: signed-in identity + last-refresh stacked, then the bell */
     .g-right { display:flex; align-items:center; gap:.85rem; flex:0 0 auto; }
@@ -112,20 +112,20 @@
     /* Unified Saved — one cross-desk bookmark panel (Macro + Credit + Legal). */
     .g-saved { position:relative; flex:0 0 auto; }
     .g-sv-btn { position:relative; width:34px; height:34px; display:grid; place-items:center; cursor:pointer;
-      border-radius:8px; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18); color:#fff; }
+      border-radius:0; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18); color:#fff; }
     .g-sv-btn svg { width:18px; height:18px; }
     .g-sv-btn:hover { background:rgba(255,255,255,.2); border-color:rgba(255,255,255,.32); }
     .g-sv-badge { position:absolute; top:-5px; right:-5px; min-width:16px; height:16px; padding:0 3px;
-      background:var(--brand-2); color:#fff; font-size:.6rem; font-weight:800; border-radius:9px; display:grid; place-items:center; }
+      background:var(--brand-2); color:#fff; font-size:.6rem; font-weight:800; border-radius:0; display:grid; place-items:center; }
     .g-sv-panel { position:absolute; top:calc(100% + 8px); right:0; width:360px; max-width:88vw;
-      background:#fff; color:var(--ink); border-radius:12px; box-shadow:0 22px 55px rgba(8,20,60,.35); padding:.35rem; z-index:70; }
+      background:#fff; color:var(--ink); border-radius:0; box-shadow:0 22px 55px rgba(8,20,60,.35); padding:.35rem; z-index:70; }
     .g-sv-panel[hidden] { display:none; }
     .g-sv-head { font-weight:700; font-size:.82rem; color:var(--ink); padding:.45rem .55rem .5rem; border-bottom:1px solid var(--line); margin-bottom:.2rem; }
     .g-sv-body { max-height:62vh; overflow-y:auto; overscroll-behavior:contain; }
-    .g-sv-item { display:flex; gap:.55rem; align-items:flex-start; padding:.5rem .55rem; border-radius:8px; color:inherit; text-decoration:none; }
+    .g-sv-item { display:flex; gap:.55rem; align-items:flex-start; padding:.5rem .55rem; border-radius:0; color:inherit; text-decoration:none; }
     .g-sv-item:hover { background:#eef2fb; }
     .g-sv-tag { flex:0 0 auto; margin-top:.05rem; font-size:.58rem; font-weight:800; text-transform:uppercase;
-      letter-spacing:.03em; color:#fff; padding:.1rem .32rem; border-radius:4px; }
+      letter-spacing:.03em; color:#fff; padding:.1rem .32rem; border-radius:0; }
     .g-sv-tag.credit { background:var(--brand-2); } .g-sv-tag.legal { background:var(--legal); } .g-sv-tag.macro { background:var(--macro); }
     .g-sv-txt { min-width:0; }
     .g-sv-t { display:block; font-weight:600; font-size:.82rem; color:var(--ink); line-height:1.3; overflow-wrap:anywhere; }
@@ -265,7 +265,7 @@
        instead of pushing the rest of it down. */
     .gl-tickers { display:none; flex-wrap:wrap; gap:.35rem .4rem;
       position:absolute; top:calc(100% + .3rem); left:8.5rem; right:0; z-index:60;
-      background:var(--surface); border:1px solid var(--line); border-radius:10px;
+      background:var(--surface); border:1px solid var(--line); border-radius:0;
       box-shadow:0 16px 38px rgba(8,20,60,.20); padding:.5rem .6rem; }
     .g-gl-block.is-open .gl-tickers { display:flex; }
     .gl-tickers:empty { display:none; }
@@ -288,7 +288,7 @@
     .g-rates-head { font-size:.72rem; font-weight:800; text-transform:uppercase; letter-spacing:.06em;
       color:var(--muted); margin:0 0 .45rem; }
     .rates-band { display:grid; grid-template-columns:repeat(8,1fr); align-items:stretch;
-      margin:0 0 1.6rem; padding:.55rem .35rem; border:1px solid var(--line); border-radius:14px;
+      margin:0 0 1.6rem; padding:.55rem .35rem; border:1px solid var(--line); border-radius:0;
       background:var(--surface); box-shadow:var(--shadow); }
     .rate-tile { display:flex; flex-direction:column; gap:.12rem; padding:.1rem 1rem;
       border-left:1px solid var(--line); color:inherit; text-decoration:none; }
@@ -381,7 +381,7 @@
     .g-side { display:flex; flex-direction:column; }
     .g-mr { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.2rem; }
     .g-mr-col { min-width:0; }
-    .g-side .rates-band { grid-template-columns:repeat(2, 1fr); border-radius:14px; padding:.3rem .35rem; margin-bottom:0; }
+    .g-side .rates-band { grid-template-columns:repeat(2, 1fr); border-radius:0; padding:.3rem .35rem; margin-bottom:0; }
     .g-side .rate-tile { border-left:0; border-top:0; padding:.4rem .5rem; gap:.08rem; }
     .g-side .rate-label { font-size:.62rem; }
     .g-side .rate-val { font-size:.86rem; }
@@ -395,7 +395,7 @@
     /* Economic indicators — US then UK, each a 3-col × 2-row grid of tiles styled
        to match the markets/key-rates band: a seamless grid divided by hairlines
        (no per-tile boxes or gaps), name · value · change. */
-    .g-ind-card { background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    .g-ind-card { background:var(--surface); border:1px solid var(--line); border-radius:0;
       box-shadow:var(--shadow); padding:.55rem .6rem; margin-bottom:1.2rem; }
     .g-ind-country { font-size:.62rem; font-weight:800; text-transform:uppercase; letter-spacing:.05em;
       color:var(--brand-2); margin:.1rem 0 .4rem; }
@@ -417,7 +417,7 @@
     /* FX daily matrix — a compact 4×4 cross-rate grid (USD/GBP/EUR/JPY) styled to
        match the markets/key-rates tiles: a bordered card whose cells sit in a
        seamless grid divided by hairlines, each rate carrying a subtle heat tint. */
-    .g-fx-card { background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    .g-fx-card { background:var(--surface); border:1px solid var(--line); border-radius:0;
       box-shadow:var(--shadow); padding:.4rem .45rem; margin-bottom:1.2rem; }
     .g-fx-tbl { width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums; }
     .g-fx-tbl th, .g-fx-tbl td { text-align:right; font-size:.66rem; white-space:nowrap; }
@@ -434,7 +434,7 @@
     .g-fx-tbl tbody tr + tr th, .g-fx-tbl tbody tr + tr td { border-top:1px solid var(--line); }
     .g-fx-tbl td a { color:inherit; text-decoration:none; display:block; padding:.3rem .4rem; }
     /* Macro snapshot card — policy rate, cycle & bubble read below the bands. */
-    .g-snap { background:var(--surface); border:1px solid var(--line); border-radius:14px;
+    .g-snap { background:var(--surface); border:1px solid var(--line); border-radius:0;
       box-shadow:var(--shadow); overflow:hidden; }
     .g-snap-blk { display:block; padding:.6rem .7rem; border-top:1px solid var(--line); color:inherit; text-decoration:none; }
     /* The two gauge blocks (cycle, bubble) sit tighter so the macro-read box ends
@@ -478,12 +478,12 @@
        stays in the right sidebar and the button is hidden. */
     .g-mkt { position:relative; flex:0 0 auto; display:none; }
     .g-mkt-btn { width:34px; height:34px; display:grid; place-items:center; cursor:pointer;
-      border-radius:8px; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18); color:#fff; }
+      border-radius:0; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18); color:#fff; }
     .g-mkt-btn svg { width:19px; height:19px; }
     .g-mkt-btn:hover { background:rgba(255,255,255,.2); border-color:rgba(255,255,255,.32); }
     .g-mkt-btn[aria-expanded="true"] { background:rgba(255,255,255,.24); border-color:rgba(255,255,255,.4); }
     .g-mkt-panel { position:absolute; top:calc(100% + 8px); right:0; width:360px; max-width:92vw;
-      background:var(--surface); border:1px solid var(--line); border-radius:14px;
+      background:var(--surface); border:1px solid var(--line); border-radius:0;
       box-shadow:0 22px 55px rgba(8,20,60,.35); padding:.55rem .7rem .7rem; z-index:70;
       max-height:76vh; overflow-y:auto; overscroll-behavior:contain; }
     .g-mkt-panel[hidden] { display:none; }
@@ -579,7 +579,7 @@
     /* ---- Cards (legacy; retained for any residual use) ---- */
     .g-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:1.1rem; }
     @media (max-width:920px){ .g-grid { grid-template-columns:1fr; } }
-    .g-card { background:var(--surface); border:1px solid var(--line); border-radius:16px;
+    .g-card { background:var(--surface); border:1px solid var(--line); border-radius:0;
       box-shadow:var(--shadow); padding:1.15rem 1.25rem 1.25rem; border-top:3px solid var(--navy);
       display:grid; grid-template-columns:1fr; grid-auto-rows:min-content; }
     /* Align the five bands (header · section 1 · 2 · 3 · footer) across all three
@@ -622,7 +622,7 @@
     /* ---- Sign-in / loading states ---- */
     .g-center { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:1.5rem;
       background:linear-gradient(160deg,#1e3a8a 0%, #2563eb 55%, #1e40af 100%); }
-    .g-authcard { width:100%; max-width:400px; background:#fff; border-radius:18px;
+    .g-authcard { width:100%; max-width:400px; background:#fff; border-radius:0;
       box-shadow:0 20px 50px rgba(8,20,60,.35); padding:2.2rem 2rem; text-align:center; color:var(--ink); }
     .g-authcard .logo { width:56px; height:56px; border-radius:0; margin:0 auto .9rem;
       display:grid; place-items:center; font-size:2.2rem; font-weight:700; color:#fff; background:#000;
@@ -630,7 +630,7 @@
     .g-authcard .wordmark { font-size:1.5rem; font-weight:700; }
     .g-authcard .tagline { color:var(--muted); font-size:.82rem; text-transform:uppercase; letter-spacing:1.2px; margin-bottom:1.5rem; }
     .g-authcard .state-msg { color:var(--muted); font-size:.92rem; margin:0 0 1.2rem; }
-    .btn { display:block; width:100%; padding:.8rem 1rem; margin:.55rem 0; border-radius:11px;
+    .btn { display:block; width:100%; padding:.8rem 1rem; margin:.55rem 0; border-radius:0;
       font-size:.98rem; font-weight:600; border:1px solid transparent; cursor:pointer; text-align:center; }
     .btn.primary { background:var(--brand-2); color:#fff; }
     .btn.secondary { background:#eef2fb; color:var(--brand); }
@@ -648,7 +648,7 @@
     .cmdk.open { display:block; }
     .cmdk-scrim { position:absolute; inset:0; background:rgba(0,0,0,.55); backdrop-filter:blur(2px); }
     .cmdk-panel { position:relative; max-width:620px; margin:9vh auto 0; background:var(--t-head, #0a0a0a);
-      border:1px solid var(--t-grid2, #262626); border-radius:12px;
+      border:1px solid var(--t-grid2, #262626); border-radius:0;
       box-shadow:0 24px 60px rgba(0,0,0,.6); overflow:hidden; }
     .cmdk-input { width:100%; border:0; padding:.9rem 1.1rem;
       font:inherit; font-size:1rem; outline:none; background:transparent; color:var(--t-ink, #eaf0fb); }
@@ -663,7 +663,7 @@
     .cmdk-meta { display:flex; align-items:center; gap:8px; min-width:0;
       font-family:var(--t-mono, ui-monospace, monospace); font-size:12px; color:var(--t-dim, #8592ad); }
     .cmdk-code { flex:0 0 auto; font-family:var(--t-mono, ui-monospace, monospace); font-size:9.5px; font-weight:700;
-      letter-spacing:.04em; padding:2px 5px; border-radius:3px; }
+      letter-spacing:.04em; padding:2px 5px; border-radius:0; }
     .cmdk-code.news { color:var(--t-news, #8aa0c8); background:color-mix(in srgb, var(--t-news, #8aa0c8) 14%, transparent); }
     .cmdk-code.macro { color:var(--t-mac, #9b83e2); background:color-mix(in srgb, var(--t-mac, #9b83e2) 15%, transparent); }
     .cmdk-code.credit { color:var(--t-crd, #fb8b1e); background:color-mix(in srgb, var(--t-crd, #fb8b1e) 15%, transparent); }
@@ -678,7 +678,7 @@
     .cmdk-s { min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
     .cmdk-foot { border-top:1px solid var(--t-grid2, #262626); padding:.5rem .8rem; color:var(--t-faint, #5c6a86); font-size:.72rem;
       display:flex; gap:1rem; }
-    .cmdk-foot kbd { background:var(--t-panel2, rgba(255,255,255,.06)); border-radius:4px; padding:.05rem .3rem; font-family:inherit; font-weight:700; }
+    .cmdk-foot kbd { background:var(--t-panel2, rgba(255,255,255,.06)); border-radius:0; padding:.05rem .3rem; font-family:inherit; font-weight:700; }
     /* On touch phones the keyboard-hint footer is irrelevant. */
     @media (max-width:760px){ .cmdk-foot { display:none; } }
     /* Search bar wrapper. On desktop it's just the input (the magnifier + Cancel are
@@ -907,7 +907,7 @@
       font-weight:700; font-size:14px; color:var(--t-ink); text-decoration:none; }
     .g-mw-nm:hover{ color:var(--t-ink); }
     .g-mw-new{ flex:0 0 auto; color:var(--t-accent); font-weight:800; font-size:9px; letter-spacing:.02em;
-      border:1px solid var(--t-accent); border-radius:4px; padding:0 .28rem; white-space:nowrap; }
+      border:1px solid var(--t-accent); border-radius:0; padding:0 .28rem; white-space:nowrap; }
     .g-mw-team{ flex:0 0 auto; color:var(--t-hdg); font-size:.8rem; }
     /* Green fundraising text sits to the RIGHT of the manager name. */
     .g-mw-fund{ flex:0 1 auto; min-width:0; margin-left:auto; text-align:right; overflow:hidden; text-overflow:ellipsis;
@@ -957,7 +957,7 @@
     .g-earn-tkr{ flex:0 0 auto; font-weight:700; font-size:12px; color:var(--t-ink); font-family:var(--t-mono); font-variant-numeric:tabular-nums; }
     .g-earn-nm{ flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:11px; color:var(--t-mut); }
     .g-earn-when{ flex:0 0 auto; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:.02em; color:var(--t-dim);
-      border:1px solid var(--t-grid2); border-radius:3px; padding:0 .28rem; }
+      border:1px solid var(--t-grid2); border-radius:0; padding:0 .28rem; }
     .g-earn-px{ flex:0 0 auto; margin-left:auto; font-size:11px; font-variant-numeric:tabular-nums; }
     .g-earn-px.up{ color:var(--t-up); } .g-earn-px.down{ color:var(--t-down); }
     .g-earn-await{ flex:0 0 auto; margin-left:auto; font-size:10px; color:var(--t-faint); font-style:italic; }
@@ -1087,7 +1087,7 @@
     .tui .g-feed-subrow{ flex:0 0 100%; width:100%; display:flex; align-items:stretch; gap:8px; }
     .tui .g-feed-subrow .g-feed-subchips{ border-top:0; background:transparent; }
     .tui .g-feed-openbtn{ flex:0 0 auto; display:inline-flex; align-items:center; gap:6px; margin:0; padding:2px 10px;
-      background:transparent; border:1px solid var(--t-grid2); border-radius:5px; color:var(--t-accent);
+      background:transparent; border:1px solid var(--t-grid2); border-radius:0; color:var(--t-accent);
       font:inherit; font-size:11px; font-weight:700; letter-spacing:.01em; cursor:pointer; white-space:nowrap; }
     .tui .g-feed-openbtn:hover{ border-color:var(--t-accent); }
     .tui .g-feed-openbtn svg{ flex:0 0 auto; }

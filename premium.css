@@ -67,7 +67,7 @@ h2, .brand-text strong { letter-spacing: -.011em; }
   background: linear-gradient(90deg, rgba(11,31,68,.06) 25%, rgba(11,31,68,.12) 37%, rgba(11,31,68,.06) 63%);
   background-size: 200% 100%;
   animation: premium-shimmer 1.4s ease-in-out infinite;
-  border-radius: 6px; color: transparent !important; user-select: none;
+  border-radius: 0; color: transparent !important; user-select: none;
 }
 
 /* ---- Richer empty states: guidance reads as intentional, not a blank gap. ---- */
@@ -77,10 +77,10 @@ h2, .brand-text strong { letter-spacing: -.011em; }
         panel (no border, big navy-tinted shadow), items separated by whitespace
         + hover instead of divider lines, a coloured platform tag, and a bold
         title over a muted meta line. Mirrors the home .g-np-* styling exactly. ---- */
-.notif-panel { border: 0; border-radius: 12px; padding: .35rem; box-shadow: 0 22px 55px rgba(8,20,60,.35); }
+.notif-panel { border: 0; border-radius: 0; padding: .35rem; box-shadow: 0 22px 55px rgba(8,20,60,.35); }
 .notif-head { font-weight: 700; font-size: .82rem; padding: .45rem .55rem .5rem; margin-bottom: .2rem; }
 .notif-list { list-style: none; margin: 0; padding: 0; }
-.notif-item { display: flex; gap: .55rem; align-items: flex-start; padding: .5rem .55rem; border: 0; border-radius: 8px; }
+.notif-item { display: flex; gap: .55rem; align-items: flex-start; padding: .5rem .55rem; border: 0; border-radius: 0; }
 
 /* ---- On mobile, app page headers match the Glance home headline exactly
         (1.2rem / 1.25 / no tracking) at the same 760px breakpoint home uses.
@@ -220,14 +220,24 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
      map it onto the charcoal so no near-black band sits above the #141414 content. */
   --navy: #141414;
   --ink: #eaf0fb; --ink-soft: #c2ccdd; --muted: #8592ad;
+  /* Heading ink (dark): panel/section titles were muted grey and receded into the
+     flat charcoal; lift them to a brighter tone (below data-bright --ink) so they
+     read clearly as headings via contrast + weight — subtle, no colour. Custom
+     props inherit into the .tui terminal scopes, so this one definition reaches
+     every surface. */
+  --t-headink: #cfd8ea;
   --line: #2d2d2d; --border: #2d2d2d;
   --brand: #2f4d78; --brand-2: #fb8b1e;
   --primary: #fb8b1e; --primary-ink: #f6ab6e; --macro-ink: #c9d3e6;
   --credit: #9aa3b3; --legal: #4cb488;
-  --shadow: 0 1px 2px rgba(0,0,0,.5), 0 10px 28px rgba(0,0,0,.55);
-  --shadow-lg: 0 14px 36px rgba(0,0,0,.6);
-  --elev-1: 0 1px 2px rgba(0,0,0,.4), 0 6px 18px -6px rgba(0,0,0,.55);
-  --elev-2: 0 2px 8px rgba(0,0,0,.5), 0 18px 40px -12px rgba(0,0,0,.65);
+  /* Flat terminal: no elevation in dark — surfaces are coplanar, separated only
+     by the 1px --border hairline (matches the reference terminals). Cards no
+     longer float or lift on hover; floating menus rely on their border, not a
+     drop shadow. Light mode keeps its soft elevation (defined in the base :root). */
+  --shadow: none;
+  --shadow-lg: none;
+  --elev-1: none;
+  --elev-2: none;
 }
 /* Menus / popovers / the command palette hardcode a white background. */
 [data-theme="dark"] .g-notif-panel,
@@ -241,15 +251,26 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
 [data-theme="dark"] .cmdk-item.is-active,
 [data-theme="dark"] .cmdk-item:hover { background: rgba(255,255,255,.06); }
 /* the Home saved menu → terminal surface, squared (matches the notif panel) */
-.g-sv-panel { border-radius: 0 !important; }
-.g-sv-item { border-radius: 0 !important; }
+.g-sv-panel { border-radius: 0; }
+.g-sv-item { border-radius: 0; }
 /* Terminal dropdown/popover rules — squared, hairline, one surface. Covers the
    nav-bar notification panel, the multi-select filter menus and the relative-date
    menu, which otherwise keep a rounded white pill from the base stylesheet. */
-.notif-panel, .ms-pop, .rel-dd-menu, .cmdk-panel { border-radius: 0 !important; }
-.notif-item, .ms-opt, .rel-dd-item { border-radius: 0 !important; }
+.notif-panel, .ms-pop, .rel-dd-menu, .cmdk-panel { border-radius: 0; }
+.notif-item, .ms-opt, .rel-dd-item { border-radius: 0; }
 .ms-pop { box-shadow: 0 12px 34px rgba(0,0,0,.5); padding: 0; }
 .ms-opt { border-bottom: 1px solid var(--border); }
+/* Flat terminal (dark): the floating menus (Briefing/Markets/Saved/Notifications,
+   the filter + relative-date popovers and the command palette) drop their drop-
+   shadow and read on the 1px hairline alone — coplanar with the page, like the
+   reference terminals. Light mode keeps its soft shadow for separation. */
+:root[data-theme="dark"] .na-panel,
+:root[data-theme="dark"] .ms-pop,
+:root[data-theme="dark"] .notif-panel,
+:root[data-theme="dark"] .rel-dd-menu,
+:root[data-theme="dark"] .cmdk-panel,
+:root[data-theme="dark"] .g-sv-panel,
+:root[data-theme="dark"] .g-notif-panel { box-shadow: none; border: 1px solid var(--border); }
 [data-theme="dark"] .ms-pop, [data-theme="dark"] .rel-dd-menu { background: var(--surface); border-color: var(--border); color: var(--ink); }
 [data-theme="dark"] .ms-opt { color: var(--ink); }
 [data-theme="dark"] .ms-opt:hover, [data-theme="dark"] .rel-dd-item:hover { background: rgba(255,255,255,.06); }
@@ -266,7 +287,7 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
         it keeps the same light-on-navy styling in light and dark. The sun/moon
         glyphs swap on the active theme. ---- */
 .theme-toggle { display: inline-flex; align-items: center; justify-content: center;
-  width: 34px; height: 34px; border-radius: 8px; cursor: pointer; flex: 0 0 auto;
+  width: 34px; height: 34px; border-radius: 0; cursor: pointer; flex: 0 0 auto;
   background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
   color: #fff; padding: 0; line-height: 1; }
 .theme-toggle:hover { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.32); }
@@ -795,7 +816,7 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .save-btn {
   display: inline-flex; align-items: center; gap: .3rem;
   background: #f1f5f9; border: 1px solid var(--line); color: var(--muted);
-  border-radius: 7px; padding: .2rem .6rem; font-size: .74rem; font-weight: 600;
+  border-radius: 0; padding: .2rem .6rem; font-size: .74rem; font-weight: 600;
   line-height: 1.4; cursor: pointer; white-space: nowrap;
 }
 .save-btn:hover { background: #e2e8f0; color: var(--ink); }

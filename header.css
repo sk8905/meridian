@@ -53,10 +53,10 @@
    it + the identity/bell cluster to the right gutter. */
 .nav-search { display: inline-flex; align-items: center; gap: .55rem; justify-content: space-between; margin-left: auto; flex: 0 0 auto; min-width: 236px;
   background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18); color: #c8d6ef;
-  font: inherit; font-size: .85rem; padding: .42rem .7rem; border-radius: 9px; cursor: pointer; text-align: left; white-space: nowrap; }
+  font: inherit; font-size: .85rem; padding: .42rem .7rem; border-radius: 0; cursor: pointer; text-align: left; white-space: nowrap; }
 .nav-search:hover { background: rgba(255,255,255,.18); color: #fff; border-color: rgba(255,255,255,.3); }
 .nav-search .ns-lbl { flex: 1 1 auto; color: inherit; }
-.nav-search kbd { background: rgba(255,255,255,.16); border-radius: 5px; padding: .02rem .42rem; font: inherit; font-size: .8rem; font-weight: 700; line-height: 1.5; }
+.nav-search kbd { background: rgba(255,255,255,.16); border-radius: 0; padding: .02rem .42rem; font: inherit; font-size: .8rem; font-weight: 700; line-height: 1.5; }
 
 /* Right cluster: identity + last-refresh stacked, sitting in the right gutter. */
 .topbar-right { flex: 0 0 auto; margin-left: 0; display: flex; flex-direction: column; align-items: flex-end; gap: .2rem; }
@@ -75,7 +75,7 @@
    icon button in the right cluster. Hidden on phones, where the bottom bar owns it. */
 .nav-menu-btn { flex: 0 0 auto; display: inline-flex; align-items: center; justify-content: center;
   width: 34px; height: 34px; padding: 0; margin-left: .35rem; background: rgba(255,255,255,.1);
-  border: 1px solid rgba(255,255,255,.18); border-radius: 9px; color: #c8d6ef; cursor: pointer; }
+  border: 1px solid rgba(255,255,255,.18); border-radius: 0; color: #c8d6ef; cursor: pointer; }
 .nav-menu-btn:hover { background: rgba(255,255,255,.18); color: #fff; border-color: rgba(255,255,255,.3); }
 .nav-menu-btn.is-active { color: #fff; border-color: var(--accent, #fb8b1e); }
 .nav-menu-btn .mtab-ico { width: 20px; height: 20px; }
@@ -113,8 +113,8 @@
 :root[data-theme="dark"] .wbrief { background: var(--bg, #141414); }
 .wtk-lbl { display: flex; align-items: center; gap: 6px; padding: 0 13px; font-size: 10.5px; font-weight: 600;
   letter-spacing: .04em; color: var(--muted); border-right: 1px solid var(--border); white-space: nowrap; }
-.wtk-lbl::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
-  box-shadow: 0 0 7px var(--accent); }
+/* Flat: the live-status dot is a solid accent disc, no glow halo. */
+.wtk-lbl::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
 .wtk-row { display: flex; align-items: center; overflow: hidden; flex: 1; }
 .wtk { display: flex; align-items: baseline; gap: 7px; padding: 0 13px; line-height: 26px;
   font-family: var(--t-mono, ui-monospace, monospace); font-size: 11.5px; font-variant-numeric: tabular-nums;
