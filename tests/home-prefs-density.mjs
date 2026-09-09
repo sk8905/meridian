@@ -20,11 +20,11 @@ const base = `http://localhost:${srv.port}`;
   checkEq(def.attr, "compact", "default density is compact");
   checkEq(def.chip, "34px", "compact --chip-h is 34px");
 
-  // Open Display, choose Comfortable.
-  await pg.evaluate(() => [...document.querySelectorAll('.v2-view[data-view="menu"] .na-menu-bar .tchip')].find((c) => c.textContent.trim() === "Display")?.click());
+  // Open Settings (Display/Density lives under the Settings chip), choose Comfortable.
+  await pg.evaluate(() => [...document.querySelectorAll('.v2-view[data-view="menu"] .na-menu-bar .tchip')].find((c) => c.textContent.trim() === "Settings")?.click());
   await pg.waitForTimeout(200);
   const hasSeg = await pg.evaluate(() => !!document.getElementById("v2-density-seg"));
-  check(hasSeg, "Display pane has a Density control");
+  check(hasSeg, "Settings pane has a Density control");
   await pg.evaluate(() => document.querySelector('#v2-density-seg .na-theme-opt[data-density-opt="comfortable"]').click());
   await pg.waitForTimeout(200);
   const after = await pg.evaluate(() => ({

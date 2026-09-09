@@ -8,7 +8,7 @@ import { managerWire, CAT_LABEL } from "/v2/js/manager-signals.js?v=v2-2";
 // and the meridian.follows store are one implementation). The write here mirrors
 // the credit app's localStorage persist; its cloud sync reconciles on next visit.
 import { follows, followList, followBtn } from "/credit/js/shared.js?v=20260730-2";
-import { reportRefresh } from "/v2/js/status.js?v=v2-3";
+import { reportRefresh } from "/v2/js/status.js?v=v2-4";
 import { items, cases, restructurings, firmById } from "/legal/js/data.js";
 import { NEWS, ARTICLES, COMMENTARY, CYCLE, BUBBLE, OUTLOOK, EARNINGS } from "/macro/js/content.js";
 import { NEWSLETTERS } from "/newsletters.js";

@@ -30,8 +30,8 @@ const CSV = [
 const { ctx, pg, errs } = await open(b, DESKTOP, base + "/v2/menu/");
 await pg.waitForSelector(".na-menu-bar .tchip", { timeout: 8000 });
 
-// Open the Network section.
-await pg.evaluate(() => document.querySelector('.na-menu-bar .tchip[data-sec="network"]').click());
+// Open the Coverage chip (the Network importer lives there, beside Add a firm).
+await pg.evaluate(() => document.querySelector('.na-menu-bar .tchip[data-sec="coverage"]').click());
 await pg.waitForSelector("#wn-paste-txt", { state: "attached", timeout: 5000 });
 
 // Paste the CSV and import (programmatic click drives it even inside the

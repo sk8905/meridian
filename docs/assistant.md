@@ -14,11 +14,18 @@ model `env.MISTRAL_MODEL || "mistral-medium-latest"`. Falls back to the **Anthro
 Messages API + `web_search` server tool (`claude-opus-5`) when only
 `ANTHROPIC_API_KEY` is set. So `hasLLM(env)` = either key present.
 
+**Shared UI module (`v2/js/assistant.js`):** one `mountAssistant(container,
+{ask, add, state})` renders the Q&A/propose box (styles `.na-ask-*` in
+`premium.css`) and wires Ask → `/api/ask` and Add → `/api/propose`. It is mounted
+in three places: the **desktop header** Ask panel (Ask only), the **Menu →
+Dialogue** chip (Ask only) and the **Menu → Coverage** chip (Add only). On phones
+the header carries no Ask/Search buttons — both live in the Menu.
+
 ## B — Ask Wire (read-only Q&A) — LIVE (dormant until keyed)
 
-- **UI:** the header "Ask Wire" button (`#na-ask`, chat icon) opens a terminal
-  Q&A panel (`v2/js/nav-actions.js` → `renderAsk` / `buildAskContext`; styles
-  `.na-ask-*` in `premium.css`).
+- **UI:** the desktop header "Ask Wire" button (`#na-ask`, chat icon) opens a
+  terminal Q&A panel; on every surface it also lives in the **Menu → Dialogue**
+  chip beside Search. Rendered by the shared `mountAssistant` (Ask-only).
 - **Flow:** the client posts `{question, context}` to `/api/ask`, where `context`
   is a compact roster the client builds from the desk data it already loads
   (credit managers, hedge funds, law firms, recent deals). The Worker calls the
@@ -53,9 +60,10 @@ key at request time. Optional `MISTRAL_MODEL` overrides the default
 
 ## C — Propose an edit → PR (research + draft a manager) — LIVE (dormant until keyed)
 
-- **UI:** the same Ask Wire panel — type a firm's name and press **Add** (the
-  neutral button beside "Ask"). It shows "Researching & drafting…", then the
+- **UI:** the **Menu → Coverage** chip (beside the Network importer) — type a
+  firm's name and press **Add**. It shows "Researching & drafting…", then the
   opened PR link (or a "couldn't verify that firm" note — it refuses to invent).
+  Add is Menu-only (never in the header), so a proposal is a deliberate act.
 - **Flow (`/api/propose`):** Claude (`claude-opus-5`, `web_search`) researches the
   firm and returns a JSON draft (`found`, `name`, `hq`, `founded`, `aum`,
   `aumText`, `strategies`, `description`, `owners`, `sources`, `note`) — every

@@ -17,6 +17,7 @@
 // with the same full-screen presentation on mobile.
 // =============================================================================
 import { esc, MONTHS, setThemeColorMeta } from "/util.js?v=20260818-1";
+import { mountAssistant } from "/v2/js/assistant.js?v=v2-1";
 import { BRIEFINGS } from "/briefings.js";
 import { FX_KEYMOMENT } from "/macro/js/content.js";
 import { DESK_CLASS, DESK_CODE as NF_CODE } from "/feed.js?v=20260808-1";
@@ -218,60 +219,9 @@ function renderBriefing(body, slotKey) {
     + `<div class="na-brief-foot">AI-generated summary of Wire’s sourced desks — every line links its source.</div>`;
 }
 
-// ---- "Ask Wire" assistant (feature B) -------------------------------------
-// A read-only Q&A box: the client posts the question + a compact roster context
-// to the Access-gated /api/ask Worker route, which answers from Wire's own data
-// and a cited web search (never fabricates — HOUSE_STYLE R7) using claude-opus-5.
-// The route is DORMANT until the ANTHROPIC_API_KEY secret is set, in which case
-// it replies {unconfigured:true} and the panel shows a "not switched on" note.
-let _askCtx = null;
-async function buildAskContext() {
-  if (_askCtx != null) return _askCtx;
-  try {
-    const [cr, lg] = await Promise.all([import("/credit/js/data.js"), import("/legal/js/data.js")]);
-    const parts = [];
-    const mgr = (cr.managers || []).map((m) => `${m.name} — ${m.hq || "?"} · AUM ${m.aumText || (m.aum ? "~$" + m.aum + "bn" : "n/a")} · ${(m.strategies || []).join("/")}`);
-    parts.push(`CREDIT MANAGERS (${mgr.length}):\n${mgr.join("\n")}`);
-    const hf = (cr.HEDGE_FUNDS || []).map((h) => `${h.name}${h.aum ? " — ~$" + h.aum + "bn" : ""}${h.strategy ? " · " + h.strategy : ""}${h.hq ? " · " + h.hq : ""}`);
-    parts.push(`HEDGE FUNDS (${hf.length}):\n${hf.join("\n")}`);
-    const fw = (lg.firms || []).map((f) => `${f.name}${f.london && f.london.lawyers ? " — ~" + f.london.lawyers + " London lawyers" : ""}${f.tier ? " · tier " + f.tier : ""}`);
-    parts.push(`LAW FIRMS (${fw.length}):\n${fw.join("\n")}`);
-    const dl = (cr.deals || []).slice(-40).reverse().map((d) => `${d.date || ""} · ${d.headline || ""}`);
-    parts.push(`RECENT CREDIT DEALS:\n${dl.join("\n")}`);
-    _askCtx = parts.join("\n\n").slice(0, 55000);
-  } catch { _askCtx = ""; }
-  return _askCtx;
-}
-// Render the Ask panel from its state: {q, loading, loadingLabel, answer,
-// sources, error, pr, prName, notFound}. "Ask" (submit) hits /api/ask (feature B,
-// read-only Q&A); "Add" hits /api/propose (feature C — research a firm and open a
-// PR for review; it never edits live data).
-// The model may return light markdown (**bold**, *italic*, `code`, [t](url),
-// paragraph/line breaks). Escape FIRST, then apply a tiny safe subset on the
-// already-escaped string so nothing user/model-supplied can inject markup.
-function askFmt(s) {
-  let h = esc(String(s || ""));
-  h = h.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, (_m, t, u) => `<a class="na-brief-src" href="${u}" target="_blank" rel="noopener noreferrer">${t}</a>`);
-  h = h.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
-  h = h.replace(/(^|[\s(])\*([^*\n]+)\*(?=[\s.,;:)]|$)/g, "$1<em>$2</em>");
-  h = h.replace(/`([^`]+)`/g, "<code>$1</code>");
-  h = h.replace(/\n{2,}/g, "</p><p>").replace(/\n/g, "<br>");
-  return `<p>${h}</p>`;
-}
-function renderAsk(body, st) {
-  st = st || {};
-  const srcList = (list) => (list && list.length)
-    ? `<div class="na-ask-srch">Sources</div><ul class="na-ask-srcs">${list.map((s) => `<li><a class="na-brief-src" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title || s.label || s.url)}</a></li>`).join("")}</ul>` : "";
-  const out = st.loading ? `<div class="na-load">${esc(st.loadingLabel || "Thinking…")}</div>`
-    : st.error ? `<div class="na-ask-err">${esc(st.error)}</div>`
-    : st.notFound ? `<div class="na-ask-err">${esc(st.notFound)}</div>`
-    : st.pr ? `<div class="na-ask-answer">Drafted <strong>${esc(st.prName || "an entry")}</strong> and opened a pull request — verify every field before merging.</div><div class="na-ask-srch">Pull request</div><ul class="na-ask-srcs"><li><a class="na-brief-src" href="${esc(st.pr)}" target="_blank" rel="noopener noreferrer">${esc(st.pr)}</a></li></ul>` + srcList(st.sources)
-    : st.answer != null ? `<div class="na-ask-answer">${askFmt(st.answer)}</div>` + srcList(st.sources)
-    : `<div class="na-ask-hint">Ask about any tracked manager, fund, law firm, deal or the markets — or type a firm’s name and press <strong>Add</strong> to have Wire research it and open a PR for review. Every claim links its source.</div>`;
-  body.innerHTML = `<form class="na-ask-form"><input class="na-ask-in" type="text" autocomplete="off" placeholder="Ask Wire, or a firm to add…" value="${esc(st.q || "")}"${st.loading ? " disabled" : ""} /><button type="button" class="na-ask-add"${st.loading ? " disabled" : ""} title="Research this firm and open a PR for review">Add</button><button type="submit" class="na-ask-go"${st.loading ? " disabled" : ""}>Ask</button></form>`
-    + `<div class="na-ask-out">${out}</div>`
-    + `<div class="na-brief-foot">AI answers/drafts from Wire’s sourced data + a live web search — verify anything critical. “Add” opens a PR for review; it never edits live data.</div>`;
-}
+// "Ask Wire" (B) + "Add a firm" (C) now live in the shared assistant module
+// (v2/js/assistant.js), mounted both here (desktop header, Ask only) and in the
+// Menu → Dialogue chip (Ask + Add). See mountAssistant().
 function loadMarkets(body) {
   body.innerHTML = `<div class="na-chips">`
     + `<button type="button" class="na-chip" data-k="markets">Markets</button>`
@@ -807,23 +757,21 @@ export function initNavActions() {
     const wrap = document.createElement("div");
     wrap.className = "na-actions";
     wrap.innerHTML =
-      // Thin donut countdown: drains over the 5-minute live-feed window, refills
-      // on each refresh (Home dispatches wire:live-refresh; elsewhere it cycles
-      // on the wall clock, matching the edge cache cadence).
-      // Order (left→right): countdown ring · Markets · Bookmarks · Notifications ·
-      // Search. Search sits LAST on phones; the desktop theme button takes the
-      // trailing slot (search there is the topbar pill, not this cluster).
-      `<span class="na-ring" title="Time to next live-feed refresh" aria-hidden="true"><svg viewBox="0 0 18 18"><circle class="na-ring-track" cx="9" cy="9" r="7"/><circle class="na-ring-arc" cx="9" cy="9" r="7"/></svg></span>` +
+      // Cluster order (left→right): Briefing · Ask (desktop only) · Markets ·
+      // Bookmarks · Notifications · Theme (desktop only).
+      // The refresh-countdown ring moved OUT of this cluster — it now sits beside
+      // the "Last refresh" marker (status.js). Ask Wire (B) is a desktop-header
+      // affordance; on phones it lives in the Menu → Dialogue chip, so the header
+      // stays to Briefing · Markets · Bookmarks · Notifications there. Search on
+      // phones also moved to the Menu → Dialogue chip (desktop keeps the topbar
+      // search pill), so there is no phone magnifier button here any more.
       `<button type="button" class="na-btn" id="na-brief" aria-label="Market briefing" aria-haspopup="true" aria-expanded="false" title="Market briefing">${ICO_BRIEF}<span class="na-brief-dot" hidden></span></button>` +
-      `<button type="button" class="na-btn" id="na-ask" aria-label="Ask Wire" aria-haspopup="true" aria-expanded="false" title="Ask Wire">${ICO_ASK}</button>` +
+      (isPhone() ? "" : `<button type="button" class="na-btn" id="na-ask" aria-label="Ask Wire" aria-haspopup="true" aria-expanded="false" title="Ask Wire">${ICO_ASK}</button>`) +
       `<button type="button" class="na-btn" id="na-mkt" aria-label="Markets & key rates" aria-haspopup="true" aria-expanded="false" title="Markets & key rates">${ICO_MKT}</button>` +
       `<button type="button" class="na-btn" id="na-saved" aria-label="Saved" aria-haspopup="true" aria-expanded="false" title="Saved">${ICO_SAVED}</button>` +
       `<button type="button" class="na-btn na-bell" id="na-notif" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">${ICO_BELL}<span class="na-badge" hidden></span></button>` +
-      // Search — a magnifying-glass button on phones (the desktop search pill is
-      // hidden there); opens the command palette via the shared [data-open-search].
-      (isPhone() ? `<button type="button" class="na-btn" id="na-search" data-open-search aria-label="Search" title="Search">${ICO_MAG}</button>` : "") +
       // Theme toggle lives in the nav bar on desktop; on phones it moves into the
-      // Menu tab's own control so the nav bar stays uncluttered.
+      // Menu → Settings chip's own control so the nav bar stays uncluttered.
       (isPhone() ? "" : `<button type="button" class="na-btn" id="na-theme" aria-label="Switch theme" title="${themeTitle()}">${themeIcon()}</button>`);
     if (notif && notif.parentElement) {
       notif.parentElement.insertBefore(wrap, notif);
@@ -865,20 +813,25 @@ export function initNavActions() {
     // to localStorage by Home) — NOT to page load — so the ring reads the same
     // on every page and survives navigation/reload. Before any anchor exists,
     // phase is computed against the epoch, which every page also agrees on.
+    //
+    // The ring markup now lives beside the "Last refresh" marker (status.js
+    // renders it into every [data-refresh-slot]), NOT in this cluster — so the
+    // ticker queries the DOCUMENT each tick and drives every ring instance it
+    // finds. Re-querying each tick also picks up rings that status.js (re)renders
+    // after this init runs.
     {
       const RING_MS = 5 * 60 * 1000;
       const RING_C = 2 * Math.PI * 7;
-      const arc = wrap.querySelector(".na-ring-arc");
       const ringAnchor = () => { try { return +localStorage.getItem("wire.live.anchor") || 0; } catch { return 0; } };
-      const ringEl = wrap.querySelector(".na-ring");
       const tickRing = () => {
-        if (!arc) return;
         const a = ringAnchor();
         const p = ((((Date.now() - a) % RING_MS) + RING_MS) % RING_MS) / RING_MS;
-        arc.style.strokeDashoffset = (RING_C * p).toFixed(2);
+        const off = (RING_C * p).toFixed(2);
+        document.querySelectorAll(".na-ring-arc").forEach((arc) => { arc.style.strokeDashoffset = off; });
         // No successful feed fetch for >20 min → dim the ring instead of
         // pretending the cycle is alive (session expiry, offline, …).
-        if (ringEl) ringEl.classList.toggle("na-ring-stale", !!a && Date.now() - a > 20 * 60 * 1000);
+        const stale = !!a && Date.now() - a > 20 * 60 * 1000;
+        document.querySelectorAll(".na-ring").forEach((r) => r.classList.toggle("na-ring-stale", stale));
       };
       window.addEventListener("wire:live-refresh", tickRing);
       window.addEventListener("storage", (e) => { if (!e.key || e.key === "wire.live.anchor") tickRing(); });
@@ -1048,53 +1001,18 @@ export function initNavActions() {
       if (c) { e.stopPropagation(); renderBriefing(briefPanel.querySelector(".na-body"), c.dataset.slot); markBriefRead(c.dataset.slot); refreshBriefDot(); }
     });
 
-    // Ask Wire: the form lives in the persistent panel, so bind submit here (it
-    // survives the .na-body re-renders). One in-flight guard; state persists so
-    // reopening the panel shows the last answer.
-    let _askState = {};
-    const askBody = () => askPanel.querySelector(".na-body");
-    askPanel.addEventListener("submit", (e) => {
-      const form = e.target.closest(".na-ask-form"); if (!form) return;
-      e.preventDefault(); e.stopPropagation();
-      if (_askState.loading) return;
-      const q = (form.querySelector(".na-ask-in").value || "").trim();
-      if (!q) return;
-      _askState = { q, loading: true }; renderAsk(askBody(), _askState);
-      buildAskContext().then((context) =>
-        fetch("/api/ask", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ question: q, context }) })
-          .then((r) => r.json())
-          .then((d) => {
-            if (d && d.unconfigured) _askState = { q, error: d.message || "The assistant isn’t switched on yet." };
-            else if (!d || d.error) _askState = { q, error: (d && d.message) || "The assistant is unavailable right now." };
-            else _askState = { q, answer: d.answer || "", sources: d.sources || [] };
-            renderAsk(askBody(), _askState);
-          })
-          .catch(() => { _askState = { q, error: "Network error — try again." }; renderAsk(askBody(), _askState); })
-      );
-    });
-    // "Add" (feature C): research the typed firm and open a PR for review.
-    askPanel.addEventListener("click", (e) => {
-      if (!e.target.closest(".na-ask-add")) return;
-      e.preventDefault(); e.stopPropagation();
-      if (_askState.loading) return;
-      const q = (askBody().querySelector(".na-ask-in").value || "").trim();
-      if (!q) return;
-      _askState = { q, loading: true, loadingLabel: "Researching & drafting…" }; renderAsk(askBody(), _askState);
-      fetch("/api/propose", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ request: q }) })
-        .then((r) => r.json())
-        .then((d) => {
-          if (d && d.unconfigured) _askState = { q, error: d.message || "Proposing additions isn’t switched on yet." };
-          else if (d && d.notFound) _askState = { q, notFound: d.message || "Couldn’t verify that firm from public sources." };
-          else if (!d || d.error || !d.prUrl) _askState = { q, error: (d && d.message) || "Couldn’t open a PR — try again." };
-          else _askState = { q, pr: d.prUrl, prName: d.name || q, sources: d.sources || [] };
-          renderAsk(askBody(), _askState);
-        })
-        .catch(() => { _askState = { q, error: "Network error — try again." }; renderAsk(askBody(), _askState); });
-    });
+    // Ask Wire (feature B) in the desktop header: mounted from the shared
+    // assistant module (Ask only — the "Add"/propose flow (C) lives in the Menu →
+    // Dialogue chip). State persists across opens via _headerAskState so reopening
+    // the panel shows the last answer. On phones there is no #na-ask button, so
+    // this panel is simply never opened (mountAssistant is called from onOpen).
+    const _headerAskState = {};
 
     const panels = [
       { btn: wrap.querySelector("#na-brief"), panel: briefPanel, onOpen: (p) => { const slot = briefLatestSlot(); renderBriefing(p.querySelector(".na-body"), slot); markBriefRead(slot); refreshBriefDot(); } },
-      { btn: wrap.querySelector("#na-ask"), panel: askPanel, onOpen: (p) => { renderAsk(p.querySelector(".na-body"), _askState); const i = p.querySelector(".na-ask-in"); if (i && !isPhone()) setTimeout(() => i.focus(), 40); } },
+      // Ask panel: desktop-only (no #na-ask button on phones), so include the rec
+      // only when the button exists.
+      ...(wrap.querySelector("#na-ask") ? [{ btn: wrap.querySelector("#na-ask"), panel: askPanel, onOpen: (p) => { mountAssistant(p.querySelector(".na-body"), { add: false, state: _headerAskState }); const i = p.querySelector(".na-ask-in"); if (i && !isPhone()) setTimeout(() => i.focus(), 40); } }] : []),
       { btn: wrap.querySelector("#na-mkt"), panel: mktPanel, onOpen: (p) => { if (!_mktLoaded) { _mktLoaded = true; loadMarkets(p.querySelector(".na-body")); } } },
       { btn: wrap.querySelector("#na-saved"), panel: savedPanel, onOpen: (p) => { loadSaved(p.querySelector(".na-body"), p.querySelector(".na-h-n")); } },
       { btn: notifBtn, panel: notifPanel, onOpen: (p) => { const body = p.querySelector(".na-body"); if (_notifItems) renderNotif(body); else { body.innerHTML = '<div class="na-load">Loading…</div>'; ensureNotifs().then(() => renderNotif(body)).catch(() => { body.innerHTML = '<div class="na-load">Notifications unavailable right now.</div>'; }); } } },

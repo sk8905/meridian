@@ -1,14 +1,18 @@
-// Menu view — Notifications / Network / Display, using the .na-menu-* classes
-// (styled by premium.css). Search is intentionally NOT here: it lives in the
-// header ("Search everything…") and opens the one command palette, which now
-// carries its own Recent list — so the Menu no longer duplicates it. This is a
-// v2-native re-implementation of the theme cycle (System → Light → Dark, the same
-// keys the inline boot reads), the notifications toggle, the LinkedIn network
-// importer, and account identity.
+// Menu view — TWO chips:
+//   • Dialogue — Search (opens the command palette), Ask Wire (B), Add a firm
+//     (C, opens a review PR) and the LinkedIn Network importer.
+//   • Settings — Notifications (push toggle), Display (theme + density) and Sign
+//     out.
+// On PHONES this is where Search + the Ask/Add assistant live (the header keeps
+// only Briefing/Markets/Bookmarks/Notifications). On DESKTOP the header still
+// carries the search pill and the Ask chat, and this menu mirrors the same two
+// chips. The Ask/Add UI is the shared assistant module (mountAssistant).
 import { esc, setThemeColorMeta } from "/util.js?v=20260818-1";
 import { load as netLoad, importCSV as netImport, accept as netAccept, dismiss as netDismiss, clearAll as netClear } from "/v2/js/network/store.js?v=v2-2";
+import { mountAssistant } from "/v2/js/assistant.js?v=v2-1";
 
 const ICO_BELL = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg>';
+const ICO_MAG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.6" y1="15.6" x2="21" y2="21"/></svg>';
 
 const storedPref = () => { const c = document.documentElement.getAttribute("data-theme-choice"); return (c === "light" || c === "dark") ? c : "system"; };
 const osDark = () => !!(window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
@@ -35,10 +39,9 @@ function applyTheme(pref) {
   try { localStorage.setItem("m_theme_pref", pref); } catch { /* ignore */ }
   setThemeColorMeta(t);
 }
-// Search is not a Menu section: it lives in the header (the persistent "Search
-// everything…" control) and opens the one command palette, which now carries its
-// own Recent list. The Menu keeps Notifications / Network / Display.
-const SECTIONS = [["notifs", "Notifications"], ["network", "Network"], ["display", "Display"]];
+// Three chips: Dialogue (Search + Ask), Coverage (Add a firm + Network) and
+// Settings (Notifications + Display + Sign out).
+const SECTIONS = [["dialogue", "Dialogue"], ["coverage", "Coverage"], ["settings", "Settings"]];
 
 // ---- Network (LinkedIn connections) ---------------------------------------
 // The importer + "My network" list. All state comes from network/store.js
@@ -103,33 +106,59 @@ function netPaneHTML() {
   </div>`;
 }
 
-function paneHTML(sec) {
-  if (sec === "network") return netPaneHTML();
-  if (sec === "display") {
-    return `<div class="na-menu-recent-h">Appearance</div>`
-      + `<div class="na-menu-row na-menu-pushrow"><span>Theme</span>`
-      + `<div class="na-theme-seg" id="v2-theme-seg" role="group" aria-label="Theme">`
-      + THEME_ORDER.map((pf) => `<button type="button" class="na-theme-opt${storedPref() === pf ? " is-on" : ""}" data-pref="${pf}" aria-pressed="${storedPref() === pf ? "true" : "false"}">${THEME_LABEL[pf]}</button>`).join("")
-      + `</div></div>`
-      + `<div class="na-menu-row na-menu-pushrow"><span>Density</span>`
-      + `<div class="na-theme-seg" id="v2-density-seg" role="group" aria-label="Density">`
-      + DENSITY_ORDER.map((pf) => `<button type="button" class="na-theme-opt${storedDensity() === pf ? " is-on" : ""}" data-density-opt="${pf}" aria-pressed="${storedDensity() === pf ? "true" : "false"}">${DENSITY_LABEL[pf]}</button>`).join("")
-      + `</div></div>`;
-  }
-  // Notifications is the default pane.
+function dialoguePaneHTML() {
+  // Search opens the one command palette via the shared [data-open-search] hook
+  // (palette.js binds it globally). The Ask (B) assistant mounts into #v2-menu-ask
+  // after render().
+  return `<div class="na-menu-recent-h">Search</div>`
+    + `<button type="button" class="na-menu-row na-menu-search" data-open-search aria-label="Search Wire">${ICO_MAG}<span>Search everything…</span><kbd>/</kbd></button>`
+    + `<div class="na-menu-recent-h">Ask Wire</div>`
+    + `<div class="menu-asst" id="v2-menu-ask"></div>`;
+}
+function coveragePaneHTML() {
+  // "Add a firm" (C) drafts a roster entry and opens a review PR; the Add (C)
+  // assistant mounts into #v2-menu-add after render(). Network is the LinkedIn
+  // importer that maps your connections onto Wire's covered firms.
+  return `<div class="na-menu-recent-h">Add a firm</div>`
+    + `<div class="menu-asst" id="v2-menu-add"></div>`
+    + `<div class="na-menu-recent-h">Network</div>`
+    + netPaneHTML();
+}
+function settingsPaneHTML() {
   const perm = (typeof Notification !== "undefined" && Notification.permission) || "default";
   const word = perm === "granted" ? "On" : perm === "denied" ? "Blocked" : "Off";
   return `<div class="na-menu-recent-h">Notifications</div>`
     + `<div class="na-menu-row na-menu-pushrow"><span>Push notifications</span>`
-    + `<button type="button" class="na-menu-push" id="v2-push" title="Push notifications">${ICO_BELL}<span class="na-push-state">${word}</span></button></div>`;
+    + `<button type="button" class="na-menu-push" id="v2-push" title="Push notifications">${ICO_BELL}<span class="na-push-state">${word}</span></button></div>`
+    + `<div class="na-menu-recent-h">Appearance</div>`
+    + `<div class="na-menu-row na-menu-pushrow"><span>Theme</span>`
+    + `<div class="na-theme-seg" id="v2-theme-seg" role="group" aria-label="Theme">`
+    + THEME_ORDER.map((pf) => `<button type="button" class="na-theme-opt${storedPref() === pf ? " is-on" : ""}" data-pref="${pf}" aria-pressed="${storedPref() === pf ? "true" : "false"}">${THEME_LABEL[pf]}</button>`).join("")
+    + `</div></div>`
+    + `<div class="na-menu-row na-menu-pushrow"><span>Density</span>`
+    + `<div class="na-theme-seg" id="v2-density-seg" role="group" aria-label="Density">`
+    + DENSITY_ORDER.map((pf) => `<button type="button" class="na-theme-opt${storedDensity() === pf ? " is-on" : ""}" data-density-opt="${pf}" aria-pressed="${storedDensity() === pf ? "true" : "false"}">${DENSITY_LABEL[pf]}</button>`).join("")
+    + `</div></div>`
+    + `<div class="na-menu-recent-h">Account</div>`
+    + `<div class="na-menu-row na-menu-acct" id="account-nav-menu"></div>`;
+}
+function paneHTML(sec) {
+  if (sec === "settings") return settingsPaneHTML();
+  if (sec === "coverage") return coveragePaneHTML();
+  return dialoguePaneHTML();
 }
 
 // CSS (the menu reuses credit styles) is declared up front in v2/index.html.
 
 export function mount(host, ctx) {
-  let sec = "notifs";
-  // The signed-in identity now lives in the bottom strip (see chrome.js), so the
-  // menu no longer repeats "Signed in as …" — it just keeps a Sign out action.
+  let sec = "dialogue";
+  // Persisted Ask/Add state so switching chips (or re-rendering after a network
+  // import) keeps the last answer/draft on screen. Ask (Dialogue) and Add
+  // (Coverage) are separate surfaces, so they keep separate state.
+  const askState = {};
+  const addState = {};
+  // The signed-in identity lives in the bottom strip (see chrome.js); the Menu's
+  // Settings chip keeps a Sign out action in its Account row.
   const fillMenuAccount = () => {
     const el = host.querySelector("#account-nav-menu");
     if (!el) return;
@@ -145,9 +174,10 @@ export function mount(host, ctx) {
     host.innerHTML = `<div class="v2-menu">
       <div class="na-menu-bar"><div class="tchips">${SECTIONS.map(([k, l]) => `<button type="button" class="tchip${k === sec ? " is-on" : ""}" data-sec="${k}">${l}</button>`).join("")}</div></div>
       <div class="na-menu-pane">${paneHTML(sec)}</div>
-      <div class="na-menu-foot"><div class="na-menu-foot-l"><div id="account-nav-menu" class="na-menu-row na-menu-acct"></div></div></div>
     </div>`;
-    fillMenuAccount();
+    if (sec === "settings") fillMenuAccount();
+    if (sec === "dialogue") mountAssistant(host.querySelector("#v2-menu-ask"), { ask: true, add: false, state: askState });
+    if (sec === "coverage") mountAssistant(host.querySelector("#v2-menu-add"), { ask: false, add: true, state: addState });
   };
 
   render();   // initial render on mount (revisits keep this DOM alive)

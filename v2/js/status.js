@@ -38,6 +38,11 @@ function render() {
   // Render into every refresh slot — the header #data-status (desktop
   // rail/footer) AND the phone bottom-meta strip — so the one app-wide value
   // shows wherever the current breakpoint surfaces it.
-  const html = `<span class="ds-text" title="Wire data is refreshed together by the five-times-daily routine (05:00, 09:00, 12:00, 17:00 &amp; 21:00 London)."><span class="ds-part">Last refresh ${esc(_label)}</span></span>`;
+  // The live-feed countdown ring sits directly beside the marker (it used to
+  // live in the header action cluster). nav-actions.js drives every .na-ring-arc
+  // it finds in the document, so the ring animates here too — one ticker, one
+  // ring geometry, wherever "Last refresh" surfaces.
+  const ring = `<span class="ds-ring na-ring" title="Time to next live-feed refresh" aria-hidden="true"><svg viewBox="0 0 18 18"><circle class="na-ring-track" cx="9" cy="9" r="7"/><circle class="na-ring-arc" cx="9" cy="9" r="7"/></svg></span>`;
+  const html = `<span class="ds-text" title="Wire data is refreshed together by the five-times-daily routine (05:00, 09:00, 12:00, 17:00 &amp; 21:00 London).">${ring}<span class="ds-part">Last refresh ${esc(_label)}</span></span>`;
   document.querySelectorAll("[data-refresh-slot]").forEach((el) => { el.innerHTML = html; });
 }

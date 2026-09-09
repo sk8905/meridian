@@ -50,18 +50,38 @@ await pg.waitForTimeout(400);
 check(await pg.evaluate(() => ((document.querySelector(".na-ask-err") || {}).textContent || "").includes("switched on")),
   "dormant (unconfigured) route shows a graceful note, not an error");
 
-// Feature C: the "Add" button researches a firm and opens a PR (stubbed here).
-check(await pg.evaluate(() => !!document.querySelector(".na-ask-add")), "Add (propose) button present in the Ask panel");
+// The countdown ring moved OUT of the header action cluster to sit beside the
+// "Last refresh" marker; verify it left the cluster and landed in a refresh slot.
+check(await pg.evaluate(() => !document.querySelector(".na-actions .na-ring")), "countdown ring no longer in the header action cluster");
+check(await pg.evaluate(() => !!document.querySelector(".ds-text .na-ring")), "countdown ring renders beside the Last refresh marker");
+
+// Feature C ("Add" → propose a firm → open a PR) now lives in the Menu → Dialogue
+// chip, NOT the header Ask panel (which is Ask-only). Close the header panel and
+// open the Menu to drive Add there.
+await pg.keyboard.press("Escape");
+await pg.waitForTimeout(150);
+await pg.evaluate(() => { const b = document.querySelector(".nav-menu-btn") || document.querySelector('.mtab[data-key="menu"]'); if (b) b.click(); });
+await pg.waitForTimeout(700);
+check(await pg.evaluate(() => [...document.querySelectorAll(".v2-menu .na-menu-bar .tchip")].map((c) => c.textContent.trim()).join("/") === "Dialogue/Coverage/Settings"), "Menu shows the Dialogue/Coverage/Settings chips");
+// Dialogue chip (default): Search + Ask (B), no Add.
+check(await pg.evaluate(() => !!document.querySelector(".v2-menu .na-menu-search[data-open-search]")), "Search is in the Menu Dialogue chip");
+check(await pg.evaluate(() => !!document.querySelector("#v2-menu-ask .na-ask-go") && !document.querySelector("#v2-menu-ask .na-ask-add")), "Dialogue chip has Ask (B) only, no Add");
+// Coverage chip: Add (C) + Network.
+await pg.evaluate(() => document.querySelector('.v2-menu .na-menu-bar .tchip[data-sec="coverage"]').click());
+await pg.waitForTimeout(300);
+check(await pg.evaluate(() => !!document.querySelector("#v2-menu-add .na-ask-add") && !document.querySelector("#v2-menu-add .na-ask-go")), "Coverage chip has Add (C) only, no Ask");
+check(await pg.evaluate(() => !!document.querySelector(".v2-menu .wire-net")), "Coverage chip includes the Network importer");
+
 await pg.route("**/api/propose", (route) => route.fulfill({
   status: 200, contentType: "application/json",
   body: JSON.stringify({ prUrl: "https://github.com/sk8905/meridian/pull/123", prNumber: 123, name: "Example Capital", sources: [{ url: "https://example.com/", title: "Example" }] }),
 }));
-await pg.evaluate(() => { document.querySelector(".na-ask-in").value = "Example Capital"; document.querySelector(".na-ask-add").click(); });
+await pg.evaluate(() => { const c = document.querySelector("#v2-menu-add"); c.querySelector(".na-ask-in").value = "Example Capital"; c.querySelector(".na-ask-add").click(); });
 await pg.waitForTimeout(500);
-const proposed = await pg.evaluate(() => ({
-  a: ((document.querySelector(".na-ask-answer") || {}).textContent || ""),
-  pr: [...document.querySelectorAll(".na-ask-srcs a[href]")].some((x) => x.href.includes("/pull/123")),
-}));
+const proposed = await pg.evaluate(() => { const c = document.querySelector("#v2-menu-add"); return {
+  a: ((c.querySelector(".na-ask-answer") || {}).textContent || ""),
+  pr: [...c.querySelectorAll(".na-ask-srcs a[href]")].some((x) => x.href.includes("/pull/123")),
+}; });
 check(proposed.a.includes("pull request"), "Add renders the drafted-and-PR-opened confirmation");
 check(proposed.pr, "renders the pull-request link");
 
@@ -70,9 +90,9 @@ await pg.route("**/api/propose", (route) => route.fulfill({
   status: 200, contentType: "application/json",
   body: JSON.stringify({ unconfigured: true, message: "Proposing additions isn’t switched on yet." }),
 }));
-await pg.evaluate(() => { document.querySelector(".na-ask-in").value = "X Capital"; document.querySelector(".na-ask-add").click(); });
+await pg.evaluate(() => { const c = document.querySelector("#v2-menu-add"); c.querySelector(".na-ask-in").value = "X Capital"; c.querySelector(".na-ask-add").click(); });
 await pg.waitForTimeout(400);
-check(await pg.evaluate(() => ((document.querySelector(".na-ask-err") || {}).textContent || "").includes("switched on")),
+check(await pg.evaluate(() => ((document.querySelector("#v2-menu-add .na-ask-err") || {}).textContent || "").includes("switched on")),
   "dormant propose route shows a graceful note");
 
 checkErrs(errs, "ask wire");

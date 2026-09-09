@@ -13,19 +13,25 @@ await pg.waitForTimeout(1800);
 
 const present = await pg.evaluate(() => ({
   cluster: !!document.querySelector("#wire-header .na-actions"),
+  brief: !!document.getElementById("na-brief"),
   mkt: !!document.getElementById("na-mkt"),
   saved: !!document.getElementById("na-saved"),
   notif: !!document.getElementById("na-notif"),
-  search: !!document.getElementById("na-search"),
+  searchAbsent: !document.getElementById("na-search"),
+  ringOutOfCluster: !document.querySelector(".na-actions .na-ring"),
   panels: document.querySelectorAll(".na-panel").length,
   tabbars: document.querySelectorAll(".mobile-tabbar").length,
   refresh: ((document.getElementById("data-status") || {}).textContent || "").trim().length,
 }));
 check(present.cluster, "header action cluster mounted (.na-actions in the header)");
+check(present.brief, "Briefing button present");
 check(present.mkt, "Markets button present");
 check(present.saved, "Saved (bookmarks) button present");
 check(present.notif, "Notifications button present");
-check(present.search, "Search button present");
+// Phone header keeps Briefing/Markets/Bookmarks/Notifications; Search moved to
+// the Menu → Dialogue chip, and the countdown ring moved beside "Last refresh".
+check(present.searchAbsent, "Search button NOT in the phone header (it moved to the Menu → Dialogue chip)");
+check(present.ringOutOfCluster, "countdown ring moved out of the header action cluster (now beside Last refresh)");
 check(present.panels >= 3, `Markets/Saved/Notifications panels built (${present.panels})`);
 checkEq(present.tabbars, 1, "still exactly one tab bar (nav-actions did NOT add its own)");
 check(present.refresh > 0, `refresh indicator populated ("Last refresh…", ${present.refresh} chars)`);

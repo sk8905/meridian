@@ -18,7 +18,7 @@ const vurl = (p) => p + (p.includes("?") ? "&" : "?") + "v=" + V;
 // The app-wide "Last refresh" reporter — same singleton the desks report into
 // (its own leaf token, not V; see runtime.js), so chrome's boot-time value and a
 // desk's real stamp share one monotonic keep-latest state.
-import { reportRefresh } from "./status.js?v=v2-3";
+import { reportRefresh } from "./status.js?v=v2-4";
 import { esc } from "/util.js?v=20260818-1";
 
 // Mobile bottom tab bar: Home/Macro/Credit/Legal/Profiles/Menu (six equal
@@ -85,7 +85,7 @@ export function initChrome({ onTab }) {
   //   • pull-to-refresh (ptr.js) — self-guards, touch-only
   // All are idempotent single inits; failures never block the shell.
   import("/brief.js?v=7").then((m) => m.initBrief()).catch(() => {});
-  import("/palette.js?v=20260822-2").then((m) => m.mountPalette()).catch(() => {});
+  import("/palette.js?v=20260822-3").then((m) => m.mountPalette()).catch(() => {});
   import("/ptr.js?v=20260725-1").then((m) => m.initPullToRefresh()).catch(() => {});
   // Header action cluster + panels (Markets / Saved / Notifications / Search, the
   // notif bell, saved + markets loaders), ported from nav-actions with its own

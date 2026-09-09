@@ -124,7 +124,11 @@ html[data-theme="light"] .mcmdk{--t-mac:#6a4fa3;--t-crd:#fb8b1e;--t-lex:#2b8a5f;
 .mcmdk.open{display:block}
 .mcmdk *{box-sizing:border-box}
 .mcmdk-scrim{position:absolute;inset:0;background:rgba(3,6,12,.62)}
-.mcmdk-panel{position:relative;max-width:620px;margin:9vh auto 0;background:var(--surface,#0c1220);border:1px solid var(--border,#232f47);border-radius:0;box-shadow:0 24px 60px rgba(0,0,0,.55);overflow:hidden}
+/* Sized to match the .na-panel modal family (Ask/Bookmarks/Briefing/Markets/
+   Notifications): same width, border, radius and shadow. Kept top-anchored
+   (9vh) rather than vertically centred — a type-ahead results list reads better
+   growing from the top than centred. */
+.mcmdk-panel{position:relative;width:min(560px,92vw);max-width:92vw;margin:9vh auto 0;background:var(--surface,#0c1220);border:1px solid var(--border,#232f47);border-radius:0;box-shadow:0 12px 34px rgba(0,0,0,.5);overflow:hidden}
 .mcmdk-bar{display:flex;align-items:center}
 .mcmdk-mag,.mcmdk-cancel{display:none}
 .mcmdk-clear{display:grid;place-items:center;flex:0 0 auto;width:30px;height:30px;border:0;background:transparent;color:var(--faint,#5c6a86);font-size:13px;line-height:1;cursor:pointer;border-radius:0}

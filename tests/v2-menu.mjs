@@ -27,8 +27,9 @@ async function menuState(pg) {
   check(s.hasMenu, "direct /v2/menu/: menu container present");
   check(s.w >= 300, `direct /v2/menu/: menu is full-width (${s.w}px), not a dropdown sliver`);
   check(s.h > 80, `direct /v2/menu/: menu has height (${s.h}px)`);
-  check(s.visible, `direct /v2/menu/: the three chips (Notifications/Network/Display) are visible (${(s.labels || []).join("/")})`);
-  check(!(s.labels || []).includes("Search"), "direct /v2/menu/: the redundant Search section is gone (search lives in the header/palette)");
+  check(s.visible, `direct /v2/menu/: the three chips (Dialogue/Coverage/Settings) are visible (${(s.labels || []).join("/")})`);
+  checkEq((s.labels || []).join("/"), "Dialogue/Coverage/Settings", "direct /v2/menu/: chips are Dialogue / Coverage / Settings");
+  check(await pg.evaluate(() => !!document.querySelector('.v2-view[data-view="menu"] .na-menu-search[data-open-search]')), "direct /v2/menu/: Search lives in the Dialogue chip (opens the palette)");
   checkErrs(errs, "direct menu");
   await ctx.close();
 }

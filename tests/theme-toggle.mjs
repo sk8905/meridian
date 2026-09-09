@@ -10,8 +10,8 @@ const { ctx, pg, errs } = await open(b, PHONE, `http://localhost:${srv.port}/v2/
 await pg.evaluate(() => localStorage.setItem("m_signed_in", "1"));
 await pg.waitForTimeout(1200);
 
-// Open the Display tab of the menu.
-await pg.evaluate(() => { const c = document.querySelector('.na-menu-bar .tchip[data-sec="display"]'); if (c) c.click(); });
+// Open the Settings chip of the menu (Display/theme lives under Settings).
+await pg.evaluate(() => { const c = document.querySelector('.na-menu-bar .tchip[data-sec="settings"]'); if (c) c.click(); });
 await pg.waitForTimeout(300);
 
 const opts = await pg.evaluate(() => Array.from(document.querySelectorAll("#v2-theme-seg .na-theme-opt")).map((b) => ({ pref: b.dataset.pref, label: b.textContent.trim() })));

@@ -67,6 +67,12 @@
 .account-nav:empty { display: none; }
 .data-status { display: flex; align-items: center; gap: .4rem; font-size: .68rem; color: var(--muted, #8592ad); white-space: nowrap; }
 .ds-part { white-space: nowrap; }
+/* The live-feed countdown ring sits beside the "Last refresh" marker (moved out
+   of the header action cluster). It renders into every refresh slot — desktop
+   footer/rail and the phone bottom-meta strip — and nav-actions.js animates it. */
+.ds-text { display: inline-flex; align-items: center; gap: .4rem; }
+.ds-ring { flex: 0 0 auto; width: 14px; height: 14px; margin: 0; }
+.ds-ring svg { width: 14px; height: 14px; }
 .notif { position: relative; flex: 0 0 auto; }
 
 /* Desktop Menu affordance — Menu isn't a platform pill (those are Home/Dashboard/
