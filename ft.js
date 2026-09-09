@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "07e5851c-5e3b-43a8-ad23-527c0f191089", title: "Saudi Arabia’s other war enters dangerous new chapter", date: "2026-09-09", time: "12:09", url: "https://www.ft.com/content/07e5851c-5e3b-43a8-ad23-527c0f191089" },
+  { id: "864ba0cd-a746-4c6b-99c3-ece80ac8be90", title: "Mariana Mazzucato: ‘I’m not talking about utopias’", date: "2026-09-09", time: "12:00", url: "https://www.ft.com/content/864ba0cd-a746-4c6b-99c3-ece80ac8be90" },
+  { id: "b6f7e0f4-ab56-4c7a-9238-44d83c244298", title: "Watch live: Andy Burnham faces MPs at PMQs", date: "2026-09-09", time: "12:00", url: "https://www.ft.com/content/b6f7e0f4-ab56-4c7a-9238-44d83c244298" },
+  { id: "bce40838-6b08-4a04-9937-627bdf64a1a9", title: "Millennium to open office in Greece after investor charm offensive", date: "2026-09-09", time: "11:58", url: "https://www.ft.com/content/bce40838-6b08-4a04-9937-627bdf64a1a9" },
   { id: "2cc88608-04b2-4dcb-8c89-698f251de170", title: "Silver Lake to merge French software groups Cegid and Silae in €10bn deal", date: "2026-09-09", time: "11:00", url: "https://www.ft.com/content/2cc88608-04b2-4dcb-8c89-698f251de170" },
   { id: "b397ced1-b9bc-4fe6-8dc7-20f0752e2591", title: "China’s giant trade surplus has an increasingly geopolitical twist", date: "2026-09-09", time: "11:00", url: "https://www.ft.com/content/b397ced1-b9bc-4fe6-8dc7-20f0752e2591" },
   { id: "81786612-93e4-4af3-8cc9-f69434872740", title: "Swedish anti-immigrant party nears government role for first time", date: "2026-09-09", time: "11:00", url: "https://www.ft.com/content/81786612-93e4-4af3-8cc9-f69434872740" },
@@ -58,7 +62,4 @@ export const FT_ITEMS = [
   { id: "944fd36f-8f91-4178-b05a-2b961c44e310", title: "Apple looks to AI capabilities to drive its new foldable phone sales", date: "2026-09-08", time: "17:20", url: "https://www.ft.com/content/944fd36f-8f91-4178-b05a-2b961c44e310" },
   { id: "76d33021-57c6-4240-ae0b-cd4a79a24980", title: "Putin praises US peace efforts in call with Trump", date: "2026-09-08", time: "16:28", url: "https://www.ft.com/content/76d33021-57c6-4240-ae0b-cd4a79a24980" },
   { id: "2a69d864-a953-40b1-85ce-b6256ca411fc", title: "UK selects Canada’s statistics chief to run data service", date: "2026-09-08", time: "16:21", url: "https://www.ft.com/content/2a69d864-a953-40b1-85ce-b6256ca411fc" },
-  { id: "2e97fb28-24cf-4ab0-89b1-454b4f97cdbc", title: "Young Americans have never witnessed a functioning foreign policy", date: "2026-09-08", time: "15:24", url: "https://www.ft.com/content/2e97fb28-24cf-4ab0-89b1-454b4f97cdbc" },
-  { id: "ef50aed1-e50c-4cb6-a418-266476fb2829", title: "To safeguard Israel’s future, the UK is right to sanction settlers", date: "2026-09-08", time: "15:13", url: "https://www.ft.com/content/ef50aed1-e50c-4cb6-a418-266476fb2829" },
-  { id: "f1a7b7be-1444-4f2f-80ca-905c8630f295", title: "Heathrow and Gatwick flights face disruption over air traffic control ‘technical issue’", date: "2026-09-08", time: "15:06", url: "https://www.ft.com/content/f1a7b7be-1444-4f2f-80ca-905c8630f295" },
 ];
