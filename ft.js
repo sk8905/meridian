@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "6842ca4b-1a16-4a76-89b5-098cd288ffc7", title: "AI labs test the rigour of credit rating agencies", date: "2026-09-09", time: "19:02", url: "https://www.ft.com/content/6842ca4b-1a16-4a76-89b5-098cd288ffc7" },
+  { id: "6b71127f-2ca3-4a6b-a268-91177b6cc981", title: "JPMorgan chief Jamie Dimon meets Andy Burnham amid Budget windfall tax fears", date: "2026-09-09", time: "18:25", url: "https://www.ft.com/content/6b71127f-2ca3-4a6b-a268-91177b6cc981" },
+  { id: "e93416e8-c630-4483-8552-6efd7a54ffed", title: "The lessons of LIV Golf's failure", date: "2026-09-09", time: "18:16", url: "https://www.ft.com/content/e93416e8-c630-4483-8552-6efd7a54ffed" },
   { id: "e00e1d73-c0cb-49e5-99c5-8ca4ce219d93", title: "Windscreen giant Belron explores mega-IPO", date: "2026-09-09", time: "17:19", url: "https://www.ft.com/content/e00e1d73-c0cb-49e5-99c5-8ca4ce219d93" },
   { id: "b9e0b9b5-3b6e-420e-83da-381b75534635", title: "Tether launches private credit fund in effort to boost stablecoin use", date: "2026-09-09", time: "17:09", url: "https://www.ft.com/content/b9e0b9b5-3b6e-420e-83da-381b75534635" },
   { id: "dea481e8-d30b-4cbb-b535-5ff219c4e546", title: "New Apple CEO to unveil $2,000 folding iPhone", date: "2026-09-09", time: "16:43", url: "https://www.ft.com/content/dea481e8-d30b-4cbb-b535-5ff219c4e546" },
@@ -57,7 +60,4 @@ export const FT_ITEMS = [
   { id: "fe1cbd53-eeb8-4916-a4e0-4325b5bea425", title: "BP and Shell’s strategy counterpoint", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/fe1cbd53-eeb8-4916-a4e0-4325b5bea425" },
   { id: "6f71552b-0a1a-46d2-93d0-dc676aeed75b", title: "McLaren to create 1,000 UK jobs in product overhaul", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/6f71552b-0a1a-46d2-93d0-dc676aeed75b" },
   { id: "6525cf15-0cf0-4fff-a3a4-298a41569d97", title: "World’s biggest relationship? Xi and Modi look to rebuild ties for 2.8bn people", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/6525cf15-0cf0-4fff-a3a4-298a41569d97" },
-  { id: "ef6d5693-a5b0-445a-8f30-d514d50651e1", title: "Who is voting for the far-right Alternative for Germany?", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/ef6d5693-a5b0-445a-8f30-d514d50651e1" },
-  { id: "a60fe9fe-3905-44c0-ad32-07762cf44786", title: "How Greece is wooing hedge funds", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/a60fe9fe-3905-44c0-ad32-07762cf44786" },
-  { id: "fb189d81-e5ce-4aba-8707-53c88dae6e60", title: "AI borrowing boom shakes up Swiss credit market", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/fb189d81-e5ce-4aba-8707-53c88dae6e60" },
 ];
