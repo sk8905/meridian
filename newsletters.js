@@ -38,6 +38,17 @@ export const PUBLISHERS = {
 
 export const NEWSLETTERS = [
   {
+    id: "nl-bbg-pointsofreturn-risingyen-20260909",
+    publication: "Bloomberg",
+    author: "John Authers",
+    series: "Points of Return",
+    title: "New respect in the Land of the Rising Yen",
+    date: "2026-09-09",
+    time: "05:00",
+    summary: "This time, a stronger yen seems real.",
+    url: "https://www.bloomberg.com/opinion/newsletters/2026-09-09/rising-yen-finally-gets-some-respect",
+  },
+  {
     id: "nl-bbg-moneystuff-robinhoodtokenizedamc-20260908",
     publication: "Bloomberg",
     author: null,
@@ -465,27 +476,5 @@ export const NEWSLETTERS = [
     time: "05:38",
     summary: "OpenAI released GPT-6 Astra and claimed a step toward AGI, Nvidia agreed to buy Hugging Face for $13bn, and Iran warned America of a large-scale attack if Israel storms a Hizbullah stronghold in Lebanon.",
     url: "https://www.economist.com/the-world-in-brief",
-  },
-  {
-    id: "nl-reuters-tradingday-wallercoolsfedhikehoopla-20260903",
-    publication: "Thomson Reuters",
-    author: "Jamie McGeever",
-    series: "Trading Day",
-    title: "Waller cools Fed hike hoopla",
-    date: "2026-09-03",
-    time: "22:03",
-    summary: "Eyes turn to non-farm payrolls.",
-    url: "https://www.reuters.com/newsletters/trading-day/",
-  },
-  {
-    id: "nl-legalbusiness-cahillbankingexits-20260903",
-    publication: "Legal Business",
-    author: null,
-    series: null,
-    title: "Cahill to see three-partner banking team leave in New York",
-    date: "2026-09-03",
-    time: "20:07",
-    summary: "Partner trio in discussions to join rival in latest finance exits at Cahill.",
-    url: "https://email.legalbusiness.co.uk/q/12H5apPMR0x0SSZKXwS3AFsm/wv",
   },
 ];
