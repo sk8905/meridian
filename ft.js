@@ -20,6 +20,10 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "ad209e95-c5f2-4031-b207-7abaafe75d43", title: "The curse of Jets fandom", date: "2026-09-09", time: "16:09", url: "https://www.ft.com/content/ad209e95-c5f2-4031-b207-7abaafe75d43" },
+  { id: "8be9ce96-3307-43db-b755-c67f3c50be29", title: "France’s Marine Le Pen stays silent on far-right victory in German election", date: "2026-09-09", time: "16:01", url: "https://www.ft.com/content/8be9ce96-3307-43db-b755-c67f3c50be29" },
+  { id: "d0557d25-78b5-45d8-bb33-d655e859d803", title: "US spy chief prepares for greater role in Russia-Ukraine talks", date: "2026-09-09", time: "15:50", url: "https://www.ft.com/content/d0557d25-78b5-45d8-bb33-d655e859d803" },
+  { id: "06c80195-c7b7-4423-a4ef-90056d1864f9", title: "Serbian leader Aleksandar Vučić calls snap elections", date: "2026-09-09", time: "15:41", url: "https://www.ft.com/content/06c80195-c7b7-4423-a4ef-90056d1864f9" },
   { id: "73c6c2f1-349a-4aeb-9d90-0268e3dcdc65", title: "Police investigate Reform UK over donor sting", date: "2026-09-09", time: "15:10", url: "https://www.ft.com/content/73c6c2f1-349a-4aeb-9d90-0268e3dcdc65" },
   { id: "71dccbca-4a1f-485a-9790-28cc527cdb82", title: "US affordability tracker: the data that could decide the 2026 midterm elections", date: "2026-09-09", time: "14:05", url: "https://www.ft.com/content/71dccbca-4a1f-485a-9790-28cc527cdb82" },
   { id: "55a506e8-8cba-4d8e-bf1a-e5d3e6682677", title: "How to fix the brittleness caused by Treasury basis trades", date: "2026-09-09", time: "12:35", url: "https://www.ft.com/content/55a506e8-8cba-4d8e-bf1a-e5d3e6682677" },
@@ -58,6 +62,4 @@ export const FT_ITEMS = [
   { id: "4dde2b92-eadb-41e3-9fad-c9bf0636010a", title: "EU resists Mario Draghi’s competitiveness cures", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/4dde2b92-eadb-41e3-9fad-c9bf0636010a" },
   { id: "c1029e47-7487-4bd7-8ed4-7512b76f1834", title: "Iran turns to crypto to get around sanctions", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/c1029e47-7487-4bd7-8ed4-7512b76f1834" },
   { id: "82440fd9-58ea-4191-a494-7dc7091372ad", title: "Money to Burn by William D Cohan — Leon Black’s rise and fall in an age of excess", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/82440fd9-58ea-4191-a494-7dc7091372ad" },
-  { id: "3fe2c829-3c95-4c2c-b3bb-3567dfd94f58", title: "A top defence barrister faces sanction. Is he right to feel aggrieved?", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/3fe2c829-3c95-4c2c-b3bb-3567dfd94f58" },
-  { id: "cc219c30-3d6c-4fba-b3d8-41ef30b9bada", title: "Inside Mytheresa, ecommerce’s biggest winner", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/cc219c30-3d6c-4fba-b3d8-41ef30b9bada" },
 ];
