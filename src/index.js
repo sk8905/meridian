@@ -3028,11 +3028,88 @@ async function askRateLimit(env, email, limit, prefix) {
 }
 
 // B — read-only Q&A over the Wire context the client sends + a cited web search.
+// ---- LLM provider layer -----------------------------------------------------
+// Prefer Mistral (MISTRAL_API_KEY — its free/rate-limited tier works) with the
+// web_search connector; fall back to the Anthropic Messages API + web_search
+// server tool when only ANTHROPIC_API_KEY is set. Both return {text, sources[],
+// refused?}. Grounded either way — answers use the provided Wire context + a
+// cited web search, never fabricated.
+const hasLLM = (env) => !!(env.MISTRAL_API_KEY || env.ANTHROPIC_API_KEY);
+
+async function llmAsk(env, { system, user, search, maxTokens, fallbackNoSearch }) {
+  if (env.MISTRAL_API_KEY) return mistralAsk(env, { system, user, search, maxTokens, fallbackNoSearch });
+  const payload = {
+    model: ASK_MODEL, max_tokens: maxTokens || 1500, system,
+    output_config: { effort: search ? "medium" : "low" },
+    messages: [{ role: "user", content: user }],
+  };
+  if (search) payload.tools = [{ type: "web_search_20260209", name: "web_search", max_uses: 5 }];
+  const msg = await anthropicRun(env, payload);
+  if (!msg || msg.type === "error") throw new Error((msg && msg.error && msg.error.message) || "Assistant unavailable.");
+  if (msg.stop_reason === "refusal") return { text: "", sources: [], refused: true };
+  const text = (msg.content || []).filter((b) => b.type === "text").map((b) => b.text).join("").trim();
+  return { text, sources: askSources(msg.content) };
+}
+
+// Mistral: web-search questions go through the Conversations API with the
+// built-in web_search connector; plain questions use chat/completions. The
+// conversation output is a list of typed chunks (text + tool_reference
+// citations) — parsed defensively so field-name drift degrades to plain text.
+async function mistralAsk(env, { system, user, search, maxTokens, fallbackNoSearch }) {
+  const model = env.MISTRAL_MODEL || "mistral-medium-latest";
+  const headers = { authorization: "Bearer " + env.MISTRAL_API_KEY, "content-type": "application/json" };
+  if (search) {
+    try {
+      const cr = await fetch("https://api.mistral.ai/v1/conversations", {
+        method: "POST", headers,
+        body: JSON.stringify({ model, instructions: system, tools: [{ type: "web_search" }], inputs: [{ role: "user", content: user }] }),
+      });
+      const data = await cr.json().catch(() => ({}));
+      if (!cr.ok) throw new Error((data && (data.message || data.detail)) || ("Mistral " + cr.status));
+      const parsed = mistralParseConversation(data);
+      if (parsed.text || !fallbackNoSearch) return parsed;
+    } catch (e) {
+      // C (fallbackNoSearch off) REQUIRES live web search — surface the error
+      // rather than risk a context-only, potentially fabricated draft. B falls
+      // through to a context-only answer when the connector isn't on this tier.
+      if (!fallbackNoSearch) throw e;
+    }
+  }
+  const r = await fetch("https://api.mistral.ai/v1/chat/completions", {
+    method: "POST", headers,
+    body: JSON.stringify({ model, max_tokens: maxTokens || 1500, messages: [{ role: "system", content: system }, { role: "user", content: user }] }),
+  });
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error((data && data.message) || ("Mistral " + r.status));
+  const c = data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
+  return { text: (typeof c === "string" ? c : "").trim(), sources: [] };
+}
+function mistralParseConversation(data) {
+  const outs = data.outputs || data.messages || [];
+  let text = ""; const sources = [], seen = new Set();
+  const ref = (u, t) => { if (u && !seen.has(u)) { seen.add(u); sources.push({ url: u, title: t || u }); } };
+  for (const o of outs) {
+    if (!o) continue;
+    const isMsg = o.type === "message.output" || o.role === "assistant";
+    const c = o.content;
+    if (typeof c === "string") { if (isMsg) text += c; }
+    else if (Array.isArray(c)) {
+      for (const ch of c) {
+        if (!ch) continue;
+        if ((ch.type === "text" || ch.type === "output_text") && typeof ch.text === "string") text += ch.text;
+        else if (ch.type === "tool_reference" || ch.type === "reference") ref(ch.url, ch.title);
+      }
+    }
+    if (o.type === "tool.execution" && Array.isArray(o.results)) for (const rr of o.results) ref(rr && rr.url, rr && rr.title);
+  }
+  return { text: text.trim(), sources: sources.slice(0, 12) };
+}
+
 async function handleAsk(request, env) {
   if (request.method !== "POST") return json({ error: "method_not_allowed" }, 405);
   const email = identity(request);
   if (!email) return json({ error: "unauthenticated" }, 401);
-  if (!env.ANTHROPIC_API_KEY) return json({ unconfigured: true, message: "The Ask Wire assistant isn't switched on yet." });
+  if (!hasLLM(env)) return json({ unconfigured: true, message: "The Ask Wire assistant isn't switched on yet." });
   let body;
   try { body = await request.json(); } catch { return json({ error: "bad_request" }, 400); }
   const question = String((body && body.question) || "").trim();
@@ -3042,19 +3119,11 @@ async function handleAsk(request, env) {
 
   const context = typeof (body && body.context) === "string" ? body.context.slice(0, 60000) : "";
   const userContent = (context ? `Wire context (the data on the reader's screen):\n${context}\n\n` : "") + `Question: ${question}`;
-  let msg;
-  try {
-    msg = await anthropicRun(env, {
-      model: ASK_MODEL, max_tokens: 1500, system: ASK_SYSTEM,
-      output_config: { effort: "low" },
-      tools: [{ type: "web_search_20260209", name: "web_search", max_uses: 4 }],
-      messages: [{ role: "user", content: userContent }],
-    });
-  } catch (e) { return json({ error: "assistant_unavailable", message: String((e && e.message) || e) }, 502); }
-  if (!msg || msg.type === "error") return json({ error: "assistant_error", message: (msg && msg.error && msg.error.message) || "Assistant unavailable." }, 502);
-  if (msg.stop_reason === "refusal") return json({ answer: "I can't answer that one.", sources: [] });
-  const answer = (msg.content || []).filter((b) => b.type === "text").map((b) => b.text).join("").trim();
-  return json({ answer: answer || "No answer.", sources: askSources(msg.content) });
+  let res;
+  try { res = await llmAsk(env, { system: ASK_SYSTEM, user: userContent, search: true, maxTokens: 1500, fallbackNoSearch: true }); }
+  catch (e) { return json({ error: "assistant_unavailable", message: String((e && e.message) || e) }, 502); }
+  if (res.refused) return json({ answer: "I can't answer that one.", sources: [] });
+  return json({ answer: res.text || "No answer.", sources: res.sources || [] });
 }
 
 // C — "Propose an edit": research a firm, draft a `managers` roster entry, and
@@ -3156,7 +3225,7 @@ async function handlePropose(request, env) {
   if (request.method !== "POST") return json({ error: "method_not_allowed" }, 405);
   const email = identity(request);
   if (!email) return json({ error: "unauthenticated" }, 401);
-  if (!env.ANTHROPIC_API_KEY || !env.GITHUB_TOKEN) return json({ unconfigured: true, message: "Proposing additions isn’t switched on yet." });
+  if (!hasLLM(env) || !env.GITHUB_TOKEN) return json({ unconfigured: true, message: "Proposing additions isn’t switched on yet." });
   let body;
   try { body = await request.json(); } catch { return json({ error: "bad_request" }, 400); }
   const ask = String((body && (body.request || body.name)) || "").trim();
@@ -3164,25 +3233,17 @@ async function handlePropose(request, env) {
   if (ask.length > 300) return json({ error: "too_long", message: "Keep it to a firm name." }, 400);
   if (!(await askRateLimit(env, email, 5, "propose:"))) return json({ error: "rate_limited", message: "Slow down — 5 proposals an hour." }, 429);
 
-  let msg;
-  try {
-    msg = await anthropicRun(env, {
-      model: PROPOSE_MODEL, max_tokens: 2000, system: PROPOSE_SYSTEM,
-      output_config: { effort: "medium" },
-      tools: [{ type: "web_search_20260209", name: "web_search", max_uses: 6 }],
-      messages: [{ role: "user", content: `Research and draft a roster entry for: ${ask}` }],
-    });
-  } catch (e) { return json({ error: "assistant_unavailable", message: String((e && e.message) || e) }, 502); }
-  if (!msg || msg.type === "error") return json({ error: "assistant_error", message: (msg && msg.error && msg.error.message) || "Assistant unavailable." }, 502);
-  if (msg.stop_reason === "refusal") return json({ error: "refused", message: "Can’t draft that one." });
-  const text = (msg.content || []).filter((b) => b.type === "text").map((b) => b.text).join("");
-  const draft = parseJsonObject(text);
+  let res;
+  try { res = await llmAsk(env, { system: PROPOSE_SYSTEM, user: `Research and draft a roster entry for: ${ask}`, search: true, maxTokens: 2000 }); }
+  catch (e) { return json({ error: "assistant_unavailable", message: String((e && e.message) || e) }, 502); }
+  if (res.refused) return json({ error: "refused", message: "Can’t draft that one." });
+  const draft = parseJsonObject(res.text || "");
   if (!draft) return json({ error: "no_draft", message: "Couldn’t draft an entry — try a clearer firm name." });
   if (draft.found === false) return json({ notFound: true, message: draft.note || "Couldn’t verify that firm from public sources." });
 
   try {
     const pr = await proposeManagerPR(env, email, draft, ask);
-    return json({ prUrl: pr.html_url, prNumber: pr.number, name: draft.name || ask, sources: askSources(msg.content) });
+    return json({ prUrl: pr.html_url, prNumber: pr.number, name: draft.name || ask, sources: res.sources || [] });
   } catch (e) {
     return json({ error: "pr_failed", message: "Drafted the entry but couldn’t open the PR: " + String((e && e.message) || e) });
   }

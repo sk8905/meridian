@@ -5,8 +5,14 @@ Two in-app assistant surfaces, both server-side in the Cloudflare Worker
 verified email via `identity()`), **grounded** (answer/draft ONLY from the
 provided Wire context or a **cited** web search — never fabricate, HOUSE_STYLE
 R7), and **dormant until their secrets are set** (the routes reply
-`{unconfigured:true}` until then, so shipping them costs nothing). Model:
-`claude-opus-5`.
+`{unconfigured:true}` until then, so shipping them costs nothing).
+
+**LLM provider (`src/index.js`, `llmAsk`):** prefers **Mistral** when
+`MISTRAL_API_KEY` is set — its free/rate-limited tier works, and the **web_search
+connector** (Conversations API, `/v1/conversations`) gives live, cited answers;
+model `env.MISTRAL_MODEL || "mistral-medium-latest"`. Falls back to the **Anthropic**
+Messages API + `web_search` server tool (`claude-opus-5`) when only
+`ANTHROPIC_API_KEY` is set. So `hasLLM(env)` = either key present.
 
 ## B — Ask Wire (read-only Q&A) — LIVE (dormant until keyed)
 
@@ -23,15 +29,26 @@ R7), and **dormant until their secrets are set** (the routes reply
   questions/rolling hour (KV key `ask:<email>`); question capped at 2 000 chars,
   context at 60 KB.
 
-**To switch it on:** set the API key as a Worker secret —
+**To switch it on:** set ONE provider key as a Worker secret —
 
 ```
-wrangler secret put ANTHROPIC_API_KEY
+wrangler secret put MISTRAL_API_KEY     # preferred (free tier + web_search connector)
+# or
+wrangler secret put ANTHROPIC_API_KEY   # claude-opus-5 fallback
 ```
 
 (or add it under the Worker's *Settings → Variables and Secrets* in the
-Cloudflare dashboard). No redeploy of the app is required; the route reads
-`env.ANTHROPIC_API_KEY` at request time.
+Cloudflare dashboard). No redeploy of the app is required; the route reads the
+key at request time. Optional `MISTRAL_MODEL` overrides the default
+`mistral-medium-latest` (e.g. `mistral-large-latest` for higher quality).
+
+> **Mistral response-shape note:** Mistral's Conversations API returns the
+> answer as a list of typed output chunks; `mistralParseConversation()` reads
+> them defensively, but the exact field names (`outputs` / `content` chunks /
+> `tool_reference`) couldn't be tested here without a live key. After setting the
+> secret, ask a question — if the answer or its source links come back empty,
+> the parser needs the real shape adjusting (share the raw `/v1/conversations`
+> response).
 
 ## C — Propose an edit → PR (research + draft a manager) — LIVE (dormant until keyed)
 
