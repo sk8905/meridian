@@ -20,10 +20,13 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "55a506e8-8cba-4d8e-bf1a-e5d3e6682677", title: "How to fix the brittleness caused by Treasury basis trades", date: "2026-09-09", time: "12:35", url: "https://www.ft.com/content/55a506e8-8cba-4d8e-bf1a-e5d3e6682677" },
+  { id: "bc02e99c-c6e0-4b1e-825c-330b4646ee9e", title: "Kushner and Witkoff’s blind amateurism", date: "2026-09-09", time: "12:35", url: "https://www.ft.com/content/bc02e99c-c6e0-4b1e-825c-330b4646ee9e" },
   { id: "07e5851c-5e3b-43a8-ad23-527c0f191089", title: "Saudi Arabia’s other war enters dangerous new chapter", date: "2026-09-09", time: "12:09", url: "https://www.ft.com/content/07e5851c-5e3b-43a8-ad23-527c0f191089" },
   { id: "864ba0cd-a746-4c6b-99c3-ece80ac8be90", title: "Mariana Mazzucato: ‘I’m not talking about utopias’", date: "2026-09-09", time: "12:00", url: "https://www.ft.com/content/864ba0cd-a746-4c6b-99c3-ece80ac8be90" },
   { id: "b6f7e0f4-ab56-4c7a-9238-44d83c244298", title: "Watch live: Andy Burnham faces MPs at PMQs", date: "2026-09-09", time: "12:00", url: "https://www.ft.com/content/b6f7e0f4-ab56-4c7a-9238-44d83c244298" },
   { id: "bce40838-6b08-4a04-9937-627bdf64a1a9", title: "Millennium to open office in Greece after investor charm offensive", date: "2026-09-09", time: "11:58", url: "https://www.ft.com/content/bce40838-6b08-4a04-9937-627bdf64a1a9" },
+  { id: "0715a142-311f-422f-a9dd-9e31bc3d7d61", title: "FirstFT: Oil hits $100 as fears rise over global supplies", date: "2026-09-09", time: "11:28", url: "https://www.ft.com/content/0715a142-311f-422f-a9dd-9e31bc3d7d61" },
   { id: "2cc88608-04b2-4dcb-8c89-698f251de170", title: "Silver Lake to merge French software groups Cegid and Silae in €10bn deal", date: "2026-09-09", time: "11:00", url: "https://www.ft.com/content/2cc88608-04b2-4dcb-8c89-698f251de170" },
   { id: "b397ced1-b9bc-4fe6-8dc7-20f0752e2591", title: "China’s giant trade surplus has an increasingly geopolitical twist", date: "2026-09-09", time: "11:00", url: "https://www.ft.com/content/b397ced1-b9bc-4fe6-8dc7-20f0752e2591" },
   { id: "81786612-93e4-4af3-8cc9-f69434872740", title: "Swedish anti-immigrant party nears government role for first time", date: "2026-09-09", time: "11:00", url: "https://www.ft.com/content/81786612-93e4-4af3-8cc9-f69434872740" },
@@ -37,7 +40,6 @@ export const FT_ITEMS = [
   { id: "fe0cbcfc-b351-4dac-889f-7b8f11f79102", title: "Norway’s oil fund says what everyone is thinking", date: "2026-09-09", time: "06:30", url: "https://www.ft.com/content/fe0cbcfc-b351-4dac-889f-7b8f11f79102" },
   { id: "8e950485-7962-4de6-a5b8-a14612e37f7a", title: "FTAV’s further reading", date: "2026-09-09", time: "06:30", url: "https://www.ft.com/content/8e950485-7962-4de6-a5b8-a14612e37f7a" },
   { id: "33d4674f-31db-4551-9ad3-c43d5c94c94c", title: "The clock is ticking on Senegal’s ‘total return swaps’", date: "2026-09-09", time: "06:00", url: "https://www.ft.com/content/33d4674f-31db-4551-9ad3-c43d5c94c94c" },
-  { id: "0715a142-311f-422f-a9dd-9e31bc3d7d61", title: "FirstFT: Anthropic withheld AI model from UK testers", date: "2026-09-09", time: "05:31", url: "https://www.ft.com/content/0715a142-311f-422f-a9dd-9e31bc3d7d61" },
   { id: "560e1c8b-f163-4fd6-b604-e905550ac870", title: "Anthropic withheld latest AI model from UK testing agency", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/560e1c8b-f163-4fd6-b604-e905550ac870" },
   { id: "e58008a5-d757-4570-af08-d2396f46f03f", title: "Warsh might yet be a good Fed chair", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/e58008a5-d757-4570-af08-d2396f46f03f" },
   { id: "fe1cbd53-eeb8-4916-a4e0-4325b5bea425", title: "BP and Shell’s strategy counterpoint", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/fe1cbd53-eeb8-4916-a4e0-4325b5bea425" },
@@ -58,6 +60,4 @@ export const FT_ITEMS = [
   { id: "c167b64d-aa04-4e6a-9dda-06ad70a36c52", title: "UK says it will force tech giants to stop children sharing nude images", date: "2026-09-08", time: "19:34", url: "https://www.ft.com/content/c167b64d-aa04-4e6a-9dda-06ad70a36c52" },
   { id: "d1d0054d-16ae-45b4-b2e1-421ce5461041", title: "Smithsonian head to resign after Donald Trump attacks US slavery exhibits", date: "2026-09-08", time: "19:30", url: "https://www.ft.com/content/d1d0054d-16ae-45b4-b2e1-421ce5461041" },
   { id: "faa622d9-0faa-4578-b908-4e77b72a8d44", title: "War and weather threaten fresh burst of UK inflation, BoE governor warns", date: "2026-09-08", time: "18:48", url: "https://www.ft.com/content/faa622d9-0faa-4578-b908-4e77b72a8d44" },
-  { id: "f13d5f54-deaf-4d44-9e8f-e91f5972b064", title: "Growth in every postcode: good politics, dubious economics", date: "2026-09-08", time: "18:03", url: "https://www.ft.com/content/f13d5f54-deaf-4d44-9e8f-e91f5972b064" },
-  { id: "944fd36f-8f91-4178-b05a-2b961c44e310", title: "Apple looks to AI capabilities to drive its new foldable phone sales", date: "2026-09-08", time: "17:20", url: "https://www.ft.com/content/944fd36f-8f91-4178-b05a-2b961c44e310" },
 ];
