@@ -3036,8 +3036,8 @@ async function askRateLimit(env, email, limit, prefix) {
 // cited web search, never fabricated.
 const hasLLM = (env) => !!(env.MISTRAL_API_KEY || env.ANTHROPIC_API_KEY);
 
-async function llmAsk(env, { system, user, search, maxTokens, fallbackNoSearch }) {
-  if (env.MISTRAL_API_KEY) return mistralAsk(env, { system, user, search, maxTokens, fallbackNoSearch });
+async function llmAsk(env, { system, user, search, maxTokens, fallbackNoSearch, debug }) {
+  if (env.MISTRAL_API_KEY) return mistralAsk(env, { system, user, search, maxTokens, fallbackNoSearch, debug });
   const payload = {
     model: ASK_MODEL, max_tokens: maxTokens || 1500, system,
     output_config: { effort: search ? "medium" : "low" },
@@ -3055,7 +3055,7 @@ async function llmAsk(env, { system, user, search, maxTokens, fallbackNoSearch }
 // built-in web_search connector; plain questions use chat/completions. The
 // conversation output is a list of typed chunks (text + tool_reference
 // citations) — parsed defensively so field-name drift degrades to plain text.
-async function mistralAsk(env, { system, user, search, maxTokens, fallbackNoSearch }) {
+async function mistralAsk(env, { system, user, search, maxTokens, fallbackNoSearch, debug }) {
   const model = env.MISTRAL_MODEL || "mistral-medium-latest";
   const headers = { authorization: "Bearer " + env.MISTRAL_API_KEY, "content-type": "application/json" };
   if (search) {
@@ -3067,6 +3067,7 @@ async function mistralAsk(env, { system, user, search, maxTokens, fallbackNoSear
       const data = await cr.json().catch(() => ({}));
       if (!cr.ok) throw new Error((data && (data.message || data.detail)) || ("Mistral " + cr.status));
       const parsed = mistralParseConversation(data);
+      if (debug) parsed.raw = data;
       if (parsed.text || !fallbackNoSearch) return parsed;
     } catch (e) {
       // C (fallbackNoSearch off) REQUIRES live web search — surface the error
@@ -3084,24 +3085,45 @@ async function mistralAsk(env, { system, user, search, maxTokens, fallbackNoSear
   const c = data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
   return { text: (typeof c === "string" ? c : "").trim(), sources: [] };
 }
+// Mistral's Conversations response is a tree of typed chunks whose exact field
+// names drift between tiers/models. Rather than hard-code them: pull the answer
+// text from the assistant message chunks, and harvest citations by walking the
+// WHOLE response for any node carrying an http(s) url (web_search references and
+// tool-execution results both do). Deduped, capped — robust to naming drift.
 function mistralParseConversation(data) {
-  const outs = data.outputs || data.messages || [];
+  const outs = data.outputs || data.messages || (data.conversation && data.conversation.outputs) || [];
   let text = ""; const sources = [], seen = new Set();
-  const ref = (u, t) => { if (u && !seen.has(u)) { seen.add(u); sources.push({ url: u, title: t || u }); } };
-  for (const o of outs) {
+  const ref = (u, t) => {
+    u = typeof u === "string" ? u.trim() : "";
+    if (!/^https?:\/\//i.test(u) || seen.has(u)) return;
+    seen.add(u); sources.push({ url: u, title: (typeof t === "string" && t.trim()) || u });
+  };
+  // Answer text: only from assistant/message outputs (avoid tool-call payloads).
+  for (const o of Array.isArray(outs) ? outs : []) {
     if (!o) continue;
-    const isMsg = o.type === "message.output" || o.role === "assistant";
+    const isMsg = o.type === "message.output" || o.type === "message" || o.role === "assistant" || (!o.type && !o.role && o.content);
     const c = o.content;
     if (typeof c === "string") { if (isMsg) text += c; }
     else if (Array.isArray(c)) {
       for (const ch of c) {
         if (!ch) continue;
-        if ((ch.type === "text" || ch.type === "output_text") && typeof ch.text === "string") text += ch.text;
-        else if (ch.type === "tool_reference" || ch.type === "reference") ref(ch.url, ch.title);
+        if (isMsg && (ch.type === "text" || ch.type === "output_text") && typeof ch.text === "string") text += ch.text;
+        else if (isMsg && typeof ch.text === "string" && ch.type == null) text += ch.text;
       }
     }
-    if (o.type === "tool.execution" && Array.isArray(o.results)) for (const rr of o.results) ref(rr && rr.url, rr && rr.title);
   }
+  // Citations: any object anywhere with a url (+ nearby title/source/name label).
+  const walk = (n, depth) => {
+    if (!n || depth > 8) return;
+    if (Array.isArray(n)) { for (const x of n) walk(x, depth + 1); return; }
+    if (typeof n === "object") {
+      if (typeof n.url === "string") ref(n.url, n.title || n.source || n.name || n.snippet);
+      else if (typeof n.link === "string") ref(n.link, n.title || n.source || n.name);
+      for (const k in n) { const v = n[k]; if (v && typeof v === "object") walk(v, depth + 1); }
+    }
+  };
+  walk(outs, 0);
+  if (data.references) walk(data.references, 0);
   return { text: text.trim(), sources: sources.slice(0, 12) };
 }
 
@@ -3118,12 +3140,15 @@ async function handleAsk(request, env) {
   if (!(await askRateLimit(env, email, 30, "ask:"))) return json({ error: "rate_limited", message: "Slow down — 30 questions an hour." }, 429);
 
   const context = typeof (body && body.context) === "string" ? body.context.slice(0, 60000) : "";
+  const debug = !!(body && body.debug);
   const userContent = (context ? `Wire context (the data on the reader's screen):\n${context}\n\n` : "") + `Question: ${question}`;
   let res;
-  try { res = await llmAsk(env, { system: ASK_SYSTEM, user: userContent, search: true, maxTokens: 1500, fallbackNoSearch: true }); }
+  try { res = await llmAsk(env, { system: ASK_SYSTEM, user: userContent, search: true, maxTokens: 1500, fallbackNoSearch: true, debug }); }
   catch (e) { return json({ error: "assistant_unavailable", message: String((e && e.message) || e) }, 502); }
   if (res.refused) return json({ answer: "I can't answer that one.", sources: [] });
-  return json({ answer: res.text || "No answer.", sources: res.sources || [] });
+  const out = { answer: res.text || "No answer.", sources: res.sources || [] };
+  if (debug && res.raw) out._debug = res.raw;
+  return json(out);
 }
 
 // C — "Propose an edit": research a firm, draft a `managers` roster entry, and
@@ -3200,17 +3225,33 @@ function insertManagerDraft(fileText, draft) {
 async function proposeManagerPR(env, email, draft, ask) {
   const owner = env.GH_OWNER || "sk8905", repo = env.GH_REPO || "meridian", base = env.GH_BASE || "main";
   const R = `repos/${owner}/${repo}`, FILE = "credit/js/data.js";
-  const ref = await gh(env, `${R}/git/ref/heads/${base}`);
-  const baseSha = ref.object.sha;
+  // Use the Git Data API throughout: credit/js/data.js is ~2.3 MB, over the
+  // Contents API's 1 MB read cap (which returns empty content), so we read the
+  // blob by sha and write via blob → tree → commit → ref. Do the insert BEFORE
+  // creating the branch so a parse failure never leaves an orphan branch.
+  const headRef = await gh(env, `${R}/git/ref/heads/${base}`);
+  const baseSha = headRef.object.sha;
+  const baseCommit = await gh(env, `${R}/git/commits/${baseSha}`);
+  // Contents API metadata returns the blob sha even for >1 MB files (only its
+  // inline `content` is capped); read the full text via the blobs API.
+  const meta = await gh(env, `${R}/contents/${FILE}?ref=${base}`);
+  let cur = (meta.content && meta.encoding === "base64") ? b64decodeUtf8(meta.content) : "";
+  if (!cur && meta.sha) { const blob = await gh(env, `${R}/git/blobs/${meta.sha}`); cur = b64decodeUtf8(blob.content); }
+  const { text: next, id } = insertManagerDraft(cur, draft);
+  const newBlob = await gh(env, `${R}/git/blobs`, {
+    method: "POST", body: JSON.stringify({ content: b64encodeUtf8(next), encoding: "base64" }),
+  });
+  const newTree = await gh(env, `${R}/git/trees`, {
+    method: "POST",
+    body: JSON.stringify({ base_tree: baseCommit.tree.sha, tree: [{ path: FILE, mode: "100644", type: "blob", sha: newBlob.sha }] }),
+  });
+  const commit = await gh(env, `${R}/git/commits`, {
+    method: "POST",
+    body: JSON.stringify({ message: `Assistant: draft roster entry for ${draft.name || ask} (${id})`, tree: newTree.sha, parents: [baseSha] }),
+  });
   const slug = (draft.name || ask).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "").slice(0, 40) || "manager";
   const branch = `claude/add-${slug}-${Date.now().toString(36)}`;
-  await gh(env, `${R}/git/refs`, { method: "POST", body: JSON.stringify({ ref: `refs/heads/${branch}`, sha: baseSha }) });
-  const file = await gh(env, `${R}/contents/${FILE}?ref=${base}`);
-  const { text: next, id } = insertManagerDraft(b64decodeUtf8(file.content), draft);
-  await gh(env, `${R}/contents/${FILE}`, {
-    method: "PUT",
-    body: JSON.stringify({ message: `Assistant: draft roster entry for ${draft.name || ask} (${id})`, content: b64encodeUtf8(next), sha: file.sha, branch }),
-  });
+  await gh(env, `${R}/git/refs`, { method: "POST", body: JSON.stringify({ ref: `refs/heads/${branch}`, sha: commit.sha }) });
   const prBody = [
     `Draft roster entry proposed via **Ask Wire** by ${email}.`, "",
     `**${draft.name || ask}** — ${draft.hq || "HQ n/a"} · AUM ${draft.aumText || (draft.aum ? "~$" + draft.aum + "bn" : "n/a")} (${id})`,

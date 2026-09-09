@@ -43,12 +43,13 @@ key at request time. Optional `MISTRAL_MODEL` overrides the default
 `mistral-medium-latest` (e.g. `mistral-large-latest` for higher quality).
 
 > **Mistral response-shape note:** Mistral's Conversations API returns the
-> answer as a list of typed output chunks; `mistralParseConversation()` reads
-> them defensively, but the exact field names (`outputs` / `content` chunks /
-> `tool_reference`) couldn't be tested here without a live key. After setting the
-> secret, ask a question — if the answer or its source links come back empty,
-> the parser needs the real shape adjusting (share the raw `/v1/conversations`
-> response).
+> answer as a tree of typed output chunks whose field names drift between tiers.
+> `mistralParseConversation()` therefore reads the answer text from the assistant
+> message chunks and harvests **citations by walking the whole response for any
+> node carrying an http(s) `url`** (both web-search references and tool-execution
+> results do), so it is robust to naming drift. If sources ever come back empty,
+> POST `/api/ask` with `{"question":"…","debug":true}` — the response then
+> includes `_debug` (the raw `/v1/conversations` JSON) to inspect the shape.
 
 ## C — Propose an edit → PR (research + draft a manager) — LIVE (dormant until keyed)
 
@@ -59,11 +60,14 @@ key at request time. Optional `MISTRAL_MODEL` overrides the default
   firm and returns a JSON draft (`found`, `name`, `hq`, `founded`, `aum`,
   `aumText`, `strategies`, `description`, `owners`, `sources`, `note`) — every
   field sourced or `null`; `found:false` if it can't verify a real firm. The
-  Worker then, via the GitHub API:
-  1. branches `claude/add-<slug>-<ts>` off the default branch,
-  2. inserts the draft at the **top** of the `managers` array in
+  Worker then, via the GitHub **Git Data API** (blob → tree → commit → ref —
+  `credit/js/data.js` is ~2.3 MB, over the Contents API's 1 MB read cap, so it is
+  read by blob sha and written as a new tree):
+  1. inserts the draft at the **top** of the `managers` array in
      `credit/js/data.js` (a stable anchor; next free `m<N>` id; marked
      `_draft:true`),
+  2. commits that tree and creates branch `claude/add-<slug>-<ts>` pointing at it
+     (the insert precedes the branch, so a parse failure leaves no orphan branch),
   3. opens a **PR against `main` — never committed to `main`, never auto-merged**,
      with the sources and a "verify every field before merging" warning.
 - **Guards:** POST + verified email; 5 proposals/rolling hour (`propose:<email>`);
