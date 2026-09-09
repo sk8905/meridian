@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "5f8a49b5-cded-4c6c-ba26-e33213b40ee2", title: "Hunter Biden’s $LAPTOP memecoin crashes shortly after launch", date: "2026-09-09", time: "21:06", url: "https://www.ft.com/content/5f8a49b5-cded-4c6c-ba26-e33213b40ee2" },
   { id: "6842ca4b-1a16-4a76-89b5-098cd288ffc7", title: "AI labs test the rigour of credit rating agencies", date: "2026-09-09", time: "19:02", url: "https://www.ft.com/content/6842ca4b-1a16-4a76-89b5-098cd288ffc7" },
   { id: "6b71127f-2ca3-4a6b-a268-91177b6cc981", title: "JPMorgan chief Jamie Dimon meets Andy Burnham amid Budget windfall tax fears", date: "2026-09-09", time: "18:25", url: "https://www.ft.com/content/6b71127f-2ca3-4a6b-a268-91177b6cc981" },
   { id: "e93416e8-c630-4483-8552-6efd7a54ffed", title: "The lessons of LIV Golf's failure", date: "2026-09-09", time: "18:16", url: "https://www.ft.com/content/e93416e8-c630-4483-8552-6efd7a54ffed" },
@@ -59,5 +60,4 @@ export const FT_ITEMS = [
   { id: "e58008a5-d757-4570-af08-d2396f46f03f", title: "Warsh might yet be a good Fed chair", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/e58008a5-d757-4570-af08-d2396f46f03f" },
   { id: "fe1cbd53-eeb8-4916-a4e0-4325b5bea425", title: "BP and Shell’s strategy counterpoint", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/fe1cbd53-eeb8-4916-a4e0-4325b5bea425" },
   { id: "6f71552b-0a1a-46d2-93d0-dc676aeed75b", title: "McLaren to create 1,000 UK jobs in product overhaul", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/6f71552b-0a1a-46d2-93d0-dc676aeed75b" },
-  { id: "6525cf15-0cf0-4fff-a3a4-298a41569d97", title: "World’s biggest relationship? Xi and Modi look to rebuild ties for 2.8bn people", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/6525cf15-0cf0-4fff-a3a4-298a41569d97" },
 ];
