@@ -246,6 +246,18 @@ async function buildAskContext() {
 // sources, error, pr, prName, notFound}. "Ask" (submit) hits /api/ask (feature B,
 // read-only Q&A); "Add" hits /api/propose (feature C — research a firm and open a
 // PR for review; it never edits live data).
+// The model may return light markdown (**bold**, *italic*, `code`, [t](url),
+// paragraph/line breaks). Escape FIRST, then apply a tiny safe subset on the
+// already-escaped string so nothing user/model-supplied can inject markup.
+function askFmt(s) {
+  let h = esc(String(s || ""));
+  h = h.replace(/\[([^\]]+)\]\((https?:\/\/[^\s)]+)\)/g, (_m, t, u) => `<a class="na-brief-src" href="${u}" target="_blank" rel="noopener noreferrer">${t}</a>`);
+  h = h.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  h = h.replace(/(^|[\s(])\*([^*\n]+)\*(?=[\s.,;:)]|$)/g, "$1<em>$2</em>");
+  h = h.replace(/`([^`]+)`/g, "<code>$1</code>");
+  h = h.replace(/\n{2,}/g, "</p><p>").replace(/\n/g, "<br>");
+  return `<p>${h}</p>`;
+}
 function renderAsk(body, st) {
   st = st || {};
   const srcList = (list) => (list && list.length)
@@ -254,7 +266,7 @@ function renderAsk(body, st) {
     : st.error ? `<div class="na-ask-err">${esc(st.error)}</div>`
     : st.notFound ? `<div class="na-ask-err">${esc(st.notFound)}</div>`
     : st.pr ? `<div class="na-ask-answer">Drafted <strong>${esc(st.prName || "an entry")}</strong> and opened a pull request — verify every field before merging.</div><div class="na-ask-srch">Pull request</div><ul class="na-ask-srcs"><li><a class="na-brief-src" href="${esc(st.pr)}" target="_blank" rel="noopener noreferrer">${esc(st.pr)}</a></li></ul>` + srcList(st.sources)
-    : st.answer != null ? `<div class="na-ask-answer">${esc(st.answer)}</div>` + srcList(st.sources)
+    : st.answer != null ? `<div class="na-ask-answer">${askFmt(st.answer)}</div>` + srcList(st.sources)
     : `<div class="na-ask-hint">Ask about any tracked manager, fund, law firm, deal or the markets — or type a firm’s name and press <strong>Add</strong> to have Wire research it and open a PR for review. Every claim links its source.</div>`;
   body.innerHTML = `<form class="na-ask-form"><input class="na-ask-in" type="text" autocomplete="off" placeholder="Ask Wire, or a firm to add…" value="${esc(st.q || "")}"${st.loading ? " disabled" : ""} /><button type="button" class="na-ask-add"${st.loading ? " disabled" : ""} title="Research this firm and open a PR for review">Add</button><button type="submit" class="na-ask-go"${st.loading ? " disabled" : ""}>Ask</button></form>`
     + `<div class="na-ask-out">${out}</div>`

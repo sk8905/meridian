@@ -973,7 +973,11 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-ask-out { padding: 0; }
 .na-ask-hint { padding: 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 11px; line-height: 1.5; }
 .na-ask-err { padding: 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--muted, #8592ad); font-size: 11px; line-height: 1.5; }
-.na-ask-answer { padding: 11px 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size: 12px; line-height: 1.55; white-space: pre-wrap; word-wrap: break-word; }
+.na-ask-answer { padding: 11px 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--ink, #eaf0fb); font-size: 12px; line-height: 1.55; word-wrap: break-word; }
+.na-ask-answer p { margin: 0 0 8px; }
+.na-ask-answer p:last-child { margin-bottom: 0; }
+.na-ask-answer strong { color: var(--t-headink, #cfd8ea); font-weight: 600; }
+.na-ask-answer code { font-size: 11px; padding: 1px 4px; border-radius: 0; background: color-mix(in srgb, var(--ink, #eaf0fb) 10%, transparent); }
 .na-ask-srch { padding: 4px 12px 3px; border-top: 1px solid var(--border, #262626); font-family: var(--t-mono, ui-monospace, monospace); font-size: 10px; font-weight: 600; letter-spacing: .05em; text-transform: uppercase; color: var(--faint, #5c6a86); }
 .na-ask-srcs { list-style: none; margin: 0; padding: 0 12px 8px; }
 .na-ask-srcs li { padding: 3px 0; font-family: var(--t-mono, ui-monospace, monospace); font-size: 10.5px; line-height: 1.4; }
