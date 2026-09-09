@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "88614cc3-6769-47c2-8fcb-76784cef5fca", title: "UK airports warn of further travel disruption", date: "2026-09-09", time: "08:43", url: "https://www.ft.com/content/88614cc3-6769-47c2-8fcb-76784cef5fca" },
+  { id: "c8921e49-1d06-4d27-ab38-7a1d8e3d43fe", title: "Oil hits $100 for first time since July", date: "2026-09-09", time: "08:19", url: "https://www.ft.com/content/c8921e49-1d06-4d27-ab38-7a1d8e3d43fe" },
+  { id: "b460b828-6183-4914-9140-5dfb6d61312c", title: "Oil nears $100 as US launches new strikes on Iranian tankers", date: "2026-09-09", time: "08:13", url: "https://www.ft.com/content/b460b828-6183-4914-9140-5dfb6d61312c" },
   { id: "fe0cbcfc-b351-4dac-889f-7b8f11f79102", title: "Norway’s oil fund says what everyone is thinking", date: "2026-09-09", time: "06:30", url: "https://www.ft.com/content/fe0cbcfc-b351-4dac-889f-7b8f11f79102" },
   { id: "8e950485-7962-4de6-a5b8-a14612e37f7a", title: "FTAV’s further reading", date: "2026-09-09", time: "06:30", url: "https://www.ft.com/content/8e950485-7962-4de6-a5b8-a14612e37f7a" },
   { id: "33d4674f-31db-4551-9ad3-c43d5c94c94c", title: "The clock is ticking on Senegal’s ‘total return swaps’", date: "2026-09-09", time: "06:00", url: "https://www.ft.com/content/33d4674f-31db-4551-9ad3-c43d5c94c94c" },
@@ -56,9 +59,4 @@ export const FT_ITEMS = [
   { id: "700806be-ecba-4c0b-92a9-cc32d7feded4", title: "Former Swiss bank lobby chief convicted of bribery and money laundering", date: "2026-09-08", time: "14:28", url: "https://www.ft.com/content/700806be-ecba-4c0b-92a9-cc32d7feded4" },
   { id: "22eacb3c-6cab-490d-a117-75ba90a2d35c", title: "Merz’s CDU in crisis after far-right victory in Saxony-Anhalt", date: "2026-09-08", time: "14:28", url: "https://www.ft.com/content/22eacb3c-6cab-490d-a117-75ba90a2d35c" },
   { id: "792e9e30-7a96-402c-a472-d7304f5bc1ef", title: "Iceland summons US ambassador over Trump’s Stars and Stripes map", date: "2026-09-08", time: "14:09", url: "https://www.ft.com/content/792e9e30-7a96-402c-a472-d7304f5bc1ef" },
-  { id: "6b9afdfb-26f5-4746-8ff9-027a8d04cb1f", title: "Submit your questions: is Trump losing his touch?", date: "2026-09-08", time: "13:50", url: "https://www.ft.com/content/6b9afdfb-26f5-4746-8ff9-027a8d04cb1f" },
-  { id: "990e71e5-bfa3-4ebb-963d-f8693c5ac7b1", title: "UK announces import ban on goods linked to Israeli settlements in West Bank", date: "2026-09-08", time: "13:43", url: "https://www.ft.com/content/990e71e5-bfa3-4ebb-963d-f8693c5ac7b1" },
-  { id: "769abc3f-5e34-41b4-946a-16cab58010a7", title: "Is it time for Eurozone GDP ex-Ireland?", date: "2026-09-08", time: "13:15", url: "https://www.ft.com/content/769abc3f-5e34-41b4-946a-16cab58010a7" },
-  { id: "a386c753-9f55-4429-b2c9-251d3bff8f58", title: "Ceuta demands EU help over migrant ‘pressure cooker’", date: "2026-09-08", time: "13:08", url: "https://www.ft.com/content/a386c753-9f55-4429-b2c9-251d3bff8f58" },
-  { id: "dda770b2-79b4-48bb-b141-0e1291d08115", title: "The new fiscal threats to monetary policy", date: "2026-09-08", time: "12:30", url: "https://www.ft.com/content/dda770b2-79b4-48bb-b141-0e1291d08115" },
 ];
