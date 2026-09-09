@@ -12,8 +12,8 @@ export const UPDATED = "8 September 2026";
 // is a pre-formatted "HH:MM TZ" London string so it renders the same in any
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
-  lastChecked: "2026-09-08",
-  lastCheckedTime: "21:13 BST",
+  lastChecked: "2026-09-09",
+  lastCheckedTime: "09:13 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -671,6 +671,8 @@ export const YIELD_CURVE = {
 // Changes to the policy-rate outlook and cycle read. Ids are stable; bump the
 // id (e.g. a date suffix) when the underlying guidance changes so it re-flags.
 export const ALERTS = [
+  { id: "g-brent-100-houthi-saudi-2026-09-09", kind: "Bubble risk", title: "Brent crude pushed above $100/bbl for the first time since 24 July — up 2.2% to $100.07 by 0721 GMT, WTI up to $94.73 — after Yemen's Houthi rebels struck multiple Saudi energy facilities and Saudi Arabia retaliated, the sharpest flare-up yet in the six-month Iran conflict, keeping oil-driven inflation risk live into Thursday's PPI and Friday's decisive August CPI print before the 16 September FOMC.", href: "#/bubble", date: "2026-09-09" },
+  { id: "g-sterling-g10-star-boe-caution-2026-09-09", kind: "Cycle", title: "Sterling — the G10's surprise outperformer this year on resilient UK growth — is exposed to a widening rate-hike divergence, CNBC reported, as markets price an imminent ECB hike and rising Fed-hike odds against a more cautious-sounding Bank of England ahead of its 17 September decision and the 28 October Budget.", href: "#/cycle", date: "2026-09-09" },
   { id: "g-uk-gilt-1998-high-healey-2026-09-08", kind: "Cycle", title: "The DMO marketed a benchmark January 2056 gilt at roughly 0.75-1bp over the outstanding 2055 bond — the highest yield premium on any UK gilt syndication since the DMO's creation in 1998 — the same day Chancellor Healey told the Commons in his first Treasury questions that borrowing remains 'too high', declining to rule out tax rises ahead of the 28 October Budget.", href: "#/cycle", date: "2026-09-08" },
   { id: "g-canada-tariffs-live-oil-near-100-2026-09-08", kind: "Markets", title: "Canada's retaliatory tariffs on $27.6bn of US goods (steel, dairy, appliances, paper, electronics — up to 50% on steel/aluminum/furniture/clothing) took effect Tuesday after US-Canada trade talks collapsed, as Brent held near $97/bbl and WTI above $92 on the still-unresolved Strait of Hormuz standoff even as Iran signalled a Hormuz shipping deal with Oman was in its final stages.", href: "#/bubble", date: "2026-09-08" },
   { id: "g-gpt6-astra-chip-rally-2026-09-07", kind: "Bubble risk", title: "OpenAI's public launch of GPT-6 Astra sent Asian chip and AI-supply-chain stocks sharply higher Monday — Japan's Nikkei 225 closed up 2.1% at a record 66,399.84 and South Korea's Kospi jumped 4.6% to 6,995.39, with SK Hynix (+6.1%), Samsung (+4%), Kioxia (+7.2%) and SoftBank (+6.1%) leading — reviving the narrow, AI-capex-driven rally's momentum even as CME FedWatch-implied odds of a 16 September Fed hike held near 65% and Brent extended its advance on the still-live Strait of Hormuz standoff.", href: "#/bubble", date: "2026-09-07" },
@@ -880,19 +882,19 @@ export const SUMMARY = {
 // routine REWRITES these every run. Each links to the published article; verify
 // against the source before relying on it.
 export const NEWS = {
-  updated: "2026-09-08",
+  updated: "2026-09-09",
   us: [
-    { title: "Stock Market Today (Sept. 8, 2026): S&P 500 edges lower as oil prices climb, Mideast tensions rise", source: "Yahoo Finance", date: "2026-09-08", url: "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-sept-8-133744027.html" },
-    { title: "Brent crude oil hits $98 after Iran's Houthi allies attack multiple Saudi energy facilities", source: "CNBC", date: "2026-09-08", url: "https://www.cnbc.com/2026/09/08/oil-prices-today-brent-wti-hormuz-iran-war.html" },
-    { title: "Canada's retaliatory tariffs hit US products as Trump warns of escalation", source: "ABC7 New York", date: "2026-09-08", url: "https://abc7ny.com/story/canadas-retaliatory-tariffs-hit-us-products-trump-warns-escalation/19805273/" },
-    { title: "Wall of Political and Economic Risks Is Growing: Taking Stock", source: "Bloomberg", date: "2026-09-08", url: "https://www.bloomberg.com/news/articles/2026-09-08/wall-of-political-and-economic-risks-is-growing-taking-stock" },
-    { title: "As Wall Street shifts expectations towards a Fed rate hike, the White House turns up the pressure on Warsh's central bank", source: "Fortune", date: "2026-09-07", url: "https://fortune.com/2026/09/07/wall-street-hike-expectations-kevin-warsh-fed-trump/" },
+    { title: "Brent crude rises above $100 a barrel as Middle East conflict escalates", source: "Reuters", date: "2026-09-09", url: "https://finance.yahoo.com/news/brent-crude-rises-above-100-073722479.html" },
+    { title: "CNBC Daily Open: Sanctions, strikes and the road to $100 oil", source: "CNBC", date: "2026-09-09", url: "https://www.cnbc.com/2026/09/09/cnbc-daily-open-iran-war-oil-tankers-oil-sanctions-ai-qualcomm.html" },
+    { title: "Stock market today: Live updates", source: "CNBC", date: "2026-09-08", url: "https://www.cnbc.com/2026/09/08/stock-market-today-live-updates.html" },
+    { title: "FOMC September 2026 Odds for a Rate Hike Surpass 50%", source: "Yahoo Finance", date: "2026-09-08", url: "https://finance.yahoo.com/economy/policy/articles/fomc-september-2026-odds-rate-201618784.html" },
+    { title: "AI infrastructure stocks rally on deal announcements from Qualcomm, Corning", source: "CNBC", date: "2026-09-08", url: "https://www.cnbc.com/2026/09/08/ai-infrastructure-stocks-rally-on-deal-from-qualcomm-and-corning.html" },
   ],
   uk: [
+    { title: "G10's 'surprise' currency star could stumble as peers hike interest rates", source: "CNBC", date: "2026-09-09", url: "https://www.cnbc.com/2026/09/09/fx-currencies-interest-rate-hikes.html" },
+    { title: "UK sells 30-year debt at record yield, showing pressure on public finances", source: "Reuters", date: "2026-09-08", url: "https://www.investing.com/news/economy-news/uk-sells-30year-debt-at-record-yield-showing-pressure-on-public-finances-4891674" },
     { title: "Healey Says UK Borrowing Remains High as Fiscal Discipline Takes Priority", source: "Bloomberg", date: "2026-09-08", url: "https://www.bloomberg.com/news/articles/2026-09-08/healey-says-uk-borrowing-too-high-in-signal-of-fiscal-rigor" },
-    { title: "UK Set to Pay Most Since 1998 for Borrowing After Gilt Selloff", source: "Bloomberg", date: "2026-09-08", url: "https://www.bloomberg.com/news/articles/2026-09-08/uk-set-to-pay-most-since-1998-for-borrowing-after-gilt-selloff" },
     { title: "British Pound: Sterling faces fiscal and BoE risks – Rabobank", source: "FXStreet", date: "2026-09-08", url: "https://www.fxstreet.com/news/british-pound-sterling-faces-fiscal-and-boe-risks-rabobank-202609081226" },
-    { title: "UK Locks In Priciest 30-Year Gilt Yield Since 1998: Tax Rises at October Budget Now Near-Certain", source: "Tech Times", date: "2026-09-08", url: "https://www.techtimes.com/articles/326996/20260908/uk-locks-priciest-30-year-gilt-yield-since-1998-tax-rises-october-budget-now-near-certain.htm" },
     { title: "UK house prices fall annually for first time since November 2023", source: "The Intermediary", date: "2026-09-07", url: "https://theintermediary.co.uk/2026/09/uk-house-prices-fall-annually-for-first-time-since-november-2023/" },
   ],
 };
@@ -905,8 +907,11 @@ export const NEWS = {
 // prepends new items and drops the oldest. Each links to the published article;
 // verify against the source before relying on it.
 export const ARTICLES = {
-  updated: "2026-09-08",
+  updated: "2026-09-09",
   items: [
+    {"title": "Brent crude rises above $100 a barrel as Middle East conflict escalates", "source": "Reuters", "date": "2026-09-09", "time": "08:21", "url": "https://finance.yahoo.com/news/brent-crude-rises-above-100-073722479.html", "blurb": "Brent crude futures rose past $100 a barrel for the first time since 24 July — up $2.15 (2.2%) to $100.07 by 0721 GMT, with WTI up $1.70 to $94.73 — after Houthi attacks set Saudi energy installations ablaze, a sharp escalation of the six-month-old US-Iran conflict's threat to regional oil flows.", "author": null},
+    {"title": "CNBC Daily Open: Sanctions, strikes and the road to $100 oil", "source": "CNBC", "date": "2026-09-09", "time": "06:30", "url": "https://www.cnbc.com/2026/09/09/cnbc-daily-open-iran-war-oil-tankers-oil-sanctions-ai-qualcomm.html", "blurb": "Washington says economic pressure will end its war with Iran even as US forces destroyed five Iranian crude carriers and the Treasury sanctioned 27 Iranian airlines; oil pushed toward $100 while Qualcomm and Corning's new AI-infrastructure deals lifted chip and fibre stocks.", "author": null},
+    {"title": "G10's 'surprise' currency star could stumble as peers hike interest rates", "source": "CNBC", "date": "2026-09-09", "time": "05:00", "url": "https://www.cnbc.com/2026/09/09/fx-currencies-interest-rate-hikes.html", "blurb": "Sterling has been the G10's surprise outperformer on resilient UK growth, but strategists say an imminent ECB hike and rising Fed-hike odds — against a more cautious-sounding Bank of England ahead of its 17 September decision — could expose the pound into the 28 October Budget.", "author": null},
     {"title": "Brent crude oil hits $98 after Iran's Houthi allies attack multiple Saudi energy facilities", "source": "CNBC", "date": "2026-09-08", "time": "20:30", "url": "https://www.cnbc.com/2026/09/08/oil-prices-today-brent-wti-hormuz-iran-war.html", "blurb": "Brent rose to about $98 and WTI above $93 after Yemen's Houthi rebels — Iran's regional allies — struck multiple Saudi Arabian energy facilities and Saudi Arabia retaliated, the worst flare-up since the two sides' four-year-old truce, as the Strait of Hormuz standoff already had crude near seven-week highs.", "author": null},
     {"title": "Canada's retaliatory tariffs hit US products as Trump warns of escalation", "source": "ABC7 New York", "date": "2026-09-08", "time": "19:15", "url": "https://abc7ny.com/story/canadas-retaliatory-tariffs-hit-us-products-trump-warns-escalation/19805273/", "blurb": "Ottawa's roughly $20bn of counter-tariffs — as high as 50% on hundreds of US goods from aluminium foil to cheese — took effect at one minute past midnight Eastern, with President Trump threatening to bar Bombardier aircraft sales and warning of further escalation.", "author": null},
     {"title": "British Pound: Sterling faces fiscal and BoE risks – Rabobank", "source": "FXStreet", "date": "2026-09-08", "time": "18:20", "url": "https://www.fxstreet.com/news/british-pound-sterling-faces-fiscal-and-boe-risks-rabobank-202609081226", "blurb": "Rabobank flagged sterling as vulnerable on two fronts into the 17 September BoE decision and 28 October Budget — hawkish rate pricing that could yet unwind, and a gilt-market-constrained Chancellor Healey facing tax-rise pressure — even as short-end yields have kept the pound broadly supported.", "author": null},
@@ -1109,7 +1114,7 @@ export const IND_KEYMOMENTS = {
 };
 // FX majors key moment — the dominant driver for the USD/GBP/EUR/JPY board,
 // shown under the Markets ▸ FX matrix. Grounded + sourced; null when quiet.
-export const FX_KEYMOMENT = { text: "GBP/USD holds around 1.3540, inside its August range, with markets focused on whether the 16 September CPI print and the 17 September BoE decision — a day after the Fed's own call — can sustain sterling demand into a stretch of back-to-back central-bank events.", src: "https://tiomarkets.com/article/gbp-usd-market-analysis-technical-outlook-september-8-2026", srcName: "TIOmarkets", date: "2026-09-08" };
+export const FX_KEYMOMENT = { text: "Sterling has been the G10's surprise outperformer this year on resilient UK growth, but CNBC reports strategists see it exposed to a widening rate-hike divergence — an imminent ECB hike and rising Fed-hike odds against a more cautious-sounding Bank of England — heading into the 17 September MPC decision and 28 October Budget.", src: "https://www.cnbc.com/2026/09/09/fx-currencies-interest-rate-hikes.html", srcName: "CNBC", date: "2026-09-09" };
 
 export const EARNINGS = {
   weeks: [

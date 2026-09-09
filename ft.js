@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "38d718f6-110b-4822-9403-f7d12a48cfa8", title: "'I am the house now': Bessent warns currency traders not to bet against yen", date: "2026-09-09", time: "09:26", url: "https://www.ft.com/content/38d718f6-110b-4822-9403-f7d12a48cfa8" },
   { id: "88614cc3-6769-47c2-8fcb-76784cef5fca", title: "UK airports warn of further travel disruption", date: "2026-09-09", time: "08:43", url: "https://www.ft.com/content/88614cc3-6769-47c2-8fcb-76784cef5fca" },
   { id: "c8921e49-1d06-4d27-ab38-7a1d8e3d43fe", title: "Oil hits $100 for first time since July", date: "2026-09-09", time: "08:19", url: "https://www.ft.com/content/c8921e49-1d06-4d27-ab38-7a1d8e3d43fe" },
   { id: "b460b828-6183-4914-9140-5dfb6d61312c", title: "Oil nears $100 as US launches new strikes on Iranian tankers", date: "2026-09-09", time: "08:13", url: "https://www.ft.com/content/b460b828-6183-4914-9140-5dfb6d61312c" },
