@@ -8,6 +8,7 @@
 .wire-net {
   --wn-accent:#fb8b1e; --wn-ink:#131b2c; --wn-mut:#5e6a84; --wn-down:#df4763;
   --wn-bd:#e4e7ef; --wn-surface:#ffffff; --wn-surface2:#f3f6fb;
+  --wn-linkedin:#0a66c2; /* LinkedIn's own brand blue — theme-independent by design */
   color:var(--wn-ink);
 }
 :root[data-theme="dark"] .wire-net {
@@ -72,7 +73,7 @@
 .wn-badge-h::-webkit-details-marker { display:none; }
 .wn-badge-h strong { color:var(--wn-accent); }
 .wn-badge-ic { display:inline-flex; align-items:center; justify-content:center; width:1.25em; height:1.25em;
-  background:#0a66c2; color:#fff; border-radius:3px; font-size:.62rem; font-weight:700; text-transform:lowercase; }
+  background:var(--wn-linkedin); color:#fff; border-radius:3px; font-size:.62rem; font-weight:700; text-transform:lowercase; }
 /* Chevron on the right, rotating down when the badge is open. */
 .wn-badge-chev { margin-left:auto; width:.7em; height:.7em; border-right:2px solid var(--wn-accent);
   border-bottom:2px solid var(--wn-accent); transform:rotate(-45deg); transition:transform .15s ease; }

@@ -331,12 +331,9 @@ a.compact-head:hover { text-decoration: none; }
 .card-meta { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; font-size: .76rem; padding-bottom: .9rem; }
 .firm { font-weight: 600; color: var(--ink); }
 .cite { color: var(--muted); font-style: italic; }
-.save-btn {
-  margin: 0 1.1rem 1rem; align-self: flex-start; background: #f1f5f9; border: 1px solid var(--line);
-  color: var(--ink-soft); border-radius: 7px; padding: .3rem .65rem; font-size: .78rem; font-weight: 600; cursor: pointer;
-}
-.save-btn:hover { background: #e2e8f0; }
-.save-btn.is-saved { background: #fff7ed; border-color: #fed7aa; color: #b45309; }
+/* .save-btn colour/shape rules live in premium.css (single source of truth);
+   only layout overrides for this page's markup stay here. */
+.save-btn { margin: 0 1.1rem 1rem; align-self: flex-start; }
 .save-btn.big { margin: 0 0 1.2rem; padding: .5rem 1rem; font-size: .88rem; }
 
 /* ---- List view ---- */
@@ -592,7 +589,6 @@ a.compact-head:hover { text-decoration: none; }
 
 /* Dark-mode accent (shared surfaces/shadows live in premium.css). */
 :root[data-theme="dark"] { --accent: #fb8b1e; --primary: #fb8b1e; --primary-ink: #c9d3e6; }
-[data-theme="dark"] .save-btn.is-saved { background: rgba(251,146,60,.16); border-color: rgba(251,146,60,.42); color: #fbbf24; }
 
 /* ---- Compact metric tiles: the number sits to the LEFT of the label+sub instead of
         above them, roughly halving each tile's height. ---- */
