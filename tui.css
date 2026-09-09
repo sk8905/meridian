@@ -368,6 +368,12 @@
    fixed 210px box floated to the right. */
 .thead-search .tsearch { flex: 1 1 auto; min-width: 0; width: auto; max-width: none; margin-left: 0; }
 .tsearch { margin-left: auto; background: var(--bg); border: 1px solid var(--border); color: var(--ink); font-family: var(--t-mono); font-size: 11px; padding: 2px 8px; height: 20px; width: 210px; max-width: 46vw; border-radius: 0; }
+/* The field sits a step off the panel ground so it reads as an editable search box,
+   not flat chrome — the same intent as the top "Search everything" pill and the
+   Legal dashboard search (--t-panel2). .tsearch isn't in the --t-* token scope, so
+   set the lifted shade per theme: a step lighter on dark, a crisp white field on light. */
+:root[data-theme="dark"] .tsearch { background: #202020; }
+:root[data-theme="light"] .tsearch { background: #ffffff; }
 .tsearch::placeholder { color: var(--faint); }
 .tleague-full .tl-hq { text-align: left; color: var(--muted); font-family: var(--t-mono); font-size: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .tleague-full th.tl-hq { text-align: left; }
