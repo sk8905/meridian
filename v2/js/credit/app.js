@@ -489,7 +489,6 @@ function managersPaneHTML() {
                 <tbody id="mgr-rows">${mrows.map(mgrRow).join("")}</tbody>
               </table>
               </div>
-              <p class="tl-sls-key muted small">Secondaries &amp; structured liquidity (manager on the sell-side) — CONT: continuation fund / vehicle (GP-led secondary) · SEC: secondary / portfolio sale · STRIP: strip / partial fund-stake sale · CFO: collateralised fund obligation · NAV: NAV / fund-level financing · SRT: significant / synthetic risk transfer · OTH: other structured liquidity (secondaries platform, fund finance). Every chip links to a cited article (hover for the source; the articles sit in that manager's news). — = none found in public coverage.</p>
             </div>`;
 }
 function hedgeFundsPaneHTML() {
@@ -531,7 +530,6 @@ function hedgeFundsPaneHTML() {
                 <tbody id="hf-rows">${hfRows.map(hfRow).join("")}</tbody>
               </table>
               </div>
-              <p class="tl-sls-key muted small">The largest hedge-fund managers across the US, UK &amp; Europe, by AUM. <strong>AUM is US$bn and approximate</strong> — latest widely-reported public figures (firm-wide, indicative only; hedge funds do not disclose AUM uniformly), each with a source on the fund page. As of ${esc(HEDGE_FUNDS_ASOF)}. Click a row for AUM sources, strategy, performance and live SEC 13F top-10 holdings.</p>
             </div>`;
 }
 
@@ -559,7 +557,7 @@ async function loadConsensus(btn) {
   const got = [];
   const BATCH = 8;
   for (let i = 0; i < funds.length; i += BATCH) {
-    body.innerHTML = `<p class="tl-sls-key muted small">Aggregating 13F holdings… ${Math.min(i + BATCH, funds.length)}/${funds.length} funds</p>`;
+    body.innerHTML = `<p class="muted small">Aggregating 13F holdings… ${Math.min(i + BATCH, funds.length)}/${funds.length} funds</p>`;
     const chunk = funds.slice(i, i + BATCH);
     const settled = await Promise.all(chunk.map((f) =>
       fetch(`/api/13f?cik=${encodeURIComponent(f.cik)}`, { headers: { accept: "application/json" } })
@@ -586,7 +584,7 @@ async function loadConsensus(btn) {
   // panel and resets the button back to "Cross-holdings").
   const collapseHead = `<div class="hf-cons-head"><span class="hf-cons-h-t">Cross-holdings — most-crowded 13F names</span><button type="button" class="hf-cons-x" aria-label="Collapse cross-holdings">✕ Collapse</button></div>`;
   const wireCollapse = () => { const x = body.querySelector(".hf-cons-x"); if (x) x.addEventListener("click", () => { body.innerHTML = ""; if (btn) btn.textContent = "Cross-holdings"; }); };
-  if (!rows.length) { body.innerHTML = collapseHead + `<p class="tl-sls-key muted small">No overlapping 13F holdings across ${got.length}/${funds.length} funds yet (some file no US 13F; cold filings warm into the edge cache on first view). Try Refresh shortly.</p>`; wireCollapse(); return; }
+  if (!rows.length) { body.innerHTML = collapseHead + `<p class="muted small">No overlapping 13F holdings across ${got.length}/${funds.length} funds yet. Try Refresh shortly.</p>`; wireCollapse(); return; }
   const usd = (v) => v >= 1e9 ? "$" + (v / 1e9).toFixed(1) + "bn" : v >= 1e6 ? "$" + (v / 1e6).toFixed(0) + "m" : "$" + Math.round(v).toLocaleString("en-US");
   const flag = (e) => (e.opt ? `<span class="hf-cons-fl" title="Held via options (puts/calls) by some funds">opt</span>` : "") + (e.prn ? `<span class="hf-cons-fl" title="Held as a convertible/debt security by some funds">conv</span>` : "");
   const tick = (e) => e.ticker ? `<a href="https://finance.yahoo.com/quote/${encodeURIComponent(e.ticker)}" target="_blank" rel="noopener noreferrer">${esc(e.ticker)}</a>` : "—";
@@ -598,8 +596,7 @@ async function loadConsensus(btn) {
     + `<td class="tl-hq" title="${esc(e.holders.map((h) => h.name).join(", "))}">${esc(e.holders.slice(0, 3).map((h) => h.name).join(", "))}${e.holders.length > 3 ? ` +${e.holders.length - 3}` : ""}</td></tr>`;
   body.innerHTML = collapseHead + `<div class="tleague-wrap"><table class="tleague tl-holdings">`
     + `<thead><tr><th>Security</th><th class="tl-tick">Ticker</th><th># funds</th><th>Avg wt</th><th>Total 13F value</th><th class="tl-hq">Holders</th></tr></thead>`
-    + `<tbody>${rows.map(row).join("")}</tbody></table></div>`
-    + `<p class="tl-sls-key muted small">Across ${got.length} of the ${funds.length} largest tracked funds' latest SEC 13F filings (long US-equity/option positions only). "# funds" = how many hold the name in their top-10; "Avg wt" = mean position weight among holders. Filings self-refresh on a 24h cache.</p>`;
+    + `<tbody>${rows.map(row).join("")}</tbody></table></div>`;
   wireCollapse();
 }
 
@@ -1084,7 +1081,6 @@ function viewIntel() {
     </section>
     <section class="card">
       <h2>Known LP → manager commitments <span class="muted">(${commitments.length})</span></h2>
-      <p class="muted small">Publicly reported LP→manager relationships (moved here from the former Mandates tab) — click either side to explore. LP mandates &amp; RFP / fund-launch items appear in the feed above, filterable by type "Mandate" / "Launch".</p>
       <div class="table-wrap"><table class="data-table">
         <thead><tr><th>Investor</th><th>Manager</th><th>Detail</th></tr></thead>
         <tbody>${commitments.map((c) => `<tr>

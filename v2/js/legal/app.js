@@ -470,8 +470,7 @@ function lawFirmsPane() {
     + `<input type="search" id="lf-q" class="tsearch" placeholder="Search name, practice or tier…" aria-label="Search law firms"></header>`
     + `<div class="tleague-wrap"><table class="tleague tleague-full tleague-lf">`
     + `<thead><tr><th>Firm</th><th class="tl-tier">Tier</th><th class="tl-n">London&nbsp;lawyers</th><th class="tl-areas">Main&nbsp;London&nbsp;areas</th><th class="tl-n">Total&nbsp;revenue</th><th class="tl-n">London&nbsp;revenue</th><th class="tl-n">PEP</th></tr></thead>`
-    + `<tbody id="lf-rows">${rows.length ? rows.map(lawFirmRow).join("") : '<tr><td colspan="7" class="tw-empty muted small">No firms tracked yet.</td></tr>'}</tbody></table></div>`
-    + `<p class="tl-sls-key muted small">London office of each firm — approximate lawyer headcount, main London practice areas, revenue and profit per equity partner (PEP). Total revenue is firm-wide/global; London revenue shows only where the firm discloses a London-office figure (or is a single-office London firm) — otherwise “—”. Hover any figure for its basis and year. Click a firm for its London profile and private-capital deals (last 12 months).</p>`;
+    + `<tbody id="lf-rows">${rows.length ? rows.map(lawFirmRow).join("") : '<tr><td colspan="7" class="tw-empty muted small">No firms tracked yet.</td></tr>'}</tbody></table></div>`;
 }
 
 // Full firms pane div (the EXACT Law Firms list) so the Profiles tab can render

@@ -208,6 +208,20 @@ notification badge red (`#ef4444`).
   (`wire.li.v1`) — never to the Worker or any third party. There is no fetch in
   that module. Any future personal-data import must follow the same rule:
   client-side parse, minimal on-device persistence, no egress.
+- **R20 — No explainer / legend / methodology prose in the UI.** The terminal
+  shows data, not instructions about the data. Do **not** add caption blocks that
+  (a) define abbreviations or tag codes (a legend like "CONT: continuation fund ·
+  SEC: secondary sale …", "PEP = profit per equity partner", "13D = activist"), or
+  (b) explain methodology / provenance in prose ("approximate, latest reported",
+  "there is an inherent filing lag", "each links its source", "illustrative not
+  exhaustive"). Make an abbreviation self-evident, or expose its meaning through a
+  native `title=` tooltip on the header/cell/chip — never a paragraph under the
+  table. **Kept by exception** (these are not legends): a short *visual key* needed
+  to read a chart (the heatmap green/red direction, a solid/dashed line key); a
+  genuine *disclaimer / disclosure* (legal "not advice", the AI-generated-summary
+  note); and a one-line *interaction affordance* ("Tap a row for detail"). The
+  source-citation is separate and stays — every data item still links its source
+  (R7), but the citation lives on the row/figure, never as a methodology caption.
 
 ---
 

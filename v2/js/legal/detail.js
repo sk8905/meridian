@@ -264,7 +264,6 @@ export function viewFirm(id) {
               .map(([k, l]) => `<button type="button" class="tchip${k === firmTab ? " is-on" : ""}" data-k="${k}">${l}</button>`).join("")}</div>
           </header>
           <ul class="twire compact-list" id="firm-wire"></ul>
-          ${firm.london ? `<p class="tl-sls-key muted small">London office figures are approximate, from public sources${firm.london.revenueBasis ? " (" + esc(firm.london.revenueBasis) + ")" : ""}; revenue/PEP are firm-wide unless noted, and US firms report globally. Private-capital deals are the publicly-announced matters the London office advised on in the last ~12 months — not an exhaustive list.</p>` : ""}
         </section>
         <aside class="tcol tcol-r">
           ${londonRail}

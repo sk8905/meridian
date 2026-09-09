@@ -84,7 +84,9 @@ const base = `http://localhost:${srv.port}`;
   check(geo.scrollable, "managers league table is horizontally scrollable");
   checkEq(geo.overflowX, "auto", "managers table wrapper scrolls on x");
   checkEq(geo.th, "static", "managers table header static (h-scroll wrapper)");
-  // SLS (Structured Liquidity Solutions) column: header, sourced chips, legend.
+  // SLS (Structured Liquidity Solutions) column: header + sourced chips. Per
+  // HOUSE_STYLE R19 the abbreviations carry their meaning in a native per-chip
+  // tooltip (title=), NOT a verbose legend caption under the table.
   const sls = await pg.evaluate(() => ({
     th: !!document.querySelector(".tleague-full th.tl-sls"),
     chips: document.querySelectorAll(".tleague-full .sls-chip").length,
@@ -94,7 +96,7 @@ const base = `http://localhost:${srv.port}`;
   check(sls.th, "SLS column header present");
   check(sls.chips > 10, "SLS chips render from structured data");
   check(sls.tipped, "every SLS chip carries a sourced tooltip");
-  check(sls.key, "SLS legend renders under the table");
+  check(!sls.key, "no legend caption — SLS abbreviations live in the per-chip tooltips (R19)");
   // A horizontal swipe ON the table must NOT change the tab (defers to scroll).
   await t.swipeBegin(300, 500, +1); await t.swipeFinish(300, 500, +1);
   checkEq(await pg.evaluate(() => document.querySelector("#cr-dash-tabs .tchip.is-on")?.dataset.p), "managers", "swipe on the table does not change tab");

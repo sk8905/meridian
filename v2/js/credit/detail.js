@@ -433,8 +433,7 @@ export function viewManager(id) {
       + `<div class="veh-body" id="veh-${esc(v.cik)}"></div></div>`;
   };
   const vehiclesPane = vehicles.length
-    ? `<p class="tw-empty muted small">Publicly-listed lending vehicles. <strong>BDCs</strong> (10-Q Schedule of Investments) show the top portfolio positions by fair value with % of the reported book; registered <strong>CEFs</strong> (N-PORT) show top holdings by value — each links to the latest SEC filing. Tap <em>Load holdings</em>.</p>`
-      + vehicles.map(vehRow).join("")
+    ? vehicles.map(vehRow).join("")
     : "";
   const pane = (p, inner) => `<div class="tpane" data-p="${p}"${p === "news" ? "" : " hidden"}>${inner}</div>`;
 
@@ -637,8 +636,7 @@ function renderVehicle(body, d, type) {
   const rows = d.holdings.map((h, i) => `<tr><td class="tl-n">${i + 1}</td><td class="tl-nm">${esc(h.name || "—")}</td>`
     + `<td class="tl-n">${usd(h.value)}</td><td class="tl-n">${h.weight != null && isFinite(h.weight) ? (h.weight * 100).toFixed(1) + "%" : "—"}</td></tr>`).join("");
   body.innerHTML = `<div class="tleague-wrap"><table class="tleague tl-holdings"><thead><tr><th>#</th>`
-    + `<th>${type === "bdc" ? "Portfolio company" : "Holding"}</th><th>Fair value</th><th>${type === "bdc" ? "% of book" : "% of NAV"}</th></tr></thead><tbody>${rows}</tbody></table></div>`
-    + `<p class="tl-sls-key muted small">Top ${d.holdings.length} by fair value${d.asOf ? `, as of ${esc(d.asOf)}` : ""}${link}. ${type === "bdc" ? "Fair values summed across a company's tranches; % of the parsed portfolio (there is an inherent quarterly-filing lag)." : "% of net assets from the N-PORT filing."}</p>`;
+    + `<th>${type === "bdc" ? "Portfolio company" : "Holding"}</th><th>Fair value</th><th>${type === "bdc" ? "% of book" : "% of NAV"}</th></tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 function hfHoldingsTable(d, perfMap) {
   if (!d || !Array.isArray(d.holdings) || !d.holdings.length) return null;
@@ -683,11 +681,9 @@ export function viewHedgeFund(id) {
     : '<p class="tw-empty muted small">No news tracked for this fund yet.</p>';
   const holdingsPane = f.cik
     ? `<div id="hf-holdings"><p class="tw-empty muted small">Loading latest 13F holdings…</p></div>`
-      + `<p class="tl-sls-key muted small">Top 10 long US-equity/option holdings via SEC 13F-HR, as of <span id="hf-asof">latest filing</span>; performance ${f.perf && f.perf.text ? "as noted below" : "n.a."} (13F excludes shorts, cash bonds/loans and non-US names; there is an inherent quarterly-filing lag).</p>`
     : `<p class="tw-empty muted small">No US 13F / not disclosed.</p>`;
   const filingsPane = f.cik
     ? `<div id="hf-filings"><p class="tw-empty muted small">Loading recent SEC filings…</p></div>`
-      + `<p class="tl-sls-key muted small">Beneficial-ownership (SC 13D/13G, &gt;5% stakes — 13D = activist/control intent) and insider (Forms 3/4/5) filings from SEC EDGAR, newest first. 13F shows long US-equity holdings; these add stakes &amp; insider trades. Each links to the filing; dates are the SEC filed date (there is an inherent reporting lag).</p>`
     : `<p class="tw-empty muted small">No US SEC filer.</p>`;
   const pane = (p, inner) => `<div class="tpane" data-p="${p}"${p === "news" ? "" : " hidden"}>${inner}</div>`;
 
