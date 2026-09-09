@@ -33,21 +33,34 @@ wrangler secret put ANTHROPIC_API_KEY
 Cloudflare dashboard). No redeploy of the app is required; the route reads
 `env.ANTHROPIC_API_KEY` at request time.
 
-## C — Propose an edit → PR (research + draft a manager) — planned
+## C — Propose an edit → PR (research + draft a manager) — LIVE (dormant until keyed)
 
-- **UI:** an "add X" box → `/api/propose`.
-- **Flow:** Claude researches the entity with `web_search`, drafts a `managers`
-  entry matching the `credit/js/data.js` schema (every field sourced or `null`),
-  then opens a **GitHub PR against a `claude/…` branch — never `main`, never
-  auto-merged** — for human review.
-- **Extra secret:** a GitHub token with repo scope, in addition to the API key —
+- **UI:** the same Ask Wire panel — type a firm's name and press **Add** (the
+  neutral button beside "Ask"). It shows "Researching & drafting…", then the
+  opened PR link (or a "couldn't verify that firm" note — it refuses to invent).
+- **Flow (`/api/propose`):** Claude (`claude-opus-5`, `web_search`) researches the
+  firm and returns a JSON draft (`found`, `name`, `hq`, `founded`, `aum`,
+  `aumText`, `strategies`, `description`, `owners`, `sources`, `note`) — every
+  field sourced or `null`; `found:false` if it can't verify a real firm. The
+  Worker then, via the GitHub API:
+  1. branches `claude/add-<slug>-<ts>` off the default branch,
+  2. inserts the draft at the **top** of the `managers` array in
+     `credit/js/data.js` (a stable anchor; next free `m<N>` id; marked
+     `_draft:true`),
+  3. opens a **PR against `main` — never committed to `main`, never auto-merged**,
+     with the sources and a "verify every field before merging" warning.
+- **Guards:** POST + verified email; 5 proposals/rolling hour (`propose:<email>`);
+  firm string capped at 300 chars. It never touches live data — only a review PR.
+
+**To switch it on:** set BOTH the API key (above) and a GitHub token with repo
+scope —
 
 ```
 wrangler secret put GITHUB_TOKEN
 ```
 
-C never writes to the live data directly; it only opens a PR you review and
-merge, which keeps the never-fabricate + cache-token + test discipline intact.
+Optional overrides: `GH_OWNER` / `GH_REPO` / `GH_BASE` (default `sk8905` /
+`meridian` / `main`).
 
 ## Cost & safety notes
 

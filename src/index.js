@@ -3057,6 +3057,137 @@ async function handleAsk(request, env) {
   return json({ answer: answer || "No answer.", sources: askSources(msg.content) });
 }
 
+// C — "Propose an edit": research a firm, draft a `managers` roster entry, and
+// open a GitHub PR against a claude/… branch for human review. Never writes to
+// main, never auto-merges — so the never-fabricate + test + cache-token discipline
+// stays intact. Dormant until BOTH ANTHROPIC_API_KEY and GITHUB_TOKEN are set.
+const PROPOSE_MODEL = "claude-opus-5";
+const PROPOSE_SYSTEM = [
+  "You research a financial firm and draft a Wire 'managers' roster entry as JSON.",
+  "Wire tracks private-credit managers and hedge funds with REAL, sourced data only.",
+  "Rules:",
+  "- Use web search to find the firm. Every non-null field must be backed by a source.",
+  "- If you cannot verify the firm exists as a real asset manager / hedge fund, set",
+  '  "found": false and explain in "note". NEVER invent a firm or a figure.',
+  "- Unknown fields are null. Keep the description to one or two sentences.",
+  "Output ONLY one JSON object, no prose, of exactly this shape:",
+  '{"found":true,"name":"","hq":"","founded":null,"aum":null,"aumText":"","strategies":[],"description":"","owners":[{"name":"","stake":""}],"sources":[{"label":"","url":""}],"note":""}',
+].join("\n");
+
+function parseJsonObject(text) {
+  const s = text.indexOf("{"), e = text.lastIndexOf("}");
+  if (s < 0 || e <= s) return null;
+  try { return JSON.parse(text.slice(s, e + 1)); } catch { return null; }
+}
+function b64decodeUtf8(b64) {
+  const bin = atob(String(b64 || "").replace(/\n/g, ""));
+  return new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0)));
+}
+function b64encodeUtf8(str) {
+  const bytes = new TextEncoder().encode(str);
+  let bin = ""; for (const byte of bytes) bin += String.fromCharCode(byte);
+  return btoa(bin);
+}
+async function gh(env, path, init) {
+  const r = await fetch("https://api.github.com/" + path, {
+    method: (init && init.method) || "GET",
+    headers: {
+      "authorization": "Bearer " + env.GITHUB_TOKEN,
+      "accept": "application/vnd.github+json",
+      "user-agent": "wire-assistant",
+      "content-type": "application/json",
+    },
+    body: init && init.body,
+  });
+  const data = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error((data && data.message) || ("GitHub " + r.status));
+  return data;
+}
+// Insert the drafted object at the TOP of the managers array (a stable anchor —
+// far safer than locating the array's end); assign the next free m<N> id. The
+// object is marked _draft:true so a reviewer can find and finish it.
+function insertManagerDraft(fileText, draft) {
+  const anchor = "export const managers = [";
+  const at = fileText.indexOf(anchor);
+  if (at < 0) throw new Error("managers array not found in data.js");
+  const end = fileText.indexOf("\nexport const ", at + anchor.length);
+  const seg = fileText.slice(at, end < 0 ? undefined : end);
+  let max = 0; for (const m of seg.matchAll(/id:\s*"m(\d+)"/g)) max = Math.max(max, +m[1]);
+  const id = "m" + (max + 1);
+  const obj = {
+    id, name: draft.name || "", hq: draft.hq || null,
+    founded: (typeof draft.founded === "number") ? draft.founded : null,
+    aum: (typeof draft.aum === "number") ? draft.aum : null, aumText: draft.aumText || null,
+    strategies: Array.isArray(draft.strategies) ? draft.strategies : [],
+    description: draft.description || null,
+    owners: Array.isArray(draft.owners) ? draft.owners.filter((o) => o && o.name) : [],
+    sources: Array.isArray(draft.sources) ? draft.sources.filter((s) => s && s.url) : [],
+    estimated: true, asOf: new Date().toISOString().slice(0, 10), _draft: true,
+  };
+  const literal = "\n  " + JSON.stringify(obj) + ",";
+  const insertAt = at + anchor.length;
+  return { text: fileText.slice(0, insertAt) + literal + fileText.slice(insertAt), id };
+}
+async function proposeManagerPR(env, email, draft, ask) {
+  const owner = env.GH_OWNER || "sk8905", repo = env.GH_REPO || "meridian", base = env.GH_BASE || "main";
+  const R = `repos/${owner}/${repo}`, FILE = "credit/js/data.js";
+  const ref = await gh(env, `${R}/git/ref/heads/${base}`);
+  const baseSha = ref.object.sha;
+  const slug = (draft.name || ask).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "").slice(0, 40) || "manager";
+  const branch = `claude/add-${slug}-${Date.now().toString(36)}`;
+  await gh(env, `${R}/git/refs`, { method: "POST", body: JSON.stringify({ ref: `refs/heads/${branch}`, sha: baseSha }) });
+  const file = await gh(env, `${R}/contents/${FILE}?ref=${base}`);
+  const { text: next, id } = insertManagerDraft(b64decodeUtf8(file.content), draft);
+  await gh(env, `${R}/contents/${FILE}`, {
+    method: "PUT",
+    body: JSON.stringify({ message: `Assistant: draft roster entry for ${draft.name || ask} (${id})`, content: b64encodeUtf8(next), sha: file.sha, branch }),
+  });
+  const prBody = [
+    `Draft roster entry proposed via **Ask Wire** by ${email}.`, "",
+    `**${draft.name || ask}** — ${draft.hq || "HQ n/a"} · AUM ${draft.aumText || (draft.aum ? "~$" + draft.aum + "bn" : "n/a")} (${id})`,
+    draft.description ? "\n" + draft.description : "",
+    "", "**Sources**",
+    ...((draft.sources || []).filter((s) => s && s.url).map((s) => `- ${s.label || s.url}: ${s.url}`)),
+    "", "> ⚠️ Claude-drafted from public sources. **Verify every field and its citation before merging** (HOUSE_STYLE R7): confirm the figures, fill the `null`s, reformat to house style, and remove the `_draft` marker. Do not merge unverified.",
+  ].join("\n");
+  return gh(env, `${R}/pulls`, { method: "POST", body: JSON.stringify({ title: `Add manager: ${draft.name || ask}`, head: branch, base, body: prBody }) });
+}
+async function handlePropose(request, env) {
+  if (request.method !== "POST") return json({ error: "method_not_allowed" }, 405);
+  const email = identity(request);
+  if (!email) return json({ error: "unauthenticated" }, 401);
+  if (!env.ANTHROPIC_API_KEY || !env.GITHUB_TOKEN) return json({ unconfigured: true, message: "Proposing additions isn’t switched on yet." });
+  let body;
+  try { body = await request.json(); } catch { return json({ error: "bad_request" }, 400); }
+  const ask = String((body && (body.request || body.name)) || "").trim();
+  if (!ask) return json({ error: "empty" }, 400);
+  if (ask.length > 300) return json({ error: "too_long", message: "Keep it to a firm name." }, 400);
+  if (!(await askRateLimit(env, email, 5, "propose:"))) return json({ error: "rate_limited", message: "Slow down — 5 proposals an hour." }, 429);
+
+  let msg;
+  try {
+    msg = await anthropicRun(env, {
+      model: PROPOSE_MODEL, max_tokens: 2000, system: PROPOSE_SYSTEM,
+      output_config: { effort: "medium" },
+      tools: [{ type: "web_search_20260209", name: "web_search", max_uses: 6 }],
+      messages: [{ role: "user", content: `Research and draft a roster entry for: ${ask}` }],
+    });
+  } catch (e) { return json({ error: "assistant_unavailable", message: String((e && e.message) || e) }, 502); }
+  if (!msg || msg.type === "error") return json({ error: "assistant_error", message: (msg && msg.error && msg.error.message) || "Assistant unavailable." }, 502);
+  if (msg.stop_reason === "refusal") return json({ error: "refused", message: "Can’t draft that one." });
+  const text = (msg.content || []).filter((b) => b.type === "text").map((b) => b.text).join("");
+  const draft = parseJsonObject(text);
+  if (!draft) return json({ error: "no_draft", message: "Couldn’t draft an entry — try a clearer firm name." });
+  if (draft.found === false) return json({ notFound: true, message: draft.note || "Couldn’t verify that firm from public sources." });
+
+  try {
+    const pr = await proposeManagerPR(env, email, draft, ask);
+    return json({ prUrl: pr.html_url, prNumber: pr.number, name: draft.name || ask, sources: askSources(msg.content) });
+  } catch (e) {
+    return json({ error: "pr_failed", message: "Drafted the entry but couldn’t open the PR: " + String((e && e.message) || e) });
+  }
+}
+
 export default {
   async scheduled(event, env, ctx) {
     ctx.waitUntil(pushScheduled(env));
@@ -3095,6 +3226,7 @@ export default {
     if (url.pathname === "/api/push/test") return handlePushTest(request, env);
     if (url.pathname === "/api/me") return handleMe(request);
     if (url.pathname === "/api/ask") return handleAsk(request, env);
+    if (url.pathname === "/api/propose") return handlePropose(request, env);
     // v2 SPA (the ground-up rebuild, served alongside the current app). Every
     // /v2/ NAVIGATION route — anything with no file extension that isn't a real
     // asset — returns the single shell; the client router renders the right

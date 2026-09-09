@@ -956,6 +956,9 @@ a.na-mrow:hover { background: var(--head, #0a0a0a); }
 .na-ask-in::placeholder { color: var(--faint, #5c6a86); }
 .na-ask-go { flex: 0 0 auto; border: 0; border-left: 1px solid var(--border, #262626); background: transparent; color: var(--accent, #fb8b1e); font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 0 14px; cursor: pointer; }
 .na-ask-go:disabled { color: var(--faint, #5c6a86); cursor: default; }
+.na-ask-add { flex: 0 0 auto; border: 0; border-left: 1px solid var(--border, #262626); background: transparent; color: var(--muted, #8592ad); font-family: var(--t-mono, ui-monospace, monospace); font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; padding: 0 12px; cursor: pointer; }
+.na-ask-add:hover:not(:disabled) { color: var(--ink, #eaf0fb); }
+.na-ask-add:disabled { color: var(--faint, #5c6a86); cursor: default; }
 .na-ask-out { padding: 0; }
 .na-ask-hint { padding: 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--faint, #5c6a86); font-size: 11px; line-height: 1.5; }
 .na-ask-err { padding: 12px; font-family: var(--t-mono, ui-monospace, monospace); color: var(--muted, #8592ad); font-size: 11px; line-height: 1.5; }

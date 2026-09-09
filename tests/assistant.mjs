@@ -50,6 +50,31 @@ await pg.waitForTimeout(400);
 check(await pg.evaluate(() => ((document.querySelector(".na-ask-err") || {}).textContent || "").includes("switched on")),
   "dormant (unconfigured) route shows a graceful note, not an error");
 
+// Feature C: the "Add" button researches a firm and opens a PR (stubbed here).
+check(await pg.evaluate(() => !!document.querySelector(".na-ask-add")), "Add (propose) button present in the Ask panel");
+await pg.route("**/api/propose", (route) => route.fulfill({
+  status: 200, contentType: "application/json",
+  body: JSON.stringify({ prUrl: "https://github.com/sk8905/meridian/pull/123", prNumber: 123, name: "Example Capital", sources: [{ url: "https://example.com/", title: "Example" }] }),
+}));
+await pg.evaluate(() => { document.querySelector(".na-ask-in").value = "Example Capital"; document.querySelector(".na-ask-add").click(); });
+await pg.waitForTimeout(500);
+const proposed = await pg.evaluate(() => ({
+  a: ((document.querySelector(".na-ask-answer") || {}).textContent || ""),
+  pr: [...document.querySelectorAll(".na-ask-srcs a[href]")].some((x) => x.href.includes("/pull/123")),
+}));
+check(proposed.a.includes("pull request"), "Add renders the drafted-and-PR-opened confirmation");
+check(proposed.pr, "renders the pull-request link");
+
+await pg.unroute("**/api/propose");
+await pg.route("**/api/propose", (route) => route.fulfill({
+  status: 200, contentType: "application/json",
+  body: JSON.stringify({ unconfigured: true, message: "Proposing additions isn’t switched on yet." }),
+}));
+await pg.evaluate(() => { document.querySelector(".na-ask-in").value = "X Capital"; document.querySelector(".na-ask-add").click(); });
+await pg.waitForTimeout(400);
+check(await pg.evaluate(() => ((document.querySelector(".na-ask-err") || {}).textContent || "").includes("switched on")),
+  "dormant propose route shows a graceful note");
+
 checkErrs(errs, "ask wire");
 await ctx.close();
 await b.close(); srv.close();

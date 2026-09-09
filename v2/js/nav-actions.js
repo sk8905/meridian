@@ -242,18 +242,23 @@ async function buildAskContext() {
   } catch { _askCtx = ""; }
   return _askCtx;
 }
-// Render the Ask panel from its state: {q, loading, answer, sources, error}.
+// Render the Ask panel from its state: {q, loading, loadingLabel, answer,
+// sources, error, pr, prName, notFound}. "Ask" (submit) hits /api/ask (feature B,
+// read-only Q&A); "Add" hits /api/propose (feature C — research a firm and open a
+// PR for review; it never edits live data).
 function renderAsk(body, st) {
   st = st || {};
-  const out = st.loading ? `<div class="na-load">Thinking…</div>`
+  const srcList = (list) => (list && list.length)
+    ? `<div class="na-ask-srch">Sources</div><ul class="na-ask-srcs">${list.map((s) => `<li><a class="na-brief-src" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title || s.label || s.url)}</a></li>`).join("")}</ul>` : "";
+  const out = st.loading ? `<div class="na-load">${esc(st.loadingLabel || "Thinking…")}</div>`
     : st.error ? `<div class="na-ask-err">${esc(st.error)}</div>`
-    : st.answer != null ? `<div class="na-ask-answer">${esc(st.answer)}</div>`
-        + ((st.sources && st.sources.length)
-            ? `<div class="na-ask-srch">Sources</div><ul class="na-ask-srcs">${st.sources.map((s) => `<li><a class="na-brief-src" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title || s.url)}</a></li>`).join("")}</ul>` : "")
-    : `<div class="na-ask-hint">Ask about any tracked manager, fund, law firm, deal or the markets. Answers come from Wire’s own data and a live web search — every claim links its source.</div>`;
-  body.innerHTML = `<form class="na-ask-form"><input class="na-ask-in" type="text" autocomplete="off" placeholder="Ask Wire…" value="${esc(st.q || "")}"${st.loading ? " disabled" : ""} /><button type="submit" class="na-ask-go"${st.loading ? " disabled" : ""}>Ask</button></form>`
+    : st.notFound ? `<div class="na-ask-err">${esc(st.notFound)}</div>`
+    : st.pr ? `<div class="na-ask-answer">Drafted <strong>${esc(st.prName || "an entry")}</strong> and opened a pull request — verify every field before merging.</div><div class="na-ask-srch">Pull request</div><ul class="na-ask-srcs"><li><a class="na-brief-src" href="${esc(st.pr)}" target="_blank" rel="noopener noreferrer">${esc(st.pr)}</a></li></ul>` + srcList(st.sources)
+    : st.answer != null ? `<div class="na-ask-answer">${esc(st.answer)}</div>` + srcList(st.sources)
+    : `<div class="na-ask-hint">Ask about any tracked manager, fund, law firm, deal or the markets — or type a firm’s name and press <strong>Add</strong> to have Wire research it and open a PR for review. Every claim links its source.</div>`;
+  body.innerHTML = `<form class="na-ask-form"><input class="na-ask-in" type="text" autocomplete="off" placeholder="Ask Wire, or a firm to add…" value="${esc(st.q || "")}"${st.loading ? " disabled" : ""} /><button type="button" class="na-ask-add"${st.loading ? " disabled" : ""} title="Research this firm and open a PR for review">Add</button><button type="submit" class="na-ask-go"${st.loading ? " disabled" : ""}>Ask</button></form>`
     + `<div class="na-ask-out">${out}</div>`
-    + `<div class="na-brief-foot">AI answer from Wire’s sourced data + a live web search — verify anything critical.</div>`;
+    + `<div class="na-brief-foot">AI answers/drafts from Wire’s sourced data + a live web search — verify anything critical. “Add” opens a PR for review; it never edits live data.</div>`;
 }
 function loadMarkets(body) {
   body.innerHTML = `<div class="na-chips">`
@@ -1054,6 +1059,25 @@ export function initNavActions() {
           })
           .catch(() => { _askState = { q, error: "Network error — try again." }; renderAsk(askBody(), _askState); })
       );
+    });
+    // "Add" (feature C): research the typed firm and open a PR for review.
+    askPanel.addEventListener("click", (e) => {
+      if (!e.target.closest(".na-ask-add")) return;
+      e.preventDefault(); e.stopPropagation();
+      if (_askState.loading) return;
+      const q = (askBody().querySelector(".na-ask-in").value || "").trim();
+      if (!q) return;
+      _askState = { q, loading: true, loadingLabel: "Researching & drafting…" }; renderAsk(askBody(), _askState);
+      fetch("/api/propose", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ request: q }) })
+        .then((r) => r.json())
+        .then((d) => {
+          if (d && d.unconfigured) _askState = { q, error: d.message || "Proposing additions isn’t switched on yet." };
+          else if (d && d.notFound) _askState = { q, notFound: d.message || "Couldn’t verify that firm from public sources." };
+          else if (!d || d.error || !d.prUrl) _askState = { q, error: (d && d.message) || "Couldn’t open a PR — try again." };
+          else _askState = { q, pr: d.prUrl, prName: d.name || q, sources: d.sources || [] };
+          renderAsk(askBody(), _askState);
+        })
+        .catch(() => { _askState = { q, error: "Network error — try again." }; renderAsk(askBody(), _askState); });
     });
 
     const panels = [
