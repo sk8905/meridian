@@ -26,6 +26,7 @@ function fmtDate(d) { if (!d) return ""; const s = /^\d{4}-\d{2}$/.test(d) ? d +
 
 const ICO_MKT = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M7 15l4-5 3 3 5-7"/></svg>';
 const ICO_BRIEF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h9l4 4v13a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M14 3v5h5"/><path d="M8 12h8M8 16h6"/></svg>';
+const ICO_ASK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.38 8.38 0 0 1-8.5 8.5 8.5 8.5 0 0 1-3.9-.9L3 21l1.9-5.6a8.5 8.5 0 0 1-.9-3.9A8.38 8.38 0 0 1 12.5 3 8.38 8.38 0 0 1 21 11.5z"/></svg>';
 const ICO_SAVED = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>';
 const ICO_MAG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><line x1="15.6" y1="15.6" x2="21" y2="21"/></svg>';
 
@@ -215,6 +216,44 @@ function renderBriefing(body, slotKey) {
     + (s.lede ? `<p class="na-brief-lede">${s.lede}</p>` : "")
     + `<ul class="na-brief-list">${bullets}</ul>`
     + `<div class="na-brief-foot">AI-generated summary of Wire’s sourced desks — every line links its source.</div>`;
+}
+
+// ---- "Ask Wire" assistant (feature B) -------------------------------------
+// A read-only Q&A box: the client posts the question + a compact roster context
+// to the Access-gated /api/ask Worker route, which answers from Wire's own data
+// and a cited web search (never fabricates — HOUSE_STYLE R7) using claude-opus-5.
+// The route is DORMANT until the ANTHROPIC_API_KEY secret is set, in which case
+// it replies {unconfigured:true} and the panel shows a "not switched on" note.
+let _askCtx = null;
+async function buildAskContext() {
+  if (_askCtx != null) return _askCtx;
+  try {
+    const [cr, lg] = await Promise.all([import("/credit/js/data.js"), import("/legal/js/data.js")]);
+    const parts = [];
+    const mgr = (cr.managers || []).map((m) => `${m.name} — ${m.hq || "?"} · AUM ${m.aumText || (m.aum ? "~$" + m.aum + "bn" : "n/a")} · ${(m.strategies || []).join("/")}`);
+    parts.push(`CREDIT MANAGERS (${mgr.length}):\n${mgr.join("\n")}`);
+    const hf = (cr.HEDGE_FUNDS || []).map((h) => `${h.name}${h.aum ? " — ~$" + h.aum + "bn" : ""}${h.strategy ? " · " + h.strategy : ""}${h.hq ? " · " + h.hq : ""}`);
+    parts.push(`HEDGE FUNDS (${hf.length}):\n${hf.join("\n")}`);
+    const fw = (lg.firms || []).map((f) => `${f.name}${f.london && f.london.lawyers ? " — ~" + f.london.lawyers + " London lawyers" : ""}${f.tier ? " · tier " + f.tier : ""}`);
+    parts.push(`LAW FIRMS (${fw.length}):\n${fw.join("\n")}`);
+    const dl = (cr.deals || []).slice(-40).reverse().map((d) => `${d.date || ""} · ${d.headline || ""}`);
+    parts.push(`RECENT CREDIT DEALS:\n${dl.join("\n")}`);
+    _askCtx = parts.join("\n\n").slice(0, 55000);
+  } catch { _askCtx = ""; }
+  return _askCtx;
+}
+// Render the Ask panel from its state: {q, loading, answer, sources, error}.
+function renderAsk(body, st) {
+  st = st || {};
+  const out = st.loading ? `<div class="na-load">Thinking…</div>`
+    : st.error ? `<div class="na-ask-err">${esc(st.error)}</div>`
+    : st.answer != null ? `<div class="na-ask-answer">${esc(st.answer)}</div>`
+        + ((st.sources && st.sources.length)
+            ? `<div class="na-ask-srch">Sources</div><ul class="na-ask-srcs">${st.sources.map((s) => `<li><a class="na-brief-src" href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title || s.url)}</a></li>`).join("")}</ul>` : "")
+    : `<div class="na-ask-hint">Ask about any tracked manager, fund, law firm, deal or the markets. Answers come from Wire’s own data and a live web search — every claim links its source.</div>`;
+  body.innerHTML = `<form class="na-ask-form"><input class="na-ask-in" type="text" autocomplete="off" placeholder="Ask Wire…" value="${esc(st.q || "")}"${st.loading ? " disabled" : ""} /><button type="submit" class="na-ask-go"${st.loading ? " disabled" : ""}>Ask</button></form>`
+    + `<div class="na-ask-out">${out}</div>`
+    + `<div class="na-brief-foot">AI answer from Wire’s sourced data + a live web search — verify anything critical.</div>`;
 }
 function loadMarkets(body) {
   body.innerHTML = `<div class="na-chips">`
@@ -759,6 +798,7 @@ export function initNavActions() {
       // trailing slot (search there is the topbar pill, not this cluster).
       `<span class="na-ring" title="Time to next live-feed refresh" aria-hidden="true"><svg viewBox="0 0 18 18"><circle class="na-ring-track" cx="9" cy="9" r="7"/><circle class="na-ring-arc" cx="9" cy="9" r="7"/></svg></span>` +
       `<button type="button" class="na-btn" id="na-brief" aria-label="Market briefing" aria-haspopup="true" aria-expanded="false" title="Market briefing">${ICO_BRIEF}<span class="na-brief-dot" hidden></span></button>` +
+      `<button type="button" class="na-btn" id="na-ask" aria-label="Ask Wire" aria-haspopup="true" aria-expanded="false" title="Ask Wire">${ICO_ASK}</button>` +
       `<button type="button" class="na-btn" id="na-mkt" aria-label="Markets & key rates" aria-haspopup="true" aria-expanded="false" title="Markets & key rates">${ICO_MKT}</button>` +
       `<button type="button" class="na-btn" id="na-saved" aria-label="Saved" aria-haspopup="true" aria-expanded="false" title="Saved">${ICO_SAVED}</button>` +
       `<button type="button" class="na-btn na-bell" id="na-notif" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">${ICO_BELL}<span class="na-badge" hidden></span></button>` +
@@ -845,6 +885,7 @@ export function initNavActions() {
       return p;
     };
     const briefPanel = mkPanel("na-brief-panel", "Briefing");
+    const askPanel = mkPanel("na-ask-panel", "Ask Wire");
     const mktPanel = mkPanel("na-mkt-panel", "Markets");
     const savedPanel = mkPanel("na-saved-panel", "Bookmarks");
     const notifPanel = mkPanel("na-notif-panel", "Notifications");
@@ -990,8 +1031,34 @@ export function initNavActions() {
       if (c) { e.stopPropagation(); renderBriefing(briefPanel.querySelector(".na-body"), c.dataset.slot); markBriefRead(c.dataset.slot); refreshBriefDot(); }
     });
 
+    // Ask Wire: the form lives in the persistent panel, so bind submit here (it
+    // survives the .na-body re-renders). One in-flight guard; state persists so
+    // reopening the panel shows the last answer.
+    let _askState = {};
+    const askBody = () => askPanel.querySelector(".na-body");
+    askPanel.addEventListener("submit", (e) => {
+      const form = e.target.closest(".na-ask-form"); if (!form) return;
+      e.preventDefault(); e.stopPropagation();
+      if (_askState.loading) return;
+      const q = (form.querySelector(".na-ask-in").value || "").trim();
+      if (!q) return;
+      _askState = { q, loading: true }; renderAsk(askBody(), _askState);
+      buildAskContext().then((context) =>
+        fetch("/api/ask", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ question: q, context }) })
+          .then((r) => r.json())
+          .then((d) => {
+            if (d && d.unconfigured) _askState = { q, error: d.message || "The assistant isn’t switched on yet." };
+            else if (!d || d.error) _askState = { q, error: (d && d.message) || "The assistant is unavailable right now." };
+            else _askState = { q, answer: d.answer || "", sources: d.sources || [] };
+            renderAsk(askBody(), _askState);
+          })
+          .catch(() => { _askState = { q, error: "Network error — try again." }; renderAsk(askBody(), _askState); })
+      );
+    });
+
     const panels = [
       { btn: wrap.querySelector("#na-brief"), panel: briefPanel, onOpen: (p) => { const slot = briefLatestSlot(); renderBriefing(p.querySelector(".na-body"), slot); markBriefRead(slot); refreshBriefDot(); } },
+      { btn: wrap.querySelector("#na-ask"), panel: askPanel, onOpen: (p) => { renderAsk(p.querySelector(".na-body"), _askState); const i = p.querySelector(".na-ask-in"); if (i && !isPhone()) setTimeout(() => i.focus(), 40); } },
       { btn: wrap.querySelector("#na-mkt"), panel: mktPanel, onOpen: (p) => { if (!_mktLoaded) { _mktLoaded = true; loadMarkets(p.querySelector(".na-body")); } } },
       { btn: wrap.querySelector("#na-saved"), panel: savedPanel, onOpen: (p) => { loadSaved(p.querySelector(".na-body"), p.querySelector(".na-h-n")); } },
       { btn: notifBtn, panel: notifPanel, onOpen: (p) => { const body = p.querySelector(".na-body"); if (_notifItems) renderNotif(body); else { body.innerHTML = '<div class="na-load">Loading…</div>'; ensureNotifs().then(() => renderNotif(body)).catch(() => { body.innerHTML = '<div class="na-load">Notifications unavailable right now.</div>'; }); } } },

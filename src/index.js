@@ -2949,6 +2949,114 @@ export async function pushScheduled(env) {
   await KV.put("push:state", JSON.stringify(state));
 }
 
+// =============================================================================
+// Wire assistant — "Ask Wire" (read-only Q&A, feature B) and "Propose an edit"
+// (research + draft a manager -> GitHub PR, feature C). Both are gated by
+// Cloudflare Access (verified email via identity()), grounded (answer/draft ONLY
+// from the provided Wire context or a CITED web search — never fabricate, per
+// HOUSE_STYLE R7), and DORMANT until their secrets are set: /api/ask needs
+// ANTHROPIC_API_KEY, /api/propose also needs GITHUB_TOKEN. Until then they return
+// {unconfigured:true}, so shipping the routes costs nothing. Model: claude-opus-5.
+// =============================================================================
+const ASK_MODEL = "claude-opus-5";
+const ASK_SYSTEM = [
+  "You are Wire's built-in assistant. Wire is a markets terminal covering Macro,",
+  "Equities and Fixed income, plus private Credit (managers & funds), Hedge funds",
+  "and Legal (private-capital law firms & case law).",
+  "",
+  "Rules:",
+  "- Answer ONLY from (a) the Wire context provided in the user's message, or",
+  "  (b) a web search you run. NEVER invent figures, names, dates or URLs.",
+  "- Use the Wire context for anything about the tracked managers, funds, firms,",
+  "  deals or commentary. Use web search for live market data or anything not in it.",
+  "- Every factual claim taken from a web search must name its source. If you",
+  "  don't know, say so plainly — do not guess.",
+  "- Be terse and concrete, like a terminal. No preamble, no disclaimers.",
+].join("\n");
+
+// One raw Messages API call (no SDK in the Worker bundle — it's a single hand-
+// written file with no bundler). Returns the parsed JSON, or null on transport
+// failure. web_search is a server tool, so results come back in the same message.
+async function anthropicMessages(env, payload) {
+  const r = await fetch("https://api.anthropic.com/v1/messages", {
+    method: "POST",
+    headers: {
+      "x-api-key": env.ANTHROPIC_API_KEY,
+      "anthropic-version": "2023-06-01",
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(payload),
+  });
+  return r.json();
+}
+
+// Run a Messages request to completion, continuing across web-search pause_turns.
+async function anthropicRun(env, payload, maxHops = 3) {
+  let msg = await anthropicMessages(env, payload);
+  let hops = 0;
+  while (msg && msg.stop_reason === "pause_turn" && hops++ < maxHops) {
+    payload = { ...payload, messages: [...payload.messages, { role: "assistant", content: msg.content }] };
+    msg = await anthropicMessages(env, payload);
+  }
+  return msg;
+}
+
+// Collect the cited URLs from web_search result blocks + inline text citations.
+function askSources(content) {
+  const out = [], seen = new Set();
+  for (const b of content || []) {
+    if (b.type === "web_search_tool_result" && Array.isArray(b.content)) {
+      for (const r of b.content) if (r && r.url && !seen.has(r.url)) { seen.add(r.url); out.push({ url: r.url, title: r.title || r.url }); }
+    }
+    if (b.type === "text" && Array.isArray(b.citations)) {
+      for (const c of b.citations) if (c && c.url && !seen.has(c.url)) { seen.add(c.url); out.push({ url: c.url, title: c.title || c.url }); }
+    }
+  }
+  return out.slice(0, 12);
+}
+
+// Per-user rolling-hour rate limit in KV, so the assistant can't run up the bill.
+async function askRateLimit(env, email, limit, prefix) {
+  const WINDOW = 3600, k = prefix + email;
+  let rec = null;
+  try { rec = JSON.parse((await env.WATCHLIST.get(k)) || "null"); } catch { /* */ }
+  const now = Math.floor(Date.now() / 1000);
+  if (!rec || now - rec.t > WINDOW) rec = { t: now, n: 0 };
+  rec.n++;
+  try { await env.WATCHLIST.put(k, JSON.stringify(rec), { expirationTtl: WINDOW + 60 }); } catch { /* */ }
+  return rec.n <= limit;
+}
+
+// B — read-only Q&A over the Wire context the client sends + a cited web search.
+async function handleAsk(request, env) {
+  if (request.method !== "POST") return json({ error: "method_not_allowed" }, 405);
+  const email = identity(request);
+  if (!email) return json({ error: "unauthenticated" }, 401);
+  if (!env.ANTHROPIC_API_KEY) return json({ unconfigured: true, message: "The Ask Wire assistant isn't switched on yet." });
+  let body;
+  try { body = await request.json(); } catch { return json({ error: "bad_request" }, 400); }
+  const question = String((body && body.question) || "").trim();
+  if (!question) return json({ error: "empty_question" }, 400);
+  if (question.length > 2000) return json({ error: "too_long", message: "Question too long." }, 400);
+  if (!(await askRateLimit(env, email, 30, "ask:"))) return json({ error: "rate_limited", message: "Slow down — 30 questions an hour." }, 429);
+
+  const context = typeof (body && body.context) === "string" ? body.context.slice(0, 60000) : "";
+  const userContent = (context ? `Wire context (the data on the reader's screen):\n${context}\n\n` : "") + `Question: ${question}`;
+  let msg;
+  try {
+    msg = await anthropicRun(env, {
+      model: ASK_MODEL, max_tokens: 1500, system: ASK_SYSTEM,
+      output_config: { effort: "low" },
+      tools: [{ type: "web_search_20260209", name: "web_search", max_uses: 4 }],
+      messages: [{ role: "user", content: userContent }],
+    });
+  } catch (e) { return json({ error: "assistant_unavailable", message: String((e && e.message) || e) }, 502); }
+  if (!msg || msg.type === "error") return json({ error: "assistant_error", message: (msg && msg.error && msg.error.message) || "Assistant unavailable." }, 502);
+  if (msg.stop_reason === "refusal") return json({ answer: "I can't answer that one.", sources: [] });
+  const answer = (msg.content || []).filter((b) => b.type === "text").map((b) => b.text).join("").trim();
+  return json({ answer: answer || "No answer.", sources: askSources(msg.content) });
+}
+
 export default {
   async scheduled(event, env, ctx) {
     ctx.waitUntil(pushScheduled(env));
@@ -2986,6 +3094,7 @@ export default {
     if (url.pathname === "/api/push/subscribe") return handlePushSubscribe(request, env);
     if (url.pathname === "/api/push/test") return handlePushTest(request, env);
     if (url.pathname === "/api/me") return handleMe(request);
+    if (url.pathname === "/api/ask") return handleAsk(request, env);
     // v2 SPA (the ground-up rebuild, served alongside the current app). Every
     // /v2/ NAVIGATION route — anything with no file extension that isn't a real
     // asset — returns the single shell; the client router renders the right
