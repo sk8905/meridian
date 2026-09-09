@@ -727,7 +727,7 @@ function setTopVar() {
 }
 let _scrim = null;
 function scrimOn(onClose) {
-  if (!isPhone()) return;
+  // Backdrop for BOTH the phone full-screen sheet and the desktop centered modal.
   if (!_scrim) {
     _scrim = document.createElement("div");
     _scrim.className = "na-scrim";
@@ -1104,7 +1104,8 @@ export function initNavActions() {
       rec.panel.hidden = false;
       rec.btn.setAttribute("aria-expanded", "true");
       rec.onOpen(rec.panel);
-      if (!isPhone()) { const r = rec.btn.getBoundingClientRect(); rec.panel.style.top = `${Math.round(r.bottom + 8)}px`; }
+      // Desktop centers the panel as a modal via CSS (translate(-50%,-50%)); no
+      // per-open anchoring under the button. Phones keep the full-screen sheet.
       lockBody(isPhone());
       scrimOn(closeAll);
     };
