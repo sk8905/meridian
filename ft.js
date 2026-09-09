@@ -20,6 +20,11 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "2cc88608-04b2-4dcb-8c89-698f251de170", title: "Silver Lake to merge French software groups Cegid and Silae in €10bn deal", date: "2026-09-09", time: "11:00", url: "https://www.ft.com/content/2cc88608-04b2-4dcb-8c89-698f251de170" },
+  { id: "b397ced1-b9bc-4fe6-8dc7-20f0752e2591", title: "China’s giant trade surplus has an increasingly geopolitical twist", date: "2026-09-09", time: "11:00", url: "https://www.ft.com/content/b397ced1-b9bc-4fe6-8dc7-20f0752e2591" },
+  { id: "81786612-93e4-4af3-8cc9-f69434872740", title: "Swedish anti-immigrant party nears government role for first time", date: "2026-09-09", time: "11:00", url: "https://www.ft.com/content/81786612-93e4-4af3-8cc9-f69434872740" },
+  { id: "464142c6-7ba6-4bdb-83ca-6a4f18da4d96", title: "How to make your retirement less of a (fiscal) drag", date: "2026-09-09", time: "11:00", url: "https://www.ft.com/content/464142c6-7ba6-4bdb-83ca-6a4f18da4d96" },
+  { id: "b66ff736-528b-4e3e-a43a-f06749d01991", title: "Thiel-backed start-up to mass-produce ‘deep strike’ missiles in Europe and US", date: "2026-09-09", time: "10:53", url: "https://www.ft.com/content/b66ff736-528b-4e3e-a43a-f06749d01991" },
   { id: "d7418474-5d7d-4b4f-a496-72fa5ee20046", title: "Lessons from England’s school success story", date: "2026-09-09", time: "09:30", url: "https://www.ft.com/content/d7418474-5d7d-4b4f-a496-72fa5ee20046" },
   { id: "38d718f6-110b-4822-9403-f7d12a48cfa8", title: "'I am the house now': Bessent warns currency traders not to bet against yen", date: "2026-09-09", time: "09:26", url: "https://www.ft.com/content/38d718f6-110b-4822-9403-f7d12a48cfa8" },
   { id: "88614cc3-6769-47c2-8fcb-76784cef5fca", title: "UK airports warn of further travel disruption", date: "2026-09-09", time: "08:43", url: "https://www.ft.com/content/88614cc3-6769-47c2-8fcb-76784cef5fca" },
@@ -56,8 +61,4 @@ export const FT_ITEMS = [
   { id: "2e97fb28-24cf-4ab0-89b1-454b4f97cdbc", title: "Young Americans have never witnessed a functioning foreign policy", date: "2026-09-08", time: "15:24", url: "https://www.ft.com/content/2e97fb28-24cf-4ab0-89b1-454b4f97cdbc" },
   { id: "ef50aed1-e50c-4cb6-a418-266476fb2829", title: "To safeguard Israel’s future, the UK is right to sanction settlers", date: "2026-09-08", time: "15:13", url: "https://www.ft.com/content/ef50aed1-e50c-4cb6-a418-266476fb2829" },
   { id: "f1a7b7be-1444-4f2f-80ca-905c8630f295", title: "Heathrow and Gatwick flights face disruption over air traffic control ‘technical issue’", date: "2026-09-08", time: "15:06", url: "https://www.ft.com/content/f1a7b7be-1444-4f2f-80ca-905c8630f295" },
-  { id: "d264136c-8215-4ac6-a1cc-1efeb23ae5cd", title: "Cerberus nears £1bn deal for Goodwin defence unit", date: "2026-09-08", time: "14:43", url: "https://www.ft.com/content/d264136c-8215-4ac6-a1cc-1efeb23ae5cd" },
-  { id: "a7011878-b0b7-4e7f-8f5a-e7d9d662fd47", title: "Donald Trump calls for Bombardier boycott as Canada hits US with tariffs", date: "2026-09-08", time: "14:38", url: "https://www.ft.com/content/a7011878-b0b7-4e7f-8f5a-e7d9d662fd47" },
-  { id: "700806be-ecba-4c0b-92a9-cc32d7feded4", title: "Former Swiss bank lobby chief convicted of bribery and money laundering", date: "2026-09-08", time: "14:28", url: "https://www.ft.com/content/700806be-ecba-4c0b-92a9-cc32d7feded4" },
-  { id: "22eacb3c-6cab-490d-a117-75ba90a2d35c", title: "Merz’s CDU in crisis after far-right victory in Saxony-Anhalt", date: "2026-09-08", time: "14:28", url: "https://www.ft.com/content/22eacb3c-6cab-490d-a117-75ba90a2d35c" },
 ];
