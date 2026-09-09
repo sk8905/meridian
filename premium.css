@@ -207,13 +207,18 @@ p.muted:not(.small) { font-size: var(--fs-tagline); }
    light / dark / system) or the OS prefers-color-scheme when unset / "system". This shared block carries the SURFACES, shadows and
    hardcoded-colour fixes common to every page. The one accent is Wire orange
    (#fb8b1e) platform-wide; the per-desk signature hues (--macro purple, --legal
-   green, etc.) are re-mapped in each page's own stylesheet. The navy top bar is
-   intentionally left navy in both themes. Toggle control: .theme-toggle in the
-   top bar.
+   green, etc.) are re-mapped in each page's own stylesheet. The top bar stays
+   navy/black in LIGHT mode; in DARK mode it (and the html ground) drop to the
+   flat #141414 charcoal so the whole terminal reads as one uniform Bloomberg-
+   style surface — see the --navy override below. Toggle control: .theme-toggle
+   in the top bar.
    ============================================================================= */
 :root[data-theme="dark"] {
   color-scheme: dark;
   --bg: #141414; --surface: #141414;
+  /* Chrome ground: in dark mode the top bar + html overscroll ground use --navy;
+     map it onto the charcoal so no near-black band sits above the #141414 content. */
+  --navy: #141414;
   --ink: #eaf0fb; --ink-soft: #c2ccdd; --muted: #8592ad;
   --line: #2d2d2d; --border: #2d2d2d;
   --brand: #2f4d78; --brand-2: #fb8b1e;

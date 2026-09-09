@@ -105,6 +105,12 @@
 .wticker { display: flex; align-items: stretch; height: 26px; flex: 0 0 auto; overflow: hidden;
   background: var(--head); border-bottom: 1px solid var(--border); }
 .wticker:empty { display: none; }
+/* Dark mode: the desktop-only ticker (MKTS) and briefing strips flatten onto the
+   #141414 charcoal ground — with the top bar (--navy, also #141414 in dark) this
+   makes the whole desktop chrome one uniform Bloomberg-style surface, the near-
+   black --head band gone; the hairline --border keeps each strip legibly divided. */
+:root[data-theme="dark"] .wticker,
+:root[data-theme="dark"] .wbrief { background: var(--bg, #141414); }
 .wtk-lbl { display: flex; align-items: center; gap: 6px; padding: 0 13px; font-size: 10.5px; font-weight: 600;
   letter-spacing: .04em; color: var(--muted); border-right: 1px solid var(--border); white-space: nowrap; }
 .wtk-lbl::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent);
