@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "e00e1d73-c0cb-49e5-99c5-8ca4ce219d93", title: "Windscreen giant Belron explores mega-IPO", date: "2026-09-09", time: "17:19", url: "https://www.ft.com/content/e00e1d73-c0cb-49e5-99c5-8ca4ce219d93" },
   { id: "b9e0b9b5-3b6e-420e-83da-381b75534635", title: "Tether launches private credit fund in effort to boost stablecoin use", date: "2026-09-09", time: "17:09", url: "https://www.ft.com/content/b9e0b9b5-3b6e-420e-83da-381b75534635" },
   { id: "dea481e8-d30b-4cbb-b535-5ff219c4e546", title: "New Apple CEO to unveil $2,000 folding iPhone", date: "2026-09-09", time: "16:43", url: "https://www.ft.com/content/dea481e8-d30b-4cbb-b535-5ff219c4e546" },
   { id: "2476992f-c9fe-4992-887d-f34c81c100ab", title: "US Treasury to buy back up to $6bn in long-term bonds", date: "2026-09-09", time: "16:16", url: "https://www.ft.com/content/2476992f-c9fe-4992-887d-f34c81c100ab" },
@@ -59,6 +60,4 @@ export const FT_ITEMS = [
   { id: "ef6d5693-a5b0-445a-8f30-d514d50651e1", title: "Who is voting for the far-right Alternative for Germany?", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/ef6d5693-a5b0-445a-8f30-d514d50651e1" },
   { id: "a60fe9fe-3905-44c0-ad32-07762cf44786", title: "How Greece is wooing hedge funds", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/a60fe9fe-3905-44c0-ad32-07762cf44786" },
   { id: "fb189d81-e5ce-4aba-8707-53c88dae6e60", title: "AI borrowing boom shakes up Swiss credit market", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/fb189d81-e5ce-4aba-8707-53c88dae6e60" },
-  { id: "bc814c67-2371-4d0b-b44d-1539328e5f90", title: "Is the modern economy a bit too . . . samey?", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/bc814c67-2371-4d0b-b44d-1539328e5f90" },
-  { id: "e7a86df3-cf29-48d1-9ae9-c65effccdbd8", title: "What will the new cohabitation proposals mean for me?", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/e7a86df3-cf29-48d1-9ae9-c65effccdbd8" },
 ];

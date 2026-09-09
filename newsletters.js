@@ -35,9 +35,21 @@ export const PUBLISHERS = {
   "editorial.theguardian.com": "The Guardian",
   "taxpolicy.org.uk": "Tax Policy Associates",
   "preqin.blackrock.com": "Preqin",
+  "infos.lemonde.fr": "Le Monde",
 };
 
 export const NEWSLETTERS = [
+  {
+    id: "nl-lemonde-lebrief-netanyahoualert-20260909",
+    publication: "Le Monde",
+    author: null,
+    series: "Le Brief",
+    title: "Le Brief: En Israël, les révélations sur l'alerte reçue par Benyamin Nétanyahou avant le 7-Octobre provoquent un séisme politique",
+    date: "2026-09-09",
+    time: "17:34",
+    summary: "Haaretz reports Netanyahu was warned via the UAE of Hamas's Oct 7 attack plans ten days in advance — which he denies; plus Kyiv claims strikes on Russia's Novorossiysk naval base.",
+    url: "https://infos.lemonde.fr/optiext/optiextension.dll?IDj7TSfs0LBwoPHwnCFMId9FddIv-GNq1_km0WzxVIIgDjmlxXjwh9tfM8wK9A2MDp4CCLxi1ohLdXqRrHiIlZZzXcie1pNhgJWclvvM",
+  },
   {
     id: "nl-legalbusiness-charlottebanking-20260909",
     publication: "Legal Business",
@@ -466,16 +478,5 @@ export const NEWSLETTERS = [
     time: "15:01",
     summary: "Litigators react as ownership battle for £36bn group claim escalates.",
     url: "https://email.legalbusiness.co.uk/q/12H5apPMR0ToBsgWKpSJGKQ8/wv",
-  },
-  {
-    id: "nl-bbg-authoralert-kirkoswaldemcreditfund-20260904",
-    publication: "Bloomberg",
-    author: "Nishant Kumar",
-    series: null,
-    title: "Coffey's Kirkoswald Set to Launch New EM Credit Hedge Fund",
-    date: "2026-09-04",
-    time: "14:25",
-    summary: "Greg Coffey's Kirkoswald Asset Management is preparing a new product focused on emerging market credit as it capitalizes on soaring investor demand for hedge funds.",
-    url: "https://www.bloomberg.com/news/articles/2026-09-04/coffey-s-kirkoswald-set-to-launch-new-em-credit-hedge-fund",
   },
 ];
