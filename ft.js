@@ -20,6 +20,9 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "b9e0b9b5-3b6e-420e-83da-381b75534635", title: "Tether launches private credit fund in effort to boost stablecoin use", date: "2026-09-09", time: "17:09", url: "https://www.ft.com/content/b9e0b9b5-3b6e-420e-83da-381b75534635" },
+  { id: "dea481e8-d30b-4cbb-b535-5ff219c4e546", title: "New Apple CEO to unveil $2,000 folding iPhone", date: "2026-09-09", time: "16:43", url: "https://www.ft.com/content/dea481e8-d30b-4cbb-b535-5ff219c4e546" },
+  { id: "2476992f-c9fe-4992-887d-f34c81c100ab", title: "US Treasury to buy back up to $6bn in long-term bonds", date: "2026-09-09", time: "16:16", url: "https://www.ft.com/content/2476992f-c9fe-4992-887d-f34c81c100ab" },
   { id: "ad209e95-c5f2-4031-b207-7abaafe75d43", title: "The curse of Jets fandom", date: "2026-09-09", time: "16:09", url: "https://www.ft.com/content/ad209e95-c5f2-4031-b207-7abaafe75d43" },
   { id: "8be9ce96-3307-43db-b755-c67f3c50be29", title: "France’s Marine Le Pen stays silent on far-right victory in German election", date: "2026-09-09", time: "16:01", url: "https://www.ft.com/content/8be9ce96-3307-43db-b755-c67f3c50be29" },
   { id: "d0557d25-78b5-45d8-bb33-d655e859d803", title: "US spy chief prepares for greater role in Russia-Ukraine talks", date: "2026-09-09", time: "15:50", url: "https://www.ft.com/content/d0557d25-78b5-45d8-bb33-d655e859d803" },
@@ -58,8 +61,4 @@ export const FT_ITEMS = [
   { id: "fb189d81-e5ce-4aba-8707-53c88dae6e60", title: "AI borrowing boom shakes up Swiss credit market", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/fb189d81-e5ce-4aba-8707-53c88dae6e60" },
   { id: "bc814c67-2371-4d0b-b44d-1539328e5f90", title: "Is the modern economy a bit too . . . samey?", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/bc814c67-2371-4d0b-b44d-1539328e5f90" },
   { id: "e7a86df3-cf29-48d1-9ae9-c65effccdbd8", title: "What will the new cohabitation proposals mean for me?", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/e7a86df3-cf29-48d1-9ae9-c65effccdbd8" },
-  { id: "b9d799ba-20ee-404b-bf30-1d35da41823f", title: "An insiders’ guide to house-hunting in Milan", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/b9d799ba-20ee-404b-bf30-1d35da41823f" },
-  { id: "4dde2b92-eadb-41e3-9fad-c9bf0636010a", title: "EU resists Mario Draghi’s competitiveness cures", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/4dde2b92-eadb-41e3-9fad-c9bf0636010a" },
-  { id: "c1029e47-7487-4bd7-8ed4-7512b76f1834", title: "Iran turns to crypto to get around sanctions", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/c1029e47-7487-4bd7-8ed4-7512b76f1834" },
-  { id: "82440fd9-58ea-4191-a494-7dc7091372ad", title: "Money to Burn by William D Cohan — Leon Black’s rise and fall in an age of excess", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/82440fd9-58ea-4191-a494-7dc7091372ad" },
 ];
