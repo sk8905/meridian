@@ -182,7 +182,7 @@ notification badge red (`#ef4444`).
 
 ## 6. Behaviour & data
 
-- **R15 — Five refreshes per day, London time: 05:00, 09:00, 12:00, 17:00,
+- **R15 — Five refreshes per day, London time: 05:00, 08:00, 12:00, 17:00,
   21:00.** Last-refresh reflects the actual slot.
 - **R16 — Notifications:** badge = genuinely-unseen count; opening the panel
   shows fresh rows (left accent bar) then marks them seen; no "N New
