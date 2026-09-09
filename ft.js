@@ -20,17 +20,20 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "71dccbca-4a1f-485a-9790-28cc527cdb82", title: "US affordability tracker: the data that could decide the 2026 midterm elections", date: "2026-09-09", time: "14:05", url: "https://www.ft.com/content/71dccbca-4a1f-485a-9790-28cc527cdb82" },
   { id: "55a506e8-8cba-4d8e-bf1a-e5d3e6682677", title: "How to fix the brittleness caused by Treasury basis trades", date: "2026-09-09", time: "12:35", url: "https://www.ft.com/content/55a506e8-8cba-4d8e-bf1a-e5d3e6682677" },
   { id: "bc02e99c-c6e0-4b1e-825c-330b4646ee9e", title: "Kushner and Witkoff’s blind amateurism", date: "2026-09-09", time: "12:35", url: "https://www.ft.com/content/bc02e99c-c6e0-4b1e-825c-330b4646ee9e" },
   { id: "07e5851c-5e3b-43a8-ad23-527c0f191089", title: "Saudi Arabia’s other war enters dangerous new chapter", date: "2026-09-09", time: "12:09", url: "https://www.ft.com/content/07e5851c-5e3b-43a8-ad23-527c0f191089" },
   { id: "864ba0cd-a746-4c6b-99c3-ece80ac8be90", title: "Mariana Mazzucato: ‘I’m not talking about utopias’", date: "2026-09-09", time: "12:00", url: "https://www.ft.com/content/864ba0cd-a746-4c6b-99c3-ece80ac8be90" },
   { id: "b6f7e0f4-ab56-4c7a-9238-44d83c244298", title: "Watch live: Andy Burnham faces MPs at PMQs", date: "2026-09-09", time: "12:00", url: "https://www.ft.com/content/b6f7e0f4-ab56-4c7a-9238-44d83c244298" },
+  { id: "d24c2645-cc17-4dc9-924f-e114a4e22a8d", title: "Mirrors are reaching new depths", date: "2026-09-09", time: "12:00", url: "https://www.ft.com/content/d24c2645-cc17-4dc9-924f-e114a4e22a8d" },
   { id: "bce40838-6b08-4a04-9937-627bdf64a1a9", title: "Millennium to open office in Greece after investor charm offensive", date: "2026-09-09", time: "11:58", url: "https://www.ft.com/content/bce40838-6b08-4a04-9937-627bdf64a1a9" },
   { id: "0715a142-311f-422f-a9dd-9e31bc3d7d61", title: "FirstFT: Oil hits $100 as fears rise over global supplies", date: "2026-09-09", time: "11:28", url: "https://www.ft.com/content/0715a142-311f-422f-a9dd-9e31bc3d7d61" },
   { id: "2cc88608-04b2-4dcb-8c89-698f251de170", title: "Silver Lake to merge French software groups Cegid and Silae in €10bn deal", date: "2026-09-09", time: "11:00", url: "https://www.ft.com/content/2cc88608-04b2-4dcb-8c89-698f251de170" },
   { id: "b397ced1-b9bc-4fe6-8dc7-20f0752e2591", title: "China’s giant trade surplus has an increasingly geopolitical twist", date: "2026-09-09", time: "11:00", url: "https://www.ft.com/content/b397ced1-b9bc-4fe6-8dc7-20f0752e2591" },
   { id: "81786612-93e4-4af3-8cc9-f69434872740", title: "Swedish anti-immigrant party nears government role for first time", date: "2026-09-09", time: "11:00", url: "https://www.ft.com/content/81786612-93e4-4af3-8cc9-f69434872740" },
   { id: "464142c6-7ba6-4bdb-83ca-6a4f18da4d96", title: "How to make your retirement less of a (fiscal) drag", date: "2026-09-09", time: "11:00", url: "https://www.ft.com/content/464142c6-7ba6-4bdb-83ca-6a4f18da4d96" },
+  { id: "6495f82b-f6ce-4ecf-b568-cd925357c8e9", title: "The hot curls of Eunnam Hong", date: "2026-09-09", time: "11:00", url: "https://www.ft.com/content/6495f82b-f6ce-4ecf-b568-cd925357c8e9" },
   { id: "b66ff736-528b-4e3e-a43a-f06749d01991", title: "Thiel-backed start-up to mass-produce ‘deep strike’ missiles in Europe and US", date: "2026-09-09", time: "10:53", url: "https://www.ft.com/content/b66ff736-528b-4e3e-a43a-f06749d01991" },
   { id: "d7418474-5d7d-4b4f-a496-72fa5ee20046", title: "Lessons from England’s school success story", date: "2026-09-09", time: "09:30", url: "https://www.ft.com/content/d7418474-5d7d-4b4f-a496-72fa5ee20046" },
   { id: "38d718f6-110b-4822-9403-f7d12a48cfa8", title: "'I am the house now': Bessent warns currency traders not to bet against yen", date: "2026-09-09", time: "09:26", url: "https://www.ft.com/content/38d718f6-110b-4822-9403-f7d12a48cfa8" },
