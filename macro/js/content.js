@@ -13,7 +13,7 @@ export const UPDATED = "9 September 2026";
 // viewer timezone. The four-times-daily refresh routine advances both on every run.
 export const META = {
   lastChecked: "2026-09-09",
-  lastCheckedTime: "17:13 BST",
+  lastCheckedTime: "21:11 BST",
 };
 
 // ---- Policy-rate outlook (Commentary tab) ----------------------------------
@@ -889,16 +889,16 @@ export const NEWS = {
   us: [
     { title: "U.S. reveals import ban on slew of Canadian goods as trade war escalates", source: "CNBC", date: "2026-09-09", url: "https://www.cnbc.com/2026/09/09/us-canada-trade-war-import-ban.html" },
     { title: "US Treasury Triples Long-Dated Debt Buyback to $6 Billion", source: "Bloomberg", date: "2026-09-09", url: "https://www.bloomberg.com/news/articles/2026-09-09/us-more-than-doubles-long-dated-debt-buyback-size-to-6-billion" },
-    { title: "Iran live updates: CENTCOM denies IRGC claim of strikes on US destroyers", source: "ABC News", date: "2026-09-09", url: "https://abcnews.com/International/live-updates/iran-live-updates-tehran-plans-new-restricted-zone/?id=136249116" },
+    { title: "Meta Rises 6% as Muse AI Agent Arrives With Paid Subscription Tiers; Alphabet Falls 2%", source: "24/7 Wall St.", date: "2026-09-09", url: "https://247wallst.com/investing/2026/09/09/meta-rises-6-as-muse-ai-agent-arrives-with-paid-subscription-tiers-alphabet-falls-2/" },
     { title: "Brent crude rises above $100 a barrel as Middle East conflict escalates", source: "Reuters", date: "2026-09-09", url: "https://finance.yahoo.com/news/brent-crude-rises-above-100-073722479.html" },
-    { title: "Stock Market Today (Sept. 9, 2026): Dow futures fall as U.S.-Iran tensions boost oil prices", source: "TheStreet", date: "2026-09-09", url: "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-sept-09-2026" },
+    { title: "Stock market today: Dow, S&P 500, Nasdaq sink as oil prices surpass $100, Treasury yields jump", source: "Yahoo Finance / Reuters", date: "2026-09-09", url: "https://ca.finance.yahoo.com/news/stock-market-today-wednesday-september-9-dow-sp-500-nasdaq-futures-080411279.html" },
   ],
   uk: [
     { title: "G10's 'surprise' currency star could stumble as peers hike interest rates", source: "CNBC", date: "2026-09-09", url: "https://www.cnbc.com/2026/09/09/fx-currencies-interest-rate-hikes.html" },
     { title: "Bank of England Warns Iran War Could Push UK Inflation Above 4%", source: "OilPrice.com", date: "2026-09-09", url: "https://oilprice.com/Energy/Energy-General/Bank-of-England-Warns-Iran-War-Could-Push-UK-Inflation-Above-4.html" },
     { title: "Sterling finds 'support' as Bailey's hawkish warning lifts pound ahead of MPC decision", source: "FXStreet", date: "2026-09-09", url: "https://www.fxstreet.com/analysis/sterling-finds-support-as-baileys-hawkish-warning-lifts-pound-ahead-of-mpc-decision-202609090927" },
     { title: "Healey Says UK Borrowing Remains High as Fiscal Discipline Takes Priority", source: "Bloomberg", date: "2026-09-08", url: "https://www.bloomberg.com/news/articles/2026-09-08/healey-says-uk-borrowing-too-high-in-signal-of-fiscal-rigor" },
-    { title: "UK sells 30-year debt at record yield, showing pressure on public finances", source: "Reuters", date: "2026-09-08", url: "https://www.investing.com/news/economy-news/uk-sells-30year-debt-at-record-yield-showing-pressure-on-public-finances-4891674" },
+    { title: "Bank of England to hold rates, show patience with war-driven inflation: Reuters poll", source: "Reuters", date: "2026-09-09", url: "https://www.investing.com/news/economy-news/bank-of-england-to-hold-rates-show-patience-with-wardriven-inflation-reuters-poll-4891672" },
   ],
 };
 
