@@ -20,6 +20,7 @@
 //   time    "HH:MM" 24h (Europe/London) — from the RSS <pubDate>
 //   url     canonical article link (strip tracking query params)
 export const FT_ITEMS = [
+  { id: "73c6c2f1-349a-4aeb-9d90-0268e3dcdc65", title: "Police investigate Reform UK over donor sting", date: "2026-09-09", time: "15:10", url: "https://www.ft.com/content/73c6c2f1-349a-4aeb-9d90-0268e3dcdc65" },
   { id: "71dccbca-4a1f-485a-9790-28cc527cdb82", title: "US affordability tracker: the data that could decide the 2026 midterm elections", date: "2026-09-09", time: "14:05", url: "https://www.ft.com/content/71dccbca-4a1f-485a-9790-28cc527cdb82" },
   { id: "55a506e8-8cba-4d8e-bf1a-e5d3e6682677", title: "How to fix the brittleness caused by Treasury basis trades", date: "2026-09-09", time: "12:35", url: "https://www.ft.com/content/55a506e8-8cba-4d8e-bf1a-e5d3e6682677" },
   { id: "bc02e99c-c6e0-4b1e-825c-330b4646ee9e", title: "Kushner and Witkoff’s blind amateurism", date: "2026-09-09", time: "12:35", url: "https://www.ft.com/content/bc02e99c-c6e0-4b1e-825c-330b4646ee9e" },
@@ -59,8 +60,4 @@ export const FT_ITEMS = [
   { id: "82440fd9-58ea-4191-a494-7dc7091372ad", title: "Money to Burn by William D Cohan — Leon Black’s rise and fall in an age of excess", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/82440fd9-58ea-4191-a494-7dc7091372ad" },
   { id: "3fe2c829-3c95-4c2c-b3bb-3567dfd94f58", title: "A top defence barrister faces sanction. Is he right to feel aggrieved?", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/3fe2c829-3c95-4c2c-b3bb-3567dfd94f58" },
   { id: "cc219c30-3d6c-4fba-b3d8-41ef30b9bada", title: "Inside Mytheresa, ecommerce’s biggest winner", date: "2026-09-09", time: "05:00", url: "https://www.ft.com/content/cc219c30-3d6c-4fba-b3d8-41ef30b9bada" },
-  { id: "5816292b-c36b-4c22-aa50-2680b9970382", title: "Meta unveils AI personal assistant linked to WhatsApp and Instagram", date: "2026-09-08", time: "20:01", url: "https://www.ft.com/content/5816292b-c36b-4c22-aa50-2680b9970382" },
-  { id: "c167b64d-aa04-4e6a-9dda-06ad70a36c52", title: "UK says it will force tech giants to stop children sharing nude images", date: "2026-09-08", time: "19:34", url: "https://www.ft.com/content/c167b64d-aa04-4e6a-9dda-06ad70a36c52" },
-  { id: "d1d0054d-16ae-45b4-b2e1-421ce5461041", title: "Smithsonian head to resign after Donald Trump attacks US slavery exhibits", date: "2026-09-08", time: "19:30", url: "https://www.ft.com/content/d1d0054d-16ae-45b4-b2e1-421ce5461041" },
-  { id: "faa622d9-0faa-4578-b908-4e77b72a8d44", title: "War and weather threaten fresh burst of UK inflation, BoE governor warns", date: "2026-09-08", time: "18:48", url: "https://www.ft.com/content/faa622d9-0faa-4578-b908-4e77b72a8d44" },
 ];
