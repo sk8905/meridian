@@ -185,6 +185,17 @@ await ctx.close();
   check(dock.docked && dock.pos === "fixed", `active chat: the input docks to the bottom (fixed, got ${dock.pos})`);
   check(dock.formBottom >= dock.vh - 120 && dock.formBottom <= dock.vh, `docked input sits at the bottom of the screen (bottom ${dock.formBottom} of ${dock.vh})`);
   check(dock.qs[0] === "First?" && dock.qs[1] === "Second?", `docked transcript is oldest→newest (${dock.qs.join(" | ")})`);
+  // Focusing the input (keyboard up) hides the bottom tab bar so nothing sits
+  // between the field and the keyboard; blurring restores it.
+  const tabDisplay = () => pp.evaluate(() => getComputedStyle(document.querySelector(".mobile-tabbar")).display);
+  check(await tabDisplay() !== "none", "tab bar is visible before typing a follow-up");
+  await pp.evaluate(() => document.querySelector("#v2-menu-omni .na-ask-in").focus());
+  await pp.waitForTimeout(120);
+  check(await tabDisplay() === "none", "focusing the follow-up input hides the bottom tab bar");
+  check(await pp.evaluate(() => document.documentElement.classList.contains("chat-kbd")), "the typing flag (html.chat-kbd) is set while focused");
+  await pp.evaluate(() => document.querySelector("#v2-menu-omni .na-ask-in").blur());
+  await pp.waitForTimeout(120);
+  check(await tabDisplay() !== "none", "blurring the input brings the tab bar back");
   await pp.unroute("**/api/ask");
   checkErrs(pe, "docked phone chat");
   await pc.close();

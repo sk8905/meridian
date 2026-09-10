@@ -130,7 +130,9 @@ export function mountAssistant(container, opts) {
   const withSearch = !!opts.search;
   const isChat = withAsk;   // Ask surfaces keep a conversation; Add-only is single-shot
   const state = opts.state || {};
-  const draw = () => renderAsk(container, state, { ask: withAsk, add: withAdd, search: withSearch, bare: !!opts.bare, placeholder: opts.placeholder });
+  // A redraw recreates the input (unfocused) and, on submit, closes the keyboard —
+  // so clear the typing flag here; focusin re-sets it when the reader taps back in.
+  const draw = () => { try { document.documentElement.classList.remove("chat-kbd"); } catch { /* ignore */ } renderAsk(container, state, { ask: withAsk, add: withAdd, search: withSearch, bare: !!opts.bare, placeholder: opts.placeholder }); };
   // When the chat is docked (bottom input), keep the newest turn in view above the
   // fixed input by scrolling the page to the bottom after a redraw.
   const drawScroll = () => { draw(); if (container.classList.contains("is-docked")) requestAnimationFrame(() => { const se = document.scrollingElement || document.documentElement; se.scrollTop = se.scrollHeight; }); };
@@ -199,5 +201,14 @@ export function mountAssistant(container, opts) {
     if (withAdd && e.target.closest(".na-ask-add")) { e.preventDefault(); e.stopPropagation(); runAdd(); return; }
     // "New chat": drop the transcript and start fresh.
     if (isChat && e.target.closest(".na-chat-clear")) { e.preventDefault(); e.stopPropagation(); state.turns = []; state.loading = false; draw(); return; }
+  });
+  // Docked chat only: while the input is focused (keyboard up), flag <html> so the
+  // bottom tab bar hides and the input drops flush to the bottom (CSS) — no nav bar
+  // wedged between the field and the keyboard while asking a follow-up.
+  container.addEventListener("focusin", (e) => {
+    if (container.classList.contains("is-docked") && e.target.closest(".na-ask-in")) document.documentElement.classList.add("chat-kbd");
+  });
+  container.addEventListener("focusout", (e) => {
+    if (e.target.closest(".na-ask-in")) document.documentElement.classList.remove("chat-kbd");
   });
 }
